@@ -2,18 +2,24 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Nov 16, 2014, 7:10:46 PM (GMT)]
  */
 package vazkii.botania.common.block.string;
 
 import java.util.Random;
 
+import javax.annotation.Nonnull;
+
 import net.minecraft.block.IGrowable;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.tile.string.TileRedString;
 import vazkii.botania.common.block.tile.string.TileRedStringFertilizer;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -25,23 +31,28 @@ public class BlockRedStringFertilizer extends BlockRedString implements IGrowabl
 	}
 
 	@Override
-	public boolean func_149851_a(World world, int x, int y, int z, boolean something) {
-		return ((TileRedStringFertilizer) world.getTileEntity(x, y, z)).func_149851_a(world, something);
+	protected IBlockState pickDefaultState() {
+		return blockState.getBaseState().withProperty(BotaniaStateProps.FACING, EnumFacing.DOWN);
 	}
 
 	@Override
-	public boolean func_149852_a(World world, Random rand, int x, int y, int z) {
-		return ((TileRedStringFertilizer) world.getTileEntity(x, y, z)).func_149852_a(world, rand);
+	public boolean canGrow(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState state, boolean isClient) {
+		return ((TileRedStringFertilizer) world.getTileEntity(pos)).canGrow(world, isClient);
 	}
 
 	@Override
-	public void func_149853_b(World world, Random rand, int x, int y, int z) {
-		((TileRedStringFertilizer) world.getTileEntity(x, y, z)).func_149853_b(world, rand);
+	public boolean canUseBonemeal(@Nonnull World world, @Nonnull Random rand, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
+		return ((TileRedStringFertilizer) world.getTileEntity(pos)).canUseBonemeal(world, rand);
 	}
 
 	@Override
-	public TileRedString createNewTileEntity(World world, int meta) {
+	public void grow(@Nonnull World world, @Nonnull Random rand, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
+		((TileRedStringFertilizer) world.getTileEntity(pos)).grow(world, rand);
+	}
+
+	@Nonnull
+	@Override
+	public TileRedString createTileEntity(@Nonnull World world, @Nonnull IBlockState meta) {
 		return new TileRedStringFertilizer();
 	}
-
 }

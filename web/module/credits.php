@@ -30,5 +30,6 @@ No project is done with only one member, Botania is no exception, here's the cas
 <li><b>The TConstruct and OpenBlocks teams</b> for code snippets I took from their repositories.<br></li>
 <li><b>Tobbvald</b> for the Livingwood, Dreamwood and Lexica Botania textures and the alternate textures in the Unity texture pack style that are available in the config.<br></li>
 <li><b>wiiv</b> for a bunch more texture work both before and after dylan4ever left.<br></li>
+<li><b>williewillus</b> for undertaking the massive task that was porting Botania to 1.8, 1.9 and 1.10 and maintaining it during that time.<br></li>
 <li><b>WTFG33ks</b> for making the getting started video that's linked within the Lexica Botania.<br></li>
 </ul>

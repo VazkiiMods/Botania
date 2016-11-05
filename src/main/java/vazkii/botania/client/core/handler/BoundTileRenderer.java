@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Mar 24, 2014, 7:02:37 PM (GMT)]
  */
 package vazkii.botania.client.core.handler;
@@ -13,115 +13,122 @@ package vazkii.botania.client.core.handler;
 import java.awt.Color;
 import java.util.List;
 
-import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.ChunkCoordinates;
-import net.minecraft.world.World;
-import net.minecraftforge.client.event.RenderWorldLastEvent;
-
 import org.lwjgl.opengl.GL11;
 
+import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import net.minecraftforge.client.event.RenderWorldLastEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.IItemHandlerModifiable;
+import net.minecraftforge.items.wrapper.CombinedInvWrapper;
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.item.IExtendedWireframeCoordinateListProvider;
 import vazkii.botania.api.item.IWireframeCoordinateListProvider;
 import vazkii.botania.api.wand.ICoordBoundItem;
 import vazkii.botania.api.wand.IWireframeAABBProvider;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public final class BoundTileRenderer {
 
-	@SubscribeEvent
-	public void onWorldRenderLast(RenderWorldLastEvent event) {
-		GL11.glPushMatrix();
-		GL11.glPushAttrib(GL11.GL_LIGHTING);
-		GL11.glDisable(GL11.GL_DEPTH_TEST);
-		GL11.glDisable(GL11.GL_TEXTURE_2D);
-		GL11.glDisable(GL11.GL_LIGHTING);
-		GL11.glEnable(GL11.GL_BLEND);
+	private BoundTileRenderer() {}
 
-		Tessellator.renderingWorldRenderer = false;
+	@SubscribeEvent
+	public static void onWorldRenderLast(RenderWorldLastEvent event) {
+		GlStateManager.pushMatrix();
+		GL11.glPushAttrib(GL11.GL_LIGHTING_BIT);
+		GlStateManager.disableDepth();
+		GlStateManager.disableTexture2D();
+		GlStateManager.enableBlend();
 
 		EntityPlayer player = Minecraft.getMinecraft().thePlayer;
-		ItemStack stack = player.getCurrentEquippedItem();
 		int color = Color.HSBtoRGB(ClientTickHandler.ticksInGame % 200 / 200F, 0.6F, 1F);
-		if(stack != null && stack.getItem() instanceof ICoordBoundItem) {
-			ChunkCoordinates coords = ((ICoordBoundItem) stack.getItem()).getBinding(stack);
+
+		if(player.getHeldItemMainhand() != null && player.getHeldItemMainhand().getItem() instanceof ICoordBoundItem) {
+			BlockPos coords = ((ICoordBoundItem) player.getHeldItemMainhand().getItem()).getBinding(player.getHeldItemMainhand());
 			if(coords != null)
 				renderBlockOutlineAt(coords, color);
 		}
 
-		IInventory mainInv = player.inventory;
-		IInventory baublesInv = BotaniaAPI.internalHandler.getBaublesInventory(player);
+		if(player.getHeldItemOffhand() != null && player.getHeldItemOffhand().getItem() instanceof ICoordBoundItem) {
+			BlockPos coords = ((ICoordBoundItem) player.getHeldItemOffhand().getItem()).getBinding(player.getHeldItemOffhand());
+			if(coords != null)
+				renderBlockOutlineAt(coords, color);
+		}
 
-		int invSize = mainInv.getSizeInventory();
-		int size = invSize;
-		if(baublesInv != null)
-			size += baublesInv.getSizeInventory();
+		IItemHandlerModifiable mainInv = (IItemHandlerModifiable) player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.UP);
+		IItemHandlerModifiable baublesInv = BotaniaAPI.internalHandler.getBaublesInventoryWrapped(player);
+		IItemHandler joined = baublesInv != null ? new CombinedInvWrapper(mainInv, baublesInv) : mainInv;
 
-		for(int i = 0; i < size; i++) {
-			boolean useBaubles = i >= invSize;
-			IInventory inv = useBaubles ? baublesInv : mainInv;
-			ItemStack stackInSlot = inv.getStackInSlot(i - (useBaubles ? invSize : 0));
+		for(int i = 0; i < joined.getSlots(); i++) {
+			ItemStack stackInSlot = joined.getStackInSlot(i);
 
 			if(stackInSlot != null && stackInSlot.getItem() instanceof IWireframeCoordinateListProvider) {
 				IWireframeCoordinateListProvider provider = (IWireframeCoordinateListProvider) stackInSlot.getItem();
-				List<ChunkCoordinates> coordsList = provider.getWireframesToDraw(player, stackInSlot);
+				List<BlockPos> coordsList = provider.getWireframesToDraw(player, stackInSlot);
 				if(coordsList != null)
-					for(ChunkCoordinates coords : coordsList)
+					for(BlockPos coords : coordsList)
 						renderBlockOutlineAt(coords, color);
 
-				if(stackInSlot.getItem() instanceof IExtendedWireframeCoordinateListProvider) {
-					ChunkCoordinates coords = ((IExtendedWireframeCoordinateListProvider) stackInSlot.getItem()).getSourceWireframe(player, stackInSlot);
-					if(coords != null && coords.posY > -1)
-						renderBlockOutlineAt(coords, color, 5F);
-				}
+				BlockPos coords = provider.getSourceWireframe(player, stackInSlot);
+				if(coords != null && coords.getY() > -1)
+					renderBlockOutlineAt(coords, color, 5F);
 			}
 		}
 
-		GL11.glEnable(GL11.GL_DEPTH_TEST);
-		GL11.glEnable(GL11.GL_TEXTURE_2D);
-		GL11.glDisable(GL11.GL_BLEND);
+		GlStateManager.enableDepth();
+		GlStateManager.enableTexture2D();
+		GlStateManager.disableBlend();
 		GL11.glPopAttrib();
-		GL11.glPopMatrix();
+		GlStateManager.popMatrix();
 	}
 
-	private void renderBlockOutlineAt(ChunkCoordinates pos, int color) {
+	private static void renderBlockOutlineAt(BlockPos pos, int color) {
 		renderBlockOutlineAt(pos, color, 1F);
 	}
 
-	private void renderBlockOutlineAt(ChunkCoordinates pos, int color, float thickness) {
-		GL11.glPushMatrix();
-		GL11.glTranslated(pos.posX - RenderManager.renderPosX, pos.posY - RenderManager.renderPosY, pos.posZ - RenderManager.renderPosZ + 1);
+	private static void renderBlockOutlineAt(BlockPos pos, int color, float thickness) {
+		double renderPosX, renderPosY, renderPosZ;
+
+		try {
+			renderPosX = (double) ClientMethodHandles.renderPosX_getter.invokeExact(Minecraft.getMinecraft().getRenderManager());
+			renderPosY = (double) ClientMethodHandles.renderPosY_getter.invokeExact(Minecraft.getMinecraft().getRenderManager());
+			renderPosZ = (double) ClientMethodHandles.renderPosZ_getter.invokeExact(Minecraft.getMinecraft().getRenderManager());
+		} catch (Throwable t) {
+			return;
+		}
+
+		GlStateManager.pushMatrix();
+		GlStateManager.translate(pos.getX() - renderPosX, pos.getY() - renderPosY, pos.getZ() - renderPosZ + 1);
 		Color colorRGB = new Color(color);
 		GL11.glColor4ub((byte) colorRGB.getRed(), (byte) colorRGB.getGreen(), (byte) colorRGB.getBlue(), (byte) 255);
 
 		World world = Minecraft.getMinecraft().theWorld;
-		Block block = world.getBlock(pos.posX, pos.posY, pos.posZ);
+		IBlockState state = world.getBlockState(pos);
+		Block block = state.getBlock();
 		drawWireframe : {
 			if(block != null) {
 				AxisAlignedBB axis;
 
 				if(block instanceof IWireframeAABBProvider)
-					axis = ((IWireframeAABBProvider) block).getWireframeAABB(world, pos.posX, pos.posY, pos.posZ);
-				else axis = block.getSelectedBoundingBoxFromPool(world, pos.posX, pos.posY, pos.posZ);
+					axis = ((IWireframeAABBProvider) block).getWireframeAABB(world, pos);
+				else axis = state.getSelectedBoundingBox(world, pos);
 
 				if(axis == null)
 					break drawWireframe;
 
-				axis.minX -= pos.posX;
-				axis.maxX -= pos.posX;
-				axis.minY -= pos.posY;
-				axis.maxY -= pos.posY;
-				axis.minZ -= pos.posZ + 1;
-				axis.maxZ -= pos.posZ + 1;
+				axis = axis.offset(-pos.getX(), -pos.getY(), -(pos.getZ() + 1));
 
-				GL11.glScalef(1F, 1F, 1F);
+				GlStateManager.scale(1F, 1F, 1F);
 
 				GL11.glLineWidth(thickness);
 				renderBlockOutline(axis);
@@ -132,11 +139,12 @@ public final class BoundTileRenderer {
 			}
 		}
 
-		GL11.glPopMatrix();
+		GL11.glColor4ub((byte) 255, (byte) 255, (byte) 255, (byte) 255);
+		GlStateManager.popMatrix();
 	}
 
-	private void renderBlockOutline(AxisAlignedBB aabb) {
-		Tessellator tessellator = Tessellator.instance;
+	private static void renderBlockOutline(AxisAlignedBB aabb) {
+		Tessellator tessellator = Tessellator.getInstance();
 
 		double ix = aabb.minX;
 		double iy = aabb.minY;
@@ -145,42 +153,42 @@ public final class BoundTileRenderer {
 		double ay = aabb.maxY;
 		double az = aabb.maxZ;
 
-		tessellator.startDrawing(GL11.GL_LINES);
-		tessellator.addVertex(ix, iy, iz);
-		tessellator.addVertex(ix, ay, iz);
+		tessellator.getBuffer().begin(GL11.GL_LINES, DefaultVertexFormats.POSITION);
+		tessellator.getBuffer().pos(ix, iy, iz).endVertex();
+		tessellator.getBuffer().pos(ix, ay, iz).endVertex();
 
-		tessellator.addVertex(ix, ay, iz);
-		tessellator.addVertex(ax, ay, iz);
+		tessellator.getBuffer().pos(ix, ay, iz).endVertex();
+		tessellator.getBuffer().pos(ax, ay, iz).endVertex();
 
-		tessellator.addVertex(ax, ay, iz);
-		tessellator.addVertex(ax, iy, iz);
+		tessellator.getBuffer().pos(ax, ay, iz).endVertex();
+		tessellator.getBuffer().pos(ax, iy, iz).endVertex();
 
-		tessellator.addVertex(ax, iy, iz);
-		tessellator.addVertex(ix, iy, iz);
+		tessellator.getBuffer().pos(ax, iy, iz).endVertex();
+		tessellator.getBuffer().pos(ix, iy, iz).endVertex();
 
-		tessellator.addVertex(ix, iy, az);
-		tessellator.addVertex(ix, ay, az);
+		tessellator.getBuffer().pos(ix, iy, az).endVertex();
+		tessellator.getBuffer().pos(ix, ay, az).endVertex();
 
-		tessellator.addVertex(ix, iy, az);
-		tessellator.addVertex(ax, iy, az);
+		tessellator.getBuffer().pos(ix, iy, az).endVertex();
+		tessellator.getBuffer().pos(ax, iy, az).endVertex();
 
-		tessellator.addVertex(ax, iy, az);
-		tessellator.addVertex(ax, ay, az);
+		tessellator.getBuffer().pos(ax, iy, az).endVertex();
+		tessellator.getBuffer().pos(ax, ay, az).endVertex();
 
-		tessellator.addVertex(ix, ay, az);
-		tessellator.addVertex(ax, ay, az);
+		tessellator.getBuffer().pos(ix, ay, az).endVertex();
+		tessellator.getBuffer().pos(ax, ay, az).endVertex();
 
-		tessellator.addVertex(ix, iy, iz);
-		tessellator.addVertex(ix, iy, az);
+		tessellator.getBuffer().pos(ix, iy, iz).endVertex();
+		tessellator.getBuffer().pos(ix, iy, az).endVertex();
 
-		tessellator.addVertex(ix, ay, iz);
-		tessellator.addVertex(ix, ay, az);
+		tessellator.getBuffer().pos(ix, ay, iz).endVertex();
+		tessellator.getBuffer().pos(ix, ay, az).endVertex();
 
-		tessellator.addVertex(ax, iy, iz);
-		tessellator.addVertex(ax, iy, az);
+		tessellator.getBuffer().pos(ax, iy, iz).endVertex();
+		tessellator.getBuffer().pos(ax, iy, az).endVertex();
 
-		tessellator.addVertex(ax, ay, iz);
-		tessellator.addVertex(ax, ay, az);
+		tessellator.getBuffer().pos(ax, ay, iz).endVertex();
+		tessellator.getBuffer().pos(ax, ay, az).endVertex();
 
 		tessellator.draw();
 	}

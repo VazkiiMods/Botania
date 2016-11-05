@@ -2,65 +2,98 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Sep 28, 2015, 11:53:13 AM (GMT)]
  */
 package vazkii.botania.common.block.corporea;
 
+import javax.annotation.Nonnull;
+
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.BlockStateContainer;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.achievement.ICraftAchievement;
 import vazkii.botania.common.achievement.ModAchievements;
-import vazkii.botania.common.block.BlockModContainer;
+import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaRetainer;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
-public class BlockCorporeaRetainer extends BlockModContainer implements ILexiconable, ICraftAchievement {
+public class BlockCorporeaRetainer extends BlockMod implements ILexiconable, ICraftAchievement {
 
 	public BlockCorporeaRetainer() {
-		super(Material.iron);
+		super(Material.IRON, LibBlockNames.CORPOREA_RETAINER);
 		setHardness(5.5F);
-		setStepSound(soundTypeMetal);
-		setBlockName(LibBlockNames.CORPOREA_RETAINER);
+		setSoundType(SoundType.METAL);
+	}
+
+	@Nonnull
+	@Override
+	public BlockStateContainer createBlockState() {
+		return new BlockStateContainer(this, BotaniaStateProps.POWERED);
 	}
 
 	@Override
-	public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
-		boolean power = world.isBlockIndirectlyGettingPowered(x, y, z) || world.isBlockIndirectlyGettingPowered(x, y + 1, z);
-		int meta = world.getBlockMetadata(x, y, z);
-		boolean powered = (meta & 8) != 0;
+	protected IBlockState pickDefaultState() {
+		return blockState.getBaseState().withProperty(BotaniaStateProps.POWERED, false);
+	}
+
+	@Override
+	public int getMetaFromState(IBlockState state) {
+		return state.getValue(BotaniaStateProps.POWERED) ? 8 : 0;
+	}
+
+	@Nonnull
+	@Override
+	public IBlockState getStateFromMeta(int meta) {
+		return getDefaultState().withProperty(BotaniaStateProps.POWERED, meta == 8);
+	}
+
+	@Override
+	public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block) {
+		boolean power = world.isBlockIndirectlyGettingPowered(pos) > 0 || world.isBlockIndirectlyGettingPowered(pos.up()) > 0;
+		boolean powered = state.getValue(BotaniaStateProps.POWERED);
 
 		if(power && !powered) {
-			((TileCorporeaRetainer) world.getTileEntity(x, y, z)).fulfilRequest();
-			world.setBlockMetadataWithNotify(x, y, z, meta | 8, 4);
+			((TileCorporeaRetainer) world.getTileEntity(pos)).fulfilRequest();
+			world.setBlockState(pos, state.withProperty(BotaniaStateProps.POWERED, true), 4);
 		} else if(!power && powered)
-			world.setBlockMetadataWithNotify(x, y, z, meta & -9, 4);
+			world.setBlockState(pos, state.withProperty(BotaniaStateProps.POWERED, false), 4);
 	}
 
 	@Override
-	public boolean hasComparatorInputOverride() {
+	public boolean hasComparatorInputOverride(IBlockState state) {
 		return true;
 	}
 
 	@Override
-	public int getComparatorInputOverride(World world, int x, int y, int z, int s) {
-		return ((TileCorporeaRetainer) world.getTileEntity(x, y, z)).hasPendingRequest() ? 15 : 0;
+	public int getComparatorInputOverride(IBlockState state, World world, BlockPos pos) {
+		return ((TileCorporeaRetainer) world.getTileEntity(pos)).hasPendingRequest() ? 15 : 0;
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World world, int meta) {
+	public boolean hasTileEntity(IBlockState state) {
+		return true;
+	}
+
+	@Nonnull
+	@Override
+	public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
 		return new TileCorporeaRetainer();
 	}
 
@@ -70,7 +103,7 @@ public class BlockCorporeaRetainer extends BlockModContainer implements ILexicon
 	}
 
 	@Override
-	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
+	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.corporeaRetainer;
 	}
 

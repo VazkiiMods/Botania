@@ -1,0 +1,14 @@
+{
+  "variants": {
+    "variant=grass": { "model": "botania:islands/island_grass" },
+    "variant=podzol": { "model": "botania:islands/island_podzol" },
+    "variant=mycel": { "model": "botania:islands/island_mycel" },
+    "variant=snow": { "model": "botania:islands/island_snow" },
+    "variant=dry": { "model": "botania:islands/island_dry" },
+    "variant=golden": { "model": "botania:islands/island_golden" },
+    "variant=vivid": { "model": "botania:islands/island_vivid" },
+    "variant=scorched": { "model": "botania:islands/island_scorched" },
+    "variant=infused": { "model": "botania:islands/island_infused" },
+    "variant=mutated": { "model": "botania:islands/island_mutated" }
+  }
+}

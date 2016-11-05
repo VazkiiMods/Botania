@@ -2,46 +2,49 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Mar 31, 2015, 11:04:12 PM (GMT)]
  */
 package vazkii.botania.common.item;
 
-import java.util.Arrays;
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.ISidedInventory;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.IIcon;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.RecipeSorter.Category;
 import vazkii.botania.api.item.IBlockProvider;
 import vazkii.botania.client.core.handler.ItemsRemainingRenderHandler;
-import vazkii.botania.client.core.helper.IconHelper;
-import vazkii.botania.common.core.helper.InventoryHelper;
+import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.crafting.recipe.BlackHoleTalismanExtractRecipe;
 import vazkii.botania.common.lib.LibItemNames;
-import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemBlackHoleTalisman extends ItemMod implements IBlockProvider {
 
@@ -49,10 +52,8 @@ public class ItemBlackHoleTalisman extends ItemMod implements IBlockProvider {
 	private static final String TAG_BLOCK_META = "blockMeta";
 	private static final String TAG_BLOCK_COUNT = "blockCount";
 
-	IIcon enabledIcon;
-
 	public ItemBlackHoleTalisman() {
-		setUnlocalizedName(LibItemNames.BLACK_HOLE_TALISMAN);
+		super(LibItemNames.BLACK_HOLE_TALISMAN);
 		setMaxStackSize(1);
 		setHasSubtypes(true);
 
@@ -60,85 +61,71 @@ public class ItemBlackHoleTalisman extends ItemMod implements IBlockProvider {
 		RecipeSorter.register("botania:blackHoleTalismanExtract", BlackHoleTalismanExtractRecipe.class, Category.SHAPELESS, "");
 	}
 
+	@Nonnull
 	@Override
-	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
-		if(getBlock(par1ItemStack) != Blocks.air && par3EntityPlayer.isSneaking()) {
-			int dmg = par1ItemStack.getItemDamage();
-			par1ItemStack.setItemDamage(~dmg & 1);
-			par2World.playSoundAtEntity(par3EntityPlayer, "random.orb", 0.3F, 0.1F);
+	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
+		if(getBlock(stack) != Blocks.AIR && player.isSneaking()) {
+			int dmg = stack.getItemDamage();
+			stack.setItemDamage(~dmg & 1);
+			player.playSound(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, 0.3F, 0.1F);
+			return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
 		}
 
-		return par1ItemStack;
+		return ActionResult.newResult(EnumActionResult.PASS, stack);
 	}
 
+	@Nonnull
 	@Override
-	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, int par4, int par5, int par6, int par7, float par8, float par9, float par10) {
-		Block block = par3World.getBlock(par4, par5, par6);
-		int meta = par3World.getBlockMetadata(par4, par5, par6);
-		boolean set = setBlock(par1ItemStack, block, meta);
+	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+		IBlockState state = world.getBlockState(pos);
 
-		if(!set) {
-			Block bBlock = getBlock(par1ItemStack);
-			int bmeta = getBlockMeta(par1ItemStack);
+		if (Item.getItemFromBlock(state.getBlock()) != null
+				&& setBlock(stack, state.getBlock(), state.getBlock().getMetaFromState(state))) {
+			return EnumActionResult.SUCCESS;
+		} else {
+			Block bBlock = getBlock(stack);
+			int bmeta = getBlockMeta(stack);
 
-			TileEntity tile = par3World.getTileEntity(par4, par5, par6);
-			if(tile != null && tile instanceof IInventory) {
-				IInventory inv = (IInventory) tile;
-				int[] slots = inv instanceof ISidedInventory ? ((ISidedInventory) inv).getAccessibleSlotsFromSide(par7) : InventoryHelper.buildSlotsForLinearInventory(inv);
-				for(int slot : slots) {
-					ItemStack stackInSlot = inv.getStackInSlot(slot);
-					if(stackInSlot == null) {
-						ItemStack stack = new ItemStack(bBlock, 1, bmeta);
-						int maxSize = stack.getMaxStackSize();
-						stack.stackSize = remove(par1ItemStack, maxSize);
-						if(stack.stackSize != 0) {
-							if(inv.isItemValidForSlot(slot, stack) && (!(inv instanceof ISidedInventory) || ((ISidedInventory) inv).canInsertItem(slot, stack, par7))) {
-								inv.setInventorySlotContents(slot, stack);
-								inv.markDirty();
-								set = true;
-							}
-						}
-					} else if(stackInSlot.getItem() == Item.getItemFromBlock(bBlock) && stackInSlot.getItemDamage() == bmeta) {
-						int maxSize = stackInSlot.getMaxStackSize();
-						int missing = maxSize - stackInSlot.stackSize;
-						if(inv.isItemValidForSlot(slot, stackInSlot) && (!(inv instanceof ISidedInventory) || ((ISidedInventory) inv).canInsertItem(slot, stackInSlot, par7))) {
-							stackInSlot.stackSize += remove(par1ItemStack, missing);
-							inv.markDirty();
-							set = true;
-						}
-					}
+			if(bBlock == null)
+				return EnumActionResult.PASS;
+
+			TileEntity tile = world.getTileEntity(pos);
+			if(tile != null && tile.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, side)) {
+				if(!world.isRemote) {
+					IItemHandler inv = tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, side);
+					ItemStack toAdd = new ItemStack(bBlock, 1, bmeta);
+					int maxSize = toAdd.getMaxStackSize();
+					toAdd.stackSize = remove(stack, maxSize);
+					ItemStack remainder = ItemHandlerHelper.insertItemStacked(inv, toAdd, false);
+					if(remainder != null)
+						add(stack, remainder.stackSize);
 				}
+				return EnumActionResult.SUCCESS;
 			} else {
-				ForgeDirection dir = ForgeDirection.getOrientation(par7);
-				int entities = par3World.getEntitiesWithinAABB(EntityLivingBase.class, AxisAlignedBB.getBoundingBox(par4 + dir.offsetX, par5 + dir.offsetY, par6 + dir.offsetZ, par4 + dir.offsetX + 1, par5 + dir.offsetY + 1, par6 + dir.offsetZ + 1)).size();
+				if(player.capabilities.isCreativeMode || getBlockCount(stack) > 0) {
+					ItemStack toUse = new ItemStack(bBlock, 1, bmeta);
 
-				if(entities == 0) {
-					int remove = par2EntityPlayer.capabilities.isCreativeMode ? 1 : remove(par1ItemStack, 1);
-					if(remove > 0) {
-						ItemStack stack = new ItemStack(bBlock, 1, bmeta);
-						ItemsRemainingRenderHandler.set(stack, getBlockCount(par1ItemStack));
-
-						Item.getItemFromBlock(bBlock).onItemUse(stack, par2EntityPlayer, par3World, par4, par5, par6, par7, par8, par9, par10);
-						set = true;
+					if (Item.getItemFromBlock(bBlock).onItemUse(toUse, player, world, pos, hand, side, hitX, hitY, hitZ) == EnumActionResult.SUCCESS) {
+						remove(stack, 1);
+						ItemsRemainingRenderHandler.set(toUse, getBlockCount(stack));
+						return EnumActionResult.SUCCESS;
 					}
 				}
 			}
 		}
 
-		par2EntityPlayer.setCurrentItemOrArmor(0, par1ItemStack);
-		return set;
+		return EnumActionResult.PASS;
 	}
 
 	@Override
-	public void onUpdate(ItemStack itemstack, World p_77663_2_, Entity entity, int p_77663_4_, boolean p_77663_5_) {
+	public void onUpdate(ItemStack itemstack, World world, Entity entity, int slot, boolean selected) {
 		Block block = getBlock(itemstack);
-		if(!entity.worldObj.isRemote && itemstack.getItemDamage() == 1 && block != Blocks.air && entity instanceof EntityPlayer) {
+		if(!entity.worldObj.isRemote && itemstack.getItemDamage() == 1 && block != Blocks.AIR && entity instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) entity;
 			int meta = getBlockMeta(itemstack);
 
 			int highest = -1;
 			int[] counts = new int[player.inventory.getSizeInventory() - player.inventory.armorInventory.length];
-			Arrays.fill(counts, 0);
 
 			for(int i = 0; i < counts.length; i++) {
 				ItemStack stack = player.inventory.getStackInSlot(i);
@@ -186,17 +173,19 @@ public class ItemBlackHoleTalisman extends ItemMod implements IBlockProvider {
 		}
 	}
 
+	@Nonnull
 	@Override
-	public String getItemStackDisplayName(ItemStack par1ItemStack) {
+	public String getItemStackDisplayName(@Nonnull ItemStack par1ItemStack) {
 		Block block = getBlock(par1ItemStack);
 		int meta = getBlockMeta(par1ItemStack);
 		ItemStack stack = new ItemStack(block, 1, meta);
 
-		return super.getItemStackDisplayName(par1ItemStack) + (stack == null || stack.getItem() == null ? "" : " (" + EnumChatFormatting.GREEN + stack.getDisplayName() + EnumChatFormatting.RESET + ")");
+		return super.getItemStackDisplayName(par1ItemStack) + (stack == null || stack.getItem() == null ? "" : " (" + TextFormatting.GREEN + stack.getDisplayName() + TextFormatting.RESET + ")");
 	}
 
+	@Nonnull
 	@Override
-	public ItemStack getContainerItem(ItemStack itemStack) {
+	public ItemStack getContainerItem(@Nonnull ItemStack itemStack) {
 		int count = getBlockCount(itemStack);
 		if(count == 0)
 			return null;
@@ -217,14 +206,9 @@ public class ItemBlackHoleTalisman extends ItemMod implements IBlockProvider {
 		return getContainerItem(stack) != null;
 	}
 
-	@Override
-	public boolean doesContainerItemLeaveCraftingGrid(ItemStack p_77630_1_) {
-		return false;
-	}
-
 	private boolean setBlock(ItemStack stack, Block block, int meta) {
-		if(getBlock(stack) == Blocks.air || getBlockCount(stack) == 0) {
-			ItemNBTHelper.setString(stack, TAG_BLOCK_NAME, Block.blockRegistry.getNameForObject(block));
+		if(Item.getItemFromBlock(block) != null && (getBlock(stack) == Blocks.AIR || getBlockCount(stack) == 0)) {
+			ItemNBTHelper.setString(stack, TAG_BLOCK_NAME, Block.REGISTRY.getNameForObject(block).toString());
 			ItemNBTHelper.setInt(stack, TAG_BLOCK_META, meta);
 			return true;
 		}
@@ -238,29 +222,16 @@ public class ItemBlackHoleTalisman extends ItemMod implements IBlockProvider {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerIcons(IIconRegister par1IconRegister) {
-		itemIcon = IconHelper.forItem(par1IconRegister, this, 0);
-		enabledIcon = IconHelper.forItem(par1IconRegister, this, 1);
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public IIcon getIconFromDamage(int par1) {
-		return par1 == 1 ? enabledIcon : itemIcon;
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
+	public void addInformation(ItemStack par1ItemStack, EntityPlayer player, List<String> stacks, boolean par4) {
 		Block block = getBlock(par1ItemStack);
-		if(block != null && block != Blocks.air) {
+		if(block != null && block != Blocks.AIR) {
 			int count = getBlockCount(par1ItemStack);
-			par3List.add(count + " " + StatCollector.translateToLocal(new ItemStack(block, 1, getBlockMeta(par1ItemStack)).getUnlocalizedName() + ".name"));
+			stacks.add(count + " " + I18n.format(new ItemStack(block, 1, getBlockMeta(par1ItemStack)).getUnlocalizedName() + ".name"));
 		}
 
 		if(par1ItemStack.getItemDamage() == 1)
-			addStringToTooltip(StatCollector.translateToLocal("botaniamisc.active"), par3List);
-		else addStringToTooltip(StatCollector.translateToLocal("botaniamisc.inactive"), par3List);
+			addStringToTooltip(I18n.format("botaniamisc.active"), stacks);
+		else addStringToTooltip(I18n.format("botaniamisc.inactive"), stacks);
 	}
 
 	void addStringToTooltip(String s, List<String> tooltip) {
@@ -283,8 +254,7 @@ public class ItemBlackHoleTalisman extends ItemMod implements IBlockProvider {
 	}
 
 	public static Block getBlock(ItemStack stack) {
-		Block block = Block.getBlockFromName(getBlockName(stack));
-		return block;
+		return Block.getBlockFromName(getBlockName(stack));
 	}
 
 	public static int getBlockMeta(ItemStack stack) {
@@ -318,6 +288,12 @@ public class ItemBlackHoleTalisman extends ItemMod implements IBlockProvider {
 		if(stored == block && storedMeta == meta)
 			return getBlockCount(stack);
 		return 0;
+	}
+
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void registerModels() {
+		ModelHandler.registerItemAppendMeta(this, 2, LibItemNames.BLACK_HOLE_TALISMAN);
 	}
 
 }

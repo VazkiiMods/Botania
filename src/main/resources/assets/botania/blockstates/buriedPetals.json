@@ -1,0 +1,26 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "botania:dummy"
+  },
+  "variants": {
+    "color": {
+      "white": { "textures": { "particle": "minecraft:blocks/wool_colored_white" }},
+      "orange": { "textures": { "particle": "minecraft:blocks/wool_colored_orange" }},
+      "magenta": { "textures": { "particle": "minecraft:blocks/wool_colored_magenta" }},
+      "light_blue": { "textures": { "particle": "minecraft:blocks/wool_colored_light_blue" }},
+      "yellow": { "textures": { "particle": "minecraft:blocks/wool_colored_yellow" }},
+      "lime": { "textures": { "particle": "minecraft:blocks/wool_colored_lime" }},
+      "pink": { "textures": { "particle": "minecraft:blocks/wool_colored_pink" }},
+      "gray": { "textures": { "particle": "minecraft:blocks/wool_colored_gray" }},
+      "silver": { "textures": { "particle": "minecraft:blocks/wool_colored_silver" }},
+      "cyan": { "textures": { "particle": "minecraft:blocks/wool_colored_cyan" }},
+      "purple": { "textures": { "particle": "minecraft:blocks/wool_colored_purple" }},
+      "blue": { "textures": { "particle": "minecraft:blocks/wool_colored_blue" }},
+      "brown": { "textures": { "particle": "minecraft:blocks/wool_colored_brown" }},
+      "green": { "textures": { "particle": "minecraft:blocks/wool_colored_green" }},
+      "red": { "textures": { "particle": "minecraft:blocks/wool_colored_red" }},
+      "black": { "textures": { "particle": "minecraft:blocks/wool_colored_black" }}
+    }
+  }
+}

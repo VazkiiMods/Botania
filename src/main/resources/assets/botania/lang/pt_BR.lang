@@ -1,11 +1,20 @@
+# Note to translators: DO NOT COPY ENTRIES FROM ENGLISH
+# I repeat: do NOT copy entries from English!!
+# Any entry in this lang file should be in pt_BR, or *should not be here at all*
+# Copying English entries will cause them to become outdated when the main English lang file changes
+# Untranslated entries will automatically be inherited from en_US
+#
+# Once again, don't copy from English, and THANK YOU for your hard work!
+
 # MISC
 itemGroup.Botania=Botania
 generator.botania-skyblock=Jardim de Vidro
 generator.botania-skyblock.info=Não recomendado para iniciantes
-
-# Something that is not localized, translators, do NOT change this line.
-botaniamisc.noloc=botaniamisc.noloc
-
+#
+#
+#
+#
+#
 botaniamisc.nextPage=Próxima página
 botaniamisc.prevPage=Página anterior
 botaniamisc.back=Voltar
@@ -34,12 +43,9 @@ botaniamisc.toolRank=Rank %s&7
 botaniamisc.edition=%sª Edição
 # ^ Leave this empty for no edition display
 botaniamisc.devEdition=Escritor
-botaniamisc.lexiconcover0=Um manual por Lizbeth
-botaniamisc.lexiconcover1="Vazkii" Whitewood
-botaniamisc.lexiconcover2=O guia oficial para
-botaniamisc.lexiconcover3=suas dúvidas em Botania!
-botaniamisc.lexiconcover4=Edited by BevoLJ
-botaniamisc.lexiconcover5=Edited by Saice
+botaniamisc.lexiconcover0=O guia oficial para
+botaniamisc.lexiconcover1=suas dúvidas em Botania!
+botaniamisc.lexiconcover2=Um livro por Vazkii
 botaniamisc.shiftinfo=Segure &bSHIFT&7 para mais informações
 botaniamisc.knowledgeTypesSingular=Contém a Escola de Conhecimento: %s
 botaniamisc.knowledgeTypesPlural=Contém as Escolas de Conhecimento: %s
@@ -49,9 +55,6 @@ botaniamisc.shiftToRemove=Shiftclique para remover
 botaniamisc.clickToAdd=Adicionar Favorito
 botaniamisc.ratio=Zoom: %sx (passe o mouse para ver normal)
 botaniamisc.bottleTooltip=Desenvolveu um sabor
-botaniamisc.coarseDirt0=Terra áspera, a grama
-botaniamisc.coarseDirt1=não crescerá.
-botaniamisc.spawnerTip=Dica: Use um ovo de Invocar para mudar o mob
 botaniamisc.shardLevel=Poder Cristalino %s
 botaniamisc.lexiconIndex=Índice do Léxico
 botaniamisc.hasIvy=Possui Hera Eterna
@@ -60,8 +63,8 @@ botaniamisc.noLexicon=Você precisa do Lexica Botania em mãos para ler isso.
 botaniamisc.cantOpen=Parece que essa página não existe. Talvez ela seja de uma fonte externa...?
 botaniamisc.clickToShare=Compartilhar
 botaniamisc.drop=Derrubar
-botaniamisc.dropTip0=Dica: Aperte %key% no inventário para derrubar
-botaniamisc.dropTip1=CTRL-%key% derruba uma stack completa
+botaniamisc.dropTip0=Dica: Aperte %s no inventário para derrubar
+botaniamisc.dropTip1=CTRL-%s derruba uma stack completa
 botaniamisc.wandMode.bind=Modo de associação
 botaniamisc.wandMode.function=Mode funcional
 botaniamisc.playVideo=Mostrar vídeo
@@ -71,14 +74,14 @@ botaniamisc.peacefulNoob=Você tenta oferecer a barra de Terrasteel, mas vibraç
 botaniamisc.notInfused=Não infundido
 botaniamisc.getALife=Consiga uma vida
 botaniamisc.floatingPrefix=%s Flutuante
-botaniamisc.unsetRecipe=[Sem receita] Clique-D para colocar:
+botaniamisc.unsetRecipe=[Sem receita] Clique direito para colocar:
 botaniamisc.cantCraft=Materiais insuficientes!
 botaniamisc.lotusDesc=Emite fortes vibrações mágicas
 botaniamisc.hasClip=&6Possúi Clipe de Lentes
 botaniamisc.clipEmpty=(Vazio)
 botaniamisc.armorset=&bSet de Armadura&r:
 botaniamisc.craftToAddWill=&aCombine com um Elmo de Terrasteel para adicionar o seguinte efeito:
-otaniamisc.requestMsg=Requisitado %d x "%s" de %d. %d retirados.
+botaniamisc.requestMsg=Requisitado %d x "%s" de %d. %d retirados.
 botaniamisc.nearIndex0=Índice Corporea por perto!
 botaniamisc.nearIndex1=O que você dizer será
 botaniamisc.nearIndex2=entendido como um pedido
@@ -97,8 +100,8 @@ botaniamisc.lexiconOptions1=Configure o Botania durante o jogo
 botaniamisc.lexiconOptions2=Algumas opções requerm reabrir o jogo
 botaniamisc.hasPhantomInk=&bTingido com Tinta Fantasma
 botaniamisc.pinkinatorDesc=Aplicar diretamente ao Wither
-botaniamisc.relicUnbound=&6Relíquia&7, Desconexa
-botaniamisc.relicSoulbound=&6Relíquia&7, Conectada com &f%s
+botaniamisc.relicUnbound=&6Relíquia&7, sem dono
+botaniamisc.relicSoulbound=&6Relíquia&7, propriedade de &f%s
 botaniamisc.notYourSagittarius=&4Essa relíquia não lhe pertence
 botaniamisc.diceRoll=O dado para em %s, você nota que ele se transforma em algo.
 botaniamisc.dudDiceRoll=O dado para em %s, ele parece desaparecer no ar.
@@ -152,8 +155,9 @@ botaniamisc.altarRefill0=Clique com a mão vazia para
 botaniamisc.altarRefill1=recriar a última receita
 botaniamisc.santaweaveInfo=Manaweave, mudada para as &cf&fe&cs&ft&ca&fs
 botaniamisc.enterToView=^ Aperte ENTER para ver ^
+botaniamisc.scaleChange=Mudar escala
 
-# NEI INTEGRATION
+# JEI INTEGRATION
 botania.nei.brewery=Fermentador Botânico
 botania.nei.elvenTrade=Troca Élfica
 botania.nei.floatingFlowers=Criação de Flor Flutuante
@@ -167,13 +171,9 @@ nei.options.keys.gui.botania_corporea_request=Pedido Corporea
 botania.nei.lexicaSeparator=Informação extra:
 botania.nei.lexicaNoInfo=(não há informação adicional aqui, desculpa!)
 
-# NEI QUICK LOOKS
+# JEI QUICK LOOKS
 botania.nei.quickInfo:tile.livingwood0~0=Você pode criar Madeira-viva colocando Madeira do lado da Margarida Pura
 botania.nei.quickInfo:tile.livingrock0~0=Você pode criar Rocha-viva colocando Pedra do lado da Margarida Pura
-
-botania.nei.quickInfo:flower.daybloom=Nesse mundo, é matar ou morrer
-botania.nei.quickInfo:flower.daybloomPrimus=Essa flor não pode ser movida, apenas encontrada pelo mundo
-botania.nei.quickInfo:flower.nightshadePrimus=Essa flor não pode ser movida, apenas encontrada pelo mundo
 
 botania.nei.quickInfo:item.bone~0=Você pode se arrepender
 botania.nei.quickInfo:item.lexicon~0=O que você esperava?
@@ -240,6 +240,11 @@ botania.wings6=Asas: Lorde do Abismo
 botania.wings7=Asas: Sylph
 botania.wings8=Asas: Mega Ultra Chicken
 botania.wings9=Asas: O Escolhido
+
+# TORCH MODES
+botania.animatedTorch.toggle=Alternar
+botania.animatedTorch.rotate=Rodar
+botania.animatedTorch.random=Aleatório
 
 # ARMOR SETS
 botania.armorset.manasteel.name=Afinidade com Mana
@@ -340,6 +345,7 @@ manaSpreaders.silent=Dispersor de Mana silencioso
 flowerTextures.alt=Texturas alternativas em flores
 matrixMode.enabled=Permitir Modo Matrix
 references.enabled=Permitir referências na tooltip do item
+shaders.enabled=Permitir Shaders do mod
 spreader.posShift=Mudança de posição do Dispersor
 versionChecking.enabled=Permitir checagem de versões
 shaders.enabled=Permitir shaders
@@ -350,7 +356,7 @@ worldgen.flower.quantity=Quantidade do worldgen de flores
 worldgen.mushroom.quantity=Quantidade do worldgen de cogumelos
 
 # VERSION CHECKING
-botania.versioning.flavour0=NANI ADOECEU!? BOTANIA DESATUALIZADO!?
+botania.versioning.flavour0=NANI SORE!? BOTANIA IS OUTDATED!?
 botania.versioning.flavour1=Você está dizendo que o Botania está desatualizado, sua besta ignorante?
 botania.versioning.flavour2=Botania não quer ficar desatualizado, b-b-BAKA!
 botania.versioning.flavour3=Beam me up Scotty. Temos uma nova versão do Botania.
@@ -361,7 +367,7 @@ botania.versioning.flavour7=Oi mate, there's a new Botania update. Why am I aust
 botania.versioning.flavour8=Só porquê a vida é muito mainstream, aqui está uma atualização do Botania.
 botania.versioning.flavour9=Thank you based Botania update.
 botania.versioning.flavour10=Duas mil atualizações, é por isso que me chamam de Mister Fahrenheit.
-botania.versioning.flavour11=Perry ornitorrinco, eu lhe apresento, o Botania-update-inator.
+botania.versioning.flavour11=Perry, o Ornitorrinco, eu lhe apresento, o Botania-update-inator 3000.
 botania.versioning.flavour12=Botania atualizou. #hoennconfirmed
 botania.versioning.flavour13=Você ativou minha Carta Armadilha! Eu ativo: Atualização do Botania!
 botania.versioning.flavour14=Vamos fazer uma apostar, beba uma dose toda vez que o Botania atualizar. *hic*
@@ -416,7 +422,7 @@ botania.versioning.flavour62=Nove entre dez médicos recomendam atualizar o Bota
 botania.versioning.flavour63=The update bacons at midnight.
 botania.versioning.flavour64=Uma nova atualização do Botania está disponível. E seu nome é JOHN CENA! DOO DOO DOO DOO
 botania.versioning.outdated=Você possui a versão %s, a mais recente é %s.
-botania.versioning.updateMessage=["Clique para... [",{"text":"Download","color":"green","hoverEvent":{"action":"show_text","value":{"text":"Clicar aqui baixará automaticamente a nova versão","color":"green"}},"clickEvent":{"action":"run_command","value":"/botania-download-latest %version%"}},"] [",{"text":"Website","color":"green","hoverEvent":{"action":"show_text","value":{"text":"Clicar aquie levará ao site do mod","color":"green"}},"clickEvent":{"action":"open_url","value":"http://vazkii.us/mod/Botania/downloads.php"}},"] [",{"text":"Changelog","color":"green","hoverEvent":{"action":"show_text","value":{"text":"Clicar aqui levará ao Changelog","color":"green"}},"clickEvent":{"action":"open_url","value":"http://vazkii.us/mod/Botania/changelog.php#%version%"}},"]"]
+botania.versioning.updateMessage=["Clique para... [",{"text":"Download","color":"green","hoverEvent":{"action":"show_text","value":{"text":"Clicar aqui baixará automaticamente a nova versão","color":"green"}},"clickEvent":{"action":"open_url","value":"http://minecraft.curseforge.com/projects/botania-unofficial/files/latest"}},"] [",{"text":"Website","color":"green","hoverEvent":{"action":"show_text","value":{"text":"Clicar aquie levará ao site do mod","color":"green"}},"clickEvent":{"action":"open_url","value":"http://minecraft.curseforge.com/projects/botania-unofficial"}},"] [",{"text":"Changelog","color":"green","hoverEvent":{"action":"show_text","value":{"text":"Clicar aqui levará ao Changelog","color":"green"}},"clickEvent":{"action":"open_url","value":"https://github.com/williewillus/Botania/releases/tag/%s"}},"]"]
 botania.versioning.startingDownload=[{"text":"Baixando %s. Não remova seu HD. Gosta do ","color":"aqua"},{"text":"Botania","color":"green"},{"text":"? Considere doar para ","color":"aqua"},{"text":"Vazkii","color":"light_purple"},{"text":" no [","color":"aqua"},{"text":"Patreon","color":"gold","hoverEvent":{"action":"show_text","value":{"text":"Patreon de Vazkii","color":"light_purple"}},"clickEvent":{"action":"open_url","value":"http://www.patreon.com/Vazkii"}},{"text":"]!","color":"aqua"}]
 botania.versioning.doneDownloading=Download de %s concluído. Apague o .jar antigo do Botania e reabra o jogo.
 botania.versioning.downloadedAlready=Você já baixou a versão recente. Feche o jogo, apague a versão antiga e reabra para poder atualizar.
@@ -425,10 +431,10 @@ botania.versioning.error=Woah! Algo deu errado durante o download. Cheque se bot
 botania.versioning.disabled=Desculpe. Esse recurso foi desligado por problemas no servidor, deve voltar a funcionar em breve.
 
 # BAUBLE TOOLTIPS
-botania.baubletype.amulet=Equipável no slot de &aAmuletos&7
-botania.baubletype.ring=Equipável no slot de &aAnéis&7
-botania.baubletype.belt=Equipável no slot de &aCintos&7
-botania.baubletooltip=Aperte &b%key%&7 para abrir o menu do Baubles
+botania.baubletype.amulet=&aAmuleto&7
+botania.baubletype.ring=&aAnél&7
+botania.baubletype.belt=&aCinto&7
+botania.baubletooltip=Aperte &b%s&7 para abrir o menu do Baubles
 
 # RELIC POEMS
 item.dice.poem0=Ele oferece as cartas para a resposta,
@@ -461,109 +467,109 @@ entity.Botania.botania:babylonWeapon.name=Arma da Tesouraria
 entity.Botania.botania:fallingStar.name=Estrela Cadente
 
 # ACHIEVEMENT NAMES + DESC
-achievement.botania:flowerPickup=Sky of Beginning
+#
 achievement.botania:flowerPickup.desc=Colete uma Flor Mística no mundo
-achievement.botania:lexiconUse=A Realistical Logical Ideologist
+#
 achievement.botania:lexiconUse.desc=Olhe o índice do Lexica Botania
-achievement.botania:daybloomPickup=Daybreak Arrival
+#
 achievement.botania:daybloomPickup.desc=Crie uma Daybloom no Boticário de Pétalas
-achievement.botania:manaPoolPickup=Vivid Wave
+#
 achievement.botania:manaPoolPickup.desc=Melhore um Poço de Mana Diluído para um normal
-achievement.botania:endoflamePickup=Meltdown
+#
 achievement.botania:endoflamePickup.desc=Crie uma Endoflame para uma melhor produção de Mana
-achievement.botania:tinyPotatoPet=Just Be Friends
+#
 achievement.botania:tinyPotatoPet.desc=Domestique uma Batatinha
-achievement.botania:sparkCraft=Live Drive
+#
 achievement.botania:sparkCraft.desc=Crie uma Fagulha para ajudar na transferência de Mana
-achievement.botania:baubleWear=Inner Arts
+#
 achievement.botania:baubleWear.desc=Crie qualquer Bauble e equipe
-achievement.botania:manaCookieEat=Rotten Heresy and Chocolate
+#
 achievement.botania:manaCookieEat.desc=Infunda e coma um Biscoito de Mana
-achievement.botania:runePickup=Lilium Doll
+#
 achievement.botania:runePickup.desc=Use o Altar Rúnico para criar uma Runa
-achievement.botania:manaBlasterShoot=M'aider Stranded Girl
+#
 achievement.botania:manaBlasterShoot.desc=Crie e use um Disparador de Mana
-achievement.botania:tiaraWings=Heart Shooter
+#
 achievement.botania:tiaraWings.desc=Crie e adorne uma Tiara de Flügel com asas
-achievement.botania:terrasteelPickup=Dancer in the Dark
+#
 achievement.botania:terrasteelPickup.desc=Conjure uma Barra de Terrasteel usando a Placa de Aglomeração Terrestre
-achievement.botania:elfPortalOpen=World Calling
+#
 achievement.botania:elfPortalOpen.desc=Abra um portal para o reino de Alfheim
-achievement.botania:gaiaGuardianKill=Dead and Seek
+#
 achievement.botania:gaiaGuardianKill.desc=Invoque e mate um Guardião de Gaia
-achievement.botania:terrasteelWeaponCraft=Remote Paranoia
+#
 achievement.botania:terrasteelWeaponCraft.desc=Arme-se com uma arma feita de Terrasteel
-achievement.botania:kekimurusPickup=After-School Stride
+#
 achievement.botania:kekimurusPickup.desc=Crie uma Kekimurus para produzir grandes quantidades de Mana
-achievement.botania:heiseiDreamPickup=Heisei Cataclysm
+#
 achievement.botania:heiseiDreamPickup.desc=Crie uma Heisei Dream para causar uma rebelião entre os monstros
-achievement.botania:dirtRodCraft=Rockbell
+#
 achievement.botania:dirtRodCraft.desc=Crie um graveto su- er... Cajado das Terras
-achievement.botania:spawnerMoverUse=I can take off my (redacted)
+#
 achievement.botania:spawnerMoverUse.desc=Use um Agregador de Vida para transportar um Invocador de Monstros
-achievement.botania:enderAirMake=Imitation Air
+#
 achievement.botania:enderAirMake.desc=Colete uma Garrafa de ar do Fim
-achievement.botania:corporeaCraft=Drop Pop Candy
+#
 achievement.botania:corporeaCraft.desc=Crie um bloco que faça parte da Rede de Corporea
-achievement.botania:cacophoniumCraft=Noisy Lover Soul
+#
 achievement.botania:cacophoniumCraft.desc=Crie um Cacofônio para irritar seus inimigos
-achievement.botania:manaCartCraft=World Domination How-To
+#
 achievement.botania:manaCartCraft.desc=Crie um Carrinho com Poço de Mana para transporte de mana a longas distâncias
-achievement.botania:craftingHaloCraft=Segments Blue
+#
 achievement.botania:craftingHaloCraft.desc=Crie uma Auréola de Criação para facilitar montagem de items
-achievement.botania:manaweaveArmorCraft=Imagination Forest
+#
 achievement.botania:manaweaveArmorCraft.desc=Faça uma Armadura de Tecido de Mana para melhorar suas varinhas e cajados
-achievement.botania:enchanterMake=Odds and Ends
+#
 achievement.botania:enchanterMake.desc=Crie um Encantador de Mana para ter controle sobre encantamentos
-achievement.botania:pollidisiacPickup=Romeo and Cinderella
+#
 achievement.botania:pollidisiacPickup.desc=Crie uma Pollidisiac, espalhe o amor no ar
-achievement.botania:brewPickup=Childhood Blues
+#
 achievement.botania:brewPickup.desc=Crie um Fermentador Botânico para fazer poções de sua preferência
-achievement.botania:terraformRodCraft=World is Mine
+#
 achievement.botania:terraformRodCraft.desc=Crie um Cajado de Terra Firma e mude o mundo
-achievement.botania:bubbellPickup=Deep Sea Girl
+#
 achievement.botania:bubbellPickup.desc=Crie uma Bubbell para fazer construções sub-aquáticas
-achievement.botania:luminizerRide=World's End Dancehall
+#
 achievement.botania:luminizerRide.desc=Crie alguns Luminizers e os use para transporte
-achievement.botania:manaBombIgnite=Under of Fragments
+#
 achievement.botania:manaBombIgnite.desc=Crie uma Carga de Manastorm, e acenda-a em um lugar distante
-achievement.botania:dandelifeonPickup=Donut Hole
+#
 achievement.botania:dandelifeonPickup.desc=Crie uma Dandelifeon e desafie sua mente
 
-achievement.botania:signalFlareStun=See the Lights
+#
 achievement.botania:signalFlareStun.desc=Atordoe 100 ou mais monstros com uma única Fagulha Sinalizadora
-achievement.botania:l20ShardUse=Out of Step
+#
 achievement.botania:l20ShardUse.desc=Ergua o solo ao céu com um Fragmento de Laputa Nível XX
-achievement.botania:gaiaGuardianNoArmor=Mythologia's End
+#
 achievement.botania:gaiaGuardianNoArmor.desc=Mate um Guardião de Gaia sem usar armadura em qualquer parte da luta
-achievement.botania:rankSSPick=Talent Shredder
+#
 achievement.botania:rankSSPick.desc=Minere usando um Terra-Destruídor nível SS
-achievement.botania:superCorporeaRequest=Invader Girl
+#
 achievement.botania:superCorporeaRequest.desc=Requisite 50000 ou mais de um único item com o Índice Corporea
-achievement.botania:pinkinator=Decorator
+#
 achievement.botania:pinkinator.desc=Dê um uso ao Pinkinator
 
-achievement.botania:infiniteFruit=Innocentia
+#
 achievement.botania:infiniteFruit.desc=Seja recompensado com uma Fruta de Grisaia por um ato heróico
-achievement.botania:excaliber=Streaming Heart
+#
 achievement.botania:excaliber.desc=Seja recompensado com a Espada Sagrada Excaliber por um ato heróico
-achievement.botania:flugelEye=Angel of Death
+#
 achievement.botania:flugelEye.desc=Seja recompensado com um Olho dos Flügel por um ato heróico
-achievement.botania:thorRing=One Step Layered
+#
 achievement.botania:thorRing.desc=Seja recompensado com o Anel de Thor por um ato heróico
-achievement.botania:odinRing=Lost Time Memory
+#
 achievement.botania:odinRing.desc=Seja recompensado com o Anel de Odin por um ato heróico
-achievement.botania:lokiRing=Arithmetic
+#
 achievement.botania:lokiRing.desc=Seja recompensado com o Anel de Loki por um ato heróico
-achievement.botania:aesirRing=As the Gods Say
+#
 achievement.botania:aesirRing.desc=Crie um Anel de Aesir com os três anéis dos deuses
 
-achievement.botania:nullFlower=Take it Easy
+#
 achievement.botania:nullFlower.desc=Encontre algum bug que faça você conseguir uma flor indefinida. Não esqueça de reportá-lo!
-achievement.botania:desuGun=Two-Faced Lovers
-achievement.botania:desuGun.desc=ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN
-#                                 ^ Don't localize
-
+#
+#THE CONSISTENCY
+#WAS BROKEN ._.
+#
 # CHALLENGE LEVELS
 botania.challengelevel.easy=Fácil
 botania.challengelevel.normal=Normal
@@ -571,47 +577,47 @@ botania.challengelevel.hard=Difícl
 botania.challengelevel.lunatic=Lunático
 
 # CHALLENGE TEXT
-botania.challenge.flowerFarm=Flower Farm
+#
 botania.challenge.flowerFarm.desc=Crie uma farm automática das 16 cores de flores básicas do Botania. Pontos extras se elas forem organizadas.
-botania.challenge.recordFarm=Record Farm
+#
 botania.challenge.recordFarm.desc=Crie um sistema que produza discos matando Creepers com Esqueletos. Pontos extras se isso não precisar da presença do jogador.
-botania.challenge.reedFarm=Sugar Cane Farm
+#
 botania.challenge.reedFarm.desc=Crie uma plantação automática de cana. Pontos extras se não usar pistões.
-botania.challenge.cobbleGen=Cobble Generator
+#
 botania.challenge.cobbleGen.desc=Faça uma criação automática de pedregulhos com geração e coleção. Pontos extras se criar pedra normal sem usar fornalhas.
-botania.challenge.pureDaisy=Auto Pure Daisy
+#
 botania.challenge.pureDaisy.desc=Completamente automatize a Margarida Pura. Pontos extras se apenas um Dispersor for usado e/ou se a entrada/saída de pedra/madeira também for automatizada.
-botania.challenge.battery=Mana Battery
+#
 botania.challenge.battery.desc=Crie uma Bateria de Mana, um sistema em que mana entra em um Poço e sái em outro, usando vários Poços como reserva. Pontos extras se ambas entrada e saída podem ser aternadas.
 
-botania.challenge.apothecaryRefill=Apothecary Refiller
+#
 botania.challenge.apothecaryRefill.desc=Crie um sistema que encha o Boticário de Pétalas com água se estiver vazio. Pontos extras se o sistema também criar plantas, quando dados os componentes.
-botania.challenge.treeFarm=Tree Farm
+#
 botania.challenge.treeFarm.desc=Crie uma plantação auto-suficiente de madeira. Pontos extras se vários tipos de árvores forem usadas.
-botania.challenge.fullCropFarm=Full Crop Farm
+#
 botania.challenge.fullCropFarm.desc=Crie uma plantação de todos tipos de vegetais (trigo, cenoura, batata, melancia, abóbora, cacau e fungo do Nether) que funcione em total eficiência. Pontos extras se os resultados forem organizados.
-botania.challenge.animalFarm=Animal Farm
+#
 botania.challenge.animalFarm.desc=Crie uma fazenda de animais com todos animais reproduzíveis. Pontos extras se a comida for inserida no sistema automaticamente.
-botania.challenge.boneMealFarm=Bone Meal-type Farm
+#
 botania.challenge.boneMealFarm.desc=Crie uma plantação que use farinha de osso para crescer plantas em demanda. Pontos extras se o Tambor da Vida Selvagem não for usado.
-botania.challenge.orechid=Automated Orechid
+#
 botania.challenge.orechid.desc=Crie um sistema que automatize a Orechid. Pontos extras se os minérios forem derretidos e organizados.
 
-botania.challenge.mobTower=Spawning Tower
+#
 botania.challenge.mobTower.desc=Crie uma mob farm em estilo torre. Mobs precisam ser organizados em câmaras específicas. Invocadores podem ser usados. Pontos extras se isso não precisar do jogador e funcionar em máxima eficiência.
-botania.challenge.entropinnyumSetup=Entropinnyum Setup
+#
 botania.challenge.entropinnyumSetup.desc=Crie um sistema que monte e exploda seguramente Dinamite para uma Entropinnyum, criando mana. Pontos extras se a areia e a pólvora da dinamite são inseridas no sistema automaticamente.
-botania.challenge.spectrolusSetup=Spectrolus Setup
+#
 botania.challenge.spectrolusSetup.desc=Crie um sistema que alimente uma Spectrolus, gerando mana. Exceto mana, nenhum item deve ser inserido de fora do sistema. Pontos extras se operar em máxima eficiênica, sem desperdiçar lã.
-botania.challenge.potionBrewer=Automated Brewing
+#
 botania.challenge.potionBrewer.desc=Crie um sistema que prepare todas poções em demanda. Pontos extras o sistema manter incensos acesos na base do jogador.
 
-botania.challenge.kekimurusSetup=Kekimurus Setup
+#
 botania.challenge.kekimurusSetup.desc=Completamente automatize uma Kekimurus, todas partes do sistema devem ser automáticas e auto-suficientes. Pontos extras se apenas um Caixote Inteligente for usado.
-botania.challenge.autoQuarry=Automated Quarry
+#
 botania.challenge.autoQuarry.desc=Crie um minerador automático que colete pedra e minérios do subterrâneo. O sistema deve cavar pedaços do mundo e os resultados, organizados. Pontos extras se o sistema se relocar automaticamente depois de terminar uma área.
-botania.challenge.runeCrafter=Rune Crafter
-botania.challenge.runeCrafter.desc=Crie um sistema que crie em demanda ou que armazene certa quantidade de runas. Todas partes desse sistema devem ser automaticas e auto-suficientes, incluindo a entrada de itens. Pontos extras se apenas um Altar Rúnico for usado. Você não deve ter limites pra tentar isso.
+#
+botania.challenge.runeCrafter.desc=Crie umneeds "" sistema que crie em demanda ou que armazene certa quantidade de runas. Todas partes desse sistema devem ser automaticas e auto-suficientes, incluindo a entrada de itens. Pontos extras se apenas um Altar Rúnico for usado. Você não deve ter limites pra tentar isso.
 
 # BLOCK NAMES
 tile.botania:flower0.name=Flor Mística Branca
@@ -800,19 +806,6 @@ tile.botania:dreamwood1Stairs.name=Escadas de Tábuas de Madeira dos Sonhos
 tile.botania:dreamwood1Slab.name=Laje de Tábuas de Madeira dos Sonhos
 tile.botania:dreamwood1SlabFull.name=Laje de Tábuas de Madeira dos Sonhos
 tile.botania:conjurationCatalyst.name=Catalizador de Conjurações
-tile.botania:prismarine0.name=Prismarinho
-tile.botania:prismarine1.name=Tijolos de Prismarinho
-tile.botania:prismarine2.name=Prismarinho Escuro
-tile.botania:prismarine0Stairs.name=Escadas de Prismarinho
-tile.botania:prismarine0Slab.name=Laje de Prismarinho
-tile.botania:prismarine0SlabFull.name=Laje de Prismarinho
-tile.botania:prismarine1Stairs.name=Escadas de Tijolos de Prismarinho
-tile.botania:prismarine1Slab.name=Laje de Tijolos de Prismarinho
-tile.botania:prismarine1SlabFull.name=Laje de Tijolos de Prismarinho
-tile.botania:prismarine2Stairs.name=Escadas de Prismarinho Escuro
-tile.botania:prismarine2Slab.name=Laje de Prismarinho Escuro
-tile.botania:prismarine2SlabFull.name=Laje de Prismarinho Escuro
-tile.botania:seaLamp.name=Lanterna do Mar
 tile.botania:miniIsland0.name=Flor Branca Flutuante
 tile.botania:miniIsland1.name=Flor Laranja Flutuante
 tile.botania:miniIsland2.name=Flor Magenta Flutuante
@@ -831,14 +824,6 @@ tile.botania:miniIsland14.name=Flor Vermelha Flutuante
 tile.botania:miniIsland15.name=Flor Preta Flutuante
 tile.botania:tinyPotato.name=Batatinha
 tile.botania:spawnerClaw.name=Imbuidor de Vida
-tile.botania:reedBlock.name=Bloco de Cana-de-açúcar
-tile.botania:reedBlock0Stairs.name=Escadas de Cana-de-açúcar
-tile.botania:reedBlock0Slab.name=Laje de Cana-de-açúcar
-tile.botania:reedBlock0SlabFull.name=Laje de Cana-de-açúcar
-tile.botania:thatch.name=Palha
-tile.botania:thatch0Stairs.name=Escadas de Palha
-tile.botania:thatch0Slab.name=Laje de Palha
-tile.botania:thatch0SlabFull.name=Laje de Palha
 tile.botania:customBrick0.name=Tijolo Infernal
 tile.botania:customBrick1.name=Tijolo da Alma
 tile.botania:customBrick2.name=Tijolo Invernal
@@ -1067,46 +1052,10 @@ tile.botania:doubleFlower212.name=Flor Mística Alta Marrom
 tile.botania:doubleFlower213.name=Flor Mística Alta Verde
 tile.botania:doubleFlower214.name=Flor Mística Alta Vermelha
 tile.botania:doubleFlower215.name=Flor Mística Alta Preta
-tile.botania:stone0.name=Andesito
-tile.botania:stone1.name=Basalto
-tile.botania:stone2.name=Diorito
-tile.botania:stone3.name=Granito
-tile.botania:stone4.name=Andesito Polido
-tile.botania:stone5.name=Basalto Polido
-tile.botania:stone6.name=Diorito Polido
-tile.botania:stone7.name=Granito Polido
-tile.botania:stone8.name=Tijolos de Andesito
-tile.botania:stone9.name=Tijolos de Basalto
-tile.botania:stone10.name=Tijoloes de Diorito
-tile.botania:stone11.name=Tijolos de Granito
 tile.botania:stone12.name=Tijolos de Andesito Talhados
 tile.botania:stone13.name=Tijolos de Basalto Talhados
 tile.botania:stone14.name=Tijolos de Diorito Talhados
 tile.botania:stone15.name=Tijolos de Granito Talhados
-tile.botania:stone0Stairs.name=Escadas de Andesito
-tile.botania:stone1Stairs.name=Escadas de Basalto
-tile.botania:stone2Stairs.name=Escadas de Diorito
-tile.botania:stone3Stairs.name=Escadas de Granito
-tile.botania:stone8Stairs.name=Escadas de Tijolos de Andesito
-tile.botania:stone9Stairs.name=Escadas de Tijolos de Basalto
-tile.botania:stone10Stairs.name=Escadas de Tijolos de Diorito
-tile.botania:stone11Stairs.name=Escadas de Tijolos de Granito
-tile.botania:stone0Slab.name=Laje de Andesito
-tile.botania:stone1Slab.name=Laje de Basalto
-tile.botania:stone2Slab.name=Laje de Diorito
-tile.botania:stone3Slab.name=Laje de Granito
-tile.botania:stone8Slab.name=Laje de Tijolos de Andesito
-tile.botania:stone9Slab.name=Laje de Tijolos de Basalto
-tile.botania:stone10Slab.name=Laje de Tijolos de Diorito
-tile.botania:stone11Slab.name=Laje de Tijolos de Granito
-tile.botania:stone0SlabFull.name=Laje de Andesito
-tile.botania:stone1SlabFull.name=Laje de Basalto
-tile.botania:stone2SlabFull.name=Laje de Diorito
-tile.botania:stone3SlabFull.name=Laje de Granito
-tile.botania:stone8SlabFull.name=Laje de Tijolos de Andesito
-tile.botania:stone9SlabFull.name=Laje de Tijolos de Basalto
-tile.botania:stone10SlabFull.name=Laje de Tijolos de Diorito
-tile.botania:stone11SlabFull.name=Laje de Tijolos de Granito
 tile.botania:blazeBlock.name=Lâmpada Infernal
 tile.botania:corporeaInterceptor.name=Interceptador Corporea
 tile.botania:corporeaCrystalCube.name=Cubo de Cristal Corporea
@@ -1119,12 +1068,14 @@ tile.botania:felPumpkin.name=Abóbora Fel
 tile.botania:cocoon.name=Casúlo de Caprice
 tile.botania:lightRelay0.name=Luminizer
 tile.botania:lightRelay1.name=Luminizer Detector
+tile.botania:lightRelay2.name=Luminizer Separador
+tile.botania:lightRelay3.name=Luminizer Alternante
 tile.botania:lightLauncher.name=Lançador Luminizer
 tile.botania:livingrock0Wall.name=Muro de Rocha-viva
 tile.botania:livingwood0Wall.name=Muro de Madeira-viva
 tile.botania:dreamwood0Wall.name=Muro de Madeira dos Sonhos
 tile.botania:prismarine0Wall.name=Muro de Prismarinho
-tile.botania:reedBlock0Wall.name=Muro de Cana-da-açúcar
+tile.botania:reedBlock0Wall.name=Muro de Cana
 tile.botania:biomeStoneA0Wall0.name=Muro de Pedra Metamórfica - Floresta
 tile.botania:biomeStoneA0Wall1.name=Muro de Pedra Metamórfica - Planície
 tile.botania:biomeStoneA0Wall2.name=Muro de Pedra Metamórfica - Montanha
@@ -1205,6 +1156,7 @@ tile.botania:altGrass2.name=Grama Vívia
 tile.botania:altGrass3.name=Grama Queimada
 tile.botania:altGrass4.name=Grama Infusa
 tile.botania:altGrass5.name=Grama Mutante
+tile.botania:animatedTorch.name=Tocha Animada
 
 # FLOWER NAMES
 tile.botania:flower..name=Flor do Botania
@@ -1218,36 +1170,22 @@ tile.botania:flower.manastar.name=Manastar
 tile.botania:flower.manastar.reference=Faça um desejo
 
 # - GENERATING
-tile.botania:flower.daybloom.name=Daybloom
-tile.botania:flower.daybloom.reference=Uma espetada de luz
-tile.botania:flower.daybloomDecor.name=Daybloom Motif
-tile.botania:flower.daybloomDecor.reference=Uma espetada de luz
-tile.botania:flower.daybloomPrime.name=Daybloom Primus
-tile.botania:flower.daybloomPrime.reference=Isso não deveria estar no seu inventário
 tile.botania:flower.endoflame.name=Endoflame
-tile.botania:flower.endoflame.reference=Fluindo lag
+tile.botania:flower.endoflame.reference=Reagindo endotermicamente
 tile.botania:flower.hydroangeas.name=Hydroangeas
 tile.botania:flower.hydroangeas.reference=Crustáceos amigáveis
-tile.botania:flower.hydroangeasDecor.name=Hydroangeas Motif
-tile.botania:flower.hydroangeasDecor.reference=Crustáceos amigáveis
 tile.botania:flower.thermalily.name=Thermalily
-tile.botania:flower.thermalily.reference=Uma Rosa Escarlate, de fato
-tile.botania:flower.nightshade.name=Nightshade
-tile.botania:flower.nightshade.reference=Sinal sobrenatural
-tile.botania:flower.nightshadeDecor.name=Nightshade Motif
-tile.botania:flower.nightshadeDecor.reference=Sinal sobrenatural
-tile.botania:flower.nightshadePrime.name=Nightshade Primus
-tile.botania:flower.nightshadePrime.reference=Isso não deveria estar no seu inventário
+tile.botania:flower.thermalily.reference=Não recomendada para Magos do Sangue
 tile.botania:flower.arcanerose.name=Rosa Arcana
 tile.botania:flower.arcanerose.reference=Dez orbes azuis no canto
 tile.botania:flower.munchdew.name=Munchdew
-tile.botania:flower.munchdew.reference=Nommy nommy the art teacher
+tile.botania:flower.munchdew.reference=Isso conta como canibalismo?
 tile.botania:flower.entropinnyum.name=Entropinnyum
-tile.botania:flower.entropinnyum.reference=Garotas mágicas são uma opção
+tile.botania:flower.entropinnyum.reference=Manusear com cuidado
 tile.botania:flower.kekimurus.name=Kekimurus
 tile.botania:flower.kekimurus.reference=Essa flor é uma mentira
 tile.botania:flower.gourmaryllis.name=Gourmaryllis
-tile.botania:flower.gourmaryllis.reference=Fuyukai Desu
+tile.botania:flower.gourmaryllis.reference=Que desagradável
 tile.botania:flower.narslimmus.name=Narslimmus
 tile.botania:flower.narslimmus.reference=O que é isso? É grudento
 tile.botania:flower.spectrolus.name=Spectrolus
@@ -1259,13 +1197,13 @@ tile.botania:flower.rafflowsia.reference=Pesadelos com Trap Hole
 
 # - FUNCTIONAL
 tile.botania:flower.bellethorn.name=Bellethorne
-tile.botania:flower.bellethorn.reference=world's end, girl's rondo
+tile.botania:flower.bellethorn.reference=O beijo da rosa
 tile.botania:flower.bellethornChibi.name=Bellethorne Petite
-tile.botania:flower.bellethornChibi.reference=world's end, girl's rondo
+tile.botania:flower.bellethornChibi.reference=O beijo da rosa
 tile.botania:flower.dreadthorn.name=Dreadthorne
-tile.botania:flower.dreadthorn.reference=Plano C!
+tile.botania:flower.dreadthorn.reference=Apenas uma espetada
 tile.botania:flower.heiseiDream.name=Heisei Dream
-tile.botania:flower.heiseiDream.reference=Heisei heisei kowarete
+tile.botania:flower.heiseiDream.reference=Heisei heisei
 tile.botania:flower.tigerseye.name=Tigerseye
 tile.botania:flower.tigerseye.reference=O tigre portátil
 tile.botania:flower.jadedAmaranthus.name=Jaded Amaranthus
@@ -1277,7 +1215,7 @@ tile.botania:flower.orechidIgnem.reference=Vermelha como rosas
 tile.botania:flower.fallenKanade.name=Fallen Kanade
 tile.botania:flower.fallenKanade.reference=Não sou um anjo
 tile.botania:flower.exoflame.name=Exoflame
-tile.botania:flower.exoflame.reference=Usando suas fitas pretas
+tile.botania:flower.exoflame.reference=Reagindo exotermicamente
 tile.botania:flower.agricarnation.name=Agricarnation
 tile.botania:flower.agricarnation.reference=Viva o 25 de abril
 tile.botania:flower.agricarnationChibi.name=Agricarnation Petite
@@ -1300,6 +1238,8 @@ tile.botania:flower.pollidisiac.name=Pollidisiac
 tile.botania:flower.pollidisiac.reference=Pássaros e abelhas
 tile.botania:flower.clayconia.name=Clayconia
 tile.botania:flower.clayconia.reference=Rupees não incluídas
+tile.botania:flower.clayconiaChibi.name=Clayconia
+tile.botania:flower.clayconiaChibi.reference=Rupees não incluídas
 tile.botania:flower.loonium.name=Loonium
 tile.botania:flower.loonium.reference=Segure acima de sua cabeça
 tile.botania:flower.daffomill.name=Daffomill
@@ -1309,11 +1249,11 @@ tile.botania:flower.vinculotus.reference=Uma imitação do Extra Utilities
 tile.botania:flower.spectranthemum.name=Spectranthemum
 tile.botania:flower.spectranthemum.reference=In the shell
 tile.botania:flower.medumone.name=Medumone
-tile.botania:flower.medumone.reference=Tudo culpa de Hades
+tile.botania:flower.medumone.reference=Sólida como pedra
 tile.botania:flower.marimorphosis.name=Marimorphosis
-tile.botania:flower.marimorphosis.reference=U-MA-RU
+tile.botania:flower.marimorphosis.reference=U-M-U
 tile.botania:flower.marimorphosisChibi.name=Marimorphosis Petite
-tile.botania:flower.marimorphosisChibi.reference=U-MA-RU
+tile.botania:flower.marimorphosisChibi.reference=U-M-R
 tile.botania:flower.bubbell.name=Bubbell
 tile.botania:flower.bubbell.reference=And whistle
 tile.botania:flower.bubbellChibi.name=Bubbell Petite
@@ -1322,6 +1262,8 @@ tile.botania:flower.solegnolia.name=Solegnolia
 tile.botania:flower.solegnolia.reference=All your magnets are belong to us
 tile.botania:flower.solegnoliaChibi.name=Solegnolia
 tile.botania:flower.solegnoliaChibi.reference=All your magnets are belong to us
+tile.botania:flower.bergamute.name=Bergamute
+tile.botania:flower.bergamute.reference=Minha boca é um túmulo
 
 # ITEM NAMES
 item.botania:lexicon.name=Lexica Botania
@@ -1407,6 +1349,10 @@ item.botania:lensFirework.name=Lentes de Mana: Celebração
 item.botania:lensFirework.short=Celebração
 item.botania:lensFlare.name=Lentes de Mana: Labareda
 item.botania:lensFlare.short=Labareda
+item.botania:lensMessenger.name=Lentes de Mana: Mensageira
+item.botania:lensMessenger.short=Mensageira
+item.botania:lensTripwire.name=Lentes de Mana: Fio de armadilha
+item.botania:lensTripwire.short=Fio de armadilha
 item.botania:rune0.name=Runa da Água
 item.botania:rune1.name=Runa do Fogo
 item.botania:rune2.name=Runa da Terra
@@ -1591,7 +1537,7 @@ item.botania:cosmetic11.name=Orelhas de gato
 item.botania:cosmetic12.name=Alfinete de bruxa
 item.botania:cosmetic13.name=Cauda de demônio
 item.botania:cosmetic14.name=Olho de Kamui
-item.botania:cosmetic15.name=Olhos esbugalhados
+item.botania:cosmetic15.name=Olhos postiços
 item.botania:cosmetic16.name=Trevo de quatro folhas
 item.botania:cosmetic17.name=Olho de relógio
 item.botania:cosmetic18.name=Chifre de unicórnio
@@ -1632,7 +1578,7 @@ item.botania:terraAxe.name=Terra-Truncador
 item.botania:manasteelNugget.name=Pepita de Manasteel
 item.botania:terrasteelNugget.name=Pepita de Terrasteel
 item.botania:elementiumNugget.name=Pepita de Elementium
-item.botania:root.name=Raíz-viva
+item.botania:livingRoot.name=Raíz-viva
 item.botania:pebble.name=Seixo
 item.botania:waterBowl.name=Tigela de água
 item.botania:obedienceStick.name=Varinha da Obediência Floral
@@ -1656,6 +1602,7 @@ item.botania:sextant.name=Sextante do Modulador do Mundo
 item.botania:speedUpBelt.name=Cinta do Desbravador Planar
 item.botania:baubleBox.name=Caixa de Baubles
 item.botania:manaPowder.name=Pó de Mana
+item.botania:dodgeRing.name=Anel do Escapista
 
 # BREW NAMES
 botania.brew.fallback=Fallback
@@ -1692,267 +1639,267 @@ botania.potion.clear=Absolução
 # GUI TEXT
 botania.gui.lexicon.header=Lexica Botania, Edição %s - Índice
 botania.gui.lexicon.wip=(Esse tópico está em progresso. Nem ao menos está na forma final)
-
-# MUSIC DISCS
-item.record.botania:gaia1.desc=Kain Vinosec - Endure Emptiness
-item.record.botania:gaia2.desc=Kain Vinosec - Fight For Quiescence
-
-# BANNER NAMES
-item.banner.botania_flower.black=Black Mystical Flower
-item.banner.botania_flower.red=Red Mystical Flower
-item.banner.botania_flower.green=Green Mystical Flower
-item.banner.botania_flower.brown=Brown Mystical Flower
-item.banner.botania_flower.blue=Blue Mystical Flower
-item.banner.botania_flower.purple=Purple Mystical Flower
-item.banner.botania_flower.cyan=Cyan Mystical Flower
-item.banner.botania_flower.silver=Light Gray Mystical Flower
-item.banner.botania_flower.gray=Gray Mystical Flower
-item.banner.botania_flower.pink=Pink Mystical Flower
-item.banner.botania_flower.lime=Lime Mystical Flower
-item.banner.botania_flower.yellow=Yellow Mystical Flower
-item.banner.botania_flower.lightBlue=Light Blue Mystical Flower
-item.banner.botania_flower.magenta=Magenta Mystical Flower
-item.banner.botania_flower.orange=Orange Mystical Flower
-item.banner.botania_flower.white=White Mystical Flower
-
-item.banner.botania_lexicon.black=Black Lexicon
-item.banner.botania_lexicon.red=Red Lexicon
-item.banner.botania_lexicon.green=Green Lexicon
-item.banner.botania_lexicon.brown=Brown Lexicon
-item.banner.botania_lexicon.blue=Blue Lexicon
-item.banner.botania_lexicon.purple=Purple Lexicon
-item.banner.botania_lexicon.cyan=Cyan Lexicon
-item.banner.botania_lexicon.silver=Light Gray Lexicon
-item.banner.botania_lexicon.gray=Gray Lexicon
-item.banner.botania_lexicon.pink=Pink Lexicon
-item.banner.botania_lexicon.lime=Lime Lexicon
-item.banner.botania_lexicon.yellow=Yellow Lexicon
-item.banner.botania_lexicon.lightBlue=Light Blue Lexicon
-item.banner.botania_lexicon.magenta=Magenta Lexicon
-item.banner.botania_lexicon.orange=Orange Lexicon
-item.banner.botania_lexicon.white=White Lexicon
-
-item.banner.botania_logo.black=Black Botania
-item.banner.botania_logo.red=Red Botania
-item.banner.botania_logo.green=Green Botania
-item.banner.botania_logo.brown=Brown Botania
-item.banner.botania_logo.blue=Blue Botania
-item.banner.botania_logo.purple=Purple Botania
-item.banner.botania_logo.cyan=Cyan Botania
-item.banner.botania_logo.silver=Light Gray Botania
-item.banner.botania_logo.gray=Gray Botania
-item.banner.botania_logo.pink=Pink Botania
-item.banner.botania_logo.lime=Lime Botania
-item.banner.botania_logo.yellow=Yellow Botania
-item.banner.botania_logo.lightBlue=Light Blue Botania
-item.banner.botania_logo.magenta=Magenta Botania
-item.banner.botania_logo.orange=Orange Botania
-item.banner.botania_logo.white=White Botania
-
-item.banner.botania_sapling.black=Black Tree
-item.banner.botania_sapling.red=Red Tree
-item.banner.botania_sapling.green=Green Tree
-item.banner.botania_sapling.brown=Brown Tree
-item.banner.botania_sapling.blue=Blue Tree
-item.banner.botania_sapling.purple=Purple Tree
-item.banner.botania_sapling.cyan=Cyan Tree
-item.banner.botania_sapling.silver=Light Gray Tree
-item.banner.botania_sapling.gray=Gray Tree
-item.banner.botania_sapling.pink=Pink Tree
-item.banner.botania_sapling.lime=Lime Tree
-item.banner.botania_sapling.yellow=Yellow Tree
-item.banner.botania_sapling.lightBlue=Light Blue Tree
-item.banner.botania_sapling.magenta=Magenta Tree
-item.banner.botania_sapling.orange=Orange Tree
-item.banner.botania_sapling.white=White Tree
-
-item.banner.botania_tiny_potato.black=Black Potato Face
-item.banner.botania_tiny_potato.red=Red Potato Face
-item.banner.botania_tiny_potato.green=Green Potato Face
-item.banner.botania_tiny_potato.brown=Brown Potato Face
-item.banner.botania_tiny_potato.blue=Blue Potato Face
-item.banner.botania_tiny_potato.purple=Purple Potato Face
-item.banner.botania_tiny_potato.cyan=Cyan Potato Face
-item.banner.botania_tiny_potato.silver=Light Gray Potato Face
-item.banner.botania_tiny_potato.gray=Gray Potato Face
-item.banner.botania_tiny_potato.pink=Pink Potato Face
-item.banner.botania_tiny_potato.lime=Lime Potato Face
-item.banner.botania_tiny_potato.yellow=Yellow Potato Face
-item.banner.botania_tiny_potato.lightBlue=Light Blue Potato Face
-item.banner.botania_tiny_potato.magenta=Magenta Potato Face
-item.banner.botania_tiny_potato.orange=Orange Potato Face
-item.banner.botania_tiny_potato.white=White Potato Face
-
-item.banner.botania_spark_dispersive.black=Black Dispersive Symbol
-item.banner.botania_spark_dispersive.red=Red Dispersive Symbol
-item.banner.botania_spark_dispersive.green=Green Dispersive Symbol
-item.banner.botania_spark_dispersive.brown=Brown Dispersive Symbol
-item.banner.botania_spark_dispersive.blue=Blue Dispersive Symbol
-item.banner.botania_spark_dispersive.purple=Purple Dispersive Symbol
-item.banner.botania_spark_dispersive.cyan=Cyan Dispersive Symbol
-item.banner.botania_spark_dispersive.silver=Light Gray Dispersive Symbol
-item.banner.botania_spark_dispersive.gray=Gray Dispersive Symbol
-item.banner.botania_spark_dispersive.pink=Pink Dispersive Symbol
-item.banner.botania_spark_dispersive.lime=Lime Dispersive Symbol
-item.banner.botania_spark_dispersive.yellow=Yellow Dispersive Symbol
-item.banner.botania_spark_dispersive.lightBlue=Light Blue Dispersive Symbol
-item.banner.botania_spark_dispersive.magenta=Magenta Dispersive Symbol
-item.banner.botania_spark_dispersive.orange=Orange Dispersive Symbol
-item.banner.botania_spark_dispersive.white=White Dispersive Symbol
-
-item.banner.botania_spark_dominant.black=Black Dominant Symbol
-item.banner.botania_spark_dominant.red=Red Dominant Symbol
-item.banner.botania_spark_dominant.green=Green Dominant Symbol
-item.banner.botania_spark_dominant.brown=Brown Dominant Symbol
-item.banner.botania_spark_dominant.blue=Blue Dominant Symbol
-item.banner.botania_spark_dominant.purple=Purple Dominant Symbol
-item.banner.botania_spark_dominant.cyan=Cyan Dominant Symbol
-item.banner.botania_spark_dominant.silver=Light Gray Dominant Symbol
-item.banner.botania_spark_dominant.gray=Gray Dominant Symbol
-item.banner.botania_spark_dominant.pink=Pink Dominant Symbol
-item.banner.botania_spark_dominant.lime=Lime Dominant Symbol
-item.banner.botania_spark_dominant.yellow=Yellow Dominant Symbol
-item.banner.botania_spark_dominant.lightBlue=Light Blue Dominant Symbol
-item.banner.botania_spark_dominant.magenta=Magenta Dominant Symbol
-item.banner.botania_spark_dominant.orange=Orange Dominant Symbol
-item.banner.botania_spark_dominant.white=White Dominant Symbol
-
-item.banner.botania_spark_isolated.black=Black Isolated Symbol
-item.banner.botania_spark_isolated.red=Red Isolated Symbol
-item.banner.botania_spark_isolated.green=Green Isolated Symbol
-item.banner.botania_spark_isolated.brown=Brown Isolated Symbol
-item.banner.botania_spark_isolated.blue=Blue Isolated Symbol
-item.banner.botania_spark_isolated.purple=Purple Isolated Symbol
-item.banner.botania_spark_isolated.cyan=Cyan Isolated Symbol
-item.banner.botania_spark_isolated.silver=Light Gray Isolated Symbol
-item.banner.botania_spark_isolated.gray=Gray Isolated Symbol
-item.banner.botania_spark_isolated.pink=Pink Isolated Symbol
-item.banner.botania_spark_isolated.lime=Lime Isolated Symbol
-item.banner.botania_spark_isolated.yellow=Yellow Isolated Symbol
-item.banner.botania_spark_isolated.lightBlue=Light Blue Isolated Symbol
-item.banner.botania_spark_isolated.magenta=Magenta Isolated Symbol
-item.banner.botania_spark_isolated.orange=Orange Isolated Symbol
-item.banner.botania_spark_isolated.white=White Isolated Symbol
-
-item.banner.botania_spark_recessive.black=Black Recessive Symbol
-item.banner.botania_spark_recessive.red=Red Recessive Symbol
-item.banner.botania_spark_recessive.green=Green Recessive Symbol
-item.banner.botania_spark_recessive.brown=Brown Recessive Symbol
-item.banner.botania_spark_recessive.blue=Blue Recessive Symbol
-item.banner.botania_spark_recessive.purple=Purple Recessive Symbol
-item.banner.botania_spark_recessive.cyan=Cyan Recessive Symbol
-item.banner.botania_spark_recessive.silver=Light Gray Recessive Symbol
-item.banner.botania_spark_recessive.gray=Gray Recessive Symbol
-item.banner.botania_spark_recessive.pink=Pink Recessive Symbol
-item.banner.botania_spark_recessive.lime=Lime Recessive Symbol
-item.banner.botania_spark_recessive.yellow=Yellow Recessive Symbol
-item.banner.botania_spark_recessive.lightBlue=Light Blue Recessive Symbol
-item.banner.botania_spark_recessive.magenta=Magenta Recessive Symbol
-item.banner.botania_spark_recessive.orange=Orange Recessive Symbol
-item.banner.botania_spark_recessive.white=White Recessive Symbol
-
-item.banner.botania_fish.black=Black Fish
-item.banner.botania_fish.red=Red Fish
-item.banner.botania_fish.green=Green Fish
-item.banner.botania_fish.brown=Brown Fish
-item.banner.botania_fish.blue=Blue Fish
-item.banner.botania_fish.purple=Purple Fish
-item.banner.botania_fish.cyan=Cyan Fish
-item.banner.botania_fish.silver=Light Gray Fish
-item.banner.botania_fish.gray=Gray Fish
-item.banner.botania_fish.pink=Pink Fish
-item.banner.botania_fish.lime=Lime Fish
-item.banner.botania_fish.yellow=Yellow Fish
-item.banner.botania_fish.lightBlue=Light Blue Fish
-item.banner.botania_fish.magenta=Magenta Fish
-item.banner.botania_fish.orange=Orange Fish
-item.banner.botania_fish.white=White Fish
-
-item.banner.botania_axe.black=Black Axe
-item.banner.botania_axe.red=Red Axe
-item.banner.botania_axe.green=Green Axe
-item.banner.botania_axe.brown=Brown Axe
-item.banner.botania_axe.blue=Blue Axe
-item.banner.botania_axe.purple=Purple Axe
-item.banner.botania_axe.cyan=Cyan Axe
-item.banner.botania_axe.silver=Light Gray Axe
-item.banner.botania_axe.gray=Gray Axe
-item.banner.botania_axe.pink=Pink Axe
-item.banner.botania_axe.lime=Lime Axe
-item.banner.botania_axe.yellow=Yellow Axe
-item.banner.botania_axe.lightBlue=Light Blue Axe
-item.banner.botania_axe.magenta=Magenta Axe
-item.banner.botania_axe.orange=Orange Axe
-item.banner.botania_axe.white=White Axe
-
-item.banner.botania_hoe.black=Black Hoe
-item.banner.botania_hoe.red=Red Hoe
-item.banner.botania_hoe.green=Green Hoe
-item.banner.botania_hoe.brown=Brown Hoe
-item.banner.botania_hoe.blue=Blue Hoe
-item.banner.botania_hoe.purple=Purple Hoe
-item.banner.botania_hoe.cyan=Cyan Hoe
-item.banner.botania_hoe.silver=Light Gray Hoe
-item.banner.botania_hoe.gray=Gray Hoe
-item.banner.botania_hoe.pink=Pink Hoe
-item.banner.botania_hoe.lime=Lime Hoe
-item.banner.botania_hoe.yellow=Yellow Hoe
-item.banner.botania_hoe.lightBlue=Light Blue Hoe
-item.banner.botania_hoe.magenta=Magenta Hoe
-item.banner.botania_hoe.orange=Orange Hoe
-item.banner.botania_hoe.white=White Hoe
-
-item.banner.botania_pickaxe.black=Black Pickaxe
-item.banner.botania_pickaxe.red=Red Pickaxe
-item.banner.botania_pickaxe.green=Green Pickaxe
-item.banner.botania_pickaxe.brown=Brown Pickaxe
-item.banner.botania_pickaxe.blue=Blue Pickaxe
-item.banner.botania_pickaxe.purple=Purple Pickaxe
-item.banner.botania_pickaxe.cyan=Cyan Pickaxe
-item.banner.botania_pickaxe.silver=Light Gray Pickaxe
-item.banner.botania_pickaxe.gray=Gray Pickaxe
-item.banner.botania_pickaxe.pink=Pink Pickaxe
-item.banner.botania_pickaxe.lime=Lime Pickaxe
-item.banner.botania_pickaxe.yellow=Yellow Pickaxe
-item.banner.botania_pickaxe.lightBlue=Light Blue Pickaxe
-item.banner.botania_pickaxe.magenta=Magenta Pickaxe
-item.banner.botania_pickaxe.orange=Orange Pickaxe
-item.banner.botania_pickaxe.white=White Pickaxe
-
-item.banner.botania_shovel.black=Black Shovel
-item.banner.botania_shovel.red=Red Shovel
-item.banner.botania_shovel.green=Green Shovel
-item.banner.botania_shovel.brown=Brown Shovel
-item.banner.botania_shovel.blue=Blue Shovel
-item.banner.botania_shovel.purple=Purple Shovel
-item.banner.botania_shovel.cyan=Cyan Shovel
-item.banner.botania_shovel.silver=Light Gray Shovel
-item.banner.botania_shovel.gray=Gray Shovel
-item.banner.botania_shovel.pink=Pink Shovel
-item.banner.botania_shovel.lime=Lime Shovel
-item.banner.botania_shovel.yellow=Yellow Shovel
-item.banner.botania_shovel.lightBlue=Light Blue Shovel
-item.banner.botania_shovel.magenta=Magenta Shovel
-item.banner.botania_shovel.orange=Orange Shovel
-item.banner.botania_shovel.white=White Shovel
-
-item.banner.botania_sword.black=Black Sword
-item.banner.botania_sword.red=Red Sword
-item.banner.botania_sword.green=Green Sword
-item.banner.botania_sword.brown=Brown Sword
-item.banner.botania_sword.blue=Blue Sword
-item.banner.botania_sword.purple=Purple Sword
-item.banner.botania_sword.cyan=Cyan Sword
-item.banner.botania_sword.silver=Light Gray Sword
-item.banner.botania_sword.gray=Gray Sword
-item.banner.botania_sword.pink=Pink Sword
-item.banner.botania_sword.lime=Lime Sword
-item.banner.botania_sword.yellow=Yellow Sword
-item.banner.botania_sword.lightBlue=Light Blue Sword
-item.banner.botania_sword.magenta=Magenta Sword
-item.banner.botania_sword.orange=Orange Sword
-item.banner.botania_sword.white=White Sword
-
+#
+# I want to point out that I use the file space to keep track
+# of where things are supposed to go when new content arrives
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
 # LEXICON CATEGORIES
 botania.category.basics=Mecânicas e Informações básicas
 botania.category.mana=Manipulação de Mana
@@ -1969,18 +1916,16 @@ botania.category.misc=Conteúdo Diverso
 
 # - BASIC
 # -- WELCOME TO BOTANIA
-botania.entry.welcome=Welcome To Botania
 botania.tagline.welcome=Bem-vindo ao Hotel Botania
-botania.page.welcome0=&oWhat is peace? Is it truly just a lack of combat? Is it years of sitting quietly in a garden, surrounded by flowers? Is it watching over a kingdom that you are able to call your own? Is it the completion of almost every task known to man? Is it the ability to watch numbers of resources steadily rise as you watch your collection grow?
-botania.page.welcome1=&oIs peace something that can be obtained easily, without work - or is it something difficult to obtain?<br>Let's say for a moment - not even a second - that peace is truly just a lack of work; peaceful days surrounded by flowers.
-botania.page.welcome2=&oYears spent watching time tick by while you watch your flora perform every single task imaginable, without outside help from polluting machines or computers tangled in cables and pipes.<br>Now imagine that everything we just talked about was possible.
-botania.page.welcome3=&oImagine that through your hard labor - your cultivation of flowers, your manipulation of mana, your knowledge of the mechanisms of the world and redstone - you could obtain that dreamlike state. Imagine that you could have everything you could ever desire automated with flora. Flora, some magic, and your own ingenuity.
-botania.page.welcome4=&oWith the help of this book, your dreams will become a reality.<br>The name of this book is deceptive. Despite being called the Lexica Botania, this tome focuses on far more than just flowers. It focuses on a variety of devices, both magical and bordering on technological.
-botania.page.welcome5=&oIt holds the secrets of the elves, who have long ago fled from this world, as well as possible clues to the origins of the very world itself. For anyone with a basic knowledge of redstone and the creativity to put it to use, this book offers answers to nearly every problem known to man, without the need to use foreign schools of magic or machinery.
-botania.page.welcome6=&oThis book contains instructions on how to perform nearly every task that one could ever need, with only the use of what's in it, and available in the world of Minecraft, assuming you're up to the task of putting them together in ingenious ways.<br>Try it out, you'll be amazed at what you can do without outside interference.
-botania.page.welcome7=&oThe school of botany does not solely apply to those with a knack for complex thought processes.<br>Introduction to the art is simple, and the rewards are vast. A wide range of magical accessories and instruments allow for empowering of one who decides to study the various options therein.
-botania.page.welcome8=&oDear reader, I welcome you to the realm of Botania.&r<br> - Written by &nGideon Seymour&r, guest writer. (Adapted for use)
-
+#
+#
+#
+#
+#
+#
+#
+#
+#
 # -- TUTORIAL OF THE BASICS
 botania.entry.tutorial=Tutorial de mecânicas básicas
 botania.tagline.tutorial=Aprenda rápido
@@ -2001,6 +1946,7 @@ botania.page.gardenOfGlass8=Criando &1Gosma de Slime&0
 botania.page.gardenOfGlass9=Um problema é a entrada para o &4Nether&0. Mas não se preocupe, já que &1Lâmpadas Infernais&0, mencionadas em outro capítulo, podem criar &1Obsidiana&0. Para conseguir essas lâmpadas, criar &1Blazes&0 com a &1Abóbora Fel&0 pode ser um bom investimento.<br>Mas como não há uma boa fonte de &1Pederneira&0, abrir o portal com uma &1Bola de Fogo&0 deve servir.
 botania.page.gardenOfGlass11=Além de fornecer luz, o &1Clarão de Mana&0 presente na ilha permite o jogador recuperar o &1Lexica Botania&0 em caso de perdas, usando uma &1Muda&0, clicando com ela no &1Clarão de Mana&0.<br>Isso só pode ser feito se o jogador não possuir um &1Lexica Botania&0 com ele.
 botania.page.gardenOfGlass12=Por último, receita para o &1Portal do Fim&0
+botania.page.gardenOfGlass13=Infundindo &1Prismarinho&0
 
 # -- LEXICA BOTANIA
 botania.entry.lexicon=Lexica Botania
@@ -2046,7 +1992,7 @@ botania.page.pureDaisy0=A &1Margarida Pura&0 não só é a flor mais básica, ma
 botania.page.pureDaisy1=Só espere &4um minuto&0 ou quase isso...
 botania.page.pureDaisy2=&1Madeira-viva&0 pode ser convertida em gravetos
 botania.page.pureDaisy4=Alguns blocos também podem ser purificados se colocados ao redor da flor. Mesmo não sendo únicos ou essênciais como os blocos naturais, talvez sejam úteis. Isso inclúi &1Rocha do Nether&0 em &1Pedregulho&0, &1Areia das Almas&0 em &1Areia&0 ou &1Gelo&0 em &1Gelo compactado&0.
-botania.page.pureDaisy3=A cor brilhante e pura
+botania.page.pureDaisy3=Um quadro em branco para começar sua aventura
 
 # -- WAND OF THE FOREST
 botania.entry.wand=Varinha da Floresta
@@ -2102,11 +2048,10 @@ botania.entry.flowerBag=Cesto de Flores
 botania.tagline.flowerBag=Um belo cesto para guardar sua lindas flores
 botania.page.flowerBag2=Itens não serem coletados caso o cesto esteja ativamente na mão do jogador.<br>Além disso, shift-clique direito com o cesto em um &1Baú&0 ou em outro inventário armazena as flores no inventário clicado. 
 botania.page.flowerBag0=As leis da física sobre o &4Inventário&0 são um pouco rígidas nesse mundo. Graças a isso, carregar uma gama de flores diferentes pode ser uma dor de cabeça. Felizmente, um &1Cesto de Flores&0 resolve esse problema. Ele pode guardar 64 de cada cor de &1Flor Mística&0, não apenas isso, mas qualquer flor coletada automaticamente entra no cesto.
-botania.page.flowerBag1=Puxe uma hélice de dentro (qualquer cor funciona)
+botania.page.flowerBag1=O tamanho é o mesmo por dentro (qualquer cor funciona)
 
 # -- WRAP
 botania.entry.wrap=Wrap
-botania.tagline.wrap=It's a wrap
 botania.page.wrap0=Parece que o autor do mod decidiu adicionar uma mecânica conhecida como &1Wrap&0. Não se sabe o que significa, mas certamente é algo ruim. :/<br>O que é essa 'barreira da realidade' a qual você se refere...?
 
 # - MANA
@@ -2160,7 +2105,7 @@ botania.page.sparks2=&oholds up spork&r
 botania.entry.sparkUpgrades=Melhoria de Fagulhas
 botania.tagline.sparkUpgrades=Melhore suas Fagulhas para melhores utilidades
 botania.page.sparkUpgrades0=Ao que parece, &1Fagulhas&0 são um pouco mais vesáteis do que se sabia antes. Uma variedade de &1melhorias&0 podem ser aplicadas em Fagulhas para melhorar suas habilidades. Note que as Melhorias só podem ser aplicadas em &1Fagulhas&0 que estão em &1Poços de Mana&0.<br>Uma &1Fagulha&0 pode ter apenas uma &1Melhoria&0 de cada vez.
-botania.page.sparkUpgrades1=Começando, a &1Melhoria: Dispersiva&0 faz que a &1Fagulha&0 use &4Mana&0 do Poço em baixo para carregar qualquer item que contenha &4Mana&0 no invetário do jogador.
+botania.page.sparkUpgrades1=Começando, a &1Melhoria: Dispersiva&0 faz que a &1Fagulha&0 use &4Mana&0 do Poço em baixo para carregar qualquer item que contenha &4Mana&0 no inventário do jogador.
 botania.page.sparkUpgrades2=A &1Melhoria: Dominante&0 faz que a &1Fagulha&0 puxe &4Mana&0 de &1Fagulhas&0 não-melhoradas para si, até estar completamente cheia.
 botania.page.sparkUpgrades3=A &1Melhoria: Recessiva&0 faz que a &1Fagulha&0 libera toda &4Mana&0 do seu Poço em outras Fagulhas não-melhoradas ou Dispersivas até estar completamente vazia.
 botania.page.sparkUpgrades4=Por último, a &1Melhoria: Isolada&0 impede que a &1Fagulha&0 interaja com outra &1Fagulhas&0, mas continue interagindo com bloco que recebam &4Mana&0 através de &1Fagulhas&0.
@@ -2231,7 +2176,7 @@ botania.entry.manaTablet=Tablete de Mana
 botania.tagline.manaTablet=Armazenamento portátil de Mana
 botania.page.manaTablet0=Usar um &1Dispersor de Mana&0 para transportar &4Mana&0 é simples e útil, mas há outros meios de se fazer isso.<br>O &1Tablete de Mana&0 é um objeto portátil que consegue carregar &4Mana&0 no seu interior.
 botania.page.manaTablet1=Jogando um desses em cima de um &1Poço de Mana&0 permite o transporte de &4Mana&0 entre um e outro.<br>Shift-clique direito no &1Poço de Mana&0 com uma &1Varinha da Floresta&0 altera o modo em que a &4Mana&0 flui.<br>Finalmente, ao contrário de outros itens, esses nunca dessaparecem quando largados no mundo.
-botania.page.manaTablet2=Não coloque no bolso, pode acabar amassando
+botania.page.manaTablet2=Infelizmente, não tem wifi
 
 # -- MANA MIRROR
 botania.entry.manaMirror=Espelho de Mana
@@ -2263,7 +2208,7 @@ botania.tagline.dreamwoodSpreader=Harder, better, faster, stronger
 botania.page.dreamwoodSpreader0=Simplificando, &1Madeira dos sonhos&0 conduz &4Mana&0 melhor que &1Madeira-viva&0. Colocando alguns ajustes como usar &1Elementium&0 ao invés de &1Ouro&0 e o que você consegue é um &1Dispersor de Mana&0 que pode conduzir mais &4Mana&0, mais rápido e por mais tempo sem &4perda de Mana&0.<br>No lado negativo, ele não pode ser convertido em um &1Dispersor de Mana por Redstone&0.
 botania.page.dreamwoodSpreader1=Um Dispersor melhor, só isso
 botania.page.dreamwoodSpreader2=Combinando esse poderoso Dispersor com um &1Espírito de Gaia&0 e uma &1Pedra Draconiana&0, uma variante ainda mais poderosa pode ser criada. O &1Dispersor de Gaia&0 é o melhor dos Dispersores de Mana, com todas melhorias.<br>Note que esse Dispersordispara cargas maiores de Mana, e por isso pode disparar com menos frequência.
-botania.page.dreamwoodSpreader3=ULTRA_SPREADER
+botania.page.dreamwoodSpreader3=O Dispersor dos Dispersores
 
 # -- ELVEN MANA LENSES
 botania.entry.elvenLenses=Lentes de Mana Élficas
@@ -2286,7 +2231,6 @@ botania.tagline.warpLens=Muda os efeitos de um Pulso de Mana na hora
 botania.page.prism0=O conceito de &1Lentes de Mana&0 permite que tal poder possa ser usado por &4Pulsos de Mana&0, o &1Prisma de Mana&0 permite que Pulsos possam ser modificados no trajeto.<br>Usando uma &1Plataforma Espectral&0 como componente, esse bloco não possúi uma presença física, entidades e Pulsos o atravessam como se não existisse.
 botania.page.prism1=Clicando com uma qualquer &1Lente de Mana&0 coloca a lente no Prisma. Toda vez que um &4Pulso de Mana&0 passa pelo Prisma, sua cor e efeito mudam para aqueles da lente do Prisma. No caso da lente não ser colorida, o Pulso se torna branco.<br>Usar qualquer uma das quatro lentes básicas também aumenta o tempo de vida do Pulso, permitindo mais tempo sem perder &4Mana&0.
 botania.page.prism2=Pode ser desligado com um sinal de redstone.
-botania.page.prism3=Another pixel in the wall
 
 # -- MANA ON RAILS
 botania.entry.poolCart=Mana sobre trilhos
@@ -2344,7 +2288,7 @@ botania.page.bellethorne1=&oToda rosa tem seus espinhos&r.
 botania.entry.dreadthorne=Dreadthorne
 botania.tagline.dreadthorne=Causa dano em animais adultos
 botania.page.dreadthorne0=A &1Dreadthorne&0 é um pouca mais específica que a &1Bellethrorne&0, ao invés de qualquer mob, ela só causa dano em animais &4adultos&0 e nada mais.
-botania.page.dreadthorne1=&oNão Senhor Bond, eu esperava que você morresse&r.
+botania.page.dreadthorne1=&omodus operandi&r.
 
 # -- HEISEI DREAM
 botania.entry.heiseiDream=Heisei Dream
@@ -2362,7 +2306,7 @@ botania.page.tigerseye1=&oAceitando o desafio de nossos rivais&r.
 botania.entry.orechid=Orechid
 botania.tagline.orechid=Cria minérios a partir de pedra
 botania.page.orechid0=Enquanto minerar é bom, um meio renovável de conseguir minérios é bem vindo. A &1Orechid&0 usa (uma quantidade massiva de) &4Mana&0 para gerar &4minérios&0 em blocs de &1Pedra&0 adjacentes.<br>Os minérios gerados são aleatórios, mas parecem tender aos mais comuns do que os mais raros.
-botania.page.orechid1=&oNot dragon poop&r.
+botania.page.orechid1=&oO menos mágico chamaria isso de peneira&r.
 
 # -- ORECHID IGNEM
 botania.entry.orechidIgnem=Orechid Ignem
@@ -2392,28 +2336,27 @@ botania.page.agricarnation1=&oGrandola Vila Morena&r...
 # -- HOPPERHOCK
 botania.entry.hopperhock=Hopperhock
 botania.tagline.hopperhock=Coleta itens
-botania.page.hopperhock0=A &1Hopperhock&0 coleta itens ao seu redor. Usar &4Mana&0 é opcional, mas aumenta seu alcance.<br>Itens coloetados são colocados em um inventário adjacente(ex.: &1Baús&0). Pendurando uma &1Moldura&0 no inventário, pode-se especificar que itens podem ou não podem ser coletados.
+botania.page.hopperhock0=A &1Hopperhock&0 coleta itens ao seu redor. Usar &4Mana&0 é opcional, mas aumenta seu alcance.<br>Itens coletados são colocados em um inventário adjacente(ex.: &1Baús&0). Pendurando uma &1Moldura&0 no inventário, pode-se especificar que itens podem ou não podem ser coletados.
 botania.page.hopperhock1=Qualquer inventário sem &1Moldura&0 adjacente aceita qualquer item, mas invetários rotulados possuem prioridade.<br>A regra usada para organizar pode ser mudada com shift-clique direito na flor com uma &1Varinha da Floresta&0.
-botania.page.hopperhock2=&oI guess I'll be talking my loli and leaving&r.
+botania.page.hopperhock2=&oFlores bastante famintas&r.
 
 # -- TANGLEBERRIE
 botania.entry.tangleberrie=Tangleberrie
 botania.tagline.tangleberrie=Mantém mobs presos
 botania.page.tangleberrie0=A &1Tangleberrie&0 é uma flor que, a um pequeno custo de &4Mana&0, mantém animais e monstros dentro de um círculo, os impedindo de sair. 
-botania.page.tangleberrie1=&oTangled, brave and frozen&r.
 
 # -- JIYUULIA
 botania.entry.jiyuulia=Jiyuulia
 botania.tagline.jiyuulia=Mantém mobs longe
 botania.page.jiyuulia0=A &1Jiyuulia&0 é uma flor, que a um pequeno custo de &4Mana&0, afasta animais e monstros, protejendo uma área circular, os impedindo de entrar.
-botania.page.jiyuulia1=&oHR HD DT Masterpiece&r.
+botania.page.jiyuulia1=&oVocê é livre pra ir, mas não pra voltar&r.
 
 # -- RANNUNCARPUS
 botania.entry.rannuncarpus=Rannuncarpus
 botania.tagline.rannuncarpus=Coloca blocos
 botania.page.rannuncarpus0=Uma flor útil de fato, a &1Rannuncarpus&0 pega qualquer bloco em forma de item no chão e os coloca em algum lugar próximo. Entretanto, ela só coloca os blocos em cima de blocos especificados, para especificar tal bloco, coloque em baixo da terra onde a planta está plantada.
 botania.page.rannuncarpus1=Itens que são blocos, como &1Canas-de-açúcar&0 também funcionam, mas, como qualquer outro bloco, só conseguem ser colocadosem locais que normalmente os suportam.<br>Por último, fornecer &4Mana&0 para a flor é opcional, mas aumenta o seu alcance.
-botania.page.rannuncarpus2=&oO Banco de Areia de Yanille&r?
+botania.page.rannuncarpus2=&oFind it in a sandpit&r?
 
 # -- HYACIDUS
 botania.entry.hyacidus=Hyacidus
@@ -2437,7 +2380,7 @@ botania.page.clayconia1=&oQue piada assassina&r.
 botania.entry.loonium=Loonium
 botania.tagline.loonium=Conjura recompensas de dungeons
 botania.page.loonium0=Qualquer aventureiro sabe que &4Masmorras&0 podem possuir coisas valiosas. A &1Loonium&0, a um extremo custo de &4Mana&0, materializa esses itens ao redor.
-botania.page.loonium1=&oTanque Tanque Cura Tanque&r!
+botania.page.loonium1=&oMaior pilhagem da história&r!
 
 # -- DAFFOMILL
 botania.entry.daffomill=Daffomill
@@ -2463,14 +2406,14 @@ botania.page.spectranthemum3=&o(n)spooky(n+2)me&r.
 botania.entry.medumone=Medumone
 botania.tagline.medumone=Congela mobs
 botania.page.medumone0=A &1Medumone&0 é uma flor com a habilidade de cessar qualquer movimento de criaturas.<br>Enquanto receber &4Mana&0, ela para qualquer entidade próxima com um forte efeito de Lentidão, isso não afeta jogadores.
-botania.page.medumone1=&oEsses créditos parecem falsos&r...
+botania.page.medumone1=&oPare agora mesmo, seu criminoso&r.
 
 # -- MARIMORPHOSIS
 botania.entry.marimorphosis=Marimorphosis
 botania.tagline.marimorphosis=Cria novas pedras
 botania.page.marimorphosis0=A &1Marimorphosis&0 é uma flor que executa transformações metamórficas em blocos &1Pedra&0 ao redor. Esses blocos se convertem em um dos oito tipos de &1Pedra Metamórfica&0. Todos os oito tipos são gerados, mas ou tipos que mais geram depende do bioma. Todos os tipos podem sem usados para fazer tijolos, tijolos talhados, lajes, escadas e até variantes de &1Boticários de Pétalas&0.
 botania.page.marimorphosis1=Os diferentes tipos de &1Pedra Metamórfica&0
-botania.page.marimorphosis3=Colorida como uma música de ClariS
+botania.page.marimorphosis3=Uma cor para cada um
 botania.page.marimorphosis2=&oEssa flor é bastante gneisse&r.
 
 # -- BUBBELL
@@ -2485,6 +2428,12 @@ botania.tagline.solegnolia=Cria um espaço que nulifica o Anel Magnético
 botania.page.solegnolia0=O &1Anel Magnético&0 é uma ferramenta útil para mineração ou coleta. Entretanto, não é bom quando ele puxa itens de sistemas complexos.<br>A &1Solegnolia&0 bloqueia o anel e impede que ele puxe itens para o dono. Ela usa uma quantidade insignificante de &4Mana&0 para isso, mas nada preocupante.
 botania.page.solegnolia1=On/Off
 
+# -- BERGAMUTE
+botania.entry.bergamute=Bergamute
+botania.tagline.bergamute=Absorve sons
+botania.page.bergamute0=Qualquer um que tenha trabalhado em uma fazenda sabe a dor da cacofonia causada pelos animais.<br>A &1Bergamute&0 absorve ondas sonoras ao redor dela, as convertendo em minúsculas quantidades de mana e emitindo-a ao ambiente. A absorção em si precisa não precisa &4mana&0 para acontecer.
+botania.page.bergamute1=Surdo para tudo, menos para a música
+ 
 # - GENERATING FLOWERS
 # -- AN INTRODUCTION TO GENERATION
 botania.entry.gIntro=Uma introdução a Geração
@@ -2499,39 +2448,20 @@ botania.tagline.passiveGen=Ou é de graça, ou é bom, escolha um
 botania.page.passiveGen0=O especro de &4Flores Geradoras&0 pode ser separado em dois grupos, &4Passivas&0 e &4Ativas&0.<br>&4Flores passivas&0 são as que simplesmente geram &4Mana&0 usando recurso completamente fáceis, como o sol, ou a água. &4Flores ativas&0 requerem algum tipo de recurso para produzir &4Mana&0, seja renovável ou não.
 botania.page.passiveGen1=No começo da carreira de um botanista, apenas flores básicas e rudimentares &4flores passivas&0 estão disponíveis, como &1Daybloom&0 ou &1Nightshade&0.<br>Essas flores são necessárias para criar potentes &4flores ativas&0, mas não devem ser usadas além de ajuda, já que todas &4flores passivas&0 secam depois de três dias. 
 
-# -- PRIMUS LOCI
-botania.entry.primusLoci=Primus Loci
-botania.tagline.primusLoci=Flores raras que não secam
-botania.page.primusLoci0=Ao decorrer de suas aventuras, você poderá encontrar flores incomuns, que se assemelham com &1Dayblooms&0 e &1Nightshades&0.<br>Elas são chamadas de &4Primus Locus&0, uma rara ocorrência no mundo, onde duas flores geradoras especiais, a &1Daybloom Primus&0 e a &1Nightshade Primus&0 podem aparecer.
-botania.page.primusLoci1=Essas flores agem como &1Dayblooms&0 ou &1Nightshades&0 normais, entretanto, elas produzem mana mais rápido e não secam, as tornando um recurso valioso para um botanista inexperinte.<br>Flores Primus são incrivelmente instáveis, elas morrem se forem retiradas de seus lugares naturais.
-
-# -- DAYBLOOM
-botania.entry.daybloom=Daybloom
-botania.tagline.daybloom=Mana pelo céu
-botania.page.daybloom0=A &1Daybloom&0 é a mais básica e rudimentar das &4Flores Geradoras&0. Simpificando, ela realiza um processo modificado de fotossíntese, convertendo luz em &4Mana&0.<br>Esse processo é bem lento, mais ou menos 10 ou 12 delas devem produzir uma quantidade suficiente para avançar.
-botania.page.daybloom1=&1Dayblooms&0 são classificadas como &4plantas passivas&0, significando que elas secam depois de um tempo. Elas também não produzem muito, então mudar para &1Endoflames&0 ou outras é uma boa ideia.
-botania.page.daybloom2=&oComeçando um novo e belo dia&r.
-
-# -- NIGHTSHADE
-botania.entry.nightshade=Nightshade
-botania.tagline.nightshade=Mana pela lua
-botania.page.nightshade0=A &1Nightshade&0 é a equivalente sombria da &1Daybloom&0, já que gera &4Mana&0 passivamente em situações em que a &1Daybloom&0 não podem, enquanto seja noite<br>Igualmente a sua equivalente iluminada, ela não é muito resistentes, após um tempo secam e morrem.
-botania.page.nightshade1=&oA sombra do dia&r.
-
 # -- ENDOFLAME
 botania.entry.endoflame=Endoflame
 botania.tagline.endoflame=Mana por combustível
 botania.page.endoflame0=Enquanto &1Dayblooms&0 são boas e tudo, um botanista precisa de meios mais efetivos de geração de &4Mana&0.<br>A &1Endoflame&0 faz justamente isso, absorvendo qualquer item combustível no solo próximo (apenas um de cada vez) e usando-o para produzir mana enquanto o combustível durar.
 botania.page.endoflame1=Há uma pequena exigência entretanto, a &1Endoflame&0 não consome itens que retornam outros, por exemplo, &1Baldes de Lava&0, que retornam um &1Balde&0 vazio.<br>Devido ao seu comportamento, um &1Caixote Aberto&0, que pode ser visto na seção &4Aparatos Naturais&0, pode ser uma boa escolha para torná-la auto-suficiente.
 botania.page.endoflame3=Como a &1Endoflame&0 geralmente é a primeira escolhe entre as &4Flores de Geração Ativas&0, não é bom mantê-la em uso manual pra sempre. Como a flor requer itens jogados no chão, um &1Caixote Aberto&0 (leia em &4Aparatos Naturais&0), e algum tipo de mecanismo limitador (um timer ou placa de pressão) seriam ideais.
-botania.page.endoflame2=&oNão é nitor&r.
+botania.page.endoflame2=&oQuando arson é útil&r.
 
 # -- HYDROANGEAS
 botania.entry.hydroangeas=Hydroangeas
 botania.tagline.hydroangeas=Mana pela água
 botania.page.hydroangeas0=A &1Hydroangeas&0 consome qualquer bloco de &1Água Parada&0 em um área de 3x3 ao redor, na mesma altura, produzindo &4Mana&0. Sua produção é comparável a das &1Endoflames&0. Elas parecem ser mais rápidas durante &4chuvas&0.<br>&1Hydroangeas&0são classificadas como &4flores passivas&0.
 botania.page.hydroangeas2=Sistema simples de &1Hydroangeas&0
-botania.page.hydroangeas1=&oDe alguma Hiperdimensão&r?
+botania.page.hydroangeas1=&oUnder the seeeeeeaaaaaaa~
 
 # -- THERMALILY
 botania.entry.thermalily=Thermalily
@@ -2539,20 +2469,20 @@ botania.tagline.thermalily=Mana pela lava
 botania.page.thermalily0=A &1Thermalily&0 age como uma versão de &1Lava&0 das &1Hydroangeas&0. Como esperado, a flor absorve &1Lava&0 ao redor dela, na mesma altura, para gerar &4Mana&0.<br>Depois de absorver a &1Lava&0, a flor produz &4Mana&0 por aproximadamente 45 segundos. Depois que ela acaba, ela precisa de um pouco de tempo para esfriar (em torno de 5 minutos) antes de poder absorver mais &1Lava&0.
 botania.page.thermalily2=A quantidade de &4Mana&0 que a &1Thermalily&0 produz durante seu período ativo é muito alta, servindo como uma boa flor geradora para quando um impulso é necessário.<br>Durante o período de "resfriamento", se a flor absorver mais &4Lava&0, ela a consome sem produzir &4Mana&0 e reseta os 5 minutos de espera.
 botania.page.thermalily3=Enquanto colocar &1Lava&0 no mundo é possível usando um &1Ejetor&0, armazenar e carregar ela do &4Nether&0 ou do fundo da terra é história pra um outro dia.<br>Com isso, a &1Thermalily&0 é classificada como uma flor "semi-automatizável".
-botania.page.thermalily1=&o0108 Style&r.
+botania.page.thermalily1=&oA flor mais trabalhosa no jogo&r.
 
 # -- ROSA ARCANA
 botania.entry.arcanerose=Rosa Arcana
 botania.tagline.arcanerose=Mana pela experiência
 botania.page.arcanerose0=&4Pontos de Experiência&0 são uma forma de magia. A &1Rosa Arcana&0 pode aproveitar isso, absorvendo a experiência de jogadores ao redor dela, produzindo &1Mana&0.<br>A flor não consegue coletar orbes do chão, o jogador deve pegá-las antes.
-botania.page.arcanerose1=&oQuando essa carta é ativada, jogue uma moeda&r.
+botania.page.arcanerose1=&oQuando essa flor é plantada, jogue uma moeda&r.
 
 # -- MUNCHDEW
 botania.entry.munchdew=Munchdew
 botania.tagline.munchdew=Mana por folhas
 botania.page.munchdew0=Gerar a forma de energia natural que é &4Mana&0 deve ser bem melhor usando matéria viva. Usando a &1Munchdew&0, qualquer &1Folha&0 na proximidade são mastigadas e transformadas em &4Mana&0.<br>Note que, entretanto, nenhuma muda ou outro item é derrubado das folhas.
 botania.page.munchdew1=Essa flor emite uma grande quantidade de mana por árvore.<br>Contudo, depois de terminar de consumir todas as folhas, se nenhuma sobrar, ela entra em uma pausa e só continua a produção depois de um tempo.
-botania.page.munchdew2=&oVocê paga o jantar, Shibazaki&r.
+botania.page.munchdew2=&oItadakimasu~&r
 
 # -- ENTROPINNYUM
 botania.entry.entropinnyum=Entropinnyum
@@ -2600,17 +2530,6 @@ botania.page.rafflowsia4=&oUm Novo Amanhecer, assim dizendo&r.
 botania.entry.dandelifeon=Dandelifeon
 botania.tagline.dandelifeon=Mana por vida
 botania.page.dandelifeon_w=Alerta: Essa funcionalidade é experimental.<br>Ela pode e deve mudar futuramente. Não se acostume com ela.
-// WARNING
-//  UNSTABLE
-//
-//
-//
-// This entry will be localized once the flower reachs it's final form
-//
-//
-//
-// This is a placeholder space for convenience sake
-// WARNING
 
 # - NATURAL APPARATUS
 # -- MANA PYLON
@@ -2716,7 +2635,7 @@ botania.page.complexBrews0=Além dos padrões, simples &1Fermentados&0 que não 
 botania.page.complexBrews1a=Essa poção aplica efeitos positivos e negativos. Tomá-la deixa o usuário em um estado de poder, mas com vulnerabilidades.
 botania.page.complexBrews1b=96 Herblore
 botania.page.complexBrews2a=Qualquer entidade afetada por essa poção regenera vida sempre que matar outra criatura.
-botania.page.complexBrews2b=It predates the set
+botania.page.complexBrews2b=Don't cross the souls
 botania.page.complexBrews3a=Qualquer entidade afetada por essa poção não sofre dano de queda.
 botania.page.complexBrews3b=And I call it magic
 botania.page.complexBrews4a=Essa poção lança uma aura de vazio ao redor de quem a usar. No raio de 128 blocos, nenhum monstro pode aparecer naturalmente.
@@ -2735,11 +2654,8 @@ botania.page.incense0=&4Fermentado&0 oferecem uma variedade de efeitos na forma 
 botania.page.incense1=Um &1Incenso&0 pode ser colocado numa &1Bandeja de Incensos&0 ao clicar, e um &1Isqueiro&0 para acender. Uma vez acesa, a vareta não pode ser recuperada.<br>Uma única vareta queima por sessenta vezes mais que a forma líquida da poção antes de acabar.
 botania.page.incense2=&1Bandejas de Incenso&0 com &1Incensos&0 acesos aplicam o efeito do &4Fermentado&0 infuso na vareta para qualquer jogador num raio de 30 blocos.<br>Nem todos efeitos são possíveis de aplicar aos &1Incensos&0, por exemplo, &4Cura Instantânea&0 ou &1Absorção&0, ou qualquer fermentado com mais de um efeito.
 botania.page.incense5=Para os amantes de incensos que também são viciados em automação, a &1Bandeja de Incensos&0 pode receber itens por &1Funis&0 ou outros métodos. Ela emite um sinal de &1Comparador&0 de força 1 quando tem uma vareta, e de 2 quando aceso.<br>Finalmente, quando um &4Pulso de Mana&0 com &1Lente de Aquecimento&0 acerta uma bandeja com um incenso, ele se acende.
-botania.page.incense3=Incense is wincense
-botania.page.incense4=I can incense it
 
 # -- FEL PUMPKIN
-botania.entry.felPumpkin=Fel Pumpkin
 botania.tagline.felPumpkin=Uma abóbora que pode invocar Blazes
 botania.page.felPumpkin0=A &1Abóbora Fel&0 é uma infusão maligna entre uma &1Abóbora&0 com o espírito de monstros mortos. Essa abóbora amaldiçoada pode ser colocada no topo de duas &1Grades de Ferro&0, igual a um &1Golem de Neve&0, para invocar um &1Blaze&0.<br>&1Blazes&0 invocados com esse método derrubam uma boa quantidade de &1Pó de Blaze&0 ao invés de &1Varas Incandescentes&0.
 botania.page.felPumpkin1=Nerfando os warlocks outra vez

@@ -1,0 +1,6 @@
+{
+  "parent": "botania:block/shapes/eightbyeight_all_tinted",
+  "textures": {
+    "all": "botania:blocks/unstableBlock"
+  }
+}

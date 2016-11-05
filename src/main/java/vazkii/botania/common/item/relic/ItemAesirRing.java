@@ -2,16 +2,21 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Mar 29, 2015, 10:16:29 PM (GMT)]
  */
 package vazkii.botania.common.item.relic;
 
 import java.util.List;
+import java.util.UUID;
 
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Multimap;
+
+import baubles.api.BaubleType;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
@@ -21,29 +26,24 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.item.ItemTossEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.RecipeSorter.Category;
-import vazkii.botania.api.item.IExtendedWireframeCoordinateListProvider;
 import vazkii.botania.api.item.IWireframeCoordinateListProvider;
 import vazkii.botania.common.achievement.ICraftAchievement;
 import vazkii.botania.common.achievement.ModAchievements;
+import vazkii.botania.common.core.handler.MethodHandles;
 import vazkii.botania.common.crafting.recipe.AesirRingRecipe;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibItemNames;
-import baubles.api.BaubleType;
 
-import com.google.common.collect.HashMultimap;
-import com.google.common.collect.Multimap;
+public class ItemAesirRing extends ItemRelicBauble implements IWireframeCoordinateListProvider, ICraftAchievement {
 
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.registry.GameRegistry;
-
-public class ItemAesirRing extends ItemRelicBauble implements IExtendedWireframeCoordinateListProvider, ICraftAchievement {
-
-	Multimap<String, AttributeModifier> attributes = HashMultimap.create();
+	private final Multimap<String, AttributeModifier> attributes = HashMultimap.create();
 
 	public ItemAesirRing() {
 		super(LibItemNames.AESIR_RING);
@@ -54,21 +54,30 @@ public class ItemAesirRing extends ItemRelicBauble implements IExtendedWireframe
 
 	@SubscribeEvent
 	public void onDropped(ItemTossEvent event) {
-		if(event.entityItem != null && event.entityItem.getEntityItem() != null && !event.entityItem.worldObj.isRemote) {
-			ItemStack stack = event.entityItem.getEntityItem();
+		if(event.getEntityItem() != null && event.getEntityItem().getEntityItem() != null && !event.getEntityItem().worldObj.isRemote) {
+			ItemStack stack = event.getEntityItem().getEntityItem();
 			if(stack.getItem() != null && stack.getItem() == this) {
-				event.entityItem.setDead();
+				event.getEntityItem().setDead();
 
-				String user = getSoulbindUsername(stack);
+				UUID user = getSoulbindUUID(stack);
 				for(Item item : new Item[] { ModItems.thorRing, ModItems.lokiRing, ModItems.odinRing }) {
 					ItemStack stack1 = new ItemStack(item);
-					bindToUsername(user, stack1);
-					EntityItem entity = new EntityItem(event.entityItem.worldObj, event.entityItem.posX, event.entityItem.posY, event.entityItem.posZ, stack1);
-					entity.motionX = event.entityItem.motionX;
-					entity.motionY = event.entityItem.motionY;
-					entity.motionZ = event.entityItem.motionZ;
-					entity.age = event.entityItem.age;
-					entity.delayBeforeCanPickup = event.entityItem.delayBeforeCanPickup;
+					bindToUUID(user, stack1);
+					EntityItem entity = new EntityItem(event.getEntityItem().worldObj, event.getEntityItem().posX, event.getEntityItem().posY, event.getEntityItem().posZ, stack1);
+					entity.motionX = event.getEntityItem().motionX;
+					entity.motionY = event.getEntityItem().motionY;
+					entity.motionZ = event.getEntityItem().motionZ;
+
+					try {
+						MethodHandles.itemAge_setter.invokeExact(entity, MethodHandles.itemAge_getter.invokeExact(entity));
+					} catch (Throwable ignored) {}
+
+					int pickupDelay = 0;
+					try {
+						pickupDelay = (int) MethodHandles.pickupDelay_getter.invokeExact(event.getEntityItem());
+					} catch (Throwable ignored) {}
+					entity.setPickupDelay(pickupDelay);
+
 					entity.worldObj.spawnEntityInWorld(entity);
 				}
 			}
@@ -86,13 +95,13 @@ public class ItemAesirRing extends ItemRelicBauble implements IExtendedWireframe
 	}
 
 	@Override
-	public List<ChunkCoordinates> getWireframesToDraw(EntityPlayer player, ItemStack stack) {
+	public List<BlockPos> getWireframesToDraw(EntityPlayer player, ItemStack stack) {
 		return ((IWireframeCoordinateListProvider) ModItems.lokiRing).getWireframesToDraw(player, stack);
 	}
 
 	@Override
-	public ChunkCoordinates getSourceWireframe(EntityPlayer player, ItemStack stack) {
-		return ((IExtendedWireframeCoordinateListProvider) ModItems.lokiRing).getSourceWireframe(player, stack);
+	public BlockPos getSourceWireframe(EntityPlayer player, ItemStack stack) {
+		return ((IWireframeCoordinateListProvider) ModItems.lokiRing).getSourceWireframe(player, stack);
 	}
 
 	@Override
@@ -110,8 +119,11 @@ public class ItemAesirRing extends ItemRelicBauble implements IExtendedWireframe
 	}
 
 
-	void fillModifiers(Multimap<String, AttributeModifier> attributes, ItemStack stack) {
-		attributes.put(SharedMonsterAttributes.maxHealth.getAttributeUnlocalizedName(), new AttributeModifier(getBaubleUUID(stack), "Bauble modifier", 20, 0));
+	private void fillModifiers(Multimap<String, AttributeModifier> attributes, ItemStack stack) {
+		if(stack == null) // workaround for Azanor/Baubles#156
+			return;
+		
+		attributes.put(SharedMonsterAttributes.MAX_HEALTH.getAttributeUnlocalizedName(), new AttributeModifier(getBaubleUUID(stack), "Bauble modifier", 20, 0));
 	}
 
 	@Override

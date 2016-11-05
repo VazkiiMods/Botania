@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jan 23, 2015, 4:10:24 PM (GMT)]
  */
 package vazkii.botania.common.crafting.recipe;
@@ -13,10 +13,13 @@ package vazkii.botania.common.crafting.recipe;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.mana.ILens;
 import vazkii.botania.common.item.lens.ItemLens;
@@ -24,12 +27,10 @@ import vazkii.botania.common.lib.LibOreDict;
 
 public class LensDyeingRecipe implements IRecipe {
 
-	private static final List<String> DYES = Arrays.asList(new String[] {
-			"dyeWhite", "dyeOrange", "dyeMagenta", "dyeLightBlue", "dyeYellow", "dyeLime", "dyePink", "dyeGray", "dyeLightGray", "dyeCyan", "dyePurple", "dyeBlue", "dyeBrown", "dyeGreen", "dyeRed", "dyeBlack", LibOreDict.MANA_PEARL
-	});
+	private static final List<String> DYES = Arrays.asList("dyeWhite", "dyeOrange", "dyeMagenta", "dyeLightBlue", "dyeYellow", "dyeLime", "dyePink", "dyeGray", "dyeLightGray", "dyeCyan", "dyePurple", "dyeBlue", "dyeBrown", "dyeGreen", "dyeRed", "dyeBlack", LibOreDict.MANA_PEARL);
 
 	@Override
-	public boolean matches(InventoryCrafting var1, World var2) {
+	public boolean matches(@Nonnull InventoryCrafting var1, @Nonnull World var2) {
 		boolean foundLens = false;
 		boolean foundDye = false;
 
@@ -52,7 +53,7 @@ public class LensDyeingRecipe implements IRecipe {
 	}
 
 	@Override
-	public ItemStack getCraftingResult(InventoryCrafting var1) {
+	public ItemStack getCraftingResult(@Nonnull InventoryCrafting var1) {
 		ItemStack lens = null;
 		int color = -1;
 
@@ -97,4 +98,9 @@ public class LensDyeingRecipe implements IRecipe {
 		return -1;
 	}
 
+	@Nonnull
+	@Override
+	public ItemStack[] getRemainingItems(@Nonnull InventoryCrafting inv) {
+		return ForgeHooks.defaultRecipeGetRemainingItems(inv);
+	}
 }

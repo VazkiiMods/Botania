@@ -1,0 +1,24 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "bottom": "botania:blocks/prism0",
+    "top": "botania:blocks/prism0",
+    "side": "botania:blocks/prism1",
+    "particle": "botania:blocks/prism1"
+  },
+  "elements": [
+    {
+      "name": "Cube",
+      "from": [ 4, 0, 4 ],
+      "to": [ 12, 16, 12 ],
+      "faces": {
+        "down": { "texture": "#bottom", "uv": [ 4, 4, 12, 12 ], "cullface": "down" },
+        "up": { "texture": "#top", "uv": [ 4, 4, 12, 12 ], "cullface": "up" },
+        "north": { "texture": "#side", "uv": [ 4, 0, 12, 16 ] },
+        "south": { "texture": "#side", "uv": [ 4, 0, 12, 16 ] },
+        "west": { "texture": "#side", "uv": [ 4, 0, 12, 16 ] },
+        "east": { "texture": "#side", "uv": [ 4, 0, 12, 16 ] }
+      }
+    }
+  ]
+}

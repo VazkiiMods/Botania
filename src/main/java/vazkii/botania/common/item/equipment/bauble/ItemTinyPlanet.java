@@ -2,36 +2,37 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Apr 20, 2014, 10:58:00 PM (GMT)]
  */
 package vazkii.botania.common.item.equipment.bauble;
 
 import java.util.List;
 
+import com.google.common.base.Predicates;
+
+import baubles.api.BaubleType;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.RenderBlocks;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
-import net.minecraftforge.client.event.RenderPlayerEvent;
-
-import org.lwjgl.opengl.GL11;
-
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.item.IBaubleRender;
 import vazkii.botania.api.mana.ITinyPlanetExcempt;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.lib.LibItemNames;
-import baubles.api.BaubleType;
 
 public class ItemTinyPlanet extends ItemBauble implements IBaubleRender {
 
@@ -43,7 +44,7 @@ public class ItemTinyPlanet extends ItemBauble implements IBaubleRender {
 
 	@Override
 	public BaubleType getBaubleType(ItemStack itemstack) {
-		return BaubleType.AMULET;
+		return BaubleType.CHARM;
 	}
 
 	@Override
@@ -61,7 +62,7 @@ public class ItemTinyPlanet extends ItemBauble implements IBaubleRender {
 
 	public static void applyEffect(World world, double x, double y, double z) {
 		int range = 8;
-		List<Entity> entities = world.getEntitiesWithinAABB(IManaBurst.class, AxisAlignedBB.getBoundingBox(x - range, y - range, z - range, x + range, y + range, z + range));
+		List<Entity> entities = world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(x - range, y - range, z - range, x + range, y + range, z + range), Predicates.instanceOf(IManaBurst.class));
 		for(Entity entity : entities) {
 			IManaBurst burst = (IManaBurst) entity;
 			ItemStack lens = burst.getSourceLens();
@@ -81,7 +82,7 @@ public class ItemTinyPlanet extends ItemBauble implements IBaubleRender {
 
 			Vector3 targetVec = new Vector3(xTarget, yTarget, zTarget);
 			Vector3 currentVec = new Vector3(entity.posX, entity.posY, entity.posZ);
-			Vector3 moveVector = targetVec.copy().sub(currentVec);
+			Vector3 moveVector = targetVec.subtract(currentVec);
 
 			burst.setMotion(moveVector.x, moveVector.y, moveVector.z);
 
@@ -103,12 +104,13 @@ public class ItemTinyPlanet extends ItemBauble implements IBaubleRender {
 	}
 
 	@Override
-	public void onPlayerBaubleRender(ItemStack stack, RenderPlayerEvent event, RenderType type) {
+	@SideOnly(Side.CLIENT)
+	public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
 		if(type == RenderType.HEAD) {
-			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
-			GL11.glTranslatef(0.25F, -0.5F, 0F);
-			GL11.glScalef(0.5F, 0.5F, 0.5F);
-			RenderBlocks.getInstance().renderBlockAsItem(ModBlocks.tinyPlanet, 0, 1F);
+			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+			GlStateManager.scale(0.5F, 0.5F, 0.5F);
+			GlStateManager.translate(0, -1.5F, 0.5F);
+			Minecraft.getMinecraft().getBlockRendererDispatcher().renderBlockBrightness(ModBlocks.tinyPlanet.getDefaultState(), 1.0F);
 		}
 	}
 

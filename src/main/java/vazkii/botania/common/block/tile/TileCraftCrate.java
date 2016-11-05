@@ -2,15 +2,17 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jul 26, 2014, 4:50:20 PM (GMT)]
  */
 package vazkii.botania.common.block.tile;
 
 import java.util.List;
+
+import javax.annotation.Nonnull;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
@@ -20,7 +22,8 @@ import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
+import net.minecraft.network.play.server.SPacketUpdateTileEntity;
+import net.minecraft.world.World;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.item.ModItems;
 
@@ -69,7 +72,7 @@ public class TileCraftCrate extends TileOpenCrate {
 	private static final String TAG_PATTERN = "pattern";
 
 	public int pattern = -1;
-	int signal = 0;
+	private int signal = 0;
 
 	@Override
 	public int getSizeInventory() {
@@ -77,13 +80,20 @@ public class TileCraftCrate extends TileOpenCrate {
 	}
 
 	@Override
-	public int getInventoryStackLimit() {
-		return 1;
-	}
+	protected SimpleItemStackHandler createItemHandler() {
+		return new SimpleItemStackHandler(this, true) {
+			@Override
+			protected int getStackLimit(int slot, ItemStack stack) {
+				return 1;
+			}
 
-	@Override
-	public boolean isItemValidForSlot(int i, ItemStack itemstack) {
-		return i != 9 && !isLocked(i);
+			@Override
+			public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
+				if(slot != 9 && !isLocked(slot))
+					return super.insertItem(slot, stack, simulate);
+				else return stack;
+			}
+		};
 	}
 
 	public boolean isLocked(int slot) {
@@ -91,33 +101,36 @@ public class TileCraftCrate extends TileOpenCrate {
 	}
 
 	@Override
-	public void updateEntity() {
-		if(!worldObj.isRemote && (craft(true) && canEject() || isFull()))
+	public void update() {
+		if (worldObj.isRemote)
+			return;
+
+		if(craft(true) && canEject() || isFull())
 			ejectAll();
 
 		int newSignal = 0;
 		for(; newSignal < 9; newSignal++) // dis for loop be derpy
-			if(!isLocked(newSignal) && getStackInSlot(newSignal) == null)
+			if(!isLocked(newSignal) && itemHandler.getStackInSlot(newSignal) == null)
 				break;
 
 		if(newSignal != signal) {
 			signal = newSignal;
-			worldObj.func_147453_f(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
+			worldObj.updateComparatorOutputLevel(pos, worldObj.getBlockState(pos).getBlock());
 		}
 	}
 
-	boolean craft(boolean fullCheck) {
+	private boolean craft(boolean fullCheck) {
 		if(fullCheck && !isFull())
 			return false;
 
 		InventoryCrafting craft = new InventoryCrafting(new Container() {
 			@Override
-			public boolean canInteractWith(EntityPlayer p_75145_1_) {
+			public boolean canInteractWith(@Nonnull EntityPlayer player) {
 				return false;
 			}
 		}, 3, 3);
 		for(int i = 0; i < 9; i++) {
-			ItemStack stack = getStackInSlot(i);
+			ItemStack stack = itemHandler.getStackInSlot(i);
 
 			if(stack == null || isLocked(i) || stack.getItem() == ModItems.manaResource && stack.getItemDamage() == 11)
 				continue;
@@ -128,15 +141,15 @@ public class TileCraftCrate extends TileOpenCrate {
 		List<IRecipe> recipes = CraftingManager.getInstance().getRecipeList();
 		for(IRecipe recipe : recipes)
 			if(recipe.matches(craft, worldObj)) {
-				setInventorySlotContents(9, recipe.getCraftingResult(craft));
+				itemHandler.setStackInSlot(9, recipe.getCraftingResult(craft));
 
 				for(int i = 0; i < 9; i++) {
-					ItemStack stack = getStackInSlot(i);
+					ItemStack stack = itemHandler.getStackInSlot(i);
 					if(stack == null)
 						continue;
 
 					ItemStack container = stack.getItem().getContainerItem(stack);
-					setInventorySlotContents(i, container);
+					itemHandler.setStackInSlot(i, container);
 				}
 				return true;
 			}
@@ -146,38 +159,40 @@ public class TileCraftCrate extends TileOpenCrate {
 
 	boolean isFull() {
 		for(int i = 0; i < 9; i++)
-			if(!isLocked(i) && getStackInSlot(i) == null)
+			if(!isLocked(i) && itemHandler.getStackInSlot(i) == null)
 				return false;
 
 		return true;
 	}
 
-	void ejectAll() {
+	private void ejectAll() {
 		for(int i = 0; i < getSizeInventory(); ++i) {
-			ItemStack stack = getStackInSlot(i);
+			ItemStack stack = itemHandler.getStackInSlot(i);
 			if(stack != null)
 				eject(stack, false);
-			setInventorySlotContents(i, null);
-			markDirty();
+			itemHandler.setStackInSlot(i, null);
 		}
+		markDirty();
 	}
 
 	@Override
-	public void writeCustomNBT(NBTTagCompound par1nbtTagCompound) {
-		super.writeCustomNBT(par1nbtTagCompound);
+	public void writePacketNBT(NBTTagCompound par1nbtTagCompound) {
+		super.writePacketNBT(par1nbtTagCompound);
 		par1nbtTagCompound.setInteger(TAG_PATTERN, pattern);
 	}
 
 	@Override
-	public void readCustomNBT(NBTTagCompound par1nbtTagCompound) {
-		super.readCustomNBT(par1nbtTagCompound);
+	public void readPacketNBT(NBTTagCompound par1nbtTagCompound) {
+		super.readPacketNBT(par1nbtTagCompound);
 		pattern = par1nbtTagCompound.getInteger(TAG_PATTERN);
 	}
 
 	@Override
-	public boolean onWanded(EntityPlayer player, ItemStack stack) {
-		craft(false);
-		ejectAll();
+	public boolean onWanded(World world, EntityPlayer player, ItemStack stack) {
+		if(!world.isRemote) {
+			craft(false);
+			ejectAll();
+		}
 		return true;
 	}
 
@@ -193,11 +208,11 @@ public class TileCraftCrate extends TileOpenCrate {
 	}
 
 	@Override
-	public void onDataPacket(NetworkManager manager, S35PacketUpdateTileEntity packet) {
+	public void onDataPacket(NetworkManager manager, SPacketUpdateTileEntity packet) {
 		int lastPattern = pattern;
 		super.onDataPacket(manager, packet);
 		if(pattern != lastPattern)
-			worldObj.markBlockRangeForRenderUpdate(xCoord,yCoord,zCoord,xCoord,yCoord,zCoord);
+			worldObj.markBlockRangeForRenderUpdate(pos, pos);
 	}
 
 }

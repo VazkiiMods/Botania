@@ -2,37 +2,39 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Apr 13, 2014, 5:39:24 PM (GMT)]
  */
 package vazkii.botania.common.item;
 
-import java.awt.Color;
+import javax.annotation.Nonnull;
 
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ChunkCoordinates;
-import net.minecraft.util.IIcon;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.mana.IManaTooltipDisplay;
+import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.api.wand.ICoordBoundItem;
-import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemManaMirror extends ItemMod implements IManaItem, ICoordBoundItem, IManaTooltipDisplay {
-
-	IIcon[] icons;
 
 	private static final String TAG_MANA = "mana";
 	private static final String TAG_MANA_BACKLOG = "manaBacklog";
@@ -45,17 +47,10 @@ public class ItemManaMirror extends ItemMod implements IManaItem, ICoordBoundIte
 	private static final DummyPool fallbackPool = new DummyPool();
 
 	public ItemManaMirror() {
-		super();
+		super(LibItemNames.MANA_MIRROR);
 		setMaxStackSize(1);
 		setMaxDamage(1000);
-		setUnlocalizedName(LibItemNames.MANA_MIRROR);
 		setNoRepair();
-	}
-
-	@Override
-	public int getColorFromItemStack(ItemStack par1ItemStack, int par2) {
-		float mana = getMana(par1ItemStack);
-		return par2 == 1 ? Color.HSBtoRGB(0.528F,  mana / TilePool.MAX_MANA, 1F) : 0xFFFFFF;
 	}
 
 	@Override
@@ -65,30 +60,8 @@ public class ItemManaMirror extends ItemMod implements IManaItem, ICoordBoundIte
 	}
 
 	@Override
-	public int getDisplayDamage(ItemStack stack) {
-		return getDamage(stack);
-	}
-
-	@Override
-	public void registerIcons(IIconRegister par1IconRegister) {
-		icons = new IIcon[2];
-		for(int i = 0; i < icons.length; i++)
-			icons[i] = IconHelper.forItem(par1IconRegister, this, i);
-	}
-
-	@Override
-	public IIcon getIcon(ItemStack stack, int pass) {
-		return icons[Math.min(1, pass)];
-	}
-
-	@Override
-	public boolean isFull3D() {
-		return true;
-	}
-
-	@Override
-	public void onUpdate(ItemStack par1ItemStack, World par2World, Entity par3Entity, int par4, boolean par5) {
-		if(par2World.isRemote)
+	public void onUpdate(ItemStack par1ItemStack, World world, Entity par3Entity, int par4, boolean par5) {
+		if(world.isRemote)
 			return;
 
 		IManaPool pool = getManaPool(par1ItemStack);
@@ -103,23 +76,19 @@ public class ItemManaMirror extends ItemMod implements IManaItem, ICoordBoundIte
 		}
 	}
 
+	@Nonnull
 	@Override
-	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, int par4, int par5, int par6, int par7, float par8, float par9, float par10) {
-		if(par2EntityPlayer.isSneaking() && !par3World.isRemote) {
-			TileEntity tile = par3World.getTileEntity(par4, par5, par6);
+	public EnumActionResult onItemUse(ItemStack par1ItemStack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
+		if(player.isSneaking() && !world.isRemote) {
+			TileEntity tile = world.getTileEntity(pos);
 			if(tile != null && tile instanceof IManaPool) {
 				bindPool(par1ItemStack, tile);
-				par3World.playSoundAtEntity(par2EntityPlayer, "botania:ding", 1F, 1F);
-				return true;
+				world.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.ding, SoundCategory.PLAYERS, 1F, 1F);
+				return EnumActionResult.SUCCESS;
 			}
 		}
 
-		return false;
-	}
-
-	@Override
-	public boolean requiresMultipleRenderPasses() {
-		return true;
+		return EnumActionResult.PASS;
 	}
 
 	/*public int getMana(ItemStack stack) {
@@ -160,22 +129,22 @@ public class ItemManaMirror extends ItemMod implements IManaItem, ICoordBoundIte
 		if(pool != null) {
 			pool.recieveMana(mana);
 			TileEntity tile = (TileEntity) pool;
-			tile.getWorldObj().func_147453_f(tile.xCoord, tile.yCoord, tile.zCoord, tile.getWorldObj().getBlock(tile.xCoord, tile.yCoord, tile.zCoord));
+			tile.getWorld().func_147453_f(tile.xCoord, tile.yCoord, tile.zCoord, tile.getWorld().getBlock(tile.xCoord, tile.yCoord, tile.zCoord));
 		}
 	}*/
 
 	public void bindPool(ItemStack stack, TileEntity pool) {
-		ItemNBTHelper.setInt(stack, TAG_POS_X, pool == null ? 0 : pool.xCoord);
-		ItemNBTHelper.setInt(stack, TAG_POS_Y, pool == null ? -1 : pool.yCoord);
-		ItemNBTHelper.setInt(stack, TAG_POS_Z, pool == null ? 0 : pool.zCoord);
-		ItemNBTHelper.setInt(stack, TAG_DIM, pool == null ? 0 : pool.getWorldObj().provider.dimensionId);
+		ItemNBTHelper.setInt(stack, TAG_POS_X, pool == null ? 0 : pool.getPos().getX());
+		ItemNBTHelper.setInt(stack, TAG_POS_Y, pool == null ? -1 : pool.getPos().getY());
+		ItemNBTHelper.setInt(stack, TAG_POS_Z, pool == null ? 0 : pool.getPos().getZ());
+		ItemNBTHelper.setInt(stack, TAG_DIM, pool == null ? 0 : pool.getWorld().provider.getDimension());
 	}
 
-	public ChunkCoordinates getPoolCoords(ItemStack stack) {
+	public BlockPos getPoolCoords(ItemStack stack) {
 		int x = ItemNBTHelper.getInt(stack, TAG_POS_X, 0);
 		int y = ItemNBTHelper.getInt(stack, TAG_POS_Y, -1);
 		int z = ItemNBTHelper.getInt(stack, TAG_POS_Z, 0);
-		return new ChunkCoordinates(x, y, z);
+		return new BlockPos(x, y, z);
 	}
 
 	public int getDimension(ItemStack stack) {
@@ -183,24 +152,24 @@ public class ItemManaMirror extends ItemMod implements IManaItem, ICoordBoundIte
 	}
 
 	public IManaPool getManaPool(ItemStack stack) {
-		MinecraftServer server = MinecraftServer.getServer();
+		MinecraftServer server = FMLCommonHandler.instance().getMinecraftServerInstance();
 		if(server == null)
 			return fallbackPool;
 
-		ChunkCoordinates coords = getPoolCoords(stack);
-		if(coords.posY == -1)
+		BlockPos coords = getPoolCoords(stack);
+		if(coords.getY() == -1)
 			return null;
 
 		int dim = getDimension(stack);
 		World world = null;
 		for(World w : server.worldServers)
-			if(w.provider.dimensionId == dim) {
+			if(w.provider.getDimension() == dim) {
 				world = w;
 				break;
 			}
 
 		if(world != null) {
-			TileEntity tile = world.getTileEntity(coords.posX, coords.posY, coords.posZ);
+			TileEntity tile = world.getTileEntity(coords);
 			if(tile != null && tile instanceof IManaPool)
 				return (IManaPool) tile;
 		}
@@ -236,9 +205,7 @@ public class ItemManaMirror extends ItemMod implements IManaItem, ICoordBoundIte
 		}
 
 		@Override
-		public void recieveMana(int mana) {
-			// NO-OP
-		}
+		public void recieveMana(int mana) {}
 
 		@Override
 		public boolean canRecieveManaFromBursts() {
@@ -255,6 +222,14 @@ public class ItemManaMirror extends ItemMod implements IManaItem, ICoordBoundIte
 			return false;
 		}
 
+		@Override
+		public EnumDyeColor getColor() {
+			return EnumDyeColor.WHITE;
+		}
+
+		@Override
+		public void setColor(EnumDyeColor color) {}
+
 	}
 
 	@Override
@@ -263,7 +238,7 @@ public class ItemManaMirror extends ItemMod implements IManaItem, ICoordBoundIte
 	}
 
 	@Override
-	public ChunkCoordinates getBinding(ItemStack stack) {
+	public BlockPos getBinding(ItemStack stack) {
 		IManaPool pool = getManaPool(stack);
 
 		return pool == null || pool instanceof DummyPool ? null : getPoolCoords(stack);

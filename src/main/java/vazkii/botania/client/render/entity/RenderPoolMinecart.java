@@ -2,27 +2,37 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Mar 17, 2015, 11:17:48 PM (GMT)]
  */
 package vazkii.botania.client.render.entity;
 
-import net.minecraft.block.Block;
+import javax.annotation.Nonnull;
+
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.RenderMinecart;
-import net.minecraft.entity.item.EntityMinecart;
+import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
+import vazkii.botania.api.state.enums.PoolVariant;
+import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.render.tile.RenderTilePool;
+import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.entity.EntityPoolMinecart;
 
-public class RenderPoolMinecart extends RenderMinecart {
+public class RenderPoolMinecart extends RenderMinecart<EntityPoolMinecart> {
+
+	public RenderPoolMinecart(RenderManager manager) {
+		super(manager);
+	}
 
 	@Override
-	protected void func_147910_a(EntityMinecart p_147910_1_, float p_147910_2_, Block p_147910_3_, int p_147910_4_) {
-		EntityPoolMinecart poolCart = (EntityPoolMinecart) p_147910_1_;
+	protected void renderCartContents(EntityPoolMinecart poolCart, float partialTicks, @Nonnull IBlockState state) {
+		RenderTilePool.forceVariant = PoolVariant.DEFAULT;
 		RenderTilePool.forceManaNumber = poolCart.getMana();
-		super.func_147910_a(p_147910_1_, p_147910_2_, p_147910_3_, p_147910_4_);
+		TileEntityRendererDispatcher.instance.getSpecialRendererByClass(TilePool.class).renderTileEntityAt(null, poolCart.posX, poolCart.posY, poolCart.posZ, ClientTickHandler.partialTicks, -1);
 	}
 
 

@@ -1,11 +1,16 @@
+# Note to translators: DO NOT COPY ENTRIES FROM ENGLISH
+# I repeat: do NOT copy entries from English!!
+# Any entry in this lang file should be in es_ES, or *should not be here at all*
+# Copying English entries will cause them to become outdated when the main English lang file changes
+# Untranslated entries will automatically be inherited from en_US
+#
+# Once again, don't copy from English, and THANK YOU for your hard work!
+
 # Traducción por mojares / Translated by mojares
 # MISC
 itemGroup.Botania=Botania
 generator.botania-skyblock=Jardín de cristal
 generator.botania-skyblock.info=No recomendado para neófitos en Botania
-
-# Something that is not localized, translators, do NOT change this line.
-botaniamisc.noloc=botaniamisc.noloc
 
 botaniamisc.nextPage=Página siguiente
 botaniamisc.prevPage=Página anterior
@@ -38,7 +43,6 @@ botaniamisc.devEdition=Del escritor
 botaniamisc.lexiconcover0=Tu guía para todas
 botaniamisc.lexiconcover1=tus necesidades botánicas
 botaniamisc.lexiconcover2=de la autora de bestsellers
-botaniamisc.lexiconcover3=Lizbeth "Vazkii" Rika
 botaniamisc.lexiconcover4=Editado por BevoLJ
 botaniamisc.lexiconcover5=Editado por Saice
 botaniamisc.shiftinfo=Mantén &bSHIFT&7 apretado para más información
@@ -50,9 +54,6 @@ botaniamisc.shiftToRemove=Shift-clic para quitar
 botaniamisc.clickToAdd=Añadir marcador
 botaniamisc.ratio=Zoom: %sx
 botaniamisc.bottleTooltip=Tiene un gusto refinado
-botaniamisc.coarseDirt0=Tierra basta, la hierba
-botaniamisc.coarseDirt1=no crece sobre ella
-botaniamisc.spawnerTip=Consejo: Usa un huevo de engendrar para cambiar la criatura
 botaniamisc.shardLevel=Potencia de lasca %s
 botaniamisc.lexiconIndex=Índice del lexicón
 botaniamisc.hasIvy=Tiene hiedra eterna
@@ -61,8 +62,8 @@ botaniamisc.noLexicon=Necesitas un Lexica Botania en la mano para leer eso.
 botaniamisc.cantOpen=Parece que tu Lexica Botania no tiene esa página. ¿Quizás venga de una fuente externa?
 botaniamisc.clickToShare=Comparte
 botaniamisc.drop=Deja caer
-botaniamisc.dropTip0=Consejo: puedes presionar %key% en tu inventario para dejarlo caer
-botaniamisc.dropTip1=CTRL-%key% dejará caer el montón entero
+botaniamisc.dropTip0=Consejo: puedes presionar %s en tu inventario para dejarlo caer
+botaniamisc.dropTip1=CTRL-%s dejará caer el montón entero
 botaniamisc.wandMode.bind=Modo vínculo
 botaniamisc.wandMode.function=Modo función
 botaniamisc.playVideo=Reproduce vídeo
@@ -173,14 +174,6 @@ botania.color14=rojo
 botania.color15=negro
 botania.color16=arcoíris
 
-# RANKS
-botania.rank0=&cD
-botania.rank1=&eC
-botania.rank2=&bB
-botania.rank3=&aA
-botania.rank4=&dS
-botania.rank5=&6SS
-
 # ZODIAC SIGNS
 botania.sign0=Aries
 botania.sign1=Tauro
@@ -227,39 +220,6 @@ botania.armorset.will2.shortDesc=Los golpes críticos curan una porción del da�
 botania.armorset.will3.shortDesc=Los golpes críticos infligen un fuerte efecto de lentitud
 botania.armorset.will4.shortDesc=Los golpes críticos atraviesan la armadura
 botania.armorset.will5.shortDesc=Los golpes críticos infligen un efecto de wither
-
-# ROMAN NUMERALS
-botania.roman0=
-botania.roman1=I
-botania.roman2=II
-botania.roman3=III
-botania.roman4=IV
-botania.roman5=V
-botania.roman6=VI
-botania.roman7=VII
-botania.roman8=VIII
-botania.roman9=IX
-botania.roman10=X
-botania.roman11=XI
-botania.roman12=XII
-botania.roman13=XIII
-botania.roman14=XIV
-botania.roman15=XV
-botania.roman16=XVI
-botania.roman17=XVII
-botania.roman18=XVIII
-botania.roman19=XIX
-botania.roman20=XX
-botania.roman21=XXI
-botania.roman22=XXII
-botania.roman23=XXIII
-botania.roman24=XXIV
-botania.roman25=XXV
-botania.roman26=XXVI
-botania.roman27=XXVII
-botania.roman28=XXVIII
-botania.roman29=XXIX
-botania.roman30=XXX
 
 # KNOWLEDGE
 botania.knowledge.minecraft=Conocimiento minecraftiano
@@ -356,7 +316,7 @@ botania.versioning.flavour47=Los rumores dicen que si mueves el camión hay una 
 botania.versioning.flavour48=Me pregunto cuando Bevo va a actualizar su pack....
 botania.versioning.flavour49=1 actualización de Botania se balanceaba sobre la tela de una araña.
 botania.versioning.outdated=Estás jugando con la versión %s de Botania, la última versión es la %s. 
-botania.versioning.updateMessage=["Clic para... [",{"text":"Descarga","color":"green","hoverEvent":{"action":"show_text","value":{"text":"Haz clic aquí para descargar la última versión de Botania","color":"green"}},"clickEvent":{"action":"run_command","value":"/botania-download-latest %version%"}},"] [",{"text":"Website","color":"green","hoverEvent":{"action":"show_text","value":{"text":"Haz clic aquí para ir a la página del mod","color":"green"}},"clickEvent":{"action":"open_url","value":"http://vazkii.us/mod/Botania/downloads.php"}},"] [",{"text":"Changelog","color":"green","hoverEvent":{"action":"show_text","value":{"text":"Haz clic aquí para ir al registro de cambios","color":"green"}},"clickEvent":{"action":"open_url","value":"http://vazkii.us/mod/Botania/changelog.php#%version%"}},"]"]
+botania.versioning.updateMessage=["Clic para... [",{"text":"Descarga","color":"green","hoverEvent":{"action":"show_text","value":{"text":"Haz clic aquí para descargar la última versión de Botania","color":"green"}},"clickEvent":{"action":"open_url","value":"http://minecraft.curseforge.com/projects/botania-unofficial/files/latest"}},"] [",{"text":"Website","color":"green","hoverEvent":{"action":"show_text","value":{"text":"Haz clic aquí para ir a la página del mod","color":"green"}},"clickEvent":{"action":"open_url","value":"http://minecraft.curseforge.com/projects/botania-unofficial"}},"] [",{"text":"Changelog","color":"green","hoverEvent":{"action":"show_text","value":{"text":"Haz clic aquí para ir al registro de cambios","color":"green"}},"clickEvent":{"action":"open_url","value":"https://github.com/williewillus/Botania/releases/tag/%s"}},"]"]
 botania.versioning.startingDownload=[{"text":"Comenzando la descarga de %s. Por favor no retires tu disco duro. Disfrutando de ","color":"aqua"},{"text":"Botania","color":"green"},{"text":"? Quizás puedes apoyar a ","color":"aqua"},{"text":"Vazkii","color":"light_purple"},{"text":" en [","color":"aqua"},{"text":"Patreon","color":"gold","hoverEvent":{"action":"show_text","value":{"text":"Haz clic aquí para ir al Patreon de Vazkii","color":"light_purple"}},"clickEvent":{"action":"open_url","value":"http://www.patreon.com/Vazkii"}},{"text":"]!","color":"aqua"}]
 botania.versioning.doneDownloading=Descarga de %s completada. Borra el antiguo archivo .jar de Botania y reinicia tu juego para actualizar.
 botania.versioning.downloadedAlready=Ya descargaste la última versión. Cierra tu juego, borra la versión anterior de la carpeta mods e inicia el juego para actualizar.
@@ -368,7 +328,7 @@ botania.versioning.disabled=Lo sentimos. Esta característica está deshabilitad
 botania.baubletype.amulet=Equipable en la ranura para &aamuleto&7
 botania.baubletype.ring=Equipable en la ranura para &aanillo&7
 botania.baubletype.belt=Equipable en la ranura para &acinturón&7
-botania.baubletooltip=Oprime la &b%key%&7 para abrir el menú de ornamentos
+botania.baubletooltip=Oprime la &b%s&7 para abrir el menú de ornamentos
 
 # RELIC POEMS
 item.dice.poem0=Echa las cartas para encontrar respuesta,
@@ -477,8 +437,6 @@ achievement.botania:aesirRing.desc=Crea el anillo del Aesir combinando los anill
 achievement.botania:nullFlower=Tranquilízate
 achievement.botania:nullFlower.desc=Encuentra un bug que te permita encontrar una flor de Botania sin definir. ¡No olvides informar!
 achievement.botania:desuGun=Amante de dos caras.
-achievement.botania:desuGun.desc=ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN
-#                                 ^ Don't localize
 
 # CHALLENGE LEVELS
 botania.challengelevel.easy=Fácil
@@ -702,16 +660,6 @@ tile.botania:dreamwood0Slab.name=Losa de madera onírica
 tile.botania:dreamwood1Stairs.name=Escaleras de tablas de madera onírica
 tile.botania:dreamwood1Slab.name=Losa de tablas de madera onírica
 tile.botania:conjurationCatalyst.name=Catalizador de conjuración
-tile.botania:prismarine0.name=Prismarina
-tile.botania:prismarine1.name=Ladrillos de prismarina
-tile.botania:prismarine2.name=Prismarina oscura
-tile.botania:prismarine0Stairs.name=Escaleras de prismarina
-tile.botania:prismarine0Slab.name=Losa de prismarina
-tile.botania:prismarine1Stairs.name=Escaleras de ladrillos de prismarina
-tile.botania:prismarine1Slab.name=Losa de ladrillos de prismarina
-tile.botania:prismarine2Stairs.name=Escaleras de prismarina oscura
-tile.botania:prismarine2Slab.name=Losa de prismarina oscura
-tile.botania:seaLamp.name=Linterna marina
 tile.botania:miniIsland0.name=Flor flotante blanca
 tile.botania:miniIsland1.name=Flor flotante naranja
 tile.botania:miniIsland2.name=Flor flotante magenta
@@ -730,12 +678,6 @@ tile.botania:miniIsland14.name=Flor flotante roja
 tile.botania:miniIsland15.name=Flor flotante negra
 tile.botania:tinyPotato.name=Patatita
 tile.botania:spawnerClaw.name=Imbusor de vida
-tile.botania:reedBlock.name=Bloque de caña
-tile.botania:reedBlock0Stairs.name=Escaleras de caña 
-tile.botania:reedBlock0Slab.name=Losa de caña
-tile.botania:thatch.name=Paja entrelazada
-tile.botania:thatch0Stairs.name=Escaleras de paja entrelazada
-tile.botania:thatch0Slab.name=Losa de paja entrelazada
 tile.botania:customBrick0.name=Ladrillo infernal
 tile.botania:customBrick1.name=Ladrillo de almas
 tile.botania:customBrick2.name=Ladrillo de escarcha
@@ -932,38 +874,10 @@ tile.botania:doubleFlower212.name=Flor mística alta marrón
 tile.botania:doubleFlower213.name=Flor mística alta verde
 tile.botania:doubleFlower214.name=Flor mística alta roja
 tile.botania:doubleFlower215.name=Flor mística alta negra
-tile.botania:stone0.name=Andesita
-tile.botania:stone1.name=Basalto
-tile.botania:stone2.name=Diorita
-tile.botania:stone3.name=Granito
-tile.botania:stone4.name=Andesita pulida
-tile.botania:stone5.name=Basalto pulido
-tile.botania:stone6.name=Diorita pulida
-tile.botania:stone7.name=Granito pulido
-tile.botania:stone8.name=Ladrillos de andesita
-tile.botania:stone9.name=Ladrillos de basalto
-tile.botania:stone10.name=Ladrillos de diorita
-tile.botania:stone11.name=Ladrillos de granito
 tile.botania:stone12.name=Ladrillos cincelados de andesita
 tile.botania:stone13.name=Ladrillos cincelados de basalto
 tile.botania:stone14.name=Ladrillos cincelados de diorita
 tile.botania:stone15.name=Ladrillos cincelados de granito
-tile.botania:stone0Stairs.name=Escaleras de andesita
-tile.botania:stone1Stairs.name=Escaleras de basalto
-tile.botania:stone2Stairs.name=Escaleras de diorita
-tile.botania:stone3Stairs.name=Escaleras de granito
-tile.botania:stone8Stairs.name=Escaleras de ladrillos de andesita
-tile.botania:stone9Stairs.name=Escaleras de ladrillos de basalto
-tile.botania:stone10Stairs.name=Escaleras de ladrillos de diorita
-tile.botania:stone11Stairs.name=Escaleras de ladrillos de granito
-tile.botania:stone0Slab.name=Losa de andesita
-tile.botania:stone1Slab.name=Losa de basalto
-tile.botania:stone2Slab.name=Losa de diorita
-tile.botania:stone3Slab.name=Losa de granito
-tile.botania:stone8Slab.name=Losa de ladrillos de andesita
-tile.botania:stone9Slab.name=Losa de ladrillos de basalto
-tile.botania:stone10Slab.name=Losa de ladrillos de diorita
-tile.botania:stone11Slab.name=Losa de ladrillos de granito
 tile.botania:blazeBlock.name=Lámpara de blaze
 tile.botania:corporeaInterceptor.name=Interceptor de corporea 
 tile.botania:corporeaCrystalCube.name=Cubo de cristal de corporea
@@ -980,8 +894,6 @@ tile.botania:lightLauncher.name=Lanzador de luminaria
 tile.botania:livingrock0Wall.name=Muro de piedra viviente
 tile.botania:livingwood0Wall.name=Muro de madera viviente
 tile.botania:dreamwood0Wall.name=Muro de madera onírica
-tile.botania:prismarine0Wall.name=Muro de prismarina
-tile.botania:reedBlock0Wall.name=Muro de caña
 tile.botania:biomeStoneA0Wall0.name=Muro metamórfico de roca de bosque
 tile.botania:biomeStoneA0Wall1.name=Muro metamórfico de roca de llanura
 tile.botania:biomeStoneA0Wall2.name=Muro metamórfico de roca de montaña
@@ -990,10 +902,6 @@ tile.botania:biomeStoneA0Wall4.name=Muro metamórfico de roca de pantano
 tile.botania:biomeStoneA0Wall5.name=Muro metamórfico de roca de desierto
 tile.botania:biomeStoneA0Wall6.name=Muro metamórfico de roca taiga
 tile.botania:biomeStoneA0Wall7.name=Muro metamórfico de roca de mesa
-tile.botania:stone0Wall0.name=Muro de andesita
-tile.botania:stone0Wall1.name=Muro de basalto
-tile.botania:stone0Wall2.name=Muro de diorita
-tile.botania:stone0Wall3.name=Muro de granito
 tile.botania:manaBomb.name=Carga de tormenta de maná
 tile.botania:buriedPetals0=Pétalo blanco enterrado
 tile.botania:buriedPetals0.name=Pétalo blanco enterrado
@@ -1425,7 +1333,7 @@ item.botania:terraAxe.name=Truncador de Terra
 item.botania:manasteelNugget.name=Pepita de manacero
 item.botania:terrasteelNugget.name=Pepita de terracero
 item.botania:elementiumNugget.name=Pepita de elementio
-item.botania:root.name=Raíz viviente
+item.botania:livingRoot.name=Raíz viviente
 item.botania:pebble.name=Guijarro
 item.botania:waterBowl.name=Cuenco con agua
 item.botania:obedienceStick.name=Palo de obediencia floral
@@ -2355,7 +2263,6 @@ botania.page.vineBall0=Las &1escaleras de mano&0 no se sostienen por si sola, ha
 botania.page.vineBall1=También es posible combinando algunos materiales tales como &1madera viviente&0 o una &1runa de aire&0 crear un tirachinas que permite arrojar estas &1bolas de enredadera&0 ignorando completamente la fuerza de gravedad.
 botania.page.vineBall2=Así sería en Enredacraft...
 botania.page.vineBall3=...si en realidad existiese.
-botania.page.vineBall4=Oh, y se puede hace &1piedra musgosa&0 también
 
 # -- SHARD OF LAPUTA
 botania.entry.laputaShard=Lasca de Laputa

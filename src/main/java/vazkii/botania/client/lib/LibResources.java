@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jan 14, 2014, 5:29:31 PM (GMT)]
  */
 package vazkii.botania.client.lib;
@@ -54,8 +54,6 @@ public final class LibResources {
 	public static final String ENTRY_APOTHECARY = PREFIX_ENTRIES + "apothecary.png";
 	public static final String ENTRY_PURE_DAISY = PREFIX_ENTRIES + "pureDaisy.png";
 	public static final String ENTRY_SPREADER = PREFIX_ENTRIES + "spreader.png";
-	public static final String ENTRY_UNSTABLE_BLOCK = PREFIX_ENTRIES + "unstableBlock.png";
-	public static final String ENTRY_UNSTABLE_BEACON = PREFIX_ENTRIES + "unstableBeacon.png";
 	public static final String ENTRY_BAUBLES = PREFIX_ENTRIES + "baubles.png";
 	public static final String ENTRY_ELVEN_GARDE = PREFIX_ENTRIES + "elvenGarde.png";
 	public static final String ENTRY_DIMINISHING_RETURNS = PREFIX_ENTRIES + "diminishingReturns.png";
@@ -65,18 +63,12 @@ public final class LibResources {
 	public static final String ENTRY_METAMORPHIC_STONES = PREFIX_ENTRIES + "metamorphicStones.png";
 	public static final String ENTRY_BANNERS = PREFIX_ENTRIES + "banners.png";
 
-	public static final String MODEL_ALTAR = PREFIX_MODEL + "altar.png";
-	public static final String MODEL_ALTAR_META = PREFIX_MODEL + "altarMeta%d.png";
-	public static final String MODEL_ALTAR_MOSSY = PREFIX_MODEL + "altarMossy.png";
 	public static final String MODEL_SPREADER = PREFIX_MODEL + "spreader.png";
 	public static final String MODEL_SPREADER_REDSTONE = PREFIX_MODEL + "spreaderRedstone.png";
 	public static final String MODEL_SPREADER_DREAMWOOD = PREFIX_MODEL + "spreaderDreamwood.png";
 	public static final String MODEL_SPREADER_HALLOWEEN = PREFIX_MODEL + "spreader_halloween.png";
 	public static final String MODEL_SPREADER_REDSTONE_HALLOWEEN = PREFIX_MODEL + "spreaderRedstone_halloween.png";
 	public static final String MODEL_SPREADER_DREAMWOOD_HALLOWEEN = PREFIX_MODEL + "spreaderDreamwood_halloween.png";
-	public static final String MODEL_POOL = PREFIX_MODEL + "pool.png";
-	public static final String MODEL_INFINITE_POOL = PREFIX_MODEL + "infinitePool.png";
-	public static final String MODEL_DILUTED_POOL = PREFIX_MODEL + "dilutedPool.png";
 	public static final String MODEL_PYLON_OLD = PREFIX_MODEL + "pylonOld.png";
 	public static final String MODEL_PYLON = PREFIX_MODEL + "pylon.png";
 	public static final String MODEL_PYLON_GREEN_OLD = PREFIX_MODEL + "pylonOld1.png";
@@ -104,7 +96,6 @@ public final class LibResources {
 	public static final String MODEL_TINY_POTATO = PREFIX_MODEL + "tinyPotato.png";
 	public static final String MODEL_TINY_POTATO_GS = PREFIX_MODEL + "tinyPotatoGray.png";
 	public static final String MODEL_TINY_POTATO_HALLOWEEN = PREFIX_MODEL + "tinyPotato_halloween.png";
-	public static final String MODEL_SPAWNER_CLAW = PREFIX_MODEL + "spawnerClaw.png";
 	public static final String MODEL_BREWERY = PREFIX_MODEL + "brewery.png";
 	public static final String MODEL_TRAVEL_BELT = PREFIX_MODEL + "travelBelt.png";
 	public static final String MODEL_SUPER_TRAVEL_BELT = PREFIX_MODEL + "superTravelBelt.png";
@@ -112,22 +103,14 @@ public final class LibResources {
 	public static final String MODEL_KNOCKBACK_BELT = PREFIX_MODEL + "knockbackBelt.png";
 	public static final String MODEL_HOLY_CLOAK = PREFIX_MODEL + "holyCloak.png";
 	public static final String MODEL_UNHOLY_CLOAK = PREFIX_MODEL + "unholyCloak.png";
+	public static final String MODEL_BALANCE_CLOAK = PREFIX_MODEL + "balanceCloak.png";
+	public static final String MODEL_HOLY_CLOAK_GLOW = PREFIX_MODEL + "holyCloakGlow.png";
+	public static final String MODEL_UNHOLY_CLOAK_GLOW = PREFIX_MODEL + "unholyCloakGlow.png";
+	public static final String MODEL_BALANCE_CLOAK_GLOW = PREFIX_MODEL + "balanceCloakGlow.png";
 	public static final String MODEL_CORPOREA_INDEX = PREFIX_MODEL + "corporeaIndex.png";
 	public static final String MODEL_INVISIBLE_ARMOR = PREFIX_MODEL + "invisibleArmor.png";
-	public static final String MODEL_PUMP = PREFIX_MODEL + "pump.png";
-	public static final String MODEL_MINI_ISLAND = PREFIX_MODEL + "miniIsland.png";
-	public static final String MODEL_MINI_ISLAND_PODZOL = PREFIX_MODEL + "miniIslandPodzol.png";
-	public static final String MODEL_MINI_ISLAND_MYCEL = PREFIX_MODEL + "miniIslandMycelium.png";
-	public static final String MODEL_MINI_ISLAND_SNOW = PREFIX_MODEL + "miniIslandSnow.png";
-	public static final String MODEL_MINI_ISLAND_DRY = PREFIX_MODEL + "miniIslandDry.png";
-	public static final String MODEL_MINI_ISLAND_GOLDEN = PREFIX_MODEL + "miniIslandGolden.png";
-	public static final String MODEL_MINI_ISLAND_VIVID = PREFIX_MODEL + "miniIslandVivid.png";
-	public static final String MODEL_MINI_ISLAND_SCORCHED = PREFIX_MODEL + "miniIslandScorched.png";
-	public static final String MODEL_MINI_ISLAND_INFUSED = PREFIX_MODEL + "miniIslandInfused.png";
-	public static final String MODEL_MINI_ISLAND_MUTATED = PREFIX_MODEL + "miniIslandMutated.png";
 	public static final String MODEL_PINK_WITHER = PREFIX_MODEL + "pinkWither.png";
 	public static final String MODEL_CRYSTAL_CUBE = PREFIX_MODEL + "crystalCube.png";
-	public static final String MODEL_INCENSE_PLATE = PREFIX_MODEL + "incensePlate.png";
 	public static final String MODEL_HOURGLASS = PREFIX_MODEL + "hourglass.png";
 	public static final String MODEL_COCOON = PREFIX_MODEL + "cocoon.png";
 	public static final String MODEL_BELLOWS = PREFIX_MODEL + "bellows.png";
@@ -139,6 +122,7 @@ public final class LibResources {
 	public static final String MODEL_AVATAR_MISSILE = PREFIX_MODEL + "avatarMissile.png";
 	public static final String MODEL_AVATAR_RAINBOW = PREFIX_MODEL + "avatarRainbow.png";
 	public static final String MODEL_AVATAR_TORNADO = PREFIX_MODEL + "avatarTornado.png";
+	public static final String MODEL_AVATAR_DIRT = PREFIX_MODEL + "avatarDirt.png";
 
 	public static final String MISC_PARTICLES = PREFIX_MISC + "particles.png";
 	public static final String MISC_WISP_LARGE = PREFIX_MISC + "wispLarge.png";
@@ -150,8 +134,6 @@ public final class LibResources {
 	public static final String MISC_SKYBOX = PREFIX_MISC + "skybox.png";
 	public static final String MISC_RAINBOW = PREFIX_MISC + "rainbow.png";
 	public static final String MISC_PLANET = PREFIX_MISC + "planet";
-
-	public static final String OBJ_MODEL_PYLON = PREFIX_OBJ_MODEL + "pylon.obj";
 
 	public static final String CATEGORY_INDEX = PREFIX_CATEGORIES + "index.png";
 
@@ -166,5 +148,7 @@ public final class LibResources {
 	public static final String SHADER_FILM_GRAIN_FRAG = PREFIX_SHADER + "film_grain.frag";
 	public static final String SHADER_GOLD_FRAG = PREFIX_SHADER + "gold.frag";
 	public static final String SHADER_CATEGORY_BUTTON_FRAG = PREFIX_SHADER + "category_button.frag";
+	public static final String SHADER_ALPHA_FRAG = PREFIX_SHADER + "alpha.frag";
+	public static final String SHADER_ALPHA_VERT = PREFIX_SHADER + "alpha.vert";
 
 }

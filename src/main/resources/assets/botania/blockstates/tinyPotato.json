@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=north": { "model": "botania:tiny_potato" },
+    "facing=south": { "model": "botania:tiny_potato", "y": 180 },
+    "facing=west": { "model": "botania:tiny_potato", "y": 270 },
+    "facing=east": { "model": "botania:tiny_potato", "y": 90 }
+  }
+}

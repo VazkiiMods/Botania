@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jan 25, 2014, 9:42:31 PM (GMT)]
  */
 package vazkii.botania.client.render.tile;
@@ -13,28 +13,27 @@ package vazkii.botania.client.render.tile;
 import java.awt.Color;
 import java.util.Random;
 
-import net.minecraft.block.Block;
+import javax.annotation.Nonnull;
+
+import net.minecraft.block.BlockCarpet;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.RenderBlocks;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
-
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
-
-import vazkii.botania.api.mana.ILens;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelSpreader;
-import vazkii.botania.client.render.item.RenderLens;
+import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TileSpreader;
 
-public class RenderTileSpreader extends TileEntitySpecialRenderer {
+public class RenderTileSpreader extends TileEntitySpecialRenderer<TileSpreader> {
 
 	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_SPREADER);
 	private static final ResourceLocation textureRs = new ResourceLocation(LibResources.MODEL_SPREADER_REDSTONE);
@@ -47,83 +46,94 @@ public class RenderTileSpreader extends TileEntitySpecialRenderer {
 	private static final ModelSpreader model = new ModelSpreader();
 
 	@Override
-	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float ticks) {
-		TileSpreader spreader = (TileSpreader) tileentity;
-		GL11.glPushMatrix();
-		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-		GL11.glColor4f(1F, 1F, 1F, 1F);
-		GL11.glTranslated(d0, d1, d2);
+	public void renderTileEntityAt(@Nonnull TileSpreader spreader, double d0, double d1, double d2, float ticks, int digProgress) {
+		if(!spreader.getWorld().isBlockLoaded(spreader.getPos(), false)
+				|| spreader.getWorld().getBlockState(spreader.getPos()).getBlock() != ModBlocks.spreader)
+			return;
 
-		GL11.glTranslatef(0.5F, 1.5F, 0.5F);
-		GL11.glRotatef(spreader.rotationX + 90F, 0F, 1F, 0F);
-		GL11.glTranslatef(0F, -1F, 0F);
-		GL11.glRotatef(spreader.rotationY, 1F, 0F, 0F);
-		GL11.glTranslatef(0F, 1F, 0F);
+		GlStateManager.pushMatrix();
+		GlStateManager.enableRescaleNormal();
+		GlStateManager.color(1F, 1F, 1F, 1F);
+		GlStateManager.translate(d0, d1, d2);
+
+		GlStateManager.translate(0.5F, 1.5F, 0.5F);
+		GlStateManager.rotate(spreader.rotationX + 90F, 0F, 1F, 0F);
+		GlStateManager.translate(0F, -1F, 0F);
+		GlStateManager.rotate(spreader.rotationY, 1F, 0F, 0F);
+		GlStateManager.translate(0F, 1F, 0F);
 
 		ResourceLocation r = spreader.isRedstone() ? textureRs : spreader.isDreamwood() ? textureDw : texture;
 		if(ClientProxy.dootDoot)
 			r = spreader.isRedstone() ? textureRsHalloween : spreader.isDreamwood() ? textureDwHalloween : textureHalloween;
 
 		Minecraft.getMinecraft().renderEngine.bindTexture(r);
-		GL11.glScalef(1F, -1F, -1F);
+		GlStateManager.scale(1F, -1F, -1F);
 
 		double time = ClientTickHandler.ticksInGame + ticks;
 
 		if(spreader.isULTRA_SPREADER()) {
-			Color color = Color.getHSBColor((float) ((time * 5 + new Random(spreader.xCoord ^ spreader.yCoord ^ spreader.zCoord).nextInt(10000)) % 360) / 360F, 0.4F, 0.9F);
-			GL11.glColor3f(color.getRed() / 255F, color.getGreen() / 255F, color.getBlue() / 255F);
+			Color color = Color.getHSBColor((float) ((time * 5 + new Random(spreader.getPos().hashCode()).nextInt(10000)) % 360) / 360F, 0.4F, 0.9F);
+			GlStateManager.color(color.getRed() / 255F, color.getGreen() / 255F, color.getBlue() / 255F);
 		}
 		model.render();
-		GL11.glColor3f(1F, 1F, 1F);
+		GlStateManager.color(1F, 1F, 1F);
 
-		GL11.glPushMatrix();
-		double worldTicks = tileentity.getWorldObj() == null ? 0 : time;
-		GL11.glRotatef((float) worldTicks % 360, 0F, 1F, 0F);
-		GL11.glTranslatef(0F, (float) Math.sin(worldTicks / 20.0) * 0.05F, 0F);
+		GlStateManager.pushMatrix();
+		double worldTicks = spreader.getWorld() == null ? 0 : time;
+		GlStateManager.rotate((float) worldTicks % 360, 0F, 1F, 0F);
+		GlStateManager.translate(0F, (float) Math.sin(worldTicks / 20.0) * 0.05F, 0F);
 		model.renderCube();
-		GL11.glPopMatrix();
-		GL11.glScalef(1F, -1F, -1F);
-		ItemStack stack = spreader.getStackInSlot(0);
+		GlStateManager.popMatrix();
+		GlStateManager.scale(1F, -1F, -1F);
+		ItemStack stack = spreader.getItemHandler().getStackInSlot(0);
 
 		if(stack != null) {
-			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationItemsTexture);
-			ILens lens = (ILens) stack.getItem();
-			GL11.glPushMatrix();
-			GL11.glTranslatef(-0.4F, -1.4F, -0.4375F);
-			GL11.glScalef(0.8F, 0.8F, 0.8F);
-			RenderLens.render(stack, lens.getLensColor(stack));
-			GL11.glPopMatrix();
+			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+			stack.getItem();
+			GlStateManager.pushMatrix();
+			GlStateManager.translate(-0.0F, -1F, -0.4375F);
+			GlStateManager.scale(0.8F, 0.8F, 0.8F);
+			Minecraft.getMinecraft().getRenderItem().renderItem(stack, ItemCameraTransforms.TransformType.NONE);
+			GlStateManager.popMatrix();
 		}
 
 		if(spreader.paddingColor != -1) {
-			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 
-			Block block = Blocks.carpet;
-			int color = spreader.paddingColor;
-			RenderBlocks render = RenderBlocks.getInstance();
-			float f = 1F / 16F;
-			GL11.glTranslatef(0F, -f, 0F);
-			render.renderBlockAsItem(block, color, 1F);
-			GL11.glTranslatef(0F, -f * 15, 0F);
-			render.renderBlockAsItem(block, color, 1F);
-			GL11.glRotatef(90F, 1F, 0F, 0F);
-			GL11.glRotatef(90F, 0F, 1F, 0F);
+			IBlockState carpet = Blocks.CARPET.getDefaultState().withProperty(BlockCarpet.COLOR, EnumDyeColor.byMetadata(spreader.paddingColor));
 
-			GL11.glPushMatrix();
-			GL11.glScalef(f * 14F, 1F, 1F);
-			render.renderBlockAsItem(block, color, 1F);
-			GL11.glPopMatrix();
+			GlStateManager.translate(-0.5F, -0.5F, 0.5F);
+			float f = 1 / 16F;
 
-			GL11.glRotatef(90F, 1F, 0F, 0F);
-			GL11.glTranslatef(0F, 0F, -f / 2);
-			GL11.glScalef(f * 14F, 1F, f * 15F);
-			render.renderBlockAsItem(block, color, 1F);
-			GL11.glTranslatef(0F, f * 15F, 0F);
-			render.renderBlockAsItem(block, color, 1F);
+			GlStateManager.translate(0, -f - 0.001, 0);
+			Minecraft.getMinecraft().getBlockRendererDispatcher().renderBlockBrightness(carpet, 1.0F);
+			GlStateManager.translate(0, f + 0.001, 0);
+			GlStateManager.rotate(-90, 0, 1, 0);
+
+			GlStateManager.translate(-0.001, 0, 0);
+			GlStateManager.rotate(270, 0, 0, 1);
+			Minecraft.getMinecraft().getBlockRendererDispatcher().renderBlockBrightness(carpet, 1.0F);
+			GlStateManager.translate(0, 0.001, 0);
+			GlStateManager.rotate(-90, 0, 1, 0);
+
+			GlStateManager.translate(0, 15 * f + 0.001, -0.001);
+			Minecraft.getMinecraft().getBlockRendererDispatcher().renderBlockBrightness(carpet, 1.0F);
+			GlStateManager.translate(0, -0.001, 0.001);
+			GlStateManager.rotate(-90, 0, 1, 0);
+
+			GlStateManager.translate(15 * f + 0.001, f, 0.001);
+			GlStateManager.rotate(270, 0, 0, 1);
+			Minecraft.getMinecraft().getBlockRendererDispatcher().renderBlockBrightness(carpet, 1.0F);
+			GlStateManager.translate(-0.001, 0, -0.001);
+			GlStateManager.rotate(-90, 0, 1, 0);
+
+			GlStateManager.translate(-0.001, -1 + f + 0.001, -f + 0.001);
+			GlStateManager.rotate(90, 1, 0, 0);
+			Minecraft.getMinecraft().getBlockRendererDispatcher().renderBlockBrightness(carpet, 1.0F);
 		}
 
-		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-		GL11.glPopMatrix();
+		GlStateManager.enableRescaleNormal();
+		GlStateManager.popMatrix();
 	}
 
 }

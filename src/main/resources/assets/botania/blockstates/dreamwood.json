@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "variant=default": { "model": "botania:dreamwood" },
+    "variant=planks": { "model": "botania:dreamwood_planks" },
+    "variant=mossy_planks": { "model": "botania:dreamwood_mossy_planks" },
+    "variant=framed": { "model": "botania:dreamwood_framed" },
+    "variant=pattern_framed": { "model": "botania:dreamwood_pattern_framed" },
+    "variant=glimmering": { "model": "botania:dreamwood_glimmering" }
+  }
+}

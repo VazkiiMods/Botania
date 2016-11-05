@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "botania:items/manaCookie"
+  },
+  "overrides": [{
+    "predicate": {
+      "botania:totalbiscuit": 1
+    },
+    "model": "botania:item/totalBiscuit"
+  }]
+}

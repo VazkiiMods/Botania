@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "powered=true":  { "model": "botania:luminizer_launcher" },
+    "powered=false": { "model": "botania:luminizer_launcher" }
+  }
+}

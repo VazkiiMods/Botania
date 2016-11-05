@@ -2,33 +2,30 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Apr 26, 2014, 7:08:53 PM (GMT)]
  */
 package vazkii.botania.common.item.equipment.bauble;
 
+import com.google.common.collect.Multimap;
+
+import baubles.api.BaubleType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBiped;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.event.RenderPlayerEvent;
-
-import org.lwjgl.opengl.GL11;
-
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.item.IBaubleRender;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.lib.LibItemNames;
-import baubles.api.BaubleType;
-
-import com.google.common.collect.Multimap;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemKnockbackBelt extends ItemBaubleModifier implements IBaubleRender {
 
@@ -46,19 +43,23 @@ public class ItemKnockbackBelt extends ItemBaubleModifier implements IBaubleRend
 
 	@Override
 	void fillModifiers(Multimap<String, AttributeModifier> attributes, ItemStack stack) {
-		attributes.put(SharedMonsterAttributes.knockbackResistance.getAttributeUnlocalizedName(), new AttributeModifier(getBaubleUUID(stack), "Bauble modifier", 1, 0));
+		if(stack == null) // workaround for Azanor/Baubles#156
+			return;
+		
+		attributes.put(SharedMonsterAttributes.KNOCKBACK_RESISTANCE.getAttributeUnlocalizedName(), new AttributeModifier(getBaubleUUID(stack), "Bauble modifier", 1, 0));
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void onPlayerBaubleRender(ItemStack stack, RenderPlayerEvent event, RenderType type) {
+	public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
 		if(type == RenderType.BODY) {
 			Minecraft.getMinecraft().renderEngine.bindTexture(texture);
-			Helper.rotateIfSneaking(event.entityPlayer);
-			GL11.glTranslatef(0F, 0.2F, 0F);
+			Helper.rotateIfSneaking(player);
+
+			GlStateManager.translate(0F, 0.2F, 0F);
 
 			float s = 1.05F / 16F;
-			GL11.glScalef(s, s, s);
+			GlStateManager.scale(s, s, s);
 
 			if(model == null)
 				model = new ModelBiped();

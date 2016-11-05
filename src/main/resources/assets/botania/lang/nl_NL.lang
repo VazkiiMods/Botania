@@ -1,10 +1,15 @@
+# Note to translators: DO NOT COPY ENTRIES FROM ENGLISH
+# I repeat: do NOT copy entries from English!!
+# Any entry in this lang file should be in nl_NL, or *should not be here at all*
+# Copying English entries will cause them to become outdated when the main English lang file changes
+# Untranslated entries will automatically be inherited from en_US
+#
+# Once again, don't copy from English, and THANK YOU for your hard work!
+
 # MISC
 itemGroup.Botania=Botania
 generator.botania-skyblock=Glazen Tuin
 generator.botania-skyblock.info=Niet aanbevolen voor Botania beginners
-
-# Something that is not localized, translators, do NOT change this line.
-botaniamisc.noloc=botaniamisc.noloc
 
 botaniamisc.nextPage=Volgende pagina
 botaniamisc.prevPage=Vorige pagina
@@ -51,9 +56,6 @@ botaniamisc.shiftToRemove=Shift-klik om te verwijderen
 botaniamisc.clickToAdd=Favoriet toevoegen
 botaniamisc.ratio=Inzoomen: %sx
 botaniamisc.bottleTooltip=Het heeft een verworven smaak
-botaniamisc.coarseDirt0=Grof Vuil, gras
-botaniamisc.coarseDirt1=wil er niet op groeien
-botaniamisc.spawnerTip=Tip: Gebruik een Spawn ei om de mob te wijzigen
 botaniamisc.shardLevel=Schervenkracht %s
 botaniamisc.lexiconIndex=Lexicon Index
 botaniamisc.hasIvy=Heeft Tijdloze Klimop
@@ -62,8 +64,8 @@ botaniamisc.noLexicon=Je moet een Lexica Botania vasthouden om dit te lezen.
 botaniamisc.cantOpen=Het lijkt erop dat jouw Lexica Botania deze pagina niet heeft. Misschien komt hij ergens anders vandaan...?
 botaniamisc.clickToShare=Delen
 botaniamisc.drop=Laten vallen
-botaniamisc.dropTip0=Tip: Druk toets %key% in je inventaris om te laten vallen
-botaniamisc.dropTip1=CTRL-%key% laat een hele stapel vallen
+botaniamisc.dropTip0=Tip: Druk toets %s in je inventaris om te laten vallen
+botaniamisc.dropTip1=CTRL-%s laat een hele stapel vallen
 botaniamisc.wandMode.bind=Verbind Modus
 botaniamisc.wandMode.function=Functie Modus
 botaniamisc.playVideo=Video afspelen
@@ -182,14 +184,6 @@ botania.color14=Rood
 botania.color15=Zwart
 botania.color16=Regenboog
 
-# RANKS
-botania.rank0=&cD
-botania.rank1=&eC
-botania.rank2=&bB
-botania.rank3=&aA
-botania.rank4=&dS
-botania.rank5=&6SS
-
 # ZODIAC SIGNS
 botania.sign0=Ram
 botania.sign1=Stier
@@ -242,39 +236,6 @@ botania.armorset.will3.shortDesc=Voltreffers geven een sterk traagheid effect
 botania.armorset.will4.shortDesc=Voltreffers doordringen armor
 botania.armorset.will5.shortDesc=Voltreffers geven aantastend effect
 
-# ROMAN NUMERALS
-botania.roman0=
-botania.roman1=I
-botania.roman2=II
-botania.roman3=III
-botania.roman4=IV
-botania.roman5=V
-botania.roman6=VI
-botania.roman7=VII
-botania.roman8=VIII
-botania.roman9=IX
-botania.roman10=X
-botania.roman11=XI
-botania.roman12=XII
-botania.roman13=XIII
-botania.roman14=XIV
-botania.roman15=XV
-botania.roman16=XVI
-botania.roman17=XVII
-botania.roman18=XVIII
-botania.roman19=XIX
-botania.roman20=XX
-botania.roman21=XXI
-botania.roman22=XXII
-botania.roman23=XXIII
-botania.roman24=XXIV
-botania.roman25=XXV
-botania.roman26=XXVI
-botania.roman27=XXVII
-botania.roman28=XXVIII
-botania.roman29=XXIX
-botania.roman30=XXX
-
 # KNOWLEDGE
 botania.knowledge.minecraft=Minecraft Wijsheid
 botania.knowledge.alfheim=&aElven&7 Wijsheid
@@ -322,73 +283,8 @@ worldgen.flower.tallChance=Worldgen lange bloemen kans
 worldgen.mushroom.quantity=Worldgen Paddenstoel hoeveelheid
 
 # VERSION CHECKING
-botania.versioning.flavour0=Er is een Botania update!
-botania.versioning.flavour1=Er is een Botania update!
-botania.versioning.flavour2=Er is een Botania update!
-botania.versioning.flavour3=Er is een Botania update!
-botania.versioning.flavour4=Er is een Botania update!
-botania.versioning.flavour5=Er is een Botania update!
-botania.versioning.flavour6=Er is een Botania update!
-botania.versioning.flavour7=Er is een Botania update!
-botania.versioning.flavour8=Er is een Botania update!
-botania.versioning.flavour9=Er is een Botania update!
-botania.versioning.flavour10=Er is een Botania update!
-botania.versioning.flavour11=Er is een Botania update!
-botania.versioning.flavour12=Er is een Botania update!
-botania.versioning.flavour13=Er is een Botania update!
-botania.versioning.flavour14=Er is een Botania update!
-botania.versioning.flavour15=Er is een Botania update!
-botania.versioning.flavour16=Er is een Botania update!
-botania.versioning.flavour17=Er is een Botania update!
-botania.versioning.flavour18=Er is een Botania update!
-botania.versioning.flavour19=Er is een Botania update!
-botania.versioning.flavour20=Er is een Botania update!
-botania.versioning.flavour21=Er is een Botania update!
-botania.versioning.flavour22=Er is een Botania update!
-botania.versioning.flavour23=Er is een Botania update!
-botania.versioning.flavour24=Er is een Botania update!
-botania.versioning.flavour25=Er is een Botania update!
-botania.versioning.flavour26=Er is een Botania update!
-botania.versioning.flavour27=Er is een Botania update!
-botania.versioning.flavour28=Er is een Botania update!
-botania.versioning.flavour29=Er is een Botania update!
-botania.versioning.flavour30=Er is een Botania update!
-botania.versioning.flavour31=Er is een Botania update!
-botania.versioning.flavour32=Er is een Botania update!
-botania.versioning.flavour33=Er is een Botania update!
-botania.versioning.flavour34=Er is een Botania update!
-botania.versioning.flavour35=Er is een Botania update!
-botania.versioning.flavour36=Er is een Botania update!
-botania.versioning.flavour37=Er is een Botania update!
-botania.versioning.flavour38=Er is een Botania update!
-botania.versioning.flavour39=Er is een Botania update!
-botania.versioning.flavour40=Er is een Botania update!
-botania.versioning.flavour41=Er is een Botania update!
-botania.versioning.flavour42=Er is een Botania update!
-botania.versioning.flavour43=Er is een Botania update!
-botania.versioning.flavour44=Er is een Botania update!
-botania.versioning.flavour45=Er is een Botania update!
-botania.versioning.flavour46=Er is een Botania update!
-botania.versioning.flavour47=Er is een Botania update!
-botania.versioning.flavour48=Er is een Botania update!
-botania.versioning.flavour49=Er is een Botania update!
-botania.versioning.flavour50=Er is een Botania update!
-botania.versioning.flavour51=Er is een Botania update!
-botania.versioning.flavour52=Er is een Botania update!
-botania.versioning.flavour53=Er is een Botania update!
-botania.versioning.flavour54=Er is een Botania update!
-botania.versioning.flavour55=Er is een Botania update!
-botania.versioning.flavour56=Er is een Botania update!
-botania.versioning.flavour57=Er is een Botania update!
-botania.versioning.flavour58=Er is een Botania update!
-botania.versioning.flavour59=Er is een Botania update!
-botania.versioning.flavour60=Er is een Botania update!
-botania.versioning.flavour61=Er is een Botania update!
-botania.versioning.flavour62=Er is een Botania update!
-botania.versioning.flavour63=Er is een Botania update!
-botania.versioning.flavour64=Er is een Botania update!
 botania.versioning.outdated=Je gebruikt Botania versie %s, de laatste versie is %s.
-botania.versioning.updateMessage=["Klik voor... [",{"text":"Download","color":"green","hoverEvent":{"action":"show_text","value":{"text":"Hier klikken om automatisch bij te werken naar de laatste versie","color":"green"}},"clickEvent":{"action":"run_command","value":"/botania-download-latest %version%"}},"] [",{"text":"Website","color":"green","hoverEvent":{"action":"show_text","value":{"text":"Klik hier om naar de website van de mod te gaan","color":"green"}},"clickEvent":{"action":"open_url","value":"http://botaniamod.net/downloads.php"}},"] [",{"text":"Changelog","color":"green","hoverEvent":{"action":"show_text","value":{"text":"Klik hier om de lijst met wijzigingen te zien","color":"green"}},"clickEvent":{"action":"open_url","value":"http://botaniamod.net/changelog.php#%version%"}},"]"]
+botania.versioning.updateMessage=["Klik voor... [",{"text":"Download","color":"green","hoverEvent":{"action":"show_text","value":{"text":"Hier klikken om automatisch bij te werken naar de laatste versie","color":"green"}},"clickEvent":{"action":"open_url","value":"http://minecraft.curseforge.com/projects/botania-unofficial/files/latest"}},"] [",{"text":"Website","color":"green","hoverEvent":{"action":"show_text","value":{"text":"Klik hier om naar de website van de mod te gaan","color":"green"}},"clickEvent":{"action":"open_url","value":"http://minecraft.curseforge.com/projects/botania-unofficial"}},"] [",{"text":"Changelog","color":"green","hoverEvent":{"action":"show_text","value":{"text":"Klik hier om de lijst met wijzigingen te zien","color":"green"}},"clickEvent":{"action":"open_url","value":"https://github.com/williewillus/Botania/releases/tag/%s"}},"]"]
 botania.versioning.startingDownload=[{"text":"Begin met downloaden van %s. Koppel je hardeschijf niet af. Plezier van ","color":"aqua"},{"text":"Botania","color":"green"},{"text":"? Overweeg ","color":"aqua"},{"text":"Vazkii","color":"light_purple"},{"text":" te ondersteunen op [","color":"aqua"},{"text":"Patreon","color":"gold","hoverEvent":{"action":"show_text","value":{"text":"Klik hier om naar Vazkii's Patreon te gaan","color":"light_purple"}},"clickEvent":{"action":"open_url","value":"http://www.patreon.com/Vazkii"}},{"text":"]!","color":"aqua"}]
 botania.versioning.doneDownloading=Klaar met downloaden van %s. Verwijder de oude Botania .jar en start het spel opnieuw om bij te werken.
 botania.versioning.downloadedAlready=De laatste versie is al gedownload. Sluit het spel, verwijder de oude versie uit de mods folder en start het spel opnieuw om bij te werken!
@@ -400,7 +296,7 @@ botania.versioning.disabled=Sorry. Deze optie is uitgeschakeld wegens server pro
 botania.baubletype.amulet=Te gebruiken in het &aAmulet&7 slot
 botania.baubletype.ring=Te gebruiken in het &aRing&7 slot
 botania.baubletype.belt=Te gebruiken in het &aRiem&7 slot
-botania.baubletooltip=Druk &b%key%&7 om het Baubles menu te openen
+botania.baubletooltip=Druk &b%s&7 om het Baubles menu te openen
 
 # RELIC POEMS
 item.dice.poem0=Hij deelt de kaarten om het antwoord te vinden
@@ -457,7 +353,6 @@ achievement.botania:manaBlasterShoot=Oh Yeah
 achievement.botania:manaBlasterShoot.desc=Maak en schiet een Mana Blaster
 achievement.botania:tiaraWings=Hartendief
 achievement.botania:tiaraWings.desc=Maak en gebruik een Flügel Tiara met Flügel vleugels
-achievement.botania:terrasteelPickup=Dancer in the Dark
 achievement.botania:terrasteelPickup.desc=Roep een staaf Terrastaal op met een Bodemverbindingsplaat
 achievement.botania:elfPortalOpen=De Wereld Roept
 achievement.botania:elfPortalOpen.desc=Open een poort naar het Elvenrijk
@@ -530,11 +425,8 @@ achievement.botania:lokiRing.desc=Verdien de Ring van Loki voor een heldhaftige 
 achievement.botania:aesirRing=Zoals de Goden zeggen
 achievement.botania:aesirRing.desc=Vervaardig de Ring van de Aesir door de Ring der Goden te combineren
 
-achievement.botania:nullFlower=Take it Easy
 achievement.botania:nullFlower.desc=Vindt een bug die je een ongedefinieerde Botania bloem geeft. Niet vergeten te melden!
 achievement.botania:desuGun=Tweezijdige Liefde
-achievement.botania:desuGun.desc=ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN
-#                                 ^ Don't localize
 
 # CHALLENGE LEVELS
 botania.challengelevel.easy=Makkelijk
@@ -771,19 +663,6 @@ tile.botania:dreamwood1Stairs.name=Droomhout Plank Trap
 tile.botania:dreamwood1Slab.name=Droomhout Plank Plaat
 tile.botania:dreamwood1SlabFull.name=Droomhout Plank Plaat
 tile.botania:conjurationCatalyst.name=Oproepversneller
-tile.botania:prismarine0.name=Prismarine
-tile.botania:prismarine1.name=Prismarine Baksteen
-tile.botania:prismarine2.name=Donker Prismarine
-tile.botania:prismarine0Stairs.name=Prismarine Trap
-tile.botania:prismarine0Slab.name=Prismarine Plaat
-tile.botania:prismarine0SlabFull.name=Prismarine Plaat
-tile.botania:prismarine1Stairs.name=Prismarine Baksteen Trap
-tile.botania:prismarine1Slab.name=Prismarine Baksteen Plaat
-tile.botania:prismarine1SlabFull.name=Prismarine Baksteen Plaat
-tile.botania:prismarine2Stairs.name=Donker Prismarine Trap
-tile.botania:prismarine2Slab.name=Donker Prismarine Plaat
-tile.botania:prismarine2SlabFull.name=Donker Prismarine Plaat
-tile.botania:seaLamp.name=Zeelantaarn
 tile.botania:miniIsland0.name=Drijvende Witte Bloem
 tile.botania:miniIsland1.name=Drijvende Oranje Bloem
 tile.botania:miniIsland2.name=Drijvende Magenta Bloem
@@ -802,14 +681,6 @@ tile.botania:miniIsland14.name=Drijvende Rode Bloem
 tile.botania:miniIsland15.name=Drijvende Zwarte Bloem
 tile.botania:tinyPotato.name=Kleine Aardappel
 tile.botania:spawnerClaw.name=Levensbrenger
-tile.botania:reedBlock.name=Rietblok
-tile.botania:reedBlock0Stairs.name=Rieten Trap
-tile.botania:reedBlock0Slab.name=Rieten Plaat
-tile.botania:reedBlock0SlabFull.name=Rieten Plaat
-tile.botania:thatch.name=Rietbedekking
-tile.botania:thatch0Stairs.name=Rietbedekking Trap
-tile.botania:thatch0Slab.name=Rietbedekking Plaat
-tile.botania:thatch0SlabFull.name=Rietbedekking Plaat
 tile.botania:customBrick0.name=Helse Baksteen
 tile.botania:customBrick1.name=Zielen Baksteen
 tile.botania:customBrick2.name=Bevroren Baksteen
@@ -1038,46 +909,10 @@ tile.botania:doubleFlower212.name=Lange Mystieke Bruine Bloem
 tile.botania:doubleFlower213.name=Lange Mystieke Groene Bloem
 tile.botania:doubleFlower214.name=Lange Mystieke Rode Bloem
 tile.botania:doubleFlower215.name=Lange Mystieke Zwarte Bloem
-tile.botania:stone0.name=Andesiet
-tile.botania:stone1.name=Basalt
-tile.botania:stone2.name=Diorite
-tile.botania:stone3.name=Graniet
-tile.botania:stone4.name=Gepolijst Andesiet
-tile.botania:stone5.name=Gepolijst Basalt
-tile.botania:stone6.name=Gepolijst Diorite
-tile.botania:stone7.name=Gepolijst Graniet
-tile.botania:stone8.name=Andesieten Bakstenen
-tile.botania:stone9.name=Basalten Bakstenen
-tile.botania:stone10.name=Dioriten Bakstenen
-tile.botania:stone11.name=Granieten Bakstenen
 tile.botania:stone12.name=Gebeitelde Andesiete Baksteen
 tile.botania:stone13.name=Gebeitelde Basalte Baksteen
 tile.botania:stone14.name=Gebeitelde Diorite Baksteen
 tile.botania:stone15.name=Gebeitelde Graniete Baksteen
-tile.botania:stone0Stairs.name=Andesieten Trap
-tile.botania:stone1Stairs.name=Basalten Trap
-tile.botania:stone2Stairs.name=Dioriten Trap
-tile.botania:stone3Stairs.name=Granieten Trap
-tile.botania:stone8Stairs.name=Andesieten Baksteen Trap
-tile.botania:stone9Stairs.name=Basalten Baksteen Trap
-tile.botania:stone10Stairs.name=Dioriten Baksteen Trap
-tile.botania:stone11Stairs.name=Granieten Baksteen Trap
-tile.botania:stone0Slab.name=Andesiet Plaat
-tile.botania:stone1Slab.name=Basalt Plaat
-tile.botania:stone2Slab.name=Diorite Plaat
-tile.botania:stone3Slab.name=Graniet Plaat
-tile.botania:stone8Slab.name=Andesieten Baksteen Plaat
-tile.botania:stone9Slab.name=Basalten Baksteen Plaat
-tile.botania:stone10Slab.name=Dioriten Baksteen Plaat
-tile.botania:stone11Slab.name=Granieten Baksteen Plaat
-tile.botania:stone0SlabFull.name=Andesiet Plaat
-tile.botania:stone1SlabFull.name=Basalt Plaat
-tile.botania:stone2SlabFull.name=Diorite Plaat
-tile.botania:stone3SlabFull.name=Graniet Plaat
-tile.botania:stone8SlabFull.name=Andesieten Baksteen Plaat
-tile.botania:stone9SlabFull.name=Basalten Baksteen Plaat
-tile.botania:stone10SlabFull.name=Dioriten Baksteen Plaat
-tile.botania:stone11SlabFull.name=Granieten Baksteen Plaat
 tile.botania:blazeBlock.name=Blazelamp
 tile.botania:corporeaInterceptor.name=Corporea Onderschepper
 tile.botania:corporeaCrystalCube.name=Corporea Kristallen Kubus
@@ -1094,8 +929,6 @@ tile.botania:lightLauncher.name=Verlichter Lanceerder
 tile.botania:livingrock0Wall.name=Levensteen Muur
 tile.botania:livingwood0Wall.name=Levenshout Muur
 tile.botania:dreamwood0Wall.name=Droomhout Muur
-tile.botania:prismarine0Wall.name=Prismarine Muur
-tile.botania:reedBlock0Wall.name=Reed Block Muur
 tile.botania:biomeStoneA0Wall0.name=Veranderlijke Woudkeisteen Muur
 tile.botania:biomeStoneA0Wall1.name=Veranderlijke Veldkeisteen Muur
 tile.botania:biomeStoneA0Wall2.name=Veranderlijke Bergkeisteen Muur
@@ -1104,10 +937,6 @@ tile.botania:biomeStoneA0Wall4.name=Veranderlijke Moeraskeisteen Muur
 tile.botania:biomeStoneA0Wall5.name=Veranderlijke Woestijnkeisteen Muur
 tile.botania:biomeStoneA0Wall6.name=Veranderlijke Winterwoudkeisteen Muur
 tile.botania:biomeStoneA0Wall7.name=Veranderlijke Hoogvlaktekeisteen Muur
-tile.botania:stone0Wall0.name=Andesiet Muur
-tile.botania:stone0Wall1.name=Basalt Muur
-tile.botania:stone0Wall2.name=Diorite Muur
-tile.botania:stone0Wall3.name=Graniet Muur
 tile.botania:manaBomb.name=Manastorm Lading
 tile.botania:buriedPetals0=Begraven Witte Bloemblad
 tile.botania:buriedPetals0.name=Begraven Witte Bloemblad
@@ -1599,7 +1428,7 @@ item.botania:terraAxe.name=Terrakapper
 item.botania:manasteelNugget.name=Klompje Manastaal
 item.botania:terrasteelNugget.name=Klompje Terrastaal
 item.botania:elementiumNugget.name=Klompje Elementium
-item.botania:root.name=Levenswortel
+item.botania:livingRoot.name=Levenswortel
 item.botania:pebble.name=Kiezel
 item.botania:waterBowl.name=Kom Water
 item.botania:obedienceStick.name=Bloemen Gehoorzaamheidsstok
@@ -2959,7 +2788,6 @@ botania.page.vineBall0=&1Ladders&0 kunnen niet op zichzelf staan, ze hebben iets
 botania.page.vineBall1=Het is ook mogelijk, middels combinatie van enkele materialen zoals &1Levenshout&0 of een &1Rune der Lucht&0, om een katapult te maken die de &1Lianenballen&0 kan afschieten zonder last te hebben van de zwaartekracht.
 botania.page.vineBall2=Dit zou bestaan in Vinecraft...
 botania.page.vineBall3=...als dat zou bestaan.
-botania.page.vineBall4=Oh, en je kunt ook &1Mossige Steen&0 maken
 
 # -- SHARD OF LAPUTA
 botania.entry.laputaShard=Scherf van Laputa

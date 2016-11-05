@@ -2,35 +2,36 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Feb 18, 2014, 10:05:39 PM (GMT)]
  */
 package vazkii.botania.client.model;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
+import vazkii.botania.api.state.enums.PylonVariant;
 
 public class ModelPylonOld extends ModelBase implements IPylonModel {
 
-	ModelRenderer crystal1;
-	ModelRenderer crystal2;
-	ModelRenderer crystal3;
-	ModelRenderer crystal4;
-	ModelRenderer crystal5;
-	ModelRenderer crystal6;
-	ModelRenderer crystal7;
-	ModelRenderer crystal8;
-	ModelRenderer outside1;
-	ModelRenderer outside2;
-	ModelRenderer outside3;
-	ModelRenderer outside4;
-	ModelRenderer outside5;
-	ModelRenderer outside6;
-	ModelRenderer outside7;
-	ModelRenderer outside8;
+	final ModelRenderer crystal1;
+	final ModelRenderer crystal2;
+	final ModelRenderer crystal3;
+	final ModelRenderer crystal4;
+	final ModelRenderer crystal5;
+	final ModelRenderer crystal6;
+	final ModelRenderer crystal7;
+	final ModelRenderer crystal8;
+	final ModelRenderer outside1;
+	final ModelRenderer outside2;
+	final ModelRenderer outside3;
+	final ModelRenderer outside4;
+	final ModelRenderer outside5;
+	final ModelRenderer outside6;
+	final ModelRenderer outside7;
+	final ModelRenderer outside8;
 
 	public ModelPylonOld() {
 		textureWidth = 64;
@@ -119,7 +120,7 @@ public class ModelPylonOld extends ModelBase implements IPylonModel {
 	}
 
 	@Override
-	public void renderCrystal() {
+	public void renderCrystal(PylonVariant variant) {
 		float f = 1F / 16F;
 		crystal1.render(f);
 		crystal2.render(f);
@@ -132,7 +133,7 @@ public class ModelPylonOld extends ModelBase implements IPylonModel {
 	}
 
 	@Override
-	public void renderRing() {
+	public void renderRing(PylonVariant variant) {
 		float f = 1F / 16F;
 		outside1.render(f);
 		outside2.render(f);
@@ -151,8 +152,6 @@ public class ModelPylonOld extends ModelBase implements IPylonModel {
 	}
 
 	@Override
-	public void renderGems() {
-		// NO-OP
-	}
+	public void renderGems(PylonVariant variant) {}
 
 }

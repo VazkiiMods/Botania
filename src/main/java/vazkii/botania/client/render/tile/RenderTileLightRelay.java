@@ -2,73 +2,92 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jul 16, 2015, 5:03:57 PM (GMT)]
  */
 package vazkii.botania.client.render.tile;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.IIcon;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.annotation.Nonnull;
 
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.api.state.enums.LuminizerVariant;
 import vazkii.botania.client.core.handler.ClientTickHandler;
+import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.core.helper.ShaderHelper;
-import vazkii.botania.common.block.BlockLightRelay;
+import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.tile.TileLightRelay;
 
-public class RenderTileLightRelay extends TileEntitySpecialRenderer {
+public class RenderTileLightRelay extends TileEntitySpecialRenderer<TileLightRelay> {
+
+	private static Map<LuminizerVariant, TextureAtlasSprite> sprites = new HashMap();
 
 	@Override
-	public void renderTileEntityAt(TileEntity tile, double x, double y, double z, float pticks) {
-		Minecraft mc = Minecraft.getMinecraft();
-		IIcon iicon = tile.getBlockMetadata() > 0 ? BlockLightRelay.worldIconRed : BlockLightRelay.worldIcon;
+	public void renderTileEntityAt(@Nonnull TileLightRelay tile, double x, double y, double z, float pticks, int digProgress) {
+		if(!tile.getWorld().isBlockLoaded(tile.getPos(), false) || tile.getWorld().getBlockState(tile.getPos()).getBlock() != ModBlocks.lightRelay)
+			return;
 
-		GL11.glPushMatrix();
-		GL11.glTranslated(x + 0.5, y + 0.3, z + 0.5);
-		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-		GL11.glEnable(GL11.GL_BLEND);
-		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		GL11.glAlphaFunc(GL11.GL_GREATER, 0.05F);
+		Minecraft mc = Minecraft.getMinecraft();
+		if(sprites.isEmpty()) {
+			sprites.put(LuminizerVariant.DEFAULT, MiscellaneousIcons.INSTANCE.lightRelayWorldIcon);
+			sprites.put(LuminizerVariant.DETECTOR, MiscellaneousIcons.INSTANCE.lightRelayWorldIconRed);
+			sprites.put(LuminizerVariant.FORK, MiscellaneousIcons.INSTANCE.lightRelayWorldIconGreen);
+			sprites.put(LuminizerVariant.TOGGLE, MiscellaneousIcons.INSTANCE.lightRelayWorldIconPurple);
+		}
+
+		TextureAtlasSprite iicon = sprites.get(tile.getWorld().getBlockState(tile.getPos()).getValue(BotaniaStateProps.LUMINIZER_VARIANT));
+
+		GlStateManager.pushMatrix();
+		GlStateManager.translate(x + 0.5, y + 0.3, z + 0.5);
+		GlStateManager.enableRescaleNormal();
+		GlStateManager.enableBlend();
+		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		GlStateManager.alphaFunc(GL11.GL_GREATER, 0.05F);
 
 		double time = ClientTickHandler.ticksInGame + pticks;
-		GL11.glColor4f(1F, 1F, 1F, 1F);
+		GlStateManager.color(1F, 1F, 1F, 1F);
 
 		float scale = 0.75F;
-		GL11.glScalef(scale, scale, scale);
-		Tessellator tessellator = Tessellator.instance;
+		GlStateManager.scale(scale, scale, scale);
+		Tessellator tessellator = Tessellator.getInstance();
 
-		GL11.glPushMatrix();
-		float r = 180.0F - RenderManager.instance.playerViewY;
-		GL11.glRotatef(r, 0F, 1F, 0F);
-		GL11.glRotatef(-RenderManager.instance.playerViewX, 1F, 0F, 0F);
+		GlStateManager.pushMatrix();
+		float r = 180.0F - mc.getRenderManager().playerViewY;
+		GlStateManager.rotate(r, 0F, 1F, 0F);
+		GlStateManager.rotate(-mc.getRenderManager().playerViewX, 1F, 0F, 0F);
 
 		float off = 0.25F;
-		GL11.glTranslatef(0F, off, 0F);
-		GL11.glRotated(time, 0F, 0F, 1F);
-		GL11.glTranslatef(0F, -off, 0F);
+		GlStateManager.translate(0F, off, 0F);
+		GlStateManager.rotate((float) time, 0F, 0F, 1F);
+		GlStateManager.translate(0F, -off, 0F);
 
-		mc.renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+		mc.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 		ShaderHelper.useShader(ShaderHelper.halo);
 		func_77026_a(tessellator, iicon);
 		ShaderHelper.releaseShader();
-		
-		GL11.glPopMatrix();
-		GL11.glColor4f(1F, 1F, 1F, 1F);
-		GL11.glDisable(GL11.GL_BLEND);
-		GL11.glDisable(GL12.GL_RESCALE_NORMAL);
-		GL11.glPopMatrix();
+
+		GlStateManager.popMatrix();
+		GlStateManager.color(1F, 1F, 1F, 1F);
+		GlStateManager.disableBlend();
+		GlStateManager.disableRescaleNormal();
+		GlStateManager.popMatrix();
 	}
 
-	private void func_77026_a(Tessellator p_77026_1_, IIcon p_77026_2_) {
+	private void func_77026_a(Tessellator p_77026_1_, TextureAtlasSprite p_77026_2_) {
 		float f = p_77026_2_.getMinU();
 		float f1 = p_77026_2_.getMaxU();
 		float f2 = p_77026_2_.getMinV();
@@ -79,18 +98,17 @@ public class RenderTileLightRelay extends TileEntitySpecialRenderer {
 		f1 -= pad;
 		f2 += pad;
 		f3 -= pad;
-		
+
 		float f4 = 1.0F;
 		float f5 = 0.5F;
 		float f6 = 0.25F;
 
-		p_77026_1_.startDrawingQuads();
-		p_77026_1_.setNormal(0.0F, 1.0F, 0.0F);
-		p_77026_1_.setBrightness(240);
-		p_77026_1_.addVertexWithUV(0.0F - f5, 0.0F - f6, 0.0D, f, f3);
-		p_77026_1_.addVertexWithUV(f4 - f5, 0.0F - f6, 0.0D, f1, f3);
-		p_77026_1_.addVertexWithUV(f4 - f5, f4 - f6, 0.0D, f1, f2);
-		p_77026_1_.addVertexWithUV(0.0F - f5, f4 - f6, 0.0D, f, f2);
+		p_77026_1_.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_NORMAL);
+		//p_77026_1_.getBuffer().setBrightness(240);
+		p_77026_1_.getBuffer().pos(0.0F - f5, 0.0F - f6, 0.0D).tex(f, f3).normal(0, 1, 0).endVertex();
+		p_77026_1_.getBuffer().pos(f4 - f5, 0.0F - f6, 0.0D).tex(f1, f3).normal(0, 1, 0).endVertex();
+		p_77026_1_.getBuffer().pos(f4 - f5, f4 - f6, 0.0D).tex(f1, f2).normal(0, 1, 0).endVertex();
+		p_77026_1_.getBuffer().pos(0.0F - f5, f4 - f6, 0.0D).tex(f, f2).normal(0, 1, 0).endVertex();
 		p_77026_1_.draw();
 
 	}

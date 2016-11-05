@@ -1,0 +1,20 @@
+{
+  "variants": {
+    "variant=forest": { "model": "botania:metamorphic/forest_brick" },
+    "variant=plains": { "model": "botania:metamorphic/plains_brick" },
+    "variant=mountain": { "model": "botania:metamorphic/mountain_brick" },
+    "variant=fungal": { "model": "botania:metamorphic/fungal_brick" },
+    "variant=swamp": { "model": "botania:metamorphic/swamp_brick" },
+    "variant=desert": { "model": "botania:metamorphic/desert_brick" },
+    "variant=taiga": { "model": "botania:metamorphic/taiga_brick" },
+    "variant=mesa": { "model": "botania:metamorphic/mesa_brick" },
+    "variant=chiseled_forest": { "model": "botania:metamorphic/forest_brick_chiseled" },
+    "variant=chiseled_plains": { "model": "botania:metamorphic/plains_brick_chiseled" },
+    "variant=chiseled_mountain": { "model": "botania:metamorphic/mountain_brick_chiseled" },
+    "variant=chiseled_fungal": { "model": "botania:metamorphic/fungal_brick_chiseled" },
+    "variant=chiseled_swamp": { "model": "botania:metamorphic/swamp_brick_chiseled" },
+    "variant=chiseled_desert": { "model": "botania:metamorphic/desert_brick_chiseled" },
+    "variant=chiseled_taiga": { "model": "botania:metamorphic/taiga_brick_chiseled" },
+    "variant=chiseled_mesa": { "model": "botania:metamorphic/mesa_brick_chiseled" }
+  }
+}

@@ -2,17 +2,17 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Feb 13, 2015, 10:53:05 PM (GMT)]
  */
 package vazkii.botania.api.corporea;
 
 import java.util.List;
 
-import net.minecraft.inventory.IInventory;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
 
 /**
@@ -38,7 +38,7 @@ public interface ICorporeaSpark {
 	/**
 	 * Gets the inventory this spark is bound to, generally the one right below it.
 	 */
-	public IInventory getInventory();
+	public InvWithLocation getSparkInventory();
 
 	/**
 	 * Gets the list of sparks this spark is connected to, see registerConnections(). This list
@@ -82,6 +82,6 @@ public interface ICorporeaSpark {
 	 * Gets the network that this spark is on, or the color it's displaying. Sparks may only connect to others
 	 * of the same network, and on changing network should trigger a re-cache of the previous network.
 	 */
-	public int getNetwork();
+	public EnumDyeColor getNetwork();
 
 }

@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Mar 6, 2014, 3:54:12 PM (GMT)]
  */
 package vazkii.botania.api.lexicon;
@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.mana.IManaItem;
 
 /**
@@ -23,7 +24,7 @@ import vazkii.botania.api.mana.IManaItem;
  */
 public final class LexiconRecipeMappings {
 
-	private static Map<String, EntryData> mappings = new HashMap();
+	private static final Map<String, EntryData> mappings = new HashMap<>();
 
 	/**
 	 * Maps the given stack to the given page of the entry.
@@ -47,21 +48,28 @@ public final class LexiconRecipeMappings {
 	}
 
 	public static EntryData getDataForStack(ItemStack stack) {
+		String wildKey = stackToString(stack, true);
+		if (mappings.containsKey(wildKey))
+			return mappings.get(wildKey);
 		return mappings.get(stackToString(stack));
 	}
-	
+
 	public static String stackToString(ItemStack stack) {
+		return stackToString(stack, false);
+	}
+
+	public static String stackToString(ItemStack stack, boolean forceIgnore) {
 		if(stack == null || stack.getItem() == null)
 			return "NULL";
-		
+
 		if(stack.hasTagCompound() && stack.getItem() instanceof IRecipeKeyProvider)
 			return ((IRecipeKeyProvider) stack.getItem()).getKey(stack);
 
-		return stack.getUnlocalizedName() + (ignoreMeta(stack) ? "" : "~" + stack.getItemDamage());
+		return stack.getUnlocalizedName() + (forceIgnore || ignoreMeta(stack) ? "" : "~" + stack.getItemDamage());
 	}
 
 	public static boolean ignoreMeta(ItemStack stack) {
-		return stack.isItemStackDamageable() || stack.getItem() instanceof IManaItem;
+		return stack.isItemStackDamageable() || stack.getItem() instanceof IManaItem || stack.getItemDamage() == OreDictionary.WILDCARD_VALUE;
 	}
 
 	public static class EntryData {

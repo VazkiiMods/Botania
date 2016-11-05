@@ -2,81 +2,83 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [May 9, 2014, 10:55:17 PM (GMT)]
  */
 package vazkii.botania.common.block;
 
+import javax.annotation.Nonnull;
+
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.IIcon;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.block.tile.TileForestEye;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
-public class BlockForestEye extends BlockModContainer implements ILexiconable {
+public class BlockForestEye extends BlockMod implements ILexiconable {
 
-	IIcon[] icons;
+	private static final AxisAlignedBB AABB = new AxisAlignedBB(0.25, 0.25, 0.25, 0.75, 0.75, 0.75);
 
 	public BlockForestEye() {
-		super(Material.iron);
+		super(Material.IRON, LibBlockNames.FOREST_EYE);
 		setHardness(5.0F);
 		setResistance(10.0F);
-		setStepSound(soundTypeMetal);
-		setBlockBounds(0.25F, 0.25F, 0.25F, 0.75F, 0.75F, 0.75F);
-		setBlockName(LibBlockNames.FOREST_EYE);
+		setSoundType(SoundType.METAL);
+	}
+
+	@Nonnull
+	@Override
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
+		return AABB;
 	}
 
 	@Override
-	public void registerBlockIcons(IIconRegister par1IconRegister) {
-		icons = new IIcon[6];
-		for(int i = 0; i < icons.length; i++)
-			icons[i] = IconHelper.forBlock(par1IconRegister, this, i);
-	}
-
-	@Override
-	public IIcon getIcon(int par1, int par2) {
-		return icons[Math.min(icons.length - 1, par1)];
-	}
-
-	@Override
-	public boolean renderAsNormalBlock() {
+	public boolean isFullCube(IBlockState state) {
 		return false;
 	}
 
 	@Override
-	public boolean isOpaqueCube() {
+	public boolean isOpaqueCube(IBlockState state) {
 		return false;
 	}
 
 	@Override
-	public boolean hasComparatorInputOverride() {
+	public boolean hasComparatorInputOverride(IBlockState state) {
 		return true;
 	}
 
 	@Override
-	public int getComparatorInputOverride(World par1World, int par2, int par3, int par4, int par5) {
-		TileForestEye eye = (TileForestEye) par1World.getTileEntity(par2, par3, par4);
-		return Math.min(15, Math.max(0, eye.entities - 1));
+	public int getComparatorInputOverride(IBlockState state, World world, BlockPos pos) {
+		TileForestEye eye = (TileForestEye) world.getTileEntity(pos);
+		return eye == null ? 0 : Math.min(15, Math.max(0, eye.entities - 1));
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World world, int meta) {
+	public boolean hasTileEntity(IBlockState state) {
+		return true;
+	}
+
+	@Nonnull
+	@Override
+	public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
 		return new TileForestEye();
 	}
 
 	@Override
-	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
+	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.forestEye;
 	}
 

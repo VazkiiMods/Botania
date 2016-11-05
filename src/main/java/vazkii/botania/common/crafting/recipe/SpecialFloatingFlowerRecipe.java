@@ -2,26 +2,29 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Nov 17, 2014, 6:34:36 PM (GMT)]
  */
 package vazkii.botania.common.crafting.recipe;
+
+import javax.annotation.Nonnull;
 
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ForgeHooks;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 
 public class SpecialFloatingFlowerRecipe implements IRecipe {
 
 	@Override
-	public boolean matches(InventoryCrafting var1, World var2) {
+	public boolean matches(@Nonnull InventoryCrafting var1, @Nonnull World var2) {
 		boolean foundFloatingFlower = false;
 		boolean foundSpecialFlower = false;
 
@@ -42,7 +45,7 @@ public class SpecialFloatingFlowerRecipe implements IRecipe {
 	}
 
 	@Override
-	public ItemStack getCraftingResult(InventoryCrafting var1) {
+	public ItemStack getCraftingResult(@Nonnull InventoryCrafting var1) {
 		ItemStack specialFlower = null;
 
 		for(int i = 0; i < var1.getSizeInventory(); i++) {
@@ -67,4 +70,9 @@ public class SpecialFloatingFlowerRecipe implements IRecipe {
 		return null;
 	}
 
+	@Nonnull
+	@Override
+	public ItemStack[] getRemainingItems(@Nonnull InventoryCrafting inv) {
+		return ForgeHooks.defaultRecipeGetRemainingItems(inv);
+	}
 }

@@ -2,23 +2,23 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jan 27, 2014, 2:47:40 PM (GMT)]
  */
 package vazkii.botania.common.block.subtile.functional;
 
 import java.util.List;
+import java.util.function.Predicate;
 
-import net.minecraft.command.IEntitySelector;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityWitch;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.math.AxisAlignedBB;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
@@ -43,20 +43,19 @@ public class SubTileBellethorn extends SubTileFunctional {
 	public void onUpdate() {
 		super.onUpdate();
 
-		if(redstoneSignal > 0)
+		if(supertile.getWorld().isRemote || redstoneSignal > 0)
 			return;
+
+		if(ticksExisted % 200 == 0)
+			sync();
 
 		final int manaToUse = getManaCost();
 
 		if(ticksExisted % 5 == 0) {
 			int range = getRange();
-			List<EntityLivingBase> entities = supertile.getWorldObj().getEntitiesWithinAABB(EntityLivingBase.class, AxisAlignedBB.getBoundingBox(supertile.xCoord - range, supertile.yCoord, supertile.zCoord - range, supertile.xCoord + range + 1, supertile.yCoord + 1, supertile.zCoord + range + 1));
-			IEntitySelector selector = getSelector();
+			List<EntityLivingBase> entities = supertile.getWorld().getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(supertile.getPos().add(-range, -range, -range), supertile.getPos().add(range + 1, range + 1, range + 1)), getSelector()::test);
 
 			for(EntityLivingBase entity : entities) {
-				if(!selector.isEntityApplicable(entity))
-					continue;
-
 				if(entity.hurtTime == 0 && mana >= manaToUse) {
 					int dmg = 4;
 					if(entity instanceof EntityWitch)
@@ -83,20 +82,13 @@ public class SubTileBellethorn extends SubTileFunctional {
 		return RANGE;
 	}
 
-	public IEntitySelector getSelector() {
-		return new IEntitySelector() {
-
-			@Override
-			public boolean isEntityApplicable(Entity entity) {
-				return !(entity instanceof EntityPlayer);
-			}
-
-		};
+	public Predicate<Entity> getSelector() {
+		return entity -> !(entity instanceof EntityPlayer);
 	}
 
 	@Override
 	public RadiusDescriptor getRadius() {
-		return new RadiusDescriptor.Square(toChunkCoordinates(), getRange());
+		return new RadiusDescriptor.Square(toBlockPos(), getRange());
 	}
 
 	@Override

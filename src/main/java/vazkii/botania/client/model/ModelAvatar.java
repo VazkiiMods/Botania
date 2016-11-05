@@ -2,10 +2,10 @@
  * This class was created by <wiiv>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [? (GMT)]
  */
 package vazkii.botania.client.model;
@@ -15,12 +15,12 @@ import net.minecraft.client.model.ModelRenderer;
 
 public class ModelAvatar extends ModelBase {
 
-	public ModelRenderer body;
-	public ModelRenderer rightarm;
-	public ModelRenderer leftarm;
-	public ModelRenderer rightleg;
-	public ModelRenderer leftleg;
-	public ModelRenderer head;
+	public final ModelRenderer body;
+	public final ModelRenderer rightarm;
+	public final ModelRenderer leftarm;
+	public final ModelRenderer rightleg;
+	public final ModelRenderer leftleg;
+	public final ModelRenderer head;
 
 	public ModelAvatar() {
 		textureWidth = 32;
