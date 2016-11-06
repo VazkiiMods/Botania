@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jul 8, 2015, 4:32:34 PM (GMT)]
  */
 package vazkii.botania.common.block.tile;
@@ -18,11 +18,12 @@ import net.minecraft.entity.passive.EntityHorse;
 import net.minecraft.entity.passive.EntityMooshroom;
 import net.minecraft.entity.passive.EntityOcelot;
 import net.minecraft.entity.passive.EntityPig;
+import net.minecraft.entity.passive.EntityRabbit;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.nbt.NBTTagCompound;
-import cpw.mods.fml.common.registry.VillagerRegistry;
+import net.minecraftforge.fml.common.registry.VillagerRegistry;
 
 public class TileCocoon extends TileMod {
 
@@ -36,16 +37,16 @@ public class TileCocoon extends TileMod {
 	public int emeraldsGiven;
 
 	@Override
-	public void updateEntity() {
+	public void update() {
 		timePassed++;
 		if(timePassed >= TOTAL_TIME)
 			hatch();
 	}
 
-	public void hatch() {
+	private void hatch() {
 		if(!worldObj.isRemote) {
-			worldObj.playAuxSFX(2001, xCoord, yCoord, zCoord, Block.getIdFromBlock(getBlockType()));
-			worldObj.setBlockToAir(xCoord, yCoord, zCoord);
+			worldObj.playEvent(2001, pos, Block.getStateId(getBlockType().getStateFromMeta(getBlockMetadata())));
+			worldObj.setBlockToAir(pos);
 
 			EntityAgeable entity = null;
 
@@ -53,7 +54,7 @@ public class TileCocoon extends TileMod {
 
 			if(Math.random() < villagerChance) {
 				EntityVillager villager = new EntityVillager(worldObj);
-				VillagerRegistry.applyRandomTrade(villager, worldObj.rand);
+				VillagerRegistry.setRandomProfession(villager, worldObj.rand);
 				entity = villager;
 			} else {
 				float specialChance = 0.05F;
@@ -71,7 +72,7 @@ public class TileCocoon extends TileMod {
 						break;
 					}
 				} else {
-					int entityType = worldObj.rand.nextInt(4);
+					int entityType = worldObj.rand.nextInt(5);
 					switch(entityType) {
 					case 0:
 						entity = new EntitySheep(worldObj);
@@ -87,12 +88,15 @@ public class TileCocoon extends TileMod {
 					case 3:
 						entity = new EntityChicken(worldObj);
 						break;
+					case 4:
+						entity = new EntityRabbit(worldObj);
+						break;
 					}
 				}
 			}
 
 			if(entity != null) {
-				entity.setPosition(xCoord + 0.5, yCoord + 0.5, zCoord + 0.5);
+				entity.setPosition(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
 				entity.setGrowingAge(-24000);
 				worldObj.spawnEntityInWorld(entity);
 				entity.spawnExplosionParticle();
@@ -101,13 +105,13 @@ public class TileCocoon extends TileMod {
 	}
 
 	@Override
-	public void writeCustomNBT(NBTTagCompound cmp) {
+	public void writePacketNBT(NBTTagCompound cmp) {
 		cmp.setInteger(TAG_TIME_PASSED, timePassed);
 		cmp.setInteger(TAG_EMERALDS_GIVEN, emeraldsGiven);
 	}
 
 	@Override
-	public void readCustomNBT(NBTTagCompound cmp) {
+	public void readPacketNBT(NBTTagCompound cmp) {
 		timePassed = cmp.getInteger(TAG_TIME_PASSED);
 		emeraldsGiven = cmp.getInteger(TAG_EMERALDS_GIVEN);
 	}

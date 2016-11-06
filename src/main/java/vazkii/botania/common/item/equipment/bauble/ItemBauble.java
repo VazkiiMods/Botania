@@ -13,29 +13,36 @@ package vazkii.botania.common.item.equipment.bauble;
 import java.util.List;
 import java.util.UUID;
 
+import javax.annotation.Nonnull;
+
+import baubles.api.BaubleType;
+import baubles.api.BaublesApi;
+import baubles.api.IBauble;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
-import thaumcraft.api.IRunicArmor;
+import net.minecraftforge.fml.common.Optional;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import thaumcraft.api.items.IRunicArmor;
 import vazkii.botania.api.item.ICosmeticAttachable;
 import vazkii.botania.api.item.IPhantomInkable;
+import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.item.ItemMod;
-import baubles.api.BaubleType;
-import baubles.api.IBauble;
-import baubles.common.container.InventoryBaubles;
-import baubles.common.lib.PlayerHandler;
-import cpw.mods.fml.common.Optional;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
-@Optional.Interface(modid = "Thaumcraft", iface = "thaumcraft.api.IRunicArmor")
+@Optional.Interface(modid = "Thaumcraft", iface = "thaumcraft.api.items.IRunicArmor")
 public abstract class ItemBauble extends ItemMod implements IBauble, ICosmeticAttachable, IPhantomInkable, IRunicArmor {
 
 	private static final String TAG_HASHCODE = "playerHashcode";
@@ -45,31 +52,33 @@ public abstract class ItemBauble extends ItemMod implements IBauble, ICosmeticAt
 	private static final String TAG_PHANTOM_INK = "phantomInk";
 
 	public ItemBauble(String name) {
-		super();
+		super(name);
 		setMaxStackSize(1);
-		setUnlocalizedName(name);
 	}
 
+	@Nonnull
 	@Override
-	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
-		if(!EntityDoppleganger.isTruePlayer(par3EntityPlayer))
-			return par1ItemStack;
+	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
+		if(!EntityDoppleganger.isTruePlayer(player))
+			return ActionResult.newResult(EnumActionResult.FAIL, stack);
 
-		if(canEquip(par1ItemStack, par3EntityPlayer)) {
-			InventoryBaubles baubles = PlayerHandler.getPlayerBaubles(par3EntityPlayer);
+		ItemStack toEquip = stack.copy();
+		toEquip.stackSize = 1;
+
+		if(canEquip(toEquip, player)) {
+			IInventory baubles = BaublesApi.getBaubles(player);
 			for(int i = 0; i < baubles.getSizeInventory(); i++) {
-				if(baubles.isItemValidForSlot(i, par1ItemStack)) {
+				if(baubles.isItemValidForSlot(i, toEquip)) {
 					ItemStack stackInSlot = baubles.getStackInSlot(i);
-					if(stackInSlot == null || ((IBauble) stackInSlot.getItem()).canUnequip(stackInSlot, par3EntityPlayer)) {
-						if(!par2World.isRemote) {
-							baubles.setInventorySlotContents(i, par1ItemStack.copy());
-							if(!par3EntityPlayer.capabilities.isCreativeMode)
-								par3EntityPlayer.inventory.setInventorySlotContents(par3EntityPlayer.inventory.currentItem, null);
+					if(stackInSlot == null || ((IBauble) stackInSlot.getItem()).canUnequip(stackInSlot, player)) {
+						if(!world.isRemote) {
+							baubles.setInventorySlotContents(i, toEquip);
+							stack.stackSize--;
 						}
 
 						if(stackInSlot != null) {
-							((IBauble) stackInSlot.getItem()).onUnequipped(stackInSlot, par3EntityPlayer);
-							return stackInSlot.copy();
+							((IBauble) stackInSlot.getItem()).onUnequipped(stackInSlot, player);
+							return ActionResult.newResult(EnumActionResult.SUCCESS, stackInSlot.copy());
 						}
 						break;
 					}
@@ -77,32 +86,30 @@ public abstract class ItemBauble extends ItemMod implements IBauble, ICosmeticAt
 			}
 		}
 
-		return par1ItemStack;
+		return ActionResult.newResult(EnumActionResult.PASS, stack);
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
+	public void addInformation(ItemStack par1ItemStack, EntityPlayer player, List<String> stacks, boolean par4) {
 		if(GuiScreen.isShiftKeyDown())
-			addHiddenTooltip(par1ItemStack, par2EntityPlayer, par3List, par4);
-		else addStringToTooltip(StatCollector.translateToLocal("botaniamisc.shiftinfo"), par3List);
+			addHiddenTooltip(par1ItemStack, player, stacks, par4);
+		else addStringToTooltip(I18n.format("botaniamisc.shiftinfo"), stacks);
 	}
 
-	public void addHiddenTooltip(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
-		BaubleType type = getBaubleType(par1ItemStack);
-		addStringToTooltip(StatCollector.translateToLocal("botania.baubletype." + type.name().toLowerCase()), par3List);
-
+	@SideOnly(Side.CLIENT)
+	public void addHiddenTooltip(ItemStack par1ItemStack, EntityPlayer player, List<String> stacks, boolean par4) {
 		String key = vazkii.botania.client.core.helper.RenderHelper.getKeyDisplayString("Baubles Inventory");
 
 		if(key != null)
-			addStringToTooltip(StatCollector.translateToLocal("botania.baubletooltip").replaceAll("%key%", key), par3List);
+			addStringToTooltip(I18n.format("botania.baubletooltip", key), stacks);
 
 		ItemStack cosmetic = getCosmeticItem(par1ItemStack);
 		if(cosmetic != null)
-			addStringToTooltip(String.format(StatCollector.translateToLocal("botaniamisc.hasCosmetic"), cosmetic.getDisplayName()), par3List);
+			addStringToTooltip(I18n.format("botaniamisc.hasCosmetic", cosmetic.getDisplayName()), stacks);
 
 		if(hasPhantomInk(par1ItemStack))
-			addStringToTooltip(StatCollector.translateToLocal("botaniamisc.hasPhantomInk"), par3List);
+			addStringToTooltip(I18n.format("botaniamisc.hasPhantomInk"), stacks);
 	}
 
 	void addStringToTooltip(String s, List<String> tooltip) {
@@ -131,7 +138,7 @@ public abstract class ItemBauble extends ItemMod implements IBauble, ICosmeticAt
 	public void onEquipped(ItemStack stack, EntityLivingBase player) {
 		if(player != null) {
 			if(!player.worldObj.isRemote)
-				player.worldObj.playSoundAtEntity(player, "botania:equipBauble", 0.1F, 1.3F);
+				player.worldObj.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.equipBauble, SoundCategory.PLAYERS, 0.1F, 1.3F);
 
 			if(player instanceof EntityPlayer)
 				((EntityPlayer) player).addStat(ModAchievements.baubleWear, 1);
@@ -141,14 +148,10 @@ public abstract class ItemBauble extends ItemMod implements IBauble, ICosmeticAt
 		}
 	}
 
-	public void onEquippedOrLoadedIntoWorld(ItemStack stack, EntityLivingBase player) {
-		// NO-OP
-	}
+	public void onEquippedOrLoadedIntoWorld(ItemStack stack, EntityLivingBase player) {}
 
 	@Override
-	public void onUnequipped(ItemStack stack, EntityLivingBase player) {
-		// NO-OP
-	}
+	public void onUnequipped(ItemStack stack, EntityLivingBase player) { }
 
 	@Override
 	public ItemStack getCosmeticItem(ItemStack stack) {
@@ -171,14 +174,10 @@ public abstract class ItemBauble extends ItemMod implements IBauble, ICosmeticAt
 		return getContainerItem(stack) != null;
 	}
 
+	@Nonnull
 	@Override
-	public ItemStack getContainerItem(ItemStack itemStack) {
+	public ItemStack getContainerItem(@Nonnull ItemStack itemStack) {
 		return getCosmeticItem(itemStack);
-	}
-
-	@Override
-	public boolean doesContainerItemLeaveCraftingGrid(ItemStack p_77630_1_) {
-		return false;
 	}
 
 	public static UUID getBaubleUUID(ItemStack stack) {

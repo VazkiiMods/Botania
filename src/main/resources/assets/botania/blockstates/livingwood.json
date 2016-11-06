@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "variant=default": { "model": "botania:livingwood" },
+    "variant=planks": { "model": "botania:livingwood_planks" },
+    "variant=mossy_planks": { "model": "botania:livingwood_mossy_planks" },
+    "variant=framed": { "model": "botania:livingwood_framed" },
+    "variant=pattern_framed": { "model": "botania:livingwood_pattern_framed" },
+    "variant=glimmering": { "model": "botania:livingwood_glimmering" }
+  }
+}

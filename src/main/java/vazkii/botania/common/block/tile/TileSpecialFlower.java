@@ -2,17 +2,19 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jan 22, 2014, 7:21:51 PM (GMT)]
  */
 package vazkii.botania.common.block.tile;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockDirt;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.entity.EntityLivingBase;
@@ -21,9 +23,12 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ChunkCoordinates;
-import net.minecraft.util.IIcon;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.ISubTileSlowableContainer;
@@ -38,7 +43,7 @@ public class TileSpecialFlower extends TileMod implements IWandBindable, ISubTil
 	private static final String TAG_SUBTILE_CMP = "subTileCmp";
 
 	public String subTileName = "";
-	SubTileEntity subTile;
+	private SubTileEntity subTile;
 
 	@Override
 	public SubTileEntity getSubTile() {
@@ -69,22 +74,16 @@ public class TileSpecialFlower extends TileMod implements IWandBindable, ISubTil
 	}
 
 	@Override
-	public void updateEntity() {
+	public void update() {
 		if(subTile != null) {
-			TileEntity tileBelow = worldObj.getTileEntity(xCoord, yCoord - 1, zCoord);
+			TileEntity tileBelow = worldObj.getTileEntity(pos.down());
 			if(tileBelow instanceof TileRedStringRelay) {
-				ChunkCoordinates coords = ((TileRedStringRelay) tileBelow).getBinding();
+				BlockPos coords = ((TileRedStringRelay) tileBelow).getBinding();
 				if(coords != null) {
-					int currX = xCoord;
-					int currY = yCoord;
-					int currZ = zCoord;
-					xCoord = coords.posX;
-					yCoord = coords.posY;
-					zCoord = coords.posZ;
+					BlockPos currPos = pos;
+					setPos(coords);
 					subTile.onUpdate();
-					xCoord = currX;
-					yCoord = currY;
-					zCoord = currZ;
+					setPos(currPos);
 
 					return;
 				}
@@ -105,17 +104,12 @@ public class TileSpecialFlower extends TileMod implements IWandBindable, ISubTil
 	}
 
 	public boolean isOnSpecialSoil() {
-		return worldObj.getBlock(xCoord, yCoord - 1, zCoord) == ModBlocks.enchantedSoil;
+		return worldObj.getBlockState(pos.down()).getBlock() == ModBlocks.enchantedSoil;
 	}
 
 	@Override
-	public boolean canUpdate() {
-		return subTile == null || subTile.canUpdate();
-	}
-
-	@Override
-	public void writeCustomNBT(NBTTagCompound cmp) {
-		super.writeCustomNBT(cmp);
+	public void writePacketNBT(NBTTagCompound cmp) {
+		super.writePacketNBT(cmp);
 
 		cmp.setString(TAG_SUBTILE_NAME, subTileName);
 		NBTTagCompound subCmp = new NBTTagCompound();
@@ -126,8 +120,8 @@ public class TileSpecialFlower extends TileMod implements IWandBindable, ISubTil
 	}
 
 	@Override
-	public void readCustomNBT(NBTTagCompound cmp) {
-		super.readCustomNBT(cmp);
+	public void readPacketNBT(NBTTagCompound cmp) {
+		super.readPacketNBT(cmp);
 
 		subTileName = cmp.getString(TAG_SUBTILE_NAME);
 		NBTTagCompound subCmp = cmp.getCompoundTag(TAG_SUBTILE_CMP);
@@ -139,10 +133,6 @@ public class TileSpecialFlower extends TileMod implements IWandBindable, ISubTil
 			subTile.readFromPacketNBTInternal(subCmp);
 	}
 
-	public IIcon getIcon() {
-		return subTile == null ? Blocks.red_flower.getIcon(0, 0) : subTile.getIcon();
-	}
-
 	public LexiconEntry getEntry() {
 		return subTile == null ? null : subTile.getEntry();
 	}
@@ -151,71 +141,72 @@ public class TileSpecialFlower extends TileMod implements IWandBindable, ISubTil
 		return subTile == null ? false : subTile.onWanded(player, wand);
 	}
 
-	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack stack) {
+	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase entity, ItemStack stack) {
 		if (subTile != null)
-			subTile.onBlockPlacedBy(world, x, y, z, entity, stack);
+			subTile.onBlockPlacedBy(world, pos, state, entity, stack);
 	}
 
-	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
-		return subTile == null ? false : subTile.onBlockActivated(world, x, y, z, player, side, hitX, hitY, hitZ);
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack stack, EnumFacing side, float hitX, float hitY, float hitZ) {
+		return subTile == null ? false : subTile.onBlockActivated(world, pos, state, player, hand, stack, side, hitX, hitY, hitZ);
 	}
 
-	public void onBlockAdded(World world, int x, int y, int z) {
+	public void onBlockAdded(World world, BlockPos pos, IBlockState state) {
 		if (subTile != null)
-			subTile.onBlockAdded(world, x, y, z);
+			subTile.onBlockAdded(world, pos, state);
 	}
 
-	public void onBlockHarvested(World world, int x, int y, int z, int side, EntityPlayer player) {
+	public void onBlockHarvested(World world, BlockPos pos, IBlockState state, EntityPlayer player) {
 		if (subTile != null)
-			subTile.onBlockHarvested(world, x, y, z, side, player);
+			subTile.onBlockHarvested(world, pos, state, player);
 	}
 
-	public ArrayList<ItemStack> getDrops(ArrayList<ItemStack> list) {
+	public List<ItemStack> getDrops(List<ItemStack> list) {
 		if (subTile != null)
 			subTile.getDrops(list);
 
 		return list;
 	}
 
+	@SideOnly(Side.CLIENT)
 	public void renderHUD(Minecraft mc, ScaledResolution res) {
 		if(subTile != null)
 			subTile.renderHUD(mc, res);
 	}
 
 	@Override
-	public ChunkCoordinates getBinding() {
+	public BlockPos getBinding() {
 		if(subTile == null)
 			return null;
 		return subTile.getBinding();
 	}
 
 	@Override
-	public boolean canSelect(EntityPlayer player, ItemStack wand, int x, int y, int z, int side) {
+	public boolean canSelect(EntityPlayer player, ItemStack wand, BlockPos pos, EnumFacing side) {
 		if(subTile == null)
 			return false;
-		return subTile.canSelect(player, wand, x, y, z, side);
+		return subTile.canSelect(player, wand, pos, side);
 	}
 
 	@Override
-	public boolean bindTo(EntityPlayer player, ItemStack wand, int x, int y, int z, int side) {
+	public boolean bindTo(EntityPlayer player, ItemStack wand, BlockPos pos, EnumFacing side) {
 		if(subTile == null)
 			return false;
-		return subTile.bindTo(player, wand, x, y, z, side);
+		return subTile.bindTo(player, wand, pos, side);
 	}
 
 	public int getLightValue() {
 		if(subTile == null)
-			return -1;
+			return 0;
 		return subTile.getLightValue();
 	}
 
-	public int getComparatorInputOverride(int side) {
+	public int getComparatorInputOverride() {
 		if(subTile == null)
 			return 0;
-		return subTile.getComparatorInputOverride(side);
+		return subTile.getComparatorInputOverride();
 	}
 
-	public int getPowerLevel(int side) {
+	public int getPowerLevel(EnumFacing side) {
 		if(subTile == null)
 			return 0;
 		return subTile.getPowerLevel(side);
@@ -223,16 +214,16 @@ public class TileSpecialFlower extends TileMod implements IWandBindable, ISubTil
 
 	@Override
 	public int getSlowdownFactor() {
-		Block below = worldObj.getBlock(xCoord, yCoord - 1, zCoord);
-		if(below == Blocks.mycelium)
+		Block below = worldObj.getBlockState(getPos().down()).getBlock();
+		if(below == Blocks.MYCELIUM)
 			return SLOWDOWN_FACTOR_MYCEL;
-		
-		if(below == Blocks.dirt) {
-			int meta = worldObj.getBlockMetadata(xCoord, yCoord - 1, zCoord);
-			if(meta == 2)
+
+		if(below == Blocks.DIRT) {
+			BlockDirt.DirtType type = worldObj.getBlockState(getPos().down()).getValue(BlockDirt.VARIANT);
+			if(type == BlockDirt.DirtType.PODZOL)
 				return SLOWDOWN_FACTOR_PODZOL;
 		}
-		
+
 		return 0;
 	}
 }

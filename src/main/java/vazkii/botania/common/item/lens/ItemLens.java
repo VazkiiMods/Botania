@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jan 31, 2014, 3:02:58 PM (GMT)]
  */
 package vazkii.botania.common.item.lens;
@@ -13,17 +13,20 @@ package vazkii.botania.common.item.lens;
 import java.awt.Color;
 import java.util.List;
 
-import net.minecraft.client.renderer.texture.IIconRegister;
+import javax.annotation.Nonnull;
+
+import net.minecraft.client.resources.I18n;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityThrowable;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.IIcon;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.RecipeSorter.Category;
 import vazkii.botania.api.internal.IManaBurst;
@@ -31,20 +34,20 @@ import vazkii.botania.api.mana.BurstProperties;
 import vazkii.botania.api.mana.ICompositableLens;
 import vazkii.botania.api.mana.ILens;
 import vazkii.botania.api.mana.ILensControl;
+import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.api.mana.IManaSpreader;
 import vazkii.botania.api.mana.ITinyPlanetExcempt;
-import vazkii.botania.client.core.helper.IconHelper;
+import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.crafting.recipe.CompositeLensRecipe;
 import vazkii.botania.common.crafting.recipe.LensDyeingRecipe;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.lib.LibItemNames;
-import cpw.mods.fml.common.registry.GameRegistry;
 
 public class ItemLens extends ItemMod implements ILensControl, ICompositableLens, ITinyPlanetExcempt {
 
-	public static final int SUBTYPES = 22;
+	public static final int SUBTYPES = 24;
 
 	public static final int NORMAL = 0,
 			SPEED = 1,
@@ -67,7 +70,9 @@ public class ItemLens extends ItemMod implements ILensControl, ICompositableLens
 			WARP = 18,
 			REDIRECT = 19,
 			FIREWORK = 20,
-			FLARE = 21;
+			FLARE = 21,
+			MESSENGER = 22,
+			TRIPWIRE = 23;
 
 	public static final int STORM = 5000;
 
@@ -81,8 +86,8 @@ public class ItemLens extends ItemMod implements ILensControl, ICompositableLens
 
 	private static final int[] props = new int[SUBTYPES];
 	private static final Lens[] lenses = new Lens[SUBTYPES];
-	private static Lens fallbackLens = new Lens();
-	private static Lens stormLens = new LensStorm();
+	private static final Lens fallbackLens = new Lens();
+	private static final Lens stormLens = new LensStorm();
 
 	static {
 		setProps(NORMAL, PROP_NONE);
@@ -107,6 +112,8 @@ public class ItemLens extends ItemMod implements ILensControl, ICompositableLens
 		setProps(REDIRECT, PROP_TOUCH | PROP_INTERACTION);
 		setProps(FIREWORK, PROP_TOUCH);
 		setProps(FLARE, PROP_CONTROL);
+		setProps(MESSENGER, PROP_POWER);
+		setProps(TRIPWIRE, PROP_CONTROL);
 
 		setLens(NORMAL, fallbackLens);
 		setLens(SPEED, new LensSpeed());
@@ -130,18 +137,15 @@ public class ItemLens extends ItemMod implements ILensControl, ICompositableLens
 		setLens(REDIRECT, new LensRedirect());
 		setLens(FIREWORK, new LensFirework());
 		setLens(FLARE, new LensFlare());
+		setLens(MESSENGER, new LensMessenger());
+		setLens(TRIPWIRE, new LensTripwire());
 	}
 
 	private static final String TAG_COLOR = "color";
 	private static final String TAG_COMPOSITE_LENS = "compositeLens";
 
-	public static IIcon iconGlass;
-
-	IIcon[] ringIcons;
-
 	public ItemLens() {
-		super();
-		setUnlocalizedName(LibItemNames.LENS);
+		super(LibItemNames.LENS);
 		setMaxStackSize(1);
 		setHasSubtypes(true);
 
@@ -152,63 +156,38 @@ public class ItemLens extends ItemMod implements ILensControl, ICompositableLens
 	}
 
 	@Override
-	public void registerIcons(IIconRegister par1IconRegister) {
-		iconGlass = IconHelper.forName(par1IconRegister, "lensInside");
-
-		ringIcons = new IIcon[SUBTYPES];
-		for(int i = 0; i < ringIcons.length; i++)
-			ringIcons[i] = IconHelper.forName(par1IconRegister, LibItemNames.LENS_NAMES[i]);
-	}
-
-	@Override
-	public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
+	@SideOnly(Side.CLIENT)
+	public void getSubItems(@Nonnull Item item, CreativeTabs tab, List<ItemStack> stacks) {
 		for(int i = 0; i < SUBTYPES; i++)
-			par3List.add(new ItemStack(par1, 1, i));
+			stacks.add(new ItemStack(item, 1, i));
 	}
 
-	@Override
-	public boolean requiresMultipleRenderPasses() {
-		return true;
-	}
-
-	@Override
-	public IIcon getIconFromDamageForRenderPass(int par1, int par2) {
-		return par2 == 1 ? ringIcons[Math.min(SUBTYPES - 1, par1)] : iconGlass;
-	}
-
-	@Override
-	public IIcon getIconFromDamage(int par1) {
-		return getIconFromDamageForRenderPass(par1, 0);
-	}
-
-	@Override
-	public int getColorFromItemStack(ItemStack par1ItemStack, int par2) {
-		return par2 == 0 ? getLensColor(par1ItemStack) : 0xFFFFFF;
-	}
-
+	@Nonnull
 	@Override
 	public String getUnlocalizedName(ItemStack par1ItemStack) {
 		return "item." + LibItemNames.LENS_NAMES[Math.min(SUBTYPES - 1, par1ItemStack.getItemDamage())];
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
-	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
+	public void addInformation(ItemStack par1ItemStack, EntityPlayer player, List<String> stacks, boolean par4) {
 		int storedColor = getStoredColor(par1ItemStack);
 		if(storedColor != -1)
-			par3List.add(String.format(StatCollector.translateToLocal("botaniamisc.color"), StatCollector.translateToLocal("botania.color" + storedColor)));
+			stacks.add(I18n.format("botaniamisc.color", I18n.format("botania.color" + storedColor)));
 	}
 
 
-	public String getItemShortTermName(ItemStack stack) {
-		return StatCollector.translateToLocal(stack.getUnlocalizedName().replaceAll("item.", "item.botania:") + ".short");
+	private String getItemShortTermName(ItemStack stack) {
+		return net.minecraft.util.text.translation.I18n.translateToLocal(stack.getUnlocalizedName().replaceAll("item.", "item.botania:") + ".short");
 	}
 
+	@Nonnull
 	@Override
-	public String getItemStackDisplayName(ItemStack stack) {
+	public String getItemStackDisplayName(@Nonnull ItemStack stack) {
 		ItemStack compositeLens = getCompositeLens(stack);
 		if(compositeLens == null)
 			return super.getItemStackDisplayName(stack);
-		return String.format(StatCollector.translateToLocal("item.botania:compositeLens.name"), getItemShortTermName(stack), getItemShortTermName(compositeLens));
+		return String.format(net.minecraft.util.text.translation.I18n.translateToLocal("item.botania:compositeLens.name"), getItemShortTermName(stack), getItemShortTermName(compositeLens));
 	}
 
 	@Override
@@ -225,7 +204,7 @@ public class ItemLens extends ItemMod implements ILensControl, ICompositableLens
 	}
 
 	@Override
-	public boolean collideBurst(IManaBurst burst, MovingObjectPosition pos, boolean isManaBlock, boolean dead, ItemStack stack) {
+	public boolean collideBurst(IManaBurst burst, RayTraceResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
 		EntityThrowable entity = (EntityThrowable) burst;
 
 		dead = getLens(stack.getItemDamage()).collideBurst(burst, entity, pos, isManaBlock, dead, stack);
@@ -262,17 +241,15 @@ public class ItemLens extends ItemMod implements ILensControl, ICompositableLens
 		if(storedColor == 16)
 			return Color.HSBtoRGB(Botania.proxy.getWorldElapsedTicks() * 2 % 360 / 360F, 1F, 1F);
 
-		float[] color = EntitySheep.fleeceColorTable[storedColor];
-		return new Color(color[0], color[1], color[2]).getRGB();
+		return EnumDyeColor.byMetadata(storedColor).getMapColor().colorValue;
 	}
 
 	public static int getStoredColor(ItemStack stack) {
 		return ItemNBTHelper.getInt(stack, TAG_COLOR, -1);
 	}
 
-	public static ItemStack setLensColor(ItemStack stack, int color) {
+	public static void setLensColor(ItemStack stack, int color) {
 		ItemNBTHelper.setInt(stack, TAG_COLOR, color);
-		return stack;
 	}
 
 	@Override
@@ -335,6 +312,11 @@ public class ItemLens extends ItemMod implements ILensControl, ICompositableLens
 	}
 
 	@Override
+	public int getManaToTransfer(IManaBurst burst, EntityThrowable entity, ItemStack stack, IManaReceiver receiver) {
+		return lenses[stack.getItemDamage()].getManaToTransfer(burst, entity, stack, receiver);
+	}
+	
+	@Override
 	public boolean shouldPull(ItemStack stack) {
 		return stack.getItemDamage() != STORM;
 	}
@@ -368,4 +350,11 @@ public class ItemLens extends ItemMod implements ILensControl, ICompositableLens
 	public boolean isCombinable(ItemStack stack) {
 		return stack.getItemDamage() != NORMAL;
 	}
+
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void registerModels() {
+		ModelHandler.registerItemMetas(this, LibItemNames.LENS_NAMES.length, i -> LibItemNames.LENS_NAMES[i]);
+	}
+
 }

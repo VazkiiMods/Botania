@@ -1,0 +1,19 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "minecraft:half_slab",
+    "textures": {
+      "bottom": "botania:blocks/biomeStone10",
+      "top": "botania:blocks/biomeStone10",
+      "side": "botania:blocks/biomeStone10"
+    },
+    "transform": "forge:default-block"
+  },
+  "variants": {
+    "half=top": [{
+      "x": 180,
+      "uvlock": true
+    }],
+    "half=bottom": [{}]
+  }
+}

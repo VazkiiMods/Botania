@@ -1,0 +1,19 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "minecraft:half_slab",
+    "textures": {
+      "bottom": "botania:blocks/blockDarkQuartz0",
+      "top": "botania:blocks/blockDarkQuartz1",
+      "side": "botania:blocks/blockDarkQuartz2"
+    },
+    "transform": "forge:default-block"
+  },
+  "variants": {
+    "half=top": [{
+      "x": 180,
+      "uvlock": true
+    }],
+    "half=bottom": [{}]
+  }
+}

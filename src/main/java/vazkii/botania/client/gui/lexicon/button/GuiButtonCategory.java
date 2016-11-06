@@ -2,24 +2,26 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Oct 18, 2014, 4:00:30 PM (GMT)]
  */
 package vazkii.botania.client.gui.lexicon.button;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.OpenGlHelper;
-import net.minecraft.client.renderer.texture.TextureManager;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StatCollector;
+import javax.annotation.Nonnull;
 
 import org.lwjgl.opengl.ARBMultitexture;
 import org.lwjgl.opengl.ARBShaderObjects;
 import org.lwjgl.opengl.GL11;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.OpenGlHelper;
+import net.minecraft.client.renderer.texture.TextureManager;
+import net.minecraft.client.resources.I18n;
+import net.minecraft.util.ResourceLocation;
 import vazkii.botania.api.internal.ShaderCallback;
 import vazkii.botania.api.lexicon.LexiconCategory;
 import vazkii.botania.client.core.helper.RenderHelper;
@@ -33,36 +35,36 @@ public class GuiButtonCategory extends GuiButtonLexicon {
 	private static final ResourceLocation fallbackResource = new ResourceLocation(LibResources.CATEGORY_INDEX);
 	private static final ResourceLocation stencilResource = new ResourceLocation(LibResources.GUI_STENCIL);
 
-	private ShaderCallback shaderCallback = new ShaderCallback() {
+	private static boolean boundStencil = false;
 
-		@Override
-		public void call(int shader) {
-			TextureManager r = Minecraft.getMinecraft().renderEngine;
-			int heightMatchUniform = ARBShaderObjects.glGetUniformLocationARB(shader, "heightMatch");
-			int imageUniform = ARBShaderObjects.glGetUniformLocationARB(shader, "image");
-			int maskUniform = ARBShaderObjects.glGetUniformLocationARB(shader, "mask");
+	final GuiLexicon gui;
+	private final LexiconCategory category;
+	private ResourceLocation resource = null;
+	private float ticksHovered = 0F;
+	private final float time = 12F;
 
-			float heightMatch = ticksHovered / time;
-			OpenGlHelper.setActiveTexture(ARBMultitexture.GL_TEXTURE0_ARB);
-			GL11.glBindTexture(GL11.GL_TEXTURE_2D, r.getTexture(resource).getGlTextureId());
-			ARBShaderObjects.glUniform1iARB(imageUniform, 0);
+	private final ShaderCallback shaderCallback = shader -> {
+		TextureManager r = Minecraft.getMinecraft().renderEngine;
+		int heightMatchUniform = ARBShaderObjects.glGetUniformLocationARB(shader, "heightMatch");
+		int imageUniform = ARBShaderObjects.glGetUniformLocationARB(shader, "image");
+		int maskUniform = ARBShaderObjects.glGetUniformLocationARB(shader, "mask");
 
-			OpenGlHelper.setActiveTexture(ARBMultitexture.GL_TEXTURE0_ARB + ConfigHandler.glSecondaryTextureUnit);
-			GL11.glEnable(GL11.GL_TEXTURE_2D);
-			GL11.glGetInteger(GL11.GL_TEXTURE_BINDING_2D);
-			GL11.glBindTexture(GL11.GL_TEXTURE_2D, r.getTexture(stencilResource).getGlTextureId());
-			ARBShaderObjects.glUniform1iARB(maskUniform, ConfigHandler.glSecondaryTextureUnit);
+		float heightMatch = ticksHovered / time;
+		OpenGlHelper.setActiveTexture(ARBMultitexture.GL_TEXTURE0_ARB);
+		GL11.glBindTexture(GL11.GL_TEXTURE_2D, r.getTexture(resource).getGlTextureId());
+		ARBShaderObjects.glUniform1iARB(imageUniform, 0);
 
-			ARBShaderObjects.glUniform1fARB(heightMatchUniform, heightMatch);
-		}
+		OpenGlHelper.setActiveTexture(ARBMultitexture.GL_TEXTURE0_ARB + ConfigHandler.glSecondaryTextureUnit);
+
+		GlStateManager.enableTexture2D();
+		GL11.glGetInteger(GL11.GL_TEXTURE_BINDING_2D);
+
+		GL11.glBindTexture(GL11.GL_TEXTURE_2D, r.getTexture(stencilResource).getGlTextureId());
+		ARBShaderObjects.glUniform1iARB(maskUniform, ConfigHandler.glSecondaryTextureUnit);
+
+		ARBShaderObjects.glUniform1fARB(heightMatchUniform, heightMatch);
 	};
-	static boolean boundStencil = false;
 
-	GuiLexicon gui;
-	LexiconCategory category;
-	ResourceLocation resource = null;
-	float ticksHovered = 0F;
-	float time = 12F;
 	int activeTex = 0;
 
 	public GuiButtonCategory(int id, int x, int y, GuiLexicon gui, LexiconCategory category) {
@@ -72,7 +74,7 @@ public class GuiButtonCategory extends GuiButtonLexicon {
 	}
 
 	@Override
-	public void drawButton(Minecraft mc, int mx, int my) {
+	public void drawButton(@Nonnull Minecraft mc, int mx, int my) {
 		boolean inside = mx >= xPosition && my >= yPosition && mx < xPosition + width && my < yPosition + height;
 		if(inside)
 			ticksHovered = Math.min(time, ticksHovered + gui.timeDelta);
@@ -87,11 +89,12 @@ public class GuiButtonCategory extends GuiButtonLexicon {
 		}
 
 		float s = 1F / 32F;
-		GL11.glPushMatrix();
-		GL11.glEnable(GL11.GL_BLEND);
-		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		GL11.glScalef(0.5F, 0.5F, 0.5F);
-		GL11.glColor4f(1F, 1F, 1F, 1F);
+
+		GlStateManager.pushMatrix();
+		GlStateManager.enableBlend();
+		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		GlStateManager.scale(0.5F, 0.5F, 0.5F);
+		GlStateManager.color(1F, 1F, 1F, 1F);
 
 		if(!boundStencil) { // Allow for the texture manager to take care of the ResourceLocation before we use it directly with gl
 			mc.renderEngine.bindTexture(stencilResource);
@@ -117,13 +120,13 @@ public class GuiButtonCategory extends GuiButtonLexicon {
 			OpenGlHelper.setActiveTexture(ARBMultitexture.GL_TEXTURE0_ARB);
 		}
 
-		GL11.glPopMatrix();
+		GlStateManager.popMatrix();
 
 		if(inside)
-			gui.categoryHighlight = StatCollector.translateToLocal(getTooltipText());
+			gui.categoryHighlight = I18n.format(getTooltipText());
 	}
 
-	String getTooltipText() {
+	private String getTooltipText() {
 		if(category == null)
 			return "botaniamisc.lexiconIndex";
 		return category.getUnlocalizedName();

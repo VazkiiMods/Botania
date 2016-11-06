@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jan 14, 2014, 6:17:06 PM (GMT)]
  */
 package vazkii.botania.api.lexicon;
@@ -14,11 +14,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.translation.I18n;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.BotaniaAPI;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class LexiconEntry implements Comparable<LexiconEntry> {
 
@@ -27,11 +29,11 @@ public class LexiconEntry implements Comparable<LexiconEntry> {
 
 	private KnowledgeType type = BotaniaAPI.basicKnowledge;
 
-	public List<LexiconPage> pages = new ArrayList<LexiconPage>();
+	public final List<LexiconPage> pages = new ArrayList<>();
 	private boolean priority = false;
 	private ItemStack icon = null;
-	
-	private List<ItemStack> extraDisplayedRecipes = new ArrayList();
+
+	private final List<ItemStack> extraDisplayedRecipes = new ArrayList<>();
 
 	/**
 	 * @param unlocalizedName The unlocalized name of this entry. This will be localized by the client display.
@@ -122,16 +124,16 @@ public class LexiconEntry implements Comparable<LexiconEntry> {
 	}
 
 	public final String getNameForSorting() {
-		return (priority ? 0 : 1) + StatCollector.translateToLocal(getUnlocalizedName());
+		return (priority ? 0 : 1) + I18n.translateToLocal(getUnlocalizedName());
 	}
 
 	public List<ItemStack> getDisplayedRecipes() {
-		ArrayList<ItemStack> list = new ArrayList();
+		ArrayList<ItemStack> list = new ArrayList<>();
 		for(LexiconPage page : pages) {
 			List<ItemStack> l = page.getDisplayedRecipes();
 
 			if(l != null) {
-				ArrayList<ItemStack> itemsAddedThisPage = new ArrayList();
+				ArrayList<ItemStack> itemsAddedThisPage = new ArrayList<>();
 
 				for(ItemStack s : l) {
 					addItem: {
@@ -148,18 +150,18 @@ public class LexiconEntry implements Comparable<LexiconEntry> {
 				}
 			}
 		}
-		
+
 		list.addAll(extraDisplayedRecipes);
 
 		return list;
 	}
-	
+
 	public void addExtraDisplayedRecipe(ItemStack stack) {
 		extraDisplayedRecipes.add(stack);
 	}
 
 	@Override
-	public int compareTo(LexiconEntry o) {
+	public int compareTo(@Nonnull LexiconEntry o) {
 		return getNameForSorting().compareTo(o.getNameForSorting());
 	}
 

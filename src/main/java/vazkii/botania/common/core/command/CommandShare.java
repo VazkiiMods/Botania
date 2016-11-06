@@ -10,34 +10,38 @@
  */
 package vazkii.botania.common.core.command;
 
+import javax.annotation.Nonnull;
+
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.IChatComponent;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.translation.I18n;
 
 public class CommandShare extends CommandBase {
 
+	@Nonnull
 	@Override
 	public String getCommandName() {
 		return "botania-share";
 	}
 
+	@Nonnull
 	@Override
-	public String getCommandUsage(ICommandSender p_71518_1_) {
+	public String getCommandUsage(@Nonnull ICommandSender sender) {
 		return "<entry>";
 	}
 
 	@Override
-	public void processCommand(ICommandSender sender, String[] args) {
-		String json = StatCollector.translateToLocal("botaniamisc.shareMsg");
-		json = json.replaceAll("%name%", sender.getCommandSenderName());
+	public void execute(@Nonnull MinecraftServer server, @Nonnull ICommandSender sender, @Nonnull String[] args) {
+		String json = I18n.translateToLocal("botaniamisc.shareMsg");
+		json = json.replaceAll("%name%", sender.getName());
 		json = json.replaceAll("%entry%", args[0]);
-		json = json.replaceAll("%entryname%", StatCollector.translateToLocal(args[0]));
+		json = json.replaceAll("%entryname%", I18n.translateToLocal(args[0]));
 
-		IChatComponent component = IChatComponent.Serializer.func_150699_a(json);
-		MinecraftServer.getServer().getConfigurationManager().sendChatMsg(component);
+		ITextComponent component = ITextComponent.Serializer.jsonToComponent(json);
+		server.getPlayerList().sendChatMsg(component);
 	}
 
 
@@ -47,7 +51,7 @@ public class CommandShare extends CommandBase {
 	}
 
 	@Override
-	public boolean canCommandSenderUseCommand(ICommandSender p_71519_1_) {
-		return p_71519_1_ instanceof EntityPlayer;
+	public boolean checkPermission(MinecraftServer server, ICommandSender sender) {
+		return sender instanceof EntityPlayer;
 	}
 }

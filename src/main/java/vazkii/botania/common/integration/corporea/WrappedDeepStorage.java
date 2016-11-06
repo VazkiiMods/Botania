@@ -2,25 +2,25 @@
  * This class was created by <Vindex>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  */
 package vazkii.botania.common.integration.corporea;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.logging.log4j.Level;
-
-import cpw.mods.fml.common.FMLLog;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.items.wrapper.InvWrapper;
 import powercrystals.minefactoryreloaded.api.IDeepStorageUnit;
 import vazkii.botania.api.corporea.CorporeaRequest;
 import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.api.corporea.IWrappedInventory;
+import vazkii.botania.api.corporea.InvWithLocation;
+import vazkii.botania.common.Botania;
 
 /**
  * Wrapper for StorageDrawers compatibility.
@@ -31,16 +31,16 @@ public class WrappedDeepStorage extends WrappedInventoryBase {
 	private static boolean checkedInterface = false;
 	private static boolean deepStoragePresent = false;
 
-	private IDeepStorageUnit inv;
+	private final IDeepStorageUnit invRaw;
 
 	private WrappedDeepStorage(IDeepStorageUnit inv, ICorporeaSpark spark) {
-		this.inv = inv;
+		invRaw = inv;
 		this.spark = spark;
 	}
 
 	@Override
-	public IInventory getWrappedObject() {
-		return (IInventory) inv;
+	public InvWithLocation getWrappedObject() {
+		return new InvWithLocation(new InvWrapper((IInventory) invRaw), spark.getSparkInventory().world, spark.getSparkInventory().pos);
 	}
 
 	@Override
@@ -57,7 +57,7 @@ public class WrappedDeepStorage extends WrappedInventoryBase {
 		List<ItemStack> stacks = new ArrayList<ItemStack>();
 		boolean removedAny = false;
 
-		ItemStack prototype = inv.getStoredItemType();
+		ItemStack prototype = invRaw.getStoredItemType();
 		if(prototype == null) {
 			// for the case of barrel without contents set
 			return stacks;
@@ -85,7 +85,7 @@ public class WrappedDeepStorage extends WrappedInventoryBase {
 			request.extractedItems += rem;
 
 			if(doit && rem > 0) {
-				decreaseStoredCount(inv, rem);
+				decreaseStoredCount(invRaw, rem);
 
 				removedAny = true;
 				if(spark != null)
@@ -109,11 +109,10 @@ public class WrappedDeepStorage extends WrappedInventoryBase {
 	 *
 	 * @return wrapped inventory or null if it has incompatible type.
 	 */
-	public static IWrappedInventory wrap(IInventory inv, ICorporeaSpark spark) {
-		if(!isDeepStorageNeeded()) {
-			return null;
-		}
-		return inv instanceof IDeepStorageUnit ? new WrappedDeepStorage((IDeepStorageUnit) inv, spark) : null;
+	public static IWrappedInventory wrap(InvWithLocation inv, ICorporeaSpark spark) {
+		if(isDeepStorageNeeded() && inv.handler instanceof InvWrapper && ((InvWrapper) inv.handler).getInv() instanceof IDeepStorageUnit) {
+			return new WrappedDeepStorage((IDeepStorageUnit) ((InvWrapper) inv.handler).getInv(), spark);
+		} else return null;
 	}
 
 	/**
@@ -124,12 +123,12 @@ public class WrappedDeepStorage extends WrappedInventoryBase {
 	private static boolean isDeepStorageNeeded() {
 		if(!checkedInterface) {
 			try {
-				deepStoragePresent = (Class.forName("powercrystals.minefactoryreloaded.api.IDeepStorageUnit") != null);
+				deepStoragePresent = Class.forName("powercrystals.minefactoryreloaded.api.IDeepStorageUnit") != null;
 			} catch (ClassNotFoundException e) {
 				deepStoragePresent = false;
 			}
 			checkedInterface = true;
-			FMLLog.log(Level.INFO, "[Botania] Corporea support for Deep Storage: %b", deepStoragePresent);
+			Botania.LOGGER.info("Corporea support for Deep Storage: %b", deepStoragePresent);
 		}
 		return deepStoragePresent;
 	}

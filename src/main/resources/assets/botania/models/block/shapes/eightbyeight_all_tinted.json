@@ -1,0 +1,21 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "particle": "#all"
+  },
+  "elements": [
+    {
+      "name": "Cube",
+      "from": [ 4, 4, 4 ],
+      "to": [ 12, 12, 12 ],
+      "faces": {
+        "down": { "texture": "#all", "uv": [ 4, 4, 12, 12 ], "tintindex": 0 },
+        "up": { "texture": "#all", "uv": [ 4, 4, 12, 12 ], "tintindex": 0 },
+        "north": { "texture": "#all", "uv": [ 4, 4, 12, 12 ], "tintindex": 0 },
+        "south": { "texture": "#all", "uv": [ 4, 4, 12, 12 ], "tintindex": 0 },
+        "west": { "texture": "#all", "uv": [ 4, 4, 12, 12 ], "tintindex": 0 },
+        "east": { "texture": "#all", "uv": [ 4, 4, 12, 12 ], "tintindex": 0 }
+      }
+    }
+  ]
+}

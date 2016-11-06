@@ -2,10 +2,10 @@
  * This class was created by <wiiv>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [? (GMT)]
  */
 package vazkii.botania.client.model;
@@ -16,10 +16,10 @@ import net.minecraft.client.model.ModelRenderer;
 
 public class ModelTeruTeruBozu extends ModelBase {
 
-	public ModelRenderer thread;
-	public ModelRenderer cloth;
-	public ModelRenderer happyFace;
-	public ModelRenderer sadFace;
+	public final ModelRenderer thread;
+	public final ModelRenderer cloth;
+	public final ModelRenderer happyFace;
+	public final ModelRenderer sadFace;
 
 	public ModelTeruTeruBozu() {
 		textureWidth = 64;

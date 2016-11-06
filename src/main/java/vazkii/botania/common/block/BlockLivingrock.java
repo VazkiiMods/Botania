@@ -2,91 +2,108 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jan 25, 2014, 10:03:04 PM (GMT)]
  */
 package vazkii.botania.common.block;
 
 import java.util.List;
 
-import net.minecraft.block.Block;
+import javax.annotation.Nonnull;
+
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.block.state.BlockStateContainer;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
-import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.client.core.helper.IconHelper;
+import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.api.state.enums.LivingRockVariant;
+import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
-import cpw.mods.fml.common.registry.GameRegistry;
 
 public class BlockLivingrock extends BlockMod implements ILexiconable {
 
-	private static final int TYPES = 5;
-	IIcon[] icons;
-
 	public BlockLivingrock() {
-		super(Material.rock);
+		super(Material.ROCK, LibBlockNames.LIVING_ROCK);
 		setHardness(2.0F);
 		setResistance(10.0F);
-		setStepSound(soundTypeStone);
-		setBlockName(LibBlockNames.LIVING_ROCK);
+		setSoundType(SoundType.STONE);
+	}
+
+	@Nonnull
+	@Override
+	public BlockStateContainer createBlockState() {
+		return new BlockStateContainer(this, BotaniaStateProps.LIVINGROCK_VARIANT);
 	}
 
 	@Override
-	protected boolean shouldRegisterInNameSet() {
-		return false;
+	protected IBlockState pickDefaultState() {
+		return blockState.getBaseState().withProperty(BotaniaStateProps.LIVINGROCK_VARIANT, LivingRockVariant.DEFAULT);
 	}
 
 	@Override
-	public int damageDropped(int par1) {
-		return par1;
+	public int getMetaFromState(IBlockState state) {
+		return state.getValue(BotaniaStateProps.LIVINGROCK_VARIANT).ordinal();
+	}
+
+	@Nonnull
+	@Override
+	public IBlockState getStateFromMeta(int meta) {
+		if (meta >= LivingRockVariant.values().length) {
+			meta = 0;
+		}
+		return getDefaultState().withProperty(BotaniaStateProps.LIVINGROCK_VARIANT, LivingRockVariant.values()[meta]);
 	}
 
 	@Override
-	public Block setBlockName(String par1Str) {
-		GameRegistry.registerBlock(this, ItemBlockWithMetadataAndName.class, par1Str);
-		return super.setBlockName(par1Str);
+	public int damageDropped(IBlockState state) {
+		return getMetaFromState(state);
 	}
 
 	@Override
-	public void getSubBlocks(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
-		for(int i = 0; i < TYPES; i++)
-			par3List.add(new ItemStack(par1, 1, i));
+	public void registerItemForm() {
+		GameRegistry.register(new ItemBlockWithMetadataAndName(this), getRegistryName());
+	}
+
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void getSubBlocks(@Nonnull Item item, CreativeTabs tab, List<ItemStack> stacks) {
+		for(int i = 0; i < LivingRockVariant.values().length; i++)
+			stacks.add(new ItemStack(item, 1, i));
+	}
+
+	@Nonnull
+	@Override
+	public ItemStack getPickBlock(@Nonnull IBlockState state, RayTraceResult target, @Nonnull World world, @Nonnull BlockPos pos, EntityPlayer player) {
+		return new ItemStack(this, 1, getMetaFromState(state));
 	}
 
 	@Override
-	public void registerBlockIcons(IIconRegister par1IconRegister) {
-		icons = new IIcon[TYPES];
-		for(int i = 0; i < TYPES; i++)
-			icons[i] = IconHelper.forBlock(par1IconRegister, this, i);
+	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
+		boolean isDefaultVariant = world.getBlockState(pos).getValue(BotaniaStateProps.LIVINGROCK_VARIANT) == LivingRockVariant.DEFAULT;
+		return isDefaultVariant ? LexiconData.pureDaisy : LexiconData.decorativeBlocks;
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
-	public IIcon getIcon(int par1, int par2) {
-		return icons[Math.min(TYPES - 1, par2)];
-	}
-
-	@Override
-	public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z) {
-		int meta = world.getBlockMetadata(x, y, z);
-		return new ItemStack(this, 1, meta);
-	}
-
-	@Override
-	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
-		int meta = world.getBlockMetadata(x, y, z);
-		return meta == 0 ? LexiconData.pureDaisy : LexiconData.decorativeBlocks;
+	public void registerModels() {
+		ModelHandler.registerBlockToState(this, LivingRockVariant.values().length);
 	}
 
 }

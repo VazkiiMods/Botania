@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [May 15, 2014, 7:25:47 PM (GMT)]
  */
 package vazkii.botania.common.block.subtile.generating;
@@ -16,12 +16,13 @@ import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileGenerating;
@@ -53,44 +54,37 @@ public class SubTileMunchdew extends SubTileGenerating {
 
 		int manaPerLeaf = 160;
 		eatLeaves : {
-			if(getMaxMana() - mana >= manaPerLeaf && !supertile.getWorldObj().isRemote && ticksExisted % 4 == 0) {
-				List<ChunkCoordinates> coords = new ArrayList();
-				int x = supertile.xCoord;
-				int y = supertile.yCoord;
-				int z = supertile.zCoord;
+			if(getMaxMana() - mana >= manaPerLeaf && !supertile.getWorld().isRemote && ticksExisted % 4 == 0) {
+				List<BlockPos> coords = new ArrayList<>();
+				BlockPos pos = supertile.getPos();
 
-				for(int i = -RANGE; i < RANGE + 1; i++)
-					for(int j = 0; j < RANGE_Y; j++)
-						for(int k = -RANGE; k < RANGE + 1; k++) {
-							int xp = x + i;
-							int yp = y + j;
-							int zp = z + k;
-							Block block = supertile.getWorldObj().getBlock(xp, yp, zp);
-							if(block.getMaterial() == Material.leaves) {
-								boolean exposed = false;
-								for(ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS)
-									if(supertile.getWorldObj().getBlock(xp + dir.offsetX, yp + dir.offsetY, zp + dir.offsetZ).isAir(supertile.getWorldObj(), xp + dir.offsetX, yp + dir.offsetY, zp + dir.offsetZ)) {
-										exposed = true;
-										break;
-									}
-
-								if(exposed)
-									coords.add(new ChunkCoordinates(xp, yp, zp));
+				for(BlockPos pos_ : BlockPos.getAllInBox(pos.add(-RANGE, 0, -RANGE), pos.add(RANGE, RANGE_Y, RANGE))) {
+					if(supertile.getWorld().getBlockState(pos_).getMaterial() == Material.LEAVES) {
+						boolean exposed = false;
+						for(EnumFacing dir : EnumFacing.VALUES) {
+							IBlockState offState = supertile.getWorld().getBlockState(pos_.offset(dir));
+							if(offState.getBlock().isAir(offState, supertile.getWorld(), pos_.offset(dir))) {
+								exposed = true;
+								break;
 							}
 						}
+
+						if(exposed)
+							coords.add(pos_);
+					}
+				}
 
 				if(coords.isEmpty())
 					break eatLeaves;
 
 				Collections.shuffle(coords);
-				ChunkCoordinates breakCoords = coords.get(0);
-				Block block = supertile.getWorldObj().getBlock(breakCoords.posX, breakCoords.posY, breakCoords.posZ);
-				int meta = supertile.getWorldObj().getBlockMetadata(breakCoords.posX, breakCoords.posY, breakCoords.posZ);
-				supertile.getWorldObj().setBlockToAir(breakCoords.posX, breakCoords.posY, breakCoords.posZ);
+				BlockPos breakCoords = coords.get(0);
+				IBlockState state = supertile.getWorld().getBlockState(breakCoords);
+				supertile.getWorld().setBlockToAir(breakCoords);
 				ticksWithoutEating = 0;
 				ateOnce = true;
 				if(ConfigHandler.blockBreakParticles)
-					supertile.getWorldObj().playAuxSFX(2001, breakCoords.posX, breakCoords.posY, breakCoords.posZ, Block.getIdFromBlock(block) + (meta << 12));
+					supertile.getWorld().playEvent(2001, breakCoords, Block.getStateId(state));
 				mana += manaPerLeaf;
 			}
 		}
@@ -104,7 +98,7 @@ public class SubTileMunchdew extends SubTileGenerating {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-		return new RadiusDescriptor.Square(toChunkCoordinates(), RANGE);
+		return new RadiusDescriptor.Square(toBlockPos(), RANGE);
 	}
 
 	@Override
@@ -124,16 +118,16 @@ public class SubTileMunchdew extends SubTileGenerating {
 	}
 
 	@Override
-	public ArrayList<ItemStack> getDrops(ArrayList<ItemStack> list) {
-		ArrayList<ItemStack> drops = super.getDrops(list);
+	public List<ItemStack> getDrops(List<ItemStack> list) {
+		List<ItemStack> drops = super.getDrops(list);
 		if(cooldown > 0)
 			ItemNBTHelper.setInt(drops.get(0), TAG_COOLDOWN, cooldown);
 		return drops;
 	}
 
 	@Override
-	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack stack) {
-		super.onBlockPlacedBy(world, x, y, z, entity, stack);
+	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase entity, ItemStack stack) {
+		super.onBlockPlacedBy(world, pos, state, entity, stack);
 		cooldown = ItemNBTHelper.getInt(stack, TAG_COOLDOWN, 0);
 	}
 

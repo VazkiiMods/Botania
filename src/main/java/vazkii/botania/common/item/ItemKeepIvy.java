@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Mar 31, 2015, 9:11:23 PM (GMT)]
  */
 package vazkii.botania.common.item;
@@ -19,15 +19,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerDropsEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerRespawnEvent;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.RecipeSorter.Category;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.crafting.recipe.KeepIvyRecipe;
 import vazkii.botania.common.lib.LibItemNames;
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerRespawnEvent;
-import cpw.mods.fml.common.registry.GameRegistry;
 
 public class ItemKeepIvy extends ItemMod {
 
@@ -38,25 +37,23 @@ public class ItemKeepIvy extends ItemMod {
 	private static final String TAG_DROP_PREFIX = "dropPrefix";
 
 	public ItemKeepIvy() {
-		setUnlocalizedName(LibItemNames.KEEP_IVY);
+		super(LibItemNames.KEEP_IVY);
 		GameRegistry.addRecipe(new KeepIvyRecipe());
 		RecipeSorter.register("botania:keepIvy", KeepIvyRecipe.class, Category.SHAPELESS, "");
-		MinecraftForge.EVENT_BUS.register(this);
-		FMLCommonHandler.instance().bus().register(this);
+		MinecraftForge.EVENT_BUS.register(ItemKeepIvy.class);
 	}
 
 	@SubscribeEvent
-	public void onPlayerDrops(PlayerDropsEvent event) {
-		List<EntityItem> keeps = new ArrayList();
-		for(EntityItem item : event.drops) {
+	public static void onPlayerDrops(PlayerDropsEvent event) {
+		List<EntityItem> keeps = new ArrayList<>();
+		for(EntityItem item : event.getDrops()) {
 			ItemStack stack = item.getEntityItem();
 			if(stack != null && ItemNBTHelper.detectNBT(stack) && ItemNBTHelper.getBoolean(stack, TAG_KEEP, false))
 				keeps.add(item);
 		}
 
 		if(keeps.size() > 0) {
-			event.drops.removeAll(keeps);
-
+			event.getDrops().removeAll(keeps);
 
 			NBTTagCompound cmp = new NBTTagCompound();
 			cmp.setInteger(TAG_DROP_COUNT, keeps.size());
@@ -70,7 +67,7 @@ public class ItemKeepIvy extends ItemMod {
 				i++;
 			}
 
-			NBTTagCompound data = event.entityPlayer.getEntityData();
+			NBTTagCompound data = event.getEntityPlayer().getEntityData();
 			if(!data.hasKey(EntityPlayer.PERSISTED_NBT_TAG))
 				data.setTag(EntityPlayer.PERSISTED_NBT_TAG, new NBTTagCompound());
 
@@ -80,7 +77,7 @@ public class ItemKeepIvy extends ItemMod {
 	}
 
 	@SubscribeEvent
-	public void onPlayerRespawn(PlayerRespawnEvent event) {
+	public static void onPlayerRespawn(PlayerRespawnEvent event) {
 		NBTTagCompound data = event.player.getEntityData();
 		if(data.hasKey(EntityPlayer.PERSISTED_NBT_TAG)) {
 			NBTTagCompound cmp = data.getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);

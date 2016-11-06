@@ -3,16 +3,16 @@ package vazkii.botania.common.integration.buildcraft;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.common.util.ForgeDirection;
-import vazkii.botania.api.mana.IManaBlock;
-import vazkii.botania.api.mana.IManaReceiver;
-import vazkii.botania.common.block.tile.TileRuneAltar;
 import buildcraft.api.statements.IStatementContainer;
 import buildcraft.api.statements.ITriggerExternal;
 import buildcraft.api.statements.ITriggerInternal;
 import buildcraft.api.statements.ITriggerProvider;
 import buildcraft.api.statements.StatementManager;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
+import vazkii.botania.api.mana.IManaBlock;
+import vazkii.botania.api.mana.IManaReceiver;
+import vazkii.botania.common.block.tile.TileRuneAltar;
 
 public class StatementAPIPlugin implements ITriggerProvider {
 
@@ -38,14 +38,14 @@ public class StatementAPIPlugin implements ITriggerProvider {
 
 	@Override
 	public Collection<ITriggerInternal> getInternalTriggers(IStatementContainer container) {
-		ArrayList<ITriggerInternal> list = new ArrayList<ITriggerInternal>();
+		ArrayList<ITriggerInternal> list = new ArrayList<>();
 		list.add(triggerManaDetector);
 		return list;
 	}
 
 	@Override
-	public Collection<ITriggerExternal> getExternalTriggers(ForgeDirection side, TileEntity tile) {
-		ArrayList<ITriggerExternal> list = new ArrayList<ITriggerExternal>();
+	public Collection<ITriggerExternal> getExternalTriggers(EnumFacing side, TileEntity tile) {
+		ArrayList<ITriggerExternal> list = new ArrayList<>();
 
 		if (tile instanceof IManaBlock) {
 			list.add(triggerManaEmpty);

@@ -1,0 +1,14 @@
+{
+  "variants": {
+    "variant=default": { "model": "botania:apothecaries/default_apothecary" },
+    "variant=forest": { "model": "botania:apothecaries/forest_apothecary" },
+    "variant=plains": { "model": "botania:apothecaries/plains_apothecary" },
+    "variant=mountain": { "model": "botania:apothecaries/mountain_apothecary" },
+    "variant=fungal": { "model": "botania:apothecaries/fungal_apothecary" },
+    "variant=swamp": { "model": "botania:apothecaries/swamp_apothecary" },
+    "variant=desert": { "model": "botania:apothecaries/desert_apothecary" },
+    "variant=taiga": { "model": "botania:apothecaries/taiga_apothecary" },
+    "variant=mesa": { "model": "botania:apothecaries/mesa_apothecary" },
+    "variant=mossy": { "model": "botania:apothecaries/mossy_apothecary" }
+  }
+}

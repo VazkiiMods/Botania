@@ -1,0 +1,185 @@
+{
+  "pools": [
+    {
+      "name": "life_essence",
+      "conditions": [{ "condition": "killed_by_player" }],
+      "rolls": 1,
+      "entries": [{
+        "type": "item",
+        "name": "botania:manaResource",
+        "functions": [
+          { "function": "set_data", "data": 5 },
+          { "function": "set_count", "count": 10 },
+          {
+            "function": "set_count",
+            "count": 16,
+            "conditions": [{ "condition": "botania:true_guardian_killer" }]
+          }
+        ]
+      }]
+    },
+    {
+      "name": "black_lotuses",
+      "conditions": [
+        { "condition": "killed_by_player" },
+        { "condition": "random_chance", "chance": 0.5 }
+      ],
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "item",
+          "entryName": "superBlackLotus",
+          "name": "botania:blackLotus",
+          "weight": 3,
+          "quality": 1,
+          "functions": [
+            { "function": "set_count", "count": 1 },
+            { "function": "set_data",  "data": 1 }
+          ]
+        },
+        {
+          "type": "item",
+          "entryName": "normalBlackLotus",
+          "name": "botania:blackLotus",
+          "weight": 7,
+          "functions": [
+            { "function": "set_count", "count": { "min": 1, "max": 3 } },
+            { "function": "set_data", "data": 0 }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ancient_wills",
+      "conditions": [{ "condition": "killed_by_player" }],
+      "rolls": 1,
+      "entries": [{
+        "type": "item",
+        "name": "botania:ancientWill",
+        "functions": [{ "function": "set_data", "data": { "min": 0, "max": 5 } }]
+      }]
+    },
+    {
+      "name": "overgrowth_seeds",
+      "conditions": [
+        { "condition": "killed_by_player" },
+        { "condition": "random_chance", "chance": 0.25 }
+      ],
+      "rolls": 1,
+      "entries": [{
+        "type": "item",
+        "name": "botania:overgrowthSeed",
+        "functions": [{ "function": "set_count", "count": { "min": 1, "max": 3 } }]
+      }]
+    },
+    {
+      "name": "manasteel",
+      "conditions": [
+        { "condition": "killed_by_player" },
+        { "condition": "random_chance", "chance": 0.9 }
+      ],
+      "rolls": 1,
+      "entries": [{
+        "type": "item",
+        "name": "botania:manaResource",
+        "functions": [{ "function": "set_count", "count": { "min": 16, "max": 27 } }]
+      }]
+    },
+    {
+      "name": "mana_pearl",
+      "conditions": [
+        { "condition": "killed_by_player" },
+        { "condition": "random_chance", "chance": 0.7 }
+      ],
+      "rolls": 1,
+      "entries": [{
+        "type": "item",
+        "name": "botania:manaResource",
+        "functions": [
+          { "function": "set_data", "data": 1 },
+          { "function": "set_count", "count": { "min": 8, "max": 13 } }
+        ]
+      }]
+    },
+    {
+      "name": "mana_diamond",
+      "conditions": [
+        { "condition": "killed_by_player" },
+        { "condition": "random_chance", "chance": 0.5 }
+      ],
+      "rolls": 1,
+      "entries": [{
+        "type": "item",
+        "name": "botania:manaResource",
+        "functions": [
+          { "function": "set_data", "data": 2 },
+          { "function": "set_count", "count": { "min": 4, "max": 6 } }
+        ]
+      }]
+    },
+    {
+      "name": "runes",
+      "conditions": [{ "condition": "killed_by_player" }],
+      "rolls": { "min": 1, "max": 6 },
+      "entries": [{
+        "conditions": [{ "condition": "random_chance", "chance": 0.3 }],
+        "type": "item",
+        "name": "botania:rune",
+        "functions": [
+          { "function": "set_data", "data": { "min": 0, "max": 15 } },
+          { "function": "set_count", "count": { "min": 2, "max": 4 } }
+        ]
+      }]
+    },
+    {
+      "name": "pinkinator",
+      "conditions": [
+        { "condition": "killed_by_player" },
+        { "condition": "random_chance", "chance": 0.2 }
+      ],
+      "rolls": 1,
+      "entries": [{
+        "type": "item",
+        "name": "botania:pinkinator"
+      }]
+    },
+    {
+      "name": "music_discs",
+      "conditions": [
+        { "condition": "killed_by_player" },
+        { "condition": "random_chance", "chance": 0.44 }
+      ],
+      "rolls": 1,
+      "entries": [
+        {
+          "weight": 14,
+          "type": "item",
+          "name": "botania:recordGaia2"
+        },
+        {
+          "weight": 15,
+          "type": "item",
+          "name": "minecraft:record_13"
+        },
+        {
+          "weight": 15,
+          "type": "item",
+          "name": "minecraft:record_wait"
+        }
+      ]
+    },
+    {
+      "name": "relics",
+      "conditions": [
+        { "condition": "killed_by_player" },
+        { "condition": "botania:enable_relics" }
+      ],
+      "rolls": 1,
+      "entries": [{
+        "type": "item",
+        "name": "botania:dice",
+        "functions": [{ "function": "botania:bind_uuid" }]
+      }]
+    }
+  ]
+}

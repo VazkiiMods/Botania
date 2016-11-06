@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "top": "botania:blocks/distributor0",
+    "side": "botania:blocks/distributor1",
+    "bottom": "botania:blocks/livingrock0"
+  }
+}

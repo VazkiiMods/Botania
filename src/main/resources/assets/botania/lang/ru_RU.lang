@@ -1,10 +1,14 @@
+# Note to translators: DO NOT COPY ENTRIES FROM ENGLISH
+# I repeat: do NOT copy entries from English!!
+# Any entry in this lang file should be in ru_RU, or *should not be here at all*
+# Copying English entries will cause them to become outdated when the main English lang file changes
+# Untranslated entries will automatically be inherited from en_US
+#
+# Once again, don't copy from English, and THANK YOU for your hard work!
+
 # MISC
 itemGroup.Botania=Botania
-generator.botania-skyblock=Garden of Glass
 generator.botania-skyblock.info=Не рекомендуется для новичков
-
-# Something that is not localized, translators, do NOT change this line.
-botaniamisc.noloc=botaniamisc.noloc
 
 botaniamisc.nextPage=След. страница
 botaniamisc.prevPage=Пред. страница
@@ -49,9 +53,6 @@ botaniamisc.shiftToRemove=Shift+ЛКМ, чтобы удалить
 botaniamisc.clickToAdd=Добавить закладку
 botaniamisc.ratio=Соотношение: %sx
 botaniamisc.bottleTooltip=Вкус на любителя
-botaniamisc.coarseDirt0=Грубая земля, трава
-botaniamisc.coarseDirt1=не будет расти на ней
-botaniamisc.spawnerTip=Подсказка: Используйте яйцо призыва, чтобы сменить моба
 botaniamisc.shardLevel=Сила осколка %s
 botaniamisc.lexiconIndex=Оглавление Лексикона
 botaniamisc.hasIvy=С бессмертным плющом
@@ -60,66 +61,14 @@ botaniamisc.noLexicon=Вы должны держать Лексику Botania в
 botaniamisc.cantOpen=Похоже в Вашей Лексике Botania нет этой страницы. Возможно, она появилась из постороннего источника...?
 botaniamisc.clickToShare=Поделиться
 botaniamisc.drop=Бросить
-botaniamisc.dropTip0=Совет: Вы можете нажать %key% в Вашем инвентаре, чтобы выбросить
-botaniamisc.dropTip1=CTRL+%key% выбросит весь стак
+botaniamisc.dropTip0=Совет: Вы можете нажать %s в Вашем инвентаре, чтобы выбросить
+botaniamisc.dropTip1=CTRL+%s выбросит весь стак
 botaniamisc.wandMode.bind=Режим привязки
 botaniamisc.wandMode.function=Функциональный режим
 botaniamisc.playVideo=Просмотреть видео
 botaniamisc.brewOf=Настой %s
-botaniamisc.needsCatalysts=No matter how hard you try to push the Ingot into the Beacon, nothing seems to happen, perhaps your configuration of catalyst pylons might be off.
-botaniamisc.peacefulNoob=You try to offer the Ingot, but the peaceful vibes of your world prevent you from doing so. Perhaps you should do something about that.
-botaniamisc.notInfused=Not Infused
-botaniamisc.getALife=Get a Life
-botaniamisc.floatingPrefix=Floating %s
-botaniamisc.unsetRecipe=[No Recipe] Right click to set:
-botaniamisc.cantCraft=Not enough Materials!
-botaniamisc.lotusDesc=It emits strong magical vibes
-botaniamisc.hasClip=&6Has Lens Clip
-botaniamisc.clipEmpty=(Empty)
-botaniamisc.armorset=&bArmor Set&r:
-botaniamisc.craftToAddWill=&aCraft with a Terrasteel Helmet to add the following effect:
-botaniamisc.requestMsg=Requested %d x "%s" out of %d. %d taken.
-botaniamisc.nearIndex0=Corporea Index nearby!
-botaniamisc.nearIndex1=Anything you say will be
-botaniamisc.nearIndex2=intercepted as a request
-botaniamisc.startTutorial=Start Tutorial
-botaniamisc.tutorialStarted=You have started your tutorial, follow the red arrows and read the contents to be guided through the basics of Botania!
-botaniamisc.tutorialEnded=Your tutorial is over, you should now have a basic idea of how Botania works, make sure to read through the other pages at your leisure to learn more ways of using the mod.
-botaniamisc.cosmeticBauble=&oCosmetic
-botaniamisc.hasCosmetic=&oHas Cosmetic Override: &r%s
-botaniamisc.typeToSearch=(type to search)
 botaniamisc.viewOnline=Смотреть онлайн
-botaniamisc.history=History
-botaniamisc.historyLong=Lookup History
-botaniamisc.historyDesc=See the last entries visited
-botaniamisc.lexiconOptions0=Botania Options
-botaniamisc.lexiconOptions1=Configure Botania from ingame
-botaniamisc.lexiconOptions2=Some options might need a game restart
-botaniamisc.hasPhantomInk=&bTinged with Phantom Ink
-botaniamisc.pinkinatorDesc=Apply directly to Wither
-botaniamisc.relicUnbound=&6Relic&7, Unbound
-botaniamisc.relicSoulbound=&6Relic&7, Soulbound to &f%s
-botaniamisc.notYourSagittarius=&4This relic is not yours
-botaniamisc.diceRoll=The dice lands on a %s, you notice that it transforms into something else.
-botaniamisc.dudDiceRoll=The dice lands on a %s, it seemed to vanish into thin air afterward.
-botaniamisc.blockAway=1 Block Away
-botaniamisc.blocksAway=%s Blocks Away
-botaniamisc.clickToTeleport=Right click to Teleport
-botaniamisc.clickToRemoveWarp=Shift-left click to Remove
-botaniamisc.unboundWarp=Unbound Warp Point
-botaniamisc.clickToAddWarp=Right click to bind to this position
-botaniamisc.hasKeepIvy=Has Resolute Ivy
-botaniamisc.active=&aActive
-botaniamisc.inactive=&cInactive
 botaniamisc.achievements=Достижения Botania
-botaniamisc.dropIkea=&bDropping this item will break it down into its components
-botaniamisc.hourglassLock=This Hourglass is locked. Right click it with a Wand of the Forest to unlock it.
-botaniamisc.locked=Locked
-botaniamisc.stopped=Stopped
-botaniamisc.lockedStopped=Locked, Stopped
-botaniamisc.visualize=Visualize
-botaniamisc.unvisualize=Unvisualize
-botaniamisc.rightClickToAnchor=Right click any block to anchor this Structure Preview to it
 botaniamisc.structureComplete=Структура построена!
 botaniamisc.materialsRequired=Необходимые материалы
 botaniamisc.challenges=Испытания
@@ -129,29 +78,9 @@ botaniamisc.completed=Выполнено
 botaniamisc.notCompleted=Не выполнено
 botaniamisc.info=Информация
 botaniamisc.challengeInfo=Узнать об испытаниях
-botaniamisc.skyblockRangeTooLow=Invalid range, must be at least 250.
-botaniamisc.skyblockRangeTooHigh=Invalid range, can't be higher than 10000000 (10 million).
 botaniamisc.hideNotes=Спрятать заметки
 botaniamisc.showNotes=Показать заметки
 botaniamisc.notes=Заметки
-botaniamisc.pay2win=Upgrade your Mana Pool to infuse this item
-
-# NEI INTEGRATION
-botania.nei.brewery=Botanical Brewery
-botania.nei.elvenTrade=Elven Trade
-botania.nei.floatingFlowers=Floating Flowers
-botania.nei.manaPool=Mana Infusion
-botania.nei.petalApothecary=Petal Apothecary
-botania.nei.runicAltar=Runic Altar
-botania.nei.pureDaisy=Pure Daisy
-
-# BUILDCRAFT INTEGRATION
-botania.triggers.manaDetector=Mana Burst
-botania.triggers.manaEmpty=Mana Empty
-botania.triggers.manaSpace=Space for Mana
-botania.triggers.manaContains=Contains Mana
-botania.triggers.manaFull=Mana Full
-botania.triggers.runeAltarCanCraft=Altar Can Craft
 
 # COLORS
 botania.color0=Белый
@@ -172,28 +101,6 @@ botania.color14=Красный
 botania.color15=Чёрный
 botania.color16=Радужный
 
-# RANKS
-botania.rank0=&cD
-botania.rank1=&eC
-botania.rank2=&bB
-botania.rank3=&aA
-botania.rank4=&dS
-botania.rank5=&6SS
-
-# ZODIAC SIGNS
-botania.sign0=Aries
-botania.sign1=Taurus
-botania.sign2=Gemini
-botania.sign3=Cancer
-botania.sign4=Leo
-botania.sign5=Virgo
-botania.sign6=Libra
-botania.sign7=Scorpio
-botania.sign8=Sagittarius
-botania.sign9=Capricorn
-botania.sign10=Aquarius
-botania.sign11=Pisces
-
 # WINGS
 botania.wings0=Без крыльев
 botania.wings1=Крылья: Флигель
@@ -205,60 +112,6 @@ botania.wings6=Крылья: Повелитель ям
 botania.wings7=Крылья: Сильф
 botania.wings8=Крылья: Мега-ультра-курица
 botania.wings9=Крылья: Тот самый
-
-# ARMOR SETS
-botania.armorset.manasteel.name=Mana Affinity
-botania.armorset.manasteel.desc=10% less Mana cost on Mana Tools
-botania.armorset.elementium.name=Great Fairy's Blessing
-botania.armorset.elementium.desc=Chance for pixies to apply potion effects
-botania.armorset.terrasteel.name=Will of the Ancients
-botania.armorset.terrasteel.desc0=20% less Mana cost on Mana Tools
-botania.armorset.terrasteel.desc1=Regen even if hunger isn't topped off
-botania.armorset.will0.desc=Critical Hits apply a strong weakness effect (Will of Ahrim)
-botania.armorset.will1.desc=Critical Hit damage increases with lower HP (Will of Dharok)
-botania.armorset.will2.desc=Critical Hits heal for a portion of damage dealt (Will of Guthan)
-botania.armorset.will3.desc=Critical Hits apply a strong slowness effect (Will of Torag)
-botania.armorset.will4.desc=Critical Hits pierce through armor (Will of Verac)
-botania.armorset.will5.desc=Critical Hits apply a wither effect (Will of Karil)
-botania.armorset.will0.shortDesc=Critical Hits apply a strong weakness effect
-botania.armorset.will1.shortDesc=Critical Hit damage increases with lower HP
-botania.armorset.will2.shortDesc=Critical Hits heal for a portion of damage dealt
-botania.armorset.will3.shortDesc=Critical Hits apply a strong slowness effect
-botania.armorset.will4.shortDesc=Critical Hits pierce through armor
-botania.armorset.will5.shortDesc=Critical Hits apply a wither effect
-
-# ROMAN NUMERALS
-botania.roman0=
-botania.roman1=I
-botania.roman2=II
-botania.roman3=III
-botania.roman4=IV
-botania.roman5=V
-botania.roman6=VI
-botania.roman7=VII
-botania.roman8=VIII
-botania.roman9=IX
-botania.roman10=X
-botania.roman11=XI
-botania.roman12=XII
-botania.roman13=XIII
-botania.roman14=XIV
-botania.roman15=XV
-botania.roman16=XVI
-botania.roman17=XVII
-botania.roman18=XVIII
-botania.roman19=XIX
-botania.roman20=XX
-botania.roman21=XXI
-botania.roman22=XXII
-botania.roman23=XXIII
-botania.roman24=XXIV
-botania.roman25=XXV
-botania.roman26=XXVI
-botania.roman27=XXVII
-botania.roman28=XXVIII
-botania.roman29=XXIX
-botania.roman30=XXX
 
 # KNOWLEDGE
 botania.knowledge.minecraft=Знание людей
@@ -340,22 +193,8 @@ botania.versioning.flavour32=Поздравляем! Вы 100,000 игрок Bot
 botania.versioning.flavour33=Перед обновлением версии Botania, хотели ли бы Вы установить ask toolbar?
 botania.versioning.flavour34=Возвращаемся на беговую дорожку обновлений Botania. Веселье не требуется. #angbadang
 botania.versioning.flavour35=Вы станете магической девочкой за обновление Botania?
-botania.versioning.flavour36=Why did the Botania Update cross the road? To get to the client side.
-botania.versioning.flavour37=Take that old build, watch it burn, sink in the river the updates I learned.
-botania.versioning.flavour38=This new Botania Update fits perfectly in the Super Health Space.
-botania.versioning.flavour39=Introducing the new Botania Update, now with 0% more numbers and GUIs.
-botania.versioning.flavour40=This is my Botania Update. There are many like it but this one is mine.
-botania.versioning.flavour41=What is the air-speed velocity of an unladen Botania Update?
-botania.versioning.flavour42=If you go look in the lang files, this flavour text is #42. That means you should install this Update.
-botania.versioning.flavour43=That's impossible, a Botania Update doesn't break down. It's a portuguese.
-botania.versioning.flavour44=Look at the update, now back at me, now back at the update. There's a download button there, moron.
-botania.versioning.flavour45=No, you can't have fries with your Botania Update.
-botania.versioning.flavour46=You were expecting Botania to be up to date, but it was me, Dio!
-botania.versioning.flavour47=Rumour says if you move the truck there's a Botania Update below it.
-botania.versioning.flavour48=I wonder when Bevo's updating his pack...
-botania.versioning.flavour49=1 Botania Update on the wall, 1 Botania Update on the wall.
 botania.versioning.outdated=У Вас установлена %s сборка Botania, последняя сборка - %s.
-botania.versioning.updateMessage=["Нажмите, чтобы... [",{"text":"загрузить","color":"green","hoverEvent":{"action":"show_text","value":{"text":"Нажмите эту кнопку, чтобы автоматически загрузить последнюю версию","color":"green"}},"clickEvent":{"action":"run_command","value":"/botania-download-latest %version%"}},"] [",{"text":"Веб-сайт","color":"green","hoverEvent":{"action":"show_text","value":{"text":"Нажмите эту кнопку, чтобы перейти на сайт мода","color":"green"}},"clickEvent":{"action":"open_url","value":"http://vazkii.us/mod/Botania/downloads.php"}},"] [",{"text":"Изменения","color":"green","hoverEvent":{"action":"show_text","value":{"text":"Нажмите эту кнопку, чтобы перейти к изменениям версии","color":"green"}},"clickEvent":{"action":"open_url","value":"http://vazkii.us/mod/Botania/changelog.php#%version%"}},"]"]
+botania.versioning.updateMessage=["Нажмите, чтобы... [",{"text":"загрузить","color":"green","hoverEvent":{"action":"show_text","value":{"text":"Нажмите эту кнопку, чтобы автоматически загрузить последнюю версию","color":"green"}},"clickEvent":{"action":"open_url","value":"http://minecraft.curseforge.com/projects/botania-unofficial/files/latest"}},"] [",{"text":"Веб-сайт","color":"green","hoverEvent":{"action":"show_text","value":{"text":"Нажмите эту кнопку, чтобы перейти на сайт мода","color":"green"}},"clickEvent":{"action":"open_url","value":"http://minecraft.curseforge.com/projects/botania-unofficial"}},"] [",{"text":"Изменения","color":"green","hoverEvent":{"action":"show_text","value":{"text":"Нажмите эту кнопку, чтобы перейти к изменениям версии","color":"green"}},"clickEvent":{"action":"open_url","value":"https://github.com/williewillus/Botania/releases/tag/%s"}},"]"]
 botania.versioning.startingDownload=[{"text":"Началась загрузка %s. Пожалуйста не вытаскивайте Ваш жёсткий диск. Наслаждайтесь ","color":"aqua"},{"text":"Botania","color":"green"},{"text":"? Подумайте о поддержке ","color":"aqua"},{"text":"Vazkii","color":"light_purple"},{"text":" на [","color":"aqua"},{"text":"Patreon","color":"gold","hoverEvent":{"action":"show_text","value":{"text":"Нажмите сюда, чтобы перейти на Patreon Vazkii","color":"light_purple"}},"clickEvent":{"action":"open_url","value":"http://www.patreon.com/Vazkii"}},{"text":"]!","color":"aqua"}]
 botania.versioning.doneDownloading=Загрузка %s закончена. Удалите старый .jar файл Botania и перезапустите игру, чтобы обновиться.
 botania.versioning.downloadedAlready=Вы уже загрузили последнюю версию. Выключите игру, удалите старую версию из папки "mods" и включите её снова!
@@ -367,7 +206,7 @@ botania.versioning.disabled=Извините, но данная функция �
 botania.baubletype.amulet=Можно надеть в слот &aАмулета&7
 botania.baubletype.ring=Можно надеть в слот &aКольца&7
 botania.baubletype.belt=Можно надеть в слот &aРемня&7
-botania.baubletooltip=Нажмите &b%key%&7, чтобы открыть меню Baubles
+botania.baubletooltip=Нажмите &b%s&7, чтобы открыть меню Baubles
 
 # RELIC POEMS
 item.dice.poem0=Он сдает карты , чтобы найти ответ,
@@ -390,143 +229,12 @@ entity.Botania.botania:spark.name=Искра
 entity.Botania.botania:thrownItem.name=Брошенный предмет
 entity.Botania.botania:magicMissile.name=Магический снаряд
 entity.Botania.botania:thornChakram.name=Шипастая чакра
-entity.Botania.botania:corporeaSpark.name=Corporea Spark
 entity.Botania.botania:enderAirBottle.name=Бутылка воздуха Края
 entity.Botania.botania:poolMinecart.name=Вагонетка с бассейном для маны
 entity.Botania.botania:pinkWither.name=Розовый иссушитель
-entity.Botania.botania:playerMover.name=Luminizer Beam
 entity.Botania.botania:manaStorm.name=Эпицентр манашторма
 entity.Botania.botania:babylonWeapon.name=Оружие казначейства
 entity.Botania.botania:fallingStar.name=Падающая звезда
-
-# ACHIEVEMENT NAMES + DESC
-achievement.botania:flowerPickup=Sky of Beginning
-achievement.botania:flowerPickup.desc=Pick up a Mystical Flower from the world
-achievement.botania:lexiconUse=A Realistical Logical Ideologist
-achievement.botania:lexiconUse.desc=Open a Lexica Botania and have a look through the index
-achievement.botania:daybloomPickup=Daybreak Arrival
-achievement.botania:daybloomPickup.desc=Make a Daybloom in a Petal Apothecary
-achievement.botania:manaPoolPickup=Vivid Wave
-achievement.botania:manaPoolPickup.desc=Upgrade a Diluted Mana Pool to a normal one
-achievement.botania:endoflamePickup=Meltdown
-achievement.botania:endoflamePickup.desc=Create an Endoflame to boost Mana production
-achievement.botania:tinyPotatoPet=Just Be Friends
-achievement.botania:tinyPotatoPet.desc=Make a Tiny Potato and pet it
-achievement.botania:sparkCraft=Live Drive
-achievement.botania:sparkCraft.desc=Make a Spark to help transfer Mana around
-achievement.botania:baubleWear=Inner Arts
-achievement.botania:baubleWear.desc=Craft any variety of Bauble and wear it
-achievement.botania:manaCookieEat=Rotten Heresy and Chocolate
-achievement.botania:manaCookieEat.desc=Infuse and eat a delicious Mana Cookie
-achievement.botania:runePickup=Lilium Doll
-achievement.botania:runePickup.desc=Use a Runic Altar to create a Rune
-achievement.botania:manaBlasterShoot=M'aider Stranded Girl
-achievement.botania:manaBlasterShoot.desc=Craft and fire a Mana Blaster
-achievement.botania:tiaraWings=Heart Shooter
-achievement.botania:tiaraWings.desc=Craft and adorn a Flügel Tiara with Flügel Wings
-achievement.botania:terrasteelPickup=Dancer in the Dark
-achievement.botania:terrasteelPickup.desc=Conjure a Terrasteel Ingot using a Terrestrial Agglomeration Plate
-achievement.botania:elfPortalOpen=World Calling
-achievement.botania:elfPortalOpen.desc=Open a portal to the realm of Alfheim
-achievement.botania:gaiaGuardianKill=Dead and Seek
-achievement.botania:gaiaGuardianKill.desc=Summon and slay a Gaia Guardian for a Ritual of Gaia
-achievement.botania:terrasteelWeaponCraft=Remote Paranoia
-achievement.botania:terrasteelWeaponCraft.desc=Arm yourself with a weapon made of Terrasteel
-achievement.botania:kekimurusPickup=After-School Stride
-achievement.botania:kekimurusPickup.desc=Create a Kekimurus to help produce large quantities of Mana
-achievement.botania:heiseiDreamPickup=Heisei Cataclysm
-achievement.botania:heiseiDreamPickup.desc=Create a Heisei Dream to cause havoc on mobs
-achievement.botania:dirtRodCraft=Rockbell
-achievement.botania:dirtRodCraft.desc=Craft a dirty sti- er... Rod of the Lands
-achievement.botania:spawnerMoverUse=I can take off my (redacted)
-achievement.botania:spawnerMoverUse.desc=Use a Life Aggregator to transport a Monster Spawner
-achievement.botania:enderAirMake=Imitation Air
-achievement.botania:enderAirMake.desc=Collect a Bottle of Ender Air
-achievement.botania:corporeaCraft=Drop Pop Candy
-achievement.botania:corporeaCraft.desc=Craft a block that makes use of the Corporea Network
-
-achievement.botania:signalFlareStun=See the Lights
-achievement.botania:signalFlareStun.desc=Stun 100 or more mobs at once with a Signal Flare
-achievement.botania:l20ShardUse=Out of Step
-achievement.botania:l20ShardUse.desc=Raise the ground up to the sky with a Power XX Shard of Laputa
-achievement.botania:gaiaGuardianNoArmor=Mythologia's End
-achievement.botania:gaiaGuardianNoArmor.desc=Slay a Gaia Guardian without wearing any armor at any point during the fight
-achievement.botania:rankSSPick=Talent Shredder
-achievement.botania:rankSSPick.desc=Dig through the world using a rank SS Terra Shatterer
-achievement.botania:superCorporeaRequest=Invader Girl
-achievement.botania:superCorporeaRequest.desc=Successfully request 50,000 or more of a single item in a Corporea Index
-achievement.botania:pinkinator=Decorator
-achievement.botania:pinkinator.desc=Put to use The Pinkinator
-
-achievement.botania:infiniteFruit=Innocentia
-achievement.botania:infiniteFruit.desc=Be rewarded The Fruit of Grisaia for a heroic feat
-achievement.botania:kingKey=A Fake, Fake Psychotropic
-achievement.botania:kingKey.desc=Be rewarded the Key of the King's Law for a heroic feat
-achievement.botania:flugelEye=Angel of Death
-achievement.botania:flugelEye.desc=Be rewarded the Eye of the Flügel for a heroic feat
-achievement.botania:thorRing=One Step Layered
-achievement.botania:thorRing.desc=Be rewarded the Ring of Thor for a heroic feat
-achievement.botania:odinRing=Lost Time Memory
-achievement.botania:odinRing.desc=Be rewarded the Ring of Odin for a heroic feat
-achievement.botania:lokiRing=Arithmetic
-achievement.botania:lokiRing.desc=Be rewarded the Ring of Loki for a heroic feat
-achievement.botania:aesirRing=As the Gods Say
-achievement.botania:aesirRing.desc=Create the Ring of the Aesir by combining the Rings of the Gods
-
-achievement.botania:nullFlower=Take it Easy
-achievement.botania:nullFlower.desc=Find a bug that lets you have an undefined Botania Flower. Don't forget to report it!
-achievement.botania:desuGun=Two-Faced Lovers
-achievement.botania:desuGun.desc=ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN
-#                                 ^ Don't localize
-
-# CHALLENGE LEVELS
-botania.challengelevel.easy=Easy
-botania.challengelevel.normal=Normal
-botania.challengelevel.hard=Hard
-botania.challengelevel.lunatic=Lunatic
-
-# CHALLENGE TEXT
-botania.challenge.flowerFarm=Flower Farm
-botania.challenge.flowerFarm.desc=Create an automated farm of all 16 colors of botania flowers. Bonus points if the flowers are sorted.
-botania.challenge.recordFarm=Record Farm
-botania.challenge.recordFarm.desc=Create a system that produces records through the death of creepers at the hand of skeletons. Bonus points if it doesn't require a player's presence.
-botania.challenge.reedFarm=Sugar Cane Farm
-botania.challenge.reedFarm.desc=Create an automated sugar cane farm. Bonus points for not using pistons.
-botania.challenge.cobbleGen=Cobble Generator
-botania.challenge.cobbleGen.desc=Create an automated cobblestone generator and harvester. Bonus points if it also creates smooth stone without a furnace.
-botania.challenge.pureDaisy=Auto Pure Daisy
-botania.challenge.pureDaisy.desc=Completely automate the Pure Daisy. Bonus points if only one spreader is used and/or if the wood/stone input is also automated.
-botania.challenge.battery=Mana Battery
-botania.challenge.battery.desc=Create a Mana Battery, a system where mana enters one pool and comes out of another, with a good amount of pools as a buffer. Bonus points if the input or output can be changed.
-
-botania.challenge.apothecaryRefill=Apothecary Refiller
-botania.challenge.apothecaryRefill.desc=Create a system that automatically refills the Petal Apothecary if it's empty. Bonus points if the system can also automatically create flowers, given the components.
-botania.challenge.treeFarm=Tree Farm
-botania.challenge.treeFarm.desc=Create an automated, self-sustaining tree farm. Bonus points if it can do multiple types of tree.
-botania.challenge.fullCropFarm=Full Crop Farm
-botania.challenge.fullCropFarm.desc=Create a crop farm with all types of crops (wheat, carrot, potato, melon, pumpkin, cocoa and nether wart) that runs at full efficiency. Bonus points if the outputs are sorted. 
-botania.challenge.animalFarm=Animal Farm
-botania.challenge.animalFarm.desc=Create an automated animal farm with all farmable animal types. Bonus points if the food doesn't need to be put in manually.
-botania.challenge.boneMealFarm=Bone Meal-type Farm
-botania.challenge.boneMealFarm.desc=Create an automated farm that utilizes bone meal to quickly grow crops on demand. Bonus points if the Drum of the Wild isn't used.
-botania.challenge.orechid=Automated Orechid
-botania.challenge.orechid.desc=Create a system that allows for the Orechid flower to be fully automated. Bonus points if the output is smelted and sorted.
-
-botania.challenge.mobTower=Spawning Tower
-botania.challenge.mobTower.desc=Create a tower style mob farm. Mobs must be sorted and put into specific chambers at the end. Spawners can be used. Bonus points if the farm functions at 100% efficiency without a player's interaction.
-botania.challenge.entropinnyumSetup=Entropinnyum Setup
-botania.challenge.entropinnyumSetup.desc=Create a system that automatically crafts TNT and safely feeds it to an Entropinnyum flower, creating mana. Bonus points if the sand and gunpowder required for the TNT don't need to be put in manually.
-botania.challenge.spectrolusSetup=Spectrolus Setup
-botania.challenge.spectrolusSetup.desc=Create a system that feeds a Spectrolus, generating mana. Aside from raw mana, no items may be input from outside the system. Bonus points if it operates at 100% efficiency, never wasting any wool. 
-botania.challenge.potionBrewer=Automated Brewing
-botania.challenge.potionBrewer.desc=Create a system that can make all types of brews automatically on demand. Bonus points if it keeps a set of incense always ignited in the player's base.
-
-botania.challenge.kekimurusSetup=Kekimurus Setup
-botania.challenge.kekimurusSetup.desc=Fully automate a Kekimurus, every part of the system must be automated and self-sustaining. Bonus points if only one crafty crate is used.
-botania.challenge.autoQuarry=Automated Quarry
-botania.challenge.autoQuarry.desc=Create a mining quarry that digs for ores and stone underground. It should dig out chunks of land and output all of the mined resources, sorting them. Bonus points if it can relocate automatically after it's done with an area.
-botania.challenge.runeCrafter=Rune Crafter
-botania.challenge.runeCrafter.desc=Create a system that can craft all runes on demand or keep them stocked. Every part of this system must be automated and self-sustaining, including the item inputs. Bonus points if only one Runic Altar block is used. You must be pretty crazy to try this one.
 
 # BLOCK NAMES
 tile.botania:flower0.name=Мистический белый цветок
@@ -685,16 +393,6 @@ tile.botania:dreamwood0Slab.name=Плита из древесины мечтан
 tile.botania:dreamwood1Stairs.name=Ступеньки из досок мечтаний
 tile.botania:dreamwood1Slab.name=Плита из досок мечтаний
 tile.botania:conjurationCatalyst.name=Колдовской катализатор
-tile.botania:prismarine0.name=Призмарин
-tile.botania:prismarine1.name=Призмариновые кирпичи
-tile.botania:prismarine2.name=Тёмный призмарин
-tile.botania:prismarine0Stairs.name=Ступеньки из призмарина
-tile.botania:prismarine0Slab.name=Плита из призмарина
-tile.botania:prismarine1Stairs.name=Ступеньки из призмаринового кирпича
-tile.botania:prismarine1Slab.name=Плита из призмаринового кирпича
-tile.botania:prismarine2Stairs.name=Ступеньки из тёмного призмарина
-tile.botania:prismarine2Slab.name=Плита из тёмного призмарина
-tile.botania:seaLamp.name=Морской светильник
 tile.botania:miniIsland0.name=Парящий белый цветок
 tile.botania:miniIsland1.name=Парящий оранжевый цветок
 tile.botania:miniIsland2.name=Парящий сиреневый цветок
@@ -713,12 +411,6 @@ tile.botania:miniIsland14.name=Парящий красный цветок
 tile.botania:miniIsland15.name=Парящий чёрный цветок
 tile.botania:tinyPotato.name=Миникартофель
 tile.botania:spawnerClaw.name=Вдох жизни
-tile.botania:reedBlock.name=Тростниковый блок
-tile.botania:reedBlock0Stairs.name=Тростниковые ступеньки
-tile.botania:reedBlock0Slab.name=Тростниковая плита
-tile.botania:thatch.name=Солома
-tile.botania:thatch0Stairs.name=Соломенные ступеньки
-tile.botania:thatch0Slab.name=Соломенная плита
 tile.botania:customBrick0.name=Адский кирпич
 tile.botania:customBrick1.name=Душевный кирпич
 tile.botania:customBrick2.name=Ледяной кирпич

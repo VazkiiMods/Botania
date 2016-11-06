@@ -2,51 +2,63 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jun 28, 2014, 6:43:33 PM (GMT)]
  */
 package vazkii.botania.common.block.decor;
 
 import java.util.Random;
 
-import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.entity.passive.EntitySheep;
+import javax.annotation.Nonnull;
+
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.renderer.block.statemap.StateMap;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
-import net.minecraft.util.IIcon;
+import net.minecraft.util.EnumBlockRenderType;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import vazkii.botania.client.core.helper.IconHelper;
+import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.BlockModFlower;
-import vazkii.botania.common.integration.coloredlights.ColoredLightHelper;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibBlockNames;
-import cpw.mods.fml.common.Optional;
 
 public class BlockBuriedPetals extends BlockModFlower {
 
+	private static final AxisAlignedBB AABB = new AxisAlignedBB(0, 0, 0, 1, 0.1, 1);
+
 	public BlockBuriedPetals() {
 		super(LibBlockNames.BURIED_PETALS);
-		setBlockBounds(0F, 0F, 0F, 1F, 0.1F, 1F);
 		setLightLevel(0.25F);
 	}
 
+	@Nonnull
 	@Override
-	@Optional.Method(modid = "easycoloredlights")
-	public int getLightValue(IBlockAccess world, int x, int y, int z) {
-		return ColoredLightHelper.getPackedColor(world.getBlockMetadata(x, y, z), originalLight);
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
+		return AABB;
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
-	public void randomDisplayTick(World par1World, int par2, int par3, int par4, Random par5Random) {
-		int meta = par1World.getBlockMetadata(par2, par3, par4);
-		float[] color = EntitySheep.fleeceColorTable[meta];
+	public void randomDisplayTick(IBlockState state, World world, BlockPos pos, Random rand) {
+		EnumDyeColor color = state.getValue(BotaniaStateProps.COLOR);
+		int hex = color.getMapColor().colorValue;
+		int r = (hex & 0xFF0000) >> 16;
+		int g = (hex & 0xFF00) >> 8;
+		int b = hex & 0xFF;
 
 		Botania.proxy.setSparkleFXNoClip(true);
-		Botania.proxy.sparkleFX(par1World, par2 + 0.3 + par5Random.nextFloat() * 0.5, par3 + 0.1 + par5Random.nextFloat() * 0.1, par4 + 0.3 + par5Random.nextFloat() * 0.5, color[0], color[1], color[2], par5Random.nextFloat(), 5);
+		Botania.proxy.sparkleFX(pos.getX() + 0.3 + rand.nextFloat() * 0.5, pos.getY() + 0.1 + rand.nextFloat() * 0.1, pos.getZ() + 0.3 + rand.nextFloat() * 0.5, r / 255F, g / 255F, b / 255F, rand.nextFloat(), 5);
+
 		Botania.proxy.setSparkleFXNoClip(false);
 	}
 
@@ -56,22 +68,23 @@ public class BlockBuriedPetals extends BlockModFlower {
 	}
 
 	@Override
-	public void registerBlockIcons(IIconRegister par1IconRegister) {
-		blockIcon = IconHelper.forBlock(par1IconRegister, this);
-	}
-
-	@Override
-	public IIcon getIcon(int par1, int par2) {
-		return blockIcon;
-	}
-
-	@Override
-	public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_) {
+	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
 		return ModItems.petal;
 	}
 
 	@Override
-	public int getRenderType() {
-		return 0;
+	public void registerItemForm() {}
+
+	@Nonnull
+	@Override
+	public EnumBlockRenderType getRenderType(IBlockState state) {
+		return EnumBlockRenderType.INVISIBLE;
 	}
+
+	@SideOnly(Side.CLIENT)
+	@Override
+	public final void registerModels() {
+		ModelLoader.setCustomStateMapper(this, new StateMap.Builder().ignore(getTypeProperty()).build());
+	}
+
 }

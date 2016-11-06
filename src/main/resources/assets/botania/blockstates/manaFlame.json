@@ -1,0 +1,19 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "botania:dummy",
+    "textures": {
+      "particle": "minecraft:blocks/fire_layer_0"
+    }
+  },
+  "variants": {
+    "normal": [{}],
+    "inventory": [{
+      "model": "builtin/generated",
+      "textures": {
+        "layer0": "minecraft:blocks/fire_layer_0"
+      },
+      "transform": "forge:default-item"
+    }]
+  }
+}

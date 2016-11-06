@@ -2,10 +2,10 @@
  * This class was created by <Mikeemoo/boq>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [? (GMT)]
  */
 package vazkii.botania.common.core.helper;
@@ -35,12 +35,12 @@ public class ExperienceHelper {
 		if (level == 0)
 			return 0;
 
-		if (level > 0 && level < 16)
-			return level * 17;
-		else if (level > 15 && level < 31)
-			return (int) (1.5 * level * level - 29.5 * level + 360);
+		if (level > 0 && level < 17)
+		    return (int) (level * level + 6 * level);
+		else if (level > 16 && level < 32)
+		    return (int) (2.5 * level * level - 40.5 * level + 360);
 		else
-			return (int) (3.5 * level * level - 151.5 * level + 2220);
+		    return (int) (4.5 * level * level - 162.5 * level + 2220);
 	}
 
 	public static int getLevelForExperience(int experience) {

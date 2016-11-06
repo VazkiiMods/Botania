@@ -2,10 +2,10 @@
  * This class was created by <ChickenBones>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [? (GMT)]
  */
 package vazkii.botania.common.core.helper;
@@ -13,31 +13,29 @@ package vazkii.botania.common.core.helper;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
-
-import net.minecraft.entity.Entity;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.Vec3;
+import java.util.Objects;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.vector.Vector3f;
 import org.lwjgl.util.vector.Vector4f;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.entity.Entity;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class Vector3
 {
-	public static Vector3 zero = new Vector3();
-	public static Vector3 one = new Vector3(1, 1, 1);
-	public static Vector3 center = new Vector3(0.5, 0.5, 0.5);
+	public static final Vector3 ZERO = new Vector3(0, 0, 0);
+	public static final Vector3 ONE = new Vector3(1, 1, 1);
+	public static final Vector3 CENTER = new Vector3(0.5, 0.5, 0.5);
 
-	public double x;
-	public double y;
-	public double z;
-
-	public Vector3() {
-	}
+	public final double x;
+	public final double y;
+	public final double z;
 
 	public Vector3(double d, double d1, double d2) {
 		x = d;
@@ -45,20 +43,12 @@ public class Vector3
 		z = d2;
 	}
 
-	public Vector3(Vector3 vec) {
-		x = vec.x;
-		y = vec.y;
-		z = vec.z;
+	public Vector3(Vec3d vec) {
+		this(vec.xCoord, vec.yCoord, vec.zCoord);
 	}
 
-	public Vector3(Vec3 vec) {
-		x = vec.xCoord;
-		y = vec.yCoord;
-		z = vec.zCoord;
-	}
-
-	public Vector3 copy() {
-		return new Vector3(this);
+	public static Vector3 fromBlockPos(BlockPos pos) {
+		return new Vector3(pos.getX(), pos.getY(), pos.getZ());
 	}
 
 	public static Vector3 fromEntity(Entity e) {
@@ -66,29 +56,15 @@ public class Vector3
 	}
 
 	public static Vector3 fromEntityCenter(Entity e) {
-		return new Vector3(e.posX, e.posY - e.yOffset + e.height / 2, e.posZ);
+		return new Vector3(e.posX, e.posY - e.getYOffset() + e.height / 2, e.posZ);
 	}
 
 	public static Vector3 fromTileEntity(TileEntity e) {
-		return new Vector3(e.xCoord, e.yCoord, e.zCoord);
+		return fromBlockPos(e.getPos());
 	}
 
 	public static Vector3 fromTileEntityCenter(TileEntity e) {
-		return new Vector3(e.xCoord + 0.5, e.yCoord + 0.5, e.zCoord + 0.5);
-	}
-
-	public Vector3 set(double d, double d1, double d2) {
-		x = d;
-		y = d1;
-		z = d2;
-		return this;
-	}
-
-	public Vector3 set(Vector3 vec) {
-		x = vec.x;
-		y = vec.y;
-		z = vec.z;
-		return this;
+		return fromTileEntity(e).add(0.5);
 	}
 
 	public double dotProduct(Vector3 vec) {
@@ -109,67 +85,35 @@ public class Vector3
 		double d = y * vec.z - z * vec.y;
 		double d1 = z * vec.x - x * vec.z;
 		double d2 = x * vec.y - y * vec.x;
-		x = d;
-		y = d1;
-		z = d2;
-		return this;
+		return new Vector3(d, d1, d2);
 	}
 
 	public Vector3 add(double d, double d1, double d2) {
-		x += d;
-		y += d1;
-		z += d2;
-		return this;
+		return new Vector3(x + d, y + d1, z + d2);
 	}
 
 	public Vector3 add(Vector3 vec) {
-		x += vec.x;
-		y += vec.y;
-		z += vec.z;
-		return this;
+		return add(vec.x, vec.y, vec.z);
 	}
 
 	public Vector3 add(double d) {
 		return add(d, d, d);
 	}
 
-	public Vector3 sub(Vector3 vec) {
-		return subtract(vec);
-	}
-
 	public Vector3 subtract(Vector3 vec) {
-		x -= vec.x;
-		y -= vec.y;
-		z -= vec.z;
-		return this;
-	}
-
-	public Vector3 negate(Vector3 vec) {
-		x = -x;
-		y = -y;
-		z = -z;
-		return this;
+		return new Vector3(x - vec.x, y - vec.y, z - vec.z);
 	}
 
 	public Vector3 multiply(double d) {
-		x *= d;
-		y *= d;
-		z *= d;
-		return this;
+		return multiply(d, d, d);
 	}
 
 	public Vector3 multiply(Vector3 f) {
-		x *= f.x;
-		y *= f.y;
-		z *= f.z;
-		return this;
+		return multiply(f.x, f.y, f.z);
 	}
 
 	public Vector3 multiply(double fx, double fy, double fz) {
-		x *= fx;
-		y *= fy;
-		z *= fz;
-		return this;
+		return new Vector3(x * fx, y * fy, z * fz);
 	}
 
 	public double mag() {
@@ -183,7 +127,7 @@ public class Vector3
 	public Vector3 normalize() {
 		double d = mag();
 		if(d != 0)
-			multiply(1 / d);
+			return multiply(1 / d);
 
 		return this;
 	}
@@ -203,37 +147,27 @@ public class Vector3
 	public Vector3 xCrossProduct() {
 		double d = z;
 		double d1 = -y;
-		x = 0;
-		y = d;
-		z = d1;
-		return this;
+		return new Vector3(0, d, d1);
 	}
 
 	public Vector3 zCrossProduct() {
 		double d = y;
-
 		double d1 = -x;
-		x = d;
-		y = d1;
-		z = 0;
-		return this;
+		return new Vector3(d, d1, 0);
 	}
 
 	public Vector3 yCrossProduct() {
 		double d = -z;
 		double d1 = x;
-		x = d;
-		y = 0;
-		z = d1;
-		return this;
+		return new Vector3(d, 0, d1);
 	}
 
-	public Vec3 toVec3D() {
-		return Vec3.createVectorHelper(x, y, z);
+	public Vec3d toVec3D() {
+		return new Vec3d(x, y, z);
 	}
 
 	public double angle(Vector3 vec) {
-		return Math.acos(copy().normalize().dotProduct(vec.copy().normalize()));
+		return Math.acos(normalize().dotProduct(vec.normalize()));
 	}
 
 	public boolean isInside(AxisAlignedBB aabb) {
@@ -248,12 +182,10 @@ public class Vector3
 		return x == 0 ? y == 0 || z == 0 : y == 0 && z == 0;
 	}
 
-	@SideOnly(Side.CLIENT)
 	public Vector3f vector3f() {
 		return new Vector3f((float)x, (float)y, (float)z);
 	}
 
-	@SideOnly(Side.CLIENT)
 	public Vector4f vector4f() {
 		return new Vector4f((float)x, (float)y, (float)z, 1);
 	}
@@ -264,10 +196,7 @@ public class Vector3
 	}
 
 	public Vector3 negate() {
-		x = -x;
-		y = -y;
-		z = -z;
-		return this;
+		return new Vector3(-x, -y, -z);
 	}
 
 	public double scalarProject(Vector3 b) {
@@ -278,18 +207,15 @@ public class Vector3
 	public Vector3 project(Vector3 b) {
 		double l = b.magSquared();
 		if(l == 0) {
-			set(0, 0, 0);
-			return this;
+			return ZERO;
 		}
 
 		double m = dotProduct(b)/l;
-		set(b).multiply(m);
-		return this;
+		return b.multiply(m);
 	}
 
 	public Vector3 rotate(double angle, Vector3 axis) {
-		Quat.aroundAxis(axis.copy().normalize(), angle).rotate(this);
-		return this;
+		return Quat.aroundAxis(axis.normalize(), angle).rotate(this);
 	}
 
 	@Override
@@ -299,5 +225,10 @@ public class Vector3
 
 		Vector3 v = (Vector3)o;
 		return x == v.x && y == v.y && z == v.z;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(x, y, z);
 	}
 }

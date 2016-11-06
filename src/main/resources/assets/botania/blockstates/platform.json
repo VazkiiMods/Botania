@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "variant=abstruse": { "model": "botania:abstruse_platform" },
+    "variant=spectral": { "model": "botania:spectral_platform" },
+    "variant=infrangible": { "model": "botania:infrangible_platform" }
+  }
+}

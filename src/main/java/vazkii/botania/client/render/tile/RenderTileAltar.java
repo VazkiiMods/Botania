@@ -2,76 +2,53 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jan 21, 2014, 7:55:47 PM (GMT)]
  */
 package vazkii.botania.client.render.tile;
 
-import java.awt.Color;
-
-import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.ItemRenderer;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.entity.RenderItem;
-import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.IIcon;
-import net.minecraft.util.ResourceLocation;
+import javax.annotation.Nonnull;
 
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
 import vazkii.botania.client.core.handler.ClientTickHandler;
-import vazkii.botania.client.lib.LibResources;
-import vazkii.botania.client.model.ModelAltar;
+import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileAltar;
 
-public class RenderTileAltar extends TileEntitySpecialRenderer {
-
-	private static final ResourceLocation[] textures = new ResourceLocation[] {
-		new ResourceLocation(LibResources.MODEL_ALTAR),
-		new ResourceLocation(String.format(LibResources.MODEL_ALTAR_META, 0)),
-		new ResourceLocation(String.format(LibResources.MODEL_ALTAR_META, 1)),
-		new ResourceLocation(String.format(LibResources.MODEL_ALTAR_META, 2)),
-		new ResourceLocation(String.format(LibResources.MODEL_ALTAR_META, 3)),
-		new ResourceLocation(String.format(LibResources.MODEL_ALTAR_META, 4)),
-		new ResourceLocation(String.format(LibResources.MODEL_ALTAR_META, 5)),
-		new ResourceLocation(String.format(LibResources.MODEL_ALTAR_META, 6)),
-		new ResourceLocation(String.format(LibResources.MODEL_ALTAR_META, 7))
-	};
-
-	private static final ResourceLocation textureMossy = new ResourceLocation(LibResources.MODEL_ALTAR_MOSSY);
-
-	ModelAltar model = new ModelAltar();
-	RenderItem renderItem = new RenderItem();
-	public static int forceMeta = -1;
+public class RenderTileAltar extends TileEntitySpecialRenderer<TileAltar> {
 
 	@Override
-	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float pticks) {
-		TileAltar altar = (TileAltar) tileentity;
+	public void renderTileEntityAt(@Nonnull TileAltar altar, double d0, double d1, double d2, float pticks, int digProgress) {
+		if(!altar.getWorld().isBlockLoaded(altar.getPos(), false)
+				|| altar.getWorld().getBlockState(altar.getPos()).getBlock() != ModBlocks.altar)
+			return;
 
-		GL11.glPushMatrix();
-		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-		GL11.glColor4f(1F, 1F, 1F, 1F);
-		Minecraft.getMinecraft().renderEngine.bindTexture(altar.isMossy ? textureMossy : textures[Math.min(textures.length - 1, forceMeta == -1 ? tileentity.getBlockMetadata() : forceMeta)]);
+		GlStateManager.pushMatrix();
+		GlStateManager.enableRescaleNormal();
+		GlStateManager.color(1F, 1F, 1F, 1F);
 
-		GL11.glTranslated(d0 + 0.5, d1 + 1.5, d2 + 0.5);
-		GL11.glScalef(1F, -1F, -1F);
-		model.render();
-		GL11.glScalef(1F, -1F, -1F);
-		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+		GlStateManager.translate(d0 + 0.5, d1 + 1.5, d2 + 0.5);
+		GlStateManager.enableRescaleNormal();
 
 		boolean water = altar.hasWater();
 		boolean lava = altar.hasLava();
 		if(water || lava) {
-			GL11.glPushMatrix();
+			GlStateManager.pushMatrix();
 			float s = 1F / 256F * 10F;
 			float v = 1F / 8F;
 			float w = -v * 2.5F;
@@ -79,7 +56,7 @@ public class RenderTileAltar extends TileEntitySpecialRenderer {
 			if(water) {
 				int petals = 0;
 				for(int i = 0; i < altar.getSizeInventory(); i++)
-					if(altar.getStackInSlot(i) != null)
+					if(altar.getItemHandler().getStackInSlot(i) != null)
 						petals++;
 					else break;
 
@@ -92,9 +69,9 @@ public class RenderTileAltar extends TileEntitySpecialRenderer {
 					double ticks = (ClientTickHandler.ticksInGame + pticks) * 0.5;
 					float offsetPerPetal = 360 / petals;
 
-					GL11.glPushMatrix();
-					GL11.glTranslatef(-0.05F, -0.5F, 0F);
-					GL11.glScalef(v, v, v);
+					GlStateManager.pushMatrix();
+					GlStateManager.translate(-0.05F, -0.5F, 0F);
+					GlStateManager.scale(v, v, v);
 					for(int i = 0; i < petals; i++) {
 						float offset = offsetPerPetal * i;
 						float deg = (int) (ticks / rotationModifier % 360F + offset);
@@ -105,77 +82,66 @@ public class RenderTileAltar extends TileEntitySpecialRenderer {
 						float z = (float) (radiusZ * Math.sin(rad));
 						float y = (float) Math.cos((ticks + 50 * i) / 5F) / 10F;
 
-						GL11.glPushMatrix();
-						GL11.glTranslatef(x, y, z);
+						GlStateManager.pushMatrix();
+						GlStateManager.translate(x, y, z);
 						float xRotate = (float) Math.sin(ticks * rotationModifier) / 2F;
 						float yRotate = (float) Math.max(0.6F, Math.sin(ticks * 0.1F) / 2F + 0.5F);
 						float zRotate = (float) Math.cos(ticks * rotationModifier) / 2F;
 
 						v /= 2F;
-						GL11.glTranslatef(v, v, v);
-						GL11.glRotatef(deg, xRotate, yRotate, zRotate);
-						GL11.glTranslatef(-v, -v, -v);
+						GlStateManager.translate(v, v, v);
+						GlStateManager.rotate(deg, xRotate, yRotate, zRotate);
+						GlStateManager.translate(-v, -v, -v);
 						v *= 2F;
 
-						GL11.glColor4f(1F, 1F, 1F, 1F);
+						GlStateManager.color(1F, 1F, 1F, 1F);
 
-						ItemStack stack = altar.getStackInSlot(i);
-						Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationItemsTexture);
-						IIcon icon = stack.getItem().getIcon(stack, 0);
-						if(icon != null) {
-							Color color = new Color(stack.getItem().getColorFromItemStack(stack, 0));
-							GL11.glColor3ub((byte) color.getRed(), (byte) color.getGreen(), (byte) color.getBlue());
-							float f = icon.getMinU();
-							float f1 = icon.getMaxU();
-							float f2 = icon.getMinV();
-							float f3 = icon.getMaxV();
-							ItemRenderer.renderItemIn2D(Tessellator.instance, f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
-							GL11.glColor3f(1F, 1F, 1F);
-						}
-
-						GL11.glPopMatrix();
+						ItemStack stack = altar.getItemHandler().getStackInSlot(i);
+						Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+						Minecraft.getMinecraft().getRenderItem().renderItem(stack, ItemCameraTransforms.TransformType.GROUND);
+						GlStateManager.popMatrix();
 					}
 
-					GL11.glPopMatrix();
+					GlStateManager.popMatrix();
 				}
 			}
 
-			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
-			Block block = lava ? Blocks.lava : Blocks.water;
+
+			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+			Fluid fluid = lava ? FluidRegistry.LAVA : FluidRegistry.WATER;
 			int brightness = lava ? 240 : -1;
 			float alpha = lava ? 1F : 0.7F;
 
-			GL11.glEnable(GL11.GL_BLEND);
-			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-			GL11.glDisable(GL11.GL_ALPHA_TEST);
+			GlStateManager.enableBlend();
+			GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+			GlStateManager.disableAlpha();
 			if(lava)
-				GL11.glDisable(GL11.GL_LIGHTING);
-			GL11.glColor4f(1F, 1F, 1F, alpha);
-			GL11.glTranslatef(w, -0.3F, w);
-			GL11.glRotatef(90F, 1F, 0F, 0F);
-			GL11.glScalef(s, s, s);
+				GlStateManager.disableLighting();
+			GlStateManager.color(1F, 1F, 1F, alpha);
+			GlStateManager.translate(w, -0.3F, w);
+			GlStateManager.rotate(90F, 1F, 0F, 0F);
+			GlStateManager.scale(s, s, s);
 
-			renderIcon(0, 0, block.getIcon(0, 0), 16, 16, brightness);
+			renderIcon(0, 0, fluid.getStill(), 16, 16, brightness);
 			if(lava)
-				GL11.glEnable(GL11.GL_LIGHTING);
-			GL11.glEnable(GL11.GL_ALPHA_TEST);
-			GL11.glDisable(GL11.GL_BLEND);
-			GL11.glPopMatrix();
+				GlStateManager.enableLighting();
+			GlStateManager.enableAlpha();
+			GlStateManager.disableBlend();
+			GlStateManager.popMatrix();
 		}
-		GL11.glPopMatrix();
-
-		forceMeta = -1;
+		GlStateManager.popMatrix();
 	}
 
-	public void renderIcon(int par1, int par2, IIcon par3Icon, int par4, int par5, int brightness) {
-		Tessellator tessellator = Tessellator.instance;
-		tessellator.startDrawingQuads();
-		if(brightness != -1)
-			tessellator.setBrightness(brightness);
-		tessellator.addVertexWithUV(par1 + 0, par2 + par5, 0, par3Icon.getMinU(), par3Icon.getMaxV());
-		tessellator.addVertexWithUV(par1 + par4, par2 + par5, 0, par3Icon.getMaxU(), par3Icon.getMaxV());
-		tessellator.addVertexWithUV(par1 + par4, par2 + 0, 0, par3Icon.getMaxU(), par3Icon.getMinV());
-		tessellator.addVertexWithUV(par1 + 0, par2 + 0, 0, par3Icon.getMinU(), par3Icon.getMinV());
+	public void renderIcon(int par1, int par2, ResourceLocation loc, int par4, int par5, int brightness) {
+		TextureAtlasSprite par3Icon = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(loc.toString());
+		Tessellator tessellator = Tessellator.getInstance();
+		tessellator.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
+		//if(brightness != -1)
+		//tessellator.getBuffer().putBrightness4(brightness, brightness, brightness, brightness);
+		tessellator.getBuffer().pos(par1 + 0, par2 + par5, 0).tex(par3Icon.getMinU(), par3Icon.getMaxV()).endVertex();
+		tessellator.getBuffer().pos(par1 + par4, par2 + par5, 0).tex(par3Icon.getMaxU(), par3Icon.getMaxV()).endVertex();
+		tessellator.getBuffer().pos(par1 + par4, par2 + 0, 0).tex(par3Icon.getMaxU(), par3Icon.getMinV()).endVertex();
+		tessellator.getBuffer().pos(par1 + 0, par2 + 0, 0).tex(par3Icon.getMinU(), par3Icon.getMinV()).endVertex();
 		tessellator.draw();
 	}
 

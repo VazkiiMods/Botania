@@ -2,42 +2,42 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Feb 14, 2015, 3:28:54 PM (GMT)]
  */
 package vazkii.botania.api.corporea;
+
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.WeakHashMap;
 import java.util.regex.Pattern;
 
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.ISidedInventory;
+import com.google.common.base.Predicates;
+import com.google.common.collect.ImmutableList;
+
+import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.util.ForgeDirection;
 import vazkii.botania.api.BotaniaAPI;
 
 public final class CorporeaHelper {
 
-	private static final List<IInventory> empty = Collections.unmodifiableList(new ArrayList());
-	private static final WeakHashMap<List<ICorporeaSpark>, List<IInventory>> cachedNetworks = new WeakHashMap();
-	private static final List<ICorporeaAutoCompleteController> autoCompleteControllers = new ArrayList<ICorporeaAutoCompleteController>();
+	private static final List<InvWithLocation> empty = ImmutableList.of();
+	private static final WeakHashMap<List<ICorporeaSpark>, List<InvWithLocation>> cachedNetworks = new WeakHashMap<>();
+	private static final List<ICorporeaAutoCompleteController> autoCompleteControllers = new ArrayList<>();
 
 	private static final Pattern patternControlCode = Pattern.compile("(?i)\\u00A7[0-9A-FK-OR]");
 
-	public static final String[] WILDCARD_STRINGS = new String[] {
-		"...", "~", "+", "?" , "*"
-	};
+	public static final String[] WILDCARD_STRINGS = { "...", "~", "+", "?" , "*" };
 
 	/**
 	 * How many items were matched in the last request. If java had "out" params like C# this wouldn't be needed :V
@@ -52,23 +52,23 @@ public final class CorporeaHelper {
 	 * Gets a list of all the inventories on this spark network. This list is cached for use once every tick,
 	 * and if something changes during that tick it'll still have the first result.
 	 */
-	public static List<IInventory> getInventoriesOnNetwork(ICorporeaSpark spark) {
+	public static List<InvWithLocation> getInventoriesOnNetwork(ICorporeaSpark spark) {
 		ICorporeaSpark master = spark.getMaster();
 		if(master == null)
 			return empty;
 		List<ICorporeaSpark> network = master.getConnections();
 
 		if(cachedNetworks.containsKey(network)) {
-			List<IInventory> cache = cachedNetworks.get(network);
+			List<InvWithLocation> cache = cachedNetworks.get(network);
 			if(cache != null)
 				return cache;
 		}
 
-		List<IInventory> inventories = new ArrayList();
+		List<InvWithLocation> inventories = new ArrayList<>();
 		if(network != null)
 			for(ICorporeaSpark otherSpark : network)
 				if(otherSpark != null) {
-					IInventory inv = otherSpark.getInventory();
+					InvWithLocation inv = otherSpark.getSparkInventory();
 					if(inv != null)
 						inventories.add(inv);
 				}
@@ -83,7 +83,7 @@ public final class CorporeaHelper {
 	 * called instead if the context for those exists to avoid having to get the values again.
 	 */
 	public static int getCountInNetwork(ItemStack stack, ICorporeaSpark spark, boolean checkNBT) {
-		List<IInventory> inventories = getInventoriesOnNetwork(spark);
+		List<InvWithLocation> inventories = getInventoriesOnNetwork(spark);
 		return getCountInNetwork(stack, inventories, checkNBT);
 	}
 
@@ -92,18 +92,18 @@ public final class CorporeaHelper {
 	 * The higher level function that use a Map< IInventory, Integer > should be
 	 * called instead if the context for this exists to avoid having to get the value again.
 	 */
-	public static int getCountInNetwork(ItemStack stack, List<IInventory> inventories, boolean checkNBT) {
-		Map<IInventory, Integer> map = getInventoriesWithItemInNetwork(stack, inventories, checkNBT);
+	public static int getCountInNetwork(ItemStack stack, List<InvWithLocation> inventories, boolean checkNBT) {
+		Map<InvWithLocation, Integer> map = getInventoriesWithItemInNetwork(stack, inventories, checkNBT);
 		return getCountInNetwork(stack, map, checkNBT);
 	}
 
 	/**
 	 * Gets the amount of available items in the network of the type passed in, checking NBT or not.
 	 */
-	public static int getCountInNetwork(ItemStack stack, Map<IInventory, Integer> inventories, boolean checkNBT) {
+	public static int getCountInNetwork(ItemStack stack, Map<InvWithLocation, Integer> inventories, boolean checkNBT) {
 		int count = 0;
 
-		for(IInventory inv : inventories.keySet())
+		for(InvWithLocation inv : inventories.keySet())
 			count += inventories.get(inv);
 
 		return count;
@@ -114,8 +114,8 @@ public final class CorporeaHelper {
 	 * The higher level function that use a List< IInventory > should be
 	 * called instead if the context for this exists to avoid having to get the value again.
 	 */
-	public static Map<IInventory, Integer> getInventoriesWithItemInNetwork(ItemStack stack, ICorporeaSpark spark, boolean checkNBT) {
-		List<IInventory> inventories = getInventoriesOnNetwork(spark);
+	public static Map<InvWithLocation, Integer> getInventoriesWithItemInNetwork(ItemStack stack, ICorporeaSpark spark, boolean checkNBT) {
+		List<InvWithLocation> inventories = getInventoriesOnNetwork(spark);
 		return getInventoriesWithItemInNetwork(stack, inventories, checkNBT);
 	}
 
@@ -124,8 +124,8 @@ public final class CorporeaHelper {
 	 * The deeper level function that use a List< IInventory > should be
 	 * called instead if the context for this exists to avoid having to get the value again.
 	 */
-	public static Map<IInventory, Integer> getInventoriesWithItemInNetwork(ItemStack stack,List<IInventory> inventories, boolean checkNBT) {
-		Map<IInventory, Integer> countMap = new HashMap<IInventory, Integer>();
+	public static Map<InvWithLocation, Integer> getInventoriesWithItemInNetwork(ItemStack stack, List<InvWithLocation> inventories, boolean checkNBT) {
+		Map<InvWithLocation, Integer> countMap = new HashMap<>();
 		List<IWrappedInventory> wrappedInventories = BotaniaAPI.internalHandler.wrapInventory(inventories);
 		for (IWrappedInventory inv : wrappedInventories) {
 			CorporeaRequest request = new CorporeaRequest(stack, checkNBT, -1);
@@ -166,12 +166,13 @@ public final class CorporeaHelper {
 	 * purposes of counting huge amounts.
 	 */
 	public static List<ItemStack> requestItem(Object matcher, int itemCount, ICorporeaSpark spark, boolean checkNBT, boolean doit) {
-		List<ItemStack> stacks = new ArrayList<ItemStack>();
+		List<ItemStack> stacks = new ArrayList<>();
 		CorporeaRequestEvent event = new CorporeaRequestEvent(matcher, itemCount, spark, checkNBT, doit);
 		if(MinecraftForge.EVENT_BUS.post(event))
 			return stacks;
 
-		List<IInventory> inventories = getInventoriesOnNetwork(spark);
+		List<InvWithLocation> inventories = getInventoriesOnNetwork(spark);
+
 		List<IWrappedInventory> inventoriesW = BotaniaAPI.internalHandler.wrapInventory(inventories);
 		Map<ICorporeaInterceptor, ICorporeaSpark> interceptors = new HashMap<ICorporeaInterceptor, ICorporeaSpark>();
 
@@ -179,9 +180,9 @@ public final class CorporeaHelper {
 		for(IWrappedInventory inv : inventoriesW) {
 			ICorporeaSpark invSpark = inv.getSpark();
 
-			Object originalInventory = inv.getWrappedObject();
-			if(originalInventory instanceof ICorporeaInterceptor) {
-				ICorporeaInterceptor interceptor = (ICorporeaInterceptor) originalInventory;
+			InvWithLocation originalInventory = inv.getWrappedObject();
+			if(originalInventory.world.getTileEntity(originalInventory.pos) instanceof ICorporeaInterceptor) {
+				ICorporeaInterceptor interceptor = (ICorporeaInterceptor) originalInventory.world.getTileEntity(originalInventory.pos);
 				interceptor.interceptRequest(matcher, itemCount, invSpark, spark, stacks, inventories, doit);
 				interceptors.put(interceptor, invSpark);
 			}
@@ -205,36 +206,26 @@ public final class CorporeaHelper {
 	/**
 	 * Gets the spark attached to the inventory passed case it's a TileEntity.
 	 */
-	public static ICorporeaSpark getSparkForInventory(IInventory inv) {
-		if(!(inv instanceof TileEntity))
-			return null;
-
-		TileEntity tile = (TileEntity) inv;
-		return getSparkForBlock(tile.getWorldObj(), tile.xCoord, tile.yCoord, tile.zCoord);
+	public static ICorporeaSpark getSparkForInventory(InvWithLocation inv) {
+		TileEntity tile = inv.world.getTileEntity(inv.pos);
+		return getSparkForBlock(tile.getWorld(), tile.getPos());
 	}
 
 	/**
 	 * Gets the spark attached to the block in the coords passed in. Note that the coords passed
 	 * in are for the block that the spark will be on, not the coords of the spark itself.
 	 */
-	public static ICorporeaSpark getSparkForBlock(World world, int x, int y, int z) {
-		List<ICorporeaSpark> sparks = world.getEntitiesWithinAABB(ICorporeaSpark.class, AxisAlignedBB.getBoundingBox(x, y + 1, z, x + 1, y + 2, z + 1));
-		return sparks.isEmpty() ? null : sparks.get(0);
+	public static ICorporeaSpark getSparkForBlock(World world, BlockPos pos) {
+		List<Entity> sparks = world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(pos.up(), pos.add(1, 2, 1)), Predicates.instanceOf(ICorporeaSpark.class));
+		return sparks.isEmpty() ? null : (ICorporeaSpark) sparks.get(0);
 	}
 
 	/**
 	 * Gets if the block in the coords passed in has a spark attached. Note that the coords passed
 	 * in are for the block that the spark will be on, not the coords of the spark itself.
 	 */
-	public static boolean doesBlockHaveSpark(World world, int x, int y, int z) {
-		return getSparkForBlock(world, x, y, z) != null;
-	}
-
-	/**
-	 * Gets if the slot passed in can be extracted from by a spark.
-	 */
-	public static boolean isValidSlot(IInventory inv, int slot) {
-		return !(inv instanceof ISidedInventory) || arrayHas(((ISidedInventory) inv).getAccessibleSlotsFromSide(ForgeDirection.UP.ordinal()), slot) && ((ISidedInventory) inv).canExtractItem(slot, inv.getStackInSlot(slot), ForgeDirection.UP.ordinal());
+	public static boolean doesBlockHaveSpark(World world, BlockPos pos) {
+		return getSparkForBlock(world, pos) != null;
 	}
 
 	/**
@@ -277,17 +268,6 @@ public final class CorporeaHelper {
 	 */
 	public static void clearCache() {
 		cachedNetworks.clear();
-	}
-
-	/**
-	 * Helper method to check if an int array contains an int.
-	 */
-	public static boolean arrayHas(int[] arr, int val) {
-		for (int element : arr)
-			if(element == val)
-				return true;
-
-		return false;
 	}
 
 	/**
