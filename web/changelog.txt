@@ -1,3 +1,7 @@
+r1.9 338
+*Fixed a crash when breaking redstone ore with an Elementium Pickaxe or Terra Shatterer with Elementium tips.
+*Fixed a crash when using the Worldshaper's Astrolabe without a block set.
+*The Lexica Botania can now always be thrown into an elven portal, even if it already has elven knowledge. (Shadowfacts)
 r1.9 337
 *Fixed a client crash with the Worldshaper's Astrolabe.
 *Fixed a crash when explosions happen in a server because someone at mojang thought having a client only constructor was a good idea.
