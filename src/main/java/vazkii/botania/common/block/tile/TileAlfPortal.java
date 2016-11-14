@@ -128,7 +128,18 @@ public class TileAlfPortal extends TileMod {
 						continue;
 
 					ItemStack stack = item.getEntityItem();
-					if((!(stack.getItem() instanceof IElvenItem) || !((IElvenItem) stack.getItem()).isElvenItem(stack)) && !item.getEntityData().hasKey(TAG_PORTAL_FLAG)) {
+					boolean consume;
+					if (item.getEntityData().hasKey(TAG_PORTAL_FLAG)) {
+						consume = false;
+					} else if (stack.getItem() instanceof ItemLexicon) {
+						consume = true;
+					} else if ((!(stack.getItem() instanceof IElvenItem) || !((IElvenItem) stack.getItem()).isElvenItem(stack))) {
+						consume = true;
+					} else {
+						consume = false;
+					}
+
+					if (consume) {
 						item.setDead();
 						addItem(stack);
 						ticksSinceLastItem = 0;
@@ -198,11 +209,14 @@ public class TileAlfPortal extends TileMod {
 		int i = 0;
 		for(ItemStack stack : stacksIn) {
 			if(stack != null && stack.getItem() instanceof ILexicon) {
-				((ILexicon) stack.getItem()).unlockKnowledge(stack, BotaniaAPI.elvenKnowledge);
-				ItemLexicon.setForcedPage(stack, LexiconData.elvenMessage.getUnlocalizedName());
-				spawnItem(stack);
-				stacksIn.remove(i);
-				return;
+				ILexicon lexicon = (ILexicon) stack.getItem();
+				if (!lexicon.isKnowledgeUnlocked(stack, BotaniaAPI.elvenKnowledge)) {
+					lexicon.unlockKnowledge(stack, BotaniaAPI.elvenKnowledge);
+					ItemLexicon.setForcedPage(stack, LexiconData.elvenMessage.getUnlocalizedName());
+					spawnItem(stack);
+					stacksIn.remove(i);
+					return;
+				}
 			}
 			i++;
 		}
