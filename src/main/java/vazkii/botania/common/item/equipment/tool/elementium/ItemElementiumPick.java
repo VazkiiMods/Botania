@@ -40,6 +40,9 @@ public class ItemElementiumPick extends ItemManasteelPick {
 	}
 
 	private static boolean isDisposable(ItemStack stack) {
+		if(stack == null || stack.getItem() == null)
+			return false;
+		
 		for(int id : OreDictionary.getOreIDs(stack)) {
 			String name = OreDictionary.getOreName(id);
 			if(BotaniaAPI.disposableBlocks.contains(name))
