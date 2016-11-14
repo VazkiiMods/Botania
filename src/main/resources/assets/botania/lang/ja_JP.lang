@@ -133,7 +133,7 @@ botaniamisc.notes=メモ帳
 botaniamisc.pay2win=このアイテムにマナを注入することでマナプールをアップグレードできます
 botaniamisc.justDoIt=ジャスト・ドゥー・イット
 botaniamisc.changes0=&aBotania&7 は最後につかったものから更新があります!
-botaniamisc.changes1=最新版は &aBotania&7 で、あなたが使っていたのは &b%s&7です.
+botaniamisc.changes1=あなたが最後に使っていた &aBotania&7 は &b%s&7 です。
 botaniamisc.changes2=更新があったけど、動揺しないで。なにかなくなっているようなら、項目を読んでみてください。
 botaniamisc.changes3=&o誰もが 変化を恐れているけど、 変化によって私たちは前に進むことができる。
 botaniamisc.changes4=&f シフト+クリック&7 で更新を確認
@@ -203,6 +203,15 @@ botania.color16=虹色
 # ZODIAC SIGNS
 
 # WINGS
+botania.wings0=羽根無し
+botania.wings1=羽根: フリューゲル
+botania.wings2=羽根: 片翼の天使
+botania.wings3=羽根: 氷の妖精
+botania.wings4=羽根: フェニックス
+botania.wings5=羽根: 黒雪姫
+botania.wings6=羽根: 奈落の王
+botania.wings7=羽根: シルフ
+botania.wings8=羽根: メガ・ウルトラ・チキン
 
 # TORCH MODES
 botania.animatedTorch.toggle=切り替え
@@ -273,7 +282,7 @@ achievement.botania:manaCookieEat.desc=マナを融合したおいしい"全快�
 achievement.botania:runePickup.desc=ルーンの祭壇を使ってルーンを作る
 achievement.botania:manaBlasterShoot=M'AIDER遭難ガール
 achievement.botania:manaBlasterShoot.desc=マナブラスターをつくって発射する
-achievement.botania:tiaraWings.desc=フリューゲルティアラをフリューゲルウィングとクラフトし、装備する
+achievement.botania:tiaraWings.desc=フリューゲルの羽根で飾ったフリューゲルティアラをクラフトする
 achievement.botania:terrasteelPickup=ダンサーインザダーク
 achievement.botania:terrasteelPickup.desc=大地集積プレートをつかってテラスチールインゴットを作る
 achievement.botania:elfPortalOpen=ワールド・コーリング
@@ -1381,6 +1390,8 @@ item.botania:invisibilityCloak.name=透明マント
 item.botania:cloudPendant.name=巻雲アミュレット
 item.botania:superCloudPendant.name=乱雲アミュレット
 item.botania:thirdEye.name=第三の眼
+item.botania:astrolabe.name=地形成形者のアストロラーベ
+item.botania:goddessCharm.name=慈悲深き女神のお守り
 
 # LEXICON CATEGORIES
 botania.category.basics=基本と機構
@@ -1579,9 +1590,9 @@ botania.page.kekimurus0=&1ケーキ&0は美味しい。誰もが 愛する。花
 botania.entry.gourmaryllis=ガーマリリス
 botania.tagline.gourmaryllis=食物からのマナ
 botania.page.gourmaryllis0=&1ガーマリリス&0は腹ペコな花 だ。手近の食べ物を全部食 べてしまい、&4マナ&0に変換す る。<br>注意すべきことは、1度に 消化できる食べ物は1つだ けで、それが終わった時に &4マナ&0を生成する。もし他の 食べ物を見つけるとそれも 食べ尽くしてしまうが、そ こからマナを生成しない。
-botania.page.gourmaryllis1=消化する時間は栄養価に依 存する。分かりやすく言え ば、満腹度の回復量に依存 する。<br>そのため、&1ステーキ&0は4秒 で消化するし、&1ニンジン&0は 2秒だ。&1パン&0は2.5秒となる 。
-botania.page.gourmaryllis2=生成する&4マナ&0の量もこの値 を使う。しかし、より栄養 価の高い食べ物があるよう で、それはより効率的とな る。例えば、1枚の&1ステー キ&0は2本の&1ニンジン&0よりも 多くの&1マナ&0になる。総量も 、1秒あたりの量も、いず れも多くなる。
-botania.page.gourmaryllis3=&o私たちの新しい住人の ための鍋&r。
+botania.page.gourmaryllis1=消化する時間は栄養価に依 存する。分かりやすく言え ば、満腹度の回復量に依存 する。<br>そのため、&1ステーキ&0は4秒 で消化するし、&1リンゴ&0は2 秒だ。&1パン&0は2.5秒となる 。
+botania.page.gourmaryllis2=生成する&4マナ&0の量もこの値 を使う。しかし、より回復 量の高い食べ物があるよう で、それはより効率的とな る。例えば、1枚の&1ステー キ&0は2つの&1リンゴ&0よりも多 くの&1マナ&0になる。総量も、 1秒あたりの量も、いずれ も多くなる。
+botania.page.gourmaryllis3=&o私たちの新しい住人のため の鍋&r。
 
 # -- NARSLIMMUS
 botania.entry.narslimmus=ナースライムス
@@ -1605,16 +1616,15 @@ botania.page.rafflowsia1=&o新しい夜明け、とも言える&r 。
 # -- DANDELIFEON
 botania.entry.dandelifeon=ダンデライフオン
 botania.tagline.dandelifeon=命からのマナ
-botania.page.dandelifeon_w=注意: これは実験的な機能です。<br>将来的に変更される恐れが あります。入れ込みすぎな いようにしてください。
 botania.page.dandelifeon0=&1ダンデライフオン&0は心臓の 弱い人にはお勧めできない 花だ。<br>ボタニストのツールベルト の中のマナを生み出す花の うちで最も有用な花となる 可能性があるが、働かせる のが最も困難な花の1つで もある。
 botania.page.dandelifeon1=この花は&4ライフゲーム&0とし て知られるセルオートマト ンを利用する。この手順の ための領域は、&1ダンデライ フオン&0自身を中心とした 25x25の正方形だ。<br>花がレッドストーン信号を 受けている間、1秒に2ステ ップずつゲームを進める。
 botania.page.dandelifeon2=ゲームは&4細胞&0の概念で実行 される。25x25の領域は、 25の細胞が25列並んだグリ ッドとみなせる。<br>細胞は生存と死亡の2つの 状態を持つ。&1細胞ブロック&0 (後述) がある細胞は生存、 何もない細胞は死亡である 。各細胞の周囲8マスを&4隣 接細胞&0と呼ぶ。
 botania.page.dandelifeon3=ゲームの各ステップでは、 以下の変化が起こる: <br>&41)&0生存細胞は、周囲に生存 細胞が2～3個隣接していな ければ、死ぬ。 <br>&42)&0生存細胞は、周囲に生存 細胞が2～3個隣接していれ ば、次ステップも生存。<br>&43)&0死亡細胞は、生存細胞が ちょうど3隣接していれば 生存細胞になる。
 botania.page.dandelifeon4=全ての遷移は同時に起こる 。<br>以上を踏まえつつ、&1ダンデ ライフオン&0の手順には以降 のページで挙げているとお り&4ライフゲーム&0の典型的な シミュレーションにはない いくつかの追加ルールがあ る。
-botania.page.dandelifeon5=全ての細胞は0から始まる 年齢を持つ。生存細胞の周 囲に2～3の生存細胞があっ て生存し続ける時、1つ年 を取る。死亡細胞が生存細 胞に変わる時、新しい生存 細胞の年齢は、最も高齢の 隣人の年齢+1になる。60歳 以上の細胞は次のステップ で死亡する。
-botania.page.dandelifeon6=第二に、&1ダンデライフオン&0 の周囲3x3には、細胞が住 めない。この区画にできる はずだった生存細胞は、&4マ ナ&0に変わる。生まれるはず だった生存細胞が高齢であ るほど多くの&4マナ&0を生む。 0歳の細胞は&4マナ&0を生産し ない。
+botania.page.dandelifeon5=全ての細胞は0から始まる 世代を持つ。生存細胞の周 囲に2～3の生存細胞があっ て生存し続ける時、1世代 増える。死亡細胞が生存細 胞に変わる時、新しい生存 細胞の世代は、最も世代の 高い隣人の世代+1になる。
+botania.page.dandelifeon6=第二に、&1ダンデライフオン&0 の周囲3x3には、細胞が住 めない。この区画にできる はずだった生存細胞は、&4マ ナ&0に変わる。生まれるはず だった生存細胞の世代が高 いであるほど多くの&4マナ&0を 生む。0世代の細胞は&4マナ&0 を生産しない。100世代以 上のセルは100世代として マナを生む。
 botania.page.dandelifeon10=中心の3x3区画で生存細胞 が吸収されると、盤上の他 の細胞は全て死ぬ。<br>他のいくつかの制限は細胞 に適用され、例えば2つの 異なる&1ダンデライフオン&0が 同じ細胞に作用する場合、 細胞は死ぬ。最後に、&1ダン デライフオン&0以外の手段で 移動された細胞は、死ぬ。
-botania.page.dandelifeon7=&1細胞ブロック&0は&1サボテン&0、 &1ニンジン&0、&1ジャガイモ&0で作 られる。非常に脆く、一度 置いたら回収できず、&1ピス トン&0でも動かせない。また 、死亡細胞の周囲に3つの 生存細胞が隣接していても 、空気ブロック以外の場所 には生成されない場合があ る。<br>&1ダンデライフオン&0の効果範 囲でなければ、普通の建材 として機能する。
+botania.page.dandelifeon7=&1細胞ブロック&0は&1サボテン&0、 &1ニンジン&0、&1ジャガイモ&0、そ して&1ビートルート&0で作られ る。非常に脆く、一度置い たら回収できず、&1ピストン&0 でも動かせない。また、死 亡細胞の周囲に3つの生存 細胞が隣接していても、空 気ブロック以外の場所には 生成されない場合がある。<br>&1ダンデライフオン&0の効果範 囲でなければ、普通の建材 として機能する。
 botania.page.dandelifeon8=&oCellCraft^2&r。
 botania.page.dandelifeon9=&1細胞ブロック&0の作り方
 
@@ -1627,6 +1637,16 @@ botania.page.animatedTorch0=&1動く松明&0は、魔法的な自律 性のき�
 botania.page.animatedTorch1=初期状態ではトーチがトリ ガーされる度に180度回転 し、T型フリップフロップ ラッチとして働く。<br>トーチをトリガーするには &4マナ放射線&0を当てるか、隣 接させた&1浮遊している砂時 計&0の反転を使う。いずれに してもトーチに指定の回転 を行わせる。
 botania.page.animatedTorch2=トーチに&1森の杖&0を使うとモ ードを変更できる。初期モ ードは前ページで説明した &4切り替え&0モードだ。<br>他の2つのモードは、毎回 90度ずつ回転させる&4回転&0モ ードと、ランダムな向きに 回転させる&4ランダム&0モード だ。
 botania.page.animatedTorch3=倒れてしまって起き上がれ ない
+
+# - MYSTICAL INSTRUMENTS
+# -- WORLDSHAPER's ASTROLABAE
+botania.entry.astrolabe=地形成形者のアストロラーベ
+botania.tagline.astrolabe=平面の作成を補助する道具
+botania.page.astrolabe0=&1地形成形者のアストロラー ベ&0は、大量のブロックを非 常に素早く設置するための 手持ち道具だ。<br>始めるには、アストロラー ベを持って世界のブロック に向けてシフト右クリック する。これで設置するブロ ックが設定される。<br>アストロラーベを持ち、空 中に向けてシフト右クリッ クすると、設置するブロッ クの数を変更できる。
+botania.page.astrolabe1=アストロラーベを持ちブロ ックを見ると、右クリック したときに設置されるブロ ックをプレビューできる。<br>表示された壁や床を作成す るには、&4マナ&0に加えて、設 置する各ブロックが使われ る。各ブロックは使用者の インベントリか、もしくは &1地殻変動の杖&0のようなアイ テムにブロックを供給でき るアイテム (例えば&1深淵の 杖&0、&1エンダーの手&0など) か ら使われる。
+botania.page.astrolabe2=壁を建て、世界を創ろう
+
+# - ENDER ARTEFACTS
 
 # - BAUBLES AND ACCESSORIES
 # -- AN INTRODUCTION TO BAUBLES
@@ -1649,6 +1669,49 @@ botania.page.cosmeticBaubles18=半年ROMれ
 botania.page.cosmeticBaubles20=激レア
 botania.page.cosmeticBaubles28=俺を誰だと思っていやがる ！
 botania.page.cosmeticBaubles31=スペインの一部ではない
+
+# -- TINY PLANET
+botania.entry.tinyPlanet=小さな惑星
+botania.tagline.tinyPlanet=あなたの周りを飛ぶマナ放射線を送信する
+botania.page.tinyPlanet0=&1小さな惑星&0は、重力の特性 を持つ&4装飾品&0で、装備して いる間、&1小さな惑星&0は着用 者へ向かう近くの&4マナ放射 線&0を引き寄せ、周囲を周回 させるだろう。<br>いくつかの&1石&0で重量を増や すことで、それを世界に配 置することもでき、同じ効 果を持つ。
+botania.page.tinyPlanet2=冥王星というより惑星だ
+
+# -- BAND OF MANA
+botania.entry.manaRing=マナバンド
+botania.tagline.manaRing=指輪型マナタブレット
+botania.page.manaRing0=&1マナタブレット&0を&1マナスチ ール&0と組み合わせれば、身 につけやすい&4指輪&0となる。 それを作るために使ったタ ブレットと全く同様の機能 を持つが、&4装飾品&0として身 につけられる。<br>&1テラスチール&0を使ってアッ プグレードすれば、約4倍 の&4マナ&0を保存させられるよ うになる。
+botania.page.manaRing1=指輪の作り方
+botania.page.manaRing2=指輪のアップグレード
+
+# -- BAND OF AURA
+botania.entry.auraRing=オーラバンド
+botania.tagline.auraRing=指輪で受動的なマナ生成
+botania.page.auraRing0=&1オーラバンド&0は、典型的な &1マナバンド&0とは少し異なっ たものだ。&4マナ&0を蓄積する 代わりに、装備している間 、ゆっくりとそれを生成し て、装着者のインベントリ にある&4マナ&0を貯められるア イテムに蓄積する。<br>&1テラスチール&0を使ってアッ プグレードすれば、かなり 速く&4マナ&0を生成できるよう になる。
+botania.page.auraRing1=指輪の作り方
+botania.page.auraRing2=指輪のアップグレード
+
+# -- SOUJOURNER'S SASH
+botania.entry.travelBelt=ソジャーナのたすき
+botania.tagline.travelBelt=速く動き、高く跳び、歩行を改善する
+botania.page.travelBelt0=地形を横断することは時々 困難であることが知られて いる。&1ソジャーナのたすき&0 は&4ベルト&0スロットに装備可 能で、装備している間、移 動速度が増加し、より高く 跳び、落下ダメージを軽減 する。この力は少しの&4マナ&0 を消費する。<br>最後に、スニーク中でない 場合、ジャンプせずに1ブ ロックの高さの段差を容易 に歩けるようになる。
+
+# -- TECTONIC GIRDLE
+botania.entry.knockbackBelt=地殻のガードル
+botania.tagline.knockbackBelt=全てのノックバックダメージを防ぐ
+botania.page.knockbackBelt0=&1地殻のガードル&0は着用時に 、地殻運動の力を利用して 、着用者への攻撃による全 ての&4ノックバック&0を無効化 する。
+botania.page.knockbackBelt1=動かないスティーブ
+
+# -- SNOWFLAKE PENDANT
+botania.entry.icePendant=雪片のペンダント
+botania.tagline.icePendant=氷を張って水面を歩く
+botania.page.icePendant0=&1雪片のペンダント&0は、凍結 エネルギーと共鳴する&4装飾 品&0で、着用している間、足 下の高さの静止した&1水&0ブロ ックが&1氷&0に変換される。<br>&1氷&0は、着用者がその場所を 離れるとすぐに溶けてしま う。最後に、このお守りは 着用者がスニーク中か、完 全に水没している場合、何 も凍らせない。
+botania.page.icePendant1=雪だるまつくろう？
+
+# -- PYROCLAST PENDANT
+botania.entry.lavaPendant=火砕物のペンダント
+botania.tagline.lavaPendant=多少の火炎耐性
+botania.page.lavaPendant0=&1火砕物のペンダント&0は、低 熱を吸収する&4装飾品&0で、着 用している間、着用者が炎 上しても、&1炎&0、&1溶岩&0、その 他燃焼を誘発するものの上 に直接立っていなければ鎮 火する。
+botania.page.lavaPendant1=ハナコはこれらの1つを使 っていた可能性がある
 
 
 # -- INVISIBILITY CLOAK
@@ -1674,6 +1737,12 @@ botania.entry.thirdEye=第三の眼
 botania.tagline.thirdEye=全てのモブを見る
 botania.page.thirdEye0=&1第三の眼&0は、&4胴&0スロットに 装備する、ある種の奇妙な 感覚補助具だ。<br>着用している間、いくらか の&4マナ&0を消費して、近くの モブがハイライトされて壁 越しに見ることができる。
 botania.page.thirdEye1=心ではなく位置を読む
+
+# -- BENEVOLENT GODDESS' CHARM
+botania.entry.goddessCharm=慈悲深き女神のお守り
+botania.tagline.goddessCharm=爆発での地形破壊を防ぐ
+botania.page.goddessCharm0=&1慈悲深き女神のお守り&0は防 御的な装飾品で、名前のと おり&4お守り&0スロットに装備 できる。<br>着用している間、着用者の インベントリからいくらか の&4マナ&0を消費して、着用者 の近くで起きた爆発が世界 のブロックにダメージを与 えないようにする。
+botania.page.goddessCharm1=爆破厳禁！
 
 # - ALFHOMANCY
 # -- THE PORTAL TO ALFHEIM
