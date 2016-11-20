@@ -1,3 +1,7 @@
+r1.9 339
+*Fixed a crash if a burst from a Manastorm Charge hits a mana container block.
+*Fixed a potential crash when crafting with baubles.
+*Minor text fixes.
 r1.9 338
 *Fixed a crash when breaking redstone ore with an Elementium Pickaxe or Terra Shatterer with Elementium tips.
 *Fixed a crash when using the Worldshaper's Astrolabe without a block set.
