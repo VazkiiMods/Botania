@@ -313,6 +313,9 @@ public class ItemLens extends ItemMod implements ILensControl, ICompositableLens
 
 	@Override
 	public int getManaToTransfer(IManaBurst burst, EntityThrowable entity, ItemStack stack, IManaReceiver receiver) {
+		if(stack.getItemDamage() >= lenses.length)
+			return 0;
+		
 		return lenses[stack.getItemDamage()].getManaToTransfer(burst, entity, stack, receiver);
 	}
 	
