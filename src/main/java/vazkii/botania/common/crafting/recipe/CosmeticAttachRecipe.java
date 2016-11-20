@@ -57,6 +57,9 @@ public class CosmeticAttachRecipe implements IRecipe {
 			}
 		}
 
+		if(!(attachableItem.getItem() instanceof ICosmeticAttachable))
+			return null;
+		
 		ICosmeticAttachable attachable = (ICosmeticAttachable) attachableItem.getItem();
 		if(attachable.getCosmeticItem(attachableItem) != null)
 			return null;
