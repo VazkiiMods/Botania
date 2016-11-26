@@ -61,7 +61,7 @@ botaniamisc.dropTip1=CTRL-%s キーでスタックごとドロップ
 botaniamisc.wandMode.bind=接続モード
 botaniamisc.wandMode.function=機能モード
 botaniamisc.playVideo=動画を再生
-botaniamisc.brewOf=%s の醸造
+botaniamisc.brewOf=%sの醸造品
 botaniamisc.needsCatalysts=どれだけ一生懸命ビーコンにインゴットを押し当てても、なにも起こらないようだ。おそらく設定で触媒の柱(catalyst pylons)がオフになっているためだ。
 botaniamisc.peacefulNoob=インゴットを捧げようとしたが、ピースフルな雰囲気の中では出来ないようだ。おそらく難易度設定に関するなんやかんやをしなければいけない。
 botaniamisc.notInfused=マナ注入されていない
@@ -149,7 +149,7 @@ botaniamisc.enterToView=^ エンターキーで見る ^
 botaniamisc.scaleChange=大きさ変更
 
 # NEI INTEGRATION
-botania.nei.brewery=ボタニア的醸造
+botania.nei.brewery=ボタニア醸造台
 botania.nei.elvenTrade=エルブンとの交易
 botania.nei.floatingFlowers=浮遊している花
 botania.nei.manaPool=マナ注入
@@ -244,7 +244,6 @@ botania.baubletype.belt=&aベルト&7スロットに装備可能
 botania.baubletooltip=&b%s&7 キーを押して Baubles メニューを開く
 
 # RELIC POEMS
-
 
 # DEATH MESSAGES
 death.attack.botania-relic=%s は他人の形見を使ったために処罰された。
@@ -1254,7 +1253,7 @@ item.botania:glassPick.name=ガラス質のツルハシ
 item.botania:spark.name=スパーク
 item.botania:sparkUpgrade0.name=スパーク強化：散布
 item.botania:sparkUpgrade1.name=スパーク強化：優性
-item.botania:sparkUpgrade2.name=スパーク強化：劣勢
+item.botania:sparkUpgrade2.name=スパーク強化：劣性
 item.botania:sparkUpgrade3.name=スパーク強化：孤立
 item.botania:diviningRod.name=豊富なマントルの杖
 item.botania:gravityRod.name=暗がりのメサの杖
@@ -1392,6 +1391,297 @@ item.botania:superCloudPendant.name=乱雲アミュレット
 item.botania:thirdEye.name=第三の眼
 item.botania:astrolabe.name=地形成形者のアストロラーベ
 item.botania:goddessCharm.name=慈悲深き女神のお守り
+
+# BREW NAMES
+botania.brew.fallback=予備
+botania.brew.speed=俊足
+botania.brew.strength=活力
+botania.brew.haste=アドレナリン
+botania.brew.healing=修繕
+botania.brew.jumpBoost=飛躍
+botania.brew.regen=活性化
+botania.brew.regenWeak=回復
+botania.brew.resistance=忍耐
+botania.brew.fireResistance=溶岩肌
+botania.brew.waterBreathing=エラ
+botania.brew.invisibility=偽装
+botania.brew.nightVision=梟の目
+botania.brew.absorption=防護
+botania.brew.soulCross=クロスド・ソウルズ
+botania.brew.featherFeet=羽足
+botania.brew.emptiness=虚無空間
+botania.brew.bloodthirst=深紅の陰
+botania.brew.overload=限界突破
+botania.brew.allure=海洋爆釣
+botania.brew.clear=赦免
+
+# POTION NAMES
+botania.potion.soulCross=ソウル・クロス
+botania.potion.featherFeet=羽足
+botania.potion.emptiness=虚無
+botania.potion.bloodthirst=狂喜
+botania.potion.allure=爆釣
+botania.potion.clear=赦免
+
+# GUI TEXT
+
+# MUSIC DISCS
+
+# BANNER NAMES
+item.banner.botania_flower.black=黒色の神秘の花
+item.banner.botania_flower.red=赤色の神秘の花
+item.banner.botania_flower.green=緑色の神秘の花
+item.banner.botania_flower.brown=茶色の神秘の花
+item.banner.botania_flower.blue=青色の神秘の花
+item.banner.botania_flower.purple=紫色の神秘の花
+item.banner.botania_flower.cyan=水色の神秘の花
+item.banner.botania_flower.silver=薄灰色の神秘の花
+item.banner.botania_flower.gray=灰色の神秘の花
+item.banner.botania_flower.pink=桃色の神秘の花
+item.banner.botania_flower.lime=黄緑色の神秘の花
+item.banner.botania_flower.yellow=黄色の神秘の花
+item.banner.botania_flower.lightBlue=空色の神秘の花
+item.banner.botania_flower.magenta=赤紫色の神秘の花
+item.banner.botania_flower.orange=橙色の神秘の花
+item.banner.botania_flower.white=白色の神秘の花
+
+item.banner.botania_lexicon.black=黒色の辞典
+item.banner.botania_lexicon.red=赤色の辞典
+item.banner.botania_lexicon.green=緑色の辞典
+item.banner.botania_lexicon.brown=茶色の辞典
+item.banner.botania_lexicon.blue=青色の辞典
+item.banner.botania_lexicon.purple=紫色の辞典
+item.banner.botania_lexicon.cyan=水色の辞典
+item.banner.botania_lexicon.silver=薄灰色の辞典
+item.banner.botania_lexicon.gray=灰色の辞典
+item.banner.botania_lexicon.pink=桃色の辞典
+item.banner.botania_lexicon.lime=黄緑色の辞典
+item.banner.botania_lexicon.yellow=黄色の辞典
+item.banner.botania_lexicon.lightBlue=空色の辞典
+item.banner.botania_lexicon.magenta=赤紫色の辞典
+item.banner.botania_lexicon.orange=橙色の辞典
+item.banner.botania_lexicon.white=白色の辞典
+
+item.banner.botania_logo.black=黒色のボタニア
+item.banner.botania_logo.red=赤色のボタニア
+item.banner.botania_logo.green=緑色のボタニア
+item.banner.botania_logo.brown=茶色のボタニア
+item.banner.botania_logo.blue=青色のボタニア
+item.banner.botania_logo.purple=紫色のボタニア
+item.banner.botania_logo.cyan=水色のボタニア
+item.banner.botania_logo.silver=薄灰色のボタニア
+item.banner.botania_logo.gray=灰色のボタニア
+item.banner.botania_logo.pink=桃色のボタニア
+item.banner.botania_logo.lime=黄緑色のボタニア
+item.banner.botania_logo.yellow=黄色のボタニア
+item.banner.botania_logo.lightBlue=空色のボタニア
+item.banner.botania_logo.magenta=赤紫色のボタニア
+item.banner.botania_logo.orange=橙色のボタニア
+item.banner.botania_logo.white=白色のボタニア
+
+item.banner.botania_sapling.black=黒色の木
+item.banner.botania_sapling.red=赤色の木
+item.banner.botania_sapling.green=緑色の木
+item.banner.botania_sapling.brown=茶色の木
+item.banner.botania_sapling.blue=青色の木
+item.banner.botania_sapling.purple=紫色の木
+item.banner.botania_sapling.cyan=水色の木
+item.banner.botania_sapling.silver=薄灰色の木
+item.banner.botania_sapling.gray=灰色の木
+item.banner.botania_sapling.pink=桃色の木
+item.banner.botania_sapling.lime=黄緑色の木
+item.banner.botania_sapling.yellow=黄色の木
+item.banner.botania_sapling.lightBlue=空色の木
+item.banner.botania_sapling.magenta=赤紫色の木
+item.banner.botania_sapling.orange=橙色の木
+item.banner.botania_sapling.white=白色の木
+
+item.banner.botania_tiny_potato.black=黒色のポテトの顔
+item.banner.botania_tiny_potato.red=赤色のポテトの顔
+item.banner.botania_tiny_potato.green=緑色のポテトの顔
+item.banner.botania_tiny_potato.brown=茶色のポテトの顔
+item.banner.botania_tiny_potato.blue=青色のポテトの顔
+item.banner.botania_tiny_potato.purple=紫色のポテトの顔
+item.banner.botania_tiny_potato.cyan=水色のポテトの顔
+item.banner.botania_tiny_potato.silver=薄灰色のポテトの顔
+item.banner.botania_tiny_potato.gray=灰色のポテトの顔
+item.banner.botania_tiny_potato.pink=桃色のポテトの顔
+item.banner.botania_tiny_potato.lime=黄緑色のポテトの顔
+item.banner.botania_tiny_potato.yellow=黄色のポテトの顔
+item.banner.botania_tiny_potato.lightBlue=空色のポテトの顔
+item.banner.botania_tiny_potato.magenta=赤紫色のポテトの顔
+item.banner.botania_tiny_potato.orange=橙色のポテトの顔
+item.banner.botania_tiny_potato.white=白色のポテトの顔
+
+item.banner.botania_spark_dispersive.black=黒色の散布のシンボル
+item.banner.botania_spark_dispersive.red=赤色の散布のシンボル
+item.banner.botania_spark_dispersive.green=緑色の散布のシンボル
+item.banner.botania_spark_dispersive.brown=茶色の散布のシンボル
+item.banner.botania_spark_dispersive.blue=青色の散布のシンボル
+item.banner.botania_spark_dispersive.purple=紫色の散布のシンボル
+item.banner.botania_spark_dispersive.cyan=水色の散布のシンボル
+item.banner.botania_spark_dispersive.silver=薄灰色の散布のシンボル
+item.banner.botania_spark_dispersive.gray=灰色の散布のシンボル
+item.banner.botania_spark_dispersive.pink=桃色の散布のシンボル
+item.banner.botania_spark_dispersive.lime=黄緑色の散布のシンボル
+item.banner.botania_spark_dispersive.yellow=黄色の散布のシンボル
+item.banner.botania_spark_dispersive.lightBlue=空色の散布のシンボル
+item.banner.botania_spark_dispersive.magenta=赤紫色の散布のシンボル
+item.banner.botania_spark_dispersive.orange=橙色の散布のシンボル
+item.banner.botania_spark_dispersive.white=白色の散布のシンボル
+
+item.banner.botania_spark_dominant.black=黒色の優性のシンボル
+item.banner.botania_spark_dominant.red=赤色の優性のシンボル
+item.banner.botania_spark_dominant.green=緑色の優性のシンボル
+item.banner.botania_spark_dominant.brown=茶色の優性のシンボル
+item.banner.botania_spark_dominant.blue=青色の優性のシンボル
+item.banner.botania_spark_dominant.purple=紫色の優性のシンボル
+item.banner.botania_spark_dominant.cyan=水色の優性のシンボル
+item.banner.botania_spark_dominant.silver=薄灰色の優性のシンボル
+item.banner.botania_spark_dominant.gray=灰色の優性のシンボル
+item.banner.botania_spark_dominant.pink=桃色の優性のシンボル
+item.banner.botania_spark_dominant.lime=黄緑色の優性のシンボル
+item.banner.botania_spark_dominant.yellow=黄色の優性のシンボル
+item.banner.botania_spark_dominant.lightBlue=空色の優性のシンボル
+item.banner.botania_spark_dominant.magenta=赤紫色の優性のシンボル
+item.banner.botania_spark_dominant.orange=橙色の優性のシンボル
+item.banner.botania_spark_dominant.white=白色の優性のシンボル
+
+item.banner.botania_spark_isolated.black=黒色の孤立のシンボル
+item.banner.botania_spark_isolated.red=赤色の孤立のシンボル
+item.banner.botania_spark_isolated.green=緑色の孤立のシンボル
+item.banner.botania_spark_isolated.brown=茶色の孤立のシンボル
+item.banner.botania_spark_isolated.blue=青色の孤立のシンボル
+item.banner.botania_spark_isolated.purple=紫色の孤立のシンボル
+item.banner.botania_spark_isolated.cyan=水色の孤立のシンボル
+item.banner.botania_spark_isolated.silver=薄灰色の孤立のシンボル
+item.banner.botania_spark_isolated.gray=灰色の孤立のシンボル
+item.banner.botania_spark_isolated.pink=桃色の孤立のシンボル
+item.banner.botania_spark_isolated.lime=黄緑色の孤立のシンボル
+item.banner.botania_spark_isolated.yellow=黄色の孤立のシンボル
+item.banner.botania_spark_isolated.lightBlue=空色の孤立のシンボル
+item.banner.botania_spark_isolated.magenta=赤紫色の孤立のシンボル
+item.banner.botania_spark_isolated.orange=橙色の孤立のシンボル
+item.banner.botania_spark_isolated.white=白色の孤立のシンボル
+
+item.banner.botania_spark_recessive.black=黒色の劣性のシンボル
+item.banner.botania_spark_recessive.red=赤色の劣性のシンボル
+item.banner.botania_spark_recessive.green=緑色の劣性のシンボル
+item.banner.botania_spark_recessive.brown=茶色の劣性のシンボル
+item.banner.botania_spark_recessive.blue=青色の劣性のシンボル
+item.banner.botania_spark_recessive.purple=紫色の劣性のシンボル
+item.banner.botania_spark_recessive.cyan=水色の劣性のシンボル
+item.banner.botania_spark_recessive.silver=薄灰色の劣性のシンボル
+item.banner.botania_spark_recessive.gray=灰色の劣性のシンボル
+item.banner.botania_spark_recessive.pink=桃色の劣性のシンボル
+item.banner.botania_spark_recessive.lime=黄緑色の劣性のシンボル
+item.banner.botania_spark_recessive.yellow=黄色の劣性のシンボル
+item.banner.botania_spark_recessive.lightBlue=空色の劣性のシンボル
+item.banner.botania_spark_recessive.magenta=赤紫色の劣性のシンボル
+item.banner.botania_spark_recessive.orange=橙色の劣性のシンボル
+item.banner.botania_spark_recessive.white=白色の劣性のシンボル
+
+item.banner.botania_fish.black=黒色の魚
+item.banner.botania_fish.red=赤色の魚
+item.banner.botania_fish.green=緑色の魚
+item.banner.botania_fish.brown=茶色の魚
+item.banner.botania_fish.blue=青色の魚
+item.banner.botania_fish.purple=紫色の魚
+item.banner.botania_fish.cyan=水色の魚
+item.banner.botania_fish.silver=薄灰色の魚
+item.banner.botania_fish.gray=灰色の魚
+item.banner.botania_fish.pink=桃色の魚
+item.banner.botania_fish.lime=黄緑色の魚
+item.banner.botania_fish.yellow=黄色の魚
+item.banner.botania_fish.lightBlue=空色の魚
+item.banner.botania_fish.magenta=赤紫色の魚
+item.banner.botania_fish.orange=橙色の魚
+item.banner.botania_fish.white=白色の魚
+
+item.banner.botania_axe.black=黒色の斧
+item.banner.botania_axe.red=赤色の斧
+item.banner.botania_axe.green=緑色の斧
+item.banner.botania_axe.brown=茶色の斧
+item.banner.botania_axe.blue=青色の斧
+item.banner.botania_axe.purple=紫色の斧
+item.banner.botania_axe.cyan=水色の斧
+item.banner.botania_axe.silver=薄灰色の斧
+item.banner.botania_axe.gray=灰色の斧
+item.banner.botania_axe.pink=桃色の斧
+item.banner.botania_axe.lime=黄緑色の斧
+item.banner.botania_axe.yellow=黄色の斧
+item.banner.botania_axe.lightBlue=空色の斧
+item.banner.botania_axe.magenta=赤紫色の斧
+item.banner.botania_axe.orange=橙色の斧
+item.banner.botania_axe.white=白色の斧
+
+item.banner.botania_hoe.black=黒色のクワ
+item.banner.botania_hoe.red=赤色のクワ
+item.banner.botania_hoe.green=緑色のクワ
+item.banner.botania_hoe.brown=茶色のクワ
+item.banner.botania_hoe.blue=青色のクワ
+item.banner.botania_hoe.purple=紫色のクワ
+item.banner.botania_hoe.cyan=水色のクワ
+item.banner.botania_hoe.silver=薄灰色のクワ
+item.banner.botania_hoe.gray=灰色のクワ
+item.banner.botania_hoe.pink=桃色のクワ
+item.banner.botania_hoe.lime=黄緑色のクワ
+item.banner.botania_hoe.yellow=黄色のクワ
+item.banner.botania_hoe.lightBlue=空色のクワ
+item.banner.botania_hoe.magenta=赤紫色のクワ
+item.banner.botania_hoe.orange=橙色のクワ
+item.banner.botania_hoe.white=白色のクワ
+
+item.banner.botania_pickaxe.black=黒色のツルハシ
+item.banner.botania_pickaxe.red=赤色のツルハシ
+item.banner.botania_pickaxe.green=緑色のツルハシ
+item.banner.botania_pickaxe.brown=茶色のツルハシ
+item.banner.botania_pickaxe.blue=青色のツルハシ
+item.banner.botania_pickaxe.purple=紫色のツルハシ
+item.banner.botania_pickaxe.cyan=水色のツルハシ
+item.banner.botania_pickaxe.silver=薄灰色のツルハシ
+item.banner.botania_pickaxe.gray=灰色のツルハシ
+item.banner.botania_pickaxe.pink=桃色のツルハシ
+item.banner.botania_pickaxe.lime=黄緑色のツルハシ
+item.banner.botania_pickaxe.yellow=黄色のツルハシ
+item.banner.botania_pickaxe.lightBlue=空色のツルハシ
+item.banner.botania_pickaxe.magenta=赤紫色のツルハシ
+item.banner.botania_pickaxe.orange=橙色のツルハシ
+item.banner.botania_pickaxe.white=白色のツルハシ
+
+item.banner.botania_shovel.black=黒色のシャベル
+item.banner.botania_shovel.red=赤色のシャベル
+item.banner.botania_shovel.green=緑色のシャベル
+item.banner.botania_shovel.brown=茶色のシャベル
+item.banner.botania_shovel.blue=青色のシャベル
+item.banner.botania_shovel.purple=紫色のシャベル
+item.banner.botania_shovel.cyan=水色のシャベル
+item.banner.botania_shovel.silver=薄灰色のシャベル
+item.banner.botania_shovel.gray=灰色のシャベル
+item.banner.botania_shovel.pink=桃色のシャベル
+item.banner.botania_shovel.lime=黄緑色のシャベル
+item.banner.botania_shovel.yellow=黄色のシャベル
+item.banner.botania_shovel.lightBlue=空色のシャベル
+item.banner.botania_shovel.magenta=赤紫色のシャベル
+item.banner.botania_shovel.orange=橙色のシャベル
+item.banner.botania_shovel.white=白色のシャベル
+
+item.banner.botania_sword.black=黒色の剣
+item.banner.botania_sword.red=赤色の剣
+item.banner.botania_sword.green=緑色の剣
+item.banner.botania_sword.brown=茶色の剣
+item.banner.botania_sword.blue=青色の剣
+item.banner.botania_sword.purple=紫色の剣
+item.banner.botania_sword.cyan=水色の剣
+item.banner.botania_sword.silver=薄灰色の剣
+item.banner.botania_sword.gray=灰色の剣
+item.banner.botania_sword.pink=桃色の剣
+item.banner.botania_sword.lime=黄緑色の剣
+item.banner.botania_sword.yellow=黄色の剣
+item.banner.botania_sword.lightBlue=空色の剣
+item.banner.botania_sword.magenta=赤紫色の剣
+item.banner.botania_sword.orange=橙色の剣
+item.banner.botania_sword.white=白色の剣
 
 # LEXICON CATEGORIES
 botania.category.basics=基本と機構
@@ -1629,6 +1919,63 @@ botania.page.dandelifeon8=&oCellCraft^2&r。
 botania.page.dandelifeon9=&1細胞ブロック&0の作り方
 
 # - NATURAL APPARATUS
+# -- BOTANICAL BREWERY
+botania.entry.brewery=ボタニア醸造台
+botania.tagline.brewery=より効果的なポーションを醸造する
+botania.page.brewery0=&4マナ&0の万能さを考えれば、 何らかの種類の&4ポーション&0 を作り出せるという事実も 驚くようなことではない。 &4醸造品&0は、簡単に言えば&4ポ ーション&0の別形態だ。それ らは&4マナ&0と材料一式を使っ て作られる。<br>&4ポーション&0と異なり、&4醸造 品&0は定められたレシピがあ り、また小瓶ごとに複数回 の服用量が含まれる。
+botania.page.brewery1=&4醸造品&0を作るためには、&1ボ タニア醸造台&0、&1小瓶&0、そし てもちろんレシピに定義さ れた試薬が必要だ。<br>&4マナ&0は溶媒とエネルギー源 の両方として機能し、&4マナ 放射線&0を通して与えられる 。単に&1マナ送信機&0を&1醸造台&0 に向ければ動作する。
+botania.page.brewery2=&1ボタニア醸造台&0の作り方
+botania.page.brewery3=&1小瓶&0の作り方
+botania.page.brewery4=&1ボタニア醸造台&0での作業は かなり簡単だ。まず、アイ テムでブロックを右クリッ クするか、アイテムを投げ て、アイテムを追加する。<br>醸造台の上部に&1小瓶&0をセッ トして開始。必要な材料を 全て加えれば進行する。醸 造台の材料で&4醸造品&0を作れ るならば、&4マナ&0が流れ始め る。あとは少し待てばよい 。
+botania.page.brewery5a=単純な醸造品。&1俊敏のポー ション&0に似ており、飲むと 個人に&4移動速度上昇 II&0の 効果を与える。
+botania.page.brewery6a=単純な醸造品。&1力のポーシ ョン&0に似ており、飲むと個 人に&4攻撃力上昇 II&0の効果 を与える。
+botania.page.brewery6b=ホーダー
+botania.page.brewery7a=単純な醸造品。&1加速のポー ション&0に似ており、飲むと 個人に&4採掘速度上昇 II&0の 効果を与える。
+botania.page.brewery7b=C9H13NO3でいっぱい
+botania.page.brewery8a=単純な醸造品。&1治癒のポー ション&0に似ており、飲むと 個人に&4即時回復 II&0の効果 を与える。
+botania.page.brewery8b=彼はTruesilverを引いた GG
+botania.page.brewery9a=単純な醸造品。&1跳躍のポー ション&0に似ており、飲むと 個人に&4跳躍力上昇 II&0の効 果を与える。
+botania.page.brewery10a=単純な醸造品。&1再生のポー ション&0に似ており、飲むと 個人に&4再生能力 II&0の効果 を与える。
+botania.page.brewery10b=シモッチによる主作用
+botania.page.brewery17a=単純な醸造品。&1再生のポー ション&0に似ており、飲むと 個人に&4再生能力&0の効果を与 える。しかしながら前頁の 醸造品より持続する。
+botania.page.brewery17b=彼女にはもっと回復力があ ったと思う
+botania.page.brewery11a=単純な醸造品。&1防御のポー ション&0に似ており、飲むと 個人に&4耐性 II&0の効果を与 える。
+botania.page.brewery11b=触れられない
+botania.page.brewery12a=単純な醸造品。&1耐火のポー ション&0に似ており、飲むと 個人に&4火炎耐性&0の効果を与 える。
+botania.page.brewery12b=彼は本物のドラゴンではな い。炎ではドラゴンを殺せ ない。
+botania.page.brewery13a=単純な醸造品。&1水中呼吸の ポーション&0に似ており、飲 むと個人に&4水中呼吸&0の効果 を与える。
+botania.page.brewery13b=素晴らしいアンダー・ザ・ シー
+botania.page.brewery14a=単純な醸造品。&1透明化のポ ーション&0に似ており、飲む と個人に&4透明化&0の効果を与 える。
+botania.page.brewery14b=インクルシオを持つ振りを する
+botania.page.brewery15a=単純な醸造品。&1暗視のポー ション&0に似ており、飲むと 個人に&4暗視&0の効果を与える 。
+botania.page.brewery15b=沈黙も付きますか？
+botania.page.brewery16a=単純な醸造品。&1緩衝体力の ポーション&0に似ており、飲 むと個人に&4衝撃吸収 IV&0の 効果を与える。
+botania.page.brewery16b=風邪を引くことになるだろ う
+
+# -- BREWING FLASKS
+botania.entry.flasks=醸造品フラスコ
+botania.tagline.flasks=より大きな醸造品容器
+botania.page.flasks0=&1アルフガラス&0は、&1小瓶&0に使 用される典型的な&1マナガラ ス&0よりも柔軟に加工できる ようだ。&1アルフガラス&0で作 る&1フラスコ&0は&4醸造品&0用のエ ルフの典型的な容器で、&1小 瓶&0の4回分よりも多い、6回 分の服用量を含むことがで きる。
+botania.page.flasks1=&1フラスコ&0で何かを醸造する ための材料コストはより少 ないが、&4マナ&0コストは通常 の&1小瓶&0の2倍だ。<br>最後に、&1フラスコ&0の瓶首は &1小瓶&0より広いため、内容物 をより速く服用できる。
+botania.page.flasks2=橋の下で入手
+
+# -- COMPLEX BREWING
+botania.entry.complexBrews=複雑な醸造品
+botania.tagline.complexBrews=新たな効果を持つ強力な醸造
+botania.page.complexBrews0=通常の、&1醸造台&0で作れる&1ポ ーション&0と大差ない並の&1醸 造品&0とは異なり、総合的に は有益な効果の組み合わせ や新しい効果のいずれかを 適用する複雑な醸造品もあ る。
+botania.page.complexBrews1a=良い効果と悪い効果の両方 を適用する醸造品。
+botania.page.complexBrews2a=この醸造品の効果を受けた エンティティは、他の生物 を殺すたびにHPを回復する 。
+botania.page.complexBrews3a=この醸造品の効果を受けた エンティティは、落下ダメ ージを一切受けなくなる。
+botania.page.complexBrews3b=魔法ということにしよう
+botania.page.complexBrews4a=この醸造品は、効果のある 全てのエンティティの周り に虚無のオーラを放つ。半 径128ブロックで、モブが 自然にスポーンできなくな る。
+botania.page.complexBrews4b=水門を閉じる
+botania.page.complexBrews5a=この醸造品は、効果のある 全てのエンティティの周り に狂喜のオーラを放つ。半 径64ブロックで、光やその 他の条件を無視してモブが スポーンできるようになる 。&1虚無&0と一緒には機能しな い。
+botania.page.complexBrews5b=奇跡を祈ろうか？
+botania.page.complexBrews6a=この醸造品の効果を受けた プレイヤーは、釣りの技量 がはるかに高くなり、魚や 他の戦利品を2倍速く捕る ことができる。
+botania.page.complexBrews6b=たぶんあなたはクリスを捕 まえる
+botania.page.complexBrews7a=飲んだとき、この醸造品は プレイヤーのポーション効 果を、悪い効果もそうでな いものも全て消す。
+botania.page.complexBrews7b=＼アブソリュートソー／
+
 
 # -- ANIMATED TORCH
 botania.entry.animatedTorch=動く松明
@@ -1713,6 +2060,112 @@ botania.tagline.lavaPendant=多少の火炎耐性
 botania.page.lavaPendant0=&1火砕物のペンダント&0は、低 熱を吸収する&4装飾品&0で、着 用している間、着用者が炎 上しても、&1炎&0、&1溶岩&0、その 他燃焼を誘発するものの上 に直接立っていなければ鎮 火する。
 botania.page.lavaPendant1=ハナコはこれらの1つを使 っていた可能性がある
 
+# -- GOLDEN LAUREL CROWN
+botania.entry.goldenLaurel=黄金の月桂冠
+botania.tagline.goldenLaurel=一度限りの死に対する耐性
+botania.page.goldenLaurel0=&1ガイアの魂&0の用途の一つは 、それらを使用した者に不 死の層を与えることだ。&1黄 金の月桂冠&0を着用している 間に着用者が死ぬと、冠は 砕け、体力を全回復し、短 い無敵時間を与える。
+botania.page.goldenLaurel1=人は殺されても死なない
+
+# -- RING OF CHORDATA
+botania.entry.waterRing=脊索動物の指輪
+botania.tagline.waterRing=水中を高速移動
+botania.page.waterRing0=&1脊索動物の指輪&0は、着用者 が魚のように泳ぐことを可 能にする。着用している間 、着用者は水中でまずまず の速度に加速する能力を授 けられる。また、着用者に 水中での良好な視界と、&4マ ナ&0がある場合にそれをいく らか消費して無限に呼吸す る能力も与える。
+botania.page.waterRing1=魚のAIを要チェックだ
+
+# -- RING OF THE MANTLE
+botania.entry.miningRing=マントルの指輪
+botania.tagline.miningRing=採掘速度上昇よりも速く採掘
+botania.page.miningRing0=&1マントルの指輪&0を装備して 、インベントリに&4マナ&0があ れば、着用者に&4採掘速度上 昇&0の効果を与え、より速く 採掘できるようになる。着 用者が、攻撃、採掘のため 、もしくは単なる空振りで も、武器や装備アイテムを 振る際にいくらかの&4マナ&0が 使われる。
+botania.page.miningRing1=穴を掘り堀り
+
+# -- RING OF MAGNETIZATION
+botania.entry.magnetRing=磁力の指輪
+botania.tagline.magnetRing=アイテムを引き寄せる
+botania.page.magnetRing0=&1磁力のレンズ&0を着用可能な 指輪に変えることで、近く のアイテムを磁化するため に使えるようになる。装備 している間、この指輪は近 くのアイテムを、着用者へ 向かうよう磁化させる。ス ニーク中は無効。特筆すべ き点は、着用者がアイテム を投げたあと5秒間は無効 化して、それが投げられた 何らかの理由を妨げないよ うにすることだ。&1ソレノリ ア&0はこの指輪の機能を妨害 することができる。
+botania.page.magnetRing1=どうやって動いてんの？
+botania.page.magnetRing2=範囲拡大アップグレード
+
+# -- RING OF FAR REACH
+botania.entry.reachRing=広範の指輪
+botania.tagline.reachRing=遠くに届き、遠くに建てる
+botania.page.reachRing0=高慢の力を使えば、手の届 かない物はない。&1広範の指 輪&0を着用することにより、 着用者がブロックを壊した り、設置したり、使ったり 、またエンティティを攻撃 したり、使ったりできる最 大範囲が、約3ブロック増 加する。
+botania.page.reachRing1=炎と血
+
+# -- CHARM OF THE DIVA
+botania.entry.divaCharm=歌姫のお守り
+botania.tagline.divaCharm=敵対モブを魅了する
+botania.page.divaCharm0=&1歌姫のお守り&0を着用すると 、敵対モブを攻撃すること で従わせて、近くに敵がい る場合は代わりに追い払う ようになるという能力を得 られる。もちろんこのプロ セスは、機能するために着 用者のインベントリから少 しの&4マナ&0を必要とする。
+botania.page.divaCharm1=お姉ちゃんをバカにしない で
+
+# -- GREAT FAIRY RING
+botania.entry.pixieRing=すばらしい妖精の指輪
+botania.tagline.pixieRing=妖精の友達が更にスポーン (警告: 友達は勝手に自殺するかも)
+botania.page.pixieRing0=この指輪を使う前に、この 指輪と一緒に働く&1エレメン チウム防具&0の力を理解する 事を推奨する。&1すばらしい 妖精の指輪&0を着用すると、 着用者が攻撃されたときに &4ピクシィ&0がスポーンする確 率が上昇する。これは&1エレ メンチウム防具&0を装備して いない場合でも機能する。
+
+# -- GLOBETROTTER'S SASH
+botania.entry.superTravelBelt=世界旅行者のたすき
+botania.tagline.superTravelBelt=速く行かなきゃ
+botania.page.superTravelBelt0=&1世界旅行者のたすき&0は、要 するに&1ソジャーナのたすき&0 の上位版で、&1ガイアの魂&0と いくらかのエルフの資源を 使って作る。この新たなベ ルトを着用すると、&1ソジャ ーナのたすき&0では不可能な ほどのとてつもない速さま で達する事ができるように なる。
+botania.page.superTravelBelt1=考えている暇はない、代わ りに俺の計画に乗ってくれ
+
+# -- THE SPECTATOR
+botania.entry.itemFinder=観察者のバンド
+botania.tagline.itemFinder=チェスト、トロッコ、村人取り引きでアイテムを探す
+botania.page.itemFinder0=&1観察者のバンド&0は、着用者 が世界をよりよく知覚でき るようにするヘッドバンド だ。アイテムを持っている 間、その種類のアイテムを 含む&4コンテナ&0 (チェスト、 トロッコ、チェスト付きロ バ、かまど、など) 、その 種類の&4ドロップアイテム&0、 そのアイテムを装備してい る&4モブ&0、 &o(...)&r
+botania.page.itemFinder1=&o(...)&r そのアイテムをイン ベントリに持つ&4プレイヤー&0 、そのアイテムを買取もし くは販売したい&4村人&0が、カ ラフルな光を放ち、簡単に 見付けられる。<br>スニークしている間、着用 者の周囲の全てのドロップ アイテムがどのアイテムで あろうと光る。
+botania.page.itemFinder2=彼らの声が聞こえるか？
+
+# -- CRIMSON PENDANT
+botania.entry.superLavaPendant=クリムゾンペンダント
+botania.tagline.superLavaPendant=炎と溶岩の完全な耐性
+botania.page.superLavaPendant0=&1クリムゾンペンダント&0は、 要するに&1火砕物のペンダン ト&0の上位版であり、着用す ると、炎と溶岩に対して、 単に鎮火するのではなく、 ダメージを防ぐ。
+botania.page.superLavaPendant1=すぐに溶岩風呂に入れます
+
+# -- TAINTED BLOOD PENDANT
+botania.entry.bloodPendant=汚染された血のペンダント
+botania.tagline.bloodPendant=ベンダント型に結晶化された醸造品
+botania.page.bloodPendant0=&4ポーション&0設計のオリジナ ルソースであるネザーをう ろつくことは、その力を利 用する上でとても上手くい くようだ。<br>&1汚染された血のペンダント&0 で、&4醸造品&0を濃縮して着用 可能な状態にして保管でき る。このペンダントにそれ を注入して着用すれば、効 果が適用される。&4醸造品&0の 力に応じて&4マナ&0を消費する 。
+botania.page.bloodPendant1=ペンダントに&4醸造品&0を注入 するには、&1小瓶&0にそれを注 入する通常の手順が必要だ 。だが、コストは10倍に増 加する。<br>しかしながら、ペンダント は全ての効果を受け入れる わけではなく、&4即時回復&0や &4衝撃吸収&0など上手く動作し ないものもある。最後に、 複数の効果を持つ&4醸造品&0も 失敗する。
+botania.page.bloodPendant2=常に鉢植えされている
+
+# -- CLOAKS OF JUDGEMENT
+botania.entry.judgementCloaks=審判のマント
+botania.tagline.judgementCloaks=敵を裁くためのマント
+botania.page.judgementCloaks0=&1審判のマント&0は、胴スロッ トに着用できるマント一式 だ。それらの着用者がダメ ージを受けたときに力を発 揮する。その後の10秒間は 充電期間となり、効果を発 揮しない。
+botania.page.judgementCloaks1=&1徳のマント&0が効果を発揮す ると、受けたダメージの全 てを防ぐ。<br>&1罪のマント&0は、受けたダメ ージと同じ量のダメージを 周囲の全ての敵対モブに与 える。<br>&1均衡のマント&0は攻撃者とタ ーゲットとの間でダメージ を均等に分割する。また、 ターゲットが死ぬのを防ぐ 。
+botania.page.judgementCloaks2=聖なるマントル
+botania.page.judgementCloaks3=復讐を味わえ！
+botania.page.judgementCloaks4=いたみわけ
+
+# -- MANASEER MONOCLE
+botania.entry.monocle=マナ観察者の片眼鏡
+botania.tagline.monocle=花の半径を表示する欠かせないツール
+botania.page.monocle0=&4マナ放射線&0がどこへ行くか を徹底的に調べる必要があ る人のための便利な装飾品 が、&1マナ観察者の片眼鏡&0だ 。それは洒落た接眼レンズ というだけでなく、視線上 に障害物があろうとも近く の全ての&4マナ放射線&0を見る ことができる。おそらくさ らに重要なことは、この片 眼鏡を着用している者が花 を見ると、それが機能する 半径を見ることができると いうことだ。
+botania.page.monocle2=おまけに、&1マナ観察者の片 眼鏡&0を着用してレッドスト ーンの一部を見ると、それ らに関する情報が表示され 、レッドストーンの仕掛け の構築が捗る。<br>この片眼鏡は、他のどの装 飾品でも&4見た目上書き&0でき る。この状態では、全ての メリットが引き続き提供さ れながら、スロットを埋め ずに使用することを可能に する。
+
+# -- RING OF CORRECTION
+botania.entry.swapRing=適正の指輪
+botania.tagline.swapRing=作業に適したツールを常に使うようにする
+botania.page.swapRing0=ツールの持ち替えは苦痛だ 。人はしばしば、自分がツ ルハシで土を掘っているこ とに気づく。&1適正の指輪&0を 使うことは、それを正すた めの素晴らしい方法だ。<br>この指輪を装着している間 、手持ちツールは常に壊そ うとしているブロックに対 して、ツルハシ、斧、シャ ベルのうち正しいものとな る。これは&4マナ&0を使用でき るツールでのみ機能する。
+botania.page.swapRing1=正しいツールを使いましょ う
+
+# -- PLANESTRIDER'S SASH
+botania.entry.speedUpBelt=大地を闊歩するもののたすき
+botania.tagline.speedUpBelt=歩けば歩くほどスピードアップ
+botania.page.speedUpBelt0=&1大地を闊歩するもののたす き&0は、&1ソジャーナのたすき&0 の代わりとして働く。<br>前述のアイテムと異なり、 &1大地を闊歩するもののたす き&0は初期状態では着用者に 速度増加を与えない。しか しながら、歩くとたすきは 徐々に充電され、着用者は 他のたすきよりもずっと速 くなる。立ち止まると、こ のボーナスはリセットされ る。
+botania.page.speedUpBelt1=ゆっくり行くならあなたは プレインズウォーカーだ
+
+# -- BAUBLE CASE
+botania.entry.baubleBox=装飾品入れ
+botania.tagline.baubleBox=装飾品を収納するための便利なコンテナ
+botania.page.baubleBox0=インベントリのスペースは 限られているため、多すぎ る&4装飾品&0を選ぶことが深刻 な問題になることがある。 よりよい方法は、これらの 全てを&4装飾品&0のための便利 なコンテナである&1装飾品入 れ&0に収納することだ。<br>このケースのインターフェ ースで、現在装備されてい る装飾品を素早く切り替え ることができる。このケー スには、&1マナタブレット&0の ように&4マナ&0を貯めるアイテ ムも収納できる。
+botania.page.baubleBox1=ボートにもなる！
+
+# -- RING OF DEXTEROUS MOTION
+botania.entry.dodgeRing=器用な動きの指輪
+botania.tagline.dodgeRing=攻撃を避けるために横移動する
+botania.page.dodgeRing0=&1器用な動きの指輪&0は、戦闘 中のダメージを防ぐのに役 立つ便利な装飾品だ。着用 中、&4左・右&0キー (デフォル トではそれぞれ&4A・D&0キー) を押して、素早く横移動し 、攻撃やモブを避けること ができる。<br>この避ける能力は、再び使 用できるようになる前に短 いクールダウン時間があり 、使用者の空腹バーの一部 を消費する。
+botania.page.dodgeRing1=敏捷性ボーナス
 
 # -- INVISIBILITY CLOAK
 botania.entry.invisibilityCloak=透明マント
@@ -1789,7 +2242,7 @@ botania.page.gaiaRitual0=&4ガイアの儀式&0は、ガイアの 女神の力�
 botania.page.gaiaRitual1=&1ガイアの支柱&0の作り方
 botania.page.gaiaRitual2=ガイアの儀式
 botania.page.gaiaRitual3=儀式を始めるためには、単 に&1テラスチールインゴット&0 で&1ビーコン&0をシフト右クリ ックして、あなたの命のた めに一歩退いて戦闘準備を することだ。&4ガイアの守護 者&0との戦いは、&4ウィザー&0戦 よりもさらに熾烈を極める ため、入念な準備が必要だ 。&4守護者&0を打ち破った暁に は、戦利品として一握りの &4ガイアの魂&0を得ることがで きる。
-botania.page.gaiaRitual4=この儀式のための一般的な 衣装は、エンチャントされ た&1エレメンチウム防具&0一式 、&1テラブレード&0、そして&4醸 造&0と&4装飾品&0の詰め合わせだ 。&1ビーコン&0の効果は戦闘中 には無効化されるため、注 意してほしい。<br>&1守護者&0は膨大な体力を持っ ているため、&4エンチャント&0 と&4醸造&0での準備は必須だ!
+botania.page.gaiaRitual4=この儀式のための一般的な 衣装は、エンチャントされ た&1エレメンチウム防具&0一式 、&1テラブレード&0、そして&4醸 造&0と&4装飾品&0の詰め合わせだ 。&1ビーコン&0の効果は戦闘中 には無効化されるため、注 意してほしい。<br>&1守護者&0は膨大な体力を持っ ているため、&4エンチャント&0 と&4醸造品&0での準備は必須だ !
 botania.page.gaiaRitual5=儀式の難易度と報酬は、参 加者の人数に依存する。5 人以上で儀式を実行するこ とは、混沌が生み出される 災害の原因となるかもしれ ないため、その規模での共 同儀式を試みるべきではな い。<br>最後に、紫から離れて留ま ることは良い考えかもしれ ない。
 
 # -- RITUAL OF GAIA II
@@ -1972,7 +2425,7 @@ botania.page.challenges2=チャレンジは決して義務で はなく、報酬
 
 # -- CACOPHONIUM
 botania.entry.cacophonium=カコフォニアム
-botania.tagline.cacophonium=Mobの音を真似る
+botania.tagline.cacophonium=モブの音を真似る
 botania.page.cacophonium0=この面白い楽器、&1カコフォ ニアム&0は、自然界のほぼ全 ての生物の鳴き声を真似る 能力を持っており、"音楽 家"はそれらを思いのまま に演奏できる。鳴き声を持 つ動物をこれで右クリック すると、その音を記憶する 。それから右クリックしつ づけることで再生できる。<br>なぜ誰かがこうしたかった のかは、しかしながら、道 徳の理解を超えている。
 botania.page.cacophonium1=響け! カコフォニアム
 botania.page.cacophonium2=最大の不協和音のために、 &1カコフォニアム&0で&1音符ブロ ック&0をシフト右クリックす れば、動物やモンスターの 音を要求に応じて鳴らす能 力を生み出す。<br>この人でなし。
@@ -1992,7 +2445,7 @@ botania.page.tcIntegration2=洞察のヘルメット (ボタニ アの任意の�
 botania.page.tcIntegration3=続けて、&4マナ&0はインクの興 味深い種類としての役割も 果たせる。黒い&1筆記具&0一式 へ、&1マナプール&0から&4マナ&0を 注入することで、その&4マナ&0 を色の素として使うことを 可能にする。<br>これらの道具の再充填は、 &1マナタブレット&0と同様にプ ールの上へ投げることで行 う。道具はあらかじめ充填 されてはいないことに注意 すること。
 botania.page.tcIntegration4=&1植物魔法学者のインク瓶&0の 作り方
 botania.page.tcIntegration5=次に、いくつかの素材、構 造物は、&1祭壇&0の不安定さを 低下させるための道具とし て働く。これらには&1光り輝 く花、浮遊している花、各 種支柱&0がある。
-botania.page.tcIntegration6a=おそらく、狂気はあらゆる 場面で最適な道具ではない かもしれない。これらの場 合、よい浴槽が一般的にそ れの手入れをする。醸造は おそらく、そのような作業 のためのよりよい方法だが …。
+botania.page.tcIntegration6a=おそらく、狂気はあらゆる 場面で最適な道具ではない かもしれない。これらの場 合、よい浴槽が一般的にそ れの手入れをする。醸造品 はおそらく、そのような作 業のためのよりよい方法だ が…。
 botania.page.tcIntegration6b=公式しかめっ面
 
 # -- BUILDCRAFT INTEGRATION
