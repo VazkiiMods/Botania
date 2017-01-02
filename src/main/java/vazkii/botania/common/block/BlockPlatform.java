@@ -30,9 +30,11 @@ import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.ChunkCache;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.property.ExtendedBlockState;
 import net.minecraftforge.common.property.IExtendedBlockState;
@@ -95,8 +97,9 @@ public class BlockPlatform extends BlockCamo implements ILexiconable, IWandable,
 		state = ((IExtendedBlockState) state).withProperty(BotaniaStateProps.HELD_WORLD, world)
 				.withProperty(BotaniaStateProps.HELD_POS, pos);
 
-		if (world.getTileEntity(pos) instanceof TileCamo) {
-			TileCamo tile = (TileCamo) world.getTileEntity(pos);
+		TileEntity te = world instanceof ChunkCache ? ((ChunkCache)world).getTileEntity(pos, Chunk.EnumCreateEntityType.CHECK) : world.getTileEntity(pos);
+		if (te instanceof TileCamo) {
+			TileCamo tile = (TileCamo) te;
 			return ((IExtendedBlockState) state).withProperty(BotaniaStateProps.HELD_STATE, tile.camoState);
 		} else {
 			return state;
