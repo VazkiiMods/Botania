@@ -105,7 +105,7 @@ public class BlockPool extends BlockMod implements IWandHUD, IWandable, ILexicon
 	@Nonnull
 	@Override
 	public IBlockState getActualState(@Nonnull IBlockState state, IBlockAccess world, BlockPos pos) {
-		TileEntity te = world instanceof ChunkCache ? ((ChunkCache)world).getTileEntity(pos, Chunk.EnumCreateEntityType.CHECK) : world.getTileEntity(pos);;
+		TileEntity te = world instanceof ChunkCache ? ((ChunkCache)world).getTileEntity(pos, Chunk.EnumCreateEntityType.CHECK) : world.getTileEntity(pos);
 		if (te instanceof TilePool) {
 			return state.withProperty(BotaniaStateProps.COLOR, ((TilePool) te).color);
 		} else {
