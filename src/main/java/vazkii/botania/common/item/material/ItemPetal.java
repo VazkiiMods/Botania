@@ -52,7 +52,7 @@ public class ItemPetal extends Item16Colors implements IFlowerComponent {
 		if (stack.stackSize != 0 && player.canPlayerEdit(pos, facing, stack) && world.canBlockBePlaced(ModBlocks.buriedPetals, pos, false, facing, null, stack))
 		{
 			int i = this.getMetadata(stack.getMetadata());
-			IBlockState iblockstate1 = ModBlocks.buriedPetals.onBlockPlaced(world, pos, facing, hitX, hitY, hitZ, i, player);
+			IBlockState iblockstate1 = ModBlocks.buriedPetals.getStateForPlacement(world, pos, facing, hitX, hitY, hitZ, i, player);
 
 			if (placeBlockAt(stack, player, world, pos, facing, hitX, hitY, hitZ, iblockstate1))
 			{
@@ -85,7 +85,7 @@ public class ItemPetal extends Item16Colors implements IFlowerComponent {
 
 	@Override
 	public int getMetadata(int stackMeta) {
-		return MathHelper.clamp_int(stackMeta, 0, 15);
+		return MathHelper.clamp(stackMeta, 0, 15);
 	}
 
 	@Override

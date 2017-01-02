@@ -53,7 +53,7 @@ public class BlockTerraPlate extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public boolean onBlockActivated(World worldObj, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack stack, EnumFacing s, float xs, float ys, float zs) {
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack stack, EnumFacing s, float xs, float ys, float zs) {
 		if(stack != null && stack.getItem() == ModItems.manaResource && stack.getItemDamage() < 3) {
 			if(player == null || !player.capabilities.isCreativeMode) {
 				stack.stackSize--;
@@ -63,11 +63,11 @@ public class BlockTerraPlate extends BlockMod implements ILexiconable {
 
 			ItemStack target = stack.copy();
 			target.stackSize = 1;
-			EntityItem item = new EntityItem(worldObj, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, target);
+			EntityItem item = new EntityItem(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, target);
 			item.setPickupDelay(40);
 			item.motionX = item.motionY = item.motionZ = 0;
-			if(!worldObj.isRemote)
-				worldObj.spawnEntityInWorld(item);
+			if(!world.isRemote)
+				world.spawnEntity(item);
 
 			return true;
 		}

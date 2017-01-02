@@ -37,7 +37,7 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver {
 
 	@Override
 	public void update() {
-		TileEntity tileBelow = worldObj.getTileEntity(pos.down());
+		TileEntity tileBelow = world.getTileEntity(pos.down());
 		if(mana >= 5 && tileBelow instanceof TileEntityMobSpawner) {
 			TileEntityMobSpawner spawner = (TileEntityMobSpawner) tileBelow;
 			MobSpawnerBaseLogic logic = spawner.getSpawnerBaseLogic();
@@ -45,7 +45,7 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver {
 			try {
 				// Directly drawn from MobSpawnerBaseLogic, with inverted isActivated check and mana consumption
 				if(!((boolean) MethodHandles.isActivated.invokeExact(logic))) {
-					if(!worldObj.isRemote)
+					if(!world.isRemote)
 						mana -= 6;
 
 					if(logic.getSpawnerWorld().isRemote) {

@@ -89,7 +89,7 @@ public class BlockStorage extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public boolean isBeaconBase(IBlockAccess worldObj, BlockPos pos, BlockPos beaconPos) {
+	public boolean isBeaconBase(IBlockAccess world, BlockPos pos, BlockPos beaconPos) {
 		return true;
 	}
 

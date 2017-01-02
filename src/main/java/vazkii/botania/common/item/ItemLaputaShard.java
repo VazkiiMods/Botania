@@ -164,7 +164,7 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 								ItemNBTHelper.setInt(copyLens, TAG_ITERATION_K, k);
 
 								EntityManaBurst burst = getBurst(world, pos_, copyLens);
-								world.spawnEntityInWorld(burst);
+								world.spawnEntity(burst);
 								return;
 							}
 						}
@@ -215,13 +215,13 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 		double speed = 0.35;
 		int targetDistance = BASE_OFFSET;
 		EntityThrowable entity = (EntityThrowable) burst;
-		if(!entity.worldObj.isRemote) {
+		if(!entity.world.isRemote) {
 			entity.motionX = 0;
 			entity.motionY = speed;
 			entity.motionZ = 0;
 
 			final int spawnTicks = 2;
-			final int placeTicks = net.minecraft.util.math.MathHelper.floor_double(targetDistance / speed);
+			final int placeTicks = net.minecraft.util.math.MathHelper.floor(targetDistance / speed);
 
 			ItemStack lens = burst.getSourceLens();
 
@@ -231,14 +231,14 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 				int z = ItemNBTHelper.getInt(lens, TAG_Z, 0);
 
 				if(y != -1)
-					spawnBurst(entity.worldObj, new BlockPos(x, y, z), lens);
+					spawnBurst(entity.world, new BlockPos(x, y, z), lens);
 			} else if(burst.getTicksExisted() == placeTicks) {
-				int x = net.minecraft.util.math.MathHelper.floor_double(entity.posX);
+				int x = net.minecraft.util.math.MathHelper.floor(entity.posX);
 				int y = ItemNBTHelper.getInt(lens, TAG_Y_START, -1) + targetDistance;
-				int z = net.minecraft.util.math.MathHelper.floor_double(entity.posZ);
+				int z = net.minecraft.util.math.MathHelper.floor(entity.posZ);
 				BlockPos pos = new BlockPos(x, y, z);
 
-				if(entity.worldObj.isAirBlock(pos)) {
+				if(entity.world.isAirBlock(pos)) {
 					Block block = Blocks.AIR;
 					if (lens.hasTagCompound()) {
 						if (lens.getTagCompound().hasKey(TAG_BLOCK_NAME)) {
@@ -253,13 +253,13 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 					TileEntity tile = null;
 					NBTTagCompound tilecmp = ItemNBTHelper.getCompound(lens, TAG_TILE, false);
 					if(tilecmp.hasKey("id"))
-						tile = TileEntity.func_190200_a(entity.worldObj, tilecmp);
+						tile = TileEntity.create(entity.world, tilecmp);
 
-					entity.worldObj.setBlockState(pos, block.getStateFromMeta(meta), 1 | 2);
-					entity.worldObj.playEvent(2001, pos, Block.getStateId(block.getStateFromMeta(meta)));
+					entity.world.setBlockState(pos, block.getStateFromMeta(meta), 1 | 2);
+					entity.world.playEvent(2001, pos, Block.getStateId(block.getStateFromMeta(meta)));
 					if(tile != null) {
 						tile.setPos(pos);
-						entity.worldObj.setTileEntity(pos, tile);
+						entity.world.setTileEntity(pos, tile);
 					}
 				}
 
@@ -275,7 +275,7 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 		String id = ItemNBTHelper.getString(lens, TAG_BLOCK_NAME, "minecraft:air");
 		Block b = Block.getBlockFromName(id);
 		int meta = ItemNBTHelper.getInt(lens, TAG_META, 0);
-		entity.worldObj.spawnParticle(EnumParticleTypes.BLOCK_CRACK, entity.posX, entity.posY, entity.posZ, entity.motionX, entity.motionY, entity.motionZ, Block.getStateId(b.getStateFromMeta(meta)));
+		entity.world.spawnParticle(EnumParticleTypes.BLOCK_CRACK, entity.posX, entity.posY, entity.posZ, entity.motionX, entity.motionY, entity.motionZ, Block.getStateId(b.getStateFromMeta(meta)));
 
 		return true;
 	}

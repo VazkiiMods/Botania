@@ -25,16 +25,16 @@ public class LensPiston extends Lens {
 	@Override
 	public boolean collideBurst(IManaBurst burst, EntityThrowable entity, RayTraceResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
 		BlockPos coords = burst.getBurstSourceBlockPos();
-		if(!entity.worldObj.isRemote && pos.getBlockPos() != null && !coords.equals(pos.getBlockPos()) && !burst.isFake() && !isManaBlock) {
+		if(!entity.world.isRemote && pos.getBlockPos() != null && !coords.equals(pos.getBlockPos()) && !burst.isFake() && !isManaBlock) {
 			BlockPos pos_ = pos.getBlockPos().offset(pos.sideHit.getOpposite());
 
-			if(entity.worldObj.isAirBlock(pos_) || entity.worldObj.getBlockState(pos_).getBlock().isReplaceable(entity.worldObj, pos_)) {
-				IBlockState state = entity.worldObj.getBlockState(pos.getBlockPos());
-				TileEntity tile = entity.worldObj.getTileEntity(pos.getBlockPos());
+			if(entity.world.isAirBlock(pos_) || entity.world.getBlockState(pos_).getBlock().isReplaceable(entity.world, pos_)) {
+				IBlockState state = entity.world.getBlockState(pos.getBlockPos());
+				TileEntity tile = entity.world.getTileEntity(pos.getBlockPos());
 
-				if(state.getMobilityFlag() == EnumPushReaction.NORMAL && state.getBlock() != Blocks.OBSIDIAN && state.getBlockHardness(entity.worldObj, pos_) >= 0 && tile == null) {
-					entity.worldObj.destroyBlock(pos.getBlockPos(), false);
-					entity.worldObj.setBlockState(pos_, state, 1 | 2);
+				if(state.getMobilityFlag() == EnumPushReaction.NORMAL && state.getBlock() != Blocks.OBSIDIAN && state.getBlockHardness(entity.world, pos_) >= 0 && tile == null) {
+					entity.world.destroyBlock(pos.getBlockPos(), false);
+					entity.world.setBlockState(pos_, state, 1 | 2);
 				}
 			}
 		}

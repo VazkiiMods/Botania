@@ -46,7 +46,7 @@ public class ItemKnockbackBelt extends ItemBaubleModifier implements IBaubleRend
 		if(stack == null) // workaround for Azanor/Baubles#156
 			return;
 		
-		attributes.put(SharedMonsterAttributes.KNOCKBACK_RESISTANCE.getAttributeUnlocalizedName(), new AttributeModifier(getBaubleUUID(stack), "Bauble modifier", 1, 0));
+		attributes.put(SharedMonsterAttributes.KNOCKBACK_RESISTANCE.getName(), new AttributeModifier(getBaubleUUID(stack), "Bauble modifier", 1, 0));
 	}
 
 	@Override

@@ -136,7 +136,7 @@ public class ItemSpawnerMover extends ItemMod {
 			return false;
 		} else if(world.canBlockBePlaced(Blocks.MOB_SPAWNER, pos, false, side, null, itemstack)) {
 			int meta = this.getMetadata(itemstack.getMetadata());
-			IBlockState iblockstate1 = Blocks.MOB_SPAWNER.onBlockPlaced(world, pos, side, xOffset, yOffset, zOffset, meta, player);
+			IBlockState iblockstate1 = Blocks.MOB_SPAWNER.getStateForPlacement(world, pos, side, xOffset, yOffset, zOffset, meta, player);
 
 			if (placeBlockAt(itemstack, player, world, pos, side, xOffset, yOffset, zOffset, iblockstate1)) {
 				world.playSound(null, pos, Blocks.MOB_SPAWNER.getSoundType().getPlaceSound(), SoundCategory.BLOCKS, (Blocks.MOB_SPAWNER.getSoundType().getVolume() + 1.0F) / 2.0F, Blocks.MOB_SPAWNER.getSoundType().getPitch() * 0.8F);

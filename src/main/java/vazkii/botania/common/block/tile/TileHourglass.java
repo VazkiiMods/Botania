@@ -62,17 +62,17 @@ public class TileHourglass extends TileSimpleInventory {
 				time = 0;
 				flip = !flip;
 				flipTicks = 4;
-				if(!worldObj.isRemote) {
-					worldObj.setBlockState(getPos(), worldObj.getBlockState(getPos()).withProperty(BotaniaStateProps.POWERED, true), 1 | 2);
+				if(!world.isRemote) {
+					world.setBlockState(getPos(), world.getBlockState(getPos()).withProperty(BotaniaStateProps.POWERED, true), 1 | 2);
 					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
-					worldObj.scheduleUpdate(pos, getBlockType(), getBlockType().tickRate(worldObj));
+					world.scheduleUpdate(pos, getBlockType(), getBlockType().tickRate(world));
 				}
 
 				for(EnumFacing facing : EnumFacing.VALUES) {
 					BlockPos pos = getPos().offset(facing);
-					IBlockState state = worldObj.getBlockState(pos);
+					IBlockState state = world.getBlockState(pos);
 					if(state.getBlock() instanceof IHourglassTrigger)
-						((IHourglassTrigger) state.getBlock()).onTriggeredByHourglass(worldObj, pos, this);
+						((IHourglassTrigger) state.getBlock()).onTriggeredByHourglass(world, pos, this);
 				}
 			}
 
@@ -89,7 +89,7 @@ public class TileHourglass extends TileSimpleInventory {
 	}
 
 	public void onManaCollide() {
-		if(!worldObj.isRemote) {
+		if(!world.isRemote) {
 			if(dust)
 				time++;
 			else move = !move;

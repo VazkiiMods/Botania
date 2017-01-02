@@ -63,7 +63,7 @@ public class PageRecipe extends LexiconPage {
 		PageText.renderText(x, y, width, height, getUnlocalizedName());
 
 		if(tooltipStack != null) {
-			List<String> tooltipData = tooltipStack.getTooltip(Minecraft.getMinecraft().thePlayer, false);
+			List<String> tooltipData = tooltipStack.getTooltip(Minecraft.getMinecraft().player, false);
 			List<String> parsedTooltip = new ArrayList<>();
 			boolean first = true;
 
@@ -158,7 +158,7 @@ public class PageRecipe extends LexiconPage {
 			tooltipStack = stack;
 
 			EntryData data = LexiconRecipeMappings.getDataForStack(tooltipStack);
-			ItemStack book = PlayerHelper.getFirstHeldItemClass(Minecraft.getMinecraft().thePlayer, ILexicon.class);
+			ItemStack book = PlayerHelper.getFirstHeldItemClass(Minecraft.getMinecraft().player, ILexicon.class);
 
 			if(data != null && (data.entry != gui.getEntry() || data.page != gui.getPageOn()) && book != null && ((ILexicon) book.getItem()).isKnowledgeUnlocked(book, data.entry.getKnowledgeType())) {
 				tooltipEntry = true;

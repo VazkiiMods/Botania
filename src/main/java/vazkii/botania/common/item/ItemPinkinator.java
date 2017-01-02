@@ -50,7 +50,7 @@ public class ItemPinkinator extends ItemMod {
 					wither.setDead();
 					EntityPinkWither pink = new EntityPinkWither(world);
 					pink.setLocationAndAngles(wither.posX, wither.posY, wither.posZ, wither.rotationYaw, wither.rotationPitch);
-					world.spawnEntityInWorld(pink);
+					world.spawnEntity(pink);
 					pink.playSound(SoundEvents.ENTITY_GENERIC_EXPLODE, 4F, (1F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F) * 0.7F);
 				}
 				player.addStat(ModAchievements.pinkinator, 1);

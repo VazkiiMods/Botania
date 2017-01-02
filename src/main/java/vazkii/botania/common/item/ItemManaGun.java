@@ -100,7 +100,7 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 					player.addStat(ModAchievements.manaBlasterShoot, 1);
 					if(isSugoiKawaiiDesuNe(par1ItemStack))
 						player.addStat(ModAchievements.desuGun, 1);
-					world.spawnEntityInWorld(burst);
+					world.spawnEntity(burst);
 				} else {
 					player.swingArm(hand);
 					player.motionX -= burst.motionX * 0.1;

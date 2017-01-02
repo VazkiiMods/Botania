@@ -76,7 +76,7 @@ public class InventoryHelper {
 				ItemStack copy = stackAt.copy();
 				ItemHandlerHelper.giveItemToPlayer(player, copy);
 				inv.getItemHandler().setStackInSlot(i, null);
-				player.worldObj.updateComparatorOutputLevel(inv.getPos(), null);
+				player.world.updateComparatorOutputLevel(inv.getPos(), null);
 				break;
 			}
 		}

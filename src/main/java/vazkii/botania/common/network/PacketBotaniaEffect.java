@@ -76,7 +76,7 @@ public class PacketBotaniaEffect implements IMessage {
 				@Override
 				public void run() {
 					Minecraft mc = Minecraft.getMinecraft();
-					World world = mc.theWorld;
+					World world = mc.world;
 					switch (message.type) {
 					case POOL_CRAFT: {
 						for(int i = 0; i < 25; i++) {
@@ -133,13 +133,13 @@ public class PacketBotaniaEffect implements IMessage {
 
 						for(int i = 0; i < p; i++) {
 							double m = 0.01;
-							double d0 = item.worldObj.rand.nextGaussian() * m;
-							double d1 = item.worldObj.rand.nextGaussian() * m;
-							double d2 = item.worldObj.rand.nextGaussian() * m;
+							double d0 = item.world.rand.nextGaussian() * m;
+							double d1 = item.world.rand.nextGaussian() * m;
+							double d2 = item.world.rand.nextGaussian() * m;
 							double d3 = 10.0D;
-							item.worldObj.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL,
-									message.x + item.worldObj.rand.nextFloat() * item.width * 2.0F - item.width - d0 * d3, message.y + item.worldObj.rand.nextFloat() * item.height - d1 * d3,
-									message.z + item.worldObj.rand.nextFloat() * item.width * 2.0F - item.width - d2 * d3, d0, d1, d2);
+							item.world.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL,
+									message.x + item.world.rand.nextFloat() * item.width * 2.0F - item.width - d0 * d3, message.y + item.world.rand.nextFloat() * item.height - d1 * d3,
+									message.z + item.world.rand.nextFloat() * item.width * 2.0F - item.width - d2 * d3, d0, d1, d2);
 						}
 						break;
 					}

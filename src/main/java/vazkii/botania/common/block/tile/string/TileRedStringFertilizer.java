@@ -41,7 +41,7 @@ public class TileRedStringFertilizer extends TileRedString {
 
 	@Override
 	public boolean acceptBlock(BlockPos pos) {
-		return worldObj.getBlockState(pos).getBlock() instanceof IGrowable;
+		return world.getBlockState(pos).getBlock() instanceof IGrowable;
 	}
 
 }

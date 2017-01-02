@@ -56,7 +56,7 @@ public class ItemVirus extends ItemMod {
 	@Override
 	public boolean itemInteractionForEntity(ItemStack par1ItemStack, EntityPlayer player, EntityLivingBase par3EntityLivingBase, EnumHand hand) {
 		if(par3EntityLivingBase instanceof EntityHorse) {
-			if(player.worldObj.isRemote)
+			if(player.world.isRemote)
 				return true;
 			EntityHorse horse = (EntityHorse) par3EntityLivingBase;
 			if(horse.getType() != HorseType.ZOMBIE && horse.getType() != HorseType.SKELETON && horse.isTame()) {
@@ -87,7 +87,7 @@ public class ItemVirus extends ItemMod {
 				movementSpeed.applyModifier(new AttributeModifier("Ermergerd Virus D:", movementSpeed.getBaseValue(), 0));
 				IAttributeInstance jumpHeight = attributes.getAttributeInstance(ReflectionHelper.getPrivateValue(EntityHorse.class, null, LibObfuscation.HORSE_JUMP_STRENGTH));
 				jumpHeight.applyModifier(new AttributeModifier("Ermergerd Virus D:", jumpHeight.getBaseValue() * 0.5, 0));
-				horse.playSound(SoundEvents.ENTITY_ZOMBIE_VILLAGER_CURE, 1.0F + par3EntityLivingBase.worldObj.rand.nextFloat(), par3EntityLivingBase.worldObj.rand.nextFloat() * 0.7F + 1.3F);
+				horse.playSound(SoundEvents.ENTITY_ZOMBIE_VILLAGER_CURE, 1.0F + par3EntityLivingBase.world.rand.nextFloat(), par3EntityLivingBase.world.rand.nextFloat() * 0.7F + 1.3F);
 				horse.spawnExplosionParticle();
 
 				par1ItemStack.stackSize--;

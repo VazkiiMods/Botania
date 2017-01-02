@@ -67,7 +67,7 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 			copy.stackSize = 1;
 			requestTarget = copy;
 			updateCount();
-			if(!worldObj.isRemote)
+			if(!world.isRemote)
 				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 		}
 
@@ -82,7 +82,7 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 	}
 
 	public void doRequest(boolean fullStack) {
-		if(worldObj.isRemote)
+		if(world.isRemote)
 			return;
 
 		ICorporeaSpark spark = getSpark();
@@ -93,7 +93,7 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 	}
 
 	private void updateCount() {
-		if(worldObj.isRemote)
+		if(world.isRemote)
 			return;
 
 		int oldCount = itemCount;
@@ -113,7 +113,7 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 
 	private void onUpdateCount() {
 		compValue = getComparatorValue();
-		worldObj.updateComparatorOutputLevel(pos, worldObj.getBlockState(pos).getBlock());
+		world.updateComparatorOutputLevel(pos, world.getBlockState(pos).getBlock());
 	}
 
 	@Override
@@ -160,8 +160,8 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 		boolean did = false;
 		for(ItemStack reqStack : stacks)
 			if(requestTarget != null) {
-				EntityItem item = new EntityItem(worldObj, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, reqStack);
-				worldObj.spawnEntityInWorld(item);
+				EntityItem item = new EntityItem(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, reqStack);
+				world.spawnEntity(item);
 				itemCount -= reqStack.stackSize;
 				did = true;
 			}

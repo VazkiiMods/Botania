@@ -46,7 +46,7 @@ public class TileRFGenerator extends TileMod implements IManaReceiver, IEnergyCo
 
 	@Override
 	public void update() {
-		if(!worldObj.isRemote && Botania.rfApiLoaded) {
+		if(!world.isRemote && Botania.rfApiLoaded) {
 			if(deadCache)
 				reCache();
 
@@ -83,7 +83,7 @@ public class TileRFGenerator extends TileMod implements IManaReceiver, IEnergyCo
 
 	@Optional.Method(modid = "CoFHAPI|energy")
 	public void onNeighborTileChange(BlockPos pos) {
-		TileEntity tile = worldObj.getTileEntity(pos);
+		TileEntity tile = world.getTileEntity(pos);
 
 		BlockPos q = getPos();
 		EnumFacing side = EnumFacing.getFacingFromVector(pos.getX() - q.getX(), pos.getY() - q.getY(), pos.getZ() - q.getZ());

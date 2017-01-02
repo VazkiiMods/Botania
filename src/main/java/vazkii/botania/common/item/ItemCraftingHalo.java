@@ -155,11 +155,11 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 	}
 
 	private static ItemStack[] validateRecipe(EntityPlayer player, ItemStack stack, ItemStack[] recipe, int slot) {
-		InventoryCrafting fakeInv = new InventoryCrafting(new ContainerWorkbench(player.inventory, player.worldObj, BlockPos.ORIGIN), 3, 3);
+		InventoryCrafting fakeInv = new InventoryCrafting(new ContainerWorkbench(player.inventory, player.world, BlockPos.ORIGIN), 3, 3);
 		for(int i = 0; i < 9; i++)
 			fakeInv.setInventorySlotContents(i, recipe[i]);
 
-		ItemStack result = CraftingManager.getInstance().findMatchingRecipe(fakeInv, player.worldObj);
+		ItemStack result = CraftingManager.getInstance().findMatchingRecipe(fakeInv, player.world);
 		if(result == null) {
 			assignRecipe(stack, recipe[9], slot);
 			return null;
@@ -327,7 +327,7 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 		NBTTagCompound cmp = new NBTTagCompound();
 		NBTTagCompound cmp1 = new NBTTagCompound();
 
-		ItemStack result = CraftingManager.getInstance().findMatchingRecipe((InventoryCrafting) event.craftMatrix, event.player.worldObj);
+		ItemStack result = CraftingManager.getInstance().findMatchingRecipe((InventoryCrafting) event.craftMatrix, event.player.world);
 		if(result != null) {
 			result.writeToNBT(cmp1);
 			cmp.setTag(TAG_ITEM_PREFIX + 9, cmp1);
@@ -405,7 +405,7 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 	@SideOnly(Side.CLIENT)
 	@SubscribeEvent
 	public void onRenderWorldLast(RenderWorldLastEvent event) {
-		EntityPlayer player = Minecraft.getMinecraft().thePlayer;
+		EntityPlayer player = Minecraft.getMinecraft().player;
 		ItemStack stack = PlayerHelper.getFirstHeldItemClass(player, ItemCraftingHalo.class);
 		if(stack != null)
 			render(stack, player, event.getPartialTicks());

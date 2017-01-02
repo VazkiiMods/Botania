@@ -84,7 +84,7 @@ public class ItemHolyCloak extends ItemBauble implements IBaubleRender {
 	public boolean effectOnDamage(LivingHurtEvent event, EntityPlayer player, ItemStack stack) {
 		if(!event.getSource().isMagicDamage()) {
 			event.setCanceled(true);
-			player.worldObj.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.holyCloak, SoundCategory.PLAYERS, 1F, 1F);
+			player.world.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.holyCloak, SoundCategory.PLAYERS, 1F, 1F);
 			for(int i = 0; i < 30; i++) {
 				double x = player.posX + Math.random() * player.width * 2 - player.width;
 				double y = player.posY + Math.random() * player.height;

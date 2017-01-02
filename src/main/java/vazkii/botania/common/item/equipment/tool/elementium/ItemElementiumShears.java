@@ -56,17 +56,17 @@ public class ItemElementiumShears extends ItemManasteelShears {
 
 	@Override
 	public void onUsingTick(ItemStack stack, EntityLivingBase living, int count) {
-		if(living.worldObj.isRemote)
+		if(living.world.isRemote)
 			return;
 
 		if(count != getMaxItemUseDuration(stack) && count % 5 == 0) {
 			int range = 12;
-			List sheep = living.worldObj.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(living.posX - range, living.posY - range, living.posZ - range, living.posX + range, living.posY + range, living.posZ + range), Predicates.instanceOf(IShearable.class));
+			List sheep = living.world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(living.posX - range, living.posY - range, living.posZ - range, living.posX + range, living.posY + range, living.posZ + range), Predicates.instanceOf(IShearable.class));
 			if(sheep.size() > 0) {
 				for(IShearable target : (List<IShearable>) sheep) {
 					Entity entity = (Entity) target;
-					if(target.isShearable(stack, entity.worldObj, new BlockPos(entity))) {
-						List<ItemStack> drops = target.onSheared(stack, entity.worldObj, new BlockPos(entity), EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, stack));
+					if(target.isShearable(stack, entity.world, new BlockPos(entity))) {
+						List<ItemStack> drops = target.onSheared(stack, entity.world, new BlockPos(entity), EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, stack));
 
 						Random rand = new Random();
 						for(ItemStack drop : drops) {

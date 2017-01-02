@@ -78,7 +78,7 @@ public class ItemTravelBelt extends ItemBauble implements IBaubleRender, IManaUs
 				if(shouldPlayerHaveStepup(player)) {
 					ItemTravelBelt beltItem = (ItemTravelBelt) belt.getItem();
 
-					if(player.worldObj.isRemote) {
+					if(player.world.isRemote) {
 						if((player.onGround || player.capabilities.isFlying) && player.moveForward > 0F && !player.isInsideOfMaterial(Material.WATER)) {
 							float speed = beltItem.getSpeed(belt);
 							player.moveRelative(0F, 1F, player.capabilities.isFlying ? speed : speed);
@@ -138,7 +138,7 @@ public class ItemTravelBelt extends ItemBauble implements IBaubleRender, IManaUs
 	}
 
 	public static String playerStr(EntityPlayer player) {
-		return player.getGameProfile().getName() + ":" + player.worldObj.isRemote;
+		return player.getGameProfile().getName() + ":" + player.world.isRemote;
 	}
 
 	@SideOnly(Side.CLIENT)

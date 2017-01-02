@@ -47,8 +47,8 @@ public class TileIncensePlate extends TileSimpleInventory  {
 			PotionEffect effect = brew.getPotionEffects(stack).get(0);
 			if(timeLeft > 0) {
 				timeLeft--;
-				if(!worldObj.isRemote) {
-					List<EntityPlayer> players = worldObj.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(pos.getX() + 0.5 - RANGE, pos.getY() + 0.5 - RANGE, pos.getZ() + 0.5 - RANGE, pos.getX() + 0.5 + RANGE, pos.getY() + 0.5 + RANGE, pos.getZ() + 0.5 + RANGE));
+				if(!world.isRemote) {
+					List<EntityPlayer> players = world.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(pos.getX() + 0.5 - RANGE, pos.getY() + 0.5 - RANGE, pos.getZ() + 0.5 - RANGE, pos.getX() + 0.5 + RANGE, pos.getY() + 0.5 + RANGE, pos.getZ() + 0.5 + RANGE));
 					for(EntityPlayer player : players) {
 						PotionEffect currentEffect = player.getActivePotionEffect(effect.getPotion());
 						boolean nightVision = effect.getPotion() == MobEffects.NIGHT_VISION;
@@ -58,8 +58,8 @@ public class TileIncensePlate extends TileSimpleInventory  {
 						}
 					}
 
-					if(worldObj.rand.nextInt(20) == 0)
-						worldObj.playSound(null, pos, SoundEvents.BLOCK_FIRE_AMBIENT, SoundCategory.BLOCKS, 0.1F, 1);
+					if(world.rand.nextInt(20) == 0)
+						world.playSound(null, pos, SoundEvents.BLOCK_FIRE_AMBIENT, SoundCategory.BLOCKS, 0.1F, 1);
 				} else {
 					double x = pos.getX() + 0.5;
 					double y = pos.getY() + 0.5;
@@ -85,7 +85,7 @@ public class TileIncensePlate extends TileSimpleInventory  {
 			newComparator = 2;
 		if(comparatorOutput != newComparator) {
 			comparatorOutput = newComparator;
-			worldObj.updateComparatorOutputLevel(pos, worldObj.getBlockState(pos).getBlock());
+			world.updateComparatorOutputLevel(pos, world.getBlockState(pos).getBlock());
 		}
 	}
 
@@ -142,7 +142,7 @@ public class TileIncensePlate extends TileSimpleInventory  {
 	@Override
 	public void markDirty() {
 		super.markDirty();
-		if(!worldObj.isRemote)
+		if(!world.isRemote)
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 	}
 

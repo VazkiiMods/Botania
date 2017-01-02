@@ -37,10 +37,10 @@ public abstract class TileRedString extends TileMod implements ITileBound {
 
 		for(int i = 0; i < range; i++) {
 			pos_ = pos_.offset(dir);
-			if(worldObj.isAirBlock(pos_))
+			if(world.isAirBlock(pos_))
 				continue;
 
-			TileEntity tile = worldObj.getTileEntity(pos_);
+			TileEntity tile = world.getTileEntity(pos_);
 			if(tile instanceof TileRedString)
 				continue;
 
@@ -77,17 +77,17 @@ public abstract class TileRedString extends TileMod implements ITileBound {
 	}
 
 	public EnumFacing getOrientation() {
-		return worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.FACING);
+		return world.getBlockState(getPos()).getValue(BotaniaStateProps.FACING);
 	}
 
 	public TileEntity getTileAtBinding() {
 		BlockPos binding = getBinding();
-		return binding == null ? null : worldObj.getTileEntity(binding);
+		return binding == null ? null : world.getTileEntity(binding);
 	}
 
 	public IBlockState getStateAtBinding() {
 		BlockPos binding = getBinding();
-		return binding == null ? Blocks.AIR.getDefaultState() : worldObj.getBlockState(binding);
+		return binding == null ? Blocks.AIR.getDefaultState() : world.getBlockState(binding);
 	}
 
 	public Block getBlockAtBinding() {

@@ -41,11 +41,11 @@ public class ItemSwapRing extends ItemBauble {
 
 		ISortableTool tool = (ISortableTool) currentStack.getItem();
 
-		RayTraceResult pos = ToolCommons.raytraceFromEntity(entity.worldObj, entity, true, 4.5F);
+		RayTraceResult pos = ToolCommons.raytraceFromEntity(entity.world, entity, true, 4.5F);
 		ToolType typeToFind = null;
 
 		if(player.isSwingInProgress && pos != null && pos.getBlockPos() != null) {
-			IBlockState state = entity.worldObj.getBlockState(pos.getBlockPos());
+			IBlockState state = entity.world.getBlockState(pos.getBlockPos());
 
 			Material mat = state.getMaterial();
 			if(ToolCommons.isRightMaterial(mat, ToolCommons.materialsPick))

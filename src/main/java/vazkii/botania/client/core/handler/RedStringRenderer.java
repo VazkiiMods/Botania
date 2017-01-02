@@ -56,7 +56,7 @@ public final class RedStringRenderer {
 	}
 
 	public static void tick() {
-		EntityPlayer player = Minecraft.getMinecraft().thePlayer;
+		EntityPlayer player = Minecraft.getMinecraft().player;
 		boolean hasWand = player != null && PlayerHelper.hasHeldItem(player, ModItems.twigWand);
 		if(sizeAlpha > 0F && !hasWand)
 			sizeAlpha -= 0.1F;

@@ -62,7 +62,7 @@ public class PageShedding extends PageEntity {
 		int stack_y = gui.getTop() + gui.getHeight() - 40 - 18 - 5;
 		int entity_scale = getEntityScale(size);
 		int entity_x = gui.getLeft() + gui.getWidth() / 2;
-		int entity_y = gui.getTop() + gui.getHeight() / 2 + MathHelper.floor_float(dummyEntity.height * entity_scale / 2) - 29;
+		int entity_y = gui.getTop() + gui.getHeight() / 2 + MathHelper.floor(dummyEntity.height * entity_scale / 2) - 29;
 
 		renderEntity(gui, dummyEntity, entity_x, entity_y, entity_scale, dummyEntity.ticksExisted * 2);
 
@@ -77,7 +77,7 @@ public class PageShedding extends PageEntity {
 		((GuiScreen) gui).drawTexturedModalRect(gui.getLeft(), gui.getTop(), 0, 0, gui.getWidth(), gui.getHeight());
 
 		if(tooltipStack != null) {
-			List<String> tooltipData = tooltipStack.getTooltip(Minecraft.getMinecraft().thePlayer, false);
+			List<String> tooltipData = tooltipStack.getTooltip(Minecraft.getMinecraft().player, false);
 			List<String> parsedTooltip = new ArrayList<>();
 			boolean first = true;
 

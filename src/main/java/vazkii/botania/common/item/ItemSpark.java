@@ -47,7 +47,7 @@ public class ItemSpark extends ItemMod implements ICraftAchievement, IManaGiving
 				if(!world.isRemote) {
 					EntitySpark spark = new EntitySpark(world);
 					spark.setPosition(pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5);
-					world.spawnEntityInWorld(spark);
+					world.spawnEntity(spark);
 					attach.attachSpark(spark);
 					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, pos);
 				}

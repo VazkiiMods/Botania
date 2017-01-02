@@ -89,7 +89,7 @@ public class BlockSpecialQuartz extends BlockMod implements ILexiconable {
 
 	@Nonnull
 	@Override
-	public IBlockState onBlockPlaced(World world, BlockPos pos, EnumFacing side, float par6, float par7, float par8, int meta, EntityLivingBase placer) {
+	public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing side, float par6, float par7, float par8, int meta, EntityLivingBase placer) {
 		if (meta == 2) { // Pillar quartz variant
 			switch (side.getAxis()) {
 			case Y:
@@ -114,7 +114,7 @@ public class BlockSpecialQuartz extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public ItemStack createStackedBlock(@Nonnull IBlockState state) {
+	public ItemStack getSilkTouchDrop(@Nonnull IBlockState state) {
 		return new ItemStack(this, 1, damageDropped(state));
 	}
 

@@ -40,7 +40,7 @@ public class ItemVineBall extends ItemMod {
 		if(!world.isRemote) {
 			EntityVineBall ball = new EntityVineBall(player, true);
 			ball.setHeadingFromThrower(player, player.rotationPitch, player.rotationYaw, 0.0F, 1.5F, 1.0F);
-			world.spawnEntityInWorld(ball);
+			world.spawnEntity(ball);
 		}
 
 		return ActionResult.newResult(EnumActionResult.SUCCESS, par1ItemStack);

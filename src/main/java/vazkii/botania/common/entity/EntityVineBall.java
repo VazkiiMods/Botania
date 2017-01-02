@@ -45,7 +45,7 @@ public class EntityVineBall extends EntityThrowable {
 	}
 
 	public EntityVineBall(EntityLivingBase thrower, boolean gravity) {
-		super(thrower.worldObj, thrower);
+		super(thrower.world, thrower);
 		dataManager.set(GRAVITY, gravity ? 0.03F : 0F);
 	}
 
@@ -58,9 +58,9 @@ public class EntityVineBall extends EntityThrowable {
 	@Override
 	protected void onImpact(@Nonnull RayTraceResult var1) {
 
-		if(worldObj.isRemote) {
+		if(world.isRemote) {
 			for(int j = 0; j < 16; j++) {
-				worldObj.spawnParticle(EnumParticleTypes.ITEM_CRACK, posX, posY, posZ, Math.random() * 0.2 - 0.1, Math.random() * 0.25, Math.random() * 0.2 - 0.1, Item.getIdFromItem(ModItems.vineBall));
+				world.spawnParticle(EnumParticleTypes.ITEM_CRACK, posX, posY, posZ, Math.random() * 0.2 - 0.1, Math.random() * 0.25, Math.random() * 0.2 - 0.1, Item.getIdFromItem(ModItems.vineBall));
 			}
 		} else {
 			if(var1 != null) {
@@ -69,12 +69,12 @@ public class EntityVineBall extends EntityThrowable {
 				if(dir != null && dir.getAxis() != EnumFacing.Axis.Y) {
 					BlockPos pos = var1.getBlockPos().offset(dir);
 					while(pos.getY() > 0) {
-						IBlockState state = worldObj.getBlockState(pos);
+						IBlockState state = world.getBlockState(pos);
 						Block block = state.getBlock();
-						if(block.isAir(state, worldObj, pos)) {
+						if(block.isAir(state, world, pos)) {
 							IBlockState stateSet = ModBlocks.solidVines.getDefaultState().withProperty(propMap.get(dir.getOpposite()), true);
-							worldObj.setBlockState(pos, stateSet, 1 | 2);
-							worldObj.playEvent(2001, pos, Block.getStateId(stateSet));
+							world.setBlockState(pos, stateSet, 1 | 2);
+							world.playEvent(2001, pos, Block.getStateId(stateSet));
 							pos = pos.down();
 						} else break;
 					}

@@ -62,8 +62,8 @@ public class ItemMissileRod extends ItemMod implements IManaUsingItem, IAvatarWi
 		if(!(living instanceof EntityPlayer)) return;
 		EntityPlayer player = (EntityPlayer) living;
 
-		if(count != getMaxItemUseDuration(stack) && count % (IManaProficiencyArmor.Helper.hasProficiency(player, stack) ? 1 : 2) == 0 && !player.worldObj.isRemote && ManaItemHandler.requestManaExactForTool(stack, player, COST_PER, false)) {
-			if(spawnMissile(player.worldObj, player, player.posX + (Math.random() - 0.5 * 0.1), player.posY + 2.4 + (Math.random() - 0.5 * 0.1), player.posZ + (Math.random() - 0.5 * 0.1)))
+		if(count != getMaxItemUseDuration(stack) && count % (IManaProficiencyArmor.Helper.hasProficiency(player, stack) ? 1 : 2) == 0 && !player.world.isRemote && ManaItemHandler.requestManaExactForTool(stack, player, COST_PER, false)) {
+			if(spawnMissile(player.world, player, player.posX + (Math.random() - 0.5 * 0.1), player.posY + 2.4 + (Math.random() - 0.5 * 0.1), player.posZ + (Math.random() - 0.5 * 0.1)))
 				ManaItemHandler.requestManaExactForTool(stack, player, COST_PER, true);
 
 			Botania.proxy.sparkleFX(player.posX, player.posY + 2.4, player.posZ, 1F, 0.4F, 1F, 6F, 6);
@@ -80,7 +80,7 @@ public class ItemMissileRod extends ItemMod implements IManaUsingItem, IAvatarWi
 		if(missile.getTarget()) {
 			if(!world.isRemote) {
 				missile.playSound(BotaniaSoundEvents.missile, 0.6F, 0.8F + (float) Math.random() * 0.2F);
-				world.spawnEntityInWorld(missile);
+				world.spawnEntity(missile);
 			}
 
 			return true;

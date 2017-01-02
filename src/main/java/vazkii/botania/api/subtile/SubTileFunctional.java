@@ -137,7 +137,7 @@ public class SubTileFunctional extends SubTileEntity {
 			return false;
 
 		knownMana = mana;
-		player.worldObj.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.ding, SoundCategory.PLAYERS, 0.1F, 1F);
+		player.world.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.ding, SoundCategory.PLAYERS, 0.1F, 1F);
 
 		return super.onWanded(player, wand);
 	}
@@ -199,7 +199,7 @@ public class SubTileFunctional extends SubTileEntity {
 
 		double dist = pos.distanceSq(supertile.getPos());
 		if(range >= dist) {
-			TileEntity tile = player.worldObj.getTileEntity(pos);
+			TileEntity tile = player.world.getTileEntity(pos);
 			if(tile instanceof IManaPool) {
 				linkedPool = tile;
 				return true;
@@ -210,7 +210,7 @@ public class SubTileFunctional extends SubTileEntity {
 	}
 
 	public boolean isValidBinding() {
-		return linkedPool != null && linkedPool.hasWorldObj() && !linkedPool.isInvalid() && supertile.getWorld().isBlockLoaded(linkedPool.getPos(), false) && supertile.getWorld().getTileEntity(linkedPool.getPos()) == linkedPool;
+		return linkedPool != null && linkedPool.hasWorld() && !linkedPool.isInvalid() && supertile.getWorld().isBlockLoaded(linkedPool.getPos(), false) && supertile.getWorld().getTileEntity(linkedPool.getPos()) == linkedPool;
 	}
 
 	@SideOnly(Side.CLIENT)

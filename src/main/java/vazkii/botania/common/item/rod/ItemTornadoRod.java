@@ -76,7 +76,7 @@ public class ItemTornadoRod extends ItemMod implements IManaUsingItem, IAvatarWi
 					player.fallDistance = 0F;
 					player.motionY = IManaProficiencyArmor.Helper.hasProficiency(player, par1ItemStack) ? 1.6 : 1.25;
 
-					player.worldObj.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.airRod, SoundCategory.PLAYERS, 0.1F, 0.25F);
+					player.world.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.airRod, SoundCategory.PLAYERS, 0.1F, 0.25F);
 					for(int i = 0; i < 5; i++)
 						Botania.proxy.wispFX(player.posX, player.posY, player.posZ, 0.25F, 0.25F, 0.25F, 0.35F + (float) Math.random() * 0.1F, 0.2F * (float) (Math.random() - 0.5), -0.01F * (float) Math.random(), 0.2F * (float) (Math.random() - 0.5));
 				}
@@ -148,7 +148,7 @@ public class ItemTornadoRod extends ItemMod implements IManaUsingItem, IAvatarWi
 							Botania.proxy.wispFX(p.posX, p.posY + i, p.posZ, 0.25F, 0.25F, 0.25F, 0.35F + (float) Math.random() * 0.1F, 0.2F * (float) (Math.random() - 0.5), -0.01F * (float) Math.random(), 0.2F * (float) (Math.random() - 0.5));
 
 					if(!world.isRemote) {
-						p.worldObj.playSound(null, p.posX, p.posY, p.posZ, BotaniaSoundEvents.dash, SoundCategory.PLAYERS, 1F, 1F);
+						p.world.playSound(null, p.posX, p.posY, p.posZ, BotaniaSoundEvents.dash, SoundCategory.PLAYERS, 1F, 1F);
 						p.addPotionEffect(new PotionEffect(ModPotions.featherfeet, 100, 0));
 						tile.recieveMana(-COST);
 					}

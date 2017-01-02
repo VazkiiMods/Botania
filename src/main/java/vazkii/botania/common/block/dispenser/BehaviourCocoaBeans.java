@@ -37,7 +37,7 @@ public class BehaviourCocoaBeans extends BehaviorDefaultDispenseItem {
 	public ItemStack dispenseStack(IBlockSource par1IBlockSource, ItemStack par2ItemStack) {
 		if(par2ItemStack.getItemDamage() == EnumDyeColor.BROWN.getDyeDamage()) {
 			Block block = Blocks.COCOA;
-			EnumFacing facing = par1IBlockSource.func_189992_e().getValue(BlockDispenser.FACING);
+			EnumFacing facing = par1IBlockSource.getBlockState().getValue(BlockDispenser.FACING);
 			BlockPos pos = par1IBlockSource.getBlockPos().offset(facing);
 			World world = par1IBlockSource.getWorld();
 

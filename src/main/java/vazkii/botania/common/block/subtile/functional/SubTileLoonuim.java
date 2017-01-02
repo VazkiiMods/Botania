@@ -89,7 +89,7 @@ public class SubTileLoonuim extends SubTileFunctional {
 				pos = pos.up();
 				if(pos.getY() >= 254)
 					return;
-			} while(world.getBlockState(pos).getBlock().isVisuallyOpaque());
+			} while(world.getBlockState(pos).getBlock().causesSuffocation());
 			pos = pos.up();
 
 			double x = pos.getX() + Math.random();
@@ -108,12 +108,12 @@ public class SubTileLoonuim extends SubTileFunctional {
 				case 0: 
 					entity = new EntityZombie(world);
 					if(world.rand.nextInt(10) == 0)
-						((EntityZombie) entity).func_189778_a(ZombieType.HUSK); // set zombie type
+						((EntityZombie) entity).setZombieType(ZombieType.HUSK);
 					break;
 				case 1:
 					entity = new EntitySkeleton(world);
 					if(world.rand.nextInt(10) == 0)
-						((EntitySkeleton) entity).func_189768_a(SkeletonType.STRAY); // set skeleton type
+						((EntitySkeleton) entity).setSkeletonType(SkeletonType.STRAY);
 					break;
 				case 2:
 					if(world.rand.nextInt(10) == 0)
@@ -126,8 +126,8 @@ public class SubTileLoonuim extends SubTileFunctional {
 			entity.motionX = entity.motionY = entity.motionZ = 0;
 			
 			Multimap map = HashMultimap.create();
-			map.put(SharedMonsterAttributes.MAX_HEALTH.getAttributeUnlocalizedName(), new AttributeModifier("Loonium Modififer Health", 2, 1));
-			map.put(SharedMonsterAttributes.ATTACK_DAMAGE.getAttributeUnlocalizedName(), new AttributeModifier("Loonium Modififer Damage", 1.5, 1));
+			map.put(SharedMonsterAttributes.MAX_HEALTH.getName(), new AttributeModifier("Loonium Modififer Health", 2, 1));
+			map.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier("Loonium Modififer Damage", 1.5, 1));
 			entity.getAttributeMap().applyAttributeModifiers(map);
 			
 			entity.addPotionEffect(new PotionEffect(MobEffects.FIRE_RESISTANCE, Integer.MAX_VALUE, 0));
@@ -137,7 +137,7 @@ public class SubTileLoonuim extends SubTileFunctional {
 			stack.writeToNBT(cmp);
 			entity.getEntityData().setTag(TAG_ITEMSTACK_TO_DROP, cmp);
 			
-			world.spawnEntityInWorld(entity);
+			world.spawnEntity(entity);
 			entity.onInitialSpawn(world.getDifficultyForLocation(pos), null);
 			SubTileSpectranthemum.spawnExplosionParticles(entity, 5);
 			
@@ -193,7 +193,7 @@ public class SubTileLoonuim extends SubTileFunctional {
 				NBTTagCompound cmp = e.getEntityData().getCompoundTag(TAG_ITEMSTACK_TO_DROP);
 				ItemStack stack = ItemStack.loadItemStackFromNBT(cmp);
 				event.getDrops().clear();
-				event.getDrops().add(new EntityItem(e.worldObj, e.posX, e.posY, e.posZ, stack));
+				event.getDrops().add(new EntityItem(e.world, e.posX, e.posY, e.posZ, stack));
 			}
 		}
 		

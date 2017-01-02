@@ -92,7 +92,7 @@ public class BlockSpecialQuartzSlab extends BlockModSlab {
 	}
 
 	@Override
-	public ItemStack createStackedBlock(@Nonnull IBlockState par1) {
+	public ItemStack getSilkTouchDrop(@Nonnull IBlockState par1) {
 		return new ItemStack(getSingleBlock());
 	}
 

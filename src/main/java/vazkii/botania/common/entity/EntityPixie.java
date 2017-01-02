@@ -113,19 +113,19 @@ public class EntityPixie extends EntityFlying {
 	public void onEntityUpdate() {
 		super.onEntityUpdate();
 
-		if(!worldObj.isRemote
+		if(!world.isRemote
 				&& (getAttackTarget() == null || ticksExisted > 200))
 			setDead();
 
 		boolean dark = getType() == 1;
-		if(worldObj.isRemote)
+		if(world.isRemote)
 			for(int i = 0; i < 4; i++)
 				Botania.proxy.sparkleFX(posX + (Math.random() - 0.5) * 0.25, posY + 0.5  + (Math.random() - 0.5) * 0.25, posZ + (Math.random() - 0.5) * 0.25, dark ? 0.1F : 1F, dark ? 0.025F : 0.25F, dark ? 0.09F : 0.9F, 0.1F + (float) Math.random() * 0.25F, 12);
 	}
 
 	@Override
 	public void setDead() {
-		if(worldObj != null && worldObj.isRemote && getType() == 0)
+		if(world != null && world.isRemote && getType() == 0)
 			for(int i = 0; i < 12; i++)
 				Botania.proxy.sparkleFX(posX + (Math.random() - 0.5) * 0.25, posY + 0.5  + (Math.random() - 0.5) * 0.25, posZ + (Math.random() - 0.5) * 0.25, 1F, 0.25F, 0.9F, 1F + (float) Math.random() * 0.25F, 5);
 		super.setDead();

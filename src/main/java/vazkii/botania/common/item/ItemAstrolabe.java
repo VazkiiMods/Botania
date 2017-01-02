@@ -117,8 +117,8 @@ public class ItemAstrolabe extends ItemMod {
 		Block block = Block.getBlockFromItem(blockToPlace.getItem());
 		int meta = blockToPlace.getItemDamage();
 		IBlockState state = block.getStateFromMeta(meta);
-		player.worldObj.setBlockState(coords, state, 1 | 2);
-		player.worldObj.playEvent(2001, coords, Block.getStateId(state));
+		player.world.setBlockState(coords, state, 1 | 2);
+		player.world.playEvent(2001, coords, Block.getStateId(state));
 
 		if(player.capabilities.isCreativeMode)
 			return;
@@ -187,15 +187,15 @@ public class ItemAstrolabe extends ItemMod {
 
 	public static BlockPos[] getBlocksToPlace(ItemStack stack, EntityPlayer player) {
 		List<BlockPos> coords = new ArrayList();
-		RayTraceResult pos = ToolCommons.raytraceFromEntity(player.worldObj, player, true, 5);
+		RayTraceResult pos = ToolCommons.raytraceFromEntity(player.world, player, true, 5);
 		if(pos != null) {
 			BlockPos bpos = pos.getBlockPos();
-			IBlockState state = player.worldObj.getBlockState(bpos);
+			IBlockState state = player.world.getBlockState(bpos);
 			Block block = state.getBlock();
-			if(block != null && block.isReplaceable(player.worldObj, bpos))
+			if(block != null && block.isReplaceable(player.world, bpos))
 				bpos = bpos.down();;
 
-			int rotation = MathHelper.floor_double(player.rotationYaw * 4F / 360F + 0.5D) & 3;
+			int rotation = MathHelper.floor(player.rotationYaw * 4F / 360F + 0.5D) & 3;
 			int range = (getSize(stack) ^ 1) / 2;
 
 			EnumFacing dir = pos.sideHit;
@@ -220,9 +220,9 @@ public class ItemAstrolabe extends ItemMod {
 						int zp = bpos.getZ() + z + dir.getFrontOffsetZ();
 
 						BlockPos newPos = new BlockPos(xp, yp, zp);
-						IBlockState state1 = player.worldObj.getBlockState(newPos);
+						IBlockState state1 = player.world.getBlockState(newPos);
 						Block block1 = state1.getBlock();
-						if(block1 == null || block1.isAir(state1, player.worldObj, newPos) || block1.isReplaceable(player.worldObj, newPos))
+						if(block1 == null || block1.isAir(state1, player.world, newPos) || block1.isReplaceable(player.world, newPos))
 							coords.add(new BlockPos(xp, yp, zp));
 					}
 				}
@@ -237,7 +237,7 @@ public class ItemAstrolabe extends ItemMod {
 		Block block = getBlock(stack);
 		int meta = getBlockMeta(stack);
 		int count = ItemExchangeRod.getInventoryItemCount(player, stack, block, meta);
-		if(!player.worldObj.isRemote)
+		if(!player.world.isRemote)
 			ItemsRemainingRenderHandler.set(new ItemStack(block, 1, meta), count);
 	}
 

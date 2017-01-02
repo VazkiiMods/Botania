@@ -63,7 +63,7 @@ public class ItemCloudPendant extends CloudPendantShim implements IBaubleRender 
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void clientWornTick(ItemStack stack, EntityLivingBase player) {
-		if(player instanceof EntityPlayerSP && player == Minecraft.getMinecraft().thePlayer) {
+		if(player instanceof EntityPlayerSP && player == Minecraft.getMinecraft().player) {
 			EntityPlayerSP playerSp = (EntityPlayerSP) player;
 			UUID uuid = playerSp.getUniqueID();
 

@@ -47,7 +47,7 @@ public class EntityManaStorm extends Entity {
 
 		int diffTime = Math.max(1, 30 - (int) (liveTime / 45f));
 		if(burstsFired < TOTAL_BURSTS && liveTime % diffTime == 0) {
-			if(!worldObj.isRemote)
+			if(!world.isRemote)
 				spawnBurst();
 			burstsFired++;
 		}
@@ -56,13 +56,13 @@ public class EntityManaStorm extends Entity {
 			deathTime++;
 			if(deathTime >= DEATH_TIME) {
 				setDead();
-				worldObj.newExplosion(this, posX, posY, posZ, 8F, true, true);
+				world.newExplosion(this, posX, posY, posZ, 8F, true, true);
 			}
 		}
 	}
 
 	private void spawnBurst() {
-		EntityManaBurst burst = new EntityManaBurst(worldObj);
+		EntityManaBurst burst = new EntityManaBurst(world);
 		burst.setPosition(posX, posY, posZ);
 
 		float motionModifier = 0.5F;
@@ -78,7 +78,7 @@ public class EntityManaStorm extends Entity {
 
 		Vector3 motion = new Vector3(Math.random() - 0.5, Math.random() - 0.5, Math.random() - 0.5).normalize().multiply(motionModifier);
 		burst.setMotion(motion.x, motion.y, motion.z);
-		worldObj.spawnEntityInWorld(burst);
+		world.spawnEntity(burst);
 	}
 
 	@Override

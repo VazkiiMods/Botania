@@ -96,8 +96,8 @@ public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 
 		if(ticksCooldown == 0) {
 			Entity item = null;
-			if(targetID != -1 && player.worldObj.getEntityByID(targetID) != null) {
-				Entity taritem = player.worldObj.getEntityByID(targetID);
+			if(targetID != -1 && player.world.getEntityByID(targetID) != null) {
+				Entity taritem = player.world.getEntityByID(targetID);
 
 				boolean found = false;
 				Vector3 target = Vector3.fromEntityCenter(player);
@@ -105,14 +105,14 @@ public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 				int distance = 1;
 				while(entities.size() == 0 && distance < 25) {
 					target = target.add(new Vector3(player.getLookVec()).multiply(distance)).add(0, 0.5, 0);
-					entities = player.worldObj.getEntitiesWithinAABBExcludingEntity(player, new AxisAlignedBB(target.x - RANGE, target.y - RANGE, target.z - RANGE, target.x + RANGE, target.y + RANGE, target.z + RANGE));
+					entities = player.world.getEntitiesWithinAABBExcludingEntity(player, new AxisAlignedBB(target.x - RANGE, target.y - RANGE, target.z - RANGE, target.x + RANGE, target.y + RANGE, target.z + RANGE));
 					distance++;
 					if(entities.contains(taritem))
 						found = true;
 				}
 
 				if(found)
-					item = player.worldObj.getEntityByID(targetID);
+					item = player.world.getEntityByID(targetID);
 			}
 
 			if(item == null) {
@@ -121,7 +121,7 @@ public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 				int distance = 1;
 				while(entities.size() == 0 && distance < 25) {
 					target = target.add(new Vector3(player.getLookVec()).multiply(distance)).add(0, 0.5, 0);
-					entities = player.worldObj.getEntitiesWithinAABBExcludingEntity(player, new AxisAlignedBB(target.x - RANGE, target.y - RANGE, target.z - RANGE, target.x + RANGE, target.y + RANGE, target.z + RANGE));
+					entities = player.world.getEntitiesWithinAABBExcludingEntity(player, new AxisAlignedBB(target.x - RANGE, target.y - RANGE, target.z - RANGE, target.x + RANGE, target.y + RANGE, target.z + RANGE));
 					distance++;
 				}
 
@@ -189,8 +189,8 @@ public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 			ItemNBTHelper.getDouble(stack, TAG_DIST, -1);
 			Entity item;
 
-			if(targetID != -1 && player.worldObj.getEntityByID(targetID) != null) {
-				Entity taritem = player.worldObj.getEntityByID(targetID);
+			if(targetID != -1 && player.world.getEntityByID(targetID) != null) {
+				Entity taritem = player.world.getEntityByID(targetID);
 
 				boolean found = false;
 				Vector3 target = Vector3.fromEntityCenter(player);
@@ -198,14 +198,14 @@ public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 				int distance = 1;
 				while(entities.size() == 0 && distance < 25) {
 					target = target.add(new Vector3(player.getLookVec()).multiply(distance)).add(0, 0.5, 0);
-					entities = player.worldObj.getEntitiesWithinAABBExcludingEntity(player, new AxisAlignedBB(target.x - RANGE, target.y - RANGE, target.z - RANGE, target.x + RANGE, target.y + RANGE, target.z + RANGE));
+					entities = player.world.getEntitiesWithinAABBExcludingEntity(player, new AxisAlignedBB(target.x - RANGE, target.y - RANGE, target.z - RANGE, target.x + RANGE, target.y + RANGE, target.z + RANGE));
 					distance++;
 					if(entities.contains(taritem))
 						found = true;
 				}
 
 				if(found) {
-					item = player.worldObj.getEntityByID(targetID);
+					item = player.world.getEntityByID(targetID);
 					ItemNBTHelper.setInt(stack, TAG_TARGET, -1);
 					ItemNBTHelper.setDouble(stack, TAG_DIST, -1);
 					Vector3 moveVector = new Vector3(player.getLookVec().normalize());
@@ -215,9 +215,9 @@ public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 						item.motionX = moveVector.x * mot;
 						item.motionY = moveVector.y;
 						item.motionZ = moveVector.z * mot;
-						if(!player.worldObj.isRemote) {
-							EntityThrownItem thrown = new EntityThrownItem(item.worldObj, item.posX, item.posY, item.posZ, (EntityItem) item);
-							item.worldObj.spawnEntityInWorld(thrown);
+						if(!player.world.isRemote) {
+							EntityThrownItem thrown = new EntityThrownItem(item.world, item.posX, item.posY, item.posZ, (EntityItem) item);
+							item.world.spawnEntity(thrown);
 						}
 						item.setDead();
 					} else {

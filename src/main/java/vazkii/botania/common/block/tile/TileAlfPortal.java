@@ -101,7 +101,7 @@ public class TileAlfPortal extends TileMod {
 
 	@Override
 	public void update() {
-		IBlockState iBlockState = worldObj.getBlockState(getPos());
+		IBlockState iBlockState = world.getBlockState(getPos());
 		if(iBlockState.getValue(BotaniaStateProps.ALFPORTAL_STATE) == AlfPortalState.OFF) {
 			ticksOpen = 0;
 			return;
@@ -121,8 +121,8 @@ public class TileAlfPortal extends TileMod {
 			if(ConfigHandler.elfPortalParticlesEnabled)
 				blockParticle(state);
 
-			List<EntityItem> items = worldObj.getEntitiesWithinAABB(EntityItem.class, aabb);
-			if(!worldObj.isRemote)
+			List<EntityItem> items = world.getEntitiesWithinAABB(EntityItem.class, aabb);
+			if(!world.isRemote)
 				for(EntityItem item : items) {
 					if(item.isDead)
 						continue;
@@ -147,13 +147,13 @@ public class TileAlfPortal extends TileMod {
 				}
 
 			if(ticksSinceLastItem >= 4) {
-				if(!worldObj.isRemote)
+				if(!world.isRemote)
 					resolveRecipes();
 			}
 		}
 
 		if(closeNow) {
-			worldObj.setBlockState(getPos(), ModBlocks.alfPortal.getDefaultState(), 1 | 2);
+			world.setBlockState(getPos(), ModBlocks.alfPortal.getDefaultState(), 1 | 2);
 			for(int i = 0; i < 36; i++)
 				blockParticle(state);
 			closeNow = false;
@@ -161,12 +161,12 @@ public class TileAlfPortal extends TileMod {
 			if(newState == AlfPortalState.OFF)
 				for(int i = 0; i < 36; i++)
 					blockParticle(state);
-			worldObj.setBlockState(getPos(), worldObj.getBlockState(getPos()).withProperty(BotaniaStateProps.ALFPORTAL_STATE, newState), 1 | 2);
+			world.setBlockState(getPos(), world.getBlockState(getPos()).withProperty(BotaniaStateProps.ALFPORTAL_STATE, newState), 1 | 2);
 		}
 	}
 
 	private void blockParticle(AlfPortalState state) {
-		int i = worldObj.rand.nextInt(AIR_POSITIONS.length);
+		int i = world.rand.nextInt(AIR_POSITIONS.length);
 		double[] pos = new double[] {
 				AIR_POSITIONS[i].getX() + 0.5F, AIR_POSITIONS[i].getY() + 0.5F, AIR_POSITIONS[i].getZ() + 0.5F
 		};
@@ -178,11 +178,11 @@ public class TileAlfPortal extends TileMod {
 	}
 
 	public boolean onWanded() {
-		AlfPortalState state = worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.ALFPORTAL_STATE);
+		AlfPortalState state = world.getBlockState(getPos()).getValue(BotaniaStateProps.ALFPORTAL_STATE);
 		if(state == AlfPortalState.OFF) {
 			AlfPortalState newState = getValidState();
 			if(newState != AlfPortalState.OFF) {
-				worldObj.setBlockState(getPos(), worldObj.getBlockState(getPos()).withProperty(BotaniaStateProps.ALFPORTAL_STATE, newState), 1 | 2);
+				world.setBlockState(getPos(), world.getBlockState(getPos()).withProperty(BotaniaStateProps.ALFPORTAL_STATE, newState), 1 | 2);
 				return true;
 			}
 		}
@@ -192,7 +192,7 @@ public class TileAlfPortal extends TileMod {
 
 	private AxisAlignedBB getPortalAABB() {
 		AxisAlignedBB aabb = new AxisAlignedBB(pos.add(-1, 1, 0), pos.add(2, 4, 1));
-		if(worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.ALFPORTAL_STATE) == AlfPortalState.ON_X)
+		if(world.getBlockState(getPos()).getValue(BotaniaStateProps.ALFPORTAL_STATE) == AlfPortalState.ON_X)
 			aabb = new AxisAlignedBB(pos.add(0, 1, -1), pos.add(1, 4, 2));
 
 		return aabb;
@@ -234,9 +234,9 @@ public class TileAlfPortal extends TileMod {
 	}
 
 	private void spawnItem(ItemStack stack) {
-		EntityItem item = new EntityItem(worldObj, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, stack);
+		EntityItem item = new EntityItem(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, stack);
 		item.getEntityData().setBoolean(TAG_PORTAL_FLAG, true);
-		worldObj.spawnEntityInWorld(item);
+		world.spawnEntity(item);
 		ticksSinceLastItem = 0;
 	}
 
@@ -337,7 +337,7 @@ public class TileAlfPortal extends TileMod {
 
 		List<BlockPos> pylons = locatePylons();
 		for(BlockPos pos : pylons) {
-			TileEntity tile = worldObj.getTileEntity(getPos().add(pos));
+			TileEntity tile = world.getTileEntity(getPos().add(pos));
 			if(tile instanceof TilePylon) {
 				TilePylon pylon = (TilePylon) tile;
 				pylon.activated = true;
@@ -365,21 +365,21 @@ public class TileAlfPortal extends TileMod {
 		int expectedConsumption = costPer * pylons.size();
 
 		for(BlockPos pos : pylons) {
-			TileEntity tile = worldObj.getTileEntity(getPos().add(pos));
+			TileEntity tile = world.getTileEntity(getPos().add(pos));
 			if(tile instanceof TilePylon) {
 				TilePylon pylon = (TilePylon) tile;
 				pylon.activated = true;
 				pylon.centerPos = getPos();
 			}
 
-			tile = worldObj.getTileEntity(getPos().add(pos).down());
+			tile = world.getTileEntity(getPos().add(pos).down());
 			if(tile instanceof TilePool) {
 				TilePool pool = (TilePool) tile;
 
 				if(pool.getCurrentMana() < costPer) {
 					closeNow = closeNow || close;
 					return false;
-				} else if(!worldObj.isRemote) {
+				} else if(!world.isRemote) {
 					consumePools.add(pool);
 					consumed += costPer;
 				}
@@ -412,10 +412,10 @@ public class TileAlfPortal extends TileMod {
 	private boolean checkPosition(BlockPos pos, IBlockState state, boolean onlyCheckBlock) {
 		BlockPos pos_ = getPos().add(pos);
 
-		IBlockState stateat = worldObj.getBlockState(pos_);
+		IBlockState stateat = world.getBlockState(pos_);
 		Block blockat = stateat.getBlock();
 
-		if(state.getBlock() == Blocks.AIR ? blockat.isAir(stateat, worldObj, pos_) : blockat == state.getBlock())
+		if(state.getBlock() == Blocks.AIR ? blockat.isAir(stateat, world, pos_) : blockat == state.getBlock())
 			return onlyCheckBlock || stateat == state;
 
 		return false;

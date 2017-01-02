@@ -68,13 +68,13 @@ public class ItemBlackLotus extends ItemMod implements IManaDissolvable {
 		TileEntity tile = (TileEntity) pool;
 		boolean t2 = stack.getItemDamage() > 0;
 
-		if(!item.worldObj.isRemote) {
+		if(!item.world.isRemote) {
 			pool.recieveMana(t2 ? MANA_PER_T2 : MANA_PER);
 			stack.stackSize--;
-			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(item.worldObj, tile.getPos());
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(item.world, tile.getPos());
 		}
 
-		PacketHandler.sendToNearby(item.worldObj, item, new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.BLACK_LOTUS_DISSOLVE, item.posX, tile.getPos().getY() + 0.5, item.posZ));
+		PacketHandler.sendToNearby(item.world, item, new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.BLACK_LOTUS_DISSOLVE, item.posX, tile.getPos().getY() + 0.5, item.posZ));
 		item.playSound(BotaniaSoundEvents.blackLotus, 0.5F, t2 ? 0.1F : 1F);
 	}
 

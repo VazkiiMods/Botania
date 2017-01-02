@@ -220,11 +220,11 @@ public class SubTileGenerating extends SubTileEntity {
 		if(player == null)
 			return false;
 
-		if(!player.worldObj.isRemote)
+		if(!player.world.isRemote)
 			sync();
 
 		knownMana = mana;
-		player.worldObj.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.ding, SoundCategory.PLAYERS, 0.1F, 1F);
+		player.world.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.ding, SoundCategory.PLAYERS, 0.1F, 1F);
 
 		return super.onWanded(player, wand);
 	}
@@ -289,7 +289,7 @@ public class SubTileGenerating extends SubTileEntity {
 
 		double dist = pos.distanceSq(supertile.getPos());
 		if(range >= dist) {
-			TileEntity tile = player.worldObj.getTileEntity(pos);
+			TileEntity tile = player.world.getTileEntity(pos);
 			if(tile instanceof IManaCollector) {
 				linkedCollector = tile;
 				return true;

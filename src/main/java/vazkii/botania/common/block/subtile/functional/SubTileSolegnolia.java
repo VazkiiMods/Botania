@@ -45,7 +45,7 @@ public class SubTileSolegnolia extends SubTileFunctional {
 	public static boolean hasSolegnoliaAround(Entity e) {
 		return existingFlowers.stream()
 				.filter(f -> f.redstoneSignal == 0)
-				.filter(f -> f.supertile.getWorld() == e.worldObj)
+				.filter(f -> f.supertile.getWorld() == e.world)
 				.filter(f -> f.supertile.getWorld().getTileEntity(f.supertile.getPos()) == f.supertile)
 				.filter(f -> f.supertile.getDistanceSq(e.posX, e.posY, e.posZ) <= f.getRange() * f.getRange())
 				.findAny().isPresent();

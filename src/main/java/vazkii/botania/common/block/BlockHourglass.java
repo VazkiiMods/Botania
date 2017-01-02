@@ -98,8 +98,8 @@ public class BlockHourglass extends BlockMod implements IManaTrigger, IWandable,
 			return false;
 
 		if(hourglass.lock) {
-			if(!player.worldObj.isRemote)
-				player.addChatMessage(new TextComponentTranslation("botaniamisc.hourglassLock"));
+			if(!player.world.isRemote)
+				player.sendMessage(new TextComponentTranslation("botaniamisc.hourglassLock"));
 			return true;
 		}
 

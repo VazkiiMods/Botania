@@ -23,13 +23,13 @@ public class CommandShare extends CommandBase {
 
 	@Nonnull
 	@Override
-	public String getCommandName() {
+	public String getName() {
 		return "botania-share";
 	}
 
 	@Nonnull
 	@Override
-	public String getCommandUsage(@Nonnull ICommandSender sender) {
+	public String getUsage(@Nonnull ICommandSender sender) {
 		return "<entry>";
 	}
 

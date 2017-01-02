@@ -43,10 +43,10 @@ public class ItemIcePendant extends ItemBauble implements IBaubleRender {
 	@Override
 	public void onWornTick(ItemStack stack, EntityLivingBase entity) {
 		super.onWornTick(stack, entity);
-		if(!entity.worldObj.isRemote) {
+		if(!entity.world.isRemote) {
 			boolean lastOnGround = entity.onGround;
 			entity.onGround = true;
-			EnchantmentFrostWalker.freezeNearby(entity, entity.worldObj, new BlockPos(entity), 8);
+			EnchantmentFrostWalker.freezeNearby(entity, entity.world, new BlockPos(entity), 8);
 			entity.onGround = lastOnGround;
 		}
 	}

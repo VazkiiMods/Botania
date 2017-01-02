@@ -95,7 +95,7 @@ public class SubTileSpectranthemum extends SubTileFunctional {
 	}
 
 	static void spawnExplosionParticles(Entity item, int p) {
-		PacketHandler.sendToNearby(item.worldObj, new BlockPos(item), new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.ITEM_SMOKE, item.posX, item.posY, item.posZ, item.getEntityId(), p));
+		PacketHandler.sendToNearby(item.world, new BlockPos(item), new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.ITEM_SMOKE, item.posX, item.posY, item.posZ, item.getEntityId(), p));
 	}
 
 	@Override
@@ -153,7 +153,7 @@ public class SubTileSpectranthemum extends SubTileFunctional {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public BlockPos getBinding() {
-		return Minecraft.getMinecraft().thePlayer.isSneaking() && bindPos.getY() != -1 ? bindPos : super.getBinding();
+		return Minecraft.getMinecraft().player.isSneaking() && bindPos.getY() != -1 ? bindPos : super.getBinding();
 	}
 
 	@Override

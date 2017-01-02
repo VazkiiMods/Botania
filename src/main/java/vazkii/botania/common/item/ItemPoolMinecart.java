@@ -50,7 +50,7 @@ public class ItemPoolMinecart extends ItemMod implements ICraftAchievement, IMin
 				if(stack.hasDisplayName())
 					entityminecart.setCustomNameTag(stack.getDisplayName());
 
-				world.spawnEntityInWorld(entityminecart);
+				world.spawnEntity(entityminecart);
 			}
 
 			--stack.stackSize;
@@ -79,7 +79,7 @@ public class ItemPoolMinecart extends ItemMod implements ICraftAchievement, IMin
 				if(cart.hasDisplayName())
 					entityminecart.setCustomNameTag(cart.getDisplayName());
 
-				if(world.spawnEntityInWorld(entityminecart))
+				if(world.spawnEntity(entityminecart))
 					return entityminecart;
 			}
 		}

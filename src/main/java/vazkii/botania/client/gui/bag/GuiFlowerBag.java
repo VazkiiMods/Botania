@@ -53,8 +53,8 @@ public class GuiFlowerBag extends GuiContainer {
 				SlotItemHandler slotf = (SlotItemHandler) slot;
 				if(!slotf.getHasStack()) {
 					ItemStack stack = new ItemStack(ModBlocks.flower, 0, slotf.getSlotIndex()); // index matches colors
-					int x = guiLeft + slotf.xDisplayPosition;
-					int y = guiTop + slotf.yDisplayPosition;
+					int x = guiLeft + slotf.xPos;
+					int y = guiTop + slotf.yPos;
 					RenderHelper.enableGUIStandardItemLighting();
 					mc.getRenderItem().renderItemIntoGUI(stack, x, y);
 					RenderHelper.disableStandardItemLighting();

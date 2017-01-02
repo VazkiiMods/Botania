@@ -33,19 +33,19 @@ public class LensWeight extends Lens {
 
 	@Override
 	public boolean collideBurst(IManaBurst burst, EntityThrowable entity, RayTraceResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
-		if(!entity.worldObj.isRemote && !burst.isFake() && pos.getBlockPos() != null) {
+		if(!entity.world.isRemote && !burst.isFake() && pos.getBlockPos() != null) {
 			int harvestLevel = ConfigHandler.harvestLevelWeight;
 
-			Block block = entity.worldObj.getBlockState(pos.getBlockPos()).getBlock();
-			IBlockState state = entity.worldObj.getBlockState(pos.getBlockPos());
+			Block block = entity.world.getBlockState(pos.getBlockPos()).getBlock();
+			IBlockState state = entity.world.getBlockState(pos.getBlockPos());
 			int neededHarvestLevel = block.getHarvestLevel(state);
 
-			if(entity.worldObj.isAirBlock(pos.getBlockPos().down()) && state.getBlockHardness(entity.worldObj, pos.getBlockPos()) != -1 && neededHarvestLevel <= harvestLevel && entity.worldObj.getTileEntity(pos.getBlockPos()) == null && block.canSilkHarvest(entity.worldObj, pos.getBlockPos(), state, null)) {
+			if(entity.world.isAirBlock(pos.getBlockPos().down()) && state.getBlockHardness(entity.world, pos.getBlockPos()) != -1 && neededHarvestLevel <= harvestLevel && entity.world.getTileEntity(pos.getBlockPos()) == null && block.canSilkHarvest(entity.world, pos.getBlockPos(), state, null)) {
 				state = TECHNICAL_BLOCK_REMAP.getOrDefault(state, state);
-				EntityFallingBlock falling = new EntityFallingBlock(entity.worldObj, pos.getBlockPos().getX() + 0.5, pos.getBlockPos().getY() + 0.5, pos.getBlockPos().getZ() + 0.5, state);
+				EntityFallingBlock falling = new EntityFallingBlock(entity.world, pos.getBlockPos().getX() + 0.5, pos.getBlockPos().getY() + 0.5, pos.getBlockPos().getZ() + 0.5, state);
 				falling.fallTime = 1;
-				entity.worldObj.setBlockToAir(pos.getBlockPos());
-				entity.worldObj.spawnEntityInWorld(falling);
+				entity.world.setBlockToAir(pos.getBlockPos());
+				entity.world.spawnEntity(falling);
 			}
 		}
 

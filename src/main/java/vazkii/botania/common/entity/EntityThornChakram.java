@@ -91,15 +91,15 @@ public class EntityThornChakram extends EntityThrowable {
 		}
 
 		// Client FX
-		if(worldObj.isRemote && isFire()) {
+		if(world.isRemote && isFire()) {
 			double r = 0.1;
 			double m = 0.1;
 			for(int i = 0; i < 3; i++)
-				worldObj.spawnParticle(EnumParticleTypes.FLAME, posX + r * (Math.random() - 0.5), posY + r * (Math.random() - 0.5), posZ + r * (Math.random() - 0.5), m * (Math.random() - 0.5), m * (Math.random() - 0.5), m * (Math.random() - 0.5));
+				world.spawnParticle(EnumParticleTypes.FLAME, posX + r * (Math.random() - 0.5), posY + r * (Math.random() - 0.5), posZ + r * (Math.random() - 0.5), m * (Math.random() - 0.5), m * (Math.random() - 0.5), m * (Math.random() - 0.5));
 		}
 
 		// Server state control
-		if(!worldObj.isRemote && (getTimesBounced() >= MAX_BOUNCES || ticksExisted > 60)) {
+		if(!world.isRemote && (getTimesBounced() >= MAX_BOUNCES || ticksExisted > 60)) {
 			EntityLivingBase thrower = getThrower();
 			if(thrower == null) {
 				dropAndKill();
@@ -113,8 +113,8 @@ public class EntityThornChakram extends EntityThrowable {
 
 	private void dropAndKill() {
 		ItemStack stack = getItemStack();
-		EntityItem item = new EntityItem(worldObj, posX, posY, posZ, stack);
-		worldObj.spawnEntityInWorld(item);
+		EntityItem item = new EntityItem(world, posX, posY, posZ, stack);
+		world.spawnEntity(item);
 		setDead();
 	}
 
@@ -129,7 +129,7 @@ public class EntityThornChakram extends EntityThrowable {
 
 		switch (pos.typeOfHit) {
 		case BLOCK: {
-			Block block = worldObj.getBlockState(pos.getBlockPos()).getBlock();
+			Block block = world.getBlockState(pos.getBlockPos()).getBlock();
 			if(block instanceof BlockBush || block instanceof BlockLeaves)
 				return;
 
@@ -145,19 +145,19 @@ public class EntityThornChakram extends EntityThrowable {
 				motionZ = movementVec.z;
 				bounced = true;
 
-				if(!worldObj.isRemote)
+				if(!world.isRemote)
 					setTimesBounced(getTimesBounced() + 1);
 			}
 
 			break;
 		}
 		case ENTITY: {
-			if(!worldObj.isRemote && pos.entityHit != null && pos.entityHit instanceof EntityLivingBase && pos.entityHit != getThrower()) {
+			if(!world.isRemote && pos.entityHit != null && pos.entityHit instanceof EntityLivingBase && pos.entityHit != getThrower()) {
 				EntityLivingBase thrower = getThrower();
 				pos.entityHit.attackEntityFrom(thrower != null ? thrower instanceof EntityPlayer ? DamageSource.causeThrownDamage(this, thrower) : DamageSource.causeMobDamage(thrower) : DamageSource.generic, 12);
 				if(isFire())
 					pos.entityHit.setFire(5);
-				else if(worldObj.rand.nextInt(3) == 0)
+				else if(world.rand.nextInt(3) == 0)
 					((EntityLivingBase) pos.entityHit).addPotionEffect(new PotionEffect(MobEffects.POISON, 60, 0));
 			}
 

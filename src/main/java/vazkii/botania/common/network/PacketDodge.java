@@ -37,14 +37,14 @@ public class PacketDodge implements IMessage {
 		public IMessage onMessage(PacketDodge message, MessageContext ctx) {
 			EntityPlayerMP player = ctx.getServerHandler().playerEntity;
 			player.mcServer.addScheduledTask(() -> {
-				player.worldObj.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.dash, SoundCategory.PLAYERS, 1F, 1F);
+				player.world.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.dash, SoundCategory.PLAYERS, 1F, 1F);
 
 				IInventory baublesInv = BaublesApi.getBaubles(player);
 				ItemStack ringStack = baublesInv.getStackInSlot(1);
 				if(ringStack == null || !(ringStack.getItem() instanceof ItemDodgeRing)) {
 					ringStack = baublesInv.getStackInSlot(2);
 					if(ringStack == null || !(ringStack.getItem() instanceof ItemDodgeRing))
-						ctx.getServerHandler().kickPlayerFromServer("Invalid Dodge Packet");
+						ctx.getServerHandler().disconnect("Invalid Dodge Packet");
 				}
 
 				player.addExhaustion(0.3F);

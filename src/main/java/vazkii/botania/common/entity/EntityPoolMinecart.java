@@ -114,12 +114,12 @@ public class EntityPoolMinecart extends EntityMinecart {
 	public void onUpdate() {
 		super.onUpdate();
 
-		if(worldObj.isRemote) {
+		if(world.isRemote) {
 			double particleChance = 1F - (double) getMana() / (double) TilePool.MAX_MANA * 0.1;
 			Color color = TilePool.PARTICLE_COLOR;
-			double x = MathHelper.floor_double(posX);
-			double y = MathHelper.floor_double(posY);
-			double z = MathHelper.floor_double(posZ);
+			double x = MathHelper.floor(posX);
+			double y = MathHelper.floor(posY);
+			double z = MathHelper.floor(posZ);
 			if(Math.random() > particleChance)
 				Botania.proxy.wispFX(x + 0.3 + Math.random() * 0.5, y + 0.85 + Math.random() * 0.25, z + Math.random(), color.getRed(), color.getGreen() / 255F, color.getBlue() / 255F, (float) Math.random() / 3F, (float) -Math.random() / 25F, 2F);
 		}
@@ -131,16 +131,16 @@ public class EntityPoolMinecart extends EntityMinecart {
 
 		for(EnumFacing dir : EnumFacing.HORIZONTALS) {
 			BlockPos posP = pos.offset(dir);
-			Block block = worldObj.getBlockState(posP).getBlock();
+			Block block = world.getBlockState(posP).getBlock();
 			if(block == ModBlocks.pump) {
 				BlockPos posP_ = posP.offset(dir);
-				TileEntity tile = worldObj.getTileEntity(posP_);
-				TileEntity tile_ = worldObj.getTileEntity(posP);
+				TileEntity tile = world.getTileEntity(posP_);
+				TileEntity tile_ = world.getTileEntity(posP);
 				TilePump pump = (TilePump) tile_;
 
 				if(tile != null && tile instanceof IManaPool) {
 					IManaPool pool = (IManaPool) tile;
-					EnumFacing pumpDir = worldObj.getBlockState(posP).getValue(BotaniaStateProps.CARDINALS);
+					EnumFacing pumpDir = world.getBlockState(posP).getValue(BotaniaStateProps.CARDINALS);
 					boolean did = false;
 					boolean can = false;
 
@@ -173,7 +173,7 @@ public class EntityPoolMinecart extends EntityMinecart {
 					}
 
 					if(did) {
-						VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, posP_);
+						VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, posP_);
 						pump.hasCart = true;
 						if(!pump.active)
 							pump.setActive(true);

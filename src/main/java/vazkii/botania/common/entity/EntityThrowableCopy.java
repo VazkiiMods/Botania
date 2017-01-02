@@ -118,7 +118,7 @@ public abstract class EntityThrowableCopy extends Entity implements IProjectile
 	@Override
 	public void setThrowableHeading(double x, double y, double z, float velocity, float inaccuracy)
 	{
-		float f = MathHelper.sqrt_double(x * x + y * y + z * z);
+		float f = MathHelper.sqrt(x * x + y * y + z * z);
 		x = x / f;
 		y = y / f;
 		z = z / f;
@@ -131,7 +131,7 @@ public abstract class EntityThrowableCopy extends Entity implements IProjectile
 		motionX = x;
 		motionY = y;
 		motionZ = z;
-		float f1 = MathHelper.sqrt_double(x * x + z * z);
+		float f1 = MathHelper.sqrt(x * x + z * z);
 		prevRotationYaw = rotationYaw = (float)(MathHelper.atan2(x, z) * (180D / Math.PI));
 		prevRotationPitch = rotationPitch = (float)(MathHelper.atan2(y, f1) * (180D / Math.PI));
 		ticksInGround = 0;
@@ -150,7 +150,7 @@ public abstract class EntityThrowableCopy extends Entity implements IProjectile
 
 		if (prevRotationPitch == 0.0F && prevRotationYaw == 0.0F)
 		{
-			float f = MathHelper.sqrt_double(x * x + z * z);
+			float f = MathHelper.sqrt(x * x + z * z);
 			prevRotationYaw = rotationYaw = (float)(MathHelper.atan2(x, z) * (180D / Math.PI));
 			prevRotationPitch = rotationPitch = (float)(MathHelper.atan2(y, f) * (180D / Math.PI));
 		}
@@ -174,7 +174,7 @@ public abstract class EntityThrowableCopy extends Entity implements IProjectile
 
 		if (inGround)
 		{
-			if (worldObj.getBlockState(new BlockPos(xTile, yTile, zTile)).getBlock() == inTile)
+			if (world.getBlockState(new BlockPos(xTile, yTile, zTile)).getBlock() == inTile)
 			{
 				++ticksInGround;
 
@@ -198,7 +198,7 @@ public abstract class EntityThrowableCopy extends Entity implements IProjectile
 
 		Vec3d vec3d = new Vec3d(posX, posY, posZ);
 		Vec3d vec3d1 = new Vec3d(posX + motionX, posY + motionY, posZ + motionZ);
-		RayTraceResult raytraceresult = worldObj.rayTraceBlocks(vec3d, vec3d1);
+		RayTraceResult raytraceresult = world.rayTraceBlocks(vec3d, vec3d1);
 		vec3d = new Vec3d(posX, posY, posZ);
 		vec3d1 = new Vec3d(posX + motionX, posY + motionY, posZ + motionZ);
 
@@ -208,7 +208,7 @@ public abstract class EntityThrowableCopy extends Entity implements IProjectile
 		}
 
 		Entity entity = null;
-		List<Entity> list = worldObj.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox().addCoord(motionX, motionY, motionZ).expandXyz(1.0D));
+		List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox().addCoord(motionX, motionY, motionZ).expandXyz(1.0D));
 		double d0 = 0.0D;
 		boolean flag = false;
 
@@ -266,7 +266,7 @@ public abstract class EntityThrowableCopy extends Entity implements IProjectile
 
 		if (raytraceresult != null)
 		{
-			if (raytraceresult.typeOfHit == RayTraceResult.Type.BLOCK && worldObj.getBlockState(raytraceresult.getBlockPos()).getBlock() == Blocks.PORTAL)
+			if (raytraceresult.typeOfHit == RayTraceResult.Type.BLOCK && world.getBlockState(raytraceresult.getBlockPos()).getBlock() == Blocks.PORTAL)
 			{
 				setPortal(raytraceresult.getBlockPos());
 			}
@@ -279,7 +279,7 @@ public abstract class EntityThrowableCopy extends Entity implements IProjectile
 		posX += motionX;
 		posY += motionY;
 		posZ += motionZ;
-		float f = MathHelper.sqrt_double(motionX * motionX + motionZ * motionZ);
+		float f = MathHelper.sqrt(motionX * motionX + motionZ * motionZ);
 		rotationYaw = (float)(MathHelper.atan2(motionX, motionZ) * (180D / Math.PI));
 
 		for (rotationPitch = (float)(MathHelper.atan2(motionY, f) * (180D / Math.PI)); rotationPitch - prevRotationPitch < -180.0F; prevRotationPitch -= 360.0F)
@@ -312,7 +312,7 @@ public abstract class EntityThrowableCopy extends Entity implements IProjectile
 			for (int j = 0; j < 4; ++j)
 			{
 				float f3 = 0.25F;
-				worldObj.spawnParticle(EnumParticleTypes.WATER_BUBBLE, posX - motionX * f3, posY - motionY * f3, posZ - motionZ * f3, motionX, motionY, motionZ);
+				world.spawnParticle(EnumParticleTypes.WATER_BUBBLE, posX - motionX * f3, posY - motionY * f3, posZ - motionZ * f3, motionX, motionY, motionZ);
 			}
 
 			f1 = 0.8F;
@@ -396,13 +396,13 @@ public abstract class EntityThrowableCopy extends Entity implements IProjectile
 	{
 		if (thrower == null && throwerName != null && !throwerName.isEmpty())
 		{
-			thrower = worldObj.getPlayerEntityByName(throwerName);
+			thrower = world.getPlayerEntityByName(throwerName);
 
-			if (thrower == null && worldObj instanceof WorldServer)
+			if (thrower == null && world instanceof WorldServer)
 			{
 				try
 				{
-					Entity entity = ((WorldServer)worldObj).getEntityFromUuid(UUID.fromString(throwerName));
+					Entity entity = ((WorldServer)world).getEntityFromUuid(UUID.fromString(throwerName));
 
 					if (entity instanceof EntityLivingBase)
 					{

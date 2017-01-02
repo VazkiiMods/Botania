@@ -162,7 +162,7 @@ public class ItemManaMirror extends ItemMod implements IManaItem, ICoordBoundIte
 
 		int dim = getDimension(stack);
 		World world = null;
-		for(World w : server.worldServers)
+		for(World w : server.worlds)
 			if(w.provider.getDimension() == dim) {
 				world = w;
 				break;

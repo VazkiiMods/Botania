@@ -67,7 +67,7 @@ public class PageTutorial extends PageText {
 		if(button == buttonText) {
 			GuiLexicon.startTutorial();
 			Minecraft.getMinecraft().displayGuiScreen(new GuiLexicon());
-			Minecraft.getMinecraft().thePlayer.addChatMessage(new TextComponentTranslation("botaniamisc.tutorialStarted").setStyle(new Style().setColor(TextFormatting.GREEN)));
+			Minecraft.getMinecraft().player.sendMessage(new TextComponentTranslation("botaniamisc.tutorialStarted").setStyle(new Style().setColor(TextFormatting.GREEN)));
 		} else if(button == buttonVideo && Desktop.isDesktopSupported()) {
 			try {
 				Desktop.getDesktop().browse(new URI("https://www.youtube.com/watch?v=rx0xyejC6fI"));

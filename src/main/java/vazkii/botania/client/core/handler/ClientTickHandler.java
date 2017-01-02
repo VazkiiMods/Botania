@@ -61,7 +61,7 @@ public final class ClientTickHandler {
 			RedStringRenderer.tick();
 			ItemsRemainingRenderHandler.tick();
 
-			if(Minecraft.getMinecraft().theWorld == null) {
+			if(Minecraft.getMinecraft().world == null) {
 				ManaNetworkHandler.instance.clear();
 				TileCorporeaIndex.indexes.clear();
 				SubTileVinculotus.existingFlowers.clear();
@@ -72,10 +72,10 @@ public final class ClientTickHandler {
 				ticksInGame++;
 				partialTicks = 0;
 
-				EntityPlayer player = Minecraft.getMinecraft().thePlayer;
+				EntityPlayer player = Minecraft.getMinecraft().player;
 				if(player != null) {
 					if(PlayerHelper.hasHeldItemClass(player, ModItems.twigWand)) {
-						for(TileSignature sig : ImmutableList.copyOf(ManaNetworkHandler.instance.getAllCollectorsInWorld(Minecraft.getMinecraft().theWorld))) {
+						for(TileSignature sig : ImmutableList.copyOf(ManaNetworkHandler.instance.getAllCollectorsInWorld(Minecraft.getMinecraft().world))) {
 							if(!sig.isRemote())
 								continue;
 

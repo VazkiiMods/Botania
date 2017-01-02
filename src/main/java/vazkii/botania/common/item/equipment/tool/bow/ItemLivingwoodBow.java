@@ -167,7 +167,7 @@ public class ItemLivingwoodBow extends ItemBow implements IManaUsingItem, IModel
 						entityarrow.pickupStatus = EntityArrow.PickupStatus.CREATIVE_ONLY;
 					}
 
-					world.spawnEntityInWorld(entityarrow);
+					world.spawnEntity(entityarrow);
 					onFire(stack, shooter, infinite, entityarrow);
 				}
 

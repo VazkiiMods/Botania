@@ -89,7 +89,7 @@ public class ItemCacophonium extends ItemMod implements ICraftAchievement {
 				ItemNBTHelper.setString(stack, TAG_SOUND_NAME, "entity." + s + ".name");
 				player.setHeldItem(hand, stack);
 
-				if(player.worldObj.isRemote)
+				if(player.world.isRemote)
 					player.swingArm(hand);
 
 				return true;
@@ -146,7 +146,7 @@ public class ItemCacophonium extends ItemMod implements ICraftAchievement {
 	@Override
 	public void onUsingTick(ItemStack stack, EntityLivingBase player, int count) {
 		if(count % (isDOIT(stack) ? 20 : 6) == 0)
-			playSound(player.worldObj, stack, player.posX, player.posY, player.posZ, SoundCategory.PLAYERS, 0.9F);
+			playSound(player.world, stack, player.posX, player.posY, player.posZ, SoundCategory.PLAYERS, 0.9F);
 	}
 
 	public static void playSound(World world, ItemStack stack, double x, double y, double z, SoundCategory category, float volume) {

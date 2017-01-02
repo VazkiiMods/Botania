@@ -68,7 +68,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 	public static void onPlayerInteract(PlayerInteractEvent.RightClickBlock event) {
 		EntityPlayer player = event.getEntityPlayer();
 		ItemStack lokiRing = getLokiRing(player);
-		if(lokiRing == null || player.worldObj.isRemote)
+		if(lokiRing == null || player.world.isRemote)
 			return;
 
 		int slot = -1;
@@ -83,7 +83,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 
 		ItemStack heldItemStack = event.getItemStack();
 		BlockPos originCoords = getOriginPos(lokiRing);
-		RayTraceResult lookPos = ToolCommons.raytraceFromEntity(player.worldObj, player, true, 10F);
+		RayTraceResult lookPos = ToolCommons.raytraceFromEntity(player.world, player, true, 10F);
 		List<BlockPos> cursors = getCursorList(lokiRing);
 		int cursorCount = cursors.size();
 
@@ -119,8 +119,8 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 			for(BlockPos cursor : cursors) {
 				BlockPos pos = lookPos.getBlockPos().add(cursor);
 				Item item = heldItemStack.getItem();
-				if(!player.worldObj.isAirBlock(pos) && ManaItemHandler.requestManaExact(lokiRing, player, cost, true)) {
-					item.onItemUse(player.capabilities.isCreativeMode ? heldItemStack.copy() : heldItemStack, player, player.worldObj, pos, event.getHand(), lookPos.sideHit, (float) lookPos.hitVec.xCoord - pos.getX(), (float) lookPos.hitVec.yCoord - pos.getY(), (float) lookPos.hitVec.zCoord - pos.getZ());
+				if(!player.world.isAirBlock(pos) && ManaItemHandler.requestManaExact(lokiRing, player, cost, true)) {
+					item.onItemUse(player.capabilities.isCreativeMode ? heldItemStack.copy() : heldItemStack, player, player.world, pos, event.getHand(), lookPos.sideHit, (float) lookPos.hitVec.xCoord - pos.getX(), (float) lookPos.hitVec.yCoord - pos.getY(), (float) lookPos.hitVec.zCoord - pos.getZ());
 					if(heldItemStack.stackSize == 0) {
 						event.setCanceled(true);
 						return;
@@ -132,12 +132,12 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 
 	public static void breakOnAllCursors(EntityPlayer player, Item item, ItemStack stack, BlockPos pos, EnumFacing side) {
 		ItemStack lokiRing = getLokiRing(player);
-		if(lokiRing == null || player.worldObj.isRemote || !(item instanceof ISequentialBreaker))
+		if(lokiRing == null || player.world.isRemote || !(item instanceof ISequentialBreaker))
 			return;
 
 		List<BlockPos> cursors = getCursorList(lokiRing);
 		ISequentialBreaker breaker = (ISequentialBreaker) item;
-		World world = player.worldObj;
+		World world = player.world;
 		boolean silk = EnchantmentHelper.getEnchantmentLevel(Enchantments.SILK_TOUCH, stack) > 0;
 		int fortune = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, stack);
 		boolean dispose = breaker.disposeOfTrashBlocks(stack);
@@ -145,7 +145,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 		for (BlockPos coords : cursors) {
 			IBlockState state = world.getBlockState(coords);
 			breaker.breakOtherBlock(player, stack, coords, coords, side);
-			ToolCommons.removeBlockWithDrops(player, stack, player.worldObj, coords, pos, state.getBlock(), new Material[]{state.getMaterial()}, silk, fortune, state.getBlockHardness(world, coords), dispose);
+			ToolCommons.removeBlockWithDrops(player, stack, player.world, coords, pos, state.getBlock(), new Material[]{state.getMaterial()}, silk, fortune, state.getBlockHardness(world, coords), dispose);
 		}
 	}
 
@@ -167,7 +167,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 
 		RayTraceResult lookPos = Minecraft.getMinecraft().objectMouseOver;
 
-		if(lookPos != null && lookPos.getBlockPos() != null && !player.worldObj.isAirBlock(lookPos.getBlockPos()) && lookPos.entityHit == null) {
+		if(lookPos != null && lookPos.getBlockPos() != null && !player.world.isAirBlock(lookPos.getBlockPos()) && lookPos.entityHit == null) {
 			List<BlockPos> list = getCursorList(stack);
 			BlockPos origin = getOriginPos(stack);
 

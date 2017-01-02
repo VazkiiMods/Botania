@@ -60,9 +60,9 @@ public class ItemThunderSword extends ItemManasteelSword implements ICraftAchiev
 
 			Random rand = new Random(lightningSeed);
 			EntityLivingBase lightningSource = entity;
-			int hops = entity.worldObj.isThundering() ? 10 : 4;
+			int hops = entity.world.isThundering() ? 10 : 4;
 			for(int i = 0; i < hops; i++) {
-				List<Entity> entities = entity.worldObj.getEntitiesInAABBexcluding(lightningSource, new AxisAlignedBB(lightningSource.posX - range, lightningSource.posY - range, lightningSource.posZ - range, lightningSource.posX + range, lightningSource.posY + range, lightningSource.posZ + range), selector::test);
+				List<Entity> entities = entity.world.getEntitiesInAABBexcluding(lightningSource, new AxisAlignedBB(lightningSource.posX - range, lightningSource.posY - range, lightningSource.posZ - range, lightningSource.posX + range, lightningSource.posY + range, lightningSource.posZ + range), selector::test);
 				if(entities.isEmpty())
 					break;
 
@@ -78,8 +78,8 @@ public class ItemThunderSword extends ItemManasteelSword implements ICraftAchiev
 				dmg--;
 			}
 
-			if(!entity.worldObj.isRemote)
-				ItemNBTHelper.setLong(stack, TAG_LIGHTNING_SEED, entity.worldObj.rand.nextLong());
+			if(!entity.world.isRemote)
+				ItemNBTHelper.setLong(stack, TAG_LIGHTNING_SEED, entity.world.rand.nextLong());
 		}
 
 
@@ -97,8 +97,8 @@ public class ItemThunderSword extends ItemManasteelSword implements ICraftAchiev
 		Multimap<String, AttributeModifier> multimap = super.getItemAttributeModifiers(equipmentSlot);
 
 		if (equipmentSlot == EntityEquipmentSlot.MAINHAND) {
-			multimap.removeAll(SharedMonsterAttributes.ATTACK_SPEED.getAttributeUnlocalizedName());
-			multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getAttributeUnlocalizedName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", -1.5, 0));
+			multimap.removeAll(SharedMonsterAttributes.ATTACK_SPEED.getName());
+			multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", -1.5, 0));
 		}
 
 		return multimap;

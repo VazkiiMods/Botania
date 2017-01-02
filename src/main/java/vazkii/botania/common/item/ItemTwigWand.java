@@ -277,7 +277,7 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 
 		RayTraceResult pos = Minecraft.getMinecraft().objectMouseOver;
 		if(pos != null && pos.typeOfHit == RayTraceResult.Type.BLOCK) {
-			TileEntity tile = Minecraft.getMinecraft().theWorld.getTileEntity(pos.getBlockPos());
+			TileEntity tile = Minecraft.getMinecraft().world.getTileEntity(pos.getBlockPos());
 			if(tile != null && tile instanceof ITileBound) {
 				BlockPos coords = ((ITileBound) tile).getBinding();
 				return coords;

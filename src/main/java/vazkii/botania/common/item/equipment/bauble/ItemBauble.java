@@ -137,8 +137,8 @@ public abstract class ItemBauble extends ItemMod implements IBauble, ICosmeticAt
 	@Override
 	public void onEquipped(ItemStack stack, EntityLivingBase player) {
 		if(player != null) {
-			if(!player.worldObj.isRemote)
-				player.worldObj.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.equipBauble, SoundCategory.PLAYERS, 0.1F, 1.3F);
+			if(!player.world.isRemote)
+				player.world.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.equipBauble, SoundCategory.PLAYERS, 0.1F, 1.3F);
 
 			if(player instanceof EntityPlayer)
 				((EntityPlayer) player).addStat(ModAchievements.baubleWear, 1);

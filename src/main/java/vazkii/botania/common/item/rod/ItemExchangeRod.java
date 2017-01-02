@@ -226,7 +226,7 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 					if(!player.capabilities.isCreativeMode) {
 						List<ItemStack> drops = blockAt.getDrops(world, pos, stateAt, 0);
 						for(ItemStack drop : drops)
-							world.spawnEntityInWorld(new EntityItem(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, drop));
+							world.spawnEntity(new EntityItem(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, drop));
 						removeFromInventory(player, stack, state.getBlock(), state.getBlock().getMetaFromState(state), true);
 					}
 					world.playEvent(2001, pos, Block.getStateId(state));
@@ -330,7 +330,7 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 		Block block = getBlock(stack);
 		int meta = getBlockMeta(stack);
 		int count = getInventoryItemCount(player, stack, block, meta);
-		if(!player.worldObj.isRemote)
+		if(!player.world.isRemote)
 			ItemsRemainingRenderHandler.set(new ItemStack(block, 1, meta), count);
 	}
 
@@ -409,8 +409,8 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 				targetMeta = getTargetBlockMeta(stack);
 			}
 
-			if(!player.worldObj.isAirBlock(bPos)) {
-				List<BlockPos> coordsList = getBlocksToSwap(player.worldObj, stack, block.getStateFromMeta(meta), bPos, targetBlock == null ? null : targetBlock.getStateFromMeta(targetMeta));
+			if(!player.world.isAirBlock(bPos)) {
+				List<BlockPos> coordsList = getBlocksToSwap(player.world, stack, block.getStateFromMeta(meta), bPos, targetBlock == null ? null : targetBlock.getStateFromMeta(targetMeta));
 				for(BlockPos coords : coordsList)
 					if(coords.equals(bPos)) {
 						coordsList.remove(coords);

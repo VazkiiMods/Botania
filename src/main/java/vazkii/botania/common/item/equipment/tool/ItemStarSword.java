@@ -61,7 +61,7 @@ public class ItemStarSword extends ItemManasteelSword implements ICraftAchieveme
 					star.motionX = motVec.x;
 					star.motionY = motVec.y;
 					star.motionZ = motVec.z;
-					world.spawnEntityInWorld(star);
+					world.spawnEntity(star);
 
 					if (!world.isRaining()
 							&& Math.abs(world.getWorldTime() - 18000) < 1800
@@ -71,7 +71,7 @@ public class ItemStarSword extends ItemManasteelSword implements ICraftAchieveme
 						bonusStar.motionX = motVec.x + Math.random() - 0.5;
 						bonusStar.motionY = motVec.y + Math.random() - 0.5;
 						bonusStar.motionZ = motVec.z + Math.random() - 0.5;
-						world.spawnEntityInWorld(bonusStar);
+						world.spawnEntity(bonusStar);
 					}
 
 					ToolCommons.damageItem(par1ItemStack, 1, player, MANA_PER_DAMAGE);

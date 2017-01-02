@@ -29,7 +29,7 @@ public final class PixieHandler {
 
 	@SubscribeEvent
 	public static void onDamageTaken(LivingHurtEvent event) {
-		if(!event.getEntityLiving().worldObj.isRemote && event.getEntityLiving() instanceof EntityPlayer && event.getSource().getEntity() != null && event.getSource().getEntity() instanceof EntityLivingBase) {
+		if(!event.getEntityLiving().world.isRemote && event.getEntityLiving() instanceof EntityPlayer && event.getSource().getEntity() != null && event.getSource().getEntity() instanceof EntityLivingBase) {
 			EntityPlayer player = (EntityPlayer) event.getEntityLiving();
 			ItemStack stack = PlayerHelper.getFirstHeldItemClass(player, IPixieSpawner.class);
 
@@ -42,11 +42,11 @@ public final class PixieHandler {
 				chance += getChance(baubles.getStackInSlot(i));
 
 			if(Math.random() < chance) {
-				EntityPixie pixie = new EntityPixie(player.worldObj);
+				EntityPixie pixie = new EntityPixie(player.world);
 				pixie.setPosition(player.posX, player.posY + 2, player.posZ);
 
 				if(((ItemElementiumHelm) ModItems.elementiumHelm).hasArmorSet(player)) {
-					pixie.setApplyPotionEffect(new PotionEffect(potions[event.getEntityLiving().worldObj.rand.nextInt(potions.length)], 40, 0));
+					pixie.setApplyPotionEffect(new PotionEffect(potions[event.getEntityLiving().world.rand.nextInt(potions.length)], 40, 0));
 				}
 
 				float dmg = 4;
@@ -54,7 +54,7 @@ public final class PixieHandler {
 					dmg += 2;
 
 				pixie.setProps((EntityLivingBase) event.getSource().getEntity(), player, 0, dmg);
-				player.worldObj.spawnEntityInWorld(pixie);
+				player.world.spawnEntity(pixie);
 			}
 		}
 	}

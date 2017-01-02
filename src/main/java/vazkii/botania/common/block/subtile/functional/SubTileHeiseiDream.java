@@ -65,7 +65,7 @@ public class SubTileHeiseiDream extends SubTileFunctional {
 
 		if(target == null || !(target instanceof IMob)) {
 			IMob newTarget;
-			do newTarget = mobs.get(entity.worldObj.rand.nextInt(mobs.size()));
+			do newTarget = mobs.get(entity.world.rand.nextInt(mobs.size()));
 			while(newTarget == entity);
 
 			if(newTarget instanceof EntityLiving) {

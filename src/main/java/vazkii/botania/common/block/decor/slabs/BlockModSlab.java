@@ -96,7 +96,7 @@ public abstract class BlockModSlab extends BlockSlab implements ILexiconable, IM
 	}
 
 	@Override
-	public ItemStack createStackedBlock(@Nonnull IBlockState par1) {
+	public ItemStack getSilkTouchDrop(@Nonnull IBlockState par1) {
 		return new ItemStack(getSingleBlock());
 	}
 

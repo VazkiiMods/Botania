@@ -120,7 +120,7 @@ public class ItemBlackHoleTalisman extends ItemMod implements IBlockProvider {
 	@Override
 	public void onUpdate(ItemStack itemstack, World world, Entity entity, int slot, boolean selected) {
 		Block block = getBlock(itemstack);
-		if(!entity.worldObj.isRemote && itemstack.getItemDamage() == 1 && block != Blocks.AIR && entity instanceof EntityPlayer) {
+		if(!entity.world.isRemote && itemstack.getItemDamage() == 1 && block != Blocks.AIR && entity instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) entity;
 			int meta = getBlockMeta(itemstack);
 

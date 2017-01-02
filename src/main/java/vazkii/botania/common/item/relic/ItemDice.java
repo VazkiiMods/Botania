@@ -53,7 +53,7 @@ public class ItemDice extends ItemRelic {
 	@Nonnull
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
-		if(isRightPlayer(player, stack) && !player.worldObj.isRemote) {
+		if(isRightPlayer(player, stack) && !player.world.isRemote) {
 			int moonPhase = world.provider.getMoonPhase(world.getWorldTime());
 			int relic = SIDES_FOR_MOON_PHASES[moonPhase];
 			if(hasRelicAlready(player, relic)) {
@@ -72,12 +72,12 @@ public class ItemDice extends ItemRelic {
 			world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 0.5F, 0.4F / (world.rand.nextFloat() * 0.4F + 0.8F));
 
 			if(hasRelicAlready(player, relic)) {
-				player.addChatMessage(new TextComponentTranslation("botaniamisc.dudDiceRoll", relic + 1).setStyle(new Style().setColor(TextFormatting.DARK_GREEN)));
+				player.sendMessage(new TextComponentTranslation("botaniamisc.dudDiceRoll", relic + 1).setStyle(new Style().setColor(TextFormatting.DARK_GREEN)));
 				stack.stackSize--;
 				return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
 			}
 
-			player.addChatMessage(new TextComponentTranslation("botaniamisc.diceRoll", relic + 1).setStyle(new Style().setColor(TextFormatting.DARK_GREEN)));
+			player.sendMessage(new TextComponentTranslation("botaniamisc.diceRoll", relic + 1).setStyle(new Style().setColor(TextFormatting.DARK_GREEN)));
 			return ActionResult.newResult(EnumActionResult.SUCCESS, relicStacks[relic].copy());
 		}
 

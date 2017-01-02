@@ -66,7 +66,7 @@ public class ItemTerraSword extends ItemManasteelSword implements ILensEffect, I
 
 	@SubscribeEvent
 	public void attackEntity(AttackEntityEvent evt) {
-		if (!evt.getEntityPlayer().worldObj.isRemote) {
+		if (!evt.getEntityPlayer().world.isRemote) {
 			trySpawnBurst(evt.getEntityPlayer());
 		}
 	}
@@ -76,9 +76,9 @@ public class ItemTerraSword extends ItemManasteelSword implements ILensEffect, I
 				&& player.getHeldItemMainhand().getItem() == this
 				&& player.getCooledAttackStrength(0) == 1) {
 			EntityManaBurst burst = getBurst(player, player.getHeldItemMainhand());
-			player.worldObj.spawnEntityInWorld(burst);
+			player.world.spawnEntity(burst);
 			ToolCommons.damageItem(player.getHeldItemMainhand(), 1, player, MANA_PER_DAMAGE);
-			player.worldObj.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.terraBlade, SoundCategory.PLAYERS, 0.4F, 1.4F);
+			player.world.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.terraBlade, SoundCategory.PLAYERS, 0.4F, 1.4F);
 		}
 	}
 
@@ -118,7 +118,7 @@ public class ItemTerraSword extends ItemManasteelSword implements ILensEffect, I
 	public void updateBurst(IManaBurst burst, ItemStack stack) {
 		EntityThrowable entity = (EntityThrowable) burst;
 		AxisAlignedBB axis = new AxisAlignedBB(entity.posX, entity.posY, entity.posZ, entity.lastTickPosX, entity.lastTickPosY, entity.lastTickPosZ).expand(1, 1, 1);
-		List<EntityLivingBase> entities = entity.worldObj.getEntitiesWithinAABB(EntityLivingBase.class, axis);
+		List<EntityLivingBase> entities = entity.world.getEntitiesWithinAABB(EntityLivingBase.class, axis);
 		String attacker = ItemNBTHelper.getString(burst.getSourceLens(), TAG_ATTACKER_USERNAME, "");
 
 		for(EntityLivingBase living : entities) {
@@ -131,8 +131,8 @@ public class ItemTerraSword extends ItemManasteelSword implements ILensEffect, I
 				if(mana >= cost) {
 					burst.setMana(mana - cost);
 					float damage = 4F + BotaniaAPI.terrasteelToolMaterial.getDamageVsEntity();
-					if(!burst.isFake() && !entity.worldObj.isRemote) {
-						EntityPlayer player = living.worldObj.getPlayerEntityByName(attacker);
+					if(!burst.isFake() && !entity.world.isRemote) {
+						EntityPlayer player = living.world.getPlayerEntityByName(attacker);
 						living.attackEntityFrom(player == null ? DamageSource.magic : DamageSource.causePlayerDamage(player), damage);
 						entity.setDead();
 						break;
