@@ -23,6 +23,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -100,7 +101,7 @@ public abstract class BlockModWall extends BlockWall implements ILexiconable, IM
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void getSubBlocks(@Nonnull Item item, CreativeTabs tabs, @Nonnull List<ItemStack> list) {
+	public void getSubBlocks(@Nonnull Item item, CreativeTabs tabs, @Nonnull NonNullList<ItemStack> list) {
 		list.add(new ItemStack(item));
 	}
 

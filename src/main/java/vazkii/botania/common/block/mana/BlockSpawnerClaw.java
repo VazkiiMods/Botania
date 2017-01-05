@@ -22,6 +22,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -49,7 +50,7 @@ public class BlockSpawnerClaw extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public void getSubBlocks(@Nonnull Item item, CreativeTabs tab, List<ItemStack> list) {
+	public void getSubBlocks(@Nonnull Item item, CreativeTabs tab, NonNullList<ItemStack> list) {
 		list.add(new ItemStack(item));
 		list.add(new ItemStack(Blocks.MOB_SPAWNER));
 	}

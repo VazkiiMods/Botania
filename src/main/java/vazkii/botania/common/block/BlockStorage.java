@@ -22,6 +22,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -73,7 +74,7 @@ public class BlockStorage extends BlockMod implements ILexiconable {
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void getSubBlocks(@Nonnull Item item, CreativeTabs par2, List<ItemStack> par3) {
+	public void getSubBlocks(@Nonnull Item item, CreativeTabs par2, NonNullList<ItemStack> par3) {
 		for(int i = 0; i < StorageVariant.values().length; i++)
 			par3.add(new ItemStack(item, 1, i));
 	}

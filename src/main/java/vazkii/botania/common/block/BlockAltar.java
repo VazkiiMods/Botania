@@ -29,6 +29,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -128,7 +129,7 @@ public class BlockAltar extends BlockMod implements ILexiconable {
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void getSubBlocks(@Nonnull Item item, CreativeTabs tab, List<ItemStack> list) {
+	public void getSubBlocks(@Nonnull Item item, CreativeTabs tab, NonNullList<ItemStack> list) {
 		for(int i = 0; i < 9; i++)
 			list.add(new ItemStack(item, 1, i));
 	}

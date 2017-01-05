@@ -30,6 +30,7 @@ import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -115,7 +116,7 @@ public class BlockForestDrum extends BlockMod implements IManaTrigger, ILexicona
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void getSubBlocks(@Nonnull Item item, CreativeTabs tab, List<ItemStack> list) {
+	public void getSubBlocks(@Nonnull Item item, CreativeTabs tab, NonNullList<ItemStack> list) {
 		for(int i = 0; i < 3; i++)
 			list.add(new ItemStack(item, 1, i));
 	}

@@ -35,6 +35,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -211,7 +212,7 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void getSubBlocks(@Nonnull Item item, CreativeTabs tab, @Nonnull List<ItemStack> stacks) {
+	public void getSubBlocks(@Nonnull Item item, CreativeTabs tab, @Nonnull NonNullList<ItemStack> stacks) {
 		for(String s : BotaniaAPI.subtilesForCreativeMenu) {
 			stacks.add(ItemBlockSpecialFlower.ofType(s));
 			if(BotaniaAPI.miniFlowers.containsKey(s))

@@ -32,6 +32,7 @@ import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -153,7 +154,7 @@ public class BlockFloatingFlower extends BlockMod implements ILexiconable, IInfu
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void getSubBlocks(@Nonnull Item item, CreativeTabs par2, List<ItemStack> par3) {
+	public void getSubBlocks(@Nonnull Item item, CreativeTabs par2, NonNullList<ItemStack> par3) {
 		for(int i = 0; i < 16; i++)
 			par3.add(new ItemStack(item, 1, i));
 	}

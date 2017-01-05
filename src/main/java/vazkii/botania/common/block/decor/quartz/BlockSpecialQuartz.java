@@ -23,6 +23,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -120,7 +121,7 @@ public class BlockSpecialQuartz extends BlockMod implements ILexiconable {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void getSubBlocks(@Nonnull Item item, CreativeTabs tab, List<ItemStack> stacks) {
+	public void getSubBlocks(@Nonnull Item item, CreativeTabs tab, NonNullList<ItemStack> stacks) {
 		stacks.add(new ItemStack(this, 1, 0));
 		stacks.add(new ItemStack(this, 1, 1));
 		stacks.add(new ItemStack(this, 1, 2));

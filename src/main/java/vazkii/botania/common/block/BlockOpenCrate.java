@@ -28,6 +28,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -105,7 +106,7 @@ public class BlockOpenCrate extends BlockMod implements ILexiconable, IWandable,
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void getSubBlocks(@Nonnull Item item, CreativeTabs tab, List<ItemStack> stacks) {
+	public void getSubBlocks(@Nonnull Item item, CreativeTabs tab, NonNullList<ItemStack> stacks) {
 		for(int i = 0; i < CrateVariant.values().length; i++)
 			stacks.add(new ItemStack(item, 1, i));
 	}

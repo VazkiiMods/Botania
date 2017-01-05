@@ -30,6 +30,7 @@ import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -122,7 +123,7 @@ public class BlockModFlower extends BlockFlower implements ILexiconable, IPickup
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void getSubBlocks(@Nonnull Item item, CreativeTabs tab, @Nonnull List<ItemStack> stacks) {
+	public void getSubBlocks(@Nonnull Item item, CreativeTabs tab, @Nonnull NonNullList<ItemStack> stacks) {
 		for(int i = 0; i < 16; i++)
 			stacks.add(new ItemStack(item, 1, i));
 	}
