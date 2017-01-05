@@ -6,10 +6,10 @@
   },
   "variants": {
     "normal": [{
-      "custom": { "base": "botania:specialFlower#basemodel" }
+      "custom": { "base": "botania:specialflower#basemodel" }
     }],
     "inventory": [{
-      "custom": { "base": "botania:specialFlower#basemodel" }
+      "custom": { "base": "botania:specialflower#basemodel" }
     }],
     "basemodel": [{
       "model": "minecraft:cross",

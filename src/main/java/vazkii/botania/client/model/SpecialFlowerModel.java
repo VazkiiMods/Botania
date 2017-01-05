@@ -147,9 +147,9 @@ public class SpecialFlowerModel implements IModelCustomData {
 			@Override
 			public boolean accepts(ResourceLocation modelLocation) {
 				return modelLocation.getResourceDomain().equals("botania_special") && (
-						modelLocation.getResourcePath().equals("specialFlower") ||
-						modelLocation.getResourcePath().equals("models/block/specialFlower") ||
-						modelLocation.getResourcePath().equals("models/item/specialFlower"));
+						modelLocation.getResourcePath().equals("specialflower") ||
+						modelLocation.getResourcePath().equals("models/block/specialflower") ||
+						modelLocation.getResourcePath().equals("models/item/specialflower"));
 			}
 
 			@Override
