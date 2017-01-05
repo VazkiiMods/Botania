@@ -131,7 +131,7 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 	@Override
 	public ItemStack getItemForBrew(Brew brew, ItemStack stack) {
 		if(!brew.canInfuseBloodPendant() || brew.getPotionEffects(stack).size() != 1 || brew.getPotionEffects(stack).get(0).getPotion().isInstant())
-			return null;
+			return ItemStack.EMPTY;
 
 		ItemStack brewStack = new ItemStack(this);
 		setBrew(brewStack, brew);
