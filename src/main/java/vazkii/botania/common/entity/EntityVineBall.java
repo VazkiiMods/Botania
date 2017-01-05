@@ -31,6 +31,8 @@ import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.ModItems;
 
@@ -55,14 +57,19 @@ public class EntityVineBall extends EntityThrowable {
 		dataManager.register(GRAVITY, 0F);
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
-	protected void onImpact(@Nonnull RayTraceResult var1) {
-
-		if(world.isRemote) {
+	public void handleStatusUpdate(byte id) {
+		if(id == 3) {
 			for(int j = 0; j < 16; j++) {
 				world.spawnParticle(EnumParticleTypes.ITEM_CRACK, posX, posY, posZ, Math.random() * 0.2 - 0.1, Math.random() * 0.25, Math.random() * 0.2 - 0.1, Item.getIdFromItem(ModItems.vineBall));
 			}
-		} else {
+		}
+	}
+
+	@Override
+	protected void onImpact(@Nonnull RayTraceResult var1) {
+		if(!world.isRemote) {
 			if(var1 != null) {
 				EnumFacing dir = var1.sideHit;
 
@@ -82,6 +89,7 @@ public class EntityVineBall extends EntityThrowable {
 
 			}
 
+			this.world.setEntityState(this, (byte)3);
 			setDead();
 		}
 	}
