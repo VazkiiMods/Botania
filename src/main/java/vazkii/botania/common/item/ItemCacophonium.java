@@ -101,13 +101,14 @@ public class ItemCacophonium extends ItemMod implements ICraftAchievement {
 
 	@Nonnull
 	@Override
-	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float xs, float ys, float zs) {
+	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float xs, float ys, float zs) {
+		ItemStack stack = player.getHeldItem(hand);
 		if(getSound(stack) != null) {
 			Block block = world.getBlockState(pos).getBlock();
 			if(block == Blocks.NOTEBLOCK) {
 				world.setBlockState(pos, ModBlocks.cacophonium.getDefaultState());
 				((TileCacophonium) world.getTileEntity(pos)).stack = stack.copy();
-				stack.stackSize--;
+				stack.shrink(1);
 				return EnumActionResult.SUCCESS;
 			}
 		}
@@ -137,7 +138,8 @@ public class ItemCacophonium extends ItemMod implements ICraftAchievement {
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
+		ItemStack stack = player.getHeldItem(hand);
 		if(getSound(stack) != null)
 			player.setActiveHand(hand);
 		return ActionResult.newResult(EnumActionResult.SUCCESS, stack);

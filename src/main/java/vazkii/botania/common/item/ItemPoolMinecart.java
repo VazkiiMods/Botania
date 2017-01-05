@@ -42,7 +42,9 @@ public class ItemPoolMinecart extends ItemMod implements ICraftAchievement, IMin
 
 	@Nonnull
 	@Override
-	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+		ItemStack stack = player.getHeldItem(hand);
+
 		if(BlockRailBase.isRailBlock(world.getBlockState(pos))) {
 			if(!world.isRemote) {
 				EntityMinecart entityminecart = new EntityPoolMinecart(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
@@ -53,7 +55,7 @@ public class ItemPoolMinecart extends ItemMod implements ICraftAchievement, IMin
 				world.spawnEntity(entityminecart);
 			}
 
-			--stack.stackSize;
+			stack.shrink(1);
 			return EnumActionResult.SUCCESS;
 		}
 

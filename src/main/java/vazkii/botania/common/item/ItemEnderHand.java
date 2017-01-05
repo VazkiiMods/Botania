@@ -41,7 +41,8 @@ public class ItemEnderHand extends ItemMod implements IManaUsingItem, IBlockProv
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
+		ItemStack stack = player.getHeldItem(hand);
 		if(ManaItemHandler.requestManaExact(stack, player, COST_SELF, false)) {
 			if(!player.world.isRemote)
 				player.displayGUIChest(player.getInventoryEnderChest());

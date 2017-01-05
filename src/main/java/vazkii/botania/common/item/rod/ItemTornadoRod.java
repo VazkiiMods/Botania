@@ -93,18 +93,19 @@ public class ItemTornadoRod extends ItemMod implements IManaUsingItem, IAvatarWi
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack par1ItemStack, World world, EntityPlayer player, EnumHand hand) {
-		int meta = par1ItemStack.getItemDamage();
-		if(meta != 0 || ManaItemHandler.requestManaExactForTool(par1ItemStack, player, COST, false)) {
+	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
+		ItemStack stack = player.getHeldItem(hand);
+		int meta = stack.getItemDamage();
+		if(meta != 0 || ManaItemHandler.requestManaExactForTool(stack, player, COST, false)) {
 			player.setActiveHand(hand);
 			if(meta == 0) {
-				ManaItemHandler.requestManaExactForTool(par1ItemStack, player, COST, true);
-				setFlying(par1ItemStack, true);
+				ManaItemHandler.requestManaExactForTool(stack, player, COST, true);
+				setFlying(stack, true);
 			}
-			return ActionResult.newResult(EnumActionResult.SUCCESS, par1ItemStack);
+			return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
 		}
 
-		return ActionResult.newResult(EnumActionResult.PASS, par1ItemStack);
+		return ActionResult.newResult(EnumActionResult.PASS, stack);
 	}
 
 	@Nonnull

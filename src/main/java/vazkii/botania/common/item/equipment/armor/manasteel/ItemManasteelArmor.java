@@ -202,8 +202,8 @@ public class ItemManasteelArmor extends ItemArmor implements ISpecialArmor, IMan
 	}
 
 	public boolean hasArmorSetItem(EntityPlayer player, int i) {
-		ItemStack stack = player.inventory.armorInventory[3 - i];
-		if(stack == null)
+		ItemStack stack = player.inventory.armorInventory.get(3 - i);
+		if(stack.isEmpty())
 			return false;
 
 		switch(i) {

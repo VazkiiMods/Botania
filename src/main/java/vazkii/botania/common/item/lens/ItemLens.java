@@ -299,8 +299,7 @@ public class ItemLens extends ItemMod implements ILensControl, ICompositableLens
 	@Override
 	public ItemStack getCompositeLens(ItemStack stack) {
 		NBTTagCompound cmp = ItemNBTHelper.getCompound(stack, TAG_COMPOSITE_LENS, false);
-		ItemStack lens = ItemStack.loadItemStackFromNBT(cmp);
-		return lens;
+		return new ItemStack(cmp);
 	}
 
 	@Override

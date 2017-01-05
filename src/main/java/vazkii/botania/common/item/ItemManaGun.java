@@ -77,28 +77,29 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack par1ItemStack, World world, EntityPlayer player, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
+		ItemStack stack = player.getHeldItem(hand);
 		int effCd = COOLDOWN;
 		PotionEffect effect = player.getActivePotionEffect(MobEffects.HASTE);
 		if(effect != null)
 			effCd -= (effect.getAmplifier() + 1) * 8;
 
-		if(player.isSneaking() && hasClip(par1ItemStack)) {
-			rotatePos(par1ItemStack);
+		if(player.isSneaking() && hasClip(stack)) {
+			rotatePos(stack);
 			world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.BLOCK_STONE_BUTTON_CLICK_ON, SoundCategory.PLAYERS, 0.6F, (1.0F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F) * 0.7F);
 			if(world.isRemote)
 				player.swingArm(hand);
-			ItemStack lens = getLens(par1ItemStack);
+			ItemStack lens = getLens(stack);
 			ItemsRemainingRenderHandler.set(lens, -2);
-			par1ItemStack.setItemDamage(effCd);
-			return ActionResult.newResult(EnumActionResult.SUCCESS, par1ItemStack);
-		} else if(par1ItemStack.getItemDamage() == 0) {
-			EntityManaBurst burst = getBurst(player, par1ItemStack, true);
-			if(burst != null && ManaItemHandler.requestManaExact(par1ItemStack, player, burst.getMana(), true)) {
+			stack.setItemDamage(effCd);
+			return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
+		} else if(stack.getItemDamage() == 0) {
+			EntityManaBurst burst = getBurst(player, stack, true);
+			if(burst != null && ManaItemHandler.requestManaExact(stack, player, burst.getMana(), true)) {
 				if(!world.isRemote) {
 					world.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.manaBlaster, SoundCategory.PLAYERS, 0.6F, 1);
 					player.addStat(ModAchievements.manaBlasterShoot, 1);
-					if(isSugoiKawaiiDesuNe(par1ItemStack))
+					if(isSugoiKawaiiDesuNe(stack))
 						player.addStat(ModAchievements.desuGun, 1);
 					world.spawnEntity(burst);
 				} else {
@@ -107,13 +108,13 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 					player.motionY -= burst.motionY * 0.3;
 					player.motionZ -= burst.motionZ * 0.1;
 				}
-				par1ItemStack.setItemDamage(effCd);
+				stack.setItemDamage(effCd);
 			} else if(!world.isRemote)
 				world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.BLOCK_LEVER_CLICK, SoundCategory.PLAYERS, 0.6F, (1.0F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F) * 0.7F);
-			return ActionResult.newResult(EnumActionResult.SUCCESS, par1ItemStack);
+			return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
 		}
 
-		return ActionResult.newResult(EnumActionResult.PASS, par1ItemStack);
+		return ActionResult.newResult(EnumActionResult.PASS, stack);
 	}
 
 	// ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN
@@ -257,7 +258,7 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 	public static ItemStack getLensAtPos(ItemStack stack, int pos) {
 		NBTTagCompound cmp = ItemNBTHelper.getCompound(stack, TAG_LENS + pos, true);
 		if(cmp != null) {
-			return ItemStack.loadItemStackFromNBT(cmp);
+			return new ItemStack(cmp);
 		}
 		return null;
 	}
@@ -285,8 +286,7 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 
 		NBTTagCompound cmp = ItemNBTHelper.getCompound(stack, TAG_LENS, true);
 		if(cmp != null) {
-			ItemStack lens = ItemStack.loadItemStackFromNBT(cmp);
-			return lens;
+			return new ItemStack(cmp);
 		}
 		return null;
 	}

@@ -42,16 +42,16 @@ public class ItemOdinRing extends ItemRelicBauble {
 		super(LibItemNames.ODIN_RING);
 		MinecraftForge.EVENT_BUS.register(ItemOdinRing.class);
 
-		damageNegations.add(DamageSource.drown.damageType);
-		damageNegations.add(DamageSource.fall.damageType);
-		damageNegations.add(DamageSource.lava.damageType);
+		damageNegations.add(DamageSource.DROWN.damageType);
+		damageNegations.add(DamageSource.FALL.damageType);
+		damageNegations.add(DamageSource.LAVA.damageType);
 		if(ConfigHandler.ringOfOdinFireResist) {
-			damageNegations.add(DamageSource.inFire.damageType);
-			damageNegations.add(DamageSource.onFire.damageType);
+			damageNegations.add(DamageSource.IN_FIRE.damageType);
+			damageNegations.add(DamageSource.ON_FIRE.damageType);
 		}
 
-		damageNegations.add(DamageSource.inWall.damageType);
-		damageNegations.add(DamageSource.starve.damageType);
+		damageNegations.add(DamageSource.IN_WALL.damageType);
+		damageNegations.add(DamageSource.STARVE.damageType);
 	}
 
 	@Override

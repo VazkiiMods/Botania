@@ -10,10 +10,6 @@
  */
 package vazkii.botania.common.item;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.List;
-
 import javax.annotation.Nonnull;
 
 import net.minecraft.creativetab.CreativeTabs;
@@ -22,8 +18,11 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AbstractAttributeMap;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
+import net.minecraft.entity.passive.AbstractChestHorse;
+import net.minecraft.entity.passive.AbstractHorse;
 import net.minecraft.entity.passive.EntityHorse;
-import net.minecraft.entity.passive.HorseType;
+import net.minecraft.entity.passive.EntitySkeletonHorse;
+import net.minecraft.entity.passive.EntityZombieHorse;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
@@ -55,43 +54,46 @@ public class ItemVirus extends ItemMod {
 	}
 
 	@Override
-	public boolean itemInteractionForEntity(ItemStack par1ItemStack, EntityPlayer player, EntityLivingBase par3EntityLivingBase, EnumHand hand) {
-		if(par3EntityLivingBase instanceof EntityHorse) {
+	public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer player, EntityLivingBase living, EnumHand hand) {
+		if(living instanceof EntityHorse || living instanceof AbstractChestHorse) {
 			if(player.world.isRemote)
 				return true;
-			EntityHorse horse = (EntityHorse) par3EntityLivingBase;
-			if(horse.getType() != HorseType.ZOMBIE && horse.getType() != HorseType.SKELETON && horse.isTame()) {
+			AbstractHorse horse = (AbstractHorse) living;
+			if(horse.isTame()) {
 				IItemHandler inv = horse.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
 				ItemStack saddle = inv.getStackInSlot(0);
 
 				for (int i = 1; i < inv.getSlots(); i++)
-					if(inv.getStackInSlot(i) != null)
+					if(!inv.getStackInSlot(i).isEmpty())
 						horse.entityDropItem(inv.getStackInSlot(i), 0);
-				if (horse.isChested())
+				if (horse instanceof AbstractChestHorse && ((AbstractChestHorse) horse).hasChest())
 					horse.entityDropItem(new ItemStack(Blocks.CHEST), 0);
 
-				horse.setType(par1ItemStack.getItemDamage() == 0 ? HorseType.ZOMBIE : HorseType.SKELETON);
+				horse.setDead();
 
-				// Reinit the horse chest to the right new size
-				Method m = ReflectionHelper.findMethod(EntityHorse.class, horse, LibObfuscation.INIT_HORSE_CHEST);
-				try {
-					m.invoke(horse);
-				} catch (IllegalAccessException | InvocationTargetException ignored) {}
+				AbstractHorse newHorse = stack.getItemDamage() == 0 ? new EntityZombieHorse(player.world) : new EntitySkeletonHorse(player.world);
+				newHorse.posX = horse.posX;
+				newHorse.posY = horse.posY;
+				newHorse.posZ = horse.posZ;
+				newHorse.rotationPitch = horse.rotationPitch;
+				newHorse.rotationYaw = horse.rotationYaw;
+				player.world.spawnEntity(newHorse);
+
 
 				// Put the saddle back
-				horse.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).insertItem(0, saddle, false);
+				newHorse.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).insertItem(0, saddle, false);
 
-				AbstractAttributeMap attributes = horse.getAttributeMap();
+				AbstractAttributeMap attributes = newHorse.getAttributeMap();
 				IAttributeInstance movementSpeed = attributes.getAttributeInstance(SharedMonsterAttributes.MOVEMENT_SPEED);
 				IAttributeInstance health = attributes.getAttributeInstance(SharedMonsterAttributes.MAX_HEALTH);
 				health.applyModifier(new AttributeModifier("Ermergerd Virus D:", health.getBaseValue(), 0));
 				movementSpeed.applyModifier(new AttributeModifier("Ermergerd Virus D:", movementSpeed.getBaseValue(), 0));
 				IAttributeInstance jumpHeight = attributes.getAttributeInstance(ReflectionHelper.getPrivateValue(EntityHorse.class, null, LibObfuscation.HORSE_JUMP_STRENGTH));
 				jumpHeight.applyModifier(new AttributeModifier("Ermergerd Virus D:", jumpHeight.getBaseValue() * 0.5, 0));
-				horse.playSound(SoundEvents.ENTITY_ZOMBIE_VILLAGER_CURE, 1.0F + par3EntityLivingBase.world.rand.nextFloat(), par3EntityLivingBase.world.rand.nextFloat() * 0.7F + 1.3F);
-				horse.spawnExplosionParticle();
+				newHorse.playSound(SoundEvents.ENTITY_ZOMBIE_VILLAGER_CURE, 1.0F + living.world.rand.nextFloat(), living.world.rand.nextFloat() * 0.7F + 1.3F);
+				newHorse.spawnExplosionParticle();
 
-				par1ItemStack.stackSize--;
+				stack.shrink(1);
 				return true;
 			}
 		}
@@ -104,10 +106,10 @@ public class ItemVirus extends ItemMod {
 		if(entity.isRiding() && entity.getRidingEntity() instanceof EntityLivingBase)
 			entity = (EntityLivingBase) entity.getRidingEntity();
 
-		if(entity instanceof EntityHorse && event.getSource() == DamageSource.fall) {
-			EntityHorse horse = (EntityHorse) entity;
-			if((horse.getType() == HorseType.ZOMBIE || horse.getType() == HorseType.SKELETON) && horse.isTame())
-				event.setCanceled(true);
+		if(entity instanceof EntityZombieHorse || entity instanceof EntitySkeletonHorse
+				&& event.getSource() == DamageSource.FALL
+				&& ((AbstractHorse) entity).isTame()) {
+			event.setCanceled(true);
 		}
 	}
 

@@ -75,24 +75,25 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 
 	@Nonnull
 	@Override
-	public EnumActionResult onItemUse(ItemStack par1ItemStack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
+	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
+		ItemStack stack = player.getHeldItem(hand);
 		Block block = world.getBlockState(pos).getBlock();
-		BlockPos boundTile = getBoundTile(par1ItemStack);
+		BlockPos boundTile = getBoundTile(stack);
 
 		if(boundTile.getY() != -1 && player.isSneaking() && !pos.equals(boundTile)) {
 			TileEntity tile = world.getTileEntity(boundTile);
 			if(tile instanceof IWandBindable) {
-				if(((IWandBindable) tile).bindTo(player, par1ItemStack, pos, side)) {
+				if(((IWandBindable) tile).bindTo(player, stack, pos, side)) {
 					Vector3 orig = new Vector3(boundTile.getX() + 0.5, boundTile.getY() + 0.5, boundTile.getZ() + 0.5);
 					Vector3 end = new Vector3(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
 					doParticleBeam(world, orig, end);
 
 					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, boundTile);
-					setBoundTile(par1ItemStack, UNBOUND_POS);
+					setBoundTile(stack, UNBOUND_POS);
 				}
 
 				return EnumActionResult.SUCCESS;
-			} else setBoundTile(par1ItemStack, UNBOUND_POS);
+			} else setBoundTile(stack, UNBOUND_POS);
 		} else if(player.isSneaking()) {
 			block.rotateBlock(world, pos, side);
 			if(world.isRemote)
@@ -129,10 +130,10 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 			boolean bindable = tile instanceof IWandBindable;
 
 			boolean wanded;
-			if(getBindMode(par1ItemStack) && bindable && player.isSneaking() && ((IWandBindable) tile).canSelect(player, par1ItemStack, pos, side)) {
+			if(getBindMode(stack) && bindable && player.isSneaking() && ((IWandBindable) tile).canSelect(player, stack, pos, side)) {
 				if(boundTile.equals(pos))
-					setBoundTile(par1ItemStack, UNBOUND_POS);
-				else setBoundTile(par1ItemStack, pos);
+					setBoundTile(stack, UNBOUND_POS);
+				else setBoundTile(stack, pos);
 
 				if(world.isRemote)
 					player.swingArm(hand);
@@ -140,7 +141,7 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 
 				wanded = true;
 			} else {
-				wanded = ((IWandable) block).onUsedByWand(player, par1ItemStack, world, pos, side);
+				wanded = ((IWandable) block).onUsedByWand(player, stack, world, pos, side);
 				if(wanded && world.isRemote)
 					player.swingArm(hand);
 			}
@@ -196,7 +197,8 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
+		ItemStack stack = player.getHeldItem(hand);
 		if(!world.isRemote && player.isSneaking()) {
 			setBindMode(stack, !getBindMode(stack));
 			world.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.ding, SoundCategory.PLAYERS, 0.1F, 1F);

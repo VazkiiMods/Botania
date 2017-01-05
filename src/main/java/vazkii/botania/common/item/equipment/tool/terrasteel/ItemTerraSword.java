@@ -58,7 +58,7 @@ public class ItemTerraSword extends ItemManasteelSword implements ILensEffect, I
 
 	@SubscribeEvent
 	public void leftClick(PlayerInteractEvent.LeftClickEmpty evt) {
-		if (evt.getItemStack() != null
+		if (!evt.getItemStack().isEmpty()
 				&& evt.getItemStack().getItem() == this) {
 			PacketHandler.sendToServer(new PacketLeftClick());
 		}
@@ -72,7 +72,7 @@ public class ItemTerraSword extends ItemManasteelSword implements ILensEffect, I
 	}
 
 	public void trySpawnBurst(EntityPlayer player) {
-		if (player.getHeldItemMainhand() != null
+		if (!player.getHeldItemMainhand().isEmpty()
 				&& player.getHeldItemMainhand().getItem() == this
 				&& player.getCooledAttackStrength(0) == 1) {
 			EntityManaBurst burst = getBurst(player, player.getHeldItemMainhand());
@@ -133,7 +133,7 @@ public class ItemTerraSword extends ItemManasteelSword implements ILensEffect, I
 					float damage = 4F + BotaniaAPI.terrasteelToolMaterial.getDamageVsEntity();
 					if(!burst.isFake() && !entity.world.isRemote) {
 						EntityPlayer player = living.world.getPlayerEntityByName(attacker);
-						living.attackEntityFrom(player == null ? DamageSource.magic : DamageSource.causePlayerDamage(player), damage);
+						living.attackEntityFrom(player == null ? DamageSource.MAGIC : DamageSource.causePlayerDamage(player), damage);
 						entity.setDead();
 						break;
 					}

@@ -41,11 +41,11 @@ public class ItemCraftPattern extends ItemMod {
 
 	@Nonnull
 	@Override
-	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer p, World world, BlockPos pos, EnumHand hand, EnumFacing side, float xs, float ys, float zs) {
+	public EnumActionResult onItemUse(EntityPlayer p, World world, BlockPos pos, EnumHand hand, EnumFacing side, float xs, float ys, float zs) {
 		TileEntity tile = world.getTileEntity(pos);
 		if(tile != null && tile instanceof TileCraftCrate) {
 			TileCraftCrate crate = (TileCraftCrate) tile;
-			crate.pattern = stack.getItemDamage();
+			crate.pattern = p.getHeldItem(hand).getItemDamage();
 			world.notifyBlockUpdate(pos, world.getBlockState(pos), world.getBlockState(pos), 8);
 			return EnumActionResult.SUCCESS;
 		}

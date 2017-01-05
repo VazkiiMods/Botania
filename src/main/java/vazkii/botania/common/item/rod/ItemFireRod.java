@@ -48,15 +48,16 @@ public class ItemFireRod extends ItemMod implements IManaUsingItem, IAvatarWield
 
 	@Nonnull
 	@Override
-	public EnumActionResult onItemUse(ItemStack par1ItemStack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
-		if(!world.isRemote && ManaItemHandler.requestManaExactForTool(par1ItemStack, player, COST, false)) {
+	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
+		ItemStack stack = player.getHeldItem(hand);
+		if(!world.isRemote && ManaItemHandler.requestManaExactForTool(stack, player, COST, false)) {
 			EntityFlameRing entity = new EntityFlameRing(player.world);
 			entity.setPosition(pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5);
 			player.world.spawnEntity(entity);
 
-			player.getCooldownTracker().setCooldown(this, IManaProficiencyArmor.Helper.hasProficiency(player, par1ItemStack) ? COOLDOWN / 2 : COOLDOWN);
+			player.getCooldownTracker().setCooldown(this, IManaProficiencyArmor.Helper.hasProficiency(player, stack) ? COOLDOWN / 2 : COOLDOWN);
 
-			ManaItemHandler.requestManaExactForTool(par1ItemStack, player, COST, true);
+			ManaItemHandler.requestManaExactForTool(stack, player, COST, true);
 			world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_BLAZE_AMBIENT, SoundCategory.PLAYERS, 1F, 1F);
 		}
 

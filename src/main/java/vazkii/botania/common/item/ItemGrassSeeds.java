@@ -85,11 +85,12 @@ public class ItemGrassSeeds extends ItemMod implements IFloatingFlowerVariant {
 
 	@Nonnull
 	@Override
-	public EnumActionResult onItemUse(ItemStack par1ItemStack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
+	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
 		IBlockState state = world.getBlockState(pos);
+		ItemStack stack = player.getHeldItem(hand);
 
-		if(state.getBlock() == Blocks.DIRT && state.getValue(BlockDirt.VARIANT) == BlockDirt.DirtType.DIRT || state.getBlock() == Blocks.GRASS && par1ItemStack.getItemDamage() != 0) {
-			int meta = par1ItemStack.getItemDamage();
+		if(state.getBlock() == Blocks.DIRT && state.getValue(BlockDirt.VARIANT) == BlockDirt.DirtType.DIRT || state.getBlock() == Blocks.GRASS && stack.getItemDamage() != 0) {
+			int meta = stack.getItemDamage();
 
 			BlockSwapper swapper = addBlockSwapper(world, pos, meta);
 			world.setBlockState(pos, swapper.stateToSet, 1 | 2);
@@ -157,7 +158,7 @@ public class ItemGrassSeeds extends ItemMod implements IFloatingFlowerVariant {
 				Botania.proxy.wispFX(pos.getX() + 0.5 + x, pos.getY() + 0.5 + y, pos.getZ() + 0.5 + z, r, g, b, (float) Math.random() * 0.15F + 0.15F, (float) -x * velMul, (float) -y * velMul, (float) -z * velMul);
 			}
 
-			par1ItemStack.stackSize--;
+			stack.shrink(1);
 			return EnumActionResult.SUCCESS;
 		}
 

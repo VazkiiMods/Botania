@@ -58,16 +58,18 @@ public class ItemThornChakram extends ItemMod implements ICraftAchievement {
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack stack, World world, EntityPlayer player, EnumHand hand)  {
+	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand)  {
+		ItemStack stack = player.getHeldItem(hand);
+
 		if(!world.isRemote) {
 			ItemStack copy = stack.copy();
-			copy.stackSize = 1;
+			copy.setCount(1);
 			EntityThornChakram c = new EntityThornChakram(world, player, copy);
 			c.setHeadingFromThrower(player, player.rotationPitch, player.rotationYaw, 0.0F, 1.5F, 1.0F);
 			c.setFire(stack.getItemDamage() != 0);
 			world.spawnEntity(c);
 			world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
-			--stack.stackSize;
+			stack.shrink(1);
 		}
 
 		return ActionResult.newResult(EnumActionResult.SUCCESS, stack);

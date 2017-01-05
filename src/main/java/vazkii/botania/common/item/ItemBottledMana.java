@@ -180,7 +180,7 @@ public class ItemBottledMana extends ItemMod {
 		}
 		case 15 : { // Drop own Head
 			if(!living.world.isRemote && living instanceof EntityPlayer) {
-				living.attackEntityFrom(DamageSource.magic, living.getHealth() - 1);
+				living.attackEntityFrom(DamageSource.MAGIC, living.getHealth() - 1);
 				ItemStack skull = new ItemStack(Items.SKULL, 1, 3);
 				ItemNBTHelper.setString(skull, "SkullOwner", living.getName());
 				living.entityDropItem(skull, 0);
@@ -218,9 +218,9 @@ public class ItemBottledMana extends ItemMod {
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack par1ItemStack, World world, EntityPlayer player, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
 		player.setActiveHand(hand);
-		return ActionResult.newResult(EnumActionResult.SUCCESS, par1ItemStack);
+		return ActionResult.newResult(EnumActionResult.SUCCESS, player.getHeldItem(hand));
 	}
 
 	@Override

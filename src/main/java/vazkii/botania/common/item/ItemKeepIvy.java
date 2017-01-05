@@ -86,7 +86,7 @@ public class ItemKeepIvy extends ItemMod {
 			int count = cmp1.getInteger(TAG_DROP_COUNT);
 			for(int i = 0; i < count; i++) {
 				NBTTagCompound cmp2 = cmp1.getCompoundTag(TAG_DROP_PREFIX + i);
-				ItemStack stack = ItemStack.loadItemStackFromNBT(cmp2);
+				ItemStack stack = new ItemStack(cmp2);
 				if(stack != null) {
 					ItemStack copy = stack.copy();
 					ItemNBTHelper.setBoolean(copy, TAG_KEEP, false);

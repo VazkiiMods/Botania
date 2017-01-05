@@ -52,7 +52,9 @@ public class ItemDice extends ItemRelic {
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
+		ItemStack stack = player.getHeldItem(hand);
+
 		if(isRightPlayer(player, stack) && !player.world.isRemote) {
 			int moonPhase = world.provider.getMoonPhase(world.getWorldTime());
 			int relic = SIDES_FOR_MOON_PHASES[moonPhase];
@@ -73,7 +75,7 @@ public class ItemDice extends ItemRelic {
 
 			if(hasRelicAlready(player, relic)) {
 				player.sendMessage(new TextComponentTranslation("botaniamisc.dudDiceRoll", relic + 1).setStyle(new Style().setColor(TextFormatting.DARK_GREEN)));
-				stack.stackSize--;
+				stack.shrink(1);
 				return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
 			}
 

@@ -63,7 +63,8 @@ public class ItemBlackHoleTalisman extends ItemMod implements IBlockProvider {
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
+		ItemStack stack = player.getHeldItem(hand);
 		if(getBlock(stack) != Blocks.AIR && player.isSneaking()) {
 			int dmg = stack.getItemDamage();
 			stack.setItemDamage(~dmg & 1);
@@ -76,8 +77,9 @@ public class ItemBlackHoleTalisman extends ItemMod implements IBlockProvider {
 
 	@Nonnull
 	@Override
-	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
 		IBlockState state = world.getBlockState(pos);
+		ItemStack stack = player.getHeldItem(hand);
 
 		if (Item.getItemFromBlock(state.getBlock()) != null
 				&& setBlock(stack, state.getBlock(), state.getBlock().getMetaFromState(state))) {
@@ -95,17 +97,22 @@ public class ItemBlackHoleTalisman extends ItemMod implements IBlockProvider {
 					IItemHandler inv = tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, side);
 					ItemStack toAdd = new ItemStack(bBlock, 1, bmeta);
 					int maxSize = toAdd.getMaxStackSize();
-					toAdd.stackSize = remove(stack, maxSize);
+					toAdd.setCount(remove(stack, maxSize));
 					ItemStack remainder = ItemHandlerHelper.insertItemStacked(inv, toAdd, false);
-					if(remainder != null)
-						add(stack, remainder.stackSize);
+					if(!remainder.isEmpty())
+						add(stack, remainder.getCount());
 				}
 				return EnumActionResult.SUCCESS;
 			} else {
 				if(player.capabilities.isCreativeMode || getBlockCount(stack) > 0) {
 					ItemStack toUse = new ItemStack(bBlock, 1, bmeta);
 
-					if (Item.getItemFromBlock(bBlock).onItemUse(toUse, player, world, pos, hand, side, hitX, hitY, hitZ) == EnumActionResult.SUCCESS) {
+					ItemStack saveHeldItem = player.getHeldItem(hand);
+					player.setHeldItem(hand, toUse);
+					EnumActionResult result = Item.getItemFromBlock(bBlock).onItemUse(player, world, pos, hand, side, hitX, hitY, hitZ);
+					player.setHeldItem(hand, saveHeldItem);
+
+					if (result == EnumActionResult.SUCCESS) {
 						remove(stack, 1);
 						ItemsRemainingRenderHandler.set(toUse, getBlockCount(stack));
 						return EnumActionResult.SUCCESS;
@@ -125,16 +132,16 @@ public class ItemBlackHoleTalisman extends ItemMod implements IBlockProvider {
 			int meta = getBlockMeta(itemstack);
 
 			int highest = -1;
-			int[] counts = new int[player.inventory.getSizeInventory() - player.inventory.armorInventory.length];
+			int[] counts = new int[player.inventory.getSizeInventory() - player.inventory.armorInventory.size()];
 
 			for(int i = 0; i < counts.length; i++) {
 				ItemStack stack = player.inventory.getStackInSlot(i);
-				if(stack == null) {
+				if(stack.isEmpty()) {
 					continue;
 				}
 
 				if(Item.getItemFromBlock(block) == stack.getItem() && stack.getItemDamage() == meta) {
-					counts[i] = stack.stackSize;
+					counts[i] = stack.getCount();
 					if(highest == -1)
 						highest = i;
 					else highest = counts[i] > counts[highest] && highest > 8 ? i : highest;

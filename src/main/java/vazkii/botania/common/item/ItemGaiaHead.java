@@ -66,7 +66,7 @@ public class ItemGaiaHead extends ItemMod {
 	// Copied from vanila skull itemBlock. Relevant edits are indicated.
 	@Nonnull
 	@Override
-	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+	public EnumActionResult onItemUse(EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		if (facing == EnumFacing.DOWN) {
 			return EnumActionResult.FAIL;
 		} else {
@@ -86,7 +86,9 @@ public class ItemGaiaHead extends ItemMod {
 				pos = pos.offset(facing);
 			}
 
-			if (playerIn.canPlayerEdit(pos, facing, stack) && Blocks.SKULL.canPlaceBlockAt(worldIn, pos)) {
+			ItemStack itemstack = playerIn.getHeldItem(hand);
+
+			if (playerIn.canPlayerEdit(pos, facing, itemstack) && Blocks.SKULL.canPlaceBlockAt(worldIn, pos)) {
 				if (worldIn.isRemote) {
 					return EnumActionResult.SUCCESS;
 				} else {
@@ -102,7 +104,7 @@ public class ItemGaiaHead extends ItemMod {
 					if (tileentity instanceof TileEntitySkull) {
 						TileEntitySkull tileentityskull = (TileEntitySkull) tileentity;
 
-						if (stack.getMetadata() == 3) // Botania - do not retrieve skins
+						if (itemstack.getMetadata() == 3) // Botania - do not retrieve skins
 						{
 							/*GameProfile gameprofile = null;
 
@@ -129,7 +131,7 @@ public class ItemGaiaHead extends ItemMod {
 						Blocks.SKULL.checkWitherSpawn(worldIn, pos, tileentityskull);
 					}
 
-					--stack.stackSize;
+					itemstack.shrink(1);
 					return EnumActionResult.SUCCESS;
 				}
 			} else {

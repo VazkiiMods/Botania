@@ -85,7 +85,7 @@ public class ItemManaweaveArmor extends ItemManasteelArmor implements ICraftAchi
 
 	@Override
 	public boolean hasArmorSetItem(EntityPlayer player, int i) {
-		ItemStack stack = player.inventory.armorInventory[3 - i];
+		ItemStack stack = player.inventory.armorInventory.get(3 - i);
 		if(stack == null)
 			return false;
 

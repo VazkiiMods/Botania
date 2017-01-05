@@ -53,7 +53,8 @@ public class ItemAstrolabe extends ItemMod {
 	}
 
 	@Override
-	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+	public EnumActionResult onItemUse(EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+		ItemStack stack = playerIn.getHeldItem(hand);
 		IBlockState state = worldIn.getBlockState(pos);
 		Block block = state.getBlock();
 		int meta = block.getMetaFromState(state);
@@ -78,18 +79,19 @@ public class ItemAstrolabe extends ItemMod {
 	}
 
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand hand) {
+		ItemStack stack = playerIn.getHeldItem(hand);
 		if(playerIn.isSneaking()) {
-			int size = getSize(itemStackIn);
+			int size = getSize(stack);
 			int newSize = size == 11 ? 3 : size + 2;
-			setSize(itemStackIn, newSize);
-			ItemsRemainingRenderHandler.set(itemStackIn, newSize + "x" + newSize);
+			setSize(stack, newSize);
+			ItemsRemainingRenderHandler.set(stack, newSize + "x" + newSize);
 			worldIn.playSound(playerIn, playerIn.getPosition(), SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.PLAYERS, 0.5F, 1F);
 			
-			return new ActionResult(EnumActionResult.SUCCESS, itemStackIn);
+			return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
 		}
 
-		return new ActionResult(EnumActionResult.PASS, itemStackIn);
+		return ActionResult.newResult(EnumActionResult.PASS, stack);
 	}
 
 	public boolean placeAllBlocks(ItemStack stack, EntityPlayer player) {
@@ -123,18 +125,18 @@ public class ItemAstrolabe extends ItemMod {
 		if(player.capabilities.isCreativeMode)
 			return;
 		
-		List<ItemStack> stacksToCheck = new ArrayList();
+		List<ItemStack> stacksToCheck = new ArrayList<>();
 		for(int i = 0; i < player.inventory.getSizeInventory(); i++) {
 			ItemStack stackInSlot = player.inventory.getStackInSlot(i);
-			if(stackInSlot != null && stackInSlot.getItem() == blockToPlace.getItem() && stackInSlot.getItemDamage() == blockToPlace.getItemDamage()) {
-				stackInSlot.stackSize--;
-				if(stackInSlot.stackSize == 0)
-					player.inventory.setInventorySlotContents(i, null);
+			if(!stackInSlot.isEmpty() && stackInSlot.getItem() == blockToPlace.getItem() && stackInSlot.getItemDamage() == blockToPlace.getItemDamage()) {
+				stackInSlot.shrink(1);
+				if(stackInSlot.isEmpty())
+					player.inventory.setInventorySlotContents(i, ItemStack.EMPTY);
 
 				return;
 			}
 
-			if (stackInSlot != null && stackInSlot.getItem() instanceof IBlockProvider)
+			if (!stackInSlot.isEmpty() && stackInSlot.getItem() instanceof IBlockProvider)
 				stacksToCheck.add(stackInSlot);
 		}
 
@@ -158,15 +160,15 @@ public class ItemAstrolabe extends ItemMod {
 		
 		int required = blocks.length;
 		int current = 0;
-		List<ItemStack> stacksToCheck = new ArrayList();
+		List<ItemStack> stacksToCheck = new ArrayList<>();
 		for (int i = 0; i < player.inventory.getSizeInventory(); i++) {
 			ItemStack stackInSlot = player.inventory.getStackInSlot(i);
-			if (stackInSlot != null && stackInSlot.getItem() == reqStack.getItem() && stackInSlot.getItemDamage() == reqStack.getItemDamage()) {
-				current += stackInSlot.stackSize;
+			if (!stackInSlot.isEmpty() && stackInSlot.getItem() == reqStack.getItem() && stackInSlot.getItemDamage() == reqStack.getItemDamage()) {
+				current += stackInSlot.getCount();
 				if (current >= required)
 					return true;
 			}
-			if(stackInSlot != null && stackInSlot.getItem() instanceof IBlockProvider)
+			if(!stackInSlot.isEmpty() && stackInSlot.getItem() instanceof IBlockProvider)
 				stacksToCheck.add(stackInSlot);
 		}
 		
@@ -186,7 +188,7 @@ public class ItemAstrolabe extends ItemMod {
 	}
 
 	public static BlockPos[] getBlocksToPlace(ItemStack stack, EntityPlayer player) {
-		List<BlockPos> coords = new ArrayList();
+		List<BlockPos> coords = new ArrayList<>();
 		RayTraceResult pos = ToolCommons.raytraceFromEntity(player.world, player, true, 5);
 		if(pos != null) {
 			BlockPos bpos = pos.getBlockPos();

@@ -97,7 +97,8 @@ public class ItemSpawnerMover extends ItemMod {
 
 	@Nonnull
 	@Override
-	public EnumActionResult onItemUse(ItemStack itemstack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float xOffset, float yOffset, float zOffset) {
+	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float xOffset, float yOffset, float zOffset) {
+		ItemStack itemstack = player.getHeldItem(hand);
 		if(getEntityId(itemstack) == null) {
 			if(world.getBlockState(pos).getBlock().equals(Blocks.MOB_SPAWNER)) {
 				TileEntity te = world.getTileEntity(pos);
@@ -130,17 +131,17 @@ public class ItemSpawnerMover extends ItemMod {
 			pos = pos.offset(side);
 		}
 
-		if(itemstack.stackSize == 0) {
+		if(itemstack.isEmpty()) {
 			return false;
 		} else if(!player.canPlayerEdit(pos, side, itemstack)) {
 			return false;
-		} else if(world.canBlockBePlaced(Blocks.MOB_SPAWNER, pos, false, side, null, itemstack)) {
+		} else if(world.mayPlace(Blocks.MOB_SPAWNER, pos, false, side, null)) {
 			int meta = this.getMetadata(itemstack.getMetadata());
 			IBlockState iblockstate1 = Blocks.MOB_SPAWNER.getStateForPlacement(world, pos, side, xOffset, yOffset, zOffset, meta, player);
 
 			if (placeBlockAt(itemstack, player, world, pos, side, xOffset, yOffset, zOffset, iblockstate1)) {
 				world.playSound(null, pos, Blocks.MOB_SPAWNER.getSoundType().getPlaceSound(), SoundCategory.BLOCKS, (Blocks.MOB_SPAWNER.getSoundType().getVolume() + 1.0F) / 2.0F, Blocks.MOB_SPAWNER.getSoundType().getPitch() * 0.8F);
-				--itemstack.stackSize;
+				itemstack.shrink(1);
 				player.renderBrokenItemStack(itemstack);
 				player.addStat(ModAchievements.spawnerMoverUse, 1);
 				for(int i = 0; i < 100; i++)

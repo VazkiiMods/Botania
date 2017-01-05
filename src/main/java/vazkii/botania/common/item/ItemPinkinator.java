@@ -41,7 +41,8 @@ public class ItemPinkinator extends ItemMod {
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
+		ItemStack stack = player.getHeldItem(hand);
 		int range = 16;
 		List<EntityWither> withers = world.getEntitiesWithinAABB(EntityWither.class, new AxisAlignedBB(player.posX - range, player.posY - range, player.posZ - range, player.posX + range, player.posY + range, player.posZ + range));
 		for(EntityWither wither : withers)
@@ -56,7 +57,7 @@ public class ItemPinkinator extends ItemMod {
 				player.addStat(ModAchievements.pinkinator, 1);
 
 				world.spawnParticle(EnumParticleTypes.EXPLOSION_HUGE, wither.posX, wither.posY, wither.posZ, 1D, 0D, 0D);
-				stack.stackSize--;
+				stack.shrink(1);
 				return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
 			}
 

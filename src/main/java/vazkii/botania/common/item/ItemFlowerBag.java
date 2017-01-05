@@ -120,7 +120,7 @@ public class ItemFlowerBag extends ItemMod {
 	@SubscribeEvent
 	public void onPickupItem(EntityItemPickupEvent event) {
 		ItemStack entityStack = event.getItem().getEntityItem();
-		if(entityStack.getItem() == Item.getItemFromBlock(ModBlocks.flower) && entityStack.stackSize > 0) {
+		if(entityStack.getItem() == Item.getItemFromBlock(ModBlocks.flower) && entityStack.getCount() > 0) {
 			int color = entityStack.getItemDamage();
 			if(color > 15)
 				return;
@@ -130,12 +130,12 @@ public class ItemFlowerBag extends ItemMod {
 					continue; // prevent item deletion
 
 				ItemStack bag = event.getEntityPlayer().inventory.getStackInSlot(i);
-				if(bag != null && bag.getItem() == this) {
+				if(!bag.isEmpty() && bag.getItem() == this) {
 					IItemHandler bagInv = bag.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
 
 					ItemStack result = bagInv.insertItem(color, entityStack, false);
 
-					if(result == null)
+					if(result.isEmpty())
 						event.getItem().setDead();
 					else
 						event.getItem().setEntityItemStack(result);
@@ -147,7 +147,7 @@ public class ItemFlowerBag extends ItemMod {
 									SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.PLAYERS, 0.2F,
 									((event.getItem().world.rand.nextFloat() - event.getItem().world.rand.nextFloat()) * 0.7F + 1.0F) * 2.0F);
 						}
-						((EntityPlayerMP) event.getEntityPlayer()).connection.sendPacket(new SPacketCollectItem(event.getItem().getEntityId(), event.getEntityPlayer().getEntityId()));
+						((EntityPlayerMP) event.getEntityPlayer()).connection.sendPacket(new SPacketCollectItem(event.getItem().getEntityId(), event.getEntityPlayer().getEntityId(), entityStack.getCount()));
 						event.getEntityPlayer().openContainer.detectAndSendChanges();
 
 						return;
@@ -159,14 +159,14 @@ public class ItemFlowerBag extends ItemMod {
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
 		player.openGui(Botania.instance, LibGuiIDs.FLOWER_BAG, world, hand == EnumHand.OFF_HAND ? 1 : 0, 0, 0);
-		return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
+		return ActionResult.newResult(EnumActionResult.SUCCESS, player.getHeldItem(hand));
 	}
 
 	@Nonnull
 	@Override
-	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float xs, float ys, float zs) {
+	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float xs, float ys, float zs) {
 		TileEntity tile = world.getTileEntity(pos);
 		if(tile != null) {
 			if(!world.isRemote) {
@@ -179,7 +179,7 @@ public class ItemFlowerBag extends ItemMod {
 				if(tileInv == null)
 					return EnumActionResult.FAIL;
 
-				IItemHandlerModifiable bagInv = (IItemHandlerModifiable) stack.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
+				IItemHandlerModifiable bagInv = (IItemHandlerModifiable) player.getHeldItem(hand).getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
 
 				for(int i = 0; i < bagInv.getSlots(); i++) {
 					ItemStack flower = bagInv.getStackInSlot(i);

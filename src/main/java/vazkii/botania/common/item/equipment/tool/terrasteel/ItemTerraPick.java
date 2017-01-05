@@ -105,23 +105,25 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack par1ItemStack, World world, EntityPlayer player, EnumHand hand) {
-		getMana(par1ItemStack);
-		int level = getLevel(par1ItemStack);
+	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
+		ItemStack stack = player.getHeldItem(hand);
+
+		getMana(stack);
+		int level = getLevel(stack);
 
 		if(level != 0) {
-			setEnabled(par1ItemStack, !isEnabled(par1ItemStack));
+			setEnabled(stack, !isEnabled(stack));
 			if(!world.isRemote)
 				world.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.terraPickMode, SoundCategory.PLAYERS, 0.5F, 0.4F);
 		}
 
-		return ActionResult.newResult(EnumActionResult.SUCCESS, par1ItemStack);
+		return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
 	}
 
 	@Nonnull
 	@Override
-	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float sx, float sy, float sz) {
-		return player.isSneaking() ? super.onItemUse(stack, player, world, pos, hand, side, sx, sy, sz)
+	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float sx, float sy, float sz) {
+		return player.isSneaking() ? super.onItemUse(player, world, pos, hand, side, sx, sy, sz)
 				: EnumActionResult.PASS;
 	}
 

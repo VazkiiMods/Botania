@@ -76,7 +76,8 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 
 	@Nonnull
 	@Override
-	public EnumActionResult onItemUse(ItemStack par1ItemStack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
+	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
+		ItemStack stack = player.getHeldItem(hand);
 		IBlockState wstate = world.getBlockState(pos);
 
 		if(player.isSneaking()) {
@@ -85,23 +86,23 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 				if(BlockCamo.isValidBlock(wstate)) {
 					Item item = Item.getItemFromBlock(wstate.getBlock());
 
-					setBlock(par1ItemStack, wstate.getBlock(), !item.getHasSubtypes() ? 0 : wstate.getBlock().getMetaFromState(wstate));
-					player.setItemStackToSlot(hand == EnumHand.MAIN_HAND ? EntityEquipmentSlot.MAINHAND : EntityEquipmentSlot.OFFHAND, par1ItemStack);
+					setBlock(stack, wstate.getBlock(), !item.getHasSubtypes() ? 0 : wstate.getBlock().getMetaFromState(wstate));
+					player.setItemStackToSlot(hand == EnumHand.MAIN_HAND ? EntityEquipmentSlot.MAINHAND : EntityEquipmentSlot.OFFHAND, stack);
 
-					displayRemainderCounter(player, par1ItemStack);
+					displayRemainderCounter(player, stack);
 					return EnumActionResult.SUCCESS;
 				}
 			}
-		} else if(canExchange(par1ItemStack) && !ItemNBTHelper.getBoolean(par1ItemStack, TAG_SWAPPING, false)) {
-			Block block = getBlock(par1ItemStack);
-			int meta = getBlockMeta(par1ItemStack);
-			List<BlockPos> swap = getBlocksToSwap(world, par1ItemStack, block.getStateFromMeta(meta), pos, null);
+		} else if(canExchange(stack) && !ItemNBTHelper.getBoolean(stack, TAG_SWAPPING, false)) {
+			Block block = getBlock(stack);
+			int meta = getBlockMeta(stack);
+			List<BlockPos> swap = getBlocksToSwap(world, stack, block.getStateFromMeta(meta), pos, null);
 			if(swap.size() > 0) {
-				ItemNBTHelper.setBoolean(par1ItemStack, TAG_SWAPPING, true);
-				ItemNBTHelper.setInt(par1ItemStack, TAG_SELECT_X, pos.getX());
-				ItemNBTHelper.setInt(par1ItemStack, TAG_SELECT_Y, pos.getY());
-				ItemNBTHelper.setInt(par1ItemStack, TAG_SELECT_Z, pos.getZ());
-				setTargetBlock(par1ItemStack, wstate.getBlock(), wstate.getBlock().getMetaFromState(wstate));
+				ItemNBTHelper.setBoolean(stack, TAG_SWAPPING, true);
+				ItemNBTHelper.setInt(stack, TAG_SELECT_X, pos.getX());
+				ItemNBTHelper.setInt(stack, TAG_SELECT_Y, pos.getY());
+				ItemNBTHelper.setInt(stack, TAG_SELECT_Z, pos.getZ());
+				setTargetBlock(stack, wstate.getBlock(), wstate.getBlock().getMetaFromState(wstate));
 				if(world.isRemote)
 					player.swingArm(hand);
 			}
@@ -113,7 +114,7 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 	@SubscribeEvent
 	public void onLeftClick(PlayerInteractEvent.LeftClickBlock event) {
 		ItemStack stack = event.getItemStack();
-		if(stack != null && stack.getItem() == this && canExchange(stack) && ManaItemHandler.requestManaExactForTool(stack, event.getEntityPlayer(), COST, false)) {
+		if(!stack.isEmpty() && stack.getItem() == this && canExchange(stack) && ManaItemHandler.requestManaExactForTool(stack, event.getEntityPlayer(), COST, false)) {
 			if(exchange(event.getWorld(), event.getEntityPlayer(), event.getPos(), stack, getBlock(stack).getStateFromMeta(getBlockMeta(stack))))
 				ManaItemHandler.requestManaExactForTool(stack, event.getEntityPlayer(), COST, true);
 		}
@@ -257,9 +258,9 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 			if(item == Item.getItemFromBlock(block) && invStack.getItemDamage() == meta) {
 				ItemStack retStack = invStack.copy();
 				if(doit) {
-					invStack.stackSize--;
-					if(invStack.stackSize == 0)
-						inv.setInventorySlotContents(i, null);
+					invStack.shrink(1);
+					if(invStack.isEmpty())
+						inv.setInventorySlotContents(i, ItemStack.EMPTY);
 				}
 				return retStack;
 			}
@@ -307,12 +308,12 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 		int count = 0;
 		for(int i = 0; i < inv.getSizeInventory(); i++) {
 			ItemStack invStack = inv.getStackInSlot(i);
-			if(invStack == null)
+			if(invStack.isEmpty())
 				continue;
 
 			Item item = invStack.getItem();
 			if(item == Item.getItemFromBlock(block) && invStack.getItemDamage() == meta)
-				count += invStack.stackSize;
+				count += invStack.getCount();
 
 			if(item instanceof IBlockProvider) {
 				IBlockProvider prov = (IBlockProvider) item;

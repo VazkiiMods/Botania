@@ -34,7 +34,7 @@ public class ItemOvergrowthSeed extends ItemMod {
 
 	@Nonnull
 	@Override
-	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float xs, float ys, float zs) {
+	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float xs, float ys, float zs) {
 		IBlockState state = world.getBlockState(pos);
 		if(Item.getItemFromBlock(state.getBlock()) == null)
 			return EnumActionResult.PASS;
@@ -45,7 +45,7 @@ public class ItemOvergrowthSeed extends ItemMod {
 			if(name.equals("grass")) {
 				world.playEvent(2001, pos, Block.getStateId(state));
 				world.setBlockState(pos, ModBlocks.enchantedSoil.getDefaultState());
-				stack.stackSize--;
+				player.getHeldItem(hand).shrink(1);
 
 				return EnumActionResult.SUCCESS;
 			}

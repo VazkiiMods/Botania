@@ -36,7 +36,7 @@ public class ItemFertilizer extends ItemMod {
 
 	@Nonnull
 	@Override
-	public EnumActionResult onItemUse(ItemStack par1ItemStack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
+	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
 		final int range = 3;
 		if(!world.isRemote) {
 			List<BlockPos> validCoords = new ArrayList<>();
@@ -56,7 +56,7 @@ public class ItemFertilizer extends ItemMod {
 				validCoords.remove(coords);
 				world.setBlockState(coords, ModBlocks.flower.getDefaultState().withProperty(BotaniaStateProps.COLOR, EnumDyeColor.byMetadata(world.rand.nextInt(16))), 1 | 2);
 			}
-			par1ItemStack.stackSize--;
+			player.getHeldItem(hand).shrink(1);
 		} else {
 			for(int i = 0; i < 15; i++) {
 				double x = pos.getX() - range + world.rand.nextInt(range * 2 + 1) + Math.random();

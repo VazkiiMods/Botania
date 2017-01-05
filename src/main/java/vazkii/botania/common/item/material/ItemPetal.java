@@ -39,7 +39,7 @@ public class ItemPetal extends Item16Colors implements IFlowerComponent {
 
 	@Nonnull
 	@Override
-	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		// Copy of ItemBlock.onItemUse
 		IBlockState iblockstate = world.getBlockState(pos);
 		Block block = iblockstate.getBlock();
@@ -49,7 +49,8 @@ public class ItemPetal extends Item16Colors implements IFlowerComponent {
 			pos = pos.offset(facing);
 		}
 
-		if (stack.stackSize != 0 && player.canPlayerEdit(pos, facing, stack) && world.canBlockBePlaced(ModBlocks.buriedPetals, pos, false, facing, null, stack))
+		ItemStack stack = player.getHeldItem(hand);
+		if (!stack.isEmpty() && player.canPlayerEdit(pos, facing, stack) && world.mayPlace(ModBlocks.buriedPetals, pos, false, facing, null))
 		{
 			int i = this.getMetadata(stack.getMetadata());
 			IBlockState iblockstate1 = ModBlocks.buriedPetals.getStateForPlacement(world, pos, facing, hitX, hitY, hitZ, i, player);
@@ -58,7 +59,7 @@ public class ItemPetal extends Item16Colors implements IFlowerComponent {
 			{
 				SoundType soundtype = ModBlocks.buriedPetals.getSoundType();
 				world.playSound(player, pos, soundtype.getPlaceSound(), SoundCategory.BLOCKS, (soundtype.getVolume() + 1.0F) / 2.0F, soundtype.getPitch() * 0.8F);
-				--stack.stackSize;
+				stack.shrink(1);
 			}
 
 			return EnumActionResult.SUCCESS;

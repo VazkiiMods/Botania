@@ -89,7 +89,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 
 		int cost = Math.min(cursorCount, (int) Math.pow(Math.E, cursorCount * 0.25));
 
-		if(heldItemStack == null && player.isSneaking()) {
+		if(heldItemStack.isEmpty() && player.isSneaking()) {
 			if(originCoords.getY() == -1 && lookPos != null && lookPos.getBlockPos() != null) {
 				setOriginPos(lokiRing, lookPos.getBlockPos());
 				setCursorList(lokiRing, null);
@@ -115,13 +115,16 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 				}
 				}
 			}
-		} else if(heldItemStack != null && lookPos != null && lookPos.getBlockPos() != null && player.isSneaking()) {
+		} else if(!heldItemStack.isEmpty() && lookPos != null && lookPos.getBlockPos() != null && player.isSneaking()) {
 			for(BlockPos cursor : cursors) {
 				BlockPos pos = lookPos.getBlockPos().add(cursor);
 				Item item = heldItemStack.getItem();
 				if(!player.world.isAirBlock(pos) && ManaItemHandler.requestManaExact(lokiRing, player, cost, true)) {
-					item.onItemUse(player.capabilities.isCreativeMode ? heldItemStack.copy() : heldItemStack, player, player.world, pos, event.getHand(), lookPos.sideHit, (float) lookPos.hitVec.xCoord - pos.getX(), (float) lookPos.hitVec.yCoord - pos.getY(), (float) lookPos.hitVec.zCoord - pos.getZ());
-					if(heldItemStack.stackSize == 0) {
+					ItemStack saveHeld = heldItemStack.copy();
+					item.onItemUse(player, player.world, pos, event.getHand(), lookPos.sideHit, (float) lookPos.hitVec.xCoord - pos.getX(), (float) lookPos.hitVec.yCoord - pos.getY(), (float) lookPos.hitVec.zCoord - pos.getZ());
+					if (player.isCreative())
+						player.setHeldItem(event.getHand(), saveHeld);
+					if(heldItemStack.isEmpty()) {
 						event.setCanceled(true);
 						return;
 					}

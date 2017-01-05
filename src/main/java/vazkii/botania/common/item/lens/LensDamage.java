@@ -37,7 +37,7 @@ public class LensDamage extends Lens {
 				if(mana >= 16) {
 					burst.setMana(mana - 16);
 					if(!burst.isFake())
-						living.attackEntityFrom(DamageSource.magic, 8);
+						living.attackEntityFrom(DamageSource.MAGIC, 8);
 					break;
 				}
 			}
