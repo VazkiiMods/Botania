@@ -8,7 +8,7 @@
 
 #번역시 주의 점: 현재 꽃이름을 제외한 음역은 대부분 패러디로 무리한 한글화를 진행하지 말아주세요(Ex.Tiny Potato) 한글정발을 제외한 모든 패러디는 발음대로 적어주시길 바랍니다.
 # MISC
-itemGroup.Botania=보타니아 [Botania]
+itemGroup.botania=보타니아 [Botania]
 generator.botania-skyblock=잔디의 정원
 generator.botania-skyblock.info=보타니아를 처음하는 분에게는 권장하지 않습니다.
 
