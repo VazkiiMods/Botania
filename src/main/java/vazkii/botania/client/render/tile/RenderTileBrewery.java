@@ -50,7 +50,7 @@ public class RenderTileBrewery extends TileEntitySpecialRenderer<TileBrewery> {
 	}
 
 	public void renderItemStack(ItemStack stack) {
-		if(stack != null) {
+		if(!stack.isEmpty()) {
 			Minecraft mc = Minecraft.getMinecraft();
 			GlStateManager.pushMatrix();
 			mc.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);

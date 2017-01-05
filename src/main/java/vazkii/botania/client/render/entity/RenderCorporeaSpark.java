@@ -62,8 +62,8 @@ public class RenderCorporeaSpark extends RenderSparkBase<EntityCorporeaSpark> {
 
 		float absTime = Math.abs(time) - pticks;
 
-		ItemStack stack = entity.getDisplayedItem().orNull();
-		if(stack == null)
+		ItemStack stack = entity.getDisplayedItem().or(ItemStack.EMPTY);
+		if(stack.isEmpty())
 			return;
 
 		GlStateManager.pushMatrix();

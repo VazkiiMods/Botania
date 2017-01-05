@@ -163,7 +163,7 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer<TileTinyPota
 
 		for(int i = 0; i < potato.getSizeInventory(); i++) {
 			ItemStack stack = potato.getItemHandler().getStackInSlot(i);
-			if(stack == null)
+			if(stack.isEmpty())
 				continue;
 
 			GlStateManager.pushMatrix();

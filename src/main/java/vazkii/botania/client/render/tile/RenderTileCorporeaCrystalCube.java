@@ -51,7 +51,7 @@ public class RenderTileCorporeaCrystalCube extends TileEntitySpecialRenderer<Til
 
 	@Override
 	public void renderTileEntityAt(@Nonnull TileCorporeaCrystalCube cube, double d0, double d1, double d2, float f, int digProgress) {
-		ItemStack stack = null;
+		ItemStack stack = ItemStack.EMPTY;
 		if (cube != null) {
 			if(entity == null)
 				entity = new EntityItem(cube.getWorld(), cube.getPos().getX(), cube.getPos().getY(), cube.getPos().getZ(), new ItemStack(Blocks.STONE));
@@ -85,7 +85,7 @@ public class RenderTileCorporeaCrystalCube extends TileEntitySpecialRenderer<Til
 		GlStateManager.translate(0.5F, 1.5F, 0.5F);
 		GlStateManager.scale(1F, -1F, -1F);
 		GlStateManager.translate(0F, (float) Math.sin(worldTicks / 20.0 * 1.55) * 0.025F, 0F);
-		if(stack != null) {
+		if(!stack.isEmpty()) {
 			GlStateManager.pushMatrix();
 			float s = stack.getItem() instanceof ItemBlock ? 0.7F : 0.5F;
 			GlStateManager.translate(0F, 0.8F, 0F);
@@ -97,7 +97,7 @@ public class RenderTileCorporeaCrystalCube extends TileEntitySpecialRenderer<Til
 
 		GlStateManager.color(1F, 1F, 1F);
 
-		if(stack != null) {
+		if(!stack.isEmpty()) {
 			int count = cube.getItemCount();
 			String countStr = "" + count;
 			int color = 0xFFFFFF;

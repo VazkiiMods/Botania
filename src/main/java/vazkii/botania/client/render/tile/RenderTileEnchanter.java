@@ -45,7 +45,7 @@ public class RenderTileEnchanter extends TileEntitySpecialRenderer<TileEnchanter
 		else if(enchanter.stage == TileEnchanter.State.DO_ENCHANT)
 			alphaMod = 1F;
 
-		if(enchanter.itemToEnchant != null) {
+		if(!enchanter.itemToEnchant.isEmpty()) {
 			if(item == null)
 				item = new EntityItem(enchanter.getWorld(), enchanter.getPos().getX(), enchanter.getPos().getY() + 1, enchanter.getPos().getZ(), enchanter.itemToEnchant);
 
