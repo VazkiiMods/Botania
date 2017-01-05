@@ -31,7 +31,7 @@ public class KeepIvyRecipe implements IRecipe {
 
 		for(int i = 0; i < var1.getSizeInventory(); i++) {
 			ItemStack stack = var1.getStackInSlot(i);
-			if(stack != null) {
+			if(!stack.isEmpty()) {
 				if(stack.getItem() == ModItems.keepIvy)
 					foundIvy = true;
 				else if(!foundItem && !(ItemNBTHelper.detectNBT(stack) && ItemNBTHelper.getBoolean(stack, ItemKeepIvy.TAG_KEEP, false)) && !stack.getItem().hasContainerItem(stack))
@@ -43,19 +43,20 @@ public class KeepIvyRecipe implements IRecipe {
 		return foundIvy && foundItem;
 	}
 
+	@Nonnull
 	@Override
 	public ItemStack getCraftingResult(@Nonnull InventoryCrafting var1) {
-		ItemStack item = null;
+		ItemStack item = ItemStack.EMPTY;
 
 		for(int i = 0; i < var1.getSizeInventory(); i++) {
 			ItemStack stack = var1.getStackInSlot(i);
-			if(stack != null && stack.getItem() != ModItems.keepIvy)
+			if(!stack.isEmpty() && stack.getItem() != ModItems.keepIvy)
 				item = stack;
 		}
 
 		ItemStack copy = item.copy();
 		ItemNBTHelper.setBoolean(copy, ItemKeepIvy.TAG_KEEP, true);
-		copy.stackSize = 1;
+		copy.setCount(1);
 		return copy;
 	}
 
@@ -64,9 +65,10 @@ public class KeepIvyRecipe implements IRecipe {
 		return 10;
 	}
 
+	@Nonnull
 	@Override
 	public ItemStack getRecipeOutput() {
-		return null;
+		return ItemStack.EMPTY;
 	}
 
 	@Nonnull

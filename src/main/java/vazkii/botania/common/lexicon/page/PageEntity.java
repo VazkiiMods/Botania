@@ -18,8 +18,10 @@ import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.internal.IGuiLexiconEntry;
@@ -35,7 +37,7 @@ public class PageEntity extends LexiconPage{
 
 	public PageEntity(String unlocalizedName, String entity, int size) {
 		super(unlocalizedName);
-		Class EntityClass = EntityList.NAME_TO_CLASS.get(entity);
+		Class EntityClass = ForgeRegistries.ENTITIES.getValue(new ResourceLocation(entity)).getEntityClass();
 		this.size = size;
 		try {
 			entityConstructor = EntityClass.getConstructor(World.class);

@@ -41,7 +41,7 @@ public class CommandShare extends CommandBase {
 		json = json.replaceAll("%entryname%", I18n.translateToLocal(args[0]));
 
 		ITextComponent component = ITextComponent.Serializer.jsonToComponent(json);
-		server.getPlayerList().sendChatMsg(component);
+		server.getPlayerList().sendMessage(component);
 	}
 
 

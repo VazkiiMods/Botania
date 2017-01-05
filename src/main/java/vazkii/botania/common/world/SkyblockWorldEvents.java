@@ -72,7 +72,7 @@ public final class SkyblockWorldEvents {
 	public static void onPlayerInteract(PlayerInteractEvent.RightClickBlock event) {
 		if(WorldTypeSkyblock.isWorldSkyblock(event.getWorld())) {
 			ItemStack equipped = event.getItemStack();
-			if(equipped == null && event.getEntityPlayer().isSneaking()) {
+			if(equipped.isEmpty() && event.getEntityPlayer().isSneaking()) {
 				Block block = event.getWorld().getBlockState(event.getPos()).getBlock();
 				if(ImmutableSet.of(Blocks.GRASS, Blocks.GRASS_PATH, Blocks.FARMLAND, Blocks.DIRT, ModBlocks.altGrass).contains(block)) {
 					if(event.getWorld().isRemote)
@@ -84,14 +84,14 @@ public final class SkyblockWorldEvents {
 							event.getEntityPlayer().dropItem(new ItemStack(ModItems.manaResource, 1, 21), false);
 					}
 				}
-			} else if(equipped != null && equipped.getItem() == Items.BOWL && !event.getWorld().isRemote) {
+			} else if(!equipped.isEmpty() && equipped.getItem() == Items.BOWL && !event.getWorld().isRemote) {
 				RayTraceResult RayTraceResult = ToolCommons.raytraceFromEntity(event.getWorld(), event.getEntityPlayer(), true, 4.5F);
 				if(RayTraceResult != null) {
 					if (RayTraceResult.typeOfHit == net.minecraft.util.math.RayTraceResult.Type.BLOCK) {
 						if(event.getWorld().getBlockState(RayTraceResult.getBlockPos()).getMaterial() == Material.WATER) {
-							--equipped.stackSize;
+							equipped.shrink(1);
 
-							if(equipped.stackSize <= 0)
+							if(equipped.isEmpty())
 								event.getEntityPlayer().setHeldItem(event.getHand(), new ItemStack(ModItems.waterBowl));
 							else event.getEntityPlayer().dropItem(new ItemStack(ModItems.waterBowl), false);
 						}
