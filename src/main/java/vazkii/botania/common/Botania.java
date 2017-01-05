@@ -85,7 +85,6 @@ import vazkii.botania.common.entity.EntityPinkWither;
 import vazkii.botania.common.entity.EntitySignalFlare;
 import vazkii.botania.common.entity.EntitySpark;
 import vazkii.botania.common.entity.ModEntities;
-import vazkii.botania.common.integration.buildcraft.StatementAPIPlugin;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibMisc;
@@ -181,7 +180,7 @@ public class Botania {
 		FMLInterModComms.sendMessage("ProjectE", "interdictionblacklist", EntityManaBurst.class.getCanonicalName());
 
 		if(Botania.bcTriggersLoaded)
-			new StatementAPIPlugin();
+			// todo buildcraft new StatementAPIPlugin();
 		proxy.init(event);
 	}
 
