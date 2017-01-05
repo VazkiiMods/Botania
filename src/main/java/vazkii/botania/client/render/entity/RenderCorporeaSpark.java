@@ -62,7 +62,7 @@ public class RenderCorporeaSpark extends RenderSparkBase<EntityCorporeaSpark> {
 
 		float absTime = Math.abs(time) - pticks;
 
-		ItemStack stack = entity.getDisplayedItem().or(ItemStack.EMPTY);
+		ItemStack stack = entity.getDisplayedItem();
 		if(stack.isEmpty())
 			return;
 

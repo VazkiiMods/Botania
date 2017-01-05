@@ -335,7 +335,7 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 			return true;
 		}
 
-		return ((TileSpecialFlower) world.getTileEntity(pos)).onBlockActivated(world, pos, state, player, hand, stack, side, hitX, hitY, hitZ);
+		return ((TileSpecialFlower) world.getTileEntity(pos)).onBlockActivated(world, pos, state, player, hand, side, hitX, hitY, hitZ);
 	}
 
 	@SideOnly(Side.CLIENT)

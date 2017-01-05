@@ -146,8 +146,8 @@ public class TileSpecialFlower extends TileMod implements IWandBindable, ISubTil
 			subTile.onBlockPlacedBy(world, pos, state, entity, stack);
 	}
 
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack stack, EnumFacing side, float hitX, float hitY, float hitZ) {
-		return subTile == null ? false : subTile.onBlockActivated(world, pos, state, player, hand, stack, side, hitX, hitY, hitZ);
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+		return subTile == null ? false : subTile.onBlockActivated(world, pos, state, player, hand, side, hitX, hitY, hitZ);
 	}
 
 	public void onBlockAdded(World world, BlockPos pos, IBlockState state) {

@@ -12,9 +12,6 @@ package vazkii.botania.common.lib;
 
 public final class LibObfuscation {
 
-	// EntityHorse
-	public static final String[] INIT_HORSE_CHEST = { "initHorseChest", "func_110226_cD", "dJ" };
-
 	// RenderManager
 	public static final String[] RENDERPOSX = { "renderPosX", "field_78725_b", "o" };
 	public static final String[] RENDERPOSY = { "renderPosY", "field_78726_c", "p" };
@@ -47,7 +44,7 @@ public final class LibObfuscation {
 	public static final String[] ITEM_IN_USE_COUNT = { "activeItemStackUseCount", "field_184628_bn", "bn" };
 
 	// EntityHorse
-	public static final String[] HORSE_JUMP_STRENGTH = { "JUMP_STRENGTH", "field_110271_bv", "bC" };
+	public static final String[] HORSE_JUMP_STRENGTH = { "JUMP_STRENGTH", "field_110271_bv", "bw" };
 
 	// PlayerControllerMP
 	public static final String[] NET_CLIENT_HANDLER = { "connection", "field_78774_b", "b" };
