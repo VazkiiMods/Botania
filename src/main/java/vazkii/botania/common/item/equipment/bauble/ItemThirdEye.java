@@ -81,7 +81,7 @@ public class ItemThirdEye extends ItemBauble implements IManaUsingItem, IBaubleR
 		if(type == RenderType.BODY) {
 			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 			Helper.rotateIfSneaking(player);
-			boolean armor = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST) != null;
+			boolean armor = !player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).isEmpty();
 			double scale = 0.6;
 			GlStateManager.rotate(180, 0, 0, 1);
 			GlStateManager.translate(-0.3, -0.6, armor ? -0.18 : -0.12);

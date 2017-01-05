@@ -174,7 +174,7 @@ public class BlockAltar extends BlockMod implements ILexiconable {
 				}
 
 				return true;
-			} else if(stack != null && stack.getItem() == Items.LAVA_BUCKET) {
+			} else if(!stack.isEmpty() && stack.getItem() == Items.LAVA_BUCKET) {
 				if(!player.capabilities.isCreativeMode)
 					drain(FluidRegistry.LAVA, stack);
 
@@ -184,7 +184,7 @@ public class BlockAltar extends BlockMod implements ILexiconable {
 				world.checkLight(pos);
 
 				return true;
-			} else if(stack != null && stack.getItem() == Items.BUCKET && (tile.hasWater || tile.hasLava) && !Botania.gardenOfGlassLoaded) {
+			} else if(!stack.isEmpty() && stack.getItem() == Items.BUCKET && (tile.hasWater || tile.hasLava) && !Botania.gardenOfGlassLoaded) {
 				ItemStack bucket = tile.hasLava ? new ItemStack(Items.LAVA_BUCKET) : new ItemStack(Items.WATER_BUCKET);
 				if(stack.getCount() == 1)
 					player.setHeldItem(hand, bucket);

@@ -44,7 +44,7 @@ public class RenderLexicon {
 		Minecraft mc = Minecraft.getMinecraft();
 		if(!ConfigHandler.lexicon3dModel
 				|| mc.gameSettings.thirdPersonView != 0
-				|| mc.player.getHeldItem(evt.getHand()) == null
+				|| mc.player.getHeldItem(evt.getHand()).isEmpty()
 				|| mc.player.getHeldItem(evt.getHand()).getItem() != ModItems.lexicon)
 			return;
 		evt.setCanceled(true);

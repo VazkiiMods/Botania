@@ -251,7 +251,7 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 		List<ItemStack> providers = new ArrayList<>();
 		for(int i = inv.getSizeInventory() - 1; i >= 0; i--) {
 			ItemStack invStack = inv.getStackInSlot(i);
-			if(invStack == null)
+			if(invStack.isEmpty())
 				continue;
 
 			Item item = invStack.getItem();

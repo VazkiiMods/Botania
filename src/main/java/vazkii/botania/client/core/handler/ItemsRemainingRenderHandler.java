@@ -29,13 +29,13 @@ public final class ItemsRemainingRenderHandler {
 	private static final int maxTicks = 30;
 	private static final int leaveTicks = 20;
 
-	private static ItemStack stack;
+	private static ItemStack stack = ItemStack.EMPTY;
 	private static String customString;
 	private static int ticks, count;
 
 	@SideOnly(Side.CLIENT)
 	public static void render(ScaledResolution resolution, float partTicks) {
-		if(ticks > 0 && stack != null) {
+		if(ticks > 0 && !stack.isEmpty()) {
 			int pos = maxTicks - ticks;
 			Minecraft mc = Minecraft.getMinecraft();
 			int x = resolution.getScaledWidth() / 2 + 10 + Math.max(0, pos - leaveTicks);
@@ -64,7 +64,7 @@ public final class ItemsRemainingRenderHandler {
 			String text = "";
 
 			if(customString == null) {
-				if(stack != null && stack.getItem() != null) {
+				if(!stack.isEmpty()) {
 					text = TextFormatting.GREEN + stack.getDisplayName();
 					if(count >= 0) {
 						int max = stack.getMaxStackSize();

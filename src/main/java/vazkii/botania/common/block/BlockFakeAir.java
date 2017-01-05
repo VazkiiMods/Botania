@@ -104,7 +104,7 @@ public class BlockFakeAir extends BlockMod {
 	}
 
 	@Override
-	public boolean canBeReplacedByLeaves(IBlockState state, IBlockAccess world, BlockPos pos) {
+	public boolean canBeReplacedByLeaves(@Nonnull IBlockState state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos) {
 		return true;
 	}
 

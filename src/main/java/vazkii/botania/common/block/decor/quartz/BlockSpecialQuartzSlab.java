@@ -86,11 +86,13 @@ public class BlockSpecialQuartzSlab extends BlockModSlab {
 		return new ItemStack(getSingleBlock());
 	}
 
+	@Nonnull
 	@Override
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
 		return Item.getItemFromBlock(getSingleBlock());
 	}
 
+	@Nonnull
 	@Override
 	public ItemStack getSilkTouchDrop(@Nonnull IBlockState par1) {
 		return new ItemStack(getSingleBlock());

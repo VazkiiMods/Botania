@@ -54,9 +54,9 @@ public class ItemAesirRing extends ItemRelicBauble implements IWireframeCoordina
 
 	@SubscribeEvent
 	public void onDropped(ItemTossEvent event) {
-		if(event.getEntityItem() != null && event.getEntityItem().getEntityItem() != null && !event.getEntityItem().world.isRemote) {
+		if(event.getEntityItem() != null && !event.getEntityItem().getEntityItem().isEmpty() && !event.getEntityItem().world.isRemote) {
 			ItemStack stack = event.getEntityItem().getEntityItem();
-			if(stack.getItem() != null && stack.getItem() == this) {
+			if(stack.getItem() == this) {
 				event.getEntityItem().setDead();
 
 				UUID user = getSoulbindUUID(stack);

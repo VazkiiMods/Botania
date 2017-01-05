@@ -172,7 +172,7 @@ public abstract class ItemBauble extends ItemMod implements IBauble, ICosmeticAt
 
 	@Override
 	public boolean hasContainerItem(ItemStack stack) {
-		return getContainerItem(stack) != null;
+		return !getContainerItem(stack).isEmpty();
 	}
 
 	@Nonnull

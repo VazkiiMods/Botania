@@ -175,7 +175,7 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		if(recieverStack.getItem() != null) {
+		if(!recieverStack.isEmpty()) {
 			String stackName = recieverStack.getDisplayName();
 			int width = 16 + mc.fontRendererObj.getStringWidth(stackName) / 2;
 			int x = res.getScaledWidth() / 2 - width;

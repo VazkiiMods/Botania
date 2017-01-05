@@ -30,7 +30,7 @@ public class CosmeticAttachRecipe implements IRecipe {
 
 		for(int i = 0; i < var1.getSizeInventory(); i++) {
 			ItemStack stack = var1.getStackInSlot(i);
-			if(stack != null) {
+			if(!stack.isEmpty()) {
 				if(stack.getItem() instanceof ICosmeticBauble && !foundCosmetic)
 					foundCosmetic = true;
 				else if(!foundAttachable) {
@@ -44,14 +44,15 @@ public class CosmeticAttachRecipe implements IRecipe {
 		return foundCosmetic && foundAttachable;
 	}
 
+	@Nonnull
 	@Override
 	public ItemStack getCraftingResult(@Nonnull InventoryCrafting var1) {
-		ItemStack cosmeticItem = null;
-		ItemStack attachableItem = null;
+		ItemStack cosmeticItem = ItemStack.EMPTY;
+		ItemStack attachableItem = ItemStack.EMPTY;
 
 		for(int i = 0; i < var1.getSizeInventory(); i++) {
 			ItemStack stack = var1.getStackInSlot(i);
-			if(stack != null) {
+			if(!stack.isEmpty()) {
 				if(stack.getItem() instanceof ICosmeticBauble && cosmeticItem == null)
 					cosmeticItem = stack;
 				else attachableItem = stack;
@@ -59,11 +60,11 @@ public class CosmeticAttachRecipe implements IRecipe {
 		}
 
 		if(!(attachableItem.getItem() instanceof ICosmeticAttachable))
-			return null;
+			return ItemStack.EMPTY;
 		
 		ICosmeticAttachable attachable = (ICosmeticAttachable) attachableItem.getItem();
-		if(attachable.getCosmeticItem(attachableItem) != null)
-			return null;
+		if(!attachable.getCosmeticItem(attachableItem).isEmpty())
+			return ItemStack.EMPTY;
 
 		ItemStack copy = attachableItem.copy();
 		attachable.setCosmeticItem(copy, cosmeticItem);
@@ -75,9 +76,10 @@ public class CosmeticAttachRecipe implements IRecipe {
 		return 10;
 	}
 
+	@Nonnull
 	@Override
 	public ItemStack getRecipeOutput() {
-		return null;
+		return ItemStack.EMPTY;
 	}
 
 	@Nonnull

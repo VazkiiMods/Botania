@@ -198,7 +198,7 @@ public class ItemItemFinder extends ItemBauble implements IBaubleRender {
 
 		for(int l = 0; l < inv.getSlots(); l++) {
 			ItemStack istack = inv.getStackInSlot(l);
-			if(istack != null && equalStacks(istack, pstack))
+			if(!istack.isEmpty() && equalStacks(istack, pstack))
 				return true;
 		}
 
@@ -230,7 +230,7 @@ public class ItemItemFinder extends ItemBauble implements IBaubleRender {
 			float f1 = gemIcon.getMaxU();
 			float f2 = gemIcon.getMinV();
 			float f3 = gemIcon.getMaxV();
-			boolean armor = player.getItemStackFromSlot(EntityEquipmentSlot.HEAD) != null;
+			boolean armor = !player.getItemStackFromSlot(EntityEquipmentSlot.HEAD).isEmpty();
 			Helper.translateToHeadLevel(player);
 			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 			GlStateManager.rotate(90F, 0F, 1F, 0F);

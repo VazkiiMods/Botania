@@ -33,7 +33,7 @@ public class AesirRingRecipe implements IRecipe {
 
 		for(int i = 0; i < var1.getSizeInventory(); i++) {
 			ItemStack stack = var1.getStackInSlot(i);
-			if(stack != null) {
+			if(!stack.isEmpty()) {
 				if(stack.getItem() == ModItems.thorRing && !foundThorRing)
 					foundThorRing = true;
 				else if(stack.getItem() == ModItems.odinRing && !foundOdinRing)
@@ -47,6 +47,7 @@ public class AesirRingRecipe implements IRecipe {
 		return foundThorRing && foundOdinRing && foundLokiRing;
 	}
 
+	@Nonnull
 	@Override
 	public ItemStack getCraftingResult(@Nonnull InventoryCrafting var1) {
 		String soulbind = null;
@@ -55,7 +56,7 @@ public class AesirRingRecipe implements IRecipe {
 
 		for(int i = 0; i < var1.getSizeInventory(); i++) {
 			ItemStack stack = var1.getStackInSlot(i);
-			if(stack != null) {
+			if(!stack.isEmpty()) {
 				if(stack.getItem() instanceof IRelic) {
 					if(((IRelic) stack.getItem()).hasUUID(stack)) {
 						hasUUID = true;
@@ -63,16 +64,16 @@ public class AesirRingRecipe implements IRecipe {
 						if(soulbindUUID == null)
 							soulbindUUID = bindUUID;
 						else if(!soulbindUUID.equals(bindUUID))
-							return null;
+							return ItemStack.EMPTY;
 					}
 					else {
 						String bind = ((IRelic) stack.getItem()).getSoulbindUsername(stack);
 						if(soulbind == null)
 							soulbind = bind;
 						else if(!soulbind.equals(bind))
-							return null;
+							return ItemStack.EMPTY;
 					}
-				} else return null;
+				} else return ItemStack.EMPTY;
 			}
 		}
 
@@ -89,9 +90,10 @@ public class AesirRingRecipe implements IRecipe {
 		return 10;
 	}
 
+	@Nonnull
 	@Override
 	public ItemStack getRecipeOutput() {
-		return null;
+		return ItemStack.EMPTY;
 	}
 
 	@Nonnull

@@ -99,7 +99,7 @@ public class PageRecipe extends LexiconPage {
 
 	@SideOnly(Side.CLIENT)
 	public void renderItemAtAngle(IGuiLexiconEntry gui, float angle, ItemStack stack) {
-		if(stack == null || stack.getItem() == null)
+		if(stack.isEmpty())
 			return;
 
 		ItemStack workStack = stack.copy();
@@ -117,7 +117,7 @@ public class PageRecipe extends LexiconPage {
 
 	@SideOnly(Side.CLIENT)
 	public void renderItemAtGridPos(IGuiLexiconEntry gui, int x, int y, ItemStack stack, boolean accountForContainer) {
-		if(stack == null || stack.getItem() == null)
+		if(stack.isEmpty())
 			return;
 		stack = stack.copy();
 
@@ -172,7 +172,7 @@ public class PageRecipe extends LexiconPage {
 
 			if(accountForContainer) {
 				ItemStack containerStack = stack.getItem().getContainerItem(stack);
-				if(containerStack != null && containerStack.getItem() != null)
+				if(!containerStack.isEmpty())
 					tooltipContainerStack = containerStack;
 			}
 		}

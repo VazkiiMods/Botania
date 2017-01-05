@@ -55,9 +55,9 @@ public class ItemDodgeRing extends ItemBauble {
 
 		IInventory baublesInv = BaublesApi.getBaubles(mc.player);
 		ItemStack ringStack = baublesInv.getStackInSlot(1);
-		if(ringStack == null || !(ringStack.getItem() instanceof ItemDodgeRing)) {
+		if(ringStack.isEmpty() || !(ringStack.getItem() instanceof ItemDodgeRing)) {
 			ringStack = baublesInv.getStackInSlot(2);
-			if(ringStack == null || !(ringStack.getItem() instanceof ItemDodgeRing))
+			if(ringStack.isEmpty() || !(ringStack.getItem() instanceof ItemDodgeRing))
 				return;
 		}
 

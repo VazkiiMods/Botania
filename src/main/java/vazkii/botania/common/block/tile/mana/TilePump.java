@@ -56,13 +56,12 @@ public class TilePump extends TileMod {
 	}
 
 	@Override
-	public boolean hasCapability(@Nonnull Capability<?> cap, @Nonnull EnumFacing side) {
+	public boolean hasCapability(@Nonnull Capability<?> cap, EnumFacing side) {
 		return cap == CapabilityAnimation.ANIMATION_CAPABILITY || super.hasCapability(cap, side);
 	}
 
-	@Nonnull
 	@Override
-	public <T> T getCapability(@Nonnull Capability<T> cap, @Nonnull EnumFacing side) {
+	public <T> T getCapability(@Nonnull Capability<T> cap, EnumFacing side) {
 		if (cap == CapabilityAnimation.ANIMATION_CAPABILITY) {
 			return CapabilityAnimation.ANIMATION_CAPABILITY.cast(asm);
 		}

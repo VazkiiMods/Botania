@@ -165,7 +165,7 @@ public class ItemBlackHoleTalisman extends ItemMod implements IBlockProvider {
 						continue;
 
 					add(itemstack, count);
-					player.inventory.setInventorySlotContents(i, null);
+					player.inventory.setInventorySlotContents(i, ItemStack.EMPTY);
 				}
 
 				/*int countInHighest = counts[highest];
@@ -187,7 +187,7 @@ public class ItemBlackHoleTalisman extends ItemMod implements IBlockProvider {
 		int meta = getBlockMeta(par1ItemStack);
 		ItemStack stack = new ItemStack(block, 1, meta);
 
-		return super.getItemStackDisplayName(par1ItemStack) + (stack == null || stack.getItem() == null ? "" : " (" + TextFormatting.GREEN + stack.getDisplayName() + TextFormatting.RESET + ")");
+		return super.getItemStackDisplayName(par1ItemStack) + (stack.isEmpty() ? "" : " (" + TextFormatting.GREEN + stack.getDisplayName() + TextFormatting.RESET + ")");
 	}
 
 	@Nonnull
@@ -195,7 +195,7 @@ public class ItemBlackHoleTalisman extends ItemMod implements IBlockProvider {
 	public ItemStack getContainerItem(@Nonnull ItemStack itemStack) {
 		int count = getBlockCount(itemStack);
 		if(count == 0)
-			return null;
+			return ItemStack.EMPTY;
 
 		int extract = Math.min(64, count);
 		ItemStack copy = itemStack.copy();
@@ -210,7 +210,7 @@ public class ItemBlackHoleTalisman extends ItemMod implements IBlockProvider {
 
 	@Override
 	public boolean hasContainerItem(ItemStack stack) {
-		return getContainerItem(stack) != null;
+		return !getContainerItem(stack).isEmpty();
 	}
 
 	private boolean setBlock(ItemStack stack, Block block, int meta) {

@@ -51,7 +51,7 @@ public class ItemGoddessCharm extends ItemBauble implements IManaUsingItem, IBau
 		for(EntityPlayer player : players) {
 			IInventory inv = BaublesApi.getBaubles(player);
 			ItemStack charm = inv.getStackInSlot(6);
-			if(charm != null && charm.getItem() instanceof ItemGoddessCharm && ManaItemHandler.requestManaExact(charm, player, COST, true)) {
+			if(!charm.isEmpty() && charm.getItem() instanceof ItemGoddessCharm && ManaItemHandler.requestManaExact(charm, player, COST, true)) {
 				event.getAffectedBlocks().clear();
 				return;
 			}

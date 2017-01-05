@@ -102,9 +102,9 @@ public class ItemBottledMana extends ItemMod {
 				for(int i = 0; i < player.inventory.getSizeInventory(); i++) {
 					ItemStack stackAt = player.inventory.getStackInSlot(i);
 					if(stackAt != stack) {
-						if(stackAt != null)
+						if(!stackAt.isEmpty())
 							player.entityDropItem(stackAt, 0);
-						player.inventory.setInventorySlotContents(i, null);
+						player.inventory.setInventorySlotContents(i, ItemStack.EMPTY);
 					}
 				}
 			}
@@ -223,6 +223,7 @@ public class ItemBottledMana extends ItemMod {
 		return ActionResult.newResult(EnumActionResult.SUCCESS, player.getHeldItem(hand));
 	}
 
+	@Nonnull
 	@Override
 	public ItemStack onItemUseFinish(@Nonnull ItemStack par1ItemStack, World world, EntityLivingBase living) {
 		randomEffect(living, par1ItemStack);

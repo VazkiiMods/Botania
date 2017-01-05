@@ -260,7 +260,7 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 
 						if(name.equals("this")) {
 							ItemStack stack = event.getPlayer().getHeldItemMainhand();
-							if(stack != null)
+							if(!stack.isEmpty())
 								name = stack.getDisplayName().toLowerCase().trim();
 						}
 

@@ -28,7 +28,7 @@ public class ManaGunRemoveLensRecipe implements IRecipe {
 
 		for(int i = 0; i < var1.getSizeInventory(); i++) {
 			ItemStack stack = var1.getStackInSlot(i);
-			if(stack != null) {
+			if(!stack.isEmpty()) {
 				if(stack.getItem() instanceof ItemManaGun && ItemManaGun.getLens(stack) != null)
 					foundGun = true;
 
@@ -39,13 +39,14 @@ public class ManaGunRemoveLensRecipe implements IRecipe {
 		return foundGun;
 	}
 
+	@Nonnull
 	@Override
 	public ItemStack getCraftingResult(@Nonnull InventoryCrafting var1) {
-		ItemStack gun = null;
+		ItemStack gun = ItemStack.EMPTY;
 
 		for(int i = 0; i < var1.getSizeInventory(); i++) {
 			ItemStack stack = var1.getStackInSlot(i);
-			if(stack != null) {
+			if(!stack.isEmpty()) {
 				if(stack.getItem() instanceof ItemManaGun)
 					gun = stack;
 			}
@@ -62,9 +63,10 @@ public class ManaGunRemoveLensRecipe implements IRecipe {
 		return 10;
 	}
 
+	@Nonnull
 	@Override
 	public ItemStack getRecipeOutput() {
-		return null;
+		return ItemStack.EMPTY;
 	}
 
 	@Nonnull

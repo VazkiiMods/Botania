@@ -464,7 +464,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 		super.dropEquipment(wasRecentlyHit, lootingModifier);
 
 		for (EntityEquipmentSlot e : EntityEquipmentSlot.values()) {
-			setItemStackToSlot(e, null);
+			setItemStackToSlot(e, ItemStack.EMPTY);
 		}
 
 		// Generate loot table for every single attacking player
@@ -606,7 +606,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 		else {
 			for(EntityPlayer player : players) {
 				for(EntityEquipmentSlot e : EntityEquipmentSlot.values()) {
-					if(e.getSlotType() == EntityEquipmentSlot.Type.ARMOR && player.getItemStackFromSlot(e) != null) {
+					if(e.getSlotType() == EntityEquipmentSlot.Type.ARMOR && !player.getItemStackFromSlot(e).isEmpty()) {
 						anyWithArmor = true;
 						break;
 					}

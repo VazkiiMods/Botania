@@ -55,9 +55,10 @@ public class ItemBaubleBox extends ItemMod {
 	private static class InvProvider implements ICapabilitySerializable<NBTBase> {
 
 		private final IItemHandler inv = new ItemStackHandler(24) {
+			@Nonnull
 			@Override
-			public ItemStack insertItem(int slot, ItemStack toInsert, boolean simulate) {
-				if(toInsert != null &&
+			public ItemStack insertItem(int slot, @Nonnull ItemStack toInsert, boolean simulate) {
+				if(!toInsert.isEmpty() &&
 						(toInsert.getItem() instanceof IManaItem
 								|| toInsert.getItem() instanceof IBauble))
 					return super.insertItem(slot, toInsert, simulate);
@@ -66,12 +67,12 @@ public class ItemBaubleBox extends ItemMod {
 		};
 
 		@Override
-		public boolean hasCapability(Capability<?> capability, @Nullable EnumFacing facing) {
+		public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {
 			return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY;
 		}
 
 		@Override
-		public <T> T getCapability(Capability<T> capability, @Nullable EnumFacing facing) {
+		public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
 			if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
 				return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(inv);
 			else return null;

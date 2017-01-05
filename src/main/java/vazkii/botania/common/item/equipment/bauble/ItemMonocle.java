@@ -52,7 +52,7 @@ public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, ICosm
 	@SideOnly(Side.CLIENT)
 	public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
 		if(type == RenderType.HEAD) {
-			boolean armor = player.getItemStackFromSlot(EntityEquipmentSlot.HEAD) != null;
+			boolean armor = !player.getItemStackFromSlot(EntityEquipmentSlot.HEAD).isEmpty();
 			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 
 			Helper.translateToHeadLevel(player);
@@ -105,7 +105,7 @@ public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, ICosm
 	public static boolean hasMonocle(EntityPlayer player) {
 		for(int i = 0; i < 7; i++) {
 			ItemStack stack = BaublesApi.getBaubles(player).getStackInSlot(i);
-			if(stack != null) {
+			if(!stack.isEmpty()) {
 				Item item = stack.getItem();
 				if(item instanceof IBurstViewerBauble)
 					return true;

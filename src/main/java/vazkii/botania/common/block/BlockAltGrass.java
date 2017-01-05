@@ -110,6 +110,7 @@ public class BlockAltGrass extends BlockMod implements ILexiconable {
 		}
 	}
 
+	@Nonnull
 	@Override
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
 		return Blocks.DIRT.getItemDropped(state, rand, fortune);

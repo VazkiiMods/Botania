@@ -44,7 +44,7 @@ public final class TooltipAdditionDisplayHandler {
 
 	@SubscribeEvent
 	public static void onToolTipRender(RenderTooltipEvent.PostText evt) {
-		if(evt.getStack() == null)
+		if(evt.getStack().isEmpty())
 			return;
 
 		ItemStack stack = evt.getStack();
@@ -67,7 +67,7 @@ public final class TooltipAdditionDisplayHandler {
 
 			for(int i = 0; i < InventoryPlayer.getHotbarSize(); i++) {
 				ItemStack stackAt = mc.player.inventory.getStackInSlot(i);
-				if(stackAt != null && stackAt.getItem() instanceof ILexicon && ((ILexicon) stackAt.getItem()).isKnowledgeUnlocked(stackAt, data.entry.getKnowledgeType())) {
+				if(!stackAt.isEmpty() && stackAt.getItem() instanceof ILexicon && ((ILexicon) stackAt.getItem()).isKnowledgeUnlocked(stackAt, data.entry.getKnowledgeType())) {
 					lexiconStack = stackAt;
 					lexSlot = i;
 					break;

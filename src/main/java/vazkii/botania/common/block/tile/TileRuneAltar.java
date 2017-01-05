@@ -83,7 +83,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver 
 		boolean did = false;
 
 		for(int i = 0; i < getSizeInventory(); i++)
-			if(itemHandler.getStackInSlot(i) == null) {
+			if(itemHandler.getStackInSlot(i).isEmpty()) {
 				did = true;
 				ItemStack stackToAdd = stack.copy();
 				stackToAdd.setCount(1);
@@ -92,7 +92,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver 
 				if(player == null || !player.capabilities.isCreativeMode) {
 					stack.shrink(1);
 					if(stack.isEmpty() && player != null)
-						player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
+						player.inventory.setInventorySlotContents(player.inventory.currentItem, ItemStack.EMPTY);
 				}
 
 				break;
@@ -113,7 +113,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver 
 		if(!world.isRemote && manaToGet == 0) {
 			List<EntityItem> items = world.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(pos, pos.add(1, 1, 1)));
 			for(EntityItem item : items)
-				if(!item.isDead && item.getEntityItem() != null && item.getEntityItem().getItem() != Item.getItemFromBlock(ModBlocks.livingrock)) {
+				if(!item.isDead && !item.getEntityItem().isEmpty() && item.getEntityItem().getItem() != Item.getItemFromBlock(ModBlocks.livingrock)) {
 					ItemStack stack = item.getEntityItem();
 					if(addItem(null, stack, null) && stack.isEmpty())
 						item.setDead();
@@ -179,7 +179,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver 
 		lastRecipe = new ArrayList<>();
 		for(int i = 0; i < getSizeInventory(); i++) {
 			ItemStack stack = itemHandler.getStackInSlot(i);
-			if(stack == null)
+			if(stack.isEmpty())
 				break;
 			lastRecipe.add(stack.copy());
 		}
@@ -216,7 +216,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver 
 			List<EntityItem> items = world.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(pos, pos.add(1, 1, 1)));
 			EntityItem livingrock = null;
 			for(EntityItem item : items)
-				if(!item.isDead && item.getEntityItem() != null && item.getEntityItem().getItem() == Item.getItemFromBlock(ModBlocks.livingrock)) {
+				if(!item.isDead && !item.getEntityItem().isEmpty() && item.getEntityItem().getItem() == Item.getItemFromBlock(ModBlocks.livingrock)) {
 					livingrock = item;
 					break;
 				}
@@ -236,13 +236,13 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver 
 				if(!world.isRemote) {
 					for(int i = 0; i < getSizeInventory(); i++) {
 						ItemStack stack = itemHandler.getStackInSlot(i);
-						if(stack != null) {
+						if(!stack.isEmpty()) {
 							if(stack.getItem() == ModItems.rune && (player == null || !player.capabilities.isCreativeMode)) {
 								EntityItem outputItem = new EntityItem(world, getPos().getX() + 0.5, getPos().getY() + 1.5, getPos().getZ() + 0.5, stack.copy());
 								world.spawnEntity(outputItem);
 							}
 
-							itemHandler.setStackInSlot(i, null);
+							itemHandler.setStackInSlot(i, ItemStack.EMPTY);
 						}
 					}
 
@@ -269,7 +269,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver 
 
 	public boolean isEmpty() {
 		for(int i = 0; i < getSizeInventory(); i++)
-			if(itemHandler.getStackInSlot(i) != null)
+			if(!itemHandler.getStackInSlot(i).isEmpty())
 				return false;
 
 		return true;
@@ -306,7 +306,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver 
 	protected SimpleItemStackHandler createItemHandler() {
 		return new SimpleItemStackHandler(this, false) {
 			@Override
-			protected int getStackLimit(int slot, ItemStack stack) {
+			protected int getStackLimit(int slot, @Nonnull ItemStack stack) {
 				return 1;
 			}
 		};
@@ -340,7 +340,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver 
 		int radius = 24;
 		int amt = 0;
 		for(int i = 0; i < getSizeInventory(); i++) {
-			if(itemHandler.getStackInSlot(i) == null)
+			if(itemHandler.getStackInSlot(i).isEmpty())
 				break;
 			amt++;
 		}

@@ -105,7 +105,7 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
 		ItemStack stack = player.getHeldItem(hand);
 		if(stack.getItemDamage() == 15) {
 			if(!player.capabilities.isCreativeMode)
@@ -159,7 +159,7 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 	@Nonnull
 	@Override
 	public ItemStack getContainerItem(@Nonnull ItemStack itemStack) {
-		return itemStack.getItemDamage() == 11 ? itemStack.copy() : null;
+		return itemStack.getItemDamage() == 11 ? itemStack.copy() : ItemStack.EMPTY;
 	}
 
 	@Override

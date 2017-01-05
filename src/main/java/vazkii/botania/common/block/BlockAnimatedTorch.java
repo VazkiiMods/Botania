@@ -37,6 +37,8 @@ import vazkii.botania.common.block.tile.TileAnimatedTorch;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
+import javax.annotation.Nonnull;
+
 public class BlockAnimatedTorch extends BlockMod implements IWandable, IManaTrigger, IHourglassTrigger, IWandHUD, ILexiconable {
 
 	private static final AxisAlignedBB AABB = new AxisAlignedBB(0, 0, 0, 1, 0.25, 1);
@@ -102,6 +104,7 @@ public class BlockAnimatedTorch extends BlockMod implements IWandable, IManaTrig
 		return 0;
 	}
 
+	@Nonnull
 	@Override
 	public EnumBlockRenderType getRenderType(IBlockState state) {
 		return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
@@ -117,13 +120,14 @@ public class BlockAnimatedTorch extends BlockMod implements IWandable, IManaTrig
 		return false;
 	}
 
+	@Nonnull
 	@Override
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
 		return AABB;
 	}
 
 	@Override
-	public TileEntity createTileEntity(World world, IBlockState state) {
+	public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
 		return new TileAnimatedTorch();
 	}
 

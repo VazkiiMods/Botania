@@ -76,7 +76,7 @@ import vazkii.botania.common.lib.LibMisc;
 public class GuiLexicon extends GuiScreen {
 
 	public static GuiLexicon currentOpenLexicon = new GuiLexicon();
-	public static ItemStack stackUsed;
+	public static ItemStack stackUsed = ItemStack.EMPTY;
 
 	public static final Map<String, String> notes = new HashMap<>();
 

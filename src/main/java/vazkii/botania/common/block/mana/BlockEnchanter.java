@@ -100,6 +100,7 @@ public class BlockEnchanter extends BlockMod implements IWandable, ILexiconable,
 		return new TileEnchanter();
 	}
 
+	@Nonnull
 	@Override
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
 		return Item.getItemFromBlock(Blocks.LAPIS_BLOCK);

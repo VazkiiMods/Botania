@@ -56,7 +56,7 @@ public class TileOpenCrate extends TileSimpleInventory {
 
 		if(canEject()) {
 			ItemStack stack = itemHandler.getStackInSlot(0);
-			if(stack != null)
+			if(!stack.isEmpty())
 				eject(stack, redstone);
 		}
 	}
@@ -80,7 +80,7 @@ public class TileOpenCrate extends TileSimpleInventory {
 		}
 
 
-		itemHandler.setStackInSlot(0, null);
+		itemHandler.setStackInSlot(0, ItemStack.EMPTY);
 		world.spawnEntity(item);
 	}
 

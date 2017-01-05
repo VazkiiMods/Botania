@@ -90,7 +90,7 @@ public final class HUDHandler {
 			profiler.startSection("botania-hud");
 			IInventory baublesInv = BaublesApi.getBaubles(mc.player);
 			ItemStack headpiece = baublesInv.getStackInSlot(4);
-			if(headpiece != null && headpiece.getItem() == ModItems.flightTiara) {
+			if(!headpiece.isEmpty() && headpiece.getItem() == ModItems.flightTiara) {
 				profiler.startSection("flugelTiara");
 				ItemFlightTiara.renderHUD(event.getResolution(), mc.player, headpiece);
 				profiler.endSection();
@@ -98,9 +98,9 @@ public final class HUDHandler {
 
 			dodgeRing: {
 				ItemStack ring = baublesInv.getStackInSlot(1);
-				if(ring == null || !(ring.getItem() instanceof ItemDodgeRing)) {
+				if(ring.isEmpty() || !(ring.getItem() instanceof ItemDodgeRing)) {
 					ring = baublesInv.getStackInSlot(2);
-					if(ring == null || !(ring.getItem() instanceof ItemDodgeRing))
+					if(ring.isEmpty() || !(ring.getItem() instanceof ItemDodgeRing))
 						break dodgeRing;
 				}
 
@@ -140,7 +140,7 @@ public final class HUDHandler {
 						}
 					} else if(block != null && PlayerHelper.hasHeldItemClass(mc.player, ILexicon.class))
 						drawLexiconHUD(PlayerHelper.getFirstHeldItemClass(mc.player, ILexicon.class), state, pos, event.getResolution());
-					if(tile != null && tile instanceof TilePool && mc.player.getHeldItemMainhand() != null)
+					if(tile != null && tile instanceof TilePool && !mc.player.getHeldItemMainhand().isEmpty())
 						renderPoolRecipeHUD(event.getResolution(), (TilePool) tile, mc.player.getHeldItemMainhand());
 				}
 				if(tile != null && tile instanceof TileAltar)
@@ -166,17 +166,17 @@ public final class HUDHandler {
 				profiler.endSection();
 			}
 
-			if(main != null && main.getItem() instanceof ItemCraftingHalo) {
+			if(!main.isEmpty() && main.getItem() instanceof ItemCraftingHalo) {
 				profiler.startSection("craftingHalo_main");
 				ItemCraftingHalo.renderHUD(event.getResolution(), mc.player, main);
 				profiler.endSection();
-			} else if(offhand != null && offhand.getItem() instanceof ItemCraftingHalo) {
+			} else if(!offhand.isEmpty() && offhand.getItem() instanceof ItemCraftingHalo) {
 				profiler.startSection("craftingHalo_off");
 				ItemCraftingHalo.renderHUD(event.getResolution(), mc.player, offhand);
 				profiler.endSection();
 			}
 
-			if(main != null && main.getItem() instanceof ItemSextant) {
+			if(!main.isEmpty() && main.getItem() instanceof ItemSextant) {
 				profiler.startSection("sextant");
 				ItemSextant.renderHUD(event.getResolution(), mc.player, main);
 				profiler.endSection();
@@ -216,7 +216,7 @@ public final class HUDHandler {
 					IInventory inv = useBaubles ? baublesInv : mainInv;
 					ItemStack stack = inv.getStackInSlot(i - (useBaubles ? invSize : 0));
 
-					if(stack != null) {
+					if(!stack.isEmpty()) {
 						Item item = stack.getItem();
 						if(item instanceof IManaUsingItem)
 							anyRequest = anyRequest || ((IManaUsingItem) item).usesMana(stack);

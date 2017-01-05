@@ -104,7 +104,7 @@ public class ItemSextant extends ItemMod {
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
 		Botania.proxy.removeSextantMultiblock();
 
 		ItemStack stack = player.getHeldItem(hand);

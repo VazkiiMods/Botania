@@ -82,7 +82,7 @@ public class PageBrew extends PageRecipe implements ITwoNamedPage {
 
 	@SideOnly(Side.CLIENT)
 	public void renderItemAtLinePos(IGuiLexiconEntry gui, int offset, int pos, int yPos, ItemStack stack) {
-		if(stack == null || stack.getItem() == null)
+		if(stack.isEmpty())
 			return;
 		stack = stack.copy();
 

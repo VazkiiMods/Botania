@@ -28,6 +28,8 @@ import vazkii.botania.common.Botania;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.brew.ItemIncenseStick;
 
+import javax.annotation.Nonnull;
+
 public class TileIncensePlate extends TileSimpleInventory  {
 
 	private static final String TAG_TIME_LEFT = "timeLeft";
@@ -42,7 +44,7 @@ public class TileIncensePlate extends TileSimpleInventory  {
 	@Override
 	public void update() {
 		ItemStack stack = itemHandler.getStackInSlot(0);
-		if(stack != null && burning) {
+		if(!stack.isEmpty() && burning) {
 			Brew brew = ((ItemIncenseStick) ModItems.incenseStick).getBrew(stack);
 			PotionEffect effect = brew.getPotionEffects(stack).get(0);
 			if(timeLeft > 0) {
@@ -72,14 +74,14 @@ public class TileIncensePlate extends TileSimpleInventory  {
 					Botania.proxy.wispFX(x - (Math.random() - 0.5) * 0.2, y - (Math.random() - 0.5) * 0.2, z - (Math.random() - 0.5) * 0.2, 0.2F, 0.2F, 0.2F, 0.05F + (float) Math.random() * 0.02F, 0.005F - (float) Math.random() * 0.01F, 0.01F + (float) Math.random() * 0.001F, 0.005F - (float) Math.random() * 0.01F);
 				}
 			} else {
-				itemHandler.setStackInSlot(0, null);
+				itemHandler.setStackInSlot(0, ItemStack.EMPTY);
 				burning = false;
 				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 			}
 		} else timeLeft = 0;
 
 		int newComparator = 0;
-		if(stack != null)
+		if(!stack.isEmpty())
 			newComparator = 1;
 		if(burning)
 			newComparator = 2;
@@ -91,7 +93,7 @@ public class TileIncensePlate extends TileSimpleInventory  {
 
 	public void ignite() {
 		ItemStack stack = itemHandler.getStackInSlot(0);
-		if(stack == null || burning)
+		if(stack.isEmpty() || burning)
 			return;
 
 		burning = true;
@@ -125,16 +127,18 @@ public class TileIncensePlate extends TileSimpleInventory  {
 	@Override
 	protected SimpleItemStackHandler createItemHandler() {
 		return new SimpleItemStackHandler(this, true) {
+			@Nonnull
 			@Override
-			public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
+			public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
 				if(acceptsItem(stack))
 					return super.insertItem(slot, stack, simulate);
 				else return stack;
 			}
 
+			@Nonnull
 			@Override
 			public ItemStack extractItem(int slot, int amount, boolean simulate) {
-				return null;
+				return ItemStack.EMPTY;
 			}
 		};
 	}

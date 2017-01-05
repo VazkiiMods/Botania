@@ -30,7 +30,7 @@ public class BlackHoleTalismanExtractRecipe implements IRecipe {
 
 		for(int i = 0; i < var1.getSizeInventory(); i++) {
 			ItemStack stack = var1.getStackInSlot(i);
-			if(stack != null) {
+			if(!stack.isEmpty()) {
 				if(stack.getItem() == ModItems.blackHoleTalisman && !foundTalisman)
 					foundTalisman = true;
 				else return false;
@@ -40,13 +40,14 @@ public class BlackHoleTalismanExtractRecipe implements IRecipe {
 		return foundTalisman;
 	}
 
+	@Nonnull
 	@Override
 	public ItemStack getCraftingResult(@Nonnull InventoryCrafting var1) {
-		ItemStack talisman = null;
+		ItemStack talisman = ItemStack.EMPTY;
 
 		for(int i = 0; i < var1.getSizeInventory(); i++) {
 			ItemStack stack = var1.getStackInSlot(i);
-			if(stack != null)
+			if(!stack.isEmpty())
 				talisman = stack;
 		}
 
@@ -57,7 +58,7 @@ public class BlackHoleTalismanExtractRecipe implements IRecipe {
 			return new ItemStack(block, Math.min(64, count), meta);
 		}
 
-		return null;
+		return ItemStack.EMPTY;
 	}
 
 	@Override
@@ -65,9 +66,10 @@ public class BlackHoleTalismanExtractRecipe implements IRecipe {
 		return 10;
 	}
 
+	@Nonnull
 	@Override
 	public ItemStack getRecipeOutput() {
-		return null;
+		return ItemStack.EMPTY;
 	}
 
 	@Nonnull

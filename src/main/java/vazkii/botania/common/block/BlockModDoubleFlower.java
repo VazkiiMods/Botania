@@ -28,6 +28,7 @@ import net.minecraft.client.renderer.block.statemap.StateMap;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -88,9 +89,10 @@ public abstract class BlockModDoubleFlower extends BlockDoublePlant implements I
 	@Override
 	public abstract IBlockState getStateFromMeta(int meta);
 
+	@Nonnull
 	@Override
 	public Item getItemDropped(IBlockState state, @Nonnull Random rand, int fortune) {
-		return null;
+		return Items.AIR;
 	}
 
 	@Override

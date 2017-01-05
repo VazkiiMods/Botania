@@ -54,6 +54,7 @@ public class ContainerFlowerBag extends Container {
 				|| player.getHeldItemOffhand() == flowerBagInv.bag;
 	}
 
+	@Nonnull
 	@Override
 	public ItemStack transferStackInSlot(EntityPlayer player, int slotIndex) {
 		ItemStack itemstack = ItemStack.EMPTY;

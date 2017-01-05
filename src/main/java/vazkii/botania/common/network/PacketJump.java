@@ -43,13 +43,13 @@ public class PacketJump implements IMessage {
 				IInventory baublesInv = BaublesApi.getBaubles(player);
 				ItemStack amuletStack = baublesInv.getStackInSlot(0);
 
-				if(amuletStack != null && amuletStack.getItem() instanceof CloudPendantShim) {
+				if(!amuletStack.isEmpty() && amuletStack.getItem() instanceof CloudPendantShim) {
 					player.addExhaustion(0.3F);
 					player.fallDistance = 0;
 					
 					ItemStack belt = BaublesApi.getBaubles(player).getStackInSlot(3);
 
-					if(belt != null && belt.getItem() instanceof ItemTravelBelt)
+					if(!belt.isEmpty() && belt.getItem() instanceof ItemTravelBelt)
 						player.fallDistance = -((ItemTravelBelt) belt.getItem()).fallBuffer * ((CloudPendantShim) amuletStack.getItem()).getMaxAllowedJumps();
 				}
 			});

@@ -510,7 +510,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 		BurstProperties props = new BurstProperties(maxMana, ticksBeforeManaLoss, manaLossPerTick, gravity, motionModifier, color);
 
 		ItemStack lens = itemHandler.getStackInSlot(0);
-		if(lens != null && lens.getItem() instanceof ILensEffect)
+		if(!lens.isEmpty() && lens.getItem() instanceof ILensEffect)
 			((ILensEffect) lens.getItem()).apply(lens, props);
 
 		burst.setSourceLens(lens);
@@ -578,7 +578,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 		HUDHandler.drawSimpleManaHUD(color, knownMana, getMaxMana(), name, res);
 
 		ItemStack lens = itemHandler.getStackInSlot(0);
-		if(lens != null) {
+		if(!lens.isEmpty()) {
 			GlStateManager.enableBlend();
 			GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 			String lensName = lens.getDisplayName();
@@ -599,7 +599,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 			ItemStack recieverStack = new ItemStack(world.getBlockState(receiverTile.getPos()).getBlock(), 1, receiverTile.getBlockMetadata());
 			GlStateManager.enableBlend();
 			GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-			if(recieverStack != null && recieverStack.getItem() != null) {
+			if(!recieverStack.isEmpty()) {
 				String stackName = recieverStack.getDisplayName();
 				int width = 16 + mc.fontRendererObj.getStringWidth(stackName) / 2;
 				int x = res.getScaledWidth() / 2 - width;
@@ -640,13 +640,14 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	protected SimpleItemStackHandler createItemHandler() {
 		return new SimpleItemStackHandler(this, true) {
 			@Override
-			protected int getStackLimit(int slot, ItemStack stack) {
+			protected int getStackLimit(int slot, @Nonnull ItemStack stack) {
 				return 1;
 			}
 
+			@Nonnull
 			@Override
-			public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
-				if(stack != null && stack.getItem() instanceof ILens)
+			public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
+				if(!stack.isEmpty() && stack.getItem() instanceof ILens)
 					return super.insertItem(slot, stack, simulate);
 				else return stack;
 			}

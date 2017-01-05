@@ -36,7 +36,7 @@ public class ItemSwapRing extends ItemBauble {
 
 		EntityPlayer player = (EntityPlayer) entity;
 		ItemStack currentStack = player.getHeldItemMainhand();
-		if(currentStack == null || !(currentStack.getItem() instanceof ISortableTool))
+		if(currentStack.isEmpty() || !(currentStack.getItem() instanceof ISortableTool))
 			return;
 
 		ISortableTool tool = (ISortableTool) currentStack.getItem();
@@ -65,7 +65,7 @@ public class ItemSwapRing extends ItemBauble {
 
 		for(int i = 0; i < player.inventory.getSizeInventory(); i++) {
 			ItemStack stackInSlot = player.inventory.getStackInSlot(i);
-			if (stackInSlot != null && stackInSlot.getItem() instanceof ISortableTool && stackInSlot != currentStack) {
+			if (!stackInSlot.isEmpty() && stackInSlot.getItem() instanceof ISortableTool && stackInSlot != currentStack) {
 				ISortableTool toolInSlot = (ISortableTool) stackInSlot.getItem();
 				if(toolInSlot.getSortingType(stackInSlot).equals(typeToFind)) {
 					int priority = toolInSlot.getSortingPriority(stackInSlot);

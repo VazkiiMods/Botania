@@ -64,7 +64,7 @@ public class ItemSmeltRod extends ItemMod implements IManaUsingItem {
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
 		player.setActiveHand(hand);
 		return ActionResult.newResult(EnumActionResult.SUCCESS, player.getHeldItem(hand));
 	}
@@ -85,7 +85,7 @@ public class ItemSmeltRod extends ItemMod implements IManaUsingItem {
 			ItemStack blockStack = new ItemStack(state.getBlock(), 1, state.getBlock().getMetaFromState(state));
 			ItemStack result = FurnaceRecipes.instance().getSmeltingResult(blockStack);
 
-			if(result != null && result.getItem() instanceof ItemBlock) {
+			if(!result.isEmpty() && result.getItem() instanceof ItemBlock) {
 				boolean decremented = false;
 
 				if(playerData.containsKey(p)) {

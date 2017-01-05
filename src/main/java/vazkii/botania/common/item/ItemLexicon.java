@@ -147,7 +147,7 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
 		ItemStack stack = player.getHeldItem(hand);
 		String force = getForcedPage(stack);
 		if(force != null && !force.isEmpty()) {
@@ -241,8 +241,8 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 	}
 
 	public static String getTitle(ItemStack stack) {
-		String title = ModItems.lexicon.getItemStackDisplayName(null);
-		if(stack != null)
+		String title = ModItems.lexicon.getItemStackDisplayName(ItemStack.EMPTY);
+		if(!stack.isEmpty())
 			title = stack.getDisplayName();
 		
 		String akashicTomeNBT = "akashictome:displayName";

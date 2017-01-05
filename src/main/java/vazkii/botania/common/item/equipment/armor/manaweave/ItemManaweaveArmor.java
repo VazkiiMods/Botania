@@ -64,7 +64,7 @@ public class ItemManaweaveArmor extends ItemManasteelArmor implements ICraftAchi
 	}
 
 	@Override
-	public boolean getIsRepairable(ItemStack par1ItemStack, ItemStack par2ItemStack) {
+	public boolean getIsRepairable(ItemStack par1ItemStack, @Nonnull ItemStack par2ItemStack) {
 		return par2ItemStack.getItem() == ModItems.manaResource && par2ItemStack.getItemDamage() == 22 ? true : super.getIsRepairable(par1ItemStack, par2ItemStack);
 	}
 
@@ -86,7 +86,7 @@ public class ItemManaweaveArmor extends ItemManasteelArmor implements ICraftAchi
 	@Override
 	public boolean hasArmorSetItem(EntityPlayer player, int i) {
 		ItemStack stack = player.inventory.armorInventory.get(3 - i);
-		if(stack == null)
+		if(stack.isEmpty())
 			return false;
 
 		switch(i) {

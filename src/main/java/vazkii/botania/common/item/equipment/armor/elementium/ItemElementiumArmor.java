@@ -17,6 +17,8 @@ import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelArmor;
 
+import javax.annotation.Nonnull;
+
 public abstract class ItemElementiumArmor extends ItemManasteelArmor implements IPixieSpawner {
 
 	public ItemElementiumArmor(EntityEquipmentSlot type, String name) {
@@ -36,7 +38,7 @@ public abstract class ItemElementiumArmor extends ItemManasteelArmor implements 
 	}
 
 	@Override
-	public boolean getIsRepairable(ItemStack par1ItemStack, ItemStack par2ItemStack) {
+	public boolean getIsRepairable(ItemStack par1ItemStack, @Nonnull ItemStack par2ItemStack) {
 		return par2ItemStack.getItem() == ModItems.manaResource && par2ItemStack.getItemDamage() == 7 ? true : super.getIsRepairable(par1ItemStack, par2ItemStack);
 	}
 

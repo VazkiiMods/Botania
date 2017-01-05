@@ -32,7 +32,7 @@ public class GuiButtonInvisible extends GuiButtonLexicon {
 	private static final ResourceLocation dogResource = new ResourceLocation(LibResources.GUI_DOG);
 
 	final GuiLexiconIndex gui;
-	public ItemStack displayStack = null;
+	public ItemStack displayStack = ItemStack.EMPTY;
 	public boolean dog = false;
 	float timeHover = 0;
 

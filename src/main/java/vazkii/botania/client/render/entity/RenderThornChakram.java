@@ -17,6 +17,8 @@ import net.minecraft.item.ItemStack;
 import vazkii.botania.common.entity.EntityThornChakram;
 import vazkii.botania.common.item.ModItems;
 
+import javax.annotation.Nonnull;
+
 // Basically a bit of an extension of RenderSnowball
 public class RenderThornChakram extends RenderSnowball<EntityThornChakram> {
 
@@ -24,6 +26,7 @@ public class RenderThornChakram extends RenderSnowball<EntityThornChakram> {
 		super(renderManager, ModItems.thornChakram, Minecraft.getMinecraft().getRenderItem());
 	}
 
+	@Nonnull
 	@Override
 	public ItemStack getStackToRender(EntityThornChakram entityIn) {
 		return new ItemStack(ModItems.thornChakram, 1, entityIn.isFire() ? 1 : 0);

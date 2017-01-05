@@ -41,6 +41,8 @@ import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.item.rod.ItemExchangeRod;
 import vazkii.botania.common.lib.LibItemNames;
 
+import javax.annotation.Nonnull;
+
 public class ItemAstrolabe extends ItemMod {
 
 	private static final String TAG_BLOCK_NAME = "blockName";
@@ -52,6 +54,7 @@ public class ItemAstrolabe extends ItemMod {
 		setMaxStackSize(1);
 	}
 
+	@Nonnull
 	@Override
 	public EnumActionResult onItemUse(EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		ItemStack stack = playerIn.getHeldItem(hand);
@@ -78,8 +81,9 @@ public class ItemAstrolabe extends ItemMod {
 		return EnumActionResult.PASS;
 	}
 
+	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, @Nonnull EnumHand hand) {
 		ItemStack stack = playerIn.getHeldItem(hand);
 		if(playerIn.isSneaking()) {
 			int size = getSize(stack);

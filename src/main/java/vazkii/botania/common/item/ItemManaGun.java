@@ -77,7 +77,7 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
 		ItemStack stack = player.getHeldItem(hand);
 		int effCd = COOLDOWN;
 		PotionEffect effect = player.getActivePotionEffect(MobEffects.HASTE);
@@ -260,7 +260,7 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 		if(cmp != null) {
 			return new ItemStack(cmp);
 		}
-		return null;
+		return ItemStack.EMPTY;
 	}
 
 	public static void setLensAtPos(ItemStack stack, ItemStack lens, int pos) {
@@ -288,7 +288,7 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 		if(cmp != null) {
 			return new ItemStack(cmp);
 		}
-		return null;
+		return ItemStack.EMPTY;
 	}
 
 	public static List<ItemStack> getAllLens(ItemStack stack) {

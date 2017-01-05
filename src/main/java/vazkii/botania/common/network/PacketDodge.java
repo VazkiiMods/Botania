@@ -41,9 +41,9 @@ public class PacketDodge implements IMessage {
 
 				IInventory baublesInv = BaublesApi.getBaubles(player);
 				ItemStack ringStack = baublesInv.getStackInSlot(1);
-				if(ringStack == null || !(ringStack.getItem() instanceof ItemDodgeRing)) {
+				if(ringStack.isEmpty() || !(ringStack.getItem() instanceof ItemDodgeRing)) {
 					ringStack = baublesInv.getStackInSlot(2);
-					if(ringStack == null || !(ringStack.getItem() instanceof ItemDodgeRing))
+					if(ringStack.isEmpty() || !(ringStack.getItem() instanceof ItemDodgeRing))
 						ctx.getServerHandler().disconnect("Invalid Dodge Packet");
 				}
 

@@ -93,7 +93,7 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
 		ItemStack stack = player.getHeldItem(hand);
 		int segment = getSegmentLookedAt(stack, player);
 		ItemStack itemForPos = getItemForSlot(stack, segment);
@@ -176,7 +176,7 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 		if(recipe == null)
 			return false;
 
-		if(ItemHandlerHelper.insertItemStacked(inv, recipe[9], true) != null)
+		if(!ItemHandlerHelper.insertItemStacked(inv, recipe[9], true).isEmpty())
 			return false;
 
 		return consumeRecipeIngredients(recipe, inv, null);
@@ -210,11 +210,11 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 	private static boolean consumeFromInventory(ItemStack stack, IItemHandler inv, EntityPlayer player) {
 		for(int i = 0; i < inv.getSlots(); i++) {
 			ItemStack stackAt = inv.getStackInSlot(i);
-			if(stackAt != null && stack.isItemEqual(stackAt) && ItemStack.areItemStackTagsEqual(stack, stackAt)) {
+			if(!stackAt.isEmpty() && stack.isItemEqual(stackAt) && ItemStack.areItemStackTagsEqual(stack, stackAt)) {
 				boolean consume = true;
 
 				ItemStack container = stackAt.getItem().getContainerItem(stackAt);
-				if(container != null) {
+				if(!container.isEmpty()) {
 					if(container == stackAt)
 						consume = false;
 					else {
@@ -292,14 +292,14 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 		if(slot == 0)
 			return craftingTable;
 		else if(slot >= SEGMENTS)
-			return null;
+			return ItemStack.EMPTY;
 		else {
 			NBTTagCompound cmp = getStoredRecipeCompound(stack, slot);
 
 			if(cmp != null) {
 				ItemStack cmpStack = getLastCraftingItem(cmp, 9);
 				return cmpStack;
-			} else return null;
+			} else return ItemStack.EMPTY;
 		}
 	}
 
@@ -317,7 +317,7 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 
 		for(int i = 0; i < event.player.inventory.getSizeInventory(); i++) {
 			ItemStack stack = event.player.inventory.getStackInSlot(i);
-			if(stack != null && stack.getItem() instanceof ItemCraftingHalo)
+			if(!stack.isEmpty() && stack.getItem() instanceof ItemCraftingHalo)
 				saveRecipeToStack(event, stack);
 		}
 	}
@@ -327,7 +327,7 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 		NBTTagCompound cmp1 = new NBTTagCompound();
 
 		ItemStack result = CraftingManager.getInstance().findMatchingRecipe((InventoryCrafting) event.craftMatrix, event.player.world);
-		if(result != null) {
+		if(!result.isEmpty()) {
 			result.writeToNBT(cmp1);
 			cmp.setTag(TAG_ITEM_PREFIX + 9, cmp1);
 
@@ -335,7 +335,7 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 				cmp1 = new NBTTagCompound();
 				ItemStack stackSlot = event.craftMatrix.getStackInSlot(i);
 
-				if(stackSlot != null) {
+				if(!stackSlot.isEmpty()) {
 					ItemStack writeStack = stackSlot.copy();
 					writeStack.setCount(1);
 					writeStack.writeToNBT(cmp1);

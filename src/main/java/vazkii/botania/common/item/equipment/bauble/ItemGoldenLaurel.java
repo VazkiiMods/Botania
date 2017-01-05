@@ -46,13 +46,13 @@ public class ItemGoldenLaurel extends ItemBauble implements IBaubleRender {
 			EntityPlayer player = (EntityPlayer) event.getEntityLiving();
 			ItemStack headgear = BaublesApi.getBaubles(player).getStackInSlot(4);
 
-			if(headgear != null && headgear.getItem() == this) {
+			if(!headgear.isEmpty() && headgear.getItem() == this) {
 				event.setCanceled(true);
 				player.setHealth(player.getMaxHealth());
 				player.addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, 300, 6));
 				player.sendMessage(new TextComponentTranslation("botaniamisc.savedByLaurel"));
 				player.world.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.goldenLaurel, SoundCategory.PLAYERS, 1F, 0.3F);
-				BaublesApi.getBaubles(player).setInventorySlotContents(4, null);
+				BaublesApi.getBaubles(player).setInventorySlotContents(4, ItemStack.EMPTY);
 			}
 		}
 	}
@@ -66,7 +66,7 @@ public class ItemGoldenLaurel extends ItemBauble implements IBaubleRender {
 	@SideOnly(Side.CLIENT)
 	public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
 		if(type == RenderType.HEAD) {
-			boolean armor = player.getItemStackFromSlot(EntityEquipmentSlot.HEAD) != null;
+			boolean armor = !player.getItemStackFromSlot(EntityEquipmentSlot.HEAD).isEmpty();
 			Helper.translateToHeadLevel(player);
 			Helper.defaultTransforms();
 			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);

@@ -118,7 +118,7 @@ public class ItemTravelBelt extends ItemBauble implements IBaubleRender, IManaUs
 			EntityPlayer player = (EntityPlayer) event.getEntityLiving();
 			ItemStack belt = BaublesApi.getBaubles(player).getStackInSlot(3);
 
-			if(belt != null && belt.getItem() instanceof ItemTravelBelt && ManaItemHandler.requestManaExact(belt, player, COST, false)) {
+			if(!belt.isEmpty() && belt.getItem() instanceof ItemTravelBelt && ManaItemHandler.requestManaExact(belt, player, COST, false)) {
 				player.motionY += ((ItemTravelBelt) belt.getItem()).jump;
 				player.fallDistance = -((ItemTravelBelt) belt.getItem()).fallBuffer;
 			}
@@ -127,7 +127,7 @@ public class ItemTravelBelt extends ItemBauble implements IBaubleRender, IManaUs
 
 	private boolean shouldPlayerHaveStepup(EntityPlayer player) {
 		ItemStack armor = BaublesApi.getBaubles(player).getStackInSlot(3);
-		return armor != null && armor.getItem() instanceof ItemTravelBelt && ManaItemHandler.requestManaExact(armor, player, COST, false);
+		return !armor.isEmpty() && armor.getItem() instanceof ItemTravelBelt && ManaItemHandler.requestManaExact(armor, player, COST, false);
 	}
 
 	@SubscribeEvent

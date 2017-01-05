@@ -46,13 +46,12 @@ public abstract class TileSimpleInventory extends TileMod {
 	}
 
 	@Override
-	public boolean hasCapability(@Nonnull Capability<?> cap, @Nonnull EnumFacing side) {
+	public boolean hasCapability(@Nonnull Capability<?> cap, EnumFacing side) {
 		return cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY || super.hasCapability(cap, side);
 	}
 
-	@Nonnull
 	@Override
-	public <T> T getCapability(@Nonnull Capability<T> cap, @Nonnull EnumFacing side) {
+	public <T> T getCapability(@Nonnull Capability<T> cap, EnumFacing side) {
 		if(cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
 			return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(itemHandler);
 		return super.getCapability(cap, side);
@@ -71,18 +70,20 @@ public abstract class TileSimpleInventory extends TileMod {
 			tile = inv;
 		}
 
+		@Nonnull
 		@Override
-		public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
+		public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
 			if(allowWrite) {
 				return super.insertItem(slot, stack, simulate);
 			} else return stack;
 		}
 
+		@Nonnull
 		@Override
 		public ItemStack extractItem(int slot, int amount, boolean simulate) {
 			if(allowWrite) {
 				return super.extractItem(slot, amount, simulate);
-			} else return null;
+			} else return ItemStack.EMPTY;
 		}
 
 		@Override

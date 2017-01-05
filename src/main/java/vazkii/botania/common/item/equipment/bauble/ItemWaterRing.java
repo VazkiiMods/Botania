@@ -38,7 +38,7 @@ public class ItemWaterRing extends ItemBauble implements IManaUsingItem {
 		if(player.isInsideOfMaterial(Material.WATER)) {
 			if(player instanceof EntityPlayer) {
 				ItemStack firstRing = BaublesApi.getBaubles((EntityPlayer) player).getStackInSlot(1);
-				if(firstRing != null && firstRing.getItem() instanceof ItemWaterRing && firstRing != stack) {
+				if(!firstRing.isEmpty() && firstRing.getItem() instanceof ItemWaterRing && firstRing != stack) {
 					return;
 				}
 			}

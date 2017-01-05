@@ -43,6 +43,7 @@ public class BlockRoot extends BlockMod implements ILexiconable {
 		return new ItemStack(this);
 	}
 
+	@Nonnull
 	@Override
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
 		return ModItems.manaResource;

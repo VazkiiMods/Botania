@@ -54,7 +54,7 @@ public class TileCorporeaFunnel extends TileCorporeaBase implements ICorporeaReq
 				EnumFacing orientation = frame.facingDirection;
 				if(orientation == dir) {
 					ItemStack stack = frame.getDisplayedItem();
-					if(stack != null) {
+					if(!stack.isEmpty()) {
 						ItemStack copy = stack.copy();
 						copy.setCount(rotationToStackSize[frame.getRotation()]);
 						filter.add(copy);
@@ -86,7 +86,7 @@ public class TileCorporeaFunnel extends TileCorporeaBase implements ICorporeaReq
 		List<ItemStack> stacks = CorporeaHelper.requestItem(request, count, spark, true, true);
 		spark.onItemsRequested(stacks);
 		for(ItemStack reqStack : stacks) {
-			if(inv != null && ItemHandlerHelper.insertItemStacked(inv, reqStack, true) == null)
+			if(inv != null && ItemHandlerHelper.insertItemStacked(inv, reqStack, true).isEmpty())
 				ItemHandlerHelper.insertItemStacked(inv, reqStack, false);
 			else {
 				EntityItem item = new EntityItem(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, reqStack);

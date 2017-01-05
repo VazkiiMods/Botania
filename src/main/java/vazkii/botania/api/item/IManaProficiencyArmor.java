@@ -51,7 +51,7 @@ public interface IManaProficiencyArmor {
 				if(e.getSlotType() != EntityEquipmentSlot.Type.ARMOR)
 					continue;
 				ItemStack armor = player.getItemStackFromSlot(e);
-				if(armor != null) {
+				if(!armor.isEmpty()) {
 					Item item = armor.getItem();
 					if(item instanceof IManaProficiencyArmor && ((IManaProficiencyArmor) item).shouldGiveProficiency(armor, e, player, rod)) {
 						proficient = true;

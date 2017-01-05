@@ -133,7 +133,7 @@ public class ItemRainbowRod extends ItemMod implements IManaUsingItem, IAvatarWi
 
 	@Override
 	public boolean hasContainerItem(ItemStack stack) {
-		return getContainerItem(stack) != null;
+		return !getContainerItem(stack).isEmpty();
 	}
 
 	@Override

@@ -249,7 +249,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 				continue;
 
 			ItemStack stack = item.getEntityItem();
-			if(stack != null && stack.getItem() instanceof IManaItem) {
+			if(!stack.isEmpty() && stack.getItem() instanceof IManaItem) {
 				IManaItem mana = (IManaItem) stack.getItem();
 				if(outputting && mana.canReceiveManaFromPool(stack, this) || !outputting && mana.canExportManaToPool(stack, this)) {
 					boolean didSomething = false;

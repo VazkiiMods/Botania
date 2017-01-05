@@ -30,6 +30,8 @@ import vazkii.botania.api.item.IHourglassTrigger;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.item.ModItems;
 
+import javax.annotation.Nonnull;
+
 public class TileHourglass extends TileSimpleInventory {
 
 	private static final String TAG_TIME = "time";
@@ -52,7 +54,7 @@ public class TileHourglass extends TileSimpleInventory {
 	public void update() {
 		int totalTime = getTotalTime();
 		ItemStack dustStack = itemHandler.getStackInSlot(0);
-		dust = dustStack != null && dustStack.getItem() == ModItems.manaResource;
+		dust = !dustStack.isEmpty() && dustStack.getItem() == ModItems.manaResource;
 
 		if(totalTime > 0 || dust) {
 			if(move && !dust)
@@ -134,9 +136,10 @@ public class TileHourglass extends TileSimpleInventory {
 	@Override
 	protected SimpleItemStackHandler createItemHandler() {
 		return new SimpleItemStackHandler(this, true) {
+			@Nonnull
 			@Override
-			public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
-				if(stack != null && (stack.getItem() == Item.getItemFromBlock(Blocks.SAND) || stack.getItem() == Item.getItemFromBlock(Blocks.SOUL_SAND)) || stack.getItem() == ModItems.manaResource && stack.getItemDamage() == 23)
+			public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
+				if(!stack.isEmpty() && (stack.getItem() == Item.getItemFromBlock(Blocks.SAND) || stack.getItem() == Item.getItemFromBlock(Blocks.SOUL_SAND)) || stack.getItem() == ModItems.manaResource && stack.getItemDamage() == 23)
 					return super.insertItem(slot, stack, simulate);
 				else return stack;
 			}
@@ -185,7 +188,7 @@ public class TileHourglass extends TileSimpleInventory {
 		int y = res.getScaledHeight() / 2 - 10;
 
 		ItemStack stack = itemHandler.getStackInSlot(0);
-		if(stack != null) {
+		if(!stack.isEmpty()) {
 			RenderHelper.enableGUIStandardItemLighting();
 			GlStateManager.enableRescaleNormal();
 			mc.getRenderItem().renderItemIntoGUI(stack, x, y);

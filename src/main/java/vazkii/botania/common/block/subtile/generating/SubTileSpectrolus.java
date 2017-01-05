@@ -62,7 +62,7 @@ public class SubTileSpectrolus extends SubTileGenerating {
 				continue;
 			}
 
-			if(stack != null && stack.getItem() == wool && !item.isDead && age >= slowdown) {
+			if(!stack.isEmpty() && stack.getItem() == wool && !item.isDead && age >= slowdown) {
 				int meta = stack.getItemDamage();
 				if(meta == nextColor) {
 					if(!remote) {
@@ -116,7 +116,7 @@ public class SubTileSpectrolus extends SubTileGenerating {
 
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		if(stack != null && stack.getItem() != null) {
+		if(!stack.isEmpty()) {
 			String stackName = stack.getDisplayName();
 			int width = 16 + mc.fontRendererObj.getStringWidth(stackName) / 2;
 			int x = res.getScaledWidth() / 2 - width;

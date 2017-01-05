@@ -61,7 +61,7 @@ public class ItemHolyCloak extends ItemBauble implements IBaubleRender {
 			EntityPlayer player = (EntityPlayer) event.getEntityLiving();
 			IInventory baubles = BaublesApi.getBaubles(player);
 			ItemStack belt = baubles.getStackInSlot(5);
-			if(belt != null && belt.getItem() instanceof ItemHolyCloak && !isInEffect(belt)) {
+			if(!belt.isEmpty() && belt.getItem() instanceof ItemHolyCloak && !isInEffect(belt)) {
 				ItemHolyCloak cloak = (ItemHolyCloak) belt.getItem();
 				int cooldown = getCooldown(belt);
 
@@ -138,7 +138,7 @@ public class ItemHolyCloak extends ItemBauble implements IBaubleRender {
 	public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
 		if(type == RenderType.BODY) {
 			Helper.rotateIfSneaking(player);
-			boolean armor = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST) != null;
+			boolean armor = !player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).isEmpty();
 			GlStateManager.translate(0F, armor ? -0.07F : -0.01F, 0F);
 
 			float s = 1F / 16F;

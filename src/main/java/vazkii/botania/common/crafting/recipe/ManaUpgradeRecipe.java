@@ -27,7 +27,7 @@ public class ManaUpgradeRecipe extends ShapedOreRecipe {
 		IManaItem outItem = (IManaItem) out.getItem();
 		for (int i = 0; i < var1.getSizeInventory(); i++) {
 			ItemStack stack = var1.getStackInSlot(i);
-			if (stack != null) {
+			if (!stack.isEmpty()) {
 				if (stack.getItem() instanceof IManaItem) {
 					IManaItem item = (IManaItem) stack.getItem();
 					outItem.addMana(out, item.getMana(stack));

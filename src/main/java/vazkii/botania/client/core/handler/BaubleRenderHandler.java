@@ -46,7 +46,7 @@ public final class BaubleRenderHandler implements LayerRenderer<EntityPlayer> {
 		IInventory inv = BaublesApi.getBaubles(player);
 
 		dispatchRenders(inv, player, RenderType.BODY, partialTicks);
-		if(inv.getStackInSlot(3) != null)
+		if(!inv.getStackInSlot(3).isEmpty())
 			renderManaTablet(player);
 
 		float yaw = player.prevRotationYawHead + (player.rotationYawHead - player.prevRotationYawHead) * partialTicks;
@@ -60,7 +60,7 @@ public final class BaubleRenderHandler implements LayerRenderer<EntityPlayer> {
 		dispatchRenders(inv, player, RenderType.HEAD, partialTicks);
 
 		ItemStack helm = player.inventory.armorItemInSlot(3);
-		if(helm != null && helm.getItem() instanceof ItemTerrasteelHelm)
+		if(!helm.isEmpty() && helm.getItem() instanceof ItemTerrasteelHelm)
 			ItemTerrasteelHelm.renderOnPlayer(helm, player);
 
 		GlStateManager.popMatrix();
@@ -69,7 +69,7 @@ public final class BaubleRenderHandler implements LayerRenderer<EntityPlayer> {
 	private void dispatchRenders(IInventory inv, EntityPlayer player, RenderType type, float partialTicks) {
 		for(int i = 0; i < inv.getSizeInventory(); i++) {
 			ItemStack stack = inv.getStackInSlot(i);
-			if(stack != null) {
+			if(!stack.isEmpty()) {
 				Item item = stack.getItem();
 
 				if(item instanceof IPhantomInkable) {
@@ -107,11 +107,11 @@ public final class BaubleRenderHandler implements LayerRenderer<EntityPlayer> {
 		boolean renderedOne = false;
 		for(int i = 0; i < player.inventory.getSizeInventory(); i++) {
 			ItemStack stack = player.inventory.getStackInSlot(i);
-			if(stack != null && stack.getItem() == ModItems.manaTablet) {
+			if(!stack.isEmpty() && stack.getItem() == ModItems.manaTablet) {
 				GlStateManager.pushMatrix();
 				Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 				Helper.rotateIfSneaking(player);
-				boolean armor = player.getItemStackFromSlot(EntityEquipmentSlot.LEGS) != null;
+				boolean armor = !player.getItemStackFromSlot(EntityEquipmentSlot.LEGS).isEmpty();
 				GlStateManager.rotate(90, 0, 1, 0);
 				GlStateManager.rotate(180, 0, 0, 1);
 				GlStateManager.translate(0, -0.6, 0);

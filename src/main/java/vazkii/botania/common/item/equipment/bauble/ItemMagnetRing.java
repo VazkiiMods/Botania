@@ -62,7 +62,7 @@ public class ItemMagnetRing extends ItemBauble {
 		IInventory inv = BaublesApi.getBaubles(event.getPlayer());
 		for(int i = 0; i < inv.getSizeInventory(); i++) {
 			ItemStack stack = inv.getStackInSlot(i);
-			if(stack != null && stack.getItem() instanceof ItemMagnetRing) {
+			if(!stack.isEmpty() && stack.getItem() instanceof ItemMagnetRing) {
 				setCooldown(stack, 100);
 				BotaniaAPI.internalHandler.sendBaubleUpdatePacket(event.getPlayer(), i);
 			}
@@ -110,7 +110,7 @@ public class ItemMagnetRing extends ItemBauble {
 			return false;
 
 		ItemStack stack = item.getEntityItem();
-		if(stack == null || stack.getItem() instanceof IManaItem || stack.getItem() instanceof IRelic || BLACKLIST.contains(Item.REGISTRY.getNameForObject(stack.getItem())) || BotaniaAPI.isItemBlacklistedFromMagnet(stack))
+		if(stack.isEmpty() || stack.getItem() instanceof IManaItem || stack.getItem() instanceof IRelic || BLACKLIST.contains(Item.REGISTRY.getNameForObject(stack.getItem())) || BotaniaAPI.isItemBlacklistedFromMagnet(stack))
 			return false;
 
 		BlockPos pos = new BlockPos(item);

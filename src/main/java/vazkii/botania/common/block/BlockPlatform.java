@@ -146,7 +146,7 @@ public class BlockPlatform extends BlockCamo implements ILexiconable, IWandable,
 	}
 
 	@Override
-	public float getExplosionResistance(World world, BlockPos pos, Entity exploder, Explosion explosion) {
+	public float getExplosionResistance(World world, BlockPos pos, @Nonnull Entity exploder, Explosion explosion) {
 		return world.getBlockState(pos).getValue(BotaniaStateProps.PLATFORM_VARIANT) != PlatformVariant.INFRANGIBLE ? super.getExplosionResistance(world, pos, exploder, explosion) : Float.MAX_VALUE;
 	}
 	

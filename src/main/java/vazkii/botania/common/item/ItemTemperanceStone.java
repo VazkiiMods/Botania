@@ -69,7 +69,7 @@ public class ItemTemperanceStone extends ItemMod {
 		IInventory inv = player.inventory;
 		for(int i = 0; i < inv.getSizeInventory(); i++) {
 			ItemStack stack = inv.getStackInSlot(i);
-			if(stack != null && stack.getItem() == ModItems.temperanceStone && stack.getItemDamage() == 1)
+			if(!stack.isEmpty() && stack.getItem() == ModItems.temperanceStone && stack.getItemDamage() == 1)
 				return true;
 		}
 

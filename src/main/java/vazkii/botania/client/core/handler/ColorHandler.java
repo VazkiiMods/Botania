@@ -138,7 +138,7 @@ public final class ColorHandler {
 
 		items.registerItemColorHandler((s, t) -> {
 			ItemStack lens = ItemManaGun.getLens(s);
-			if(lens != null && t == 0)
+			if(!lens.isEmpty() && t == 0)
 				return Minecraft.getMinecraft().getItemColors().getColorFromItemstack(lens, t);
 
 			if(t == 2) {

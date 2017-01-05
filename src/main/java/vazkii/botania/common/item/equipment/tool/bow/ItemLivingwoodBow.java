@@ -72,7 +72,7 @@ public class ItemLivingwoodBow extends ItemBow implements IManaUsingItem, IModel
 			else
 			{
 				ItemStack itemstack = entityIn.getActiveItemStack();
-				return itemstack != null && itemstack.getItem() instanceof ItemLivingwoodBow ? (stack.getMaxItemUseDuration() - entityIn.getItemInUseCount()) * chargeVelocityMultiplier() / 20.0F : 0.0F;
+				return !itemstack.isEmpty() && itemstack.getItem() instanceof ItemLivingwoodBow ? (stack.getMaxItemUseDuration() - entityIn.getItemInUseCount()) * chargeVelocityMultiplier() / 20.0F : 0.0F;
 			}
 		});
 	}

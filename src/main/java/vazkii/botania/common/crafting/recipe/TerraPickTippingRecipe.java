@@ -30,7 +30,7 @@ public class TerraPickTippingRecipe implements IRecipe {
 
 		for(int i = 0; i < var1.getSizeInventory(); i++) {
 			ItemStack stack = var1.getStackInSlot(i);
-			if(stack != null) {
+			if(!stack.isEmpty()) {
 				if(stack.getItem() instanceof ItemTerraPick && !ItemTerraPick.isTipped(stack))
 					foundTerraPick = true;
 
@@ -44,18 +44,19 @@ public class TerraPickTippingRecipe implements IRecipe {
 		return foundTerraPick && foundElementiumPick;
 	}
 
+	@Nonnull
 	@Override
 	public ItemStack getCraftingResult(@Nonnull InventoryCrafting var1) {
-		ItemStack terraPick = null;
+		ItemStack terraPick = ItemStack.EMPTY;
 
 		for(int i = 0; i < var1.getSizeInventory(); i++) {
 			ItemStack stack = var1.getStackInSlot(i);
-			if(stack != null && stack.getItem() instanceof ItemTerraPick)
+			if(!stack.isEmpty() && stack.getItem() instanceof ItemTerraPick)
 				terraPick = stack;
 		}
 
-		if(terraPick == null)
-			return null;
+		if(terraPick.isEmpty())
+			return ItemStack.EMPTY;
 
 		ItemStack terraPickCopy = terraPick.copy();
 		ItemTerraPick.setTipped(terraPickCopy);
@@ -67,9 +68,10 @@ public class TerraPickTippingRecipe implements IRecipe {
 		return 10;
 	}
 
+	@Nonnull
 	@Override
 	public ItemStack getRecipeOutput() {
-		return null;
+		return ItemStack.EMPTY;
 	}
 
 	@Nonnull

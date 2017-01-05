@@ -38,7 +38,7 @@ public class TileEnderEye extends TileMod {
 		boolean looking = false;
 		for(EntityPlayer player : players) {
 			ItemStack helm = player.getItemStackFromSlot(EntityEquipmentSlot.HEAD);
-			if(helm != null && helm.getItem() == Item.getItemFromBlock(Blocks.PUMPKIN))
+			if(!helm.isEmpty() && helm.getItem() == Item.getItemFromBlock(Blocks.PUMPKIN))
 				continue;
 
 			RayTraceResult pos = ToolCommons.raytraceFromEntity(world, player, true, 64);

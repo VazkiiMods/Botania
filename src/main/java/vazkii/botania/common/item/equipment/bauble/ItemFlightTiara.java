@@ -282,7 +282,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 
 	private boolean shouldPlayerHaveFlight(EntityPlayer player) {
 		ItemStack armor = BaublesApi.getBaubles(player).getStackInSlot(4);
-		if(armor != null && armor.getItem() == this) {
+		if(!armor.isEmpty() && armor.getItem() == this) {
 			int left = ItemNBTHelper.getInt(armor, TAG_TIME_LEFT, MAX_FLY_TIME);
 			boolean flying = ItemNBTHelper.getBoolean(armor, TAG_FLYING, false);
 			return (left > (flying ? 0 : MAX_FLY_TIME / 10) || player.inventory.hasItemStack(new ItemStack(ModItems.flugelEye))) && ManaItemHandler.requestManaExact(armor, player, getCost(armor, left), false);

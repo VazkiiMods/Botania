@@ -51,6 +51,8 @@ import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.Botania;
 
+import javax.annotation.Nonnull;
+
 public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 
 	private static final Pattern SEED_PATTERN = Pattern.compile("(?:(?:(?:[A-Z-_.:]|^)seed)|(?:(?:[a-z-_.:]|^)Seed))(?:[sA-Z-_.:]|$)");
@@ -69,7 +71,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 
 	public boolean collideEntityItem(EntityItem item) {
 		ItemStack stack = item.getEntityItem();
-		if(stack == null || item.isDead)
+		if(stack.isEmpty() || item.isDead)
 			return false;
 
 		if(!isMossy && world.getBlockState(getPos()).getValue(BotaniaStateProps.ALTAR_VARIANT) == AltarVariant.DEFAULT) {
@@ -139,7 +141,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 						break;
 					}
 			}
-		} else if(stack.getItem() != null && SEED_PATTERN.matcher(stack.getItem().getUnlocalizedName(stack)).find()) {
+		} else if(!stack.isEmpty() && SEED_PATTERN.matcher(stack.getItem().getUnlocalizedName(stack)).find()) {
 			for(RecipePetals recipe : BotaniaAPI.petalRecipes) {
 				if(recipe.matches(itemHandler)) {
 					saveLastRecipe();
@@ -237,7 +239,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 
 	public boolean isEmpty() {
 		for(int i = 0; i < getSizeInventory(); i++)
-			if(itemHandler.getStackInSlot(i) != null)
+			if(!itemHandler.getStackInSlot(i).isEmpty())
 				return false;
 
 		return true;
@@ -256,7 +258,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 
 		for(int i = 0; i < getSizeInventory(); i++) {
 			ItemStack stackAt = itemHandler.getStackInSlot(i);
-			if(stackAt == null)
+			if(stackAt.isEmpty())
 				break;
 
 			if(Math.random() >= 0.97) {
@@ -309,7 +311,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 	protected SimpleItemStackHandler createItemHandler() {
 		return new SimpleItemStackHandler(this, false) {
 			@Override
-			protected int getStackLimit(int slot, ItemStack stack) {
+			protected int getStackLimit(int slot, @Nonnull ItemStack stack) {
 				return 1;
 			}
 		};
@@ -344,7 +346,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 		int radius = 24;
 		int amt = 0;
 		for(int i = 0; i < getSizeInventory(); i++) {
-			if(itemHandler.getStackInSlot(i) == null)
+			if(itemHandler.getStackInSlot(i).isEmpty())
 				break;
 			amt++;
 		}

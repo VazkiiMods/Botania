@@ -114,6 +114,7 @@ public class BlockSpecialQuartz extends BlockMod implements ILexiconable {
 		return getMetaFromState(state);
 	}
 
+	@Nonnull
 	@Override
 	public ItemStack getSilkTouchDrop(@Nonnull IBlockState state) {
 		return new ItemStack(this, 1, damageDropped(state));
