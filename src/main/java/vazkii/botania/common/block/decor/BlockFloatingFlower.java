@@ -175,8 +175,9 @@ public class BlockFloatingFlower extends BlockMod implements ILexiconable, IInfu
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack stack, EnumFacing side, float hitX, float hitY, float hitZ) {
-		if(stack != null) {
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+		ItemStack stack = player.getHeldItem(hand);
+		if(!stack.isEmpty()) {
 			IFloatingFlower flower = (IFloatingFlower) world.getTileEntity(pos);
 			IslandType type = null;
 			if(stack.getItem() == Items.SNOWBALL)
@@ -194,7 +195,7 @@ public class BlockFloatingFlower extends BlockMod implements ILexiconable, IInfu
 				}
 
 				if(!player.capabilities.isCreativeMode)
-					stack.stackSize--;
+					stack.shrink(1);
 				return true;
 			}
 		}

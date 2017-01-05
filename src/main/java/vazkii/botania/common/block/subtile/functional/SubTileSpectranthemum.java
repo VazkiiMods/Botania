@@ -71,12 +71,12 @@ public class SubTileSpectranthemum extends SubTileFunctional {
 					continue;
 
 				ItemStack stack = item.getEntityItem();
-				if(stack != null) {
+				if(!stack.isEmpty()) {
 					Item sitem = stack.getItem();
 					if(sitem instanceof IManaItem)
 						continue;
 
-					int cost = stack.stackSize * COST;
+					int cost = stack.getCount() * COST;
 					if(mana >= cost) {
 						spawnExplosionParticles(item, 10);
 						item.setPosition(bindPos.getX() + 0.5, bindPos.getY() + 1.5, bindPos.getZ() + 0.5);

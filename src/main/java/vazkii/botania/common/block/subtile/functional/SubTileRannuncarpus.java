@@ -140,8 +140,8 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 								if(stackItem instanceof IFlowerPlaceable)
 									((IFlowerPlaceable) stackItem).onBlockPlacedByFlower(stack, this, coords);
 
-								stack.stackSize--;
-								if(stack.stackSize <= 0)
+								stack.shrink(1);
+								if(stack.isEmpty())
 									item.setDead();
 
 								if(mana > 1)

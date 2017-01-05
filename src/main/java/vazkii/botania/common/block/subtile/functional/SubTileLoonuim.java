@@ -23,12 +23,12 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityCaveSpider;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.monster.EntityEnderman;
+import net.minecraft.entity.monster.EntityHusk;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.monster.EntitySpider;
+import net.minecraft.entity.monster.EntityStray;
 import net.minecraft.entity.monster.EntityZombie;
-import net.minecraft.entity.monster.SkeletonType;
-import net.minecraft.entity.monster.ZombieType;
 import net.minecraft.init.MobEffects;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -89,7 +89,7 @@ public class SubTileLoonuim extends SubTileFunctional {
 				pos = pos.up();
 				if(pos.getY() >= 254)
 					return;
-			} while(world.getBlockState(pos).getBlock().causesSuffocation());
+			} while(world.getBlockState(pos).causesSuffocation());
 			pos = pos.up();
 
 			double x = pos.getX() + Math.random();
@@ -108,12 +108,12 @@ public class SubTileLoonuim extends SubTileFunctional {
 				case 0: 
 					entity = new EntityZombie(world);
 					if(world.rand.nextInt(10) == 0)
-						((EntityZombie) entity).setZombieType(ZombieType.HUSK);
+						entity = new EntityHusk(world);
 					break;
 				case 1:
 					entity = new EntitySkeleton(world);
 					if(world.rand.nextInt(10) == 0)
-						((EntitySkeleton) entity).setSkeletonType(SkeletonType.STRAY);
+						entity = new EntityStray(world);
 					break;
 				case 2:
 					if(world.rand.nextInt(10) == 0)
@@ -191,7 +191,7 @@ public class SubTileLoonuim extends SubTileFunctional {
 			EntityLivingBase e = event.getEntityLiving();
 			if(e.getEntityData().hasKey(TAG_ITEMSTACK_TO_DROP)) {
 				NBTTagCompound cmp = e.getEntityData().getCompoundTag(TAG_ITEMSTACK_TO_DROP);
-				ItemStack stack = ItemStack.loadItemStackFromNBT(cmp);
+				ItemStack stack = new ItemStack(cmp);
 				event.getDrops().clear();
 				event.getDrops().add(new EntityItem(e.world, e.posX, e.posY, e.posZ, stack));
 			}

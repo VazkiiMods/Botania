@@ -57,8 +57,8 @@ public class SubTilePollidisiac extends SubTileFunctional {
 
 						ItemStack stack = item.getEntityItem();
 						if(animal.isBreedingItem(stack)) {
-							stack.stackSize--;
-							if(stack.stackSize == 0)
+							stack.shrink(1);
+							if(stack.isEmpty())
 								item.setDead();
 
 							mana -= manaCost;

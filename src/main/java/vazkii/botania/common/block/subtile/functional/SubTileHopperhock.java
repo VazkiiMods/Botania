@@ -94,7 +94,7 @@ public class SubTileHopperhock extends SubTileFunctional {
 					boolean canAccept = canAcceptItem(stack, filter, filterType);
 
 					ItemStack simulate = ItemHandlerHelper.insertItem(inv.handler, stack.copy(), true);
-					int availablePut = stack.stackSize - (simulate == null ? 0 : simulate.stackSize);
+					int availablePut = stack.getAnimationsToGo() - (simulate.isEmpty() ? 0 : simulate.getCount());
 
 					canAccept &= availablePut > 0;
 
@@ -117,7 +117,7 @@ public class SubTileHopperhock extends SubTileFunctional {
 				SubTileSpectranthemum.spawnExplosionParticles(item, 3);
 				ItemHandlerHelper.insertItem(invToPutItemIn, stack.splitStack(amountToPutIn), false);
 				item.setEntityItemStack(stack); // Just in case someone subclasses EntityItem and changes something important.
-				if(item.getEntityItem().stackSize == 0)
+				if(item.getEntityItem().isEmpty())
 					item.setDead();
 				pulledAny = true;
 			}
