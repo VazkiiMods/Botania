@@ -44,7 +44,7 @@ public final class ManaItemHandler {
 		for(int slot = 0; slot < size; slot++) {
 			ItemStack stackInSlot = mainInv.getStackInSlot(slot);
 
-			if(stackInSlot != null && stackInSlot.getItem() instanceof IManaItem) {
+			if(!stackInSlot.isEmpty() && stackInSlot.getItem() instanceof IManaItem) {
 				toReturn.add(stackInSlot);
 			}
 		}
@@ -74,7 +74,7 @@ public final class ManaItemHandler {
 		for(int slot = 0; slot < size; slot++) {
 			ItemStack stackInSlot = baublesInv.getStackInSlot(slot);
 
-			if(stackInSlot != null && stackInSlot.getItem() instanceof IManaItem) {
+			if(!stackInSlot.isEmpty() && stackInSlot.getItem() instanceof IManaItem) {
 				toReturn.put(slot, stackInSlot);
 			}
 		}
@@ -328,11 +328,11 @@ public final class ManaItemHandler {
 	 * Gets the sum of all the discounts on IManaDiscountArmor items equipped
 	 * on the player passed in. This discount can vary based on what the passed tool is.
 	 */
-	public static float getFullDiscountForTools(EntityPlayer player, @Nullable ItemStack tool) {
+	public static float getFullDiscountForTools(EntityPlayer player, ItemStack tool) {
 		float discount = 0F;
-		for(int i = 0; i < player.inventory.armorInventory.length; i++) {
-			ItemStack armor = player.inventory.armorInventory[i];
-			if(armor != null && armor.getItem() instanceof IManaDiscountArmor)
+		for(int i = 0; i < player.inventory.armorInventory.size(); i++) {
+			ItemStack armor = player.inventory.armorInventory.get(i);
+			if(!armor.isEmpty() && armor.getItem() instanceof IManaDiscountArmor)
 				discount += ((IManaDiscountArmor) armor.getItem()).getDiscount(armor, i, player, tool);
 		}
 

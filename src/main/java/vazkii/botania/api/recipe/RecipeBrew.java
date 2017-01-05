@@ -45,7 +45,7 @@ public class RecipeBrew {
 
 		for(int i = 0; i < inv.getSlots(); i++) {
 			ItemStack stack = inv.getStackInSlot(i);
-			if(stack == null)
+			if(stack.isEmpty())
 				break;
 
 			if(stack.getItem() instanceof IBrewContainer)

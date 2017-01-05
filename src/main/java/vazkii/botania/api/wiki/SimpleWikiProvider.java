@@ -53,10 +53,10 @@ public class SimpleWikiProvider implements IWikiProvider {
 
 		ItemStack stack = state.getBlock().getPickBlock(state, pos, world, bPos, player);
 
-		if(stack == null || stack.getItem() == null)
+		if(stack.isEmpty())
 			stack = new ItemStack(state.getBlock(), 1, state.getBlock().damageDropped(state));
 
-		if(stack.getItem() == null)
+		if(stack.isEmpty())
 			return null;
 
 		String name = stack.getDisplayName();

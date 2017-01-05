@@ -59,7 +59,7 @@ public class RecipePureDaisy {
 	}
 
 	private boolean isOreDict(ItemStack stack, String entry) {
-		if(stack == null || stack.getItem() == null)
+		if(stack.isEmpty())
 			return false;
 
 		List<ItemStack> ores;

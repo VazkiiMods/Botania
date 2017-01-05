@@ -84,12 +84,12 @@ public class Multiblock {
 	}
 
 	private void addStack(ItemStack stack) {
-		if(stack == null)
+		if(stack.isEmpty())
 			return;
 
 		for(ItemStack oStack : materials)
 			if(oStack.isItemEqual(stack) && ItemStack.areItemStackTagsEqual(oStack, stack)) {
-				oStack.stackSize += stack.stackSize;
+				oStack.grow(stack.getCount());
 				return;
 			}
 
