@@ -31,7 +31,7 @@ public class LexiconEntry implements Comparable<LexiconEntry> {
 
 	public final List<LexiconPage> pages = new ArrayList<>();
 	private boolean priority = false;
-	private ItemStack icon = null;
+	private ItemStack icon = ItemStack.EMPTY;
 
 	private final List<ItemStack> extraDisplayedRecipes = new ArrayList<>();
 

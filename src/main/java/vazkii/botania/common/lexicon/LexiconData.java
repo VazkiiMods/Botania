@@ -532,7 +532,7 @@ public final class LexiconData {
 		functionalIntro
 		.setPriority().setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"),
 				new PageText("3"), new PageCraftingRecipe("4", ModCraftingRecipes.recipeRedstoneRoot))
-		.setIcon(null);
+		.setIcon(ItemStack.EMPTY);
 		;
 
 		flowerShrinking = new BasicLexiconEntry(LibLexicon.FFLOWER_SHRINKING, categoryFunctionalFlowers);

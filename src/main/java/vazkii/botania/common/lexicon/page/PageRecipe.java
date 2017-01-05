@@ -88,7 +88,7 @@ public class PageRecipe extends LexiconPage {
 				vazkii.botania.client.core.helper.RenderHelper.renderTooltipGreen(mx, my + tooltipY, Arrays.asList(TextFormatting.AQUA + I18n.format("botaniamisc.craftingContainer"), tooltipContainerStack.getDisplayName()));
 		}
 
-		tooltipStack = tooltipContainerStack = null;
+		tooltipStack = tooltipContainerStack = ItemStack.EMPTY;
 		tooltipEntry = false;
 		GlStateManager.disableBlend();
 		mouseDownLastTick = Mouse.isButtonDown(0);

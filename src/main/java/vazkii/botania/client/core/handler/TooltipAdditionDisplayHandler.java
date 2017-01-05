@@ -63,7 +63,7 @@ public final class TooltipAdditionDisplayHandler {
 		EntryData data = LexiconRecipeMappings.getDataForStack(stack);
 		if(data != null) {
 			int lexSlot = -1;
-			ItemStack lexiconStack = null;
+			ItemStack lexiconStack = ItemStack.EMPTY;
 
 			for(int i = 0; i < InventoryPlayer.getHotbarSize(); i++) {
 				ItemStack stackAt = mc.player.inventory.getStackInSlot(i);

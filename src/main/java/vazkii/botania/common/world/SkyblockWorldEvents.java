@@ -104,14 +104,14 @@ public final class SkyblockWorldEvents {
 	@SubscribeEvent
 	public static void onDrops(BlockEvent.HarvestDropsEvent event) {
 		if(WorldTypeSkyblock.isWorldSkyblock(event.getWorld()) && event.getState().getBlock() == Blocks.TALLGRASS) {
-			ItemStack stackToRemove = null;
+			ItemStack stackToRemove = ItemStack.EMPTY;
 			for(ItemStack stack : event.getDrops())
 				if(stack.getItem() == Items.WHEAT_SEEDS && event.getWorld().rand.nextInt(4) == 0) {
 					stackToRemove = stack;
 					break;
 				}
 
-			if(stackToRemove != null) {
+			if(!stackToRemove.isEmpty()) {
 				event.getDrops().remove(stackToRemove);
 				event.getDrops().add(new ItemStack(event.getWorld().rand.nextBoolean() ? Items.PUMPKIN_SEEDS : Items.MELON_SEEDS));
 			}
