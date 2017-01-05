@@ -93,8 +93,9 @@ public class BlockCorporeaCrystalCube extends BlockCorporeaBase implements ILexi
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack stack, EnumFacing s, float xs, float ys, float zs) {
-		if(stack != null) {
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing s, float xs, float ys, float zs) {
+		ItemStack stack = player.getHeldItem(hand);
+		if(!stack.isEmpty()) {
 			TileCorporeaCrystalCube cube = (TileCorporeaCrystalCube) world.getTileEntity(pos);
 			cube.setRequestTarget(stack);
 			return true;

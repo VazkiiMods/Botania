@@ -19,6 +19,8 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
+
 public class BehaviourSeeds extends BehaviorDefaultDispenseItem {
 
 	Block block;
@@ -27,6 +29,7 @@ public class BehaviourSeeds extends BehaviorDefaultDispenseItem {
 		this.block = block;
 	}
 
+	@Nonnull
 	@Override
 	public ItemStack dispenseStack(IBlockSource par1IBlockSource, ItemStack par2ItemStack) {
 		EnumFacing facing = par1IBlockSource.getBlockState().getValue(BlockDispenser.FACING);
@@ -35,7 +38,7 @@ public class BehaviourSeeds extends BehaviorDefaultDispenseItem {
 
 		if(world.isAirBlock(pos) && block.canPlaceBlockAt(world, pos)) {
 			world.setBlockState(pos, block.getDefaultState());
-			par2ItemStack.stackSize--;
+			par2ItemStack.shrink(1);
 			return par2ItemStack;
 		}
 

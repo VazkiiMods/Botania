@@ -26,6 +26,8 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
+
 public class BehaviourCocoaBeans extends BehaviorDefaultDispenseItem {
 
 	IBehaviorDispenseItem vanillaBehaviour;
@@ -33,6 +35,7 @@ public class BehaviourCocoaBeans extends BehaviorDefaultDispenseItem {
 		vanillaBehaviour = vanilla;
 	}
 
+	@Nonnull
 	@Override
 	public ItemStack dispenseStack(IBlockSource par1IBlockSource, ItemStack par2ItemStack) {
 		if(par2ItemStack.getItemDamage() == EnumDyeColor.BROWN.getDyeDamage()) {
@@ -45,7 +48,7 @@ public class BehaviourCocoaBeans extends BehaviorDefaultDispenseItem {
 			IBlockState logState = world.getBlockState(logPos);
 			if(logState.getBlock() == Blocks.LOG && logState.getValue(BlockOldLog.VARIANT) == BlockPlanks.EnumType.JUNGLE && world.isAirBlock(pos) && block.canPlaceBlockAt(world, pos)) {
 				world.setBlockState(pos, block.getDefaultState().withProperty(BlockHorizontal.FACING, facing));
-				par2ItemStack.stackSize--;
+				par2ItemStack.shrink(1);
 				return par2ItemStack;
 			}
 		}

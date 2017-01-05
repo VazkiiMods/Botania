@@ -98,7 +98,7 @@ public class BlockPrism extends BlockMod implements IManaTrigger, ILexiconable, 
 	}
 
 	@Override
-	public AxisAlignedBB getCollisionBoundingBox(IBlockState state, @Nonnull World world, @Nonnull BlockPos pos) {
+	public AxisAlignedBB getCollisionBoundingBox(IBlockState state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos) {
 		return NULL_AABB;
 	}
 
@@ -113,27 +113,28 @@ public class BlockPrism extends BlockMod implements IManaTrigger, ILexiconable, 
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack heldItem, EnumFacing side, float par7, float par8, float par9) {
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float par7, float par8, float par9) {
 		TileEntity tile = world.getTileEntity(pos);
 		if(!(tile instanceof TilePrism))
 			return false;
 
 		TilePrism prism = (TilePrism) tile;
 		ItemStack lens = prism.getItemHandler().getStackInSlot(0);
-		boolean isHeldItemLens = heldItem != null && heldItem.getItem() instanceof ILens;
+		ItemStack heldItem = player.getHeldItem(hand);
+		boolean isHeldItemLens = !heldItem.isEmpty() && heldItem.getItem() instanceof ILens;
 
-		if(lens == null && isHeldItemLens) {
+		if(lens.isEmpty() && isHeldItemLens) {
 			if(!player.capabilities.isCreativeMode)
-				player.setHeldItem(hand, null);
+				player.setHeldItem(hand, ItemStack.EMPTY);
 
 			prism.getItemHandler().setStackInSlot(0, heldItem.copy());
 			prism.markDirty();
 			world.setBlockState(pos, state.withProperty(BotaniaStateProps.HAS_LENS, true), 1 | 2);
-		} else if(lens != null) {
+		} else if(!lens.isEmpty()) {
 			ItemStack add = lens.copy();
 			if(!player.inventory.addItemStackToInventory(add))
 				player.dropItem(add, false);
-			prism.getItemHandler().setStackInSlot(0, null);
+			prism.getItemHandler().setStackInSlot(0, ItemStack.EMPTY);
 			prism.markDirty();
 			world.setBlockState(pos, state.withProperty(BotaniaStateProps.HAS_LENS, false), 1 | 2);
 		}
@@ -142,7 +143,7 @@ public class BlockPrism extends BlockMod implements IManaTrigger, ILexiconable, 
 	}
 
 	@Override
-	public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block) {
+	public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block, BlockPos fromPos) {
 		boolean power = world.isBlockIndirectlyGettingPowered(pos) > 0 || world.isBlockIndirectlyGettingPowered(pos.up()) > 0;
 		boolean powered = state.getValue(BotaniaStateProps.POWERED);
 

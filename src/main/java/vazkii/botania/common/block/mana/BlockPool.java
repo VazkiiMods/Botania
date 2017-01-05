@@ -183,7 +183,7 @@ public class BlockPool extends BlockMod implements IWandHUD, IWandable, ILexicon
 
 
 	@Override
-	public void addCollisionBoxToList(IBlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull AxisAlignedBB entityBox, @Nonnull List<AxisAlignedBB> boxes, Entity entity) {
+	public void addCollisionBoxToList(IBlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull AxisAlignedBB entityBox, @Nonnull List<AxisAlignedBB> boxes, Entity entity, boolean useActualState) {
 		addCollisionBoxToList(pos, entityBox, boxes, BOTTOM_AABB);
 		addCollisionBoxToList(pos, entityBox, boxes, NORTH_AABB);
 		addCollisionBoxToList(pos, entityBox, boxes, SOUTH_AABB);
