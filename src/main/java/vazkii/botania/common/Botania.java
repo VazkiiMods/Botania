@@ -179,8 +179,8 @@ public class Botania {
 
 		FMLInterModComms.sendMessage("ProjectE", "interdictionblacklist", EntityManaBurst.class.getCanonicalName());
 
-		if(Botania.bcTriggersLoaded)
-			// todo buildcraft new StatementAPIPlugin();
+		/*if(Botania.bcTriggersLoaded) todo buildcraft
+			new StatementAPIPlugin();*/
 		proxy.init(event);
 	}
 
