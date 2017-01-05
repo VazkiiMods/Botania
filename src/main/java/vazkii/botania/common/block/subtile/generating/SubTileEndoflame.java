@@ -58,19 +58,16 @@ public class SubTileEndoflame extends SubTileGenerating {
 
 						if(age >= 59 + slowdown && !item.isDead) {
 							ItemStack stack = item.getEntityItem();
-							if(stack.getItem().hasContainerItem(stack))
+							if(stack.isEmpty() || stack.getItem().hasContainerItem(stack))
 								continue;
 
-							int burnTime = stack .isEmpty() || stack.getItem() == Item.getItemFromBlock(ModBlocks.spreader) ? 0 : TileEntityFurnace.getItemBurnTime(stack);
+							int burnTime = stack.getItem() == Item.getItemFromBlock(ModBlocks.spreader) ? 0 : TileEntityFurnace.getItemBurnTime(stack);
 							if(burnTime > 0 && stack.getCount() > 0) {
 								this.burnTime = Math.min(FUEL_CAP, burnTime) / 2;
 
 								if(!supertile.getWorld().isRemote) {
 									stack.shrink(1);
 									supertile.getWorld().playSound(null, supertile.getPos(), BotaniaSoundEvents.endoflame, SoundCategory.BLOCKS, 0.2F, 1F);
-
-									if(stack.isEmpty())
-										item.setDead();
 
 									didSomething = true;
 								} else {

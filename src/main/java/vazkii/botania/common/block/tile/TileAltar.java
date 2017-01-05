@@ -82,8 +82,6 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 				} else {
 					world.updateComparatorOutputLevel(pos, world.getBlockState(pos).getBlock());
 					stack.shrink(1);
-					if(stack.isEmpty())
-						item.setDead();
 					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, pos);
 				}
 
@@ -128,8 +126,6 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 
 			if(!world.isRemote) {
 				stack.shrink(1);
-				if(stack.isEmpty())
-					item.setDead();
 
 				for(int i = 0; i < getSizeInventory(); i++)
 					if(itemHandler.getStackInSlot(i).isEmpty()) {
@@ -151,8 +147,6 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 							itemHandler.setStackInSlot(i, ItemStack.EMPTY);
 
 						stack.shrink(1);
-						if(stack.isEmpty())
-							item.setDead();
 
 						ItemStack output = recipe.getOutput().copy();
 						EntityItem outputItem = new EntityItem(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, output);

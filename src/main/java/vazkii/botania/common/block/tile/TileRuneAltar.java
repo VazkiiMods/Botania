@@ -115,8 +115,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver 
 			for(EntityItem item : items)
 				if(!item.isDead && !item.getEntityItem().isEmpty() && item.getEntityItem().getItem() != Item.getItemFromBlock(ModBlocks.livingrock)) {
 					ItemStack stack = item.getEntityItem();
-					if(addItem(null, stack, null) && stack.isEmpty())
-						item.setDead();
+					addItem(null, stack, null);
 				}
 		}
 
@@ -246,10 +245,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver 
 						}
 					}
 
-					ItemStack livingrockItem = livingrock.getEntityItem();
-					livingrockItem.shrink(1);
-					if(livingrockItem.isEmpty())
-						livingrock.setDead();
+					livingrock.getEntityItem().shrink(1);
 				}
 
 				craftingFanciness();

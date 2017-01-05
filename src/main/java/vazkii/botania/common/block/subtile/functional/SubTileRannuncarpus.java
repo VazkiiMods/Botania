@@ -87,7 +87,7 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 					continue;
 				}
 
-				if(age < 60 + slowdown || item.isDead)
+				if(age < 60 + slowdown || item.isDead || item.getEntityItem().isEmpty())
 					continue;
 
 				ItemStack stack = item.getEntityItem();
@@ -141,8 +141,6 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 									((IFlowerPlaceable) stackItem).onBlockPlacedByFlower(stack, this, coords);
 
 								stack.shrink(1);
-								if(stack.isEmpty())
-									item.setDead();
 
 								if(mana > 1)
 									mana--;

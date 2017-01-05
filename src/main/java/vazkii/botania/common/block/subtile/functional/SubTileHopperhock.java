@@ -77,7 +77,7 @@ public class SubTileHopperhock extends SubTileFunctional {
 				continue;
 			}
 
-			if(age < 60 + slowdown || age >= 105 && age < 110 || item.isDead)
+			if(age < 60 + slowdown || age >= 105 && age < 110 || item.isDead || item.getEntityItem().isEmpty())
 				continue;
 
 			ItemStack stack = item.getEntityItem();
@@ -94,7 +94,7 @@ public class SubTileHopperhock extends SubTileFunctional {
 					boolean canAccept = canAcceptItem(stack, filter, filterType);
 
 					ItemStack simulate = ItemHandlerHelper.insertItem(inv.handler, stack.copy(), true);
-					int availablePut = stack.getAnimationsToGo() - (simulate.isEmpty() ? 0 : simulate.getCount());
+					int availablePut = stack.getCount() - simulate.getCount();
 
 					canAccept &= availablePut > 0;
 
@@ -117,8 +117,6 @@ public class SubTileHopperhock extends SubTileFunctional {
 				SubTileSpectranthemum.spawnExplosionParticles(item, 3);
 				ItemHandlerHelper.insertItem(invToPutItemIn, stack.splitStack(amountToPutIn), false);
 				item.setEntityItemStack(stack); // Just in case someone subclasses EntityItem and changes something important.
-				if(item.getEntityItem().isEmpty())
-					item.setDead();
 				pulledAny = true;
 			}
 		}

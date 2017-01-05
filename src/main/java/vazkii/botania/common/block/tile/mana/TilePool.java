@@ -168,8 +168,6 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 
 		if(stack.getItem() instanceof IManaDissolvable) {
 			((IManaDissolvable) stack.getItem()).onDissolveTick(this, stack, item);
-			if(stack.isEmpty())
-				item.setDead();
 		}
 
 		int age;
@@ -188,8 +186,6 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 				recieveMana(-mana);
 
 				stack.shrink(1);
-				if(stack.isEmpty())
-					item.setDead();
 
 				ItemStack output = recipe.getOutput().copy();
 				EntityItem outputItem = new EntityItem(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, output);

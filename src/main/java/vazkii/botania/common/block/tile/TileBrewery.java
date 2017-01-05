@@ -102,8 +102,7 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver {
 			for(EntityItem item : items)
 				if(!item.isDead && !item.getEntityItem().isEmpty()) {
 					ItemStack stack = item.getEntityItem();
-					if(addItem(null, stack, null) && stack.isEmpty())
-						item.setDead();
+					addItem(null, stack, null);
 				}
 		}
 

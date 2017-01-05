@@ -135,20 +135,18 @@ public class ItemFlowerBag extends ItemMod {
 					IItemHandler bagInv = bag.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
 
 					ItemStack result = bagInv.insertItem(color, entityStack, false);
+					int numPickedUp = entityStack.getCount() - result.getCount();
 
-					if(result.isEmpty())
-						event.getItem().setDead();
-					else
-						event.getItem().setEntityItemStack(result);
+					event.getItem().setEntityItemStack(result);
 
-					if(result != entityStack) {
+					if(numPickedUp > 0) {
 						event.setCanceled(true);
 						if (!event.getItem().isSilent()) {
 							event.getItem().world.playSound(null, event.getEntityPlayer().posX, event.getEntityPlayer().posY, event.getEntityPlayer().posZ,
 									SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.PLAYERS, 0.2F,
 									((event.getItem().world.rand.nextFloat() - event.getItem().world.rand.nextFloat()) * 0.7F + 1.0F) * 2.0F);
 						}
-						((EntityPlayerMP) event.getEntityPlayer()).connection.sendPacket(new SPacketCollectItem(event.getItem().getEntityId(), event.getEntityPlayer().getEntityId(), entityStack.getCount()));
+						((EntityPlayerMP) event.getEntityPlayer()).connection.sendPacket(new SPacketCollectItem(event.getItem().getEntityId(), event.getEntityPlayer().getEntityId(), numPickedUp));
 						event.getEntityPlayer().openContainer.detectAndSendChanges();
 
 						return;
