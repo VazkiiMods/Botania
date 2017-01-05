@@ -36,7 +36,7 @@ public class TileCorporeaFunnel extends TileCorporeaBase implements ICorporeaReq
 				ItemStack stack = filter.get(world.rand.nextInt(filter.size()));
 
 				if(stack != null)
-					doCorporeaRequest(stack, stack.stackSize, spark);
+					doCorporeaRequest(stack, stack.getCount(), spark);
 			}
 		}
 	}
@@ -56,7 +56,7 @@ public class TileCorporeaFunnel extends TileCorporeaBase implements ICorporeaReq
 					ItemStack stack = frame.getDisplayedItem();
 					if(stack != null) {
 						ItemStack copy = stack.copy();
-						copy.stackSize = rotationToStackSize[frame.getRotation()];
+						copy.setCount(rotationToStackSize[frame.getRotation()]);
 						filter.add(copy);
 					}
 				}

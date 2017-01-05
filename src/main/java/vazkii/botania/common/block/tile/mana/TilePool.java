@@ -168,7 +168,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 
 		if(stack.getItem() instanceof IManaDissolvable) {
 			((IManaDissolvable) stack.getItem()).onDissolveTick(this, stack, item);
-			if(stack.stackSize == 0)
+			if(stack.isEmpty())
 				item.setDead();
 		}
 
@@ -187,8 +187,8 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 			if(getCurrentMana() >= mana) {
 				recieveMana(-mana);
 
-				stack.stackSize--;
-				if(stack.stackSize == 0)
+				stack.shrink(1);
+				if(stack.isEmpty())
 					item.setDead();
 
 				ItemStack output = recipe.getOutput().copy();

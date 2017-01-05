@@ -149,12 +149,12 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable {
 		if(items.size() != 3)
 			return false;
 
-		ItemStack ingot = null;
-		ItemStack pearl = null;
-		ItemStack diamond = null;
+		ItemStack ingot = ItemStack.EMPTY;
+		ItemStack pearl = ItemStack.EMPTY;
+		ItemStack diamond = ItemStack.EMPTY;
 		for(EntityItem item : items) {
 			ItemStack stack = item.getEntityItem();
-			if(stack.getItem() != ModItems.manaResource || stack.stackSize != 1)
+			if(stack.getItem() != ModItems.manaResource || stack.getCount() != 1)
 				return false;
 
 			int meta = stack.getItemDamage();
@@ -167,7 +167,7 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable {
 			else return false;
 		}
 
-		return ingot != null && pearl != null && diamond != null;
+		return !ingot.isEmpty() && !pearl.isEmpty() && !diamond.isEmpty();
 	}
 
 	boolean hasValidPlatform() {

@@ -63,9 +63,9 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver 
 
 		if(stack.getItem() == Item.getItemFromBlock(ModBlocks.livingrock) && stack.getItemDamage() == 0) {
 			if(player == null || !player.capabilities.isCreativeMode) {
-				stack.stackSize--;
-				if(stack.stackSize == 0 && player != null)
-					player.setHeldItem(hand, null);
+				stack.shrink(1);
+				if(stack.isEmpty() && player != null)
+					player.setHeldItem(hand, ItemStack.EMPTY);
 			}
 
 			EntityItem item = new EntityItem(world, getPos().getX() + 0.5, getPos().getY() + 1, getPos().getZ() + 0.5, new ItemStack(ModBlocks.livingrock));
@@ -86,12 +86,12 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver 
 			if(itemHandler.getStackInSlot(i) == null) {
 				did = true;
 				ItemStack stackToAdd = stack.copy();
-				stackToAdd.stackSize = 1;
+				stackToAdd.setCount(1);
 				itemHandler.setStackInSlot(i, stackToAdd);
 
 				if(player == null || !player.capabilities.isCreativeMode) {
-					stack.stackSize--;
-					if(stack.stackSize == 0 && player != null)
+					stack.shrink(1);
+					if(stack.isEmpty() && player != null)
 						player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
 				}
 
@@ -115,7 +115,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver 
 			for(EntityItem item : items)
 				if(!item.isDead && item.getEntityItem() != null && item.getEntityItem().getItem() != Item.getItemFromBlock(ModBlocks.livingrock)) {
 					ItemStack stack = item.getEntityItem();
-					if(addItem(null, stack, null) && stack.stackSize == 0)
+					if(addItem(null, stack, null) && stack.isEmpty())
 						item.setDead();
 				}
 		}
@@ -247,8 +247,8 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver 
 					}
 
 					ItemStack livingrockItem = livingrock.getEntityItem();
-					livingrockItem.stackSize--;
-					if(livingrockItem.stackSize == 0)
+					livingrockItem.shrink(1);
+					if(livingrockItem.isEmpty())
 						livingrock.setDead();
 				}
 

@@ -40,7 +40,7 @@ public class TileCacophonium extends TileMod {
 		super.readPacketNBT(cmp);
 
 		NBTTagCompound cmp1 = cmp.getCompoundTag(TAG_STACK);
-		stack = ItemStack.loadItemStackFromNBT(cmp1);
+		stack = new ItemStack(cmp1);
 	}
 
 }

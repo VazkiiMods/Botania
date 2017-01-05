@@ -115,7 +115,7 @@ public class TileCorporeaRetainer extends TileMod {
 			break;
 		case REQUEST_ITEMSTACK:
 			NBTTagCompound cmp1 = cmp.getCompoundTag(TAG_REQUEST_STACK);
-			request = ItemStack.loadItemStackFromNBT(cmp1);
+			request = new ItemStack(cmp1);
 			break;
 		default: break;
 		}

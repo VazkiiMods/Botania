@@ -64,7 +64,7 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 	public void setRequestTarget(ItemStack stack) {
 		if(stack != null) {
 			ItemStack copy = stack.copy();
-			copy.stackSize = 1;
+			copy.setCount(1);
 			requestTarget = copy;
 			updateCount();
 			if(!world.isRemote)
@@ -102,7 +102,7 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 		if(spark != null && spark.getMaster() != null && requestTarget != null) {
 			List<ItemStack> stacks = CorporeaHelper.requestItem(requestTarget, -1, spark, true, false);
 			for(ItemStack stack : stacks)
-				itemCount += stack.stackSize;
+				itemCount += stack.getCount();
 		}
 
 		if(itemCount != oldCount) {
@@ -130,7 +130,7 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 	public void readPacketNBT(NBTTagCompound par1nbtTagCompound) {
 		super.readPacketNBT(par1nbtTagCompound);
 		NBTTagCompound cmp = par1nbtTagCompound.getCompoundTag(TAG_REQUEST_TARGET);
-		requestTarget = ItemStack.loadItemStackFromNBT(cmp);
+		requestTarget = new ItemStack(cmp);
 		itemCount = par1nbtTagCompound.getInteger(TAG_ITEM_COUNT);
 	}
 
@@ -162,7 +162,7 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 			if(requestTarget != null) {
 				EntityItem item = new EntityItem(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, reqStack);
 				world.spawnEntity(item);
-				itemCount -= reqStack.stackSize;
+				itemCount -= reqStack.getCount();
 				did = true;
 			}
 

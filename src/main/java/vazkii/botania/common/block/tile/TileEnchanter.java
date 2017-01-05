@@ -346,7 +346,7 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 		stage3EndTicks = cmp.getInteger(TAG_STAGE_3_END_TICKS);
 
 		NBTTagCompound itemCmp = cmp.getCompoundTag(TAG_ITEM);
-		itemToEnchant = ItemStack.loadItemStackFromNBT(itemCmp);
+		itemToEnchant = new ItemStack(itemCmp);
 
 		enchants.clear();
 		String enchStr = cmp.getString(TAG_ENCHANTS);
@@ -375,7 +375,7 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 
 		for(EnchantmentData data : enchants) {
 			Enchantment otherEnch = data.enchantmentobj;
-			if(!otherEnch.canApplyTogether(ench) || !ench.canApplyTogether(otherEnch))
+			if (ench.func_191560_c(otherEnch))
 				return false;
 		}
 

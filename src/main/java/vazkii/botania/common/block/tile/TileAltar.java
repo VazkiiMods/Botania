@@ -79,8 +79,8 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 					world.markBlockRangeForRenderUpdate(getPos(), getPos());
 				} else {
 					world.updateComparatorOutputLevel(pos, world.getBlockState(pos).getBlock());
-					stack.stackSize--;
-					if(stack.stackSize == 0)
+					stack.shrink(1);
+					if(stack.isEmpty())
 						item.setDead();
 					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, pos);
 				}
@@ -121,18 +121,18 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 		boolean didChange = false;
 
 		if(stack.getItem() instanceof IFlowerComponent && ((IFlowerComponent) stack.getItem()).canFit(stack, this)) {
-			if(itemHandler.getStackInSlot(getSizeInventory() - 1) != null)
+			if(!itemHandler.getStackInSlot(getSizeInventory() - 1).isEmpty())
 				return false;
 
 			if(!world.isRemote) {
-				stack.stackSize--;
-				if(stack.stackSize == 0)
+				stack.shrink(1);
+				if(stack.isEmpty())
 					item.setDead();
 
 				for(int i = 0; i < getSizeInventory(); i++)
-					if(itemHandler.getStackInSlot(i) == null) {
+					if(itemHandler.getStackInSlot(i).isEmpty()) {
 						ItemStack stackToPut = stack.copy();
-						stackToPut.stackSize = 1;
+						stackToPut.setCount(1);
 						itemHandler.setStackInSlot(i, stackToPut);
 						didChange = true;
 						world.playSound(null, pos, SoundEvents.ENTITY_GENERIC_SPLASH, SoundCategory.BLOCKS, 0.1F, 10F);
@@ -146,10 +146,10 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 
 					if(!world.isRemote) {
 						for(int i = 0; i < getSizeInventory(); i++)
-							itemHandler.setStackInSlot(i, null);
+							itemHandler.setStackInSlot(i, ItemStack.EMPTY);
 
-						stack.stackSize--;
-						if(stack.stackSize == 0)
+						stack.shrink(1);
+						if(stack.isEmpty())
 							item.setDead();
 
 						ItemStack output = recipe.getOutput().copy();
@@ -175,7 +175,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 		lastRecipe = new ArrayList<>();
 		for(int i = 0; i < getSizeInventory(); i++) {
 			ItemStack stack = itemHandler.getStackInSlot(i);
-			if(stack == null)
+			if(stack.isEmpty())
 				break;
 			lastRecipe.add(stack.copy());
 		}
@@ -200,13 +200,13 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 
 			for(int i = 0; i < player.inventory.getSizeInventory(); i++) {
 				ItemStack pstack = player.inventory.getStackInSlot(i);
-				if(pstack != null && pstack.isItemEqual(stack) && ItemStack.areItemStackTagsEqual(stack, pstack)) {
-					pstack.stackSize--;
-					if(pstack.stackSize == 0)
-						player.inventory.setInventorySlotContents(i, null);
+				if(!pstack.isEmpty() && pstack.isItemEqual(stack) && ItemStack.areItemStackTagsEqual(stack, pstack)) {
+					pstack.shrink(1);
+					if(pstack.isEmpty())
+						player.inventory.setInventorySlotContents(i, ItemStack.EMPTY);
 
 					ItemStack stackToPut = pstack.copy();
-					stackToPut.stackSize = 1;
+					stackToPut.setCount(1);
 					inv.setStackInSlot(index, stackToPut);
 					didAny = true;
 					index++;

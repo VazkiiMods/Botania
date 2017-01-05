@@ -99,10 +99,10 @@ public class TileHourglass extends TileSimpleInventory {
 
 	public int getTotalTime() {
 		ItemStack stack = itemHandler.getStackInSlot(0);
-		if(stack == null)
+		if(stack.isEmpty())
 			return 0;
 
-		return getStackItemTime(stack) * stack.stackSize;
+		return getStackItemTime(stack) * stack.getCount();
 	}
 
 	public static int getStackItemTime(ItemStack stack) {
@@ -119,7 +119,7 @@ public class TileHourglass extends TileSimpleInventory {
 
 	public int getColor() {
 		ItemStack stack = itemHandler.getStackInSlot(0);
-		if(stack == null)
+		if(stack.isEmpty())
 			return 0;
 		if(stack.getItem() == Item.getItemFromBlock(Blocks.SAND))
 			return stack.getItemDamage() == 1 ? 0xE95800 : 0xFFEC49;

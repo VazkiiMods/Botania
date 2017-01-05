@@ -96,7 +96,7 @@ public class TileAnimatedTorch extends TileMod {
 		this.side = side;
 		rotating = true;
 
-		world.notifyNeighborsOfStateChange(getPos(), getBlockType());
+		world.notifyNeighborsOfStateChange(getPos(), getBlockType(), false);
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -117,7 +117,7 @@ public class TileAnimatedTorch extends TileMod {
 
 			if(rotationTicks <= 0) {
 				rotating = false;
-				world.notifyNeighborsOfStateChange(getPos(), getBlockType());
+				world.notifyNeighborsOfStateChange(getPos(), getBlockType(), false);
 			}
 
 		} else rotation = side * 90;

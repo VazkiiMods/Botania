@@ -54,16 +54,16 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver {
 		boolean did = false;
 
 		for(int i = 0; i < getSizeInventory(); i++)
-			if(itemHandler.getStackInSlot(i) == null) {
+			if(itemHandler.getStackInSlot(i).isEmpty()) {
 				did = true;
 				ItemStack stackToAdd = stack.copy();
-				stackToAdd.stackSize = 1;
+				stackToAdd.setCount(1);
 				itemHandler.setStackInSlot(i, stackToAdd);
 
 				if(player == null || !player.capabilities.isCreativeMode) {
-					stack.stackSize--;
-					if(stack.stackSize == 0 && player != null)
-						player.setHeldItem(hand, null);
+					stack.shrink(1);
+					if(stack.isEmpty() && player != null)
+						player.setHeldItem(hand, ItemStack.EMPTY);
 				}
 
 				break;
@@ -100,9 +100,9 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver {
 		if(!world.isRemote && recipe == null) {
 			List<EntityItem> items = world.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(pos.getX(), pos.getY(), pos.getZ(), pos.getX() + 1, pos.getY() + 1, pos.getZ() + 1));
 			for(EntityItem item : items)
-				if(!item.isDead && item.getEntityItem() != null) {
+				if(!item.isDead && !item.getEntityItem().isEmpty()) {
 					ItemStack stack = item.getEntityItem();
-					if(addItem(null, stack, null) && stack.stackSize == 0)
+					if(addItem(null, stack, null) && stack.isEmpty())
 						item.setDead();
 				}
 		}
@@ -136,7 +136,7 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver {
 					}
 
 					for(int i = 0; i < getSizeInventory(); i++)
-						itemHandler.setStackInSlot(i, null);
+						itemHandler.setStackInSlot(i, ItemStack.EMPTY);
 
 					craftingFanciness();
 				}
@@ -157,7 +157,7 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver {
 
 	public int getManaCost() {
 		ItemStack stack = itemHandler.getStackInSlot(0);
-		if(recipe == null || stack == null || !(stack.getItem() instanceof IBrewContainer))
+		if(recipe == null || stack.isEmpty() || !(stack.getItem() instanceof IBrewContainer))
 			return 0;
 		IBrewContainer container = (IBrewContainer) stack.getItem();
 		return container.getManaCost(recipe.getBrew(), stack);

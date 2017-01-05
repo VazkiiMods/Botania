@@ -199,8 +199,8 @@ public class TileAlfPortal extends TileMod {
 	}
 
 	private void addItem(ItemStack stack) {
-		int size = stack.stackSize;
-		stack.stackSize = 1;
+		int size = stack.getCount();
+		stack.setCount(1);
 		for(int i = 0; i < size; i++)
 			stacksIn.add(stack.copy());
 	}
@@ -265,7 +265,7 @@ public class TileAlfPortal extends TileMod {
 		stacksIn.clear();
 		for(int i = 0; i < count; i++) {
 			NBTTagCompound stackcmp = cmp.getCompoundTag(TAG_STACK + i);
-			ItemStack stack = ItemStack.loadItemStackFromNBT(stackcmp);
+			ItemStack stack = new ItemStack(stackcmp);
 			stacksIn.add(stack);
 		}
 	}

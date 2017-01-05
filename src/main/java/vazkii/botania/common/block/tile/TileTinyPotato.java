@@ -33,17 +33,17 @@ public class TileTinyPotato extends TileSimpleInventory {
 		int index = side.getIndex();
 		if(index >= 0) {
 			ItemStack stackAt = getItemHandler().getStackInSlot(index);
-			if(stackAt != null && stack == null) {
+			if(!stackAt.isEmpty() && stack.isEmpty()) {
 				player.setHeldItem(hand, stackAt);
-				getItemHandler().setStackInSlot(index, null);
+				getItemHandler().setStackInSlot(index, ItemStack.EMPTY);
 			} else if(stack != null) {
 				ItemStack copy = stack.copy();
-				copy.stackSize = 1;
-				stack.stackSize--;
+				copy.setCount(1);
+				stack.shrink(1);
 
-				if(stack.stackSize == 0)
+				if(stack.isEmpty())
 					player.setHeldItem(hand, stackAt);
-				else if(stackAt != null) {
+				else if(!stackAt.isEmpty()) {
 					if(!player.inventory.addItemStackToInventory(stackAt))
 						player.dropItem(stackAt, false);
 				}
@@ -62,7 +62,7 @@ public class TileTinyPotato extends TileSimpleInventory {
 
 			for(int i = 0; i < getSizeInventory(); i++) {
 				ItemStack stackAt = getItemHandler().getStackInSlot(i);
-				if(stackAt != null && stackAt.getItem() == Item.getItemFromBlock(ModBlocks.tinyPotato)) {
+				if(!stackAt.isEmpty() && stackAt.getItem() == Item.getItemFromBlock(ModBlocks.tinyPotato)) {
 					player.sendMessage(new TextComponentString("Don't talk to me or my son ever again."));
 					return;
 				}
