@@ -36,6 +36,8 @@ import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.network.PacketBotaniaEffect;
+import vazkii.botania.common.network.PacketHandler;
 
 // This is mostly copypasta from TileRuneAltar
 public class TileBrewery extends TileSimpleInventory implements IManaReceiver {
@@ -164,15 +166,7 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver {
 
 	public void craftingFanciness() {
 		world.playSound(null, pos, BotaniaSoundEvents.potionCreate, SoundCategory.BLOCKS, 1F, 1.5F + (float) Math.random() * 0.25F);
-		for(int i = 0; i < 25; i++) {
-			Color color = new Color(recipe.getBrew().getColor(itemHandler.getStackInSlot(0)));
-			float r = color.getRed() / 255F;
-			float g = color.getGreen() / 255F;
-			float b = color.getBlue() / 255F;
-			Botania.proxy.sparkleFX(pos.getX() + 0.5 + Math.random() * 0.4 - 0.2, pos.getY() + 1, pos.getZ() + 0.5 + Math.random() * 0.4 - 0.2, r, g, b, (float) Math.random() * 2F + 0.5F, 10);
-			for(int j = 0; j < 2; j++)
-				Botania.proxy.wispFX(pos.getX() + 0.7 - Math.random() * 0.4, pos.getY() + 0.9 - Math.random() * 0.2, pos.getZ() + 0.7 - Math.random() * 0.4, 0.2F, 0.2F, 0.2F, 0.1F + (float) Math.random() * 0.2F, 0.05F - (float) Math.random() * 0.1F, 0.05F + (float) Math.random() * 0.03F, 0.05F - (float) Math.random() * 0.1F);
-		}
+		PacketHandler.sendToNearby(world, pos, new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.BREWERY_FINISH, pos.getX(), pos.getY(), pos.getZ(), recipe.getBrew().getColor(itemHandler.getStackInSlot(0))));
 	}
 
 	@Override

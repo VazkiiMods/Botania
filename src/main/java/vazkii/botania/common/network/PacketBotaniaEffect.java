@@ -240,6 +240,17 @@ public class PacketBotaniaEffect implements IMessage {
 
 						break;
 					}
+					case BREWERY_FINISH: {
+						for(int i = 0; i < 25; i++) {
+							Color c = new Color(message.args[0]);
+							float r = c.getRed() / 255F;
+							float g = c.getGreen() / 255F;
+							float b = c.getBlue() / 255F;
+							Botania.proxy.sparkleFX(message.x + 0.5 + Math.random() * 0.4 - 0.2, message.y + 1, message.z + 0.5 + Math.random() * 0.4 - 0.2, r, g, b, (float) Math.random() * 2F + 0.5F, 10);
+							for(int j = 0; j < 2; j++)
+								Botania.proxy.wispFX(message.x + 0.7 - Math.random() * 0.4, message.y + 0.9 - Math.random() * 0.2, message.z + 0.7 - Math.random() * 0.4, 0.2F, 0.2F, 0.2F, 0.1F + (float) Math.random() * 0.2F, 0.05F - (float) Math.random() * 0.1F, 0.05F + (float) Math.random() * 0.03F, 0.05F - (float) Math.random() * 0.1F);
+						}
+					}
 					}
 				}
 			});
@@ -251,7 +262,7 @@ public class PacketBotaniaEffect implements IMessage {
 	public enum EffectType {
 		POOL_CRAFT(0),
 		POOL_CHARGE(1), // Arg: 1 if outputting, 0 if inputting
-		PAINT_LENS(1),  // Arg: colour
+		PAINT_LENS(1),  // Arg: EnumDyeColor
 		ARENA_INDICATOR(0),
 		ITEM_SMOKE(2), // Arg: Entity ID, number of particles
 		SPARK_NET_INDICATOR(2), // Arg: Entity ID from, Entity ID towards
@@ -259,7 +270,8 @@ public class PacketBotaniaEffect implements IMessage {
 		ENCHANTER_CRAFT(0),
 		ENCHANTER_DESTROY(0),
 		ENTROPINNYUM(0),
-		BLACK_LOTUS_DISSOLVE(0);
+		BLACK_LOTUS_DISSOLVE(0),
+		BREWERY_FINISH(1); // Arg: RGB
 
 		private final int argCount;
 
