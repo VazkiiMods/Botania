@@ -82,7 +82,7 @@ public class ItemOdinRing extends ItemRelicBauble {
 	}
 
 	private static boolean isOdinRing(ItemStack stack) {
-		return stack != null && (stack.getItem() == ModItems.odinRing || stack.getItem() == ModItems.aesirRing);
+		return !stack.isEmpty() && (stack.getItem() == ModItems.odinRing || stack.getItem() == ModItems.aesirRing);
 	}
 
 	@Override
@@ -100,7 +100,7 @@ public class ItemOdinRing extends ItemRelicBauble {
 	}
 
 	void fillModifiers(Multimap<String, AttributeModifier> attributes, ItemStack stack) {
-		if(stack == null) // workaround for Azanor/Baubles#156
+		if(stack.isEmpty()) // workaround for Azanor/Baubles#156
 			return;
 		
 		attributes.put(SharedMonsterAttributes.MAX_HEALTH.getName(), new AttributeModifier(getBaubleUUID(stack), "Bauble modifier", 20, 0));

@@ -36,7 +36,7 @@ public class TileTinyPotato extends TileSimpleInventory {
 			if(!stackAt.isEmpty() && stack.isEmpty()) {
 				player.setHeldItem(hand, stackAt);
 				getItemHandler().setStackInSlot(index, ItemStack.EMPTY);
-			} else if(stack != null) {
+			} else if(!stack.isEmpty()) {
 				ItemStack copy = stack.copy();
 				copy.setCount(1);
 				stack.shrink(1);

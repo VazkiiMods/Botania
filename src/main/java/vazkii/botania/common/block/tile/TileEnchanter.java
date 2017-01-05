@@ -73,7 +73,7 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 	private int manaRequired = -1;
 	private int mana = 0;
 
-	public ItemStack itemToEnchant = null;
+	public ItemStack itemToEnchant = ItemStack.EMPTY;
 	private final List<EnchantmentData> enchants = new ArrayList<>();
 
 	private static final BlockPos[] OBSIDIAN_LOCATIONS = {

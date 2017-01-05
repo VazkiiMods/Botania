@@ -121,7 +121,7 @@ public class TileIncensePlate extends TileSimpleInventory  {
 	}
 
 	public boolean acceptsItem(ItemStack stack) {
-		return stack != null && stack.getItem() == ModItems.incenseStick && ((ItemIncenseStick) ModItems.incenseStick).getBrew(stack) != BotaniaAPI.fallbackBrew;
+		return !stack.isEmpty() && stack.getItem() == ModItems.incenseStick && ((ItemIncenseStick) ModItems.incenseStick).getBrew(stack) != BotaniaAPI.fallbackBrew;
 	}
 
 	@Override

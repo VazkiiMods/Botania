@@ -144,7 +144,7 @@ public class BlockEnchanter extends BlockMod implements IWandable, ILexiconable,
 
 		ItemStack itemstack = enchanter.itemToEnchant;
 
-		if (itemstack != null) {
+		if (!itemstack.isEmpty()) {
 			float f = random.nextFloat() * 0.8F + 0.1F;
 			float f1 = random.nextFloat() * 0.8F + 0.1F;
 			EntityItem entityitem;

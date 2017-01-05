@@ -304,7 +304,7 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 	}
 
 	public boolean doPhantomInk(ItemStack stack) {
-		if(stack != null && stack.getItem() == ModItems.phantomInk && !world.isRemote) {
+		if(!stack.isEmpty() && stack.getItem() == ModItems.phantomInk && !world.isRemote) {
 			int invis = dataManager.get(INVISIBILITY);
 			dataManager.set(INVISIBILITY, ~invis & 1);
 			return true;

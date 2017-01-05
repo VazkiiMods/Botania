@@ -20,14 +20,14 @@ import vazkii.botania.common.block.ModBlocks;
 public class TileFloatingFlower extends TileMod implements IFloatingFlower {
 
 	public static final String TAG_ISLAND_TYPE = "islandType";
-	public static ItemStack forcedStack = null;
+	public static ItemStack forcedStack = ItemStack.EMPTY;
 	IslandType type = IslandType.GRASS;
 
 	@Override
 	public ItemStack getDisplayStack() {
-		if(forcedStack != null) {
+		if(!forcedStack.isEmpty()) {
 			ItemStack retStack = forcedStack;
-			forcedStack = null;
+			forcedStack = ItemStack.EMPTY;
 			return retStack;
 		}
 		EnumDyeColor color = world.getBlockState(getPos()).getBlock() != ModBlocks.floatingFlower ? EnumDyeColor.WHITE

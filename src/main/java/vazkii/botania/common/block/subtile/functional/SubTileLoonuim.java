@@ -77,7 +77,7 @@ public class SubTileLoonuim extends SubTileFunctional {
 				if (stacks.isEmpty())
 					return;
 				else stack = stacks.get(0);
-			} while(stack == null || BotaniaAPI.looniumBlacklist.contains(stack.getItem()));
+			} while(stack.isEmpty() || BotaniaAPI.looniumBlacklist.contains(stack.getItem()));
 
 			int bound = RANGE * 2 + 1;
 			int xp = supertile.getPos().getX() - RANGE + rand.nextInt(bound);

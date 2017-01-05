@@ -383,7 +383,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 
 		ItemStack stack = getSourceLens();
 		NBTTagCompound lensCmp = new NBTTagCompound();
-		if(stack != null)
+		if(!stack.isEmpty())
 			stack.writeToNBT(lensCmp);
 		par1nbtTagCompound.setTag(TAG_LENS_STACK, lensCmp);
 

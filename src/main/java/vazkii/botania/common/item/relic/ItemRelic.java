@@ -95,7 +95,7 @@ public class ItemRelic extends ItemMod implements IRelic {
 	}
 
 	public void updateRelic(ItemStack stack, EntityPlayer player) {
-		if(stack == null || !(stack.getItem() instanceof IRelic))
+		if(stack.isEmpty() || !(stack.getItem() instanceof IRelic))
 			return;
 
 		boolean rightPlayer = true;

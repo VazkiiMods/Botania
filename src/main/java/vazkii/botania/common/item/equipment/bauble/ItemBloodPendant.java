@@ -64,7 +64,7 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 		super.getSubItems(item, tab, list);
 		for(String s : BotaniaAPI.brewMap.keySet()) {
 			ItemStack brewStack = getItemForBrew(BotaniaAPI.brewMap.get(s), new ItemStack(this));
-			if(brewStack != null)
+			if(!brewStack.isEmpty())
 				list.add(brewStack);
 		}
 	}

@@ -105,7 +105,7 @@ public final class ItemsRemainingRenderHandler {
 		ItemsRemainingRenderHandler.stack = stack;
 		ItemsRemainingRenderHandler.count = count;
 		ItemsRemainingRenderHandler.customString = str;
-		ticks = stack == null ? 0 : maxTicks;
+		ticks = stack.isEmpty() ? 0 : maxTicks;
 	}
 
 	public static void set(EntityPlayer player, ItemStack displayStack, Pattern pattern) {

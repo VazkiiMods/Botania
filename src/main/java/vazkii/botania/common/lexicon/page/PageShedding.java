@@ -76,7 +76,7 @@ public class PageShedding extends PageEntity {
 		GlStateManager.color(1F, 1F, 1F, 1F);
 		((GuiScreen) gui).drawTexturedModalRect(gui.getLeft(), gui.getTop(), 0, 0, gui.getWidth(), gui.getHeight());
 
-		if(tooltipStack != null) {
+		if(!tooltipStack.isEmpty()) {
 			List<String> tooltipData = tooltipStack.getTooltip(Minecraft.getMinecraft().player, false);
 			List<String> parsedTooltip = new ArrayList<>();
 			boolean first = true;

@@ -200,7 +200,7 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 		List<ItemStack> stacks = CorporeaHelper.requestItem((String) request, count, spark, true);
 		spark.onItemsRequested(stacks);
 		for(ItemStack stack : stacks)
-			if(stack != null) {
+			if(!stack.isEmpty()) {
 				EntityItem item = new EntityItem(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, stack);
 				world.spawnEntity(item);
 			}

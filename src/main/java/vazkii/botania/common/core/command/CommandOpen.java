@@ -42,7 +42,7 @@ public class CommandOpen extends CommandBase {
 		if(sender instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) sender;
 			ItemStack stack = PlayerHelper.getFirstHeldItemClass(player, ItemLexicon.class);
-			if(stack != null) {
+			if(!stack.isEmpty()) {
 				ItemLexicon.setForcedPage(stack, args[0]);
 				ItemLexicon.setQueueTicks(stack, 5);
 			} else sender.sendMessage(new TextComponentTranslation("botaniamisc.noLexicon").setStyle(new Style().setColor(TextFormatting.RED)));

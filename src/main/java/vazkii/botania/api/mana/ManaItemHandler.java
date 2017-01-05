@@ -90,7 +90,7 @@ public final class ManaItemHandler {
 	 * @return The amount of mana received from the request.
 	 */
 	public static int requestMana(ItemStack stack, EntityPlayer player, int manaToGet, boolean remove) {
-		if(stack == null)
+		if(stack.isEmpty())
 			return 0;
 
 		List<ItemStack> items = getManaItems(player);
@@ -143,7 +143,7 @@ public final class ManaItemHandler {
 	 * @return If the request was succesful.
 	 */
 	public static boolean requestManaExact(ItemStack stack, EntityPlayer player, int manaToGet, boolean remove) {
-		if(stack == null)
+		if(stack.isEmpty())
 			return false;
 
 		List<ItemStack> items = getManaItems(player);
@@ -191,7 +191,7 @@ public final class ManaItemHandler {
 	 * @return The amount of mana actually sent.
 	 */
 	public static int dispatchMana(ItemStack stack, EntityPlayer player, int manaToSend, boolean add) {
-		if(stack == null)
+		if(stack.isEmpty())
 			return 0;
 
 		List<ItemStack> items = getManaItems(player);
@@ -251,7 +251,7 @@ public final class ManaItemHandler {
 	 * @return If an item received the mana sent.
 	 */
 	public static boolean dispatchManaExact(ItemStack stack, EntityPlayer player, int manaToSend, boolean add) {
-		if(stack == null)
+		if(stack.isEmpty())
 			return false;
 
 		List<ItemStack> items = getManaItems(player);

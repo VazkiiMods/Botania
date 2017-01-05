@@ -50,7 +50,7 @@ public final class PixieHandler {
 				}
 
 				float dmg = 4;
-				if(stack != null && stack.getItem() == ModItems.elementiumSword)
+				if(!stack.isEmpty() && stack.getItem() == ModItems.elementiumSword)
 					dmg += 2;
 
 				pixie.setProps((EntityLivingBase) event.getSource().getEntity(), player, 0, dmg);
@@ -60,7 +60,7 @@ public final class PixieHandler {
 	}
 
 	private static float getChance(ItemStack stack) {
-		if(stack == null || !(stack.getItem() instanceof IPixieSpawner))
+		if(stack.isEmpty() || !(stack.getItem() instanceof IPixieSpawner))
 			return 0F;
 		else return ((IPixieSpawner) stack.getItem()).getPixieChance(stack);
 	}

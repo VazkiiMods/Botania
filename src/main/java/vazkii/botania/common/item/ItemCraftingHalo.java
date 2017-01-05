@@ -406,7 +406,7 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 	public void onRenderWorldLast(RenderWorldLastEvent event) {
 		EntityPlayer player = Minecraft.getMinecraft().player;
 		ItemStack stack = PlayerHelper.getFirstHeldItemClass(player, ItemCraftingHalo.class);
-		if(stack != null)
+		if(!stack.isEmpty())
 			render(stack, player, event.getPartialTicks());
 	}
 
@@ -464,7 +464,7 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 				inside = true;
 
 			ItemStack slotStack = getItemForSlot(stack, seg);
-			if(slotStack != null) {
+			if(!slotStack.isEmpty()) {
 				mc.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 				RenderHelper.enableStandardItemLighting();
 				float scale = seg == 0 ? 0.9F : 0.8F;
@@ -565,7 +565,7 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 	public static void renderRecipe(ScaledResolution resolution, String label, ItemStack[] recipe, EntityPlayer player, boolean setRecipe) {
 		Minecraft mc = Minecraft.getMinecraft();
 
-		if(recipe[9] != null) {
+		if(!recipe[9].isEmpty()) {
 			int x = resolution.getScaledWidth() / 2 - 45;
 			int y = resolution.getScaledHeight() / 2 - 90;
 
@@ -579,7 +579,7 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 			GlStateManager.enableRescaleNormal();
 			for(int i = 0; i < 9; i++) {
 				ItemStack stack = recipe[i];
-				if(stack != null) {
+				if(!stack.isEmpty()) {
 					int xpos = x + i % 3 * 18;
 					int ypos = y + i / 3 * 18;
 					Gui.drawRect(xpos, ypos, xpos + 16, ypos + 16, 0x22000000);

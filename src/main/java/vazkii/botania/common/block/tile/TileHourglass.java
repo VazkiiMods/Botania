@@ -108,7 +108,7 @@ public class TileHourglass extends TileSimpleInventory {
 	}
 
 	public static int getStackItemTime(ItemStack stack) {
-		if(stack == null)
+		if(stack.isEmpty())
 			return 0;
 		if(stack.getItem() == Item.getItemFromBlock(Blocks.SAND))
 			return stack.getItemDamage() == 1 ? 200 : 20;

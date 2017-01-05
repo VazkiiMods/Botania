@@ -539,7 +539,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	}
 
 	public ILensControl getLensController(ItemStack stack) {
-		if(stack != null && stack.getItem() instanceof ILensControl) {
+		if(!stack.isEmpty() && stack.getItem() instanceof ILensControl) {
 			ILensControl control = (ILensControl) stack.getItem();
 			if(control.isControlLens(stack))
 				return control;

@@ -39,7 +39,7 @@ import vazkii.botania.common.core.helper.PlayerHelper;
 public class PageRecipe extends LexiconPage {
 
 	int relativeMouseX, relativeMouseY;
-	ItemStack tooltipStack, tooltipContainerStack;
+	ItemStack tooltipStack = ItemStack.EMPTY, tooltipContainerStack = ItemStack.EMPTY;
 	boolean tooltipEntry;
 
 	static boolean mouseDownLastTick = false;
@@ -62,7 +62,7 @@ public class PageRecipe extends LexiconPage {
 		int y = gui.getTop() + height - 40;
 		PageText.renderText(x, y, width, height, getUnlocalizedName());
 
-		if(tooltipStack != null) {
+		if(!tooltipStack.isEmpty()) {
 			List<String> tooltipData = tooltipStack.getTooltip(Minecraft.getMinecraft().player, false);
 			List<String> parsedTooltip = new ArrayList<>();
 			boolean first = true;
@@ -84,7 +84,7 @@ public class PageRecipe extends LexiconPage {
 				tooltipY += 18;
 			}
 
-			if(tooltipContainerStack != null)
+			if(!tooltipContainerStack.isEmpty())
 				vazkii.botania.client.core.helper.RenderHelper.renderTooltipGreen(mx, my + tooltipY, Arrays.asList(TextFormatting.AQUA + I18n.format("botaniamisc.craftingContainer"), tooltipContainerStack.getDisplayName()));
 		}
 

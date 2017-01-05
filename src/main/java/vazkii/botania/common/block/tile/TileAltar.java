@@ -197,7 +197,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 		int index = 0;
 		boolean didAny = false;
 		for(ItemStack stack : lastRecipe) {
-			if(stack == null)
+			if(stack.isEmpty())
 				continue;
 
 			for(int i = 0; i < player.inventory.getSizeInventory(); i++) {

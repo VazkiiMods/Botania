@@ -75,7 +75,7 @@ public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, ICosm
 		Block block = state.getBlock();
 		player.world.getTileEntity(pos.getBlockPos());
 
-		ItemStack dispStack = null;
+		ItemStack dispStack = ItemStack.EMPTY;
 		String text = "";
 
 		if(block == Blocks.REDSTONE_WIRE) {
@@ -89,7 +89,7 @@ public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, ICosm
 			text = state.getValue(BlockRedstoneComparator.MODE) == BlockRedstoneComparator.Mode.SUBTRACT ? "-" : "+";
 		}
 
-		if(dispStack == null)
+		if(dispStack.isEmpty())
 			return;
 
 		int x = resolution.getScaledWidth() / 2 + 15;

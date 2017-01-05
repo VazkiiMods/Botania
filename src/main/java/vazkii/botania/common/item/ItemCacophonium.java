@@ -152,7 +152,7 @@ public class ItemCacophonium extends ItemMod implements ICraftAchievement {
 	}
 
 	public static void playSound(World world, ItemStack stack, double x, double y, double z, SoundCategory category, float volume) {
-		if(stack == null)
+		if(stack.isEmpty())
 			return;
 
 		SoundEvent sound = getSound(stack);
@@ -169,7 +169,7 @@ public class ItemCacophonium extends ItemMod implements ICraftAchievement {
 	}
 
 	private static boolean isDOIT(ItemStack stack) {
-		return stack != null && stack.getDisplayName().equalsIgnoreCase("shia labeouf");
+		return !stack.isEmpty() && stack.getDisplayName().equalsIgnoreCase("shia labeouf");
 	}
 
 	@Override

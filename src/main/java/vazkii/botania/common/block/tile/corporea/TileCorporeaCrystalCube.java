@@ -62,7 +62,7 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 	}
 
 	public void setRequestTarget(ItemStack stack) {
-		if(stack != null) {
+		if(!stack.isEmpty()) {
 			ItemStack copy = stack.copy();
 			copy.setCount(1);
 			requestTarget = copy;

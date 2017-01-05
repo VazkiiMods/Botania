@@ -111,7 +111,7 @@ public final class ToolCommons {
 	}
 
 	public static int getToolPriority(ItemStack stack) {
-		if(stack == null)
+		if(stack.isEmpty())
 			return 0;
 
 		Item item = stack.getItem();

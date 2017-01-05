@@ -119,7 +119,7 @@ public class EntitySpark extends Entity implements ISparkEntity {
 				stacks.addAll(Arrays.asList(baubleStacks));
 
 				for(ItemStack stack : stacks) {
-					if(stack == null || !(stack.getItem() instanceof IManaItem))
+					if(stack.isEmpty() || !(stack.getItem() instanceof IManaItem))
 						continue;
 
 					IManaItem manaItem = (IManaItem) stack.getItem();

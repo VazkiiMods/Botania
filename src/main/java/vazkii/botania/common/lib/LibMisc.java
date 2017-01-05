@@ -13,11 +13,11 @@ package vazkii.botania.common.lib;
 public final class LibMisc {
 
 	// Mod Constants
-	public static final String MOD_ID = "Botania";
+	public static final String MOD_ID = "botania";
 	public static final String MOD_NAME = MOD_ID;
 	public static final String BUILD = "GRADLE:BUILD";
 	public static final String VERSION = "GRADLE:VERSION-" + BUILD;
-	public static final String DEPENDENCIES = "required-after:Forge@[12.18.1.2053,];required-after:Baubles@[1.3.BETA8,];after:Thaumcraft";
+	public static final String DEPENDENCIES = "required-after:forge@[13.20.0.2201,];required-after:baubles@[1.4.2,];after:thaumcraft";
 
 	// Network Contants
 	public static final String NETWORK_CHANNEL = MOD_ID;

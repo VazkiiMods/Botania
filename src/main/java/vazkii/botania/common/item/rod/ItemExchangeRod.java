@@ -219,7 +219,7 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 			return false;
 
 		ItemStack placeStack = removeFromInventory(player, stack, state.getBlock(), state.getBlock().getMetaFromState(state), false);
-		if(placeStack != null) {
+		if(!placeStack.isEmpty()) {
 			IBlockState stateAt = world.getBlockState(pos);
 			Block blockAt = stateAt.getBlock();
 			if(!blockAt.isAir(world.getBlockState(pos), world, pos) && stateAt.getPlayerRelativeBlockHardness(player, world, pos) > 0 && stateAt != state) {
@@ -275,7 +275,7 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 				return new ItemStack(block, 1, meta);
 		}
 
-		return null;
+		return ItemStack.EMPTY;
 	}
 
 	public static ItemStack removeFromInventory(EntityPlayer player, ItemStack stack, Block block, int meta, boolean doit) {
@@ -283,7 +283,7 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 			return new ItemStack(block, 1, meta);
 
 		ItemStack outStack = removeFromInventory(player, BotaniaAPI.internalHandler.getBaublesInventory(player), stack, block, meta, doit);
-		if (outStack == null)
+		if (outStack.isEmpty())
 			outStack = removeFromInventory(player, player.inventory, stack, block, meta, doit);
 		return outStack;
 	}

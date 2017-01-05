@@ -208,7 +208,7 @@ public class TileAlfPortal extends TileMod {
 	private void resolveRecipes() {
 		int i = 0;
 		for(ItemStack stack : stacksIn) {
-			if(stack != null && stack.getItem() instanceof ILexicon) {
+			if(!stack.isEmpty() && stack.getItem() instanceof ILexicon) {
 				ILexicon lexicon = (ILexicon) stack.getItem();
 				if (!lexicon.isKnowledgeUnlocked(stack, BotaniaAPI.elvenKnowledge)) {
 					lexicon.unlockKnowledge(stack, BotaniaAPI.elvenKnowledge);

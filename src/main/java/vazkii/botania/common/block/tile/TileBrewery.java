@@ -48,7 +48,7 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver {
 	public int signal = 0;
 
 	public boolean addItem(@Nullable EntityPlayer player, ItemStack stack, @Nullable EnumHand hand) {
-		if(recipe != null || stack == null || stack.getItem() instanceof IBrewItem && ((IBrewItem) stack.getItem()).getBrew(stack) != null && ((IBrewItem) stack.getItem()).getBrew(stack) != BotaniaAPI.fallbackBrew || itemHandler.getStackInSlot(0).isEmpty() != stack.getItem() instanceof IBrewContainer)
+		if(recipe != null || stack.isEmpty() || stack.getItem() instanceof IBrewItem && ((IBrewItem) stack.getItem()).getBrew(stack) != null && ((IBrewItem) stack.getItem()).getBrew(stack) != BotaniaAPI.fallbackBrew || itemHandler.getStackInSlot(0).isEmpty() != stack.getItem() instanceof IBrewContainer)
 			return false;
 
 		boolean did = false;

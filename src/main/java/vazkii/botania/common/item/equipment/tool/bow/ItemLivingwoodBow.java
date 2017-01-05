@@ -115,12 +115,12 @@ public class ItemLivingwoodBow extends ItemBow implements IManaUsingItem, IModel
 
 		int i = (int) ((getMaxItemUseDuration(stack) - useTicks) * chargeVelocityMultiplier()); // Botania - velocity multiplier
 		if(isPlayer)
-			i = net.minecraftforge.event.ForgeEventFactory.onArrowLoose(stack, world, player, i, itemstack != null || flag);
+			i = net.minecraftforge.event.ForgeEventFactory.onArrowLoose(stack, world, player, i, !itemstack.isEmpty() || flag);
 		if (i < 0) return;
 
-		if (itemstack != null || flag)
+		if (!itemstack.isEmpty() || flag)
 		{
-			if (itemstack == null)
+			if (itemstack.isEmpty())
 			{
 				itemstack = new ItemStack(Items.ARROW);
 			}

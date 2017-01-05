@@ -361,7 +361,7 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 	// Copy of RenderItem.renderQuads
 	private void renderQuads(VertexBuffer renderer, List<BakedQuad> quads, int color, ItemStack stack)
 	{
-		boolean flag = color == -1 && stack != null;
+		boolean flag = color == -1 && !stack.isEmpty();
 		int i = 0;
 
 		for (int j = quads.size(); i < j; ++i)

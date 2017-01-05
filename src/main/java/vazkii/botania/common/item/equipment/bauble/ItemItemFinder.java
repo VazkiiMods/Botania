@@ -120,7 +120,7 @@ public class ItemItemFinder extends ItemBauble implements IBaubleRender {
 	}
 
 	private void scanForStack(ItemStack pstack, EntityPlayer player, TIntArrayList entIdBuilder, TLongArrayList blockPosBuilder) {
-		if(pstack != null || player.isSneaking()) {
+		if(!pstack.isEmpty() || player.isSneaking()) {
 			int range = 24;
 
 			List<Entity> entities = player.world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(player.posX - range, player.posY - range, player.posZ - range, player.posX + range, player.posY + range, player.posZ + range));
@@ -152,7 +152,7 @@ public class ItemItemFinder extends ItemBauble implements IBaubleRender {
 				} else if(e instanceof EntityVillager) {
 					EntityVillager villager = (EntityVillager) e;
 					ArrayList<MerchantRecipe> recipes = villager.getRecipes(player);
-					if(pstack != null && recipes != null)
+					if(!pstack.isEmpty() && recipes != null)
 						for(MerchantRecipe recipe : recipes)
 							if(recipe != null && !recipe.isRecipeDisabled() && (equalStacks(pstack, recipe.getItemToBuy()) || equalStacks(pstack, recipe.getItemToSell()))) {
 								entIdBuilder.add(villager.getEntityId());
@@ -162,7 +162,7 @@ public class ItemItemFinder extends ItemBauble implements IBaubleRender {
 				}
 			}
 
-			if(pstack != null) {
+			if(!pstack.isEmpty()) {
 				range = 12;
 				BlockPos pos = new BlockPos(player);
 				for(BlockPos pos_ : BlockPos.getAllInBoxMutable(pos.add(-range, -range, -range), pos.add(range + 1, range + 1, range + 1))) {
@@ -193,7 +193,7 @@ public class ItemItemFinder extends ItemBauble implements IBaubleRender {
 	}
 
 	private boolean scanInventory(IItemHandler inv, ItemStack pstack) {
-		if(pstack == null)
+		if(pstack.isEmpty())
 			return false;
 
 		for(int l = 0; l < inv.getSlots(); l++) {

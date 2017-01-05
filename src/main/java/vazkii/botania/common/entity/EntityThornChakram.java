@@ -42,7 +42,7 @@ public class EntityThornChakram extends EntityThrowable {
 	private static final DataParameter<Integer> RETURN_TO = EntityDataManager.createKey(EntityThornChakram.class, DataSerializers.VARINT);
 	private static final int MAX_BOUNCES = 16;
 	private boolean bounced = false;
-	private ItemStack stack;
+	private ItemStack stack = ItemStack.EMPTY;
 
 	public EntityThornChakram(World world) {
 		super(world);
@@ -119,7 +119,7 @@ public class EntityThornChakram extends EntityThrowable {
 	}
 
 	private ItemStack getItemStack() {
-		return stack != null ? stack.copy() : new ItemStack(ModItems.thornChakram, 1, isFire() ? 1 : 0);
+		return !stack.isEmpty() ? stack.copy() : new ItemStack(ModItems.thornChakram, 1, isFire() ? 1 : 0);
 	}
 
 	@Override
@@ -203,7 +203,7 @@ public class EntityThornChakram extends EntityThrowable {
 	@Override
 	public void writeEntityToNBT(NBTTagCompound compound) {
 		super.writeEntityToNBT(compound);
-		if(stack != null) {
+		if(!stack.isEmpty()) {
 			compound.setTag("fly_stack", stack.writeToNBT(new NBTTagCompound()));
 		}
 		compound.setBoolean("flare", isFire());

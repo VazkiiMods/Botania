@@ -35,7 +35,7 @@ public class TileCorporeaFunnel extends TileCorporeaBase implements ICorporeaReq
 			if(!filter.isEmpty()) {
 				ItemStack stack = filter.get(world.rand.nextInt(filter.size()));
 
-				if(stack != null)
+				if(!stack.isEmpty())
 					doCorporeaRequest(stack, stack.getCount(), spark);
 			}
 		}

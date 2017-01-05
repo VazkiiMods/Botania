@@ -61,7 +61,7 @@ public class SubTileMarimorphosis extends SubTileFunctional {
 			BlockPos coords = getCoordsToPut();
 			if(coords != null) {
 				ItemStack stack = getStoneToPut(coords);
-				if(stack != null) {
+				if(!stack.isEmpty()) {
 					Block block = Block.getBlockFromItem(stack.getItem());
 					int meta = stack.getItemDamage();
 					supertile.getWorld().setBlockState(coords, block.getStateFromMeta(meta), 1 | 2);

@@ -201,7 +201,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 	}
 
 	private static boolean isLokiRing(ItemStack stack) {
-		return stack != null && (stack.getItem() == ModItems.lokiRing || stack.getItem() == ModItems.aesirRing);
+		return !stack.isEmpty() && (stack.getItem() == ModItems.lokiRing || stack.getItem() == ModItems.aesirRing);
 	}
 
 	private static BlockPos getOriginPos(ItemStack stack) {

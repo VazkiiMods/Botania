@@ -128,7 +128,7 @@ public class SubTileHopperhock extends SubTileFunctional {
 	}
 
 	public boolean canAcceptItem(ItemStack stack, List<ItemStack> filter, int filterType) {
-		if(stack == null)
+		if(stack.isEmpty())
 			return false;
 
 		if(filter.isEmpty())

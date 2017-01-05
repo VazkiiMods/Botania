@@ -86,8 +86,8 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 		EntityPlayer player = (EntityPlayer) thrower;
 		boolean charging = isCharging();
 		if(!world.isRemote) {
-			ItemStack stack = player == null ? null : PlayerHelper.getFirstHeldItem(player, ModItems.kingKey);
-			boolean newCharging = stack != null && ItemKingKey.isCharging(stack);
+			ItemStack stack = player == null ? ItemStack.EMPTY : PlayerHelper.getFirstHeldItem(player, ModItems.kingKey);
+			boolean newCharging = !stack.isEmpty() && ItemKingKey.isCharging(stack);
 			if(charging != newCharging) {
 				setCharging(newCharging);
 				charging = newCharging;
