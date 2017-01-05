@@ -18,6 +18,7 @@ import java.util.TreeSet;
 
 import javax.annotation.Nonnull;
 
+import net.minecraft.util.NonNullList;
 import org.lwjgl.input.Keyboard;
 
 import com.google.common.collect.ImmutableList;
@@ -50,7 +51,7 @@ public class CorporeaAutoCompleteHandler {
 	public static void updateItemList() {
 		itemNames.clear();
 		Iterator<Item> iterator = Item.REGISTRY.iterator();
-		ArrayList<ItemStack> curList = new ArrayList<>();
+		NonNullList<ItemStack> curList = NonNullList.create();
 
 		while(iterator.hasNext()) {
 			Item item = iterator.next();

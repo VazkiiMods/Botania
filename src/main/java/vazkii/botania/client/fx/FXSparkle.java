@@ -152,7 +152,7 @@ public class FXSparkle extends Particle {
 			motionY *= 0.908000001907348633D;
 			motionZ *= 0.908000001907348633D;
 
-			if (isCollided) {
+			if (onGround) {
 				motionX *= 0.69999998807907104D;
 				motionZ *= 0.69999998807907104D;
 			}

@@ -24,14 +24,8 @@ public class BreweryRecipeHandler implements IRecipeHandler<RecipeBrew> {
 
 	@Nonnull
 	@Override
-	public String getRecipeCategoryUid() {
-		return "botania.brewery";
-	}
-
-	@Nonnull
-	@Override
 	public String getRecipeCategoryUid(@Nonnull RecipeBrew recipe) { // o is erased type param
-		return getRecipeCategoryUid();
+		return "botania.brewery";
 	}
 
 	@Nonnull

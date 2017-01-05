@@ -9,9 +9,12 @@
 package vazkii.botania.client.integration.jei.elventrade;
 
 import java.util.Collection;
+import java.util.List;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
+import mezz.jei.api.ingredients.IIngredients;
 import org.lwjgl.opengl.GL11;
 
 import mezz.jei.api.IGuiHelper;
@@ -62,6 +65,12 @@ public class ElvenTradeRecipeCategory implements IRecipeCategory {
 		return background;
 	}
 
+	@Nullable
+	@Override
+	public IDrawable getIcon() {
+		return null;
+	}
+
 	@Override
 	public void drawExtras(@Nonnull Minecraft minecraft) {
 		GlStateManager.enableAlpha();
@@ -69,10 +78,7 @@ public class ElvenTradeRecipeCategory implements IRecipeCategory {
 		overlay.draw(minecraft, 0, 4);
 		GlStateManager.disableBlend();
 		GlStateManager.disableAlpha();
-	}
 
-	@Override
-	public void drawAnimations(@Nonnull Minecraft minecraft) {
 		minecraft.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 		TextureAtlasSprite sprite = MiscellaneousIcons.INSTANCE.alfPortalTex;
 		Tessellator tess = Tessellator.getInstance();
@@ -89,29 +95,23 @@ public class ElvenTradeRecipeCategory implements IRecipeCategory {
 		tess.draw();
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
-	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull IRecipeWrapper recipeWrapper) {
+	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull IRecipeWrapper recipeWrapper, @Nonnull IIngredients ingredients) {
 		if(!(recipeWrapper instanceof ElvenTradeRecipeWrapper))
 			return;
-		ElvenTradeRecipeWrapper wrapper = (ElvenTradeRecipeWrapper) recipeWrapper;
 
 		int index = 0, posX = 42;
-		for(Object o : wrapper.getInputs()) {
+		for(List<ItemStack> o : ingredients.getInputs(ItemStack.class)) {
 			recipeLayout.getItemStacks().init(index, true, posX, 0);
-			if(o instanceof Collection) {
-				recipeLayout.getItemStacks().set(index, (Collection<ItemStack>) o);
-			} else {
-				recipeLayout.getItemStacks().set(index, (ItemStack) o);
-			}
+			recipeLayout.getItemStacks().set(index, o);
 			index++;
 			posX += 18;
 		}
 
-		for (int i = 0; i < wrapper.getOutputs().size(); i++) {
-			ItemStack stack = wrapper.getOutputs().get(i);
+		for (int i = 0; i < ingredients.getOutputs(ItemStack.class).size(); i++) {
+			List<ItemStack> stacks = ingredients.getOutputs(ItemStack.class).get(i);
 			recipeLayout.getItemStacks().init(index + i, false, 93 + i % 2 * 20, 41 + i / 2 * 20);
-			recipeLayout.getItemStacks().set(index + i, stack);
+			recipeLayout.getItemStacks().set(index + i, stacks);
 		}
 	}
 

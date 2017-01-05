@@ -24,14 +24,8 @@ public class PureDaisyRecipeHandler implements IRecipeHandler<RecipePureDaisy> {
 
 	@Nonnull
 	@Override
-	public String getRecipeCategoryUid() {
-		return "botania.pureDaisy";
-	}
-
-	@Nonnull
-	@Override
 	public String getRecipeCategoryUid(@Nonnull RecipePureDaisy recipe) { // o is erased type param
-		return getRecipeCategoryUid();
+		return "botania.pureDaisy";
 	}
 
 	@Nonnull

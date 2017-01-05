@@ -14,6 +14,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 
+import javax.annotation.Nonnull;
+
 public class InventoryFlowerBag implements IItemHandlerModifiable {
 
 	private final IItemHandlerModifiable bagInv;
@@ -25,7 +27,7 @@ public class InventoryFlowerBag implements IItemHandlerModifiable {
 	}
 
 	@Override
-	public void setStackInSlot(int slot, ItemStack stack) {
+	public void setStackInSlot(int slot, @Nonnull ItemStack stack) {
 		bagInv.setStackInSlot(slot, stack);
 	}
 
@@ -34,18 +36,26 @@ public class InventoryFlowerBag implements IItemHandlerModifiable {
 		return bagInv.getSlots();
 	}
 
+	@Nonnull
 	@Override
 	public ItemStack getStackInSlot(int slot) {
 		return bagInv.getStackInSlot(slot);
 	}
 
+	@Nonnull
 	@Override
-	public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
+	public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
 		return bagInv.insertItem(slot, stack, simulate);
 	}
 
+	@Nonnull
 	@Override
 	public ItemStack extractItem(int slot, int amount, boolean simulate) {
 		return bagInv.extractItem(slot, amount, simulate);
+	}
+
+	@Override
+	public int getSlotLimit(int slot) {
+		return bagInv.getSlotLimit(slot);
 	}
 }
