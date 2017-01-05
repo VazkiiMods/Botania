@@ -70,7 +70,7 @@ public class BlockCacophonium extends BlockMod {
 	}
 
 	@Override
-	public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block) {
+	public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block, BlockPos fromPos) {
 		boolean power = world.isBlockIndirectlyGettingPowered(pos) > 0 || world.isBlockIndirectlyGettingPowered(pos.up()) > 0;
 		boolean powered = state.getValue(BotaniaStateProps.POWERED);
 

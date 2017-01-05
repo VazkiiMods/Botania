@@ -83,9 +83,9 @@ public class BlockFelPumpkin extends BlockMod implements ILexiconable {
 			blaze.setLocationAndAngles(pos.getX() + 0.5D, pos.getY() - 1.95D, pos.getZ() + 0.5D, 0.0F, 0.0F);
 			blaze.getEntityData().setBoolean(TAG_FEL_SPAWNED, true);
 			world.spawnEntity(blaze);
-			world.notifyNeighborsOfStateChange(pos, Blocks.AIR);
-			world.notifyNeighborsOfStateChange(pos.down(), Blocks.AIR);
-			world.notifyNeighborsOfStateChange(pos.down(2), Blocks.AIR);
+			world.notifyNeighborsOfStateChange(pos, Blocks.AIR, false);
+			world.notifyNeighborsOfStateChange(pos.down(), Blocks.AIR, false);
+			world.notifyNeighborsOfStateChange(pos.down(2), Blocks.AIR, false);
 		}
 	}
 
@@ -102,7 +102,7 @@ public class BlockFelPumpkin extends BlockMod implements ILexiconable {
 			else for(EntityItem item : event.getDrops()) {
 				ItemStack stack = item.getEntityItem();
 				if(stack.getItem() == Items.BLAZE_ROD)
-					item.setEntityItemStack(new ItemStack(Items.BLAZE_POWDER, stack.stackSize * 10));
+					item.setEntityItemStack(new ItemStack(Items.BLAZE_POWDER, stack.getCount() * 10));
 			}
 	}
 

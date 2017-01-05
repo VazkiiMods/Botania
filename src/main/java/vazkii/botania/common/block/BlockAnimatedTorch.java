@@ -47,8 +47,8 @@ public class BlockAnimatedTorch extends BlockMod implements IWandable, IManaTrig
 	}
 
 	@Override
-	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
-		if(hand == EnumHand.MAIN_HAND && playerIn.isSneaking() && playerIn.getHeldItem(hand) == null) {
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+		if(hand == EnumHand.MAIN_HAND && playerIn.isSneaking() && playerIn.getHeldItem(hand).isEmpty()) {
 			((TileAnimatedTorch) worldIn.getTileEntity(pos)).handRotate();
 			return true;
 		}

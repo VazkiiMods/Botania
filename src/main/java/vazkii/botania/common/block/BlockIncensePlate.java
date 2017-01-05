@@ -72,20 +72,21 @@ public class BlockIncensePlate extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack stack, EnumFacing s, float xs, float ys, float zs) {
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing s, float xs, float ys, float zs) {
 		TileIncensePlate plate = (TileIncensePlate) world.getTileEntity(pos);
 		ItemStack plateStack = plate.getItemHandler().getStackInSlot(0);
+		ItemStack stack = player.getHeldItem(hand);
 		boolean did = false;
 
 		if(world.isRemote)
 			return true;
 
-		if(plateStack == null && plate.acceptsItem(stack)) {
+		if(plateStack.isEmpty() && plate.acceptsItem(stack)) {
 			plate.getItemHandler().setStackInSlot(0, stack.copy());
-			stack.stackSize--;
+			stack.shrink(1);
 			did = true;
-		} else if(plateStack != null && !plate.burning) {
-			if(stack != null && stack.getItem() == Items.FLINT_AND_STEEL) {
+		} else if(!plateStack.isEmpty() && !plate.burning) {
+			if(!stack.isEmpty() && stack.getItem() == Items.FLINT_AND_STEEL) {
 				plate.ignite();
 				stack.damageItem(1, player);
 				did = true;
@@ -93,7 +94,7 @@ public class BlockIncensePlate extends BlockMod implements ILexiconable {
 				ItemStack addStack = plateStack.copy();
 				if(!player.inventory.addItemStackToInventory(addStack))
 					player.dropItem(addStack, false);
-				plate.getItemHandler().setStackInSlot(0, null);
+				plate.getItemHandler().setStackInSlot(0, ItemStack.EMPTY);
 
 				did = true;
 			}

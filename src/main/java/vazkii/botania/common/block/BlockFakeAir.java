@@ -58,7 +58,7 @@ public class BlockFakeAir extends BlockMod {
 	public void registerItemForm() {}
 
 	@Override
-	public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block) {
+	public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block, BlockPos fromPos) {
 		if(shouldRemove(world, pos))
 			world.scheduleUpdate(pos, this, tickRate(world));
 	}
@@ -120,8 +120,8 @@ public class BlockFakeAir extends BlockMod {
 	}
 
 	@Override
-	public AxisAlignedBB getCollisionBoundingBox(IBlockState state, @Nonnull World world, @Nonnull BlockPos pos) {
-		return null;
+	public AxisAlignedBB getCollisionBoundingBox(IBlockState state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos) {
+		return NULL_AABB;
 	}
 
 	@Override

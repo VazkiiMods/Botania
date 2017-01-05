@@ -91,10 +91,11 @@ public class BlockHourglass extends BlockMod implements IManaTrigger, IWandable,
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack stack, EnumFacing side, float xs, float ys, float zs) {
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float xs, float ys, float zs) {
 		TileHourglass hourglass = (TileHourglass) world.getTileEntity(pos);
 		ItemStack hgStack = hourglass.getItemHandler().getStackInSlot(0);
-		if(stack != null && stack.getItem() == ModItems.twigWand)
+		ItemStack stack = player.getHeldItem(hand);
+		if(!stack.isEmpty() && stack.getItem() == ModItems.twigWand)
 			return false;
 
 		if(hourglass.lock) {
@@ -103,16 +104,16 @@ public class BlockHourglass extends BlockMod implements IManaTrigger, IWandable,
 			return true;
 		}
 
-		if(hgStack == null && TileHourglass.getStackItemTime(stack) > 0) {
+		if(hgStack.isEmpty() && TileHourglass.getStackItemTime(stack) > 0) {
 			hourglass.getItemHandler().setStackInSlot(0, stack.copy());
 			hourglass.markDirty();
-			stack.stackSize = 0;
+			stack.setCount(0);
 			return true;
-		} else if(hgStack != null) {
+		} else if(!hgStack.isEmpty()) {
 			ItemStack copy = hgStack.copy();
 			if(!player.inventory.addItemStackToInventory(copy))
 				player.dropItem(copy, false);
-			hourglass.getItemHandler().setStackInSlot(0, null);
+			hourglass.getItemHandler().setStackInSlot(0, ItemStack.EMPTY);
 			hourglass.markDirty();
 			return true;
 		}

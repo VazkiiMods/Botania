@@ -12,14 +12,14 @@ package vazkii.botania.common.block;
 
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntityBanner;
+import net.minecraft.tileentity.BannerPattern;
 import net.minecraftforge.common.util.EnumHelper;
 import vazkii.botania.common.item.ModItems;
 
 public final class ModBanners {
 
 	public static void init() {
-		Class<? extends Enum<?>> clazz = TileEntityBanner.EnumBannerPattern.class;
+		Class<? extends Enum<?>> clazz = BannerPattern.class;
 		addPattern(clazz, "flower", "flr", new ItemStack(ModItems.manaResource, 1, 3));
 		addPattern(clazz, "lexicon", "lex", new ItemStack(ModItems.lexicon));
 		addPattern(clazz, "logo", "lgo", new ItemStack(ModItems.manaResource, 1, 4));

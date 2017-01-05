@@ -325,8 +325,9 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack stack, EnumFacing side, float hitX, float hitY, float hitZ) {
-		if(stack != null && stack.getItem() == ModItems.dye) {
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+		ItemStack stack = player.getHeldItem(hand);
+		if(!stack.isEmpty() && stack.getItem() == ModItems.dye) {
 			EnumDyeColor newColor = EnumDyeColor.byMetadata(stack.getItemDamage());
 			EnumDyeColor oldColor = state.getValue(BotaniaStateProps.COLOR);
 			if(newColor != oldColor)

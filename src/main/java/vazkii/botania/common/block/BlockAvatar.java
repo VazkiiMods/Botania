@@ -89,19 +89,20 @@ public class BlockAvatar extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack stackOnPlayer, EnumFacing s, float xs, float ys, float zs) {
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing s, float xs, float ys, float zs) {
 		TileAvatar avatar = (TileAvatar) world.getTileEntity(pos);
 		ItemStack stackOnAvatar = avatar.getItemHandler().getStackInSlot(0);
+		ItemStack stackOnPlayer = player.getHeldItem(hand);
 		if(stackOnAvatar != null) {
 			ItemStack copyStack = stackOnAvatar.copy();
-			avatar.getItemHandler().setStackInSlot(0, null);
+			avatar.getItemHandler().setStackInSlot(0, ItemStack.EMPTY);
 			if(!player.inventory.addItemStackToInventory(copyStack))
 				player.dropItem(copyStack, true);
 			return true;
 		} else if(stackOnPlayer != null && stackOnPlayer.getItem() instanceof IAvatarWieldable) {
 			ItemStack copyStack = stackOnPlayer.copy();
 			avatar.getItemHandler().setStackInSlot(0, copyStack);
-			stackOnPlayer.stackSize--;
+			stackOnPlayer.shrink(1);
 			return true;
 		}
 

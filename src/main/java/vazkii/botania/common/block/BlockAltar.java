@@ -152,15 +152,16 @@ public class BlockAltar extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack stack, EnumFacing par6, float par7, float par8, float par9) {
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing par6, float par7, float par8, float par9) {
 		TileAltar tile = (TileAltar) world.getTileEntity(pos);
+		ItemStack stack = player.getHeldItem(hand);
 		if(player.isSneaking()) {
 			InventoryHelper.withdrawFromInventory(tile, player);
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(tile);
-		} else if(tile.isEmpty() && tile.hasWater && stack == null)
+		} else if(tile.isEmpty() && tile.hasWater && stack.isEmpty())
 			tile.trySetLastRecipe(player);
 		else {
-			if(stack != null && (isValidWaterContainer(stack) || stack.getItem() == ModItems.waterRod && ManaItemHandler.requestManaExact(stack, player, ItemWaterRod.COST, false))) {
+			if(!stack.isEmpty() && (isValidWaterContainer(stack) || stack.getItem() == ModItems.waterRod && ManaItemHandler.requestManaExact(stack, player, ItemWaterRod.COST, false))) {
 				if(!tile.hasWater) {
 					if(stack.getItem() == ModItems.waterRod)
 						ManaItemHandler.requestManaExact(stack, player, ItemWaterRod.COST, true);
@@ -185,12 +186,12 @@ public class BlockAltar extends BlockMod implements ILexiconable {
 				return true;
 			} else if(stack != null && stack.getItem() == Items.BUCKET && (tile.hasWater || tile.hasLava) && !Botania.gardenOfGlassLoaded) {
 				ItemStack bucket = tile.hasLava ? new ItemStack(Items.LAVA_BUCKET) : new ItemStack(Items.WATER_BUCKET);
-				if(stack.stackSize == 1)
+				if(stack.getCount() == 1)
 					player.setHeldItem(hand, bucket);
 				else {
 					if(!player.inventory.addItemStackToInventory(bucket))
 						player.dropItem(bucket, false);
-					stack.stackSize--;
+					stack.shrink(1);
 				}
 
 				if(tile.hasLava)
@@ -225,7 +226,7 @@ public class BlockAltar extends BlockMod implements ILexiconable {
 	}
 
 	private boolean isValidWaterContainer(ItemStack stack) {
-		if(stack == null || stack.stackSize != 1)
+		if(stack.isEmpty() || stack.getCount() != 1)
 			return false;
 
 		if(stack.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null)) {

@@ -113,14 +113,14 @@ public class BlockLightRelay extends BlockMod implements IWandable, ILexiconable
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack stack, EnumFacing s, float xs, float ys, float zs) {
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing s, float xs, float ys, float zs) {
 		((TileLightRelay) world.getTileEntity(pos)).mountEntity(player);
 		return true;
 	}
 
 	@Override
-	public AxisAlignedBB getCollisionBoundingBox(IBlockState state, @Nonnull World world, @Nonnull BlockPos pos) {
-		return null;
+	public AxisAlignedBB getCollisionBoundingBox(IBlockState state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos) {
+		return NULL_AABB;
 	}
 
 	@Override
@@ -129,7 +129,7 @@ public class BlockLightRelay extends BlockMod implements IWandable, ILexiconable
 	}
 
 	@Override
-	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn) {
+	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
 		if(!worldIn.isRemote && state.getValue(BotaniaStateProps.LUMINIZER_VARIANT) == LuminizerVariant.TOGGLE) {
 			if(state.getValue(BotaniaStateProps.POWERED) && !worldIn.isBlockPowered(pos))
 				worldIn.setBlockState(pos, state.withProperty(BotaniaStateProps.POWERED, false));

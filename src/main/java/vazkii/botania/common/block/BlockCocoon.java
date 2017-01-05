@@ -69,11 +69,12 @@ public class BlockCocoon extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack item, EnumFacing s, float xs, float ys, float zs) {
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing s, float xs, float ys, float zs) {
 		TileCocoon cocoon = (TileCocoon) world.getTileEntity(pos);
-		if(cocoon.emeraldsGiven < TileCocoon.MAX_EMERALDS && item != null && item.getItem() == Items.EMERALD) {
+		ItemStack item = player.getHeldItem(hand);
+		if(cocoon.emeraldsGiven < TileCocoon.MAX_EMERALDS && !item.isEmpty() && item.getItem() == Items.EMERALD) {
 			if(!player.capabilities.isCreativeMode)
-				item.stackSize--;
+				item.shrink(1);
 			cocoon.emeraldsGiven++;
 			world.playEvent(2005, pos, 6 + world.rand.nextInt(4));
 		}
