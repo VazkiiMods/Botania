@@ -50,7 +50,7 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 	private static final DataParameter<Integer> NETWORK = EntityDataManager.createKey(EntityCorporeaSpark.class, DataSerializers.VARINT);
 	public static final DataParameter<Integer> INVISIBILITY = EntityDataManager.createKey(EntityCorporeaSpark.class, DataSerializers.VARINT);
 	private static final DataParameter<Integer> ITEM_DISPLAY_TICKS = EntityDataManager.createKey(EntityCorporeaSpark.class, DataSerializers.VARINT);
-	private static final DataParameter<Optional<ItemStack>> DISPLAY_STACK = EntityDataManager.createKey(EntityCorporeaSpark.class, DataSerializers.OPTIONAL_ITEM_STACK);
+	private static final DataParameter<ItemStack> DISPLAY_STACK = EntityDataManager.createKey(EntityCorporeaSpark.class, DataSerializers.OPTIONAL_ITEM_STACK);
 
 	private ICorporeaSpark master;
 	private List<ICorporeaSpark> connections = new ArrayList<>();
@@ -69,7 +69,7 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 		dataManager.register(MASTER, false);
 		dataManager.register(NETWORK, 0);
 		dataManager.register(ITEM_DISPLAY_TICKS, 0);
-		dataManager.register(DISPLAY_STACK, Optional.absent());
+		dataManager.register(DISPLAY_STACK, ItemStack.EMPTY);
 	}
 
 	@Nonnull
@@ -258,17 +258,18 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 		dataManager.set(ITEM_DISPLAY_TICKS, ticks);
 	}
 
-	public Optional<ItemStack> getDisplayedItem() {
+	public ItemStack getDisplayedItem() {
 		return dataManager.get(DISPLAY_STACK);
 	}
 
 	public void setDisplayedItem(ItemStack stack) {
-		dataManager.set(DISPLAY_STACK, Optional.fromNullable(stack));
+		dataManager.set(DISPLAY_STACK, stack);
 	}
 
 	@Override
-	public boolean processInitialInteract(EntityPlayer player, ItemStack stack, EnumHand hand) {
-		if(stack != null) {
+	public boolean processInitialInteract(EntityPlayer player, EnumHand hand) {
+		ItemStack stack = player.getHeldItem(hand);
+		if(!stack.isEmpty()) {
 			if(stack.getItem() == ModItems.twigWand) {
 				if(player.isSneaking()) {
 					if(!player.world.isRemote) {
@@ -293,7 +294,7 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 							restartNetwork();
 						else findNetwork();
 
-						stack.stackSize--;
+						stack.shrink(1);
 					} else player.swingArm(hand);
 				}
 			}

@@ -55,7 +55,7 @@ public class EntityPinkWither extends EntityWither {
 	}
 
 	@Override
-	protected boolean processInteract(EntityPlayer player, EnumHand hand, ItemStack stack) {
+	protected boolean processInteract(EntityPlayer player, EnumHand hand) {
 		if(!player.isSneaking()) {
 			player.startRiding(this);
 			return true;

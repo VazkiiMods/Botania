@@ -154,7 +154,7 @@ public class EntityThornChakram extends EntityThrowable {
 		case ENTITY: {
 			if(!world.isRemote && pos.entityHit != null && pos.entityHit instanceof EntityLivingBase && pos.entityHit != getThrower()) {
 				EntityLivingBase thrower = getThrower();
-				pos.entityHit.attackEntityFrom(thrower != null ? thrower instanceof EntityPlayer ? DamageSource.causeThrownDamage(this, thrower) : DamageSource.causeMobDamage(thrower) : DamageSource.generic, 12);
+				pos.entityHit.attackEntityFrom(thrower != null ? thrower instanceof EntityPlayer ? DamageSource.causeThrownDamage(this, thrower) : DamageSource.causeMobDamage(thrower) : DamageSource.GENERIC, 12);
 				if(isFire())
 					pos.entityHit.setFire(5);
 				else if(world.rand.nextInt(3) == 0)
@@ -213,7 +213,7 @@ public class EntityThornChakram extends EntityThrowable {
 	public void readEntityFromNBT(NBTTagCompound compound) {
 		super.readEntityFromNBT(compound);
 		if(compound.hasKey("fly_stack")) {
-			stack = ItemStack.loadItemStackFromNBT(compound.getCompoundTag("fly_stack"));
+			stack = new ItemStack(compound.getCompoundTag("fly_stack"));
 		}
 		setFire(compound.getBoolean("flare"));
 	}

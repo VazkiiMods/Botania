@@ -109,8 +109,8 @@ public class EntitySpark extends Entity implements ISparkEntity {
 			ItemStack input = new ItemStack(ModItems.spark);
 			for(EntityPlayer player : players) {
 				List<ItemStack> stacks = new ArrayList<>();
-				stacks.addAll(Arrays.asList(player.inventory.mainInventory));
-				stacks.addAll(Arrays.asList(player.inventory.armorInventory));
+				stacks.addAll(player.inventory.mainInventory);
+				stacks.addAll(player.inventory.armorInventory);
 				
 				IInventory baubles = BaublesApi.getBaubles(player);
 				ItemStack[] baubleStacks = new ItemStack[baubles.getSizeInventory()];
@@ -243,8 +243,9 @@ public class EntitySpark extends Entity implements ISparkEntity {
 	}
 
 	@Override
-	public boolean processInitialInteract(EntityPlayer player, ItemStack stack, EnumHand hand) {
-		if(stack != null) {
+	public boolean processInitialInteract(EntityPlayer player, EnumHand hand) {
+		ItemStack stack = player.getHeldItem(hand);
+		if(!stack.isEmpty()) {
 			if(world.isRemote)
 				return stack.getItem() == ModItems.twigWand || stack.getItem() == ModItems.sparkUpgrade
 				|| stack.getItem() == ModItems.phantomInk;
@@ -270,7 +271,7 @@ public class EntitySpark extends Entity implements ISparkEntity {
 			} else if(stack.getItem() == ModItems.sparkUpgrade && upgrade == SparkUpgradeType.NONE) {
 				int newUpgrade = stack.getItemDamage() + 1;
 				setUpgrade(SparkUpgradeType.values()[newUpgrade]);
-				stack.stackSize--;
+				stack.shrink(1);
 				player.swingArm(hand);
 				return true;
 			} else if (stack.getItem() == ModItems.phantomInk) {

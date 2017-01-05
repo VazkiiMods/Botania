@@ -106,7 +106,7 @@ public class EntityThrownItem extends EntityItem {
 			else
 			{
 				if (RayTraceResult.entityHit != null) {
-					RayTraceResult.entityHit.attackEntityFrom(DamageSource.magic, 2.0F);
+					RayTraceResult.entityHit.attackEntityFrom(DamageSource.MAGIC, 2.0F);
 					if (!world.isRemote) {
 						Entity item = getEntityItem().getItem().createEntity(world, this, getEntityItem());
 						if (item == null) {

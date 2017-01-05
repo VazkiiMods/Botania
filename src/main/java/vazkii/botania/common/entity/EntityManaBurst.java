@@ -90,7 +90,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 	private static final DataParameter<Float> MANA_LOSS_PER_TICK = EntityDataManager.createKey(EntityManaBurst.class, DataSerializers.FLOAT);
 	private static final DataParameter<Float> GRAVITY = EntityDataManager.createKey(EntityManaBurst.class, DataSerializers.FLOAT);
 	private static final DataParameter<BlockPos> SOURCE_COORDS = EntityDataManager.createKey(EntityManaBurst.class, DataSerializers.BLOCK_POS);
-	private static final DataParameter<Optional<ItemStack>> SOURCE_LENS = EntityDataManager.createKey(EntityManaBurst.class, DataSerializers.OPTIONAL_ITEM_STACK);
+	private static final DataParameter<ItemStack> SOURCE_LENS = EntityDataManager.createKey(EntityManaBurst.class, DataSerializers.OPTIONAL_ITEM_STACK);
 
 	float accumulatedManaLoss = 0;
 	boolean fake = false;
@@ -116,7 +116,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		dataManager.register(MANA_LOSS_PER_TICK, 0F);
 		dataManager.register(GRAVITY, 0F);
 		dataManager.register(SOURCE_COORDS, BlockPos.ORIGIN);
-		dataManager.register(SOURCE_LENS, Optional.absent());
+		dataManager.register(SOURCE_LENS, ItemStack.EMPTY);
 	}
 
 	public EntityManaBurst(IManaSpreader spreader, boolean fake) {
@@ -417,7 +417,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		setGravity(par1nbtTagCompound.getFloat(TAG_GRAVITY));
 
 		NBTTagCompound lensCmp = par1nbtTagCompound.getCompoundTag(TAG_LENS_STACK);
-		ItemStack stack = ItemStack.loadItemStackFromNBT(lensCmp);
+		ItemStack stack = new ItemStack(lensCmp);
 		if(stack != null)
 			setSourceLens(stack);
 		else setSourceLens(new ItemStack(Blocks.STONE, 0, 0));
@@ -715,15 +715,12 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 
 	@Override
 	public ItemStack getSourceLens() {
-		Optional<ItemStack> stack = dataManager.get(SOURCE_LENS);
-		if(!stack.isPresent())
-			return new ItemStack(Blocks.STONE, 0, 0);
-		else return stack.get();
+		return dataManager.get(SOURCE_LENS);
 	}
 
 	@Override
 	public void setSourceLens(ItemStack lens) {
-		dataManager.set(SOURCE_LENS, lens == null ? Optional.absent() : Optional.of(lens));
+		dataManager.set(SOURCE_LENS, lens);
 	}
 
 	@Override

@@ -20,6 +20,7 @@ import java.util.stream.Collectors;
 
 import javax.annotation.Nonnull;
 
+import net.minecraft.entity.monster.EntityWitherSkeleton;
 import org.lwjgl.opengl.ARBShaderObjects;
 
 import com.google.common.base.Optional;
@@ -39,7 +40,6 @@ import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.monster.EntityWitch;
 import net.minecraft.entity.monster.EntityZombie;
-import net.minecraft.entity.monster.SkeletonType;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
@@ -209,7 +209,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 			if(world.isRemote)
 				return true;
 
-			stack.stackSize--;
+			stack.shrink(1);
 
 			EntityDoppleganger e = new EntityDoppleganger(world);
 			e.setPosition(pos.getX() + 0.5, pos.getY() + 3, pos.getZ() + 0.5);
@@ -683,7 +683,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 									entity = new EntitySkeleton(world);
 									entity.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
 									if(world.rand.nextInt(8) == 0) {
-										((EntitySkeleton) entity).setSkeletonType(SkeletonType.WITHER);
+										entity = new EntityWitherSkeleton(world);
 										entity.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(hard ? ModItems.elementiumSword : Items.STONE_SWORD));
 									}
 									break;

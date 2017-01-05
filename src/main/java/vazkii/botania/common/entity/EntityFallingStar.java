@@ -75,7 +75,7 @@ public class EntityFallingStar extends EntityThrowableCopy {
 		if(pos.entityHit != null && thrower != null && pos.entityHit != thrower && !pos.entityHit.isDead) {
 			if(thrower instanceof EntityPlayer)
 				pos.entityHit.attackEntityFrom(DamageSource.causePlayerDamage((EntityPlayer) thrower), Math.random() < 0.25 ? 10 : 5);
-			else pos.entityHit.attackEntityFrom(DamageSource.generic, Math.random() < 0.25 ? 10 : 5);
+			else pos.entityHit.attackEntityFrom(DamageSource.GENERIC, Math.random() < 0.25 ? 10 : 5);
 		}
 
 		if (pos.getBlockPos() != null) {
