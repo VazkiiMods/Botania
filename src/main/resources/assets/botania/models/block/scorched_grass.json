@@ -2,7 +2,7 @@
   "parent": "minecraft:block/cube_bottom_top",
   "textures": {
     "bottom": "minecraft:blocks/dirt",
-    "top": "botania:blocks/altGrass6",
-    "side": "botania:blocks/altGrass7"
+    "top": "botania:blocks/altgrass6",
+    "side": "botania:blocks/altgrass7"
   }
 }

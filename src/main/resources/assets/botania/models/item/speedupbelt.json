@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "botania:items/speedUpBelt"
+    "layer0": "botania:items/speedupbelt"
   }
 }

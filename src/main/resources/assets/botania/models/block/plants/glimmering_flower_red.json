@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cross",
   "textures": {
-    "cross": "botania:blocks/flowerGlimmering14"
+    "cross": "botania:blocks/flowerglimmering14"
   }
 }

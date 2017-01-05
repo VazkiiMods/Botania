@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "botania:items/grassSeeds5"
+    "layer0": "botania:items/grassseeds5"
   }
 }

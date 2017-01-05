@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "botania:items/manaTablet0",
-    "layer1": "botania:items/manaTablet1"
+    "layer0": "botania:items/manatablet0",
+    "layer1": "botania:items/manatablet1"
   }
 }

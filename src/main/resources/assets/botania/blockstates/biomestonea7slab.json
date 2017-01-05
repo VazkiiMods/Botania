@@ -3,9 +3,9 @@
   "defaults": {
     "model": "minecraft:half_slab",
     "textures": {
-      "bottom": "botania:blocks/biomeStone7",
-      "top": "botania:blocks/biomeStone7",
-      "side": "botania:blocks/biomeStone7"
+      "bottom": "botania:blocks/biomestone7",
+      "top": "botania:blocks/biomestone7",
+      "side": "botania:blocks/biomestone7"
     },
     "transform": "forge:default-block"
   },

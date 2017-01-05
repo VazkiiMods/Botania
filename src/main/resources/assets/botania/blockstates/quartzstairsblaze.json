@@ -2,9 +2,9 @@
   "forge_marker": 1,
   "defaults": {
     "textures": {
-      "bottom": "botania:blocks/blockBlazeQuartz0",
-      "top": "botania:blocks/blockBlazeQuartz1",
-      "side": "botania:blocks/blockBlazeQuartz2"
+      "bottom": "botania:blocks/blockblazequartz0",
+      "top": "botania:blocks/blockblazequartz1",
+      "side": "botania:blocks/blockblazequartz2"
     }
   },
   "variants": {

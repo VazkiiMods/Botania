@@ -4,14 +4,14 @@
     "normal": [{
       "model": "botania:shapes/cross_tinted",
       "textures": {
-        "cross": "botania:blocks/jadedAmaranthus"
+        "cross": "botania:blocks/jadedamaranthus"
       }
     }],
     "inventory": [{
       "model": "builtin/generated",
       "transform": "forge:default-item",
       "textures": {
-        "layer0": "botania:blocks/jadedAmaranthus"
+        "layer0": "botania:blocks/jadedamaranthus"
       }
     }]
   }

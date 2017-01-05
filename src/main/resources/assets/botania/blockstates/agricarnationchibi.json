@@ -4,14 +4,14 @@
     "normal": [{
       "model": "botania:shapes/cross_tinted",
       "textures": {
-        "cross": "botania:blocks/agricarnationChibi"
+        "cross": "botania:blocks/agricarnationchibi"
       }
     }],
     "inventory": [{
       "model": "builtin/generated",
       "transform": "forge:default-item",
       "textures": {
-        "layer0": "botania:blocks/agricarnationChibi"
+        "layer0": "botania:blocks/agricarnationchibi"
       }
     }]
   }

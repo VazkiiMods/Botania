@@ -4,14 +4,14 @@
     "normal": [{
       "model": "botania:shapes/cross_tinted",
       "textures": {
-        "cross": "botania:blocks/daybloomPrime"
+        "cross": "botania:blocks/daybloomprime"
       }
     }],
     "inventory": [{
       "model": "builtin/generated",
       "transform": "forge:default-item",
       "textures": {
-        "layer0": "botania:blocks/daybloomPrime"
+        "layer0": "botania:blocks/daybloomprime"
       }
     }]
   }

@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "botania:items/goldenLaurel"
+    "layer0": "botania:items/goldenlaurel"
   }
 }

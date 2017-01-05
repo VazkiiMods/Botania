@@ -1,10 +1,10 @@
 {
   "__comment": "Author: wiiv",
   "textures": {
-    "layer0": "botania:items/manaBlaster",
-    "layer1": "botania:items/manaBlasterColor",
-    "layer2": "botania:items/manaBlasterGlass",
-    "layer3": "botania:items/manaBlasterLensClip"
+    "layer0": "botania:items/manablaster",
+    "layer1": "botania:items/manablastercolor",
+    "layer2": "botania:items/manablasterglass",
+    "layer3": "botania:items/manablasterlensclip"
   },
   "elements": [
     {

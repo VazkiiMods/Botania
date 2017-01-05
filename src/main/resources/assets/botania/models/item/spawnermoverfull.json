@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "botania:items/spawnerMover1"
+    "layer0": "botania:items/spawnermover1"
   }
 }

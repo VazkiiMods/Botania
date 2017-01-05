@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/handheld",
   "textures": {
-    "layer0": "botania:items/terraPick2"
+    "layer0": "botania:items/terrapick2"
   }
 }

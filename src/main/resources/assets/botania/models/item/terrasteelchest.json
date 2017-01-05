@@ -2,6 +2,6 @@
     "parent": "minecraft:item/generated",
     "textures": 
     {
-        "layer0": "botania:items/terrasteelChest"
+        "layer0": "botania:items/terrasteelchest"
     }
 }

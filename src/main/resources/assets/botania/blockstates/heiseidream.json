@@ -4,14 +4,14 @@
     "normal": [{
       "model": "botania:shapes/cross_tinted",
       "textures": {
-        "cross": "botania:blocks/heiseiDream"
+        "cross": "botania:blocks/heiseidream"
       }
     }],
     "inventory": [{
       "model": "builtin/generated",
       "transform": "forge:default-item",
       "textures": {
-        "layer0": "botania:blocks/heiseiDream"
+        "layer0": "botania:blocks/heiseidream"
       }
     }]
   }

@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/handheld",
   "textures": {
-    "layer0": "botania:items/tornadoRod1"
+    "layer0": "botania:items/tornadorod1"
   }
 }

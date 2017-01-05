@@ -2,6 +2,6 @@
     "parent": "minecraft:item/handheld",
     "textures": 
     {
-        "layer0": "botania:items/elementiumPick"
+        "layer0": "botania:items/elementiumpick"
     }
 }

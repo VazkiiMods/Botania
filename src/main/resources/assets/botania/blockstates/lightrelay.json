@@ -12,26 +12,26 @@
     "variant": {
       "default": {
         "textures": {
-          "layer0": "botania:blocks/lightRelay0",
-          "particle": "botania:blocks/lightRelay1"
+          "layer0": "botania:blocks/lightrelay0",
+          "particle": "botania:blocks/lightrelay1"
         }
       },
       "detector": {
         "textures": {
-          "layer0": "botania:blocks/lightRelay2",
-          "particle": "botania:blocks/lightRelay3"
+          "layer0": "botania:blocks/lightrelay2",
+          "particle": "botania:blocks/lightrelay3"
         }
       },
 	"fork": {
         "textures": {
-          "layer0": "botania:blocks/lightRelay4",
-          "particle": "botania:blocks/lightRelay5"
+          "layer0": "botania:blocks/lightrelay4",
+          "particle": "botania:blocks/lightrelay5"
         }
       },
     "toggle": {
         "textures": {
-          "layer0": "botania:blocks/lightRelay6",
-          "particle": "botania:blocks/lightRelay7"
+          "layer0": "botania:blocks/lightrelay6",
+          "particle": "botania:blocks/lightrelay7"
         }
       }
     }

@@ -3,8 +3,8 @@
   "defaults": {
     "model": "minecraft:pane_post",
     "textures": {
-      "edge": "botania:blocks/elfGlassPane",
-      "pane": "botania:blocks/elfGlass"
+      "edge": "botania:blocks/elfglasspane",
+      "pane": "botania:blocks/elfglass"
     }
   },
   "variants": {

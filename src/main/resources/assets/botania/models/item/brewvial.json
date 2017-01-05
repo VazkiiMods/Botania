@@ -9,19 +9,19 @@
       "predicate": {
         "botania:swigs_taken": 1
       },
-      "model": "botania:item/brewVial_1"
+      "model": "botania:item/brewvial_1"
     },
     {
       "predicate": {
         "botania:swigs_taken": 2
       },
-      "model": "botania:item/brewVial_2"
+      "model": "botania:item/brewvial_2"
     },
     {
       "predicate": {
         "botania:swigs_taken": 3
       },
-      "model": "botania:item/brewVial_3"
+      "model": "botania:item/brewvial_3"
     }
   ]
 }

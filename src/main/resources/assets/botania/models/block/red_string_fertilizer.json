@@ -1,8 +1,8 @@
 {
   "parent": "minecraft:block/orientable",
   "textures": {
-    "top": "botania:blocks/redStringFertilizer",
-    "front": "botania:blocks/redStringSender",
-    "side": "botania:blocks/redStringFertilizer"
+    "top": "botania:blocks/redstringfertilizer",
+    "front": "botania:blocks/redstringsender",
+    "side": "botania:blocks/redstringfertilizer"
   }
 }

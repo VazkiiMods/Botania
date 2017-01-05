@@ -3,9 +3,9 @@
   "defaults": {
     "model": "minecraft:half_slab",
     "textures": {
-      "bottom": "botania:blocks/customBrick2",
-      "top": "botania:blocks/customBrick2",
-      "side": "botania:blocks/customBrick2"
+      "bottom": "botania:blocks/custombrick2",
+      "top": "botania:blocks/custombrick2",
+      "side": "botania:blocks/custombrick2"
     },
     "transform": "forge:default-block"
   },

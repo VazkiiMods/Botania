@@ -2,11 +2,11 @@
   "forge_marker": 1,
   "defaults": {
     "textures": {
-      "stand": "botania:model/crystalCube_stand",
-      "base_sides": "botania:model/crystalCube_base_sides",
-      "base_top": "botania:model/crystalCube_base_top",
-      "base_bottom": "botania:model/crystalCube_base_bottom",
-      "cube": "botania:model/crystalCube_cube",
+      "stand": "botania:model/crystalcube_stand",
+      "base_sides": "botania:model/crystalcube_base_sides",
+      "base_top": "botania:model/crystalcube_base_top",
+      "base_bottom": "botania:model/crystalcube_base_bottom",
+      "cube": "botania:model/crystalcube_cube",
       "particle": "botania:blocks/storage2"
     }
   },

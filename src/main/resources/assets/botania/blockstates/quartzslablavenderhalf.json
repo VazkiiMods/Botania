@@ -3,9 +3,9 @@
   "defaults": {
     "model": "minecraft:half_slab",
     "textures": {
-      "bottom": "botania:blocks/blockLavenderQuartz0",
-      "top": "botania:blocks/blockLavenderQuartz1",
-      "side": "botania:blocks/blockLavenderQuartz2"
+      "bottom": "botania:blocks/blocklavenderquartz0",
+      "top": "botania:blocks/blocklavenderquartz1",
+      "side": "botania:blocks/blocklavenderquartz2"
     },
     "transform": "forge:default-block"
   },

@@ -1,7 +1,7 @@
 {
   "parent": "botania:block/shapes/tenbyten_top_tinted",
   "textures": {
-    "all": "botania:blocks/manaBeacon0",
-    "top": "botania:blocks/manaBeacon1"
+    "all": "botania:blocks/manabeacon0",
+    "top": "botania:blocks/manabeacon1"
   }
 }

@@ -3,7 +3,7 @@
   "defaults": {
     "model": "minecraft:pane_post",
     "textures": {
-      "edge": "botania:blocks/bifrostPermPane",
+      "edge": "botania:blocks/bifrostpermpane",
       "pane": "botania:blocks/bifrost"
     }
   },

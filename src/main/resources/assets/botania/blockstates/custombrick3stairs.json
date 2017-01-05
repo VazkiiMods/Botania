@@ -2,9 +2,9 @@
   "forge_marker": 1,
   "defaults": {
     "textures": {
-      "bottom": "botania:blocks/customBrick3",
-      "top": "botania:blocks/customBrick3",
-      "side": "botania:blocks/customBrick3"
+      "bottom": "botania:blocks/custombrick3",
+      "top": "botania:blocks/custombrick3",
+      "side": "botania:blocks/custombrick3"
     }
   },
   "variants": {

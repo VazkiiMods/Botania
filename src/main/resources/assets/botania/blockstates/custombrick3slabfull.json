@@ -3,7 +3,7 @@
   "variants": {
     "normal": [{
       "model": "minecraft:cube_all",
-      "textures": { "all": "botania:blocks/customBrick3" }
+      "textures": { "all": "botania:blocks/custombrick3" }
     }]
   }
 }

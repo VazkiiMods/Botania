@@ -2,6 +2,6 @@
     "parent": "minecraft:item/generated",
     "textures": 
     {
-        "layer0": "botania:items/manaPearl"
+        "layer0": "botania:items/manapearl"
     }
 }

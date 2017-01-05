@@ -4,14 +4,14 @@
     "normal": [{
       "model": "botania:shapes/cross_tinted",
       "textures": {
-        "cross": "botania:blocks/nightshadePrime"
+        "cross": "botania:blocks/nightshadeprime"
       }
     }],
     "inventory": [{
       "model": "builtin/generated",
       "transform": "forge:default-item",
       "textures": {
-        "layer0": "botania:blocks/nightshadePrime"
+        "layer0": "botania:blocks/nightshadeprime"
       }
     }]
   }

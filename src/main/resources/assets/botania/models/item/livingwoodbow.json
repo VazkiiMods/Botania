@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "botania:items/livingwoodBow0"
+    "layer0": "botania:items/livingwoodbow0"
   },
   "display": {
     "thirdperson_righthand": {
@@ -30,21 +30,21 @@
       "predicate": {
         "minecraft:pulling": 1
       },
-      "model": "botania:item/livingwoodBow_pulling_1"
+      "model": "botania:item/livingwoodbow_pulling_1"
     },
     {
       "predicate": {
         "minecraft:pulling": 1,
         "minecraft:pull": 0.65
       },
-      "model": "botania:item/livingwoodBow_pulling_2"
+      "model": "botania:item/livingwoodbow_pulling_2"
     },
     {
       "predicate": {
         "minecraft:pulling": 1,
         "minecraft:pull": 0.9
       },
-      "model": "botania:item/livingwoodBow_pulling_3"
+      "model": "botania:item/livingwoodbow_pulling_3"
     }
   ]
 }

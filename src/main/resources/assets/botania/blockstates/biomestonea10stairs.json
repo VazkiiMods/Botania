@@ -2,9 +2,9 @@
   "forge_marker": 1,
   "defaults": {
     "textures": {
-      "bottom": "botania:blocks/biomeStone10",
-      "top": "botania:blocks/biomeStone10",
-      "side": "botania:blocks/biomeStone10"
+      "bottom": "botania:blocks/biomestone10",
+      "top": "botania:blocks/biomestone10",
+      "side": "botania:blocks/biomestone10"
     }
   },
   "variants": {

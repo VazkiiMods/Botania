@@ -1,6 +1,6 @@
 {
   "parent": "botania:block/shapes/claw",
   "textures": {
-    "all": "botania:model/spawnerClaw"
+    "all": "botania:model/spawnerclaw"
   }
 }

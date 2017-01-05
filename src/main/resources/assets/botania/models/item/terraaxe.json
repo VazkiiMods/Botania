@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:item/handheld",
   "textures": {
-    "layer0": "botania:items/terraAxe1"
+    "layer0": "botania:items/terraaxe1"
   },
   "overrides": [{
     "predicate": {
       "botania:terraaxe_on": 1
     },
-    "model": "botania:item/terraAxeOn"
+    "model": "botania:item/terraaxeon"
   }]
 }

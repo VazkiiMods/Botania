@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "botania:items/sparkUpgrade0"
+    "layer0": "botania:items/sparkupgrade0"
   }
 }
