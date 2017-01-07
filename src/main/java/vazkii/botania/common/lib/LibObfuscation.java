@@ -43,7 +43,7 @@ public final class LibObfuscation {
 	// EntityLivingBase
 	public static final String[] ITEM_IN_USE_COUNT = { "activeItemStackUseCount", "field_184628_bn", "bn" };
 
-	// EntityHorse
+	// AbstractHorse
 	public static final String[] HORSE_JUMP_STRENGTH = { "JUMP_STRENGTH", "field_110271_bv", "bw" };
 
 	// PlayerControllerMP
