@@ -78,12 +78,6 @@ public class ContainerBaubleBox extends Container {
 				|| player.getHeldItemOffhand() == baubleBoxInv.box;
 	}
 
-	@Override
-	public void onContainerClosed(EntityPlayer player) {
-		super.onContainerClosed(player);
-		// TODO do we need anything here?
-	}
-
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void setAll(List<ItemStack> l) {

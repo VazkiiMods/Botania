@@ -93,11 +93,9 @@ public class ItemManasteelAxe extends ItemAxe implements IManaUsingItem, ISortab
 			ItemStack stackAt = player.inventory.getStackInSlot(i);
 			if(!stackAt.isEmpty() && SAPLING_PATTERN.matcher(stackAt.getItem().getUnlocalizedName()).find()) {
 				ItemStack saveHeldStack = player.getHeldItem(hand);
-				player.setHeldItem(hand, stackAt); // todo 1.11 test if this works
+				player.setHeldItem(hand, stackAt);
 				EnumActionResult did = stackAt.getItem().onItemUse(player, world, pos, hand, side, sx, sy, sz);
 				player.setHeldItem(hand, saveHeldStack);
-				if(stackAt.isEmpty())
-					player.inventory.setInventorySlotContents(i, ItemStack.EMPTY);
 
 				ItemsRemainingRenderHandler.set(player, new ItemStack(Blocks.SAPLING), SAPLING_PATTERN);
 				return did;

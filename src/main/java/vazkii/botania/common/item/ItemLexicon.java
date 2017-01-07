@@ -191,7 +191,7 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 		if(ticks > 0 && entity instanceof EntityPlayer) {
 			skipSound = ticks < 5;
 			if(ticks == 1)
-				onItemRightClick(world, (EntityPlayer) entity, EnumHand.MAIN_HAND); // todo 1.11 this won't work
+				onItemRightClick(world, (EntityPlayer) entity, EnumHand.MAIN_HAND);
 
 			setQueueTicks(stack, ticks - 1);
 		}

@@ -89,7 +89,7 @@ public class ItemManasteelPick extends ItemPickaxe implements IManaUsingItem, IS
 			ItemStack stackAt = player.inventory.getStackInSlot(i);
 			if(!stackAt.isEmpty() && TORCH_PATTERN.matcher(stackAt.getItem().getUnlocalizedName()).find()) {
 				ItemStack saveHeldStack = player.getHeldItem(hand);
-				player.setHeldItem(hand, stackAt); // todo 1.11 test if this works
+				player.setHeldItem(hand, stackAt);
 				EnumActionResult did = stackAt.getItem().onItemUse(player, world, pos, hand, side, sx, sy, sz);
 				player.setHeldItem(hand, saveHeldStack);
 

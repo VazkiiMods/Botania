@@ -30,7 +30,6 @@ import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lexicon.page.PageShedding;
 
-// todo 1.11 made this use registry names, but that's incompatible with the old names, work out migration or use old names instead
 public final class SheddingHandler {
 
 	private SheddingHandler() {}
