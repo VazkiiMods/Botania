@@ -13,6 +13,8 @@ package vazkii.botania.common.block.subtile.generating;
 import java.awt.Color;
 import java.util.List;
 
+import mezz.jei.util.FakeClientWorld;
+import net.minecraft.world.WorldServer;
 import org.lwjgl.opengl.GL11;
 
 import net.minecraft.client.Minecraft;
@@ -46,7 +48,9 @@ public class SubTileSpectrolus extends SubTileGenerating {
 	public void onUpdate() {
 		super.onUpdate();
 
-		boolean remote = supertile.getWorld().isRemote;
+		if (supertile.getWorld().isRaining())
+			return;
+
 		Item wool = Item.getItemFromBlock(Blocks.WOOL);
 
 		List<EntityItem> items = supertile.getWorld().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(supertile.getPos().add(-RANGE, -RANGE, -RANGE), supertile.getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
@@ -65,23 +69,14 @@ public class SubTileSpectrolus extends SubTileGenerating {
 			if(!stack.isEmpty() && stack.getItem() == wool && !item.isDead && age >= slowdown) {
 				int meta = stack.getItemDamage();
 				if(meta == nextColor) {
-					if(!remote) {
-						mana = Math.min(getMaxMana(), mana + 300);
-						nextColor = nextColor == 15 ? 0 : nextColor + 1;
-						sync();
-					}
+					mana = Math.min(getMaxMana(), mana + 300);
+					nextColor = nextColor == 15 ? 0 : nextColor + 1;
+					sync();
 
-					for(int i = 0; i < 10; i++) {
-						float m = 0.2F;
-						float mx = (float) (Math.random() - 0.5) * m;
-						float my = (float) (Math.random() - 0.5) * m;
-						float mz = (float) (Math.random() - 0.5) * m;
-						supertile.getWorld().spawnParticle(EnumParticleTypes.ITEM_CRACK, item.posX, item.posY, item.posZ, mx, my, mz, Item.getIdFromItem(stack.getItem()), stack.getItemDamage());
-					}
+					((WorldServer) supertile.getWorld()).spawnParticle(EnumParticleTypes.ITEM_CRACK, false, item.posX, item.posY, item.posZ, 20, 0.1D, 0.1D, 0.1D, 0.05D, Item.getIdFromItem(stack.getItem()), stack.getItemDamage());
 				}
 
-				if(!remote)
-					item.setDead();
+				item.setDead();
 			}
 		}
 	}
