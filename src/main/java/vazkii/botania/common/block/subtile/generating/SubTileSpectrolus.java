@@ -48,7 +48,7 @@ public class SubTileSpectrolus extends SubTileGenerating {
 	public void onUpdate() {
 		super.onUpdate();
 
-		if (supertile.getWorld().isRaining())
+		if (supertile.getWorld().isRemote)
 			return;
 
 		Item wool = Item.getItemFromBlock(Blocks.WOOL);
