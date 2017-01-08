@@ -53,7 +53,7 @@ public class AncientWillRecipe implements IRecipe {
 		for(int i = 0; i < var1.getSizeInventory(); i++) {
 			ItemStack stack = var1.getStackInSlot(i);
 			if(!stack.isEmpty()) {
-				if(stack.getItem() instanceof IAncientWillContainer && item == null)
+				if(stack.getItem() instanceof IAncientWillContainer && item.isEmpty())
 					item = stack;
 				else will = stack.getItemDamage();
 			}
