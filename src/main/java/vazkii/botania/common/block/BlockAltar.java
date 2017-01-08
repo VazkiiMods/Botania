@@ -39,6 +39,7 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -166,7 +167,7 @@ public class BlockAltar extends BlockMod implements ILexiconable {
 					if(stack.getItem() == ModItems.waterRod)
 						ManaItemHandler.requestManaExact(stack, player, ItemWaterRod.COST, true);
 					else if(!player.capabilities.isCreativeMode)
-						drain(FluidRegistry.WATER, stack);
+						player.setHeldItem(hand, drain(FluidRegistry.WATER, stack));
 
 					tile.setWater(true);
 					world.updateComparatorOutputLevel(pos, this);
@@ -229,8 +230,8 @@ public class BlockAltar extends BlockMod implements ILexiconable {
 		if(stack.isEmpty() || stack.getCount() != 1)
 			return false;
 
-		if(stack.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null)) {
-			IFluidHandler handler = stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null);
+		if(stack.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null)) {
+			IFluidHandler handler = stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
 			FluidStack simulate = handler.drain(new FluidStack(FluidRegistry.WATER, Fluid.BUCKET_VOLUME), false);
 			if(simulate != null && simulate.getFluid() == FluidRegistry.WATER && simulate.amount == Fluid.BUCKET_VOLUME)
 				return true;
@@ -239,9 +240,10 @@ public class BlockAltar extends BlockMod implements ILexiconable {
 		return false;
 	}
 
-	private void drain(Fluid fluid, ItemStack stack) {
-		stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null)
-		.drain(new FluidStack(fluid, Fluid.BUCKET_VOLUME), true);
+	private ItemStack drain(Fluid fluid, ItemStack stack) {
+		IFluidHandlerItem handler = stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
+		handler.drain(new FluidStack(fluid, Fluid.BUCKET_VOLUME), true);
+		return handler.getContainer();
 	}
 
 	@Override
