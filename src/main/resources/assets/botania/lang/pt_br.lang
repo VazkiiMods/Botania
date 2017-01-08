@@ -446,25 +446,25 @@ item.dice.poem3=Os números regem uma dança.
 death.attack.botania-relic=%s foi punido por usar uma relíquia que não lhe pertencia
 
 # ENTITY NAMES
-entity.Botania.botania:manaBurst.name=Pulso de Mana
-entity.Botania.botania:signalFlare.name=Fagulhas Sinalizadoras
-entity.Botania.botania:pixie.name=Fada
-entity.Botania.botania:flameRing.name=Anel de Chamas
-entity.Botania.botania:vineBall.name=Bola de Vinhas
-entity.Botania.botania:doppleganger.name=Guardião de Gaia
-entity.Botania.botania:magicLandmine.name=Armadilha de Gaia
-entity.Botania.botania:spark.name=Fagulha
-entity.Botania.botania:thrownItem.name=Item arremessado
-entity.Botania.botania:magicMissile.name=Míssel Mágico
-entity.Botania.botania:thornChakram.name=Chakram Espinhento
-entity.Botania.botania:corporeaSpark.name=Fagulha Corporea
-entity.Botania.botania:enderAirBottle.name=Garrafa de ar do Fim
-entity.Botania.botania:poolMinecart.name=Carrinho com Poço de Mana
-entity.Botania.botania:pinkWither.name=Wither Rosa
-entity.Botania.botania:playerMover.name=Raio de Luminizer
-entity.Botania.botania:manaStorm.name=Epicentro de Manastorm
-entity.Botania.botania:babylonWeapon.name=Arma da Tesouraria
-entity.Botania.botania:fallingStar.name=Estrela Cadente
+entity.botania:manaBurst.name=Pulso de Mana
+entity.botania:signalFlare.name=Fagulhas Sinalizadoras
+entity.botania:pixie.name=Fada
+entity.botania:flameRing.name=Anel de Chamas
+entity.botania:vineBall.name=Bola de Vinhas
+entity.botania:doppleganger.name=Guardião de Gaia
+entity.botania:magicLandmine.name=Armadilha de Gaia
+entity.botania:spark.name=Fagulha
+entity.botania:thrownItem.name=Item arremessado
+entity.botania:magicMissile.name=Míssel Mágico
+entity.botania:thornChakram.name=Chakram Espinhento
+entity.botania:corporeaSpark.name=Fagulha Corporea
+entity.botania:enderAirBottle.name=Garrafa de ar do Fim
+entity.botania:poolMinecart.name=Carrinho com Poço de Mana
+entity.botania:pinkWither.name=Wither Rosa
+entity.botania:playerMover.name=Raio de Luminizer
+entity.botania:manaStorm.name=Epicentro de Manastorm
+entity.botania:babylonWeapon.name=Arma da Tesouraria
+entity.botania:fallingStar.name=Estrela Cadente
 
 # ACHIEVEMENT NAMES + DESC
 #

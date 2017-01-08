@@ -250,20 +250,20 @@ botania.baubletooltip=&b%s&7 キーを押して Baubles メニューを開く
 death.attack.botania-relic=%s は他人の形見を使ったために処罰された。
 
 # ENTITY NAMES
-entity.Botania.botania:manaBurst.name=マナ放射線
-entity.Botania.botania:pixie.name=ピクシィ
-entity.Botania.botania:vineBall.name=ツタ玉
-entity.Botania.botania:doppleganger.name=ガイアの守護者
-entity.Botania.botania:spark.name=スパーク
-entity.Botania.botania:thrownItem.name=投げ込まれたアイテム
-entity.Botania.botania:thornChakram.name=棘のチャクラム
-entity.Botania.botania:corporeaSpark.name=コーポリアスパーク
-entity.Botania.botania:enderAirBottle.name=エンダー空気瓶
-entity.Botania.botania:poolMinecart.name=マナプールマインカート
-entity.Botania.botania:pinkWither.name=桃色ウィザー
-entity.Botania.botania:playerMover.name=ルミナイザ光線
-entity.Botania.botania:babylonWeapon.name=宝物庫の武器
-entity.Botania.botania:fallingStar.name=流星
+entity.botania:manaBurst.name=マナ放射線
+entity.botania:pixie.name=ピクシィ
+entity.botania:vineBall.name=ツタ玉
+entity.botania:doppleganger.name=ガイアの守護者
+entity.botania:spark.name=スパーク
+entity.botania:thrownItem.name=投げ込まれたアイテム
+entity.botania:thornChakram.name=棘のチャクラム
+entity.botania:corporeaSpark.name=コーポリアスパーク
+entity.botania:enderAirBottle.name=エンダー空気瓶
+entity.botania:poolMinecart.name=マナプールマインカート
+entity.botania:pinkWither.name=桃色ウィザー
+entity.botania:playerMover.name=ルミナイザ光線
+entity.botania:babylonWeapon.name=宝物庫の武器
+entity.botania:fallingStar.name=流星
 
 # ACHIEVEMENT NAMES + DESC
 achievement.botania:flowerPickup.desc=神秘的な花を拾う

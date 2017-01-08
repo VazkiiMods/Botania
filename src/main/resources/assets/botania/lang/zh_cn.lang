@@ -446,25 +446,25 @@ item.dice.poem3=数字将引领一切起舞.
 death.attack.botania-relic=%s 因使用不属于他的遗物而被惩罚致死
 
 # ENTITY NAMES
-entity.Botania.botania:manaBurst.name=魔力脉冲
-entity.Botania.botania:signalFlare.name=信号弹
-entity.Botania.botania:pixie.name=小精灵
-entity.Botania.botania:flameRing.name=火焰圈
-entity.Botania.botania:vineBall.name=藤蔓球
-entity.Botania.botania:doppleganger.name=盖亚守护者
-entity.Botania.botania:magicLandmine.name=盖亚陷阱
-entity.Botania.botania:spark.name=火花
-entity.Botania.botania:thrownItem.name=投掷物品
-entity.Botania.botania:magicMissile.name=魔法飞弹
-entity.Botania.botania:thornChakram.name=荆棘飞轮
-entity.Botania.botania:corporeaSpark.name=多媒体火花
-entity.Botania.botania:enderAirBottle.name=瓶装末地空气
-entity.Botania.botania:poolMinecart.name=魔力池矿车
-entity.Botania.botania:pinkWither.name=粉色凋零
-entity.Botania.botania:playerMover.name=微光束
-entity.Botania.botania:manaStorm.name=魔力风暴中心
-entity.Botania.botania:babylonWeapon.name=贮藏库武器
-entity.Botania.botania:fallingStar.name=落星
+entity.botania:manaBurst.name=魔力脉冲
+entity.botania:signalFlare.name=信号弹
+entity.botania:pixie.name=小精灵
+entity.botania:flameRing.name=火焰圈
+entity.botania:vineBall.name=藤蔓球
+entity.botania:doppleganger.name=盖亚守护者
+entity.botania:magicLandmine.name=盖亚陷阱
+entity.botania:spark.name=火花
+entity.botania:thrownItem.name=投掷物品
+entity.botania:magicMissile.name=魔法飞弹
+entity.botania:thornChakram.name=荆棘飞轮
+entity.botania:corporeaSpark.name=多媒体火花
+entity.botania:enderAirBottle.name=瓶装末地空气
+entity.botania:poolMinecart.name=魔力池矿车
+entity.botania:pinkWither.name=粉色凋零
+entity.botania:playerMover.name=微光束
+entity.botania:manaStorm.name=魔力风暴中心
+entity.botania:babylonWeapon.name=贮藏库武器
+entity.botania:fallingStar.name=落星
 
 # ACHIEVEMENT NAMES + DESC
 achievement.botania:flowerPickup=Sky of Beginning

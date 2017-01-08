@@ -446,25 +446,25 @@ item.dice.poem3=The numbers lead a dance.
 death.attack.botania-relic=%s was punished for using a relic that isn't theirs
 
 # ENTITY NAMES
-entity.Botania.botania:manaBurst.name=Mana Burst
-entity.Botania.botania:signalFlare.name=Signal Flare
-entity.Botania.botania:pixie.name=Pixie
-entity.Botania.botania:flameRing.name=Flame Ring
-entity.Botania.botania:vineBall.name=Vine Ball
-entity.Botania.botania:doppleganger.name=Guardian of Gaia
-entity.Botania.botania:magicLandmine.name=Gaia Trap
-entity.Botania.botania:spark.name=Spark
-entity.Botania.botania:thrownItem.name=Thrown Item
-entity.Botania.botania:magicMissile.name=Magic Missile
-entity.Botania.botania:thornChakram.name=Thorn Chakram
-entity.Botania.botania:corporeaSpark.name=Corporea Spark
-entity.Botania.botania:enderAirBottle.name=Bottle of Ender Air
-entity.Botania.botania:poolMinecart.name=Mana Pool Minecart
-entity.Botania.botania:pinkWither.name=Pink Wither
-entity.Botania.botania:playerMover.name=Luminizer Beam
-entity.Botania.botania:manaStorm.name=Manastorm Epicenter
-entity.Botania.botania:babylonWeapon.name=Treasury Weapon
-entity.Botania.botania:fallingStar.name=Falling Star
+entity.botania:manaBurst.name=Mana Burst
+entity.botania:signalFlare.name=Signal Flare
+entity.botania:pixie.name=Pixie
+entity.botania:flameRing.name=Flame Ring
+entity.botania:vineBall.name=Vine Ball
+entity.botania:doppleganger.name=Guardian of Gaia
+entity.botania:magicLandmine.name=Gaia Trap
+entity.botania:spark.name=Spark
+entity.botania:thrownItem.name=Thrown Item
+entity.botania:magicMissile.name=Magic Missile
+entity.botania:thornChakram.name=Thorn Chakram
+entity.botania:corporeaSpark.name=Corporea Spark
+entity.botania:enderAirBottle.name=Bottle of Ender Air
+entity.botania:poolMinecart.name=Mana Pool Minecart
+entity.botania:pinkWither.name=Pink Wither
+entity.botania:playerMover.name=Luminizer Beam
+entity.botania:manaStorm.name=Manastorm Epicenter
+entity.botania:babylonWeapon.name=Treasury Weapon
+entity.botania:fallingStar.name=Falling Star
 
 # ACHIEVEMENT NAMES + DESC
 achievement.botania:flowerPickup=Sky of Beginning

@@ -409,25 +409,25 @@ item.dice.poem3=數字將引領一切起舞.
 death.attack.botania-relic=%s 因使用不屬於他的遺物而受天譴致死
 
 # ENTITY NAMES
-entity.Botania.botania:manaBurst.name=瑪那脈衝
-entity.Botania.botania:signalFlare.name=信號彈
-entity.Botania.botania:pixie.name=小精靈
-entity.Botania.botania:flameRing.name=火焰圈
-entity.Botania.botania:vineBall.name=籐蔓球
-entity.Botania.botania:doppleganger.name=蓋亞守護者
-entity.Botania.botania:magicLandmine.name=蓋亞陷阱
-entity.Botania.botania:spark.name=火花
-entity.Botania.botania:thrownItem.name=投擲物品
-entity.Botania.botania:magicMissile.name=瑪那飛彈
-entity.Botania.botania:thornChakram.name=荊棘飛輪
-entity.Botania.botania:corporeaSpark.name=多媒體火花
-entity.Botania.botania:enderAirBottle.name=瓶裝終界空氣
-entity.Botania.botania:poolMinecart.name=瑪那池礦車
-entity.Botania.botania:pinkWither.name=粉色凋零
-entity.Botania.botania:playerMover.name=微光束
-entity.Botania.botania:manaStorm.name=瑪那風暴中心
-entity.Botania.botania:babylonWeapon.name=貯藏庫武器
-entity.Botania.botania:fallingStar.name=落星
+entity.botania:manaBurst.name=瑪那脈衝
+entity.botania:signalFlare.name=信號彈
+entity.botania:pixie.name=小精靈
+entity.botania:flameRing.name=火焰圈
+entity.botania:vineBall.name=籐蔓球
+entity.botania:doppleganger.name=蓋亞守護者
+entity.botania:magicLandmine.name=蓋亞陷阱
+entity.botania:spark.name=火花
+entity.botania:thrownItem.name=投擲物品
+entity.botania:magicMissile.name=瑪那飛彈
+entity.botania:thornChakram.name=荊棘飛輪
+entity.botania:corporeaSpark.name=多媒體火花
+entity.botania:enderAirBottle.name=瓶裝終界空氣
+entity.botania:poolMinecart.name=瑪那池礦車
+entity.botania:pinkWither.name=粉色凋零
+entity.botania:playerMover.name=微光束
+entity.botania:manaStorm.name=瑪那風暴中心
+entity.botania:babylonWeapon.name=貯藏庫武器
+entity.botania:fallingStar.name=落星
 
 # ACHIEVEMENT NAMES + DESC (Due to the fact that most achievement names have references to vocaloid song names, please use original name or common name first, thanks.)(以下成就名多為曲名,因此使用原名與慣用名)
 achievement.botania:flowerPickup=Sky of Beginning

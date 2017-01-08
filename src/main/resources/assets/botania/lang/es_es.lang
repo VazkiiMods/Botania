@@ -340,25 +340,25 @@ item.dice.poem3=los números no dejan de danzar.
 death.attack.botania-relic=%s ha sido castigado por usar una reliquia que no es suya
 
 # ENTITY NAMES
-entity.Botania.botania:manaBurst.name=Pulso de maná
-entity.Botania.botania:signalFlare.name=Bengala de señales
-entity.Botania.botania:pixie.name=Hada
-entity.Botania.botania:flameRing.name=Anillo de llama
-entity.Botania.botania:vineBall.name=Bola de enredadera
-entity.Botania.botania:doppleganger.name=Guardián de Gaia
-entity.Botania.botania:magicLandmine.name=Trampa de Gaia
-entity.Botania.botania:spark.name=Chispa
-entity.Botania.botania:thrownItem.name=Objeto lanzado
-entity.Botania.botania:magicMissile.name=Misil mágico
-entity.Botania.botania:thornChakram.name=Chakram de púas
-entity.Botania.botania:corporeaSpark.name=Chispa de corporea
-entity.Botania.botania:enderAirBottle.name=Botella de aire del Fin
-entity.Botania.botania:poolMinecart.name=Vagoneta de pila de maná
-entity.Botania.botania:pinkWither.name=Wither rosa
-entity.Botania.botania:playerMover.name=Rayo de luminizador
-entity.Botania.botania:manaStorm.name=Epicentro de tormenta de maná
-entity.Botania.botania:babylonWeapon.name=Arma del tesoro
-entity.Botania.botania:fallingStar.name=Estrella caída
+entity.botania:manaBurst.name=Pulso de maná
+entity.botania:signalFlare.name=Bengala de señales
+entity.botania:pixie.name=Hada
+entity.botania:flameRing.name=Anillo de llama
+entity.botania:vineBall.name=Bola de enredadera
+entity.botania:doppleganger.name=Guardián de Gaia
+entity.botania:magicLandmine.name=Trampa de Gaia
+entity.botania:spark.name=Chispa
+entity.botania:thrownItem.name=Objeto lanzado
+entity.botania:magicMissile.name=Misil mágico
+entity.botania:thornChakram.name=Chakram de púas
+entity.botania:corporeaSpark.name=Chispa de corporea
+entity.botania:enderAirBottle.name=Botella de aire del Fin
+entity.botania:poolMinecart.name=Vagoneta de pila de maná
+entity.botania:pinkWither.name=Wither rosa
+entity.botania:playerMover.name=Rayo de luminizador
+entity.botania:manaStorm.name=Epicentro de tormenta de maná
+entity.botania:babylonWeapon.name=Arma del tesoro
+entity.botania:fallingStar.name=Estrella caída
 
 # ACHIEVEMENT NAMES + DESC
 achievement.botania:flowerPickup=El cielo del inicio

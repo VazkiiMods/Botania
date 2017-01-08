@@ -218,23 +218,23 @@ item.dice.poem3=Цифры привести танец.
 death.attack.botania-relic=%s был наказан за использование чужой реликвии
 
 # ENTITY NAMES
-entity.Botania.botania:manaBurst.name=Всплеск маны
-entity.Botania.botania:signalFlare.name=Сигнальная вспышка
-entity.Botania.botania:pixie.name=Пикси
-entity.Botania.botania:flameRing.name=Пламенное кольцо
-entity.Botania.botania:vineBall.name=Шар лозы
-entity.Botania.botania:doppleganger.name=Страж Гайи
-entity.Botania.botania:magicLandmine.name=Ловушка Гайи
-entity.Botania.botania:spark.name=Искра
-entity.Botania.botania:thrownItem.name=Брошенный предмет
-entity.Botania.botania:magicMissile.name=Магический снаряд
-entity.Botania.botania:thornChakram.name=Шипастая чакра
-entity.Botania.botania:enderAirBottle.name=Бутылка воздуха Края
-entity.Botania.botania:poolMinecart.name=Вагонетка с бассейном для маны
-entity.Botania.botania:pinkWither.name=Розовый иссушитель
-entity.Botania.botania:manaStorm.name=Эпицентр манашторма
-entity.Botania.botania:babylonWeapon.name=Оружие казначейства
-entity.Botania.botania:fallingStar.name=Падающая звезда
+entity.botania:manaBurst.name=Всплеск маны
+entity.botania:signalFlare.name=Сигнальная вспышка
+entity.botania:pixie.name=Пикси
+entity.botania:flameRing.name=Пламенное кольцо
+entity.botania:vineBall.name=Шар лозы
+entity.botania:doppleganger.name=Страж Гайи
+entity.botania:magicLandmine.name=Ловушка Гайи
+entity.botania:spark.name=Искра
+entity.botania:thrownItem.name=Брошенный предмет
+entity.botania:magicMissile.name=Магический снаряд
+entity.botania:thornChakram.name=Шипастая чакра
+entity.botania:enderAirBottle.name=Бутылка воздуха Края
+entity.botania:poolMinecart.name=Вагонетка с бассейном для маны
+entity.botania:pinkWither.name=Розовый иссушитель
+entity.botania:manaStorm.name=Эпицентр манашторма
+entity.botania:babylonWeapon.name=Оружие казначейства
+entity.botania:fallingStar.name=Падающая звезда
 
 # BLOCK NAMES
 tile.botania:flower0.name=Мистический белый цветок

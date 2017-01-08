@@ -332,20 +332,20 @@ botania.baubletooltip=Appuyez &b%s&7 pour ouvrir le menu Baubles
 death.attack.botania-relic=%s a été puni en utilisant une relique qui n'était pas la sienne
 
 # ENTITY NAMES
-entity.Botania.botania:manaBurst.name=Explosion de mana
-entity.Botania.botania:signalFlare.name=Feux de détresse
-entity.Botania.botania:pixie.name=Lutin
-entity.Botania.botania:flameRing.name=Anneau de flamme
-entity.Botania.botania:vineBall.name=Boule de vigne
-entity.Botania.botania:doppleganger.name=Gardien de Gaïa
-entity.Botania.botania:magicLandmine.name=Piège de Gaïa
-entity.Botania.botania:spark.name=Étincelle
-entity.Botania.botania:thrownItem.name=Élément jeté
-entity.Botania.botania:magicMissile.name=Missile magique
-entity.Botania.botania:thornChakram.name=Chakram d'épines
-entity.Botania.botania:corporeaSpark.name=Étincelle de Corporea
-entity.Botania.botania:enderAirBottle.name=Bouteille d'air du néant
-entity.Botania.botania:poolMinecart.name=Wagonnet à bassin de mana
+entity.botania:manaBurst.name=Explosion de mana
+entity.botania:signalFlare.name=Feux de détresse
+entity.botania:pixie.name=Lutin
+entity.botania:flameRing.name=Anneau de flamme
+entity.botania:vineBall.name=Boule de vigne
+entity.botania:doppleganger.name=Gardien de Gaïa
+entity.botania:magicLandmine.name=Piège de Gaïa
+entity.botania:spark.name=Étincelle
+entity.botania:thrownItem.name=Élément jeté
+entity.botania:magicMissile.name=Missile magique
+entity.botania:thornChakram.name=Chakram d'épines
+entity.botania:corporeaSpark.name=Étincelle de Corporea
+entity.botania:enderAirBottle.name=Bouteille d'air du néant
+entity.botania:poolMinecart.name=Wagonnet à bassin de mana
 
 # ACHIEVEMENT NAMES + DESC
 achievement.botania:flowerPickup=Ciel du Commencement

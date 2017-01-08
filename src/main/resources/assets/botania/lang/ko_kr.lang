@@ -345,25 +345,25 @@ item.dice.poem3=숫자들은 춤을 추는 군요.
 death.attack.botania-relic=%s은(는) 타인 소유의 유물에 욕심을 내 천벌이 내려졌습니다.
 
 # ENTITY NAMES
-entity.보타니아.botania:manaBurst.name=마나 버스터
-entity.보타니아.botania:signalFlare.name=신호탄
-entity.보타니아.botania:pixie.name=픽시
-entity.보타니아.botania:flameRing.name=화염의 고리
-entity.보타니아.botania:vineBall.name=덩굴 공
-entity.보타니아.botania:doppleganger.name=대지의 수호자
-entity.보타니아.botania:magicLandmine.name=대지의 함정
-entity.보타니아.botania:spark.name=스파크
-entity.보타니아.botania:thrownItem.name=던져지는 아이템
-entity.보타니아.botania:magicMissile.name=매직미사일
-entity.보타니아.botania:thornChakram.name=던져지는 챠크람
-entity.보타니아.botania:corporeaSpark.name=Corporea 스파크
-entity.보타니아.botania:enderAirBottle.name=엔더 공기가 담겨 있는 병
-entity.보타니아.botania:poolMinecart.name=마나 웅덩이 마인카트
-entity.보타니아.botania:pinkWither.name=핑크 위더
-entity.보타니아.botania:playerMover.name=루미나이저 빔
-entity.보타니아.botania:manaStorm.name=마나폭탄 진원지
-entity.보타니아.botania:babylonWeapon.name=보구
-entity.보타니아.botania:fallingStar.name=유성
+entity.botania:manaBurst.name=마나 버스터
+entity.botania:signalFlare.name=신호탄
+entity.botania:pixie.name=픽시
+entity.botania:flameRing.name=화염의 고리
+entity.botania:vineBall.name=덩굴 공
+entity.botania:doppleganger.name=대지의 수호자
+entity.botania:magicLandmine.name=대지의 함정
+entity.botania:spark.name=스파크
+entity.botania:thrownItem.name=던져지는 아이템
+entity.botania:magicMissile.name=매직미사일
+entity.botania:thornChakram.name=던져지는 챠크람
+entity.botania:corporeaSpark.name=Corporea 스파크
+entity.botania:enderAirBottle.name=엔더 공기가 담겨 있는 병
+entity.botania:poolMinecart.name=마나 웅덩이 마인카트
+entity.botania:pinkWither.name=핑크 위더
+entity.botania:playerMover.name=루미나이저 빔
+entity.botania:manaStorm.name=마나폭탄 진원지
+entity.botania:babylonWeapon.name=보구
+entity.botania:fallingStar.name=유성
 
 # ACHIEVEMENT NAMES  DESC / 업적의 제목들은 모두 보컬로이드(VOCALOID) 노래 제목입니다. 제목은 더 이상 만지지 말아주세요.
 achievement.botania:flowerPickup.desc=신비로운 꽃을 월드에서 얻어보세요!

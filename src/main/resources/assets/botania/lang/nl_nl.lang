@@ -308,25 +308,25 @@ item.dice.poem3=De nummers leiden de dans
 death.attack.botania-relic=%s werd gestraft voor gebruik van een reliek van een ander
 
 # ENTITY NAMES
-entity.Botania.botania:manaBurst.name=Mana Burst
-entity.Botania.botania:signalFlare.name=Signaalpistool
-entity.Botania.botania:pixie.name=Elfje
-entity.Botania.botania:flameRing.name=Vuur Ring
-entity.Botania.botania:vineBall.name=Lianenbol
-entity.Botania.botania:doppleganger.name=Beschermer van Gaia
-entity.Botania.botania:magicLandmine.name=Gaia val
-entity.Botania.botania:spark.name=Vonk
-entity.Botania.botania:thrownItem.name=Gegooid object
-entity.Botania.botania:magicMissile.name=Magische Raket
-entity.Botania.botania:thornChakram.name=Doorn van Chakram
-entity.Botania.botania:corporeaSpark.name=Corporea Vonk
-entity.Botania.botania:enderAirBottle.name=Flesje Ender Lucht
-entity.Botania.botania:poolMinecart.name=Mana Voorraad Mijnkar
-entity.Botania.botania:pinkWither.name=Roze Wither
-entity.Botania.botania:playerMover.name=Verlichter Straal
-entity.Botania.botania:manaStorm.name=Manastorm Epicenter
-entity.Botania.botania:babylonWeapon.name=Mythisch Wapen
-entity.Botania.botania:fallingStar.name=Vallende Ster
+entity.botania:manaBurst.name=Mana Burst
+entity.botania:signalFlare.name=Signaalpistool
+entity.botania:pixie.name=Elfje
+entity.botania:flameRing.name=Vuur Ring
+entity.botania:vineBall.name=Lianenbol
+entity.botania:doppleganger.name=Beschermer van Gaia
+entity.botania:magicLandmine.name=Gaia val
+entity.botania:spark.name=Vonk
+entity.botania:thrownItem.name=Gegooid object
+entity.botania:magicMissile.name=Magische Raket
+entity.botania:thornChakram.name=Doorn van Chakram
+entity.botania:corporeaSpark.name=Corporea Vonk
+entity.botania:enderAirBottle.name=Flesje Ender Lucht
+entity.botania:poolMinecart.name=Mana Voorraad Mijnkar
+entity.botania:pinkWither.name=Roze Wither
+entity.botania:playerMover.name=Verlichter Straal
+entity.botania:manaStorm.name=Manastorm Epicenter
+entity.botania:babylonWeapon.name=Mythisch Wapen
+entity.botania:fallingStar.name=Vallende Ster
 
 # ACHIEVEMENT NAMES + DESC
 achievement.botania:flowerPickup=Hemel van het Begin
