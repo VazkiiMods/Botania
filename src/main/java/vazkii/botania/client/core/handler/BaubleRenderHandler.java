@@ -81,7 +81,7 @@ public final class BaubleRenderHandler implements LayerRenderer<EntityPlayer> {
 				if(item instanceof ICosmeticAttachable) {
 					ICosmeticAttachable attachable = (ICosmeticAttachable) item;
 					ItemStack cosmetic = attachable.getCosmeticItem(stack);
-					if(cosmetic != null) {
+					if(!cosmetic.isEmpty()) {
 						GlStateManager.pushMatrix();
 						GL11.glColor3ub((byte) 255, (byte) 255, (byte) 255); // Some of the baubles use this so we must restore it manually as well
 						GlStateManager.color(1F, 1F, 1F, 1F);

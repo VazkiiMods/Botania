@@ -56,7 +56,7 @@ public final class BlockHighlightRenderHandler {
 				BlockPos bPos = pos.getBlockPos();
 
 				ItemStack stackHeld = PlayerHelper.getFirstHeldItem(mc.player, ModItems.twigWand);
-				if(stackHeld != null && ItemTwigWand.getBindMode(stackHeld)) {
+				if(!stackHeld.isEmpty() && ItemTwigWand.getBindMode(stackHeld)) {
 					BlockPos coords = ItemTwigWand.getBoundTile(stackHeld);
 					if(coords.getY() != -1)
 						bPos = coords;

@@ -349,7 +349,7 @@ public final class HUDHandler {
 
 		profiler.startSection("crystalCube");
 		ItemStack target = tile.getRequestTarget();
-		if(target != null) {
+		if(!target.isEmpty()) {
 			String s1 = target.getDisplayName();
 			String s2 = tile.getItemCount() + "x";
 			int strlen = Math.max(mc.fontRendererObj.getStringWidth(s1), mc.fontRendererObj.getStringWidth(s2));
