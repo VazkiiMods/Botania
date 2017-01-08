@@ -68,6 +68,8 @@ import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.lib.LibGuiIDs;
 import vazkii.botania.common.lib.LibItemNames;
 
+import java.util.Arrays;
+
 public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 
 	private static final ResourceLocation glowTexture = new ResourceLocation(LibResources.MISC_GLOW_GREEN);
@@ -142,7 +144,7 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 
 	void tryCraft(EntityPlayer player, ItemStack stack, int slot, boolean particles, IItemHandler inv, boolean validate) {
 		ItemStack itemForPos = getItemForSlot(stack, slot);
-		if(itemForPos == null)
+		if(itemForPos.isEmpty())
 			return;
 
 		ItemStack[] recipe = getCraftingItems(stack, slot);
@@ -200,7 +202,7 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 	private static boolean consumeRecipeIngredients(ItemStack[] recipe, IItemHandler inv, EntityPlayer player) {
 		for(int i = 0; i < 9; i++) {
 			ItemStack ingredient = recipe[i];
-			if(ingredient != null && !consumeFromInventory(ingredient, inv, player))
+			if(!ingredient.isEmpty() && !consumeFromInventory(ingredient, inv, player))
 				return false;
 		}
 
@@ -243,7 +245,7 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 
 		ItemStack itemForPos = getItemForSlot(stack, segment);
 
-		if(itemForPos != null && player.isSneaking()) {
+		if(!itemForPos.isEmpty() && player.isSneaking()) {
 			assignRecipe(stack, itemForPos, segment);
 			return true;
 		}
@@ -304,7 +306,7 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 	}
 
 	public static void assignRecipe(ItemStack stack, ItemStack itemForPos, int pos) {
-		if(itemForPos != null)
+		if(!itemForPos.isEmpty())
 			ItemNBTHelper.setCompound(stack, TAG_STORED_RECIPE_PREFIX + pos, new NBTTagCompound());
 		else
 			ItemNBTHelper.setCompound(stack, TAG_STORED_RECIPE_PREFIX + pos, getLastCraftingCompound(stack, false));
@@ -353,6 +355,7 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 
 	public static ItemStack[] getCraftingItems(ItemStack stack, int slot) {
 		ItemStack[] stackArray = new ItemStack[10];
+		Arrays.fill(stackArray, ItemStack.EMPTY);
 
 		NBTTagCompound cmp = getStoredRecipeCompound(stack, slot);
 		if(cmp != null)
@@ -550,7 +553,7 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 			String label = I18n.format("botaniamisc.unsetRecipe");
 			boolean setRecipe = false;
 
-			if(recipe[9] == null)
+			if(recipe[9].isEmpty())
 				recipe = getCraftingItems(stack, SEGMENTS);
 			else {
 				label = recipe[9].getDisplayName();
