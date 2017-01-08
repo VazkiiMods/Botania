@@ -328,7 +328,7 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 
 		NBTTagCompound itemCmp = new NBTTagCompound();
 		if(itemToEnchant != null)
-			itemToEnchant.writeToNBT(itemCmp);
+			itemCmp = itemToEnchant.writeToNBT(itemCmp);
 		cmp.setTag(TAG_ITEM, itemCmp);
 
 		String enchStr = enchants.stream()

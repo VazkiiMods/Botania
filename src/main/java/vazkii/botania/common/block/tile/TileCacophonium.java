@@ -31,7 +31,7 @@ public class TileCacophonium extends TileMod {
 
 		NBTTagCompound cmp1 = new NBTTagCompound();
 		if(!stack.isEmpty())
-			stack.writeToNBT(cmp1);
+			cmp1 = stack.writeToNBT(cmp1);
 		cmp.setTag(TAG_STACK, cmp1);
 	}
 

@@ -248,8 +248,7 @@ public class TileAlfPortal extends TileMod {
 		cmp.setInteger(TAG_STACK_COUNT, stacksIn.size());
 		int i = 0;
 		for(ItemStack stack : stacksIn) {
-			NBTTagCompound stackcmp = new NBTTagCompound();
-			stack.writeToNBT(stackcmp);
+			NBTTagCompound stackcmp = stack.writeToNBT(new NBTTagCompound());
 			cmp.setTag(TAG_STACK + i, stackcmp);
 			i++;
 		}

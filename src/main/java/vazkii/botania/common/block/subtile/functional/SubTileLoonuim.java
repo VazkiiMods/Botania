@@ -133,8 +133,7 @@ public class SubTileLoonuim extends SubTileFunctional {
 			entity.addPotionEffect(new PotionEffect(MobEffects.FIRE_RESISTANCE, Integer.MAX_VALUE, 0));
 			entity.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, Integer.MAX_VALUE, 0));
 			
-			NBTTagCompound cmp = new NBTTagCompound();
-			stack.writeToNBT(cmp);
+			NBTTagCompound cmp = stack.writeToNBT(new NBTTagCompound());
 			entity.getEntityData().setTag(TAG_ITEMSTACK_TO_DROP, cmp);
 			
 			world.spawnEntity(entity);

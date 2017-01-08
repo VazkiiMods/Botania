@@ -59,7 +59,7 @@ public class ManaGunClipRecipe  implements IRecipe {
 			return ItemStack.EMPTY;
 
 		ItemStack lens = ItemManaGun.getLens(gun);
-		ItemManaGun.setLens(gun, null);
+		ItemManaGun.setLens(gun, ItemStack.EMPTY);
 		ItemStack gunCopy = gun.copy();
 		ItemManaGun.setClip(gunCopy, true);
 		ItemManaGun.setLensAtPos(gunCopy, lens, 0);

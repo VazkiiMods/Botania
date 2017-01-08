@@ -137,7 +137,7 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 
 	@Override
 	public boolean hasContainerItem(ItemStack stack) {
-		return getLens(stack) != null;
+		return !getLens(stack).isEmpty();
 	}
 
 	@Nonnull
@@ -158,7 +158,7 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 		BurstProperties props = new BurstProperties(maxMana, ticksBeforeManaLoss, manaLossPerTick, gravity, motionModifier, color);
 
 		ItemStack lens = getLens(stack);
-		if(lens != null)
+		if(!lens.isEmpty())
 			((ILens) lens.getItem()).apply(lens, props);
 
 
@@ -187,7 +187,7 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 		}
 
 		ItemStack lens = getLens(par1ItemStack);
-		if(lens != null) {
+		if(!lens.isEmpty()) {
 			List<String> tooltip = lens.getTooltip(player, false);
 			if(tooltip.size() > 1)
 				stacks.addAll(tooltip.subList(1, tooltip.size()));
@@ -216,7 +216,7 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 	@Override
 	public String getItemStackDisplayName(@Nonnull ItemStack par1ItemStack) {
 		ItemStack lens = getLens(par1ItemStack);
-		return super.getItemStackDisplayName(par1ItemStack) + (lens == null ? "" : " (" + TextFormatting.GREEN + lens.getDisplayName() + TextFormatting.RESET + ")");
+		return super.getItemStackDisplayName(par1ItemStack) + (lens.isEmpty() ? "" : " (" + TextFormatting.GREEN + lens.getDisplayName() + TextFormatting.RESET + ")");
 	}
 
 	public static boolean hasClip(ItemStack stack) {
@@ -266,7 +266,7 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 	public static void setLensAtPos(ItemStack stack, ItemStack lens, int pos) {
 		NBTTagCompound cmp = new NBTTagCompound();
 		if(lens != null)
-			lens.writeToNBT(cmp);
+			cmp = lens.writeToNBT(cmp);
 		ItemNBTHelper.setCompound(stack, TAG_LENS + pos, cmp);
 	}
 
@@ -275,8 +275,8 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 			setLensAtPos(stack, lens, getClipPos(stack));
 
 		NBTTagCompound cmp = new NBTTagCompound();
-		if(lens != null)
-			lens.writeToNBT(cmp);
+		if(!lens.isEmpty())
+			cmp = lens.writeToNBT(cmp);
 		ItemNBTHelper.setCompound(stack, TAG_LENS, cmp);
 	}
 

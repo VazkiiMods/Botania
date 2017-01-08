@@ -328,7 +328,7 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 
 		ItemStack result = CraftingManager.getInstance().findMatchingRecipe((InventoryCrafting) event.craftMatrix, event.player.world);
 		if(!result.isEmpty()) {
-			result.writeToNBT(cmp1);
+			cmp1 = result.writeToNBT(cmp1);
 			cmp.setTag(TAG_ITEM_PREFIX + 9, cmp1);
 
 			for(int i = 0; i < 9; i++) {
@@ -338,7 +338,7 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 				if(!stackSlot.isEmpty()) {
 					ItemStack writeStack = stackSlot.copy();
 					writeStack.setCount(1);
-					writeStack.writeToNBT(cmp1);
+					cmp1 = writeStack.writeToNBT(cmp1);
 				}
 				cmp.setTag(TAG_ITEM_PREFIX + i, cmp1);
 			}

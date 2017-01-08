@@ -384,7 +384,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		ItemStack stack = getSourceLens();
 		NBTTagCompound lensCmp = new NBTTagCompound();
 		if(!stack.isEmpty())
-			stack.writeToNBT(lensCmp);
+			lensCmp = stack.writeToNBT(lensCmp);
 		par1nbtTagCompound.setTag(TAG_LENS_STACK, lensCmp);
 
 		BlockPos coords = getBurstSourceBlockPos();

@@ -61,8 +61,7 @@ public class ItemKeepIvy extends ItemMod {
 			int i = 0;
 			for(EntityItem keep : keeps) {
 				ItemStack stack = keep.getEntityItem();
-				NBTTagCompound cmp1 = new NBTTagCompound();
-				stack.writeToNBT(cmp1);
+				NBTTagCompound cmp1 = stack.writeToNBT(new NBTTagCompound());
 				cmp.setTag(TAG_DROP_PREFIX + i, cmp1);
 				i++;
 			}

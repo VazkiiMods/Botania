@@ -29,7 +29,7 @@ public class ManaGunRemoveLensRecipe implements IRecipe {
 		for(int i = 0; i < var1.getSizeInventory(); i++) {
 			ItemStack stack = var1.getStackInSlot(i);
 			if(!stack.isEmpty()) {
-				if(stack.getItem() instanceof ItemManaGun && ItemManaGun.getLens(stack) != null)
+				if(stack.getItem() instanceof ItemManaGun && !ItemManaGun.getLens(stack).isEmpty())
 					foundGun = true;
 
 				else return false; // Found an invalid item, breaking the recipe
@@ -53,7 +53,7 @@ public class ManaGunRemoveLensRecipe implements IRecipe {
 		}
 
 		ItemStack gunCopy = gun.copy();
-		ItemManaGun.setLens(gunCopy, null);
+		ItemManaGun.setLens(gunCopy, ItemStack.EMPTY);
 
 		return gunCopy;
 	}

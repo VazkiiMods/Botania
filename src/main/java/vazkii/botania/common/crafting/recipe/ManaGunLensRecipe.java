@@ -32,7 +32,7 @@ public class ManaGunLensRecipe implements IRecipe {
 		for(int i = 0; i < var1.getSizeInventory(); i++) {
 			ItemStack stack = var1.getStackInSlot(i);
 			if(!stack.isEmpty()) {
-				if(stack.getItem() instanceof ItemManaGun && ItemManaGun.getLens(stack) == null)
+				if(stack.getItem() instanceof ItemManaGun && ItemManaGun.getLens(stack).isEmpty())
 					foundGun = true;
 
 				else if(stack.getItem() instanceof ILens) {

@@ -121,7 +121,7 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 		super.writePacketNBT(par1nbtTagCompound);
 		NBTTagCompound cmp = new NBTTagCompound();
 		if(requestTarget != null)
-			requestTarget.writeToNBT(cmp);
+			cmp = requestTarget.writeToNBT(cmp);
 		par1nbtTagCompound.setTag(TAG_REQUEST_TARGET, cmp);
 		par1nbtTagCompound.setInteger(TAG_ITEM_COUNT, itemCount);
 	}

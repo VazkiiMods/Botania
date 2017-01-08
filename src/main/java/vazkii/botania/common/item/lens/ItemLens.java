@@ -186,7 +186,7 @@ public class ItemLens extends ItemMod implements ILensControl, ICompositableLens
 	@Override
 	public String getItemStackDisplayName(@Nonnull ItemStack stack) {
 		ItemStack compositeLens = getCompositeLens(stack);
-		if(compositeLens == null)
+		if(compositeLens.isEmpty())
 			return super.getItemStackDisplayName(stack);
 		return String.format(net.minecraft.util.text.translation.I18n.translateToLocal("item.botania:compositeLens.name"), getItemShortTermName(stack), getItemShortTermName(compositeLens));
 	}
@@ -200,7 +200,7 @@ public class ItemLens extends ItemMod implements ILensControl, ICompositableLens
 		getLens(stack.getItemDamage()).apply(stack, props);
 
 		ItemStack compositeLens = getCompositeLens(stack);
-		if(compositeLens != null && compositeLens.getItem() instanceof ILens)
+		if(!compositeLens.isEmpty() && compositeLens.getItem() instanceof ILens)
 			((ILens) compositeLens.getItem()).apply(compositeLens, props);
 	}
 
@@ -211,7 +211,7 @@ public class ItemLens extends ItemMod implements ILensControl, ICompositableLens
 		dead = getLens(stack.getItemDamage()).collideBurst(burst, entity, pos, isManaBlock, dead, stack);
 
 		ItemStack compositeLens = getCompositeLens(stack);
-		if(compositeLens != null && compositeLens.getItem() instanceof ILens)
+		if(!compositeLens.isEmpty() && compositeLens.getItem() instanceof ILens)
 			dead = ((ILens) compositeLens.getItem()).collideBurst(burst, pos, isManaBlock, dead, compositeLens);
 
 		return dead;
@@ -228,7 +228,7 @@ public class ItemLens extends ItemMod implements ILensControl, ICompositableLens
 		getLens(stack.getItemDamage()).updateBurst(burst, entity, stack);
 
 		ItemStack compositeLens = getCompositeLens(stack);
-		if(compositeLens != null && compositeLens.getItem() instanceof ILens)
+		if(!compositeLens.isEmpty() && compositeLens.getItem() instanceof ILens)
 			((ILens) compositeLens.getItem()).updateBurst(burst, compositeLens);
 	}
 
@@ -299,15 +299,17 @@ public class ItemLens extends ItemMod implements ILensControl, ICompositableLens
 	@Override
 	public ItemStack getCompositeLens(ItemStack stack) {
 		NBTTagCompound cmp = ItemNBTHelper.getCompound(stack, TAG_COMPOSITE_LENS, false);
-		return new ItemStack(cmp);
+		if(cmp == null)
+			return ItemStack.EMPTY;
+		else return new ItemStack(cmp);
 	}
 
 	@Override
 	public ItemStack setCompositeLens(ItemStack sourceLens, ItemStack compositeLens) {
-		NBTTagCompound cmp = new NBTTagCompound();
-		compositeLens.writeToNBT(cmp);
-		ItemNBTHelper.setCompound(sourceLens, TAG_COMPOSITE_LENS, cmp);
-
+		if(!compositeLens.isEmpty()) {
+			NBTTagCompound cmp = compositeLens.writeToNBT(new NBTTagCompound());
+			ItemNBTHelper.setCompound(sourceLens, TAG_COMPOSITE_LENS, cmp);
+		}
 		return sourceLens;
 	}
 

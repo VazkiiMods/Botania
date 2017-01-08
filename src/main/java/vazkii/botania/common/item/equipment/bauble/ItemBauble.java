@@ -106,7 +106,7 @@ public abstract class ItemBauble extends ItemMod implements IBauble, ICosmeticAt
 			addStringToTooltip(I18n.format("botania.baubletooltip", key), stacks);
 
 		ItemStack cosmetic = getCosmeticItem(par1ItemStack);
-		if(cosmetic != null)
+		if(!cosmetic.isEmpty())
 			addStringToTooltip(I18n.format("botaniamisc.hasCosmetic", cosmetic.getDisplayName()), stacks);
 
 		if(hasPhantomInk(par1ItemStack))
@@ -158,15 +158,15 @@ public abstract class ItemBauble extends ItemMod implements IBauble, ICosmeticAt
 	public ItemStack getCosmeticItem(ItemStack stack) {
 		NBTTagCompound cmp = ItemNBTHelper.getCompound(stack, TAG_COSMETIC_ITEM, true);
 		if(cmp == null)
-			return null;
+			return ItemStack.EMPTY;
 		return new ItemStack(cmp);
 	}
 
 	@Override
 	public void setCosmeticItem(ItemStack stack, ItemStack cosmetic) {
 		NBTTagCompound cmp = new NBTTagCompound();
-		if(cosmetic != null)
-			cosmetic.writeToNBT(cmp);
+		if(!cosmetic.isEmpty())
+			cmp = cosmetic.writeToNBT(cmp);
 		ItemNBTHelper.setCompound(stack, TAG_COSMETIC_ITEM, cmp);
 	}
 
