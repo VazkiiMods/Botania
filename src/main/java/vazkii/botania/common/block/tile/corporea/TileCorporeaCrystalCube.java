@@ -39,7 +39,7 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 
 	private static final double LOG_2 = Math.log(2);
 
-	ItemStack requestTarget;
+	ItemStack requestTarget = ItemStack.EMPTY;
 	int itemCount = 0;
 	int ticks = 0;
 	public int compValue = 0;
@@ -120,7 +120,7 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 	public void writePacketNBT(NBTTagCompound par1nbtTagCompound) {
 		super.writePacketNBT(par1nbtTagCompound);
 		NBTTagCompound cmp = new NBTTagCompound();
-		if(requestTarget != null)
+		if(!requestTarget.isEmpty())
 			cmp = requestTarget.writeToNBT(cmp);
 		par1nbtTagCompound.setTag(TAG_REQUEST_TARGET, cmp);
 		par1nbtTagCompound.setInteger(TAG_ITEM_COUNT, itemCount);
