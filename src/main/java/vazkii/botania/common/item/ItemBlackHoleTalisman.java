@@ -13,6 +13,7 @@ package vazkii.botania.common.item;
 import java.util.List;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -66,7 +67,7 @@ public class ItemBlackHoleTalisman extends ItemMod implements IBlockProvider {
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
 		ItemStack stack = player.getHeldItem(hand);
-		if(getBlock(stack) != Blocks.AIR && player.isSneaking()) {
+		if(getBlock(stack) != null && player.isSneaking()) {
 			int dmg = stack.getItemDamage();
 			stack.setItemDamage(~dmg & 1);
 			player.playSound(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, 0.3F, 0.1F);
@@ -128,7 +129,7 @@ public class ItemBlackHoleTalisman extends ItemMod implements IBlockProvider {
 	@Override
 	public void onUpdate(ItemStack itemstack, World world, Entity entity, int slot, boolean selected) {
 		Block block = getBlock(itemstack);
-		if(!entity.world.isRemote && itemstack.getItemDamage() == 1 && block != Blocks.AIR && entity instanceof EntityPlayer) {
+		if(!entity.world.isRemote && itemstack.getItemDamage() == 1 && block != null && entity instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) entity;
 			int meta = getBlockMeta(itemstack);
 
@@ -215,8 +216,8 @@ public class ItemBlackHoleTalisman extends ItemMod implements IBlockProvider {
 	}
 
 	private boolean setBlock(ItemStack stack, Block block, int meta) {
-		if(Item.getItemFromBlock(block) != Items.AIR && (getBlock(stack) == Blocks.AIR || getBlockCount(stack) == 0)) {
-			ItemNBTHelper.setString(stack, TAG_BLOCK_NAME, Block.REGISTRY.getNameForObject(block).toString());
+		if(Item.getItemFromBlock(block) != Items.AIR && (getBlock(stack) == null || getBlockCount(stack) == 0)) {
+			ItemNBTHelper.setString(stack, TAG_BLOCK_NAME, block.getRegistryName().toString());
 			ItemNBTHelper.setInt(stack, TAG_BLOCK_META, meta);
 			return true;
 		}
@@ -232,7 +233,7 @@ public class ItemBlackHoleTalisman extends ItemMod implements IBlockProvider {
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer player, List<String> stacks, boolean par4) {
 		Block block = getBlock(par1ItemStack);
-		if(block != null && block != Blocks.AIR) {
+		if(block != null) {
 			int count = getBlockCount(par1ItemStack);
 			stacks.add(count + " " + I18n.format(new ItemStack(block, 1, getBlockMeta(par1ItemStack)).getUnlocalizedName() + ".name"));
 		}
@@ -261,6 +262,7 @@ public class ItemBlackHoleTalisman extends ItemMod implements IBlockProvider {
 		return ItemNBTHelper.getString(stack, TAG_BLOCK_NAME, "");
 	}
 
+	@Nullable
 	public static Block getBlock(ItemStack stack) {
 		return Block.getBlockFromName(getBlockName(stack));
 	}
