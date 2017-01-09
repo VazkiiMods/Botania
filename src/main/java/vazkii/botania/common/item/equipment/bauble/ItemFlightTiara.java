@@ -183,7 +183,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 	public void updatePlayerFlyStatus(LivingUpdateEvent event) {
 		if(event.getEntityLiving() instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) event.getEntityLiving();
-			ItemStack tiara = BaublesApi.getBaubles(player).getStackInSlot(4);
+			ItemStack tiara = BaublesApi.getBaublesHandler(player).getStackInSlot(4);
 			int left = ItemNBTHelper.getInt(tiara, TAG_TIME_LEFT, MAX_FLY_TIME);
 
 			if(playersWithFlight.contains(playerStr(player))) {
@@ -281,7 +281,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 	}
 
 	private boolean shouldPlayerHaveFlight(EntityPlayer player) {
-		ItemStack armor = BaublesApi.getBaubles(player).getStackInSlot(4);
+		ItemStack armor = BaublesApi.getBaublesHandler(player).getStackInSlot(4);
 		if(!armor.isEmpty() && armor.getItem() == this) {
 			int left = ItemNBTHelper.getInt(armor, TAG_TIME_LEFT, MAX_FLY_TIME);
 			boolean flying = ItemNBTHelper.getBoolean(armor, TAG_FLYING, false);

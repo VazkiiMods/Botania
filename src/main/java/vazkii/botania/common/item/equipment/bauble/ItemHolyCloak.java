@@ -27,6 +27,7 @@ import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.items.IItemHandler;
 import vazkii.botania.api.item.IBaubleRender;
 import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.client.lib.LibResources;
@@ -59,8 +60,7 @@ public class ItemHolyCloak extends ItemBauble implements IBaubleRender {
 	public void onPlayerDamage(LivingHurtEvent event) {
 		if(event.getEntityLiving() instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) event.getEntityLiving();
-			IInventory baubles = BaublesApi.getBaubles(player);
-			ItemStack belt = baubles.getStackInSlot(5);
+			ItemStack belt = BaublesApi.getBaublesHandler(player).getStackInSlot(5);
 			if(!belt.isEmpty() && belt.getItem() instanceof ItemHolyCloak && !isInEffect(belt)) {
 				ItemHolyCloak cloak = (ItemHolyCloak) belt.getItem();
 				int cooldown = getCooldown(belt);

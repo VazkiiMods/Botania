@@ -27,6 +27,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent.KeyInputEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.items.IItemHandler;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.Vector3;
@@ -53,7 +54,7 @@ public class ItemDodgeRing extends ItemBauble {
 	public void onKeyDown(KeyInputEvent event) {
 		Minecraft mc = Minecraft.getMinecraft();
 
-		IInventory baublesInv = BaublesApi.getBaubles(mc.player);
+		IItemHandler baublesInv = BaublesApi.getBaublesHandler(mc.player);
 		ItemStack ringStack = baublesInv.getStackInSlot(1);
 		if(ringStack.isEmpty() || !(ringStack.getItem() instanceof ItemDodgeRing)) {
 			ringStack = baublesInv.getStackInSlot(2);

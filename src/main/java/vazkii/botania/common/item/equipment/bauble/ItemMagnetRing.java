@@ -27,6 +27,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.item.ItemTossEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.items.IItemHandler;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IRelic;
 import vazkii.botania.api.mana.IManaItem;
@@ -59,8 +60,8 @@ public class ItemMagnetRing extends ItemBauble {
 
 	@SubscribeEvent
 	public void onTossItem(ItemTossEvent event) {
-		IInventory inv = BaublesApi.getBaubles(event.getPlayer());
-		for(int i = 0; i < inv.getSizeInventory(); i++) {
+		IItemHandler inv = BaublesApi.getBaublesHandler(event.getPlayer());
+		for(int i = 0; i < inv.getSlots(); i++) {
 			ItemStack stack = inv.getStackInSlot(i);
 			if(!stack.isEmpty() && stack.getItem() instanceof ItemMagnetRing) {
 				setCooldown(stack, 100);

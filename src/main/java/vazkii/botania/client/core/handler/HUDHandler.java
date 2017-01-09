@@ -15,6 +15,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
 import org.lwjgl.opengl.GL11;
 
 import baubles.api.BaublesApi;
@@ -30,7 +32,6 @@ import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.profiler.Profiler;
@@ -88,7 +89,7 @@ public final class HUDHandler {
 
 		if(event.getType() == ElementType.HEALTH) {
 			profiler.startSection("botania-hud");
-			IInventory baublesInv = BaublesApi.getBaubles(mc.player);
+			IItemHandler baublesInv = BaublesApi.getBaublesHandler(mc.player);
 			ItemStack headpiece = baublesInv.getStackInSlot(4);
 			if(!headpiece.isEmpty() && headpiece.getItem() == ModItems.flightTiara) {
 				profiler.startSection("flugelTiara");
@@ -203,17 +204,17 @@ public final class HUDHandler {
 				boolean anyRequest = false;
 				boolean creative = false;
 
-				IInventory mainInv = player.inventory;
-				IInventory baublesInv = BaublesApi.getBaubles(player);
+				IItemHandler mainInv = player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
+				IItemHandler baublesInv = BaublesApi.getBaublesHandler(player);
 
-				int invSize = mainInv.getSizeInventory();
+				int invSize = mainInv.getSlots();
 				int size = invSize;
 				if(baublesInv != null)
-					size += baublesInv.getSizeInventory();
+					size += baublesInv.getSlots();
 
 				for(int i = 0; i < size; i++) {
 					boolean useBaubles = i >= invSize;
-					IInventory inv = useBaubles ? baublesInv : mainInv;
+					IItemHandler inv = useBaubles ? baublesInv : mainInv;
 					ItemStack stack = inv.getStackInSlot(i - (useBaubles ? invSize : 0));
 
 					if(!stack.isEmpty()) {

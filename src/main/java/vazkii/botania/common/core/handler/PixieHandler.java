@@ -4,12 +4,12 @@ import baubles.api.BaublesApi;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.items.IItemHandler;
 import vazkii.botania.api.item.IPixieSpawner;
 import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.entity.EntityPixie;
@@ -37,8 +37,8 @@ public final class PixieHandler {
 			for (ItemStack element : player.inventory.armorInventory)
 				chance += getChance(element);
 
-			IInventory baubles = BaublesApi.getBaubles(player);
-			for(int i = 0; i < baubles.getSizeInventory(); i++)
+			IItemHandler baubles = BaublesApi.getBaublesHandler(player);
+			for(int i = 0; i < baubles.getSlots(); i++)
 				chance += getChance(baubles.getStackInSlot(i));
 
 			if(Math.random() < chance) {

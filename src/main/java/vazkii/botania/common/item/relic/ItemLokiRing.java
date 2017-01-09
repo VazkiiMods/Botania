@@ -37,6 +37,7 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.items.IItemHandler;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.ISequentialBreaker;
 import vazkii.botania.api.item.IWireframeCoordinateListProvider;
@@ -72,8 +73,8 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 			return;
 
 		int slot = -1;
-		IInventory inv = BaublesApi.getBaubles(player);
-		for(int i = 0; i < inv.getSizeInventory(); i++) {
+		IItemHandler inv = BaublesApi.getBaublesHandler(player);
+		for(int i = 0; i < inv.getSlots(); i++) {
 			ItemStack stack = inv.getStackInSlot(i);
 			if(stack == lokiRing) {
 				slot = i;
@@ -194,7 +195,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 	}
 
 	private static ItemStack getLokiRing(EntityPlayer player) {
-		IInventory baubles = BaublesApi.getBaubles(player);
+		IItemHandler baubles = BaublesApi.getBaublesHandler(player);
 		ItemStack stack1 = baubles.getStackInSlot(1);
 		ItemStack stack2 = baubles.getStackInSlot(2);
 		return isLokiRing(stack1) ? stack1 : isLokiRing(stack2) ? stack2 : null;

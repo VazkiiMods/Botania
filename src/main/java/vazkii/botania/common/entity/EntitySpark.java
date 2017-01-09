@@ -40,6 +40,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
+import net.minecraftforge.items.IItemHandler;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.mana.spark.ISparkAttachable;
@@ -112,11 +113,9 @@ public class EntitySpark extends Entity implements ISparkEntity {
 				stacks.addAll(player.inventory.mainInventory);
 				stacks.addAll(player.inventory.armorInventory);
 				
-				IInventory baubles = BaublesApi.getBaubles(player);
-				ItemStack[] baubleStacks = new ItemStack[baubles.getSizeInventory()];
-				for(int i = 0; i < baubleStacks.length; i++)
-					baubleStacks[i] = baubles.getStackInSlot(i);
-				stacks.addAll(Arrays.asList(baubleStacks));
+				IItemHandler baubles = BaublesApi.getBaublesHandler(player);
+				for (int i = 0; i < baubles.getSlots(); i++)
+					stacks.add(baubles.getStackInSlot(i));
 
 				for(ItemStack stack : stacks) {
 					if(stack.isEmpty() || !(stack.getItem() instanceof IManaItem))

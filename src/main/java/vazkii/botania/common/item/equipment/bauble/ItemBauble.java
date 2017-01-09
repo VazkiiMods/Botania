@@ -33,6 +33,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.IItemHandlerModifiable;
 import thaumcraft.api.items.IRunicArmor;
 import vazkii.botania.api.item.ICosmeticAttachable;
 import vazkii.botania.api.item.IPhantomInkable;
@@ -67,13 +69,14 @@ public abstract class ItemBauble extends ItemMod implements IBauble, ICosmeticAt
 		toEquip.setCount(1);
 
 		if(canEquip(toEquip, player)) {
-			IInventory baubles = BaublesApi.getBaubles(player);
-			for(int i = 0; i < baubles.getSizeInventory(); i++) {
-				if(baubles.isItemValidForSlot(i, toEquip)) {
+			IItemHandlerModifiable baubles = BaublesApi.getBaublesHandler(player);
+			for(int i = 0; i < baubles.getSlots(); i++) {
+				ItemStack simulate = baubles.insertItem(i, toEquip, true);
+				if(simulate.isEmpty()) {
 					ItemStack stackInSlot = baubles.getStackInSlot(i);
 					if(stackInSlot.isEmpty() || ((IBauble) stackInSlot.getItem()).canUnequip(stackInSlot, player)) {
 						if(!world.isRemote) {
-							baubles.setInventorySlotContents(i, toEquip);
+							baubles.setStackInSlot(i, toEquip);
 							stack.shrink(1);
 						}
 

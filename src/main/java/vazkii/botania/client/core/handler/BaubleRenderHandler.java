@@ -12,6 +12,7 @@ package vazkii.botania.client.core.handler;
 
 import javax.annotation.Nonnull;
 
+import net.minecraftforge.items.IItemHandler;
 import org.lwjgl.opengl.GL11;
 
 import baubles.api.BaublesApi;
@@ -24,7 +25,6 @@ import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.api.item.IBaubleRender;
@@ -43,7 +43,7 @@ public final class BaubleRenderHandler implements LayerRenderer<EntityPlayer> {
 		if(!ConfigHandler.renderBaubles || player.getActivePotionEffect(MobEffects.INVISIBILITY) != null)
 			return;
 
-		IInventory inv = BaublesApi.getBaubles(player);
+		IItemHandler inv = BaublesApi.getBaublesHandler(player);
 
 		dispatchRenders(inv, player, RenderType.BODY, partialTicks);
 		if(!inv.getStackInSlot(3).isEmpty())
@@ -66,8 +66,8 @@ public final class BaubleRenderHandler implements LayerRenderer<EntityPlayer> {
 		GlStateManager.popMatrix();
 	}
 
-	private void dispatchRenders(IInventory inv, EntityPlayer player, RenderType type, float partialTicks) {
-		for(int i = 0; i < inv.getSizeInventory(); i++) {
+	private void dispatchRenders(IItemHandler inv, EntityPlayer player, RenderType type, float partialTicks) {
+		for(int i = 0; i < inv.getSlots(); i++) {
 			ItemStack stack = inv.getStackInSlot(i);
 			if(!stack.isEmpty()) {
 				Item item = stack.getItem();

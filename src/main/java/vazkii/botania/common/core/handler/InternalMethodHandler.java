@@ -188,8 +188,7 @@ public class InternalMethodHandler extends DummyMethodHandler {
 
 	@Override
 	public IItemHandlerModifiable getBaublesInventoryWrapped(EntityPlayer player) {
-		IInventory inv = getBaublesInventory(player);
-		return inv == null ? null : new InvWrapper(inv);
+		return BaublesApi.getBaublesHandler(player);
 	}
 
 	@Override
