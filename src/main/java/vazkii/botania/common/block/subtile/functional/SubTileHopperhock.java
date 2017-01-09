@@ -76,9 +76,14 @@ public class SubTileHopperhock extends SubTileFunctional {
 			} catch (Throwable t) {
 				continue;
 			}
+			
+			if (age < 0) {
+			    age += item.lifespan;
+			}
 
-			if(age < 60 + slowdown || age >= 105 && age < 110 || item.isDead)
+			if(age < 60 + slowdown || age >= 105 && age < 110 || item.isDead) {
 				continue;
+			}
 
 			ItemStack stack = item.getEntityItem();
 			IItemHandler invToPutItemIn = null;
