@@ -15,6 +15,7 @@ import javax.annotation.Nonnull;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumActionResult;
@@ -36,7 +37,7 @@ public class ItemOvergrowthSeed extends ItemMod {
 	@Override
 	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float xs, float ys, float zs) {
 		IBlockState state = world.getBlockState(pos);
-		if(Item.getItemFromBlock(state.getBlock()) == null)
+		if(Item.getItemFromBlock(state.getBlock()) == Items.AIR)
 			return EnumActionResult.PASS;
 		ItemStack blockStack = new ItemStack(state.getBlock());
 		int[] ids = OreDictionary.getOreIDs(blockStack);

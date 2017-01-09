@@ -16,6 +16,7 @@ import javax.annotation.Nonnull;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -70,7 +71,7 @@ public class ItemDiviningRod extends ItemMod implements IManaUsingItem, IAvatarW
 		Botania.proxy.setWispFXDepthTest(false);
 		for(BlockPos pos_ : BlockPos.getAllInBox(pos.add(-range, -range, -range), pos.add(range, range, range))) {
 			IBlockState state = world.getBlockState(pos_);
-			if(Item.getItemFromBlock(state.getBlock()) == null)
+			if(Item.getItemFromBlock(state.getBlock()) == Items.AIR)
 				continue;
 			ItemStack orestack = new ItemStack(state.getBlock(), 1, state.getBlock().getMetaFromState(state));
 			for(int id : OreDictionary.getOreIDs(orestack)) {

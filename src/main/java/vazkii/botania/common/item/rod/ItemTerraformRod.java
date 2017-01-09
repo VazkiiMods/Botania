@@ -23,6 +23,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.EnumAction;
@@ -120,7 +121,7 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockP
 			IBlockState state = world.getBlockState(pos);
 			if(state.getBlock() == Blocks.AIR)
 				continue;
-			else if(Item.getItemFromBlock(state.getBlock()) == null)
+			else if(Item.getItemFromBlock(state.getBlock()) == Items.AIR)
 				continue;
 			int[] ids = OreDictionary.getOreIDs(new ItemStack(state.getBlock(), 1, state.getBlock().getMetaFromState(state)));
 			for(int id : ids)

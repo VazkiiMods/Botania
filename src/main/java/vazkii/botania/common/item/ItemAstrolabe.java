@@ -18,6 +18,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -248,7 +249,7 @@ public class ItemAstrolabe extends ItemMod {
 	}
 
 	private boolean setBlock(ItemStack stack, Block block, int meta) {
-		if(Item.getItemFromBlock(block) != null) {
+		if(Item.getItemFromBlock(block) != Items.AIR) {
 			ItemNBTHelper.setString(stack, TAG_BLOCK_NAME, Block.REGISTRY.getNameForObject(block).toString());
 			ItemNBTHelper.setInt(stack, TAG_BLOCK_META, meta);
 			return true;

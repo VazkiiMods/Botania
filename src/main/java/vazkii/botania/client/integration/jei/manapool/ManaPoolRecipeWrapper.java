@@ -20,6 +20,7 @@ import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
@@ -45,7 +46,7 @@ public class ManaPoolRecipeWrapper implements IRecipeWrapper {
 
 		if(recipe.getCatalyst() != null) {
 			Block block = recipe.getCatalyst().getBlock();
-			if (Item.getItemFromBlock(block) != null) {
+			if (Item.getItemFromBlock(block) != Items.AIR) {
 				builder.add(ImmutableList.of(new ItemStack(block, 1, block.getMetaFromState(recipe.getCatalyst()))));
 			}
 		}

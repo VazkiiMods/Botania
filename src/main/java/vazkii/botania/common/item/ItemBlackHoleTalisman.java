@@ -20,6 +20,7 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -81,7 +82,7 @@ public class ItemBlackHoleTalisman extends ItemMod implements IBlockProvider {
 		IBlockState state = world.getBlockState(pos);
 		ItemStack stack = player.getHeldItem(hand);
 
-		if (Item.getItemFromBlock(state.getBlock()) != null
+		if (Item.getItemFromBlock(state.getBlock()) != Items.AIR
 				&& setBlock(stack, state.getBlock(), state.getBlock().getMetaFromState(state))) {
 			return EnumActionResult.SUCCESS;
 		} else {
@@ -214,7 +215,7 @@ public class ItemBlackHoleTalisman extends ItemMod implements IBlockProvider {
 	}
 
 	private boolean setBlock(ItemStack stack, Block block, int meta) {
-		if(Item.getItemFromBlock(block) != null && (getBlock(stack) == Blocks.AIR || getBlockCount(stack) == 0)) {
+		if(Item.getItemFromBlock(block) != Items.AIR && (getBlock(stack) == Blocks.AIR || getBlockCount(stack) == 0)) {
 			ItemNBTHelper.setString(stack, TAG_BLOCK_NAME, Block.REGISTRY.getNameForObject(block).toString());
 			ItemNBTHelper.setInt(stack, TAG_BLOCK_META, meta);
 			return true;
