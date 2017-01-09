@@ -30,7 +30,7 @@ public class CosmeticRemoveRecipe implements IRecipe {
 		for(int i = 0; i < var1.getSizeInventory(); i++) {
 			ItemStack stack = var1.getStackInSlot(i);
 			if(!stack.isEmpty()) {
-				if(stack.getItem() instanceof ICosmeticAttachable && !(stack.getItem() instanceof ICosmeticBauble) && ((ICosmeticAttachable) stack.getItem()).getCosmeticItem(stack) != null)
+				if(stack.getItem() instanceof ICosmeticAttachable && !(stack.getItem() instanceof ICosmeticBauble) && !((ICosmeticAttachable) stack.getItem()).getCosmeticItem(stack).isEmpty())
 					foundAttachable = true;
 				else return false;
 			}
@@ -51,11 +51,11 @@ public class CosmeticRemoveRecipe implements IRecipe {
 		}
 
 		ICosmeticAttachable attachable = (ICosmeticAttachable) attachableItem.getItem();
-		if(attachable.getCosmeticItem(attachableItem) == null)
+		if(attachable.getCosmeticItem(attachableItem).isEmpty())
 			return ItemStack.EMPTY;
 
 		ItemStack copy = attachableItem.copy();
-		attachable.setCosmeticItem(copy, null);
+		attachable.setCosmeticItem(copy, ItemStack.EMPTY);
 		return copy;
 	}
 

@@ -65,7 +65,7 @@ public class CompositeLensRecipe implements IRecipe {
 
 		if(lens.getItem() instanceof ICompositableLens) {
 			ICompositableLens lensItem = (ICompositableLens) lens.getItem();
-			if(secondLens.isEmpty() || !lensItem.canCombineLenses(lens, secondLens) || lensItem.getCompositeLens(lens) != null || lensItem.getCompositeLens(secondLens) != null)
+			if(secondLens.isEmpty() || !lensItem.canCombineLenses(lens, secondLens) || !lensItem.getCompositeLens(lens).isEmpty() || !lensItem.getCompositeLens(secondLens).isEmpty())
 				return ItemStack.EMPTY;
 
 			ItemStack lensCopy = lens.copy();

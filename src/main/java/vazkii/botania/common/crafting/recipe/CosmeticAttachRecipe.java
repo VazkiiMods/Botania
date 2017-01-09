@@ -34,7 +34,7 @@ public class CosmeticAttachRecipe implements IRecipe {
 				if(stack.getItem() instanceof ICosmeticBauble && !foundCosmetic)
 					foundCosmetic = true;
 				else if(!foundAttachable) {
-					if(stack.getItem() instanceof ICosmeticAttachable && !(stack.getItem() instanceof ICosmeticBauble) && ((ICosmeticAttachable) stack.getItem()).getCosmeticItem(stack) == null)
+					if(stack.getItem() instanceof ICosmeticAttachable && !(stack.getItem() instanceof ICosmeticBauble) && ((ICosmeticAttachable) stack.getItem()).getCosmeticItem(stack).isEmpty())
 						foundAttachable = true;
 					else return false;
 				}
@@ -53,7 +53,7 @@ public class CosmeticAttachRecipe implements IRecipe {
 		for(int i = 0; i < var1.getSizeInventory(); i++) {
 			ItemStack stack = var1.getStackInSlot(i);
 			if(!stack.isEmpty()) {
-				if(stack.getItem() instanceof ICosmeticBauble && cosmeticItem == null)
+				if(stack.getItem() instanceof ICosmeticBauble && cosmeticItem.isEmpty())
 					cosmeticItem = stack;
 				else attachableItem = stack;
 			}
