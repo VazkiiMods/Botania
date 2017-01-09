@@ -61,14 +61,17 @@ public class ItemDirtRod extends ItemMod implements IManaUsingItem, ICraftAchiev
 		return place(player, world, pos, hand, side, par8, par9, par10, Blocks.DIRT, COST, 0.35F, 0.2F, 0.05F);
 	}
 
-	public static EnumActionResult place(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10, Block block, int cost, float r, float g, float b) {
+	public static EnumActionResult place(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ, Block block, int cost, float r, float g, float b) {
 		ItemStack stack = player.getHeldItem(hand);
 		if(ManaItemHandler.requestManaExactForTool(stack, player, cost, false)) {
 			int entities = world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(pos.offset(side), pos.offset(side).add(1, 1, 1))).size();
 
 			if(entities == 0) {
 				ItemStack stackToPlace = new ItemStack(block);
-				stackToPlace.onItemUse(player, world, pos, hand, side, par8, par9, par10);
+
+				player.setHeldItem(hand, stackToPlace);
+				stackToPlace.onItemUse(player, world, pos, hand, side, hitX, hitY, hitZ);
+				player.setHeldItem(hand, stack);
 
 				if(stackToPlace.isEmpty()) {
 					ManaItemHandler.requestManaExactForTool(stack, player, cost, true);

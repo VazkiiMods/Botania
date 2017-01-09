@@ -52,7 +52,9 @@ public class ItemSkyDirtRod extends ItemDirtRod {
 
 			if(entities == 0) {
 				ItemStack stackToPlace = new ItemStack(Blocks.DIRT);
+				player.setHeldItem(hand, stackToPlace);
 				stackToPlace.onItemUse(player, world, new BlockPos(x, y, z), hand, EnumFacing.DOWN, 0F, 0F, 0F);
+				player.setHeldItem(hand, stack);
 
 				if(stackToPlace.isEmpty()) {
 					ManaItemHandler.requestManaExactForTool(stack, player, COST * 2, true);
