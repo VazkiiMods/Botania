@@ -77,7 +77,7 @@ public class SubTileHopperhock extends SubTileFunctional {
 				continue;
 			}
 			
-			if (age < 0) {
+			if (age < 0 && (age + item.lifespan <= 60 + slowdown)) {
 			    age += item.lifespan;
 			}
 
