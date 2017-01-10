@@ -43,7 +43,7 @@ public class ItemEnderHand extends ItemMod implements IManaUsingItem, IBlockProv
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
 		if(ManaItemHandler.requestManaExact(stack, player, COST_SELF, false)) {
-			if(!player.worldObj.isRemote)
+			if(!player.world.isRemote)
 				player.displayGUIChest(player.getInventoryEnderChest());
 			ManaItemHandler.requestManaExact(stack, player, COST_SELF, true);
 			player.playSound(SoundEvents.ENTITY_ENDERMEN_TELEPORT, 1F, 1F);
@@ -55,7 +55,7 @@ public class ItemEnderHand extends ItemMod implements IManaUsingItem, IBlockProv
 	@Override
 	public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer player, EntityLivingBase entity, EnumHand hand) {
 		if(ConfigHandler.enderPickpocketEnabled && entity instanceof EntityPlayer && ManaItemHandler.requestManaExact(stack, player, COST_OTHER, false)) {
-			if(!player.worldObj.isRemote)
+			if(!player.world.isRemote)
 				player.displayGUIChest(((EntityPlayer) entity).getInventoryEnderChest());
 			ManaItemHandler.requestManaExact(stack, player, COST_OTHER, true);
 			player.playSound(SoundEvents.ENTITY_ENDERMEN_TELEPORT, 1F, 1F);

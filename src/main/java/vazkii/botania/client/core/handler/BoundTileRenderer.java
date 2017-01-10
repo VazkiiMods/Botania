@@ -50,7 +50,7 @@ public final class BoundTileRenderer {
 		GlStateManager.disableTexture2D();
 		GlStateManager.enableBlend();
 
-		EntityPlayer player = Minecraft.getMinecraft().thePlayer;
+		EntityPlayer player = Minecraft.getMinecraft().player;
 		int color = Color.HSBtoRGB(ClientTickHandler.ticksInGame % 200 / 200F, 0.6F, 1F);
 
 		if(player.getHeldItemMainhand() != null && player.getHeldItemMainhand().getItem() instanceof ICoordBoundItem) {
@@ -112,7 +112,7 @@ public final class BoundTileRenderer {
 		Color colorRGB = new Color(color);
 		GL11.glColor4ub((byte) colorRGB.getRed(), (byte) colorRGB.getGreen(), (byte) colorRGB.getBlue(), (byte) 255);
 
-		World world = Minecraft.getMinecraft().theWorld;
+		World world = Minecraft.getMinecraft().world;
 		IBlockState state = world.getBlockState(pos);
 		Block block = state.getBlock();
 		drawWireframe : {

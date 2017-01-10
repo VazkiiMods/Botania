@@ -43,9 +43,9 @@ public class ItemSkyDirtRod extends ItemDirtRod {
 			Vector3 lookVec = new Vector3(player.getLookVec()).multiply(3);
 			Vector3 placeVec = playerVec.add(lookVec);
 
-			int x = MathHelper.floor_double(placeVec.x);
-			int y = MathHelper.floor_double(placeVec.y) + 1;
-			int z = MathHelper.floor_double(placeVec.z);
+			int x = MathHelper.floor(placeVec.x);
+			int y = MathHelper.floor(placeVec.y) + 1;
+			int z = MathHelper.floor(placeVec.z);
 
 			int entities = world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(x, y, z, x + 1, y + 1, z + 1)).size();
 

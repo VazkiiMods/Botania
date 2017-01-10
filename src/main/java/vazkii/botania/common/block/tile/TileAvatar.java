@@ -34,7 +34,7 @@ public class TileAvatar extends TileSimpleInventory implements IAvatarTile {
 	public void update() {
 		enabled = true;
 		for(EnumFacing dir : EnumFacing.VALUES) {
-			int redstoneSide = worldObj.getRedstonePower(pos.offset(dir), dir);
+			int redstoneSide = world.getRedstonePower(pos.offset(dir), dir);
 			if(redstoneSide > 0) {
 				enabled = false;
 				break;
@@ -109,7 +109,7 @@ public class TileAvatar extends TileSimpleInventory implements IAvatarTile {
 
 	@Override
 	public EnumFacing getAvatarFacing() {
-		return worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.CARDINALS);
+		return world.getBlockState(getPos()).getValue(BotaniaStateProps.CARDINALS);
 	}
 
 	@Override

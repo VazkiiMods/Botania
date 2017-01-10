@@ -26,13 +26,13 @@ import vazkii.botania.common.item.ModItems;
 public class TileSparkChanger extends TileSimpleInventory {
 
 	public void doSwap() {
-		if(worldObj.isRemote)
+		if(world.isRemote)
 			return;
 
 		ItemStack changeStack = itemHandler.getStackInSlot(0);
 		List<ISparkAttachable> attachables = new ArrayList<>();
 		for(EnumFacing dir : EnumFacing.HORIZONTALS) {
-			TileEntity tile = worldObj.getTileEntity(pos.offset(dir));
+			TileEntity tile = world.getTileEntity(pos.offset(dir));
 			if(tile != null && tile instanceof ISparkAttachable) {
 				ISparkAttachable attach = (ISparkAttachable) tile;
 				ISparkEntity spark = attach.getAttachedSpark();
@@ -46,7 +46,7 @@ public class TileSparkChanger extends TileSimpleInventory {
 		}
 
 		if(attachables.size() > 0) {
-			ISparkAttachable attach = attachables.get(worldObj.rand.nextInt(attachables.size()));
+			ISparkAttachable attach = attachables.get(world.rand.nextInt(attachables.size()));
 			ISparkEntity spark = attach.getAttachedSpark();
 			SparkUpgradeType upg = spark.getUpgrade();
 			ItemStack sparkStack = upg == SparkUpgradeType.NONE ? null : new ItemStack(ModItems.sparkUpgrade, 1, upg.ordinal() - 1);
@@ -56,7 +56,7 @@ public class TileSparkChanger extends TileSimpleInventory {
 			if(transfers != null)
 				transfers.clear();
 			itemHandler.setStackInSlot(0, sparkStack);
-			worldObj.updateComparatorOutputLevel(pos, worldObj.getBlockState(pos).getBlock());
+			world.updateComparatorOutputLevel(pos, world.getBlockState(pos).getBlock());
 			markDirty();
 		}
 	}

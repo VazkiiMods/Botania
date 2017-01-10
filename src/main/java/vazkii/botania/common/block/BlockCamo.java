@@ -44,7 +44,7 @@ public abstract class BlockCamo extends BlockMod {
 				&& Block.getBlockFromItem(currentStack.getItem()) != null
 				&& tile instanceof TileCamo) {
 			TileCamo camo = (TileCamo) tile;
-			IBlockState changeState = Block.getBlockFromItem(currentStack.getItem()).onBlockPlaced(world, pos, side, hitX, hitY, hitZ, currentStack.getItemDamage(), player);
+			IBlockState changeState = Block.getBlockFromItem(currentStack.getItem()).getStateForPlacement(world, pos, side, hitX, hitY, hitZ, currentStack.getItemDamage(), player);
 
 			if(isValidBlock(changeState) && !(changeState.getBlock() instanceof BlockCamo) && changeState.getMaterial() != Material.AIR) {
 				camo.camoState = changeState;

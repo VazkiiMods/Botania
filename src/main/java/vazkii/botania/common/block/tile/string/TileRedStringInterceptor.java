@@ -31,17 +31,17 @@ public class TileRedStringInterceptor extends TileRedString {
 	@Override
 	public void update() {
 		super.update();
-		if(!worldObj.isRemote)
+		if(!world.isRemote)
 			interceptors.add(this);
 	}
 
 	@Override
 	public boolean acceptBlock(BlockPos pos) {
-		return worldObj.getTileEntity(pos) != null;
+		return world.getTileEntity(pos) != null;
 	}
 
 	private boolean saneState() {
-		return !isInvalid() && worldObj.getTileEntity(pos) == this;
+		return !isInvalid() && world.getTileEntity(pos) == this;
 	}
 
 	public static void onInteract(EntityPlayer player, World world, BlockPos pos, EnumHand hand) {
@@ -58,7 +58,7 @@ public class TileRedStringInterceptor extends TileRedString {
 				continue;
 			}
 
-			if(inter.worldObj == world) {
+			if(inter.world == world) {
 				BlockPos coords = inter.getBinding();
 				if(coords != null && coords.equals(pos)) {
 					Block block = inter.getBlockType();

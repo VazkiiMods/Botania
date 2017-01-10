@@ -70,11 +70,11 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver {
 			}
 
 		if(did) {
-			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, pos);
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, pos);
 			for(RecipeBrew recipe : BotaniaAPI.brewRecipes)
 				if(recipe.matches(itemHandler) && recipe.getOutput(itemHandler.getStackInSlot(0)) != null) {
 					this.recipe = recipe;
-					worldObj.setBlockState(pos, ModBlocks.brewery.getDefaultState().withProperty(BotaniaStateProps.POWERED, true), 1 | 2);
+					world.setBlockState(pos, ModBlocks.brewery.getDefaultState().withProperty(BotaniaStateProps.POWERED, true), 1 | 2);
 				}
 		}
 
@@ -87,7 +87,7 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver {
 			for(RecipeBrew recipe : BotaniaAPI.brewRecipes)
 				if(recipe.matches(itemHandler)) {
 					this.recipe = recipe;
-					worldObj.setBlockState(pos, ModBlocks.brewery.getDefaultState().withProperty(BotaniaStateProps.POWERED, true), 1 | 2);
+					world.setBlockState(pos, ModBlocks.brewery.getDefaultState().withProperty(BotaniaStateProps.POWERED, true), 1 | 2);
 				}
 
 			if(recipe == null)
@@ -97,8 +97,8 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver {
 		// Update every tick.
 		recieveMana(0);
 
-		if(!worldObj.isRemote && recipe == null) {
-			List<EntityItem> items = worldObj.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(pos.getX(), pos.getY(), pos.getZ(), pos.getX() + 1, pos.getY() + 1, pos.getZ() + 1));
+		if(!world.isRemote && recipe == null) {
+			List<EntityItem> items = world.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(pos.getX(), pos.getY(), pos.getZ(), pos.getX() + 1, pos.getY() + 1, pos.getZ() + 1));
 			for(EntityItem item : items)
 				if(!item.isDead && item.getEntityItem() != null) {
 					ItemStack stack = item.getEntityItem();
@@ -110,7 +110,7 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver {
 		if(recipe != null) {
 			if(!recipe.matches(itemHandler)) {
 				recipe = null;
-				worldObj.setBlockState(pos, ModBlocks.brewery.getDefaultState(), 1 | 2);
+				world.setBlockState(pos, ModBlocks.brewery.getDefaultState(), 1 | 2);
 			}
 
 			if(recipe != null) {
@@ -126,13 +126,13 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver {
 					}
 				}
 
-				if(mana >= getManaCost() && !worldObj.isRemote) {
+				if(mana >= getManaCost() && !world.isRemote) {
 					int mana = getManaCost();
 					recieveMana(-mana);
-					if(!worldObj.isRemote) {
+					if(!world.isRemote) {
 						ItemStack output = recipe.getOutput(itemHandler.getStackInSlot(0));
-						EntityItem outputItem = new EntityItem(worldObj, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, output);
-						worldObj.spawnEntityInWorld(outputItem);
+						EntityItem outputItem = new EntityItem(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, output);
+						world.spawnEntity(outputItem);
 					}
 
 					for(int i = 0; i < getSizeInventory(); i++)
@@ -149,7 +149,7 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver {
 
 		if(newSignal != signal) {
 			signal = newSignal;
-			worldObj.updateComparatorOutputLevel(pos, worldObj.getBlockState(pos).getBlock());
+			world.updateComparatorOutputLevel(pos, world.getBlockState(pos).getBlock());
 		}
 
 		manaLastTick = mana;
@@ -164,7 +164,7 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver {
 	}
 
 	public void craftingFanciness() {
-		worldObj.playSound(null, pos, BotaniaSoundEvents.potionCreate, SoundCategory.BLOCKS, 1F, 1.5F + (float) Math.random() * 0.25F);
+		world.playSound(null, pos, BotaniaSoundEvents.potionCreate, SoundCategory.BLOCKS, 1F, 1.5F + (float) Math.random() * 0.25F);
 		for(int i = 0; i < 25; i++) {
 			Color color = new Color(recipe.getBrew().getColor(itemHandler.getStackInSlot(0)));
 			float r = color.getRed() / 255F;

@@ -45,7 +45,7 @@ public class ItemFertilizer extends ItemMod {
 				for(int j = -range - 1; j < range; j++) {
 					for(int k = 2; k >= -2; k--) {
 						BlockPos pos_ = pos.add(i + 1, k + 1, j + 1);
-						if(world.isAirBlock(pos_) && (!world.provider.getHasNoSky() || pos_.getY() < 255) && ModBlocks.flower.canPlaceBlockAt(world, pos_))
+						if(world.isAirBlock(pos_) && (!world.provider.hasNoSky() || pos_.getY() < 255) && ModBlocks.flower.canPlaceBlockAt(world, pos_))
 							validCoords.add(pos_);
 					}
 				}

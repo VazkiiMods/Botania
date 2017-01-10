@@ -47,7 +47,7 @@ public final class SkyblockWorldEvents {
 
 	@SubscribeEvent
 	public static void onPlayerUpdate(LivingUpdateEvent event) {
-		if(event.getEntityLiving() instanceof EntityPlayer && !event.getEntityLiving().worldObj.isRemote) {
+		if(event.getEntityLiving() instanceof EntityPlayer && !event.getEntityLiving().world.isRemote) {
 			EntityPlayer player = (EntityPlayer) event.getEntityLiving();
 			NBTTagCompound data = player.getEntityData();
 			if(!data.hasKey(EntityPlayer.PERSISTED_NBT_TAG))
@@ -55,7 +55,7 @@ public final class SkyblockWorldEvents {
 
 			NBTTagCompound persist = data.getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
 			if(player.ticksExisted > 3 && !persist.getBoolean(TAG_MADE_ISLAND)) {
-				World world = player.worldObj;
+				World world = player.world;
 				if(WorldTypeSkyblock.isWorldSkyblock(world)) {
 					BlockPos coords = world.getSpawnPoint();
 					if(world.getBlockState(coords.down(4)).getBlock() != Blocks.BEDROCK && world.provider.getDimension() == 0)
@@ -127,12 +127,12 @@ public final class SkyblockWorldEvents {
 		final boolean test = false;
 
 		if(test || !persist.getBoolean(TAG_HAS_OWN_ISLAND)) {
-			createSkyblock(player.worldObj, pos);
+			createSkyblock(player.world, pos);
 
 			if(player instanceof EntityPlayerMP) {
 				EntityPlayerMP pmp = (EntityPlayerMP) player;
 				pmp.setPositionAndUpdate(pos.getX() + 0.5, pos.getY() + 1.6, pos.getZ() + 0.5);
-				pmp.setSpawnChunk(pos, true, player.worldObj.provider.getDimension());
+				pmp.setSpawnChunk(pos, true, player.world.provider.getDimension());
 				player.inventory.addItemStackToInventory(new ItemStack(ModItems.lexicon));
 			}
 

@@ -44,52 +44,52 @@ public class TileCocoon extends TileMod {
 	}
 
 	private void hatch() {
-		if(!worldObj.isRemote) {
-			worldObj.playEvent(2001, pos, Block.getStateId(getBlockType().getStateFromMeta(getBlockMetadata())));
-			worldObj.setBlockToAir(pos);
+		if(!world.isRemote) {
+			world.playEvent(2001, pos, Block.getStateId(getBlockType().getStateFromMeta(getBlockMetadata())));
+			world.setBlockToAir(pos);
 
 			EntityAgeable entity = null;
 
 			float villagerChance = Math.min(1F, (float) emeraldsGiven / (float) MAX_EMERALDS);
 
 			if(Math.random() < villagerChance) {
-				EntityVillager villager = new EntityVillager(worldObj);
-				VillagerRegistry.setRandomProfession(villager, worldObj.rand);
+				EntityVillager villager = new EntityVillager(world);
+				VillagerRegistry.setRandomProfession(villager, world.rand);
 				entity = villager;
 			} else {
 				float specialChance = 0.05F;
 				if(Math.random() < specialChance) {
-					int entityType = worldObj.rand.nextInt(3);
+					int entityType = world.rand.nextInt(3);
 					switch(entityType) {
 					case 0:
-						entity = new EntityHorse(worldObj);
+						entity = new EntityHorse(world);
 						break;
 					case 1:
-						entity = new EntityWolf(worldObj);
+						entity = new EntityWolf(world);
 						break;
 					case 2:
-						entity = new EntityOcelot(worldObj);
+						entity = new EntityOcelot(world);
 						break;
 					}
 				} else {
-					int entityType = worldObj.rand.nextInt(5);
+					int entityType = world.rand.nextInt(5);
 					switch(entityType) {
 					case 0:
-						entity = new EntitySheep(worldObj);
+						entity = new EntitySheep(world);
 						break;
 					case 1:
 						if(Math.random() < 0.01)
-							entity = new EntityMooshroom(worldObj);
-						else entity = new EntityCow(worldObj);
+							entity = new EntityMooshroom(world);
+						else entity = new EntityCow(world);
 						break;
 					case 2:
-						entity = new EntityPig(worldObj);
+						entity = new EntityPig(world);
 						break;
 					case 3:
-						entity = new EntityChicken(worldObj);
+						entity = new EntityChicken(world);
 						break;
 					case 4:
-						entity = new EntityRabbit(worldObj);
+						entity = new EntityRabbit(world);
 						break;
 					}
 				}
@@ -98,7 +98,7 @@ public class TileCocoon extends TileMod {
 			if(entity != null) {
 				entity.setPosition(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
 				entity.setGrowingAge(-24000);
-				worldObj.spawnEntityInWorld(entity);
+				world.spawnEntity(entity);
 				entity.spawnExplosionParticle();
 			}
 		}

@@ -170,7 +170,7 @@ public class RenderTileCorporeaCrystalCube extends TileEntitySpecialRenderer<Til
 		BlockPos pos = te.getPos();
 		IBlockAccess world = MinecraftForgeClient.getRegionRenderCache(te.getWorld(), pos);
 		IBlockState state = world.getBlockState(pos);
-		if(state.getPropertyNames().contains(Properties.StaticProperty))
+		if(state.getPropertyKeys().contains(Properties.StaticProperty))
 		{
 			state = state.withProperty(Properties.StaticProperty, false);
 		}

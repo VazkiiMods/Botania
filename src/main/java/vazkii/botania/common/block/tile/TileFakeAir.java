@@ -30,7 +30,7 @@ public class TileFakeAir extends TileMod {
 	}
 
 	public boolean canStay() {
-		return SubTileBubbell.isValidBubbell(worldObj, flowerPos);
+		return SubTileBubbell.isValidBubbell(world, flowerPos);
 	}
 
 	@Nonnull

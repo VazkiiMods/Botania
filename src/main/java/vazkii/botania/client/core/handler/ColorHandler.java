@@ -142,7 +142,7 @@ public final class ColorHandler {
 				return Minecraft.getMinecraft().getItemColors().getColorFromItemstack(lens, t);
 
 			if(t == 2) {
-				EntityManaBurst burst = ((ItemManaGun) s.getItem()).getBurst(Minecraft.getMinecraft().thePlayer, s, false);
+				EntityManaBurst burst = ((ItemManaGun) s.getItem()).getBurst(Minecraft.getMinecraft().player, s, false);
 				Color color = new Color(burst == null ? 0x20FF20 : burst.getColor());
 
 				float mul = (float) (Math.sin((double) ClientTickHandler.ticksInGame / 5) * 0.15F);

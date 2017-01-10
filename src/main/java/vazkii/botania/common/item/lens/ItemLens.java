@@ -221,7 +221,7 @@ public class ItemLens extends ItemMod implements ILensControl, ICompositableLens
 		EntityThrowable entity = (EntityThrowable) burst;
 		int storedColor = getStoredColor(stack);
 
-		if(storedColor == 16 && entity.worldObj.isRemote)
+		if(storedColor == 16 && entity.world.isRemote)
 			burst.setColor(getLensColor(stack));
 
 		getLens(stack.getItemDamage()).updateBurst(burst, entity, stack);

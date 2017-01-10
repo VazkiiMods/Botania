@@ -73,7 +73,7 @@ public class TilePump extends TileMod {
 	public void update() {
 		hasRedstone = false;
 		for(EnumFacing dir : EnumFacing.VALUES) {
-			int redstoneSide = worldObj.getRedstonePower(pos.offset(dir), dir);
+			int redstoneSide = world.getRedstonePower(pos.offset(dir), dir);
 			if(redstoneSide > 0) {
 				hasRedstone = true;
 				break;
@@ -92,7 +92,7 @@ public class TilePump extends TileMod {
 				innerRingPos = Math.min(max, innerRingPos);
 				moving = 0F;
 				for(int x = 0; x < 2; x++)
-					worldObj.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, getPos().getX() + Math.random(), getPos().getY() + Math.random(), getPos().getZ() + Math.random(), 0, 0, 0);
+					world.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, getPos().getX() + Math.random(), getPos().getY() + Math.random(), getPos().getZ() + Math.random(), 0, 0, 0);
 			}
 		} else if(innerRingPos > min) {
 			innerRingPos -= incr * 2;
@@ -103,7 +103,7 @@ public class TilePump extends TileMod {
 			}
 		}
 
-		if(worldObj.isRemote)
+		if(world.isRemote)
 			move.setValue(innerRingPos / 8 * 0.5F); // rescale to 0 - 0.5 for json animation
 
 		if(!hasCartOnTop)
@@ -117,7 +117,7 @@ public class TilePump extends TileMod {
 		hasCartOnTop = false;
 
 		if(comparator != lastComparator)
-			worldObj.updateComparatorOutputLevel(pos, worldObj.getBlockState(pos).getBlock());
+			world.updateComparatorOutputLevel(pos, world.getBlockState(pos).getBlock());
 		lastComparator = comparator;
 	}
 
@@ -130,17 +130,17 @@ public class TilePump extends TileMod {
 	public void readPacketNBT(NBTTagCompound cmp) {
 		boolean prevActive = active;
 		active = cmp.getBoolean(TAG_ACTIVE);
-		if(worldObj != null && worldObj.isRemote)
+		if(world != null && world.isRemote)
 			if(prevActive != active)
 				asm.transition(active ? "moving" : "default");
 	}
 
 	public void setActive(boolean active) {
-		if(!worldObj.isRemote) {
+		if(!world.isRemote) {
 			boolean diff = this.active != active;
 			this.active = active;
 			if(diff)
-				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, pos);
+				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, pos);
 		}
 	}
 }

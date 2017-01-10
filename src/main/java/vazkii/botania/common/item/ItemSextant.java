@@ -136,9 +136,9 @@ public class ItemSextant extends ItemMod {
 		double mul = diffVec.y / lookVec.y;
 		lookVec = lookVec.multiply(mul).add(centerVec);
 
-		lookVec = new Vector3(net.minecraft.util.math.MathHelper.floor_double(lookVec.x),
+		lookVec = new Vector3(net.minecraft.util.math.MathHelper.floor(lookVec.x),
 				lookVec.y,
-				net.minecraft.util.math.MathHelper.floor_double(lookVec.z));
+				net.minecraft.util.math.MathHelper.floor(lookVec.z));
 
 		return MathHelper.pointDistancePlane(source.x, source.z, lookVec.x, lookVec.z);
 	}

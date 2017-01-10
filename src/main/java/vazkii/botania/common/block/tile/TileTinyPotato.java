@@ -54,16 +54,16 @@ public class TileTinyPotato extends TileSimpleInventory {
 
 		jump();
 
-		if(!worldObj.isRemote) {
+		if(!world.isRemote) {
 			if(name.toLowerCase().trim().endsWith("shia labeouf")  && nextDoIt == 0) {
 				nextDoIt = 40;
-				worldObj.playSound(null, pos, BotaniaSoundEvents.doit, SoundCategory.BLOCKS, 1F, 1F);
+				world.playSound(null, pos, BotaniaSoundEvents.doit, SoundCategory.BLOCKS, 1F, 1F);
 			}
 
 			for(int i = 0; i < getSizeInventory(); i++) {
 				ItemStack stackAt = getItemHandler().getStackInSlot(i);
 				if(stackAt != null && stackAt.getItem() == Item.getItemFromBlock(ModBlocks.tinyPotato)) {
-					player.addChatComponentMessage(new TextComponentString("Don't talk to me or my son ever again."));
+					player.sendMessage(new TextComponentString("Don't talk to me or my son ever again."));
 					return;
 				}
 			}
@@ -77,7 +77,7 @@ public class TileTinyPotato extends TileSimpleInventory {
 
 	@Override
 	public void update() {
-		if(worldObj.rand.nextInt(100) == 0)
+		if(world.rand.nextInt(100) == 0)
 			jump();
 
 		if(jumpTicks > 0)

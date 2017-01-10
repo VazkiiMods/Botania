@@ -66,7 +66,7 @@ public final class TooltipAdditionDisplayHandler {
 			ItemStack lexiconStack = null;
 
 			for(int i = 0; i < InventoryPlayer.getHotbarSize(); i++) {
-				ItemStack stackAt = mc.thePlayer.inventory.getStackInSlot(i);
+				ItemStack stackAt = mc.player.inventory.getStackInSlot(i);
 				if(stackAt != null && stackAt.getItem() instanceof ILexicon && ((ILexicon) stackAt.getItem()).isKnowledgeUnlocked(stackAt, data.entry.getKnowledgeType())) {
 					lexiconStack = stackAt;
 					lexSlot = i;
@@ -115,11 +115,11 @@ public final class TooltipAdditionDisplayHandler {
 					GlStateManager.shadeModel(GL11.GL_FLAT);
 
 					if(lexiconLookupTime >= time) {
-						mc.thePlayer.inventory.currentItem = lexSlot;
+						mc.player.inventory.currentItem = lexSlot;
 						Botania.proxy.setEntryToOpen(data.entry);
 						Botania.proxy.setLexiconStack(lexiconStack);
-						mc.thePlayer.closeScreen();
-						ItemLexicon.openBook(mc.thePlayer, lexiconStack, mc.theWorld, false);
+						mc.player.closeScreen();
+						ItemLexicon.openBook(mc.player, lexiconStack, mc.world, false);
 
 					}
 				} else lexiconLookupTime = 0F;

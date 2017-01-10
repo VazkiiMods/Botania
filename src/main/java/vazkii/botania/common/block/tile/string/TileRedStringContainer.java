@@ -24,7 +24,7 @@ public class TileRedStringContainer extends TileRedString {
 
 	@Override
 	public boolean acceptBlock(BlockPos pos) {
-		TileEntity tile = worldObj.getTileEntity(pos);
+		TileEntity tile = world.getTileEntity(pos);
 		return tile != null
 				&& Arrays.stream(EnumFacing.VALUES)
 				.anyMatch(e -> tile.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, e));

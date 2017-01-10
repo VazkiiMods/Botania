@@ -52,7 +52,7 @@ public class ItemDivaCharm extends ItemBauble implements IManaUsingItem, IBauble
 
 	@SubscribeEvent
 	public void onEntityDamaged(LivingHurtEvent event) {
-		if(event.getSource().getEntity() instanceof EntityPlayer && event.getEntityLiving() instanceof EntityLiving && !event.getEntityLiving().worldObj.isRemote && Math.random() < 0.6F) {
+		if(event.getSource().getEntity() instanceof EntityPlayer && event.getEntityLiving() instanceof EntityLiving && !event.getEntityLiving().world.isRemote && Math.random() < 0.6F) {
 			EntityPlayer player = (EntityPlayer) event.getSource().getEntity();
 			ItemStack amulet = BaublesApi.getBaubles(player).getStackInSlot(6);
 			if(amulet != null && amulet.getItem() == this) {
@@ -60,7 +60,7 @@ public class ItemDivaCharm extends ItemBauble implements IManaUsingItem, IBauble
 				if(ManaItemHandler.requestManaExact(amulet, player, cost, false)) {
 					final int range = 20;
 
-					List mobs = player.worldObj.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(event.getEntityLiving().posX - range, event.getEntityLiving().posY - range, event.getEntityLiving().posZ - range, event.getEntityLiving().posX + range, event.getEntityLiving().posY + range, event.getEntityLiving().posZ + range), Predicates.instanceOf(IMob.class));
+					List mobs = player.world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(event.getEntityLiving().posX - range, event.getEntityLiving().posY - range, event.getEntityLiving().posZ - range, event.getEntityLiving().posX + range, event.getEntityLiving().posY + range, event.getEntityLiving().posZ + range), Predicates.instanceOf(IMob.class));
 					if(mobs.size() > 1) {
 						if(SubTileHeiseiDream.brainwashEntity((EntityLiving) event.getEntityLiving(), (List<IMob>) mobs)) {
 							if(event.getEntityLiving() instanceof EntityCreeper)
@@ -70,7 +70,7 @@ public class ItemDivaCharm extends ItemBauble implements IManaUsingItem, IBauble
 								event.getEntityLiving().isDead = false;
 
 							ManaItemHandler.requestManaExact(amulet, player, cost, true);
-							player.worldObj.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.divaCharm, SoundCategory.PLAYERS, 1F, 1F);
+							player.world.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.divaCharm, SoundCategory.PLAYERS, 1F, 1F);
 
 							double x = event.getEntityLiving().posX;
 							double y = event.getEntityLiving().posY;

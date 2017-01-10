@@ -60,7 +60,7 @@ public class ItemObedienceStick extends ItemMod {
 				}
 			}
 
-			if(player.worldObj.isRemote)
+			if(player.world.isRemote)
 				player.swingArm(hand);
 			return EnumActionResult.SUCCESS;
 		}

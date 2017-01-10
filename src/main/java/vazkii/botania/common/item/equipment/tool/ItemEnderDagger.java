@@ -38,7 +38,7 @@ public class ItemEnderDagger extends ItemManasteelSword {
 
 	@Override
 	public boolean hitEntity(ItemStack stack, EntityLivingBase target, @Nonnull EntityLivingBase attacker) {
-		if(!target.worldObj.isRemote
+		if(!target.world.isRemote
 				&& target instanceof EntityEnderman
 				&& attacker instanceof EntityPlayer
 				&& ((EntityPlayer) attacker).getCooledAttackStrength(0) == 1) {
@@ -63,7 +63,7 @@ public class ItemEnderDagger extends ItemManasteelSword {
 		Multimap<String, AttributeModifier> multimap = super.getItemAttributeModifiers(equipmentSlot);
 
 		if (equipmentSlot == EntityEquipmentSlot.MAINHAND) {
-			multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getAttributeUnlocalizedName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", -1.25, 0));
+			multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", -1.25, 0));
 		}
 
 		return multimap;

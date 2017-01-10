@@ -36,13 +36,13 @@ public final class SheddingHandler {
 
 	@SubscribeEvent
 	public static void onLivingUpdate(LivingUpdateEvent event) {
-		if(event.getEntityLiving().worldObj.isRemote)
+		if(event.getEntityLiving().world.isRemote)
 			return;
 
 		ShedPattern pattern = getShedPattern(event.getEntityLiving());
 
 		if(pattern != null) {
-			if(event.getEntityLiving().worldObj.rand.nextInt(pattern.getRate()) == 0)
+			if(event.getEntityLiving().world.rand.nextInt(pattern.getRate()) == 0)
 				event.getEntityLiving().entityDropItem(pattern.getItemStack(), 0.0F);
 		}
 	}

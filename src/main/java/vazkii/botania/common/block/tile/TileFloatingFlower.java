@@ -30,8 +30,8 @@ public class TileFloatingFlower extends TileMod implements IFloatingFlower {
 			forcedStack = null;
 			return retStack;
 		}
-		EnumDyeColor color = worldObj.getBlockState(getPos()).getBlock() != ModBlocks.floatingFlower ? EnumDyeColor.WHITE
-				: worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.COLOR);
+		EnumDyeColor color = world.getBlockState(getPos()).getBlock() != ModBlocks.floatingFlower ? EnumDyeColor.WHITE
+				: world.getBlockState(getPos()).getValue(BotaniaStateProps.COLOR);
 		return new ItemStack(ModBlocks.shinyFlower, 1, color.getMetadata());
 	}
 

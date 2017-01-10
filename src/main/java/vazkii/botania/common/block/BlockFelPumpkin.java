@@ -82,7 +82,7 @@ public class BlockFelPumpkin extends BlockMod implements ILexiconable {
 			EntityBlaze blaze = new EntityBlaze(world);
 			blaze.setLocationAndAngles(pos.getX() + 0.5D, pos.getY() - 1.95D, pos.getZ() + 0.5D, 0.0F, 0.0F);
 			blaze.getEntityData().setBoolean(TAG_FEL_SPAWNED, true);
-			world.spawnEntityInWorld(blaze);
+			world.spawnEntity(blaze);
 			world.notifyNeighborsOfStateChange(pos, Blocks.AIR);
 			world.notifyNeighborsOfStateChange(pos.down(), Blocks.AIR);
 			world.notifyNeighborsOfStateChange(pos.down(2), Blocks.AIR);
@@ -98,7 +98,7 @@ public class BlockFelPumpkin extends BlockMod implements ILexiconable {
 	public static void onDrops(LivingDropsEvent event) {
 		if(event.getEntityLiving() instanceof EntityBlaze && event.getEntityLiving().getEntityData().getBoolean(TAG_FEL_SPAWNED))
 			if(event.getDrops().isEmpty())
-				event.getDrops().add(new EntityItem(event.getEntityLiving().worldObj, event.getEntityLiving().posX, event.getEntityLiving().posY, event.getEntityLiving().posZ, new ItemStack(Items.BLAZE_POWDER, 6)));
+				event.getDrops().add(new EntityItem(event.getEntityLiving().world, event.getEntityLiving().posX, event.getEntityLiving().posY, event.getEntityLiving().posZ, new ItemStack(Items.BLAZE_POWDER, 6)));
 			else for(EntityItem item : event.getDrops()) {
 				ItemStack stack = item.getEntityItem();
 				if(stack.getItem() == Items.BLAZE_ROD)

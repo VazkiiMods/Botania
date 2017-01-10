@@ -139,7 +139,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 	}
 
 	public EntityManaBurst(EntityPlayer player) {
-		this(player.worldObj);
+		this(player.world);
 
 		setBurstSourceCoords(new BlockPos(0, -1, 0));
 		setLocationAndAngles(player.posX, player.posY + player.getEyeHeight(), player.posZ, player.rotationYaw + 180, -player.rotationPitch);
@@ -163,7 +163,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		lastTickPosZ = posZ;
 		// super.onUpdate(); Botania - inline supersuperclass's onUpdate
 		{
-			if (!worldObj.isRemote)
+			if (!world.isRemote)
 			{
 				setFlag(6, isGlowing());
 			}
@@ -180,7 +180,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 
 		Vec3d vec3d = new Vec3d(posX, posY, posZ);
 		Vec3d vec3d1 = new Vec3d(posX + motionX, posY + motionY, posZ + motionZ);
-		RayTraceResult raytraceresult = worldObj.rayTraceBlocks(vec3d, vec3d1);
+		RayTraceResult raytraceresult = world.rayTraceBlocks(vec3d, vec3d1);
 		vec3d = new Vec3d(posX, posY, posZ);
 		vec3d1 = new Vec3d(posX + motionX, posY + motionY, posZ + motionZ);
 
@@ -189,9 +189,9 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 			vec3d1 = new Vec3d(raytraceresult.hitVec.xCoord, raytraceresult.hitVec.yCoord, raytraceresult.hitVec.zCoord);
 		}
 
-		if(!worldObj.isRemote) { // Botania - only do entity colliding on server
+		if(!world.isRemote) { // Botania - only do entity colliding on server
 			Entity entity = null;
-			List<Entity> list = worldObj.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox().addCoord(motionX, motionY, motionZ).expandXyz(1.0D));
+			List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox().addCoord(motionX, motionY, motionZ).expandXyz(1.0D));
 			double d0 = 0.0D;
 			for (int i = 0; i < list.size(); ++i)
 			{
@@ -245,7 +245,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 
 		if (raytraceresult != null)
 		{
-			if (raytraceresult.typeOfHit == RayTraceResult.Type.BLOCK && worldObj.getBlockState(raytraceresult.getBlockPos()).getBlock() == Blocks.PORTAL)
+			if (raytraceresult.typeOfHit == RayTraceResult.Type.BLOCK && world.getBlockState(raytraceresult.getBlockPos()).getBlock() == Blocks.PORTAL)
 			{
 				setPortal(raytraceresult.getBlockPos());
 			}
@@ -258,7 +258,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		posX += motionX;
 		posY += motionY;
 		posZ += motionZ;
-		float f = MathHelper.sqrt_double(motionX * motionX + motionZ * motionZ);
+		float f = MathHelper.sqrt(motionX * motionX + motionZ * motionZ);
 		rotationYaw = (float)(MathHelper.atan2(motionX, motionZ) * (180D / Math.PI));
 
 		for (rotationPitch = (float)(MathHelper.atan2(motionY, f) * (180D / Math.PI)); rotationPitch - prevRotationPitch < -180.0F; prevRotationPitch -= 360.0F)
@@ -290,7 +290,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 			for (int j = 0; j < 4; ++j)
 			{
 				float f3 = 0.25F;
-				worldObj.spawnParticle(EnumParticleTypes.WATER_BUBBLE, posX - motionX * f3, posY - motionY * f3, posZ - motionZ * f3, motionX, motionY, motionZ, new int[0]);
+				world.spawnParticle(EnumParticleTypes.WATER_BUBBLE, posX - motionX * f3, posY - motionY * f3, posZ - motionZ * f3, motionX, motionY, motionZ, new int[0]);
 			}
 		}
 
@@ -445,7 +445,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 	}
 
 	public void particles() {
-		if(isDead || !worldObj.isRemote)
+		if(isDead || !world.isRemote)
 			return;
 
 		ILensEffect lens = getLensInstance();
@@ -532,11 +532,11 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		boolean dead = false;
 
 		if(rtr.entityHit == null) {
-			TileEntity tile = worldObj.getTileEntity(rtr.getBlockPos());
-			IBlockState state = worldObj.getBlockState(rtr.getBlockPos());
+			TileEntity tile = world.getTileEntity(rtr.getBlockPos());
+			IBlockState state = world.getBlockState(rtr.getBlockPos());
 			Block block = state.getBlock();
 
-			if(block instanceof IManaCollisionGhost && ((IManaCollisionGhost) block).isGhost(state, worldObj, rtr.getBlockPos()) && !(block instanceof IManaTrigger) || block instanceof BlockBush || block instanceof BlockLeaves)
+			if(block instanceof IManaCollisionGhost && ((IManaCollisionGhost) block).isGhost(state, world, rtr.getBlockPos()) && !(block instanceof IManaTrigger) || block instanceof BlockBush || block instanceof BlockLeaves)
 				return;
 
 			if(BotaniaAPI.internalHandler.isBuildcraftPipe(tile))
@@ -547,11 +547,11 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 				collidedTile = tile;
 
 			if(tile == null || !tile.getPos().equals(coords)) {
-				if(!fake && !noParticles && (!worldObj.isRemote || tile instanceof IClientManaHandler) && tile != null && tile instanceof IManaReceiver && ((IManaReceiver) tile).canRecieveManaFromBursts())
+				if(!fake && !noParticles && (!world.isRemote || tile instanceof IClientManaHandler) && tile != null && tile instanceof IManaReceiver && ((IManaReceiver) tile).canRecieveManaFromBursts())
 					onRecieverImpact((IManaReceiver) tile, tile.getPos());
 
 				if(block instanceof IManaTrigger)
-					((IManaTrigger) block).onBurstCollision(this, worldObj, rtr.getBlockPos());
+					((IManaTrigger) block).onBurstCollision(this, world, rtr.getBlockPos());
 
 				boolean ghost = block instanceof IManaCollisionGhost;
 				dead = !ghost;
@@ -606,7 +606,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		
 		if(tile instanceof IThrottledPacket)
 			((IThrottledPacket) tile).markDispatchable();
-		else VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, pos);
+		else VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, pos);
 	}
 
 	@Override
@@ -621,7 +621,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 	}
 
 	private TileEntity getShooter() {
-		return worldObj.getTileEntity(getBurstSourceBlockPos());
+		return world.getTileEntity(getBurstSourceBlockPos());
 	}
 
 	@Override
@@ -801,7 +801,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 
 	private void setDeathTicksForFakeParticle() {
 		BlockPos coords = getBurstSourceBlockPos();
-		TileEntity tile = worldObj.getTileEntity(coords);
+		TileEntity tile = world.getTileEntity(coords);
 		if(tile != null && tile instanceof IManaSpreader)
 			((IManaSpreader) tile).setLastBurstDeathTick(getTicksExisted());
 	}
@@ -814,11 +814,11 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		public boolean invalid = false;
 
 		public PositionProperties(Entity entity) {
-			int x = MathHelper.floor_double(entity.posX);
-			int y = MathHelper.floor_double(entity.posY);
-			int z = MathHelper.floor_double(entity.posZ);
+			int x = MathHelper.floor(entity.posX);
+			int y = MathHelper.floor(entity.posY);
+			int z = MathHelper.floor(entity.posZ);
 			coords = new BlockPos(x, y, z);
-			state = entity.worldObj.getBlockState(coords);
+			state = entity.world.getBlockState(coords);
 		}
 
 		public boolean coordsEqual(PositionProperties props) {

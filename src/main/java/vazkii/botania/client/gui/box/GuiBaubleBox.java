@@ -36,10 +36,10 @@ public class GuiBaubleBox extends GuiContainer {
 		for(int i1 = 0; i1 < 7; ++i1) {
 			Slot slot = inventorySlots.inventorySlots.get(i1);
 			if(slot.getHasStack() && slot.getSlotStackLimit() == 1)
-				drawTexturedModalRect(guiLeft+slot.xDisplayPosition, guiTop+slot.yDisplayPosition, 200, 0, 16, 16);
+				drawTexturedModalRect(guiLeft+slot.xPos, guiTop+slot.yPos, 200, 0, 16, 16);
 		}
 
-//		GuiInventory.drawEntityOnScreen(guiLeft + 43, guiTop + 61, 20, guiLeft + 43 - mouseX, guiTop + 45 - 30 - mouseY, mc.thePlayer);
+//		GuiInventory.drawEntityOnScreen(guiLeft + 43, guiTop + 61, 20, guiLeft + 43 - mouseX, guiTop + 45 - 30 - mouseY, mc.player);
 	}
 
 }

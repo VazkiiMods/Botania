@@ -178,9 +178,9 @@ public class ItemRainbowRod extends ItemMod implements IManaUsingItem, IAvatarWi
 
 		List<EntityPlayer> players = world.getEntitiesWithinAABB(EntityPlayer.class, axis);
 		for(EntityPlayer p : players) {
-			int px = MathHelper.floor_double(p.posX);
-			int py = MathHelper.floor_double(p.posY) - 1;
-			int pz = MathHelper.floor_double(p.posZ);
+			int px = MathHelper.floor(p.posX);
+			int py = MathHelper.floor(p.posY) - 1;
+			int pz = MathHelper.floor(p.posZ);
 			int dist = 5;
 			int diff = dist / 2;
 

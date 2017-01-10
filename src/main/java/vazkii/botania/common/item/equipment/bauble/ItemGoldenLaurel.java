@@ -50,8 +50,8 @@ public class ItemGoldenLaurel extends ItemBauble implements IBaubleRender {
 				event.setCanceled(true);
 				player.setHealth(player.getMaxHealth());
 				player.addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, 300, 6));
-				player.addChatMessage(new TextComponentTranslation("botaniamisc.savedByLaurel"));
-				player.worldObj.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.goldenLaurel, SoundCategory.PLAYERS, 1F, 0.3F);
+				player.sendMessage(new TextComponentTranslation("botaniamisc.savedByLaurel"));
+				player.world.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.goldenLaurel, SoundCategory.PLAYERS, 1F, 0.3F);
 				BaublesApi.getBaubles(player).setInventorySlotContents(4, null);
 			}
 		}

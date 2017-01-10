@@ -18,17 +18,17 @@ public class TileTeruTeruBozu extends TileMod {
 
 	@Override
 	public void update() {
-		if (worldObj.isRemote)
+		if (world.isRemote)
 			return;
 
-		boolean isRaining = worldObj.isRaining();
-		if(isRaining && worldObj.rand.nextInt(9600) == 0) {
-			worldObj.getWorldInfo().setRaining(false);
-			resetRainTime(worldObj);
+		boolean isRaining = world.isRaining();
+		if(isRaining && world.rand.nextInt(9600) == 0) {
+			world.getWorldInfo().setRaining(false);
+			resetRainTime(world);
 		}
 
 		if(wasRaining != isRaining)
-			worldObj.updateComparatorOutputLevel(pos, worldObj.getBlockState(pos).getBlock());
+			world.updateComparatorOutputLevel(pos, world.getBlockState(pos).getBlock());
 		wasRaining = isRaining;
 	}
 

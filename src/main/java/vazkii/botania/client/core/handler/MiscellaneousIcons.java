@@ -179,7 +179,7 @@ public class MiscellaneousIcons {
 
 	@SubscribeEvent
 	public void dumpAtlas(ArrowLooseEvent evt) {
-		if (!evt.getEntityPlayer().worldObj.isRemote || !((Boolean) Launch.blackboard.get("fml.deobfuscatedEnvironment"))
+		if (!evt.getEntityPlayer().world.isRemote || !((Boolean) Launch.blackboard.get("fml.deobfuscatedEnvironment"))
 				|| !evt.getEntityPlayer().isSneaking())
 			return;
 		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);

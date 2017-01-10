@@ -17,11 +17,11 @@ public class TileStarfield extends TileMod {
 
 	@Override
 	public void update() {
-		boolean state = worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.POWERED);
-		if(!worldObj.isRemote) {
-			boolean newState = !worldObj.isDaytime();
+		boolean state = world.getBlockState(getPos()).getValue(BotaniaStateProps.POWERED);
+		if(!world.isRemote) {
+			boolean newState = !world.isDaytime();
 			if(newState != state) {
-				worldObj.setBlockState(getPos(), worldObj.getBlockState(getPos()).withProperty(BotaniaStateProps.POWERED, newState), 1 | 2);
+				world.setBlockState(getPos(), world.getBlockState(getPos()).withProperty(BotaniaStateProps.POWERED, newState), 1 | 2);
 				state = newState;
 			}
 		}

@@ -58,7 +58,7 @@ public class ItemCorporeaSpark extends ItemMod {
 				if(stack.getItemDamage() == 1)
 					spark.setMaster(true);
 				spark.setPosition(pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5);
-				world.spawnEntityInWorld(spark);
+				world.spawnEntity(spark);
 				world.notifyBlockUpdate(pos, world.getBlockState(pos), world.getBlockState(pos), 0);
 			}
 			return EnumActionResult.SUCCESS;

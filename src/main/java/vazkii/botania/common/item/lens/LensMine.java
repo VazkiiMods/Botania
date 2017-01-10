@@ -33,7 +33,7 @@ public class LensMine extends Lens {
 
 	@Override
 	public boolean collideBurst(IManaBurst burst, EntityThrowable entity, RayTraceResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
-		World world = entity.worldObj;
+		World world = entity.world;
 
 		BlockPos pos_ = pos.getBlockPos();
 		if (world.isRemote || pos_ == null)
@@ -63,10 +63,10 @@ public class LensMine extends Lens {
 			items.addAll(block.getDrops(world, pos_, world.getBlockState(pos_), 0));
 
 			if(!burst.hasAlreadyCollidedAt(pos_)) {
-				if(!burst.isFake() && !entity.worldObj.isRemote) {
+				if(!burst.isFake() && !entity.world.isRemote) {
 					world.setBlockToAir(pos_);
 					if(ConfigHandler.blockBreakParticles)
-						entity.worldObj.playEvent(2001, pos_, Block.getStateId(state));
+						entity.world.playEvent(2001, pos_, Block.getStateId(state));
 
 					boolean offBounds = coords.getY() < 0;
 					boolean doWarp = warp && !offBounds;
@@ -75,7 +75,7 @@ public class LensMine extends Lens {
 					int dropZ = doWarp ? coords.getZ() : pos_.getZ();
 
 					for(ItemStack stack_ : items)
-						world.spawnEntityInWorld(new EntityItem(world, dropX + 0.5, dropY + 0.5, dropZ + 0.5, stack_));
+						world.spawnEntity(new EntityItem(world, dropX + 0.5, dropY + 0.5, dropZ + 0.5, stack_));
 
 					burst.setMana(mana - 24);
 				}

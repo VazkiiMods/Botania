@@ -72,24 +72,24 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 		if(stack == null || item.isDead)
 			return false;
 
-		if(!isMossy && worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.ALTAR_VARIANT) == AltarVariant.DEFAULT) {
+		if(!isMossy && world.getBlockState(getPos()).getValue(BotaniaStateProps.ALTAR_VARIANT) == AltarVariant.DEFAULT) {
 			if(stack.getItem() == Item.getItemFromBlock(Blocks.VINE)) {
 				isMossy = true;
-				if (worldObj.isRemote) {
-					worldObj.markBlockRangeForRenderUpdate(getPos(), getPos());
+				if (world.isRemote) {
+					world.markBlockRangeForRenderUpdate(getPos(), getPos());
 				} else {
-					worldObj.updateComparatorOutputLevel(pos, worldObj.getBlockState(pos).getBlock());
+					world.updateComparatorOutputLevel(pos, world.getBlockState(pos).getBlock());
 					stack.stackSize--;
 					if(stack.stackSize == 0)
 						item.setDead();
-					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, pos);
+					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, pos);
 				}
 
 				return true;
 			}
 		}
 
-		if(!hasWater() && !hasLava() && !worldObj.isRemote) {
+		if(!hasWater() && !hasLava() && !world.isRemote) {
 
 			if(stack.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null)) {
 				IFluidHandler fluidHandler = stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null);
@@ -99,12 +99,12 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 
 				if(drainWater != null && drainWater.getFluid() == FluidRegistry.WATER && drainWater.amount == Fluid.BUCKET_VOLUME) {
 					setWater(true);
-					worldObj.updateComparatorOutputLevel(pos, worldObj.getBlockState(pos).getBlock());
+					world.updateComparatorOutputLevel(pos, world.getBlockState(pos).getBlock());
 					fluidHandler.drain(new FluidStack(FluidRegistry.WATER, Fluid.BUCKET_VOLUME), true);
 					return true;
 				} else if(drainLava != null && drainLava.getFluid() == FluidRegistry.LAVA && drainLava.amount == Fluid.BUCKET_VOLUME) {
 					setLava(true);
-					worldObj.updateComparatorOutputLevel(pos, worldObj.getBlockState(pos).getBlock());
+					world.updateComparatorOutputLevel(pos, world.getBlockState(pos).getBlock());
 					fluidHandler.drain(new FluidStack(FluidRegistry.LAVA, Fluid.BUCKET_VOLUME), true);
 					return true;
 				}
@@ -124,7 +124,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 			if(itemHandler.getStackInSlot(getSizeInventory() - 1) != null)
 				return false;
 
-			if(!worldObj.isRemote) {
+			if(!world.isRemote) {
 				stack.stackSize--;
 				if(stack.stackSize == 0)
 					item.setDead();
@@ -135,7 +135,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 						stackToPut.stackSize = 1;
 						itemHandler.setStackInSlot(i, stackToPut);
 						didChange = true;
-						worldObj.playSound(null, pos, SoundEvents.ENTITY_GENERIC_SPLASH, SoundCategory.BLOCKS, 0.1F, 10F);
+						world.playSound(null, pos, SoundEvents.ENTITY_GENERIC_SPLASH, SoundCategory.BLOCKS, 0.1F, 10F);
 						break;
 					}
 			}
@@ -144,7 +144,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 				if(recipe.matches(itemHandler)) {
 					saveLastRecipe();
 
-					if(!worldObj.isRemote) {
+					if(!world.isRemote) {
 						for(int i = 0; i < getSizeInventory(); i++)
 							itemHandler.setStackInSlot(i, null);
 
@@ -153,11 +153,11 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 							item.setDead();
 
 						ItemStack output = recipe.getOutput().copy();
-						EntityItem outputItem = new EntityItem(worldObj, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, output);
-						worldObj.spawnEntityInWorld(outputItem);
+						EntityItem outputItem = new EntityItem(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, output);
+						world.spawnEntity(outputItem);
 
 						setWater(false);
-						worldObj.updateComparatorOutputLevel(pos, worldObj.getBlockState(pos).getBlock());
+						world.updateComparatorOutputLevel(pos, world.getBlockState(pos).getBlock());
 					}
 
 					craftingFanciness();
@@ -185,11 +185,11 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 	public void trySetLastRecipe(EntityPlayer player) {
 		tryToSetLastRecipe(player, itemHandler, lastRecipe);
 		if(!isEmpty())
-			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, pos);
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, pos);
 	}
 
 	public static void tryToSetLastRecipe(EntityPlayer player, IItemHandlerModifiable inv, List<ItemStack> lastRecipe) {
-		if(lastRecipe == null || lastRecipe.isEmpty() || player.worldObj.isRemote)
+		if(lastRecipe == null || lastRecipe.isEmpty() || player.world.isRemote)
 			return;
 
 		int index = 0;
@@ -217,7 +217,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 
 		if(didAny) {
 			if(inv instanceof TileAltar)
-				player.worldObj.playSound(null, ((TileAltar) inv).getPos(), SoundEvents.ENTITY_GENERIC_SPLASH, SoundCategory.BLOCKS, 0.1F, 10F);
+				player.world.playSound(null, ((TileAltar) inv).getPos(), SoundEvents.ENTITY_GENERIC_SPLASH, SoundCategory.BLOCKS, 0.1F, 10F);
 			if(player instanceof EntityPlayerMP) {
 				EntityPlayerMP mp = (EntityPlayerMP) player;
 				mp.inventoryContainer.detectAndSendChanges();
@@ -226,7 +226,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 	}
 
 	private void craftingFanciness() {
-		worldObj.playSound(null, pos, BotaniaSoundEvents.altarCraft, SoundCategory.BLOCKS, 1F, 1F);
+		world.playSound(null, pos, BotaniaSoundEvents.altarCraft, SoundCategory.BLOCKS, 1F, 1F);
 		for(int i = 0; i < 25; i++) {
 			float red = (float) Math.random();
 			float green = (float) Math.random();
@@ -245,14 +245,14 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 
 	@Override
 	public void update() {
-		List<EntityItem> items = worldObj.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(pos.add(0, 1D / 16D * 20D, 0), pos.add(1, 1D / 16D * 32D, 1)));
+		List<EntityItem> items = world.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(pos.add(0, 1D / 16D * 20D, 0), pos.add(1, 1D / 16D * 32D, 1)));
 
 		boolean didChange = false;
 		for(EntityItem item : items)
 			didChange = collideEntityItem(item) || didChange;
 
 		if(didChange)
-			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, pos);
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, pos);
 
 		for(int i = 0; i < getSizeInventory(); i++) {
 			ItemStack stackAt = itemHandler.getStackInSlot(i);
@@ -265,16 +265,16 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 				float green = color.getGreen() / 255F;
 				float blue = color.getBlue() / 255F;
 				if(Math.random() >= 0.75F)
-					worldObj.playSound(null, pos, SoundEvents.ENTITY_GENERIC_SPLASH, SoundCategory.BLOCKS, 0.1F, 10F);
+					world.playSound(null, pos, SoundEvents.ENTITY_GENERIC_SPLASH, SoundCategory.BLOCKS, 0.1F, 10F);
 				Botania.proxy.sparkleFX(pos.getX() + 0.5 + Math.random() * 0.4 - 0.2, pos.getY() + 1, pos.getZ() + 0.5 + Math.random() * 0.4 - 0.2, red, green, blue, (float) Math.random(), 10);
 			}
 		}
 
 		if(hasLava()) {
 			isMossy = false;
-			worldObj.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, pos.getX() + 0.5 + Math.random() * 0.4 - 0.2, pos.getY() + 1, pos.getZ() + 0.5 + Math.random() * 0.4 - 0.2, 0, 0.05, 0);
+			world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, pos.getX() + 0.5 + Math.random() * 0.4 - 0.2, pos.getY() + 1, pos.getZ() + 0.5 + Math.random() * 0.4 - 0.2, 0, 0.05, 0);
 			if(Math.random() > 0.9)
-				worldObj.spawnParticle(EnumParticleTypes.LAVA, pos.getX() + 0.5 + Math.random() * 0.4 - 0.2, pos.getY() + 1, pos.getZ() + 0.5 + Math.random() * 0.4 - 0.2, 0, 0.01, 0);
+				world.spawnParticle(EnumParticleTypes.LAVA, pos.getX() + 0.5 + Math.random() * 0.4 - 0.2, pos.getY() + 1, pos.getZ() + 0.5 + Math.random() * 0.4 - 0.2, 0, 0.01, 0);
 		}
 
 		if(recipeKeepTicks > 0)
@@ -318,12 +318,12 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 	@Override
 	public void setWater(boolean water) {
 		hasWater = water;
-		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, pos);
+		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, pos);
 	}
 
 	public void setLava(boolean lava) {
 		hasLava = lava;
-		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, pos);
+		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, pos);
 	}
 
 	@Override

@@ -114,8 +114,8 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 			float z = (float) (entity.posZ + Math.random());
 			Botania.proxy.wispFX(x, y, z, (float) Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random(), -0.3F + (float) Math.random() * 0.2F);
 		}
-		if(!entity.worldObj.isRemote)
-			entity.worldObj.playSound(null, entity.posX, entity.posY, entity.posZ, SoundEvents.ENTITY_ENDERMEN_TELEPORT, SoundCategory.PLAYERS, 1F, 1F);
+		if(!entity.world.isRemote)
+			entity.world.playSound(null, entity.posX, entity.posY, entity.posZ, SoundEvents.ENTITY_ENDERMEN_TELEPORT, SoundCategory.PLAYERS, 1F, 1F);
 	}
 
 	@Override

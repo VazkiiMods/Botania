@@ -67,7 +67,7 @@ public class ItemItemFinder extends ItemBauble implements IBaubleRender {
 		if(!(player instanceof EntityPlayer))
 			return;
 
-		if(player.worldObj.isRemote)
+		if(player.world.isRemote)
 			tickClient(stack, (EntityPlayer) player);
 		else tickServer(stack, (EntityPlayer) player);
 	}
@@ -86,7 +86,7 @@ public class ItemItemFinder extends ItemBauble implements IBaubleRender {
 
 		int[] entities = ItemNBTHelper.getIntArray(stack, TAG_ENTITY_POSITIONS);
 		for(int i : entities) {
-			Entity e =  player.worldObj.getEntityByID(i);
+			Entity e =  player.world.getEntityByID(i);
 			if(e != null && Math.random() < 0.6) {
 				Botania.proxy.setWispFXDepthTest(Math.random() < 0.6);
 				Botania.proxy.wispFX(e.posX + (float) (Math.random() * 0.5 - 0.25) * 0.45F, e.posY + e.height, e.posZ + (float) (Math.random() * 0.5 - 0.25) * 0.45F, (float) Math.random(), (float) Math.random(), (float) Math.random(), 0.15F + 0.05F * (float) Math.random(), -0.05F - 0.03F * (float) Math.random());
@@ -123,7 +123,7 @@ public class ItemItemFinder extends ItemBauble implements IBaubleRender {
 		if(pstack != null || player.isSneaking()) {
 			int range = 24;
 
-			List<Entity> entities = player.worldObj.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(player.posX - range, player.posY - range, player.posZ - range, player.posX + range, player.posY + range, player.posZ + range));
+			List<Entity> entities = player.world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(player.posX - range, player.posY - range, player.posZ - range, player.posX + range, player.posY + range, player.posZ + range));
 			for(Entity e : entities) {
 				if(e == player)
 					continue;
@@ -166,7 +166,7 @@ public class ItemItemFinder extends ItemBauble implements IBaubleRender {
 				range = 12;
 				BlockPos pos = new BlockPos(player);
 				for(BlockPos pos_ : BlockPos.getAllInBoxMutable(pos.add(-range, -range, -range), pos.add(range + 1, range + 1, range + 1))) {
-					TileEntity tile = player.worldObj.getTileEntity(pos_);
+					TileEntity tile = player.world.getTileEntity(pos_);
 					if(tile != null) {
 						boolean foundCap = false;
 						for(EnumFacing e : EnumFacing.VALUES) {

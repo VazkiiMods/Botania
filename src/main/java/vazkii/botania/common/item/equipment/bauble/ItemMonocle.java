@@ -71,9 +71,9 @@ public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, ICosm
 		RayTraceResult pos = mc.objectMouseOver;
 		if(pos == null || pos.getBlockPos() == null)
 			return;
-		IBlockState state = player.worldObj.getBlockState(pos.getBlockPos());
+		IBlockState state = player.world.getBlockState(pos.getBlockPos());
 		Block block = state.getBlock();
-		player.worldObj.getTileEntity(pos.getBlockPos());
+		player.world.getTileEntity(pos.getBlockPos());
 
 		ItemStack dispStack = null;
 		String text = "";

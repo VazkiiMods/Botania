@@ -93,7 +93,7 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 
 	@Override
 	public boolean onBlockStartBreak(ItemStack stack, BlockPos pos, EntityPlayer player) {
-		RayTraceResult raycast = ToolCommons.raytraceFromEntity(player.worldObj, player, true, 10);
+		RayTraceResult raycast = ToolCommons.raytraceFromEntity(player.world, player, true, 10);
 		if(raycast != null) {
 			breakOtherBlock(player, stack, pos, pos, raycast.sideHit);
 			ItemLokiRing.breakOnAllCursors(player, this, stack, pos, raycast.sideHit);
@@ -110,7 +110,7 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 	@Override
 	public void breakOtherBlock(EntityPlayer player, ItemStack stack, BlockPos pos, BlockPos originPos, EnumFacing side) {
 		if(shouldBreak(player)) {
-			addBlockSwapper(player.worldObj, player, stack, pos, 32, true);
+			addBlockSwapper(player.world, player, stack, pos, 32, true);
 		}
 	}
 

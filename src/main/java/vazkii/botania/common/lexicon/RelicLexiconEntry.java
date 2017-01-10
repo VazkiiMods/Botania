@@ -33,7 +33,7 @@ public class RelicLexiconEntry extends BasicLexiconEntry {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public boolean isVisible() {
-		EntityPlayerSP player = Minecraft.getMinecraft().thePlayer;
+		EntityPlayerSP player = Minecraft.getMinecraft().player;
 		return a == null || player.capabilities.isCreativeMode || player.getStatFileWriter().hasAchievementUnlocked(a);
 	}
 

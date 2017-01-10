@@ -52,8 +52,8 @@ public class TileAnimatedTorch extends TileMod {
 
 	@Override
 	public void onLoad() {
-		if(!worldObj.isRemote)
-			nextRandomRotation = worldObj.rand.nextInt(4);
+		if(!world.isRemote)
+			nextRandomRotation = world.rand.nextInt(4);
 	}
 
 	public void handRotate() {
@@ -63,8 +63,8 @@ public class TileAnimatedTorch extends TileMod {
 	public void toggle() {
 		rotateTo(torchMode.modeSwitcher.rotate(this, side));
 
-		if(!worldObj.isRemote) {
-			nextRandomRotation = worldObj.rand.nextInt(4);
+		if(!world.isRemote) {
+			nextRandomRotation = world.rand.nextInt(4);
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 		}
 	}
@@ -96,7 +96,7 @@ public class TileAnimatedTorch extends TileMod {
 		this.side = side;
 		rotating = true;
 
-		worldObj.notifyNeighborsOfStateChange(getPos(), getBlockType());
+		world.notifyNeighborsOfStateChange(getPos(), getBlockType());
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -117,7 +117,7 @@ public class TileAnimatedTorch extends TileMod {
 
 			if(rotationTicks <= 0) {
 				rotating = false;
-				worldObj.notifyNeighborsOfStateChange(getPos(), getBlockType());
+				world.notifyNeighborsOfStateChange(getPos(), getBlockType());
 			}
 
 		} else rotation = side * 90;
@@ -128,7 +128,7 @@ public class TileAnimatedTorch extends TileMod {
 		double z = getPos().getZ() + 0.5 + Math.sin((rotation + 90) / 180.0 * Math.PI) * 0.35;
 
 		for(int i = 0; i < amt; i++)
-			worldObj.spawnParticle(EnumParticleTypes.REDSTONE, x, y, z, 0.0D, 0.0D, 0.0D, new int[0]);
+			world.spawnParticle(EnumParticleTypes.REDSTONE, x, y, z, 0.0D, 0.0D, 0.0D, new int[0]);
 	}
 
 	@Override
@@ -145,7 +145,7 @@ public class TileAnimatedTorch extends TileMod {
 	public void readPacketNBT(NBTTagCompound cmp) {
 		side = cmp.getInteger(TAG_SIDE);
 		rotating = cmp.getBoolean(TAG_ROTATING);
-		if(worldObj != null && !worldObj.isRemote)
+		if(world != null && !world.isRemote)
 			rotationTicks = cmp.getInteger(TAG_ROTATION_TICKS);
 		anglePerTick = cmp.getDouble(TAG_ANGLE_PER_TICK);
 		nextRandomRotation = cmp.getInteger(TAG_NEXT_RANDOM_ROTATION);

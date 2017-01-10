@@ -49,7 +49,7 @@ public class LightningHandler {
 		profiler.endStartSection("lightning");
 
 		float frame = event.getPartialTicks();
-		Entity entity = Minecraft.getMinecraft().thePlayer;
+		Entity entity = Minecraft.getMinecraft().player;
 		TextureManager render = Minecraft.getMinecraft().renderEngine;
 
 		double interpPosX = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * frame;

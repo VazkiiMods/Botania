@@ -143,9 +143,9 @@ public class ItemFlowerBag extends ItemMod {
 					if(result != entityStack) {
 						event.setCanceled(true);
 						if (!event.getItem().isSilent()) {
-							event.getItem().worldObj.playSound(null, event.getEntityPlayer().posX, event.getEntityPlayer().posY, event.getEntityPlayer().posZ,
+							event.getItem().world.playSound(null, event.getEntityPlayer().posX, event.getEntityPlayer().posY, event.getEntityPlayer().posZ,
 									SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.PLAYERS, 0.2F,
-									((event.getItem().worldObj.rand.nextFloat() - event.getItem().worldObj.rand.nextFloat()) * 0.7F + 1.0F) * 2.0F);
+									((event.getItem().world.rand.nextFloat() - event.getItem().world.rand.nextFloat()) * 0.7F + 1.0F) * 2.0F);
 						}
 						((EntityPlayerMP) event.getEntityPlayer()).connection.sendPacket(new SPacketCollectItem(event.getItem().getEntityId(), event.getEntityPlayer().getEntityId()));
 						event.getEntityPlayer().openContainer.detectAndSendChanges();

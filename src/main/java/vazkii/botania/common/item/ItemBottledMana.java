@@ -63,23 +63,23 @@ public class ItemBottledMana extends ItemMod {
 			break;
 		}
 		case 1 : { // Water
-			if(!living.worldObj.isRemote && !living.worldObj.provider.doesWaterVaporize())
-				living.worldObj.setBlockState(new BlockPos(living), Blocks.FLOWING_WATER.getDefaultState());
+			if(!living.world.isRemote && !living.world.provider.doesWaterVaporize())
+				living.world.setBlockState(new BlockPos(living), Blocks.FLOWING_WATER.getDefaultState());
 			break;
 		}
 		case 2 : { // Set on Fire
-			if(!living.worldObj.isRemote)
+			if(!living.world.isRemote)
 				living.setFire(4);
 			break;
 		}
 		case 3 : { // Mini Explosion
-			if(!living.worldObj.isRemote)
-				living.worldObj.createExplosion(null, living.posX, living.posY, living.posZ, 0.25F, false);
+			if(!living.world.isRemote)
+				living.world.createExplosion(null, living.posX, living.posY, living.posZ, 0.25F, false);
 			break;
 		}
 		case 4 : { // Mega Jump
-			if(!living.worldObj.provider.doesWaterVaporize()) {
-				if(!living.worldObj.isRemote)
+			if(!living.world.provider.doesWaterVaporize()) {
+				if(!living.world.isRemote)
 					living.addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, 300, 5));
 				living.motionY = 6;
 			}
@@ -87,17 +87,17 @@ public class ItemBottledMana extends ItemMod {
 			break;
 		}
 		case 5 : { // Randomly set HP
-			if(!living.worldObj.isRemote)
-				living.setHealth(living.worldObj.rand.nextInt(19) + 1);
+			if(!living.world.isRemote)
+				living.setHealth(living.world.rand.nextInt(19) + 1);
 			break;
 		}
 		case 6 : { // Lots O' Hearts
-			if(!living.worldObj.isRemote)
+			if(!living.world.isRemote)
 				living.addPotionEffect(new PotionEffect(MobEffects.ABSORPTION, 20 * 60 * 2, 9));
 			break;
 		}
 		case 7 : { // All your inventory is belong to us
-			if(!living.worldObj.isRemote && living instanceof EntityPlayer) {
+			if(!living.world.isRemote && living instanceof EntityPlayer) {
 				EntityPlayer player = (EntityPlayer) living;
 				for(int i = 0; i < player.inventory.getSizeInventory(); i++) {
 					ItemStack stackAt = player.inventory.getStackInSlot(i);
@@ -118,12 +118,12 @@ public class ItemBottledMana extends ItemMod {
 			break;
 		}
 		case 9 : { // Highest Possible
-			int x = MathHelper.floor_double(living.posX);
-			MathHelper.floor_double(living.posY);
-			int z = MathHelper.floor_double(living.posZ);
+			int x = MathHelper.floor(living.posX);
+			MathHelper.floor(living.posY);
+			int z = MathHelper.floor(living.posZ);
 			for(int i = 256; i > 0; i--) {
-				Block block = living.worldObj.getBlockState(new BlockPos(x, i, z)).getBlock();
-				if(!block.isAir(living.worldObj.getBlockState(new BlockPos(x, i, z)), living.worldObj, new BlockPos(x, i, z))) {
+				Block block = living.world.getBlockState(new BlockPos(x, i, z)).getBlock();
+				if(!block.isAir(living.world.getBlockState(new BlockPos(x, i, z)), living.world, new BlockPos(x, i, z))) {
 					if(living instanceof EntityPlayerMP) {
 						EntityPlayerMP mp = (EntityPlayerMP) living;
 						mp.connection.setPlayerLocation(living.posX, i + 1.6, living.posZ, living.rotationYaw, living.rotationPitch);
@@ -135,26 +135,26 @@ public class ItemBottledMana extends ItemMod {
 			break;
 		}
 		case 10 : { // HYPERSPEEEEEED
-			if(!living.worldObj.isRemote)
+			if(!living.world.isRemote)
 				living.addPotionEffect(new PotionEffect(MobEffects.SPEED, 60, 200));
 			break;
 		}
 		case 11 : { // Night Vision
-			if(!living.worldObj.isRemote)
+			if(!living.world.isRemote)
 				living.addPotionEffect(new PotionEffect(MobEffects.NIGHT_VISION, 6000, 0));
 			break;
 		}
 		case 12 : { // Flare
-			if(!living.worldObj.isRemote) {
-				EntitySignalFlare flare = new EntitySignalFlare(living.worldObj);
+			if(!living.world.isRemote) {
+				EntitySignalFlare flare = new EntitySignalFlare(living.world);
 				flare.setPosition(living.posX, living.posY, living.posZ);
-				flare.setColor(living.worldObj.rand.nextInt(16));
-				flare.playSound(SoundEvents.ENTITY_GENERIC_EXPLODE, 40F, (1.0F + (living.worldObj.rand.nextFloat() - living.worldObj.rand.nextFloat()) * 0.2F) * 0.7F);
+				flare.setColor(living.world.rand.nextInt(16));
+				flare.playSound(SoundEvents.ENTITY_GENERIC_EXPLODE, 40F, (1.0F + (living.world.rand.nextFloat() - living.world.rand.nextFloat()) * 0.2F) * 0.7F);
 
-				living.worldObj.spawnEntityInWorld(flare);
+				living.world.spawnEntity(flare);
 
 				int range = 5;
-				List<EntityLivingBase> entities = living.worldObj.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(living.posX - range, living.posY - range, living.posZ - range, living.posX + range, living.posY + range, living.posZ + range));
+				List<EntityLivingBase> entities = living.world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(living.posX - range, living.posY - range, living.posZ - range, living.posX + range, living.posY + range, living.posZ + range));
 				for(EntityLivingBase entity : entities)
 					if(entity != living && (!(entity instanceof EntityPlayer) || FMLCommonHandler.instance().getMinecraftServerInstance() == null || FMLCommonHandler.instance().getMinecraftServerInstance().isPVPEnabled()))
 						entity.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 50, 5));
@@ -163,15 +163,15 @@ public class ItemBottledMana extends ItemMod {
 			break;
 		}
 		case 13 : { // Pixie Friend
-			if(!living.worldObj.isRemote) {
-				EntityPixie pixie = new EntityPixie(living.worldObj);
+			if(!living.world.isRemote) {
+				EntityPixie pixie = new EntityPixie(living.world);
 				pixie.setPosition(living.posX, living.posY + 1.5, living.posZ);
-				living.worldObj.spawnEntityInWorld(pixie);
+				living.world.spawnEntity(pixie);
 			}
 			break;
 		}
 		case 14 : { // Nausea + Blindness :3
-			if(!living.worldObj.isRemote) {
+			if(!living.world.isRemote) {
 				living.addPotionEffect(new PotionEffect(MobEffects.NAUSEA, 160, 3));
 				living.addPotionEffect(new PotionEffect(MobEffects.BLINDNESS, 160, 0));
 			}
@@ -179,7 +179,7 @@ public class ItemBottledMana extends ItemMod {
 			break;
 		}
 		case 15 : { // Drop own Head
-			if(!living.worldObj.isRemote && living instanceof EntityPlayer) {
+			if(!living.world.isRemote && living instanceof EntityPlayer) {
 				living.attackEntityFrom(DamageSource.magic, living.getHealth() - 1);
 				ItemStack skull = new ItemStack(Items.SKULL, 1, 3);
 				ItemNBTHelper.setString(skull, "SkullOwner", living.getName());

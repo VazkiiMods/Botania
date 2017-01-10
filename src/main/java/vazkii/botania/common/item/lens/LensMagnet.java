@@ -33,8 +33,8 @@ public class LensMagnet extends Lens {
 
 		magnetize : {
 			for (BlockPos pos : BlockPos.getAllInBox(basePos.add(-range, -range, -range), basePos.add(range, range, range))) {
-				if(entity.worldObj.getTileEntity(pos) instanceof IManaReceiver) {
-					TileEntity tile = entity.worldObj.getTileEntity(pos);
+				if(entity.world.getTileEntity(pos) instanceof IManaReceiver) {
+					TileEntity tile = entity.world.getTileEntity(pos);
 
 					if(magnetized) {
 						int magX = entity.getEntityData().getInteger(TAG_MAGNETIZED_X);

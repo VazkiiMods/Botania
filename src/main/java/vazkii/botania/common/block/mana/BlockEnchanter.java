@@ -147,7 +147,7 @@ public class BlockEnchanter extends BlockMod implements IWandable, ILexiconable,
 			float f1 = random.nextFloat() * 0.8F + 0.1F;
 			EntityItem entityitem;
 
-			for (float f2 = random.nextFloat() * 0.8F + 0.1F; itemstack.stackSize > 0; world.spawnEntityInWorld(entityitem)) {
+			for (float f2 = random.nextFloat() * 0.8F + 0.1F; itemstack.stackSize > 0; world.spawnEntity(entityitem)) {
 				int k1 = random.nextInt(21) + 10;
 
 				if (k1 > itemstack.stackSize)

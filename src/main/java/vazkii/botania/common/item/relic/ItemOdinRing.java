@@ -103,7 +103,7 @@ public class ItemOdinRing extends ItemRelicBauble {
 		if(stack == null) // workaround for Azanor/Baubles#156
 			return;
 		
-		attributes.put(SharedMonsterAttributes.MAX_HEALTH.getAttributeUnlocalizedName(), new AttributeModifier(getBaubleUUID(stack), "Bauble modifier", 20, 0));
+		attributes.put(SharedMonsterAttributes.MAX_HEALTH.getName(), new AttributeModifier(getBaubleUUID(stack), "Bauble modifier", 20, 0));
 	}
 
 }

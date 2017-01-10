@@ -26,15 +26,15 @@ public class LensRedirect extends Lens {
 	@Override
 	public boolean collideBurst(IManaBurst burst, EntityThrowable entity, RayTraceResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
 		BlockPos coords = burst.getBurstSourceBlockPos();
-		if(!entity.worldObj.isRemote && pos.entityHit == null && coords.getY() != -1 && (pos.getBlockPos() == null || !pos.getBlockPos().equals(coords))) {
-			TileEntity tile = entity.worldObj.getTileEntity(pos.getBlockPos());
+		if(!entity.world.isRemote && pos.entityHit == null && coords.getY() != -1 && (pos.getBlockPos() == null || !pos.getBlockPos().equals(coords))) {
+			TileEntity tile = entity.world.getTileEntity(pos.getBlockPos());
 			if(tile != null && tile instanceof IDirectioned) {
 				if(!burst.isFake()) {
 					IDirectioned redir = (IDirectioned) tile;
 					Vector3 tileVec = Vector3.fromTileEntityCenter(tile);
 					Vector3 sourceVec = new Vector3(coords.getX() + 0.5, coords.getY() + 0.5, coords.getZ() + 0.5);
 
-					AxisAlignedBB axis = entity.worldObj.getBlockState(coords).getCollisionBoundingBox(entity.worldObj, coords).offset(coords);
+					AxisAlignedBB axis = entity.world.getBlockState(coords).getCollisionBoundingBox(entity.world, coords).offset(coords);
 					if(axis == null)
 						axis = new AxisAlignedBB(coords, coords.add(1, 1, 1));
 

@@ -38,7 +38,7 @@ public class BlockFakeAir extends BlockMod {
 	private static final AxisAlignedBB AABB = new AxisAlignedBB(0, 0, 0, 0, 0, 0);
 
 	public BlockFakeAir() {
-		super(Material.field_189963_J, LibBlockNames.FAKE_AIR);
+		super(Material.STRUCTURE_VOID, LibBlockNames.FAKE_AIR);
 		setTickRandomly(true);
 	}
 

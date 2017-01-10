@@ -53,7 +53,7 @@ public class ItemDodgeRing extends ItemBauble {
 	public void onKeyDown(KeyInputEvent event) {
 		Minecraft mc = Minecraft.getMinecraft();
 
-		IInventory baublesInv = BaublesApi.getBaubles(mc.thePlayer);
+		IInventory baublesInv = BaublesApi.getBaubles(mc.player);
 		ItemStack ringStack = baublesInv.getStackInSlot(1);
 		if(ringStack == null || !(ringStack.getItem() instanceof ItemDodgeRing)) {
 			ringStack = baublesInv.getStackInSlot(2);
@@ -70,13 +70,13 @@ public class ItemDodgeRing extends ItemBauble {
 			leftDown = ClientTickHandler.ticksInGame;
 
 			if(leftDown - oldLeft < threshold)
-				dodge(mc.thePlayer, true);
+				dodge(mc.player, true);
 		} else if(mc.gameSettings.keyBindRight.isKeyDown()) {
 			int oldRight = rightDown;
 			rightDown = ClientTickHandler.ticksInGame;
 
 			if(rightDown - oldRight < threshold)
-				dodge(mc.thePlayer, false);
+				dodge(mc.player, false);
 		}
 	}
 

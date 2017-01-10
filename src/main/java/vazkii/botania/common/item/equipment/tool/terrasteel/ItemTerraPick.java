@@ -139,8 +139,8 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 
 	@Override
 	public boolean onBlockStartBreak(ItemStack stack, BlockPos pos, EntityPlayer player) {
-		RayTraceResult raycast = ToolCommons.raytraceFromEntity(player.worldObj, player, true, 10);
-		if(!player.worldObj.isRemote && raycast != null) {
+		RayTraceResult raycast = ToolCommons.raytraceFromEntity(player.world, player, true, 10);
+		if(!player.world.isRemote && raycast != null) {
 			breakOtherBlock(player, stack, pos, pos, raycast.sideHit);
 			ItemLokiRing.breakOnAllCursors(player, this, stack, pos, raycast.sideHit);
 			// ^ Doable with API access through the IInternalMethodHandler.
@@ -159,7 +159,7 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 		if(!isEnabled(stack))
 			return;
 
-		World world = player.worldObj;
+		World world = player.world;
 		Material mat = world.getBlockState(pos).getMaterial();
 		if(!ToolCommons.isRightMaterial(mat, MATERIALS))
 			return;

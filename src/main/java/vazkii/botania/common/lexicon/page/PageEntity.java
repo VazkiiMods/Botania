@@ -52,7 +52,7 @@ public class PageEntity extends LexiconPage{
 		int text_y = gui.getTop() + gui.getHeight() - 40;
 		int entity_scale = getEntityScale(size);
 		int entity_x = gui.getLeft() + gui.getWidth() / 2;
-		int entity_y = gui.getTop() + gui.getHeight() / 2 + MathHelper.floor_float(dummyEntity.height * entity_scale / 2);
+		int entity_y = gui.getTop() + gui.getHeight() / 2 + MathHelper.floor(dummyEntity.height * entity_scale / 2);
 
 		renderEntity(gui, dummyEntity, entity_x, entity_y, entity_scale, dummyEntity.ticksExisted * 2);
 
@@ -66,7 +66,7 @@ public class PageEntity extends LexiconPage{
 		if(dummyEntity.width < dummyEntity.height)
 			entity_size = dummyEntity.height;
 
-		return MathHelper.floor_float(size / entity_size);
+		return MathHelper.floor(size / entity_size);
 
 	}
 
@@ -78,7 +78,7 @@ public class PageEntity extends LexiconPage{
 
 	@SideOnly(Side.CLIENT)
 	public void renderEntity(IGuiLexiconEntry gui, Entity entity, int x, int y, int scale, float rotation) {
-		dummyEntity.worldObj = Minecraft.getMinecraft() != null ? Minecraft.getMinecraft().theWorld : null;
+		dummyEntity.world = Minecraft.getMinecraft() != null ? Minecraft.getMinecraft().world : null;
 
 		GlStateManager.enableColorMaterial();
 		GlStateManager.pushMatrix();
@@ -103,7 +103,7 @@ public class PageEntity extends LexiconPage{
 	public void prepDummy() {
 		if(dummyEntity == null || dummyEntity.isDead) {
 			try {
-				dummyEntity = (Entity) entityConstructor.newInstance(Minecraft.getMinecraft().theWorld);
+				dummyEntity = (Entity) entityConstructor.newInstance(Minecraft.getMinecraft().world);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

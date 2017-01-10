@@ -78,7 +78,7 @@ public class CorporeaAutoCompleteHandler {
 		}
 		GuiChat chat = (GuiChat) screen;
 		if(isAutoCompleted) {
-			boolean valid = ReflectionHelper.getPrivateValue(GuiChat.class, chat, LibObfuscation.COMPLETE_FLAG);
+			boolean valid = false;//ReflectionHelper.getPrivateValue(GuiChat.class, chat, LibObfuscation.COMPLETE_FLAG);
 			if(!valid)
 				isAutoCompleted = false;
 		}
@@ -122,7 +122,7 @@ public class CorporeaAutoCompleteHandler {
 		if(completions.isEmpty())
 			return;
 		position = -1;
-		ReflectionHelper.setPrivateValue(GuiChat.class, chat, true, LibObfuscation.COMPLETE_FLAG);
+		//ReflectionHelper.setPrivateValue(GuiChat.class, chat, true, LibObfuscation.COMPLETE_FLAG);
 		StringBuilder stringbuilder = new StringBuilder();
 		CompletionData data;
 		for(Iterator<CompletionData> iterator = completions.iterator(); iterator.hasNext(); stringbuilder.append(data.string)) {

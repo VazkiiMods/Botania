@@ -37,11 +37,11 @@ public class ItemElementiumAxe extends ItemManasteelAxe {
 		if(event.isRecentlyHit() && event.getSource().getEntity() != null && event.getSource().getEntity() instanceof EntityPlayer) {
 			ItemStack weapon = ((EntityPlayer) event.getSource().getEntity()).getHeldItemMainhand();
 			if(weapon != null && weapon.getItem() == this) {
-				Random rand = event.getEntityLiving().worldObj.rand;
+				Random rand = event.getEntityLiving().world.rand;
 				int looting = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, weapon);
 
 				if(event.getEntityLiving() instanceof EntitySkeleton && rand.nextInt(26) <= 3 + looting)
-					addDrop(event, new ItemStack(Items.SKULL, 1, ((EntitySkeleton) event.getEntityLiving()).func_189771_df().ordinal()));
+					addDrop(event, new ItemStack(Items.SKULL, 1, ((EntitySkeleton) event.getEntityLiving()).getSkeletonType().ordinal()));
 				else if(event.getEntityLiving() instanceof EntityZombie && !(event.getEntityLiving() instanceof EntityPigZombie) && rand.nextInt(26) <= 2 + 2 * looting)
 					addDrop(event, new ItemStack(Items.SKULL, 1, 2));
 				else if(event.getEntityLiving() instanceof EntityCreeper && rand.nextInt(26) <= 2 + 2 * looting)
@@ -57,7 +57,7 @@ public class ItemElementiumAxe extends ItemManasteelAxe {
 	}
 
 	private void addDrop(LivingDropsEvent event, ItemStack drop) {
-		EntityItem entityitem = new EntityItem(event.getEntityLiving().worldObj, event.getEntityLiving().posX, event.getEntityLiving().posY, event.getEntityLiving().posZ, drop);
+		EntityItem entityitem = new EntityItem(event.getEntityLiving().world, event.getEntityLiving().posX, event.getEntityLiving().posY, event.getEntityLiving().posZ, drop);
 		entityitem.setPickupDelay(10);
 		event.getDrops().add(entityitem);
 	}
