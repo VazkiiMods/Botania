@@ -38,8 +38,8 @@ public class ItemCobbleRod extends ItemMod implements IManaUsingItem, IBlockProv
 
 	@Nonnull
 	@Override
-	public EnumActionResult onItemUse(ItemStack par1ItemStack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
-		return ItemDirtRod.place(par1ItemStack, player, world, pos, hand, side, par8, par9, par10, Blocks.COBBLESTONE, COST, 0.3F, 0.3F, 0.3F);
+	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
+		return ItemDirtRod.place(player, world, pos, hand, side, par8, par9, par10, Blocks.COBBLESTONE, COST, 0.3F, 0.3F, 0.3F);
 	}
 
 	@Override

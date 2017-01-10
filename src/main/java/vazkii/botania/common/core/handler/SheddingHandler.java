@@ -13,6 +13,7 @@ package vazkii.botania.common.core.handler;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.Objects;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
@@ -24,6 +25,8 @@ import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.registry.EntityEntry;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lexicon.page.PageShedding;
 
@@ -36,13 +39,13 @@ public final class SheddingHandler {
 
 	@SubscribeEvent
 	public static void onLivingUpdate(LivingUpdateEvent event) {
-		if(event.getEntityLiving().worldObj.isRemote)
+		if(event.getEntityLiving().world.isRemote)
 			return;
 
 		ShedPattern pattern = getShedPattern(event.getEntityLiving());
 
 		if(pattern != null) {
-			if(event.getEntityLiving().worldObj.rand.nextInt(pattern.getRate()) == 0)
+			if(event.getEntityLiving().world.rand.nextInt(pattern.getRate()) == 0)
 				event.getEntityLiving().entityDropItem(pattern.getItemStack(), 0.0F);
 		}
 	}
@@ -65,7 +68,7 @@ public final class SheddingHandler {
 
 		int i = 1;
 		for(ShedPattern pattern : patterns) {
-			PageShedding page = new PageShedding(String.valueOf(i), EntityList.CLASS_TO_NAME.get(pattern.EntityClass), pattern.lexiconSize, pattern.getItemStack());
+			PageShedding page = new PageShedding(String.valueOf(i), Objects.toString(EntityList.getKey(pattern.EntityClass)), pattern.lexiconSize, pattern.getItemStack());
 			LexiconData.shedding.addPage(page);
 		}
 	}
@@ -87,9 +90,9 @@ public final class SheddingHandler {
 			defaultNames.add(pattern.getEntityString());
 		}
 
-		for(Entry<String, Class<? extends Entity>> entry : EntityList.NAME_TO_CLASS.entrySet()) {
-			if(EntityLiving.class.isAssignableFrom(entry.getValue())) {
-				String name = entry.getKey();
+		for(Entry<ResourceLocation, EntityEntry> entry : ForgeRegistries.ENTITIES.getEntries()) {
+			if(EntityLiving.class.isAssignableFrom(entry.getValue().getEntityClass())) {
+				String name = entry.getKey().toString();
 				if(!defaultNames.contains(name))
 					loadFromConfig(config, name, null);
 			}
@@ -117,7 +120,7 @@ public final class SheddingHandler {
 		lexiconSize = config.get("Shedding", key + ".lexiconDisplaySize", lexiconSize).getInt();
 
 		if(itemName != null && Item.REGISTRY.getObject(new ResourceLocation(itemName)) != null && rate != -1)
-			patterns.add(new ShedPattern(EntityList.NAME_TO_CLASS.get(key), new ItemStack(Item.REGISTRY.getObject(new ResourceLocation(itemName)), 1, metadata), rate, lexiconSize));
+			patterns.add(new ShedPattern(EntityList.getClass(new ResourceLocation(key)), new ItemStack(Item.REGISTRY.getObject(new ResourceLocation(itemName)), 1, metadata), rate, lexiconSize));
 	}
 
 	private static class ShedPattern {
@@ -142,7 +145,7 @@ public final class SheddingHandler {
 		}
 
 		public String getEntityString() {
-			return EntityList.CLASS_TO_NAME.get(EntityClass);
+			return Objects.toString(EntityList.getKey(EntityClass));
 		}
 	}
 

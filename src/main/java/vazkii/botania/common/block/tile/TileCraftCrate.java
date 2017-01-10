@@ -83,12 +83,13 @@ public class TileCraftCrate extends TileOpenCrate {
 	protected SimpleItemStackHandler createItemHandler() {
 		return new SimpleItemStackHandler(this, true) {
 			@Override
-			protected int getStackLimit(int slot, ItemStack stack) {
+			protected int getStackLimit(int slot, @Nonnull ItemStack stack) {
 				return 1;
 			}
 
+			@Nonnull
 			@Override
-			public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
+			public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
 				if(slot != 9 && !isLocked(slot))
 					return super.insertItem(slot, stack, simulate);
 				else return stack;
@@ -102,7 +103,7 @@ public class TileCraftCrate extends TileOpenCrate {
 
 	@Override
 	public void update() {
-		if (worldObj.isRemote)
+		if (world.isRemote)
 			return;
 
 		if(craft(true) && canEject() || isFull())
@@ -110,12 +111,12 @@ public class TileCraftCrate extends TileOpenCrate {
 
 		int newSignal = 0;
 		for(; newSignal < 9; newSignal++) // dis for loop be derpy
-			if(!isLocked(newSignal) && itemHandler.getStackInSlot(newSignal) == null)
+			if(!isLocked(newSignal) && itemHandler.getStackInSlot(newSignal).isEmpty())
 				break;
 
 		if(newSignal != signal) {
 			signal = newSignal;
-			worldObj.updateComparatorOutputLevel(pos, worldObj.getBlockState(pos).getBlock());
+			world.updateComparatorOutputLevel(pos, world.getBlockState(pos).getBlock());
 		}
 	}
 
@@ -132,7 +133,7 @@ public class TileCraftCrate extends TileOpenCrate {
 		for(int i = 0; i < 9; i++) {
 			ItemStack stack = itemHandler.getStackInSlot(i);
 
-			if(stack == null || isLocked(i) || stack.getItem() == ModItems.manaResource && stack.getItemDamage() == 11)
+			if(stack.isEmpty() || isLocked(i) || stack.getItem() == ModItems.manaResource && stack.getItemDamage() == 11)
 				continue;
 
 			craft.setInventorySlotContents(i, stack.copy());
@@ -140,12 +141,12 @@ public class TileCraftCrate extends TileOpenCrate {
 
 		List<IRecipe> recipes = CraftingManager.getInstance().getRecipeList();
 		for(IRecipe recipe : recipes)
-			if(recipe.matches(craft, worldObj)) {
+			if(recipe.matches(craft, world)) {
 				itemHandler.setStackInSlot(9, recipe.getCraftingResult(craft));
 
 				for(int i = 0; i < 9; i++) {
 					ItemStack stack = itemHandler.getStackInSlot(i);
-					if(stack == null)
+					if(stack.isEmpty())
 						continue;
 
 					ItemStack container = stack.getItem().getContainerItem(stack);
@@ -159,7 +160,7 @@ public class TileCraftCrate extends TileOpenCrate {
 
 	boolean isFull() {
 		for(int i = 0; i < 9; i++)
-			if(!isLocked(i) && itemHandler.getStackInSlot(i) == null)
+			if(!isLocked(i) && itemHandler.getStackInSlot(i).isEmpty())
 				return false;
 
 		return true;
@@ -168,9 +169,9 @@ public class TileCraftCrate extends TileOpenCrate {
 	private void ejectAll() {
 		for(int i = 0; i < getSizeInventory(); ++i) {
 			ItemStack stack = itemHandler.getStackInSlot(i);
-			if(stack != null)
+			if(!stack.isEmpty())
 				eject(stack, false);
-			itemHandler.setStackInSlot(i, null);
+			itemHandler.setStackInSlot(i, ItemStack.EMPTY);
 		}
 		markDirty();
 	}
@@ -212,7 +213,7 @@ public class TileCraftCrate extends TileOpenCrate {
 		int lastPattern = pattern;
 		super.onDataPacket(manager, packet);
 		if(pattern != lastPattern)
-			worldObj.markBlockRangeForRenderUpdate(pos, pos);
+			world.markBlockRangeForRenderUpdate(pos, pos);
 	}
 
 }

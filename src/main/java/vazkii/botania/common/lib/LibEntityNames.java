@@ -10,6 +10,7 @@
  */
 package vazkii.botania.common.lib;
 
+import net.minecraft.util.ResourceLocation;
 import vazkii.botania.client.lib.LibResources;
 
 public final class LibEntityNames {
@@ -33,5 +34,29 @@ public final class LibEntityNames {
 	public static final String MANA_STORM = LibResources.PREFIX_MOD + "manaStorm";
 	public static final String BABYLON_WEAPON = LibResources.PREFIX_MOD + "babylonWeapon";
 	public static final String FALLING_STAR = LibResources.PREFIX_MOD + "fallingStar";
+
+	public static final ResourceLocation MANA_BURST_REGISTRY = makeName("mana_burst");
+	public static final ResourceLocation SIGNAL_FLARE_REGISTRY = makeName("signal_flare");
+	public static final ResourceLocation PIXIE_REGISTRY = makeName("pixie");
+	public static final ResourceLocation FLAME_RING_REGISTRY = makeName("flame_ring");
+	public static final ResourceLocation VINE_BALL_REGISTRY = makeName("vine_ball");
+	public static final ResourceLocation DOPPLEGANGER_REGISTRY = makeName("doppleganger");
+	public static final ResourceLocation MAGIC_LANDMINE_REGISTRY = makeName("magic_landmine");
+	public static final ResourceLocation SPARK_REGISTRY = makeName("spark");
+	public static final ResourceLocation THROWN_ITEM_REGISTRY = makeName("thrown_item");
+	public static final ResourceLocation MAGIC_MISSILE_REGISTRY = makeName("magic_missile");
+	public static final ResourceLocation THORN_CHAKRAM_REGISTRY = makeName("thorn_chakram");
+	public static final ResourceLocation CORPOREA_SPARK_REGISTRY = makeName("corporea_spark");
+	public static final ResourceLocation ENDER_AIR_BOTTLE_REGISTRY = makeName("ender_air_bottle");
+	public static final ResourceLocation POOL_MINECART_REGISTRY = makeName("pool_minecart");
+	public static final ResourceLocation PINK_WITHER_REGISTRY = makeName("pink_wither");
+	public static final ResourceLocation PLAYER_MOVER_REGISTRY = makeName("player_mover");
+	public static final ResourceLocation MANA_STORM_REGISTRY = makeName("mana_storm");
+	public static final ResourceLocation BABYLON_WEAPON_REGISTRY = makeName("babylon_weapon");
+	public static final ResourceLocation FALLING_STAR_REGISTRY = makeName("falling_star");
+	
+	private static ResourceLocation makeName(String s) {
+		return new ResourceLocation(LibMisc.MOD_ID, s);
+	}
 
 }

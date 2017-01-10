@@ -39,14 +39,14 @@ public class EntityEnderAirBottle extends EntityThrowable {
 
 	@Override
 	protected void onImpact(@Nonnull RayTraceResult pos) {
-		if(pos.getBlockPos() != null && !worldObj.isRemote) {
+		if(pos.getBlockPos() != null && !world.isRemote) {
 			List<BlockPos> coordsList = getCoordsToPut(pos.getBlockPos());
-			worldObj.playEvent(2002, new BlockPos(this), 8);
+			world.playEvent(2002, new BlockPos(this), 8);
 
 			for(BlockPos coords : coordsList) {
-				worldObj.setBlockState(coords, Blocks.END_STONE.getDefaultState());
+				world.setBlockState(coords, Blocks.END_STONE.getDefaultState());
 				if(Math.random() < 0.1)
-					worldObj.playEvent(2001, coords, Block.getStateId(Blocks.END_STONE.getDefaultState()));
+					world.playEvent(2001, coords, Block.getStateId(Blocks.END_STONE.getDefaultState()));
 			}
 			setDead();
 		}
@@ -58,9 +58,9 @@ public class EntityEnderAirBottle extends EntityThrowable {
 		int rangeY = 4;
 
 		for (BlockPos bPos : BlockPos.getAllInBox(pos.add(-range, -rangeY, -range), pos.add(range, rangeY, range))) {
-			IBlockState state = worldObj.getBlockState(bPos);
+			IBlockState state = world.getBlockState(bPos);
 			Block block = state.getBlock();
-			if(block.isReplaceableOreGen(state, worldObj, bPos, BlockStateMatcher.forBlock(Blocks.STONE)))
+			if(block.isReplaceableOreGen(state, world, bPos, BlockStateMatcher.forBlock(Blocks.STONE)))
 				possibleCoords.add(bPos);
 		}
 

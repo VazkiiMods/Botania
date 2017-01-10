@@ -20,6 +20,7 @@ import java.util.stream.Collectors;
 
 import javax.annotation.Nonnull;
 
+import net.minecraft.entity.monster.EntityWitherSkeleton;
 import org.lwjgl.opengl.ARBShaderObjects;
 
 import com.google.common.base.Optional;
@@ -39,7 +40,6 @@ import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.monster.EntityWitch;
 import net.minecraft.entity.monster.EntityZombie;
-import net.minecraft.entity.monster.SkeletonType;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
@@ -175,7 +175,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 		if(world.getTileEntity(pos) instanceof TileEntityBeacon && isTruePlayer(player)) {
 			if(world.getDifficulty() == EnumDifficulty.PEACEFUL) {
 				if(!world.isRemote)
-					player.addChatMessage(new TextComponentTranslation("botaniamisc.peacefulNoob").setStyle(new Style().setColor(TextFormatting.RED)));
+					player.sendMessage(new TextComponentTranslation("botaniamisc.peacefulNoob").setStyle(new Style().setColor(TextFormatting.RED)));
 				return false;
 			}
 
@@ -186,7 +186,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 				Block blockat = state.getBlock();
 				if(blockat != ModBlocks.pylon || state.getValue(BotaniaStateProps.PYLON_VARIANT) != PylonVariant.GAIA) {
 					if(!world.isRemote)
-						player.addChatMessage(new TextComponentTranslation("botaniamisc.needsCatalysts").setStyle(new Style().setColor(TextFormatting.RED)));
+						player.sendMessage(new TextComponentTranslation("botaniamisc.needsCatalysts").setStyle(new Style().setColor(TextFormatting.RED)));
 					return false;
 				}
 			}
@@ -196,7 +196,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 					PacketHandler.sendTo((EntityPlayerMP) player,
 							new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.ARENA_INDICATOR, pos.getX(), pos.getY(), pos.getZ()));
 
-					player.addChatMessage(new TextComponentTranslation("botaniamisc.badArena").setStyle(new Style().setColor(TextFormatting.RED)));
+					player.sendMessage(new TextComponentTranslation("botaniamisc.badArena").setStyle(new Style().setColor(TextFormatting.RED)));
 				}
 
 				return false;
@@ -209,7 +209,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 			if(world.isRemote)
 				return true;
 
-			stack.stackSize--;
+			stack.shrink(1);
 
 			EntityDoppleganger e = new EntityDoppleganger(world);
 			e.setPosition(pos.getX() + 0.5, pos.getY() + 3, pos.getZ() + 0.5);
@@ -226,7 +226,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 				e.getAttributeMap().getAttributeInstance(SharedMonsterAttributes.ARMOR).setBaseValue(15);
 
 			e.playSound(SoundEvents.ENTITY_ENDERDRAGON_GROWL, 10F, 0.1F);
-			world.spawnEntityInWorld(e);
+			world.spawnEntity(e);
 			return true;
 		}
 
@@ -429,8 +429,8 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 				((EntityPlayer) entitylivingbase).addStat(ModAchievements.gaiaGuardianNoArmor, 1);
 		}
 
-		playSound(SoundEvents.ENTITY_GENERIC_EXPLODE, 20F, (1F + (worldObj.rand.nextFloat() - worldObj.rand.nextFloat()) * 0.2F) * 0.7F);
-		worldObj.spawnParticle(EnumParticleTypes.EXPLOSION_HUGE, posX, posY, posZ, 1D, 0D, 0D);
+		playSound(SoundEvents.ENTITY_GENERIC_EXPLODE, 20F, (1F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F) * 0.7F);
+		world.spawnParticle(EnumParticleTypes.EXPLOSION_HUGE, posX, posY, posZ, 1D, 0D, 0D);
 	}
 
 	@Override
@@ -464,12 +464,12 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 		super.dropEquipment(wasRecentlyHit, lootingModifier);
 
 		for (EntityEquipmentSlot e : EntityEquipmentSlot.values()) {
-			setItemStackToSlot(e, null);
+			setItemStackToSlot(e, ItemStack.EMPTY);
 		}
 
 		// Generate loot table for every single attacking player
 		for (UUID u : playersWhoAttacked) {
-			EntityPlayer player = worldObj.getPlayerEntityByUUID(u);
+			EntityPlayer player = world.getPlayerEntityByUUID(u);
 			if (player == null)
 				continue;
 
@@ -496,7 +496,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 	public void setDead() {
 		Botania.proxy.removeBoss(this);
 		BlockPos source = getSource();
-		Botania.proxy.playRecordClientSided(worldObj, source, null);
+		Botania.proxy.playRecordClientSided(world, source, null);
 		isPlayingMusic = false;
 		super.setDead();
 	}
@@ -504,12 +504,12 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 	private List<EntityPlayer> getPlayersAround() {
 		BlockPos source = getSource();
 		float range = 15F;
-		return worldObj.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(source.getX() + 0.5 - range, source.getY() + 0.5 - range, source.getZ() + 0.5 - range, source.getX() + 0.5 + range, source.getY() + 0.5 + range, source.getZ() + 0.5 + range));
+		return world.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(source.getX() + 0.5 - range, source.getY() + 0.5 - range, source.getZ() + 0.5 - range, source.getX() + 0.5 + range, source.getY() + 0.5 + range, source.getZ() + 0.5 + range));
 	}
 
-	private static int getGaiaGuardiansAround(World worldObj, BlockPos source) {
+	private static int getGaiaGuardiansAround(World world, BlockPos source) {
 		float range = 15F;
-		List l = worldObj.getEntitiesWithinAABB(EntityDoppleganger.class, new AxisAlignedBB(source.getX() + 0.5 - range, source.getY() + 0.5 - range, source.getZ() + 0.5 - range, source.getX() + 0.5 + range, source.getY() + 0.5 + range, source.getZ() + 0.5 + range)); 
+		List l = world.getEntitiesWithinAABB(EntityDoppleganger.class, new AxisAlignedBB(source.getX() + 0.5 - range, source.getY() + 0.5 - range, source.getZ() + 0.5 - range, source.getX() + 0.5 + range, source.getY() + 0.5 + range, source.getZ() + 0.5 + range));
 		return l.size();
 	}
 	
@@ -521,7 +521,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 		float range = ARENA_RANGE;
 		int invul = getInvulTime();
 
-		if (worldObj.isRemote) {
+		if (world.isRemote) {
 			for(int i = 0; i < 360; i += 8) {
 				float r = 0.6F;
 				float g = 0F;
@@ -537,8 +537,8 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 				Botania.proxy.wispFX(x, y, z, r, g, b, 0.5F, (float) (Math.random() - 0.5F) * m, (float) (Math.random() - 0.5F) * mv, (float) (Math.random() - 0.5F) * m);
 			}
 
-			if(worldObj.isRemote && !isPlayingMusic && !isDead && !getPlayersAround().isEmpty()) {
-				Botania.proxy.playRecordClientSided(worldObj, source, (ItemRecord) (isHardMode() ? ModItems.recordGaia2 : ModItems.recordGaia1));
+			if(world.isRemote && !isPlayingMusic && !isDead && !getPlayersAround().isEmpty()) {
+				Botania.proxy.playRecordClientSided(world, source, (ItemRecord) (isHardMode() ? ModItems.recordGaia2 : ModItems.recordGaia1));
 				isPlayingMusic = true;
 			}
 
@@ -578,13 +578,13 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 		if(!getPassengers().isEmpty())
 			dismountRidingEntity();
 
-		if(worldObj.getDifficulty() == EnumDifficulty.PEACEFUL)
+		if(world.getDifficulty() == EnumDifficulty.PEACEFUL)
 			setDead();
 
 		int radius = 1;
-		int posXInt = MathHelper.floor_double(posX);
-		int posYInt = MathHelper.floor_double(posY);
-		int posZInt = MathHelper.floor_double(posZ);
+		int posXInt = MathHelper.floor(posX);
+		int posYInt = MathHelper.floor(posY);
+		int posZInt = MathHelper.floor(posZ);
 		for(int i = -radius; i < radius + 1; i++)
 			for(int j = -radius; j < radius + 1; j++)
 				for(int k = -radius; k < radius + 1; k++) {
@@ -592,8 +592,8 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 					int yp = posYInt + j;
 					int zp = posZInt + k;
 					BlockPos posp = new BlockPos(xp, yp, zp);
-					if(isCheatyBlock(worldObj, posp)) {
-						worldObj.destroyBlock(posp, true);
+					if(isCheatyBlock(world, posp)) {
+						world.destroyBlock(posp, true);
 					}
 				}
 
@@ -601,12 +601,12 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 		List<EntityPlayer> players = getPlayersAround();
 		int playerCount = getPlayerCount();
 
-		if(players.isEmpty() && !worldObj.playerEntities.isEmpty())
+		if(players.isEmpty() && !world.playerEntities.isEmpty())
 			setDead();
 		else {
 			for(EntityPlayer player : players) {
 				for(EntityEquipmentSlot e : EntityEquipmentSlot.values()) {
-					if(e.getSlotType() == EntityEquipmentSlot.Type.ARMOR && player.getItemStackFromSlot(e) != null) {
+					if(e.getSlotType() == EntityEquipmentSlot.Type.ARMOR && !player.getItemStackFromSlot(e).isEmpty()) {
 						anyWithArmor = true;
 						break;
 					}
@@ -620,7 +620,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 
 				potionsToRemove.forEach(potion -> {
 					player.removePotionEffect(potion);
-					((WorldServer) worldObj).getPlayerChunkMap().getEntry(posXInt >> 4, posZInt >> 4).sendPacket(new SPacketRemoveEntityEffect(player.getEntityId(), potion));
+					((WorldServer) world).getPlayerChunkMap().getEntry(posXInt >> 4, posZInt >> 4).sendPacket(new SPacketRemoveEntityEffect(player.getEntityId(), potion));
 				});
 
 				player.capabilities.isFlying = player.capabilities.isFlying && player.capabilities.isCreativeMode;
@@ -644,7 +644,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 
 		if(invul > 0 && mobSpawnTicks == MOB_SPAWN_TICKS) {
 			if(invul < SPAWN_TICKS)  {
-				if(invul > SPAWN_TICKS / 2 && worldObj.rand.nextInt(SPAWN_TICKS - invul + 1) == 0)
+				if(invul > SPAWN_TICKS / 2 && world.rand.nextInt(SPAWN_TICKS - invul + 1) == 0)
 					for(int i = 0; i < 2; i++)
 						spawnExplosionParticle();
 			}
@@ -669,32 +669,32 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 
 					if(reverseTicks > MOB_SPAWN_START_TICKS * 2 && mobSpawnTicks > MOB_SPAWN_END_TICKS && mobSpawnTicks % MOB_SPAWN_WAVE_TIME == 0) {
 						for(int pl = 0; pl < playerCount; pl++)
-							for(int i = 0; i < 3 + worldObj.rand.nextInt(2); i++) {
+							for(int i = 0; i < 3 + world.rand.nextInt(2); i++) {
 								EntityLiving entity = null;
-								switch(worldObj.rand.nextInt(2)) {
+								switch(world.rand.nextInt(2)) {
 								case 0 : {
-									entity = new EntityZombie(worldObj);
-									if(worldObj.rand.nextInt(hard ? 3 : 12) == 0)
-										entity = new EntityWitch(worldObj);
+									entity = new EntityZombie(world);
+									if(world.rand.nextInt(hard ? 3 : 12) == 0)
+										entity = new EntityWitch(world);
 
 									break;
 								}
 								case 1 : {
-									entity = new EntitySkeleton(worldObj);
+									entity = new EntitySkeleton(world);
 									entity.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
-									if(worldObj.rand.nextInt(8) == 0) {
-										((EntitySkeleton) entity).func_189768_a(SkeletonType.WITHER);
+									if(world.rand.nextInt(8) == 0) {
+										entity = new EntityWitherSkeleton(world);
 										entity.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(hard ? ModItems.elementiumSword : Items.STONE_SWORD));
 									}
 									break;
 								}
 								case 3 : {
 									if(!players.isEmpty())
-										for(int j = 0; j < 1 + worldObj.rand.nextInt(hard ? 8 : 5); j++) {
-											EntityPixie pixie = new EntityPixie(worldObj);
+										for(int j = 0; j < 1 + world.rand.nextInt(hard ? 8 : 5); j++) {
+											EntityPixie pixie = new EntityPixie(world);
 											pixie.setProps(players.get(rand.nextInt(players.size())), this, 1, 8);
 											pixie.setPosition(posX + width / 2, posY + 2, posZ + width / 2);
-											worldObj.spawnEntityInWorld(pixie);
+											world.spawnEntity(pixie);
 										}
 								}
 								}
@@ -704,7 +704,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 										entity.addPotionEffect(new PotionEffect(MobEffects.FIRE_RESISTANCE, 600, 0));
 									range = 6F;
 									entity.setPosition(posX + 0.5 + Math.random() * range - range / 2, posY - 1, posZ + 0.5 + Math.random() * range - range / 2);
-									worldObj.spawnEntityInWorld(entity);
+									world.spawnEntity(entity);
 								}
 							}
 
@@ -734,23 +734,23 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 							for(int i = 0; i < count; i++) {
 								int x = source.getX() - 10 + rand.nextInt(20);
 								int z = source.getZ() - 10 + rand.nextInt(20);
-								int y = worldObj.getTopSolidOrLiquidBlock(new BlockPos(x, -1, z)).getY();
+								int y = world.getTopSolidOrLiquidBlock(new BlockPos(x, -1, z)).getY();
 
-								EntityMagicLandmine landmine = new EntityMagicLandmine(worldObj);
+								EntityMagicLandmine landmine = new EntityMagicLandmine(world);
 								landmine.setPosition(x + 0.5, y, z + 0.5);
 								landmine.summoner = this;
-								worldObj.spawnEntityInWorld(landmine);
+								world.spawnEntity(landmine);
 							}
 
 						}
 
 						if(!players.isEmpty())
 							for(int pl = 0; pl < playerCount; pl++)
-								for(int i = 0; i < (spawnPixies ? worldObj.rand.nextInt(hard ? 6 : 3) : 1); i++) {
-									EntityPixie pixie = new EntityPixie(worldObj);
+								for(int i = 0; i < (spawnPixies ? world.rand.nextInt(hard ? 6 : 3) : 1); i++) {
+									EntityPixie pixie = new EntityPixie(world);
 									pixie.setProps(players.get(rand.nextInt(players.size())), this, 1, 8);
 									pixie.setPosition(posX + width / 2, posY + 2, posZ + width / 2);
-									worldObj.spawnEntityInWorld(pixie);
+									world.spawnEntity(pixie);
 								}
 
 						tpDelay = hard ? dying ? 35 : 45 : dying ? 40 : 60;
@@ -763,7 +763,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 					spawnMissile();
 			} else {
 				range = 3F;
-				players = worldObj.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(posX - range, posY - range, posZ - range, posX + range, posY + range, posZ + range));
+				players = world.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(posX - range, posY - range, posZ - range, posX + range, posY + range, posZ + range));
 				if(!players.isEmpty())
 					damageEntity(DamageSource.causePlayerDamage(players.get(0)), 0);
 			}
@@ -806,7 +806,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 		missile.setPosition(posX + (Math.random() - 0.5 * 0.1), posY + 2.4 + (Math.random() - 0.5 * 0.1), posZ + (Math.random() - 0.5 * 0.1));
 		if(missile.getTarget()) {
 			playSound(BotaniaSoundEvents.missile, 0.6F, 0.8F + (float) Math.random() * 0.2F);
-			worldObj.spawnEntityInWorld(missile);
+			world.spawnEntity(missile);
 		}
 	}
 
@@ -835,11 +835,11 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 		boolean flag = false;
 		BlockPos pos = new BlockPos(this);
 
-		if(worldObj.isBlockLoaded(pos)) {
+		if(world.isBlockLoaded(pos)) {
 			boolean flag1 = false;
 
 			while(!flag1 && pos.getY() > 0) {
-				IBlockState state = worldObj.getBlockState(pos.down());
+				IBlockState state = world.getBlockState(pos.down());
 				Block block = state.getBlock();
 
 				if(block.getMaterial(state).blocksMovement())
@@ -853,7 +853,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 			if(flag1) {
 				setPosition(posX, posY, posZ);
 
-				if(worldObj.getCollisionBoxes(this, getEntityBoundingBox()).isEmpty() && !worldObj.containsAnyLiquid(getEntityBoundingBox()))
+				if(world.getCollisionBoxes(this, getEntityBoundingBox()).isEmpty() && !world.containsAnyLiquid(getEntityBoundingBox()))
 					flag = true;
 
 				// Prevent out of bounds teleporting
@@ -877,7 +877,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 				double d7 = d3 + (posX - d3) * d6 + (rand.nextDouble() - 0.5D) * width * 2.0D;
 				double d8 = d4 + (posY - d4) * d6 + rand.nextDouble() * height;
 				double d9 = d5 + (posZ - d5) * d6 + (rand.nextDouble() - 0.5D) * width * 2.0D;
-				worldObj.spawnParticle(EnumParticleTypes.PORTAL, d7, d8, d9, f, f1, f2);
+				world.spawnParticle(EnumParticleTypes.PORTAL, d7, d8, d9, f, f1, f2);
 			}
 
 			playSound(SoundEvents.ENTITY_ENDERMEN_TELEPORT, 1.0F, 1.0F);

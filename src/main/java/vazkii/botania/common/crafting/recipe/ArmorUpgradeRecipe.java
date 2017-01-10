@@ -28,7 +28,7 @@ public class ArmorUpgradeRecipe extends ShapedOreRecipe {
 		ItemStack out = output.copy();
 		for (int i = 0; i < var1.getSizeInventory(); i++) {
 			ItemStack stack = var1.getStackInSlot(i);
-			if (stack != null && stack.getItem() instanceof ItemArmor && stack.hasTagCompound()) {
+			if (!stack.isEmpty() && stack.getItem() instanceof ItemArmor && stack.hasTagCompound()) {
 				EnchantmentHelper.setEnchantments(EnchantmentHelper.getEnchantments(stack), out);
 				byte runicHardening = ItemNBTHelper.getByte(stack, "RS.HARDEN", (byte)0);
 				if (runicHardening != 0)

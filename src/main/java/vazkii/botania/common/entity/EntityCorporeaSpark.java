@@ -50,7 +50,7 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 	private static final DataParameter<Integer> NETWORK = EntityDataManager.createKey(EntityCorporeaSpark.class, DataSerializers.VARINT);
 	public static final DataParameter<Integer> INVISIBILITY = EntityDataManager.createKey(EntityCorporeaSpark.class, DataSerializers.VARINT);
 	private static final DataParameter<Integer> ITEM_DISPLAY_TICKS = EntityDataManager.createKey(EntityCorporeaSpark.class, DataSerializers.VARINT);
-	private static final DataParameter<Optional<ItemStack>> DISPLAY_STACK = EntityDataManager.createKey(EntityCorporeaSpark.class, DataSerializers.OPTIONAL_ITEM_STACK);
+	private static final DataParameter<ItemStack> DISPLAY_STACK = EntityDataManager.createKey(EntityCorporeaSpark.class, DataSerializers.OPTIONAL_ITEM_STACK);
 
 	private ICorporeaSpark master;
 	private List<ICorporeaSpark> connections = new ArrayList<>();
@@ -69,7 +69,7 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 		dataManager.register(MASTER, false);
 		dataManager.register(NETWORK, 0);
 		dataManager.register(ITEM_DISPLAY_TICKS, 0);
-		dataManager.register(DISPLAY_STACK, Optional.absent());
+		dataManager.register(DISPLAY_STACK, ItemStack.EMPTY);
 	}
 
 	@Nonnull
@@ -87,7 +87,7 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 	public void onUpdate() {
 		super.onUpdate();
 
-		if(worldObj.isRemote)
+		if(world.isRemote)
 			return;
 
 		InvWithLocation inv = getSparkInventory();
@@ -147,7 +147,7 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 	}
 
 	private List<ICorporeaSpark> getNearbySparks() {
-		List ret = worldObj.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(posX - SCAN_RANGE, posY - SCAN_RANGE, posZ - SCAN_RANGE, posX + SCAN_RANGE, posY + SCAN_RANGE, posZ + SCAN_RANGE), Predicates.instanceOf(ICorporeaSpark.class));
+		List ret = world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(posX - SCAN_RANGE, posY - SCAN_RANGE, posZ - SCAN_RANGE, posX + SCAN_RANGE, posY + SCAN_RANGE, posZ + SCAN_RANGE), Predicates.instanceOf(ICorporeaSpark.class));
 		return ret;
 	}
 
@@ -197,10 +197,10 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 
 	@Override
 	public InvWithLocation getSparkInventory() {
-		int x = MathHelper.floor_double(posX);
-		int y = MathHelper.floor_double(posY - 1);
-		int z = MathHelper.floor_double(posZ);
-		return InventoryHelper.getInventoryWithLocation(worldObj, new BlockPos(x, y, z), EnumFacing.UP);
+		int x = MathHelper.floor(posX);
+		int y = MathHelper.floor(posY - 1);
+		int z = MathHelper.floor(posZ);
+		return InventoryHelper.getInventoryWithLocation(world, new BlockPos(x, y, z), EnumFacing.UP);
 	}
 
 	@Override
@@ -258,27 +258,28 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 		dataManager.set(ITEM_DISPLAY_TICKS, ticks);
 	}
 
-	public Optional<ItemStack> getDisplayedItem() {
+	public ItemStack getDisplayedItem() {
 		return dataManager.get(DISPLAY_STACK);
 	}
 
 	public void setDisplayedItem(ItemStack stack) {
-		dataManager.set(DISPLAY_STACK, Optional.fromNullable(stack));
+		dataManager.set(DISPLAY_STACK, stack);
 	}
 
 	@Override
-	public boolean processInitialInteract(EntityPlayer player, ItemStack stack, EnumHand hand) {
-		if(stack != null) {
+	public boolean processInitialInteract(EntityPlayer player, EnumHand hand) {
+		ItemStack stack = player.getHeldItem(hand);
+		if(!stack.isEmpty()) {
 			if(stack.getItem() == ModItems.twigWand) {
 				if(player.isSneaking()) {
-					if(!player.worldObj.isRemote) {
+					if(!player.world.isRemote) {
 						dropAndKill();
 						if(isMaster())
 							restartNetwork();
 					} else player.swingArm(hand);
 					return true;
 				} else {
-					if(!player.worldObj.isRemote) {
+					if(!player.world.isRemote) {
 						displayRelatives(player, new ArrayList<>(), master);
 					}
 					return true;
@@ -286,14 +287,14 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 			} else if(stack.getItem() == ModItems.dye) {
 				int color = stack.getItemDamage();
 				if(color != getNetwork().getMetadata()) {
-					if(!worldObj.isRemote) {
+					if(!world.isRemote) {
 						setNetwork(EnumDyeColor.byMetadata(color));
 
 						if(master != null)
 							restartNetwork();
 						else findNetwork();
 
-						stack.stackSize--;
+						stack.shrink(1);
 					} else player.swingArm(hand);
 				}
 			}
@@ -303,7 +304,7 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 	}
 
 	public boolean doPhantomInk(ItemStack stack) {
-		if(stack != null && stack.getItem() == ModItems.phantomInk && !worldObj.isRemote) {
+		if(!stack.isEmpty() && stack.getItem() == ModItems.phantomInk && !world.isRemote) {
 			int invis = dataManager.get(INVISIBILITY);
 			dataManager.set(INVISIBILITY, ~invis & 1);
 			return true;

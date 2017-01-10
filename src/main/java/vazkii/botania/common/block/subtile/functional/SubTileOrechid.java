@@ -54,7 +54,7 @@ public class SubTileOrechid extends SubTileFunctional {
 			BlockPos coords = getCoordsToPut();
 			if(coords != null) {
 				ItemStack stack = getOreToPut();
-				if(stack != null && stack.getItem() != null) {
+				if(!stack.isEmpty()) {
 					Block block = Block.getBlockFromItem(stack.getItem());
 					int meta = stack.getItemDamage();
 					supertile.getWorld().setBlockState(coords, block.getStateFromMeta(meta), 1 | 2);

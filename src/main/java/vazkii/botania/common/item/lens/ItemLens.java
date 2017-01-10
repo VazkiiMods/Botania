@@ -23,6 +23,7 @@ import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
@@ -157,7 +158,7 @@ public class ItemLens extends ItemMod implements ILensControl, ICompositableLens
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void getSubItems(@Nonnull Item item, CreativeTabs tab, List<ItemStack> stacks) {
+	public void getSubItems(@Nonnull Item item, CreativeTabs tab, NonNullList<ItemStack> stacks) {
 		for(int i = 0; i < SUBTYPES; i++)
 			stacks.add(new ItemStack(item, 1, i));
 	}
@@ -185,7 +186,7 @@ public class ItemLens extends ItemMod implements ILensControl, ICompositableLens
 	@Override
 	public String getItemStackDisplayName(@Nonnull ItemStack stack) {
 		ItemStack compositeLens = getCompositeLens(stack);
-		if(compositeLens == null)
+		if(compositeLens.isEmpty())
 			return super.getItemStackDisplayName(stack);
 		return String.format(net.minecraft.util.text.translation.I18n.translateToLocal("item.botania:compositeLens.name"), getItemShortTermName(stack), getItemShortTermName(compositeLens));
 	}
@@ -199,7 +200,7 @@ public class ItemLens extends ItemMod implements ILensControl, ICompositableLens
 		getLens(stack.getItemDamage()).apply(stack, props);
 
 		ItemStack compositeLens = getCompositeLens(stack);
-		if(compositeLens != null && compositeLens.getItem() instanceof ILens)
+		if(!compositeLens.isEmpty() && compositeLens.getItem() instanceof ILens)
 			((ILens) compositeLens.getItem()).apply(compositeLens, props);
 	}
 
@@ -210,7 +211,7 @@ public class ItemLens extends ItemMod implements ILensControl, ICompositableLens
 		dead = getLens(stack.getItemDamage()).collideBurst(burst, entity, pos, isManaBlock, dead, stack);
 
 		ItemStack compositeLens = getCompositeLens(stack);
-		if(compositeLens != null && compositeLens.getItem() instanceof ILens)
+		if(!compositeLens.isEmpty() && compositeLens.getItem() instanceof ILens)
 			dead = ((ILens) compositeLens.getItem()).collideBurst(burst, pos, isManaBlock, dead, compositeLens);
 
 		return dead;
@@ -221,13 +222,13 @@ public class ItemLens extends ItemMod implements ILensControl, ICompositableLens
 		EntityThrowable entity = (EntityThrowable) burst;
 		int storedColor = getStoredColor(stack);
 
-		if(storedColor == 16 && entity.worldObj.isRemote)
+		if(storedColor == 16 && entity.world.isRemote)
 			burst.setColor(getLensColor(stack));
 
 		getLens(stack.getItemDamage()).updateBurst(burst, entity, stack);
 
 		ItemStack compositeLens = getCompositeLens(stack);
-		if(compositeLens != null && compositeLens.getItem() instanceof ILens)
+		if(!compositeLens.isEmpty() && compositeLens.getItem() instanceof ILens)
 			((ILens) compositeLens.getItem()).updateBurst(burst, compositeLens);
 	}
 
@@ -298,16 +299,17 @@ public class ItemLens extends ItemMod implements ILensControl, ICompositableLens
 	@Override
 	public ItemStack getCompositeLens(ItemStack stack) {
 		NBTTagCompound cmp = ItemNBTHelper.getCompound(stack, TAG_COMPOSITE_LENS, false);
-		ItemStack lens = ItemStack.loadItemStackFromNBT(cmp);
-		return lens;
+		if(cmp == null)
+			return ItemStack.EMPTY;
+		else return new ItemStack(cmp);
 	}
 
 	@Override
 	public ItemStack setCompositeLens(ItemStack sourceLens, ItemStack compositeLens) {
-		NBTTagCompound cmp = new NBTTagCompound();
-		compositeLens.writeToNBT(cmp);
-		ItemNBTHelper.setCompound(sourceLens, TAG_COMPOSITE_LENS, cmp);
-
+		if(!compositeLens.isEmpty()) {
+			NBTTagCompound cmp = compositeLens.writeToNBT(new NBTTagCompound());
+			ItemNBTHelper.setCompound(sourceLens, TAG_COMPOSITE_LENS, cmp);
+		}
 		return sourceLens;
 	}
 

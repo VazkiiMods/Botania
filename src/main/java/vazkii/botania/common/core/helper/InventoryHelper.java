@@ -60,7 +60,7 @@ public class InventoryHelper {
 			for(int j1 = 0; j1 < inv.getSizeInventory(); ++j1) {
 				ItemStack itemstack = inv.getItemHandler().getStackInSlot(j1);
 
-				if(itemstack != null) {
+				if(!itemstack.isEmpty()) {
 					net.minecraft.inventory.InventoryHelper.spawnItemStack(world, pos.getX(), pos.getY(), pos.getZ(), itemstack);
 				}
 			}
@@ -72,11 +72,11 @@ public class InventoryHelper {
 	public static void withdrawFromInventory(TileSimpleInventory inv, EntityPlayer player) {
 		for(int i = inv.getSizeInventory() - 1; i >= 0; i--) {
 			ItemStack stackAt = inv.getItemHandler().getStackInSlot(i);
-			if(stackAt != null) {
+			if(!stackAt.isEmpty()) {
 				ItemStack copy = stackAt.copy();
 				ItemHandlerHelper.giveItemToPlayer(player, copy);
-				inv.getItemHandler().setStackInSlot(i, null);
-				player.worldObj.updateComparatorOutputLevel(inv.getPos(), null);
+				inv.getItemHandler().setStackInSlot(i, ItemStack.EMPTY);
+				player.world.updateComparatorOutputLevel(inv.getPos(), null);
 				break;
 			}
 		}

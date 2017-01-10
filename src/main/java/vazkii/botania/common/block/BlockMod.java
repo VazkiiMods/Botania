@@ -13,6 +13,7 @@ package vazkii.botania.common.block;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -54,7 +55,7 @@ public abstract class BlockMod extends Block implements IModelRegister {
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void registerModels() {
-		if(Item.getItemFromBlock(this) != null)
+		if(Item.getItemFromBlock(this) != Items.AIR)
 			ModelHandler.registerBlockToState(this, 0, getDefaultState());
 	}
 }

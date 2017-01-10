@@ -73,12 +73,12 @@ public class ItemTravelBelt extends ItemBauble implements IBaubleRender, IManaUs
 			EntityPlayer player = (EntityPlayer) event.getEntityLiving();
 			String s = playerStr(player);
 
-			ItemStack belt = BaublesApi.getBaubles(player).getStackInSlot(3);
+			ItemStack belt = BaublesApi.getBaublesHandler(player).getStackInSlot(3);
 			if(playersWithStepup.contains(s)) {
 				if(shouldPlayerHaveStepup(player)) {
 					ItemTravelBelt beltItem = (ItemTravelBelt) belt.getItem();
 
-					if(player.worldObj.isRemote) {
+					if(player.world.isRemote) {
 						if((player.onGround || player.capabilities.isFlying) && player.moveForward > 0F && !player.isInsideOfMaterial(Material.WATER)) {
 							float speed = beltItem.getSpeed(belt);
 							player.moveRelative(0F, 1F, player.capabilities.isFlying ? speed : speed);
@@ -116,9 +116,9 @@ public class ItemTravelBelt extends ItemBauble implements IBaubleRender, IManaUs
 	public void onPlayerJump(LivingJumpEvent event) {
 		if(event.getEntityLiving() instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) event.getEntityLiving();
-			ItemStack belt = BaublesApi.getBaubles(player).getStackInSlot(3);
+			ItemStack belt = BaublesApi.getBaublesHandler(player).getStackInSlot(3);
 
-			if(belt != null && belt.getItem() instanceof ItemTravelBelt && ManaItemHandler.requestManaExact(belt, player, COST, false)) {
+			if(!belt.isEmpty() && belt.getItem() instanceof ItemTravelBelt && ManaItemHandler.requestManaExact(belt, player, COST, false)) {
 				player.motionY += ((ItemTravelBelt) belt.getItem()).jump;
 				player.fallDistance = -((ItemTravelBelt) belt.getItem()).fallBuffer;
 			}
@@ -126,8 +126,8 @@ public class ItemTravelBelt extends ItemBauble implements IBaubleRender, IManaUs
 	}
 
 	private boolean shouldPlayerHaveStepup(EntityPlayer player) {
-		ItemStack armor = BaublesApi.getBaubles(player).getStackInSlot(3);
-		return armor != null && armor.getItem() instanceof ItemTravelBelt && ManaItemHandler.requestManaExact(armor, player, COST, false);
+		ItemStack armor = BaublesApi.getBaublesHandler(player).getStackInSlot(3);
+		return !armor.isEmpty() && armor.getItem() instanceof ItemTravelBelt && ManaItemHandler.requestManaExact(armor, player, COST, false);
 	}
 
 	@SubscribeEvent
@@ -138,7 +138,7 @@ public class ItemTravelBelt extends ItemBauble implements IBaubleRender, IManaUs
 	}
 
 	public static String playerStr(EntityPlayer player) {
-		return player.getGameProfile().getName() + ":" + player.worldObj.isRemote;
+		return player.getGameProfile().getName() + ":" + player.world.isRemote;
 	}
 
 	@SideOnly(Side.CLIENT)

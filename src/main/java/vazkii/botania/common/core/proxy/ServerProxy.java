@@ -90,7 +90,7 @@ public class ServerProxy implements IProxy {
 
 	@Override
 	public long getWorldElapsedTicks() {
-		return FMLCommonHandler.instance().getMinecraftServerInstance().worldServers[0].getTotalWorldTime();
+		return FMLCommonHandler.instance().getMinecraftServerInstance().worlds[0].getTotalWorldTime();
 	}
 
 	@Override

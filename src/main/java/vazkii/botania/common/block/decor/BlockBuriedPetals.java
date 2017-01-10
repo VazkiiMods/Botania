@@ -67,6 +67,7 @@ public class BlockBuriedPetals extends BlockModFlower {
 		return false;
 	}
 
+	@Nonnull
 	@Override
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
 		return ModItems.petal;

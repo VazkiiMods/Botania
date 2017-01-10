@@ -36,7 +36,7 @@ public class TilePlatform extends TileCamo {
 	void swapSurroudings(TilePlatform tile, boolean empty) {
 		for(EnumFacing dir : EnumFacing.VALUES) {
 			BlockPos pos = tile.getPos().offset(dir);
-			TileEntity tileAt = worldObj.getTileEntity(pos);
+			TileEntity tileAt = world.getTileEntity(pos);
 			if(tileAt != null && tileAt instanceof TilePlatform) {
 				TilePlatform platform = (TilePlatform) tileAt;
 				if(empty ? platform.camoState != null : platform.camoState == null)
@@ -47,7 +47,7 @@ public class TilePlatform extends TileCamo {
 
 	void swap(TilePlatform tile, boolean empty) {
 		tile.camoState = empty ? null : camoState;
-		worldObj.notifyBlockUpdate(tile.getPos(), worldObj.getBlockState(tile.getPos()), worldObj.getBlockState(tile.getPos()), 8);
+		world.notifyBlockUpdate(tile.getPos(), world.getBlockState(tile.getPos()), world.getBlockState(tile.getPos()), 8);
 	}
 
 }

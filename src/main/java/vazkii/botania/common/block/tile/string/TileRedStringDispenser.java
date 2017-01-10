@@ -18,16 +18,16 @@ public class TileRedStringDispenser extends TileRedStringContainer {
 
 	@Override
 	public boolean acceptBlock(BlockPos pos) {
-		TileEntity tile = worldObj.getTileEntity(pos);
+		TileEntity tile = world.getTileEntity(pos);
 		return tile != null && tile instanceof TileEntityDispenser;
 	}
 
 	public void tickDispenser() {
 		BlockPos bind = getBinding();
 		if(bind != null) {
-			TileEntity tile = worldObj.getTileEntity(bind);
+			TileEntity tile = world.getTileEntity(bind);
 			if(tile instanceof TileEntityDispenser)
-				worldObj.scheduleUpdate(bind, tile.getBlockType(), tile.getBlockType().tickRate(worldObj));
+				world.scheduleUpdate(bind, tile.getBlockType(), tile.getBlockType().tickRate(world));
 		}
 	}
 

@@ -67,7 +67,7 @@ public class ItemItemFinder extends ItemBauble implements IBaubleRender {
 		if(!(player instanceof EntityPlayer))
 			return;
 
-		if(player.worldObj.isRemote)
+		if(player.world.isRemote)
 			tickClient(stack, (EntityPlayer) player);
 		else tickServer(stack, (EntityPlayer) player);
 	}
@@ -86,7 +86,7 @@ public class ItemItemFinder extends ItemBauble implements IBaubleRender {
 
 		int[] entities = ItemNBTHelper.getIntArray(stack, TAG_ENTITY_POSITIONS);
 		for(int i : entities) {
-			Entity e =  player.worldObj.getEntityByID(i);
+			Entity e =  player.world.getEntityByID(i);
 			if(e != null && Math.random() < 0.6) {
 				Botania.proxy.setWispFXDepthTest(Math.random() < 0.6);
 				Botania.proxy.wispFX(e.posX + (float) (Math.random() * 0.5 - 0.25) * 0.45F, e.posY + e.height, e.posZ + (float) (Math.random() * 0.5 - 0.25) * 0.45F, (float) Math.random(), (float) Math.random(), (float) Math.random(), 0.15F + 0.05F * (float) Math.random(), -0.05F - 0.03F * (float) Math.random());
@@ -120,10 +120,10 @@ public class ItemItemFinder extends ItemBauble implements IBaubleRender {
 	}
 
 	private void scanForStack(ItemStack pstack, EntityPlayer player, TIntArrayList entIdBuilder, TLongArrayList blockPosBuilder) {
-		if(pstack != null || player.isSneaking()) {
+		if(!pstack.isEmpty() || player.isSneaking()) {
 			int range = 24;
 
-			List<Entity> entities = player.worldObj.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(player.posX - range, player.posY - range, player.posZ - range, player.posX + range, player.posY + range, player.posZ + range));
+			List<Entity> entities = player.world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(player.posX - range, player.posY - range, player.posZ - range, player.posX + range, player.posY + range, player.posZ + range));
 			for(Entity e : entities) {
 				if(e == player)
 					continue;
@@ -145,14 +145,14 @@ public class ItemItemFinder extends ItemBauble implements IBaubleRender {
 				} else if(e instanceof EntityPlayer) {
 					EntityPlayer player_ = (EntityPlayer) e;
 					IItemHandler playerInv = player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
-					IItemHandler binv = new InvWrapper(BaublesApi.getBaubles(player_));
+					IItemHandler binv = BaublesApi.getBaublesHandler(player);
 					if(scanInventory(binv, pstack) || scanInventory(playerInv, pstack))
 						entIdBuilder.add(player_.getEntityId());
 
 				} else if(e instanceof EntityVillager) {
 					EntityVillager villager = (EntityVillager) e;
 					ArrayList<MerchantRecipe> recipes = villager.getRecipes(player);
-					if(pstack != null && recipes != null)
+					if(!pstack.isEmpty() && recipes != null)
 						for(MerchantRecipe recipe : recipes)
 							if(recipe != null && !recipe.isRecipeDisabled() && (equalStacks(pstack, recipe.getItemToBuy()) || equalStacks(pstack, recipe.getItemToSell()))) {
 								entIdBuilder.add(villager.getEntityId());
@@ -162,11 +162,11 @@ public class ItemItemFinder extends ItemBauble implements IBaubleRender {
 				}
 			}
 
-			if(pstack != null) {
+			if(!pstack.isEmpty()) {
 				range = 12;
 				BlockPos pos = new BlockPos(player);
 				for(BlockPos pos_ : BlockPos.getAllInBoxMutable(pos.add(-range, -range, -range), pos.add(range + 1, range + 1, range + 1))) {
-					TileEntity tile = player.worldObj.getTileEntity(pos_);
+					TileEntity tile = player.world.getTileEntity(pos_);
 					if(tile != null) {
 						boolean foundCap = false;
 						for(EnumFacing e : EnumFacing.VALUES) {
@@ -193,12 +193,12 @@ public class ItemItemFinder extends ItemBauble implements IBaubleRender {
 	}
 
 	private boolean scanInventory(IItemHandler inv, ItemStack pstack) {
-		if(pstack == null)
+		if(pstack.isEmpty())
 			return false;
 
 		for(int l = 0; l < inv.getSlots(); l++) {
 			ItemStack istack = inv.getStackInSlot(l);
-			if(istack != null && equalStacks(istack, pstack))
+			if(!istack.isEmpty() && equalStacks(istack, pstack))
 				return true;
 		}
 
@@ -230,7 +230,7 @@ public class ItemItemFinder extends ItemBauble implements IBaubleRender {
 			float f1 = gemIcon.getMaxU();
 			float f2 = gemIcon.getMinV();
 			float f3 = gemIcon.getMaxV();
-			boolean armor = player.getItemStackFromSlot(EntityEquipmentSlot.HEAD) != null;
+			boolean armor = !player.getItemStackFromSlot(EntityEquipmentSlot.HEAD).isEmpty();
 			Helper.translateToHeadLevel(player);
 			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 			GlStateManager.rotate(90F, 0F, 1F, 0F);

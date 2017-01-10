@@ -84,7 +84,9 @@ public class ItemManasteelShovel extends ItemSpade implements IManaUsingItem, IS
 
 	@Nonnull
 	@Override
-	public EnumActionResult onItemUse(@Nonnull ItemStack stack, EntityPlayer player, @Nonnull World world, BlockPos pos, EnumHand hand, @Nonnull EnumFacing side, float hitX, float hitY, float hitZ) {
+	public EnumActionResult onItemUse(EntityPlayer player, @Nonnull World world, BlockPos pos, @Nonnull EnumHand hand, @Nonnull EnumFacing side, float hitX, float hitY, float hitZ) {
+		ItemStack stack = player.getHeldItem(hand);
+
 		if(!player.canPlayerEdit(pos, side, stack))
 			return EnumActionResult.PASS;
 		else {

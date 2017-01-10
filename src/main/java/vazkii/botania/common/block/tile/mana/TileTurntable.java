@@ -37,19 +37,19 @@ public class TileTurntable extends TileMod {
 		boolean redstone = false;
 
 		for(EnumFacing dir : EnumFacing.VALUES) {
-			int redstoneSide = worldObj.getRedstonePower(pos.offset(dir), dir);
+			int redstoneSide = world.getRedstonePower(pos.offset(dir), dir);
 			if(redstoneSide > 0)
 				redstone = true;
 		}
 
 		if(!redstone) {
-			TileEntity tile = worldObj.getTileEntity(pos.up());
+			TileEntity tile = world.getTileEntity(pos.up());
 			if(tile instanceof TileSpreader) {
 				TileSpreader spreader = (TileSpreader) tile;
 				spreader.rotationX += speed * (backwards ? -1 : 1);
 				if(spreader.rotationX >= 360F)
 					spreader.rotationX -= 360F;
-				if(!worldObj.isRemote)
+				if(!world.isRemote)
 					spreader.checkForReceiver();
 			}
 		}
@@ -74,7 +74,7 @@ public class TileTurntable extends TileMod {
 		if(player.isSneaking())
 			backwards = !backwards;
 		else speed = speed == 6 ? 1 : speed + 1;
-		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, pos);
+		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, pos);
 	}
 
 	public void renderHUD(Minecraft mc, ScaledResolution res) {

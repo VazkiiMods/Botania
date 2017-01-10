@@ -91,7 +91,7 @@ public class BlockSparkChanger extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block) {
+	public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block, BlockPos fromPos) {
 		boolean power = world.isBlockIndirectlyGettingPowered(pos) > 0 || world.isBlockIndirectlyGettingPowered(pos.up()) > 0;
 		boolean powered = state.getValue(BotaniaStateProps.POWERED);
 
@@ -103,24 +103,25 @@ public class BlockSparkChanger extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack pstack, EnumFacing s, float xs, float ys, float zs) {
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing s, float xs, float ys, float zs) {
 		TileSparkChanger changer = (TileSparkChanger) world.getTileEntity(pos);
+		ItemStack pstack = player.getHeldItem(hand);
 		ItemStack cstack = changer.getItemHandler().getStackInSlot(0);
-		if(cstack != null) {
-			changer.getItemHandler().setStackInSlot(0, null);
+		if(!cstack.isEmpty()) {
+			changer.getItemHandler().setStackInSlot(0, ItemStack.EMPTY);
 			world.updateComparatorOutputLevel(pos, this);
 			changer.markDirty();
 			if(!player.inventory.addItemStackToInventory(cstack))
 				player.dropItem(cstack, false);
 			return true;
-		} else if(pstack != null && pstack.getItem() == ModItems.sparkUpgrade) {
+		} else if(!pstack.isEmpty() && pstack.getItem() == ModItems.sparkUpgrade) {
 			changer.getItemHandler().setStackInSlot(0, pstack.copy().splitStack(1));
 			world.updateComparatorOutputLevel(pos, this);
 			changer.markDirty();
 
-			pstack.stackSize--;
-			if(pstack.stackSize == 0)
-				player.setHeldItem(hand, null);
+			pstack.shrink(1);
+			if(pstack.isEmpty())
+				player.setHeldItem(hand, ItemStack.EMPTY);
 
 			return true;
 		}
@@ -146,7 +147,7 @@ public class BlockSparkChanger extends BlockMod implements ILexiconable {
 	public int getComparatorInputOverride(IBlockState state, World world, BlockPos pos) {
 		TileSparkChanger changer = (TileSparkChanger) world.getTileEntity(pos);
 		ItemStack stack = changer.getItemHandler().getStackInSlot(0);
-		if(stack == null)
+		if(stack.isEmpty())
 			return 0;
 		return stack.getItemDamage() + 1;
 	}

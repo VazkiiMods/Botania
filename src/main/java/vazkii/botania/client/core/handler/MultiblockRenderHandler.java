@@ -77,21 +77,21 @@ public final class MultiblockRenderHandler {
 		angle = EnumFacing.SOUTH;
 
 		Minecraft mc = Minecraft.getMinecraft();
-		if(mc.theWorld != null)
-			dimension = mc.theWorld.provider.getDimension();
+		if(mc.world != null)
+			dimension = mc.world.provider.getDimension();
 	}
 
 	@SubscribeEvent
 	public static void onWorldRenderLast(RenderWorldLastEvent event) {
 		Minecraft mc = Minecraft.getMinecraft();
-		if(mc.thePlayer != null && mc.objectMouseOver != null && mc.objectMouseOver.getBlockPos() != null && (!mc.thePlayer.isSneaking() || anchor != null)) {
-			renderPlayerLook(mc.thePlayer, mc.objectMouseOver);
+		if(mc.player != null && mc.objectMouseOver != null && mc.objectMouseOver.getBlockPos() != null && (!mc.player.isSneaking() || anchor != null)) {
+			renderPlayerLook(mc.player, mc.objectMouseOver);
 		}
 	}
 
 	@SubscribeEvent
 	public static void onPlayerInteract(PlayerInteractEvent.RightClickBlock event) {
-		if(currentMultiblock != null && anchor == null && event.getEntityPlayer() == Minecraft.getMinecraft().thePlayer) {
+		if(currentMultiblock != null && anchor == null && event.getEntityPlayer() == Minecraft.getMinecraft().player) {
 			anchor = event.getPos();
 			angle = event.getEntityPlayer().getHorizontalFacing();
 			event.setCanceled(true);
@@ -99,7 +99,7 @@ public final class MultiblockRenderHandler {
 	}
 
 	private static void renderPlayerLook(EntityPlayer player, RayTraceResult src) {
-		if(currentMultiblock != null && dimension == player.worldObj.provider.getDimension()) {
+		if(currentMultiblock != null && dimension == player.world.provider.getDimension()) {
 			BlockPos anchorPos = anchor != null ? anchor : src.getBlockPos();
 
 			GlStateManager.pushMatrix();
@@ -111,7 +111,7 @@ public final class MultiblockRenderHandler {
 			Multiblock mb = anchor != null ? currentMultiblock.getForFacing(angle) : currentMultiblock.getForEntity(player);
 			boolean didAny = false;
 
-			blockAccess.update(player.worldObj, mb, anchorPos);
+			blockAccess.update(player.world, mb, anchorPos);
 
 			ShaderHelper.useShader(ShaderHelper.alpha, shader -> {
 				int alpha = ARBShaderObjects.glGetUniformLocationARB(shader, "alpha");
@@ -119,7 +119,7 @@ public final class MultiblockRenderHandler {
 			});
 
 			for(MultiblockComponent comp : mb.getComponents()) {
-				if(renderComponentInWorld(player.worldObj, mb, comp, anchorPos))
+				if(renderComponentInWorld(player.world, mb, comp, anchorPos))
 					didAny = true;
 			}
 
@@ -131,7 +131,7 @@ public final class MultiblockRenderHandler {
 
 			if(!didAny) {
 				setMultiblock(null);
-				player.addChatComponentMessage(new TextComponentTranslation("botaniamisc.structureComplete").setStyle(new Style().setColor(TextFormatting.GREEN)));
+				player.sendMessage(new TextComponentTranslation("botaniamisc.structureComplete").setStyle(new Style().setColor(TextFormatting.GREEN)));
 			}
 		}
 	}

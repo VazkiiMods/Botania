@@ -23,7 +23,7 @@ public final class AchievementTriggerer {
 	@SubscribeEvent
 	public static void onItemPickedUp(ItemPickupEvent event) {
 		ItemStack stack = event.pickedUp.getEntityItem();
-		if(stack != null && stack.getItem() instanceof IPickupAchievement) {
+		if(!stack.isEmpty() && stack.getItem() instanceof IPickupAchievement) {
 			Achievement achievement = ((IPickupAchievement) stack.getItem()).getAchievementOnPickup(stack, event.player, event.pickedUp);
 			if(achievement != null)
 				event.player.addStat(achievement, 1);
@@ -32,7 +32,7 @@ public final class AchievementTriggerer {
 
 	@SubscribeEvent
 	public static void onItemCrafted(ItemCraftedEvent event) {
-		if(event.crafting != null && event.crafting.getItem() instanceof ICraftAchievement) {
+		if(!event.crafting.isEmpty() && event.crafting.getItem() instanceof ICraftAchievement) {
 			Achievement achievement = ((ICraftAchievement) event.crafting.getItem()).getAchievementOnCraft(event.crafting, event.player, event.craftMatrix);
 			if(achievement != null)
 				event.player.addStat(achievement, 1);

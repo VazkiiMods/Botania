@@ -71,7 +71,7 @@ public class RenderTileAvatar extends TileEntitySpecialRenderer<TileAvatar> {
 				}
 
 				ItemStack stack = avatar.getItemHandler().getStackInSlot(0);
-				if(stack != null) {
+				if(!stack.isEmpty()) {
 					GlStateManager.pushMatrix();
 					Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 					float s = 0.6F;

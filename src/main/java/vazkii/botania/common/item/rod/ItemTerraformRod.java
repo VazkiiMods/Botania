@@ -23,6 +23,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.EnumAction;
@@ -96,14 +97,14 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockP
 	@Override
 	public void onUsingTick(ItemStack stack, EntityLivingBase living, int count) {
 		if(count != getMaxItemUseDuration(stack) && count % 10 == 0 && living instanceof EntityPlayer)
-			terraform(stack, living.worldObj, (EntityPlayer) living);
+			terraform(stack, living.world, (EntityPlayer) living);
 	}
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack par1ItemStack, World world, EntityPlayer player, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
 		player.setActiveHand(hand);
-		return ActionResult.newResult(EnumActionResult.SUCCESS, par1ItemStack);
+		return ActionResult.newResult(EnumActionResult.SUCCESS, player.getHeldItem(hand));
 	}
 
 	private void terraform(ItemStack par1ItemStack, World world, EntityPlayer player) {
@@ -120,7 +121,7 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockP
 			IBlockState state = world.getBlockState(pos);
 			if(state.getBlock() == Blocks.AIR)
 				continue;
-			else if(Item.getItemFromBlock(state.getBlock()) == null)
+			else if(Item.getItemFromBlock(state.getBlock()) == Items.AIR)
 				continue;
 			int[] ids = OreDictionary.getOreIDs(new ItemStack(state.getBlock(), 1, state.getBlock().getMetaFromState(state)));
 			for(int id : ids)

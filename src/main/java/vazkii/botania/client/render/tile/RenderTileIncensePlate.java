@@ -39,7 +39,7 @@ public class RenderTileIncensePlate extends TileEntitySpecialRenderer<TileIncens
 			return;
 
 		ItemStack stack = plate.getItemHandler().getStackInSlot(0);
-		if(stack == null)
+		if(stack.isEmpty())
 			return;
 
 		EnumFacing facing = plate.getWorld().getBlockState(plate.getPos()).getValue(BotaniaStateProps.CARDINALS);

@@ -37,7 +37,7 @@ public class TileCell extends TileMod {
 			validCoords = getPos();
 			ticked = true;
 		} else if(!matchCoords(validCoords, this) || !matchCoords(flowerCoords, flower))
-			worldObj.setBlockToAir(pos);
+			world.setBlockToAir(pos);
 	}
 
 	public boolean isSameFlower(TileEntity flower) {

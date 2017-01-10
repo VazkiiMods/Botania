@@ -1,3 +1,4 @@
+/*
 package vazkii.botania.common.integration.buildcraft;
 
 import org.apache.commons.lang3.text.WordUtils;
@@ -60,3 +61,4 @@ public class TriggerManaLevel extends StatementBase implements ITriggerExternal 
 		return false;
 	}
 }
+*/

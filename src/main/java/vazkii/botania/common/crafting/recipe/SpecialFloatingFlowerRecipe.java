@@ -16,6 +16,7 @@ import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
 import vazkii.botania.common.block.ModBlocks;
@@ -30,7 +31,7 @@ public class SpecialFloatingFlowerRecipe implements IRecipe {
 
 		for(int i = 0; i < var1.getSizeInventory(); i++) {
 			ItemStack stack = var1.getStackInSlot(i);
-			if(stack != null) {
+			if(!stack.isEmpty()) {
 				if(stack.getItem() == Item.getItemFromBlock(ModBlocks.floatingFlower))
 					foundFloatingFlower = true;
 
@@ -44,18 +45,19 @@ public class SpecialFloatingFlowerRecipe implements IRecipe {
 		return foundFloatingFlower && foundSpecialFlower;
 	}
 
+	@Nonnull
 	@Override
 	public ItemStack getCraftingResult(@Nonnull InventoryCrafting var1) {
-		ItemStack specialFlower = null;
+		ItemStack specialFlower = ItemStack.EMPTY;
 
 		for(int i = 0; i < var1.getSizeInventory(); i++) {
 			ItemStack stack = var1.getStackInSlot(i);
-			if(stack != null && stack.getItem() == Item.getItemFromBlock(ModBlocks.specialFlower))
+			if(!stack.isEmpty() && stack.getItem() == Item.getItemFromBlock(ModBlocks.specialFlower))
 				specialFlower = stack;
 		}
 
-		if(specialFlower == null)
-			return null;
+		if(specialFlower.isEmpty())
+			return ItemStack.EMPTY;
 
 		return ItemBlockSpecialFlower.ofType(new ItemStack(ModBlocks.floatingSpecialFlower), ItemBlockSpecialFlower.getType(specialFlower));
 	}
@@ -65,14 +67,15 @@ public class SpecialFloatingFlowerRecipe implements IRecipe {
 		return 10;
 	}
 
+	@Nonnull
 	@Override
 	public ItemStack getRecipeOutput() {
-		return null;
+		return ItemStack.EMPTY;
 	}
 
 	@Nonnull
 	@Override
-	public ItemStack[] getRemainingItems(@Nonnull InventoryCrafting inv) {
+	public NonNullList<ItemStack> getRemainingItems(@Nonnull InventoryCrafting inv) {
 		return ForgeHooks.defaultRecipeGetRemainingItems(inv);
 	}
 }

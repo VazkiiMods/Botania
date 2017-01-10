@@ -62,8 +62,8 @@ public class RenderCorporeaSpark extends RenderSparkBase<EntityCorporeaSpark> {
 
 		float absTime = Math.abs(time) - pticks;
 
-		ItemStack stack = entity.getDisplayedItem().orNull();
-		if(stack == null)
+		ItemStack stack = entity.getDisplayedItem();
+		if(stack.isEmpty())
 			return;
 
 		GlStateManager.pushMatrix();
@@ -76,7 +76,7 @@ public class RenderCorporeaSpark extends RenderSparkBase<EntityCorporeaSpark> {
 		GlStateManager.translate(0F, 0F, -2F + (time < 0 ? -absTime : absTime) / 6);
 
 		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-		TextureAtlasSprite icon = Minecraft.getMinecraft().getRenderItem().getItemModelWithOverrides(stack, entity.worldObj, null).getParticleTexture();
+		TextureAtlasSprite icon = Minecraft.getMinecraft().getRenderItem().getItemModelWithOverrides(stack, entity.world, null).getParticleTexture();
 
 		if(icon != null) {
 			float minU = icon.getMinU();

@@ -48,9 +48,9 @@ public class EntityFallingStar extends EntityThrowableCopy {
 		}
 
 		EntityLivingBase thrower = getThrower();
-		if(!worldObj.isRemote && thrower != null) {
+		if(!world.isRemote && thrower != null) {
 			AxisAlignedBB axis = new AxisAlignedBB(posX, posY, posZ, lastTickPosX, lastTickPosY, lastTickPosZ).expand(2, 2, 2);
-			List<EntityLivingBase> entities = worldObj.getEntitiesWithinAABB(EntityLivingBase.class, axis);
+			List<EntityLivingBase> entities = world.getEntitiesWithinAABB(EntityLivingBase.class, axis);
 			for(EntityLivingBase living : entities) {
 				if(living == thrower)
 					continue;
@@ -68,20 +68,20 @@ public class EntityFallingStar extends EntityThrowableCopy {
 
 	@Override
 	protected void onImpact(RayTraceResult pos) {
-		if (worldObj.isRemote)
+		if (world.isRemote)
 			return;
 
 		EntityLivingBase thrower = getThrower();
 		if(pos.entityHit != null && thrower != null && pos.entityHit != thrower && !pos.entityHit.isDead) {
 			if(thrower instanceof EntityPlayer)
 				pos.entityHit.attackEntityFrom(DamageSource.causePlayerDamage((EntityPlayer) thrower), Math.random() < 0.25 ? 10 : 5);
-			else pos.entityHit.attackEntityFrom(DamageSource.generic, Math.random() < 0.25 ? 10 : 5);
+			else pos.entityHit.attackEntityFrom(DamageSource.GENERIC, Math.random() < 0.25 ? 10 : 5);
 		}
 
 		if (pos.getBlockPos() != null) {
-			IBlockState state = worldObj.getBlockState(pos.getBlockPos());
-			if(ConfigHandler.blockBreakParticles && !state.getBlock().isAir(state, worldObj, pos.getBlockPos()))
-				worldObj.playEvent(2001, pos.getBlockPos(), Block.getStateId(state));
+			IBlockState state = world.getBlockState(pos.getBlockPos());
+			if(ConfigHandler.blockBreakParticles && !state.getBlock().isAir(state, world, pos.getBlockPos()))
+				world.playEvent(2001, pos.getBlockPos(), Block.getStateId(state));
 		}
 
 		setDead();

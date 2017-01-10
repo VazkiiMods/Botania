@@ -47,7 +47,7 @@ public class TileCorporeaRetainer extends TileMod {
 		this.request = request;
 		this.requestCount = requestCount;
 		pendingRequest = true;
-		worldObj.updateComparatorOutputLevel(getPos(), worldObj.getBlockState(getPos()).getBlock());
+		world.updateComparatorOutputLevel(getPos(), world.getBlockState(getPos()).getBlock());
 	}
 
 	public boolean hasPendingRequest() {
@@ -58,14 +58,14 @@ public class TileCorporeaRetainer extends TileMod {
 		if(!hasPendingRequest())
 			return;
 
-		ICorporeaSpark spark = CorporeaHelper.getSparkForBlock(worldObj, requestPos);
+		ICorporeaSpark spark = CorporeaHelper.getSparkForBlock(world, requestPos);
 		if(spark != null) {
 			InvWithLocation inv = spark.getSparkInventory();
 			if(inv != null && inv.world.getTileEntity(inv.pos) instanceof ICorporeaRequestor) {
 				ICorporeaRequestor requestor = (ICorporeaRequestor) inv.world.getTileEntity(inv.pos);
 				requestor.doCorporeaRequest(request, requestCount, spark);
 				pendingRequest = false;
-				worldObj.updateComparatorOutputLevel(getPos(), worldObj.getBlockState(getPos()).getBlock());
+				world.updateComparatorOutputLevel(getPos(), world.getBlockState(getPos()).getBlock());
 			}
 		}
 	}
@@ -89,8 +89,7 @@ public class TileCorporeaRetainer extends TileMod {
 			cmp.setString(TAG_REQUEST_CONTENTS, (String) request);
 			break;
 		case REQUEST_ITEMSTACK:
-			NBTTagCompound cmp1 = new NBTTagCompound();
-			((ItemStack) request).writeToNBT(cmp1);
+			NBTTagCompound cmp1 = ((ItemStack) request).writeToNBT(new NBTTagCompound());
 			cmp.setTag(TAG_REQUEST_STACK, cmp1);
 			break;
 		default: break;
@@ -115,7 +114,7 @@ public class TileCorporeaRetainer extends TileMod {
 			break;
 		case REQUEST_ITEMSTACK:
 			NBTTagCompound cmp1 = cmp.getCompoundTag(TAG_REQUEST_STACK);
-			request = ItemStack.loadItemStackFromNBT(cmp1);
+			request = new ItemStack(cmp1);
 			break;
 		default: break;
 		}

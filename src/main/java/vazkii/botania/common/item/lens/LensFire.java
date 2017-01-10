@@ -28,24 +28,24 @@ public class LensFire extends Lens {
 	public boolean collideBurst(IManaBurst burst, EntityThrowable entity, RayTraceResult rtr, boolean isManaBlock, boolean dead, ItemStack stack) {
 		BlockPos coords = burst.getBurstSourceBlockPos();
 		BlockPos pos = rtr.getBlockPos();
-		if(!entity.worldObj.isRemote && pos != null && !coords.equals(pos) && !burst.isFake() && !isManaBlock) {
+		if(!entity.world.isRemote && pos != null && !coords.equals(pos) && !burst.isFake() && !isManaBlock) {
 			EnumFacing dir = rtr.sideHit;
 
 			BlockPos offPos = pos.offset(dir);
 
-			Block blockAt = entity.worldObj.getBlockState(pos).getBlock();
-			Block blockAtOffset = entity.worldObj.getBlockState(offPos).getBlock();
+			Block blockAt = entity.world.getBlockState(pos).getBlock();
+			Block blockAtOffset = entity.world.getBlockState(offPos).getBlock();
 
 			if(blockAt == Blocks.PORTAL)
-				entity.worldObj.setBlockState(pos, Blocks.AIR.getDefaultState());
+				entity.world.setBlockState(pos, Blocks.AIR.getDefaultState());
 			if(blockAtOffset == Blocks.PORTAL)
-				entity.worldObj.setBlockState(offPos, Blocks.AIR.getDefaultState());
+				entity.world.setBlockState(offPos, Blocks.AIR.getDefaultState());
 			else if(blockAt == ModBlocks.incensePlate) {
-				TileIncensePlate plate = (TileIncensePlate) entity.worldObj.getTileEntity(pos);
+				TileIncensePlate plate = (TileIncensePlate) entity.world.getTileEntity(pos);
 				plate.ignite();
 				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(plate);
-			} else if(blockAtOffset.isAir(entity.worldObj.getBlockState(offPos), entity.worldObj, offPos))
-				entity.worldObj.setBlockState(offPos, Blocks.FIRE.getDefaultState());
+			} else if(blockAtOffset.isAir(entity.world.getBlockState(offPos), entity.world, offPos))
+				entity.world.setBlockState(offPos, Blocks.FIRE.getDefaultState());
 		}
 
 		return dead;

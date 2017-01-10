@@ -15,6 +15,7 @@ import javax.annotation.Nonnull;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
 import vazkii.botania.api.item.IAncientWillContainer;
@@ -29,7 +30,7 @@ public class AncientWillRecipe implements IRecipe {
 
 		for(int i = 0; i < var1.getSizeInventory(); i++) {
 			ItemStack stack = var1.getStackInSlot(i);
-			if(stack != null) {
+			if(!stack.isEmpty()) {
 				if(stack.getItem() == ModItems.ancientWill && !foundWill)
 					foundWill = true;
 				else if(!foundItem) {
@@ -43,15 +44,16 @@ public class AncientWillRecipe implements IRecipe {
 		return foundWill && foundItem;
 	}
 
+	@Nonnull
 	@Override
 	public ItemStack getCraftingResult(@Nonnull InventoryCrafting var1) {
-		ItemStack item = null;
+		ItemStack item = ItemStack.EMPTY;
 		int will = -1;
 
 		for(int i = 0; i < var1.getSizeInventory(); i++) {
 			ItemStack stack = var1.getStackInSlot(i);
-			if(stack != null) {
-				if(stack.getItem() instanceof IAncientWillContainer && item == null)
+			if(!stack.isEmpty()) {
+				if(stack.getItem() instanceof IAncientWillContainer && item.isEmpty())
 					item = stack;
 				else will = stack.getItemDamage();
 			}
@@ -59,7 +61,7 @@ public class AncientWillRecipe implements IRecipe {
 
 		IAncientWillContainer container = (IAncientWillContainer) item.getItem();
 		if(container.hasAncientWill(item, will))
-			return null;
+			return ItemStack.EMPTY;
 
 		ItemStack copy = item.copy();
 		container.addAncientWill(copy, will);
@@ -71,14 +73,15 @@ public class AncientWillRecipe implements IRecipe {
 		return 10;
 	}
 
+	@Nonnull
 	@Override
 	public ItemStack getRecipeOutput() {
-		return null;
+		return ItemStack.EMPTY;
 	}
 
 	@Nonnull
 	@Override
-	public ItemStack[] getRemainingItems(@Nonnull InventoryCrafting inv) {
+	public NonNullList<ItemStack> getRemainingItems(@Nonnull InventoryCrafting inv) {
 		return ForgeHooks.defaultRecipeGetRemainingItems(inv);
 	}
 }

@@ -31,7 +31,7 @@ public class RecipeElvenTrade {
 		List<ItemStack> stacksToRemove = new ArrayList<>();
 
 		for(ItemStack stack : stacks) {
-			if(stack == null) {
+			if(stack.isEmpty()) {
 				continue;
 			}
 			if(inputsMissing.isEmpty())

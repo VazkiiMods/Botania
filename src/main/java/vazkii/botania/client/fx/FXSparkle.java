@@ -141,7 +141,7 @@ public class FXSparkle extends Particle {
 		motionY -= 0.04D * particleGravity;
 
 		if (!noClip && !fake)
-			wiggleAround(posX, (getEntityBoundingBox().minY + getEntityBoundingBox().maxY) / 2.0D, posZ);
+			wiggleAround(posX, (getBoundingBox().minY + getBoundingBox().maxY) / 2.0D, posZ);
 
 		posX += motionX;
 		posY += motionY;
@@ -152,7 +152,7 @@ public class FXSparkle extends Particle {
 			motionY *= 0.908000001907348633D;
 			motionZ *= 0.908000001907348633D;
 
-			if (isCollided) {
+			if (onGround) {
 				motionX *= 0.69999998807907104D;
 				motionZ *= 0.69999998807907104D;
 			}
@@ -175,37 +175,37 @@ public class FXSparkle extends Particle {
 		double d2 = z - blockpos.getZ();
 
 		// Botania - change collision box list check to !airblock check
-		if (!worldObj.isAirBlock(blockpos))
+		if (!world.isAirBlock(blockpos))
 		{
 			EnumFacing enumfacing = EnumFacing.UP;
 			double d3 = Double.MAX_VALUE;
 
-			if (!worldObj.isBlockFullCube(blockpos.west()) && d0 < d3)
+			if (!world.isBlockFullCube(blockpos.west()) && d0 < d3)
 			{
 				d3 = d0;
 				enumfacing = EnumFacing.WEST;
 			}
 
-			if (!worldObj.isBlockFullCube(blockpos.east()) && 1.0D - d0 < d3)
+			if (!world.isBlockFullCube(blockpos.east()) && 1.0D - d0 < d3)
 			{
 				d3 = 1.0D - d0;
 				enumfacing = EnumFacing.EAST;
 			}
 
 
-			if (!worldObj.isBlockFullCube(blockpos.north()) && d2 < d3)
+			if (!world.isBlockFullCube(blockpos.north()) && d2 < d3)
 			{
 				d3 = d2;
 				enumfacing = EnumFacing.NORTH;
 			}
 
-			if (!worldObj.isBlockFullCube(blockpos.south()) && 1.0D - d2 < d3)
+			if (!world.isBlockFullCube(blockpos.south()) && 1.0D - d2 < d3)
 			{
 				d3 = 1.0D - d2;
 				enumfacing = EnumFacing.SOUTH;
 			}
 
-			if (!worldObj.isBlockFullCube(blockpos.up()) && 1.0D - d1 < d3)
+			if (!world.isBlockFullCube(blockpos.up()) && 1.0D - d1 < d3)
 			{
 				d3 = 1.0D - d1;
 				enumfacing = EnumFacing.UP;

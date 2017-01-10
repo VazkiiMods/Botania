@@ -15,6 +15,7 @@ import javax.annotation.Nonnull;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
 import vazkii.botania.api.item.IPhantomInkable;
@@ -29,11 +30,11 @@ public class PhantomInkRecipe implements IRecipe {
 
 		for(int i = 0; i < var1.getSizeInventory(); i++) {
 			ItemStack stack = var1.getStackInSlot(i);
-			if(stack != null) {
+			if(!stack.isEmpty()) {
 				if(stack.getItem() == ModItems.phantomInk && !foundInk)
 					foundInk = true;
 				else if(!foundItem) {
-					if(stack.getItem() instanceof IPhantomInkable && stack.getItem().getContainerItem(stack) == null)
+					if(stack.getItem() instanceof IPhantomInkable && stack.getItem().getContainerItem(stack).isEmpty())
 						foundItem = true;
 					else return false;
 				} else return false;
@@ -43,13 +44,14 @@ public class PhantomInkRecipe implements IRecipe {
 		return foundInk && foundItem;
 	}
 
+	@Nonnull
 	@Override
 	public ItemStack getCraftingResult(@Nonnull InventoryCrafting var1) {
-		ItemStack item = null;
+		ItemStack item = ItemStack.EMPTY;
 
 		for(int i = 0; i < var1.getSizeInventory(); i++) {
 			ItemStack stack = var1.getStackInSlot(i);
-			if(stack != null && stack.getItem() instanceof IPhantomInkable && item == null)
+			if(!stack.isEmpty() && stack.getItem() instanceof IPhantomInkable && item.isEmpty())
 				item = stack;
 		}
 
@@ -64,14 +66,15 @@ public class PhantomInkRecipe implements IRecipe {
 		return 10;
 	}
 
+	@Nonnull
 	@Override
 	public ItemStack getRecipeOutput() {
-		return null;
+		return ItemStack.EMPTY;
 	}
 
 	@Nonnull
 	@Override
-	public ItemStack[] getRemainingItems(@Nonnull InventoryCrafting inv) {
+	public NonNullList<ItemStack> getRemainingItems(@Nonnull InventoryCrafting inv) {
 		return ForgeHooks.defaultRecipeGetRemainingItems(inv);
 	}
 }

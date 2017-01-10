@@ -34,14 +34,14 @@ public class TilePylon extends TileEntity implements ITickable {
 	public void update() {
 		++ticks;
 
-		if(worldObj.getBlockState(getPos()).getBlock() != ModBlocks.pylon)
+		if(world.getBlockState(getPos()).getBlock() != ModBlocks.pylon)
 			return;
 
-		PylonVariant variant = worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.PYLON_VARIANT);
+		PylonVariant variant = world.getBlockState(getPos()).getValue(BotaniaStateProps.PYLON_VARIANT);
 
-		if(activated && worldObj.isRemote) {
-			if(worldObj.getBlockState(centerPos).getBlock() != getBlockForMeta()
-					|| variant == PylonVariant.NATURA && (portalOff() || worldObj.getBlockState(getPos().down()).getBlock() != ModBlocks.pool)) {
+		if(activated && world.isRemote) {
+			if(world.getBlockState(centerPos).getBlock() != getBlockForMeta()
+					|| variant == PylonVariant.NATURA && (portalOff() || world.getBlockState(getPos().down()).getBlock() != ModBlocks.pool)) {
 				activated = false;
 				return;
 			}
@@ -63,21 +63,21 @@ public class TilePylon extends TileEntity implements ITickable {
 					Vector3 movementVector = centerBlock.subtract(ourCoords).normalize().multiply(0.2);
 
 					Botania.proxy.wispFX(x, pos.getY() + 0.25, z, (float) Math.random() * 0.25F, 0.75F + (float) Math.random() * 0.25F, (float) Math.random() * 0.25F, 0.25F + (float) Math.random() * 0.1F, -0.075F - (float) Math.random() * 0.015F);
-					if(worldObj.rand.nextInt(3) == 0)
+					if(world.rand.nextInt(3) == 0)
 						Botania.proxy.wispFX(x, pos.getY() + 0.25, z, (float) Math.random() * 0.25F, 0.75F + (float) Math.random() * 0.25F, (float) Math.random() * 0.25F, 0.25F + (float) Math.random() * 0.1F, (float) movementVector.x, (float) movementVector.y, (float) movementVector.z);
 				}
 			} else {
 				Vector3 ourCoords = Vector3.fromTileEntityCenter(this).add(0, 1 + (Math.random() - 0.5 * 0.25), 0);
 				Vector3 movementVector = centerBlock.subtract(ourCoords).normalize().multiply(0.2);
 
-				Block block = worldObj.getBlockState(pos.down()).getBlock();
+				Block block = world.getBlockState(pos.down()).getBlock();
 				if(block == ModBlocks.flower || block == ModBlocks.shinyFlower) {
-					int hex = worldObj.getBlockState(pos.down()).getValue(BotaniaStateProps.COLOR).getMapColor().colorValue;
+					int hex = world.getBlockState(pos.down()).getValue(BotaniaStateProps.COLOR).getMapColor().colorValue;
 					int r = (hex & 0xFF0000) >> 16;
 					int g = (hex & 0xFF00) >> 8;
 					int b = hex & 0xFF;
 
-					if(worldObj.rand.nextInt(4) == 0)
+					if(world.rand.nextInt(4) == 0)
 						Botania.proxy.sparkleFX(centerBlock.x + (Math.random() - 0.5) * 0.5, centerBlock.y, centerBlock.z + (Math.random() - 0.5) * 0.5, r / 255F, g / 255F, b / 255F, (float) Math.random(), 8);
 
 					Botania.proxy.wispFX(pos.getX() + 0.5 + (Math.random() - 0.5) * 0.25, pos.getY() - 0.5, pos.getZ() + 0.5 + (Math.random() - 0.5) * 0.25, r / 255F, g / 255F, b / 255F, (float) Math.random() / 3F, -0.04F);
@@ -87,17 +87,17 @@ public class TilePylon extends TileEntity implements ITickable {
 			}
 		}
 
-		if(worldObj.rand.nextBoolean() && worldObj.isRemote)
+		if(world.rand.nextBoolean() && world.isRemote)
 			Botania.proxy.sparkleFX(pos.getX() + Math.random(), pos.getY() + Math.random() * 1.5, pos.getZ() + Math.random(), variant == PylonVariant.GAIA ? 1F : 0.5F, variant == PylonVariant.NATURA ? 1F : 0.5F, variant == PylonVariant.NATURA ? 0.5F : 1F, (float) Math.random(), 2);
 	}
 
 	private Block getBlockForMeta() {
-		return worldObj.getBlockState(pos).getValue(BotaniaStateProps.PYLON_VARIANT) == PylonVariant.MANA ? ModBlocks.enchanter : ModBlocks.alfPortal;
+		return world.getBlockState(pos).getValue(BotaniaStateProps.PYLON_VARIANT) == PylonVariant.MANA ? ModBlocks.enchanter : ModBlocks.alfPortal;
 	}
 
 	private boolean portalOff() {
-		return worldObj.getBlockState(centerPos).getBlock() != ModBlocks.alfPortal
-				|| worldObj.getBlockState(centerPos).getValue(BotaniaStateProps.ALFPORTAL_STATE) == AlfPortalState.OFF;
+		return world.getBlockState(centerPos).getBlock() != ModBlocks.alfPortal
+				|| world.getBlockState(centerPos).getValue(BotaniaStateProps.ALFPORTAL_STATE) == AlfPortalState.OFF;
 	}
 
 }

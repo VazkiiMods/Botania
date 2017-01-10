@@ -1,7 +1,7 @@
 {
-  "parent": "botania:block/shapes/miniIsland",
+  "parent": "botania:block/shapes/miniisland",
   "textures": {
-    "top": "botania:blocks/altGrass0",
-	"side": "botania:blocks/altGrass1"
+    "top": "botania:blocks/altgrass0",
+	"side": "botania:blocks/altgrass1"
   }
 }

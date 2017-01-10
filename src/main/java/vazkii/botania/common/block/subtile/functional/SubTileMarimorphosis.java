@@ -13,6 +13,7 @@ package vazkii.botania.common.block.subtile.functional;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 import gnu.trove.list.array.TIntArrayList;
 import net.minecraft.block.Block;
@@ -60,7 +61,7 @@ public class SubTileMarimorphosis extends SubTileFunctional {
 			BlockPos coords = getCoordsToPut();
 			if(coords != null) {
 				ItemStack stack = getStoneToPut(coords);
-				if(stack != null) {
+				if(!stack.isEmpty()) {
 					Block block = Block.getBlockFromItem(stack.getItem());
 					int meta = stack.getItemDamage();
 					supertile.getWorld().setBlockState(coords, block.getStateFromMeta(meta), 1 | 2);
@@ -75,7 +76,7 @@ public class SubTileMarimorphosis extends SubTileFunctional {
 	}
 
 	public ItemStack getStoneToPut(BlockPos coords) {
-		List<Type> types = Arrays.asList(BiomeDictionary.getTypesForBiome(supertile.getWorld().getBiomeGenForCoords(coords)));
+		Set<Type> types = BiomeDictionary.getTypes(supertile.getWorld().getBiome(coords));
 
 		TIntArrayList values = new TIntArrayList();
 		for(int i = 0; i < 8; i++) {

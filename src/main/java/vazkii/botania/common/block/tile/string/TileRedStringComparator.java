@@ -25,11 +25,11 @@ public class TileRedStringComparator extends TileRedString {
 		int origVal = comparatorValue;
 
 		if(state.hasComparatorInputOverride()) {
-			comparatorValue = state.getComparatorInputOverride(worldObj, binding);
+			comparatorValue = state.getComparatorInputOverride(world, binding);
 		} else comparatorValue = 0;
 
 		if(origVal != comparatorValue)
-			worldObj.updateComparatorOutputLevel(pos, worldObj.getBlockState(pos).getBlock());
+			world.updateComparatorOutputLevel(pos, world.getBlockState(pos).getBlock());
 	}
 
 	public int getComparatorValue() {
@@ -38,7 +38,7 @@ public class TileRedStringComparator extends TileRedString {
 
 	@Override
 	public boolean acceptBlock(BlockPos pos) {
-		return worldObj.getBlockState(pos).hasComparatorInputOverride();
+		return world.getBlockState(pos).hasComparatorInputOverride();
 	}
 
 }

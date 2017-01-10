@@ -147,9 +147,9 @@ public class SpecialFlowerModel implements IModelCustomData {
 			@Override
 			public boolean accepts(ResourceLocation modelLocation) {
 				return modelLocation.getResourceDomain().equals("botania_special") && (
-						modelLocation.getResourcePath().equals("specialFlower") ||
-						modelLocation.getResourcePath().equals("models/block/specialFlower") ||
-						modelLocation.getResourcePath().equals("models/item/specialFlower"));
+						modelLocation.getResourcePath().equals("specialflower") ||
+						modelLocation.getResourcePath().equals("models/block/specialflower") ||
+						modelLocation.getResourcePath().equals("models/item/specialflower"));
 			}
 
 			@Override
@@ -239,7 +239,7 @@ public class SpecialFlowerModel implements IModelCustomData {
 		private final ItemOverrideList itemHandler = new ItemOverrideList(ImmutableList.of()) {
 			@Nonnull
 			@Override
-			public IBakedModel handleItemState(@Nonnull IBakedModel original, ItemStack stack, @Nonnull World world, @Nonnull EntityLivingBase living) {
+			public IBakedModel handleItemState(@Nonnull IBakedModel original, ItemStack stack, World world, EntityLivingBase living) {
 				Optional<IBakedModel> item = bakedItemModels.getUnchecked(ItemBlockSpecialFlower.getType(stack));
 
 				if(!item.isPresent())

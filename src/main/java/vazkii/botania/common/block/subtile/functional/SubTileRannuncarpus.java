@@ -87,7 +87,7 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 					continue;
 				}
 
-				if(age < 60 + slowdown || item.isDead)
+				if(age < 60 + slowdown || item.isDead || item.getEntityItem().isEmpty())
 					continue;
 
 				ItemStack stack = item.getEntityItem();
@@ -140,9 +140,7 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 								if(stackItem instanceof IFlowerPlaceable)
 									((IFlowerPlaceable) stackItem).onBlockPlacedByFlower(stack, this, coords);
 
-								stack.stackSize--;
-								if(stack.stackSize <= 0)
-									item.setDead();
+								stack.shrink(1);
 
 								if(mana > 1)
 									mana--;
@@ -175,7 +173,7 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		if(recieverStack.getItem() != null) {
+		if(!recieverStack.isEmpty()) {
 			String stackName = recieverStack.getDisplayName();
 			int width = 16 + mc.fontRendererObj.getStringWidth(stackName) / 2;
 			int x = res.getScaledWidth() / 2 - width;

@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "botania:blocks/customBrick7"
+    "all": "botania:blocks/custombrick7"
   }
 }

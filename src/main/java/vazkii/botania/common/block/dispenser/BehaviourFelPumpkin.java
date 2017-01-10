@@ -34,7 +34,7 @@ public class BehaviourFelPumpkin extends BehaviorDefaultDispenseItem {
 				world.setBlockState(blockpos, blockpumpkin.getDefaultState(), 3);
 			}
 
-			--stack.stackSize;
+			stack.shrink(1);
 		}
 		else
 		{

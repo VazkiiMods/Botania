@@ -25,8 +25,8 @@ public class TileRedStringRelay extends TileRedString {
 		if(pos.equals(getPos().up()))
 			return false;
 
-		Block block = worldObj.getBlockState(pos).getBlock();
-		TileEntity tile = worldObj.getTileEntity(pos);
+		Block block = world.getBlockState(pos).getBlock();
+		TileEntity tile = world.getTileEntity(pos);
 		return (block instanceof BlockFlower || block instanceof BlockMushroom || block instanceof BlockDoublePlant) && (tile == null || !(tile instanceof ISubTileContainer));
 	}
 

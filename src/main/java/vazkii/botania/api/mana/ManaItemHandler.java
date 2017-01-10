@@ -44,7 +44,7 @@ public final class ManaItemHandler {
 		for(int slot = 0; slot < size; slot++) {
 			ItemStack stackInSlot = mainInv.getStackInSlot(slot);
 
-			if(stackInSlot != null && stackInSlot.getItem() instanceof IManaItem) {
+			if(!stackInSlot.isEmpty() && stackInSlot.getItem() instanceof IManaItem) {
 				toReturn.add(stackInSlot);
 			}
 		}
@@ -74,7 +74,7 @@ public final class ManaItemHandler {
 		for(int slot = 0; slot < size; slot++) {
 			ItemStack stackInSlot = baublesInv.getStackInSlot(slot);
 
-			if(stackInSlot != null && stackInSlot.getItem() instanceof IManaItem) {
+			if(!stackInSlot.isEmpty() && stackInSlot.getItem() instanceof IManaItem) {
 				toReturn.put(slot, stackInSlot);
 			}
 		}
@@ -90,7 +90,7 @@ public final class ManaItemHandler {
 	 * @return The amount of mana received from the request.
 	 */
 	public static int requestMana(ItemStack stack, EntityPlayer player, int manaToGet, boolean remove) {
-		if(stack == null)
+		if(stack.isEmpty())
 			return 0;
 
 		List<ItemStack> items = getManaItems(player);
@@ -143,7 +143,7 @@ public final class ManaItemHandler {
 	 * @return If the request was succesful.
 	 */
 	public static boolean requestManaExact(ItemStack stack, EntityPlayer player, int manaToGet, boolean remove) {
-		if(stack == null)
+		if(stack.isEmpty())
 			return false;
 
 		List<ItemStack> items = getManaItems(player);
@@ -191,7 +191,7 @@ public final class ManaItemHandler {
 	 * @return The amount of mana actually sent.
 	 */
 	public static int dispatchMana(ItemStack stack, EntityPlayer player, int manaToSend, boolean add) {
-		if(stack == null)
+		if(stack.isEmpty())
 			return 0;
 
 		List<ItemStack> items = getManaItems(player);
@@ -251,7 +251,7 @@ public final class ManaItemHandler {
 	 * @return If an item received the mana sent.
 	 */
 	public static boolean dispatchManaExact(ItemStack stack, EntityPlayer player, int manaToSend, boolean add) {
-		if(stack == null)
+		if(stack.isEmpty())
 			return false;
 
 		List<ItemStack> items = getManaItems(player);
@@ -328,11 +328,11 @@ public final class ManaItemHandler {
 	 * Gets the sum of all the discounts on IManaDiscountArmor items equipped
 	 * on the player passed in. This discount can vary based on what the passed tool is.
 	 */
-	public static float getFullDiscountForTools(EntityPlayer player, @Nullable ItemStack tool) {
+	public static float getFullDiscountForTools(EntityPlayer player, ItemStack tool) {
 		float discount = 0F;
-		for(int i = 0; i < player.inventory.armorInventory.length; i++) {
-			ItemStack armor = player.inventory.armorInventory[i];
-			if(armor != null && armor.getItem() instanceof IManaDiscountArmor)
+		for(int i = 0; i < player.inventory.armorInventory.size(); i++) {
+			ItemStack armor = player.inventory.armorInventory.get(i);
+			if(!armor.isEmpty() && armor.getItem() instanceof IManaDiscountArmor)
 				discount += ((IManaDiscountArmor) armor.getItem()).getDiscount(armor, i, player, tool);
 		}
 

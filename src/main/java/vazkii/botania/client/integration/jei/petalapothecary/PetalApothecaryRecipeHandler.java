@@ -24,14 +24,8 @@ public class PetalApothecaryRecipeHandler implements IRecipeHandler<RecipePetals
 
 	@Nonnull
 	@Override
-	public String getRecipeCategoryUid() {
-		return "botania.petals";
-	}
-
-	@Nonnull
-	@Override
 	public String getRecipeCategoryUid(@Nonnull RecipePetals recipe) { // o is erased type param
-		return getRecipeCategoryUid();
+		return "botania.petals";
 	}
 
 	@Nonnull

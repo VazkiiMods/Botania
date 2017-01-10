@@ -26,13 +26,13 @@ public class CommandSkyblockSpread extends CommandBase {
 
 	@Nonnull
 	@Override
-	public String getCommandName() {
+	public String getName() {
 		return "botania-skyblock-spread";
 	}
 
 	@Nonnull
 	@Override
-	public String getCommandUsage(@Nonnull ICommandSender sender) {
+	public String getUsage(@Nonnull ICommandSender sender) {
 		return "<player> [<range>]";
 	}
 
@@ -58,12 +58,12 @@ public class CommandSkyblockSpread extends CommandBase {
 
 		EntityPlayer player = getPlayer(server, sender, args[0]);
 		if(player != null) {
-			BlockPos spawn = player.worldObj.getSpawnPoint();
+			BlockPos spawn = player.world.getSpawnPoint();
 			int x, z;
 
 			do {
-				x = player.worldObj.rand.nextInt(maxrange) - maxrange / 2 + spawn.getX();
-				z = player.worldObj.rand.nextInt(maxrange) - maxrange / 2 + spawn.getZ();
+				x = player.world.rand.nextInt(maxrange) - maxrange / 2 + spawn.getX();
+				z = player.world.rand.nextInt(maxrange) - maxrange / 2 + spawn.getZ();
 			} while(MathHelper.pointDistancePlane(x, z, spawn.getX(), spawn.getZ()) < minDist);
 
 			SkyblockWorldEvents.spawnPlayer(player, new BlockPos(x, spawn.getY(), z), true);

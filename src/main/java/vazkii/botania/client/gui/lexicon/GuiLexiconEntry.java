@@ -165,7 +165,7 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 				String cmd = "/botania-share " + entry.getUnlocalizedName();
 
 				mc.ingameGUI.getChatGUI().addToSentMessages(cmd);
-				mc.thePlayer.sendChatMessage(cmd);
+				mc.player.sendChatMessage(cmd);
 				break;
 			case 4 :
 				try {
@@ -213,7 +213,7 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 				tutorial.poll();
 				positionTutorialArrow();
 				if(tutorial.isEmpty()) {
-					mc.thePlayer.addChatMessage(new TextComponentTranslation("botaniamisc.tutorialEnded").setStyle(new Style().setColor(TextFormatting.RED)));
+					mc.player.sendMessage(new TextComponentTranslation("botaniamisc.tutorialEnded").setStyle(new Style().setColor(TextFormatting.RED)));
 					hasTutorialArrow = false;
 				}
 			}

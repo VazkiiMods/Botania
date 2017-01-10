@@ -53,7 +53,7 @@ public class BehaviourPoolMinecart extends BehaviorDefaultDispenseItem {
 		if(stack.hasDisplayName())
 			entityminecart.setCustomNameTag(stack.getDisplayName());
 
-		world.spawnEntityInWorld(entityminecart);
+		world.spawnEntity(entityminecart);
 		stack.splitStack(1);
 		return stack;
 	}

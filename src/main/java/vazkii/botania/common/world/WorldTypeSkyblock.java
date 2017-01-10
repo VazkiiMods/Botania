@@ -36,7 +36,7 @@ public class WorldTypeSkyblock extends WorldType {
 	}
 
 	@Override
-	public int getMinimumSpawnHeight(World world) {
+	public int getMinimumSpawnHeight(@Nonnull World world) {
 		return 86;
 	}
 

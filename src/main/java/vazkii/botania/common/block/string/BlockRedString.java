@@ -49,7 +49,7 @@ public abstract class BlockRedString extends BlockMod implements ILexiconable {
 
 	@Override
 	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase par5EntityLivingBase, ItemStack par6ItemStack) {
-		EnumFacing orientation = BlockPistonBase.getFacingFromEntity(pos, par5EntityLivingBase);
+		EnumFacing orientation = EnumFacing.getDirectionFromEntityLiving(pos, par5EntityLivingBase);
 		world.setBlockState(pos, state.withProperty(BotaniaStateProps.FACING, orientation), 1 | 2);
 	}
 

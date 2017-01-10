@@ -23,7 +23,7 @@ public class ItemElementiumPick extends ItemManasteelPick {
 	public void onHarvestDrops(HarvestDropsEvent event) {
 		if(event.getHarvester() != null) {
 			ItemStack stack = event.getHarvester().getHeldItemMainhand();
-			if(stack != null && (stack.getItem() == this || stack.getItem() == ModItems.terraPick && ItemTerraPick.isTipped(stack))) {
+			if(!stack.isEmpty() && (stack.getItem() == this || stack.getItem() == ModItems.terraPick && ItemTerraPick.isTipped(stack))) {
 				for(int i = 0; i < event.getDrops().size(); i++) {
 					ItemStack drop = event.getDrops().get(i);
 					if(drop != null) {
@@ -40,7 +40,7 @@ public class ItemElementiumPick extends ItemManasteelPick {
 	}
 
 	private static boolean isDisposable(ItemStack stack) {
-		if(stack == null || stack.getItem() == null)
+		if(stack.isEmpty())
 			return false;
 		
 		for(int id : OreDictionary.getOreIDs(stack)) {

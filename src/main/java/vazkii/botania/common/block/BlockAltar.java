@@ -29,6 +29,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -38,6 +39,7 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -128,7 +130,7 @@ public class BlockAltar extends BlockMod implements ILexiconable {
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void getSubBlocks(@Nonnull Item item, CreativeTabs tab, List<ItemStack> list) {
+	public void getSubBlocks(@Nonnull Item item, CreativeTabs tab, NonNullList<ItemStack> list) {
 		for(int i = 0; i < 9; i++)
 			list.add(new ItemStack(item, 1, i));
 	}
@@ -151,20 +153,21 @@ public class BlockAltar extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack stack, EnumFacing par6, float par7, float par8, float par9) {
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing par6, float par7, float par8, float par9) {
 		TileAltar tile = (TileAltar) world.getTileEntity(pos);
+		ItemStack stack = player.getHeldItem(hand);
 		if(player.isSneaking()) {
 			InventoryHelper.withdrawFromInventory(tile, player);
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(tile);
-		} else if(tile.isEmpty() && tile.hasWater && stack == null)
+		} else if(tile.isEmpty() && tile.hasWater && stack.isEmpty())
 			tile.trySetLastRecipe(player);
 		else {
-			if(stack != null && (isValidWaterContainer(stack) || stack.getItem() == ModItems.waterRod && ManaItemHandler.requestManaExact(stack, player, ItemWaterRod.COST, false))) {
+			if(!stack.isEmpty() && (isValidWaterContainer(stack) || stack.getItem() == ModItems.waterRod && ManaItemHandler.requestManaExact(stack, player, ItemWaterRod.COST, false))) {
 				if(!tile.hasWater) {
 					if(stack.getItem() == ModItems.waterRod)
 						ManaItemHandler.requestManaExact(stack, player, ItemWaterRod.COST, true);
 					else if(!player.capabilities.isCreativeMode)
-						drain(FluidRegistry.WATER, stack);
+						player.setHeldItem(hand, drain(FluidRegistry.WATER, stack));
 
 					tile.setWater(true);
 					world.updateComparatorOutputLevel(pos, this);
@@ -172,7 +175,7 @@ public class BlockAltar extends BlockMod implements ILexiconable {
 				}
 
 				return true;
-			} else if(stack != null && stack.getItem() == Items.LAVA_BUCKET) {
+			} else if(!stack.isEmpty() && stack.getItem() == Items.LAVA_BUCKET) {
 				if(!player.capabilities.isCreativeMode)
 					drain(FluidRegistry.LAVA, stack);
 
@@ -182,14 +185,14 @@ public class BlockAltar extends BlockMod implements ILexiconable {
 				world.checkLight(pos);
 
 				return true;
-			} else if(stack != null && stack.getItem() == Items.BUCKET && (tile.hasWater || tile.hasLava) && !Botania.gardenOfGlassLoaded) {
+			} else if(!stack.isEmpty() && stack.getItem() == Items.BUCKET && (tile.hasWater || tile.hasLava) && !Botania.gardenOfGlassLoaded) {
 				ItemStack bucket = tile.hasLava ? new ItemStack(Items.LAVA_BUCKET) : new ItemStack(Items.WATER_BUCKET);
-				if(stack.stackSize == 1)
+				if(stack.getCount() == 1)
 					player.setHeldItem(hand, bucket);
 				else {
 					if(!player.inventory.addItemStackToInventory(bucket))
 						player.dropItem(bucket, false);
-					stack.stackSize--;
+					stack.shrink(1);
 				}
 
 				if(tile.hasLava)
@@ -224,11 +227,11 @@ public class BlockAltar extends BlockMod implements ILexiconable {
 	}
 
 	private boolean isValidWaterContainer(ItemStack stack) {
-		if(stack == null || stack.stackSize != 1)
+		if(stack.isEmpty() || stack.getCount() != 1)
 			return false;
 
-		if(stack.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null)) {
-			IFluidHandler handler = stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null);
+		if(stack.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null)) {
+			IFluidHandler handler = stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
 			FluidStack simulate = handler.drain(new FluidStack(FluidRegistry.WATER, Fluid.BUCKET_VOLUME), false);
 			if(simulate != null && simulate.getFluid() == FluidRegistry.WATER && simulate.amount == Fluid.BUCKET_VOLUME)
 				return true;
@@ -237,9 +240,10 @@ public class BlockAltar extends BlockMod implements ILexiconable {
 		return false;
 	}
 
-	private void drain(Fluid fluid, ItemStack stack) {
-		stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null)
-		.drain(new FluidStack(fluid, Fluid.BUCKET_VOLUME), true);
+	private ItemStack drain(Fluid fluid, ItemStack stack) {
+		IFluidHandlerItem handler = stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
+		handler.drain(new FluidStack(fluid, Fluid.BUCKET_VOLUME), true);
+		return handler.getContainer();
 	}
 
 	@Override

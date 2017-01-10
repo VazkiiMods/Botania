@@ -86,7 +86,7 @@ public final class ToolCommons {
 
 		Material mat = world.getBlockState(pos).getMaterial();
 		if(!world.isRemote && blk != null && !blk.isAir(state, world, pos) && state.getPlayerRelativeBlockHardness(player, world, pos) > 0) {
-			if(!blk.canHarvestBlock(player.worldObj, pos, player) || !isRightMaterial(mat, materialsListing)) {
+			if(!blk.canHarvestBlock(player.world, pos, player) || !isRightMaterial(mat, materialsListing)) {
 				return;
 			}
 
@@ -111,7 +111,7 @@ public final class ToolCommons {
 	}
 
 	public static int getToolPriority(ItemStack stack) {
-		if(stack == null)
+		if(stack.isEmpty())
 			return 0;
 
 		Item item = stack.getItem();
@@ -136,28 +136,27 @@ public final class ToolCommons {
 		return materialLevel * 100 + modifier * 10 + efficiency;
 	}
 
-	/**
-	 * @author mDiyo
-	 */
-	public static RayTraceResult raytraceFromEntity(World world, Entity player, boolean par3, double range) {
-		float f = 1.0F;
-		float f1 = player.prevRotationPitch + (player.rotationPitch - player.prevRotationPitch) * f;
-		float f2 = player.prevRotationYaw + (player.rotationYaw - player.prevRotationYaw) * f;
-		double d0 = player.prevPosX + (player.posX - player.prevPosX) * f;
-		double d1 = player.prevPosY + (player.posY - player.prevPosY) * f;
-		if (player instanceof EntityPlayer)
-			d1 += ((EntityPlayer) player).eyeHeight;
-		double d2 = player.prevPosZ + (player.posZ - player.prevPosZ) * f;
-		Vec3d vec3 = new Vec3d(d0, d1, d2);
-		float f3 = MathHelper.cos(-f2 * 0.017453292F - (float) Math.PI);
-		float f4 = MathHelper.sin(-f2 * 0.017453292F - (float) Math.PI);
-		float f5 = -MathHelper.cos(-f1 * 0.017453292F);
-		float f6 = MathHelper.sin(-f1 * 0.017453292F);
-		float f7 = f4 * f5;
-		float f8 = f3 * f5;
-		double d3 = range;
-		Vec3d vec31 = vec3.addVector(f7 * d3, f6 * d3, f8 * d3);
-		return world.rayTraceBlocks(vec3, vec31, par3);
+	// [VanillaCopy] of Item.rayTrace, edits noted
+	public static RayTraceResult raytraceFromEntity(World worldIn, Entity playerIn, boolean useLiquids, double range) {
+		float f = playerIn.rotationPitch;
+		float f1 = playerIn.rotationYaw;
+		double d0 = playerIn.posX;
+		double d1 = playerIn.posY + (double)playerIn.getEyeHeight();
+		double d2 = playerIn.posZ;
+		Vec3d vec3d = new Vec3d(d0, d1, d2);
+		float f2 = MathHelper.cos(-f1 * 0.017453292F - (float)Math.PI);
+		float f3 = MathHelper.sin(-f1 * 0.017453292F - (float)Math.PI);
+		float f4 = -MathHelper.cos(-f * 0.017453292F);
+		float f5 = MathHelper.sin(-f * 0.017453292F);
+		float f6 = f3 * f4;
+		float f7 = f2 * f4;
+		double d3 = range; // Botania - use custom range param, don't limit to reach distance
+		/*if (playerIn instanceof net.minecraft.entity.player.EntityPlayerMP)
+		{
+			d3 = ((net.minecraft.entity.player.EntityPlayerMP)playerIn).interactionManager.getBlockReachDistance();
+		}*/
+		Vec3d vec3d1 = vec3d.addVector((double)f6 * d3, (double)f5 * d3, (double)f7 * d3);
+		return worldIn.rayTraceBlocks(vec3d, vec3d1, useLiquids, !useLiquids, false);
 	}
 
 }

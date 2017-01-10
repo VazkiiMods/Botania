@@ -83,7 +83,7 @@ public class PageElvenRecipe extends PageRecipe {
 
 	@SideOnly(Side.CLIENT)
 	public void renderItemAtInputPos(IGuiLexiconEntry gui, int x, ItemStack stack) {
-		if(stack == null || stack.getItem() == null)
+		if(stack.isEmpty())
 			return;
 		stack = stack.copy();
 
@@ -101,7 +101,7 @@ public class PageElvenRecipe extends PageRecipe {
 
 	@SideOnly(Side.CLIENT)
 	public void renderItemAtOutputPos(IGuiLexiconEntry gui, int x, int y, ItemStack stack) {
-		if(stack == null || stack.getItem() == null)
+		if(stack.isEmpty())
 			return;
 		stack = stack.copy();
 

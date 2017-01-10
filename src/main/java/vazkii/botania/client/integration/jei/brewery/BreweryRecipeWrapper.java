@@ -14,6 +14,7 @@ import javax.annotation.Nonnull;
 
 import com.google.common.collect.ImmutableList;
 
+import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
@@ -24,16 +25,16 @@ import vazkii.botania.common.item.ModItems;
 
 public class BreweryRecipeWrapper implements IRecipeWrapper {
 
-	private final List input;
+	private final List<List<ItemStack>> input;
 	private final List<ItemStack> output;
 
 	@SuppressWarnings("unchecked")
 	public BreweryRecipeWrapper(RecipeBrew recipeBrew) {
-		ImmutableList.Builder builder = ImmutableList.builder();
+		ImmutableList.Builder<List<ItemStack>> builder = ImmutableList.builder();
 		builder.add(ImmutableList.of(new ItemStack(ModItems.vial, 1, 0), new ItemStack(ModItems.vial, 1, 1)));
 		for(Object o : recipeBrew.getInputs()) {
 			if(o instanceof ItemStack) {
-				builder.add(o);
+				builder.add(ImmutableList.of((ItemStack) o));
 			}
 			if(o instanceof String) {
 				builder.add(OreDictionary.getOres((String) o));
@@ -45,33 +46,17 @@ public class BreweryRecipeWrapper implements IRecipeWrapper {
 	}
 
 	@Override
-	public List getInputs() {
-		return input;
-	}
-
-	@Override
-	public List<ItemStack> getOutputs() {
-		return output;
-	}
-
-	@Override
-	public List<FluidStack> getFluidInputs() {
-		return ImmutableList.of();
-	}
-
-	@Override
-	public List<FluidStack> getFluidOutputs() {
-		return ImmutableList.of();
+	public void getIngredients(@Nonnull IIngredients ingredients) {
+		ingredients.setInputLists(ItemStack.class, input);
+		ingredients.setOutputLists(ItemStack.class, ImmutableList.of(output));
 	}
 
 	@Override
 	public void drawInfo(@Nonnull Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
 	}
 
-	@Override
-	public void drawAnimations(@Nonnull Minecraft minecraft, int recipeWidth, int recipeHeight) {
-	}
 
+	@Nonnull
 	@Override
 	public List<String> getTooltipStrings(int mouseX, int mouseY) {
 		return ImmutableList.of();

@@ -108,7 +108,7 @@ public class SubTileDaffomill extends SubTileFunctional {
 			return false;
 
 		if(player.isSneaking()) {
-			if(!player.worldObj.isRemote) {
+			if(!player.world.isRemote) {
 				orientation = orientation.rotateY();
 				sync();
 			}

@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "botania:blocks/biomeStone15"
+    "all": "botania:blocks/biomestone15"
   }
 }

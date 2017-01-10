@@ -55,7 +55,7 @@ public class ItemThirdEye extends ItemBauble implements IManaUsingItem, IBaubleR
 		
 		double range = 24;
 		AxisAlignedBB aabb = new AxisAlignedBB(player.posX, player.posY, player.posZ, player.posX, player.posY, player.posZ).expand(range, range, range);
-		List<EntityLivingBase> mobs = player.worldObj.getEntitiesWithinAABB(EntityLivingBase.class, aabb, (Entity e) -> e instanceof IMob);
+		List<EntityLivingBase> mobs = player.world.getEntitiesWithinAABB(EntityLivingBase.class, aabb, (Entity e) -> e instanceof IMob);
 		
 		if(!mobs.isEmpty())
 			for(EntityLivingBase e : mobs) {
@@ -81,7 +81,7 @@ public class ItemThirdEye extends ItemBauble implements IManaUsingItem, IBaubleR
 		if(type == RenderType.BODY) {
 			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 			Helper.rotateIfSneaking(player);
-			boolean armor = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST) != null;
+			boolean armor = !player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).isEmpty();
 			double scale = 0.6;
 			GlStateManager.rotate(180, 0, 0, 1);
 			GlStateManager.translate(-0.3, -0.6, armor ? -0.18 : -0.12);

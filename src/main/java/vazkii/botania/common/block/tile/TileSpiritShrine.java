@@ -18,7 +18,7 @@ public class TileSpiritShrine extends TileMod {
 
 	@Override
 	public void update() {
-		if(worldObj.isRemote) {
+		if(world.isRemote) {
 			if(ticks >= 40) {
 				float[][] colors = new float[][] {
 					{ 0F, 0.25F, 1F },

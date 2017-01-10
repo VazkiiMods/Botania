@@ -18,6 +18,8 @@ import vazkii.botania.api.item.IAvatarTile;
 import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.api.state.BotaniaStateProps;
 
+import javax.annotation.Nonnull;
+
 public class TileAvatar extends TileSimpleInventory implements IAvatarTile {
 
 	private static final int MAX_MANA = 6400;
@@ -34,7 +36,7 @@ public class TileAvatar extends TileSimpleInventory implements IAvatarTile {
 	public void update() {
 		enabled = true;
 		for(EnumFacing dir : EnumFacing.VALUES) {
-			int redstoneSide = worldObj.getRedstonePower(pos.offset(dir), dir);
+			int redstoneSide = world.getRedstonePower(pos.offset(dir), dir);
 			if(redstoneSide > 0) {
 				enabled = false;
 				break;
@@ -42,7 +44,7 @@ public class TileAvatar extends TileSimpleInventory implements IAvatarTile {
 		}
 
 		ItemStack stack = itemHandler.getStackInSlot(0);
-		if(stack != null && stack.getItem() instanceof IAvatarWieldable) {
+		if(!stack.isEmpty() && stack.getItem() instanceof IAvatarWieldable) {
 			IAvatarWieldable wieldable = (IAvatarWieldable) stack.getItem();
 			wieldable.onAvatarUpdate(this, stack);
 		}
@@ -76,7 +78,7 @@ public class TileAvatar extends TileSimpleInventory implements IAvatarTile {
 	protected SimpleItemStackHandler createItemHandler() {
 		return new SimpleItemStackHandler(this, false) {
 			@Override
-			protected int getStackLimit(int slot, ItemStack stack) {
+			protected int getStackLimit(int slot, @Nonnull ItemStack stack) {
 				return 1;
 			}
 		};
@@ -94,7 +96,7 @@ public class TileAvatar extends TileSimpleInventory implements IAvatarTile {
 
 	@Override
 	public boolean canRecieveManaFromBursts() {
-		return itemHandler.getStackInSlot(0) != null;
+		return !itemHandler.getStackInSlot(0).isEmpty();
 	}
 
 	@Override
@@ -109,7 +111,7 @@ public class TileAvatar extends TileSimpleInventory implements IAvatarTile {
 
 	@Override
 	public EnumFacing getAvatarFacing() {
-		return worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.CARDINALS);
+		return world.getBlockState(getPos()).getValue(BotaniaStateProps.CARDINALS);
 	}
 
 	@Override

@@ -16,7 +16,6 @@ import java.util.List;
 import baubles.api.BaublesApi;
 import baubles.common.network.PacketHandler;
 import baubles.common.network.PacketSync;
-import buildcraft.api.transport.IPipeTile;
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -189,8 +188,7 @@ public class InternalMethodHandler extends DummyMethodHandler {
 
 	@Override
 	public IItemHandlerModifiable getBaublesInventoryWrapped(EntityPlayer player) {
-		IInventory inv = getBaublesInventory(player);
-		return inv == null ? null : new InvWrapper(inv);
+		return BaublesApi.getBaublesHandler(player);
 	}
 
 	@Override
@@ -236,7 +234,7 @@ public class InternalMethodHandler extends DummyMethodHandler {
 	@Override
 	@Optional.Method(modid = "BuildCraft|Transport")
 	public boolean isBuildcraftPipe(TileEntity tile) {
-		return tile instanceof IPipeTile;
+		return false; // tile instanceof IPipeTile; todo buildcraft
 	}
 
 	@Override

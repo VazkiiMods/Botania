@@ -11,13 +11,13 @@ public final class PlayerHelper {
 
 	// Checks if either of the player's hands has an item.
 	public static boolean hasAnyHeldItem(EntityPlayer player) {
-		return player.getHeldItemMainhand() != null || player.getHeldItemOffhand() != null;
+		return !player.getHeldItemMainhand().isEmpty() || !player.getHeldItemOffhand().isEmpty();
 	}
 
 	// Checks main hand, then off hand for this item.
 	public static boolean hasHeldItem(EntityPlayer player, Item item) {
-		return player.getHeldItemMainhand() != null && player.getHeldItemMainhand().getItem() == item
-				|| player.getHeldItemOffhand() != null && player.getHeldItemOffhand().getItem() == item;
+		return !player.getHeldItemMainhand().isEmpty() && player.getHeldItemMainhand().getItem() == item
+				|| !player.getHeldItemOffhand().isEmpty() && player.getHeldItemOffhand().getItem() == item;
 	}
 
 	// Checks main hand, then off hand for this item class.
@@ -27,30 +27,30 @@ public final class PlayerHelper {
 
 	// Checks main hand, then off hand for this item class.
 	public static boolean hasHeldItemClass(EntityPlayer player, Class<?> template) {
-		return player.getHeldItemMainhand() != null && template.isAssignableFrom(player.getHeldItemMainhand().getItem().getClass())
-				|| player.getHeldItemOffhand() != null && template.isAssignableFrom(player.getHeldItemOffhand().getItem().getClass());
+		return !player.getHeldItemMainhand().isEmpty() && template.isAssignableFrom(player.getHeldItemMainhand().getItem().getClass())
+				|| !player.getHeldItemOffhand().isEmpty() && template.isAssignableFrom(player.getHeldItemOffhand().getItem().getClass());
 	}
 
 	// Checks main hand, then off hand for this item. Null otherwise.
 	public static ItemStack getFirstHeldItem(EntityPlayer player, Item item) {
 		ItemStack main = player.getHeldItemMainhand();
 		ItemStack offhand = player.getHeldItemOffhand();
-		if(main != null && item == main.getItem()) {
+		if(!main.isEmpty() && item == main.getItem()) {
 			return main;
-		} else if(offhand != null && item == offhand.getItem()) {
+		} else if(!offhand.isEmpty() && item == offhand.getItem()) {
 			return offhand;
-		} else return null;
+		} else return ItemStack.EMPTY;
 	}
 
 	// Checks main hand, then off hand for this item class. Null otherwise.
 	public static ItemStack getFirstHeldItemClass(EntityPlayer player, Class<?> template) {
 		ItemStack main = player.getHeldItemMainhand();
 		ItemStack offhand = player.getHeldItemOffhand();
-		if(main != null && template.isAssignableFrom(main.getItem().getClass())) {
+		if(!main.isEmpty() && template.isAssignableFrom(main.getItem().getClass())) {
 			return main;
-		} else if(offhand != null && template.isAssignableFrom(offhand.getItem().getClass())) {
+		} else if(!offhand.isEmpty() && template.isAssignableFrom(offhand.getItem().getClass())) {
 			return offhand;
-		} else return null;
+		} else return ItemStack.EMPTY;
 	}
 
 	public static ItemStack getAmmo(EntityPlayer player, Predicate<ItemStack> ammoFunc) {
@@ -75,20 +75,18 @@ public final class PlayerHelper {
 				}
 			}
 
-			return null;
+			return ItemStack.EMPTY;
 		}
 	}
 
 	public static boolean hasAmmo(EntityPlayer player, Predicate<ItemStack> ammoFunc) {
-		return getAmmo(player, ammoFunc) != null;
+		return !getAmmo(player, ammoFunc).isEmpty();
 	}
 
 	public static void consumeAmmo(EntityPlayer player, Predicate<ItemStack> ammoFunc) {
 		ItemStack ammo = getAmmo(player, ammoFunc);
-		if(ammo != null) {
-			ammo.stackSize--;
-			if(ammo.stackSize == 0)
-				player.inventory.deleteStack(ammo);
+		if(!ammo.isEmpty()) {
+			ammo.shrink(1);
 		}
 	}
 

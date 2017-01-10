@@ -38,16 +38,17 @@ public class ItemSpark extends ItemMod implements ICraftAchievement, IManaGiving
 
 	@Nonnull
 	@Override
-	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float xv, float yv, float zv) {
+	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float xv, float yv, float zv) {
 		TileEntity tile = world.getTileEntity(pos);
 		if(tile instanceof ISparkAttachable) {
 			ISparkAttachable attach = (ISparkAttachable) tile;
+			ItemStack stack = player.getHeldItem(hand);
 			if(attach.canAttachSpark(stack) && attach.getAttachedSpark() == null) {
-				stack.stackSize--;
+				stack.shrink(1);
 				if(!world.isRemote) {
 					EntitySpark spark = new EntitySpark(world);
 					spark.setPosition(pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5);
-					world.spawnEntityInWorld(spark);
+					world.spawnEntity(spark);
 					attach.attachSpark(spark);
 					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, pos);
 				}

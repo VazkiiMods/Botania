@@ -86,14 +86,15 @@ public class BlockBrewery extends BlockMod implements ILexiconable, IWandHUD {
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack stack, EnumFacing side, float par7, float par8, float par9) {
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float par7, float par8, float par9) {
 		TileBrewery brew = (TileBrewery) world.getTileEntity(pos);
 
 		if(player.isSneaking()) {
 			if(brew.recipe == null && !state.getValue(BotaniaStateProps.POWERED))
 				InventoryHelper.withdrawFromInventory(brew, player);
 		} else {
-			if(stack != null)
+			ItemStack stack = player.getHeldItem(hand);
+			if(!stack.isEmpty())
 				return brew.addItem(player, stack, hand);
 		}
 		return false;

@@ -58,8 +58,9 @@ public class ItemRainbowRod extends ItemMod implements IManaUsingItem, IAvatarWi
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack par1ItemStack, World world, EntityPlayer player, EnumHand hand) {
-		if(!world.isRemote && ManaItemHandler.requestManaExactForTool(par1ItemStack, player, MANA_COST, false)) {
+	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
+		ItemStack stack = player.getHeldItem(hand);
+		if(!world.isRemote && ManaItemHandler.requestManaExactForTool(stack, player, MANA_COST, false)) {
 			Block place = ModBlocks.bifrost;
 			Vector3 vector = new Vector3(player.getLookVec()).normalize();
 
@@ -74,7 +75,7 @@ public class ItemRainbowRod extends ItemMod implements IManaUsingItem, IAvatarWi
 			BlockPos.MutableBlockPos lastChecker = new BlockPos.MutableBlockPos();
 
 			int count = 0;
-			boolean prof = IManaProficiencyArmor.Helper.hasProficiency(player, par1ItemStack);
+			boolean prof = IManaProficiencyArmor.Helper.hasProficiency(player, stack);
 			int maxlen = prof ? 160 : 100;
 			int time = prof ? (int) (TIME * 1.6) : TIME;
 
@@ -116,12 +117,12 @@ public class ItemRainbowRod extends ItemMod implements IManaUsingItem, IAvatarWi
 
 			if(count > 0) {
 				world.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.bifrostRod, SoundCategory.PLAYERS, 0.5F, 0.25F);
-				ManaItemHandler.requestManaExactForTool(par1ItemStack, player, MANA_COST, false);
+				ManaItemHandler.requestManaExactForTool(stack, player, MANA_COST, false);
 				player.getCooldownTracker().setCooldown(this, TIME);
 			}
 		}
 
-		return ActionResult.newResult(EnumActionResult.SUCCESS, par1ItemStack);
+		return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
 	}
 
 	@Nonnull
@@ -132,7 +133,7 @@ public class ItemRainbowRod extends ItemMod implements IManaUsingItem, IAvatarWi
 
 	@Override
 	public boolean hasContainerItem(ItemStack stack) {
-		return getContainerItem(stack) != null;
+		return !getContainerItem(stack).isEmpty();
 	}
 
 	@Override
@@ -178,9 +179,9 @@ public class ItemRainbowRod extends ItemMod implements IManaUsingItem, IAvatarWi
 
 		List<EntityPlayer> players = world.getEntitiesWithinAABB(EntityPlayer.class, axis);
 		for(EntityPlayer p : players) {
-			int px = MathHelper.floor_double(p.posX);
-			int py = MathHelper.floor_double(p.posY) - 1;
-			int pz = MathHelper.floor_double(p.posZ);
+			int px = MathHelper.floor(p.posX);
+			int py = MathHelper.floor(p.posY) - 1;
+			int pz = MathHelper.floor(p.posZ);
 			int dist = 5;
 			int diff = dist / 2;
 

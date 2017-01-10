@@ -79,7 +79,7 @@ public class SubTileVinculotus extends SubTileFunctional {
 			if(event.getEntityLiving() instanceof EntityEnderman) {
 				List<SubTileVinculotus> possibleFlowers = new ArrayList<>();
 				for(SubTileVinculotus flower : existingFlowers) {
-					if(flower.redstoneSignal > 0 || flower.mana <= cost || flower.supertile.getWorld() != event.getEntityLiving().worldObj || flower.supertile.getWorld().getTileEntity(flower.supertile.getPos()) != flower.supertile)
+					if(flower.redstoneSignal > 0 || flower.mana <= cost || flower.supertile.getWorld() != event.getEntityLiving().world || flower.supertile.getWorld().getTileEntity(flower.supertile.getPos()) != flower.supertile)
 						continue;
 
 					double x = flower.supertile.getPos().getX() + 0.5;
@@ -91,7 +91,7 @@ public class SubTileVinculotus extends SubTileFunctional {
 				}
 
 				if(!possibleFlowers.isEmpty()) {
-					SubTileVinculotus flower = possibleFlowers.get(event.getEntityLiving().worldObj.rand.nextInt(possibleFlowers.size()));
+					SubTileVinculotus flower = possibleFlowers.get(event.getEntityLiving().world.rand.nextInt(possibleFlowers.size()));
 
 					double x = flower.supertile.getPos().getX() + 0.5;
 					double y = flower.supertile.getPos().getY() + 1.5;

@@ -46,8 +46,8 @@ public class ThreadDownloadMod extends Thread {
 	public void run() {
 		try {
 			ITextComponent component = ITextComponent.Serializer.jsonToComponent(I18n.format("botania.versioning.startingDownload", fileName));
-			if(Minecraft.getMinecraft().thePlayer != null)
-				Minecraft.getMinecraft().thePlayer.addChatMessage(component);
+			if(Minecraft.getMinecraft().player != null)
+				Minecraft.getMinecraft().player.sendMessage(component);
 
 			VersionChecker.startedDownload = true;
 
@@ -79,8 +79,8 @@ public class ThreadDownloadMod extends Thread {
 			if(!f1.exists())
 				f.renameTo(f1);
 
-			if(Minecraft.getMinecraft().thePlayer != null)
-				Minecraft.getMinecraft().thePlayer.addChatMessage(new TextComponentTranslation("botania.versioning.doneDownloading", fileName).setStyle(new Style().setColor(TextFormatting.GREEN)));
+			if(Minecraft.getMinecraft().player != null)
+				Minecraft.getMinecraft().player.sendMessage(new TextComponentTranslation("botania.versioning.doneDownloading", fileName).setStyle(new Style().setColor(TextFormatting.GREEN)));
 
 			Desktop.getDesktop().open(dir);
 			VersionChecker.downloadedFile = true;
@@ -92,7 +92,7 @@ public class ThreadDownloadMod extends Thread {
 	}
 
 	private void sendError() {
-		if(Minecraft.getMinecraft().thePlayer != null)
-			Minecraft.getMinecraft().thePlayer.addChatComponentMessage(new TextComponentTranslation("botania.versioning.error").setStyle(new Style().setColor(TextFormatting.RED)));
+		if(Minecraft.getMinecraft().player != null)
+			Minecraft.getMinecraft().player.sendMessage(new TextComponentTranslation("botania.versioning.error").setStyle(new Style().setColor(TextFormatting.RED)));
 	}
 }

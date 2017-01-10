@@ -28,6 +28,7 @@ import net.minecraftforge.event.world.ExplosionEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.items.IItemHandler;
 import vazkii.botania.api.item.IBaubleRender;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
@@ -49,9 +50,8 @@ public class ItemGoddessCharm extends ItemBauble implements IManaUsingItem, IBau
 		List<EntityPlayer> players = event.getWorld().getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(vec.xCoord, vec.yCoord, vec.zCoord, vec.xCoord, vec.yCoord, vec.zCoord).expand(8, 8, 8));
 		
 		for(EntityPlayer player : players) {
-			IInventory inv = BaublesApi.getBaubles(player);
-			ItemStack charm = inv.getStackInSlot(6);
-			if(charm != null && charm.getItem() instanceof ItemGoddessCharm && ManaItemHandler.requestManaExact(charm, player, COST, true)) {
+			ItemStack charm = BaublesApi.getBaublesHandler(player).getStackInSlot(6);
+			if(!charm.isEmpty() && charm.getItem() instanceof ItemGoddessCharm && ManaItemHandler.requestManaExact(charm, player, COST, true)) {
 				event.getAffectedBlocks().clear();
 				return;
 			}

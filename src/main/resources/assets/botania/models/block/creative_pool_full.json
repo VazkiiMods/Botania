@@ -1,7 +1,7 @@
 {
   "parent": "botania:block/shapes/pool_full",
   "textures": {
-    "all": "botania:model/infinitePool",
-    "liquid": "botania:blocks/manaWater"
+    "all": "botania:model/infinitepool",
+    "liquid": "botania:blocks/manawater"
   }
 }
