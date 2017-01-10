@@ -104,10 +104,11 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver {
 							EntityLiving entityliving = entity instanceof EntityLiving ? (EntityLiving)entity : null;
 							entity.setLocationAndAngles(entity.posX, entity.posY, entity.posZ, world.rand.nextFloat() * 360.0F, 0.0F);
 
-							if (entityliving == null || entityliving.getCanSpawnHere())
+							if (entityliving == null || net.minecraftforge.event.ForgeEventFactory.canEntitySpawnSpawner(entityliving, logic.getSpawnerWorld(), (float)entity.posX, (float)entity.posY, (float)entity.posZ))
 							{
 								if (randomEntity.getNbt().getSize() == 1 && randomEntity.getNbt().hasKey("id", 8) && entity instanceof EntityLiving)
 								{
+									if (!net.minecraftforge.event.ForgeEventFactory.doSpecialSpawn(entityliving, logic.getSpawnerWorld(), (float)entity.posX, (float)entity.posY, (float)entity.posZ))
 									((EntityLiving)entity).onInitialSpawn(world.getDifficultyForLocation(new BlockPos(entity)), null);
 								}
 
