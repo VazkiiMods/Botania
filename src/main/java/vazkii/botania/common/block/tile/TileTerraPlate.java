@@ -35,6 +35,8 @@ import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.network.PacketBotaniaEffect;
+import vazkii.botania.common.network.PacketHandler;
 
 public class TileTerraPlate extends TileMod implements ISparkAttachable {
 
@@ -71,6 +73,9 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable {
 
 	@Override
 	public void update() {
+		if(world.isRemote)
+			return;
+
 		boolean removeMana = true;
 
 		if(hasValidPlatform()) {
@@ -88,10 +93,13 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable {
 							otherSpark.registerTransfer(spark);
 					}
 				}
-				if(mana > 0)
-					doParticles();
+				if(mana > 0) {
+					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, pos);
+					PacketHandler.sendToNearby(world, getPos(),
+						new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.TERRA_PLATE, getPos().getX(), getPos().getY(), getPos().getZ()));
+				}
 
-				if(mana >= MAX_MANA && !worldObj.isRemote) {
+				if(mana >= MAX_MANA) {
 					EntityItem item = items.get(0);
 					for(EntityItem otherItem : items)
 						if(otherItem != item)
@@ -107,38 +115,6 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable {
 
 		if(removeMana)
 			recieveMana(-1000);
-	}
-
-	void doParticles() {
-		if(worldObj.isRemote) {
-			int ticks = (int) (100.0 * ((double) getCurrentMana() / (double) MAX_MANA));
-
-			int totalSpiritCount = 3;
-			double tickIncrement = 360D / totalSpiritCount;
-
-			int speed = 5;
-			double wticks = ticks * speed - tickIncrement;
-
-			double r = Math.sin((ticks - 100) / 10D) * 2;
-			double g = Math.sin(wticks * Math.PI / 180 * 0.55);
-
-			for(int i = 0; i < totalSpiritCount; i++) {
-				double x = pos.getX() + Math.sin(wticks * Math.PI / 180) * r + 0.5;
-				double y = pos.getY() + 0.25 + Math.abs(r) * 0.7;
-				double z = pos.getZ() + Math.cos(wticks * Math.PI / 180) * r + 0.5;
-
-				wticks += tickIncrement;
-				float[] colorsfx = new float[] {
-						0F, (float) ticks / (float) 100, 1F - (float) ticks / (float) 100
-				};
-				Botania.proxy.wispFX(x, y, z, colorsfx[0], colorsfx[1], colorsfx[2], 0.85F, (float)g * 0.05F, 0.25F);
-				Botania.proxy.wispFX(x, y, z, colorsfx[0], colorsfx[1], colorsfx[2], (float) Math.random() * 0.1F + 0.1F, (float) (Math.random() - 0.5) * 0.05F, (float) (Math.random() - 0.5) * 0.05F, (float) (Math.random() - 0.5) * 0.05F, 0.9F);
-
-				if(ticks == 100)
-					for(int j = 0; j < 15; j++)
-						Botania.proxy.wispFX(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, colorsfx[0], colorsfx[1], colorsfx[2], (float) Math.random() * 0.15F + 0.15F, (float) (Math.random() - 0.5F) * 0.125F, (float) (Math.random() - 0.5F) * 0.125F, (float) (Math.random() - 0.5F) * 0.125F);
-			}
-		}
 	}
 
 	List<EntityItem> getItems() {
