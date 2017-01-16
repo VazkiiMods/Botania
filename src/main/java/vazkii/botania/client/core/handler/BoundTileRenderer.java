@@ -75,9 +75,8 @@ public final class BoundTileRenderer {
 			if(!stackInSlot.isEmpty() && stackInSlot.getItem() instanceof IWireframeCoordinateListProvider) {
 				IWireframeCoordinateListProvider provider = (IWireframeCoordinateListProvider) stackInSlot.getItem();
 				List<BlockPos> coordsList = provider.getWireframesToDraw(player, stackInSlot);
-				if(coordsList != null)
-					for(BlockPos coords : coordsList)
-						renderBlockOutlineAt(coords, color);
+				for(BlockPos coords : coordsList)
+					renderBlockOutlineAt(coords, color);
 
 				BlockPos coords = provider.getSourceWireframe(player, stackInSlot);
 				if(coords != null && coords.getY() > -1)

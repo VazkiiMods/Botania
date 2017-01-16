@@ -734,7 +734,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 
 	private ILensEffect getLensInstance() {
 		ItemStack lens = getSourceLens();
-		if(lens != null && lens.getItem() instanceof ILensEffect)
+		if(!lens.isEmpty() && lens.getItem() instanceof ILensEffect)
 			return (ILensEffect) lens.getItem();
 
 		return null;

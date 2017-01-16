@@ -197,7 +197,7 @@ public class SubTileGenerating extends SubTileEntity {
 	public void populateDropStackNBTs(List<ItemStack> drops) {
 		if(isPassiveFlower() && ticksExisted > 0 && BotaniaAPI.internalHandler.getPassiveFlowerDecay() > 0) {
 			ItemStack drop = drops.get(0);
-			if(drop != null) {
+			if(!drop.isEmpty()) {
 				if(!drop.hasTagCompound())
 					drop.setTagCompound(new NBTTagCompound());
 				NBTTagCompound cmp = drop.getTagCompound();

@@ -35,7 +35,7 @@ public final class LexiconRecipeMappings {
 
 		if(force || !mappings.containsKey(str))
 			mappings.put(str, data);
-		if(entry.getIcon() == null)
+		if(entry.getIcon().isEmpty())
 			entry.setIcon(stack.copy());
 	}
 
