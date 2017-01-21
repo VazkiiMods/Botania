@@ -19,6 +19,7 @@ import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.WorldServer;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -44,9 +45,10 @@ public class SubTileGourmaryllis extends SubTileGenerating {
 
 		if(cooldown > -1)
 			cooldown--;
-		if(cooldown == 0) {
+		if(cooldown == 0 && storedMana != 0) {
 			mana = Math.min(getMaxMana(), mana + storedMana);
 			storedMana = 0;
+			getWorld().playSound(null, supertile.getPos(), SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.BLOCKS, 1, 1);
 			sync();
 		}
 
