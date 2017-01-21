@@ -73,7 +73,7 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable {
 
 	@Override
 	public void update() {
-		if(world.isRemote)
+		if(worldObj.isRemote)
 			return;
 
 		boolean removeMana = true;
@@ -94,8 +94,8 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable {
 					}
 				}
 				if(mana > 0) {
-					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, pos);
-					PacketHandler.sendToNearby(world, getPos(),
+					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, pos);
+					PacketHandler.sendToNearby(worldObj, getPos(),
 						new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.TERRA_PLATE, getPos().getX(), getPos().getY(), getPos().getZ()));
 				}
 

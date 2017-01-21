@@ -97,7 +97,7 @@ public class BlockPlatform extends BlockCamo implements ILexiconable, IWandable,
 		state = ((IExtendedBlockState) state).withProperty(BotaniaStateProps.HELD_WORLD, world)
 				.withProperty(BotaniaStateProps.HELD_POS, pos);
 
-		TileEntity te = world instanceof ChunkCache ? ((ChunkCache)world).getTileEntity(pos, Chunk.EnumCreateEntityType.CHECK) : world.getTileEntity(pos);
+		TileEntity te = world instanceof ChunkCache ? ((ChunkCache)world).func_190300_a(pos, Chunk.EnumCreateEntityType.CHECK) : world.getTileEntity(pos);
 		if (te instanceof TileCamo) {
 			TileCamo tile = (TileCamo) te;
 			return ((IExtendedBlockState) state).withProperty(BotaniaStateProps.HELD_STATE, tile.camoState);

@@ -105,7 +105,7 @@ public class BlockAltar extends BlockMod implements ILexiconable {
 	@Nonnull
 	@Override
 	public IBlockState getActualState(@Nonnull IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-		TileEntity te = worldIn instanceof ChunkCache ? ((ChunkCache)worldIn).getTileEntity(pos, Chunk.EnumCreateEntityType.CHECK) : worldIn.getTileEntity(pos);
+		TileEntity te = worldIn instanceof ChunkCache ? ((ChunkCache)worldIn).func_190300_a(pos, Chunk.EnumCreateEntityType.CHECK) : worldIn.getTileEntity(pos);
 		if (te instanceof TileAltar) {
 			TileAltar altar = (TileAltar) te;
 
