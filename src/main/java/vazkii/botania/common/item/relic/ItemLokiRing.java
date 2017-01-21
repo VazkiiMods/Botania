@@ -232,6 +232,9 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 	}
 
 	private static void setCursorList(ItemStack stack, List<BlockPos> cursors) {
+		if(stack == null)
+			return;
+		
 		NBTTagCompound cmp = new NBTTagCompound();
 		if(cursors != null) {
 			int i = 0;
