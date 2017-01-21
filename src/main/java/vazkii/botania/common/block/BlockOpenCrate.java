@@ -29,8 +29,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.ChunkCache;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -88,8 +90,9 @@ public class BlockOpenCrate extends BlockMod implements ILexiconable, IWandable,
 	@Nonnull
 	@Override
 	public IBlockState getActualState(@Nonnull IBlockState state, IBlockAccess world, BlockPos pos) {
-		if (world.getTileEntity(pos) instanceof TileCraftCrate) {
-			TileCraftCrate tile = (TileCraftCrate) world.getTileEntity(pos);
+		TileEntity te = world instanceof ChunkCache ? ((ChunkCache)world).getTileEntity(pos, Chunk.EnumCreateEntityType.CHECK) : world.getTileEntity(pos);
+		if (te instanceof TileCraftCrate) {
+			TileCraftCrate tile = (TileCraftCrate) te;
 			state = state.withProperty(BotaniaStateProps.CRATE_PATTERN, CratePattern.values()[tile.pattern + 1]);
 		} else {
 			state = state.withProperty(BotaniaStateProps.CRATE_PATTERN, CratePattern.NONE);

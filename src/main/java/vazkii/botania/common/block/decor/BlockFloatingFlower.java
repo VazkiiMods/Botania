@@ -34,8 +34,10 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.ChunkCache;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.property.ExtendedBlockState;
 import net.minecraftforge.common.property.IExtendedBlockState;
@@ -125,7 +127,7 @@ public class BlockFloatingFlower extends BlockMod implements ILexiconable, IInfu
 	@Override
 	public IBlockState getExtendedState(@Nonnull IBlockState state, IBlockAccess world, BlockPos pos) {
 		state = getActualState(state, world, pos);
-		TileEntity te = world.getTileEntity(pos);
+		TileEntity te = world instanceof ChunkCache ? ((ChunkCache)world).getTileEntity(pos, Chunk.EnumCreateEntityType.CHECK) : world.getTileEntity(pos);
 		if (te instanceof TileFloatingFlower) {
 			state = ((IExtendedBlockState) state).withProperty(BotaniaStateProps.ISLAND_TYPE, ((TileFloatingFlower) te).getIslandType());
 		} else if (te instanceof TileFloatingSpecialFlower) {
