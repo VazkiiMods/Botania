@@ -82,6 +82,7 @@ public class BlockFelPumpkin extends BlockMod implements ILexiconable {
 			EntityBlaze blaze = new EntityBlaze(world);
 			blaze.setLocationAndAngles(pos.getX() + 0.5D, pos.getY() - 1.95D, pos.getZ() + 0.5D, 0.0F, 0.0F);
 			blaze.getEntityData().setBoolean(TAG_FEL_SPAWNED, true);
+			blaze.onInitialSpawn(world.getDifficultyForLocation(pos), null);
 			world.spawnEntity(blaze);
 			world.notifyNeighborsOfStateChange(pos, Blocks.AIR, false);
 			world.notifyNeighborsOfStateChange(pos.down(), Blocks.AIR, false);

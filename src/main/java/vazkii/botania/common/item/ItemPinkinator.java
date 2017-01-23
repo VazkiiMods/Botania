@@ -24,6 +24,7 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -51,6 +52,7 @@ public class ItemPinkinator extends ItemMod {
 					wither.setDead();
 					EntityPinkWither pink = new EntityPinkWither(world);
 					pink.setLocationAndAngles(wither.posX, wither.posY, wither.posZ, wither.rotationYaw, wither.rotationPitch);
+					pink.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(pink)), null);
 					world.spawnEntity(pink);
 					pink.playSound(SoundEvents.ENTITY_GENERIC_EXPLODE, 4F, (1F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F) * 0.7F);
 				}

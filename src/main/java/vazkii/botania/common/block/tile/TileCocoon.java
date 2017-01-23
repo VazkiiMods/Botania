@@ -109,6 +109,7 @@ public class TileCocoon extends TileMod {
 				entity.setPosition(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
 				if(entity instanceof EntityAgeable)
 					((EntityAgeable) entity).setGrowingAge(-24000);
+				entity.onInitialSpawn(world.getDifficultyForLocation(getPos()), null);
 				world.spawnEntity(entity);
 				entity.spawnExplosionParticle();
 			}

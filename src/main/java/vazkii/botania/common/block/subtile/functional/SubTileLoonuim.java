@@ -135,9 +135,9 @@ public class SubTileLoonuim extends SubTileFunctional {
 			
 			NBTTagCompound cmp = stack.writeToNBT(new NBTTagCompound());
 			entity.getEntityData().setTag(TAG_ITEMSTACK_TO_DROP, cmp);
-			
-			world.spawnEntity(entity);
+
 			entity.onInitialSpawn(world.getDifficultyForLocation(pos), null);
+			world.spawnEntity(entity);
 			SubTileSpectranthemum.spawnExplosionParticles(entity, 5);
 			
 			mana -= COST;

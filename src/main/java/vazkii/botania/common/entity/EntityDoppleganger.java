@@ -226,6 +226,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 				e.getAttributeMap().getAttributeInstance(SharedMonsterAttributes.ARMOR).setBaseValue(15);
 
 			e.playSound(SoundEvents.ENTITY_ENDERDRAGON_GROWL, 10F, 0.1F);
+			e.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(e)), null);
 			world.spawnEntity(e);
 			return true;
 		}
@@ -681,10 +682,8 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 								}
 								case 1 : {
 									entity = new EntitySkeleton(world);
-									entity.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
 									if(world.rand.nextInt(8) == 0) {
 										entity = new EntityWitherSkeleton(world);
-										entity.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(hard ? ModItems.elementiumSword : Items.STONE_SWORD));
 									}
 									break;
 								}
@@ -694,6 +693,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 											EntityPixie pixie = new EntityPixie(world);
 											pixie.setProps(players.get(rand.nextInt(players.size())), this, 1, 8);
 											pixie.setPosition(posX + width / 2, posY + 2, posZ + width / 2);
+											pixie.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(pixie)), null);
 											world.spawnEntity(pixie);
 										}
 								}
@@ -704,6 +704,10 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 										entity.addPotionEffect(new PotionEffect(MobEffects.FIRE_RESISTANCE, 600, 0));
 									range = 6F;
 									entity.setPosition(posX + 0.5 + Math.random() * range - range / 2, posY - 1, posZ + 0.5 + Math.random() * range - range / 2);
+									entity.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(entity)), null);
+									if (entity instanceof EntityWitherSkeleton && hard) {
+										entity.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(ModItems.elementiumSword));
+									}
 									world.spawnEntity(entity);
 								}
 							}
@@ -750,6 +754,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 									EntityPixie pixie = new EntityPixie(world);
 									pixie.setProps(players.get(rand.nextInt(players.size())), this, 1, 8);
 									pixie.setPosition(posX + width / 2, posY + 2, posZ + width / 2);
+									pixie.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(pixie)), null);
 									world.spawnEntity(pixie);
 								}
 
