@@ -13,7 +13,6 @@ package vazkii.botania.common.block.subtile.generating;
 import java.awt.Color;
 import java.util.List;
 
-import mezz.jei.util.FakeClientWorld;
 import net.minecraft.world.WorldServer;
 import org.lwjgl.opengl.GL11;
 

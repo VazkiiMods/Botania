@@ -15,7 +15,6 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
-import mezz.jei.util.FakeClientWorld;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
