@@ -54,6 +54,8 @@ import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.network.PacketBotaniaEffect;
+import vazkii.botania.common.network.PacketHandler;
 
 import javax.annotation.Nonnull;
 
@@ -128,9 +130,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 
 			for(int i = 0; i < getSizeInventory(); i++)
 				if(itemHandler.getStackInSlot(i).isEmpty()) {
-					ItemStack stackToPut = stack.splitStack(1);
-					stackToPut.setCount(1);
-					itemHandler.setStackInSlot(i, stackToPut);
+					itemHandler.setStackInSlot(i, stack.splitStack(1));
 					didChange = true;
 					world.playSound(null, pos, SoundEvents.ENTITY_GENERIC_SPLASH, SoundCategory.BLOCKS, 0.1F, 10F);
 					break;
@@ -211,12 +211,8 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 
 	private void craftingFanciness() {
 		world.playSound(null, pos, BotaniaSoundEvents.altarCraft, SoundCategory.BLOCKS, 1F, 1F);
-		for(int i = 0; i < 25; i++) {
-			float red = (float) Math.random();
-			float green = (float) Math.random();
-			float blue = (float) Math.random();
-			Botania.proxy.sparkleFX(pos.getX() + 0.5 + Math.random() * 0.4 - 0.2, pos.getY() + 1, pos.getZ() + 0.5 + Math.random() * 0.4 - 0.2, red, green, blue, (float) Math.random(), 10);
-		}
+		PacketHandler.sendToNearby(world, getPos(),
+				new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.APOTHECARY_CRAFT, getPos().getX(), getPos().getY(), getPos().getZ()));
 	}
 
 	public boolean isEmpty() {
