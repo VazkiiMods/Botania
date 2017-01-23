@@ -116,15 +116,15 @@ public class Botania {
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
-		gardenOfGlassLoaded = Loader.isModLoaded("GardenOfGlass");
+		gardenOfGlassLoaded = Loader.isModLoaded("gardenofglass");
 
-		thaumcraftLoaded = Loader.isModLoaded("Thaumcraft");
+		thaumcraftLoaded = Loader.isModLoaded("thaumcraft");
 		bcTriggersLoaded = ModAPIManager.INSTANCE.hasAPI("BuildCraftAPI|statements");
-		bloodMagicLoaded = Loader.isModLoaded("BloodMagic"); // Psh, noob
+		bloodMagicLoaded = Loader.isModLoaded("bloodmagic"); // Psh, noob
 		coloredLightsLoaded = Loader.isModLoaded("easycoloredlights");
 		etFuturumLoaded = Loader.isModLoaded("etfuturum");
 		rfApiLoaded = ModAPIManager.INSTANCE.hasAPI("CoFHAPI|energy");
-		storageDrawersLoaded = Loader.isModLoaded("StorageDrawers");
+		storageDrawersLoaded = Loader.isModLoaded("storagedrawers");
 
 		BotaniaAPI.internalHandler = new InternalMethodHandler();
 
@@ -197,7 +197,6 @@ public class Botania {
 		}
 
 		ModBlocks.addDispenserBehaviours();
-		ModBlocks.registerMultiparts();
 		ConfigHandler.loadPostInit();
 		LexiconData.postInit();
 
