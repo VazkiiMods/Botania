@@ -106,7 +106,7 @@ public class TileCraftCrate extends TileOpenCrate {
 		if (world.isRemote)
 			return;
 
-		if(craft(true) && canEject() || isFull())
+		if(canEject() && isFull() && craft(true))
 			ejectAll();
 
 		int newSignal = 0;
@@ -190,7 +190,7 @@ public class TileCraftCrate extends TileOpenCrate {
 
 	@Override
 	public boolean onWanded(World world, EntityPlayer player, ItemStack stack) {
-		if(!world.isRemote) {
+		if(!world.isRemote && canEject()) {
 			craft(false);
 			ejectAll();
 		}

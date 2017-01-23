@@ -29,6 +29,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
@@ -69,7 +70,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 	public static void onPlayerInteract(PlayerInteractEvent.RightClickBlock event) {
 		EntityPlayer player = event.getEntityPlayer();
 		ItemStack lokiRing = getLokiRing(player);
-		if(lokiRing == null || player.world.isRemote)
+		if(lokiRing.isEmpty() || player.world.isRemote || event.getHand() == EnumHand.OFF_HAND)
 			return;
 
 		int slot = -1;
@@ -136,7 +137,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 
 	public static void breakOnAllCursors(EntityPlayer player, Item item, ItemStack stack, BlockPos pos, EnumFacing side) {
 		ItemStack lokiRing = getLokiRing(player);
-		if(lokiRing == null || player.world.isRemote || !(item instanceof ISequentialBreaker))
+		if(lokiRing.isEmpty() || player.world.isRemote || !(item instanceof ISequentialBreaker))
 			return;
 
 		List<BlockPos> cursors = getCursorList(lokiRing);
@@ -198,7 +199,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 		IItemHandler baubles = BaublesApi.getBaublesHandler(player);
 		ItemStack stack1 = baubles.getStackInSlot(1);
 		ItemStack stack2 = baubles.getStackInSlot(2);
-		return isLokiRing(stack1) ? stack1 : isLokiRing(stack2) ? stack2 : null;
+		return isLokiRing(stack1) ? stack1 : isLokiRing(stack2) ? stack2 : ItemStack.EMPTY;
 	}
 
 	private static boolean isLokiRing(ItemStack stack) {
@@ -235,6 +236,9 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 	}
 
 	private static void setCursorList(ItemStack stack, List<BlockPos> cursors) {
+		if(stack == null)
+			return;
+		
 		NBTTagCompound cmp = new NBTTagCompound();
 		if(cursors != null) {
 			int i = 0;

@@ -105,17 +105,14 @@ public class ItemLivingwoodBow extends ItemBow implements IManaUsingItem, IModel
 
 	@Override
 	public void onPlayerStoppedUsing(@Nonnull ItemStack stack, @Nonnull World world, EntityLivingBase shooter, int useTicks) {
-
-		boolean isPlayer = shooter instanceof EntityPlayer;
-		EntityPlayer player = isPlayer ? (EntityPlayer) shooter : null;
+		EntityPlayer player = (EntityPlayer) shooter;
 
 		// Begin copy modified ItemBow.onPlayerStoppedUsing
-		boolean flag = !isPlayer || canFire(stack, player); // Botania - Custom canFire check
-		ItemStack itemstack = getAmmo(shooter);
+		boolean flag = canFire(stack, player); // Botania - Custom canFire check
+		ItemStack itemstack = getAmmo(player);
 
 		int i = (int) ((getMaxItemUseDuration(stack) - useTicks) * chargeVelocityMultiplier()); // Botania - velocity multiplier
-		if(isPlayer)
-			i = net.minecraftforge.event.ForgeEventFactory.onArrowLoose(stack, world, player, i, !itemstack.isEmpty() || flag);
+		i = net.minecraftforge.event.ForgeEventFactory.onArrowLoose(stack, world, player, i, !itemstack.isEmpty() || flag);
 		if (i < 0) return;
 
 		if (!itemstack.isEmpty() || flag)
@@ -129,7 +126,7 @@ public class ItemLivingwoodBow extends ItemBow implements IManaUsingItem, IModel
 
 			if (f >= 0.1D)
 			{
-				boolean infinite = !isPlayer || player.capabilities.isCreativeMode || itemstack.getItem() instanceof ItemArrow && ((ItemArrow) itemstack.getItem()).isInfinite(itemstack, stack, player);
+				boolean infinite = player.capabilities.isCreativeMode || (itemstack.getItem() instanceof ItemArrow ? ((ItemArrow)itemstack.getItem()).isInfinite(itemstack, stack, player) : false);
 
 				if (!world.isRemote)
 				{
@@ -175,10 +172,7 @@ public class ItemLivingwoodBow extends ItemBow implements IManaUsingItem, IModel
 
 				world.playSound(null, shooter.posX, shooter.posY, shooter.posZ, SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.NEUTRAL, 1.0F, 1.0F / (itemRand.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
 
-				// Botania - move ammo consumption into onFire (above)
-
-				if(isPlayer)
-					player.addStat(StatList.getObjectUseStats(this));
+				player.addStat(StatList.getObjectUseStats(this));
 			}
 		}
 		// End modified ItemBow.onPlayerStoppedUsing
@@ -195,7 +189,8 @@ public class ItemLivingwoodBow extends ItemBow implements IManaUsingItem, IModel
 	void onFire(ItemStack bow, EntityLivingBase living, boolean infinity, EntityArrow arrow) {
 		if(living instanceof EntityPlayerMP) {
 			ToolCommons.damageItem(bow, 1, living, MANA_PER_DAMAGE);
-			if(((EntityPlayerMP) living).interactionManager.getGameType().isSurvivalOrAdventure())
+			
+			if(((EntityPlayerMP) living).interactionManager.getGameType().isSurvivalOrAdventure() && !infinity)
 				PlayerHelper.consumeAmmo((EntityPlayerMP) living, AMMO_FUNC);
 		}
 	}
@@ -216,10 +211,19 @@ public class ItemLivingwoodBow extends ItemBow implements IManaUsingItem, IModel
 		return true;
 	}
 
-	protected ItemStack getAmmo(EntityLivingBase shooter) {
-		if(shooter instanceof EntityPlayer)
-			return PlayerHelper.getAmmo((EntityPlayer) shooter, AMMO_FUNC);
-		else return new ItemStack(Items.ARROW);
+	private ItemStack getAmmo(EntityPlayer player) {
+		if(isArrow(player.getHeldItem(EnumHand.OFF_HAND)))
+			return player.getHeldItem(EnumHand.OFF_HAND);
+		else if(isArrow(player.getHeldItem(EnumHand.MAIN_HAND)))
+			return player.getHeldItem(EnumHand.MAIN_HAND);
+		else for(int i = 0; i < player.inventory.getSizeInventory(); ++i) {
+			ItemStack itemstack = player.inventory.getStackInSlot(i);
+
+			if (isArrow(itemstack))
+				return itemstack;
+		}
+
+		return ItemStack.EMPTY;
 	}
 
 	@SideOnly(Side.CLIENT)

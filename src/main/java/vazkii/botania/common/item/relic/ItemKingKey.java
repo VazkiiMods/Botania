@@ -65,7 +65,13 @@ public class ItemKingKey extends ItemRelic implements IManaUsingItem {
 		int spawned = getWeaponsSpawned(stack);
 
 		if(count != getMaxItemUseDuration(stack) && spawned < 20 && !living.world.isRemote && (!(living instanceof EntityPlayer) || ManaItemHandler.requestManaExact(stack, (EntityPlayer) living, 150, true))) {
-			Vector3 look = new Vector3(living.getLookVec()).multiply(1, 0, 1).normalize().multiply(-2);;
+			Vector3 look = new Vector3(living.getLookVec()).multiply(1, 0, 1);
+			
+			double playerRot = Math.toRadians(living.rotationYaw + 90);
+			if(look.x == 0 && look.z == 0)
+				look = new Vector3(Math.cos(playerRot), 0, Math.sin(playerRot));
+				
+			look = look.normalize().multiply(-2);
 
 			int div = spawned / 5;
 			int mod = spawned % 5;

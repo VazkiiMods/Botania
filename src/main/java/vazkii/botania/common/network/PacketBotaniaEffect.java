@@ -6,6 +6,7 @@ import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.EnumDyeColor;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
@@ -15,6 +16,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.block.tile.TileTerraPlate;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.core.helper.Vector3;
@@ -251,6 +253,38 @@ public class PacketBotaniaEffect implements IMessage {
 								Botania.proxy.wispFX(message.x + 0.7 - Math.random() * 0.4, message.y + 0.9 - Math.random() * 0.2, message.z + 0.7 - Math.random() * 0.4, 0.2F, 0.2F, 0.2F, 0.1F + (float) Math.random() * 0.2F, 0.05F - (float) Math.random() * 0.1F, 0.05F + (float) Math.random() * 0.03F, 0.05F - (float) Math.random() * 0.1F);
 						}
 					}
+					case TERRA_PLATE: {
+						TileEntity te = world.getTileEntity(new BlockPos(message.x, message.y, message.z));
+						if(te instanceof TileTerraPlate) {
+							int ticks = (int) (100.0 * ((double) ((TileTerraPlate) te).getCurrentMana() / (double) TileTerraPlate.MAX_MANA));
+
+							int totalSpiritCount = 3;
+							double tickIncrement = 360D / totalSpiritCount;
+
+							int speed = 5;
+							double wticks = ticks * speed - tickIncrement;
+
+							double r = Math.sin((ticks - 100) / 10D) * 2;
+							double g = Math.sin(wticks * Math.PI / 180 * 0.55);
+
+							for(int i = 0; i < totalSpiritCount; i++) {
+								double x = message.x + Math.sin(wticks * Math.PI / 180) * r + 0.5;
+								double y = message.y + 0.25 + Math.abs(r) * 0.7;
+								double z = message.z + Math.cos(wticks * Math.PI / 180) * r + 0.5;
+
+								wticks += tickIncrement;
+								float[] colorsfx = new float[] {
+										0F, (float) ticks / (float) 100, 1F - (float) ticks / (float) 100
+								};
+								Botania.proxy.wispFX(x, y, z, colorsfx[0], colorsfx[1], colorsfx[2], 0.85F, (float)g * 0.05F, 0.25F);
+								Botania.proxy.wispFX(x, y, z, colorsfx[0], colorsfx[1], colorsfx[2], (float) Math.random() * 0.1F + 0.1F, (float) (Math.random() - 0.5) * 0.05F, (float) (Math.random() - 0.5) * 0.05F, (float) (Math.random() - 0.5) * 0.05F, 0.9F);
+
+								if(ticks == 100)
+									for(int j = 0; j < 15; j++)
+										Botania.proxy.wispFX(message.x + 0.5, message.y + 0.5, message.z + 0.5, colorsfx[0], colorsfx[1], colorsfx[2], (float) Math.random() * 0.15F + 0.15F, (float) (Math.random() - 0.5F) * 0.125F, (float) (Math.random() - 0.5F) * 0.125F, (float) (Math.random() - 0.5F) * 0.125F);
+							}
+						}
+					}
 					}
 				}
 			});
@@ -271,7 +305,8 @@ public class PacketBotaniaEffect implements IMessage {
 		ENCHANTER_DESTROY(0),
 		ENTROPINNYUM(0),
 		BLACK_LOTUS_DISSOLVE(0),
-		BREWERY_FINISH(1); // Arg: RGB
+		BREWERY_FINISH(1), // Arg: RGB
+		TERRA_PLATE(0);
 
 		private final int argCount;
 

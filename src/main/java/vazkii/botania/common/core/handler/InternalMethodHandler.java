@@ -48,13 +48,17 @@ import vazkii.botania.api.recipe.RecipeElvenTrade;
 import vazkii.botania.api.recipe.RecipeManaInfusion;
 import vazkii.botania.api.recipe.RecipePetals;
 import vazkii.botania.api.recipe.RecipeRuneAltar;
+import vazkii.botania.api.subtile.ISpecialFlower;
 import vazkii.botania.api.subtile.SubTileEntity;
 import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.api.subtile.SubTileGenerating;
 import vazkii.botania.client.core.handler.BossBarHandler;
 import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.block.BlockModFlower;
+import vazkii.botania.common.block.BlockSpecialFlower;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.decor.BlockFloatingFlower;
 import vazkii.botania.common.block.subtile.functional.SubTileSolegnolia;
 import vazkii.botania.common.integration.corporea.WrappedDeepStorage;
 import vazkii.botania.common.integration.corporea.WrappedIInventory;
@@ -255,7 +259,7 @@ public class InternalMethodHandler extends DummyMethodHandler {
 	@Override
 	public boolean isBotaniaFlower(World world, BlockPos pos) {
 		Block block = world.getBlockState(pos).getBlock();
-		return block == ModBlocks.flower || block == ModBlocks.shinyFlower || block == ModBlocks.specialFlower;
+		return block instanceof BlockModFlower || block instanceof BlockFloatingFlower || block instanceof ISpecialFlower;
 	}
 
 	@Override

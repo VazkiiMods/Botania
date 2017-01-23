@@ -1,3 +1,15 @@
+r1.9 340
+*Fixed a crash regarding tile entities and block states not playing together. (williewillus)
+*Fixed crash on unequipping the Ring of Loki.
+*Fixed the Crafty Crate destroying items if there's a block under it.
+*Fixed the Gourmaryllis spamming packets and causing ridiculous network usage. (williewillus)
+*Fixed the Key of the King's Law stacking portals together if the player is looking straight down.
+*Fixed the Life Imbuer spawning mobs inside blocks. (williewillus)
+*Fixed the livingwood bow not using 1.9 arrow priority and using arrows even if they have infinity.
+*Fixed the Mana Enchanter not accepting floating flowers.
+*Fixed the Ring of Loki checking your offhand item and thus negating the cursor addition if you have no item in either hand.
+*Fixed the T.A. Plate not showing particles. (williewillus)
+*The Gourmaryllis now plays a burp sound when it's done eating. (williewillus)
 r1.9 339
 *Fixed a crash if a burst from a Manastorm Charge hits a mana container block.
 *Fixed a potential crash when crafting with baubles.

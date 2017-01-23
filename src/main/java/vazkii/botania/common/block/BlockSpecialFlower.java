@@ -40,8 +40,10 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.world.ChunkCache;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.property.ExtendedBlockState;
 import net.minecraftforge.common.property.IExtendedBlockState;
@@ -146,7 +148,7 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 	@Nonnull
 	@Override
 	public IExtendedBlockState getExtendedState(@Nonnull IBlockState state, IBlockAccess world, BlockPos pos) {
-		TileEntity te = world.getTileEntity(pos);
+		TileEntity te = world instanceof ChunkCache ? ((ChunkCache)world).getTileEntity(pos, Chunk.EnumCreateEntityType.CHECK) : world.getTileEntity(pos);
 		if (te instanceof TileSpecialFlower && ((TileSpecialFlower) te).getSubTile() != null) {
 			Class<? extends SubTileEntity> clazz = ((TileSpecialFlower) te).getSubTile().getClass();
 			String id = BotaniaAPI.getSubTileStringMapping(clazz);

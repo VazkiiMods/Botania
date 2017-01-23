@@ -45,10 +45,4 @@ public class ItemCrystalBow extends ItemLivingwoodBow {
 		if(living instanceof EntityPlayer)
 			ManaItemHandler.requestManaExactForTool(stack, (EntityPlayer) living, ARROW_COST / (infinity ? 2 : 1), false);
 	}
-
-	@Override
-	protected ItemStack getAmmo(EntityLivingBase player) {
-		return new ItemStack(Items.ARROW);
-	}
-
 }
