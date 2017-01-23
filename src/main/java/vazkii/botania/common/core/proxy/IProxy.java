@@ -40,8 +40,6 @@ public interface IProxy {
 
 	boolean openWikiPage(World world, Block block, RayTraceResult pos);
 
-	void playRecordClientSided(World world, BlockPos pos, ItemRecord record);
-
 	void setMultiblock(World world, int x, int y, int z, double radius, Block block);
 
 	void removeSextantMultiblock();

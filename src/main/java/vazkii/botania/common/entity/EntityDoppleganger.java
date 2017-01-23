@@ -21,6 +21,7 @@ import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 
 import net.minecraft.entity.monster.EntityWitherSkeleton;
+import net.minecraft.item.Item;
 import org.lwjgl.opengl.ARBShaderObjects;
 
 import com.google.common.base.Optional;
@@ -133,8 +134,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 	private static final List<String> CHEATY_BLOCKS = Arrays.asList("OpenBlocks:beartrap",
 			"ThaumicTinkerer:magnet");
 
-	private static boolean isPlayingMusic = false;
-
+	private boolean isPlayingMusic = false;
 	private boolean spawnLandmines = false;
 	private boolean spawnPixies = false;
 	private boolean anyWithArmor = false;
@@ -496,8 +496,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 	@Override
 	public void setDead() {
 		Botania.proxy.removeBoss(this);
-		BlockPos source = getSource();
-		Botania.proxy.playRecordClientSided(world, source, null);
+		world.playEvent(1010, getSource(), 0);
 		isPlayingMusic = false;
 		super.setDead();
 	}
@@ -538,11 +537,6 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 				Botania.proxy.wispFX(x, y, z, r, g, b, 0.5F, (float) (Math.random() - 0.5F) * m, (float) (Math.random() - 0.5F) * mv, (float) (Math.random() - 0.5F) * m);
 			}
 
-			if(world.isRemote && !isPlayingMusic && !isDead && !getPlayersAround().isEmpty()) {
-				Botania.proxy.playRecordClientSided(world, source, (ItemRecord) (isHardMode() ? ModItems.recordGaia2 : ModItems.recordGaia1));
-				isPlayingMusic = true;
-			}
-
 			EntityPlayer player = Botania.proxy.getClientPlayer();
 
 			player.capabilities.isFlying = player.capabilities.isFlying && player.capabilities.isCreativeMode;
@@ -571,6 +565,11 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 			}
 
 			return;
+		}
+
+		if(!isPlayingMusic && !isDead && !getPlayersAround().isEmpty()) {
+			world.playEvent(1010, source, Item.getIdFromItem(isHardMode() ? ModItems.recordGaia2 : ModItems.recordGaia1));
+			isPlayingMusic = true;
 		}
 
 		dataManager.set(BOSSINFO_ID, Optional.of(bossInfo.getUniqueId()));
