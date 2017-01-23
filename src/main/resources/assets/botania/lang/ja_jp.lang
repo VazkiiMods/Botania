@@ -33,8 +33,7 @@ botaniamisc.filter1=フレーム内のアイテム以外を拾う
 botaniamisc.filter2=すべてのアイテムを拾う
 botaniamisc.creativePool0=クリエイティブ用マナプール．無限にマナを保持する
 botaniamisc.creativePool1=エゴイスト向け
-botaniamisc.savedByLaurel=金の月桂冠は砕けてしまった。あなたの身代わりとなって…
-botaniamisc.toolRank=ランク %s&7 
+botaniamisc.toolRank=ランク %s&7
 botaniamisc.edition=%s 版
 # ^ Leave this empty for no edition display
 botaniamisc.lexiconcover0=公式ガイドブック
@@ -1198,7 +1197,6 @@ item.botania:knockbackBelt.name=地殻のガードル
 item.botania:icePendant.name=雪片のペンダント
 item.botania:lavaPendant.name=火砕物のペンダント
 item.botania:lifeEssence.name=ガイアの魂
-item.botania:goldenLaurel.name=黄金の月桂冠
 item.botania:redstoneRoot.name=レッドストーンの根
 item.botania:magnetRing.name=磁力の指輪
 item.botania:waterRing.name=脊索動物の指輪

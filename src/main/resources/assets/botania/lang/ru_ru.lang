@@ -33,7 +33,6 @@ botaniamisc.filter1=Собирать только предметы без рам
 botaniamisc.filter2=Собирать любые предметы
 botaniamisc.creativePool0=Творческий бассейн маны, бесконечная мана
 botaniamisc.creativePool1=Достоин эгоиста
-botaniamisc.savedByLaurel=Ваш золотой лавровый венец исчезает, спасая Вас от смерти.
 botaniamisc.toolRank=Ранг: %s&7
 botaniamisc.edition=Издание %s
 # ^ Leave this empty for no edition display
@@ -659,7 +658,6 @@ item.botania:knockbackBelt.name=Тектонический пояс
 item.botania:icePendant.name=Кулон со снежинкой
 item.botania:lavaPendant.name=Пирокластический кулон
 item.botania:lifeEssence.name=Дух Гайи
-item.botania:goldenLaurel.name=Золотой лавровый венок
 item.botania:redstoneRoot.name=Красный корень
 item.botania:magnetRing.name=Кольцо магнетизма
 item.botania:waterRing.name=Кольцо хордовых
@@ -1482,11 +1480,6 @@ botania.page.icePendant1=Вы хотели построить снеговика
 botania.entry.lavaPendant=Пирокластический кулон
 botania.page.lavaPendant0=&1Пирокластический кулон&0 - это &4фенечка&0, которая при ношении поглощает немного тепла. Если владелец подожжен и не стоит прямо на &1Огне&0, &1Лаве&0 или чем-то другом, поддерживающем горение, он будет потушен.
 botania.page.lavaPendant1=Ханако мог бы использовать один из них
-
-# -- GOLDEN LAUREL CROWN
-botania.entry.goldenLaurel=Золотой лавровый венок
-botania.page.goldenLaurel0=Одним из применений &1Духа Гайи&0 является предоставление бессмертия носящему его игроку. &1Золотой лавровый венок&0 при смерти игрока развеется, но при этом всстановит всё здоровье и сделает бессмертным на короткий период.
-botania.page.goldenLaurel1=С учетом темы, наверное Viridi
 
 # -- RING OF CHORDATA
 botania.entry.waterRing=Кольцо хордовых

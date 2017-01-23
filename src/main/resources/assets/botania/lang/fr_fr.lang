@@ -34,7 +34,6 @@ botaniamisc.filter1=Ramassage seulement des éléments hors cadres
 botaniamisc.filter2=Ramassage de tous les éléments
 botaniamisc.creativePool0=Bassin de mana créatif, possède du mana à l'infini
 botaniamisc.creativePool1=Digne d'un égoïste
-botaniamisc.savedByLaurel=Votre couronne de laurier d'or vole en éclats, dès qu'elle vous sauve de la mort.
 botaniamisc.toolRank=%s&7 rang
 botaniamisc.edition=%s édition
 # ^ Leave this empty for no edition display
@@ -1033,7 +1032,6 @@ item.botania:knockbackBelt.name=Ceinture tectonique
 item.botania:icePendant.name=Pendentif du flocon de neige
 item.botania:lavaPendant.name=Pendentif du pyroclaste
 item.botania:lifeEssence.name=Esprit de Gaïa
-item.botania:goldenLaurel.name=Couronne de laurier dorée
 item.botania:redstoneRoot.name=Racine de Redstone
 item.botania:magnetRing.name=Anneau de magnétisation
 item.botania:waterRing.name=Anneau des chordés 

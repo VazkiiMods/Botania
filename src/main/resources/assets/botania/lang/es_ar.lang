@@ -31,7 +31,6 @@ botaniamisc.filter1=Recoge solamente los objetos que no están en los marcos.
 botaniamisc.filter2=Recoge todos los objetos. 
 botaniamisc.creativePool0=Pileta de Maná de Creativo. Tiene Maná infinito. 
 botaniamisc.creativePool1=Propio de un Egoista
-botaniamisc.savedByLaurel=Tu Corona Dorada de Laurel se destruye y te salva de la muerte.
 botaniamisc.toolRank=%s&7 Rank
 botaniamisc.edition=%s Edition
 # ^ Leave this empty for no edition display

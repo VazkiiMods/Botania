@@ -34,7 +34,6 @@ botaniamisc.filter1=Alleen items buiten kader verzamelen
 botaniamisc.filter2=Alle items verzamelen
 botaniamisc.creativePool0=Creatieve Mana voorraad, heeft oneindig Mana
 botaniamisc.creativePool1=Waardig voor een egoïst
-botaniamisc.savedByLaurel=Uw gouden lauwerkrans verbrijzeld wanneer hij je redt van de dood.
 botaniamisc.toolRank=%s&7 Rang
 
 botaniamisc.edition=%s Editie
@@ -1266,7 +1265,6 @@ item.botania:knockbackBelt.name=Tektonische Gordel
 item.botania:icePendant.name=Sneeuwvlok Hanger
 item.botania:lavaPendant.name=Pyroclastische Hanger
 item.botania:lifeEssence.name=Geest van Gaia
-item.botania:goldenLaurel.name=Gouden Laurierkroon
 item.botania:redstoneRoot.name=Redstone Wortel
 item.botania:magnetRing.name=Ring der Magnetisatie
 item.botania:waterRing.name=Ring der Oceanen
@@ -3238,12 +3236,6 @@ botania.entry.lavaPendant=Pyroclastische Hanger
 botania.tagline.lavaPendant=Beperkte vuurbestendigheid
 botania.page.lavaPendant0=De &1Pyroclastische Hanger&0 is een &4Bauble&0 die warmte kan opnemen. Wanneer gedragen, als de drager vlam vat en niet staat op &1Vuur&0, &1Lava&0 of een andere brandstichter, zal hij geblust worden.
 botania.page.lavaPendant1=Hanako kon er wel eentje gebruiken
-
-# -- GOLDEN LAUREL CROWN
-botania.entry.goldenLaurel=Gouden Laurierkroon
-botania.tagline.goldenLaurel=Ontsnap eenmalig aan de dood
-botania.page.goldenLaurel0=Een toepassing van de &1Geest van Gaia&0 is het toevoegen van een laag onsterfelijkheid aan de drager. Door het dragen van een &1Gouden Laurierkroon&0, als de drager dood zou gaan, zal de kroon uiteenspatten, waarbij het leven hersteld wordt en de drager korte tijd onsterfelijk wordt.
-botania.page.goldenLaurel1=Gouden Laurierkroon
 
 # -- RING OF CHORDATA
 botania.entry.waterRing=Ring der Oceanen

@@ -34,7 +34,6 @@ botaniamisc.filter1=只拾取物品展示框以外物品
 botaniamisc.filter2=拾取所有物品
 botaniamisc.creativePool0=創造模式瑪那池，擁有無限瑪那
 botaniamisc.creativePool1=創造模式獨享
-botaniamisc.savedByLaurel=你的金冠破碎了，但它救了你的命。
 botaniamisc.toolRank=%s&7 級
 botaniamisc.edition=第 %s 版
 # ^ Leave this empty for no edition display
@@ -1379,7 +1378,6 @@ item.botania:knockbackBelt.name=抗擊腰帶
 item.botania:icePendant.name=雪花項鏈
 item.botania:lavaPendant.name=火石項鏈
 item.botania:lifeEssence.name=蓋亞之魂
-item.botania:goldenLaurel.name=黃金桂冠
 item.botania:redstoneRoot.name=紅石根
 item.botania:magnetRing.name=磁化指環
 item.botania:waterRing.name=魚泳指環
@@ -3358,12 +3356,6 @@ botania.entry.lavaPendant=火石項鏈
 botania.tagline.lavaPendant=抵抗火焰...稍微的
 botania.page.lavaPendant0=&1火石項鏈&0是個吸收少量熱量 的&4飾品&0,若穿戴者著火且沒有 直接處於&1火&0,&1岩漿&0或其他能引 起燃燒的地方,火就會被撲滅 .
 botania.page.lavaPendant1=花子本應用到這個
-
-# -- GOLDEN LAUREL CROWN
-botania.entry.goldenLaurel=黃金桂冠
-botania.tagline.goldenLaurel=一次性的免死金牌
-botania.page.goldenLaurel0=&1蓋亞之魂&0的用途之一就是,賦 予使用者一層不死的保護,穿 戴&1黃金桂冠&0時,如果穿戴者即 將死亡桂冠就會破碎,回復他 們所有的生命值並附加短暫 的無敵效果.
-botania.page.goldenLaurel1=考慮到主題,那就是自然女神
 
 # -- RING OF CHORDATA
 botania.entry.waterRing=魚泳指環

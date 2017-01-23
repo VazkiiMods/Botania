@@ -35,8 +35,7 @@ botaniamisc.filter1=Recoge solamente los objetos que no están en los marcos.
 botaniamisc.filter2=Recoge todos los objetos. 
 botaniamisc.creativePool0=Pila de maná de creativo. Tiene maná infinito. 
 botaniamisc.creativePool1=Digno de un egoísta
-botaniamisc.savedByLaurel=Tu corona de laurel dorado se destruye y te salva de la muerte.
-botaniamisc.toolRank=Rango %s&7 
+botaniamisc.toolRank=Rango %s&7
 botaniamisc.edition=Edición %sª
 # ^ Leave this empty for no edition display
 botaniamisc.devEdition=Del escritor
@@ -1173,7 +1172,6 @@ item.botania:knockbackBelt.name=Faja tectónica
 item.botania:icePendant.name=Colgante de copo de nieve
 item.botania:lavaPendant.name=Colgante piroclástico
 item.botania:lifeEssence.name=Espíritu de Gaia
-item.botania:goldenLaurel.name=Corona de laurel dorado
 item.botania:redstoneRoot.name=Raiz de redstone
 item.botania:magnetRing.name=Anillo de magnetización
 item.botania:waterRing.name=Anillo de cordado
@@ -2612,11 +2610,6 @@ botania.page.icePendant1=Hazme un muñeco de nieve....
 botania.entry.lavaPendant=Colgante piroclástico
 botania.page.lavaPendant0=El &1colgante piroclástico&0 es un &4ornamento&0 que absorbe algo el calor mientras se lleva puesto. Si el portador se prende en llamas y no está sobre un &1fuego&0, &1lava&0 o cualquier cosa incendiaria, las llamas serán apagadas. 
 botania.page.lavaPendant1=Hanako podría haber usado uno
-
-# -- GOLDEN LAUREL CROWN
-botania.entry.goldenLaurel=Corona de laurel dorado
-botania.page.goldenLaurel0=Uno de los usos de los &1espíritus de Gaia&0 es conceder una capa de inmortalidad a aquel que los usa, al portar una &1corona de laurel dorado&0. Si el portador fuese a morir, la corona se romperá, regenerando toda la salud y otorgando un breve periodo de invencibilidad.
-botania.page.goldenLaurel1=Un tema dado, probablemente Viridi
 
 # -- RING OF CHORDATA
 botania.entry.waterRing=Anillo de cordado

@@ -38,7 +38,6 @@ botaniamisc.filter1=Não coletar itens da moldura
 botaniamisc.filter2=Coletar tudo
 botaniamisc.creativePool0=Poço de Mana Criativo, possui Mana infinita
 botaniamisc.creativePool1=Perfeito para egoístas
-botaniamisc.savedByLaurel=Sua Coroa Dourada de Laurel estilhaçou, enquanto te salvava da morte.
 botaniamisc.toolRank=Rank %s&7
 botaniamisc.edition=%sª Edição
 # ^ Leave this empty for no edition display
@@ -1416,7 +1415,6 @@ item.botania:knockbackBelt.name=Cinturão Tectônico
 item.botania:icePendant.name=Pingente do Floco de Neve
 item.botania:lavaPendant.name=Pingente do Piromântico
 item.botania:lifeEssence.name=Espírito de Gaia
-item.botania:goldenLaurel.name=Coroa Dourada de Laurel
 item.botania:redstoneRoot.name=Raíz de Redstone
 item.botania:magnetRing.name=Anel Magnético
 item.botania:waterRing.name=Anel dos Cordados

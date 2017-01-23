@@ -35,7 +35,6 @@ botaniamisc.filter1=프레임에 없는 아이템만 가져옵니다
 botaniamisc.filter2=아무 아이템이나 가져옵니다
 botaniamisc.creativePool0=크리에이티브 모드를 위한 마나 풀로써, 용량이 무한대입니다.
 botaniamisc.creativePool1=이기주의자에게 잘 어울립니다.
-botaniamisc.savedByLaurel=골든 로렐 크라운은 죽음의 위기로부터 당신을 지키면서 동시에 소멸합니다.
 botaniamisc.toolRank=%s&7 랭크
 botaniamisc.edition=%s 제본판
 # ^ Leave this empty for no edition display
@@ -1134,7 +1133,6 @@ item.botania:knockbackBelt.name=구조상 벨트
 item.botania:icePendant.name=눈송이 펜던트
 item.botania:lavaPendant.name=파이로클래스 펜던트
 item.botania:lifeEssence.name=영원한 생명의 정수
-item.botania:goldenLaurel.name=골든 로렐 크라운
 item.botania:redstoneRoot.name=레드스톤 뿌리
 item.botania:magnetRing.name=자기력의 반지
 item.botania:waterRing.name=난폭의 반지

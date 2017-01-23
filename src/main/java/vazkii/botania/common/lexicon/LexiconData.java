@@ -236,7 +236,6 @@ public final class LexiconData {
 	public static LexiconEntry knockbacklBelt;
 	public static LexiconEntry icePendant;
 	public static LexiconEntry lavaPendant;
-	public static LexiconEntry goldLaurel;
 	public static LexiconEntry waterRing;
 	public static LexiconEntry miningRing;
 	public static LexiconEntry magnetRing;
@@ -1176,10 +1175,6 @@ public final class LexiconData {
 		lavaPendant = new BasicLexiconEntry(LibLexicon.BAUBLE_LAVA_PENDANT, categoryBaubles);
 		lavaPendant.setLexiconPages(new PageText("0"),
 				new PageCraftingRecipe("1", ModCraftingRecipes.recipeFirePendant));
-
-		goldLaurel = new AlfheimLexiconEntry(LibLexicon.BAUBLE_GOLDEN_LAUREL, categoryBaubles);
-		goldLaurel.setLexiconPages(new PageText("0"),
-				new PageCraftingRecipe("1", ModCraftingRecipes.recipeGoldenLaurel));
 
 		waterRing = new BasicLexiconEntry(LibLexicon.BAUBLE_WATER_RING, categoryBaubles);
 		waterRing.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeWaterRing));

@@ -38,7 +38,6 @@ botaniamisc.filter1=Pickup only items not in Frames
 botaniamisc.filter2=Pickup any items
 botaniamisc.creativePool0=Creative Mana Pool, has infinite Mana
 botaniamisc.creativePool1=Worthy of an Egoist
-botaniamisc.savedByLaurel=Your Golden Laurel Crown shatters, as it saves you from death.
 botaniamisc.toolRank=%s&7 Rank
 botaniamisc.edition=%s Edition
 # ^ Leave this empty for no edition display
@@ -1416,7 +1415,6 @@ item.botania:knockbackBelt.name=Tectonic Girdle
 item.botania:icePendant.name=Snowflake Pendant
 item.botania:lavaPendant.name=Pyroclast Pendant
 item.botania:lifeEssence.name=Gaia Spirit
-item.botania:goldenLaurel.name=Golden Laurel Crown
 item.botania:redstoneRoot.name=Redstone Root
 item.botania:magnetRing.name=Ring of Magnetization
 item.botania:waterRing.name=Ring of Chordata
@@ -3428,12 +3426,6 @@ botania.tagline.lavaPendant=Fire resistance, somewhat
 botania.page.lavaPendant0=The &1Pyroclast Pendant&0 is a &4Bauble&0 that absorbs low heat, while it's worn, if the wearer is caught on fire and is not directly standing on &1Fire&0, &1Lava&0 or anything else that can induce burning, they'll be extinguished.
 botania.page.lavaPendant1=Hanako could have used one of these
 
-# -- GOLDEN LAUREL CROWN
-botania.entry.goldenLaurel=Golden Laurel Crown
-botania.tagline.goldenLaurel=Immunity to death, once
-botania.page.goldenLaurel0=One of the uses for &1Gaia Spririts&0 is to, grant a layer of immortality to one that uses them, while wearing a &1Golden Laurel Crown&0, if the wearer were to die, the crown will shatter, regenerating all of their health and giving them a short period of invincibility.
-botania.page.goldenLaurel1=People don't die if they are killed
-
 # -- RING OF CHORDATA
 botania.entry.waterRing=Ring of Chordata
 botania.tagline.waterRing=Move super fast underwater
@@ -3873,7 +3865,6 @@ botania.subtitle.enchanterEnchant=Mana Enchanter finishes
 botania.subtitle.endoflame=Endoflame ignites item
 botania.subtitle.equipBauble=Bauble is equipped
 botania.subtitle.gaiaTrap=Gaia Guardian's spell swooshes
-botania.subtitle.goldenLaurel=Golden Laurel restores your life
 botania.subtitle.holyCloak=Cloak of Virtue activates
 botania.subtitle.laputaStart=Laputa Shard triggers
 botania.subtitle.lexiconOpen=Lexica Botania opens

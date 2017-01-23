@@ -32,7 +32,6 @@ botaniamisc.filter1=Nur Items außerhalb von Rahmen aufsammeln
 botaniamisc.filter2=Alle Items aufsammeln
 botaniamisc.creativePool0=Kreatives Manabecken, hat unendlich Mana
 botaniamisc.creativePool1=Eines Egoisten würdig
-botaniamisc.savedByLaurel=Dein goldener Lorbeerkranz zersplitterte, als er dich vor dem Tod rettete.
 botaniamisc.toolRank=%s&7-Rang
 
 # COLORS
@@ -385,7 +384,6 @@ item.botania:knockbackBelt.name=Tektonikgürtel
 item.botania:icePendant.name=Schneeflockanhänger
 item.botania:lavaPendant.name=Pyroklastanhänger
 item.botania:lifeEssence.name=Essenz des Ewigen Lebens
-item.botania:goldenLaurel.name=Goldener Lorbeerkranz
 item.botania:redstoneRoot.name=Redstone-Wurzel
 item.botania:magnetRing.name=Ring des Magnetismus
 item.botania:waterRing.name=Ring der Ozeane
@@ -725,9 +723,6 @@ botania.entry.icePendant=Schneeflockanhänger
 
 # -- PYROCLAST PENDANT
 botania.entry.lavaPendant=Pyroklastanhänger
-
-# -- GOLDEN LAUREL CROWN
-botania.entry.goldenLaurel=Goldener Lorbeerkranz
 
 # -- RING OF CHORDATA
 botania.entry.waterRing=Ring der Ozeane
