@@ -10,8 +10,9 @@
  */
 package vazkii.botania.common.block.tile;
 
-import net.minecraft.block.Block;
 import net.minecraft.entity.EntityAgeable;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.monster.EntityShulker;
 import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.passive.EntityHorse;
@@ -22,19 +23,26 @@ import net.minecraft.entity.passive.EntityRabbit;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.passive.EntityWolf;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.datasync.DataParameter;
 import net.minecraftforge.fml.common.registry.VillagerRegistry;
+import net.minecraftforge.fml.relauncher.ReflectionHelper;
+import vazkii.botania.common.lib.LibObfuscation;
 
 public class TileCocoon extends TileMod {
 
 	private static final String TAG_TIME_PASSED = "timePassed";
 	private static final String TAG_EMERALDS_GIVEN = "emeraldsGiven";
+	private static final String TAG_CHORUS_FRUIT_GIVEN = "chorusFruitGiven";
 
 	public static final int TOTAL_TIME = 2400;
 	public static final int MAX_EMERALDS = 20;
+	public static final int MAX_CHORUS_FRUITS = 20;
 
 	public int timePassed;
 	public int emeraldsGiven;
+	public int chorusFruitGiven;
 
 	@Override
 	public void update() {
@@ -45,14 +53,16 @@ public class TileCocoon extends TileMod {
 
 	private void hatch() {
 		if(!world.isRemote) {
-			world.playEvent(2001, pos, Block.getStateId(getBlockType().getStateFromMeta(getBlockMetadata())));
-			world.setBlockToAir(pos);
+			world.destroyBlock(pos, false);
 
-			EntityAgeable entity = null;
+			EntityLiving entity = null;
 
 			float villagerChance = Math.min(1F, (float) emeraldsGiven / (float) MAX_EMERALDS);
+			float shulkerChance = Math.min(1F, (float) chorusFruitGiven / (float) MAX_CHORUS_FRUITS);
 
-			if(Math.random() < villagerChance) {
+			if(Math.random() < shulkerChance) {
+				entity = new EntityShulker(world);
+			} else if(Math.random() < villagerChance) {
 				EntityVillager villager = new EntityVillager(world);
 				VillagerRegistry.setRandomProfession(villager, world.rand);
 				entity = villager;
@@ -97,7 +107,8 @@ public class TileCocoon extends TileMod {
 
 			if(entity != null) {
 				entity.setPosition(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
-				entity.setGrowingAge(-24000);
+				if(entity instanceof EntityAgeable)
+					((EntityAgeable) entity).setGrowingAge(-24000);
 				world.spawnEntity(entity);
 				entity.spawnExplosionParticle();
 			}
@@ -108,12 +119,14 @@ public class TileCocoon extends TileMod {
 	public void writePacketNBT(NBTTagCompound cmp) {
 		cmp.setInteger(TAG_TIME_PASSED, timePassed);
 		cmp.setInteger(TAG_EMERALDS_GIVEN, emeraldsGiven);
+		cmp.setInteger(TAG_CHORUS_FRUIT_GIVEN, chorusFruitGiven);
 	}
 
 	@Override
 	public void readPacketNBT(NBTTagCompound cmp) {
 		timePassed = cmp.getInteger(TAG_TIME_PASSED);
 		emeraldsGiven = cmp.getInteger(TAG_EMERALDS_GIVEN);
+		chorusFruitGiven = cmp.getInteger(TAG_CHORUS_FRUIT_GIVEN);
 	}
 
 }

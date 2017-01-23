@@ -15,20 +15,24 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
+import mezz.jei.util.FakeClientWorld;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.block.tile.TileCocoon;
@@ -71,13 +75,27 @@ public class BlockCocoon extends BlockMod implements ILexiconable {
 	@Override
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing s, float xs, float ys, float zs) {
 		TileCocoon cocoon = (TileCocoon) world.getTileEntity(pos);
-		ItemStack item = player.getHeldItem(hand);
-		if(cocoon.emeraldsGiven < TileCocoon.MAX_EMERALDS && !item.isEmpty() && item.getItem() == Items.EMERALD) {
-			if(!player.capabilities.isCreativeMode)
-				item.shrink(1);
-			cocoon.emeraldsGiven++;
-			world.playEvent(2005, pos, 6 + world.rand.nextInt(4));
+		ItemStack stack = player.getHeldItem(hand);
+		Item item = stack.getItem();
+
+		if(cocoon != null && (item == Items.EMERALD || item == Items.CHORUS_FRUIT)) {
+			if(!world.isRemote) {
+				if(item == Items.EMERALD && cocoon.emeraldsGiven < TileCocoon.MAX_EMERALDS) {
+					if(!player.capabilities.isCreativeMode)
+						stack.shrink(1);
+					cocoon.emeraldsGiven++;
+					world.playEvent(2005, pos, 6 + world.rand.nextInt(4));
+				} else if(item == Items.CHORUS_FRUIT && cocoon.chorusFruitGiven < TileCocoon.MAX_CHORUS_FRUITS) {
+					if(!player.capabilities.isCreativeMode)
+						stack.shrink(1);
+					cocoon.chorusFruitGiven++;
+					((WorldServer) world).spawnParticle(EnumParticleTypes.PORTAL, pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, 32, 0, 0, 0, 0.5);
+				}
+			}
+
+			return true;
 		}
+
 		return false;
 	}
 
