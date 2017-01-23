@@ -28,6 +28,8 @@ import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -297,6 +299,14 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 		hasWater = cmp.getBoolean(TAG_HAS_WATER);
 		hasLava = cmp.getBoolean(TAG_HAS_LAVA);
 		isMossy = cmp.getBoolean(TAG_IS_MOSSY);
+	}
+
+	@Override
+	public void onDataPacket(NetworkManager manager, SPacketUpdateTileEntity packet) {
+		boolean lastMossy = isMossy;
+		super.onDataPacket(manager, packet);
+		if(isMossy != lastMossy)
+			world.markBlockRangeForRenderUpdate(pos, pos);
 	}
 
 	@Override
