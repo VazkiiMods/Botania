@@ -92,6 +92,7 @@ import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.lib.LibEntityNames;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.network.PacketBotaniaEffect;
 import vazkii.botania.common.network.PacketHandler;
@@ -142,7 +143,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 	private int tpDelay = 0;
 	private int mobSpawnTicks = 0;
 	private final List<UUID> playersWhoAttacked = new ArrayList<>();
-	private final BossInfoServer bossInfo = (BossInfoServer) new BossInfoServer(getDisplayName(), BossInfo.Color.PINK, BossInfo.Overlay.PROGRESS).setCreateFog(true);
+	private final BossInfoServer bossInfo = (BossInfoServer) new BossInfoServer(new TextComponentTranslation("entity." + LibEntityNames.DOPPLEGANGER_REGISTRY + ".name"), BossInfo.Color.PINK, BossInfo.Overlay.PROGRESS).setCreateFog(true);;
 	public EntityPlayer trueKiller = null;
 
 	public EntityDoppleganger(World world) {
@@ -367,6 +368,16 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 		if(par1nbtTagCompound.hasKey(TAG_PLAYER_COUNT))
 			setPlayerCount(par1nbtTagCompound.getInteger(TAG_PLAYER_COUNT));
 		else setPlayerCount(1);
+
+		if (this.hasCustomName()) {
+			this.bossInfo.setName(this.getDisplayName());
+		}
+	}
+
+	@Override
+	public void setCustomNameTag(@Nonnull String name) {
+		super.setCustomNameTag(name);
+		this.bossInfo.setName(this.getDisplayName());
 	}
 
 	@Override
