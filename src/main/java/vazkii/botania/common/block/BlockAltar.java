@@ -138,10 +138,10 @@ public class BlockAltar extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public void onEntityCollidedWithBlock(World world, BlockPos pos, IBlockState state, Entity par5Entity) {
-		if(par5Entity instanceof EntityItem) {
+	public void onEntityCollidedWithBlock(World world, BlockPos pos, IBlockState state, Entity entity) {
+		if(!world.isRemote && entity instanceof EntityItem) {
 			TileAltar tile = (TileAltar) world.getTileEntity(pos);
-			if(tile.collideEntityItem((EntityItem) par5Entity))
+			if(tile.collideEntityItem((EntityItem) entity))
 				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(tile);
 		}
 	}
