@@ -26,6 +26,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.items.ItemHandlerHelper;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.state.BotaniaStateProps;
@@ -111,17 +112,12 @@ public class BlockSparkChanger extends BlockMod implements ILexiconable {
 			changer.getItemHandler().setStackInSlot(0, ItemStack.EMPTY);
 			world.updateComparatorOutputLevel(pos, this);
 			changer.markDirty();
-			if(!player.inventory.addItemStackToInventory(cstack))
-				player.dropItem(cstack, false);
+			ItemHandlerHelper.giveItemToPlayer(player, cstack);
 			return true;
 		} else if(!pstack.isEmpty() && pstack.getItem() == ModItems.sparkUpgrade) {
-			changer.getItemHandler().setStackInSlot(0, pstack.copy().splitStack(1));
+			changer.getItemHandler().setStackInSlot(0, pstack.splitStack(1));
 			world.updateComparatorOutputLevel(pos, this);
 			changer.markDirty();
-
-			pstack.shrink(1);
-			if(pstack.isEmpty())
-				player.setHeldItem(hand, ItemStack.EMPTY);
 
 			return true;
 		}

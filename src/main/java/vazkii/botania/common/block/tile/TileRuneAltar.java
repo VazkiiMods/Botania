@@ -62,17 +62,13 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver 
 			return false;
 
 		if(stack.getItem() == Item.getItemFromBlock(ModBlocks.livingrock) && stack.getItemDamage() == 0) {
-			if(player == null || !player.capabilities.isCreativeMode) {
-				stack.shrink(1);
-				if(stack.isEmpty() && player != null)
-					player.setHeldItem(hand, ItemStack.EMPTY);
-			}
-
-			EntityItem item = new EntityItem(world, getPos().getX() + 0.5, getPos().getY() + 1, getPos().getZ() + 0.5, new ItemStack(ModBlocks.livingrock));
-			item.setPickupDelay(40);
-			item.motionX = item.motionY = item.motionZ = 0;
-			if(!world.isRemote)
+			if(!world.isRemote) {
+				ItemStack toSpawn = player != null && player.capabilities.isCreativeMode ? stack.copy().splitStack(1) : stack.splitStack(1);
+				EntityItem item = new EntityItem(world, getPos().getX() + 0.5, getPos().getY() + 1, getPos().getZ() + 0.5, toSpawn);
+				item.setPickupDelay(40);
+				item.motionX = item.motionY = item.motionZ = 0;
 				world.spawnEntity(item);
+			}
 
 			return true;
 		}
@@ -91,8 +87,6 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver 
 
 				if(player == null || !player.capabilities.isCreativeMode) {
 					stack.shrink(1);
-					if(stack.isEmpty() && player != null)
-						player.inventory.setInventorySlotContents(player.inventory.currentItem, ItemStack.EMPTY);
 				}
 
 				break;

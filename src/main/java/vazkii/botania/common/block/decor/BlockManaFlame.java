@@ -32,6 +32,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.Optional;
+import net.minecraftforge.items.ItemHandlerHelper;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.block.BlockMod;
@@ -101,10 +102,10 @@ public class BlockManaFlame extends BlockMod implements ILexiconable {
 		if(WorldTypeSkyblock.isWorldSkyblock(world)) {
 			ItemStack stack = player.getHeldItem(hand);
 			if(!stack.isEmpty() && stack.getItem() == Item.getItemFromBlock(Blocks.SAPLING) && !player.inventory.hasItemStack(new ItemStack(ModItems.lexicon))) {
-				if(!world.isRemote)
+				if(!world.isRemote) {
 					stack.shrink(1);
-				if(!player.inventory.addItemStackToInventory(new ItemStack(ModItems.lexicon)))
-					player.dropItem(new ItemStack(ModItems.lexicon), false);
+					ItemHandlerHelper.giveItemToPlayer(player, new ItemStack(ModItems.lexicon));
+				}
 				return true;
 			}
 

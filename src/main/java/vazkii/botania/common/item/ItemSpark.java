@@ -44,8 +44,8 @@ public class ItemSpark extends ItemMod implements ICraftAchievement, IManaGiving
 			ISparkAttachable attach = (ISparkAttachable) tile;
 			ItemStack stack = player.getHeldItem(hand);
 			if(attach.canAttachSpark(stack) && attach.getAttachedSpark() == null) {
-				stack.shrink(1);
 				if(!world.isRemote) {
+					stack.shrink(1);
 					EntitySpark spark = new EntitySpark(world);
 					spark.setPosition(pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5);
 					world.spawnEntity(spark);

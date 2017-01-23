@@ -35,6 +35,7 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.items.ItemHandlerHelper;
 import vazkii.botania.api.item.IPetalApothecary;
 import vazkii.botania.api.recipe.IElvenItem;
 import vazkii.botania.api.recipe.IFlowerComponent;
@@ -70,15 +71,9 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 				ItemStack stack1 = new ItemStack(this, 1, 15);
 				event.getEntityPlayer().addStat(ModAchievements.enderAirMake, 1);
 
-				if(!event.getEntityPlayer().inventory.addItemStackToInventory(stack1)) {
-					event.getEntityPlayer().dropItem(stack1, true);
-				} else {
-					event.getEntityPlayer().openContainer.detectAndSendChanges();
-				}
+				ItemHandlerHelper.giveItemToPlayer(event.getEntityPlayer(), stack1);
 
 				stack.shrink(1);
-				if(stack.isEmpty())
-					event.getEntityPlayer().setHeldItem(event.getHand(), ItemStack.EMPTY);
 
 				event.getWorld().playSound(null, event.getPos(), SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.PLAYERS, 0.5F, 1F);
 				event.setCanceled(true);

@@ -101,9 +101,7 @@ public abstract class ItemBrewBase extends ItemMod implements IBrewItem, IPickup
 					if(!((EntityPlayer) living).inventory.addItemStackToInventory(baseItem.copy()))
 						return baseItem.copy();
 					else {
-						ItemStack copy = stack.copy();
-						copy.setCount(0);
-						return copy;
+						return ItemStack.EMPTY;
 					}
 				}
 

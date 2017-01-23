@@ -37,6 +37,7 @@ import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.items.ItemHandlerHelper;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -110,9 +111,7 @@ public class BlockHourglass extends BlockMod implements IManaTrigger, IWandable,
 			stack.setCount(0);
 			return true;
 		} else if(!hgStack.isEmpty()) {
-			ItemStack copy = hgStack.copy();
-			if(!player.inventory.addItemStackToInventory(copy))
-				player.dropItem(copy, false);
+			ItemHandlerHelper.giveItemToPlayer(player, hgStack);
 			hourglass.getItemHandler().setStackInSlot(0, ItemStack.EMPTY);
 			hourglass.markDirty();
 			return true;

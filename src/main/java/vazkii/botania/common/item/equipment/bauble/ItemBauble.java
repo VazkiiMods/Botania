@@ -65,8 +65,7 @@ public abstract class ItemBauble extends ItemMod implements IBauble, ICosmeticAt
 		if(!EntityDoppleganger.isTruePlayer(player))
 			return ActionResult.newResult(EnumActionResult.FAIL, stack);
 
-		ItemStack toEquip = stack.copy();
-		toEquip.setCount(1);
+		ItemStack toEquip = stack.splitStack(1);
 
 		if(canEquip(toEquip, player)) {
 			IItemHandlerModifiable baubles = BaublesApi.getBaublesHandler(player);
@@ -77,7 +76,6 @@ public abstract class ItemBauble extends ItemMod implements IBauble, ICosmeticAt
 					if(stackInSlot.isEmpty() || ((IBauble) stackInSlot.getItem()).canUnequip(stackInSlot, player)) {
 						if(!world.isRemote) {
 							baubles.setStackInSlot(i, toEquip);
-							stack.shrink(1);
 						}
 
 						if(!stackInSlot.isEmpty()) {

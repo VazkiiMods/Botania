@@ -27,6 +27,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.items.ItemHandlerHelper;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -91,9 +92,7 @@ public class BlockIncensePlate extends BlockMod implements ILexiconable {
 				stack.damageItem(1, player);
 				did = true;
 			} else {
-				ItemStack addStack = plateStack.copy();
-				if(!player.inventory.addItemStackToInventory(addStack))
-					player.dropItem(addStack, false);
+				ItemHandlerHelper.giveItemToPlayer(player, plateStack);
 				plate.getItemHandler().setStackInSlot(0, ItemStack.EMPTY);
 
 				did = true;

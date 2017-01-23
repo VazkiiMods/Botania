@@ -259,8 +259,6 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 				ItemStack retStack = invStack.copy();
 				if(doit) {
 					invStack.shrink(1);
-					if(invStack.isEmpty())
-						inv.setInventorySlotContents(i, ItemStack.EMPTY);
 				}
 				return retStack;
 			}

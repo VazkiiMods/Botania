@@ -135,9 +135,6 @@ public class ItemAstrolabe extends ItemMod {
 			ItemStack stackInSlot = player.inventory.getStackInSlot(i);
 			if(!stackInSlot.isEmpty() && stackInSlot.getItem() == blockToPlace.getItem() && stackInSlot.getItemDamage() == blockToPlace.getItemDamage()) {
 				stackInSlot.shrink(1);
-				if(stackInSlot.isEmpty())
-					player.inventory.setInventorySlotContents(i, ItemStack.EMPTY);
-
 				return;
 			}
 

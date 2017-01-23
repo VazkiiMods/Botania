@@ -186,8 +186,7 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 
 	private static void doCraft(EntityPlayer player, ItemStack[] recipe, boolean particles) {
 		consumeRecipeIngredients(recipe, player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.UP), player);
-		if(!player.inventory.addItemStackToInventory(recipe[9]))
-			player.dropItem(recipe[9], false);
+		ItemHandlerHelper.giveItemToPlayer(player, recipe[9]);
 
 		if(!particles)
 			return;

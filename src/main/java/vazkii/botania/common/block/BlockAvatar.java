@@ -33,6 +33,7 @@ import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.items.ItemHandlerHelper;
 import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -94,15 +95,11 @@ public class BlockAvatar extends BlockMod implements ILexiconable {
 		ItemStack stackOnAvatar = avatar.getItemHandler().getStackInSlot(0);
 		ItemStack stackOnPlayer = player.getHeldItem(hand);
 		if(!stackOnAvatar.isEmpty()) {
-			ItemStack copyStack = stackOnAvatar.copy();
 			avatar.getItemHandler().setStackInSlot(0, ItemStack.EMPTY);
-			if(!player.inventory.addItemStackToInventory(copyStack))
-				player.dropItem(copyStack, true);
+			ItemHandlerHelper.giveItemToPlayer(player, stackOnAvatar);
 			return true;
 		} else if(!stackOnPlayer.isEmpty() && stackOnPlayer.getItem() instanceof IAvatarWieldable) {
-			ItemStack copyStack = stackOnPlayer.copy();
-			avatar.getItemHandler().setStackInSlot(0, copyStack);
-			stackOnPlayer.shrink(1);
+			avatar.getItemHandler().setStackInSlot(0, stackOnPlayer.splitStack(1));
 			return true;
 		}
 

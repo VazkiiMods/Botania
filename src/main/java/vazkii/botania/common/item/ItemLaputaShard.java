@@ -95,9 +95,9 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 			world.playSound(null, pos, BotaniaSoundEvents.laputaStart, SoundCategory.BLOCKS, 1.0F + world.rand.nextFloat(), world.rand.nextFloat() * 0.7F + 1.3F);
 			ItemStack stack = player.getHeldItem(hand);
 			spawnBurstFirst(world, pos, stack);
-			stack.shrink(1);
 			if(stack.getItemDamage() == 19)
 				player.addStat(ModAchievements.l20ShardUse, 1);
+			stack.shrink(1);
 		}
 
 		return EnumActionResult.SUCCESS;

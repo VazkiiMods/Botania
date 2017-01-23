@@ -31,6 +31,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.items.ItemHandlerHelper;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -131,9 +132,7 @@ public class BlockPrism extends BlockMod implements IManaTrigger, ILexiconable, 
 			prism.markDirty();
 			world.setBlockState(pos, state.withProperty(BotaniaStateProps.HAS_LENS, true), 1 | 2);
 		} else if(!lens.isEmpty()) {
-			ItemStack add = lens.copy();
-			if(!player.inventory.addItemStackToInventory(add))
-				player.dropItem(add, false);
+			ItemHandlerHelper.giveItemToPlayer(player, lens);
 			prism.getItemHandler().setStackInSlot(0, ItemStack.EMPTY);
 			prism.markDirty();
 			world.setBlockState(pos, state.withProperty(BotaniaStateProps.HAS_LENS, false), 1 | 2);

@@ -38,6 +38,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.items.ItemHandlerHelper;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.mana.ILens;
@@ -171,9 +172,7 @@ public class BlockSpreader extends BlockMod implements IWandable, IWandHUD, ILex
 			spreader.getItemHandler().setStackInSlot(0, heldItem.copy());
 			spreader.markDirty();
 		} else if(!lens.isEmpty() && !wool) {
-			ItemStack add = lens.copy();
-			if(!player.inventory.addItemStackToInventory(add))
-				player.dropItem(add, false);
+			ItemHandlerHelper.giveItemToPlayer(player, lens);
 			spreader.getItemHandler().setStackInSlot(0, ItemStack.EMPTY);
 			spreader.markDirty();
 		}
@@ -185,8 +184,7 @@ public class BlockSpreader extends BlockMod implements IWandable, IWandHUD, ILex
 				player.setHeldItem(hand, ItemStack.EMPTY);
 		} else if(heldItem.isEmpty() && spreader.paddingColor != -1 && lens.isEmpty()) {
 			ItemStack pad = new ItemStack(Blocks.WOOL, 1, spreader.paddingColor);
-			if(!player.inventory.addItemStackToInventory(pad))
-				player.dropItem(pad, false);
+			ItemHandlerHelper.giveItemToPlayer(player, pad);
 			spreader.paddingColor = -1;
 			spreader.markDirty();
 		}

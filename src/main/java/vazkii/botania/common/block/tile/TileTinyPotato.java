@@ -18,6 +18,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.text.TextComponentString;
+import net.minecraftforge.items.ItemHandlerHelper;
 import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.common.block.ModBlocks;
 
@@ -37,15 +38,12 @@ public class TileTinyPotato extends TileSimpleInventory {
 				player.setHeldItem(hand, stackAt);
 				getItemHandler().setStackInSlot(index, ItemStack.EMPTY);
 			} else if(!stack.isEmpty()) {
-				ItemStack copy = stack.copy();
-				copy.setCount(1);
-				stack.shrink(1);
+				ItemStack copy = stack.splitStack(1);
 
 				if(stack.isEmpty())
 					player.setHeldItem(hand, stackAt);
 				else if(!stackAt.isEmpty()) {
-					if(!player.inventory.addItemStackToInventory(stackAt))
-						player.dropItem(stackAt, false);
+					ItemHandlerHelper.giveItemToPlayer(player, stackAt);
 				}
 
 				getItemHandler().setStackInSlot(index, copy);

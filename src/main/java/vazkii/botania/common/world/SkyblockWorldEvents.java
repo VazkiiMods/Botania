@@ -30,6 +30,7 @@ import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.items.ItemHandlerHelper;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileManaFlame;
 import vazkii.botania.common.item.ModItems;
@@ -93,7 +94,7 @@ public final class SkyblockWorldEvents {
 
 							if(equipped.isEmpty())
 								event.getEntityPlayer().setHeldItem(event.getHand(), new ItemStack(ModItems.waterBowl));
-							else event.getEntityPlayer().dropItem(new ItemStack(ModItems.waterBowl), false);
+							else ItemHandlerHelper.giveItemToPlayer(event.getEntityPlayer(), new ItemStack(ModItems.waterBowl));
 						}
 					}
 				}

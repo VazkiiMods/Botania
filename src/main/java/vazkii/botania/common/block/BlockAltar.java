@@ -45,6 +45,7 @@ import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.items.ItemHandlerHelper;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -192,8 +193,7 @@ public class BlockAltar extends BlockMod implements ILexiconable {
 				if(stack.getCount() == 1)
 					player.setHeldItem(hand, bucket);
 				else {
-					if(!player.inventory.addItemStackToInventory(bucket))
-						player.dropItem(bucket, false);
+					ItemHandlerHelper.giveItemToPlayer(player, bucket);
 					stack.shrink(1);
 				}
 

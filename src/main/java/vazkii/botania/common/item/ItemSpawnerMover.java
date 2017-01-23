@@ -141,8 +141,8 @@ public class ItemSpawnerMover extends ItemMod {
 
 			if (placeBlockAt(itemstack, player, world, pos, side, xOffset, yOffset, zOffset, iblockstate1)) {
 				world.playSound(null, pos, Blocks.MOB_SPAWNER.getSoundType().getPlaceSound(), SoundCategory.BLOCKS, (Blocks.MOB_SPAWNER.getSoundType().getVolume() + 1.0F) / 2.0F, Blocks.MOB_SPAWNER.getSoundType().getPitch() * 0.8F);
-				itemstack.shrink(1);
 				player.renderBrokenItemStack(itemstack);
+				itemstack.shrink(1);
 				player.addStat(ModAchievements.spawnerMoverUse, 1);
 				for(int i = 0; i < 100; i++)
 					Botania.proxy.sparkleFX(pos.getX() + Math.random(), pos.getY() + Math.random(), pos.getZ() + Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random(), 0.45F + 0.2F * (float) Math.random(), 6);
