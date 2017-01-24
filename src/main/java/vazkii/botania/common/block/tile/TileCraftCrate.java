@@ -105,7 +105,7 @@ public class TileCraftCrate extends TileOpenCrate {
 		if (worldObj.isRemote)
 			return;
 
-		if(canEject() && isFull() && craft(true))
+		if(canEject() && (craft(true) || isFull()))
 			ejectAll();
 
 		int newSignal = 0;
