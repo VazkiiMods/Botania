@@ -14,6 +14,7 @@ import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 import java.util.UUID;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -835,73 +836,112 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 		return CHEATY_BLOCKS.contains(name);
 	}
 
-	// EntityEnderman code below ============================================================================
-
+	// [VanillaCopy] EntityEnderman.teleportRandomly, edits noted.
 	private boolean teleportRandomly() {
-		double d0 = posX + (rand.nextDouble() - 0.5D) * 64.0D;
-		double d1 = posY + (rand.nextInt(64) - 32);
-		double d2 = posZ + (rand.nextDouble() - 0.5D) * 64.0D;
-		return teleportTo(d0, d1, d2);
+		double d0 = this.posX + (this.rand.nextDouble() - 0.5D) * 64.0D;
+		double d1 = this.posY + (double)(this.rand.nextInt(64) - 32);
+		double d2 = this.posZ + (this.rand.nextDouble() - 0.5D) * 64.0D;
+		return this.teleportTo(d0, d1, d2);
 	}
 
-	private boolean teleportTo(double par1, double par3, double par5) {
-		double d3 = posX;
-		double d4 = posY;
-		double d5 = posZ;
-		posX = par1;
-		posY = par3;
-		posZ = par5;
-		boolean flag = false;
-		BlockPos pos = new BlockPos(this);
+	// [VanillaCopy] EntityEnderman.teleportTo, edits noted.
+	private boolean teleportTo(double x, double y, double z) {
+		/* Botania - no events
+		net.minecraftforge.event.entity.living.EnderTeleportEvent event = new net.minecraftforge.event.entity.living.EnderTeleportEvent(this, x, y, z, 0);
+		if (net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(event)) return false;
+		boolean flag = this.attemptTeleport(event.getTargetX(), event.getTargetY(), event.getTargetZ());
+		*/
 
-		if(world.isBlockLoaded(pos)) {
+		boolean flag = this.attemptTeleport(x, y, z);
+
+		if (flag)
+		{
+			this.world.playSound((EntityPlayer)null, this.prevPosX, this.prevPosY, this.prevPosZ, SoundEvents.ENTITY_ENDERMEN_TELEPORT, this.getSoundCategory(), 1.0F, 1.0F);
+			this.playSound(SoundEvents.ENTITY_ENDERMEN_TELEPORT, 1.0F, 1.0F);
+		}
+
+		return flag;
+	}
+
+	// [VanillaCopy] of super, edits noted
+	@Override
+	public boolean attemptTeleport(double x, double y, double z) {
+		double d0 = this.posX;
+		double d1 = this.posY;
+		double d2 = this.posZ;
+		this.posX = x;
+		this.posY = y;
+		this.posZ = z;
+		boolean flag = false;
+		BlockPos blockpos = new BlockPos(this);
+		World world = this.world;
+		Random random = this.getRNG();
+
+		if (world.isBlockLoaded(blockpos))
+		{
 			boolean flag1 = false;
 
-			while(!flag1 && pos.getY() > 0) {
-				IBlockState state = world.getBlockState(pos.down());
-				Block block = state.getBlock();
+			while (!flag1 && blockpos.getY() > 0)
+			{
+				BlockPos blockpos1 = blockpos.down();
+				IBlockState iblockstate = world.getBlockState(blockpos1);
 
-				if(block.getMaterial(state).blocksMovement())
+				if (iblockstate.getMaterial().blocksMovement())
+				{
 					flag1 = true;
-				else {
-					--posY;
-					pos = pos.down();
+				}
+				else
+				{
+					--this.posY;
+					blockpos = blockpos1;
 				}
 			}
 
-			if(flag1) {
-				setPosition(posX, posY, posZ);
+			if (flag1)
+			{
+				this.setPositionAndUpdate(this.posX, this.posY, this.posZ);
 
-				if(world.getCollisionBoxes(this, getEntityBoundingBox()).isEmpty() && !world.containsAnyLiquid(getEntityBoundingBox()))
+				if (world.getCollisionBoxes(this, this.getEntityBoundingBox()).isEmpty() && !world.containsAnyLiquid(this.getEntityBoundingBox()))
+				{
 					flag = true;
+				}
 
-				// Prevent out of bounds teleporting
+				// Botania - Prevent out of bounds teleporting
 				BlockPos source = getSource();
 				if(vazkii.botania.common.core.helper.MathHelper.pointDistanceSpace(posX, posY, posZ, source.getX(), source.getY(), source.getZ()) > 12)
 					flag = false;
 			}
 		}
 
-		if (!flag) {
-			setPosition(d3, d4, d5);
+		if (!flag)
+		{
+			this.setPositionAndUpdate(d0, d1, d2);
 			return false;
-		} else  {
-			short short1 = 128;
+		}
+		else
+		{
+			int i = 128;
 
-			for(int l = 0; l < short1; ++l)  {
-				double d6 = l / (short1 - 1.0D);
-				float f = (rand.nextFloat() - 0.5F) * 0.2F;
-				float f1 = (rand.nextFloat() - 0.5F) * 0.2F;
-				float f2 = (rand.nextFloat() - 0.5F) * 0.2F;
-				double d7 = d3 + (posX - d3) * d6 + (rand.nextDouble() - 0.5D) * width * 2.0D;
-				double d8 = d4 + (posY - d4) * d6 + rand.nextDouble() * height;
-				double d9 = d5 + (posZ - d5) * d6 + (rand.nextDouble() - 0.5D) * width * 2.0D;
-				world.spawnParticle(EnumParticleTypes.PORTAL, d7, d8, d9, f, f1, f2);
+			for (int j = 0; j < 128; ++j)
+			{
+				double d6 = (double)j / 127.0D;
+				float f = (random.nextFloat() - 0.5F) * 0.2F;
+				float f1 = (random.nextFloat() - 0.5F) * 0.2F;
+				float f2 = (random.nextFloat() - 0.5F) * 0.2F;
+				double d3 = d0 + (this.posX - d0) * d6 + (random.nextDouble() - 0.5D) * (double)this.width * 2.0D;
+				double d4 = d1 + (this.posY - d1) * d6 + random.nextDouble() * (double)this.height;
+				double d5 = d2 + (this.posZ - d2) * d6 + (random.nextDouble() - 0.5D) * (double)this.width * 2.0D;
+				world.spawnParticle(EnumParticleTypes.PORTAL, d3, d4, d5, (double)f, (double)f1, (double)f2, new int[0]);
 			}
 
-			playSound(SoundEvents.ENTITY_ENDERMEN_TELEPORT, 1.0F, 1.0F);
+			// Botania - invalid/unneeded check
+			/*if (this instanceof EntityCreature)
+			{
+				((EntityCreature)this).getNavigator().clearPathEntity();
+			}*/
 
-			Vec3d origPos = new Vec3d(d3, d4 + height / 2, d5);
+			// Botania - damage any players in our way
+			Vec3d origPos = new Vec3d(d0, d1 + height / 2, d2);
 			Vec3d newPos = new Vec3d(posX, posY + height / 2, posZ);
 
 			if(origPos.squareDistanceTo(newPos) > 1) {
