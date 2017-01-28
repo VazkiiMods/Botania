@@ -1412,6 +1412,10 @@ public final class LexiconData {
 		preventingDecay = new DogLexiconEntry(LibLexicon.MISC_PRENTING_DECAY, categoryMisc);
 		preventingDecay.setLexiconPages(new PageText("0")).setIcon(new ItemStack(ModItems.monocle));
 
+		banners = new BasicLexiconEntry(LibLexicon.MISC_BANNERS, BotaniaAPI.categoryMisc);
+		banners.setLexiconPages(new PageText("0"), new PageImage("1", LibResources.ENTRY_BANNERS))
+				.setIcon(new ItemStack(ModItems.lexicon));
+
 		if (Botania.bcTriggersLoaded) {
 			bcIntegration = new CompatLexiconEntry(LibLexicon.MISC_BC_INTEGRATION, categoryMisc, "BuildCraft");
 			bcIntegration.setLexiconPages(new PageText("0")).setIcon(new ItemStack(Items.REDSTONE));
@@ -1440,12 +1444,6 @@ public final class LexiconData {
 						new PageManaInfusionRecipe("4", ModManaInfusionRecipes.manaInkwellRecipe),
 						new PageBrew(ModBrewRecipes.warpWardBrew, "6a", "6b"))
 				.setIcon(new ItemStack(ModItems.manaInkwell));
-		}
-
-		if (Botania.etFuturumLoaded) {
-			banners = new CompatLexiconEntry(LibLexicon.MISC_BANNERS, BotaniaAPI.categoryMisc, "EtFuturum");
-			banners.setLexiconPages(new PageText("0"), new PageImage("1", LibResources.ENTRY_BANNERS))
-			.setIcon(new ItemStack(ModItems.lexicon));
 		}
 	}
 }
