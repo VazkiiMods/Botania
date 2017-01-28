@@ -21,6 +21,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
+import net.minecraftforge.items.wrapper.InvWrapper;
 import vazkii.botania.api.item.IBlockProvider;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
@@ -76,13 +77,13 @@ public class ItemEnderHand extends ItemMod implements IManaUsingItem, IBlockProv
 		if(requestor != null && requestor.getItem() == this)
 			return false;
 
-		ItemStack istack = ItemExchangeRod.removeFromInventory(player, player.getInventoryEnderChest(), stack, block, meta, false);
+		ItemStack istack = ItemExchangeRod.removeFromInventory(player, new InvWrapper(player.getInventoryEnderChest()), stack, block, meta, false);
 		if(!istack.isEmpty()) {
 			boolean mana = ManaItemHandler.requestManaExact(stack, player, COST_PROVIDE, false);
 			if(mana) {
 				if(doit) {
 					ManaItemHandler.requestManaExact(stack, player, COST_PROVIDE, true);
-					ItemExchangeRod.removeFromInventory(player, player.getInventoryEnderChest(), stack, block, meta, true);
+					ItemExchangeRod.removeFromInventory(player, new InvWrapper(player.getInventoryEnderChest()), stack, block, meta, true);
 				}
 
 				return true;
@@ -97,7 +98,7 @@ public class ItemEnderHand extends ItemMod implements IManaUsingItem, IBlockProv
 		if(requestor != null && requestor.getItem() == this)
 			return 0;
 
-		return ItemExchangeRod.getInventoryItemCount(player, player.getInventoryEnderChest(), stack, block, meta);
+		return ItemExchangeRod.getInventoryItemCount(player, new InvWrapper(player.getInventoryEnderChest()), stack, block, meta);
 	}
 
 }

@@ -19,9 +19,10 @@ import java.util.Map.Entry;
 import javax.annotation.Nullable;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
 import vazkii.botania.api.BotaniaAPI;
 
 public final class ManaItemHandler {
@@ -36,10 +37,10 @@ public final class ManaItemHandler {
 		if (player == null)
 			return new ArrayList<ItemStack>();
 
-		IInventory mainInv = player.inventory;
+		IItemHandler mainInv = player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
 
 		List<ItemStack> toReturn = new ArrayList<ItemStack>();
-		int size = mainInv.getSizeInventory();
+		int size = mainInv.getSlots();
 
 		for(int slot = 0; slot < size; slot++) {
 			ItemStack stackInSlot = mainInv.getStackInSlot(slot);
@@ -63,13 +64,13 @@ public final class ManaItemHandler {
 		if (player == null)
 			return new HashMap<Integer, ItemStack>();
 
-		IInventory baublesInv = BotaniaAPI.internalHandler.getBaublesInventory(player);
+		IItemHandler baublesInv = BotaniaAPI.internalHandler.getBaublesInventoryWrapped(player);
 		if (baublesInv == null)
 			return new HashMap<Integer, ItemStack>();
 
 
 		Map<Integer, ItemStack> toReturn = new HashMap<Integer, ItemStack>();
-		int size = baublesInv.getSizeInventory();
+		int size = baublesInv.getSlots();
 
 		for(int slot = 0; slot < size; slot++) {
 			ItemStack stackInSlot = baublesInv.getStackInSlot(slot);

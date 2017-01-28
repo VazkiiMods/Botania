@@ -41,6 +41,8 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IBlockProvider;
 import vazkii.botania.api.item.IManaProficiencyArmor;
@@ -247,20 +249,16 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 		return block != null && block != Blocks.AIR;
 	}
 
-	public static ItemStack removeFromInventory(EntityPlayer player, IInventory inv, ItemStack stack, Block block, int meta, boolean doit) {
+	public static ItemStack removeFromInventory(EntityPlayer player, IItemHandler inv, ItemStack stack, Block block, int meta, boolean doit) {
 		List<ItemStack> providers = new ArrayList<>();
-		for(int i = inv.getSizeInventory() - 1; i >= 0; i--) {
+		for(int i = inv.getSlots() - 1; i >= 0; i--) {
 			ItemStack invStack = inv.getStackInSlot(i);
 			if(invStack.isEmpty())
 				continue;
 
 			Item item = invStack.getItem();
 			if(item == Item.getItemFromBlock(block) && invStack.getItemDamage() == meta) {
-				ItemStack retStack = invStack.copy();
-				if(doit) {
-					invStack.shrink(1);
-				}
-				return retStack;
+				return inv.extractItem(i, 1, !doit);
 			}
 
 			if(item instanceof IBlockProvider)
@@ -280,9 +278,9 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 		if(player.capabilities.isCreativeMode)
 			return new ItemStack(block, 1, meta);
 
-		ItemStack outStack = removeFromInventory(player, BotaniaAPI.internalHandler.getBaublesInventory(player), stack, block, meta, doit);
+		ItemStack outStack = removeFromInventory(player, BotaniaAPI.internalHandler.getBaublesInventoryWrapped(player), stack, block, meta, doit);
 		if (outStack.isEmpty())
-			outStack = removeFromInventory(player, player.inventory, stack, block, meta, doit);
+			outStack = removeFromInventory(player, player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null), stack, block, meta, doit);
 		return outStack;
 	}
 
@@ -290,21 +288,21 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 		if(player.capabilities.isCreativeMode)
 			return -1;
 
-		int baubleCount = getInventoryItemCount(player, BotaniaAPI.internalHandler.getBaublesInventory(player), stack, block, meta);
+		int baubleCount = getInventoryItemCount(player, BotaniaAPI.internalHandler.getBaublesInventoryWrapped(player), stack, block, meta);
 		if (baubleCount == -1) return -1;
 
-		int count = getInventoryItemCount(player, player.inventory, stack, block, meta);
+		int count = getInventoryItemCount(player, player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null), stack, block, meta);
 		if (count == -1) return -1;
 
 		return count+baubleCount;
 	}
 
-	public static int getInventoryItemCount(EntityPlayer player, IInventory inv, ItemStack stack, Block block, int meta) {
+	public static int getInventoryItemCount(EntityPlayer player, IItemHandler inv, ItemStack stack, Block block, int meta) {
 		if(player.capabilities.isCreativeMode)
 			return -1;
 
 		int count = 0;
-		for(int i = 0; i < inv.getSizeInventory(); i++) {
+		for(int i = 0; i < inv.getSlots(); i++) {
 			ItemStack invStack = inv.getStackInSlot(i);
 			if(invStack.isEmpty())
 				continue;
