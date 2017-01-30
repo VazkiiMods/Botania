@@ -93,7 +93,7 @@ public class ItemRainbowRod extends ItemMod implements IManaUsingItem, IAvatarWi
 							placePos.setPos(pos.getX() + i, pos.getY(), pos.getZ() + j);
 							if(world.isAirBlock(placePos)
 									|| world.getBlockState(placePos).getBlock() == place) {
-								world.setBlockState(placePos, place.getDefaultState());
+								world.setBlockState(placePos, place.getDefaultState(), 2);
 								TileBifrost tile = (TileBifrost) world.getTileEntity(placePos);
 								if(tile != null) {
 									tile.ticks = time;
@@ -119,6 +119,10 @@ public class ItemRainbowRod extends ItemMod implements IManaUsingItem, IAvatarWi
 				world.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.bifrostRod, SoundCategory.PLAYERS, 0.5F, 0.25F);
 				ManaItemHandler.requestManaExactForTool(stack, player, MANA_COST, false);
 				player.getCooldownTracker().setCooldown(this, TIME);
+
+				// Fix up rods from old versions which used meta instead of cooldown tracker
+				if (stack.getItemDamage() > 0)
+					stack.setItemDamage(0);
 			}
 		}
 
@@ -134,13 +138,6 @@ public class ItemRainbowRod extends ItemMod implements IManaUsingItem, IAvatarWi
 	@Override
 	public boolean hasContainerItem(ItemStack stack) {
 		return !getContainerItem(stack).isEmpty();
-	}
-
-	@Override
-	public void onUpdate(ItemStack par1ItemStack, World world, Entity par3Entity, int par4, boolean par5) {
-		// Kept for backward compat
-		if (par1ItemStack.getItemDamage() > 0)
-			par1ItemStack.setItemDamage(0);
 	}
 
 	@Override

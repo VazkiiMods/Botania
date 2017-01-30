@@ -59,16 +59,13 @@ public class ItemFireRod extends ItemMod implements IManaUsingItem, IAvatarWield
 
 			ManaItemHandler.requestManaExactForTool(stack, player, COST, true);
 			world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_BLAZE_AMBIENT, SoundCategory.PLAYERS, 1F, 1F);
+
+			// Fix up rods from old versions which used meta instead of cooldown tracker
+			if (stack.getItemDamage() > 0)
+				stack.setItemDamage(0);
 		}
 
 		return EnumActionResult.SUCCESS;
-	}
-
-	@Override
-	public void onUpdate(ItemStack par1ItemStack, World world, Entity par3Entity, int par4, boolean par5) {
-		// Keep for backward compat
-		if(par1ItemStack.getItemDamage() > 0)
-			par1ItemStack.setItemDamage(0);
 	}
 
 	@Override
