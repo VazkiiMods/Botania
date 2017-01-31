@@ -40,8 +40,7 @@ public class ItemEnderDagger extends ItemManasteelSword {
 	public boolean hitEntity(ItemStack stack, EntityLivingBase target, @Nonnull EntityLivingBase attacker) {
 		if(!target.worldObj.isRemote
 				&& target instanceof EntityEnderman
-				&& attacker instanceof EntityPlayer
-				&& ((EntityPlayer) attacker).getCooledAttackStrength(0) == 1) {
+				&& attacker instanceof EntityPlayer) {
 			target.attackEntityFrom(DamageSource.causePlayerDamage((EntityPlayer) attacker), 20);
 		}
 
