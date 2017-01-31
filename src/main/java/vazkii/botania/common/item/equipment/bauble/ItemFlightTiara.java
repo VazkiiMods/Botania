@@ -156,7 +156,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 						player.setSprinting(false);
 					ItemNBTHelper.setInt(stack, TAG_DASH_COOLDOWN, cooldown - 2);
 					if(player instanceof EntityPlayerMP)
-						BotaniaAPI.internalHandler.sendBaubleUpdatePacket((EntityPlayerMP) player, 0);
+						BotaniaAPI.internalHandler.sendBaubleUpdatePacket((EntityPlayerMP) player, 4);
 				}
 			} else if(!flying) {
 				boolean doGlide = player.isSneaking() && !player.onGround && player.fallDistance >= 2F;

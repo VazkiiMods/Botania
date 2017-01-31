@@ -17,7 +17,6 @@ import java.util.List;
 import baubles.api.BaubleType;
 import baubles.api.BaublesApi;
 import gnu.trove.list.array.TIntArrayList;
-import gnu.trove.list.array.TLongArrayList;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
@@ -31,11 +30,14 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.nbt.NBTTagLong;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.village.MerchantRecipe;
+import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -47,12 +49,10 @@ import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
-import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemItemFinder extends ItemBauble implements IBaubleRender {
 
-	private static final String TAG_POSITIONS_OLD = "highlightPositions";
 	private static final String TAG_ENTITY_POSITIONS = "highlightPositionsEnt";
 	private static final String TAG_BLOCK_POSITIONS = "highlightPositionsBlock1";
 
@@ -76,10 +76,11 @@ public class ItemItemFinder extends ItemBauble implements IBaubleRender {
 		if(!Botania.proxy.isTheClientPlayer(player))
 			return;
 
-		long[] blocks = getBlockPositions(stack);
+		NBTTagList blocks = ItemNBTHelper.getList(stack, TAG_BLOCK_POSITIONS, Constants.NBT.TAG_LONG, false);
 		Botania.proxy.setWispFXDepthTest(false);
-		for(long l : blocks) {
-			BlockPos pos = BlockPos.fromLong(l);
+
+		for(int i = 0; i < blocks.tagCount(); i++) {
+			BlockPos pos = BlockPos.fromLong(((NBTTagLong) blocks.get(i)).getLong());
 			float m = 0.02F;
 			Botania.proxy.wispFX(pos.getX() + (float) Math.random(), pos.getY() + (float) Math.random(), pos.getZ() + (float) Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random(), 0.15F + 0.05F * (float) Math.random(), m * (float) (Math.random() - 0.5), m * (float) (Math.random() - 0.5), m * (float) (Math.random() - 0.5));
 		}
@@ -97,29 +98,26 @@ public class ItemItemFinder extends ItemBauble implements IBaubleRender {
 	}
 
 	protected void tickServer(ItemStack stack, EntityPlayer player) {
-		ItemNBTHelper.removeEntry(stack, TAG_POSITIONS_OLD);
-
 		TIntArrayList entPosBuilder = new TIntArrayList();
-		TLongArrayList blockPosBuilder = new TLongArrayList();
+		NBTTagList blockPosBuilder = new NBTTagList();
 
 		scanForStack(player.getHeldItemMainhand(), player, entPosBuilder, blockPosBuilder);
 		scanForStack(player.getHeldItemOffhand(), player, entPosBuilder, blockPosBuilder);
 
 		int[] currentEnts = entPosBuilder.toArray();
-		long[] currentBlocks = blockPosBuilder.toArray();
 
 		boolean entsEqual = Arrays.equals(currentEnts, ItemNBTHelper.getIntArray(stack, TAG_ENTITY_POSITIONS));
-		boolean blocksEqual = Arrays.equals(currentBlocks, getBlockPositions(stack));
+		boolean blocksEqual = blockPosBuilder.equals(ItemNBTHelper.getList(stack, TAG_BLOCK_POSITIONS, Constants.NBT.TAG_LONG, false));
 
 		if(!entsEqual)
 			ItemNBTHelper.setIntArray(stack, TAG_ENTITY_POSITIONS, currentEnts);
 		if(!blocksEqual)
-			setBlockPositions(stack, currentBlocks);
+			ItemNBTHelper.setList(stack, TAG_BLOCK_POSITIONS, blockPosBuilder);
 		if(!entsEqual || !blocksEqual)
-			BotaniaAPI.internalHandler.sendBaubleUpdatePacket(player, 0);
+			BotaniaAPI.internalHandler.sendBaubleUpdatePacket(player, 4);
 	}
 
-	private void scanForStack(ItemStack pstack, EntityPlayer player, TIntArrayList entIdBuilder, TLongArrayList blockPosBuilder) {
+	private void scanForStack(ItemStack pstack, EntityPlayer player, TIntArrayList entIdBuilder, NBTTagList blockPosBuilder) {
 		if(pstack != null || player.isSneaking()) {
 			int range = 24;
 
@@ -172,7 +170,7 @@ public class ItemItemFinder extends ItemBauble implements IBaubleRender {
 						for(EnumFacing e : EnumFacing.VALUES) {
 							if(tile.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, e)
 									&& scanInventory(tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, e), pstack)) {
-								blockPosBuilder.add(pos_.toLong());
+								blockPosBuilder.appendTag(new NBTTagLong(pos_.toLong()));
 								foundCap = true;
 								break;
 							}
@@ -180,7 +178,7 @@ public class ItemItemFinder extends ItemBauble implements IBaubleRender {
 						if(!foundCap && tile instanceof IInventory) {
 							IInventory inv = (IInventory) tile;
 							if(scanInventory(new InvWrapper(inv), pstack))
-								blockPosBuilder.add(pos_.toLong());
+								blockPosBuilder.appendTag(new NBTTagLong(pos_.toLong()));
 						}
 					}
 				}
@@ -203,17 +201,6 @@ public class ItemItemFinder extends ItemBauble implements IBaubleRender {
 		}
 
 		return false;
-	}
-
-	private long[] getBlockPositions(ItemStack stack) {
-		int[] ints = ItemNBTHelper.getIntArray(stack, TAG_BLOCK_POSITIONS);
-		return MathHelper.intArrayToLongArray(ints);
-	}
-
-	private void setBlockPositions(ItemStack stack, long[] vals) {
-		stack.getTagCompound().removeTag(TAG_BLOCK_POSITIONS);
-		int[] write = MathHelper.longArrayToIntArray(vals);
-		ItemNBTHelper.setIntArray(stack, TAG_BLOCK_POSITIONS, write);
 	}
 
 	@Override
