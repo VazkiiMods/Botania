@@ -41,11 +41,15 @@ import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.network.PacketBotaniaEffect;
+import vazkii.botania.common.network.PacketHandler;
 
 public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver {
 
 	private static final String TAG_MANA = "mana";
 	private static final String TAG_MANA_TO_GET = "manaToGet";
+	private static final int SET_KEEP_TICKS_EVENT = 0;
+	private static final int SET_COOLDOWN_EVENT = 1;
 
 	RecipeRuneAltar currentRecipe;
 
@@ -99,51 +103,61 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver 
 	}
 
 	@Override
+	public boolean receiveClientEvent(int id, int param) {
+		switch (id) {
+			case SET_KEEP_TICKS_EVENT: recipeKeepTicks = param; return true;
+			case SET_COOLDOWN_EVENT: cooldown = param; return true;
+			default: return super.receiveClientEvent(id, param);
+		}
+	}
+
+	@Override
 	public void update() {
 
 		// Update every tick.
 		recieveMana(0);
 
-		if(!world.isRemote && manaToGet == 0) {
-			List<EntityItem> items = world.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(pos, pos.add(1, 1, 1)));
-			for(EntityItem item : items)
-				if(!item.isDead && !item.getEntityItem().isEmpty() && item.getEntityItem().getItem() != Item.getItemFromBlock(ModBlocks.livingrock)) {
-					ItemStack stack = item.getEntityItem();
-					addItem(null, stack, null);
-				}
-		}
+		if(!world.isRemote) {
+			if(manaToGet == 0) {
+				List<EntityItem> items = world.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(pos, pos.add(1, 1, 1)));
+				for(EntityItem item : items)
+					if(!item.isDead && !item.getEntityItem().isEmpty() && item.getEntityItem().getItem() != Item.getItemFromBlock(ModBlocks.livingrock)) {
+						ItemStack stack = item.getEntityItem();
+						addItem(null, stack, null);
+					}
+			}
 
+			int newSignal = 0;
+			if(manaToGet > 0) {
+				newSignal++;
+				if(mana >= manaToGet)
+					newSignal++;
+			}
 
-		if(world.isRemote && manaToGet > 0 && mana >= manaToGet) {
-			if(world.rand.nextInt(20) == 0) {
+			if(newSignal != signal) {
+				signal = newSignal;
+				world.updateComparatorOutputLevel(pos, world.getBlockState(pos).getBlock());
+			}
+
+			updateRecipe();
+		} else {
+			if (manaToGet > 0 && mana >= manaToGet && world.rand.nextInt(20) == 0) {
 				Vector3 vec = Vector3.fromTileEntityCenter(this);
 				Vector3 endVec = vec.add(0, 2.5, 0);
 				Botania.proxy.lightningFX(vec, endVec, 2F, 0x00948B, 0x00E4D7);
 			}
+
+			if (cooldown > 0)
+				Botania.proxy.wispFX(pos.getX() + Math.random(), pos.getY() + 0.8, pos.getZ() + Math.random(), 0.2F, 0.2F, 0.2F, 0.2F, -0.025F);
 		}
 
 		if(cooldown > 0) {
 			cooldown--;
-			Botania.proxy.wispFX(pos.getX() + Math.random(), pos.getY() + 0.8, pos.getZ() + Math.random(), 0.2F, 0.2F, 0.2F, 0.2F, -0.025F);
-		}
-
-		int newSignal = 0;
-		if(manaToGet > 0) {
-			newSignal++;
-			if(mana >= manaToGet)
-				newSignal++;
-		}
-
-		if(newSignal != signal) {
-			signal = newSignal;
-			world.updateComparatorOutputLevel(pos, world.getBlockState(pos).getBlock());
 		}
 
 		if(recipeKeepTicks > 0)
 			--recipeKeepTicks;
 		else lastRecipe = null;
-
-		updateRecipe();
 	}
 
 	public void updateRecipe() {
@@ -176,7 +190,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver 
 				break;
 			lastRecipe.add(stack.copy());
 		}
-		recipeKeepTicks = 400;
+		world.addBlockEvent(getPos(), ModBlocks.runeAltar, SET_KEEP_TICKS_EVENT, 400);
 	}
 
 	public void trySetLastRecipe(EntityPlayer player) {
@@ -194,6 +208,9 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver 
 	}
 
 	public void onWanded(EntityPlayer player, ItemStack wand) {
+		if (world.isRemote)
+			return;
+
 		RecipeRuneAltar recipe = null;
 
 		if(currentRecipe != null)
@@ -217,30 +234,26 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver 
 			if(livingrock != null) {
 				int mana = recipe.getManaUsage();
 				recieveMana(-mana);
-				if(!world.isRemote) {
-					ItemStack output = recipe.getOutput().copy();
-					EntityItem outputItem = new EntityItem(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, output);
-					world.spawnEntity(outputItem);
-					currentRecipe = null;
-					cooldown = 60;
-				}
+				ItemStack output = recipe.getOutput().copy();
+				EntityItem outputItem = new EntityItem(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, output);
+				world.spawnEntity(outputItem);
+				currentRecipe = null;
+				world.addBlockEvent(getPos(), ModBlocks.runeAltar, SET_COOLDOWN_EVENT, 60);
 
 				saveLastRecipe();
-				if(!world.isRemote) {
-					for(int i = 0; i < getSizeInventory(); i++) {
-						ItemStack stack = itemHandler.getStackInSlot(i);
-						if(!stack.isEmpty()) {
-							if(stack.getItem() == ModItems.rune && (player == null || !player.capabilities.isCreativeMode)) {
-								EntityItem outputItem = new EntityItem(world, getPos().getX() + 0.5, getPos().getY() + 1.5, getPos().getZ() + 0.5, stack.copy());
-								world.spawnEntity(outputItem);
-							}
-
-							itemHandler.setStackInSlot(i, ItemStack.EMPTY);
+				for(int i = 0; i < getSizeInventory(); i++) {
+					ItemStack stack = itemHandler.getStackInSlot(i);
+					if(!stack.isEmpty()) {
+						if(stack.getItem() == ModItems.rune && (player == null || !player.capabilities.isCreativeMode)) {
+							EntityItem outputRune = new EntityItem(world, getPos().getX() + 0.5, getPos().getY() + 1.5, getPos().getZ() + 0.5, stack.copy());
+							world.spawnEntity(outputRune);
 						}
-					}
 
-					livingrock.getEntityItem().shrink(1);
+						itemHandler.setStackInSlot(i, ItemStack.EMPTY);
+					}
 				}
+
+				livingrock.getEntityItem().shrink(1);
 
 				craftingFanciness();
 			}
@@ -249,12 +262,8 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver 
 
 	public void craftingFanciness() {
 		world.playSound(null, pos, BotaniaSoundEvents.runeAltarCraft, SoundCategory.BLOCKS, 1, 1);
-		for(int i = 0; i < 25; i++) {
-			float red = (float) Math.random();
-			float green = (float) Math.random();
-			float blue = (float) Math.random();
-			Botania.proxy.sparkleFX(pos.getX() + 0.5 + Math.random() * 0.4 - 0.2, pos.getY() + 1, pos.getZ() + 0.5 + Math.random() * 0.4 - 0.2, red, green, blue, (float) Math.random(), 10);
-		}
+		PacketHandler.sendToNearby(world, getPos(),
+				new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.RUNE_CRAFT, getPos().getX(), getPos().getY(), getPos().getZ()));
 	}
 
 	public boolean isEmpty() {

@@ -292,6 +292,16 @@ public class PacketBotaniaEffect implements IMessage {
 							float blue = (float) Math.random();
 							Botania.proxy.sparkleFX(message.x + 0.5 + Math.random() * 0.4 - 0.2, message.y + 1, message.z + 0.5 + Math.random() * 0.4 - 0.2, red, green, blue, (float) Math.random(), 10);
 						}
+
+						break;
+					}
+					case RUNE_CRAFT: {
+						for(int i = 0; i < 25; i++) {
+							float red = (float) Math.random();
+							float green = (float) Math.random();
+							float blue = (float) Math.random();
+							Botania.proxy.sparkleFX(message.x + 0.5 + Math.random() * 0.4 - 0.2, message.y + 1, message.z + 0.5 + Math.random() * 0.4 - 0.2, red, green, blue, (float) Math.random(), 10);
+						}
 					}
 					}
 				}
@@ -315,7 +325,8 @@ public class PacketBotaniaEffect implements IMessage {
 		BLACK_LOTUS_DISSOLVE(0),
 		BREWERY_FINISH(1), // Arg: RGB
 		TERRA_PLATE(0),
-		APOTHECARY_CRAFT(0);
+		APOTHECARY_CRAFT(0),
+		RUNE_CRAFT(0);
 
 		private final int argCount;
 

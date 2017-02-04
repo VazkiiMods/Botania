@@ -171,7 +171,6 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 				break;
 			lastRecipe.add(stack.copy());
 		}
-		recipeKeepTicks = 400;
 		world.addBlockEvent(getPos(), ModBlocks.altar, SET_KEEP_TICKS_EVENT, 400);
 	}
 
