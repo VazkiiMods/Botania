@@ -22,12 +22,12 @@ import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.util.ResourceLocation;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
+import vazkii.botania.client.core.proxy.ClientProxy;
 
 public abstract class RenderSparkBase<T extends Entity> extends Render<T> {
 
@@ -62,14 +62,14 @@ public abstract class RenderSparkBase<T extends Entity> extends Render<T> {
 		float r = 180.0F - renderManager.playerViewY;
 		GlStateManager.rotate(r, 0.0F, 1.0F, 0.0F);
 		GlStateManager.rotate(-renderManager.playerViewX, 1F, 0F, 0F);
-		func_77026_a(tessellator, iicon);
+		renderIcon(tessellator, iicon);
 
 		TextureAtlasSprite spinningIcon = getSpinningIcon(tEntity);
 		if(spinningIcon != null) {
 			GlStateManager.translate(-0.02F + (float) Math.sin(time / 20) * 0.2F, 0.24F + (float) Math.cos(time / 20) * 0.2F, 0.005F);
 			GlStateManager.scale(0.2F, 0.2F, 0.2F);
 			colorSpinningIcon(tEntity, a);
-			func_77026_a(tessellator, spinningIcon);
+			renderIcon(tessellator, spinningIcon);
 		}
 		GlStateManager.popMatrix();
 		GlStateManager.color(1F, 1F, 1F, 1F);
@@ -100,22 +100,21 @@ public abstract class RenderSparkBase<T extends Entity> extends Render<T> {
 		return TextureMap.LOCATION_BLOCKS_TEXTURE;
 	}
 
-	private void func_77026_a(Tessellator p_77026_1_, TextureAtlasSprite p_77026_2_) {
-		float f = p_77026_2_.getMinU();
-		float f1 = p_77026_2_.getMaxU();
-		float f2 = p_77026_2_.getMinV();
-		float f3 = p_77026_2_.getMaxV();
+	private void renderIcon(Tessellator tess, TextureAtlasSprite icon) {
+		float f = icon.getMinU();
+		float f1 = icon.getMaxU();
+		float f2 = icon.getMinV();
+		float f3 = icon.getMaxV();
 		float f4 = 1.0F;
 		float f5 = 0.5F;
 		float f6 = 0.25F;
 
-		p_77026_1_.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_NORMAL);
-		//p_77026_1_.getBuffer().setBrightness(240);
-		p_77026_1_.getBuffer().pos(0.0F - f5, 0.0F - f6, 0.0D).tex(f, f3).normal(0.0F, 1.0F, 0.0F).endVertex();
-		p_77026_1_.getBuffer().pos(f4 - f5, 0.0F - f6, 0.0D).tex(f1, f3).normal(0.0F, 1.0F, 0.0F).endVertex();
-		p_77026_1_.getBuffer().pos(f4 - f5, f4 - f6, 0.0D).tex(f1, f2).normal(0.0F, 1.0F, 0.0F).endVertex();
-		p_77026_1_.getBuffer().pos(0.0F - f5, f4 - f6, 0.0D).tex(f, f2).normal(0.0F, 1.0F, 0.0F).endVertex();
-		p_77026_1_.draw();
+		tess.getBuffer().begin(GL11.GL_QUADS, ClientProxy.POSITION_TEX_LMAP_NORMAL);
+		tess.getBuffer().pos(0.0F - f5, 0.0F - f6, 0.0D).tex(f, f3).lightmap(240, 240).normal(0.0F, 1.0F, 0.0F).endVertex();
+		tess.getBuffer().pos(f4 - f5, 0.0F - f6, 0.0D).tex(f1, f3).lightmap(240, 240).normal(0.0F, 1.0F, 0.0F).endVertex();
+		tess.getBuffer().pos(f4 - f5, f4 - f6, 0.0D).tex(f1, f2).lightmap(240, 240).normal(0.0F, 1.0F, 0.0F).endVertex();
+		tess.getBuffer().pos(0.0F - f5, f4 - f6, 0.0D).tex(f, f2).lightmap(240, 240).normal(0.0F, 1.0F, 0.0F).endVertex();
+		tess.draw();
 
 	}
 

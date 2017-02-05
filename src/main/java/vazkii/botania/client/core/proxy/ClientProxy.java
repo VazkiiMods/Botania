@@ -25,6 +25,8 @@ import net.minecraft.client.multiplayer.PlayerControllerMP;
 import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.client.renderer.entity.RenderSnowball;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -172,6 +174,17 @@ import vazkii.botania.common.lib.LibObfuscation;
 
 public class ClientProxy implements IProxy {
 
+	public static final VertexFormat POSITION_TEX_LMAP_NORMAL =
+			new VertexFormat()
+					.addElement(DefaultVertexFormats.POSITION_3F)
+					.addElement(DefaultVertexFormats.TEX_2F)
+					.addElement(DefaultVertexFormats.TEX_2S)
+					.addElement(DefaultVertexFormats.NORMAL_3B);
+	public static final VertexFormat POSITION_TEX_LMAP =
+			new VertexFormat()
+					.addElement(DefaultVertexFormats.POSITION_3F)
+					.addElement(DefaultVertexFormats.TEX_2F)
+					.addElement(DefaultVertexFormats.TEX_2S);
 	public static boolean jingleTheBells = false;
 	public static boolean dootDoot = false;
 
