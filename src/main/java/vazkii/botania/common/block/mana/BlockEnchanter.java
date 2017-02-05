@@ -123,7 +123,7 @@ public class BlockEnchanter extends BlockMod implements IWandable, ILexiconable,
 				&& stack.isItemEnchantable()
 				&& stack.getCount() == 1;
 
-		if(enchanter.itemToEnchant == null) {
+		if(enchanter.itemToEnchant.isEmpty()) {
 			if(stackEnchantable) {
 				enchanter.itemToEnchant = stack.copy();
 				player.setHeldItem(hand, ItemStack.EMPTY);
@@ -131,7 +131,7 @@ public class BlockEnchanter extends BlockMod implements IWandable, ILexiconable,
 			}
 		} else if(enchanter.stage == TileEnchanter.State.IDLE) {
 			ItemHandlerHelper.giveItemToPlayer(player, enchanter.itemToEnchant.copy());
-			enchanter.itemToEnchant = null;
+			enchanter.itemToEnchant = ItemStack.EMPTY;
 			enchanter.sync();
 		}
 

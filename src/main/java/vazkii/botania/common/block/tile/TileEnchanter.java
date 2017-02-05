@@ -114,7 +114,7 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 	}
 
 	public void onWanded(EntityPlayer player, ItemStack wand) {
-		if(stage != State.IDLE || itemToEnchant == null || !itemToEnchant.isItemEnchantable())
+		if(stage != State.IDLE || itemToEnchant.isEmpty() || !itemToEnchant.isItemEnchantable())
 			return;
 
 		List<EntityItem> items = world.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(pos.getX() - 2, pos.getY(), pos.getZ() - 2, pos.getX() + 3, pos.getY() + 1, pos.getZ() + 3));
@@ -327,7 +327,7 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 		cmp.setInteger(TAG_STAGE_3_END_TICKS, stage3EndTicks);
 
 		NBTTagCompound itemCmp = new NBTTagCompound();
-		if(itemToEnchant != null)
+		if(!itemToEnchant.isEmpty())
 			itemCmp = itemToEnchant.writeToNBT(itemCmp);
 		cmp.setTag(TAG_ITEM, itemCmp);
 
@@ -428,7 +428,7 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 	}
 
 	public void renderHUD(ScaledResolution res) {
-		if(manaRequired > 0 && itemToEnchant != null) {
+		if(manaRequired > 0 && !itemToEnchant.isEmpty()) {
 			int x = res.getScaledWidth() / 2 + 20;
 			int y = res.getScaledHeight() / 2 - 8;
 
