@@ -15,6 +15,7 @@ import java.util.UUID;
 
 import javax.annotation.Nonnull;
 
+import net.minecraft.client.entity.AbstractClientPlayer;
 import org.lwjgl.opengl.ARBShaderObjects;
 
 import com.mojang.authlib.minecraft.MinecraftProfileTexture;
@@ -24,7 +25,6 @@ import net.minecraft.client.model.ModelPlayer;
 import net.minecraft.client.renderer.entity.RenderBiped;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.resources.DefaultPlayerSkin;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import vazkii.botania.api.internal.ShaderCallback;
 import vazkii.botania.client.core.helper.ShaderHelper;
@@ -80,26 +80,13 @@ public class RenderDoppleganger extends RenderBiped<EntityDoppleganger> {
 
 	@Nonnull
 	@Override
-	protected ResourceLocation getEntityTexture(@Nonnull EntityDoppleganger par1Entity) {
+	protected ResourceLocation getEntityTexture(@Nonnull EntityDoppleganger entity) {
 		Minecraft mc = Minecraft.getMinecraft();
 
-		if(!(mc.getRenderViewEntity() instanceof EntityPlayer))
+		if(!(mc.getRenderViewEntity() instanceof AbstractClientPlayer))
 			return DefaultPlayerSkin.getDefaultSkinLegacy();
 
-		EntityPlayer view = (EntityPlayer) mc.getRenderViewEntity();
-
-		// Adapated from TileEntitySkullRenderer.renderTileEntityAt
-		Map<MinecraftProfileTexture.Type, MinecraftProfileTexture> map = mc.getSkinManager().loadSkinFromCache(view.getGameProfile());
-
-		if (map.containsKey(MinecraftProfileTexture.Type.SKIN))
-		{
-			return mc.getSkinManager().loadSkin(map.get(MinecraftProfileTexture.Type.SKIN), MinecraftProfileTexture.Type.SKIN);
-		}
-		else
-		{
-			UUID uuid = EntityPlayer.getUUID(view.getGameProfile());
-			return DefaultPlayerSkin.getDefaultSkin(uuid);
-		}
+		return ((AbstractClientPlayer) mc.getRenderViewEntity()).getLocationSkin();
 	}
 
 }

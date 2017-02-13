@@ -40,10 +40,6 @@ public class PacketBotaniaEffect implements IMessage {
 		this.args = args;
 	}
 
-	public PacketBotaniaEffect(EffectType type, double x, double y, double z, double... args) {
-		this(type, x, y, z, MathHelper.doubleArrayToIntArray(args));
-	}
-
 	@Override
 	public void fromBytes(ByteBuf buf) {
 		type = EffectType.values()[buf.readShort()];
