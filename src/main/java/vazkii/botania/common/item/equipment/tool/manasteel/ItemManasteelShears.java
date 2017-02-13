@@ -78,9 +78,11 @@ public class ItemManasteelShears extends ItemShears implements IManaUsingItem, I
 				Random rand = new Random();
 				for(ItemStack stack : drops) {
 					EntityItem ent = entity.entityDropItem(stack, 1.0F);
-					ent.motionY += rand.nextFloat() * 0.05F;
-					ent.motionX += (rand.nextFloat() - rand.nextFloat()) * 0.1F;
-					ent.motionZ += (rand.nextFloat() - rand.nextFloat()) * 0.1F;
+					if(ent != null) {
+						ent.motionY += rand.nextFloat() * 0.05F;
+						ent.motionX += (rand.nextFloat() - rand.nextFloat()) * 0.1F;
+						ent.motionZ += (rand.nextFloat() - rand.nextFloat()) * 0.1F;
+					}
 				}
 
 				ToolCommons.damageItem(itemstack, 1, player, MANA_PER_DAMAGE);
