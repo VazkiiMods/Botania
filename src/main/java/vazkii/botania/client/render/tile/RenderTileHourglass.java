@@ -32,7 +32,7 @@ public class RenderTileHourglass extends TileEntitySpecialRenderer<TileHourglass
 	final ModelHourglass model = new ModelHourglass();
 
 	@Override
-	public void renderTileEntityAt(@Nonnull TileHourglass hourglass, double d0, double d1, double d2, float ticks, int digProgress) {
+	public void renderTileEntityAt(TileHourglass hourglass, double d0, double d1, double d2, float ticks, int digProgress) {
 		GlStateManager.pushMatrix();
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
