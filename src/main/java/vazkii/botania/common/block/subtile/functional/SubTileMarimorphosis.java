@@ -24,6 +24,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.api.state.enums.BiomeStoneVariant;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.block.ModFluffBlocks;
@@ -53,19 +55,17 @@ public class SubTileMarimorphosis extends SubTileFunctional {
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
-		if(supertile.getWorld().isRemote && redstoneSignal > 0)
+		if(supertile.getWorld().isRemote || redstoneSignal > 0)
 			return;
 
 		if(mana >= COST && ticksExisted % 2 == 0) {
 			BlockPos coords = getCoordsToPut();
 			if(coords != null) {
-				ItemStack stack = getStoneToPut(coords);
-				if(stack != null) {
-					Block block = Block.getBlockFromItem(stack.getItem());
-					int meta = stack.getItemDamage();
-					supertile.getWorld().setBlockState(coords, block.getStateFromMeta(meta), 1 | 2);
+				IBlockState state = getStoneToPut(coords);
+				if(state != null) {
+					supertile.getWorld().setBlockState(coords, state);
 					if(ConfigHandler.blockBreakParticles)
-						supertile.getWorld().playEvent(2001, coords, Block.getIdFromBlock(block) + (meta << 12));
+						supertile.getWorld().playEvent(2001, coords, Block.getStateId(state));
 
 					mana -= COST;
 					sync();
@@ -74,11 +74,11 @@ public class SubTileMarimorphosis extends SubTileFunctional {
 		}
 	}
 
-	public ItemStack getStoneToPut(BlockPos coords) {
+	public IBlockState getStoneToPut(BlockPos coords) {
 		List<Type> types = Arrays.asList(BiomeDictionary.getTypesForBiome(supertile.getWorld().getBiomeGenForCoords(coords)));
 
 		TIntArrayList values = new TIntArrayList();
-		for(int i = 0; i < 8; i++) {
+		for(int i = 0; i < TYPES.length; i++) {
 			int times = 1;
 			if(types.contains(TYPES[i]))
 				times = 12;
@@ -87,7 +87,8 @@ public class SubTileMarimorphosis extends SubTileFunctional {
 				values.add(i);
 		}
 
-		return new ItemStack(ModFluffBlocks.biomeStoneA, 1, values.get(supertile.getWorld().rand.nextInt(values.size())));
+		BiomeStoneVariant variant = BiomeStoneVariant.values()[supertile.getWorld().rand.nextInt(values.size())];
+		return ModFluffBlocks.biomeStoneA.getDefaultState().withProperty(BotaniaStateProps.BIOMESTONE_VARIANT, variant);
 	}
 
 	private BlockPos getCoordsToPut() {
@@ -96,9 +97,10 @@ public class SubTileMarimorphosis extends SubTileFunctional {
 		int range = getRange();
 		int rangeY = getRangeY();
 
+		BlockStateMatcher matcher = BlockStateMatcher.forBlock(Blocks.STONE);
 		for(BlockPos pos : BlockPos.getAllInBox(getPos().add(-range, -rangeY, -range), getPos().add(range, rangeY, range))) {
 			IBlockState state = supertile.getWorld().getBlockState(pos);
-			if(state.getBlock().isReplaceableOreGen(state, supertile.getWorld(), pos, BlockStateMatcher.forBlock(Blocks.STONE)))
+			if(state.getBlock().isReplaceableOreGen(state, supertile.getWorld(), pos, matcher))
 				possibleCoords.add(pos);
 		}
 
