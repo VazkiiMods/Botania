@@ -10,11 +10,14 @@
  */
 package vazkii.botania.common.item;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Nonnull;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockBush;
+import net.minecraft.block.BlockDoor;
 import net.minecraft.block.BlockFalling;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.resources.I18n;
@@ -34,6 +37,7 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
+import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.internal.IManaBurst;
@@ -64,6 +68,8 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 	private static final String TAG_ITERATION_I = "iterationI";
 	private static final String TAG_ITERATION_J = "iterationJ";
 	private static final String TAG_ITERATION_K = "iterationK";
+	private static final String TAG_DOWNBLOCK = "_downblock";
+	private static final String TAG_UPBLOCK = "_upblock";
 
 	private static final int BASE_RANGE = 14;
 	private static final int BASE_OFFSET = 42;
@@ -131,40 +137,10 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 			for(; i < range * 2 + 1; i++) {
 				for(; j > -BASE_RANGE * 2; j--) {
 					for(; k < range * 2 + 1; k++) {
-						BlockPos pos_ = pos.add(-range + i, -BASE_RANGE + j, -range + k);
+						BlockPos iterPos = pos.add(-range + i, -BASE_RANGE + j, -range + k);
 
-						if(inRange(pos_, pos, range, heightscale, pointy)) {
-							IBlockState state = world.getBlockState(pos_);
-							Block block = state.getBlock();
-							if(!block.isAir(state, world, pos_) && !block.isReplaceable(world, pos_) && !(block instanceof BlockFalling) && (!(block instanceof ILaputaImmobile) || ((ILaputaImmobile) block).canMove(world, pos_)) && state.getBlockHardness(world, pos_) != -1) {
-								TileEntity tile = world.getTileEntity(pos_);
-
-								if(tile != null) {
-									TileEntity newTile = block.createTileEntity(world, state);
-									world.setTileEntity(pos_, newTile);
-								}
-								world.setBlockToAir(pos_);
-								world.playEvent(2001, pos_, Block.getStateId(state));
-
-								ItemStack copyLens = new ItemStack(this, 1, lens.getItemDamage());
-								ItemNBTHelper.setString(copyLens, TAG_BLOCK_NAME, Block.REGISTRY.getNameForObject(block).toString());
-								ItemNBTHelper.setInt(copyLens, TAG_META, block.getMetaFromState(state));
-								NBTTagCompound cmp = new NBTTagCompound();
-								if(tile != null)
-									tile.writeToNBT(cmp);
-								ItemNBTHelper.setCompound(copyLens, TAG_TILE, cmp);
-								ItemNBTHelper.setInt(copyLens, TAG_X, pos.getX());
-								ItemNBTHelper.setInt(copyLens, TAG_Y, pos.getY());
-								ItemNBTHelper.setInt(copyLens, TAG_Y_START, pos_.getY());
-								ItemNBTHelper.setInt(copyLens, TAG_Z, pos.getZ());
-								ItemNBTHelper.setBoolean(copyLens, TAG_POINTY, pointy);
-								ItemNBTHelper.setDouble(copyLens, TAG_HEIGHTSCALE, heightscale);
-								ItemNBTHelper.setInt(copyLens, TAG_ITERATION_I, i);
-								ItemNBTHelper.setInt(copyLens, TAG_ITERATION_J, j);
-								ItemNBTHelper.setInt(copyLens, TAG_ITERATION_K, k);
-
-								EntityManaBurst burst = getBurst(world, pos_, copyLens);
-								world.spawnEntityInWorld(burst);
+						if(inRange(iterPos, pos, range, heightscale, pointy)) {
+							if (spawnBurstInternal(world, pos, iterPos, lens, pointy, heightscale, i, j, k)) {
 								return;
 							}
 						}
@@ -174,6 +150,120 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 				j = BASE_OFFSET - BASE_RANGE / 2;
 			}
 		}
+	}
+
+	private static class DelayUpdate {
+		public BlockPos pos;
+		public IBlockState priorState;
+		public IBlockState newState;
+		public DelayUpdate(BlockPos inPos, IBlockState inPriorState, IBlockState inNewState)
+		{
+			pos = inPos;
+			priorState = inPriorState;
+			newState = inNewState;
+		}
+	}
+
+	final protected boolean shouldCaptureDown(World world, BlockPos pos, Block block) {
+		if(block instanceof BlockBush) {
+			// Bushes are special little snowflakes that pretty much always need the block below them.
+			return true;
+		}
+
+		if(block instanceof BlockDoor) {
+			// Yeah doors too.
+			return true;
+		}
+
+		return false;
+	}
+
+	final protected boolean shouldCaptureUp(World world, BlockPos pos, Block block) {
+		IBlockState upBlockState = world.getBlockState(pos.up());
+		Block upBlock = upBlockState.getBlock();
+		if (upBlock instanceof BlockBush) {
+			return true;
+		}
+
+		if(upBlock instanceof BlockDoor) {
+			return true;
+		}
+
+		return false;
+	}
+
+	final protected void captureBlock(World world, Block block, IBlockState state, BlockPos pos, NBTTagCompound nbt, List<DelayUpdate> updateList) {
+		captureBlock(world, block, state, pos, nbt, updateList, true, true);
+	}
+	final protected void captureBlock(World world, Block block, IBlockState state, BlockPos pos, NBTTagCompound nbt, List<DelayUpdate> updateList, boolean recurseDown, boolean recurseUp) {
+		TileEntity tile = world.getTileEntity(pos);
+
+		if(tile != null) {
+			TileEntity newTile = block.createTileEntity(world, state);
+			world.setTileEntity(pos, newTile);
+		}
+		nbt.setString(TAG_BLOCK_NAME, Block.REGISTRY.getNameForObject(block).toString());
+		nbt.setInteger(TAG_META, block.getMetaFromState(state));
+		NBTTagCompound cmp = new NBTTagCompound();
+		if(tile != null)
+			tile.writeToNBT(cmp);
+		nbt.setTag(TAG_TILE, cmp);
+
+		world.setBlockState(pos, Blocks.AIR.getDefaultState(), 0);  // 0 flags basically prevents all kinds of updates
+
+		updateList.add(new DelayUpdate(pos, state, Blocks.AIR.getDefaultState()));
+
+		if(recurseDown && shouldCaptureDown(world, pos, block)) {
+			IBlockState downBlockState = world.getBlockState(pos.down());
+			Block downBlock = downBlockState.getBlock();
+			NBTTagCompound downBlockNBT = new NBTTagCompound();
+			captureBlock(world, downBlock, downBlockState, pos.down(), downBlockNBT, updateList, true, false);
+			nbt.setTag(TAG_DOWNBLOCK, downBlockNBT);
+		}
+
+		if(recurseUp && shouldCaptureUp(world, pos, block)) {
+			IBlockState upBlockState = world.getBlockState(pos.up());
+			Block upBlock = upBlockState.getBlock();
+			NBTTagCompound upBlockNBT = new NBTTagCompound();
+			captureBlock(world, upBlock, upBlockState, pos.up(), upBlockNBT, updateList, false, true);
+			nbt.setTag(TAG_UPBLOCK, upBlockNBT);
+		}
+	}
+
+	final protected void triggerDelayedUpdates(World world, List<DelayUpdate> updateList) {
+		for (DelayUpdate update : updateList) {
+			Chunk chunk = world.getChunkFromBlockCoords(update.pos);
+			world.markAndNotifyBlock(update.pos, chunk, update.priorState, update.newState, 3);
+		}
+	}
+
+	final protected boolean spawnBurstInternal(World world, BlockPos pos, BlockPos iterPos, ItemStack lens, boolean pointy, double heightscale, int i, int j, int k) {
+		IBlockState state = world.getBlockState(iterPos);
+		Block block = state.getBlock();
+		if(!block.isAir(state, world, iterPos) && !block.isReplaceable(world, iterPos) && !(block instanceof BlockFalling) && (!(block instanceof ILaputaImmobile) || ((ILaputaImmobile) block).canMove(world, iterPos)) && state.getBlockHardness(world, iterPos) != -1) {
+
+			world.playEvent(2001, iterPos, Block.getStateId(state));
+
+			ItemStack copyLens = new ItemStack(this, 1, lens.getItemDamage());
+			ArrayList<DelayUpdate> updates = new ArrayList<>();
+			captureBlock(world, block, state, iterPos, ItemNBTHelper.getNBT(copyLens), updates);
+			triggerDelayedUpdates(world, updates);
+
+			ItemNBTHelper.setInt(copyLens, TAG_X, pos.getX());
+			ItemNBTHelper.setInt(copyLens, TAG_Y, pos.getY());
+			ItemNBTHelper.setInt(copyLens, TAG_Y_START, iterPos.getY());
+			ItemNBTHelper.setInt(copyLens, TAG_Z, pos.getZ());
+			ItemNBTHelper.setBoolean(copyLens, TAG_POINTY, pointy);
+			ItemNBTHelper.setDouble(copyLens, TAG_HEIGHTSCALE, heightscale);
+			ItemNBTHelper.setInt(copyLens, TAG_ITERATION_I, i);
+			ItemNBTHelper.setInt(copyLens, TAG_ITERATION_J, j);
+			ItemNBTHelper.setInt(copyLens, TAG_ITERATION_K, k);
+
+			EntityManaBurst burst = getBurst(world, iterPos, copyLens);
+			world.spawnEntityInWorld(burst);
+			return true;
+		}
+		return false;
 	}
 
 	private boolean inRange(BlockPos pos, BlockPos srcPos, int range, double heightscale, boolean pointy) {
@@ -210,6 +300,43 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 		return false;
 	}
 
+	final protected void reconstituteBlock(World world, BlockPos pos, NBTTagCompound blockNBT, List<DelayUpdate> updateList) {
+		if(world.isAirBlock(pos)) {
+ 			Block block = Blocks.AIR;
+			ItemStack lens;
+			if (blockNBT.hasKey(TAG_BLOCK_NAME)) {
+				block = Block.getBlockFromName(blockNBT.getString(TAG_BLOCK_NAME));
+			} else if (blockNBT.hasKey(TAG_BLOCK)) {
+				// Attempt to read legacy tag (integer ID) if string block ID is absent
+				block = Block.getBlockById(blockNBT.getInteger(TAG_BLOCK));
+			}
+			int meta = blockNBT.getInteger(TAG_META);
+
+			TileEntity tile = null;
+			NBTTagCompound tilecmp = blockNBT.getCompoundTag(TAG_TILE);
+			if(tilecmp.hasKey("id"))
+				tile = TileEntity.func_190200_a(world, tilecmp);
+
+			IBlockState newState = block.getStateFromMeta(meta);
+			world.setBlockState(pos, newState, 0);
+			world.playEvent(2001, pos, Block.getStateId(newState));
+			if(tile != null) {
+				tile.setPos(pos);
+				world.setTileEntity(pos, tile);
+			}
+			if(blockNBT.hasKey(TAG_DOWNBLOCK)) {
+				NBTTagCompound subBlock = blockNBT.getCompoundTag(TAG_DOWNBLOCK);
+				reconstituteBlock(world, pos.down(), subBlock, updateList);
+			}
+			if(blockNBT.hasKey(TAG_UPBLOCK)) {
+				NBTTagCompound subBlock = blockNBT.getCompoundTag(TAG_UPBLOCK);
+				reconstituteBlock(world, pos.up(), subBlock, updateList);
+			}
+
+			updateList.add(new DelayUpdate(pos, Blocks.AIR.getDefaultState(), newState));
+		}
+	}
+
 	@Override
 	public void updateBurst(IManaBurst burst, ItemStack stack) {
 		double speed = 0.35;
@@ -237,32 +364,10 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 				int y = ItemNBTHelper.getInt(lens, TAG_Y_START, -1) + targetDistance;
 				int z = net.minecraft.util.math.MathHelper.floor_double(entity.posZ);
 				BlockPos pos = new BlockPos(x, y, z);
-
-				if(entity.worldObj.isAirBlock(pos)) {
-					Block block = Blocks.AIR;
-					if (lens.hasTagCompound()) {
-						if (lens.getTagCompound().hasKey(TAG_BLOCK_NAME)) {
-							block = Block.getBlockFromName(ItemNBTHelper.getString(lens, TAG_BLOCK_NAME, ""));
-						} else if (lens.getTagCompound().hasKey(TAG_BLOCK)) {
-							// Attempt to read legacy tag (integer ID) if string block ID is absent
-							block = Block.getBlockById(ItemNBTHelper.getInt(lens, TAG_BLOCK, 0));
-						}
-					}
-					int meta = ItemNBTHelper.getInt(lens, TAG_META, 0);
-
-					TileEntity tile = null;
-					NBTTagCompound tilecmp = ItemNBTHelper.getCompound(lens, TAG_TILE, false);
-					if(tilecmp.hasKey("id"))
-						tile = TileEntity.func_190200_a(entity.worldObj, tilecmp);
-
-					entity.worldObj.setBlockState(pos, block.getStateFromMeta(meta), 1 | 2);
-					entity.worldObj.playEvent(2001, pos, Block.getStateId(block.getStateFromMeta(meta)));
-					if(tile != null) {
-						tile.setPos(pos);
-						entity.worldObj.setTileEntity(pos, tile);
-					}
-				}
-
+				NBTTagCompound itemNBT = ItemNBTHelper.getNBT(lens);
+				ArrayList<DelayUpdate> updates = new ArrayList<>();
+				reconstituteBlock(entity.worldObj, pos, itemNBT, updates);
+				triggerDelayedUpdates(entity.worldObj, updates);
 				entity.setDead();
 			}
 		}
