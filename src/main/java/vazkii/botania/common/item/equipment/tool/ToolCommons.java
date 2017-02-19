@@ -17,6 +17,7 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Enchantments;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
@@ -28,6 +29,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ForgeHooks;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.core.handler.ConfigHandler;
@@ -90,6 +92,12 @@ public final class ToolCommons {
 				return;
 			}
 
+			int exp = ForgeHooks.onBlockBreakEvent(world, ((EntityPlayerMP) player).interactionManager.getGameType(), (EntityPlayerMP) player, pos);
+			if(exp == -1)
+				return;
+
+			boolean spawnedDrops = false;
+
 			if(!player.capabilities.isCreativeMode) {
 				TileEntity tile = world.getTileEntity(pos);
 				IBlockState localState = world.getBlockState(pos);
@@ -98,15 +106,20 @@ public final class ToolCommons {
 				if(blk.removedByPlayer(state, world, pos, player, true)) {
 					blk.onBlockDestroyedByPlayer(world, pos, state);
 
-					if(!dispose || !ItemElementiumPick.isDisposable(blk))
+					if(!dispose || !ItemElementiumPick.isDisposable(blk)) {
 						blk.harvestBlock(world, player, pos, state, tile, stack);
+						spawnedDrops = true;
+					}
 				}
 
 				damageItem(stack, 1, player, 80);
 			} else world.setBlockToAir(pos);
 
-			if(particles && !world.isRemote && ConfigHandler.blockBreakParticles && ConfigHandler.blockBreakParticlesTool)
+			if(particles && ConfigHandler.blockBreakParticles && ConfigHandler.blockBreakParticlesTool)
 				world.playEvent(2001, pos, Block.getStateId(state));
+
+			if(spawnedDrops)
+				blk.dropXpOnBlockBreak(world, pos, exp);
 		}
 	}
 
