@@ -151,7 +151,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 		for (BlockPos coords : cursors) {
 			IBlockState state = world.getBlockState(coords);
 			breaker.breakOtherBlock(player, stack, coords, coords, side);
-			ToolCommons.removeBlockWithDrops(player, stack, player.world, coords, pos, state.getBlock(), Collections.singletonList(state.getMaterial()), silk, fortune, state.getBlockHardness(world, coords), dispose);
+			ToolCommons.removeBlockWithDrops(player, stack, player.world, coords, pos, state.getBlock(), Collections.singletonList(state.getMaterial()), silk, fortune, dispose);
 		}
 	}
 

@@ -53,52 +53,55 @@ public final class ToolCommons {
 			stack.damageItem(dmg, entity);
 	}
 
-	public static void removeBlocksInIteration(EntityPlayer player, ItemStack stack, World world, BlockPos centerPos, Vec3i startDelta, Vec3i endDelta, Block block, List<Material> materialsListing, boolean silk, int fortune, boolean dispose) {
-		float blockHardness = block == null ? 1F : block.getBlockHardness(world.getBlockState(centerPos), world, centerPos);
-
+	public static void removeBlocksInIteration(EntityPlayer player, ItemStack stack, World world, BlockPos centerPos,
+											   Vec3i startDelta, Vec3i endDelta, Block filterBlock, List<Material> materialsListing,
+											   boolean silk, int fortune, boolean dispose) {
 		for (BlockPos iterPos : BlockPos.getAllInBox(centerPos.add(startDelta), centerPos.add(endDelta))) {
 			if (iterPos.equals(centerPos)) // skip original block space to avoid crash, vanilla code in the tool class will handle it
 				continue;
-			removeBlockWithDrops(player, stack, world, iterPos, centerPos, block, materialsListing, silk, fortune, blockHardness, dispose);
+			removeBlockWithDrops(player, stack, world, iterPos, centerPos, filterBlock, materialsListing, silk, fortune, dispose);
 		}
 	}
 
-	public static void removeBlockWithDrops(EntityPlayer player, ItemStack stack, World world, BlockPos pos, BlockPos bPos, Block block, List<Material> materialsListing, boolean silk, int fortune, float blockHardness, boolean dispose) {
-		removeBlockWithDrops(player, stack, world, pos, bPos, block, materialsListing, silk, fortune, blockHardness, dispose, true);
+	public static void removeBlockWithDrops(EntityPlayer player, ItemStack stack, World world, BlockPos pos, BlockPos bPos,
+											Block filterBlock, List<Material> materialsListing,
+											boolean silk, int fortune, boolean dispose) {
+		removeBlockWithDrops(player, stack, world, pos, bPos, filterBlock, materialsListing, silk, fortune, dispose, true);
 	}
 
-	public static void removeBlockWithDrops(EntityPlayer player, ItemStack stack, World world, BlockPos pos, BlockPos bPos, Block block, List<Material> materialsListing, boolean silk, int fortune, float blockHardness, boolean dispose, boolean particles) {
+	public static void removeBlockWithDrops(EntityPlayer player, ItemStack stack, World world, BlockPos pos, BlockPos bPos,
+											Block filterBlock, List<Material> materialsListing,
+											boolean silk, int fortune, boolean dispose, boolean particles) {
 		if(!world.isBlockLoaded(pos))
 			return;
 
 		IBlockState state = world.getBlockState(pos);
-		Block blk = state.getBlock();
+		Block block = state.getBlock();
 
-		if(block != null && blk != block)
+		if(filterBlock != null && block != filterBlock)
 			return;
 
 		Material mat = world.getBlockState(pos).getMaterial();
-		if(!world.isRemote && blk != null && !blk.isAir(state, world, pos) && state.getPlayerRelativeBlockHardness(player, world, pos) > 0) {
-			if(!blk.canHarvestBlock(player.world, pos, player) || !materialsListing.contains(mat)) {
+		if(!world.isRemote && !block.isAir(state, world, pos) && state.getPlayerRelativeBlockHardness(player, world, pos) > 0) {
+			if(!block.canHarvestBlock(player.world, pos, player) || !materialsListing.contains(mat)) {
 				return;
 			}
 
 			if(!player.capabilities.isCreativeMode) {
 				TileEntity tile = world.getTileEntity(pos);
 				IBlockState localState = world.getBlockState(pos);
-				blk.onBlockHarvested(world, pos, localState, player);
 
-				if(blk.removedByPlayer(state, world, pos, player, true)) {
-					blk.onBlockDestroyedByPlayer(world, pos, state);
+				if(block.removedByPlayer(state, world, pos, player, true)) {
+					block.onBlockDestroyedByPlayer(world, pos, state);
 
-					if(!dispose || !ItemElementiumPick.isDisposable(blk))
-						blk.harvestBlock(world, player, pos, state, tile, stack);
+					if(!dispose || !ItemElementiumPick.isDisposable(block))
+						block.harvestBlock(world, player, pos, state, tile, stack);
 				}
 
 				damageItem(stack, 1, player, 80);
 			} else world.setBlockToAir(pos);
 
-			if(particles && !world.isRemote && ConfigHandler.blockBreakParticles && ConfigHandler.blockBreakParticlesTool)
+			if(particles && ConfigHandler.blockBreakParticles && ConfigHandler.blockBreakParticlesTool)
 				world.playEvent(2001, pos, Block.getStateId(state));
 		}
 	}

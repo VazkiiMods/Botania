@@ -24,13 +24,8 @@ public class ItemElementiumPick extends ItemManasteelPick {
 		if(event.getHarvester() != null) {
 			ItemStack stack = event.getHarvester().getHeldItemMainhand();
 			if(!stack.isEmpty() && (stack.getItem() == this || stack.getItem() == ModItems.terraPick && ItemTerraPick.isTipped(stack))) {
-				for(int i = 0; i < event.getDrops().size(); i++) {
-					ItemStack drop = event.getDrops().get(i);
-					if(drop != null) {
-						if(isDisposable(drop) || isSemiDisposable(drop) && !event.getHarvester().isSneaking())
-							event.getDrops().remove(i);
-					}
-				}
+				event.getDrops().removeIf(s -> !s.isEmpty() && (isDisposable(s)
+						|| isSemiDisposable(s) && !event.getHarvester().isSneaking()));
 			}
 		}
 	}
