@@ -11,6 +11,7 @@
 package vazkii.botania.common.item.relic;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.google.common.collect.ImmutableList;
@@ -150,7 +151,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 		for (BlockPos coords : cursors) {
 			IBlockState state = world.getBlockState(coords);
 			breaker.breakOtherBlock(player, stack, coords, coords, side);
-			ToolCommons.removeBlockWithDrops(player, stack, player.world, coords, pos, state.getBlock(), new Material[]{state.getMaterial()}, silk, fortune, state.getBlockHardness(world, coords), dispose);
+			ToolCommons.removeBlockWithDrops(player, stack, player.world, coords, pos, state.getBlock(), Collections.singletonList(state.getMaterial()), silk, fortune, state.getBlockHardness(world, coords), dispose);
 		}
 	}
 

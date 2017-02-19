@@ -48,11 +48,11 @@ public class ItemSwapRing extends ItemBauble {
 			IBlockState state = entity.world.getBlockState(pos.getBlockPos());
 
 			Material mat = state.getMaterial();
-			if(ToolCommons.isRightMaterial(mat, ToolCommons.materialsPick))
+			if(ToolCommons.materialsPick.contains(mat))
 				typeToFind = ToolType.PICK;
-			else if(ToolCommons.isRightMaterial(mat, ToolCommons.materialsShovel))
+			else if(ToolCommons.materialsShovel.contains(mat))
 				typeToFind = ToolType.SHOVEL;
-			else if(ToolCommons.isRightMaterial(mat, ToolCommons.materialsAxe))
+			else if(ToolCommons.materialsAxe.contains(mat))
 				typeToFind = ToolType.AXE;
 		}
 
