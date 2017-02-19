@@ -2134,8 +2134,8 @@ botania.page.manaVoid1=Even Chad from accounting?
 
 # -- MANA FLUXFIELD
 botania.entry.rfGenerator=Mana Fluxfield
-botania.tagline.rfGenerator=Converts Mana into Redstone Flux
-botania.page.rfGenerator0=By passing &4Mana&0 through a field of redstone energy, its state can change from a natural energy source to &4Redstone Flux&0.<br>Simply pointing a spreader at this block will have it shoot at it, converting the &4Mana&0 that lands on it into &4RF&0. It can then be pulled out with any &4RF&0 transporter.
+botania.tagline.rfGenerator=Converts Mana into Energy
+botania.page.rfGenerator0=By passing &4Mana&0 through a field of redstone energy, its state can change from a natural energy source to &4Forge Energy&0.<br>Simply pointing a spreader at this block will have it shoot at it, converting the &4Mana&0 that lands on it into &4FE&0, and sending it to any nearby &4FE&0 transporters.
 botania.page.rfGenerator1=Challenging the fabric of magic mod reality
 
 # -- MANA LENSES
