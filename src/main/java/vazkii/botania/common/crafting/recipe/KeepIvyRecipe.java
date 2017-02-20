@@ -34,7 +34,7 @@ public class KeepIvyRecipe implements IRecipe {
 			if(!stack.isEmpty()) {
 				if(stack.getItem() == ModItems.keepIvy)
 					foundIvy = true;
-				else if(!foundItem && !(ItemNBTHelper.detectNBT(stack) && ItemNBTHelper.getBoolean(stack, ItemKeepIvy.TAG_KEEP, false)) && !stack.getItem().hasContainerItem(stack))
+				else if(!foundItem && !(stack.hasTagCompound() && ItemNBTHelper.getBoolean(stack, ItemKeepIvy.TAG_KEEP, false)) && !stack.getItem().hasContainerItem(stack))
 					foundItem = true;
 				else return false;
 			}

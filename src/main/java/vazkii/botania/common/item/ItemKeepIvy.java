@@ -48,7 +48,7 @@ public class ItemKeepIvy extends ItemMod {
 		List<EntityItem> keeps = new ArrayList<>();
 		for(EntityItem item : event.getDrops()) {
 			ItemStack stack = item.getEntityItem();
-			if(!stack.isEmpty() && ItemNBTHelper.detectNBT(stack) && ItemNBTHelper.getBoolean(stack, TAG_KEEP, false))
+			if(!stack.isEmpty() && stack.hasTagCompound() && ItemNBTHelper.getBoolean(stack, TAG_KEEP, false))
 				keeps.add(item);
 		}
 
