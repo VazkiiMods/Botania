@@ -224,9 +224,7 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 			if(!blockAt.isAir(world.getBlockState(pos), world, pos) && stateAt.getPlayerRelativeBlockHardness(player, world, pos) > 0 && stateAt != state) {
 				if(!world.isRemote) {
 					if(!player.capabilities.isCreativeMode) {
-						List<ItemStack> drops = blockAt.getDrops(world, pos, stateAt, 0);
-						for(ItemStack drop : drops)
-							world.spawnEntityInWorld(new EntityItem(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, drop));
+						blockAt.dropBlockAsItem(world, pos, stateAt, 0);
 						removeFromInventory(player, stack, state.getBlock(), state.getBlock().getMetaFromState(state), true);
 					}
 					world.playEvent(2001, pos, Block.getStateId(state));

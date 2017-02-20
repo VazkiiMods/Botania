@@ -58,24 +58,17 @@ public class LensMine extends Lens {
 
 		BlockPos coords = burst.getBurstSourceBlockPos();
 		if(!coords.equals(pos.getBlockPos()) && !(tile instanceof IManaBlock) && neededHarvestLevel <= harvestLevel && hardness != -1 && hardness < 50F && (burst.isFake() || mana >= 24)) {
-			List<ItemStack> items = new ArrayList<>();
-
-			items.addAll(block.getDrops(world, pos_, world.getBlockState(pos_), 0));
-
 			if(!burst.hasAlreadyCollidedAt(pos_)) {
-				if(!burst.isFake() && !entity.worldObj.isRemote) {
+				if(!burst.isFake()) {
+					boolean offBounds = coords.getY() < 0;
+					boolean doWarp = warp && !offBounds;
+
+					for(ItemStack drop : block.getDrops(world, pos_, state, 0))
+						Block.spawnAsEntity(world, doWarp ? coords : pos_, drop);
+
 					world.setBlockToAir(pos_);
 					if(ConfigHandler.blockBreakParticles)
 						entity.worldObj.playEvent(2001, pos_, Block.getStateId(state));
-
-					boolean offBounds = coords.getY() < 0;
-					boolean doWarp = warp && !offBounds;
-					int dropX = doWarp ? coords.getX() : pos_.getX();
-					int dropY = doWarp ? coords.getY() : pos_.getY();
-					int dropZ = doWarp ? coords.getZ() : pos_.getZ();
-
-					for(ItemStack stack_ : items)
-						world.spawnEntityInWorld(new EntityItem(world, dropX + 0.5, dropY + 0.5, dropZ + 0.5, stack_));
 
 					burst.setMana(mana - 24);
 				}
