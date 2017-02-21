@@ -444,9 +444,10 @@ public class ClientProxy implements IProxy {
 			return;
 
 		FXSparkle sparkle = new FXSparkle(Minecraft.getMinecraft().world, x, y, z, size, r, g, b, m);
-		sparkle.fake = sparkle.noClip = fake;
+		sparkle.fake = fake;
+		sparkle.setCanCollide(!fake);
 		if(noclipEnabled)
-			sparkle.noClip = true;
+			sparkle.setCanCollide(false);
 		if(corruptSparkle)
 			sparkle.corrupt = true;
 		Minecraft.getMinecraft().effectRenderer.addEffect(sparkle);
