@@ -218,7 +218,7 @@ public class FloatingFlowerModel implements IBakedModel {
 	private final ItemOverrideList itemHandler = new ItemOverrideList(ImmutableList.of()) {
 		@Nonnull
 		@Override
-		public IBakedModel handleItemState(@Nonnull IBakedModel model, ItemStack stack, World world, @Nonnull EntityLivingBase entity) {
+		public IBakedModel handleItemState(@Nonnull IBakedModel model, ItemStack stack, @Nonnull World world, @Nonnull EntityLivingBase entity) {
 			// Items always have GRASS island
 			IFloatingFlower.IslandType islandType = IFloatingFlower.IslandType.GRASS;
 			String identifier;

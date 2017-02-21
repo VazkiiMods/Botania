@@ -31,7 +31,7 @@ public class RenderTileBrewery extends TileEntitySpecialRenderer<TileBrewery> {
 	public TileBrewery brewery;
 
 	@Override
-	public void renderTileEntityAt(TileBrewery brewery, double d0, double d1, double d2, float f, int digProgress) {
+	public void renderTileEntityAt(@Nonnull TileBrewery brewery, double d0, double d1, double d2, float f, int digProgress) {
 		this.brewery = brewery;
 		GlStateManager.pushMatrix();
 		GlStateManager.enableRescaleNormal();

@@ -33,7 +33,7 @@ public class RenderTileTeruTeruBozu extends TileEntitySpecialRenderer<TileTeruTe
 	final ModelTeruTeruBozu model = new ModelTeruTeruBozu();
 
 	@Override
-	public void renderTileEntityAt(TileTeruTeruBozu tileentity, double d0, double d1, double d2, float f, int digProgress) {
+	public void renderTileEntityAt(@Nonnull TileTeruTeruBozu tileentity, double d0, double d1, double d2, float f, int digProgress) {
 		GlStateManager.pushMatrix();
 		GlStateManager.enableRescaleNormal();
 		GlStateManager.enableBlend();

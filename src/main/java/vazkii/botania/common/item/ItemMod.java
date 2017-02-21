@@ -40,7 +40,7 @@ public abstract class ItemMod extends Item implements IModelRegister {
 
 	@Nonnull
 	@Override
-	public String getUnlocalizedNameInefficiently(ItemStack par1ItemStack) {
+	public String getUnlocalizedNameInefficiently(@Nonnull ItemStack par1ItemStack) {
 		return super.getUnlocalizedNameInefficiently(par1ItemStack).replaceAll("item\\.", "item." + LibResources.PREFIX_MOD);
 	}
 
