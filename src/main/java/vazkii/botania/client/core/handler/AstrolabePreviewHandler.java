@@ -76,9 +76,6 @@ public final class AstrolabePreviewHandler {
 
 	private static void renderBlockAt(Block block, int meta, BlockPos pos) {
 		IBlockState state = block.getStateFromMeta(meta);
-		
-		if(state == null)
-			return;
 
 		double renderPosX, renderPosY, renderPosZ;
 

@@ -54,8 +54,10 @@ public class BlackHoleTalismanExtractRecipe implements IRecipe {
 		int count = ItemBlackHoleTalisman.getBlockCount(talisman);
 		if(count > 0) {
 			Block block = ItemBlackHoleTalisman.getBlock(talisman);
-			int meta = ItemBlackHoleTalisman.getBlockMeta(talisman);
-			return new ItemStack(block, Math.min(64, count), meta);
+			if(block != null) {
+				int meta = ItemBlackHoleTalisman.getBlockMeta(talisman);
+				return new ItemStack(block, Math.min(64, count), meta);
+			}
 		}
 
 		return ItemStack.EMPTY;

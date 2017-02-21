@@ -111,7 +111,7 @@ public class BlockCacophonium extends BlockMod {
 		if(tile != null && tile instanceof TileCacophonium) {
 			stacks.add(new ItemStack(Blocks.NOTEBLOCK));
 			ItemStack thingy = ((TileCacophonium) tile).stack;
-			if(thingy != null)
+			if(!thingy.isEmpty())
 				stacks.add(thingy.copy());
 		}
 
