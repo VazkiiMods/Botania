@@ -56,7 +56,6 @@ public class EntitySpark extends Entity implements ISparkEntity {
 	private static final int TRANSFER_RATE = 1000;
 	private static final String TAG_UPGRADE = "upgrade";
 	private static final String TAG_INVIS = "invis";
-	public static final DataParameter<Integer> INVISIBILITY = EntityDataManager.createKey(EntitySpark.class, DataSerializers.VARINT);
 	private static final DataParameter<Integer> UPGRADE = EntityDataManager.createKey(EntitySpark.class, DataSerializers.VARINT);
 
 	private final Set<ISparkEntity> transfers = Collections.newSetFromMap(new WeakHashMap<>());
@@ -71,7 +70,6 @@ public class EntitySpark extends Entity implements ISparkEntity {
 	@Override
 	protected void entityInit() {
 		setSize(0.1F, 0.5F);
-		dataManager.register(INVISIBILITY, 0);
 		dataManager.register(UPGRADE, 0);
 	}
 
@@ -245,9 +243,13 @@ public class EntitySpark extends Entity implements ISparkEntity {
 	public boolean processInitialInteract(EntityPlayer player, EnumHand hand) {
 		ItemStack stack = player.getHeldItem(hand);
 		if(!stack.isEmpty()) {
-			if(world.isRemote)
-				return stack.getItem() == ModItems.twigWand || stack.getItem() == ModItems.sparkUpgrade
-				|| stack.getItem() == ModItems.phantomInk;
+			if(world.isRemote) {
+				boolean valid = stack.getItem() == ModItems.twigWand || stack.getItem() == ModItems.sparkUpgrade
+						|| stack.getItem() == ModItems.phantomInk;
+				if(valid)
+					player.swingArm(hand);
+				return valid;
+			}
 
 			SparkUpgradeType upgrade = getUpgrade();
 			if(stack.getItem() == ModItems.twigWand) {
@@ -259,11 +261,9 @@ public class EntitySpark extends Entity implements ISparkEntity {
 						transfers.clear();
 						removeTransferants = 2;
 					} else dropAndKill();
-					player.swingArm(hand);
 					return true;
 				} else {
-					List<ISparkEntity> allSparks = SparkHelper.getSparksAround(world, posX, posY, posZ);
-					for(ISparkEntity spark : allSparks)
+					for(ISparkEntity spark : SparkHelper.getSparksAround(world, posX, posY, posZ))
 						particleBeam(player, this, (Entity) spark);
 					return true;
 				}
@@ -271,11 +271,9 @@ public class EntitySpark extends Entity implements ISparkEntity {
 				int newUpgrade = stack.getItemDamage() + 1;
 				setUpgrade(SparkUpgradeType.values()[newUpgrade]);
 				stack.shrink(1);
-				player.swingArm(hand);
 				return true;
 			} else if (stack.getItem() == ModItems.phantomInk) {
-				int invis = dataManager.get(INVISIBILITY);
-				dataManager.set(INVISIBILITY, ~invis & 1);
+				setInvisible(true);
 				return true;
 			}
 		}
@@ -286,13 +284,13 @@ public class EntitySpark extends Entity implements ISparkEntity {
 	@Override
 	protected void readEntityFromNBT(@Nonnull NBTTagCompound cmp) {
 		setUpgrade(SparkUpgradeType.values()[cmp.getInteger(TAG_UPGRADE)]);
-		dataManager.set(INVISIBILITY, cmp.getInteger(TAG_INVIS));
+		setInvisible(cmp.getInteger(TAG_INVIS) == 1);
 	}
 
 	@Override
 	protected void writeEntityToNBT(@Nonnull NBTTagCompound cmp) {
 		cmp.setInteger(TAG_UPGRADE, getUpgrade().ordinal());
-		cmp.setInteger(TAG_INVIS, dataManager.get(INVISIBILITY));
+		cmp.setInteger(TAG_INVIS, isInvisible() ? 1 : 0);
 	}
 
 	@Override

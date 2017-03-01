@@ -49,7 +49,7 @@ public abstract class RenderSparkBase<T extends Entity> extends Render<T> {
 		double time = ClientTickHandler.ticksInGame + par9;
 		time += new Random(tEntity.getEntityId()).nextInt();
 
-		float a = 0.1F + (1 - tEntity.getDataManager().get(getInvisibilityParam())) * 0.8F;
+		float a = 0.1F + (tEntity.isInvisible() ? 0 : 1) * 0.8F;
 
 		GlStateManager.color(1F, 1F, 1F, (0.7F + 0.3F * (float) (Math.sin(time / 5.0) + 0.5) * 2) * a);
 
@@ -79,8 +79,6 @@ public abstract class RenderSparkBase<T extends Entity> extends Render<T> {
 		GlStateManager.disableRescaleNormal();
 		GlStateManager.popMatrix();
 	}
-
-	protected abstract DataParameter<Integer> getInvisibilityParam();
 
 	protected TextureAtlasSprite getBaseIcon(T entity) {
 		return MiscellaneousIcons.INSTANCE.sparkWorldIcon;

@@ -31,11 +31,6 @@ public class RenderCorporeaSpark extends RenderSparkBase<EntityCorporeaSpark> {
 	}
 
 	@Override
-	protected DataParameter<Integer> getInvisibilityParam() {
-		return EntityCorporeaSpark.INVISIBILITY;
-	}
-
-	@Override
 	public TextureAtlasSprite getBaseIcon(EntityCorporeaSpark entity) {
 		return entity.isMaster() ? MiscellaneousIcons.INSTANCE.corporeaWorldIconMaster : MiscellaneousIcons.INSTANCE.corporeaWorldIcon;
 	}
