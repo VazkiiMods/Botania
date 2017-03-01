@@ -43,6 +43,6 @@ public class ItemCrystalBow extends ItemLivingwoodBow {
 	void onFire(ItemStack stack, EntityLivingBase living, boolean infinity, EntityArrow arrow) {
 		arrow.pickupStatus = EntityArrow.PickupStatus.CREATIVE_ONLY;
 		if(living instanceof EntityPlayer)
-			ManaItemHandler.requestManaExactForTool(stack, (EntityPlayer) living, ARROW_COST / (infinity ? 2 : 1), false);
+			ManaItemHandler.requestManaExactForTool(stack, (EntityPlayer) living, ARROW_COST / (infinity ? 2 : 1), true);
 	}
 }
