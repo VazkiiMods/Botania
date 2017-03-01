@@ -13,6 +13,7 @@ package vazkii.botania.common.block.subtile.functional;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.minecraft.item.ItemPiston;
 import org.lwjgl.opengl.GL11;
 
 import net.minecraft.block.Block;
@@ -114,8 +115,14 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 						IBlockState stateToPlace = null;
 						if(stackItem instanceof IFlowerPlaceable)
 							stateToPlace = ((IFlowerPlaceable) stackItem).getBlockToPlaceByFlower(stack, this, coords);
-						if(stackItem instanceof ItemBlock)
-							stateToPlace = ((ItemBlock) stackItem).block.getStateFromMeta(stackItem.getMetadata(stack.getItemDamage()));
+						if(stackItem instanceof ItemBlock) {
+							int blockMeta = stackItem.getMetadata(stack.getItemDamage());
+
+							if(stackItem instanceof ItemPiston) // Workaround because the blockMeta ItemPiston gives crashes getStateFromMeta
+								blockMeta = 0;
+
+							stateToPlace = ((ItemBlock) stackItem).block.getStateFromMeta(blockMeta);
+						}
 						else if(stackItem instanceof ItemBlockSpecial)
 							stateToPlace = ((Block) ReflectionHelper.getPrivateValue(ItemBlockSpecial.class, (ItemBlockSpecial) stackItem, LibObfuscation.REED_ITEM)).getDefaultState();
 						else if(stackItem instanceof ItemRedstone)
