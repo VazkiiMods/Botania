@@ -75,12 +75,8 @@ public class ItemManasteelShears extends ItemShears implements IManaUsingItem, I
 			if(target.isShearable(itemstack, entity.worldObj, new BlockPos(entity))) {
 				List<ItemStack> drops = target.onSheared(itemstack, entity.worldObj, new BlockPos(entity), EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, itemstack));
 
-				Random rand = new Random();
 				for(ItemStack stack : drops) {
-					EntityItem ent = entity.entityDropItem(stack, 1.0F);
-					ent.motionY += rand.nextFloat() * 0.05F;
-					ent.motionX += (rand.nextFloat() - rand.nextFloat()) * 0.1F;
-					ent.motionZ += (rand.nextFloat() - rand.nextFloat()) * 0.1F;
+					entity.entityDropItem(stack, 1.0F);
 				}
 
 				ToolCommons.damageItem(itemstack, 1, player, MANA_PER_DAMAGE);

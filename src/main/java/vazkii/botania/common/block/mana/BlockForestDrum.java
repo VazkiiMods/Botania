@@ -146,12 +146,9 @@ public class BlockForestDrum extends BlockMod implements IManaTrigger, ILexicona
 					List<EntityItem> items = world.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(entity.posX, entity.posY, entity.posZ, entity.posX + entity.width, entity.posY + entity.height, entity.posZ + entity.width));
 					for(EntityItem item : items) {
 						ItemStack itemstack = item.getEntityItem();
-						if(itemstack != null && itemstack.getItem() == Items.BUCKET && !world.isRemote) {
+						if(itemstack != null && itemstack.getItem() == Items.BUCKET) {
 							while(itemstack.stackSize > 0) {
-								EntityItem ent = entity.entityDropItem(new ItemStack(Items.MILK_BUCKET), 1.0F);
-								ent.motionY += world.rand.nextFloat() * 0.05F;
-								ent.motionX += (world.rand.nextFloat() - world.rand.nextFloat()) * 0.1F;
-								ent.motionZ += (world.rand.nextFloat() - world.rand.nextFloat()) * 0.1F;
+								entity.entityDropItem(new ItemStack(Items.MILK_BUCKET), 1.0F);
 								itemstack.stackSize--;
 							}
 							item.setDead();

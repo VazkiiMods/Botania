@@ -68,12 +68,8 @@ public class ItemElementiumShears extends ItemManasteelShears {
 					if(target.isShearable(stack, entity.worldObj, new BlockPos(entity))) {
 						List<ItemStack> drops = target.onSheared(stack, entity.worldObj, new BlockPos(entity), EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, stack));
 
-						Random rand = new Random();
 						for(ItemStack drop : drops) {
-							EntityItem ent = entity.entityDropItem(drop, 1.0F);
-							ent.motionY += rand.nextFloat() * 0.05F;
-							ent.motionX += (rand.nextFloat() - rand.nextFloat()) * 0.1F;
-							ent.motionZ += (rand.nextFloat() - rand.nextFloat()) * 0.1F;
+							entity.entityDropItem(drop, 1.0F);
 						}
 
 						ToolCommons.damageItem(stack, 1, living, MANA_PER_DAMAGE);
