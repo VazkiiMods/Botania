@@ -149,9 +149,11 @@ public class BlockForestDrum extends BlockMod implements IManaTrigger, ILexicona
 						if(itemstack != null && itemstack.getItem() == Items.BUCKET && !world.isRemote) {
 							while(itemstack.stackSize > 0) {
 								EntityItem ent = entity.entityDropItem(new ItemStack(Items.MILK_BUCKET), 1.0F);
-								ent.motionY += world.rand.nextFloat() * 0.05F;
-								ent.motionX += (world.rand.nextFloat() - world.rand.nextFloat()) * 0.1F;
-								ent.motionZ += (world.rand.nextFloat() - world.rand.nextFloat()) * 0.1F;
+								if(ent != null) { // Shouldn't be given that we specified the item to drop, but let's be safe anyway
+									ent.motionY += world.rand.nextFloat() * 0.05F;
+									ent.motionX += (world.rand.nextFloat() - world.rand.nextFloat()) * 0.1F;
+									ent.motionZ += (world.rand.nextFloat() - world.rand.nextFloat()) * 0.1F;
+								}
 								itemstack.stackSize--;
 							}
 							item.setDead();
@@ -171,9 +173,11 @@ public class BlockForestDrum extends BlockMod implements IManaTrigger, ILexicona
 				if(stacks != null)
 					for(ItemStack wool : stacks) {
 						EntityItem ent = entity.entityDropItem(wool, 1.0F);
-						ent.motionY += world.rand.nextFloat() * 0.05F;
-						ent.motionX += (world.rand.nextFloat() - world.rand.nextFloat()) * 0.1F;
-						ent.motionZ += (world.rand.nextFloat() - world.rand.nextFloat()) * 0.1F;
+						if(ent != null) {
+							ent.motionY += world.rand.nextFloat() * 0.05F;
+							ent.motionX += (world.rand.nextFloat() - world.rand.nextFloat()) * 0.1F;
+							ent.motionZ += (world.rand.nextFloat() - world.rand.nextFloat()) * 0.1F;
+						}
 					}
 				++sheared;
 			}

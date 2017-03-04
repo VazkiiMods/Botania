@@ -71,9 +71,11 @@ public class ItemElementiumShears extends ItemManasteelShears {
 						Random rand = new Random();
 						for(ItemStack drop : drops) {
 							EntityItem ent = entity.entityDropItem(drop, 1.0F);
-							ent.motionY += rand.nextFloat() * 0.05F;
-							ent.motionX += (rand.nextFloat() - rand.nextFloat()) * 0.1F;
-							ent.motionZ += (rand.nextFloat() - rand.nextFloat()) * 0.1F;
+							if(ent != null) {
+								ent.motionY += rand.nextFloat() * 0.05F;
+								ent.motionX += (rand.nextFloat() - rand.nextFloat()) * 0.1F;
+								ent.motionZ += (rand.nextFloat() - rand.nextFloat()) * 0.1F;
+							}
 						}
 
 						ToolCommons.damageItem(stack, 1, living, MANA_PER_DAMAGE);
