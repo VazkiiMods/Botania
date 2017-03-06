@@ -19,6 +19,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.block.state.pattern.BlockStateMatcher;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.WeightedRandom;
@@ -91,6 +92,8 @@ public class SubTileOrechid extends SubTileFunctional {
 			// But take your TE ores
 			// and stick them in your behind.
 			if(clname.startsWith("gregtech") || clname.startsWith("gregapi"))
+				continue;
+			if(!(item instanceof ItemBlock))
 				continue;
 
 			return stack;
