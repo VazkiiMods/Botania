@@ -239,7 +239,7 @@ public class SpecialFlowerModel implements IModelCustomData {
 		private final ItemOverrideList itemHandler = new ItemOverrideList(ImmutableList.of()) {
 			@Nonnull
 			@Override
-			public IBakedModel handleItemState(@Nonnull IBakedModel original, ItemStack stack, @Nonnull World world, @Nonnull EntityLivingBase living) {
+			public IBakedModel handleItemState(@Nonnull IBakedModel original, ItemStack stack, World world, EntityLivingBase living) {
 				Optional<IBakedModel> item = bakedItemModels.getUnchecked(ItemBlockSpecialFlower.getType(stack));
 
 				if(!item.isPresent())

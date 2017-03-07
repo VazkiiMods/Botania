@@ -152,7 +152,6 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 		return meta == 7 || meta == 8 || meta == 9;
 	}
 
-	@Nonnull
 	@Override
 	public ItemStack getContainerItem(@Nonnull ItemStack itemStack) {
 		return itemStack.getItemDamage() == 11 ? itemStack.copy() : null;
