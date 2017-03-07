@@ -70,15 +70,11 @@ public class SubTileHopperhock extends SubTileFunctional {
 		int slowdown = getSlowdownFactor();
 
 		for(EntityItem item : items) {
-			int age;
-			try {
-				age = (int) MethodHandles.itemAge_getter.invokeExact(item);
-			} catch (Throwable t) {
+			int age = item.ticksExisted;
+
+			if(age < 60 + slowdown || age >= 105 && age < 110 || item.isDead) {
 				continue;
 			}
-
-			if(age < 60 + slowdown || age >= 105 && age < 110 || item.isDead)
-				continue;
 
 			ItemStack stack = item.getEntityItem();
 			IItemHandler invToPutItemIn = null;
