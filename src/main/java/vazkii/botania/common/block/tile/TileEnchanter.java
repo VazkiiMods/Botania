@@ -375,7 +375,7 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 
 		for(EnchantmentData data : enchants) {
 			Enchantment otherEnch = data.enchantmentobj;
-			if (ench.func_191560_c(otherEnch))
+			if (!ench.func_191560_c(otherEnch))
 				return false;
 		}
 
