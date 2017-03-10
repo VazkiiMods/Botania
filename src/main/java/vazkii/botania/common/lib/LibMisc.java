@@ -17,7 +17,7 @@ public final class LibMisc {
 	public static final String MOD_NAME = "Botania";
 	public static final String BUILD = "GRADLE:BUILD";
 	public static final String VERSION = "GRADLE:VERSION-" + BUILD;
-	public static final String DEPENDENCIES = "required-after:forge@[13.20.0.2206,];required-after:baubles@[1.4.2,];after:thaumcraft";
+	public static final String DEPENDENCIES = "required-after:baubles;after:thaumcraft";
 
 	// Network Contants
 	public static final String NETWORK_CHANNEL = MOD_ID;
