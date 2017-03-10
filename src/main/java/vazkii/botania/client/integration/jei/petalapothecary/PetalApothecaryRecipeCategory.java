@@ -9,6 +9,7 @@
 package vazkii.botania.client.integration.jei.petalapothecary;
 
 import java.awt.Point;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -106,4 +107,9 @@ public class PetalApothecaryRecipeCategory implements IRecipeCategory {
 		return new Point((int) newX, (int) newY);
 	}
 
+	@Override
+	public List getTooltipStrings(int mouseX, int mouseY) {
+		return new ArrayList();
+	}
+	
 }

@@ -14,7 +14,6 @@ import java.util.Map;
 
 import com.google.common.collect.ImmutableMap;
 
-import mezz.jei.util.FakeClientWorld;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityFallingBlock;

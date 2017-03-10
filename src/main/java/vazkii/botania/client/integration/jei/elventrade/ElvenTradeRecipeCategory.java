@@ -8,6 +8,7 @@
  */
 package vazkii.botania.client.integration.jei.elventrade;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -115,4 +116,9 @@ public class ElvenTradeRecipeCategory implements IRecipeCategory {
 		}
 	}
 
+	@Override
+	public List getTooltipStrings(int mouseX, int mouseY) {
+		return new ArrayList();
+	}
+	
 }

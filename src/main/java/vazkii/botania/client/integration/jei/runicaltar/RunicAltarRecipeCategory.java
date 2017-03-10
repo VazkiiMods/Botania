@@ -9,6 +9,7 @@
 package vazkii.botania.client.integration.jei.runicaltar;
 
 import java.awt.Point;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -107,4 +108,9 @@ public class RunicAltarRecipeCategory implements IRecipeCategory {
 		return new Point((int) newX, (int) newY);
 	}
 
+	@Override
+	public List getTooltipStrings(int mouseX, int mouseY) {
+		return new ArrayList();
+	}
+	
 }

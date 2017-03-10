@@ -8,7 +8,8 @@
  */
 package vazkii.botania.client.integration.jei.manapool;
 
-import java.util.Collection;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -101,6 +102,11 @@ public class ManaPoolRecipeCategory implements IRecipeCategory {
 
 		recipeLayout.getItemStacks().init(index, false, 99, 12);
 		recipeLayout.getItemStacks().set(index, ingredients.getOutputs(ItemStack.class).get(0));
+	}
+
+	@Override
+	public List getTooltipStrings(int mouseX, int mouseY) {
+		return new ArrayList();
 	}
 
 }

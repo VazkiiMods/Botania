@@ -8,6 +8,7 @@
  */
 package vazkii.botania.client.integration.jei.brewery;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -87,6 +88,11 @@ public class BreweryRecipeCategory implements IRecipeCategory {
 
 		recipeLayout.getItemStacks().init(7, false, 87, 41);
 		recipeLayout.getItemStacks().set(7, ingredients.getOutputs(ItemStack.class).get(0));
+	}
+	
+	@Override
+	public List getTooltipStrings(int mouseX, int mouseY) {
+		return new ArrayList();
 	}
 
 }
