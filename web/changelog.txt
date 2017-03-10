@@ -1,3 +1,8 @@
+r1.9 342
+*<b>Updated the mod to 1.11.2</b>
+*Removed the Golden Laurel Crown, as it overlaps with the Totem of Undying.
+*Using Chorus Fruit on a Cocoon of Caprice allows it to spawn shulkers.
+*<i>Yet another build provided by williewillus :D</i>
 r1.9 341
 *<b>Unless otherwise stated, this entire update was kindly provided by williewillus' assistance.</b>
 *Fixed a crash when placing pistons with a arannuncarpus.
