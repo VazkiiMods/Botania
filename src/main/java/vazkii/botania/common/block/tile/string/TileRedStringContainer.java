@@ -24,14 +24,14 @@ public class TileRedStringContainer extends TileRedString {
 
 	@Override
 	public boolean acceptBlock(BlockPos pos) {
-		TileEntity tile = worldObj.getTileEntity(pos);
+		TileEntity tile = world.getTileEntity(pos);
 		return tile != null
 				&& Arrays.stream(EnumFacing.VALUES)
 				.anyMatch(e -> tile.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, e));
 	}
 
 	@Override
-	public boolean hasCapability(@Nonnull Capability<?> cap, @Nonnull EnumFacing side) {
+	public boolean hasCapability(@Nonnull Capability<?> cap, EnumFacing side) {
 		if(cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY
 				&& getTileAtBinding() != null
 				&& getTileAtBinding().hasCapability(cap, side))
@@ -39,9 +39,8 @@ public class TileRedStringContainer extends TileRedString {
 		return super.hasCapability(cap, side);
 	}
 
-	@Nonnull
 	@Override
-	public <T> T getCapability(@Nonnull Capability<T> cap, @Nonnull EnumFacing side) {
+	public <T> T getCapability(@Nonnull Capability<T> cap, EnumFacing side) {
 		if(cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY
 				&& getTileAtBinding() != null
 				&& getTileAtBinding().hasCapability(cap, side))

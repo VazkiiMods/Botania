@@ -10,12 +10,15 @@ package vazkii.botania.client.integration.jei.runicaltar;
 
 import java.awt.Point;
 import java.util.Collection;
+import java.util.List;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.gui.IRecipeLayout;
+import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeCategory;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;
@@ -57,6 +60,12 @@ public class RunicAltarRecipeCategory implements IRecipeCategory {
 		return background;
 	}
 
+	@Nullable
+	@Override
+	public IDrawable getIcon() {
+		return null;
+	}
+
 	@Override
 	public void drawExtras(@Nonnull Minecraft minecraft) {
 		GlStateManager.enableAlpha();
@@ -67,12 +76,7 @@ public class RunicAltarRecipeCategory implements IRecipeCategory {
 	}
 
 	@Override
-	public void drawAnimations(@Nonnull Minecraft minecraft) {
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull IRecipeWrapper recipeWrapper) {
+	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull IRecipeWrapper recipeWrapper, @Nonnull IIngredients ingredients) {
 		if(!(recipeWrapper instanceof RunicAltarRecipeWrapper))
 			return;
 		RunicAltarRecipeWrapper wrapper = (RunicAltarRecipeWrapper) recipeWrapper;
@@ -81,23 +85,19 @@ public class RunicAltarRecipeCategory implements IRecipeCategory {
 		recipeLayout.getItemStacks().set(0, new ItemStack(ModBlocks.runeAltar));
 
 		int index = 1;
-		double angleBetweenEach = 360.0 / wrapper.getInputs().size();
+		double angleBetweenEach = 360.0 / ingredients.getInputs(ItemStack.class).size();
 		Point point = new Point(64, 20), center = new Point(64, 52);
 
-		for(Object o : wrapper.getInputs()) {
+		for(List<ItemStack> o : ingredients.getInputs(ItemStack.class)) {
 			recipeLayout.getItemStacks().init(index, true, point.x, point.y);
-			if(o instanceof Collection) {
-				recipeLayout.getItemStacks().set(index, (Collection<ItemStack>) o);
-			}
-			if(o instanceof ItemStack) {
-				recipeLayout.getItemStacks().set(index, (ItemStack) o);
-			}
+			recipeLayout.getItemStacks().set(index, o);
 			index += 1;
 			point = rotatePointAbout(point, center, angleBetweenEach);
 		}
 
 		recipeLayout.getItemStacks().init(index, false, 103, 17);
-		recipeLayout.getItemStacks().set(index, wrapper.getOutputs().get(0));
+		recipeLayout.getItemStacks().set(index, ingredients.getOutputs(ItemStack.class).get(0));
+
 	}
 
 	private Point rotatePointAbout(Point in, Point about, double degrees) {

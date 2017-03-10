@@ -57,20 +57,24 @@ public class ItemDirtRod extends ItemMod implements IManaUsingItem, ICraftAchiev
 
 	@Nonnull
 	@Override
-	public EnumActionResult onItemUse(ItemStack par1ItemStack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
-		return place(par1ItemStack, player, world, pos, hand, side, par8, par9, par10, Blocks.DIRT, COST, 0.35F, 0.2F, 0.05F);
+	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
+		return place(player, world, pos, hand, side, par8, par9, par10, Blocks.DIRT, COST, 0.35F, 0.2F, 0.05F);
 	}
 
-	public static EnumActionResult place(ItemStack par1ItemStack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10, Block block, int cost, float r, float g, float b) {
-		if(ManaItemHandler.requestManaExactForTool(par1ItemStack, player, cost, false)) {
+	public static EnumActionResult place(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ, Block block, int cost, float r, float g, float b) {
+		ItemStack stack = player.getHeldItem(hand);
+		if(ManaItemHandler.requestManaExactForTool(stack, player, cost, false)) {
 			int entities = world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(pos.offset(side), pos.offset(side).add(1, 1, 1))).size();
 
 			if(entities == 0) {
 				ItemStack stackToPlace = new ItemStack(block);
-				stackToPlace.onItemUse(player, world, pos, hand, side, par8, par9, par10);
 
-				if(stackToPlace.stackSize == 0) {
-					ManaItemHandler.requestManaExactForTool(par1ItemStack, player, cost, true);
+				player.setHeldItem(hand, stackToPlace);
+				stackToPlace.onItemUse(player, world, pos, hand, side, hitX, hitY, hitZ);
+				player.setHeldItem(hand, stack);
+
+				if(stackToPlace.isEmpty()) {
+					ManaItemHandler.requestManaExactForTool(stack, player, cost, true);
 					for(int i = 0; i < 6; i++)
 						Botania.proxy.sparkleFX(pos.getX() + side.getFrontOffsetX() + Math.random(), pos.getY() + side.getFrontOffsetY() + Math.random(), pos.getZ() + side.getFrontOffsetZ() + Math.random(), r, g, b, 1F, 5);
 					return EnumActionResult.SUCCESS;

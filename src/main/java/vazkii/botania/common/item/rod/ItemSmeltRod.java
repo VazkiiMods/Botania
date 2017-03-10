@@ -64,9 +64,9 @@ public class ItemSmeltRod extends ItemMod implements IManaUsingItem {
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack par1ItemStack, World world, EntityPlayer player, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
 		player.setActiveHand(hand);
-		return ActionResult.newResult(EnumActionResult.SUCCESS, par1ItemStack);
+		return ActionResult.newResult(EnumActionResult.SUCCESS, player.getHeldItem(hand));
 	}
 
 	@Override
@@ -77,15 +77,15 @@ public class ItemSmeltRod extends ItemMod implements IManaUsingItem {
 		if(!ManaItemHandler.requestManaExactForTool(stack, p, COST_PER_TICK, false))
 			return;
 
-		RayTraceResult pos = ToolCommons.raytraceFromEntity(p.worldObj, p, false, 32);
+		RayTraceResult pos = ToolCommons.raytraceFromEntity(p.world, p, false, 32);
 
 		if(pos != null && pos.getBlockPos() != null) {
-			IBlockState state = p.worldObj.getBlockState(pos.getBlockPos());
+			IBlockState state = p.world.getBlockState(pos.getBlockPos());
 
 			ItemStack blockStack = new ItemStack(state.getBlock(), 1, state.getBlock().getMetaFromState(state));
 			ItemStack result = FurnaceRecipes.instance().getSmeltingResult(blockStack);
 
-			if(result != null && result.getItem() instanceof ItemBlock) {
+			if(!result.isEmpty() && result.getItem() instanceof ItemBlock) {
 				boolean decremented = false;
 
 				if(playerData.containsKey(p)) {
@@ -95,10 +95,10 @@ public class ItemSmeltRod extends ItemMod implements IManaUsingItem {
 						data.progress--;
 						decremented = true;
 						if(data.progress <= 0) {
-							if(!p.worldObj.isRemote) {
-								p.worldObj.setBlockState(pos.getBlockPos(), Block.getBlockFromItem(result.getItem()).getStateFromMeta(result.getItemDamage()), 1 | 2);
-								p.worldObj.playSound(null, p.posX, p.posY, p.posZ, SoundEvents.ITEM_FLINTANDSTEEL_USE, SoundCategory.PLAYERS, 0.6F, 1F);
-								p.worldObj.playSound(null, p.posX, p.posY, p.posZ, SoundEvents.BLOCK_FIRE_AMBIENT, SoundCategory.PLAYERS, 1F, 1F);
+							if(!p.world.isRemote) {
+								p.world.setBlockState(pos.getBlockPos(), Block.getBlockFromItem(result.getItem()).getStateFromMeta(result.getItemDamage()), 1 | 2);
+								p.world.playSound(null, p.posX, p.posY, p.posZ, SoundEvents.ITEM_FLINTANDSTEEL_USE, SoundCategory.PLAYERS, 0.6F, 1F);
+								p.world.playSound(null, p.posX, p.posY, p.posZ, SoundEvents.BLOCK_FIRE_AMBIENT, SoundCategory.PLAYERS, 1F, 1F);
 
 								ManaItemHandler.requestManaExactForTool(stack, p, COST_PER_TICK, true);
 								playerData.remove(p);
@@ -126,7 +126,7 @@ public class ItemSmeltRod extends ItemMod implements IManaUsingItem {
 						Botania.proxy.wispFX(x, y, z, 1F, 0.2F, 0.2F, 0.5F, (float) -Math.random() / 10F);
 					}
 					if(time % 10 == 0)
-						p.worldObj.playSound(null, p.posX, p.posY, p.posZ, SoundEvents.BLOCK_FIRE_AMBIENT, SoundCategory.PLAYERS, (float) Math.random() / 2F + 0.5F, 1F);
+						p.world.playSound(null, p.posX, p.posY, p.posZ, SoundEvents.BLOCK_FIRE_AMBIENT, SoundCategory.PLAYERS, (float) Math.random() / 2F + 0.5F, 1F);
 				}
 			}
 		}

@@ -21,7 +21,7 @@ public final class TooltipHandler {
 
 	@SubscribeEvent(priority = EventPriority.HIGHEST)
 	public static void onTooltipEvent(ItemTooltipEvent event) {
-		if(ItemNBTHelper.detectNBT(event.getItemStack()) && ItemNBTHelper.getBoolean(event.getItemStack(), ItemKeepIvy.TAG_KEEP, false))
+		if(event.getItemStack().hasTagCompound() && ItemNBTHelper.getBoolean(event.getItemStack(), ItemKeepIvy.TAG_KEEP, false))
 			event.getToolTip().add(I18n.format("botaniamisc.hasKeepIvy"));
 	}
 

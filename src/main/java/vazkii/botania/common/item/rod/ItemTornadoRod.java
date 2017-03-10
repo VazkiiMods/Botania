@@ -76,7 +76,7 @@ public class ItemTornadoRod extends ItemMod implements IManaUsingItem, IAvatarWi
 					player.fallDistance = 0F;
 					player.motionY = IManaProficiencyArmor.Helper.hasProficiency(player, par1ItemStack) ? 1.6 : 1.25;
 
-					player.worldObj.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.airRod, SoundCategory.PLAYERS, 0.1F, 0.25F);
+					player.world.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.airRod, SoundCategory.PLAYERS, 0.1F, 0.25F);
 					for(int i = 0; i < 5; i++)
 						Botania.proxy.wispFX(player.posX, player.posY, player.posZ, 0.25F, 0.25F, 0.25F, 0.35F + (float) Math.random() * 0.1F, 0.2F * (float) (Math.random() - 0.5), -0.01F * (float) Math.random(), 0.2F * (float) (Math.random() - 0.5));
 				}
@@ -93,18 +93,19 @@ public class ItemTornadoRod extends ItemMod implements IManaUsingItem, IAvatarWi
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack par1ItemStack, World world, EntityPlayer player, EnumHand hand) {
-		int meta = par1ItemStack.getItemDamage();
-		if(meta != 0 || ManaItemHandler.requestManaExactForTool(par1ItemStack, player, COST, false)) {
+	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
+		ItemStack stack = player.getHeldItem(hand);
+		int meta = stack.getItemDamage();
+		if(meta != 0 || ManaItemHandler.requestManaExactForTool(stack, player, COST, false)) {
 			player.setActiveHand(hand);
 			if(meta == 0) {
-				ManaItemHandler.requestManaExactForTool(par1ItemStack, player, COST, true);
-				setFlying(par1ItemStack, true);
+				ManaItemHandler.requestManaExactForTool(stack, player, COST, true);
+				setFlying(stack, true);
 			}
-			return ActionResult.newResult(EnumActionResult.SUCCESS, par1ItemStack);
+			return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
 		}
 
-		return ActionResult.newResult(EnumActionResult.PASS, par1ItemStack);
+		return ActionResult.newResult(EnumActionResult.PASS, stack);
 	}
 
 	@Nonnull
@@ -148,7 +149,7 @@ public class ItemTornadoRod extends ItemMod implements IManaUsingItem, IAvatarWi
 							Botania.proxy.wispFX(p.posX, p.posY + i, p.posZ, 0.25F, 0.25F, 0.25F, 0.35F + (float) Math.random() * 0.1F, 0.2F * (float) (Math.random() - 0.5), -0.01F * (float) Math.random(), 0.2F * (float) (Math.random() - 0.5));
 
 					if(!world.isRemote) {
-						p.worldObj.playSound(null, p.posX, p.posY, p.posZ, BotaniaSoundEvents.dash, SoundCategory.PLAYERS, 1F, 1F);
+						p.world.playSound(null, p.posX, p.posY, p.posZ, BotaniaSoundEvents.dash, SoundCategory.PLAYERS, 1F, 1F);
 						p.addPotionEffect(new PotionEffect(ModPotions.featherfeet, 100, 0));
 						tile.recieveMana(-COST);
 					}

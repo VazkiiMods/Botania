@@ -24,14 +24,8 @@ public class ElvenTradeRecipeHandler implements IRecipeHandler<RecipeElvenTrade>
 
 	@Nonnull
 	@Override
-	public String getRecipeCategoryUid() {
-		return "botania.elvenTrade";
-	}
-
-	@Nonnull
-	@Override
 	public String getRecipeCategoryUid(@Nonnull RecipeElvenTrade recipe) { // o is erased type param
-		return getRecipeCategoryUid();
+		return "botania.elvenTrade";
 	}
 
 	@Nonnull

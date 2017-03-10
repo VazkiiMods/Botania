@@ -1,0 +1,39 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "builtin/generated",
+    "transform": "forge:default-item"
+  },
+  "variants": {
+    "powered": {
+      "true": {},
+      "false": {}
+    },
+    "variant": {
+      "default": {
+        "textures": {
+          "layer0": "botania:blocks/lightrelay0",
+          "particle": "botania:blocks/lightrelay1"
+        }
+      },
+      "detector": {
+        "textures": {
+          "layer0": "botania:blocks/lightrelay2",
+          "particle": "botania:blocks/lightrelay3"
+        }
+      },
+	"fork": {
+        "textures": {
+          "layer0": "botania:blocks/lightrelay4",
+          "particle": "botania:blocks/lightrelay5"
+        }
+      },
+    "toggle": {
+        "textures": {
+          "layer0": "botania:blocks/lightrelay6",
+          "particle": "botania:blocks/lightrelay7"
+        }
+      }
+    }
+  }
+}

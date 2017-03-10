@@ -43,7 +43,7 @@ public class ModelTeruTeruBozu extends ModelBase {
 
 	public void render() {
 		float f5 = 1F / 16F;
-		if(Minecraft.getMinecraft().theWorld.isRaining())
+		if(Minecraft.getMinecraft().world.isRaining())
 			sadFace.render(f5);
 		else happyFace.render(f5);
 		thread.render(f5);

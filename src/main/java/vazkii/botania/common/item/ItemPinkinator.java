@@ -24,6 +24,7 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -41,7 +42,8 @@ public class ItemPinkinator extends ItemMod {
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
+		ItemStack stack = player.getHeldItem(hand);
 		int range = 16;
 		List<EntityWither> withers = world.getEntitiesWithinAABB(EntityWither.class, new AxisAlignedBB(player.posX - range, player.posY - range, player.posZ - range, player.posX + range, player.posY + range, player.posZ + range));
 		for(EntityWither wither : withers)
@@ -50,13 +52,14 @@ public class ItemPinkinator extends ItemMod {
 					wither.setDead();
 					EntityPinkWither pink = new EntityPinkWither(world);
 					pink.setLocationAndAngles(wither.posX, wither.posY, wither.posZ, wither.rotationYaw, wither.rotationPitch);
-					world.spawnEntityInWorld(pink);
+					pink.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(pink)), null);
+					world.spawnEntity(pink);
 					pink.playSound(SoundEvents.ENTITY_GENERIC_EXPLODE, 4F, (1F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F) * 0.7F);
 				}
 				player.addStat(ModAchievements.pinkinator, 1);
 
 				world.spawnParticle(EnumParticleTypes.EXPLOSION_HUGE, wither.posX, wither.posY, wither.posZ, 1D, 0D, 0D);
-				stack.stackSize--;
+				stack.shrink(1);
 				return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
 			}
 

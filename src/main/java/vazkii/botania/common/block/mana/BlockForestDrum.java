@@ -30,6 +30,7 @@ import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -115,7 +116,7 @@ public class BlockForestDrum extends BlockMod implements IManaTrigger, ILexicona
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void getSubBlocks(@Nonnull Item item, CreativeTabs tab, List<ItemStack> list) {
+	public void getSubBlocks(@Nonnull Item item, CreativeTabs tab, NonNullList<ItemStack> list) {
 		for(int i = 0; i < 3; i++)
 			list.add(new ItemStack(item, 1, i));
 	}
@@ -146,10 +147,13 @@ public class BlockForestDrum extends BlockMod implements IManaTrigger, ILexicona
 					List<EntityItem> items = world.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(entity.posX, entity.posY, entity.posZ, entity.posX + entity.width, entity.posY + entity.height, entity.posZ + entity.width));
 					for(EntityItem item : items) {
 						ItemStack itemstack = item.getEntityItem();
-						if(itemstack != null && itemstack.getItem() == Items.BUCKET) {
-							while(itemstack.stackSize > 0) {
-								entity.entityDropItem(new ItemStack(Items.MILK_BUCKET), 1.0F);
-								itemstack.stackSize--;
+						if(!itemstack.isEmpty() && itemstack.getItem() == Items.BUCKET && !world.isRemote) {
+							while(itemstack.getCount() > 0) {
+								EntityItem ent = entity.entityDropItem(new ItemStack(Items.MILK_BUCKET), 1.0F);
+								ent.motionY += world.rand.nextFloat() * 0.05F;
+								ent.motionX += (world.rand.nextFloat() - world.rand.nextFloat()) * 0.1F;
+								ent.motionZ += (world.rand.nextFloat() - world.rand.nextFloat()) * 0.1F;
+								itemstack.shrink(1);
 							}
 							item.setDead();
 						}

@@ -31,12 +31,14 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.items.ItemHandlerHelper;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.mana.ILens;
@@ -94,14 +96,14 @@ public class BlockSpreader extends BlockMod implements IWandable, IWandHUD, ILex
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void getSubBlocks(@Nonnull Item item, CreativeTabs par2, List<ItemStack> par3) {
+	public void getSubBlocks(@Nonnull Item item, CreativeTabs par2, NonNullList<ItemStack> par3) {
 		for(int i = 0; i < 4; i++)
 			par3.add(new ItemStack(item, 1, i));
 	}
 
 	@Override
 	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase par5EntityLivingBase, ItemStack par6ItemStack) {
-		EnumFacing orientation = BlockPistonBase.getFacingFromEntity(pos, par5EntityLivingBase);
+		EnumFacing orientation = EnumFacing.getDirectionFromEntityLiving(pos, par5EntityLivingBase);
 		TileSpreader spreader = (TileSpreader) world.getTileEntity(pos);
 		world.setBlockState(pos, getStateFromMeta(par6ItemStack.getItemDamage()), 1 | 2);
 
@@ -148,43 +150,41 @@ public class BlockSpreader extends BlockMod implements IWandable, IWandHUD, ILex
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack heldItem, EnumFacing par6, float par7, float par8, float par9) {
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing par6, float par7, float par8, float par9) {
 		TileEntity tile = world.getTileEntity(pos);
 		if(!(tile instanceof TileSpreader))
 			return false;
 
 		TileSpreader spreader = (TileSpreader) tile;
 		ItemStack lens = spreader.getItemHandler().getStackInSlot(0);
-		boolean isHeldItemLens = heldItem != null && heldItem.getItem() instanceof ILens;
-		boolean wool = heldItem != null && heldItem.getItem() == Item.getItemFromBlock(Blocks.WOOL);
+		ItemStack heldItem = player.getHeldItem(hand);
+		boolean isHeldItemLens = !heldItem.isEmpty() && heldItem.getItem() instanceof ILens;
+		boolean wool = !heldItem.isEmpty() && heldItem.getItem() == Item.getItemFromBlock(Blocks.WOOL);
 
-		if(heldItem != null)
+		if(!heldItem.isEmpty())
 			if(heldItem.getItem() == ModItems.twigWand)
 				return false;
 
-		if(lens == null && isHeldItemLens) {
+		if(lens.isEmpty() && isHeldItemLens) {
 			if (!player.capabilities.isCreativeMode)
-				player.setHeldItem(hand, null);
+				player.setHeldItem(hand, ItemStack.EMPTY);
 
 			spreader.getItemHandler().setStackInSlot(0, heldItem.copy());
 			spreader.markDirty();
-		} else if(lens != null && !wool) {
-			ItemStack add = lens.copy();
-			if(!player.inventory.addItemStackToInventory(add))
-				player.dropItem(add, false);
-			spreader.getItemHandler().setStackInSlot(0, null);
+		} else if(!lens.isEmpty() && !wool) {
+			ItemHandlerHelper.giveItemToPlayer(player, lens);
+			spreader.getItemHandler().setStackInSlot(0, ItemStack.EMPTY);
 			spreader.markDirty();
 		}
 
 		if(wool && spreader.paddingColor == -1) {
 			spreader.paddingColor = heldItem.getItemDamage();
-			heldItem.stackSize--;
-			if(heldItem.stackSize == 0)
-				player.setHeldItem(hand, null);
-		} else if(heldItem == null && spreader.paddingColor != -1 && lens == null) {
+			heldItem.shrink(1);
+			if(heldItem.isEmpty())
+				player.setHeldItem(hand, ItemStack.EMPTY);
+		} else if(heldItem.isEmpty() && spreader.paddingColor != -1 && lens.isEmpty()) {
 			ItemStack pad = new ItemStack(Blocks.WOOL, 1, spreader.paddingColor);
-			if(!player.inventory.addItemStackToInventory(pad))
-				player.dropItem(pad, false);
+			ItemHandlerHelper.giveItemToPlayer(player, pad);
 			spreader.paddingColor = -1;
 			spreader.markDirty();
 		}

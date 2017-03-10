@@ -13,6 +13,7 @@ package vazkii.botania.client.core.handler;
 import javax.annotation.Nonnull;
 
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
@@ -85,10 +86,10 @@ public class MultiblockBlockAccess implements IBlockAccess {
 
 	@Nonnull
 	@Override
-	public Biome getBiomeGenForCoords(@Nonnull BlockPos pos) {
+	public Biome getBiome(@Nonnull BlockPos pos) {
 		if(hasBlockAccess)
-			return originalBlockAccess.getBiomeGenForCoords(pos);
-		return null;
+			return originalBlockAccess.getBiome(pos);
+		return Biomes.DEFAULT;
 	}
 
 	@Override

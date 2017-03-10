@@ -72,7 +72,7 @@ public class WrappedStorageDrawers extends WrappedInventoryBase {
 
 				if(rem > 0) {
 					ItemStack copy = prototype.copy();
-					copy.stackSize = rem;
+					copy.setCount(rem);
 					if(doit) {
 						stacks.addAll(breakDownBigStack(copy));
 					} else {

@@ -100,6 +100,7 @@ public class BlockEnchanter extends BlockMod implements IWandable, ILexiconable,
 		return new TileEnchanter();
 	}
 
+	@Nonnull
 	@Override
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
 		return Item.getItemFromBlock(Blocks.LAPIS_BLOCK);
@@ -111,25 +112,26 @@ public class BlockEnchanter extends BlockMod implements IWandable, ILexiconable,
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack stack, EnumFacing side, float par7, float par8, float par9) {
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float par7, float par8, float par9) {
 		TileEnchanter enchanter = (TileEnchanter) world.getTileEntity(pos);
-		if(stack != null && stack.getItem() == ModItems.twigWand)
+		ItemStack stack = player.getHeldItem(hand);
+		if(!stack.isEmpty() && stack.getItem() == ModItems.twigWand)
 			return false;
 
-		boolean stackEnchantable = stack != null
+		boolean stackEnchantable = !stack.isEmpty()
 				&& stack.getItem() != Items.BOOK
 				&& stack.isItemEnchantable()
-				&& stack.stackSize == 1;
+				&& stack.getCount() == 1;
 
-		if(enchanter.itemToEnchant == null) {
+		if(enchanter.itemToEnchant.isEmpty()) {
 			if(stackEnchantable) {
 				enchanter.itemToEnchant = stack.copy();
-				player.setHeldItem(hand, null);
+				player.setHeldItem(hand, ItemStack.EMPTY);
 				enchanter.sync();
 			}
 		} else if(enchanter.stage == TileEnchanter.State.IDLE) {
 			ItemHandlerHelper.giveItemToPlayer(player, enchanter.itemToEnchant.copy());
-			enchanter.itemToEnchant = null;
+			enchanter.itemToEnchant = ItemStack.EMPTY;
 			enchanter.sync();
 		}
 
@@ -142,18 +144,18 @@ public class BlockEnchanter extends BlockMod implements IWandable, ILexiconable,
 
 		ItemStack itemstack = enchanter.itemToEnchant;
 
-		if (itemstack != null) {
+		if (!itemstack.isEmpty()) {
 			float f = random.nextFloat() * 0.8F + 0.1F;
 			float f1 = random.nextFloat() * 0.8F + 0.1F;
 			EntityItem entityitem;
 
-			for (float f2 = random.nextFloat() * 0.8F + 0.1F; itemstack.stackSize > 0; world.spawnEntityInWorld(entityitem)) {
+			for (float f2 = random.nextFloat() * 0.8F + 0.1F; itemstack.getCount() > 0; world.spawnEntity(entityitem)) {
 				int k1 = random.nextInt(21) + 10;
 
-				if (k1 > itemstack.stackSize)
-					k1 = itemstack.stackSize;
+				if (k1 > itemstack.getCount())
+					k1 = itemstack.getAnimationsToGo();
 
-				itemstack.stackSize -= k1;
+				itemstack.shrink(k1);
 				entityitem = new EntityItem(world, pos.getX() + f, pos.getY() + f1, pos.getZ() + f2, new ItemStack(itemstack.getItem(), k1, itemstack.getItemDamage()));
 				float f3 = 0.05F;
 				entityitem.motionX = (float)random.nextGaussian() * f3 * 0.5;

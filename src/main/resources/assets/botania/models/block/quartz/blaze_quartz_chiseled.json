@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:block/cube_column",
   "textures": {
-    "side": "botania:blocks/chiseledBlazeQuartz0",
-    "end": "botania:blocks/chiseledBlazeQuartz1"
+    "side": "botania:blocks/chiseledblazequartz0",
+    "end": "botania:blocks/chiseledblazequartz1"
   }
 }

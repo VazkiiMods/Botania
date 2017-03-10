@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "botania:blocks/biomeStone8"
+    "all": "botania:blocks/biomestone8"
   }
 }

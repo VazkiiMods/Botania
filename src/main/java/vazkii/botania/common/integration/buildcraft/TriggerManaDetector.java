@@ -1,3 +1,4 @@
+/*
 package vazkii.botania.common.integration.buildcraft;
 
 import com.google.common.base.Predicates;
@@ -49,3 +50,4 @@ public class TriggerManaDetector extends StatementBase implements ITriggerIntern
 	}
 
 }
+*/

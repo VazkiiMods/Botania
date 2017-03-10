@@ -26,6 +26,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -34,6 +35,7 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.items.ItemHandlerHelper;
 import vazkii.botania.api.item.IPetalApothecary;
 import vazkii.botania.api.recipe.IElvenItem;
 import vazkii.botania.api.recipe.IFlowerComponent;
@@ -59,7 +61,7 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 	@SubscribeEvent
 	public void onPlayerInteract(PlayerInteractEvent.RightClickBlock event) {
 		ItemStack stack = event.getItemStack();
-		boolean correctStack = stack != null && stack.getItem() == Items.GLASS_BOTTLE;
+		boolean correctStack = !stack.isEmpty() && stack.getItem() == Items.GLASS_BOTTLE;
 		boolean ender = event.getWorld().provider.getDimension() == 1;
 
 		if(correctStack && ender) {
@@ -69,15 +71,9 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 				ItemStack stack1 = new ItemStack(this, 1, 15);
 				event.getEntityPlayer().addStat(ModAchievements.enderAirMake, 1);
 
-				if(!event.getEntityPlayer().inventory.addItemStackToInventory(stack1)) {
-					event.getEntityPlayer().dropItem(stack1, true);
-				} else {
-					event.getEntityPlayer().openContainer.detectAndSendChanges();
-				}
+				ItemHandlerHelper.giveItemToPlayer(event.getEntityPlayer(), stack1);
 
-				stack.stackSize--;
-				if(stack.stackSize == 0)
-					event.getEntityPlayer().setHeldItem(event.getHand(), null);
+				stack.shrink(1);
 
 				event.getWorld().playSound(null, event.getPos(), SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.PLAYERS, 0.5F, 1F);
 				event.setCanceled(true);
@@ -87,43 +83,46 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 
 	@Nonnull
 	@Override
-	public EnumActionResult onItemUse(ItemStack par1ItemStack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
-		if(par1ItemStack.getItemDamage() == 4 || par1ItemStack.getItemDamage() == 14)
-			return EntityDoppleganger.spawn(player, par1ItemStack, world, pos, par1ItemStack.getItemDamage() == 14) ? EnumActionResult.SUCCESS : EnumActionResult.FAIL;
-		else if(par1ItemStack.getItemDamage() == 20 && net.minecraft.item.ItemDye.applyBonemeal(par1ItemStack, world, pos, player)) {
+	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
+		ItemStack stack = player.getHeldItem(hand);
+
+		if(stack.getItemDamage() == 4 || stack.getItemDamage() == 14)
+			return EntityDoppleganger.spawn(player, stack, world, pos, stack.getItemDamage() == 14) ? EnumActionResult.SUCCESS : EnumActionResult.FAIL;
+		else if(stack.getItemDamage() == 20 && net.minecraft.item.ItemDye.applyBonemeal(stack, world, pos, player)) {
 			if(!world.isRemote)
 				world.playEvent(2005, pos, 0);
 
 			return EnumActionResult.SUCCESS;
 		}
 
-		return super.onItemUse(par1ItemStack, player, world, pos, hand, side, par8, par9, par10);
+		return super.onItemUse(player, world, pos, hand, side, par8, par9, par10);
 	}
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack par1ItemStack, World world, EntityPlayer player, EnumHand hand) {
-		if(par1ItemStack.getItemDamage() == 15) {
+	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
+		ItemStack stack = player.getHeldItem(hand);
+		if(stack.getItemDamage() == 15) {
 			if(!player.capabilities.isCreativeMode)
-				--par1ItemStack.stackSize;
+				stack.shrink(1);
 
 			world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
 
 			if(!world.isRemote) {
 				EntityEnderAirBottle b = new EntityEnderAirBottle(world, player);
 				b.setHeadingFromThrower(player, player.rotationPitch, player.rotationYaw, 0F, 1.5F, 1F);
-				world.spawnEntityInWorld(b);
+				world.spawnEntity(b);
 			}
 			else player.swingArm(hand);
-			return ActionResult.newResult(EnumActionResult.SUCCESS, par1ItemStack);
+			return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
 		}
 
-		return ActionResult.newResult(EnumActionResult.PASS, par1ItemStack);
+		return ActionResult.newResult(EnumActionResult.PASS, stack);
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void getSubItems(@Nonnull Item item, CreativeTabs tab, List<ItemStack> stacks) {
+	public void getSubItems(@Nonnull Item item, CreativeTabs tab, NonNullList<ItemStack> stacks) {
 		for(int i = 0; i < types; i++)
 			if(Botania.gardenOfGlassLoaded || i != 20 && i != 21)
 				stacks.add(new ItemStack(item, 1, i));
@@ -155,7 +154,7 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 	@Nonnull
 	@Override
 	public ItemStack getContainerItem(@Nonnull ItemStack itemStack) {
-		return itemStack.getItemDamage() == 11 ? itemStack.copy() : null;
+		return itemStack.getItemDamage() == 11 ? itemStack.copy() : ItemStack.EMPTY;
 	}
 
 	@Override

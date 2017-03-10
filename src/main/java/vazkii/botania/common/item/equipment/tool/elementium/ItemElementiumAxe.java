@@ -4,9 +4,11 @@ import java.util.Random;
 
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.monster.AbstractSkeleton;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.monster.EntityPigZombie;
 import net.minecraft.entity.monster.EntitySkeleton;
+import net.minecraft.entity.monster.EntityWitherSkeleton;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Enchantments;
@@ -36,12 +38,12 @@ public class ItemElementiumAxe extends ItemManasteelAxe {
 	public void onEntityDrops(LivingDropsEvent event) {
 		if(event.isRecentlyHit() && event.getSource().getEntity() != null && event.getSource().getEntity() instanceof EntityPlayer) {
 			ItemStack weapon = ((EntityPlayer) event.getSource().getEntity()).getHeldItemMainhand();
-			if(weapon != null && weapon.getItem() == this) {
-				Random rand = event.getEntityLiving().worldObj.rand;
+			if(!weapon.isEmpty() && weapon.getItem() == this) {
+				Random rand = event.getEntityLiving().world.rand;
 				int looting = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, weapon);
 
-				if(event.getEntityLiving() instanceof EntitySkeleton && rand.nextInt(26) <= 3 + looting)
-					addDrop(event, new ItemStack(Items.SKULL, 1, ((EntitySkeleton) event.getEntityLiving()).func_189771_df().ordinal()));
+				if(event.getEntityLiving() instanceof AbstractSkeleton && rand.nextInt(26) <= 3 + looting)
+					addDrop(event, new ItemStack(Items.SKULL, 1, event.getEntityLiving() instanceof EntityWitherSkeleton ? 1 : 0));
 				else if(event.getEntityLiving() instanceof EntityZombie && !(event.getEntityLiving() instanceof EntityPigZombie) && rand.nextInt(26) <= 2 + 2 * looting)
 					addDrop(event, new ItemStack(Items.SKULL, 1, 2));
 				else if(event.getEntityLiving() instanceof EntityCreeper && rand.nextInt(26) <= 2 + 2 * looting)
@@ -57,7 +59,7 @@ public class ItemElementiumAxe extends ItemManasteelAxe {
 	}
 
 	private void addDrop(LivingDropsEvent event, ItemStack drop) {
-		EntityItem entityitem = new EntityItem(event.getEntityLiving().worldObj, event.getEntityLiving().posX, event.getEntityLiving().posY, event.getEntityLiving().posZ, drop);
+		EntityItem entityitem = new EntityItem(event.getEntityLiving().world, event.getEntityLiving().posX, event.getEntityLiving().posY, event.getEntityLiving().posZ, drop);
 		entityitem.setPickupDelay(10);
 		event.getDrops().add(entityitem);
 	}

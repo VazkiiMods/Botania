@@ -44,7 +44,6 @@ import vazkii.botania.common.item.equipment.bauble.ItemDivaCharm;
 import vazkii.botania.common.item.equipment.bauble.ItemDodgeRing;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
 import vazkii.botania.common.item.equipment.bauble.ItemGoddessCharm;
-import vazkii.botania.common.item.equipment.bauble.ItemGoldenLaurel;
 import vazkii.botania.common.item.equipment.bauble.ItemGreaterAuraRing;
 import vazkii.botania.common.item.equipment.bauble.ItemGreaterMagnetRing;
 import vazkii.botania.common.item.equipment.bauble.ItemGreaterManaRing;
@@ -169,7 +168,6 @@ public final class ModItems {
 	public static Item knockbackBelt;
 	public static Item icePendant;
 	public static Item lavaPendant;
-	public static Item goldLaurel;
 	public static Item magnetRing;
 	public static Item waterRing;
 	public static Item miningRing;
@@ -324,7 +322,6 @@ public final class ModItems {
 		knockbackBelt = new ItemKnockbackBelt();
 		icePendant = new ItemIcePendant();
 		lavaPendant = new ItemLavaPendant();
-		goldLaurel = new ItemGoldenLaurel();
 		magnetRing = new ItemMagnetRing();
 		waterRing = new ItemWaterRing();
 		miningRing = new ItemMiningRing();

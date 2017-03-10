@@ -66,8 +66,8 @@ public class SkyblockSkyRenderer extends IRenderHandler {
 
 		// Botania - darken when in void
 		float insideVoid = 0;
-		if(mc.thePlayer.posY <= -2)
-			insideVoid = (float) Math.min(1F, -(mc.thePlayer.posY + 2) / 30F);
+		if(mc.player.posY <= -2)
+			insideVoid = (float) Math.min(1F, -(mc.player.posY + 2) / 30F);
 
 		f = Math.max(0F, f - insideVoid);
 		f1 = Math.max(0F, f1 - insideVoid);
@@ -346,7 +346,7 @@ public class SkyblockSkyRenderer extends IRenderHandler {
 			f16 *= Math.max(0.1F, effCelAng * 2);
 			renderStars(mc, f16, partialTicks);
 		}
-		/*float f15 = this.theWorld.getStarBrightness(partialTicks) * f16;
+		/*float f15 = this.world.getStarBrightness(partialTicks) * f16;
 
 		if (f15 > 0.0F)
 		{
@@ -375,7 +375,7 @@ public class SkyblockSkyRenderer extends IRenderHandler {
 		// Botania - no horizon rendering
 		/* GlStateManager.disableTexture2D();
 		GlStateManager.color(0.0F, 0.0F, 0.0F);
-		double d0 = this.mc.thePlayer.getPositionEyes(partialTicks).yCoord - this.theWorld.getHorizon();
+		double d0 = this.mc.player.getPositionEyes(partialTicks).yCoord - this.world.getHorizon();
 
 		if (d0 < 0.0D)
 		{
@@ -424,7 +424,7 @@ public class SkyblockSkyRenderer extends IRenderHandler {
 			tessellator.draw();
 		}
 
-		if (this.theWorld.provider.isSkyColored())
+		if (this.world.provider.isSkyColored())
 		{
 			GlStateManager.color(f * 0.2F + 0.04F, f1 * 0.2F + 0.04F, f2 * 0.6F + 0.1F);
 		}

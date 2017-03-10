@@ -694,7 +694,7 @@ public final class BotaniaAPI {
 	}
 
 	private static String getMagnetKey(ItemStack stack) {
-		if(stack == null)
+		if(stack.isEmpty())
 			return "";
 
 		return "i_" + stack.getItem().getUnlocalizedName() + "@" + stack.getItemDamage();

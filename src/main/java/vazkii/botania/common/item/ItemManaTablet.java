@@ -20,6 +20,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.NonNullList;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -40,23 +42,21 @@ public class ItemManaTablet extends ItemMod implements IManaItem, ICreativeManaP
 	public ItemManaTablet() {
 		super(LibItemNames.MANA_TABLET);
 		setMaxStackSize(1);
-		setMaxDamage(1000);
-		setNoRepair();
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void getSubItems(@Nonnull Item item, CreativeTabs tab, List<ItemStack> stacks) {
+	public void getSubItems(@Nonnull Item item, CreativeTabs tab, NonNullList<ItemStack> stacks) {
 		// Empty tablet
-		stacks.add(new ItemStack(item, 1));
+		stacks.add(new ItemStack(item));
 
 		// Full tablet
-		ItemStack fullPower = new ItemStack(item, 1);
+		ItemStack fullPower = new ItemStack(item);
 		setMana(fullPower, MAX_MANA);
 		stacks.add(fullPower);
 
 		// Creative Tablet
-		ItemStack creative = new ItemStack(item, 1);
+		ItemStack creative = new ItemStack(item);
 		setMana(creative, MAX_MANA);
 		setStackCreative(creative);
 		stacks.add(creative);
@@ -150,14 +150,16 @@ public class ItemManaTablet extends ItemMod implements IManaItem, ICreativeManaP
 
 	@Override
 	public boolean showDurabilityBar(ItemStack stack) {
-		// If the stack is not creative, show the durability bar.
 		return !isStackCreative(stack);
 	}
 
 	@Override
 	public double getDurabilityForDisplay(ItemStack stack) {
-		// I believe Forge has their durability values swapped, hence the (1.0 -).
-		// This will probably be fixed soon.
 		return 1.0 - getManaFractionForDisplay(stack);
+	}
+
+	@Override
+	public int getRGBDurabilityForDisplay(ItemStack stack) {
+		return MathHelper.hsvToRGB(getManaFractionForDisplay(stack) / 3.0F, 1.0F, 1.0F);
 	}
 }

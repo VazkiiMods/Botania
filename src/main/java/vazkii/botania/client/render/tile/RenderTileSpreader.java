@@ -87,7 +87,7 @@ public class RenderTileSpreader extends TileEntitySpecialRenderer<TileSpreader> 
 		GlStateManager.scale(1F, -1F, -1F);
 		ItemStack stack = spreader.getItemHandler().getStackInSlot(0);
 
-		if(stack != null) {
+		if(!stack.isEmpty()) {
 			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 			stack.getItem();
 			GlStateManager.pushMatrix();

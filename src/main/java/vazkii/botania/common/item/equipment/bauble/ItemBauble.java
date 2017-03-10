@@ -33,6 +33,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.IItemHandlerModifiable;
 import thaumcraft.api.items.IRunicArmor;
 import vazkii.botania.api.item.ICosmeticAttachable;
 import vazkii.botania.api.item.IPhantomInkable;
@@ -58,25 +60,25 @@ public abstract class ItemBauble extends ItemMod implements IBauble, ICosmeticAt
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
+		ItemStack stack = player.getHeldItem(hand);
 		if(!EntityDoppleganger.isTruePlayer(player))
 			return ActionResult.newResult(EnumActionResult.FAIL, stack);
 
-		ItemStack toEquip = stack.copy();
-		toEquip.stackSize = 1;
+		ItemStack toEquip = stack.splitStack(1);
 
 		if(canEquip(toEquip, player)) {
-			IInventory baubles = BaublesApi.getBaubles(player);
-			for(int i = 0; i < baubles.getSizeInventory(); i++) {
-				if(baubles.isItemValidForSlot(i, toEquip)) {
+			IItemHandlerModifiable baubles = BaublesApi.getBaublesHandler(player);
+			for(int i = 0; i < baubles.getSlots(); i++) {
+				ItemStack simulate = baubles.insertItem(i, toEquip, true);
+				if(simulate.isEmpty()) {
 					ItemStack stackInSlot = baubles.getStackInSlot(i);
-					if(stackInSlot == null || ((IBauble) stackInSlot.getItem()).canUnequip(stackInSlot, player)) {
+					if(stackInSlot.isEmpty() || ((IBauble) stackInSlot.getItem()).canUnequip(stackInSlot, player)) {
 						if(!world.isRemote) {
-							baubles.setInventorySlotContents(i, toEquip);
-							stack.stackSize--;
+							baubles.setStackInSlot(i, toEquip);
 						}
 
-						if(stackInSlot != null) {
+						if(!stackInSlot.isEmpty()) {
 							((IBauble) stackInSlot.getItem()).onUnequipped(stackInSlot, player);
 							return ActionResult.newResult(EnumActionResult.SUCCESS, stackInSlot.copy());
 						}
@@ -105,7 +107,7 @@ public abstract class ItemBauble extends ItemMod implements IBauble, ICosmeticAt
 			addStringToTooltip(I18n.format("botania.baubletooltip", key), stacks);
 
 		ItemStack cosmetic = getCosmeticItem(par1ItemStack);
-		if(cosmetic != null)
+		if(!cosmetic.isEmpty())
 			addStringToTooltip(I18n.format("botaniamisc.hasCosmetic", cosmetic.getDisplayName()), stacks);
 
 		if(hasPhantomInk(par1ItemStack))
@@ -137,8 +139,8 @@ public abstract class ItemBauble extends ItemMod implements IBauble, ICosmeticAt
 	@Override
 	public void onEquipped(ItemStack stack, EntityLivingBase player) {
 		if(player != null) {
-			if(!player.worldObj.isRemote)
-				player.worldObj.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.equipBauble, SoundCategory.PLAYERS, 0.1F, 1.3F);
+			if(!player.world.isRemote)
+				player.world.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.equipBauble, SoundCategory.PLAYERS, 0.1F, 1.3F);
 
 			if(player instanceof EntityPlayer)
 				((EntityPlayer) player).addStat(ModAchievements.baubleWear, 1);
@@ -157,21 +159,21 @@ public abstract class ItemBauble extends ItemMod implements IBauble, ICosmeticAt
 	public ItemStack getCosmeticItem(ItemStack stack) {
 		NBTTagCompound cmp = ItemNBTHelper.getCompound(stack, TAG_COSMETIC_ITEM, true);
 		if(cmp == null)
-			return null;
-		return ItemStack.loadItemStackFromNBT(cmp);
+			return ItemStack.EMPTY;
+		return new ItemStack(cmp);
 	}
 
 	@Override
 	public void setCosmeticItem(ItemStack stack, ItemStack cosmetic) {
 		NBTTagCompound cmp = new NBTTagCompound();
-		if(cosmetic != null)
-			cosmetic.writeToNBT(cmp);
+		if(!cosmetic.isEmpty())
+			cmp = cosmetic.writeToNBT(cmp);
 		ItemNBTHelper.setCompound(stack, TAG_COSMETIC_ITEM, cmp);
 	}
 
 	@Override
 	public boolean hasContainerItem(ItemStack stack) {
-		return getContainerItem(stack) != null;
+		return !getContainerItem(stack).isEmpty();
 	}
 
 	@Nonnull

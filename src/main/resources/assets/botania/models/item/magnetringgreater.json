@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "botania:items/magnetringgreater1"
+  },
+  "overrides": [{
+    "predicate": {
+      "botania:on": 1
+    },
+    "model": "botania:item/magnetringgreateron"
+  }]
+}

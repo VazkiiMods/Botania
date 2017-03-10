@@ -19,6 +19,8 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.NonNullList;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -35,13 +37,10 @@ public class ItemManaRing extends ItemBauble implements IManaItem, IManaTooltipD
 
 	public ItemManaRing() {
 		this(LibItemNames.MANA_RING);
-		setMaxDamage(1000);
-		setNoRepair();
 	}
 
 	public ItemManaRing(String name) {
 		super(name);
-		setMaxDamage(1000);
 	}
 
 	@Override
@@ -51,8 +50,12 @@ public class ItemManaRing extends ItemBauble implements IManaItem, IManaTooltipD
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void getSubItems(@Nonnull Item item, CreativeTabs tab, List<ItemStack> stacks) {
-		stacks.add(new ItemStack(item, 1, 10000));
+	public void getSubItems(@Nonnull Item item, CreativeTabs tab, NonNullList<ItemStack> stacks) {
+		stacks.add(new ItemStack(item));
+
+		ItemStack full = new ItemStack(item);
+		setMana(full, getMaxMana(full));
+		stacks.add(full);
 	}
 
 	@Override
@@ -111,14 +114,17 @@ public class ItemManaRing extends ItemBauble implements IManaItem, IManaTooltipD
 
 	@Override
 	public boolean showDurabilityBar(ItemStack stack) {
-		// For mana rings, always show the durability bar.
 		return true;
 	}
 
 	@Override
 	public double getDurabilityForDisplay(ItemStack stack) {
-		// As in ItemManaTablet, forge seems to have their durability swapped, hence the 1.0 -
 		return 1.0 - getManaFractionForDisplay(stack);
+	}
+
+	@Override
+	public int getRGBDurabilityForDisplay(ItemStack stack) {
+		return MathHelper.hsvToRGB(getManaFractionForDisplay(stack) / 3.0F, 1.0F, 1.0F);
 	}
 
 }

@@ -39,7 +39,6 @@ import vazkii.botania.client.model.GunModel;
 import vazkii.botania.client.model.LexiconModel;
 import vazkii.botania.client.model.PlatformModel;
 import vazkii.botania.common.Botania;
-import vazkii.botania.common.integration.buildcraft.TriggerManaLevel;
 import vazkii.botania.common.item.ItemSparkUpgrade;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
 import vazkii.botania.common.item.relic.ItemKingKey;
@@ -70,7 +69,7 @@ public class MiscellaneousIcons {
 
 	public TextureAtlasSprite[] sparkUpgradeIcons;
 	public TextureAtlasSprite[] kingKeyWeaponIcons;
-	public final Map<TriggerManaLevel.State, TextureAtlasSprite> manaLevelTriggerIcons = Maps.newEnumMap(TriggerManaLevel.State.class);
+	// todo buildcraft public final Map<TriggerManaLevel.State, TextureAtlasSprite> manaLevelTriggerIcons = Maps.newEnumMap(TriggerManaLevel.State.class);
 	public TextureAtlasSprite[] tiaraWingIcons;
 	public TextureAtlasSprite[] thirdEyeLayers;
 
@@ -156,9 +155,9 @@ public class MiscellaneousIcons {
 		manaDetectorIcon = IconHelper.forName(evt.getMap(), "triggers/manaDetector", "items");
 		runeAltarTriggerIcon = IconHelper.forName(evt.getMap(), "triggers/runeAltarCanCraft", "items");
 
-		for (TriggerManaLevel.State s : TriggerManaLevel.State.values()) {
+		/*for (TriggerManaLevel.State s : TriggerManaLevel.State.values()) { todo buildcraft
 			manaLevelTriggerIcons.put(s, IconHelper.forName(evt.getMap(), "triggers/mana" + WordUtils.capitalizeFully(s.name()), "items"));
-		}
+		}*/
 
 		tiaraWingIcons = new TextureAtlasSprite[ItemFlightTiara.WING_TYPES];
 		for (int i = 0; i < tiaraWingIcons.length; i++) {
@@ -179,7 +178,7 @@ public class MiscellaneousIcons {
 
 	@SubscribeEvent
 	public void dumpAtlas(ArrowLooseEvent evt) {
-		if (!evt.getEntityPlayer().worldObj.isRemote || !((Boolean) Launch.blackboard.get("fml.deobfuscatedEnvironment"))
+		if (!evt.getEntityPlayer().world.isRemote || !((Boolean) Launch.blackboard.get("fml.deobfuscatedEnvironment"))
 				|| !evt.getEntityPlayer().isSneaking())
 			return;
 		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);

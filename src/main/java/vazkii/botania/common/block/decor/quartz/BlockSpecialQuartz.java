@@ -23,6 +23,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -89,7 +90,7 @@ public class BlockSpecialQuartz extends BlockMod implements ILexiconable {
 
 	@Nonnull
 	@Override
-	public IBlockState onBlockPlaced(World world, BlockPos pos, EnumFacing side, float par6, float par7, float par8, int meta, EntityLivingBase placer) {
+	public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing side, float par6, float par7, float par8, int meta, EntityLivingBase placer) {
 		if (meta == 2) { // Pillar quartz variant
 			switch (side.getAxis()) {
 			case Y:
@@ -113,14 +114,15 @@ public class BlockSpecialQuartz extends BlockMod implements ILexiconable {
 		return getMetaFromState(state);
 	}
 
+	@Nonnull
 	@Override
-	public ItemStack createStackedBlock(@Nonnull IBlockState state) {
+	public ItemStack getSilkTouchDrop(@Nonnull IBlockState state) {
 		return new ItemStack(this, 1, damageDropped(state));
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void getSubBlocks(@Nonnull Item item, CreativeTabs tab, List<ItemStack> stacks) {
+	public void getSubBlocks(@Nonnull Item item, CreativeTabs tab, NonNullList<ItemStack> stacks) {
 		stacks.add(new ItemStack(this, 1, 0));
 		stacks.add(new ItemStack(this, 1, 1));
 		stacks.add(new ItemStack(this, 1, 2));

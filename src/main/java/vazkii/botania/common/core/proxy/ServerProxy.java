@@ -80,9 +80,6 @@ public class ServerProxy implements IProxy {
 	}
 
 	@Override
-	public void playRecordClientSided(World world, BlockPos pos, ItemRecord record) {}
-
-	@Override
 	public void setMultiblock(World world, int x, int y, int z, double radius, Block block) {}
 
 	@Override
@@ -90,7 +87,7 @@ public class ServerProxy implements IProxy {
 
 	@Override
 	public long getWorldElapsedTicks() {
-		return FMLCommonHandler.instance().getMinecraftServerInstance().worldServers[0].getTotalWorldTime();
+		return FMLCommonHandler.instance().getMinecraftServerInstance().worlds[0].getTotalWorldTime();
 	}
 
 	@Override

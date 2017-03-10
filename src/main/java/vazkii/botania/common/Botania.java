@@ -85,7 +85,6 @@ import vazkii.botania.common.entity.EntityPinkWither;
 import vazkii.botania.common.entity.EntitySignalFlare;
 import vazkii.botania.common.entity.EntitySpark;
 import vazkii.botania.common.entity.ModEntities;
-import vazkii.botania.common.integration.buildcraft.StatementAPIPlugin;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibMisc;
@@ -104,7 +103,6 @@ public class Botania {
 	public static boolean bloodMagicLoaded = false;
 	public static boolean coloredLightsLoaded = false;
 	public static boolean etFuturumLoaded = false;
-	public static boolean rfApiLoaded = false;
 	public static boolean storageDrawersLoaded = false;
 
 	@Instance(LibMisc.MOD_ID)
@@ -117,15 +115,14 @@ public class Botania {
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
-		gardenOfGlassLoaded = Loader.isModLoaded("GardenOfGlass");
+		gardenOfGlassLoaded = Loader.isModLoaded("gardenofglass");
 
-		thaumcraftLoaded = Loader.isModLoaded("Thaumcraft");
+		thaumcraftLoaded = Loader.isModLoaded("thaumcraft");
 		bcTriggersLoaded = ModAPIManager.INSTANCE.hasAPI("BuildCraftAPI|statements");
-		bloodMagicLoaded = Loader.isModLoaded("BloodMagic"); // Psh, noob
+		bloodMagicLoaded = Loader.isModLoaded("bloodmagic"); // Psh, noob
 		coloredLightsLoaded = Loader.isModLoaded("easycoloredlights");
 		etFuturumLoaded = Loader.isModLoaded("etfuturum");
-		rfApiLoaded = ModAPIManager.INSTANCE.hasAPI("CoFHAPI|energy");
-		storageDrawersLoaded = Loader.isModLoaded("StorageDrawers");
+		storageDrawersLoaded = Loader.isModLoaded("storagedrawers");
 
 		BotaniaAPI.internalHandler = new InternalMethodHandler();
 
@@ -180,8 +177,8 @@ public class Botania {
 
 		FMLInterModComms.sendMessage("ProjectE", "interdictionblacklist", EntityManaBurst.class.getCanonicalName());
 
-		if(Botania.bcTriggersLoaded)
-			new StatementAPIPlugin();
+		/*if(Botania.bcTriggersLoaded) todo buildcraft
+			new StatementAPIPlugin();*/
 		proxy.init(event);
 	}
 
@@ -198,7 +195,6 @@ public class Botania {
 		}
 
 		ModBlocks.addDispenserBehaviours();
-		ModBlocks.registerMultiparts();
 		ConfigHandler.loadPostInit();
 		LexiconData.postInit();
 

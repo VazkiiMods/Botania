@@ -50,7 +50,7 @@ public class ItemLavaPendant extends ItemBauble implements IBaubleRender {
 		if(type == RenderType.BODY) {
 			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 			Helper.rotateIfSneaking(player);
-			boolean armor = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST) != null;
+			boolean armor = !player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).isEmpty();
 			GlStateManager.scale(0.5, 0.5, 0.5);
 			GlStateManager.rotate(180, 0, 0, 1);
 			GlStateManager.translate(-0.5, -0.90, armor ? -0.4 : -0.25);

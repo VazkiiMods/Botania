@@ -30,7 +30,7 @@ public class LayerGaiaHead implements LayerRenderer<EntityPlayer> {
 	public void doRenderLayer(@Nonnull EntityPlayer player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 		ItemStack itemstack = player.getItemStackFromSlot(EntityEquipmentSlot.HEAD);
 
-		if (itemstack != null && itemstack.getItem() == ModItems.gaiaHead) // Botania - check for head
+		if (!itemstack.isEmpty() && itemstack.getItem() == ModItems.gaiaHead) // Botania - check for head
 		{
 			GlStateManager.pushMatrix();
 

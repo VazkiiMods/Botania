@@ -1,3 +1,4 @@
+/*
 package vazkii.botania.common.integration.buildcraft;
 
 import buildcraft.api.statements.IStatement;
@@ -32,3 +33,4 @@ public abstract class StatementBase implements IStatement {
 		return this;
 	}
 }
+*/

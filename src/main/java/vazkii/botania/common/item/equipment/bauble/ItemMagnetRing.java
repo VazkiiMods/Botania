@@ -27,6 +27,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.item.ItemTossEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.items.IItemHandler;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IRelic;
 import vazkii.botania.api.mana.IManaItem;
@@ -59,10 +60,10 @@ public class ItemMagnetRing extends ItemBauble {
 
 	@SubscribeEvent
 	public void onTossItem(ItemTossEvent event) {
-		IInventory inv = BaublesApi.getBaubles(event.getPlayer());
-		for(int i = 0; i < inv.getSizeInventory(); i++) {
+		IItemHandler inv = BaublesApi.getBaublesHandler(event.getPlayer());
+		for(int i = 0; i < inv.getSlots(); i++) {
 			ItemStack stack = inv.getStackInSlot(i);
-			if(stack != null && stack.getItem() instanceof ItemMagnetRing) {
+			if(!stack.isEmpty() && stack.getItem() instanceof ItemMagnetRing) {
 				setCooldown(stack, 100);
 				BotaniaAPI.internalHandler.sendBaubleUpdatePacket(event.getPlayer(), i);
 			}
@@ -87,7 +88,7 @@ public class ItemMagnetRing extends ItemBauble {
 				double y = player.posY + 0.75;
 				double z = player.posZ;
 
-				List<EntityItem> items = player.worldObj.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(x - range, y - range, z - range, x + range, y + range, z + range));
+				List<EntityItem> items = player.world.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(x - range, y - range, z - range, x + range, y + range, z + range));
 				int pulled = 0;
 				for(EntityItem item : items)
 					if(canPullItem(item)) {
@@ -95,8 +96,8 @@ public class ItemMagnetRing extends ItemBauble {
 							break;
 
 						MathHelper.setEntityMotionFromVector(item, new Vector3(x, y, z), 0.45F);
-						if(player.worldObj.isRemote) {
-							boolean red = player.worldObj.rand.nextBoolean();
+						if(player.world.isRemote) {
+							boolean red = player.world.rand.nextBoolean();
 							Botania.proxy.sparkleFX(item.posX, item.posY, item.posZ, red ? 1F : 0F, 0F, red ? 0F : 1F, 1F, 3);
 						}
 						pulled++;
@@ -110,15 +111,15 @@ public class ItemMagnetRing extends ItemBauble {
 			return false;
 
 		ItemStack stack = item.getEntityItem();
-		if(stack == null || stack.getItem() instanceof IManaItem || stack.getItem() instanceof IRelic || BLACKLIST.contains(Item.REGISTRY.getNameForObject(stack.getItem())) || BotaniaAPI.isItemBlacklistedFromMagnet(stack))
+		if(stack.isEmpty() || stack.getItem() instanceof IManaItem || stack.getItem() instanceof IRelic || BLACKLIST.contains(Item.REGISTRY.getNameForObject(stack.getItem())) || BotaniaAPI.isItemBlacklistedFromMagnet(stack))
 			return false;
 
 		BlockPos pos = new BlockPos(item);
 
-		if(BotaniaAPI.isBlockBlacklistedFromMagnet(item.worldObj.getBlockState(pos)))
+		if(BotaniaAPI.isBlockBlacklistedFromMagnet(item.world.getBlockState(pos)))
 			return false;
 
-		if(BotaniaAPI.isBlockBlacklistedFromMagnet(item.worldObj.getBlockState(pos.down())))
+		if(BotaniaAPI.isBlockBlacklistedFromMagnet(item.world.getBlockState(pos.down())))
 			return false;
 
 		return true;

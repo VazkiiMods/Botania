@@ -33,6 +33,7 @@ import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.items.ItemHandlerHelper;
 import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -89,19 +90,16 @@ public class BlockAvatar extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack stackOnPlayer, EnumFacing s, float xs, float ys, float zs) {
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing s, float xs, float ys, float zs) {
 		TileAvatar avatar = (TileAvatar) world.getTileEntity(pos);
 		ItemStack stackOnAvatar = avatar.getItemHandler().getStackInSlot(0);
-		if(stackOnAvatar != null) {
-			ItemStack copyStack = stackOnAvatar.copy();
-			avatar.getItemHandler().setStackInSlot(0, null);
-			if(!player.inventory.addItemStackToInventory(copyStack))
-				player.dropItem(copyStack, true);
+		ItemStack stackOnPlayer = player.getHeldItem(hand);
+		if(!stackOnAvatar.isEmpty()) {
+			avatar.getItemHandler().setStackInSlot(0, ItemStack.EMPTY);
+			ItemHandlerHelper.giveItemToPlayer(player, stackOnAvatar);
 			return true;
-		} else if(stackOnPlayer != null && stackOnPlayer.getItem() instanceof IAvatarWieldable) {
-			ItemStack copyStack = stackOnPlayer.copy();
-			avatar.getItemHandler().setStackInSlot(0, copyStack);
-			stackOnPlayer.stackSize--;
+		} else if(!stackOnPlayer.isEmpty() && stackOnPlayer.getItem() instanceof IAvatarWieldable) {
+			avatar.getItemHandler().setStackInSlot(0, stackOnPlayer.splitStack(1));
 			return true;
 		}
 

@@ -1,3 +1,4 @@
+/*
 package vazkii.botania.common.integration.buildcraft;
 
 import java.util.ArrayList;
@@ -61,3 +62,4 @@ public class StatementAPIPlugin implements ITriggerProvider {
 		return list;
 	}
 }
+*/

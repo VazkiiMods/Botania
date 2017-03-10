@@ -24,14 +24,8 @@ public class ManaPoolRecipeHandler implements IRecipeHandler<RecipeManaInfusion>
 
 	@Nonnull
 	@Override
-	public String getRecipeCategoryUid() {
-		return "botania.manaPool";
-	}
-
-	@Nonnull
-	@Override
 	public String getRecipeCategoryUid(@Nonnull RecipeManaInfusion recipe) { // o is erased type param
-		return getRecipeCategoryUid();
+		return "botania.manaPool";
 	}
 
 	@Nonnull

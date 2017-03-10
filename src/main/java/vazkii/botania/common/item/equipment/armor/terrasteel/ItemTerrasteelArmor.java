@@ -52,7 +52,7 @@ public class ItemTerrasteelArmor extends ItemManasteelArmor {
 	}
 
 	@Override
-	public boolean getIsRepairable(ItemStack par1ItemStack, ItemStack par2ItemStack) {
+	public boolean getIsRepairable(ItemStack par1ItemStack, @Nonnull ItemStack par2ItemStack) {
 		return par2ItemStack.getItem() == ModItems.manaResource && par2ItemStack.getItemDamage() == 4 || super.getIsRepairable(par1ItemStack, par2ItemStack);
 	}
 
@@ -62,7 +62,7 @@ public class ItemTerrasteelArmor extends ItemManasteelArmor {
 		Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack);
 		UUID uuid = new UUID((getUnlocalizedName() + slot.toString()).hashCode(), 0);
 		if (slot == armorType) {
-			multimap.put(SharedMonsterAttributes.KNOCKBACK_RESISTANCE.getAttributeUnlocalizedName(), new AttributeModifier(uuid, "Terrasteel modifier " + type, (double) getArmorDisplay(null, new ItemStack(this), type.getIndex()) / 20, 0));
+			multimap.put(SharedMonsterAttributes.KNOCKBACK_RESISTANCE.getName(), new AttributeModifier(uuid, "Terrasteel modifier " + type, (double) getArmorDisplay(null, new ItemStack(this), type.getIndex()) / 20, 0));
 		}
 		return multimap;
 	}
@@ -84,8 +84,8 @@ public class ItemTerrasteelArmor extends ItemManasteelArmor {
 
 	@Override
 	public boolean hasArmorSetItem(EntityPlayer player, int i) {
-		ItemStack stack = player.inventory.armorInventory[3 - i];
-		if(stack == null)
+		ItemStack stack = player.inventory.armorInventory.get(3 - i);
+		if(stack.isEmpty())
 			return false;
 
 		switch(i) {

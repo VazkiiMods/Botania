@@ -25,6 +25,8 @@ import net.minecraft.client.multiplayer.PlayerControllerMP;
 import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.client.renderer.entity.RenderSnowball;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -172,6 +174,17 @@ import vazkii.botania.common.lib.LibObfuscation;
 
 public class ClientProxy implements IProxy {
 
+	public static final VertexFormat POSITION_TEX_LMAP_NORMAL =
+			new VertexFormat()
+					.addElement(DefaultVertexFormats.POSITION_3F)
+					.addElement(DefaultVertexFormats.TEX_2F)
+					.addElement(DefaultVertexFormats.TEX_2S)
+					.addElement(DefaultVertexFormats.NORMAL_3B);
+	public static final VertexFormat POSITION_TEX_LMAP =
+			new VertexFormat()
+					.addElement(DefaultVertexFormats.POSITION_3F)
+					.addElement(DefaultVertexFormats.TEX_2F)
+					.addElement(DefaultVertexFormats.TEX_2S);
 	public static boolean jingleTheBells = false;
 	public static boolean dootDoot = false;
 
@@ -317,23 +330,23 @@ public class ClientProxy implements IProxy {
 
 	@Override
 	public boolean isTheClientPlayer(EntityLivingBase entity) {
-		return entity == Minecraft.getMinecraft().thePlayer;
+		return entity == Minecraft.getMinecraft().player;
 	}
 
 	@Override
 	public EntityPlayer getClientPlayer() {
-		return Minecraft.getMinecraft().thePlayer;
+		return Minecraft.getMinecraft().player;
 	}
 
 	@Override
 	public boolean isClientPlayerWearingMonocle() {
-		return ItemMonocle.hasMonocle(Minecraft.getMinecraft().thePlayer);
+		return ItemMonocle.hasMonocle(Minecraft.getMinecraft().player);
 	}
 
 	@Override
 	public void setExtraReach(EntityLivingBase entity, float reach) {
 		Minecraft mc = Minecraft.getMinecraft();
-		EntityPlayer player = mc.thePlayer;
+		EntityPlayer player = mc.player;
 		if(entity == player) {
 			if(!(mc.playerController instanceof IExtendedPlayerController)) {
 				NetHandlerPlayClient net = ReflectionHelper.getPrivateValue(PlayerControllerMP.class, mc.playerController, LibObfuscation.NET_CLIENT_HANDLER);
@@ -353,7 +366,7 @@ public class ClientProxy implements IProxy {
 	@Override
 	public boolean openWikiPage(World world, Block block, RayTraceResult pos) {
 		IWikiProvider wiki = WikiHooks.getWikiFor(block);
-		String url = wiki.getWikiURL(world, pos, Minecraft.getMinecraft().thePlayer);
+		String url = wiki.getWikiURL(world, pos, Minecraft.getMinecraft().player);
 		if(url != null && !url.isEmpty()) {
 			try {
 				Desktop.getDesktop().browse(new URI(url));
@@ -377,17 +390,6 @@ public class ClientProxy implements IProxy {
 			return s.split("-")[1];
 
 		return s;
-	}
-
-	@Override
-	public void playRecordClientSided(World world, BlockPos pos, ItemRecord record) {
-		Minecraft mc = Minecraft.getMinecraft();
-		if(record == null)
-			world.playEvent(null, 1010, pos, 0);
-		else {
-			world.playEvent(null, 1010, pos, Item.getIdFromItem(record));
-			mc.ingameGUI.setRecordPlayingMessage(record.getRecordNameLocal());
-		}
 	}
 
 	@Override
@@ -441,10 +443,11 @@ public class ClientProxy implements IProxy {
 		if(!doParticle() && !fake)
 			return;
 
-		FXSparkle sparkle = new FXSparkle(Minecraft.getMinecraft().theWorld, x, y, z, size, r, g, b, m);
-		sparkle.fake = sparkle.noClip = fake;
+		FXSparkle sparkle = new FXSparkle(Minecraft.getMinecraft().world, x, y, z, size, r, g, b, m);
+		sparkle.fake = fake;
+		sparkle.setCanCollide(!fake);
 		if(noclipEnabled)
-			sparkle.noClip = true;
+			sparkle.setCanCollide(false);
 		if(corruptSparkle)
 			sparkle.corrupt = true;
 		Minecraft.getMinecraft().effectRenderer.addEffect(sparkle);
@@ -468,7 +471,7 @@ public class ClientProxy implements IProxy {
 		if(!doParticle())
 			return;
 
-		FXWisp wisp = new FXWisp(Minecraft.getMinecraft().theWorld, x, y, z, size, r, g, b, distanceLimit, depthTest, maxAgeMul);
+		FXWisp wisp = new FXWisp(Minecraft.getMinecraft().world, x, y, z, size, r, g, b, distanceLimit, depthTest, maxAgeMul);
 		wisp.setSpeed(motionx, motiony, motionz);
 		Minecraft.getMinecraft().effectRenderer.addEffect(wisp);
 	}
@@ -491,7 +494,7 @@ public class ClientProxy implements IProxy {
 
 	@Override
 	public void lightningFX(Vector3 vectorStart, Vector3 vectorEnd, float ticksPerMeter, long seed, int colorOuter, int colorInner) {
-		Minecraft.getMinecraft().effectRenderer.addEffect(new FXLightning(Minecraft.getMinecraft().theWorld, vectorStart, vectorEnd, ticksPerMeter, seed, colorOuter, colorInner));
+		Minecraft.getMinecraft().effectRenderer.addEffect(new FXLightning(Minecraft.getMinecraft().world, vectorStart, vectorEnd, ticksPerMeter, seed, colorOuter, colorInner));
 	}
 
 	@Override

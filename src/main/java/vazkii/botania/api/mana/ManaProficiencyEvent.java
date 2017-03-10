@@ -10,10 +10,6 @@
  */
 package vazkii.botania.api.mana;
 
-import java.util.List;
-
-import javax.annotation.Nullable;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.eventhandler.Event;
@@ -24,7 +20,7 @@ public class ManaProficiencyEvent extends Event {
 	private ItemStack rod;
 	private boolean proficient;
 
-	public ManaProficiencyEvent(EntityPlayer entityPlayer, @Nullable ItemStack rod, boolean proficient) {
+	public ManaProficiencyEvent(EntityPlayer entityPlayer, ItemStack rod, boolean proficient) {
 		this.entityPlayer = entityPlayer;
 		this.rod = rod;
 		this.proficient = proficient;
@@ -34,7 +30,6 @@ public class ManaProficiencyEvent extends Event {
 		return entityPlayer;
 	}
 	
-	@Nullable
 	public ItemStack getRod() {
 		return rod;
 	}

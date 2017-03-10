@@ -27,13 +27,13 @@ public class CommandOpen extends CommandBase {
 
 	@Nonnull
 	@Override
-	public String getCommandName() {
+	public String getName() {
 		return "botania-open";
 	}
 
 	@Nonnull
 	@Override
-	public String getCommandUsage(@Nonnull ICommandSender sender) {
+	public String getUsage(@Nonnull ICommandSender sender) {
 		return "<entry>";
 	}
 
@@ -42,10 +42,10 @@ public class CommandOpen extends CommandBase {
 		if(sender instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) sender;
 			ItemStack stack = PlayerHelper.getFirstHeldItemClass(player, ItemLexicon.class);
-			if(stack != null) {
+			if(!stack.isEmpty()) {
 				ItemLexicon.setForcedPage(stack, args[0]);
 				ItemLexicon.setQueueTicks(stack, 5);
-			} else sender.addChatMessage(new TextComponentTranslation("botaniamisc.noLexicon").setStyle(new Style().setColor(TextFormatting.RED)));
+			} else sender.sendMessage(new TextComponentTranslation("botaniamisc.noLexicon").setStyle(new Style().setColor(TextFormatting.RED)));
 		}
 	}
 

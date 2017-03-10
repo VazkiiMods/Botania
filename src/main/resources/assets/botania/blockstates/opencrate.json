@@ -1,0 +1,25 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "minecraft:orientable_vertical",
+    "transform": "forge:default-block"
+  },
+  "variants": {
+    "pattern": {
+      "none": {},
+      "crafty_1_1": { "textures": { "side": "botania:blocks/ocpattern0" } },
+      "crafty_2_2": { "textures": { "side": "botania:blocks/ocpattern1" } },
+      "crafty_1_2": { "textures": { "side": "botania:blocks/ocpattern2" } },
+      "crafty_2_1": { "textures": { "side": "botania:blocks/ocpattern3" } },
+      "crafty_1_3": { "textures": { "side": "botania:blocks/ocpattern4" } },
+      "crafty_3_1": { "textures": { "side": "botania:blocks/ocpattern5" } },
+      "crafty_2_3": { "textures": { "side": "botania:blocks/ocpattern6" } },
+      "crafty_3_2": { "textures": { "side": "botania:blocks/ocpattern7" } },
+      "crafty_donut": { "textures": { "side": "botania:blocks/ocpattern8" } }
+    },
+    "variant": {
+      "open": { "x": 180, "textures": { "front": "botania:blocks/opencrate1", "side": "botania:blocks/opencrate0" } },
+      "crafty": { "x": 180, "textures": { "front": "botania:blocks/opencrate3", "side": "botania:blocks/opencrate2" } }
+    }
+  }
+}

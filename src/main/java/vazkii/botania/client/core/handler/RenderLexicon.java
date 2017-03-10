@@ -44,12 +44,12 @@ public class RenderLexicon {
 		Minecraft mc = Minecraft.getMinecraft();
 		if(!ConfigHandler.lexicon3dModel
 				|| mc.gameSettings.thirdPersonView != 0
-				|| mc.thePlayer.getHeldItem(evt.getHand()) == null
-				|| mc.thePlayer.getHeldItem(evt.getHand()).getItem() != ModItems.lexicon)
+				|| mc.player.getHeldItem(evt.getHand()).isEmpty()
+				|| mc.player.getHeldItem(evt.getHand()).getItem() != ModItems.lexicon)
 			return;
 		evt.setCanceled(true);
 		try {
-			renderItemInFirstPerson(mc.thePlayer, evt.getPartialTicks(), evt.getInterpolatedPitch(), evt.getHand(), evt.getSwingProgress(), evt.getItemStack(), evt.getEquipProgress());
+			renderItemInFirstPerson(mc.player, evt.getPartialTicks(), evt.getInterpolatedPitch(), evt.getHand(), evt.getSwingProgress(), evt.getItemStack(), evt.getEquipProgress());
 		} catch (Throwable throwable) {
 			Botania.LOGGER.warn("Failed to render lexicon");
 		}
@@ -61,8 +61,8 @@ public class RenderLexicon {
 		EnumHandSide enumhandside = flag ? player.getPrimaryHand() : player.getPrimaryHand().opposite();
 		GlStateManager.pushMatrix();
 		boolean flag1 = enumhandside == EnumHandSide.RIGHT;
-		float f = -0.4F * MathHelper.sin(MathHelper.sqrt_float(swingProgress) * (float)Math.PI);
-		float f1 = 0.2F * MathHelper.sin(MathHelper.sqrt_float(swingProgress) * ((float)Math.PI * 2F));
+		float f = -0.4F * MathHelper.sin(MathHelper.sqrt(swingProgress) * (float)Math.PI);
+		float f1 = 0.2F * MathHelper.sin(MathHelper.sqrt(swingProgress) * ((float)Math.PI * 2F));
 		float f2 = -0.2F * MathHelper.sin(swingProgress * (float)Math.PI);
 		int i = flag1 ? 1 : -1;
 		GlStateManager.translate(i * f, f1, f2);
@@ -115,7 +115,7 @@ public class RenderLexicon {
 			font.drawString(TextFormatting.ITALIC + "" + TextFormatting.BOLD + I18n.format("botaniamisc.edition", ItemLexicon.getEdition()), 0, 0, 0xA07100);
 
 			if(quote == -1)
-				quote = mc.theWorld.rand.nextInt(QUOTES.length);
+				quote = mc.world.rand.nextInt(QUOTES.length);
 
 			String quoteStr = QUOTES[quote];
 
@@ -159,7 +159,7 @@ public class RenderLexicon {
 		// End add
 		float f = MathHelper.sin(p_187453_2_ * p_187453_2_ * (float)Math.PI);
 		GlStateManager.rotate(i * (45.0F + f * -20.0F), 0.0F, 1.0F, 0.0F);
-		float f1 = MathHelper.sin(MathHelper.sqrt_float(p_187453_2_) * (float)Math.PI);
+		float f1 = MathHelper.sin(MathHelper.sqrt(p_187453_2_) * (float)Math.PI);
 		GlStateManager.rotate(i * f1 * -20.0F, 0.0F, 0.0F, 1.0F);
 		GlStateManager.rotate(f1 * -80.0F, 1.0F, 0.0F, 0.0F);
 		GlStateManager.rotate(i * -45.0F, 0.0F, 1.0F, 0.0F);

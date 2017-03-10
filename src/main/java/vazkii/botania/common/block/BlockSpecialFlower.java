@@ -35,6 +35,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -134,7 +135,7 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 
 	@Nonnull
 	@Override
-	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
+	public AxisAlignedBB getBoundingBox(IBlockState state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos) {
 		return AABB;
 	}
 
@@ -147,7 +148,7 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 	@Nonnull
 	@Override
 	public IExtendedBlockState getExtendedState(@Nonnull IBlockState state, IBlockAccess world, BlockPos pos) {
-		TileEntity te = world instanceof ChunkCache ? ((ChunkCache)world).func_190300_a(pos, Chunk.EnumCreateEntityType.CHECK) : world.getTileEntity(pos);
+		TileEntity te = world instanceof ChunkCache ? ((ChunkCache)world).getTileEntity(pos, Chunk.EnumCreateEntityType.CHECK) : world.getTileEntity(pos);
 		if (te instanceof TileSpecialFlower && ((TileSpecialFlower) te).getSubTile() != null) {
 			Class<? extends SubTileEntity> clazz = ((TileSpecialFlower) te).getSubTile().getClass();
 			String id = BotaniaAPI.getSubTileStringMapping(clazz);
@@ -213,7 +214,7 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void getSubBlocks(@Nonnull Item item, CreativeTabs tab, @Nonnull List<ItemStack> stacks) {
+	public void getSubBlocks(@Nonnull Item item, CreativeTabs tab, @Nonnull NonNullList<ItemStack> stacks) {
 		for(String s : BotaniaAPI.subtilesForCreativeMenu) {
 			stacks.add(ItemBlockSpecialFlower.ofType(s));
 			if(BotaniaAPI.miniFlowers.containsKey(s))
@@ -326,8 +327,9 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack stack, EnumFacing side, float hitX, float hitY, float hitZ) {
-		if(stack != null && stack.getItem() == ModItems.dye) {
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+		ItemStack stack = player.getHeldItem(hand);
+		if(!stack.isEmpty() && stack.getItem() == ModItems.dye) {
 			EnumDyeColor newColor = EnumDyeColor.byMetadata(stack.getItemDamage());
 			EnumDyeColor oldColor = state.getValue(BotaniaStateProps.COLOR);
 			if(newColor != oldColor)
@@ -335,7 +337,7 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 			return true;
 		}
 
-		return ((TileSpecialFlower) world.getTileEntity(pos)).onBlockActivated(world, pos, state, player, hand, stack, side, hitX, hitY, hitZ);
+		return ((TileSpecialFlower) world.getTileEntity(pos)).onBlockActivated(world, pos, state, player, hand, side, hitX, hitY, hitZ);
 	}
 
 	@SideOnly(Side.CLIENT)

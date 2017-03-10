@@ -180,15 +180,15 @@ public class FXLightning extends Particle {
 	}
 
 	private float rayTraceResistance(Vector3 start, Vector3 end, float prevresistance) {
-		RayTraceResult mop = worldObj.rayTraceBlocks(start.toVec3D(), end.toVec3D());
+		RayTraceResult mop = world.rayTraceBlocks(start.toVec3D(), end.toVec3D());
 
 		if(mop == null)
 			return prevresistance;
 
 		if(mop.typeOfHit == RayTraceResult.Type.BLOCK) {
-			Block block = worldObj.getBlockState(mop.getBlockPos()).getBlock();
+			Block block = world.getBlockState(mop.getBlockPos()).getBlock();
 
-			if(worldObj.isAirBlock(mop.getBlockPos()))
+			if(world.isAirBlock(mop.getBlockPos()))
 				return prevresistance;
 
 			return prevresistance + block.getExplosionResistance(null) + 0.3F;

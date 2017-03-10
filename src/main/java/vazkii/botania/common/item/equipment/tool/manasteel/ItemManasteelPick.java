@@ -75,7 +75,7 @@ public class ItemManasteelPick extends ItemPickaxe implements IManaUsingItem, IS
 	}
 
 	@Override
-	public boolean onBlockDestroyed(@Nonnull ItemStack stack, @Nonnull World world, IBlockState state, @Nonnull BlockPos pos, @Nonnull EntityLivingBase entity) {
+	public boolean onBlockDestroyed(@Nonnull ItemStack stack, @Nonnull World world, @Nonnull IBlockState state, @Nonnull BlockPos pos, @Nonnull EntityLivingBase entity) {
 		if(state.getBlockHardness(world, pos) != 0F)
 			ToolCommons.damageItem(stack, 1, entity, getManaPerDmg());
 
@@ -84,13 +84,14 @@ public class ItemManasteelPick extends ItemPickaxe implements IManaUsingItem, IS
 
 	@Nonnull
 	@Override
-	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float sx, float sy, float sz) {
+	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float sx, float sy, float sz) {
 		for(int i = 0; i < player.inventory.getSizeInventory(); i++) {
 			ItemStack stackAt = player.inventory.getStackInSlot(i);
-			if(stackAt != null && TORCH_PATTERN.matcher(stackAt.getItem().getUnlocalizedName()).find()) {
-				EnumActionResult did = stackAt.getItem().onItemUse(stackAt, player, world, pos, hand, side, sx, sy, sz);
-				if(stackAt.stackSize == 0)
-					player.inventory.setInventorySlotContents(i, null);
+			if(!stackAt.isEmpty() && TORCH_PATTERN.matcher(stackAt.getItem().getUnlocalizedName()).find()) {
+				ItemStack saveHeldStack = player.getHeldItem(hand);
+				player.setHeldItem(hand, stackAt);
+				EnumActionResult did = stackAt.getItem().onItemUse(player, world, pos, hand, side, sx, sy, sz);
+				player.setHeldItem(hand, saveHeldStack);
 
 				ItemsRemainingRenderHandler.set(player, new ItemStack(Blocks.TORCH), TORCH_PATTERN);
 				return did;

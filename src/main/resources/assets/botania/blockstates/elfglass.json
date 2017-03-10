@@ -1,0 +1,15 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "minecraft:cube_all",
+    "transform": "forge:default-block"
+  },
+  "variants": {
+    "normal": [
+      { "textures": { "all": "botania:blocks/elfglass0" } },
+      { "textures": { "all": "botania:blocks/elfglass1" } },
+      { "textures": { "all": "botania:blocks/elfglass2" } },
+      { "textures": { "all": "botania:blocks/elfglass3" } }
+    ]
+  }
+}

@@ -50,16 +50,16 @@ public final class BoundTileRenderer {
 		GlStateManager.disableTexture2D();
 		GlStateManager.enableBlend();
 
-		EntityPlayer player = Minecraft.getMinecraft().thePlayer;
+		EntityPlayer player = Minecraft.getMinecraft().player;
 		int color = Color.HSBtoRGB(ClientTickHandler.ticksInGame % 200 / 200F, 0.6F, 1F);
 
-		if(player.getHeldItemMainhand() != null && player.getHeldItemMainhand().getItem() instanceof ICoordBoundItem) {
+		if(!player.getHeldItemMainhand().isEmpty() && player.getHeldItemMainhand().getItem() instanceof ICoordBoundItem) {
 			BlockPos coords = ((ICoordBoundItem) player.getHeldItemMainhand().getItem()).getBinding(player.getHeldItemMainhand());
 			if(coords != null)
 				renderBlockOutlineAt(coords, color);
 		}
 
-		if(player.getHeldItemOffhand() != null && player.getHeldItemOffhand().getItem() instanceof ICoordBoundItem) {
+		if(!player.getHeldItemOffhand().isEmpty() && player.getHeldItemOffhand().getItem() instanceof ICoordBoundItem) {
 			BlockPos coords = ((ICoordBoundItem) player.getHeldItemOffhand().getItem()).getBinding(player.getHeldItemOffhand());
 			if(coords != null)
 				renderBlockOutlineAt(coords, color);
@@ -72,12 +72,11 @@ public final class BoundTileRenderer {
 		for(int i = 0; i < joined.getSlots(); i++) {
 			ItemStack stackInSlot = joined.getStackInSlot(i);
 
-			if(stackInSlot != null && stackInSlot.getItem() instanceof IWireframeCoordinateListProvider) {
+			if(!stackInSlot.isEmpty() && stackInSlot.getItem() instanceof IWireframeCoordinateListProvider) {
 				IWireframeCoordinateListProvider provider = (IWireframeCoordinateListProvider) stackInSlot.getItem();
 				List<BlockPos> coordsList = provider.getWireframesToDraw(player, stackInSlot);
-				if(coordsList != null)
-					for(BlockPos coords : coordsList)
-						renderBlockOutlineAt(coords, color);
+				for(BlockPos coords : coordsList)
+					renderBlockOutlineAt(coords, color);
 
 				BlockPos coords = provider.getSourceWireframe(player, stackInSlot);
 				if(coords != null && coords.getY() > -1)
@@ -112,7 +111,7 @@ public final class BoundTileRenderer {
 		Color colorRGB = new Color(color);
 		GL11.glColor4ub((byte) colorRGB.getRed(), (byte) colorRGB.getGreen(), (byte) colorRGB.getBlue(), (byte) 255);
 
-		World world = Minecraft.getMinecraft().theWorld;
+		World world = Minecraft.getMinecraft().world;
 		IBlockState state = world.getBlockState(pos);
 		Block block = state.getBlock();
 		drawWireframe : {

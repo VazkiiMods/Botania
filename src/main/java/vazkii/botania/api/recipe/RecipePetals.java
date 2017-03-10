@@ -42,7 +42,7 @@ public class RecipePetals {
 
 		for(int i = 0; i < inv.getSlots(); i++) {
 			ItemStack stack = inv.getStackInSlot(i);
-			if(stack == null)
+			if(stack.isEmpty())
 				break;
 
 			int stackIndex = -1, oredictIndex = -1;

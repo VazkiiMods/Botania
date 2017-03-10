@@ -50,7 +50,8 @@ public class ItemInfiniteFruit extends ItemRelic implements IManaUsingItem {
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
+		ItemStack stack = player.getHeldItem(hand);
 		if(player.canEat(false) && isRightPlayer(player, stack)) {
 			player.setActiveHand(hand);
 			return ActionResult.newResult(EnumActionResult.SUCCESS, stack);

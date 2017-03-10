@@ -1,8 +1,8 @@
 {
   "parent": "minecraft:block/cube_bottom_top",
   "textures": {
-    "bottom": "botania:blocks/conjurationCatalyst0",
-    "top": "botania:blocks/conjurationCatalyst1",
-    "side": "botania:blocks/conjurationCatalyst2"
+    "bottom": "botania:blocks/conjurationcatalyst0",
+    "top": "botania:blocks/conjurationcatalyst1",
+    "side": "botania:blocks/conjurationcatalyst2"
   }
 }

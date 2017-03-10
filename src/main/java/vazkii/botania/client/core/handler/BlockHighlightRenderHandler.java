@@ -55,14 +55,14 @@ public final class BlockHighlightRenderHandler {
 			if(Botania.proxy.isClientPlayerWearingMonocle() && pos != null && pos.entityHit == null) {
 				BlockPos bPos = pos.getBlockPos();
 
-				ItemStack stackHeld = PlayerHelper.getFirstHeldItem(mc.thePlayer, ModItems.twigWand);
-				if(stackHeld != null && ItemTwigWand.getBindMode(stackHeld)) {
+				ItemStack stackHeld = PlayerHelper.getFirstHeldItem(mc.player, ModItems.twigWand);
+				if(!stackHeld.isEmpty() && ItemTwigWand.getBindMode(stackHeld)) {
 					BlockPos coords = ItemTwigWand.getBoundTile(stackHeld);
 					if(coords.getY() != -1)
 						bPos = coords;
 				}
 
-				TileEntity tile = mc.theWorld.getTileEntity(bPos);
+				TileEntity tile = mc.world.getTileEntity(bPos);
 				if(tile == null || !(tile instanceof ISubTileContainer))
 					break boundTile;
 				ISubTileContainer container = (ISubTileContainer) tile;
@@ -80,7 +80,7 @@ public final class BlockHighlightRenderHandler {
 		}
 
 		double offY = -1.0 / 16 + 0.005;
-		for(Entity e : mc.theWorld.loadedEntityList)
+		for(Entity e : mc.world.loadedEntityList)
 			if(e instanceof EntityMagicLandmine) {
 				BlockPos bpos = e.getPosition();
 				AxisAlignedBB aabb = new AxisAlignedBB(bpos).offset(0, offY, 0).expand(2.5, 0, 2.5);

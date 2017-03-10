@@ -54,10 +54,10 @@ public class ItemTinyPlanet extends ItemBauble implements IBaubleRender {
 		double x = player.posX;
 		double y = player.posY + 1.2F;
 		double z = player.posZ;
-		if(player.worldObj.isRemote)
+		if(player.world.isRemote)
 			y -= 1.62F;
 
-		applyEffect(player.worldObj, x, y, z);
+		applyEffect(player.world, x, y, z);
 	}
 
 	public static void applyEffect(World world, double x, double y, double z) {

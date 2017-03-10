@@ -1,0 +1,229 @@
+# Note to translators: DO NOT COPY ENTRIES FROM ENGLISH
+# I repeat: do NOT copy entries from English!!
+# Any entry in this lang file should be in es_AR, or *should not be here at all*
+# Copying English entries will cause them to become outdated when the main English lang file changes
+# Untranslated entries will automatically be inherited from en_US
+#
+# Once again, don't copy from English, and THANK YOU for your hard work!
+
+# MISC
+itemGroup.botania=Botania
+botaniamisc.nextPage=Página Siguiente
+botaniamisc.prevPage=Página Anterior
+botaniamisc.back=Atrás
+botaniamisc.craftingContainer=Returns on Crafting
+botaniamisc.shapeless=Receta sin Orden
+botaniamisc.oredict=Receta del Diccionario de Ores
+botaniamisc.statusUnknown=Estado Desconocido
+botaniamisc.color=%s Teñido
+botaniamisc.manaUsage=Uso de Maná
+botaniamisc.shiftToRead=Shift + click derecho para leer más
+botaniamisc.clickToRecipe=Shift + click para ver la receta
+botaniamisc.clickToIndex=Shift + click para volver al índice
+botaniamisc.flareColor=%s Rounds
+botaniamisc.outputtingPower=Compartiendo Maná con Ítems
+botaniamisc.inputtingPower=Recibiendo Maná de Ítems
+botaniamisc.creative=Creativo
+botaniamisc.invFull=Tu inventario está lleno. 
+botaniamisc.compositeLens=Composite with %s
+botaniamisc.filter0=Recoge solamente los objetos  en los marcos. 
+botaniamisc.filter1=Recoge solamente los objetos que no están en los marcos. 
+botaniamisc.filter2=Recoge todos los objetos. 
+botaniamisc.creativePool0=Pileta de Maná de Creativo. Tiene Maná infinito. 
+botaniamisc.creativePool1=Propio de un Egoista
+botaniamisc.toolRank=%s&7 Rank
+botaniamisc.edition=%s Edition
+# ^ Leave this empty for no edition display
+botaniamisc.devEdition=Writer's
+botaniamisc.lexiconcover0=Tu guía para todas
+botaniamisc.lexiconcover1=tus necesidades botánicas
+botaniamisc.lexiconcover2=del autor de bestsellers
+botaniamisc.lexiconcover3=Lizbeth "Vazkii" Rika
+botaniamisc.lexiconcover4=Editado por BevoLJ
+botaniamisc.lexiconcover5=Editado por Saice
+botaniamisc.shiftinfo=Mantén &bSHIFT&7 apretado para más información
+botaniamisc.knowledgeTypesSingular=Contiene %s School of Knowledge
+botaniamisc.knowledgeTypesPlural=Contains %s Schools of Knowledge
+botaniamisc.bookmark=Señalador #%s
+botaniamisc.clickToSee=Click para leer
+botaniamisc.shiftToRemove=Shift + click para quitar
+botaniamisc.clickToAdd=Click para añadir un señalador aquí
+botaniamisc.ratio=%s:1 Ratio
+botaniamisc.bottleTooltip=Ha adquirido gusto
+botaniamisc.shardLevel=Shard Power %s
+botaniamisc.lexiconIndex=Índice del Lexicon
+
+# COLORS
+botania.color0=Blanco
+botania.color1=Naranja
+botania.color2=Magenta
+botania.color3=Celeste
+botania.color4=Amarillo
+botania.color5=Lima
+botania.color6=Rosado
+botania.color7=Gris
+botania.color8=Gris Claro
+botania.color9=Cian
+botania.color10=Púrpura
+botania.color11=Azul
+botania.color12=Marrón
+botania.color13=Verde
+botania.color14=Rojo
+botania.color15=Negro
+botania.color16=Arco Iris
+
+# WINGS
+botania.wings0=No Wings
+botania.wings1=Wings: Flügel
+botania.wings2=Wings: Ángel de una Sola Ala
+botania.wings3=Wings: Hada de Hielo
+botania.wings4=Wings: Señor del Fuego
+botania.wings5=Wings: Princesa de la Nieve Negra
+botania.wings6=Wings: Amo del Pozo
+botania.wings7=Wings: Sylph
+
+# KNOWLEDGE
+botania.knowledge.minecraft=Conocimiento Minecraftiano
+botania.knowledge.alfheim=Conocimiento &aÉlfico&7
+
+# CONFIGURATION
+blockBreakingParticles.enabled=Partículas al Romper Bloques
+versionChecking.enabled=Permitir comprobar la versión
+worldgen.flower.density=Densidad de las Flores al Generar el Mundo
+worldgen.flower.quantity=Cantidad de Flores al Generar el Mundo
+
+# VERSION CHECKING
+botania.versioning.flavour0=NANI SORE!? BOTANIA ESTÁ DESACTUALIZADO!?
+botania.versioning.flavour1=Qué quieres decir con que Botania está desactualizado, tonto ignorante?
+botania.versioning.flavour2=No es que Botania quiera esta desactualizado, b-b-BAKA!
+botania.versioning.flavour3=Teletraspórtame Scotty. Tenemos una versión de Botania.
+botania.versioning.flavour4=La actualización de Botania pregunta si has aceptado a Vazkii como tu amo y salvador.
+botania.versioning.flavour5=Ey! Hay una actualización de Botania. Qué raro, no?
+botania.versioning.flavour6=Qué dice el scout sobre la actualización de Botania?
+botania.versioning.flavour7=Oye chaval, hay una nueva actualización de Botania.Por qué soy español?
+botania.versioning.flavour8=Porque tener una vida está demasiado trillado, acá hay una nueva actualización de Botania.
+botania.versioning.flavour9=Thank you based Botania update.
+botania.versioning.flavour10=Doscientas actualizaciones, por eso me llamana el Señor Fahrenheit.
+botania.versioning.flavour11=Perry el Ornitorrinco, te presento el Botania-actualizator.
+botania.versioning.flavour12=Botania actualizado. #hoennconfirmed
+botania.versioning.flavour13=Activaste mi Carta Trampa! Yo juego Actualización de Botania!
+botania.versioning.flavour14=Juguemos un juego de tomar. Tomemos un trago cada vez que Botania se actualiza. *hic*
+botania.versioning.flavour15=No prestes atención a la actualización de Botania escondida detrás de la cortina. 
+botania.versioning.flavour16=Una actualización para ti! Una actualización para ti! Actualizaciones para todos!
+botania.versioning.flavour17=Tu versión está desbalanceada y tu pelo es un Kuriboh! Hoo. 
+botania.versioning.flavour18=PoR quÉ EsTe MeNsAjE dE aCtUaLiZaCiÓn EsTá EsCrItO aSí?
+botania.versioning.flavour19=Al actualizar Botania debes rechazar los términos de servicio. 
+botania.versioning.flavour20=guau mucha botania gran actualización mucho arreglo gran contenido
+botania.versioning.flavour21=Esta actualización de Botania se autodestruirá en 3...2...
+botania.versioning.flavour22=Había bugs en Botania, pero todo cambió cuando atacó la nación del fuego. O no. 
+botania.versioning.flavour23=Botania fue actualizado. En otras novedades, obviamente Alemania sobornó al árbitro. 
+botania.versioning.flavour24=Ey! Ey jugador! Ey jugador! Ey jugador ey! Botania fue actualizado! 
+botania.versioning.flavour25=Y qué le decimos a la actualización de Botania? 
+botania.versioning.flavour26=Y agarré la actualización de Botani Y LA TIRÉ AL PISO! 
+botania.versioning.flavour27=Si eres capaz de romper madera con tus puños, por qué no actualizas Botania?
+botania.versioning.flavour28=Botania guau! Vas a decir "guau"todas las veces! Como se ven en el historial del chat! 
+botania.versioning.flavour29=Actualiza, actualiza, actualiza, actualiza, actualiza! Nadie quiere estar desactualizado! 
+botania.versioning.flavour30=Botanía usó Actualización! Es super efectivo! 
+botania.versioning.flavour31=Una nueva actualización de Botania está disponible, ahora 20% más chévere.
+botania.versioning.flavour32=Felicitaciones! Eres el 100.000° jugador de Botania con una versión desactualizada. Haz click AQUÍ para pedir tu iPad gratis!
+botania.versioning.flavour33=Antes de actualizar tu versión de Botania, te gustaría instalar la barra de herramientas de Ask?
+botania.versioning.flavour34=De vuelta en la rutina de actualización de Botania. No se necesita diversión. #angbadang
+botania.versioning.flavour35=Te convertirías en una Niña Mágica a cambio de una actualización de Botania?
+botania.versioning.outdated=Estás jugando con la versión %s de Botania, la última versión es la %s. 
+botania.versioning.updateMessage=["Click for... [",{"text":"Download","color":"green","hoverEvent":{"action":"show_text","value":{"text":"Haz click aquí para descargar la última versión de Botania","color":"green"}},"clickEvent":{"action":"open_url","value":"http://minecraft.curseforge.com/projects/botania-unofficial/files/latest"}},"] [",{"text":"Website","color":"green","hoverEvent":{"action":"show_text","value":{"text":"Click this to go to the mod's website","color":"green"}},"clickEvent":{"action":"open_url","value":"http://minecraft.curseforge.com/projects/botania-unofficial"}},"] [",{"text":"Changelog","color":"green","hoverEvent":{"action":"show_text","value":{"text":"Click this to go to the version's Changelog","color":"green"}},"clickEvent":{"action":"open_url","value":"https://github.com/williewillus/Botania/releases/tag/%s"}},"]"]
+botania.versioning.startingDownload=[{"text":"Comenzando la descarga de la versión %s. Por favor no quites tu disco duro. Te gusta ","color":"aqua"},{"text":"Botania","color":"green"},{"text":"? Quizás puedes apoyar a  ","color":"aqua"},{"text":"Vazkii","color":"light_purple"},{"text":" en [","color":"aqua"},{"text":"Patreon","color":"gold","hoverEvent":{"action":"show_text","value":{"text":"Click this to go to Vazkii's Patreon","color":"light_purple"}},"clickEvent":{"action":"open_url","value":"http://www.patreon.com/Vazkii"}},{"text":"]!","color":"aqua"}]
+botania.versioning.doneDownloading=Descarga de  %s completada. Borra el antiguo arhivo .jar de Botania y vuelve a cargar tu juego para que la actualización se efectúe.. 
+botania.versioning.downloadedAlready=Ya descargaste la última versión. Cierra tu juego, borra la versión anterior de la carpeta "mods" y vuelve a iniciar Minecraft ara efectuar la actualización. 
+botania.versioning.downloadingAlready=La actualización se está descargando. Dale tiempo, quieres? 
+botania.versioning.error=Ups! Parece que algo salió mal mientras se intentaba descargar la actualización de Botania. ¿La página vazkii.us está caída?
+botania.versioning.disabled= Lo lamentamos, esta función está desactivada por el momento debido a problemas de hosting. Debería estar nuevamente funcional pronto. 
+
+# BAUBLE TOOLTIPS
+botania.baubletype.amulet=Equipable en el slot para  &aAmuletos&7
+botania.baubletype.ring=Equipable en el slot para &aAnillos&7
+botania.baubletype.belt=Equipable en el slot para &acinturón&7
+botania.baubletooltip=Oprime la &b%s&7 para abrir el menú de Baubles
+
+# BLOCK NAMES
+tile.botania:flower0.name=Flor Mística Blanca
+tile.botania:flower1.name=Flor Mística Naranja
+tile.botania:flower2.name=Flor Mística Magenta
+tile.botania:flower3.name=Flor Mística Celeste
+tile.botania:flower4.name=Flor Mística Amarilla
+tile.botania:flower5.name=Flor Mística Lima
+tile.botania:flower6.name=Flor Mística Rosada
+tile.botania:flower7.name=Flor Mística Gris
+tile.botania:flower8.name=Flor Mística Gris Claro
+tile.botania:flower9.name=Flor Mística Cian
+tile.botania:flower10.name=Flor Mística Púrpura
+tile.botania:flower11.name=Flor Mística Azul
+tile.botania:flower12.name=Flor Mística Marrón
+tile.botania:flower13.name=Flor Mística Verde
+tile.botania:flower14.name=Flor Mística Roja
+tile.botania:flower15.name=Flor Mística Negra
+tile.botania:altar.name=Macerador de Pétalos
+tile.botania:livingrock0.name=Piedra Viviente
+tile.botania:livingrock1.name=Ladrillo de Piedra Viviente
+tile.botania:livingrock2.name=Ladrillo Musgoso de Piedra Viviente
+tile.botania:livingrock3.name=Ladrillo Quebrado de Piedra Viviente
+tile.botania:livingrock4.name=Ladrillo de Piedra Viviente con Marco
+tile.botania:livingwood0.name=Madera Viviente
+tile.botania:livingwood1.name=Tabla de Madera Viviente
+tile.botania:livingwood2.name=Tabla de Madera Viviente Musgosa
+tile.botania:livingwood3.name=Madera Viviente con Marco
+tile.botania:livingwood4.name=Madera Viviente con Marco y Diseño
+tile.botania:livingwood5.name=Madera Viviente con Destello
+tile.botania:spreader0.name=Esparcidor de Maná
+tile.botania:spreader1.name=Esparcidor de Maná de Redstone
+tile.botania:spreader2.name=Esparcidor de Maná Élfico
+tile.botania:spreader3.name=Esparcidor de Maná de Gaia
+tile.botania:pool0.name=Pileta de Maná
+tile.botania:pool1.name=La Pileta de Culpa Eterna
+tile.botania:pool2.name=Pileta de Maná Diluido
+tile.botania:runeAltar.name=Altar Rúnico
+tile.botania:unstableBlock0.name=Cubo Inestable Blanco
+tile.botania:unstableBlock1.name=Cubo Inestable Naranja
+tile.botania:unstableBlock2.name=Cubo Inestable Magenta
+tile.botania:unstableBlock3.name=Cubo Inestable Celeste
+tile.botania:unstableBlock4.name=Cubo Inestable Amarillo
+tile.botania:unstableBlock5.name=Cubo Inestable Lima
+tile.botania:unstableBlock6.name=Cubo Inestable Rosado
+tile.botania:unstableBlock7.name=Cubo Inestable Gris
+tile.botania:unstableBlock8.name=Cubo Inestable Gris Claro
+tile.botania:unstableBlock9.name=Cubo Inestable Cian
+tile.botania:unstableBlock10.name=Cubo Inestable Púrpura
+tile.botania:unstableBlock11.name=Cubo Inestable Azul
+tile.botania:unstableBlock12.name=Cubo Inestable Marrón
+tile.botania:unstableBlock13.name=Cubo Inestable Verde
+tile.botania:unstableBlock14.name=Cubo Inestable Rojo
+tile.botania:unstableBlock15.name=Cubo Inestable Negro
+tile.botania:pistonRelay.name=Relé de Fuerza
+tile.botania:distributor.name=Mana Distributor
+tile.botania:pylon0.name=Mana Pylon
+tile.botania:pylon1.name=Natura Pylon
+tile.botania:pylon2.name=Gaia Pylon
+tile.botania:manaBeacon0.name=Faro Inestable Blanco
+tile.botania:manaBeacon1.name=Faro Inestable Naranja
+tile.botania:manaBeacon2.name=Faro Inestable Magenta
+tile.botania:manaBeacon3.name=Faro Inestable Celeste
+tile.botania:manaBeacon4.name=Faro Inestable Amarillo
+tile.botania:manaBeacon5.name=Faro Inestable Lima
+tile.botania:manaBeacon6.name=Faro Inestable Rosado
+tile.botania:manaBeacon7.name=Faro Inestable Gris
+tile.botania:manaBeacon8.name=Faro Inestable Gris Claro
+tile.botania:manaBeacon9.name=Faro Inestable Cian
+tile.botania:manaBeacon10.name=Faro Inestable Púrpura
+tile.botania:manaBeacon11.name=Faro Inestable Azul
+tile.botania:manaBeacon12.name=Faro Inestable Marrón
+tile.botania:manaBeacon13.name=Faro Inestable Verde
+tile.botania:manaBeacon14.name=Faro Inestable Rojo
+tile.botania:manaBeacon15.name=Faro Inestable Negro
+tile.botania:manaVoid.name=Mana Void
+tile.botania:manaDetector.name=Detector de Maná
+tile.botania:enchanter.name=Encantador de Maná
+tile.botania:turntable.name=Spreader Turntable
+tile.botania:tinyPlanetBlock.name=Planeta Diminuto
+tile.botania:alchemyCatalyst.name=Catalizador Alquímico
+tile.botania:storage0.name=Bloque de Acero de Maná
+tile.botania:storage1.name=Bloque de Acero de la Tierra
+tile.botania:storage2.name=Bloque de Elementium

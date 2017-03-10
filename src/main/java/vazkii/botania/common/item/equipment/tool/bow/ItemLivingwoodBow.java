@@ -72,7 +72,7 @@ public class ItemLivingwoodBow extends ItemBow implements IManaUsingItem, IModel
 			else
 			{
 				ItemStack itemstack = entityIn.getActiveItemStack();
-				return itemstack != null && itemstack.getItem() instanceof ItemLivingwoodBow ? (stack.getMaxItemUseDuration() - entityIn.getItemInUseCount()) * chargeVelocityMultiplier() / 20.0F : 0.0F;
+				return !itemstack.isEmpty() && itemstack.getItem() instanceof ItemLivingwoodBow ? (stack.getMaxItemUseDuration() - entityIn.getItemInUseCount()) * chargeVelocityMultiplier() / 20.0F : 0.0F;
 			}
 		});
 	}
@@ -85,7 +85,8 @@ public class ItemLivingwoodBow extends ItemBow implements IManaUsingItem, IModel
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack stack, @Nonnull World world, EntityPlayer player, @Nonnull EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(@Nonnull World world, EntityPlayer player, @Nonnull EnumHand hand) {
+		ItemStack stack = player.getHeldItem(hand);
 		// Copy from superclass with our own check
 		boolean flag = canFire(stack, player);
 		ActionResult<ItemStack> ret = ForgeEventFactory.onArrowNock(stack, world, player, hand, flag);
@@ -111,12 +112,12 @@ public class ItemLivingwoodBow extends ItemBow implements IManaUsingItem, IModel
 		ItemStack itemstack = getAmmo(player);
 
 		int i = (int) ((getMaxItemUseDuration(stack) - useTicks) * chargeVelocityMultiplier()); // Botania - velocity multiplier
-		i = net.minecraftforge.event.ForgeEventFactory.onArrowLoose(stack, world, player, i, itemstack != null || flag);
+		i = net.minecraftforge.event.ForgeEventFactory.onArrowLoose(stack, world, player, i, !itemstack.isEmpty() || flag);
 		if (i < 0) return;
 
-		if (itemstack != null || flag)
+		if (!itemstack.isEmpty() || flag)
 		{
-			if (itemstack == null)
+			if (itemstack.isEmpty())
 			{
 				itemstack = new ItemStack(Items.ARROW);
 			}
@@ -164,7 +165,7 @@ public class ItemLivingwoodBow extends ItemBow implements IManaUsingItem, IModel
 						entityarrow.pickupStatus = EntityArrow.PickupStatus.CREATIVE_ONLY;
 					}
 
-					world.spawnEntityInWorld(entityarrow);
+					world.spawnEntity(entityarrow);
 					onFire(stack, shooter, infinite, entityarrow);
 				}
 
@@ -222,7 +223,7 @@ public class ItemLivingwoodBow extends ItemBow implements IManaUsingItem, IModel
 				return itemstack;
 		}
 
-		return null;
+		return ItemStack.EMPTY;
 	}
 
 	@SideOnly(Side.CLIENT)

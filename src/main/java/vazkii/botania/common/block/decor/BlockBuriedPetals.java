@@ -43,7 +43,7 @@ public class BlockBuriedPetals extends BlockModFlower {
 
 	@Nonnull
 	@Override
-	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
+	public AxisAlignedBB getBoundingBox(IBlockState state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos) {
 		return AABB;
 	}
 
@@ -67,6 +67,7 @@ public class BlockBuriedPetals extends BlockModFlower {
 		return false;
 	}
 
+	@Nonnull
 	@Override
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
 		return ModItems.petal;

@@ -15,6 +15,7 @@ import javax.annotation.Nonnull;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
 import vazkii.botania.common.item.ItemManaGun;
@@ -29,7 +30,7 @@ public class ManaGunClipRecipe  implements IRecipe {
 
 		for(int i = 0; i < var1.getSizeInventory(); i++) {
 			ItemStack stack = var1.getStackInSlot(i);
-			if(stack != null) {
+			if(!stack.isEmpty()) {
 				if(stack.getItem() instanceof ItemManaGun && !ItemManaGun.hasClip(stack))
 					foundGun = true;
 
@@ -43,21 +44,22 @@ public class ManaGunClipRecipe  implements IRecipe {
 		return foundGun && foundClip;
 	}
 
+	@Nonnull
 	@Override
 	public ItemStack getCraftingResult(@Nonnull InventoryCrafting var1) {
-		ItemStack gun = null;
+		ItemStack gun = ItemStack.EMPTY;
 
 		for(int i = 0; i < var1.getSizeInventory(); i++) {
 			ItemStack stack = var1.getStackInSlot(i);
-			if(stack != null && stack.getItem() instanceof ItemManaGun)
+			if(!stack.isEmpty() && stack.getItem() instanceof ItemManaGun)
 				gun = stack;
 		}
 
-		if(gun == null)
-			return null;
+		if(gun.isEmpty())
+			return ItemStack.EMPTY;
 
 		ItemStack lens = ItemManaGun.getLens(gun);
-		ItemManaGun.setLens(gun, null);
+		ItemManaGun.setLens(gun, ItemStack.EMPTY);
 		ItemStack gunCopy = gun.copy();
 		ItemManaGun.setClip(gunCopy, true);
 		ItemManaGun.setLensAtPos(gunCopy, lens, 0);
@@ -69,14 +71,15 @@ public class ManaGunClipRecipe  implements IRecipe {
 		return 10;
 	}
 
+	@Nonnull
 	@Override
 	public ItemStack getRecipeOutput() {
-		return null;
+		return ItemStack.EMPTY;
 	}
 
 	@Nonnull
 	@Override
-	public ItemStack[] getRemainingItems(@Nonnull InventoryCrafting inv) {
+	public NonNullList<ItemStack> getRemainingItems(@Nonnull InventoryCrafting inv) {
 		return ForgeHooks.defaultRecipeGetRemainingItems(inv);
 	}
 }

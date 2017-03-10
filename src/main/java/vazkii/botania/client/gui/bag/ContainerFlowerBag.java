@@ -54,9 +54,10 @@ public class ContainerFlowerBag extends Container {
 				|| player.getHeldItemOffhand() == flowerBagInv.bag;
 	}
 
+	@Nonnull
 	@Override
 	public ItemStack transferStackInSlot(EntityPlayer player, int slotIndex) {
-		ItemStack itemstack = null;
+		ItemStack itemstack = ItemStack.EMPTY;
 		Slot slot = inventorySlots.get(slotIndex);
 
 		if(slot != null && slot.getHasStack()) {
@@ -65,24 +66,24 @@ public class ContainerFlowerBag extends Container {
 
 			if(slotIndex < 16) {
 				if(!mergeItemStack(itemstack1, 16, 52, true))
-					return null;
+					return ItemStack.EMPTY;
 			} else {
 				int i = itemstack.getItemDamage();
 				if(i < 16) {
 					Slot slot1 = inventorySlots.get(i);
 					if(slot1.isItemValid(itemstack) && !mergeItemStack(itemstack1, i, i + 1, true))
-						return null;
+						return ItemStack.EMPTY;
 				}
 			}
 
-			if(itemstack1.stackSize == 0)
-				slot.putStack(null);
+			if(itemstack1.isEmpty())
+				slot.putStack(ItemStack.EMPTY);
 			else slot.onSlotChanged();
 
-			if(itemstack1.stackSize == itemstack.stackSize)
-				return null;
+			if(itemstack1.getCount() == itemstack.getCount())
+				return ItemStack.EMPTY;
 
-			slot.onPickupFromSlot(player, itemstack1);
+			slot.onTake(player, itemstack1);
 		}
 
 		return itemstack;

@@ -45,6 +45,7 @@ public class BlockEnchantedSoil extends BlockMod implements ILexiconable {
 		return false;
 	}
 
+	@Nonnull
 	@Override
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
 		return Blocks.DIRT.getItemDropped(state, rand, fortune);

@@ -36,14 +36,14 @@ public final class AstrolabePreviewHandler {
 
 	@SubscribeEvent
 	public static void onWorldRenderLast(RenderWorldLastEvent event) {
-		World world = Minecraft.getMinecraft().theWorld;
+		World world = Minecraft.getMinecraft().world;
 		List<EntityPlayer> playerEntities = world.playerEntities;
 		for (EntityPlayer player : playerEntities) {
 			ItemStack currentStack = player.getHeldItemMainhand();
-			if(currentStack == null || !(currentStack.getItem() instanceof ItemAstrolabe))
+			if(currentStack.isEmpty() || !(currentStack.getItem() instanceof ItemAstrolabe))
 				currentStack = player.getHeldItemOffhand();
 
-			if(currentStack != null && currentStack.getItem() instanceof ItemAstrolabe) {
+			if(!currentStack.isEmpty() && currentStack.getItem() instanceof ItemAstrolabe) {
 				Block block = ItemAstrolabe.getBlock(currentStack);
 				if(block != Blocks.AIR)
 					renderPlayerLook(player, currentStack);
@@ -76,9 +76,6 @@ public final class AstrolabePreviewHandler {
 
 	private static void renderBlockAt(Block block, int meta, BlockPos pos) {
 		IBlockState state = block.getStateFromMeta(meta);
-		
-		if(state == null)
-			return;
 
 		double renderPosX, renderPosY, renderPosZ;
 

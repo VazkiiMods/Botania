@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "botania:blocks/enderEyeBlock1"
+    "all": "botania:blocks/endereyeblock1"
   }
 }

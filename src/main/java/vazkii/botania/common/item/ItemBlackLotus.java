@@ -21,6 +21,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.NonNullList;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
@@ -44,7 +45,7 @@ public class ItemBlackLotus extends ItemMod implements IManaDissolvable {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void getSubItems(@Nonnull Item item, CreativeTabs tab, List<ItemStack> list) {
+	public void getSubItems(@Nonnull Item item, CreativeTabs tab, NonNullList<ItemStack> list) {
 		for(int i = 0; i < 2; i++)
 			list.add(new ItemStack(item, 1, i));
 	}
@@ -68,13 +69,13 @@ public class ItemBlackLotus extends ItemMod implements IManaDissolvable {
 		TileEntity tile = (TileEntity) pool;
 		boolean t2 = stack.getItemDamage() > 0;
 
-		if(!item.worldObj.isRemote) {
+		if(!item.world.isRemote) {
 			pool.recieveMana(t2 ? MANA_PER_T2 : MANA_PER);
-			stack.stackSize--;
-			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(item.worldObj, tile.getPos());
+			stack.shrink(1);
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(item.world, tile.getPos());
 		}
 
-		PacketHandler.sendToNearby(item.worldObj, item, new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.BLACK_LOTUS_DISSOLVE, item.posX, tile.getPos().getY() + 0.5, item.posZ));
+		PacketHandler.sendToNearby(item.world, item, new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.BLACK_LOTUS_DISSOLVE, item.posX, tile.getPos().getY() + 0.5, item.posZ));
 		item.playSound(BotaniaSoundEvents.blackLotus, 0.5F, t2 ? 0.1F : 1F);
 	}
 

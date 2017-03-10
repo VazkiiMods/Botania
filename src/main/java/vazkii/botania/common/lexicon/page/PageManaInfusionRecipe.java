@@ -15,6 +15,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import net.minecraft.init.Items;
 import org.lwjgl.opengl.GL11;
 
 import net.minecraft.block.Block;
@@ -88,7 +89,7 @@ public class PageManaInfusionRecipe extends PageRecipe {
 
 		if(recipe.getCatalyst() != null) {
 			Block block = recipe.getCatalyst().getBlock();
-			if (Item.getItemFromBlock(block) != null) {
+			if (Item.getItemFromBlock(block) != Items.AIR) {
 				renderItemAtGridPos(gui, 1, 2, new ItemStack(block, 1, block.getMetaFromState(recipe.getCatalyst())), false);
 			}
 		}

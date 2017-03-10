@@ -28,11 +28,13 @@ import net.minecraft.client.renderer.block.statemap.StateMap;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
@@ -87,9 +89,10 @@ public abstract class BlockModDoubleFlower extends BlockDoublePlant implements I
 	@Override
 	public abstract IBlockState getStateFromMeta(int meta);
 
+	@Nonnull
 	@Override
 	public Item getItemDropped(IBlockState state, @Nonnull Random rand, int fortune) {
-		return null;
+		return Items.AIR;
 	}
 
 	@Override
@@ -172,7 +175,7 @@ public abstract class BlockModDoubleFlower extends BlockDoublePlant implements I
 	}
 
 	@Override
-	public void getSubBlocks(@Nonnull Item item, CreativeTabs tab, @Nonnull List<ItemStack> stacks) {
+	public void getSubBlocks(@Nonnull Item item, CreativeTabs tab, @Nonnull NonNullList<ItemStack> stacks) {
 		for(int i = 0; i < COUNT; ++i)
 			stacks.add(new ItemStack(item, 1, i));
 	}

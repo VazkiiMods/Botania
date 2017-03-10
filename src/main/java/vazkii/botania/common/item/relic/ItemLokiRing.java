@@ -11,6 +11,7 @@
 package vazkii.botania.common.item.relic;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.google.common.collect.ImmutableList;
@@ -38,6 +39,7 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.items.IItemHandler;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.ISequentialBreaker;
 import vazkii.botania.api.item.IWireframeCoordinateListProvider;
@@ -69,12 +71,12 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 	public static void onPlayerInteract(PlayerInteractEvent.RightClickBlock event) {
 		EntityPlayer player = event.getEntityPlayer();
 		ItemStack lokiRing = getLokiRing(player);
-		if(lokiRing == null || player.worldObj.isRemote || event.getHand() == EnumHand.OFF_HAND)
+		if(lokiRing.isEmpty() || player.world.isRemote || event.getHand() == EnumHand.OFF_HAND)
 			return;
 
 		int slot = -1;
-		IInventory inv = BaublesApi.getBaubles(player);
-		for(int i = 0; i < inv.getSizeInventory(); i++) {
+		IItemHandler inv = BaublesApi.getBaublesHandler(player);
+		for(int i = 0; i < inv.getSlots(); i++) {
 			ItemStack stack = inv.getStackInSlot(i);
 			if(stack == lokiRing) {
 				slot = i;
@@ -84,13 +86,13 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 
 		ItemStack heldItemStack = event.getItemStack();
 		BlockPos originCoords = getOriginPos(lokiRing);
-		RayTraceResult lookPos = ToolCommons.raytraceFromEntity(player.worldObj, player, true, 10F);
+		RayTraceResult lookPos = ToolCommons.raytraceFromEntity(player.world, player, true, 10F);
 		List<BlockPos> cursors = getCursorList(lokiRing);
 		int cursorCount = cursors.size();
 
 		int cost = Math.min(cursorCount, (int) Math.pow(Math.E, cursorCount * 0.25));
 
-		if(heldItemStack == null && player.isSneaking()) {
+		if(heldItemStack.isEmpty() && player.isSneaking()) {
 			if(originCoords.getY() == -1 && lookPos != null && lookPos.getBlockPos() != null) {
 				setOriginPos(lokiRing, lookPos.getBlockPos());
 				setCursorList(lokiRing, null);
@@ -116,13 +118,16 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 				}
 				}
 			}
-		} else if(heldItemStack != null && lookPos != null && lookPos.getBlockPos() != null && player.isSneaking()) {
+		} else if(!heldItemStack.isEmpty() && lookPos != null && lookPos.getBlockPos() != null && player.isSneaking()) {
 			for(BlockPos cursor : cursors) {
 				BlockPos pos = lookPos.getBlockPos().add(cursor);
 				Item item = heldItemStack.getItem();
-				if(!player.worldObj.isAirBlock(pos) && ManaItemHandler.requestManaExact(lokiRing, player, cost, true)) {
-					item.onItemUse(player.capabilities.isCreativeMode ? heldItemStack.copy() : heldItemStack, player, player.worldObj, pos, event.getHand(), lookPos.sideHit, (float) lookPos.hitVec.xCoord - pos.getX(), (float) lookPos.hitVec.yCoord - pos.getY(), (float) lookPos.hitVec.zCoord - pos.getZ());
-					if(heldItemStack.stackSize == 0) {
+				if(!player.world.isAirBlock(pos) && ManaItemHandler.requestManaExact(lokiRing, player, cost, true)) {
+					ItemStack saveHeld = heldItemStack.copy();
+					item.onItemUse(player, player.world, pos, event.getHand(), lookPos.sideHit, (float) lookPos.hitVec.xCoord - pos.getX(), (float) lookPos.hitVec.yCoord - pos.getY(), (float) lookPos.hitVec.zCoord - pos.getZ());
+					if (player.isCreative())
+						player.setHeldItem(event.getHand(), saveHeld);
+					if(heldItemStack.isEmpty()) {
 						event.setCanceled(true);
 						return;
 					}
@@ -133,12 +138,12 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 
 	public static void breakOnAllCursors(EntityPlayer player, Item item, ItemStack stack, BlockPos pos, EnumFacing side) {
 		ItemStack lokiRing = getLokiRing(player);
-		if(lokiRing == null || player.worldObj.isRemote || !(item instanceof ISequentialBreaker))
+		if(lokiRing.isEmpty() || player.world.isRemote || !(item instanceof ISequentialBreaker))
 			return;
 
 		List<BlockPos> cursors = getCursorList(lokiRing);
 		ISequentialBreaker breaker = (ISequentialBreaker) item;
-		World world = player.worldObj;
+		World world = player.world;
 		boolean silk = EnchantmentHelper.getEnchantmentLevel(Enchantments.SILK_TOUCH, stack) > 0;
 		int fortune = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, stack);
 		boolean dispose = breaker.disposeOfTrashBlocks(stack);
@@ -146,7 +151,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 		for (BlockPos coords : cursors) {
 			IBlockState state = world.getBlockState(coords);
 			breaker.breakOtherBlock(player, stack, coords, coords, side);
-			ToolCommons.removeBlockWithDrops(player, stack, player.worldObj, coords, pos, state.getBlock(), new Material[]{state.getMaterial()}, silk, fortune, state.getBlockHardness(world, coords), dispose);
+			ToolCommons.removeBlockWithDrops(player, stack, player.world, coords, pos, state.getBlock(), Collections.singletonList(state.getMaterial()), silk, fortune, dispose);
 		}
 	}
 
@@ -168,7 +173,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 
 		RayTraceResult lookPos = Minecraft.getMinecraft().objectMouseOver;
 
-		if(lookPos != null && lookPos.getBlockPos() != null && !player.worldObj.isAirBlock(lookPos.getBlockPos()) && lookPos.entityHit == null) {
+		if(lookPos != null && lookPos.getBlockPos() != null && !player.world.isAirBlock(lookPos.getBlockPos()) && lookPos.entityHit == null) {
 			List<BlockPos> list = getCursorList(stack);
 			BlockPos origin = getOriginPos(stack);
 
@@ -192,14 +197,14 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 	}
 
 	private static ItemStack getLokiRing(EntityPlayer player) {
-		IInventory baubles = BaublesApi.getBaubles(player);
+		IItemHandler baubles = BaublesApi.getBaublesHandler(player);
 		ItemStack stack1 = baubles.getStackInSlot(1);
 		ItemStack stack2 = baubles.getStackInSlot(2);
-		return isLokiRing(stack1) ? stack1 : isLokiRing(stack2) ? stack2 : null;
+		return isLokiRing(stack1) ? stack1 : isLokiRing(stack2) ? stack2 : ItemStack.EMPTY;
 	}
 
 	private static boolean isLokiRing(ItemStack stack) {
-		return stack != null && (stack.getItem() == ModItems.lokiRing || stack.getItem() == ModItems.aesirRing);
+		return !stack.isEmpty() && (stack.getItem() == ModItems.lokiRing || stack.getItem() == ModItems.aesirRing);
 	}
 
 	private static BlockPos getOriginPos(ItemStack stack) {

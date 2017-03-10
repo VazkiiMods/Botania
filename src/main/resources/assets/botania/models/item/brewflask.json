@@ -1,0 +1,39 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "botania:items/flask0",
+    "layer1": "botania:items/flask1_0"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "botania:swigs_taken": 1
+      },
+      "model": "botania:item/brewflask_1"
+    },
+    {
+      "predicate": {
+        "botania:swigs_taken": 2
+      },
+      "model": "botania:item/brewflask_2"
+    },
+    {
+      "predicate": {
+        "botania:swigs_taken": 3
+      },
+      "model": "botania:item/brewflask_3"
+    },
+    {
+      "predicate": {
+        "botania:swigs_taken": 4
+      },
+      "model": "botania:item/brewflask_4"
+    },
+    {
+      "predicate": {
+        "botania:swigs_taken": 5
+      },
+      "model": "botania:item/brewflask_5"
+    }
+  ]
+}

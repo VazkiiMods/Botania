@@ -15,6 +15,7 @@ import javax.annotation.Nonnull;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumActionResult;
@@ -34,9 +35,9 @@ public class ItemOvergrowthSeed extends ItemMod {
 
 	@Nonnull
 	@Override
-	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float xs, float ys, float zs) {
+	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float xs, float ys, float zs) {
 		IBlockState state = world.getBlockState(pos);
-		if(Item.getItemFromBlock(state.getBlock()) == null)
+		if(Item.getItemFromBlock(state.getBlock()) == Items.AIR)
 			return EnumActionResult.PASS;
 		ItemStack blockStack = new ItemStack(state.getBlock());
 		int[] ids = OreDictionary.getOreIDs(blockStack);
@@ -45,7 +46,7 @@ public class ItemOvergrowthSeed extends ItemMod {
 			if(name.equals("grass")) {
 				world.playEvent(2001, pos, Block.getStateId(state));
 				world.setBlockState(pos, ModBlocks.enchantedSoil.getDefaultState());
-				stack.stackSize--;
+				player.getHeldItem(hand).shrink(1);
 
 				return EnumActionResult.SUCCESS;
 			}
