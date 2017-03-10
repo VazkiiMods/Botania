@@ -75,7 +75,7 @@ public class ItemManasteelShovel extends ItemSpade implements IManaUsingItem, IS
 	}
 
 	@Override
-	public boolean onBlockDestroyed(@Nonnull ItemStack stack, @Nonnull World world, IBlockState state, @Nonnull BlockPos pos, @Nonnull EntityLivingBase entity) {
+	public boolean onBlockDestroyed(@Nonnull ItemStack stack, @Nonnull World world, @Nonnull IBlockState state, @Nonnull BlockPos pos, @Nonnull EntityLivingBase entity) {
 		if (state.getBlockHardness(world, pos) != 0F)
 			ToolCommons.damageItem(stack, 1, entity, MANA_PER_DAMAGE);
 
@@ -84,7 +84,9 @@ public class ItemManasteelShovel extends ItemSpade implements IManaUsingItem, IS
 
 	@Nonnull
 	@Override
-	public EnumActionResult onItemUse(@Nonnull ItemStack stack, EntityPlayer player, @Nonnull World world, BlockPos pos, EnumHand hand, @Nonnull EnumFacing side, float hitX, float hitY, float hitZ) {
+	public EnumActionResult onItemUse(EntityPlayer player, @Nonnull World world, BlockPos pos, @Nonnull EnumHand hand, @Nonnull EnumFacing side, float hitX, float hitY, float hitZ) {
+		ItemStack stack = player.getHeldItem(hand);
+
 		if(!player.canPlayerEdit(pos, side, stack))
 			return EnumActionResult.PASS;
 		else {

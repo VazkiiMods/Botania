@@ -27,6 +27,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -96,7 +97,7 @@ public class BlockLightRelay extends BlockMod implements IWandable, ILexiconable
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void getSubBlocks(@Nonnull Item item, CreativeTabs tab, List<ItemStack> list) {
+	public void getSubBlocks(@Nonnull Item item, CreativeTabs tab, NonNullList<ItemStack> list) {
 		for(int i = 0; i < 4; i++)
 			list.add(new ItemStack(item, 1, i));
 	}
@@ -112,14 +113,14 @@ public class BlockLightRelay extends BlockMod implements IWandable, ILexiconable
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack stack, EnumFacing s, float xs, float ys, float zs) {
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing s, float xs, float ys, float zs) {
 		((TileLightRelay) world.getTileEntity(pos)).mountEntity(player);
 		return true;
 	}
 
 	@Override
-	public AxisAlignedBB getCollisionBoundingBox(IBlockState state, @Nonnull World world, @Nonnull BlockPos pos) {
-		return null;
+	public AxisAlignedBB getCollisionBoundingBox(IBlockState state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos) {
+		return NULL_AABB;
 	}
 
 	@Override
@@ -128,7 +129,7 @@ public class BlockLightRelay extends BlockMod implements IWandable, ILexiconable
 	}
 
 	@Override
-	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn) {
+	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
 		if(!worldIn.isRemote && state.getValue(BotaniaStateProps.LUMINIZER_VARIANT) == LuminizerVariant.TOGGLE) {
 			if(state.getValue(BotaniaStateProps.POWERED) && !worldIn.isBlockPowered(pos))
 				worldIn.setBlockState(pos, state.withProperty(BotaniaStateProps.POWERED, false));

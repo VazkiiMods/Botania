@@ -21,8 +21,8 @@ public final class SkyblockRenderEvents {
 
 	@SubscribeEvent
 	public static void onRender(RenderWorldLastEvent event) {
-		World world = Minecraft.getMinecraft().theWorld;
-		if(ConfigHandler.enableFancySkybox && world.provider.getDimension() == 0 && (ConfigHandler.enableFancySkyboxInNormalWorlds || WorldTypeSkyblock.isWorldSkyblock(Minecraft.getMinecraft().theWorld))) {
+		World world = Minecraft.getMinecraft().world;
+		if(ConfigHandler.enableFancySkybox && world.provider.getDimension() == 0 && (ConfigHandler.enableFancySkyboxInNormalWorlds || WorldTypeSkyblock.isWorldSkyblock(Minecraft.getMinecraft().world))) {
 			if(!(world.provider.getSkyRenderer() instanceof SkyblockSkyRenderer))
 				world.provider.setSkyRenderer(new SkyblockSkyRenderer());
 		}

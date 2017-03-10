@@ -478,15 +478,6 @@ public final class ModBlocks {
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_BERGAMUTE, SubTileBergamute.class);
 	}
 
-	public static void registerMultiparts() {
-		if(Loader.isModLoaded("ForgeMultipart")) {
-			try {
-				Class clazz = Class.forName("vazkii.botania.common.integration.multipart.MultipartHandler");
-				clazz.newInstance();
-			} catch(Throwable e) {}
-		}
-	}
-
 	private static void registerSubTileWithMini(String key, Class<? extends SubTileEntity> clazz) {
 		BotaniaAPI.registerSubTile(key, clazz);
 

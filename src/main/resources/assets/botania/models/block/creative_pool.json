@@ -1,7 +1,7 @@
 {
   "parent": "botania:block/shapes/pool",
   "textures": {
-    "all": "botania:model/infinitePool"
+    "all": "botania:model/infinitepool"
   },
   "overrides": [{
     "predicate": {

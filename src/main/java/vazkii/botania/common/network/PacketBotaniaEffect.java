@@ -74,7 +74,7 @@ public class PacketBotaniaEffect implements IMessage {
 				@Override
 				public void run() {
 					Minecraft mc = Minecraft.getMinecraft();
-					World world = mc.theWorld;
+					World world = mc.world;
 					switch (message.type) {
 					case POOL_CRAFT: {
 						for(int i = 0; i < 25; i++) {
@@ -131,13 +131,13 @@ public class PacketBotaniaEffect implements IMessage {
 
 						for(int i = 0; i < p; i++) {
 							double m = 0.01;
-							double d0 = item.worldObj.rand.nextGaussian() * m;
-							double d1 = item.worldObj.rand.nextGaussian() * m;
-							double d2 = item.worldObj.rand.nextGaussian() * m;
+							double d0 = item.world.rand.nextGaussian() * m;
+							double d1 = item.world.rand.nextGaussian() * m;
+							double d2 = item.world.rand.nextGaussian() * m;
 							double d3 = 10.0D;
-							item.worldObj.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL,
-									message.x + item.worldObj.rand.nextFloat() * item.width * 2.0F - item.width - d0 * d3, message.y + item.worldObj.rand.nextFloat() * item.height - d1 * d3,
-									message.z + item.worldObj.rand.nextFloat() * item.width * 2.0F - item.width - d2 * d3, d0, d1, d2);
+							item.world.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL,
+									message.x + item.world.rand.nextFloat() * item.width * 2.0F - item.width - d0 * d3, message.y + item.world.rand.nextFloat() * item.height - d1 * d3,
+									message.z + item.world.rand.nextFloat() * item.width * 2.0F - item.width - d2 * d3, d0, d1, d2);
 						}
 						break;
 					}
@@ -238,6 +238,17 @@ public class PacketBotaniaEffect implements IMessage {
 
 						break;
 					}
+					case BREWERY_FINISH: {
+						for(int i = 0; i < 25; i++) {
+							Color c = new Color(message.args[0]);
+							float r = c.getRed() / 255F;
+							float g = c.getGreen() / 255F;
+							float b = c.getBlue() / 255F;
+							Botania.proxy.sparkleFX(message.x + 0.5 + Math.random() * 0.4 - 0.2, message.y + 1, message.z + 0.5 + Math.random() * 0.4 - 0.2, r, g, b, (float) Math.random() * 2F + 0.5F, 10);
+							for(int j = 0; j < 2; j++)
+								Botania.proxy.wispFX(message.x + 0.7 - Math.random() * 0.4, message.y + 0.9 - Math.random() * 0.2, message.z + 0.7 - Math.random() * 0.4, 0.2F, 0.2F, 0.2F, 0.1F + (float) Math.random() * 0.2F, 0.05F - (float) Math.random() * 0.1F, 0.05F + (float) Math.random() * 0.03F, 0.05F - (float) Math.random() * 0.1F);
+						}
+					}
 					case TERRA_PLATE: {
 						TileEntity te = world.getTileEntity(new BlockPos(message.x, message.y, message.z));
 						if(te instanceof TileTerraPlate) {
@@ -270,6 +281,24 @@ public class PacketBotaniaEffect implements IMessage {
 							}
 						}
 					}
+					case APOTHECARY_CRAFT: {
+						for(int i = 0; i < 25; i++) {
+							float red = (float) Math.random();
+							float green = (float) Math.random();
+							float blue = (float) Math.random();
+							Botania.proxy.sparkleFX(message.x + 0.5 + Math.random() * 0.4 - 0.2, message.y + 1, message.z + 0.5 + Math.random() * 0.4 - 0.2, red, green, blue, (float) Math.random(), 10);
+						}
+
+						break;
+					}
+					case RUNE_CRAFT: {
+						for(int i = 0; i < 25; i++) {
+							float red = (float) Math.random();
+							float green = (float) Math.random();
+							float blue = (float) Math.random();
+							Botania.proxy.sparkleFX(message.x + 0.5 + Math.random() * 0.4 - 0.2, message.y + 1, message.z + 0.5 + Math.random() * 0.4 - 0.2, red, green, blue, (float) Math.random(), 10);
+						}
+					}
 					}
 				}
 			});
@@ -281,7 +310,7 @@ public class PacketBotaniaEffect implements IMessage {
 	public enum EffectType {
 		POOL_CRAFT(0),
 		POOL_CHARGE(1), // Arg: 1 if outputting, 0 if inputting
-		PAINT_LENS(1),  // Arg: colour
+		PAINT_LENS(1),  // Arg: EnumDyeColor
 		ARENA_INDICATOR(0),
 		ITEM_SMOKE(2), // Arg: Entity ID, number of particles
 		SPARK_NET_INDICATOR(2), // Arg: Entity ID from, Entity ID towards
@@ -290,7 +319,10 @@ public class PacketBotaniaEffect implements IMessage {
 		ENCHANTER_DESTROY(0),
 		ENTROPINNYUM(0),
 		BLACK_LOTUS_DISSOLVE(0),
-		TERRA_PLATE(0);
+		BREWERY_FINISH(1), // Arg: RGB
+		TERRA_PLATE(0),
+		APOTHECARY_CRAFT(0),
+		RUNE_CRAFT(0);
 
 		private final int argCount;
 

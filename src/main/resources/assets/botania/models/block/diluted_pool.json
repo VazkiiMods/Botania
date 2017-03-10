@@ -1,7 +1,7 @@
 {
   "parent": "botania:block/shapes/pool",
   "textures": {
-    "all": "botania:model/dilutedPool"
+    "all": "botania:model/dilutedpool"
   },
   "overrides": [{
     "predicate": {

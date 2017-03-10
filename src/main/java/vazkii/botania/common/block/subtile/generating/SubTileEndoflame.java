@@ -58,24 +58,21 @@ public class SubTileEndoflame extends SubTileGenerating {
 
 						if(age >= 59 + slowdown && !item.isDead) {
 							ItemStack stack = item.getEntityItem();
-							if(stack.getItem().hasContainerItem(stack))
+							if(stack.isEmpty() || stack.getItem().hasContainerItem(stack))
 								continue;
 
-							int burnTime = stack == null || stack.getItem() == Item.getItemFromBlock(ModBlocks.spreader) ? 0 : TileEntityFurnace.getItemBurnTime(stack);
-							if(burnTime > 0 && stack.stackSize > 0) {
+							int burnTime = stack.getItem() == Item.getItemFromBlock(ModBlocks.spreader) ? 0 : TileEntityFurnace.getItemBurnTime(stack);
+							if(burnTime > 0 && stack.getCount() > 0) {
 								this.burnTime = Math.min(FUEL_CAP, burnTime) / 2;
 
 								if(!supertile.getWorld().isRemote) {
-									stack.stackSize--;
+									stack.shrink(1);
 									supertile.getWorld().playSound(null, supertile.getPos(), BotaniaSoundEvents.endoflame, SoundCategory.BLOCKS, 0.2F, 1F);
-
-									if(stack.stackSize == 0)
-										item.setDead();
 
 									didSomething = true;
 								} else {
-									item.worldObj.spawnParticle(EnumParticleTypes.SMOKE_LARGE, item.posX, item.posY + 0.1, item.posZ, 0.0D, 0.0D, 0.0D);
-									item.worldObj.spawnParticle(EnumParticleTypes.FLAME, item.posX, item.posY, item.posZ, 0.0D, 0.0D, 0.0D);
+									item.world.spawnParticle(EnumParticleTypes.SMOKE_LARGE, item.posX, item.posY + 0.1, item.posZ, 0.0D, 0.0D, 0.0D);
+									item.world.spawnParticle(EnumParticleTypes.FLAME, item.posX, item.posY, item.posZ, 0.0D, 0.0D, 0.0D);
 								}
 
 

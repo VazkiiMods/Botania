@@ -112,10 +112,10 @@ public class BlockTinyPotato extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack stack, EnumFacing par6, float par7, float par8, float par9) {
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing par6, float par7, float par8, float par9) {
 		TileEntity tile = world.getTileEntity(pos);
 		if(tile instanceof TileTinyPotato) {
-			((TileTinyPotato) tile).interact(player, hand, stack, par6);
+			((TileTinyPotato) tile).interact(player, hand, player.getHeldItem(hand), par6);
 			player.addStat(ModAchievements.tinyPotatoPet, 1);
 			world.spawnParticle(EnumParticleTypes.HEART, pos.getX() + AABB.minX + Math.random() * (AABB.maxX - AABB.minX), pos.getY() + AABB.maxY, pos.getZ() + AABB.minZ + Math.random() * (AABB.maxZ - AABB.minZ), 0, 0 ,0);
 		}

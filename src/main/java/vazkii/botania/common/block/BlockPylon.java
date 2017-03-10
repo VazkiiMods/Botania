@@ -24,6 +24,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -99,7 +100,7 @@ public class BlockPylon extends BlockMod implements ILexiconable, IInfusionStabi
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void getSubBlocks(@Nonnull Item item, CreativeTabs par2, List<ItemStack> par3) {
+	public void getSubBlocks(@Nonnull Item item, CreativeTabs par2, NonNullList<ItemStack> par3) {
 		for(int i = 0; i < PylonVariant.values().length; i++)
 			par3.add(new ItemStack(item, 1, i));
 	}

@@ -35,7 +35,7 @@ public final class LexiconRecipeMappings {
 
 		if(force || !mappings.containsKey(str))
 			mappings.put(str, data);
-		if(entry.getIcon() == null)
+		if(entry.getIcon().isEmpty())
 			entry.setIcon(stack.copy());
 	}
 
@@ -59,7 +59,7 @@ public final class LexiconRecipeMappings {
 	}
 
 	public static String stackToString(ItemStack stack, boolean forceIgnore) {
-		if(stack == null || stack.getItem() == null)
+		if(stack.isEmpty())
 			return "NULL";
 
 		if(stack.hasTagCompound() && stack.getItem() instanceof IRecipeKeyProvider)

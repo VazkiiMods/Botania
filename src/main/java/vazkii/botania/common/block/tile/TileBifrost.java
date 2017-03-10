@@ -23,9 +23,9 @@ public class TileBifrost extends TileMod {
 
 	@Override
 	public void update() {
-		if(!worldObj.isRemote) {
+		if(!world.isRemote) {
 			if(ticks <= 0) {
-				worldObj.setBlockToAir(pos);
+				world.setBlockToAir(pos);
 			} else ticks--;
 		} else if(Math.random() < 0.1)
 			Botania.proxy.sparkleFX(pos.getX() + Math.random(), pos.getY() + Math.random(), pos.getZ() + Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random(), 0.45F + 0.2F * (float) Math.random(), 6);

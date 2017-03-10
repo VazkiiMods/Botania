@@ -13,6 +13,7 @@ package vazkii.botania.common.block.subtile.functional;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.minecraft.item.ItemPiston;
 import org.lwjgl.opengl.GL11;
 
 import net.minecraft.block.Block;
@@ -87,7 +88,7 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 					continue;
 				}
 
-				if(age < 60 + slowdown || item.isDead)
+				if(age < 60 + slowdown || item.isDead || item.getEntityItem().isEmpty())
 					continue;
 
 				ItemStack stack = item.getEntityItem();
@@ -114,8 +115,14 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 						IBlockState stateToPlace = null;
 						if(stackItem instanceof IFlowerPlaceable)
 							stateToPlace = ((IFlowerPlaceable) stackItem).getBlockToPlaceByFlower(stack, this, coords);
-						if(stackItem instanceof ItemBlock)
-							stateToPlace = ((ItemBlock) stackItem).block.getStateFromMeta(stackItem.getMetadata(stack.getItemDamage()));
+						if(stackItem instanceof ItemBlock) {
+							int blockMeta = stackItem.getMetadata(stack.getItemDamage());
+
+							if(stackItem instanceof ItemPiston) // Workaround because the blockMeta ItemPiston gives crashes getStateFromMeta
+								blockMeta = 0;
+
+							stateToPlace = ((ItemBlock) stackItem).block.getStateFromMeta(blockMeta);
+						}
 						else if(stackItem instanceof ItemBlockSpecial)
 							stateToPlace = ((Block) ReflectionHelper.getPrivateValue(ItemBlockSpecial.class, (ItemBlockSpecial) stackItem, LibObfuscation.REED_ITEM)).getDefaultState();
 						else if(stackItem instanceof ItemRedstone)
@@ -140,9 +147,7 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 								if(stackItem instanceof IFlowerPlaceable)
 									((IFlowerPlaceable) stackItem).onBlockPlacedByFlower(stack, this, coords);
 
-								stack.stackSize--;
-								if(stack.stackSize <= 0)
-									item.setDead();
+								stack.shrink(1);
 
 								if(mana > 1)
 									mana--;
@@ -175,7 +180,7 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		if(recieverStack.getItem() != null) {
+		if(!recieverStack.isEmpty()) {
 			String stackName = recieverStack.getDisplayName();
 			int width = 16 + mc.fontRendererObj.getStringWidth(stackName) / 2;
 			int x = res.getScaledWidth() / 2 - width;

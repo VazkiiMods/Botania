@@ -30,6 +30,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
@@ -72,18 +73,19 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 
 	@Nonnull
 	@Override
-	public EnumActionResult onItemUse(ItemStack par1ItemStack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
+	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
 		if(player.isSneaking()) {
 			Block block = world.getBlockState(pos).getBlock();
 
 			if(block != null) {
 				if(block instanceof ILexiconable) {
-					LexiconEntry entry = ((ILexiconable) block).getEntry(world, pos, player, par1ItemStack);
-					if(entry != null && isKnowledgeUnlocked(par1ItemStack, entry.getKnowledgeType())) {
+					ItemStack stack = player.getHeldItem(hand);
+					LexiconEntry entry = ((ILexiconable) block).getEntry(world, pos, player, stack);
+					if(entry != null && isKnowledgeUnlocked(stack, entry.getKnowledgeType())) {
 						Botania.proxy.setEntryToOpen(entry);
-						Botania.proxy.setLexiconStack(par1ItemStack);
+						Botania.proxy.setLexiconStack(stack);
 
-						openBook(player, par1ItemStack, world, false);
+						openBook(player, stack, world, false);
 						return EnumActionResult.SUCCESS;
 					}
 				} else if(world.isRemote) {
@@ -98,7 +100,7 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void getSubItems(@Nonnull Item item, CreativeTabs tab, List<ItemStack> list) {
+	public void getSubItems(@Nonnull Item item, CreativeTabs tab, NonNullList<ItemStack> list) {
 		list.add(new ItemStack(item));
 		ItemStack creative = new ItemStack(item);
 		for(String s : BotaniaAPI.knowledgeTypes.keySet()) {
@@ -145,20 +147,21 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack par1ItemStack, World world, EntityPlayer player, EnumHand hand) {
-		String force = getForcedPage(par1ItemStack);
+	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
+		ItemStack stack = player.getHeldItem(hand);
+		String force = getForcedPage(stack);
 		if(force != null && !force.isEmpty()) {
-			LexiconEntry entry = getEntryFromForce(par1ItemStack);
+			LexiconEntry entry = getEntryFromForce(stack);
 			if(entry != null)
 				Botania.proxy.setEntryToOpen(entry);
-			else player.addChatMessage(new TextComponentTranslation("botaniamisc.cantOpen").setStyle(new Style().setColor(TextFormatting.RED)));
-			setForcedPage(par1ItemStack, "");
+			else player.sendMessage(new TextComponentTranslation("botaniamisc.cantOpen").setStyle(new Style().setColor(TextFormatting.RED)));
+			setForcedPage(stack, "");
 		}
 
-		openBook(player, par1ItemStack, world, skipSound);
+		openBook(player, stack, world, skipSound);
 		skipSound = false;
 
-		return ActionResult.newResult(EnumActionResult.SUCCESS, par1ItemStack);
+		return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
 	}
 
 	public static void openBook(EntityPlayer player, ItemStack stack, World world, boolean skipSound) {
@@ -188,7 +191,7 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 		if(ticks > 0 && entity instanceof EntityPlayer) {
 			skipSound = ticks < 5;
 			if(ticks == 1)
-				onItemRightClick(stack, world, (EntityPlayer) entity, EnumHand.MAIN_HAND);
+				onItemRightClick(world, (EntityPlayer) entity, EnumHand.MAIN_HAND);
 
 			setQueueTicks(stack, ticks - 1);
 		}
@@ -238,8 +241,8 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 	}
 
 	public static String getTitle(ItemStack stack) {
-		String title = ModItems.lexicon.getItemStackDisplayName(null);
-		if(stack != null)
+		String title = ModItems.lexicon.getItemStackDisplayName(ItemStack.EMPTY);
+		if(!stack.isEmpty())
 			title = stack.getDisplayName();
 		
 		String akashicTomeNBT = "akashictome:displayName";

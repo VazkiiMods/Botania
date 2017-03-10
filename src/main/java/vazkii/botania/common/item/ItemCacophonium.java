@@ -89,7 +89,7 @@ public class ItemCacophonium extends ItemMod implements ICraftAchievement {
 				ItemNBTHelper.setString(stack, TAG_SOUND_NAME, "entity." + s + ".name");
 				player.setHeldItem(hand, stack);
 
-				if(player.worldObj.isRemote)
+				if(player.world.isRemote)
 					player.swingArm(hand);
 
 				return true;
@@ -101,13 +101,14 @@ public class ItemCacophonium extends ItemMod implements ICraftAchievement {
 
 	@Nonnull
 	@Override
-	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float xs, float ys, float zs) {
+	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float xs, float ys, float zs) {
+		ItemStack stack = player.getHeldItem(hand);
 		if(getSound(stack) != null) {
 			Block block = world.getBlockState(pos).getBlock();
 			if(block == Blocks.NOTEBLOCK) {
 				world.setBlockState(pos, ModBlocks.cacophonium.getDefaultState());
 				((TileCacophonium) world.getTileEntity(pos)).stack = stack.copy();
-				stack.stackSize--;
+				stack.shrink(1);
 				return EnumActionResult.SUCCESS;
 			}
 		}
@@ -137,7 +138,8 @@ public class ItemCacophonium extends ItemMod implements ICraftAchievement {
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
+		ItemStack stack = player.getHeldItem(hand);
 		if(getSound(stack) != null)
 			player.setActiveHand(hand);
 		return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
@@ -146,11 +148,11 @@ public class ItemCacophonium extends ItemMod implements ICraftAchievement {
 	@Override
 	public void onUsingTick(ItemStack stack, EntityLivingBase player, int count) {
 		if(count % (isDOIT(stack) ? 20 : 6) == 0)
-			playSound(player.worldObj, stack, player.posX, player.posY, player.posZ, SoundCategory.PLAYERS, 0.9F);
+			playSound(player.world, stack, player.posX, player.posY, player.posZ, SoundCategory.PLAYERS, 0.9F);
 	}
 
 	public static void playSound(World world, ItemStack stack, double x, double y, double z, SoundCategory category, float volume) {
-		if(stack == null)
+		if(stack.isEmpty())
 			return;
 
 		SoundEvent sound = getSound(stack);
@@ -167,7 +169,7 @@ public class ItemCacophonium extends ItemMod implements ICraftAchievement {
 	}
 
 	private static boolean isDOIT(ItemStack stack) {
-		return stack != null && stack.getDisplayName().equalsIgnoreCase("shia labeouf");
+		return !stack.isEmpty() && stack.getDisplayName().equalsIgnoreCase("shia labeouf");
 	}
 
 	@Override

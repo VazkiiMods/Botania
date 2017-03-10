@@ -31,6 +31,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
@@ -71,7 +72,7 @@ public class ItemGrassSeeds extends ItemMod implements IFloatingFlowerVariant {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void getSubItems(@Nonnull Item item, CreativeTabs par2, List<ItemStack> par3) {
+	public void getSubItems(@Nonnull Item item, CreativeTabs par2, NonNullList<ItemStack> par3) {
 		for(int i = 0; i < SUBTYPES; i++)
 			par3.add(new ItemStack(item, 1, i));
 	}
@@ -84,79 +85,83 @@ public class ItemGrassSeeds extends ItemMod implements IFloatingFlowerVariant {
 
 	@Nonnull
 	@Override
-	public EnumActionResult onItemUse(ItemStack par1ItemStack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
+	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
 		IBlockState state = world.getBlockState(pos);
+		ItemStack stack = player.getHeldItem(hand);
 
-		if(state.getBlock() == Blocks.DIRT && state.getValue(BlockDirt.VARIANT) == BlockDirt.DirtType.DIRT || state.getBlock() == Blocks.GRASS && par1ItemStack.getItemDamage() != 0) {
-			int meta = par1ItemStack.getItemDamage();
+		if(state.getBlock() == Blocks.DIRT && state.getValue(BlockDirt.VARIANT) == BlockDirt.DirtType.DIRT || state.getBlock() == Blocks.GRASS && stack.getItemDamage() != 0) {
+			int meta = stack.getItemDamage();
 
-			BlockSwapper swapper = addBlockSwapper(world, pos, meta);
-			world.setBlockState(pos, swapper.stateToSet, 1 | 2);
-			for(int i = 0; i < 50; i++) {
-				double x = (Math.random() - 0.5) * 3;
-				double y = Math.random() - 0.5 + 1;
-				double z = (Math.random() - 0.5) * 3;
+			if(!world.isRemote) {
+				BlockSwapper swapper = addBlockSwapper(world, pos, meta);
+				world.setBlockState(pos, swapper.stateToSet, 1 | 2);
+				stack.shrink(1);
+			} else {
+				for(int i = 0; i < 50; i++) {
+					double x = (Math.random() - 0.5) * 3;
+					double y = Math.random() - 0.5 + 1;
+					double z = (Math.random() - 0.5) * 3;
 
-				float r = 0F;
-				float g = 0.4F;
-				float b = 0F;
-				switch(meta) {
-				case 1: {
-					r = 0.5F;
-					g = 0.37F;
-					b = 0F;
-					break;
-				}
-				case 2: {
-					r = 0.27F;
-					g = 0F;
-					b = 0.33F;
-					break;
-				}
-				case 3: {
-					r = 0.4F;
-					g = 0.5F;
-					b = 0.05F;
-					break;
-				}
-				case 4: {
-					r = 0.75F;
-					g = 0.7F;
-					b = 0F;
-					break;
-				}
-				case 5: {
-					r = 0F;
-					g = 0.5F;
-					b = 0.1F;
-					break;
-				}
-				case 6: {
-					r = 0.75F;
-					g = 0F;
-					b = 0F;
-					break;
-				}
-				case 7: {
-					r = 0F;
-					g = 0.55F;
-					b = 0.55F;
-					break;
-				}
-				case 8: {
-					r = 0.4F;
-					g = 0.1F;
-					b = 0.4F;
-					break;
-				}
-				}
+					float r = 0F;
+					float g = 0.4F;
+					float b = 0F;
+					switch(meta) {
+						case 1: {
+							r = 0.5F;
+							g = 0.37F;
+							b = 0F;
+							break;
+						}
+						case 2: {
+							r = 0.27F;
+							g = 0F;
+							b = 0.33F;
+							break;
+						}
+						case 3: {
+							r = 0.4F;
+							g = 0.5F;
+							b = 0.05F;
+							break;
+						}
+						case 4: {
+							r = 0.75F;
+							g = 0.7F;
+							b = 0F;
+							break;
+						}
+						case 5: {
+							r = 0F;
+							g = 0.5F;
+							b = 0.1F;
+							break;
+						}
+						case 6: {
+							r = 0.75F;
+							g = 0F;
+							b = 0F;
+							break;
+						}
+						case 7: {
+							r = 0F;
+							g = 0.55F;
+							b = 0.55F;
+							break;
+						}
+						case 8: {
+							r = 0.4F;
+							g = 0.1F;
+							b = 0.4F;
+							break;
+						}
+					}
 
-				float velMul = 0.025F;
+					float velMul = 0.025F;
 
-				Botania.proxy.wispFX(pos.getX() + 0.5 + x, pos.getY() + 0.5 + y, pos.getZ() + 0.5 + z, r, g, b, (float) Math.random() * 0.15F + 0.15F, (float) -x * velMul, (float) -y * velMul, (float) -z * velMul);
+					Botania.proxy.wispFX(pos.getX() + 0.5 + x, pos.getY() + 0.5 + y, pos.getZ() + 0.5 + z, r, g, b, (float) Math.random() * 0.15F + 0.15F, (float) -x * velMul, (float) -y * velMul, (float) -z * velMul);
+				}
 			}
 
-			par1ItemStack.stackSize--;
 			return EnumActionResult.SUCCESS;
 		}
 
@@ -206,10 +211,6 @@ public class ItemGrassSeeds extends ItemMod implements IFloatingFlowerVariant {
 	 */
 	private static BlockSwapper addBlockSwapper(World world, BlockPos pos, int meta) {
 		BlockSwapper swapper = swapperFromMeta(world, pos, meta);
-
-		// Block swappers are only registered on the server
-		if(world.isRemote)
-			return swapper;
 
 		// If a set for the dimension doesn't exist, create it.
 		int dim = world.provider.getDimension();
@@ -313,10 +314,10 @@ public class ItemGrassSeeds extends ItemMod implements IFloatingFlowerVariant {
 
 			// If we can make changes, and have at least 1 block to swap,
 			// then swap a random block from the valid blocks we could swap.
-			if(!validCoords.isEmpty() && !world.isRemote) {
+			if(!validCoords.isEmpty()) {
 				BlockPos toSwap = validCoords.get(rand.nextInt(validCoords.size()));
 
-				world.setBlockState(toSwap, stateToSet, 1 | 2);
+				world.setBlockState(toSwap, stateToSet);
 			}
 		}
 

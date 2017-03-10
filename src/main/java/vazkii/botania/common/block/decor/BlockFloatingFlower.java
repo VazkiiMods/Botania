@@ -32,6 +32,7 @@ import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ChunkCache;
@@ -127,7 +128,7 @@ public class BlockFloatingFlower extends BlockMod implements ILexiconable, IInfu
 	@Override
 	public IBlockState getExtendedState(@Nonnull IBlockState state, IBlockAccess world, BlockPos pos) {
 		state = getActualState(state, world, pos);
-		TileEntity te = world instanceof ChunkCache ? ((ChunkCache)world).func_190300_a(pos, Chunk.EnumCreateEntityType.CHECK) : world.getTileEntity(pos);
+		TileEntity te = world instanceof ChunkCache ? ((ChunkCache)world).getTileEntity(pos, Chunk.EnumCreateEntityType.CHECK) : world.getTileEntity(pos);
 		if (te instanceof TileFloatingFlower) {
 			state = ((IExtendedBlockState) state).withProperty(BotaniaStateProps.ISLAND_TYPE, ((TileFloatingFlower) te).getIslandType());
 		} else if (te instanceof TileFloatingSpecialFlower) {
@@ -155,7 +156,7 @@ public class BlockFloatingFlower extends BlockMod implements ILexiconable, IInfu
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void getSubBlocks(@Nonnull Item item, CreativeTabs par2, List<ItemStack> par3) {
+	public void getSubBlocks(@Nonnull Item item, CreativeTabs par2, NonNullList<ItemStack> par3) {
 		for(int i = 0; i < 16; i++)
 			par3.add(new ItemStack(item, 1, i));
 	}
@@ -176,8 +177,9 @@ public class BlockFloatingFlower extends BlockMod implements ILexiconable, IInfu
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack stack, EnumFacing side, float hitX, float hitY, float hitZ) {
-		if(stack != null) {
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+		ItemStack stack = player.getHeldItem(hand);
+		if(!stack.isEmpty()) {
 			IFloatingFlower flower = (IFloatingFlower) world.getTileEntity(pos);
 			IslandType type = null;
 			if(stack.getItem() == Items.SNOWBALL)
@@ -195,7 +197,7 @@ public class BlockFloatingFlower extends BlockMod implements ILexiconable, IInfu
 				}
 
 				if(!player.capabilities.isCreativeMode)
-					stack.stackSize--;
+					stack.shrink(1);
 				return true;
 			}
 		}

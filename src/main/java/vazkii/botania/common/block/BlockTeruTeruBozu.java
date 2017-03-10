@@ -58,18 +58,17 @@ public class BlockTeruTeruBozu extends BlockMod implements ILexiconable {
 			EntityItem item = (EntityItem) e;
 			ItemStack stack = item.getEntityItem();
 			if(isSunflower(stack) && removeRain(world) || isBlueOrchid(stack) && startRain(world)) {
-				stack.stackSize--;
-				if(stack.stackSize == 0)
-					e.setDead();
+				stack.shrink(1);
 			}
 		}
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack stack, EnumFacing s, float xs, float ys, float zs) {
-		if(stack != null && (isSunflower(stack) && removeRain(world) || isBlueOrchid(stack) && startRain(world))) {
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing s, float xs, float ys, float zs) {
+		ItemStack stack = player.getHeldItem(hand);
+		if(!stack.isEmpty() && (isSunflower(stack) && removeRain(world) || isBlueOrchid(stack) && startRain(world))) {
 			if(!player.capabilities.isCreativeMode)
-				stack.stackSize--;
+				stack.shrink(1);
 			return true;
 		}
 		return false;

@@ -52,7 +52,7 @@ public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, ICosm
 	@SideOnly(Side.CLIENT)
 	public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
 		if(type == RenderType.HEAD) {
-			boolean armor = player.getItemStackFromSlot(EntityEquipmentSlot.HEAD) != null;
+			boolean armor = !player.getItemStackFromSlot(EntityEquipmentSlot.HEAD).isEmpty();
 			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 
 			Helper.translateToHeadLevel(player);
@@ -71,11 +71,11 @@ public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, ICosm
 		RayTraceResult pos = mc.objectMouseOver;
 		if(pos == null || pos.getBlockPos() == null)
 			return;
-		IBlockState state = player.worldObj.getBlockState(pos.getBlockPos());
+		IBlockState state = player.world.getBlockState(pos.getBlockPos());
 		Block block = state.getBlock();
-		player.worldObj.getTileEntity(pos.getBlockPos());
+		player.world.getTileEntity(pos.getBlockPos());
 
-		ItemStack dispStack = null;
+		ItemStack dispStack = ItemStack.EMPTY;
 		String text = "";
 
 		if(block == Blocks.REDSTONE_WIRE) {
@@ -89,7 +89,7 @@ public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, ICosm
 			text = state.getValue(BlockRedstoneComparator.MODE) == BlockRedstoneComparator.Mode.SUBTRACT ? "-" : "+";
 		}
 
-		if(dispStack == null)
+		if(dispStack.isEmpty())
 			return;
 
 		int x = resolution.getScaledWidth() / 2 + 15;
@@ -104,8 +104,8 @@ public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, ICosm
 
 	public static boolean hasMonocle(EntityPlayer player) {
 		for(int i = 0; i < 7; i++) {
-			ItemStack stack = BaublesApi.getBaubles(player).getStackInSlot(i);
-			if(stack != null) {
+			ItemStack stack = BaublesApi.getBaublesHandler(player).getStackInSlot(i);
+			if(!stack.isEmpty()) {
 				Item item = stack.getItem();
 				if(item instanceof IBurstViewerBauble)
 					return true;

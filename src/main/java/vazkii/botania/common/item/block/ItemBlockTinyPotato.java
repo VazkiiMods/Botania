@@ -58,7 +58,7 @@ public class ItemBlockTinyPotato extends ItemBlockMod {
 			EntityPlayer player = (EntityPlayer) e;
 			int ticks = ItemNBTHelper.getInt(stack, TAG_TICKS, 0);
 			if(ticks < NOT_MY_NAME.length) {
-				player.addChatMessage(new TextComponentString(TextFormatting.RED + NOT_MY_NAME[ticks]));
+				player.sendMessage(new TextComponentString(TextFormatting.RED + NOT_MY_NAME[ticks]));
 				ItemNBTHelper.setInt(stack, TAG_TICKS, ticks + 1);
 			}
 		}

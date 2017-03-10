@@ -22,6 +22,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -41,24 +42,25 @@ public class ItemCorporeaSpark extends ItemMod {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void getSubItems(@Nonnull Item item, CreativeTabs tab, List<ItemStack> list) {
+	public void getSubItems(@Nonnull Item item, CreativeTabs tab, NonNullList<ItemStack> list) {
 		for(int i = 0; i < 2; i++)
 			list.add(new ItemStack(item, 1, i));
 	}
 
 	@Nonnull
 	@Override
-	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float xv, float yv, float zv) {
+	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float xv, float yv, float zv) {
 		TileEntity tile = world.getTileEntity(pos);
 		if(tile != null && (tile.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.UP) || tile.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null))
 				&& !CorporeaHelper.doesBlockHaveSpark(world, pos)) {
-			stack.stackSize--;
+			ItemStack stack = player.getHeldItem(hand);
+			stack.shrink(1);
 			if(!world.isRemote) {
 				EntityCorporeaSpark spark = new EntityCorporeaSpark(world);
 				if(stack.getItemDamage() == 1)
 					spark.setMaster(true);
 				spark.setPosition(pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5);
-				world.spawnEntityInWorld(spark);
+				world.spawnEntity(spark);
 				world.notifyBlockUpdate(pos, world.getBlockState(pos), world.getBlockState(pos), 0);
 			}
 			return EnumActionResult.SUCCESS;

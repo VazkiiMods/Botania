@@ -49,31 +49,27 @@ public class ItemElementiumShears extends ItemManasteelShears {
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack par1ItemStack, World world, EntityPlayer player, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
 		player.setActiveHand(hand);
-		return ActionResult.newResult(EnumActionResult.SUCCESS, par1ItemStack);
+		return ActionResult.newResult(EnumActionResult.SUCCESS, player.getHeldItem(hand));
 	}
 
 	@Override
 	public void onUsingTick(ItemStack stack, EntityLivingBase living, int count) {
-		if(living.worldObj.isRemote)
+		if(living.world.isRemote)
 			return;
 
 		if(count != getMaxItemUseDuration(stack) && count % 5 == 0) {
 			int range = 12;
-			List sheep = living.worldObj.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(living.posX - range, living.posY - range, living.posZ - range, living.posX + range, living.posY + range, living.posZ + range), Predicates.instanceOf(IShearable.class));
+			List sheep = living.world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(living.posX - range, living.posY - range, living.posZ - range, living.posX + range, living.posY + range, living.posZ + range), Predicates.instanceOf(IShearable.class));
 			if(sheep.size() > 0) {
 				for(IShearable target : (List<IShearable>) sheep) {
 					Entity entity = (Entity) target;
-					if(target.isShearable(stack, entity.worldObj, new BlockPos(entity))) {
-						List<ItemStack> drops = target.onSheared(stack, entity.worldObj, new BlockPos(entity), EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, stack));
+					if(target.isShearable(stack, entity.world, new BlockPos(entity))) {
+						List<ItemStack> drops = target.onSheared(stack, entity.world, new BlockPos(entity), EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, stack));
 
-						Random rand = new Random();
 						for(ItemStack drop : drops) {
-							EntityItem ent = entity.entityDropItem(drop, 1.0F);
-							ent.motionY += rand.nextFloat() * 0.05F;
-							ent.motionX += (rand.nextFloat() - rand.nextFloat()) * 0.1F;
-							ent.motionZ += (rand.nextFloat() - rand.nextFloat()) * 0.1F;
+							entity.entityDropItem(drop, 1.0F);
 						}
 
 						ToolCommons.damageItem(stack, 1, living, MANA_PER_DAMAGE);

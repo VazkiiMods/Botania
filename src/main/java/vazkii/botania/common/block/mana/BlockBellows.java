@@ -90,7 +90,7 @@ public class BlockBellows extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack stack, EnumFacing s, float xs, float ys, float zs) {
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing s, float xs, float ys, float zs) {
 		if(EntityDoppleganger.isTruePlayer(player))
 			((TileBellows) world.getTileEntity(pos)).interact();
 		return true;

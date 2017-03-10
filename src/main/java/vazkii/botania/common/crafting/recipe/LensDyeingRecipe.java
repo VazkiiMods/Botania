@@ -18,6 +18,7 @@ import javax.annotation.Nonnull;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.oredict.OreDictionary;
@@ -36,7 +37,7 @@ public class LensDyeingRecipe implements IRecipe {
 
 		for(int i = 0; i < var1.getSizeInventory(); i++) {
 			ItemStack stack = var1.getStackInSlot(i);
-			if(stack != null) {
+			if(!stack.isEmpty()) {
 				if(stack.getItem() instanceof ILens && !foundLens)
 					foundLens = true;
 				else if(!foundDye) {
@@ -52,15 +53,16 @@ public class LensDyeingRecipe implements IRecipe {
 		return foundLens && foundDye;
 	}
 
+	@Nonnull
 	@Override
 	public ItemStack getCraftingResult(@Nonnull InventoryCrafting var1) {
-		ItemStack lens = null;
+		ItemStack lens = ItemStack.EMPTY;
 		int color = -1;
 
 		for(int i = 0; i < var1.getSizeInventory(); i++) {
 			ItemStack stack = var1.getStackInSlot(i);
-			if(stack != null) {
-				if(stack.getItem() instanceof ILens && lens == null)
+			if(!stack.isEmpty()) {
+				if(stack.getItem() instanceof ILens && lens.isEmpty())
 					lens = stack;
 				else color = getStackColor(stack);//We can assume if its not a lens its a dye because we checked it in matches()
 			}
@@ -74,7 +76,7 @@ public class LensDyeingRecipe implements IRecipe {
 			return lensCopy;
 		}
 
-		return null;
+		return ItemStack.EMPTY;
 	}
 
 	@Override
@@ -82,9 +84,10 @@ public class LensDyeingRecipe implements IRecipe {
 		return 10;
 	}
 
+	@Nonnull
 	@Override
 	public ItemStack getRecipeOutput() {
-		return null;
+		return ItemStack.EMPTY;
 	}
 
 	int getStackColor(ItemStack stack) {
@@ -100,7 +103,7 @@ public class LensDyeingRecipe implements IRecipe {
 
 	@Nonnull
 	@Override
-	public ItemStack[] getRemainingItems(@Nonnull InventoryCrafting inv) {
+	public NonNullList<ItemStack> getRemainingItems(@Nonnull InventoryCrafting inv) {
 		return ForgeHooks.defaultRecipeGetRemainingItems(inv);
 	}
 }

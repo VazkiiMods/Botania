@@ -21,10 +21,10 @@ public class LensExplosive extends Lens {
 
 	@Override
 	public boolean collideBurst(IManaBurst burst, EntityThrowable entity, RayTraceResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
-		if(!entity.worldObj.isRemote && !burst.isFake()) {
+		if(!entity.world.isRemote && !burst.isFake()) {
 			BlockPos coords = burst.getBurstSourceBlockPos();
 			if(pos.entityHit == null && !isManaBlock && (pos.getBlockPos() == null || !coords.equals(pos.getBlockPos())))
-				entity.worldObj.createExplosion(entity, entity.posX, entity.posY, entity.posZ, burst.getMana() / 50F, true);
+				entity.world.createExplosion(entity, entity.posX, entity.posY, entity.posZ, burst.getMana() / 50F, true);
 		} else dead = false;
 
 		return dead;

@@ -33,7 +33,7 @@ public interface IManaProficiencyArmor {
 		return false;
 	}
 	
-	default boolean shouldGiveProficiency(ItemStack armorStack, EntityEquipmentSlot slot, EntityPlayer player, @Nullable ItemStack rod) {
+	default boolean shouldGiveProficiency(ItemStack armorStack, EntityEquipmentSlot slot, EntityPlayer player, ItemStack rod) {
 		return shouldGiveProficiency(armorStack, slot, player);
 	}
 
@@ -41,17 +41,17 @@ public interface IManaProficiencyArmor {
 
 		@Deprecated
 		public static boolean hasProficiency(EntityPlayer player) {
-			return hasProficiency(player, null);
+			return hasProficiency(player, ItemStack.EMPTY);
 		}
 		
-		public static boolean hasProficiency(EntityPlayer player, @Nullable ItemStack rod) {
+		public static boolean hasProficiency(EntityPlayer player, ItemStack rod) {
 			boolean proficient = false;
 			
 			for(EntityEquipmentSlot e: EntityEquipmentSlot.values()) {
 				if(e.getSlotType() != EntityEquipmentSlot.Type.ARMOR)
 					continue;
 				ItemStack armor = player.getItemStackFromSlot(e);
-				if(armor != null) {
+				if(!armor.isEmpty()) {
 					Item item = armor.getItem();
 					if(item instanceof IManaProficiencyArmor && ((IManaProficiencyArmor) item).shouldGiveProficiency(armor, e, player, rod)) {
 						proficient = true;

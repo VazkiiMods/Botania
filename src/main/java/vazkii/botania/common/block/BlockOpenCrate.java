@@ -28,6 +28,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ChunkCache;
 import net.minecraft.world.IBlockAccess;
@@ -90,7 +91,7 @@ public class BlockOpenCrate extends BlockMod implements ILexiconable, IWandable,
 	@Nonnull
 	@Override
 	public IBlockState getActualState(@Nonnull IBlockState state, IBlockAccess world, BlockPos pos) {
-		TileEntity te = world instanceof ChunkCache ? ((ChunkCache)world).func_190300_a(pos, Chunk.EnumCreateEntityType.CHECK) : world.getTileEntity(pos);
+		TileEntity te = world instanceof ChunkCache ? ((ChunkCache)world).getTileEntity(pos, Chunk.EnumCreateEntityType.CHECK) : world.getTileEntity(pos);
 		if (te instanceof TileCraftCrate) {
 			TileCraftCrate tile = (TileCraftCrate) te;
 			state = state.withProperty(BotaniaStateProps.CRATE_PATTERN, CratePattern.values()[tile.pattern + 1]);
@@ -108,7 +109,7 @@ public class BlockOpenCrate extends BlockMod implements ILexiconable, IWandable,
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void getSubBlocks(@Nonnull Item item, CreativeTabs tab, List<ItemStack> stacks) {
+	public void getSubBlocks(@Nonnull Item item, CreativeTabs tab, NonNullList<ItemStack> stacks) {
 		for(int i = 0; i < CrateVariant.values().length; i++)
 			stacks.add(new ItemStack(item, 1, i));
 	}

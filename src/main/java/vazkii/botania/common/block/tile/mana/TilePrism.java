@@ -20,15 +20,17 @@ import vazkii.botania.api.mana.ITinyPlanetExcempt;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 
+import javax.annotation.Nonnull;
+
 public class TilePrism extends TileSimpleInventory {
 
 	public void onBurstCollision(IManaBurst burst) {
 		ItemStack lens = itemHandler.getStackInSlot(0);
-		boolean active = !worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.POWERED);
-		boolean valid = lens != null && lens.getItem() instanceof ILens && (!(lens.getItem() instanceof ITinyPlanetExcempt) || ((ITinyPlanetExcempt) lens.getItem()).shouldPull(lens));
+		boolean active = !world.getBlockState(getPos()).getValue(BotaniaStateProps.POWERED);
+		boolean valid = !lens.isEmpty() && lens.getItem() instanceof ILens && (!(lens.getItem() instanceof ITinyPlanetExcempt) || ((ITinyPlanetExcempt) lens.getItem()).shouldPull(lens));
 
 		if(active) {
-			burst.setSourceLens(valid ? lens.copy() : null);
+			burst.setSourceLens(valid ? lens.copy() : ItemStack.EMPTY);
 			burst.setColor(0xFFFFFF);
 			burst.setGravity(0F);
 
@@ -56,9 +58,10 @@ public class TilePrism extends TileSimpleInventory {
 	@Override
 	protected SimpleItemStackHandler createItemHandler() {
 		return new SimpleItemStackHandler(this, true) {
+			@Nonnull
 			@Override
-			public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
-				if(stack != null && stack.getItem() instanceof ILens)
+			public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
+				if(!stack.isEmpty() && stack.getItem() instanceof ILens)
 					return super.insertItem(slot, stack, simulate);
 				else return stack;
 			}

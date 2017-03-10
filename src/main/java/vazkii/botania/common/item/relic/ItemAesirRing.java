@@ -54,16 +54,16 @@ public class ItemAesirRing extends ItemRelicBauble implements IWireframeCoordina
 
 	@SubscribeEvent
 	public void onDropped(ItemTossEvent event) {
-		if(event.getEntityItem() != null && event.getEntityItem().getEntityItem() != null && !event.getEntityItem().worldObj.isRemote) {
+		if(event.getEntityItem() != null && !event.getEntityItem().getEntityItem().isEmpty() && !event.getEntityItem().world.isRemote) {
 			ItemStack stack = event.getEntityItem().getEntityItem();
-			if(stack.getItem() != null && stack.getItem() == this) {
+			if(stack.getItem() == this) {
 				event.getEntityItem().setDead();
 
 				UUID user = getSoulbindUUID(stack);
 				for(Item item : new Item[] { ModItems.thorRing, ModItems.lokiRing, ModItems.odinRing }) {
 					ItemStack stack1 = new ItemStack(item);
 					bindToUUID(user, stack1);
-					EntityItem entity = new EntityItem(event.getEntityItem().worldObj, event.getEntityItem().posX, event.getEntityItem().posY, event.getEntityItem().posZ, stack1);
+					EntityItem entity = new EntityItem(event.getEntityItem().world, event.getEntityItem().posX, event.getEntityItem().posY, event.getEntityItem().posZ, stack1);
 					entity.motionX = event.getEntityItem().motionX;
 					entity.motionY = event.getEntityItem().motionY;
 					entity.motionZ = event.getEntityItem().motionZ;
@@ -78,7 +78,7 @@ public class ItemAesirRing extends ItemRelicBauble implements IWireframeCoordina
 					} catch (Throwable ignored) {}
 					entity.setPickupDelay(pickupDelay);
 
-					entity.worldObj.spawnEntityInWorld(entity);
+					entity.world.spawnEntity(entity);
 				}
 			}
 		}
@@ -120,10 +120,10 @@ public class ItemAesirRing extends ItemRelicBauble implements IWireframeCoordina
 
 
 	private void fillModifiers(Multimap<String, AttributeModifier> attributes, ItemStack stack) {
-		if(stack == null) // workaround for Azanor/Baubles#156
+		if(stack.isEmpty()) // workaround for Azanor/Baubles#156
 			return;
 		
-		attributes.put(SharedMonsterAttributes.MAX_HEALTH.getAttributeUnlocalizedName(), new AttributeModifier(getBaubleUUID(stack), "Bauble modifier", 20, 0));
+		attributes.put(SharedMonsterAttributes.MAX_HEALTH.getName(), new AttributeModifier(getBaubleUUID(stack), "Bauble modifier", 20, 0));
 	}
 
 	@Override

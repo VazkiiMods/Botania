@@ -58,7 +58,7 @@ public class TileBellows extends TileMod {
 
 		if(movePos < max && active && moving >= 0F) {
 			if(moving == 0F)
-				worldObj.playSound(null, pos, BotaniaSoundEvents.bellows, SoundCategory.BLOCKS, 0.1F, 3F);
+				world.playSound(null, pos, BotaniaSoundEvents.bellows, SoundCategory.BLOCKS, 0.1F, 3F);
 
 			if(tile instanceof TileEntityFurnace) {
 				TileEntityFurnace furnace = (TileEntityFurnace) tile;
@@ -67,32 +67,32 @@ public class TileBellows extends TileMod {
 					furnace.setField(0, Math.max(0, furnace.getField(0) - 10)); // burnTime
 				}
 
-				if(furnace.hasWorldObj() && furnace.getBlockType() == Blocks.LIT_FURNACE) {
+				if(furnace.hasWorld() && furnace.getBlockType() == Blocks.LIT_FURNACE) {
 					// Copypasta from BlockFurnace
-					EnumFacing enumfacing = worldObj.getBlockState(furnace.getPos()).getValue(BlockFurnace.FACING);
+					EnumFacing enumfacing = world.getBlockState(furnace.getPos()).getValue(BlockFurnace.FACING);
 					double d0 = pos.getX() + 0.5D;
-					double d1 = pos.getY() + worldObj.rand.nextDouble() * 6.0D / 16.0D;
+					double d1 = pos.getY() + world.rand.nextDouble() * 6.0D / 16.0D;
 					double d2 = pos.getZ() + 0.5D;
 					double d3 = 0.52D;
-					double d4 = worldObj.rand.nextDouble() * 0.6D - 0.3D;
+					double d4 = world.rand.nextDouble() * 0.6D - 0.3D;
 
 					switch (enumfacing)
 					{
 					case WEST:
-						worldObj.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0 - d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D);
-						worldObj.spawnParticle(EnumParticleTypes.FLAME, d0 - d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D);
+						world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0 - d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D);
+						world.spawnParticle(EnumParticleTypes.FLAME, d0 - d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D);
 						break;
 					case EAST:
-						worldObj.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0 + d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D);
-						worldObj.spawnParticle(EnumParticleTypes.FLAME, d0 + d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D);
+						world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0 + d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D);
+						world.spawnParticle(EnumParticleTypes.FLAME, d0 + d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D);
 						break;
 					case NORTH:
-						worldObj.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0 + d4, d1, d2 - d3, 0.0D, 0.0D, 0.0D);
-						worldObj.spawnParticle(EnumParticleTypes.FLAME, d0 + d4, d1, d2 - d3, 0.0D, 0.0D, 0.0D);
+						world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0 + d4, d1, d2 - d3, 0.0D, 0.0D, 0.0D);
+						world.spawnParticle(EnumParticleTypes.FLAME, d0 + d4, d1, d2 - d3, 0.0D, 0.0D, 0.0D);
 						break;
 					case SOUTH:
-						worldObj.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0 + d4, d1, d2 + d3, 0.0D, 0.0D, 0.0D);
-						worldObj.spawnParticle(EnumParticleTypes.FLAME, d0 + d4, d1, d2 + d3, 0.0D, 0.0D, 0.0D);
+						world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0 + d4, d1, d2 + d3, 0.0D, 0.0D, 0.0D);
+						world.spawnParticle(EnumParticleTypes.FLAME, d0 + d4, d1, d2 + d3, 0.0D, 0.0D, 0.0D);
 					default: break;
 					}
 				}
@@ -118,8 +118,8 @@ public class TileBellows extends TileMod {
 	}
 
 	public TileEntity getLinkedTile() {
-		EnumFacing side = worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.CARDINALS);
-		return worldObj.getTileEntity(getPos().offset(side));
+		EnumFacing side = world.getBlockState(getPos()).getValue(BotaniaStateProps.CARDINALS);
+		return world.getTileEntity(getPos().offset(side));
 	}
 
 	@Override
@@ -133,11 +133,11 @@ public class TileBellows extends TileMod {
 	}
 
 	public void setActive(boolean active) {
-		if(!worldObj.isRemote) {
+		if(!world.isRemote) {
 			boolean diff = this.active != active;
 			this.active = active;
 			if(diff)
-				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, pos);
+				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, pos);
 		}
 	}
 

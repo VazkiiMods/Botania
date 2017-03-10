@@ -39,7 +39,7 @@ import vazkii.botania.common.core.helper.PlayerHelper;
 public class PageRecipe extends LexiconPage {
 
 	int relativeMouseX, relativeMouseY;
-	ItemStack tooltipStack, tooltipContainerStack;
+	ItemStack tooltipStack = ItemStack.EMPTY, tooltipContainerStack = ItemStack.EMPTY;
 	boolean tooltipEntry;
 
 	static boolean mouseDownLastTick = false;
@@ -62,8 +62,8 @@ public class PageRecipe extends LexiconPage {
 		int y = gui.getTop() + height - 40;
 		PageText.renderText(x, y, width, height, getUnlocalizedName());
 
-		if(tooltipStack != null) {
-			List<String> tooltipData = tooltipStack.getTooltip(Minecraft.getMinecraft().thePlayer, false);
+		if(!tooltipStack.isEmpty()) {
+			List<String> tooltipData = tooltipStack.getTooltip(Minecraft.getMinecraft().player, false);
 			List<String> parsedTooltip = new ArrayList<>();
 			boolean first = true;
 
@@ -84,11 +84,11 @@ public class PageRecipe extends LexiconPage {
 				tooltipY += 18;
 			}
 
-			if(tooltipContainerStack != null)
+			if(!tooltipContainerStack.isEmpty())
 				vazkii.botania.client.core.helper.RenderHelper.renderTooltipGreen(mx, my + tooltipY, Arrays.asList(TextFormatting.AQUA + I18n.format("botaniamisc.craftingContainer"), tooltipContainerStack.getDisplayName()));
 		}
 
-		tooltipStack = tooltipContainerStack = null;
+		tooltipStack = tooltipContainerStack = ItemStack.EMPTY;
 		tooltipEntry = false;
 		GlStateManager.disableBlend();
 		mouseDownLastTick = Mouse.isButtonDown(0);
@@ -99,7 +99,7 @@ public class PageRecipe extends LexiconPage {
 
 	@SideOnly(Side.CLIENT)
 	public void renderItemAtAngle(IGuiLexiconEntry gui, float angle, ItemStack stack) {
-		if(stack == null || stack.getItem() == null)
+		if(stack.isEmpty())
 			return;
 
 		ItemStack workStack = stack.copy();
@@ -117,7 +117,7 @@ public class PageRecipe extends LexiconPage {
 
 	@SideOnly(Side.CLIENT)
 	public void renderItemAtGridPos(IGuiLexiconEntry gui, int x, int y, ItemStack stack, boolean accountForContainer) {
-		if(stack == null || stack.getItem() == null)
+		if(stack.isEmpty())
 			return;
 		stack = stack.copy();
 
@@ -158,7 +158,7 @@ public class PageRecipe extends LexiconPage {
 			tooltipStack = stack;
 
 			EntryData data = LexiconRecipeMappings.getDataForStack(tooltipStack);
-			ItemStack book = PlayerHelper.getFirstHeldItemClass(Minecraft.getMinecraft().thePlayer, ILexicon.class);
+			ItemStack book = PlayerHelper.getFirstHeldItemClass(Minecraft.getMinecraft().player, ILexicon.class);
 
 			if(data != null && (data.entry != gui.getEntry() || data.page != gui.getPageOn()) && book != null && ((ILexicon) book.getItem()).isKnowledgeUnlocked(book, data.entry.getKnowledgeType())) {
 				tooltipEntry = true;
@@ -172,7 +172,7 @@ public class PageRecipe extends LexiconPage {
 
 			if(accountForContainer) {
 				ItemStack containerStack = stack.getItem().getContainerItem(stack);
-				if(containerStack != null && containerStack.getItem() != null)
+				if(!containerStack.isEmpty())
 					tooltipContainerStack = containerStack;
 			}
 		}

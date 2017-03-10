@@ -33,6 +33,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
@@ -61,7 +62,7 @@ public class ItemGrassHorn extends ItemMod {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void getSubItems(@Nonnull Item item, CreativeTabs tab, List<ItemStack> list) {
+	public void getSubItems(@Nonnull Item item, CreativeTabs tab, NonNullList<ItemStack> list) {
 		for(int i = 0; i < SUBTYPES; i++)
 			list.add(new ItemStack(item, 1, i));
 	}
@@ -91,17 +92,17 @@ public class ItemGrassHorn extends ItemMod {
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack par1ItemStack, World world, EntityPlayer player, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
 		player.setActiveHand(hand);
-		return ActionResult.newResult(EnumActionResult.SUCCESS, par1ItemStack);
+		return ActionResult.newResult(EnumActionResult.SUCCESS, player.getHeldItem(hand));
 	}
 
 	@Override
 	public void onUsingTick(ItemStack stack, EntityLivingBase player, int time) {
-		if(!player.worldObj.isRemote) {
+		if(!player.world.isRemote) {
 			if(time != getMaxItemUseDuration(stack) && time % 5 == 0)
-				breakGrass(player.worldObj, stack, stack.getItemDamage(), new BlockPos(player));
-			player.worldObj.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.BLOCK_NOTE_BASS, SoundCategory.BLOCKS, 1F, 0.001F);
+				breakGrass(player.world, stack, stack.getItemDamage(), new BlockPos(player));
+			player.world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.BLOCK_NOTE_BASS, SoundCategory.BLOCKS, 1F, 0.001F);
 		}
 	}
 
@@ -139,7 +140,7 @@ public class ItemGrassHorn extends ItemMod {
 					world.playEvent(2001, currCoords, Block.getStateId(state));
 
 				for(ItemStack stack_ : items)
-					world.spawnEntityInWorld(new EntityItem(world, currCoords.getX() + 0.5, currCoords.getY() + 0.5, currCoords.getZ() + 0.5, stack_));
+					world.spawnEntity(new EntityItem(world, currCoords.getX() + 0.5, currCoords.getY() + 0.5, currCoords.getZ() + 0.5, stack_));
 			}
 		}
 	}

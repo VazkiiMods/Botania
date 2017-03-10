@@ -32,6 +32,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.Optional;
+import net.minecraftforge.items.ItemHandlerHelper;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.block.BlockMod;
@@ -92,18 +93,19 @@ public class BlockManaFlame extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public AxisAlignedBB getCollisionBoundingBox(IBlockState state, @Nonnull World world, @Nonnull BlockPos pos) {
+	public AxisAlignedBB getCollisionBoundingBox(IBlockState state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos) {
 		return NULL_AABB;
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack stack, EnumFacing s, float xs, float ys, float zs) {
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing s, float xs, float ys, float zs) {
 		if(WorldTypeSkyblock.isWorldSkyblock(world)) {
-			if(stack != null && stack.getItem() == Item.getItemFromBlock(Blocks.SAPLING) && !player.inventory.hasItemStack(new ItemStack(ModItems.lexicon))) {
-				if(!world.isRemote)
-					stack.stackSize--;
-				if(!player.inventory.addItemStackToInventory(new ItemStack(ModItems.lexicon)))
-					player.dropItem(new ItemStack(ModItems.lexicon), false);
+			ItemStack stack = player.getHeldItem(hand);
+			if(!stack.isEmpty() && stack.getItem() == Item.getItemFromBlock(Blocks.SAPLING) && !player.inventory.hasItemStack(new ItemStack(ModItems.lexicon))) {
+				if(!world.isRemote) {
+					stack.shrink(1);
+					ItemHandlerHelper.giveItemToPlayer(player, new ItemStack(ModItems.lexicon));
+				}
 				return true;
 			}
 

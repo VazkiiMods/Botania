@@ -65,21 +65,22 @@ public class BlockRuneAltar extends BlockMod implements IWandable, ILexiconable 
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack stack, EnumFacing side, float par7, float par8, float par9) {
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float par7, float par8, float par9) {
 		if(world.isRemote)
 			return true;
 
 		TileRuneAltar altar = (TileRuneAltar) world.getTileEntity(pos);
+		ItemStack stack = player.getHeldItem(hand);
 
 		if(player.isSneaking()) {
 			if(altar.manaToGet == 0) {
 				InventoryHelper.withdrawFromInventory(altar, player);
 				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(altar);
 			}
-		} else if(altar.isEmpty() && stack == null) {
+		} else if(altar.isEmpty() && stack.isEmpty()) {
 			altar.trySetLastRecipe(player);
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(altar);
-		} else if(stack != null) {
+		} else if(!stack.isEmpty()) {
 			boolean result = altar.addItem(player, stack, hand);
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(altar);
 			return result;

@@ -27,6 +27,7 @@ import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.items.IItemHandler;
 import vazkii.botania.api.item.IBaubleRender;
 import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.client.lib.LibResources;
@@ -59,9 +60,8 @@ public class ItemHolyCloak extends ItemBauble implements IBaubleRender {
 	public void onPlayerDamage(LivingHurtEvent event) {
 		if(event.getEntityLiving() instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) event.getEntityLiving();
-			IInventory baubles = BaublesApi.getBaubles(player);
-			ItemStack belt = baubles.getStackInSlot(5);
-			if(belt != null && belt.getItem() instanceof ItemHolyCloak && !isInEffect(belt)) {
+			ItemStack belt = BaublesApi.getBaublesHandler(player).getStackInSlot(5);
+			if(!belt.isEmpty() && belt.getItem() instanceof ItemHolyCloak && !isInEffect(belt)) {
 				ItemHolyCloak cloak = (ItemHolyCloak) belt.getItem();
 				int cooldown = getCooldown(belt);
 
@@ -84,7 +84,7 @@ public class ItemHolyCloak extends ItemBauble implements IBaubleRender {
 	public boolean effectOnDamage(LivingHurtEvent event, EntityPlayer player, ItemStack stack) {
 		if(!event.getSource().isMagicDamage()) {
 			event.setCanceled(true);
-			player.worldObj.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.holyCloak, SoundCategory.PLAYERS, 1F, 1F);
+			player.world.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.holyCloak, SoundCategory.PLAYERS, 1F, 1F);
 			for(int i = 0; i < 30; i++) {
 				double x = player.posX + Math.random() * player.width * 2 - player.width;
 				double y = player.posY + Math.random() * player.height;
@@ -138,7 +138,7 @@ public class ItemHolyCloak extends ItemBauble implements IBaubleRender {
 	public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
 		if(type == RenderType.BODY) {
 			Helper.rotateIfSneaking(player);
-			boolean armor = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST) != null;
+			boolean armor = !player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).isEmpty();
 			GlStateManager.translate(0F, armor ? -0.07F : -0.01F, 0F);
 
 			float s = 1F / 16F;

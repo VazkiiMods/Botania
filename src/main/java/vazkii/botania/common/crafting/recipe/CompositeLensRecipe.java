@@ -16,6 +16,7 @@ import net.minecraft.init.Items;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
 import vazkii.botania.api.mana.ICompositableLens;
@@ -32,7 +33,7 @@ public class CompositeLensRecipe implements IRecipe {
 
 		for(int i = 0; i < var1.getSizeInventory(); i++) {
 			ItemStack stack = var1.getStackInSlot(i);
-			if(stack != null) {
+			if(!stack.isEmpty()) {
 				if(stack.getItem() instanceof ICompositableLens && !foundSecondLens) {
 					if(foundLens)
 						foundSecondLens = true;
@@ -46,16 +47,17 @@ public class CompositeLensRecipe implements IRecipe {
 		return foundSecondLens && foundSlimeball;
 	}
 
+	@Nonnull
 	@Override
 	public ItemStack getCraftingResult(@Nonnull InventoryCrafting var1) {
-		ItemStack lens = null;
-		ItemStack secondLens = null;
+		ItemStack lens = ItemStack.EMPTY;
+		ItemStack secondLens = ItemStack.EMPTY;
 
 		for(int i = 0; i < var1.getSizeInventory(); i++) {
 			ItemStack stack = var1.getStackInSlot(i);
-			if(stack != null) {
+			if(!stack.isEmpty()) {
 				if(stack.getItem() instanceof ICompositableLens)
-					if(lens == null)
+					if(lens.isEmpty())
 						lens = stack;
 					else secondLens = stack;
 			}
@@ -63,8 +65,8 @@ public class CompositeLensRecipe implements IRecipe {
 
 		if(lens.getItem() instanceof ICompositableLens) {
 			ICompositableLens lensItem = (ICompositableLens) lens.getItem();
-			if(secondLens == null || !lensItem.canCombineLenses(lens, secondLens) || lensItem.getCompositeLens(lens) != null || lensItem.getCompositeLens(secondLens) != null)
-				return null;
+			if(secondLens.isEmpty() || !lensItem.canCombineLenses(lens, secondLens) || !lensItem.getCompositeLens(lens).isEmpty() || !lensItem.getCompositeLens(secondLens).isEmpty())
+				return ItemStack.EMPTY;
 
 			ItemStack lensCopy = lens.copy();
 			((ItemLens) ModItems.lens).setCompositeLens(lensCopy, secondLens);
@@ -72,7 +74,7 @@ public class CompositeLensRecipe implements IRecipe {
 			return lensCopy;
 		}
 
-		return null;
+		return ItemStack.EMPTY;
 	}
 
 	@Override
@@ -80,14 +82,15 @@ public class CompositeLensRecipe implements IRecipe {
 		return 10;
 	}
 
+	@Nonnull
 	@Override
 	public ItemStack getRecipeOutput() {
-		return null;
+		return ItemStack.EMPTY;
 	}
 
 	@Nonnull
 	@Override
-	public ItemStack[] getRemainingItems(@Nonnull InventoryCrafting inv) {
+	public NonNullList<ItemStack> getRemainingItems(@Nonnull InventoryCrafting inv) {
 		return ForgeHooks.defaultRecipeGetRemainingItems(inv);
 	}
 }

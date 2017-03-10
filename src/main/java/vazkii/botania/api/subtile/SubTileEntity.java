@@ -133,7 +133,7 @@ public class SubTileEntity {
 	/**
 	 * Called when a player right clicks this sub tile.
 	 */
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack stack, EnumFacing side, float hitX, float hitY, float hitZ) { return false; }
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) { return false; }
 
 	/**
 	 * Called when this sub tile is added to the world.

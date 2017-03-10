@@ -48,7 +48,7 @@ public class ItemKeepIvy extends ItemMod {
 		List<EntityItem> keeps = new ArrayList<>();
 		for(EntityItem item : event.getDrops()) {
 			ItemStack stack = item.getEntityItem();
-			if(stack != null && ItemNBTHelper.detectNBT(stack) && ItemNBTHelper.getBoolean(stack, TAG_KEEP, false))
+			if(!stack.isEmpty() && stack.hasTagCompound() && ItemNBTHelper.getBoolean(stack, TAG_KEEP, false))
 				keeps.add(item);
 		}
 
@@ -61,8 +61,7 @@ public class ItemKeepIvy extends ItemMod {
 			int i = 0;
 			for(EntityItem keep : keeps) {
 				ItemStack stack = keep.getEntityItem();
-				NBTTagCompound cmp1 = new NBTTagCompound();
-				stack.writeToNBT(cmp1);
+				NBTTagCompound cmp1 = stack.writeToNBT(new NBTTagCompound());
 				cmp.setTag(TAG_DROP_PREFIX + i, cmp1);
 				i++;
 			}
@@ -86,8 +85,8 @@ public class ItemKeepIvy extends ItemMod {
 			int count = cmp1.getInteger(TAG_DROP_COUNT);
 			for(int i = 0; i < count; i++) {
 				NBTTagCompound cmp2 = cmp1.getCompoundTag(TAG_DROP_PREFIX + i);
-				ItemStack stack = ItemStack.loadItemStackFromNBT(cmp2);
-				if(stack != null) {
+				ItemStack stack = new ItemStack(cmp2);
+				if(!stack.isEmpty()) {
 					ItemStack copy = stack.copy();
 					ItemNBTHelper.setBoolean(copy, TAG_KEEP, false);
 					event.player.inventory.addItemStackToInventory(copy);

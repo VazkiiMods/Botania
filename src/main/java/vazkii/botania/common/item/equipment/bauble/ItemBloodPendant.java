@@ -15,6 +15,7 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
+import net.minecraft.util.NonNullList;
 import org.lwjgl.opengl.GL11;
 
 import baubles.api.BaubleType;
@@ -59,11 +60,11 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void getSubItems(@Nonnull Item item, CreativeTabs tab, List<ItemStack> list) {
+	public void getSubItems(@Nonnull Item item, CreativeTabs tab, NonNullList<ItemStack> list) {
 		super.getSubItems(item, tab, list);
 		for(String s : BotaniaAPI.brewMap.keySet()) {
 			ItemStack brewStack = getItemForBrew(BotaniaAPI.brewMap.get(s), new ItemStack(this));
-			if(brewStack != null)
+			if(!brewStack.isEmpty())
 				list.add(brewStack);
 		}
 	}
@@ -94,7 +95,7 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 	@Override
 	public void onWornTick(ItemStack stack, EntityLivingBase player) {
 		Brew brew = getBrew(stack);
-		if(brew != BotaniaAPI.fallbackBrew && player instanceof EntityPlayer && !player.worldObj.isRemote) {
+		if(brew != BotaniaAPI.fallbackBrew && player instanceof EntityPlayer && !player.world.isRemote) {
 			EntityPlayer eplayer = (EntityPlayer) player;
 			PotionEffect effect = brew.getPotionEffects(stack).get(0);
 			float cost = (float) brew.getManaCost(stack) / effect.getDuration() / (1 + effect.getAmplifier()) * 2.5F;
@@ -130,7 +131,7 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 	@Override
 	public ItemStack getItemForBrew(Brew brew, ItemStack stack) {
 		if(!brew.canInfuseBloodPendant() || brew.getPotionEffects(stack).size() != 1 || brew.getPotionEffects(stack).get(0).getPotion().isInstant())
-			return null;
+			return ItemStack.EMPTY;
 
 		ItemStack brewStack = new ItemStack(this);
 		setBrew(brewStack, brew);
@@ -153,7 +154,7 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 		if(type == RenderType.BODY) {
 			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 			Helper.rotateIfSneaking(player);
-			boolean armor = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST) != null;
+			boolean armor = !player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).isEmpty();
 			GlStateManager.rotate(180F, 1F, 0F, 0F);
 			GlStateManager.translate(-0.26F, -0.4F, armor ? 0.2F : 0.15F);
 			GlStateManager.scale(0.5F, 0.5F, 0.5F);

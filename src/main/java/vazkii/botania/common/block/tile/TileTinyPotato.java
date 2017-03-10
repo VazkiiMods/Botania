@@ -18,6 +18,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.text.TextComponentString;
+import net.minecraftforge.items.ItemHandlerHelper;
 import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.common.block.ModBlocks;
 
@@ -33,19 +34,16 @@ public class TileTinyPotato extends TileSimpleInventory {
 		int index = side.getIndex();
 		if(index >= 0) {
 			ItemStack stackAt = getItemHandler().getStackInSlot(index);
-			if(stackAt != null && stack == null) {
+			if(!stackAt.isEmpty() && stack.isEmpty()) {
 				player.setHeldItem(hand, stackAt);
-				getItemHandler().setStackInSlot(index, null);
-			} else if(stack != null) {
-				ItemStack copy = stack.copy();
-				copy.stackSize = 1;
-				stack.stackSize--;
+				getItemHandler().setStackInSlot(index, ItemStack.EMPTY);
+			} else if(!stack.isEmpty()) {
+				ItemStack copy = stack.splitStack(1);
 
-				if(stack.stackSize == 0)
+				if(stack.isEmpty())
 					player.setHeldItem(hand, stackAt);
-				else if(stackAt != null) {
-					if(!player.inventory.addItemStackToInventory(stackAt))
-						player.dropItem(stackAt, false);
+				else if(!stackAt.isEmpty()) {
+					ItemHandlerHelper.giveItemToPlayer(player, stackAt);
 				}
 
 				getItemHandler().setStackInSlot(index, copy);
@@ -54,16 +52,16 @@ public class TileTinyPotato extends TileSimpleInventory {
 
 		jump();
 
-		if(!worldObj.isRemote) {
+		if(!world.isRemote) {
 			if(name.toLowerCase().trim().endsWith("shia labeouf")  && nextDoIt == 0) {
 				nextDoIt = 40;
-				worldObj.playSound(null, pos, BotaniaSoundEvents.doit, SoundCategory.BLOCKS, 1F, 1F);
+				world.playSound(null, pos, BotaniaSoundEvents.doit, SoundCategory.BLOCKS, 1F, 1F);
 			}
 
 			for(int i = 0; i < getSizeInventory(); i++) {
 				ItemStack stackAt = getItemHandler().getStackInSlot(i);
-				if(stackAt != null && stackAt.getItem() == Item.getItemFromBlock(ModBlocks.tinyPotato)) {
-					player.addChatComponentMessage(new TextComponentString("Don't talk to me or my son ever again."));
+				if(!stackAt.isEmpty() && stackAt.getItem() == Item.getItemFromBlock(ModBlocks.tinyPotato)) {
+					player.sendMessage(new TextComponentString("Don't talk to me or my son ever again."));
 					return;
 				}
 			}
@@ -77,7 +75,7 @@ public class TileTinyPotato extends TileSimpleInventory {
 
 	@Override
 	public void update() {
-		if(worldObj.rand.nextInt(100) == 0)
+		if(world.rand.nextInt(100) == 0)
 			jump();
 
 		if(jumpTicks > 0)

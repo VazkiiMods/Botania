@@ -22,7 +22,7 @@ public class ManaDiscountEvent extends Event {
 	private float discount;
 	private ItemStack tool;
 	
-	public ManaDiscountEvent(EntityPlayer entityPlayer, float discount, @Nullable ItemStack tool) {
+	public ManaDiscountEvent(EntityPlayer entityPlayer, float discount, ItemStack tool) {
 		this.entityPlayer = entityPlayer;
 		this.discount = discount;
 		this.tool = tool;
@@ -30,10 +30,10 @@ public class ManaDiscountEvent extends Event {
 
 	@Deprecated
 	public ManaDiscountEvent(EntityPlayer entityPlayer, float discount) {
-		this(entityPlayer, discount, null);
+		this(entityPlayer, discount, ItemStack.EMPTY);
 	}
 	
-	@Nullable
+
 	public ItemStack getTool() {
 		return tool;
 	}

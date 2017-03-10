@@ -48,20 +48,20 @@ public class EntityMagicLandmine extends Entity {
 		float g = 0F;
 		float b = 0.2F;
 
-		//Botania.proxy.wispFX(worldObj, posX, posY, posZ, r, g, b, 0.6F, -0.2F, 1);
+		//Botania.proxy.wispFX(world, posX, posY, posZ, r, g, b, 0.6F, -0.2F, 1);
 		for(int i = 0; i < 6; i++)
 			Botania.proxy.wispFX(posX - range + Math.random() * range * 2, posY, posZ - range + Math.random() * range * 2, r, g, b, 0.4F, -0.015F, 1);
 
 		if(ticksExisted >= 55) {
-			worldObj.playSound(null, posX, posY, posZ, BotaniaSoundEvents.gaiaTrap, SoundCategory.NEUTRAL, 0.3F, 1F);
+			world.playSound(null, posX, posY, posZ, BotaniaSoundEvents.gaiaTrap, SoundCategory.NEUTRAL, 0.3F, 1F);
 
 			float m = 0.35F;
 			g = 0.4F;
 			for(int i = 0; i < 25; i++)
 				Botania.proxy.wispFX(posX, posY + 1, posZ, r, g, b, 0.5F, (float) (Math.random() - 0.5F) * m, (float) (Math.random() - 0.5F) * m, (float) (Math.random() - 0.5F) * m);
 
-			if(!worldObj.isRemote) {
-				List<EntityPlayer> players = worldObj.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(posX - range, posY - range, posZ - range, posX + range, posY + range, posZ + range));
+			if(!world.isRemote) {
+				List<EntityPlayer> players = world.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(posX - range, posY - range, posZ - range, posX + range, posY + range, posZ + range));
 				for(EntityPlayer player : players) {
 					player.attackEntityFrom(DamageSource.causeIndirectMagicDamage(this, summoner), 10);
 					player.addPotionEffect(new PotionEffect(MobEffects.BLINDNESS, 25, 0));

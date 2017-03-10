@@ -44,10 +44,11 @@ public class ItemKingKey extends ItemRelic implements IManaUsingItem {
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack par1ItemStack, World world, EntityPlayer player, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
 		player.setActiveHand(hand);
-		setCharging(par1ItemStack, true);
-		return ActionResult.newResult(EnumActionResult.SUCCESS, par1ItemStack);
+		ItemStack stack = player.getHeldItem(hand);
+		setCharging(stack, true);
+		return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
 	}
 
 	@Override
@@ -63,7 +64,7 @@ public class ItemKingKey extends ItemRelic implements IManaUsingItem {
 	public void onUsingTick(ItemStack stack, EntityLivingBase living, int count) {
 		int spawned = getWeaponsSpawned(stack);
 
-		if(count != getMaxItemUseDuration(stack) && spawned < 20 && !living.worldObj.isRemote && (!(living instanceof EntityPlayer) || ManaItemHandler.requestManaExact(stack, (EntityPlayer) living, 150, true))) {
+		if(count != getMaxItemUseDuration(stack) && spawned < 20 && !living.world.isRemote && (!(living instanceof EntityPlayer) || ManaItemHandler.requestManaExact(stack, (EntityPlayer) living, 150, true))) {
 			Vector3 look = new Vector3(living.getLookVec()).multiply(1, 0, 1);
 			
 			double playerRot = Math.toRadians(living.rotationYaw + 90);
@@ -71,13 +72,13 @@ public class ItemKingKey extends ItemRelic implements IManaUsingItem {
 				look = new Vector3(Math.cos(playerRot), 0, Math.sin(playerRot));
 				
 			look = look.normalize().multiply(-2);
-			
+
 			int div = spawned / 5;
 			int mod = spawned % 5;
 
 			Vector3 pl = look.add(Vector3.fromEntityCenter(living)).add(0, 1.6, div * 0.1);
 
-			Random rand = living.worldObj.rand;
+			Random rand = living.world.rand;
 			Vector3 axis = look.normalize().crossProduct(new Vector3(-1, 0, -1)).normalize();
 
 			double rot = mod * Math.PI / 4 - Math.PI / 2;
@@ -88,7 +89,7 @@ public class ItemKingKey extends ItemRelic implements IManaUsingItem {
 
 			Vector3 end = pl.add(axis1);
 
-			EntityBabylonWeapon weapon = new EntityBabylonWeapon(living.worldObj, living);
+			EntityBabylonWeapon weapon = new EntityBabylonWeapon(living.world, living);
 			weapon.posX = end.x;
 			weapon.posY = end.y;
 			weapon.posZ = end.z;
@@ -97,8 +98,8 @@ public class ItemKingKey extends ItemRelic implements IManaUsingItem {
 			weapon.setDelay(spawned);
 			weapon.setRotation(MathHelper.wrapDegrees(-living.rotationYaw + 180));
 
-			living.worldObj.spawnEntityInWorld(weapon);
-			weapon.playSound(BotaniaSoundEvents.babylonSpawn, 1F, 1F + living.worldObj.rand.nextFloat() * 3F);
+			living.world.spawnEntity(weapon);
+			weapon.playSound(BotaniaSoundEvents.babylonSpawn, 1F, 1F + living.world.rand.nextFloat() * 3F);
 			setWeaponsSpawned(stack, spawned + 1);
 		}
 	}

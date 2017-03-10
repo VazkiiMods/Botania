@@ -140,22 +140,23 @@ public class FXWisp extends Particle {
 		else queuedDepthIgnoringRenders.add(this);
 	}
 
+	// [VanillaCopy] of super, without drag when onGround is true
 	@Override
 	public void onUpdate() {
-		prevPosX = posX;
-		prevPosY = posY;
-		prevPosZ = posZ;
+		this.prevPosX = this.posX;
+		this.prevPosY = this.posY;
+		this.prevPosZ = this.posZ;
 
-		if (particleAge++ >= particleMaxAge)
-			setExpired();
+		if (this.particleAge++ >= this.particleMaxAge)
+		{
+			this.setExpired();
+		}
 
-		motionY -= 0.04D * particleGravity;
-		posX += motionX;
-		posY += motionY;
-		posZ += motionZ;
-		motionX *= 0.98000001907348633D;
-		motionY *= 0.98000001907348633D;
-		motionZ *= 0.98000001907348633D;
+		this.motionY -= 0.04D * (double)this.particleGravity;
+		this.move(this.motionX, this.motionY, this.motionZ);
+		this.motionX *= 0.9800000190734863D;
+		this.motionY *= 0.9800000190734863D;
+		this.motionZ *= 0.9800000190734863D;
 	}
 
 	public void setGravity(float value) {

@@ -16,7 +16,7 @@ public class TileTinyPlanet extends TileMod {
 
 	@Override
 	public void update() {
-		ItemTinyPlanet.applyEffect(worldObj, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
+		ItemTinyPlanet.applyEffect(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
 	}
 
 }

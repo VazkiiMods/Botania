@@ -39,7 +39,7 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 
 	private static final double LOG_2 = Math.log(2);
 
-	ItemStack requestTarget;
+	ItemStack requestTarget = ItemStack.EMPTY;
 	int itemCount = 0;
 	int ticks = 0;
 	public int compValue = 0;
@@ -62,12 +62,12 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 	}
 
 	public void setRequestTarget(ItemStack stack) {
-		if(stack != null) {
+		if(!stack.isEmpty()) {
 			ItemStack copy = stack.copy();
-			copy.stackSize = 1;
+			copy.setCount(1);
 			requestTarget = copy;
 			updateCount();
-			if(!worldObj.isRemote)
+			if(!world.isRemote)
 				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 		}
 
@@ -82,7 +82,7 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 	}
 
 	public void doRequest(boolean fullStack) {
-		if(worldObj.isRemote)
+		if(world.isRemote)
 			return;
 
 		ICorporeaSpark spark = getSpark();
@@ -93,7 +93,7 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 	}
 
 	private void updateCount() {
-		if(worldObj.isRemote)
+		if(world.isRemote)
 			return;
 
 		int oldCount = itemCount;
@@ -102,7 +102,7 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 		if(spark != null && spark.getMaster() != null && requestTarget != null) {
 			List<ItemStack> stacks = CorporeaHelper.requestItem(requestTarget, -1, spark, true, false);
 			for(ItemStack stack : stacks)
-				itemCount += stack.stackSize;
+				itemCount += stack.getCount();
 		}
 
 		if(itemCount != oldCount) {
@@ -113,15 +113,15 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 
 	private void onUpdateCount() {
 		compValue = getComparatorValue();
-		worldObj.updateComparatorOutputLevel(pos, worldObj.getBlockState(pos).getBlock());
+		world.updateComparatorOutputLevel(pos, world.getBlockState(pos).getBlock());
 	}
 
 	@Override
 	public void writePacketNBT(NBTTagCompound par1nbtTagCompound) {
 		super.writePacketNBT(par1nbtTagCompound);
 		NBTTagCompound cmp = new NBTTagCompound();
-		if(requestTarget != null)
-			requestTarget.writeToNBT(cmp);
+		if(!requestTarget.isEmpty())
+			cmp = requestTarget.writeToNBT(cmp);
 		par1nbtTagCompound.setTag(TAG_REQUEST_TARGET, cmp);
 		par1nbtTagCompound.setInteger(TAG_ITEM_COUNT, itemCount);
 	}
@@ -130,7 +130,7 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 	public void readPacketNBT(NBTTagCompound par1nbtTagCompound) {
 		super.readPacketNBT(par1nbtTagCompound);
 		NBTTagCompound cmp = par1nbtTagCompound.getCompoundTag(TAG_REQUEST_TARGET);
-		requestTarget = ItemStack.loadItemStackFromNBT(cmp);
+		requestTarget = new ItemStack(cmp);
 		itemCount = par1nbtTagCompound.getInteger(TAG_ITEM_COUNT);
 	}
 
@@ -160,9 +160,9 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 		boolean did = false;
 		for(ItemStack reqStack : stacks)
 			if(requestTarget != null) {
-				EntityItem item = new EntityItem(worldObj, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, reqStack);
-				worldObj.spawnEntityInWorld(item);
-				itemCount -= reqStack.stackSize;
+				EntityItem item = new EntityItem(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, reqStack);
+				world.spawnEntity(item);
+				itemCount -= reqStack.getCount();
 				did = true;
 			}
 
@@ -173,13 +173,12 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 	}
 
 	@Override
-	public boolean hasCapability(@Nonnull Capability<?> cap, @Nonnull EnumFacing side) {
+	public boolean hasCapability(@Nonnull Capability<?> cap, EnumFacing side) {
 		return cap == CapabilityAnimation.ANIMATION_CAPABILITY || super.hasCapability(cap, side);
 	}
 
-	@Nonnull
 	@Override
-	public <T> T getCapability(@Nonnull Capability<T> cap, @Nonnull EnumFacing side) {
+	public <T> T getCapability(@Nonnull Capability<T> cap, EnumFacing side) {
 		if(cap == CapabilityAnimation.ANIMATION_CAPABILITY) {
 			return CapabilityAnimation.ANIMATION_CAPABILITY.cast(asm);
 		} else return super.getCapability(cap, side);

@@ -43,7 +43,7 @@ public class ItemSuperCloudPendant extends ItemCloudPendant {
 		if(type == RenderType.BODY) {
 			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 			Helper.rotateIfSneaking(player);
-			boolean armor = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST) != null;
+			boolean armor = !player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).isEmpty();
 			GlStateManager.rotate(180F, 1F, 0F, 0F);
 			GlStateManager.translate(-0.2F, -0.45F, armor ? 0.2F : 0.15F);
 			GlStateManager.scale(0.5F, 0.5F, 0.5F);

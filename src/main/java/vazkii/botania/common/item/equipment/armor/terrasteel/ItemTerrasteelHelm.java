@@ -128,7 +128,7 @@ public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDisc
 			if(hasArmorSet(player)) {
 				boolean crit = player.fallDistance > 0.0F && !player.onGround && !player.isOnLadder() && !player.isInWater() && !player.isPotionActive(MobEffects.BLINDNESS) && !player.isRiding();
 				ItemStack stack = player.getItemStackFromSlot(EntityEquipmentSlot.HEAD);
-				if(crit && stack != null && stack.getItem() instanceof ItemTerrasteelHelm) {
+				if(crit && !stack.isEmpty() && stack.getItem() instanceof ItemTerrasteelHelm) {
 					boolean ahrim = hasAncientWill(stack, 0);
 					boolean dharok = hasAncientWill(stack, 1);
 					boolean guthan = hasAncientWill(stack, 2);

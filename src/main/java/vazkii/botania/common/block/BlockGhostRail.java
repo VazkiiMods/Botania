@@ -75,9 +75,9 @@ public class BlockGhostRail extends BlockRailBase implements ILexiconable, IMode
 	@SubscribeEvent
 	public static void onMinecartUpdate(MinecartUpdateEvent event) {
 		BlockPos entPos = new BlockPos(event.getEntity());
-		IBlockState state = event.getEntity().worldObj.getBlockState(entPos);
+		IBlockState state = event.getEntity().world.getBlockState(entPos);
 		Block block = state.getBlock();
-		boolean air = block.isAir(state, event.getEntity().worldObj, entPos);
+		boolean air = block.isAir(state, event.getEntity().world, entPos);
 		int floatTicks = event.getEntity().getEntityData().getInteger(TAG_FLOAT_TICKS);
 
 		if(block == ModBlocks.ghostRail)
@@ -85,21 +85,21 @@ public class BlockGhostRail extends BlockRailBase implements ILexiconable, IMode
 		else if(block instanceof BlockRailBase || block == ModBlocks.dreamwood) {
 			event.getEntity().getEntityData().setInteger(TAG_FLOAT_TICKS, 0);
 			if(floatTicks > 0)
-				event.getEntity().worldObj.playEvent(2003, entPos, 0);
+				event.getEntity().world.playEvent(2003, entPos, 0);
 		}
 		floatTicks = event.getEntity().getEntityData().getInteger(TAG_FLOAT_TICKS);
 
 		if(floatTicks > 0) {
-			IBlockState stateBelow = event.getEntity().worldObj.getBlockState(entPos.down());
+			IBlockState stateBelow = event.getEntity().world.getBlockState(entPos.down());
 			Block blockBelow = stateBelow.getBlock();
-			boolean airBelow = blockBelow.isAir(stateBelow, event.getEntity().worldObj, entPos.down());
+			boolean airBelow = blockBelow.isAir(stateBelow, event.getEntity().world, entPos.down());
 			if(air && airBelow || !air && !airBelow)
 				event.getEntity().noClip = true;
 			event.getEntity().motionY = 0.2;
 			event.getEntity().motionX *= 1.4;
 			event.getEntity().motionZ *= 1.4;
 			event.getEntity().getEntityData().setInteger(TAG_FLOAT_TICKS, floatTicks - 1);
-			event.getEntity().worldObj.playEvent(2000, entPos, 0);
+			event.getEntity().world.playEvent(2000, entPos, 0);
 		} else event.getEntity().noClip = false;
 	}
 

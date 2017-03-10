@@ -71,6 +71,7 @@ public class BlockGaiaHead extends BlockSkull implements IModelRegister {
 		return ret;
 	}
 
+	@Nonnull
 	@Override
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
 		return ModItems.gaiaHead;

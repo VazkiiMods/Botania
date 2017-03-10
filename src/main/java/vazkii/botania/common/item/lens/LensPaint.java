@@ -33,20 +33,20 @@ public class LensPaint extends Lens {
 	@Override
 	public boolean collideBurst(IManaBurst burst, EntityThrowable entity, RayTraceResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
 		int storedColor = ItemLens.getStoredColor(stack);
-		if(!entity.worldObj.isRemote && !burst.isFake() && storedColor > -1 && storedColor < 17) {
+		if(!entity.world.isRemote && !burst.isFake() && storedColor > -1 && storedColor < 17) {
 			if(pos.entityHit != null && pos.entityHit instanceof EntitySheep) {
 				int r = 20;
 				EnumDyeColor sheepColor = ((EntitySheep) pos.entityHit).getFleeceColor();
-				List<EntitySheep> sheepList = entity.worldObj.getEntitiesWithinAABB(EntitySheep.class, new AxisAlignedBB(pos.entityHit.posX - r, pos.entityHit.posY - r, pos.entityHit.posZ - r, pos.entityHit.posX + r, pos.entityHit.posY + r, pos.entityHit.posZ + r));
+				List<EntitySheep> sheepList = entity.world.getEntitiesWithinAABB(EntitySheep.class, new AxisAlignedBB(pos.entityHit.posX - r, pos.entityHit.posY - r, pos.entityHit.posZ - r, pos.entityHit.posX + r, pos.entityHit.posY + r, pos.entityHit.posZ + r));
 				for(EntitySheep sheep : sheepList) {
 					if(sheep.getFleeceColor() == sheepColor)
-						sheep.setFleeceColor(EnumDyeColor.byMetadata(storedColor == 16 ? sheep.worldObj.rand.nextInt(16) : storedColor));
+						sheep.setFleeceColor(EnumDyeColor.byMetadata(storedColor == 16 ? sheep.world.rand.nextInt(16) : storedColor));
 				}
 				dead = true;
 			} else if (pos.getBlockPos() != null) {
-				Block block = entity.worldObj.getBlockState(pos.getBlockPos()).getBlock();
+				Block block = entity.world.getBlockState(pos.getBlockPos()).getBlock();
 				if(BotaniaAPI.paintableBlocks.containsKey(block)) {
-					IBlockState state = entity.worldObj.getBlockState(pos.getBlockPos());
+					IBlockState state = entity.world.getBlockState(pos.getBlockPos());
 					List<BlockPos> coordsToPaint = new ArrayList<>();
 					List<BlockPos> coordsFound = new ArrayList<>();
 
@@ -60,7 +60,7 @@ public class LensPaint extends Lens {
 							coordsToPaint.add(coords);
 
 							for(EnumFacing dir : EnumFacing.VALUES) {
-								IBlockState state_ = entity.worldObj.getBlockState(coords.offset(dir));
+								IBlockState state_ = entity.world.getBlockState(coords.offset(dir));
 								BlockPos coords_ = new BlockPos(coords.offset(dir));
 								if(state_ == state && !coordsFound.contains(coords_) && !coordsToPaint.contains(coords_))
 									coordsFound.add(coords_);
@@ -69,13 +69,13 @@ public class LensPaint extends Lens {
 					} while(!coordsFound.isEmpty() && coordsToPaint.size() < 1000);
 
 					for(BlockPos coords : coordsToPaint) {
-						EnumDyeColor placeColor = EnumDyeColor.byMetadata(storedColor == 16 ? entity.worldObj.rand.nextInt(16) : storedColor);
-						IBlockState stateThere = entity.worldObj.getBlockState(coords);
+						EnumDyeColor placeColor = EnumDyeColor.byMetadata(storedColor == 16 ? entity.world.rand.nextInt(16) : storedColor);
+						IBlockState stateThere = entity.world.getBlockState(coords);
 
 						if(stateThere.getValue(BotaniaAPI.paintableBlocks.get(block)) != placeColor
 								&& BotaniaAPI.paintableBlocks.get(block).getAllowedValues().contains(placeColor)) {
-							entity.worldObj.setBlockState(coords, stateThere.withProperty(BotaniaAPI.paintableBlocks.get(block), placeColor), 2);
-							PacketHandler.sendToNearby(entity.worldObj, coords,
+							entity.world.setBlockState(coords, stateThere.withProperty(BotaniaAPI.paintableBlocks.get(block), placeColor), 2);
+							PacketHandler.sendToNearby(entity.world, coords,
 									new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.PAINT_LENS, coords.getX(), coords.getY(), coords.getZ(), placeColor.getMetadata()));
 						}
 					}

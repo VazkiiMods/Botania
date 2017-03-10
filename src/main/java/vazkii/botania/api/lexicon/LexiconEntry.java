@@ -31,7 +31,7 @@ public class LexiconEntry implements Comparable<LexiconEntry> {
 
 	public final List<LexiconPage> pages = new ArrayList<>();
 	private boolean priority = false;
-	private ItemStack icon = null;
+	private ItemStack icon = ItemStack.EMPTY;
 
 	private final List<ItemStack> extraDisplayedRecipes = new ArrayList<>();
 
@@ -130,13 +130,10 @@ public class LexiconEntry implements Comparable<LexiconEntry> {
 	public List<ItemStack> getDisplayedRecipes() {
 		ArrayList<ItemStack> list = new ArrayList<>();
 		for(LexiconPage page : pages) {
-			List<ItemStack> l = page.getDisplayedRecipes();
+			ArrayList<ItemStack> itemsAddedThisPage = new ArrayList<>();
 
-			if(l != null) {
-				ArrayList<ItemStack> itemsAddedThisPage = new ArrayList<>();
-
-				for(ItemStack s : l) {
-					addItem: {
+			for(ItemStack s : page.getDisplayedRecipes()) {
+				addItem: {
 					for(ItemStack s1 : itemsAddedThisPage)
 						if(s1.getItem() == s.getItem())
 							break addItem;
@@ -146,7 +143,6 @@ public class LexiconEntry implements Comparable<LexiconEntry> {
 
 					itemsAddedThisPage.add(s);
 					list.add(s);
-				}
 				}
 			}
 		}

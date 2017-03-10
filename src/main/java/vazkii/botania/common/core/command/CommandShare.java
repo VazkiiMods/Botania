@@ -23,13 +23,13 @@ public class CommandShare extends CommandBase {
 
 	@Nonnull
 	@Override
-	public String getCommandName() {
+	public String getName() {
 		return "botania-share";
 	}
 
 	@Nonnull
 	@Override
-	public String getCommandUsage(@Nonnull ICommandSender sender) {
+	public String getUsage(@Nonnull ICommandSender sender) {
 		return "<entry>";
 	}
 
@@ -41,7 +41,7 @@ public class CommandShare extends CommandBase {
 		json = json.replaceAll("%entryname%", I18n.translateToLocal(args[0]));
 
 		ITextComponent component = ITextComponent.Serializer.jsonToComponent(json);
-		server.getPlayerList().sendChatMsg(component);
+		server.getPlayerList().sendMessage(component);
 	}
 
 

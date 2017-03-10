@@ -24,14 +24,8 @@ public class RunicAltarRecipeHandler implements IRecipeHandler<RecipeRuneAltar> 
 
 	@Nonnull
 	@Override
-	public String getRecipeCategoryUid() {
-		return "botania.runicAltar";
-	}
-
-	@Nonnull
-	@Override
 	public String getRecipeCategoryUid(@Nonnull RecipeRuneAltar recipe) { // o is erased type param
-		return getRecipeCategoryUid();
+		return "botania.runicAltar";
 	}
 
 	@Nonnull

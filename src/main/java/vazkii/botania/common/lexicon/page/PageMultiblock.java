@@ -105,7 +105,7 @@ public class PageMultiblock extends LexiconPage {
 			List<String> mats = new ArrayList<>();
 			mats.add(I18n.format("botaniamisc.materialsRequired"));
 			for(ItemStack stack : mb.materials) {
-				String size = "" + stack.stackSize;
+				String size = "" + stack.getCount();
 				if(size.length() < 2)
 					size = "0" + size;
 				mats.add(" " + TextFormatting.AQUA + size + " " + TextFormatting.GRAY + stack.getDisplayName());

@@ -39,14 +39,6 @@ public class BlockRFGenerator extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	@Optional.Method(modid = "CoFHAPI|energy")
-	public void onNeighborChange(IBlockAccess world, BlockPos pos, BlockPos tilePos) {
-		TileEntity tile = world.getTileEntity(pos);
-		if(tile != null && tile instanceof TileRFGenerator)
-			((TileRFGenerator) tile).onNeighborTileChange(tilePos);
-	}
-
-	@Override
 	public boolean hasTileEntity(IBlockState state) {
 		return true;
 	}

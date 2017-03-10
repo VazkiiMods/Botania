@@ -1,6 +1,6 @@
 {
   "parent": "botania:block/shapes/tenbyten_all",
   "textures": {
-    "all": "botania:blocks/tinyPlanetBlock"
+    "all": "botania:blocks/tinyplanetblock"
   }
 }

@@ -10,9 +10,11 @@
  */
 package vazkii.botania.client.lib;
 
+import vazkii.botania.common.lib.LibMisc;
+
 public final class LibResources {
 
-	public static final String PREFIX_MOD = "botania:";
+	public static final String PREFIX_MOD = LibMisc.MOD_ID + ":";
 
 	public static final String PREFIX_LANG = "/assets/botania/lang/";
 	public static final String PREFIX_SHADER = "/assets/botania/shader/";

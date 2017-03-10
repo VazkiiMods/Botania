@@ -11,6 +11,7 @@
 package vazkii.botania.client.render.tile;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
@@ -31,7 +32,7 @@ public class RenderTileBrewery extends TileEntitySpecialRenderer<TileBrewery> {
 	public TileBrewery brewery;
 
 	@Override
-	public void renderTileEntityAt(@Nonnull TileBrewery brewery, double d0, double d1, double d2, float f, int digProgress) {
+	public void renderTileEntityAt(@Nullable TileBrewery brewery, double d0, double d1, double d2, float f, int digProgress) {
 		this.brewery = brewery;
 		GlStateManager.pushMatrix();
 		GlStateManager.enableRescaleNormal();
@@ -50,7 +51,7 @@ public class RenderTileBrewery extends TileEntitySpecialRenderer<TileBrewery> {
 	}
 
 	public void renderItemStack(ItemStack stack) {
-		if(stack != null) {
+		if(!stack.isEmpty()) {
 			Minecraft mc = Minecraft.getMinecraft();
 			GlStateManager.pushMatrix();
 			mc.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);

@@ -78,11 +78,11 @@ public class ItemManaMirror extends ItemMod implements IManaItem, ICoordBoundIte
 
 	@Nonnull
 	@Override
-	public EnumActionResult onItemUse(ItemStack par1ItemStack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
+	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
 		if(player.isSneaking() && !world.isRemote) {
 			TileEntity tile = world.getTileEntity(pos);
 			if(tile != null && tile instanceof IManaPool) {
-				bindPool(par1ItemStack, tile);
+				bindPool(player.getHeldItem(hand), tile);
 				world.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.ding, SoundCategory.PLAYERS, 1F, 1F);
 				return EnumActionResult.SUCCESS;
 			}
@@ -162,7 +162,7 @@ public class ItemManaMirror extends ItemMod implements IManaItem, ICoordBoundIte
 
 		int dim = getDimension(stack);
 		World world = null;
-		for(World w : server.worldServers)
+		for(World w : server.worlds)
 			if(w.provider.getDimension() == dim) {
 				world = w;
 				break;

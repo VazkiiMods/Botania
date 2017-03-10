@@ -85,21 +85,21 @@ public class SubTileExoflame extends SubTileFunctional {
 	}
 
 	public static boolean canFurnaceSmelt(TileEntityFurnace furnace){
-		if(furnace.getStackInSlot(0) == null)
+		if(furnace.getStackInSlot(0).isEmpty())
 			return false;
 		else {
 			ItemStack itemstack = FurnaceRecipes.instance().getSmeltingResult(furnace.getStackInSlot(0));
 
-			if(itemstack == null)
+			if(itemstack.isEmpty())
 				return false;
 
-			if(furnace.getStackInSlot(2) == null)
+			if(furnace.getStackInSlot(2).isEmpty())
 				return true;
 
 			if(!furnace.getStackInSlot(2).isItemEqual(itemstack))
 				return false;
 
-			int result = furnace.getStackInSlot(2).stackSize + itemstack.stackSize;
+			int result = furnace.getStackInSlot(2).getCount() + itemstack.getCount();
 			return result <= 64 && result <= itemstack.getMaxStackSize();
 		}
 	}

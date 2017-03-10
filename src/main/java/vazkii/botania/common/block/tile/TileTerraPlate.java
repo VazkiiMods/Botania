@@ -73,7 +73,7 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable {
 
 	@Override
 	public void update() {
-		if(worldObj.isRemote)
+		if(world.isRemote)
 			return;
 
 		boolean removeMana = true;
@@ -84,7 +84,7 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable {
 				removeMana = false;
 				ISparkEntity spark = getAttachedSpark();
 				if(spark != null) {
-					List<ISparkEntity> sparkEntities = SparkHelper.getSparksAround(worldObj, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
+					List<ISparkEntity> sparkEntities = SparkHelper.getSparksAround(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
 					for(ISparkEntity otherSpark : sparkEntities) {
 						if(spark == otherSpark)
 							continue;
@@ -94,8 +94,8 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable {
 					}
 				}
 				if(mana > 0) {
-					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, pos);
-					PacketHandler.sendToNearby(worldObj, getPos(),
+					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, pos);
+					PacketHandler.sendToNearby(world, getPos(),
 						new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.TERRA_PLATE, getPos().getX(), getPos().getY(), getPos().getZ()));
 				}
 
@@ -105,10 +105,10 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable {
 						if(otherItem != item)
 							otherItem.setDead();
 						else item.setEntityItemStack(new ItemStack(ModItems.manaResource, 1, 4));
-					worldObj.playSound(null, item.posX, item.posY, item.posZ, BotaniaSoundEvents.terrasteelCraft, SoundCategory.BLOCKS, 1, 1);
+					world.playSound(null, item.posX, item.posY, item.posZ, BotaniaSoundEvents.terrasteelCraft, SoundCategory.BLOCKS, 1, 1);
 					mana = 0;
-					worldObj.updateComparatorOutputLevel(pos, worldObj.getBlockState(pos).getBlock());
-					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, pos);
+					world.updateComparatorOutputLevel(pos, world.getBlockState(pos).getBlock());
+					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, pos);
 				}
 			}
 		}
@@ -118,19 +118,19 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable {
 	}
 
 	List<EntityItem> getItems() {
-		return worldObj.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(pos, pos.add(1, 1, 1)));
+		return world.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(pos, pos.add(1, 1, 1)));
 	}
 
 	boolean areItemsValid(List<EntityItem> items) {
 		if(items.size() != 3)
 			return false;
 
-		ItemStack ingot = null;
-		ItemStack pearl = null;
-		ItemStack diamond = null;
+		ItemStack ingot = ItemStack.EMPTY;
+		ItemStack pearl = ItemStack.EMPTY;
+		ItemStack diamond = ItemStack.EMPTY;
 		for(EntityItem item : items) {
 			ItemStack stack = item.getEntityItem();
-			if(stack.getItem() != ModItems.manaResource || stack.stackSize != 1)
+			if(stack.getItem() != ModItems.manaResource || stack.getCount() != 1)
 				return false;
 
 			int meta = stack.getItemDamage();
@@ -143,7 +143,7 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable {
 			else return false;
 		}
 
-		return ingot != null && pearl != null && diamond != null;
+		return !ingot.isEmpty() && !pearl.isEmpty() && !diamond.isEmpty();
 	}
 
 	boolean hasValidPlatform() {
@@ -160,7 +160,7 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable {
 	}
 
 	boolean checkPlatform(int xOff, int zOff, Block block) {
-		return worldObj.getBlockState(pos.add(xOff, -1, zOff)).getBlock() == block;
+		return world.getBlockState(pos.add(xOff, -1, zOff)).getBlock() == block;
 	}
 
 	@Override
@@ -186,7 +186,7 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable {
 	@Override
 	public void recieveMana(int mana) {
 		this.mana = Math.max(0, Math.min(MAX_MANA, this.mana + mana));
-		worldObj.updateComparatorOutputLevel(pos, worldObj.getBlockState(pos).getBlock());
+		world.updateComparatorOutputLevel(pos, world.getBlockState(pos).getBlock());
 	}
 
 	@Override
@@ -204,7 +204,7 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable {
 
 	@Override
 	public ISparkEntity getAttachedSpark() {
-		List<Entity> sparks = worldObj.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(pos.up(), pos.up().add(1, 1, 1)), Predicates.instanceOf(ISparkEntity.class));
+		List<Entity> sparks = world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(pos.up(), pos.up().add(1, 1, 1)), Predicates.instanceOf(ISparkEntity.class));
 		if(sparks.size() == 1) {
 			Entity e = sparks.get(0);
 			return (ISparkEntity) e;

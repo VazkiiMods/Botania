@@ -34,6 +34,7 @@ import net.minecraft.stats.Achievement;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ChunkCache;
@@ -105,7 +106,7 @@ public class BlockPool extends BlockMod implements IWandHUD, IWandable, ILexicon
 	@Nonnull
 	@Override
 	public IBlockState getActualState(@Nonnull IBlockState state, IBlockAccess world, BlockPos pos) {
-		TileEntity te = world instanceof ChunkCache ? ((ChunkCache)world).func_190300_a(pos, Chunk.EnumCreateEntityType.CHECK) : world.getTileEntity(pos);
+		TileEntity te = world instanceof ChunkCache ? ((ChunkCache)world).getTileEntity(pos, Chunk.EnumCreateEntityType.CHECK) : world.getTileEntity(pos);
 		if (te instanceof TilePool) {
 			return state.withProperty(BotaniaStateProps.COLOR, ((TilePool) te).color);
 		} else {
@@ -149,7 +150,7 @@ public class BlockPool extends BlockMod implements IWandHUD, IWandable, ILexicon
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void getSubBlocks(@Nonnull Item item, CreativeTabs par2, List<ItemStack> par3) {
+	public void getSubBlocks(@Nonnull Item item, CreativeTabs par2, NonNullList<ItemStack> par3) {
 		par3.add(new ItemStack(item, 1, 0));
 		par3.add(new ItemStack(item, 1, 2));
 		par3.add(new ItemStack(item, 1, 3));
@@ -184,7 +185,7 @@ public class BlockPool extends BlockMod implements IWandHUD, IWandable, ILexicon
 
 
 	@Override
-	public void addCollisionBoxToList(IBlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull AxisAlignedBB entityBox, @Nonnull List<AxisAlignedBB> boxes, Entity entity) {
+	public void addCollisionBoxToList(IBlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull AxisAlignedBB entityBox, @Nonnull List<AxisAlignedBB> boxes, Entity entity, boolean isActualState) {
 		addCollisionBoxToList(pos, entityBox, boxes, BOTTOM_AABB);
 		addCollisionBoxToList(pos, entityBox, boxes, NORTH_AABB);
 		addCollisionBoxToList(pos, entityBox, boxes, SOUTH_AABB);

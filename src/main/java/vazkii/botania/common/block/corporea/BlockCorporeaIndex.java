@@ -76,15 +76,15 @@ public class BlockCorporeaIndex extends BlockCorporeaBase implements ILexiconabl
 	}
 
 	@Override
-	public boolean addLandingEffects(IBlockState state, net.minecraft.world.WorldServer worldObj, BlockPos blockPosition, IBlockState iblockstate, EntityLivingBase entity, int numberOfParticles )
+	public boolean addLandingEffects(IBlockState state, net.minecraft.world.WorldServer world, BlockPos blockPosition, IBlockState iblockstate, EntityLivingBase entity, int numberOfParticles )
 	{
-		float f = MathHelper.ceiling_float_int(entity.fallDistance - 3.0F);
+		float f = MathHelper.ceil(entity.fallDistance - 3.0F);
 		double d0 = Math.min(0.2F + f / 15.0F, 10.0F);
 		if (d0 > 2.5D) {
 			d0 = 2.5D;
 		}
 		int i = (int)(150.0D * d0);
-		worldObj.spawnParticle(EnumParticleTypes.BLOCK_DUST, entity.posX, entity.posY, entity.posZ, i, 0.0D, 0.0D, 0.0D, 0.15000000596046448D, Block.getStateId(ModBlocks.storage.getDefaultState().withProperty(BotaniaStateProps.STORAGE_VARIANT, StorageVariant.ELEMENTIUM)));
+		world.spawnParticle(EnumParticleTypes.BLOCK_DUST, entity.posX, entity.posY, entity.posZ, i, 0.0D, 0.0D, 0.0D, 0.15000000596046448D, Block.getStateId(ModBlocks.storage.getDefaultState().withProperty(BotaniaStateProps.STORAGE_VARIANT, StorageVariant.ELEMENTIUM)));
 		return true;
 	}
 
@@ -101,7 +101,7 @@ public class BlockCorporeaIndex extends BlockCorporeaBase implements ILexiconabl
 						double d0 = pos.getX() + (j + 0.5D) / i;
 						double d1 = pos.getY() + (k + 0.5D) / i;
 						double d2 = pos.getZ() + (l + 0.5D) / i;
-						effectRenderer.addEffect(factory.getEntityFX(-1, world, d0, d1, d2, d0 - pos.getX() - 0.5D, d1 - pos.getY() - 0.5D, d2 - pos.getZ() - 0.5D, Block.getStateId(ModBlocks.storage.getDefaultState().withProperty(BotaniaStateProps.STORAGE_VARIANT, StorageVariant.ELEMENTIUM))));
+						effectRenderer.addEffect(factory.createParticle(-1, world, d0, d1, d2, d0 - pos.getX() - 0.5D, d1 - pos.getY() - 0.5D, d2 - pos.getZ() - 0.5D, Block.getStateId(ModBlocks.storage.getDefaultState().withProperty(BotaniaStateProps.STORAGE_VARIANT, StorageVariant.ELEMENTIUM))));
 					}
 				}
 			}

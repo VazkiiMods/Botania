@@ -12,9 +12,6 @@ package vazkii.botania.common.lib;
 
 public final class LibObfuscation {
 
-	// EntityHorse
-	public static final String[] INIT_HORSE_CHEST = { "initHorseChest", "func_110226_cD", "dJ" };
-
 	// RenderManager
 	public static final String[] RENDERPOSX = { "renderPosX", "field_78725_b", "o" };
 	public static final String[] RENDERPOSY = { "renderPosY", "field_78726_c", "p" };
@@ -46,8 +43,8 @@ public final class LibObfuscation {
 	// EntityLivingBase
 	public static final String[] ITEM_IN_USE_COUNT = { "activeItemStackUseCount", "field_184628_bn", "bn" };
 
-	// EntityHorse
-	public static final String[] HORSE_JUMP_STRENGTH = { "JUMP_STRENGTH", "field_110271_bv", "bC" };
+	// AbstractHorse
+	public static final String[] HORSE_JUMP_STRENGTH = { "JUMP_STRENGTH", "field_110271_bv", "bw" };
 
 	// PlayerControllerMP
 	public static final String[] NET_CLIENT_HANDLER = { "connection", "field_78774_b", "b" };
@@ -59,7 +56,7 @@ public final class LibObfuscation {
 	public static final String[] MAX_NEARBY_ENTITIES = { "maxNearbyEntities", "field_98292_k", "j" };
 	public static final String[] MAX_SPAWN_DELAY = { "maxSpawnDelay", "field_98293_h", "g" };
 	public static final String[] MIN_SPAWN_DELAY = { "minSpawnDelay", "field_98283_g", "f" };
-	public static final String[] POTENTIAL_ENTITY_SPAWNS = { "minecartToSpawn", "field_98285_e", "b" };
+	public static final String[] POTENTIAL_ENTITY_SPAWNS = { "potentialSpawns", "field_98285_e", "b" };
 	public static final String[] SPAWN_DELAY = { "spawnDelay", "field_98286_b", "a" };
 	public static final String[] PREV_MOB_ROTATION = { "prevMobRotation", "field_98284_d", "e" };
 	public static final String[] MOB_ROTATION = { "mobRotation", "field_98287_c", "d" };
@@ -73,7 +70,7 @@ public final class LibObfuscation {
 
 	// GuiChat
 	public static final String[] INPUT_FIELD = { "inputField", "field_146415_a", "a" };
-	public static final String[] COMPLETE_FLAG = { "waitingOnAutocomplete", "field_146414_r", "r" }; // todo 1.9
+	// todo 1.9+ public static final String[] COMPLETE_FLAG = { "waitingOnAutocomplete", "field_146414_r", "r" };
 
 	// Entityliving
 	public static final String[] GET_LIVING_SOUND = { "getAmbientSound", "func_184639_G", "G" };

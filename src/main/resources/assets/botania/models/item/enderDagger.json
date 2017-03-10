@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:item/handheld",
-  "textures": {
-    "layer0": "botania:items/enderDagger0",
-    "layer1": "botania:items/enderDagger1"
-  }
-}

@@ -44,7 +44,8 @@ public final class TooltipAdditionDisplayHandler {
 
 	@SubscribeEvent
 	public static void onToolTipRender(RenderTooltipEvent.PostText evt) {
-		if(evt.getStack() == null)
+		// todo this null check is still needed. remove when Forge#3590 is pulled.
+		if(evt.getStack() == null || evt.getStack().isEmpty())
 			return;
 
 		ItemStack stack = evt.getStack();
@@ -63,11 +64,11 @@ public final class TooltipAdditionDisplayHandler {
 		EntryData data = LexiconRecipeMappings.getDataForStack(stack);
 		if(data != null) {
 			int lexSlot = -1;
-			ItemStack lexiconStack = null;
+			ItemStack lexiconStack = ItemStack.EMPTY;
 
 			for(int i = 0; i < InventoryPlayer.getHotbarSize(); i++) {
-				ItemStack stackAt = mc.thePlayer.inventory.getStackInSlot(i);
-				if(stackAt != null && stackAt.getItem() instanceof ILexicon && ((ILexicon) stackAt.getItem()).isKnowledgeUnlocked(stackAt, data.entry.getKnowledgeType())) {
+				ItemStack stackAt = mc.player.inventory.getStackInSlot(i);
+				if(!stackAt.isEmpty() && stackAt.getItem() instanceof ILexicon && ((ILexicon) stackAt.getItem()).isKnowledgeUnlocked(stackAt, data.entry.getKnowledgeType())) {
 					lexiconStack = stackAt;
 					lexSlot = i;
 					break;
@@ -115,11 +116,11 @@ public final class TooltipAdditionDisplayHandler {
 					GlStateManager.shadeModel(GL11.GL_FLAT);
 
 					if(lexiconLookupTime >= time) {
-						mc.thePlayer.inventory.currentItem = lexSlot;
+						mc.player.inventory.currentItem = lexSlot;
 						Botania.proxy.setEntryToOpen(data.entry);
 						Botania.proxy.setLexiconStack(lexiconStack);
-						mc.thePlayer.closeScreen();
-						ItemLexicon.openBook(mc.thePlayer, lexiconStack, mc.theWorld, false);
+						mc.player.closeScreen();
+						ItemLexicon.openBook(mc.player, lexiconStack, mc.world, false);
 
 					}
 				} else lexiconLookupTime = 0F;

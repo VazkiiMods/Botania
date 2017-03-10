@@ -27,6 +27,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
@@ -89,7 +90,7 @@ public class BlockAltGrass extends BlockMod implements ILexiconable {
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void getSubBlocks(@Nonnull Item item, CreativeTabs tab, List<ItemStack> list) {
+	public void getSubBlocks(@Nonnull Item item, CreativeTabs tab, NonNullList<ItemStack> list) {
 		for(int i = 0; i < 6; i++)
 			list.add(new ItemStack(item, 1, i));
 	}
@@ -109,6 +110,7 @@ public class BlockAltGrass extends BlockMod implements ILexiconable {
 		}
 	}
 
+	@Nonnull
 	@Override
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
 		return Blocks.DIRT.getItemDropped(state, rand, fortune);

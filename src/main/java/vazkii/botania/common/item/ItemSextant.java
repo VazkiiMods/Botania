@@ -104,23 +104,24 @@ public class ItemSextant extends ItemMod {
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack par1ItemStack, World world, EntityPlayer player, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
 		Botania.proxy.removeSextantMultiblock();
 
+		ItemStack stack = player.getHeldItem(hand);
 		if(!player.isSneaking()) {
 			RayTraceResult pos = ToolCommons.raytraceFromEntity(world, player, false, 128);
 			if(pos != null && pos.entityHit == null && pos.getBlockPos() != null) {
 				if(!world.isRemote) {
-					ItemNBTHelper.setInt(par1ItemStack, TAG_SOURCE_X, pos.getBlockPos().getX());
-					ItemNBTHelper.setInt(par1ItemStack, TAG_SOURCE_Y, pos.getBlockPos().getY());
-					ItemNBTHelper.setInt(par1ItemStack, TAG_SOURCE_Z, pos.getBlockPos().getZ());
+					ItemNBTHelper.setInt(stack, TAG_SOURCE_X, pos.getBlockPos().getX());
+					ItemNBTHelper.setInt(stack, TAG_SOURCE_Y, pos.getBlockPos().getY());
+					ItemNBTHelper.setInt(stack, TAG_SOURCE_Z, pos.getBlockPos().getZ());
 				}
-			} else ItemNBTHelper.setInt(par1ItemStack, TAG_SOURCE_Y, -1);
+			} else ItemNBTHelper.setInt(stack, TAG_SOURCE_Y, -1);
 
 			player.setActiveHand(hand);
 		}
 
-		return ActionResult.newResult(EnumActionResult.SUCCESS, par1ItemStack);
+		return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
 	}
 
 	public static double calculateRadius(ItemStack stack, EntityPlayer player) {
@@ -136,9 +137,9 @@ public class ItemSextant extends ItemMod {
 		double mul = diffVec.y / lookVec.y;
 		lookVec = lookVec.multiply(mul).add(centerVec);
 
-		lookVec = new Vector3(net.minecraft.util.math.MathHelper.floor_double(lookVec.x),
+		lookVec = new Vector3(net.minecraft.util.math.MathHelper.floor(lookVec.x),
 				lookVec.y,
-				net.minecraft.util.math.MathHelper.floor_double(lookVec.z));
+				net.minecraft.util.math.MathHelper.floor(lookVec.z));
 
 		return MathHelper.pointDistancePlane(source.x, source.z, lookVec.x, lookVec.z);
 	}

@@ -76,7 +76,7 @@ import vazkii.botania.common.lib.LibMisc;
 public class GuiLexicon extends GuiScreen {
 
 	public static GuiLexicon currentOpenLexicon = new GuiLexicon();
-	public static ItemStack stackUsed;
+	public static ItemStack stackUsed = ItemStack.EMPTY;
 
 	public static final Map<String, String> notes = new HashMap<>();
 
@@ -291,7 +291,7 @@ public class GuiLexicon extends GuiScreen {
 			bookmarksNeedPopulation = false;
 		}
 
-		if(mc.thePlayer.getName().equals("haighyorkie")) {
+		if(mc.player.getName().equals("haighyorkie")) {
 			GlStateManager.color(1F, 1F, 1F, 1F);
 			mc.renderEngine.bindTexture(texture);
 			drawTexturedModalRect(left - 19, top + 42, 67, 180, 19, 26);
@@ -435,7 +435,7 @@ public class GuiLexicon extends GuiScreen {
 			mc.displayGuiScreen(new GuiBotaniaConfig(this));
 			break;
 		case -2 :
-			mc.displayGuiScreen(new GuiAchievementsHacky(this, mc.thePlayer.getStatFileWriter()));
+			mc.displayGuiScreen(new GuiAchievementsHacky(this, mc.player.getStatFileWriter()));
 			break;
 		case -3 :
 			mc.displayGuiScreen(new GuiLexiconChallengesList());

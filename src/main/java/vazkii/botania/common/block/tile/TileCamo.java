@@ -43,6 +43,6 @@ public class TileCamo extends TileMod {
 	@Override
 	public void onDataPacket(NetworkManager manager, SPacketUpdateTileEntity packet) {
 		super.onDataPacket(manager, packet);
-		worldObj.markBlockRangeForRenderUpdate(pos, pos);
+		world.markBlockRangeForRenderUpdate(pos, pos);
 	}
 }

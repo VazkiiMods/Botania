@@ -50,7 +50,7 @@ public class WrappedIInventory extends WrappedInventoryBase{
 			// WARNING: this code is very similar in all implementations of
 			// IWrappedInventory - keep it synch
 			if(isMatchingItemStack(request.matcher, request.checkNBT, stackAt)) {
-				int rem = Math.min(stackAt.stackSize, request.count == -1 ? stackAt.stackSize : request.count);
+				int rem = Math.min(stackAt.getCount(), request.count == -1 ? stackAt.getCount() : request.count);
 
 				if(rem > 0) {
 					stacks.add(inv.handler.extractItem(i, rem, !doit));
@@ -58,7 +58,7 @@ public class WrappedIInventory extends WrappedInventoryBase{
 						spark.onItemExtracted(stackAt);
 				}
 
-				request.foundItems += stackAt.stackSize;
+				request.foundItems += stackAt.getCount();
 				request.extractedItems += rem;
 
 				if(request.count != -1)

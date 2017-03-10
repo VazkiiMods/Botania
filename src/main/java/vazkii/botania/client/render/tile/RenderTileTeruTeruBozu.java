@@ -12,7 +12,7 @@ package vazkii.botania.client.render.tile;
 
 import java.util.Random;
 
-import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.lwjgl.opengl.GL11;
 
@@ -33,7 +33,7 @@ public class RenderTileTeruTeruBozu extends TileEntitySpecialRenderer<TileTeruTe
 	final ModelTeruTeruBozu model = new ModelTeruTeruBozu();
 
 	@Override
-	public void renderTileEntityAt(@Nonnull TileTeruTeruBozu tileentity, double d0, double d1, double d2, float f, int digProgress) {
+	public void renderTileEntityAt(@Nullable TileTeruTeruBozu tileentity, double d0, double d1, double d2, float f, int digProgress) {
 		GlStateManager.pushMatrix();
 		GlStateManager.enableRescaleNormal();
 		GlStateManager.enableBlend();

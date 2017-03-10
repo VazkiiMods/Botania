@@ -32,7 +32,7 @@ public class GuiButtonInvisible extends GuiButtonLexicon {
 	private static final ResourceLocation dogResource = new ResourceLocation(LibResources.GUI_DOG);
 
 	final GuiLexiconIndex gui;
-	public ItemStack displayStack = null;
+	public ItemStack displayStack = ItemStack.EMPTY;
 	public boolean dog = false;
 	float timeHover = 0;
 
@@ -67,7 +67,7 @@ public class GuiButtonInvisible extends GuiButtonLexicon {
 
 		hovered = par2 >= xPosition && par3 >= yPosition && par2 < xPosition + width && par3 < yPosition + height;
 		int k = getHoverState(hovered);
-		boolean showStack = displayStack != null && !displayString.isEmpty();
+		boolean showStack = !displayStack.isEmpty() && !displayString.isEmpty();
 
 		if(!displayString.isEmpty() && k == 2) {
 			timeHover = Math.min(5, timeHover + gui.timeDelta);

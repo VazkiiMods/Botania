@@ -55,7 +55,7 @@ public class ModelBrewery extends ModelBase {
 
 		GlStateManager.translate(0F, offset, 0F);
 		GlStateManager.rotate(polerot, 0F, 1F, 0F);
-		if(hasTile && render.brewery.getItemHandler().getStackInSlot(0) != null) {
+		if(hasTile && !render.brewery.getItemHandler().getStackInSlot(0).isEmpty()) {
 			GlStateManager.rotate(180F, 1F, 0F, 0F);
 			GlStateManager.translate(0, -0.45, 0);
 			//GlStateManager.translate(-1F / 8F, -0.5F, 1F / 128F);
@@ -78,7 +78,7 @@ public class ModelBrewery extends ModelBase {
 				offset1 = 0F;
 
 			GlStateManager.translate(0F, offset1, 0F);
-			if(hasTile && render.brewery.getItemHandler().getStackInSlot(i + 1) != null) {
+			if(hasTile && !render.brewery.getItemHandler().getStackInSlot(i + 1).isEmpty()) {
 				float rot = Plate.rotateAngleY * 180F / (float) Math.PI;
 				float transX = 0.3125F;
 				float transY = 1.06F;

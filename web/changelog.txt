@@ -1,3 +1,23 @@
+r1.9 342
+*<b>Updated the mod to 1.11.2</b>
+*Removed the Golden Laurel Crown, as it overlaps with the Totem of Undying.
+*Using Chorus Fruit on a Cocoon of Caprice allows it to spawn shulkers.
+*<i>Yet another build provided by williewillus :D</i>
+r1.9 341
+*<b>Unless otherwise stated, this entire update was kindly provided by williewillus' assistance.</b>
+*Fixed a crash when placing pistons with a arannuncarpus.
+*Fixed a crash with the orechid when an ore is registered to the ore dictionary that isn't a block. (smbarbour)
+*Fixed AoE mining not firing break events and not dropping xp.
+*Fixed body and leg armor stats being swapped.
+*Fixed crashes with the drum of the gathering and the mod's shears.
+*Fixed the botania banner lexicon entry still requiring EtFuturum.
+*Fixed the crystal bow not using mana.
+*Fixed the gaia guardian not looking like the player in dedicated servers.
+*Fixed the horn of the wild, bore lens, and rod of the shifting crust manually dropping block drops and not allowing for block rollbacks.
+*Fixed the marimorphosis running clientside and desyncing.
+*Fixed the soulscribe not dealing extra damage.
+*Fixed the spectator not highlighting all relevant inventories.
+*Removed lexicon references to blocks that have been removed or moved to quark.
 r1.9 340
 *Fixed a crash regarding tile entities and block states not playing together. (williewillus)
 *Fixed crash on unequipping the Ring of Loki.

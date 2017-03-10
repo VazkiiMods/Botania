@@ -8,15 +8,18 @@
  */
 package vazkii.botania.client.integration.jei.brewery;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.gui.IDrawableStatic;
 import mezz.jei.api.gui.IRecipeLayout;
+import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeCategory;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;
@@ -54,45 +57,42 @@ public class BreweryRecipeCategory implements IRecipeCategory {
 		return background;
 	}
 
+	@Nullable
+	@Override
+	public IDrawable getIcon() {
+		return null;
+	}
+
 	@Override
 	public void drawExtras(@Nonnull Minecraft minecraft) {
 	}
 
 	@Override
-	public void drawAnimations(@Nonnull Minecraft minecraft) {
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull IRecipeWrapper recipeWrapper) {
+	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull IRecipeWrapper recipeWrapper, @Nonnull IIngredients ingredients) {
 		if(!(recipeWrapper instanceof BreweryRecipeWrapper))
 			return;
-		BreweryRecipeWrapper wrapper = (BreweryRecipeWrapper) recipeWrapper;
 
-		List inputs = wrapper.getInputs();
+		List<List<ItemStack>> inputs = ingredients.getInputs(ItemStack.class);
 
 		recipeLayout.getItemStacks().init(0, true, 39, 41);
-		if(inputs.get(0) instanceof ItemStack) {
-			recipeLayout.getItemStacks().set(0, (ItemStack) inputs.get(0));
-		} else {
-			recipeLayout.getItemStacks().set(0, (Collection<ItemStack>) inputs.get(0));
-		}
+		recipeLayout.getItemStacks().set(0, inputs.get(0));
 
 		int index = 1, posX = 60;
-		for(int i = 1; i < wrapper.getInputs().size(); i++) {
-			Object o = wrapper.getInputs().get(i);
+		for(int i = 1; i < inputs.size(); i++) {
+			List<ItemStack> o = inputs.get(i);
 			recipeLayout.getItemStacks().init(index, true, posX, 6);
-			if(o instanceof ItemStack) {
-				recipeLayout.getItemStacks().set(index, (ItemStack) o);
-			} else if(o instanceof Collection) {
-				recipeLayout.getItemStacks().set(index, (Collection<ItemStack>) o);
-			}
+			recipeLayout.getItemStacks().set(index, o);
 			index++;
 			posX += 18;
 		}
 
 		recipeLayout.getItemStacks().init(7, false, 87, 41);
-		recipeLayout.getItemStacks().set(7, wrapper.getOutputs());
+		recipeLayout.getItemStacks().set(7, ingredients.getOutputs(ItemStack.class).get(0));
+	}
+	
+	@Override
+	public List getTooltipStrings(int mouseX, int mouseY) {
+		return new ArrayList();
 	}
 
 }

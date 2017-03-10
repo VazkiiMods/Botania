@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/wall_post",
   "textures": {
-    "wall": "botania:blocks/biomeStone12"
+    "wall": "botania:blocks/biomestone12"
   }
 }

@@ -10,7 +10,7 @@
  */
 package vazkii.botania.client.render.tile;
 
-import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.lwjgl.opengl.GL11;
 
@@ -41,7 +41,7 @@ public class RenderTileAvatar extends TileEntitySpecialRenderer<TileAvatar> {
 	private static final ModelAvatar model = new ModelAvatar();
 
 	@Override
-	public void renderTileEntityAt(@Nonnull TileAvatar avatar, double d0, double d1, double d2, float pticks, int digProgress) {
+	public void renderTileEntityAt(@Nullable TileAvatar avatar, double d0, double d1, double d2, float pticks, int digProgress) {
 		if (avatar != null)
 			if (!avatar.getWorld().isBlockLoaded(avatar.getPos(), false)
 					|| avatar.getWorld().getBlockState(avatar.getPos()).getBlock() != ModBlocks.avatar)
@@ -71,7 +71,7 @@ public class RenderTileAvatar extends TileEntitySpecialRenderer<TileAvatar> {
 				}
 
 				ItemStack stack = avatar.getItemHandler().getStackInSlot(0);
-				if(stack != null) {
+				if(!stack.isEmpty()) {
 					GlStateManager.pushMatrix();
 					Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 					float s = 0.6F;

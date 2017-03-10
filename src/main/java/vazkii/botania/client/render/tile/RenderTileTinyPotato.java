@@ -163,7 +163,7 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer<TileTinyPota
 
 		for(int i = 0; i < potato.getSizeInventory(); i++) {
 			ItemStack stack = potato.getItemHandler().getStackInSlot(i);
-			if(stack == null)
+			if(stack.isEmpty())
 				continue;
 
 			GlStateManager.pushMatrix();
@@ -269,8 +269,8 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer<TileTinyPota
 				mc.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 				renderBlock(Blocks.CAKE);
 			} else if (ContributorFancinessHandler.flowerMap != null && ContributorFancinessHandler.flowerMap.containsKey(name)) {
-				ItemStack icon = ContributorFancinessHandler.flowerMap.get(name);
-				if (icon != null) {
+				ItemStack icon = ContributorFancinessHandler.flowerMap.getOrDefault(name, ItemStack.EMPTY);
+				if (!icon.isEmpty()) {
 					mc.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 					GlStateManager.rotate(180F, 1F, 0F, 0F);
 					GlStateManager.rotate(180F, 0F, 1F, 0F);

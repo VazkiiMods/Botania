@@ -15,6 +15,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
 import org.lwjgl.opengl.GL11;
 
 import baubles.api.BaublesApi;
@@ -30,7 +32,6 @@ import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.profiler.Profiler;
@@ -88,24 +89,24 @@ public final class HUDHandler {
 
 		if(event.getType() == ElementType.HEALTH) {
 			profiler.startSection("botania-hud");
-			IInventory baublesInv = BaublesApi.getBaubles(mc.thePlayer);
+			IItemHandler baublesInv = BaublesApi.getBaublesHandler(mc.player);
 			ItemStack headpiece = baublesInv.getStackInSlot(4);
-			if(headpiece != null && headpiece.getItem() == ModItems.flightTiara) {
+			if(!headpiece.isEmpty() && headpiece.getItem() == ModItems.flightTiara) {
 				profiler.startSection("flugelTiara");
-				ItemFlightTiara.renderHUD(event.getResolution(), mc.thePlayer, headpiece);
+				ItemFlightTiara.renderHUD(event.getResolution(), mc.player, headpiece);
 				profiler.endSection();
 			}
 
 			dodgeRing: {
 				ItemStack ring = baublesInv.getStackInSlot(1);
-				if(ring == null || !(ring.getItem() instanceof ItemDodgeRing)) {
+				if(ring.isEmpty() || !(ring.getItem() instanceof ItemDodgeRing)) {
 					ring = baublesInv.getStackInSlot(2);
-					if(ring == null || !(ring.getItem() instanceof ItemDodgeRing))
+					if(ring.isEmpty() || !(ring.getItem() instanceof ItemDodgeRing))
 						break dodgeRing;
 				}
 
 				profiler.startSection("dodgeRing");
-				ItemDodgeRing.renderHUD(event.getResolution(), mc.thePlayer, ring, event.getPartialTicks());
+				ItemDodgeRing.renderHUD(event.getResolution(), mc.player, ring, event.getPartialTicks());
 				profiler.endSection();
 			}
 
@@ -117,31 +118,31 @@ public final class HUDHandler {
 	public static void onDrawScreenPost(RenderGameOverlayEvent.Post event) {
 		Minecraft mc = Minecraft.getMinecraft();
 		Profiler profiler = mc.mcProfiler;
-		ItemStack main = mc.thePlayer.getHeldItemMainhand();
-		ItemStack offhand = mc.thePlayer.getHeldItemOffhand();
+		ItemStack main = mc.player.getHeldItemMainhand();
+		ItemStack offhand = mc.player.getHeldItemOffhand();
 
 		if(event.getType() == ElementType.ALL) {
 			profiler.startSection("botania-hud");
 			RayTraceResult pos = mc.objectMouseOver;
 
 			if(pos != null) {
-				IBlockState state = pos.typeOfHit == RayTraceResult.Type.BLOCK ? mc.theWorld.getBlockState(pos.getBlockPos()) : null;
+				IBlockState state = pos.typeOfHit == RayTraceResult.Type.BLOCK ? mc.world.getBlockState(pos.getBlockPos()) : null;
 				Block block = state == null ? null : state.getBlock();
-				TileEntity tile = pos.typeOfHit == RayTraceResult.Type.BLOCK ? mc.theWorld.getTileEntity(pos.getBlockPos()) : null;
+				TileEntity tile = pos.typeOfHit == RayTraceResult.Type.BLOCK ? mc.world.getTileEntity(pos.getBlockPos()) : null;
 
-				if(PlayerHelper.hasAnyHeldItem(mc.thePlayer)) {
-					if(pos != null && PlayerHelper.hasHeldItem(mc.thePlayer, ModItems.twigWand)) {
-						renderWandModeDisplay(PlayerHelper.getFirstHeldItem(mc.thePlayer, ModItems.twigWand), event.getResolution());
+				if(PlayerHelper.hasAnyHeldItem(mc.player)) {
+					if(pos != null && PlayerHelper.hasHeldItem(mc.player, ModItems.twigWand)) {
+						renderWandModeDisplay(PlayerHelper.getFirstHeldItem(mc.player, ModItems.twigWand), event.getResolution());
 
 						if(block instanceof IWandHUD) {
 							profiler.startSection("wandItem");
-							((IWandHUD) block).renderHUD(mc, event.getResolution(), mc.theWorld, pos.getBlockPos());
+							((IWandHUD) block).renderHUD(mc, event.getResolution(), mc.world, pos.getBlockPos());
 							profiler.endSection();
 						}
-					} else if(block != null && PlayerHelper.hasHeldItemClass(mc.thePlayer, ILexicon.class))
-						drawLexiconHUD(PlayerHelper.getFirstHeldItemClass(mc.thePlayer, ILexicon.class), state, pos, event.getResolution());
-					if(tile != null && tile instanceof TilePool && mc.thePlayer.getHeldItemMainhand() != null)
-						renderPoolRecipeHUD(event.getResolution(), (TilePool) tile, mc.thePlayer.getHeldItemMainhand());
+					} else if(block != null && PlayerHelper.hasHeldItemClass(mc.player, ILexicon.class))
+						drawLexiconHUD(PlayerHelper.getFirstHeldItemClass(mc.player, ILexicon.class), state, pos, event.getResolution());
+					if(tile != null && tile instanceof TilePool && !mc.player.getHeldItemMainhand().isEmpty())
+						renderPoolRecipeHUD(event.getResolution(), (TilePool) tile, mc.player.getHeldItemMainhand());
 				}
 				if(tile != null && tile instanceof TileAltar)
 					((TileAltar) tile).renderHUD(mc, event.getResolution());
@@ -153,7 +154,7 @@ public final class HUDHandler {
 			}
 
 			TileCorporeaIndex.getInputHandler();
-			if(!InputHandler.getNearbyIndexes(mc.thePlayer).isEmpty() && mc.currentScreen != null && mc.currentScreen instanceof GuiChat) {
+			if(!InputHandler.getNearbyIndexes(mc.player).isEmpty() && mc.currentScreen != null && mc.currentScreen instanceof GuiChat) {
 				profiler.startSection("nearIndex");
 				renderNearIndexDisplay(event.getResolution());
 				profiler.endSection();
@@ -166,57 +167,57 @@ public final class HUDHandler {
 				profiler.endSection();
 			}
 
-			if(main != null && main.getItem() instanceof ItemCraftingHalo) {
+			if(!main.isEmpty() && main.getItem() instanceof ItemCraftingHalo) {
 				profiler.startSection("craftingHalo_main");
-				ItemCraftingHalo.renderHUD(event.getResolution(), mc.thePlayer, main);
+				ItemCraftingHalo.renderHUD(event.getResolution(), mc.player, main);
 				profiler.endSection();
-			} else if(offhand != null && offhand.getItem() instanceof ItemCraftingHalo) {
+			} else if(!offhand.isEmpty() && offhand.getItem() instanceof ItemCraftingHalo) {
 				profiler.startSection("craftingHalo_off");
-				ItemCraftingHalo.renderHUD(event.getResolution(), mc.thePlayer, offhand);
+				ItemCraftingHalo.renderHUD(event.getResolution(), mc.player, offhand);
 				profiler.endSection();
 			}
 
-			if(main != null && main.getItem() instanceof ItemSextant) {
+			if(!main.isEmpty() && main.getItem() instanceof ItemSextant) {
 				profiler.startSection("sextant");
-				ItemSextant.renderHUD(event.getResolution(), mc.thePlayer, main);
+				ItemSextant.renderHUD(event.getResolution(), mc.player, main);
 				profiler.endSection();
 			}
 
 			/*if(equippedStack != null && equippedStack.getItem() == ModItems.flugelEye) {
 				profiler.startSection("flugelEye");
-				ItemFlugelEye.renderHUD(event.getResolution(), mc.thePlayer, equippedStack);
+				ItemFlugelEye.renderHUD(event.getResolution(), mc.player, equippedStack);
 				profiler.endSection();
 			}*/
 
 			if(Botania.proxy.isClientPlayerWearingMonocle()) {
 				profiler.startSection("monocle");
-				ItemMonocle.renderHUD(event.getResolution(), mc.thePlayer);
+				ItemMonocle.renderHUD(event.getResolution(), mc.player);
 				profiler.endSection();
 			}
 
 			profiler.startSection("manaBar");
 
-			EntityPlayer player = mc.thePlayer;
+			EntityPlayer player = mc.player;
 			if(!player.isSpectator()) {
 				int totalMana = 0;
 				int totalMaxMana = 0;
 				boolean anyRequest = false;
 				boolean creative = false;
 
-				IInventory mainInv = player.inventory;
-				IInventory baublesInv = BaublesApi.getBaubles(player);
+				IItemHandler mainInv = player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
+				IItemHandler baublesInv = BaublesApi.getBaublesHandler(player);
 
-				int invSize = mainInv.getSizeInventory();
+				int invSize = mainInv.getSlots();
 				int size = invSize;
 				if(baublesInv != null)
-					size += baublesInv.getSizeInventory();
+					size += baublesInv.getSlots();
 
 				for(int i = 0; i < size; i++) {
 					boolean useBaubles = i >= invSize;
-					IInventory inv = useBaubles ? baublesInv : mainInv;
+					IItemHandler inv = useBaubles ? baublesInv : mainInv;
 					ItemStack stack = inv.getStackInSlot(i - (useBaubles ? invSize : 0));
 
-					if(stack != null) {
+					if(!stack.isEmpty()) {
 						Item item = stack.getItem();
 						if(item instanceof IManaUsingItem)
 							anyRequest = anyRequest || ((IManaUsingItem) item).usesMana(stack);
@@ -322,7 +323,7 @@ public final class HUDHandler {
 			int y = res.getScaledHeight() / 2 + 10;
 
 			int u = tile.getCurrentMana() >= recipe.getManaToConsume() ? 0 : 22;
-			int v = mc.thePlayer.getName().equals("haighyorkie") && mc.thePlayer.isSneaking() ? 23 : 8;
+			int v = mc.player.getName().equals("haighyorkie") && mc.player.isSneaking() ? 23 : 8;
 
 			GlStateManager.enableBlend();
 			GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
@@ -349,7 +350,7 @@ public final class HUDHandler {
 
 		profiler.startSection("crystalCube");
 		ItemStack target = tile.getRequestTarget();
-		if(target != null) {
+		if(!target.isEmpty()) {
 			String s1 = target.getDisplayName();
 			String s2 = tile.getItemCount() + "x";
 			int strlen = Math.max(mc.fontRendererObj.getStringWidth(s1), mc.fontRendererObj.getStringWidth(s2));
@@ -386,7 +387,7 @@ public final class HUDHandler {
 		int sy = res.getScaledHeight() / 2 + 2;
 
 		if(block instanceof ILexiconable) {
-			LexiconEntry entry = ((ILexiconable) block).getEntry(mc.theWorld, pos.getBlockPos(), mc.thePlayer, stack);
+			LexiconEntry entry = ((ILexiconable) block).getEntry(mc.world, pos.getBlockPos(), mc.player, stack);
 			if(entry != null) {
 				if(!((ILexicon) stack.getItem()).isKnowledgeUnlocked(stack, entry.getKnowledgeType()))
 					font = mc.standardGalacticFontRenderer;
@@ -399,12 +400,12 @@ public final class HUDHandler {
 
 		if(!draw && pos.entityHit == null) {
 			profiler.startSection("wikiLookup");
-			if(!block.isAir(state, mc.theWorld, pos.getBlockPos()) && !(block instanceof BlockLiquid)) {
+			if(!block.isAir(state, mc.world, pos.getBlockPos()) && !(block instanceof BlockLiquid)) {
 				IWikiProvider provider = WikiHooks.getWikiFor(block);
-				String url = provider.getWikiURL(mc.theWorld, pos, mc.thePlayer);
+				String url = provider.getWikiURL(mc.world, pos, mc.player);
 				if(url != null && !url.isEmpty()) {
-					String name = provider.getBlockName(mc.theWorld, pos, mc.thePlayer);
-					String wikiName = provider.getWikiName(mc.theWorld, pos, mc.thePlayer);
+					String name = provider.getBlockName(mc.world, pos, mc.player);
+					String wikiName = provider.getWikiName(mc.world, pos, mc.player);
 					drawStr = name + " @ " + TextFormatting.AQUA + wikiName;
 					draw = true;
 				}
@@ -413,7 +414,7 @@ public final class HUDHandler {
 		}
 
 		if(draw) {
-			if(!mc.thePlayer.isSneaking()) {
+			if(!mc.player.isSneaking()) {
 				drawStr = "?";
 				secondLine = "";
 				font = mc.fontRendererObj;
@@ -424,7 +425,7 @@ public final class HUDHandler {
 			font.drawStringWithShadow(drawStr, sx + 20, sy + 4, 0xFFFFFFFF);
 			font.drawStringWithShadow(secondLine, sx + 20, sy + 14, 0xFFAAAAAA);
 
-			if(!mc.thePlayer.isSneaking()) {
+			if(!mc.player.isSneaking()) {
 				GlStateManager.scale(0.5F, 0.5F, 1F);
 				mc.fontRendererObj.drawStringWithShadow(TextFormatting.BOLD + "Shift", (sx + 10) * 2 - 16, (sy + 8) * 2 + 20, 0xFFFFFFFF);
 				GlStateManager.scale(2F, 2F, 1F);

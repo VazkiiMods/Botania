@@ -42,12 +42,12 @@ public class TileOpenCrate extends TileSimpleInventory {
 
 	@Override
 	public void update() {
-		if (worldObj.isRemote)
+		if (world.isRemote)
 			return;
 
 		boolean redstone = false;
 		for(EnumFacing dir : EnumFacing.VALUES) {
-			int redstoneSide = worldObj.getRedstonePower(pos.offset(dir), dir);
+			int redstoneSide = world.getRedstonePower(pos.offset(dir), dir);
 			if(redstoneSide > 0) {
 				redstone = true;
 				break;
@@ -56,19 +56,19 @@ public class TileOpenCrate extends TileSimpleInventory {
 
 		if(canEject()) {
 			ItemStack stack = itemHandler.getStackInSlot(0);
-			if(stack != null)
+			if(!stack.isEmpty())
 				eject(stack, redstone);
 		}
 	}
 
 	public boolean canEject() {
-		IBlockState stateBelow = worldObj.getBlockState(pos.down());
+		IBlockState stateBelow = world.getBlockState(pos.down());
 		Block blockBelow = stateBelow.getBlock();
-		return blockBelow.isAir(stateBelow, worldObj, pos.down()) || stateBelow.getCollisionBoundingBox(worldObj, pos.down()) == null;
+		return blockBelow.isAir(stateBelow, world, pos.down()) || stateBelow.getCollisionBoundingBox(world, pos.down()) == null;
 	}
 
 	public void eject(ItemStack stack, boolean redstone) {
-		EntityItem item = new EntityItem(worldObj, pos.getX() + 0.5, pos.getY() - 0.5, pos.getZ() + 0.5, stack);
+		EntityItem item = new EntityItem(world, pos.getX() + 0.5, pos.getY() - 0.5, pos.getZ() + 0.5, stack);
 		item.motionX = 0;
 		item.motionY = 0;
 		item.motionZ = 0;
@@ -80,8 +80,8 @@ public class TileOpenCrate extends TileSimpleInventory {
 		}
 
 
-		itemHandler.setStackInSlot(0, null);
-		worldObj.spawnEntityInWorld(item);
+		itemHandler.setStackInSlot(0, ItemStack.EMPTY);
+		world.spawnEntity(item);
 	}
 
 	public boolean onWanded(World world, EntityPlayer player, ItemStack stack) {

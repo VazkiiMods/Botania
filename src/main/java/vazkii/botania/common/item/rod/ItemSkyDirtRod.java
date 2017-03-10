@@ -37,23 +37,26 @@ public class ItemSkyDirtRod extends ItemDirtRod {
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
+		ItemStack stack = player.getHeldItem(hand);
 		if(!world.isRemote && ManaItemHandler.requestManaExactForTool(stack, player, COST * 2, false)) {
 			Vector3 playerVec = Vector3.fromEntityCenter(player);
 			Vector3 lookVec = new Vector3(player.getLookVec()).multiply(3);
 			Vector3 placeVec = playerVec.add(lookVec);
 
-			int x = MathHelper.floor_double(placeVec.x);
-			int y = MathHelper.floor_double(placeVec.y) + 1;
-			int z = MathHelper.floor_double(placeVec.z);
+			int x = MathHelper.floor(placeVec.x);
+			int y = MathHelper.floor(placeVec.y) + 1;
+			int z = MathHelper.floor(placeVec.z);
 
 			int entities = world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(x, y, z, x + 1, y + 1, z + 1)).size();
 
 			if(entities == 0) {
 				ItemStack stackToPlace = new ItemStack(Blocks.DIRT);
+				player.setHeldItem(hand, stackToPlace);
 				stackToPlace.onItemUse(player, world, new BlockPos(x, y, z), hand, EnumFacing.DOWN, 0F, 0F, 0F);
+				player.setHeldItem(hand, stack);
 
-				if(stackToPlace.stackSize == 0) {
+				if(stackToPlace.isEmpty()) {
 					ManaItemHandler.requestManaExactForTool(stack, player, COST * 2, true);
 					for(int i = 0; i < 6; i++)
 						Botania.proxy.sparkleFX(x + Math.random(), y + Math.random(), z + Math.random(), 0.35F, 0.2F, 0.05F, 1F, 5);

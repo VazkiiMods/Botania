@@ -26,11 +26,11 @@ public class TileDistributor extends TileMod implements IManaReceiver {
 
 	@Override
 	public void update() {
-		if (worldObj.isRemote)
+		if (world.isRemote)
 			return;
 		validPools.clear();
 		for(EnumFacing dir : EnumFacing.HORIZONTALS) {
-			TileEntity tileAt = worldObj.getTileEntity(pos.offset(dir));
+			TileEntity tileAt = world.getTileEntity(pos.offset(dir));
 			if(tileAt != null && tileAt instanceof IManaPool && !tileAt.isInvalid()) {
 				IManaReceiver receiver = (IManaReceiver) tileAt;
 				if(!receiver.isFull())
@@ -57,7 +57,7 @@ public class TileDistributor extends TileMod implements IManaReceiver {
 			for(IManaReceiver pool : validPools) {
 				pool.recieveMana(manaForEach);
 				TileEntity tile = (TileEntity) pool;
-				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, tile.getPos());
+				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, tile.getPos());
 			}
 		}
 	}

@@ -28,6 +28,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.items.IItemHandler;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibItemNames;
@@ -42,16 +43,16 @@ public class ItemOdinRing extends ItemRelicBauble {
 		super(LibItemNames.ODIN_RING);
 		MinecraftForge.EVENT_BUS.register(ItemOdinRing.class);
 
-		damageNegations.add(DamageSource.drown.damageType);
-		damageNegations.add(DamageSource.fall.damageType);
-		damageNegations.add(DamageSource.lava.damageType);
+		damageNegations.add(DamageSource.DROWN.damageType);
+		damageNegations.add(DamageSource.FALL.damageType);
+		damageNegations.add(DamageSource.LAVA.damageType);
 		if(ConfigHandler.ringOfOdinFireResist) {
-			damageNegations.add(DamageSource.inFire.damageType);
-			damageNegations.add(DamageSource.onFire.damageType);
+			damageNegations.add(DamageSource.IN_FIRE.damageType);
+			damageNegations.add(DamageSource.ON_FIRE.damageType);
 		}
 
-		damageNegations.add(DamageSource.inWall.damageType);
-		damageNegations.add(DamageSource.starve.damageType);
+		damageNegations.add(DamageSource.IN_WALL.damageType);
+		damageNegations.add(DamageSource.STARVE.damageType);
 	}
 
 	@Override
@@ -75,14 +76,14 @@ public class ItemOdinRing extends ItemRelicBauble {
 	}
 
 	public static ItemStack getOdinRing(EntityPlayer player) {
-		IInventory baubles = BaublesApi.getBaubles(player);
+		IItemHandler baubles = BaublesApi.getBaublesHandler(player);
 		ItemStack stack1 = baubles.getStackInSlot(1);
 		ItemStack stack2 = baubles.getStackInSlot(2);
 		return isOdinRing(stack1) ? stack1 : isOdinRing(stack2) ? stack2 : null;
 	}
 
 	private static boolean isOdinRing(ItemStack stack) {
-		return stack != null && (stack.getItem() == ModItems.odinRing || stack.getItem() == ModItems.aesirRing);
+		return !stack.isEmpty() && (stack.getItem() == ModItems.odinRing || stack.getItem() == ModItems.aesirRing);
 	}
 
 	@Override
@@ -100,10 +101,10 @@ public class ItemOdinRing extends ItemRelicBauble {
 	}
 
 	void fillModifiers(Multimap<String, AttributeModifier> attributes, ItemStack stack) {
-		if(stack == null) // workaround for Azanor/Baubles#156
+		if(stack.isEmpty()) // workaround for Azanor/Baubles#156
 			return;
 		
-		attributes.put(SharedMonsterAttributes.MAX_HEALTH.getAttributeUnlocalizedName(), new AttributeModifier(getBaubleUUID(stack), "Bauble modifier", 20, 0));
+		attributes.put(SharedMonsterAttributes.MAX_HEALTH.getName(), new AttributeModifier(getBaubleUUID(stack), "Bauble modifier", 20, 0));
 	}
 
 }
