@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "botania:items/desugun2",
-    "layer1": "botania:items/desugun1"
-  }
-}

@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "botania:items/lensinside",
-    "layer1": "botania:items/lensdamage"
-  }
-}
