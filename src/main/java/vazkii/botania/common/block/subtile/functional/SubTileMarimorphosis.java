@@ -87,7 +87,8 @@ public class SubTileMarimorphosis extends SubTileFunctional {
 				values.add(i);
 		}
 
-		BiomeStoneVariant variant = BiomeStoneVariant.values()[supertile.getWorld().rand.nextInt(values.size())];
+		int meta = values.get(supertile.getWorld().rand.nextInt(values.size()));
+		BiomeStoneVariant variant = BiomeStoneVariant.values()[meta];
 		return ModFluffBlocks.biomeStoneA.getDefaultState().withProperty(BotaniaStateProps.BIOMESTONE_VARIANT, variant);
 	}
 
