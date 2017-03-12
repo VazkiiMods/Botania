@@ -2129,14 +2129,14 @@ botania.page.distributor1=合成分配器
 # -- MANA VOID
 botania.entry.manaVoid=魔力销毁器
 botania.tagline.manaVoid=销毁一切进来的魔力
-botania.page.manaVoid0=&1魔力销毁器&0通俗的说,就是&4魔&0 &4力&0的垃圾桶.所有进入这个方 块的&4魔力&0都会消失在虚空,再 也不会出现.<br>将它放在一个&1魔力池&0下方会 让池子总是接收&4魔力&0,但销毁 超出容量的部分.
+botania.page.manaVoid0=简单来说，&1魔力销毁器&0是&4魔力&0 的垃圾桶。所有进入这个方块的 &4魔力&0都会被虚空永远地吞噬。<br>在&1魔力池&0下方放一个这个，就 可以让池子满地时候销毁多余 的&4魔力&0。
 # No translation # botania.page.manaVoid1=Even Chad from accounting?
 
 # -- MANA FLUXFIELD
 botania.entry.rfGenerator=魔力转换器
-botania.tagline.rfGenerator=魔力变RF啦!
-botania.page.rfGenerator0=将&4魔力&0引入红石能量场,就可 以将其从自然能量源形态转 为&4红石流量&0.<br>将一魔力发射器对向此方块, 就可把进入其中的&4魔力&0转化 为&4RF&0.之后就能用各种传输&4RF&0 的装置来输出.
-# No translation # botania.page.rfGenerator1=The bullet guys. I bit it.
+botania.tagline.rfGenerator=将 Mana 转化为能量
+botania.page.rfGenerator0=将&4魔力&0引入红石能量场,就可 以将其从自然能量源形态转 为&4能量&0。<br>只需将魔力发射器对准这转 换器，转换器就可以把输入的&4魔力&0转化 为&4能量&0，并输出到邻近的能量传输设备中。
+botania.page.rfGenerator1=传统的挑战者
 
 # -- MANA LENSES
 botania.entry.lens=魔力透镜
@@ -2779,9 +2779,9 @@ botania.page.canopyDrum1=鼓本身不会储存魔力,因此激 活它就需要�
 # -- COCOON OF CAPRICE
 botania.entry.cocoon=随想之茧
 botania.tagline.cocoon=孵化属于你的动物
-botania.page.cocoon0=茧通常是进化与蜕变的象征.<br>制作一个&1随想之茧&0并把它放 在地上会慢慢地将其中的基 本元素进化转变为&1小动物&0.很 多情况下不会演变成农场动 物,而可能是更为稀有的, 与众不同的，比如1狼&0或&1马&0
-botania.page.cocoon1=听说给茧&1绿宝石&0会稍微改变 茧的产出<br>也许真的会有什么 人来验证一下这个.
-botania.page.cocoon2=新世界, 乌托邦
+botania.page.cocoon0=茧通常象征进化与蜕变。<br>制作一个&1随想之茧&0并把它放 在地上会慢慢地将其中的基 本元素进化转变为&1小动物&0。多 数时候，茧会孵出寻常的家禽 或家畜，但也有少数报告指出 它能孵化出&1狼&0或&1马&0。
+botania.page.cocoon1=据说给茧&1绿宝石&0和&1紫颂果&0会稍 微改变茧的产出<br>也许真的会有什么 人来验证一下这个。
+botania.page.cocoon2=新世界，乌托邦
 
 # -- MANASTORM CHARGE
 botania.entry.manaBomb=魔力风暴
@@ -3886,4 +3886,4 @@ botania.subtitle.terraPickMode=泰拉粉碎者升级
 botania.subtitle.terrasteelCraft=泰拉钢制作完成
 botania.subtitle.thermalily=炽玫瑰消耗熔岩
 botania.subtitle.unholyCloak=罪恶斗篷 激活
-# No translation # botania.subtitle.way=
+# No translation, and please, any attempt of translating this entry will be considered as vandalism to zh_cn.lang # botania.subtitle.way=
