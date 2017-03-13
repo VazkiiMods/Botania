@@ -18,8 +18,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityArmorStand;
 import net.minecraft.inventory.EntityEquipmentSlot;
 
-public class ModelArmorTerrasteel extends ModelBiped {
-
+public class ModelArmorTerrasteel extends ModelArmor {
 	private final ModelRenderer helm;
 	public final ModelRenderer body;
 	private final ModelRenderer armr;
@@ -54,10 +53,8 @@ public class ModelArmorTerrasteel extends ModelBiped {
 	private final ModelRenderer bootL2;
 	private final ModelRenderer bootLbranch;
 
-	private final EntityEquipmentSlot slot;
-
 	public ModelArmorTerrasteel(EntityEquipmentSlot slot) {
-		this.slot = slot;
+		super(slot);
 
 		textureWidth = 64;
 		textureHeight = 128;
@@ -232,11 +229,6 @@ public class ModelArmorTerrasteel extends ModelBiped {
 
 	@Override
 	public void render(@Nonnull Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-		if(entity instanceof EntityArmorStand) {
-			// Hack so helmets look right on armor stand
-			netHeadYaw = 0;
-		}
-
 		helm.showModel = slot == EntityEquipmentSlot.HEAD;
 		body.showModel = slot == EntityEquipmentSlot.CHEST;
 		armr.showModel = slot == EntityEquipmentSlot.CHEST;
@@ -261,11 +253,4 @@ public class ModelArmorTerrasteel extends ModelBiped {
 
 		super.render(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
 	}
-
-	private void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z) {
-		modelRenderer.rotateAngleX = x;
-		modelRenderer.rotateAngleY = y;
-		modelRenderer.rotateAngleZ = z;
-	}
-
 }

@@ -18,8 +18,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityArmorStand;
 import net.minecraft.inventory.EntityEquipmentSlot;
 
-public class ModelArmorElementium extends ModelBiped {
-
+public class ModelArmorElementium extends ModelArmor {
 	private final ModelRenderer helm;
 	public final ModelRenderer body;
 	private final ModelRenderer armR;
@@ -51,10 +50,8 @@ public class ModelArmorElementium extends ModelBiped {
 	private final ModelRenderer wing1_3;
 	private final ModelRenderer wing2_3;
 
-	private final EntityEquipmentSlot slot;
-
 	public ModelArmorElementium(EntityEquipmentSlot slot) {
-		this.slot = slot;
+		super(slot);
 
 		textureWidth = 64;
 		textureHeight = 128;
@@ -211,12 +208,6 @@ public class ModelArmorElementium extends ModelBiped {
 
 	@Override
 	public void render(@Nonnull Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-
-		if(entity instanceof EntityArmorStand) {
-			// Hack so helmets look right on armor stand
-			netHeadYaw = 0;
-		}
-
 		helm.showModel = slot == EntityEquipmentSlot.HEAD;
 		body.showModel = slot == EntityEquipmentSlot.CHEST;
 		armR.showModel = slot == EntityEquipmentSlot.CHEST;
@@ -241,11 +232,4 @@ public class ModelArmorElementium extends ModelBiped {
 
 		super.render(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
 	}
-
-	private void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z) {
-		modelRenderer.rotateAngleX = x;
-		modelRenderer.rotateAngleY = y;
-		modelRenderer.rotateAngleZ = z;
-	}
-
 }
