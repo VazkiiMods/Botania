@@ -38,12 +38,9 @@ botaniamisc.toolRank=%s&7 級
 botaniamisc.edition=第 %s 版
 # ^ Leave this empty for no edition display
 botaniamisc.devEdition=作者的
-botaniamisc.lexiconcover0=囊括植物魔法之中
-botaniamisc.lexiconcover1=一切內容的官方指南
+botaniamisc.lexiconcover0=官方完整指南
+botaniamisc.lexiconcover1=囊括植物魔法中的一切
 botaniamisc.lexiconcover2=A Book by Vazkii
-botaniamisc.lexiconcover3=植物魔法所需
-botaniamisc.lexiconcover4=由BevoLJ校對編輯
-botaniamisc.lexiconcover5=由Saice校對編輯
 botaniamisc.shiftinfo=按住&bSHIFT&7顯示更多
 botaniamisc.knowledgeTypesSingular=內含%s個世界的知識
 botaniamisc.knowledgeTypesPlural=內含%s個世界的知識
@@ -154,6 +151,7 @@ botaniamisc.altarRefill1=返回最後一個合成
 botaniamisc.santaweaveInfo=魔源套,因&c季&f節&c物&f轉&c星&f移
 botaniamisc.enterToView=^ 按下ENTER以查看 ^
 
+
 # NEI INTEGRATION
 botania.nei.brewery=植物釀造
 botania.nei.elvenTrade=精靈交易
@@ -171,10 +169,6 @@ botania.nei.lexicaNoInfo=(並沒有這種東西,抱歉!)
 # NEI QUICK LOOKS
 botania.nei.quickInfo:tile.livingwood0~0=將原木放置在白雛菊旁邊並等一會兒以製作活木
 botania.nei.quickInfo:tile.livingrock0~0=將石頭放置在白雛菊旁邊並等一會兒以製作活石
-
-botania.nei.quickInfo:flower.daybloom=努力活下去吧,在這亂世之中.殺或是被殺,自己選擇吧.
-botania.nei.quickInfo:flower.daybloomPrimus=這朵花無法採集,且非常罕見
-botania.nei.quickInfo:flower.nightshadePrimus=這朵花無法採集,且非常罕見
 
 botania.nei.quickInfo:item.bone~0=你要倒霉了
 botania.nei.quickInfo:item.lexicon~0=你期待著什麼?
@@ -242,6 +236,7 @@ botania.wings7=翼:仙女
 botania.wings8=翼:日神龍
 botania.wings9=翼:唯一
 
+
 # ARMOR SETS
 botania.armorset.manasteel.name=瑪那適性
 botania.armorset.manasteel.desc=瑪那工具消耗瑪那減免10%
@@ -267,6 +262,7 @@ botania.armorset.will2.shortDesc=暴擊造成的部分傷害會回復生命
 botania.armorset.will3.shortDesc=暴擊施加重度緩慢效果
 botania.armorset.will4.shortDesc=暴擊傷害穿透護甲
 botania.armorset.will5.shortDesc=暴擊施加凋零效果
+
 
 # KNOWLEDGE
 botania.knowledge.minecraft=主世界的知識
@@ -311,6 +307,7 @@ references.enabled=啟用工具提示文本
 shaders.enabled=啟用光影支持
 baubleRender.enabled=啟用飾品渲染
 spreader.posShift=發射器位置移動
+
 versionChecking.enabled=啟用版本檢查
 wandBeam.static=啟用靜態法杖光線
 worldgen.flower.density=世界生成花密度
@@ -1031,10 +1028,14 @@ tile.botania:felPumpkin.name=惡魔頭南瓜
 tile.botania:cocoon.name=隨想之繭
 tile.botania:lightRelay0.name=微光
 tile.botania:lightRelay1.name=探測微光
+
+
 tile.botania:lightLauncher.name=微光發射器
 tile.botania:livingrock0Wall.name=活石牆
 tile.botania:livingwood0Wall.name=活木牆
 tile.botania:dreamwood0Wall.name=夢之木牆
+
+
 tile.botania:biomeStoneA0Wall0.name=變質森林石牆
 tile.botania:biomeStoneA0Wall1.name=變質平原石牆
 tile.botania:biomeStoneA0Wall2.name=變質高山石牆
@@ -1043,6 +1044,10 @@ tile.botania:biomeStoneA0Wall4.name=變質沼澤石牆
 tile.botania:biomeStoneA0Wall5.name=變質沙漠石牆
 tile.botania:biomeStoneA0Wall6.name=變質雪原石牆
 tile.botania:biomeStoneA0Wall7.name=變質高原石牆
+
+
+
+
 tile.botania:manaBomb.name=瑪那風暴
 tile.botania:buriedPetals0=埋藏白色花瓣
 tile.botania:buriedPetals0.name=埋藏白色花瓣
@@ -1112,6 +1117,7 @@ tile.botania:altGrass3.name=焦草草地
 tile.botania:altGrass4.name=注魔草地
 tile.botania:altGrass5.name=異變草地
 
+
 # FLOWER NAMES
 tile.botania:flower..name=植物魔法花
 # ^ This is the placeholder name for when no flower type is detected
@@ -1124,26 +1130,12 @@ tile.botania:flower.manastar.name=瑪那星
 tile.botania:flower.manastar.reference=繁星下許願
 
 # - GENERATING
-tile.botania:flower.daybloom.name=太陽花
-tile.botania:flower.daybloom.reference=刺眼的光
-tile.botania:flower.daybloomDecor.name=小太陽花
-tile.botania:flower.daybloomDecor.reference=刺眼的光
-tile.botania:flower.daybloomPrime.name=始祖太陽花
-tile.botania:flower.daybloomPrime.reference=你不應該擁有這個
 tile.botania:flower.endoflame.name=火紅蓮
 tile.botania:flower.endoflame.reference=延遲發射
 tile.botania:flower.hydroangeas.name=水繡球
 tile.botania:flower.hydroangeas.reference=友好的甲殼類動物
-tile.botania:flower.hydroangeasDecor.name=水繡球
-tile.botania:flower.hydroangeasDecor.reference=友好的甲殼類動物
 tile.botania:flower.thermalily.name=熾玫瑰
 tile.botania:flower.thermalily.reference=如此鮮紅的玫瑰
-tile.botania:flower.nightshade.name=夜顛茄
-tile.botania:flower.nightshade.reference=可怕的樣子
-tile.botania:flower.nightshadePrime.name=始祖夜顛茄
-tile.botania:flower.nightshadePrime.reference=你不應該擁有這個
-tile.botania:flower.nightshadeDecor.name=夜顛茄
-tile.botania:flower.nightshadeDecor.reference=可怕的樣子
 tile.botania:flower.arcanerose.name=阿卡納薔薇
 tile.botania:flower.arcanerose.reference=角落裡的經驗球
 tile.botania:flower.munchdew.name=咀葉花
@@ -1231,6 +1223,8 @@ tile.botania:flower.solegnolia.reference=你的磁力都歸我們了
 tile.botania:flower.solegnoliaChibi.name=小弱磁蘭
 tile.botania:flower.solegnoliaChibi.reference=你的磁力都歸我們了
 
+
+
 # ITEM NAMES
 item.botania:lexicon.name=植物魔法辭典
 item.botania:lexicon.bevo=植物魔法辭典
@@ -1315,6 +1309,10 @@ item.botania:lensFirework.name=瑪那透鏡:喜慶
 item.botania:lensFirework.short=喜慶
 item.botania:lensFlare.name=瑪那透鏡:閃耀
 item.botania:lensFlare.short=閃耀
+
+
+
+
 item.botania:rune0.name=水之符文
 item.botania:rune1.name=火之符文
 item.botania:rune2.name=地之符文
@@ -1448,6 +1446,7 @@ item.botania:redString.name=紅線
 item.botania:missileRod.name=彈幕法杖
 item.botania:holyCloak.name=神聖斗篷
 item.botania:unholyCloak.name=罪惡鬥篷
+
 item.botania:craftingHalo.name=合成環
 item.botania:autocraftingHalo.name=工廠環
 item.botania:blackLotus0.name=黑蓮花
@@ -1563,6 +1562,13 @@ item.botania:sextant.name=蓋世六分儀
 item.botania:speedUpBelt.name=平原旅帶
 item.botania:baubleBox.name=飾品盒子
 item.botania:manaPowder.name=瑪那塵
+
+
+
+
+
+
+
 
 # BREW NAMES
 botania.brew.fallback=退卻
@@ -1903,6 +1909,7 @@ botania.page.gardenOfGlass5=製作&1圓石&0
 botania.page.gardenOfGlass6=除此之外, 有些東西在植 物魔法中調整得更適合空島 遊戲: &1凝礦蘭&0將更容易製作 ,速度更快並且更便宜; &1隨想之繭&0以及&1瑪那發射器&0的 配方也有所改變; 用製作 &1黑曜石&0的&1烈焰燈&0,改為用烈焰 粉而不是烈焰棒合成;西瓜 種子和南瓜種子可以通過打掉 高草掉落;每份原料可以製作 更多的花肥.&1甘蔗&0和&1黏液球&0變 得可以製作.
 botania.page.gardenOfGlass7=製作&1甘蔗&0
 botania.page.gardenOfGlass8=製作&1黏液球&0
+
 botania.page.gardenOfGlass9=也許可以給&1南瓜&0注入一些 死去怪物的邪惡思想,來製作 &1惡魔頭南瓜&0.通過將南瓜放置 在兩個豎直放置的&1鐵柵欄&0上 ,這有點像&1雪傀儡&0,但會出 現一個烈焰人&0.<br>以這種方式生成的&1烈焰人&0會 掉落&1烈焰粉&0而不是&1烈焰棒&0.
 botania.page.gardenOfGlass11=除了照明, 將&1瑪那閃光&0放在 出生點允許那些不慎丟掉 &1植物魔法辭典&0的玩家們用一 個&1樹苗&0來重新獲得它, 通過 手持&1樹苗&0右擊&1瑪那閃光&0.<br>這只會在玩家失去他們的&1植物魔法辭典&0時生效.
 botania.page.gardenOfGlass12=最後, 製作&1終界傳送門&0的配方
@@ -1924,6 +1931,7 @@ botania.page.flowers2=這些花可以採摘用於獲取&1神&0 &1秘花瓣&0,可
 botania.page.flowers3=摘取花瓣.
 botania.page.flowers4=合成&1杵和臼&0.
 botania.page.flowers5=將花瓣磨成粉.
+
 botania.page.flowers6=通過將&1花粉&0和一些&1骨粉&0混合, 能做出一個不同種的肥料.那 就是&1花肥&0,會在附近區域催生 出少量&1神秘花&0,如果你沒有把 它用完的話.
 botania.page.flowers7=製作花肥(任意花粉均有效)
 botania.page.flowers8=用指定的染料同樣有效
@@ -1931,6 +1939,7 @@ botania.page.flowers10=&1神秘花&0也存在著高的一種.只 能用&1剪刀&
 botania.page.flowers12=<br>也能通過對&1神秘花&0或者&1地上 的花瓣&0使用&1骨粉&0來人工製造 它.<br>如果你發現某種特定顏色的 花瓣不夠了,試著將它放在地 上並對它使用&1骨粉&0.
 botania.page.flowers11=以備不時之需
 botania.page.flowers9=花瓣也能做成方塊
+
 
 # -- PETAL APOTHECARY
 botania.entry.apothecary=花藥台
@@ -2053,6 +2062,7 @@ botania.page.pool12=製作&1線&0
 botania.page.pool13=使用&1蘊魔絲線&0製作&1蜘蛛網&0
 botania.page.pool7=注魔&1瑪那曲奇&0,味道好極了.
 
+
 # -- SPARKS
 botania.entry.sparks=火花
 botania.tagline.sparks=簡單迅速的短距離瑪那傳輸
@@ -2108,6 +2118,8 @@ botania.page.lens12=&1效率透鏡&0會讓&4瑪那脈衝&0晚些 開始流失&4�
 botania.page.lens13=效率透鏡
 botania.page.lens14=&1反射透鏡&0會讓&4瑪那脈衝&0在牆 壁之間反射,而不是因碰撞而 消失.
 botania.page.lens15=反射透鏡
+
+
 botania.page.lens16=&1引力透鏡&0使得&4瑪那脈衝&0受到 世上重力的作用,因此形成弧 形運動軌跡.作為補償,也輕 微延遲了&4瑪那&0的流失.
 botania.page.lens17=引力透鏡
 botania.page.lens18=&1挖掘透鏡&0賦予&4瑪那脈衝&0破壞 它所接觸的一切方塊的能力, 使用它本身的瑪那來運作.
@@ -2184,6 +2196,8 @@ botania.page.elvenLenses7=&1慶祝透鏡&0的功能類似於&1爆炸 透鏡&0,�
 botania.page.elvenLenses8=慶祝透鏡
 botania.page.elvenLenses9=&1閃耀透鏡&0接手了&1瑪那發射器&0 原本功能,組織它發射瑪那 脈衝.作為替代,連續噴射 有著脈衝顏色的顆粒,發射 器會朝著這個方塊一直噴射.<br>它有著很好的裝飾意義
 botania.page.elvenLenses10=閃耀透鏡
+
+
 
 # -- MANA PRISM
 botania.entry.prism=瑪那稜鏡
@@ -2485,6 +2499,7 @@ botania.entry.narslimmus=黏球草
 botania.tagline.narslimmus=黏黏瑪那
 botania.page.narslimmus0=這個世界上一些地方還存在 著未知的能量場,那裡能產生 &1史萊姆&0.人們稱其&4史萊姆區塊&0 .&1黏球草&0就能利用這種能量.如 果它被種在了一隻由那種能 量生出的&1史萊姆&0旁邊,它就會 將其分解並收集由其產生的 所有&4瑪那&0.&1史萊姆&0越大,產生 的&4瑪那&0就越多.它也會弄得黏 黏糊糊的.
 
+
 # -- SPECTROLUS
 botania.entry.spectrolus=斑斕花
 botania.tagline.spectrolus=吃的是羊毛,吐出的是魔力
@@ -2495,11 +2510,8 @@ botania.page.spectrolus2=&o彩虹的味道&r.
 # -- RAFFLOWSIA
 botania.entry.rafflowsia=噬草花
 botania.tagline.rafflowsia=沒用的花朵,更多的魔力
-botania.page.rafflowsia0=許久以前有一個國家，這個 國家的園丁們熱衷於&1太陽花&0 ， &1夜顛茄&0和&1水繡球&0，並從栽 培這些神奇的植物們的過程 中尋找樂趣。國民們因此受 益，享受著這仿佛上天的恩 賜般的免費的&1瑪那&0並對此津 津樂道。<br>他們無知而快樂著 ，從未遇見過接下來要發生 的災厄。
-botania.page.rafflowsia1=然而災難悄然降臨，曾經繁 茂的花園大面積枯萎將貴族 們的繁榮之夢砸得支離破碎 。無數個日夜的辛勞與汗水 栽培而成的花朵們全都變成 了&1枯死的灌木&0。<br>為了反抗背叛了他們的神明 ，這個國家的人民竭斯底裡 的喊道：“被動型產能花就 是個笑話！”
-botania.page.rafflowsia2=也許是因為他們的祈禱與信 念起了作用，不久後，貴族 中的能工巧匠培育出了一種 新的花卉。這種新的花卉品 種很好的處理了之前那些被 稱為笑話的產能花。<br>也因為那段歷史，這種新的 花卉被戲稱為&1噬草花&0.
-botania.page.rafflowsia3=&1噬草花&0的工作原理類似&1貪食花&0,對於任何種類的&4被動型產能花&0, 它會尋找所有種在地上的並吃掉他們, 並以此產生&4瑪那&0.<br>然而, 吃掉太多相同的會使得產生的瑪那變少,為了使其達到最大效率, 也許不應該讓他在短時間內吃掉大量相同類型的被動產能花.
-botania.page.rafflowsia4=&o你可以說這是，新的黎明&r.
+botania.page.rafflowsia0=&1噬草花&0的工作原理類似&1貪食花&0,對於任何種類的&4被動型產能花&0, 它會尋找所有種在地上的並吃掉他們, 並以此產生&4瑪那&0.<br>然而, 吃掉太多相同的會使得產生的瑪那變少,為了使其達到最大效率, 也許不應該讓他在短時間內吃掉大量相同類型的被動產能花.
+botania.page.rafflowsia1=&o你可以說這是，新的黎明&r.
 
 # -- DANDELIFEON
 botania.entry.dandelifeon=啟命英
@@ -2568,9 +2580,11 @@ botania.page.manaAlchemy19=&1螢石粉&0和&1紅石&0間轉化
 botania.page.manaAlchemy20=將&1圓石&0粉碎成&1沙子&0
 botania.page.manaAlchemy21=將&1硬化黏土&0變成&1紅沙&0
 botania.page.manaAlchemy22=粉碎&1黏土&0&1和磚塊&0
+
 botania.page.manaAlchemy23=製作&1劣質土&0
 botania.page.manaAlchemy24=&1草類&0的轉化
 botania.page.manaAlchemy25尋常花之間轉化
+
 
 # -- BOTANICAL BREWERY
 botania.entry.brewery=植物釀造
@@ -2640,6 +2654,7 @@ botania.page.incense0=&4藥劑&0以液態形式存在時可以 提供多樣化�
 botania.page.incense1=&1熏香&0能通過右擊放在&1香盤&0上, 這時再用&1打火石&0右擊就能將 其點燃.一旦點著,熏香就不 能取下了.<br>在需要替換前,一根熏香能燃 燒60倍於對應藥水時長的時 間.  
 botania.page.incense2=燃著&1熏香&0的&1香盤&0將會提供注 入&4藥劑&0的效果,以香盤為中心 24格以內的所有玩家都會受 到影響.<br>但不是所有的&4藥劑&0效果都能 注入&1熏香&0,比如&4瞬間治療&0和&1傷&0 &1害吸收&0就不能注入,熏香也不 能有一個以上的效果.
 botania.page.incense5=對於喜歡熏香的自動化狂魔 而言,&1熏香&0能通過&1漏斗&0或其他 輸入方式接收物品.有熏香時 &1比較器&0會輸出強度為1的信號 ,燃燒的時候強度則是2.<br>最後,如果一束&1引燃透鏡&0發出 的&4瑪那脈衝&0擊中了有熏香的 香盤,就會將其點著.
+
 botania.page.incense4=放上熏香
 
 # -- EYE OF THE ANCIENTS
@@ -2720,6 +2735,7 @@ botania.page.hourglass1=沙漏自身有一個物品欄,可通 過右擊存入最
 botania.page.hourglass2=每道脈衝的間隔時間取決於 使用的沙子數量和種類.普通 的&1沙子&0每個計做1秒,&1紅沙&0每 個計做10秒,&1靈魂沙&0每個計做 1分鐘.各種沙子不能混合使 用.手持&1森林法杖&0指向沙漏方 塊可以查看每次脈衝的間隔 時間.
 botania.page.hourglass3=注意沙子是一次性加入的,因 此你必須在自己的物品欄內 設定好所需的數量.<br>不能向已有沙子的沙漏內添 入新的沙子,否則就會移除之 前加入的沙子.沙漏內的沙子 可以通過&1漏斗&0和其他途逕取 出或添入.
 botania.page.hourglass4=用&1森林法杖&0右擊則會將它鎖 定(或解鎖).鎖定時,無法添 加或移除沙子,以免有人不小 心右擊到.<br>如果一道&4瑪那脈衝&0擊中該方 塊,則會讓沙子停止流動,再 次擊中則會繼續流動.
+
 botania.page.hourglass5=時之沙
 
 # -- SPECTRAL RAIL
@@ -2766,6 +2782,7 @@ botania.tagline.felPumpkin=生成烈焰人的南瓜
 botania.page.felPumpkin0=朝&1南瓜&0裡注入怪物瘋狂的精 神就能製作&1惡魔頭南瓜&0.將這 個邪惡南瓜放在兩個豎直放 置的&1鐵欄杆&0上,這有點像製作 &1雪傀儡&0,但它會生成烈焰人&0.<br>以這種方式生成的&1烈焰人&0顯然 只能掉落合理數量的&1烈焰粉&0而 不是一小撮&1烈焰棒&0.
 botania.page.felPumpkin1=再次削弱瑪那使們
 
+
 # - MYSTICAL INSTRUMENTS
 # -- MANA BLASTER
 botania.entry.manaBlaster=瑪那脈衝槍
@@ -2789,7 +2806,8 @@ botania.page.grassSeeds5=各種各樣的&1草地之種&0
 botania.entry.dirtRod=大地法杖
 botania.tagline.dirtRod=製造泥土的法杖
 botania.page.dirtRod0=&1大地法杖&0就是個傻瓜工具,使 用物品欄裡的&4瑪那&0(通過&1瑪那 石板&0或其他),它能塑造並放 置出&1泥土&0.
-botania.page.dirtRod1=髒髒的
+
+botania.page.dirtRod1=骯髒的棒棒
 
 # -- TERRA FIRMA ROD
 botania.entry.terraformRod=大地權杖
@@ -3091,6 +3109,7 @@ botania.page.sextant0=在這個方塊世界,藝術的創 造往往不能避免�
 botania.page.sextant1=使用這個工具時會出現一個 藍圈,作為要製作的圓的簡 單預覽.一旦設定好,一個 虛擬的&1圓石&0圈會顯現出來作 為建築參考.<br>潛行右擊能夠重設工具並移 除虛擬圓石
 botania.page.sextant2=你畫了一個圓，使你充滿決心
 
+
 # - ENDER ARTEFACTS
 # -- EXTRACTING ENDER AIR
 botania.entry.enderAir=獲取終界之氣
@@ -3101,6 +3120,7 @@ botania.page.enderAir0=&1終界&0的空氣看起來有一些變 異的特性.如
 botania.entry.enderEyeBlock=終界監視者
 botania.tagline.enderEyeBlock=看著來啟動紅石信號
 botania.page.enderEyeBlock0=&4終界使者&0的眼睛被看見時十分 敏感.由此製成的方塊在64格 內被玩家直視時就會發出&4紅&0 &4石信號&0.<br>當然,頭戴&1南瓜&0時可以避免.
+
 
 # -- FORCE RELAY
 botania.entry.pistonRelay=力量傳遞器
@@ -3130,6 +3150,7 @@ botania.entry.spawnerClaw=生命灌注器
 botania.tagline.spawnerClaw=用瑪那生成怪物,即使你不在身邊
 botania.page.spawnerClaw0=&1刷怪籠&0是個有趣的東西.它們 能從稀薄的空氣中抽取出生 命,但不知何故,只在附近有 玩家時才會運行.<br>當然這會在某些程度上限制 它生成生物的速度.
 botania.page.spawnerClaw1=將一個&1生命灌注器&0放在刷怪 籠的頂端並用&1瑪那發射器&0提 供大量的&4瑪那&0,當附近無玩家 時,&4瑪那&0就會驅動刷怪籠, 就好像有玩家存在一樣.
+
 
 # -- RED STRING
 botania.entry.redString=紅線
@@ -3184,6 +3205,8 @@ botania.page.corporeaIndex3=物品名稱的複數形式只能在 常規名詞涉
 botania.page.corporeaIndex4=複數請求的例子包括 "10 apples", "a stack of apples", "2 stacks of apples", "2 stacks and 20 apples", "half a stack of apples", "a dozen apples",等等.<br>索引可以識別或多或少的搜 索的繁瑣形式,所以: "2x stacks and 20x of apples"等同於 "2 stack 2 apple"或 "2 stacks + 2 apples".
 botania.page.corporeaIndex5=搜索"all"或"every"會提供網絡 內符合條件的全部物品,所以 "all 蘋果"將提供網絡內所有 蘋果.<br>另外,搜索"count","show","tell" 或"display"不會抽取任何物品, 但會顯示物品庫存.
 botania.page.corporeaIndex6=最後，在靠近&1多媒體索引&0的地方，寫上物品部份的名稱，並在聊天區域按TAB鍵將可以自動拼完物品名稱.
+
+
 
 # -- CORPOREA FUNNEL
 botania.entry.corporeaFunnel=多媒體漏斗
@@ -3290,6 +3313,7 @@ botania.page.cosmeticBaubles7=都給我閉嘴
 botania.page.cosmeticBaubles8=這隻眼睛必須被封印
 botania.page.cosmeticBaubles9=這可不是豆芽
 botania.page.cosmeticBaubles10=最佳色彩
+
 botania.page.cosmeticBaubles12=鄰人部
 botania.page.cosmeticBaubles13=喵
 botania.page.cosmeticBaubles14=別讓自己太前衛了
@@ -3338,6 +3362,7 @@ botania.page.auraRing2=升級戒指
 botania.entry.travelBelt=旅居者腰帶
 botania.tagline.travelBelt=更快,更高,更遠
 botania.page.travelBelt0=穿越各種地形是個麻煩事. &1旅居者腰帶&0能裝備在&4腰帶&0欄 ,裝備時增加移動速度,跳躍 高度和摔落傷害減免.<br>最後,非潛行時能讓裝備者自 動走上一格高的坡而不需要 跳躍.
+
 
 # -- TECTONIC GIRDLE
 botania.entry.knockbackBelt=抗擊腰帶
@@ -3427,6 +3452,7 @@ botania.page.judgementCloaks0=&1審判斗篷&0是一對可以作為腰 帶的斗
 botania.page.judgementCloaks1=&1神聖斗篷&0激活時,會充分阻擋 受到的傷害.不適用於瑪那傷 害.<br>&1罪惡鬥篷&0則會對周圍所有敵 對生物造成同樣的傷害.
 botania.page.judgementCloaks2=神聖的斗篷
 botania.page.judgementCloaks3=嘗嘗我的復仇!
+
 
 # -- MANASEER MONOCLE
 botania.entry.monocle=窺魔之鏡
@@ -3621,17 +3647,6 @@ botania.page.shinyFlowers3=將任何顏色的&1浮空花朵&0與任何 有效果
 botania.page.shinyFlowers1=一閃一閃
 botania.page.shinyFlowers2=就像拉普達(天空之城)但小 多了
 
-# -- PRISMARINE
-botania.entry.prismarine=海晶石
-botania.tagline.prismarine=UFO長官:我們來自未來
-botania.page.prismarine0=&1海晶石&0是個有趣的建築構造 方塊.有的人說這是來自&4未來&0 的.<br>製作需要&1煉金催化器&0.扔一些 &1地獄石英&0就可以得到這種材 料.
-botania.page.prismarine1=有多種建築方塊可用&1海晶石&0 &1碎片&0合成,除了&1海燈籠&0以外的 都能做成對應的&1階梯&0和&1半磚&0.
-botania.page.prismarine2=製作&1海晶石碎片&0
-botania.page.prismarine3=合成&1海晶石&0
-botania.page.prismarine4=合成&1海晶石磚&0
-botania.page.prismarine5=合成&1深色海晶石&0
-botania.page.prismarine6=合成&1海燈籠&0
-
 # -- NATURAL SHEDDING
 botania.entry.shedding=自然掉落物
 botania.tagline.shedding=一物克一物
@@ -3687,9 +3702,9 @@ botania.entry.stoneAlchemy=岩石煉金
 botania.tagline.stoneAlchemy=製造新的石頭
 botania.page.stoneAlchemy0=用&1煉金催化器&0就能做出新類型 的&1石頭&0.你只需將一個&1石頭&0投 入催化的瑪那池中,它就會變 成另一種石頭(依次循環).<br>類似&1海晶石&0,一些學者表示這 項技術來自未來.這些石頭及 它們製成的磚塊也能做成樓 梯和半磚.
 botania.page.stoneAlchemy1=製作不同的石頭
-botania.page.stoneAlchemy2=磨光
-botania.page.stoneAlchemy3=砌磚
-botania.page.stoneAlchemy4=浮雕
+botania.page.stoneAlchemy2=砌磚
+botania.page.stoneAlchemy3=浮雕
+
 
 # -- BLAZE LIGHT
 botania.entry.blazeBlock=烈焰燈
