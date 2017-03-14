@@ -100,15 +100,21 @@ public class BlockModMushroom extends BlockMushroom implements IInfusionStabilis
 	@Override
 	public void updateTick(@Nonnull World world, @Nonnull BlockPos pos, IBlockState state, Random rand) {} // Prevent spreading
 
+	// [VanillaCopy] super, cleaned up and without light level requirement
 	@Override
-	public boolean canPlaceBlockAt(World world, BlockPos pos) {
-		if(pos.getY() >= 0 && pos.getY() < 256) {
-			IBlockState state = world.getBlockState(pos.down());
-			Block block = state.getBlock();
-			return block == Blocks.MYCELIUM || block == Blocks.DIRT && state.getValue(BlockDirt.VARIANT) == BlockDirt.DirtType.PODZOL || block.canSustainPlant(state, world, pos.down(), EnumFacing.UP, this);
+	public boolean canBlockStay(@Nonnull World worldIn, BlockPos pos, IBlockState state)
+	{
+		if (pos.getY() >= 0 && pos.getY() < 256)
+		{
+			IBlockState iblockstate = worldIn.getBlockState(pos.down());
+			return iblockstate.getBlock() == Blocks.MYCELIUM
+					|| (iblockstate.getBlock() == Blocks.DIRT && iblockstate.getValue(BlockDirt.VARIANT) == BlockDirt.DirtType.PODZOL
+					|| iblockstate.getBlock().canSustainPlant(iblockstate, worldIn, pos.down(), net.minecraft.util.EnumFacing.UP, this));
 		}
-
-		return false;
+		else
+		{
+			return false;
+		}
 	}
 
 	@SideOnly(Side.CLIENT)
