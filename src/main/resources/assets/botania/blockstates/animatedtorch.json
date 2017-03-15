@@ -1,0 +1,12 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "botania:dummy",
+    "textures": {
+      "particle": "minecraft:blocks/redstone_torch_on"
+    }
+  },
+  "variants": {
+    "normal": [{}]
+  }
+}
