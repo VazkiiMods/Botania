@@ -6,8 +6,7 @@
       "bottom": "botania:blocks/biomestone10",
       "top": "botania:blocks/biomestone10",
       "side": "botania:blocks/biomestone10"
-    },
-    "transform": "forge:default-block"
+    }
   },
   "variants": {
     "half=top": [{

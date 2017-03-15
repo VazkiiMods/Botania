@@ -6,8 +6,7 @@
       "bottom": "minecraft:blocks/grass_path_top",
       "top": "minecraft:blocks/grass_path_top",
       "side": "minecraft:blocks/grass_path_top"
-    },
-    "transform": "forge:default-block"
+    }
   },
   "variants": {
     "half=top": [{

@@ -6,8 +6,7 @@
       "bottom": "botania:blocks/custombrick2",
       "top": "botania:blocks/custombrick2",
       "side": "botania:blocks/custombrick2"
-    },
-    "transform": "forge:default-block"
+    }
   },
   "variants": {
     "half=top": [{
