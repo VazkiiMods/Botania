@@ -136,7 +136,7 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 	@Nonnull
 	@Override
 	public AxisAlignedBB getBoundingBox(IBlockState state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos) {
-		return AABB;
+		return AABB.move(state.getOffset(world, pos));
 	}
 
 	@Nonnull
@@ -203,13 +203,6 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 	@Override
 	public boolean canProvidePower(IBlockState state) {
 		return true;
-	}
-
-	@SideOnly(Side.CLIENT)
-	@Nonnull
-	@Override
-	public BlockRenderLayer getBlockLayer() {
-		return BlockRenderLayer.CUTOUT;
 	}
 
 	@SideOnly(Side.CLIENT)

@@ -82,7 +82,7 @@ public class BlockModFlower extends BlockFlower implements ILexiconable, IPickup
 	@Nonnull
 	@Override
 	public AxisAlignedBB getBoundingBox(IBlockState state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos) {
-		return AABB;
+		return AABB.move(state.getOffset(world, pos));
 	}
 
 	@Nonnull
