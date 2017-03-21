@@ -18,6 +18,7 @@ import javax.annotation.Nonnull;
 import baubles.api.BaubleType;
 import baubles.api.BaublesApi;
 import baubles.api.IBauble;
+import baubles.api.cap.IBaublesItemHandler;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.EntityLivingBase;
@@ -35,6 +36,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
+import net.minecraftforge.items.ItemHandlerHelper;
 import thaumcraft.api.items.IRunicArmor;
 import vazkii.botania.api.item.ICosmeticAttachable;
 import vazkii.botania.api.item.IPhantomInkable;
@@ -65,24 +67,32 @@ public abstract class ItemBauble extends ItemMod implements IBauble, ICosmeticAt
 		if(!EntityDoppleganger.isTruePlayer(player))
 			return ActionResult.newResult(EnumActionResult.FAIL, stack);
 
-		ItemStack toEquip = stack.splitStack(1);
+		ItemStack toEquip = stack.copy();
+		toEquip.setCount(1);
 
 		if(canEquip(toEquip, player)) {
-			IItemHandlerModifiable baubles = BaublesApi.getBaublesHandler(player);
+			if(world.isRemote)
+				return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
+
+			IBaublesItemHandler baubles = BaublesApi.getBaublesHandler(player);
 			for(int i = 0; i < baubles.getSlots(); i++) {
-				ItemStack simulate = baubles.insertItem(i, toEquip, true);
-				if(simulate.isEmpty()) {
+				if(baubles.isItemValidForSlot(i, toEquip, player)) {
 					ItemStack stackInSlot = baubles.getStackInSlot(i);
 					if(stackInSlot.isEmpty() || ((IBauble) stackInSlot.getItem()).canUnequip(stackInSlot, player)) {
-						if(!world.isRemote) {
-							baubles.setStackInSlot(i, toEquip);
-						}
+						baubles.setStackInSlot(i, toEquip);
+						stack.shrink(1);
 
 						if(!stackInSlot.isEmpty()) {
 							((IBauble) stackInSlot.getItem()).onUnequipped(stackInSlot, player);
-							return ActionResult.newResult(EnumActionResult.SUCCESS, stackInSlot.copy());
+
+							if(stack.isEmpty()) {
+								return ActionResult.newResult(EnumActionResult.SUCCESS, stackInSlot);
+							} else {
+								ItemHandlerHelper.giveItemToPlayer(player, stackInSlot);
+							}
 						}
-						break;
+
+						return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
 					}
 				}
 			}
