@@ -46,6 +46,7 @@ import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.MethodHandles;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 import vazkii.botania.common.lexicon.LexiconData;
+import vazkii.botania.common.lib.LibItemAges;
 import vazkii.botania.common.lib.LibObfuscation;
 
 public class SubTileRannuncarpus extends SubTileFunctional {
@@ -88,7 +89,7 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 					continue;
 				}
 
-				if(age < 60 + slowdown || item.isDead || item.getEntityItem().isEmpty())
+				if(!LibItemAges.isLegalForFunctional(age, slowdown) || item.isDead || item.getEntityItem().isEmpty())
 					continue;
 
 				ItemStack stack = item.getEntityItem();
