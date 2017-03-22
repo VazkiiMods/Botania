@@ -27,7 +27,7 @@ import vazkii.botania.api.subtile.SubTileGenerating;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.MethodHandles;
 import vazkii.botania.common.lexicon.LexiconData;
-import vazkii.botania.common.lib.LibItemAges;
+import vazkii.botania.common.core.helper.ItemAgeHelper;
 
 public class SubTileEndoflame extends SubTileGenerating {
 
@@ -57,7 +57,7 @@ public class SubTileEndoflame extends SubTileGenerating {
 							continue;
 						}
 
-						if(LibItemAges.isLegalForGenerator(age, slowdown) && !item.isDead) {
+						if(ItemAgeHelper.isLegalForGenerator(age, slowdown) && !item.isDead) {
 							ItemStack stack = item.getEntityItem();
 							if(stack.isEmpty() || stack.getItem().hasContainerItem(stack))
 								continue;

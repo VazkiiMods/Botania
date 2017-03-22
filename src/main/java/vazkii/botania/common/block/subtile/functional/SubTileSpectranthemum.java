@@ -30,7 +30,7 @@ import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.core.handler.MethodHandles;
 import vazkii.botania.common.lexicon.LexiconData;
-import vazkii.botania.common.lib.LibItemAges;
+import vazkii.botania.common.core.helper.ItemAgeHelper;
 import vazkii.botania.common.network.PacketBotaniaEffect;
 import vazkii.botania.common.network.PacketHandler;
 
@@ -68,7 +68,7 @@ public class SubTileSpectranthemum extends SubTileFunctional {
 					continue;
 				}
 
-				if(!LibItemAges.isLegalForFunctional(age, slowdown) || item.isDead || item.getEntityData().getBoolean(TAG_TELEPORTED))
+				if(!ItemAgeHelper.isLegalForFunctional(age, slowdown) || item.isDead || item.getEntityData().getBoolean(TAG_TELEPORTED))
 					continue;
 
 				ItemStack stack = item.getEntityItem();

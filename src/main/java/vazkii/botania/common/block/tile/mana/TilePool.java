@@ -67,7 +67,7 @@ import vazkii.botania.common.core.handler.ManaNetworkHandler;
 import vazkii.botania.common.core.handler.MethodHandles;
 import vazkii.botania.common.item.ItemManaTablet;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.lib.LibItemAges;
+import vazkii.botania.common.core.helper.ItemAgeHelper;
 import vazkii.botania.common.network.PacketBotaniaEffect;
 import vazkii.botania.common.network.PacketHandler;
 
@@ -176,7 +176,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 			age = (int) MethodHandles.itemAge_getter.invokeExact(item);
 		} catch (Throwable throwable) { return false; }
 
-		if(!LibItemAges.isLegalForInfusion(age))
+		if(!ItemAgeHelper.isLegalForInfusion(age))
 			return false;
 
 		RecipeManaInfusion recipe = getMatchingRecipe(stack, world.getBlockState(pos.down()));
@@ -191,7 +191,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 				ItemStack output = recipe.getOutput().copy();
 				EntityItem outputItem = new EntityItem(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, output);
 				try {
-					MethodHandles.itemAge_setter.invokeExact(outputItem, LibItemAges.INFUSION_PRODUCT_AGE);
+					MethodHandles.itemAge_setter.invokeExact(outputItem, ItemAgeHelper.INFUSION_PRODUCT_AGE);
 				} catch (Throwable ignored) {}
 				world.spawnEntity(outputItem);
 

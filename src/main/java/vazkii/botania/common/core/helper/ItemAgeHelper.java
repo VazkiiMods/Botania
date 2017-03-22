@@ -8,9 +8,9 @@
  *
  */
 
-package vazkii.botania.common.lib;
+package vazkii.botania.common.core.helper;
 
-public class LibItemAges {
+public class ItemAgeHelper {
 
     // Items dropped by an Open Crate start at this age, if the Crate has a Redstone signal applied
     public static final int OPEN_CRATE_REDSTONE_AGE = -200;

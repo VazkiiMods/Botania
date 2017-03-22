@@ -42,7 +42,7 @@ import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.core.handler.MethodHandles;
 import vazkii.botania.common.core.helper.InventoryHelper;
 import vazkii.botania.common.lexicon.LexiconData;
-import vazkii.botania.common.lib.LibItemAges;
+import vazkii.botania.common.core.helper.ItemAgeHelper;
 
 public class SubTileHopperhock extends SubTileFunctional {
 
@@ -78,7 +78,7 @@ public class SubTileHopperhock extends SubTileFunctional {
 				continue;
 			}
 
-			if(!LibItemAges.isLegalForFunctional(age, slowdown) || item.isDead || item.getEntityItem().isEmpty())
+			if(!ItemAgeHelper.isLegalForFunctional(age, slowdown) || item.isDead || item.getEntityItem().isEmpty())
 				continue;
 
 			ItemStack stack = item.getEntityItem();
