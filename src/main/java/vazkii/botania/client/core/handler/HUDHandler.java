@@ -427,7 +427,7 @@ public final class HUDHandler {
 
 			if(!mc.player.isSneaking()) {
 				GlStateManager.scale(0.5F, 0.5F, 1F);
-				mc.fontRendererObj.drawStringWithShadow(TextFormatting.BOLD + "Shift", (sx + 10) * 2 - 16, (sy + 8) * 2 + 20, 0xFFFFFFFF);
+				mc.fontRendererObj.drawStringWithShadow(TextFormatting.BOLD + mc.gameSettings.keyBindSneak.getDisplayName(), (sx + 10) * 2 - 16, (sy + 8) * 2 + 20, 0xFFFFFFFF);
 				GlStateManager.scale(2F, 2F, 1F);
 			}
 		}
