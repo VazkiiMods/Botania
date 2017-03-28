@@ -2135,8 +2135,8 @@ botania.page.manaVoid0=简单来说，&1魔力销毁器&0是&4魔力&0 的垃圾
 # -- MANA FLUXFIELD
 botania.entry.rfGenerator=魔力转换器
 botania.tagline.rfGenerator=将 Mana 转化为能量
-botania.page.rfGenerator0=将&4魔力&0引入红石能量场,就可 以将其从自然能量源形态转 为&4能量&0。<br>只需将魔力发射器对准这转 换器，转换器就可以把输入的&4魔力&0转化 为&4能量&0，并输出到邻近的能量传输设备中。
-botania.page.rfGenerator1=传统的挑战者
+botania.page.rfGenerator0=将&4魔力&0引入红石能量场,就可 以将其从自然能量源形态转 为&4FE能量&0。<br>只需将魔力发射器对准这转 换器，转换器就可以把输入的&4魔力&0转化 为&4FE能量&0，并输出到邻近的能 量传输设备中。
+botania.page.rfGenerator1=传统的挑战者，历史的终结者
 
 # -- MANA LENSES
 botania.entry.lens=魔力透镜
