@@ -13,7 +13,7 @@ generator.botania-skyblock.info=不推薦植物魔法新手使用
 
 # Something that is not localized, translators, do NOT change this line.
 # You do not need to copy this into your lang file
-botaniamisc.noloc=botaniamisc.noloc
+###botaniamisc.noloc=botaniamisc.noloc
 
 botaniamisc.nextPage=下一頁
 botaniamisc.prevPage=上一頁
@@ -42,8 +42,8 @@ botaniamisc.toolRank=%s&7 級
 botaniamisc.edition=第 %s 版
 # ^ Leave this empty for no edition display
 botaniamisc.devEdition=作者的
-botaniamisc.lexiconcover0=囊括植物魔法之中
-botaniamisc.lexiconcover1=一切內容的官方指南
+botaniamisc.lexiconcover0=官方權威指南
+botaniamisc.lexiconcover1=植物魔法所有內容
 botaniamisc.lexiconcover2=由Vazkii執筆編纂
 botaniamisc.shiftinfo=按住&bSHIFT&7顯示更多
 botaniamisc.knowledgeTypesSingular=內含%s個世界的知識
@@ -85,7 +85,7 @@ botaniamisc.nearIndex0=附近有多媒體索引!
 botaniamisc.nearIndex1=你所說的一切都會被
 botaniamisc.nearIndex2=當做請求發送給索引
 botaniamisc.startTutorial=開始教程
-botaniamisc.tutorialStarted=你打開了教學,請跟隨紅色箭頭的提示點擊並閱讀相關內容來學習植物魔法的基礎知識. 
+botaniamisc.tutorialStarted=你打開了教學,請跟隨紅色箭頭的提示點擊並閱讀相關內容來學習植物魔法的基礎知識.
 botaniamisc.tutorialEnded=你的教學已結束,想必你對植物魔法已經有了初步的認識,建議再瀏覽其他章節來瞭解本模組的更多知識.
 botaniamisc.cosmeticBauble=&o裝飾品
 botaniamisc.hasCosmetic=&o裝飾品: &r%s
@@ -207,12 +207,12 @@ botania.color15=黑色
 botania.color16=虹色
 
 # RANKS
-botania.rank0=&cD
-botania.rank1=&eC
-botania.rank2=&bB
-botania.rank3=&aA
-botania.rank4=&dS
-botania.rank5=&6SS
+# [EXPUNGED]
+# [EXPUNGED]
+# [EXPUNGED]
+# [EXPUNGED]
+# [EXPUNGED]
+# [EXPUNGED]
 
 # ZODIAC SIGNS
 botania.sign0=牡羊
@@ -272,37 +272,37 @@ botania.armorset.will4.shortDesc=暴擊傷害穿透護甲
 botania.armorset.will5.shortDesc=暴擊施加凋零效果
 
 # ROMAN NUMERALS
-botania.roman0=
-botania.roman1=I
-botania.roman2=II
-botania.roman3=III
-botania.roman4=IV
-botania.roman5=V
-botania.roman6=VI
-botania.roman7=VII
-botania.roman8=VIII
-botania.roman9=IX
-botania.roman10=X
-botania.roman11=XI
-botania.roman12=XII
-botania.roman13=XIII
-botania.roman14=XIV
-botania.roman15=XV
-botania.roman16=XVI
-botania.roman17=XVII
-botania.roman18=XVIII
-botania.roman19=XIX
-botania.roman20=XX
-botania.roman21=XXI
-botania.roman22=XXII
-botania.roman23=XXIII
-botania.roman24=XXIV
-botania.roman25=XXV
-botania.roman26=XXVI
-botania.roman27=XXVII
-botania.roman28=XXVIII
-botania.roman29=XXIX
-botania.roman30=XXX
+#
+# PLEASE
+# DON'T
+# COPY
+# THESE
+# EXPUNGED
+# ENTRIES
+# BACK
+# HERE
+#
+# THESE
+# EMPTY
+# LINES
+# ARE
+# LEFT
+# ON
+# PURPOSE
+# THANKS
+#
+# 註：
+# 羅馬數字不需要翻譯
+# 請勿將對應條目重新
+# 複製回此處，這些空
+# 行僅供佔位用，謝謝
+#
+#
+#
+#
+#
+#
+#
 
 # KNOWLEDGE
 botania.knowledge.minecraft=主世界的知識
@@ -1948,7 +1948,7 @@ botania.page.gardenOfGlass5=製作&1圓石&0
 botania.page.gardenOfGlass6=除此之外, 有些東西在植 物魔法中調整得更適合空島 遊戲: &1凝礦蘭&0將更容易製作 ,速度更快並且更便宜; &1隨想之繭&0以及&1瑪那發射器&0的 配方也有所改變; 用製作 &1黑曜石&0的&1烈焰燈&0,改為用烈焰 粉而不是烈焰棒合成;西瓜 種子和南瓜種子可以通過打掉 高草掉落;每份原料可以製作 更多的花肥.&1甘蔗&0和&1黏液球&0變 得可以製作.
 botania.page.gardenOfGlass7=製作&1甘蔗&0
 botania.page.gardenOfGlass8=製作&1黏液球&0
-botania.page.gardenOfGlass13=Infusing &1Prismarine&0
+botania.page.gardenOfGlass13=注魔&1海磷石&0
 botania.page.gardenOfGlass9=也許可以給&1南瓜&0注入一些 死去怪物的邪惡思想,來製作 &1惡魔頭南瓜&0.通過將南瓜放置 在兩個豎直放置的&1鐵柵欄&0上 ,這有點像&1雪傀儡&0,但會出 現一個烈焰人&0.<br>以這種方式生成的&1烈焰人&0會 掉落&1烈焰粉&0而不是&1烈焰棒&0.
 botania.page.gardenOfGlass11=除了照明, 將&1瑪那閃光&0放在 出生點允許那些不慎丟掉 &1植物魔法辭典&0的玩家們用一 個&1樹苗&0來重新獲得它, 通過 手持&1樹苗&0右擊&1瑪那閃光&0.<br>這只會在玩家失去他們的&1植物魔法辭典&0時生效.
 botania.page.gardenOfGlass12=最後, 製作&1終界傳送門&0的配方
@@ -2100,7 +2100,7 @@ botania.page.pool11=製作&1瑪那玻璃&0,透明且無縫的玻璃.
 botania.page.pool12=製作&1線&0
 botania.page.pool13=使用&1蘊魔絲線&0製作&1蜘蛛網&0
 botania.page.pool7=注魔&1瑪那曲奇&0,味道好極了.
-botania.page.pool15=Creating &1Prismarine Shards&0
+botania.page.pool15=製作&1海碎片&0
 
 # -- SPARKS
 botania.entry.sparks=火花
@@ -2467,7 +2467,7 @@ botania.page.gIntro3=第一朵&4產能花&0的選擇很簡單。 作為初出茅
 # -- ENDOFLAME
 botania.entry.endoflame=火紅蓮
 botania.tagline.endoflame=燃燒產能
-botania.page.endoflame0=&1火紅蓮&0是一種非常原始的&4產能 花&0，它會吸收掉落在附近的任 何可燃物品和方塊(每次一個) 並在燃燒期間釋放出瑪那.<br>物品的燃燒時間差不多是它在 熔爐中燃燒時間的一半。
+botania.page.endoflame0=&1火紅蓮&0是一種非常原始的&4產能 花&0，它會吸收掉落在附近的任 何可燃物品和方塊(每次一個) 並在燃燒期間釋放出魔力.<br>物品的燃燒時間差不多是它在 熔爐中燃燒時間的一半。
 botania.page.endoflame1=有個小提示,&1火紅蓮&0不會燃燒 有燃燒產物的物品,比如&1岩漿&0 &1桶&0,會留下&1空桶&0.<br>另外，這朵花最多只能存儲四倍 於&1煤塊&0的燃料。如果有什麼燃 料的燃燒時間比四個煤塊還長， 火紅蓮的效率會降低。
 botania.page.endoflame3=由於&1火紅蓮&0通常是植物魔法師們在自動化&4主動產能花&0的道路上邁出的第一步,這裡不建議一直手動管理火紅蓮.因為火紅蓮只會燃燒掉落物,使用&1花格箱&0(相關介紹可在&4自然裝置&0部分找到)或者其它裝置(計時器、壓力板等等)進行自動化會是理想的選擇.
 botania.page.endoflame2=&o當縱火也有用時&r。
@@ -2524,7 +2524,7 @@ botania.page.gourmaryllis3=&o為我們的新房客準備的火鍋&r.
 botania.entry.narslimmus=黏球草
 botania.tagline.narslimmus=黏黏魔法
 botania.page.narslimmus0=這個世界上一些地方還存在 著未知的能量場,那裡能產生 &1史萊姆&0.人們稱其&4史萊姆區塊&0 .&1黏球草&0就能利用這種能量.如 果它被種在了一隻由那種能 量生出的&1史萊姆&0旁邊,它就會 將其分解並收集由其產生的 所有&4瑪那&0.&1史萊姆&0越大,產生 的&4瑪那&0就越多.它也會弄得黏 黏糊糊的.
-botania.page.narslimmus1=&oStick around, would ye&r? 
+botania.page.narslimmus1=&oStick around, would ye&r?
 
 # -- SPECTROLUS
 botania.entry.spectrolus=斑斕花
@@ -2550,8 +2550,8 @@ botania.page.dandelifeon4=所有這些變動都是同時發生 的.<br>除此之
 botania.page.dandelifeon5=所有細胞都有年齡, 從0開 始計算.無論細胞何時存活 ,若相鄰有2-3個細胞存活, 該細胞年齡+1.當死亡的細 胞重新判定為存活時,該細胞 的年齡將等同於相鄰細胞中 最老的細胞+1.所有年齡大於 60的細胞將在下一次執行後 死亡.
 botania.page.dandelifeon6=其次, &1啟命英&0為中心3x3的 區域並不適合細胞居住.所 有即將在這個區域出現的細 胞方塊都不會出現,取而代之 的是產生&4瑪那&0.年齡越高的細 胞產生的&4瑪那&0越多.年齡為0 的&4細胞&0不會產生任何瑪那.
 botania.page.dandelifeon10=每當該區域的細胞被吸收時, 外側的細胞會全部死亡.<br>對於細胞還有一些別的限制 ,兩朵不同的&1啟命英&0對同一 個區域執行遊戲會使得其中 的細胞死亡.最後,遊戲中被&1啟 命英&0遊戲以外的行為移除的 細胞都會死亡.
-botania.page.dandelifeon7=&1細胞方塊&0可由&1仙人掌&0,&1胡蘿蔔&0 和&1馬鈴薯&0製作,它們極度脆弱 ,一旦放置就不能挖掘或者被 &1活塞&0推動.也不能生成(通過 規則3)在任何非空氣 方塊上.<br>不在&1啟命英&0範圍內的細胞方 塊與普通方塊無異.
-botania.page.dandelifeon8=&o細胞工藝^2&r.
+botania.page.dandelifeon7=&1細胞方塊&0可由&1仙人掌&0、&1胡蘿蔔&0、 &1馬鈴薯&0或&1甜菜根&0製作。它們極度脆弱， 一旦放置就不能挖掘或者被 &1活塞&0推動，也不能生成(通過 規則3)在任何非空氣 方塊上。<br>不在&1啟命英&0範圍內的細胞方 塊與普通方塊無異。
+botania.page.dandelifeon8=&o細胞工藝^2&r。
 botania.page.dandelifeon9=製作&1細胞方塊&0
 
 # - NATURAL APPARATUS
@@ -2778,9 +2778,9 @@ botania.page.canopyDrum1=鼓本身不會儲存瑪那,因此激 活它就需要�
 # -- COCOON OF CAPRICE
 botania.entry.cocoon=隨想之繭
 botania.tagline.cocoon=孵化屬於你的動物
-botania.page.cocoon0=繭通常是進化與蛻變的象徵.<br>製作一個&1隨想之繭&0並把它放 在地上會慢慢地將其中的基 本元素進化轉變為&1小動物&0.很 多情況下不會演變成農場動 物,而可能是更為稀有的, 與眾不同的，比如1狼&0或&1馬&0
-botania.page.cocoon1=聽說給繭&1綠寶石&0會稍微改變 繭的產出<br>也許真的會有什麼 人來驗證一下這個.  
-botania.page.cocoon2=新世界, 烏托邦
+botania.page.cocoon0=繭通常象徵進化與蛻變。<br>製作一個&1隨想之繭&0並把它放 在地上會慢慢地將其中的基 本元素進化轉變為&1小動物&0。多 數時候，繭會孵出尋常的家禽 或家畜，但也有少數報告指出 它能孵化出&1狼&0或&1馬&0。
+botania.page.cocoon1=據說給繭&1綠寶石&0和&1歌萊果&0會稍 微改變繭的產出<br>也許真的會有什麼 人來驗證一下這個。
+botania.page.cocoon2=新世界，烏托邦
 
 # -- MANASTORM CHARGE
 botania.entry.manaBomb=瑪那風暴
@@ -3143,10 +3143,10 @@ botania.page.sextant1=使用這個工具時會出現一個 藍圈,作為要製�
 botania.page.sextant2=你畫了一個圓，來證明你的決 心
 
 # -- WORLDSHAPER's ASTROLABAE
-botania.entry.astrolabe=Worldshaper's Astrolabe
-botania.tagline.astrolabe=A tool to help create planes
-botania.page.astrolabe0=The &1Worldshaper's Astrolabe&0 is a handy tool to place down blocks, a lot of them, really quick.<br>To start off, shift-right click the astrolabe on a block in the world. This will set the block that will be placed.<br>Shift-right clicking with the astrolabe on the air will change how many blocks will get placed.
-botania.page.astrolabe1=When looking at a block with the astrolabe in hand, a quick preview will show up, of what blocks will be placed upon right click.<br>To create the wall or floor displayed, alongside &4Mana&0, the respective blocks will be taken from the user's inventory, or items that can provide blocks to items such as the &1Rod of the Shifting Crust&0. (e.g. &1Rod of the Depths&0, &1Hand of Ender&0).
+botania.entry.astrolabe=世界塑造者之星盤
+botania.tagline.astrolabe=平面塑造者
+botania.page.astrolabe0=&1世界塑造者之星盤&0是個相當好 用的工具，有了它，你就可以 快速鋪開大量方塊。<br>首先要用它右擊某種方塊，如 此可設定其要放置的方塊種類。<br>潛行時右擊星盤可以調整具體 的放置數量。
+botania.page.astrolabe1=手持星盤指向任意方塊時，星 盤會顯示效果預覽，藉由此可 得知右鍵放置方塊後的效果。<br>方塊放置時會消耗&4瑪那&0，自然 地也會消耗對應的方塊；不過 你也可以使用能給&1移殼法杖&0 提供方塊的物品（比如&1深淵法 杖s&0和&1末影之手&0）。
 botania.page.astrolabe2=Builds walls, creates worlds
 
 # - ENDER ARTEFACTS
@@ -3174,7 +3174,7 @@ botania.tagline.enderHand=隨時隨地的終界箱
 botania.page.enderHand0=&1終界之手&0讓使用者能跨維度 觸及終界,換言之就是&1終界箱&0 的物品欄.無論何地只需用這 個手右擊並消耗一些&4瑪那&0.<br>若對其他玩家使用則會相應 打開&o他們的&r終界物品欄,消耗 更多的&4瑪那&0.
 botania.page.enderHand0a=&1終界之手&0讓使用者能跨維度 觸及終界,換言之就是&1終界箱&0 的物品欄.無論何地只需用這 個手右擊並消耗一些&4瑪那&0.
 botania.page.enderHand2=不僅如此,若玩家的背包中有 &1終界之手&0,那麼&1移殼杆&0就能使 用玩家&1終界箱&0裡的方塊,這比 起平時使用,要消耗更多的&4瑪 那&0.
-botania.page.enderHand1=It's like the 4G of Ender Chests
+botania.page.enderHand1=就像是4G版的終界箱
 botania.page.enderHand1a=就像是4G版的終界箱
 
 # -- SOULSCRIBE
@@ -3193,8 +3193,8 @@ botania.page.spawnerClaw2=Just a little push
 
 # -- RED STRING
 botania.entry.redString=紅線
-botania.tagline.redString=遠距物品欄和一些遠距的東西
-botania.page.redString0=Lore說過上帝將一條紅線繫在了 那些命中註定會互相影響各自 生命的人們的腳踝處.這啟發 了發明家們想出了一種遠程連 接方塊的方法,並命名為&1紅線&0 .用這種精緻的材料製成的方 塊可面朝6個基礎方向,並且 在一定範圍內與它能找到的第 一個有效且可相容的方塊綁定.
+botania.tagline.redString=遙控物品存儲，各種遙控
+botania.page.redString0=Lore說過上帝將一條紅線繫在了 那些命中注定會互相影響各自 生命的人們的腳踝處.這啟發 了發明家們想出了一種遠程連 接方塊的方法,並命名為&1紅線&0 .用這種精緻的材料製成的方 塊可面朝6個基礎方向,並且 在一定範圍內與它能找到的第 一個有效且可相容的方塊綁定.
 botania.page.redString1=每個&4紅線&0方塊都有自己不同的 綁定標準,但是每個變體都有 相同的綁定距離要求.如果方 塊已建立綁定,則玩家手持 &1森林法杖&0就會看到線.<br>中間的 方塊不會阻擋方塊之間的連接 .最後,&1紅線&0方塊不能被綁定
 botania.page.redString2=你是否正處於緊要關頭?
 botania.page.redString3=首先,&1紅線容器&0可以任何容器 (&1箱子&0,&1熔爐&0,&1漏斗&0等)綁定 ,物品可用&1漏斗&0或者其它方法 放入其中.物品會被放入與之 綁定的容器中,並且會從與導 入&紅線容器&0相同的方位進入到 對應的容器中.
@@ -3530,34 +3530,34 @@ botania.page.dodgeRing0=&1閃避指環&0是個能讓你輕易在戰 斗中閃避
 botania.page.dodgeRing1=閃避加成
 
 # -- INVISIBILITY CLOAK
-botania.entry.invisibilityCloak=Invisibility Cloak
-botania.tagline.invisibilityCloak=Exactly what it says on the tin
-botania.page.invisibilityCloak0=Not much explanation is required for the &1Invisibility Cloak&0.<br>It's a bauble worn on the &4body&0 slot, that will take &4Mana&0 from the wearer's inventory to make them, and their baubles invisible as long as it's worn and the cost is fulfiled.
-botania.page.invisibilityCloak1=You're a wizard, steve
+botania.entry.invisibilityCloak=隱身斗篷
+botania.tagline.invisibilityCloak=物如其名
+botania.page.invisibilityCloak0=顧名思義，&1隱身斗篷&0就是用來 隱身的。<br>它本身是件首飾，需裝備在&4身體&0 格中。在魔力供應充足的情況下，佩戴 者及其身上所有的裝備首飾都 會被隱去身形。
+botania.page.invisibilityCloak1=啊，史蒂夫，有如法師一般
 
 # -- CIRRUS AMULET
-botania.entry.cloudPendant=Cirrus Amulet
-botania.tagline.cloudPendant=Gives you double jump
-botania.page.cloudPendant0=The &1Cirrus Amulet&0 is a bauble that can be worn in the &4amulet&0 slot.<br>While being worn, the wearer is granted the ability to &4double jump&0, the second jump negating all currently accumulated fall momentum and damage that would occur from the fall.
-botania.page.cloudPendant1=It's all in the cloud
+botania.entry.cloudPendant=卷雲護符
+botania.tagline.cloudPendant=二段跳！
+botania.page.cloudPendant0=&1卷雲護符&0本身是件首飾，需裝備 在&4護身符&0格。<br>這個護符的佩戴者不僅會獲得 &4二段跳&0的能力，還會免疫所有 摔落傷害。
+botania.page.cloudPendant1=一切，盡在雲上。
 
 # -- NIMBUS AMULET
-botania.entry.superCloudPendant=Nimbus Amulet
-botania.tagline.superCloudPendant=Gives you triple jump
-botania.page.superCloudPendant0=The &1Nimbus Amulet&0 is an upgraded version of the &1Cirrus Amulet&0, infused with the power of &1Gaia Spirits&0, it allows the wearer to &4triple jump&0.
-botania.page.superCloudPendant1=Magic > physics
+botania.entry.superCloudPendant=觔斗雲護符
+botania.tagline.superCloudPendant=三段跳！
+botania.page.superCloudPendant0=&1觔斗雲護符&0本身是升級版的&1卷雲&0 &1護符&0。護符中注入了&1蓋亞之魂&0的 力量，佩戴者也藉由此獲得了&4三&0 &4段跳&0的能力。
+botania.page.superCloudPendant1=魔法超越物理
 
 # -- THIRD EYE
-botania.entry.thirdEye=Third Eye
-botania.tagline.thirdEye=See all the mobs
-botania.page.thirdEye0=The &1Third Eye&0 is an odd sensory aid of sorts, that can be worn in the &4body&0 slot.<br>While worn, at the cost of some &4Mana&0, nearby mobs will be highlighted and visible through walls.
-botania.page.thirdEye1=Read their positions, not their minds
+botania.entry.thirdEye=第三隻眼
+botania.tagline.thirdEye=看清所有的怪物
+botania.page.thirdEye0=&1第三隻眼&0是個探測器一樣的奇 怪存在。它本身是件飾品，需裝備 於&4身體&0一格。<br>它有個特殊功能：佩戴者將能隔 牆看到附近的怪物（怪物的輪廓 會被高亮）；這個功能會消耗&4魔力&0。
+botania.page.thirdEye1=只能讀位置，不能讀心
 
 # -- BENEVOLENT GODDESS' CHARM
-botania.entry.goddessCharm=Benevolent Goddess' Charm
-botania.tagline.goddessCharm=Prevents explosions from damaging the world
-botania.page.goddessCharm0=The &1Benevolent Goddess' Charm&0 is a defensive bauble that can, as the name implies, be worn in the &4charm&0 slot.<br>While worn, at the cost of some &4Mana&0 from the wearer's inventory, any explosions that happen in the wearer's nearby vicinity will cease to damage any blocks in the world.
-botania.page.goddessCharm1=No EXPLOSION!
+botania.entry.goddessCharm=仁慈女神的鏈飾
+botania.tagline.goddessCharm=阻止爆炸破壞
+botania.page.goddessCharm0=&1仁慈女神的鏈飾&0是件防禦用首 飾，需裝備於&4墜飾&0格。<br>佩戴者只要能保證其&4魔力&0消耗， 它便能阻止佩戴者附近發生的 爆炸破壞地形。
+botania.page.goddessCharm1=沒有爆炸！
 
 # - ALFHOMANCY
 # -- THE PORTAL TO ALFHEIM
@@ -3627,7 +3627,7 @@ botania.tagline.relicInfo=他們終究是真實的
 botania.page.relicInfo0=從現狀推測,這些遺物終究是 真實的.這些物品,通過&1命運 骰子&0中奇妙的力量物質化自 身,事實上因為這個骰子有六 個面,因此推斷遺物很可能有 6個.<br>遺物似乎有著記憶它們擁有 者的智慧,因此將屬於自己的 遺物交給別人使用是很糟糕 的主意.
 botania.page.relicInfo1=根據記載,相同的遺物不會授 予同一個人兩次,因此必須盡 可能保證你的遺物安全.也許 使用類似&1堅毅之藤&0的道具是 個好的投資.<br>有趣的是,獲得這個遺物的人 同時也會擁有使用它的知識.
 
-# -- THE FRUIT OF GRISAIA   
+# -- THE FRUIT OF GRISAIA
 botania.entry.infiniteFruit=禁忌之果
 botania.tagline.infiniteFruit=無窮無盡的營養供應
 botania.page.infiniteFruit0=被稱為&1禁忌之果&0的遺物賦予 那些得到它的勇敢靈魂永垂 不朽的營養.它可以像普通的 食物一樣食用,但不像一般食 物那樣消耗自身,它利用背包 裡的瑪那填滿你的飢餓度.<br>希望你喜歡蘋果的味道...
