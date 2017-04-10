@@ -171,6 +171,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 				break;
 			lastRecipe.add(stack.copy());
 		}
+		recipeKeepTicks = 400;
 		world.addBlockEvent(getPos(), ModBlocks.altar, SET_KEEP_TICKS_EVENT, 400);
 	}
 
@@ -260,7 +261,11 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 
 		if(recipeKeepTicks > 0)
 			--recipeKeepTicks;
-		else lastRecipe = null;
+		else {
+			if (lastRecipe != null)
+				System.out.println("Cleared it");
+			lastRecipe = null;
+		}
 	}
 
 	@Override

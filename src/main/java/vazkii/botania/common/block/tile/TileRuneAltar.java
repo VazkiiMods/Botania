@@ -190,6 +190,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver 
 				break;
 			lastRecipe.add(stack.copy());
 		}
+		recipeKeepTicks = 400;
 		world.addBlockEvent(getPos(), ModBlocks.runeAltar, SET_KEEP_TICKS_EVENT, 400);
 	}
 
