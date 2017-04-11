@@ -261,11 +261,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 
 		if(recipeKeepTicks > 0)
 			--recipeKeepTicks;
-		else {
-			if (lastRecipe != null)
-				System.out.println("Cleared it");
-			lastRecipe = null;
-		}
+		else lastRecipe = null;
 	}
 
 	@Override
