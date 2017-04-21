@@ -423,10 +423,10 @@ botania.versioning.flavour64=本次的植魔更新已經過時. 而他的名字�
 botania.versioning.outdated=你所使用的植物魔法版本為%s,最新版本為%s.
 botania.versioning.updateMessage=["點擊這裡... [",{"text":"下載","color":"green","hoverEvent":{"action":"show_text","value":{"text":"點此自動下載最新版本","color":"green"}},"clickEvent":{"action":"open_url","value":"http://minecraft.curseforge.com/projects/botania-unofficial/files/latest"}},"] [",{"text":"網站","color":"green","hoverEvent":{"action":"show_text","value":{"text":"點此流覽該mod的網站","color":"green"}},"clickEvent":{"action":"open_url","value":"http://minecraft.curseforge.com/projects/botania-unofficial"}},"] [",{"text":"更新日誌","color":"green","hoverEvent":{"action":"show_text","value":{"text":"點此查看該版本的更新日誌","color":"green"}},"clickEvent":{"action":"open_url","value":"https://github.com/williewillus/Botania/releases/tag/%s"}},"]"]
 botania.versioning.startingDownload=[{"text":"開始下載%s.請勿移除你的硬碟.祝你玩得開心 ","color":"aqua"},{"text":"植物魔法","color":"green"},{"text":"?是否考慮贊助","color":"aqua"},{"text":"Vazkii","color":"light_purple"},{"text":" on [","color":"aqua"},{"text":"贊助","color":"gold","hoverEvent":{"action":"show_text","value":{"text":"點此進入Vazkii的贊助界面","color":"light_purple"}},"clickEvent":{"action":"open_url","value":"http://www.patreon.com/Vazkii"}},{"text":"]!","color":"aqua"}]
-bbotania.versioning.doneDownloading=%s已下載完成。請刪除舊的Botania .jar並且重啟遊戲以加載新版本。
-botania.versioning.downloadedAlready=你已下載最新版本。關閉你的遊戲，從你的mods文件夾中刪除就版本的mod文件，並且重啟遊戲以加載新版本！
+botania.versioning.doneDownloading=%s已下載完成。請刪除舊的 Botania.jar 並且重啟遊戲以載入新版本。
+botania.versioning.downloadedAlready=你已下載最新版本。關閉你的遊戲，從你的 mods 文件夾中刪除舊版本的 mod 文件，並且重啟遊戲以載入新版本！
 botania.versioning.downloadingAlready=更新正在下載中，給它點時間，好嗎？
-botania.versioning.error=Woah!看起來在下載植物魔法新版本時出現了點問題。不知botaniamod.net是否已經關閉了？
+botania.versioning.error=Woah!看起來在下載植物魔法新版本時出現了點問題。不知 botaniamod.net 是否已經關閉了？
 botania.versioning.disabled=抱歉，自動升級由於服務器主機的原因已被禁用，很快應該就會好的。
 
 # BAUBLE TOOLTIPS
