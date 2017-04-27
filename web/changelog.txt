@@ -1,3 +1,20 @@
+r1.9 343
+*Fixed a crash with the Marimorphosis.
+*Fixed baubles equipped by right click destroying items already in their slots.
+*Fixed botania armor sets animating on armor stands.
+*Fixed FPS lag when holding the Wand of the Forest.
+*Fixed right click to refill not working in the Petal Apothecary.
+*Fixed right clicking the Mana Enchanter not doing the item's action even if there's nothing the item can do.
+*Fixed shimmering mushrooms popping off at strange times.
+*Fixed some log errors.
+*Fixed the animated torch not animating smoothly when toggled serverside.
+*Fixed the Overload brew being nerfed by the 1.9 update.
+*Fixed the Wand of the Forest being able to rotate command blocks in survival.
+*Fixed the Wand of the Forest changing mode when rotating blocks.
+*Made some rune recipes use the ore dictionary.
+*Mod flowers' bounding boxes now match their shift, like vanilla flowers.
+*The Lexica Botania now shows the keybind for sneaking rather than always Shift.
+*<i>This build is all williewillus, again!</i>
 r1.9 342
 *<b>Updated the mod to 1.11.2</b>
 *Removed the Golden Laurel Crown, as it overlaps with the Totem of Undying.
