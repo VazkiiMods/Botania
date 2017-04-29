@@ -619,7 +619,7 @@ botania.entry.manaEnchanting=Verzaubern mit Mana
 botania.entry.turntable=Verbreiter-Drehscheibe
 
 # -- BOTANICAL ALCHEMY
-botania.entry.manaAlchemy=Alchemiie mit Mana
+botania.entry.manaAlchemy=Alchemie mit Mana
 botania.page.manaAlchemy1=Kreieren eines &1Katalysators&0
 botania.page.manaAlchemy2=&1Verrottetes Fleisch&0 zu &1Leder&0
 botania.page.manaAlchemy3=Verschiedene Arten von &1Holz&0
@@ -741,7 +741,7 @@ botania.entry.divaCharm=Talisman der Diva
 botania.entry.flightTiara=Flügel-Tiara
 
 # -- ALFHOMANCY
-botania.entry.aIntro=Das Protal nach Alfheim
+botania.entry.aIntro=Das Portal nach Alfheim
 
 # - MISCLANEOUS
 # -- UNSTABLE CUBE
