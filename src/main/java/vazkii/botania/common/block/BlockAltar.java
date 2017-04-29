@@ -180,7 +180,7 @@ public class BlockAltar extends BlockMod implements ILexiconable {
 				return true;
 			} else if(!stack.isEmpty() && stack.getItem() == Items.LAVA_BUCKET) {
 				if(!player.capabilities.isCreativeMode)
-					drain(FluidRegistry.LAVA, stack);
+					player.setHeldItem(hand, drain(FluidRegistry.LAVA, stack));
 
 				tile.setLava(true);
 				tile.setWater(false);
