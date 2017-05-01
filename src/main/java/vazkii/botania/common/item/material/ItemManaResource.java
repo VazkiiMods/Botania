@@ -76,8 +76,10 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 				stack.shrink(1);
 
 				event.getWorld().playSound(null, event.getPos(), SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.PLAYERS, 0.5F, 1F);
-				event.setCanceled(true);
 			}
+
+			event.setCanceled(true);
+			event.setCancellationResult(EnumActionResult.SUCCESS);
 		}
 	}
 

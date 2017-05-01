@@ -29,6 +29,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
@@ -71,7 +72,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 	public static void onPlayerInteract(PlayerInteractEvent.RightClickBlock event) {
 		EntityPlayer player = event.getEntityPlayer();
 		ItemStack lokiRing = getLokiRing(player);
-		if(lokiRing.isEmpty() || player.world.isRemote || event.getHand() == EnumHand.OFF_HAND)
+		if(lokiRing.isEmpty() || !player.isSneaking())
 			return;
 
 		int slot = -1;
@@ -88,49 +89,51 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 		BlockPos originCoords = getOriginPos(lokiRing);
 		RayTraceResult lookPos = ToolCommons.raytraceFromEntity(player.world, player, true, 10F);
 		List<BlockPos> cursors = getCursorList(lokiRing);
-		int cursorCount = cursors.size();
+		int cost = Math.min(cursors.size(), (int) Math.pow(Math.E, cursors.size() * 0.25));
 
-		int cost = Math.min(cursorCount, (int) Math.pow(Math.E, cursorCount * 0.25));
+		if(lookPos == null || lookPos.getBlockPos() == null)
+			return;
 
-		if(heldItemStack.isEmpty() && player.isSneaking()) {
-			if(originCoords.getY() == -1 && lookPos != null && lookPos.getBlockPos() != null) {
-				setOriginPos(lokiRing, lookPos.getBlockPos());
-				setCursorList(lokiRing, null);
-				BotaniaAPI.internalHandler.sendBaubleUpdatePacket(player, slot);
-			} else if(lookPos != null && lookPos.getBlockPos() != null) {
-				if(originCoords.equals(lookPos.getBlockPos())) {
-					setOriginPos(lokiRing, new BlockPos(0, -1, 0));
+		if(heldItemStack.isEmpty()) {
+			if(!event.getWorld().isRemote) {
+				if(originCoords.getY() == -1) {
+					setOriginPos(lokiRing, lookPos.getBlockPos());
+					setCursorList(lokiRing, null);
 					BotaniaAPI.internalHandler.sendBaubleUpdatePacket(player, slot);
 				} else {
-					addCursor : {
-					BlockPos relPos = lookPos.getBlockPos().add(new BlockPos(-originCoords.getX(), -originCoords.getY(), -originCoords.getZ()));
+					if(originCoords.equals(lookPos.getBlockPos())) {
+						setOriginPos(lokiRing, new BlockPos(0, -1, 0));
+						BotaniaAPI.internalHandler.sendBaubleUpdatePacket(player, slot);
+					} else {
+						addCursor : {
+							BlockPos relPos = lookPos.getBlockPos().add(new BlockPos(-originCoords.getX(), -originCoords.getY(), -originCoords.getZ()));
 
-					for(BlockPos cursor : cursors)
-						if(cursor.equals(relPos)) {
-							cursors.remove(cursor);
-							setCursorList(lokiRing, cursors);
+							for(BlockPos cursor : cursors)
+								if(cursor.equals(relPos)) {
+									cursors.remove(cursor);
+									setCursorList(lokiRing, cursors);
+									BotaniaAPI.internalHandler.sendBaubleUpdatePacket(player, slot);
+									break addCursor;
+								}
+
+							addCursor(lokiRing, relPos);
 							BotaniaAPI.internalHandler.sendBaubleUpdatePacket(player, slot);
-							break addCursor;
 						}
-
-					addCursor(lokiRing, relPos);
-					BotaniaAPI.internalHandler.sendBaubleUpdatePacket(player, slot);
-				}
+					}
 				}
 			}
-		} else if(!heldItemStack.isEmpty() && lookPos != null && lookPos.getBlockPos() != null && player.isSneaking()) {
+
+			event.setCanceled(true);
+			event.setCancellationResult(EnumActionResult.SUCCESS);
+		} else {
 			for(BlockPos cursor : cursors) {
 				BlockPos pos = lookPos.getBlockPos().add(cursor);
 				Item item = heldItemStack.getItem();
-				if(!player.world.isAirBlock(pos) && ManaItemHandler.requestManaExact(lokiRing, player, cost, true)) {
+				if(player.world.isAirBlock(pos) && ManaItemHandler.requestManaExact(lokiRing, player, cost, true)) {
 					ItemStack saveHeld = heldItemStack.copy();
 					item.onItemUse(player, player.world, pos, event.getHand(), lookPos.sideHit, (float) lookPos.hitVec.xCoord - pos.getX(), (float) lookPos.hitVec.yCoord - pos.getY(), (float) lookPos.hitVec.zCoord - pos.getZ());
 					if (player.isCreative())
 						player.setHeldItem(event.getHand(), saveHeld);
-					if(heldItemStack.isEmpty()) {
-						event.setCanceled(true);
-						return;
-					}
 				}
 			}
 		}

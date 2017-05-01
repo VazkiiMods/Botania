@@ -22,6 +22,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
@@ -84,17 +85,25 @@ public final class SkyblockWorldEvents {
 						if(Math.random() < 0.8)
 							event.getEntityPlayer().dropItem(new ItemStack(ModItems.manaResource, 1, 21), false);
 					}
-				}
-			} else if(!equipped.isEmpty() && equipped.getItem() == Items.BOWL && !event.getWorld().isRemote) {
-				RayTraceResult RayTraceResult = ToolCommons.raytraceFromEntity(event.getWorld(), event.getEntityPlayer(), true, 4.5F);
-				if(RayTraceResult != null) {
-					if (RayTraceResult.typeOfHit == net.minecraft.util.math.RayTraceResult.Type.BLOCK) {
-						if(event.getWorld().getBlockState(RayTraceResult.getBlockPos()).getMaterial() == Material.WATER) {
-							equipped.shrink(1);
 
-							if(equipped.isEmpty())
-								event.getEntityPlayer().setHeldItem(event.getHand(), new ItemStack(ModItems.waterBowl));
-							else ItemHandlerHelper.giveItemToPlayer(event.getEntityPlayer(), new ItemStack(ModItems.waterBowl));
+					event.setCanceled(true);
+					event.setCancellationResult(EnumActionResult.SUCCESS);
+				}
+			} else if(!equipped.isEmpty() && equipped.getItem() == Items.BOWL) {
+				RayTraceResult rtr = ToolCommons.raytraceFromEntity(event.getWorld(), event.getEntityPlayer(), true, 4.5F);
+				if(rtr != null) {
+					if (rtr.typeOfHit == net.minecraft.util.math.RayTraceResult.Type.BLOCK) {
+						if(event.getWorld().getBlockState(rtr.getBlockPos()).getMaterial() == Material.WATER) {
+							if(!event.getWorld().isRemote) {
+								equipped.shrink(1);
+
+								if(equipped.isEmpty())
+									event.getEntityPlayer().setHeldItem(event.getHand(), new ItemStack(ModItems.waterBowl));
+								else ItemHandlerHelper.giveItemToPlayer(event.getEntityPlayer(), new ItemStack(ModItems.waterBowl));
+							}
+
+							event.setCanceled(true);
+							event.setCancellationResult(EnumActionResult.SUCCESS);
 						}
 					}
 				}

@@ -162,8 +162,11 @@ public class BlockAltar extends BlockMod implements ILexiconable {
 		if(player.isSneaking()) {
 			InventoryHelper.withdrawFromInventory(tile, player);
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(tile);
-		} else if(tile.isEmpty() && tile.hasWater && stack.isEmpty())
+			return true;
+		} else if(tile.isEmpty() && tile.hasWater && stack.isEmpty()) {
 			tile.trySetLastRecipe(player);
+			return true;
+		}
 		else {
 			if(!stack.isEmpty() && (isValidWaterContainer(stack) || stack.getItem() == ModItems.waterRod && ManaItemHandler.requestManaExact(stack, player, ItemWaterRod.COST, false))) {
 				if(!tile.hasWater) {

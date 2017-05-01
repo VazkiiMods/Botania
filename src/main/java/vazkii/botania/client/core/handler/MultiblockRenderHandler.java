@@ -10,6 +10,7 @@
  */
 package vazkii.botania.client.core.handler;
 
+import net.minecraft.util.EnumActionResult;
 import org.lwjgl.opengl.ARBShaderObjects;
 import org.lwjgl.opengl.GL11;
 
@@ -95,6 +96,7 @@ public final class MultiblockRenderHandler {
 			anchor = event.getPos();
 			angle = event.getEntityPlayer().getHorizontalFacing();
 			event.setCanceled(true);
+			event.setCancellationResult(EnumActionResult.SUCCESS);
 		}
 	}
 
