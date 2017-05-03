@@ -144,29 +144,8 @@ public class BlockEnchanter extends BlockMod implements IWandable, ILexiconable,
 	public void breakBlock(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
 		TileEnchanter enchanter = (TileEnchanter) world.getTileEntity(pos);
 
-		ItemStack itemstack = enchanter.itemToEnchant;
-
-		if (!itemstack.isEmpty()) {
-			float f = random.nextFloat() * 0.8F + 0.1F;
-			float f1 = random.nextFloat() * 0.8F + 0.1F;
-			EntityItem entityitem;
-
-			for (float f2 = random.nextFloat() * 0.8F + 0.1F; itemstack.getCount() > 0; world.spawnEntity(entityitem)) {
-				int k1 = random.nextInt(21) + 10;
-
-				if (k1 > itemstack.getCount())
-					k1 = itemstack.getAnimationsToGo();
-
-				itemstack.shrink(k1);
-				entityitem = new EntityItem(world, pos.getX() + f, pos.getY() + f1, pos.getZ() + f2, new ItemStack(itemstack.getItem(), k1, itemstack.getItemDamage()));
-				float f3 = 0.05F;
-				entityitem.motionX = (float)random.nextGaussian() * f3 * 0.5;
-				entityitem.motionY = (float)random.nextGaussian() * f3 + 0.2F;
-				entityitem.motionZ = (float)random.nextGaussian() * f3 * 0.5;
-
-				if (itemstack.hasTagCompound())
-					entityitem.getEntityItem().setTagCompound(itemstack.getTagCompound().copy());
-			}
+		if(!enchanter.itemToEnchant.isEmpty()) {
+			world.spawnEntity(new EntityItem(world, pos.getX(), pos.getY(), pos.getZ(), enchanter.itemToEnchant));
 		}
 
 		world.updateComparatorOutputLevel(pos, state.getBlock());
