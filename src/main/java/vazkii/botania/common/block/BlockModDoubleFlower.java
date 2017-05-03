@@ -180,14 +180,6 @@ public abstract class BlockModDoubleFlower extends BlockDoublePlant implements I
 			stacks.add(new ItemStack(item, 1, i));
 	}
 
-	@Nonnull
-	@Override
-	@SideOnly(Side.CLIENT)
-	public Block.EnumOffsetType getOffsetType()
-	{
-		return Block.EnumOffsetType.NONE;
-	}
-
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void randomDisplayTick(IBlockState state, World world, BlockPos pos, Random rand) {

@@ -14,6 +14,7 @@ import java.util.Random;
 
 import javax.annotation.Nonnull;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.statemap.StateMap;
 import net.minecraft.item.EnumDyeColor;
@@ -39,6 +40,13 @@ public class BlockBuriedPetals extends BlockModFlower {
 	public BlockBuriedPetals() {
 		super(LibBlockNames.BURIED_PETALS);
 		setLightLevel(0.25F);
+	}
+
+	@Nonnull
+	@Override
+	@SideOnly(Side.CLIENT)
+	public Block.EnumOffsetType getOffsetType() {
+		return Block.EnumOffsetType.NONE;
 	}
 
 	@Nonnull
