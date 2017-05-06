@@ -19,7 +19,7 @@ public final class LibMisc {
 	public static final String VERSION = "GRADLE:VERSION-" + BUILD;
 	public static final String DEPENDENCIES = "required-after:baubles;after:thaumcraft";
 
-	// Network Contants
+	// Network Constants
 	public static final String NETWORK_CHANNEL = MOD_ID;
 
 	// Proxy Constants
