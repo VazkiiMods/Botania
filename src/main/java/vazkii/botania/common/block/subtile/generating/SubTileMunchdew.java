@@ -36,7 +36,7 @@ public class SubTileMunchdew extends SubTileGenerating {
 	private static final String TAG_ATE_ONCE = "ateOnce";
 
 	private static final int RANGE = 8;
-	private static final int RANGE_Y = 16;
+	private static final int RANGE_Y = 32;
 
 	boolean ateOnce = false;
 	int ticksWithoutEating = -1;
