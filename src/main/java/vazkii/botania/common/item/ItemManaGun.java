@@ -200,7 +200,7 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 				String name;
 				TextFormatting formatting = i == pos ? TextFormatting.GREEN : TextFormatting.GRAY;
 				ItemStack lensAt = getLensAtPos(par1ItemStack, i);
-				if(lensAt == null)
+				if(lensAt.isEmpty())
 					name = I18n.format("botaniamisc.clipEmpty");
 				else name = lensAt.getDisplayName();
 				addStringToTooltip(formatting + " - " + name, stacks);
@@ -237,7 +237,7 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 
 	public static void rotatePos(ItemStack stack) {
 		int currPos = getClipPos(stack);
-		boolean acceptEmpty = getLensAtPos(stack, currPos) != null;
+		boolean acceptEmpty = !getLensAtPos(stack, currPos).isEmpty();
 		int[] slots = new int[CLIP_SLOTS - 1];
 
 		int index = 0;
@@ -248,7 +248,7 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 
 		for(int i : slots) {
 			ItemStack lensAt = getLensAtPos(stack, i);
-			if(acceptEmpty || lensAt != null) {
+			if(acceptEmpty || !lensAt.isEmpty()) {
 				setClipPos(stack, i);
 				return;
 			}
