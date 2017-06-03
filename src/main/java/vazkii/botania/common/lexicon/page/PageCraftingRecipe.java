@@ -65,8 +65,11 @@ public class PageCraftingRecipe extends PageRecipe {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void renderRecipe(IGuiLexiconEntry gui, int mx, int my) {
+		
+		if(recipes.size() == 0) {
+			return;
+		}
 		oreDictRecipe = shapelessRecipe = false;
-
 		IRecipe recipe = recipes.get(recipeAt);
 		renderCraftingRecipe(gui, recipe);
 
