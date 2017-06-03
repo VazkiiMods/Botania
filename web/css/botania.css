@@ -1,10 +1,10 @@
 html {
 	position: relative;
 	min-height: 100%;
+	background-color: #E0E0E0;
 }
 
 body {
-	margin-bottom: 195px;
 }
 
 hr {
@@ -25,7 +25,7 @@ hr {
 }
 
 .navbar-brand img {
-	height: 50px;
+  max-height: 100%;
 	top: -10px;
 }
 
@@ -46,7 +46,7 @@ hr {
 }
 
 .module-contents {
-	margin-top: 80px;
+	padding-top: 80px;
 	margin-bottom: 60px;
 }
 
@@ -90,7 +90,8 @@ hr {
 } 
 
 .btn {
-	width: 240px;
+	width: inherit;
+  padding: 8px 16px;
 }
 
 .btn-succeed {
@@ -109,32 +110,36 @@ hr {
 	color: #fff;
 }
 
+.glyphicon{
+  display: inline;
+  padding-right: 5px;
+}
+
+.container{
+	overflow: hidden;
+}
+
 .carousel {
-	height: 500px;
-	width: 970px;
-	margin-top: -18px;
-	left: 50%;
-	margin-left: -485px;
+	margin-bottom: 40px;
 }
 
 .carousel-caption {
 	z-index: 10;
-	height: 240px;
+	max-width: 100%;
+	min-height: 240px;
 	margin-bottom: 60px;
-	background-color: rgba(0, 0, 0, 0.2);
+	padding: 10px;
+	background-color: rgba(0, 0, 0, 0.6);
 }
 
 .carousel .item {
 	height: 500px;
 	background-color: #777;
-}
-
-#myCarousel {
-	margin-bottom: 40px;
+	background-size: 970px 500px;
+	background-position: center center;
 }
 
 .carousel-inner {
-	box-shadow: 0 3px 10px rgba(0,0,0,.23), 0 3px 10px rgba(0,0,0,.16);
 }
 
 .carousel-inner > .item > img {
@@ -145,39 +150,42 @@ hr {
 	width: 100%;
 }
 
+.featurettes{
+}
+
+.featurette{
+	padding-top: 10px;
+}
+
 .featurette-divider {
 	margin: 20px 0;
 }
 
 .featurette-heading {
+	margin-top: 20px;
 	font-weight: 300;
 	line-height: 1;
 	letter-spacing: -1px;
 }
 
 .featurette-image {
-	box-shadow: 0px 0px 20px 2px #000000;
-	margin-top: 100px;
+	margin-top: 20px;
 	margin-bottom: 10px;
 }
 
 .youtube {
-	width: 912px;
+	margin-top: 30px;
 }
 
 .video-intro {
-	margin-left: 20px;
 	color: #888;
 	font-weight: bold;
-	text-shadow: 1px 1px rgba(0, 0, 0, 0.2);
 	width: 800px;
 }
 
 iframe {
-	width: 290px;	
+	width: 100%;
 	height: 220px;
-	margin: 15px 0px 0px 10px;
-	box-shadow: -1px 0px 20px 2px #000000;
 }
 
 #moe-counter {
@@ -293,10 +301,7 @@ iframe {
 
 .footer {
 	text-align: center;
-	padding-top: 5px;
-	position: absolute;
-	bottom: 0;
+	padding: 30px;
 	width: 100%;
-	height: 130px;
 	background-color: #E0E0E0;
 }
