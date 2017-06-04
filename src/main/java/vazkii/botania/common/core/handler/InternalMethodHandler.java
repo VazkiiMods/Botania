@@ -33,7 +33,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.items.IItemHandlerModifiable;
-import net.minecraftforge.items.wrapper.InvWrapper;
 import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.corporea.ICorporeaSpark;
@@ -56,13 +55,11 @@ import vazkii.botania.client.core.handler.BossBarHandler;
 import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.BlockModFlower;
-import vazkii.botania.common.block.BlockSpecialFlower;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.decor.BlockFloatingFlower;
 import vazkii.botania.common.block.subtile.functional.SubTileSolegnolia;
 import vazkii.botania.common.integration.corporea.WrappedDeepStorage;
 import vazkii.botania.common.integration.corporea.WrappedIInventory;
-import vazkii.botania.common.integration.corporea.WrappedStorageDrawers;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 import vazkii.botania.common.item.relic.ItemLokiRing;
@@ -274,10 +271,6 @@ public class InternalMethodHandler extends DummyMethodHandler {
 		for(InvWithLocation inv : inventories) {
 			ICorporeaSpark spark = CorporeaHelper.getSparkForInventory(inv);
 			IWrappedInventory wrapped = null;
-			// try StorageDrawers integration
-			if(Botania.storageDrawersLoaded) {
-				wrapped = WrappedStorageDrawers.wrap(inv, spark);
-			}
 			// try DeepStorageUnit
 			if(wrapped == null) {
 				wrapped = WrappedDeepStorage.wrap(inv, spark);

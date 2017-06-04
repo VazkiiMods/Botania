@@ -103,7 +103,6 @@ public class Botania {
 	public static boolean bloodMagicLoaded = false;
 	public static boolean coloredLightsLoaded = false;
 	public static boolean etFuturumLoaded = false;
-	public static boolean storageDrawersLoaded = false;
 
 	@Instance(LibMisc.MOD_ID)
 	public static Botania instance;
@@ -122,7 +121,6 @@ public class Botania {
 		bloodMagicLoaded = Loader.isModLoaded("bloodmagic"); // Psh, noob
 		coloredLightsLoaded = Loader.isModLoaded("easycoloredlights");
 		etFuturumLoaded = Loader.isModLoaded("etfuturum");
-		storageDrawersLoaded = Loader.isModLoaded("storagedrawers");
 
 		BotaniaAPI.internalHandler = new InternalMethodHandler();
 
