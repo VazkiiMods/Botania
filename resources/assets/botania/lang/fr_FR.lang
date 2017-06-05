@@ -1,0 +1,1536 @@
+# MISC
+itemGroup.Botania=Botania
+# Something that is not localized, translators, do NOT change this line.
+botaniamisc.noloc=botaniamisc.noloc
+botaniamisc.nextPage=Page suivante
+botaniamisc.prevPage=Page précédente
+botaniamisc.back=Retour
+botaniamisc.craftingContainer=Retour aux recettes
+botaniamisc.shapeless=Recette sans schéma
+botaniamisc.oredict=Recette Ore Dictionary
+botaniamisc.statusUnknown=Statut inconnu
+botaniamisc.color=%s coloré
+botaniamisc.manaUsage=Utilisation de Mana
+botaniamisc.shiftToRead=Maj + clic droit pour en savoir plus
+botaniamisc.clickToRecipe=Maj + clic pour voir la recette
+botaniamisc.clickToIndex=Maj + clic pour l'index
+botaniamisc.flareColor=%s tours
+botaniamisc.outputtingPower=Distribue du Mana
+botaniamisc.inputtingPower=Absorbe du Mana
+botaniamisc.creative=Creatif
+botaniamisc.invFull=Votre inventaire est complet !
+botaniamisc.compositeLens=Composée de %s
+botaniamisc.filter0=Pickup only items in Frames
+botaniamisc.filter1=Pickup only items not in Frames
+botaniamisc.filter2=Pickup any items
+botaniamisc.creativePool0=Creative Mana Pool, has infinite Mana
+botaniamisc.creativePool1=Worthy of an Egoist
+botaniamisc.savedByLaurel=Your Golden Laurel Crown shatters, as it saves you from death.
+botaniamisc.toolRank=%s&7 Rank
+botaniamisc.edition=%s Edition
+# ^ Leave this empty for no edition display
+botaniamisc.devEdition=Writer's
+botaniamisc.lexiconcover0=L'encyclopédie du
+botaniamisc.lexiconcover1=savoir de la Botanique
+botaniamisc.lexiconcover2=de la célèbre auteure
+botaniamisc.lexiconcover3=Lizbeth "Vazkii" Rika
+botaniamisc.lexiconcover4=Edited by BevoLJ
+botaniamisc.lexiconcover5=Edited by Saice
+botaniamisc.shiftinfo=Maj &bSHIFT&7 pour plus d'infos
+botaniamisc.knowledgeTypesSingular=Contient %s École de Connaissance
+botaniamisc.knowledgeTypesPlural=Contient %s Écoles de Connaissance
+botaniamisc.bookmark=Signet #%s
+botaniamisc.clickToSee=Clic pour lire
+botaniamisc.shiftToRemove=Maj + clic pour supprimer
+botaniamisc.clickToAdd=Ajoutez un signet
+botaniamisc.ratio=Zoom: %sx
+botaniamisc.bottleTooltip=It has an acquired taste
+botaniamisc.coarseDirt0=Coarse Dirt, grass
+botaniamisc.coarseDirt1=won't grow on it
+botaniamisc.spawnerTip=Tip: Use a Spawn Egg to change the mob
+botaniamisc.shardLevel=Shard Power %s
+botaniamisc.lexiconIndex=Lexicon Index
+botaniamisc.hasIvy=Has Timeless Ivy
+botaniamisc.shareMsg=[{"text":"%name%","color":"light_purple"},{"text":" has shared a ","color":"blue"},{"text":"Lexica Botania","color":"green","hoverEvent":{"action":"show_text","value":{"text":"You can make one using a Book and a Sapling!","color":"aqua"}}},{"text":" entry, click to see it: ","color":"blue"},{"text":"[%entryname%]","color":"green","clickEvent":{"action":"run_command","value":"/botania-open %entry%"},"hoverEvent":{"action":"show_text","value":{"text":"Click to read about this","color":"aqua"}}}]
+botaniamisc.noLexicon=You need a Lexica Botania in-hand to read this.
+botaniamisc.cantOpen=It doesn't seem like your Lexica Botania has this page. Perhaps it comes from an outside source...?
+botaniamisc.clickToShare=Partager
+botaniamisc.drop=Jeter
+botaniamisc.dropTip0=Tip: Appuyez sur %key% dans l'inventaire pour jeter
+botaniamisc.dropTip1=CTRL-%key% jette tout le stack
+botaniamisc.wandMode.bind=Mode Association
+botaniamisc.wandMode.function=Mode Fonction
+botaniamisc.playVideo=Jouer la vidéo
+# COLORS
+botania.color0=Blanc
+botania.color1=Orange
+botania.color2=Magenta
+botania.color3=Bleu clair
+botania.color4=Jaune
+botania.color5=Vert clair
+botania.color6=Rose
+botania.color7=Gris
+botania.color8=Gris clair
+botania.color9=Cyan
+botania.color10=Violet
+botania.color11=Bleu
+botania.color12=Brun
+botania.color13=Vert
+botania.color14=Rouge
+botania.color15=Noir
+botania.color16=Arc-en-ciel
+# RANKS
+botania.rank0=&cD
+botania.rank1=&eC
+botania.rank2=&bB
+botania.rank3=&aA
+botania.rank4=&dS
+botania.rank5=&6SS
+# WINGS
+botania.wings0=Pas d'ailes
+botania.wings1=Wings: Flügel
+botania.wings2=Wings: One-Winged Angel
+botania.wings3=Wings: Ice Fairy
+botania.wings4=Wings: Firelord
+botania.wings5=Wings: Black Snow Princess
+botania.wings6=Wings: Lord of the Pit
+botania.wings7=Wings: Sylphe
+# ROMAN NUMERALS
+botania.roman1=I
+botania.roman2=II
+botania.roman3=III
+botania.roman4=IV
+botania.roman5=V
+botania.roman6=VI
+botania.roman7=VII
+botania.roman8=VIII
+botania.roman9=IX
+botania.roman10=X
+botania.roman11=XI
+botania.roman12=XII
+botania.roman13=XIII
+botania.roman14=XIV
+botania.roman15=XV
+botania.roman16=XVI
+botania.roman17=XVII
+botania.roman18=XVIII
+botania.roman19=XIX
+botania.roman20=XX
+# KNOWLEDGE
+botania.knowledge.minecraft=Savoir Minecraftien
+botania.knowledge.alfheim= Savoir &aElfique&7
+# CONFIGURATION
+blockBreakingParticles.enabled=Particules de destrcution
+blockBreakingParticlesTool.enabled=Tool Block Break Particles
+boundBlock.wireframe.enabled=Bound Block Wireframe
+darkQuartz.enabled=Enable Smokey Quatrz
+fallenKanade.enabled=Enable Fallen Kanade
+manaEnchanter.enabled=Enable Mana Enchanter
+flower.forceCheck=Flower Force Checking
+enderPickpocket.enabled=Enable Ender Pickpocketting
+thermalily.obsidian=Thermalily Needs Obsidian
+passiveWither.time=Passive Wither Time
+flowerParticles.frequency=Flower Particle Frequency
+lexicon.enable.rotatingItems=Lexicon Rotating Items
+lexicon.render.3D=3D Lexicon Render
+powerSystem.subtle=Use Subtle Power System
+pylonModel.old=Use Old Pylon Model
+elfPortal.particles.enabled=Enable Portal Particles
+chargeAnimation.enabled=Charging Animation Enabled
+vanillaParticleConfig.enabled=Use Vanilla Particle Config
+manaSpreaders.silent=Silent Mana Spreaders
+flowerTextures.alt=Alternate Flower Textures
+matrixMode.enabled=Enable Matrix Mode
+references.enabled=Enable Tooltip References
+shaders.enabled=Enable Shader Usage
+spreader.posShift=Spreader Pos Shift
+versionChecking.enabled=Enable Version Checking
+wandBeam.static=Enable Static Wand Beam
+worldgen.flower.density=Worldgen Flower Density
+worldgen.flower.quantity=Worldgen Flower Quantity
+shedRate.chicken=Shed Rate: Chicken
+shedRate.squid=Shed Rate: Squid
+shedRate.villager=Shed Rate: Villager
+shedRate.spider=Shed Rate: Spider
+shedRate.blaze=Shed Rate: Blaze
+shedRate.ghast=Shed Rate: Ghast
+shedRate.skeleton=Shed Rate: Skeleton
+shedRate.slime=Shed Rate: Slime
+# VERSION CHECKING
+botania.versioning.flavour0=NANI SORE!? BOTANIA N'EST PAS A JOUR !?
+botania.versioning.flavour1=Comment ça, Botania n'est pas jour, jeune fou ?
+botania.versioning.flavour2=Oh ! Botania n'est pas à jour, hérétique !
+botania.versioning.flavour3=Ramenez-moi à bord, Scotty. Nous avons une nouvelle version de Botania.
+botania.versioning.flavour4=Hé, une mise à jour de Botania, c'est rare n'est-ce pas ?
+botania.versioning.flavour6=Qu'est-ce qu'il en pense de la mise à jour de Botania ?
+botania.versioning.flavour7=Oi mate, Botania n'est pas à jour. Pourquoi suis-je Australien ?
+botania.versioning.flavour8=Avoir une vie c'est trop branché, tiens, une mise à jour de Botania.
+botania.versioning.flavour9=Merci pour la mise à jour de Botania. Allez, allez !
+botania.versioning.flavour10=Merci de mettre à jour Botania. TOUT DE SUITE !
+botania.versioning.flavour11=Perry l'ornithorynque, je te présente la Botania-mise-à-jour-inator !
+botania.versioning.flavour12=Mise à jour de Botania disponible ! Allez hop hop hop !
+botania.versioning.flavour13=Tu as activé ma carte piège ! Je mets à jour Botania !
+botania.versioning.flavour14=On va jouer à un jeu : on boit un coup chaque fois que sort une mise à jour de Botania. *hic*
+botania.versioning.flavour15=Ne fais SURTOUT pas attention à la mise à jour de Botania, derrière le rideau.
+botania.versioning.flavour16=Mise à jour de Botania. Je ne serai pas plus explicite.
+botania.versioning.flavour17=METS A JOUR BOTANIA ESPECE DE FOU !
+botania.versioning.flavour18=PoUrQuOi cE mEsSaGe De MiSe A jOuR eSt-Il ÉcRiT cOmMe Ca ?!
+botania.versioning.flavour19=Tu avais promis de mettre à jour Botaniaaaaa !!!
+botania.versioning.flavour20=Hé, oh ! Tu veux une mise à jour de Botania ? Allez vas-y, lance toi !
+botania.versioning.flavour21=Cette mise à jour de Botania s'auto-détruira dans 3...2...1...
+botania.versioning.flavour22=Moi aussi j'étais aventurier autrefois, et puis j'ai pris une mise à jour de Botania dans le genou ...
+botania.versioning.flavour23=Botania n'est pas à jour. Autre information : Perceval ne mange pas de fraises.
+botania.versioning.flavour24=Hey listen ! Mise à jour de Botania !
+botania.versioning.flavour25=Pour la mise à jour de Botania, hip hip hip !
+botania.versioning.flavour26=Derrière toi ! Attention ! Une mise à jour de Botania !
+botania.versioning.flavour27=Si tu peux casser du bois avec tes mains, tu peux mettre à jour Botania, non ?!
+botania.versioning.flavour28=Les mises à jour de Botania, c'est bon, mangez-en.
+botania.versioning.flavour29=Mets le à jour ! Personne ne veut être pas à jour ! :(
+botania.versioning.flavour30=Botania utilise Mise à jour ! C'est super efficace !
+botania.versioning.flavour31=Nouvelle mise à jour de Botania, 37% encore mieux !
+botania.versioning.flavour32=Félicitations ! Tu es le 100 000ème joueur avec une version de Botania qui n'est pas à jour ! Clic pour gagner un iPad !
+botania.versioning.flavour33=La mise à jour de Botania, elle te fout le Gwak ?!
+botania.versioning.flavour34=Bon, tu le mets à jour, Botania ? Sinon, j'envoie Jean-Pierre Castaldi te manger !
+botania.versioning.flavour35=Mets Botania à jour et tu deviendras une magicienne !
+botania.versioning.outdated=Tu utilises la version %s de Botania, la dernière est la version %s.
+botania.versioning.updateMessage=["Clic... [",{"text":"Téléchargement","color":"green","hoverEvent":{"action":"show_text","value":{"text":"Clique ici pour télécharger automatiquement la dernière version de Botania","color":"green"}},"clickEvent":{"action":"run_command","value":"/botania-download-latest %version%"}},"] [",{"text":"Site Officiel","color":"green","hoverEvent":{"action":"show_text","value":{"text":"Clic pour aller sur le site de Botania","color":"green"}},"clickEvent":{"action":"open_url","value":"http://vazkii.us/mod/Botania/downloads.php"}},"] [",{"text":"Notes de mise à jour","color":"green","hoverEvent":{"action":"show_text","value":{"text":"Clic pour consulter les ajouts de la dernière mise à jour","color":"green"}},"clickEvent":{"action":"open_url","value":"http://vazkii.us/mod/Botania/changelog.php#%version%"}},"]"]
+botania.versioning.startingDownload=[{"text":"Téléchargement de %s en cours. Veuillez ne pas retirer votre disque dur de votre PC. Enjoy ! ","color":"aqua"},{"text":"Botania","color":"green"},{"text":"? Pensez à soutenir le mod ","color":"aqua"},{"text":"Vazkii","color":"light_purple"},{"text":" on [","color":"aqua"},{"text":"Patreon","color":"gold","hoverEvent":{"action":"show_text","value":{"text":"Clic pour aller sur le Patreon de Vazkii","color":"light_purple"}},"clickEvent":{"action":"open_url","value":"http://www.patreon.com/Vazkii"}},{"text":"]!","color":"aqua"}]
+botania.versioning.doneDownloading=Téléchargement terminé %s. Supprimez votre ancien Botania.jar et relancez-le jeu.
+#########
+botania.versioning.downloadedAlready=You already downloaded the latest version. Close your game, delete the old version from your mods folder and load it again to update!
+botania.versioning.downloadingAlready=The update is already downloading, give it some time, will you?
+botania.versioning.error=Woah! It seems like something went wrong while trying to download the Botania update. Is vazkii.us down?
+botania.versioning.disabled=Sorry. This feature is currently disabled due to server host problems, it should be back soon.
+# BAUBLE TOOLTIPS
+botania.baubletype.amulet=A équiper dans l'emplacement d'&aAmulette&7
+botania.baubletype.ring=A équiper dans l'emplacement d'&aAnneau&7 slot
+botania.baubletype.belt=A équiper dans l'emplacement de &aCeinture&7 slot
+botania.baubletooltip=Appuyez sur &b%key%&7 pour ouvrir le menu de Baubles.
+# ENTITY NAMES
+########
+entity.Botania.botania:manaBurst.name=Rafale de Mana
+entity.Botania.botania:signalFlare.name=Feu de position
+entity.Botania.botania:pixie.name=Pixie
+entity.Botania.botania:flameRing.name=Cerle de flamme
+entity.Botania.botania:vineBall.name=Boule de Lianes
+entity.Botania.botania:doppleganger.name=Gardien de Gaia
+entity.Botania.botania:magicLandmine.name=Piège de Gaia
+# BLOCK NAMES
+tile.botania:flower0.name=Fleur Mystique Blanche
+tile.botania:flower1.name=Fleur Mystique Orange
+tile.botania:flower2.name=Fleur Mystique Magenta
+tile.botania:flower3.name=Fleur Mystique Bleu Clair
+tile.botania:flower4.name=Fleur Mystique Jaune
+tile.botania:flower5.name=Fleur Mystique Vert Clair
+tile.botania:flower6.name=Fleur Mystique Rose
+tile.botania:flower7.name=Fleur Mystique Grise
+tile.botania:flower8.name=Fleur Mystique Gris Clair
+tile.botania:flower9.name=Fleur Mystique Cyan
+tile.botania:flower10.name=Fleur Mystique Violette
+tile.botania:flower11.name=Fleur Mystique Bleue
+tile.botania:flower12.name=Fleur Mystique Brune
+tile.botania:flower13.name=Fleur Mystique Verte
+tile.botania:flower14.name=Fleur Mystique Rouge
+tile.botania:flower15.name=Fleur Mystique Noire
+tile.botania:altar.name=Autel à Pétales
+tile.botania:livingrock0.name=Roche de Vie
+tile.botania:livingrock1.name=Brique de Roche de Vie
+tile.botania:livingrock2.name=Brique de Roche de Vie moussue
+tile.botania:livingrock3.name=Brique de Roche de Vie craquelée
+tile.botania:livingrock4.name=Brique de Roche de Vie sculptée
+tile.botania:livingwood0.name=Bois de Vie
+tile.botania:livingwood1.name=Planches de Bois de Vie
+tile.botania:livingwood2.name=Planches de Bois de Vie moussues
+tile.botania:livingwood3.name=Planches de Bois de Vie encadrées
+tile.botania:livingwood4.name=Planches de Bois de Vie décorées
+tile.botania:livingwood5.name=Bois de Vie Scintillant
+tile.botania:spreader0.name=Diffuseur de Mana
+tile.botania:spreader1.name=Diffuseur de Mana de Redstone
+tile.botania:spreader2.name=Diffuseur de Mana Elfique
+tile.botania:spreader3.name=Gaia Mana Spreader
+tile.botania:pool0.name=Réservoir de Mana
+tile.botania:pool1.name=Le Réservoir Infini
+tile.botania:pool2.name=Réservoir de Mana Dilué
+tile.botania:runeAltar.name=Autel Runique
+tile.botania:unstableBlock0.name=Cube Instable Blanc
+tile.botania:unstableBlock1.name=Cube Instable Orange
+tile.botania:unstableBlock2.name=Cube Instable Magenta
+tile.botania:unstableBlock3.name=Cube Instable Bleu Clair
+tile.botania:unstableBlock4.name=Cube Instable Jaune
+tile.botania:unstableBlock5.name=Cube Instable Vert Clair
+tile.botania:unstableBlock6.name=Cube Instable Rose
+tile.botania:unstableBlock7.name=Cube Instable Gris
+tile.botania:unstableBlock8.name=Cube Instable Gris Clair
+tile.botania:unstableBlock9.name=Cube Instable Cyan
+tile.botania:unstableBlock10.name=Cube Instable violet
+tile.botania:unstableBlock11.name=Cube Instable Bleu
+tile.botania:unstableBlock12.name=Cube Instable Brun
+tile.botania:unstableBlock13.name=Cube Instable Rouge
+tile.botania:unstableBlock15.name=Cube Instable Noir
+tile.botania:pistonRelay.name=Relayeur
+tile.botania:distributor.name=Distributeur de Mana
+tile.botania:pylon0.name=Pylône de Mana
+tile.botania:pylon1.name=Pylône Naturel
+tile.botania:pylon2.name=Pyône de Gaia
+tile.botania:manaBeacon0.name=Balise Blanche Instable
+tile.botania:manaBeacon1.name=Balise Orange Instable
+tile.botania:manaBeacon2.name=Balise Magenta Instable
+tile.botania:manaBeacon3.name=Balise Bleu Clair Instable
+tile.botania:manaBeacon4.name=Balise Jaune Instable
+tile.botania:manaBeacon5.name=Balise Vert Clair Instable
+tile.botania:manaBeacon6.name=Balise Rose Instable
+tile.botania:manaBeacon7.name=Balise Grise Instable
+tile.botania:manaBeacon8.name=Balise Gris Clair Instable
+tile.botania:manaBeacon9.name=Balise Cyan Instable
+tile.botania:manaBeacon10.name=Balise Violette Instable
+tile.botania:manaBeacon11.name=Balise Bleue Instable
+tile.botania:manaBeacon12.name=Balise Brune Instable
+tile.botania:manaBeacon13.name=Balise Verte Instable
+tile.botania:manaBeacon14.name=Balise Rouge Instable
+tile.botania:manaBeacon15.name=Balise Noire Instable
+tile.botania:manaVoid.name=Trou Noir
+tile.botania:manaDetector.name=Mana Detector
+tile.botania:enchanter.name=Enchanteur à Mana
+tile.botania:turntable.name=Spreader Turntable
+tile.botania:tinyPlanetBlock.name=Tiny Planet
+tile.botania:alchemyCatalyst.name=Catalyseur Alchimique
+tile.botania:openCrate0.name=Open Crate
+tile.botania:openCrate1.name=Crafty Crate
+tile.botania:forestEye.name=Œil des Anciens
+tile.botania:storage0.name=Bloc de Manacier
+tile.botania:storage1.name=Bloc de Terracier
+tile.botania:storage2.name=Bloc d'Élémentium
+tile.botania:forestDrum0.name=Drum of the Wild
+tile.botania:forestDrum1.name=Drum of the Gathering
+tile.botania:shinyFlower0.name=Fleur Blanche Scintillante
+tile.botania:shinyFlower1.name=Fleur Orange Scintillante
+tile.botania:shinyFlower2.name=Fleur Magenta Scintillante
+tile.botania:shinyFlower3.name=Fleur Bleue Claire Scintillante
+tile.botania:shinyFlower4.name=Fleur Jaune Scintillante
+tile.botania:shinyFlower5.name=Fleure Verte Claire Scintillante
+tile.botania:shinyFlower6.name=Fleur Rose Scintillante
+tile.botania:shinyFlower7.name=Fleur Grise Scintillante
+tile.botania:shinyFlower8.name=Fleur Gris Clair Scintillante
+tile.botania:shinyFlower9.name=Fleur Cyan Scintillante
+tile.botania:shinyFlower10.name=Fleur Violette Scintillante
+tile.botania:shinyFlower11.name=Fleur Bleue Scintillante
+tile.botania:shinyFlower12.name=Fleur Brune Scintillante
+tile.botania:shinyFlower13.name=Fleur Verte Scintillante
+tile.botania:shinyFlower14.name=Fleur Rouge Scintillante
+tile.botania:shinyFlower15.name=Fleur Noire Scintillante
+tile.botania:platform0.name=Plateforme Mystérieuse
+tile.botania:platform1.name=Plateforme Spectrale
+tile.botania:platform2.name=Infrangible Platform
+tile.botania:alfheimPortal.name=Elven Gateway Core
+tile.botania:blockDarkQuartz.name=Block of Smokey Quartz
+tile.botania:chiseledDarkQuartz.name=Chiseled Smokey Quartz Block
+tile.botania:pillarDarkQuartz.name=Pillar Smokey Quartz Block
+tile.botania:quartzSlabDarkHalf.name=Smokey Quartz Slab
+tile.botania:quartzStairsDark.name=Smokey Quartz Stairs
+tile.botania:blockManaQuartz.name=Block of Mana Quartz
+tile.botania:chiseledManaQuartz.name=Chiseled Mana Quartz Block
+tile.botania:pillarManaQuartz.name=Pillar Mana Quartz Block
+tile.botania:quartzSlabManaHalf.name=Mana Quartz Slab
+tile.botania:quartzStairsMana.name=Mana Quartz Stairs
+tile.botania:blockBlazeQuartz.name=Block of Blaze Quartz
+tile.botania:chiseledBlazeQuartz.name=Chiseled Blaze Quartz Block
+tile.botania:pillarBlazeQuartz.name=Pillar Blaze Quartz Block
+tile.botania:quartzSlabBlazeHalf.name=Blaze Quartz Slab
+tile.botania:quartzStairsBlaze.name=Blaze Quartz Stairs
+tile.botania:blockLavenderQuartz.name=Block of Lavender Quartz
+tile.botania:chiseledLavenderQuartz.name=Chiseled Lavender Quartz Block
+tile.botania:pillarLavenderQuartz.name=Pillar Lavender Quartz Block
+tile.botania:quartzSlabLavenderHalf.name=Lavender Quartz Slab
+tile.botania:quartzStairsLavender.name=Lavender Quartz Stairs
+tile.botania:blockRedQuartz.name=Block of Redquartz
+tile.botania:chiseledRedQuartz.name=Chiseled Redquartz Block
+tile.botania:pillarRedQuartz.name=Pillar Redquartz Block
+tile.botania:quartzSlabRedHalf.name=Redquartz Slab
+tile.botania:quartzStairsRed.name=Redquartz Stairs
+tile.botania:blockElfQuartz.name=Block of Elven Quartz
+tile.botania:chiseledElfQuartz.name=Chiseled Elven Quartz Block
+tile.botania:pillarElfQuartz.name=Pillar Elven Quartz Block
+tile.botania:quartzSlabElfHalf.name=Elven Quartz Slab
+tile.botania:quartzStairsElf.name=Elven Quartz Stairs
+tile.botania:dreamwood0.name=Bois des rêves
+tile.botania:dreamwood1.name=Planches de Bois des Rêves
+tile.botania:dreamwood2.name=Planches de Bois des Rêves Moussues
+tile.botania:dreamwood3.name=Framed Dreamwood
+tile.botania:dreamwood4.name=Pattern Framed Dreamwood
+tile.botania:dreamwood5.name=Glimmering Dreamwood
+tile.botania:livingwood0Stairs.name=Escaliers en Bois de Vie
+tile.botania:livingwood0Slab.name=Dalles en Bois de Vie
+tile.botania:livingwood1Stairs.name=Escaliers en Planches de Bois de Vie
+tile.botania:livingwood1Slab.name=Dalles en Planches de Bois de Vie
+tile.botania:livingrock0Stairs.name=Escaliers en Roche de Vie
+tile.botania:livingrock0Slab.name=Dalles en Roche de Vie
+tile.botania:livingrock1Stairs.name=Escaliers en Briques de Roche de Vie
+tile.botania:livingrock1Slab.name=Dalles en Briques de Roche de Vie
+tile.botania:dreamwood0Stairs.name=Escaliers en Bois des Rêves
+tile.botania:dreamwood0Slab.name=Dalles en Bois des Rêves
+tile.botania:dreamwood1Stairs.name=Escaliers en Planches de Bois des Rêves
+tile.botania:dreamwood1Slab.name=Dalles en Planches de Bois des Rêves
+tile.botania:conjurationCatalyst.name=Conjuration Catalyst
+tile.botania:prismarine0.name=Prismarin
+tile.botania:prismarine1.name=Briques de Prismarin
+tile.botania:prismarine2.name=Prismarin Sombre
+tile.botania:prismarine0Stairs.name=Escaliers en Prismarin
+tile.botania:prismarine0Slab.name=Dalles en Prismarin
+tile.botania:prismarine1Stairs.name=Escaliers en Briques de Prismarin
+tile.botania:prismarine1Slab.name=Dalles en Briques de Prismarin
+tile.botania:prismarine2Stairs.name=Escaliers en Prismarin Sombre
+tile.botania:prismarine2Slab.name=Dalles en Prismarin Sombre
+tile.botania:seaLamp.name=Lanterne Aquatique
+tile.botania:miniIsland0.name=Fleur Blanche Flottante
+tile.botania:miniIsland1.name=Fleur Orange Flottante
+tile.botania:miniIsland2.name=Fleur Mangenta Flottante
+tile.botania:miniIsland3.name=Fleur Bleu Clair Flottante
+tile.botania:miniIsland4.name=Fleur Jaune Flottante
+tile.botania:miniIsland5.name=Fleur Vert Clair Flottante
+tile.botania:miniIsland6.name=Fleur Rose Flottante
+tile.botania:miniIsland7.name=Fleur Grise Flottante
+tile.botania:miniIsland8.name=Fleur Gris Clair Flottante
+tile.botania:miniIsland9.name=Fleur Cyan Flottante
+tile.botania:miniIsland10.name=Fleur Violette Flottante
+tile.botania:miniIsland11.name=Fleur Bleue Flottante
+tile.botania:miniIsland12.name=Fleur Brune Flottante
+tile.botania:miniIsland13.name=Fleur Verte Flottante
+tile.botania:miniIsland14.name=Fleur Rouge Flottante
+tile.botania:miniIsland15.name=Fleur Noire Flottante
+tile.botania:tinyPotato.name=Petite Patate
+tile.botania:spawnerClaw.name=Life Imbuer
+tile.botania:reedBlock.name=Bloc de Roseaux
+tile.botania:reedBlock0Stairs.name=Escalier en Roseaux
+tile.botania:reedBlock0Slab.name=Dalle en Roseaux
+tile.botania:thatch.name=Chaume
+tile.botania:thatch0Stairs.name=Escalier en Chaume
+tile.botania:thatch0Slab.name=Dalles en Chaume
+tile.botania:customBrick0.name=Brique Infernale
+tile.botania:customBrick1.name=Brique des Âmes
+tile.botania:customBrick2.name=Brique Gelée
+tile.botania:customBrick3.name=Tuile
+tile.botania:customBrick0Stairs.name=Escalier en Briques Infernales
+tile.botania:customBrick1Stairs.name=Escalier en Briques des Âmes
+tile.botania:customBrick2Stairs.name=Escalier en Brique Gelée
+tile.botania:customBrick3Stairs.name=Esaclier en Tuiles
+tile.botania:customBrick0Slab.name=Dalle en Briques Infernales
+tile.botania:customBrick1Slab.name=Dalle en Brique des Âmes
+tile.botania:customBrick2Slab.name=Dalle en Brique Gelée
+tile.botania:customBrick3Slab.name=Dalle en tuiles
+tile.botania:customBrick4.name=Azulejo
+tile.botania:customBrick5.name=Azulejo
+tile.botania:customBrick6.name=Azulejo
+tile.botania:customBrick7.name=Azulejo
+tile.botania:customBrick8.name=Azulejo
+tile.botania:customBrick9.name=Azulejo
+tile.botania:customBrick10.name=Azulejo
+tile.botania:customBrick11.name=Azulejo
+tile.botania:customBrick12.name=Azulejo
+tile.botania:customBrick13.name=Azulejo
+tile.botania:customBrick14.name=Azulejo
+tile.botania:customBrick15.name=Azulejo
+tile.botania:enderEyeBlock.name=Surveillant du Néant
+tile.botania:starfield.name=Starfield Creator
+tile.botania:rfGenerator.name=Convertisseur
+tile.botania:elfGlass.name=Alfglass
+# FLOWER NAMES
+tile.botania:flower..name=Fleur de Botania
+# ^ This is the placeholder name for when no flower type is detected
+# The two dots are not a typo
+tile.botania:flower..reference=Y'a eu un problème là. Essaie de reporter le bug, l'ami.
+tile.botania:flower.puredaisy.name=Marguerite Pure
+tile.botania:flower.puredaisy.reference=De quelle couleur veux-tu être ?
+tile.botania:flower.manastar.name=Étoile de Mana
+tile.botania:flower.manastar.reference=Fais un voeu.
+# - GENERATING
+tile.botania:flower.daybloom.name=Fleur du Jour
+tile.botania:flower.daybloom.reference=Une touche de lumière
+tile.botania:flower.endoflame.name=Endoflamme
+tile.botania:flower.endoflame.reference=Nom nom nom le charbon
+tile.botania:flower.hydroangeas.name=Aquanémone
+tile.botania:flower.hydroangeas.reference=Vos crustacés de compagnie
+tile.botania:flower.thermalily.name=Thermalily
+tile.botania:flower.thermalily.reference=Autrement nommé Rose Rouge
+tile.botania:flower.nightshade.name=Ombre Nuptiale
+tile.botania:flower.nightshade.reference=Pas trop l'air sympathique
+tile.botania:flower.arcanerose.name=Rosa Arcana
+tile.botania:flower.arcanerose.reference=Ça n'est pas une chanteuse
+tile.botania:flower.munchdew.name=Mange-Feuille
+tile.botania:flower.munchdew.reference=Attention elle est vivante !
+tile.botania:flower.entropinnyum.name=Entropinnyum
+tile.botania:flower.entropinnyum.reference=Les magiciennes sont en option
+tile.botania:flower.kekimurus.name=Kekimurus
+tile.botania:flower.kekimurus.reference=Attention à votre gâteau.
+tile.botania:flower.gourmaryllis.name=Gourmaryllis
+tile.botania:flower.gourmaryllis.reference=Nom nom nom
+# - FUNCTIONAL
+tile.botania:flower.bellethorn.name=Bellepique
+tile.botania:flower.bellethorn.reference=Ouch
+tile.botania:flower.dreadthorn.name=Effroi
+tile.botania:flower.dreadthorn.reference=Ouch version 2.0
+tile.botania:flower.heiseiDream.name=Fleur du Chaos
+tile.botania:flower.heiseiDream.reference="This is madness"
+tile.botania:flower.tigerseye.name=Œil du Tigre
+tile.botania:flower.tigerseye.reference=Allez vous-en, Creepers démoniaques !
+tile.botania:flower.jadedAmaranthus.name=Amarante
+tile.botania:flower.jadedAmaranthus.reference=Cette fleur est cool
+tile.botania:flower.orechid.name=Orechidée
+tile.botania:flower.orechid.reference=La puissance du jeu de mot
+tile.botania:flower.fallenKanade.name=Fleur Angélique
+tile.botania:flower.fallenKanade.reference=Je ne suis pas un ange
+tile.botania:flower.exoflame.name=Exoflamme
+tile.botania:flower.exoflame.reference=Chaud devant
+tile.botania:flower.agricarnation.name=Agricarnation
+tile.botania:flower.agricarnation.reference=Fleur du paysan
+tile.botania:flower.hopperhock.name=Flora Absorba
+tile.botania:flower.hopperhock.reference=Fauxis Nome Latina
+tile.botania:flower.tangleberrie.name=Encloquelicot
+tile.botania:flower.tangleberrie.reference=Vous ne partirez ... pas !
+tile.botania:flower.jiyuulia.name=Aconite Chasseuse
+tile.botania:flower.jiyuulia.reference=Liberté, tranquilité
+tile.botania:flower.rannuncarpus.name=Ouvrière
+tile.botania:flower.rannuncarpus.reference=Cette fleur est magique !
+tile.botania:flower.hyacidus.name=Empoisonneuse
+tile.botania:flower.hyacidus.reference=Pour vos machines à XP !
+tile.botania:flower.pollidisiac.name=Nourricière
+tile.botania:flower.pollidisiac.reference=Vaches et cochons, poules et moutons
+tile.botania:flower.clayconia.name=Argilanium
+tile.botania:flower.clayconia.reference=Description introuvable
+tile.botania:flower.loonium.name=Loonium
+tile.botania:flower.loonium.reference=Mieux qu'un donjon !
+tile.botania:flower.daffomill.name=Ventilafleur
+tile.botania:flower.daffomill.reference=Jeu de mot, encore et toujours ...
+tile.botania:flower.vinculotus.name=Vinculotus
+tile.botania:flower.vinculotus.reference=L'ennemi de l'Enderman
+# ITEM NAMES
+item.botania:lexicon.name=Lexica Botania
+item.botania:lexicon.bevo=Lexica Botana
+item.botania:lexicon.saice=Lexica Botania
+item.botania:petal0.name=Pétale Mystique Blanche
+item.botania:petal1.name=Pétale Mystique Orange
+item.botania:petal2.name=Pétale Mystique Magenta
+item.botania:petal3.name=Pétale Mystique Bleu Clair
+item.botania:petal4.name=Pétale Mystique Jaune
+item.botania:petal5.name=Pétale Mystique Vert Clair
+item.botania:petal6.name=Pétale Mystique Rose
+item.botania:petal7.name=Pétale Mystique Grise
+item.botania:petal8.name=Pétale Mystique Gris Clair
+item.botania:petal9.name=Pétale Mystique Cyan
+item.botania:petal10.name=Pétale Mystique Violette
+item.botania:petal11.name=Pétale Mystique Bleue
+item.botania:petal12.name=Pétale Mystique Brune
+item.botania:petal13.name=Pétale Mystique Verte
+item.botania:petal14.name=Pétale Mystique Rouge
+item.botania:petal15.name=Pétale Mystique Noire
+item.botania:dye0.name=Poudre Florale Blanche
+item.botania:dye1.name=Poudre Florale Orange
+item.botania:dye2.name=Poudre Florale Magenta
+item.botania:dye3.name=Poudre Florale Bleu Clair
+item.botania:dye4.name=Poudre Florale Jaune
+item.botania:dye5.name=Poudre Florale Vert Clair
+item.botania:dye6.name=Poudre Florale Rose
+item.botania:dye7.name=Poudre Florale Grise
+item.botania:dye8.name=Poudre Florale Gris Clair
+item.botania:dye9.name=Poudre Florale Cyan
+item.botania:dye10.name=Poudre Florale Violette
+item.botania:dye11.name=Poudre Florale Bleue
+item.botania:dye12.name=Poudre Florale Brune
+item.botania:dye13.name=Poudre Florale Verte
+item.botania:dye14.name=Poudre Florale Rouge
+item.botania:dye15.name=Poudre Florale Noire
+item.botania:pestleAndMortar.name=Mortier et Pilon
+item.botania:twigWand.name=Baguette Sylvestre
+item.botania:manasteel.name=Lingot de Manacier
+item.botania:manaPearl.name=Perle de Mana
+item.botania:manaDiamond.name=Diamant de Mana
+item.botania:lensNormal.name=Lentille
+item.botania:lensSpeed.name=Lentille : Vélocité
+item.botania:lensSpeed.short=Vélocité
+item.botania:lensPower.name=Lentille : Puissance
+item.botania:lensPower.short=Puissance
+item.botania:lensTime.name=Lentille : Résistance
+item.botania:lensTime.short=Résistance
+item.botania:lensEfficiency.name=Lentille : Éfficacité
+item.botania:lensEfficiency.short=Éfficacité
+item.botania:lensBounce.name=Lentille : Réflexion
+item.botania:lensBounce.short=Réflexion
+item.botania:lensGravity.name=Lentille : Gravité
+item.botania:lensGravity.short=Gravité
+item.botania:lensMine.name=Lentille : Forage
+item.botania:lensMine.short=Forage
+item.botania:lensDamage.name=Lentille : Violence
+item.botania:lensDamage.short=Violence
+item.botania:lensPhantom.name=Lentille : Fantôme
+item.botania:lensPhantom.short=Fantôme
+item.botania:lensMagnet.name=Lentille : Magnétisme
+item.botania:lensMagnet.short=Magnétisme
+item.botania:lensExplosive.name=Lentille : Explosive
+item.botania:lensExplosive.short=Explosive
+item.botania:lensInfluence.name=Lentille : Influence
+item.botania:lensInfluence.short=Influence
+item.botania:lensWeight.name=Lentille : Chute
+item.botania:lensWeight.short=Chute
+item.botania:lensPaint.name=Mana Lens: Paintslinger
+item.botania:lensPaint.short=Paintslinger
+item.botania:lensFire.name=Lentille : Allumage
+item.botania:lensFire.short=Allumage
+item.botania:lensPiston.name=Lentille : Piston
+item.botania:lensPiston.short=Piston
+item.botania:manaPetal0.name=Pétale de Mana Blanc
+item.botania:manaPetal1.name=Pétale de Mana Orange
+item.botania:manaPetal2.name=Pétale de Mana Magenta
+item.botania:manaPetal3.name=Pétale de Mana Bleu Clair
+item.botania:manaPetal4.name=Pétale de Mana Jaune
+item.botania:manaPetal5.name=Pétale de Mana Vert Clair
+item.botania:manaPetal6.name=Pétale de Mana Rose
+item.botania:manaPetal7.name=Pétale de Mana Gris
+item.botania:manaPetal8.name=Pétale de Mana Gris Clair
+item.botania:manaPetal9.name=Pétale de Mana Cyan
+item.botania:manaPetal10.name=Pétale de Mana Violet
+item.botania:manaPetal11.name=Pétale de Mana Bleu
+item.botania:manaPetal12.name=Pétale de Mana Brun
+item.botania:manaPetal13.name=Pétale de Mana Vert
+item.botania:manaPetal14.name=Pétale de Mana Rouge
+item.botania:manaPetal15.name=Pétale de Mana Noir
+item.botania:rune0.name=Rune de l'Eau
+item.botania:rune1.name=Rune du Feu
+item.botania:rune2.name=Rune de la Terre
+item.botania:rune3.name=Rune du Vent
+item.botania:rune4.name=Rune du Printemps
+item.botania:rune5.name=Rune de l'Automne
+item.botania:rune7.name=Rune de l'Hiver
+item.botania:rune8.name=Rune de Mana
+item.botania:rune9.name=Rune de la Luxure
+item.botania:rune10.name=Rune de la Gourmandise
+item.botania:rune11.name=Rune de l'Avarice
+item.botania:rune12.name=Rune de la Paresse
+item.botania:rune13.name=Rune de la Colère
+item.botania:rune14.name=Rune de l'Envie
+item.botania:rune15.name=Rune de l'Orgueil
+item.botania:signalFlare.name=Signal Flare
+item.botania:manaTablet.name=Mana Tablet
+item.botania:manaGun.name=Blaster à Mana
+item.botania:compositeLens.name=Composite Mana Lens: %s %s
+item.botania:manaCookie.name=Cookie de Mana
+item.botania:fertilizer.name=Fertilisant Floral
+item.botania:grassSeeds0.name=Graines de pâturage
+item.botania:grassSeeds1.name=Graines de Podzol
+item.botania:grassSeeds2.name=Spores Infectieuses
+item.botania:livingwoodTwig.name=Branche en Bois de vie
+item.botania:dirtRod.name=Bâton des Terres
+item.botania:terraformRod.name=Terra Firma Rod
+item.botania:manaMirror.name=Miroir à Mana
+item.botania:manasteelHelm.name=Casque en Manacier
+item.botania:manasteelChest.name=Plastron en Manacier
+item.botania:manasteelLegs.name=Jambières en Manacier
+item.botania:manasteelBoots.name=Bottes en Manacier
+item.botania:manasteelPick.name=Pioche en Manacier
+item.botania:manasteelShovel.name=Pelle en Manacier
+item.botania:manasteelAxe.name=hache en Manacier
+item.botania:manasteelSword.name=Épée en Manacier
+item.botania:manasteelShears.name=Cisailles en Manacier
+item.botania:grassHorn0.name=Corne de Brume
+item.botania:grassHorn1.name=Horn of the Canopy
+item.botania:terrasteel.name=Lingot de Terracier
+item.botania:terrasteelHelm.name=Casque en Terracier
+item.botania:terrasteelChest.name=Plastron en Terracier
+item.botania:terrasteelLegs.name=Jambières en Terracier
+item.botania:terrasteelBoots.name=Bottes en Terracier
+item.botania:terraSword.name=Terra Blade
+item.botania:tinyPlanet.name=Tiny Planet
+item.botania:manaRing.name=Band of Mana
+item.botania:auraRing.name=Band of Aura
+item.botania:manaRingGreater.name=Greater Band of Mana
+item.botania:auraRingGreater.name=Greater Band of Aura
+item.botania:travelBelt.name=Soujourner's Sash
+item.botania:knockbackBelt.name=Tectonic Girdle
+item.botania:icePendant.name=Snowflake Pendant
+item.botania:lavaPendant.name=Pyroclast Pendant
+item.botania:lifeEssence.name=Gaia Spirit
+item.botania:goldenLaurel.name=Golden Laurel Crown
+item.botania:redstoneRoot.name=Redstone Root
+item.botania:magnetRing.name=Ring of Magnetization
+item.botania:waterRing.name=Ring of Chordata
+item.botania:miningRing.name=Ring of the Mantle
+item.botania:reachRing.name=Ring of Far Reach
+item.botania:terraPick.name=Terra Shatterer
+item.botania:divaCharm.name=Charm of the Diva
+item.botania:flightTiara.name=Flügel Tiara
+item.botania:enderDagger.name=Soulscribe
+item.botania:quartz0.name=Smokey Quartz
+item.botania:quartz1.name=Mana Quartz
+item.botania:quartz2.name=Blaze Quartz
+item.botania:quartz3.name=Lavender Quartz
+item.botania:quartz4.name=Redquartz
+item.botania:quartz5.name=Elven Quartz
+item.botania:elementium.name=Lingot d'Élémentium
+item.botania:pixieDust.name=Pixie Dust
+item.botania:dragonstone.name=Dragonstone
+item.botania:waterRod.name=Bâton des Mers
+item.botania:elementiumHelm.name=Casque en Elementium
+item.botania:elementiumChest.name=Plastron en Élémentium
+item.botania:elementiumLegs.name=Jambières en Élémentium
+item.botania:elementiumBoots.name=Bottes en Élémentium
+item.botania:elementiumPick.name=Pioche en Élémentium
+item.botania:elementiumShovel.name=Pelle en Élémentium
+item.botania:elementiumAxe.name=Hache en Élémentium
+item.botania:elementiumSword.name=Épée en Élémentium
+item.botania:elementiumShears.name=Cisailles en Élémentium
+item.botania:openBucket.name=Extrapolated Bucket
+item.botania:spawnerMover.name=Life Aggregator
+item.botania:pixieRing.name=Great Fairy Ring
+item.botania:superTravelBelt.name=Globetrotter's Sash
+item.botania:rainbowRod.name=Rod of Bifrost
+item.botania:tornadoRod.name=Bâton des Cieux
+item.botania:fireRod.name=Bâton des Enfers
+item.botania:vineBall.name=Boule de Lianes
+item.botania:slingshot.name=Livingwood Slingshot
+item.botania:manaBottle.name=Mana in a Bottle
+item.botania:prismarineShard.name=Prismarine Shard
+item.botania:laputaShard.name=Shard of Laputa
+item.botania:virus0.name=Necrodermal Virus
+item.botania:virus1.name=Nullodermal Virus
+item.botania:skyDirtRod.name=Rod of the Highlands
+item.botania:placeholder.name=Crafting Placeholder
+item.botania:manasteelHelmReveal.name=Manasteel Helmet of Revealing
+item.botania:terrasteelHelmReveal.name=Terrasteel Helmet of Revealing
+item.botania:elementiumHelmReveal.name=Elementium Helmet of Revealing
+item.botania:itemFinder.name=The Spectator
+item.botania:superLavaPendant.name=Crimson Pendant
+item.botania:enderHand.name=Main du Néant
+item.botania:glassPick.name=Vitreous Pickaxe
+item.botania:spark.name=Spark
+item.botania:sparkUpgrade0.name=Spark Augment: Dispersive
+item.botania:sparkUpgrade1.name=Spark Augment: Dominant
+item.botania:sparkUpgrade2.name=Spark Augment: Recessive
+item.botania:sparkUpgrade3.name=Spark Augment: Isolated
+item.botania:diviningRod.name=Bâton de Divination
+item.botania:gravityRod.name=Rod of the Black Mesa
+item.botania:regenIvy.name=Timeless Ivy
+item.botania:manaInkwell.name=Botanurgist's Inkwell
+# GUI TEXT
+botania.gui.lexicon.header=Lexica Botania, édition %s Table des Matières
+botania.gui.lexicon.wip=(Ce chapitre est encore en écriture)
+# LEXICON CATEGORIES
+botania.category.basics=Bases et Mécaniques
+botania.category.mana=Le Mana
+botania.category.functionalFlowers=Fleurs Fonctionnelles
+botania.category.generationFlowers=Fleurs Génératrices
+botania.category.devices=Éléments Naturels
+botania.category.tools=Objets Mystiques
+botania.category.baubles=Baubles et Accessoires
+botania.category.alfhomancy=Alfhomancie
+botania.category.misc=Divers
+# LEXICON ENTRIES
+# - BASIC
+# -- AN INTRODUCTORY CLIP
+botania.entry.introVideo=Une vidéo d'introduction
+botania.page.introVideo0=Pour ceux d'entre vous qui ne lisent que très peu, un guide vidéo montrant les bases de Botania est disponible. Cette vidéo vous aidera mais ne remplacera pas le &1Lexica Botania&0.
+# -- LEXICA BOTANIA
+botania.entry.lexicon=Lexica Botania
+botania.page.lexicon0=Le &1Lexica Botania&0 contient tout le savoir nécessaire à la botanique. Mais vous vous en doutiez sûrement déjà.<br>Toutes les informations y sont contenues. Faites un clic droit avec le &1Lexica Botania&0 sur un bloc pour ouvrir la page correspondante et tout savoir de ce bloc.
+botania.page.lexicon3=Toutes les entrée en &oItalique&r sont des entrées &4basiques&0, qui contiennent le savoir le plus important pour jouer avec Botania. Elles sont très importantes, alors lisez les bien !
+botania.page.lexicon1=Recette du &1Lexica Botania&0.
+botania.page.lexicon2=Le titre du &1Lexica Botania&0' peut être personnalisé. Pour cela utilisez une &1Enclume&0 et renommez le. <br>L'edition du lexique que vous êtes en train de lire correspond à la version actuelle de &4Botania&0.
+# -- MYSTICAL FLOWERS
+botania.entry.flowers=Fleurs mystiques
+botania.page.flowers0=En parcourant le monde, vous pourrez tomber sur une grande variété de fleurs mystiques. Il sera facile de les réperer grâce à leur joli scintellement.<br>Elles existent de &416 &0 couleurs différentes.<br>Vous pourrez également les faire pousser grâce au &1Fertilisant floral&0 (voir pages suivantes).
+botania.page.flowers1=Comme ces fleurs sont belles ...
+botania.page.flowers2=Ces fleurs peuvent être effeuillées pour obtenir des &1Pétales Mystiques&0, pouvant être utilisées pour fabriquer des objets magiques.<br>Vous pouvez &4enterrer&0 ces pétales d'un clic droit sur le sol, elles scintilleront. <br>Elles peuvent également être broyées en &1Poudre Florale&0, qui fonctionne comme un colorant.
+botania.page.flowers3=Effeuiller des fleurs
+botania.page.flowers4=Recette du &1Mortier et du Pilon&0.
+botania.page.flowers5=Broiement des pétales en poudre.
+botania.page.flowers6=Si vous faites un clic droit avec de la &1Poudre Florale&0 sur n'importe quelle &1Laine&0 ou &1Tapis&0 les teindra de la couleur de la poudre.<br>En mélangeant la &1Poudre Florale&0 avec un peu de &1Poudre d'OS&0, vous créerez un fertilisant. Le &1Fertilisant Floral&0 fera fleurir quelques &1Fleurs Mystiques&0 sur le sol, à la manière de la poudre d'os.
+botania.page.flowers7=Recette du Fertilisant Floral (toutes les poudres florales fonctionnent)
+botania.page.flowers8=Vous pouvez également utiliser les colorants de base du jeu.
+# -- PETAL APOTHECARY
+botania.entry.apothecary=Autel à pétales
+botania.page.apothecary0=Le botaniste se doit de donner vie aux plantes afin que celles-ci lui servent. Pour cela, il faut leur insuffler une énergie mystique. <br>Heureusement, l'&1Autel à Pétales&0 vous permet de le faire.
+botania.page.apothecary1=L'&1Autel à Pétales&0.
+botania.page.apothecary2=Une fois ce bloc placé, remplissez-le d'eau (en utilisant un &1Seau d'eau&0) et celui-ci libérera l'énergie des &1Pétales Mystiques&0 que vous y jetterez.<br>Une fois que vous aurez combiné les bonnes pétales, jetez-y quelques &1Graines&0 terminera le processus.<br>Vous pouvez également remplir l'autel en y jetant le seau d'eau.
+botania.page.apothecary3=Un certain nombre de fleurs peuvent être créées de cette manière. Pour en savoir plus, lisez les parties &4Fleurs Fonctionnelles&0 and &4Fleurs Génératrices&0 du Lexica Botania.<br>Un clic droit en appuyant sur Maj sur l'&1Autel à Pétales&0 les mains vides enlevera le dernier objet inséré<br>Enfin, jetez-y des &1Lianes&0 afin de le décorer un peu.
+botania.page.apothecary4=Recette de l'&1Autel à Pétales&0.
+# -- PURE DAISY
+botania.entry.pureDaisy=Marguerite Pure
+botania.page.pureDaisy0=La &1Marguerite Pure&0 est la plus basique mais aussi la plus importante des fleurs qu'un botaniste doit avoir.<br>Cette fleur purifiera les blocs de &1Bois&0 et de &1Pierre&0 à proximité, comme illustré sur la prochaine page, et les transformera respectivement en &1Bois de Vie&0 et en &1Roche de Vie&0, ingrédients de beaucoup de recettes.
+botania.page.pureDaisy1=Attendez une petite &4 minute&0 ...
+botania.page.pureDaisy2=Le &1Bois de Vie&0 peut être taillé en branches.
+botania.page.pureDaisy3=Le blanc de la pureté.
+# -- WAND OF THE FOREST
+botania.entry.wand=Baguette Sylvestre
+botania.page.wand0=L'outil le plus important d'un botanique est la &1Baguette Sylvestre&0.<br>Cette baguette faite de &1Pétales Mystiques&0 et de &1Branches de Bois de Vie&0 est utile pour un grand nombre de tâches.
+botania.page.wand1=Cet outil comporte deux "modes", le &4Mode Association&0 et le &4Mode Fonction&0. En &4Mode Association&0 elle peut être utilisée via un clic droit + Maj. sur un bloc compatible. Le deuxième clic droit + Maj. associera les deux blocs. En &4Mode Fonction&0 cette option ne sera pas disponible.<br>Vous pourrez changer de mode en faisant un clic droit + Maj. dans l'air.
+botania.page.wand2=Si la baguette n'est associé à aucun bloc, le clic droit + Maj. sur un bloc fera pivoter celui-ci selon l'axe de la face sélectionnée.<br>Par exemple, l'utiliser sur le haut d'un &1Coffre&0 le fera pivoter autour de cet axe vertical.
+botania.page.wand3=Les pétales utilisées déterminent sa couleur.
+# -- RUNIC ALTAR
+botania.entry.runeAltar=Autel Runique
+botania.page.runeAltar21=La création runique est un aspect plus complexe et plus important de la magie Botanique. Tout d'abord, il convient de bien de savoir tout ce qui concerne la &4Manipulation de Mana&0. Avant de poursuivre, assurez-vous d'avoir au moins lu tout les chapitres en italique du &1Lexica Botania&0.
+botania.page.runeAltar0=Les &1Runes&0 sont d'importants composants d'objets et de fleurs magiques.<br>Il vous faudra un &1Autel Runique&0 pour en créer .<br>Pour l'utiliser placez via un clic droit ou jetez-y les ingrédients de la rune que vous souhaitez créer.
+botania.page.runeAltar1=Ensuite, liez un &1Diffuseur de Mana&0 à l'Autel, et utilisez sur celui-ci votre &1Baguette Sylvestre&0 d'un clic droit.<br>Vous verrez facilement quand l'Autel aura reçu suffisamment de &4Mana&0. Quand ce sera le cas, il ne vous restera plus qu'à jeter un bloc de &1Roche de Vie&0 sur le dessus de l'Autel et d'utiliser votre Baguette Sylvestre pour obtenir votre rune.
+botania.page.runeAltar2=Recette de l'&1Autel Runique&0
+botania.page.runeAltar3=Il existe un total de 16 &1Runes&0.<br>Les plus basiques sont celles au nom des &4Quatres Éléments&0. Les intermédiaires au nom des &4Quatres Saisons&0, et enfin les runes les plus complexes portent le nom des &4Sept Pêchés Capitaux&0. Il existe aussi une &1Rune de Mana&0.
+botania.page.runeAltar20=Un clic droit + Maj. sur l'&1Autel Runique&0 enlèvera le dernière ingrédient inséré<br>Enfin, poser un &1Comparateur&0 contre l'Autel vous indiquera son état. Le comparateur émettra un courant de puissance &11&0, et lorsque l'Autel aurta reçu assez de &4Mana&0 émettra un courant de puissance &12&0.
+botania.page.runeAltar4=La &1Rune de l'Eau&0
+botania.page.runeAltar5=La &1Rune de la Terre&0
+botania.page.runeAltar6=La &1Rune de l'Air&0
+botania.page.runeAltar7=La &1Rune du Feu&0
+botania.page.runeAltar8=La &1Rune du Printemps&0
+botania.page.runeAltar9=La &1Rune de l'Été&0
+botania.page.runeAltar10=La &1Rune de l'Automne&0
+botania.page.runeAltar11=La &1Rune de l'Hiver&0
+botania.page.runeAltar12=La &1Rune du Mana&0
+botania.page.runeAltar13=La &1Rune de la Luxure&0
+botania.page.runeAltar14=La &1Rune de la Gourmandise&0
+botania.page.runeAltar15=La &1Rune de l'Avarice&0
+botania.page.runeAltar16=La &1Rune de la Paresse&0
+botania.page.runeAltar17=La &1Rune de la Colère&0
+botania.page.runeAltar18=La &1Rune de l'Envie&0
+botania.page.runeAltar19=La &1Rune de l'Orgueil&0
+# -- TERRASTEEL
+botania.entry.terrasteel=Terracier
+botania.page.terrasteel0=Le &1Terracier&0 est un puissant métal imprégné de la magie de la nature.<br>Créer ce métal, n'est pas une mince affaire, il faut jeter un &1Lingot de Manacier&0, une &1Perle de Mana&0 et un &1Diamant de Mana&0 sur le haut d'une &1Balise&0 &4Active. Un &1Réservoir de Mana&0 au moins a moitié rempli doit aussi être présent. L'infusion créera un &1Lingot de Terracier&0.
+botania.page.terrasteel1=Création de &1Terracier&0
+# -- WRAP
+botania.entry.wrap=Wrap
+botania.page.wrap0=It seems like the creator of this mod decided to add a weird game mechanic in the form of &1Wrap&0. I don't really know what it does, probably something bad. :/<br>What's this "Fourth Wall" you're talking about...?
+# - MANA
+# -- AN INTRODUCTION TO MANA
+botania.entry.mIntro=Introduction au Mana
+botania.page.mIntro0=Le &4Mana&0 est une substance éthérée. En d'autres termes, il s'agit d'une forme d'&4énergie mystique&0. Son apparence et sa matière sont inconstants, et sa couleur dépend de l'environnement qui l'entoure.<br>La maîtrise du &4Mana&0 est l'une des choses les plus importante d'un botaniste.
+botania.page.mIntro1=Afin de créer du &4Mana&0, il est nécessaire d'avoir en sa possession des &4Fleurs Génératrices&0 (voir chapitre correspondant). Ce &4Mana&0 peut être dispersé en utilisant un &1Diffuseur de Mana&0 et stocké dans un &1Réservoir de Mana&0. Le &4Mana&0 peut être utilisé pour beaucoup de choses.Pour les débuts, il est bon de s'en servir pour les &4Fleurs Fonctionnelles&0 (voir chapitre correspondant).
+botania.page.mIntro2=Pour bien savoir comment maîtriser le &4Mana&0,il convient de savoir comment utiliser la &1Fleur de Jour&0, le &1Diffuseur de Mana&0 et les&1Réservoirs de Mana&0.<br>Ils forment la base de l'art du Mana, qui peut être utilisé à différentes fins. Lisez donc les chapitres dédiés aux &4Fleurs Fonctionnelles&0 et aux &4Élements Naturels&0.
+botania.entry.spreader=Diffuseur de Mana
+botania.page.spreader0=Le &1Diffuseur de Mana&0 est le plus important objet lié au &4Mana&0.<br>C'est ce bloc qui permet au &4Mana&0 de voyager d'un point A à un point B. Ce bloc peut être orienté vers l'une de ses six faces. En utilisant la &1Baguette Sylvestre&0, il est possible de changer son orientation. En &4Mode Association&0, il peut être dirigé vers un autre bloc.
+botania.page.spreader1=&1Baguette Sylvestre&0 en main
+botania.page.spreader2=Le &1Diffuseur de Mana&0 contient une légère réserve de &4Mana&0, qui peut être remplie grâce aux &4Fleurs Génératrices&0 à proximité.Vous pouvez voir la réserve de Mana en utilisant une &1Baguette Sylvestre&0 sur le &1Diffuseur&0 comme indiqué sur la page précédente.<br>Notez qu'il faut faire un clic droit avec la Baguette Sylvestre pour connaître les valeurs exactes.
+botania.page.spreader3=Tenir en main une &1Baguette Sylvestre&0 fera apparaître un rayon indiquant la cible du Diffuseur. Le cibler mettra en évidence sa cible. Les scintillements observables indiquent d'où le &4Transfert de Mana&0 partira.<br>Si la cible du Diffuseur est un bloc qui peut contenir du &4Mana&0, et qu'il n'est pas plein, le Diffuseur enverra une &4Rafale de Mana&0, qui sera dirigée vers la cible et lui transferera du &4Mana&0.
+botania.page.spreader4=Les rafales ne sont envoyées qu'une par une.<br>De plus, au fur et à mesure du temps, les rafales souffriront d'une &4perte de Mana&0. Cela est visible en observant le rayon qui, lorsque c'est le cas, devient de plus en plus fin. Il se produit également une légère &4perte de Mana&0 lorsqu'un rayon de Mana pénètre un Diffuseur.
+botania.page.spreader11=Fournir à un Diffuseur un &4Signal de Redstone&0 stoppera son action. Pour un meilleur contrôle, un &1Diffuseur de Mana de Redstone&0 puisqu'il peut transmettre du Mana sans avoir de cible et régit aux pulsions de Redstone.
+botania.page.spreader5=Recette du &1Diffuseur de Mana&0
+# -- MANA POOL
+botania.entry.pool=Réservoir de Mana
+botania.page.pool0=Le &1Réservoir de Mana&0 est capable de contenir du &4Mana&0.<br>Il peut être rempli via un &1Diffuseur de Mana&0, et tout les &1Diffuseurs de Mana&0 adjacent en absorberont du Mana pour augmenter leur réserve de Mana.<br>Toute &4Fleur Fonctionnelle&0 requiert un &1Réservoir de Mana&0 d'où elle tirera son énergie.
+botania.page.pool9=Les &1Réservoirs de Mana&0 sont disponibles en deux variétés, une plus faible variété &1Diluée&0 qui ne peut contenir qu'une faible quantité de &4Mana&0 et est incapable de diffuser à d'autres objets, et une variété &1Normale&0 qui peut contenir cent fois plus de Mana et en diffuser à d'autres objets.<br>Quand vous lirez "Réservoir de Mana", il s'agit d'une variété normale.
+botania.page.pool1=Fabriquer un &1Réservoir de Mana Dilué&0.
+botania.page.pool10=Créer un &1Réservoir de Mana&0
+botania.page.pool2=Jeter certains objets dans un &1Réservoir de Mana&0 les infusera de &4Mana&0, les transformants en des formes plus puissantes.<br> Par exemple, des &1Lingots de Fer&0 ou des &1Pétales Mystiques&0.<br> La lecture du &4Mana&0 fonctionne de la même manière que pour un &1Diffuseur de Mana&0. Un &1 Comparateur de Redstone&0 peut également émettre un signal de Redstone selon la quantité de Mana.
+botania.page.pool8=Pour les artistes, jeter une &1Poudre Florale&0 dans un réservoir le fera avoir sa couleur, parmi les 16 couleurs disponibles.
+botania.page.pool3=Création du &1Mana d'Acier&0
+botania.page.pool4=Création de &1Perle de Mana&0
+botania.page.pool5=Création de &1Diamant de Mana&0
+botania.page.pool6=Création de &1Pétales de Mana&0
+botania.page.pool7=Les &1Cookies au Mana&0 sont très nourrissants.
+# -- SPARKS
+botania.entry.sparks=Étincelles
+botania.page.sparks0=Les &1Étincelles&0 sont des entités intéressantes. Issues de la combinaison entre énergie brute et &4Mana&0, ils peuvent être placés au-dessus de certains conteneurs de &4Mana&0, principalement les &1Réservoirs de Mana&0.<br>Certains blocs sont capable d'exploiter du &4Mana&0 de ces &1Étincelles&0, mais leurs utilisations sont pour l'instant assez limitées.
+botania.page.sparks1=&oÉtincelles&r
+# -- SPARK AUGMENTATION
+botania.entry.sparkUpgrades=Amélioration d'Étincelles
+botania.page.sparkUpgrades0=Les &1Étincelles&0 sont un peu plus complexes que vu précédemment. Une variété d'&1Améliorations&0 peuvent être appliquées pour augmenter leurs abilités. Ces améliorations ne peuvent être appliquées qu'aux &1Éticnelles&0 d'un &1Réservoir de Mana&0.<br>Une &1Étincelle&0 ne peut recevoir qu'une seule &1Amélioration&0 à la fois.
+botania.page.sparkUpgrades1=Tout d'abord, l'&1amélioration de dispersion&0 permet aux &1Étincelles&0 d'utiliser le &1Mana&0 d'un réservoir afin d'en charger les objets des joueurs alentour.
+botania.page.sparkUpgrades2=L'&1amélioration de domination&0 will have the &1Spark&0 pull any &4Mana&0 from nearby non-augmented &1Sparks'&0 pools into its own, until it's completely full.
+botania.page.sparkUpgrades3=The &1Recessive Augment&0 will have the &1Spark&0 output all of the &4Mana&0 in its pool into any nearby non-augmented or Dispersive &1Sparks'&0 pools until it's completely empty.
+botania.page.sparkUpgrades4=Lastly, the &1Isolated Augment&0 will prevent the &1Spark&0 from interacting with any Dominant or Recessive &1Sparks&0, but still allow it to interact with blocks that can receive their &4Mana&0 through the &1Spark&0 network.
+botania.page.sparkUpgrades5=Crafting the Aguments
+# -- MANA DISTRIBUTOR
+botania.entry.distributor=Distributeur de Mana
+botania.page.distributor0=Tout botaniste arrive à un point où un simple &1Réservoir de Mana&0 ne suffit pas.<br>Le &1Distributeur de Mana&0 réglera tout problèmes. En le placant entre plusieurs &1Réservoirs de Mana&0, et il distribuera de manière équivalente toute &4rafale de Mana&0 aux Réservoirs adjacents.
+botania.page.distributor1=Recette du Distributeur
+# -- MANA VOID
+botania.entry.manaVoid=Trou Noir
+botania.page.manaVoid0=Le &1Trou Noir&0 est uns sorte de cimetièreà &4Mana&0.Tout &4Mana&0 dirigé vers celui-ci disparaitra à jamais.<br>En placer un en dessous d'un &1Réservoir de Mana&0 détruira tout le &4Mana&0 superflux.
+botania.page.manaVoid1=Recette du Trou Noir
+# -- MANA FLUXFIELD
+botania.entry.rfGenerator=Convertisseur de Mana
+botania.page.rfGenerator0=En envoyant du &4Mana&0 vers ce bloc, le flux de Mana sera converti en &4Flux de Redstone&0.<br>Pour cela, dirigez simplement un Diffuseur vers un Convertisseur. Récupérez ensuite le &4Flux de Redstone&0 via un bloc qui en est capable.
+botania.page.rfGenerator1=The bullet guys. I bit it.
+# -- MANA LENSES
+botania.entry.lens=Les Lentilles
+botania.page.lens0=Afin d'améliorer le potentiel d'un &1Diffuseur de Mana&0, il est possible d'utiliser des &1Lentilles&0. La lentille basique n'a aucune utilité.<br>Mais les lentilles peuvent être &4colorées&0 de 16 couleurs, ou combinés à une &1Perle de Mana&0 pour créer une &1Lentille Arc-En-Ciel&0. Ce qui colorera la couleur des rafales de Mana.
+botania.page.lens1=La lentille basique.
+botania.page.lens2=&4Colorer&0 des lentilles.
+botania.page.lens3=&1Lentille Arc-En-Ciel&0
+botania.page.lens4=Cependant les lentilles ne servent pas qu'à colorer. Il est possible de les améliorer avec différents matériaux pour qu'elle appliquent différents effets aux &4Rafales de Mana&0.<br>Il faut garder à l'esprit qu'un &1Diffuseur de Mana&0 nécessite d'être dirigé vers un bloc capable de recevoir du &4Mana&0. Un &1Diffuseur de Mana à Redstone&0 est parfois recommandé.
+botania.page.lens5=Parfois, une seule &1Lentille&0 ne sera pas suffisante. Il vous faudra donc en combiner grâce à une &1Boule de Slime&0 afin de créer une seule lentille ayant les propriétés des deux la composant.<br>La première lentille utilisée déterminera l'apparence (couleur et texture). Notez que certaines combinaisons de lentilles ne fonctionneront pas, comme celle de deux mêmes lentilles.
+botania.page.lens6=La &1Lentille de Vélocité&0 augmentera beaucoup la vitesse à laquelle voyagera une &4Rafale de Mana&0, mais fera également baisser la quantité de Mana transportée par chaque rayon.
+botania.page.lens7=Lentille de Vélocité
+botania.page.lens8=La &1Lentille de Puissance&0 doublera elle la quantité de &4Mana&0 transportée par chaque &4Rafale de Mana&0 mais réduira en contrepartie la vitesse de transport.
+botania.page.lens9=Lentille de Puissance
+botania.page.lens10=La &1Lentille de Résistance&0 augmentera le temps que mettra une &4Rafale de Mana&0 à perdre du &4Mana&0, mais en réduira la vitesse.
+botania.page.lens11=Lentille de Résistance
+botania.page.lens12=La &1Lentille d'Éfficacité&0 diminuera le temps nécessaire avant qu'une &4Rafale de Mana&0 subisse une perte de &4Mana&0, mais ralentira son effet.
+botania.page.lens13=Lentille d'Éfficacité
+botania.page.lens14=La &1Lentille de Réflexion&0 permettra aux &4Rafales de Mana&0 de rebondir sur les blocs, au lieu de se dissiper.
+botania.page.lens15=Lentille de Réflexion
+botania.page.lens16=La &1Lentille de Gravité&0 fera subir aux &4Rafales de Mana&0 l'attraction terrestre, leur donnant une trajectoire parabolique. En compensation, celles-ci mettront moins de temps à perdre du &1Mana&0.
+botania.page.lens17=Lentille de Gravité
+botania.page.lens18=La &1Lentille de Forage&0 permet aux &4Rafales de Mana&0 de briser les blocs sur sa trajectoires, mais pour le prix de leur propre &1Mana&0.
+botania.page.lens19=Lentille de Forage
+botania.page.lens20=La &1Lentille de Violence&0 donnera aux &4Rafales de Mana&0 la capacité d'utiliser leur Mana pour infliger des dommages aux entités sur leur chemin.
+botania.page.lens21=Lentille de Violence
+botania.page.lens22=La &1Lentille Fantôme&0 est aussi intéressante. En utilisant une &1Plateforme Mystérieuse&0 et ses propriétés, il est possible de fabriquer une lentille qui permet aux &4Rafales de Mana&0 de passer à travers les blocs. Si c'est le cas, la rafale perdra plus vite du Mana.
+botania.page.lens23=Lentille Fantôme
+botania.page.lens24=La &1Lentille de Magnétisme&0, comme son nom l'indique, permet aux &4Rafales de Manat&0 d'être attirée par n'importe quel bloc proche capable de capter du &4Mana&0. Cela réduira en revanche la vitesse des rafales.
+botania.page.lens25=Lentille de Magnétisme
+botania.page.lens26=La &1Lentille Explosive&0 rendra les &4Rafales de Mana&0 instables, ce qui causera une explosion lorsqu'elles entreront en contact avec des blocs ne pouvant pas absorber de &4Mana&0.
+botania.page.lens27=Lentille Explosive
+botania.page.lens28=La &1Lentille d'Influence&0 permet à une &4Rafale de Mana&0 d'influencer tout les &4objets&0, et &4orbes d'expérience&0 aux alentours. Ceux-ci seront en effet déplacés dans la même direction que la rafale.
+botania.page.lens29=Lentille d'Influence
+botania.page.lens30=La &1Lentille de Chute&0 renforcera les &4Rafales de Mana&0, de sorte que n'importe quel bloc qu'elles toucheront tomberont comme du &1Sable&0 ou du &1Gravier&0 si aucun bloc ne se trouve dessous.
+botania.page.lens31=Lentille de Chute
+botania.page.lens32=La &1Lentille d'Allumage&0 est infusé d'étincelles, ce qui permet aux &4Rafaled de Mana&0 d'enflammer les blocs. Vous pourrez donc allumer et éteindre vos &1Portails du Nether&0. Cependant vous ne pourrez pas enflammer d'entités.
+botania.page.lens33=Lentille d'Allumage
+botania.page.lens34=La &1Lentille Piston&0 agit comme un &1Piston&0, et fera pousser par une &1Rafale de Mana&0 n'importe quel bloc pouvant être poussé.
+botania.page.lens35=Lentille Piston
+# -- PORTABLE MANA TRANSPORT
+botania.entry.manaTransport=Transport de Mana
+botania.page.manaTransport0=Même si les &1Diffuseurs de Mana&0 sont pratiques pour transporter le &4Mana&0, il existe une autre manière de le faire.<br>La &1Tablette de Mana&0 peut contenir du &1Mana&0.
+botania.page.manaTransport1=Jetez en une sur un &1Réservoir de Mana&0 pour que du &4Mana&0 se transfère entre les deux.<br>Un clic droit + Maj. sur le &1Réservoir de Mana&0 avec une &1Baguette Sylvestre&0 changera le sens de transfert du &4Mana&0.<br>Enfin, ces objets ne disparaissent jamais.
+botania.page.manaTransport2=Comme un iPhone 6, il se pliera dans votre poche.
+botania.page.manaTransport3=Un &1Miroir à Mana&0 indiquera via un clic droit + Maj. sur un &1Réservoir de Mana&0.<br>Attention cependant, il sera impossible de transporter du Mana avec un miroir.
+botania.page.manaTransport4=Miroir miroir magique au mur ...
+# -- MANA DETECTOR
+botania.entry.manaDetector=Détecteur de Mana
+botania.page.manaDetector0=Cet appareil émettra un signal de redstone s'il entre en contact avec une &4Rafale de Mana&0.
+botania.page.manaDetector1=Recette du Détecteur
+# -- REDSTONE MANA SPREADER
+botania.entry.redstoneSpreader=Diffuseur de Mana de Redstone
+botania.page.redstoneSpreader0=En assemblane un &1Diffuseur de Mana&0 avec une poudre de &1Redstone&0, il est possible de créer un &1Diffuseur de Mana de Redstone&0, qui enverra une rafale à chaque &4Signal de Redstone&0, peu importe sa cible.<br>Notez bien qu'il ne tirera de rafale que si la précédente est dissipée ou absorbée.
+botania.page.redstoneSpreader1=Ajoutez juste de la redstone
+# -- MANASTAR
+botania.entry.manastar=Étoile de Mana
+botania.page.manastar0=L'imprécision de la &1Baguette Sylvestre&0 peut parfois vous empêcher de clairement voir si vos &1Réservoirs de Mana&0 perdent ou gagnent du &1Mana&0.<br>Créez donc une &1Étoile de Mana&0 et placez là a côté de votre réservoir. Elle brillera en rouge s'il y a perte de Mana, et en bleue s'il y a gain de Mana. La mesure a lieu à chaque seconde.
+botania.page.manastar1=&rÉtoile de Mana&r.
+# -- ELVEN MANA SPREADERS
+botania.entry.dreamwoodSpreader=Elven Mana Spreaders
+botania.page.dreamwoodSpreader0=Simply put, &1Dreamwood&0 conducts &4Mana&0 better than &1Livingwood&0. Add in some adjustments like &1Elementium&0 or &1Mana Petals&0 and what you get is a &1Mana Spreader&0 that can conduct more &4Mana&0, faster and for more time without &4Mana loss&0.<br>On the negative side, it can't be turned into a &1Redstone Mana Spreader&0.
+botania.page.dreamwoodSpreader1=Better spreaders, that's it
+botania.page.dreamwoodSpreader2=By combining this already powerful spreader with a &1Gaia Spirit&0 and a &1Dragonstone&0 gem, one can create an even more potent variant. The &1Gaia Spreader&0 is within the top percentage of Mana Spreaders, with pretty much upgrades all round.
+botania.page.dreamwoodSpreader3=ULTRA_SPREADER
+# -- PAINTSLINGER LENS
+botania.entry.paintLens=Paintslinger Lens
+botania.page.paintLens0=The &4Elves&0 are one crafty bunch. This lens is somewhat unique in comparison to the other lenses. The &1Paintslinger Lens&0 needs to be dyed one of the 16 colors of the spectrum to function. When it hits a colorable block (&1Wool, Stained Clay or Glass&0...) it'll turn any blocks connected, of the same type and color, into the color of the &4Rafales de Mana&0 itself. It seems to work with &4Sheep&0 too.
+botania.page.paintLens1=A M'AIDER Stranded Girl
+# - FUNCTIONAL FLOWERS
+# -- AN INTRODUCTION TO FUNCTION
+botania.entry.fIntro=Intro : Les Fleurs Foncionnelles
+botania.page.fIntro0=Il existe de nombreuses manières d'utiliser le &4Mana&0 pour un botaniste. Parmi elles, les &4Fleurs Fonctionnelles&0.<br>Ces fleurs draineront du &4Mana&0 d'un &1Réservoir&0 proche afin d'effectuer la tâche pour laquelle elles ont été conçues.<br>Elle ne peuvent recevoir directement leur pouvoir d'un &1Diffuseur de Mana&0.
+botania.page.fIntro1=Toutes les &4Fleurs Fonctionnelles&0, comme les &4Fleurs Génératrices&0, contiennent une petite réserve de &4Mana&0.<br>Comme toujours, un clic droit avec une &1Baguette Sylvestre&0 vous indiquera la quantité de Mana présente.
+botania.page.fIntro2=Il faut savoir que ces fleurs mémorisent le &1Réservoir&0 duquel elle tirent leur &4Mana&0. Elle tireront du Mana du réservoir le plus proche d'elles à l'instant où elles sont placées, et aucun autre réservoir, jusqu'à ce qu'il soit retiré. Vous pouvez bien sûr réassocier les fleurs grâce au mode association d'une &1Baguette Sylvestre&0.
+botania.page.fIntro3=Enfin, certaines fleurs se concoivent à l'aide d'une &1Racine de Redstone&0. Celles-ci s'activent également grâce à la redstone.
+botania.page.fIntro4=Recette de la &1Racine de Redstone&0
+# -- JADED AMARANTHUS
+botania.entry.jadedAmaranthus=Amarante
+botania.page.jadedAmaranthus0=Tout le monde aime les fleurs, non ? L'&1Amarante&0 est là pour vous.<br>Elle absorbera du &4Mana&0 d'un &1Réservoir&0 proche et produira de ce fait des &1Fleurs Mystiques&0 autour d'elle.
+botania.page.jadedAmaranthus1=&oBesoin de rune l'ami !&r
+botania.page.jadedAmaranthus2=&oWait a minute, did you just summon a bunch of flowers in one turn?<br>Yeah, so?<br>That's against the rules, isn't it?<br>Screw the rules, I have Mana!
+# -- BELLETHRONE
+botania.entry.bellethorne=Bellepique
+botania.page.bellethorne0=La &1Bellepique&0 est une fleur malfaisante. En utilisant du &4Mana&0 elle inflige des dommages aux entités (sauf aux &4joueurs&0) autour d'elle.
+botania.page.bellethorne1=&oChaque rose a des épines&r.
+# -- DREADTHORNE
+botania.entry.dreadthorne=Effroi
+botania.page.dreadthorne0=L'&1Effroi0 est la soeur de la &1Bellepique&0, qui elle n'inflige de dommage qu'aux animaux &4adultes&0 alentour.
+botania.page.dreadthorne1=&oCoucou, c'est moi le traducteur du mod !&r.
+# -- HEISEI DREAM
+botania.entry.heiseiDream=Fleur du Chaos
+botania.page.heiseiDream0=La &1Fleur du Chaos&0 utilisera du &4Mana&0 afin d'éveiller l'instinct belliqueux des &4monstres&0 proches, les faisant s'entretuer.
+botania.page.heiseiDream1=&oTu sais ce qu'il a de bien, le chaos ? Il est impartial&r.
+botania.page.heiseiDream2=&oHeisei, was broken, broken. Who was the one who lied about peace? See, it's forgotten, forgotten, even the punishement blamed on the altar. Hey, it's breaking, breaking, at the end, even the meaning of shaking is killed.<br>Well, where shall we go? Let's go somewhere, whose ally are you? Whose replacement am I?
+# -- TIGERSEYE
+botania.entry.tigerseye=Œil du Tigre
+botania.page.tigerseye0=Tout le monde sait que les &4Creepers&0 sont terrifiés par les &4chats&0.<br>L'&1Œil du Tigre&0 exploite cette faiblesse en émettant une aura féline, éloigant ou empêchant tout &4Creeper&0 d'exploser.
+botania.page.tigerseye1=&oProfite du point faible de l'ennemi&r.
+# -- ORECHID
+botania.entry.orechid=Orechidée
+botania.page.orechid0=Même si miner reste incontournable, un autre moyen de trouver des minerais existe. L'&1Orechidée&0 utilisera une grande quantité de &4Mana&0 pour générer des &4minerais&0 sur les &1Blocs de Pierre&0 aux alentours.<br>Les minerais générés sont aléatoires, mais il est plus rare qu'elle génère du diamant que sur du fer.
+botania.page.orechid1=&oLa fleur préférée du nain&r.
+# -- FALLEN KANADE
+botania.entry.fallenKanade=Fleur Angélique
+botania.page.fallenKanade0=La &1Fleur Angélique&0 est une fleur qui utilise du &4Mana&0 des &4Réservoirs de Mana&0 proche afin de produire un effet de regénération aux &4joueurs&0 autour d'elle.
+botania.page.fallenKanade1=&oComme le Docteur, vous pourrez vous regénérer&r.
+botania.page.fallenKanade2=&oI'll marry you. No matter what kind of sickness you have, even if you can't walk or stand, or even if you can't have kids, I'll still marry you. No matter where or how I met you, I'll fall in love with you.<br>If I can meet you again, against the six billion to one odds, and even if your body can't move, I'll marry you.
+# -- EXOFLAME
+botania.entry.exoflame=Exoflamme
+botania.page.exoflame0=L'&1Exoflamme&0 utilise du &4Mana&0 pour produire de la chaleur.<br>Tout les &1Fours&0 proches seront alimentés et plus efficaces, pour le prix d'un peu de &4Mana&0.
+botania.page.exoflame1=&oAttention à ne pas vous brûler&r.
+# -- AGRICARNATION
+botania.entry.agricarnation=Agricarnation
+botania.page.agricarnation0=Les plantations poussent trop lentement, n'est-ce pas ?L'&1Agricarnation&0 transformera le &4Mana&0 en fertilisant naturel, et accélèrera la croissance des plantations autour d'elle.
+botania.page.agricarnation1=&oCe sera mieux que d'autres fertilisants naturels&r...
+# -- HOPPERHOCK
+botania.entry.hopperhock=Flora Absorba
+botania.page.hopperhock0=La &1Flora Absorba&0 a les mêmes effets qu'un entonoir. Lui fournir du &4Mana&0 est optionnel, mais accroît son champ d'action.<br>Les objets récupérés seront placés dans un conteneur adjacent. (ex: coffre) Placez un &1Cadre&0 sur ce conteneur afin de trier quels objets récupérer.
+botania.page.hopperhock1=Tout conteneur sans &1Cadre&0 acceptera tout, mais les &1Cadres&0 ont la priorité.<br>Les règles de tri peuvent être changées en utilisant la &1Baguette Sylvestre&0 sur la Flora Absorba.
+botania.page.hopperhock2=&oDONNE MOI TES OBJETS&r.
+# -- TANGLEBERRIE
+botania.entry.tangleberrie=Encloquelicot
+botania.page.tangleberrie0=L'&1Encloquelicot&0 est une fleur qui utilise du &1Mana&0 afin de créer une barrière immatérielle d'où les monstres et animaux ne pourront s'échapper.
+botania.page.tangleberrie1=&oCe jeu de mot, quand même&r.
+# -- JIYUULIA
+botania.entry.jiyuulia=Aconite Chasseuse
+botania.page.jiyuulia0=L'&1Aconite Chasseuse&0, à l'inverse de l'Encloquelicot, créera à partir de &1Mana&0 une barrière éloignant d'elle toute entité dans son rayon d'action.
+botania.page.jiyuulia1=&oPartez, merci&r.
+# -- RANNUNCARPUS
+botania.entry.rannuncarpus=Ouvrière
+botania.page.rannuncarpus0=Une des fleurs les plus pratiques, l'&1Ouvrière&0 récuperera et placera quelque part tout les blocs qu'on lui jettera. Pour lui indiquer où placer ses blocs, placez un bloc repère sous le bloc sur lequel elle repose. Elle posera les blocs sur tout les blocs semblables.
+botania.page.rannuncarpus1=Les blocs spéciaux comme la &1Canne à Sucre&0, fonctionneront aussi, mais subiront les mêmes règles de placement qu'à la main.<br>Enfin, fournir du &1Mana&0 à l'&1Ouvrière&0 est optionnel mais agrandira son rayon d'action.
+botania.page.rannuncarpus2=&oBesoin de main d'œuvre&r?
+# -- HYACIDUS
+botania.entry.hyacidus=Empoisonneuse
+botania.page.hyacidus0=L'&1Empoisonneuse&0 empoisonnera, comme son nom l'indique, tout les monstres alentour, ne leur laissant qu'un unique point de vie.
+botania.page.hyacidus1=&oPourquoi donc le type psy bat-il le type poison ?&r.
+# -- POLLIDISIAC
+botania.entry.pollidisiac=Nourricière
+botania.page.pollidisiac0=La &1Nourricière&0 donnera aux animaux proches la nourriture qu'ils désirent, pour peu qu'on la lui fournisse. Bien sûr, il lui faudra pour cela du &1Mana&0.
+botania.page.pollidisiac1=&oA table !&r.
+# -- CLAYCONIA
+botania.entry.clayconia=Argilanium
+botania.page.clayconia0=L'&1Argilanium&0 est une simple fleur. Elle humidifie le &1Sable&0 autour d'elle pour le transormer en &1Boules d'Argile&0. Elle consomme un peu de &1Mana&0, mais pas en quantité trop folle.
+botania.page.clayconia1=&oWhat a killer joke&r.
+# -- LOONIUM
+botania.entry.loonium=Loonium
+botania.page.loonium0=Tout bon aventurier appréçie les récompenses trouvées dans les &4Donjons&0. La &1Loonium&0 permet, pour une très grande quantité de &4Mana&0, de matérialiser une de ces récompenses au hasard, sur le sol autour d'elle.
+botania.page.loonium1=&oGoodies Goodies&r!
+# -- DAFFOMILL
+botania.entry.daffomill=Ventilafleur
+botania.page.daffomill0=La &1Ventilafleur&0 fonctionne comme un ventilateur. Elle pousse les objets en face d'elle pour le prix d'un peu de &1Mana&0.<br>Clic droit + Maj. avec une &1Baguette Sylvestre&0 changera son orientation. Des particules sont émises pour indiquer la direction dans laquelle elle est tournée.
+botania.page.daffomill1=&oÉoliennes ? J'en suis fan&r.
+# -- VINCULOTUS
+botania.entry.vinculotus=Vinculotus
+botania.page.vinculotus0=Le &1Vinculotus&0 peut créer une perturbation qui brouillera la téléportation d'un &4Enderman&0's dans un large rayon autour d'elle. Pour un peu de &4Mana&0, quand un &4Enderman&0 voudra se téléporter, il finira là où est posée le &1Vinculotus&0.
+botania.page.vinculotus1=Enderman : &0Centrale, problème technique&r.
+# - GENERATING FLOWERS
+# -- AN INTRODUCTION TO GENERATION
+botania.entry.gIntro=Intro : Les Fleurs Génératrices
+botania.page.gIntro0=La &4Génération de Mana&0 est une priorité pour un Botaniste. Heureusement, il existe de nombreuses &4Fleurs Génératrice&0 pour le faire.<br>Ces fleurs, comme leur nom l'indique, génèrent du &4Mana&0, passivement ou activement. Sauf indication contraire, toute &4Fleurs Génératrices&0 génère du &4Mana&0 passivement sous certains conditions.
+botania.page.gIntro1=Toutes les &4Fleurs Génératrices&0, comme les &4Fleurs Foncionnelles&0, disposent de leur propre réserve de &4Mana&0.<br>Comme toujours, un clic droit avec une &1Baguette Sylvestre&0 mettra à jour les informations sur la quantité de Mana.<br>Ce Mana sera stocké dans le &1Diffuseur de Mana&0 le plus proche.
+botania.page.gIntro2= Il faut savoir que ces fleurs mémorisent le &1Diffuseur&0 auquel elle transmettent leur &4Mana&0. Elles transmettront du Mana au Diffuseur le plus proche d'elles à l'instant où elles sont placées, et aucun autre Diffuseur, jusqu'à ce qu'il soit retiré. Vous pouvez bien sûr réassocier les fleurs grâce au mode association d'une &1Baguette Sylvestre&0.
+# -- DAYBLOOM
+botania.entry.daybloom=Fleur du Jour
+botania.page.daybloom0=La &1Fleur du Jour&0 est la &4Fleur Génratrice&0 la plus basique. Elle pratique un semblant de photosynthèse, transformant la lumière du jour en &4Mana&0.<br>The process is rather slow, about ten or a dozen of these should get the job done, for now.
+botania.page.daybloom1=Notez que ces fleurs se disputent entre elle chaque rayon de soleil, ce qui peut diminuer la production de &4Mana&0. Veillez donc à ne pas en placer côte à côte, mais en diagonale.
+botania.page.daybloom1a=Notez que ces fleurs se disputent entre elle chaque rayon de soleil, ce qui peut diminuer la production de &4Mana&0. Veillez donc à ne pas en placer côte à côte, mais en diagonale.<br>Ces fleurs ne sont pas très résistantes, et mourront au bout d'un certain temps.
+botania.page.daybloom3=Optimiser la production
+botania.page.daybloom2=&oUn nouveau jour, une nouvelle fleur&r.
+botania.page.daybloom4=&oHow many of you people out there been hurt in some kind of love affair? And how many times do you swear that you'll never love again? How many lonely, sleepless nights? How many lies? How many fights? And why would you want to put yourself through all that again? "Love is pain," I hear you say. Love has a cruel and bitter way of paying you back for all the faith you ever had in your brain. (...)
+botania.page.daybloom5=&oHow could it be that what you need the most can leave you feeling just like a ghost? You never want to feel so sad and lost again. One day you could be looking through an old book in rainy weather. You see a picture of her smiling at you when you were still together. You could be walking down the street and who should you chance to meet. But that same old smile that you've been thinking of all day...
+# -- NIGHTSHADE
+botania.entry.nightshade=Ombre Nuptiale
+botania.page.nightshade0=À l'inverse des &1Fleurs du Jour&0,les &1Ombres Nuptiales&0 génèrent du &4Mana&0 passivement quand les &1Fleurs du Jour&0 ne le peuvent pas, pendant la nuit, mais à une vitesse légèrement moindre.<br>Comme leur cousine diurne, il ne faut pas les placer côte à côte pour les mêmes raisons.
+botania.page.nightshade0a=À l'inverse des &1Fleurs du Jour&0,les &1Ombres Nuptiales&0 génèrent du &4Mana&0 passivement quand les &1Fleurs du Jour&0 ne le peuvent pas, pendant la nuit, mais à une vitesse légèrement moindre.<br>Comme leur cousine diurne, il ne faut pas les placer côte à côte pour les mêmes raisons.<br>De la même manière, ces fleurs mourront au bout d'un certain temps.
+botania.page.nightshade1=&oL'ombre du jour&r.
+# -- ENDOFLAME
+botania.entry.endoflame=Endoflamme
+botania.page.endoflame0=Elle est bien plus efficace que la &1Fleur du Jour&0 pour produire du &1Mana&0<br>Celle-ci absorbera les combustibles que vous lui donnerez afin de produire du &1Mana&0.
+botania.page.endoflame1=En revanche, l'&1Endoflamme&0 ne vous rendra pas les restes de combustion. Par exemple, si vous lui donnez un &1Seau de Lave&0, elle ne vous rendra pas le &1Seau Vide&0.
+botania.page.endoflame2=&oNot nitor&r.
+# -- HYDROANGEAS
+botania.entry.hydroangeas=Aquanémone
+botania.page.hydroangeas0=Tandis que le &4Mana&0 peut être généré passivement par les &1Fleurs du Jour&0, il existe également d'autres moyens très pratiques. L'&1Aquanémone&0 aspirerales &1Sources d'Eau&0 dans une zone de 3x3 blocs autour d'elle, à la même hauteur, et créera du &1Mana&0. Elles fonctionnent apparemment plus vite quand &4il pleut&0, incroyable !
+botania.page.hydroangeas0a=Tandis que le &4Mana&0 peut être généré passivement par les &1Fleurs du Jour&0, il existe également d'autres moyens très pratiques. L'&1Aquanémone&0 aspirerales &1Sources d'Eau&0 dans une zone de 3x3 blocs autour d'elle, à la même hauteur, et créera du &1Mana&0. Elles fonctionnent apparemment plus vite quand &4il pleut&0, incroyable !<br>Ces fleurs peuvent mourir après un certain temps.
+botania.page.hydroangeas2=Un simple système d'&1Aquanémones&0.
+botania.page.hydroangeas1=&oFrom some Hyperdimension&r?
+# -- THERMALILY
+botania.entry.thermalily=Thermalily
+botania.page.thermalily0=Il arrive un moment où la génération de &1Mana&0 lente comme avec les &1Aquanémones&0 ou les &1Endoflammes&0 ne suffisent plus. La &1Thermalily&0, elle, fonctionne comme &1L'Aquanémone&0, mais avec de la &1Lave&0.
+botania.page.thermalily0a=Il arrive un moment où la génération de &1Mana&0 lente comme avec les &1Aquanémones&0 ou les &1Endoflammes&0 ne suffisent plus. La &1Thermalily&0, elle, fonctionne comme &1L'Aquanémone&0, mais avec de la &1Lave&0.<br>La chaleur que la &1Lave&0 produit nécessite qu'il faille un bloc d'&1Obsidienne&0 en-dessous d'elle pour que cela fonctionne.
+botania.page.thermalily1=&oChaud, chaud&r.
+# -- ROSA ARCANA
+botania.entry.arcanerose=Rosa Arcana
+botania.page.arcanerose0=Les &4Points d'Expérience&0 sont une forme de magie. La &1Rosa Arcana&0 peut absorber l'expérience des joueurs autour d'elle, et la tranformer en &1Mana&0.
+botania.page.arcanerose1=&oVa boire un coup, l'ami&r.
+# -- MUNCHDEW
+botania.entry.munchdew=Mange-Feuille
+botania.page.munchdew0=Génerer de l'énergie naturelle comme le &1Mana&0 implique logiquement de le faire à partir d'éléments naturels. En utilisant la &1Mange-Feuille&0, toutes les &1Feuilles&0 autour d'elle seront dévorées et transformées en &4Mana&0.<br>Aucune pomme ou pousse d'arbre ne tombera, en revanche !
+botania.page.munchdew1=&oRien ne se perd, tout se transforme&r!
+# -- ENTROPINNYUM
+botania.entry.entropinnyum=Entropinnyum
+botania.page.entropinnyum0=Afin de générer du &4Mana&0, vous aurez peut-être besoin d'exploiter des explosions ! <br>Allumer un bloc de &1TNT&0 à côté d'une &1Entropinnyum&0 permettra à celle-ci de transformer la force explosive en &4Mana&0 et d'en annuler les dégâts. Enfin, pour absorber l'explosion, l'&1Entropinnyum&0 ne doit pas contenir de &4Mana&0 du tout, ou le processus échouera.
+botania.page.entropinnyum1=&oBOOM&r!
+# -- KEKIMURUS
+botania.entry.kekimurus=Kekimurus
+botania.page.kekimurus0=Le &1Gâteau&0 c'est délicieux. Tout le monde aime les gâteaux, même les fleurs.<br>Le &1Kekimurus&0 produira du &1Mana&0 en se nourrissant de tout les &1Gâteaux&0 présents autour d'elle !
+botania.page.kekimurus1=&oLa fleur, elle, n'est pas un mensonge&r.
+# -- GOURMARYLLIS
+botania.entry.gourmaryllis=Gourmaryllis
+botania.page.gourmaryllis0=La &1Gourmaryllis&0 est une fleur affamée. Elle mangera toute la nourriture autour d'elle afin d'en faire du &4Mana&0.<br>Mais elle ne digèrera et ne transformera bien sûr qu'un aliment à la fois. Toute la nourriture autour sera dévorée mais pas transformée si elle n'a pas termine de digérer.
+botania.page.gourmaryllis1=Le &1Mana&0 généré dépend des valeurs nutritives de l'aliment, autrement dit du nombre de points de faim qu'il restaure.<br>Un &1Steak&0 prendra quatres secondes à être digéré, une &1Carotte&0 deux secondes, du &1Pain&0 une seconde et-demi, et ainsi de suite.
+botania.page.gourmaryllis2=La quantité de &1Mana&0 créée suit aussi cette règle, de sorte que plus l'aliment est nutritif, plus sa digestion produira de Mana, par seconde. Ainsi, un &1Steak&0 produit plus de Mana que deux &1Carottes&0.
+botania.page.gourmaryllis3=&oMorphale&r.
+botania.page.gourmaryllis4=&oWell, if Men ate themselves after death, one would think of less horror and negative feeling matter. But so you know what your cruelty leads to, think, fishes, that even Men eat themselves alive like you.<br>Alive was Job when he said: "Why do you follow me so inhumanely, thou who are eating me alive and getting sick of my flesh?". Do you want to see a Job like this? (...)
+botania.page.gourmaryllis5=&oSee a man of those who are followed by claims or accused of crimes, and behold all who are eating them. The bailiff eats him, the jailer eats him, the scribe eats him, the requestor eats him, the lawyer eats him, the inquirer eats him, the witness eats him, the judge eats him and he's not even sentenced he's already eaten. Worse are the Men than the crows. (...)
+botania.page.gourmaryllis6=&oThe sad one who was hanged, only eat him the crows past his execution and death, while the one who's being judged, not even executed or sentenced and he's already eaten.<br>The true evil are the Man who eat eachother, and those who commit to it are the largest, those who eat the smallest. For that you, Man, vos estis sal terrae.
+# - MAGICAL APPARATUS
+# -- FORCE RELAY
+botania.entry.pistonRelay=Relayeur
+botania.page.pistonRelay0=Il semble qu'infuser un &1Piston&0 dans du &4Mana&0 puisse produire un bloc très pratique.<br>Celui-ci relayera la force qui lui appliquée par un piston au bloc auquel il est associé.
+botania.page.pistonRelay1=Pour l'associer à un bloc, faites un clic droit dessus avec une &1Baguette Sylvestre&0, puis un clic droit sur le bloc cible.<br>Enfin, ce bloc est assez instable, et est insensible aux effets collants, poussé ou tiré.
+botania.page.pistonRelay2=Infusion d'un &1Piston&0 dans du &4Mana&0.
+# -- MANA PYLON
+botania.entry.pylon=Pylône de Mana
+botania.page.pylon0=Un &1Pylône de Mana&0 est une structure qui tire l'energie de la Terre et s'en sert lors d'un processus d'enchantement.<br>For one, setting one adjusted to an &1Enchanting Table&0 as if it was a &1Bookshelf&0 will drastically increase the power it can convey, just 2 of these are enough for it to reach &4Level 30&0.
+botania.page.pylon1=&oYou must construct additional pylons!&r
+# -- MANA ENCHANTING
+botania.entry.manaEnchanting=Enchanter avec du Mana
+botania.page.manaEnchanting0=En utilisant la magie des &1Pylônes de Mana&0, vous pouvez créer une structure permettanr d'enchanter des livres sans les consommer, appelée &1Enchanteur à Mana&0.<br>Le construire nécessite un peu d'espace et de matériaux.
+botania.page.manaEnchanting1=Pour construire un &1Enchanteur à Mana&0, il vous faudra  17 blocs d'&1Obsidienne&0, 10 &1Fleurs Mystiques&0 de n'importe quel couleur, 6 &1Pylônes de Mana&0 et un &1Bloc de Lapis Lazuli&0.<br>Les instructions de constructions sont aux pages suivantes.
+botania.page.manaEnchanting2=Commencez par faire un cerle d'&1Obsidienne&0
+botania.page.manaEnchanting3=Mettez les &1Pylône de Mana&0 aux emplacements indiqués, à un bloc de hauteur.
+botania.page.manaEnchanting4=Plantez des fleurs sous les &1Pylônes&0 et au centre.
+botania.page.manaEnchanting5=Placez le &1Bloc de Lapis Lazuli&0 au centre.
+botania.page.manaEnchanting6=Maintenant, faites un clic droit sur le &1Bloc de Lapis Lazuli&0 avec une &1Baguette Sylvestre&0 et l'enchanteur se formera.<br>Afin de l'utiliser, placer l'objet à enchanter sur l'Enchanteur avec un clic droit, puis jetez un ou plusieurs &1Livres Enchantés&0 dans le cercle autour de lui.
+botania.page.manaEnchanting7=Les objets déjà enchantés ne peuvent être placés sur l'Enchanteur.<br>Pour commencer à enchanter, faites un clic droit sur l'Enchanteur avec une &1Baguette Sylvestre&0. Il scannera les livres alentours, et un cerle de magie apparaîtra, vous indiquant que vous pourrez reprendre les livres.
+botania.page.manaEnchanting8=Après le début de l'enchantement, l'Enchanteur aura besoin de &4Mana&0.<br>Il pourra être alimenté par des &4Rafales de Mana&0 ou par des &1Étincelles&0 proches, en placant une &1Étincelle&0sur l'Enchanteur. Ce dernier moyen est le plus rapide.
+botania.page.manaEnchanting9=Quand assez de &4Mana&0 sera accumulé, le processus se finalisera, et les enchantements seront appliqués à l'objet.<br>La quantité de &4Mana&0 dépend des enchantements en question, de leur rareté, et de leurs niveaux.<br>Si un livre a plusieurs enchantements, seul le premier sera appliqué.
+botania.page.manaEnchanting10=Durant le processus, l'objet ne peut être retiré.<br>Si un seul élément de la structure est détruit, l'Enchanteur redeviendra un simple &1Bloc de Lapis Lazuli&0
+# -- SPREADER TURNTABLE
+botania.entry.turntable=Spreader Turntable
+botania.page.turntable0=The &1Spreader Turntable&0, as its name implies, can turn &1Mana Spreaders&0 around and around. Placing a spreader above the turntable will rotate it, given that a redstone signal isn't applied.<br>To change the speed of the turntable, right click with a &1Baguette Sylvestre&0, shift-right clicking will invert the movement.
+botania.page.turntable1=Spin spin spin spin
+# -- BOTANICAL ALCHEMY
+botania.entry.manaAlchemy=Alchimie avec Mana
+botania.page.manaAlchemy0=Le &4Mana&0 est une substance encore peu connue, qui dispose de propriétés assez mystérieuses.<br>En attachant un &1Catalyseur Alchimique&0 à un &1Réservoir de Mana&0, vous pourrez faire de l'&4Alchimie&0 grâce à ce dernier.
+botania.page.manaAlchemy1=Recette du &1Catalyseur&0
+botania.page.manaAlchemy2=&1Chair pourrie&0 en &1Cuir&0
+botania.page.manaAlchemy3=Plusieurs types de &1Bois&0
+botania.page.manaAlchemy4=Plusieurs types de &1Pousses&0
+botania.page.manaAlchemy5=Briser de la &1Pierre Lumineuse&0
+botania.page.manaAlchemy6=Briser du &1Quartz&0
+botania.page.manaAlchemy7=Créer de la &1Pierre Sculptée&0
+botania.page.manaAlchemy8=Transformer de la &1Neige&0 en &1Glace&0
+botania.page.manaAlchemy9=Transformer des &1Lianes&0 en &1Nénuphars&0
+botania.page.manaAlchemy10=Mutation de &1Poissons&0
+botania.page.manaAlchemy11=Transformer &1Graines&0 et &1Récoltes&0
+botania.page.manaAlchemy12=Purifier les &1Patates empoisonnées&0
+botania.page.manaAlchemy13=Créer une &1Verrue du Nether&0
+botania.page.manaAlchemy14=Transmuter la &1Poudre à canon&0 et le &1Silex&0
+botania.page.manaAlchemy15=Créer des &1Étiquettes&0
+botania.page.manaAlchemy16=Efiller la &1Laine&0
+botania.page.manaAlchemy17=Convertir les &1Boules de Slime&0 en &1Cactus&0
+botania.page.manaAlchemy18=Créer une &1Perle du Néant&0
+botania.page.manaAlchemy19=Convertir &1Poudre de Pierre Lumineuse&0 et &1Redstone&0
+botania.page.manaAlchemy20=Transformer la &1Pierre taillée&0 en &1Sable&0
+botania.page.manaAlchemy21=Transformer la &1Terre Cuite&0 en &1Sable Rouge&0
+botania.page.manaAlchemy22=Créer de la &1Terre Stérile&0
+# -- EYE OF THE ANCIENTS
+botania.entry.forestEye=Œil des Anciens
+botania.page.forestEye0=Ce bloc vous permettra d'observer constamment les êtres vivants autour de vous.<br>En posant un &1Comparateur&0 contre l'&1Œil des Anciens&0, il émettra un signal de redstone équivalent au nombre de créatures qu'il voit.
+botania.page.forestEye1=Avec deux animaux en vue, un signal de puissance 1, pour 3 animaux de puissance 3, etc ...<br>Enfin, l'âge ayant altéré ce bloc, il ne peut détecter les animaux que dans un cercle de 6 blocs autour de lui.
+botania.page.forestEye2=Now you see me...
+# -- OPEN CRATE
+botania.entry.openCrate=Open Crate
+botania.page.openCrate0=Sometimes devices like &1Droppers&0 or &1Dispensers&0 aren't precise or fast enough. A simple solution is to make a crate and punch a hole in the bottom.<br>Yeah, it's that simple. The &1Open Crate&0 accepts items from &1Hoppers&0 or any other means of inserting items, and obviously, drops them directly below it.
+botania.page.openCrate1=A little interesting effect the &1Open Crate&0 can do is that, when given a redstone signal, any items it drops are prevented from being caught by flowers like the &1Hopperhock&0, &1Rannuncarpus&0 or &1Pollidisiac&0 for around ten seconds more than usual.
+botania.page.openCrate2=A super crate box
+# -- DRUM OF THE WILD
+botania.entry.forestDrum=Drum of the Wild
+botania.page.forestDrum0=The &1Drum of the Wild&0 is, in layman's terms, the percussion counterpart of the &1Horn of the Wild&0. It serves the exact same purpose as the handheld horn, but is placed in world.<br>To trigger a beat and break nearby foliage, one would fire a &4Rafales de Mana&0 at the drum.
+botania.page.forestDrum1=It's to note that the drum does not store mana, hence, in order to trigger it, a &1Redstone Mana Spreader&0 or a &1Mana Blaster&0 is required.
+botania.page.forestDrum2=But if you close your eyes...
+# -- ABSTRUSE PLATFORM
+botania.entry.platform=Plateforme Mystérieuse
+botania.page.platform0=En assemblant du &1Bois de Vie&0 d'une certaine manière, il est possible de créer une plateforme au comportement étrange. Il sera possible de lui donner l'apparence d'un bloc d'un clic droit avec ledit bloc. Vous pourrez tomber à travers en vous accroupissant.<br>Les &4Rafales de Mana&0 passeront au travers sans problèmes.
+botania.page.platform2=En faisant un clic droit avec une &1Baguette Sylvestre&0 sur une plateforme mystérieuse camouflée, vous donnerez à toutes les autres plateformes adjacentes la même apparence. Clic droit + Maj. retirera tout camouflage.
+botania.page.platform1=Recette de la Plateforme Mystérieuse
+# -- CONJURING WITH MANA
+botania.entry.manaConjuration=Conjuring with Mana
+botania.page.manaConjuration0=Similar to the ability to &4Alchemise with Mana&0, a catalyst also exists for &4Conjuration&0, the magic of materializing resources from magical energy only. The mechanism works in a similar way to the &1Alchemy Catalyst&0 where one tosses an item into the pool with the catalyst below.
+botania.page.manaConjuration1=Creating the catalyst
+botania.page.manaConjuration2=Conjuring &1Redstone&0
+botania.page.manaConjuration3=Conjuring &1Glowstone&0
+botania.page.manaConjuration4=Conjuring &1Quartz&0
+botania.page.manaConjuration5=Conjuring &1Coal&0
+botania.page.manaConjuration6=Conjuring &1Snow&0
+botania.page.manaConjuration7=Conjuring &1Netherrack&0
+botania.page.manaConjuration8=Conjuring &1Soul Sand&0
+botania.page.manaConjuration9=Conjuring &1Gravel&0
+# -- SPECTRAL PLATFORM
+botania.entry.spectralPlatform=Spectral Platform
+botania.page.spectralPlatform0=The &1Spectral Platform&0 isn't more than an &1Abstruse Platform&0 with no physical body whatsoever. Whereas the &1Abstruse Platform&0 would have a physical body in some cases, the &1Spectral Platform&0 lets anything go through it, regardless of their position.
+botania.page.spectralPlatform1=This reminds me of a Puzzle
+# -- DRUM OF THE GATHERING
+botania.entry.gatherDrum=Drum of the Gathering
+botania.page.gatherDrum0=The &1Drum of the Gathering&0 is, in short terms, a &1Drum of the Wild&0 for livestock.<br>When a &4Rafales de Mana&0 collides with it, it'll shear any &4Sheep&0 around with grown fleece. Any &4Cows&0, with &1Empty Buckets&0 below them will have their milk transfered to the buckets.
+botania.page.gatherDrum1=Tap your lands
+# -- LIFE IMBUER
+botania.entry.spawnerClaw=Life Imbuer
+botania.page.spawnerClaw0=&1Monster Spawners&0 are an interesting bunch. They have the ability to bring out life from thin air, but somehow, this only manifests when there's a player nearby.<br>This, of course, tends to be a rather limiting factor in the onslaught of any creatures that they can create.
+botania.page.spawnerClaw1=By placing a &1Life Imbuer&0 on top of a &1Monster Spawner&0 and giving it a rather decent chunk of &4Mana&0 through a &1Mana Spreader&0, when there aren't any players in the nearby vicinity, the &4Mana&0 will power the spawner, just as if there were players around.
+botania.page.spawnerClaw2=Something something shadow dragon
+# -- CRAFTY CRATE
+botania.entry.craftCrate=Crafty Crate
+botania.page.craftCrate0=As the name suggests, the &1Crafty Crate&0 is a counterpart to the &1Open Crate&0 with the ability to assemble items into other items similarly to a &1Crafting Table&0.<br>Like a &1Crafting Table&0, it has a 9 slot inventory, which can be filled with items in the pattern of a recipe.
+botania.page.craftCrate1=The items go in from left to right and top to bottom (illustration further in this entry), to that, there's a special item, named the &1Crafting Placeholder&0, which, when placed in, counts as an empty slot in the recipe. This is used to allow for recipes with gaps (eg, furnace, chest, pickaxe...) to also be doable.
+botania.page.craftCrate2=Creating the placeholder
+botania.page.craftCrate3=To finish the recipe, one of two things can be done.<br>First off, filling every of the 9 slots with either recipe components or placeholders will instantly eject the result, the placeholders and any lefovers (e.g. buckets when making cake), this is the most straightforward method.
+botania.page.craftCrate4=Right clicking the crate with a &1Baguette Sylvestre&0 (remember: &1Dispensers&0 can do this) will attempt at crafting with whatever is inside the crate and eject it.<br>If this fails all the items inside are simply ejected with no crafting procedure done.
+botania.page.craftCrate7=Attaching a &1Comparator&0 to the crate will have it emit a signal equal to the amount of items inside the crate, which can be an extremely valuable asset in creating mechanisms with it.
+botania.page.craftCrate5=An example of crafting a &1Diamond Pickaxe&0
+botania.page.craftCrate6=Made in Portugal
+# -- ENDER OVERSEER
+botania.entry.enderEyeBlock=Surveillant de l’End
+botania.page.enderEyeBlock0=Les yeux d'&4Enderman&0 sont extrêmements sensibles aux regards qu'on leur porte.Un bloc comme celui-ci émettra un &4signal de redstone&0 si un joueur dans un cercle de 64 blocs autour de lui le regarde.<br>Bien entendu, porter sur la tête une &1Citrouille&0 annule cet effet.
+botania.page.enderEyeBlock1=MY BRAND
+# - MYSTICAL INSTRUMENTS
+# -- MANA BLASTER
+botania.entry.manaBlaster=Blaster à Mana
+botania.page.manaBlaster0=Le &1Blaster à Mana&0, même s'il a l'apparence d'une arme à feu, est un &1Diffuseur de Mana&0 portable.<br>En utilisant du &4Mana&0 d'un &4Contenant&0 présent dans l'inventaire son porteur, il pourra tirer une Rafale de Mana vers sa cible.
+botania.page.manaBlaster1=Cette rafale est plus rapide qu'une rafale tirée par un Diffuseur mais transporte les 3/4 de Mana de cette dernière. Il existe également un temps de recharge avant de retirer une rafale avec le Blaster.
+botania.page.manaBlaster2=Le &1Lentilles&0 fonctionnent également sur le Blaster, il suffit de les combiner pour l'appliquer. Pour l'enlever, placez simplement le &1Blaster&0 seul dans la grille de craft.
+botania.page.manaBlaster3=We need more dakka
+# -- PASTURE SEEDS
+botania.entry.grassSeeds=Graines de pâturage
+botania.page.grassSeeds0=En faisant infuser des &1Hautes Herbes&0 dans du &4Mana&0, il est possible de créer des &1Graines de pâturage&0, qui feront pousser de l'herbe sur de la terre d'un simple clic droit.<br>Vous pourrez aussi vous servir d'autres types de graines pour faire pousser du &1Podzol&0 ou du &1Mycellium&0.
+botania.page.grassSeeds1=&1Graines de pâturage&0 pour l'Herbe
+botania.page.grassSeeds2=&1Graines de pâturage&0 pour le Podzol
+botania.page.grassSeeds3=&1Spores Infectieux&0 pour le Mycelium
+# -- ROD THE LANDS
+botania.entry.dirtRod=Bâton des Terres
+botania.page.dirtRod0=Le &1Bâton des Terres&0 permet d'utiliser du &4Mana&0 de votre inventaire pour matérialiser un bloc de terre.
+botania.page.dirtRod1=That's dirty
+# -- TERRA FIRMA ROD
+botania.entry.terraformRod=Terra Firma Rod
+botania.page.terraformRod0=While digging away at dirt with a shovel is definitely functional, flattening huge tracts of land can get somewhat tortuous at times.<br>By utilizing the &1Terra Firma Rod&0, it's possible to terraform in a quick and environmental friendly manner.
+botania.page.terraformRod1=This rod, will, at the cost of some &4Mana&0 from your inventory, flatten the land to the level you are standing. For this to happen, charge it by &4holding right-click&0 and, slowly but surely, the nearby terrain will be flattened to your level, either by placing &1Dirt&0 or by removing blocks.
+botania.page.terraformRod2=Note that blocks removed by the rod are non-recuperable. The terrain will adapt to the changes as best as it can, up to a distance limit, to avoid cuts in hills and the like, for this, the flattening will work in the terrain's natural look.<br>Lastly, the rod will cease to function whatsoever below sea level.
+botania.page.terraformRod3=Quite a justicar
+# -- MANASTEEL EQUIPMENT
+botania.entry.manaGear=Équipement en Manacier
+botania.page.manaGear0=Le &1Manacier&0, comme les autres métaux, peut être utilisé pour fabriquer des outils, armes et armures.<br>Ce métal est semblable au &1Fer&0, mais possède une enchantabilité et une durabilité un peu supérieure. Lorsqu'un objet en &1Manacier0 subit un dégât, il utilisera du &4Mana&0 de votre inventaire s'il le peut pour ne pas s'abîmer.
+botania.page.manaGear1=La &1Pioche en Manacier&0
+botania.page.manaGear2=La &1Pelle en Manacier&0
+botania.page.manaGear3=La &1Hache enManacier&0
+botania.page.manaGear4=La &1Cisaille en Manacier&0
+botania.page.manaGear5=L'&1Épée en Manacier&0
+botania.page.manaGear6=Le &1Casque Manacier&0
+botania.page.manaGear7=Le &1Plastron Manacier&0
+botania.page.manaGear8=Les &1Jambières Manacier&0
+botania.page.manaGear9=Les &1Bottes en Manacier&0
+# -- HORN OF THE WILD
+botania.entry.grassHorn=Corne de Brume
+botania.page.grassHorn0=Débrouissailler toutes les &1Hautes Herbes&0 à la main peut être fatiguant.<br>Souffler dans la &1Corne de Brume&0 retirera toute la végétation alentour, ne laissant que les graines.<br>En la modifiant, cette Corne pourra même briser des feuilles.
+botania.page.grassHorn1=Créer la Corne
+botania.page.grassHorn2=Modifier la Corne
+# -- TERRASTEEL ARMOR
+botania.entry.terrasteelArmor=Armure en Terracier
+botania.page.terrasteelArmor0=Une armure en &1Terracier&0, comme en &1Manacier&0 utilise du &4Mana&0 s'il le peut pour éviter de s'abîmer.<br>Cependant cette armure partage les mêmes propriétés que le &1Diamant&0 et augmente la vie de son porteur.
+botania.page.terrasteelArmor1=Le &1Casque en Terracier&0
+botania.page.terrasteelArmor2=Le &1Plastron en Terracier&0
+botania.page.terrasteelArmor3=Les &1Jambières en Terracier&0
+botania.page.terrasteelArmor4=Les &1Bottes en Terracier&0
+# -- TERRA BLADE
+botania.entry.terraSword=Terra Blade
+botania.page.terraSword0=The &1Terra Blade&0, crafted from &1Terrasteel Ingots&0, is a sword infused with natural strength. Not only does it par with a &1Diamond Sword&0 in terms of strength and it uses &4Mana&0 from the inventory like &1Manasteel Tools&0, but when swung, there's a chance for it to create a beam that will deal as much damage as a melee hit.
+botania.page.terraSword1=No Broken Hero Sword
+# -- TERRA SHATTERER
+botania.entry.terraPick=Terra Shatterer
+botania.page.terraPick0=The &1Terra Shatterer&0 is a tool that can amass insane quantities of mana on itself, due to the amount of &1Terrasteel&0 required for its creation.<br>The tool functions very much like a &1Mana Tablet&0 by which it can amass &4Mana&0 by being tossed on a &1Mana Pool&0, it can't give the &4Mana&0 back, though, so it doesn't function as a storage method.
+botania.page.terraPick1=The amount of &4Mana&0 stored on the tool defines its &4Rank&0. Ranks go as follows: &4D&0, &4C&0, &4B&0, &4A&0, &4S&0, &4SS&0. &4D&0 being the default rank.<br>The amount of &4Mana&0 required to advance from rank to rank increases as the rank does. To advance from &4D&0 to &4C&0, for example, it requires just a few seconds of exposition to a &1Mana Pool&0.
+botania.page.terraPick2=To advance from rank &4C&0 to rank &4B&0, a full &1Mana Pool&0 is required, and the cost increases by a tenfold per rank from there on in, all the way to &4SS&0.<br>The rank of the tool does not change its speed, but instead, it increases the power of its &4Active Ability&0.<br>Toggling the tool's ability can be done via right click.
+botania.page.terraPick3=While the tool is active, it enables it to break blocks in an extended area. At rank &4C&0 it's a small column, which increases to a square at rank &4B&0, that gets larger trough the ranks. It's to note that the rank &4D&0 tool does not have the active ability.<br>Having the tool active consumes &4Mana&0 from its storage passively, even if not being used to mine.
+botania.page.terraPick4=Lastly, the tool takes damage for every single block broken, so a good supply of &4Mana&0 in the wielder's inventory is a must for the higher ranks, as the tool does function like normal &1Manasteel Tools&0, in which it'll use &4Mana&0 instead of actually taking damage, given it's made of &1Terrasteel&0.<br>It also won't despawn like regular dropped items.
+botania.page.terraPick5=Stronger than a Gastrea
+# -- SOULSCRIBE
+botania.entry.enderDagger=Soulscribe
+botania.page.enderDagger0=Those &4Endermen&0. They're the second more pesky thing since &4Creepers&0. I swear, the person who came up with them must have taken a &onotch&r too much of their drink.<br>However, by infusing a standard dagger with some of their energy, one can create the &1Soulscribe&0, a dagger that tears through &1Endermen&0 as if they were butter.
+botania.page.enderDagger1=Due of the type of infusion, though, the dagger only lasts for a few kills, and the energy that radiates from it prevents the &1Manasteel&0 from gathering &4Mana&0 to avoid damage, like typical tools would. Still, all in the name of killing those monsters.
+botania.page.enderDagger2=Strike my Soul
+# -- ROD OF THE SEAS
+botania.entry.waterRod=Bâton des Mers
+botania.page.waterRod0=Comme celui des Terres le &1Bâton des Mers&0 créera avec du &4Mana&0, une source d'&1Eau&0. Il peut donc être utilisé pour remplir un &1Autel à Pétales&0.
+botania.page.waterRod1=Keep the Earth clean, it isn't Uranus
+# -- ELEMENTIUM EQUIPMENT
+botania.entry.elfGear=Elementium Equipment
+botania.page.elfGear0=Similarly to other metals, as expected, &1Elementium&0 can, too, be shaped into tools and armor.<br>These pieces of equipment have a decent resistance to damage, about half of that of diamond, as well as the ability to drain &4Mana&0 to prevent damage.
+botania.page.elfGear1=Each of the tools come with their own ability or power of sorts which makes them unique. The armor allows the wearer to, when hit, have a chance to spawn a &1Pixie&0 that goes after the attacker, dealing decent damage.<br>The more pieces of &1Elementium Armor&0 equipped, the higher the chance.
+botania.page.elfGear2=Starting off, the &1Elementium Pickaxe&0 will destroy any &1Cobblestone&0, &1Dirt&0, &1Netherrack&0 and other mundane materials, leaving behind only the ores and fine resources.<br>Combining the &1Elementium Pickaxe&0 with a &1Terra Shatterer&0 in a crafting square allows for the latter to also get this power. This can't be undone.
+botania.page.elfGear3=I can fit a shower in my pocket, screw cobble
+botania.page.elfGear4=The &1Elementium Shovel&0 will, case the block dug is affected by gravity (&1Gravel&0, &1Sand&0, etc), dig all the blocks of that material above and/or below it, no more gravel falling while mining.
+botania.page.elfGear5=Putting Things on Top of Other Things
+botania.page.elfGear6=The &1Elementium Axe&0 doubles as a weapon, if used to strike the finishing blow to a &4Zombie&0, &4Skeleton&0, &4Creeper&0 or even another &4Player&0, it has a chance to decapitate them, leaving their severed head or skull behind.
+botania.page.elfGear7=Off with their heads
+botania.page.elfGear8=The &1Elementium Shears&0 hold the ability to, when held back like a bow, shear any nearby sheep with speed within a large area of effect centered on the holder.
+botania.page.elfGear9=Nui? She's h-arm-less
+botania.page.elfGear10=Lastly, the &1Elementium Sword&0 will increase the chance of a &4Pixie&0 spawning when hit (this holds true when no &1Elementium Armor&0 is worn) and increases the strength of any &4Pixies&0 spawned.
+botania.page.elfGear11=The Lambent Light
+botania.page.elfGear12=Fortuna on the Sixteenth Night
+botania.page.elfGear13=When the Seagulls Cry Breakdown
+botania.page.elfGear14=Good People Die
+botania.page.elfGear15=The out of Infinity
+# -- EXTRAPOLATED BUCKET
+botania.entry.openBucket=Extrapolated Bucket
+botania.page.openBucket0=By creating a bucket out of &1Elementium&0 one seems to notice an interesting feature. The liquids acquired by it simply vanish into the ether, never to be seen again. This seems like a great clean up tool.
+botania.page.openBucket1=A Souvenir from Lewis
+# -- LIFE AGGREGATOR
+botania.entry.spawnerMover=Life Aggregator
+botania.page.spawnerMover0=By arranging &1Dragonstone&0, &1Elementium&0 and &1Gaia Spirits&0 in a specific pattern, one can create a device that can contain the curious energies of a &1Monster Spawner&0 and materialize it in another point in space.<br>It's to note that the device will shatter after being used once.
+botania.page.spawnerMover1=We got the spawner, but this isn't a won run yet
+# -- ROD OF BIFROST
+botania.entry.rainbowRod=Rod of Bifrost
+botania.page.rainbowRod0=&4Bifrost&0, the rainbow bridge that reaches between the world and the realm of the gods.<br>While this item, the &1Rod of Bifrost&0 doesn't exactly do that, it allows the holder, via a right click and at the cost of some &4Mana&0, to create a rainbow bridge in the direction he or she is looking at.
+botania.page.rainbowRod1=This bridge extends as far as a hundred blocks, and will vanish after about fifteen seconds.<br>Only one bridge can be created for any given &1Rod of Bifrost&0 at a time, as soon as the old bridge vanishes, a new one can be created.
+botania.page.rainbowRod2=Going my way!! Cut open a path and go!
+# -- ROD OF THE SKIES
+botania.entry.tornadoRod=Bâton des Cieux
+botania.page.tornadoRod0=Le &1Bâton des Cieux&0 est un objet magique qui peut propulser un joueur dans les airs grâce au &4Mana&0.<br>Pour ce faire, il faut le charger tel un arc.<br>Le Bâton mettra un certain temps à se recharger, durant lequel son porteur ne subira pas de dégâts de chute.
+botania.page.tornadoRod1=A treasure from Lorule
+# -- ROD OF THE HELLS
+botania.entry.fireRod=Bâton des Enfers
+botania.page.fireRod0=Le &1Bâton des Enfers&0 permettra de créer un cercle de flamme pour un certain coût en &4Mana&0.<br>Le cercle est assez grand, et prend un peu de temps à se propager aubout duquel toutes les entités à l'intérieur brûleront, le porteur du Bâton inclus.
+botania.page.fireRod1=Megu Megu Fire Endless Night
+# -- VINE BALLS
+botania.entry.vineBall=Boule de Lianes
+botania.page.vineBall0=Une &1Échelles&0 ne peut pas tenir d'elle même et nécessite un support, alors que les &1Lianes&0 le peuvent. Cependant elles ne sont pas assez solides pour vous permettre d'y grimper.<br>En combinant plusieurs &1Lianes&0, il est possible de créer une boule qui créera à son point d'impact une échelle de &1Lianes&0 solides sur lesquelles vous pourrez grimper.
+botania.page.vineBall1=It's also possible, by combining some materials such as &1Livingwood&0 or a &1Rune of Air&0 to create a slingshot that lets these &1Vine Balls&0 be shot while completely ignoring the force of gravity.
+botania.page.vineBall2=This would be in Vineacraft...
+botania.page.vineBall3=...if that actually existed.
+# -- SHARD OF LAPUTA
+botania.entry.laputaShard=Shard of Laputa
+botania.page.laputaShard0=Via a somewhat complex magic activation sequence, combining a few interesting resources, including &1Gaia Spirits&0 would allow one to create a shard that, when used on the ground, will allow one to lift a spherical area around that point up into the air.<br>This process consumes the shard and can take upwards of ten minutes depending on the mass of land.
+botania.page.laputaShard2=The radius of the island creates start at 14 blocks, on other words, 28 blocks of diameter. It's possible to increase the size by upgrading the shard with additional &1Gaia Spirits&0, each one adds 1 block to the radius, or 2 to the diameter.
+botania.page.laputaShard1=Look Shiro, Laputa exists!
+botania.page.laputaShard3=Size does matter
+# -- EQUESTRIAN VIRUS
+botania.entry.virus=Equestrian Virus
+botania.page.virus0=Through the mixing of some ingredients, a type of virus that can alter the genetic code of equestrian life can be made.<br>Using one of these viruses on a &1Horse&0 will alter its genetic code, turning it into either a &1Zombie&0 or &1Skeleton Horse&0. Not only will it do that, but it will vastly increase all the &1Horse&0's genetic attributes.
+botania.page.virus1=No ponies here
+botania.page.virus2=None here either
+# -- ROD OF THE HIGHLANDS
+botania.entry.skyDirtRod=Rod of the Highlands
+botania.page.skyDirtRod0=While the &1Rod of the Lands&0 is all well and good, being able to place &1Dirt&0 without something to hold it would be great.<br>The &1Rod of the Highlands&0 does just that, while maintaining the original power of the &1Rod of the Lands&0, it can also place &1Dirt&0 in mid air, for an increased &4Mana&0 cost.
+botania.page.skyDirtRod1=Dirty Stick mk2
+# -- HAND OF ENDER
+botania.entry.enderHand=Main du Néant
+botania.page.enderHand0=La &1Main du Néant&0 permet à son porteur d'accéder n'importe où à son &1Coffre du Néant&0. Cela peut être fait n'importe où pour le prix d'un peu de &4Mana&0.<br>Utiliser la Main sur un autre joueur ouvrira &0son inventaire&r mais coûtera beaucoup plus de &1Mana&0.
+botania.page.enderHand0a=La &1Main du Néant&0 permet à son porteur d'accéder n'importe où à son &1Coffre du Néant&0. Cela peut être fait n'importe où pour le prix d'un peu de &4Mana&0.<br>Utiliser la Main sur un autre joueur ouvrira &0son inventaire&r mais coûtera beaucoup plus de &1Mana&0.
+botania.page.enderHand1=Zezima hates him!
+botania.page.enderHand1a=It's like the 4G of Ender Chests
+# -- VITREOUS PICKAXE
+botania.entry.glassPick=Vitreous Pickaxe
+botania.page.glassPick0=Placing down &1Glass&0 and having to break it again can be a heartbreaking experience. Luckily, by creating a &1Vitreous Pickaxe&0, one can gather the &1Glass&0 back by mining it with the pick, it's like cheap &4Silk Touch&0 for glass!
+botania.page.glassPick1=Trapped inside with food
+# -- ROD OF DIVINING
+botania.entry.diviningRod=Bâton de Divination
+botania.page.diviningRod0=Comme son nom l'indique, le &1Bâton de Divination&0 à la capacité de détecter les minerais aux alentours. Ceux-ci brilleront un temps, vous délivrant leur emplacement.<br>Ce processus nécessite bien entendu du &1Mana&0 de l'inventaire de son porteur.
+botania.page.diviningRod1=inb4 ee3
+# -- ROD OF THE BLACK MESA
+botania.entry.gravityRod=Rod of the Black Mesa
+botania.page.gravityRod0=The &1Rod of the Black Mesa&0 is a powerful relic, legend says that the first of these devices was found atop a dark mesa, along with a crowbar.<br>To use this device, the user may right click and hold on a monster or item to pick it up. Releasing right click will drop the selected entity, while left click will fire it in a powerful burst.
+botania.page.gravityRod1=This power does not come free, of course. It requires significant amounts of &4Mana&0 from the user's inventory.
+botania.page.gravityRod2=Why the flax?
+# -- TIMELESS IVY
+botania.entry.regenIvy=Timeless Ivy
+botania.page.regenIvy0=While &1Manasteel&0 or &1Elementium&0 tools have the ability to harness &4Mana&0 and use it to protect their bodies, other tools or armor don't have this property.<br>A handful of &1Timeless Ivy&0 can be attached on to virtually any item, allowing it to be repaired with &4Mana&0.
+botania.page.regenIvy1=To apply it, one'd simply craft the tool in question alongside the ivy and 3 of an item that can be used to repair the tool in an anvil (eg. &1Diamonds&0 for a &1Diamond Pickaxe&0).<br>Due to not being in direct contact with the material, the amount of &4Mana&0 used by the ivy in comparison to &1Manasteel&0 is rather high.
+botania.page.regenIvy2=Cut it in Varrock
+# - BAUBLES
+# -- AN INTRODUCTION TO BAUBLES
+botania.entry.bIntro=An Introduction to Baubles
+botania.page.bIntro0=&4Baubles&0, also commonly referred to as &4Trinkets&0 or &4Charms&0 are pieces of equipment which offer all sorts of different effects, when worn.<br>To equip them, one can press the &4B&0 (configurable) key. There's four slots, one &4Amulet&0 slot, two &4Ring&0 slots and one &4Belt&0 slot.
+botania.page.bIntro1=The &4Baubles Screen&0
+botania.page.bIntro2=It's to note that, if &4Thaumcraft&0 or any other mod that uses the baubles system is installed, this inventory will be shared between the various mods.
+# -- TINY PLANET
+botania.entry.tinyPlanet=Tiny Planet
+botania.page.tinyPlanet0=The &1Tiny Planet&0 is a &4Bauble&0 with gravitational proprieties, while equipped, the &1Tiny Planet&0 will pull any nearby &4Mana Bursts&0 towards the wearer, having them orbit around him or her.<br>By increasing its mass with some &1Stone&0, it can also be placed in world, for the same effect.
+botania.page.tinyPlanet1=Clearly from rebirth
+botania.page.tinyPlanet2=More of a planet than Pluto
+# -- BAND OF MANA
+botania.entry.manaRing=Band of Mana
+botania.page.manaRing0=Combining a &1Mana Tablet&0 with some &1Manasteel&0 creates an easily worn &4Ring&0, that functions exactly similar to the tablet used to make it, but can be worn as a &4Bauble&0.<br>Using some &1Terrasteel&0 allows for an upgrade, which lets it store about four times as much &4Mana&0.
+botania.page.manaRing1=Creating the ring
+botania.page.manaRing2=Upgrading the ring
+# -- BAND OF AURA
+botania.entry.auraRing=Band of Aura
+botania.page.auraRing0=The &1Band of Aura&0 is a bit of a deviation from the typical &1Band of Mana&0, in which, instead of storing &4Mana&0, it slowly, while equipped, creates it and stores it into &4Mana&0 containing items in the wearer's inventory.<br>Using some &1Terrasteel&0 allows for an upgrade, which lets it generate &4Mana&0 at a significantly faster rate.
+botania.page.auraRing1=Creating the ring
+botania.page.auraRing2=Upgrading the ring
+# -- SOUJOURNER'S SASH
+botania.entry.travelBelt=Soujourner's Sash
+botania.page.travelBelt0=Traversing terrain sometimes proves to be a hassle. The &1Soujourner's Sash&0 can be equipped in the &4Belt&0 slot, and when worn will increase the movement speed, jump height and resistance to fall damage of the wearer.<br>Lastly, if not sneaking, it also allows the wearer to walk over 1 block high gaps without jumping with ease.
+botania.page.travelBelt1=...everell
+# -- TECTONIC GIRDLE
+botania.entry.knockbackBelt=Tectonic Girdle
+botania.page.knockbackBelt0=By harnessing the forces of tectonic movement, the &1Tectonic Girdle&0, when worn, will negate any &4Knockback&0 applied to the wearer by outside attacks.
+botania.page.knockbackBelt1=Don't... move
+# -- SNOWFLAKE PENDANT
+botania.entry.icePendant=Snowflake Pendant
+botania.page.icePendant0=The &1Snowflake Pendant&0 is a &4Bauble&0 that resonates freezing energy, while it's worn, any nearby still &1Water&0 blocks at foot level will be converted into &1Ice&0.<br>The &1Ice&0 will melt shortly afterward the wearer leaves the area. Lastly, this charm will not freeze any blocks if the wearer is sneaking or fully submerged.
+botania.page.icePendant1=Do you want to build a snowman?
+# -- PYROCLAST PENDANT
+botania.entry.lavaPendant=Pyroclast Pendant
+botania.page.lavaPendant0=The &1Pyroclast Pendant&0 is a &4Bauble&0 that absorbs low heat, while it's worn, if the wearer is caught on fire and is not directly standing on &1Fire&0, &1Lava&0 or anything else that can induce burning, they'll be extinguished.
+botania.page.lavaPendant1=Hanako could have used one of these
+# -- GOLDEN LAUREL CROWN
+botania.entry.goldenLaurel=Golden Laurel Crown
+botania.page.goldenLaurel0=One of the uses for &1Gaia Spririts&0 is to, grant a layer of immortality to one that uses them, while wearing a &1Golden Laurel Crown&0, if the wearer were to die, the crown will shatter, regenerating all of their health and giving them a short period of invincibility.
+botania.page.goldenLaurel1=Given the theme, probably Viridi
+# -- RING OF CHORDATA
+botania.entry.waterRing=Ring of Chordata
+botania.page.waterRing0=The &1Ring of Chordata&0 allows the wearer to swim like a fish. While it's equipped, the wearer is bestowed with the ability to accelerate to a decent speed while underwater. It also gives the wearer good sight underwater and, if &4Mana&0 is present, at the cost of some of it, the ability to breathe indefinitely.
+botania.page.waterRing1=Go swim with the fishes
+# -- RING OF THE MANTLE
+botania.entry.miningRing=Ring of the Mantle
+botania.page.miningRing0=The &1Ring of the Mantle&0 allows one to mine faster, while equipped and &4Mana&0 is present in the inventory, it'll give a &4Haste&0 effect to the wearer. Some &4Mana&0 is used while the wearer swings their arm or equipped item, be it for attacking, mining or just flailing.
+botania.page.miningRing1=Diggy diggy hole
+# -- RING OF MAGNETIZATION
+botania.entry.magnetRing=Ring of Magnetization
+botania.page.magnetRing0=By turning a &1Magnetizing Lens&0 into a wearable ring, one can use it to magnetize nearby items. While equipped, this ring will make any nearby items magnetize towards the wearer if they're not sneaking.<br>A notable feature of this piece is that it'll negate its effect for 5 seconds after the wearer tosses an item so as to not interfere with whatever means it was tossed for.
+botania.page.magnetRing1=How do they work?
+# -- RING OF FAR REACH
+botania.entry.reachRing=Ring of Far Reach
+botania.page.reachRing0=Through the power of one's Pride, nothing is out of their reach. By wearing the &1Ring of Far Reach&0, the maximum distance the wearer can break, place or interact with blocks, as well as attack or interact with entities is increased by about three blocks.
+botania.page.reachRing1=Fire and Blood
+# -- CHARM OF THE DIVA
+botania.entry.divaCharm=Charm of the Diva
+botania.page.divaCharm0=The &1Charm of the Diva&0 blesses the wearer with the ability to have any attacked mob follow the attacker's will, and, case there are any nearby enemies, go after them instead. This process, of course, requires a bit of &4Mana&0 from the wearer's inventory in order to function.
+botania.page.divaCharm1=You shall not disrespect Big Sister
+# -- FLUGEL TIARA
+botania.entry.flightTiara=Flügel Tiara
+botania.page.flightTiara0=The &4Flügel&0 were once a dominant species in the lands, now they're but a race past extinct, once created as godslayers, who possessed the ability of flight.<br>The usage of &1Gaia Spirits&0 allows for a small replica of their power, in the form of the &1Flügel Tiara&0, which, at the cost of &4Mana&0 allows for flight.
+botania.page.flightTiara1=Forty thousand books from another world
+botania.page.flightTiara2=Combining the Tiara with a variety of Quartz species allows for it to create various different kinds of aesthetic wings, one for each style of quartz.<br>The recipes for the various types of quartz can be found in the &4Decorative Blocks&0 entry under &4Misclaneous&0, &1Elven Quartz&0 is acquired by trading &1Nether Quartz&0 with the elves.
+botania.page.flightTiara3=Adding Wings (they can be swapped any time)
+# -- GREAT FAIRY RING
+botania.entry.pixieRing=Great Fairy Ring
+botania.page.pixieRing0=This ring works alongside the &1Elementium Armor&0, insight in the powers of it is advised before using this ring. When worn, the &1Great Fairy Ring&0 will increase the chance for a &4Pixie&0 to spawn when the wearer is hit, this still holds true case no &1Elementium Armor&0 is equipped.
+botania.page.pixieRing1=We got square heads, big pointy caps
+# -- GLOBETROTTER'S SASH
+botania.entry.superTravelBelt=Globetrotter's Sash
+botania.page.superTravelBelt0=The &1Globetrotter's Sash&0 is, in layman's terms, an upgrade to then &1Soujourner's Sash&0, by using &1Gaia Spirits&0 and some Elven resources, this new belt allows the wearer to reach incredible speeds to which the &1Soujourner's Sash&0 doesn't stand a chance.
+botania.page.superTravelBelt1=No time for guessing, follow my plan instead
+# -- THE SPECTATOR
+botania.entry.itemFinder=The Spectator
+botania.page.itemFinder0=&1The Spectator&0 is a headband that allows the wearer to have a better perception of the world. While holding an item, any &4containers&0 (chests, minecarts, donkeys with chests, furnaces, etc...) that have an item of that type, &4dropped items&0 of that type, &4mobs&0 who have that item equipped &o(...)&r
+botania.page.itemFinder1=&o(...)&r &4players&0 who have the item in their inventory and &4villagers&0 who want to trade either with or for that item will shine with a green glow, allowing them to be easily spotted.<br>While sneaking, all dropped items around the wearer will shine, regardless of the item.
+botania.page.itemFinder2=Do you hear their voices?
+# -- CRIMSON PENDANT
+botania.entry.superLavaPendant=Crimson Pendant
+botania.page.superLavaPendant0=The &1Crimson Pendant&0 is, in simple terms, an upgraded counterpart to the &1Pyroclast Pendant&0, wearing it provides the wearer immunity to all fire and lava damage, instead of just extinguishing them.
+botania.page.superLavaPendant1=Runner-up on Monolith Code
+# - ALFHOMANCY
+# -- THE PORTAL TO ALFHEIM
+botania.entry.aIntro=The Portal to Alfheim
+botania.page.aIntro0=Once, in olden times, &4Elves&0 used to share the world with us &4Minecrafters&0. Due to unknown events, they have been banished back to their own world, &4Alfheim&0.<br>Experimentation has been done in atempt to bridge the gap between the two worlds, and means of creating a portal that does just that have been devised.
+botania.page.aIntro1=Creating this portal proves not to be an easy task, as quite a few exquisite resources are necessary. The requirements are as follows: 8 &1Livingwood&0 blocks, 3 &1Glimmering Livingwood&0 blocks, 1 &1Elven Gateway Core&0 (read on), 2 &1Mana Pools&0 and 2 &1Natura Pylons&0 (read on).
+botania.page.aIntro2=Creating the &1Elven Gateway Core&0
+botania.page.aIntro3=Creating &1Natura Pylons&0
+botania.page.aIntro4=Make a frame of &1Livingwood&0
+botania.page.aIntro5=Add &1Glimmering Livingwood&0
+botania.page.aIntro6=Place the &1Elven Gateway Core&0
+botania.page.aIntro7=Add &1Mana Pools&0
+botania.page.aIntro8=Place &1Natura Pylons&0 above the pools
+botania.page.aIntro9=To open up the portal, simply right click the core with a &1Baguette Sylvestre&0.<br>The portal requires a substantial amount of &4Mana&0 deposited in both the pools to open up, after that, it'll slowly drain some to keep itself powered. If it runs out of &4Mana&0, the connection will be broken.
+botania.page.aIntro10=The amount of &4Mana&0 required to open up the portal is orders of magnitude higher than that to keep it maintained, thus closing the portal to prevent &4Mana&0 loss is a poor strategy.<br>Furthermore, the link isn't strong enough to allow living beings to go through it, but it seems that &4items&0 can.
+botania.page.aIntro11=The amount of information about &1Alfheim&0 stored in this lexicon is resumed to this entry alone, perhaps &4letting the Elves have a look at it&0 might prove beneficial.
+# -- A MESSAGE FROM ELVEN GARDE
+botania.entry.elfMessage=A Message from Elven Garde
+botania.page.elfMessage0=
+# ^ This is blank on purpose
+botania.page.elfMessage1=&oGreetings. We noticed that our portal was opened via a link from another world. That's rather shocking news indeed. We thank you very much for providing us with a repository of the knowledge from your world, as to keep us up to date to what happened since we left it, it's been a while since then, indeed.
+botania.page.elfMessage2=&oAfter some discussion with the high council of Elven Garde, we have decided to cooperate with you. You see, reading through your "Lexica Botania" has shown us a good amount of resources from your world that we would be extremely keen as to get our hands on, as these are non-existent in our lands.
+botania.page.elfMessage3=&oThe link you have managed to establish is rather weak, no living beings will be able to go through, as you already know. However, there's a positive side to this, the link strikes the fabric of time of both our worlds in a way where it doesn't keep them in sync, that's the reason why you received your book back so quickly.
+botania.page.elfMessage4=&oWhen it comes to Mana and other magical energies, we are plenty stocked on them, so worry not about the portal closing on our end. Let's put this in prospect, in order for the advance of both our civilizations, we vow to accept a given set of resources from your world we lack in ours in exchange for resources you lack in yours.
+botania.page.elfMessage5=&oWe have taken the liberty of assigning our best scribes to put together a great set of knowledge from our world we're willing to share, you can find it in your lexicon just as you'd find knowledge from yours. We hope you find it enlightening and that it encourages you to invest in our materials.
+botania.page.elfMessage6=&oLast but not least, do keep in mind that if you decide to send something we have not vouched to trade for, we will assume it as a gift and keep it for ourselves, just as a forewarning. We look forward to exchanging resources with you.<br>Best Regards, the High Council of Elven Garde.
+# -- THE RESOURCES OF ALFHEIM
+botania.entry.elfResources=The Resources of Alfheim
+botania.page.elfResources0=&4Alfheim&0 contains a very varied amount of exquisite resources. Sadly though, most of them are extremely scarce and hard to come by due to competition between the various clans. The elves are interested in trading some materials, such as &1Dreamwood&0, &1Elementium&0, &1Pixie Dust&0 or &1Dragonstone&0, resources native to their lands.
+botania.page.elfResources1=Trading for &1Dreamwood&0
+botania.page.elfResources2=&1Dreamwood&0, similarly to &1Livingwood&0 can be turned into various &4Decorative Blocks&0, have a look through the &4Decorative Blocks&0 entry under &4Miscelaneous&0 for the recipes.
+botania.page.elfResources3=Trading for &1Elementium&0
+botania.page.elfResources4=Trading for &1Pixie Dust&0
+botania.page.elfResources5=Trading for &1Dragonstone&0
+botania.page.elfResources6=The &1Elves&0 are also quite keen on the white posh block from the &4Nether&0, &1Nether Quartz&0, the ones they have on their world are tinted green. This quartz works just like any other quartz, be it normal &1Nether Quartz&0 or any of the decorative variants you can find on the &4Decorative Blocks&0 entry under &4Miscelaneous&0.
+botania.page.elfResources7=Trading for &1Elven Quartz&0
+botania.page.elfResources8=Alfheim also has its own variant of &1Glass&0, in the form of &1Alfglass&0. Its look is rather light and its patterns are randomized depending on where it's placed.
+botania.page.elfResources9=Trading for &1Alfglass&0
+# -- RITUAL OF GAIA
+botania.entry.gaiaRitual=Ritual of Gaia
+botania.page.gaiaRitual0=The &4Ritual of Gaia&0 is a procedure often enacted by the elves, which is the only way to acquire &1Gaia Spirits&0, which are essences of the power of the Goddess of Gaia herself.<br>This ritual required an &4Active&0 &1Beacon&0 with some &1Gaia Pylons&0 (read on) one level above the beacon as the altar, as well as a single &1Terrasteel Ingot&0 as a sacrifice.
+botania.page.gaiaRitual1=Creating &1Gaia Pylons&0
+botania.page.gaiaRitual2=Place the pylons (1 block above the beacon)
+botania.page.gaiaRitual3=To start the ritual, simply shift-right click the &1Beacon&0 block with a &1Terrasteel Ingot&0, take a step back and prepare to fight for your life. Good preparation is required, as the fight with the &4Guardian of Gaia&0 can be even harder than that of the &4Wither&0. Upon defeating the &4Guardian&0, one can collect their prize, a handful of &1Spirits of Gaia&0.
+botania.page.gaiaRitual4=A few pointers to take in mind are as follows. Enchanted &1Elementium Armor&0 is highly recommended, even more so than conventional &1Diamond Armor&0 due to the &1Pixies&0 it can spawn.<br>The effect on the &1Beacon&0 is nullified during the battle, that should be taken in mind when preparing.<br>Lastly, stay away from the purple.
+# - MISCLANEOUS
+# -- UNSTABLE CUBE
+botania.entry.unstableBlocks=Unstable Cubes
+botania.page.unstableBlocks0=Fiddling with highly powerful &4Mana&0 infused objects has lead to the creation of these strange cubes. They seem to emit some visual radiation in the form of colorful lightning, but it doesn't seem like it has any effects other than visual appeal.
+botania.page.unstableBlocks1=They look fancy
+botania.page.unstableBlocks2=And they come in all 16 colors
+botania.page.unstableBlocks3=There's also a way of creating a different version of these that releases an extremely larger amount of energy, this time in the form of a beam towards the sky that extends into a cloud of sorts. This one also seems to be disableable via a &4Redstone Signal&0, it's called an &1Unstable Beacon&0, as it looks like one somehow.
+botania.page.unstableBlocks4=Fireworks?
+botania.page.unstableBlocks5=Combined entropy
+botania.page.unstableBlocks6=It's also possible, by using the &1Unstable Beacons&0, to turn them into a manageable and portable utility, in the form of the &1Signal Flare&0.<br>This gun of sorts shoots a colored round into the sky that lasts a few seconds, it also stuns any nearby enemies for just as long.
+botania.page.unstableBlocks7=Shoot in case of titan
+# -- DECORATIVE BLOCKS
+botania.entry.decorativeBlocks=Decorative Blocks
+botania.page.decorativeBlocks0=Past functionality, quite a few decorative blocks are available to make your builds look better.<br>Starting off. It's possible to turn blocks of &1Livingrock&0 and &1Livingwood&0 into decorative blocks. Each of them features 4 different decorative variations.
+botania.page.decorativeBlocks1=Livingrock bricks.
+botania.page.decorativeBlocks2=Mossing the bricks
+botania.page.decorativeBlocks3=Cracking the bricks
+botania.page.decorativeBlocks4=Framing the bricks
+botania.page.decorativeBlocks5=Turning wood into planks
+botania.page.decorativeBlocks6=Mossing the planks
+botania.page.decorativeBlocks7=Framing the planks
+botania.page.decorativeBlocks8=Pattern planks
+botania.page.decorativeBlocks9=Glimmering livingwood
+botania.page.decorativeBlocks10=Carrying on, by combining &1Nether Quartz&0 with all sorts of other substances, it's possible to create a wide array of other decorative &1Quartz&0 blocks.<br>As expected, all these items can be crafted into all their decorative block counterparts just like regular &1Quartz&0 blocks are crafted.
+botania.page.decorativeBlocks11=Smokey Quartz
+botania.page.decorativeBlocks12=Mana Quartz
+botania.page.decorativeBlocks13=Blaze Quartz
+botania.page.decorativeBlocks14=Lavender Quartz
+botania.page.decorativeBlocks15=Redquartz
+botania.page.decorativeBlocks16=A few blocks can be organized in methods different than normal to create new building blocks, such as &1Reed Blocks&0, &1Thatch&0, &1Roof Tiles&0 and a few new &1Bricks&0.<br>All these also can be crafted into both stairs and slabs.
+botania.page.decorativeBlocks17=Crafting &1Reed Blocks&0
+botania.page.decorativeBlocks18=Crafting &1Thatch&0
+botania.page.decorativeBlocks19=Crafting &1Roof Tiles&0
+botania.page.decorativeBlocks20=Crafting &1Hellish Bricks&0
+botania.page.decorativeBlocks21=Crafting &1Soul Bricks&0
+botania.page.decorativeBlocks22=Crafting &1Frosty Bricks&0
+# -- DISPENSER TWEAKS
+botania.entry.dispenserTweaks=Dispenser Tweaks
+botania.page.dispenserTweaks0=&1Dispensers&0, among their normal abilities, can also plant all sorts of crops, from &1Seeds&0, &1Potatos&0 or &1Carrots&0 to even &1Nether Wart&0. The crop is planted in the block right in front of the dispenser.<br>The &1Dispensers&0 can also use the &1Baguette Sylvestre&0 for some specific tasks such as triggering a &1Runic Altar&0.
+# -- GLIMMERING FLOWERS
+botania.entry.shinyFlowers=Glimmering Flowers
+botania.page.shinyFlowers0=By combining your typical &1Mystical Flowers&0 with some &1Glowstone Dust&0, you can make them sparkle even brighter, and emit actual physical light, of the same brightness as a &1Glowstone Block&0.<br>With some &1Dirt&0 and &1Pasture Seeds&0 it's possible to turn them into a miniature floating island that will not only emit light, but also look very fancy indeed.
+botania.page.shinyFlowers1=Pretty Pretty Shiny Shiny
+botania.page.shinyFlowers2=Like Laputa but (a lot) tinier
+# -- PRISMARINE
+botania.entry.prismarine=Prismarine
+botania.page.prismarine0=&1Prismarine&0 is an interesting component and building block. Some scholars even go as far as to say it comes from &4the future&0.<br>To create it, one requires an &1Alchemy Catalyst&0. Simply tossing some &1Nether Quartz&0 into a &1Mana Pool&0 with the catalyst attached to it will get some of this material.
+botania.page.prismarine1=There's various building blocks that can be created using the &1Prismarine Shards&0, to which all but the &1Sea Lantern&0 can be turned into their &1Stair&0 and &1Slab&0 variants.
+botania.page.prismarine2=Creating &1Prismarine Shards&0
+botania.page.prismarine3=Crafting &1Prismarine&0
+botania.page.prismarine4=Crafting &1Prismarine Bricks&0
+botania.page.prismarine5=Crafting &1Dark Prismarine&0
+botania.page.prismarine6=Crafting the &1Sea Lantern&0
+# -- NATURAL SHEDDING
+botania.entry.shedding=Natural Shedding
+botania.page.shedding0=The living and unliving beings that inhabit our lands don't live in a static state. It's common for pieces of their body to fall out, or for them to drop things, or for them to extrude substances. The following pages list some such items that can come from such entities.
+# -- TINY POTATO
+botania.entry.tinyPotato=Tiny Potato
+botania.page.tinyPotato0=It's a tiny potato, it believes in you, you can do the thing.<br>No really, that's it, by tossing a &1Potato&0 in a &1Mana Pool&0, the potato gains a little lively essence and happy feeling. It's a lively one, giving it a right click will make it even more so!
+botania.page.tinyPotato1=Put it on Kickstarter, it'll work
+# -- HEAD CREATION
+botania.entry.headCreating=Head Creation
+botania.page.headCreating0=A typical incantation of the Elves, combining a few resources and a &1Name Tag&0 allows for the creation of a replica of sorts of the head of the person described in the tag. How it works isn't really known, but it seems to be possible to replicate it with a &1Runic Altar&0.
+botania.page.headCreating1=Get your head in the game
+# -- AZULEJO -- http://en.wikipedia.org/wiki/Azulejo
+botania.entry.azulejo=Azulejos
+botania.page.azulejo0=&1Azulejos&0 are a type of decorative block, simply put, they are tileable patterns of blue and white. To create them, one would simply mix a piece of &1Lapis Lazulli&0 with a &1Block of Quartz&0.<br>From there, placing it in the crafting grid allows for cycling between the twelve different patterns.
+botania.page.azulejo1=The various patterns
+botania.page.azulejo2=Crafting a block of &1Azulejo&0
+botania.page.azulejo3=Cycling between the patterns
+# -- STARFIELD CREATOR
+botania.entry.starfield=Starfield Creator
+botania.page.starfield0=The &1Starfield Creator&0 does exactly as it says, by releasing elven energies into the air, if it's placed in the world, during night time it will create a starry sky that extends for a fair distance.
+botania.page.starfield1=Twinkle twinkle
+# -- THAUMCRAFT INTEGRATION
+botania.entry.tcIntegration=Thaumcraft Integration
+botania.page.tcIntegration0=Often enough, the paths of &4Botany&0 and &4Thaumaturgy&0 cross together. Mixing some of the artifacts mentioned in this book as well as any from the school of &5Thaumcraft&0 can allow for combinations of these to form.
+botania.page.tcIntegration1=First and foremost, combining any of the &1Mana Metal&0 helms with a set of &1Goggles of Revealing&0 allows for a combination of both.<br>The protection and regenerability of the armor works alongside the Goggles' abilities, but the &4Vis&0 discount is loss.
+botania.page.tcIntegration2=Helmets of Revealing (works with any Botania helm)
+botania.page.tcIntegration3=Carrying on, &4Mana&0 can also serve as an interesting type of Ink. Infusing a set of black &1Scribing Tools&0 with &4Mana&0 from a &1Mana Pool&0 allows for them to use said &4Mana&0 as their source of color.<br>Refilling these tools works similarly to a &1Mana Tablet&0, done by tossing it on top of the pool.
+botania.page.tcIntegration4=Making the &1Botanurgist's Inkwell
+botania.page.tcIntegration5=Last but not least, there's a few varied resources or constructs that can work as paraphernalia for an &1Infusion Altar&0, to lower its' instability.<br>These come in the form of &1Glimmering Flowers, Floating Flowers and any variety of Pylons&0.
