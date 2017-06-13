@@ -1,3 +1,12 @@
+r1.9 344
+*Fixed a lava dupe with the Petal Apothecary.
+*Fixed a Mana Enchanter game freeze.
+*Fixed an item dupe when dropping items in the edges of a Mana Pool.
+*Fixed double plants not being randomly shifted like vanilla ones.
+*Fixed the Mana Clip showing Air for empty slots.
+*Fixed the Ring of Loki's wireframes not working.
+*Updated Storage Drawers integration (palaster)
+*<i>More williewilus builds up in here!</i>
 r1.9 343
 *Fixed a crash with the Marimorphosis.
 *Fixed baubles equipped by right click destroying items already in their slots.
