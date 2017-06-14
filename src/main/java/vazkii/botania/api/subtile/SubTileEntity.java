@@ -12,6 +12,7 @@ package vazkii.botania.api.subtile;
 
 import java.util.List;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
@@ -144,6 +145,14 @@ public class SubTileEntity {
 	 * Called when this sub tile is harvested
 	 */
 	public void onBlockHarvested(World world, BlockPos pos, IBlockState state, EntityPlayer player) {}
+
+	/**
+	 * Triggered by {@link TileEntity#receiveClientEvent} via {@link net.minecraft.block.Block#eventReceived} and {@link World#addBlockEvent}
+	 */
+	public boolean receiveClientEvent(int id, int param)
+	{
+		return false;
+	}
 
 	/**
 	 * Allows additional processing of sub tile drops

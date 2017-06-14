@@ -167,6 +167,13 @@ public class TileSpecialFlower extends TileMod implements IWandBindable, ISubTil
 		return list;
 	}
 
+	@Override
+	public boolean receiveClientEvent(int id, int param) {
+		if(subTile != null)
+			return subTile.receiveClientEvent(id, param);
+		return super.receiveClientEvent(id, param);
+	}
+
 	@SideOnly(Side.CLIENT)
 	public void renderHUD(Minecraft mc, ScaledResolution res) {
 		if(subTile != null)
