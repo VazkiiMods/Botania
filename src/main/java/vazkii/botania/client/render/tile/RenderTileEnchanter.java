@@ -36,7 +36,7 @@ public class RenderTileEnchanter extends TileEntitySpecialRenderer<TileEnchanter
 	private EntityItem item;
 
 	@Override
-	public void renderTileEntityAt(@Nonnull TileEnchanter enchanter, double d0, double d1, double d2, float f, int digProgress) {
+	public void renderTileEntityAt(@Nonnull TileEnchanter enchanter, double d0, double d1, double d2, float f, int digProgress, float unused) {
 		float alphaMod = 0F;
 
 		if(enchanter.stage == TileEnchanter.State.GATHER_MANA)
@@ -54,7 +54,7 @@ public class RenderTileEnchanter extends TileEntitySpecialRenderer<TileEnchanter
 				MethodHandles.itemAge_setter.invokeExact(item, ClientTickHandler.ticksInGame);
 			} catch (Throwable ignored) {}
 
-			item.setEntityItemStack(enchanter.itemToEnchant);
+			item.setItem(enchanter.itemToEnchant);
 
 			GlStateManager.color(1F, 1F, 1F, 1F);
 			GlStateManager.translate(0.5F, 1.25F, 0.5F);

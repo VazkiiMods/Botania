@@ -35,8 +35,8 @@ public class GuiFlowerBag extends GuiContainer {
 	@Override
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
 		String s = I18n.format("item.botania:flowerBag.name");
-		fontRendererObj.drawString(s, xSize / 2 - fontRendererObj.getStringWidth(s) / 2, 6, 4210752);
-		fontRendererObj.drawString(I18n.format("container.inventory"), 8, ySize - 96 + 2, 4210752);
+		fontRenderer.drawString(s, xSize / 2 - fontRenderer.getStringWidth(s) / 2, 6, 4210752);
+		fontRenderer.drawString(I18n.format("container.inventory"), 8, ySize - 96 + 2, 4210752);
 	}
 
 	@Override
@@ -58,7 +58,7 @@ public class GuiFlowerBag extends GuiContainer {
 					RenderHelper.enableGUIStandardItemLighting();
 					mc.getRenderItem().renderItemIntoGUI(stack, x, y);
 					RenderHelper.disableStandardItemLighting();
-					mc.fontRendererObj.drawStringWithShadow("0", x + 11, y + 9, 0xFF6666);
+					mc.fontRenderer.drawStringWithShadow("0", x + 11, y + 9, 0xFF6666);
 				}
 			}
 	}

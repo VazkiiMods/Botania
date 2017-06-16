@@ -46,7 +46,7 @@ public class GuiButtonNotes extends GuiButtonLexicon {
 		else {
 			tooltip.add(TextFormatting.GREEN + I18n.format("botaniamisc.showNotes"));
 			if(parent.note != null && !parent.note.isEmpty())
-				Minecraft.getMinecraft().fontRendererObj.drawStringWithShadow("!", xPosition + 10, yPosition, 0xFF0000);
+				Minecraft.getMinecraft().fontRenderer.drawStringWithShadow("!", xPosition + 10, yPosition, 0xFF0000);
 		}
 
 		int tooltipY = (tooltip.size() - 1) * 10;

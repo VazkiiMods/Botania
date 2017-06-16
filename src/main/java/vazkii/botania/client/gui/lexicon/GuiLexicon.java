@@ -248,14 +248,14 @@ public class GuiLexicon extends GuiScreen {
 		if(konamiTime > 0) {
 			String meme = I18n.format("botania.subtitle.way");
 			GlStateManager.pushMatrix();
-			int fullWidth = fontRendererObj.getStringWidth(meme);
+			int fullWidth = fontRenderer.getStringWidth(meme);
 			int left = width;
 			double widthPerTick = (fullWidth + width) / 240;
 			double currWidth = left - widthPerTick * (240 - (konamiTime - par3)) * 3.2;
 
 			GlStateManager.translate(currWidth, height / 2 - 10, 0);
 			GlStateManager.scale(4, 4, 4);
-			mc.fontRendererObj.drawStringWithShadow(meme, 0, 0, 0xFFFFFF);
+			mc.fontRenderer.drawStringWithShadow(meme, 0, 0, 0xFFFFFF);
 			GlStateManager.popMatrix();
 		}
 	}
@@ -347,13 +347,13 @@ public class GuiLexicon extends GuiScreen {
 		if(notesEnabled && ClientTickHandler.ticksInGame % 20 < 10)
 			noteDisplay += "&r_";
 
-		fontRendererObj.drawString(I18n.format("botaniamisc.notes"), x + 5, y - 7, 0x666666);
+		fontRenderer.drawString(I18n.format("botaniamisc.notes"), x + 5, y - 7, 0x666666);
 
-		boolean unicode = fontRendererObj.getUnicodeFlag();
-		fontRendererObj.setUnicodeFlag(true);
+		boolean unicode = fontRenderer.getUnicodeFlag();
+		fontRenderer.setUnicodeFlag(true);
 
 		PageText.renderText(x + 5, y - 3, 92, 120, 0, true, 0, TextFormatting.RESET + noteDisplay);
-		fontRendererObj.setUnicodeFlag(unicode);
+		fontRenderer.setUnicodeFlag(unicode);
 	}
 
 	public void drawBookmark(int x, int y, String s, boolean drawLeft) {
@@ -365,8 +365,8 @@ public class GuiLexicon extends GuiScreen {
 	}
 
 	public void drawBookmark(int x, int y, String s, boolean drawLeft, int color, int v) {
-		// This function is called from the buttons so I can't use fontRendererObj
-		FontRenderer font = Minecraft.getMinecraft().fontRendererObj;
+		// This function is called from the buttons so I can't use fontRenderer
+		FontRenderer font = Minecraft.getMinecraft().fontRenderer;
 		boolean unicode = font.getUnicodeFlag();
 		font.setUnicodeFlag(true);
 		int l = font.getStringWidth(s);
@@ -398,15 +398,15 @@ public class GuiLexicon extends GuiScreen {
 		drawTexturedModalRect(left - 8, top + 9, 0, 224, 140, 31);
 
 		int color = 0xffd200;
-		boolean unicode = fontRendererObj.getUnicodeFlag();
-		fontRendererObj.drawString(title, left + 18, top + 13, color);
-		fontRendererObj.setUnicodeFlag(true);
-		fontRendererObj.drawString(I18n.format("botaniamisc.edition", ItemLexicon.getEdition()), left + 24, top + 22, color);
+		boolean unicode = fontRenderer.getUnicodeFlag();
+		fontRenderer.drawString(title, left + 18, top + 13, color);
+		fontRenderer.setUnicodeFlag(true);
+		fontRenderer.drawString(I18n.format("botaniamisc.edition", ItemLexicon.getEdition()), left + 24, top + 22, color);
 
 		String s = TextFormatting.BOLD + categoryHighlight;
-		fontRendererObj.drawString(s, left + guiWidth / 2 - fontRendererObj.getStringWidth(s) / 2, top + 36, 0);
+		fontRenderer.drawString(s, left + guiWidth / 2 - fontRenderer.getStringWidth(s) / 2, top + 36, 0);
 
-		fontRendererObj.setUnicodeFlag(unicode);
+		fontRenderer.setUnicodeFlag(unicode);
 		GlStateManager.popMatrix();
 
 		categoryHighlight = "";
@@ -509,13 +509,13 @@ public class GuiLexicon extends GuiScreen {
 	}
 
 	public int bookmarkWidth(String b) {
-		if(fontRendererObj == null)
-			fontRendererObj = Minecraft.getMinecraft().fontRendererObj;
+		if(fontRenderer == null)
+			fontRenderer = Minecraft.getMinecraft().fontRenderer;
 
-		boolean unicode = fontRendererObj.getUnicodeFlag();
-		fontRendererObj.setUnicodeFlag(true);
-		int width = fontRendererObj.getStringWidth(b) + 15;
-		fontRendererObj.setUnicodeFlag(unicode);
+		boolean unicode = fontRenderer.getUnicodeFlag();
+		fontRenderer.setUnicodeFlag(true);
+		int width = fontRenderer.getStringWidth(b) + 15;
+		fontRenderer.setUnicodeFlag(unicode);
 		return width;
 	}
 

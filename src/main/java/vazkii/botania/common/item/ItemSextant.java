@@ -151,7 +151,7 @@ public class ItemSextant extends ItemMod {
 
 		if(onUse == stack && stack.getItem().getMaxItemUseDuration(stack) - time >= 10) {
 			double radius = calculateRadius(stack, player);
-			FontRenderer font = Minecraft.getMinecraft().fontRendererObj;
+			FontRenderer font = Minecraft.getMinecraft().fontRenderer;
 			int x = resolution.getScaledWidth() / 2 + 30;
 			int y = resolution.getScaledHeight() / 2;
 

@@ -33,7 +33,7 @@ import vazkii.botania.client.render.entity.RenderDoppleganger;
 
 public class RenderTileGaiaHead extends TileEntitySkullRenderer {
 	@Override
-	public void renderTileEntityAt(TileEntitySkull skull, double x, double y, double z, float partialTicks, int digProgress) {
+	public void renderTileEntityAt(TileEntitySkull skull, double x, double y, double z, float partialTicks, int digProgress, float unused) {
 		ShaderHelper.useShader(ShaderHelper.doppleganger, RenderDoppleganger.defaultCallback);
 
 		// Null-safe copy of super

@@ -163,7 +163,7 @@ public final class HUDHandler {
 			if(MultiblockRenderHandler.currentMultiblock != null && MultiblockRenderHandler.anchor == null) {
 				profiler.startSection("multiblockRightClick");
 				String s = I18n.format("botaniamisc.rightClickToAnchor");
-				mc.fontRendererObj.drawStringWithShadow(s, event.getResolution().getScaledWidth() / 2 - mc.fontRendererObj.getStringWidth(s) / 2, event.getResolution().getScaledHeight() / 2 - 30, 0xFFFFFF);
+				mc.fontRenderer.drawStringWithShadow(s, event.getResolution().getScaledWidth() / 2 - mc.fontRenderer.getStringWidth(s) / 2, event.getResolution().getScaledHeight() / 2 - 30, 0xFFFFFF);
 				profiler.endSection();
 			}
 
@@ -272,12 +272,12 @@ public final class HUDHandler {
 			int color = 0x00CC00 + (alpha << 24);
 			String disp = I18n.format(ItemTwigWand.getModeString(stack));
 
-			int x = res.getScaledWidth() / 2 - mc.fontRendererObj.getStringWidth(disp) / 2;
+			int x = res.getScaledWidth() / 2 - mc.fontRenderer.getStringWidth(disp) / 2;
 			int y = res.getScaledHeight() - 70;
 
 			GlStateManager.enableBlend();
 			GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-			mc.fontRendererObj.drawStringWithShadow(disp, x, y, color);
+			mc.fontRenderer.drawStringWithShadow(disp, x, y, color);
 			GlStateManager.disableBlend();
 		}
 		profiler.endSection();
@@ -335,7 +335,7 @@ public final class HUDHandler {
 			net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
 			mc.getRenderItem().renderItemAndEffectIntoGUI(stack, x - 20, y);
 			mc.getRenderItem().renderItemAndEffectIntoGUI(recipe.getOutput(), x + 26, y);
-			mc.getRenderItem().renderItemOverlays(mc.fontRendererObj, recipe.getOutput(), x + 26, y);
+			mc.getRenderItem().renderItemOverlays(mc.fontRenderer, recipe.getOutput(), x + 26, y);
 			net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
 
 			GlStateManager.disableLighting();
@@ -353,14 +353,14 @@ public final class HUDHandler {
 		if(!target.isEmpty()) {
 			String s1 = target.getDisplayName();
 			String s2 = tile.getItemCount() + "x";
-			int strlen = Math.max(mc.fontRendererObj.getStringWidth(s1), mc.fontRendererObj.getStringWidth(s2));
+			int strlen = Math.max(mc.fontRenderer.getStringWidth(s1), mc.fontRenderer.getStringWidth(s2));
 			int w = res.getScaledWidth();
 			int h = res.getScaledHeight();
 			Gui.drawRect(w / 2 + 8, h / 2 - 12, w / 2 + strlen + 32, h / 2 + 10, 0x44000000);
 			Gui.drawRect(w / 2 + 6, h / 2 - 14, w / 2 + strlen + 34, h / 2 + 12, 0x44000000);
 
-			mc.fontRendererObj.drawStringWithShadow(target.getDisplayName(), w / 2 + 30, h / 2 - 10, 0x6666FF);
-			mc.fontRendererObj.drawStringWithShadow(tile.getItemCount() + "x", w / 2 + 30, h / 2, 0xFFFFFF);
+			mc.fontRenderer.drawStringWithShadow(target.getDisplayName(), w / 2 + 30, h / 2 - 10, 0x6666FF);
+			mc.fontRenderer.drawStringWithShadow(tile.getItemCount() + "x", w / 2 + 30, h / 2, 0xFFFFFF);
 			net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
 			GlStateManager.enableRescaleNormal();
 			mc.getRenderItem().renderItemAndEffectIntoGUI(target, w / 2 + 10, h / 2 - 10);
@@ -376,7 +376,7 @@ public final class HUDHandler {
 		Profiler profiler = mc.mcProfiler;
 
 		profiler.startSection("lexicon");
-		FontRenderer font = mc.fontRendererObj;
+		FontRenderer font = mc.fontRenderer;
 		boolean draw = false;
 		String drawStr = "";
 		String secondLine = "";
@@ -417,7 +417,7 @@ public final class HUDHandler {
 			if(!mc.player.isSneaking()) {
 				drawStr = "?";
 				secondLine = "";
-				font = mc.fontRendererObj;
+				font = mc.fontRenderer;
 			}
 
 			mc.getRenderItem().renderItemIntoGUI(new ItemStack(ModItems.lexicon), sx, sy);
@@ -427,7 +427,7 @@ public final class HUDHandler {
 
 			if(!mc.player.isSneaking()) {
 				GlStateManager.scale(0.5F, 0.5F, 1F);
-				mc.fontRendererObj.drawStringWithShadow(TextFormatting.BOLD + mc.gameSettings.keyBindSneak.getDisplayName(), (sx + 10) * 2 - 16, (sy + 8) * 2 + 20, 0xFFFFFFFF);
+				mc.fontRenderer.drawStringWithShadow(TextFormatting.BOLD + mc.gameSettings.keyBindSneak.getDisplayName(), (sx + 10) * 2 - 16, (sy + 8) * 2 + 20, 0xFFFFFFFF);
 				GlStateManager.scale(2F, 2F, 1F);
 			}
 		}
@@ -443,7 +443,7 @@ public final class HUDHandler {
 		String txt1 = TextFormatting.GRAY + I18n.format("botaniamisc.nearIndex1");
 		String txt2 = TextFormatting.GRAY + I18n.format("botaniamisc.nearIndex2");
 
-		int l = Math.max(mc.fontRendererObj.getStringWidth(txt0), Math.max(mc.fontRendererObj.getStringWidth(txt1), mc.fontRendererObj.getStringWidth(txt2))) + 20;
+		int l = Math.max(mc.fontRenderer.getStringWidth(txt0), Math.max(mc.fontRenderer.getStringWidth(txt1), mc.fontRenderer.getStringWidth(txt2))) + 20;
 		int x = res.getScaledWidth() - l - 20;
 		int y = res.getScaledHeight() - 60;
 
@@ -454,19 +454,19 @@ public final class HUDHandler {
 		mc.getRenderItem().renderItemAndEffectIntoGUI(new ItemStack(ModBlocks.corporeaIndex), x, y + 10);
 		net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
 
-		mc.fontRendererObj.drawStringWithShadow(txt0, x + 20, y, 0xFFFFFF);
-		mc.fontRendererObj.drawStringWithShadow(txt1, x + 20, y + 14, 0xFFFFFF);
-		mc.fontRendererObj.drawStringWithShadow(txt2, x + 20, y + 24, 0xFFFFFF);
+		mc.fontRenderer.drawStringWithShadow(txt0, x + 20, y, 0xFFFFFF);
+		mc.fontRenderer.drawStringWithShadow(txt1, x + 20, y + 14, 0xFFFFFF);
+		mc.fontRenderer.drawStringWithShadow(txt2, x + 20, y + 24, 0xFFFFFF);
 	}
 
 	public static void drawSimpleManaHUD(int color, int mana, int maxMana, String name, ScaledResolution res) {
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		Minecraft mc = Minecraft.getMinecraft();
-		int x = res.getScaledWidth() / 2 - mc.fontRendererObj.getStringWidth(name) / 2;
+		int x = res.getScaledWidth() / 2 - mc.fontRenderer.getStringWidth(name) / 2;
 		int y = res.getScaledHeight() / 2 + 10;
 
-		mc.fontRendererObj.drawStringWithShadow(name, x, y, color);
+		mc.fontRenderer.drawStringWithShadow(name, x, y, color);
 
 		x = res.getScaledWidth() / 2 - 51;
 		y += 10;
@@ -475,9 +475,9 @@ public final class HUDHandler {
 
 		if(mana < 0) {
 			String text = I18n.format("botaniamisc.statusUnknown");
-			x = res.getScaledWidth() / 2 - mc.fontRendererObj.getStringWidth(text) / 2;
+			x = res.getScaledWidth() / 2 - mc.fontRenderer.getStringWidth(text) / 2;
 			y -= 1;
-			mc.fontRendererObj.drawString(text, x, y, color);
+			mc.fontRenderer.drawString(text, x, y, color);
 		}
 
 		GlStateManager.disableBlend();
@@ -498,11 +498,11 @@ public final class HUDHandler {
 
 		GlStateManager.disableDepth();
 		if(properlyBound) {
-			mc.fontRendererObj.drawStringWithShadow("\u2714", x + 10, y + 9, 0x004C00);
-			mc.fontRendererObj.drawStringWithShadow("\u2714", x + 10, y + 8, 0x0BD20D);
+			mc.fontRenderer.drawStringWithShadow("\u2714", x + 10, y + 9, 0x004C00);
+			mc.fontRenderer.drawStringWithShadow("\u2714", x + 10, y + 8, 0x0BD20D);
 		} else {
-			mc.fontRendererObj.drawStringWithShadow("\u2718", x + 10, y + 9, 0x4C0000);
-			mc.fontRendererObj.drawStringWithShadow("\u2718", x + 10, y + 8, 0xD2080D);
+			mc.fontRenderer.drawStringWithShadow("\u2718", x + 10, y + 9, 0x4C0000);
+			mc.fontRenderer.drawStringWithShadow("\u2718", x + 10, y + 8, 0xD2080D);
 		}
 		GlStateManager.enableDepth();
 	}

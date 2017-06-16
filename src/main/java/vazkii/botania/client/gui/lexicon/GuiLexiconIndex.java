@@ -106,7 +106,7 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 		buttonList.add(leftButton = new GuiButtonPage(13, left, top + guiHeight - 10, false));
 		buttonList.add(rightButton = new GuiButtonPage(14, left + guiWidth - 18, top + guiHeight - 10, true));
 
-		searchField = new GuiTextField(15, fontRendererObj, left + guiWidth / 2 + 28, top + guiHeight + 6, 200, 10);
+		searchField = new GuiTextField(15, fontRenderer, left + guiWidth / 2 + 28, top + guiHeight + 6, 200, 10);
 		searchField.setCanLoseFocus(false);
 		searchField.setFocused(true);
 		searchField.setEnableBackgroundDrawing(false);
@@ -185,18 +185,18 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 			drawTexturedModalRect(left + 134, top + guiHeight - 26, 86, 180, 12, 12);
 
 			if(entriesToDisplay.size() == 1) {
-				boolean unicode = mc.fontRendererObj.getUnicodeFlag();
-				mc.fontRendererObj.setUnicodeFlag(true);
+				boolean unicode = mc.fontRenderer.getUnicodeFlag();
+				mc.fontRenderer.setUnicodeFlag(true);
 				String s = I18n.format("botaniamisc.enterToView");
-				mc.fontRendererObj.drawString(s, left + guiWidth / 2 - mc.fontRendererObj.getStringWidth(s) / 2, top + 30, 0x666666);
-				mc.fontRendererObj.setUnicodeFlag(unicode);
+				mc.fontRenderer.drawString(s, left + guiWidth / 2 - mc.fontRenderer.getStringWidth(s) / 2, top + 30, 0x666666);
+				mc.fontRenderer.setUnicodeFlag(unicode);
 			}
 		} else {
-			boolean unicode = mc.fontRendererObj.getUnicodeFlag();
-			mc.fontRendererObj.setUnicodeFlag(true);
+			boolean unicode = mc.fontRenderer.getUnicodeFlag();
+			mc.fontRenderer.setUnicodeFlag(true);
 			String s = I18n.format("botaniamisc.typeToSearch");
-			mc.fontRendererObj.drawString(s, left + 120 - mc.fontRendererObj.getStringWidth(s), top + guiHeight - 18, 0x666666);
-			mc.fontRendererObj.setUnicodeFlag(unicode);
+			mc.fontRenderer.drawString(s, left + 120 - mc.fontRenderer.getStringWidth(s), top + guiHeight - 18, 0x666666);
+			mc.fontRenderer.setUnicodeFlag(unicode);
 		}
 
 		float animationTime = 4F;
@@ -213,9 +213,9 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 				x = currentButton.xPosition - 20;
 				y = currentButton.yPosition;
 
-				mc.fontRendererObj.drawStringWithShadow("?", x, y, 0xFFFFFF);
+				mc.fontRenderer.drawStringWithShadow("?", x, y, 0xFFFFFF);
 				GlStateManager.scale(0.5F, 0.5F, 1F);
-				mc.fontRendererObj.drawStringWithShadow(TextFormatting.BOLD + "Shift", x * 2 - 6, y * 2 + 20, 0xFFFFFF);
+				mc.fontRenderer.drawStringWithShadow(TextFormatting.BOLD + "Shift", x * 2 - 6, y * 2 + 20, 0xFFFFFF);
 				GlStateManager.scale(2F, 2F, 1F);
 			}
 		}
@@ -226,9 +226,9 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 			int x = currentButton.xPosition;
 			int y = currentButton.yPosition;
 			String s = I18n.format(currentEntry.getTagline());
-			boolean unicode = mc.fontRendererObj.getUnicodeFlag();
-			mc.fontRendererObj.setUnicodeFlag(true);
-			int width = mc.fontRendererObj.getStringWidth(s);
+			boolean unicode = mc.fontRenderer.getUnicodeFlag();
+			mc.fontRenderer.setUnicodeFlag(true);
+			int width = mc.fontRenderer.getStringWidth(s);
 
 			GlStateManager.pushMatrix();
 			GlStateManager.translate(x, y, 0);
@@ -237,14 +237,14 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 			Gui.drawRect(10, -32, width + 22, -2, 0x44000000);
 
 			drawBookmark(width / 2 + 16, -8, s, true, 0xFFFFFF, 180);
-			mc.fontRendererObj.setUnicodeFlag(unicode);
+			mc.fontRenderer.setUnicodeFlag(unicode);
 
 			net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
 			GlStateManager.enableRescaleNormal();
 			ItemStack paper = new ItemStack(Items.PAPER, currentEntry.pages.size());
 
 			mc.getRenderItem().renderItemAndEffectIntoGUI(paper, 14, -28);
-			mc.getRenderItem().renderItemOverlays(mc.fontRendererObj, paper, 14, -28);
+			mc.getRenderItem().renderItemOverlays(mc.fontRenderer, paper, 14, -28);
 			List<ItemStack> stacks = currentEntry.getDisplayedRecipes();
 
 			if(stacks.size() > 0) {

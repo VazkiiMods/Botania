@@ -16,6 +16,7 @@ import javax.annotation.Nonnull;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
@@ -65,7 +66,7 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer<TileTinyPota
 	}
 
 	@Override
-	public void renderTileEntityAt(@Nonnull TileTinyPotato potato, double x, double y, double z, float partialTicks, int destroyStage) {
+	public void renderTileEntityAt(@Nonnull TileTinyPotato potato, double x, double y, double z, float partialTicks, int destroyStage, float unused) {
 		if(!potato.getWorld().isBlockLoaded(potato.getPos(), false)
 				|| potato.getWorld().getBlockState(potato.getPos()).getBlock() != ModBlocks.tinyPotato)
 			return;
@@ -305,10 +306,10 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer<TileTinyPota
 			GlStateManager.enableBlend();
 			OpenGlHelper.glBlendFunc(770, 771, 1, 0);
 			Tessellator tessellator = Tessellator.getInstance();
-			VertexBuffer worldrenderer = tessellator.getBuffer();
+			BufferBuilder worldrenderer = tessellator.getBuffer();
 			GlStateManager.disableTexture2D();
 			worldrenderer.begin(7, DefaultVertexFormats.POSITION_COLOR);
-			int i = mc.fontRendererObj.getStringWidth(potato.name) / 2;
+			int i = mc.fontRenderer.getStringWidth(potato.name) / 2;
 			worldrenderer.pos(-i - 1, -1.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
 			worldrenderer.pos(-i - 1, 8.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
 			worldrenderer.pos(i + 1, 8.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
@@ -316,7 +317,7 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer<TileTinyPota
 			tessellator.draw();
 			GlStateManager.enableTexture2D();
 			GlStateManager.depthMask(true);
-			mc.fontRendererObj.drawString(potato.name, -mc.fontRendererObj.getStringWidth(potato.name) / 2, 0, 0xFFFFFF);
+			mc.fontRenderer.drawString(potato.name, -mc.fontRenderer.getStringWidth(potato.name) / 2, 0, 0xFFFFFF);
 			if (name.equals("pahimar") || name.equals("soaryn")) {
 				GlStateManager.translate(0F, 14F, 0F);
 				String str = name.equals("pahimar") ? "[WIP]" : "(soon)";
@@ -325,7 +326,7 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer<TileTinyPota
 				OpenGlHelper.glBlendFunc(770, 771, 1, 0);
 				GlStateManager.disableTexture2D();
 				worldrenderer.begin(7, DefaultVertexFormats.POSITION_COLOR);
-				i = mc.fontRendererObj.getStringWidth(str) / 2;
+				i = mc.fontRenderer.getStringWidth(str) / 2;
 				worldrenderer.pos(-i - 1, -1.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
 				worldrenderer.pos(-i - 1, 8.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
 				worldrenderer.pos(i + 1, 8.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
@@ -333,7 +334,7 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer<TileTinyPota
 				tessellator.draw();
 				GlStateManager.enableTexture2D();
 				GlStateManager.depthMask(true);
-				mc.fontRendererObj.drawString(str, -mc.fontRendererObj.getStringWidth(str) / 2, 0, 0xFFFFFF);
+				mc.fontRenderer.drawString(str, -mc.fontRenderer.getStringWidth(str) / 2, 0, 0xFFFFFF);
 			}
 
 			GlStateManager.enableLighting();

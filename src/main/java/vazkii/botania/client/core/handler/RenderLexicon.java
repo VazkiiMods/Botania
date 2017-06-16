@@ -100,7 +100,7 @@ public class RenderLexicon {
 
 		model.render(null, 0F, 0F, pageFlip, opening, 0F, 1F / 16F);
 		if(ticks < 3) {
-			FontRenderer font = Minecraft.getMinecraft().fontRendererObj;
+			FontRenderer font = Minecraft.getMinecraft().fontRenderer;
 			GlStateManager.rotate(180F, 0F, 0F, 1F);
 			GlStateManager.translate(-0.3F, -0.21F, -0.07F);
 			GlStateManager.scale(0.0035F, 0.0035F, -0.0035F);

@@ -121,7 +121,7 @@ public class PageShedding extends PageEntity {
 		GlStateManager.enableRescaleNormal();
 		GlStateManager.enableDepth();
 		render.renderItemAndEffectIntoGUI(stack, xPos, yPos);
-		render.renderItemOverlays(Minecraft.getMinecraft().fontRendererObj, stack, xPos, yPos);
+		render.renderItemOverlays(Minecraft.getMinecraft().fontRenderer, stack, xPos, yPos);
 		RenderHelper.disableStandardItemLighting();
 		GlStateManager.popMatrix();
 

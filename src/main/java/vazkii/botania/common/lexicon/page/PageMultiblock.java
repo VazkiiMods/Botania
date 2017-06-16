@@ -84,7 +84,7 @@ public class PageMultiblock extends LexiconPage {
 
 		GlStateManager.popMatrix();
 
-		FontRenderer font = Minecraft.getMinecraft().fontRendererObj;
+		FontRenderer font = Minecraft.getMinecraft().fontRenderer;
 		boolean unicode = font.getUnicodeFlag();
 		String s = TextFormatting.BOLD + I18n.format(getUnlocalizedName());
 		font.setUnicodeFlag(true);

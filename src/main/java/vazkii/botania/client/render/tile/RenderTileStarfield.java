@@ -18,6 +18,7 @@ import javax.annotation.Nonnull;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ActiveRenderInfo;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GLAllocation;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
@@ -38,7 +39,7 @@ public class RenderTileStarfield extends TileEntitySpecialRenderer<TileStarfield
 	private FloatBuffer buffer = GLAllocation.createDirectFloatBuffer(16);
 
 	@Override
-	public void renderTileEntityAt(@Nonnull TileStarfield starfield, double x, double y, double z, float partialTicks, int destroyStage)
+	public void renderTileEntityAt(@Nonnull TileStarfield starfield, double x, double y, double z, float partialTicks, int destroyStage, float unused)
 	{
 		GlStateManager.disableLighting();
 		RANDOM.setSeed(31100L);
@@ -97,7 +98,7 @@ public class RenderTileStarfield extends TileEntitySpecialRenderer<TileStarfield
 			GlStateManager.multMatrix(PROJECTION);
 			GlStateManager.multMatrix(MODELVIEW);
 			Tessellator tessellator = Tessellator.getInstance();
-			VertexBuffer vertexbuffer = tessellator.getBuffer();
+			BufferBuilder vertexbuffer = tessellator.getBuffer();
 			vertexbuffer.begin(7, DefaultVertexFormats.POSITION_COLOR);
 			float f3 = (RANDOM.nextFloat() * 0.5F + 0.1F) * f1;
 			float f4 = (RANDOM.nextFloat() * 0.5F + 0.4F) * f1;

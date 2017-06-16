@@ -100,10 +100,10 @@ public class GuiButtonInvisible extends GuiButtonLexicon {
 		drawRect(xPosition - 5, yPosition, (int) (xPosition - 5 + timeHover * 24), yPosition + height, alpha << 24 | color);
 		GlStateManager.enableAlpha();
 
-		boolean unicode = par1Minecraft.fontRendererObj.getUnicodeFlag();
-		par1Minecraft.fontRendererObj.setUnicodeFlag(true);
-		par1Minecraft.fontRendererObj.drawString(displayString, xPosition + (showStack ? 7 : 0), yPosition + (height - 8) / 2, 0);
-		par1Minecraft.fontRendererObj.setUnicodeFlag(unicode);
+		boolean unicode = par1Minecraft.fontRenderer.getUnicodeFlag();
+		par1Minecraft.fontRenderer.setUnicodeFlag(true);
+		par1Minecraft.fontRenderer.drawString(displayString, xPosition + (showStack ? 7 : 0), yPosition + (height - 8) / 2, 0);
+		par1Minecraft.fontRenderer.setUnicodeFlag(unicode);
 
 		if(showStack) {
 			GlStateManager.scale(0.5F, 0.5F, 0.5F);

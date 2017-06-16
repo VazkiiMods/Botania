@@ -29,7 +29,7 @@ import vazkii.botania.common.core.handler.ConfigHandler;
 public class RenderTileFloatingFlower extends TileEntitySpecialRenderer {
 
 	@Override
-	public void renderTileEntityAt(@Nonnull TileEntity tile, double d0, double d1, double d2, float t, int digProgress) {
+	public void renderTileEntityAt(@Nonnull TileEntity tile, double d0, double d1, double d2, float t, int digProgress, float unused) {
 		if(ConfigHandler.staticFloaters)
 			return;
 

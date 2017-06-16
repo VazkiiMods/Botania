@@ -582,11 +582,11 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 			GlStateManager.enableBlend();
 			GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 			String lensName = lens.getDisplayName();
-			int width = 16 + mc.fontRendererObj.getStringWidth(lensName) / 2;
+			int width = 16 + mc.fontRenderer.getStringWidth(lensName) / 2;
 			int x = res.getScaledWidth() / 2 - width;
 			int y = res.getScaledHeight() / 2 + 50;
 
-			mc.fontRendererObj.drawStringWithShadow(lensName, x + 20, y + 5, color);
+			mc.fontRenderer.drawStringWithShadow(lensName, x + 20, y + 5, color);
 			RenderHelper.enableGUIStandardItemLighting();
 			mc.getRenderItem().renderItemAndEffectIntoGUI(lens, x, y);
 			RenderHelper.disableStandardItemLighting();
@@ -601,11 +601,11 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 			GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 			if(!recieverStack.isEmpty()) {
 				String stackName = recieverStack.getDisplayName();
-				int width = 16 + mc.fontRendererObj.getStringWidth(stackName) / 2;
+				int width = 16 + mc.fontRenderer.getStringWidth(stackName) / 2;
 				int x = res.getScaledWidth() / 2 - width;
 				int y = res.getScaledHeight() / 2 + 30;
 
-				mc.fontRendererObj.drawStringWithShadow(stackName, x + 20, y + 5, color);
+				mc.fontRenderer.drawStringWithShadow(stackName, x + 20, y + 5, color);
 				RenderHelper.enableGUIStandardItemLighting();
 				mc.getRenderItem().renderItemAndEffectIntoGUI(recieverStack, x, y);
 				RenderHelper.disableStandardItemLighting();

@@ -80,7 +80,7 @@ public final class ItemsRemainingRenderHandler {
 			} else text = customString;
 
 			int color = 0x00FFFFFF | (int) (alpha * 0xFF) << 24;
-			mc.fontRendererObj.drawStringWithShadow(text, x + 20, y + 6, color);
+			mc.fontRenderer.drawStringWithShadow(text, x + 20, y + 6, color);
 
 			GlStateManager.disableBlend();
 			GlStateManager.enableAlpha();

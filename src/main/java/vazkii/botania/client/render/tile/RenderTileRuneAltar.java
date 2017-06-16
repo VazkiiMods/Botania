@@ -28,7 +28,7 @@ public class RenderTileRuneAltar extends TileEntitySpecialRenderer<TileRuneAltar
 	final ModelSpinningCubes cubes = new ModelSpinningCubes();
 
 	@Override
-	public void renderTileEntityAt(@Nonnull TileRuneAltar altar, double x, double y, double z, float partticks, int digProgress) {
+	public void renderTileEntityAt(@Nonnull TileRuneAltar altar, double x, double y, double z, float partticks, int digProgress, float unused) {
 		GlStateManager.pushMatrix();
 		GlStateManager.color(1F, 1F, 1F, 1F);
 		GlStateManager.translate(x, y, z);

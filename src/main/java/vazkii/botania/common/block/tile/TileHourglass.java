@@ -192,13 +192,13 @@ public class TileHourglass extends TileSimpleInventory {
 			RenderHelper.enableGUIStandardItemLighting();
 			GlStateManager.enableRescaleNormal();
 			mc.getRenderItem().renderItemIntoGUI(stack, x, y);
-			mc.getRenderItem().renderItemOverlays(mc.fontRendererObj, stack, x, y);
+			mc.getRenderItem().renderItemOverlays(mc.fontRenderer, stack, x, y);
 			GlStateManager.disableRescaleNormal();
 			RenderHelper.disableStandardItemLighting();
 
 			int time = getTotalTime();
 			String timeStr = StringUtils.ticksToElapsedTime(time);
-			mc.fontRendererObj.drawStringWithShadow(timeStr, x + 20, y, getColor());
+			mc.fontRenderer.drawStringWithShadow(timeStr, x + 20, y, getColor());
 
 			String status = "";
 			if(lock)
@@ -206,7 +206,7 @@ public class TileHourglass extends TileSimpleInventory {
 			if(!move)
 				status = status.isEmpty() ? "stopped" : "lockedStopped";
 			if(!status.isEmpty())
-				mc.fontRendererObj.drawStringWithShadow(I18n.format("botaniamisc." + status), x + 20, y + 12, getColor());
+				mc.fontRenderer.drawStringWithShadow(I18n.format("botaniamisc." + status), x + 20, y + 12, getColor());
 		}
 
 	}

@@ -50,7 +50,7 @@ public class RenderTileCorporeaCrystalCube extends TileEntitySpecialRenderer<Til
 	private RenderEntityItem itemRenderer = null;
 
 	@Override
-	public void renderTileEntityAt(@Nonnull TileCorporeaCrystalCube cube, double d0, double d1, double d2, float f, int digProgress) {
+	public void renderTileEntityAt(@Nonnull TileCorporeaCrystalCube cube, double d0, double d1, double d2, float f, int digProgress, float unused) {
 		ItemStack stack = ItemStack.EMPTY;
 		if (cube != null) {
 			if(entity == null)
@@ -115,16 +115,16 @@ public class RenderTileCorporeaCrystalCube extends TileEntitySpecialRenderer<Til
 			float s = 1F / 64F;
 			GlStateManager.scale(s, s, s);
 			GlStateManager.disableLighting();
-			int l = mc.fontRendererObj.getStringWidth(countStr);
+			int l = mc.fontRenderer.getStringWidth(countStr);
 
 			GlStateManager.translate(0F, 55F, 0F);
 			float tr = -16.5F;
 			for(int i = 0; i < 4; i++) {
 				GlStateManager.rotate(90F, 0F, 1F, 0F);
 				GlStateManager.translate(0F, 0F, tr);
-				mc.fontRendererObj.drawString(countStr, -l / 2, 0, color);
+				mc.fontRenderer.drawString(countStr, -l / 2, 0, color);
 				GlStateManager.translate(0F, 0F, 0.1F);
-				mc.fontRendererObj.drawString(countStr, -l / 2 + 1, 1, colorShade);
+				mc.fontRenderer.drawString(countStr, -l / 2 + 1, 1, colorShade);
 				GlStateManager.translate(0F, 0F, -tr - 0.1F);
 			}
 			GlStateManager.enableLighting();

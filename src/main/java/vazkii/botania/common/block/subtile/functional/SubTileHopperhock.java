@@ -239,10 +239,10 @@ public class SubTileHopperhock extends SubTileFunctional {
 		String filter = I18n.format("botaniamisc.filter" + filterType);
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		int x = res.getScaledWidth() / 2 - mc.fontRendererObj.getStringWidth(filter) / 2;
+		int x = res.getScaledWidth() / 2 - mc.fontRenderer.getStringWidth(filter) / 2;
 		int y = res.getScaledHeight() / 2 + 30;
 
-		mc.fontRendererObj.drawStringWithShadow(filter, x, y, color);
+		mc.fontRenderer.drawStringWithShadow(filter, x, y, color);
 		GlStateManager.disableBlend();
 	}
 

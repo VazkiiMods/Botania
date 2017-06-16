@@ -56,7 +56,7 @@ public final class BossBarHandler {
 				int xf = x + (bgRect.width - fgRect.width) / 2;
 				int yf = y + (bgRect.height - fgRect.height) / 2;
 				int fw = (int) ((double) fgRect.width * evt.getBossInfo().getPercent());
-				int tx = c - mc.fontRendererObj.getStringWidth(name) / 2;
+				int tx = c - mc.fontRenderer.getStringWidth(name) / 2;
 
 				GlStateManager.color(1F, 1F, 1F, 1F);
 				int auxHeight = currentBoss.bossBarRenderCallback(evt.getResolution(), x, y);
@@ -65,9 +65,9 @@ public final class BossBarHandler {
 				mc.renderEngine.bindTexture(currentBoss.getBossBarTexture());
 				drawBar(currentBoss, x, y, bgRect.x, bgRect.y, bgRect.width, bgRect.height, true);
 				drawBar(currentBoss, xf, yf, fgRect.x, fgRect.y, fw, fgRect.height, false);
-				mc.fontRendererObj.drawStringWithShadow(name, tx, y - 10, 0xA2018C);
+				mc.fontRenderer.drawStringWithShadow(name, tx, y - 10, 0xA2018C);
 				GlStateManager.enableBlend();
-				evt.setIncrement(Math.max(bgRect.height, fgRect.height) + auxHeight + mc.fontRendererObj.FONT_HEIGHT);
+				evt.setIncrement(Math.max(bgRect.height, fgRect.height) + auxHeight + mc.fontRenderer.FONT_HEIGHT);
 			}
 		}
 	}

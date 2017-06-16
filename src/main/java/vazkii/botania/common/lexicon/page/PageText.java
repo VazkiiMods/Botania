@@ -50,7 +50,7 @@ public class PageText extends LexiconPage {
 		y += 10;
 		width -= 4;
 
-		FontRenderer font = Minecraft.getMinecraft().fontRendererObj;
+		FontRenderer font = Minecraft.getMinecraft().fontRenderer;
 		boolean unicode = font.getUnicodeFlag();
 		if(useUnicode)
 			font.setUnicodeFlag(true);

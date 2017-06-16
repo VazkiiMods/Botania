@@ -147,7 +147,7 @@ public class PageRecipe extends LexiconPage {
 		GlStateManager.pushMatrix();
 		GlStateManager.translate(xPos, yPos, 0);
 		render.renderItemAndEffectIntoGUI(stack, 0, 0);
-		render.renderItemOverlays(Minecraft.getMinecraft().fontRendererObj, stack, 0, 0);
+		render.renderItemOverlays(Minecraft.getMinecraft().fontRenderer, stack, 0, 0);
 		GlStateManager.popMatrix();
 		RenderHelper.disableStandardItemLighting();
 		GlStateManager.popMatrix();

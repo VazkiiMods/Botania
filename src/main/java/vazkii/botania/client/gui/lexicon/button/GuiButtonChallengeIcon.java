@@ -44,8 +44,8 @@ public class GuiButtonChallengeIcon extends GuiButtonLexicon {
 
 		if(challenge.complete) {
 			GlStateManager.disableDepth();
-			par1Minecraft.fontRendererObj.drawStringWithShadow("\u2714", xPosition + 10, yPosition + 9, 0x004C00);
-			par1Minecraft.fontRendererObj.drawStringWithShadow("\u2714", xPosition + 10, yPosition + 8, 0x0BD20D);
+			par1Minecraft.fontRenderer.drawStringWithShadow("\u2714", xPosition + 10, yPosition + 9, 0x004C00);
+			par1Minecraft.fontRenderer.drawStringWithShadow("\u2714", xPosition + 10, yPosition + 8, 0x0BD20D);
 			GlStateManager.enableDepth();
 		}
 

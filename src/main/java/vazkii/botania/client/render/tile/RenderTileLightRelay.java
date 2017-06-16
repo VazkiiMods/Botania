@@ -38,7 +38,7 @@ public class RenderTileLightRelay extends TileEntitySpecialRenderer<TileLightRel
 	private static Map<LuminizerVariant, TextureAtlasSprite> sprites = new HashMap();
 
 	@Override
-	public void renderTileEntityAt(@Nonnull TileLightRelay tile, double x, double y, double z, float pticks, int digProgress) {
+	public void renderTileEntityAt(@Nonnull TileLightRelay tile, double x, double y, double z, float pticks, int digProgress, float unused) {
 		if(!tile.getWorld().isBlockLoaded(tile.getPos(), false) || tile.getWorld().getBlockState(tile.getPos()).getBlock() != ModBlocks.lightRelay)
 			return;
 

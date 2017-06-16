@@ -182,11 +182,11 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		if(!recieverStack.isEmpty()) {
 			String stackName = recieverStack.getDisplayName();
-			int width = 16 + mc.fontRendererObj.getStringWidth(stackName) / 2;
+			int width = 16 + mc.fontRenderer.getStringWidth(stackName) / 2;
 			int x = res.getScaledWidth() / 2 - width;
 			int y = res.getScaledHeight() / 2 + 30;
 
-			mc.fontRendererObj.drawStringWithShadow(stackName, x + 20, y + 5, color);
+			mc.fontRenderer.drawStringWithShadow(stackName, x + 20, y + 5, color);
 			RenderHelper.enableGUIStandardItemLighting();
 			mc.getRenderItem().renderItemAndEffectIntoGUI(recieverStack, x, y);
 			RenderHelper.disableStandardItemLighting();

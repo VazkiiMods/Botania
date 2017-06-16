@@ -85,11 +85,11 @@ public class TileTurntable extends TileMod {
 		for(int i = 0; i < this.speed; i++)
 			speed = speed + motion;
 
-		int x = res.getScaledWidth() / 2 - mc.fontRendererObj.getStringWidth(speed) / 2;
+		int x = res.getScaledWidth() / 2 - mc.fontRenderer.getStringWidth(speed) / 2;
 		int y = res.getScaledHeight() / 2 - 15;
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		mc.fontRendererObj.drawStringWithShadow(speed, x, y, color);
+		mc.fontRenderer.drawStringWithShadow(speed, x, y, color);
 		GlStateManager.disableBlend();
 	}
 

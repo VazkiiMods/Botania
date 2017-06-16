@@ -998,10 +998,10 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 		mc.getRenderItem().renderItemIntoGUI(stack, px, py);
 		net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
 
-		boolean unicode = mc.fontRendererObj.getUnicodeFlag();
-		mc.fontRendererObj.setUnicodeFlag(true);
-		mc.fontRendererObj.drawStringWithShadow("" + getPlayerCount(), px + 15, py + 4, 0xFFFFFF);
-		mc.fontRendererObj.setUnicodeFlag(unicode);
+		boolean unicode = mc.fontRenderer.getUnicodeFlag();
+		mc.fontRenderer.setUnicodeFlag(true);
+		mc.fontRenderer.drawStringWithShadow("" + getPlayerCount(), px + 15, py + 4, 0xFFFFFF);
+		mc.fontRenderer.setUnicodeFlag(unicode);
 		GlStateManager.popMatrix();
 
 		return 5;
