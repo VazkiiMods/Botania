@@ -28,19 +28,16 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.stats.Achievement;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.AxisAlignedBB;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.Botania;
-import vazkii.botania.common.achievement.ICraftAchievement;
-import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelSword;
 import vazkii.botania.common.lib.LibItemNames;
 
-public class ItemThunderSword extends ItemManasteelSword implements ICraftAchievement {
+public class ItemThunderSword extends ItemManasteelSword {
 
 	private static final String TAG_LIGHTNING_SEED = "lightningSeed";
 
@@ -84,11 +81,6 @@ public class ItemThunderSword extends ItemManasteelSword implements ICraftAchiev
 
 
 		return super.hitEntity(stack, entity, attacker);
-	}
-
-	@Override
-	public Achievement getAchievementOnCraft(ItemStack stack, EntityPlayer player, IInventory matrix) {
-		return ModAchievements.terrasteelWeaponCraft;
 	}
 
 	@Nonnull

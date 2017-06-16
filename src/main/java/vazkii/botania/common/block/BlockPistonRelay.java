@@ -41,7 +41,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldSavedData;
+import net.minecraft.world.storage.WorldSavedData;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fml.common.FMLCommonHandler;
@@ -117,7 +117,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 		MinecraftServer server = FMLCommonHandler.instance().getMinecraftServerInstance();
 		if(server == null)
 			return Blocks.AIR.getDefaultState();
-		return server.worldServerForDimension(key.dim).getBlockState(key.blockPos);
+		return server.getWorld(key.dim).getBlockState(key.blockPos);
 	}
 
 	@Override
@@ -217,7 +217,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 						{
 							int worldId = s.dim, x = s.blockPos.getX(), y = s.blockPos.getY(), z = s.blockPos.getZ();
 							BlockPos pos = s.blockPos;
-							World world = server.worldServerForDimension(worldId);
+							World world = server.getWorld(worldId);
 							if(world.isAirBlock(pos.offset(dir)))
 								world.setBlockState(pos.offset(dir), ModBlocks.pistonRelay.getDefaultState());
 							else if(!world.isRemote) {
@@ -232,7 +232,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 							DimWithPos pos = mappedPositions.get(s);
 							int worldId = pos.dim;
 							BlockPos pos2 = pos.blockPos;
-							World world = server.worldServerForDimension(worldId);
+							World world = server.getWorld(worldId);
 
 							IBlockState srcState = world.getBlockState(pos2);
 							TileEntity tile = world.getTileEntity(pos2);

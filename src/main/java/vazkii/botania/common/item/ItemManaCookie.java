@@ -28,7 +28,6 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.render.IModelRegister;
-import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibMisc;
@@ -43,12 +42,6 @@ public class ItemManaCookie extends ItemFood implements IModelRegister {
 		setUnlocalizedName(LibItemNames.MANA_COOKIE);
 		addPropertyOverride(new ResourceLocation(LibMisc.MOD_ID, "totalbiscuit"),
 				(stack, worldIn, entityIn) -> stack.getDisplayName().toLowerCase(Locale.ROOT).contains("totalbiscuit") ? 1F : 0F);
-	}
-
-	@Override
-	protected void onFoodEaten(ItemStack stack, World world, @Nonnull EntityPlayer player) {
-		super.onFoodEaten(stack, world, player);
-		player.addStat(ModAchievements.manaCookieEat, 1);
 	}
 
 	@Nonnull

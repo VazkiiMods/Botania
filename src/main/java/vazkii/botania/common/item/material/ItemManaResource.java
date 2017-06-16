@@ -21,7 +21,6 @@ import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.stats.Achievement;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
@@ -41,14 +40,12 @@ import vazkii.botania.api.recipe.IElvenItem;
 import vazkii.botania.api.recipe.IFlowerComponent;
 import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.Botania;
-import vazkii.botania.common.achievement.IPickupAchievement;
-import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.entity.EntityEnderAirBottle;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.lib.LibItemNames;
 
-public class ItemManaResource extends ItemMod implements IFlowerComponent, IElvenItem, IPickupAchievement {
+public class ItemManaResource extends ItemMod implements IFlowerComponent, IElvenItem {
 
 	final int types = 24;
 
@@ -69,7 +66,6 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 				event.getEntityPlayer().swingArm(event.getHand());
 			} else {
 				ItemStack stack1 = new ItemStack(this, 1, 15);
-				event.getEntityPlayer().addStat(ModAchievements.enderAirMake, 1);
 
 				ItemHandlerHelper.giveItemToPlayer(event.getEntityPlayer(), stack1);
 
@@ -124,10 +120,10 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void getSubItems(@Nonnull Item item, CreativeTabs tab, NonNullList<ItemStack> stacks) {
+	public void getSubItems(@Nonnull CreativeTabs tab, @Nonnull NonNullList<ItemStack> stacks) {
 		for(int i = 0; i < types; i++)
 			if(Botania.gardenOfGlassLoaded || i != 20 && i != 21)
-				stacks.add(new ItemStack(item, 1, i));
+				stacks.add(new ItemStack(this, 1, i));
 	}
 
 	@Nonnull
@@ -157,11 +153,6 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 	@Override
 	public ItemStack getContainerItem(@Nonnull ItemStack itemStack) {
 		return itemStack.getItemDamage() == 11 ? itemStack.copy() : ItemStack.EMPTY;
-	}
-
-	@Override
-	public Achievement getAchievementOnPickup(ItemStack stack, EntityPlayer player, EntityItem item) {
-		return stack.getItemDamage() == 4 ? ModAchievements.terrasteelPickup : null;
 	}
 
 	@SideOnly(Side.CLIENT)

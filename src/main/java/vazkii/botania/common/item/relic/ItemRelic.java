@@ -15,8 +15,10 @@ import java.util.UUID;
 
 import javax.annotation.Nonnull;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
@@ -52,17 +54,17 @@ public class ItemRelic extends ItemMod implements IRelic {
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void addInformation(ItemStack stack, World world, List<String> tooltip, ITooltipFlag flags) {
-		addBindInfo(tooltip, stack, player);
+		addBindInfo(tooltip, stack);
 	}
 
 	@SideOnly(Side.CLIENT)
-	public void addBindInfo(List<String> list, ItemStack stack, EntityPlayer player) {
+	public void addBindInfo(List<String> list, ItemStack stack) {
 		if(GuiScreen.isShiftKeyDown()) {
 			if(!hasUUID(stack)) {
 				addStringToTooltip(I18n.format("botaniamisc.relicUnbound"), list);
 			} else {
 				addStringToTooltip(I18n.format("botaniamisc.relicSoulbound", getSoulbindUsername(stack)), list);
-				if(!getSoulbindUUID(stack).equals(player.getUniqueID()))
+				if(!getSoulbindUUID(stack).equals(Minecraft.getMinecraft().player.getUniqueID()))
 					addStringToTooltip(I18n.format("botaniamisc.notYourSagittarius", getSoulbindUsername(stack)), list);
 			}
 

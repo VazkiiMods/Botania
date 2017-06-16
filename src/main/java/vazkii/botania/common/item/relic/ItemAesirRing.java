@@ -25,7 +25,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.stats.Achievement;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.item.ItemTossEvent;
@@ -34,14 +33,12 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.RecipeSorter.Category;
 import vazkii.botania.api.item.IWireframeCoordinateListProvider;
-import vazkii.botania.common.achievement.ICraftAchievement;
-import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.core.handler.MethodHandles;
 import vazkii.botania.common.crafting.recipe.AesirRingRecipe;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibItemNames;
 
-public class ItemAesirRing extends ItemRelicBauble implements IWireframeCoordinateListProvider, ICraftAchievement {
+public class ItemAesirRing extends ItemRelicBauble implements IWireframeCoordinateListProvider {
 
 	private final Multimap<String, AttributeModifier> attributes = HashMultimap.create();
 
@@ -54,19 +51,19 @@ public class ItemAesirRing extends ItemRelicBauble implements IWireframeCoordina
 
 	@SubscribeEvent
 	public void onDropped(ItemTossEvent event) {
-		if(event.getItem() != null && !event.getItem().getItem().isEmpty() && !event.getItem().world.isRemote) {
-			ItemStack stack = event.getItem().getItem();
+		if(event.getEntityItem() != null && !event.getEntityItem().getItem().isEmpty() && !event.getEntityItem().world.isRemote) {
+			ItemStack stack = event.getEntityItem().getItem();
 			if(stack.getItem() == this) {
-				event.getItem().setDead();
+				event.getEntityItem().setDead();
 
 				UUID user = getSoulbindUUID(stack);
 				for(Item item : new Item[] { ModItems.thorRing, ModItems.lokiRing, ModItems.odinRing }) {
 					ItemStack stack1 = new ItemStack(item);
 					bindToUUID(user, stack1);
-					EntityItem entity = new EntityItem(event.getItem().world, event.getItem().posX, event.getItem().posY, event.getItem().posZ, stack1);
-					entity.motionX = event.getItem().motionX;
-					entity.motionY = event.getItem().motionY;
-					entity.motionZ = event.getItem().motionZ;
+					EntityItem entity = new EntityItem(event.getEntityItem().world, event.getEntityItem().posX, event.getEntityItem().posY, event.getEntityItem().posZ, stack1);
+					entity.motionX = event.getEntityItem().motionX;
+					entity.motionY = event.getEntityItem().motionY;
+					entity.motionZ = event.getEntityItem().motionZ;
 
 					try {
 						MethodHandles.itemAge_setter.invokeExact(entity, MethodHandles.itemAge_getter.invokeExact(entity));
@@ -74,7 +71,7 @@ public class ItemAesirRing extends ItemRelicBauble implements IWireframeCoordina
 
 					int pickupDelay = 0;
 					try {
-						pickupDelay = (int) MethodHandles.pickupDelay_getter.invokeExact(event.getItem());
+						pickupDelay = (int) MethodHandles.pickupDelay_getter.invokeExact(event.getEntityItem());
 					} catch (Throwable ignored) {}
 					entity.setPickupDelay(pickupDelay);
 
@@ -125,10 +122,4 @@ public class ItemAesirRing extends ItemRelicBauble implements IWireframeCoordina
 		
 		attributes.put(SharedMonsterAttributes.MAX_HEALTH.getName(), new AttributeModifier(getBaubleUUID(stack), "Bauble modifier", 20, 0));
 	}
-
-	@Override
-	public Achievement getAchievementOnCraft(ItemStack stack, EntityPlayer player, IInventory matrix) {
-		return ModAchievements.relicAesirRing;
-	}
-
 }

@@ -15,10 +15,12 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
@@ -188,7 +190,7 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 
 		ItemStack lens = getLens(par1ItemStack);
 		if(!lens.isEmpty()) {
-			List<String> tooltip = lens.getTooltip(player, false);
+			List<String> tooltip = lens.getTooltip(Minecraft.getMinecraft().player, false);
 			if(tooltip.size() > 1)
 				stacks.addAll(tooltip.subList(1, tooltip.size()));
 		}

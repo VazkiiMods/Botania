@@ -19,19 +19,16 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.stats.Achievement;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.item.IPetalApothecary;
 import vazkii.botania.api.recipe.IFlowerComponent;
 import vazkii.botania.client.core.handler.ModelHandler;
-import vazkii.botania.common.achievement.IPickupAchievement;
-import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.lib.LibItemNames;
 
-public class ItemRune extends ItemMod implements IFlowerComponent, IPickupAchievement {
+public class ItemRune extends ItemMod implements IFlowerComponent {
 
 	public ItemRune() {
 		super(LibItemNames.RUNE);
@@ -40,9 +37,9 @@ public class ItemRune extends ItemMod implements IFlowerComponent, IPickupAchiev
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void getSubItems(@Nonnull Item item, CreativeTabs tab, NonNullList<ItemStack> stacks) {
+	public void getSubItems(@Nonnull CreativeTabs tab, @Nonnull NonNullList<ItemStack> stacks) {
 		for(int i = 0; i < 16; i++)
-			stacks.add(new ItemStack(item, 1, i));
+			stacks.add(new ItemStack(this, 1, i));
 	}
 
 	@Nonnull
@@ -63,11 +60,6 @@ public class ItemRune extends ItemMod implements IFlowerComponent, IPickupAchiev
 	@Override
 	public int getParticleColor(ItemStack stack) {
 		return 0xA8A8A8;
-	}
-
-	@Override
-	public Achievement getAchievementOnPickup(ItemStack stack, EntityPlayer player, EntityItem item) {
-		return ModAchievements.runePickup;
 	}
 
 	@SideOnly(Side.CLIENT)

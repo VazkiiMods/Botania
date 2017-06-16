@@ -59,7 +59,7 @@ public class BlockBuriedPetals extends BlockModFlower {
 	@Override
 	public void randomDisplayTick(IBlockState state, World world, BlockPos pos, Random rand) {
 		EnumDyeColor color = state.getValue(BotaniaStateProps.COLOR);
-		int hex = color.getMapColor().colorValue;
+		int hex = color.getColorValue();
 		int r = (hex & 0xFF0000) >> 16;
 		int g = (hex & 0xFF00) >> 8;
 		int b = hex & 0xFF;

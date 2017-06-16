@@ -17,16 +17,13 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.stats.Achievement;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import vazkii.botania.common.achievement.ICraftAchievement;
-import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.core.helper.InventoryHelper;
 
-public abstract class BlockCorporeaBase extends BlockMod implements ICraftAchievement {
+public abstract class BlockCorporeaBase extends BlockMod {
 
 	public BlockCorporeaBase(Material material, String name) {
 		super(material, name);
@@ -42,13 +39,7 @@ public abstract class BlockCorporeaBase extends BlockMod implements ICraftAchiev
 	}
 
 	@Override
-	public Achievement getAchievementOnCraft(ItemStack stack, EntityPlayer player, IInventory matrix) {
-		return ModAchievements.corporeaCraft;
-	}
-
-	@Override
 	public boolean hasTileEntity(IBlockState state) {
 		return true;
 	}
-
 }

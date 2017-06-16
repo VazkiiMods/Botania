@@ -16,6 +16,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
+import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.subtile.SubTileEntity;
 import vazkii.botania.api.subtile.SubTileFunctional;
@@ -24,7 +27,7 @@ import vazkii.botania.api.subtile.SubTileGenerating;
 /**
  * A basic (and fallback) implementation of SubTileSignature.
  */
-public class BasicSignature extends SubTileSignature {
+public class BasicSignature implements SubTileSignature {
 
 	private final String name;
 
@@ -61,8 +64,9 @@ public class BasicSignature extends SubTileSignature {
 		return "botania.flowerType.misc";
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
-	public void addTooltip(ItemStack stack, EntityPlayer player, List<String> tooltip) {
+	public void addTooltip(ItemStack stack, World world, List<String> tooltip) {
 		tooltip.add(TextFormatting.BLUE + I18n.translateToLocal(getType()));
 	}
 

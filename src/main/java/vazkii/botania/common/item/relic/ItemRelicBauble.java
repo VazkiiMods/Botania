@@ -21,7 +21,6 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.stats.Achievement;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -63,7 +62,7 @@ public abstract class ItemRelicBauble extends ItemBauble implements IRelic {
 	@Override
 	public void addHiddenTooltip(ItemStack par1ItemStack, World world, List<String> stacks, ITooltipFlag flags) {
 		super.addHiddenTooltip(par1ItemStack, world, stacks, flags);
-		dummy.addBindInfo(stacks, par1ItemStack, world);
+		dummy.addBindInfo(stacks, par1ItemStack);
 	}
 
 	public void onValidPlayerWornTick(ItemStack stack, EntityPlayer player) {}

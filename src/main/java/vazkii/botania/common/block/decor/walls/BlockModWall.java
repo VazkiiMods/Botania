@@ -101,8 +101,8 @@ public abstract class BlockModWall extends BlockWall implements ILexiconable, IM
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void getSubBlocks(@Nonnull Item item, CreativeTabs tabs, @Nonnull NonNullList<ItemStack> list) {
-		list.add(new ItemStack(item));
+	public void getSubBlocks(CreativeTabs tabs, @Nonnull NonNullList<ItemStack> list) {
+		list.add(new ItemStack(this));
 	}
 
 	@Override

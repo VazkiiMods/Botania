@@ -122,7 +122,7 @@ public class BlockSpecialQuartz extends BlockMod implements ILexiconable {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void getSubBlocks(@Nonnull Item item, CreativeTabs tab, NonNullList<ItemStack> stacks) {
+	public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> stacks) {
 		stacks.add(new ItemStack(this, 1, 0));
 		stacks.add(new ItemStack(this, 1, 1));
 		stacks.add(new ItemStack(this, 1, 2));

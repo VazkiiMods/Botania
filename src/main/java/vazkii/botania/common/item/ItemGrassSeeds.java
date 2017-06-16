@@ -72,9 +72,9 @@ public class ItemGrassSeeds extends ItemMod implements IFloatingFlowerVariant {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void getSubItems(@Nonnull Item item, CreativeTabs par2, NonNullList<ItemStack> par3) {
+	public void getSubItems(@Nonnull CreativeTabs par2, @Nonnull NonNullList<ItemStack> par3) {
 		for(int i = 0; i < SUBTYPES; i++)
-			par3.add(new ItemStack(item, 1, i));
+			par3.add(new ItemStack(this, 1, i));
 	}
 
 	@Nonnull

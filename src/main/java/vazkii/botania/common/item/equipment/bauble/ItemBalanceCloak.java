@@ -36,8 +36,8 @@ public class ItemBalanceCloak extends ItemHolyCloak {
 		if(!event.getSource().isMagicDamage()) {
 			event.setAmount(event.getAmount() / 2);
 			
-			if(event.getSource().getEntity() != null)
-				event.getSource().getEntity().attackEntityFrom(DamageSource.causeIndirectMagicDamage(player, player), event.getAmount());
+			if(event.getSource().getTrueSource() != null)
+				event.getSource().getTrueSource().attackEntityFrom(DamageSource.causeIndirectMagicDamage(player, player), event.getAmount());
 			
 			if(event.getAmount() > player.getHealth())
 				event.setAmount(player.getHealth() - 1);

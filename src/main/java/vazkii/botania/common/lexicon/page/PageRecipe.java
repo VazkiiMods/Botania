@@ -15,6 +15,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import net.minecraft.client.util.ITooltipFlag;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 
@@ -63,7 +64,7 @@ public class PageRecipe extends LexiconPage {
 		PageText.renderText(x, y, width, height, getUnlocalizedName());
 
 		if(!tooltipStack.isEmpty()) {
-			List<String> tooltipData = tooltipStack.getTooltip(Minecraft.getMinecraft().player, false);
+			List<String> tooltipData = tooltipStack.getTooltip(Minecraft.getMinecraft().player, ITooltipFlag.TooltipFlags.NORMAL);
 			List<String> parsedTooltip = new ArrayList<>();
 			boolean first = true;
 

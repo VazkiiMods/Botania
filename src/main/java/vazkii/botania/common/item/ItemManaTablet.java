@@ -47,17 +47,17 @@ public class ItemManaTablet extends ItemMod implements IManaItem, ICreativeManaP
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void getSubItems(@Nonnull Item item, CreativeTabs tab, NonNullList<ItemStack> stacks) {
+	public void getSubItems(@Nonnull CreativeTabs tab, @Nonnull NonNullList<ItemStack> stacks) {
 		// Empty tablet
-		stacks.add(new ItemStack(item));
+		stacks.add(new ItemStack(this));
 
 		// Full tablet
-		ItemStack fullPower = new ItemStack(item);
+		ItemStack fullPower = new ItemStack(this);
 		setMana(fullPower, MAX_MANA);
 		stacks.add(fullPower);
 
 		// Creative Tablet
-		ItemStack creative = new ItemStack(item);
+		ItemStack creative = new ItemStack(this);
 		setMana(creative, MAX_MANA);
 		setStackCreative(creative);
 		stacks.add(creative);

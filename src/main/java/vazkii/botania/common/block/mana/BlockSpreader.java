@@ -96,9 +96,9 @@ public class BlockSpreader extends BlockMod implements IWandable, IWandHUD, ILex
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void getSubBlocks(@Nonnull Item item, CreativeTabs par2, NonNullList<ItemStack> par3) {
+	public void getSubBlocks(CreativeTabs par2, NonNullList<ItemStack> par3) {
 		for(int i = 0; i < 4; i++)
-			par3.add(new ItemStack(item, 1, i));
+			par3.add(new ItemStack(this, 1, i));
 	}
 
 	@Override
@@ -239,7 +239,7 @@ public class BlockSpreader extends BlockMod implements IWandable, IWandHUD, ILex
 
 	@Override
 	public AxisAlignedBB getWireframeAABB(World world, BlockPos pos) {
-		return FULL_BLOCK_AABB.offset(pos).contract(1.0/16.0);
+		return FULL_BLOCK_AABB.offset(pos).shrink(1.0/16.0);
 	}
 
 	@SideOnly(Side.CLIENT)

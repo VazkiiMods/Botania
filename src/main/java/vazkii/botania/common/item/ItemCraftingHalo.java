@@ -70,7 +70,7 @@ import vazkii.botania.common.lib.LibItemNames;
 
 import java.util.Arrays;
 
-public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
+public class ItemCraftingHalo extends ItemMod {
 
 	private static final ResourceLocation glowTexture = new ResourceLocation(LibResources.MISC_GLOW_GREEN);
 	private static final ItemStack craftingTable = new ItemStack(Blocks.CRAFTING_TABLE);
@@ -605,10 +605,4 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 
 		mc.fontRenderer.drawStringWithShadow(label, resolution.getScaledWidth() / 2 - mc.fontRenderer.getStringWidth(label) / 2, resolution.getScaledHeight() / 2 - yoff, 0xFFFFFF);
 	}
-
-	@Override
-	public Achievement getAchievementOnCraft(ItemStack stack, EntityPlayer player, IInventory matrix) {
-		return ModAchievements.craftingHaloCraft;
-	}
-
 }

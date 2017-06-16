@@ -50,8 +50,8 @@ public class BlockSpawnerClaw extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public void getSubBlocks(@Nonnull Item item, CreativeTabs tab, NonNullList<ItemStack> list) {
-		list.add(new ItemStack(item));
+	public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> list) {
+		list.add(new ItemStack(this));
 		list.add(new ItemStack(Blocks.MOB_SPAWNER));
 	}
 

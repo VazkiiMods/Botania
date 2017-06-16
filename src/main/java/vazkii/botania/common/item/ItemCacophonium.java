@@ -18,6 +18,7 @@ import javax.annotation.Nullable;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
@@ -52,7 +53,7 @@ import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibObfuscation;
 
-public class ItemCacophonium extends ItemMod implements ICraftAchievement {
+public class ItemCacophonium extends ItemMod {
 
 	private static final String TAG_SOUND = "sound";
 	private static final String TAG_SOUND_NAME = "soundName";
@@ -170,10 +171,5 @@ public class ItemCacophonium extends ItemMod implements ICraftAchievement {
 
 	private static boolean isDOIT(ItemStack stack) {
 		return !stack.isEmpty() && stack.getDisplayName().equalsIgnoreCase("shia labeouf");
-	}
-
-	@Override
-	public Achievement getAchievementOnCraft(ItemStack stack, EntityPlayer player, IInventory matrix) {
-		return ModAchievements.cacophoniumCraft;
 	}
 }

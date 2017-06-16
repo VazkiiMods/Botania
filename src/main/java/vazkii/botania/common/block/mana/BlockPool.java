@@ -30,7 +30,6 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.stats.Achievement;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
@@ -54,15 +53,13 @@ import vazkii.botania.api.state.enums.PoolVariant;
 import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.client.core.handler.ModelHandler;
-import vazkii.botania.common.achievement.ICraftAchievement;
-import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.item.block.ItemBlockPool;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
-public class BlockPool extends BlockMod implements IWandHUD, IWandable, ILexiconable, ICraftAchievement {
+public class BlockPool extends BlockMod implements IWandHUD, IWandable, ILexiconable {
 
 	private static final AxisAlignedBB AABB = new AxisAlignedBB(0, 0, 0, 1, 0.5, 1);
 
@@ -150,11 +147,11 @@ public class BlockPool extends BlockMod implements IWandHUD, IWandable, ILexicon
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void getSubBlocks(@Nonnull Item item, CreativeTabs par2, NonNullList<ItemStack> par3) {
-		par3.add(new ItemStack(item, 1, 0));
-		par3.add(new ItemStack(item, 1, 2));
-		par3.add(new ItemStack(item, 1, 3));
-		par3.add(new ItemStack(item, 1, 1));
+	public void getSubBlocks(CreativeTabs par2, NonNullList<ItemStack> par3) {
+		par3.add(new ItemStack(this, 1, 0));
+		par3.add(new ItemStack(this, 1, 2));
+		par3.add(new ItemStack(this, 1, 3));
+		par3.add(new ItemStack(this, 1, 1));
 	}
 
 	@Override
@@ -245,11 +242,6 @@ public class BlockPool extends BlockMod implements IWandHUD, IWandable, ILexicon
 	@Override
 	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
 		return world.getBlockState(pos).getValue(BotaniaStateProps.POOL_VARIANT) == PoolVariant.FABULOUS ? LexiconData.rainbowRod : LexiconData.pool;
-	}
-
-	@Override
-	public Achievement getAchievementOnCraft(ItemStack stack, EntityPlayer player, IInventory matrix) {
-		return ModAchievements.manaPoolPickup;
 	}
 
 	@SideOnly(Side.CLIENT)

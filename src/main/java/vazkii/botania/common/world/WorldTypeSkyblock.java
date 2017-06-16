@@ -16,8 +16,10 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.WorldType;
-import net.minecraft.world.chunk.IChunkGenerator;
-import net.minecraft.world.gen.ChunkProviderFlat;
+import net.minecraft.world.gen.ChunkGeneratorFlat;
+import net.minecraft.world.gen.IChunkGenerator;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class WorldTypeSkyblock extends WorldType {
 
@@ -30,8 +32,9 @@ public class WorldTypeSkyblock extends WorldType {
 		return world.getWorldInfo().getTerrainType() instanceof WorldTypeSkyblock;
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
-	public boolean showWorldInfoNotice() {
+	public boolean hasInfoNotice() {
 		return true;
 	}
 
@@ -53,7 +56,7 @@ public class WorldTypeSkyblock extends WorldType {
 	@Nonnull
 	@Override
 	public IChunkGenerator getChunkGenerator(@Nonnull World world, String generatorOptions) {
-		ChunkProviderFlat flat = new ChunkProviderFlat(world, world.getSeed(), false, "3;minecraft:air;");
+		ChunkGeneratorFlat flat = new ChunkGeneratorFlat(world, world.getSeed(), false, "3;minecraft:air;");
 		world.setSeaLevel(64);
 		return flat;
 	}

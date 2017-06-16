@@ -17,6 +17,7 @@ import javax.annotation.Nonnull;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -87,9 +88,9 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void getSubItems(@Nonnull Item item, CreativeTabs tab, NonNullList<ItemStack> list) {
+	public void getSubItems(@Nonnull CreativeTabs tab, @Nonnull NonNullList<ItemStack> list) {
 		for(int mana : CREATIVE_MANA) {
-			ItemStack stack = new ItemStack(item);
+			ItemStack stack = new ItemStack(this);
 			setMana(stack, mana);
 			list.add(stack);
 		}

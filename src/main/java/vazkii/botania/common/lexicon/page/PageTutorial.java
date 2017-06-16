@@ -58,7 +58,7 @@ public class PageTutorial extends PageText {
 		super.renderScreen(gui, mx, my);
 
 		if(!VIDEO_ENABLED)
-			PageText.renderText(buttonText.xPosition + buttonText.width + 4, buttonText.yPosition - 14, 65, 100, "botaniamisc.noVideo");
+			PageText.renderText(buttonText.x + buttonText.width + 4, buttonText.y - 14, 65, 100, "botaniamisc.noVideo");
 	}
 
 	@Override
