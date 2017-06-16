@@ -395,9 +395,9 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 		} else {
 			RayTraceResult pos = raytraceFromEntity(world, player, true, 5);
 			if(pos != null && pos.hitVec != null && !world.isRemote) {
-				double x = pos.hitVec.xCoord - getPos().getX() - 0.5;
-				double y = pos.hitVec.yCoord - getPos().getY() - 0.5;
-				double z = pos.hitVec.zCoord - getPos().getZ() - 0.5;
+				double x = pos.hitVec.x - getPos().getX() - 0.5;
+				double y = pos.hitVec.y - getPos().getY() - 0.5;
+				double z = pos.hitVec.z - getPos().getZ() - 0.5;
 
 				if(pos.sideHit != EnumFacing.DOWN && pos.sideHit != EnumFacing.UP) {
 					Vector3 clickVector = new Vector3(x, 0, z);

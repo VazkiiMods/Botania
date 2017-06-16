@@ -11,7 +11,7 @@ import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.VertexBuffer;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
@@ -59,13 +59,13 @@ public class FXLightning extends Particle {
 	}
 
 	@Override
-	public void renderParticle(VertexBuffer wr, Entity entity, float partialTicks, float rotX, float rotZ, float rotYZ, float rotXY, float rotXZ) {
+	public void renderParticle(BufferBuilder wr, Entity entity, float partialTicks, float rotX, float rotZ, float rotYZ, float rotXY, float rotXZ) {
 		LightningHandler.queuedLightningBolts.offer(this);
 	}
 
 	public void renderBolt(int pass, boolean inner) {
 		ParticleRenderDispatcher.lightningCount++;
-		VertexBuffer wr = Tessellator.getInstance().getBuffer();
+		BufferBuilder wr = Tessellator.getInstance().getBuffer();
 
 		float boltAge = particleAge < 0 ? 0 : (float) particleAge / (float) particleMaxAge;
 		float mainAlpha;

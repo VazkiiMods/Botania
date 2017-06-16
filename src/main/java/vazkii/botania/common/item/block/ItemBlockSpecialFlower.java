@@ -17,6 +17,7 @@ import javax.annotation.Nonnull;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -82,7 +83,7 @@ public class ItemBlockSpecialFlower extends ItemBlockMod implements IRecipeKeyPr
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void addInformation(@Nonnull ItemStack par1ItemStack, @Nonnull EntityPlayer player, @Nonnull List<String> stacks, boolean par4) {
+	public void addInformation(@Nonnull ItemStack par1ItemStack, World world, @Nonnull List<String> stacks, @Nonnull ITooltipFlag flag) {
 		String type = getType(par1ItemStack);
 		SubTileSignature sig = BotaniaAPI.getSignatureForName(type);
 
@@ -118,31 +119,4 @@ public class ItemBlockSpecialFlower extends ItemBlockMod implements IRecipeKeyPr
 		return "flower." + getType(stack);
 	}
 
-	@Override
-	public Achievement getAchievementOnPickup(ItemStack stack, EntityPlayer player, EntityItem item) {
-		String type = getType(stack);
-		switch (type) {
-		case LibBlockNames.SUBTILE_KEKIMURUS:
-			return ModAchievements.kekimurusPickup;
-		case LibBlockNames.SUBTILE_HEISEI_DREAM:
-			return ModAchievements.heiseiDreamPickup;
-		case LibBlockNames.SUBTILE_POLLIDISIAC:
-			return ModAchievements.pollidisiacPickup;
-		case LibBlockNames.SUBTILE_BUBBELL:
-			return ModAchievements.bubbellPickup;
-		case LibBlockNames.SUBTILE_DANDELIFEON:
-			return ModAchievements.dandelifeonPickup;
-		case "":
-			return ModAchievements.nullFlower;
-		default:
-			Class<? extends SubTileEntity> clazz = BotaniaAPI.getSubTileMapping(type);
-			if(SubTileGenerating.class.isAssignableFrom(clazz))
-				return ModAchievements.daybloomPickup;
-			else if(SubTileFunctional.class.isAssignableFrom(clazz))
-				return ModAchievements.endoflamePickup;
-		}
-		return null;
-	}
-
 }
-

@@ -127,7 +127,7 @@ public class TileAlfPortal extends TileMod {
 					if(item.isDead)
 						continue;
 
-					ItemStack stack = item.getEntityItem();
+					ItemStack stack = item.getItem();
 					boolean consume;
 					if (item.getEntityData().hasKey(TAG_PORTAL_FLAG)) {
 						consume = false;

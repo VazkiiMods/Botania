@@ -30,7 +30,7 @@ public final class PixieHandler {
 
 	@SubscribeEvent
 	public static void onDamageTaken(LivingHurtEvent event) {
-		if(!event.getEntityLiving().world.isRemote && event.getEntityLiving() instanceof EntityPlayer && event.getSource().getEntity() != null && event.getSource().getEntity() instanceof EntityLivingBase) {
+		if(!event.getEntityLiving().world.isRemote && event.getEntityLiving() instanceof EntityPlayer && event.getSource().getTrueSource() instanceof EntityLivingBase) {
 			EntityPlayer player = (EntityPlayer) event.getEntityLiving();
 			ItemStack stack = PlayerHelper.getFirstHeldItemClass(player, IPixieSpawner.class);
 
@@ -54,7 +54,7 @@ public final class PixieHandler {
 				if(!stack.isEmpty() && stack.getItem() == ModItems.elementiumSword)
 					dmg += 2;
 
-				pixie.setProps((EntityLivingBase) event.getSource().getEntity(), player, 0, dmg);
+				pixie.setProps((EntityLivingBase) event.getSource().getTrueSource(), player, 0, dmg);
 				pixie.onInitialSpawn(player.world.getDifficultyForLocation(new BlockPos(pixie)), null);
 				player.world.spawnEntity(pixie);
 			}

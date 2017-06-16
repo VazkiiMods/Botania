@@ -243,7 +243,7 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void addInformation(ItemStack stack, EntityPlayer p, List<String> list, boolean adv) {
+	public void addInformation(ItemStack stack, World world, List<String> list, ITooltipFlag flags) {
 		list.add(I18n.format(getModeString(stack)));
 	}
 

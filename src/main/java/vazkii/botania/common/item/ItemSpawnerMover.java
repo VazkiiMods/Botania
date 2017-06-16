@@ -82,7 +82,7 @@ public class ItemSpawnerMover extends ItemMod {
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void addInformation(ItemStack stack, EntityPlayer player, List<String> infoList, boolean advancedTooltips) {
+	public void addInformation(ItemStack stack, World world, List<String> infoList, ITooltipFlag flags) {
 		String id = getEntityId(stack);
 		if (id != null)
 			infoList.add(I18n.format("entity." + id + ".name"));

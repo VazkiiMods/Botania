@@ -55,7 +55,7 @@ public class SubTilePollidisiac extends SubTileFunctional {
 						if(age < 60 + slowdown || item.isDead)
 							continue;
 
-						ItemStack stack = item.getEntityItem();
+						ItemStack stack = item.getItem();
 						if(!stack.isEmpty() && animal.isBreedingItem(stack)) {
 							stack.shrink(1);
 

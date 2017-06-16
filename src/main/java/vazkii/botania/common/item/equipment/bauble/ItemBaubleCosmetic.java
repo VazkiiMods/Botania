@@ -14,7 +14,10 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
+import net.minecraft.client.renderer.BufferBuilder;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.util.NonNullList;
+import net.minecraft.world.World;
 import org.lwjgl.opengl.GL11;
 
 import baubles.api.BaubleType;
@@ -22,7 +25,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.EntityRenderer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
@@ -75,9 +77,9 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void getSubItems(@Nonnull Item item, CreativeTabs tab, NonNullList<ItemStack> list) {
+	public void getSubItems(@Nonnull CreativeTabs tab, @Nonnull NonNullList<ItemStack> list) {
 		for(int i = 0; i < SUBTYPES; i++)
-			list.add(new ItemStack(item, 1, i));
+			list.add(new ItemStack(this, 1, i));
 	}
 
 	@Nonnull
@@ -88,9 +90,9 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void addHiddenTooltip(ItemStack par1ItemStack, EntityPlayer player, List<String> stacks, boolean par4) {
+	public void addHiddenTooltip(ItemStack par1ItemStack, World world, List<String> stacks, ITooltipFlag flags) {
 		addStringToTooltip(I18n.format("botaniamisc.cosmeticBauble"), stacks);
-		super.addHiddenTooltip(par1ItemStack, player, stacks, par4);
+		super.addHiddenTooltip(par1ItemStack, world, stacks, flags);
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -346,7 +348,7 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 	// Adapted from RenderItem.renderModel(model, stack), added extra color param
 	private void renderModel(IBakedModel model, ItemStack stack, int color) {
 		Tessellator tessellator = Tessellator.getInstance();
-		VertexBuffer worldrenderer = tessellator.getBuffer();
+		BufferBuilder worldrenderer = tessellator.getBuffer();
 		worldrenderer.begin(7, DefaultVertexFormats.ITEM);
 
 		for (EnumFacing enumfacing : EnumFacing.values())
@@ -359,7 +361,7 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 	}
 
 	// Copy of RenderItem.renderQuads
-	private void renderQuads(VertexBuffer renderer, List<BakedQuad> quads, int color, ItemStack stack)
+	private void renderQuads(BufferBuilder renderer, List<BakedQuad> quads, int color, ItemStack stack)
 	{
 		boolean flag = color == -1 && !stack.isEmpty();
 		int i = 0;

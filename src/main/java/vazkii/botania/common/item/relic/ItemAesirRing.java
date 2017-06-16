@@ -54,19 +54,19 @@ public class ItemAesirRing extends ItemRelicBauble implements IWireframeCoordina
 
 	@SubscribeEvent
 	public void onDropped(ItemTossEvent event) {
-		if(event.getEntityItem() != null && !event.getEntityItem().getEntityItem().isEmpty() && !event.getEntityItem().world.isRemote) {
-			ItemStack stack = event.getEntityItem().getEntityItem();
+		if(event.getItem() != null && !event.getItem().getItem().isEmpty() && !event.getItem().world.isRemote) {
+			ItemStack stack = event.getItem().getItem();
 			if(stack.getItem() == this) {
-				event.getEntityItem().setDead();
+				event.getItem().setDead();
 
 				UUID user = getSoulbindUUID(stack);
 				for(Item item : new Item[] { ModItems.thorRing, ModItems.lokiRing, ModItems.odinRing }) {
 					ItemStack stack1 = new ItemStack(item);
 					bindToUUID(user, stack1);
-					EntityItem entity = new EntityItem(event.getEntityItem().world, event.getEntityItem().posX, event.getEntityItem().posY, event.getEntityItem().posZ, stack1);
-					entity.motionX = event.getEntityItem().motionX;
-					entity.motionY = event.getEntityItem().motionY;
-					entity.motionZ = event.getEntityItem().motionZ;
+					EntityItem entity = new EntityItem(event.getItem().world, event.getItem().posX, event.getItem().posY, event.getItem().posZ, stack1);
+					entity.motionX = event.getItem().motionX;
+					entity.motionY = event.getItem().motionY;
+					entity.motionZ = event.getItem().motionZ;
 
 					try {
 						MethodHandles.itemAge_setter.invokeExact(entity, MethodHandles.itemAge_getter.invokeExact(entity));
@@ -74,7 +74,7 @@ public class ItemAesirRing extends ItemRelicBauble implements IWireframeCoordina
 
 					int pickupDelay = 0;
 					try {
-						pickupDelay = (int) MethodHandles.pickupDelay_getter.invokeExact(event.getEntityItem());
+						pickupDelay = (int) MethodHandles.pickupDelay_getter.invokeExact(event.getItem());
 					} catch (Throwable ignored) {}
 					entity.setPickupDelay(pickupDelay);
 

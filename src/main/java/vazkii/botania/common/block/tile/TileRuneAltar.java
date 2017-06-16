@@ -121,8 +121,8 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver 
 			if(manaToGet == 0) {
 				List<EntityItem> items = world.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(pos, pos.add(1, 1, 1)));
 				for(EntityItem item : items)
-					if(!item.isDead && !item.getEntityItem().isEmpty() && item.getEntityItem().getItem() != Item.getItemFromBlock(ModBlocks.livingrock)) {
-						ItemStack stack = item.getEntityItem();
+					if(!item.isDead && !item.getItem().isEmpty() && item.getItem().getItem() != Item.getItemFromBlock(ModBlocks.livingrock)) {
+						ItemStack stack = item.getItem();
 						addItem(null, stack, null);
 					}
 			}
@@ -227,7 +227,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver 
 			List<EntityItem> items = world.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(pos, pos.add(1, 1, 1)));
 			EntityItem livingrock = null;
 			for(EntityItem item : items)
-				if(!item.isDead && !item.getEntityItem().isEmpty() && item.getEntityItem().getItem() == Item.getItemFromBlock(ModBlocks.livingrock)) {
+				if(!item.isDead && !item.getItem().isEmpty() && item.getItem().getItem() == Item.getItemFromBlock(ModBlocks.livingrock)) {
 					livingrock = item;
 					break;
 				}
@@ -254,7 +254,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver 
 					}
 				}
 
-				livingrock.getEntityItem().shrink(1);
+				livingrock.getItem().shrink(1);
 
 				craftingFanciness();
 			}

@@ -29,6 +29,7 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.lib.LibMisc;
 
 public class PetalApothecaryRecipeCategory implements IRecipeCategory {
 
@@ -110,6 +111,12 @@ public class PetalApothecaryRecipeCategory implements IRecipeCategory {
 	@Override
 	public List getTooltipStrings(int mouseX, int mouseY) {
 		return new ArrayList();
+	}
+
+	@Nonnull
+	@Override
+	public String getModName() {
+		return LibMisc.MOD_NAME;
 	}
 	
 }

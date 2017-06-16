@@ -161,10 +161,10 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 	}
 
 	public boolean collideEntityItem(EntityItem item) {
-		if(world.isRemote || item.isDead || item.getEntityItem().isEmpty())
+		if(world.isRemote || item.isDead || item.getItem().isEmpty())
 			return false;
 
-		ItemStack stack = item.getEntityItem();
+		ItemStack stack = item.getItem();
 
 		if(stack.getItem() instanceof IManaDissolvable) {
 			((IManaDissolvable) stack.getItem()).onDissolveTick(this, stack, item);
@@ -244,7 +244,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 			if(item.isDead)
 				continue;
 
-			ItemStack stack = item.getEntityItem();
+			ItemStack stack = item.getItem();
 			if(!stack.isEmpty() && stack.getItem() instanceof IManaItem) {
 				IManaItem mana = (IManaItem) stack.getItem();
 				if(outputting && mana.canReceiveManaFromPool(stack, this) || !outputting && mana.canExportManaToPool(stack, this)) {

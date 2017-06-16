@@ -120,7 +120,7 @@ public class ItemFlowerBag extends ItemMod {
 
 	@SubscribeEvent
 	public void onPickupItem(EntityItemPickupEvent event) {
-		ItemStack entityStack = event.getItem().getEntityItem();
+		ItemStack entityStack = event.getItem().getItem();
 		if(entityStack.getItem() == Item.getItemFromBlock(ModBlocks.flower) && entityStack.getCount() > 0) {
 			int color = entityStack.getItemDamage();
 			if(color > 15)
@@ -137,7 +137,7 @@ public class ItemFlowerBag extends ItemMod {
 					ItemStack result = bagInv.insertItem(color, entityStack, false);
 					int numPickedUp = entityStack.getCount() - result.getCount();
 
-					event.getItem().setEntityItemStack(result);
+					event.getItem().setItem(result);
 
 					if(numPickedUp > 0) {
 						event.setCanceled(true);

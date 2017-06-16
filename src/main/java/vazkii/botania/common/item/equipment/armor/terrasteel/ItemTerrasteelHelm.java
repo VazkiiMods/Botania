@@ -122,7 +122,7 @@ public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDisc
 
 	@SubscribeEvent
 	public void onEntityAttacked(LivingHurtEvent event) {
-		Entity attacker = event.getSource().getEntity();
+		Entity attacker = event.getSource().getImmediateSource();
 		if(attacker instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) attacker;
 			if(hasArmorSet(player)) {

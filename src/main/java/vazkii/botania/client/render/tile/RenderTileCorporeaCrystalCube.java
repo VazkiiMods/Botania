@@ -21,7 +21,7 @@ import net.minecraft.client.renderer.BlockRendererDispatcher;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.VertexBuffer;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.entity.RenderEntityItem;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -69,7 +69,7 @@ public class RenderTileCorporeaCrystalCube extends TileEntitySpecialRenderer<Til
 			} catch (Throwable ignored) {}
 
 			stack = cube.getRequestTarget();
-			entity.setEntityItemStack(stack);
+			entity.setItem(stack);
 		}
 
 		double time = ClientTickHandler.ticksInGame + f;
@@ -143,7 +143,7 @@ public class RenderTileCorporeaCrystalCube extends TileEntitySpecialRenderer<Til
 	private void renderAnimatedModel(TileCorporeaCrystalCube te, double x, double y, double z, float partialTick) {
 		// From FastTESR.renderTileEntityAt
 		Tessellator tessellator = Tessellator.getInstance();
-		VertexBuffer worldRenderer = tessellator.getBuffer();
+		BufferBuilder worldRenderer = tessellator.getBuffer();
 		bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 		RenderHelper.disableStandardItemLighting();
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);

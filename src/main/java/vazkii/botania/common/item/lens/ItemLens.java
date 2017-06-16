@@ -171,7 +171,7 @@ public class ItemLens extends ItemMod implements ILensControl, ICompositableLens
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void addInformation(ItemStack par1ItemStack, EntityPlayer player, List<String> stacks, boolean par4) {
+	public void addInformation(ItemStack par1ItemStack, World world, List<String> stacks, ITooltipFlag flags) {
 		int storedColor = getStoredColor(par1ItemStack);
 		if(storedColor != -1)
 			stacks.add(I18n.format("botaniamisc.color", I18n.format("botania.color" + storedColor)));

@@ -15,6 +15,7 @@ import java.util.UUID;
 
 import javax.annotation.Nonnull;
 
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -60,9 +61,9 @@ public abstract class ItemRelicBauble extends ItemBauble implements IRelic {
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void addHiddenTooltip(ItemStack par1ItemStack, EntityPlayer player, List<String> stacks, boolean par4) {
-		super.addHiddenTooltip(par1ItemStack, player, stacks, par4);
-		dummy.addBindInfo(stacks, par1ItemStack, player);
+	public void addHiddenTooltip(ItemStack par1ItemStack, World world, List<String> stacks, ITooltipFlag flags) {
+		super.addHiddenTooltip(par1ItemStack, world, stacks, flags);
+		dummy.addBindInfo(stacks, par1ItemStack, world);
 	}
 
 	public void onValidPlayerWornTick(ItemStack stack, EntityPlayer player) {}

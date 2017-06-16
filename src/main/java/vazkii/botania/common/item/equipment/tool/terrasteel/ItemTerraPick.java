@@ -97,7 +97,7 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void addInformation(ItemStack par1ItemStack, EntityPlayer player, List<String> stacks, boolean par4) {
+	public void addInformation(ItemStack par1ItemStack, World world, List<String> stacks, ITooltipFlag flags) {
 		String rank = I18n.format("botania.rank" + getLevel(par1ItemStack));
 		String rankFormat = I18n.format("botaniamisc.toolRank", rank);
 		stacks.add(rankFormat.replaceAll("&", "\u00a7"));

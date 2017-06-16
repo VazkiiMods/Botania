@@ -102,8 +102,8 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver {
 		if(!world.isRemote && recipe == null) {
 			List<EntityItem> items = world.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(pos.getX(), pos.getY(), pos.getZ(), pos.getX() + 1, pos.getY() + 1, pos.getZ() + 1));
 			for(EntityItem item : items)
-				if(!item.isDead && !item.getEntityItem().isEmpty()) {
-					ItemStack stack = item.getEntityItem();
+				if(!item.isDead && !item.getItem().isEmpty()) {
+					ItemStack stack = item.getItem();
 					addItem(null, stack, null);
 				}
 		}

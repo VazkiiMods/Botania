@@ -44,7 +44,7 @@ public class Vector3
 	}
 
 	public Vector3(Vec3d vec) {
-		this(vec.xCoord, vec.yCoord, vec.zCoord);
+		this(vec.x, vec.y, vec.z);
 	}
 
 	public static Vector3 fromBlockPos(BlockPos pos) {

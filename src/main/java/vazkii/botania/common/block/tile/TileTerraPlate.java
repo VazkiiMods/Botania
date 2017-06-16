@@ -104,7 +104,7 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable {
 					for(EntityItem otherItem : items)
 						if(otherItem != item)
 							otherItem.setDead();
-						else item.setEntityItemStack(new ItemStack(ModItems.manaResource, 1, 4));
+						else item.setItem(new ItemStack(ModItems.manaResource, 1, 4));
 					world.playSound(null, item.posX, item.posY, item.posZ, BotaniaSoundEvents.terrasteelCraft, SoundCategory.BLOCKS, 1, 1);
 					mana = 0;
 					world.updateComparatorOutputLevel(pos, world.getBlockState(pos).getBlock());
@@ -129,7 +129,7 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable {
 		ItemStack pearl = ItemStack.EMPTY;
 		ItemStack diamond = ItemStack.EMPTY;
 		for(EntityItem item : items) {
-			ItemStack stack = item.getEntityItem();
+			ItemStack stack = item.getItem();
 			if(stack.getItem() != ModItems.manaResource || stack.getCount() != 1)
 				return false;
 

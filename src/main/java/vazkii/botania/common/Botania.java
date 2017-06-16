@@ -10,6 +10,7 @@
  */
 package vazkii.botania.common;
 
+import net.minecraft.entity.MultiPartEntityPart;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -134,7 +135,6 @@ public class Botania {
 		ModPotions.init();
 		ModBrews.init();
 
-		ModAchievements.init();
 		ModMultiblocks.init();
 		ModBanners.init();
 
@@ -251,7 +251,7 @@ public class Botania {
 	private void registerDefaultEntityBlacklist() {
 		// Vanilla
 		BotaniaAPI.blacklistEntityFromGravityRod(EntityDragon.class);
-		BotaniaAPI.blacklistEntityFromGravityRod(EntityDragonPart.class);
+		BotaniaAPI.blacklistEntityFromGravityRod(MultiPartEntityPart.class);
 		BotaniaAPI.blacklistEntityFromGravityRod(EntityWither.class);
 		BotaniaAPI.blacklistEntityFromGravityRod(EntityItemFrame.class);
 		BotaniaAPI.blacklistEntityFromGravityRod(EntityEnderCrystal.class);

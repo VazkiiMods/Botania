@@ -88,10 +88,10 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 					continue;
 				}
 
-				if(age < 60 + slowdown || item.isDead || item.getEntityItem().isEmpty())
+				if(age < 60 + slowdown || item.isDead || item.getItem().isEmpty())
 					continue;
 
-				ItemStack stack = item.getEntityItem();
+				ItemStack stack = item.getItem();
 				Item stackItem = stack.getItem();
 				if(stackItem instanceof ItemBlock || stackItem instanceof ItemBlockSpecial || stackItem instanceof ItemRedstone || stackItem instanceof IFlowerPlaceable) {
 					if(!scanned) {

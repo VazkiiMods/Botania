@@ -204,7 +204,7 @@ public abstract class EntityThrowableCopy extends Entity implements IProjectile
 
 		if (raytraceresult != null)
 		{
-			vec3d1 = new Vec3d(raytraceresult.hitVec.xCoord, raytraceresult.hitVec.yCoord, raytraceresult.hitVec.zCoord);
+			vec3d1 = new Vec3d(raytraceresult.hitVec.x, raytraceresult.hitVec.y, raytraceresult.hitVec.z);
 		}
 
 		Entity entity = null;

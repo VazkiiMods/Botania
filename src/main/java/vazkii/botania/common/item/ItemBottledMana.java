@@ -212,7 +212,7 @@ public class ItemBottledMana extends ItemMod {
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void addInformation(ItemStack par1ItemStack, EntityPlayer player, List<String> stacks, boolean par4) {
+	public void addInformation(ItemStack par1ItemStack, World world, List<String> stacks, ITooltipFlag flags) {
 		stacks.add(I18n.format("botaniamisc.bottleTooltip"));
 	}
 

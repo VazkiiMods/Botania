@@ -131,7 +131,7 @@ public class ItemItemFinder extends ItemBauble implements IBaubleRender {
 
 				} else if(e instanceof EntityItem) {
 					EntityItem item = (EntityItem) e;
-					ItemStack istack = item.getEntityItem();
+					ItemStack istack = item.getItem();
 					if(player.isSneaking() || istack.isItemEqual(pstack) && ItemStack.areItemStackTagsEqual(istack, pstack))
 						entIdBuilder.add(item.getEntityId());
 

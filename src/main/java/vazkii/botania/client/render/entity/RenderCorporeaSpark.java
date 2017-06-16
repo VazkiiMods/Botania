@@ -37,7 +37,7 @@ public class RenderCorporeaSpark extends RenderSparkBase<EntityCorporeaSpark> {
 
 	@Override
 	public void colorSpinningIcon(EntityCorporeaSpark entity, float a) {
-		int hex = entity.getNetwork().getMapColor().colorValue;
+		int hex = entity.getNetwork().getColorValue();
 		int r = (hex & 0xFF0000) >> 16;
 		int g = (hex & 0xFF00) >> 8;
 		int b = hex & 0xFF;

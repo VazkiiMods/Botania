@@ -13,7 +13,7 @@ package vazkii.botania.common.brew.potion;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.VertexBuffer;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.potion.Potion;
@@ -61,7 +61,7 @@ public class PotionMod extends Potion {
 	private void render(int x, int y, float alpha) {
 		Minecraft.getMinecraft().renderEngine.bindTexture(resource);
 		Tessellator tessellator = Tessellator.getInstance();
-		VertexBuffer buf = tessellator.getBuffer();
+		BufferBuilder buf = tessellator.getBuffer();
 		buf.begin(7, DefaultVertexFormats.POSITION_TEX);
 		GlStateManager.color(1, 1, 1, alpha);
 

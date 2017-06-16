@@ -57,7 +57,7 @@ public class SubTileGourmaryllis extends SubTileGenerating {
 		List<EntityItem> items = supertile.getWorld().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(supertile.getPos().add(-RANGE, -RANGE, -RANGE), supertile.getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
 
 		for(EntityItem item : items) {
-			ItemStack stack = item.getEntityItem();
+			ItemStack stack = item.getItem();
 
 			int age;
 			try {

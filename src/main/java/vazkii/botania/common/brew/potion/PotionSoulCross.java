@@ -27,7 +27,7 @@ public class PotionSoulCross extends PotionMod {
 
 	@SubscribeEvent
 	public void onEntityKill(LivingDeathEvent event) {
-		Entity killer = event.getSource().getEntity();
+		Entity killer = event.getSource().getTrueSource();
 		if(killer != null && killer instanceof EntityLivingBase) {
 			EntityLivingBase living = (EntityLivingBase) killer;
 			if(hasEffect(living))

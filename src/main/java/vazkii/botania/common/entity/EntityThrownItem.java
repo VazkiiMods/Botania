@@ -34,7 +34,7 @@ public class EntityThrownItem extends EntityItem {
 
 	public EntityThrownItem(World world, double x,
 			double y, double z, EntityItem item) {
-		super(world, x, y, z, item.getEntityItem());
+		super(world, x, y, z, item.getItem());
 
 		int pickupDelay = 0;
 		try {
@@ -108,9 +108,9 @@ public class EntityThrownItem extends EntityItem {
 				if (RayTraceResult.entityHit != null) {
 					RayTraceResult.entityHit.attackEntityFrom(DamageSource.MAGIC, 2.0F);
 					if (!world.isRemote) {
-						Entity item = getEntityItem().getItem().createEntity(world, this, getEntityItem());
+						Entity item = getItem().getItem().createEntity(world, this, getItem());
 						if (item == null) {
-							item = new EntityItem(world, posX, posY, posZ, getEntityItem());
+							item = new EntityItem(world, posX, posY, posZ, getItem());
 							world.spawnEntity(item);
 							item.motionX = motionX*0.25F;
 							item.motionY = motionY*0.25F;
@@ -133,9 +133,9 @@ public class EntityThrownItem extends EntityItem {
 		Vector3 vec3m = new Vector3(motionX, motionY, motionZ);
 		if (vec3m.mag() < 1.0F) {
 			if (!world.isRemote) {
-				Entity item = getEntityItem().getItem().createEntity(world, this, getEntityItem());
+				Entity item = getItem().getItem().createEntity(world, this, getItem());
 				if (item == null) {
-					item = new EntityItem(world, posX, posY, posZ, getEntityItem());
+					item = new EntityItem(world, posX, posY, posZ, getItem());
 					world.spawnEntity(item);
 					item.motionX = motionX;
 					item.motionY = motionY;

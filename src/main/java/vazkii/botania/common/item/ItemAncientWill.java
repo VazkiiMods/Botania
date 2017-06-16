@@ -51,7 +51,7 @@ public class ItemAncientWill extends ItemMod {
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void addInformation(ItemStack stack, EntityPlayer player, List<String> list, boolean adv) {
+	public void addInformation(ItemStack stack, World world, List<String> list, boolean adv) {
 		addStringToTooltip(I18n.format("botaniamisc.craftToAddWill"), list);
 		addStringToTooltip(I18n.format("botania.armorset.will" + stack.getItemDamage() + ".shortDesc"), list);
 	}

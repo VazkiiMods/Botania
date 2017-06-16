@@ -53,7 +53,7 @@ public final class BiomeDecorationHandler {
 						int y1 = y + event.getRand().nextInt(4) - event.getRand().nextInt(4);
 						int z1 = z + event.getRand().nextInt(dist * 2) - dist;
 						BlockPos pos2 = new BlockPos(x1, y1, z1);
-						if(event.getWorld().isAirBlock(pos2) && (!event.getWorld().provider.hasNoSky() || y1 < 127) && ModBlocks.flower.canPlaceBlockAt(event.getWorld(), pos2)) {
+						if(event.getWorld().isAirBlock(pos2) && (!event.getWorld().provider.isNether() || y1 < 127) && ModBlocks.flower.canPlaceBlockAt(event.getWorld(), pos2)) {
 							event.getWorld().setBlockState(pos2, ModBlocks.flower.getDefaultState().withProperty(BotaniaStateProps.COLOR, color), 2);
 							if(event.getRand().nextDouble() < ConfigHandler.flowerTallChance && ((BlockModFlower) ModBlocks.flower).canGrow(event.getWorld(), pos2, event.getWorld().getBlockState(pos2), false))
 								BlockModFlower.placeDoubleFlower(event.getWorld(), pos2, color, 0);

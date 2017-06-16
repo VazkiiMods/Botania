@@ -110,7 +110,7 @@ public class ItemMagnetRing extends ItemBauble {
 		if(item.isDead || SubTileSolegnolia.hasSolegnoliaAround(item))
 			return false;
 
-		ItemStack stack = item.getEntityItem();
+		ItemStack stack = item.getItem();
 		if(stack.isEmpty() || stack.getItem() instanceof IManaItem || stack.getItem() instanceof IRelic || BLACKLIST.contains(Item.REGISTRY.getNameForObject(stack.getItem())) || BotaniaAPI.isItemBlacklistedFromMagnet(stack))
 			return false;
 

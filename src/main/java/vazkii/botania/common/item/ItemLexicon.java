@@ -20,6 +20,7 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -100,9 +101,9 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void getSubItems(@Nonnull Item item, CreativeTabs tab, NonNullList<ItemStack> list) {
-		list.add(new ItemStack(item));
-		ItemStack creative = new ItemStack(item);
+	public void getSubItems(@Nonnull CreativeTabs tab, @Nonnull NonNullList<ItemStack> list) {
+		list.add(new ItemStack(this));
+		ItemStack creative = new ItemStack(this);
 		for(String s : BotaniaAPI.knowledgeTypes.keySet()) {
 			KnowledgeType type = BotaniaAPI.knowledgeTypes.get(s);
 			unlockKnowledge(creative, type);
@@ -112,7 +113,7 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void addInformation(ItemStack par1ItemStack, EntityPlayer player, List<String> stacks, boolean par4) {
+	public void addInformation(ItemStack par1ItemStack, World world, List<String> stacks, ITooltipFlag flags) {
 		if(GuiScreen.isShiftKeyDown()) {
 			String edition = TextFormatting.GOLD + I18n.format("botaniamisc.edition", getEdition());
 			if(!edition.isEmpty())

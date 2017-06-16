@@ -56,7 +56,7 @@ public class SubTileSpectrolus extends SubTileGenerating {
 		int slowdown = getSlowdownFactor();
 
 		for(EntityItem item : items) {
-			ItemStack stack = item.getEntityItem();
+			ItemStack stack = item.getItem();
 
 			int age;
 			try {

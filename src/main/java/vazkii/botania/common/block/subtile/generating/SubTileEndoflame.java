@@ -57,7 +57,7 @@ public class SubTileEndoflame extends SubTileGenerating {
 						}
 
 						if(age >= 59 + slowdown && !item.isDead) {
-							ItemStack stack = item.getEntityItem();
+							ItemStack stack = item.getItem();
 							if(stack.isEmpty() || stack.getItem().hasContainerItem(stack))
 								continue;
 

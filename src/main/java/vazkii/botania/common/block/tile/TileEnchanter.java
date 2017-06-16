@@ -122,7 +122,7 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 
 		if(count > 0 && !world.isRemote) {
 			for(EntityItem entity : items) {
-				ItemStack item = entity.getEntityItem();
+				ItemStack item = entity.getItem();
 				if(item.getItem() == Items.ENCHANTED_BOOK) {
 					NBTTagList enchants = Items.ENCHANTED_BOOK.getEnchantments(item);
 					if(enchants != null && enchants.tagCount() > 0) {
@@ -174,7 +174,7 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 
 				if(count > 0 && !world.isRemote) {
 					for(EntityItem entity : items) {
-						ItemStack item = entity.getEntityItem();
+						ItemStack item = entity.getItem();
 						if(item.getItem() == Items.ENCHANTED_BOOK) {
 							NBTTagList enchants = Items.ENCHANTED_BOOK.getEnchantments(item);
 							if(enchants != null && enchants.tagCount() > 0) {

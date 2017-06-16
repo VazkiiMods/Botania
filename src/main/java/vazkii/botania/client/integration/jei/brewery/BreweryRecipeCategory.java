@@ -26,6 +26,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import vazkii.botania.common.lib.LibMisc;
 
 public class BreweryRecipeCategory implements IRecipeCategory {
 
@@ -49,6 +50,12 @@ public class BreweryRecipeCategory implements IRecipeCategory {
 	@Override
 	public String getTitle() {
 		return localizedName;
+	}
+
+	@Nonnull
+	@Override
+	public String getModName() {
+		return LibMisc.MOD_NAME;
 	}
 
 	@Nonnull

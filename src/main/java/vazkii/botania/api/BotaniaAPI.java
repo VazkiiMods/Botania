@@ -11,6 +11,7 @@
 package vazkii.botania.api;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -654,20 +655,24 @@ public final class BotaniaAPI {
 	 * Gets the last recipe to have been added to the recipe list.
 	 */
 	public static IRecipe getLatestAddedRecipe() {
-		List<IRecipe> list = CraftingManager.getInstance().getRecipeList();
-		return list.get(list.size() - 1);
+		// todo 1.12 change this hack to just look all the recipes up by id
+		return null;
+		/*List<IRecipe> list = CraftingManager.getInstance().getRecipeList();
+		return list.get(list.size() - 1);*/
 	}
 
 	/**
 	 * Gets the last x recipes added to the recipe list.
 	 */
 	public static List<IRecipe> getLatestAddedRecipes(int x) {
-		List<IRecipe> list = CraftingManager.getInstance().getRecipeList();
+		// todo 1.12 change this hack to just look all the recipes up by id
+		return Collections.emptyList();
+		/*List<IRecipe> list = CraftingManager.getInstance().getRecipeList();
 		List<IRecipe> newList = new ArrayList<>();
 		for(int i = x - 1; i >= 0; i--)
 			newList.add(list.get(list.size() - 1 - i));
 
-		return newList;
+		return newList;*/
 	}
 
 	/**

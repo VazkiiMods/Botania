@@ -186,7 +186,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 
 		if (raytraceresult != null)
 		{
-			vec3d1 = new Vec3d(raytraceresult.hitVec.xCoord, raytraceresult.hitVec.yCoord, raytraceresult.hitVec.zCoord);
+			vec3d1 = new Vec3d(raytraceresult.hitVec.x, raytraceresult.hitVec.y, raytraceresult.hitVec.z);
 		}
 
 		if(!world.isRemote) { // Botania - only do entity colliding on server

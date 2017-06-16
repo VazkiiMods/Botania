@@ -15,7 +15,9 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.util.NonNullList;
+import net.minecraft.world.World;
 import org.lwjgl.opengl.GL11;
 
 import baubles.api.BaubleType;
@@ -60,8 +62,8 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void getSubItems(@Nonnull Item item, CreativeTabs tab, NonNullList<ItemStack> list) {
-		super.getSubItems(item, tab, list);
+	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> list) {
+		super.getSubItems(tab, list);
 		for(String s : BotaniaAPI.brewMap.keySet()) {
 			ItemStack brewStack = getItemForBrew(BotaniaAPI.brewMap.get(s), new ItemStack(this));
 			if(!brewStack.isEmpty())
@@ -71,8 +73,8 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void addHiddenTooltip(ItemStack stack, EntityPlayer player, List<String> list, boolean adv) {
-		super.addHiddenTooltip(stack, player, list, adv);
+	public void addHiddenTooltip(ItemStack stack, World world, List<String> list, ITooltipFlag adv) {
+		super.addHiddenTooltip(stack, world, list, adv);
 
 		Brew brew = getBrew(stack);
 		if(brew == BotaniaAPI.fallbackBrew) {

@@ -118,7 +118,7 @@ public class ItemCacophonium extends ItemMod implements ICraftAchievement {
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void addInformation(ItemStack stack, EntityPlayer player, List<String> list, boolean adv) {
+	public void addInformation(ItemStack stack, World world, List<String> list, ITooltipFlag flags) {
 		if(isDOIT(stack))
 			list.add(I18n.format("botaniamisc.justDoIt"));
 		else if(getSound(stack) != null)

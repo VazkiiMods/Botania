@@ -70,7 +70,7 @@ public class SubTileSpectranthemum extends SubTileFunctional {
 				if(age < 60 + slowdown || item.isDead || item.getEntityData().getBoolean(TAG_TELEPORTED))
 					continue;
 
-				ItemStack stack = item.getEntityItem();
+				ItemStack stack = item.getItem();
 				if(!stack.isEmpty()) {
 					Item sitem = stack.getItem();
 					if(sitem instanceof IManaItem)

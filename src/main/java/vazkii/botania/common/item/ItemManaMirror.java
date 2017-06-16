@@ -129,7 +129,7 @@ public class ItemManaMirror extends ItemMod implements IManaItem, ICoordBoundIte
 		if(pool != null) {
 			pool.recieveMana(mana);
 			TileEntity tile = (TileEntity) pool;
-			tile.getWorld().func_147453_f(tile.xCoord, tile.yCoord, tile.zCoord, tile.getWorld().getBlock(tile.xCoord, tile.yCoord, tile.zCoord));
+			tile.getWorld().func_147453_f(tile.x, tile.y, tile.z, tile.getWorld().getBlock(tile.x, tile.y, tile.z));
 		}
 	}*/
 

@@ -77,7 +77,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 	int recipeKeepTicks = 0;
 
 	public boolean collideEntityItem(EntityItem item) {
-		ItemStack stack = item.getEntityItem();
+		ItemStack stack = item.getItem();
 		if(world.isRemote || stack.isEmpty() || item.isDead)
 			return false;
 
@@ -103,13 +103,13 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 					setWater(true);
 					world.updateComparatorOutputLevel(pos, world.getBlockState(pos).getBlock());
 					fluidHandler.drain(new FluidStack(FluidRegistry.WATER, Fluid.BUCKET_VOLUME), true);
-					item.setEntityItemStack(fluidHandler.getContainer());
+					item.setItem(fluidHandler.getContainer());
 					return true;
 				} else if(drainLava != null && drainLava.getFluid() == FluidRegistry.LAVA && drainLava.amount == Fluid.BUCKET_VOLUME) {
 					setLava(true);
 					world.updateComparatorOutputLevel(pos, world.getBlockState(pos).getBlock());
 					fluidHandler.drain(new FluidStack(FluidRegistry.LAVA, Fluid.BUCKET_VOLUME), true);
-					item.setEntityItemStack(fluidHandler.getContainer());
+					item.setItem(fluidHandler.getContainer());
 					return true;
 				}
 			}

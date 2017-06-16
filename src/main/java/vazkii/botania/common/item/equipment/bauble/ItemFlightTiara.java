@@ -15,7 +15,9 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.util.NonNullList;
+import net.minecraft.world.World;
 import org.lwjgl.opengl.GL11;
 
 import baubles.api.BaubleType;
@@ -67,7 +69,7 @@ import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibItemNames;
 
-public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaubleRender, ICraftAchievement {
+public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaubleRender {
 
 	private static final ResourceLocation textureHud = new ResourceLocation(LibResources.GUI_HUD_ICONS);
 	private static final ResourceLocation textureHalo = new ResourceLocation(LibResources.MISC_HALO);
@@ -101,15 +103,15 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void getSubItems(@Nonnull Item item, CreativeTabs tab, NonNullList<ItemStack> list) {
+	public void getSubItems(@Nonnull CreativeTabs tab, @Nonnull NonNullList<ItemStack> list) {
 		for(int i = 0; i < SUBTYPES + 1; i++)
-			list.add(new ItemStack(item, 1, i));
+			list.add(new ItemStack(this, 1, i));
 	}
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void addHiddenTooltip(ItemStack par1ItemStack, EntityPlayer player, List<String> stacks, boolean par4) {
-		super.addHiddenTooltip(par1ItemStack, player, stacks, par4);
+	public void addHiddenTooltip(ItemStack par1ItemStack, World world, List<String> stacks, ITooltipFlag flags) {
+		super.addHiddenTooltip(par1ItemStack, world, stacks, flags);
 		stacks.add(I18n.format("botania.wings" + par1ItemStack.getItemDamage()));
 	}
 
@@ -515,11 +517,6 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 		GlStateManager.enableAlpha();
 		GlStateManager.color(1F, 1F, 1F, 1F);
 		mc.renderEngine.bindTexture(Gui.ICONS);
-	}
-
-	@Override
-	public Achievement getAchievementOnCraft(ItemStack stack, EntityPlayer player, IInventory matrix) {
-		return stack.getItemDamage() == 1 ? ModAchievements.tiaraWings : null;
 	}
 
 	@SideOnly(Side.CLIENT)
