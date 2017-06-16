@@ -21,7 +21,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.stats.Achievement;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
@@ -38,8 +37,6 @@ public class ItemRelic extends ItemMod implements IRelic {
 
 	private static final String TAG_SOULBIND_NAME = "soulbind";
 	private static final String TAG_SOULBIND_UUID = "soulbindUUID";
-
-	private Achievement achievement;
 
 	public ItemRelic(String name) {
 		super(name);
@@ -113,7 +110,7 @@ public class ItemRelic extends ItemMod implements IRelic {
 			if ("".equals(getSoulbindUsername(stack))) {
 				// New user
 				bindToUUID(player.getUniqueID(), stack);
-				player.addStat(((IRelic) stack.getItem()).getBindAchievement(), 1);
+				// todo 1.12 broadcast advancement event for relic bind
 			} else {
 				if (player.getName().equals(getSoulbindUsername(stack))) {
 					// Old relic, correct owner, convert to UUID
@@ -172,16 +169,6 @@ public class ItemRelic extends ItemMod implements IRelic {
 	@Override
 	public boolean hasUUID(ItemStack stack) {
 		return getSoulbindUUID(stack) != null;
-	}
-
-	@Override
-	public Achievement getBindAchievement() {
-		return achievement;
-	}
-
-	@Override
-	public void setBindAchievement(Achievement achievement) {
-		this.achievement = achievement;
 	}
 
 	@Nonnull

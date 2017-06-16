@@ -13,7 +13,6 @@ package vazkii.botania.api.item;
 import java.util.UUID;
 
 import net.minecraft.item.ItemStack;
-import net.minecraft.stats.Achievement;
 
 /**
  * An item that implements this counts as a Relic item. This is purely for interaction
@@ -48,15 +47,5 @@ public interface IRelic {
 	 * Checks if the relic contains a well-formed UUID.
 	 */
 	public boolean hasUUID(ItemStack stack);
-
-	/**
-	 * Sets the achievement that this relic binds to.
-	 */
-	public void setBindAchievement(Achievement achievement);
-
-	/**
-	 * Gets the achievement that this relic binds to.
-	 */
-	public Achievement getBindAchievement();
 
 }

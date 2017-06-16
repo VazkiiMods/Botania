@@ -30,7 +30,6 @@ import vazkii.botania.common.item.equipment.bauble.ItemBauble;
 
 public abstract class ItemRelicBauble extends ItemBauble implements IRelic {
 
-	Achievement achievement;
 	private final ItemRelic dummy = new ItemRelic("dummy") { // Delegate for relic stuff
 		@Override
 		protected boolean shouldRegister() {
@@ -96,16 +95,6 @@ public abstract class ItemRelicBauble extends ItemBauble implements IRelic {
 	@Override
 	public boolean hasUUID(ItemStack stack) {
 		return dummy.hasUUID(stack);
-	}
-
-	@Override
-	public Achievement getBindAchievement() {
-		return achievement;
-	}
-
-	@Override
-	public void setBindAchievement(Achievement achievement) {
-		this.achievement = achievement;
 	}
 
 	@Nonnull
