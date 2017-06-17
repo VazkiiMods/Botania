@@ -136,7 +136,7 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 	@Nonnull
 	@Override
 	public AxisAlignedBB getBoundingBox(IBlockState state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos) {
-		return AABB.move(state.getOffset(world, pos));
+		return AABB.offset(state.getOffset(world, pos));
 	}
 
 	@Nonnull
@@ -207,7 +207,7 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void getSubBlocks(@Nonnull Item item, CreativeTabs tab, @Nonnull NonNullList<ItemStack> stacks) {
+	public void getSubBlocks(CreativeTabs tab, @Nonnull NonNullList<ItemStack> stacks) {
 		for(String s : BotaniaAPI.subtilesForCreativeMenu) {
 			stacks.add(ItemBlockSpecialFlower.ofType(s));
 			if(BotaniaAPI.miniFlowers.containsKey(s))

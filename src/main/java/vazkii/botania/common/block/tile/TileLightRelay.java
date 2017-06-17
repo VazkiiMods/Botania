@@ -39,7 +39,6 @@ import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.LuminizerVariant;
 import vazkii.botania.api.wand.IWandBindable;
 import vazkii.botania.common.Botania;
-import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.helper.Vector3;
 
@@ -104,7 +103,7 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 				if(endpoint != null) {
 					AxisAlignedBB aabb = ModBlocks.lightRelay.getBoundingBox(world.getBlockState(pos), world, pos).offset(pos);
 					float range = 0.5F;
-					List<EntityEnderPearl> enderPearls = world.getEntitiesWithinAABB(EntityEnderPearl.class, aabb.expandXyz(range));
+					List<EntityEnderPearl> enderPearls = world.getEntitiesWithinAABB(EntityEnderPearl.class, aabb.grow(range));
 					for(EntityEnderPearl pearl : enderPearls) {
 						pearl.setPositionAndUpdate(
 								endpoint.getX() + pearl.posX - pos.getX(),

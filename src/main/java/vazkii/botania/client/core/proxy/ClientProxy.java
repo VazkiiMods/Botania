@@ -190,7 +190,7 @@ public class ClientProxy implements IProxy {
 
 	private static final ModelBiped EMPTY_MODEL = new ModelBiped();
 	static {
-		EMPTY_MODEL.setInvisible(true);
+		EMPTY_MODEL.setVisible(false);
 	}
 
 	@Override

@@ -29,7 +29,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.entity.EntityPinkWither;
 import vazkii.botania.common.lib.LibItemNames;
 
@@ -57,7 +56,6 @@ public class ItemPinkinator extends ItemMod {
 					world.spawnEntity(pink);
 					pink.playSound(SoundEvents.ENTITY_GENERIC_EXPLODE, 4F, (1F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F) * 0.7F);
 				}
-				player.addStat(ModAchievements.pinkinator, 1);
 
 				world.spawnParticle(EnumParticleTypes.EXPLOSION_HUGE, wither.posX, wither.posY, wither.posZ, 1D, 0D, 0D);
 				stack.shrink(1);

@@ -30,7 +30,7 @@ public class GuiButtonChallengeInfo extends GuiButtonLexicon {
 	}
 
 	@Override
-	public void drawButton(@Nonnull Minecraft mc, int par2, int par3) {
+	public void drawButton(@Nonnull Minecraft mc, int par2, int par3, float partialTicks) {
 		gui.drawBookmark(x, y, displayString, false);
 		hovered = par2 >= x && par3 >= y && par2 < x + width && par3 < y + height;
 		int k = getHoverState(hovered);

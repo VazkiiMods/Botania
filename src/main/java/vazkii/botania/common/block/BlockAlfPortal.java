@@ -28,7 +28,6 @@ import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.AlfPortalState;
 import vazkii.botania.api.wand.IWandable;
-import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.block.tile.TileAlfPortal;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -85,8 +84,6 @@ public class BlockAlfPortal extends BlockMod implements IWandable, ILexiconable 
 	@Override
 	public boolean onUsedByWand(EntityPlayer player, ItemStack stack, World world, BlockPos pos, EnumFacing side) {
 		boolean did = ((TileAlfPortal) world.getTileEntity(pos)).onWanded();
-		if(did && player != null)
-			player.addStat(ModAchievements.elfPortalOpen, 1);
 		return did;
 	}
 

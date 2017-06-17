@@ -39,7 +39,6 @@ import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.corporea.ICorporeaAutoCompleteController;
 import vazkii.botania.api.corporea.ICorporeaRequestor;
 import vazkii.botania.api.corporea.ICorporeaSpark;
-import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.core.helper.MathHelper;
 
 public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequestor {
@@ -267,8 +266,6 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 						index.doCorporeaRequest(name, count, spark);
 
 						event.getPlayer().sendMessage(new TextComponentTranslation("botaniamisc.requestMsg", count, WordUtils.capitalizeFully(name), CorporeaHelper.lastRequestMatches, CorporeaHelper.lastRequestExtractions).setStyle(new Style().setColor(TextFormatting.LIGHT_PURPLE)));
-						if(CorporeaHelper.lastRequestExtractions >= 50000)
-							event.getPlayer().addStat(ModAchievements.superCorporeaRequest, 1);
 					}
 				}
 

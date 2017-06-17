@@ -81,7 +81,7 @@ public class ItemTravelBelt extends ItemBauble implements IBaubleRender, IManaUs
 					if(player.world.isRemote) {
 						if((player.onGround || player.capabilities.isFlying) && player.moveForward > 0F && !player.isInsideOfMaterial(Material.WATER)) {
 							float speed = beltItem.getSpeed(belt);
-							player.moveRelative(0F, 1F, player.capabilities.isFlying ? speed : speed);
+							player.func_191958_b(0F, 0F, 1F, player.capabilities.isFlying ? speed : speed); // todo 1.12 verify
 							beltItem.onMovedTick(belt, player);
 
 							if(player.ticksExisted % COST_INTERVAL == 0)

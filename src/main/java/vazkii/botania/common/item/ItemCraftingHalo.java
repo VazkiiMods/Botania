@@ -34,7 +34,6 @@ import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.stats.Achievement;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
@@ -60,8 +59,6 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.gui.crafting.InventoryCraftingHalo;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.Botania;
-import vazkii.botania.common.achievement.ICraftAchievement;
-import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.core.helper.Vector3;
@@ -160,7 +157,7 @@ public class ItemCraftingHalo extends ItemMod {
 		for(int i = 0; i < 9; i++)
 			fakeInv.setInventorySlotContents(i, recipe[i]);
 
-		ItemStack result = CraftingManager.getInstance().findMatchingRecipe(fakeInv, player.world);
+		ItemStack result = CraftingManager.findMatchingResult(fakeInv, player.world);
 		if(result.isEmpty()) {
 			assignRecipe(stack, recipe[9], slot);
 			return null;
@@ -327,7 +324,7 @@ public class ItemCraftingHalo extends ItemMod {
 		NBTTagCompound cmp = new NBTTagCompound();
 		NBTTagCompound cmp1 = new NBTTagCompound();
 
-		ItemStack result = CraftingManager.getInstance().findMatchingRecipe((InventoryCrafting) event.craftMatrix, event.player.world);
+		ItemStack result = CraftingManager.findMatchingResult((InventoryCrafting) event.craftMatrix, event.player.world);
 		if(!result.isEmpty()) {
 			cmp1 = result.writeToNBT(cmp1);
 			cmp.setTag(TAG_ITEM_PREFIX + 9, cmp1);

@@ -208,7 +208,7 @@ public abstract class EntityThrowableCopy extends Entity implements IProjectile
 		}
 
 		Entity entity = null;
-		List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox().addCoord(motionX, motionY, motionZ).expandXyz(1.0D));
+		List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox().offset(motionX, motionY, motionZ).grow(1.0D));
 		double d0 = 0.0D;
 		boolean flag = false;
 
@@ -230,7 +230,7 @@ public abstract class EntityThrowableCopy extends Entity implements IProjectile
 				else
 				{
 					flag = false;
-					AxisAlignedBB axisalignedbb = entity1.getEntityBoundingBox().expandXyz(0.30000001192092896D);
+					AxisAlignedBB axisalignedbb = entity1.getEntityBoundingBox().grow(0.30000001192092896D);
 					RayTraceResult raytraceresult1 = axisalignedbb.calculateIntercept(vec3d, vec3d1);
 
 					if (raytraceresult1 != null)

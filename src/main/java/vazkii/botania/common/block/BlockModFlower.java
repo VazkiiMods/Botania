@@ -29,7 +29,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.stats.Achievement;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -46,8 +45,6 @@ import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.client.render.IModelRegister;
 import vazkii.botania.common.Botania;
-import vazkii.botania.common.achievement.IPickupAchievement;
-import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
@@ -55,7 +52,7 @@ import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
-public class BlockModFlower extends BlockFlower implements ILexiconable, IPickupAchievement, IGrowable, IModelRegister {
+public class BlockModFlower extends BlockFlower implements ILexiconable, IGrowable, IModelRegister {
 
 	private static final AxisAlignedBB AABB = new AxisAlignedBB(0.3, 0, 0.3, 0.8, 1, 0.8);
 
@@ -82,7 +79,7 @@ public class BlockModFlower extends BlockFlower implements ILexiconable, IPickup
 	@Nonnull
 	@Override
 	public AxisAlignedBB getBoundingBox(IBlockState state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos) {
-		return AABB.move(state.getOffset(world, pos));
+		return AABB.offset(state.getOffset(world, pos));
 	}
 
 	@Nonnull
@@ -123,9 +120,9 @@ public class BlockModFlower extends BlockFlower implements ILexiconable, IPickup
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void getSubBlocks(@Nonnull Item item, CreativeTabs tab, @Nonnull NonNullList<ItemStack> stacks) {
+	public void getSubBlocks(CreativeTabs tab, @Nonnull NonNullList<ItemStack> stacks) {
 		for(int i = 0; i < 16; i++)
-			stacks.add(new ItemStack(item, 1, i));
+			stacks.add(new ItemStack(this, 1, i));
 	}
 
 	@Override
@@ -136,7 +133,7 @@ public class BlockModFlower extends BlockFlower implements ILexiconable, IPickup
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void randomDisplayTick(IBlockState state, World world, BlockPos pos, Random rand) {
-		int hex = state.getValue(BotaniaStateProps.COLOR).getMapColor().colorValue;
+		int hex = state.getValue(BotaniaStateProps.COLOR).getColorValue();
 		int r = (hex & 0xFF0000) >> 16;
 		int g = (hex & 0xFF00) >> 8;
 		int b = hex & 0xFF;
@@ -148,11 +145,6 @@ public class BlockModFlower extends BlockFlower implements ILexiconable, IPickup
 	@Override
 	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.flowers;
-	}
-
-	@Override
-	public Achievement getAchievementOnPickup(ItemStack stack, EntityPlayer player, EntityItem item) {
-		return ModAchievements.flowerPickup;
 	}
 
 	@Override

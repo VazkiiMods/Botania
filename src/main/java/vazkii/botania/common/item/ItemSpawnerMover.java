@@ -35,7 +35,6 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.Botania;
-import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemSpawnerMover extends ItemMod {

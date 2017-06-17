@@ -52,7 +52,7 @@ public class EntitySignalFlare extends Entity {
 
 			int color = getColor();
 			if(color < 16 && color >= 0) {
-				int hex = EnumDyeColor.byMetadata(color).getMapColor().colorValue;
+				int hex = EnumDyeColor.byMetadata(color).getColorValue();
 				int r = (hex & 0xFF0000) >> 16;
 				int g = (hex & 0xFF00) >> 8;
 				int b = hex & 0xFF;

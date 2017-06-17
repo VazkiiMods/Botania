@@ -14,22 +14,18 @@ import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.stats.Achievement;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.mana.IManaTrigger;
-import vazkii.botania.common.achievement.ICraftAchievement;
-import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.entity.EntityManaStorm;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
-public class BlockManaBomb extends BlockMod implements IManaTrigger, ILexiconable, ICraftAchievement {
+public class BlockManaBomb extends BlockMod implements IManaTrigger, ILexiconable {
 
 	public BlockManaBomb() {
 		super(Material.WOOD, LibBlockNames.MANA_BOMB);
@@ -52,10 +48,4 @@ public class BlockManaBomb extends BlockMod implements IManaTrigger, ILexiconabl
 	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.manaBomb;
 	}
-
-	@Override
-	public Achievement getAchievementOnCraft(ItemStack stack, EntityPlayer player, IInventory matrix) {
-		return ModAchievements.manaBombIgnite;
-	}
-
 }

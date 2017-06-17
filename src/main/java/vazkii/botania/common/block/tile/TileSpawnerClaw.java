@@ -93,7 +93,7 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver {
 								return;
 							}
 
-							int k = world.getEntitiesWithinAABB(entity.getClass(), new AxisAlignedBB(blockpos.getX(), blockpos.getY(), blockpos.getZ(), blockpos.getX() + 1, blockpos.getY() + 1, blockpos.getZ() + 1).expandXyz(spawnRange)).size();
+							int k = world.getEntitiesWithinAABB(entity.getClass(), new AxisAlignedBB(blockpos.getX(), blockpos.getY(), blockpos.getZ(), blockpos.getX() + 1, blockpos.getY() + 1, blockpos.getZ() + 1).grow(spawnRange)).size();
 
 							if (k >= maxNearbyEntities)
 							{

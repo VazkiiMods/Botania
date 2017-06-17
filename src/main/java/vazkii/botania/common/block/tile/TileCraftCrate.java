@@ -24,6 +24,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.item.ModItems;
 
@@ -139,8 +140,7 @@ public class TileCraftCrate extends TileOpenCrate {
 			craft.setInventorySlotContents(i, stack.copy());
 		}
 
-		List<IRecipe> recipes = CraftingManager.getInstance().getRecipeList();
-		for(IRecipe recipe : recipes)
+		for(IRecipe recipe : ForgeRegistries.RECIPES)
 			if(recipe.matches(craft, world)) {
 				itemHandler.setStackInSlot(9, recipe.getCraftingResult(craft));
 

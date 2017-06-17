@@ -46,7 +46,6 @@ import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.client.core.handler.ItemsRemainingRenderHandler;
-import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.crafting.recipe.ManaGunClipRecipe;
 import vazkii.botania.common.crafting.recipe.ManaGunLensRecipe;
@@ -190,7 +189,7 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 
 		ItemStack lens = getLens(par1ItemStack);
 		if(!lens.isEmpty()) {
-			List<String> tooltip = lens.getTooltip(Minecraft.getMinecraft().player, false);
+			List<String> tooltip = lens.getTooltip(Minecraft.getMinecraft().player, ITooltipFlag.TooltipFlags.NORMAL);
 			if(tooltip.size() > 1)
 				stacks.addAll(tooltip.subList(1, tooltip.size()));
 		}

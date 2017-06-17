@@ -89,7 +89,6 @@ import vazkii.botania.api.state.enums.PylonVariant;
 import vazkii.botania.client.core.handler.BossBarHandler;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.common.Botania;
-import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ModItems;
@@ -383,7 +382,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 
 	@Override
 	public boolean attackEntityFrom(@Nonnull DamageSource source, float par2) {
-		Entity e = source.getEntity();
+		Entity e = source.getTrueSource();
 
 		if (e instanceof EntityPlayer && isTruePlayer(e) && getInvulTime() == 0) {
 			EntityPlayer player = (EntityPlayer) e;
@@ -418,7 +417,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 	protected void damageEntity(@Nonnull DamageSource par1DamageSource, float par2) {
 		super.damageEntity(par1DamageSource, par2);
 
-		Entity attacker = par1DamageSource.getEntity();
+		Entity attacker = par1DamageSource.getImmediateSource();
 		if(attacker != null) {
 			Vector3 thisVector = Vector3.fromEntityCenter(this);
 			Vector3 playerVector = Vector3.fromEntityCenter(attacker);
@@ -946,7 +945,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 
 			if(origPos.squareDistanceTo(newPos) > 1) {
 				for(EntityPlayer player : getPlayersAround()) {
-					RayTraceResult rtr = player.getEntityBoundingBox().expandXyz(0.25).calculateIntercept(origPos, newPos);
+					RayTraceResult rtr = player.getEntityBoundingBox().grow(0.25).calculateIntercept(origPos, newPos);
 					if(rtr != null)
 						player.attackEntityFrom(DamageSource.causeMobDamage(this), 6);
 				}

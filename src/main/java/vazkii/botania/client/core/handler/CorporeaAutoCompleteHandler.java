@@ -59,7 +59,7 @@ public class CorporeaAutoCompleteHandler {
 			if(item != null && item.getCreativeTab() != null) {
 				curList.clear();
 				try {
-					item.getSubItems(item, null, curList);
+					item.getSubItems(null, curList);
 					for(ItemStack stack : curList)
 						itemNames.add(CorporeaHelper.stripControlCodes(stack.getDisplayName().trim()));
 				}

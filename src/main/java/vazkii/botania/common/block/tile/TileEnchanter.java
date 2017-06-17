@@ -30,6 +30,7 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.item.ItemEnchantedBook;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -124,8 +125,8 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 			for(EntityItem entity : items) {
 				ItemStack item = entity.getItem();
 				if(item.getItem() == Items.ENCHANTED_BOOK) {
-					NBTTagList enchants = Items.ENCHANTED_BOOK.getEnchantments(item);
-					if(enchants != null && enchants.tagCount() > 0) {
+					NBTTagList enchants = ItemEnchantedBook.getEnchantments(item);
+					if(enchants.tagCount() > 0) {
 						NBTTagCompound enchant = enchants.getCompoundTagAt(0);
 						short id = enchant.getShort("id");
 						if(isEnchantmentValid(Enchantment.getEnchantmentByID(id))) {
@@ -176,8 +177,8 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 					for(EntityItem entity : items) {
 						ItemStack item = entity.getItem();
 						if(item.getItem() == Items.ENCHANTED_BOOK) {
-							NBTTagList enchants = Items.ENCHANTED_BOOK.getEnchantments(item);
-							if(enchants != null && enchants.tagCount() > 0) {
+							NBTTagList enchants = ItemEnchantedBook.getEnchantments(item);
+							if(enchants.tagCount() > 0) {
 								NBTTagCompound enchant = enchants.getCompoundTagAt(0);
 								short enchantId = enchant.getShort("id");
 								short enchantLvl = enchant.getShort("lvl");
@@ -206,11 +207,12 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 				manaRequired = 0;
 				for(EnchantmentData data : enchants) {
 					manaRequired += (int)
-							(5000F  * ((15 - Math.min(15, data.enchantmentobj.getRarity().getWeight()))
-									* 1.05F)
-									* ((3F + data.enchantmentLevel * data.enchantmentLevel) * 0.25F)
+							(5000F  * ((15 - Math.min(15, data.enchantment.getRarity().getWeight()))
+										* 1.05F)
+									* ((3F + data.enchantmentLevel * data.enchantmentLevel)
+										* 0.25F)
 									* (0.9F + enchants.size() * 0.05F)
-									* (data.enchantmentobj.isTreasureEnchantment() ? 1.25F : 1F));
+									* (data.enchantment.isTreasureEnchantment() ? 1.25F : 1F));
 				}
 			} else if(mana >= manaRequired) {
 				manaRequired = 0;
@@ -239,8 +241,8 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 		case DO_ENCHANT : { // Enchant
 			if(stageTicks >= 100) {
 				for(EnchantmentData data : enchants)
-					if(EnchantmentHelper.getEnchantmentLevel(data.enchantmentobj, itemToEnchant) == 0)
-						itemToEnchant.addEnchantment(data.enchantmentobj, data.enchantmentLevel);
+					if(EnchantmentHelper.getEnchantmentLevel(data.enchantment, itemToEnchant) == 0)
+						itemToEnchant.addEnchantment(data.enchantment, data.enchantmentLevel);
 
 				enchants.clear();
 				manaRequired = -1;
@@ -332,7 +334,7 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 		cmp.setTag(TAG_ITEM, itemCmp);
 
 		String enchStr = enchants.stream()
-				.map(e -> Enchantment.REGISTRY.getNameForObject(e.enchantmentobj) + "=" + e.enchantmentLevel)
+				.map(e -> Enchantment.REGISTRY.getNameForObject(e.enchantment) + "=" + e.enchantmentLevel)
 				.collect(Collectors.joining(","));
 		cmp.setString(TAG_ENCHANTS, enchStr);
 	}
@@ -363,7 +365,7 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 
 	private boolean hasEnchantAlready(Enchantment enchant) {
 		for(EnchantmentData data : enchants)
-			if(data.enchantmentobj == enchant)
+			if(data.enchantment == enchant)
 				return true;
 
 		return false;
@@ -374,7 +376,7 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 			return false;
 
 		for(EnchantmentData data : enchants) {
-			Enchantment otherEnch = data.enchantmentobj;
+			Enchantment otherEnch = data.enchantment;
 			if (!ench.func_191560_c(otherEnch))
 				return false;
 		}

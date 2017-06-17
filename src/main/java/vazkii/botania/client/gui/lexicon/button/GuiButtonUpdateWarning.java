@@ -31,7 +31,7 @@ public class GuiButtonUpdateWarning extends GuiButtonLexicon {
 	}
 
 	@Override
-	public void drawButton(@Nonnull Minecraft par1Minecraft, int par2, int par3) {
+	public void drawButton(@Nonnull Minecraft par1Minecraft, int par2, int par3, float partialTicks) {
 		if(!visible || !enabled)
 			return;
 

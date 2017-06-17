@@ -96,7 +96,7 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 			ItemStack stack = player.getHeldItem(hand);
 			spawnBurstFirst(world, pos, stack);
 			if(stack.getItemDamage() == 19)
-				player.addStat(ModAchievements.l20ShardUse, 1);
+				;
 			stack.shrink(1);
 		}
 

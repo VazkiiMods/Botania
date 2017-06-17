@@ -50,7 +50,6 @@ import vazkii.botania.api.wand.ITileBound;
 import vazkii.botania.api.wand.IWandBindable;
 import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.common.Botania;
-import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.block.BlockPistonRelay;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileEnchanter;
@@ -120,7 +119,6 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 			if(axis != null) {
 				if(!world.isRemote) {
 					world.setBlockState(pos, ModBlocks.enchanter.getDefaultState().withProperty(BotaniaStateProps.ENCHANTER_DIRECTION, axis), 1 | 2);
-					player.addStat(ModAchievements.enchanterMake, 1);
 					world.playSound(null, pos, BotaniaSoundEvents.enchanterForm, SoundCategory.BLOCKS, 0.5F, 0.6F);
 				} else {
 					for(int i = 0; i < 50; i++) {

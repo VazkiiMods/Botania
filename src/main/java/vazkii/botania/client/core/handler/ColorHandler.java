@@ -53,7 +53,7 @@ public final class ColorHandler {
 						float time = ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks;
 						return Color.HSBtoRGB(time * 0.005F, 0.6F, 1F);
 					} else {
-						return state.getValue(BotaniaStateProps.COLOR).getMapColor().colorValue;
+						return state.getValue(BotaniaStateProps.COLOR).getColorValue();
 					}
 				},
 				ModBlocks.pool
@@ -73,7 +73,7 @@ public final class ColorHandler {
 		// Petal Block
 		blocks.registerBlockColorHandler((state, world, pos, tintIndex) -> {
 			int meta = ModBlocks.petalBlock.getMetaFromState(state);
-			return EnumDyeColor.byMetadata(meta).getMapColor().colorValue;
+			return EnumDyeColor.byMetadata(meta).getColorValue();
 		},
 				ModBlocks.petalBlock
 				);
@@ -102,12 +102,12 @@ public final class ColorHandler {
 						ModItems.manaResource);
 
 		items.registerItemColorHandler((s, t) ->
-		t == 1 ? EnumDyeColor.byMetadata(ItemTwigWand.getColor1(s)).getMapColor().colorValue
-				: t == 2 ? EnumDyeColor.byMetadata(ItemTwigWand.getColor2(s)).getMapColor().colorValue
+		t == 1 ? EnumDyeColor.byMetadata(ItemTwigWand.getColor1(s)).getColorValue()
+				: t == 2 ? EnumDyeColor.byMetadata(ItemTwigWand.getColor2(s)).getColorValue()
 						: -1,
 						ModItems.twigWand);
 
-		items.registerItemColorHandler((s, t) -> EnumDyeColor.byMetadata(s.getItemDamage()).getMapColor().colorValue, ModItems.dye, ModItems.petal);
+		items.registerItemColorHandler((s, t) -> EnumDyeColor.byMetadata(s.getItemDamage()).getColorValue(), ModItems.dye, ModItems.petal);
 		items.registerItemColorHandler((s, t) -> Minecraft.getMinecraft().getBlockColors().colorMultiplier(((ItemBlock)s.getItem()).block.getStateFromMeta(s.getMetadata()), null, null, t),
 				ModBlocks.petalBlock, ModBlocks.pool, ModBlocks.spreader);
 

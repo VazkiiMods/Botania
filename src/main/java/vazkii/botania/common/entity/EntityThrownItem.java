@@ -64,7 +64,7 @@ public class EntityThrownItem extends EntityItem {
 		if (!world.isRemote)
 		{
 			Entity entity = null;
-			List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox().addCoord(motionX*2, motionY*2, motionZ*2).expand(2.0D, 2.0D, 2.0D));
+			List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox().offset(motionX*2, motionY*2, motionZ*2).expand(2.0D, 2.0D, 2.0D));
 			double d0 = 0.0D;
 
 			for (Entity entity1 : list) {

@@ -74,7 +74,7 @@ public class BlockStorage extends BlockMod implements ILexiconable {
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void getSubBlocks(@Nonnull Item item, CreativeTabs par2, NonNullList<ItemStack> par3) {
+	public void getSubBlocks(CreativeTabs par2, NonNullList<ItemStack> par3) {
 		for(int i = 0; i < StorageVariant.values().length; i++)
 			par3.add(new ItemStack(item, 1, i));
 	}

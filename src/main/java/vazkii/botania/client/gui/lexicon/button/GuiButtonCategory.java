@@ -74,7 +74,7 @@ public class GuiButtonCategory extends GuiButtonLexicon {
 	}
 
 	@Override
-	public void drawButton(@Nonnull Minecraft mc, int mx, int my) {
+	public void drawButton(@Nonnull Minecraft mc, int mx, int my, float partialTicks) {
 		boolean inside = mx >= x && my >= y && mx < x + width && my < y + height;
 		if(inside)
 			ticksHovered = Math.min(time, ticksHovered + gui.timeDelta);

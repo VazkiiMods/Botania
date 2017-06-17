@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 
+import net.minecraft.client.gui.advancements.GuiScreenAdvancements;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
@@ -52,7 +53,6 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.PersistentVariableHelper;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.core.proxy.ClientProxy;
-import vazkii.botania.client.gui.GuiAchievementsHacky;
 import vazkii.botania.client.gui.GuiBotaniaConfig;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonAchievement;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonBookmark;
@@ -435,7 +435,9 @@ public class GuiLexicon extends GuiScreen {
 			mc.displayGuiScreen(new GuiBotaniaConfig(this));
 			break;
 		case -2 :
-			mc.displayGuiScreen(new GuiAchievementsHacky(this, mc.player.getStatFileWriter()));
+			// todo 1.12 switch to botania tab
+			if(mc.player != null)
+				this.mc.displayGuiScreen(new GuiScreenAdvancements(this.mc.player.connection.func_191982_f()));
 			break;
 		case -3 :
 			mc.displayGuiScreen(new GuiLexiconChallengesList());
