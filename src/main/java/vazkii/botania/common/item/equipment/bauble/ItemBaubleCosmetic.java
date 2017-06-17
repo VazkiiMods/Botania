@@ -17,6 +17,7 @@ import javax.annotation.Nonnull;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import org.lwjgl.opengl.GL11;
 
@@ -47,6 +48,7 @@ import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.crafting.recipe.CosmeticAttachRecipe;
 import vazkii.botania.common.crafting.recipe.CosmeticRemoveRecipe;
 import vazkii.botania.common.lib.LibItemNames;
+import vazkii.botania.common.lib.LibMisc;
 
 public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 
@@ -68,8 +70,8 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 		super(LibItemNames.COSMETIC);
 		setHasSubtypes(true);
 
-		GameRegistry.addRecipe(new CosmeticAttachRecipe());
-		GameRegistry.addRecipe(new CosmeticRemoveRecipe());
+		GameRegistry.register(new CosmeticAttachRecipe(), new ResourceLocation(LibMisc.MOD_ID, "cosmetic_attach"));
+		GameRegistry.register(new CosmeticRemoveRecipe(), new ResourceLocation(LibMisc.MOD_ID, "cosmetic_remove"));
 		RecipeSorter.register("botania:cosmeticAttach", CosmeticAttachRecipe.class, Category.SHAPELESS, "");
 		RecipeSorter.register("botania:cosmeticRemove", CosmeticRemoveRecipe.class, Category.SHAPELESS, "");
 		renderStack = new ItemStack(this);

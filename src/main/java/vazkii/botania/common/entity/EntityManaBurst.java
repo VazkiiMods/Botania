@@ -90,7 +90,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 	private static final DataParameter<Float> MANA_LOSS_PER_TICK = EntityDataManager.createKey(EntityManaBurst.class, DataSerializers.FLOAT);
 	private static final DataParameter<Float> GRAVITY = EntityDataManager.createKey(EntityManaBurst.class, DataSerializers.FLOAT);
 	private static final DataParameter<BlockPos> SOURCE_COORDS = EntityDataManager.createKey(EntityManaBurst.class, DataSerializers.BLOCK_POS);
-	private static final DataParameter<ItemStack> SOURCE_LENS = EntityDataManager.createKey(EntityManaBurst.class, DataSerializers.OPTIONAL_ITEM_STACK);
+	private static final DataParameter<ItemStack> SOURCE_LENS = EntityDataManager.createKey(EntityManaBurst.class, DataSerializers.ITEM_STACK);
 
 	float accumulatedManaLoss = 0;
 	boolean fake = false;
@@ -191,7 +191,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 
 		if(!world.isRemote) { // Botania - only do entity colliding on server
 			Entity entity = null;
-			List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox().addCoord(motionX, motionY, motionZ).expandXyz(1.0D));
+			List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox().offset(motionX, motionY, motionZ).grow(1.0D));
 			double d0 = 0.0D;
 			for (int i = 0; i < list.size(); ++i)
 			{
@@ -208,7 +208,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 					}
 					else
 					{
-						AxisAlignedBB axisalignedbb = entity1.getEntityBoundingBox().expandXyz(0.30000001192092896D);
+						AxisAlignedBB axisalignedbb = entity1.getEntityBoundingBox().grow(0.30000001192092896D);
 						RayTraceResult raytraceresult1 = axisalignedbb.calculateIntercept(vec3d, vec3d1);
 
 						if (raytraceresult1 != null)

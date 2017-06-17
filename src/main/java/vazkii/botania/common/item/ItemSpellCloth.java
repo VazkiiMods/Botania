@@ -13,11 +13,13 @@ package vazkii.botania.common.item;
 import javax.annotation.Nonnull;
 
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.RecipeSorter.Category;
 import vazkii.botania.common.crafting.recipe.SpellClothRecipe;
 import vazkii.botania.common.lib.LibItemNames;
+import vazkii.botania.common.lib.LibMisc;
 
 public class ItemSpellCloth extends ItemMod {
 
@@ -27,7 +29,7 @@ public class ItemSpellCloth extends ItemMod {
 		setMaxStackSize(1);
 		setNoRepair();
 
-		GameRegistry.addRecipe(new SpellClothRecipe());
+		GameRegistry.register(new SpellClothRecipe(), new ResourceLocation(LibMisc.MOD_ID, "cleanse_enchants"));
 		RecipeSorter.register("botania:spellCloth", SpellClothRecipe.class, Category.SHAPELESS, "");
 	}
 

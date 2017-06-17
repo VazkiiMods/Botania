@@ -63,8 +63,6 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 		e.startRiding(mover);
 		if(!(e instanceof EntityItem)) {
 			mover.playSound(BotaniaSoundEvents.lightRelay, 0.2F, (float) Math.random() * 0.3F + 0.7F);
-			if(e instanceof EntityPlayer)
-				((EntityPlayer) e).addStat(ModAchievements.luminizerRide, 1);
 		}
 	}
 

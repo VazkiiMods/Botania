@@ -20,10 +20,11 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
+import net.minecraftforge.fml.common.registry.IForgeRegistryEntry;
 import vazkii.botania.api.item.IRelic;
 import vazkii.botania.common.item.ModItems;
 
-public class AesirRingRecipe implements IRecipe {
+public class AesirRingRecipe extends IForgeRegistryEntry.Impl<IRecipe> implements IRecipe {
 
 	@Override
 	public boolean matches(@Nonnull InventoryCrafting var1, @Nonnull World var2) {
@@ -86,8 +87,8 @@ public class AesirRingRecipe implements IRecipe {
 	}
 
 	@Override
-	public int getRecipeSize() {
-		return 10;
+	public boolean canFit(int width, int height) {
+		return width * height >= 3;
 	}
 
 	@Nonnull
@@ -101,5 +102,4 @@ public class AesirRingRecipe implements IRecipe {
 	public NonNullList<ItemStack> getRemainingItems(@Nonnull InventoryCrafting inv) {
 		return ForgeHooks.defaultRecipeGetRemainingItems(inv);
 	}
-
 }

@@ -57,6 +57,7 @@ import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelPick;
 import vazkii.botania.common.item.relic.ItemLokiRing;
 import vazkii.botania.common.item.relic.ItemThorRing;
 import vazkii.botania.common.lib.LibItemNames;
+import vazkii.botania.common.lib.LibMisc;
 
 public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequentialBreaker {
 
@@ -79,7 +80,7 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 
 	public ItemTerraPick() {
 		super(BotaniaAPI.terrasteelToolMaterial, LibItemNames.TERRA_PICK);
-		GameRegistry.addRecipe(new TerraPickTippingRecipe());
+		GameRegistry.register(new TerraPickTippingRecipe(), new ResourceLocation(LibMisc.MOD_ID, "terra_pick_tipping"));
 		RecipeSorter.register("botania:terraPickTipping", TerraPickTippingRecipe.class, Category.SHAPELESS, "");
 		addPropertyOverride(new ResourceLocation("botania", "tipped"), (itemStack, world, entityLivingBase) -> isTipped(itemStack) ? 1 : 0);
 		addPropertyOverride(new ResourceLocation("botania", "enabled"), (itemStack, world, entityLivingBase) -> isEnabled(itemStack) ? 1 : 0);
@@ -194,8 +195,6 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 		Vec3i endDiff = new Vec3i(doX ? range : 0, doY ? rangeY * 2 - 1 : 0, doZ ? range : 0);
 
 		ToolCommons.removeBlocksInIteration(player, stack, world, pos, beginDiff, endDiff, null, MATERIALS, silk, fortune, isTipped(stack));
-		if(origLevel == 5)
-			player.addStat(ModAchievements.rankSSPick, 1);
 	}
 
 	@Override

@@ -31,6 +31,7 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
@@ -52,6 +53,7 @@ import vazkii.botania.common.crafting.recipe.ManaGunLensRecipe;
 import vazkii.botania.common.crafting.recipe.ManaGunRemoveLensRecipe;
 import vazkii.botania.common.entity.EntityManaBurst;
 import vazkii.botania.common.lib.LibItemNames;
+import vazkii.botania.common.lib.LibMisc;
 
 public class ItemManaGun extends ItemMod implements IManaUsingItem {
 
@@ -68,9 +70,9 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 		setMaxStackSize(1);
 		setNoRepair();
 
-		GameRegistry.addRecipe(new ManaGunLensRecipe());
-		GameRegistry.addRecipe(new ManaGunRemoveLensRecipe());
-		GameRegistry.addRecipe(new ManaGunClipRecipe());
+		GameRegistry.register(new ManaGunLensRecipe(), new ResourceLocation(LibMisc.MOD_ID, "mana_gun_add_lens"));
+		GameRegistry.register(new ManaGunRemoveLensRecipe(), new ResourceLocation(LibMisc.MOD_ID, "mana_gun_remove_lens"));
+		GameRegistry.register(new ManaGunClipRecipe(), new ResourceLocation(LibMisc.MOD_ID, "mana_gun_add_clip"));
 		RecipeSorter.register("botania:manaGunLens", ManaGunLensRecipe.class, Category.SHAPELESS, "");
 		RecipeSorter.register("botania:manaGunRemoveLens", ManaGunRemoveLensRecipe.class, Category.SHAPELESS, "");
 		RecipeSorter.register("botania:manaGunClip", ManaGunClipRecipe.class, Category.SHAPELESS, "");
@@ -99,9 +101,6 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 			if(burst != null && ManaItemHandler.requestManaExact(stack, player, burst.getMana(), true)) {
 				if(!world.isRemote) {
 					world.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.manaBlaster, SoundCategory.PLAYERS, 0.6F, 1);
-					player.addStat(ModAchievements.manaBlasterShoot, 1);
-					if(isSugoiKawaiiDesuNe(stack))
-						player.addStat(ModAchievements.desuGun, 1);
 					world.spawnEntity(burst);
 				} else {
 					player.swingArm(hand);

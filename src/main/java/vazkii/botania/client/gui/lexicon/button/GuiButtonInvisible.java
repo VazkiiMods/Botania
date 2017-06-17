@@ -51,7 +51,7 @@ public class GuiButtonInvisible extends GuiButtonLexicon {
 	}
 
 	@Override
-	public void drawButton(@Nonnull Minecraft par1Minecraft, int par2, int par3) {
+	public void drawButton(@Nonnull Minecraft par1Minecraft, int par2, int par3, float partialTicks) {
 		if(enableDog) {
 			dogPos += ClientTickHandler.delta * 10;
 

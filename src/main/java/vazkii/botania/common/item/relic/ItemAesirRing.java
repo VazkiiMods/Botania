@@ -25,6 +25,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.item.ItemTossEvent;
@@ -37,6 +38,7 @@ import vazkii.botania.common.core.handler.MethodHandles;
 import vazkii.botania.common.crafting.recipe.AesirRingRecipe;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibItemNames;
+import vazkii.botania.common.lib.LibMisc;
 
 public class ItemAesirRing extends ItemRelicBauble implements IWireframeCoordinateListProvider {
 
@@ -44,7 +46,7 @@ public class ItemAesirRing extends ItemRelicBauble implements IWireframeCoordina
 
 	public ItemAesirRing() {
 		super(LibItemNames.AESIR_RING);
-		GameRegistry.addRecipe(new AesirRingRecipe());
+		GameRegistry.register(new AesirRingRecipe(), new ResourceLocation(LibMisc.MOD_ID, "aesir_ring"));
 		RecipeSorter.register("botania:aesirRing", AesirRingRecipe.class, Category.SHAPELESS, "");
 		MinecraftForge.EVENT_BUS.register(this);
 	}

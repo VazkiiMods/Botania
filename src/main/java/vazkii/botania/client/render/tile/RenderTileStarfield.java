@@ -67,7 +67,7 @@ public class RenderTileStarfield extends TileEntitySpecialRenderer<TileStarfield
 			{
 				this.bindTexture(END_PORTAL_TEXTURE);
 				flag = true;
-				Minecraft.getMinecraft().entityRenderer.func_191514_d(true);
+				Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
 			}
 
 			if (j == 1)
@@ -175,7 +175,7 @@ public class RenderTileStarfield extends TileEntitySpecialRenderer<TileStarfield
 
 		if (flag)
 		{
-			Minecraft.getMinecraft().entityRenderer.func_191514_d(false);
+			Minecraft.getMinecraft().entityRenderer.setupFogColor(false);
 		}
 	}
 

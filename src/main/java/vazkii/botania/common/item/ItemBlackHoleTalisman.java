@@ -31,6 +31,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
@@ -48,6 +49,7 @@ import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.crafting.recipe.BlackHoleTalismanExtractRecipe;
 import vazkii.botania.common.lib.LibItemNames;
+import vazkii.botania.common.lib.LibMisc;
 
 public class ItemBlackHoleTalisman extends ItemMod implements IBlockProvider {
 
@@ -60,7 +62,7 @@ public class ItemBlackHoleTalisman extends ItemMod implements IBlockProvider {
 		setMaxStackSize(1);
 		setHasSubtypes(true);
 
-		GameRegistry.addRecipe(new BlackHoleTalismanExtractRecipe());
+		GameRegistry.register(new BlackHoleTalismanExtractRecipe(), new ResourceLocation(LibMisc.MOD_ID, "black_hole_talisman_extract"));
 		RecipeSorter.register("botania:blackHoleTalismanExtract", BlackHoleTalismanExtractRecipe.class, Category.SHAPELESS, "");
 	}
 

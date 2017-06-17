@@ -21,6 +21,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
@@ -30,6 +31,7 @@ import net.minecraftforge.oredict.RecipeSorter.Category;
 import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.crafting.recipe.AncientWillRecipe;
 import vazkii.botania.common.lib.LibItemNames;
+import vazkii.botania.common.lib.LibMisc;
 
 public class ItemAncientWill extends ItemMod {
 
@@ -40,7 +42,7 @@ public class ItemAncientWill extends ItemMod {
 		setHasSubtypes(true);
 		setMaxStackSize(1);
 
-		GameRegistry.addRecipe(new AncientWillRecipe());
+		GameRegistry.register(new AncientWillRecipe(), new ResourceLocation(LibMisc.MOD_ID, "ancient_will_attach"));
 		RecipeSorter.register("botania:ancientWill", AncientWillRecipe.class, Category.SHAPELESS, "");
 	}
 

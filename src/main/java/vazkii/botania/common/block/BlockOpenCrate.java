@@ -109,9 +109,9 @@ public class BlockOpenCrate extends BlockMod implements ILexiconable, IWandable,
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void getSubBlocks(@Nonnull Item item, CreativeTabs tab, NonNullList<ItemStack> stacks) {
+	public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> stacks) {
 		for(int i = 0; i < CrateVariant.values().length; i++)
-			stacks.add(new ItemStack(item, 1, i));
+			stacks.add(new ItemStack(this, 1, i));
 	}
 
 	@Override

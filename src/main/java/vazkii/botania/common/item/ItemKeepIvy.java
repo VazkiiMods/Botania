@@ -17,6 +17,7 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerDropsEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -27,6 +28,7 @@ import net.minecraftforge.oredict.RecipeSorter.Category;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.crafting.recipe.KeepIvyRecipe;
 import vazkii.botania.common.lib.LibItemNames;
+import vazkii.botania.common.lib.LibMisc;
 
 public class ItemKeepIvy extends ItemMod {
 
@@ -38,7 +40,7 @@ public class ItemKeepIvy extends ItemMod {
 
 	public ItemKeepIvy() {
 		super(LibItemNames.KEEP_IVY);
-		GameRegistry.addRecipe(new KeepIvyRecipe());
+		GameRegistry.register(new KeepIvyRecipe(), new ResourceLocation(LibMisc.MOD_ID, "keep_ivy_attach"));
 		RecipeSorter.register("botania:keepIvy", KeepIvyRecipe.class, Category.SHAPELESS, "");
 		MinecraftForge.EVENT_BUS.register(ItemKeepIvy.class);
 	}

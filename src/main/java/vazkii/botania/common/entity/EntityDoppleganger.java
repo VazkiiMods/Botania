@@ -439,11 +439,6 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 	public void onDeath(@Nonnull DamageSource source) {
 		super.onDeath(source);
 		EntityLivingBase entitylivingbase = getAttackingEntity();
-		if(entitylivingbase instanceof EntityPlayer) {
-			((EntityPlayer) entitylivingbase).addStat(ModAchievements.gaiaGuardianKill, 1);
-			if(!anyWithArmor)
-				((EntityPlayer) entitylivingbase).addStat(ModAchievements.gaiaGuardianNoArmor, 1);
-		}
 
 		playSound(SoundEvents.ENTITY_GENERIC_EXPLODE, 20F, (1F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F) * 0.7F);
 		world.spawnParticle(EnumParticleTypes.EXPLOSION_HUGE, posX, posY, posZ, 1D, 0D, 0D);
@@ -472,8 +467,8 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 	{
 		// Save true killer, they get extra loot
 		if ("player".equals(source.getDamageType())
-				&& source.getEntity() instanceof EntityPlayer) {
-			trueKiller = (EntityPlayer) source.getEntity();
+				&& source.getTrueSource() instanceof EntityPlayer) {
+			trueKiller = (EntityPlayer) source.getTrueSource();
 		}
 
 		// Drop equipment and clear it so multiple calls to super don't do it again

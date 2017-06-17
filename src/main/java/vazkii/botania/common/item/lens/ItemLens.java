@@ -25,6 +25,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -47,6 +48,7 @@ import vazkii.botania.common.crafting.recipe.CompositeLensRecipe;
 import vazkii.botania.common.crafting.recipe.LensDyeingRecipe;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.lib.LibItemNames;
+import vazkii.botania.common.lib.LibMisc;
 
 public class ItemLens extends ItemMod implements ILensControl, ICompositableLens, ITinyPlanetExcempt {
 
@@ -152,8 +154,8 @@ public class ItemLens extends ItemMod implements ILensControl, ICompositableLens
 		setMaxStackSize(1);
 		setHasSubtypes(true);
 
-		GameRegistry.addRecipe(new CompositeLensRecipe());
-		GameRegistry.addRecipe(new LensDyeingRecipe());
+		GameRegistry.register(new CompositeLensRecipe(), new ResourceLocation(LibMisc.MOD_ID, "composite_lens"));
+		GameRegistry.register(new LensDyeingRecipe(), new ResourceLocation(LibMisc.MOD_ID, "lens_dye"));
 		RecipeSorter.register("botania:compositeLens", CompositeLensRecipe.class, Category.SHAPELESS, "");
 		RecipeSorter.register("botania:lensDying", LensDyeingRecipe.class, Category.SHAPELESS, "");
 	}

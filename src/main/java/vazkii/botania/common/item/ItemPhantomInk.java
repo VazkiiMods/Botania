@@ -10,17 +10,19 @@
  */
 package vazkii.botania.common.item;
 
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.RecipeSorter.Category;
 import vazkii.botania.common.crafting.recipe.PhantomInkRecipe;
 import vazkii.botania.common.lib.LibItemNames;
+import vazkii.botania.common.lib.LibMisc;
 
 public class ItemPhantomInk extends ItemMod {
 
 	public ItemPhantomInk() {
 		super(LibItemNames.PHANTOM_INK);
-		GameRegistry.addRecipe(new PhantomInkRecipe());
+		GameRegistry.register(new PhantomInkRecipe(), new ResourceLocation(LibMisc.MOD_ID, "phantom_ink"));
 		RecipeSorter.register("botania:phantomInk", PhantomInkRecipe.class, Category.SHAPELESS, "");
 	}
 

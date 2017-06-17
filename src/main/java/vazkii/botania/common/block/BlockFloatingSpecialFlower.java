@@ -30,6 +30,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.ChunkCache;
@@ -58,13 +59,14 @@ import vazkii.botania.common.crafting.recipe.SpecialFloatingFlowerRecipe;
 import vazkii.botania.common.item.block.ItemBlockFloatingSpecialFlower;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 import vazkii.botania.common.lib.LibBlockNames;
+import vazkii.botania.common.lib.LibMisc;
 
 public class BlockFloatingSpecialFlower extends BlockFloatingFlower implements ISpecialFlower, IWandable, ILexiconable, IWandHUD {
 
 	public BlockFloatingSpecialFlower() {
 		super(LibBlockNames.FLOATING_SPECIAL_FLOWER);
 
-		GameRegistry.addRecipe(new SpecialFloatingFlowerRecipe());
+		GameRegistry.register(new SpecialFloatingFlowerRecipe(), new ResourceLocation(LibMisc.MOD_ID, "special_floating_flower"));
 		RecipeSorter.register("botania:floatingSpecialFlower", SpecialFloatingFlowerRecipe.class, Category.SHAPELESS, "");
 	}
 
@@ -125,11 +127,11 @@ public class BlockFloatingSpecialFlower extends BlockFloatingFlower implements I
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void getSubBlocks(@Nonnull Item item, CreativeTabs tab, NonNullList<ItemStack> stacks) {
+	public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> stacks) {
 		for(String s : BotaniaAPI.subtilesForCreativeMenu) {
-			stacks.add(ItemBlockSpecialFlower.ofType(new ItemStack(item), s));
+			stacks.add(ItemBlockSpecialFlower.ofType(new ItemStack(this), s));
 			if(BotaniaAPI.miniFlowers.containsKey(s))
-				stacks.add(ItemBlockSpecialFlower.ofType(new ItemStack(item), BotaniaAPI.miniFlowers.get(s)));
+				stacks.add(ItemBlockSpecialFlower.ofType(new ItemStack(this), BotaniaAPI.miniFlowers.get(s)));
 		}
 	}
 
