@@ -33,19 +33,19 @@ public class GuiButtonChallengeIcon extends GuiButtonLexicon {
 
 	@Override
 	public void drawButton(@Nonnull Minecraft par1Minecraft, int par2, int par3) {
-		hovered = par2 >= xPosition && par3 >= yPosition && par2 < xPosition + width && par3 < yPosition + height;
+		hovered = par2 >= x && par3 >= y && par2 < x + width && par3 < y + height;
 		int k = getHoverState(hovered);
 
 		RenderHelper.enableGUIStandardItemLighting();
 		GlStateManager.enableRescaleNormal();
-		par1Minecraft.getRenderItem().renderItemIntoGUI(challenge.icon, xPosition, yPosition);
+		par1Minecraft.getRenderItem().renderItemIntoGUI(challenge.icon, x, y);
 		RenderHelper.disableStandardItemLighting();
 		GlStateManager.enableBlend();
 
 		if(challenge.complete) {
 			GlStateManager.disableDepth();
-			par1Minecraft.fontRenderer.drawStringWithShadow("\u2714", xPosition + 10, yPosition + 9, 0x004C00);
-			par1Minecraft.fontRenderer.drawStringWithShadow("\u2714", xPosition + 10, yPosition + 8, 0x0BD20D);
+			par1Minecraft.fontRenderer.drawStringWithShadow("\u2714", x + 10, y + 9, 0x004C00);
+			par1Minecraft.fontRenderer.drawStringWithShadow("\u2714", x + 10, y + 8, 0x0BD20D);
 			GlStateManager.enableDepth();
 		}
 

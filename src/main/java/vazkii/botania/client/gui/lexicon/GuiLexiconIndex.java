@@ -210,8 +210,8 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 				int x;
 				int y;
 
-				x = currentButton.xPosition - 20;
-				y = currentButton.yPosition;
+				x = currentButton.x - 20;
+				y = currentButton.y;
 
 				mc.fontRenderer.drawStringWithShadow("?", x, y, 0xFFFFFF);
 				GlStateManager.scale(0.5F, 0.5F, 1F);
@@ -223,8 +223,8 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 		if(currentButton != null && infoTime > 0) {
 			float fract = infoTime / animationTime;
 
-			int x = currentButton.xPosition;
-			int y = currentButton.yPosition;
+			int x = currentButton.x;
+			int y = currentButton.y;
 			String s = I18n.format(currentEntry.getTagline());
 			boolean unicode = mc.fontRenderer.getUnicodeFlag();
 			mc.fontRenderer.setUnicodeFlag(true);

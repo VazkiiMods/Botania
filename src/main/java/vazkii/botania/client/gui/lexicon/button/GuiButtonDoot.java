@@ -34,13 +34,13 @@ public class GuiButtonDoot extends GuiButtonLexicon {
 
 	@Override
 	public void drawButton(@Nonnull Minecraft par1Minecraft, int par2, int par3) {
-		hovered = par2 >= xPosition && par3 >= yPosition && par2 < xPosition + width && par3 < yPosition + height;
+		hovered = par2 >= x && par3 >= y && par2 < x + width && par3 < y + height;
 		int k = getHoverState(hovered);
 
 		par1Minecraft.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 		GlStateManager.color(1F, 1F, 1F, 1F);
-		par1Minecraft.getRenderItem().renderItemIntoGUI(new ItemStack(ModItems.cacophonium), xPosition, yPosition);
-		par1Minecraft.getRenderItem().renderItemIntoGUI(new ItemStack(Items.FIREWORKS), xPosition + 8, yPosition + 2);
+		par1Minecraft.getRenderItem().renderItemIntoGUI(new ItemStack(ModItems.cacophonium), x, y);
+		par1Minecraft.getRenderItem().renderItemIntoGUI(new ItemStack(Items.FIREWORKS), x + 8, y + 2);
 
 		GlStateManager.disableLighting();
 
@@ -50,7 +50,7 @@ public class GuiButtonDoot extends GuiButtonLexicon {
 		tooltip.add(TextFormatting.GRAY + "doot doot");
 
 		if(k == 2)
-			RenderHelper.renderTooltip(xPosition - 100, yPosition + 36, tooltip);
+			RenderHelper.renderTooltip(x - 100, y + 36, tooltip);
 		GlStateManager.enableAlpha();
 	}
 

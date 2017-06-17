@@ -75,7 +75,7 @@ public class GuiButtonCategory extends GuiButtonLexicon {
 
 	@Override
 	public void drawButton(@Nonnull Minecraft mc, int mx, int my) {
-		boolean inside = mx >= xPosition && my >= yPosition && mx < xPosition + width && my < yPosition + height;
+		boolean inside = mx >= x && my >= y && mx < x + width && my < y + height;
 		if(inside)
 			ticksHovered = Math.min(time, ticksHovered + gui.timeDelta);
 		else ticksHovered = Math.max(0F, ticksHovered - gui.timeDelta);
@@ -111,7 +111,7 @@ public class GuiButtonCategory extends GuiButtonLexicon {
 		}
 
 		ShaderHelper.useShader(ShaderHelper.categoryButton, shaderCallback);
-		RenderHelper.drawTexturedModalRect(xPosition * 2, yPosition * 2, zLevel * 2, 0, 0, 32, 32, s, s);
+		RenderHelper.drawTexturedModalRect(x * 2, y * 2, zLevel * 2, 0, 0, 32, 32, s, s);
 		ShaderHelper.releaseShader();
 
 		if(shaders) {

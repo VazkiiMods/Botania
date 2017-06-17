@@ -35,14 +35,14 @@ public class GuiButtonUpdateWarning extends GuiButtonLexicon {
 		if(!visible || !enabled)
 			return;
 
-		hovered = par2 >= xPosition && par3 >= yPosition && par2 < xPosition + width && par3 < yPosition + height;
+		hovered = par2 >= x && par3 >= y && par2 < x + width && par3 < y + height;
 		int k = getHoverState(hovered);
 
 		boolean red = k == 2 || ClientTickHandler.ticksInGame % 10 < 5;
 
 		par1Minecraft.renderEngine.bindTexture(GuiLexicon.texture);
 		GlStateManager.color(1F, 1F, 1F, 1F);
-		drawTexturedModalRect(xPosition, yPosition, red ? 153 : 142, 180, 11, 11);
+		drawTexturedModalRect(x, y, red ? 153 : 142, 180, 11, 11);
 
 		List<String> tooltip = new ArrayList<>();
 		String version = PersistentVariableHelper.lastBotaniaVersion;

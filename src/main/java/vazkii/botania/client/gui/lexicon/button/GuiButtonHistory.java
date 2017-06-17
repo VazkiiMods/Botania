@@ -32,8 +32,8 @@ public class GuiButtonHistory extends GuiButtonLexicon {
 
 	@Override
 	public void drawButton(@Nonnull Minecraft mc, int par2, int par3) {
-		gui.drawBookmark(xPosition, yPosition, displayString, false);
-		hovered = par2 >= xPosition && par3 >= yPosition && par2 < xPosition + width && par3 < yPosition + height;
+		gui.drawBookmark(x, y, displayString, false);
+		hovered = par2 >= x && par3 >= y && par2 < x + width && par3 < y + height;
 		int k = getHoverState(hovered);
 
 		List<String> tooltip = new ArrayList<>();

@@ -59,13 +59,13 @@ public class GuiButtonInvisible extends GuiButtonLexicon {
 			float f = 1F / 64F;
 			GlStateManager.translate(dogPos, 0, 0);
 			GlStateManager.color(1F, 1F, 1F, 1F);
-			vazkii.botania.client.core.helper.RenderHelper.drawTexturedModalRect(0, yPosition, zLevel + 10, dogPos % 100 < 50 ? 23 : 0, 0, 23, 19, f, f);
-			xPosition = (int) Math.max(xPosition, dogPos + 10);
+			vazkii.botania.client.core.helper.RenderHelper.drawTexturedModalRect(0, y, zLevel + 10, dogPos % 100 < 50 ? 23 : 0, 0, 23, 19, f, f);
+			x = (int) Math.max(x, dogPos + 10);
 
 			GlStateManager.translate(-dogPos, 0, 0);
 		}
 
-		hovered = par2 >= xPosition && par3 >= yPosition && par2 < xPosition + width && par3 < yPosition + height;
+		hovered = par2 >= x && par3 >= y && par2 < x + width && par3 < y + height;
 		int k = getHoverState(hovered);
 		boolean showStack = !displayStack.isEmpty() && !displayString.isEmpty();
 
@@ -97,19 +97,19 @@ public class GuiButtonInvisible extends GuiButtonLexicon {
 
 		int maxalpha = 0x22;
 		int alpha = Math.min(maxalpha, (int) (timeHover / 4 * maxalpha));
-		drawRect(xPosition - 5, yPosition, (int) (xPosition - 5 + timeHover * 24), yPosition + height, alpha << 24 | color);
+		drawRect(x - 5, y, (int) (x - 5 + timeHover * 24), y + height, alpha << 24 | color);
 		GlStateManager.enableAlpha();
 
 		boolean unicode = par1Minecraft.fontRenderer.getUnicodeFlag();
 		par1Minecraft.fontRenderer.setUnicodeFlag(true);
-		par1Minecraft.fontRenderer.drawString(displayString, xPosition + (showStack ? 7 : 0), yPosition + (height - 8) / 2, 0);
+		par1Minecraft.fontRenderer.drawString(displayString, x + (showStack ? 7 : 0), y + (height - 8) / 2, 0);
 		par1Minecraft.fontRenderer.setUnicodeFlag(unicode);
 
 		if(showStack) {
 			GlStateManager.scale(0.5F, 0.5F, 0.5F);
 			RenderHelper.enableGUIStandardItemLighting();
 			GlStateManager.enableRescaleNormal();
-			par1Minecraft.getRenderItem().renderItemIntoGUI(displayStack, xPosition * 2 - 6, yPosition * 2 + 4);
+			par1Minecraft.getRenderItem().renderItemIntoGUI(displayStack, x * 2 - 6, y * 2 + 4);
 			RenderHelper.disableStandardItemLighting();
 			GlStateManager.enableBlend();
 		}
