@@ -12,12 +12,14 @@ package vazkii.botania.common.crafting.recipe;
 
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import vazkii.botania.api.mana.IManaItem;
+import vazkii.botania.common.lib.LibMisc;
 
 public class ManaUpgradeRecipe extends ShapedOreRecipe {
 	public ManaUpgradeRecipe(ItemStack output, Object... inputs) {
-		super(output, inputs);
+		super(null, output, inputs);
 	}
 
 	public static ItemStack output(ItemStack output, InventoryCrafting var1) {

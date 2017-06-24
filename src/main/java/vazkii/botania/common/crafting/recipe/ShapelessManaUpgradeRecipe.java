@@ -16,7 +16,7 @@ import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 public class ShapelessManaUpgradeRecipe extends ShapelessOreRecipe {
 	public ShapelessManaUpgradeRecipe(ItemStack output, Object... inputs) {
-		super(output, inputs);
+		super(null, output, inputs);
 	}
 
 	@Override
