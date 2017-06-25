@@ -25,6 +25,11 @@ import javax.annotation.Nonnull;
 public class AncientWillRecipe extends IForgeRegistryEntry.Impl<IRecipe> implements IRecipe {
 
 	@Override
+	public boolean isHidden() {
+		return true;
+	}
+
+	@Override
 	public boolean matches(@Nonnull InventoryCrafting var1, @Nonnull World var2) {
 		boolean foundWill = false;
 		boolean foundItem = false;

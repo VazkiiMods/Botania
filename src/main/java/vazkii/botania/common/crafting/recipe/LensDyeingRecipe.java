@@ -31,6 +31,11 @@ public class LensDyeingRecipe extends IForgeRegistryEntry.Impl<IRecipe> implemen
 	private static final List<String> DYES = Arrays.asList("dyeWhite", "dyeOrange", "dyeMagenta", "dyeLightBlue", "dyeYellow", "dyeLime", "dyePink", "dyeGray", "dyeLightGray", "dyeCyan", "dyePurple", "dyeBlue", "dyeBrown", "dyeGreen", "dyeRed", "dyeBlack", LibOreDict.MANA_PEARL);
 
 	@Override
+	public boolean isHidden() {
+		return true;
+	}
+
+	@Override
 	public boolean matches(@Nonnull InventoryCrafting var1, @Nonnull World var2) {
 		boolean foundLens = false;
 		boolean foundDye = false;
