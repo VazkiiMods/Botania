@@ -28,7 +28,6 @@ import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileGenerating;
-import vazkii.botania.common.core.handler.MethodHandles;
 import vazkii.botania.common.lexicon.LexiconData;
 
 import java.awt.Color;
@@ -57,14 +56,7 @@ public class SubTileSpectrolus extends SubTileGenerating {
 		for(EntityItem item : items) {
 			ItemStack stack = item.getItem();
 
-			int age;
-			try {
-				age = (int) MethodHandles.itemAge_getter.invokeExact(item);
-			} catch (Throwable t) {
-				continue;
-			}
-
-			if(!stack.isEmpty() && stack.getItem() == wool && !item.isDead && age >= slowdown) {
+			if(!stack.isEmpty() && stack.getItem() == wool && !item.isDead && item.age >= slowdown) {
 				int meta = stack.getItemDamage();
 				if(meta == nextColor) {
 					mana = Math.min(getMaxMana(), mana + 300);

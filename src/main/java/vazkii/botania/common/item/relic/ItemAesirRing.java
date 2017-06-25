@@ -25,7 +25,6 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.item.ItemTossEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import vazkii.botania.api.item.IWireframeCoordinateListProvider;
-import vazkii.botania.common.core.handler.MethodHandles;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibItemNames;
 
@@ -56,17 +55,8 @@ public class ItemAesirRing extends ItemRelicBauble implements IWireframeCoordina
 					entity.motionX = event.getEntityItem().motionX;
 					entity.motionY = event.getEntityItem().motionY;
 					entity.motionZ = event.getEntityItem().motionZ;
-
-					try {
-						MethodHandles.itemAge_setter.invokeExact(entity, MethodHandles.itemAge_getter.invokeExact(entity));
-					} catch (Throwable ignored) {}
-
-					int pickupDelay = 0;
-					try {
-						pickupDelay = (int) MethodHandles.pickupDelay_getter.invokeExact(event.getEntityItem());
-					} catch (Throwable ignored) {}
-					entity.setPickupDelay(pickupDelay);
-
+					entity.age = event.getEntityItem().age;
+					entity.setPickupDelay(event.getEntityItem().delayBeforeCanPickup);
 					entity.world.spawnEntity(entity);
 				}
 			}

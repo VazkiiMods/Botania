@@ -20,7 +20,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.core.handler.MethodHandles;
 
 import javax.annotation.Nonnull;
 
@@ -72,13 +71,7 @@ public class TileOpenCrate extends TileSimpleInventory {
 		item.motionX = 0;
 		item.motionY = 0;
 		item.motionZ = 0;
-
-		if(redstone) {
-			try {
-				MethodHandles.itemAge_setter.invokeExact(item, -200);
-			} catch (Throwable ignored) {}
-		}
-
+		item.age = -200;
 
 		itemHandler.setStackInSlot(0, ItemStack.EMPTY);
 		world.spawnEntity(item);

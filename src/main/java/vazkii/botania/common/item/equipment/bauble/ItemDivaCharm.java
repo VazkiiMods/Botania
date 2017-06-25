@@ -63,7 +63,7 @@ public class ItemDivaCharm extends ItemBauble implements IManaUsingItem, IBauble
 					if(mobs.size() > 1) {
 						if(SubTileHeiseiDream.brainwashEntity((EntityLiving) event.getEntityLiving(), (List<IMob>) mobs)) {
 							if(event.getEntityLiving() instanceof EntityCreeper)
-								ReflectionHelper.setPrivateValue(EntityCreeper.class, (EntityCreeper) event.getEntityLiving(), 2, LibObfuscation.TIME_SINCE_IGNITED);
+								((EntityCreeper) event.getEntityLiving()).timeSinceIgnited = 2;
 							event.getEntityLiving().heal(event.getEntityLiving().getMaxHealth());
 							if(event.getEntityLiving().isDead)
 								event.getEntityLiving().isDead = false;

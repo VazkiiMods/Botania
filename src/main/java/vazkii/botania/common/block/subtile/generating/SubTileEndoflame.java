@@ -22,7 +22,6 @@ import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileGenerating;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.core.handler.MethodHandles;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.lexicon.LexiconData;
 
@@ -49,14 +48,7 @@ public class SubTileEndoflame extends SubTileGenerating {
 
 					List<EntityItem> items = supertile.getWorld().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(supertile.getPos().add(-RANGE, -RANGE, -RANGE), supertile.getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
 					for(EntityItem item : items) {
-						int age;
-						try {
-							age = (int) MethodHandles.itemAge_getter.invokeExact(item);
-						} catch (Throwable t) {
-							continue;
-						}
-
-						if(age >= 59 + slowdown && !item.isDead) {
+						if(item.age >= 59 + slowdown && !item.isDead) {
 							ItemStack stack = item.getItem();
 							if(stack.isEmpty() || stack.getItem().hasContainerItem(stack))
 								continue;

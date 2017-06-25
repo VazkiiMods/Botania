@@ -39,7 +39,6 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaCrystalCube;
-import vazkii.botania.common.core.handler.MethodHandles;
 
 import javax.annotation.Nonnull;
 
@@ -63,12 +62,8 @@ public class RenderTileCorporeaCrystalCube extends TileEntitySpecialRenderer<Til
 				}
 			};
 
-			try {
-				MethodHandles.itemAge_setter.invokeExact(entity, ClientTickHandler.ticksInGame);
-			} catch (Throwable ignored) {}
-
-			stack = cube.getRequestTarget();
-			entity.setItem(stack);
+			entity.age = ClientTickHandler.ticksInGame;
+			entity.setItem(cube.getRequestTarget());
 		}
 
 		double time = ClientTickHandler.ticksInGame + f;

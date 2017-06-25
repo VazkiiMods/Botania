@@ -39,7 +39,6 @@ import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileEntity;
 import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.core.handler.ConfigHandler;
-import vazkii.botania.common.core.handler.MethodHandles;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibObfuscation;
@@ -80,14 +79,7 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 			List<EntityItem> items = supertile.getWorld().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(supertile.getPos().add(-RANGE, -RANGE_Y, -RANGE), supertile.getPos().add(RANGE + 1, RANGE_Y + 1, RANGE + 1)));
 			int slowdown = getSlowdownFactor();
 			for(EntityItem item : items) {
-				int age;
-				try {
-					age = (int) MethodHandles.itemAge_getter.invokeExact(item);
-				} catch (Throwable t) {
-					continue;
-				}
-
-				if(age < 60 + slowdown || item.isDead || item.getItem().isEmpty())
+				if(item.age < 60 + slowdown || item.isDead || item.getItem().isEmpty())
 					continue;
 
 				ItemStack stack = item.getItem();
@@ -123,7 +115,7 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 							stateToPlace = ((ItemBlock) stackItem).getBlock().getStateFromMeta(blockMeta);
 						}
 						else if(stackItem instanceof ItemBlockSpecial)
-							stateToPlace = ((Block) ReflectionHelper.getPrivateValue(ItemBlockSpecial.class, (ItemBlockSpecial) stackItem, LibObfuscation.REED_ITEM)).getDefaultState();
+							stateToPlace = ((ItemBlockSpecial) stackItem).getBlock().getDefaultState();
 						else if(stackItem instanceof ItemRedstone)
 							stateToPlace = Blocks.REDSTONE_WIRE.getDefaultState();
 

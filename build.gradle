@@ -64,6 +64,13 @@ configurations {
 
 //End of the SCP config
 
+jar {
+    classifier = 'universal'
+    manifest {
+        attributes 'FMLAT': 'botania_at.cfg'
+    }
+}
+
 dependencies {
     compile files(
         'Baubles-deobf.jar'

@@ -107,15 +107,9 @@ public final class BlockHighlightRenderHandler {
 	}
 
 	private static void renderRectangle(AxisAlignedBB aabb, boolean inner, Color color, byte alpha) {
-		double renderPosX, renderPosY, renderPosZ;
-
-		try {
-			renderPosX = (double) ClientMethodHandles.renderPosX_getter.invokeExact(Minecraft.getMinecraft().getRenderManager());
-			renderPosY = (double) ClientMethodHandles.renderPosY_getter.invokeExact(Minecraft.getMinecraft().getRenderManager());
-			renderPosZ = (double) ClientMethodHandles.renderPosZ_getter.invokeExact(Minecraft.getMinecraft().getRenderManager());
-		} catch (Throwable t) {
-			return;
-		}
+		double renderPosX = Minecraft.getMinecraft().getRenderManager().renderPosX;
+		double renderPosY = Minecraft.getMinecraft().getRenderManager().renderPosY;
+		double renderPosZ = Minecraft.getMinecraft().getRenderManager().renderPosZ;
 
 		GlStateManager.pushMatrix();
 		GlStateManager.translate(aabb.minX - renderPosX, aabb.minY - renderPosY, aabb.minZ - renderPosZ);
@@ -154,15 +148,9 @@ public final class BlockHighlightRenderHandler {
 	}
 
 	private static void renderCircle(BlockPos center, double radius) {
-		double renderPosX, renderPosY, renderPosZ;
-
-		try {
-			renderPosX = (double) ClientMethodHandles.renderPosX_getter.invokeExact(Minecraft.getMinecraft().getRenderManager());
-			renderPosY = (double) ClientMethodHandles.renderPosY_getter.invokeExact(Minecraft.getMinecraft().getRenderManager());
-			renderPosZ = (double) ClientMethodHandles.renderPosZ_getter.invokeExact(Minecraft.getMinecraft().getRenderManager());
-		} catch (Throwable t) {
-			return;
-		}
+		double renderPosX = Minecraft.getMinecraft().getRenderManager().renderPosX;
+		double renderPosY = Minecraft.getMinecraft().getRenderManager().renderPosY;
+		double renderPosZ = Minecraft.getMinecraft().getRenderManager().renderPosZ;
 
 		GlStateManager.pushMatrix();
 		double x = center.getX() + 0.5;

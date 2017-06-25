@@ -95,15 +95,9 @@ public final class BoundTileRenderer {
 	}
 
 	private static void renderBlockOutlineAt(BlockPos pos, int color, float thickness) {
-		double renderPosX, renderPosY, renderPosZ;
-
-		try {
-			renderPosX = (double) ClientMethodHandles.renderPosX_getter.invokeExact(Minecraft.getMinecraft().getRenderManager());
-			renderPosY = (double) ClientMethodHandles.renderPosY_getter.invokeExact(Minecraft.getMinecraft().getRenderManager());
-			renderPosZ = (double) ClientMethodHandles.renderPosZ_getter.invokeExact(Minecraft.getMinecraft().getRenderManager());
-		} catch (Throwable t) {
-			return;
-		}
+		double renderPosX = Minecraft.getMinecraft().getRenderManager().renderPosX;
+		double renderPosY = Minecraft.getMinecraft().getRenderManager().renderPosY;
+		double renderPosZ = Minecraft.getMinecraft().getRenderManager().renderPosZ;
 
 		GlStateManager.pushMatrix();
 		GlStateManager.translate(pos.getX() - renderPosX, pos.getY() - renderPosY, pos.getZ() - renderPosZ + 1);

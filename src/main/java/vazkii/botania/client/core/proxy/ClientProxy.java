@@ -12,6 +12,7 @@ package vazkii.botania.client.core.proxy;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.multiplayer.PlayerControllerMP;
 import net.minecraft.client.network.NetHandlerPlayClient;
@@ -298,10 +299,10 @@ public class ClientProxy implements IProxy {
 	@Override
 	public void setExtraReach(EntityLivingBase entity, float reach) {
 		Minecraft mc = Minecraft.getMinecraft();
-		EntityPlayer player = mc.player;
+		EntityPlayerSP player = mc.player;
 		if(entity == player) {
 			if(!(mc.playerController instanceof IExtendedPlayerController)) {
-				NetHandlerPlayClient net = ReflectionHelper.getPrivateValue(PlayerControllerMP.class, mc.playerController, LibObfuscation.NET_CLIENT_HANDLER);
+				NetHandlerPlayClient net = player.connection;
 				BotaniaPlayerController controller = new BotaniaPlayerController(mc, net);
 				boolean isFlying = player.capabilities.isFlying;
 				boolean allowFlying = player.capabilities.allowFlying;

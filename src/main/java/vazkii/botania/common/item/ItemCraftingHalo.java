@@ -50,7 +50,6 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
 import org.lwjgl.opengl.GL11;
-import vazkii.botania.client.core.handler.ClientMethodHandles;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.gui.crafting.InventoryCraftingHalo;
 import vazkii.botania.client.lib.LibResources;
@@ -411,16 +410,9 @@ public class ItemCraftingHalo extends ItemMod {
 		Minecraft mc = Minecraft.getMinecraft();
 		Tessellator tess = Tessellator.getInstance();
 
-		double renderPosX, renderPosY, renderPosZ;
-
-		try {
-			renderPosX = (double) ClientMethodHandles.renderPosX_getter.invokeExact(Minecraft.getMinecraft().getRenderManager());
-			renderPosY = (double) ClientMethodHandles.renderPosY_getter.invokeExact(Minecraft.getMinecraft().getRenderManager());
-			renderPosZ = (double) ClientMethodHandles.renderPosZ_getter.invokeExact(Minecraft.getMinecraft().getRenderManager());
-		} catch (Throwable t) {
-			t.printStackTrace();
-			return;
-		}
+		double renderPosX = mc.getRenderManager().renderPosX;
+		double renderPosY = mc.getRenderManager().renderPosY;
+		double renderPosZ = mc.getRenderManager().renderPosZ;
 
 		GlStateManager.pushMatrix();
 		GlStateManager.enableBlend();

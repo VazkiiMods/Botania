@@ -75,15 +75,9 @@ public final class AstrolabePreviewHandler {
 	private static void renderBlockAt(Block block, int meta, BlockPos pos) {
 		IBlockState state = block.getStateFromMeta(meta);
 
-		double renderPosX, renderPosY, renderPosZ;
-
-		try {
-			renderPosX = (double) ClientMethodHandles.renderPosX_getter.invokeExact(Minecraft.getMinecraft().getRenderManager());
-			renderPosY = (double) ClientMethodHandles.renderPosY_getter.invokeExact(Minecraft.getMinecraft().getRenderManager());
-			renderPosZ = (double) ClientMethodHandles.renderPosZ_getter.invokeExact(Minecraft.getMinecraft().getRenderManager());
-		} catch (Throwable t) {
-			return;
-		}
+		double renderPosX = Minecraft.getMinecraft().getRenderManager().renderPosX;
+		double renderPosY = Minecraft.getMinecraft().getRenderManager().renderPosY;
+		double renderPosZ = Minecraft.getMinecraft().getRenderManager().renderPosZ;
 
 		GlStateManager.pushMatrix();
 		GlStateManager.translate(-renderPosX, -renderPosY, -renderPosZ);

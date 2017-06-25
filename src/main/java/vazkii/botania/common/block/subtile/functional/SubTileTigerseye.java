@@ -62,7 +62,7 @@ public class SubTileTigerseye extends SubTileFunctional {
 				}
 
 			if(entity instanceof EntityCreeper) {
-				ReflectionHelper.setPrivateValue(EntityCreeper.class, (EntityCreeper) entity, 2, LibObfuscation.TIME_SINCE_IGNITED);
+				((EntityCreeper) entity).timeSinceIgnited = 2;
 				entity.setAttackTarget(null);
 			}
 
@@ -75,16 +75,16 @@ public class SubTileTigerseye extends SubTileFunctional {
 	}
 
 	private boolean messWithRunAwayAI(EntityAIAvoidEntity aiEntry) {
-		if(ReflectionHelper.getPrivateValue(EntityAIAvoidEntity.class, aiEntry, LibObfuscation.TARGET_ENTITY_CLASS) == EntityOcelot.class) {
-			ReflectionHelper.setPrivateValue(EntityAIAvoidEntity.class, aiEntry, EntityPlayer.class, LibObfuscation.TARGET_ENTITY_CLASS);
+		if(aiEntry.classToAvoid == EntityOcelot.class) {
+			aiEntry.classToAvoid = EntityPlayer.class;
 			return true;
 		}
 		return false;
 	}
 
 	private void messWithGetTargetAI(EntityAINearestAttackableTarget aiEntry) {
-		if(ReflectionHelper.getPrivateValue(EntityAINearestAttackableTarget.class, aiEntry, LibObfuscation.TARGET_CLASS) == EntityPlayer.class)
-			ReflectionHelper.setPrivateValue(EntityAINearestAttackableTarget.class, aiEntry, EntityEnderCrystal.class, LibObfuscation.TARGET_CLASS); // Something random that won't be around
+		if(aiEntry.targetClass == EntityPlayer.class)
+			aiEntry.targetClass = EntityEnderCrystal.class; // Something random that won't be around
 	}
 
 	@Override

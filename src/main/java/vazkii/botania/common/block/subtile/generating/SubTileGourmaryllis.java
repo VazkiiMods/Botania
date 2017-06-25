@@ -23,7 +23,6 @@ import net.minecraft.world.WorldServer;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileGenerating;
-import vazkii.botania.common.core.handler.MethodHandles;
 import vazkii.botania.common.lexicon.LexiconData;
 
 import java.util.List;
@@ -59,14 +58,7 @@ public class SubTileGourmaryllis extends SubTileGenerating {
 		for(EntityItem item : items) {
 			ItemStack stack = item.getItem();
 
-			int age;
-			try {
-				age = (int) MethodHandles.itemAge_getter.invokeExact(item);
-			} catch (Throwable t) {
-				continue;
-			}
-
-			if(!stack.isEmpty() && stack.getItem() instanceof ItemFood && !item.isDead && age >= slowdown) {
+			if(!stack.isEmpty() && stack.getItem() instanceof ItemFood && !item.isDead && item.age >= slowdown) {
 				if(cooldown <= 0) {
 					int val = Math.min(12, ((ItemFood) stack.getItem()).getHealAmount(stack));
 					storedMana = val * val * 64;

@@ -23,7 +23,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.client.IRenderHandler;
 import org.lwjgl.opengl.GL11;
-import vazkii.botania.client.core.handler.ClientMethodHandles;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.lib.LibResources;
 
@@ -48,13 +47,8 @@ public class SkyblockSkyRenderer extends IRenderHandler {
 	@Override
 	public void render(float partialTicks, WorldClient world, Minecraft mc) {
 		// Environment setup
-		int glSkyList;
-		net.minecraft.client.renderer.vertex.VertexBuffer skyVBO;
-
-		try {
-			glSkyList = (int) ClientMethodHandles.glSkyList_getter.invokeExact(mc.renderGlobal);
-			skyVBO = (net.minecraft.client.renderer.vertex.VertexBuffer) ClientMethodHandles.skyVBO_getter.invokeExact(mc.renderGlobal);
-		} catch (Throwable t) { return; }
+		int glSkyList = mc.renderGlobal.glSkyList;
+		net.minecraft.client.renderer.vertex.VertexBuffer skyVBO = mc.renderGlobal.skyVBO;
 
 		// Begin
 		GlStateManager.disableTexture2D();
@@ -441,13 +435,8 @@ public class SkyblockSkyRenderer extends IRenderHandler {
 	}
 
 	private void renderStars(Minecraft mc, float alpha, float partialTicks) {
-		int starGLCallList;
-		net.minecraft.client.renderer.vertex.VertexBuffer starVBO;
-
-		try {
-			starGLCallList = (int) ClientMethodHandles.starGLCallList_getter.invokeExact(mc.renderGlobal);
-			starVBO = (net.minecraft.client.renderer.vertex.VertexBuffer) ClientMethodHandles.starVBO_getter.invokeExact(mc.renderGlobal);
-		} catch (Throwable t) { return; }
+		int starGLCallList = mc.renderGlobal.starGLCallList;
+		net.minecraft.client.renderer.vertex.VertexBuffer starVBO = mc.renderGlobal.starVBO;
 
 		float t = (ClientTickHandler.ticksInGame + partialTicks + 2000) * 0.005F;
 		GlStateManager.pushMatrix();

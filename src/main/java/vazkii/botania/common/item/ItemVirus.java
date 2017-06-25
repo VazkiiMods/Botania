@@ -95,7 +95,7 @@ public class ItemVirus extends ItemMod {
 				IAttributeInstance health = attributes.getAttributeInstance(SharedMonsterAttributes.MAX_HEALTH);
 				health.applyModifier(new AttributeModifier("Ermergerd Virus D:", health.getBaseValue(), 0));
 
-				IAttributeInstance jumpHeight = attributes.getAttributeInstance(ReflectionHelper.getPrivateValue(AbstractHorse.class, null, LibObfuscation.HORSE_JUMP_STRENGTH));
+				IAttributeInstance jumpHeight = attributes.getAttributeInstance(AbstractHorse.JUMP_STRENGTH);
 				jumpHeight.applyModifier(new AttributeModifier("Ermergerd Virus D:", jumpHeight.getBaseValue() * 0.5, 0));
 
 				newHorse.playSound(SoundEvents.ENTITY_ZOMBIE_VILLAGER_CURE, 1.0F + living.world.rand.nextFloat(), living.world.rand.nextFloat() * 0.7F + 1.3F);

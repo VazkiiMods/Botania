@@ -55,7 +55,6 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileMod;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.ManaNetworkHandler;
-import vazkii.botania.common.core.handler.MethodHandles;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.item.ItemManaTablet;
 import vazkii.botania.common.item.ModItems;
@@ -167,12 +166,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 			((IManaDissolvable) stack.getItem()).onDissolveTick(this, stack, item);
 		}
 
-		int age;
-		try {
-			age = (int) MethodHandles.itemAge_getter.invokeExact(item);
-		} catch (Throwable throwable) { return false; }
-
-		if(age > 100 && age < 130)
+		if(item.age > 100 && item.age < 130)
 			return false;
 
 		RecipeManaInfusion recipe = getMatchingRecipe(stack, world.getBlockState(pos.down()));
@@ -186,9 +180,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 
 				ItemStack output = recipe.getOutput().copy();
 				EntityItem outputItem = new EntityItem(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, output);
-				try {
-					MethodHandles.itemAge_setter.invokeExact(outputItem, 105);
-				} catch (Throwable ignored) {}
+				outputItem.age = 105;
 				world.spawnEntity(outputItem);
 
 				craftingFanciness();

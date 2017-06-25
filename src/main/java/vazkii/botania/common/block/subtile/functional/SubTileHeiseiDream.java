@@ -88,8 +88,8 @@ public class SubTileHeiseiDream extends SubTileFunctional {
 	}
 
 	private static void messWithGetTargetAI(EntityAINearestAttackableTarget aiEntry, EntityLivingBase target) {
-		ReflectionHelper.setPrivateValue(EntityAINearestAttackableTarget.class, aiEntry, Entity.class, LibObfuscation.TARGET_CLASS);
-		ReflectionHelper.setPrivateValue(EntityAINearestAttackableTarget.class, aiEntry, Predicates.equalTo(target), LibObfuscation.TARGET_ENTITY_SELECTOR); // todo 1.8 will this leak `target`?
+		aiEntry.targetClass = Entity.class;
+		aiEntry.targetEntitySelector = e -> e == target; // todo will this leak target?
 	}
 
 	@Override

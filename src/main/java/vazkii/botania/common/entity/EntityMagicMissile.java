@@ -50,8 +50,8 @@ public class EntityMagicMissile extends EntityThrowable {
 	}
 
 	public EntityMagicMissile(EntityLivingBase thrower, boolean evil) {
-		this(thrower.world);
-		ReflectionHelper.setPrivateValue(EntityThrowable.class, this, thrower, LibObfuscation.THROWER);
+		super(thrower.world, thrower);
+		setSize(0F, 0F);
 		setEvil(evil);
 	}
 

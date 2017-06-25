@@ -264,7 +264,7 @@ public final class HUDHandler {
 		Profiler profiler = mc.mcProfiler;
 
 		profiler.startSection("wandMode");
-		int ticks = ReflectionHelper.getPrivateValue(GuiIngame.class, mc.ingameGUI, LibObfuscation.REMAINING_HIGHLIGHT_TICKS);
+		int ticks = mc.ingameGUI.remainingHighlightTicks;
 		ticks -= 15;
 		if(ticks > 0) {
 			int alpha = Math.min(255, (int) (ticks * 256.0F / 10.0F));
