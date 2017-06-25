@@ -526,7 +526,7 @@ public final class BotaniaAPI {
 	 * Call this in preInit, and don't forget to register a model in BotaniaAPIClient.
 	 */
 	public static void registerSubTile(String key, Class<? extends SubTileEntity> subtileClass) {
-		Preconditions.checkArgument(Loader.instance().isInState(LoaderState.PREINITIALIZATION));
+		// todo 1.12 Preconditions.checkArgument(Loader.instance().isInState(LoaderState.PREINITIALIZATION));
 		subTiles.put(key, subtileClass);
 		subTileMods.put(key, Loader.instance().activeModContainer().getModId());
 	}

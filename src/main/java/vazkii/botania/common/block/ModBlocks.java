@@ -439,7 +439,6 @@ public final class ModBlocks {
 		r.register(new ItemBlockMod(bifrostPerm).setRegistryName(bifrostPerm.getRegistryName()));
 		r.register(new ItemBlockMod(cellBlock).setRegistryName(cellBlock.getRegistryName()));
 		r.register(new ItemBlockMod(redStringInterceptor).setRegistryName(redStringInterceptor.getRegistryName()));
-		r.register(new ItemGaiaHead().setRegistryName(gaiaHead.getRegistryName()));
 		r.register(new ItemBlockMod(corporeaRetainer).setRegistryName(corporeaRetainer.getRegistryName()));
 		r.register(new ItemBlockMod(teruTeruBozu).setRegistryName(teruTeruBozu.getRegistryName()));
 		r.register(new ItemBlockMod(shimmerrock).setRegistryName(shimmerrock.getRegistryName()));

@@ -331,15 +331,15 @@ public final class ModFluffBlocks {
 		r.register(new ItemBlockWithMetadataAndName(pavement).setRegistryName(pavement.getRegistryName()));
 		
 		for (int i = 0; i < 24; i++) {
-			r.register(new ItemBlockMod(biomeStoneStairs[i].setRegistryName(biomeStoneStairs[i].getRegistryName())));
-			r.register(new ItemBlockModSlab(biomeStoneSlabs[i].setRegistryName(biomeStoneSlabs[i].getRegistryName())));
+			r.register(new ItemBlockMod(biomeStoneStairs[i]).setRegistryName(biomeStoneStairs[i].getRegistryName()));
+			r.register(new ItemBlockModSlab(biomeStoneSlabs[i]).setRegistryName(biomeStoneSlabs[i].getRegistryName()));
 		}
 		
 		r.register(new ItemBlockWithMetadataAndName(biomeStoneWall).setRegistryName(biomeStoneWall.getRegistryName()));
 		
 		for (int i = 0; i < BlockPavement.TYPES; i++) {
-			r.register(new ItemBlockMod(pavementStairs[i].setRegistryName(pavementStairs[i].getRegistryName())));
-			r.register(new ItemBlockModSlab(pavementSlabs[i].setRegistryName(pavementSlabs[i].getRegistryName())));
+			r.register(new ItemBlockMod(pavementStairs[i]).setRegistryName(pavementStairs[i].getRegistryName()));
+			r.register(new ItemBlockModSlab(pavementSlabs[i]).setRegistryName(pavementSlabs[i].getRegistryName()));
 		}
 		
 		r.register(new ItemBlockModSlab(shimmerrockSlab).setRegistryName(shimmerrockSlab.getRegistryName()));

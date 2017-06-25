@@ -148,7 +148,7 @@ public class Botania {
 		ModManaInfusionRecipes.init();
 		ModElvenTradeRecipes.init();
 		ModBrewRecipes.init();
-		LexiconData.init();
+		// LexiconData.init(); todo 1.12
 
 		NetworkRegistry.INSTANCE.registerGuiHandler(Botania.instance, new GuiHandler());
 
@@ -186,7 +186,7 @@ public class Botania {
 
 		ModBlocks.addDispenserBehaviours();
 		ConfigHandler.loadPostInit();
-		LexiconData.postInit();
+		// LexiconData.postInit(); todo 1.12
 
 		int words = 0;
 		for(LexiconEntry entry : BotaniaAPI.getAllEntries())

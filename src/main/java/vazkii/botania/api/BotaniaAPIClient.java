@@ -46,7 +46,7 @@ public final class BotaniaAPIClient {
 	 * @param itemModel   A path to a blockstate json and variant to be used for this subtile's item form
 	 */
 	public static void registerSubtileModel(String subTileName, ModelResourceLocation model, ModelResourceLocation itemModel) {
-		Preconditions.checkState(Loader.instance().isInState(LoaderState.PREINITIALIZATION));
+		// todo 1.12 Preconditions.checkState(Loader.instance().isInState(LoaderState.PREINITIALIZATION));
 		subtileBlockModels.put(subTileName, model);
 		subtileItemModels.put(subTileName, itemModel);
 	}
@@ -95,7 +95,7 @@ public final class BotaniaAPIClient {
 	 * @param model      The variant within a blockstate json to use as the islandtype's model
 	 */
 	public static void registerIslandTypeModel(IFloatingFlower.IslandType islandType, ModelResourceLocation model) {
-		Preconditions.checkState(Loader.instance().isInState(LoaderState.PREINITIALIZATION));
+		// todo 1.12 Preconditions.checkState(Loader.instance().isInState(LoaderState.PREINITIALIZATION));
 		islandTypeModels.put(islandType, model);
 	}
 

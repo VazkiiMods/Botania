@@ -68,7 +68,7 @@ dependencies {
     compile files(
         'Baubles-deobf.jar'
     )
-    deobfCompile "mezz.jei:jei_1.12:4.6.0.59"
+    deobfCompile "mezz.jei:jei_1.12:4.7.0.67"
 
     //and a bit more for SCP
     sshAntTask "org.apache.ant:ant-jsch:1.7.1", "jsch:jsch:0.1.29"

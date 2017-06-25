@@ -293,6 +293,7 @@ public final class LexiconData {
 	public static LexiconEntry bcIntegration;
 	public static LexiconEntry banners;
 
+	/*
 	public static void init() {
 		BotaniaAPI.addCategory(BotaniaAPI.categoryBasics = new BLexiconCategory(LibLexicon.CATEGORY_BASICS, 9));
 		BotaniaAPI.addCategory(BotaniaAPI.categoryMana = new BLexiconCategory(LibLexicon.CATEGORY_MANA, 5));
@@ -1440,4 +1441,5 @@ public final class LexiconData {
 				.setIcon(new ItemStack(ModItems.manaInkwell));
 		}
 	}
+	*/
 }

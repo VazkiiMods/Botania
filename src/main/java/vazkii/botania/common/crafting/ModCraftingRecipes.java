@@ -385,6 +385,7 @@ public final class ModCraftingRecipes {
 		r.register(new TerraPickTippingRecipe().setRegistryName(new ResourceLocation(LibMisc.MOD_ID, "terra_pick_tipping")));
 		RecipeSorter.register("botania:terraPickTipping", TerraPickTippingRecipe.class, RecipeSorter.Category.SHAPELESS, "");
 
+		/*
 		int recipeListSize = CraftingManager.getInstance().getRecipeList().size();
 
 		// Lexicon Recipe
@@ -2240,8 +2241,10 @@ public final class ModCraftingRecipes {
 
 		int newRecipeListSize = CraftingManager.getInstance().getRecipeList().size();
 		Botania.LOGGER.info("Registered %d recipes.", newRecipeListSize - recipeListSize);
+		*/
 	}
 
+	/*
 	private static void initGardenOfGlass() {
 		// Root to Sapling
 		addShapelessOreDictRecipe(new ItemStack(Blocks.SAPLING), LibOreDict.ROOT, LibOreDict.ROOT, LibOreDict.ROOT, LibOreDict.ROOT);
@@ -2328,4 +2331,5 @@ public final class ModCraftingRecipes {
 	private static void addShapelessOreDictRecipe(ItemStack output, Object... recipe) {
 		CraftingManager.getInstance().getRecipeList().add(new ShapelessOreRecipe(output, recipe));
 	}
+	*/
 }

@@ -204,7 +204,6 @@ public class ClientProxy implements IProxy {
 		}
 
 		MinecraftForge.EVENT_BUS.register(MiscellaneousIcons.INSTANCE);
-		ModelHandler.registerModels();
 		initRenderers();
 	}
 
