@@ -121,7 +121,7 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 							if(stackItem instanceof ItemPiston) // Workaround because the blockMeta ItemPiston gives crashes getStateFromMeta
 								blockMeta = 0;
 
-							stateToPlace = ((ItemBlock) stackItem).block.getStateFromMeta(blockMeta);
+							stateToPlace = ((ItemBlock) stackItem).getBlock().getStateFromMeta(blockMeta);
 						}
 						else if(stackItem instanceof ItemBlockSpecial)
 							stateToPlace = ((Block) ReflectionHelper.getPrivateValue(ItemBlockSpecial.class, (ItemBlockSpecial) stackItem, LibObfuscation.REED_ITEM)).getDefaultState();

@@ -96,11 +96,6 @@ public class BlockPavement extends BlockMod {
 		return getMetaFromState(state);
 	}
 
-	@Override
-	public void registerItemForm() {
-		GameRegistry.register(new ItemBlockWithMetadataAndName(this), getRegistryName());
-	}
-
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> stacks) {

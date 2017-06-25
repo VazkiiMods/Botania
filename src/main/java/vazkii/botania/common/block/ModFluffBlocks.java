@@ -18,6 +18,8 @@ import com.google.common.collect.ImmutableList;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -60,7 +62,10 @@ import vazkii.botania.common.block.decor.walls.living.BlockDreamwoodWall;
 import vazkii.botania.common.block.decor.walls.living.BlockLivingrockWall;
 import vazkii.botania.common.block.decor.walls.living.BlockLivingwoodWall;
 import vazkii.botania.common.core.handler.ConfigHandler;
+import vazkii.botania.common.item.block.ItemBlockMod;
 import vazkii.botania.common.item.block.ItemBlockModSlab;
+import vazkii.botania.common.item.block.ItemBlockSpecialQuartz;
+import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lib.LibBlockNames;
 
 @Mod.EventBusSubscriber
@@ -150,20 +155,25 @@ public final class ModFluffBlocks {
 		r.register(livingwoodSlab);
 		r.register(livingwoodSlabFull);
 		r.register(livingwoodWall);
+		
 		r.register(livingwoodPlankStairs);
 		r.register(livingwoodPlankSlab);
 		r.register(livingwoodPlankSlabFull);
+		
 		r.register(livingrockStairs);
 		r.register(livingrockSlab);
 		r.register(livingrockSlabFull);
 		r.register(livingrockWall);
+		
 		r.register(livingrockBrickStairs);
 		r.register(livingrockBrickSlab);
 		r.register(livingrockBrickSlabFull);
+		
 		r.register(dreamwoodStairs);
 		r.register(dreamwoodSlab);
 		r.register(dreamwoodSlabFull);
 		r.register(dreamwoodWall);
+		
 		r.register(dreamwoodPlankStairs);
 		r.register(dreamwoodPlankSlab);
 		r.register(dreamwoodPlankSlabFull);
@@ -179,22 +189,27 @@ public final class ModFluffBlocks {
 		r.register(manaQuartzSlab);
 		r.register(manaQuartzSlabFull);
 		r.register(manaQuartzStairs);
+		
 		r.register(blazeQuartz);
 		r.register(blazeQuartzSlab);
 		r.register(blazeQuartzSlabFull);
 		r.register(blazeQuartzStairs);
+		
 		r.register(lavenderQuartz);
 		r.register(lavenderQuartzSlab);
 		r.register(lavenderQuartzSlabFull);
 		r.register(lavenderQuartzStairs);
+		
 		r.register(redQuartz);
 		r.register(redQuartzSlab);
 		r.register(redQuartzSlabFull);
 		r.register(redQuartzStairs);
+		
 		r.register(elfQuartz);
 		r.register(elfQuartzSlab);
 		r.register(elfQuartzSlabFull);
 		r.register(elfQuartzStairs);
+		
 		r.register(sunnyQuartz);
 		r.register(sunnyQuartzSlab);
 		r.register(sunnyQuartzSlabFull);
@@ -246,6 +261,7 @@ public final class ModFluffBlocks {
 		r.register(shimmerrockSlab);
 		r.register(shimmerrockSlabFull);
 		r.register(shimmerrockStairs);
+		
 		r.register(shimmerwoodPlankSlab);
 		r.register(shimmerwoodPlankSlabFull);
 		r.register(shimmerwoodPlankStairs);
@@ -253,9 +269,88 @@ public final class ModFluffBlocks {
 		r.register(managlassPane);
 		r.register(alfglassPane);
 		r.register(bifrostPane);
-
-		for(Block b : slabsToRegister)
-			GameRegistry.register(new ItemBlockModSlab(b), b.getRegistryName());
+	}
+	
+	@SuppressWarnings("ConstantConditions")
+	@SubscribeEvent
+	public static void registerItemBlocks(RegistryEvent.Register<Item> evt) {
+		IForgeRegistry<Item> r = evt.getRegistry();
+		r.register(new ItemBlockMod(livingwoodStairs).setRegistryName(livingwoodStairs.getRegistryName()));
+		r.register(new ItemBlockModSlab(livingwoodSlab).setRegistryName(livingwoodSlab.getRegistryName()));
+		r.register(new ItemBlockMod(livingwoodWall).setRegistryName(livingwoodWall.getRegistryName()));
+		
+		r.register(new ItemBlockMod(livingwoodPlankStairs).setRegistryName(livingwoodPlankStairs.getRegistryName()));
+		r.register(new ItemBlockModSlab(livingwoodPlankSlab).setRegistryName(livingwoodPlankSlab.getRegistryName()));
+		
+		r.register(new ItemBlockMod(livingrockStairs).setRegistryName(livingrockStairs.getRegistryName()));
+		r.register(new ItemBlockModSlab(livingrockSlab).setRegistryName(livingrockSlab.getRegistryName()));
+		r.register(new ItemBlockMod(livingrockWall).setRegistryName(livingrockWall.getRegistryName()));
+		
+		r.register(new ItemBlockMod(livingrockBrickStairs).setRegistryName(livingrockBrickStairs.getRegistryName()));
+		r.register(new ItemBlockModSlab(livingrockBrickSlab).setRegistryName(livingrockBrickSlab.getRegistryName()));
+		
+		r.register(new ItemBlockMod(dreamwoodStairs).setRegistryName(dreamwoodStairs.getRegistryName()));
+		r.register(new ItemBlockModSlab(dreamwoodSlab).setRegistryName(dreamwoodSlab.getRegistryName()));
+		r.register(new ItemBlockMod(dreamwoodWall).setRegistryName(dreamwoodWall.getRegistryName()));
+		
+		r.register(new ItemBlockMod(dreamwoodPlankStairs).setRegistryName(dreamwoodPlankStairs.getRegistryName()));
+		r.register(new ItemBlockModSlab(dreamwoodPlankSlab).setRegistryName(dreamwoodPlankSlab.getRegistryName()));
+		
+		if(ConfigHandler.darkQuartzEnabled) {
+			r.register(new ItemBlockSpecialQuartz(darkQuartz).setRegistryName(darkQuartz.getRegistryName()));
+			r.register(new ItemBlockModSlab(darkQuartzSlab).setRegistryName(darkQuartzSlab.getRegistryName()));
+			r.register(new ItemBlockMod(darkQuartzStairs).setRegistryName(darkQuartzStairs.getRegistryName()));
+		}
+		
+		r.register(new ItemBlockSpecialQuartz(manaQuartz).setRegistryName(manaQuartz.getRegistryName()));
+		r.register(new ItemBlockModSlab(manaQuartzSlab).setRegistryName(manaQuartzSlab.getRegistryName()));
+		r.register(new ItemBlockMod(manaQuartzStairs).setRegistryName(manaQuartzStairs.getRegistryName()));
+		
+		r.register(new ItemBlockSpecialQuartz(blazeQuartz).setRegistryName(blazeQuartz.getRegistryName()));
+		r.register(new ItemBlockModSlab(blazeQuartzSlab).setRegistryName(blazeQuartzSlab.getRegistryName()));
+		r.register(new ItemBlockMod(blazeQuartzStairs).setRegistryName(blazeQuartzStairs.getRegistryName()));
+		
+		r.register(new ItemBlockSpecialQuartz(lavenderQuartz).setRegistryName(lavenderQuartz.getRegistryName()));
+		r.register(new ItemBlockModSlab(lavenderQuartzSlab).setRegistryName(lavenderQuartzSlab.getRegistryName()));
+		r.register(new ItemBlockMod(lavenderQuartzStairs).setRegistryName(lavenderQuartzStairs.getRegistryName()));
+		
+		r.register(new ItemBlockSpecialQuartz(redQuartz).setRegistryName(redQuartz.getRegistryName()));
+		r.register(new ItemBlockModSlab(redQuartzSlab).setRegistryName(redQuartzSlab.getRegistryName()));
+		r.register(new ItemBlockMod(redQuartzStairs).setRegistryName(redQuartzStairs.getRegistryName()));
+		
+		r.register(new ItemBlockSpecialQuartz(elfQuartz).setRegistryName(elfQuartz.getRegistryName()));
+		r.register(new ItemBlockModSlab(elfQuartzSlab).setRegistryName(elfQuartzSlab.getRegistryName()));
+		r.register(new ItemBlockMod(elfQuartzStairs).setRegistryName(elfQuartzStairs.getRegistryName()));
+		
+		r.register(new ItemBlockSpecialQuartz(sunnyQuartz).setRegistryName(sunnyQuartz.getRegistryName()));
+		r.register(new ItemBlockModSlab(sunnyQuartzSlab).setRegistryName(sunnyQuartzSlab.getRegistryName()));
+		r.register(new ItemBlockMod(sunnyQuartzStairs).setRegistryName(sunnyQuartzStairs.getRegistryName()));
+		
+		r.register(new ItemBlockWithMetadataAndName(biomeStoneA).setRegistryName(biomeStoneA.getRegistryName()));
+		r.register(new ItemBlockWithMetadataAndName(biomeStoneB).setRegistryName(biomeStoneB.getRegistryName()));
+		r.register(new ItemBlockWithMetadataAndName(pavement).setRegistryName(pavement.getRegistryName()));
+		
+		for (int i = 0; i < 24; i++) {
+			r.register(new ItemBlockMod(biomeStoneStairs[i].setRegistryName(biomeStoneStairs[i].getRegistryName())));
+			r.register(new ItemBlockModSlab(biomeStoneSlabs[i].setRegistryName(biomeStoneSlabs[i].getRegistryName())));
+		}
+		
+		r.register(new ItemBlockWithMetadataAndName(biomeStoneWall).setRegistryName(biomeStoneWall.getRegistryName()));
+		
+		for (int i = 0; i < BlockPavement.TYPES; i++) {
+			r.register(new ItemBlockMod(pavementStairs[i].setRegistryName(pavementStairs[i].getRegistryName())));
+			r.register(new ItemBlockModSlab(pavementSlabs[i].setRegistryName(pavementSlabs[i].getRegistryName())));
+		}
+		
+		r.register(new ItemBlockModSlab(shimmerrockSlab).setRegistryName(shimmerrockSlab.getRegistryName()));
+		r.register(new ItemBlockMod(shimmerrockStairs).setRegistryName(shimmerrockStairs.getRegistryName()));
+		
+		r.register(new ItemBlockModSlab(shimmerwoodPlankSlab).setRegistryName(shimmerwoodPlankSlab.getRegistryName()));
+		r.register(new ItemBlockMod(shimmerwoodPlankStairs).setRegistryName(shimmerwoodPlankStairs.getRegistryName()));
+		
+		r.register(new ItemBlockMod(managlassPane).setRegistryName(managlassPane.getRegistryName()));
+		r.register(new ItemBlockMod(alfglassPane).setRegistryName(alfglassPane.getRegistryName()));
+		r.register(new ItemBlockMod(bifrostPane).setRegistryName(bifrostPane.getRegistryName()));
 	}
 
 }

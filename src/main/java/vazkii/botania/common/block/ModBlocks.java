@@ -170,6 +170,7 @@ import vazkii.botania.common.block.tile.string.TileRedStringInterceptor;
 import vazkii.botania.common.block.tile.string.TileRedStringRelay;
 import vazkii.botania.common.item.ItemGaiaHead;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.block.ItemBlockDreamwood;
 import vazkii.botania.common.item.block.ItemBlockElven;
 import vazkii.botania.common.item.block.ItemBlockFloatingSpecialFlower;
 import vazkii.botania.common.item.block.ItemBlockMod;
@@ -392,6 +393,7 @@ public final class ModBlocks {
 		r.register(new ItemBlockWithMetadataAndName(shinyFlower).setRegistryName(shinyFlower.getRegistryName()));
 		r.register(new ItemBlockWithMetadataAndName(platform).setRegistryName(platform.getRegistryName()));
 		r.register(new ItemBlockMod(alfPortal).setRegistryName(alfPortal.getRegistryName()));
+		r.register(new ItemBlockDreamwood(dreamwood).setRegistryName(dreamwood.getRegistryName()));
 		r.register(new ItemBlockMod(conjurationCatalyst).setRegistryName(conjurationCatalyst.getRegistryName()));
 		r.register(new ItemBlockMod(bifrost).setRegistryName(bifrost.getRegistryName()));
 		r.register(new ItemBlockWithMetadataAndName(floatingFlower).setRegistryName(floatingFlower.getRegistryName()));

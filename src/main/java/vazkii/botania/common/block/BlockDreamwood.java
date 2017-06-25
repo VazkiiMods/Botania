@@ -17,11 +17,6 @@ public class BlockDreamwood extends BlockLivingwood {
 	}
 
 	@Override
-	public void registerItemForm() {
-		GameRegistry.register(new ItemBlockDreamwood(this), getRegistryName());
-	}
-
-	@Override
 	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.elvenResources;
 	}

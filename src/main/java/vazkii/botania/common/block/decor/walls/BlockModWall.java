@@ -47,7 +47,6 @@ public abstract class BlockModWall extends BlockWall implements ILexiconable, IM
 		setRegistryName(name);
 		setUnlocalizedName(name);
 		setDefaultState(pickDefaultState());
-		register();
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
 	}
 
@@ -92,10 +91,6 @@ public abstract class BlockModWall extends BlockWall implements ILexiconable, IM
 	@Override
 	public boolean canPlaceTorchOnTop(IBlockState state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos) {
 		return true;
-	}
-
-	public void register() {
-		GameRegistry.register(new ItemBlockMod(this), getRegistryName());
 	}
 
 	@SideOnly(Side.CLIENT)

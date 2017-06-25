@@ -55,11 +55,6 @@ public class BlockBiomeStone extends BlockMod implements ILexiconable {
 		return getMetaFromState(state);
 	}
 
-	@Override
-	public void registerItemForm() {
-		GameRegistry.register(new ItemBlockWithMetadataAndName(this), getRegistryName());
-	}
-
 	@Nonnull
 	@Override
 	public ItemStack getPickBlock(@Nonnull IBlockState state, RayTraceResult target, @Nonnull World world, @Nonnull BlockPos pos, EntityPlayer player) {

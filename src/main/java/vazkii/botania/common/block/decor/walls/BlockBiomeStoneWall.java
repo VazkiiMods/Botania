@@ -70,11 +70,6 @@ public class BlockBiomeStoneWall extends BlockModWall {
 		return getDefaultState().withProperty(BotaniaStateProps.BIOMESTONEWALL_VARIANT, BiomeStoneVariant.values()[meta + 8]);
 	}
 
-	@Override
-	public void register() {
-		GameRegistry.register(new ItemBlockWithMetadataAndName(this), getRegistryName());
-	}
-
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void getSubBlocks(CreativeTabs tabs, @Nonnull NonNullList<ItemStack> list) {

@@ -75,11 +75,6 @@ public class BlockSpecialQuartz extends BlockMod implements ILexiconable {
 		return getDefaultState().withProperty(BotaniaStateProps.QUARTZ_VARIANT, QuartzVariant.values()[meta]);
 	}
 
-	@Override
-	public void registerItemForm() {
-		GameRegistry.register(new ItemBlockSpecialQuartz(this), getRegistryName());
-	}
-
 	public String[] getNames() {
 		return new String[] {
 				"tile.botania:block" + type + "Quartz",
