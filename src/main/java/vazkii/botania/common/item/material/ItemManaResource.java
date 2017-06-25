@@ -115,11 +115,12 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public void getSubItems(@Nonnull CreativeTabs tab, @Nonnull NonNullList<ItemStack> stacks) {
-		for(int i = 0; i < types; i++)
-			if(Botania.gardenOfGlassLoaded || i != 20 && i != 21)
-				stacks.add(new ItemStack(this, 1, i));
+		if(isInCreativeTab(tab)) {
+			for(int i = 0; i < types; i++)
+				if(Botania.gardenOfGlassLoaded || i != 20 && i != 21)
+					stacks.add(new ItemStack(this, 1, i));
+		}
 	}
 
 	@Nonnull

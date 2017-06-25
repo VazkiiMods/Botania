@@ -109,12 +109,13 @@ public abstract class ItemBrewBase extends ItemMod implements IBrewItem {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> list) {
-		for(String s : BotaniaAPI.brewMap.keySet()) {
-			ItemStack stack = new ItemStack(this);
-			setBrew(stack, s);
-			list.add(stack);
+		if(isInCreativeTab(tab)) {
+			for(String s : BotaniaAPI.brewMap.keySet()) {
+				ItemStack stack = new ItemStack(this);
+				setBrew(stack, s);
+				list.add(stack);
+			}
 		}
 	}
 

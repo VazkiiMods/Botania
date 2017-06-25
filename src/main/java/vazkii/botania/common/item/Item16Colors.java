@@ -28,10 +28,11 @@ public class Item16Colors extends ItemMod {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public void getSubItems(@Nonnull CreativeTabs tab, @Nonnull NonNullList<ItemStack> stacks) {
-		for(int i = 0; i < 16; i++)
-			stacks.add(new ItemStack(this, 1, i));
+		if(isInCreativeTab(tab)) {
+			for(int i = 0; i < 16; i++)
+				stacks.add(new ItemStack(this, 1, i));
+		}
 	}
 
 	@Nonnull

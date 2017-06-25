@@ -98,15 +98,16 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public void getSubItems(@Nonnull CreativeTabs tab, @Nonnull NonNullList<ItemStack> list) {
-		list.add(new ItemStack(this));
-		ItemStack creative = new ItemStack(this);
-		for(String s : BotaniaAPI.knowledgeTypes.keySet()) {
-			KnowledgeType type = BotaniaAPI.knowledgeTypes.get(s);
-			unlockKnowledge(creative, type);
+		if(isInCreativeTab(tab)) {
+			list.add(new ItemStack(this));
+			ItemStack creative = new ItemStack(this);
+			for(String s : BotaniaAPI.knowledgeTypes.keySet()) {
+				KnowledgeType type = BotaniaAPI.knowledgeTypes.get(s);
+				unlockKnowledge(creative, type);
+			}
+			list.add(creative);
 		}
-		list.add(creative);
 	}
 
 	@SideOnly(Side.CLIENT)

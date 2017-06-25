@@ -43,13 +43,14 @@ public class ItemIncenseStick extends ItemMod implements IBrewItem, IBrewContain
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public void getSubItems(@Nonnull CreativeTabs tab, @Nonnull NonNullList<ItemStack> list) {
 		super.getSubItems(tab, list);
-		for(String s : BotaniaAPI.brewMap.keySet()) {
-			ItemStack brewStack = getItemForBrew(BotaniaAPI.brewMap.get(s), new ItemStack(this));
-			if(!brewStack.isEmpty())
-				list.add(brewStack);
+		if(isInCreativeTab(tab)) {
+			for(String s : BotaniaAPI.brewMap.keySet()) {
+				ItemStack brewStack = getItemForBrew(BotaniaAPI.brewMap.get(s), new ItemStack(this));
+				if(!brewStack.isEmpty())
+					list.add(brewStack);
+			}
 		}
 	}
 

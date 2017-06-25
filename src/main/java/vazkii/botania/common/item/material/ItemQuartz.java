@@ -33,10 +33,11 @@ public class ItemQuartz extends ItemMod implements IElvenItem {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public void getSubItems(@Nonnull CreativeTabs tab, @Nonnull NonNullList<ItemStack> list) {
-		for(int i = ConfigHandler.darkQuartzEnabled ? 0 : 1; i < SUBTYPES; i++)
-			list.add(new ItemStack(this, 1, i));
+		if(isInCreativeTab(tab)) {
+			for(int i = ConfigHandler.darkQuartzEnabled ? 0 : 1; i < SUBTYPES; i++)
+				list.add(new ItemStack(this, 1, i));
+		}
 	}
 
 	@Nonnull

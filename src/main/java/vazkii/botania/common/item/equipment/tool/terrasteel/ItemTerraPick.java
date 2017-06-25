@@ -78,12 +78,13 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public void getSubItems(@Nonnull CreativeTabs tab, @Nonnull NonNullList<ItemStack> list) {
-		for(int mana : CREATIVE_MANA) {
-			ItemStack stack = new ItemStack(this);
-			setMana(stack, mana);
-			list.add(stack);
+		if(isInCreativeTab(tab)) {
+			for(int mana : CREATIVE_MANA) {
+				ItemStack stack = new ItemStack(this);
+				setMana(stack, mana);
+				list.add(stack);
+			}
 		}
 	}
 
@@ -268,7 +269,7 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 
 	@Override
 	public boolean getIsRepairable(ItemStack par1ItemStack, @Nonnull ItemStack par2ItemStack) {
-		return par2ItemStack.getItem() == ModItems.manaResource && par2ItemStack.getItemDamage() == 4 ? true : super.getIsRepairable(par1ItemStack, par2ItemStack);
+		return par2ItemStack.getItem() == ModItems.manaResource && par2ItemStack.getItemDamage() == 4 || super.getIsRepairable(par1ItemStack, par2ItemStack);
 	}
 
 	@Override

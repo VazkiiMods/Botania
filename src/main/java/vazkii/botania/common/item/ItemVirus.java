@@ -124,10 +124,11 @@ public class ItemVirus extends ItemMod {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public void getSubItems(@Nonnull CreativeTabs tab, @Nonnull NonNullList<ItemStack> list) {
-		for(int i = 0; i < SUBTYPES; i++)
-			list.add(new ItemStack(this, 1, i));
+		if(isInCreativeTab(tab)) {
+			for(int i = 0; i < SUBTYPES; i++)
+				list.add(new ItemStack(this, 1, i));
+		}
 	}
 
 	@Nonnull
