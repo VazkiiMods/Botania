@@ -2,7 +2,7 @@
   "conditions": [
     {
       "type": "botania:garden_of_glass",
-      "value": "false"
+      "value": "true"
     }
   ],
   "result": {
@@ -70,7 +70,7 @@
       "item": "#LIVINGWOOD"
     },
     "G": {
-      "item": "#INGOTGOLD"
+      "item": "#LIVINGWOOD"
     }
   }
 }

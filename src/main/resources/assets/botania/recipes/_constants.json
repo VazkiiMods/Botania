@@ -723,6 +723,13 @@
   {
     "ingredient": {
       "type": "forge:ore_dict",
+      "ore": "rodBlaze"
+    },
+    "name": "RODBLAZE"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
       "ore": "runeAirB"
     },
     "name": "RUNEAIRB"

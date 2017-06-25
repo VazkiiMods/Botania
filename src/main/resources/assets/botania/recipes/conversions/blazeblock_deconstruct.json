@@ -1,0 +1,18 @@
+{
+  "conditions": [
+    {
+      "type": "botania:garden_of_glass",
+      "value": "false"
+    }
+  ],
+  "result": {
+    "item": "minecraft:blaze_powder",
+    "count": 9
+  },
+  "ingredients": [
+    {
+      "item": "#BLOCKBLAZE"
+    }
+  ],
+  "type": "forge:ore_shapeless"
+}

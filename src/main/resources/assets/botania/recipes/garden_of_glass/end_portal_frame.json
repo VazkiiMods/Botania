@@ -1,4 +1,10 @@
 {
+  "conditions": [
+    {
+      "type": "botania:garden_of_glass",
+      "value": "true"
+    }
+  ],
   "result": {
     "item": "minecraft:end_portal_frame"
   },

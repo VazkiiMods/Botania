@@ -2,7 +2,7 @@
   "conditions": [
     {
       "type": "botania:garden_of_glass",
-      "value": "false"
+      "value": "true"
     }
   ],
   "result": {
@@ -16,7 +16,7 @@
   "type": "forge:ore_shaped",
   "key": {
     "B": {
-      "item": "#RODBLAZE"
+      "item": "#POWDERBLAZE"
     }
   }
 }

@@ -2,7 +2,7 @@
   "conditions": [
     {
       "type": "botania:garden_of_glass",
-      "value": "false"
+      "value": "true"
     }
   ],
   "result": {
@@ -10,19 +10,19 @@
   },
   "pattern": [
     "SSS",
-    "SPS",
-    "SDS"
+    "SFS",
+    "SIS"
   ],
   "type": "forge:ore_shaped",
   "key": {
     "S": {
       "item": "minecraft:string"
     },
-    "P": {
-      "item": "#ELVENPIXIEDUST"
+    "F": {
+      "item": "botania:felpumpkin"
     },
-    "D": {
-      "item": "#ELVENDRAGONSTONE"
+    "I": {
+      "item": "#INGOTMANASTEEL"
     }
   }
 }
