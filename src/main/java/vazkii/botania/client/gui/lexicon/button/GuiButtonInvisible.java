@@ -10,22 +10,21 @@
  */
 package vazkii.botania.client.gui.lexicon.button;
 
-import javax.annotation.Nonnull;
-
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
+import org.lwjgl.opengl.GL11;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.PersistentVariableHelper;
 import vazkii.botania.client.core.helper.FontHelper;
 import vazkii.botania.client.gui.lexicon.GuiLexiconIndex;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.lib.LibMisc;
+
+import javax.annotation.Nonnull;
 
 public class GuiButtonInvisible extends GuiButtonLexicon {
 

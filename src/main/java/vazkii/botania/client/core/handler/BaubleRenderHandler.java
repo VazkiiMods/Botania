@@ -10,11 +10,6 @@
  */
 package vazkii.botania.client.core.handler;
 
-import javax.annotation.Nonnull;
-
-import net.minecraftforge.items.IItemHandler;
-import org.lwjgl.opengl.GL11;
-
 import baubles.api.BaublesApi;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
@@ -27,6 +22,8 @@ import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.items.IItemHandler;
+import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.item.IBaubleRender;
 import vazkii.botania.api.item.IBaubleRender.Helper;
 import vazkii.botania.api.item.IBaubleRender.RenderType;
@@ -35,6 +32,8 @@ import vazkii.botania.api.item.IPhantomInkable;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.armor.terrasteel.ItemTerrasteelHelm;
+
+import javax.annotation.Nonnull;
 
 public final class BaubleRenderHandler implements LayerRenderer<EntityPlayer> {
 

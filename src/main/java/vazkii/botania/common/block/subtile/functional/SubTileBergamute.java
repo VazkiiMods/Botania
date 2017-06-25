@@ -1,13 +1,13 @@
 package vazkii.botania.common.block.subtile.functional;
 
-import java.util.Collections;
-import java.util.Set;
-import java.util.WeakHashMap;
-
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.lexicon.LexiconData;
+
+import java.util.Collections;
+import java.util.Set;
+import java.util.WeakHashMap;
 
 public class SubTileBergamute extends SubTileFunctional {
 	private static final int RANGE = 4;

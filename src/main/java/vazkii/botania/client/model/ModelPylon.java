@@ -10,18 +10,12 @@
  */
 package vazkii.botania.client.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.lwjgl.opengl.GL11;
-
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
@@ -38,7 +32,11 @@ import net.minecraftforge.client.model.pipeline.LightUtil;
 import net.minecraftforge.common.model.IModelState;
 import net.minecraftforge.common.model.Models;
 import net.minecraftforge.common.model.TRSRTransformation;
+import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.state.enums.PylonVariant;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ModelPylon implements IPylonModel {
 

@@ -10,10 +10,6 @@
  */
 package vazkii.botania.common.entity;
 
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
@@ -23,8 +19,11 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
-import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.core.handler.ModSounds;
+
+import javax.annotation.Nonnull;
+import java.util.List;
 
 public class EntityMagicLandmine extends Entity {
 
@@ -53,7 +52,7 @@ public class EntityMagicLandmine extends Entity {
 			Botania.proxy.wispFX(posX - range + Math.random() * range * 2, posY, posZ - range + Math.random() * range * 2, r, g, b, 0.4F, -0.015F, 1);
 
 		if(ticksExisted >= 55) {
-			world.playSound(null, posX, posY, posZ, BotaniaSoundEvents.gaiaTrap, SoundCategory.NEUTRAL, 0.3F, 1F);
+			world.playSound(null, posX, posY, posZ, ModSounds.gaiaTrap, SoundCategory.NEUTRAL, 0.3F, 1F);
 
 			float m = 0.35F;
 			g = 0.4F;

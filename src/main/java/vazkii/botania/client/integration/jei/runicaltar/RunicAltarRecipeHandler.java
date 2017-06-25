@@ -8,11 +8,11 @@
  */
 package vazkii.botania.client.integration.jei.runicaltar;
 
-import javax.annotation.Nonnull;
-
 import mezz.jei.api.recipe.IRecipeHandler;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import vazkii.botania.api.recipe.RecipeRuneAltar;
+
+import javax.annotation.Nonnull;
 
 public class RunicAltarRecipeHandler implements IRecipeHandler<RecipeRuneAltar> {
 

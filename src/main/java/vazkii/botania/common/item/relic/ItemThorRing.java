@@ -13,7 +13,6 @@ package vazkii.botania.common.item.relic;
 import baubles.api.BaubleType;
 import baubles.api.BaublesApi;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.IItemHandler;
 import vazkii.botania.common.item.ModItems;

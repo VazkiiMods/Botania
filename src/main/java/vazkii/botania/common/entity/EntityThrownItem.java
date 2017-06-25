@@ -10,10 +10,6 @@
  */
 package vazkii.botania.common.entity;
 
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -25,6 +21,9 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import vazkii.botania.common.core.handler.MethodHandles;
 import vazkii.botania.common.core.helper.Vector3;
+
+import javax.annotation.Nonnull;
+import java.util.List;
 
 public class EntityThrownItem extends EntityItem {
 

@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.block.string;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -26,6 +24,8 @@ import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.tile.string.TileRedString;
 import vazkii.botania.common.block.tile.string.TileRedStringDispenser;
 import vazkii.botania.common.lib.LibBlockNames;
+
+import javax.annotation.Nonnull;
 
 public class BlockRedStringDispenser extends BlockRedString {
 

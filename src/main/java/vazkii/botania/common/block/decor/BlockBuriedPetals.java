@@ -10,10 +10,6 @@
  */
 package vazkii.botania.common.block.decor;
 
-import java.util.Random;
-
-import javax.annotation.Nonnull;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.statemap.StateMap;
@@ -32,6 +28,9 @@ import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.BlockModFlower;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibBlockNames;
+
+import javax.annotation.Nonnull;
+import java.util.Random;
 
 public class BlockBuriedPetals extends BlockModFlower {
 

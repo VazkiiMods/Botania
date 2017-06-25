@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.entity;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.entity.EntityFlying;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -23,6 +21,8 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import vazkii.botania.common.Botania;
+
+import javax.annotation.Nonnull;
 
 public class EntityPixie extends EntityFlying {
 

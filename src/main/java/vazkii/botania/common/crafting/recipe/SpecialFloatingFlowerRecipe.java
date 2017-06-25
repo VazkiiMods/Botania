@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.crafting.recipe;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -22,6 +20,8 @@ import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
+
+import javax.annotation.Nonnull;
 
 public class SpecialFloatingFlowerRecipe extends IForgeRegistryEntry.Impl<IRecipe> implements IRecipe {
 

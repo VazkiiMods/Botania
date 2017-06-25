@@ -10,10 +10,6 @@
  */
 package vazkii.botania.client.render.tile;
 
-import javax.annotation.Nonnull;
-
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
@@ -26,9 +22,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
+import org.lwjgl.opengl.GL11;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileAltar;
+
+import javax.annotation.Nonnull;
 
 public class RenderTileAltar extends TileEntitySpecialRenderer<TileAltar> {
 

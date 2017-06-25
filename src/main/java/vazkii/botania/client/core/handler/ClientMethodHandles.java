@@ -1,16 +1,15 @@
 package vazkii.botania.client.core.handler;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.MethodHandles;
-import java.lang.reflect.Field;
-
 import com.google.common.base.Throwables;
-
 import net.minecraft.client.renderer.RenderGlobal;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.lib.LibObfuscation;
+
+import java.lang.invoke.MethodHandle;
+import java.lang.invoke.MethodHandles;
+import java.lang.reflect.Field;
 
 public final class ClientMethodHandles {
 

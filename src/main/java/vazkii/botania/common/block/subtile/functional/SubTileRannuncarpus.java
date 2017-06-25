@@ -10,12 +10,6 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import net.minecraft.item.ItemPiston;
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -27,6 +21,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemBlockSpecial;
+import net.minecraft.item.ItemPiston;
 import net.minecraft.item.ItemRedstone;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -35,6 +30,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.item.IFloatingFlower;
 import vazkii.botania.api.item.IFlowerPlaceable;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -47,6 +43,9 @@ import vazkii.botania.common.core.handler.MethodHandles;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibObfuscation;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SubTileRannuncarpus extends SubTileFunctional {
 

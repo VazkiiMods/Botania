@@ -1,14 +1,6 @@
 package vazkii.botania.client.model;
 
-import java.util.List;
-
-import javax.annotation.Nonnull;
-import javax.vecmath.Matrix4f;
-
-import org.apache.commons.lang3.tuple.Pair;
-
 import com.google.common.collect.ImmutableList;
-
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.BakedQuad;
@@ -19,7 +11,12 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.client.model.IPerspectiveAwareModel;
+import org.apache.commons.lang3.tuple.Pair;
 import vazkii.botania.common.core.handler.ConfigHandler;
+
+import javax.annotation.Nonnull;
+import javax.vecmath.Matrix4f;
+import java.util.List;
 
 @SuppressWarnings("deprecation")
 public class LexiconModel implements IPerspectiveAwareModel {

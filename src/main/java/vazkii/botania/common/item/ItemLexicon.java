@@ -10,11 +10,6 @@
  */
 package vazkii.botania.common.item;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.block.model.ModelBakery;
@@ -49,8 +44,8 @@ import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.KnowledgeType;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.recipe.IElvenItem;
-import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.core.helper.PlayerHelper;
@@ -58,6 +53,10 @@ import vazkii.botania.common.item.relic.ItemDice;
 import vazkii.botania.common.lib.LibGuiIDs;
 import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibMisc;
+
+import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 
@@ -181,7 +180,7 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 		Botania.proxy.setLexiconStack(stack);
 		player.openGui(Botania.instance, LibGuiIDs.LEXICON, world, 0, 0, 0);
 		if(!world.isRemote && !skipSound)
-			world.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.lexiconOpen, SoundCategory.PLAYERS, 0.5F, 1F);
+			world.playSound(null, player.posX, player.posY, player.posZ, ModSounds.lexiconOpen, SoundCategory.PLAYERS, 0.5F, 1F);
 	}
 
 	@Override

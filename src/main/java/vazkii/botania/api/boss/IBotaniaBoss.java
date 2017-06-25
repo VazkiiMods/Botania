@@ -10,14 +10,14 @@
  */
 package vazkii.botania.api.boss;
 
-import java.awt.Rectangle;
-import java.util.UUID;
-
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.internal.ShaderCallback;
+
+import java.awt.Rectangle;
+import java.util.UUID;
 
 /**
  * A Botania boss, that is subject to special rendering.

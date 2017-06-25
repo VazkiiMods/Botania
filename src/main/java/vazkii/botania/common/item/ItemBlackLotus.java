@@ -10,16 +10,10 @@
  */
 package vazkii.botania.common.item;
 
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.NonNullList;
@@ -29,11 +23,14 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.item.IManaDissolvable;
 import vazkii.botania.api.mana.IManaPool;
-import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.client.core.handler.ModelHandler;
+import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.network.PacketBotaniaEffect;
 import vazkii.botania.common.network.PacketHandler;
+
+import javax.annotation.Nonnull;
+import java.util.List;
 
 public class ItemBlackLotus extends ItemMod implements IManaDissolvable {
 
@@ -78,7 +75,7 @@ public class ItemBlackLotus extends ItemMod implements IManaDissolvable {
 		}
 
 		PacketHandler.sendToNearby(item.world, item, new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.BLACK_LOTUS_DISSOLVE, item.posX, tile.getPos().getY() + 0.5, item.posZ));
-		item.playSound(BotaniaSoundEvents.blackLotus, 0.5F, t2 ? 0.1F : 1F);
+		item.playSound(ModSounds.blackLotus, 0.5F, t2 ? 0.1F : 1F);
 	}
 
 	@SideOnly(Side.CLIENT)

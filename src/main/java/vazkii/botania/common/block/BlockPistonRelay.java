@@ -10,16 +10,6 @@
  */
 package vazkii.botania.common.block;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Random;
-import java.util.Set;
-import java.util.UUID;
-
-import javax.annotation.Nonnull;
-
 import gnu.trove.map.hash.TObjectIntHashMap;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPistonExtension;
@@ -51,10 +41,19 @@ import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
 import net.minecraftforge.fml.common.gameevent.TickEvent.Type;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.api.wand.IWandable;
+import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
+
+import javax.annotation.Nonnull;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Random;
+import java.util.Set;
+import java.util.UUID;
 
 public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconable {
 
@@ -127,7 +126,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 
 		if(!player.isSneaking()) {
 			playerPositions.put(player.getUniqueID(), new DimWithPos(world.provider.getDimension(), pos));
-			world.playSound(null, pos, BotaniaSoundEvents.ding, SoundCategory.BLOCKS, 0.5F, 1F);
+			world.playSound(null, pos, ModSounds.ding, SoundCategory.BLOCKS, 0.5F, 1F);
 		} else {
 			spawnAsEntity(world, pos, new ItemStack(this));
 			world.setBlockToAir(pos);

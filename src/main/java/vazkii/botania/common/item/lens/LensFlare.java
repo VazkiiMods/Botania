@@ -10,14 +10,14 @@
  */
 package vazkii.botania.common.item.lens;
 
-import java.awt.Color;
-
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.MathHelper;
 import vazkii.botania.api.mana.IManaSpreader;
 import vazkii.botania.common.Botania;
+
+import java.awt.Color;
 
 public class LensFlare extends Lens {
 

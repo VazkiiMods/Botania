@@ -10,15 +10,6 @@
  */
 package vazkii.botania.client.core.handler;
 
-import java.awt.Color;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-
-import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.IItemHandler;
-import org.lwjgl.opengl.GL11;
-
 import baubles.api.BaublesApi;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
@@ -44,6 +35,9 @@ import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
+import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.lexicon.ILexicon;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -75,6 +69,11 @@ import vazkii.botania.common.item.equipment.bauble.ItemDodgeRing;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
 import vazkii.botania.common.item.equipment.bauble.ItemMonocle;
 import vazkii.botania.common.lib.LibObfuscation;
+
+import java.awt.Color;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 public final class HUDHandler {
 

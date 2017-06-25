@@ -10,10 +10,6 @@
  */
 package vazkii.botania.common.item;
 
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFalling;
 import net.minecraft.block.state.IBlockState;
@@ -23,7 +19,6 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -43,12 +38,15 @@ import vazkii.botania.api.mana.BurstProperties;
 import vazkii.botania.api.mana.ILaputaImmobile;
 import vazkii.botania.api.mana.ILensEffect;
 import vazkii.botania.api.mana.ITinyPlanetExcempt;
-import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.client.core.handler.ModelHandler;
+import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.entity.EntityManaBurst;
 import vazkii.botania.common.lib.LibItemNames;
+
+import javax.annotation.Nonnull;
+import java.util.List;
 
 public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanetExcempt {
 
@@ -92,7 +90,7 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 	@Override
 	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
 		if(!world.isRemote && pos.getY() < 160 && !world.provider.doesWaterVaporize()) {
-			world.playSound(null, pos, BotaniaSoundEvents.laputaStart, SoundCategory.BLOCKS, 1.0F + world.rand.nextFloat(), world.rand.nextFloat() * 0.7F + 1.3F);
+			world.playSound(null, pos, ModSounds.laputaStart, SoundCategory.BLOCKS, 1.0F + world.rand.nextFloat(), world.rand.nextFloat() * 0.7F + 1.3F);
 			ItemStack stack = player.getHeldItem(hand);
 			spawnBurstFirst(world, pos, stack);
 			if(stack.getItemDamage() == 19)

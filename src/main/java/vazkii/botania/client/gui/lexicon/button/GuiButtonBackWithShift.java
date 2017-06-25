@@ -10,11 +10,11 @@
  */
 package vazkii.botania.client.gui.lexicon.button;
 
-import java.util.Arrays;
-import java.util.List;
-
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.text.TextFormatting;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class GuiButtonBackWithShift extends GuiButtonBack {
 

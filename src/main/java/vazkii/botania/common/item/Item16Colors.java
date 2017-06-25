@@ -10,18 +10,15 @@
  */
 package vazkii.botania.common.item;
 
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.EnumDyeColor;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.client.core.handler.ModelHandler;
+
+import javax.annotation.Nonnull;
 
 public class Item16Colors extends ItemMod {
 

@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.crafting.recipe;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
@@ -21,6 +19,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import vazkii.botania.common.item.ModItems;
+
+import javax.annotation.Nonnull;
 
 public class SpellClothRecipe extends IForgeRegistryEntry.Impl<IRecipe> implements IRecipe {
 

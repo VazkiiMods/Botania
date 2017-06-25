@@ -10,13 +10,8 @@
  */
 package vazkii.botania.common.item.brew;
 
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.client.model.ModelLoader;
@@ -27,6 +22,8 @@ import vazkii.botania.api.brew.IBrewContainer;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibItemNames;
+
+import javax.annotation.Nonnull;
 
 public class ItemVial extends ItemMod implements IBrewContainer {
 

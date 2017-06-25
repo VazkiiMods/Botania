@@ -1,11 +1,5 @@
 package vazkii.botania.common.block.subtile.functional;
 
-import java.awt.Color;
-import java.util.Random;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import net.minecraft.client.audio.ISound;
 import net.minecraft.client.audio.ITickableSound;
 import net.minecraft.client.audio.MovingSound;
@@ -21,6 +15,11 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.block.tile.mana.TilePool;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.awt.Color;
+import java.util.Random;
 
 @SideOnly(Side.CLIENT)
 public class BergamuteEventHandler {

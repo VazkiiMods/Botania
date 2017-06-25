@@ -1,8 +1,5 @@
 package vazkii.botania.client.core.handler;
 
-import java.awt.Color;
-import java.util.Map;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -36,6 +33,9 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.bauble.ItemBloodPendant;
 import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
 import vazkii.botania.common.item.lens.ItemLens;
+
+import java.awt.Color;
+import java.util.Map;
 
 public final class ColorHandler {
 

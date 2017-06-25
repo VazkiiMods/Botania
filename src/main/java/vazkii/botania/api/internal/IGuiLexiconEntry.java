@@ -10,10 +10,10 @@
  */
 package vazkii.botania.api.internal;
 
-import java.util.List;
-
 import net.minecraft.client.gui.GuiButton;
 import vazkii.botania.api.lexicon.LexiconEntry;
+
+import java.util.List;
 
 /**
  * Internal interface for the Lexicon Entry GUI. This contains

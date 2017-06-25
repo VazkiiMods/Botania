@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.item.record;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.ItemRecord;
 import net.minecraft.item.ItemStack;
@@ -24,6 +22,8 @@ import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.render.IModelRegister;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.lib.LibMisc;
+
+import javax.annotation.Nonnull;
 
 public class ItemModRecord extends ItemRecord implements IModelRegister {
 

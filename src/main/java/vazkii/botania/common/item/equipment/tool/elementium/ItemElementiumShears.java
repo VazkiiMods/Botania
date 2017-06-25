@@ -1,16 +1,9 @@
 package vazkii.botania.common.item.equipment.tool.elementium;
 
-import java.util.List;
-import java.util.Random;
-
-import javax.annotation.Nonnull;
-
 import com.google.common.base.Predicates;
-
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Enchantments;
 import net.minecraft.item.EnumAction;
@@ -27,6 +20,9 @@ import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelShears;
 import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibMisc;
+
+import javax.annotation.Nonnull;
+import java.util.List;
 
 public class ItemElementiumShears extends ItemManasteelShears {
 

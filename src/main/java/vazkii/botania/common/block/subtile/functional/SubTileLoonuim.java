@@ -10,12 +10,8 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
-import java.util.List;
-import java.util.Random;
-
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
-
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
@@ -47,6 +43,9 @@ import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.lexicon.LexiconData;
+
+import java.util.List;
+import java.util.Random;
 
 public class SubTileLoonuim extends SubTileFunctional {
 

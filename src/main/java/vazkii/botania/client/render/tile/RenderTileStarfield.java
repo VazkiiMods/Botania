@@ -10,23 +10,20 @@
  */
 package vazkii.botania.client.render.tile;
 
-import java.awt.Color;
-import java.nio.FloatBuffer;
-import java.util.Random;
-
-import javax.annotation.Nonnull;
-
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.ActiveRenderInfo;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GLAllocation;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
 import vazkii.botania.common.block.tile.TileStarfield;
+
+import javax.annotation.Nonnull;
+import java.awt.Color;
+import java.nio.FloatBuffer;
+import java.util.Random;
 
 // This is copied from the vanilla end portal TESR, relevant edits are commented
 public class RenderTileStarfield extends TileEntitySpecialRenderer<TileStarfield> {

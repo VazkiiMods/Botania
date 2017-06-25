@@ -10,9 +10,6 @@
  */
 package vazkii.botania.api.subtile.signature;
 
-import java.util.List;
-
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
@@ -23,6 +20,8 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.subtile.SubTileEntity;
 import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.api.subtile.SubTileGenerating;
+
+import java.util.List;
 
 /**
  * A basic (and fallback) implementation of SubTileSignature.

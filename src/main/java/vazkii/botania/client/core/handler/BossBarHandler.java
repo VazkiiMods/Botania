@@ -10,25 +10,24 @@
  */
 package vazkii.botania.client.core.handler;
 
-import java.awt.Rectangle;
-import java.util.Collections;
-import java.util.Set;
-import java.util.UUID;
-import java.util.WeakHashMap;
-
-import org.lwjgl.opengl.ARBShaderObjects;
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import org.lwjgl.opengl.ARBShaderObjects;
+import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.boss.IBotaniaBoss;
 import vazkii.botania.api.internal.ShaderCallback;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.lib.LibResources;
+
+import java.awt.Rectangle;
+import java.util.Collections;
+import java.util.Set;
+import java.util.UUID;
+import java.util.WeakHashMap;
 
 public final class BossBarHandler {
 

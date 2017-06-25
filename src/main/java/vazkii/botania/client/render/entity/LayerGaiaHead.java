@@ -1,7 +1,5 @@
 package vazkii.botania.client.render.entity;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
@@ -15,6 +13,8 @@ import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.render.tile.RenderTileGaiaHead;
 import vazkii.botania.common.block.tile.TileGaiaHead;
 import vazkii.botania.common.item.ModItems;
+
+import javax.annotation.Nonnull;
 
 public class LayerGaiaHead implements LayerRenderer<EntityPlayer> {
 

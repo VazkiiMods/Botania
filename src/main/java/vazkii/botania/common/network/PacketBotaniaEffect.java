@@ -1,7 +1,5 @@
 package vazkii.botania.common.network;
 
-import java.awt.Color;
-
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
@@ -18,9 +16,10 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.tile.TileTerraPlate;
 import vazkii.botania.common.core.handler.ConfigHandler;
-import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.entity.EntityDoppleganger;
+
+import java.awt.Color;
 
 public class PacketBotaniaEffect implements IMessage {
 

@@ -10,12 +10,7 @@
  */
 package vazkii.botania.client.render.tile;
 
-import java.util.Map;
-
-import javax.annotation.Nonnull;
-
 import com.google.common.collect.ImmutableMap;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
@@ -26,6 +21,9 @@ import net.minecraft.util.EnumFacing;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileIncensePlate;
+
+import javax.annotation.Nonnull;
+import java.util.Map;
 
 public class RenderTileIncensePlate extends TileEntitySpecialRenderer<TileIncensePlate> {
 

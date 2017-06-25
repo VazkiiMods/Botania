@@ -10,9 +10,9 @@
  */
 package vazkii.botania.api.item;
 
-import java.util.UUID;
-
 import net.minecraft.item.ItemStack;
+
+import java.util.UUID;
 
 /**
  * An item that implements this counts as a Relic item. This is purely for interaction

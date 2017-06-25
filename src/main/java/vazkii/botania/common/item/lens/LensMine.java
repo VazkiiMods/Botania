@@ -10,9 +10,6 @@
  */
 package vazkii.botania.common.item.lens;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
@@ -28,6 +25,9 @@ import vazkii.botania.api.mana.IManaBlock;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ModItems;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class LensMine extends Lens {
 

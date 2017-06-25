@@ -10,15 +10,9 @@
  */
 package vazkii.botania.common.item.brew;
 
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
@@ -34,6 +28,9 @@ import vazkii.botania.api.brew.IBrewItem;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.lib.LibItemNames;
+
+import javax.annotation.Nonnull;
+import java.util.List;
 
 public class ItemIncenseStick extends ItemMod implements IBrewItem, IBrewContainer {
 

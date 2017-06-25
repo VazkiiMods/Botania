@@ -10,8 +10,6 @@
  */
 package vazkii.botania.client.gui.bag;
 
-import java.util.List;
-
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
@@ -23,6 +21,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.items.SlotItemHandler;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.block.ModBlocks;
+
+import java.util.List;
 
 public class GuiFlowerBag extends GuiContainer {
 

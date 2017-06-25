@@ -13,19 +13,13 @@ package vazkii.botania.common.item.interaction.thaumcraft;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.Optional;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.oredict.RecipeSorter;
-import net.minecraftforge.oredict.RecipeSorter.Category;
 import thaumcraft.api.items.IGoggles;
 import thaumcraft.api.items.IRevealer;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.handler.ConfigHandler;
-import vazkii.botania.common.crafting.recipe.HelmRevealingRecipe;
 import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelHelm;
 import vazkii.botania.common.lib.LibItemNames;
-import vazkii.botania.common.lib.LibMisc;
 
 @Optional.InterfaceList({
 	@Optional.Interface(modid = "Thaumcraft", iface = "thaumcraft.api.items.IGoggles", striprefs = true),

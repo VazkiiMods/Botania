@@ -10,11 +10,6 @@
  */
 package vazkii.botania.common.item.relic;
 
-import java.util.List;
-import java.util.UUID;
-
-import javax.annotation.Nonnull;
-
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -27,6 +22,10 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IRelic;
 import vazkii.botania.common.item.equipment.bauble.ItemBauble;
+
+import javax.annotation.Nonnull;
+import java.util.List;
+import java.util.UUID;
 
 public abstract class ItemRelicBauble extends ItemBauble implements IRelic {
 

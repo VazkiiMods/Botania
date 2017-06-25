@@ -13,7 +13,6 @@ package vazkii.botania.common.network;
 import baubles.api.BaublesApi;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.text.TextComponentString;
@@ -21,7 +20,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.items.IItemHandler;
-import vazkii.botania.api.sound.BotaniaSoundEvents;
+import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.equipment.bauble.ItemDodgeRing;
 
@@ -39,7 +38,7 @@ public class PacketDodge implements IMessage {
 		public IMessage onMessage(PacketDodge message, MessageContext ctx) {
 			EntityPlayerMP player = ctx.getServerHandler().player;
 			player.mcServer.addScheduledTask(() -> {
-				player.world.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.dash, SoundCategory.PLAYERS, 1F, 1F);
+				player.world.playSound(null, player.posX, player.posY, player.posZ, ModSounds.dash, SoundCategory.PLAYERS, 1F, 1F);
 
 				IItemHandler baublesInv = BaublesApi.getBaublesHandler(player);
 				ItemStack ringStack = baublesInv.getStackInSlot(1);

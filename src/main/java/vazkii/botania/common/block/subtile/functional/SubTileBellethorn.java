@@ -10,9 +10,6 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
-import java.util.List;
-import java.util.function.Predicate;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityWitch;
@@ -23,6 +20,9 @@ import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.lexicon.LexiconData;
+
+import java.util.List;
+import java.util.function.Predicate;
 
 public class SubTileBellethorn extends SubTileFunctional {
 

@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.block.subtile.generating;
 
-import java.util.List;
-
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -21,12 +19,14 @@ import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileGenerating;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.MethodHandles;
+import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.lexicon.LexiconData;
+
+import java.util.List;
 
 public class SubTileEndoflame extends SubTileGenerating {
 
@@ -67,7 +67,7 @@ public class SubTileEndoflame extends SubTileGenerating {
 
 								if(!supertile.getWorld().isRemote) {
 									stack.shrink(1);
-									supertile.getWorld().playSound(null, supertile.getPos(), BotaniaSoundEvents.endoflame, SoundCategory.BLOCKS, 0.2F, 1F);
+									supertile.getWorld().playSound(null, supertile.getPos(), ModSounds.endoflame, SoundCategory.BLOCKS, 0.2F, 1F);
 
 									didSomething = true;
 								} else {

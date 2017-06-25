@@ -10,11 +10,6 @@
  */
 package vazkii.botania.common.item;
 
-import java.util.List;
-import java.util.Random;
-
-import javax.annotation.Nonnull;
-
 import net.minecraft.block.Block;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
@@ -45,6 +40,10 @@ import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.entity.EntityPixie;
 import vazkii.botania.common.entity.EntitySignalFlare;
 import vazkii.botania.common.lib.LibItemNames;
+
+import javax.annotation.Nonnull;
+import java.util.List;
+import java.util.Random;
 
 public class ItemBottledMana extends ItemMod {
 

@@ -10,10 +10,10 @@
  */
 package vazkii.botania.common.block.tile;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.nbt.NBTTagCompound;
 import vazkii.botania.common.Botania;
+
+import javax.annotation.Nonnull;
 
 public class TileBifrost extends TileMod {
 

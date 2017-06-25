@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.item;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumDyeColor;
@@ -28,11 +26,13 @@ import net.minecraftforge.fml.common.FMLCommonHandler;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.mana.IManaTooltipDisplay;
-import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.api.wand.ICoordBoundItem;
 import vazkii.botania.common.block.tile.mana.TilePool;
+import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lib.LibItemNames;
+
+import javax.annotation.Nonnull;
 
 public class ItemManaMirror extends ItemMod implements IManaItem, ICoordBoundItem, IManaTooltipDisplay {
 
@@ -83,7 +83,7 @@ public class ItemManaMirror extends ItemMod implements IManaItem, ICoordBoundIte
 			TileEntity tile = world.getTileEntity(pos);
 			if(tile != null && tile instanceof IManaPool) {
 				bindPool(player.getHeldItem(hand), tile);
-				world.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.ding, SoundCategory.PLAYERS, 1F, 1F);
+				world.playSound(null, player.posX, player.posY, player.posZ, ModSounds.ding, SoundCategory.PLAYERS, 1F, 1F);
 				return EnumActionResult.SUCCESS;
 			}
 		}

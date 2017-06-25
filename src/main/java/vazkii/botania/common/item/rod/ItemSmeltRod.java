@@ -10,11 +10,6 @@
  */
 package vazkii.botania.common.item.rod;
 
-import java.util.Map;
-import java.util.WeakHashMap;
-
-import javax.annotation.Nonnull;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
@@ -37,6 +32,10 @@ import vazkii.botania.common.Botania;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.lib.LibItemNames;
+
+import javax.annotation.Nonnull;
+import java.util.Map;
+import java.util.WeakHashMap;
 
 public class ItemSmeltRod extends ItemMod implements IManaUsingItem {
 

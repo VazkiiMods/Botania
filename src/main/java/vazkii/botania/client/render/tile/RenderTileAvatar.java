@@ -10,10 +10,6 @@
  */
 package vazkii.botania.client.render.tile;
 
-import javax.annotation.Nullable;
-
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
@@ -23,6 +19,7 @@ import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
+import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.client.core.handler.ClientTickHandler;
@@ -30,6 +27,8 @@ import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelAvatar;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileAvatar;
+
+import javax.annotation.Nullable;
 
 public class RenderTileAvatar extends TileEntitySpecialRenderer<TileAvatar> {
 

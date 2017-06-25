@@ -10,16 +10,15 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
-import java.util.Collections;
-import java.util.Set;
-
 import com.google.common.collect.MapMaker;
-
 import net.minecraft.entity.Entity;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.lexicon.LexiconData;
+
+import java.util.Collections;
+import java.util.Set;
 
 public class SubTileSolegnolia extends SubTileFunctional {
 

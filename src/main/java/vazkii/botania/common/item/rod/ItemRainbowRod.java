@@ -10,12 +10,7 @@
  */
 package vazkii.botania.common.item.rod;
 
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
 import net.minecraft.block.Block;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -34,14 +29,17 @@ import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.api.item.IManaProficiencyArmor;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
-import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileBifrost;
+import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.lib.LibItemNames;
+
+import javax.annotation.Nonnull;
+import java.util.List;
 
 public class ItemRainbowRod extends ItemMod implements IManaUsingItem, IAvatarWieldable {
 
@@ -116,7 +114,7 @@ public class ItemRainbowRod extends ItemMod implements IManaUsingItem, IAvatarWi
 			}
 
 			if(count > 0) {
-				world.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.bifrostRod, SoundCategory.PLAYERS, 0.5F, 0.25F);
+				world.playSound(null, player.posX, player.posY, player.posZ, ModSounds.bifrostRod, SoundCategory.PLAYERS, 0.5F, 0.25F);
 				ManaItemHandler.requestManaExactForTool(stack, player, MANA_COST, false);
 				player.getCooldownTracker().setCooldown(this, TIME);
 

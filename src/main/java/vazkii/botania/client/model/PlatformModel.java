@@ -8,12 +8,7 @@
  */
 package vazkii.botania.client.model;
 
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
 import com.google.common.collect.ImmutableList;
-
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.BakedQuad;
@@ -36,6 +31,9 @@ import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.BlockCamo;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileCamo;
+
+import javax.annotation.Nonnull;
+import java.util.List;
 
 public class PlatformModel implements IBakedModel {
 

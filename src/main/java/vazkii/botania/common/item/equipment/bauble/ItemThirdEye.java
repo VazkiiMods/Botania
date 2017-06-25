@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
-import java.util.List;
-
 import baubles.api.BaubleType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
@@ -36,6 +34,8 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.lib.LibItemNames;
+
+import java.util.List;
 
 public class ItemThirdEye extends ItemBauble implements IManaUsingItem, IBaubleRender {
 

@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.entity;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -19,6 +17,8 @@ import net.minecraft.world.World;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.lens.ItemLens;
+
+import javax.annotation.Nonnull;
 
 public class EntityManaStorm extends Entity {
 

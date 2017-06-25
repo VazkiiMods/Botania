@@ -10,12 +10,7 @@
  */
 package vazkii.botania.common.block.decor;
 
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
 import com.google.common.collect.ImmutableList;
-
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -41,6 +36,9 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.world.WorldTypeSkyblock;
+
+import javax.annotation.Nonnull;
+import java.util.List;
 
 public class BlockManaFlame extends BlockMod implements ILexiconable {
 

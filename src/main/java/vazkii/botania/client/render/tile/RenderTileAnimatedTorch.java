@@ -10,8 +10,6 @@
  */
 package vazkii.botania.client.render.tile;
 
-import java.util.Random;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
@@ -20,6 +18,8 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.common.block.tile.TileAnimatedTorch;
+
+import java.util.Random;
 
 public class RenderTileAnimatedTorch extends TileEntitySpecialRenderer<TileAnimatedTorch> {
 

@@ -10,13 +10,12 @@
  */
 package vazkii.botania.api.subtile.signature;
 
-import java.util.List;
-
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.util.List;
 
 /**
  * A singleton instance for a SubTileEntity, this is called for a few methods.

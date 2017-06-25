@@ -1,11 +1,11 @@
 package vazkii.botania.common.core.helper;
 
-import java.util.function.Predicate;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHand;
+
+import java.util.function.Predicate;
 
 public final class PlayerHelper {
 

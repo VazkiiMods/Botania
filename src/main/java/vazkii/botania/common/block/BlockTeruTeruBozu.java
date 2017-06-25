@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.block;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
@@ -37,6 +35,8 @@ import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.block.tile.TileTeruTeruBozu;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
+
+import javax.annotation.Nonnull;
 
 public class BlockTeruTeruBozu extends BlockMod implements ILexiconable {
 

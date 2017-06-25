@@ -10,9 +10,6 @@
  */
 package vazkii.botania.client.render.tile;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
@@ -24,6 +21,8 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelBrewery;
 import vazkii.botania.common.block.tile.TileBrewery;
+
+import javax.annotation.Nullable;
 
 public class RenderTileBrewery extends TileEntitySpecialRenderer<TileBrewery> {
 

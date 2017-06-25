@@ -10,11 +10,11 @@
  */
 package vazkii.botania.api.item;
 
-import java.util.List;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
+
+import java.util.List;
 
 /**
  * An item that implements this will allow for various wireframes to be drawn

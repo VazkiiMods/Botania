@@ -10,13 +10,7 @@
  */
 package vazkii.botania.common.block;
 
-import java.util.List;
-import java.util.Random;
-
-import javax.annotation.Nonnull;
-
 import com.google.common.collect.ImmutableList;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -32,6 +26,10 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import vazkii.botania.common.block.tile.TileFakeAir;
 import vazkii.botania.common.lib.LibBlockNames;
+
+import javax.annotation.Nonnull;
+import java.util.List;
+import java.util.Random;
 
 public class BlockFakeAir extends BlockMod {
 

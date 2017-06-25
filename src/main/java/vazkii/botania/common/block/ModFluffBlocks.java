@@ -10,20 +10,13 @@
  */
 package vazkii.botania.common.block;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-
 import com.google.common.collect.ImmutableList;
-
 import net.minecraft.block.Block;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.registries.IForgeRegistry;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.BiomeBrickVariant;
@@ -67,6 +60,10 @@ import vazkii.botania.common.item.block.ItemBlockModSlab;
 import vazkii.botania.common.item.block.ItemBlockSpecialQuartz;
 import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lib.LibBlockNames;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 @Mod.EventBusSubscriber
 public final class ModFluffBlocks {

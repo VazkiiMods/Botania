@@ -10,48 +10,7 @@
  */
 package vazkii.botania.common.lexicon;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.brew.IBrewContainer;
-import vazkii.botania.api.lexicon.LexiconCategory;
 import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.api.lexicon.LexiconPage;
-import vazkii.botania.api.lexicon.LexiconRecipeMappings;
-import vazkii.botania.client.lib.LibResources;
-import vazkii.botania.common.Botania;
-import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.block.ModMultiblocks;
-import vazkii.botania.common.brew.ModBrews;
-import vazkii.botania.common.core.handler.ConfigHandler;
-import vazkii.botania.common.core.handler.SheddingHandler;
-import vazkii.botania.common.crafting.ModBrewRecipes;
-import vazkii.botania.common.crafting.ModCraftingRecipes;
-import vazkii.botania.common.crafting.ModElvenTradeRecipes;
-import vazkii.botania.common.crafting.ModManaAlchemyRecipes;
-import vazkii.botania.common.crafting.ModManaConjurationRecipes;
-import vazkii.botania.common.crafting.ModManaInfusionRecipes;
-import vazkii.botania.common.crafting.ModPetalRecipes;
-import vazkii.botania.common.crafting.ModRuneRecipes;
-import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
-import vazkii.botania.common.lexicon.page.PageBrew;
-import vazkii.botania.common.lexicon.page.PageCraftingRecipe;
-import vazkii.botania.common.lexicon.page.PageElvenRecipe;
-import vazkii.botania.common.lexicon.page.PageImage;
-import vazkii.botania.common.lexicon.page.PageLoreText;
-import vazkii.botania.common.lexicon.page.PageManaInfusionRecipe;
-import vazkii.botania.common.lexicon.page.PageMultiblock;
-import vazkii.botania.common.lexicon.page.PagePetalRecipe;
-import vazkii.botania.common.lexicon.page.PageRuneRecipe;
-import vazkii.botania.common.lexicon.page.PageTerrasteel;
-import vazkii.botania.common.lexicon.page.PageText;
-import vazkii.botania.common.lib.LibBlockNames;
-import vazkii.botania.common.lib.LibLexicon;
 
 public final class LexiconData {
 

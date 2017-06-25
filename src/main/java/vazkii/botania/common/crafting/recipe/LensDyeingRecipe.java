@@ -10,11 +10,6 @@
  */
 package vazkii.botania.common.crafting.recipe;
 
-import java.util.Arrays;
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
@@ -26,6 +21,10 @@ import net.minecraftforge.registries.IForgeRegistryEntry;
 import vazkii.botania.api.mana.ILens;
 import vazkii.botania.common.item.lens.ItemLens;
 import vazkii.botania.common.lib.LibOreDict;
+
+import javax.annotation.Nonnull;
+import java.util.Arrays;
+import java.util.List;
 
 public class LensDyeingRecipe extends IForgeRegistryEntry.Impl<IRecipe> implements IRecipe {
 

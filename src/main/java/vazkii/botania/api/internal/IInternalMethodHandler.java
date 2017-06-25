@@ -10,8 +10,6 @@
  */
 package vazkii.botania.api.internal;
 
-import java.util.List;
-
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.Entity;
@@ -37,6 +35,8 @@ import vazkii.botania.api.recipe.RecipeManaInfusion;
 import vazkii.botania.api.recipe.RecipePetals;
 import vazkii.botania.api.recipe.RecipeRuneAltar;
 import vazkii.botania.api.subtile.SubTileEntity;
+
+import java.util.List;
 
 /**
  * Any methods that refer to internal methods in Botania are here.

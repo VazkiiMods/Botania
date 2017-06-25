@@ -1,7 +1,6 @@
 package vazkii.botania.common.core.handler;
 
 import com.google.common.collect.ImmutableList;
-
 import net.minecraftforge.fml.common.event.FMLInterModComms.IMCMessage;
 import vazkii.botania.common.item.equipment.bauble.ItemMagnetRing;
 import vazkii.botania.common.lib.LibMisc;

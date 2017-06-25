@@ -10,9 +10,6 @@
  */
 package vazkii.botania.common.core.handler;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import baubles.api.BaublesApi;
 import baubles.common.network.PacketHandler;
 import baubles.common.network.PacketSync;
@@ -73,6 +70,9 @@ import vazkii.botania.common.lexicon.page.PagePetalRecipe;
 import vazkii.botania.common.lexicon.page.PageRuneRecipe;
 import vazkii.botania.common.lexicon.page.PageText;
 import vazkii.botania.common.lib.LibMisc;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class InternalMethodHandler extends DummyMethodHandler {
 

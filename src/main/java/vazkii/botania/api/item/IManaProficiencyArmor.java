@@ -10,14 +10,12 @@
  */
 package vazkii.botania.api.item;
 
-import javax.annotation.Nullable;
-
-import vazkii.botania.api.mana.ManaProficiencyEvent;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
+import vazkii.botania.api.mana.ManaProficiencyEvent;
 
 /**
  * An armor item that implements this gives the player wearing it mana proficiency, by

@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.block.tile;
 
-import java.util.List;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.nbt.NBTTagCompound;
@@ -28,6 +26,8 @@ import net.minecraft.world.chunk.storage.AnvilChunkLoader;
 import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.MethodHandles;
+
+import java.util.List;
 
 public class TileSpawnerClaw extends TileMod implements IManaReceiver {
 

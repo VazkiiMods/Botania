@@ -10,15 +10,11 @@
  */
 package vazkii.botania.common.item;
 
-import javax.annotation.Nonnull;
-
 import com.mojang.authlib.GameProfile;
-
 import mods.railcraft.api.core.items.IMinecartItem;
 import net.minecraft.block.BlockRailBase;
 import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
@@ -28,6 +24,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.common.Optional;
 import vazkii.botania.common.entity.EntityPoolMinecart;
 import vazkii.botania.common.lib.LibItemNames;
+
+import javax.annotation.Nonnull;
 
 @Optional.Interface(modid = "Railcraft", iface = "mods.railcraft.api.core.items.IMinecartItem", striprefs = true)
 public class ItemPoolMinecart extends ItemMod implements IMinecartItem {

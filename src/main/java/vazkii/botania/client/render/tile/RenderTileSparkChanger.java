@@ -10,8 +10,6 @@
  */
 package vazkii.botania.client.render.tile;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
@@ -19,6 +17,8 @@ import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.common.block.tile.TileSparkChanger;
+
+import javax.annotation.Nonnull;
 
 public class RenderTileSparkChanger extends TileEntitySpecialRenderer<TileSparkChanger> {
 

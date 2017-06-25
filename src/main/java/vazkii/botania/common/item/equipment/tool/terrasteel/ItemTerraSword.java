@@ -10,14 +10,9 @@
  */
 package vazkii.botania.common.item.equipment.tool.terrasteel;
 
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityThrowable;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundCategory;
@@ -32,7 +27,7 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.BurstProperties;
 import vazkii.botania.api.mana.ILensEffect;
-import vazkii.botania.api.sound.BotaniaSoundEvents;
+import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.entity.EntityManaBurst;
 import vazkii.botania.common.item.ModItems;
@@ -41,6 +36,9 @@ import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelSword;
 import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.network.PacketHandler;
 import vazkii.botania.common.network.PacketLeftClick;
+
+import javax.annotation.Nonnull;
+import java.util.List;
 
 public class ItemTerraSword extends ItemManasteelSword implements ILensEffect {
 
@@ -75,7 +73,7 @@ public class ItemTerraSword extends ItemManasteelSword implements ILensEffect {
 			EntityManaBurst burst = getBurst(player, player.getHeldItemMainhand());
 			player.world.spawnEntity(burst);
 			ToolCommons.damageItem(player.getHeldItemMainhand(), 1, player, MANA_PER_DAMAGE);
-			player.world.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.terraBlade, SoundCategory.PLAYERS, 0.4F, 1.4F);
+			player.world.playSound(null, player.posX, player.posY, player.posZ, ModSounds.terraBlade, SoundCategory.PLAYERS, 0.4F, 1.4F);
 		}
 	}
 

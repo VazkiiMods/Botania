@@ -1,13 +1,10 @@
 package vazkii.botania.common.item.equipment.tool.elementium;
 
-import java.util.Random;
-
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.AbstractSkeleton;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.monster.EntityPigZombie;
-import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.monster.EntityWitherSkeleton;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.player.EntityPlayer;
@@ -23,6 +20,8 @@ import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelAxe;
 import vazkii.botania.common.lib.LibItemNames;
+
+import java.util.Random;
 
 public class ItemElementiumAxe extends ItemManasteelAxe {
 

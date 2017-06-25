@@ -10,12 +10,12 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
-import java.util.function.Predicate;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.EntityAnimal;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.lexicon.LexiconData;
+
+import java.util.function.Predicate;
 
 public class SubTileDreadthorn extends SubTileBellethorn {
 

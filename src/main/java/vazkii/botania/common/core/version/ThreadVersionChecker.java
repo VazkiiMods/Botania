@@ -10,11 +10,11 @@
  */
 package vazkii.botania.common.core.version;
 
+import net.minecraftforge.common.MinecraftForge;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
-
-import net.minecraftforge.common.MinecraftForge;
 
 public class ThreadVersionChecker extends Thread {
 

@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.item.material;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCarpet;
 import net.minecraft.block.BlockColored;
@@ -30,6 +28,8 @@ import net.minecraft.world.World;
 import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.common.item.Item16Colors;
 import vazkii.botania.common.lib.LibItemNames;
+
+import javax.annotation.Nonnull;
 
 public class ItemDye extends Item16Colors {
 

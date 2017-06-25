@@ -10,32 +10,13 @@
  */
 package vazkii.botania.client.gui.lexicon;
 
-import java.awt.Desktop;
-import java.io.IOException;
-import java.net.URI;
-import java.security.Permissions;
-import java.time.LocalDateTime;
-import java.time.Month;
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Queue;
-
-import net.minecraft.client.gui.advancements.GuiScreenAdvancements;
-import org.lwjgl.input.Keyboard;
-import org.lwjgl.input.Mouse;
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.gui.advancements.GuiScreenAdvancements;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
@@ -44,11 +25,13 @@ import net.minecraft.util.ChatAllowedCharacters;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.common.MinecraftForge;
+import org.lwjgl.input.Keyboard;
+import org.lwjgl.input.Mouse;
+import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.BotaniaTutorialStartEvent;
 import vazkii.botania.api.lexicon.LexiconCategory;
 import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.PersistentVariableHelper;
 import vazkii.botania.client.core.helper.RenderHelper;
@@ -68,10 +51,25 @@ import vazkii.botania.client.gui.lexicon.button.GuiButtonScaleChange;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonUpdateWarning;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.item.ItemLexicon;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lexicon.page.PageText;
 import vazkii.botania.common.lib.LibMisc;
+
+import java.awt.Desktop;
+import java.io.IOException;
+import java.net.URI;
+import java.time.LocalDateTime;
+import java.time.Month;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Queue;
 
 public class GuiLexicon extends GuiScreen {
 
@@ -661,7 +659,7 @@ public class GuiLexicon extends GuiScreen {
 		if(konamiTime == 0 && par2 == KONAMI_CODE[konamiIndex]) {
 			konamiIndex++;
 			if(konamiIndex >= KONAMI_CODE.length) {
-				mc.getSoundHandler().playSound(PositionedSoundRecord.getMasterRecord(BotaniaSoundEvents.way, 1.0F));
+				mc.getSoundHandler().playSound(PositionedSoundRecord.getMasterRecord(ModSounds.way, 1.0F));
 				konamiIndex = 0;
 				konamiTime = 240;
 			}

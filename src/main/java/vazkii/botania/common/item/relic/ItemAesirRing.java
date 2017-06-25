@@ -10,35 +10,27 @@
  */
 package vazkii.botania.common.item.relic;
 
-import java.util.List;
-import java.util.UUID;
-
+import baubles.api.BaubleType;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
-
-import baubles.api.BaubleType;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.item.ItemTossEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.oredict.RecipeSorter;
-import net.minecraftforge.oredict.RecipeSorter.Category;
 import vazkii.botania.api.item.IWireframeCoordinateListProvider;
 import vazkii.botania.common.core.handler.MethodHandles;
-import vazkii.botania.common.crafting.recipe.AesirRingRecipe;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibItemNames;
-import vazkii.botania.common.lib.LibMisc;
+
+import java.util.List;
+import java.util.UUID;
 
 public class ItemAesirRing extends ItemRelicBauble implements IWireframeCoordinateListProvider {
 

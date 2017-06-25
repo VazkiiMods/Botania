@@ -8,10 +8,6 @@
  */
 package vazkii.botania.client.core.handler;
 
-import java.util.Locale;
-import java.util.Map;
-import java.util.function.IntFunction;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -32,32 +28,7 @@ import vazkii.botania.client.model.SpecialFlowerModel;
 import vazkii.botania.client.render.IModelRegister;
 import vazkii.botania.common.block.subtile.SubTileManastar;
 import vazkii.botania.common.block.subtile.SubTilePureDaisy;
-import vazkii.botania.common.block.subtile.functional.SubTileAgricarnation;
-import vazkii.botania.common.block.subtile.functional.SubTileBellethorn;
-import vazkii.botania.common.block.subtile.functional.SubTileBergamute;
-import vazkii.botania.common.block.subtile.functional.SubTileBubbell;
-import vazkii.botania.common.block.subtile.functional.SubTileClayconia;
-import vazkii.botania.common.block.subtile.functional.SubTileDaffomill;
-import vazkii.botania.common.block.subtile.functional.SubTileDreadthorn;
-import vazkii.botania.common.block.subtile.functional.SubTileExoflame;
-import vazkii.botania.common.block.subtile.functional.SubTileFallenKanade;
-import vazkii.botania.common.block.subtile.functional.SubTileHeiseiDream;
-import vazkii.botania.common.block.subtile.functional.SubTileHopperhock;
-import vazkii.botania.common.block.subtile.functional.SubTileHyacidus;
-import vazkii.botania.common.block.subtile.functional.SubTileJadedAmaranthus;
-import vazkii.botania.common.block.subtile.functional.SubTileJiyuulia;
-import vazkii.botania.common.block.subtile.functional.SubTileLoonuim;
-import vazkii.botania.common.block.subtile.functional.SubTileMarimorphosis;
-import vazkii.botania.common.block.subtile.functional.SubTileMedumone;
-import vazkii.botania.common.block.subtile.functional.SubTileOrechid;
-import vazkii.botania.common.block.subtile.functional.SubTileOrechidIgnem;
-import vazkii.botania.common.block.subtile.functional.SubTilePollidisiac;
-import vazkii.botania.common.block.subtile.functional.SubTileRannuncarpus;
-import vazkii.botania.common.block.subtile.functional.SubTileSolegnolia;
-import vazkii.botania.common.block.subtile.functional.SubTileSpectranthemum;
-import vazkii.botania.common.block.subtile.functional.SubTileTangleberrie;
-import vazkii.botania.common.block.subtile.functional.SubTileTigerseye;
-import vazkii.botania.common.block.subtile.functional.SubTileVinculotus;
+import vazkii.botania.common.block.subtile.functional.*;
 import vazkii.botania.common.block.subtile.generating.SubTileArcaneRose;
 import vazkii.botania.common.block.subtile.generating.SubTileDandelifeon;
 import vazkii.botania.common.block.subtile.generating.SubTileEndoflame;
@@ -72,6 +43,10 @@ import vazkii.botania.common.block.subtile.generating.SubTileSpectrolus;
 import vazkii.botania.common.block.subtile.generating.SubTileThermalily;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
+
+import java.util.Locale;
+import java.util.Map;
+import java.util.function.IntFunction;
 
 @Mod.EventBusSubscriber
 public final class ModelHandler {

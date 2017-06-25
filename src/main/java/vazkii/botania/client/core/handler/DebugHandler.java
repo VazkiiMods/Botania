@@ -10,17 +10,7 @@
  */
 package vazkii.botania.client.core.handler;
 
-import java.util.Map;
-import java.util.UUID;
-
-import org.lwjgl.opengl.ARBFragmentShader;
-import org.lwjgl.opengl.ContextCapabilities;
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL20;
-import org.lwjgl.opengl.GLContext;
-
 import com.google.common.base.Optional;
-
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
@@ -32,10 +22,18 @@ import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.common.property.IUnlistedProperty;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import org.lwjgl.opengl.ARBFragmentShader;
+import org.lwjgl.opengl.ContextCapabilities;
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL20;
+import org.lwjgl.opengl.GLContext;
 import vazkii.botania.client.fx.ParticleRenderDispatcher;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.ManaNetworkHandler;
 import vazkii.botania.common.lib.LibMisc;
+
+import java.util.Map;
+import java.util.UUID;
 
 public final class DebugHandler {
 

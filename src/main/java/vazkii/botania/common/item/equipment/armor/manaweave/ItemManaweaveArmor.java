@@ -10,16 +10,11 @@
  */
 package vazkii.botania.common.item.equipment.armor.manaweave;
 
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
@@ -32,6 +27,9 @@ import vazkii.botania.client.model.armor.ModelArmorManaweave;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelArmor;
+
+import javax.annotation.Nonnull;
+import java.util.List;
 
 public class ItemManaweaveArmor extends ItemManasteelArmor {
 

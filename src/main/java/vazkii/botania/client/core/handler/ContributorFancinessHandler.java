@@ -10,15 +10,6 @@
  */
 package vazkii.botania.client.core.handler;
 
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
-
-import javax.annotation.Nonnull;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
@@ -36,6 +27,14 @@ import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.version.VersionChecker;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
+
+import javax.annotation.Nonnull;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Properties;
 
 public final class ContributorFancinessHandler implements LayerRenderer<EntityPlayer> {
 

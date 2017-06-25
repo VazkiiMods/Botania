@@ -10,9 +10,9 @@
  */
 package vazkii.botania.api.item;
 
-import java.util.HashMap;
-
 import net.minecraft.item.ItemStack;
+
+import java.util.HashMap;
 
 public interface IFloatingFlower {
 

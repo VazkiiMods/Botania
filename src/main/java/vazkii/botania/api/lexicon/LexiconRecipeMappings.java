@@ -10,12 +10,12 @@
  */
 package vazkii.botania.api.lexicon;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.mana.IManaItem;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * This class contains mappings for which entry and page correspond to each

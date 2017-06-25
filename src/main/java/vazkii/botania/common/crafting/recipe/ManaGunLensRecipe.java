@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.crafting.recipe;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
@@ -22,6 +20,8 @@ import net.minecraftforge.registries.IForgeRegistryEntry;
 import vazkii.botania.api.mana.ILens;
 import vazkii.botania.api.mana.ILensControl;
 import vazkii.botania.common.item.ItemManaGun;
+
+import javax.annotation.Nonnull;
 
 public class ManaGunLensRecipe extends IForgeRegistryEntry.Impl<IRecipe> implements IRecipe {
 

@@ -10,9 +10,6 @@
  */
 package vazkii.botania.api.subtile;
 
-import java.util.List;
-
-import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
@@ -32,6 +29,8 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.wand.IWandBindable;
+
+import java.util.List;
 
 /**
  * A Sub-TileEntity, this is used for the flower system. Make sure to map subclasses

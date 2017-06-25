@@ -10,12 +10,7 @@
  */
 package vazkii.botania.common.entity;
 
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
 import com.google.common.base.Predicates;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.BlockLeaves;
@@ -36,6 +31,9 @@ import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.lib.LibObfuscation;
+
+import javax.annotation.Nonnull;
+import java.util.List;
 
 public class EntityMagicMissile extends EntityThrowable {
 

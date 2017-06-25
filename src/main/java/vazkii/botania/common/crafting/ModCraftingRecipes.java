@@ -10,39 +10,15 @@
  */
 package vazkii.botania.common.crafting;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockDoublePlant;
-import net.minecraft.block.BlockFlower;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.item.EnumDyeColor;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.RecipeSorter;
-import net.minecraftforge.oredict.ShapedOreRecipe;
-import net.minecraftforge.oredict.ShapelessOreRecipe;
 import net.minecraftforge.registries.IForgeRegistry;
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.common.Botania;
-import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.block.ModFluffBlocks;
-import vazkii.botania.common.block.tile.TileCraftCrate;
-import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.crafting.recipe.AesirRingRecipe;
 import vazkii.botania.common.crafting.recipe.AncientWillRecipe;
-import vazkii.botania.common.crafting.recipe.ArmorUpgradeRecipe;
 import vazkii.botania.common.crafting.recipe.BlackHoleTalismanExtractRecipe;
 import vazkii.botania.common.crafting.recipe.CompositeLensRecipe;
 import vazkii.botania.common.crafting.recipe.CosmeticAttachRecipe;
@@ -53,16 +29,13 @@ import vazkii.botania.common.crafting.recipe.LensDyeingRecipe;
 import vazkii.botania.common.crafting.recipe.ManaGunClipRecipe;
 import vazkii.botania.common.crafting.recipe.ManaGunLensRecipe;
 import vazkii.botania.common.crafting.recipe.ManaGunRemoveLensRecipe;
-import vazkii.botania.common.crafting.recipe.ManaUpgradeRecipe;
 import vazkii.botania.common.crafting.recipe.PhantomInkRecipe;
-import vazkii.botania.common.crafting.recipe.ShapelessManaUpgradeRecipe;
 import vazkii.botania.common.crafting.recipe.SpecialFloatingFlowerRecipe;
 import vazkii.botania.common.crafting.recipe.SpellClothRecipe;
 import vazkii.botania.common.crafting.recipe.TerraPickTippingRecipe;
-import vazkii.botania.common.item.ItemTwigWand;
-import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibMisc;
-import vazkii.botania.common.lib.LibOreDict;
+
+import java.util.List;
 
 @Mod.EventBusSubscriber
 public final class ModCraftingRecipes {

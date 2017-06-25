@@ -10,10 +10,6 @@
  */
 package vazkii.botania.common.item.relic;
 
-import java.util.Random;
-
-import javax.annotation.Nonnull;
-
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
@@ -25,11 +21,14 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
-import vazkii.botania.api.sound.BotaniaSoundEvents;
+import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.entity.EntityBabylonWeapon;
 import vazkii.botania.common.lib.LibItemNames;
+
+import javax.annotation.Nonnull;
+import java.util.Random;
 
 public class ItemKingKey extends ItemRelic implements IManaUsingItem {
 
@@ -99,7 +98,7 @@ public class ItemKingKey extends ItemRelic implements IManaUsingItem {
 			weapon.setRotation(MathHelper.wrapDegrees(-living.rotationYaw + 180));
 
 			living.world.spawnEntity(weapon);
-			weapon.playSound(BotaniaSoundEvents.babylonSpawn, 1F, 1F + living.world.rand.nextFloat() * 3F);
+			weapon.playSound(ModSounds.babylonSpawn, 1F, 1F + living.world.rand.nextFloat() * 3F);
 			setWeaponsSpawned(stack, spawned + 1);
 		}
 	}

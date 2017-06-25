@@ -10,8 +10,6 @@
  */
 package vazkii.botania.client.render.tile;
 
-import javax.annotation.Nullable;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelEnderCrystal;
 import net.minecraft.client.renderer.GlStateManager;
@@ -20,6 +18,8 @@ import net.minecraft.util.ResourceLocation;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
+
+import javax.annotation.Nullable;
 
 public class RenderTileCorporeaIndex extends TileEntitySpecialRenderer<TileCorporeaIndex> {
 

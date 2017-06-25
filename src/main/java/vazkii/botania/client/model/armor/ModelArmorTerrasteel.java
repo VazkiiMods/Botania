@@ -10,13 +10,11 @@
  */
 package vazkii.botania.client.model.armor;
 
-import javax.annotation.Nonnull;
-
-import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.item.EntityArmorStand;
 import net.minecraft.inventory.EntityEquipmentSlot;
+
+import javax.annotation.Nonnull;
 
 public class ModelArmorTerrasteel extends ModelArmor {
 	private final ModelRenderer helm;

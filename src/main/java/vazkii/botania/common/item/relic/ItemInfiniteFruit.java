@@ -10,10 +10,6 @@
  */
 package vazkii.botania.common.item.relic;
 
-import java.util.Locale;
-
-import javax.annotation.Nonnull;
-
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
@@ -29,6 +25,9 @@ import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.lib.LibObfuscation;
+
+import javax.annotation.Nonnull;
+import java.util.Locale;
 
 public class ItemInfiniteFruit extends ItemRelic implements IManaUsingItem {
 

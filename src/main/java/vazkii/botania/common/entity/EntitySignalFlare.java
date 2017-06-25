@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.entity;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.EnumDyeColor;
@@ -21,6 +19,8 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.world.World;
 import vazkii.botania.common.Botania;
+
+import javax.annotation.Nonnull;
 
 public class EntitySignalFlare extends Entity {
 

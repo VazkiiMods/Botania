@@ -10,15 +10,9 @@
  */
 package vazkii.botania.common.item;
 
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
@@ -31,6 +25,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.entity.EntityThornChakram;
 import vazkii.botania.common.lib.LibItemNames;
+
+import javax.annotation.Nonnull;
 
 public class ItemThornChakram extends ItemMod {
 

@@ -10,12 +10,6 @@
  */
 package vazkii.botania.common.item;
 
-import java.lang.reflect.InvocationTargetException;
-import java.util.List;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import net.minecraft.block.Block;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
@@ -41,13 +35,18 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileCacophonium;
+import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibObfuscation;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.lang.reflect.InvocationTargetException;
+import java.util.List;
 
 public class ItemCacophonium extends ItemMod {
 
@@ -155,13 +154,13 @@ public class ItemCacophonium extends ItemMod {
 		SoundEvent sound = getSound(stack);
 
 		if(sound != null)
-			world.playSound(null, x, y, z, sound, category, volume, sound == BotaniaSoundEvents.doit ? 1F : (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F + 1.0F);
+			world.playSound(null, x, y, z, sound, category, volume, sound == ModSounds.doit ? 1F : (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F + 1.0F);
 	}
 
 	@Nullable
 	private static SoundEvent getSound(ItemStack stack) {
 		if(isDOIT(stack))
-			return BotaniaSoundEvents.doit;
+			return ModSounds.doit;
 		else return SoundEvent.REGISTRY.getObject(new ResourceLocation(ItemNBTHelper.getString(stack, TAG_SOUND, "")));
 	}
 

@@ -10,9 +10,6 @@
  */
 package vazkii.botania.client.gui.lexicon;
 
-import java.io.IOException;
-import java.util.List;
-
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.text.TextFormatting;
@@ -22,6 +19,9 @@ import vazkii.botania.client.challenge.ModChallenges;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonBack;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonChallengeIcon;
+
+import java.io.IOException;
+import java.util.List;
 
 public class GuiLexiconChallengesList extends GuiLexicon implements IParented {
 

@@ -8,14 +8,6 @@
  */
 package vazkii.botania.client.integration.jei.runicaltar;
 
-import java.awt.Point;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.gui.IRecipeLayout;
@@ -29,6 +21,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.lib.LibMisc;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.awt.Point;
+import java.util.ArrayList;
+import java.util.List;
 
 public class RunicAltarRecipeCategory implements IRecipeCategory {
 

@@ -1,9 +1,6 @@
 package vazkii.botania.common.core.loot;
 
-import java.util.List;
-
 import com.google.common.collect.ImmutableList;
-
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.storage.loot.LootEntry;
 import net.minecraft.world.storage.loot.LootEntryTable;
@@ -16,6 +13,8 @@ import net.minecraft.world.storage.loot.functions.LootFunctionManager;
 import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import vazkii.botania.common.lib.LibMisc;
+
+import java.util.List;
 
 public final class LootHandler {
 

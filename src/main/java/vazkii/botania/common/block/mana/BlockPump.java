@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.block.mana;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -39,6 +37,8 @@ import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.mana.TilePump;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
+
+import javax.annotation.Nonnull;
 
 public class BlockPump extends BlockMod implements ILexiconable {
 

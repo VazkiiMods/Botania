@@ -10,13 +10,12 @@
  */
 package vazkii.botania.api.recipe;
 
-import java.util.List;
-
-import javax.annotation.Nullable;
-
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
+
+import javax.annotation.Nullable;
+import java.util.List;
 
 public class RecipeManaInfusion {
 

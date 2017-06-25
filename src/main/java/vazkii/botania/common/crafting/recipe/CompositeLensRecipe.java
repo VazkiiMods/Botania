@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.crafting.recipe;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.init.Items;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
@@ -23,6 +21,8 @@ import net.minecraftforge.registries.IForgeRegistryEntry;
 import vazkii.botania.api.mana.ICompositableLens;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.lens.ItemLens;
+
+import javax.annotation.Nonnull;
 
 public class CompositeLensRecipe extends IForgeRegistryEntry.Impl<IRecipe> implements IRecipe {
 

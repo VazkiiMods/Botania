@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.item.lens;
 
-import java.util.List;
-
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityThrowable;
@@ -19,6 +17,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.AxisAlignedBB;
 import vazkii.botania.api.internal.IManaBurst;
+
+import java.util.List;
 
 public class LensDamage extends Lens {
 

@@ -10,15 +10,12 @@
  */
 package vazkii.botania.common.item.block;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.block.Block;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.client.lib.LibResources;
+
+import javax.annotation.Nonnull;
 
 public class ItemBlockMod extends ItemBlock {
 

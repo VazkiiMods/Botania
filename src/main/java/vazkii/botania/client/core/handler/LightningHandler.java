@@ -10,11 +10,6 @@
  */
 package vazkii.botania.client.core.handler;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
-
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
@@ -25,9 +20,13 @@ import net.minecraft.profiler.Profiler;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import org.lwjgl.opengl.GL11;
 import vazkii.botania.client.fx.FXLightning;
 import vazkii.botania.client.fx.ParticleRenderDispatcher;
 import vazkii.botania.client.lib.LibResources;
+
+import java.util.ArrayDeque;
+import java.util.Deque;
 
 public class LightningHandler {
 

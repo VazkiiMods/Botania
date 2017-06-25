@@ -10,11 +10,6 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
-import java.util.List;
-import java.util.UUID;
-
-import javax.annotation.Nonnull;
-
 import baubles.api.BaublesApi;
 import baubles.api.IBauble;
 import baubles.api.cap.IBaublesItemHandler;
@@ -37,10 +32,14 @@ import net.minecraftforge.items.ItemHandlerHelper;
 import thaumcraft.api.items.IRunicArmor;
 import vazkii.botania.api.item.ICosmeticAttachable;
 import vazkii.botania.api.item.IPhantomInkable;
-import vazkii.botania.api.sound.BotaniaSoundEvents;
+import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.item.ItemMod;
+
+import javax.annotation.Nonnull;
+import java.util.List;
+import java.util.UUID;
 
 @Optional.Interface(modid = "Thaumcraft", iface = "thaumcraft.api.items.IRunicArmor")
 public abstract class ItemBauble extends ItemMod implements IBauble, ICosmeticAttachable, IPhantomInkable, IRunicArmor {
@@ -146,7 +145,7 @@ public abstract class ItemBauble extends ItemMod implements IBauble, ICosmeticAt
 	public void onEquipped(ItemStack stack, EntityLivingBase player) {
 		if(player != null) {
 			if(!player.world.isRemote)
-				player.world.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.equipBauble, SoundCategory.PLAYERS, 0.1F, 1.3F);
+				player.world.playSound(null, player.posX, player.posY, player.posZ, ModSounds.equipBauble, SoundCategory.PLAYERS, 0.1F, 1.3F);
 
 			// todo 1.12 advancement trigger for baubles (ideally baubles adds one, not us..)
 

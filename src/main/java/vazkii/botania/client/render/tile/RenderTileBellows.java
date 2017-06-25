@@ -10,8 +10,6 @@
  */
 package vazkii.botania.client.render.tile;
 
-import javax.annotation.Nullable;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
@@ -20,6 +18,8 @@ import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelBellows;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TileBellows;
+
+import javax.annotation.Nullable;
 
 public class RenderTileBellows extends TileEntitySpecialRenderer<TileBellows> {
 

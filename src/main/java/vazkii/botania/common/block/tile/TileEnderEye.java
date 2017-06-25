@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.block.tile;
 
-import java.util.List;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -23,6 +21,8 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.WorldServer;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
+
+import java.util.List;
 
 public class TileEnderEye extends TileMod {
 

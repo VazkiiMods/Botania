@@ -10,11 +10,6 @@
  */
 package vazkii.botania.client.render.tile;
 
-import java.awt.Color;
-import java.util.Random;
-
-import javax.annotation.Nonnull;
-
 import net.minecraft.block.BlockCarpet;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -32,6 +27,10 @@ import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelSpreader;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TileSpreader;
+
+import javax.annotation.Nonnull;
+import java.awt.Color;
+import java.util.Random;
 
 public class RenderTileSpreader extends TileEntitySpecialRenderer<TileSpreader> {
 

@@ -10,12 +10,6 @@
  */
 package vazkii.botania.common.block.tile;
 
-import java.awt.Color;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
@@ -34,13 +28,18 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.LuminizerVariant;
 import vazkii.botania.api.wand.IWandBindable;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.Vector3;
+
+import javax.annotation.Nonnull;
+import java.awt.Color;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TileLightRelay extends TileMod implements IWandBindable {
 
@@ -62,7 +61,7 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 		world.spawnEntity(mover);
 		e.startRiding(mover);
 		if(!(e instanceof EntityItem)) {
-			mover.playSound(BotaniaSoundEvents.lightRelay, 0.2F, (float) Math.random() * 0.3F + 0.7F);
+			mover.playSound(ModSounds.lightRelay, 0.2F, (float) Math.random() * 0.3F + 0.7F);
 		}
 	}
 
@@ -260,7 +259,7 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 
 			boolean isItem = getRidingEntity() instanceof EntityItem;
 			if(!isItem && ticksExisted % 30 == 0)
-				playSound(BotaniaSoundEvents.lightRelay, 0.05F, (float) Math.random() * 0.3F + 0.7F);
+				playSound(ModSounds.lightRelay, 0.05F, (float) Math.random() * 0.3F + 0.7F);
 
 			BlockPos pos = new BlockPos(this);
 			BlockPos exitPos = getExitPos();

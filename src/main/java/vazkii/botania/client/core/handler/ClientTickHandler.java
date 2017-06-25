@@ -11,7 +11,6 @@
 package vazkii.botania.client.core.handler;
 
 import com.google.common.collect.ImmutableList;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;

@@ -10,24 +10,23 @@
  */
 package vazkii.botania.common.item.equipment.tool;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.sound.BotaniaSoundEvents;
+import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.entity.EntityFallingStar;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelSword;
 import vazkii.botania.common.lib.LibItemNames;
+
+import javax.annotation.Nonnull;
 
 public class ItemStarSword extends ItemManasteelSword {
 
@@ -72,7 +71,7 @@ public class ItemStarSword extends ItemManasteelSword {
 					}
 
 					ToolCommons.damageItem(par1ItemStack, 1, player, MANA_PER_DAMAGE);
-					world.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.starcaller, SoundCategory.PLAYERS, 0.4F, 1.4F);
+					world.playSound(null, player.posX, player.posY, player.posZ, ModSounds.starcaller, SoundCategory.PLAYERS, 0.4F, 1.4F);
 				}
 			}
 		}

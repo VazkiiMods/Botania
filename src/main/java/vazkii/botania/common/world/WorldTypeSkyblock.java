@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.world;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
@@ -20,6 +18,8 @@ import net.minecraft.world.gen.ChunkGeneratorFlat;
 import net.minecraft.world.gen.IChunkGenerator;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import javax.annotation.Nonnull;
 
 public class WorldTypeSkyblock extends WorldType {
 

@@ -1,18 +1,17 @@
 package vazkii.botania.common.core.handler;
 
-import static java.lang.invoke.MethodHandles.publicLookup;
-
-import java.lang.invoke.MethodHandle;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-
 import com.google.common.base.Throwables;
-
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.tileentity.MobSpawnerBaseLogic;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.lib.LibObfuscation;
+
+import java.lang.invoke.MethodHandle;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+
+import static java.lang.invoke.MethodHandles.publicLookup;
 
 // MethodHandles for frequently reflected fields and methods.
 // Handles suffixed with _getter and _setter are for fields, while those without suffixes are normal methods.

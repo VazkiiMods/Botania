@@ -19,8 +19,8 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.items.ItemHandlerHelper;
-import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.core.handler.ModSounds;
 
 public class TileTinyPotato extends TileSimpleInventory {
 
@@ -55,7 +55,7 @@ public class TileTinyPotato extends TileSimpleInventory {
 		if(!world.isRemote) {
 			if(name.toLowerCase().trim().endsWith("shia labeouf")  && nextDoIt == 0) {
 				nextDoIt = 40;
-				world.playSound(null, pos, BotaniaSoundEvents.doit, SoundCategory.BLOCKS, 1F, 1F);
+				world.playSound(null, pos, ModSounds.doit, SoundCategory.BLOCKS, 1F, 1F);
 			}
 
 			for(int i = 0; i < getSizeInventory(); i++) {

@@ -10,18 +10,15 @@
  */
 package vazkii.botania.client.gui.lexicon.button;
 
-import javax.annotation.Nonnull;
-
-import org.lwjgl.opengl.ARBMultitexture;
-import org.lwjgl.opengl.ARBShaderObjects;
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.ResourceLocation;
+import org.lwjgl.opengl.ARBMultitexture;
+import org.lwjgl.opengl.ARBShaderObjects;
+import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.internal.ShaderCallback;
 import vazkii.botania.api.lexicon.LexiconCategory;
 import vazkii.botania.client.core.helper.RenderHelper;
@@ -29,6 +26,8 @@ import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.gui.lexicon.GuiLexicon;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.handler.ConfigHandler;
+
+import javax.annotation.Nonnull;
 
 public class GuiButtonCategory extends GuiButtonLexicon {
 

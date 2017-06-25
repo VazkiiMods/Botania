@@ -8,8 +8,6 @@
  */
 package vazkii.botania.client.integration.jei;
 
-import javax.annotation.Nonnull;
-
 import mezz.jei.api.IJeiHelpers;
 import mezz.jei.api.IJeiRuntime;
 import mezz.jei.api.IModPlugin;
@@ -40,6 +38,8 @@ import vazkii.botania.client.integration.jei.runicaltar.RunicAltarRecipeHandler;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
+
+import javax.annotation.Nonnull;
 
 @JEIPlugin
 public class JEIBotaniaPlugin implements IModPlugin {

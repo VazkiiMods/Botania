@@ -10,17 +10,12 @@
  */
 package vazkii.botania.client.render.tile;
 
-import java.util.Arrays;
-
-import javax.annotation.Nonnull;
-
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -48,6 +43,9 @@ import vazkii.botania.common.block.tile.TileTinyPotato;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.bauble.ItemBaubleCosmetic;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
+
+import javax.annotation.Nonnull;
+import java.util.Arrays;
 
 public class RenderTileTinyPotato extends TileEntitySpecialRenderer<TileTinyPotato> {
 	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_TINY_POTATO);

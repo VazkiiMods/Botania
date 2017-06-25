@@ -10,10 +10,7 @@
  */
 package vazkii.botania.common.block.tile;
 
-import java.util.List;
-
 import com.google.common.base.Predicates;
-
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
@@ -30,13 +27,14 @@ import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.mana.spark.ISparkAttachable;
 import vazkii.botania.api.mana.spark.ISparkEntity;
 import vazkii.botania.api.mana.spark.SparkHelper;
-import vazkii.botania.api.sound.BotaniaSoundEvents;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TilePool;
+import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.network.PacketBotaniaEffect;
 import vazkii.botania.common.network.PacketHandler;
+
+import java.util.List;
 
 public class TileTerraPlate extends TileMod implements ISparkAttachable {
 
@@ -105,7 +103,7 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable {
 						if(otherItem != item)
 							otherItem.setDead();
 						else item.setItem(new ItemStack(ModItems.manaResource, 1, 4));
-					world.playSound(null, item.posX, item.posY, item.posZ, BotaniaSoundEvents.terrasteelCraft, SoundCategory.BLOCKS, 1, 1);
+					world.playSound(null, item.posX, item.posY, item.posZ, ModSounds.terrasteelCraft, SoundCategory.BLOCKS, 1, 1);
 					mana = 0;
 					world.updateComparatorOutputLevel(pos, world.getBlockState(pos).getBlock());
 					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, pos);
