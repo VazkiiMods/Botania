@@ -10,13 +10,13 @@
  */
 package vazkii.botania.common.block;
 
-import com.google.common.collect.ImmutableList;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.ItemStack;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -28,7 +28,6 @@ import vazkii.botania.common.block.tile.TileFakeAir;
 import vazkii.botania.common.lib.LibBlockNames;
 
 import javax.annotation.Nonnull;
-import java.util.List;
 import java.util.Random;
 
 public class BlockFakeAir extends BlockMod {
@@ -110,8 +109,8 @@ public class BlockFakeAir extends BlockMod {
 
 	@Nonnull
 	@Override
-	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, @Nonnull IBlockState state, int fortune) {
-		return ImmutableList.of();
+	public Item getItemDropped(IBlockState state, @Nonnull Random rand, int fortune) {
+		return Items.AIR;
 	}
 
 	@Override

@@ -260,10 +260,8 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 		world.setBlockToAir(pos);
 	}
 
-	@Nonnull
 	@Override
-	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, @Nonnull IBlockState state, int fortune) {
-		ArrayList<ItemStack> list = new ArrayList<>();
+	public void getDrops(NonNullList<ItemStack> list, IBlockAccess world, BlockPos pos, @Nonnull IBlockState state, int fortune) {
 		TileEntity tile = world.getTileEntity(pos);
 
 		if(tile != null) {
@@ -271,8 +269,6 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 			list.add(ItemBlockSpecialFlower.ofType(name));
 			((TileSpecialFlower) tile).getDrops(list);
 		}
-
-		return list;
 	}
 
 	@Override

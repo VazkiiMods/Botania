@@ -25,6 +25,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.TextFormatting;
@@ -224,7 +225,8 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 			if(!blockAt.isAir(world.getBlockState(pos), world, pos) && stateAt.getPlayerRelativeBlockHardness(player, world, pos) > 0 && stateAt != state) {
 				if(!world.isRemote) {
 					if(!player.capabilities.isCreativeMode) {
-						List<ItemStack> drops = blockAt.getDrops(world, pos, stateAt, 0);
+						NonNullList<ItemStack> drops = NonNullList.create();
+						blockAt.getDrops(drops, world, pos, stateAt, 0);
 						for(ItemStack drop : drops)
 							world.spawnEntity(new EntityItem(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, drop));
 						removeFromInventory(player, stack, state.getBlock(), state.getBlock().getMetaFromState(state), true);

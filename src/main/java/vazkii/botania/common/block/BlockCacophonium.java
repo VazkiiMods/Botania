@@ -18,6 +18,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -101,11 +102,8 @@ public class BlockCacophonium extends BlockMod {
 		world.setBlockToAir(pos);
 	}
 
-	@Nonnull
 	@Override
-	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, @Nonnull IBlockState state, int fortune) {
-		ArrayList<ItemStack> stacks = new ArrayList<>();
-
+	public void getDrops(NonNullList<ItemStack> stacks, IBlockAccess world, BlockPos pos, @Nonnull IBlockState state, int fortune) {
 		TileEntity tile = world.getTileEntity(pos);
 		if(tile != null && tile instanceof TileCacophonium) {
 			stacks.add(new ItemStack(Blocks.NOTEBLOCK));
@@ -113,8 +111,6 @@ public class BlockCacophonium extends BlockMod {
 			if(!thingy.isEmpty())
 				stacks.add(thingy.copy());
 		}
-
-		return stacks;
 	}
 
 	@Override

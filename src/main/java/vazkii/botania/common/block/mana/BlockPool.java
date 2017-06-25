@@ -124,15 +124,10 @@ public class BlockPool extends BlockMod implements IWandHUD, IWandable, ILexicon
 		super.breakBlock(world, pos, state);
 	}
 
-	@Nonnull
 	@Override
-	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, @Nonnull IBlockState state, int fortune) {
-		ArrayList<ItemStack> drops = new ArrayList<>();
-
+	public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, @Nonnull IBlockState state, int fortune) {
 		if(!lastFragile)
 			drops.add(new ItemStack(this, 1, state.getBlock().getMetaFromState(state)));
-
-		return drops;
 	}
 
 	@SideOnly(Side.CLIENT)

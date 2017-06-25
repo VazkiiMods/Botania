@@ -129,7 +129,8 @@ public class ItemGrassHorn extends ItemMod {
 			BlockPos currCoords = coords.get(i);
 			IBlockState state = world.getBlockState(currCoords);
 			Block block = state.getBlock();
-			List<ItemStack> items = block.getDrops(world, currCoords, state, 0);
+			NonNullList<ItemStack> items = NonNullList.create();
+			block.getDrops(items, world, currCoords, state, 0);
 
 			if(block instanceof IHornHarvestable && ((IHornHarvestable) block).hasSpecialHornHarvest(world, currCoords, stack, type))
 				((IHornHarvestable) block).harvestByHorn(world, currCoords, stack, type);

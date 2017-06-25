@@ -21,6 +21,7 @@ import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -138,10 +139,8 @@ public class BlockTinyPotato extends BlockMod implements ILexiconable {
 		world.setBlockToAir(pos);
 	}
 
-	@Nonnull
 	@Override
-	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, @Nonnull IBlockState state, int fortune) {
-		ArrayList<ItemStack> list = new ArrayList<>();
+	public void getDrops(NonNullList<ItemStack> list, IBlockAccess world, BlockPos pos, @Nonnull IBlockState state, int fortune) {
 		TileEntity tile = world.getTileEntity(pos);
 
 		if(tile != null) {
@@ -151,8 +150,6 @@ public class BlockTinyPotato extends BlockMod implements ILexiconable {
 				stack.setStackDisplayName(name);
 			list.add(stack);
 		}
-
-		return list;
 	}
 
 	@Override

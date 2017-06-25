@@ -18,6 +18,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntitySkull;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
@@ -51,21 +52,15 @@ public class BlockGaiaHead extends BlockSkull implements IModelRegister {
 		return new ItemStack(ModItems.gaiaHead);
 	}
 
-	@Nonnull
 	@Override
-	public List<ItemStack> getDrops(@Nonnull IBlockAccess world, @Nonnull BlockPos pos, IBlockState state, int fortune) {
-		ArrayList<ItemStack> ret = new ArrayList<>();
-
+	public void getDrops(NonNullList<ItemStack> ret, @Nonnull IBlockAccess world, @Nonnull BlockPos pos, IBlockState state, int fortune) {
 		if(!state.getValue(NODROP)) {
 			ItemStack itemstack = new ItemStack(ModItems.gaiaHead, 1);
 			TileEntitySkull tileentityskull = (TileEntitySkull)world.getTileEntity(pos);
 
-			if(tileentityskull == null)
-				return ret;
-
-			ret.add(itemstack);
+			if(tileentityskull != null)
+				ret.add(itemstack);
 		}
-		return ret;
 	}
 
 	@Nonnull

@@ -161,12 +161,6 @@ public abstract class BlockModDoubleFlower extends BlockDoublePlant implements I
 		return ret;
 	}
 
-	@Nonnull
-	@Override
-	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, @Nonnull IBlockState state, int fortune) {
-		return ImmutableList.of();
-	}
-
 	@Override
 	public void getSubBlocks(CreativeTabs tab, @Nonnull NonNullList<ItemStack> stacks) {
 		for(int i = 0; i < COUNT; ++i)
