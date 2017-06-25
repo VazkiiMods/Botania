@@ -61,7 +61,7 @@ public class ItemLivingwoodBow extends ItemBow implements IManaUsingItem, IModel
 
 	public ItemLivingwoodBow(String name) {
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
-		GameRegistry.register(this, new ResourceLocation(LibMisc.MOD_ID, name));
+		setRegistryName(new ResourceLocation(LibMisc.MOD_ID, name));
 		setUnlocalizedName(name);
 		setMaxDamage(500);
 		addPropertyOverride(new ResourceLocation("minecraft:pull"), (stack, worldIn, entityIn) -> {

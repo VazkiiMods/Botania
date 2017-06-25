@@ -38,7 +38,7 @@ public class ItemManaCookie extends ItemFood implements IModelRegister {
 		super(0, 0.1F, false);
 		setPotionEffect(new PotionEffect(MobEffects.SATURATION, 20, 0), 1F);
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
-		GameRegistry.register(this, new ResourceLocation(LibMisc.MOD_ID, LibItemNames.MANA_COOKIE));
+		setRegistryName(new ResourceLocation(LibMisc.MOD_ID, LibItemNames.MANA_COOKIE));
 		setUnlocalizedName(LibItemNames.MANA_COOKIE);
 		addPropertyOverride(new ResourceLocation(LibMisc.MOD_ID, "totalbiscuit"),
 				(stack, worldIn, entityIn) -> stack.getDisplayName().toLowerCase(Locale.ROOT).contains("totalbiscuit") ? 1F : 0F);

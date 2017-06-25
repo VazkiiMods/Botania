@@ -30,12 +30,7 @@ import vazkii.botania.common.item.equipment.bauble.ItemBauble;
 
 public abstract class ItemRelicBauble extends ItemBauble implements IRelic {
 
-	private final ItemRelic dummy = new ItemRelic("dummy") { // Delegate for relic stuff
-		@Override
-		protected boolean shouldRegister() {
-			return false;
-		}
-	};
+	private final ItemRelic dummy = new ItemRelic("dummy"); // Delegate for relic stuff
 
 	public ItemRelicBauble(String name) {
 		super(name);

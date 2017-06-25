@@ -58,7 +58,7 @@ public class ItemManasteelAxe extends ItemAxe implements IManaUsingItem, ISortab
 	public ItemManasteelAxe(ToolMaterial mat, String name) {
 		super(mat, 8F, -3.1F);
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
-		GameRegistry.register(this, new ResourceLocation(LibMisc.MOD_ID, name));
+		setRegistryName(new ResourceLocation(LibMisc.MOD_ID, name));
 		setUnlocalizedName(name);
 	}
 

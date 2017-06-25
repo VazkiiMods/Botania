@@ -58,7 +58,7 @@ public class ItemManasteelPick extends ItemPickaxe implements IManaUsingItem, IS
 	public ItemManasteelPick(ToolMaterial mat, String name) {
 		super(mat);
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
-		GameRegistry.register(this, new ResourceLocation(LibMisc.MOD_ID, name));
+		setRegistryName(new ResourceLocation(LibMisc.MOD_ID, name));
 		setUnlocalizedName(name);
 	}
 

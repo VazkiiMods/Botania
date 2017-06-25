@@ -2,11 +2,15 @@ package vazkii.botania.common.core.handler;
 
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
-import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+@Mod.EventBusSubscriber
 public final class ModSounds {
 
-	public static void init() {
+	@SubscribeEvent
+	public static void registerSounds(RegistryEvent.Register<SoundEvent> evt) {
 		String[] sounds = {
 				"botania:airRod",
 				"botania:agricarnation",
@@ -55,10 +59,9 @@ public final class ModSounds {
 
 		for (String s : sounds) {
 			ResourceLocation loc = new ResourceLocation(s);
-			GameRegistry.register(new SoundEvent(loc), loc);
+			evt.getRegistry().register(new SoundEvent(loc).setRegistryName(loc));
 		}
 	}
 
 	private ModSounds() {}
-
 }

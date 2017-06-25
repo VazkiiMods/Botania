@@ -29,13 +29,8 @@ public abstract class ItemMod extends Item implements IModelRegister {
 
 	public ItemMod(String name) {
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
-		if(shouldRegister())
-			GameRegistry.register(this, new ResourceLocation(LibMisc.MOD_ID, name));
+		setRegistryName(new ResourceLocation(LibMisc.MOD_ID, name))
 		setUnlocalizedName(name);
-	}
-
-	protected boolean shouldRegister() {
-		return true;
 	}
 
 	@Nonnull

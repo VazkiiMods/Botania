@@ -32,7 +32,7 @@ public class PotionMod extends Potion {
 
 	public PotionMod(String name, boolean badEffect, int color, int iconIndex) {
 		super(badEffect, color);
-		GameRegistry.register(this, new ResourceLocation(LibMisc.MOD_ID, name));
+		setRegistryName(new ResourceLocation(LibMisc.MOD_ID, name));
 		setPotionName("botania.potion." + name);
 		this.iconIndex = iconIndex;
 	}

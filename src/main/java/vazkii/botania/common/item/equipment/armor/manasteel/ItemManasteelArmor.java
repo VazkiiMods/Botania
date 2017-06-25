@@ -71,7 +71,7 @@ public class ItemManasteelArmor extends ItemArmor implements ISpecialArmor, IMan
 		super(mat, 0, type);
 		this.type = type;
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
-		GameRegistry.register(this, new ResourceLocation(LibMisc.MOD_ID, name));
+		setRegistryName(new ResourceLocation(LibMisc.MOD_ID, name));
 		setUnlocalizedName(name);
 	}
 

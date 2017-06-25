@@ -55,7 +55,7 @@ public class ItemManasteelShears extends ItemShears implements IManaUsingItem, I
 
 	public ItemManasteelShears(String name) {
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
-		GameRegistry.register(this, new ResourceLocation(LibMisc.MOD_ID, name));
+		setRegistryName(new ResourceLocation(LibMisc.MOD_ID, name));
 		setUnlocalizedName(name);
 	}
 

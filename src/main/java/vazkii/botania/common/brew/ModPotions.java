@@ -11,6 +11,9 @@
 package vazkii.botania.common.brew;
 
 import net.minecraft.potion.Potion;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import vazkii.botania.common.brew.potion.PotionAllure;
 import vazkii.botania.common.brew.potion.PotionBloodthirst;
 import vazkii.botania.common.brew.potion.PotionClear;
@@ -18,22 +21,24 @@ import vazkii.botania.common.brew.potion.PotionEmptiness;
 import vazkii.botania.common.brew.potion.PotionFeatherfeet;
 import vazkii.botania.common.brew.potion.PotionSoulCross;
 
+@Mod.EventBusSubscriber
 public class ModPotions {
 
-	public static Potion soulCross;
-	public static Potion featherfeet;
-	public static Potion emptiness;
-	public static Potion bloodthrst;
-	public static Potion allure;
-	public static Potion clear;
+	public static final Potion soulCross = new PotionSoulCross();
+	public static final Potion featherfeet = new PotionFeatherfeet();
+	public static final Potion emptiness = new PotionEmptiness();
+	public static final Potion bloodthrst = new PotionBloodthirst();
+	public static final Potion allure = new PotionAllure();
+	public static final Potion clear = new PotionClear();
 
-	public static void init() {
-		soulCross = new PotionSoulCross();
-		featherfeet = new PotionFeatherfeet();
-		emptiness = new PotionEmptiness();
-		bloodthrst = new PotionBloodthirst();
-		allure = new PotionAllure();
-		clear = new PotionClear();
+	@SubscribeEvent
+	public static void registerPotions(RegistryEvent.Register<Potion> evt)
+	{
+		evt.getRegistry().register(soulCross);
+		evt.getRegistry().register(featherfeet);
+		evt.getRegistry().register(emptiness);
+		evt.getRegistry().register(bloodthrst);
+		evt.getRegistry().register(allure);
+		evt.getRegistry().register(clear);
 	}
-
 }
