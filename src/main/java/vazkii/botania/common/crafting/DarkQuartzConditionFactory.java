@@ -12,14 +12,14 @@ import com.google.gson.JsonObject;
 import net.minecraft.util.JsonUtils;
 import net.minecraftforge.common.crafting.IConditionFactory;
 import net.minecraftforge.common.crafting.JsonContext;
-import vazkii.botania.common.Botania;
+import vazkii.botania.common.core.handler.ConfigHandler;
 
 import java.util.function.BooleanSupplier;
 
-public class GardenOfGlassConditionFactory implements IConditionFactory {
+public class DarkQuartzConditionFactory implements IConditionFactory {
 	@Override
 	public BooleanSupplier parse(JsonContext context, JsonObject json) {
 		boolean value = JsonUtils.getBoolean(json , "value", true);
-		return () -> Botania.gardenOfGlassLoaded == value;
+		return () -> ConfigHandler.darkQuartzEnabled == value;
 	}
 }

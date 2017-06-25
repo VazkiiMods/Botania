@@ -393,11 +393,11 @@ public final class ModCraftingRecipes {
 		r.register(new TerraPickTippingRecipe().setRegistryName(new ResourceLocation(LibMisc.MOD_ID, "terra_pick_tipping")));
 		RecipeSorter.register("botania:terraPickTipping", TerraPickTippingRecipe.class, RecipeSorter.Category.SHAPELESS, "");
 
-
-		if (true) {
-			return;
+		for(int i = 0; i < 8; i++) {
+			GameRegistry.addSmelting(new ItemStack(ModFluffBlocks.biomeStoneA, 1, i + 8), new ItemStack(ModFluffBlocks.biomeStoneA, 1, i), 0.1F);
 		}
 
+		/*
 		// Wand of the Forest Recipes
 		for(int i = 0; i < 16; i++)
 			for(int j = 0; j < 16; j++) {
@@ -409,19 +409,8 @@ public final class ModCraftingRecipes {
 			}
 		recipesTwigWand = BotaniaAPI.getLatestAddedRecipes(256);
 
-		// Mana Tablet Recipe
-		addOreDictRecipe(new ItemStack(ModItems.manaTablet, 1, 10000),
-				"SSS", "SPS", "SSS",
-				'S', LibOreDict.LIVING_ROCK,
-				'P', LibOreDict.MANA_PEARL);
-		addOreDictRecipe(new ItemStack(ModItems.manaTablet, 1, 10000),
-				"SSS", "SDS", "SSS",
-				'S', LibOreDict.LIVING_ROCK,
-				'D', LibOreDict.MANA_DIAMOND);
-		recipesManaTablet = BotaniaAPI.getLatestAddedRecipes(2);
-
 		// Terrasteel Armor Recipes
-		/*RecipeSorter.register("botania:armorUpgrade", ArmorUpgradeRecipe.class, RecipeSorter.Category.SHAPED, "");
+		RecipeSorter.register("botania:armorUpgrade", ArmorUpgradeRecipe.class, RecipeSorter.Category.SHAPED, "");
 		GameRegistry.addRecipe(new ArmorUpgradeRecipe(new ItemStack(ModItems.terrasteelHelmRevealing),
 				"TRT", "SAS", " S ",
 				'T', LibOreDict.LIVINGWOOD_TWIG,
@@ -468,19 +457,15 @@ public final class ModCraftingRecipes {
 		// Greater Mana Band Recipe
 		/*RecipeSorter.register("botania:manaUpgradeShapeless", ShapelessManaUpgradeRecipe.class, RecipeSorter.Category.SHAPELESS, "");
 		GameRegistry.addRecipe(new ShapelessManaUpgradeRecipe(new ItemStack(ModItems.manaRingGreater), LibOreDict.TERRA_STEEL, new ItemStack(ModItems.manaRing, 1, Short.MAX_VALUE)));
-		recipeGreaterManaRing = BotaniaAPI.getLatestAddedRecipe();*/
+		recipeGreaterManaRing = BotaniaAPI.getLatestAddedRecipe();
 
 		// Terra Shatterer Recipe
-		/*GameRegistry.addRecipe(new ManaUpgradeRecipe(new ItemStack(ModItems.terraPick),
+		GameRegistry.addRecipe(new ManaUpgradeRecipe(new ItemStack(ModItems.terraPick),
 				"ITI", "ILI", " L ",
 				'T', new ItemStack(ModItems.manaTablet, 1, Short.MAX_VALUE),
 				'I', LibOreDict.TERRA_STEEL,
 				'L', LibOreDict.LIVINGWOOD_TWIG));
-		recipeTerraPick = BotaniaAPI.getLatestAddedRecipe();*/
-
-		// Quartz Recipes
-		if(ConfigHandler.darkQuartzEnabled)
-			recipeDarkQuartz = addQuartzRecipes(0, Items.COAL, ModFluffBlocks.darkQuartz, ModFluffBlocks.darkQuartzStairs, ModFluffBlocks.darkQuartzSlab);
+		recipeTerraPick = BotaniaAPI.getLatestAddedRecipe();
 
 		// Rod of the Seas Recipe
 		addOreDictRecipe(new ItemStack(ModItems.waterRod),
@@ -490,35 +475,7 @@ public final class ModCraftingRecipes {
 				'R', LibOreDict.RUNE[0]);
 		recipeWaterRod = BotaniaAPI.getLatestAddedRecipe();
 
-		// Mana Fluxfield Recipe
-		if(ConfigHandler.fluxfieldEnabled) {
-			addOreDictRecipe(new ItemStack(ModBlocks.rfGenerator),
-					"SRS", "RMR", "SRS",
-					'S', LibOreDict.LIVING_ROCK,
-					'M', LibOreDict.MANA_STEEL,
-					'R', "blockRedstone");
-			recipeRFGenerator = BotaniaAPI.getLatestAddedRecipe();
-		}
-
-
-		// Corporea Funnel Recipe
-		addShapelessRecipe(new ItemStack(ModBlocks.corporeaFunnel), new ItemStack(Blocks.DROPPER), new ItemStack(ModItems.corporeaSpark));
-		recipeCorporeaFunnel = BotaniaAPI.getLatestAddedRecipe();
-
-		// Cacophonium Recipe
-		if(OreDictionary.getOres("ingotBrass").isEmpty())
-			addOreDictRecipe(new ItemStack(ModItems.cacophonium),
-					" G ", "GNG", "GG ",
-					'G', "ingotGold",
-					'N', new ItemStack(Blocks.NOTEBLOCK));
-		else addOreDictRecipe(new ItemStack(ModItems.cacophonium),
-				" G ", "GNG", "GG ",
-				'G', "ingotBrass",
-				'N', new ItemStack(Blocks.NOTEBLOCK));
-		recipeCacophonium = BotaniaAPI.getLatestAddedRecipe();
-
-		///////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+		todo if tc ever comes back?
 		// Revealing Helmet Recipes
 		if(Botania.thaumcraftLoaded) {
 			Item goggles = Item.REGISTRY.getObject(new ResourceLocation("thaumcraft", "goggles"));
@@ -527,222 +484,6 @@ public final class ModCraftingRecipes {
 			addShapelessRecipe(new ItemStack(ModItems.terrasteelHelmRevealing), new ItemStack(ModItems.terrasteelHelm), goggles);
 			addShapelessRecipe(new ItemStack(ModItems.elementiumHelmRevealing), new ItemStack(ModItems.elementiumHelm), goggles);
 		}
-
-		// Biome Stone Recipes
-		for(int i = 0; i < 8; i++) {
-			GameRegistry.addSmelting(new ItemStack(ModFluffBlocks.biomeStoneA, 1, i + 8), new ItemStack(ModFluffBlocks.biomeStoneA, 1, i), 0.1F);
-		}
-
-		generateConstants();
+		*/
 	}
-
-	private static void addStairsAndSlabs(Block block, int meta, Block stairs, Block slab) {
-		addShapedRecipe(new ItemStack(slab, 6),
-				"QQQ",
-				'Q', new ItemStack(block, 1, meta));
-		addShapedRecipe(new ItemStack(stairs, 4),
-				"  Q", " QQ", "QQQ",
-				'Q', new ItemStack(block, 1, meta));
-		addShapedRecipe(new ItemStack(stairs, 4),
-				"Q  ", "QQ ", "QQQ",
-				'Q', new ItemStack(block, 1, meta));
-		addShapedRecipe(new ItemStack(block, 1, meta),
-				"Q", "Q",
-				'Q', new ItemStack(slab));
-	}
-
-	private static IRecipe addQuartzRecipes(int meta, Item req, Block block, Block stairs, Block slab) {
-		addShapedRecipe(new ItemStack(block),
-				"QQ", "QQ",
-				'Q', LibOreDict.QUARTZ[meta]);
-		addShapedRecipe(new ItemStack(block, 2, 2),
-				"Q", "Q",
-				'Q', block);
-		addShapedRecipe(new ItemStack(block, 1, 1),
-				"Q", "Q",
-				'Q', slab);
-		addStairsAndSlabs(block, 0, stairs, slab);
-
-		if(req != null) {
-			if(req == Items.COAL)
-				addShapedRecipe(new ItemStack(ModItems.quartz, 8, meta),
-						"QQQ", "QCQ", "QQQ",
-						'Q', "gemQuartz",
-						'C', new ItemStack(req, 1, 1));
-			addShapedRecipe(new ItemStack(ModItems.quartz, 8, meta),
-					"QQQ", "QCQ", "QQQ",
-					'Q', "gemQuartz",
-					'C', req);
-			return BotaniaAPI.getLatestAddedRecipe();
-		}
-		return null;
-	}
-
-	private static void addOreDictRecipe(ItemStack output, Object... recipe) {
-		addShapedRecipe(output, recipe);
-	}
-
-	private static void addShapelessOreDictRecipe(ItemStack output, Object... recipe) {
-		addShapelessRecipe(output, recipe);
-	}
-
-	private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
-	private static File RECIPE_DIR = null;
-	private static final Set<String> USED_OD_NAMES = new TreeSet<>();
-
-	private static void setupDir() {
-		if (RECIPE_DIR == null) {
-			RECIPE_DIR = ConfigHandler.config.getConfigFile().toPath().resolve("../recipes/").toFile();
-		}
-
-		if (!RECIPE_DIR.exists()) {
-			RECIPE_DIR.mkdir();
-		}
-	}
-
-	private static void addShapedRecipe(ItemStack result, Object... components) {
-		setupDir();
-
-		// GameRegistry.addShapedRecipe(result, components);
-
-		Map<String, Object> json = new HashMap<>();
-
-		List<String> pattern = new ArrayList<>();
-		int i = 0;
-		while (i < components.length && components[i] instanceof String) {
-			pattern.add((String) components[i]);
-			i++;
-		}
-		json.put("pattern", pattern);
-
-		boolean isOreDict = false;
-		Map<String, Map<String, Object>> key = new HashMap<>();
-		Character curKey = null;
-		for (; i < components.length; i++) {
-			Object o = components[i];
-			if (o instanceof Character) {
-				if (curKey != null)
-					throw new IllegalArgumentException("Provided two char keys in a row");
-				curKey = (Character) o;
-			} else {
-				if (curKey == null)
-					throw new IllegalArgumentException("Providing object without a char key");
-				if (o instanceof String)
-					isOreDict = true;
-				key.put(Character.toString(curKey), serializeItem(o));
-				curKey = null;
-			}
-		}
-		json.put("key", key);
-		json.put("type", isOreDict ? "forge:ore_shaped" : "minecraft:crafting_shaped");
-		json.put("result", serializeItem(result));
-
-		// names the json the same name as the output's registry name
-		// repeatedly adds _alt if a file already exists
-		// janky I know but it works
-		String suffix = result.getItem().getHasSubtypes() ? "_" + result.getItemDamage() : "";
-		File f = new File(RECIPE_DIR, result.getItem().getRegistryName().getResourcePath() + suffix + ".json");
-
-		while (f.exists()) {
-			suffix += "_alt";
-			f = new File(RECIPE_DIR, result.getItem().getRegistryName().getResourcePath() + suffix + ".json");
-		}
-
-		try (FileWriter w = new FileWriter(f)) {
-			GSON.toJson(json, w);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	private static void addShapelessRecipe(ItemStack result, Object... components)
-	{
-		setupDir();
-
-		// addShapelessRecipe(result, components);
-
-		Map<String, Object> json = new HashMap<>();
-
-		boolean isOreDict = false;
-		List<Map<String, Object>> ingredients = new ArrayList<>();
-		for (Object o : components) {
-			if (o instanceof String)
-				isOreDict = true;
-			ingredients.add(serializeItem(o));
-		}
-		json.put("ingredients", ingredients);
-		json.put("type", isOreDict ? "forge:ore_shapeless" : "minecraft:crafting_shapeless");
-		json.put("result", serializeItem(result));
-
-		// names the json the same name as the output's registry name
-		// repeatedly adds _alt if a file already exists
-		// janky I know but it works
-		String suffix = result.getItem().getHasSubtypes() ? "_" + result.getItemDamage() : "";
-		File f = new File(RECIPE_DIR, result.getItem().getRegistryName().getResourcePath() + suffix + ".json");
-
-		while (f.exists()) {
-			suffix += "_alt";
-			f = new File(RECIPE_DIR, result.getItem().getRegistryName().getResourcePath() + suffix + ".json");
-		}
-
-
-		try (FileWriter w = new FileWriter(f)) {
-			GSON.toJson(json, w);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	private static Map<String, Object> serializeItem(Object thing) {
-		if (thing instanceof Item) {
-			return serializeItem(new ItemStack((Item) thing));
-		}
-		if (thing instanceof Block) {
-			return serializeItem(new ItemStack((Block) thing));
-		}
-		if (thing instanceof ItemStack) {
-			ItemStack stack = (ItemStack) thing;
-			Map<String, Object> ret = new HashMap<>();
-			ret.put("item", stack.getItem().getRegistryName().toString());
-			if (stack.getItem().getHasSubtypes() || stack.getItemDamage() != 0) {
-				ret.put("data", stack.getItemDamage());
-			}
-			if (stack.getCount() > 1) {
-				ret.put("count", stack.getCount());
-			}
-
-			// this only works when serializing nbt for results, not for ingredients
-			// for ingredients, the type tag in the caller needs to be changed to item_nbt
-			if (stack.hasTagCompound()) {
-				ret.put("nbt", stack.getTagCompound().toString());
-			}
-
-			return ret;
-		}
-		if (thing instanceof String) {
-			Map<String, Object> ret = new HashMap<>();
-			USED_OD_NAMES.add((String) thing);
-			ret.put("item", "#" + ((String) thing).toUpperCase(Locale.ROOT));
-			return ret;
-		}
-
-		throw new IllegalArgumentException("Not a block, item, stack, or od name");
-	}
-
-	private static void generateConstants() {
-		List<Map<String, Object>> json = new ArrayList<>();
-		for (String s : USED_OD_NAMES) {
-			Map<String, Object> entry = new HashMap<>();
-			entry.put("name", s.toUpperCase(Locale.ROOT));
-			entry.put("ingredient", ImmutableMap.of("type", "forge:ore_dict", "ore", s));
-			json.add(entry);
-		}
-
-		try (FileWriter w = new FileWriter(new File(RECIPE_DIR, "_constants.json"))) {
-			GSON.toJson(json, w);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
 }

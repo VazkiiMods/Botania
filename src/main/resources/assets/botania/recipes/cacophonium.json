@@ -9,9 +9,14 @@
   ],
   "type": "forge:ore_shaped",
   "key": {
-    "G": {
-      "item": "#INGOTGOLD"
-    },
+    "G": [
+      {
+        "item": "#INGOTGOLD"
+      },
+      {
+        "item": "#INGOTBRASS"
+      }
+    ],
     "N": {
       "item": "minecraft:noteblock"
     }

@@ -184,6 +184,13 @@
   {
     "ingredient": {
       "type": "forge:ore_dict",
+      "ore": "ingotBrass"
+    },
+    "name": "INGOTBRASS"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
       "ore": "ingotElvenElementium"
     },
     "name": "INGOTELVENELEMENTIUM"

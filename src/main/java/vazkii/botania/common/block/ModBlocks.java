@@ -355,6 +355,7 @@ public final class ModBlocks {
 		r.register(new ItemBlockMod(enchantedSoil).setRegistryName(enchantedSoil.getRegistryName()));
 		r.register(new ItemBlockWithMetadataAndName(petalBlock).setRegistryName(petalBlock.getRegistryName()));
 		r.register(new ItemBlockMod(corporeaIndex).setRegistryName(corporeaIndex.getRegistryName()));
+		r.register(new ItemBlockMod(corporeaFunnel).setRegistryName(corporeaFunnel.getRegistryName()));
 		r.register(new ItemBlockWithMetadataAndName(mushroom).setRegistryName(mushroom.getRegistryName()));
 		r.register(new ItemBlockMod(pump).setRegistryName(pump.getRegistryName()));
 		r.register(new ItemBlockWithMetadataAndName(doubleFlower1).setRegistryName(doubleFlower1.getRegistryName()));
