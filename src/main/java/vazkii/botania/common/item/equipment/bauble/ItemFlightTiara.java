@@ -149,7 +149,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 					ItemNBTHelper.setInt(stack, TAG_DASH_COOLDOWN, maxCd);
 				} else if(cooldown > 0) {
 					if(maxCd - cooldown < 2)
-						player.func_191958_b(0F, 0F, 1F, 5F); // todo 1.12 recheck
+						player.moveRelative(0F, 0F, 1F, 5F);
 					else if(maxCd - cooldown < 10)
 						player.setSprinting(false);
 					ItemNBTHelper.setInt(stack, TAG_DASH_COOLDOWN, cooldown - 2);

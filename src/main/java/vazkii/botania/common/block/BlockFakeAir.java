@@ -55,9 +55,6 @@ public class BlockFakeAir extends BlockMod {
 	}
 
 	@Override
-	public void registerItemForm() {}
-
-	@Override
 	public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block, BlockPos fromPos) {
 		if(shouldRemove(world, pos))
 			world.scheduleUpdate(pos, this, tickRate(world));

@@ -39,9 +39,10 @@ public class RelicLexiconEntry extends BasicLexiconEntry {
 		if(a == null || player.capabilities.isCreativeMode) {
 			return true;
 		} else {
-			Advancement a = player.connection.getAdvancementManager().getAdvancementList().getAdvancement(a);
-			AdvancementProgress progress = player.connection.getAdvancementManager().advancementToProgress.get(a);
-			return progress.isDone();
+			/*Advancement adv = player.connection.getAdvancementManager().getAdvancementList().getAdvancement(a);
+			AdvancementProgress progress = player.connection.getAdvancementManager().advancementToProgress.get(adv);
+			return progress.isDone();*/
+			return false; // todo 1.12
 		}
 	}
 

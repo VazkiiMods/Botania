@@ -19,7 +19,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
@@ -54,9 +53,9 @@ public interface IInternalMethodHandler {
 
 	public LexiconPage imagePage(String key, String resource);
 
-	public LexiconPage craftingRecipesPage(String key, List<IRecipe> recipes);
+	public LexiconPage craftingRecipesPage(String key, List<ResourceLocation> recipes);
 
-	public LexiconPage craftingRecipePage(String key, IRecipe recipe);
+	public LexiconPage craftingRecipePage(String key, ResourceLocation recipe);
 
 	public LexiconPage petalRecipesPage(String key, List<RecipePetals> recipes);
 

@@ -126,11 +126,7 @@ public class Botania {
 		ConfigHandler.loadConfig(event.getSuggestedConfigurationFile());
 
 		PacketHandler.init();
-		ModSounds.init();
-		ModBlocks.init();
-		ModItems.init();
 		ModEntities.init();
-		ModPotions.init();
 		ModBrews.init();
 
 		ModMultiblocks.init();
@@ -144,8 +140,6 @@ public class Botania {
 
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
-		ModCraftingRecipes.init();
-		ModMigrationRecipes.init();
 		ModPetalRecipes.init();
 		ModPureDaisyRecipes.init();
 		ModRuneRecipes.init();

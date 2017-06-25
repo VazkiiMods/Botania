@@ -25,7 +25,6 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
@@ -93,12 +92,12 @@ public class InternalMethodHandler extends DummyMethodHandler {
 	}
 
 	@Override
-	public LexiconPage craftingRecipesPage(String key, List<IRecipe> recipes) {
+	public LexiconPage craftingRecipesPage(String key, List<ResourceLocation> recipes) {
 		return new PageCraftingRecipe(key, recipes);
 	}
 
 	@Override
-	public LexiconPage craftingRecipePage(String key, IRecipe recipe) {
+	public LexiconPage craftingRecipePage(String key, ResourceLocation recipe) {
 		return new PageCraftingRecipe(key, recipe);
 	}
 
