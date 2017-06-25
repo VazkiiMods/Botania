@@ -205,7 +205,7 @@ public final class LibItemNames {
 			"elementium",
 			"pixieDust",
 			"dragonstone",
-			"prismarineShard",
+			"UNUSED",
 			"placeholder",
 			"redString",
 			"dreamwoodTwig",

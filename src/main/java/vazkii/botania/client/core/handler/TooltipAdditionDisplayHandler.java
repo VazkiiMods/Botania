@@ -43,8 +43,7 @@ public final class TooltipAdditionDisplayHandler {
 
 	@SubscribeEvent
 	public static void onToolTipRender(RenderTooltipEvent.PostText evt) {
-		// todo this null check is still needed. remove when Forge#3590 is pulled.
-		if(evt.getStack() == null || evt.getStack().isEmpty())
+		if(evt.getStack().isEmpty())
 			return;
 
 		ItemStack stack = evt.getStack();

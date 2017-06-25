@@ -57,7 +57,7 @@ public class ModBrewRecipes {
 		weakRegenerationBrew = BotaniaAPI.registerBrewRecipe(ModBrews.regenWeak, new ItemStack(Items.NETHER_WART), new ItemStack(Items.GHAST_TEAR), new ItemStack(Items.REDSTONE));
 		resistanceBrew = BotaniaAPI.registerBrewRecipe(ModBrews.resistance, new ItemStack(Items.NETHER_WART), new ItemStack(Items.IRON_INGOT), new ItemStack(Items.LEATHER));
 		fireResistanceBrew = BotaniaAPI.registerBrewRecipe(ModBrews.fireResistance, new ItemStack(Items.NETHER_WART), new ItemStack(Items.MAGMA_CREAM), new ItemStack(Blocks.NETHERRACK));
-		waterBreathingBrew = BotaniaAPI.registerBrewRecipe(ModBrews.waterBreathing, new ItemStack(Items.NETHER_WART), LibOreDict.PRISMARINE_SHARD, new ItemStack(Items.GLOWSTONE_DUST));
+		waterBreathingBrew = BotaniaAPI.registerBrewRecipe(ModBrews.waterBreathing, new ItemStack(Items.NETHER_WART), "gemPrismarine", new ItemStack(Items.GLOWSTONE_DUST));
 		invisibilityBrew = BotaniaAPI.registerBrewRecipe(ModBrews.invisibility, new ItemStack(Items.NETHER_WART), new ItemStack(Items.SNOWBALL), new ItemStack(Items.GLOWSTONE_DUST));
 		nightVisionBrew = BotaniaAPI.registerBrewRecipe(ModBrews.nightVision, new ItemStack(Items.NETHER_WART), new ItemStack(Items.SPIDER_EYE), new ItemStack(Items.GOLDEN_CARROT));
 		absorptionBrew = BotaniaAPI.registerBrewRecipe(ModBrews.absorption, new ItemStack(Items.NETHER_WART), new ItemStack(Items.GOLDEN_APPLE), new ItemStack(Items.POTATO));

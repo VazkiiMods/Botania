@@ -163,6 +163,13 @@
   {
     "ingredient": {
       "type": "forge:ore_dict",
+      "ore": "gemPrismarine"
+    },
+    "name": "GEMPRISMARINE"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
       "ore": "gemQuartz"
     },
     "name": "GEMQUARTZ"
@@ -824,13 +831,6 @@
       "ore": "runeWrathB"
     },
     "name": "RUNEWRATHB"
-  },
-  {
-    "ingredient": {
-      "type": "forge:ore_dict",
-      "ore": "shardPrismarine"
-    },
-    "name": "SHARDPRISMARINE"
   },
   {
     "ingredient": {

@@ -11,7 +11,7 @@
   "type": "forge:ore_shaped",
   "key": {
     "P": {
-      "item": "#SHARDPRISMARINE"
+      "item": "#GEMPRISMARINE"
     },
     "A": {
       "item": "#RUNEAIRB"

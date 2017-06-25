@@ -8,7 +8,6 @@
  */
 package vazkii.botania.client.integration.jei;
 
-import mezz.jei.api.IJeiHelpers;
 import mezz.jei.api.IJeiRuntime;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.IModRegistry;
@@ -20,21 +19,27 @@ import mezz.jei.api.recipe.VanillaRecipeCategoryUid;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.recipe.RecipeBrew;
+import vazkii.botania.api.recipe.RecipeElvenTrade;
+import vazkii.botania.api.recipe.RecipeManaInfusion;
+import vazkii.botania.api.recipe.RecipePetals;
+import vazkii.botania.api.recipe.RecipePureDaisy;
+import vazkii.botania.api.recipe.RecipeRuneAltar;
 import vazkii.botania.api.state.enums.AltarVariant;
 import vazkii.botania.api.state.enums.PoolVariant;
 import vazkii.botania.client.gui.crafting.ContainerCraftingHalo;
 import vazkii.botania.client.integration.jei.brewery.BreweryRecipeCategory;
-import vazkii.botania.client.integration.jei.brewery.BreweryRecipeHandler;
+import vazkii.botania.client.integration.jei.brewery.BreweryRecipeWrapper;
 import vazkii.botania.client.integration.jei.elventrade.ElvenTradeRecipeCategory;
-import vazkii.botania.client.integration.jei.elventrade.ElvenTradeRecipeHandler;
+import vazkii.botania.client.integration.jei.elventrade.ElvenTradeRecipeWrapper;
 import vazkii.botania.client.integration.jei.manapool.ManaPoolRecipeCategory;
-import vazkii.botania.client.integration.jei.manapool.ManaPoolRecipeHandler;
+import vazkii.botania.client.integration.jei.manapool.ManaPoolRecipeWrapper;
 import vazkii.botania.client.integration.jei.petalapothecary.PetalApothecaryRecipeCategory;
-import vazkii.botania.client.integration.jei.petalapothecary.PetalApothecaryRecipeHandler;
+import vazkii.botania.client.integration.jei.petalapothecary.PetalApothecaryRecipeWrapper;
 import vazkii.botania.client.integration.jei.puredaisy.PureDaisyRecipeCategory;
-import vazkii.botania.client.integration.jei.puredaisy.PureDaisyRecipeHandler;
+import vazkii.botania.client.integration.jei.puredaisy.PureDaisyRecipeWrapper;
 import vazkii.botania.client.integration.jei.runicaltar.RunicAltarRecipeCategory;
-import vazkii.botania.client.integration.jei.runicaltar.RunicAltarRecipeHandler;
+import vazkii.botania.client.integration.jei.runicaltar.RunicAltarRecipeWrapper;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
@@ -47,7 +52,7 @@ public class JEIBotaniaPlugin implements IModPlugin {
 	@Override
 	public void registerItemSubtypes(@Nonnull ISubtypeRegistry subtypeRegistry) {
 		subtypeRegistry.registerSubtypeInterpreter(Item.getItemFromBlock(ModBlocks.specialFlower), ItemBlockSpecialFlower::getType);
-		subtypeRegistry.registerNbtInterpreter(Item.getItemFromBlock(ModBlocks.floatingSpecialFlower), ItemBlockSpecialFlower::getType);
+		subtypeRegistry.registerSubtypeInterpreter(Item.getItemFromBlock(ModBlocks.floatingSpecialFlower), ItemBlockSpecialFlower::getType);
 	}
 
 	@Override
@@ -55,57 +60,51 @@ public class JEIBotaniaPlugin implements IModPlugin {
 
 	@Override
 	public void registerCategories(IRecipeCategoryRegistration registry) {
-		// todo 1.12
+		registry.addRecipeCategories(
+				new BreweryRecipeCategory(registry.getJeiHelpers().getGuiHelper()),
+				new PureDaisyRecipeCategory(registry.getJeiHelpers().getGuiHelper()),
+				new RunicAltarRecipeCategory(registry.getJeiHelpers().getGuiHelper()), // Runic must come before petals. See williewillus/Botania#172
+				new PetalApothecaryRecipeCategory(registry.getJeiHelpers().getGuiHelper()),
+				new ElvenTradeRecipeCategory(registry.getJeiHelpers().getGuiHelper()),
+				new ManaPoolRecipeCategory(registry.getJeiHelpers().getGuiHelper())
+				);
 	}
 
 	@Override
 	public void register(@Nonnull IModRegistry registry) {
-		IJeiHelpers jeiHelpers = registry.getJeiHelpers();
+		registry.handleRecipes(RecipeBrew.class, BreweryRecipeWrapper::new, BreweryRecipeCategory.UID);
+		registry.handleRecipes(RecipePureDaisy.class, PureDaisyRecipeWrapper::new, PureDaisyRecipeCategory.UID);
+		registry.handleRecipes(RecipeRuneAltar.class, RunicAltarRecipeWrapper::new, RunicAltarRecipeCategory.UID); // Runic must come before petals. See williewillus/Botania#172
+		registry.handleRecipes(RecipePetals.class, PetalApothecaryRecipeWrapper::new, PetalApothecaryRecipeCategory.UID);
+		registry.handleRecipes(RecipeElvenTrade.class, ElvenTradeRecipeWrapper::new, ElvenTradeRecipeCategory.UID);
+		registry.handleRecipes(RecipeManaInfusion.class, ManaPoolRecipeWrapper::new, ManaPoolRecipeCategory.UID);
 
-		registry.addRecipeCategories(
-				new BreweryRecipeCategory(jeiHelpers.getGuiHelper()),
-				new PureDaisyRecipeCategory(jeiHelpers.getGuiHelper()),
-				new RunicAltarRecipeCategory(jeiHelpers.getGuiHelper()), // Runic must come before petals. See williewillus/Botania#172
-				new PetalApothecaryRecipeCategory(jeiHelpers.getGuiHelper()),
-				new ElvenTradeRecipeCategory(jeiHelpers.getGuiHelper()),
-				new ManaPoolRecipeCategory(jeiHelpers.getGuiHelper())
-				);
+		registry.addRecipes(BotaniaAPI.brewRecipes, BreweryRecipeCategory.UID);
+		registry.addRecipes(BotaniaAPI.pureDaisyRecipes, PureDaisyRecipeCategory.UID);
+		registry.addRecipes(BotaniaAPI.petalRecipes, PetalApothecaryRecipeCategory.UID);
+		registry.addRecipes(BotaniaAPI.elvenTradeRecipes, ElvenTradeRecipeCategory.UID);
+		registry.addRecipes(BotaniaAPI.runeAltarRecipes, RunicAltarRecipeCategory.UID);
+		registry.addRecipes(BotaniaAPI.manaInfusionRecipes, ManaPoolRecipeCategory.UID);
 
-		registry.addRecipeHandlers(
-				new BreweryRecipeHandler(),
-				new PureDaisyRecipeHandler(),
-				new RunicAltarRecipeHandler(), // Runic must come before petals. See williewillus/Botania#172
-				new PetalApothecaryRecipeHandler(),
-				new ElvenTradeRecipeHandler(),
-				new ManaPoolRecipeHandler()
-				);
-
-		registry.addRecipes(BotaniaAPI.brewRecipes);
-		registry.addRecipes(BotaniaAPI.pureDaisyRecipes);
-		registry.addRecipes(BotaniaAPI.petalRecipes);
-		registry.addRecipes(BotaniaAPI.elvenTradeRecipes);
-		registry.addRecipes(BotaniaAPI.runeAltarRecipes);
-		registry.addRecipes(BotaniaAPI.manaInfusionRecipes);
-
-		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.brewery), BreweryRecipeCategory.UID);
-		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.alfPortal), ElvenTradeRecipeCategory.UID);
+		registry.addRecipeCatalyst(new ItemStack(ModBlocks.brewery), BreweryRecipeCategory.UID);
+		registry.addRecipeCatalyst(new ItemStack(ModBlocks.alfPortal), ElvenTradeRecipeCategory.UID);
 
 		for(PoolVariant v : PoolVariant.values()) {
-			registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.pool, 1, v.ordinal()), ManaPoolRecipeCategory.UID);
+			registry.addRecipeCatalyst(new ItemStack(ModBlocks.pool, 1, v.ordinal()), ManaPoolRecipeCategory.UID);
 		}
 
 		for(AltarVariant v : AltarVariant.values()) {
 			if(v == AltarVariant.MOSSY) continue;
-			registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.altar, 1, v.ordinal()), PetalApothecaryRecipeCategory.UID);
+			registry.addRecipeCatalyst(new ItemStack(ModBlocks.altar, 1, v.ordinal()), PetalApothecaryRecipeCategory.UID);
 		}
 
-		registry.addRecipeCategoryCraftingItem(ItemBlockSpecialFlower.ofType("puredaisy"), PureDaisyRecipeCategory.UID);
-		registry.addRecipeCategoryCraftingItem(ItemBlockSpecialFlower.ofType(new ItemStack(ModBlocks.floatingSpecialFlower), "puredaisy"), PureDaisyRecipeCategory.UID);
+		registry.addRecipeCatalyst(ItemBlockSpecialFlower.ofType("puredaisy"), PureDaisyRecipeCategory.UID);
+		registry.addRecipeCatalyst(ItemBlockSpecialFlower.ofType(new ItemStack(ModBlocks.floatingSpecialFlower), "puredaisy"), PureDaisyRecipeCategory.UID);
 
 
-		registry.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.runeAltar), RunicAltarRecipeCategory.UID);
-		registry.addRecipeCategoryCraftingItem(new ItemStack(ModItems.autocraftingHalo), VanillaRecipeCategoryUid.CRAFTING);
-		registry.addRecipeCategoryCraftingItem(new ItemStack(ModItems.craftingHalo), VanillaRecipeCategoryUid.CRAFTING);
+		registry.addRecipeCatalyst(new ItemStack(ModBlocks.runeAltar), RunicAltarRecipeCategory.UID);
+		registry.addRecipeCatalyst(new ItemStack(ModItems.autocraftingHalo), VanillaRecipeCategoryUid.CRAFTING);
+		registry.addRecipeCatalyst(new ItemStack(ModItems.craftingHalo), VanillaRecipeCategoryUid.CRAFTING);
 
 		registry.getRecipeTransferRegistry().addRecipeTransferHandler(ContainerCraftingHalo.class, VanillaRecipeCategoryUid.CRAFTING, 1, 9, 10, 36);
 	}

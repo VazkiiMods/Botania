@@ -432,7 +432,6 @@ public final class ModItems {
 		OreDictionary.registerOre(LibOreDict.ELEMENTIUM, new ItemStack(manaResource, 1, 7));
 		OreDictionary.registerOre(LibOreDict.PIXIE_DUST, new ItemStack(manaResource, 1, 8));
 		OreDictionary.registerOre(LibOreDict.DRAGONSTONE, new ItemStack(manaResource, 1, 9));
-		OreDictionary.registerOre(LibOreDict.PRISMARINE_SHARD, new ItemStack(manaResource, 1, 10));
 		OreDictionary.registerOre(LibOreDict.PLACEHOLDER, new ItemStack(manaResource, 1, 11));
 		OreDictionary.registerOre(LibOreDict.RED_STRING, new ItemStack(manaResource, 1, 12));
 		OreDictionary.registerOre(LibOreDict.DREAMWOOD_TWIG, new ItemStack(manaResource, 1, 13));
@@ -460,6 +459,5 @@ public final class ModItems {
 
 		OreDictionary.registerOre("rodBlaze", Items.BLAZE_ROD);
 		OreDictionary.registerOre("powderBlaze", Items.BLAZE_POWDER);
-		OreDictionary.registerOre(LibOreDict.PRISMARINE_SHARD, new ItemStack(Items.PRISMARINE_SHARD));
 	}
 }

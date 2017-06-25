@@ -520,10 +520,9 @@ public final class BotaniaAPI {
 
 	/**
 	 * Registers a SubTileEntity, a new special flower. Look in the subtile package of the API.
-	 * Call this in preInit, and don't forget to register a model in BotaniaAPIClient.
+	 * Call this during {@code RegistryEvent.Register<Block>}, and don't forget to register a model in BotaniaAPIClient.
 	 */
 	public static void registerSubTile(String key, Class<? extends SubTileEntity> subtileClass) {
-		// todo 1.12 Preconditions.checkArgument(Loader.instance().isInState(LoaderState.PREINITIALIZATION));
 		subTiles.put(key, subtileClass);
 		subTileMods.put(key, Loader.instance().activeModContainer().getModId());
 	}
