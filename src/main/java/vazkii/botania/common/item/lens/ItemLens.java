@@ -153,11 +153,6 @@ public class ItemLens extends ItemMod implements ILensControl, ICompositableLens
 		super(LibItemNames.LENS);
 		setMaxStackSize(1);
 		setHasSubtypes(true);
-
-		GameRegistry.register(new CompositeLensRecipe(), new ResourceLocation(LibMisc.MOD_ID, "composite_lens"));
-		GameRegistry.register(new LensDyeingRecipe(), new ResourceLocation(LibMisc.MOD_ID, "lens_dye"));
-		RecipeSorter.register("botania:compositeLens", CompositeLensRecipe.class, Category.SHAPELESS, "");
-		RecipeSorter.register("botania:lensDying", LensDyeingRecipe.class, Category.SHAPELESS, "");
 	}
 
 	@Override

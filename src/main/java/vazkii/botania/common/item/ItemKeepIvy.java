@@ -40,8 +40,6 @@ public class ItemKeepIvy extends ItemMod {
 
 	public ItemKeepIvy() {
 		super(LibItemNames.KEEP_IVY);
-		GameRegistry.register(new KeepIvyRecipe(), new ResourceLocation(LibMisc.MOD_ID, "keep_ivy_attach"));
-		RecipeSorter.register("botania:keepIvy", KeepIvyRecipe.class, Category.SHAPELESS, "");
 		MinecraftForge.EVENT_BUS.register(ItemKeepIvy.class);
 	}
 

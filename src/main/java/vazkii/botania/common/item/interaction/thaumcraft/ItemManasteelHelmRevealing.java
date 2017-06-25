@@ -34,8 +34,6 @@ public class ItemManasteelHelmRevealing extends ItemManasteelHelm implements IGo
 
 	public ItemManasteelHelmRevealing() {
 		super(LibItemNames.MANASTEEL_HELM_R);
-		GameRegistry.register(new HelmRevealingRecipe(), new ResourceLocation(LibMisc.MOD_ID, "helm_revealing")); //Manasteel is the base so it gets the recipe added in its constructor so that ModItems can call it
-		RecipeSorter.register("botania:helmRevealing", HelmRevealingRecipe.class, Category.SHAPELESS, "");
 	}
 
 	@Override

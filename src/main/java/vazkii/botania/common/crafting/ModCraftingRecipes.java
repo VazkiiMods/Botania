@@ -25,24 +25,46 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
+import net.minecraftforge.registries.IForgeRegistry;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.block.tile.TileCraftCrate;
 import vazkii.botania.common.core.handler.ConfigHandler;
+import vazkii.botania.common.crafting.recipe.AesirRingRecipe;
+import vazkii.botania.common.crafting.recipe.AncientWillRecipe;
 import vazkii.botania.common.crafting.recipe.ArmorUpgradeRecipe;
+import vazkii.botania.common.crafting.recipe.BlackHoleTalismanExtractRecipe;
+import vazkii.botania.common.crafting.recipe.CompositeLensRecipe;
+import vazkii.botania.common.crafting.recipe.CosmeticAttachRecipe;
+import vazkii.botania.common.crafting.recipe.CosmeticRemoveRecipe;
+import vazkii.botania.common.crafting.recipe.HelmRevealingRecipe;
+import vazkii.botania.common.crafting.recipe.KeepIvyRecipe;
+import vazkii.botania.common.crafting.recipe.LensDyeingRecipe;
+import vazkii.botania.common.crafting.recipe.ManaGunClipRecipe;
+import vazkii.botania.common.crafting.recipe.ManaGunLensRecipe;
+import vazkii.botania.common.crafting.recipe.ManaGunRemoveLensRecipe;
 import vazkii.botania.common.crafting.recipe.ManaUpgradeRecipe;
+import vazkii.botania.common.crafting.recipe.PhantomInkRecipe;
 import vazkii.botania.common.crafting.recipe.ShapelessManaUpgradeRecipe;
+import vazkii.botania.common.crafting.recipe.SpecialFloatingFlowerRecipe;
+import vazkii.botania.common.crafting.recipe.SpellClothRecipe;
+import vazkii.botania.common.crafting.recipe.TerraPickTippingRecipe;
 import vazkii.botania.common.item.ItemTwigWand;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.lib.LibOreDict;
 
+@Mod.EventBusSubscriber
 public final class ModCraftingRecipes {
 
 	public static IRecipe recipeLexicon;
@@ -314,7 +336,55 @@ public final class ModCraftingRecipes {
 	public static IRecipe recipeFelPumpkin;
 	public static IRecipe recipeEndPortal;
 
-	public static void init() {
+	@SubscribeEvent
+	public static void registerRecipes(RegistryEvent.Register<IRecipe> evt) {
+		IForgeRegistry<IRecipe> r = evt.getRegistry();
+
+		r.register(new AesirRingRecipe().setRegistryName(new ResourceLocation(LibMisc.MOD_ID, "aesir_ring")));
+		RecipeSorter.register("botania:aesirRing", AesirRingRecipe.class, RecipeSorter.Category.SHAPELESS, "");
+
+		r.register(new AncientWillRecipe().setRegistryName(new ResourceLocation(LibMisc.MOD_ID, "ancient_will_attach")));
+		RecipeSorter.register("botania:ancientWill", AncientWillRecipe.class, RecipeSorter.Category.SHAPELESS, "");
+
+		r.register(new BlackHoleTalismanExtractRecipe().setRegistryName(new ResourceLocation(LibMisc.MOD_ID, "black_hole_talisman_extract")));
+		RecipeSorter.register("botania:blackHoleTalismanExtract", BlackHoleTalismanExtractRecipe.class, RecipeSorter.Category.SHAPELESS, "");
+
+		r.register(new SpellClothRecipe().setRegistryName(new ResourceLocation(LibMisc.MOD_ID, "cleanse_enchants")));
+		RecipeSorter.register("botania:spellCloth", SpellClothRecipe.class, RecipeSorter.Category.SHAPELESS, "");
+
+		r.register(new CompositeLensRecipe().setRegistryName(new ResourceLocation(LibMisc.MOD_ID, "composite_lens")));
+		RecipeSorter.register("botania:compositeLens", CompositeLensRecipe.class, RecipeSorter.Category.SHAPELESS, "");
+
+		r.register(new CosmeticAttachRecipe().setRegistryName(new ResourceLocation(LibMisc.MOD_ID, "cosmetic_attach")));
+		r.register(new CosmeticRemoveRecipe().setRegistryName(new ResourceLocation(LibMisc.MOD_ID, "cosmetic_remove")));
+		RecipeSorter.register("botania:cosmeticAttach", CosmeticAttachRecipe.class, RecipeSorter.Category.SHAPELESS, "");
+		RecipeSorter.register("botania:cosmeticRemove", CosmeticRemoveRecipe.class, RecipeSorter.Category.SHAPELESS, "");
+
+		r.register(new HelmRevealingRecipe().setRegistryName(new ResourceLocation(LibMisc.MOD_ID, "helm_revealing")));
+		RecipeSorter.register("botania:helmRevealing", HelmRevealingRecipe.class, RecipeSorter.Category.SHAPELESS, "");
+
+		r.register(new KeepIvyRecipe().setRegistryName(new ResourceLocation(LibMisc.MOD_ID, "keep_ivy_attach")));
+		RecipeSorter.register("botania:keepIvy", KeepIvyRecipe.class, RecipeSorter.Category.SHAPELESS, "");
+
+		r.register(new LensDyeingRecipe().setRegistryName(new ResourceLocation(LibMisc.MOD_ID, "lens_dye")));
+		RecipeSorter.register("botania:lensDying", LensDyeingRecipe.class, RecipeSorter.Category.SHAPELESS, "");
+
+		r.register(new ManaGunLensRecipe().setRegistryName(new ResourceLocation(LibMisc.MOD_ID, "mana_gun_add_lens")));
+		r.register(new ManaGunRemoveLensRecipe().setRegistryName(new ResourceLocation(LibMisc.MOD_ID, "mana_gun_remove_lens")));
+		r.register(new ManaGunClipRecipe().setRegistryName(new ResourceLocation(LibMisc.MOD_ID, "mana_gun_add_clip")));
+		RecipeSorter.register("botania:manaGunLens", ManaGunLensRecipe.class, RecipeSorter.Category.SHAPELESS, "");
+		RecipeSorter.register("botania:manaGunRemoveLens", ManaGunRemoveLensRecipe.class, RecipeSorter.Category.SHAPELESS, "");
+		RecipeSorter.register("botania:manaGunClip", ManaGunClipRecipe.class, RecipeSorter.Category.SHAPELESS, "");
+		
+		r.register(new PhantomInkRecipe().setRegistryName(new ResourceLocation(LibMisc.MOD_ID, "phantom_ink")));
+		RecipeSorter.register("botania:phantomInk", PhantomInkRecipe.class, RecipeSorter.Category.SHAPELESS, "");
+
+		r.register(new SpecialFloatingFlowerRecipe().setRegistryName(new ResourceLocation(LibMisc.MOD_ID, "special_floating_flower")));
+		RecipeSorter.register("botania:floatingSpecialFlower", SpecialFloatingFlowerRecipe.class, RecipeSorter.Category.SHAPELESS, "");
+		
+		r.register(new TerraPickTippingRecipe().setRegistryName(new ResourceLocation(LibMisc.MOD_ID, "terra_pick_tipping")));
+		RecipeSorter.register("botania:terraPickTipping", TerraPickTippingRecipe.class, RecipeSorter.Category.SHAPELESS, "");
+
 		int recipeListSize = CraftingManager.getInstance().getRecipeList().size();
 
 		// Lexicon Recipe

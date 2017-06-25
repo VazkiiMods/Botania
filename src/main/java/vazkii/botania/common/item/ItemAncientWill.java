@@ -41,9 +41,6 @@ public class ItemAncientWill extends ItemMod {
 		super(LibItemNames.ANCIENT_WILL);
 		setHasSubtypes(true);
 		setMaxStackSize(1);
-
-		GameRegistry.register(new AncientWillRecipe(), new ResourceLocation(LibMisc.MOD_ID, "ancient_will_attach"));
-		RecipeSorter.register("botania:ancientWill", AncientWillRecipe.class, Category.SHAPELESS, "");
 	}
 
 	@Override

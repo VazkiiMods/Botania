@@ -69,13 +69,6 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 		setMaxDamage(COOLDOWN);
 		setMaxStackSize(1);
 		setNoRepair();
-
-		GameRegistry.register(new ManaGunLensRecipe(), new ResourceLocation(LibMisc.MOD_ID, "mana_gun_add_lens"));
-		GameRegistry.register(new ManaGunRemoveLensRecipe(), new ResourceLocation(LibMisc.MOD_ID, "mana_gun_remove_lens"));
-		GameRegistry.register(new ManaGunClipRecipe(), new ResourceLocation(LibMisc.MOD_ID, "mana_gun_add_clip"));
-		RecipeSorter.register("botania:manaGunLens", ManaGunLensRecipe.class, Category.SHAPELESS, "");
-		RecipeSorter.register("botania:manaGunRemoveLens", ManaGunRemoveLensRecipe.class, Category.SHAPELESS, "");
-		RecipeSorter.register("botania:manaGunClip", ManaGunClipRecipe.class, Category.SHAPELESS, "");
 	}
 
 	@Nonnull

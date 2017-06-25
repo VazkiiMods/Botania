@@ -69,11 +69,6 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 	public ItemBaubleCosmetic() {
 		super(LibItemNames.COSMETIC);
 		setHasSubtypes(true);
-
-		GameRegistry.register(new CosmeticAttachRecipe(), new ResourceLocation(LibMisc.MOD_ID, "cosmetic_attach"));
-		GameRegistry.register(new CosmeticRemoveRecipe(), new ResourceLocation(LibMisc.MOD_ID, "cosmetic_remove"));
-		RecipeSorter.register("botania:cosmeticAttach", CosmeticAttachRecipe.class, Category.SHAPELESS, "");
-		RecipeSorter.register("botania:cosmeticRemove", CosmeticRemoveRecipe.class, Category.SHAPELESS, "");
 		renderStack = new ItemStack(this);
 	}
 

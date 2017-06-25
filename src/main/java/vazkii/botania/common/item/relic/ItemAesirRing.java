@@ -46,8 +46,6 @@ public class ItemAesirRing extends ItemRelicBauble implements IWireframeCoordina
 
 	public ItemAesirRing() {
 		super(LibItemNames.AESIR_RING);
-		GameRegistry.register(new AesirRingRecipe(), new ResourceLocation(LibMisc.MOD_ID, "aesir_ring"));
-		RecipeSorter.register("botania:aesirRing", AesirRingRecipe.class, Category.SHAPELESS, "");
 		MinecraftForge.EVENT_BUS.register(this);
 	}
 

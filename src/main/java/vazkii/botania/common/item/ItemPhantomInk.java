@@ -22,8 +22,6 @@ public class ItemPhantomInk extends ItemMod {
 
 	public ItemPhantomInk() {
 		super(LibItemNames.PHANTOM_INK);
-		GameRegistry.register(new PhantomInkRecipe(), new ResourceLocation(LibMisc.MOD_ID, "phantom_ink"));
-		RecipeSorter.register("botania:phantomInk", PhantomInkRecipe.class, Category.SHAPELESS, "");
 	}
 
 }

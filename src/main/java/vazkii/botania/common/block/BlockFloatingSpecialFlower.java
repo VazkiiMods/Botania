@@ -65,9 +65,6 @@ public class BlockFloatingSpecialFlower extends BlockFloatingFlower implements I
 
 	public BlockFloatingSpecialFlower() {
 		super(LibBlockNames.FLOATING_SPECIAL_FLOWER);
-
-		GameRegistry.register(new SpecialFloatingFlowerRecipe(), new ResourceLocation(LibMisc.MOD_ID, "special_floating_flower"));
-		RecipeSorter.register("botania:floatingSpecialFlower", SpecialFloatingFlowerRecipe.class, Category.SHAPELESS, "");
 	}
 
 	@Nonnull

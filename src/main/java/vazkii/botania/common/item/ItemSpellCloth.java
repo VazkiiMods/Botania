@@ -28,9 +28,6 @@ public class ItemSpellCloth extends ItemMod {
 		setMaxDamage(35);
 		setMaxStackSize(1);
 		setNoRepair();
-
-		GameRegistry.register(new SpellClothRecipe(), new ResourceLocation(LibMisc.MOD_ID, "cleanse_enchants"));
-		RecipeSorter.register("botania:spellCloth", SpellClothRecipe.class, Category.SHAPELESS, "");
 	}
 
 	@Override

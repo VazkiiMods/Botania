@@ -61,9 +61,6 @@ public class ItemBlackHoleTalisman extends ItemMod implements IBlockProvider {
 		super(LibItemNames.BLACK_HOLE_TALISMAN);
 		setMaxStackSize(1);
 		setHasSubtypes(true);
-
-		GameRegistry.register(new BlackHoleTalismanExtractRecipe(), new ResourceLocation(LibMisc.MOD_ID, "black_hole_talisman_extract"));
-		RecipeSorter.register("botania:blackHoleTalismanExtract", BlackHoleTalismanExtractRecipe.class, Category.SHAPELESS, "");
 	}
 
 	@Nonnull
