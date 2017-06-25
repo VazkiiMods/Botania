@@ -1,0 +1,19 @@
+{
+  "result": {
+    "item": "botania:slingshot"
+  },
+  "pattern": [
+    " TA",
+    " TT",
+    "T  "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "A": {
+      "item": "#RUNEAIRB"
+    },
+    "T": {
+      "item": "#LIVINGWOODTWIG"
+    }
+  }
+}

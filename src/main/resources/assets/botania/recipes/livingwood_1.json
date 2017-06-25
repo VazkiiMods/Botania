@@ -1,0 +1,13 @@
+{
+  "result": {
+    "item": "botania:livingwood",
+    "data": 1,
+    "count": 4
+  },
+  "ingredients": [
+    {
+      "item": "#LIVINGWOOD"
+    }
+  ],
+  "type": "forge:ore_shapeless"
+}

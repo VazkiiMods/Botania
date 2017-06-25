@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "botania:quartz",
+    "data": 6,
+    "count": 8
+  },
+  "pattern": [
+    "QQQ",
+    "QCQ",
+    "QQQ"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "Q": {
+      "item": "#GEMQUARTZ"
+    },
+    "C": {
+      "item": "minecraft:double_plant",
+      "data": 0
+    }
+  }
+}

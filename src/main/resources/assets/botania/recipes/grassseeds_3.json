@@ -1,0 +1,16 @@
+{
+  "result": {
+    "item": "botania:grassseeds",
+    "data": 3
+  },
+  "ingredients": [
+    {
+      "item": "botania:grassseeds",
+      "data": 0
+    },
+    {
+      "item": "minecraft:deadbush"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}

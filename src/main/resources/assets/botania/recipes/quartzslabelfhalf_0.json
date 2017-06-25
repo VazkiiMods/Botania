@@ -1,0 +1,17 @@
+{
+  "result": {
+    "item": "botania:quartzslabelfhalf",
+    "data": 0,
+    "count": 6
+  },
+  "pattern": [
+    "QQQ"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "Q": {
+      "item": "botania:quartztypeelf",
+      "data": 0
+    }
+  }
+}

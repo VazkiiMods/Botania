@@ -1,0 +1,16 @@
+{
+  "result": {
+    "item": "botania:lightrelay",
+    "data": 3
+  },
+  "ingredients": [
+    {
+      "item": "botania:lightrelay",
+      "data": 0
+    },
+    {
+      "item": "minecraft:lever"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}

@@ -1,0 +1,25 @@
+{
+  "result": {
+    "item": "botania:cobblerod"
+  },
+  "pattern": [
+    " FC",
+    " TW",
+    "T  "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "C": {
+      "item": "#COBBLESTONE"
+    },
+    "T": {
+      "item": "#LIVINGWOODTWIG"
+    },
+    "F": {
+      "item": "#RUNEFIREB"
+    },
+    "W": {
+      "item": "#RUNEWATERB"
+    }
+  }
+}

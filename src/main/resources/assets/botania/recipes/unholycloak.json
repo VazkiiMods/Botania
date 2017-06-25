@@ -1,0 +1,23 @@
+{
+  "result": {
+    "item": "botania:unholycloak"
+  },
+  "pattern": [
+    "WWW",
+    "RWR",
+    "RSR"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "R": {
+      "item": "#DUSTREDSTONE"
+    },
+    "S": {
+      "item": "#ETERNALLIFEESSENCE"
+    },
+    "W": {
+      "item": "minecraft:wool",
+      "data": 15
+    }
+  }
+}

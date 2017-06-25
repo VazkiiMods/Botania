@@ -1,0 +1,18 @@
+{
+  "result": {
+    "item": "botania:sparkupgrade",
+    "data": 1
+  },
+  "ingredients": [
+    {
+      "item": "#ELVENPIXIEDUST"
+    },
+    {
+      "item": "#INGOTMANASTEEL"
+    },
+    {
+      "item": "#RUNEFIREB"
+    }
+  ],
+  "type": "forge:ore_shapeless"
+}

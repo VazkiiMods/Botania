@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "botania:pavement",
+    "data": 3,
+    "count": 3
+  },
+  "ingredients": [
+    {
+      "item": "#LIVINGROCK"
+    },
+    {
+      "item": "#COBBLESTONE"
+    },
+    {
+      "item": "#GRAVEL"
+    },
+    {
+      "item": "minecraft:redstone"
+    }
+  ],
+  "type": "forge:ore_shapeless"
+}

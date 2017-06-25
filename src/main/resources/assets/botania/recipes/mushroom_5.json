@@ -1,0 +1,16 @@
+{
+  "result": {
+    "item": "botania:mushroom",
+    "data": 5
+  },
+  "ingredients": [
+    {
+      "item": "minecraft:red_mushroom"
+    },
+    {
+      "item": "botania:dye",
+      "data": 5
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}

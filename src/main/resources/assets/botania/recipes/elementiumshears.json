@@ -1,0 +1,15 @@
+{
+  "result": {
+    "item": "botania:elementiumshears"
+  },
+  "pattern": [
+    "S ",
+    " S"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "S": {
+      "item": "#INGOTELVENELEMENTIUM"
+    }
+  }
+}

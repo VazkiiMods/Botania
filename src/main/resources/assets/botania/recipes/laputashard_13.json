@@ -1,0 +1,16 @@
+{
+  "result": {
+    "item": "botania:laputashard",
+    "data": 13
+  },
+  "ingredients": [
+    {
+      "item": "#ETERNALLIFEESSENCE"
+    },
+    {
+      "item": "botania:laputashard",
+      "data": 12
+    }
+  ],
+  "type": "forge:ore_shapeless"
+}

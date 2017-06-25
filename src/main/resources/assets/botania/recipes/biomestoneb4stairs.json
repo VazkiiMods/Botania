@@ -1,0 +1,18 @@
+{
+  "result": {
+    "item": "botania:biomestoneb4stairs",
+    "count": 4
+  },
+  "pattern": [
+    "  Q",
+    " QQ",
+    "QQQ"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "Q": {
+      "item": "botania:biomestoneb",
+      "data": 4
+    }
+  }
+}

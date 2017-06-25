@@ -1,0 +1,17 @@
+{
+  "result": {
+    "item": "botania:dye",
+    "data": 4,
+    "count": 2
+  },
+  "ingredients": [
+    {
+      "item": "botania:pestleandmortar"
+    },
+    {
+      "item": "minecraft:double_plant",
+      "data": 0
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}

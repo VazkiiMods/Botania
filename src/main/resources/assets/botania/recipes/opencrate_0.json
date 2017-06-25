@@ -1,0 +1,18 @@
+{
+  "result": {
+    "item": "botania:opencrate",
+    "data": 0
+  },
+  "pattern": [
+    "WWW",
+    "W W",
+    "W W"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "W": {
+      "item": "botania:livingwood",
+      "data": 1
+    }
+  }
+}

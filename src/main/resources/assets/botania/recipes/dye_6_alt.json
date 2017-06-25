@@ -1,0 +1,16 @@
+{
+  "result": {
+    "item": "botania:dye",
+    "data": 6
+  },
+  "ingredients": [
+    {
+      "item": "botania:pestleandmortar"
+    },
+    {
+      "item": "minecraft:red_flower",
+      "data": 7
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}

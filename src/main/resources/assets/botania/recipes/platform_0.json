@@ -1,0 +1,29 @@
+{
+  "result": {
+    "item": "botania:platform",
+    "data": 0,
+    "count": 2
+  },
+  "pattern": [
+    "343",
+    "0P0"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "0": {
+      "item": "botania:livingwood",
+      "data": 0
+    },
+    "P": {
+      "item": "#MANAPEARL"
+    },
+    "3": {
+      "item": "botania:livingwood",
+      "data": 3
+    },
+    "4": {
+      "item": "botania:livingwood",
+      "data": 4
+    }
+  }
+}

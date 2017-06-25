@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "botania:enderdagger"
+  },
+  "pattern": [
+    "P",
+    "S",
+    "T"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "P": {
+      "item": "#MANAPEARL"
+    },
+    "S": {
+      "item": "#INGOTMANASTEEL"
+    },
+    "T": {
+      "item": "#LIVINGWOODTWIG"
+    }
+  }
+}

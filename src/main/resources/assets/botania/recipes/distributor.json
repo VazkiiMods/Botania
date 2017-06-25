@@ -1,0 +1,19 @@
+{
+  "result": {
+    "item": "botania:distributor"
+  },
+  "pattern": [
+    "RRR",
+    "S S",
+    "RRR"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "R": {
+      "item": "#LIVINGROCK"
+    },
+    "S": {
+      "item": "#INGOTMANASTEEL"
+    }
+  }
+}

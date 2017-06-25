@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "botania:itemfinder"
+  },
+  "pattern": [
+    " I ",
+    "IYI",
+    "IEI"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "E": {
+      "item": "#GEMEMERALD"
+    },
+    "I": {
+      "item": "#INGOTIRON"
+    },
+    "Y": {
+      "item": "minecraft:ender_eye"
+    }
+  }
+}

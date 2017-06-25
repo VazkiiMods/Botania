@@ -1,0 +1,19 @@
+{
+  "result": {
+    "item": "botania:manasteelpick"
+  },
+  "pattern": [
+    "SSS",
+    " T ",
+    " T "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "S": {
+      "item": "#INGOTMANASTEEL"
+    },
+    "T": {
+      "item": "#LIVINGWOODTWIG"
+    }
+  }
+}

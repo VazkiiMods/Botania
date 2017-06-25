@@ -1,0 +1,17 @@
+{
+  "result": {
+    "item": "botania:dreamwood",
+    "data": 0
+  },
+  "pattern": [
+    "Q",
+    "Q"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "Q": {
+      "item": "botania:dreamwood0slab",
+      "data": 0
+    }
+  }
+}

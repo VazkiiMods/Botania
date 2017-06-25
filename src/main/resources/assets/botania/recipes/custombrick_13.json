@@ -1,0 +1,13 @@
+{
+  "result": {
+    "item": "botania:custombrick",
+    "data": 13
+  },
+  "ingredients": [
+    {
+      "item": "botania:custombrick",
+      "data": 12
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}

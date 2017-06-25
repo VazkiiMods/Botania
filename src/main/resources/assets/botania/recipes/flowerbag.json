@@ -1,0 +1,21 @@
+{
+  "result": {
+    "item": "botania:flowerbag"
+  },
+  "pattern": [
+    "WPW",
+    "W W",
+    " W "
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "P": {
+      "item": "botania:petal",
+      "data": 32767
+    },
+    "W": {
+      "item": "minecraft:wool",
+      "data": 32767
+    }
+  }
+}

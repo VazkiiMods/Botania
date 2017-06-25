@@ -1,0 +1,17 @@
+{
+  "result": {
+    "item": "botania:petalblock",
+    "data": 4
+  },
+  "pattern": [
+    "PPP",
+    "PPP",
+    "PPP"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "P": {
+      "item": "#PETALYELLOW"
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "result": {
+    "item": "botania:opencrate",
+    "data": 1
+  },
+  "pattern": [
+    "WCW",
+    "W W",
+    "W W"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "C": {
+      "item": "#WORKBENCH"
+    },
+    "W": {
+      "item": "botania:dreamwood",
+      "data": 1
+    }
+  }
+}

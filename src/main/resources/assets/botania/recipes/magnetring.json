@@ -1,0 +1,20 @@
+{
+  "result": {
+    "item": "botania:magnetring"
+  },
+  "pattern": [
+    "LM ",
+    "M M",
+    " M "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "L": {
+      "item": "botania:lens",
+      "data": 10
+    },
+    "M": {
+      "item": "#INGOTMANASTEEL"
+    }
+  }
+}

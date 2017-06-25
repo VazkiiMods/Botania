@@ -1,0 +1,14 @@
+{
+  "result": {
+    "item": "botania:bifrostperm"
+  },
+  "ingredients": [
+    {
+      "item": "botania:rainbowrod"
+    },
+    {
+      "item": "botania:elfglass"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}

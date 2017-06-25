@@ -1,0 +1,16 @@
+{
+  "result": {
+    "item": "botania:shimmerwoodplanks"
+  },
+  "pattern": [
+    "Q",
+    "Q"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "Q": {
+      "item": "botania:shimmerwoodplanks0slab",
+      "data": 0
+    }
+  }
+}

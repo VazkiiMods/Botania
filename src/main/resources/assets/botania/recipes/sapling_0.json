@@ -1,0 +1,21 @@
+{
+  "result": {
+    "item": "minecraft:sapling",
+    "data": 0
+  },
+  "ingredients": [
+    {
+      "item": "#LIVINGROOT"
+    },
+    {
+      "item": "#LIVINGROOT"
+    },
+    {
+      "item": "#LIVINGROOT"
+    },
+    {
+      "item": "#LIVINGROOT"
+    }
+  ],
+  "type": "forge:ore_shapeless"
+}

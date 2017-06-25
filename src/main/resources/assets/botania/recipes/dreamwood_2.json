@@ -1,0 +1,16 @@
+{
+  "result": {
+    "item": "botania:dreamwood",
+    "data": 2
+  },
+  "ingredients": [
+    {
+      "item": "botania:dreamwood",
+      "data": 1
+    },
+    {
+      "item": "minecraft:wheat_seeds"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}

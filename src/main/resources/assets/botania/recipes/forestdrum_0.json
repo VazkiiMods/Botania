@@ -1,0 +1,24 @@
+{
+  "result": {
+    "item": "botania:forestdrum",
+    "data": 0
+  },
+  "pattern": [
+    "WLW",
+    "WHW",
+    "WLW"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "W": {
+      "item": "#LIVINGWOOD"
+    },
+    "H": {
+      "item": "botania:grasshorn",
+      "data": 0
+    },
+    "L": {
+      "item": "minecraft:leather"
+    }
+  }
+}

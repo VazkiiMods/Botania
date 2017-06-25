@@ -1,0 +1,23 @@
+{
+  "result": {
+    "item": "botania:dirtrod"
+  },
+  "pattern": [
+    "  D",
+    " T ",
+    "E  "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "D": {
+      "item": "minecraft:dirt",
+      "data": 0
+    },
+    "T": {
+      "item": "#LIVINGWOODTWIG"
+    },
+    "E": {
+      "item": "#RUNEEARTHB"
+    }
+  }
+}

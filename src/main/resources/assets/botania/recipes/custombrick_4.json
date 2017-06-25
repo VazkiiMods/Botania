@@ -1,0 +1,15 @@
+{
+  "result": {
+    "item": "botania:custombrick",
+    "data": 4
+  },
+  "ingredients": [
+    {
+      "item": "#GEMLAPIS"
+    },
+    {
+      "item": "#BLOCKQUARTZ"
+    }
+  ],
+  "type": "forge:ore_shapeless"
+}

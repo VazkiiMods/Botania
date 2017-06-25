@@ -1,0 +1,17 @@
+{
+  "result": {
+    "item": "botania:lens",
+    "data": 9
+  },
+  "ingredients": [
+    {
+      "item": "botania:lens",
+      "data": 0
+    },
+    {
+      "item": "botania:platform",
+      "data": 0
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}

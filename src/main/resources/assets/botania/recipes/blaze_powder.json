@@ -1,0 +1,12 @@
+{
+  "result": {
+    "item": "minecraft:blaze_powder",
+    "count": 9
+  },
+  "ingredients": [
+    {
+      "item": "#BLOCKBLAZE"
+    }
+  ],
+  "type": "forge:ore_shapeless"
+}

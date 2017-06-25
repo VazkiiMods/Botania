@@ -1,0 +1,17 @@
+{
+  "result": {
+    "item": "botania:quartztypeblaze",
+    "data": 1
+  },
+  "pattern": [
+    "Q",
+    "Q"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "Q": {
+      "item": "botania:quartzslabblazehalf",
+      "data": 0
+    }
+  }
+}

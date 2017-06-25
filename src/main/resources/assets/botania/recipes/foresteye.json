@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "botania:foresteye"
+  },
+  "pattern": [
+    "MSM",
+    "SES",
+    "MSM"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "S": {
+      "item": "#LIVINGROCK"
+    },
+    "E": {
+      "item": "minecraft:ender_eye"
+    },
+    "M": {
+      "item": "#INGOTMANASTEEL"
+    }
+  }
+}

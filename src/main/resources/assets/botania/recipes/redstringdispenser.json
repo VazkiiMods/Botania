@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "botania:redstringdispenser"
+  },
+  "pattern": [
+    "RRR",
+    "RDS",
+    "RRR"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "R": {
+      "item": "#LIVINGROCK"
+    },
+    "S": {
+      "item": "#BREDSTRING"
+    },
+    "D": {
+      "item": "minecraft:dispenser"
+    }
+  }
+}

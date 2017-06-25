@@ -1,0 +1,19 @@
+{
+  "result": {
+    "item": "minecraft:mushroom_stew"
+  },
+  "ingredients": [
+    {
+      "item": "botania:mushroom",
+      "data": 32767
+    },
+    {
+      "item": "botania:mushroom",
+      "data": 32767
+    },
+    {
+      "item": "minecraft:bowl"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}

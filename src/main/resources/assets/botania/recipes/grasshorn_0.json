@@ -1,0 +1,21 @@
+{
+  "result": {
+    "item": "botania:grasshorn",
+    "data": 0
+  },
+  "pattern": [
+    " W ",
+    "WSW",
+    "WW "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "S": {
+      "item": "botania:grassseeds",
+      "data": 0
+    },
+    "W": {
+      "item": "#LIVINGWOOD"
+    }
+  }
+}

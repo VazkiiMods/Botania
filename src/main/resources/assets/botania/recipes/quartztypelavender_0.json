@@ -1,0 +1,16 @@
+{
+  "result": {
+    "item": "botania:quartztypelavender",
+    "data": 0
+  },
+  "pattern": [
+    "QQ",
+    "QQ"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "Q": {
+      "item": "#QUARTZLAVENDER"
+    }
+  }
+}

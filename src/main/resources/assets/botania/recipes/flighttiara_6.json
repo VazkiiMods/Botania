@@ -1,0 +1,16 @@
+{
+  "result": {
+    "item": "botania:flighttiara",
+    "data": 6
+  },
+  "ingredients": [
+    {
+      "item": "botania:flighttiara",
+      "data": 32767
+    },
+    {
+      "item": "#QUARTZRED"
+    }
+  ],
+  "type": "forge:ore_shapeless"
+}

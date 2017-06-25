@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "botania:baublebox"
+  },
+  "pattern": [
+    " M ",
+    "MCG",
+    " M "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "C": {
+      "item": "#CHESTWOOD"
+    },
+    "G": {
+      "item": "#INGOTGOLD"
+    },
+    "M": {
+      "item": "#INGOTMANASTEEL"
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "result": {
+    "item": "botania:manaresource",
+    "data": 6
+  },
+  "ingredients": [
+    {
+      "item": "#DUSTREDSTONE"
+    },
+    {
+      "item": "minecraft:tallgrass",
+      "data": 1
+    }
+  ],
+  "type": "forge:ore_shapeless"
+}

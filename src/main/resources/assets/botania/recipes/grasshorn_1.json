@@ -1,0 +1,16 @@
+{
+  "result": {
+    "item": "botania:grasshorn",
+    "data": 1
+  },
+  "ingredients": [
+    {
+      "item": "botania:grasshorn",
+      "data": 0
+    },
+    {
+      "item": "#TREELEAVES"
+    }
+  ],
+  "type": "forge:ore_shapeless"
+}

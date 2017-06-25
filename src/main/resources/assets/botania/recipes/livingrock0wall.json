@@ -1,0 +1,17 @@
+{
+  "result": {
+    "item": "botania:livingrock0wall",
+    "count": 6
+  },
+  "pattern": [
+    "BBB",
+    "BBB"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "B": {
+      "item": "botania:livingrock",
+      "data": 0
+    }
+  }
+}

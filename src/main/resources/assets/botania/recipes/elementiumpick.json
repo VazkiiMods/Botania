@@ -1,0 +1,19 @@
+{
+  "result": {
+    "item": "botania:elementiumpick"
+  },
+  "pattern": [
+    "SSS",
+    " T ",
+    " T "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "S": {
+      "item": "#INGOTELVENELEMENTIUM"
+    },
+    "T": {
+      "item": "#DREAMWOODTWIG"
+    }
+  }
+}

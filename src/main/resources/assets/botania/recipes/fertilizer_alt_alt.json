@@ -1,0 +1,11 @@
+{
+  "result": {
+    "item": "botania:fertilizer"
+  },
+  "ingredients": [
+    {
+      "item": "#LIVINGROOT"
+    }
+  ],
+  "type": "forge:ore_shapeless"
+}

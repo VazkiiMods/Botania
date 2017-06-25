@@ -1,0 +1,19 @@
+{
+  "result": {
+    "item": "botania:elementiumshovel"
+  },
+  "pattern": [
+    "S",
+    "T",
+    "T"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "S": {
+      "item": "#INGOTELVENELEMENTIUM"
+    },
+    "T": {
+      "item": "#DREAMWOODTWIG"
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "botania:waterrod"
+  },
+  "pattern": [
+    "  B",
+    " T ",
+    "R  "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "B": {
+      "item": "minecraft:potion"
+    },
+    "R": {
+      "item": "#RUNEWATERB"
+    },
+    "T": {
+      "item": "#LIVINGWOODTWIG"
+    }
+  }
+}

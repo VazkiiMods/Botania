@@ -1,0 +1,19 @@
+{
+  "result": {
+    "item": "botania:livingwoodbow"
+  },
+  "pattern": [
+    " TS",
+    "T S",
+    " TS"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "S": {
+      "item": "#MANASTRING"
+    },
+    "T": {
+      "item": "#LIVINGWOODTWIG"
+    }
+  }
+}

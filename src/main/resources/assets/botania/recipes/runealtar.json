@@ -1,0 +1,18 @@
+{
+  "result": {
+    "item": "botania:runealtar"
+  },
+  "pattern": [
+    "SSS",
+    "SPS"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "P": {
+      "item": "#MANAPEARL"
+    },
+    "S": {
+      "item": "#LIVINGROCK"
+    }
+  }
+}

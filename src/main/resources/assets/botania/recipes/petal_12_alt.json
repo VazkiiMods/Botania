@@ -1,0 +1,14 @@
+{
+  "result": {
+    "item": "botania:petal",
+    "data": 12,
+    "count": 9
+  },
+  "ingredients": [
+    {
+      "item": "botania:petalblock",
+      "data": 12
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}

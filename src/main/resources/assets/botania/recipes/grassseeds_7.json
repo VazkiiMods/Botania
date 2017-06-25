@@ -1,0 +1,16 @@
+{
+  "result": {
+    "item": "botania:grassseeds",
+    "data": 7
+  },
+  "ingredients": [
+    {
+      "item": "botania:grassseeds",
+      "data": 0
+    },
+    {
+      "item": "minecraft:prismarine_shard"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}
