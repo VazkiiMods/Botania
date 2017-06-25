@@ -37,18 +37,12 @@ public abstract class BlockMod extends Block implements IModelRegister {
 		setUnlocalizedName(name);
 		setDefaultState(pickDefaultState()); // This MUST happen before registering the block
 		setRegistryName(new ResourceLocation(LibMisc.MOD_ID, name));
-		GameRegistry.register(this);
-		registerItemForm();
 		if(registerInCreative())
 			setCreativeTab(BotaniaCreativeTab.INSTANCE);
 	}
 
 	protected IBlockState pickDefaultState() {
 		return blockState.getBaseState();
-	}
-
-	public void registerItemForm() {
-		GameRegistry.register(this instanceof IElvenItem ? new ItemBlockElven(this) : new ItemBlockMod(this), getRegistryName());
 	}
 
 	protected boolean registerInCreative() {

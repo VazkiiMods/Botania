@@ -80,11 +80,6 @@ public class BlockStorage extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public void registerItemForm() {
-		GameRegistry.register(new ItemBlockStorage(this), getRegistryName());
-	}
-
-	@Override
 	public int damageDropped(IBlockState state) {
 		return getMetaFromState(state);
 	}

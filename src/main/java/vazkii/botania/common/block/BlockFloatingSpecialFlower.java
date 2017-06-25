@@ -207,11 +207,6 @@ public class BlockFloatingSpecialFlower extends BlockFloatingFlower implements I
 		((TileSpecialFlower) world.getTileEntity(pos)).renderHUD(mc, res);
 	}
 
-	@Override
-	public void registerItemForm() {
-		GameRegistry.register(new ItemBlockFloatingSpecialFlower(this), getRegistryName());
-	}
-
 	@Nonnull
 	@Override
 	public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {

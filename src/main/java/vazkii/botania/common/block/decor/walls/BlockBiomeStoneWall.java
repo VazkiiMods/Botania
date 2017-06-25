@@ -72,7 +72,6 @@ public class BlockBiomeStoneWall extends BlockModWall {
 
 	@Override
 	public void register() {
-		GameRegistry.register(this);
 		GameRegistry.register(new ItemBlockWithMetadataAndName(this), getRegistryName());
 	}
 

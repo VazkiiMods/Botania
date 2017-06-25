@@ -134,8 +134,4 @@ public class BlockManaFlame extends BlockMod implements ILexiconable {
 	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.lenses;
 	}
-
-	@Override
-	public void registerItemForm() {}
-
 }

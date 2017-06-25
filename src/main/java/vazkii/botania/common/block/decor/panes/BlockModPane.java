@@ -34,7 +34,6 @@ public class BlockModPane extends BlockPane implements IModelRegister {
 		// Backward compat don't kill me
 		String name = source.getUnlocalizedName().replaceAll("tile.", "") + "Pane";
 		setRegistryName(new ResourceLocation(LibMisc.MOD_ID, name));
-		GameRegistry.register(this);
 		GameRegistry.register(new ItemBlockMod(this), getRegistryName());
 		setUnlocalizedName(name);
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);

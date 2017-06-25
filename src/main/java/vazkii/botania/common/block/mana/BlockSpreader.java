@@ -89,11 +89,6 @@ public class BlockSpreader extends BlockMod implements IWandable, IWandHUD, ILex
 		return getDefaultState().withProperty(BotaniaStateProps.SPREADER_VARIANT, SpreaderVariant.values()[meta]);
 	}
 
-	@Override
-	public void registerItemForm() {
-		GameRegistry.register(new ItemBlockWithMetadataAndName(this), getRegistryName());
-	}
-
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void getSubBlocks(CreativeTabs par2, NonNullList<ItemStack> par3) {

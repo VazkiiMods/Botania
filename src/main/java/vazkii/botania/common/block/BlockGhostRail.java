@@ -49,8 +49,6 @@ public class BlockGhostRail extends BlockRailBase implements ILexiconable, IMode
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.RAIL_DIRECTION, EnumRailDirection.NORTH_SOUTH));
 		setRegistryName(new ResourceLocation(LibMisc.MOD_ID, LibBlockNames.GHOST_RAIL));
-		GameRegistry.register(this);
-		GameRegistry.register(new ItemBlockMod(this), getRegistryName());
 		setUnlocalizedName(LibBlockNames.GHOST_RAIL);
 		MinecraftForge.EVENT_BUS.register(BlockGhostRail.class);
 	}

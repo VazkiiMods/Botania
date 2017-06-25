@@ -67,8 +67,6 @@ public class BlockModMushroom extends BlockMushroom implements IInfusionStabilis
 		setTickRandomly(false);
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.COLOR, EnumDyeColor.WHITE));
-		GameRegistry.register(this);
-		GameRegistry.register(new ItemBlockWithMetadataAndName(this), getRegistryName());
 	}
 
 	@Nonnull

@@ -126,11 +126,6 @@ public class BlockAltar extends BlockMod implements ILexiconable {
 		return BlockRenderLayer.CUTOUT;
 	}
 
-	@Override
-	public void registerItemForm() {
-		GameRegistry.register(new ItemBlockWithMetadataAndName(this), getRegistryName());
-	}
-
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> list) {

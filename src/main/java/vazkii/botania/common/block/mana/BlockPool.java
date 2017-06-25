@@ -118,11 +118,6 @@ public class BlockPool extends BlockMod implements IWandHUD, IWandable, ILexicon
 	}
 
 	@Override
-	public void registerItemForm() {
-		GameRegistry.register(new ItemBlockPool(this), getRegistryName());
-	}
-
-	@Override
 	public int damageDropped(IBlockState state) {
 		return state.getBlock().getMetaFromState(state);
 	}

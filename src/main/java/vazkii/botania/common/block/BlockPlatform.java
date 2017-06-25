@@ -118,11 +118,6 @@ public class BlockPlatform extends BlockCamo implements ILexiconable, IWandable,
 		return getMetaFromState(state);
 	}
 
-	@Override
-	public void registerItemForm() {
-		GameRegistry.register(new ItemBlockWithMetadataAndName(this), getRegistryName());
-	}
-
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> stacks) {

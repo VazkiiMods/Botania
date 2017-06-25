@@ -89,11 +89,6 @@ public class BlockPylon extends BlockMod implements ILexiconable, IInfusionStabi
 	}
 
 	@Override
-	public void registerItemForm() {
-		GameRegistry.register(new ItemBlockWithMetadataAndName(this), getRegistryName());
-	}
-
-	@Override
 	public int damageDropped(IBlockState state) {
 		return getMetaFromState(state);
 	}

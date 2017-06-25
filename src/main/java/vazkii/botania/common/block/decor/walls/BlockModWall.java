@@ -95,7 +95,6 @@ public abstract class BlockModWall extends BlockWall implements ILexiconable, IM
 	}
 
 	public void register() {
-		GameRegistry.register(this);
 		GameRegistry.register(new ItemBlockMod(this), getRegistryName());
 	}
 

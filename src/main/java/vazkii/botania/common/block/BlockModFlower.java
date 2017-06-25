@@ -64,16 +64,10 @@ public class BlockModFlower extends BlockFlower implements ILexiconable, IGrowab
 		setUnlocalizedName(name);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.COLOR, EnumDyeColor.WHITE).withProperty(type, EnumFlowerType.POPPY));
 		setRegistryName(new ResourceLocation(LibMisc.MOD_ID, name));
-		GameRegistry.register(this);
-		registerItemForm();
 		setHardness(0F);
 		setSoundType(SoundType.PLANT);
 		setTickRandomly(false);
 		setCreativeTab(registerInCreative() ? BotaniaCreativeTab.INSTANCE : null);
-	}
-
-	public void registerItemForm() {
-		GameRegistry.register(new ItemBlockWithMetadataAndName(this), getRegistryName());
 	}
 
 	@Nonnull

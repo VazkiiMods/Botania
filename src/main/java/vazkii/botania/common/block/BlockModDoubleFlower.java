@@ -68,8 +68,6 @@ public abstract class BlockModDoubleFlower extends BlockDoublePlant implements I
 		String name = LibBlockNames.DOUBLE_FLOWER + (second ? 2 : 1);
 		setDefaultState(pickDefaultState());
 		setRegistryName(new ResourceLocation(LibMisc.MOD_ID, name));
-		GameRegistry.register(this);
-		GameRegistry.register(new ItemBlockWithMetadataAndName(this), getRegistryName());
 		setUnlocalizedName(name);
 		setHardness(0F);
 		setTickRandomly(false);

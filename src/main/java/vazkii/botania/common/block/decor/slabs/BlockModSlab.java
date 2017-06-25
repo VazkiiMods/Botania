@@ -50,7 +50,6 @@ public abstract class BlockModSlab extends BlockSlab implements ILexiconable, IM
 			useNeighborBrightness = true;
 		}
 		setDefaultState(blockState.getBaseState().withProperty(HALF, EnumBlockHalf.BOTTOM).withProperty(DUMMY, DummyEnum.SINGLETON));
-		GameRegistry.register(this);
 		if(!isDouble())
 			ModFluffBlocks.slabsToRegister.add(this);
 	}

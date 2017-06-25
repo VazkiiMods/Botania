@@ -37,7 +37,6 @@ public class BlockSolidVines extends BlockVine implements ILexiconable {
 
 	public BlockSolidVines() {
 		setRegistryName(new ResourceLocation(LibMisc.MOD_ID, LibBlockNames.SOLID_VINE));
-		GameRegistry.register(this);
 		setUnlocalizedName(LibBlockNames.SOLID_VINE);
 		setHardness(0.5F);
 		setSoundType(SoundType.PLANT);

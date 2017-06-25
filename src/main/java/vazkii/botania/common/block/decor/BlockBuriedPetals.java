@@ -81,9 +81,6 @@ public class BlockBuriedPetals extends BlockModFlower {
 		return ModItems.petal;
 	}
 
-	@Override
-	public void registerItemForm() {}
-
 	@Nonnull
 	@Override
 	public EnumBlockRenderType getRenderType(IBlockState state) {

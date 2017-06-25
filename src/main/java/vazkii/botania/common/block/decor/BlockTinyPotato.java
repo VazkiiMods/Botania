@@ -106,11 +106,6 @@ public class BlockTinyPotato extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public void registerItemForm() {
-		GameRegistry.register(new ItemBlockTinyPotato(this), getRegistryName());
-	}
-
-	@Override
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing par6, float par7, float par8, float par9) {
 		TileEntity tile = world.getTileEntity(pos);
 		if(tile instanceof TileTinyPotato) {

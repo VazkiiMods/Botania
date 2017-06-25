@@ -95,11 +95,6 @@ public class BlockForestDrum extends BlockMod implements IManaTrigger, ILexicona
 	}
 
 	@Override
-	public void registerItemForm() {
-		GameRegistry.register(new ItemBlockWithMetadataAndName(this), getRegistryName());
-	}
-
-	@Override
 	public boolean isFullCube(IBlockState state) {
 		return false;
 	}

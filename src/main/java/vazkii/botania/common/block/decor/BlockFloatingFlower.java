@@ -137,11 +137,6 @@ public class BlockFloatingFlower extends BlockMod implements ILexiconable, IInfu
 		return state;
 	}
 
-	@Override
-	public void registerItemForm() {
-		GameRegistry.register(new ItemBlockWithMetadataAndName(this), getRegistryName());
-	}
-
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void randomDisplayTick(IBlockState state, World world, BlockPos pos, Random rand) {
