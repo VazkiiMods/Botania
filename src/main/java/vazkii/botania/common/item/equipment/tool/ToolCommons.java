@@ -128,7 +128,7 @@ public final class ToolCommons {
 			return 0;
 
 		ItemTool tool = (ItemTool) item;
-		ToolMaterial material = tool.getToolMaterial();
+		ToolMaterial material = ToolMaterial.DIAMOND; // tool.getToolMaterial(); todo 1.12
 		int materialLevel = 0;
 		if(material == BotaniaAPI.manasteelToolMaterial)
 			materialLevel = 10;

@@ -36,7 +36,7 @@ public class RenderTileEnchanter extends TileEntitySpecialRenderer<TileEnchanter
 	private EntityItem item;
 
 	@Override
-	public void renderTileEntityAt(@Nonnull TileEnchanter enchanter, double d0, double d1, double d2, float f, int digProgress, float unused) {
+	public void render(@Nonnull TileEnchanter enchanter, double d0, double d1, double d2, float f, int digProgress, float unused) {
 		float alphaMod = 0F;
 
 		if(enchanter.stage == TileEnchanter.State.GATHER_MANA)

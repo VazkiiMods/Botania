@@ -27,7 +27,7 @@ import vazkii.botania.common.block.tile.mana.TilePrism;
 public class RenderTilePrism extends TileEntitySpecialRenderer<TilePrism> {
 
 	@Override
-	public void renderTileEntityAt(@Nonnull TilePrism prism, double x, double y, double z, float partTicks, int digProgress, float unused) {
+	public void render(@Nonnull TilePrism prism, double x, double y, double z, float partTicks, int digProgress, float unused) {
 		GlStateManager.pushMatrix();
 		GlStateManager.translate(x, y, z);
 		float pos = (float) Math.sin((ClientTickHandler.ticksInGame + partTicks) * 0.05F) * 0.5F * (1F - 1F / 16F) - 0.5F;

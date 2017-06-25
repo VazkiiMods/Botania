@@ -14,8 +14,8 @@ import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.fml.common.registry.RegistryDelegate;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
+import net.minecraftforge.registries.IRegistryDelegate;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.brew.IBrewItem;
@@ -41,7 +41,7 @@ public final class ColorHandler {
 
 	public static void init() {
 		BlockColors blocks = Minecraft.getMinecraft().getBlockColors();
-		Map<RegistryDelegate<Block>, IBlockColor> map = ReflectionHelper.getPrivateValue(BlockColors.class, blocks, "blockColorMap");
+		Map<IRegistryDelegate<Block>, IBlockColor> map = ReflectionHelper.getPrivateValue(BlockColors.class, blocks, "blockColorMap");
 
 		// Steal vine colorer
 		blocks.registerBlockColorHandler(map.get(Blocks.VINE.delegate), ModBlocks.solidVines);
@@ -108,7 +108,7 @@ public final class ColorHandler {
 						ModItems.twigWand);
 
 		items.registerItemColorHandler((s, t) -> EnumDyeColor.byMetadata(s.getItemDamage()).getColorValue(), ModItems.dye, ModItems.petal);
-		items.registerItemColorHandler((s, t) -> Minecraft.getMinecraft().getBlockColors().colorMultiplier(((ItemBlock)s.getItem()).block.getStateFromMeta(s.getMetadata()), null, null, t),
+		items.registerItemColorHandler((s, t) -> Minecraft.getMinecraft().getBlockColors().colorMultiplier(((ItemBlock)s.getItem()).getBlock().getStateFromMeta(s.getMetadata()), null, null, t),
 				ModBlocks.petalBlock, ModBlocks.pool, ModBlocks.spreader);
 
 		items.registerItemColorHandler((s, t) -> t == 1 ? Color.HSBtoRGB(0.528F, (float) ((ItemManaMirror) ModItems.manaMirror).getMana(s) / (float) TilePool.MAX_MANA, 1F) : -1, ModItems.manaMirror);

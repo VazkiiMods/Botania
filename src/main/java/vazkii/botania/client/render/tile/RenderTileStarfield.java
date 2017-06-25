@@ -39,7 +39,7 @@ public class RenderTileStarfield extends TileEntitySpecialRenderer<TileStarfield
 	private FloatBuffer buffer = GLAllocation.createDirectFloatBuffer(16);
 
 	@Override
-	public void renderTileEntityAt(@Nonnull TileStarfield starfield, double x, double y, double z, float partialTicks, int destroyStage, float unused)
+	public void render(@Nonnull TileStarfield starfield, double x, double y, double z, float partialTicks, int destroyStage, float unused)
 	{
 		GlStateManager.disableLighting();
 		RANDOM.setSeed(31100L);

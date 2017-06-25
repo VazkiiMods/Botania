@@ -28,7 +28,7 @@ public class RenderTileCorporeaIndex extends TileEntitySpecialRenderer<TileCorpo
 	public static boolean move = true;
 
 	@Override
-	public void renderTileEntityAt(@Nullable TileCorporeaIndex index, double x, double y, double z, float partticks, int digProgress, float unused) {
+	public void render(@Nullable TileCorporeaIndex index, double x, double y, double z, float partticks, int digProgress, float unused) {
 		move = index != null;
 
 		GlStateManager.pushMatrix();

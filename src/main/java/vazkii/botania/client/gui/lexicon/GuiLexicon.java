@@ -437,7 +437,7 @@ public class GuiLexicon extends GuiScreen {
 		case -2 :
 			// todo 1.12 switch to botania tab
 			if(mc.player != null)
-				this.mc.displayGuiScreen(new GuiScreenAdvancements(this.mc.player.connection.func_191982_f()));
+				this.mc.displayGuiScreen(new GuiScreenAdvancements(this.mc.player.connection.getAdvancementManager()));
 			break;
 		case -3 :
 			mc.displayGuiScreen(new GuiLexiconChallengesList());

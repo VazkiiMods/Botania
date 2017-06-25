@@ -31,7 +31,7 @@ public class RenderTileBellows extends TileEntitySpecialRenderer<TileBellows> {
 	private static final ModelBellows model = new ModelBellows();
 
 	@Override
-	public void renderTileEntityAt(@Nullable TileBellows bellows, double d0, double d1, double d2, float f, int digProgress, float unused) {
+	public void render(@Nullable TileBellows bellows, double d0, double d1, double d2, float f, int digProgress, float unused) {
 		if (bellows != null)
 			if (!bellows.getWorld().isBlockLoaded(bellows.getPos(), false)
 					|| bellows.getWorld().getBlockState(bellows.getPos()).getBlock() != ModBlocks.bellows)

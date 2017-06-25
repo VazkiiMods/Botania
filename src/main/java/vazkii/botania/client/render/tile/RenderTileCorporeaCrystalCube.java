@@ -50,7 +50,7 @@ public class RenderTileCorporeaCrystalCube extends TileEntitySpecialRenderer<Til
 	private RenderEntityItem itemRenderer = null;
 
 	@Override
-	public void renderTileEntityAt(@Nonnull TileCorporeaCrystalCube cube, double d0, double d1, double d2, float f, int digProgress, float unused) {
+	public void render(@Nonnull TileCorporeaCrystalCube cube, double d0, double d1, double d2, float f, int digProgress, float unused) {
 		ItemStack stack = ItemStack.EMPTY;
 		if (cube != null) {
 			if(entity == null)
@@ -141,7 +141,7 @@ public class RenderTileCorporeaCrystalCube extends TileEntitySpecialRenderer<Til
 	private static BlockRendererDispatcher blockRenderer;
 
 	private void renderAnimatedModel(TileCorporeaCrystalCube te, double x, double y, double z, float partialTick) {
-		// From FastTESR.renderTileEntityAt
+		// From FastTESR.render
 		Tessellator tessellator = Tessellator.getInstance();
 		BufferBuilder worldRenderer = tessellator.getBuffer();
 		bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);

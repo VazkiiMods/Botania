@@ -32,7 +32,7 @@ import vazkii.botania.common.block.tile.TileAlfPortal;
 public class RenderTileAlfPortal extends TileEntitySpecialRenderer<TileAlfPortal> {
 
 	@Override
-	public void renderTileEntityAt(@Nonnull TileAlfPortal portal, double d0, double d1, double d2, float f, int digProgress, float unused) {
+	public void render(@Nonnull TileAlfPortal portal, double d0, double d1, double d2, float f, int digProgress, float unused) {
 		if (!portal.getWorld().isBlockLoaded(portal.getPos(), false)
 				|| portal.getWorld().getBlockState(portal.getPos()).getBlock() != ModBlocks.alfPortal)
 			return;

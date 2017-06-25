@@ -46,7 +46,7 @@ public class RenderTileSpreader extends TileEntitySpecialRenderer<TileSpreader> 
 	private static final ModelSpreader model = new ModelSpreader();
 
 	@Override
-	public void renderTileEntityAt(@Nonnull TileSpreader spreader, double d0, double d1, double d2, float ticks, int digProgress, float unused) {
+	public void render(@Nonnull TileSpreader spreader, double d0, double d1, double d2, float ticks, int digProgress, float unused) {
 		if(!spreader.getWorld().isBlockLoaded(spreader.getPos(), false)
 				|| spreader.getWorld().getBlockState(spreader.getPos()).getBlock() != ModBlocks.spreader)
 			return;

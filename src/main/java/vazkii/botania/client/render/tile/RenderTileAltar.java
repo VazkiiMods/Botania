@@ -33,7 +33,7 @@ import vazkii.botania.common.block.tile.TileAltar;
 public class RenderTileAltar extends TileEntitySpecialRenderer<TileAltar> {
 
 	@Override
-	public void renderTileEntityAt(@Nonnull TileAltar altar, double d0, double d1, double d2, float pticks, int digProgress, float unused) {
+	public void render(@Nonnull TileAltar altar, double d0, double d1, double d2, float pticks, int digProgress, float unused) {
 		if(!altar.getWorld().isBlockLoaded(altar.getPos(), false)
 				|| altar.getWorld().getBlockState(altar.getPos()).getBlock() != ModBlocks.altar)
 			return;

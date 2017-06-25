@@ -10,10 +10,12 @@
  */
 package vazkii.botania.common.lexicon.page;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import net.minecraft.item.crafting.Ingredient;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import org.lwjgl.opengl.GL11;
 
 import net.minecraft.client.Minecraft;
@@ -41,25 +43,29 @@ public class PageCraftingRecipe extends PageRecipe {
 
 	private static final ResourceLocation craftingOverlay = new ResourceLocation(LibResources.GUI_CRAFTING_OVERLAY);
 
-	final List<IRecipe> recipes;
+	final List<ResourceLocation> recipes;
 	int ticksElapsed = 0;
 	int recipeAt = 0;
 
 	boolean oreDictRecipe, shapelessRecipe;
 
-	public PageCraftingRecipe(String unlocalizedName, List<IRecipe> recipes) {
+	public PageCraftingRecipe(String unlocalizedName, List<ResourceLocation> recipes) {
 		super(unlocalizedName);
 		this.recipes = recipes;
 	}
 
-	public PageCraftingRecipe(String unlocalizedName, IRecipe recipe) {
+	public PageCraftingRecipe(String unlocalizedName, ResourceLocation recipe) {
 		this(unlocalizedName, Collections.singletonList(recipe));
 	}
 
 	@Override
 	public void onPageAdded(LexiconEntry entry, int index) {
-		for(IRecipe recipe : recipes)
-			LexiconRecipeMappings.map(recipe.getRecipeOutput(), entry, index);
+		for(ResourceLocation name : recipes) {
+			IRecipe recipe = ForgeRegistries.RECIPES.getValue(name);
+			if(recipe != null && !recipe.getRecipeOutput().isEmpty()) {
+				LexiconRecipeMappings.map(recipe.getRecipeOutput(), entry, index);
+			}
+		}
 	}
 
 	@Override
@@ -67,7 +73,7 @@ public class PageCraftingRecipe extends PageRecipe {
 	public void renderRecipe(IGuiLexiconEntry gui, int mx, int my) {
 		oreDictRecipe = shapelessRecipe = false;
 
-		IRecipe recipe = recipes.get(recipeAt);
+		IRecipe recipe = ForgeRegistries.RECIPES.getValue(recipes.get(recipeAt));
 		renderCraftingRecipe(gui, recipe);
 
 		TextureManager render = Minecraft.getMinecraft().renderEngine;
@@ -127,7 +133,7 @@ public class PageCraftingRecipe extends PageRecipe {
 
 			for(int y = 0; y < shaped.recipeHeight; y++)
 				for(int x = 0; x < shaped.recipeWidth; x++)
-					renderItemAtGridPos(gui, 1 + x, 1 + y, shaped.recipeItems[y * shaped.recipeWidth + x], true);
+					renderItemAtGridPos(gui, 1 + x, 1 + y, shaped.recipeItems.get(y * shaped.recipeWidth + x).getMatchingStacks()[0], true);
 		} else if(recipe instanceof ShapedOreRecipe) {
 			ShapedOreRecipe shaped = (ShapedOreRecipe) recipe;
 			int width = ReflectionHelper.getPrivateValue(ShapedOreRecipe.class, shaped, 4);
@@ -135,9 +141,9 @@ public class PageCraftingRecipe extends PageRecipe {
 
 			for(int y = 0; y < height; y++)
 				for(int x = 0; x < width; x++) {
-					Object input = shaped.getInput()[y * width + x];
-					if(input != null)
-						renderItemAtGridPos(gui, 1 + x, 1 + y, input instanceof ItemStack ? (ItemStack) input : ((List<ItemStack>) input).get(0), true);
+					Ingredient input = shaped.getIngredients().get(y * width + x);
+					if(input != Ingredient.EMPTY)
+						renderItemAtGridPos(gui, 1 + x, 1 + y, input.getMatchingStacks()[0], true);
 				}
 
 			oreDictRecipe = true;
@@ -152,7 +158,7 @@ public class PageCraftingRecipe extends PageRecipe {
 						if(index >= shapeless.recipeItems.size())
 							break drawGrid;
 
-						renderItemAtGridPos(gui, 1 + x, 1 + y, shapeless.recipeItems.get(index), true);
+						renderItemAtGridPos(gui, 1 + x, 1 + y, shapeless.recipeItems.get(index).getMatchingStacks()[0], true);
 					}
 			}
 
@@ -165,12 +171,12 @@ public class PageCraftingRecipe extends PageRecipe {
 					for(int x = 0; x < 3; x++) {
 						int index = y * 3 + x;
 
-						if(index >= shapeless.getRecipeSize())
-							break drawGrid;
+						/*if(index >= shapeless.getRecipeSize()) todo 1.12
+							break drawGrid;*/
 
-						Object input = shapeless.getInput().get(index);
-						if(input != null)
-							renderItemAtGridPos(gui, 1 + x, 1 + y, input instanceof ItemStack ? (ItemStack) input : ((List<ItemStack>) input).get(0), true);
+						Ingredient input = shapeless.getIngredients().get(index);
+						if(input != Ingredient.EMPTY)
+							renderItemAtGridPos(gui, 1 + x, 1 + y, input.getMatchingStacks()[0], true);
 					}
 			}
 
@@ -183,10 +189,10 @@ public class PageCraftingRecipe extends PageRecipe {
 
 	@Override
 	public List<ItemStack> getDisplayedRecipes() {
-		ArrayList<ItemStack> list = new ArrayList();
-		for(IRecipe r : recipes)
-			list.add(r.getRecipeOutput());
-
-		return list;
+		return recipes.stream()
+				.map(ForgeRegistries.RECIPES::getValue)
+				.map(IRecipe::getRecipeOutput)
+				.filter(s -> !s.isEmpty())
+				.collect(Collectors.toList());
 	}
 }

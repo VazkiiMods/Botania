@@ -44,7 +44,7 @@ public class RenderTilePool extends TileEntitySpecialRenderer<TilePool> {
 	public static int forceManaNumber = -1;
 
 	@Override
-	public void renderTileEntityAt(@Nonnull TilePool pool, double d0, double d1, double d2, float f, int digProgress, float unused) {
+	public void render(@Nonnull TilePool pool, double d0, double d1, double d2, float f, int digProgress, float unused) {
 		if(pool != null && (!pool.getWorld().isBlockLoaded(pool.getPos(), false)
 				|| pool.getWorld().getBlockState(pool.getPos()).getBlock() != ModBlocks.pool))
 			return;

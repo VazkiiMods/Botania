@@ -66,7 +66,7 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer<TileTinyPota
 	}
 
 	@Override
-	public void renderTileEntityAt(@Nonnull TileTinyPotato potato, double x, double y, double z, float partialTicks, int destroyStage, float unused) {
+	public void render(@Nonnull TileTinyPotato potato, double x, double y, double z, float partialTicks, int destroyStage, float unused) {
 		if(!potato.getWorld().isBlockLoaded(potato.getPos(), false)
 				|| potato.getWorld().getBlockState(potato.getPos()).getBlock() != ModBlocks.tinyPotato)
 			return;

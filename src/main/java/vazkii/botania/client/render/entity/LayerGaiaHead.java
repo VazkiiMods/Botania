@@ -87,7 +87,7 @@ public class LayerGaiaHead implements LayerRenderer<EntityPlayer> {
 
 			// Botania - use gaia TESR
 			ShaderHelper.useShader(ShaderHelper.doppleganger, RenderDoppleganger.defaultCallback);
-			((RenderTileGaiaHead) (TileEntitySpecialRenderer) TileEntityRendererDispatcher.instance.getSpecialRendererByClass(TileGaiaHead.class))
+			((RenderTileGaiaHead) (TileEntitySpecialRenderer) TileEntityRendererDispatcher.instance.getRenderer(TileGaiaHead.class))
 			.renderSkull(-0.5F, 0.0F, -0.5F, EnumFacing.UP, 180.0F, itemstack.getMetadata(), null, -1, limbSwing);
 			ShaderHelper.releaseShader();
 

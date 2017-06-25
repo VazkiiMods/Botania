@@ -97,8 +97,9 @@ public class ItemDice extends ItemRelic {
 		EntityPlayerMP mpPlayer = (EntityPlayerMP) player;
 		Item item = relicStacks[relic].getItem();
 		IRelic irelic = (IRelic) item;
-		Achievement achievement = irelic.getBindAchievement();
-		return mpPlayer.getStatFile().hasAchievementUnlocked(achievement);
+		return false; // todo 1.12
+		/*Achievement achievement = irelic.getBindAchievement();
+		return mpPlayer.getStatFile().hasAchievementUnlocked(achievement);*/
 	}
 
 }

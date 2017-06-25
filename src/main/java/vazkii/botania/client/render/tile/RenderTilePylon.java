@@ -46,7 +46,7 @@ public class RenderTilePylon extends TileEntitySpecialRenderer<TilePylon> {
 	public static boolean pink = false;
 
 	@Override
-	public void renderTileEntityAt(@Nonnull TilePylon pylon, double d0, double d1, double d2, float pticks, int digProgress, float unused) {
+	public void render(@Nonnull TilePylon pylon, double d0, double d1, double d2, float pticks, int digProgress, float unused) {
 		if(!pylon.getWorld().isBlockLoaded(pylon.getPos(), false)
 				|| pylon.getWorld().getBlockState(pylon.getPos()).getBlock() != ModBlocks.pylon)
 			return;

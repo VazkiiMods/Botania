@@ -23,7 +23,7 @@ import vazkii.botania.common.block.tile.TileSparkChanger;
 public class RenderTileSparkChanger extends TileEntitySpecialRenderer<TileSparkChanger> {
 
 	@Override
-	public void renderTileEntityAt(@Nonnull TileSparkChanger tileentity, double d0, double d1, double d2, float pticks, int digProgress, float unused) {
+	public void render(@Nonnull TileSparkChanger tileentity, double d0, double d1, double d2, float pticks, int digProgress, float unused) {
 		GlStateManager.pushMatrix();
 		GlStateManager.translate(d0, d1, d2);
 		GlStateManager.rotate(90F, 1F, 0F, 0F);
