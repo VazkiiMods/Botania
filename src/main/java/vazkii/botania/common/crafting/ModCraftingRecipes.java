@@ -408,73 +408,62 @@ public final class ModCraftingRecipes {
 						'S', LibOreDict.LIVINGWOOD_TWIG);
 			}
 		recipesTwigWand = BotaniaAPI.getLatestAddedRecipes(256);
+		*/
 
 		// Terrasteel Armor Recipes
 		RecipeSorter.register("botania:armorUpgrade", ArmorUpgradeRecipe.class, RecipeSorter.Category.SHAPED, "");
-		GameRegistry.addRecipe(new ArmorUpgradeRecipe(new ItemStack(ModItems.terrasteelHelmRevealing),
+		r.register(new ArmorUpgradeRecipe(new ItemStack(ModItems.terrasteelHelmRevealing),
 				"TRT", "SAS", " S ",
 				'T', LibOreDict.LIVINGWOOD_TWIG,
 				'S', LibOreDict.TERRA_STEEL,
 				'R', LibOreDict.RUNE[4],
-				'A', new ItemStack(ModItems.manasteelHelmRevealing)));
-		GameRegistry.addRecipe(new ArmorUpgradeRecipe(new ItemStack(ModItems.terrasteelHelm),
+				'A', new ItemStack(ModItems.manasteelHelmRevealing)).setRegistryName(ModItems.terrasteelHelmRevealing.getRegistryName()));
+
+		r.register(new ArmorUpgradeRecipe(new ItemStack(ModItems.terrasteelHelm),
 				"TRT", "SAS", " S ",
 				'T', LibOreDict.LIVINGWOOD_TWIG,
 				'S', LibOreDict.TERRA_STEEL,
 				'R', LibOreDict.RUNE[4],
-				'A', new ItemStack(ModItems.manasteelHelm)));
-		recipeTerrasteelHelm = BotaniaAPI.getLatestAddedRecipe();
-		GameRegistry.addRecipe(new ArmorUpgradeRecipe(new ItemStack(ModItems.terrasteelChest),
+				'A', new ItemStack(ModItems.manasteelHelm)).setRegistryName(ModItems.terrasteelHelm.getRegistryName()));
+
+		r.register(new ArmorUpgradeRecipe(new ItemStack(ModItems.terrasteelChest),
 				"TRT", "SAS", " S ",
 				'T', LibOreDict.LIVINGWOOD_TWIG,
 				'S', LibOreDict.TERRA_STEEL,
 				'R', LibOreDict.RUNE[5],
-				'A', new ItemStack(ModItems.manasteelChest)));
-		recipeTerrasteelChest = BotaniaAPI.getLatestAddedRecipe();
-		GameRegistry.addRecipe(new ArmorUpgradeRecipe(new ItemStack(ModItems.terrasteelLegs),
+				'A', new ItemStack(ModItems.manasteelChest)).setRegistryName(ModItems.terrasteelChest.getRegistryName()));
+
+		r.register(new ArmorUpgradeRecipe(new ItemStack(ModItems.terrasteelLegs),
 				"TRT", "SAS", " S ",
 				'T', LibOreDict.LIVINGWOOD_TWIG,
 				'S', LibOreDict.TERRA_STEEL,
 				'R', LibOreDict.RUNE[6],
-				'A', new ItemStack(ModItems.manasteelLegs)));
-		recipeTerrasteelLegs = BotaniaAPI.getLatestAddedRecipe();
-		GameRegistry.addRecipe(new ArmorUpgradeRecipe(new ItemStack(ModItems.terrasteelBoots),
+				'A', new ItemStack(ModItems.manasteelLegs)).setRegistryName(ModItems.terrasteelLegs.getRegistryName()));
+
+		r.register(new ArmorUpgradeRecipe(new ItemStack(ModItems.terrasteelBoots),
 				"TRT", "SAS", " S ",
 				'T', LibOreDict.LIVINGWOOD_TWIG,
 				'S', LibOreDict.TERRA_STEEL,
 				'R', LibOreDict.RUNE[7],
-				'A', new ItemStack(ModItems.manasteelBoots)));
-		recipeTerrasteelBoots = BotaniaAPI.getLatestAddedRecipe();*/
+				'A', new ItemStack(ModItems.manasteelBoots)).setRegistryName(ModItems.terrasteelBoots.getRegistryName()));
 
-		// Mana Band Recipe
-	/*	RecipeSorter.register("botania:manaUpgrade", ManaUpgradeRecipe.class, RecipeSorter.Category.SHAPED, "");
-		GameRegistry.addRecipe(new ManaUpgradeRecipe(new ItemStack(ModItems.manaRing),
+		RecipeSorter.register("botania:manaUpgrade", ManaUpgradeRecipe.class, RecipeSorter.Category.SHAPED, "");
+		r.register(new ManaUpgradeRecipe(new ItemStack(ModItems.manaRing),
 				"TI ", "I I", " I ",
 				'T', new ItemStack(ModItems.manaTablet, 1, Short.MAX_VALUE),
-				'I', LibOreDict.MANA_STEEL));
-		recipeManaRing = BotaniaAPI.getLatestAddedRecipe();*/
+				'I', LibOreDict.MANA_STEEL).setRegistryName(ModItems.manaRing.getRegistryName()));
 
-		// Greater Mana Band Recipe
-		/*RecipeSorter.register("botania:manaUpgradeShapeless", ShapelessManaUpgradeRecipe.class, RecipeSorter.Category.SHAPELESS, "");
-		GameRegistry.addRecipe(new ShapelessManaUpgradeRecipe(new ItemStack(ModItems.manaRingGreater), LibOreDict.TERRA_STEEL, new ItemStack(ModItems.manaRing, 1, Short.MAX_VALUE)));
-		recipeGreaterManaRing = BotaniaAPI.getLatestAddedRecipe();
+		RecipeSorter.register("botania:manaUpgradeShapeless", ShapelessManaUpgradeRecipe.class, RecipeSorter.Category.SHAPELESS, "");
+		r.register(new ShapelessManaUpgradeRecipe(new ItemStack(ModItems.manaRingGreater), LibOreDict.TERRA_STEEL, new ItemStack(ModItems.manaRing, 1, Short.MAX_VALUE)).setRegistryName(ModItems.manaRingGreater.getRegistryName()));
 
 		// Terra Shatterer Recipe
-		GameRegistry.addRecipe(new ManaUpgradeRecipe(new ItemStack(ModItems.terraPick),
+		r.register(new ManaUpgradeRecipe(new ItemStack(ModItems.terraPick),
 				"ITI", "ILI", " L ",
 				'T', new ItemStack(ModItems.manaTablet, 1, Short.MAX_VALUE),
 				'I', LibOreDict.TERRA_STEEL,
-				'L', LibOreDict.LIVINGWOOD_TWIG));
-		recipeTerraPick = BotaniaAPI.getLatestAddedRecipe();
+				'L', LibOreDict.LIVINGWOOD_TWIG).setRegistryName(ModItems.terraPick.getRegistryName()));
 
-		// Rod of the Seas Recipe
-		addOreDictRecipe(new ItemStack(ModItems.waterRod),
-				"  B", " T ", "R  ",
-				'B', new ItemStack(Items.POTIONITEM), // todo 1.12 water bottle
-				'T', LibOreDict.LIVINGWOOD_TWIG,
-				'R', LibOreDict.RUNE[0]);
-		recipeWaterRod = BotaniaAPI.getLatestAddedRecipe();
-
+		/*
 		todo if tc ever comes back?
 		// Revealing Helmet Recipes
 		if(Botania.thaumcraftLoaded) {

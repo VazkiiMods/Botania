@@ -10,7 +10,11 @@
   "type": "forge:ore_shaped",
   "key": {
     "B": {
-      "item": "minecraft:potion"
+      "type": "minecraft:item_nbt",
+      "item": "minecraft:potion",
+      "nbt": {
+        "Potion": "minecraft:water"
+      }
     },
     "R": {
       "item": "#RUNEWATERB"
