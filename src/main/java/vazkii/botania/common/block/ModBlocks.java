@@ -300,7 +300,6 @@ public final class ModBlocks {
 		RecipeManaInfusion.alchemyState = alchemyCatalyst.getDefaultState();
 		RecipeManaInfusion.conjurationState = conjurationCatalyst.getDefaultState();
 
-		initOreDict();
 		initTileEntities();
 	}
 
@@ -385,6 +384,7 @@ public final class ModBlocks {
 		r.register(new ItemBlockMod(avatar).setRegistryName(avatar.getRegistryName()));
 		r.register(new ItemBlockWithMetadataAndName(altGrass).setRegistryName(altGrass.getRegistryName()));
 		r.register(new ItemBlockMod(animatedTorch).setRegistryName(animatedTorch.getRegistryName()));
+		initOreDict();
 	}
 
 	public static void addDispenserBehaviours() {
