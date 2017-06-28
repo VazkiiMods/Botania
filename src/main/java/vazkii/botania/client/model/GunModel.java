@@ -15,7 +15,6 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
-import net.minecraftforge.client.model.IPerspectiveAwareModel;
 import net.minecraftforge.client.model.pipeline.IVertexConsumer;
 import net.minecraftforge.client.model.pipeline.UnpackedBakedQuad;
 import net.minecraftforge.client.model.pipeline.VertexTransformer;
@@ -106,7 +105,7 @@ public class GunModel implements IBakedModel {
 		return builder.build();
 	}
 
-	private static class CompositeBakedModel implements IPerspectiveAwareModel {
+	private static class CompositeBakedModel implements IBakedModel {
 
 		private final IBakedModel gun;
 		private final List<BakedQuad> genQuads;
@@ -151,12 +150,10 @@ public class GunModel implements IBakedModel {
 		@Nonnull @Override public ItemOverrideList getOverrides() { return ItemOverrideList.NONE; }
 
 		@Override
-		public Pair<? extends IBakedModel, Matrix4f> handlePerspective(ItemCameraTransforms.TransformType cameraTransformType) {
-			if(gun instanceof IPerspectiveAwareModel) {
-				Pair<? extends IBakedModel, Matrix4f> pair = ((IPerspectiveAwareModel) gun).handlePerspective(cameraTransformType);
-				if(pair != null && pair.getRight() != null)
-					return Pair.of(this, pair.getRight());
-			}
+		public Pair<? extends IBakedModel, Matrix4f> handlePerspective(@Nonnull ItemCameraTransforms.TransformType cameraTransformType) {
+			Pair<? extends IBakedModel, Matrix4f> pair = gun.handlePerspective(cameraTransformType);
+			if(pair != null && pair.getRight() != null)
+				return Pair.of(this, pair.getRight());
 			return Pair.of(this, TRSRTransformation.identity().getMatrix());
 		}
 	}

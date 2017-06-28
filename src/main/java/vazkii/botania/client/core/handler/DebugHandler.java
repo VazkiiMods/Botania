@@ -10,7 +10,6 @@
  */
 package vazkii.botania.client.core.handler;
 
-import com.google.common.base.Optional;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
@@ -33,6 +32,7 @@ import vazkii.botania.common.core.handler.ManaNetworkHandler;
 import vazkii.botania.common.lib.LibMisc;
 
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 
 public final class DebugHandler {
@@ -86,7 +86,7 @@ public final class DebugHandler {
 					if (state instanceof IExtendedBlockState) {
 						try {
 							for (Map.Entry<IUnlistedProperty<?>, Optional<?>> e : ((IExtendedBlockState) state).getUnlistedProperties().entrySet()) {
-								event.getRight().add(TextFormatting.LIGHT_PURPLE + e.getKey().getName() + ": " + TextFormatting.RESET + e.getValue().orNull());
+								event.getRight().add(TextFormatting.LIGHT_PURPLE + e.getKey().getName() + ": " + TextFormatting.RESET + e.getValue().orElse(null));
 							}
 						} catch (Throwable t) {
 							event.getRight().add("Error getting extended state");

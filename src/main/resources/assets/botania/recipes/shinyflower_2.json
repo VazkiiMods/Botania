@@ -3,6 +3,7 @@
     "item": "botania:shinyflower",
     "data": 2
   },
+  "group": "botania:shinyflower",
   "ingredients": [
     {
       "item": "#DUSTGLOWSTONE"

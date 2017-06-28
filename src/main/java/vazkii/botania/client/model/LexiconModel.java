@@ -10,7 +10,6 @@ import net.minecraft.client.renderer.block.model.ItemOverrideList;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.EnumFacing;
-import net.minecraftforge.client.model.IPerspectiveAwareModel;
 import org.apache.commons.lang3.tuple.Pair;
 import vazkii.botania.common.core.handler.ConfigHandler;
 
@@ -19,7 +18,7 @@ import javax.vecmath.Matrix4f;
 import java.util.List;
 
 @SuppressWarnings("deprecation")
-public class LexiconModel implements IPerspectiveAwareModel {
+public class LexiconModel implements IBakedModel {
 
 	private static final ModelResourceLocation path = new ModelResourceLocation("botania:lexicon_default", "inventory");
 
@@ -30,7 +29,7 @@ public class LexiconModel implements IPerspectiveAwareModel {
 				|| cameraTransformType == ItemCameraTransforms.TransformType.FIRST_PERSON_LEFT_HAND)
 				&& ConfigHandler.lexicon3dModel)
 			return Pair.of(this, null);
-		return ((IPerspectiveAwareModel) original).handlePerspective(cameraTransformType);
+		return original.handlePerspective(cameraTransformType);
 	}
 
 	@Nonnull @Override public List<BakedQuad> getQuads(IBlockState state, EnumFacing side, long rand) { return ImmutableList.of(); }

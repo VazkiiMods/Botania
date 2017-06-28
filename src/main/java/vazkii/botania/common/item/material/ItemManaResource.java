@@ -82,7 +82,7 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 
 		if(stack.getItemDamage() == 4 || stack.getItemDamage() == 14)
 			return EntityDoppleganger.spawn(player, stack, world, pos, stack.getItemDamage() == 14) ? EnumActionResult.SUCCESS : EnumActionResult.FAIL;
-		else if(stack.getItemDamage() == 20 && net.minecraft.item.ItemDye.applyBonemeal(stack, world, pos, player)) {
+		else if(stack.getItemDamage() == 20 && net.minecraft.item.ItemDye.applyBonemeal(stack, world, pos, player, hand)) {
 			if(!world.isRemote)
 				world.playEvent(2005, pos, 0);
 

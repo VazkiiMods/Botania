@@ -8,7 +8,6 @@
  */
 package vazkii.botania.client.model;
 
-import com.google.common.base.Function;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
@@ -36,10 +35,9 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ICustomModelLoader;
 import net.minecraftforge.client.model.IModel;
-import net.minecraftforge.client.model.IModelCustomData;
-import net.minecraftforge.client.model.IPerspectiveAwareModel;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
+import net.minecraftforge.client.model.PerspectiveMapWrapper;
 import net.minecraftforge.client.model.SimpleModelState;
 import net.minecraftforge.common.model.IModelState;
 import net.minecraftforge.common.model.TRSRTransformation;
@@ -58,8 +56,9 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.Function;
 
-public class SpecialFlowerModel implements IModelCustomData {
+public class SpecialFlowerModel implements IModel {
 
 	// SpecialFlowerModel for when there are no blockModels registered for a subtile
 	public static final SpecialFlowerModel INSTANCE = new SpecialFlowerModel(ImmutableMap.of(), ImmutableMap.of());
@@ -93,7 +92,7 @@ public class SpecialFlowerModel implements IModelCustomData {
 	@Override
 	public IBakedModel bake(IModelState state, VertexFormat format, Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
 		// "Bake" the SpecialFlowerModel (in reality, just create another wrapper for all the delegate blockModels)
-		return new SpecialFlowerBakedModel(blockModels, itemModels, IPerspectiveAwareModel.MapWrapper.getTransforms(state));
+		return new SpecialFlowerBakedModel(blockModels, itemModels, PerspectiveMapWrapper.getTransforms(state));
 	}
 
 	@Override
@@ -157,7 +156,7 @@ public class SpecialFlowerModel implements IModelCustomData {
 		}
 	}
 
-	private static class SpecialFlowerBakedModel implements IPerspectiveAwareModel {
+	private static class SpecialFlowerBakedModel implements IBakedModel {
 
 		private final ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> transforms;
 		private final ImmutableMap<Optional<String>, ModelResourceLocation> blockModels;
@@ -277,7 +276,7 @@ public class SpecialFlowerModel implements IModelCustomData {
 
 		@Override
 		public Pair<? extends IBakedModel, Matrix4f> handlePerspective(ItemCameraTransforms.TransformType cameraTransformType) {
-			return IPerspectiveAwareModel.MapWrapper.handlePerspective(this, transforms, cameraTransformType);
+			return PerspectiveMapWrapper.handlePerspective(this, transforms, cameraTransformType);
 		}
 	}
 

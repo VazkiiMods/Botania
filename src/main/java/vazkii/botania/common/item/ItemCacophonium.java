@@ -70,7 +70,7 @@ public class ItemCacophonium extends ItemMod {
 				sound = ((EntitySlime) living).isSmallSlime() ? SoundEvents.ENTITY_SMALL_SLIME_SQUISH : SoundEvents.ENTITY_SLIME_SQUISH;
 			else {
 				try {
-					sound = (SoundEvent) ReflectionHelper.findMethod(EntityLiving.class, living, LibObfuscation.GET_LIVING_SOUND).invoke(living);
+					sound = (SoundEvent) ReflectionHelper.findMethod(EntityLiving.class, LibObfuscation.GET_LIVING_SOUND[0], LibObfuscation.GET_LIVING_SOUND[1]).invoke(living);
 				} catch (InvocationTargetException | IllegalAccessException ignored) {
 					Botania.LOGGER.debug("Couldn't get living sound");
 				}

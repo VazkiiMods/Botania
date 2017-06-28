@@ -9,6 +9,7 @@
     "PPP"
   ],
   "type": "forge:ore_shaped",
+  "group": "botania:craftpattern",
   "key": {
     "P": {
       "item": "#BPLACEHOLDER"

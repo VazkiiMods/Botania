@@ -9,6 +9,7 @@
     "PPP"
   ],
   "type": "forge:ore_shaped",
+  "group": "botania:petalblock",
   "key": {
     "P": {
       "item": "#PETALBROWN"

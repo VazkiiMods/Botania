@@ -4,9 +4,14 @@
     "data": 5
   },
   "ingredients": [
-    {
-      "item": "minecraft:red_mushroom"
-    },
+    [
+      {
+        "item": "minecraft:red_mushroom"
+      },
+      {
+        "item": "minecraft:brown_mushroom"
+      }
+    ],
     {
       "item": "botania:dye",
       "data": 5

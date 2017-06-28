@@ -2,7 +2,7 @@
   "conditions": [
     {
       "type": "botania:garden_of_glass",
-      "value": "true"
+      "value": true
     }
   ],
   "result": {

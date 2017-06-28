@@ -14,9 +14,23 @@
     "Q": {
       "item": "#GEMQUARTZ"
     },
-    "C": {
-      "item": "minecraft:red_flower",
-      "data": 2
-    }
+    "C": [
+      {
+        "item": "minecraft:red_flower",
+        "data": 2
+      },
+      {
+        "item": "minecraft:red_flower",
+        "data": 7
+      },
+      {
+        "item": "minecraft:double_plant",
+        "data": 1
+      },
+      {
+        "item": "minecraft:double_plant",
+        "data": 5
+      }
+    ]
   }
 }

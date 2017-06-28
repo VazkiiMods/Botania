@@ -14,9 +14,15 @@
     "Q": {
       "item": "#GEMQUARTZ"
     },
-    "C": {
-      "item": "minecraft:coal",
-      "data": 1
-    }
+    "C": [
+      {
+        "item": "minecraft:coal",
+        "data": 0
+      },
+      {
+        "item": "minecraft:coal",
+        "data": 1
+      }
+    ]
   }
 }

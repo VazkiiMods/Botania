@@ -26,7 +26,6 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
-import net.minecraftforge.client.model.IPerspectiveAwareModel;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.client.model.pipeline.IVertexConsumer;
@@ -147,7 +146,7 @@ public class FloatingFlowerModel implements IBakedModel {
 	@Nonnull @Override public TextureAtlasSprite getParticleTexture() { return Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite("minecraft:blocks/dirt"); }
 	@Nonnull @Override public ItemCameraTransforms getItemCameraTransforms() { return ItemCameraTransforms.DEFAULT; }
 
-	private static class CompositeBakedModel implements IPerspectiveAwareModel {
+	private static class CompositeBakedModel implements IBakedModel {
 
 		private final IBakedModel flower;
 		private final IBakedModel island;
@@ -203,11 +202,9 @@ public class FloatingFlowerModel implements IBakedModel {
 
 		@Override
 		public Pair<? extends IBakedModel, Matrix4f> handlePerspective(ItemCameraTransforms.TransformType cameraTransformType) {
-			if(island instanceof IPerspectiveAwareModel) {
-				Pair<? extends IBakedModel, Matrix4f> pair = ((IPerspectiveAwareModel) island).handlePerspective(cameraTransformType);
-				if(pair != null && pair.getRight() != null)
-					return Pair.of(this, pair.getRight());
-			}
+			Pair<? extends IBakedModel, Matrix4f> pair = island.handlePerspective(cameraTransformType);
+			if(pair != null && pair.getRight() != null)
+				return Pair.of(this, pair.getRight());
 			return Pair.of(this, TRSRTransformation.identity().getMatrix());
 		}
 	}

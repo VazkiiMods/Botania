@@ -4,6 +4,7 @@
     "data": 1,
     "count": 3
   },
+  "group": "botania:pavement",
   "ingredients": [
     {
       "item": "#LIVINGROCK"

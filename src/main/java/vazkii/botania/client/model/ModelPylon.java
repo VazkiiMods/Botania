@@ -10,7 +10,6 @@
  */
 package vazkii.botania.client.model;
 
-import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.client.renderer.BufferBuilder;
@@ -37,6 +36,7 @@ import vazkii.botania.api.state.enums.PylonVariant;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class ModelPylon implements IPylonModel {
 
@@ -154,7 +154,7 @@ public class ModelPylon implements IPylonModel {
 				}
 			}
 
-			return Optional.absent();
+			return Optional.empty();
 		};
 	}
 
