@@ -73,7 +73,6 @@ public class BlockCustomBrick extends BlockMod implements ILexiconable {
 		return getMetaFromState(state);
 	}
 
-	@SideOnly(Side.CLIENT)
 	@Override
 	public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> stacks) {
 		for(int i = 4; i < CustomBrickVariant.values().length; i++)

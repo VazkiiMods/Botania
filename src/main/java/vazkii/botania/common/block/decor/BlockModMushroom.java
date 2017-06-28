@@ -108,7 +108,6 @@ public class BlockModMushroom extends BlockMushroom implements IInfusionStabilis
 		}
 	}
 
-	@SideOnly(Side.CLIENT)
 	@Override
 	public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> stacks) {
 		for(int i = 0; i < 16; i++)

@@ -113,7 +113,6 @@ public class BlockPlatform extends BlockCamo implements ILexiconable, IWandable,
 		return getMetaFromState(state);
 	}
 
-	@SideOnly(Side.CLIENT)
 	@Override
 	public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> stacks) {
 		for(int i = 0; i < PlatformVariant.values().length; i++)

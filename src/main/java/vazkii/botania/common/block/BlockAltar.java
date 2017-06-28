@@ -121,7 +121,6 @@ public class BlockAltar extends BlockMod implements ILexiconable {
 		return BlockRenderLayer.CUTOUT;
 	}
 
-	@SideOnly(Side.CLIENT)
 	@Override
 	public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> list) {
 		for(int i = 0; i < 9; i++)

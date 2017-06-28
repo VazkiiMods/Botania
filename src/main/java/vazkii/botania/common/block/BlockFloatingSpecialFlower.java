@@ -113,7 +113,6 @@ public class BlockFloatingSpecialFlower extends BlockFloatingFlower implements I
 	@Override
 	public void randomDisplayTick(IBlockState state, World world, BlockPos pos, Random rand) {}
 
-	@SideOnly(Side.CLIENT)
 	@Override
 	public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> stacks) {
 		for(String s : BotaniaAPI.subtilesForCreativeMenu) {

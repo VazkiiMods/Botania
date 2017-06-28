@@ -85,7 +85,6 @@ public class BlockLightRelay extends BlockMod implements IWandable, ILexiconable
 		return getDefaultState().withProperty(BotaniaStateProps.POWERED, powered).withProperty(BotaniaStateProps.LUMINIZER_VARIANT, LuminizerVariant.class.getEnumConstants()[meta]);
 	}
 
-	@SideOnly(Side.CLIENT)
 	@Override
 	public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> list) {
 		for(int i = 0; i < 4; i++)

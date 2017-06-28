@@ -105,7 +105,6 @@ public class BlockForestDrum extends BlockMod implements IManaTrigger, ILexicona
 		return state.getBlock().getMetaFromState(state);
 	}
 
-	@SideOnly(Side.CLIENT)
 	@Override
 	public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> list) {
 		for(int i = 0; i < 3; i++)

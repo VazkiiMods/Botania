@@ -38,7 +38,6 @@ public class BlockBiomeStone extends BlockMod implements ILexiconable {
 		setSoundType(SoundType.STONE);
 	}
 
-	@SideOnly(Side.CLIENT)
 	@Override
 	public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> list) {
 		for(int i = 0; i < 16; i++)

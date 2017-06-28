@@ -106,7 +106,6 @@ public class BlockModFlower extends BlockFlower implements ILexiconable, IGrowab
 		return true;
 	}
 
-	@SideOnly(Side.CLIENT)
 	@Override
 	public void getSubBlocks(CreativeTabs tab, @Nonnull NonNullList<ItemStack> stacks) {
 		for(int i = 0; i < 16; i++)

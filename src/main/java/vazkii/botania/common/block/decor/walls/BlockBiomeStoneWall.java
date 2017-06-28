@@ -65,7 +65,6 @@ public class BlockBiomeStoneWall extends BlockModWall {
 		return getDefaultState().withProperty(BotaniaStateProps.BIOMESTONEWALL_VARIANT, BiomeStoneVariant.values()[meta + 8]);
 	}
 
-	@SideOnly(Side.CLIENT)
 	@Override
 	public void getSubBlocks(CreativeTabs tabs, @Nonnull NonNullList<ItemStack> list) {
 		for(int i = 0; i < 8; i++)

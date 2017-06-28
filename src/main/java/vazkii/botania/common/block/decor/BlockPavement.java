@@ -91,7 +91,6 @@ public class BlockPavement extends BlockMod {
 		return getMetaFromState(state);
 	}
 
-	@SideOnly(Side.CLIENT)
 	@Override
 	public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> stacks) {
 		for(int i = 0; i < TYPES; i++)

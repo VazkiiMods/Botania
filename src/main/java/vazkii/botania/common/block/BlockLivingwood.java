@@ -76,7 +76,6 @@ public class BlockLivingwood extends BlockMod implements ILexiconable {
 		return getMetaFromState(state);
 	}
 
-	@SideOnly(Side.CLIENT)
 	@Override
 	public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> stacks) {
 		for(int i = 0; i < LivingWoodVariant.values().length; i++)

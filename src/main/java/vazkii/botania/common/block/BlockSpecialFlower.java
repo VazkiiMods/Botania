@@ -199,7 +199,6 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 		return true;
 	}
 
-	@SideOnly(Side.CLIENT)
 	@Override
 	public void getSubBlocks(CreativeTabs tab, @Nonnull NonNullList<ItemStack> stacks) {
 		for(String s : BotaniaAPI.subtilesForCreativeMenu) {
