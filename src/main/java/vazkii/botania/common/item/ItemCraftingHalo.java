@@ -51,6 +51,7 @@ import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.client.core.handler.ClientTickHandler;
+import vazkii.botania.client.gui.crafting.ContainerCraftingHalo;
 import vazkii.botania.client.gui.crafting.InventoryCraftingHalo;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.Botania;
@@ -306,7 +307,7 @@ public class ItemCraftingHalo extends ItemMod {
 
 	@SubscribeEvent
 	public void onItemCrafted(ItemCraftedEvent event) {
-		if(!(event.craftMatrix instanceof InventoryCraftingHalo))
+		if(!(event.player.openContainer instanceof ContainerCraftingHalo))
 			return;
 
 		for(int i = 0; i < event.player.inventory.getSizeInventory(); i++) {
