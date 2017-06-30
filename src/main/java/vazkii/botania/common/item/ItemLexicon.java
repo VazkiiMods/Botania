@@ -19,6 +19,7 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -45,6 +46,7 @@ import vazkii.botania.api.lexicon.KnowledgeType;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.recipe.IElvenItem;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.advancement_triggers.UseLexiconTrigger;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.MathHelper;
@@ -180,8 +182,11 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 
 		Botania.proxy.setLexiconStack(stack);
 		player.openGui(Botania.instance, LibGuiIDs.LEXICON, world, 0, 0, 0);
-		if(!world.isRemote && !skipSound)
-			world.playSound(null, player.posX, player.posY, player.posZ, ModSounds.lexiconOpen, SoundCategory.PLAYERS, 0.5F, 1F);
+		if(!world.isRemote) {
+			if(!skipSound)
+				world.playSound(null, player.posX, player.posY, player.posZ, ModSounds.lexiconOpen, SoundCategory.PLAYERS, 0.5F, 1F);
+			UseLexiconTrigger.INSTANCE.trigger((EntityPlayerMP) player, stack);
+		}
 	}
 
 	@Override

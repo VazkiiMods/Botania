@@ -1,0 +1,21 @@
+{
+  "display": {
+    "icon": {
+      "item": "botania:specialFlower",
+      "nbt": "{\"type\": \"endoflame\"}"
+    },
+    "title": {
+      "translate": "advancement.botania:daybloomPickup"
+    },
+    "description": {
+      "translate": "advancement.botania:daybloomPickup.desc"
+    }
+  },
+  "parent": "botania:main/realistical_logical_ideologist",
+  "__comment": "This is triggered by code in Botania. In the future, it may become data-driven",
+  "criteria": {
+    "code_triggered": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

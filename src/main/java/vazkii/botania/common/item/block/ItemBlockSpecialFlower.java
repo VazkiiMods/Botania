@@ -10,22 +10,36 @@
  */
 package vazkii.botania.common.item.block;
 
+import net.minecraft.advancements.Advancement;
+import net.minecraft.advancements.AdvancementManager;
+import net.minecraft.advancements.PlayerAdvancements;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.entity.AbstractClientPlayer;
+import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
+import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.IRecipeKeyProvider;
 import vazkii.botania.api.subtile.SubTileEntity;
+import vazkii.botania.api.subtile.SubTileFunctional;
+import vazkii.botania.api.subtile.SubTileGenerating;
 import vazkii.botania.api.subtile.signature.SubTileSignature;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileSpecialFlower;
@@ -36,6 +50,7 @@ import vazkii.botania.common.lib.LibMisc;
 import javax.annotation.Nonnull;
 import java.util.List;
 
+@Mod.EventBusSubscriber
 public class ItemBlockSpecialFlower extends ItemBlockMod implements IRecipeKeyProvider {
 
 	public ItemBlockSpecialFlower(Block block1) {
@@ -110,6 +125,30 @@ public class ItemBlockSpecialFlower extends ItemBlockMod implements IRecipeKeyPr
 	@Override
 	public String getKey(ItemStack stack) {
 		return "flower." + getType(stack);
+	}
+
+	@SubscribeEvent
+	public static void onItemPickup(EntityItemPickupEvent evt) {
+		if(evt.getItem().getItem().getItem() == Item.getItemFromBlock(ModBlocks.specialFlower)) {
+			PlayerAdvancements advancements = ((EntityPlayerMP) evt.getEntityPlayer()).getAdvancements();
+			AdvancementManager manager = ((WorldServer) evt.getEntity().getEntityWorld()).getAdvancementManager();
+
+			String type = getType(evt.getItem().getItem());
+			Class subtile = BotaniaAPI.getSubTileMapping(type);
+			Advancement adv = null;
+
+			if(SubTileGenerating.class.isAssignableFrom(subtile)) {
+				adv = manager.getAdvancement(new ResourceLocation(LibMisc.MOD_ID, "main/electric_magic"));
+			}
+
+			if(SubTileFunctional.class.isAssignableFrom(subtile)) {
+				// todo the other one
+			}
+
+			if(adv != null) {
+				advancements.grantCriterion(adv, "code_triggered");
+			}
+		}
 	}
 
 }

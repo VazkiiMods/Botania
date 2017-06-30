@@ -1,0 +1,19 @@
+{
+  "display": {
+    "icon": {
+      "item": "botania:lexicon"
+    },
+    "title": {
+      "translate": "advancement.botania:lexiconUse"
+    },
+    "description": {
+      "translate": "advancement.botania:lexiconUse.desc"
+    }
+  },
+  "parent": "botania:main/root",
+  "criteria": {
+    "open": {
+      "trigger": "botania:use_lexicon"
+    }
+  }
+}
