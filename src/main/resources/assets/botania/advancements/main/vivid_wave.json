@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "item": "botania:pool"
+    },
+    "title": {
+      "translate": "advancement.botania:manaPoolPickup"
+    },
+    "description": {
+      "translate": "advancement.botania:manaPoolPickup.desc"
+    }
+  },
+  "parent": "botania:main/electric_magic",
+  "criteria": {
+    "pool": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "botania:pool"
+          }
+        ]
+      }
+    }
+  }
+}
