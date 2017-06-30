@@ -1,8 +1,8 @@
 {
   "conditions": [
     {
-      "type": "botania:garden_of_glass",
-      "value": true
+      "type": "forge:mod_loaded",
+      "modid": "gardenofglass"
     }
   ],
   "result": {

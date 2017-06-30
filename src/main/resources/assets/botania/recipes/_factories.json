@@ -1,6 +1,5 @@
 {
   "conditions": {
-    "garden_of_glass": "vazkii.botania.common.crafting.GardenOfGlassConditionFactory",
     "dark_quartz_enabled": "vazkii.botania.common.crafting.DarkQuartzConditionFactory",
     "fluxfield_enabled": "vazkii.botania.common.crafting.FluxfieldConditionFactory"
   }
