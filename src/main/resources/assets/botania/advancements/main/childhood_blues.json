@@ -1,0 +1,39 @@
+{
+  "display": {
+    "icon": {
+      "item": "botania:brewery"
+    },
+    "title": {
+      "translate": "advancement.botania:brewPickup"
+    },
+    "description": {
+      "translate": "advancement.botania:brewPickup.desc"
+    }
+  },
+  "parent": "botania:main/drop_pop_candy",
+  "criteria": {
+    "flask": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "botania:brewflask"
+          }
+        ]
+      }
+    },
+    "vial": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "botania:brewvial"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [ "flask", "vial" ]
+  ]
+}

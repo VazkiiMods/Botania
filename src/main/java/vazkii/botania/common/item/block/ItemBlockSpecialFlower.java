@@ -45,6 +45,7 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileSpecialFlower;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
+import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
@@ -130,23 +131,15 @@ public class ItemBlockSpecialFlower extends ItemBlockMod implements IRecipeKeyPr
 	@SubscribeEvent
 	public static void onItemPickup(EntityItemPickupEvent evt) {
 		if(evt.getItem().getItem().getItem() == Item.getItemFromBlock(ModBlocks.specialFlower)) {
-			PlayerAdvancements advancements = ((EntityPlayerMP) evt.getEntityPlayer()).getAdvancements();
-			AdvancementManager manager = ((WorldServer) evt.getEntity().getEntityWorld()).getAdvancementManager();
-
 			String type = getType(evt.getItem().getItem());
 			Class subtile = BotaniaAPI.getSubTileMapping(type);
-			Advancement adv = null;
 
 			if(SubTileGenerating.class.isAssignableFrom(subtile)) {
-				adv = manager.getAdvancement(new ResourceLocation(LibMisc.MOD_ID, "main/electric_magic"));
+				PlayerHelper.grantCriterion((EntityPlayerMP) evt.getEntityPlayer(), new ResourceLocation(LibMisc.MOD_ID, "main/electric_magic"), "code_triggered");
 			}
 
 			if(SubTileFunctional.class.isAssignableFrom(subtile)) {
-				// todo the other one
-			}
-
-			if(adv != null) {
-				advancements.grantCriterion(adv, "code_triggered");
+				PlayerHelper.grantCriterion((EntityPlayerMP) evt.getEntityPlayer(), new ResourceLocation(LibMisc.MOD_ID, "main/ecstatic_vivace"), "code_triggered");
 			}
 		}
 	}

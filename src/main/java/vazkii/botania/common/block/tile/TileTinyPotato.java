@@ -11,16 +11,20 @@
 package vazkii.botania.common.block.tile;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.items.ItemHandlerHelper;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ModSounds;
+import vazkii.botania.common.core.helper.PlayerHelper;
+import vazkii.botania.common.lib.LibMisc;
 
 public class TileTinyPotato extends TileSimpleInventory {
 
@@ -65,6 +69,8 @@ public class TileTinyPotato extends TileSimpleInventory {
 					return;
 				}
 			}
+
+			PlayerHelper.grantCriterion((EntityPlayerMP) player, new ResourceLocation(LibMisc.MOD_ID, "main/just_be_friends"), "code_triggered");
 		}
 	}
 

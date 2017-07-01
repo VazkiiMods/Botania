@@ -1,0 +1,21 @@
+{
+  "display": {
+    "icon": {
+      "item": "botania:specialFlower",
+      "nbt": "{\"type\": \"pollidisiac\"}"
+    },
+    "title": {
+      "translate": "advancement.botania:endoflamePickup"
+    },
+    "description": {
+      "translate": "advancement.botania:endoflamePickup.desc"
+    }
+  },
+  "parent": "botania:main/vivid_wave",
+  "__comment": "This is triggered by code in Botania. In the future, it may become data-driven",
+  "criteria": {
+    "code_triggered": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

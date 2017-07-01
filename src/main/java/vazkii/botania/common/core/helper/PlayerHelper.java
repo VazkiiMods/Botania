@@ -1,9 +1,15 @@
 package vazkii.botania.common.core.helper;
 
+import net.minecraft.advancements.Advancement;
+import net.minecraft.advancements.AdvancementManager;
+import net.minecraft.advancements.PlayerAdvancements;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.WorldServer;
 
 import java.util.function.Predicate;
 
@@ -96,6 +102,15 @@ public final class PlayerHelper {
 				return true;
 		}
 		return false;
+	}
+
+	public static void grantCriterion(EntityPlayerMP player, ResourceLocation advancementId, String criterion) {
+		PlayerAdvancements advancements = player.getAdvancements();
+		AdvancementManager manager = player.getServerWorld().getAdvancementManager();
+		Advancement advancement = manager.getAdvancement(advancementId);
+		if(advancement != null) {
+			advancements.grantCriterion(advancement, criterion);
+		}
 	}
 
 	private PlayerHelper() {}
