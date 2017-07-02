@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "item": "botania:terrasword"
+    },
+    "title": {
+      "translate": "advancement.botania:terrasteelPickup"
+    },
+    "description": {
+      "translate": "advancement.botania:terrasteelPickup.desc"
+    }
+  },
+  "parent": "botania:main/dancer_in_the_dark",
+  "criteria": {
+    "terrablade": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "botania:terrasword"
+          }
+        ]
+      }
+    }
+  }
+}

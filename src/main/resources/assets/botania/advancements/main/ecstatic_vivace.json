@@ -2,7 +2,7 @@
   "display": {
     "icon": {
       "item": "botania:specialFlower",
-      "nbt": "{\"type\": \"pollidisiac\"}"
+      "nbt": "{\"type\": \"bellethorne\"}"
     },
     "title": {
       "translate": "advancement.botania:endoflamePickup"
