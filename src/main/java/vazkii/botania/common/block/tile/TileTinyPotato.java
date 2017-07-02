@@ -70,7 +70,7 @@ public class TileTinyPotato extends TileSimpleInventory {
 				}
 			}
 
-			PlayerHelper.grantCriterion((EntityPlayerMP) player, new ResourceLocation(LibMisc.MOD_ID, "main/just_be_friends"), "code_triggered");
+			PlayerHelper.grantCriterion((EntityPlayerMP) player, new ResourceLocation(LibMisc.MOD_ID, "main/tiny_potato_pet"), "code_triggered");
 		}
 	}
 

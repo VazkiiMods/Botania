@@ -90,7 +90,7 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 				if(!world.isRemote) {
 					world.playSound(null, player.posX, player.posY, player.posZ, ModSounds.manaBlaster, SoundCategory.PLAYERS, 0.6F, 1);
 					world.spawnEntity(burst);
-					PlayerHelper.grantCriterion((EntityPlayerMP) player, new ResourceLocation(LibMisc.MOD_ID, "main/maider_stranded_girl"), "code_triggered");
+					PlayerHelper.grantCriterion((EntityPlayerMP) player, new ResourceLocation(LibMisc.MOD_ID, "main/mana_blaster_shoot"), "code_triggered");
 				} else {
 					player.swingArm(hand);
 					player.motionX -= burst.motionX * 0.1;

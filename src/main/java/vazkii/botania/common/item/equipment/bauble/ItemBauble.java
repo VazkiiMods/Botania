@@ -81,7 +81,7 @@ public abstract class ItemBauble extends ItemMod implements IBauble, ICosmeticAt
 						baubles.setStackInSlot(i, toEquip);
 						stack.shrink(1);
 
-						PlayerHelper.grantCriterion((EntityPlayerMP) player, new ResourceLocation(LibMisc.MOD_ID, "main/inner_arts"), "code_triggered");
+						PlayerHelper.grantCriterion((EntityPlayerMP) player, new ResourceLocation(LibMisc.MOD_ID, "main/bauble_wear"), "code_triggered");
 
 						if(!stackInSlot.isEmpty()) {
 							((IBauble) stackInSlot.getItem()).onUnequipped(stackInSlot, player);

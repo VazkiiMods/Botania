@@ -11,9 +11,10 @@
     }
   },
   "parent": "botania:main/root",
+  "__comment": "This is triggered by code in Botania. In the future, it may become data-driven",
   "criteria": {
-    "open": {
-      "trigger": "botania:use_lexicon"
+    "code_triggered": {
+      "trigger": "minecraft:impossible"
     }
   }
 }

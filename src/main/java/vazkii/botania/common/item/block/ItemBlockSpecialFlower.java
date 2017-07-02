@@ -135,11 +135,11 @@ public class ItemBlockSpecialFlower extends ItemBlockMod implements IRecipeKeyPr
 			Class subtile = BotaniaAPI.getSubTileMapping(type);
 
 			if(SubTileGenerating.class.isAssignableFrom(subtile)) {
-				PlayerHelper.grantCriterion((EntityPlayerMP) evt.getEntityPlayer(), new ResourceLocation(LibMisc.MOD_ID, "main/electric_magic"), "code_triggered");
+				PlayerHelper.grantCriterion((EntityPlayerMP) evt.getEntityPlayer(), new ResourceLocation(LibMisc.MOD_ID, "main/generating_flower"), "code_triggered");
 			}
 
 			if(SubTileFunctional.class.isAssignableFrom(subtile)) {
-				PlayerHelper.grantCriterion((EntityPlayerMP) evt.getEntityPlayer(), new ResourceLocation(LibMisc.MOD_ID, "main/ecstatic_vivace"), "code_triggered");
+				PlayerHelper.grantCriterion((EntityPlayerMP) evt.getEntityPlayer(), new ResourceLocation(LibMisc.MOD_ID, "main/functional_flower"), "code_triggered");
 			}
 		}
 	}

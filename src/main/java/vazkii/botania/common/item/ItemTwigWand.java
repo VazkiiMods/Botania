@@ -121,7 +121,7 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 				if(!world.isRemote) {
 					world.setBlockState(pos, ModBlocks.enchanter.getDefaultState().withProperty(BotaniaStateProps.ENCHANTER_DIRECTION, axis), 1 | 2);
 					world.playSound(null, pos, ModSounds.enchanterForm, SoundCategory.BLOCKS, 0.5F, 0.6F);
-					PlayerHelper.grantCriterion((EntityPlayerMP) player, new ResourceLocation(LibMisc.MOD_ID, "main/odds_and_ends"), "code_triggered");
+					PlayerHelper.grantCriterion((EntityPlayerMP) player, new ResourceLocation(LibMisc.MOD_ID, "main/enchanter_make"), "code_triggered");
 				} else {
 					for(int i = 0; i < 50; i++) {
 						float red = (float) Math.random();

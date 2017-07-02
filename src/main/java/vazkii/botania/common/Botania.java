@@ -43,7 +43,6 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.ITwoNamedPage;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.lexicon.LexiconPage;
-import vazkii.botania.common.advancement_triggers.UseLexiconTrigger;
 import vazkii.botania.common.block.ModBanners;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModMultiblocks;
@@ -147,11 +146,6 @@ public class Botania {
 		ModManaInfusionRecipes.init();
 		ModElvenTradeRecipes.init();
 		ModBrewRecipes.init();
-		try {
-			ReflectionHelper.findMethod(CriteriaTriggers.class, "register", "", ICriterionTrigger.class).invoke(null, UseLexiconTrigger.INSTANCE); // todo 1.12 stop lazy use AT
-		} catch (IllegalAccessException | InvocationTargetException e) {
-			e.printStackTrace();
-		}
 		// LexiconData.init(); todo 1.12
 
 		NetworkRegistry.INSTANCE.registerGuiHandler(Botania.instance, new GuiHandler());
