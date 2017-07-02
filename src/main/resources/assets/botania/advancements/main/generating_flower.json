@@ -5,10 +5,10 @@
       "nbt": "{\"type\": \"endoflame\"}"
     },
     "title": {
-      "translate": "advancement.botania:daybloomPickup"
+      "translate": "advancement.botania:generatingFlower"
     },
     "description": {
-      "translate": "advancement.botania:daybloomPickup.desc"
+      "translate": "advancement.botania:generatingFlower.desc"
     }
   },
   "parent": "botania:main/realistical_logical_ideologist",

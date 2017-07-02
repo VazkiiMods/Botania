@@ -471,11 +471,11 @@ advancement.botania:flowerPickup.desc=Colete uma Flor Mística no mundo
 #
 advancement.botania:lexiconUse.desc=Olhe o índice do Lexica Botania
 #
-advancement.botania:daybloomPickup.desc=Crie uma Daybloom no Boticário de Pétalas
+advancement.botania:generatingFlower.desc=Crie uma Daybloom no Boticário de Pétalas
 #
 advancement.botania:manaPoolPickup.desc=Melhore um Poço de Mana Diluído para um normal
 #
-advancement.botania:endoflamePickup.desc=Crie uma Endoflame para uma melhor produção de Mana
+advancement.botania:functionalFlower.desc=Crie uma Endoflame para uma melhor produção de Mana
 #
 advancement.botania:tinyPotatoPet.desc=Domestique uma Batatinha
 #
