@@ -4,10 +4,10 @@
       "item": "botania:terrasword"
     },
     "title": {
-      "translate": "advancement.botania:terrasteelPickup"
+      "translate": "advancement.botania:terrasteelWeaponCraft"
     },
     "description": {
-      "translate": "advancement.botania:terrasteelPickup.desc"
+      "translate": "advancement.botania:terrasteelWeaponCraft.desc"
     }
   },
   "parent": "botania:main/dancer_in_the_dark",
