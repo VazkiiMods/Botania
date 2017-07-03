@@ -1,0 +1,28 @@
+{
+  "display": {
+    "icon": {
+      "item": "botania:specialFlower",
+      "nbt": "{\"type\": \"heiseiDream\"}"
+    },
+    "title": {
+      "translate": "advancement.botania:heiseiDreamPickup"
+    },
+    "description": {
+      "translate": "advancement.botania:heiseiDreamPickup.desc"
+    }
+  },
+  "parent": "botania:main/elf_portal_open",
+  "criteria": {
+    "heisei_dream": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "botania:specialFlower",
+            "nbt": "{\"type\": \"heiseiDream\"}"
+          }
+        ]
+      }
+    }
+  }
+}

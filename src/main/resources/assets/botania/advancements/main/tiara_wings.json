@@ -1,0 +1,108 @@
+{
+  "display": {
+    "icon": {
+      "item": "botania:flighttiara",
+      "data": 1
+    },
+    "title": {
+      "translate": "advancement.botania:tiaraWings"
+    },
+    "description": {
+      "translate": "advancement.botania:tiaraWings.desc"
+    }
+  },
+  "parent": "botania:main/gaia_guardian_kill",
+  "criteria": {
+    "meta1": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "botania:flighttiara",
+            "data": 1
+          }
+        ]
+      }
+    },
+    "meta2": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "botania:flighttiara",
+            "data": 2
+          }
+        ]
+      }
+    },
+    "meta3": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "botania:flighttiara",
+            "data": 3
+          }
+        ]
+      }
+    },
+    "meta4": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "botania:flighttiara",
+            "data": 4
+          }
+        ]
+      }
+    },
+    "meta5": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "botania:flighttiara",
+            "data": 5
+          }
+        ]
+      }
+    },
+    "meta6": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "botania:flighttiara",
+            "data": 6
+          }
+        ]
+      }
+    },
+    "meta7": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "botania:flighttiara",
+            "data": 7
+          }
+        ]
+      }
+    },
+    "meta8": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "botania:flighttiara",
+            "data": 8
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [ "meta1", "meta2", "meta3", "meta4", "meta5", "meta6", "meta7", "meta8" ]
+  ]
+}

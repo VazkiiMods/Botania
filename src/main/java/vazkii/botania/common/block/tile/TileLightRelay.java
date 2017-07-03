@@ -25,6 +25,7 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -34,7 +35,9 @@ import vazkii.botania.api.wand.IWandBindable;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ModSounds;
+import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.core.helper.Vector3;
+import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 import java.awt.Color;
@@ -49,8 +52,8 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 	private static final String TAG_BIND_Y = "bindY";
 	private static final String TAG_BIND_Z = "bindZ";
 
-	BlockPos bindPos = new BlockPos(0, -1, 0);
-	int ticksElapsed = 0;
+	private BlockPos bindPos = new BlockPos(0, -1, 0);
+	private int ticksElapsed = 0;
 
 	public void mountEntity(Entity e) {
 		BlockPos nextDest = getNextDestination();
@@ -62,6 +65,9 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 		e.startRiding(mover);
 		if(!(e instanceof EntityItem)) {
 			mover.playSound(ModSounds.lightRelay, 0.2F, (float) Math.random() * 0.3F + 0.7F);
+		}
+		if(e instanceof EntityPlayerMP) {
+			PlayerHelper.grantCriterion((EntityPlayerMP) e, new ResourceLocation(LibMisc.MOD_ID, "main/luminizer_ride"), "code_triggered");
 		}
 	}
 

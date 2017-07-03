@@ -1,0 +1,28 @@
+{
+  "display": {
+    "icon": {
+      "item": "botania:specialFlower",
+      "nbt": "{\"type\": \"dandelifeon\"}"
+    },
+    "title": {
+      "translate": "advancement.botania:dandelifeonPickup"
+    },
+    "description": {
+      "translate": "advancement.botania:dandelifeonPickup.desc"
+    }
+  },
+  "parent": "botania:main/gaia_guardian_kill",
+  "criteria": {
+    "dandelifeon": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "botania:specialFlower",
+            "nbt": "{\"type\": \"dandelifeon\"}"
+          }
+        ]
+      }
+    }
+  }
+}

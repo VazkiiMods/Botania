@@ -1,0 +1,28 @@
+{
+  "display": {
+    "icon": {
+      "item": "botania:specialFlower",
+      "nbt": "{\"type\": \"bubbell\"}"
+    },
+    "title": {
+      "translate": "advancement.botania:bubbellPickup"
+    },
+    "description": {
+      "translate": "advancement.botania:bubbellPickup.desc"
+    }
+  },
+  "parent": "botania:main/elf_portal_open",
+  "criteria": {
+    "bubbell": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "botania:specialFlower",
+            "nbt": "{\"type\": \"bubbell\"}"
+          }
+        ]
+      }
+    }
+  }
+}
