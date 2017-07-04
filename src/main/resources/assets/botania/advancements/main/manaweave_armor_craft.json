@@ -11,7 +11,7 @@
       "translate": "advancement.botania:manaweaveArmorCraft.desc"
     }
   },
-  "parent": "botania:main/vivid_wave",
+  "parent": "botania:main/mana_pool_pickup",
   "criteria": {
     "head": {
       "trigger": "minecraft:inventory_changed",

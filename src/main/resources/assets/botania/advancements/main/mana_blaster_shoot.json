@@ -10,7 +10,7 @@
       "translate": "advancement.botania:manaBlasterShoot.desc"
     }
   },
-  "parent": "botania:main/drop_pop_candy",
+  "parent": "botania:main/rune_pickup",
   "__comment": "This is triggered by code in Botania. In the future, it may become data-driven",
   "criteria": {
     "code_triggered": {

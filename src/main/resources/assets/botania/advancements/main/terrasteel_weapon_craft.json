@@ -10,7 +10,7 @@
       "translate": "advancement.botania:terrasteelWeaponCraft.desc"
     }
   },
-  "parent": "botania:main/dancer_in_the_dark",
+  "parent": "botania:main/terrasteel_pickup",
   "criteria": {
     "terrablade": {
       "trigger": "minecraft:inventory_changed",

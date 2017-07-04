@@ -11,7 +11,7 @@
       "translate": "advancement.botania:generatingFlower.desc"
     }
   },
-  "parent": "botania:main/realistical_logical_ideologist",
+  "parent": "botania:main/lexicon_use",
   "__comment": "This is triggered by code in Botania. In the future, it may become data-driven",
   "criteria": {
     "code_triggered": {

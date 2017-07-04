@@ -10,7 +10,7 @@
       "translate": "advancement.botania:brewPickup.desc"
     }
   },
-  "parent": "botania:main/drop_pop_candy",
+  "parent": "botania:main/rune_pickup",
   "criteria": {
     "flask": {
       "trigger": "minecraft:inventory_changed",

@@ -11,7 +11,7 @@
       "translate": "advancement.botania:terrasteelPickup.desc"
     }
   },
-  "parent": "botania:main/drop_pop_candy",
+  "parent": "botania:main/rune_pickup",
   "criteria": {
     "terrasteel": {
       "trigger": "minecraft:inventory_changed",

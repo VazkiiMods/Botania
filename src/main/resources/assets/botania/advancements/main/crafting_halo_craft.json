@@ -10,7 +10,7 @@
       "translate": "advancement.botania:craftingHaloCraft.desc"
     }
   },
-  "parent": "botania:main/vivid_wave",
+  "parent": "botania:main/mana_pool_pickup",
   "criteria": {
     "pool": {
       "trigger": "minecraft:inventory_changed",

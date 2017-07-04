@@ -10,7 +10,7 @@
       "translate": "advancement.botania:manaCartCraft.desc"
     }
   },
-  "parent": "botania:main/vivid_wave",
+  "parent": "botania:main/mana_pool_pickup",
   "criteria": {
     "poolcart": {
       "trigger": "minecraft:inventory_changed",
