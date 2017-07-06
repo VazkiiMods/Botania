@@ -20,7 +20,9 @@ import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.common.property.IUnlistedProperty;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
 import org.lwjgl.opengl.ARBFragmentShader;
 import org.lwjgl.opengl.ContextCapabilities;
 import org.lwjgl.opengl.GL11;
@@ -35,6 +37,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
+@Mod.EventBusSubscriber(Side.CLIENT)
 public final class DebugHandler {
 
 	private DebugHandler() {}

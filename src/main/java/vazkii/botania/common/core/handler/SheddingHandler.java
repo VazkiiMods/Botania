@@ -19,6 +19,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.EntityEntry;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
@@ -30,6 +31,7 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.Objects;
 
+@Mod.EventBusSubscriber
 public final class SheddingHandler {
 
 	private SheddingHandler() {}

@@ -9,6 +9,7 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.items.IItemHandler;
 import vazkii.botania.api.item.IPixieSpawner;
@@ -17,6 +18,7 @@ import vazkii.botania.common.entity.EntityPixie;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.armor.elementium.ItemElementiumHelm;
 
+@Mod.EventBusSubscriber
 public final class PixieHandler {
 
 	private PixieHandler() {}

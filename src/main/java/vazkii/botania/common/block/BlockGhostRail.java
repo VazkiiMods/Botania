@@ -23,6 +23,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.minecart.MinecartUpdateEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -38,6 +39,7 @@ import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
+@Mod.EventBusSubscriber
 public class BlockGhostRail extends BlockRailBase implements ILexiconable, IModelRegister {
 
 	private static final String TAG_FLOAT_TICKS = "Botania_FloatTicks";
@@ -48,7 +50,6 @@ public class BlockGhostRail extends BlockRailBase implements ILexiconable, IMode
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.RAIL_DIRECTION, EnumRailDirection.NORTH_SOUTH));
 		setRegistryName(new ResourceLocation(LibMisc.MOD_ID, LibBlockNames.GHOST_RAIL));
 		setUnlocalizedName(LibBlockNames.GHOST_RAIL);
-		MinecraftForge.EVENT_BUS.register(BlockGhostRail.class);
 	}
 
 	@Nonnull

@@ -18,11 +18,14 @@ import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
+import net.minecraftforge.fml.relauncher.Side;
 import vazkii.botania.common.lib.LibMisc;
 
+@Mod.EventBusSubscriber(Side.CLIENT)
 public final class VersionChecker {
 
 	private VersionChecker() {}
@@ -38,7 +41,6 @@ public final class VersionChecker {
 
 	public static void init() {
 		new ThreadVersionChecker();
-		MinecraftForge.EVENT_BUS.register(VersionChecker.class);
 	}
 
 	@SubscribeEvent

@@ -36,6 +36,7 @@ import net.minecraft.world.WorldServer;
 import net.minecraft.world.storage.loot.LootContext;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import vazkii.botania.api.BotaniaAPI;
@@ -55,16 +56,10 @@ public class SubTileLoonuim extends SubTileFunctional {
 	private static final String TAG_ITEMSTACK_TO_DROP = "botania:looniumItemStackToDrop";
 
 	private ResourceLocation lootTable = new ResourceLocation("minecraft", "chests/simple_dungeon");
-	private static boolean registered = false;
-	
+
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
-		
-		if(!registered) {
-			MinecraftForge.EVENT_BUS.register(DropHandler.class);
-			registered = true;
-		}
 
 		World world = supertile.getWorld();
 		if(!world.isRemote && redstoneSignal == 0 && ticksExisted % 100 == 0 && mana >= COST) {
@@ -181,7 +176,8 @@ public class SubTileLoonuim extends SubTileFunctional {
 		super.writeToPacketNBT(cmp);
 		cmp.setString(TAG_LOOT_TABLE, lootTable.toString());
 	}
-	
+
+	@Mod.EventBusSubscriber
 	public static class DropHandler {
 		
 		@SubscribeEvent(priority = EventPriority.LOWEST)

@@ -15,10 +15,12 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
 import net.minecraftforge.fml.common.gameevent.TickEvent.RenderTickEvent;
+import net.minecraftforge.fml.relauncher.Side;
 import vazkii.botania.api.mana.IManaCollector;
 import vazkii.botania.api.mana.TileSignature;
 import vazkii.botania.client.gui.lexicon.GuiLexicon;
@@ -28,6 +30,7 @@ import vazkii.botania.common.core.handler.ManaNetworkHandler;
 import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.item.ModItems;
 
+@Mod.EventBusSubscriber(Side.CLIENT)
 public final class ClientTickHandler {
 
 	private ClientTickHandler() {}

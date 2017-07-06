@@ -26,6 +26,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -38,6 +39,7 @@ import vazkii.botania.common.lib.LibBlockNames;
 
 import javax.annotation.Nonnull;
 
+@Mod.EventBusSubscriber
 public class BlockFelPumpkin extends BlockMod implements ILexiconable {
 
 	private static final String TAG_FEL_SPAWNED = "Botania-FelSpawned";
@@ -46,7 +48,6 @@ public class BlockFelPumpkin extends BlockMod implements ILexiconable {
 		super(Material.GOURD, LibBlockNames.FEL_PUMPKIN);
 		setHardness(1F);
 		setSoundType(SoundType.WOOD);
-		MinecraftForge.EVENT_BUS.register(BlockFelPumpkin.class);
 	}
 
 	@Nonnull

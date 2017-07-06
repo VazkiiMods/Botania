@@ -22,6 +22,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.items.IItemHandler;
 import vazkii.botania.common.core.handler.ConfigHandler;
@@ -31,6 +32,7 @@ import vazkii.botania.common.lib.LibItemNames;
 import java.util.ArrayList;
 import java.util.List;
 
+@Mod.EventBusSubscriber
 public class ItemOdinRing extends ItemRelicBauble {
 
 	private static final List<String> damageNegations = new ArrayList<>();
@@ -39,7 +41,6 @@ public class ItemOdinRing extends ItemRelicBauble {
 
 	public ItemOdinRing() {
 		super(LibItemNames.ODIN_RING);
-		MinecraftForge.EVENT_BUS.register(ItemOdinRing.class);
 
 		damageNegations.add(DamageSource.DROWN.damageType);
 		damageNegations.add(DamageSource.FALL.damageType);

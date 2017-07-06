@@ -168,21 +168,8 @@ public class ClientProxy implements IProxy {
 
 		ModChallenges.init();
 
-		MinecraftForge.EVENT_BUS.register(ClientTickHandler.class);
-		MinecraftForge.EVENT_BUS.register(HUDHandler.class);
-		MinecraftForge.EVENT_BUS.register(LightningHandler.class);
 		if(ConfigHandler.boundBlockWireframe)
 			MinecraftForge.EVENT_BUS.register(BoundTileRenderer.class);
-		MinecraftForge.EVENT_BUS.register(TooltipHandler.class);
-		MinecraftForge.EVENT_BUS.register(TooltipAdditionDisplayHandler.class);
-		MinecraftForge.EVENT_BUS.register(DebugHandler.class);
-		MinecraftForge.EVENT_BUS.register(BlockHighlightRenderHandler.class);
-		MinecraftForge.EVENT_BUS.register(MultiblockRenderHandler.class);
-		MinecraftForge.EVENT_BUS.register(SkyblockRenderEvents.class);
-		MinecraftForge.EVENT_BUS.register(new RenderLexicon());
-		MinecraftForge.EVENT_BUS.register(BossBarHandler.class);
-		MinecraftForge.EVENT_BUS.register(BergamuteEventHandler.class);
-		MinecraftForge.EVENT_BUS.register(AstrolabePreviewHandler.class);
 
 		if(ConfigHandler.useAdaptativeConfig)
 			MinecraftForge.EVENT_BUS.register(AdaptorNotifier.class);

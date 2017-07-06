@@ -22,7 +22,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
 import org.lwjgl.opengl.ARBShaderObjects;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.client.core.helper.ShaderHelper;
@@ -30,6 +32,7 @@ import vazkii.botania.common.item.ItemAstrolabe;
 
 import java.util.List;
 
+@Mod.EventBusSubscriber(Side.CLIENT)
 public final class AstrolabePreviewHandler {
 
 	@SubscribeEvent

@@ -22,6 +22,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.Explosion;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.world.ExplosionEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -32,13 +33,13 @@ import vazkii.botania.common.lib.LibItemNames;
 
 import java.util.List;
 
+@Mod.EventBusSubscriber
 public class ItemGoddessCharm extends ItemBauble implements IManaUsingItem, IBaubleRender {
 
 	public static final int COST = 1000;
 	
 	public ItemGoddessCharm() {
 		super(LibItemNames.GODDESS_CHARM);
-		MinecraftForge.EVENT_BUS.register(ItemGoddessCharm.class);
 	}
 
 	@SubscribeEvent

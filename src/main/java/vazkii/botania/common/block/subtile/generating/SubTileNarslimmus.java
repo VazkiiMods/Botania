@@ -19,6 +19,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.Event.Result;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -86,6 +87,7 @@ public class SubTileNarslimmus extends SubTileGenerating {
 		return LexiconData.narslimmus;
 	}
 
+	@Mod.EventBusSubscriber
 	public static class SpawnIntercepter {
 
 		@SubscribeEvent

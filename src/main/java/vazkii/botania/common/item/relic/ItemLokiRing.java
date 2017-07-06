@@ -29,6 +29,7 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -47,6 +48,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+@Mod.EventBusSubscriber
 public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinateListProvider, IManaUsingItem {
 
 	private static final String TAG_CURSOR_LIST = "cursorList";
@@ -61,7 +63,6 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 
 	public ItemLokiRing() {
 		super(LibItemNames.LOKI_RING);
-		MinecraftForge.EVENT_BUS.register(ItemLokiRing.class);
 	}
 
 	@SubscribeEvent

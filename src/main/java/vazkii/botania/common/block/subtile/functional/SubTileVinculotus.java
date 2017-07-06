@@ -13,6 +13,7 @@ package vazkii.botania.common.block.subtile.functional;
 import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.EnderTeleportEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
@@ -29,7 +30,6 @@ import java.util.WeakHashMap;
 public class SubTileVinculotus extends SubTileFunctional {
 
 	public static final Set<SubTileVinculotus> existingFlowers = Collections.newSetFromMap(new WeakHashMap<>());
-	private static boolean registered = false;
 	private static final int RANGE = 64;
 
 	@Override
@@ -38,10 +38,6 @@ public class SubTileVinculotus extends SubTileFunctional {
 
 		if(!supertile.getWorld().isRemote && !existingFlowers.contains(this)) {
 			existingFlowers.add(this);
-			if(!registered) {
-				MinecraftForge.EVENT_BUS.register(EndermanIntercepter.class);
-				registered = true;
-			}
 		}
 	}
 
@@ -70,6 +66,7 @@ public class SubTileVinculotus extends SubTileFunctional {
 		return LexiconData.vinculotus;
 	}
 
+	@Mod.EventBusSubscriber
 	public static class EndermanIntercepter {
 
 		@SubscribeEvent

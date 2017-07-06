@@ -23,7 +23,9 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.client.event.RenderTooltipEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.lexicon.ILexicon;
 import vazkii.botania.api.lexicon.LexiconRecipeMappings;
@@ -37,6 +39,7 @@ import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
 
 import java.awt.Color;
 
+@Mod.EventBusSubscriber(Side.CLIENT)
 public final class TooltipAdditionDisplayHandler {
 
 	private static float lexiconLookupTime = 0F;

@@ -12,11 +12,14 @@ package vazkii.botania.client.core.handler;
 
 import net.minecraft.client.resources.I18n;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ItemKeepIvy;
 
+@Mod.EventBusSubscriber(Side.CLIENT)
 public final class TooltipHandler {
 
 	@SubscribeEvent(priority = EventPriority.HIGHEST)

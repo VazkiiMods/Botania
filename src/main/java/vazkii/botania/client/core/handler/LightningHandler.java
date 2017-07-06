@@ -19,7 +19,9 @@ import net.minecraft.entity.Entity;
 import net.minecraft.profiler.Profiler;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.client.fx.FXLightning;
 import vazkii.botania.client.fx.ParticleRenderDispatcher;
@@ -28,6 +30,7 @@ import vazkii.botania.client.lib.LibResources;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
+@Mod.EventBusSubscriber(Side.CLIENT)
 public class LightningHandler {
 
 	private LightningHandler() {}

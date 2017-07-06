@@ -19,6 +19,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.lib.LibMisc;
@@ -99,8 +100,6 @@ public final class ConfigHandler {
 
 		config.load();
 		load();
-
-		MinecraftForge.EVENT_BUS.register(ChangeListener.class);
 	}
 
 	public static void load() {
@@ -429,6 +428,7 @@ public final class ConfigHandler {
 
 	}
 
+	@Mod.EventBusSubscriber
 	public static class ChangeListener {
 
 		@SubscribeEvent

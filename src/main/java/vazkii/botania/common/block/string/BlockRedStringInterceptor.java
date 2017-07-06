@@ -20,6 +20,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -31,11 +32,11 @@ import vazkii.botania.common.lib.LibBlockNames;
 import javax.annotation.Nonnull;
 import java.util.Random;
 
+@Mod.EventBusSubscriber
 public class BlockRedStringInterceptor extends BlockRedString {
 
 	public BlockRedStringInterceptor() {
 		super(LibBlockNames.RED_STRING_INTERCEPTOR);
-		MinecraftForge.EVENT_BUS.register(BlockRedStringInterceptor.class);
 	}
 
 	@Nonnull

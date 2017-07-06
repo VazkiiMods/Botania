@@ -29,7 +29,9 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
 import org.lwjgl.opengl.ARBShaderObjects;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.lexicon.multiblock.IMultiblockRenderHook;
@@ -39,6 +41,7 @@ import vazkii.botania.api.lexicon.multiblock.component.MultiblockComponent;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.common.block.ModBlocks;
 
+@Mod.EventBusSubscriber(Side.CLIENT)
 public final class MultiblockRenderHandler {
 
 	private MultiblockRenderHandler() {}

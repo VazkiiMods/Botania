@@ -21,7 +21,9 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.subtile.ISubTileContainer;
 import vazkii.botania.api.subtile.RadiusDescriptor;
@@ -34,6 +36,7 @@ import vazkii.botania.common.item.ModItems;
 
 import java.awt.Color;
 
+@Mod.EventBusSubscriber(Side.CLIENT)
 public final class BlockHighlightRenderHandler {
 
 	private BlockHighlightRenderHandler() {}

@@ -170,49 +170,5 @@ public class MiscellaneousIcons {
 		nimbusGem = IconHelper.forName(evt.getMap(), "superCloudPendantGem", "items");
 	}
 
-	@SubscribeEvent
-	public void dumpAtlas(ArrowLooseEvent evt) {
-		if (!evt.getEntityPlayer().world.isRemote || !((Boolean) Launch.blackboard.get("fml.deobfuscatedEnvironment"))
-				|| !evt.getEntityPlayer().isSneaking())
-			return;
-		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-
-		int width = GL11.glGetTexLevelParameteri(GL11.GL_TEXTURE_2D, 0, GL11.GL_TEXTURE_WIDTH);
-		int height = GL11.glGetTexLevelParameteri(GL11.GL_TEXTURE_2D, 0, GL11.GL_TEXTURE_HEIGHT);
-
-		Botania.LOGGER.debug("Dumped atlas %d wide by %d tall%n", width, height);
-
-		int pixels = width * height;
-
-		IntBuffer buffer = BufferUtils.createIntBuffer(pixels);
-		int[] pixelValues = new int[pixels];
-
-		GL11.glPixelStorei(GL11.GL_PACK_ALIGNMENT, 1);
-		GL11.glPixelStorei(GL11.GL_UNPACK_ALIGNMENT, 1);
-
-		GL11.glGetTexImage(GL11.GL_TEXTURE_2D, 0, GL12.GL_BGRA, GL12.GL_UNSIGNED_INT_8_8_8_8_REV, buffer);
-
-		buffer.get(pixelValues);
-
-		BufferedImage bufferedimage = new BufferedImage(width, height, 2);
-
-		for (int k = 0; k < height; ++k)
-		{
-			for (int l = 0; l < width; ++l)
-			{
-				bufferedimage.setRGB(l, k, pixelValues[k * width + l]);
-			}
-		}
-
-		File mcFolder = Minecraft.getMinecraft().mcDataDir;
-		File result = new File(mcFolder, "atlas.png");
-
-		try {
-			ImageIO.write(bufferedimage, "png", result);
-		} catch (IOException e) {
-			Botania.LOGGER.warn("Failed to dump debug atlas");
-		}
-	}
-
 	private MiscellaneousIcons() {}
 }

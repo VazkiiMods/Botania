@@ -153,16 +153,11 @@ public class Botania {
 
 		MinecraftForge.TERRAIN_GEN_BUS.register(BiomeDecorationHandler.class);
 		MinecraftForge.EVENT_BUS.register(ManaNetworkHandler.instance);
-		MinecraftForge.EVENT_BUS.register(PixieHandler.class);
-		MinecraftForge.EVENT_BUS.register(SheddingHandler.class);
-		MinecraftForge.EVENT_BUS.register(SubTileNarslimmus.SpawnIntercepter.class);
 		MinecraftForge.EVENT_BUS.register(TileCorporeaIndex.getInputHandler());
 		MinecraftForge.EVENT_BUS.register(new LootHandler());
 
 		if(Botania.gardenOfGlassLoaded)
 			MinecraftForge.EVENT_BUS.register(SkyblockWorldEvents.class);
-
-		MinecraftForge.EVENT_BUS.register(CommonTickHandler.class);
 
 		FMLInterModComms.sendMessage("ProjectE", "interdictionblacklist", EntityManaBurst.class.getCanonicalName());
 

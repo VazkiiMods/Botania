@@ -13,10 +13,13 @@ package vazkii.botania.client.render.world;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.world.WorldTypeSkyblock;
 
+@Mod.EventBusSubscriber(Side.CLIENT)
 public final class SkyblockRenderEvents {
 
 	@SubscribeEvent

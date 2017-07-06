@@ -9,6 +9,7 @@ import net.minecraft.client.audio.SoundHandler;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraftforge.client.event.sound.PlaySoundEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
@@ -21,7 +22,7 @@ import javax.annotation.Nullable;
 import java.awt.Color;
 import java.util.Random;
 
-@SideOnly(Side.CLIENT)
+@Mod.EventBusSubscriber(Side.CLIENT)
 public class BergamuteEventHandler {
 
 	private BergamuteEventHandler() {}

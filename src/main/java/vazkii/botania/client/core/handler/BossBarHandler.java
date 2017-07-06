@@ -14,7 +14,9 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
 import org.lwjgl.opengl.ARBShaderObjects;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.boss.IBotaniaBoss;
@@ -29,6 +31,7 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.WeakHashMap;
 
+@Mod.EventBusSubscriber(Side.CLIENT)
 public final class BossBarHandler {
 
 	private BossBarHandler() {}
