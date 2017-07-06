@@ -3,10 +3,17 @@
     "item": "botania:dye",
     "data": 6
   },
+  "group": "botania:dye",
   "ingredients": [
-    {
-      "item": "#PETALPINK"
-    },
+    [
+      {
+        "item": "minecraft:red_flower",
+        "data": 7
+      },
+      {
+        "item": "#PETALPINK"
+      }
+    ],
     {
       "item": "#PESTLEANDMORTAR"
     }

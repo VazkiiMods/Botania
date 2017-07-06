@@ -82,6 +82,7 @@ import vazkii.botania.common.entity.EntityPinkWither;
 import vazkii.botania.common.entity.EntitySignalFlare;
 import vazkii.botania.common.entity.EntitySpark;
 import vazkii.botania.common.entity.ModEntities;
+import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.network.GuiHandler;
 import vazkii.botania.common.network.PacketHandler;
@@ -146,7 +147,7 @@ public class Botania {
 		ModManaInfusionRecipes.init();
 		ModElvenTradeRecipes.init();
 		ModBrewRecipes.init();
-		// LexiconData.init(); todo 1.12
+		LexiconData.init();
 
 		NetworkRegistry.INSTANCE.registerGuiHandler(Botania.instance, new GuiHandler());
 
@@ -184,7 +185,7 @@ public class Botania {
 
 		ModBlocks.addDispenserBehaviours();
 		ConfigHandler.loadPostInit();
-		// LexiconData.postInit(); todo 1.12
+		LexiconData.postInit();
 
 		int words = 0;
 		for(LexiconEntry entry : BotaniaAPI.getAllEntries())

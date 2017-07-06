@@ -3,6 +3,7 @@
     "item": "botania:dye",
     "data": 2
   },
+  "group": "botania:dye",
   "ingredients": [
     {
       "item": "#PETALMAGENTA"

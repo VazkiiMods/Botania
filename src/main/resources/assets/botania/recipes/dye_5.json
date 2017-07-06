@@ -3,6 +3,7 @@
     "item": "botania:dye",
     "data": 5
   },
+  "group": "botania:dye",
   "ingredients": [
     {
       "item": "#PETALLIME"

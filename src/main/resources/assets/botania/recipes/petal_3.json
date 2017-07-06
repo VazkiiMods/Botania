@@ -4,6 +4,7 @@
     "data": 3,
     "count": 2
   },
+  "group": "botania:petal",
   "ingredients": [
     {
       "item": "#MYSTICFLOWERLIGHTBLUE"

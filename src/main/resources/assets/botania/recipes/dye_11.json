@@ -3,6 +3,7 @@
     "item": "botania:dye",
     "data": 11
   },
+  "group": "botania:dye",
   "ingredients": [
     {
       "item": "#PETALBLUE"

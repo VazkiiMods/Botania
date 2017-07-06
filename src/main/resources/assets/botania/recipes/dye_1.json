@@ -3,10 +3,17 @@
     "item": "botania:dye",
     "data": 1
   },
+  "group": "botania:dye",
   "ingredients": [
-    {
-      "item": "#PETALORANGE"
-    },
+    [
+      {
+        "item": "minecraft:red_flower",
+        "data": 5
+      },
+      {
+        "item": "#PETALORANGE"
+      }
+    ],
     {
       "item": "#PESTLEANDMORTAR"
     }

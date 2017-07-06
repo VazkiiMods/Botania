@@ -10,7 +10,48 @@
  */
 package vazkii.botania.common.lexicon;
 
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
+import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.brew.IBrewContainer;
+import vazkii.botania.api.lexicon.LexiconCategory;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.lexicon.LexiconPage;
+import vazkii.botania.api.lexicon.LexiconRecipeMappings;
+import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.common.Botania;
+import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.ModMultiblocks;
+import vazkii.botania.common.brew.ModBrews;
+import vazkii.botania.common.core.handler.ConfigHandler;
+import vazkii.botania.common.core.handler.SheddingHandler;
+import vazkii.botania.common.crafting.ModBrewRecipes;
+import vazkii.botania.common.crafting.ModCraftingRecipes;
+import vazkii.botania.common.crafting.ModElvenTradeRecipes;
+import vazkii.botania.common.crafting.ModManaAlchemyRecipes;
+import vazkii.botania.common.crafting.ModManaConjurationRecipes;
+import vazkii.botania.common.crafting.ModManaInfusionRecipes;
+import vazkii.botania.common.crafting.ModPetalRecipes;
+import vazkii.botania.common.crafting.ModRuneRecipes;
+import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
+import vazkii.botania.common.lexicon.page.PageBrew;
+import vazkii.botania.common.lexicon.page.PageCraftingRecipe;
+import vazkii.botania.common.lexicon.page.PageElvenRecipe;
+import vazkii.botania.common.lexicon.page.PageImage;
+import vazkii.botania.common.lexicon.page.PageLoreText;
+import vazkii.botania.common.lexicon.page.PageManaInfusionRecipe;
+import vazkii.botania.common.lexicon.page.PageMultiblock;
+import vazkii.botania.common.lexicon.page.PagePetalRecipe;
+import vazkii.botania.common.lexicon.page.PageRuneRecipe;
+import vazkii.botania.common.lexicon.page.PageTerrasteel;
+import vazkii.botania.common.lexicon.page.PageText;
+import vazkii.botania.common.lib.LibBlockNames;
+import vazkii.botania.common.lib.LibLexicon;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public final class LexiconData {
 
@@ -252,7 +293,6 @@ public final class LexiconData {
 	public static LexiconEntry bcIntegration;
 	public static LexiconEntry banners;
 
-	/*
 	public static void init() {
 		BotaniaAPI.addCategory(BotaniaAPI.categoryBasics = new BLexiconCategory(LibLexicon.CATEGORY_BASICS, 9));
 		BotaniaAPI.addCategory(BotaniaAPI.categoryMana = new BLexiconCategory(LibLexicon.CATEGORY_MANA, 5));
@@ -286,7 +326,7 @@ public final class LexiconData {
 				new PageCraftingRecipe("3", ModCraftingRecipes.recipesPetals),
 				new PageCraftingRecipe("4", ModCraftingRecipes.recipePestleAndMortar),
 				new PageCraftingRecipe("5", ModCraftingRecipes.recipesDyes),
-				new PageCraftingRecipe("5.5", ModCraftingRecipes.recipesDyesVanilla),
+				// todo 1.12 new PageCraftingRecipe("5.5", ModCraftingRecipes.recipesDyesVanilla),
 				new PageText("6"),
 				new PageCraftingRecipe("7", ModCraftingRecipes.recipeFertilizerPowder),
 				new PageCraftingRecipe("8", ModCraftingRecipes.recipeFerilizerDye), new PageText("10"),
@@ -1262,7 +1302,7 @@ public final class LexiconData {
 			relicInfo = new RelicLexiconEntry(LibLexicon.ALF_RELIC_INFO, categoryAlfhomancy, null);
 			relicInfo.setLexiconPages(new PageText("0"), new PageText("1")).setIcon(new ItemStack(ModItems.dice));
 
-			infiniteFruit = new RelicLexiconEntry(LibLexicon.ALF_INFINITE_FRUIT, categoryAlfhomancy,
+			/*infiniteFruit = new RelicLexiconEntry(LibLexicon.ALF_INFINITE_FRUIT, categoryAlfhomancy,
 					ModAchievements.relicInfiniteFruit);
 			infiniteFruit.setLexiconPages(new PageText("0"));
 
@@ -1280,7 +1320,7 @@ public final class LexiconData {
 			lokiRing.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"), new PageText("3"));
 
 			odinRing = new RelicLexiconEntry(LibLexicon.ALF_ODIN_RING, categoryAlfhomancy, ModAchievements.relicOdinRing);
-			odinRing.setLexiconPages(new PageText("0"));
+			odinRing.setLexiconPages(new PageText("0")); todo 1.12 */
 		}
 
 		decorativeBlocks = new BasicLexiconEntry(LibLexicon.MISC_DECORATIVE_BLOCKS, categoryMisc);
@@ -1400,5 +1440,4 @@ public final class LexiconData {
 				.setIcon(new ItemStack(ModItems.manaInkwell));
 		}
 	}
-	*/
 }

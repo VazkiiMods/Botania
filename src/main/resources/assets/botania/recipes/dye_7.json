@@ -3,6 +3,7 @@
     "item": "botania:dye",
     "data": 7
   },
+  "group": "botania:dye",
   "ingredients": [
     {
       "item": "#PETALGRAY"

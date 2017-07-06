@@ -36,6 +36,7 @@ import vazkii.botania.client.lib.LibResources;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class PageCraftingRecipe extends PageRecipe {
@@ -170,8 +171,8 @@ public class PageCraftingRecipe extends PageRecipe {
 					for(int x = 0; x < 3; x++) {
 						int index = y * 3 + x;
 
-						/*if(index >= shapeless.getRecipeSize()) todo 1.12
-							break drawGrid;*/
+						if(index >= shapeless.getIngredients().size())
+							break drawGrid;
 
 						Ingredient input = shapeless.getIngredients().get(index);
 						if(input != Ingredient.EMPTY)
@@ -190,6 +191,7 @@ public class PageCraftingRecipe extends PageRecipe {
 	public List<ItemStack> getDisplayedRecipes() {
 		return recipes.stream()
 				.map(ForgeRegistries.RECIPES::getValue)
+				.filter(Objects::nonNull)
 				.map(IRecipe::getRecipeOutput)
 				.filter(s -> !s.isEmpty())
 				.collect(Collectors.toList());

@@ -4,14 +4,15 @@
     "data": 4,
     "count": 2
   },
+  "group": "botania:dye_double",
   "ingredients": [
-    {
-      "item": "botania:pestleandmortar"
-    },
     {
       "item": "minecraft:double_plant",
       "data": 0
+    },
+    {
+      "item": "#PESTLEANDMORTAR"
     }
   ],
-  "type": "minecraft:crafting_shapeless"
+  "type": "forge:ore_shapeless"
 }
