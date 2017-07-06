@@ -38,8 +38,8 @@ import java.util.Properties;
 
 public final class ContributorFancinessHandler implements LayerRenderer<EntityPlayer> {
 
-	public volatile static Map<String, ItemStack> flowerMap = null;
-	private volatile static boolean startedLoading = false;
+	public static final Map<String, ItemStack> flowerMap = new HashMap<>();
+	private static boolean startedLoading = false;
 
 	@Override
 	public void doRenderLayer(@Nonnull EntityPlayer player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
@@ -60,7 +60,7 @@ public final class ContributorFancinessHandler implements LayerRenderer<EntityPl
 		firstStart();
 
 		name = name.toLowerCase();
-		if(player.isWearing(EnumPlayerModelParts.CAPE) && flowerMap != null && flowerMap.containsKey(name))
+		if(player.isWearing(EnumPlayerModelParts.CAPE) && flowerMap.containsKey(name))
 			renderFlower(player, flowerMap.get(name));
 
 		GlStateManager.popMatrix();
@@ -79,7 +79,7 @@ public final class ContributorFancinessHandler implements LayerRenderer<EntityPl
 	}
 
 	public static void load(Properties props) {
-		flowerMap = new HashMap<>();
+		flowerMap.clear();
 		for(String key : props.stringPropertyNames()) {
 			String value = props.getProperty(key);
 
@@ -146,7 +146,6 @@ public final class ContributorFancinessHandler implements LayerRenderer<EntityPl
 			} catch (IOException e) {
 				Botania.LOGGER.info("Could not load contributors list. Either you're offline or github is down. Nothing to worry about, carry on~");
 			}
-			VersionChecker.doneChecking = true;
 		}
 
 	}

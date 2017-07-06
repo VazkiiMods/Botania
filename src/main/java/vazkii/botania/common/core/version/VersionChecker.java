@@ -32,12 +32,12 @@ public final class VersionChecker {
 
 	private static final int FLAVOUR_MESSAGES = 65;
 
-	public static boolean doneChecking = false;
-	public static String onlineVersion = "";
+	public static volatile boolean doneChecking = false;
+	public static volatile String onlineVersion = "";
 	private static boolean triedToWarnPlayer = false;
 
-	public static boolean startedDownload = false;
-	public static boolean downloadedFile = false;
+	public static volatile boolean startedDownload = false;
+	public static volatile boolean downloadedFile = false;
 
 	public static void init() {
 		new ThreadVersionChecker();
@@ -45,7 +45,7 @@ public final class VersionChecker {
 
 	@SubscribeEvent
 	public static void onTick(ClientTickEvent event) {
-		if(doneChecking && event.phase == Phase.END && Minecraft.getMinecraft().player != null && !triedToWarnPlayer) {
+		if(event.phase == Phase.END && Minecraft.getMinecraft().player != null && !triedToWarnPlayer && doneChecking) {
 			if(!onlineVersion.isEmpty()) {
 				EntityPlayer player = Minecraft.getMinecraft().player;
 				int onlineBuild = Integer.parseInt(onlineVersion.split("-")[1]);
