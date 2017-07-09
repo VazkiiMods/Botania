@@ -65,6 +65,7 @@ import vazkii.botania.common.core.handler.SheddingHandler;
 import vazkii.botania.common.core.loot.LootHandler;
 import vazkii.botania.common.core.proxy.IProxy;
 import vazkii.botania.common.crafting.ModBrewRecipes;
+import vazkii.botania.common.crafting.ModCraftingRecipes;
 import vazkii.botania.common.crafting.ModElvenTradeRecipes;
 import vazkii.botania.common.crafting.ModManaAlchemyRecipes;
 import vazkii.botania.common.crafting.ModManaConjurationRecipes;
@@ -147,6 +148,7 @@ public class Botania {
 		ModManaInfusionRecipes.init();
 		ModElvenTradeRecipes.init();
 		ModBrewRecipes.init();
+		ModCraftingRecipes.init();
 		LexiconData.init();
 
 		NetworkRegistry.INSTANCE.registerGuiHandler(Botania.instance, new GuiHandler());

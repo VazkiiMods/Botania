@@ -20,6 +20,7 @@ import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.registries.IForgeRegistry;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.crafting.recipe.AesirRingRecipe;
 import vazkii.botania.common.crafting.recipe.AncientWillRecipe;
@@ -44,9 +45,9 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.lib.LibOreDict;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Mod.EventBusSubscriber
 public final class ModCraftingRecipes {
@@ -64,7 +65,7 @@ public final class ModCraftingRecipes {
 	public static ResourceLocation recipePool;
 	public static ResourceLocation recipePoolDiluted;
 	public static ResourceLocation recipePoolFabulous;
-	public static List<ResourceLocation> recipesRuneAltar;
+	public static ResourceLocation recipeRuneAltar;
 	public static ResourceLocation recipeLensVelocity;
 	public static ResourceLocation recipeLensPotency;
 	public static ResourceLocation recipeLensResistance;
@@ -449,28 +450,52 @@ public final class ModCraftingRecipes {
 			addShapelessRecipe(new ItemStack(ModItems.elementiumHelmRevealing), new ItemStack(ModItems.elementiumHelm), goggles);
 		}
 		*/
-		
-		recipeLexicon = path("lexicon");
+	}
+
+	public static void init() {
+		// Can't do this in RegistryEvent.Register event handler since it seems JSON recipes aren't loaded yet
 		recipesPetals = allOfGroup("petal");
+		recipePestleAndMortar = path("pestleandmortar");
 		recipesDyes = allOfGroup("dye");
+		recipeFertilizerPowder = gogPath("fertilizer_powder");
+		recipeFerilizerDye = path("fertilizer_dye");
+		recipesPetalsDouble = allOfGroup("petal_double");
 		recipesPetalBlocks = allOfGroup("petalblock");
 		recipesReversePetalBlocks = allOfGroup("petal_block_deconstruct");
+
+		recipesApothecary = allOfGroup("petal_apothecary");
+
+		recipeLexicon = path("lexicon");
+
+		// todo 1.12 wands
+
+		recipeLivingwoodTwig = path("manaresource_3");
+
+		recipeRuneAltar = path("runealtar");
+
+		recipeTerraPlate = path("terraplate");
+
+		recipeFlowerBag = path("flowerbag");
 	}
-	
+
+	private static ResourceLocation gogPath(String path) {
+		if(Botania.gardenOfGlassLoaded) {
+			return new ResourceLocation(LibMisc.MOD_ID, "garden_of_glass/" + path);
+		} else {
+			return path(path);
+		}
+	}
+
 	private static ResourceLocation path(String path) {
 		return new ResourceLocation(LibMisc.MOD_ID, path);
 	}
 
 	private static List<ResourceLocation> allOfGroup(String group) {
 		String jsonGroup = LibMisc.MOD_ID + ":" + group;
-		List<ResourceLocation> result = new ArrayList<>();
 
-		for (Map.Entry<ResourceLocation, IRecipe> e : ForgeRegistries.RECIPES.getEntries()) {
-			if (jsonGroup.equals(e.getValue().getGroup())) {
-				result.add(e.getKey());
-			}
-		}
-
-		return result;
+		return ForgeRegistries.RECIPES.getEntries().stream()
+				.filter(e -> jsonGroup.equals(e.getValue().getGroup()))
+				.map(Map.Entry::getKey)
+				.collect(Collectors.toList());
 	}
 }

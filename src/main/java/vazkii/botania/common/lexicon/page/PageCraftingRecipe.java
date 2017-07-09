@@ -128,60 +128,39 @@ public class PageCraftingRecipe extends PageRecipe {
 
 	@SideOnly(Side.CLIENT)
 	public void renderCraftingRecipe(IGuiLexiconEntry gui, IRecipe recipe) {
-		if(recipe instanceof ShapedRecipes) {
-			ShapedRecipes shaped = (ShapedRecipes)recipe;
+		if(recipe instanceof ShapedRecipes || recipe instanceof ShapedOreRecipe) {
+			oreDictRecipe = recipe instanceof ShapedOreRecipe;
 
-			for(int y = 0; y < shaped.recipeHeight; y++)
-				for(int x = 0; x < shaped.recipeWidth; x++)
-					renderItemAtGridPos(gui, 1 + x, 1 + y, shaped.recipeItems.get(y * shaped.recipeWidth + x).getMatchingStacks()[0], true);
-		} else if(recipe instanceof ShapedOreRecipe) {
-			ShapedOreRecipe shaped = (ShapedOreRecipe) recipe;
-			int width = ReflectionHelper.getPrivateValue(ShapedOreRecipe.class, shaped, 4);
-			int height = ReflectionHelper.getPrivateValue(ShapedOreRecipe.class, shaped, 5);
+			int width = oreDictRecipe
+					? ReflectionHelper.getPrivateValue(ShapedOreRecipe.class, (ShapedOreRecipe) recipe, "width")
+					: ((ShapedRecipes) recipe).getWidth();
+			int height = oreDictRecipe
+					? ReflectionHelper.getPrivateValue(ShapedOreRecipe.class, (ShapedOreRecipe) recipe, "height")
+					: ((ShapedRecipes) recipe).getHeight();
 
 			for(int y = 0; y < height; y++)
 				for(int x = 0; x < width; x++) {
-					Ingredient input = shaped.getIngredients().get(y * width + x);
+					Ingredient input = recipe.getIngredients().get(y * width + x);
 					if(input != Ingredient.EMPTY)
 						renderItemAtGridPos(gui, 1 + x, 1 + y, input.getMatchingStacks()[0], true);
 				}
-
-			oreDictRecipe = true;
-		} else if(recipe instanceof ShapelessRecipes) {
-			ShapelessRecipes shapeless = (ShapelessRecipes) recipe;
-
-			drawGrid : {
-				for(int y = 0; y < 3; y++)
-					for(int x = 0; x < 3; x++) {
-						int index = y * 3 + x;
-
-						if(index >= shapeless.recipeItems.size())
-							break drawGrid;
-
-						renderItemAtGridPos(gui, 1 + x, 1 + y, shapeless.recipeItems.get(index).getMatchingStacks()[0], true);
-					}
-			}
-
+		} else if(recipe instanceof ShapelessRecipes || recipe instanceof ShapelessOreRecipe) {
 			shapelessRecipe = true;
-		} else if(recipe instanceof ShapelessOreRecipe) {
-			ShapelessOreRecipe shapeless = (ShapelessOreRecipe) recipe;
+			oreDictRecipe = recipe instanceof ShapelessOreRecipe;
 
 			drawGrid : {
 				for(int y = 0; y < 3; y++)
 					for(int x = 0; x < 3; x++) {
 						int index = y * 3 + x;
 
-						if(index >= shapeless.getIngredients().size())
+						if(index >= recipe.getIngredients().size())
 							break drawGrid;
 
-						Ingredient input = shapeless.getIngredients().get(index);
+						Ingredient input = recipe.getIngredients().get(index);
 						if(input != Ingredient.EMPTY)
 							renderItemAtGridPos(gui, 1 + x, 1 + y, input.getMatchingStacks()[0], true);
 					}
 			}
-
-			shapelessRecipe = true;
-			oreDictRecipe = true;
 		}
 
 		renderItemAtGridPos(gui, 2, 0, recipe.getRecipeOutput(), false);

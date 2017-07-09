@@ -344,9 +344,9 @@ public final class LexiconData {
 		lexicon.setPriority().setLexiconPages(new PageText("0"), new PageText("3"),
 				new PageCraftingRecipe("1", ModCraftingRecipes.recipeLexicon), new PageText("2"));
 
-		wand = new BasicLexiconEntry(LibLexicon.BASICS_WAND, categoryBasics);
+		/*wand = new BasicLexiconEntry(LibLexicon.BASICS_WAND, categoryBasics);
 		wand.setPriority().setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"),
-				new PageCraftingRecipe("3", ModCraftingRecipes.recipesTwigWand));
+				new PageCraftingRecipe("3", ModCraftingRecipes.recipesTwigWand));*/
 
 		pureDaisy = new BasicLexiconEntry(LibLexicon.BASICS_PURE_DAISY, categoryBasics);
 		pureDaisy.setPriority()
@@ -361,7 +361,7 @@ public final class LexiconData {
 
 		runicAltar = new BasicLexiconEntry(LibLexicon.BASICS_RUNE_ALTAR, categoryBasics);
 		runicAltar.setPriority().setLexiconPages(new PageText("21"), new PageText("0"), new PageText("1"),
-				new PageCraftingRecipe("2", ModCraftingRecipes.recipesRuneAltar), new PageText("3"), new PageText("20"),
+				new PageCraftingRecipe("2", ModCraftingRecipes.recipeRuneAltar), new PageText("3"), new PageText("20"),
 				new PageText("22"), new PageRuneRecipe("4", ModRuneRecipes.recipeWaterRune),
 				new PageRuneRecipe("5", ModRuneRecipes.recipesEarthRune),
 				new PageRuneRecipe("6", ModRuneRecipes.recipesAirRune),
@@ -391,6 +391,8 @@ public final class LexiconData {
 		flowerBag = new BasicLexiconEntry(LibLexicon.BASICS_FLOWER_BAG, categoryBasics);
 		flowerBag.setLexiconPages(new PageText("0"), new PageText("2"),
 				new PageCraftingRecipe("1", ModCraftingRecipes.recipeFlowerBag));
+
+		if(true) return;
 
 		if (Botania.gardenOfGlassLoaded) {
 			gardenOfGlass = new BasicLexiconEntry(LibLexicon.BASICS_GARDEN_OF_GLASS, categoryBasics);

@@ -433,9 +433,12 @@ public class GuiLexicon extends GuiScreen {
 			mc.displayGuiScreen(new GuiBotaniaConfig(this));
 			break;
 		case -2 :
-			// todo 1.12 switch to botania tab
-			if(mc.player != null)
-				this.mc.displayGuiScreen(new GuiScreenAdvancements(this.mc.player.connection.getAdvancementManager()));
+			if(mc.player != null) {
+				GuiScreenAdvancements gui = new GuiScreenAdvancements(this.mc.player.connection.getAdvancementManager());
+				this.mc.displayGuiScreen(gui);
+				ResourceLocation tab = new ResourceLocation(LibMisc.MOD_ID, "main/root");
+				gui.setSelectedTab(mc.player.connection.getAdvancementManager().getAdvancementList().getAdvancement(tab));
+			}
 			break;
 		case -3 :
 			mc.displayGuiScreen(new GuiLexiconChallengesList());
