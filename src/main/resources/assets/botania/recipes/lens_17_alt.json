@@ -8,6 +8,7 @@
     "GLG",
     "FGF"
   ],
+  "group": "botania:lens_17",
   "type": "forge:ore_shaped",
   "key": {
     "F": {

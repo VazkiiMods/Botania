@@ -3,6 +3,7 @@
     "item": "botania:spreader",
     "data": 1
   },
+  "group": "botania:spreader",
   "ingredients": [
     {
       "item": "botania:spreader",

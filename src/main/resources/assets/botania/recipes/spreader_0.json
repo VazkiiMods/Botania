@@ -17,6 +17,7 @@
     "GP ",
     "WWW"
   ],
+  "group": "botania:spreader",
   "type": "forge:ore_shaped",
   "key": {
     "P": [

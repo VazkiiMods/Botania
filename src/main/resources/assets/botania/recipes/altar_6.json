@@ -9,7 +9,7 @@
     "SSS"
   ],
   "type": "minecraft:crafting_shaped",
-  "group": "botania:petal_apothecary",
+  "group": "botania:metamorphic_apothecary",
   "key": {
     "A": {
       "item": "botania:altar",

@@ -338,7 +338,7 @@ public final class LexiconData {
 		apothecary = new BasicLexiconEntry(LibLexicon.BASICS_APOTHECARY, categoryBasics);
 		apothecary.setPriority().setLexiconPages(new PageText("0"), new PageImage("1", LibResources.ENTRY_APOTHECARY),
 				new PageText("2"), new PageText("3"), new PageText("4"), new PageText("7"), new PageText("6"),
-				new PageCraftingRecipe("5", ModCraftingRecipes.recipesApothecary));
+				new PageCraftingRecipe("5", ModCraftingRecipes.recipeApothecary));
 
 		lexicon = new BasicLexiconEntry(LibLexicon.BASICS_LEXICON, categoryBasics);
 		lexicon.setPriority().setLexiconPages(new PageText("0"), new PageText("3"),
@@ -392,8 +392,6 @@ public final class LexiconData {
 		flowerBag.setLexiconPages(new PageText("0"), new PageText("2"),
 				new PageCraftingRecipe("1", ModCraftingRecipes.recipeFlowerBag));
 
-		if(true) return;
-
 		if (Botania.gardenOfGlassLoaded) {
 			gardenOfGlass = new BasicLexiconEntry(LibLexicon.BASICS_GARDEN_OF_GLASS, categoryBasics);
 			gardenOfGlass.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"),
@@ -437,7 +435,7 @@ public final class LexiconData {
 
 		sparks = new BasicLexiconEntry(LibLexicon.MANA_SPARKS, categoryMana);
 		sparks.setPriority().setLexiconPages(new PageText("0"), new PageText("1"), new PageText("3"),
-				new PageCraftingRecipe("2", ModCraftingRecipes.recipesSpark));
+				new PageCraftingRecipe("2", ModCraftingRecipes.recipeSpark));
 
 		sparkUpgrades = new AlfheimLexiconEntry(LibLexicon.MANA_SPARK_UPGRADES, categoryMana);
 		sparkUpgrades.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"), new PageText("3"),
@@ -479,7 +477,7 @@ public final class LexiconData {
 
 		manaTablet = new BasicLexiconEntry(LibLexicon.MANA_TABLET, categoryMana);
 		manaTablet.setPriority().setLexiconPages(new PageText("0"), new PageText("1"),
-				new PageCraftingRecipe("2", ModCraftingRecipes.recipesManaTablet));
+				new PageCraftingRecipe("2", ModCraftingRecipes.recipeManaTablet));
 
 		manaMirror = new BasicLexiconEntry(LibLexicon.MANA_MIRROR, categoryMana);
 		manaMirror.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeManaMirror));
@@ -498,7 +496,7 @@ public final class LexiconData {
 
 		dreamwoodSpreader = new AlfheimLexiconEntry(LibLexicon.MANA_DREAMWOOD_SPREADER, categoryMana);
 		dreamwoodSpreader.setLexiconPages(new PageText("0"),
-				new PageCraftingRecipe("1", ModCraftingRecipes.recipesDreamwoodSpreader), new PageText("2"),
+				new PageCraftingRecipe("1", ModCraftingRecipes.recipeDreamwoodSpreader), new PageText("2"),
 				new PageCraftingRecipe("3", ModCraftingRecipes.recipeUltraSpreader));
 
 		elvenLenses = new AlfheimLexiconEntry(LibLexicon.MANA_ELVEN_LENSES, categoryMana);
@@ -533,7 +531,6 @@ public final class LexiconData {
 		.setPriority().setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"),
 				new PageText("3"), new PageCraftingRecipe("4", ModCraftingRecipes.recipeRedstoneRoot))
 		.setIcon(ItemStack.EMPTY);
-		;
 
 		flowerShrinking = new BasicLexiconEntry(LibLexicon.FFLOWER_SHRINKING, categoryFunctionalFlowers);
 		flowerShrinking.setPriority()
@@ -682,6 +679,8 @@ public final class LexiconData {
 				new PageText("3"), new PageText("4"), new PageText("5"), new PageText("6"), new PageText("10"),
 				new PageText("7"), new PagePetalRecipe<>("8", ModPetalRecipes.dandelifeonRecipe),
 				new PageCraftingRecipe("9", ModCraftingRecipes.recipeCellBlock));
+
+		if(true) return;
 
 		// DEVICES ENTRIES
 		pylon = new BasicLexiconEntry(LibLexicon.DEVICE_PYLON, categoryDevices);

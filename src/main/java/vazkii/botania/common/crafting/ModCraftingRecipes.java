@@ -10,6 +10,7 @@
  */
 package vazkii.botania.common.crafting;
 
+import com.google.common.collect.ImmutableList;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ResourceLocation;
@@ -59,7 +60,7 @@ public final class ModCraftingRecipes {
 	public static List<ResourceLocation> recipesReversePetalBlocks;
 	public static ResourceLocation recipePestleAndMortar;
 	public static List<ResourceLocation> recipesTwigWand;
-	public static List<ResourceLocation> recipesApothecary;
+	public static ResourceLocation recipeApothecary;
 	public static List<ResourceLocation> recipesSpreader;
 	public static List<ResourceLocation> recipesManaLens;
 	public static ResourceLocation recipePool;
@@ -89,7 +90,7 @@ public final class ModCraftingRecipes {
 	public static ResourceLocation recipeLivingwoodDecor4;
 	public static ResourceLocation recipeLivingwoodDecor5;
 	public static ResourceLocation recipeManaVoid;
-	public static List<ResourceLocation> recipesManaTablet;
+	public static ResourceLocation recipeManaTablet;
 	public static ResourceLocation recipeManaDetector;
 	public static ResourceLocation recipeManaBlaster;
 	public static ResourceLocation recipeTurntable;
@@ -163,7 +164,7 @@ public final class ModCraftingRecipes {
 	public static ResourceLocation recipeSuperTravelBelt;
 	public static ResourceLocation recipeRainbowRod;
 	public static ResourceLocation recipeSpectralPlatform;
-	public static List<ResourceLocation> recipesDreamwoodSpreader;
+	public static ResourceLocation recipeDreamwoodSpreader;
 	public static ResourceLocation recipeTornadoRod;
 	public static ResourceLocation recipeFireRod;
 	public static ResourceLocation recipeVineBall;
@@ -199,7 +200,7 @@ public final class ModCraftingRecipes {
 	public static ResourceLocation recipeEnderHand;
 	public static ResourceLocation recipeGlassPick;
 	public static ResourceLocation recipeStarfield;
-	public static List<ResourceLocation> recipesSpark;
+	public static ResourceLocation recipeSpark;
 	public static List<ResourceLocation> recipesSparkUpgrades;
 	public static ResourceLocation recipeLeafHorn;
 	public static ResourceLocation recipeDiviningRod;
@@ -256,7 +257,6 @@ public final class ModCraftingRecipes {
 	public static List<ResourceLocation> recipesPetalsDouble;
 	public static ResourceLocation recipeKeepIvy;
 	public static ResourceLocation recipeBlackHoleTalisman;
-	public static List<ResourceLocation> recipe18StoneChisel;
 	public static ResourceLocation recipeBlazeBlock;
 	public static List<ResourceLocation> recipesAltarMeta;
 	public static ResourceLocation recipeCorporeaCrystalCube;
@@ -463,7 +463,7 @@ public final class ModCraftingRecipes {
 		recipesPetalBlocks = allOfGroup("petalblock");
 		recipesReversePetalBlocks = allOfGroup("petal_block_deconstruct");
 
-		recipesApothecary = allOfGroup("petal_apothecary");
+		recipeApothecary = path("altar_0");
 
 		recipeLexicon = path("lexicon");
 
@@ -476,6 +476,65 @@ public final class ModCraftingRecipes {
 		recipeTerraPlate = path("terraplate");
 
 		recipeFlowerBag = path("flowerbag");
+
+		if(Botania.gardenOfGlassLoaded) {
+			recipeRootToSapling = gogPath("root_to_sapling");
+			recipeRootToFertilizer = gogPath("root_to_fertilizer");
+			recipePebbleCobblestone = gogPath("pebble_to_cobblestone");
+			recipeMagmaToSlimeball = gogPath("magma_cream_to_slime_ball");
+			recipeEndPortal = gogPath("end_portal_frame");
+		}
+
+		recipesSpreader = allOfGroup("spreader");
+
+		recipePool = path("pool_0");
+		recipePoolDiluted = path("pool_2");
+		recipePoolFabulous = path("pool_3");
+		recipeCobweb = path("web");
+
+		recipeSpark = path("spark");
+		recipesSparkUpgrades = allOfGroup("spark_upgrade");
+		recipeRFGenerator = path("rfgenerator");
+
+		recipesManaLens = ImmutableList.of(path("lens_0_glass_block"), path("lens_0_glass_pane"));
+		recipeLensVelocity = path("lens_1");
+		recipeLensPotency = path("lens_2");
+		recipeLensResistance = path("lens_3");
+		recipeLensEfficiency = path("lens_4");
+		recipeLensBounce = path("lens_5");
+		recipeLensGravity = path("lens_6");
+		recipeLensBore = path("lens_7");
+		recipeLensDamaging = path("lens_8");
+		recipeLensPhantom = path("lens_9");
+		recipeLensMagnet = path("lens_10");
+		recipeLensExplosive = path("lens_11");
+		recipeLensInfluence = path("lens_12");
+		recipeLensWeight = path("lens_13");
+		recipeLensPaint = path("lens_14");
+		recipeLensFire = path("lens_15");
+		recipeLensPiston = path("lens_16");
+		recipesLensFlash = allOfGroup("lens_17");
+		recipeLensWarp = path("lens_18");
+		recipeLensRedirect = path("lens_19");
+		recipeLensFirework = path("lens_20");
+		recipeLensFlare = path("lens_21");
+		recipeLensMessenger = path("lens_22");
+
+		recipeDistributor = path("distributor");
+		recipeManaVoid = path("manavoid");
+		recipeManaTablet = path("manatablet");
+		recipeManaMirror = path("manamirror");
+		recipeManaDetector = path("manadetector");
+		recipeRedstoneSpreader = path("spreader_1");
+		recipeDreamwoodSpreader = path("spreader_2");
+		recipeUltraSpreader = path("spreader_3");
+		recipePrism = path("prism");
+		recipePoolCart = path("poolminecart");
+		recipePump = path("pump");
+		recipeSparkChanger = path("sparkchanger");
+		recipeBellows = path("bellows");
+		recipeRedstoneRoot = path("manaresource_6");
+		recipesAltarMeta = allOfGroup("metamorphic_apothecary");
 	}
 
 	private static ResourceLocation gogPath(String path) {

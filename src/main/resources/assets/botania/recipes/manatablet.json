@@ -9,9 +9,14 @@
   ],
   "type": "forge:ore_shaped",
   "key": {
-    "P": {
-      "item": "#MANAPEARL"
-    },
+    "P": [
+      {
+        "item": "#MANADIAMOND"
+      },
+      {
+        "item": "#MANAPEARL"
+      }
+    ],
     "S": {
       "item": "#LIVINGROCK"
     }

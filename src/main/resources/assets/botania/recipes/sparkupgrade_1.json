@@ -3,6 +3,7 @@
     "item": "botania:sparkupgrade",
     "data": 1
   },
+  "group": "botania:spark_upgrade",
   "ingredients": [
     {
       "item": "#ELVENPIXIEDUST"
