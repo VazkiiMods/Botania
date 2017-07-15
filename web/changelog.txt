@@ -1,3 +1,8 @@
+r1.9 345
+*Fixed a bad pixel in the checkmark for mana infision.
+*Fixed a dupe when interacting with sparks just as they're leaving the world.
+*Fixed Managlass and Alfglass transparency (palaster).
+*Fixed the Pure Daisy running its logic client sided as well.
 r1.9 344
 *Fixed a lava dupe with the Petal Apothecary.
 *Fixed a Mana Enchanter game freeze.
