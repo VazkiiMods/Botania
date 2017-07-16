@@ -20,6 +20,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.RecipeSorter;
+import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.registries.IForgeRegistry;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModFluffBlocks;
@@ -42,10 +43,12 @@ import vazkii.botania.common.crafting.recipe.ShapelessManaUpgradeRecipe;
 import vazkii.botania.common.crafting.recipe.SpecialFloatingFlowerRecipe;
 import vazkii.botania.common.crafting.recipe.SpellClothRecipe;
 import vazkii.botania.common.crafting.recipe.TerraPickTippingRecipe;
+import vazkii.botania.common.item.ItemTwigWand;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.lib.LibOreDict;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -183,7 +186,7 @@ public final class ModCraftingRecipes {
 	public static ResourceLocation recipeGatherDrum;
 	public static ResourceLocation recipeLensFire;
 	public static ResourceLocation recipeLensPiston;
-	public static List<ResourceLocation> recipesLaputaShard;
+	public static ResourceLocation recipeLaputaShard;
 	public static List<ResourceLocation> recipesLaputaShardUpgrade;
 	public static ResourceLocation recipeVirusZombie;
 	public static ResourceLocation recipeVirusSkeleton;
@@ -373,18 +376,21 @@ public final class ModCraftingRecipes {
 			GameRegistry.addSmelting(new ItemStack(ModFluffBlocks.biomeStoneA, 1, i + 8), new ItemStack(ModFluffBlocks.biomeStoneA, 1, i), 0.1F);
 		}
 
-		/*
 		// Wand of the Forest Recipes
+		recipesTwigWand = new ArrayList<>();
+		ResourceLocation group = ModItems.twigWand.getRegistryName();
 		for(int i = 0; i < 16; i++)
 			for(int j = 0; j < 16; j++) {
-				addOreDictRecipe(ItemTwigWand.forColors(i, j),
+				ItemStack output = ItemTwigWand.forColors(i, j);
+				ShapedOreRecipe recipe = new ShapedOreRecipe(group, output,
 						" AS", " SB", "S  ",
 						'A', LibOreDict.PETAL[i],
 						'B', LibOreDict.PETAL[j],
 						'S', LibOreDict.LIVINGWOOD_TWIG);
+				recipe.setRegistryName(String.format("%s_%d_%d", ModItems.twigWand.getRegistryName(), i, j));
+				recipesTwigWand.add(recipe.getRegistryName());
+				r.register(recipe);
 			}
-		recipesTwigWand = BotaniaAPI.getLatestAddedRecipes(256);
-		*/
 
 		// Terrasteel Armor Recipes
 		RecipeSorter.register("botania:armorUpgrade", ArmorUpgradeRecipe.class, RecipeSorter.Category.SHAPED, "");
@@ -535,6 +541,106 @@ public final class ModCraftingRecipes {
 		recipeBellows = path("bellows");
 		recipeRedstoneRoot = path("manaresource_6");
 		recipesAltarMeta = allOfGroup("metamorphic_apothecary");
+		recipePylon = path("pylon_0");
+		recipeTurntable = path("turntable");
+		recipeAlchemyCatalyst = path("alchemycatalyst");
+		recipeOpenCrate = path("opencrate_0");
+		recipeForestEye = path("foresteye");
+		recipeForestDrum = path("forestdrum_0");
+		recipePlatform = path("platform_0");
+		recipeConjurationCatalyst = path("conjurationcatalyst");
+		recipeSpectralPlatform = path("platform_1");
+		recipeGatherDrum = path("forestdrum_1");
+		recipePlaceholder = path("placeholder");
+		recipeCraftCrate = path("opencrate_1");
+		recipesPatterns = allOfGroup("craftpattern");
+		recipeBrewery = path("brewery");
+		recipeVial = path("vial_0");
+		recipeFlask = path("vial_1");
+		recipeIncenseStick = path("incensestick");
+		recipeIncensePlate = path("incenseplate");
+		recipeHourglass = path("hourglass");
+		recipeGhostRail = path("ghostrail");
+		recipeCanopyDrum = path("forestdrum_2");
+		recipeCocoon = gogPath("cocoon");
+		recipeManaBomb = path("manabomb");
+		recipeTeruTeruBozu = path("teruterubozu");
+		recipeAvatar = path("avatar");
+		recipeFelPumpkin = path("felpumpkin");
+		recipeAnimatedTorch = path("animatedtorch");
+		recipeManaBlaster = path("managun");
+		recipesAltGrassSeeds = allOfGroup("grassseeds");
+		recipeDirtRod = path("dirtrod");
+		recipeTerraformRod = path("terraformrod");
+		recipeManasteelPick = path("manasteelpick");
+		recipeManasteelShovel = path("manasteelshovel");
+		recipeManasteelAxe = path("manasteelaxe");
+		recipeManasteelShears = path("manasteelshears");
+		recipeManasteelSword = path("manasteelsword");
+		recipeManasteelHelm = path("manasteelhelm");
+		recipeManasteelChest = path("manasteelchest");
+		recipeManasteelLegs = path("manasteellegs");
+		recipeManasteelBoots = path("manasteelboots");
+		recipeTerrasteelHelm = path("terrasteelhelm");
+		recipeTerrasteelChest = path("terrasteelchest");
+		recipeTerrasteelLegs = path("terrasteellegs");
+		recipeTerrasteelBoots = path("terrasteelboots");
+		recipeGrassHorn = path("grasshorn_0");
+		recipeLeafHorn = path("grasshorn_1");
+		recipeSnowHorn = path("grasshorn_2");
+		recipeTerraSword = path("terrasword");
+		recipeTerraPick = path("terrapick");
+		recipeWaterRod = path("waterrod");
+		recipeElementiumPick = path("elementiumpick");
+		recipeElementiumShovel = path("elementiumshovel");
+		recipeElementiumAxe = path("elementiumaxe");
+		recipeElementiumShears = path("elementiumshears");
+		recipeElementiumSword = path("elementiumsword");
+		recipeElementiumHelm = path("elementiumhelm");
+		recipeElementiumChest = path("elementiumchest");
+		recipeElementiumLegs = path("elementiumlegs");
+		recipeElementiumBoots = path("elementiumboots");
+		recipeOpenBucket = path("openbucket");
+		recipeRainbowRod = path("rainbowrod");
+		recipeBifrost = path("bifrostperm");
+		recipeShimmerrock = path("shimmerrock");
+		recipeShimmerwoodPlanks = path("shimmerwoodplanks");
+		recipeTornadoRod = path("tornadorod");
+		recipeFireRod = path("firerod");
+		recipeVineBall = path("vineball");
+		recipeSlingshot = path("slingshot");
+		recipeLaputaShard = path("laputashard_0");
+		recipesLaputaShardUpgrade = allOfGroup("laputashard_upgrade");
+		recipeVirusZombie = path("virus_0");
+		recipeVirusSkeleton = path("virus_1");
+		recipeSkyDirtRod = path("skydirtrod");
+		recipeGlassPick = path("glasspick");
+		recipeDiviningRod = path("diviningrod");
+		recipeGravityRod = path("gravityrod");
+		recipeMissileRod = path("missilerod");
+		recipeCraftingHalo = path("craftinghalo");
+		recipeClip = path("clip");
+		recipeCobbleRod = path("cobblerod");
+		recipeSmeltRod = path("smeltrod");
+		recipeWorldSeed = path("worldseed");
+		recipeSpellCloth = path("spellcloth");
+		recipeThornChakram = path("thornchakram_0");
+		recipeFireChakram = path("thornchakram_1");
+		recipeLivingwoodBow = path("livingwoodbow");
+		recipeCrystalBow = path("crystalbow");
+		recipeTemperanceStone = path("temperancestone");
+		recipeTerraAxe = path("terraaxe");
+		recipeObedienceStick = path("obediencestick");
+		recipeSlimeBottle = path("slimebottle");
+		recipeExchangeRod = path("exchangerod");
+		recipeManaweaveCloth = path("manaresource_22");
+		recipeManaweaveHelm = path("manaweavehelm");
+		recipeManaweaveChest = path("manaweavechest");
+		recipeManaweaveLegs = path("manaweavelegs");
+		recipeManaweaveBoots = path("manaweaveboots");
+		recipeAutocraftingHalo = path("autocraftinghalo");
+		recipeSextant = path("sextant");
+		recipeAstrolabe = path("astrolabe");
 	}
 
 	private static ResourceLocation gogPath(String path) {

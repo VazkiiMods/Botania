@@ -3,6 +3,7 @@
     "item": "botania:laputashard",
     "data": 7
   },
+  "group": "botania:laputashard_upgrade",
   "ingredients": [
     {
       "item": "#ETERNALLIFEESSENCE"

@@ -344,9 +344,9 @@ public final class LexiconData {
 		lexicon.setPriority().setLexiconPages(new PageText("0"), new PageText("3"),
 				new PageCraftingRecipe("1", ModCraftingRecipes.recipeLexicon), new PageText("2"));
 
-		/*wand = new BasicLexiconEntry(LibLexicon.BASICS_WAND, categoryBasics);
+		wand = new BasicLexiconEntry(LibLexicon.BASICS_WAND, categoryBasics);
 		wand.setPriority().setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"),
-				new PageCraftingRecipe("3", ModCraftingRecipes.recipesTwigWand));*/
+				new PageCraftingRecipe("3", ModCraftingRecipes.recipesTwigWand));
 
 		pureDaisy = new BasicLexiconEntry(LibLexicon.BASICS_PURE_DAISY, categoryBasics);
 		pureDaisy.setPriority()
@@ -680,8 +680,6 @@ public final class LexiconData {
 				new PageText("7"), new PagePetalRecipe<>("8", ModPetalRecipes.dandelifeonRecipe),
 				new PageCraftingRecipe("9", ModCraftingRecipes.recipeCellBlock));
 
-		if(true) return;
-
 		// DEVICES ENTRIES
 		pylon = new BasicLexiconEntry(LibLexicon.DEVICE_PYLON, categoryDevices);
 		pylon.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipePylon));
@@ -934,7 +932,7 @@ public final class LexiconData {
 
 		laputaShard = new AlfheimLexiconEntry(LibLexicon.TOOL_LAPUTA_SHARD, categoryTools);
 		laputaShard.setLexiconPages(new PageText("0"), new PageText("2"),
-				new PageCraftingRecipe("1", ModCraftingRecipes.recipesLaputaShard),
+				new PageCraftingRecipe("1", ModCraftingRecipes.recipeLaputaShard),
 				new PageCraftingRecipe("3", ModCraftingRecipes.recipesLaputaShardUpgrade));
 
 		virus = new AlfheimLexiconEntry(LibLexicon.TOOL_VIRUS, categoryTools);
@@ -1038,7 +1036,9 @@ public final class LexiconData {
 		astrolabe = new AlfheimLexiconEntry(LibLexicon.TOOL_ASTROLABE, categoryTools);
 		astrolabe.setLexiconPages(new PageText("0"), new PageText("1"),
 				new PageCraftingRecipe("2", ModCraftingRecipes.recipeAstrolabe));
-		
+
+		if(true)return;
+
 		// ENDER ENTRIES
 		enderAir = new BasicLexiconEntry(LibLexicon.ENDER_AIR, categoryEnder);
 		enderAir.setPriority().setLexiconPages(new PageText("0"));

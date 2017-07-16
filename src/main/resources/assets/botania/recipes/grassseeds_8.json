@@ -3,6 +3,7 @@
     "item": "botania:grassseeds",
     "data": 8
   },
+  "group": "botania:grassseeds",
   "ingredients": [
     {
       "item": "botania:grassseeds",
