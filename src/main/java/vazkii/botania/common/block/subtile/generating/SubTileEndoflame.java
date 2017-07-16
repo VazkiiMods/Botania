@@ -23,12 +23,9 @@ import net.minecraft.util.math.Vec3d;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileGenerating;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.lexicon.LexiconData;
-
-import java.util.List;
 
 public class SubTileEndoflame extends SubTileGenerating {
 	private static final String TAG_BURN_TIME = "burnTime";
@@ -87,7 +84,6 @@ public class SubTileEndoflame extends SubTileGenerating {
 		if(event == START_BURN_EVENT) {
 			Entity e = getWorld().getEntityByID(param);
 			if(e != null) {
-				Botania.LOGGER.info("Meep? {}", getWorld().isRemote);
 				e.world.spawnParticle(EnumParticleTypes.SMOKE_LARGE, e.posX, e.posY + 0.1, e.posZ, 0.0D, 0.0D, 0.0D);
 				e.world.spawnParticle(EnumParticleTypes.FLAME, e.posX, e.posY, e.posZ, 0.0D, 0.0D, 0.0D);
 			}
