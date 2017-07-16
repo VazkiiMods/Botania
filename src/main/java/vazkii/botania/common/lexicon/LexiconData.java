@@ -1037,8 +1037,6 @@ public final class LexiconData {
 		astrolabe.setLexiconPages(new PageText("0"), new PageText("1"),
 				new PageCraftingRecipe("2", ModCraftingRecipes.recipeAstrolabe));
 
-		if(true)return;
-
 		// ENDER ENTRIES
 		enderAir = new BasicLexiconEntry(LibLexicon.ENDER_AIR, categoryEnder);
 		enderAir.setPriority().setLexiconPages(new PageText("0"));
@@ -1167,14 +1165,14 @@ public final class LexiconData {
 
 		knockbacklBelt = new BasicLexiconEntry(LibLexicon.BAUBLE_KNOCKBACK_BELT, categoryBaubles);
 		knockbacklBelt.setLexiconPages(new PageText("0"),
-				new PageCraftingRecipe("1", ModCraftingRecipes.recipeKnocbackBelt));
+				new PageCraftingRecipe("1", ModCraftingRecipes.recipeKnockbackBelt));
 
 		icePendant = new BasicLexiconEntry(LibLexicon.BAUBLE_ICE_PENDANT, categoryBaubles);
 		icePendant.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeIcePendant));
 
 		lavaPendant = new BasicLexiconEntry(LibLexicon.BAUBLE_LAVA_PENDANT, categoryBaubles);
 		lavaPendant.setLexiconPages(new PageText("0"),
-				new PageCraftingRecipe("1", ModCraftingRecipes.recipeFirePendant));
+				new PageCraftingRecipe("1", ModCraftingRecipes.recipeLavaPendant));
 
 		waterRing = new BasicLexiconEntry(LibLexicon.BAUBLE_WATER_RING, categoryBaubles);
 		waterRing.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeWaterRing));
@@ -1295,6 +1293,8 @@ public final class LexiconData {
 		.setLexiconPages(new PageText("0"), new PageLoreText("1"), new PageLoreText("2"), new PageLoreText("3"),
 				new PageLoreText("4"), new PageLoreText("5"), new PageLoreText("6"), new PageLoreText("7"))
 		.setIcon(new ItemStack(Items.WRITABLE_BOOK));
+
+		if(true) return;
 
 		if (ConfigHandler.relicsEnabled) {
 			relics = new AlfheimLexiconEntry(LibLexicon.ALF_RELICS, categoryAlfhomancy);

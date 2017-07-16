@@ -23,6 +23,7 @@ import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.registries.IForgeRegistry;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.crafting.recipe.AesirRingRecipe;
 import vazkii.botania.common.crafting.recipe.AncientWillRecipe;
@@ -52,6 +53,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Mod.EventBusSubscriber
 public final class ModCraftingRecipes {
@@ -125,9 +127,9 @@ public final class ModCraftingRecipes {
 	public static ResourceLocation recipeGreaterManaRing;
 	public static ResourceLocation recipeGreaterAuraRing;
 	public static ResourceLocation recipeTravelBelt;
-	public static ResourceLocation recipeKnocbackBelt;
+	public static ResourceLocation recipeKnockbackBelt;
 	public static ResourceLocation recipeIcePendant;
-	public static ResourceLocation recipeFirePendant;
+	public static ResourceLocation recipeLavaPendant;
 	public static ResourceLocation recipeTinyPlanetBlock;
 	public static ResourceLocation recipeAlchemyCatalyst;
 	public static ResourceLocation recipeOpenCrate;
@@ -328,49 +330,49 @@ public final class ModCraftingRecipes {
 		IForgeRegistry<IRecipe> r = evt.getRegistry();
 
 		r.register(new AesirRingRecipe().setRegistryName(new ResourceLocation(LibMisc.MOD_ID, "aesir_ring")));
-		RecipeSorter.register("botania:aesirRing", AesirRingRecipe.class, RecipeSorter.Category.SHAPELESS, "");
+		// RecipeSorter.register("botania:aesirRing", AesirRingRecipe.class, RecipeSorter.Category.SHAPELESS, "");
 
 		r.register(new AncientWillRecipe().setRegistryName(new ResourceLocation(LibMisc.MOD_ID, "ancient_will_attach")));
-		RecipeSorter.register("botania:ancientWill", AncientWillRecipe.class, RecipeSorter.Category.SHAPELESS, "");
+		// RecipeSorter.register("botania:ancientWill", AncientWillRecipe.class, RecipeSorter.Category.SHAPELESS, "");
 
 		r.register(new BlackHoleTalismanExtractRecipe().setRegistryName(new ResourceLocation(LibMisc.MOD_ID, "black_hole_talisman_extract")));
-		RecipeSorter.register("botania:blackHoleTalismanExtract", BlackHoleTalismanExtractRecipe.class, RecipeSorter.Category.SHAPELESS, "");
+		// RecipeSorter.register("botania:blackHoleTalismanExtract", BlackHoleTalismanExtractRecipe.class, RecipeSorter.Category.SHAPELESS, "");
 
 		r.register(new SpellClothRecipe().setRegistryName(new ResourceLocation(LibMisc.MOD_ID, "cleanse_enchants")));
-		RecipeSorter.register("botania:spellCloth", SpellClothRecipe.class, RecipeSorter.Category.SHAPELESS, "");
+		// RecipeSorter.register("botania:spellCloth", SpellClothRecipe.class, RecipeSorter.Category.SHAPELESS, "");
 
 		r.register(new CompositeLensRecipe().setRegistryName(new ResourceLocation(LibMisc.MOD_ID, "composite_lens")));
-		RecipeSorter.register("botania:compositeLens", CompositeLensRecipe.class, RecipeSorter.Category.SHAPELESS, "");
+		// RecipeSorter.register("botania:compositeLens", CompositeLensRecipe.class, RecipeSorter.Category.SHAPELESS, "");
 
 		r.register(new CosmeticAttachRecipe().setRegistryName(new ResourceLocation(LibMisc.MOD_ID, "cosmetic_attach")));
 		r.register(new CosmeticRemoveRecipe().setRegistryName(new ResourceLocation(LibMisc.MOD_ID, "cosmetic_remove")));
-		RecipeSorter.register("botania:cosmeticAttach", CosmeticAttachRecipe.class, RecipeSorter.Category.SHAPELESS, "");
-		RecipeSorter.register("botania:cosmeticRemove", CosmeticRemoveRecipe.class, RecipeSorter.Category.SHAPELESS, "");
+		// RecipeSorter.register("botania:cosmeticAttach", CosmeticAttachRecipe.class, RecipeSorter.Category.SHAPELESS, "");
+		// RecipeSorter.register("botania:cosmeticRemove", CosmeticRemoveRecipe.class, RecipeSorter.Category.SHAPELESS, "");
 
 		r.register(new HelmRevealingRecipe().setRegistryName(new ResourceLocation(LibMisc.MOD_ID, "helm_revealing")));
-		RecipeSorter.register("botania:helmRevealing", HelmRevealingRecipe.class, RecipeSorter.Category.SHAPELESS, "");
+		// RecipeSorter.register("botania:helmRevealing", HelmRevealingRecipe.class, RecipeSorter.Category.SHAPELESS, "");
 
 		r.register(new KeepIvyRecipe().setRegistryName(new ResourceLocation(LibMisc.MOD_ID, "keep_ivy_attach")));
-		RecipeSorter.register("botania:keepIvy", KeepIvyRecipe.class, RecipeSorter.Category.SHAPELESS, "");
+		// RecipeSorter.register("botania:keepIvy", KeepIvyRecipe.class, RecipeSorter.Category.SHAPELESS, "");
 
 		r.register(new LensDyeingRecipe().setRegistryName(new ResourceLocation(LibMisc.MOD_ID, "lens_dye")));
-		RecipeSorter.register("botania:lensDying", LensDyeingRecipe.class, RecipeSorter.Category.SHAPELESS, "");
+		// RecipeSorter.register("botania:lensDying", LensDyeingRecipe.class, RecipeSorter.Category.SHAPELESS, "");
 
 		r.register(new ManaGunLensRecipe().setRegistryName(new ResourceLocation(LibMisc.MOD_ID, "mana_gun_add_lens")));
 		r.register(new ManaGunRemoveLensRecipe().setRegistryName(new ResourceLocation(LibMisc.MOD_ID, "mana_gun_remove_lens")));
 		r.register(new ManaGunClipRecipe().setRegistryName(new ResourceLocation(LibMisc.MOD_ID, "mana_gun_add_clip")));
-		RecipeSorter.register("botania:manaGunLens", ManaGunLensRecipe.class, RecipeSorter.Category.SHAPELESS, "");
-		RecipeSorter.register("botania:manaGunRemoveLens", ManaGunRemoveLensRecipe.class, RecipeSorter.Category.SHAPELESS, "");
-		RecipeSorter.register("botania:manaGunClip", ManaGunClipRecipe.class, RecipeSorter.Category.SHAPELESS, "");
+		// RecipeSorter.register("botania:manaGunLens", ManaGunLensRecipe.class, RecipeSorter.Category.SHAPELESS, "");
+		// RecipeSorter.register("botania:manaGunRemoveLens", ManaGunRemoveLensRecipe.class, RecipeSorter.Category.SHAPELESS, "");
+		// RecipeSorter.register("botania:manaGunClip", ManaGunClipRecipe.class, RecipeSorter.Category.SHAPELESS, "");
 		
 		r.register(new PhantomInkRecipe().setRegistryName(new ResourceLocation(LibMisc.MOD_ID, "phantom_ink")));
-		RecipeSorter.register("botania:phantomInk", PhantomInkRecipe.class, RecipeSorter.Category.SHAPELESS, "");
+		// RecipeSorter.register("botania:phantomInk", PhantomInkRecipe.class, RecipeSorter.Category.SHAPELESS, "");
 
 		r.register(new SpecialFloatingFlowerRecipe().setRegistryName(new ResourceLocation(LibMisc.MOD_ID, "special_floating_flower")));
-		RecipeSorter.register("botania:floatingSpecialFlower", SpecialFloatingFlowerRecipe.class, RecipeSorter.Category.SHAPELESS, "");
+		// RecipeSorter.register("botania:floatingSpecialFlower", SpecialFloatingFlowerRecipe.class, RecipeSorter.Category.SHAPELESS, "");
 		
 		r.register(new TerraPickTippingRecipe().setRegistryName(new ResourceLocation(LibMisc.MOD_ID, "terra_pick_tipping")));
-		RecipeSorter.register("botania:terraPickTipping", TerraPickTippingRecipe.class, RecipeSorter.Category.SHAPELESS, "");
+		// RecipeSorter.register("botania:terraPickTipping", TerraPickTippingRecipe.class, RecipeSorter.Category.SHAPELESS, "");
 
 		for(int i = 0; i < 8; i++) {
 			GameRegistry.addSmelting(new ItemStack(ModFluffBlocks.biomeStoneA, 1, i + 8), new ItemStack(ModFluffBlocks.biomeStoneA, 1, i), 0.1F);
@@ -393,7 +395,7 @@ public final class ModCraftingRecipes {
 			}
 
 		// Terrasteel Armor Recipes
-		RecipeSorter.register("botania:armorUpgrade", ArmorUpgradeRecipe.class, RecipeSorter.Category.SHAPED, "");
+		// RecipeSorter.register("botania:armorUpgrade", ArmorUpgradeRecipe.class, RecipeSorter.Category.SHAPED, "");
 		r.register(new ArmorUpgradeRecipe(new ItemStack(ModItems.terrasteelHelmRevealing),
 				"TRT", "SAS", " S ",
 				'T', LibOreDict.LIVINGWOOD_TWIG,
@@ -429,13 +431,13 @@ public final class ModCraftingRecipes {
 				'R', LibOreDict.RUNE[7],
 				'A', new ItemStack(ModItems.manasteelBoots)).setRegistryName(ModItems.terrasteelBoots.getRegistryName()));
 
-		RecipeSorter.register("botania:manaUpgrade", ManaUpgradeRecipe.class, RecipeSorter.Category.SHAPED, "");
+		// RecipeSorter.register("botania:manaUpgrade", ManaUpgradeRecipe.class, RecipeSorter.Category.SHAPED, "");
 		r.register(new ManaUpgradeRecipe(new ItemStack(ModItems.manaRing),
 				"TI ", "I I", " I ",
 				'T', new ItemStack(ModItems.manaTablet, 1, Short.MAX_VALUE),
 				'I', LibOreDict.MANA_STEEL).setRegistryName(ModItems.manaRing.getRegistryName()));
 
-		RecipeSorter.register("botania:manaUpgradeShapeless", ShapelessManaUpgradeRecipe.class, RecipeSorter.Category.SHAPELESS, "");
+		// RecipeSorter.register("botania:manaUpgradeShapeless", ShapelessManaUpgradeRecipe.class, RecipeSorter.Category.SHAPELESS, "");
 		r.register(new ShapelessManaUpgradeRecipe(new ItemStack(ModItems.manaRingGreater), LibOreDict.TERRA_STEEL, new ItemStack(ModItems.manaRing, 1, Short.MAX_VALUE)).setRegistryName(ModItems.manaRingGreater.getRegistryName()));
 
 		// Terra Shatterer Recipe
@@ -461,7 +463,7 @@ public final class ModCraftingRecipes {
 	public static void init() {
 		// Can't do this in RegistryEvent.Register event handler since it seems JSON recipes aren't loaded yet
 		recipesPetals = allOfGroup("petal");
-		recipePestleAndMortar = path("pestleandmortar");
+		recipePestleAndMortar = ModItems.pestleAndMortar.getRegistryName();
 		recipesDyes = allOfGroup("dye");
 		recipeFertilizerPowder = gogPath("fertilizer_powder");
 		recipeFerilizerDye = path("fertilizer_dye");
@@ -470,18 +472,11 @@ public final class ModCraftingRecipes {
 		recipesReversePetalBlocks = allOfGroup("petal_block_deconstruct");
 
 		recipeApothecary = path("altar_0");
-
-		recipeLexicon = path("lexicon");
-
-		// todo 1.12 wands
-
+		recipeLexicon = ModItems.lexicon.getRegistryName();
 		recipeLivingwoodTwig = path("manaresource_3");
-
-		recipeRuneAltar = path("runealtar");
-
-		recipeTerraPlate = path("terraplate");
-
-		recipeFlowerBag = path("flowerbag");
+		recipeRuneAltar = ModBlocks.runeAltar.getRegistryName();
+		recipeTerraPlate = ModBlocks.terraPlate.getRegistryName();
+		recipeFlowerBag = ModItems.flowerBag.getRegistryName();
 
 		if(Botania.gardenOfGlassLoaded) {
 			recipeRootToSapling = gogPath("root_to_sapling");
@@ -498,9 +493,9 @@ public final class ModCraftingRecipes {
 		recipePoolFabulous = path("pool_3");
 		recipeCobweb = path("web");
 
-		recipeSpark = path("spark");
+		recipeSpark = ModItems.spark.getRegistryName();
 		recipesSparkUpgrades = allOfGroup("spark_upgrade");
-		recipeRFGenerator = path("rfgenerator");
+		recipeRFGenerator = ModBlocks.rfGenerator.getRegistryName();
 
 		recipesManaLens = ImmutableList.of(path("lens_0_glass_block"), path("lens_0_glass_pane"));
 		recipeLensVelocity = path("lens_1");
@@ -519,128 +514,196 @@ public final class ModCraftingRecipes {
 		recipeLensPaint = path("lens_14");
 		recipeLensFire = path("lens_15");
 		recipeLensPiston = path("lens_16");
-		recipesLensFlash = allOfGroup("lens_17");
+		recipesLensFlash = ImmutableList.of(path("lens_17"), path("lens_17_alt"));
 		recipeLensWarp = path("lens_18");
 		recipeLensRedirect = path("lens_19");
 		recipeLensFirework = path("lens_20");
 		recipeLensFlare = path("lens_21");
 		recipeLensMessenger = path("lens_22");
 
-		recipeDistributor = path("distributor");
-		recipeManaVoid = path("manavoid");
-		recipeManaTablet = path("manatablet");
-		recipeManaMirror = path("manamirror");
-		recipeManaDetector = path("manadetector");
+		recipeDistributor = ModBlocks.distributor.getRegistryName();
+		recipeManaVoid = ModBlocks.manaVoid.getRegistryName();
+		recipeManaTablet = ModItems.manaTablet.getRegistryName();
+		recipeManaMirror = ModItems.manaMirror.getRegistryName();
+		recipeManaDetector = ModBlocks.manaDetector.getRegistryName();
 		recipeRedstoneSpreader = path("spreader_1");
 		recipeDreamwoodSpreader = path("spreader_2");
 		recipeUltraSpreader = path("spreader_3");
-		recipePrism = path("prism");
-		recipePoolCart = path("poolminecart");
-		recipePump = path("pump");
-		recipeSparkChanger = path("sparkchanger");
-		recipeBellows = path("bellows");
+		recipePrism = ModBlocks.prism.getRegistryName();
+		recipePoolCart = ModItems.poolMinecart.getRegistryName();
+		recipePump = ModBlocks.pump.getRegistryName();
+		recipeSparkChanger = ModBlocks.sparkChanger.getRegistryName();
+		recipeBellows = ModBlocks.bellows.getRegistryName();
 		recipeRedstoneRoot = path("manaresource_6");
 		recipesAltarMeta = allOfGroup("metamorphic_apothecary");
 		recipePylon = path("pylon_0");
-		recipeTurntable = path("turntable");
-		recipeAlchemyCatalyst = path("alchemycatalyst");
+		recipeTurntable = ModBlocks.turntable.getRegistryName();
+		recipeAlchemyCatalyst = ModBlocks.alchemyCatalyst.getRegistryName();
 		recipeOpenCrate = path("opencrate_0");
-		recipeForestEye = path("foresteye");
+		recipeForestEye = ModBlocks.forestEye.getRegistryName();
 		recipeForestDrum = path("forestdrum_0");
 		recipePlatform = path("platform_0");
-		recipeConjurationCatalyst = path("conjurationcatalyst");
+		recipeConjurationCatalyst = ModBlocks.conjurationCatalyst.getRegistryName();
 		recipeSpectralPlatform = path("platform_1");
 		recipeGatherDrum = path("forestdrum_1");
-		recipePlaceholder = path("placeholder");
+		recipePlaceholder = path("manaresource_11");
 		recipeCraftCrate = path("opencrate_1");
 		recipesPatterns = allOfGroup("craftpattern");
-		recipeBrewery = path("brewery");
+		recipeBrewery = ModBlocks.brewery.getRegistryName();
 		recipeVial = path("vial_0");
 		recipeFlask = path("vial_1");
-		recipeIncenseStick = path("incensestick");
-		recipeIncensePlate = path("incenseplate");
-		recipeHourglass = path("hourglass");
-		recipeGhostRail = path("ghostrail");
+		recipeIncenseStick = ModItems.incenseStick.getRegistryName();
+		recipeIncensePlate = ModBlocks.incensePlate.getRegistryName();
+		recipeHourglass = ModBlocks.hourglass.getRegistryName();
+		recipeGhostRail = ModBlocks.ghostRail.getRegistryName();
 		recipeCanopyDrum = path("forestdrum_2");
 		recipeCocoon = gogPath("cocoon");
-		recipeManaBomb = path("manabomb");
-		recipeTeruTeruBozu = path("teruterubozu");
-		recipeAvatar = path("avatar");
-		recipeFelPumpkin = path("felpumpkin");
-		recipeAnimatedTorch = path("animatedtorch");
-		recipeManaBlaster = path("managun");
+		recipeManaBomb = ModBlocks.manaBomb.getRegistryName();
+		recipeTeruTeruBozu = ModBlocks.teruTeruBozu.getRegistryName();
+		recipeAvatar = ModBlocks.avatar.getRegistryName();
+		recipeFelPumpkin = ModBlocks.felPumpkin.getRegistryName();
+		recipeAnimatedTorch = ModBlocks.animatedTorch.getRegistryName();
+		recipeManaBlaster = ModItems.manaGun.getRegistryName();
 		recipesAltGrassSeeds = allOfGroup("grassseeds");
-		recipeDirtRod = path("dirtrod");
-		recipeTerraformRod = path("terraformrod");
-		recipeManasteelPick = path("manasteelpick");
-		recipeManasteelShovel = path("manasteelshovel");
-		recipeManasteelAxe = path("manasteelaxe");
-		recipeManasteelShears = path("manasteelshears");
-		recipeManasteelSword = path("manasteelsword");
-		recipeManasteelHelm = path("manasteelhelm");
-		recipeManasteelChest = path("manasteelchest");
-		recipeManasteelLegs = path("manasteellegs");
-		recipeManasteelBoots = path("manasteelboots");
-		recipeTerrasteelHelm = path("terrasteelhelm");
-		recipeTerrasteelChest = path("terrasteelchest");
-		recipeTerrasteelLegs = path("terrasteellegs");
-		recipeTerrasteelBoots = path("terrasteelboots");
+		recipeDirtRod = ModItems.dirtRod.getRegistryName();
+		recipeTerraformRod = ModItems.terraformRod.getRegistryName();
+		recipeManasteelPick = ModItems.manasteelPick.getRegistryName();
+		recipeManasteelShovel = ModItems.manasteelShovel.getRegistryName();
+		recipeManasteelAxe = ModItems.manasteelAxe.getRegistryName();
+		recipeManasteelShears = ModItems.manasteelShears.getRegistryName();
+		recipeManasteelSword = ModItems.manasteelSword.getRegistryName();
+		recipeManasteelHelm = ModItems.manasteelHelm.getRegistryName();
+		recipeManasteelChest = ModItems.manasteelChest.getRegistryName();
+		recipeManasteelLegs = ModItems.manasteelLegs.getRegistryName();
+		recipeManasteelBoots = ModItems.manasteelBoots.getRegistryName();
+		recipeTerrasteelHelm = ModItems.terrasteelHelm.getRegistryName();
+		recipeTerrasteelChest = ModItems.terrasteelChest.getRegistryName();
+		recipeTerrasteelLegs = ModItems.terrasteelLegs.getRegistryName();
+		recipeTerrasteelBoots = ModItems.terrasteelBoots.getRegistryName();
 		recipeGrassHorn = path("grasshorn_0");
 		recipeLeafHorn = path("grasshorn_1");
 		recipeSnowHorn = path("grasshorn_2");
-		recipeTerraSword = path("terrasword");
-		recipeTerraPick = path("terrapick");
-		recipeWaterRod = path("waterrod");
-		recipeElementiumPick = path("elementiumpick");
-		recipeElementiumShovel = path("elementiumshovel");
-		recipeElementiumAxe = path("elementiumaxe");
-		recipeElementiumShears = path("elementiumshears");
-		recipeElementiumSword = path("elementiumsword");
-		recipeElementiumHelm = path("elementiumhelm");
-		recipeElementiumChest = path("elementiumchest");
-		recipeElementiumLegs = path("elementiumlegs");
-		recipeElementiumBoots = path("elementiumboots");
-		recipeOpenBucket = path("openbucket");
-		recipeRainbowRod = path("rainbowrod");
-		recipeBifrost = path("bifrostperm");
-		recipeShimmerrock = path("shimmerrock");
-		recipeShimmerwoodPlanks = path("shimmerwoodplanks");
-		recipeTornadoRod = path("tornadorod");
-		recipeFireRod = path("firerod");
-		recipeVineBall = path("vineball");
-		recipeSlingshot = path("slingshot");
+		recipeTerraSword = ModItems.terraSword.getRegistryName();
+		recipeTerraPick = ModItems.terraPick.getRegistryName();
+		recipeWaterRod = ModItems.waterRod.getRegistryName();
+		recipeElementiumPick = ModItems.elementiumPick.getRegistryName();
+		recipeElementiumShovel = ModItems.elementiumShovel.getRegistryName();
+		recipeElementiumAxe = ModItems.elementiumAxe.getRegistryName();
+		recipeElementiumShears = ModItems.elementiumShears.getRegistryName();
+		recipeElementiumSword = ModItems.elementiumSword.getRegistryName();
+		recipeElementiumHelm = ModItems.elementiumHelm.getRegistryName();
+		recipeElementiumChest = ModItems.elementiumChest.getRegistryName();
+		recipeElementiumLegs = ModItems.elementiumLegs.getRegistryName();
+		recipeElementiumBoots = ModItems.elementiumBoots.getRegistryName();
+		recipeOpenBucket = ModItems.openBucket.getRegistryName();
+		recipeRainbowRod = ModItems.rainbowRod.getRegistryName();
+		recipeBifrost = ModBlocks.bifrostPerm.getRegistryName();
+		recipeShimmerrock = ModBlocks.shimmerrock.getRegistryName();
+		recipeShimmerwoodPlanks = ModBlocks.shimmerwoodPlanks.getRegistryName();
+		recipeTornadoRod = ModItems.tornadoRod.getRegistryName();
+		recipeFireRod = ModItems.fireRod.getRegistryName();
+		recipeVineBall = ModItems.vineBall.getRegistryName();
+		recipeSlingshot = ModItems.slingshot.getRegistryName();
 		recipeLaputaShard = path("laputashard_0");
 		recipesLaputaShardUpgrade = allOfGroup("laputashard_upgrade");
 		recipeVirusZombie = path("virus_0");
 		recipeVirusSkeleton = path("virus_1");
-		recipeSkyDirtRod = path("skydirtrod");
-		recipeGlassPick = path("glasspick");
-		recipeDiviningRod = path("diviningrod");
-		recipeGravityRod = path("gravityrod");
-		recipeMissileRod = path("missilerod");
-		recipeCraftingHalo = path("craftinghalo");
-		recipeClip = path("clip");
-		recipeCobbleRod = path("cobblerod");
-		recipeSmeltRod = path("smeltrod");
-		recipeWorldSeed = path("worldseed");
-		recipeSpellCloth = path("spellcloth");
+		recipeSkyDirtRod = ModItems.skyDirtRod.getRegistryName();
+		recipeGlassPick = ModItems.glassPick.getRegistryName();
+		recipeDiviningRod = ModItems.diviningRod.getRegistryName();
+		recipeGravityRod = ModItems.gravityRod.getRegistryName();
+		recipeMissileRod = ModItems.missileRod.getRegistryName();
+		recipeCraftingHalo = ModItems.craftingHalo.getRegistryName();
+		recipeClip = ModItems.clip.getRegistryName();
+		recipeCobbleRod = ModItems.cobbleRod.getRegistryName();
+		recipeSmeltRod = ModItems.smeltRod.getRegistryName();
+		recipeWorldSeed = ModItems.worldSeed.getRegistryName();
+		recipeSpellCloth = ModItems.spellCloth.getRegistryName();
 		recipeThornChakram = path("thornchakram_0");
 		recipeFireChakram = path("thornchakram_1");
-		recipeLivingwoodBow = path("livingwoodbow");
-		recipeCrystalBow = path("crystalbow");
-		recipeTemperanceStone = path("temperancestone");
-		recipeTerraAxe = path("terraaxe");
-		recipeObedienceStick = path("obediencestick");
-		recipeSlimeBottle = path("slimebottle");
-		recipeExchangeRod = path("exchangerod");
+		recipeLivingwoodBow = ModItems.livingwoodBow.getRegistryName();
+		recipeCrystalBow = ModItems.crystalBow.getRegistryName();
+		recipeTemperanceStone = ModItems.temperanceStone.getRegistryName();
+		recipeTerraAxe = ModItems.terraAxe.getRegistryName();
+		recipeObedienceStick = ModItems.obedienceStick.getRegistryName();
+		recipeSlimeBottle = ModItems.slimeBottle.getRegistryName();
+		recipeExchangeRod = ModItems.exchangeRod.getRegistryName();
 		recipeManaweaveCloth = path("manaresource_22");
-		recipeManaweaveHelm = path("manaweavehelm");
-		recipeManaweaveChest = path("manaweavechest");
-		recipeManaweaveLegs = path("manaweavelegs");
-		recipeManaweaveBoots = path("manaweaveboots");
-		recipeAutocraftingHalo = path("autocraftinghalo");
-		recipeSextant = path("sextant");
-		recipeAstrolabe = path("astrolabe");
+		recipeManaweaveHelm = ModItems.manaweaveHelm.getRegistryName();
+		recipeManaweaveChest = ModItems.manaweaveChest.getRegistryName();
+		recipeManaweaveLegs = ModItems.manaweaveLegs.getRegistryName();
+		recipeManaweaveBoots = ModItems.manaweaveBoots.getRegistryName();
+		recipeAutocraftingHalo = ModItems.autocraftingHalo.getRegistryName();
+		recipeSextant = ModItems.sextant.getRegistryName();
+		recipeAstrolabe = ModItems.astrolabe.getRegistryName();
+		recipeEnderEyeBlock = ModBlocks.enderEye.getRegistryName();
+		recipeEnderHand = ModItems.enderHand.getRegistryName();
+		recipeEnderDagger = ModItems.enderDagger.getRegistryName();
+		recipeSpawnerClaw = ModBlocks.spawnerClaw.getRegistryName();
+		recipeRedString = path("manaresource_12");
+		recipeRedStringContainer = ModBlocks.redStringContainer.getRegistryName();
+		recipeRedStringDispenser = ModBlocks.redStringDispenser.getRegistryName();
+		recipeRedStringFertilizer = ModBlocks.redStringFertilizer.getRegistryName();
+		recipeRedStringComparator = ModBlocks.redStringComparator.getRegistryName();
+		recipeRedStringRelay = ModBlocks.redStringRelay.getRegistryName();
+		recipeRedStringInterceptor = ModBlocks.redStringInterceptor.getRegistryName();
+		recipeFlightTiara = path("flighttiara_0");
+		recipesWings = allOfGroup("flighttiara_wings");
+		recipeCorporeaSpark = path("corporeaspark_0");
+		recipeMasterCorporeaSpark = path("corporeaspark_1");
+		recipeCorporeaIndex = ModBlocks.corporeaIndex.getRegistryName();
+		recipeCorporeaFunnel = ModBlocks.corporeaFunnel.getRegistryName();
+		recipeCorporeaInterceptor = ModBlocks.corporeaInterceptor.getRegistryName();
+		recipeSpawnerMover = ModItems.spawnerMover.getRegistryName();
+		recipeKeepIvy = ModItems.keepIvy.getRegistryName();
+		recipeBlackHoleTalisman = path("blackholetalisman_0");
+		recipeCorporeaCrystalCube = ModBlocks.corporeaCrystalCube.getRegistryName();
+		recipeLuminizer = path("lightrelay_0");
+		recipeDetectorLuminizer = path("lightrelay_1");
+		recipeToggleLuminizer = path("lightrelay_2");
+		recipeForkLuminizer = path("lightrelay_3");
+		recipeLuminizerLauncher = ModBlocks.lightLauncher.getRegistryName();
+		recipeStarSword = ModItems.starSword.getRegistryName();
+		recipeThunderSword = ModItems.thunderSword.getRegistryName();
+		recipeCorporeaRetainer = ModBlocks.corporeaRetainer.getRegistryName();
+		recipesCosmeticItems = IntStream.range(0, 32).mapToObj(i -> path("cosmetic_" + i)).collect(Collectors.toList());
+		recipeTinyPlanet = ModItems.tinyPlanet.getRegistryName();
+		recipeTinyPlanetBlock = ModBlocks.tinyPlanet.getRegistryName();
+		recipeManaRing = ModItems.manaRing.getRegistryName();
+		recipeGreaterManaRing = ModItems.manaRingGreater.getRegistryName();
+		recipeTravelBelt = ModItems.travelBelt.getRegistryName();
+		recipeKnockbackBelt = ModItems.knockbackBelt.getRegistryName();
+		recipeIcePendant = ModItems.icePendant.getRegistryName();
+		recipeLavaPendant = ModItems.lavaPendant.getRegistryName();
+		recipeWaterRing = ModItems.waterRing.getRegistryName();
+		recipeMiningRing = ModItems.miningRing.getRegistryName();
+		recipeMagnetRing = ModItems.magnetRing.getRegistryName();
+		recipeGreaterMagnetRing = ModItems.magnetRingGreater.getRegistryName();
+		recipeDivaCharm = ModItems.divaCharm.getRegistryName();
+		recipePixieRing = ModItems.pixieRing.getRegistryName();
+		recipeSuperTravelBelt = ModItems.superTravelBelt.getRegistryName();
+		recipeReachRing = ModItems.reachRing.getRegistryName();
+		recipeItemFinder = ModItems.itemFinder.getRegistryName();
+		recipeSuperLavaPendant = ModItems.superLavaPendant.getRegistryName();
+		recipeBloodPendant = ModItems.bloodPendant.getRegistryName();
+		recipeHolyCloak = ModItems.holyCloak.getRegistryName();
+		recipeUnholyCloak = ModItems.unholyCloak.getRegistryName();
+		recipeBalanceCloak = ModItems.balanceCloak.getRegistryName();
+		recipeMonocle = ModItems.monocle.getRegistryName();
+		recipeSwapRing = ModItems.swapRing.getRegistryName();
+		recipeSpeedUpBelt = ModItems.speedUpBelt.getRegistryName();
+		recipeBaubleCase = ModItems.baubleBox.getRegistryName();
+		recipeDodgeRing = ModItems.dodgeRing.getRegistryName();
+		recipeInvisibilityCloak = ModItems.invisibilityCloak.getRegistryName();
+		recipeCloudPendant = ModItems.cloudPendant.getRegistryName();
+		recipeSuperCloudPendant = ModItems.superCloudPendant.getRegistryName();
+		recipeThirdEye = ModItems.thirdEye.getRegistryName();
+		recipeGoddessCharm = ModItems.goddessCharm.getRegistryName();
+		recipeAlfPortal = ModBlocks.alfPortal.getRegistryName();
+		recipeNaturaPylon = path("pylon_1");
+		recipeDreamwoodTwig = path("manaresource_13");
+		recipeGaiaPylon = path("pylon_2");
+		recipeGaiaIngot = path("manaresource_14");
 	}
 
 	private static ResourceLocation gogPath(String path) {

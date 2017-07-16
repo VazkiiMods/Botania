@@ -3,6 +3,7 @@
     "item": "botania:flighttiara",
     "data": 7
   },
+  "group": "botania:flighttiara_wings",
   "ingredients": [
     {
       "item": "botania:flighttiara",
