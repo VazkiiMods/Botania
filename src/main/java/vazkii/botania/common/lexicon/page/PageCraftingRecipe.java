@@ -142,7 +142,7 @@ public class PageCraftingRecipe extends PageRecipe {
 				for(int x = 0; x < width; x++) {
 					Ingredient input = recipe.getIngredients().get(y * width + x);
 					if(input != Ingredient.EMPTY)
-						renderItemAtGridPos(gui, 1 + x, 1 + y, input.getMatchingStacks()[0], true);
+						renderItemAtGridPos(gui, 1 + x, 1 + y, input.getMatchingStacks()[0], true); // TODO 1.12 this isn't just used for OD anymore. need to cycle through all matching stacks
 				}
 		} else if(recipe instanceof ShapelessRecipes || recipe instanceof ShapelessOreRecipe) {
 			shapelessRecipe = true;
@@ -158,7 +158,7 @@ public class PageCraftingRecipe extends PageRecipe {
 
 						Ingredient input = recipe.getIngredients().get(index);
 						if(input != Ingredient.EMPTY)
-							renderItemAtGridPos(gui, 1 + x, 1 + y, input.getMatchingStacks()[0], true);
+							renderItemAtGridPos(gui, 1 + x, 1 + y, input.getMatchingStacks()[0], true); // TODO 1.12 this isn't just used for OD anymore. need to cycle through all matching stacks
 					}
 			}
 		}
