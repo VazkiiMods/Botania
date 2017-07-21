@@ -3,6 +3,7 @@
     "item": "botania:mushroom",
     "data": 12
   },
+  "group": "botania:mushroom",
   "ingredients": [
     [
       {

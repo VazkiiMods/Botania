@@ -1294,8 +1294,6 @@ public final class LexiconData {
 				new PageLoreText("4"), new PageLoreText("5"), new PageLoreText("6"), new PageLoreText("7"))
 		.setIcon(new ItemStack(Items.WRITABLE_BOOK));
 
-		if(true) return;
-
 		if (ConfigHandler.relicsEnabled) {
 			relics = new AlfheimLexiconEntry(LibLexicon.ALF_RELICS, categoryAlfhomancy);
 			relics.setLexiconPages(new PageText("0")).setIcon(new ItemStack(ModItems.dice));
@@ -1339,7 +1337,7 @@ public final class LexiconData {
 					new PageCraftingRecipe("11", ModCraftingRecipes.recipeDarkQuartz),
 					new PageManaInfusionRecipe("12", ModManaInfusionRecipes.manaQuartzRecipe),
 					new PageCraftingRecipe("13", ModCraftingRecipes.recipeBlazeQuartz),
-					new PageCraftingRecipe("14", ModCraftingRecipes.recipesLavenderQuartz),
+					new PageCraftingRecipe("14", ModCraftingRecipes.recipeLavenderQuartz),
 					new PageCraftingRecipe("15", ModCraftingRecipes.recipeRedQuartz),
 					new PageCraftingRecipe("23", ModCraftingRecipes.recipeSunnyQuartz), new PageText("16"));
 		else
@@ -1355,7 +1353,7 @@ public final class LexiconData {
 					new PageCraftingRecipe("9", ModCraftingRecipes.recipeLivingwoodDecor5), new PageText("10"),
 					new PageManaInfusionRecipe("12", ModManaInfusionRecipes.manaQuartzRecipe),
 					new PageCraftingRecipe("13", ModCraftingRecipes.recipeBlazeQuartz),
-					new PageCraftingRecipe("14", ModCraftingRecipes.recipesLavenderQuartz),
+					new PageCraftingRecipe("14", ModCraftingRecipes.recipeLavenderQuartz),
 					new PageCraftingRecipe("15", ModCraftingRecipes.recipeRedQuartz),
 					new PageCraftingRecipe("23", ModCraftingRecipes.recipeSunnyQuartz));
 

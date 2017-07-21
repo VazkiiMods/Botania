@@ -19,7 +19,6 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.registries.IForgeRegistry;
 import vazkii.botania.common.Botania;
@@ -147,7 +146,7 @@ public final class ModCraftingRecipes {
 	public static ResourceLocation recipeEnderDagger;
 	public static ResourceLocation recipeDarkQuartz;
 	public static ResourceLocation recipeBlazeQuartz;
-	public static List<ResourceLocation> recipesLavenderQuartz;
+	public static ResourceLocation recipeLavenderQuartz;
 	public static ResourceLocation recipeRedQuartz;
 	public static ResourceLocation recipeSunnyQuartz;
 	public static ResourceLocation recipeAlfPortal;
@@ -462,17 +461,18 @@ public final class ModCraftingRecipes {
 
 	public static void init() {
 		// Can't do this in RegistryEvent.Register event handler since it seems JSON recipes aren't loaded yet
-		recipesPetals = allOfGroup("petal");
+		recipesPetals = allOfGroup(ModItems.petal.getRegistryName());
 		recipePestleAndMortar = ModItems.pestleAndMortar.getRegistryName();
-		recipesDyes = allOfGroup("dye");
+		recipesDyes = allOfGroup(ModItems.dye.getRegistryName());
 		recipeFertilizerPowder = gogPath("fertilizer_powder");
 		recipeFerilizerDye = path("fertilizer_dye");
 		recipesPetalsDouble = allOfGroup("petal_double");
-		recipesPetalBlocks = allOfGroup("petalblock");
+		recipesPetalBlocks = allOfGroup(ModBlocks.petalBlock.getRegistryName());
 		recipesReversePetalBlocks = allOfGroup("petal_block_deconstruct");
 
 		recipeApothecary = path("altar_0");
 		recipeLexicon = ModItems.lexicon.getRegistryName();
+		recipesTwigWand = allOfGroup(ModItems.twigWand.getRegistryName());
 		recipeLivingwoodTwig = path("manaresource_3");
 		recipeRuneAltar = ModBlocks.runeAltar.getRegistryName();
 		recipeTerraPlate = ModBlocks.terraPlate.getRegistryName();
@@ -486,7 +486,7 @@ public final class ModCraftingRecipes {
 			recipeEndPortal = gogPath("end_portal_frame");
 		}
 
-		recipesSpreader = allOfGroup("spreader");
+		recipesSpreader = allOfGroup(ModBlocks.spreader.getRegistryName());
 
 		recipePool = path("pool_0");
 		recipePoolDiluted = path("pool_2");
@@ -564,7 +564,7 @@ public final class ModCraftingRecipes {
 		recipeFelPumpkin = ModBlocks.felPumpkin.getRegistryName();
 		recipeAnimatedTorch = ModBlocks.animatedTorch.getRegistryName();
 		recipeManaBlaster = ModItems.manaGun.getRegistryName();
-		recipesAltGrassSeeds = allOfGroup("grassseeds");
+		recipesAltGrassSeeds = allOfGroup(ModItems.grassSeeds.getRegistryName());
 		recipeDirtRod = ModItems.dirtRod.getRegistryName();
 		recipeTerraformRod = ModItems.terraformRod.getRegistryName();
 		recipeManasteelPick = ModItems.manasteelPick.getRegistryName();
@@ -704,6 +704,31 @@ public final class ModCraftingRecipes {
 		recipeDreamwoodTwig = path("manaresource_13");
 		recipeGaiaPylon = path("pylon_2");
 		recipeGaiaIngot = path("manaresource_14");
+		recipeLivingrockDecor1 = path("livingrock_1");
+		recipeLivingrockDecor2 = path("livingrock_2");
+		recipeLivingrockDecor3 = path("livingrock_3");
+		recipeLivingrockDecor4 = path("livingrock_4");
+		recipeLivingwoodDecor1 = path("livingwood_1");
+		recipeLivingwoodDecor2 = path("livingwood_2");
+		recipeLivingwoodDecor3 = path("livingwood_3");
+		recipeLivingwoodDecor4 = path("livingwood_4");
+		recipeLivingwoodDecor5 = path("livingwood_5");
+		recipeDarkQuartz = path("quartz_0");
+		recipeBlazeQuartz = path("quartz_2");
+		recipeLavenderQuartz = path("quartz_3");
+		recipeRedQuartz = path("quartz_4");
+		recipeSunnyQuartz = path("quartz_6");
+		recipesShinyFlowers = allOfGroup(ModBlocks.shinyFlower.getRegistryName());
+		recipesMiniIsland = allOfGroup(ModBlocks.floatingFlower.getRegistryName());
+		recipeAzulejo = path("custombrick_4");
+		recipesAzulejoCycling = allOfGroup("azulejo_cycling");
+		recipeStarfield = ModBlocks.starfield.getRegistryName();
+		recipesMushrooms = allOfGroup(ModBlocks.mushroom.getRegistryName());
+		recipePhantomInk = ModItems.phantomInk.getRegistryName();
+		recipeBlazeBlock = gogPath("blazeblock");
+		recipeCacophonium = ModItems.cacophonium.getRegistryName();
+		recipesPavement = allOfGroup(ModFluffBlocks.pavement.getRegistryName());
+
 	}
 
 	private static ResourceLocation gogPath(String path) {
@@ -719,7 +744,11 @@ public final class ModCraftingRecipes {
 	}
 
 	private static List<ResourceLocation> allOfGroup(String group) {
-		String jsonGroup = LibMisc.MOD_ID + ":" + group;
+		return allOfGroup(new ResourceLocation(LibMisc.MOD_ID, group));
+	}
+
+	private static List<ResourceLocation> allOfGroup(ResourceLocation group) {
+		String jsonGroup = group.toString();
 
 		return ForgeRegistries.RECIPES.getEntries().stream()
 				.filter(e -> jsonGroup.equals(e.getValue().getGroup()))

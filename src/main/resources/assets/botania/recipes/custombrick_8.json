@@ -3,6 +3,7 @@
     "item": "botania:custombrick",
     "data": 8
   },
+  "group": "botania:azulejo_cycling",
   "ingredients": [
     {
       "item": "botania:custombrick",
