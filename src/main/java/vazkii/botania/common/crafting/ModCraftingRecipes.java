@@ -11,6 +11,10 @@
 package vazkii.botania.common.crafting;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ResourceLocation;
@@ -48,7 +52,11 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.lib.LibOreDict;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -377,21 +385,38 @@ public final class ModCraftingRecipes {
 			GameRegistry.addSmelting(new ItemStack(ModFluffBlocks.biomeStoneA, 1, i + 8), new ItemStack(ModFluffBlocks.biomeStoneA, 1, i), 0.1F);
 		}
 
-		// Wand of the Forest Recipes
+		/*// Wand of the Forest Recipes
+		File f = new File("/home/vincent/CS/mods/Botania/eclipse/wands/");
+		f.mkdirs();
+		Gson gson  =new GsonBuilder().setPrettyPrinting().create();
 		recipesTwigWand = new ArrayList<>();
-		ResourceLocation group = ModItems.twigWand.getRegistryName();
 		for(int i = 0; i < 16; i++)
 			for(int j = 0; j < 16; j++) {
 				ItemStack output = ItemTwigWand.forColors(i, j);
-				ShapedOreRecipe recipe = new ShapedOreRecipe(group, output,
-						" AS", " SB", "S  ",
-						'A', LibOreDict.PETAL[i],
-						'B', LibOreDict.PETAL[j],
-						'S', LibOreDict.LIVINGWOOD_TWIG);
-				recipe.setRegistryName(String.format("%s_%d_%d", ModItems.twigWand.getRegistryName(), i, j));
-				recipesTwigWand.add(recipe.getRegistryName());
-				r.register(recipe);
-			}
+				Map<String, Object> json = new HashMap<>();
+				json.put("result", ImmutableMap.of("item", ModItems.twigWand.getRegistryName().toString(), "data", 0, "nbt", output.getTagCompound().toString()));
+				json.put("group", ModItems.twigWand.getRegistryName().toString());
+				json.put("type", "forge:ore_shaped");
+				json.put("pattern", ImmutableList.of(" AS", " SB", "S  "));
+				Map<String, Object> key = new HashMap<>();
+				key.put("A", ImmutableMap.of("item", "#" + LibOreDict.PETAL[i].toUpperCase()));
+				key.put("B", ImmutableMap.of("item", "#" + LibOreDict.PETAL[j].toUpperCase()));
+				key.put("S", ImmutableMap.of("item", "#" + LibOreDict.LIVINGWOOD_TWIG.toUpperCase()));
+				json.put("key", key);
+
+				String name = String.format("%s_%s_%s.json", ModItems.twigWand.getRegistryName().getResourcePath(), EnumDyeColor.byMetadata(i), EnumDyeColor.byMetadata(j));
+
+				File f1 = new File(f, name);
+
+				try (FileWriter w = new FileWriter(f1)) {
+					gson.toJson(json, w);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+
+				*//*recipesTwigWand.add(recipe.getRegistryName());
+				r.register(recipe);*//*
+			}*/
 
 		// Terrasteel Armor Recipes
 		// RecipeSorter.register("botania:armorUpgrade", ArmorUpgradeRecipe.class, RecipeSorter.Category.SHAPED, "");
