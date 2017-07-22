@@ -150,10 +150,10 @@ public abstract class ItemBauble extends ItemMod implements IBauble, ICosmeticAt
 	@Override
 	public void onEquipped(ItemStack stack, EntityLivingBase player) {
 		if(player != null) {
-			if(!player.world.isRemote)
+			if(!player.world.isRemote) {
 				player.world.playSound(null, player.posX, player.posY, player.posZ, ModSounds.equipBauble, SoundCategory.PLAYERS, 0.1F, 1.3F);
-
-			// todo 1.12 advancement trigger for baubles (ideally baubles adds one, not us..)
+				PlayerHelper.grantCriterion((EntityPlayerMP) player, new ResourceLocation(LibMisc.MOD_ID, "main/bauble_wear"), "code_triggered");
+			}
 
 			onEquippedOrLoadedIntoWorld(stack, player);
 			setLastPlayerHashcode(stack, player.hashCode());

@@ -16,6 +16,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
@@ -45,7 +46,8 @@ public class PacketDodge implements IMessage {
 				if(ringStack.isEmpty() || !(ringStack.getItem() instanceof ItemDodgeRing)) {
 					ringStack = baublesInv.getStackInSlot(2);
 					if(ringStack.isEmpty() || !(ringStack.getItem() instanceof ItemDodgeRing))
-						ctx.getServerHandler().disconnect(new TextComponentString("Invalid Dodge Packet")); // todo 1.12 textcomponenttranslation
+						ctx.getServerHandler().disconnect(new TextComponentTranslation("botaniamisc.invalidDodge"));
+					return;
 				}
 
 				player.addExhaustion(0.3F);

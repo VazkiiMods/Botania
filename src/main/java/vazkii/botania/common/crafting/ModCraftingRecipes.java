@@ -11,6 +11,10 @@
 package vazkii.botania.common.crafting;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ResourceLocation;
@@ -19,7 +23,6 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.registries.IForgeRegistry;
 import vazkii.botania.common.Botania;
@@ -49,7 +52,11 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.lib.LibOreDict;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -147,7 +154,7 @@ public final class ModCraftingRecipes {
 	public static ResourceLocation recipeEnderDagger;
 	public static ResourceLocation recipeDarkQuartz;
 	public static ResourceLocation recipeBlazeQuartz;
-	public static List<ResourceLocation> recipesLavenderQuartz;
+	public static ResourceLocation recipeLavenderQuartz;
 	public static ResourceLocation recipeRedQuartz;
 	public static ResourceLocation recipeSunnyQuartz;
 	public static ResourceLocation recipeAlfPortal;
@@ -378,21 +385,38 @@ public final class ModCraftingRecipes {
 			GameRegistry.addSmelting(new ItemStack(ModFluffBlocks.biomeStoneA, 1, i + 8), new ItemStack(ModFluffBlocks.biomeStoneA, 1, i), 0.1F);
 		}
 
-		// Wand of the Forest Recipes
+		/*// Wand of the Forest Recipes
+		File f = new File("/home/vincent/CS/mods/Botania/eclipse/wands/");
+		f.mkdirs();
+		Gson gson  =new GsonBuilder().setPrettyPrinting().create();
 		recipesTwigWand = new ArrayList<>();
-		ResourceLocation group = ModItems.twigWand.getRegistryName();
 		for(int i = 0; i < 16; i++)
 			for(int j = 0; j < 16; j++) {
 				ItemStack output = ItemTwigWand.forColors(i, j);
-				ShapedOreRecipe recipe = new ShapedOreRecipe(group, output,
-						" AS", " SB", "S  ",
-						'A', LibOreDict.PETAL[i],
-						'B', LibOreDict.PETAL[j],
-						'S', LibOreDict.LIVINGWOOD_TWIG);
-				recipe.setRegistryName(String.format("%s_%d_%d", ModItems.twigWand.getRegistryName(), i, j));
-				recipesTwigWand.add(recipe.getRegistryName());
-				r.register(recipe);
-			}
+				Map<String, Object> json = new HashMap<>();
+				json.put("result", ImmutableMap.of("item", ModItems.twigWand.getRegistryName().toString(), "data", 0, "nbt", output.getTagCompound().toString()));
+				json.put("group", ModItems.twigWand.getRegistryName().toString());
+				json.put("type", "forge:ore_shaped");
+				json.put("pattern", ImmutableList.of(" AS", " SB", "S  "));
+				Map<String, Object> key = new HashMap<>();
+				key.put("A", ImmutableMap.of("item", "#" + LibOreDict.PETAL[i].toUpperCase()));
+				key.put("B", ImmutableMap.of("item", "#" + LibOreDict.PETAL[j].toUpperCase()));
+				key.put("S", ImmutableMap.of("item", "#" + LibOreDict.LIVINGWOOD_TWIG.toUpperCase()));
+				json.put("key", key);
+
+				String name = String.format("%s_%s_%s.json", ModItems.twigWand.getRegistryName().getResourcePath(), EnumDyeColor.byMetadata(i), EnumDyeColor.byMetadata(j));
+
+				File f1 = new File(f, name);
+
+				try (FileWriter w = new FileWriter(f1)) {
+					gson.toJson(json, w);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+
+				*//*recipesTwigWand.add(recipe.getRegistryName());
+				r.register(recipe);*//*
+			}*/
 
 		// Terrasteel Armor Recipes
 		// RecipeSorter.register("botania:armorUpgrade", ArmorUpgradeRecipe.class, RecipeSorter.Category.SHAPED, "");
@@ -462,17 +486,18 @@ public final class ModCraftingRecipes {
 
 	public static void init() {
 		// Can't do this in RegistryEvent.Register event handler since it seems JSON recipes aren't loaded yet
-		recipesPetals = allOfGroup("petal");
+		recipesPetals = allOfGroup(ModItems.petal.getRegistryName());
 		recipePestleAndMortar = ModItems.pestleAndMortar.getRegistryName();
-		recipesDyes = allOfGroup("dye");
+		recipesDyes = allOfGroup(ModItems.dye.getRegistryName());
 		recipeFertilizerPowder = gogPath("fertilizer_powder");
 		recipeFerilizerDye = path("fertilizer_dye");
 		recipesPetalsDouble = allOfGroup("petal_double");
-		recipesPetalBlocks = allOfGroup("petalblock");
+		recipesPetalBlocks = allOfGroup(ModBlocks.petalBlock.getRegistryName());
 		recipesReversePetalBlocks = allOfGroup("petal_block_deconstruct");
 
 		recipeApothecary = path("altar_0");
 		recipeLexicon = ModItems.lexicon.getRegistryName();
+		recipesTwigWand = allOfGroup(ModItems.twigWand.getRegistryName());
 		recipeLivingwoodTwig = path("manaresource_3");
 		recipeRuneAltar = ModBlocks.runeAltar.getRegistryName();
 		recipeTerraPlate = ModBlocks.terraPlate.getRegistryName();
@@ -486,7 +511,7 @@ public final class ModCraftingRecipes {
 			recipeEndPortal = gogPath("end_portal_frame");
 		}
 
-		recipesSpreader = allOfGroup("spreader");
+		recipesSpreader = allOfGroup(ModBlocks.spreader.getRegistryName());
 
 		recipePool = path("pool_0");
 		recipePoolDiluted = path("pool_2");
@@ -564,7 +589,7 @@ public final class ModCraftingRecipes {
 		recipeFelPumpkin = ModBlocks.felPumpkin.getRegistryName();
 		recipeAnimatedTorch = ModBlocks.animatedTorch.getRegistryName();
 		recipeManaBlaster = ModItems.manaGun.getRegistryName();
-		recipesAltGrassSeeds = allOfGroup("grassseeds");
+		recipesAltGrassSeeds = allOfGroup(ModItems.grassSeeds.getRegistryName());
 		recipeDirtRod = ModItems.dirtRod.getRegistryName();
 		recipeTerraformRod = ModItems.terraformRod.getRegistryName();
 		recipeManasteelPick = ModItems.manasteelPick.getRegistryName();
@@ -704,6 +729,31 @@ public final class ModCraftingRecipes {
 		recipeDreamwoodTwig = path("manaresource_13");
 		recipeGaiaPylon = path("pylon_2");
 		recipeGaiaIngot = path("manaresource_14");
+		recipeLivingrockDecor1 = path("livingrock_1");
+		recipeLivingrockDecor2 = path("livingrock_2");
+		recipeLivingrockDecor3 = path("livingrock_3");
+		recipeLivingrockDecor4 = path("livingrock_4");
+		recipeLivingwoodDecor1 = path("livingwood_1");
+		recipeLivingwoodDecor2 = path("livingwood_2");
+		recipeLivingwoodDecor3 = path("livingwood_3");
+		recipeLivingwoodDecor4 = path("livingwood_4");
+		recipeLivingwoodDecor5 = path("livingwood_5");
+		recipeDarkQuartz = path("quartz_0");
+		recipeBlazeQuartz = path("quartz_2");
+		recipeLavenderQuartz = path("quartz_3");
+		recipeRedQuartz = path("quartz_4");
+		recipeSunnyQuartz = path("quartz_6");
+		recipesShinyFlowers = allOfGroup(ModBlocks.shinyFlower.getRegistryName());
+		recipesMiniIsland = allOfGroup(ModBlocks.floatingFlower.getRegistryName());
+		recipeAzulejo = path("custombrick_4");
+		recipesAzulejoCycling = allOfGroup("azulejo_cycling");
+		recipeStarfield = ModBlocks.starfield.getRegistryName();
+		recipesMushrooms = allOfGroup(ModBlocks.mushroom.getRegistryName());
+		recipePhantomInk = ModItems.phantomInk.getRegistryName();
+		recipeBlazeBlock = gogPath("blazeblock");
+		recipeCacophonium = ModItems.cacophonium.getRegistryName();
+		recipesPavement = allOfGroup(ModFluffBlocks.pavement.getRegistryName());
+
 	}
 
 	private static ResourceLocation gogPath(String path) {
@@ -719,7 +769,11 @@ public final class ModCraftingRecipes {
 	}
 
 	private static List<ResourceLocation> allOfGroup(String group) {
-		String jsonGroup = LibMisc.MOD_ID + ":" + group;
+		return allOfGroup(new ResourceLocation(LibMisc.MOD_ID, group));
+	}
+
+	private static List<ResourceLocation> allOfGroup(ResourceLocation group) {
+		String jsonGroup = group.toString();
 
 		return ForgeRegistries.RECIPES.getEntries().stream()
 				.filter(e -> jsonGroup.equals(e.getValue().getGroup()))

@@ -155,6 +155,7 @@ botaniamisc.altarRefill1=add back the last recipe
 botaniamisc.santaweaveInfo=Manaweave, changed up for the &cs&fe&ca&fs&co&fn
 botaniamisc.enterToView=^ Press ENTER to view ^
 botaniamisc.scaleChange=Change Scale
+botaniamisc.invalidDodge=Invalid Dodge Packet
 
 # NEI INTEGRATION
 botania.nei.brewery=Botanical Brewery
