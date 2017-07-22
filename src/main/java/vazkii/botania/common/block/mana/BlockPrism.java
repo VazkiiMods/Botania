@@ -46,16 +46,16 @@ import javax.annotation.Nonnull;
 import java.util.Random;
 
 public class BlockPrism extends BlockMod implements IManaTrigger, ILexiconable, IManaCollisionGhost {
-
 	private static final AxisAlignedBB AABB = new AxisAlignedBB(0.25, 0, 0.25, 0.75, 1, 0.75);
-
-	private final Random random = new Random();
 
 	public BlockPrism() {
 		super(Material.GLASS, LibBlockNames.PRISM);
 		setHardness(0.3F);
 		setSoundType(SoundType.GLASS);
 		setLightLevel(1.0F);
+		setDefaultState(blockState.getBaseState()
+				.withProperty(BotaniaStateProps.POWERED, false)
+				.withProperty(BotaniaStateProps.HAS_LENS, false));
 	}
 
 	@Nonnull
@@ -68,13 +68,6 @@ public class BlockPrism extends BlockMod implements IManaTrigger, ILexiconable, 
 	@Override
 	public BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, BotaniaStateProps.POWERED, BotaniaStateProps.HAS_LENS);
-	}
-
-	@Override
-	protected IBlockState pickDefaultState() {
-		return blockState.getBaseState()
-				.withProperty(BotaniaStateProps.POWERED, false)
-				.withProperty(BotaniaStateProps.HAS_LENS, false);
 	}
 
 	@Override

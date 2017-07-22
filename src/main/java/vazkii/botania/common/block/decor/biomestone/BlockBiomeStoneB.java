@@ -25,17 +25,13 @@ public class BlockBiomeStoneB extends BlockBiomeStone {
 
 	public BlockBiomeStoneB() {
 		super(LibBlockNames.BIOME_STONE_B);
+		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.BIOMEBRICK_VARIANT, BiomeBrickVariant.FOREST));
 	}
 
 	@Nonnull
 	@Override
 	public BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, BotaniaStateProps.BIOMEBRICK_VARIANT);
-	}
-
-	@Override
-	protected IBlockState pickDefaultState() {
-		return blockState.getBaseState().withProperty(BotaniaStateProps.BIOMEBRICK_VARIANT, BiomeBrickVariant.FOREST);
 	}
 
 	@Override

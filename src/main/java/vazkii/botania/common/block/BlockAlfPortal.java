@@ -42,6 +42,7 @@ public class BlockAlfPortal extends BlockMod implements IWandable, ILexiconable 
 		super(Material.WOOD, LibBlockNames.ALF_PORTAL);
 		setHardness(10F);
 		setSoundType(SoundType.WOOD);
+		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.ALFPORTAL_STATE, AlfPortalState.OFF));
 	}
 
 	@Nonnull
@@ -62,11 +63,6 @@ public class BlockAlfPortal extends BlockMod implements IWandable, ILexiconable 
 	@Override
 	public int getMetaFromState(IBlockState state) {
 		return state.getValue(BotaniaStateProps.ALFPORTAL_STATE).ordinal();
-	}
-
-	@Override
-	public IBlockState pickDefaultState() {
-		return blockState.getBaseState().withProperty(BotaniaStateProps.ALFPORTAL_STATE, AlfPortalState.OFF);
 	}
 
 	@Override

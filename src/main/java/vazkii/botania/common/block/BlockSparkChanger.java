@@ -46,6 +46,7 @@ public class BlockSparkChanger extends BlockMod implements ILexiconable {
 		setHardness(2.0F);
 		setResistance(10.0F);
 		setSoundType(SoundType.STONE);
+		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.POWERED, true));
 	}
 
 	@Nonnull
@@ -58,11 +59,6 @@ public class BlockSparkChanger extends BlockMod implements ILexiconable {
 	@Override
 	public BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, BotaniaStateProps.POWERED);
-	}
-
-	@Override
-	protected IBlockState pickDefaultState() {
-		return blockState.getBaseState().withProperty(BotaniaStateProps.POWERED, true);
 	}
 
 	@Override

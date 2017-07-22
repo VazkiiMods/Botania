@@ -41,17 +41,13 @@ public class BlockCustomBrick extends BlockMod implements ILexiconable {
 		setHardness(2.0F);
 		setResistance(5.0F);
 		setSoundType(SoundType.STONE);
+		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.CUSTOMBRICK_VARIANT, CustomBrickVariant.HELLISH_BRICK));
 	}
 
 	@Nonnull
 	@Override
 	public BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, BotaniaStateProps.CUSTOMBRICK_VARIANT);
-	}
-
-	@Override
-	protected IBlockState pickDefaultState() {
-		return blockState.getBaseState().withProperty(BotaniaStateProps.CUSTOMBRICK_VARIANT, CustomBrickVariant.HELLISH_BRICK);
 	}
 
 	@Override

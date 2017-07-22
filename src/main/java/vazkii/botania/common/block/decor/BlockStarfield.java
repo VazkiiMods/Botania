@@ -43,6 +43,7 @@ public class BlockStarfield extends BlockMod implements ILexiconable {
 		setHardness(5F);
 		setResistance(2000F);
 		setSoundType(SoundType.METAL);
+		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.POWERED, false));
 	}
 
 	@Nonnull
@@ -62,11 +63,6 @@ public class BlockStarfield extends BlockMod implements ILexiconable {
 	@Override
 	public BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, BotaniaStateProps.POWERED);
-	}
-
-	@Override
-	protected IBlockState pickDefaultState() {
-		return blockState.getBaseState().withProperty(BotaniaStateProps.POWERED, false);
 	}
 
 	@Override

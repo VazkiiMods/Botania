@@ -48,17 +48,13 @@ public class BlockFelPumpkin extends BlockMod implements ILexiconable {
 		super(Material.GOURD, LibBlockNames.FEL_PUMPKIN);
 		setHardness(1F);
 		setSoundType(SoundType.WOOD);
+		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.CARDINALS, EnumFacing.SOUTH));
 	}
 
 	@Nonnull
 	@Override
 	public BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, BotaniaStateProps.CARDINALS);
-	}
-
-	@Override
-	protected IBlockState pickDefaultState() {
-		return blockState.getBaseState().withProperty(BotaniaStateProps.CARDINALS, EnumFacing.SOUTH);
 	}
 
 	@Override

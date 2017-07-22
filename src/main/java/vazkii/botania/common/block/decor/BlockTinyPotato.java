@@ -47,18 +47,14 @@ public class BlockTinyPotato extends BlockMod implements ILexiconable {
 	public BlockTinyPotato() {
 		super(Material.CLOTH, LibBlockNames.TINY_POTATO);
 		setHardness(0.25F);
+		setDefaultState(blockState.getBaseState()
+				.withProperty(BotaniaStateProps.CARDINALS, EnumFacing.SOUTH));
 	}
 
 	@Nonnull
 	@Override
 	public BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, BotaniaStateProps.CARDINALS);
-	}
-
-	@Override
-	protected IBlockState pickDefaultState() {
-		return blockState.getBaseState()
-				.withProperty(BotaniaStateProps.CARDINALS, EnumFacing.SOUTH);
 	}
 
 	@Override

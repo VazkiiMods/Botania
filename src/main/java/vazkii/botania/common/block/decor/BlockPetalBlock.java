@@ -41,17 +41,13 @@ public class BlockPetalBlock extends BlockMod implements ILexiconable {
 		super(Material.PLANTS, LibBlockNames.PETAL_BLOCK);
 		setHardness(0.4F);
 		setSoundType(SoundType.PLANT);
+		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.COLOR, EnumDyeColor.WHITE));
 	}
 
 	@Nonnull
 	@Override
 	public BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, BotaniaStateProps.COLOR);
-	}
-
-	@Override
-	protected IBlockState pickDefaultState() {
-		return blockState.getBaseState().withProperty(BotaniaStateProps.COLOR, EnumDyeColor.WHITE);
 	}
 
 	@Override

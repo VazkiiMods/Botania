@@ -24,11 +24,7 @@ public class BlockRedStringContainer extends BlockRedString {
 
 	public BlockRedStringContainer() {
 		super(LibBlockNames.RED_STRING_CONTAINER);
-	}
-
-	@Override
-	protected IBlockState pickDefaultState() {
-		return blockState.getBaseState().withProperty(BotaniaStateProps.FACING, EnumFacing.DOWN);
+		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.FACING, EnumFacing.DOWN));
 	}
 
 	@Nonnull

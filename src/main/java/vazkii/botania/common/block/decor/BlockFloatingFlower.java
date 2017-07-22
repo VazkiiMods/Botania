@@ -75,6 +75,7 @@ public class BlockFloatingFlower extends BlockMod implements ILexiconable, IInfu
 		setHardness(0.5F);
 		setSoundType(SoundType.GROUND);
 		setLightLevel(1F);
+		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.COLOR, EnumDyeColor.WHITE));
 	}
 
 	@Nonnull
@@ -99,11 +100,6 @@ public class BlockFloatingFlower extends BlockMod implements ILexiconable, IInfu
 	@Override
 	public BlockStateContainer createBlockState() {
 		return new ExtendedBlockState(this, new IProperty[] { BotaniaStateProps.COLOR }, new IUnlistedProperty[] { BotaniaStateProps.ISLAND_TYPE });
-	}
-
-	@Override
-	protected IBlockState pickDefaultState() {
-		return blockState.getBaseState().withProperty(BotaniaStateProps.COLOR, EnumDyeColor.WHITE);
 	}
 
 	@Override

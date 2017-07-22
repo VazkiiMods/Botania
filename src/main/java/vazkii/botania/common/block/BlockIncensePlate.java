@@ -45,17 +45,13 @@ public class BlockIncensePlate extends BlockMod implements ILexiconable {
 		super(Material.WOOD, LibBlockNames.INCENSE_PLATE);
 		setHardness(2.0F);
 		setSoundType(SoundType.WOOD);
+		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.CARDINALS, EnumFacing.SOUTH));
 	}
 
 	@Nonnull
 	@Override
 	public BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, BotaniaStateProps.CARDINALS);
-	}
-
-	@Override
-	protected IBlockState pickDefaultState() {
-		return blockState.getBaseState().withProperty(BotaniaStateProps.CARDINALS, EnumFacing.SOUTH);
 	}
 
 	@Override

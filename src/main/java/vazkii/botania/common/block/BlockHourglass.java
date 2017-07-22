@@ -60,6 +60,7 @@ public class BlockHourglass extends BlockMod implements IManaTrigger, IWandable,
 		super(Material.IRON, LibBlockNames.HOURGLASS);
 		setHardness(2.0F);
 		setSoundType(SoundType.METAL);
+		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.POWERED, false));
 	}
 
 	@Nonnull
@@ -72,11 +73,6 @@ public class BlockHourglass extends BlockMod implements IManaTrigger, IWandable,
 	@Override
 	public BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, BotaniaStateProps.POWERED);
-	}
-
-	@Override
-	protected IBlockState pickDefaultState() {
-		return blockState.getBaseState().withProperty(BotaniaStateProps.POWERED, false);
 	}
 
 	@Override

@@ -47,25 +47,19 @@ import java.util.Random;
 
 public class BlockEnchanter extends BlockMod implements IWandable, ILexiconable, IWandHUD {
 
-	private final Random random = new Random();
-
 	public BlockEnchanter() {
 		super(Material.ROCK, LibBlockNames.ENCHANTER);
 		setHardness(3.0F);
 		setResistance(5.0F);
 		setLightLevel(1.0F);
 		setSoundType(SoundType.STONE);
+		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.ENCHANTER_DIRECTION, EnumFacing.Axis.X));
 	}
 
 	@Nonnull
 	@Override
 	public BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, BotaniaStateProps.ENCHANTER_DIRECTION);
-	}
-
-	@Override
-	protected IBlockState pickDefaultState() {
-		return blockState.getBaseState().withProperty(BotaniaStateProps.ENCHANTER_DIRECTION, EnumFacing.Axis.X);
 	}
 
 	@Override

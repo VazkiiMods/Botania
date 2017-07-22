@@ -57,6 +57,7 @@ public class BlockForestDrum extends BlockMod implements IManaTrigger, ILexicona
 		super(Material.WOOD, LibBlockNames.FOREST_DRUM);
 		setHardness(2.0F);
 		setSoundType(SoundType.WOOD);
+		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.DRUM_VARIANT, DrumVariant.WILD));
 	}
 
 	@Nonnull
@@ -69,11 +70,6 @@ public class BlockForestDrum extends BlockMod implements IManaTrigger, ILexicona
 	@Override
 	public BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, BotaniaStateProps.DRUM_VARIANT);
-	}
-
-	@Override
-	protected IBlockState pickDefaultState() {
-		return blockState.getBaseState().withProperty(BotaniaStateProps.DRUM_VARIANT, DrumVariant.WILD);
 	}
 
 	@Override

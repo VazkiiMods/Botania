@@ -66,6 +66,8 @@ public class BlockAltar extends BlockMod implements ILexiconable {
 		super(Material.ROCK, LibBlockNames.ALTAR);
 		setHardness(3.5F);
 		setSoundType(SoundType.STONE);
+		setDefaultState(blockState.getBaseState()
+				.withProperty(BotaniaStateProps.ALTAR_VARIANT, AltarVariant.DEFAULT));
 	}
 
 	@Nonnull
@@ -78,12 +80,6 @@ public class BlockAltar extends BlockMod implements ILexiconable {
 	@Override
 	public BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, BotaniaStateProps.ALTAR_VARIANT);
-	}
-
-	@Override
-	protected IBlockState pickDefaultState() {
-		return blockState.getBaseState()
-				.withProperty(BotaniaStateProps.ALTAR_VARIANT, AltarVariant.DEFAULT);
 	}
 
 	@Override

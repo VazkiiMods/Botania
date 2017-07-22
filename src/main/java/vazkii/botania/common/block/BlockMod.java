@@ -31,14 +31,9 @@ public abstract class BlockMod extends Block implements IModelRegister {
 	public BlockMod(Material par2Material, String name) {
 		super(par2Material);
 		setUnlocalizedName(name);
-		setDefaultState(pickDefaultState()); // This MUST happen before registering the block
 		setRegistryName(new ResourceLocation(LibMisc.MOD_ID, name));
 		if(registerInCreative())
 			setCreativeTab(BotaniaCreativeTab.INSTANCE);
-	}
-
-	protected IBlockState pickDefaultState() {
-		return blockState.getBaseState();
 	}
 
 	protected boolean registerInCreative() {

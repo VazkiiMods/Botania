@@ -59,6 +59,7 @@ public class BlockPlatform extends BlockCamo implements ILexiconable, IWandable,
 		setHardness(2.0F);
 		setResistance(5.0F);
 		setSoundType(SoundType.WOOD);
+		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.PLATFORM_VARIANT, PlatformVariant.ABSTRUSE));
 	}
 
 	@Nonnull
@@ -66,11 +67,6 @@ public class BlockPlatform extends BlockCamo implements ILexiconable, IWandable,
 	public BlockStateContainer createBlockState() {
 		return new ExtendedBlockState(this, new IProperty[] { BotaniaStateProps.PLATFORM_VARIANT, },
 				new IUnlistedProperty[] { BotaniaStateProps.HELD_STATE, BotaniaStateProps.HELD_WORLD, BotaniaStateProps.HELD_POS });
-	}
-
-	@Override
-	protected IBlockState pickDefaultState() {
-		return blockState.getBaseState().withProperty(BotaniaStateProps.PLATFORM_VARIANT, PlatformVariant.ABSTRUSE);
 	}
 
 	@Override

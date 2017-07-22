@@ -40,17 +40,13 @@ public class BlockLivingrock extends BlockMod implements ILexiconable {
 		setHardness(2.0F);
 		setResistance(10.0F);
 		setSoundType(SoundType.STONE);
+		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.LIVINGROCK_VARIANT, LivingRockVariant.DEFAULT));
 	}
 
 	@Nonnull
 	@Override
 	public BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, BotaniaStateProps.LIVINGROCK_VARIANT);
-	}
-
-	@Override
-	protected IBlockState pickDefaultState() {
-		return blockState.getBaseState().withProperty(BotaniaStateProps.LIVINGROCK_VARIANT, LivingRockVariant.DEFAULT);
 	}
 
 	@Override

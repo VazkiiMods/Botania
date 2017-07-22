@@ -50,17 +50,13 @@ public class BlockAltGrass extends BlockMod implements ILexiconable {
 		setHardness(0.6F);
 		setSoundType(SoundType.PLANT);
 		setTickRandomly(true);
+		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.ALTGRASS_VARIANT, AltGrassVariant.DRY));
 	}
 
 	@Nonnull
 	@Override
 	public BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, BotaniaStateProps.ALTGRASS_VARIANT);
-	}
-
-	@Override
-	protected IBlockState pickDefaultState() {
-		return blockState.getBaseState().withProperty(BotaniaStateProps.ALTGRASS_VARIANT, AltGrassVariant.DRY);
 	}
 
 	@Override

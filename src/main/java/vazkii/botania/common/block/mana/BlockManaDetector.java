@@ -43,17 +43,13 @@ public class BlockManaDetector extends BlockMod implements ILexiconable, IManaCo
 		setHardness(2.0F);
 		setResistance(10.0F);
 		setSoundType(SoundType.STONE);
+		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.POWERED, false));
 	}
 
 	@Nonnull
 	@Override
 	public BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, BotaniaStateProps.POWERED);
-	}
-
-	@Override
-	protected IBlockState pickDefaultState() {
-		return blockState.getBaseState().withProperty(BotaniaStateProps.POWERED, false);
 	}
 
 	@Override
