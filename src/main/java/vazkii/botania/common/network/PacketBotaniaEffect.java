@@ -297,6 +297,19 @@ public class PacketBotaniaEffect implements IMessage {
 							float blue = (float) Math.random();
 							Botania.proxy.sparkleFX(message.x + 0.5 + Math.random() * 0.4 - 0.2, message.y + 1, message.z + 0.5 + Math.random() * 0.4 - 0.2, red, green, blue, (float) Math.random(), 10);
 						}
+						break;
+					}
+					case FLUGEL_EFFECT: {
+						Entity entity = world.getEntityByID(message.args[0]);
+						if(entity != null) {
+							for(int i = 0; i < 15; i++) {
+								float x = (float) (entity.posX + Math.random());
+								float y = (float) (entity.posY + Math.random());
+								float z = (float) (entity.posZ + Math.random());
+								Botania.proxy.wispFX(x, y, z, (float) Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random(), -0.3F + (float) Math.random() * 0.2F);
+							}
+						}
+						break;
 					}
 					}
 				}
@@ -321,7 +334,8 @@ public class PacketBotaniaEffect implements IMessage {
 		BREWERY_FINISH(1), // Arg: RGB
 		TERRA_PLATE(0),
 		APOTHECARY_CRAFT(0),
-		RUNE_CRAFT(0);
+		RUNE_CRAFT(0),
+		FLUGEL_EFFECT(1); // Arg: Entity ID
 
 		private final int argCount;
 
