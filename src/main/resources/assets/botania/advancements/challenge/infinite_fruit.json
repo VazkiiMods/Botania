@@ -14,13 +14,11 @@
   "parent": "botania:challenge/root",
   "criteria": {
     "fruit": {
-      "trigger": "minecraft:inventory_changed",
+      "trigger": "botania:relic_bind",
       "conditions": {
-        "items": [
-          {
-            "item": "botania:infinitefruit"
-          }
-        ]
+        "relic": {
+          "item": "botania:infinitefruit"
+        }
       }
     }
   }

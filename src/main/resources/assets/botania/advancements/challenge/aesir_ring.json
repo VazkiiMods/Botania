@@ -14,13 +14,11 @@
   "parent": "botania:challenge/root",
   "criteria": {
     "ring": {
-      "trigger": "minecraft:inventory_changed",
+      "trigger": "botania:relic_bind",
       "conditions": {
-        "items": [
-          {
-            "item": "botania:aesirring"
-          }
-        ]
+        "relic": {
+          "item": "botania:aesirring"
+        }
       }
     }
   }

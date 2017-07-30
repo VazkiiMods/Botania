@@ -16,16 +16,17 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
-import net.minecraftforge.common.UsernameCache;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IRelic;
+import vazkii.botania.common.advancements.RelicBindTrigger;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.item.ModItems;
@@ -36,7 +37,6 @@ import java.util.UUID;
 
 public class ItemRelic extends ItemMod implements IRelic {
 
-	private static final String TAG_SOULBIND_NAME = "soulbind";
 	private static final String TAG_SOULBIND_UUID = "soulbindUUID";
 
 	public ItemRelic(String name) {
@@ -88,7 +88,7 @@ public class ItemRelic extends ItemMod implements IRelic {
 		return Integer.MAX_VALUE;
 	}
 
-	static void addStringToTooltip(String s, List<String> tooltip) {
+	private static void addStringToTooltip(String s, List<String> tooltip) {
 		tooltip.add(s.replaceAll("&", "\u00a7"));
 	}
 
@@ -100,6 +100,8 @@ public class ItemRelic extends ItemMod implements IRelic {
 
 		if(!hasUUID(stack)) {
 			bindToUUID(player.getUniqueID(), stack);
+			if(player instanceof EntityPlayerMP)
+				RelicBindTrigger.INSTANCE.trigger((EntityPlayerMP) player, stack);
 		} else if (!getSoulbindUUID(stack).equals(player.getUniqueID())) {
 			rightPlayer = false;
 		}

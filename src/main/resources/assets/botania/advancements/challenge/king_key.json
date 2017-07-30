@@ -14,13 +14,11 @@
   "parent": "botania:challenge/root",
   "criteria": {
     "key": {
-      "trigger": "minecraft:inventory_changed",
+      "trigger": "botania:relic_bind",
       "conditions": {
-        "items": [
-          {
-            "item": "botania:kingkey"
-          }
-        ]
+        "relic": {
+          "item": "botania:kingkey"
+        }
       }
     }
   }
