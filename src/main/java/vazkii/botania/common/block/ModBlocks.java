@@ -397,8 +397,10 @@ public final class ModBlocks {
 	}
 	
 	private static void initOreDict() {
-		for(int i = 0; i < 16; i++)
+		for(int i = 0; i < 16; i++) {
 			OreDictionary.registerOre(LibOreDict.FLOWER[i], new ItemStack(flower, 1, i));
+			OreDictionary.registerOre(LibOreDict.PETAL[i], new ItemStack(mushroom, 1, i));
+		}
 
 		OreDictionary.registerOre(LibOreDict.LIVING_ROCK, livingrock);
 		OreDictionary.registerOre(LibOreDict.LIVING_WOOD, livingwood);
