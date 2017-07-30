@@ -1,15 +1,15 @@
 {
   "display": {
     "icon": {
-      "item": "botania:lexicon"
+      "item": "botania:dice"
     },
     "title": {
-      "translate": "itemGroup.botania"
+      "translate": "advancement.botania_challenge"
     },
     "description": {
-      "translate": "botania.desc"
+      "translate": "advancement.botania_challenge.desc"
     },
-    "background": "botania:textures/blocks/livingwood0.png",
+    "background": "botania:textures/blocks/livingrock1.png",
     "show_toast": false,
     "announce_to_chat": false
   },

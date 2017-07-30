@@ -10,6 +10,8 @@
  */
 package vazkii.botania.common.lexicon;
 
+import net.minecraft.advancements.Advancement;
+import net.minecraft.advancements.AdvancementProgress;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.util.ResourceLocation;
@@ -37,10 +39,9 @@ public class RelicLexiconEntry extends BasicLexiconEntry {
 		if(a == null || player.capabilities.isCreativeMode) {
 			return true;
 		} else {
-			/*Advancement adv = player.connection.getAdvancementManager().getAdvancementList().getAdvancement(a);
+			Advancement adv = player.connection.getAdvancementManager().getAdvancementList().getAdvancement(a);
 			AdvancementProgress progress = player.connection.getAdvancementManager().advancementToProgress.get(adv);
-			return progress.isDone();*/
-			return false; // todo 1.12
+			return progress != null && progress.isDone();
 		}
 	}
 

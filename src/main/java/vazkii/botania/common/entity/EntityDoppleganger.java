@@ -76,6 +76,7 @@ import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ModSounds;
+import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibEntityNames;
@@ -435,6 +436,9 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 	public void onDeath(@Nonnull DamageSource source) {
 		super.onDeath(source);
 		EntityLivingBase entitylivingbase = getAttackingEntity();
+		if(entitylivingbase instanceof EntityPlayerMP && !anyWithArmor) {
+			PlayerHelper.grantCriterion((EntityPlayerMP) entitylivingbase, new ResourceLocation(LibMisc.MOD_ID, "challenge/gaia_guardian_no_armor"), "code_triggered");
+		}
 
 		playSound(SoundEvents.ENTITY_GENERIC_EXPLODE, 20F, (1F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F) * 0.7F);
 		world.spawnParticle(EnumParticleTypes.EXPLOSION_HUGE, posX, posY, posZ, 1D, 0D, 0D);

@@ -1,0 +1,20 @@
+{
+  "display": {
+    "icon": {
+      "item": "botania:corporeaindex"
+    },
+    "title": {
+      "translate": "advancement.botania:superCorporeaRequest"
+    },
+    "description": {
+      "translate": "advancement.botania:superCorporeaRequest.desc"
+    }
+  },
+  "parent": "botania:challenge/root",
+  "__comment": "This is triggered by code in Botania. In the future, it may become data-driven",
+  "criteria": {
+    "code_triggered": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

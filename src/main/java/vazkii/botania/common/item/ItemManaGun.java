@@ -91,6 +91,9 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 					world.playSound(null, player.posX, player.posY, player.posZ, ModSounds.manaBlaster, SoundCategory.PLAYERS, 0.6F, 1);
 					world.spawnEntity(burst);
 					PlayerHelper.grantCriterion((EntityPlayerMP) player, new ResourceLocation(LibMisc.MOD_ID, "main/mana_blaster_shoot"), "code_triggered");
+					if(isSugoiKawaiiDesuNe(stack)) {
+						PlayerHelper.grantCriterion((EntityPlayerMP) player, new ResourceLocation(LibMisc.MOD_ID, "challenge/desu_gun"), "code_triggered");
+					}
 				} else {
 					player.swingArm(hand);
 					player.motionX -= burst.motionX * 0.1;

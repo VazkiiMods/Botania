@@ -141,6 +141,10 @@ public class ItemBlockSpecialFlower extends ItemBlockMod implements IRecipeKeyPr
 			if(SubTileFunctional.class.isAssignableFrom(subtile)) {
 				PlayerHelper.grantCriterion((EntityPlayerMP) evt.getEntityPlayer(), new ResourceLocation(LibMisc.MOD_ID, "main/functional_flower"), "code_triggered");
 			}
+
+			if("".equals(type)) {
+				PlayerHelper.grantCriterion((EntityPlayerMP) evt.getEntityPlayer(), new ResourceLocation(LibMisc.MOD_ID, "challenge/null_flower"), "code_triggered");
+			}
 		}
 	}
 

@@ -8,6 +8,8 @@
 
 # MISC
 itemGroup.botania=Botania
+botania.desc=Botania description here.
+
 generator.botania-skyblock=Garden of Glass
 generator.botania-skyblock.info=Not recommended for botania newcomers
 
@@ -467,6 +469,8 @@ entity.botania:babylonWeapon.name=Treasury Weapon
 entity.botania:fallingStar.name=Falling Star
 
 # ADVANCEMENT NAMES + DESC
+advancement.botania_challenge=Botania Challenges
+advancement.botania_challenge.desc=Challenges for the advanced botanist
 advancement.botania:flowerPickup=Sky of Beginning
 advancement.botania:flowerPickup.desc=Pick up a Mystical Flower from the world
 advancement.botania:lexiconUse=A Realistical Logical Ideologist
