@@ -1,0 +1,27 @@
+{
+  "display": {
+    "icon": {
+      "item": "botania:aesirring"
+    },
+    "title": {
+      "translate": "advancement.botania:aesirRing"
+    },
+    "description": {
+      "translate": "advancement.botania:aesirRing.desc"
+    },
+    "frame": "challenge"
+  },
+  "parent": "botania:challenge/root",
+  "criteria": {
+    "ring": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "botania:aesirring"
+          }
+        ]
+      }
+    }
+  }
+}

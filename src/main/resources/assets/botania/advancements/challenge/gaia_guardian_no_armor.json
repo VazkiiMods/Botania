@@ -9,7 +9,8 @@
     },
     "description": {
       "translate": "advancement.botania:gaiaGuardianNoArmor.desc"
-    }
+    },
+    "frame": "challenge"
   },
   "parent": "botania:challenge/root",
   "__comment": "This is triggered by code in Botania. In the future, it may become data-driven",

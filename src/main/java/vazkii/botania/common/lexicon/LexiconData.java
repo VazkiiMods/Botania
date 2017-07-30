@@ -13,6 +13,7 @@ package vazkii.botania.common.lexicon;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.IBrewContainer;
 import vazkii.botania.api.lexicon.LexiconCategory;
@@ -49,6 +50,7 @@ import vazkii.botania.common.lexicon.page.PageTerrasteel;
 import vazkii.botania.common.lexicon.page.PageText;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibLexicon;
+import vazkii.botania.common.lib.LibMisc;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -1301,25 +1303,25 @@ public final class LexiconData {
 			relicInfo = new RelicLexiconEntry(LibLexicon.ALF_RELIC_INFO, categoryAlfhomancy, null);
 			relicInfo.setLexiconPages(new PageText("0"), new PageText("1")).setIcon(new ItemStack(ModItems.dice));
 
-			/*infiniteFruit = new RelicLexiconEntry(LibLexicon.ALF_INFINITE_FRUIT, categoryAlfhomancy,
-					ModAchievements.relicInfiniteFruit);
-			infiniteFruit.setLexiconPages(new PageText("0"));
+			infiniteFruit = new RelicLexiconEntry(LibLexicon.ALF_INFINITE_FRUIT, categoryAlfhomancy,
+					new ResourceLocation(LibMisc.MOD_ID, "challenge/infinite_fruit"));
+			infiniteFruit.setLexiconPages(new PageText("0")).setIcon(new ItemStack(ModItems.infiniteFruit));
 
-			kingKey = new RelicLexiconEntry(LibLexicon.ALF_KING_KEY, categoryAlfhomancy, ModAchievements.relicKingKey);
-			kingKey.setLexiconPages(new PageText("0"));
+			kingKey = new RelicLexiconEntry(LibLexicon.ALF_KING_KEY, categoryAlfhomancy, new ResourceLocation(LibMisc.MOD_ID, "challenge/king_key"));
+			kingKey.setLexiconPages(new PageText("0")).setIcon(new ItemStack(ModItems.kingKey));
 
 			flugelEye = new RelicLexiconEntry(LibLexicon.ALF_FLUGEL_EYE, categoryAlfhomancy,
-					ModAchievements.relicFlugelEye);
-			flugelEye.setLexiconPages(new PageText("0"), new PageText("1"));
+					new ResourceLocation(LibMisc.MOD_ID, "challenge/flugel_eye"));
+			flugelEye.setLexiconPages(new PageText("0"), new PageText("1")).setIcon(new ItemStack(ModItems.flugelEye));
 
-			thorRing = new RelicLexiconEntry(LibLexicon.ALF_THOR_RING, categoryAlfhomancy, ModAchievements.relicThorRing);
-			thorRing.setLexiconPages(new PageText("0"));
+			thorRing = new RelicLexiconEntry(LibLexicon.ALF_THOR_RING, categoryAlfhomancy, new ResourceLocation(LibMisc.MOD_ID, "challenge/thor_ring"));
+			thorRing.setLexiconPages(new PageText("0")).setIcon(new ItemStack(ModItems.thorRing));
 
-			lokiRing = new RelicLexiconEntry(LibLexicon.ALF_LOKI_RING, categoryAlfhomancy, ModAchievements.relicLokiRing);
-			lokiRing.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"), new PageText("3"));
+			lokiRing = new RelicLexiconEntry(LibLexicon.ALF_LOKI_RING, categoryAlfhomancy, new ResourceLocation(LibMisc.MOD_ID, "challenge/loki_ring"));
+			lokiRing.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"), new PageText("3")).setIcon(new ItemStack(ModItems.lokiRing));
 
-			odinRing = new RelicLexiconEntry(LibLexicon.ALF_ODIN_RING, categoryAlfhomancy, ModAchievements.relicOdinRing);
-			odinRing.setLexiconPages(new PageText("0")); todo 1.12 */
+			odinRing = new RelicLexiconEntry(LibLexicon.ALF_ODIN_RING, categoryAlfhomancy, new ResourceLocation(LibMisc.MOD_ID, "challenge/odin_ring"));
+			odinRing.setLexiconPages(new PageText("0")).setIcon(new ItemStack(ModItems.odinRing));
 		}
 
 		decorativeBlocks = new BasicLexiconEntry(LibLexicon.MISC_DECORATIVE_BLOCKS, categoryMisc);

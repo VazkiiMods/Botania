@@ -1,0 +1,27 @@
+{
+  "display": {
+    "icon": {
+      "item": "botania:odinring"
+    },
+    "title": {
+      "translate": "advancement.botania:odinRing"
+    },
+    "description": {
+      "translate": "advancement.botania:odinRing.desc"
+    },
+    "frame": "challenge"
+  },
+  "parent": "botania:challenge/root",
+  "criteria": {
+    "ring": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "botania:odinring"
+          }
+        ]
+      }
+    }
+  }
+}

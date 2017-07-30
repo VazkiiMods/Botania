@@ -1,0 +1,27 @@
+{
+  "display": {
+    "icon": {
+      "item": "botania:flugeleye"
+    },
+    "title": {
+      "translate": "advancement.botania:flugelEye"
+    },
+    "description": {
+      "translate": "advancement.botania:flugelEye.desc"
+    },
+    "frame": "challenge"
+  },
+  "parent": "botania:challenge/root",
+  "criteria": {
+    "eye": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "botania:flugeleye"
+          }
+        ]
+      }
+    }
+  }
+}
