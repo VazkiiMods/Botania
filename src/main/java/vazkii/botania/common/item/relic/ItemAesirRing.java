@@ -20,6 +20,7 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.item.ItemTossEvent;
@@ -27,6 +28,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import vazkii.botania.api.item.IWireframeCoordinateListProvider;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibItemNames;
+import vazkii.botania.common.lib.LibMisc;
 
 import java.util.List;
 import java.util.UUID;
@@ -61,6 +63,11 @@ public class ItemAesirRing extends ItemRelicBauble implements IWireframeCoordina
 				}
 			}
 		}
+	}
+
+	@Override
+	public ResourceLocation getAdvancement() {
+		return new ResourceLocation(LibMisc.MOD_ID, "challenge/aesir_ring");
 	}
 
 	@Override

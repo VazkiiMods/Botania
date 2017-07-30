@@ -84,4 +84,9 @@ public class ItemInfiniteFruit extends ItemRelic implements IManaUsingItem {
 		return true;
 	}
 
+	@Override
+	public ResourceLocation getAdvancement() {
+		return new ResourceLocation(LibMisc.MOD_ID, "challenge/infinite_fruit");
+	}
+
 }

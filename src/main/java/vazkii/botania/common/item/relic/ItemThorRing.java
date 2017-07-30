@@ -14,9 +14,11 @@ import baubles.api.BaubleType;
 import baubles.api.BaublesApi;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.items.IItemHandler;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibItemNames;
+import vazkii.botania.common.lib.LibMisc;
 
 public class ItemThorRing extends ItemRelicBauble {
 
@@ -27,6 +29,11 @@ public class ItemThorRing extends ItemRelicBauble {
 	@Override
 	public BaubleType getBaubleType(ItemStack arg0) {
 		return BaubleType.RING;
+	}
+
+	@Override
+	public ResourceLocation getAdvancement() {
+		return new ResourceLocation(LibMisc.MOD_ID, "challenge/thor_ring");
 	}
 
 	public static ItemStack getThorRing(EntityPlayer player) {

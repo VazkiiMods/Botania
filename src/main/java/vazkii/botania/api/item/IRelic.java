@@ -38,4 +38,12 @@ public interface IRelic {
 	 */
 	public boolean hasUUID(ItemStack stack);
 
+	/**
+	 * Get the advancement granted when this relic binds
+	 */
+	@Nullable
+	default ResourceLocation getAdvancement() {
+		return null;
+	}
+
 }
