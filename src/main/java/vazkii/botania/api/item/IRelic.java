@@ -11,7 +11,9 @@
 package vazkii.botania.api.item;
 
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 
+import javax.annotation.Nullable;
 import java.util.UUID;
 
 /**
@@ -21,19 +23,6 @@ import java.util.UUID;
 public interface IRelic {
 
 	/**
-	 * Binds to the player name passed in.
-	 */
-	@Deprecated
-	public void bindToUsername(String playerName, ItemStack stack);
-
-	/**
-	 * Gets the username of the person this relic is bound to, or the empty String if the username field is empty.
-	 * You should not use this to determine if a relic is bound, use UUIDs instead.
-	 */
-	@Deprecated
-	public String getSoulbindUsername(ItemStack stack);
-
-	/**
 	 * Binds to the UUID passed in.
 	 */
 	public void bindToUUID(UUID uuid, ItemStack stack);
@@ -41,6 +30,7 @@ public interface IRelic {
 	/**
 	 * Gets the UUID of the person this relic is bound to, or null if a well-formed UUID could not be found
 	 */
+	@Nullable
 	public UUID getSoulbindUUID(ItemStack stack);
 
 	/**

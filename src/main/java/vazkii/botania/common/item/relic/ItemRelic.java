@@ -62,9 +62,9 @@ public class ItemRelic extends ItemMod implements IRelic {
 			if(!hasUUID(stack)) {
 				addStringToTooltip(I18n.format("botaniamisc.relicUnbound"), list);
 			} else {
-				addStringToTooltip(I18n.format("botaniamisc.relicSoulbound", getSoulbindUsername(stack)), list);
 				if(!getSoulbindUUID(stack).equals(Minecraft.getMinecraft().player.getUniqueID()))
-					addStringToTooltip(I18n.format("botaniamisc.notYourSagittarius", getSoulbindUsername(stack)), list);
+					addStringToTooltip(I18n.format("botaniamisc.notYourSagittarius"), list);
+				else addStringToTooltip(I18n.format("botaniamisc.relicSoulbound", Minecraft.getMinecraft().player.getName()), list);
 			}
 
 			if(stack.getItem() == ModItems.aesirRing)
@@ -97,30 +97,11 @@ public class ItemRelic extends ItemMod implements IRelic {
 			return;
 
 		boolean rightPlayer = true;
-		if(hasUUID(stack)) {
-			// Sync to username todo is this worth 'optimizing'?
-			if (UsernameCache.containsUUID(getSoulbindUUID(stack))) {
-				bindToUsername(UsernameCache.getLastKnownUsername(getSoulbindUUID(stack)), stack);
-			} else {
-				bindToUsername("", stack);
-			}
 
-			// UUID trumps username
-			rightPlayer = getSoulbindUUID(stack).equals(player.getUniqueID());
-		} else {
-			if ("".equals(getSoulbindUsername(stack))) {
-				// New user
-				bindToUUID(player.getUniqueID(), stack);
-				// todo 1.12 broadcast advancement event for relic bind
-			} else {
-				if (player.getName().equals(getSoulbindUsername(stack))) {
-					// Old relic, correct owner, convert to UUID
-					bindToUUID(player.getUniqueID(), stack);
-				} else {
-					// Old relic, wrong owner, damage
-					rightPlayer = false;
-				}
-			}
+		if(!hasUUID(stack)) {
+			bindToUUID(player.getUniqueID(), stack);
+		} else if (!getSoulbindUUID(stack).equals(player.getUniqueID())) {
+			rightPlayer = false;
 		}
 
 		if(!rightPlayer && player.ticksExisted % 10 == 0 && (!(stack.getItem() instanceof ItemRelic) || ((ItemRelic) stack.getItem()).shouldDamageWrongPlayer()))
@@ -128,25 +109,11 @@ public class ItemRelic extends ItemMod implements IRelic {
 	}
 
 	public boolean isRightPlayer(EntityPlayer player, ItemStack stack) {
-		if (hasUUID(stack)) {
-			return getSoulbindUUID(stack).equals(player.getUniqueID());
-		} else {
-			return getSoulbindUsername(stack).equals(player.getName());
-		}
+		return hasUUID(stack) && getSoulbindUUID(stack).equals(player.getUniqueID());
 	}
 
 	public static DamageSource damageSource() {
 		return new DamageSource("botania-relic");
-	}
-
-	@Override
-	public void bindToUsername(String playerName, ItemStack stack) {
-		ItemNBTHelper.setString(stack, TAG_SOULBIND_NAME, playerName);
-	}
-
-	@Override
-	public String getSoulbindUsername(ItemStack stack) {
-		return ItemNBTHelper.getString(stack, TAG_SOULBIND_NAME, "");
 	}
 
 	@Override

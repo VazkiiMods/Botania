@@ -55,38 +55,23 @@ public class AesirRingRecipe extends IForgeRegistryEntry.Impl<IRecipe> implement
 	@Nonnull
 	@Override
 	public ItemStack getCraftingResult(@Nonnull InventoryCrafting var1) {
-		String soulbind = null;
 		UUID soulbindUUID = null;
-		boolean hasUUID = false;
 
 		for(int i = 0; i < var1.getSizeInventory(); i++) {
 			ItemStack stack = var1.getStackInSlot(i);
 			if(!stack.isEmpty()) {
-				if(stack.getItem() instanceof IRelic) {
-					if(((IRelic) stack.getItem()).hasUUID(stack)) {
-						hasUUID = true;
-						UUID bindUUID = ((IRelic) stack.getItem()).getSoulbindUUID(stack);
-						if(soulbindUUID == null)
-							soulbindUUID = bindUUID;
-						else if(!soulbindUUID.equals(bindUUID))
-							return ItemStack.EMPTY;
-					}
-					else {
-						String bind = ((IRelic) stack.getItem()).getSoulbindUsername(stack);
-						if(soulbind == null)
-							soulbind = bind;
-						else if(!soulbind.equals(bind))
-							return ItemStack.EMPTY;
-					}
+				if(stack.getItem() instanceof IRelic && ((IRelic) stack.getItem()).hasUUID(stack)) {
+					UUID bindUUID = ((IRelic) stack.getItem()).getSoulbindUUID(stack);
+					if(soulbindUUID == null)
+						soulbindUUID = bindUUID;
+					else if(!soulbindUUID.equals(bindUUID))
+						return ItemStack.EMPTY;
 				} else return ItemStack.EMPTY;
 			}
 		}
 
 		ItemStack stack = new ItemStack(ModItems.aesirRing);
-		if(hasUUID)
-			((IRelic) ModItems.aesirRing).bindToUUID(soulbindUUID, stack);
-		else
-			((IRelic) ModItems.aesirRing).bindToUsername(soulbind, stack);
+		((IRelic) ModItems.aesirRing).bindToUUID(soulbindUUID, stack);
 		return stack;
 	}
 

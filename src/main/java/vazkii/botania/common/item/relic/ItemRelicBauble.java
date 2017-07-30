@@ -67,16 +67,6 @@ public abstract class ItemRelicBauble extends ItemBauble implements IRelic {
 	}
 
 	@Override
-	public void bindToUsername(String playerName, ItemStack stack) {
-		dummy.bindToUsername(playerName, stack);
-	}
-
-	@Override
-	public String getSoulbindUsername(ItemStack stack) {
-		return dummy.getSoulbindUsername(stack);
-	}
-
-	@Override
 	public void bindToUUID(UUID uuid, ItemStack stack) {
 		dummy.bindToUUID(uuid, stack);
 	}
