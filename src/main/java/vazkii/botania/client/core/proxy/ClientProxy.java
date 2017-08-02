@@ -232,7 +232,7 @@ public class ClientProxy implements IProxy {
 		RenderingRegistry.registerEntityRenderingHandler(EntityBabylonWeapon.class, RenderBabylonWeapon::new);
 
 		RenderingRegistry.registerEntityRenderingHandler(EntityThornChakram.class, renderManager -> new RenderSnowballStack<>(renderManager, ModItems.thornChakram, Minecraft.getMinecraft().getRenderItem(), entity -> new ItemStack(ModItems.thornChakram, 1, entity.isFire() ? 1 : 0)));
-		RenderingRegistry.registerEntityRenderingHandler(EntityVineBall.class, renderManager -> new RenderSnowball(renderManager, ModItems.vineBall, Minecraft.getMinecraft().getRenderItem()));
+		RenderingRegistry.registerEntityRenderingHandler(EntityVineBall.class, renderManager -> new RenderSnowball<>(renderManager, ModItems.vineBall, Minecraft.getMinecraft().getRenderItem()));
 		RenderingRegistry.registerEntityRenderingHandler(EntityEnderAirBottle.class, renderManager -> new RenderSnowballStack<>(renderManager, ModItems.manaResource, Minecraft.getMinecraft().getRenderItem(), entity -> new ItemStack(ModItems.manaResource, 1, 15)));
 
 		ShaderHelper.initShaders();

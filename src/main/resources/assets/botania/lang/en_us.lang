@@ -3798,7 +3798,7 @@ botania.page.stoneAlchemy3=Chiseling
 # -- BLAZE LIGHT
 botania.entry.blazeBlock=Blaze Mesh
 botania.tagline.blazeBlock=Compact blaze storage and a renewable obsidian source
-botania.page.blazeBlock0=Smashing a bunch of blazing material together makes a usable decorative light block. A crude one, admittedly, but a source of light non the less.<br>Naturally, like a &1Block of Coal&0, the &1Blaze Light&0 can also be used to fuel furnaces and other fuel consumers alike. Putting it next to a &1Pure Daisy&0 converts it into &1Obsidian&0, strangely enough.
+botania.page.blazeBlock0=Smashing a bunch of blazing material together makes a usable decorative light block. A crude one, admittedly, but a source of light non the less.<br>Naturally, like a &1Block of Coal&0, the &1Blaze Mesh&0 can also be used to fuel furnaces and other fuel consumers alike. Putting it next to a &1Pure Daisy&0 converts it into &1Obsidian&0, strangely enough.
 botania.page.blazeBlock1=0x1a4
 
 # -- CHALLENGES
