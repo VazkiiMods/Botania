@@ -36,13 +36,13 @@ public class SubTileArcaneRose extends SubTileGenerating {
 		for(EntityPlayer player : players)
 			if(ExperienceHelper.getPlayerXP(player) >= 1 && player.onGround) {
 				ExperienceHelper.drainPlayerXP(player, 1);
-				mana += 50;
+				mana += 17;
 				return;
 			}
 
 		List<EntityXPOrb> orbs = supertile.getWorld().getEntitiesWithinAABB(EntityXPOrb.class, new AxisAlignedBB(supertile.getPos().add(-RANGE, -RANGE, -RANGE), supertile.getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
 		for(EntityXPOrb orb : orbs) {
-			mana += orb.getXpValue() * 35;
+			mana += orb.getXpValue() * 12;
 			orb.setDead();
 			return;
 		}
