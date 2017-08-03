@@ -38,7 +38,7 @@ import java.util.List;
 
 public class TileTerraPlate extends TileMod implements ISparkAttachable {
 
-	public static final int MAX_MANA = TilePool.MAX_MANA / 2;
+	public static final int MAX_MANA = TilePool.MAX_MANA / 25;
 
 	private static final BlockPos[] LAPIS_BLOCKS = {
 			new BlockPos(1, 0, 0), new BlockPos(-1, 0, 0),
@@ -102,7 +102,7 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable {
 					for(EntityItem otherItem : items)
 						if(otherItem != item)
 							otherItem.setDead();
-						else item.setItem(new ItemStack(ModItems.manaResource, 1, 4));
+						else item.setItem(new ItemStack(ModItems.manaResource, 1, 18));
 					world.playSound(null, item.posX, item.posY, item.posZ, ModSounds.terrasteelCraft, SoundCategory.BLOCKS, 1, 1);
 					mana = 0;
 					world.updateComparatorOutputLevel(pos, world.getBlockState(pos).getBlock());
