@@ -56,7 +56,7 @@ public class SubTileThermalily extends SubTileHydroangeas {
 
 	@Override
 	public int getValueForPassiveGeneration() {
-		return 7;
+		return 12;
 	}
 
 	@Override

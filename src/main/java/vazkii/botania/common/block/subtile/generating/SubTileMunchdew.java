@@ -52,7 +52,7 @@ public class SubTileMunchdew extends SubTileGenerating {
 			return;
 		}
 
-		int manaPerLeaf = 53;
+		int manaPerLeaf = 80;
 		eatLeaves : {
 			if(getMaxMana() - mana >= manaPerLeaf && !supertile.getWorld().isRemote && ticksExisted % 4 == 0) {
 				List<BlockPos> coords = new ArrayList<>();
