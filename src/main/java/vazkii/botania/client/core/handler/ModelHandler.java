@@ -21,6 +21,7 @@ import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
+import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.registries.IRegistryDelegate;
 import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.item.IFloatingFlower;
@@ -48,7 +49,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.function.IntFunction;
 
-@Mod.EventBusSubscriber
+@Mod.EventBusSubscriber(Side.CLIENT)
 public final class ModelHandler {
 	@SubscribeEvent
 	public static void registerModels(ModelRegistryEvent evt) {
