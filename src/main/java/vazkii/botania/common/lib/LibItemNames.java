@@ -218,6 +218,8 @@ public final class LibItemNames {
 			"livingRoot",
 			"pebble",
 			"manaweaveCloth",
-			"manaPowder"
+			"manaPowder",
+			"manaPearlShard",
+			"manaDiamondChunk"
 	};
 }

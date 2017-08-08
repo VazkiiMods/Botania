@@ -132,11 +132,11 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable {
 				return false;
 
 			int meta = stack.getItemDamage();
-			if(meta == 0)
+			if(meta == 17)
 				ingot = stack;
-			else if(meta == 1)
+			else if(meta == 24)
 				pearl = stack;
-			else if(meta == 2)
+			else if(meta == 25)
 				diamond = stack;
 			else return false;
 		}
