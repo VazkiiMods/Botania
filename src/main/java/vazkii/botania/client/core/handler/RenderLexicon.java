@@ -28,7 +28,8 @@ import vazkii.botania.common.lexicon.page.PageText;
 @Mod.EventBusSubscriber(Side.CLIENT)
 public class RenderLexicon {
 	private static final ModelBook model = new ModelBook();
-	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_LEXICA);
+	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_LEXICA_DEFAULT);
+	private static final ResourceLocation elvenTexture = new ResourceLocation(LibResources.MODEL_LEXICA_ELVEN);
 
 	private static final String[] QUOTES = new String[] {
 			"\"Neat!\" - Direwolf20",
@@ -78,7 +79,7 @@ public class RenderLexicon {
 		Minecraft mc = Minecraft.getMinecraft();
 
 		GlStateManager.pushMatrix();
-		mc.renderEngine.bindTexture(texture);
+		mc.renderEngine.bindTexture(((ItemLexicon) ModItems.lexicon).isElvenItem(stack) ? elvenTexture : texture);
 		float opening;
 		float pageFlip;
 
