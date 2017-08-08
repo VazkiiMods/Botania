@@ -210,22 +210,26 @@ public class FXSparkle extends Particle {
 
 			float f = rand.nextFloat() * 0.05F + 0.025F; // Botania - made multiplier and add both smaller
 			float f1 = enumfacing.getAxisDirection().getOffset();
-			float secondary = (rand.nextFloat() - rand.nextFloat()) * 0.1F; // Botania - Make and use a secondary movement variable below
+			float secondary = (rand.nextFloat() - rand.nextFloat()) * 0.1F; // Botania - Make and use secondary movement variables below
+			float secondary2 = (rand.nextFloat() - rand.nextFloat()) * 0.1F;
 
 			if (enumfacing.getAxis() == EnumFacing.Axis.X)
 			{
 				motionX = f1 * f;
-				motionY = motionZ = secondary;
+				motionY = secondary;
+				motionZ = secondary2;
 			}
 			else if (enumfacing.getAxis() == EnumFacing.Axis.Y)
 			{
 				motionY = f1 * f;
-				motionX = motionZ = secondary;
+				motionX = secondary;
+				motionZ = secondary2;
 			}
 			else if (enumfacing.getAxis() == EnumFacing.Axis.Z)
 			{
 				motionZ = f1 * f;
-				motionX = motionY = secondary;
+				motionX = secondary;
+				motionY = secondary2;
 			}
 
 			return true;
