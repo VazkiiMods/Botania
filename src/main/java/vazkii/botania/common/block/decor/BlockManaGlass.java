@@ -50,8 +50,8 @@ public class BlockManaGlass extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public boolean isFullBlock(IBlockState state) {
-		return true;
+	public boolean isFullCube(IBlockState state) {
+		return false;
 	}
 
 	@SideOnly(Side.CLIENT)

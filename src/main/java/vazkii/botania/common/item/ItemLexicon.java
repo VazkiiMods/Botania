@@ -263,8 +263,16 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void registerModels() {
-		ModelBakery.registerItemVariants(this, new ModelResourceLocation("botania:lexicon_default", "inventory"));
-		ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getRegistryName(), "inventory"));
+		// Load and bake the 2D models
+		ModelBakery.registerItemVariants(this,
+				new ModelResourceLocation("botania:lexicon_default", "inventory"),
+				new ModelResourceLocation("botania:lexicon_elven", "inventory"));
+
+		ModelResourceLocation default3dPath = new ModelResourceLocation("botania:lexicon_3d_default", "inventory");
+		ModelResourceLocation elven3dPath = new ModelResourceLocation("botania:lexicon_3d_elven", "inventory");
+
+		// smart model will dispatch between 2d/3d appropriately, see LexiconModel
+		ModelLoader.setCustomMeshDefinition(this, stack -> isElvenItem(stack) ? elven3dPath : default3dPath);
 	}
 
 }

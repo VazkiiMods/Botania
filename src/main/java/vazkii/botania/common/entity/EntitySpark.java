@@ -239,7 +239,7 @@ public class EntitySpark extends Entity implements ISparkEntity {
 	@Override
 	public boolean processInitialInteract(EntityPlayer player, EnumHand hand) {
 		ItemStack stack = player.getHeldItem(hand);
-		if(!stack.isEmpty()) {
+		if(!isDead && !stack.isEmpty()) {
 			if(world.isRemote) {
 				boolean valid = stack.getItem() == ModItems.twigWand || stack.getItem() == ModItems.sparkUpgrade
 						|| stack.getItem() == ModItems.phantomInk;

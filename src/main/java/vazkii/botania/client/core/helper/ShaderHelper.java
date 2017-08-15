@@ -10,7 +10,9 @@
  */
 package vazkii.botania.client.core.helper;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.OpenGlHelper;
+import net.minecraft.client.resources.SimpleReloadableResourceManager;
 import org.lwjgl.opengl.ARBFragmentShader;
 import org.lwjgl.opengl.ARBShaderObjects;
 import org.lwjgl.opengl.ARBVertexShader;
@@ -42,6 +44,32 @@ public final class ShaderHelper {
 	public static int gold = 0;
 	public static int categoryButton = 0;
 	public static int alpha = 0;
+
+	private static void deleteShader(int id) {
+		if (id != 0) {
+			ARBShaderObjects.glDeleteObjectARB(id);
+		}
+	}
+
+	public static void registerReloadListener() {
+		if (Minecraft.getMinecraft().getResourceManager() instanceof SimpleReloadableResourceManager) {
+			((SimpleReloadableResourceManager) Minecraft.getMinecraft().getResourceManager()).registerReloadListener(manager -> {
+				deleteShader(pylonGlow); pylonGlow = 0;
+				deleteShader(enchanterRune); enchanterRune = 0;
+				deleteShader(manaPool); manaPool = 0;
+				deleteShader(doppleganger); doppleganger = 0;
+				deleteShader(halo); halo = 0;
+				deleteShader(dopplegangerBar); dopplegangerBar = 0;
+				deleteShader(terraPlateRune); terraPlateRune = 0;
+				deleteShader(filmGrain); filmGrain = 0;
+				deleteShader(gold); gold = 0;
+				deleteShader(categoryButton); categoryButton = 0;
+				deleteShader(alpha); alpha = 0;
+
+				initShaders();
+			});
+		}
+	}
 
 	public static void initShaders() {
 		if(!useShaders())

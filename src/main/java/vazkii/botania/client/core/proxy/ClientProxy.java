@@ -236,6 +236,7 @@ public class ClientProxy implements IProxy {
 		RenderingRegistry.registerEntityRenderingHandler(EntityEnderAirBottle.class, renderManager -> new RenderSnowballStack<>(renderManager, ModItems.manaResource, Minecraft.getMinecraft().getRenderItem(), entity -> new ItemStack(ModItems.manaResource, 1, 15)));
 
 		ShaderHelper.initShaders();
+		ShaderHelper.registerReloadListener();
 	}
 
 	private void initAuxiliaryRender() {

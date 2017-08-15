@@ -8,34 +8,21 @@
  */
 package vazkii.botania.client.core.handler;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.launchwrapper.Launch;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
-import net.minecraftforge.event.entity.player.ArrowLooseEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import org.lwjgl.BufferUtils;
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.client.model.FloatingFlowerModel;
 import vazkii.botania.client.model.GunModel;
 import vazkii.botania.client.model.LexiconModel;
 import vazkii.botania.client.model.PlatformModel;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.item.ItemSparkUpgrade;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
 import vazkii.botania.common.item.relic.ItemKingKey;
-
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.nio.IntBuffer;
+import vazkii.botania.common.lib.LibMisc;
 
 public class MiscellaneousIcons {
 
@@ -98,7 +85,10 @@ public class MiscellaneousIcons {
 		evt.getModelRegistry().putObject(new ModelResourceLocation("botania:platform", "normal"), new PlatformModel());
 
 		// Lexicon
-		evt.getModelRegistry().putObject(new ModelResourceLocation("botania:lexicon", "inventory"), new LexiconModel());
+		evt.getModelRegistry().putObject(new ModelResourceLocation("botania:lexicon_3d_default", "inventory"),
+				new LexiconModel(new ModelResourceLocation("botania:lexicon_default", "inventory")));
+		evt.getModelRegistry().putObject(new ModelResourceLocation("botania:lexicon_3d_elven", "inventory"),
+				new LexiconModel(new ModelResourceLocation("botania:lexicon_elven", "inventory")));
 
 		// Mana Blaster
 		ModelResourceLocation key = new ModelResourceLocation("botania:manaGun", "inventory");

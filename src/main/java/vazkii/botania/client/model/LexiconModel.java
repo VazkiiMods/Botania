@@ -17,18 +17,21 @@ import javax.annotation.Nonnull;
 import javax.vecmath.Matrix4f;
 import java.util.List;
 
-@SuppressWarnings("deprecation")
 public class LexiconModel implements IBakedModel {
+	private final ModelResourceLocation path2D;
 
-	private static final ModelResourceLocation path = new ModelResourceLocation("botania:lexicon_default", "inventory");
+	public LexiconModel(ModelResourceLocation path) {
+		this.path2D = path;
+	}
 
+	@Nonnull
 	@Override
 	public Pair<? extends IBakedModel, Matrix4f> handlePerspective(ItemCameraTransforms.TransformType cameraTransformType) {
-		IBakedModel original = Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelManager().getModel(path);
 		if((cameraTransformType == ItemCameraTransforms.TransformType.FIRST_PERSON_RIGHT_HAND
 				|| cameraTransformType == ItemCameraTransforms.TransformType.FIRST_PERSON_LEFT_HAND)
 				&& ConfigHandler.lexicon3dModel)
 			return Pair.of(this, null);
+		IBakedModel original = Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelManager().getModel(path2D);
 		return original.handlePerspective(cameraTransformType);
 	}
 
@@ -37,6 +40,6 @@ public class LexiconModel implements IBakedModel {
 	@Override public boolean isGui3d() { return false; }
 	@Override public boolean isBuiltInRenderer() { return false; }
 	@Nonnull @Override public TextureAtlasSprite getParticleTexture() { return Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite("botania:items/lexicon"); }
-	@Nonnull @Override public ItemCameraTransforms getItemCameraTransforms() { return ItemCameraTransforms.DEFAULT; }
+	@SuppressWarnings("deprecation") @Nonnull @Override public ItemCameraTransforms getItemCameraTransforms() { return ItemCameraTransforms.DEFAULT; }
 	@Nonnull @Override public ItemOverrideList getOverrides() { return ItemOverrideList.NONE; }
 }
