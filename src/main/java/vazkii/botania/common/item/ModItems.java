@@ -72,7 +72,6 @@ import vazkii.botania.common.item.material.ItemQuartz;
 import vazkii.botania.common.item.material.ItemRune;
 import vazkii.botania.common.item.record.ItemRecordGaia1;
 import vazkii.botania.common.item.record.ItemRecordGaia2;
-import vazkii.botania.common.item.relic.ItemAesirRing;
 import vazkii.botania.common.item.relic.ItemDice;
 import vazkii.botania.common.item.relic.ItemFlugelEye;
 import vazkii.botania.common.item.relic.ItemInfiniteFruit;
@@ -216,7 +215,6 @@ public final class ModItems {
 	public static final Item thorRing = new ItemThorRing();
 	public static final Item odinRing = new ItemOdinRing();
 	public static final Item lokiRing = new ItemLokiRing();
-	public static final Item aesirRing = new ItemAesirRing();
 	public static final Item dice = new ItemDice();
 	public static final Item keepIvy = new ItemKeepIvy();
 	public static final Item blackHoleTalisman = new ItemBlackHoleTalisman();
@@ -373,7 +371,6 @@ public final class ModItems {
 		r.register(thorRing);
 		r.register(odinRing);
 		r.register(lokiRing);
-		r.register(aesirRing);
 		r.register(dice);
 		r.register(keepIvy);
 		r.register(blackHoleTalisman);

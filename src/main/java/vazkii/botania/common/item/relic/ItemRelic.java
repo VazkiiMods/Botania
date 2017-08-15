@@ -67,9 +67,6 @@ public class ItemRelic extends ItemMod implements IRelic {
 				else addStringToTooltip(I18n.format("botaniamisc.relicSoulbound", Minecraft.getMinecraft().player.getName()), list);
 			}
 
-			if(stack.getItem() == ModItems.aesirRing)
-				addStringToTooltip(I18n.format("botaniamisc.dropIkea"), list);
-
 			if(stack.getItem() == ModItems.dice) {
 				addStringToTooltip("", list);
 				String name = stack.getUnlocalizedName() + ".poem";

@@ -133,7 +133,6 @@ public final class LibItemNames {
 	public static final String THOR_RING = "thorRing";
 	public static final String ODIN_RING = "odinRing";
 	public static final String LOKI_RING = "lokiRing";
-	public static final String AESIR_RING = "aesirRing";
 	public static final String DICE = "dice";
 	public static final String KEEP_IVY = "keepIvy";
 	public static final String BLACK_HOLE_TALISMAN = "blackHoleTalisman";

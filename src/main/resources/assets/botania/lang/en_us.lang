@@ -565,8 +565,6 @@ advancement.botania:odinRing=Lost Time Memory
 advancement.botania:odinRing.desc=Be rewarded the Ring of Odin for a heroic feat
 advancement.botania:lokiRing=Arithmetic
 advancement.botania:lokiRing.desc=Be rewarded the Ring of Loki for a heroic feat
-advancement.botania:aesirRing=As the Gods Say
-advancement.botania:aesirRing.desc=Create the Ring of the Aesir by combining the Rings of the Gods
 
 advancement.botania:nullFlower=Take it Easy
 advancement.botania:nullFlower.desc=Find a bug that lets you have an undefined Botania Flower. Don't forget to report it!
@@ -1571,7 +1569,6 @@ item.botania:flugelEye.name=Eye of the Flügel
 item.botania:thorRing.name=Ring of Thor
 item.botania:odinRing.name=Ring of Odin
 item.botania:lokiRing.name=Ring of Loki
-item.botania:aesirRing.name=Ring of the Aesir
 item.botania:dice.name=Dice of Fate
 item.botania:keepIvy.name=Resolute Ivy
 item.botania:blackHoleTalisman.name=Black Hole Talisman

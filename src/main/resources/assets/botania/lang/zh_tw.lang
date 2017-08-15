@@ -523,8 +523,6 @@ advancement.botania:odinRing=回憶補時
 advancement.botania:odinRing.desc=獲得戰利品:奧丁之戒
 advancement.botania:lokiRing=Arithmetic
 advancement.botania:lokiRing.desc=獲得戰利品:洛基之戒
-advancement.botania:aesirRing=神のまにまに
-advancement.botania:aesirRing.desc=通過合成做出諸神之戒
 
 advancement.botania:nullFlower=Take it Easy
 advancement.botania:nullFlower.desc=發現一個bug導致你有了一朵未定義的植物魔法花.別忘了提交!
@@ -1526,7 +1524,6 @@ item.botania:flugelEye.name=天翼族之眼
 item.botania:thorRing.name=托爾之戒
 item.botania:odinRing.name=奧丁之戒
 item.botania:lokiRing.name=洛基之戒
-item.botania:aesirRing.name=諸神之戒
 item.botania:dice.name=命運骰子
 item.botania:keepIvy.name=堅毅之籐
 item.botania:blackHoleTalisman.name=黑洞護符

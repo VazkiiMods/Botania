@@ -421,8 +421,6 @@ advancement.botania:odinRing=Verloren Tijd
 advancement.botania:odinRing.desc=Verdien de Ring van Odin voor een heldhaftige daad
 advancement.botania:lokiRing=Rekenkunst
 advancement.botania:lokiRing.desc=Verdien de Ring van Loki voor een heldhaftige daad
-advancement.botania:aesirRing=Zoals de Goden zeggen
-advancement.botania:aesirRing.desc=Vervaardig de Ring van de Aesir door de Ring der Goden te combineren
 
 advancement.botania:nullFlower.desc=Vindt een bug die je een ongedefinieerde Botania bloem geeft. Niet vergeten te melden!
 advancement.botania:desuGun=Tweezijdige Liefde
@@ -1413,7 +1411,6 @@ item.botania:flugelEye.name=Oog van de Flügel
 item.botania:thorRing.name=Ring van Thor
 item.botania:odinRing.name=Ring van Odin
 item.botania:lokiRing.name=Ring van Loki
-item.botania:aesirRing.name=Ring van de Aesir
 item.botania:dice.name=Dobbelsteen der Lot
 item.botania:keepIvy.name=Vastberaden Klimop
 item.botania:blackHoleTalisman.name=Zwart Gat Talisman

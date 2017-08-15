@@ -430,8 +430,6 @@ advancement.botania:odinRing=Memoria perdida en el tiempo
 advancement.botania:odinRing.desc=Se recompensado con el anillo de Odín
 advancement.botania:lokiRing=Aritmética
 advancement.botania:lokiRing.desc=Se recompensado con el anillo de Loki
-advancement.botania:aesirRing=Como dictan los dioses
-advancement.botania:aesirRing.desc=Crea el anillo del Aesir combinando los anillos de los dioses
 
 advancement.botania:nullFlower=Tranquilízate
 advancement.botania:nullFlower.desc=Encuentra un bug que te permita encontrar una flor de Botania sin definir. ¡No olvides informar!
@@ -1318,7 +1316,6 @@ item.botania:flugelEye.name=Ojo de los Flügel
 item.botania:thorRing.name=Anillo de Thor
 item.botania:odinRing.name=Anillo de Odín
 item.botania:lokiRing.name=Anillo de Loki
-item.botania:aesirRing.name=Anillo del Aesir
 item.botania:dice.name=Dado del destino
 item.botania:keepIvy.name=Hiedra resuelta
 item.botania:blackHoleTalisman.name=Talismán de agujero negro

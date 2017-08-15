@@ -412,8 +412,6 @@ advancement.botania:thorRing.desc=영웅적인 위업을 달성해서 토르의 
 advancement.botania:odinRing=로스트 타임 메모리
 advancement.botania:odinRing.desc=영웅적인 위업을 달성해서 오딘의 반지를 획득해보세요
 advancement.botania:lokiRing.desc=영웅적인 위업을 달성해서 로키의 반지를 획득해보세요
-advancement.botania:aesirRing=신이 내린 뜻대로
-advancement.botania:aesirRing.desc=아사의 반지를 얻어보세요.
 
 advancement.botania:nullFlower=Take it Easy
 advancement.botania:nullFlower.desc=정의되지 않은 보타니아 꽃들의 버그를 찾고 보고해보세요!
@@ -1280,7 +1278,6 @@ item.botania:flugelEye.name=플뤼겔의 눈
 item.botania:thorRing.name=토르의 반지
 item.botania:odinRing.name=오딘의 반지
 item.botania:lokiRing.name=로키의 반지
-item.botania:aesirRing.name=아사의 반지
 item.botania:dice.name=운명의 주사위
 item.botania:keepIvy.name=단호한 아이비
 item.botania:blackHoleTalisman.name=성스러운 검은색 부적

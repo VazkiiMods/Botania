@@ -44,7 +44,7 @@ public class ItemThorRing extends ItemRelicBauble {
 	}
 
 	private static boolean isThorRing(ItemStack stack) {
-		return !stack.isEmpty() && (stack.getItem() == ModItems.thorRing || stack.getItem() == ModItems.aesirRing);
+		return !stack.isEmpty() && stack.getItem() == ModItems.thorRing;
 	}
 
 }

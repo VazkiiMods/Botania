@@ -84,7 +84,7 @@ public class ItemOdinRing extends ItemRelicBauble {
 	}
 
 	private static boolean isOdinRing(ItemStack stack) {
-		return !stack.isEmpty() && (stack.getItem() == ModItems.odinRing || stack.getItem() == ModItems.aesirRing);
+		return !stack.isEmpty() && stack.getItem() == ModItems.odinRing;
 	}
 
 	@Override

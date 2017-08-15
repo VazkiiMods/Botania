@@ -560,8 +560,6 @@ advancement.botania:thorRing.desc=Seja recompensado com o Anel de Thor por um at
 advancement.botania:odinRing.desc=Seja recompensado com o Anel de Odin por um ato heróico
 #
 advancement.botania:lokiRing.desc=Seja recompensado com o Anel de Loki por um ato heróico
-#
-advancement.botania:aesirRing.desc=Crie um Anel de Aesir com os três anéis dos deuses
 
 #
 advancement.botania:nullFlower.desc=Encontre algum bug que faça você conseguir uma flor indefinida. Não esqueça de reportá-lo!
@@ -1563,7 +1561,6 @@ item.botania:flugelEye.name=Olho de Flügel
 item.botania:thorRing.name=Anel de Thor
 item.botania:odinRing.name=Anel de Odin
 item.botania:lokiRing.name=Anel de Loki
-item.botania:aesirRing.name=Anel de Aesir
 item.botania:dice.name=Dado do Destino
 item.botania:keepIvy.name=Hera Resoluta
 item.botania:blackHoleTalisman.name=Talismã do Buraco-negro
