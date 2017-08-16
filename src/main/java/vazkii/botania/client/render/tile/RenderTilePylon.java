@@ -2,14 +2,15 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- *
+ * <p>
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- *
+ * <p>
  * File Created @ [Feb 18, 2014, 10:18:36 PM (GMT)]
  */
 package vazkii.botania.client.render.tile;
 
+import com.google.common.collect.ImmutableMap;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
@@ -23,24 +24,22 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MultiblockRenderHandler;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.lib.LibResources;
-import vazkii.botania.client.model.IPylonModel;
 import vazkii.botania.client.model.ModelPylon;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TilePylon;
 
 import javax.annotation.Nonnull;
+import java.util.EnumMap;
+import java.util.Map;
 import java.util.Random;
 
 public class RenderTilePylon extends TileEntitySpecialRenderer<TilePylon> {
 
-	private static final ResourceLocation textureOld = new ResourceLocation(LibResources.MODEL_PYLON_OLD);
-	private static final ResourceLocation textureGreenOld = new ResourceLocation(LibResources.MODEL_PYLON_GREEN_OLD);
-	private static final ResourceLocation texturePinkOld = new ResourceLocation(LibResources.MODEL_PYLON_PINK_OLD);
+	private static final ResourceLocation MANA_MODEL_PATH = new ResourceLocation("botania:models/block/pylon.obj");
+	private static final ResourceLocation NATURA_MODEL_PATH = new ResourceLocation("botania:models/block/pylon.obj");
+	private static final ResourceLocation GAIA_MODEL_PATH = new ResourceLocation("botania:models/block/pylon.obj");
 
-	public static boolean green = false;
-	public static boolean pink = false;
-
-	private IPylonModel model;
+	private Map<PylonVariant, ModelPylon> models = new EnumMap<>(PylonVariant.class);
 
 	@Override
 	public void render(@Nonnull TilePylon pylon, double d0, double d1, double d2, float pticks, int digProgress, float unused) {
@@ -48,83 +47,98 @@ public class RenderTilePylon extends TileEntitySpecialRenderer<TilePylon> {
 				|| pylon.getWorld().getBlockState(pylon.getPos()).getBlock() != ModBlocks.pylon)
 			return;
 
-		if(model == null)
-			model = new ModelPylon();
+		PylonVariant type = ModBlocks.pylon.getStateFromMeta(pylon.getBlockMetadata()).getValue(BotaniaStateProps.PYLON_VARIANT);
+		ModelPylon model = models.computeIfAbsent(type, t -> {
+			ResourceLocation modelPath;
+			ImmutableMap<String, String> textures;
 
-			GlStateManager.pushMatrix();
-			GlStateManager.enableRescaleNormal();
-			GlStateManager.enableBlend();
-			GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-			float a = MultiblockRenderHandler.rendering ? 0.6F : 1F;
-			GlStateManager.color(1F, 1F, 1F, a);
-			PylonVariant variant = null;
-			if(pylon.getWorld() != null && pylon.getWorld().getBlockState(pylon.getPos()).getBlock() == ModBlocks.pylon) {
-				variant = pylon.getWorld().getBlockState(pylon.getPos()).getValue(BotaniaStateProps.PYLON_VARIANT);
-				green = variant == PylonVariant.NATURA;
-				pink = variant == PylonVariant.GAIA;
+			switch (t) {
+				default:
+				case MANA: {
+					modelPath = MANA_MODEL_PATH;
+					textures = ImmutableMap.of("#pylon", "botania:model/pylon");
+					break;
+				}
+				case NATURA: {
+					modelPath = NATURA_MODEL_PATH;
+					textures = ImmutableMap.of("#pylon", "botania:model/pylon1");
+					break;
+				}
+				case GAIA: {
+					modelPath = GAIA_MODEL_PATH;
+					textures = ImmutableMap.of("#pylon", "botania:model/pylon2");
+					break;
+				}
 			}
 
-			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+			return new ModelPylon(modelPath, textures);
+		});
 
-			double worldTime = pylon.getWorld() == null ? 0 : (double) (ClientTickHandler.ticksInGame + pticks);
+		GlStateManager.pushMatrix();
+		GlStateManager.enableRescaleNormal();
+		GlStateManager.enableBlend();
+		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		float a = MultiblockRenderHandler.rendering ? 0.6F : 1F;
+		GlStateManager.color(1F, 1F, 1F, a);
 
-			if(pylon != null)
-				worldTime += new Random(pylon.getPos().hashCode()).nextInt(360);
+		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 
-			GlStateManager.translate(d0 + 0.2 + (green ? -0.1 : 0), d1 + 0.05, d2 + 0.8 + (green ? 0.1 : 0));
-			float scale = green ? 0.8F : 0.6F;
-			GlStateManager.scale(scale, 0.6F, scale);
+		double worldTime = (double) (ClientTickHandler.ticksInGame + pticks);
 
-			if(!green) {
-				GlStateManager.pushMatrix();
-				GlStateManager.translate(0.5F, 0F, -0.5F);
-				GlStateManager.rotate((float) worldTime * 1.5F, 0F, 1F, 0F);
-				GlStateManager.translate(-0.5F, 0F, 0.5F);
+		worldTime += new Random(pylon.getPos().hashCode()).nextInt(360);
 
-				model.renderRing(variant);
-				GlStateManager.translate(0D, Math.sin(worldTime / 20D) / 20 - 0.025, 0D);
-				model.renderGems(variant);
-				GlStateManager.popMatrix();
-			}
+		GlStateManager.translate(d0 + 0.2 + (type == PylonVariant.NATURA ? -0.1 : 0), d1 + 0.05, d2 + 0.8 + (type == PylonVariant.NATURA ? 0.1 : 0));
+		float scale = type == PylonVariant.NATURA ? 0.8F : 0.6F;
+		GlStateManager.scale(scale, 0.6F, scale);
 
+		if(type != PylonVariant.NATURA) {
 			GlStateManager.pushMatrix();
-			GlStateManager.translate(0D, Math.sin(worldTime / 20D) / 17.5, 0D);
-
 			GlStateManager.translate(0.5F, 0F, -0.5F);
-
-			GlStateManager.rotate((float) -worldTime, 0F, 1F, 0F);
+			GlStateManager.rotate((float) worldTime * 1.5F, 0F, 1F, 0F);
 			GlStateManager.translate(-0.5F, 0F, 0.5F);
 
-
-			GlStateManager.disableCull();
-			model.renderCrystal(variant);
-
-			GlStateManager.color(1F, 1F, 1F, a);
-			if(!ShaderHelper.useShaders()) {
-				int light = 15728880;
-				int lightmapX = light % 65536;
-				int lightmapY = light / 65536;
-				OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, lightmapX, lightmapY);
-				float alpha = (float) ((Math.sin(worldTime / 20D) / 2D + 0.5) / 2D);
-				GlStateManager.color(1F, 1F, 1F, a * (alpha + 0.183F));
-			}
-
-			GlStateManager.disableAlpha();
-			GlStateManager.scale(1.1F, 1.1F, 1.1F);
-			GlStateManager.translate(-0.05F, -0.1F, 0.05F);
-
-			ShaderHelper.useShader(ShaderHelper.pylonGlow);
-			model.renderCrystal(variant);
-			ShaderHelper.releaseShader();
-
-			GlStateManager.enableAlpha();
-			GlStateManager.enableCull();
+			model.renderRing();
+			GlStateManager.translate(0D, Math.sin(worldTime / 20D) / 20 - 0.025, 0D);
+			model.renderGems();
 			GlStateManager.popMatrix();
+		}
 
-			GlStateManager.disableBlend();
-			GlStateManager.enableRescaleNormal();
-			GlStateManager.popMatrix();
+		GlStateManager.pushMatrix();
+		GlStateManager.translate(0D, Math.sin(worldTime / 20D) / 17.5, 0D);
+
+		GlStateManager.translate(0.5F, 0F, -0.5F);
+
+		GlStateManager.rotate((float) -worldTime, 0F, 1F, 0F);
+		GlStateManager.translate(-0.5F, 0F, 0.5F);
+
+
+		GlStateManager.disableCull();
+		model.renderCrystal();
+
+		GlStateManager.color(1F, 1F, 1F, a);
+		if(!ShaderHelper.useShaders()) {
+			int light = 15728880;
+			int lightmapX = light % 65536;
+			int lightmapY = light / 65536;
+			OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, lightmapX, lightmapY);
+			float alpha = (float) ((Math.sin(worldTime / 20D) / 2D + 0.5) / 2D);
+			GlStateManager.color(1F, 1F, 1F, a * (alpha + 0.183F));
+		}
+
+		GlStateManager.disableAlpha();
+		GlStateManager.scale(1.1F, 1.1F, 1.1F);
+		GlStateManager.translate(-0.05F, -0.1F, 0.05F);
+
+		ShaderHelper.useShader(ShaderHelper.pylonGlow);
+		model.renderCrystal();
+		ShaderHelper.releaseShader();
+
+		GlStateManager.enableAlpha();
+		GlStateManager.enableCull();
+		GlStateManager.popMatrix();
+
+		GlStateManager.disableBlend();
+		GlStateManager.enableRescaleNormal();
+		GlStateManager.popMatrix();
 	}
-
-
 }

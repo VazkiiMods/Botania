@@ -35,99 +35,54 @@ import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.state.enums.PylonVariant;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
-public class ModelPylon implements IPylonModel {
+public class ModelPylon {
 
-	private IBakedModel manaCrystal;
-	private IBakedModel manaRingsAndPanes;
-	private IBakedModel manaGems;
-	private IBakedModel naturaCrystal;
-	private IBakedModel naturaRingsAndPanes;
-	private IBakedModel naturaGems;
-	private IBakedModel gaiaCrystal;
-	private IBakedModel gaiaRingsAndPanes;
-	private IBakedModel gaiaGems;
+	private IBakedModel crystal;
+	private IBakedModel ringsAndPanes;
+	private IBakedModel gems;
 
-	public ModelPylon() {
+	public ModelPylon(ResourceLocation modelPath, ImmutableMap<String, String> textures) {
 		try {
 			// Load the OBJ
-			OBJModel model = (OBJModel) OBJLoader.INSTANCE.loadModel(new ResourceLocation("botania:models/block/pylon.obj"));
+			OBJModel model = (OBJModel) OBJLoader.INSTANCE.loadModel(modelPath);
 
 			// Apply the texture and flip the v's of the model
-			IModel manaModel = ((OBJModel) model.retexture(ImmutableMap.of("#pylon", "botania:model/pylon"))).process(ImmutableMap.of("flip-v", "true"));
-			IModel naturaModel = ((OBJModel) model.retexture(ImmutableMap.of("#pylon", "botania:model/pylon1"))).process(ImmutableMap.of("flip-v", "true"));
-			IModel gaiaModel = ((OBJModel) model.retexture(ImmutableMap.of("#pylon", "botania:model/pylon2"))).process(ImmutableMap.of("flip-v", "true"));
+			IModel processed = model.retexture(textures).process(ImmutableMap.of("flip-v", "true"));
 
 			// Hide necessary groups and bake
 			VertexFormat format = Attributes.DEFAULT_BAKED_FORMAT;
 			IModelState hideGroups = hideGroups(ImmutableList.of("Crystal_Ring", "Ring_Panel01", "Ring_Panel02", "Ring_Panel03", "Ring_Panel04",
 					"Ring_Gem01", "Ring_Gem02", "Ring_Gem03", "Ring_Gem04"));
-			manaCrystal = manaModel.bake(hideGroups, format, ModelLoader.defaultTextureGetter());
-			naturaCrystal = naturaModel.bake(hideGroups, format, ModelLoader.defaultTextureGetter());
-			gaiaCrystal = gaiaModel.bake(hideGroups, format, ModelLoader.defaultTextureGetter());
+			crystal = processed.bake(hideGroups, format, ModelLoader.defaultTextureGetter());
 
 			hideGroups = hideGroups(ImmutableList.of("Crystal", "Ring_Gem01", "Ring_Gem02", "Ring_Gem03", "Ring_Gem04"));
-			manaRingsAndPanes = manaModel.bake(hideGroups, format, ModelLoader.defaultTextureGetter());
-			naturaRingsAndPanes = naturaModel.bake(hideGroups, format, ModelLoader.defaultTextureGetter());
-			gaiaRingsAndPanes = gaiaModel.bake(hideGroups, format, ModelLoader.defaultTextureGetter());
+			ringsAndPanes = processed.bake(hideGroups, format, ModelLoader.defaultTextureGetter());
 
 			hideGroups = hideGroups(ImmutableList.of("Crystal", "Crystal_Ring", "Ring_Panel01", "Ring_Panel02", "Ring_Panel03", "Ring_Panel04"));
-			manaGems = manaModel.bake(hideGroups, format, ModelLoader.defaultTextureGetter());
-			naturaGems = naturaModel.bake(hideGroups, format, ModelLoader.defaultTextureGetter());
-			gaiaGems = gaiaModel.bake(hideGroups, format, ModelLoader.defaultTextureGetter());
+			gems = processed.bake(hideGroups, format, ModelLoader.defaultTextureGetter());
 		} catch(Exception e) {
 			throw new ReportedException(new CrashReport("Error making pylon submodels for TESR!", e));
 		}
 	}
 
-	@Override
-	public void renderCrystal(PylonVariant variant) {
-		switch(variant) {
-		case MANA:
-			renderModel(manaCrystal);
-			break;
-		case NATURA:
-			renderModel(naturaCrystal);
-			break;
-		case GAIA:
-			renderModel(gaiaCrystal);
-			break;
-		}
+	public void renderCrystal() {
+		renderModel(crystal);
 	}
 
-	@Override
-	public void renderRing(PylonVariant variant) {
+	public void renderRing() {
 		GlStateManager.disableLighting();
-		switch(variant) {
-		case MANA:
-			renderModel(manaRingsAndPanes);
-			break;
-		case NATURA:
-			renderModel(naturaRingsAndPanes);
-			break;
-		case GAIA:
-			renderModel(gaiaRingsAndPanes);
-			break;
-		}
+		renderModel(ringsAndPanes);
 		GlStateManager.enableLighting();
 	}
 
-	@Override
-	public void renderGems(PylonVariant variant) {
+	public void renderGems() {
 		GlStateManager.disableLighting();
-		switch(variant) {
-		case MANA:
-			renderModel(manaGems);
-			break;
-		case NATURA:
-			renderModel(naturaGems);
-			break;
-		case GAIA:
-			renderModel(gaiaGems);
-			break;
-		}
+		renderModel(gems);
 		GlStateManager.enableLighting();
 	}
 
@@ -144,10 +99,9 @@ public class ModelPylon implements IPylonModel {
 	private IModelState hideGroups(List<String> groups) {
 		return part -> {
 			if (part.isPresent()) {
-				List<String> parts = new ArrayList<>();
-				Models.getParts(part.get()).forEachRemaining(parts::add);
-				for (String s : parts) {
-					if (groups.contains(s)) {
+				Iterator<String> parts = Models.getParts(part.get());
+				while (parts.hasNext()) {
+					if (groups.contains(parts.next())) {
 						// Hide it
 						return Optional.of(TRSRTransformation.identity());
 					}
