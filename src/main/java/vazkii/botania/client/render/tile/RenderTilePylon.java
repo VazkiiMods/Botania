@@ -25,10 +25,8 @@ import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.IPylonModel;
 import vazkii.botania.client.model.ModelPylon;
-import vazkii.botania.client.model.ModelPylonOld;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TilePylon;
-import vazkii.botania.common.core.handler.ConfigHandler;
 
 import javax.annotation.Nonnull;
 import java.util.Random;
@@ -39,9 +37,10 @@ public class RenderTilePylon extends TileEntitySpecialRenderer<TilePylon> {
 	private static final ResourceLocation textureGreenOld = new ResourceLocation(LibResources.MODEL_PYLON_GREEN_OLD);
 	private static final ResourceLocation texturePinkOld = new ResourceLocation(LibResources.MODEL_PYLON_PINK_OLD);
 
-	IPylonModel model;
 	public static boolean green = false;
 	public static boolean pink = false;
+
+	private IPylonModel model;
 
 	@Override
 	public void render(@Nonnull TilePylon pylon, double d0, double d1, double d2, float pticks, int digProgress, float unused) {
@@ -50,7 +49,7 @@ public class RenderTilePylon extends TileEntitySpecialRenderer<TilePylon> {
 			return;
 
 		if(model == null)
-			model = ConfigHandler.oldPylonModel ? new ModelPylonOld() : new ModelPylon();
+			model = new ModelPylon();
 
 			GlStateManager.pushMatrix();
 			GlStateManager.enableRescaleNormal();
@@ -65,31 +64,22 @@ public class RenderTilePylon extends TileEntitySpecialRenderer<TilePylon> {
 				pink = variant == PylonVariant.GAIA;
 			}
 
-			if(ConfigHandler.oldPylonModel)
-				Minecraft.getMinecraft().renderEngine.bindTexture(pink ? texturePinkOld : green ? textureGreenOld : textureOld);
-			else Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 
 			double worldTime = pylon.getWorld() == null ? 0 : (double) (ClientTickHandler.ticksInGame + pticks);
 
 			if(pylon != null)
 				worldTime += new Random(pylon.getPos().hashCode()).nextInt(360);
 
-			if(ConfigHandler.oldPylonModel) {
-				GlStateManager.translate(d0 + 0.5, d1 + 2.2, d2 + 0.5);
-				GlStateManager.scale(1F, -1.5F, -1F);
-			} else {
-				GlStateManager.translate(d0 + 0.2 + (green ? -0.1 : 0), d1 + 0.05, d2 + 0.8 + (green ? 0.1 : 0));
-				float scale = green ? 0.8F : 0.6F;
-				GlStateManager.scale(scale, 0.6F, scale);
-			}
+			GlStateManager.translate(d0 + 0.2 + (green ? -0.1 : 0), d1 + 0.05, d2 + 0.8 + (green ? 0.1 : 0));
+			float scale = green ? 0.8F : 0.6F;
+			GlStateManager.scale(scale, 0.6F, scale);
 
 			if(!green) {
 				GlStateManager.pushMatrix();
-				if(!ConfigHandler.oldPylonModel)
-					GlStateManager.translate(0.5F, 0F, -0.5F);
+				GlStateManager.translate(0.5F, 0F, -0.5F);
 				GlStateManager.rotate((float) worldTime * 1.5F, 0F, 1F, 0F);
-				if(!ConfigHandler.oldPylonModel)
-					GlStateManager.translate(-0.5F, 0F, 0.5F);
+				GlStateManager.translate(-0.5F, 0F, 0.5F);
 
 				model.renderRing(variant);
 				GlStateManager.translate(0D, Math.sin(worldTime / 20D) / 20 - 0.025, 0D);
@@ -100,12 +90,10 @@ public class RenderTilePylon extends TileEntitySpecialRenderer<TilePylon> {
 			GlStateManager.pushMatrix();
 			GlStateManager.translate(0D, Math.sin(worldTime / 20D) / 17.5, 0D);
 
-			if(!ConfigHandler.oldPylonModel)
-				GlStateManager.translate(0.5F, 0F, -0.5F);
+			GlStateManager.translate(0.5F, 0F, -0.5F);
 
 			GlStateManager.rotate((float) -worldTime, 0F, 1F, 0F);
-			if(!ConfigHandler.oldPylonModel)
-				GlStateManager.translate(-0.5F, 0F, 0.5F);
+			GlStateManager.translate(-0.5F, 0F, 0.5F);
 
 
 			GlStateManager.disableCull();
@@ -117,15 +105,13 @@ public class RenderTilePylon extends TileEntitySpecialRenderer<TilePylon> {
 				int lightmapX = light % 65536;
 				int lightmapY = light / 65536;
 				OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, lightmapX, lightmapY);
-				float alpha = (float) ((Math.sin(worldTime / 20D) / 2D + 0.5) / (ConfigHandler.oldPylonModel ? 1D : 2D));
+				float alpha = (float) ((Math.sin(worldTime / 20D) / 2D + 0.5) / 2D);
 				GlStateManager.color(1F, 1F, 1F, a * (alpha + 0.183F));
 			}
 
 			GlStateManager.disableAlpha();
 			GlStateManager.scale(1.1F, 1.1F, 1.1F);
-			if(!ConfigHandler.oldPylonModel)
-				GlStateManager.translate(-0.05F, -0.1F, 0.05F);
-			else GlStateManager.translate(0F, -0.09F, 0F);
+			GlStateManager.translate(-0.05F, -0.1F, 0.05F);
 
 			ShaderHelper.useShader(ShaderHelper.pylonGlow);
 			model.renderCrystal(variant);

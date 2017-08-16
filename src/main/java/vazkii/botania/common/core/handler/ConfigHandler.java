@@ -45,7 +45,6 @@ public final class ConfigHandler {
 	public static boolean staticWandBeam = false;
 	public static boolean boundBlockWireframe = true;
 	public static boolean lexicon3dModel = true;
-	public static boolean oldPylonModel = false;
 	public static double flowerParticleFrequency = 0.75F;
 	public static boolean blockBreakParticles = true;
 	public static boolean blockBreakParticlesTool = true;
@@ -129,9 +128,6 @@ public final class ConfigHandler {
 
 		desc = "Set this to false to disable the animated 3D render for the Lexica Botania.";
 		lexicon3dModel = loadPropBool("lexicon.render.3D", desc, lexicon3dModel);
-
-		desc = "Set this to true to use the old (non-.obj, pre beta18) pylon model";
-		oldPylonModel = loadPropBool("pylonModel.old", desc, oldPylonModel);
 
 		desc = "The frequency in which particles spawn from normal (worldgen) mystical flowers";
 		flowerParticleFrequency = loadPropDouble("flowerParticles.frequency", desc, flowerParticleFrequency);
