@@ -390,7 +390,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 			}
 			world.playSound(null, player.posX, player.posY, player.posZ, ModSounds.ding, SoundCategory.PLAYERS, 0.1F, 1);
 		} else {
-			RayTraceResult pos = raytraceFromEntity(world, player, true, 5);
+			RayTraceResult pos = raytraceFromEntity(world, player, true);
 			if(pos != null && pos.hitVec != null && !world.isRemote) {
 				double x = pos.hitVec.x - getPos().getX() - 0.5;
 				double y = pos.hitVec.y - getPos().getY() - 0.5;
@@ -545,27 +545,26 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 		return null;
 	}
 
-	public static RayTraceResult raytraceFromEntity(World world, Entity player, boolean par3, double range) {
-		float f = 1.0F;
-		float f1 = player.prevRotationPitch + (player.rotationPitch - player.prevRotationPitch) * f;
-		float f2 = player.prevRotationYaw + (player.rotationYaw - player.prevRotationYaw) * f;
-		double d0 = player.prevPosX + (player.posX - player.prevPosX) * f;
-		double d1 = player.prevPosY + (player.posY - player.prevPosY) * f;
-		if (!world.isRemote && player instanceof EntityPlayer)
-			d1 += 1.62D;
-		double d2 = player.prevPosZ + (player.posZ - player.prevPosZ) * f;
-		Vec3d vec3 = new Vec3d(d0, d1, d2);
-		float f3 = MathHelper.cos(-f2 * 0.017453292F - (float) Math.PI);
-		float f4 = MathHelper.sin(-f2 * 0.017453292F - (float) Math.PI);
-		float f5 = -MathHelper.cos(-f1 * 0.017453292F);
-		float f6 = MathHelper.sin(-f1 * 0.017453292F);
-		float f7 = f4 * f5;
-		float f8 = f3 * f5;
-		double d3 = range;
-		if (player instanceof EntityPlayerMP)
-			d3 = ((EntityPlayerMP) player).interactionManager.getBlockReachDistance();
-		Vec3d vec31 = vec3.addVector(f7 * d3, f6 * d3, f8 * d3);
-		return world.rayTraceBlocks(vec3, vec31, par3, !par3, par3);
+	// [VanillaCopy] Item.rayTrace
+	protected RayTraceResult raytraceFromEntity(World worldIn, EntityPlayer playerIn, boolean useLiquids) {
+		float f = playerIn.rotationPitch;
+		float f1 = playerIn.rotationYaw;
+		double d0 = playerIn.posX;
+		double d1 = playerIn.posY + (double) playerIn.getEyeHeight();
+		double d2 = playerIn.posZ;
+		Vec3d vec3d = new Vec3d(d0, d1, d2);
+		float f2 = MathHelper.cos(-f1 * 0.017453292F - (float) Math.PI);
+		float f3 = MathHelper.sin(-f1 * 0.017453292F - (float) Math.PI);
+		float f4 = -MathHelper.cos(-f * 0.017453292F);
+		float f5 = MathHelper.sin(-f * 0.017453292F);
+		float f6 = f3 * f4;
+		float f7 = f2 * f4;
+		double d3 = 5.0D;
+		if(playerIn instanceof net.minecraft.entity.player.EntityPlayerMP) {
+			d3 = ((net.minecraft.entity.player.EntityPlayerMP) playerIn).interactionManager.getBlockReachDistance();
+		}
+		Vec3d vec3d1 = vec3d.addVector((double) f6 * d3, (double) f5 * d3, (double) f7 * d3);
+		return worldIn.rayTraceBlocks(vec3d, vec3d1, useLiquids, !useLiquids, false);
 	}
 
 	@SideOnly(Side.CLIENT)
