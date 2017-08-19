@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:item/handheld",
   "textures": {
-    "layer0": "botania:items/terrapick0"
+    "layer0": "botania:items/terrasteel_pickaxe"
   },
   "overrides": [
     {

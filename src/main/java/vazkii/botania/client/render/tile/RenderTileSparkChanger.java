@@ -27,13 +27,13 @@ public class RenderTileSparkChanger extends TileEntitySpecialRenderer<TileSparkC
 		GlStateManager.pushMatrix();
 		GlStateManager.translate(d0, d1, d2);
 		GlStateManager.rotate(90F, 1F, 0F, 0F);
-		GlStateManager.translate(0.8F, 0.2F, -0.22F);
+		GlStateManager.translate(1.0F, -0.125F, -0.25F);
 		GlStateManager.color(1F, 1F, 1F, 1F);
 		ItemStack stack = tileentity.getItemHandler().getStackInSlot(0);
 		if(!stack.isEmpty()) {
 			GlStateManager.pushMatrix();
 			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-			float s = 0.6F;
+			float s = 1.0F;
 			GlStateManager.scale(s, s, s);
 			GlStateManager.rotate(180F, 0F, 1F, 0F);
 			GlStateManager.translate(0.5, 0.5, 0);

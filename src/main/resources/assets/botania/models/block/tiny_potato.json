@@ -1,8 +1,8 @@
 {
   "parent": "minecraft:block/block",
   "textures": {
-    "all": "botania:model/tinypotatocopy",
-    "particle": "botania:model/tinypotatocopy"
+    "all": "botania:model/tiny_potato",
+    "particle": "botania:model/tiny_potato"
   },
   "elements": [
     {
@@ -15,7 +15,7 @@
         "east": { "texture": "#all", "uv": [ 8.0, 4.0, 12.0, 10.0 ] },
         "south": { "texture": "#all", "uv": [ 12.0, 4.0, 16.0, 10.0 ] },
         "up": { "texture": "#all", "uv": [ 4.0, 0.0, 8.0, 4.0 ] },
-        "down": { "texture": "#all", "uv": [ 8.0, 0.0, 12.0, 4.0 ], "cullface": "down" }
+        "down": { "texture": "#all", "uv": [ 8.0, 0.0, 12.0, 4.0 ] }
       }
     }
   ]

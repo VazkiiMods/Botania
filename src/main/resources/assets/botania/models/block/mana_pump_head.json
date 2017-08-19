@@ -1,0 +1,21 @@
+{
+	"Comment": "Designed by Wiiv with Cubik Studio - https://cubik.studio",
+	"textures": {
+		"head_sheat": "botania:blocks/pump_head_sheat"
+	},
+	"elements": [
+		{
+			"Comment": "head",
+			"from": [ 5, 1, 2 ],
+			"to": [ 11, 7, 6 ],
+			"faces": {
+				"down": { "uv": [ 6, 8, 12, 12 ], "texture": "#head_sheat" },
+				"up": { "uv": [ 6, 8, 12, 12 ], "texture": "#head_sheat" },
+				"north": { "uv": [ 0, 8, 6, 14 ], "texture": "#head_sheat" },
+				"south": { "uv": [ 0, 8, 6, 14 ], "texture": "#head_sheat" },
+				"west": { "uv": [ 6, 12, 12, 8 ], "texture": "#head_sheat", "rotation": 90 },
+				"east": { "uv": [ 6, 8, 12, 12 ], "texture": "#head_sheat", "rotation": 90 }
+			}
+		}
+	]
+}

@@ -51,7 +51,7 @@ import java.util.List;
 
 public class BlockForestDrum extends BlockMod implements IManaTrigger, ILexiconable {
 
-	private static final AxisAlignedBB AABB = new AxisAlignedBB(3/16.0, 0, 3/16.0, 13/16.0, 14/16.0, 13/16.0);
+	private static final AxisAlignedBB AABB = new AxisAlignedBB(3/16.0, 1/16.0, 3/16.0, 13/16.0, 15/16.0, 13/16.0);
 
 	public BlockForestDrum() {
 		super(Material.WOOD, LibBlockNames.FOREST_DRUM);

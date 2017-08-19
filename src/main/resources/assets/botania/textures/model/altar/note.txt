@@ -1,8 +1,0 @@
-Texture Artists:
-
-In all _side textures the sides are laid out in the order west, north, east, south
-In all _top_bottom textures the quad on the left is the top, the one on the right is the bottom
-In gobletStand_sides, the upper half is the west and north sides, left to right. The east and south sides are the bottom half.
-In kelkWall, the two large quads are the large faces, the strips to the left or right are the small faces.
-    The strips on top of the large quads are the top/bottom textures of the N/S walls of the cup
-    The vertical strips on the right are the top/bottom textures of W/E walls of the cup

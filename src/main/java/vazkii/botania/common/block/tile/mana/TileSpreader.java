@@ -458,7 +458,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	public boolean isDreamwood() {
 		updateContainingBlockInfo();
 		int variant = getBlockMetadata();
-		return world == null ? staticDreamwood : variant == SpreaderVariant.ELVEN.ordinal() || variant == SpreaderVariant.GAIA.ordinal();
+		return world == null ? staticDreamwood : variant == SpreaderVariant.ELVEN.ordinal();
 	}
 
 	public boolean isULTRA_SPREADER() {

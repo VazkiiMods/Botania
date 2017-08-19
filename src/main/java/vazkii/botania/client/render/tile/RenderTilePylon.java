@@ -56,17 +56,17 @@ public class RenderTilePylon extends TileEntitySpecialRenderer<TilePylon> {
 				default:
 				case MANA: {
 					modelPath = MANA_MODEL_PATH;
-					textures = ImmutableMap.of("#pylon", "botania:model/pylon");
+					textures = ImmutableMap.of("#pylon", "botania:model/pylon_0");
 					break;
 				}
 				case NATURA: {
 					modelPath = NATURA_MODEL_PATH;
-					textures = ImmutableMap.of("#pylon", "botania:model/pylon1");
+					textures = ImmutableMap.of("#pylon", "botania:model/pylon_1");
 					break;
 				}
 				case GAIA: {
 					modelPath = GAIA_MODEL_PATH;
-					textures = ImmutableMap.of("#pylon", "botania:model/pylon2");
+					textures = ImmutableMap.of("#pylon", "botania:model/pylon_2");
 					break;
 				}
 			}

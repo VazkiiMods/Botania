@@ -1,8 +1,8 @@
 {
   "variants": {
-    "variant=default": { "model": "botania:default_pool" },
-    "variant=diluted": { "model": "botania:diluted_pool" },
-    "variant=creative": { "model": "botania:creative_pool" },
-    "variant=fabulous": { "model": "botania:fabulous_pool" }
+    "variant=default": { "model": "botania:pool_default" },
+    "variant=diluted": { "model": "botania:pool_diluted" },
+    "variant=creative": { "model": "botania:pool_creative" },
+    "variant=fabulous": { "model": "botania:pool_fabulous" }
   }
 }

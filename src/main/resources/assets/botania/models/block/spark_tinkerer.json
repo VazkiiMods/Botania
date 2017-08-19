@@ -1,8 +1,8 @@
 {
-  "parent": "botania:block/shapes/three_high_bottom_top",
-  "textures": {
-    "bottom": "botania:blocks/sparkchanger0",
-    "top": "botania:blocks/sparkchanger1",
-    "side": "botania:blocks/sparkchanger2"
-  }
+	"parent": "botania:block/shapes/three_high_bottom_top",
+	"textures": {
+		"bottom": "botania:blocks/spark_tinkerer_0",
+		"up": "botania:blocks/spark_tinkerer_1",
+		"side": "botania:blocks/spark_tinkerer_2"
+	}
 }

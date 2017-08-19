@@ -2,6 +2,6 @@
     "parent": "minecraft:item/generated",
     "textures": 
     {
-        "layer0": "botania:items/terrasteelboots"
+        "layer0": "botania:items/terrasteel_boots"
     }
 }

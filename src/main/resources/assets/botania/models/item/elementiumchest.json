@@ -2,6 +2,6 @@
     "parent": "minecraft:item/generated",
     "textures": 
     {
-        "layer0": "botania:items/elementiumchest"
+        "layer0": "botania:items/elementium_chestplate"
     }
 }

@@ -10,6 +10,11 @@
  */
 package vazkii.botania.client.render.tile;
 
+import java.awt.Color;
+import java.util.Random;
+
+import javax.annotation.Nonnull;
+
 import net.minecraft.block.BlockCarpet;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -28,19 +33,17 @@ import vazkii.botania.client.model.ModelSpreader;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TileSpreader;
 
-import javax.annotation.Nonnull;
-import java.awt.Color;
-import java.util.Random;
-
 public class RenderTileSpreader extends TileEntitySpecialRenderer<TileSpreader> {
 
 	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_SPREADER);
 	private static final ResourceLocation textureRs = new ResourceLocation(LibResources.MODEL_SPREADER_REDSTONE);
 	private static final ResourceLocation textureDw = new ResourceLocation(LibResources.MODEL_SPREADER_DREAMWOOD);
-
+	private static final ResourceLocation textureG = new ResourceLocation(LibResources.MODEL_SPREADER_GAIA);
+	
 	private static final ResourceLocation textureHalloween = new ResourceLocation(LibResources.MODEL_SPREADER_HALLOWEEN);
 	private static final ResourceLocation textureRsHalloween = new ResourceLocation(LibResources.MODEL_SPREADER_REDSTONE_HALLOWEEN);
 	private static final ResourceLocation textureDwHalloween = new ResourceLocation(LibResources.MODEL_SPREADER_DREAMWOOD_HALLOWEEN);
+	private static final ResourceLocation textureGHalloween = new ResourceLocation(LibResources.MODEL_SPREADER_GAIA_HALLOWEEN);
 
 	private static final ModelSpreader model = new ModelSpreader();
 
@@ -49,7 +52,7 @@ public class RenderTileSpreader extends TileEntitySpecialRenderer<TileSpreader> 
 		if(!spreader.getWorld().isBlockLoaded(spreader.getPos(), false)
 				|| spreader.getWorld().getBlockState(spreader.getPos()).getBlock() != ModBlocks.spreader)
 			return;
-
+		
 		GlStateManager.pushMatrix();
 		GlStateManager.enableRescaleNormal();
 		GlStateManager.color(1F, 1F, 1F, 1F);
@@ -61,9 +64,9 @@ public class RenderTileSpreader extends TileEntitySpecialRenderer<TileSpreader> 
 		GlStateManager.rotate(spreader.rotationY, 1F, 0F, 0F);
 		GlStateManager.translate(0F, 1F, 0F);
 
-		ResourceLocation r = spreader.isRedstone() ? textureRs : spreader.isDreamwood() ? textureDw : texture;
+		ResourceLocation r = spreader.isRedstone() ? textureRs : spreader.isDreamwood() ? textureDw : spreader.isULTRA_SPREADER() ? textureG : texture;
 		if(ClientProxy.dootDoot)
-			r = spreader.isRedstone() ? textureRsHalloween : spreader.isDreamwood() ? textureDwHalloween : textureHalloween;
+			r = spreader.isRedstone() ? textureRsHalloween : spreader.isDreamwood() ? textureDwHalloween : spreader.isULTRA_SPREADER() ? textureGHalloween : textureHalloween;
 
 		Minecraft.getMinecraft().renderEngine.bindTexture(r);
 		GlStateManager.scale(1F, -1F, -1F);
