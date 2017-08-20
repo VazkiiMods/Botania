@@ -111,7 +111,7 @@ public class MiscellaneousIcons {
 		conjurationCatalystOverlay = IconHelper.forName(evt.getMap(), "conjurationCatalyst3", "blocks");
 		enchanterOverlay = IconHelper.forName(evt.getMap(), "enchanterOverlay", "blocks");
 		manaVoidOverlay = IconHelper.forName(evt.getMap(), "manaVoid1", "blocks");
-		manaWater = IconHelper.forName(evt.getMap(), "manaWater", "blocks");
+		manaWater = IconHelper.forName(evt.getMap(), "mana_water", "blocks");
 		terraPlateOverlay = IconHelper.forName(evt.getMap(), "terraPlateOverlay", "blocks");
 		corporeaWorldIcon = IconHelper.forName(evt.getMap(), "corporeaSpark1", "items");
 		corporeaWorldIconMaster = IconHelper.forName(evt.getMap(), "corporeaSpark3", "items");
@@ -126,7 +126,7 @@ public class MiscellaneousIcons {
 		tailIcon = IconHelper.forName(evt.getMap(), "tail", "items");
 		phiFlowerIcon = IconHelper.forName(evt.getMap(), "phiFlower", "items");
 		goldfishIcon = IconHelper.forName(evt.getMap(), "goldfish", "items");
-		nerfBatIcon = IconHelper.forName(evt.getMap(), "nerfBat", "items");
+		nerfBatIcon = IconHelper.forName(evt.getMap(), "special_nerfbat", "items");
 
 		kingKeyWeaponIcons = new TextureAtlasSprite[ItemKingKey.WEAPON_TYPES];
 		for(int i = 0; i < ItemKingKey.WEAPON_TYPES; i++)
@@ -152,12 +152,12 @@ public class MiscellaneousIcons {
 
 		bloodPendantChain = IconHelper.forName(evt.getMap(), "bloodPendant2", "items");
 		bloodPendantGem = IconHelper.forName(evt.getMap(), "bloodPendant3", "items");
-		snowflakePendantGem = IconHelper.forName(evt.getMap(), "icePendantGem", "items");
+		snowflakePendantGem = IconHelper.forName(evt.getMap(), "pendant_ice_gem", "items");
 		itemFinderGem = IconHelper.forName(evt.getMap(), "itemFinderGem", "items");
-		pyroclastGem = IconHelper.forName(evt.getMap(), "lavaPendantGem", "items");
-		crimsonGem = IconHelper.forName(evt.getMap(), "superLavaPendantGem", "items");
-		cirrusGem = IconHelper.forName(evt.getMap(), "cloudPendantGem", "items");
-		nimbusGem = IconHelper.forName(evt.getMap(), "superCloudPendantGem", "items");
+		pyroclastGem = IconHelper.forName(evt.getMap(), "pendant_lava_gem", "items");
+		crimsonGem = IconHelper.forName(evt.getMap(), "pendant_lava_super_gem", "items");
+		cirrusGem = IconHelper.forName(evt.getMap(), "pendant_cloud_gem", "items");
+		nimbusGem = IconHelper.forName(evt.getMap(), "pendant_cloud_super_gem", "items");
 	}
 
 	private MiscellaneousIcons() {}
