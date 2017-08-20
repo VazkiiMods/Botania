@@ -29,7 +29,7 @@ import vazkii.botania.client.model.ModelPylonNatura;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TilePylon;
 
-import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Random;
 
 public class RenderTilePylon extends TileEntitySpecialRenderer<TilePylon> {
@@ -43,12 +43,14 @@ public class RenderTilePylon extends TileEntitySpecialRenderer<TilePylon> {
 	private final ModelPylonGaia gaiaModel = new ModelPylonGaia();
 
 	@Override
-	public void render(@Nonnull TilePylon pylon, double d0, double d1, double d2, float pticks, int digProgress, float unused) {
-		if(!pylon.getWorld().isBlockLoaded(pylon.getPos(), false)
-				|| pylon.getWorld().getBlockState(pylon.getPos()).getBlock() != ModBlocks.pylon)
+	public void render(@Nullable TilePylon pylon, double d0, double d1, double d2, float pticks, int digProgress, float unused) {
+		boolean renderingItem = pylon == null;
+
+		if(!renderingItem &&
+				(!pylon.getWorld().isBlockLoaded(pylon.getPos(), false) || pylon.getWorld().getBlockState(pylon.getPos()).getBlock() != ModBlocks.pylon))
 			return;
 
-		PylonVariant type = ModBlocks.pylon.getStateFromMeta(pylon.getBlockMetadata()).getValue(BotaniaStateProps.PYLON_VARIANT);
+		PylonVariant type = renderingItem ? PylonVariant.MANA : ModBlocks.pylon.getStateFromMeta(pylon.getBlockMetadata()).getValue(BotaniaStateProps.PYLON_VARIANT); // todo get the type somehow....
 		IPylonModel model;
 		switch(type) {
 			default:
@@ -78,28 +80,30 @@ public class RenderTilePylon extends TileEntitySpecialRenderer<TilePylon> {
 
 		double worldTime = (double) (ClientTickHandler.ticksInGame + pticks);
 
-		worldTime += new Random(pylon.getPos().hashCode()).nextInt(360);
+		worldTime += new Random(pylon == null ?  0 : pylon.getPos().hashCode()).nextInt(360);
 
 		GlStateManager.translate(d0 + 0.2 + (type == PylonVariant.NATURA ? -0.1 : 0), d1 + 0.05, d2 + 0.8 + (type == PylonVariant.NATURA ? 0.1 : 0));
 		float scale = type == PylonVariant.NATURA ? 0.8F : 0.6F;
 		GlStateManager.scale(scale, 0.6F, scale);
 
-		if(type != PylonVariant.NATURA) {
-			GlStateManager.pushMatrix();
-			GlStateManager.translate(0.5F, 0F, -0.5F);
+		GlStateManager.pushMatrix();
+		GlStateManager.translate(0.5F, 0F, -0.5F);
+		if(!renderingItem)
 			GlStateManager.rotate((float) worldTime * 1.5F, 0F, 1F, 0F);
-			//GlStateManager.translate(-0.5F, 0F, 0.5F);
+		//GlStateManager.translate(-0.5F, 0F, 0.5F);
 
-			model.renderRing();
+		model.renderRing();
+		if(!renderingItem)
 			GlStateManager.translate(0D, Math.sin(worldTime / 20D) / 20 - 0.025, 0D);
-			GlStateManager.popMatrix();
-		}
+		GlStateManager.popMatrix();
 
 		GlStateManager.pushMatrix();
-		GlStateManager.translate(0D, Math.sin(worldTime / 20D) / 17.5, 0D);
+		if(!renderingItem)
+			GlStateManager.translate(0D, Math.sin(worldTime / 20D) / 17.5, 0D);
 
 		GlStateManager.translate(0.5F, 0F, -0.5F);
-		GlStateManager.rotate((float) -worldTime, 0F, 1F, 0F);
+		if(!renderingItem)
+			GlStateManager.rotate((float) -worldTime, 0F, 1F, 0F);
 		//GlStateManager.translate(-0.5F, 0F, 0.5F);
 
 

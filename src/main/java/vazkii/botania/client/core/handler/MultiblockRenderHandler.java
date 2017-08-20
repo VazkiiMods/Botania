@@ -54,26 +54,6 @@ public final class MultiblockRenderHandler {
 	public static BlockPos anchor;
 	public static EnumFacing angle;
 
-	static {
-		// todo 1.8.8 temporary shim, because cannot renderBlockBrightness directly, see MinecraftForge issue 2353
-		IMultiblockRenderHook.renderHooks.put(ModBlocks.pylon, new IMultiblockRenderHook() {
-			@Override
-			public void renderBlockForMultiblock(IBlockAccess world, Multiblock mb, IBlockState state, MultiblockComponent comp) {
-				// Steal itemstack model since it has the proper group visibilities configured
-				ItemStack stack = new ItemStack(ModBlocks.pylon, 1, state.getBlock().getMetaFromState(state));
-				IBakedModel model = Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(stack);
-				GlStateManager.scale(0.65F, 0.65, 0.65F);
-				GlStateManager.translate(0.5F, -0.75F, 0.5F);
-				Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelRenderer().renderModelBrightness(model, state, 1.0F, false);
-			}
-
-			@Override
-			public boolean needsTranslate(IBlockState state) {
-				return true;
-			}
-		});
-	}
-
 	public static void setMultiblock(MultiblockSet set) {
 		currentMultiblock = set;
 		anchor = null;

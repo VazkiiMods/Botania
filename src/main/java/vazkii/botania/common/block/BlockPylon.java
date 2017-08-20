@@ -16,6 +16,7 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
@@ -24,6 +25,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -141,6 +143,10 @@ public class BlockPylon extends BlockMod implements ILexiconable, IInfusionStabi
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void registerModels() {
-		ModelHandler.registerBlockToState(this, PylonVariant.values().length);
+		String[] names = { "mana", "natura", "gaia" };
+		ModelHandler.registerCustomItemblock(this, names.length, i -> "pylon_" + names[i]);
+		for(int i = 0; i < names.length; i++) {
+			ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(this), i, TilePylon.class);
+		}
 	}
 }
