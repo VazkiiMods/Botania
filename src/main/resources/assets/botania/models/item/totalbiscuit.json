@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "botania:items/totalbiscuit"
+    "layer0": "botania:items/special_totalbiscuit"
   }
 }

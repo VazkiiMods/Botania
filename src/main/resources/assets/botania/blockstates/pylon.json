@@ -52,9 +52,9 @@
   },
   "variants": {
     "variant": {
-      "mana": { "textures": { "#pylon": "botania:model/pylon" } },
-      "natura": { "textures": { "#pylon": "botania:model/pylon1" } },
-      "gaia": { "textures": { "#pylon": "botania:model/pylon2" } }
+      "mana": { "textures": { "#pylon": "botania:model/pylon_0" } },
+      "natura": { "textures": { "#pylon": "botania:model/pylon_1" } },
+      "gaia": { "textures": { "#pylon": "botania:model/pylon_2" } }
     }
   }
 }

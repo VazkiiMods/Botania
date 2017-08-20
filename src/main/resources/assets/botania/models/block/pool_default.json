@@ -1,0 +1,12 @@
+{
+  "parent": "botania:block/shapes/pool",
+  "textures": {
+    "all": "botania:blocks/livingrock0"
+  },
+  "overrides": [{
+    "predicate": {
+      "botania:full": 1
+    },
+    "model": "botania:block/pool_default_full"
+  }]
+}

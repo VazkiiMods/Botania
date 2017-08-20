@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "botania:items/crystalbow0"
+    "layer0": "botania:items/bow_crystal"
   },
   "display": {
     "thirdperson_righthand": {

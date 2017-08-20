@@ -2,6 +2,6 @@
   "parent": "minecraft:item/generated",
   "textures":
   {
-    "layer0": "botania:items/manapearlshard"
+    "layer0": "botania:items/mana_pearl_shard"
   }
 }

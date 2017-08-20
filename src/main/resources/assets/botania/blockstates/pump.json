@@ -15,17 +15,17 @@
     },
     "static": {
       "true": {
-        "model": "botania:pump"
+        "model": "botania:mana_pump"
       },
       "false": {
-        "model": "botania:pump_head"
+        "model": "botania:mana_pump_head"
       }
     },
     "inventory": [{
-      "model": "botania:pump",
+      "model": "botania:mana_pump",
       "submodel": {
         "head": {
-          "model": "botania:pump_head"
+          "model": "botania:mana_pump_head"
         }
       }
     }]

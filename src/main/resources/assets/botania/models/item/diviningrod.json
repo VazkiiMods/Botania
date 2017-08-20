@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/handheld",
   "textures": {
-    "layer0": "botania:items/diviningrod"
+    "layer0": "botania:items/rod_divining"
   }
 }

@@ -10,146 +10,186 @@
  */
 package vazkii.botania.client.model.armor;
 
+import javax.annotation.Nonnull;
+
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.inventory.EntityEquipmentSlot;
 
-import javax.annotation.Nonnull;
-
 public class ModelArmorManasteel extends ModelArmor {
+	
+	private final ModelRenderer helmAnchor;
 	private final ModelRenderer helm;
-	public final ModelRenderer body;
-	private final ModelRenderer armR;
+    private final ModelRenderer helmTop;
+    private final ModelRenderer helmCrystal;
+    
+	private final ModelRenderer bodyAnchor;
+	private final ModelRenderer bodyTop;
+	private final ModelRenderer bodyBottom;
+	
+	private final ModelRenderer armLAnchor;
 	private final ModelRenderer armL;
-	public final ModelRenderer belt;
-	private final ModelRenderer bootR;
-	private final ModelRenderer bootL;
-	private final ModelRenderer helm1;
-	private final ModelRenderer helm2;
-	private final ModelRenderer helm3;
-	private final ModelRenderer helm4;
-	private final ModelRenderer helm5;
-	private final ModelRenderer helm6;
-	private final ModelRenderer helm7;
-	private final ModelRenderer body2;
-	private final ModelRenderer armRpauldron;
 	private final ModelRenderer armLpauldron;
-	private final ModelRenderer legR;
-	private final ModelRenderer legL;
-
+	private final ModelRenderer armLcrystal;
+    
+	private final ModelRenderer armRAnchor;
+	private final ModelRenderer armR;
+	private final ModelRenderer armRpauldron;
+    private final ModelRenderer armRcrystal;
+	private final ModelRenderer pantsAnchor;
+	private final ModelRenderer belt;
+    private final ModelRenderer legL;
+    private final ModelRenderer legR;
+    
+    private final ModelRenderer bootL;
+    private final ModelRenderer bootLcrystal;
+    private final ModelRenderer bootR;
+	private final ModelRenderer bootRcrystal;
+    
 	public ModelArmorManasteel(EntityEquipmentSlot slot) {
 		super(slot);
 
-		textureWidth = 64;
-		textureHeight = 128;
-		float s = 0.6F;
-		armRpauldron = new ModelRenderer(this, 30, 47);
-		armRpauldron.setRotationPoint(0.0F, 0.0F, 0.0F);
-		armRpauldron.addBox(-4.0F, -2.0F, -2.5F, 4, 4, 5, 0.2F);
-		armL = new ModelRenderer(this, 0, 68);
-		armL.mirror = true;
-		armL.setRotationPoint(5.0F, 2.0F, -0.0F);
-		armL.addBox(1.0F, 3.0F, -2.0F, 2, 6, 4, s);
-		setRotateAngle(armL, 0.0F, 0.0F, -0.17453292519943295F);
-		legR = new ModelRenderer(this, 12, 68);
-		legR.setRotationPoint(-1.9F, 12.0F, 0.0F);
-		legR.addBox(-2.0F, 0.0F, -2.0F, 4, 8, 4, s);
-		setRotateAngle(legR, 0.0F, 0.0F, 0F);
-		helm3 = new ModelRenderer(this, 24, 32);
-		helm3.setRotationPoint(0.0F, 0.0F, 0.0F);
-		helm3.addBox(-1.0F, -8.5F, -6.5F, 2, 5, 1, s);
-		setRotateAngle(helm3, -0.17453292519943295F, 0.0F, 0.0F);
-		helm7 = new ModelRenderer(this, 24, 32);
-		helm7.setRotationPoint(0.0F, 0.0F, 0.0F);
-		helm7.addBox(-1.0F, -8.5F, -6.0F, 2, 3, 1, s);
-		setRotateAngle(helm7, -0.3490658503988659F, 0.0F, 0.0F);
-		bootL = new ModelRenderer(this, 28, 68);
-		bootL.mirror = true;
-		bootL.setRotationPoint(2.0F, 12.0F, 0.0F);
-		bootL.addBox(-2.0F, 8.0F, -3.0F, 4, 4, 5, s);
-		setRotateAngle(bootL, 0.0F, 0.0F, 0F);
-		helm4 = new ModelRenderer(this, 0, 39);
-		helm4.setRotationPoint(0.0F, 0.0F, 0.0F);
-		helm4.addBox(-4.0F, -8.0F, -0.5F, 1, 3, 5, s);
-		bootR = new ModelRenderer(this, 28, 68);
-		bootR.setRotationPoint(-2.0F, 12.0F, 0.0F);
-		bootR.addBox(-2.0F, 8.0F, -3.0F, 4, 4, 5, s);
-		setRotateAngle(bootR, 0.0F, 0.0F, 0F);
-		legL = new ModelRenderer(this, 12, 68);
-		legL.mirror = true;
-		legL.setRotationPoint(1.9F, 12.0F, 0.0F);
-		legL.addBox(-2.0F, 0.0F, -2.0F, 4, 8, 4, s);
-		setRotateAngle(legL, 0.0F, 0.0F, 0F);
-		armR = new ModelRenderer(this, 0, 68);
-		armR.setRotationPoint(-5.0F, 2.0F, 0.0F);
-		armR.addBox(-3.0F, 3.0F, -2.0F, 2, 6, 4, s);
-		setRotateAngle(armR, 0.0F, 0.0F, 0.17453292519943295F);
-		helm1 = new ModelRenderer(this, 12, 39);
-		helm1.setRotationPoint(0.0F, 0.0F, 0.0F);
-		helm1.addBox(-4.0F, -5.0F, -4.5F, 1, 3, 4, s);
-		helm2 = new ModelRenderer(this, 12, 39);
-		helm2.mirror = true;
-		helm2.setRotationPoint(0.0F, 0.0F, 0.0F);
-		helm2.addBox(3.0F, -5.0F, -4.5F, 1, 3, 4, s);
-		body2 = new ModelRenderer(this, 0, 59);
-		body2.setRotationPoint(0.0F, 0.0F, 0.0F);
-		body2.addBox(-4.0F, 6.0F, -2.5F, 8, 4, 5, s);
-		setRotateAngle(body2, -0.08726646259971647F, 0.0F, 0.0F);
-		body = new ModelRenderer(this, 0, 47);
-		body.setRotationPoint(0.0F, 0.0F, 0.0F);
-		body.addBox(-4.5F, 0.0F, -3.5F, 9, 6, 6, s);
-		setRotateAngle(body, 0.08726646259971647F, 0.0F, 0.0F);
-		helm6 = new ModelRenderer(this, 24, 32);
-		helm6.setRotationPoint(0.0F, 0.0F, 0.0F);
-		helm6.addBox(-1.0F, -8.5F, -5.5F, 2, 3, 1, s);
-		setRotateAngle(helm6, -0.5235987755982988F, 0.0F, 0.0F);
-		belt = new ModelRenderer(this, 26, 59);
-		belt.setRotationPoint(0.0F, 0.0F, 0.0F);
-		belt.addBox(-4.5F, 9.5F, -3.0F, 9, 3, 6, s);
-		helm = new ModelRenderer(this, 0, 32);
-		helm.setRotationPoint(0.0F, 0.0F, 0.0F);
-		helm.addBox(-4.0F, -8.0F, -4.5F, 8, 3, 4, s);
-		setRotateAngle(helm, 0.08726646259971647F, 0.0F, 0.0F);
-		armLpauldron = new ModelRenderer(this, 30, 47);
-		armLpauldron.mirror = true;
-		armLpauldron.setRotationPoint(0.0F, 0.0F, -0.0F);
-		armLpauldron.addBox(0.0F, -2.0F, -2.5F, 4, 4, 5, s);
-		helm5 = new ModelRenderer(this, 0, 39);
-		helm5.mirror = true;
-		helm5.setRotationPoint(0.0F, 0.0F, 0.0F);
-		helm5.addBox(3.0F, -8.0F, -0.5F, 1, 3, 5, s);
-
-		helm.addChild(helm3);
-		helm.addChild(helm7);
-		helm.addChild(helm4);
-		helm.addChild(helm6);
-		helm.addChild(helm1);
-		helm.addChild(helm2);
-		helm.addChild(helm5);
-		body.addChild(body2);
-		armL.addChild(armLpauldron);
-		armR.addChild(armRpauldron);
-		belt.addChild(legR);
-		belt.addChild(legL);
+		this.textureWidth = 64;
+        this.textureHeight = 128;
+		float s = 0.01F;
+		
+		//helm
+        this.helmAnchor = new ModelRenderer(this, 0, 0);
+        this.helmAnchor.setRotationPoint(0.0F, 0.0F, 0.0F);
+        this.helmAnchor.addBox(-1.0F, -2.0F, 0.0F, 2, 2, 2, s);
+        this.helm = new ModelRenderer(this, 0, 0);
+        this.helm.setRotationPoint(0.0F, 0.0F, 0.0F);
+        this.helm.addBox(-4.5F, -8.5F, -4.5F, 9, 9, 9, s);
+        this.helmTop = new ModelRenderer(this, 36, 6);
+        this.helmTop.setRotationPoint(0.0F, -8.5F, 3.5F);
+        this.helmTop.addBox(-1.5F, 0.0F, -7.0F, 3, 3, 7, s);
+        this.setRotateAngle(helmTop, -0.2617993877991494F, 0.0F, 0.0F);
+        this.helmCrystal = new ModelRenderer(this, 36, 0);
+        this.helmCrystal.setRotationPoint(0.0F, -7.5F, -4.5F);
+        this.helmCrystal.addBox(-1.5F, -4.0F, -1.0F, 3, 5, 1, s);
+        this.setRotateAngle(helmCrystal, 0.08726646259971647F, 0.0F, 0.0F);
+        
+        //body
+        this.bodyAnchor = new ModelRenderer(this, 0, 0);
+        this.bodyAnchor.setRotationPoint(0.0F, 0.0F, 0.0F);
+        this.bodyAnchor.addBox(-1.0F, 0.0F, -1.0F, 2, 2, 2, s);
+        this.bodyTop = new ModelRenderer(this, 0, 18);
+        this.bodyTop.setRotationPoint(0.0F, 0.0F, 0.0F);
+        this.bodyTop.addBox(-4.5F, -0.5F, -3.0F, 9, 6, 6, s);
+        this.setRotateAngle(bodyTop, 0.0F, 0.0F, 0.0F);
+        this.bodyBottom = new ModelRenderer(this, 0, 30);
+        this.bodyBottom.setRotationPoint(0.0F, 0.0F, 0.0F);
+        this.bodyBottom.addBox(-2.5F, 5.5F, -2.5F, 5, 3, 5, 0.0F);
+        
+     	//armL
+        this.armLAnchor = new ModelRenderer(this, 0, 0);
+        this.armLAnchor.mirror = true;
+        this.armLAnchor.setRotationPoint(4.0F, 2.0F, 0.0F);
+        this.armLAnchor.addBox(0.0F, -1.0F, -1.0F, 2, 2, 2, s);
+        this.armL = new ModelRenderer(this, 22, 40);
+        this.armL.mirror = true;
+        this.armL.setRotationPoint(0.0F, 0.0F, 0.0F);
+        this.armL.addBox(1.5F, 2.0F, -2.49F, 2, 6, 5, s);
+        this.armLpauldron = new ModelRenderer(this, 0, 40);
+        this.armLpauldron.mirror = true;
+        this.armLpauldron.setRotationPoint(0.0F, 0.0F, 0.0F);
+        this.armLpauldron.addBox(-0.5F, -3.0F, -3.0F, 5, 4, 6, s);
+        this.armLcrystal = new ModelRenderer(this, 36, 40);
+        this.armLcrystal.mirror = true;
+        this.armLcrystal.setRotationPoint(2.0F, -2.5F, 0.0F);
+        this.armLcrystal.addBox(-0.5F, -2.5F, -1.5F, 2, 3, 3, s);
+        this.setRotateAngle(armLcrystal, 0.0F, 0.0F, -0.08726646259971647F);
+        
+        //armR
+        this.armRAnchor = new ModelRenderer(this, 0, 0);
+        this.armRAnchor.mirror = true;
+        this.armRAnchor.setRotationPoint(-4.0F, 2.0F, 0.0F);
+        this.armRAnchor.addBox(-2.0F, -1.0F, -1.0F, 2, 2, 2, s);
+        this.armR = new ModelRenderer(this, 22, 40);
+        this.armR.setRotationPoint(0.0F, 0.0F, 0.0F);
+        this.armR.addBox(-3.5F, 2.0F, -2.51F, 2, 6, 5, s);
+        this.armRpauldron = new ModelRenderer(this, 0, 40);
+        this.armRpauldron.setRotationPoint(0.0F, 0.0F, 0.0F);
+        this.armRpauldron.addBox(-4.5F, -3.0F, -3.0F, 5, 4, 6, s);
+        this.armRcrystal = new ModelRenderer(this, 36, 40);
+        this.armRcrystal.setRotationPoint(-2.0F, -2.5F, 0.0F);
+        this.armRcrystal.addBox(-1.5F, -2.5F, -1.5F, 2, 3, 3, s);
+        this.setRotateAngle(armRcrystal, 0.0F, 0.0F, 0.08726646259971647F);
+        
+        //pants
+        this.pantsAnchor = new ModelRenderer(this, 0, 0);
+        this.pantsAnchor.setRotationPoint(0.0F, 0.0F, 0.0F);
+        this.pantsAnchor.addBox(-1.0F, 0.0F, -1.0F, 2, 2, 2, s);
+        this.belt = new ModelRenderer(this, 0, 51);
+        this.belt.setRotationPoint(0.0F, 0.0F, 0.0F);
+        this.belt.addBox(-4.5F, 9.0F, -3.0F, 9, 3, 6, s);
+        this.legL = new ModelRenderer(this, 0, 60);
+        this.legL.mirror = true;
+        this.legL.setRotationPoint(1.9F, 12.0F, 0.0F);
+        this.legL.addBox(-0.39F, 0.0F, -2.49F, 3, 6, 5, s);
+        this.legR = new ModelRenderer(this, 0, 60);
+        this.legR.setRotationPoint(-1.9F, 12.0F, 0.0F);
+        this.legR.addBox(-2.61F, 0.0F, -2.51F, 3, 6, 5, s);
+        
+        //boots
+        this.bootL = new ModelRenderer(this, 0, 71);
+        this.bootL.mirror = true;
+        this.bootL.setRotationPoint(1.9F, 12.0F, 0.0F);
+        this.bootL.addBox(-2.39F, 8.5F, -2.49F, 5, 4, 5, s);
+        this.bootLcrystal = new ModelRenderer(this, 36, 46);
+        this.bootLcrystal.mirror = true;
+        this.bootLcrystal.setRotationPoint(2.5F, 9.0F, 2.0F);
+        this.bootLcrystal.addBox(-1.0F, -2.0F, -1.5F, 2, 3, 3, s);
+        this.setRotateAngle(bootLcrystal, 0.0F, 0.0F, 0.08726646259971647F);
+        this.bootR = new ModelRenderer(this, 0, 71);
+        this.bootR.setRotationPoint(-2.0F, 12.0F, 0.0F);
+        this.bootR.addBox(-2.5F, 8.5F, -2.51F, 5, 4, 5, s);
+        this.bootRcrystal = new ModelRenderer(this, 36, 46);
+        this.bootRcrystal.setRotationPoint(-2.5F, 9.0F, 2.0F);
+        this.bootRcrystal.addBox(-1.0F, -2.0F, -1.5F, 2, 3, 3, s);
+        this.setRotateAngle(bootRcrystal, 0.0F, 0.0F, -0.08726646259971647F);
+        
+        //hierarchy
+        this.helmAnchor.addChild(this.helm);
+        this.helm.addChild(this.helmTop);
+        this.helm.addChild(this.helmCrystal);
+        
+        this.bodyAnchor.addChild(this.bodyTop);
+        this.bodyTop.addChild(this.bodyBottom);
+        this.armLAnchor.addChild(this.armL);
+        this.armL.addChild(this.armLpauldron);
+        this.armLpauldron.addChild(this.armLcrystal);
+        this.armRAnchor.addChild(this.armR);
+        this.armR.addChild(this.armRpauldron);
+        this.armRpauldron.addChild(this.armRcrystal);
+        
+        this.pantsAnchor.addChild(this.belt);
+        this.belt.addChild(this.legL);
+        this.belt.addChild(this.legR);;
+        
+        this.bootL.addChild(bootLcrystal);
+        this.bootR.addChild(bootRcrystal);
 	}
 
 	@Override
 	public void render(@Nonnull Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-		helm.showModel = slot == EntityEquipmentSlot.HEAD;
-		body.showModel = slot == EntityEquipmentSlot.CHEST;
-		armR.showModel = slot == EntityEquipmentSlot.CHEST;
-		armL.showModel = slot == EntityEquipmentSlot.CHEST;
+
+		helmAnchor.showModel = slot == EntityEquipmentSlot.HEAD;
+		bodyAnchor.showModel = slot == EntityEquipmentSlot.CHEST;
+		armRAnchor.showModel = slot == EntityEquipmentSlot.CHEST;
+		armLAnchor.showModel = slot == EntityEquipmentSlot.CHEST;
 		legR.showModel = slot == EntityEquipmentSlot.LEGS;
 		legL.showModel = slot == EntityEquipmentSlot.LEGS;
 		bootL.showModel = slot == EntityEquipmentSlot.FEET;
 		bootR.showModel = slot == EntityEquipmentSlot.FEET;
 		bipedHeadwear.showModel = false;
 
-		bipedHead = helm;
-		bipedBody = body;
-		bipedRightArm = armR;
-		bipedLeftArm = armL;
+		bipedHead = helmAnchor;
+		bipedBody = bodyAnchor;
+		bipedRightArm = armRAnchor;
+		bipedLeftArm = armLAnchor;
 		if(slot == EntityEquipmentSlot.LEGS) {
+			bipedBody = pantsAnchor;
 			bipedRightLeg = legR;
 			bipedLeftLeg = legL;
 		} else {

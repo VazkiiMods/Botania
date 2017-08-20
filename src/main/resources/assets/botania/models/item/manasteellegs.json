@@ -2,6 +2,6 @@
     "parent": "minecraft:item/generated",
     "textures": 
     {
-        "layer0": "botania:items/manasteellegs"
+        "layer0": "botania:items/manasteel_leggings"
     }
 }

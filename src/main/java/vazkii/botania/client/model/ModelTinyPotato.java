@@ -18,8 +18,8 @@ public class ModelTinyPotato extends ModelBase {
 	final ModelRenderer potato;
 
 	public ModelTinyPotato() {
-		textureWidth = 64;
-		textureHeight = 32;
+		textureWidth = 16;
+		textureHeight = 16;
 
 		potato = new ModelRenderer(this, 0, 0);
 		potato.addBox(0F, 0F, 0F, 4, 6, 4);

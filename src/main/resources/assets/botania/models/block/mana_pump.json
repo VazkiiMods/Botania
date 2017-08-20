@@ -1,0 +1,61 @@
+{
+	"Comment": "Designed by Wiiv with Cubik Studio - https://cubik.studio",
+	"textures": {
+		"structure": "botania:blocks/pump_structure",
+		"head_sheat": "botania:blocks/pump_head_sheat"
+	},
+	"elements": [
+		{
+			"Comment": "end_east",
+			"from": [ 4, 0, 14 ],
+			"to": [ 12, 8, 16 ],
+			"faces": {
+				"down": { "uv": [ 8, 2, 16, 4 ], "texture": "#structure" },
+				"up": { "uv": [ 8, 2, 16, 4 ], "texture": "#structure" },
+				"north": { "uv": [ 0, 8, 8, 16 ], "texture": "#structure" },
+				"south": { "uv": [ 0, 0, 8, 8 ], "texture": "#structure" },
+				"west": { "uv": [ 8, 2, 16, 0 ], "texture": "#structure", "rotation": 90 },
+				"east": { "uv": [ 8, 0, 16, 2 ], "texture": "#structure", "rotation": 90 }
+			}
+		},
+		{
+			"Comment": "end_west",
+			"from": [ 4, 0, 0 ],
+			"to": [ 12, 8, 2 ],
+			"faces": {
+				"down": { "uv": [ 8, 2, 16, 4 ], "texture": "#structure" },
+				"up": { "uv": [ 8, 2, 16, 4 ], "texture": "#structure" },
+				"north": { "uv": [ 0, 0, 8, 8 ], "texture": "#structure" },
+				"south": { "uv": [ 0, 8, 8, 16 ], "texture": "#structure" },
+				"west": { "uv": [ 8, 4, 16, 2 ], "texture": "#structure", "rotation": 90 },
+				"east": { "uv": [ 8, 2, 16, 4 ], "texture": "#structure", "rotation": 90 }
+			}
+		},
+		{
+			"Comment": "tube",
+			"from": [ 6, 2, 2 ],
+			"to": [ 10, 6, 10 ],
+			"faces": {
+				"down": { "uv": [ 12, 8, 16, 16 ], "texture": "#structure" },
+				"up": { "uv": [ 12, 8, 16, 16 ], "texture": "#structure" },
+				"north": { "uv": [ 8, 12, 12, 16 ], "texture": "#structure" },
+				"south": { "uv": [ 8, 8, 12, 12 ], "texture": "#structure" },
+				"west": { "uv": [ 8, 4, 16, 8 ], "texture": "#structure" },
+				"east": { "uv": [ 8, 4, 16, 8 ], "texture": "#structure" }
+			}
+		},
+		{
+			"Comment": "sheat",
+			"from": [ 4, 0, 10 ],
+			"to": [ 12, 8, 14 ],
+			"faces": {
+				"down": { "uv": [ 8, 4, 16, 8 ], "texture": "#head_sheat" },
+				"up": { "uv": [ 8, 0, 16, 4 ], "texture": "#head_sheat" },
+				"north": { "uv": [ 0, 0, 8, 8 ], "texture": "#head_sheat" },
+				"south": { "uv": [ 0, 0, 8, 8 ], "texture": "#head_sheat" },
+				"west": { "uv": [ 8, 8, 16, 4 ], "texture": "#head_sheat", "rotation": 90 },
+				"east": { "uv": [ 8, 4, 16, 8 ], "texture": "#head_sheat", "rotation": 90 }
+			}
+		}
+	]
+}

@@ -1,6 +1,6 @@
 {
 	"parent": "item/generated",
 	"textures": { 
-		"layer0": "botania:items/goddesscharm"
+		"layer0": "botania:items/charm_goddess"
 	}
 }
