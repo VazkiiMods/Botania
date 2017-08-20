@@ -10,34 +10,25 @@
  */
 package vazkii.botania.client.model;
 
-import java.util.function.Function;
-
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
-import net.minecraft.client.renderer.block.model.IBakedModel;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.renderer.vertex.VertexFormat;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.model.IModel;
-import net.minecraftforge.common.model.IModelState;
-import vazkii.botania.api.state.enums.PylonVariant;
 
-public class ModelPylonNatura extends ModelBase implements IModel {
+public class ModelPylonNatura extends ModelBase implements IPylonModel {
 
-	final ModelRenderer platef;
-    final ModelRenderer plateb;
-    final ModelRenderer platel;
-    final ModelRenderer plater;
-	
-    final ModelRenderer shardlbt;
-    final ModelRenderer shardrbt;
-    final ModelRenderer shardlft;
-    final ModelRenderer shardrft;
-    
-    final ModelRenderer shardlbb;
-    final ModelRenderer shardrbb;
-    final ModelRenderer shardlfb;
-    final ModelRenderer shardrfb;
+	private final ModelRenderer platef;
+    private final ModelRenderer plateb;
+    private final ModelRenderer platel;
+    private final ModelRenderer plater;
+
+    private final ModelRenderer shardlbt;
+    private final ModelRenderer shardrbt;
+    private final ModelRenderer shardlft;
+    private final ModelRenderer shardrft;
+
+    private final ModelRenderer shardlbb;
+    private final ModelRenderer shardrbb;
+    private final ModelRenderer shardlfb;
+    private final ModelRenderer shardrfb;
     
 	public ModelPylonNatura() {
 		
@@ -89,7 +80,8 @@ public class ModelPylonNatura extends ModelBase implements IModel {
         shardlfb.addBox(-5.0F, 2.0F, -5.0F, 5, 6, 3, 0.0F);
 	}
 
-	public void renderCrystal(PylonVariant variant) {
+	@Override
+	public void renderCrystal() {
 		float f = 1F / 16F;
 		
 		shardrft.render(f);
@@ -103,7 +95,8 @@ public class ModelPylonNatura extends ModelBase implements IModel {
         shardlfb.render(f);
 	}
 
-	public void renderRing(PylonVariant variant) {
+	@Override
+	public void renderRing() {
 		float f = 1F / 16F;
 		
         platef.render(f);
@@ -118,14 +111,4 @@ public class ModelPylonNatura extends ModelBase implements IModel {
 		model.rotateAngleY = y;
 		model.rotateAngleZ = z;
 	}
-
-	public void renderGems(PylonVariant variant) {}
-
-	@Override
-	public IBakedModel bake(IModelState state, VertexFormat format,
-			Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

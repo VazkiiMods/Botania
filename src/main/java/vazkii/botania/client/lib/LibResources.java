@@ -74,11 +74,8 @@ public final class LibResources {
 	public static final String MODEL_SPREADER_DREAMWOOD_HALLOWEEN = PREFIX_MODEL + "spreader_dreamwood_halloween.png";
 	public static final String MODEL_SPREADER_GAIA_HALLOWEEN = PREFIX_MODEL + "spreader_gaia_halloween.png";
 	public static final String MODEL_PYLON_MANA = PREFIX_MODEL + "pylon_mana.png";
-	public static final String MODEL_PYLON = PREFIX_MODEL + "pylon_0.png";
 	public static final String MODEL_PYLON_NATURA = PREFIX_MODEL + "pylon_natura.png";
-	public static final String MODEL_PYLON_GREEN = PREFIX_MODEL + "pylon_1.png";
 	public static final String MODEL_PYLON_GAIA = PREFIX_MODEL + "pylon_gaia.png";
-	public static final String MODEL_PYLON_PINK = PREFIX_MODEL + "pylon_2.png";
 	public static final String MODEL_LEXICA_DEFAULT = PREFIX_MODEL + "lexica_default.png";
 	public static final String MODEL_LEXICA_ELVEN = PREFIX_MODEL + "lexica_elven.png";
 	public static final String MODEL_MANASTEEL_0 = PREFIX_MODEL + "manasteel_0.png";

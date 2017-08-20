@@ -10,29 +10,21 @@
  */
 package vazkii.botania.client.model;
 
-import java.util.function.Function;
-
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
-import net.minecraft.client.renderer.block.model.IBakedModel;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.renderer.vertex.VertexFormat;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.model.IModel;
-import net.minecraftforge.common.model.IModelState;
 import vazkii.botania.api.state.enums.PylonVariant;
 
-public class ModelPylonMana extends ModelBase implements IModel {
+public class ModelPylonMana extends ModelBase implements IPylonModel {
 
-	final ModelRenderer platef;
-    final ModelRenderer plateb;
-    final ModelRenderer platel;
-    final ModelRenderer plater;
+	private final ModelRenderer platef;
+    private final ModelRenderer plateb;
+    private final ModelRenderer platel;
+    private final ModelRenderer plater;
 	
-    final ModelRenderer shardlf;
-    final ModelRenderer shardrf;
-    final ModelRenderer shardlb;
-    final ModelRenderer shardrb;
+    private final ModelRenderer shardlf;
+    private final ModelRenderer shardrf;
+    private final ModelRenderer shardlb;
+    private final ModelRenderer shardrb;
     
 	public ModelPylonMana() {
 		
@@ -71,7 +63,8 @@ public class ModelPylonMana extends ModelBase implements IModel {
         shardrb.addBox(3.0F, -11.0F, 0.0F, 2, 16, 5, 0.0F);
 	}
 
-	public void renderCrystal(PylonVariant variant) {
+	@Override
+	public void renderCrystal() {
 		float f = 1F / 16F;
 		
 		shardlf.render(f);
@@ -80,7 +73,8 @@ public class ModelPylonMana extends ModelBase implements IModel {
         shardrb.render(f);
 	}
 
-	public void renderRing(PylonVariant variant) {
+	@Override
+	public void renderRing() {
 		float f = 1F / 16F;
 		
         platef.render(f);
@@ -90,19 +84,8 @@ public class ModelPylonMana extends ModelBase implements IModel {
 	}
 
 	private void setRotation(ModelRenderer model, float x, float y, float z) {
-		
 		model.rotateAngleX = x;
 		model.rotateAngleY = y;
 		model.rotateAngleZ = z;
 	}
-
-	public void renderGems(PylonVariant variant) {}
-
-	@Override
-	public IBakedModel bake(IModelState state, VertexFormat format,
-			Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }
