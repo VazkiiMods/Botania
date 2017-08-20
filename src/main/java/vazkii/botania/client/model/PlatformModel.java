@@ -44,6 +44,10 @@ public class PlatformModel implements IBakedModel {
 			return Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelManager().getMissingModel().getQuads(state, side, rand);
 
 		BlockRenderLayer layer = MinecraftForgeClient.getRenderLayer();
+		if(layer == null) {
+			layer = BlockRenderLayer.SOLID; // workaround for when this isn't set (digging, etc.)
+		}
+
 		IBlockState heldState = ((IExtendedBlockState) state).getValue(BotaniaStateProps.HELD_STATE);
 		IBlockAccess heldWorld = ((IExtendedBlockState) state).getValue(BotaniaStateProps.HELD_WORLD);
 		BlockPos heldPos = ((IExtendedBlockState) state).getValue(BotaniaStateProps.HELD_POS);
