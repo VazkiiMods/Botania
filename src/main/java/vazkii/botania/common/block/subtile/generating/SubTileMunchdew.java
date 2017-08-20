@@ -17,11 +17,13 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileGenerating;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lexicon.LexiconData;
@@ -34,27 +36,33 @@ public class SubTileMunchdew extends SubTileGenerating {
 
 	private static final String TAG_COOLDOWN = "cooldown";
 	private static final String TAG_ATE_ONCE = "ateOnce";
+	private static final int SET_COOLDOWN_EVENT = 0;
 
 	private static final int RANGE = 8;
 	private static final int RANGE_Y = 16;
 
-	boolean ateOnce = false;
-	int ticksWithoutEating = -1;
-	int cooldown = 0;
+	private boolean ateOnce = false;
+	private int ticksWithoutEating = -1;
+	private int cooldown = 0;
 
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
 
 		if(cooldown > 0) {
+			if(Math.random() < 0.5)
+				Botania.proxy.wispFX(getPos().getX() + Math.random(), getPos().getY() + 0.8, getPos().getZ() + Math.random(), 0.5F, 0.5F, 0.5F, 0.05F, -0.025F);
 			cooldown--;
 			ticksWithoutEating = 0;
 			return;
 		}
 
+		if(getWorld().isRemote)
+			return;
+
 		int manaPerLeaf = 80;
 		eatLeaves : {
-			if(getMaxMana() - mana >= manaPerLeaf && !supertile.getWorld().isRemote && ticksExisted % 4 == 0) {
+			if(getMaxMana() - mana >= manaPerLeaf && ticksExisted % 4 == 0) {
 				List<BlockPos> coords = new ArrayList<>();
 				BlockPos pos = supertile.getPos();
 
@@ -92,7 +100,17 @@ public class SubTileMunchdew extends SubTileGenerating {
 		if(ateOnce) {
 			ticksWithoutEating++;
 			if(ticksWithoutEating >= 5)
-				cooldown = 1600;
+				getWorld().addBlockEvent(getPos(), supertile.getBlockType(), SET_COOLDOWN_EVENT, 1600);
+		}
+	}
+
+	@Override
+	public boolean receiveClientEvent(int id, int param) {
+		if(id == SET_COOLDOWN_EVENT) {
+			cooldown = param;
+			return true;
+		} else {
+			return super.receiveClientEvent(id, param);
 		}
 	}
 
