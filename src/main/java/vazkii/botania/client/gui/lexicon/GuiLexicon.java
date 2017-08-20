@@ -137,13 +137,12 @@ public class GuiLexicon extends GuiScreen {
 	}
 
 	public void onInitGui() {
-		ScaledResolution res = new ScaledResolution(mc);
 		int guiScale = mc.gameSettings.guiScale;
 		int persistentScale = Math.min(PersistentVariableHelper.lexiconGuiScale, getMaxAllowedScale());
 
 		if(persistentScale > 0 && persistentScale != guiScale) {
 			mc.gameSettings.guiScale = persistentScale;
-			res = new ScaledResolution(mc);
+			ScaledResolution res = new ScaledResolution(mc);
 			width = res.getScaledWidth();
 			height = res.getScaledHeight();
 			mc.gameSettings.guiScale = guiScale;
@@ -218,7 +217,7 @@ public class GuiLexicon extends GuiScreen {
 	}
 
 	@Override
-	public final void drawScreen(int par1, int par2, float par3) {
+	public final void drawScreen(int x, int y, float partialTicks) {
 		ScaledResolution res = new ScaledResolution(mc);
 		int guiScale = mc.gameSettings.guiScale;
 		
@@ -234,11 +233,11 @@ public class GuiLexicon extends GuiScreen {
 			res = new ScaledResolution(mc);
 			int sw = res.getScaledWidth();
 			int sh = res.getScaledHeight();
-			par1 = Mouse.getX() * sw / mc.displayWidth;
-			par2 = sh - Mouse.getY() * sh / mc.displayHeight - 1;
+			x = Mouse.getX() * sw / mc.displayWidth;
+			y = sh - Mouse.getY() * sh / mc.displayHeight - 1;
 		}
 
-		drawScreenAfterScale(par1, par2, par3);
+		drawScreenAfterScale(x, y, partialTicks);
 
 		mc.gameSettings.guiScale = guiScale;
 		GlStateManager.popMatrix();
@@ -249,7 +248,7 @@ public class GuiLexicon extends GuiScreen {
 			int fullWidth = fontRenderer.getStringWidth(meme);
 			int left = width;
 			double widthPerTick = (fullWidth + width) / 240;
-			double currWidth = left - widthPerTick * (240 - (konamiTime - par3)) * 3.2;
+			double currWidth = left - widthPerTick * (240 - (konamiTime - partialTicks)) * 3.2;
 
 			GlStateManager.translate(currWidth, height / 2 - 10, 0);
 			GlStateManager.scale(4, 4, 4);

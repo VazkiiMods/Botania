@@ -41,13 +41,13 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 	private static final String TAG_PAGE = "page";
 
 	public int page = 0;
-	public boolean firstEntry = false;
+	private boolean firstEntry = false;
 	LexiconEntry entry;
-	GuiScreen parent;
-	String title;
-	String subtitle;
+	private GuiScreen parent;
+	private String title;
+	private String subtitle;
 
-	GuiButton leftButton, rightButton, backButton;
+	private GuiButton leftButton, rightButton, backButton;
 
 	public GuiLexiconEntry() {
 		parent = new GuiLexicon();
@@ -60,7 +60,7 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 		setTitle();
 	}
 
-	public void setTitle() {
+	private void setTitle() {
 		if(entry == null) {
 			title = "(null)";
 			return;
@@ -261,8 +261,8 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 		parent = gui;
 	}
 
-	int fx = 0;
-	boolean swiped = false;
+	private int fx = 0;
+	private boolean swiped = false;
 
 	@Override
 	protected void mouseClickMove(int x, int y, int button, long time) {
@@ -332,14 +332,14 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 		}
 	}
 
-	void back() {
+	private void back() {
 		if(backButton.enabled) {
 			actionPerformed(backButton);
 			backButton.playPressSound(mc.getSoundHandler());
 		}
 	}
 
-	void nextPage() {
+	private void nextPage() {
 		if(rightButton.enabled) {
 			actionPerformed(rightButton);
 			rightButton.playPressSound(mc.getSoundHandler());
@@ -347,7 +347,7 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 		}
 	}
 
-	void prevPage() {
+	private void prevPage() {
 		if(leftButton.enabled) {
 			actionPerformed(leftButton);
 			leftButton.playPressSound(mc.getSoundHandler());
@@ -355,11 +355,9 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 		}
 	}
 
-	void updateNote() {
+	private void updateNote() {
 		String key = getNotesKey();
-		if(!notes.containsKey(key))
-			note = "";
-		else note = notes.get(key);
+		note = notes.getOrDefault(key, "");
 	}
 
 	@Override

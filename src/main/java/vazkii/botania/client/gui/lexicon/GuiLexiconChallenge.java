@@ -29,13 +29,9 @@ public class GuiLexiconChallenge extends GuiLexicon implements IParented {
 
 	private static final String TAG_CHALLENGE = "challenge";
 
-	Challenge challenge;
-	GuiLexicon parent;
-	GuiButton backButton, completeButton;
-
-	public GuiLexiconChallenge() {
-		parent = new GuiLexiconChallengesList();
-	}
+	private Challenge challenge;
+	private GuiLexicon parent;
+	private GuiButton backButton, completeButton;
 
 	public GuiLexiconChallenge(GuiLexicon parent, Challenge challenge) {
 		this.parent = parent;
@@ -43,7 +39,7 @@ public class GuiLexiconChallenge extends GuiLexicon implements IParented {
 		setTitle();
 	}
 
-	public void setTitle() {
+	private void setTitle() {
 		title = challenge == null ? "(null)" : I18n.format(challenge.unlocalizedName);
 	}
 
@@ -115,11 +111,11 @@ public class GuiLexiconChallenge extends GuiLexicon implements IParented {
 			notesEnabled = !notesEnabled;
 	}
 
-	void setCompleteButtonTitle() {
+	private void setCompleteButtonTitle() {
 		completeButton.displayString = I18n.format(challenge.complete ? "botaniamisc.markNotCompleted" : "botaniamisc.markCompleted");
 	}
 
-	void back() {
+	private void back() {
 		if(backButton.enabled) {
 			actionPerformed(backButton);
 			backButton.playPressSound(mc.getSoundHandler());
@@ -166,8 +162,7 @@ public class GuiLexiconChallenge extends GuiLexicon implements IParented {
 	public void load(NBTTagCompound cmp) {
 		super.load(cmp);
 		String challengeName = cmp.getString(TAG_CHALLENGE);
-		Challenge c = ModChallenges.challengeLookup.get(challengeName);
-		challenge = c;
+		challenge = ModChallenges.challengeLookup.get(challengeName);
 		setTitle();
 	}
 

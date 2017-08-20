@@ -28,6 +28,7 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonBack;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonInvisible;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonPage;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.lexicon.DogLexiconEntry;
 
 import java.io.IOException;
@@ -42,23 +43,19 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 
 	LexiconCategory category;
 	String title;
-	int page = 0;
+	private int page = 0;
 
-	int tutPage = -1;
+	private int tutPage = -1;
 
-	GuiButton leftButton, rightButton, backButton;
-	GuiLexicon parent;
+	private GuiButton leftButton, rightButton, backButton;
+	private GuiLexicon parent;
 	GuiTextField searchField;
 
-	GuiButton currentButton;
-	LexiconEntry currentEntry;
-	float infoTime;
+	private GuiButton currentButton;
+	private LexiconEntry currentEntry;
+	private float infoTime;
 
 	final List<LexiconEntry> entriesToDisplay = new ArrayList<>();
-
-	public GuiLexiconIndex() {
-		parent = new GuiLexicon();
-	}
 
 	public GuiLexiconIndex(LexiconCategory category) {
 		this.category = category;
@@ -66,7 +63,7 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 		setTitle();
 	}
 
-	public void setTitle() {
+	private void setTitle() {
 		title = I18n.format(category == null ? "botaniamisc.lexiconIndex" : category.getUnlocalizedName());
 	}
 
@@ -113,7 +110,7 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 		updateAll();
 	}
 
-	void updateAll() {
+	private void updateAll() {
 		buildEntries();
 		updatePageButtons();
 		populateIndex();
@@ -129,7 +126,7 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 		Collections.sort(entriesToDisplay);
 	}
 
-	boolean matchesSearch(LexiconEntry e) {
+	private boolean matchesSearch(LexiconEntry e) {
 		String search = searchField.getText().trim();
 		if(search.isEmpty())
 			return true;
@@ -324,7 +321,7 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 			}
 	}
 
-	void openEntry(int index) {
+	private void openEntry(int index) {
 		if(index >= entriesToDisplay.size())
 			return;
 
@@ -333,7 +330,7 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 		ClientTickHandler.notifyPageChange();
 	}
 
-	public void updatePageButtons() {
+	private void updatePageButtons() {
 		leftButton.enabled = page != 0;
 		rightButton.enabled = page < (entriesToDisplay.size() - 1) / 12;
 		putTutorialArrow();
@@ -344,8 +341,8 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 		parent = gui;
 	}
 
-	int fx = 0;
-	boolean swiped = false;
+	private int fx = 0;
+	private boolean swiped = false;
 
 	@Override
 	protected void mouseClickMove(int x, int y, int button, long time) {
@@ -423,21 +420,21 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 		super.keyTyped(par1, par2);
 	}
 
-	void back() {
+	private void back() {
 		if(backButton.enabled) {
 			actionPerformed(backButton);
 			backButton.playPressSound(mc.getSoundHandler());
 		}
 	}
 
-	void nextPage() {
+	private void nextPage() {
 		if(rightButton.enabled) {
 			actionPerformed(rightButton);
 			rightButton.playPressSound(mc.getSoundHandler());
 		}
 	}
 
-	void prevPage() {
+	private void prevPage() {
 		if(leftButton.enabled) {
 			actionPerformed(leftButton);
 			leftButton.playPressSound(mc.getSoundHandler());

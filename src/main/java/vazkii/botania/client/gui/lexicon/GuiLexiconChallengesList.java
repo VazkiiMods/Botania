@@ -25,8 +25,8 @@ import java.util.List;
 
 public class GuiLexiconChallengesList extends GuiLexicon implements IParented {
 
-	GuiLexicon parent;
-	GuiButton backButton;
+	private GuiLexicon parent;
+	private GuiButton backButton;
 
 	public GuiLexiconChallengesList() {
 		parent = new GuiLexicon();
@@ -106,7 +106,7 @@ public class GuiLexiconChallengesList extends GuiLexicon implements IParented {
 			notesEnabled = !notesEnabled;
 	}
 
-	void back() {
+	private void back() {
 		if(backButton.enabled) {
 			actionPerformed(backButton);
 			backButton.playPressSound(mc.getSoundHandler());

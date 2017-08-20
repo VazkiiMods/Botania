@@ -39,8 +39,7 @@ public class GuiLexiconHistory extends GuiLexiconIndex {
 	}
 
 	public static void visit(LexiconEntry entry) {
-		if(history.contains(entry))
-			history.remove(entry);
+		history.remove(entry);
 		history.add(entry);
 	}
 
