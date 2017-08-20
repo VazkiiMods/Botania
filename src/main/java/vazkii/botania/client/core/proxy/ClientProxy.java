@@ -18,6 +18,7 @@ import net.minecraft.client.multiplayer.PlayerControllerMP;
 import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.client.renderer.entity.RenderSnowball;
+import net.minecraft.client.renderer.tileentity.TileEntityItemStackRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.entity.EntityLivingBase;
@@ -184,6 +185,7 @@ public class ClientProxy implements IProxy {
 				dootDoot = true;
 		}
 
+		TileEntityItemStackRenderer.instance = new RenderTilePylon.ForwardingTEISR(TileEntityItemStackRenderer.instance);
 	}
 
 	@Override

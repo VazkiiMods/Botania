@@ -145,8 +145,5 @@ public class BlockPylon extends BlockMod implements ILexiconable, IInfusionStabi
 	public void registerModels() {
 		String[] names = { "mana", "natura", "gaia" };
 		ModelHandler.registerCustomItemblock(this, names.length, i -> "pylon_" + names[i]);
-		for(int i = 0; i < names.length; i++) {
-			ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(this), i, TilePylon.class);
-		}
 	}
 }

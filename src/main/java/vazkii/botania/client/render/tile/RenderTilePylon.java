@@ -13,8 +13,13 @@ package vazkii.botania.client.render.tile;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
+import net.minecraft.client.renderer.tileentity.TileEntityItemStackRenderer;
+import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.MathHelper;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.PylonVariant;
@@ -29,6 +34,7 @@ import vazkii.botania.client.model.ModelPylonNatura;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TilePylon;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Random;
 
@@ -42,15 +48,18 @@ public class RenderTilePylon extends TileEntitySpecialRenderer<TilePylon> {
 	private final ModelPylonNatura naturaModel = new ModelPylonNatura();
 	private final ModelPylonGaia gaiaModel = new ModelPylonGaia();
 
+	// Overrides for when we call this TESR without an actual pylon
+	private static PylonVariant forceVariant = PylonVariant.MANA;
+
 	@Override
-	public void render(@Nullable TilePylon pylon, double d0, double d1, double d2, float pticks, int digProgress, float unused) {
-		boolean renderingItem = pylon == null;
+	public void render(@Nonnull TilePylon pylon, double d0, double d1, double d2, float pticks, int digProgress, float unused) {
+		boolean renderingItem = pylon == ForwardingTEISR.DUMMY;
 
 		if(!renderingItem &&
 				(!pylon.getWorld().isBlockLoaded(pylon.getPos(), false) || pylon.getWorld().getBlockState(pylon.getPos()).getBlock() != ModBlocks.pylon))
 			return;
 
-		PylonVariant type = renderingItem ? PylonVariant.MANA : ModBlocks.pylon.getStateFromMeta(pylon.getBlockMetadata()).getValue(BotaniaStateProps.PYLON_VARIANT); // todo get the type somehow....
+		PylonVariant type = renderingItem ? forceVariant : ModBlocks.pylon.getStateFromMeta(pylon.getBlockMetadata()).getValue(BotaniaStateProps.PYLON_VARIANT);
 		IPylonModel model;
 		switch(type) {
 			default:
@@ -80,7 +89,7 @@ public class RenderTilePylon extends TileEntitySpecialRenderer<TilePylon> {
 
 		double worldTime = (double) (ClientTickHandler.ticksInGame + pticks);
 
-		worldTime += new Random(pylon == null ?  0 : pylon.getPos().hashCode()).nextInt(360);
+		worldTime += renderingItem ? 0 : new Random(pylon.getPos().hashCode()).nextInt(360);
 
 		GlStateManager.translate(d0 + 0.2 + (type == PylonVariant.NATURA ? -0.1 : 0), d1 + 0.05, d2 + 0.8 + (type == PylonVariant.NATURA ? 0.1 : 0));
 		float scale = type == PylonVariant.NATURA ? 0.8F : 0.6F;
@@ -135,5 +144,26 @@ public class RenderTilePylon extends TileEntitySpecialRenderer<TilePylon> {
 		GlStateManager.disableBlend();
 		GlStateManager.enableRescaleNormal();
 		GlStateManager.popMatrix();
+	}
+
+	// Dirty hack to make the TEISR aware of the stack metas
+	public static class ForwardingTEISR extends TileEntityItemStackRenderer {
+		private static final TilePylon DUMMY = new TilePylon();
+
+		private final TileEntityItemStackRenderer compose;
+
+		public ForwardingTEISR(TileEntityItemStackRenderer compose) {
+			this.compose = compose;
+		}
+
+		@Override
+		public void renderByItem(ItemStack stack, float partialTicks) {
+			if(stack.getItem() == Item.getItemFromBlock(ModBlocks.pylon)) {
+				RenderTilePylon.forceVariant = PylonVariant.values()[MathHelper.clamp(stack.getItemDamage(), 0, PylonVariant.values().length)];
+				TileEntityRendererDispatcher.instance.render(DUMMY, 0, 0, 0, partialTicks);
+			} else {
+				compose.renderByItem(stack, partialTicks);
+			}
+		}
 	}
 }
