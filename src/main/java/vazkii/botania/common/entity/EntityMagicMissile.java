@@ -90,7 +90,7 @@ public class EntityMagicMissile extends EntityThrowable {
 
 		super.onUpdate();
 
-		if(!world.isRemote && (!getTarget() || time > 40)) {
+		if(!world.isRemote && (!findTarget() || time > 40)) {
 			setDead();
 			return;
 		}
@@ -131,7 +131,7 @@ public class EntityMagicMissile extends EntityThrowable {
 			motionZ = motionVec.z;
 
 			List<EntityLivingBase> targetList = world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(posX - 0.5, posY - 0.5, posZ - 0.5, posX + 0.5, posY + 0.5, posZ + 0.5));
-			if(targetList.contains(target) && target != null) {
+			if(targetList.contains(target)) {
 				EntityLivingBase thrower = getThrower();
 				if(thrower != null) {
 					EntityPlayer player = thrower instanceof EntityPlayer ? (EntityPlayer) thrower : null;
@@ -161,7 +161,7 @@ public class EntityMagicMissile extends EntityThrowable {
 	}
 
 
-	public boolean getTarget() {
+	public boolean findTarget() {
 		EntityLivingBase target = getTargetEntity();
 		if(target != null && target.getHealth() > 0 && !target.isDead && world.loadedEntityList.contains(target))
 			return true;

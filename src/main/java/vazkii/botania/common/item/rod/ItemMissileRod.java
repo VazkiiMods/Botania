@@ -77,7 +77,7 @@ public class ItemMissileRod extends ItemMod implements IManaUsingItem, IAvatarWi
 		else missile = new EntityMagicMissile(world);
 
 		missile.setPosition(x, y, z);
-		if(missile.getTarget()) {
+		if(missile.findTarget()) {
 			if(!world.isRemote) {
 				missile.playSound(ModSounds.missile, 0.6F, 0.8F + (float) Math.random() * 0.2F);
 				world.spawnEntity(missile);
