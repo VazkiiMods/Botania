@@ -380,6 +380,13 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 	}
 
 	@Override
+	public void heal(float amount) {
+		if(getInvulTime() == 0) {
+			super.heal(amount);
+		}
+	}
+
+	@Override
 	public boolean attackEntityFrom(@Nonnull DamageSource source, float par2) {
 		Entity e = source.getTrueSource();
 
@@ -388,11 +395,6 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 
 			if(!playersWhoAttacked.contains(player.getUniqueID()))
 				playersWhoAttacked.add(player.getUniqueID());
-
-			player.isOnLadder();
-			player.isInWater();
-			player.isPotionActive(MobEffects.BLINDNESS);
-			player.isRiding();
 
 			int cap = 25;
 			return super.attackEntityFrom(source, Math.min(cap, par2));
