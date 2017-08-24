@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "botania:items/lensinside",
-    "layer1": "botania:items/lensmessenger"
+    "layer0": "botania:items/lens_inside",
+    "layer1": "botania:items/lens_messenger"
   }
 }

@@ -22,7 +22,6 @@ import vazkii.botania.client.model.PlatformModel;
 import vazkii.botania.common.item.ItemSparkUpgrade;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
 import vazkii.botania.common.item.relic.ItemKingKey;
-import vazkii.botania.common.lib.LibMisc;
 
 public class MiscellaneousIcons {
 
@@ -91,50 +90,50 @@ public class MiscellaneousIcons {
 				new LexiconModel(new ModelResourceLocation("botania:lexicon_elven", "inventory")));
 
 		// Mana Blaster
-		ModelResourceLocation key = new ModelResourceLocation("botania:manaGun", "inventory");
+		ModelResourceLocation key = new ModelResourceLocation("botania:managun", "inventory");
 		IBakedModel originalModel = evt.getModelRegistry().getObject(key);
 		evt.getModelRegistry().putObject(key, new GunModel(originalModel));
 
-		key = new ModelResourceLocation("botania:manaGunClip", "inventory");
+		key = new ModelResourceLocation("botania:managunclip", "inventory");
 		originalModel = evt.getModelRegistry().getObject(key);
 		evt.getModelRegistry().putObject(key, new GunModel(originalModel));
 	}
 
 	@SubscribeEvent
 	public void onTextureStitch(TextureStitchEvent.Pre evt) {
-		alfPortalTex = IconHelper.forName(evt.getMap(), "alfheimPortalInside", "blocks");
-		lightRelayWorldIcon = IconHelper.forName(evt.getMap(), "lightRelay1", "blocks");
-		lightRelayWorldIconRed = IconHelper.forName(evt.getMap(), "lightRelay3", "blocks");
-		lightRelayWorldIconGreen = IconHelper.forName(evt.getMap(), "lightRelay5", "blocks");
-		lightRelayWorldIconPurple = IconHelper.forName(evt.getMap(), "lightRelay7", "blocks");
-		alchemyCatalystOverlay = IconHelper.forName(evt.getMap(), "alchemyCatalyst3", "blocks");
-		conjurationCatalystOverlay = IconHelper.forName(evt.getMap(), "conjurationCatalyst3", "blocks");
-		enchanterOverlay = IconHelper.forName(evt.getMap(), "enchanterOverlay", "blocks");
-		manaVoidOverlay = IconHelper.forName(evt.getMap(), "manaVoid1", "blocks");
+		alfPortalTex = IconHelper.forName(evt.getMap(), "alfheim_portal_swirl", "blocks");
+		lightRelayWorldIcon = IconHelper.forName(evt.getMap(), "luminizer", "blocks");
+		lightRelayWorldIconRed = IconHelper.forName(evt.getMap(), "luminizer_detector", "blocks");
+		lightRelayWorldIconGreen = IconHelper.forName(evt.getMap(), "luminizer_fork", "blocks");
+		lightRelayWorldIconPurple = IconHelper.forName(evt.getMap(), "luminizer_toggle", "blocks");
+		alchemyCatalystOverlay = IconHelper.forName(evt.getMap(), "alchemy_catalyst_overlay", "blocks");
+		conjurationCatalystOverlay = IconHelper.forName(evt.getMap(), "conjuration_catalyst_overlay", "blocks");
+		enchanterOverlay = IconHelper.forName(evt.getMap(), "enchanter_overlay", "blocks");
+		manaVoidOverlay = IconHelper.forName(evt.getMap(), "mana_void_overlay", "blocks");
 		manaWater = IconHelper.forName(evt.getMap(), "mana_water", "blocks");
-		terraPlateOverlay = IconHelper.forName(evt.getMap(), "terraPlateOverlay", "blocks");
-		corporeaWorldIcon = IconHelper.forName(evt.getMap(), "corporeaSpark1", "items");
-		corporeaWorldIconMaster = IconHelper.forName(evt.getMap(), "corporeaSpark3", "items");
-		corporeaIconStar = IconHelper.forName(evt.getMap(), "corporeaSparkStar", "items");
-		sparkWorldIcon = IconHelper.forName(evt.getMap(), "spark1", "items");
+		terraPlateOverlay = IconHelper.forName(evt.getMap(), "terra_plate_overlay", "blocks");
+		corporeaWorldIcon = IconHelper.forName(evt.getMap(), "spark_corporea", "items");
+		corporeaWorldIconMaster = IconHelper.forName(evt.getMap(), "spark_corporea_master", "items");
+		corporeaIconStar = IconHelper.forName(evt.getMap(), "spark_corporea_star", "items");
+		sparkWorldIcon = IconHelper.forName(evt.getMap(), "spark", "items");
 
 		sparkUpgradeIcons = new TextureAtlasSprite[ItemSparkUpgrade.VARIANTS];
 		for(int i = 0; i < ItemSparkUpgrade.VARIANTS; i++) {
-			sparkUpgradeIcons[i] = IconHelper.forName(evt.getMap(), "sparkUpgradeL" + i, "items");
+			sparkUpgradeIcons[i] = IconHelper.forName(evt.getMap(), "spark_upgrade_rune_" + i, "items");
 		}
 
-		tailIcon = IconHelper.forName(evt.getMap(), "tail", "items");
-		phiFlowerIcon = IconHelper.forName(evt.getMap(), "phiFlower", "items");
-		goldfishIcon = IconHelper.forName(evt.getMap(), "goldfish", "items");
+		tailIcon = IconHelper.forName(evt.getMap(), "special_tail", "items");
+		phiFlowerIcon = IconHelper.forName(evt.getMap(), "special_phiflower", "items");
+		goldfishIcon = IconHelper.forName(evt.getMap(), "special_goldfish", "items");
 		nerfBatIcon = IconHelper.forName(evt.getMap(), "special_nerfbat", "items");
 
 		kingKeyWeaponIcons = new TextureAtlasSprite[ItemKingKey.WEAPON_TYPES];
 		for(int i = 0; i < ItemKingKey.WEAPON_TYPES; i++)
-			kingKeyWeaponIcons[i] = IconHelper.forName(evt.getMap(), "gateWeapon" + i, "items");
+			kingKeyWeaponIcons[i] = IconHelper.forName(evt.getMap(), "gate_weapon_" + i, "items");
 		
 		thirdEyeLayers = new TextureAtlasSprite[3];
 		for(int i = 0; i < 3; i++)
-			thirdEyeLayers[i] = IconHelper.forName(evt.getMap(), "thirdEye" + i, "items");
+			thirdEyeLayers[i] = IconHelper.forName(evt.getMap(), "third_eye_" + i, "items");
 
 		manaDetectorIcon = IconHelper.forName(evt.getMap(), "triggers/manaDetector", "items");
 		runeAltarTriggerIcon = IconHelper.forName(evt.getMap(), "triggers/runeAltarCanCraft", "items");
@@ -145,15 +144,15 @@ public class MiscellaneousIcons {
 
 		tiaraWingIcons = new TextureAtlasSprite[ItemFlightTiara.WING_TYPES];
 		for (int i = 0; i < tiaraWingIcons.length; i++) {
-			tiaraWingIcons[i] = IconHelper.forName(evt.getMap(), "flightTiara" + (i + 1), "items");
+			tiaraWingIcons[i] = IconHelper.forName(evt.getMap(), "headpiece_tiara_wing_" + i, "items");
 		}
 
 		terrasteelHelmWillIcon = IconHelper.forName(evt.getMap(), "willFlame", "items");
 
-		bloodPendantChain = IconHelper.forName(evt.getMap(), "bloodPendant2", "items");
-		bloodPendantGem = IconHelper.forName(evt.getMap(), "bloodPendant3", "items");
+		bloodPendantChain = IconHelper.forName(evt.getMap(), "pendant_blood_chain", "items");
+		bloodPendantGem = IconHelper.forName(evt.getMap(), "pendant_blood_gem", "items");
 		snowflakePendantGem = IconHelper.forName(evt.getMap(), "pendant_ice_gem", "items");
-		itemFinderGem = IconHelper.forName(evt.getMap(), "itemFinderGem", "items");
+		itemFinderGem = IconHelper.forName(evt.getMap(), "headpiece_item_finder_gem", "items");
 		pyroclastGem = IconHelper.forName(evt.getMap(), "pendant_lava_gem", "items");
 		crimsonGem = IconHelper.forName(evt.getMap(), "pendant_lava_super_gem", "items");
 		cirrusGem = IconHelper.forName(evt.getMap(), "pendant_cloud_gem", "items");

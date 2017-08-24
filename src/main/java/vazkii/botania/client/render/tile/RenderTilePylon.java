@@ -10,6 +10,12 @@
  */
 package vazkii.botania.client.render.tile;
 
+import java.util.Random;
+
+import javax.annotation.Nonnull;
+
+import org.lwjgl.opengl.GL11;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
@@ -20,7 +26,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
-import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.PylonVariant;
 import vazkii.botania.client.core.handler.ClientTickHandler;
@@ -33,10 +38,6 @@ import vazkii.botania.client.model.ModelPylonMana;
 import vazkii.botania.client.model.ModelPylonNatura;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TilePylon;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.util.Random;
 
 public class RenderTilePylon extends TileEntitySpecialRenderer<TilePylon> {
 
@@ -90,11 +91,16 @@ public class RenderTilePylon extends TileEntitySpecialRenderer<TilePylon> {
 		double worldTime = (double) (ClientTickHandler.ticksInGame + pticks);
 
 		worldTime += renderingItem ? 0 : new Random(pylon.getPos().hashCode()).nextInt(360);
-
+		
+		/*
 		GlStateManager.translate(d0 + 0.2 + (type == PylonVariant.NATURA ? -0.1 : 0), d1 + 0.05, d2 + 0.8 + (type == PylonVariant.NATURA ? 0.1 : 0));
 		float scale = type == PylonVariant.NATURA ? 0.8F : 0.6F;
 		GlStateManager.scale(scale, 0.6F, scale);
-
+		*/
+		
+		GlStateManager.translate(d0, d1 + 1.5, d2);
+		GlStateManager.scale(1.0F, -1.0F, -1.0F);
+		
 		GlStateManager.pushMatrix();
 		GlStateManager.translate(0.5F, 0F, -0.5F);
 		if(!renderingItem)
@@ -134,7 +140,7 @@ public class RenderTilePylon extends TileEntitySpecialRenderer<TilePylon> {
 		GlStateManager.translate(-0.05F, -0.1F, 0.05F);
 
 		ShaderHelper.useShader(ShaderHelper.pylonGlow);
-		model.renderCrystal();
+		//model.renderCrystal();
 		ShaderHelper.releaseShader();
 
 		GlStateManager.enableAlpha();
