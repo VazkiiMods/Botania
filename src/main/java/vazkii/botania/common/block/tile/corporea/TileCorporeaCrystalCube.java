@@ -46,7 +46,7 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 
 	public TileCorporeaCrystalCube() {
 		if (FMLCommonHandler.instance().getSide() == Side.CLIENT) {
-			asm = ModelLoaderRegistry.loadASM(new ResourceLocation("botania", "asms/block/crystalcube_cube.json"), ImmutableMap.of());
+			asm = ModelLoaderRegistry.loadASM(new ResourceLocation("botania", "asms/block/corporeacrystalcube.json"), ImmutableMap.of());
 		} else {
 			asm = null;
 		}
