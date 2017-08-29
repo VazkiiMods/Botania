@@ -680,7 +680,9 @@ public final class ModCraftingRecipes {
 		recipeTinyPlanet = ModItems.tinyPlanet.getRegistryName();
 		recipeTinyPlanetBlock = ModBlocks.tinyPlanet.getRegistryName();
 		recipeManaRing = ModItems.manaRing.getRegistryName();
+		recipeAuraRing = ModItems.auraRing.getRegistryName();
 		recipeGreaterManaRing = ModItems.manaRingGreater.getRegistryName();
+		recipeGreaterAuraRing = ModItems.auraRingGreater.getRegistryName();
 		recipeTravelBelt = ModItems.travelBelt.getRegistryName();
 		recipeKnockbackBelt = ModItems.knockbackBelt.getRegistryName();
 		recipeIcePendant = ModItems.icePendant.getRegistryName();
