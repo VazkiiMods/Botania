@@ -259,7 +259,7 @@ public class GuiLexicon extends GuiScreen {
 	
 	public void drawScreenAfterScale(int par1, int par2, float par3) {
 		float time = ClientTickHandler.ticksInGame + par3;
-		timeDelta = time - lastTime;
+		timeDelta = time - lastTime + partialTicks;
 		lastTime = time;
 		partialTicks = par3;
 
