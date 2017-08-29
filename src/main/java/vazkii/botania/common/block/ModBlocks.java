@@ -299,8 +299,6 @@ public final class ModBlocks {
 
 		RecipeManaInfusion.alchemyState = alchemyCatalyst.getDefaultState();
 		RecipeManaInfusion.conjurationState = conjurationCatalyst.getDefaultState();
-
-		initTileEntities();
 	}
 
 	@SuppressWarnings("ConstantConditions")
@@ -386,6 +384,8 @@ public final class ModBlocks {
 		r.register(new ItemBlockWithMetadataAndName(altGrass).setRegistryName(altGrass.getRegistryName()));
 		r.register(new ItemBlockMod(animatedTorch).setRegistryName(animatedTorch.getRegistryName()));
 		initOreDict();
+
+		initTileEntities();
 	}
 
 	public static void addDispenserBehaviours() {
