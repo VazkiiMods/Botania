@@ -6,7 +6,7 @@ import vazkii.botania.common.block.decor.stairs.BlockLivingStairs;
 public class BlockLivingrockStairs extends BlockLivingStairs {
 
 	public BlockLivingrockStairs() {
-		super(ModBlocks.livingrock, 0);
+		super(ModBlocks.livingrock.getDefaultState());
 	}
 
 }

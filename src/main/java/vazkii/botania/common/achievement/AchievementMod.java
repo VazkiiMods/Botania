@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jan 28, 2015, 4:41:43 PM (GMT)]
  */
 package vazkii.botania.common.achievement;
@@ -21,7 +21,7 @@ import vazkii.botania.api.item.IRelic;
 
 public class AchievementMod extends Achievement {
 
-	public static List<Achievement> achievements = new ArrayList();
+	public static final List<Achievement> achievements = new ArrayList<>();
 
 	public AchievementMod(String name, int x, int y, ItemStack icon, Achievement parent) {
 		super("achievement.botania:" + name, "botania:" + name, x, y, icon, parent);

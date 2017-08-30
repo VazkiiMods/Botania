@@ -1,0 +1,9 @@
+{
+  "variants": {
+    "variant=normal": { "model": "botania:quartz/lavender_quartz" },
+    "variant=chiseled": { "model": "botania:quartz/lavender_quartz_chiseled" },
+    "variant=pillar_x": { "model": "botania:quartz/lavender_quartz_pillar", "x": 90, "y": 90 },
+    "variant=pillar_y": { "model": "botania:quartz/lavender_quartz_pillar" },
+    "variant=pillar_z": { "model": "botania:quartz/lavender_quartz_pillar", "x": 90 }
+  }
+}

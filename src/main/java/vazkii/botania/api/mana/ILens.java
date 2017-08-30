@@ -2,24 +2,23 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jan 31, 2014, 3:03:04 PM (GMT)]
  */
 package vazkii.botania.api.mana;
 
+import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.item.ItemStack;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import vazkii.botania.api.internal.IManaBurst;
 
 /**
  * Have an Item implement this to be counted as a lens for the mana spreader.
  */
 public interface ILens extends ILensEffect {
 
-	@SideOnly(Side.CLIENT)
 	public int getLensColor(ItemStack stack);
 
 	/**

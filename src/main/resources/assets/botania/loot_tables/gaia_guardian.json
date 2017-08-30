@@ -1,0 +1,31 @@
+{
+  "pools": [
+    {
+      "name": "life_essence",
+      "conditions": [{ "condition": "killed_by_player" }],
+      "rolls": 1,
+      "entries": [{
+        "type": "item",
+        "name": "botania:manaResource",
+        "functions": [
+          { "function": "set_data", "data": 5 },
+          { "function": "set_count", "count": 6 },
+          {
+            "function": "set_count",
+            "count": 8,
+            "conditions": [{ "condition": "botania:true_guardian_killer" }]
+          }
+        ]
+      }]
+    },
+    {
+      "name": "music_disc",
+      "conditions": [
+        { "condition": "killed_by_player" },
+        { "condition": "random_chance", "chance": 0.2 }
+      ],
+      "rolls": 1,
+      "entries": [{ "type": "item", "name": "botania:recordGaia1" }]
+    }
+  ]
+}

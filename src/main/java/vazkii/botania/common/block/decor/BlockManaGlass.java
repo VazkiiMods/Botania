@@ -2,20 +2,29 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Nov 1, 2014, 6:09:29 PM (GMT)]
  */
 package vazkii.botania.common.block.decor;
 
+import javax.annotation.Nonnull;
+
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.BlockRenderLayer;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.block.BlockMod;
@@ -29,36 +38,38 @@ public class BlockManaGlass extends BlockMod implements ILexiconable {
 	}
 
 	public BlockManaGlass(String name) {
-		super(Material.glass);
+		super(Material.GLASS, name);
 		setHardness(0.3F);
-		setStepSound(soundTypeGlass);
+		setSoundType(SoundType.GLASS);
 		setLightLevel(1.0F);
-		setBlockName(name);
 	}
 
 	@Override
-	public boolean isOpaqueCube() {
+	public boolean isOpaqueCube(IBlockState state) {
 		return false;
 	}
 
-	public boolean shouldSideBeRendered1(IBlockAccess p_149646_1_, int p_149646_2_, int p_149646_3_, int p_149646_4_, int p_149646_5_) {
-		Block block = p_149646_1_.getBlock(p_149646_2_, p_149646_3_, p_149646_4_);
+	@Override
+	public boolean isFullCube(IBlockState state) {
+		return false;
+	}
 
-		return block == this ? false : super.shouldSideBeRendered(p_149646_1_, p_149646_2_, p_149646_3_, p_149646_4_, p_149646_5_);
+	@SideOnly(Side.CLIENT)
+	@Override
+	public boolean shouldSideBeRendered(IBlockState state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos, EnumFacing side) {
+		Block block = world.getBlockState(pos.offset(side)).getBlock();
+		return block == this ? false : super.shouldSideBeRendered(state, world, pos, side);
+	}
+
+	@SideOnly(Side.CLIENT)
+	@Nonnull
+	@Override
+	public BlockRenderLayer getBlockLayer() {
+		return BlockRenderLayer.TRANSLUCENT;
 	}
 
 	@Override
-	public boolean shouldSideBeRendered(IBlockAccess p_149646_1_, int p_149646_2_, int p_149646_3_, int p_149646_4_, int p_149646_5_) {
-		return shouldSideBeRendered1(p_149646_1_, p_149646_2_, p_149646_3_, p_149646_4_, 1 - p_149646_5_);
-	}
-
-	@Override
-	public int getRenderBlockPass() {
-		return 1;
-	}
-
-	@Override
-	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
+	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.pool;
 	}
 

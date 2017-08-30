@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [15/11/2015, 19:12:41 (GMT)]
  */
 package vazkii.botania.common.item.lens;
@@ -16,22 +16,22 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.util.ChunkCoordinates;
-import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 
 public class LensFirework extends Lens {
 
 	@Override
-	public boolean collideBurst(IManaBurst burst, EntityThrowable entity, MovingObjectPosition pos, boolean isManaBlock, boolean dead, ItemStack stack) {
-		if(!burst.isFake()) {
-			ChunkCoordinates coords = burst.getBurstSourceChunkCoordinates();
-			if(!entity.worldObj.isRemote && pos.entityHit == null && !isManaBlock && (pos.blockX != coords.posX || pos.blockY != coords.posY || pos.blockZ != coords.posZ)) {
+	public boolean collideBurst(IManaBurst burst, EntityThrowable entity, RayTraceResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
+		if(!entity.world.isRemote && !burst.isFake()) {
+			BlockPos coords = burst.getBurstSourceBlockPos();
+			if(pos.entityHit == null && !isManaBlock && (pos.getBlockPos() == null || !pos.getBlockPos().equals(coords))) {
 				ItemStack fireworkStack = generateFirework(burst.getColor());
 
-				EntityFireworkRocket rocket = new EntityFireworkRocket(entity.worldObj, entity.posX, entity.posY, entity.posZ, fireworkStack);
-				entity.worldObj.spawnEntityInWorld(rocket);
+				EntityFireworkRocket rocket = new EntityFireworkRocket(entity.world, entity.posX, entity.posY, entity.posZ, fireworkStack);
+				entity.world.spawnEntity(rocket);
 			}
 		} else dead = false;
 
@@ -39,7 +39,7 @@ public class LensFirework extends Lens {
 	}
 
 	public ItemStack generateFirework(int color) {
-		ItemStack stack = new ItemStack(Items.fireworks);
+		ItemStack stack = new ItemStack(Items.FIREWORKS);
 		NBTTagCompound explosion = new NBTTagCompound();
 		explosion.setIntArray("Colors", new int[] { color });
 
@@ -61,7 +61,7 @@ public class LensFirework extends Lens {
 		ItemNBTHelper.setCompound(stack, "Explosion", explosion);
 
 		NBTTagCompound fireworks = new NBTTagCompound();
-		fireworks.setInteger("Flight", (int) Math.random() * 3 + 2);
+		fireworks.setInteger("Flight", (int) (Math.random() * 3 + 2));
 
 		NBTTagList explosions = new NBTTagList();
 		explosions.appendTag(explosion);

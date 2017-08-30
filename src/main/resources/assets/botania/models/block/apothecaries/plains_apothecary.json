@@ -1,0 +1,23 @@
+{
+  "parent": "botania:block/shapes/petal_apothecary",
+  "textures": {
+    "gobletbaseside": "botania:model/altar/plains/gobletbase_sides",
+    "gobletbasetop": "botania:model/altar/plains/gobletbase_top",
+    "gobletbasebottom": "botania:model/altar/plains/gobletbase_bottom",
+    "gobletbase2side": "botania:model/altar/plains/gobletbase2_sides",
+    "gobletbase2top": "botania:model/altar/plains/gobletbase2_top",
+    "gobletbase2bottom": "botania:model/altar/plains/gobletbase2_bottom",
+    "gobletbase3side": "botania:model/altar/plains/gobletbase3_sides",
+    "gobletbase3top": "botania:model/altar/plains/gobletbase3_top",
+    "gobletbase3bottom": "botania:model/altar/plains/gobletbase3_bottom",
+    "gobletstandside": "botania:model/altar/plains/gobletstand_sides",
+    "gobletstandtopbottom": "botania:model/altar/plains/gobletstand_top_bottom",
+    "kelkbaseside": "botania:model/altar/plains/kelkbase_sides",
+    "kelkbasetopbottom": "botania:model/altar/plains/kelkbase_top_bottom",
+    "kelkbase2side": "botania:model/altar/plains/kelkbase2_sides",
+    "kelkbase2top": "botania:model/altar/plains/kelkbase2_top",
+    "kelkbase2bottom": "botania:model/altar/plains/kelkbase2_bottom",
+    "kelkwall": "botania:model/altar/plains/kelkwall",
+    "particle": "botania:blocks/biomestone1"
+  }
+}

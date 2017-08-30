@@ -1,0 +1,86 @@
+/**
+ * This class was created by <williewillus>. It's distributed as
+ * part of the Botania Mod. Get the Source Code in github:
+ * https://github.com/Vazkii/Botania
+ * <p/>
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
+ */
+package vazkii.botania.client.integration.jei.puredaisy;
+
+import java.util.List;
+
+import javax.annotation.Nonnull;
+
+import com.google.common.collect.ImmutableList;
+
+import mezz.jei.api.ingredients.IIngredients;
+import mezz.jei.api.recipe.IRecipeWrapper;
+import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.oredict.OreDictionary;
+import vazkii.botania.api.recipe.RecipePureDaisy;
+
+public class PureDaisyRecipeWrapper implements IRecipeWrapper {
+
+	private List<ItemStack> inputs = ImmutableList.of();
+	private ItemStack output = ItemStack.EMPTY;
+	private FluidStack fluidInput = null;
+	private FluidStack fluidOutput = null;
+
+	public PureDaisyRecipeWrapper(RecipePureDaisy recipe) {
+		if(recipe.getInput() instanceof String) {
+			inputs = ImmutableList.copyOf(OreDictionary.getOres((String) recipe.getInput()));
+		} else if(recipe.getInput() instanceof Block) {
+			Block b = (Block) recipe.getInput();
+			if(FluidRegistry.lookupFluidForBlock(b) != null) {
+				fluidInput = new FluidStack(FluidRegistry.lookupFluidForBlock(b), 1000);
+			} else {
+				inputs = ImmutableList.of(new ItemStack(b, 1, b.getMetaFromState(b.getDefaultState())));
+			}
+		}
+
+		Block outBlock = recipe.getOutputState().getBlock();
+		if(FluidRegistry.lookupFluidForBlock(outBlock) != null) {
+			fluidOutput = new FluidStack(FluidRegistry.lookupFluidForBlock(outBlock), 1000);
+		} else {
+			output = new ItemStack(outBlock, 1, outBlock.getMetaFromState(recipe.getOutputState()));
+		}
+	}
+
+	@Override
+	public void getIngredients(@Nonnull IIngredients ingredients) {
+		ingredients.setInputs(ItemStack.class, inputs);
+
+		if (fluidInput != null) {
+			ingredients.setInput(FluidStack.class, fluidInput);
+		}
+
+		if (!output.isEmpty()) {
+			ingredients.setOutput(ItemStack.class, output);
+		}
+
+		if (fluidOutput != null) {
+			ingredients.setOutput(FluidStack.class, fluidOutput);
+		}
+	}
+
+	@Override
+	public void drawInfo(@Nonnull Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
+	}
+
+	@Nonnull
+	@Override
+	public List<String> getTooltipStrings(int mouseX, int mouseY) {
+		return ImmutableList.of();
+	}
+
+	@Override
+	public boolean handleClick(@Nonnull Minecraft minecraft, int mouseX, int mouseY, int mouseButton) {
+		return false;
+	}
+
+}

@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jan 29, 2015, 8:17:55 PM (GMT)]
  */
 package vazkii.botania.common.block.subtile.functional;
@@ -13,14 +13,20 @@ package vazkii.botania.common.block.subtile.functional;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
+import gnu.trove.list.array.TIntArrayList;
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.state.pattern.BlockStateMatcher;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.api.state.enums.BiomeStoneVariant;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.block.ModFluffBlocks;
@@ -37,32 +43,30 @@ public class SubTileMarimorphosis extends SubTileFunctional {
 	private static final int RANGE_Y_MINI = 1;
 
 	private static final Type[] TYPES = new Type[] {
-		Type.FOREST,
-		Type.PLAINS,
-		Type.MOUNTAIN,
-		Type.MUSHROOM,
-		Type.SWAMP,
-		Type.SANDY,
-		Type.COLD,
-		Type.MESA
+			Type.FOREST,
+			Type.PLAINS,
+			Type.MOUNTAIN,
+			Type.MUSHROOM,
+			Type.SWAMP,
+			Type.SANDY,
+			Type.COLD,
+			Type.MESA
 	};
 
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
-		if(redstoneSignal > 0)
+		if(supertile.getWorld().isRemote || redstoneSignal > 0)
 			return;
 
-		if(!supertile.getWorldObj().isRemote && mana >= COST && ticksExisted % 2 == 0) {
-			ChunkCoordinates coords = getCoordsToPut();
+		if(mana >= COST && ticksExisted % 2 == 0) {
+			BlockPos coords = getCoordsToPut();
 			if(coords != null) {
-				ItemStack stack = getStoneToPut(coords);
-				if(stack != null) {
-					Block block = Block.getBlockFromItem(stack.getItem());
-					int meta = stack.getItemDamage();
-					supertile.getWorldObj().setBlock(coords.posX, coords.posY, coords.posZ, block, meta, 1 | 2);
+				IBlockState state = getStoneToPut(coords);
+				if(state != null) {
+					supertile.getWorld().setBlockState(coords, state);
 					if(ConfigHandler.blockBreakParticles)
-						supertile.getWorldObj().playAuxSFX(2001, coords.posX, coords.posY, coords.posZ, Block.getIdFromBlock(block) + (meta << 12));
+						supertile.getWorld().playEvent(2001, coords, Block.getStateId(state));
 
 					mana -= COST;
 					sync();
@@ -71,11 +75,11 @@ public class SubTileMarimorphosis extends SubTileFunctional {
 		}
 	}
 
-	public ItemStack getStoneToPut(ChunkCoordinates coords) {
-		List<Type> types = Arrays.asList(BiomeDictionary.getTypesForBiome(supertile.getWorldObj().getBiomeGenForCoords(coords.posX, coords.posZ)));
+	public IBlockState getStoneToPut(BlockPos coords) {
+		Set<Type> types = BiomeDictionary.getTypes(supertile.getWorld().getBiome(coords));
 
-		List<Integer> values = new ArrayList();
-		for(int i = 0; i < 8; i++) {
+		TIntArrayList values = new TIntArrayList();
+		for(int i = 0; i < TYPES.length; i++) {
 			int times = 1;
 			if(types.contains(TYPES[i]))
 				times = 12;
@@ -84,34 +88,32 @@ public class SubTileMarimorphosis extends SubTileFunctional {
 				values.add(i);
 		}
 
-		return new ItemStack(ModFluffBlocks.biomeStoneA, 1, values.get(supertile.getWorldObj().rand.nextInt(values.size())));
+		int meta = values.get(supertile.getWorld().rand.nextInt(values.size()));
+		BiomeStoneVariant variant = BiomeStoneVariant.values()[meta];
+		return ModFluffBlocks.biomeStoneA.getDefaultState().withProperty(BotaniaStateProps.BIOMESTONE_VARIANT, variant);
 	}
 
-	public ChunkCoordinates getCoordsToPut() {
-		List<ChunkCoordinates> possibleCoords = new ArrayList();
+	private BlockPos getCoordsToPut() {
+		List<BlockPos> possibleCoords = new ArrayList<>();
 
 		int range = getRange();
 		int rangeY = getRangeY();
 
-		for(int i = -range; i < range + 1; i++)
-			for(int j = -rangeY; j < rangeY; j++)
-				for(int k = -range; k < range + 1; k++) {
-					int x = supertile.xCoord + i;
-					int y = supertile.yCoord + j;
-					int z = supertile.zCoord + k;
-					Block block = supertile.getWorldObj().getBlock(x, y, z);
-					if(block != null && block.isReplaceableOreGen(supertile.getWorldObj(), x, y, z, Blocks.stone))
-						possibleCoords.add(new ChunkCoordinates(x, y, z));
-				}
+		BlockStateMatcher matcher = BlockStateMatcher.forBlock(Blocks.STONE);
+		for(BlockPos pos : BlockPos.getAllInBox(getPos().add(-range, -rangeY, -range), getPos().add(range, rangeY, range))) {
+			IBlockState state = supertile.getWorld().getBlockState(pos);
+			if(state.getBlock().isReplaceableOreGen(state, supertile.getWorld(), pos, matcher))
+				possibleCoords.add(pos);
+		}
 
 		if(possibleCoords.isEmpty())
 			return null;
-		return possibleCoords.get(supertile.getWorldObj().rand.nextInt(possibleCoords.size()));
+		return possibleCoords.get(supertile.getWorld().rand.nextInt(possibleCoords.size()));
 	}
 
 	@Override
 	public RadiusDescriptor getRadius() {
-		return new RadiusDescriptor.Square(toChunkCoordinates(), getRange());
+		return new RadiusDescriptor.Square(toBlockPos(), getRange());
 	}
 
 	public int getRange() {

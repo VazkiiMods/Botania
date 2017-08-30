@@ -2,112 +2,122 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jun 28, 2015, 10:01:01 PM (GMT)]
  */
 package vazkii.botania.common.block;
 
-import java.util.Random;
+import javax.annotation.Nonnull;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.entity.item.EntityItem;
+import net.minecraft.block.state.BlockStateContainer;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.IIcon;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.items.ItemHandlerHelper;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.client.core.helper.IconHelper;
+import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.block.tile.TileSparkChanger;
+import vazkii.botania.common.core.helper.InventoryHelper;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
-public class BlockSparkChanger extends BlockModContainer implements ILexiconable {
+public class BlockSparkChanger extends BlockMod implements ILexiconable {
 
-	IIcon[] icons;
-	Random random;
+	private static final AxisAlignedBB AABB = new AxisAlignedBB(0, 0, 0, 1, 3.0/16, 1);
 
 	public BlockSparkChanger() {
-		super(Material.rock);
-		setBlockBounds(0F, 0F, 0F, 1F, 3F / 16F, 1F);
+		super(Material.ROCK, LibBlockNames.SPARK_CHANGER);
 		setHardness(2.0F);
 		setResistance(10.0F);
-		setStepSound(soundTypeStone);
-		setBlockName(LibBlockNames.SPARK_CHANGER);
+		setSoundType(SoundType.STONE);
+	}
 
-		random = new Random();
+	@Nonnull
+	@Override
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
+		return AABB;
+	}
+
+	@Nonnull
+	@Override
+	public BlockStateContainer createBlockState() {
+		return new BlockStateContainer(this, BotaniaStateProps.POWERED);
 	}
 
 	@Override
-	public boolean renderAsNormalBlock() {
+	protected IBlockState pickDefaultState() {
+		return blockState.getBaseState().withProperty(BotaniaStateProps.POWERED, true);
+	}
+
+	@Override
+	public int getMetaFromState(IBlockState state) {
+		return state.getValue(BotaniaStateProps.POWERED) ? 8 : 0;
+	}
+
+	@Nonnull
+	@Override
+	public IBlockState getStateFromMeta(int meta) {
+		return getDefaultState().withProperty(BotaniaStateProps.POWERED, meta == 8);
+	}
+
+	@Override
+	public boolean isFullCube(IBlockState state) {
 		return false;
 	}
 
 	@Override
-	public boolean isOpaqueCube() {
+	public boolean isOpaqueCube(IBlockState state) {
 		return false;
 	}
 
 	@Override
-	public boolean getBlocksMovement(IBlockAccess p_149655_1_, int p_149655_2_, int p_149655_3_, int p_149655_4_) {
+	public boolean isPassable(IBlockAccess world, BlockPos pos) {
 		return false;
 	}
 
 	@Override
-	public void registerBlockIcons(IIconRegister par1IconRegister) {
-		icons = new IIcon[3];
-		for(int i = 0; i < icons.length; i++)
-			icons[i] = IconHelper.forBlock(par1IconRegister, this, i);
-	}
-
-	@Override
-	public IIcon getIcon(int par1, int par2) {
-		return icons[Math.min(2, par1)];
-	}
-
-	@Override
-	public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
-		boolean power = world.isBlockIndirectlyGettingPowered(x, y, z) || world.isBlockIndirectlyGettingPowered(x, y + 1, z);
-		int meta = world.getBlockMetadata(x, y, z);
-		boolean powered = (meta & 8) != 0;
+	public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block, BlockPos fromPos) {
+		boolean power = world.isBlockIndirectlyGettingPowered(pos) > 0 || world.isBlockIndirectlyGettingPowered(pos.up()) > 0;
+		boolean powered = state.getValue(BotaniaStateProps.POWERED);
 
 		if(power && !powered) {
-			((TileSparkChanger) world.getTileEntity(x, y, z)).doSwap();
-			world.setBlockMetadataWithNotify(x, y, z, meta | 8, 4);
+			((TileSparkChanger) world.getTileEntity(pos)).doSwap();
+			world.setBlockState(pos, state.withProperty(BotaniaStateProps.POWERED, true), 4);
 		} else if(!power && powered)
-			world.setBlockMetadataWithNotify(x, y, z, meta & -9, 4);
+			world.setBlockState(pos, state.withProperty(BotaniaStateProps.POWERED, false), 4);
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int s, float xs, float ys, float zs) {
-		TileSparkChanger changer = (TileSparkChanger) world.getTileEntity(x, y, z);
-		ItemStack cstack = changer.getStackInSlot(0);
-		ItemStack pstack = player.getCurrentEquippedItem();
-		if(cstack != null) {
-			changer.setInventorySlotContents(0, null);
-			world.func_147453_f(x, y, z, this);
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing s, float xs, float ys, float zs) {
+		TileSparkChanger changer = (TileSparkChanger) world.getTileEntity(pos);
+		ItemStack pstack = player.getHeldItem(hand);
+		ItemStack cstack = changer.getItemHandler().getStackInSlot(0);
+		if(!cstack.isEmpty()) {
+			changer.getItemHandler().setStackInSlot(0, ItemStack.EMPTY);
+			world.updateComparatorOutputLevel(pos, this);
 			changer.markDirty();
-			if(!player.inventory.addItemStackToInventory(cstack))
-				player.dropPlayerItemWithRandomChoice(cstack, false);
+			ItemHandlerHelper.giveItemToPlayer(player, cstack);
 			return true;
-		} else if(pstack != null && pstack.getItem() == ModItems.sparkUpgrade) {
-			changer.setInventorySlotContents(0, pstack.copy().splitStack(1));
-			world.func_147453_f(x, y, z, this);
+		} else if(!pstack.isEmpty() && pstack.getItem() == ModItems.sparkUpgrade) {
+			changer.getItemHandler().setStackInSlot(0, pstack.splitStack(1));
+			world.updateComparatorOutputLevel(pos, this);
 			changer.markDirty();
-
-			pstack.stackSize--;
-			if(pstack.stackSize == 0)
-				player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
 
 			return true;
 		}
@@ -116,64 +126,41 @@ public class BlockSparkChanger extends BlockModContainer implements ILexiconable
 	}
 
 	@Override
-	public void breakBlock(World par1World, int par2, int par3, int par4, Block par5, int par6) {
-		TileSimpleInventory inv = (TileSimpleInventory) par1World.getTileEntity(par2, par3, par4);
+	public void breakBlock(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
+		TileSimpleInventory inv = (TileSimpleInventory) world.getTileEntity(pos);
 
-		if (inv != null) {
-			for (int j1 = 0; j1 < inv.getSizeInventory(); ++j1) {
-				ItemStack itemstack = inv.getStackInSlot(j1);
+		InventoryHelper.dropInventory(inv, world, state, pos);
 
-				if (itemstack != null) {
-					float f = random.nextFloat() * 0.8F + 0.1F;
-					float f1 = random.nextFloat() * 0.8F + 0.1F;
-					EntityItem entityitem;
-
-					for (float f2 = random.nextFloat() * 0.8F + 0.1F; itemstack.stackSize > 0; par1World.spawnEntityInWorld(entityitem)) {
-						int k1 = random.nextInt(21) + 10;
-
-						if (k1 > itemstack.stackSize)
-							k1 = itemstack.stackSize;
-
-						itemstack.stackSize -= k1;
-						entityitem = new EntityItem(par1World, par2 + f, par3 + f1, par4 + f2, new ItemStack(itemstack.getItem(), k1, itemstack.getItemDamage()));
-						float f3 = 0.05F;
-						entityitem.motionX = (float)random.nextGaussian() * f3;
-						entityitem.motionY = (float)random.nextGaussian() * f3 + 0.2F;
-						entityitem.motionZ = (float)random.nextGaussian() * f3;
-
-						if (itemstack.hasTagCompound())
-							entityitem.getEntityItem().setTagCompound((NBTTagCompound)itemstack.getTagCompound().copy());
-					}
-				}
-			}
-
-			par1World.func_147453_f(par2, par3, par4, par5);
-		}
-
-		super.breakBlock(par1World, par2, par3, par4, par5, par6);
+		super.breakBlock(world, pos, state);
 	}
 
 	@Override
-	public boolean hasComparatorInputOverride() {
+	public boolean hasComparatorInputOverride(IBlockState state) {
 		return true;
 	}
 
 	@Override
-	public int getComparatorInputOverride(World world, int x, int y, int z, int s) {
-		TileSparkChanger changer = (TileSparkChanger) world.getTileEntity(x, y, z);
-		ItemStack stack = changer.getStackInSlot(0);
-		if(stack == null)
+	public int getComparatorInputOverride(IBlockState state, World world, BlockPos pos) {
+		TileSparkChanger changer = (TileSparkChanger) world.getTileEntity(pos);
+		ItemStack stack = changer.getItemHandler().getStackInSlot(0);
+		if(stack.isEmpty())
 			return 0;
 		return stack.getItemDamage() + 1;
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World world, int meta) {
+	public boolean hasTileEntity(IBlockState state) {
+		return true;
+	}
+
+	@Nonnull
+	@Override
+	public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
 		return new TileSparkChanger();
 	}
 
 	@Override
-	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
+	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.sparkChanger;
 	}
 

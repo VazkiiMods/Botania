@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/orientable",
+  "textures": {
+    "top": "botania:blocks/redstringdispenser",
+    "front": "botania:blocks/redstringsender",
+    "side": "botania:blocks/redstringdispenser"
+  }
+}

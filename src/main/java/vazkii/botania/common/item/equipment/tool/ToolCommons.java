@@ -2,29 +2,35 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Apr 13, 2014, 7:13:04 PM (GMT)]
  */
 package vazkii.botania.common.item.equipment.tool;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.enchantment.Enchantment;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.init.Enchantments;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemTool;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.Vec3;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ForgeHooks;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.core.handler.ConfigHandler;
@@ -32,11 +38,14 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.elementium.ItemElementiumPick;
 import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
 
+import java.util.Arrays;
+import java.util.List;
+
 public final class ToolCommons {
 
-	public static Material[] materialsPick = new Material[]{ Material.rock, Material.iron, Material.ice, Material.glass, Material.piston, Material.anvil };
-	public static Material[] materialsShovel = new Material[]{ Material.grass, Material.ground, Material.sand, Material.snow, Material.craftedSnow, Material.clay };
-	public static Material[] materialsAxe = new Material[]{ Material.coral, Material.leaves, Material.plants, Material.wood, Material.gourd };
+	public static final List<Material> materialsPick = Arrays.asList(Material.ROCK, Material.IRON, Material.ICE, Material.GLASS, Material.PISTON, Material.ANVIL);
+	public static final List<Material> materialsShovel = Arrays.asList(Material.GRASS, Material.GROUND, Material.SAND, Material.SNOW, Material.CRAFTED_SNOW, Material.CLAY);
+	public static final List<Material> materialsAxe = Arrays.asList(Material.CORAL, Material.LEAVES, Material.PLANTS, Material.WOOD, Material.GOURD);
 
 	public static void damageItem(ItemStack stack, int dmg, EntityLivingBase entity, int manaPerDamage) {
 		int manaToRequest = dmg * manaPerDamage;
@@ -46,63 +55,72 @@ public final class ToolCommons {
 			stack.damageItem(dmg, entity);
 	}
 
-	public static void removeBlocksInIteration(EntityPlayer player, ItemStack stack, World world, int x, int y, int z, int xs, int ys, int zs, int xe, int ye, int ze, Block block, Material[] materialsListing, boolean silk, int fortune, boolean dispose) {
-		float blockHardness = block == null ? 1F : block.getBlockHardness(world, x, y, z);
-
-		for(int x1 = xs; x1 < xe; x1++)
-			for(int y1 = ys; y1 < ye; y1++)
-				for(int z1 = zs; z1 < ze; z1++)
-					removeBlockWithDrops(player, stack, world, x1 + x, y1 + y, z1 + z, x, y, z, block, materialsListing, silk, fortune, blockHardness, dispose);
+	public static void removeBlocksInIteration(EntityPlayer player, ItemStack stack, World world, BlockPos centerPos,
+											   Vec3i startDelta, Vec3i endDelta, Block filterBlock, List<Material> materialsListing,
+											   boolean silk, int fortune, boolean dispose) {
+		for (BlockPos iterPos : BlockPos.getAllInBox(centerPos.add(startDelta), centerPos.add(endDelta))) {
+			if (iterPos.equals(centerPos)) // skip original block space to avoid crash, vanilla code in the tool class will handle it
+				continue;
+			removeBlockWithDrops(player, stack, world, iterPos, centerPos, filterBlock, materialsListing, silk, fortune, dispose);
+		}
 	}
 
-	public static boolean isRightMaterial(Material material, Material[] materialsListing) {
-		for(Material mat : materialsListing)
-			if(material == mat)
-				return true;
-
-		return false;
+	public static void removeBlockWithDrops(EntityPlayer player, ItemStack stack, World world, BlockPos pos, BlockPos bPos,
+											Block filterBlock, List<Material> materialsListing,
+											boolean silk, int fortune, boolean dispose) {
+		removeBlockWithDrops(player, stack, world, pos, bPos, filterBlock, materialsListing, silk, fortune, dispose, true);
 	}
 
-	public static void removeBlockWithDrops(EntityPlayer player, ItemStack stack, World world, int x, int y, int z, int bx, int by, int bz, Block block, Material[] materialsListing, boolean silk, int fortune, float blockHardness, boolean dispose) {
-		removeBlockWithDrops(player, stack, world, x, y, z, bx, by, bz, block, materialsListing, silk, fortune, blockHardness, dispose, true);
-	}
-
-	public static void removeBlockWithDrops(EntityPlayer player, ItemStack stack, World world, int x, int y, int z, int bx, int by, int bz, Block block, Material[] materialsListing, boolean silk, int fortune, float blockHardness, boolean dispose, boolean particles) {
-		if(!world.blockExists(x, y, z))
+	public static void removeBlockWithDrops(EntityPlayer player, ItemStack stack, World world, BlockPos pos, BlockPos bPos,
+											Block filterBlock, List<Material> materialsListing,
+											boolean silk, int fortune, boolean dispose, boolean particles) {
+		if(!world.isBlockLoaded(pos))
 			return;
 
-		Block blk = world.getBlock(x, y, z);
-		int meta = world.getBlockMetadata(x, y, z);
+		IBlockState state = world.getBlockState(pos);
+		Block block = state.getBlock();
 
-		if(block != null && blk != block)
+		if(filterBlock != null && block != filterBlock)
 			return;
 
-		Material mat = world.getBlock(x, y, z).getMaterial();
-		if(!world.isRemote && blk != null && !blk.isAir(world, x, y, z) && blk.getPlayerRelativeBlockHardness(player, world, x, y, z) > 0) {
-			if(!blk.canHarvestBlock(player, meta) || !isRightMaterial(mat, materialsListing))
+		Material mat = world.getBlockState(pos).getMaterial();
+		if(!world.isRemote && !block.isAir(state, world, pos) && state.getPlayerRelativeBlockHardness(player, world, pos) > 0) {
+			if(!block.canHarvestBlock(player.world, pos, player) || !materialsListing.contains(mat)) {
+				return;
+			}
+
+			int exp = ForgeHooks.onBlockBreakEvent(world, ((EntityPlayerMP) player).interactionManager.getGameType(), (EntityPlayerMP) player, pos);
+			if(exp == -1)
 				return;
 
+			boolean spawnedDrops = false;
+
 			if(!player.capabilities.isCreativeMode) {
-				int localMeta = world.getBlockMetadata(x, y, z);
-				blk.onBlockHarvested(world, x, y, z, localMeta, player);
+				TileEntity tile = world.getTileEntity(pos);
+				IBlockState localState = world.getBlockState(pos);
 
-				if(blk.removedByPlayer(world, player, x, y, z, true)) {
-					blk.onBlockDestroyedByPlayer(world, x, y, z, localMeta);
+				if(block.removedByPlayer(state, world, pos, player, true)) {
+					block.onBlockDestroyedByPlayer(world, pos, state);
 
-					if(!dispose || !ItemElementiumPick.isDisposable(blk))
-						blk.harvestBlock(world, player, x, y, z, localMeta);
+					if(!dispose || !ItemElementiumPick.isDisposable(block)) {
+						block.harvestBlock(world, player, pos, state, tile, stack);
+						spawnedDrops = true;
+					}
 				}
 
 				damageItem(stack, 1, player, 80);
-			} else world.setBlockToAir(x, y, z);
+			} else world.setBlockToAir(pos);
 
-			if(particles && !world.isRemote && ConfigHandler.blockBreakParticles && ConfigHandler.blockBreakParticlesTool)
-				world.playAuxSFX(2001, x, y, z, Block.getIdFromBlock(blk) + (meta << 12));
+			if(particles && ConfigHandler.blockBreakParticles && ConfigHandler.blockBreakParticlesTool)
+				world.playEvent(2001, pos, Block.getStateId(state));
+
+			if(spawnedDrops)
+				block.dropXpOnBlockBreak(world, pos, exp);
 		}
 	}
 
 	public static int getToolPriority(ItemStack stack) {
-		if(stack == null)
+		if(stack.isEmpty())
 			return 0;
 
 		Item item = stack.getItem();
@@ -110,7 +128,7 @@ public final class ToolCommons {
 			return 0;
 
 		ItemTool tool = (ItemTool) item;
-		ToolMaterial material = tool.func_150913_i();
+		ToolMaterial material = tool.getToolMaterial();
 		int materialLevel = 0;
 		if(material == BotaniaAPI.manasteelToolMaterial)
 			materialLevel = 10;
@@ -123,32 +141,31 @@ public final class ToolCommons {
 		if(item == ModItems.terraPick)
 			modifier = ItemTerraPick.getLevel(stack);
 
-		int efficiency = EnchantmentHelper.getEnchantmentLevel(Enchantment.efficiency.effectId, stack);
+		int efficiency = EnchantmentHelper.getEnchantmentLevel(Enchantments.EFFICIENCY, stack);
 		return materialLevel * 100 + modifier * 10 + efficiency;
 	}
 
-	/**
-	 * @author mDiyo
-	 */
-	public static MovingObjectPosition raytraceFromEntity(World world, Entity player, boolean par3, double range) {
-		float f = 1.0F;
-		float f1 = player.prevRotationPitch + (player.rotationPitch - player.prevRotationPitch) * f;
-		float f2 = player.prevRotationYaw + (player.rotationYaw - player.prevRotationYaw) * f;
-		double d0 = player.prevPosX + (player.posX - player.prevPosX) * f;
-		double d1 = player.prevPosY + (player.posY - player.prevPosY) * f;
-		if (!world.isRemote && player instanceof EntityPlayer)
-			d1 += ((EntityPlayer) player).eyeHeight;
-		double d2 = player.prevPosZ + (player.posZ - player.prevPosZ) * f;
-		Vec3 vec3 = Vec3.createVectorHelper(d0, d1, d2);
-		float f3 = MathHelper.cos(-f2 * 0.017453292F - (float) Math.PI);
-		float f4 = MathHelper.sin(-f2 * 0.017453292F - (float) Math.PI);
-		float f5 = -MathHelper.cos(-f1 * 0.017453292F);
-		float f6 = MathHelper.sin(-f1 * 0.017453292F);
-		float f7 = f4 * f5;
-		float f8 = f3 * f5;
-		double d3 = range;
-		Vec3 vec31 = vec3.addVector(f7 * d3, f6 * d3, f8 * d3);
-		return world.rayTraceBlocks(vec3, vec31, par3);
+	// [VanillaCopy] of Item.rayTrace, edits noted
+	public static RayTraceResult raytraceFromEntity(World worldIn, Entity playerIn, boolean useLiquids, double range) {
+		float f = playerIn.rotationPitch;
+		float f1 = playerIn.rotationYaw;
+		double d0 = playerIn.posX;
+		double d1 = playerIn.posY + (double)playerIn.getEyeHeight();
+		double d2 = playerIn.posZ;
+		Vec3d vec3d = new Vec3d(d0, d1, d2);
+		float f2 = MathHelper.cos(-f1 * 0.017453292F - (float)Math.PI);
+		float f3 = MathHelper.sin(-f1 * 0.017453292F - (float)Math.PI);
+		float f4 = -MathHelper.cos(-f * 0.017453292F);
+		float f5 = MathHelper.sin(-f * 0.017453292F);
+		float f6 = f3 * f4;
+		float f7 = f2 * f4;
+		double d3 = range; // Botania - use custom range param, don't limit to reach distance
+		/*if (playerIn instanceof net.minecraft.entity.player.EntityPlayerMP)
+		{
+			d3 = ((net.minecraft.entity.player.EntityPlayerMP)playerIn).interactionManager.getBlockReachDistance();
+		}*/
+		Vec3d vec3d1 = vec3d.addVector((double)f6 * d3, (double)f5 * d3, (double)f7 * d3);
+		return worldIn.rayTraceBlocks(vec3d, vec3d1, useLiquids, !useLiquids, false);
 	}
 
 }

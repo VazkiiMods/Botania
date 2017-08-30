@@ -2,22 +2,30 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Aug 25, 2014, 2:57:16 PM (GMT)]
  */
 package vazkii.botania.common.item.rod;
 
 import java.util.Random;
 
-import net.minecraft.block.Block;
+import javax.annotation.Nonnull;
+
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.item.IAvatarTile;
@@ -25,6 +33,7 @@ import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.api.item.IManaProficiencyArmor;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
+import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.item.ItemMod;
@@ -37,47 +46,43 @@ public class ItemDiviningRod extends ItemMod implements IManaUsingItem, IAvatarW
 	static final int COST = 3000;
 
 	public ItemDiviningRod() {
+		super(LibItemNames.DIVINING_ROD);
 		setMaxStackSize(1);
-		setUnlocalizedName(LibItemNames.DIVINING_ROD);
 	}
 
+	@Nonnull
 	@Override
-	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer p) {
+	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer p, @Nonnull EnumHand hand) {
+		ItemStack stack = p.getHeldItem(hand);
 		if(ManaItemHandler.requestManaExactForTool(stack, p, COST, true)) {
 			if(world.isRemote) {
-				int x = MathHelper.floor_double(p.posX);
-				int y = MathHelper.floor_double(p.posY);
-				int z = MathHelper.floor_double(p.posZ);
-				int range = IManaProficiencyArmor.Helper.hasProficiency(p) ? 20 : 15;
+				int range = IManaProficiencyArmor.Helper.hasProficiency(p, stack) ? 20 : 15;
 				long seedxor = world.rand.nextLong();
-				doHighlight(world, x, y, z, range, seedxor);
-				p.swingItem();
-			} else world.playSoundAtEntity(p, "botania:divinationRod", 1F, 1F);
+				doHighlight(world, new BlockPos(p), range, seedxor);
+				p.swingArm(hand);
+			} else world.playSound(null, p.posX, p.posY, p.posZ, BotaniaSoundEvents.divinationRod, SoundCategory.PLAYERS, 1F, 1F);
+			return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
 		}
 
-		return stack;
+		return ActionResult.newResult(EnumActionResult.PASS, stack);
 	}
 
-	public void doHighlight(World world, int x, int y, int z, int range, long seedxor) {
+	public void doHighlight(World world, BlockPos pos, int range, long seedxor) {
 		Botania.proxy.setWispFXDepthTest(false);
-		for(int i = -range; i < range + 1; i++)
-			for(int j = -range; j < range + 1; j++)
-				for(int k = -range; k < range + 1; k++) {
-					int xp = x + i;
-					int yp = y + j;
-					int zp = z + k;
-					Block block = world.getBlock(xp, yp, zp);
-					int meta = world.getBlockMetadata(xp, yp, zp);
-					ItemStack orestack = new ItemStack(block, 1, meta);
-					for(int id : OreDictionary.getOreIDs(orestack)) {
-						String s = OreDictionary.getOreName(id);
-						if(s.matches("^ore[A-Z].+")) {
-							Random rand = new Random(s.hashCode() ^ seedxor);
-							Botania.proxy.wispFX(world, xp + world.rand.nextFloat(), yp + world.rand.nextFloat(), zp + world.rand.nextFloat(), rand.nextFloat(), rand.nextFloat(), rand.nextFloat(), 0.25F, 0F, 8);
-							break;
-						}
-					}
+		for(BlockPos pos_ : BlockPos.getAllInBox(pos.add(-range, -range, -range), pos.add(range, range, range))) {
+			IBlockState state = world.getBlockState(pos_);
+			if(Item.getItemFromBlock(state.getBlock()) == Items.AIR)
+				continue;
+			ItemStack orestack = new ItemStack(state.getBlock(), 1, state.getBlock().getMetaFromState(state));
+			for(int id : OreDictionary.getOreIDs(orestack)) {
+				String s = OreDictionary.getOreName(id);
+				if(s.matches("^ore[A-Z].+")) {
+					Random rand = new Random(s.hashCode() ^ seedxor);
+					Botania.proxy.wispFX(pos_.getX() + world.rand.nextFloat(), pos_.getY() + world.rand.nextFloat(), pos_.getZ() + world.rand.nextFloat(), rand.nextFloat(), rand.nextFloat(), rand.nextFloat(), 0.25F, 0F, 8);
+					break;
 				}
+			}
+		}
 		Botania.proxy.setWispFXDepthTest(true);
 	}
 
@@ -89,9 +94,9 @@ public class ItemDiviningRod extends ItemMod implements IManaUsingItem, IAvatarW
 	@Override
 	public void onAvatarUpdate(IAvatarTile tile, ItemStack stack) {
 		TileEntity te = (TileEntity) tile;
-		World world = te.getWorldObj();
+		World world = te.getWorld();
 		if(tile.getCurrentMana() >= COST && tile.getElapsedFunctionalTicks() % 200 == 0 && tile.isEnabled()) {
-			doHighlight(world, te.xCoord, te.yCoord, te.zCoord, 18, te.xCoord ^ te.yCoord ^ te.zCoord);
+			doHighlight(world, te.getPos(), 18, te.getPos().hashCode());
 			tile.recieveMana(-COST);
 		}
 	}

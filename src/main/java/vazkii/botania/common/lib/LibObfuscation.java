@@ -2,91 +2,83 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jan 17, 2014, 4:52:15 PM (GMT)]
  */
 package vazkii.botania.common.lib;
 
 public final class LibObfuscation {
 
-	// EffectRenderer
-	public static final String[] PARTICLE_TEXTURES = new String[] { "particleTextures", "field_110737_b", "b" };
+	// RenderManager
+	public static final String[] RENDERPOSX = { "renderPosX", "field_78725_b", "o" };
+	public static final String[] RENDERPOSY = { "renderPosY", "field_78726_c", "p" };
+	public static final String[] RENDERPOSZ = { "renderPosZ", "field_78723_d", "q" };
+
+	// EntityItem
+	public static final String[] AGE = { "age", "field_70292_b", "d" };
+	public static final String[] PICKUP_DELAY = { "delayBeforeCanPickup", "field_145804_b", "e" };
 
 	// EntityAINearestAttackableTarget
-	public static final String[] TARGET_CLASS = new String[] { "targetClass", "field_75307_b", "a" };
-	public static final String[] TARGET_ENTITY = new String[] { "targetEntity", "field_75309_a", "g" };
-
-	// EntityAIAttackOnCollide
-	public static final String[] CLASS_TARGET = new String[] { "classTarget", "field_75444_h", "g" };
+	public static final String[] TARGET_CLASS = { "targetClass", "field_75307_b", "a" };
+	public static final String[] TARGET_ENTITY_SELECTOR = { "targetEntitySelector", "field_82643_g", "c" };
 
 	// EntityAIAvoidEntity
-	public static final String[] TARGET_ENTITY_CLASS = new String[] { "targetEntityClass", "field_75381_h", "i" };
+	public static final String[] TARGET_ENTITY_CLASS = { "classToAvoid", "field_181064_i", "i" };
 
 	// EntityCreeper
-	public static final String[] TIME_SINCE_IGNITED = new String[] {  "timeSinceIgnited", "field_70833_d", "bq" };
-
-	// ThreadDownloadImageData
-	public static final String[] TEXTURE_UPLOADED = new String[] { "textureUploaded", "field_110559_g", "i" };
-	public static final String[] BUFFERED_IMAGE = new String[] { "bufferedImage", "field_110560_d", "g" };
+	public static final String[] TIME_SINCE_IGNITED = {  "timeSinceIgnited", "field_70833_d", "bw" };
 
 	// Entity
-	public static final String[] IS_IMMUNE_TO_FIRE = new String[] { "isImmuneToFire", "field_70178_ae", "ag" };
+	public static final String[] IS_IMMUNE_TO_FIRE = { "isImmuneToFire", "field_70178_ae", "Y" };
 
-	// ItemReed
-	public static final String[] REED_ITEM = new String[] { "field_150935_a", "a" };
+	// ItemBlockSpecial
+	public static final String[] REED_ITEM = { "block", "field_150935_a", "a" };
 
 	// EntityAnimal
-	public static final String[] IN_LOVE = new String[] { "inLove", "field_70881_d", "bp" };
+	public static final String[] IN_LOVE = { "inLove", "field_70881_d", "bv" };
 
-	// EntityPlayer
-	public static final String[] ITEM_IN_USE = new String[] { "itemInUse", "field_71074_e", "f" };
-	public static final String[] ITEM_IN_USE_COUNT = new String[] { "itemInUseCount", "field_71072_f", "g" };
+	// EntityLivingBase
+	public static final String[] ITEM_IN_USE_COUNT = { "activeItemStackUseCount", "field_184628_bn", "bn" };
 
-	// Potion
-	public static final String[] IS_BAD_EFFECT = new String[] { "isBadEffect", "field_76418_K", "J" };
-
-	// EntityHorse
-	public static final String[] HORSE_JUMP_STRENGTH = new String[] { "horseJumpStrength", "field_110271_bv", "bv" };
-	public static final String[] HORSE_CHEST = new String[] { "horseChest", "field_110296_bG", "bG" };
+	// AbstractHorse
+	public static final String[] HORSE_JUMP_STRENGTH = { "JUMP_STRENGTH", "field_110271_bv", "bw" };
 
 	// PlayerControllerMP
-	public static final String[] NET_CLIENT_HANDLER = new String[] { "netClientHandler", "field_78774_b", "b" };
-	public static final String[] CURRENT_GAME_TYPE = new String[] { "currentGameType", "field_78779_k", "k" };
+	public static final String[] NET_CLIENT_HANDLER = { "connection", "field_78774_b", "b" };
 
 	// MobSpawnerBaseLogic
-	public static final String[] SPAWN_RANGE = new String[] { "spawnRange", "field_98290_m", "m" };
-	public static final String[] SPAWN_COUNT = new String[] { "spawnCount", "field_98294_i", "i" };
-	public static final String[] MAX_NEARBY_ENTITIES = new String[] { "maxNearbyEntities", "field_98292_k", "k" };
-	public static final String[] MAX_SPAWN_DELAY = new String[] { "maxSpawnDelay", "field_98293_h", "h" };
-	public static final String[] MIN_SPAWN_DELAY = new String[] { "minSpawnDelay", "field_98283_g", "g" };
-	public static final String[] POTENTIAL_ENTITY_SPAWNS = new String[] { "potentialEntitySpawns", "field_98285_e", "e" };
+	public static final String[] IS_ACTIVATED = { "isActivated" ,"func_98279_f", "h" };
+	public static final String[] SPAWN_RANGE = { "spawnRange", "field_98290_m", "l" };
+	public static final String[] SPAWN_COUNT = { "spawnCount", "field_98294_i", "h" };
+	public static final String[] MAX_NEARBY_ENTITIES = { "maxNearbyEntities", "field_98292_k", "j" };
+	public static final String[] MAX_SPAWN_DELAY = { "maxSpawnDelay", "field_98293_h", "g" };
+	public static final String[] MIN_SPAWN_DELAY = { "minSpawnDelay", "field_98283_g", "f" };
+	public static final String[] POTENTIAL_ENTITY_SPAWNS = { "potentialSpawns", "field_98285_e", "b" };
+	public static final String[] SPAWN_DELAY = { "spawnDelay", "field_98286_b", "a" };
+	public static final String[] PREV_MOB_ROTATION = { "prevMobRotation", "field_98284_d", "e" };
+	public static final String[] MOB_ROTATION = { "mobRotation", "field_98287_c", "d" };
+	public static final String[] RANDOM_ENTITY = { "randomEntity", "field_98282_f", "c" };
 
 	// GuiIngame
-	public static final String[] REMAINING_HIGHLIGHT_TICKS = new String[] { "remainingHighlightTicks", "field_92017_k", "r" };
+	public static final String[] REMAINING_HIGHLIGHT_TICKS = { "remainingHighlightTicks", "field_92017_k", "q" };
 
 	// EntityThrowable
-	public static final String[] THROWER = new String[] { "thrower", "field_70192_c", "g" };
-
-	// GuiContainer
-	public static final String[] THE_SLOT = new String[] { "theSlot", "field_147006_u", "u" };
+	public static final String[] THROWER = { "thrower", "field_70192_c", "h" };
 
 	// GuiChat
-	public static final String[] INPUT_FIELD = new String[] { "inputField", "field_146415_a", "a" };
-	public static final String[] COMPLETE_FLAG = new String[] { "field_146414_r", "r" };
+	public static final String[] INPUT_FIELD = { "inputField", "field_146415_a", "a" };
+	// todo 1.9+ public static final String[] COMPLETE_FLAG = { "waitingOnAutocomplete", "field_146414_r", "r" };
 
 	// Entityliving
-	public static final String[] GET_LIVING_SOUND = new String[] { "getLivingSound", "func_70639_aQ", "t" };
+	public static final String[] GET_LIVING_SOUND = { "getAmbientSound", "func_184639_G", "G" };
 
-	// TextureAtlasSprite
-	public static final String[] ANIMATION_METADATA = new String[] { "animationMetadata", "field_110982_k", "j" };
-	
 	// RenderGlobal
-	public static final String[] STAR_GL_CALL_LIST = new String[] { "starGLCallList", "field_72772_v", "F" };
-	public static final String[] GL_SKY_LIST = new String[] { "glSkyList", "field_72771_w", "G" };
-	public static final String[] GL_SKY_LIST2 = new String[] { "glSkyList2", "field_72781_x", "H" };
-	
+	public static final String[] STAR_GL_CALL_LIST = { "starGLCallList", "field_72772_v", "p" };
+	public static final String[] STAR_VBO = { "starVBO", "field_175013_s", "t" };
+	public static final String[] GL_SKY_LIST = { "glSkyList", "field_72771_w", "q" };
+	public static final String[] SKY_VBO = { "skyVBO", "field_175012_t", "u" };
 
 }

@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jan 16, 2014, 5:55:03 PM (GMT)]
  */
 package vazkii.botania.common.lib;
@@ -20,11 +20,9 @@ public final class LibBlockNames {
 	public static final String SPREADER = "spreader";
 	public static final String POOL = "pool";
 	public static final String RUNE_ALTAR = "runeAltar";
-	public static final String UNSTABLE_BLOCK = "unstableBlock";
 	public static final String PYLON = "pylon";
 	public static final String PISTON_RELAY = "pistonRelay";
 	public static final String DISTRIBUTOR = "distributor";
-	public static final String MANA_BEACON = "manaBeacon";
 	public static final String MANA_VOID = "manaVoid";
 	public static final String MANA_DETECTOR = "manaDetector";
 	public static final String ENCHANTER = "enchanter";
@@ -68,7 +66,6 @@ public final class LibBlockNames {
 	public static final String FLOATING_SPECIAL_FLOWER = "floatingSpecialFlower";
 	public static final String MANA_FLAME = "manaFlame";
 	public static final String PRISM = "prism";
-	public static final String DIRT_PATH = "dirtPath";
 	public static final String ENCHANTED_SOIL = "enchantedSoil";
 	public static final String BIOME_STONE_A = "biomeStoneA";
 	public static final String BIOME_STONE_B = "biomeStoneB";
@@ -106,16 +103,14 @@ public final class LibBlockNames {
 	public static final String SHIMMERWOOD_PLANKS = "shimmerwoodPlanks";
 	public static final String AVATAR = "avatar";
 	public static final String ALT_GRASS = "altGrass";
+	public static final String ANIMATED_TORCH = "animatedTorch";
 
 	public static final String SUBTILE_PUREDAISY = "puredaisy";
 	public static final String SUBTILE_MANASTAR = "manastar";
 
-	public static final String SUBTILE_DAYBLOOM = "daybloom";
-	public static final String SUBTILE_DAYBLOOM_PRIME = "daybloomPrime";
 	public static final String SUBTILE_ENDOFLAME = "endoflame";
 	public static final String SUBTILE_HYDROANGEAS = "hydroangeas";
 	public static final String SUBTILE_THERMALILY = "thermalily";
-	public static final String SUBTILE_NIGHTSHADE = "nightshade";
 	public static final String SUBTILE_NIGHTSHADE_PRIME = "nightshadePrime";
 	public static final String SUBTILE_ARCANE_ROSE = "arcanerose";
 	public static final String SUBTILE_MUNCHDEW = "munchdew";
@@ -128,6 +123,7 @@ public final class LibBlockNames {
 	public static final String SUBTILE_RAFFLOWSIA = "rafflowsia";
 
 	public static final String SUBTILE_BELLETHORN = "bellethorn";
+	public static final String SUBTILE_BERGAMUTE = "bergamute";
 	public static final String SUBTILE_DREADTHORN = "dreadthorn";
 	public static final String SUBTILE_HEISEI_DREAM = "heiseiDream";
 	public static final String SUBTILE_TIGERSEYE = "tigerseye";

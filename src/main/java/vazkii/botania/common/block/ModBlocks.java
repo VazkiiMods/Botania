@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jan 14, 2014, 5:17:55 PM (GMT)]
  */
 package vazkii.botania.common.block;
@@ -16,8 +16,11 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.recipe.RecipeManaInfusion;
 import vazkii.botania.api.subtile.SubTileEntity;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.block.corporea.BlockCorporeaCrystalCube;
@@ -28,28 +31,21 @@ import vazkii.botania.common.block.corporea.BlockCorporeaRetainer;
 import vazkii.botania.common.block.decor.BlockBlaze;
 import vazkii.botania.common.block.decor.BlockBuriedPetals;
 import vazkii.botania.common.block.decor.BlockCustomBrick;
-import vazkii.botania.common.block.decor.BlockDirtPath;
 import vazkii.botania.common.block.decor.BlockElfGlass;
-import vazkii.botania.common.block.decor.BlockEndStoneBrick;
 import vazkii.botania.common.block.decor.BlockFloatingFlower;
-import vazkii.botania.common.block.decor.BlockManaBeacon;
 import vazkii.botania.common.block.decor.BlockManaFlame;
 import vazkii.botania.common.block.decor.BlockManaGlass;
 import vazkii.botania.common.block.decor.BlockModMushroom;
 import vazkii.botania.common.block.decor.BlockPetalBlock;
-import vazkii.botania.common.block.decor.BlockPrismarine;
-import vazkii.botania.common.block.decor.BlockReeds;
-import vazkii.botania.common.block.decor.BlockSeaLamp;
 import vazkii.botania.common.block.decor.BlockShimmerrock;
 import vazkii.botania.common.block.decor.BlockShimmerwoodPlanks;
 import vazkii.botania.common.block.decor.BlockShinyFlower;
 import vazkii.botania.common.block.decor.BlockStarfield;
-import vazkii.botania.common.block.decor.BlockThatch;
 import vazkii.botania.common.block.decor.BlockTinyPotato;
-import vazkii.botania.common.block.decor.BlockUnstable;
+import vazkii.botania.common.block.dispenser.BehaviourFelPumpkin;
 import vazkii.botania.common.block.dispenser.BehaviourPoolMinecart;
-import vazkii.botania.common.block.dispenser.BehaviourSeeds;
 import vazkii.botania.common.block.dispenser.BehaviourWand;
+import vazkii.botania.common.block.dispenser.SeedBehaviours;
 import vazkii.botania.common.block.mana.BlockAlchemyCatalyst;
 import vazkii.botania.common.block.mana.BlockBellows;
 import vazkii.botania.common.block.mana.BlockBrewery;
@@ -74,11 +70,11 @@ import vazkii.botania.common.block.string.BlockRedStringDispenser;
 import vazkii.botania.common.block.string.BlockRedStringFertilizer;
 import vazkii.botania.common.block.string.BlockRedStringInterceptor;
 import vazkii.botania.common.block.string.BlockRedStringRelay;
-import vazkii.botania.common.block.subtile.SubTileDecor;
 import vazkii.botania.common.block.subtile.SubTileManastar;
 import vazkii.botania.common.block.subtile.SubTilePureDaisy;
 import vazkii.botania.common.block.subtile.functional.SubTileAgricarnation;
 import vazkii.botania.common.block.subtile.functional.SubTileBellethorn;
+import vazkii.botania.common.block.subtile.functional.SubTileBergamute;
 import vazkii.botania.common.block.subtile.functional.SubTileBubbell;
 import vazkii.botania.common.block.subtile.functional.SubTileClayconia;
 import vazkii.botania.common.block.subtile.functional.SubTileDaffomill;
@@ -104,7 +100,6 @@ import vazkii.botania.common.block.subtile.functional.SubTileTigerseye;
 import vazkii.botania.common.block.subtile.functional.SubTileVinculotus;
 import vazkii.botania.common.block.subtile.generating.SubTileArcaneRose;
 import vazkii.botania.common.block.subtile.generating.SubTileDandelifeon;
-import vazkii.botania.common.block.subtile.generating.SubTileDaybloom;
 import vazkii.botania.common.block.subtile.generating.SubTileEndoflame;
 import vazkii.botania.common.block.subtile.generating.SubTileEntropinnyum;
 import vazkii.botania.common.block.subtile.generating.SubTileGourmaryllis;
@@ -112,12 +107,12 @@ import vazkii.botania.common.block.subtile.generating.SubTileHydroangeas;
 import vazkii.botania.common.block.subtile.generating.SubTileKekimurus;
 import vazkii.botania.common.block.subtile.generating.SubTileMunchdew;
 import vazkii.botania.common.block.subtile.generating.SubTileNarslimmus;
-import vazkii.botania.common.block.subtile.generating.SubTileNightshade;
 import vazkii.botania.common.block.subtile.generating.SubTileRafflowsia;
 import vazkii.botania.common.block.subtile.generating.SubTileSpectrolus;
 import vazkii.botania.common.block.subtile.generating.SubTileThermalily;
 import vazkii.botania.common.block.tile.TileAlfPortal;
 import vazkii.botania.common.block.tile.TileAltar;
+import vazkii.botania.common.block.tile.TileAnimatedTorch;
 import vazkii.botania.common.block.tile.TileAvatar;
 import vazkii.botania.common.block.tile.TileBifrost;
 import vazkii.botania.common.block.tile.TileBrewery;
@@ -135,7 +130,6 @@ import vazkii.botania.common.block.tile.TileGaiaHead;
 import vazkii.botania.common.block.tile.TileHourglass;
 import vazkii.botania.common.block.tile.TileIncensePlate;
 import vazkii.botania.common.block.tile.TileLightRelay;
-import vazkii.botania.common.block.tile.TileManaBeacon;
 import vazkii.botania.common.block.tile.TileManaFlame;
 import vazkii.botania.common.block.tile.TileOpenCrate;
 import vazkii.botania.common.block.tile.TilePlatform;
@@ -173,8 +167,6 @@ import vazkii.botania.common.block.tile.string.TileRedStringRelay;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibOreDict;
-import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.registry.GameRegistry;
 
 public final class ModBlocks {
 
@@ -186,11 +178,9 @@ public final class ModBlocks {
 	public static Block spreader;
 	public static Block pool;
 	public static Block runeAltar;
-	public static Block unstableBlock;
 	public static Block pylon;
 	public static Block pistonRelay;
 	public static Block distributor;
-	public static Block manaBeacon;
 	public static Block manaVoid;
 	public static Block manaDetector;
 	public static Block enchanter;
@@ -209,13 +199,9 @@ public final class ModBlocks {
 	public static Block bifrost;
 	public static Block solidVines;
 	public static Block buriedPetals;
-	public static Block prismarine;
-	public static Block seaLamp;
 	public static Block floatingFlower;
 	public static Block tinyPotato;
 	public static Block spawnerClaw;
-	public static Block reedBlock;
-	public static Block thatch;
 	public static Block customBrick;
 	public static Block enderEye;
 	public static Block starfield;
@@ -232,12 +218,10 @@ public final class ModBlocks {
 	public static Block floatingSpecialFlower;
 	public static Block manaFlame;
 	public static Block prism;
-	public static Block dirtPath;
 	public static Block enchantedSoil;
 	public static Block petalBlock;
 	public static Block corporeaIndex;
 	public static Block corporeaFunnel;
-	public static Block endStoneBrick;
 	public static Block mushroom;
 	public static Block pump;
 	public static Block doubleFlower1;
@@ -268,6 +252,7 @@ public final class ModBlocks {
 	public static Block shimmerwoodPlanks;
 	public static Block avatar;
 	public static Block altGrass;
+	public static Block animatedTorch;
 
 	public static void init() {
 		flower = new BlockModFlower();
@@ -278,11 +263,9 @@ public final class ModBlocks {
 		spreader = new BlockSpreader();
 		pool = new BlockPool();
 		runeAltar = new BlockRuneAltar();
-		unstableBlock = new BlockUnstable();
 		pylon = new BlockPylon();
 		pistonRelay = new BlockPistonRelay();
 		distributor = new BlockDistributor();
-		manaBeacon = new BlockManaBeacon();
 		manaVoid = new BlockManaVoid();
 		manaDetector = new BlockManaDetector();
 		enchanter = new BlockEnchanter();
@@ -301,13 +284,9 @@ public final class ModBlocks {
 		bifrost = new BlockBifrost();
 		solidVines = new BlockSolidVines();
 		buriedPetals = new BlockBuriedPetals();
-		prismarine = new BlockPrismarine();
-		seaLamp = new BlockSeaLamp();
 		floatingFlower = new BlockFloatingFlower();
 		tinyPotato = new BlockTinyPotato();
 		spawnerClaw = new BlockSpawnerClaw();
-		reedBlock = new BlockReeds();
-		thatch = new BlockThatch();
 		customBrick = new BlockCustomBrick();
 		enderEye = new BlockEnderEye();
 		starfield = new BlockStarfield();
@@ -324,16 +303,14 @@ public final class ModBlocks {
 		floatingSpecialFlower = new BlockFloatingSpecialFlower();
 		manaFlame = new BlockManaFlame();
 		prism = new BlockPrism();
-		dirtPath = new BlockDirtPath();
 		enchantedSoil = new BlockEnchantedSoil();
 		petalBlock = new BlockPetalBlock();
 		corporeaIndex = new BlockCorporeaIndex();
 		corporeaFunnel = new BlockCorporeaFunnel();
-		endStoneBrick = new BlockEndStoneBrick();
 		mushroom = new BlockModMushroom();
 		pump = new BlockPump();
-		doubleFlower1 = new BlockModDoubleFlower(false);
-		doubleFlower2 = new BlockModDoubleFlower(true);
+		doubleFlower1 = new BlockModDoubleFlower1();
+		doubleFlower2 = new BlockModDoubleFlower2();
 		fakeAir = new BlockFakeAir();
 		blazeBlock = new BlockBlaze();
 		corporeaInterceptor = new BlockCorporeaInterceptor();
@@ -360,6 +337,7 @@ public final class ModBlocks {
 		shimmerwoodPlanks = new BlockShimmerwoodPlanks();
 		avatar = new BlockAvatar();
 		altGrass = new BlockAltGrass();
+		animatedTorch = new BlockAnimatedTorch();
 
 		ModFluffBlocks.init();
 
@@ -375,39 +353,29 @@ public final class ModBlocks {
 			OreDictionary.registerOre(LibOreDict.DOUBLE_FLOWER[i + 8], new ItemStack(doubleFlower2, 1, i));
 		}
 
-		OreDictionary.registerOre(LibOreDict.PRISMARINE_BLOCK, new ItemStack(prismarine, 1, OreDictionary.WILDCARD_VALUE));
 		OreDictionary.registerOre(LibOreDict.BLAZE_BLOCK, blazeBlock);
 
-		for(int i = 0; i < 16; i++)
-			OreDictionary.registerOre(LibOreDict.STONE_18_VARIANTS[i], new ItemStack(ModFluffBlocks.stone, 1, i));
-
 		// Vanilla OreDict entries
-		OreDictionary.registerOre("dirt", Blocks.dirt);
-		OreDictionary.registerOre("grass", Blocks.grass);
-		OreDictionary.registerOre("sand", Block.getBlockFromName("sand"));
-		OreDictionary.registerOre("gravel", Block.getBlockFromName("gravel"));
-		OreDictionary.registerOre("hardenedClay", new ItemStack(Blocks.hardened_clay, 1, OreDictionary.WILDCARD_VALUE));
-		OreDictionary.registerOre("snowLayer", Blocks.snow_layer);
-		OreDictionary.registerOre("mycelium", Blocks.mycelium);
-		OreDictionary.registerOre("podzol", new ItemStack(Blocks.dirt, 1, 2));
-		OreDictionary.registerOre("netherrack", Blocks.netherrack);
-		OreDictionary.registerOre("soulSand", Blocks.soul_sand);
-		OreDictionary.registerOre("ice", Blocks.ice);
-		OreDictionary.registerOre("slabCobblestone", new ItemStack(Blocks.stone_slab, 1, 3));
-		OreDictionary.registerOre("chestWood", Blocks.chest);
-		OreDictionary.registerOre("craftingTableWood", Blocks.crafting_table);
+		OreDictionary.registerOre("hardenedClay", new ItemStack(Blocks.HARDENED_CLAY, 1, OreDictionary.WILDCARD_VALUE));
+		OreDictionary.registerOre("snowLayer", Blocks.SNOW_LAYER);
+		OreDictionary.registerOre("mycelium", Blocks.MYCELIUM);
+		OreDictionary.registerOre("podzol", new ItemStack(Blocks.DIRT, 1, 2));
+		OreDictionary.registerOre("soulSand", Blocks.SOUL_SAND);
+		OreDictionary.registerOre("ice", Blocks.ICE);
+		OreDictionary.registerOre("slabCobblestone", new ItemStack(Blocks.STONE_SLAB, 1, 3));
 
-		BotaniaAPI.registerPaintableBlock(unstableBlock);
-		BotaniaAPI.registerPaintableBlock(manaBeacon);
+		RecipeManaInfusion.alchemyState = alchemyCatalyst.getDefaultState();
+		RecipeManaInfusion.conjurationState = conjurationCatalyst.getDefaultState();
 
 		initTileEntities();
 	}
 
 	public static void addDispenserBehaviours() {
-		for(Item seed : BotaniaAPI.seeds.keySet())
-			BlockDispenser.dispenseBehaviorRegistry.putObject(seed, new BehaviourSeeds(BotaniaAPI.seeds.get(seed)));
-		BlockDispenser.dispenseBehaviorRegistry.putObject(ModItems.twigWand, new BehaviourWand());
-		BlockDispenser.dispenseBehaviorRegistry.putObject(ModItems.poolMinecart, new BehaviourPoolMinecart());
+		BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(ModItems.twigWand, new BehaviourWand());
+		BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(ModItems.poolMinecart, new BehaviourPoolMinecart());
+		BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(Item.getItemFromBlock(ModBlocks.felPumpkin), new BehaviourFelPumpkin());
+
+		SeedBehaviours.init();
 	}
 
 	private static void initTileEntities() {
@@ -418,7 +386,6 @@ public final class ModBlocks {
 		registerTile(TileRuneAltar.class, LibBlockNames.RUNE_ALTAR);
 		registerTile(TilePylon.class, LibBlockNames.PYLON);
 		registerTile(TileDistributor.class, LibBlockNames.DISTRIBUTOR);
-		registerTile(TileManaBeacon.class, LibBlockNames.MANA_BEACON);
 		registerTile(TileManaVoid.class, LibBlockNames.MANA_VOID);
 		registerTile(TileManaDetector.class, LibBlockNames.MANA_DETECTOR);
 		registerTile(TileEnchanter.class, LibBlockNames.ENCHANTER);
@@ -465,17 +432,14 @@ public final class ModBlocks {
 		registerTile(TileCorporeaRetainer.class, LibBlockNames.CORPOREA_RETAINER);
 		registerTile(TileTeruTeruBozu.class, LibBlockNames.TERU_TERU_BOZU);
 		registerTile(TileAvatar.class, LibBlockNames.AVATAR);
+		registerTile(TileAnimatedTorch.class, LibBlockNames.ANIMATED_TORCH);
 
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_PUREDAISY, SubTilePureDaisy.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_MANASTAR, SubTileManastar.class);
 
-		registerSubTileWithDecor(LibBlockNames.SUBTILE_DAYBLOOM, SubTileDaybloom.class, SubTileDecor.Daybloom.class);
-		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_DAYBLOOM_PRIME, SubTileDaybloom.Prime.class);
+		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_HYDROANGEAS, SubTileHydroangeas.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_ENDOFLAME, SubTileEndoflame.class);
-		registerSubTileWithDecor(LibBlockNames.SUBTILE_HYDROANGEAS, SubTileHydroangeas.class, SubTileDecor.Hydroangeas.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_THERMALILY, SubTileThermalily.class);
-		registerSubTileWithDecor(LibBlockNames.SUBTILE_NIGHTSHADE, SubTileNightshade.class, SubTileDecor.Nightshade.class);
-		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_NIGHTSHADE_PRIME, SubTileNightshade.Prime.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_ARCANE_ROSE, SubTileArcaneRose.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_MUNCHDEW, SubTileMunchdew.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_ENTROPINNYUM, SubTileEntropinnyum.class);
@@ -511,15 +475,7 @@ public final class ModBlocks {
 		registerSubTileWithMini(LibBlockNames.SUBTILE_MARIMORPHOSIS, SubTileMarimorphosis.class);
 		registerSubTileWithMini(LibBlockNames.SUBTILE_BUBBELL, SubTileBubbell.class);
 		registerSubTileWithMini(LibBlockNames.SUBTILE_SOLEGNOLIA, SubTileSolegnolia.class);
-	}
-
-	public static void registerMultiparts() {
-		if(Loader.isModLoaded("ForgeMultipart")) {
-			try {
-				Class clazz = Class.forName("vazkii.botania.common.integration.multipart.MultipartHandler");
-				clazz.newInstance();
-			} catch(Throwable e) {}
-		}
+		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_BERGAMUTE, SubTileBergamute.class);
 	}
 
 	private static void registerSubTileWithMini(String key, Class<? extends SubTileEntity> clazz) {
@@ -528,11 +484,6 @@ public final class ModBlocks {
 		for(Class innerClazz : clazz.getDeclaredClasses())
 			if(innerClazz.getSimpleName().equals("Mini"))
 				BotaniaAPI.registerMiniSubTile(key + "Chibi", innerClazz, key);
-	}
-
-	private static void registerSubTileWithDecor(String key, Class<? extends SubTileEntity> clazz, Class<? extends SubTileEntity> decor) {
-		BotaniaAPI.registerSubTile(key, clazz);
-		BotaniaAPI.registerMiniSubTile(key + "Decor", decor, key);
 	}
 
 	private static void registerTile(Class<? extends TileEntity> clazz, String key) {

@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jan 22, 2014, 2:02:44 PM (GMT)]
  */
 package vazkii.botania.api.recipe;
@@ -13,34 +13,36 @@ package vazkii.botania.api.recipe;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.minecraft.inventory.IInventory;
+import com.google.common.collect.ImmutableList;
+
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.oredict.OreDictionary;
 
 public class RecipePetals {
 
-	ItemStack output;
-	List<Object> inputs;
+	private final ItemStack output;
+	private final ImmutableList<Object> inputs;
 
 	public RecipePetals(ItemStack output, Object... inputs) {
 		this.output = output;
 
-		List<Object> inputsToSet = new ArrayList();
+		ImmutableList.Builder<Object> inputsToSet = ImmutableList.builder();
 		for(Object obj : inputs) {
 			if(obj instanceof String || obj instanceof ItemStack)
 				inputsToSet.add(obj);
 			else throw new IllegalArgumentException("Invalid input");
 		}
 
-		this.inputs = inputsToSet;
+		this.inputs = inputsToSet.build();
 	}
 
-	public boolean matches(IInventory inv) {
-		List<Object> inputsMissing = new ArrayList(inputs);
+	public boolean matches(IItemHandler inv) {
+		List<Object> inputsMissing = new ArrayList<>(inputs);
 
-		for(int i = 0; i < inv.getSizeInventory(); i++) {
+		for(int i = 0; i < inv.getSlots(); i++) {
 			ItemStack stack = inv.getStackInSlot(i);
-			if(stack == null)
+			if(stack.isEmpty())
 				break;
 
 			int stackIndex = -1, oredictIndex = -1;
@@ -81,12 +83,12 @@ public class RecipePetals {
 		return inputsMissing.isEmpty();
 	}
 
-	boolean simpleAreStacksEqual(ItemStack stack, ItemStack stack2) {
+	private boolean simpleAreStacksEqual(ItemStack stack, ItemStack stack2) {
 		return stack.getItem() == stack2.getItem() && stack.getItemDamage() == stack2.getItemDamage();
 	}
 
 	public List<Object> getInputs() {
-		return new ArrayList(inputs);
+		return inputs;
 	}
 
 	public ItemStack getOutput() {

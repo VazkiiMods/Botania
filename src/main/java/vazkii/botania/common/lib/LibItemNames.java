@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jan 14, 2014, 5:49:06 PM (GMT)]
  */
 package vazkii.botania.common.lib;
@@ -21,7 +21,6 @@ public final class LibItemNames {
 	public static final String LENS = "lens";
 	public static final String MANA_PETAL = "manaPetal";
 	public static final String RUNE = "rune";
-	public static final String SIGNAL_FLARE = "signalFlare";
 	public static final String MANA_TABLET = "manaTablet";
 	public static final String MANA_GUN = "manaGun";
 	public static final String MANA_COOKIE = "manaCookie";
@@ -54,7 +53,6 @@ public final class LibItemNames {
 	public static final String KNOCKBACK_BELT = "knockbackBelt";
 	public static final String ICE_PENDANT = "icePendant";
 	public static final String LAVA_PENDANT = "lavaPendant";
-	public static final String GOLDEN_LAUREL = "goldenLaurel";
 	public static final String MAGNET_RING = "magnetRing";
 	public static final String WATER_RING = "waterRing";
 	public static final String MINING_RING = "miningRing";
@@ -98,7 +96,6 @@ public final class LibItemNames {
 	public static final String SPARK_UPGRADE = "sparkUpgrade";
 	public static final String DIVINING_ROD = "diviningRod";
 	public static final String GRAVITY_ROD = "gravityRod";
-	public static final String REGEN_IVY = "regenIvy";
 	public static final String MANA_INKWELL = "manaInkwell";
 	public static final String VIAL = "vial";
 	public static final String FLASK = "flask";
@@ -108,6 +105,7 @@ public final class LibItemNames {
 	public static final String MISSILE_ROD = "missileRod";
 	public static final String HOLY_CLOAK = "holyCloak";
 	public static final String UNHOLY_CLOAK = "unholyCloak";
+	public static final String BALANCE_CLOAK = "balanceCloak";
 	public static final String CRAFTING_HALO = "craftingHalo";
 	public static final String BLACK_LOTUS = "blackLotus";
 	public static final String MONOCLE = "monocle";
@@ -161,56 +159,65 @@ public final class LibItemNames {
 	public static final String SEXTANT = "sextant";
 	public static final String SPEED_UP_BELT = "speedUpBelt";
 	public static final String BAUBLE_BOX = "baubleBox";
+	public static final String DODGE_RING = "dodgeRing";
+	public static final String INVISIBILITY_CLOAK = "invisibilityCloak";
+	public static final String CLOUD_PENDANT = "cloudPendant";
+	public static final String SUPER_CLOUD_PENDANT = "superCloudPendant";
+	public static final String THIRD_EYE = "thirdEye";
+	public static final String ASTROLABE = "astrolabe";
+	public static final String GODDESS_CHARM = "goddessCharm";
 
 	public static final String[] LENS_NAMES = new String[] {
-		"lensNormal",
-		"lensSpeed",
-		"lensPower",
-		"lensTime",
-		"lensEfficiency",
-		"lensBounce",
-		"lensGravity",
-		"lensMine",
-		"lensDamage",
-		"lensPhantom",
-		"lensMagnet",
-		"lensExplosive",
-		"lensInfluence",
-		"lensWeight",
-		"lensPaint",
-		"lensFire",
-		"lensPiston",
-		"lensLight",
-		"lensWarp",
-		"lensRedirect",
-		"lensFirework",
-		"lensFlare"
+			"lensNormal",
+			"lensSpeed",
+			"lensPower",
+			"lensTime",
+			"lensEfficiency",
+			"lensBounce",
+			"lensGravity",
+			"lensMine",
+			"lensDamage",
+			"lensPhantom",
+			"lensMagnet",
+			"lensExplosive",
+			"lensInfluence",
+			"lensWeight",
+			"lensPaint",
+			"lensFire",
+			"lensPiston",
+			"lensLight",
+			"lensWarp",
+			"lensRedirect",
+			"lensFirework",
+			"lensFlare",
+			"lensMessenger",
+			"lensTripwire"
 	};
 
 	public static final String[] MANA_RESOURCE_NAMES = new String[] {
-		"manasteel",
-		"manaPearl",
-		"manaDiamond",
-		"livingwoodTwig",
-		"terrasteel",
-		"lifeEssence",
-		"redstoneRoot",
-		"elementium",
-		"pixieDust",
-		"dragonstone",
-		"prismarineShard",
-		"placeholder",
-		"redString",
-		"dreamwoodTwig",
-		"gaiaIngot",
-		"enderAirBottle",
-		"manaString",
-		"manasteelNugget",
-		"terrasteelNugget",
-		"elementiumNugget",
-		"root",
-		"pebble",
-		"manaweaveCloth",
-		"manaPowder"
+			"manasteel",
+			"manaPearl",
+			"manaDiamond",
+			"livingwoodTwig",
+			"terrasteel",
+			"lifeEssence",
+			"redstoneRoot",
+			"elementium",
+			"pixieDust",
+			"dragonstone",
+			"prismarineShard",
+			"placeholder",
+			"redString",
+			"dreamwoodTwig",
+			"gaiaIngot",
+			"enderAirBottle",
+			"manaString",
+			"manasteelNugget",
+			"terrasteelNugget",
+			"elementiumNugget",
+			"livingRoot",
+			"pebble",
+			"manaweaveCloth",
+			"manaPowder"
 	};
 }

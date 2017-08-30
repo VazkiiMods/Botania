@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jan 28, 2015, 4:27:39 PM (GMT)]
  */
 package vazkii.botania.common.achievement;
@@ -14,6 +14,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
 import net.minecraftforge.common.AchievementPage;
+import net.minecraftforge.common.MinecraftForge;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ModItems;
@@ -21,7 +22,6 @@ import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 import vazkii.botania.common.lib.LibAchievementNames;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
-import cpw.mods.fml.common.FMLCommonHandler;
 
 public final class ModAchievements {
 
@@ -70,7 +70,6 @@ public final class ModAchievements {
 	public static Achievement manaBombIgnite;
 	public static Achievement dandelifeonPickup;
 
-	public static Achievement signalFlareStun;
 	public static Achievement l20ShardUse;
 	public static Achievement gaiaGuardianNoArmor;
 	public static Achievement rankSSPick;
@@ -91,11 +90,11 @@ public final class ModAchievements {
 	public static void init() {
 		flowerPickup = new AchievementMod(LibAchievementNames.FLOWER_PICKUP, 0, 4, new ItemStack(ModBlocks.flower, 1, 6), null);
 		lexiconUse = new AchievementMod(LibAchievementNames.LEXICON_USE, 1, 5, ModItems.lexicon, flowerPickup);
-		daybloomPickup = new AchievementMod(LibAchievementNames.DAYBLOOM_PICKUP, 3, 5, ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_DAYBLOOM), lexiconUse);
+		daybloomPickup = new AchievementMod(LibAchievementNames.DAYBLOOM_PICKUP, 3, 5, ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_ENDOFLAME), lexiconUse);
 		cacophoniumCraft = new AchievementMod(LibAchievementNames.CACOPHONIUM_CRAFT, -1, 2, ModItems.cacophonium, flowerPickup);
 		manaPoolPickup = new AchievementMod(LibAchievementNames.MANA_POOL_PICKUP, 3, 2, ModBlocks.pool, daybloomPickup);
 
-		endoflamePickup = new AchievementMod(LibAchievementNames.ENDOFLAME_PICKUP, 2, 0, ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_ENDOFLAME), manaPoolPickup);
+		endoflamePickup = new AchievementMod(LibAchievementNames.ENDOFLAME_PICKUP, 2, 0, ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_BELLETHORN), manaPoolPickup);
 		tinyPotatoPet = new AchievementMod(LibAchievementNames.TINY_POTATO_PET, 2, -2, ModBlocks.tinyPotato, manaPoolPickup);
 		sparkCraft = new AchievementMod(LibAchievementNames.SPARK_CRAFT, 4, -2, ModItems.spark, manaPoolPickup);
 		baubleWear = new AchievementMod(LibAchievementNames.BAUBLE_WEAR, 4, 0, ModItems.manaRing, manaPoolPickup);
@@ -130,9 +129,8 @@ public final class ModAchievements {
 		manaBombIgnite = new AchievementMod(LibAchievementNames.MANA_BOMB_IGNITE, 0, 11, ModBlocks.manaBomb, gaiaGuardianKill);
 		dandelifeonPickup = new AchievementMod(LibAchievementNames.DANDELIFEON_PICKUP, 0, 7, ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_DANDELIFEON), gaiaGuardianKill);
 
-		signalFlareStun = new AchievementMod(LibAchievementNames.SIGNAL_FLARE_STUN, -3, 1, ModItems.signalFlare, null).setSpecial();
 		l20ShardUse = new AchievementMod(LibAchievementNames.L20_SHARD_USE, -5, 3, ModItems.laputaShard, null).setSpecial();
-		gaiaGuardianNoArmor = new AchievementMod(LibAchievementNames.GAIA_GUARDIAN_NO_ARMOR, -5, 1, new ItemStack(Items.skull, 1, 3), null).setSpecial();
+		gaiaGuardianNoArmor = new AchievementMod(LibAchievementNames.GAIA_GUARDIAN_NO_ARMOR, -4, 1, new ItemStack(Items.SKULL, 1, 3), null).setSpecial();
 		rankSSPick = new AchievementMod(LibAchievementNames.RANK_SS_PICK, -3, 3, ModItems.terraPick, null).setSpecial();
 		superCorporeaRequest = new AchievementMod(LibAchievementNames.SUPER_CORPOREA_REQUEST, -3, -1, ModBlocks.corporeaIndex, null).setSpecial();
 		pinkinator = new AchievementMod(LibAchievementNames.PINKINATOR, -5, -1, ModItems.pinkinator, null).setSpecial();
@@ -157,7 +155,7 @@ public final class ModAchievements {
 		botaniaPage = new AchievementPage(LibMisc.MOD_NAME, AchievementMod.achievements.toArray(new Achievement[AchievementMod.achievements.size()]));
 		AchievementPage.registerAchievementPage(botaniaPage);
 
-		FMLCommonHandler.instance().bus().register(new AchievementTriggerer());
+		MinecraftForge.EVENT_BUS.register(AchievementTriggerer.class);
 	}
 
 }

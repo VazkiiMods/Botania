@@ -1,0 +1,18 @@
+{
+  "__comment": "This table is injected as its own pool into minecraft:chests/village_blacksmith",
+  "pools": [{
+    "name": "main",
+    "rolls": 1,
+    "entries": [
+      {
+        "type": "item",
+        "name": "botania:blackLotus",
+        "weight": 10
+      },
+      {
+        "type": "empty",
+        "weight": 90
+      }
+    ]
+  }]
+}

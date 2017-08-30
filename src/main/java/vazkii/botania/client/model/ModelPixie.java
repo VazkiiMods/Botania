@@ -2,10 +2,10 @@
  * This class was created by <Adubbz>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [? (GMT)]
  */
 package vazkii.botania.client.model;
@@ -13,13 +13,13 @@ package vazkii.botania.client.model;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.math.MathHelper;
 
 public class ModelPixie extends ModelBase {
 
-	ModelRenderer Body;
-	ModelRenderer LeftWing;
-	ModelRenderer RightWing;
+	final ModelRenderer Body;
+	final ModelRenderer LeftWing;
+	final ModelRenderer RightWing;
 
 	public ModelPixie() {
 		textureWidth = 64;

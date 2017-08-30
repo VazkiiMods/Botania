@@ -2,66 +2,68 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Sep 21, 2015, 4:58:20 PM (GMT)]
  */
 package vazkii.botania.common.block.tile.string;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.init.SoundEvents;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import vazkii.botania.api.state.BotaniaStateProps;
 
 public class TileRedStringInterceptor extends TileRedString {
 
-	public static List<TileRedStringInterceptor> interceptors = new ArrayList();
+	private static final Set<TileRedStringInterceptor> interceptors = new HashSet<>();
 
 	@Override
-	public void updateEntity() {
-		super.updateEntity();
-
-		if(!interceptors.contains(this))
+	public void update() {
+		super.update();
+		if(!world.isRemote)
 			interceptors.add(this);
 	}
 
 	@Override
-	public boolean acceptBlock(int x, int y, int z) {
-		return worldObj.getTileEntity(x, y, z) != null;
+	public boolean acceptBlock(BlockPos pos) {
+		return world.getTileEntity(pos) != null;
 	}
 
-	public boolean removeFromList() {
-		return !tileEntityInvalid && worldObj.getTileEntity(xCoord, yCoord, zCoord) == this;
+	private boolean saneState() {
+		return !isInvalid() && world.getTileEntity(pos) == this;
 	}
 
-	public static void onInteract(EntityPlayer player, World world, int x, int y, int z) {
-		List<TileRedStringInterceptor> remove = new ArrayList();
+	public static void onInteract(EntityPlayer player, World world, BlockPos pos, EnumHand hand) {
+		if(world.isRemote)
+			return;
+
+		List<TileRedStringInterceptor> remove = new ArrayList<>();
 		boolean did = false;
 
-		// CMEs are amazing
-		List<TileRedStringInterceptor> interceptorsCopy = new ArrayList(interceptors);
-		
-		for(TileRedStringInterceptor inter : interceptorsCopy) {
-			if(!inter.removeFromList()) {
+
+		for(TileRedStringInterceptor inter : interceptors) {
+			if(!inter.saneState()) {
 				remove.add(inter);
 				continue;
 			}
 
-			if(inter.worldObj == world) {
-				ChunkCoordinates coords = inter.getBinding();
-				if(coords != null && coords.posX == x && coords.posY == y && coords.posZ == z) {
-					if(!world.isRemote) {
-						Block block = inter.getBlockType();
-						int meta = inter.getBlockMetadata();
-						world.setBlockMetadataWithNotify(inter.xCoord, inter.yCoord, inter.zCoord, meta | 8, 1 | 2);
-						world.scheduleBlockUpdate(inter.xCoord, inter.yCoord, inter.zCoord, block, block.tickRate(world));
-					}
-
+			if(inter.world == world) {
+				BlockPos coords = inter.getBinding();
+				if(coords != null && coords.equals(pos)) {
+					Block block = inter.getBlockType();
+					world.setBlockState(inter.getPos(), world.getBlockState(inter.getPos()).withProperty(BotaniaStateProps.POWERED, true), 1 | 2);
+					world.scheduleUpdate(inter.getPos(), block, block.tickRate(world));
 					did = true;
 				}
 			}
@@ -69,9 +71,8 @@ public class TileRedStringInterceptor extends TileRedString {
 
 		interceptors.removeAll(remove);
 		if(did) {
-			if(world.isRemote)
-				player.swingItem();
-			else world.playSoundEffect(x + 0.5, y + 0.5, z + 0.5, "random.click", 0.3F, 0.6F);
+			player.swingArm(hand);
+			world.playSound(null, pos, SoundEvents.BLOCK_DISPENSER_DISPENSE, SoundCategory.BLOCKS, 0.3F, 0.6F);
 		}
 	}
 

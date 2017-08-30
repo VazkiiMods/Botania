@@ -2,190 +2,192 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jan 17, 2015, 7:16:48 PM (GMT)]
  */
 package vazkii.botania.common.block.mana;
 
 import java.util.Random;
 
+import javax.annotation.Nonnull;
+
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.entity.item.EntityItem;
+import net.minecraft.block.state.BlockStateContainer;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.IIcon;
+import net.minecraft.util.BlockRenderLayer;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.items.ItemHandlerHelper;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.mana.ILens;
+import vazkii.botania.api.mana.IManaCollisionGhost;
 import vazkii.botania.api.mana.IManaTrigger;
-import vazkii.botania.client.core.helper.IconHelper;
-import vazkii.botania.common.block.BlockModContainer;
+import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.block.tile.mana.TilePrism;
+import vazkii.botania.common.core.helper.InventoryHelper;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
-public class BlockPrism extends BlockModContainer implements IManaTrigger, ILexiconable {
+public class BlockPrism extends BlockMod implements IManaTrigger, ILexiconable, IManaCollisionGhost {
 
-	Random random;
-	IIcon[] icons;
+	private static final AxisAlignedBB AABB = new AxisAlignedBB(0.25, 0, 0.25, 0.75, 1, 0.75);
+
+	private final Random random = new Random();
 
 	public BlockPrism() {
-		super(Material.glass);
+		super(Material.GLASS, LibBlockNames.PRISM);
 		setHardness(0.3F);
-		setStepSound(soundTypeGlass);
+		setSoundType(SoundType.GLASS);
 		setLightLevel(1.0F);
-		setBlockName(LibBlockNames.PRISM);
-		float f = 0.25F;
-		setBlockBounds(f, 0F, f, 1F - f, 1F, 1F - f);
+	}
 
-		random = new Random();
+	@Nonnull
+	@Override
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
+		return AABB;
+	}
+
+	@Nonnull
+	@Override
+	public BlockStateContainer createBlockState() {
+		return new BlockStateContainer(this, BotaniaStateProps.POWERED, BotaniaStateProps.HAS_LENS);
 	}
 
 	@Override
-	public void registerBlockIcons(IIconRegister par1IconRegister) {
-		icons = new IIcon[2];
-		for(int i = 0; i < icons.length; i++)
-			icons[i] = IconHelper.forBlock(par1IconRegister, this, i);
+	protected IBlockState pickDefaultState() {
+		return blockState.getBaseState()
+				.withProperty(BotaniaStateProps.POWERED, false)
+				.withProperty(BotaniaStateProps.HAS_LENS, false);
 	}
 
 	@Override
-	public IIcon getIcon(int side, int meta) {
-		return side > 1 ? icons[1] : icons[0];
+	public int getMetaFromState(IBlockState state) {
+		return (state.getValue(BotaniaStateProps.POWERED) ? 8 : 0)
+				+ (state.getValue(BotaniaStateProps.HAS_LENS) ? 1 : 0);
+	}
+
+	@Nonnull
+	@Override
+	public IBlockState getStateFromMeta(int meta) {
+		return getDefaultState().withProperty(BotaniaStateProps.POWERED, (meta & 8) > 0)
+				.withProperty(BotaniaStateProps.HAS_LENS, (meta & 1) > 0);
+	}
+
+	@Nonnull
+	@Override
+	@SideOnly(Side.CLIENT)
+	public BlockRenderLayer getBlockLayer() {
+		return BlockRenderLayer.TRANSLUCENT;
 	}
 
 	@Override
-	public int getRenderBlockPass() {
-		return 1;
+	public AxisAlignedBB getCollisionBoundingBox(IBlockState state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos) {
+		return NULL_AABB;
 	}
 
 	@Override
-	public AxisAlignedBB getCollisionBoundingBoxFromPool(World p_149668_1_, int p_149668_2_, int p_149668_3_, int p_149668_4_) {
-		return null;
-	}
-
-	@Override
-	public boolean isOpaqueCube() {
+	public boolean isOpaqueCube(IBlockState state) {
 		return false;
 	}
 
 	@Override
-	public boolean renderAsNormalBlock() {
+	public boolean isFullCube(IBlockState state) {
 		return false;
 	}
 
 	@Override
-	public boolean onBlockActivated(World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer, int par6, float par7, float par8, float par9) {
-		TileEntity tile = par1World.getTileEntity(par2, par3, par4);
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float par7, float par8, float par9) {
+		TileEntity tile = world.getTileEntity(pos);
 		if(!(tile instanceof TilePrism))
 			return false;
 
 		TilePrism prism = (TilePrism) tile;
-		ItemStack lens = prism.getStackInSlot(0);
-		ItemStack heldItem = par5EntityPlayer.getCurrentEquippedItem();
-		boolean isHeldItemLens = heldItem != null && heldItem.getItem() instanceof ILens;
-		int meta = par1World.getBlockMetadata(par2, par3, par4);
+		ItemStack lens = prism.getItemHandler().getStackInSlot(0);
+		ItemStack heldItem = player.getHeldItem(hand);
+		boolean isHeldItemLens = !heldItem.isEmpty() && heldItem.getItem() instanceof ILens;
 
-		if(lens == null && isHeldItemLens) {
-			if(!par5EntityPlayer.capabilities.isCreativeMode)
-				par5EntityPlayer.inventory.setInventorySlotContents(par5EntityPlayer.inventory.currentItem, null);
+		if(lens.isEmpty() && isHeldItemLens) {
+			if(!player.capabilities.isCreativeMode)
+				player.setHeldItem(hand, ItemStack.EMPTY);
 
-			prism.setInventorySlotContents(0, heldItem.copy());
+			prism.getItemHandler().setStackInSlot(0, heldItem.copy());
 			prism.markDirty();
-			par1World.setBlockMetadataWithNotify(par2, par3, par4, meta | 1, 1 | 2);
-		} else if(lens != null) {
-			ItemStack add = lens.copy();
-			if(!par5EntityPlayer.inventory.addItemStackToInventory(add))
-				par5EntityPlayer.dropPlayerItemWithRandomChoice(add, false);
-			prism.setInventorySlotContents(0, null);
+			world.setBlockState(pos, state.withProperty(BotaniaStateProps.HAS_LENS, true), 1 | 2);
+		} else if(!lens.isEmpty()) {
+			ItemHandlerHelper.giveItemToPlayer(player, lens);
+			prism.getItemHandler().setStackInSlot(0, ItemStack.EMPTY);
 			prism.markDirty();
-			par1World.setBlockMetadataWithNotify(par2, par3, par4, meta & 14, 1 | 2);
+			world.setBlockState(pos, state.withProperty(BotaniaStateProps.HAS_LENS, false), 1 | 2);
 		}
 
 		return true;
 	}
 
 	@Override
-	public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
-		boolean power = world.isBlockIndirectlyGettingPowered(x, y, z) || world.isBlockIndirectlyGettingPowered(x, y + 1, z);
-		int meta = world.getBlockMetadata(x, y, z);
-		boolean powered = (meta & 8) != 0;
+	public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block, BlockPos fromPos) {
+		boolean power = world.isBlockIndirectlyGettingPowered(pos) > 0 || world.isBlockIndirectlyGettingPowered(pos.up()) > 0;
+		boolean powered = state.getValue(BotaniaStateProps.POWERED);
 
 		if(!world.isRemote) {
 			if(power && !powered)
-				world.setBlockMetadataWithNotify(x, y, z, meta | 8, 1 | 2);
+				world.setBlockState(pos, state.withProperty(BotaniaStateProps.POWERED, true), 1 | 2);
 			else if(!power && powered)
-				world.setBlockMetadataWithNotify(x, y, z, meta & -9, 1 | 2);
+				world.setBlockState(pos, state.withProperty(BotaniaStateProps.POWERED, false), 1 | 2);
 		}
 	}
 
 	@Override
-	public void breakBlock(World par1World, int par2, int par3, int par4, Block par5, int par6) {
-		TileEntity tile = par1World.getTileEntity(par2, par3, par4);
-		if(!(tile instanceof TileSimpleInventory))
-			return;
+	public void breakBlock(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
+		TileSimpleInventory inv = (TileSimpleInventory) world.getTileEntity(pos);
 
-		TileSimpleInventory inv = (TileSimpleInventory) tile;
+		InventoryHelper.dropInventory(inv, world, state, pos);
 
-		if (inv != null) {
-			for (int j1 = 0; j1 < inv.getSizeInventory(); ++j1) {
-				ItemStack itemstack = inv.getStackInSlot(j1);
-
-				if (itemstack != null) {
-					float f = random.nextFloat() * 0.8F + 0.1F;
-					float f1 = random.nextFloat() * 0.8F + 0.1F;
-					EntityItem entityitem;
-
-					for (float f2 = random.nextFloat() * 0.8F + 0.1F; itemstack.stackSize > 0; par1World.spawnEntityInWorld(entityitem)) {
-						int k1 = random.nextInt(21) + 10;
-
-						if (k1 > itemstack.stackSize)
-							k1 = itemstack.stackSize;
-
-						itemstack.stackSize -= k1;
-						entityitem = new EntityItem(par1World, par2 + f, par3 + f1, par4 + f2, new ItemStack(itemstack.getItem(), k1, itemstack.getItemDamage()));
-						float f3 = 0.05F;
-						entityitem.motionX = (float)random.nextGaussian() * f3;
-						entityitem.motionY = (float)random.nextGaussian() * f3 + 0.2F;
-						entityitem.motionZ = (float)random.nextGaussian() * f3;
-
-						if (itemstack.hasTagCompound())
-							entityitem.getEntityItem().setTagCompound((NBTTagCompound)itemstack.getTagCompound().copy());
-					}
-				}
-			}
-
-			par1World.func_147453_f(par2, par3, par4, par5);
-		}
-
-		super.breakBlock(par1World, par2, par3, par4, par5, par6);
+		super.breakBlock(world, pos, state);
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World world, int meta) {
+	public boolean hasTileEntity(IBlockState state) {
+		return true;
+	}
+
+	@Nonnull
+	@Override
+	public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
 		return new TilePrism();
 	}
 
 	@Override
-	public void onBurstCollision(IManaBurst burst, World world, int x, int y, int z) {
-		TileEntity tile = world.getTileEntity(x, y, z);
+	public void onBurstCollision(IManaBurst burst, World world, BlockPos pos) {
+		TileEntity tile = world.getTileEntity(pos);
 		if(tile != null && tile instanceof TilePrism)
 			((TilePrism) tile).onBurstCollision(burst);
 	}
 
 	@Override
-	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
+	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.prism;
 	}
 
+	@Override
+	public boolean isGhost(IBlockState state, World world, BlockPos pos) {
+		return true;
+	}
 }

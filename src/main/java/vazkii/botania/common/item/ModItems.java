@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jan 14, 2014, 5:17:47 PM (GMT)]
  */
 package vazkii.botania.common.item;
@@ -36,16 +36,20 @@ import vazkii.botania.common.item.equipment.armor.terrasteel.ItemTerrasteelChest
 import vazkii.botania.common.item.equipment.armor.terrasteel.ItemTerrasteelHelm;
 import vazkii.botania.common.item.equipment.armor.terrasteel.ItemTerrasteelLegs;
 import vazkii.botania.common.item.equipment.bauble.ItemAuraRing;
+import vazkii.botania.common.item.equipment.bauble.ItemBalanceCloak;
 import vazkii.botania.common.item.equipment.bauble.ItemBaubleCosmetic;
 import vazkii.botania.common.item.equipment.bauble.ItemBloodPendant;
+import vazkii.botania.common.item.equipment.bauble.ItemCloudPendant;
 import vazkii.botania.common.item.equipment.bauble.ItemDivaCharm;
+import vazkii.botania.common.item.equipment.bauble.ItemDodgeRing;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
-import vazkii.botania.common.item.equipment.bauble.ItemGoldenLaurel;
+import vazkii.botania.common.item.equipment.bauble.ItemGoddessCharm;
 import vazkii.botania.common.item.equipment.bauble.ItemGreaterAuraRing;
 import vazkii.botania.common.item.equipment.bauble.ItemGreaterMagnetRing;
 import vazkii.botania.common.item.equipment.bauble.ItemGreaterManaRing;
 import vazkii.botania.common.item.equipment.bauble.ItemHolyCloak;
 import vazkii.botania.common.item.equipment.bauble.ItemIcePendant;
+import vazkii.botania.common.item.equipment.bauble.ItemInvisibilityCloak;
 import vazkii.botania.common.item.equipment.bauble.ItemItemFinder;
 import vazkii.botania.common.item.equipment.bauble.ItemKnockbackBelt;
 import vazkii.botania.common.item.equipment.bauble.ItemLavaPendant;
@@ -56,9 +60,11 @@ import vazkii.botania.common.item.equipment.bauble.ItemMonocle;
 import vazkii.botania.common.item.equipment.bauble.ItemPixieRing;
 import vazkii.botania.common.item.equipment.bauble.ItemReachRing;
 import vazkii.botania.common.item.equipment.bauble.ItemSpeedUpBelt;
+import vazkii.botania.common.item.equipment.bauble.ItemSuperCloudPendant;
 import vazkii.botania.common.item.equipment.bauble.ItemSuperLavaPendant;
 import vazkii.botania.common.item.equipment.bauble.ItemSuperTravelBelt;
 import vazkii.botania.common.item.equipment.bauble.ItemSwapRing;
+import vazkii.botania.common.item.equipment.bauble.ItemThirdEye;
 import vazkii.botania.common.item.equipment.bauble.ItemTinyPlanet;
 import vazkii.botania.common.item.equipment.bauble.ItemTravelBelt;
 import vazkii.botania.common.item.equipment.bauble.ItemUnholyCloak;
@@ -128,7 +134,6 @@ public final class ModItems {
 	public static Item manaResource;
 	public static Item lens;
 	public static Item rune;
-	public static Item signalFlare;
 	public static Item manaTablet;
 	public static Item manaGun;
 	public static Item manaCookie;
@@ -163,7 +168,6 @@ public final class ModItems {
 	public static Item knockbackBelt;
 	public static Item icePendant;
 	public static Item lavaPendant;
-	public static Item goldLaurel;
 	public static Item magnetRing;
 	public static Item waterRing;
 	public static Item miningRing;
@@ -205,7 +209,6 @@ public final class ModItems {
 	public static Item sparkUpgrade;
 	public static Item diviningRod;
 	public static Item gravityRod;
-	public static Item regenIvy;
 	public static Item manaInkwell;
 	public static Item vial;
 	public static Item brewVial;
@@ -214,6 +217,7 @@ public final class ModItems {
 	public static Item missileRod;
 	public static Item holyCloak;
 	public static Item unholyCloak;
+	public static Item balanceCloak;
 	public static Item craftingHalo;
 	public static Item blackLotus;
 	public static Item monocle;
@@ -267,6 +271,13 @@ public final class ModItems {
 	public static Item sextant;
 	public static Item speedUpBelt;
 	public static Item baubleBox;
+	public static Item dodgeRing;
+	public static Item invisibilityCloak;
+	public static Item cloudPendant;
+	public static Item superCloudPendant;
+	public static Item thirdEye;
+	public static Item astrolabe;
+	public static Item goddessCharm;
 
 	public static void init() {
 		lexicon = new ItemLexicon();
@@ -277,7 +288,6 @@ public final class ModItems {
 		manaResource = new ItemManaResource();
 		lens = new ItemLens();
 		rune = new ItemRune();
-		signalFlare = new ItemSignalFlare();
 		manaTablet = new ItemManaTablet();
 		manaGun = new ItemManaGun();
 		manaCookie = new ItemManaCookie();
@@ -312,7 +322,6 @@ public final class ModItems {
 		knockbackBelt = new ItemKnockbackBelt();
 		icePendant = new ItemIcePendant();
 		lavaPendant = new ItemLavaPendant();
-		goldLaurel = new ItemGoldenLaurel();
 		magnetRing = new ItemMagnetRing();
 		waterRing = new ItemWaterRing();
 		miningRing = new ItemMiningRing();
@@ -354,7 +363,6 @@ public final class ModItems {
 		sparkUpgrade = new ItemSparkUpgrade();
 		diviningRod = new ItemDiviningRod();
 		gravityRod = new ItemGravityRod();
-		regenIvy = new ItemRegenIvy();
 		manaInkwell = new ItemManaInkwell();
 		vial = new ItemVial();
 		brewVial = new ItemBrewVial();
@@ -363,6 +371,7 @@ public final class ModItems {
 		missileRod = new ItemMissileRod();
 		holyCloak = new ItemHolyCloak();
 		unholyCloak = new ItemUnholyCloak();
+		balanceCloak = new ItemBalanceCloak();
 		craftingHalo = new ItemCraftingHalo();
 		blackLotus = new ItemBlackLotus();
 		monocle = new ItemMonocle();
@@ -416,13 +425,21 @@ public final class ModItems {
 		sextant = new ItemSextant();
 		speedUpBelt = new ItemSpeedUpBelt();
 		baubleBox = new ItemBaubleBox();
-
+		dodgeRing = new ItemDodgeRing();
+		invisibilityCloak = new ItemInvisibilityCloak();
+		cloudPendant = new ItemCloudPendant();
+		superCloudPendant = new ItemSuperCloudPendant();
+		thirdEye = new ItemThirdEye();
+		astrolabe = new ItemAstrolabe();
+		goddessCharm = new ItemGoddessCharm();
+		
 		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
 		for(int i = 0; i < 16; i++) {
 			OreDictionary.registerOre(LibOreDict.PETAL[i], new ItemStack(petal, 1, i));
 			OreDictionary.registerOre(LibOreDict.DYE[i], new ItemStack(dye, 1, i));
 			OreDictionary.registerOre(LibOreDict.RUNE[i], new ItemStack(rune, 1, i));
 		}
+		OreDictionary.registerOre(LibOreDict.DYE_WILDCARD, new ItemStack(dye, 1, OreDictionary.WILDCARD_VALUE));
 		for(int i = 0; i < 7; i++)
 			OreDictionary.registerOre(LibOreDict.QUARTZ[i], new ItemStack(quartz, 1, i));
 
@@ -458,12 +475,13 @@ public final class ModItems {
 		BotaniaAPI.blackListItemFromLoonium(lexicon);
 		BotaniaAPI.blackListItemFromLoonium(overgrowthSeed);
 		BotaniaAPI.blackListItemFromLoonium(blackLotus);
-		int min = Item.getIdFromItem(Items.record_13);
-		int max = Item.getIdFromItem(Items.record_wait);
+		int min = Item.getIdFromItem(Items.RECORD_13);
+		int max = Item.getIdFromItem(Items.RECORD_WAIT);
 		for(int i = min; i <= max; i++)
 			BotaniaAPI.blackListItemFromLoonium(Item.getItemById(i));
 
-		OreDictionary.registerOre("rodBlaze", Items.blaze_rod);
-		OreDictionary.registerOre("powderBlaze", Items.blaze_powder);
+		OreDictionary.registerOre("rodBlaze", Items.BLAZE_ROD);
+		OreDictionary.registerOre("powderBlaze", Items.BLAZE_POWDER);
+		OreDictionary.registerOre(LibOreDict.PRISMARINE_SHARD, new ItemStack(Items.PRISMARINE_SHARD));
 	}
 }

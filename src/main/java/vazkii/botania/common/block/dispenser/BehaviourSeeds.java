@@ -2,11 +2,11 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
- * File Created @ [May 16, 2014, 10:36:05 PM (GMT)]
+ *
+ * File Created @ [21/09/2016, 21:08:33 (GMT)]
  */
 package vazkii.botania.common.block.dispenser;
 
@@ -16,7 +16,10 @@ import net.minecraft.dispenser.BehaviorDefaultDispenseItem;
 import net.minecraft.dispenser.IBlockSource;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+
+import javax.annotation.Nonnull;
 
 public class BehaviourSeeds extends BehaviorDefaultDispenseItem {
 
@@ -26,17 +29,16 @@ public class BehaviourSeeds extends BehaviorDefaultDispenseItem {
 		this.block = block;
 	}
 
+	@Nonnull
 	@Override
 	public ItemStack dispenseStack(IBlockSource par1IBlockSource, ItemStack par2ItemStack) {
-		EnumFacing facing = BlockDispenser.func_149937_b(par1IBlockSource.getBlockMetadata());
-		int x = par1IBlockSource.getXInt() + facing.getFrontOffsetX();
-		int y = par1IBlockSource.getYInt() + facing.getFrontOffsetY();
-		int z = par1IBlockSource.getZInt() + facing.getFrontOffsetZ();
+		EnumFacing facing = par1IBlockSource.getBlockState().getValue(BlockDispenser.FACING);
+		BlockPos pos = par1IBlockSource.getBlockPos().offset(facing);
 		World world = par1IBlockSource.getWorld();
 
-		if(world.getBlock(x, y, z).isAir(world, x, y, z) && block.canBlockStay(world, x, y, z)) {
-			world.setBlock(x, y, z, block);
-			par2ItemStack.stackSize--;
+		if(world.isAirBlock(pos) && block.canPlaceBlockAt(world, pos)) {
+			world.setBlockState(pos, block.getDefaultState());
+			par2ItemStack.shrink(1);
 			return par2ItemStack;
 		}
 

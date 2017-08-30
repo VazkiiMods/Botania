@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Feb 16, 2014, 3:36:26 PM (GMT)]
  */
 package vazkii.botania.common.block.subtile.functional;
@@ -21,13 +21,13 @@ import net.minecraft.entity.item.EntityEnderCrystal;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.passive.EntityOcelot;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibObfuscation;
-import cpw.mods.fml.relauncher.ReflectionHelper;
 
 public class SubTileTigerseye extends SubTileFunctional {
 
@@ -37,15 +37,19 @@ public class SubTileTigerseye extends SubTileFunctional {
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
+
+		if(supertile.getWorld().isRemote)
+			return;
+
 		final int cost = 70;
 
 		boolean shouldAfffect = mana >= cost;
 
-		List<EntityLiving> entities = supertile.getWorldObj().getEntitiesWithinAABB(EntityLiving.class, AxisAlignedBB.getBoundingBox(supertile.xCoord - RANGE, supertile.yCoord - RANGE_Y, supertile.zCoord - RANGE, supertile.xCoord + RANGE + 1, supertile.yCoord + RANGE_Y + 1, supertile.zCoord + RANGE + 1));
+		List<EntityLiving> entities = supertile.getWorld().getEntitiesWithinAABB(EntityLiving.class, new AxisAlignedBB(supertile.getPos().add(-RANGE, -RANGE_Y, -RANGE), supertile.getPos().add(RANGE + 1, RANGE_Y + 1, RANGE + 1)));
 
 		for(EntityLiving entity : entities) {
-			List<EntityAITaskEntry> entries = new ArrayList(entity.tasks.taskEntries);
-			entries.addAll(new ArrayList(entity.targetTasks.taskEntries));
+			List<EntityAITaskEntry> entries = new ArrayList<>(entity.tasks.taskEntries);
+			entries.addAll(entity.targetTasks.taskEntries);
 
 			boolean avoidsOcelots = false;
 			if(shouldAfffect)
@@ -85,7 +89,7 @@ public class SubTileTigerseye extends SubTileFunctional {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-		return new RadiusDescriptor.Square(toChunkCoordinates(), RANGE);
+		return new RadiusDescriptor.Square(toBlockPos(), RANGE);
 	}
 
 	@Override

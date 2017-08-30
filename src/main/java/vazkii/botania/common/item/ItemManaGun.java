@@ -2,39 +2,48 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Mar 13, 2014, 4:30:27 PM (GMT)]
  */
 package vazkii.botania.common.item;
 
-import java.awt.Color;
+import java.util.ArrayList;
 import java.util.List;
 
-import net.minecraft.client.Minecraft;
+import javax.annotation.Nonnull;
+
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.client.renderer.block.model.ModelBakery;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.MobEffects;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.IIcon;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.RecipeSorter.Category;
 import vazkii.botania.api.mana.BurstProperties;
 import vazkii.botania.api.mana.ILens;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
-import vazkii.botania.client.core.handler.ClientTickHandler;
+import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.client.core.handler.ItemsRemainingRenderHandler;
-import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.crafting.recipe.ManaGunClipRecipe;
@@ -42,9 +51,6 @@ import vazkii.botania.common.crafting.recipe.ManaGunLensRecipe;
 import vazkii.botania.common.crafting.recipe.ManaGunRemoveLensRecipe;
 import vazkii.botania.common.entity.EntityManaBurst;
 import vazkii.botania.common.lib.LibItemNames;
-import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemManaGun extends ItemMod implements IManaUsingItem {
 
@@ -55,14 +61,11 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 	private static final int CLIP_SLOTS = 6;
 	private static final int COOLDOWN = 30;
 
-	IIcon[] icons;
-
 	public ItemManaGun() {
-		super();
+		super(LibItemNames.MANA_GUN);
 		setMaxDamage(COOLDOWN);
 		setMaxStackSize(1);
 		setNoRepair();
-		setUnlocalizedName(LibItemNames.MANA_GUN);
 
 		GameRegistry.addRecipe(new ManaGunLensRecipe());
 		GameRegistry.addRecipe(new ManaGunRemoveLensRecipe());
@@ -72,68 +75,46 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 		RecipeSorter.register("botania:manaGunClip", ManaGunClipRecipe.class, Category.SHAPELESS, "");
 	}
 
+	@Nonnull
 	@Override
-	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
+	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
+		ItemStack stack = player.getHeldItem(hand);
 		int effCd = COOLDOWN;
-		PotionEffect effect = par3EntityPlayer.getActivePotionEffect(Potion.digSpeed);
+		PotionEffect effect = player.getActivePotionEffect(MobEffects.HASTE);
 		if(effect != null)
 			effCd -= (effect.getAmplifier() + 1) * 8;
 
-		if(par3EntityPlayer.isSneaking() && hasClip(par1ItemStack)) {
-			rotatePos(par1ItemStack);
-			par2World.playSoundAtEntity(par3EntityPlayer, "random.click", 0.6F, (1.0F + (par2World.rand.nextFloat() - par2World.rand.nextFloat()) * 0.2F) * 0.7F);
-			if(par2World.isRemote)
-				par3EntityPlayer.swingItem();
-			ItemStack lens = getLens(par1ItemStack);
+		if(player.isSneaking() && hasClip(stack)) {
+			rotatePos(stack);
+			world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.BLOCK_STONE_BUTTON_CLICK_ON, SoundCategory.PLAYERS, 0.6F, (1.0F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F) * 0.7F);
+			if(world.isRemote)
+				player.swingArm(hand);
+			ItemStack lens = getLens(stack);
 			ItemsRemainingRenderHandler.set(lens, -2);
-			par1ItemStack.setItemDamage(effCd);
-		} else if(par1ItemStack.getItemDamage() == 0) {
-			EntityManaBurst burst = getBurst(par3EntityPlayer, par1ItemStack, true);
-			if(burst != null && ManaItemHandler.requestManaExact(par1ItemStack, par3EntityPlayer, burst.getMana(), true)) {
-				if(!par2World.isRemote) {
-					par2World.playSoundAtEntity(par3EntityPlayer, "botania:manaBlaster", 0.6F, 1F);
-					par3EntityPlayer.addStat(ModAchievements.manaBlasterShoot, 1);
-					if(isSugoiKawaiiDesuNe(par1ItemStack))
-						par3EntityPlayer.addStat(ModAchievements.desuGun, 1);
-					par2World.spawnEntityInWorld(burst);
+			stack.setItemDamage(effCd);
+			return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
+		} else if(stack.getItemDamage() == 0) {
+			EntityManaBurst burst = getBurst(player, stack, true);
+			if(burst != null && ManaItemHandler.requestManaExact(stack, player, burst.getMana(), true)) {
+				if(!world.isRemote) {
+					world.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.manaBlaster, SoundCategory.PLAYERS, 0.6F, 1);
+					player.addStat(ModAchievements.manaBlasterShoot, 1);
+					if(isSugoiKawaiiDesuNe(stack))
+						player.addStat(ModAchievements.desuGun, 1);
+					world.spawnEntity(burst);
 				} else {
-					par3EntityPlayer.swingItem();
-					par3EntityPlayer.motionX -= burst.motionX * 0.1;
-					par3EntityPlayer.motionY -= burst.motionY * 0.3;
-					par3EntityPlayer.motionZ -= burst.motionZ * 0.1;
+					player.swingArm(hand);
+					player.motionX -= burst.motionX * 0.1;
+					player.motionY -= burst.motionY * 0.3;
+					player.motionZ -= burst.motionZ * 0.1;
 				}
-				par1ItemStack.setItemDamage(effCd);
-			} else if(!par2World.isRemote)
-				par2World.playSoundAtEntity(par3EntityPlayer, "random.click", 0.6F, (1.0F + (par2World.rand.nextFloat() - par2World.rand.nextFloat()) * 0.2F) * 0.7F);
+				stack.setItemDamage(effCd);
+			} else if(!world.isRemote)
+				world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.BLOCK_LEVER_CLICK, SoundCategory.PLAYERS, 0.6F, (1.0F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F) * 0.7F);
+			return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
 		}
 
-		return par1ItemStack;
-	}
-
-	@Override
-	public void registerIcons(IIconRegister par1IconRegister) {
-		int states = 3;
-		icons = new IIcon[states * 2];
-
-		for(int i = 0; i < states; i++) {
-			icons[i] = IconHelper.forItem(par1IconRegister, this, i);
-			icons[states + i] = IconHelper.forName(par1IconRegister, "desuGun" + i);
-		}
-	}
-
-	@Override
-	public boolean requiresMultipleRenderPasses() {
-		return true;
-	}
-
-	@Override
-	public IIcon getIcon(ItemStack stack, int pass) {
-		boolean desu = isSugoiKawaiiDesuNe(stack);
-		int index = pass;
-		if(index == 0 && hasClip(stack))
-			index = 2;
-
-		return icons[Math.min(2, index) + (desu ? 3 : 0)];
+		return ActionResult.newResult(EnumActionResult.PASS, stack);
 	}
 
 	// ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN
@@ -155,33 +136,14 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
-	public int getColorFromItemStack(ItemStack par1ItemStack, int par2) {
-		if(par2 == 0)
-			return 0xFFFFFF;
-
-		EntityManaBurst burst = getBurst(Minecraft.getMinecraft().thePlayer, par1ItemStack, false);
-		Color color = new Color(burst == null ? 0x20FF20 : burst.getColor());
-
-		float mul = (float) (Math.sin((double) ClientTickHandler.ticksInGame / 5) * 0.15F);
-		int c = (int) (255 * mul);
-
-		return new Color(Math.max(0, Math.min(255, color.getRed() + c)), Math.max(0, Math.min(255, color.getGreen() + c)), Math.max(0, Math.min(255, color.getBlue() + c))).getRGB();
-	}
-
-	@Override
 	public boolean hasContainerItem(ItemStack stack) {
-		return getLens(stack) != null;
+		return !getLens(stack).isEmpty();
 	}
 
+	@Nonnull
 	@Override
-	public ItemStack getContainerItem(ItemStack itemStack) {
+	public ItemStack getContainerItem(@Nonnull ItemStack itemStack) {
 		return getLens(itemStack);
-	}
-
-	@Override
-	public boolean doesContainerItemLeaveCraftingGrid(ItemStack p_77630_1_) {
-		return false;
 	}
 
 	public EntityManaBurst getBurst(EntityPlayer player, ItemStack stack, boolean request) {
@@ -196,7 +158,7 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 		BurstProperties props = new BurstProperties(maxMana, ticksBeforeManaLoss, manaLossPerTick, gravity, motionModifier, color);
 
 		ItemStack lens = getLens(stack);
-		if(lens != null)
+		if(!lens.isEmpty())
 			((ILens) lens.getItem()).apply(lens, props);
 
 
@@ -215,32 +177,33 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 		return null;
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
-	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
+	public void addInformation(ItemStack par1ItemStack, EntityPlayer player, List<String> stacks, boolean par4) {
 		boolean clip = hasClip(par1ItemStack);
 		if(clip && !GuiScreen.isShiftKeyDown()) {
-			addStringToTooltip(StatCollector.translateToLocal("botaniamisc.shiftinfo"), par3List);
+			addStringToTooltip(I18n.format("botaniamisc.shiftinfo"), stacks);
 			return;
 		}
 
 		ItemStack lens = getLens(par1ItemStack);
-		if(lens != null) {
-			List<String> tooltip = lens.getTooltip(par2EntityPlayer, false);
+		if(!lens.isEmpty()) {
+			List<String> tooltip = lens.getTooltip(player, false);
 			if(tooltip.size() > 1)
-				par3List.addAll(tooltip.subList(1, tooltip.size()));
+				stacks.addAll(tooltip.subList(1, tooltip.size()));
 		}
 
 		if(clip) {
 			int pos = getClipPos(par1ItemStack);
-			addStringToTooltip(StatCollector.translateToLocal("botaniamisc.hasClip"), par3List);
+			addStringToTooltip(I18n.format("botaniamisc.hasClip"), stacks);
 			for(int i = 0; i < CLIP_SLOTS; i++) {
-				String name = "";
-				EnumChatFormatting formatting = i == pos ? EnumChatFormatting.GREEN : EnumChatFormatting.GRAY;
+				String name;
+				TextFormatting formatting = i == pos ? TextFormatting.GREEN : TextFormatting.GRAY;
 				ItemStack lensAt = getLensAtPos(par1ItemStack, i);
-				if(lensAt == null)
-					name = StatCollector.translateToLocal("botaniamisc.clipEmpty");
+				if(lensAt.isEmpty())
+					name = I18n.format("botaniamisc.clipEmpty");
 				else name = lensAt.getDisplayName();
-				addStringToTooltip(formatting + " - " + name, par3List);
+				addStringToTooltip(formatting + " - " + name, stacks);
 			}
 		}
 	}
@@ -249,10 +212,11 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 		tooltip.add(s.replaceAll("&", "\u00a7"));
 	}
 
+	@Nonnull
 	@Override
-	public String getItemStackDisplayName(ItemStack par1ItemStack) {
+	public String getItemStackDisplayName(@Nonnull ItemStack par1ItemStack) {
 		ItemStack lens = getLens(par1ItemStack);
-		return super.getItemStackDisplayName(par1ItemStack) + (lens == null ? "" : " (" + EnumChatFormatting.GREEN + lens.getDisplayName() + EnumChatFormatting.RESET + ")");
+		return super.getItemStackDisplayName(par1ItemStack) + (lens.isEmpty() ? "" : " (" + TextFormatting.GREEN + lens.getDisplayName() + TextFormatting.RESET + ")");
 	}
 
 	public static boolean hasClip(ItemStack stack) {
@@ -273,7 +237,7 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 
 	public static void rotatePos(ItemStack stack) {
 		int currPos = getClipPos(stack);
-		boolean acceptEmpty = getLensAtPos(stack, currPos) != null;
+		boolean acceptEmpty = !getLensAtPos(stack, currPos).isEmpty();
 		int[] slots = new int[CLIP_SLOTS - 1];
 
 		int index = 0;
@@ -284,7 +248,7 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 
 		for(int i : slots) {
 			ItemStack lensAt = getLensAtPos(stack, i);
-			if(acceptEmpty || lensAt != null) {
+			if(acceptEmpty || !lensAt.isEmpty()) {
 				setClipPos(stack, i);
 				return;
 			}
@@ -294,16 +258,15 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 	public static ItemStack getLensAtPos(ItemStack stack, int pos) {
 		NBTTagCompound cmp = ItemNBTHelper.getCompound(stack, TAG_LENS + pos, true);
 		if(cmp != null) {
-			ItemStack lens = ItemStack.loadItemStackFromNBT(cmp);
-			return lens;
+			return new ItemStack(cmp);
 		}
-		return null;
+		return ItemStack.EMPTY;
 	}
 
 	public static void setLensAtPos(ItemStack stack, ItemStack lens, int pos) {
 		NBTTagCompound cmp = new NBTTagCompound();
 		if(lens != null)
-			lens.writeToNBT(cmp);
+			cmp = lens.writeToNBT(cmp);
 		ItemNBTHelper.setCompound(stack, TAG_LENS + pos, cmp);
 	}
 
@@ -312,8 +275,8 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 			setLensAtPos(stack, lens, getClipPos(stack));
 
 		NBTTagCompound cmp = new NBTTagCompound();
-		if(lens != null)
-			lens.writeToNBT(cmp);
+		if(!lens.isEmpty())
+			cmp = lens.writeToNBT(cmp);
 		ItemNBTHelper.setCompound(stack, TAG_LENS, cmp);
 	}
 
@@ -323,19 +286,23 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 
 		NBTTagCompound cmp = ItemNBTHelper.getCompound(stack, TAG_LENS, true);
 		if(cmp != null) {
-			ItemStack lens = ItemStack.loadItemStackFromNBT(cmp);
-			return lens;
+			return new ItemStack(cmp);
 		}
-		return null;
+		return ItemStack.EMPTY;
+	}
+
+	public static List<ItemStack> getAllLens(ItemStack stack) {
+		List<ItemStack> ret = new ArrayList<>();
+
+		for (int i = 0; i < 6; i++) {
+			ret.add(getLensAtPos(stack, i));
+		}
+
+		return ret;
 	}
 
 	@Override
-	public boolean isFull3D() {
-		return true;
-	}
-
-	@Override
-	public void onUpdate(ItemStack par1ItemStack, World par2World, Entity par3Entity, int par4, boolean par5) {
+	public void onUpdate(ItemStack par1ItemStack, World world, Entity par3Entity, int par4, boolean par5) {
 		if(par1ItemStack.isItemDamaged())
 			par1ItemStack.setItemDamage(par1ItemStack.getItemDamage() - 1);
 	}
@@ -343,5 +310,24 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 	@Override
 	public boolean usesMana(ItemStack stack) {
 		return true;
+	}
+
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void registerModels() {
+		ModelBakery.registerItemVariants(this,
+				new ModelResourceLocation("botania:desuGunClip", "inventory"),
+				new ModelResourceLocation("botania:desuGun", "inventory"),
+				new ModelResourceLocation("botania:manaGunClip", "inventory"),
+				new ModelResourceLocation("botania:manaGun", "inventory"));
+		ModelLoader.setCustomMeshDefinition(this, stack -> {
+			if (hasClip(stack) && isSugoiKawaiiDesuNe(stack))
+				return new ModelResourceLocation("botania:desuGunClip", "inventory");
+			else if (isSugoiKawaiiDesuNe(stack))
+				return new ModelResourceLocation("botania:desuGun", "inventory");
+			else if(hasClip(stack))
+				return new ModelResourceLocation("botania:manaGunClip", "inventory");
+			else return new ModelResourceLocation("botania:manaGun", "inventory");
+		});
 	}
 }

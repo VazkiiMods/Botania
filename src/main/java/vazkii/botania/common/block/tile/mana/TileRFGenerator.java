@@ -2,130 +2,123 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Aug 29, 2014, 10:01:32 PM (GMT)]
  */
 package vazkii.botania.common.block.tile.mana;
 
+import java.util.EnumMap;
+import java.util.Map;
+
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.energy.CapabilityEnergy;
+import net.minecraftforge.energy.IEnergyStorage;
+import net.minecraftforge.fml.common.Optional;
 import vazkii.botania.api.mana.IManaReceiver;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.tile.TileMod;
-import cofh.api.energy.IEnergyConnection;
-import cofh.api.energy.IEnergyReceiver;
-import cpw.mods.fml.common.Optional;
 
-@Optional.Interface(iface = "cofh.api.energy.IEnergyConnection", modid = "CoFHAPI|energy")
-public class TileRFGenerator extends TileMod implements IManaReceiver, IEnergyConnection {
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
-	private static final int CONVERSION_RATE = 10;
-	private static final int MAX_MANA = 1280 * CONVERSION_RATE;
+public class TileRFGenerator extends TileMod implements IManaReceiver {
+
+	private static final int MANA_TO_FE = 10;
+	private static final int MAX_ENERGY = 1280 * MANA_TO_FE;
 
 	private static final String TAG_MANA = "mana";
+	int energy = 0;
 
-	int mana = 0;
+	private final IEnergyStorage energyHandler = new IEnergyStorage() {
+		@Override
+		public int getEnergyStored() {
+			return energy;
+		}
 
-	// Thanks to skyboy for help with this cuz I'm a noob with RF
-	private IEnergyReceiver[] receiverCache;
-	private boolean deadCache;
+		@Override
+		public int getMaxEnergyStored() {
+			return Integer.MAX_VALUE;
+		}
+
+		// todo allow pulling?
+		@Override public boolean canExtract() { return false; }
+		@Override public int extractEnergy(int maxExtract, boolean simulate) { return 0; }
+
+		@Override public int receiveEnergy(int maxReceive, boolean simulate) { return 0; }
+		@Override public boolean canReceive() { return false; }
+	};
 
 	@Override
-	@Optional.Method(modid = "CoFHAPI|energy")
-	public void validate() {
-		super.validate();
-		deadCache = true;
-		receiverCache = null;
+	public boolean hasCapability(@Nonnull Capability<?> cap, @Nullable EnumFacing side) {
+		return cap == CapabilityEnergy.ENERGY || super.hasCapability(cap, side);
 	}
 
 	@Override
-	@Optional.Method(modid = "CoFHAPI|energy")
-	public void updateEntity() {
-		super.updateEntity();
-		if(!worldObj.isRemote) {
-			if(deadCache)
-				reCache();
+	@Nullable
+	public <T> T getCapability(@Nonnull Capability<T> cap, @Nullable EnumFacing side) {
+		if(cap == CapabilityEnergy.ENERGY) {
+			return CapabilityEnergy.ENERGY.cast(energyHandler);
+		} else return super.getCapability(cap, side);
+	}
 
-			int transfer = Math.min(mana, 160 * CONVERSION_RATE);
-			mana -= transfer;
-			mana += transmitEnergy(transfer);
+	@Override
+	public void update() {
+		if(!world.isRemote) {
+			int transfer = Math.min(energy, 160 * MANA_TO_FE);
+			energy -= transfer;
+			energy += transmitEnergy(transfer);
 		}
 	}
 
-	@Optional.Method(modid = "CoFHAPI|energy")
-	protected final int transmitEnergy(int energy) {
-		if(receiverCache != null)
-			for(int i = receiverCache.length; i-- > 0;) {
-				IEnergyReceiver tile = receiverCache[i];
-				if(tile == null)
-					continue;
+	private int transmitEnergy(int energy) {
+		for(EnumFacing e : EnumFacing.VALUES) {
+			BlockPos neighbor = getPos().offset(e);
+			if(!world.isBlockLoaded(neighbor))
+				continue;
 
-				ForgeDirection from = ForgeDirection.VALID_DIRECTIONS[i];
-				if(tile.receiveEnergy(from, energy, true) > 0)
-					energy -= tile.receiveEnergy(from, energy, false);
+			TileEntity te = world.getTileEntity(neighbor);
+			if(te == null)
+				continue;
 
-				if(energy <= 0)
+			IEnergyStorage storage = null;
+
+			if(te.hasCapability(CapabilityEnergy.ENERGY, e.getOpposite())) {
+				storage = te.getCapability(CapabilityEnergy.ENERGY, e.getOpposite());
+			} else if(te.hasCapability(CapabilityEnergy.ENERGY, null)) {
+				storage = te.getCapability(CapabilityEnergy.ENERGY, null);
+			}
+
+			if(storage != null) {
+				energy -= storage.receiveEnergy(energy, false);
+
+				if (energy <= 0)
 					return 0;
 			}
+		}
 
 		return energy;
 	}
 
-	@Optional.Method(modid = "CoFHAPI|energy")
-	private void reCache() {
-		if(deadCache) {
-			for(ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS)
-				onNeighborTileChange(xCoord + dir.offsetX, yCoord + dir.offsetY, zCoord + dir.offsetZ);
-			deadCache = false;
-		}
-	}
-
-	@Optional.Method(modid = "CoFHAPI|energy")
-	public void onNeighborTileChange(int x, int y, int z) {
-		TileEntity tile = worldObj.getTileEntity(x, y, z);
-
-		if(x < xCoord)
-			addCache(tile, 5);
-		else if(x > xCoord)
-			addCache(tile, 4);
-		else if(z < zCoord)
-			addCache(tile, 3);
-		else if(z > zCoord)
-			addCache(tile, 2);
-		else if(y < yCoord)
-			addCache(tile, 1);
-		else if(y > yCoord)
-			addCache(tile, 0);
-	}
-
-	@Optional.Method(modid = "CoFHAPI|energy")
-	private void addCache(TileEntity tile, int side) {
-		if(receiverCache != null)
-			receiverCache[side] = null;
-
-		if(tile instanceof IEnergyReceiver && ((IEnergyReceiver)tile).canConnectEnergy(ForgeDirection.VALID_DIRECTIONS[side])) {
-			if(receiverCache == null)
-				receiverCache = new IEnergyReceiver[6];
-			receiverCache[side] = (IEnergyReceiver)tile;
-		}
-	}
-
 	@Override
 	public int getCurrentMana() {
-		return mana / CONVERSION_RATE;
+		return energy / MANA_TO_FE;
 	}
 
 	@Override
 	public boolean isFull() {
-		return mana >= MAX_MANA;
+		return energy >= MAX_ENERGY;
 	}
 
 	@Override
 	public void recieveMana(int mana) {
-		this.mana = Math.min(MAX_MANA, this.mana + mana * CONVERSION_RATE);
+		this.energy = Math.min(MAX_ENERGY, this.energy + mana * MANA_TO_FE);
 	}
 
 	@Override
@@ -134,18 +127,13 @@ public class TileRFGenerator extends TileMod implements IManaReceiver, IEnergyCo
 	}
 
 	@Override
-	public void writeCustomNBT(NBTTagCompound cmp) {
-		cmp.setInteger(TAG_MANA, mana);
+	public void writePacketNBT(NBTTagCompound cmp) {
+		cmp.setInteger(TAG_MANA, energy);
 	}
 
 	@Override
-	public void readCustomNBT(NBTTagCompound cmp) {
-		mana = cmp.getInteger(TAG_MANA);
-	}
-
-	@Override
-	public boolean canConnectEnergy(ForgeDirection from) {
-		return true;
+	public void readPacketNBT(NBTTagCompound cmp) {
+		energy = cmp.getInteger(TAG_MANA);
 	}
 
 }

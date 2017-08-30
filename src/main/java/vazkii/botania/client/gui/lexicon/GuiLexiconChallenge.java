@@ -2,24 +2,22 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jun 29, 2015, 5:25:06 PM (GMT)]
  */
 package vazkii.botania.client.gui.lexicon;
 
+import java.io.IOException;
+
 import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.entity.RenderItem;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.StatCollector;
-
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
-
+import net.minecraft.util.text.TextFormatting;
 import vazkii.botania.client.challenge.Challenge;
 import vazkii.botania.client.challenge.ModChallenges;
 import vazkii.botania.client.core.handler.ClientTickHandler;
@@ -46,7 +44,7 @@ public class GuiLexiconChallenge extends GuiLexicon implements IParented {
 	}
 
 	public void setTitle() {
-		title = challenge == null ? "(null)" : StatCollector.translateToLocal(challenge.unlocalizedName);
+		title = challenge == null ? "(null)" : I18n.format(challenge.unlocalizedName);
 	}
 
 	@Override
@@ -60,19 +58,19 @@ public class GuiLexiconChallenge extends GuiLexicon implements IParented {
 	}
 
 	@Override
-	public void drawScreen(int par1, int par2, float par3) {
-		super.drawScreen(par1, par2, par3);
+	public void drawScreenAfterScale(int par1, int par2, float par3) {
+		super.drawScreenAfterScale(par1, par2, par3);
 
 		RenderHelper.enableGUIStandardItemLighting();
-		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-		RenderItem.getInstance().renderItemIntoGUI(fontRendererObj, mc.renderEngine, challenge.icon, left + 18, top + 15);
+		GlStateManager.enableRescaleNormal();
+		mc.getRenderItem().renderItemIntoGUI(challenge.icon, left + 18, top + 15);
 		RenderHelper.disableStandardItemLighting();
-		GL11.glEnable(GL11.GL_BLEND);
+		GlStateManager.enableBlend();
 
 		boolean unicode = fontRendererObj.getUnicodeFlag();
 		fontRendererObj.setUnicodeFlag(true);
-		fontRendererObj.drawString(EnumChatFormatting.BOLD + StatCollector.translateToLocal(challenge.unlocalizedName), left + 38, top + 13, 0);
-		fontRendererObj.drawString(StatCollector.translateToLocal(challenge.level.getName()) + " / " + (challenge.complete ? EnumChatFormatting.DARK_GREEN : EnumChatFormatting.DARK_RED) + StatCollector.translateToLocal(challenge.complete ? "botaniamisc.completed" : "botaniamisc.notCompleted"), left + 38, top + 23, 0);
+		fontRendererObj.drawString(TextFormatting.BOLD + I18n.format(challenge.unlocalizedName), left + 38, top + 13, 0);
+		fontRendererObj.drawString(I18n.format(challenge.level.getName()) + " / " + (challenge.complete ? TextFormatting.DARK_GREEN : TextFormatting.DARK_RED) + I18n.format(challenge.complete ? "botaniamisc.completed" : "botaniamisc.notCompleted"), left + 38, top + 23, 0);
 
 		int width = guiWidth - 30;
 		int x = left + 16;
@@ -83,7 +81,7 @@ public class GuiLexiconChallenge extends GuiLexicon implements IParented {
 	}
 
 	@Override
-	protected void keyTyped(char par1, int par2) {
+	protected void keyTyped(char par1, int par2) throws IOException {
 		if(par2 == 14 && !notesEnabled) // Backspace
 			back();
 		else if(par2 == 199) { // Home
@@ -95,7 +93,7 @@ public class GuiLexiconChallenge extends GuiLexicon implements IParented {
 	}
 
 	@Override
-	protected void mouseClicked(int par1, int par2, int par3) {
+	protected void mouseClicked(int par1, int par2, int par3) throws IOException {
 		super.mouseClicked(par1, par2, par3);
 
 		if(par3 == 1)
@@ -118,13 +116,13 @@ public class GuiLexiconChallenge extends GuiLexicon implements IParented {
 	}
 
 	void setCompleteButtonTitle() {
-		completeButton.displayString = StatCollector.translateToLocal(challenge.complete ? "botaniamisc.markNotCompleted" : "botaniamisc.markCompleted");
+		completeButton.displayString = I18n.format(challenge.complete ? "botaniamisc.markNotCompleted" : "botaniamisc.markCompleted");
 	}
 
 	void back() {
 		if(backButton.enabled) {
 			actionPerformed(backButton);
-			backButton.func_146113_a(mc.getSoundHandler());
+			backButton.playPressSound(mc.getSoundHandler());
 		}
 	}
 

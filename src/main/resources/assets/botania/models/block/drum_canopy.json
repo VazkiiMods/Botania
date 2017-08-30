@@ -1,0 +1,7 @@
+{
+  "parent": "botania:block/shapes/drum",
+  "textures": {
+    "top": "botania:blocks/forestdrum4",
+    "side": "botania:blocks/forestdrum5"
+  }
+}

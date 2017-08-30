@@ -2,26 +2,32 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Apr 24, 2014, 2:55:28 PM (GMT)]
  */
 package vazkii.botania.common.item.equipment.bauble;
 
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
+import baubles.api.BaubleType;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.NonNullList;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.mana.IManaTooltipDisplay;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lib.LibItemNames;
-import baubles.api.BaubleType;
 
 public class ItemManaRing extends ItemBauble implements IManaItem, IManaTooltipDisplay {
 
@@ -31,13 +37,10 @@ public class ItemManaRing extends ItemBauble implements IManaItem, IManaTooltipD
 
 	public ItemManaRing() {
 		this(LibItemNames.MANA_RING);
-		setMaxDamage(1000);
-		setNoRepair();
 	}
 
 	public ItemManaRing(String name) {
 		super(name);
-		setMaxDamage(1000);
 	}
 
 	@Override
@@ -46,19 +49,13 @@ public class ItemManaRing extends ItemBauble implements IManaItem, IManaTooltipD
 	}
 
 	@Override
-	public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
-		par3List.add(new ItemStack(par1, 1, 10000));
-	}
+	@SideOnly(Side.CLIENT)
+	public void getSubItems(@Nonnull Item item, CreativeTabs tab, NonNullList<ItemStack> stacks) {
+		stacks.add(new ItemStack(item));
 
-	@Override
-	public int getDamage(ItemStack stack) {
-		float mana = getMana(stack);
-		return 1000 - (int) (mana / getMaxMana(stack) * 1000);
-	}
-
-	@Override
-	public int getDisplayDamage(ItemStack stack) {
-		return getDamage(stack);
+		ItemStack full = new ItemStack(item);
+		setMana(full, getMaxMana(full));
+		stacks.add(full);
 	}
 
 	@Override
@@ -83,7 +80,6 @@ public class ItemManaRing extends ItemBauble implements IManaItem, IManaTooltipD
 	@Override
 	public void addMana(ItemStack stack, int mana) {
 		setMana(stack, Math.min(getMana(stack) + mana, getMaxMana(stack)));
-		stack.setItemDamage(getDamage(stack));
 	}
 
 	@Override
@@ -114,6 +110,21 @@ public class ItemManaRing extends ItemBauble implements IManaItem, IManaTooltipD
 	@Override
 	public float getManaFractionForDisplay(ItemStack stack) {
 		return (float) getMana(stack) / (float) getMaxMana(stack);
+	}
+
+	@Override
+	public boolean showDurabilityBar(ItemStack stack) {
+		return true;
+	}
+
+	@Override
+	public double getDurabilityForDisplay(ItemStack stack) {
+		return 1.0 - getManaFractionForDisplay(stack);
+	}
+
+	@Override
+	public int getRGBDurabilityForDisplay(ItemStack stack) {
+		return MathHelper.hsvToRGB(getManaFractionForDisplay(stack) / 3.0F, 1.0F, 1.0F);
 	}
 
 }

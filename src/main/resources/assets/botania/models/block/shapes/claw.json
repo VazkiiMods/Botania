@@ -1,0 +1,124 @@
+{
+  "parent": "minecraft:block/block",
+  "display": {
+    "gui": {
+      "rotation": [ 30, 225, 0 ],
+      "translation": [ 0, 3, 0],
+      "scale":[ 0.625, 0.625, 0.625 ]
+    }
+  },
+  "textures": {
+    "particle": "#all"
+  },
+  "elements": [
+    {
+      "name": "Plate",
+      "from": [ 2.0, 0.0, 2.0 ],
+      "to": [ 14.0, 1.0, 14.0 ],
+      "faces": {
+        "west": { "texture": "#all", "uv": [ 0.0, 3.0, 3.0, 3.25 ] },
+        "north": { "texture": "#all", "uv": [ 3.0, 3.0, 6.0, 3.25 ] },
+        "east": { "texture": "#all", "uv": [ 6.0, 3.0, 9.0, 3.25 ] },
+        "south": { "texture": "#all", "uv": [ 9.0, 3.0, 12.0, 3.25 ] },
+        "up": { "texture": "#all", "uv": [ 3.0, 0.0, 6.0, 3.0 ] },
+        "down": { "texture": "#all", "uv": [ 6.0, 0.0, 9.0, 3.0 ], "cullface": "down" }
+      }
+    },
+    {
+      "name": "Limb_West",
+      "from": [ -1.0, 0.0, 7.0 ],
+      "to": [ 2.0, 1.0, 9.0 ],
+      "faces": {
+        "west": { "texture": "#all", "uv": [ 0.0, 5.25, 0.5, 5.5 ] },
+        "north": { "texture": "#all", "uv": [ 0.5, 5.25, 1.25, 5.5 ] },
+        "south": { "texture": "#all", "uv": [ 1.25, 5.25, 2.0, 5.5 ] },
+        "up": { "texture": "#all", "uv": [ 0.5, 4.75, 1.25, 5.25 ] },
+        "down": { "texture": "#all", "uv": [ 1.25, 4.75, 2.0, 5.25 ] }
+      }
+    },
+    {
+      "name": "Limb_East",
+      "from": [ 14.0, 0.0, 7.0 ],
+      "to": [ 17.0, 1.0, 9.0 ],
+      "faces": {
+        "north": { "texture": "#all", "uv": [ 3.25, 5.25, 4.0, 5.5 ] },
+        "south": { "texture": "#all", "uv": [ 4.0, 5.25, 4.75, 5.5 ] },
+        "east": { "texture": "#all", "uv": [ 4.75, 5.25, 5.25, 5.5 ] },
+        "up": { "texture": "#all", "uv": [ 3.25, 4.75, 4.0, 5.25 ] },
+        "down": { "texture": "#all", "uv": [ 4.0, 4.75, 4.75, 5.25 ] }
+      }
+    },
+    {
+      "name": "Limb_North",
+      "from": [ 7.0, 0.0, -1.0 ],
+      "to": [ 9.0, 1.0, 2.0 ],
+      "faces": {
+        "west": { "texture": "#all", "uv": [ 0.0, 4.25, 0.75, 4.5 ] },
+        "north": { "texture": "#all", "uv": [ 0.75, 4.25, 1.25, 4.5 ] },
+        "east": { "texture": "#all", "uv": [ 1.25, 4.25, 1.75, 4.5 ] },
+        "up": { "texture": "#all", "uv": [ 0.75, 3.5, 1.25, 4.25 ] },
+        "down": { "texture": "#all", "uv": [ 1.25, 3.5, 1.75, 4.25 ] }
+      }
+    },
+    {
+      "name": "Limb_South",
+      "from": [ 7.0, 0.0, 14.0 ],
+      "to": [ 9.0, 1.0, 17.0 ],
+      "faces": {
+        "west": { "texture": "#all", "uv": [ 2.75, 4.25, 3.5, 4.5 ] },
+        "east": { "texture": "#all", "uv": [ 4.0, 4.25, 4.5, 4.5 ] },
+        "south": { "texture": "#all", "uv": [ 4.5, 4.25, 5.25, 4.5 ] },
+        "up": { "texture": "#all", "uv": [ 3.5, 3.5, 4.0, 4.25 ] },
+        "down": { "texture": "#all", "uv": [ 4.0, 3.5, 4.5, 4.25 ] }
+      }
+    },
+    {
+      "name": "Claw_West",
+      "from": [ -1.0, -5.0, 7.0 ],
+      "to": [ 0.0, 0.0, 9.0 ],
+      "faces": {
+        "west": { "texture": "#all", "uv": [ 11.0, 4.5, 11.5, 5.75 ] },
+        "north": { "texture": "#all", "uv": [ 11.5, 4.5, 11.75, 5.75 ] },
+        "east": { "texture": "#all", "uv": [ 11.75, 4.5, 12.0, 5.75 ] },
+        "south": { "texture": "#all", "uv": [ 12.0, 4.5, 12.5, 5.75 ] },
+        "down": { "texture": "#all", "uv": [ 11.75, 4.0, 12.0, 4.5 ] }
+      }
+    },
+    {
+      "name": "Claw_East",
+      "from": [ 16.0, -5.0, 7.0 ],
+      "to": [ 17.0, 0.0, 9.0 ],
+      "faces": {
+        "west": { "texture": "#all", "uv": [ 7.5, 4.5, 8.0, 5.75 ] },
+        "north": { "texture": "#all", "uv": [ 8.0, 4.5, 8.25, 5.75 ] },
+        "east": { "texture": "#all", "uv": [ 8.25, 4.5, 8.5, 5.75 ] },
+        "south": { "texture": "#all", "uv": [ 8.5, 4.5, 9.0, 5.75 ] },
+        "down": { "texture": "#all", "uv": [ 8.25, 4.0, 8.5, 4.5 ] }
+      }
+    },
+    {
+      "name": "Claw_North",
+      "from": [ 7.0, -5.0, -1.0 ],
+      "to": [ 9.0, 0.0, 0.0 ],
+      "faces": {
+        "west": { "texture": "#all", "uv": [ 5.75, 4.25, 6.0, 5.5 ] },
+        "north": { "texture": "#all", "uv": [ 6.0, 4.25, 6.5, 5.5 ] },
+        "south": { "texture": "#all", "uv": [ 6.5, 4.25, 7.0, 5.5 ] },
+        "east": { "texture": "#all", "uv": [ 7.0, 4.25, 7.25, 5.5 ] },
+        "down": { "texture": "#all", "uv": [ 6.5, 4.0, 7.0, 4.25 ] }
+      }
+    },
+    {
+      "name": "Claw_South",
+      "from": [ 7.0, -5.0, 16.0 ],
+      "to": [ 9.0, 0.0, 17.0 ],
+      "faces": {
+        "west": { "texture": "#all", "uv": [ 9.25, 4.25, 9.5, 5.5 ] },
+        "north": { "texture": "#all", "uv": [ 9.5, 4.25, 10.0, 5.5 ] },
+        "south": { "texture": "#all", "uv": [ 10.0, 4.25, 10.5, 5.5 ] },
+        "east": { "texture": "#all", "uv": [ 10.5, 4.25, 11.25, 5.5 ] },
+        "down": { "texture": "#all", "uv": [ 10.0, 4.0, 10.5, 4.25 ] }
+      }
+    }
+  ]
+}

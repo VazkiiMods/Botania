@@ -2,43 +2,44 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Feb 8, 2014, 2:46:36 PM (GMT)]
  */
 package vazkii.botania.common.lexicon.page;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
-
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.entity.RenderItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.StatCollector;
 
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.client.renderer.RenderItem;
+import net.minecraft.client.resources.I18n;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.internal.IGuiLexiconEntry;
 import vazkii.botania.api.lexicon.ILexicon;
 import vazkii.botania.api.lexicon.LexiconPage;
 import vazkii.botania.api.lexicon.LexiconRecipeMappings;
 import vazkii.botania.api.lexicon.LexiconRecipeMappings.EntryData;
 import vazkii.botania.client.gui.lexicon.GuiLexiconEntry;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import vazkii.botania.common.core.helper.PlayerHelper;
 
 public class PageRecipe extends LexiconPage {
 
 	int relativeMouseX, relativeMouseY;
-	ItemStack tooltipStack, tooltipContainerStack;
+	ItemStack tooltipStack = ItemStack.EMPTY, tooltipContainerStack = ItemStack.EMPTY;
 	boolean tooltipEntry;
 
 	static boolean mouseDownLastTick = false;
@@ -61,15 +62,15 @@ public class PageRecipe extends LexiconPage {
 		int y = gui.getTop() + height - 40;
 		PageText.renderText(x, y, width, height, getUnlocalizedName());
 
-		if(tooltipStack != null) {
-			List<String> tooltipData = tooltipStack.getTooltip(Minecraft.getMinecraft().thePlayer, false);
-			List<String> parsedTooltip = new ArrayList();
+		if(!tooltipStack.isEmpty()) {
+			List<String> tooltipData = tooltipStack.getTooltip(Minecraft.getMinecraft().player, false);
+			List<String> parsedTooltip = new ArrayList<>();
 			boolean first = true;
 
 			for(String s : tooltipData) {
 				String s_ = s;
 				if(!first)
-					s_ = EnumChatFormatting.GRAY + s;
+					s_ = TextFormatting.GRAY + s;
 				parsedTooltip.add(s_);
 				first = false;
 			}
@@ -79,28 +80,26 @@ public class PageRecipe extends LexiconPage {
 			int tooltipY = 8 + tooltipData.size() * 11;
 
 			if(tooltipEntry) {
-				vazkii.botania.client.core.helper.RenderHelper.renderTooltipOrange(mx, my + tooltipY, Arrays.asList(EnumChatFormatting.GRAY + StatCollector.translateToLocal("botaniamisc.clickToRecipe")));
+				vazkii.botania.client.core.helper.RenderHelper.renderTooltipOrange(mx, my + tooltipY, Collections.singletonList(TextFormatting.GRAY + I18n.format("botaniamisc.clickToRecipe")));
 				tooltipY += 18;
 			}
 
-			if(tooltipContainerStack != null)
-				vazkii.botania.client.core.helper.RenderHelper.renderTooltipGreen(mx, my + tooltipY, Arrays.asList(EnumChatFormatting.AQUA + StatCollector.translateToLocal("botaniamisc.craftingContainer"), tooltipContainerStack.getDisplayName()));
+			if(!tooltipContainerStack.isEmpty())
+				vazkii.botania.client.core.helper.RenderHelper.renderTooltipGreen(mx, my + tooltipY, Arrays.asList(TextFormatting.AQUA + I18n.format("botaniamisc.craftingContainer"), tooltipContainerStack.getDisplayName()));
 		}
 
-		tooltipStack = tooltipContainerStack = null;
+		tooltipStack = tooltipContainerStack = ItemStack.EMPTY;
 		tooltipEntry = false;
-		GL11.glDisable(GL11.GL_BLEND);
+		GlStateManager.disableBlend();
 		mouseDownLastTick = Mouse.isButtonDown(0);
 	}
 
 	@SideOnly(Side.CLIENT)
-	public void renderRecipe(IGuiLexiconEntry gui, int mx, int my) {
-		// NO-OP
-	}
+	public void renderRecipe(IGuiLexiconEntry gui, int mx, int my) {}
 
 	@SideOnly(Side.CLIENT)
 	public void renderItemAtAngle(IGuiLexiconEntry gui, float angle, ItemStack stack) {
-		if(stack == null || stack.getItem() == null)
+		if(stack.isEmpty())
 			return;
 
 		ItemStack workStack = stack.copy();
@@ -118,7 +117,7 @@ public class PageRecipe extends LexiconPage {
 
 	@SideOnly(Side.CLIENT)
 	public void renderItemAtGridPos(IGuiLexiconEntry gui, int x, int y, ItemStack stack, boolean accountForContainer) {
-		if(stack == null || stack.getItem() == null)
+		if(stack.isEmpty())
 			return;
 		stack = stack.copy();
 
@@ -136,22 +135,22 @@ public class PageRecipe extends LexiconPage {
 
 	@SideOnly(Side.CLIENT)
 	public void renderItem(IGuiLexiconEntry gui, double xPos, double yPos, ItemStack stack, boolean accountForContainer) {
-		RenderItem render = new RenderItem();
+		RenderItem render = Minecraft.getMinecraft().getRenderItem();
 		boolean mouseDown = Mouse.isButtonDown(0);
 
-		GL11.glPushMatrix();
-		GL11.glEnable(GL11.GL_BLEND);
-		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		GlStateManager.pushMatrix();
+		GlStateManager.enableBlend();
+		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		RenderHelper.enableGUIStandardItemLighting();
-		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-		GL11.glEnable(GL11.GL_DEPTH_TEST);
-		GL11.glPushMatrix();
-		GL11.glTranslated(xPos, yPos, 0);
-		render.renderItemAndEffectIntoGUI(Minecraft.getMinecraft().fontRenderer, Minecraft.getMinecraft().getTextureManager(), stack, 0, 0);
-		render.renderItemOverlayIntoGUI(Minecraft.getMinecraft().fontRenderer, Minecraft.getMinecraft().getTextureManager(), stack, 0, 0);
-		GL11.glPopMatrix();
+		GlStateManager.enableRescaleNormal();
+		GlStateManager.enableDepth();
+		GlStateManager.pushMatrix();
+		GlStateManager.translate(xPos, yPos, 0);
+		render.renderItemAndEffectIntoGUI(stack, 0, 0);
+		render.renderItemOverlays(Minecraft.getMinecraft().fontRendererObj, stack, 0, 0);
+		GlStateManager.popMatrix();
 		RenderHelper.disableStandardItemLighting();
-		GL11.glPopMatrix();
+		GlStateManager.popMatrix();
 
 		int xpi = (int) xPos;
 		int ypi = (int) yPos;
@@ -159,9 +158,9 @@ public class PageRecipe extends LexiconPage {
 			tooltipStack = stack;
 
 			EntryData data = LexiconRecipeMappings.getDataForStack(tooltipStack);
-			ItemStack book = Minecraft.getMinecraft().thePlayer.getCurrentEquippedItem();
+			ItemStack book = PlayerHelper.getFirstHeldItemClass(Minecraft.getMinecraft().player, ILexicon.class);
 
-			if(data != null && (data.entry != gui.getEntry() || data.page != gui.getPageOn()) && book != null && book.getItem() instanceof ILexicon && ((ILexicon) book.getItem()).isKnowledgeUnlocked(book, data.entry.getKnowledgeType())) {
+			if(data != null && (data.entry != gui.getEntry() || data.page != gui.getPageOn()) && book != null && ((ILexicon) book.getItem()).isKnowledgeUnlocked(book, data.entry.getKnowledgeType())) {
 				tooltipEntry = true;
 
 				if(!mouseDownLastTick && mouseDown && GuiScreen.isShiftKeyDown()) {
@@ -173,12 +172,12 @@ public class PageRecipe extends LexiconPage {
 
 			if(accountForContainer) {
 				ItemStack containerStack = stack.getItem().getContainerItem(stack);
-				if(containerStack != null && containerStack.getItem() != null)
+				if(!containerStack.isEmpty())
 					tooltipContainerStack = containerStack;
 			}
 		}
 
-		GL11.glDisable(GL11.GL_LIGHTING);
+		GlStateManager.disableLighting();
 	}
 
 }

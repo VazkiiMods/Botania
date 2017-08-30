@@ -1,0 +1,20 @@
+{
+  "variants": {
+    "color=white": { "model": "botania:plants/glimmering_flower_white" },
+    "color=orange": { "model": "botania:plants/glimmering_flower_orange" },
+    "color=magenta": { "model": "botania:plants/glimmering_flower_magenta" },
+    "color=light_blue": { "model": "botania:plants/glimmering_flower_light_blue" },
+    "color=yellow": { "model": "botania:plants/glimmering_flower_yellow" },
+    "color=lime": { "model": "botania:plants/glimmering_flower_lime" },
+    "color=pink": { "model": "botania:plants/glimmering_flower_pink" },
+    "color=gray": { "model": "botania:plants/glimmering_flower_gray" },
+    "color=silver": { "model": "botania:plants/glimmering_flower_silver" },
+    "color=cyan": { "model": "botania:plants/glimmering_flower_cyan" },
+    "color=purple": { "model": "botania:plants/glimmering_flower_purple" },
+    "color=blue": { "model": "botania:plants/glimmering_flower_blue" },
+    "color=brown": { "model": "botania:plants/glimmering_flower_brown" },
+    "color=green": { "model": "botania:plants/glimmering_flower_green" },
+    "color=red": { "model": "botania:plants/glimmering_flower_red" },
+    "color=black": { "model": "botania:plants/glimmering_flower_black" }
+  }
+}

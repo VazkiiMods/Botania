@@ -1,16 +1,17 @@
+/*
 package vazkii.botania.common.integration.buildcraft;
 
-import net.minecraft.util.IIcon;
 import buildcraft.api.statements.IStatement;
 import buildcraft.api.statements.IStatementParameter;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public abstract class StatementBase implements IStatement {
-	protected IIcon icon;
 
 	@Override
-	public IIcon getIcon() {
-		return icon;
-	}
+	@SideOnly(Side.CLIENT)
+	public abstract TextureAtlasSprite getGuiSprite();
 
 	@Override
 	public int maxParameters() {
@@ -32,3 +33,4 @@ public abstract class StatementBase implements IStatement {
 		return this;
 	}
 }
+*/

@@ -2,16 +2,15 @@
  * This class was created by <Vindex>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  */
 package vazkii.botania.api.corporea;
 
 import java.util.List;
 
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 
 /**
@@ -24,7 +23,7 @@ public interface IWrappedInventory {
 	/**
 	 * Break encapsulation and exposes original inventory.
 	 */
-	IInventory getWrappedObject();
+	InvWithLocation getWrappedObject();
 
 	/**
 	 * Counts items in the inventory matching the request

@@ -1,0 +1,23 @@
+{
+  "parent": "botania:block/shapes/petal_apothecary",
+  "textures": {
+    "gobletbaseside": "botania:model/altar/mossy/gobletbase_sides",
+    "gobletbasetop": "botania:model/altar/mossy/gobletbase_top",
+    "gobletbasebottom": "botania:model/altar/mossy/gobletbase_bottom",
+    "gobletbase2side": "botania:model/altar/mossy/gobletbase2_sides",
+    "gobletbase2top": "botania:model/altar/mossy/gobletbase2_top",
+    "gobletbase2bottom": "botania:model/altar/mossy/gobletbase2_bottom",
+    "gobletbase3side": "botania:model/altar/mossy/gobletbase3_sides",
+    "gobletbase3top": "botania:model/altar/mossy/gobletbase3_top",
+    "gobletbase3bottom": "botania:model/altar/mossy/gobletbase3_bottom",
+    "gobletstandside": "botania:model/altar/mossy/gobletstand_sides",
+    "gobletstandtopbottom": "botania:model/altar/mossy/gobletstand_top_bottom",
+    "kelkbaseside": "botania:model/altar/mossy/kelkbase_sides",
+    "kelkbasetopbottom": "botania:model/altar/mossy/kelkbase_top_bottom",
+    "kelkbase2side": "botania:model/altar/mossy/kelkbase2_sides",
+    "kelkbase2top": "botania:model/altar/mossy/kelkbase2_top",
+    "kelkbase2bottom": "botania:model/altar/mossy/kelkbase2_bottom",
+    "kelkwall": "botania:model/altar/mossy/kelkwall",
+    "particle": "minecraft:blocks/cobblestone_mossy"
+  }
+}

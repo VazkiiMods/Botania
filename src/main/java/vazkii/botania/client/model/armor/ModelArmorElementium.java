@@ -2,63 +2,60 @@
  * This class was created by <wiiv>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [? (GMT)]
  */
 package vazkii.botania.client.model.armor;
 
+import javax.annotation.Nonnull;
+
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.EnumAction;
-import net.minecraft.item.ItemStack;
+import net.minecraft.entity.item.EntityArmorStand;
+import net.minecraft.inventory.EntityEquipmentSlot;
 
-public class ModelArmorElementium extends ModelBiped {
+public class ModelArmorElementium extends ModelArmor {
+	private final ModelRenderer helm;
+	public final ModelRenderer body;
+	private final ModelRenderer armR;
+	private final ModelRenderer armL;
+	public final ModelRenderer belt;
+	private final ModelRenderer bootR;
+	private final ModelRenderer bootL;
+	private final ModelRenderer helm1;
+	private final ModelRenderer helm2;
+	private final ModelRenderer helm3;
+	private final ModelRenderer fairy;
+	private final ModelRenderer helmWing1;
+	private final ModelRenderer helmWing2;
+	private final ModelRenderer helmWing3;
+	private final ModelRenderer helmWing4;
+	private final ModelRenderer body2;
+	private final ModelRenderer armRpauldron;
+	private final ModelRenderer wing1;
+	private final ModelRenderer wing2;
+	private final ModelRenderer armLpauldron;
+	private final ModelRenderer wing1_1;
+	private final ModelRenderer wing2_1;
+	private final ModelRenderer legR;
+	private final ModelRenderer legL;
+	private final ModelRenderer bootR1;
+	private final ModelRenderer wing1_2;
+	private final ModelRenderer wing2_2;
+	private final ModelRenderer bootL1;
+	private final ModelRenderer wing1_3;
+	private final ModelRenderer wing2_3;
 
-	public ModelRenderer helm;
-	public ModelRenderer body;
-	public ModelRenderer armR;
-	public ModelRenderer armL;
-	public ModelRenderer belt;
-	public ModelRenderer bootR;
-	public ModelRenderer bootL;
-	public ModelRenderer helm1;
-	public ModelRenderer helm2;
-	public ModelRenderer helm3;
-	public ModelRenderer fairy;
-	public ModelRenderer helmWing1;
-	public ModelRenderer helmWing2;
-	public ModelRenderer helmWing3;
-	public ModelRenderer helmWing4;
-	public ModelRenderer body2;
-	public ModelRenderer armRpauldron;
-	public ModelRenderer wing1;
-	public ModelRenderer wing2;
-	public ModelRenderer armLpauldron;
-	public ModelRenderer wing1_1;
-	public ModelRenderer wing2_1;
-	public ModelRenderer legR;
-	public ModelRenderer legL;
-	public ModelRenderer bootR1;
-	public ModelRenderer wing1_2;
-	public ModelRenderer wing2_2;
-	public ModelRenderer bootL1;
-	public ModelRenderer wing1_3;
-	public ModelRenderer wing2_3;
-
-	int slot;
-
-	public ModelArmorElementium(int slot) {
-		this.slot = slot;
+	public ModelArmorElementium(EntityEquipmentSlot slot) {
+		super(slot);
 
 		textureWidth = 64;
 		textureHeight = 128;
-		float s = 0.2F;
+		float s = 0.6F;
 		fairy = new ModelRenderer(this, 34, 32);
 		fairy.setRotationPoint(0.0F, 0.0F, 0.0F);
 		fairy.addBox(-2.0F, -8.5F, -7.0F, 4, 4, 4, s);
@@ -210,22 +207,22 @@ public class ModelArmorElementium extends ModelBiped {
 	}
 
 	@Override
-	public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
-		helm.showModel = slot == 0;
-		body.showModel = slot == 1;
-		armR.showModel = slot == 1;
-		armL.showModel = slot == 1;
-		legR.showModel = slot == 2;
-		legL.showModel = slot == 2;
-		bootL.showModel = slot == 3;
-		bootR.showModel = slot == 3;
+	public void render(@Nonnull Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+		helm.showModel = slot == EntityEquipmentSlot.HEAD;
+		body.showModel = slot == EntityEquipmentSlot.CHEST;
+		armR.showModel = slot == EntityEquipmentSlot.CHEST;
+		armL.showModel = slot == EntityEquipmentSlot.CHEST;
+		legR.showModel = slot == EntityEquipmentSlot.LEGS;
+		legL.showModel = slot == EntityEquipmentSlot.LEGS;
+		bootL.showModel = slot == EntityEquipmentSlot.FEET;
+		bootR.showModel = slot == EntityEquipmentSlot.FEET;
 		bipedHeadwear.showModel = false;
 
 		bipedHead = helm;
 		bipedBody = body;
 		bipedRightArm = armR;
 		bipedLeftArm = armL;
-		if(slot == 2) {
+		if(slot == EntityEquipmentSlot.LEGS) {
 			bipedRightLeg = legR;
 			bipedLeftLeg = legL;
 		} else {
@@ -233,35 +230,6 @@ public class ModelArmorElementium extends ModelBiped {
 			bipedLeftLeg = bootL;
 		}
 
-		prepareForRender(entity);
-		super.render(entity, f, f1, f2, f3, f4, f5);
+		super.render(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
 	}
-
-	public void prepareForRender(Entity entity) {
-		EntityLivingBase living = (EntityLivingBase) entity;
-		isSneak = living != null ? living.isSneaking() : false;
-		if(living != null && living instanceof EntityPlayer) {
-			EntityPlayer player = (EntityPlayer) living;
-
-			ItemStack itemstack = player.inventory.getCurrentItem();
-			heldItemRight = itemstack != null ? 1 : 0;
-
-			aimedBow = false;
-			if (itemstack != null && player.getItemInUseCount() > 0) {
-				EnumAction enumaction = itemstack.getItemUseAction();
-
-				if (enumaction == EnumAction.block)
-					heldItemRight = 3;
-				else if (enumaction == EnumAction.bow)
-					aimedBow = true;
-			}
-		}
-	}
-
-	public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z) {
-		modelRenderer.rotateAngleX = x;
-		modelRenderer.rotateAngleY = y;
-		modelRenderer.rotateAngleZ = z;
-	}
-
 }

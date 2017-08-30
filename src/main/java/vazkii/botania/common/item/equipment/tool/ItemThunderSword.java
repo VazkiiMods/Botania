@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Aug 27, 2015, 10:38:50 PM (GMT)]
  */
 package vazkii.botania.common.item.equipment.tool;
@@ -13,17 +13,24 @@ package vazkii.botania.common.item.equipment.tool;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.function.Predicate;
 
-import net.minecraft.command.IEntitySelector;
+import javax.annotation.Nonnull;
+
+import com.google.common.collect.Multimap;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
-import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.math.AxisAlignedBB;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.achievement.ICraftAchievement;
@@ -42,43 +49,37 @@ public class ItemThunderSword extends ItemManasteelSword implements ICraftAchiev
 	}
 
 	@Override
-	public boolean hitEntity(ItemStack stack, EntityLivingBase entity, EntityLivingBase attacker) {
+	public boolean hitEntity(ItemStack stack, EntityLivingBase entity, @Nonnull EntityLivingBase attacker) {
 		if(!(entity instanceof EntityPlayer) && entity != null) {
 			double range = 8;
-			final List<EntityLivingBase> alreadyTargetedEntities = new ArrayList();
+			List<EntityLivingBase> alreadyTargetedEntities = new ArrayList<>();
 			int dmg = 5;
 			long lightningSeed = ItemNBTHelper.getLong(stack, TAG_LIGHTNING_SEED, 0);
 
-			IEntitySelector selector = new IEntitySelector() {
-
-				@Override
-				public boolean isEntityApplicable(Entity e) {
-					return e instanceof EntityLivingBase && e instanceof IMob && !(e instanceof EntityPlayer) && !alreadyTargetedEntities.contains(e);
-				}
-
-			};
+			Predicate<Entity> selector = e -> e instanceof EntityLivingBase && e instanceof IMob && !(e instanceof EntityPlayer) && !alreadyTargetedEntities.contains(e);
 
 			Random rand = new Random(lightningSeed);
 			EntityLivingBase lightningSource = entity;
-			for(int i = 0; i < 4; i++) {
-				List<EntityLivingBase> entities = entity.worldObj.getEntitiesWithinAABBExcludingEntity(lightningSource, AxisAlignedBB.getBoundingBox(lightningSource.posX - range, lightningSource.posY - range, lightningSource.posZ - range, lightningSource.posX + range, lightningSource.posY + range, lightningSource.posZ + range), selector);
+			int hops = entity.world.isThundering() ? 10 : 4;
+			for(int i = 0; i < hops; i++) {
+				List<Entity> entities = entity.world.getEntitiesInAABBexcluding(lightningSource, new AxisAlignedBB(lightningSource.posX - range, lightningSource.posY - range, lightningSource.posZ - range, lightningSource.posX + range, lightningSource.posY + range, lightningSource.posZ + range), selector::test);
 				if(entities.isEmpty())
 					break;
 
-				EntityLivingBase target = entities.get(rand.nextInt(entities.size()));
+				EntityLivingBase target = (EntityLivingBase) entities.get(rand.nextInt(entities.size()));
 				if(attacker instanceof EntityPlayer)
 					target.attackEntityFrom(DamageSource.causePlayerDamage((EntityPlayer) attacker), dmg);
 				else target.attackEntityFrom(DamageSource.causeMobDamage(attacker), dmg);
 
-				Botania.proxy.lightningFX(entity.worldObj, Vector3.fromEntityCenter(lightningSource), Vector3.fromEntityCenter(target), 1, 0x0179C4, 0xAADFFF);
+				Botania.proxy.lightningFX(Vector3.fromEntityCenter(lightningSource), Vector3.fromEntityCenter(target), 1, 0x0179C4, 0xAADFFF);
 
 				alreadyTargetedEntities.add(target);
 				lightningSource = target;
 				dmg--;
 			}
 
-			if(!entity.worldObj.isRemote)
-				ItemNBTHelper.setLong(stack, TAG_LIGHTNING_SEED, entity.worldObj.rand.nextLong());
+			if(!entity.world.isRemote)
+				ItemNBTHelper.setLong(stack, TAG_LIGHTNING_SEED, entity.world.rand.nextLong());
 		}
 
 
@@ -90,5 +91,17 @@ public class ItemThunderSword extends ItemManasteelSword implements ICraftAchiev
 		return ModAchievements.terrasteelWeaponCraft;
 	}
 
+	@Nonnull
+	@Override
+	public Multimap<String, AttributeModifier> getItemAttributeModifiers(EntityEquipmentSlot equipmentSlot) {
+		Multimap<String, AttributeModifier> multimap = super.getItemAttributeModifiers(equipmentSlot);
+
+		if (equipmentSlot == EntityEquipmentSlot.MAINHAND) {
+			multimap.removeAll(SharedMonsterAttributes.ATTACK_SPEED.getName());
+			multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", -1.5, 0));
+		}
+
+		return multimap;
+	}
 
 }

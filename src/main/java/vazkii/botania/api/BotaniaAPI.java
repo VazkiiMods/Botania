@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jan 14, 2014, 6:15:28 PM (GMT)]
  */
 package vazkii.botania.api;
@@ -18,10 +18,21 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.google.common.base.Preconditions;
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
+
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockCarpet;
+import net.minecraft.block.BlockColored;
+import net.minecraft.block.BlockStainedGlass;
+import net.minecraft.block.BlockStainedGlassPane;
+import net.minecraft.block.properties.PropertyEnum;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
+import net.minecraft.init.SoundEvents;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
@@ -29,8 +40,10 @@ import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.common.util.EnumHelper;
+import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.LoaderState;
 import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.internal.DummyMethodHandler;
@@ -53,63 +66,63 @@ import vazkii.botania.api.wiki.IWikiProvider;
 import vazkii.botania.api.wiki.SimpleWikiProvider;
 import vazkii.botania.api.wiki.WikiHooks;
 
-import com.google.common.collect.BiMap;
-import com.google.common.collect.HashBiMap;
-
-import cpw.mods.fml.common.Loader;
-
 public final class BotaniaAPI {
 
-	private static List<LexiconCategory> categories = new ArrayList<LexiconCategory>();
-	private static List<LexiconEntry> allEntries = new ArrayList<LexiconEntry>();
+	private static final List<LexiconCategory> categories = new ArrayList<>();
+	private static final List<LexiconEntry> allEntries = new ArrayList<>();
 
-	public static Map<String, KnowledgeType> knowledgeTypes = new HashMap<String, KnowledgeType>();
+	public static final Map<String, KnowledgeType> knowledgeTypes = new HashMap<>();
 
-	public static Map<String, Brew> brewMap = new LinkedHashMap<String, Brew>();
-	
-	public static List<String> disposableBlocks = new ArrayList<String>();
-	public static List<String> semiDisposableBlocks = new ArrayList<String>();
+	public static final Map<String, Brew> brewMap = new LinkedHashMap<>();
 
-	public static List<RecipePetals> petalRecipes = new ArrayList<RecipePetals>();
-	public static List<RecipePureDaisy> pureDaisyRecipes = new ArrayList<RecipePureDaisy>();
-	public static List<RecipeManaInfusion> manaInfusionRecipes = new ArrayList<RecipeManaInfusion>();
-	public static List<RecipeRuneAltar> runeAltarRecipes = new ArrayList<RecipeRuneAltar>();
-	public static List<RecipeElvenTrade> elvenTradeRecipes = new ArrayList<RecipeElvenTrade>();
-	public static List<RecipeBrew> brewRecipes = new ArrayList<RecipeBrew>();
-	public static List<RecipeManaInfusion> miniFlowerRecipes = new ArrayList<RecipeManaInfusion>();
+	public static final List<String> disposableBlocks = new ArrayList<>();
+	public static final List<String> semiDisposableBlocks = new ArrayList<>();
 
-	private static BiMap<String, Class<? extends SubTileEntity>> subTiles = HashBiMap.<String, Class<? extends SubTileEntity>> create();
-	private static Map<Class<? extends SubTileEntity>, SubTileSignature> subTileSignatures = new HashMap<Class<? extends SubTileEntity>, SubTileSignature>();
-	public static Set<String> subtilesForCreativeMenu = new LinkedHashSet();
-	public static Map<String, String> subTileMods = new HashMap<String, String>();
-	public static BiMap<String, String> miniFlowers = HashBiMap.<String, String> create();
+	public static final List<RecipePetals> petalRecipes = new ArrayList<>();
+	public static final List<RecipePureDaisy> pureDaisyRecipes = new ArrayList<>();
+	public static final List<RecipeManaInfusion> manaInfusionRecipes = new ArrayList<>();
+	public static final List<RecipeRuneAltar> runeAltarRecipes = new ArrayList<>();
+	public static final List<RecipeElvenTrade> elvenTradeRecipes = new ArrayList<>();
+	public static final List<RecipeBrew> brewRecipes = new ArrayList<>();
+	public static final List<RecipeManaInfusion> miniFlowerRecipes = new ArrayList<>();
 
-	public static Map<String, Integer> oreWeights = new HashMap<String, Integer>();
-	public static Map<String, Integer> oreWeightsNether = new HashMap<String, Integer>();
-	public static Map<Item, Block> seeds = new HashMap();
-	public static Set<Item> looniumBlacklist = new LinkedHashSet<Item>();
-	public static Set<Block> paintableBlocks = new LinkedHashSet<Block>();
-	public static Set<String> magnetBlacklist = new LinkedHashSet<String>();
-	public static Set<Class<? extends Entity>> gravityRodBlacklist = new LinkedHashSet<Class<? extends Entity>>();
+	private static final BiMap<String, Class<? extends SubTileEntity>> subTiles = HashBiMap.create();
+	private static final Map<Class<? extends SubTileEntity>, SubTileSignature> subTileSignatures = new HashMap<>();
+	public static final Set<String> subtilesForCreativeMenu = new LinkedHashSet<>();
+	public static final Map<String, String> subTileMods = new HashMap<>();
+	public static final BiMap<String, String> miniFlowers = HashBiMap.create();
 
-	public static ArmorMaterial manasteelArmorMaterial = EnumHelper.addArmorMaterial("MANASTEEL", 16, new int[] { 2, 6, 5, 2 }, 18);
-	public static ToolMaterial manasteelToolMaterial = EnumHelper.addToolMaterial("MANASTEEL", 3, 300, 6.2F, 2F, 20);
+	public static final Map<String, Integer> oreWeights = new HashMap<>();
+	public static final Map<String, Integer> oreWeightsNether = new HashMap<>();
 
-	public static ArmorMaterial elementiumArmorMaterial = EnumHelper.addArmorMaterial("B_ELEMENTIUM", 18, new int[] { 2, 6, 5, 2 }, 18);
-	public static ToolMaterial elementiumToolMaterial = EnumHelper.addToolMaterial("B_ELEMENTIUM", 3, 720, 6.2F, 2F, 20);
+	public static final Set<Item> looniumBlacklist = new LinkedHashSet<>();
+	public static final Map<Block, PropertyEnum<EnumDyeColor>> paintableBlocks = new LinkedHashMap<>();
+	public static final Set<String> magnetBlacklist = new LinkedHashSet<>();
+	public static final Set<Class<? extends Entity>> gravityRodBlacklist = new LinkedHashSet<>();
 
-	public static ArmorMaterial terrasteelArmorMaterial = EnumHelper.addArmorMaterial("TERRASTEEL", 34, new int[] {3, 8, 6, 3}, 26);
-	public static ToolMaterial terrasteelToolMaterial = EnumHelper.addToolMaterial("TERRASTEEL", 4, 2300, 9F, 3F, 26);
 
-	public static ArmorMaterial manaweaveArmorMaterial = EnumHelper.addArmorMaterial("MANAWEAVE", 5, new int[] { 1, 2, 2, 1 }, 18);
+	public static final ArmorMaterial manasteelArmorMaterial = EnumHelper.addArmorMaterial("MANASTEEL", "manasteel", 16,
+			new int[] { 2, 5, 6, 2 }, 18, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 0);
+	public static final ToolMaterial manasteelToolMaterial = EnumHelper.addToolMaterial("MANASTEEL", 3, 300, 6.2F, 2F, 20);
 
-	public static EnumRarity rarityRelic = EnumHelper.addRarity("RELIC", EnumChatFormatting.GOLD, "Relic");
+	public static final ArmorMaterial elementiumArmorMaterial = EnumHelper.addArmorMaterial("B_ELEMENTIUM", "b_elementium", 18,
+			new int[] { 2, 5, 6, 2 }, 18, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 0);
+	public static final ToolMaterial elementiumToolMaterial = EnumHelper.addToolMaterial("B_ELEMENTIUM", 3, 720, 6.2F, 2F, 20);
 
-	public static KnowledgeType basicKnowledge;
-	public static KnowledgeType elvenKnowledge;
+	public static final ArmorMaterial terrasteelArmorMaterial = EnumHelper.addArmorMaterial("TERRASTEEL", "terrasteel", 34,
+			new int[] { 3, 6, 8, 3 }, 26, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 3F);
+	public static final ToolMaterial terrasteelToolMaterial = EnumHelper.addToolMaterial("TERRASTEEL", 4, 2300, 9F, 3F, 26);
+
+	public static final ArmorMaterial manaweaveArmorMaterial = EnumHelper.addArmorMaterial("MANAWEAVE", "manaweave", 5,
+			new int[] { 1, 2, 2, 1 }, 18, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0);
+
+	public static final EnumRarity rarityRelic = EnumHelper.addRarity("RELIC", TextFormatting.GOLD, "Relic");
+
+	public static final KnowledgeType basicKnowledge;
+	public static final KnowledgeType elvenKnowledge;
 
 	// This is here for completeness sake, but you shouldn't use it
-	public static KnowledgeType relicKnowledge;
+	public static final KnowledgeType relicKnowledge;
 
 	// All of these categories are initialized during botania's PreInit stage.
 	public static LexiconCategory categoryBasics;
@@ -123,14 +136,14 @@ public final class BotaniaAPI {
 	public static LexiconCategory categoryAlfhomancy;
 	public static LexiconCategory categoryMisc;
 
-	public static Brew fallbackBrew = new Brew("fallback", "botania.brew.fallback", 0, 0);
+	public static final Brew fallbackBrew = new Brew("fallback", "botania.brew.fallback", 0, 0);
 
 	static {
 		registerSubTile("", DummySubTile.class);
 
-		basicKnowledge = registerKnowledgeType("minecraft", EnumChatFormatting.RESET, true);
-		elvenKnowledge = registerKnowledgeType("alfheim", EnumChatFormatting.DARK_GREEN, false);
-		relicKnowledge = registerKnowledgeType("relic", EnumChatFormatting.DARK_PURPLE, false);
+		basicKnowledge = registerKnowledgeType("minecraft", TextFormatting.RESET, true);
+		elvenKnowledge = registerKnowledgeType("alfheim", TextFormatting.DARK_GREEN, false);
+		relicKnowledge = registerKnowledgeType("relic", TextFormatting.DARK_PURPLE, false);
 
 		addOreWeight("oreAluminum", 3940); // Tinkers' Construct
 		addOreWeight("oreAmber", 2075); // Thaumcraft
@@ -175,6 +188,8 @@ public final class BotaniaAPI {
 		addOreWeight("oreMythril", 6485); // Simple Ores2
 		addOreWeight("oreAdamantium", 2275); // Simple Ores2
 		addOreWeight("oreTungsten", 3520); // Simple Tungsten
+		addOreWeight("oreOsmium", 6915); // Mekanism
+		addOreWeight("oreQuartzBlack", 5535); // Actually Additions
 
 		addOreWeightNether("oreQuartz", 19600); // Vanilla
 		addOreWeightNether("oreCobalt", 500); // Tinker's Construct
@@ -200,13 +215,6 @@ public final class BotaniaAPI {
 		addOreWeightNether("oreArgonite", 1000); // Netherrocks
 		addOreWeightNether("oreOnyx", 500); // SimpleOres 2
 		addOreWeightNether("oreHaditeCoal", 500); // Hadite
-
-		addSeed(Items.wheat_seeds, Blocks.wheat);
-		addSeed(Items.potato, Blocks.potatoes);
-		addSeed(Items.carrot, Blocks.carrots);
-		addSeed(Items.nether_wart, Blocks.nether_wart);
-		addSeed(Items.pumpkin_seeds, Blocks.pumpkin_stem);
-		addSeed(Items.melon_seeds, Blocks.melon_stem);
 
 		registerModWiki("Minecraft", new SimpleWikiProvider("Minecraft Wiki", "http://minecraft.gamepedia.com/%s"));
 
@@ -236,21 +244,21 @@ public final class BotaniaAPI {
 		registerModWiki("GanysNether", new SimpleWikiProvider("Gany's Nether Wiki", "http://ganys-nether.wikia.com/wiki/%s"));
 		registerModWiki("GanysEnd", new SimpleWikiProvider("Gany's End Wiki", "http://ganys-end.wikia.com/wiki/%s"));
 
-		registerPaintableBlock(Blocks.stained_glass);
-		registerPaintableBlock(Blocks.stained_glass_pane);
-		registerPaintableBlock(Blocks.stained_hardened_clay);
-		registerPaintableBlock(Blocks.wool);
-		registerPaintableBlock(Blocks.carpet);
-		
+		registerPaintableBlock(Blocks.STAINED_GLASS, BlockStainedGlass.COLOR);
+		registerPaintableBlock(Blocks.STAINED_GLASS_PANE, BlockStainedGlassPane.COLOR);
+		registerPaintableBlock(Blocks.STAINED_HARDENED_CLAY, BlockColored.COLOR);
+		registerPaintableBlock(Blocks.WOOL, BlockColored.COLOR);
+		registerPaintableBlock(Blocks.CARPET, BlockCarpet.COLOR);
+
 		registerDisposableBlock("dirt"); // Vanilla
 		registerDisposableBlock("sand"); // Vanilla
 		registerDisposableBlock("gravel"); // Vanilla
 		registerDisposableBlock("cobblestone"); // Vanilla
 		registerDisposableBlock("netherrack"); // Vanilla
-		registerSemiDisposableBlock("stoneAndesite"); // Botania
-		registerSemiDisposableBlock("stoneBasalt"); // Botania
-		registerSemiDisposableBlock("stoneDiorite"); // Botania
-		registerSemiDisposableBlock("stoneGranite"); // Botania
+		registerSemiDisposableBlock("stoneAndesite"); // Vanilla
+		registerSemiDisposableBlock("stoneBasalt"); // Vanilla
+		registerSemiDisposableBlock("stoneDiorite"); // Vanilla
+		registerSemiDisposableBlock("stoneGranite"); // Vanilla
 	}
 
 	/**
@@ -266,7 +274,7 @@ public final class BotaniaAPI {
 	 * @param id The ID for this knowledge type.
 	 * @param color The color to display this knowledge type as.
 	 */
-	public static KnowledgeType registerKnowledgeType(String id, EnumChatFormatting color, boolean autoUnlock) {
+	public static KnowledgeType registerKnowledgeType(String id, TextFormatting color, boolean autoUnlock) {
 		KnowledgeType type = new KnowledgeType(id, color, autoUnlock);
 		knowledgeTypes.put(id, type);
 		return type;
@@ -290,45 +298,46 @@ public final class BotaniaAPI {
 		return fallbackBrew;
 	}
 
-	/*
+	/**
 	 * Registers a Block as disposable using its Ore Dictionary Name.
 	 */
 	public static void registerDisposableBlock(String oreDictName) {
 		disposableBlocks.add(oreDictName);
 	}
-	
-	/*
+
+	/**
 	 * Registers a Block as semi disposable using its Ore Dictionary Name.
 	 * This means it will not be trashed when sneaking.
 	 */
 	public static void registerSemiDisposableBlock(String oreDictName) {
 		semiDisposableBlocks.add(oreDictName);
 	}
-	
+
 	/**
 	 * Registers a paintableBlock and returns it.
+	 * You must also provide the PropertyEnum that this block uses to express its color
 	 */
-	public static Block registerPaintableBlock(Block paintable){
-		paintableBlocks.add(paintable);
+	public static Block registerPaintableBlock(Block paintable, PropertyEnum<EnumDyeColor> colorProp){
+		paintableBlocks.put(paintable, colorProp);
 		return paintable;
 	}
 
-	/*
+	/**
 	 * Blacklists an Entity from being affected by the Rod of the Shaded Mesa.
 	 * Pass in the class for the Entity, e.g. EntityCow.class
 	 */
-	public static void blacklistEntityFromGravityRod(Class entity) {
+	public static void blacklistEntityFromGravityRod(Class<? extends Entity> entity) {
 		gravityRodBlacklist.add(entity);
 	}
-	
-	/*
+
+	/**
 	 * Checks if the provided Entity is contained in the Blacklist.
 	 * Pass in the class for the Entity, e.g. entity.getClass()
 	 */
 	public static boolean isEntityBlacklistedFromGravityRod(Class entity) {
 		return gravityRodBlacklist.contains(entity);
 	}
-	
+
 	/**
 	 * Blacklists an item from being pulled by the Ring of Magnetization.
 	 * Short.MAX_VALUE can be used as the stack's damage for a wildcard.
@@ -350,11 +359,11 @@ public final class BotaniaAPI {
 	public static boolean isItemBlacklistedFromMagnet(ItemStack stack) {
 		return isItemBlacklistedFromMagnet(stack, 0);
 	}
-	
+
 	public static boolean isItemBlacklistedFromMagnet(ItemStack stack, int recursion) {
 		if(recursion > 5)
 			return false;
-		
+
 		if(stack.getItemDamage() != Short.MAX_VALUE) {
 			ItemStack copy = new ItemStack(stack.getItem(), 0, Short.MAX_VALUE);
 			boolean general = isItemBlacklistedFromMagnet(copy, recursion + 1);
@@ -365,7 +374,11 @@ public final class BotaniaAPI {
 		String key = getMagnetKey(stack);
 		return magnetBlacklist.contains(key);
 	}
-	
+
+	public static boolean isBlockBlacklistedFromMagnet(IBlockState state) {
+		return isBlockBlacklistedFromMagnet(state.getBlock(), state.getBlock().getMetaFromState(state));
+	}
+
 	public static boolean isBlockBlacklistedFromMagnet(Block block, int meta) {
 		return isBlockBlacklistedFromMagnet(block, meta, 0);
 	}
@@ -373,7 +386,7 @@ public final class BotaniaAPI {
 	public static boolean isBlockBlacklistedFromMagnet(Block block, int meta, int recursion) {
 		if(recursion >= 5)
 			return false;
-			
+
 		if(meta != Short.MAX_VALUE) {
 			boolean general = isBlockBlacklistedFromMagnet(block, Short.MAX_VALUE, recursion + 1);
 			if(general)
@@ -392,20 +405,32 @@ public final class BotaniaAPI {
 	 * @return The recipe created.
 	 */
 	public static RecipePetals registerPetalRecipe(ItemStack output, Object... inputs) {
+		Preconditions.checkArgument(inputs.length <= 16);
 		RecipePetals recipe = new RecipePetals(output, inputs);
 		petalRecipes.add(recipe);
 		return recipe;
 	}
 
 	/**
-	 * Registers a Pure Daisy Recipe.
+	 * Registers a Pure Daisy Recipe with the default time
 	 * @param input The block that works as an input for the recipe. Can be a Block or an oredict String.
-	 * @param output The block to be placed upon recipe completion.
-	 * @param outputMeta The metadata to be placed upon recipe completion.
+	 * @param outputState The blockstate to be placed upon recipe completion.
 	 * @return The recipe created.
 	 */
-	public static RecipePureDaisy registerPureDaisyRecipe(Object input, Block output, int outputMeta) {
-		RecipePureDaisy recipe = new RecipePureDaisy(input, output, outputMeta);
+	public static RecipePureDaisy registerPureDaisyRecipe(Object input, IBlockState outputState) {
+		return registerPureDaisyRecipe(input, outputState, RecipePureDaisy.DEFAULT_TIME);
+	}
+
+	/**
+	 * Registers a Pure Daisy Recipe.
+	 * @param input The block that works as an input for the recipe. Can be a Block or an oredict String.
+	 * @param outputState The blockstate to be placed upon recipe completion.
+	 * @param time The amount of time in ticks to complete this recipe. Note that this is ticks on your block, not total time.
+	 *             The Pure Daisy only ticks one block at a time in a round robin fashion.
+	 * @return The recipe created.
+	 */
+	public static RecipePureDaisy registerPureDaisyRecipe(Object input, IBlockState outputState, int time) {
+		RecipePureDaisy recipe = new RecipePureDaisy(input, outputState, time);
 		pureDaisyRecipes.add(recipe);
 		return recipe;
 	}
@@ -419,6 +444,7 @@ public final class BotaniaAPI {
 	 * @return The recipe created.
 	 */
 	public static RecipeRuneAltar registerRuneAltarRecipe(ItemStack output, int mana, Object... inputs) {
+		Preconditions.checkArgument(inputs.length <= 16);
 		RecipeRuneAltar recipe = new RecipeRuneAltar(output, mana, inputs);
 		runeAltarRecipes.add(recipe);
 		return recipe;
@@ -432,6 +458,7 @@ public final class BotaniaAPI {
 	 * @return The recipe created.
 	 */
 	public static RecipeManaInfusion registerManaInfusionRecipe(ItemStack output, Object input, int mana) {
+		Preconditions.checkArgument(mana <= 1000000);
 		RecipeManaInfusion recipe = new RecipeManaInfusion(output, input, mana);
 		manaInfusionRecipes.add(recipe);
 		return recipe;
@@ -444,7 +471,7 @@ public final class BotaniaAPI {
 	 */
 	public static RecipeManaInfusion registerManaAlchemyRecipe(ItemStack output, Object input, int mana) {
 		RecipeManaInfusion recipe = registerManaInfusionRecipe(output, input, mana);
-		recipe.setAlchemy(true);
+		recipe.setCatalyst(RecipeManaInfusion.alchemyState);
 		return recipe;
 	}
 
@@ -455,28 +482,39 @@ public final class BotaniaAPI {
 	 */
 	public static RecipeManaInfusion registerManaConjurationRecipe(ItemStack output, Object input, int mana) {
 		RecipeManaInfusion recipe = registerManaInfusionRecipe(output, input, mana);
-		recipe.setConjuration(true);
+		recipe.setCatalyst(RecipeManaInfusion.conjurationState);
 		return recipe;
 	}
 
 	/**
 	 * Registers a Elven Trade recipe (throw an item in an Alfheim Portal).
-	 * @param output The ItemStack to return.
+	 * @param outputs The ItemStacks to return.
 	 * @param inputs The items required, can be ItemStack or ore dictionary entry string.
 	 * @return The recipe created.
 	 */
-	public static RecipeElvenTrade registerElvenTradeRecipe(ItemStack output, Object... inputs) {
-		RecipeElvenTrade recipe = new RecipeElvenTrade(output, inputs);
+	public static RecipeElvenTrade registerElvenTradeRecipe(ItemStack[] outputs, Object... inputs) {
+		RecipeElvenTrade recipe = new RecipeElvenTrade(outputs, inputs);
 		elvenTradeRecipes.add(recipe);
 		return recipe;
 	}
 
 	/**
+	 * Registers a Elven Trade recipe (throw an item into an Alfeim Portal).
+	 * @param output The ItemStack to return
+	 * @param inputs The items required, can be an ItemStack or an Ore Dictionary entry string.
+	 * @return The recipe created.
+	 */
+	public static RecipeElvenTrade registerElvenTradeRecipe(ItemStack output, Object... inputs) {
+		return registerElvenTradeRecipe(new ItemStack[]{ output }, inputs);
+	}
+
+	/**
 	 * Registers a Brew Recipe (for the Botanical Brewery).
 	 * @param brew The brew in to be set in this recipe.
-	 * @inputs The items used in the recipe, no more than 6.
+	 * @param inputs The items used in the recipe, no more than 6.
 	 */
 	public static RecipeBrew registerBrewRecipe(Brew brew, Object... inputs) {
+		Preconditions.checkArgument(inputs.length <= 6);
 		RecipeBrew recipe = new RecipeBrew(brew, inputs);
 		brewRecipes.add(recipe);
 		return recipe;
@@ -484,9 +522,10 @@ public final class BotaniaAPI {
 
 	/**
 	 * Registers a SubTileEntity, a new special flower. Look in the subtile package of the API.
-	 * If you call this after PostInit you're a failiure and we are very disappointed in you.
+	 * Call this in preInit, and don't forget to register a model in BotaniaAPIClient.
 	 */
 	public static void registerSubTile(String key, Class<? extends SubTileEntity> subtileClass) {
+		Preconditions.checkArgument(Loader.instance().isInState(LoaderState.PREINITIALIZATION));
 		subTiles.put(key, subtileClass);
 		subTileMods.put(key, Loader.instance().activeModContainer().getModId());
 	}
@@ -605,14 +644,6 @@ public final class BotaniaAPI {
 	}
 
 	/**
-	 * Allows an item to be counted as a seed. Any item in this list can be
-	 * dispensed by a dispenser, the block is the block to be placed.
-	 */
-	public static void addSeed(Item item, Block block) {
-		seeds.put(item, block);
-	}
-
-	/**
 	 * Blacklists an item from the Loonium drop table.
 	 */
 	public static void blackListItemFromLoonium(Item item) {
@@ -632,7 +663,7 @@ public final class BotaniaAPI {
 	 */
 	public static List<IRecipe> getLatestAddedRecipes(int x) {
 		List<IRecipe> list = CraftingManager.getInstance().getRecipeList();
-		List<IRecipe> newList = new ArrayList();
+		List<IRecipe> newList = new ArrayList<>();
 		for(int i = x - 1; i >= 0; i--)
 			newList.add(list.get(list.size() - 1 - i));
 
@@ -641,7 +672,7 @@ public final class BotaniaAPI {
 
 	/**
 	 * Registers a Wiki provider for a mod so it uses that instead of the fallback
-	 * FTB wiki. Make sure to call this on PostInit only!
+	 * FTB wiki.
 	 */
 	public static void registerModWiki(String mod, IWikiProvider provider) {
 		WikiHooks.registerModWiki(mod, provider);
@@ -663,7 +694,7 @@ public final class BotaniaAPI {
 	}
 
 	private static String getMagnetKey(ItemStack stack) {
-		if(stack == null)
+		if(stack.isEmpty())
 			return "";
 
 		return "i_" + stack.getItem().getUnlocalizedName() + "@" + stack.getItemDamage();

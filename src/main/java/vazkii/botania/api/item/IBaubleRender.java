@@ -2,23 +2,18 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Dec 4, 2014, 3:28:43 PM (GMT)]
  */
 package vazkii.botania.api.item;
 
-import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.client.event.RenderPlayerEvent;
-
-import org.lwjgl.opengl.GL11;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.util.math.MathHelper;
 
 /**
  * A Bauble Item that implements this will be have hooks to render something on
@@ -35,30 +30,72 @@ public interface IBaubleRender {
 	 * rendering. Will not be called if the item is a ICosmeticAttachable and
 	 * has a cosmetic bauble attached to it.
 	 */
-	@SideOnly(Side.CLIENT)
-	public void onPlayerBaubleRender(ItemStack stack, RenderPlayerEvent event, RenderType type);
+	public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks);
 
 	/**
 	 * A few helper methods for the render.
 	 */
-	public static class Helper {
+	final class Helper {
 
+		/**
+		 * Rotates the render for a bauble correctly if the player is sneaking.
+		 * Use for renders under {@link RenderType#BODY}.
+		 */
 		public static void rotateIfSneaking(EntityPlayer player) {
 			if(player.isSneaking())
 				applySneakingRotation();
 		}
 
+		/**
+		 * Rotates the render for a bauble correctly for a sneaking player.
+		 * Use for renders under {@link RenderType#BODY}.
+		 */
 		public static void applySneakingRotation() {
-			GL11.glRotatef(28.64789F, 1.0F, 0.0F, 0.0F);
+			GlStateManager.translate(0F, 0.2F, 0F);
+			GlStateManager.rotate(90F / (float) Math.PI, 1.0F, 0.0F, 0.0F);
 		}
 
+		/**
+		 * Shifts the render for a bauble correctly to the head, including sneaking rotation.
+		 * Use for renders under {@link RenderType#HEAD}.
+		 */
 		public static void translateToHeadLevel(EntityPlayer player) {
-			GL11.glTranslated(0, (player != Minecraft.getMinecraft().thePlayer ? 1.68F : 0F) - player.getDefaultEyeHeight() + (player.isSneaking() ? 0.0625 : 0), 0);
+			GlStateManager.translate(0, -player.getDefaultEyeHeight(), 0);
+			if (player.isSneaking())
+				GlStateManager.translate(0.25F * MathHelper.sin(player.rotationPitch * (float) Math.PI / 180), 0.25F * MathHelper.cos(player.rotationPitch * (float) Math.PI / 180), 0F);
+		}
+
+		/**
+		 * Shifts the render for a bauble correctly to the face.
+		 * Use for renders under {@link RenderType#HEAD}, and usually after calling {@link Helper#translateToHeadLevel(EntityPlayer)}.
+		 */
+		public static void translateToFace() {
+			GlStateManager.rotate(90F, 0F, 1F, 0F);
+			GlStateManager.rotate(180F, 1F, 0F, 0F);
+			GlStateManager.translate(0f, -4.35f, -1.27f);
+		}
+
+		/**
+		 * Scales down the render to a correct size.
+		 * Use for any render.
+		 */
+		public static void defaultTransforms() {
+			GlStateManager.translate(0.0, 3.0, 1.0);
+			GlStateManager.scale(0.55, 0.55, 0.55);
+		}
+
+		/**
+		 * Shifts the render for a bauble correctly to the chest.
+		 * Use for renders under {@link RenderType#BODY}, and usually after calling {@link Helper#rotateIfSneaking(EntityPlayer)}.
+		 */
+		public static void translateToChest() {
+			GlStateManager.rotate(180F, 1F, 0F, 0F);
+			GlStateManager.translate(0F, -3.2F, -0.85F);
 		}
 
 	}
 
-	public static enum RenderType {
+	enum RenderType {
 		/**
 		 * Render Type for the player's body, translations apply on the player's rotation.
 		 * Sneaking is not handled and should be done during the render.
@@ -68,7 +105,7 @@ public interface IBaubleRender {
 
 		/**
 		 * Render Type for the player's body, translations apply on the player's head rotations.
-		 * Sneaking is not handled and should be done during the render.~
+		 * Sneaking is not handled and should be done during the render.
 		 * @see IBaubleRender.Helper
 		 */
 		HEAD;

@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Feb 13, 2015, 10:52:40 PM (GMT)]
  */
 package vazkii.botania.common.entity;
@@ -13,16 +13,28 @@ package vazkii.botania.common.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
+import com.google.common.base.Optional;
+import com.google.common.base.Predicates;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.inventory.IInventory;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.MathHelper;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import vazkii.botania.api.corporea.ICorporeaSpark;
+import vazkii.botania.api.corporea.InvWithLocation;
 import vazkii.botania.common.core.helper.InventoryHelper;
 import vazkii.botania.common.item.ModItems;
 
@@ -34,12 +46,15 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 	private static final String TAG_NETWORK = "network";
 	private static final String TAG_INVIS = "invis";
 
-	ICorporeaSpark master;
-	List<ICorporeaSpark> connections = new ArrayList();
-	List<ICorporeaSpark> connectionsClient = new ArrayList();
-	List<ICorporeaSpark> relatives = new ArrayList();
-	boolean firstUpdateClient = true;
-	boolean firstUpdateServer = true;
+	private static final DataParameter<Boolean> MASTER = EntityDataManager.createKey(EntityCorporeaSpark.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Integer> NETWORK = EntityDataManager.createKey(EntityCorporeaSpark.class, DataSerializers.VARINT);
+	private static final DataParameter<Integer> ITEM_DISPLAY_TICKS = EntityDataManager.createKey(EntityCorporeaSpark.class, DataSerializers.VARINT);
+	private static final DataParameter<ItemStack> DISPLAY_STACK = EntityDataManager.createKey(EntityCorporeaSpark.class, DataSerializers.OPTIONAL_ITEM_STACK);
+
+	private ICorporeaSpark master;
+	private List<ICorporeaSpark> connections = new ArrayList<>();
+	private List<ICorporeaSpark> relatives = new ArrayList<>();
+	private boolean firstTick = true;
 
 	public EntityCorporeaSpark(World world) {
 		super(world);
@@ -49,17 +64,16 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 	@Override
 	protected void entityInit() {
 		setSize(0.1F, 0.5F);
-		dataWatcher.addObject(EntitySpark.INVISIBILITY_DATA_WATCHER_KEY, 0);
-		dataWatcher.addObject(28, 0);
-		dataWatcher.addObject(29, 0);
-		dataWatcher.addObject(30, 0);
-		dataWatcher.addObject(31, new ItemStack(Blocks.stone, 0, 0));
+		dataManager.register(MASTER, false);
+		dataManager.register(NETWORK, 0);
+		dataManager.register(ITEM_DISPLAY_TICKS, 0);
+		dataManager.register(DISPLAY_STACK, ItemStack.EMPTY);
+	}
 
-		dataWatcher.setObjectWatched(EntitySpark.INVISIBILITY_DATA_WATCHER_KEY);
-		dataWatcher.setObjectWatched(28);
-		dataWatcher.setObjectWatched(29);
-		dataWatcher.setObjectWatched(30);
-		dataWatcher.setObjectWatched(31);
+	@Nonnull
+	@Override
+	public ItemStack getPickedResult(RayTraceResult target) {
+		return isMaster() ? new ItemStack(ModItems.corporeaSpark, 1, 1) : new ItemStack(ModItems.corporeaSpark);
 	}
 
 	@Override
@@ -70,24 +84,25 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
-		IInventory inv = getInventory();
+
+		if(world.isRemote)
+			return;
+
+		InvWithLocation inv = getSparkInventory();
 		if(inv == null) {
-			if(!worldObj.isRemote)
-				setDead();
+			dropAndKill();
 			return;
 		}
 
 		if(isMaster())
 			master = this;
 
-		if(worldObj.isRemote ? firstUpdateClient : firstUpdateServer) {
+		if(firstTick) {
 			if(isMaster())
 				restartNetwork();
 			else findNetwork();
 
-			if(worldObj.isRemote)
-				firstUpdateClient = false;
-			else firstUpdateServer = false;
+			firstTick = false;
 		}
 
 		if(master != null && (((Entity) master).isDead || master.getNetwork() != getNetwork()))
@@ -100,21 +115,22 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 			setItemDisplayTicks(displayTicks + 1);
 	}
 
+	private void dropAndKill() {
+		entityDropItem(new ItemStack(ModItems.corporeaSpark, 1, isMaster() ? 1 : 0), 0F);
+		setDead();
+	}
+
 	@Override
 	public void setDead() {
 		super.setDead();
-		if(!worldObj.isRemote)
-			entityDropItem(new ItemStack(ModItems.corporeaSpark, 1, isMaster() ? 1 : 0), 0F);
 		connections.remove(this);
-		connectionsClient.remove(this);
 		restartNetwork();
 	}
 
 	@Override
 	public void registerConnections(ICorporeaSpark master, ICorporeaSpark referrer, List<ICorporeaSpark> connections) {
-		List<ICorporeaSpark> sparks = getNearbySparks();
 		relatives.clear();
-		for(ICorporeaSpark spark : sparks) {
+		for(ICorporeaSpark spark : getNearbySparks()) {
 			if(spark == null || connections.contains(spark) || spark.getNetwork() != getNetwork() || spark.isMaster() || ((Entity) spark).isDead)
 				continue;
 
@@ -124,72 +140,65 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 		}
 
 		this.master = master;
-		if(worldObj.isRemote)
-			connectionsClient = connections;
-		else this.connections = connections;
+		this.connections = connections;
 	}
 
-	List<ICorporeaSpark> getNearbySparks() {
-		return worldObj.getEntitiesWithinAABB(ICorporeaSpark.class, AxisAlignedBB.getBoundingBox(posX - SCAN_RANGE, posY - SCAN_RANGE, posZ - SCAN_RANGE, posX + SCAN_RANGE, posY + SCAN_RANGE, posZ + SCAN_RANGE));
+	private List<ICorporeaSpark> getNearbySparks() {
+		return (List) world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(posX - SCAN_RANGE, posY - SCAN_RANGE, posZ - SCAN_RANGE, posX + SCAN_RANGE, posY + SCAN_RANGE, posZ + SCAN_RANGE), Predicates.instanceOf(ICorporeaSpark.class));
 	}
 
-	void restartNetwork() {
-		if(worldObj.isRemote)
-			connectionsClient = new ArrayList();
-		else connections = new ArrayList();
-		relatives = new ArrayList();
+	private void restartNetwork() {
+		connections = new ArrayList<>();
+		relatives = new ArrayList<>();
 
 		if(master != null) {
 			ICorporeaSpark oldMaster = master;
 			master = null;
 
-			oldMaster.registerConnections(oldMaster, this, new ArrayList());
+			oldMaster.registerConnections(oldMaster, this, new ArrayList<>());
 		}
 	}
 
-	void findNetwork() {
-		List<ICorporeaSpark> sparks = getNearbySparks();
-		if(sparks.size() > 0) {
-			for(ICorporeaSpark spark : sparks)
-				if(spark.getNetwork() == getNetwork() && !((Entity) spark).isDead) {
-					ICorporeaSpark master = spark.getMaster();
-					if(master != null) {
-						this.master = master;
-						restartNetwork();
+	private void findNetwork() {
+		for(ICorporeaSpark spark : getNearbySparks())
+			if(spark.getNetwork() == getNetwork() && !((Entity) spark).isDead) {
+				ICorporeaSpark master = spark.getMaster();
+				if(master != null) {
+					this.master = master;
+					restartNetwork();
 
-						break;
-					}
+					break;
 				}
-		}
+			}
 	}
 
-	void displayRelatives(ArrayList<ICorporeaSpark> checked, ICorporeaSpark spark) {
+	private static void displayRelatives(EntityPlayer player, List<ICorporeaSpark> checked, ICorporeaSpark spark) {
 		if(spark == null)
 			return;
 
 		List<ICorporeaSpark> sparks = spark.getRelatives();
 		if(sparks.isEmpty())
-			EntitySpark.particleBeam((Entity) spark, (Entity) spark.getMaster());
+			EntitySpark.particleBeam(player, (Entity) spark, (Entity) spark.getMaster());
 		else for(ICorporeaSpark endSpark : sparks) {
 			if(!checked.contains(endSpark)) {
-				EntitySpark.particleBeam((Entity) spark, (Entity) endSpark);
+				EntitySpark.particleBeam(player, (Entity) spark, (Entity) endSpark);
 				checked.add(endSpark);
-				displayRelatives(checked, endSpark);
+				displayRelatives(player, checked, endSpark);
 			}
 		}
 	}
 
 	@Override
-	public IInventory getInventory() {
-		int x = MathHelper.floor_double(posX);
-		int y = MathHelper.floor_double(posY - 1);
-		int z = MathHelper.floor_double(posZ);
-		return InventoryHelper.getInventory(worldObj, x, y, z);
+	public InvWithLocation getSparkInventory() {
+		int x = MathHelper.floor(posX);
+		int y = MathHelper.floor(posY - 1);
+		int z = MathHelper.floor(posZ);
+		return InventoryHelper.getInventoryWithLocation(world, new BlockPos(x, y, z), EnumFacing.UP);
 	}
 
 	@Override
 	public List<ICorporeaSpark> getConnections() {
-		return worldObj.isRemote ? connectionsClient : connections;
+		return connections;
 	}
 
 	@Override
@@ -217,96 +226,92 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 	}
 
 	public void setMaster(boolean master) {
-		dataWatcher.updateObject(28, master ? 1 : 0);
+		dataManager.set(MASTER, master);
 	}
 
 	@Override
 	public boolean isMaster() {
-		return dataWatcher.getWatchableObjectInt(28) == 1;
+		return dataManager.get(MASTER);
 	}
 
-	public void setNetwork(int network) {
-		dataWatcher.updateObject(29, network);
+	public void setNetwork(EnumDyeColor network) {
+		dataManager.set(NETWORK, network.getMetadata());
 	}
 
 	@Override
-	public int getNetwork() {
-		return dataWatcher.getWatchableObjectInt(29);
+	public EnumDyeColor getNetwork() {
+		return EnumDyeColor.byMetadata(dataManager.get(NETWORK));
 	}
 
 	public int getItemDisplayTicks() {
-		return dataWatcher.getWatchableObjectInt(30);
+		return dataManager.get(ITEM_DISPLAY_TICKS);
 	}
 
 	public void setItemDisplayTicks(int ticks) {
-		dataWatcher.updateObject(30, ticks);
+		dataManager.set(ITEM_DISPLAY_TICKS, ticks);
 	}
 
 	public ItemStack getDisplayedItem() {
-		return dataWatcher.getWatchableObjectItemStack(31);
+		return dataManager.get(DISPLAY_STACK);
 	}
 
 	public void setDisplayedItem(ItemStack stack) {
-		dataWatcher.updateObject(31, stack);
+		dataManager.set(DISPLAY_STACK, stack);
 	}
 
 	@Override
-	public boolean interactFirst(EntityPlayer player) {
-		ItemStack stack = player.getCurrentEquippedItem();
-		if(stack != null) {
+	public boolean processInitialInteract(EntityPlayer player, EnumHand hand) {
+		ItemStack stack = player.getHeldItem(hand);
+		if(!isDead && !stack.isEmpty()) {
+			if(player.world.isRemote) {
+				boolean valid = stack.getItem() == ModItems.twigWand || stack.getItem() == ModItems.dye || stack.getItem() == ModItems.phantomInk;
+				if(valid)
+					player.swingArm(hand);
+				return valid;
+			}
+
 			if(stack.getItem() == ModItems.twigWand) {
 				if(player.isSneaking()) {
-					setDead();
+					dropAndKill();
 					if(isMaster())
 						restartNetwork();
-					if(player.worldObj.isRemote)
-						player.swingItem();
-					return true;
 				} else {
-					displayRelatives(new ArrayList(), master);
-					return true;
+					displayRelatives(player, new ArrayList<>(), master);
 				}
+				return true;
 			} else if(stack.getItem() == ModItems.dye) {
 				int color = stack.getItemDamage();
-				if(color != getNetwork()) {
-					setNetwork(color);
+				if(color != getNetwork().getMetadata()) {
+					setNetwork(EnumDyeColor.byMetadata(color));
 
 					if(master != null)
 						restartNetwork();
 					else findNetwork();
 
-					stack.stackSize--;
-					if(player.worldObj.isRemote)
-						player.swingItem();
+					stack.shrink(1);
+					return true;
 				}
+			} else if(stack.getItem() == ModItems.phantomInk) {
+				setInvisible(true);
+				return true;
 			}
-		}
-
-		return doPhantomInk(stack);
-	}
-
-	public boolean doPhantomInk(ItemStack stack) {
-		if(stack != null && stack.getItem() == ModItems.phantomInk && !worldObj.isRemote) {
-			int invis = dataWatcher.getWatchableObjectInt(EntitySpark.INVISIBILITY_DATA_WATCHER_KEY);
-			dataWatcher.updateObject(EntitySpark.INVISIBILITY_DATA_WATCHER_KEY, ~invis & 1);
-			return true;
 		}
 
 		return false;
 	}
 
 	@Override
-	protected void readEntityFromNBT(NBTTagCompound cmp) {
+	protected void readEntityFromNBT(@Nonnull NBTTagCompound cmp) {
 		setMaster(cmp.getBoolean(TAG_MASTER));
-		setNetwork(cmp.getInteger(TAG_NETWORK));
-		dataWatcher.updateObject(EntitySpark.INVISIBILITY_DATA_WATCHER_KEY, cmp.getInteger(TAG_INVIS));
+		setNetwork(EnumDyeColor.byMetadata(cmp.getInteger(TAG_NETWORK)));
+		setInvisible(cmp.getInteger(TAG_INVIS) == 1);
 	}
 
 	@Override
-	protected void writeEntityToNBT(NBTTagCompound cmp) {
+	protected void writeEntityToNBT(@Nonnull NBTTagCompound cmp) {
 		cmp.setBoolean(TAG_MASTER, isMaster());
-		cmp.setInteger(TAG_NETWORK, getNetwork());
-		cmp.setInteger(TAG_INVIS, dataWatcher.getWatchableObjectInt(EntitySpark.INVISIBILITY_DATA_WATCHER_KEY));
+		cmp.setInteger(TAG_NETWORK, getNetwork().getMetadata());
+		cmp.setInteger(TAG_INVIS, isInvisible() ? 1 : 0);
 	}
 
 }

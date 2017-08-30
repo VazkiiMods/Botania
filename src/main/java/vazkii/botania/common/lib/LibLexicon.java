@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jan 14, 2014, 9:14:08 PM (GMT)]
  */
 package vazkii.botania.common.lib;
@@ -90,6 +90,7 @@ public final class LibLexicon {
 	public static final String FFLOWER_MARIMORPHOSIS = "marimorphosis";
 	public static final String FFLOWER_BUBBELL = "bubbell";
 	public static final String FFLOWER_SOLEGNOLIA = "solegnolia";
+	public static final String FFLOWER_BERGAMUTE = "bergamute";
 
 	public static final String GFLOWER_INTRO = "gIntro";
 	public static final String GFLOWER_PASSIVE_GENERATION = "passiveGen";
@@ -133,6 +134,7 @@ public final class LibLexicon {
 	public static final String DEVICE_TERU_TERU_BOZU = "teruTeruBozu";
 	public static final String DEVICE_AVATAR = "avatar";
 	public static final String DEVICE_FEL_PUMPKIN = "felPumpkin";
+	public static final String DEVICE_ANIMATED_TORCH = "animatedTorch";
 
 	public static final String TOOL_MANA_BLASTER = "manaBlaster";
 	public static final String TOOL_GRASS_SEEDS = "grassSeeds";
@@ -156,7 +158,6 @@ public final class LibLexicon {
 	public static final String TOOL_GLASS_PICK = "glassPick";
 	public static final String TOOL_DIVINING_ROD = "diviningRod";
 	public static final String TOOL_GRAVITY_ROD = "gravityRod";
-	public static final String TOOL_REGEN_IVY = "regenIvy";
 	public static final String TOOL_MISSILE_ROD = "missileRod";
 	public static final String TOOL_CRAFTING_HALO = "craftingHalo";
 	public static final String TOOL_CLIP = "clip";
@@ -177,6 +178,7 @@ public final class LibLexicon {
 	public static final String TOOL_MANAWEAVE = "manaweave";
 	public static final String TOOL_AUTOCRAFTING_HALO = "autocraftingHalo";
 	public static final String TOOL_SEXTANT = "sextant";
+	public static final String TOOL_ASTROLABE = "astrolabe";
 
 	public static final String ENDER_AIR = "enderAir";
 	public static final String ENDER_ENDER_EYE_BLOCK = "enderEyeBlock";
@@ -225,6 +227,12 @@ public final class LibLexicon {
 	public static final String BAUBLE_SWAP_RING = "swapRing";
 	public static final String BAUBLE_SPEED_UP_BELT = "speedUpBelt";
 	public static final String BAUBLE_BOX = "baubleBox";
+	public static final String BAUBLE_DODGE_RING = "dodgeRing";
+	public static final String BAUBLE_INVISIBILITY_CLOAK = "invisibilityCloak";
+	public static final String BAUBLE_CLOUD_PENDANT = "cloudPendant";
+	public static final String BAUBLE_SUPER_CLOUD_PENDANT = "superCloudPendant";
+	public static final String BAUBLE_THIRD_EYE = "thirdEye";
+	public static final String BAUBLE_GODDESS_CHARM = "goddessCharm";
 
 	public static final String ALF_INTRO = "aIntro";
 	public static final String ALF_MESSAGE = "elfMessage";
@@ -241,7 +249,6 @@ public final class LibLexicon {
 	public static final String ALF_LOKI_RING = "lokiRing";
 	public static final String ALF_ODIN_RING = "odinRing";
 
-	public static final String MISC_UNSTABLE_BLOCKS = "unstableBlocks";
 	public static final String MISC_DECORATIVE_BLOCKS = "decorativeBlocks";
 	public static final String MISC_DISPENSER_TWEAKS = "dispenserTweaks";
 	public static final String MISC_SHINY_FLOWERS = "shinyFlowers";
@@ -251,10 +258,8 @@ public final class LibLexicon {
 	public static final String MISC_HEAD_CREATING = "headCreating";
 	public static final String MISC_AZULEJO = "azulejo";
 	public static final String MISC_STARFIELD = "starfield";
-	public static final String MISC_DIRT_PATH = "dirtPath";
 	public static final String MISC_MUSHROOMS = "mushrooms";
 	public static final String MISC_PHANTOM_INK = "phantomInk";
-	public static final String MISC_STONE_ALCHEMY = "stoneAlchemy";
 	public static final String MISC_BLAZE_BLOCK = "blazeBlock";
 	public static final String MISC_CHALLENGES = "challenges";
 	public static final String MISC_CACOPHONIUM = "cacophonium";

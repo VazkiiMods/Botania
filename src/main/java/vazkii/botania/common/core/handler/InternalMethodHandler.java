@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jan 14, 2014, 6:44:59 PM (GMT)]
  */
 package vazkii.botania.common.core.handler;
@@ -13,25 +13,31 @@ package vazkii.botania.common.core.handler;
 import java.util.ArrayList;
 import java.util.List;
 
+import baubles.api.BaublesApi;
+import baubles.common.network.PacketHandler;
+import baubles.common.network.PacketSync;
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.IIcon;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import vazkii.botania.api.boss.IBotaniaBoss;
+import net.minecraftforge.fml.common.Optional;
+import net.minecraftforge.items.IItemHandlerModifiable;
+import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.api.corporea.IWrappedInventory;
+import vazkii.botania.api.corporea.InvWithLocation;
 import vazkii.botania.api.internal.DummyMethodHandler;
 import vazkii.botania.api.internal.IManaNetwork;
 import vazkii.botania.api.lexicon.LexiconPage;
@@ -41,20 +47,19 @@ import vazkii.botania.api.recipe.RecipeElvenTrade;
 import vazkii.botania.api.recipe.RecipeManaInfusion;
 import vazkii.botania.api.recipe.RecipePetals;
 import vazkii.botania.api.recipe.RecipeRuneAltar;
+import vazkii.botania.api.subtile.ISpecialFlower;
 import vazkii.botania.api.subtile.SubTileEntity;
 import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.api.subtile.SubTileGenerating;
 import vazkii.botania.client.core.handler.BossBarHandler;
 import vazkii.botania.client.core.handler.HUDHandler;
-import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.BlockModFlower;
-import vazkii.botania.common.block.BlockSpecialFlower;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.decor.BlockFloatingFlower;
 import vazkii.botania.common.block.subtile.functional.SubTileSolegnolia;
 import vazkii.botania.common.integration.corporea.WrappedDeepStorage;
 import vazkii.botania.common.integration.corporea.WrappedIInventory;
-import vazkii.botania.common.integration.corporea.WrappedStorageDrawers;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 import vazkii.botania.common.item.relic.ItemLokiRing;
@@ -68,11 +73,7 @@ import vazkii.botania.common.lexicon.page.PageMultiblock;
 import vazkii.botania.common.lexicon.page.PagePetalRecipe;
 import vazkii.botania.common.lexicon.page.PageRuneRecipe;
 import vazkii.botania.common.lexicon.page.PageText;
-import baubles.common.lib.PlayerHandler;
-import baubles.common.network.PacketHandler;
-import baubles.common.network.PacketSyncBauble;
-import buildcraft.api.transport.IPipeTile;
-import cpw.mods.fml.common.Optional;
+import vazkii.botania.common.lib.LibMisc;
 
 public class InternalMethodHandler extends DummyMethodHandler {
 
@@ -102,27 +103,23 @@ public class InternalMethodHandler extends DummyMethodHandler {
 	}
 
 	@Override
-	public IIcon getSubTileIconForName(String name) {
-		IIcon icon = (ConfigHandler.altFlowerTextures ? BlockSpecialFlower.iconsAlt : BlockSpecialFlower.icons).get(name);
-		return icon == null ? Blocks.red_flower.getIcon(0, 0) : icon;
+	public ModelResourceLocation getSubTileBlockModelForName(String name) {
+		return BotaniaAPIClient.getRegisteredSubtileBlockModels().get(name);
 	}
 
 	@Override
-	public void registerBasicSignatureIcons(String name, IIconRegister register) {
-		IIcon normal = IconHelper.forName(register, name);
-		IIcon alt = IconHelper.forName(register, BlockModFlower.ALT_DIR + "/" + name);
-		BlockSpecialFlower.icons.put(name, normal);
-		BlockSpecialFlower.iconsAlt.put(name, alt == null ? normal : alt);
+	public ModelResourceLocation getSubTileItemModelForName(String name) {
+		return BotaniaAPIClient.getRegisteredSubtileItemModels().get(name);
 	}
 
 	@Override
 	public LexiconPage petalRecipesPage(String key, List<RecipePetals> recipes) {
-		return new PagePetalRecipe(key, recipes);
+		return new PagePetalRecipe<>(key, recipes);
 	}
 
 	@Override
 	public LexiconPage petalRecipePage(String key, RecipePetals recipe) {
-		return new PagePetalRecipe(key, recipe);
+		return new PagePetalRecipe<>(key, recipe);
 	}
 
 	@Override
@@ -187,7 +184,12 @@ public class InternalMethodHandler extends DummyMethodHandler {
 
 	@Override
 	public IInventory getBaublesInventory(EntityPlayer player) {
-		return PlayerHandler.getPlayerBaubles(player);
+		return BaublesApi.getBaubles(player);
+	}
+
+	@Override
+	public IItemHandlerModifiable getBaublesInventoryWrapped(EntityPlayer player) {
+		return BaublesApi.getBaublesHandler(player);
 	}
 
 	@Override
@@ -212,17 +214,12 @@ public class InternalMethodHandler extends DummyMethodHandler {
 
 	@Override
 	public void sparkleFX(World world, double x, double y, double z, float r, float g, float b, float size, int m) {
-		Botania.proxy.sparkleFX(world, x, y, z, r, g, b, size, m);
+		Botania.proxy.sparkleFX(x, y, z, r, g, b, size, m);
 	}
 
 	@Override
 	public ResourceLocation getDefaultBossBarTexture() {
 		return BossBarHandler.defaultBossBar;
-	}
-
-	@Override
-	public void setBossStatus(IBotaniaBoss status) {
-		BossBarHandler.setCurrentBoss(status);
 	}
 
 	@Override
@@ -232,18 +229,18 @@ public class InternalMethodHandler extends DummyMethodHandler {
 
 	@Override
 	public int getPassiveFlowerDecay() {
-		return ConfigHandler.hardcorePassiveGeneration;
+		return LibMisc.PASSIVE_FLOWER_DECAY;
 	}
 
 	@Override
 	@Optional.Method(modid = "BuildCraft|Transport")
 	public boolean isBuildcraftPipe(TileEntity tile) {
-		return tile instanceof IPipeTile;
+		return false; // tile instanceof IPipeTile; todo buildcraft
 	}
 
 	@Override
-	public void breakOnAllCursors(EntityPlayer player, Item item, ItemStack stack, int x, int y, int z, int side) {
-		ItemLokiRing.breakOnAllCursors(player, item, stack, x, y, z, side);
+	public void breakOnAllCursors(EntityPlayer player, Item item, ItemStack stack, BlockPos pos, EnumFacing side) {
+		ItemLokiRing.breakOnAllCursors(player, item, stack, pos, side);
 	}
 
 	@Override
@@ -257,28 +254,23 @@ public class InternalMethodHandler extends DummyMethodHandler {
 	}
 
 	@Override
-	public boolean isBotaniaFlower(World world, int x, int y, int z) {
-		Block block = world.getBlock(x, y, z);
-		return block == ModBlocks.flower || block == ModBlocks.shinyFlower || block == ModBlocks.specialFlower;
+	public boolean isBotaniaFlower(World world, BlockPos pos) {
+		Block block = world.getBlockState(pos).getBlock();
+		return block instanceof BlockModFlower || block instanceof BlockFloatingFlower || block instanceof ISpecialFlower;
 	}
 
 	@Override
 	public void sendBaubleUpdatePacket(EntityPlayer player, int slot) {
 		if(player instanceof EntityPlayerMP)
-			PacketHandler.INSTANCE.sendTo(new PacketSyncBauble(player, slot), (EntityPlayerMP) player);
+			PacketHandler.INSTANCE.sendTo(new PacketSync(player, slot), (EntityPlayerMP) player);
 	}
 	
-
 	@Override
-	public List<IWrappedInventory> wrapInventory(List<IInventory> inventories) {
-		ArrayList<IWrappedInventory> arrayList = new ArrayList<IWrappedInventory>();
-		for(IInventory inv : inventories) {
+	public List<IWrappedInventory> wrapInventory(List<InvWithLocation> inventories) {
+		List<IWrappedInventory> arrayList = new ArrayList<IWrappedInventory>();
+		for(InvWithLocation inv : inventories) {
 			ICorporeaSpark spark = CorporeaHelper.getSparkForInventory(inv);
 			IWrappedInventory wrapped = null;
-			// try StorageDrawers integration
-			if(Botania.storageDrawersLoaded) {
-				wrapped = WrappedStorageDrawers.wrap(inv, spark);
-			}
 			// try DeepStorageUnit
 			if(wrapped == null) {
 				wrapped = WrappedDeepStorage.wrap(inv, spark);

@@ -1,0 +1,6 @@
+{
+  "parent": "botania:block/shapes/fifteen_high_all",
+  "textures": {
+    "all": "botania:blocks/dirtpath"
+  }
+}

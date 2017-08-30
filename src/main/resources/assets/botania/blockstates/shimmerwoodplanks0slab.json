@@ -1,0 +1,18 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "minecraft:half_slab",
+    "textures": {
+      "bottom": "botania:blocks/shimmerwoodplanks",
+      "top": "botania:blocks/shimmerwoodplanks",
+      "side": "botania:blocks/shimmerwoodplanks"
+    }
+  },
+  "variants": {
+    "half=top": [{
+      "x": 180,
+      "uvlock": true
+    }],
+    "half=bottom": [{}]
+  }
+}

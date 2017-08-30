@@ -1,0 +1,28 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "minecraft:pane_post",
+    "textures": {
+      "edge": "botania:blocks/elfglasspane",
+      "pane": "botania:blocks/elfglass"
+    }
+  },
+  "variants": {
+    "north": {
+      "true": { "submodel": { "nside": { "model": "minecraft:pane_side" } } },
+      "false": { "submodel": { "nside": { "model": "minecraft:pane_noside" } } }
+    },
+    "south": {
+      "true": { "submodel": { "sside": { "model": "minecraft:pane_side_alt" } } },
+      "false": { "submodel": { "sside": { "model": "minecraft:pane_noside_alt", "y": 90 } } }
+    },
+    "west": {
+      "true": { "submodel": { "wside": { "model": "minecraft:pane_side_alt", "y": 90 } } },
+      "false": { "submodel": { "wside": { "model": "minecraft:pane_noside", "y": 270 } } }
+    },
+    "east": {
+      "true": { "submodel": { "eside": { "model": "minecraft:pane_side", "y": 90 } } },
+      "false": { "submodel": { "eside": { "model": "minecraft:pane_noside_alt" } } }
+    }
+  }
+}

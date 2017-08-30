@@ -2,25 +2,25 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Mar 16, 2014, 10:15:05 PM (GMT)]
  */
 package vazkii.botania.common.block.tile.mana;
 
+import org.lwjgl.opengl.GL11;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraftforge.common.util.ForgeDirection;
-
-import org.lwjgl.opengl.GL11;
-
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.text.TextFormatting;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.block.tile.TileMod;
 
@@ -33,35 +33,36 @@ public class TileTurntable extends TileMod {
 	boolean backwards = false;
 
 	@Override
-	public void updateEntity() {
+	public void update() {
 		boolean redstone = false;
 
-		for(ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
-			int redstoneSide = worldObj.getIndirectPowerLevelTo(xCoord + dir.offsetX, yCoord + dir.offsetY, zCoord + dir.offsetZ, dir.ordinal());
+		for(EnumFacing dir : EnumFacing.VALUES) {
+			int redstoneSide = world.getRedstonePower(pos.offset(dir), dir);
 			if(redstoneSide > 0)
 				redstone = true;
 		}
 
 		if(!redstone) {
-			TileEntity tile = worldObj.getTileEntity(xCoord, yCoord + 1, zCoord);
+			TileEntity tile = world.getTileEntity(pos.up());
 			if(tile instanceof TileSpreader) {
 				TileSpreader spreader = (TileSpreader) tile;
 				spreader.rotationX += speed * (backwards ? -1 : 1);
 				if(spreader.rotationX >= 360F)
 					spreader.rotationX -= 360F;
-				spreader.checkForReceiver();
+				if(!world.isRemote)
+					spreader.checkForReceiver();
 			}
 		}
 	}
 
 	@Override
-	public void writeCustomNBT(NBTTagCompound cmp) {
+	public void writePacketNBT(NBTTagCompound cmp) {
 		cmp.setInteger(TAG_SPEED, speed);
 		cmp.setBoolean(TAG_BACKWARDS, backwards);
 	}
 
 	@Override
-	public void readCustomNBT(NBTTagCompound cmp) {
+	public void readPacketNBT(NBTTagCompound cmp) {
 		speed = cmp.getInteger(TAG_SPEED);
 		backwards = cmp.getBoolean(TAG_BACKWARDS);
 	}
@@ -73,23 +74,23 @@ public class TileTurntable extends TileMod {
 		if(player.isSneaking())
 			backwards = !backwards;
 		else speed = speed == 6 ? 1 : speed + 1;
-		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, xCoord, yCoord, zCoord);
+		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, pos);
 	}
 
 	public void renderHUD(Minecraft mc, ScaledResolution res) {
 		int color = 0xAA006600;
 
 		char motion = backwards ? '<' : '>';
-		String speed = EnumChatFormatting.BOLD + "";
+		String speed = TextFormatting.BOLD + "";
 		for(int i = 0; i < this.speed; i++)
 			speed = speed + motion;
 
-		int x = res.getScaledWidth() / 2 - mc.fontRenderer.getStringWidth(speed) / 2;
+		int x = res.getScaledWidth() / 2 - mc.fontRendererObj.getStringWidth(speed) / 2;
 		int y = res.getScaledHeight() / 2 - 15;
-		GL11.glEnable(GL11.GL_BLEND);
-		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		mc.fontRenderer.drawStringWithShadow(speed, x, y, color);
-		GL11.glDisable(GL11.GL_BLEND);
+		GlStateManager.enableBlend();
+		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		mc.fontRendererObj.drawStringWithShadow(speed, x, y, color);
+		GlStateManager.disableBlend();
 	}
 
 }

@@ -2,16 +2,18 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jan 14, 2014, 6:23:47 PM (GMT)]
  */
 package vazkii.botania.api.lexicon;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.annotation.Nonnull;
 
 import net.minecraft.util.ResourceLocation;
 
@@ -20,7 +22,7 @@ public class LexiconCategory implements Comparable<LexiconCategory> {
 	private static int count = 0;
 
 	public final String unlocalizedName;
-	public final List<LexiconEntry> entries = new ArrayList<LexiconEntry>();
+	public final List<LexiconEntry> entries = new ArrayList<>();
 	private final int sortingId;
 	private ResourceLocation icon;
 	private int priority = 5;
@@ -70,7 +72,7 @@ public class LexiconCategory implements Comparable<LexiconCategory> {
 	}
 
 	@Override
-	public int compareTo(LexiconCategory category) {
+	public int compareTo(@Nonnull LexiconCategory category) {
 		return priority == category.priority ? sortingId - category.sortingId : category.priority - priority;
 	}
 }

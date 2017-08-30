@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "botania:items/twigwand0",
+    "layer1": "botania:items/twigwand1",
+    "layer2": "botania:items/twigwand2",
+    "layer3": "botania:items/twigwand3"
+  }
+}

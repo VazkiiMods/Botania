@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jun 24, 2015, 5:54:45 PM (GMT)]
  */
 package vazkii.botania.client.core.handler;
@@ -34,12 +34,14 @@ public final class PersistentVariableHelper {
 	private static final String TAG_CHALLENGES = "challenges";
 	private static final String TAG_LEXICON_NOTES = "lexiconNotes";
 	private static final String TAG_LAST_BOTANIA_VERSION = "lastBotaniaVersion";
+	private static final String TAG_LEXICON_GUI_SCALE = "lexiconGuiScale";
 
 	private static File cacheFile;
 
 	public static boolean firstLoad = true;
 	public static boolean dog = true;
 	public static String lastBotaniaVersion = "";
+	public static int lexiconGuiScale = 0;
 
 	public static void save() throws IOException {
 		NBTTagCompound cmp = new NBTTagCompound();
@@ -72,6 +74,7 @@ public final class PersistentVariableHelper {
 		cmp.setBoolean(TAG_FIRST_LOAD, firstLoad);
 		cmp.setBoolean(TAG_DOG, dog);
 		cmp.setString(TAG_LAST_BOTANIA_VERSION, lastBotaniaVersion);
+		cmp.setInteger(TAG_LEXICON_GUI_SCALE, lexiconGuiScale);
 
 		injectNBTToFile(cmp, getCacheFile());
 	}
@@ -101,7 +104,7 @@ public final class PersistentVariableHelper {
 
 		if(cmp.hasKey(TAG_LEXICON_NOTES)) {
 			NBTTagCompound notesCmp = cmp.getCompoundTag(TAG_LEXICON_NOTES);
-			Set<String> keys = notesCmp.func_150296_c();
+			Set<String> keys = notesCmp.getKeySet();
 			GuiLexicon.notes.clear();
 			for(String key : keys)
 				GuiLexicon.notes.put(key, notesCmp.getString(key));
@@ -112,8 +115,9 @@ public final class PersistentVariableHelper {
 		firstLoad = cmp.hasKey(TAG_FIRST_LOAD) ? cmp.getBoolean(TAG_FIRST_LOAD) : firstLoad;
 		if(firstLoad)
 			lastBotaniaVersion = LibMisc.VERSION;
-		
+
 		dog = cmp.getBoolean(TAG_DOG);
+		lexiconGuiScale = cmp.getInteger(TAG_LEXICON_GUI_SCALE);
 	}
 
 	public static void saveSafe() {
@@ -128,24 +132,23 @@ public final class PersistentVariableHelper {
 		cacheFile = f;
 	}
 
-	public static File getCacheFile() throws IOException {
+	private static File getCacheFile() throws IOException {
 		if(!cacheFile.exists())
 			cacheFile.createNewFile();
 
 		return cacheFile;
 	}
 
-	public static NBTTagCompound getCacheCompound() throws IOException {
+	private static NBTTagCompound getCacheCompound() throws IOException {
 		return getCacheCompound(getCacheFile());
 	}
 
-	public static NBTTagCompound getCacheCompound(File cache) throws IOException {
+	private static NBTTagCompound getCacheCompound(File cache) throws IOException {
 		if(cache == null)
 			throw new RuntimeException("No cache file!");
 
 		try {
-			NBTTagCompound cmp = CompressedStreamTools.readCompressed(new FileInputStream(cache));
-			return cmp;
+			return CompressedStreamTools.readCompressed(new FileInputStream(cache));
 		} catch(IOException e) {
 			NBTTagCompound cmp = new NBTTagCompound();
 			CompressedStreamTools.writeCompressed(cmp, new FileOutputStream(cache));
@@ -153,7 +156,7 @@ public final class PersistentVariableHelper {
 		}
 	}
 
-	public static void injectNBTToFile(NBTTagCompound cmp, File f) {
+	private static void injectNBTToFile(NBTTagCompound cmp, File f) {
 		try {
 			CompressedStreamTools.writeCompressed(cmp, new FileOutputStream(f));
 		} catch(IOException e) {

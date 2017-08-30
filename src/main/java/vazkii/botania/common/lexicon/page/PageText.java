@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jan 14, 2014, 6:45:33 PM (GMT)]
  */
 package vazkii.botania.common.lexicon.page;
@@ -13,17 +13,16 @@ package vazkii.botania.common.lexicon.page;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.common.base.Joiner;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.util.StatCollector;
+import net.minecraft.client.resources.I18n;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.internal.IGuiLexiconEntry;
 import vazkii.botania.api.lexicon.LexiconPage;
 import vazkii.botania.common.core.handler.ConfigHandler;
-
-import com.google.common.base.Joiner;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class PageText extends LexiconPage {
 
@@ -42,26 +41,27 @@ public class PageText extends LexiconPage {
 	}
 
 	public static void renderText(int x, int y, int width, int height, String unlocalizedText) {
-		renderText(x, y, width, height, 10, unlocalizedText);
+		renderText(x, y, width, height, 10, true, 0, unlocalizedText);
 	}
 
 	@SideOnly(Side.CLIENT)
-	public static void renderText(int x, int y, int width, int height, int paragraphSize, String unlocalizedText) {
+	public static void renderText(int x, int y, int width, int height, int paragraphSize, boolean useUnicode, int color, String unlocalizedText) {
 		x += 2;
 		y += 10;
 		width -= 4;
 
-		FontRenderer font = Minecraft.getMinecraft().fontRenderer;
+		FontRenderer font = Minecraft.getMinecraft().fontRendererObj;
 		boolean unicode = font.getUnicodeFlag();
-		font.setUnicodeFlag(true);
-		String text = StatCollector.translateToLocal(unlocalizedText).replaceAll("&", "\u00a7");
+		if(useUnicode)
+			font.setUnicodeFlag(true);
+		String text = I18n.format(unlocalizedText).replaceAll("&", "\u00a7");
 		String[] textEntries = text.split("<br>");
 
-		List<List<String>> lines = new ArrayList();
+		List<List<String>> lines = new ArrayList<>();
 
-		String controlCodes = "";
+		String controlCodes;
 		for(String s : textEntries) {
-			List<String> words = new ArrayList();
+			List<String> words = new ArrayList<>();
 			String lineStr = "";
 			String[] tokens = s.split(" ");
 			for(String token : tokens) {
@@ -73,7 +73,7 @@ public class PageText extends LexiconPage {
 				if(font.getStringWidth(lineStr) > width) {
 					lines.add(words);
 					lineStr = controlCodes + spaced;
-					words = new ArrayList();
+					words = new ArrayList<>();
 				}
 
 				words.add(controlCodes + token);
@@ -81,7 +81,7 @@ public class PageText extends LexiconPage {
 
 			if(!lineStr.isEmpty())
 				lines.add(words);
-			lines.add(new ArrayList());
+			lines.add(new ArrayList<>());
 		}
 
 		int i = 0;
@@ -108,7 +108,7 @@ public class PageText extends LexiconPage {
 					compensationSpaces--;
 					extra++;
 				}
-				font.drawString(s, xi, y, 0);
+				font.drawString(s, xi, y, color);
 				xi += font.getStringWidth(s) + spacing + extra;
 			}
 
@@ -119,13 +119,12 @@ public class PageText extends LexiconPage {
 		font.setUnicodeFlag(unicode);
 	}
 
-	public static String getControlCodes(String s) {
+	private static String getControlCodes(String s) {
 		String controls = s.replaceAll("(?<!\u00a7)(.)", "");
-		String wiped = controls.replaceAll(".*r", "r");
-		return wiped;
+		return controls.replaceAll(".*r", "r");
 	}
 
-	public static String toControlCodes(String s) {
+	private static String toControlCodes(String s) {
 		return s.replaceAll(".", "\u00a7$0");
 	}
 

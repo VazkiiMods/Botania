@@ -2,32 +2,36 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jan 24, 2014, 3:59:06 PM (GMT)]
  */
 package vazkii.botania.api.subtile;
 
-import java.util.ArrayList;
+import java.util.List;
 
+import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ChunkCoordinates;
-import net.minecraft.util.IIcon;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.wand.IWandBindable;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 /**
  * A Sub-TileEntity, this is used for the flower system. Make sure to map subclasses
@@ -49,12 +53,16 @@ public class SubTileEntity {
 	public static final String TAG_TYPE = "type";
 	public static final String TAG_TICKS_EXISTED = "ticksExisted";
 
-	public void setSupertile(TileEntity tile) {
-		supertile = tile;
+	public final BlockPos getPos() {
+		return supertile.getPos();
 	}
 
-	public boolean canUpdate() {
-		return true;
+	public final World getWorld() {
+		return supertile.getWorld();
+	}
+
+	public void setSupertile(TileEntity tile) {
+		supertile = tile;
 	}
 
 	public void onUpdate() {
@@ -95,11 +103,19 @@ public class SubTileEntity {
 	}
 
 	/**
-	 * Gets the icon for this SubTileEntity, this is a block icon.
+	 * Gets the block model path for this subtile
 	 */
 	@SideOnly(Side.CLIENT)
-	public IIcon getIcon() {
-		return BotaniaAPI.internalHandler.getSubTileIconForName(getUnlocalizedName());
+	public ModelResourceLocation getBlockModel() {
+		return BotaniaAPI.internalHandler.getSubTileBlockModelForName(getUnlocalizedName());
+	}
+
+	/**
+	 * Gets the item model path for this subtile
+	 */
+	@SideOnly(Side.CLIENT)
+	public ModelResourceLocation getItemModel() {
+		return BotaniaAPI.internalHandler.getSubTileItemModelForName(getUnlocalizedName());
 	}
 
 	/**
@@ -113,33 +129,35 @@ public class SubTileEntity {
 	/**
 	 * Called when this sub tile is placed in the world (by an entity).
 	 */
-	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack stack) {
-		// NO-OP
-	}
+	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase entity, ItemStack stack) {}
 
 	/**
 	 * Called when a player right clicks this sub tile.
 	 */
-	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) { return false; }
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) { return false; }
 
 	/**
 	 * Called when this sub tile is added to the world.
 	 */
-	public void onBlockAdded(World world, int x, int y, int z) {
-		//NO-OP
-	}
+	public void onBlockAdded(World world, BlockPos pos, IBlockState state) {}
 
 	/**
 	 * Called when this sub tile is harvested
 	 */
-	public void onBlockHarvested(World world, int x, int y, int z, int side, EntityPlayer player) {
-		//NO-OP
+	public void onBlockHarvested(World world, BlockPos pos, IBlockState state, EntityPlayer player) {}
+
+	/**
+	 * Triggered by {@link TileEntity#receiveClientEvent} via {@link net.minecraft.block.Block#eventReceived} and {@link World#addBlockEvent}
+	 */
+	public boolean receiveClientEvent(int id, int param)
+	{
+		return false;
 	}
 
 	/**
 	 * Allows additional processing of sub tile drops
 	 */
-	public ArrayList<ItemStack> getDrops(ArrayList<ItemStack> list) {
+	public List<ItemStack> getDrops(List<ItemStack> list) {
 		return list;
 	}
 
@@ -155,7 +173,7 @@ public class SubTileEntity {
 	 * when the sub tile is being hovered with a wand of the forest.
 	 */
 	@SideOnly(Side.CLIENT)
-	public ChunkCoordinates getBinding() {
+	public BlockPos getBinding() {
 		return null;
 	}
 
@@ -169,23 +187,23 @@ public class SubTileEntity {
 	}
 
 	/**
-	 * Gets a ChunkCoordinates instance with the position of this sub tile.
+	 * Gets a BlockPos instance with the position of this sub tile.
 	 */
-	public ChunkCoordinates toChunkCoordinates() {
-		return new ChunkCoordinates(supertile.xCoord, supertile.yCoord, supertile.zCoord);
+	public BlockPos toBlockPos() {
+		return supertile.getPos();
 	}
 
 	/**
-	 * @see IWandBindable#canSelect(EntityPlayer, ItemStack, int, int, int, int)
+	 * @see IWandBindable#canSelect(EntityPlayer, ItemStack, net.minecraft.util.math.BlockPos, net.minecraft.util.EnumFacing)
 	 */
-	public boolean canSelect(EntityPlayer player, ItemStack wand, int x, int y, int z, int side) {
+	public boolean canSelect(EntityPlayer player, ItemStack wand, BlockPos pos, EnumFacing side) {
 		return false;
 	}
 
 	/**
-	 * @see IWandBindable#bindTo(EntityPlayer, ItemStack, int, int, int, int)
+	 * @see IWandBindable#bindTo(EntityPlayer, ItemStack, net.minecraft.util.math.BlockPos, net.minecraft.util.EnumFacing)
 	 */
-	public boolean bindTo(EntityPlayer player, ItemStack wand, int x, int y, int z, int side) {
+	public boolean bindTo(EntityPlayer player, ItemStack wand, BlockPos pos, EnumFacing side) {
 		return false;
 	}
 
@@ -194,28 +212,26 @@ public class SubTileEntity {
 	 * Used to render a HUD portraying some data from this sub tile.
 	 */
 	@SideOnly(Side.CLIENT)
-	public void renderHUD(Minecraft mc, ScaledResolution res) {
-		// NO-OP
-	}
+	public void renderHUD(Minecraft mc, ScaledResolution res) {}
 
 	/**
 	 * Gets the light value for this SubTileEntity, this is a int (-1 to default to the flower)
 	 */
 	public int getLightValue() {
-		return -1;
+		return 0;
 	}
 
 	/**
 	 * Gets the comparator input value for this SubTileEntity
 	 */
-	public int getComparatorInputOverride(int side) {
+	public int getComparatorInputOverride() {
 		return 0;
 	}
 
 	/**
 	 * Gets the redstone power level for this SubTileEntity
 	 */
-	public int getPowerLevel(int side) {
+	public int getPowerLevel(EnumFacing side) {
 		return 0;
 	}
 
@@ -225,7 +241,7 @@ public class SubTileEntity {
 	public boolean isOvergrowthAffected() {
 		return true;
 	}
-	
+
 	/**
 	 * Gets ths slowdown factor of this SubTile.
 	 * @see ISubTileSlowableContainer
@@ -235,7 +251,7 @@ public class SubTileEntity {
 			ISubTileSlowableContainer slowable = (ISubTileSlowableContainer) supertile;
 			return slowable.getSlowdownFactor();
 		}
-		
+
 		return 0;
 	}
 

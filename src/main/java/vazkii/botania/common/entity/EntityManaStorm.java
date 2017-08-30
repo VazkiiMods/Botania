@@ -2,13 +2,15 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jul 25, 2015, 12:35:51 AM (GMT)]
  */
 package vazkii.botania.common.entity;
+
+import javax.annotation.Nonnull;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
@@ -31,14 +33,12 @@ public class EntityManaStorm extends Entity {
 	public int burstsFired;
 	public int deathTime;
 
-	public EntityManaStorm(World p_i1582_1_) {
-		super(p_i1582_1_);
+	public EntityManaStorm(World world) {
+		super(world);
 	}
 
 	@Override
-	protected void entityInit() {
-		// NO-OP
-	}
+	protected void entityInit() {}
 
 	@Override
 	public void onUpdate() {
@@ -47,7 +47,7 @@ public class EntityManaStorm extends Entity {
 
 		int diffTime = Math.max(1, 30 - (int) (liveTime / 45f));
 		if(burstsFired < TOTAL_BURSTS && liveTime % diffTime == 0) {
-			if(!worldObj.isRemote)
+			if(!world.isRemote)
 				spawnBurst();
 			burstsFired++;
 		}
@@ -56,13 +56,13 @@ public class EntityManaStorm extends Entity {
 			deathTime++;
 			if(deathTime >= DEATH_TIME) {
 				setDead();
-				worldObj.newExplosion(this, posX, posY, posZ, 8F, true, true);
+				world.newExplosion(this, posX, posY, posZ, 8F, true, true);
 			}
 		}
 	}
 
-	public void spawnBurst() {
-		EntityManaBurst burst = new EntityManaBurst(worldObj);
+	private void spawnBurst() {
+		EntityManaBurst burst = new EntityManaBurst(world);
 		burst.setPosition(posX, posY, posZ);
 
 		float motionModifier = 0.5F;
@@ -78,18 +78,18 @@ public class EntityManaStorm extends Entity {
 
 		Vector3 motion = new Vector3(Math.random() - 0.5, Math.random() - 0.5, Math.random() - 0.5).normalize().multiply(motionModifier);
 		burst.setMotion(motion.x, motion.y, motion.z);
-		worldObj.spawnEntityInWorld(burst);
+		world.spawnEntity(burst);
 	}
 
 	@Override
-	protected void readEntityFromNBT(NBTTagCompound cmp) {
+	protected void readEntityFromNBT(@Nonnull NBTTagCompound cmp) {
 		liveTime = cmp.getInteger(TAG_TIME);
 		burstsFired = cmp.getInteger(TAG_BURSTS_FIRED);
 		deathTime = cmp.getInteger(TAG_DEATH_TIME);
 	}
 
 	@Override
-	protected void writeEntityToNBT(NBTTagCompound cmp) {
+	protected void writeEntityToNBT(@Nonnull NBTTagCompound cmp) {
 		cmp.setInteger(TAG_TIME, liveTime);
 		cmp.setInteger(TAG_BURSTS_FIRED, burstsFired);
 		cmp.setInteger(TAG_DEATH_TIME, deathTime);

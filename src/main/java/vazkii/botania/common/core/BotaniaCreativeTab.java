@@ -2,21 +2,21 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Jan 14, 2014, 5:20:53 PM (GMT)]
  */
 package vazkii.botania.common.core;
 
-import java.util.List;
+import javax.annotation.Nonnull;
 
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
@@ -27,8 +27,8 @@ import vazkii.botania.common.lib.LibMisc;
 
 public final class BotaniaCreativeTab extends CreativeTabs {
 
-	public static BotaniaCreativeTab INSTANCE = new BotaniaCreativeTab();
-	List list;
+	public static final BotaniaCreativeTab INSTANCE = new BotaniaCreativeTab();
+	NonNullList<ItemStack> list;
 
 	public BotaniaCreativeTab() {
 		super(LibMisc.MOD_ID);
@@ -36,14 +36,15 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		setBackgroundImageName(LibResources.GUI_CREATIVE);
 	}
 
+	@Nonnull
 	@Override
 	public ItemStack getIconItemStack() {
 		return new ItemStack(ModItems.lexicon);
 	}
 
 	@Override
-	public Item getTabIconItem() {
-		return getIconItemStack().getItem();
+	public ItemStack getTabIconItem() {
+		return getIconItemStack();
 	}
 
 	@Override
@@ -52,7 +53,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 	}
 
 	@Override
-	public void displayAllReleventItems(List list) {
+	public void displayAllRelevantItems(@Nonnull NonNullList<ItemStack> list) {
 		this.list = list;
 
 		addItem(ModItems.lexicon);
@@ -96,7 +97,6 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addItem(ModItems.virus);
 		addItem(ModItems.slingshot);
 		addItem(ModItems.vineBall);
-		addItem(ModItems.regenIvy);
 		addItem(ModItems.keepIvy);
 		addItem(ModItems.worldSeed);
 		addItem(ModItems.overgrowthSeed);
@@ -118,6 +118,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addBlock(ModBlocks.teruTeruBozu);
 		addItem(ModItems.slimeBottle);
 		addItem(ModItems.sextant);
+		addItem(ModItems.astrolabe);
 		addItem(ModItems.blackHoleTalisman);
 
 		if(Botania.gardenOfGlassLoaded) {
@@ -145,6 +146,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addBlock(ModBlocks.pylon);
 		addBlock(ModBlocks.pistonRelay);
 		addBlock(ModBlocks.hourglass);
+		addBlock(ModBlocks.animatedTorch);
 
 		addBlock(ModBlocks.redStringContainer);
 		addBlock(ModBlocks.redStringDispenser);
@@ -235,6 +237,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addItem(ModItems.magnetRing);
 		addItem(ModItems.magnetRingGreater);
 		addItem(ModItems.swapRing);
+		addItem(ModItems.dodgeRing);
 		addItem(ModItems.reachRing);
 		addItem(ModItems.pixieRing);
 		addItem(ModItems.travelBelt);
@@ -246,10 +249,15 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addItem(ModItems.icePendant);
 		addItem(ModItems.lavaPendant);
 		addItem(ModItems.superLavaPendant);
+		addItem(ModItems.cloudPendant);
+		addItem(ModItems.superCloudPendant);
+		addItem(ModItems.invisibilityCloak);
 		addItem(ModItems.holyCloak);
 		addItem(ModItems.unholyCloak);
-		addItem(ModItems.goldLaurel);
+		addItem(ModItems.balanceCloak);
+		addItem(ModItems.goddessCharm);
 		addItem(ModItems.divaCharm);
+		addItem(ModItems.thirdEye);
 		addItem(ModItems.flightTiara);
 
 		addItem(ModItems.manaTablet);
@@ -295,43 +303,10 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addBlock(ModBlocks.floatingSpecialFlower);
 		addBlock(ModBlocks.petalBlock);
 		addBlock(ModBlocks.mushroom);
-		addBlock(ModBlocks.unstableBlock);
-		addBlock(ModBlocks.manaBeacon);
-		addItem(ModItems.signalFlare);
-
-		addStack(new ItemStack(Blocks.dirt, 1, 1));
-		addBlock(ModBlocks.dirtPath);
-		addBlock(ModFluffBlocks.dirtPathSlab);
-
-		addBlock(ModBlocks.prismarine);
-		addBlock(ModBlocks.seaLamp);
-		addBlock(ModFluffBlocks.prismarineStairs);
-		addBlock(ModFluffBlocks.prismarineSlab);
-		addBlock(ModFluffBlocks.prismarineWall);
-		addBlock(ModFluffBlocks.prismarineBrickStairs);
-		addBlock(ModFluffBlocks.prismarineBrickSlab);
-		addBlock(ModFluffBlocks.darkPrismarineStairs);
-		addBlock(ModFluffBlocks.darkPrismarineSlab);
 
 		addBlock(ModBlocks.blazeBlock);
 
-		addBlock(ModBlocks.reedBlock);
-		addBlock(ModFluffBlocks.reedStairs);
-		addBlock(ModFluffBlocks.reedSlab);
-		addBlock(ModFluffBlocks.reedWall);
-		addBlock(ModBlocks.thatch);
-		addBlock(ModFluffBlocks.thatchStairs);
-		addBlock(ModFluffBlocks.thatchSlab);
-
 		addBlock(ModBlocks.customBrick);
-		addBlock(ModFluffBlocks.netherBrickStairs);
-		addBlock(ModFluffBlocks.netherBrickSlab);
-		addBlock(ModFluffBlocks.soulBrickStairs);
-		addBlock(ModFluffBlocks.soulBrickSlab);
-		addBlock(ModFluffBlocks.snowBrickStairs);
-		addBlock(ModFluffBlocks.snowBrickSlab);
-		addBlock(ModFluffBlocks.tileStairs);
-		addBlock(ModFluffBlocks.tileSlab);
 
 		addBlock(ModFluffBlocks.livingwoodStairs);
 		addBlock(ModFluffBlocks.livingwoodSlab);
@@ -379,15 +354,6 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addBlock(ModFluffBlocks.sunnyQuartzSlab);
 		addBlock(ModFluffBlocks.sunnyQuartzStairs);
 
-		if(ConfigHandler.stones18Enabled) {
-			addBlock(ModFluffBlocks.stone);
-			for(int i = 0; i < 8; i++)
-				addBlock(ModFluffBlocks.stoneStairs[i]);
-			for(int i = 0; i < 8; i++)
-				addBlock(ModFluffBlocks.stoneSlabs[i]);
-			addBlock(ModFluffBlocks.stoneWall);
-		}
-
 		addBlock(ModFluffBlocks.biomeStoneA);
 		addBlock(ModFluffBlocks.biomeStoneB);
 		for(int i = 0; i < 24; i++)
@@ -402,14 +368,6 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		for (Block pavementSlab : ModFluffBlocks.pavementSlabs)
 			addBlock(pavementSlab);
 
-		if(ConfigHandler.enderStuff19Enabled) {
-			addBlock(ModBlocks.endStoneBrick);
-			addBlock(ModFluffBlocks.endStoneSlab);
-			addBlock(ModFluffBlocks.endStoneStairs);
-			addBlock(ModFluffBlocks.enderBrickSlab);
-			addBlock(ModFluffBlocks.enderBrickStairs);
-		}
-
 		addItem(ModItems.cosmetic);
 	}
 
@@ -420,10 +378,6 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 	private void addBlock(Block block) {
 		ItemStack stack = new ItemStack(block);
 		block.getSubBlocks(stack.getItem(), this, list);
-	}
-
-	private void addStack(ItemStack stack) {
-		list.add(stack);
 	}
 
 }

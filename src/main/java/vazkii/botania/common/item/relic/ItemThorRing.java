@@ -2,21 +2,22 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Mar 29, 2015, 10:13:37 PM (GMT)]
  */
 package vazkii.botania.common.item.relic;
 
+import baubles.api.BaubleType;
+import baubles.api.BaublesApi;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.items.IItemHandler;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibItemNames;
-import baubles.api.BaubleType;
-import baubles.common.container.InventoryBaubles;
-import baubles.common.lib.PlayerHandler;
 
 public class ItemThorRing extends ItemRelicBauble {
 
@@ -30,14 +31,14 @@ public class ItemThorRing extends ItemRelicBauble {
 	}
 
 	public static ItemStack getThorRing(EntityPlayer player) {
-		InventoryBaubles baubles = PlayerHandler.getPlayerBaubles(player);
+		IItemHandler baubles = BaublesApi.getBaublesHandler(player);
 		ItemStack stack1 = baubles.getStackInSlot(1);
 		ItemStack stack2 = baubles.getStackInSlot(2);
 		return isThorRing(stack1) ? stack1 : isThorRing(stack2) ? stack2 : null;
 	}
 
 	private static boolean isThorRing(ItemStack stack) {
-		return stack != null && (stack.getItem() == ModItems.thorRing || stack.getItem() == ModItems.aesirRing);
+		return !stack.isEmpty() && (stack.getItem() == ModItems.thorRing || stack.getItem() == ModItems.aesirRing);
 	}
 
 }

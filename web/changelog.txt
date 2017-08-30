@@ -1,5 +1,248 @@
+r1.9 345
+*Fixed a bad pixel in the checkmark for mana infision.
+*Fixed a dupe when interacting with sparks just as they're leaving the world.
+*Fixed Managlass and Alfglass transparency (palaster).
+*Fixed the Pure Daisy running its logic client sided as well.
+r1.9 344
+*Fixed a lava dupe with the Petal Apothecary.
+*Fixed a Mana Enchanter game freeze.
+*Fixed an item dupe when dropping items in the edges of a Mana Pool.
+*Fixed double plants not being randomly shifted like vanilla ones.
+*Fixed the Mana Clip showing Air for empty slots.
+*Fixed the Ring of Loki's wireframes not working.
+*Updated Storage Drawers integration (palaster)
+*<i>More williewilus builds up in here!</i>
+r1.9 343
+*Fixed a crash with the Marimorphosis.
+*Fixed baubles equipped by right click destroying items already in their slots.
+*Fixed botania armor sets animating on armor stands.
+*Fixed FPS lag when holding the Wand of the Forest.
+*Fixed right click to refill not working in the Petal Apothecary.
+*Fixed right clicking the Mana Enchanter not doing the item's action even if there's nothing the item can do.
+*Fixed shimmering mushrooms popping off at strange times.
+*Fixed some log errors.
+*Fixed the animated torch not animating smoothly when toggled serverside.
+*Fixed the Overload brew being nerfed by the 1.9 update.
+*Fixed the Wand of the Forest being able to rotate command blocks in survival.
+*Fixed the Wand of the Forest changing mode when rotating blocks.
+*Made some rune recipes use the ore dictionary.
+*Mod flowers' bounding boxes now match their shift, like vanilla flowers.
+*The Lexica Botania now shows the keybind for sneaking rather than always Shift.
+*<i>This build is all williewillus, again!</i>
+r1.9 342
+*<b>Updated the mod to 1.11.2</b>
+*Removed the Golden Laurel Crown, as it overlaps with the Totem of Undying.
+*Using Chorus Fruit on a Cocoon of Caprice allows it to spawn shulkers.
+*<i>Yet another build provided by williewillus :D</i>
+r1.9 341
+*<b>Unless otherwise stated, this entire update was kindly provided by williewillus' assistance.</b>
+*Fixed a crash when placing pistons with a arannuncarpus.
+*Fixed a crash with the orechid when an ore is registered to the ore dictionary that isn't a block. (smbarbour)
+*Fixed AoE mining not firing break events and not dropping xp.
+*Fixed body and leg armor stats being swapped.
+*Fixed crashes with the drum of the gathering and the mod's shears.
+*Fixed the botania banner lexicon entry still requiring EtFuturum.
+*Fixed the crystal bow not using mana.
+*Fixed the gaia guardian not looking like the player in dedicated servers.
+*Fixed the horn of the wild, bore lens, and rod of the shifting crust manually dropping block drops and not allowing for block rollbacks.
+*Fixed the marimorphosis running clientside and desyncing.
+*Fixed the soulscribe not dealing extra damage.
+*Fixed the spectator not highlighting all relevant inventories.
+*Removed lexicon references to blocks that have been removed or moved to quark.
+r1.9 340
+*Fixed a crash regarding tile entities and block states not playing together. (williewillus)
+*Fixed crash on unequipping the Ring of Loki.
+*Fixed the Crafty Crate destroying items if there's a block under it.
+*Fixed the Gourmaryllis spamming packets and causing ridiculous network usage. (williewillus)
+*Fixed the Key of the King's Law stacking portals together if the player is looking straight down.
+*Fixed the Life Imbuer spawning mobs inside blocks. (williewillus)
+*Fixed the livingwood bow not using 1.9 arrow priority and using arrows even if they have infinity.
+*Fixed the Mana Enchanter not accepting floating flowers.
+*Fixed the Ring of Loki checking your offhand item and thus negating the cursor addition if you have no item in either hand.
+*Fixed the T.A. Plate not showing particles. (williewillus)
+*The Gourmaryllis now plays a burp sound when it's done eating. (williewillus)
+r1.9 339
+*Fixed a crash if a burst from a Manastorm Charge hits a mana container block.
+*Fixed a potential crash when crafting with baubles.
+*Minor text fixes.
+r1.9 338
+*Fixed a crash when breaking redstone ore with an Elementium Pickaxe or Terra Shatterer with Elementium tips.
+*Fixed a crash when using the Worldshaper's Astrolabe without a block set.
+*The Lexica Botania can now always be thrown into an elven portal, even if it already has elven knowledge. (Shadowfacts)
+r1.9 337
+*Fixed a client crash with the Worldshaper's Astrolabe.
+*Fixed a crash when explosions happen in a server because someone at mojang thought having a client only constructor was a good idea.
+*Garden of Glass's sea level is now set to 64 during world creation.  As of 1.8, the sea level is set to a really low value for flat chunk providers, so this fixes squids not spawning in garden of glass worlds. 
+r1.9 336
+*Added an alchemy recipe for Chorus Flowers.
+*Added grass paths, farmland and botania alt grasses to the blocks that can be dug for pebbles in garden of glass.
+*Added the Benevolent Goddess' Charm, it stops nearby explosions from breaking blocks.
+*Added the Worldshaper's Astrolabe, a new fancy tool to place a lot of blocks really quick.
+*Changed the crafting recipe for Cellular Blocks to include Beetroot.
+*Changed the secret code for the <span class="censored">------ -----</span>.
+*Fixed a texture being poorly sized and breaking mipmapping.
+*Fixed log spam when the Loonium is doing its thing.
+*Fixed Resolute Ivy not working.
+*Fixed the Invisibility Cloak not using up mana properly.
+*Lowered how much the Dandelifeon will produce per iteration, but increased the maximum mana iteration to 100 (from 60).
+*Mana Pumps will now output a comparator signal if they're turned off.
+*Minecarts with Mana Pools now have the correct amount of drag.
+*Removed the WIP page from the Dandelifeon page. Balance is still up in the air but I don't think I'll be changing mechanics now.
+*There is no longer a limit in how many iterations a Dandelifeon can do, but the amount of mana a cell produces peaks at 100.
+*Updated the Gourmaryllis' documentation to be clearer.
+r1.9 335
+*Fixed the Terra Shatterer and other AoE tools not breaking some mod blocks properly due to removing the tile entity before capturing the drops. (iPencil)
+*The Lexica Botania now autodetects your max gui scale and sets its allowed scale values accordingly.
+r1.9 334
+*<b>WARNING: If you have an enabled loonium in your world DISABLE IT before updating, as it can spawn mobs, including creepers, now.</b>
+*Added a config option to disable shedding entirely. This improves load times by not checking every mob.
+*Added the Cirrus and Nimbus Amulets, which give you double and triple jump, respectively.
+*Added the Invisibility Cloak. It's pretty self explanatory.
+*Added the Third Eye, a nwe body slot bauble that makes mobs spectral.
+*Changed the recipes for the Pyroclast and Snowflake Pendants to use Mana Infused String.
+*Fixed the floating flower cache log not being formatted properly.
+*Fixed the teru teru bozu not resetting the rain time.
+*Mana Bursts that have been teleported by a Warp Lens can no longer deliver mana to receiving blocks.
+*Removed the ability for the Invisibility brew to be added to a Tainted Blood Pendant.
+*The /botania-download-latest command can now be ran on singleplayer without cheats enabled.
+*The Bauble Box and Corporea Retainer recipes now use the chest ore dictionary tag.
+*The Loonium now spawns mobs that drop dungeon loot instead of spawning dungeon loot outright.
+*The Manasteel and Elementium shovels can now make grass paths like vanilla shovels can. They can turn grass paths into farmland now.
+*Updated the Force Relay lexicon entry to be less ambiguous.
+*You can no longer summon a Guardian of Gaia if there's already one nearby.
+*[API] Added functionality to ILensEffect to decide how much mana goes into an IManaReceiver.
+*[API] Increased version number to 85.
+r1.9 333
+*Added a mana infusion recipe for beetroot seeds.
+*Added osmium from mekanism and black quartz from actually additions to the orechid table.
+*Fixed a crash when mana pools are broken or removed from the world. Actually has to do with a bug in forge, so this is a bit of a band aid.
+*Fixed mana tablets and mirrors not having their insides colorized properly. 
+*Fixed the Godlen Laurel Crown destroying your amulet slot item rather than itself.
+*Updated the reset step height for the sashes to the new step height in 1.8+. Fixes them breaking stairs made with chisels and bits.
+*[API] Added oreOsmium and oreQuartzBlack to the orechid table.
+*[API] Increased version number to 84.
+r1.9 332
+*Fixed the manaseer monocle not working since its slot was changed. Turns out I had a lot of things that only cared about the first 4 slots.
+r1.9 331
+*Added a null check to the Thorn Chakram to prevent it from crashing if the entity that threw it is unloaded.
+*Added the Cloak of Balance, a new cloak bauble that splits damage between the target and the attacker.
+*Fixed a crash when removing a Ring of the Aesir, Odin, or Tectonic Girdle. This is actually a baubles work and the fix here is a workaround. These items won't reset their state properly until it's fixed in baubles, but they at least won't crash.
+*Fixed Infrangible Platforms being able to be exploded.
+*Fixed munchdews eating leaves below them.
+*Fixed the bauble box GUI not removing the bauble icons for the new slots. 
+*Fixed the Key of the King's Law producing a bad shape when looking northeast.
+*Fixed the Kindle lens not being able to close nether portals.
+*Sylph wings on the Flugel Tiara now glow.
+*Updated the documentation for the Cloaks of Judgement to reflect the proper slot.
+*[API] Updated IManaDiscountArmor, ManaDiscountEvent, IManaProficiencyArmor, ManaItemHandler with ItemStack specific methods. (Flaxbeard)
+*[API] Added ManaProficiencyEvent. (Flaxbeard)
+*[API] Increased the version number to 83.
+r1.9 330
+*Fixed some baubles not working after their slots were changed.
+r1.9 329
+*Updated for the latest version of baubles. It's now required.
+*Buffed the Great Fairy Ring's chance to spawn a pixie by a bunch.
+*Changed the slots of a few of the mod's baubles to some of the new bauble slots. More baubles will come soon to fix the thin spread.
+*Fixed a graphical attribute bleed in the Hovering Hourglass renderer. This should fix chisel blocks messing up, maybe.
+*Fixed lexica gui elements breaking if you rescale it with the new button.
+*Fixed Luminizers making players no-clip into the block below them.
+*Fixed Luminizers not working.
+*The Bauble Box now has all 7 bauble slots, the player render had to go through.
+r1.9 328
+*Fixed Hydroangeas not being passive.
+*The Lexica Botania now detects if it's in an Akashic Tome and updates its display name (in the cover and landing page) accordingly.
+*Removed an .exe file that was used to compress the sprites and was mistakenly packaged in.
+r1.9 327
+*Removed Mana Powder from the Hydorangeas recipe because I forgot to remove it before so I removed it now so you can actually do it earlygame :D
+r1.9 326
+*Added the ability to use Mana Powder in the Hovering Hourglass to make it a counter.
+*Added the Animated Torch, a new redstone helper block.
+*Added the Fork Luminizer which allows for a fork in the luminizer path.
+*Added the Mana Lens: Messenger, which carries a lot less mana but over a long distance and faster for when you need the burst but not the mana.
+*Added the Mana Lens: Tripwire, which only allows the burst to fire if there's an entity in the burst's path.
+*Added the Toggle Luminizer, which drops entities off right there if it has a redstone signal.
+*Changed the Cloak of Virtue and Cloak of Sin's models and made them shine.
+*Changed the floating flower models to a simpler design. This also makes them a lot less FPS intensive when used in large numbers.
+*Fixed a flower dupe with the Flower Pouch.
+*Fixed the command to download updates ingame not working.
+*Fixed the Flugel Tiara breaking the lighting in other bauble renders.
+*Fixed the Garden of Glass entry not showing up in the tutorial if it's loaded.
+*Fixed the Thorn Chakram not rendering.
+*Made the Gourmaryllis have an upper bound in how much mana it can make from a single piece of food.
+*Made the Hovering Hourglass sand falling animation a lot smoother.
+*Removed all needless metadata from Botania textures (of which there are a lot). Enjoy the smaller filesize. I'll probably fit it with some more music later on.
+*Updated secret codes.
+*[API] Added IHourglassTrigger, for blocks that have stuff happen when an adjacent Hovering Hourglass does something.
+*[API] Added runBurstSimulation() to IManaSpreader.
+*[API] Increased version number to 82.
+r1.9 325
+*Fixed a crash when picking up a flower that was removed.
+*Fixed the Rafflowsia being able to eat itself.
+*[API] Added ManaItemsEvent (Flaxbeard)
+*[API] Increased Version Number to 81.
+r1.9 324
+*Added mana alchemy recipes for Prismarine Shards and Crystals if you're in Garden of Glass.
+*Minor text fixes.
+*r
+r1.9 323
+*Fixed conflicting packet IDs.
+*Fixed the endoflame recipe being impossible to make because I'm a nub and forgot to remove the Mana Powder.
+r1.9 322
+*<b>Please read the notes at end of this changelog for some context and important information. Thanks.</b>
+*Added a button to the Lexica Botania's landing page to rescale it without rescaling the rest of the GUI.
+*Added the Ring of Dexterous Motion, a new bauble that allows you to dodge to the sides using the A and D keys.
+*Attempting to summon a Gaia Guardian with an invalid arena now emits particles on the offending blocks.
+*Buffed the gaia guardian's wither effect due to it being easier to dodge now.
+*Changed the Lexica Botania's cover layout a bit. It now has a random quote on it. Quote pool will expand as I find more cool quotes.
+*Changed the special flower breaking particles from the poppy particles to generic green particles like in Botania 1.7.10.
+*Disabled Natural Shedding (by default, the config is still present and fully functional).
+*Fix pylon and petal apothecary models not being placed properly in the inventory.
+*Fixed a crash when placing slabs.
+*Fixed a crash with the vitreous pickaxe.
+*Fixed improper resolution for the flugel tiara wing sprites causing framedrops.
+*Fixed Petal Blocks having no color.
+*Fixed stack sizes not showing up in a lot of places, including the lexicon recipe pages and the mana pool HUD.
+*Fixed the Lexica Botania's notes accepting localization keys and localizing them.
+*Fixed the spreader wool sleeves not being slim fit on top and z-fighting on some sides.
+*Fixed the Teru Teru Bozu not being able to create rain.
+*Increased the amount of Mana required to open the Elven Portal.
+*Made the Mod's armor bulkier to fix z-fighting with the new skin layers. This is a temporary solution until we can redo the armor.
+*Managlass, Alfglass and Bifrost Blocks are now valid targets for Chisels&Bits.
+*Moved Stone Transmutation to the main alchemy page since they're no longer new blocks.
+*Moved the side buttons in the Lexica Botania's landing page to the bottom of the interface and changed them all to be green.
+*Re-implemented the update checker and ingame downloader built in to Botania 1.7.10.
+*Rebalanced the Gaia Guardian's health and damage cap to make more sense with the damage changes in 1.9.
+*Removed avatar decoration on Vazkii's player because they weren't stylish enough.
+*Removed Dayblooms and Nightshades. Endoflames no longer require Mana Powder.
+*Removed mana loss from spreader to spreader.
+*Removed Motif flowers.
+*Removed Needless Fluff: Roof Tiles, Hellish, Soul, and Frost Bricks, Trodden Dirt, Unstable Blocks, and Signal Flares.
+*Removed Primus Loci.
+*Removed the passive decay config again.
+*Removed the prismarine alchemy recipe.
+*Removed the Pylons and Mana Pools from the Elven Portal multiblock. They can now be placed anywhere in an 11x11 area. You can also have more than 2 Pylons, if you desire.
+*Removed Timless Ivy (needless because of the existance of Mending in vanilla).
+*Replaced a lot of cringy memes and terribly placed references with some less cringy memes and terribly placed references.
+*The Elven Portal now takes mana per transaction rather than per tick. It will also no longer close itself if there's no mana.
+*The Gaia Guardian's attacks now display as an overlay in the world rather than as particles only.
+*The Livingwood Avatar can now place down dirt using the Rod of the Lands.
+*The Rosa Arcana can now get its XP from orbs in the world.
+*The Tiny Potato can now have items given to it. Many of the "easter egg" names for it have been removed as you can replicate them with this feature.
+*Updated Corporea textures and some those of some of the livingrock blocks.
+*Updated the dispenser planting's entry and feature set. It now duplicates Quark's dispenser planting so it can plant Cocoa Beans as well. Quark's disabels itself if Botania is present.
+*[API] Removed a bunch of stuff that is no longer used.
+*[API] Added a getFacing() method to IAvatarTile, this is used for the Rod of the Lands.
+*[API] Increased version number to 80.
+*<b>This version is for Minecraft 1.10.2, and carries on from the latest release of <a href="https://minecraft.curseforge.com/projects/botania-unofficial">Botania Unofficial</a>.</b>
+*<b>A massive thanks is due to <a href="https://twitter.com/williewillus">williewillus</a>, who took it upon himself to port and maintain the mod all the way through 1.8, 1.9 and to 1.10. Please go send him love and hugs, as us being here would not be possible without him.</b>
+*<b>If you want to know what changed in between, have a look through the Releases page on <a href="https://github.com/williewillus/Botania/releases">williewillus/Botania.</a></b>
+*<b>This is the first release for 1.10.2, which sets up for further content expansion, while removing obsolete and bloated pieces of content. More content is planned and will be coming soon.</b>
+*<b>You can mitigate your worlds from Botania Unofficial to Botania just fine, any of the removed pieces of content you had in your world will just disappear.</b>
+*<b>A few pieces of content from Botania's 1.7.10 releases was removed in Botania Unofficial due to them being added to <a href="http://quark.vazkii.us/">Quark</a>, another mod by me which I highly recommend you install alongside Botania.</b>
+*<b>If you were looking for BotaniaV2, most of that project was scrapped in favour of this update instead. I decided that instead of reinventing a mod that's already good, I'd use the concepts there to make a new mod instead, which I am planning, but want to get some new stuff onto Botania and Quark before I move onto that.</b>
+*<b>And that's it for my important note. I'm back to Botania, and I hope you carry on enjoying it.</b>
 r1.8 249
-*<i>The "LEAVE ME THE #%!& ALONE" update! Powered by the community's Pull Requests and TheWhiteWolves' help. Also the last "official" update. Unless it breaks awfully. In that case there'll be another to fix this one. Hopefully not.</i>
+*<i>The "LEAVE ME THE #%!& ALONE" update! Powered by the community's Pull Requests and TheWhiteWolves' help. <s>Also the last "official" update. Unless it breaks awfully. In that case there'll be another to fix this one. Hopefully not.</s></i>
 *Added back the config for passive flower decay. <i>I don't care any more. You broke me, you win. Have your config back.</i>
 *Added corporea support for Storage Drawers and the DSU API (used by JABBA too, and the TE Caches, I think) (Vindex)
 *Added Petite Clayconia. (TheWhiteWolves)

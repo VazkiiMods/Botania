@@ -1,0 +1,11 @@
+{
+  "parameters": {
+    "world_to_cycle": [ "/", 4 ]
+  },
+  "clips": {
+    "moving": [ "apply", "botania:block/crystalcube_cube@moving", "#world_to_cycle" ]
+  },
+  "states": [ "moving" ],
+  "transitions": {},
+  "start_state": "moving"
+}

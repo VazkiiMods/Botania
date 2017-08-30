@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [May 15, 2014, 5:56:47 PM (GMT)]
  */
 package vazkii.botania.common.block.subtile.functional;
@@ -15,13 +15,14 @@ import java.util.List;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
+import vazkii.botania.common.core.handler.MethodHandles;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibObfuscation;
-import cpw.mods.fml.relauncher.ReflectionHelper;
 
 public class SubTilePollidisiac extends SubTileFunctional {
 
@@ -31,34 +32,37 @@ public class SubTilePollidisiac extends SubTileFunctional {
 	public void onUpdate() {
 		super.onUpdate();
 
-		if(!supertile.getWorldObj().isRemote) {
+		if(!supertile.getWorld().isRemote) {
 			int manaCost = 12;
 
-			List<EntityItem> items = supertile.getWorldObj().getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(supertile.xCoord - RANGE, supertile.yCoord, supertile.zCoord - RANGE, supertile.xCoord + 1 + RANGE, supertile.yCoord + 1, supertile.zCoord + 1 +RANGE));
-			List<EntityAnimal> animals = supertile.getWorldObj().getEntitiesWithinAABB(EntityAnimal.class, AxisAlignedBB.getBoundingBox(supertile.xCoord - RANGE, supertile.yCoord, supertile.zCoord - RANGE, supertile.xCoord + 1 +RANGE, supertile.yCoord + 1, supertile.zCoord + 1 +RANGE));
+			List<EntityItem> items = supertile.getWorld().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(supertile.getPos().add(-RANGE, -RANGE, -RANGE), supertile.getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
+			List<EntityAnimal> animals = supertile.getWorld().getEntitiesWithinAABB(EntityAnimal.class, new AxisAlignedBB(supertile.getPos().add(-RANGE, -RANGE, -RANGE), supertile.getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
 			int slowdown = getSlowdownFactor();
-			
+
 			for(EntityAnimal animal : animals) {
 				if(mana < manaCost)
 					break;
 
-				int love = ReflectionHelper.getPrivateValue(EntityAnimal.class, animal, LibObfuscation.IN_LOVE);
-				if(animal.getGrowingAge() == 0 && love <= 0) {
+				if(animal.getGrowingAge() == 0 && !animal.isInLove()) {
 					for(EntityItem item : items) {
-						if(item.age < (60 + slowdown) || item.isDead)
+						int age;
+						try {
+							age = (int) MethodHandles.itemAge_getter.invokeExact(item);
+						} catch (Throwable t) {
+							continue;
+						}
+
+						if(age < 60 + slowdown || item.isDead)
 							continue;
 
 						ItemStack stack = item.getEntityItem();
-						if(animal.isBreedingItem(stack)) {
-							stack.stackSize--;
-							if(stack.stackSize == 0)
-								item.setDead();
+						if(!stack.isEmpty() && animal.isBreedingItem(stack)) {
+							stack.shrink(1);
 
 							mana -= manaCost;
 
 							ReflectionHelper.setPrivateValue(EntityAnimal.class, animal, 1200, LibObfuscation.IN_LOVE);
-							animal.setTarget(null);
-							supertile.getWorldObj().setEntityState(animal, (byte)18);
+							supertile.getWorld().setEntityState(animal, (byte)18);
 						}
 					}
 				}
@@ -68,7 +72,7 @@ public class SubTilePollidisiac extends SubTileFunctional {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-		return new RadiusDescriptor.Square(toChunkCoordinates(), RANGE);
+		return new RadiusDescriptor.Square(toBlockPos(), RANGE);
 	}
 
 	@Override

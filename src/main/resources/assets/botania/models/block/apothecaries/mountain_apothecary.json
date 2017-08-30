@@ -1,0 +1,23 @@
+{
+  "parent": "botania:block/shapes/petal_apothecary",
+  "textures": {
+    "gobletbaseside": "botania:model/altar/mountain/gobletbase_sides",
+    "gobletbasetop": "botania:model/altar/mountain/gobletbase_top",
+    "gobletbasebottom": "botania:model/altar/mountain/gobletbase_bottom",
+    "gobletbase2side": "botania:model/altar/mountain/gobletbase2_sides",
+    "gobletbase2top": "botania:model/altar/mountain/gobletbase2_top",
+    "gobletbase2bottom": "botania:model/altar/mountain/gobletbase2_bottom",
+    "gobletbase3side": "botania:model/altar/mountain/gobletbase3_sides",
+    "gobletbase3top": "botania:model/altar/mountain/gobletbase3_top",
+    "gobletbase3bottom": "botania:model/altar/mountain/gobletbase3_bottom",
+    "gobletstandside": "botania:model/altar/mountain/gobletstand_sides",
+    "gobletstandtopbottom": "botania:model/altar/mountain/gobletstand_top_bottom",
+    "kelkbaseside": "botania:model/altar/mountain/kelkbase_sides",
+    "kelkbasetopbottom": "botania:model/altar/mountain/kelkbase_top_bottom",
+    "kelkbase2side": "botania:model/altar/mountain/kelkbase2_sides",
+    "kelkbase2top": "botania:model/altar/mountain/kelkbase2_top",
+    "kelkbase2bottom": "botania:model/altar/mountain/kelkbase2_bottom",
+    "kelkwall": "botania:model/altar/mountain/kelkwall",
+    "particle": "botania:blocks/biomestone2"
+  }
+}

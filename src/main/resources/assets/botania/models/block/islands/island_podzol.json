@@ -1,0 +1,7 @@
+{
+  "parent": "botania:block/shapes/miniisland",
+  "textures": {
+    "top": "blocks/dirt_podzol_top",
+	"side": "blocks/dirt_podzol_side"
+  }
+}

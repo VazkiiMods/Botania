@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "bottom": "botania:blocks/blockblazequartz0",
+    "top": "botania:blocks/blockblazequartz1",
+    "side": "botania:blocks/blockblazequartz2"
+  }
+}

@@ -2,10 +2,10 @@
  * This class was created by <Vazkii>. It's distributed as
  * part of the Botania Mod. Get the Source Code in github:
  * https://github.com/Vazkii/Botania
- * 
+ *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * File Created @ [Feb 23, 2015, 4:24:08 PM (GMT)]
  */
 package vazkii.botania.common.block.decor;
@@ -13,142 +13,160 @@ package vazkii.botania.common.block.decor;
 import java.util.List;
 import java.util.Random;
 
+import javax.annotation.Nonnull;
+
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockDirt;
 import net.minecraft.block.BlockMushroom;
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.block.SoundType;
+import net.minecraft.block.state.BlockStateContainer;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.NonNullList;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.fml.common.Optional;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import thaumcraft.api.crafting.IInfusionStabiliser;
 import vazkii.botania.api.item.IHornHarvestable;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.client.core.helper.IconHelper;
+import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.client.core.handler.ModelHandler;
+import vazkii.botania.client.render.IModelRegister;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.core.handler.ConfigHandler;
-import vazkii.botania.common.integration.coloredlights.ColoredLightHelper;
 import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
-import cpw.mods.fml.common.Optional;
-import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import vazkii.botania.common.lib.LibMisc;
 
 @Optional.Interface(modid = "Thaumcraft", iface = "thaumcraft.api.crafting.IInfusionStabiliser", striprefs = true)
-public class BlockModMushroom extends BlockMushroom implements IInfusionStabiliser, IHornHarvestable, ILexiconable {
+public class BlockModMushroom extends BlockMushroom implements IInfusionStabiliser, IHornHarvestable, ILexiconable, IModelRegister {
 
-	public static IIcon[] icons;
-	public int originalLight;
+	private static final AxisAlignedBB AABB = new AxisAlignedBB(0.3, 0, 0.3, 0.8, 1, 0.8);
 
 	public BlockModMushroom() {
-		setBlockName(LibBlockNames.MUSHROOM);
+		setRegistryName(new ResourceLocation(LibMisc.MOD_ID, LibBlockNames.MUSHROOM));
+		setUnlocalizedName(LibBlockNames.MUSHROOM);
 		setLightLevel(0.2F);
 		setHardness(0F);
-		setStepSound(soundTypeGrass);
-		setBlockBounds(0.3F, 0.0F, 0.3F, 0.8F, 1, 0.8F);
+		setSoundType(SoundType.PLANT);
 		setTickRandomly(false);
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
+		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.COLOR, EnumDyeColor.WHITE));
+		GameRegistry.register(this);
+		GameRegistry.register(new ItemBlockWithMetadataAndName(this), getRegistryName());
+	}
+
+	@Nonnull
+	@Override
+	public BlockStateContainer createBlockState() {
+		return new BlockStateContainer(this, BotaniaStateProps.COLOR);
 	}
 
 	@Override
-	public void updateTick(World p_149674_1_, int p_149674_2_, int p_149674_3_, int p_149674_4_, Random p_149674_5_) {
-		// NO-OP, to prevent spreading
+	public int getMetaFromState(IBlockState state) {
+		return state.getValue(BotaniaStateProps.COLOR).getMetadata();
 	}
 
+	@Nonnull
 	@Override
-	public boolean canBlockStay(World p_149718_1_, int p_149718_2_, int p_149718_3_, int p_149718_4_) {
-		if(p_149718_3_ >= 0 && p_149718_3_ < 256) {
-			Block block = p_149718_1_.getBlock(p_149718_2_, p_149718_3_ - 1, p_149718_4_);
-			return block == Blocks.mycelium || block == Blocks.dirt && p_149718_1_.getBlockMetadata(p_149718_2_, p_149718_3_ - 1, p_149718_4_) == 2 || block.canSustainPlant(p_149718_1_, p_149718_2_, p_149718_3_ - 1, p_149718_4_, ForgeDirection.UP, this);
+	public IBlockState getStateFromMeta(int meta) {
+		if (meta >= EnumDyeColor.values().length) {
+			meta = 0;
 		}
+		return getDefaultState().withProperty(BotaniaStateProps.COLOR, EnumDyeColor.byMetadata(meta));
+	}
 
-		return false;
+	@Nonnull
+	@Override
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
+		return AABB;
 	}
 
 	@Override
-	public void getSubBlocks(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
-		for(int i = 0; i < 16; i++)
-			par3List.add(new ItemStack(par1, 1, i));
+	public void updateTick(@Nonnull World world, @Nonnull BlockPos pos, IBlockState state, Random rand) {} // Prevent spreading
+
+	// [VanillaCopy] super, cleaned up and without light level requirement
+	@Override
+	public boolean canBlockStay(@Nonnull World worldIn, BlockPos pos, IBlockState state)
+	{
+		if (pos.getY() >= 0 && pos.getY() < 256)
+		{
+			IBlockState iblockstate = worldIn.getBlockState(pos.down());
+			return iblockstate.getBlock() == Blocks.MYCELIUM
+					|| (iblockstate.getBlock() == Blocks.DIRT && iblockstate.getValue(BlockDirt.VARIANT) == BlockDirt.DirtType.PODZOL
+					|| iblockstate.getBlock().canSustainPlant(iblockstate, worldIn, pos.down(), net.minecraft.util.EnumFacing.UP, this));
+		}
+		else
+		{
+			return false;
+		}
 	}
 
-	@Override
-	public Block setBlockName(String par1Str) {
-		GameRegistry.registerBlock(this, ItemBlockWithMetadataAndName.class, par1Str);
-		return super.setBlockName(par1Str);
-	}
-
-	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister par1IconRegister) {
-		icons = new IIcon[16];
-
-		for(int i = 0; i < icons.length; i++)
-			icons[i] = IconHelper.forBlock(par1IconRegister, this, i);
+	@Override
+	public void getSubBlocks(@Nonnull Item item, CreativeTabs tab, NonNullList<ItemStack> stacks) {
+		for(int i = 0; i < 16; i++)
+			stacks.add(new ItemStack(item, 1, i));
 	}
 
 	@Override
-	public Block setLightLevel(float p_149715_1_) {
-		originalLight = (int) (p_149715_1_ * 15);
-		return super.setLightLevel(p_149715_1_);
+	public int damageDropped(IBlockState state) {
+		return getMetaFromState(state);
+	}
+
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void randomDisplayTick(IBlockState state, World world, BlockPos pos, Random rand) {
+		int hex = state.getValue(BotaniaStateProps.COLOR).getMapColor().colorValue;
+		int r = (hex & 0xFF0000) >> 16;
+		int g = (hex & 0xFF00) >> 8;
+		int b = hex & 0xFF;
+
+		if(rand.nextDouble() < ConfigHandler.flowerParticleFrequency * 0.25F)
+			Botania.proxy.sparkleFX(pos.getX() + 0.3 + rand.nextFloat() * 0.5, pos.getY() + 0.5 + rand.nextFloat() * 0.5, pos.getZ() + 0.3 + rand.nextFloat() * 0.5, r / 255F, g / 255F, b / 255F, rand.nextFloat(), 5);
 	}
 
 	@Override
-	@Optional.Method(modid = "easycoloredlights")
-	public int getLightValue(IBlockAccess world, int x, int y, int z) {
-		return ColoredLightHelper.getPackedColor(world.getBlockMetadata(x, y, z), originalLight);
-	}
-
-	@Override
-	public IIcon getIcon(int par1, int par2) {
-		return icons[par2];
-	}
-
-	@Override
-	public int damageDropped(int par1) {
-		return par1;
-	}
-
-	@Override
-	public void randomDisplayTick(World par1World, int par2, int par3, int par4, Random par5Random) {
-		int meta = par1World.getBlockMetadata(par2, par3, par4);
-		float[] color = EntitySheep.fleeceColorTable[meta];
-
-		if(par5Random.nextDouble() < ConfigHandler.flowerParticleFrequency * 0.25F)
-			Botania.proxy.sparkleFX(par1World, par2 + 0.3 + par5Random.nextFloat() * 0.5, par3 + 0.5 + par5Random.nextFloat() * 0.5, par4 + 0.3 + par5Random.nextFloat() * 0.5, color[0], color[1], color[2], par5Random.nextFloat(), 5);
-	}
-
-	@Override
-	public boolean canStabaliseInfusion(World world, int x, int y, int z) {
+	public boolean canStabaliseInfusion(World world, BlockPos pos) {
 		return ConfigHandler.enableThaumcraftStablizers;
 	}
 
 	@Override
-	public LexiconEntry getEntry(World world, int x, int y, int z, EntityPlayer player, ItemStack lexicon) {
+	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.mushrooms;
 	}
 
 	@Override
-	public boolean canHornHarvest(World world, int x, int y, int z, ItemStack stack, EnumHornType hornType) {
+	public boolean canHornHarvest(World world, BlockPos pos, ItemStack stack, EnumHornType hornType) {
 		return false;
 	}
 
 	@Override
-	public boolean hasSpecialHornHarvest(World world, int x, int y, int z, ItemStack stack, EnumHornType hornType) {
+	public boolean hasSpecialHornHarvest(World world, BlockPos pos, ItemStack stack, EnumHornType hornType) {
 		return false;
 	}
 
 	@Override
-	public void harvestByHorn(World world, int x, int y, int z, ItemStack stack, EnumHornType hornType) {
-		// NO-OP
-	}
+	public void harvestByHorn(World world, BlockPos pos, ItemStack stack, EnumHornType hornType) {}
 
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void registerModels() {
+		ModelHandler.registerCustomItemblock(this, EnumDyeColor.values().length, i -> "mushroom_" + EnumDyeColor.byMetadata(i).getName());
+	}
 }
