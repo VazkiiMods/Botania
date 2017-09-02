@@ -28,6 +28,7 @@ import vazkii.botania.common.lexicon.page.PageText;
 @Mod.EventBusSubscriber(Side.CLIENT)
 public class RenderLexicon {
 	private static final ModelBook model = new ModelBook();
+	// todo 1.12 improve
 	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_LEXICA_DEFAULT);
 	private static final ResourceLocation elvenTexture = new ResourceLocation(LibResources.MODEL_LEXICA_ELVEN);
 
@@ -79,7 +80,7 @@ public class RenderLexicon {
 		Minecraft mc = Minecraft.getMinecraft();
 
 		GlStateManager.pushMatrix();
-		mc.renderEngine.bindTexture(((ItemLexicon) ModItems.lexicon).isElvenItem(stack) ? elvenTexture : texture);
+		mc.renderEngine.bindTexture(elvenTexture);
 		float opening;
 		float pageFlip;
 
