@@ -99,6 +99,11 @@ public class SubTileEndoflame extends SubTileGenerating {
 	}
 
 	@Override
+	public int getValueForPassiveGeneration() {
+		return 3;
+	}
+
+	@Override
 	public int getColor() {
 		return 0x785000;
 	}

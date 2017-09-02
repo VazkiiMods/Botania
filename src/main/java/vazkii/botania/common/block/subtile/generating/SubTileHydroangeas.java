@@ -180,7 +180,7 @@ public class SubTileHydroangeas extends SubTileGenerating {
 	@Override
 	public int getDelayBetweenPassiveGeneration() {
 		boolean rain = supertile.getWorld().getBiome(supertile.getPos()).getRainfall() > 0 && (supertile.getWorld().isRaining() || supertile.getWorld().isThundering());
-		return rain ? 6 : 9;
+		return rain ? 2 : 3;
 	}
 
 	public int getCooldown() {
