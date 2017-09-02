@@ -10,6 +10,7 @@
  */
 package vazkii.botania.common.item.material;
 
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -23,6 +24,7 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -38,6 +40,7 @@ import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.entity.EntityEnderAirBottle;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.lib.LibItemNames;
+import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
@@ -158,7 +161,14 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void registerModels() {
-		ModelHandler.registerItemMetas(this, LibItemNames.MANA_RESOURCE_NAMES.length, i -> LibItemNames.MANA_RESOURCE_NAMES[i]);
+		for (int i = 0; i < LibItemNames.MANA_RESOURCE_NAMES.length; i++) {
+			if (!"UNUSED".equals(LibItemNames.MANA_RESOURCE_NAMES[i])) {
+				ModelLoader.setCustomModelResourceLocation(
+					this, i,
+					new ModelResourceLocation(LibMisc.MOD_ID + ":" + LibItemNames.MANA_RESOURCE_NAMES[i], "inventory")
+				);
+			}
+		}
 	}
 
 }
