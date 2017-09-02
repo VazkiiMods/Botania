@@ -19,13 +19,19 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.Optional;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.ModSounds;
 
 import javax.annotation.Nonnull;
+
+import elucent.albedo.lighting.ILightProvider;
+import elucent.albedo.lighting.Light;
+
 import java.util.List;
 
-public class EntityMagicLandmine extends Entity {
+@Optional.Interface(iface="elucent.albedo.lighting.ILightProvider", modid="albedo")
+public class EntityMagicLandmine extends Entity implements ILightProvider {
 
 	public EntityDoppleganger summoner;
 
@@ -86,4 +92,10 @@ public class EntityMagicLandmine extends Entity {
 	protected void writeEntityToNBT(@Nonnull NBTTagCompound var1) {
 	}
 
+	@Override
+	@Optional.Method(modid="albedo")
+	public Light provideLight() {
+		return Light.builder().pos(this).color(0.6F, 0F, 1F).radius(15).build();
+	}
+	
 }

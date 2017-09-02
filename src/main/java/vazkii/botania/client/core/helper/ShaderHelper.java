@@ -13,6 +13,8 @@ package vazkii.botania.client.core.helper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.resources.SimpleReloadableResourceManager;
+import net.minecraftforge.fml.common.Loader;
+
 import org.lwjgl.opengl.ARBFragmentShader;
 import org.lwjgl.opengl.ARBShaderObjects;
 import org.lwjgl.opengl.ARBVertexShader;
@@ -44,6 +46,9 @@ public final class ShaderHelper {
 	public static int gold = 0;
 	public static int categoryButton = 0;
 	public static int alpha = 0;
+	
+	private static boolean hasIncompatibleMods = false;
+	private static boolean checkedIncompatibility = false;
 
 	private static void deleteShader(int id) {
 		if (id != 0) {
@@ -112,7 +117,16 @@ public final class ShaderHelper {
 	}
 
 	public static boolean useShaders() {
-		return ConfigHandler.useShaders && OpenGlHelper.shadersSupported;
+		return ConfigHandler.useShaders && OpenGlHelper.shadersSupported && checkIncompatibleMods();
+	}
+	
+	private static boolean checkIncompatibleMods() {
+		if(!checkedIncompatibility) {
+			hasIncompatibleMods = Loader.isModLoaded("albedo") || Loader.isModLoaded("optifine");
+			checkedIncompatibility = true;
+		}
+		
+		return !hasIncompatibleMods;
 	}
 
 	// Most of the code taken from the LWJGL wiki

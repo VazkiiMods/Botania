@@ -21,7 +21,9 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.Optional;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.PlayerHelper;
@@ -31,9 +33,14 @@ import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.item.relic.ItemKingKey;
 
 import javax.annotation.Nonnull;
+
+import elucent.albedo.lighting.ILightProvider;
+import elucent.albedo.lighting.Light;
+
 import java.util.List;
 
-public class EntityBabylonWeapon extends EntityThrowableCopy {
+@Optional.Interface(iface="elucent.albedo.lighting.ILightProvider", modid="albedo")
+public class EntityBabylonWeapon extends EntityThrowableCopy implements ILightProvider {
 
 	private static final String TAG_CHARGING = "charging";
 	private static final String TAG_VARIETY = "variety";
@@ -195,6 +202,12 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 		setRotation(cmp.getFloat(TAG_ROTATION));
 	}
 
+	@Override
+	@Optional.Method(modid="albedo")
+	public Light provideLight() {
+		return Light.builder().pos(this).color(1F, 1F, 0F).radius(8).build();
+	}
+	
 	public boolean isCharging() {
 		return dataManager.get(CHARGING);
 	}

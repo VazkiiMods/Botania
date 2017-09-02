@@ -10,6 +10,19 @@
  */
 package vazkii.botania.common.entity;
 
+import java.awt.Color;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Objects;
+import java.util.Random;
+import java.util.Set;
+import java.util.UUID;
+
+import javax.annotation.Nonnull;
+
+import elucent.albedo.lighting.ILightProvider;
+import elucent.albedo.lighting.Light;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.BlockLeaves;
@@ -31,6 +44,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.BotaniaAPI;
@@ -50,17 +64,8 @@ import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.equipment.bauble.ItemTinyPlanet;
 
-import javax.annotation.Nonnull;
-import java.awt.Color;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
-import java.util.Random;
-import java.util.Set;
-import java.util.UUID;
-
-public class EntityManaBurst extends EntityThrowable implements IManaBurst {
+@Optional.Interface(iface="elucent.albedo.lighting.ILightProvider", modid="albedo")
+public class EntityManaBurst extends EntityThrowable implements IManaBurst, ILightProvider {
 
 	private static final String TAG_TICKS_EXISTED = "ticksExisted";
 	private static final String TAG_COLOR = "color";
@@ -453,10 +458,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		float r = color.getRed() / 255F;
 		float g = color.getGreen() / 255F;
 		float b = color.getBlue() / 255F;
-
-		int mana = getMana();
-		int maxMana = getStartingMana();
-		float osize = (float) mana / (float) maxMana;
+		float osize = getParticleSize();
 		float size = osize;
 
 		if(fake) {
@@ -521,6 +523,10 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 			if(monocle)
 				Botania.proxy.setWispFXDepthTest(true);
 		}
+	}
+	
+	public float getParticleSize() {
+		return (float) getMana() / (float) getStartingMana();
 	}
 
 	@Override
@@ -798,6 +804,13 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		TileEntity tile = world.getTileEntity(coords);
 		if(tile != null && tile instanceof IManaSpreader)
 			((IManaSpreader) tile).setLastBurstDeathTick(getTicksExisted());
+	}
+	
+	@Override
+	@Optional.Method(modid="albedo")
+	public Light provideLight() {
+		int color = getColor();
+		return Light.builder().pos(new Vec3d(posX - motionX, posY - motionY, posZ - motionZ)).color(color, false).radius(getParticleSize() * 8).build();
 	}
 
 	public static class PositionProperties {

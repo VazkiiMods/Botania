@@ -20,11 +20,16 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.Optional;
 import vazkii.botania.common.Botania;
 
 import javax.annotation.Nonnull;
 
-public class EntityPixie extends EntityFlying {
+import elucent.albedo.lighting.ILightProvider;
+import elucent.albedo.lighting.Light;
+
+@Optional.Interface(iface="elucent.albedo.lighting.ILightProvider", modid="albedo")
+public class EntityPixie extends EntityFlying implements ILightProvider {
 
 	private static final DataParameter<Integer> TYPE = EntityDataManager.createKey(EntityPixie.class, DataSerializers.VARINT);
 
@@ -139,6 +144,15 @@ public class EntityPixie extends EntityFlying {
 	@Override
 	public boolean canBeLeashedTo(EntityPlayer player) {
 		return false;
+	}
+
+	@Override
+	@Optional.Method(modid="albedo")
+	public Light provideLight() {
+		if(getType() == 1)
+			return null;
+		
+		return Light.builder().pos(this).color(1F, 0F, 0.5F).radius(8).build();
 	}
 
 }

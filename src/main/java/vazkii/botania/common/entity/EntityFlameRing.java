@@ -10,7 +10,6 @@
  */
 package vazkii.botania.common.entity;
 
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.SoundEvents;
@@ -19,14 +18,19 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.Optional;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.MathHelper;
 
 import javax.annotation.Nonnull;
+
+import elucent.albedo.lighting.ILightProvider;
+import elucent.albedo.lighting.Light;
+
 import java.util.List;
 
-
-public class EntityFlameRing extends Entity {
+@Optional.Interface(iface="elucent.albedo.lighting.ILightProvider", modid="albedo")
+public class EntityFlameRing extends Entity implements ILightProvider {
 
 	public EntityFlameRing(World world) {
 		super(world);
@@ -96,10 +100,15 @@ public class EntityFlameRing extends Entity {
 		return false;
 	}
 
-
 	@Override
 	protected void readEntityFromNBT(@Nonnull NBTTagCompound var1) {}
 
 	@Override
 	protected void writeEntityToNBT(@Nonnull NBTTagCompound var1) {}
+	
+	@Override
+	@Optional.Method(modid="albedo")
+	public Light provideLight() {
+		return Light.builder().pos(this).color(1F, 0.5F, 0F).radius(20).build();
+	}
 }

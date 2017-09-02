@@ -10,6 +10,14 @@
  */
 package vazkii.botania.common.block.tile;
 
+import java.awt.Color;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.Nonnull;
+
+import elucent.albedo.lighting.ILightProvider;
+import elucent.albedo.lighting.Light;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
@@ -28,7 +36,9 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.Optional;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.LuminizerVariant;
 import vazkii.botania.api.wand.IWandBindable;
@@ -38,11 +48,6 @@ import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.lib.LibMisc;
-
-import javax.annotation.Nonnull;
-import java.awt.Color;
-import java.util.ArrayList;
-import java.util.List;
 
 public class TileLightRelay extends TileMod implements IWandBindable {
 
@@ -229,7 +234,8 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 		cmp.setInteger(TAG_BIND_Z, bindPos.getZ());
 	}
 
-	public static class EntityPlayerMover extends Entity {
+	@Optional.Interface(iface="elucent.albedo.lighting.ILightProvider", modid="albedo")
+	public static class EntityPlayerMover extends Entity implements ILightProvider {
 
 		private static final String TAG_EXIT_X = "exitX";
 		private static final String TAG_EXIT_Y = "exitY";
@@ -345,6 +351,17 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 
 		public void setExit(BlockPos pos) {
 			dataManager.set(EXIT_POS, pos);
+		}
+
+		@Override
+		@Optional.Method(modid="albedo")
+		public Light provideLight() {
+			if(getPassengers().isEmpty())
+				return null;
+			
+			Entity passenger = getPassengers().get(0);
+			Color color = Color.getHSBColor(passenger.ticksExisted / 36F, 1F, 1F);
+			return Light.builder().pos(this).color(color.getRGB(), false).radius(5).build();
 		}
 
 	}
