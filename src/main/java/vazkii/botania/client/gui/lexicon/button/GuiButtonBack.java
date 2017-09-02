@@ -10,16 +10,15 @@
  */
 package vazkii.botania.client.gui.lexicon.button;
 
-import java.util.Collections;
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.gui.lexicon.GuiLexicon;
+
+import javax.annotation.Nonnull;
+import java.util.Collections;
+import java.util.List;
 
 public class GuiButtonBack extends GuiButtonLexicon {
 
@@ -28,14 +27,14 @@ public class GuiButtonBack extends GuiButtonLexicon {
 	}
 
 	@Override
-	public void drawButton(@Nonnull Minecraft par1Minecraft, int par2, int par3) {
+	public void drawButton(@Nonnull Minecraft par1Minecraft, int par2, int par3, float partialTicks) {
 		if(enabled) {
-			hovered = par2 >= xPosition && par3 >= yPosition && par2 < xPosition + width && par3 < yPosition + height;
+			hovered = par2 >= x && par3 >= y && par2 < x + width && par3 < y + height;
 			int k = getHoverState(hovered);
 
 			par1Minecraft.renderEngine.bindTexture(GuiLexicon.texture);
 			GlStateManager.color(1F, 1F, 1F, 1F);
-			drawTexturedModalRect(xPosition, yPosition, 36, k == 2 ? 180 : 189, 18, 9);
+			drawTexturedModalRect(x, y, 36, k == 2 ? 180 : 189, 18, 9);
 
 			List<String> tooltip = getTooltip();
 			int tooltipY = (tooltip.size() - 1) * 10;

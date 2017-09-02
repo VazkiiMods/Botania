@@ -1,0 +1,19 @@
+{
+  "result": {
+    "item": "botania:shinyflower",
+    "data": 14
+  },
+  "group": "botania:shinyflower",
+  "ingredients": [
+    {
+      "item": "#DUSTGLOWSTONE"
+    },
+    {
+      "item": "#DUSTGLOWSTONE"
+    },
+    {
+      "item": "#MYSTICFLOWERRED"
+    }
+  ],
+  "type": "forge:ore_shapeless"
+}

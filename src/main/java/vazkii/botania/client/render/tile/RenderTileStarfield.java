@@ -10,22 +10,20 @@
  */
 package vazkii.botania.client.render.tile;
 
-import java.awt.Color;
-import java.nio.FloatBuffer;
-import java.util.Random;
-
-import javax.annotation.Nonnull;
-
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.ActiveRenderInfo;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GLAllocation;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
 import vazkii.botania.common.block.tile.TileStarfield;
+
+import javax.annotation.Nonnull;
+import java.awt.Color;
+import java.nio.FloatBuffer;
+import java.util.Random;
 
 // This is copied from the vanilla end portal TESR, relevant edits are commented
 public class RenderTileStarfield extends TileEntitySpecialRenderer<TileStarfield> {
@@ -38,7 +36,7 @@ public class RenderTileStarfield extends TileEntitySpecialRenderer<TileStarfield
 	private FloatBuffer buffer = GLAllocation.createDirectFloatBuffer(16);
 
 	@Override
-	public void renderTileEntityAt(@Nonnull TileStarfield starfield, double x, double y, double z, float partialTicks, int destroyStage)
+	public void render(@Nonnull TileStarfield starfield, double x, double y, double z, float partialTicks, int destroyStage, float unused)
 	{
 		GlStateManager.disableLighting();
 		RANDOM.setSeed(31100L);
@@ -66,7 +64,7 @@ public class RenderTileStarfield extends TileEntitySpecialRenderer<TileStarfield
 			{
 				this.bindTexture(END_PORTAL_TEXTURE);
 				flag = true;
-				Minecraft.getMinecraft().entityRenderer.func_191514_d(true);
+				Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
 			}
 
 			if (j == 1)
@@ -97,8 +95,8 @@ public class RenderTileStarfield extends TileEntitySpecialRenderer<TileStarfield
 			GlStateManager.multMatrix(PROJECTION);
 			GlStateManager.multMatrix(MODELVIEW);
 			Tessellator tessellator = Tessellator.getInstance();
-			VertexBuffer vertexbuffer = tessellator.getBuffer();
-			vertexbuffer.begin(7, DefaultVertexFormats.POSITION_COLOR);
+			BufferBuilder BufferBuilder = tessellator.getBuffer();
+			BufferBuilder.begin(7, DefaultVertexFormats.POSITION_COLOR);
 			float f3 = (RANDOM.nextFloat() * 0.5F + 0.1F) * f1;
 			float f4 = (RANDOM.nextFloat() * 0.5F + 0.4F) * f1;
 			float f5 = (RANDOM.nextFloat() * 0.5F + 0.5F) * f1;
@@ -114,50 +112,50 @@ public class RenderTileStarfield extends TileEntitySpecialRenderer<TileStarfield
 			/* Botania - don't render other faces
 			if (te.shouldRenderFace(EnumFacing.SOUTH))
 			{
-				vertexbuffer.pos(x, y, z + 1.0D).color(f3, f4, f5, 1.0F).endVertex();
-				vertexbuffer.pos(x + 1.0D, y, z + 1.0D).color(f3, f4, f5, 1.0F).endVertex();
-				vertexbuffer.pos(x + 1.0D, y + 1.0D, z + 1.0D).color(f3, f4, f5, 1.0F).endVertex();
-				vertexbuffer.pos(x, y + 1.0D, z + 1.0D).color(f3, f4, f5, 1.0F).endVertex();
+				BufferBuilder.pos(x, y, z + 1.0D).color(f3, f4, f5, 1.0F).endVertex();
+				BufferBuilder.pos(x + 1.0D, y, z + 1.0D).color(f3, f4, f5, 1.0F).endVertex();
+				BufferBuilder.pos(x + 1.0D, y + 1.0D, z + 1.0D).color(f3, f4, f5, 1.0F).endVertex();
+				BufferBuilder.pos(x, y + 1.0D, z + 1.0D).color(f3, f4, f5, 1.0F).endVertex();
 			}
 
 			if (te.shouldRenderFace(EnumFacing.NORTH))
 			{
-				vertexbuffer.pos(x, y + 1.0D, z).color(f3, f4, f5, 1.0F).endVertex();
-				vertexbuffer.pos(x + 1.0D, y + 1.0D, z).color(f3, f4, f5, 1.0F).endVertex();
-				vertexbuffer.pos(x + 1.0D, y, z).color(f3, f4, f5, 1.0F).endVertex();
-				vertexbuffer.pos(x, y, z).color(f3, f4, f5, 1.0F).endVertex();
+				BufferBuilder.pos(x, y + 1.0D, z).color(f3, f4, f5, 1.0F).endVertex();
+				BufferBuilder.pos(x + 1.0D, y + 1.0D, z).color(f3, f4, f5, 1.0F).endVertex();
+				BufferBuilder.pos(x + 1.0D, y, z).color(f3, f4, f5, 1.0F).endVertex();
+				BufferBuilder.pos(x, y, z).color(f3, f4, f5, 1.0F).endVertex();
 			}
 
 			if (te.shouldRenderFace(EnumFacing.EAST))
 			{
-				vertexbuffer.pos(x + 1.0D, y + 1.0D, z).color(f3, f4, f5, 1.0F).endVertex();
-				vertexbuffer.pos(x + 1.0D, y + 1.0D, z + 1.0D).color(f3, f4, f5, 1.0F).endVertex();
-				vertexbuffer.pos(x + 1.0D, y, z + 1.0D).color(f3, f4, f5, 1.0F).endVertex();
-				vertexbuffer.pos(x + 1.0D, y, z).color(f3, f4, f5, 1.0F).endVertex();
+				BufferBuilder.pos(x + 1.0D, y + 1.0D, z).color(f3, f4, f5, 1.0F).endVertex();
+				BufferBuilder.pos(x + 1.0D, y + 1.0D, z + 1.0D).color(f3, f4, f5, 1.0F).endVertex();
+				BufferBuilder.pos(x + 1.0D, y, z + 1.0D).color(f3, f4, f5, 1.0F).endVertex();
+				BufferBuilder.pos(x + 1.0D, y, z).color(f3, f4, f5, 1.0F).endVertex();
 			}
 
 			if (te.shouldRenderFace(EnumFacing.WEST))
 			{
-				vertexbuffer.pos(x, y, z).color(f3, f4, f5, 1.0F).endVertex();
-				vertexbuffer.pos(x, y, z + 1.0D).color(f3, f4, f5, 1.0F).endVertex();
-				vertexbuffer.pos(x, y + 1.0D, z + 1.0D).color(f3, f4, f5, 1.0F).endVertex();
-				vertexbuffer.pos(x, y + 1.0D, z).color(f3, f4, f5, 1.0F).endVertex();
+				BufferBuilder.pos(x, y, z).color(f3, f4, f5, 1.0F).endVertex();
+				BufferBuilder.pos(x, y, z + 1.0D).color(f3, f4, f5, 1.0F).endVertex();
+				BufferBuilder.pos(x, y + 1.0D, z + 1.0D).color(f3, f4, f5, 1.0F).endVertex();
+				BufferBuilder.pos(x, y + 1.0D, z).color(f3, f4, f5, 1.0F).endVertex();
 			}
 
 			if (te.shouldRenderFace(EnumFacing.DOWN))
 			{
-				vertexbuffer.pos(x, y, z).color(f3, f4, f5, 1.0F).endVertex();
-				vertexbuffer.pos(x + 1.0D, y, z).color(f3, f4, f5, 1.0F).endVertex();
-				vertexbuffer.pos(x + 1.0D, y, z + 1.0D).color(f3, f4, f5, 1.0F).endVertex();
-				vertexbuffer.pos(x, y, z + 1.0D).color(f3, f4, f5, 1.0F).endVertex();
+				BufferBuilder.pos(x, y, z).color(f3, f4, f5, 1.0F).endVertex();
+				BufferBuilder.pos(x + 1.0D, y, z).color(f3, f4, f5, 1.0F).endVertex();
+				BufferBuilder.pos(x + 1.0D, y, z + 1.0D).color(f3, f4, f5, 1.0F).endVertex();
+				BufferBuilder.pos(x, y, z + 1.0D).color(f3, f4, f5, 1.0F).endVertex();
 			}*/
 
 			// Botania - always render up face if (te.shouldRenderFace(EnumFacing.UP))
 			{
-				vertexbuffer.pos(x, y + (double)f, z + 1.0D).color(f3, f4, f5, 1.0F).endVertex();
-				vertexbuffer.pos(x + 1.0D, y + (double)f, z + 1.0D).color(f3, f4, f5, 1.0F).endVertex();
-				vertexbuffer.pos(x + 1.0D, y + (double)f, z).color(f3, f4, f5, 1.0F).endVertex();
-				vertexbuffer.pos(x, y + (double)f, z).color(f3, f4, f5, 1.0F).endVertex();
+				BufferBuilder.pos(x, y + (double)f, z + 1.0D).color(f3, f4, f5, 1.0F).endVertex();
+				BufferBuilder.pos(x + 1.0D, y + (double)f, z + 1.0D).color(f3, f4, f5, 1.0F).endVertex();
+				BufferBuilder.pos(x + 1.0D, y + (double)f, z).color(f3, f4, f5, 1.0F).endVertex();
+				BufferBuilder.pos(x, y + (double)f, z).color(f3, f4, f5, 1.0F).endVertex();
 			}
 
 			tessellator.draw();
@@ -174,7 +172,7 @@ public class RenderTileStarfield extends TileEntitySpecialRenderer<TileStarfield
 
 		if (flag)
 		{
-			Minecraft.getMinecraft().entityRenderer.func_191514_d(false);
+			Minecraft.getMinecraft().entityRenderer.setupFogColor(false);
 		}
 	}
 

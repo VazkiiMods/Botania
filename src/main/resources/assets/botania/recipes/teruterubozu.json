@@ -1,0 +1,20 @@
+{
+  "result": {
+    "item": "botania:teruterubozu"
+  },
+  "pattern": [
+    "C",
+    "C",
+    "S"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "C": {
+      "item": "#CLOTHMANAWEAVE"
+    },
+    "S": {
+      "item": "minecraft:double_plant",
+      "data": 0
+    }
+  }
+}

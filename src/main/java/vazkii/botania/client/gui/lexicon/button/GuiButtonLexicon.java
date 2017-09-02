@@ -13,7 +13,7 @@ package vazkii.botania.client.gui.lexicon.button;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.audio.SoundHandler;
 import net.minecraft.client.gui.GuiButton;
-import vazkii.botania.api.sound.BotaniaSoundEvents;
+import vazkii.botania.common.core.handler.ModSounds;
 
 public class GuiButtonLexicon extends GuiButton {
 
@@ -23,7 +23,7 @@ public class GuiButtonLexicon extends GuiButton {
 
 	@Override
 	public void playPressSound(SoundHandler handler)  {
-		handler.playSound(PositionedSoundRecord.getMasterRecord(BotaniaSoundEvents.lexiconPage, 1.0F));
+		handler.playSound(PositionedSoundRecord.getMasterRecord(ModSounds.lexiconPage, 1.0F));
 	}
 
 }

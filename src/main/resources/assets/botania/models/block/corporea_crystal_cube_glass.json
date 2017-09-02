@@ -1,0 +1,20 @@
+{
+	"textures": {
+		"particle": "#glass"
+	},
+	"elements": [
+		{
+			"name": "glass",
+			"from": [ 4, 4, 4 ],
+			"to": [ 12, 12, 12 ],
+			"faces": {
+				"down": { "texture": "#glass", "uv": [ 4, 4, 12, 12 ] },
+				"up": { "texture": "#glass", "uv": [ 4, 4, 12, 12 ] },
+				"north": { "texture": "#glass", "uv": [ 4, 4, 12, 12 ] },
+				"south": { "texture": "#glass", "uv": [ 4, 4, 12, 12 ] },
+				"west": { "texture": "#glass", "uv": [ 4, 4, 12, 12 ] },
+				"east": { "texture": "#glass", "uv": [ 4, 4, 12, 12 ] }
+			}
+		}
+	]
+}

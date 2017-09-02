@@ -10,12 +10,6 @@
  */
 package vazkii.botania.common.core.handler;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextComponentString;
@@ -25,9 +19,16 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.lib.LibMisc;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public final class ConfigHandler {
 
@@ -44,7 +45,6 @@ public final class ConfigHandler {
 	public static boolean staticWandBeam = false;
 	public static boolean boundBlockWireframe = true;
 	public static boolean lexicon3dModel = true;
-	public static boolean oldPylonModel = false;
 	public static double flowerParticleFrequency = 0.75F;
 	public static boolean blockBreakParticles = true;
 	public static boolean blockBreakParticlesTool = true;
@@ -99,8 +99,6 @@ public final class ConfigHandler {
 
 		config.load();
 		load();
-
-		MinecraftForge.EVENT_BUS.register(ChangeListener.class);
 	}
 
 	public static void load() {
@@ -130,9 +128,6 @@ public final class ConfigHandler {
 
 		desc = "Set this to false to disable the animated 3D render for the Lexica Botania.";
 		lexicon3dModel = loadPropBool("lexicon.render.3D", desc, lexicon3dModel);
-
-		desc = "Set this to true to use the old (non-.obj, pre beta18) pylon model";
-		oldPylonModel = loadPropBool("pylonModel.old", desc, oldPylonModel);
 
 		desc = "The frequency in which particles spawn from normal (worldgen) mystical flowers";
 		flowerParticleFrequency = loadPropDouble("flowerParticles.frequency", desc, flowerParticleFrequency);
@@ -429,6 +424,7 @@ public final class ConfigHandler {
 
 	}
 
+	@Mod.EventBusSubscriber
 	public static class ChangeListener {
 
 		@SubscribeEvent

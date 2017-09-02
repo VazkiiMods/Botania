@@ -10,13 +10,7 @@
  */
 package vazkii.botania.common.item.rod;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
 import com.google.common.collect.ImmutableList;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -25,13 +19,13 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.TextFormatting;
@@ -54,6 +48,10 @@ import vazkii.botania.common.block.BlockCamo;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.lib.LibItemNames;
+
+import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWireframeCoordinateListProvider {
 
@@ -227,7 +225,8 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 			if(!blockAt.isAir(world.getBlockState(pos), world, pos) && stateAt.getPlayerRelativeBlockHardness(player, world, pos) > 0 && stateAt != state) {
 				if(!world.isRemote) {
 					if(!player.capabilities.isCreativeMode) {
-						List<ItemStack> drops = blockAt.getDrops(world, pos, stateAt, 0);
+						NonNullList<ItemStack> drops = NonNullList.create();
+						blockAt.getDrops(drops, world, pos, stateAt, 0);
 						for(ItemStack drop : drops)
 							world.spawnEntity(new EntityItem(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, drop));
 						removeFromInventory(player, stack, state.getBlock(), state.getBlock().getMetaFromState(state), true);

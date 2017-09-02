@@ -10,10 +10,7 @@
  */
 package vazkii.botania.common.block.tile.mana;
 
-import javax.annotation.Nonnull;
-
 import com.google.common.collect.ImmutableMap;
-
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
@@ -27,6 +24,8 @@ import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.block.tile.TileMod;
+
+import javax.annotation.Nonnull;
 
 public class TilePump extends TileMod {
 

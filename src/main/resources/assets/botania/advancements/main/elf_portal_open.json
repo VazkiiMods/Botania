@@ -1,0 +1,20 @@
+{
+  "display": {
+    "icon": {
+      "item": "botania:alfheimportal"
+    },
+    "title": {
+      "translate": "advancement.botania:elfPortalOpen"
+    },
+    "description": {
+      "translate": "advancement.botania:elfPortalOpen.desc"
+    }
+  },
+  "parent": "botania:main/terrasteel_pickup",
+  "__comment": "This is triggered by code in Botania. In the future, it may become data-driven",
+  "criteria": {
+    "code_triggered": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

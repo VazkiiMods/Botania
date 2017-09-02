@@ -1,0 +1,19 @@
+{
+  "result": {
+    "item": "botania:lens",
+    "data": 21
+  },
+  "ingredients": [
+    {
+      "item": "botania:lens",
+      "data": 0
+    },
+    {
+      "item": "botania:elfglass"
+    },
+    {
+      "item": "#INGOTELVENELEMENTIUM"
+    }
+  ],
+  "type": "forge:ore_shapeless"
+}

@@ -9,9 +9,9 @@
  */
 package vazkii.botania.api.corporea;
 
-import java.util.List;
-
 import net.minecraft.item.ItemStack;
+
+import java.util.List;
 
 /**
  * This interface wraps IInventory corporea works with in order to provide

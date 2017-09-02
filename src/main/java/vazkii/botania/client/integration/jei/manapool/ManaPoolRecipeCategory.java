@@ -8,12 +8,6 @@
  */
 package vazkii.botania.client.integration.jei.manapool;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.gui.IRecipeLayout;
@@ -27,6 +21,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
+import vazkii.botania.common.lib.LibMisc;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ManaPoolRecipeCategory implements IRecipeCategory {
 
@@ -107,6 +107,12 @@ public class ManaPoolRecipeCategory implements IRecipeCategory {
 	@Override
 	public List getTooltipStrings(int mouseX, int mouseY) {
 		return new ArrayList();
+	}
+
+	@Nonnull
+	@Override
+	public String getModName() {
+		return LibMisc.MOD_NAME;
 	}
 
 }

@@ -1,0 +1,16 @@
+{
+  "result": {
+    "item": "botania:grasshorn",
+    "data": 2
+  },
+  "ingredients": [
+    {
+      "item": "botania:grasshorn",
+      "data": 0
+    },
+    {
+      "item": "minecraft:snowball"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}

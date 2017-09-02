@@ -1,0 +1,26 @@
+{
+  "result": {
+    "item": "botania:invisibilitycloak"
+  },
+  "pattern": [
+    "CWC",
+    "GWG",
+    "GPG"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "P": {
+      "item": "#MANAPEARL"
+    },
+    "C": {
+      "item": "minecraft:prismarine_crystals"
+    },
+    "W": {
+      "item": "minecraft:wool",
+      "data": 0
+    },
+    "G": {
+      "item": "botania:managlass"
+    }
+  }
+}

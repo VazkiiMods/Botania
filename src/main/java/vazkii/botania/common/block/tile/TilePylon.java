@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.block.tile;
 
-import java.util.Random;
-
 import net.minecraft.block.Block;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ITickable;
@@ -23,6 +21,8 @@ import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.Vector3;
+
+import java.util.Random;
 
 public class TilePylon extends TileEntity implements ITickable {
 
@@ -72,7 +72,7 @@ public class TilePylon extends TileEntity implements ITickable {
 
 				Block block = world.getBlockState(pos.down()).getBlock();
 				if(block == ModBlocks.flower || block == ModBlocks.shinyFlower) {
-					int hex = world.getBlockState(pos.down()).getValue(BotaniaStateProps.COLOR).getMapColor().colorValue;
+					int hex = world.getBlockState(pos.down()).getValue(BotaniaStateProps.COLOR).getColorValue();
 					int r = (hex & 0xFF0000) >> 16;
 					int g = (hex & 0xFF00) >> 8;
 					int b = hex & 0xFF;

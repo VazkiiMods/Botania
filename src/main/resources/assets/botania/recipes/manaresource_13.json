@@ -1,0 +1,16 @@
+{
+  "result": {
+    "item": "botania:manaresource",
+    "data": 13
+  },
+  "pattern": [
+    "W",
+    "W"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "W": {
+      "item": "#DREAMWOOD"
+    }
+  }
+}

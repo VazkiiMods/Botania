@@ -10,16 +10,12 @@
  */
 package vazkii.botania.common.item.equipment.armor.manasteel;
 
-import java.util.EnumMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Nonnull;
-
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -33,7 +29,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.ISpecialArmor;
 import net.minecraftforge.fml.common.Optional;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import thaumcraft.api.items.IRunicArmor;
@@ -50,6 +45,11 @@ import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.lib.LibMisc;
+
+import javax.annotation.Nonnull;
+import java.util.EnumMap;
+import java.util.List;
+import java.util.Map;
 
 @Optional.Interface(modid = "Thaumcraft", iface = "thaumcraft.api.items.IRunicArmor")
 public class ItemManasteelArmor extends ItemArmor implements ISpecialArmor, IManaUsingItem, IPhantomInkable, IRunicArmor, IModelRegister {
@@ -69,7 +69,7 @@ public class ItemManasteelArmor extends ItemArmor implements ISpecialArmor, IMan
 		super(mat, 0, type);
 		this.type = type;
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
-		GameRegistry.register(this, new ResourceLocation(LibMisc.MOD_ID, name));
+		setRegistryName(new ResourceLocation(LibMisc.MOD_ID, name));
 		setUnlocalizedName(name);
 	}
 
@@ -161,14 +161,15 @@ public class ItemManasteelArmor extends ItemArmor implements ISpecialArmor, IMan
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void addInformation(ItemStack stack, EntityPlayer player, List<String> list, boolean adv) {
+	public void addInformation(ItemStack stack, World world, List<String> list, ITooltipFlag flags) {
 		if(GuiScreen.isShiftKeyDown())
-			addInformationAfterShift(stack, player, list, adv);
+			addInformationAfterShift(stack, world, list, flags);
 		else addStringToTooltip(I18n.format("botaniamisc.shiftinfo"), list);
 	}
 
 	@SideOnly(Side.CLIENT)
-	public void addInformationAfterShift(ItemStack stack, EntityPlayer player, List<String> list, boolean adv) {
+	public void addInformationAfterShift(ItemStack stack, World world, List<String> list, ITooltipFlag flags) {
+		EntityPlayer player = Minecraft.getMinecraft().player;
 		addStringToTooltip(getArmorSetTitle(player), list);
 		addArmorSetDescription(stack, list);
 		ItemStack[] stacks = getArmorSetStacks();

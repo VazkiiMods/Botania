@@ -10,18 +10,15 @@
  */
 package vazkii.botania.common.item;
 
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.EnumDyeColor;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.client.core.handler.ModelHandler;
+
+import javax.annotation.Nonnull;
 
 public class Item16Colors extends ItemMod {
 
@@ -31,10 +28,11 @@ public class Item16Colors extends ItemMod {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
-	public void getSubItems(@Nonnull Item item, CreativeTabs tab, NonNullList<ItemStack> stacks) {
-		for(int i = 0; i < 16; i++)
-			stacks.add(new ItemStack(item, 1, i));
+	public void getSubItems(@Nonnull CreativeTabs tab, @Nonnull NonNullList<ItemStack> stacks) {
+		if(isInCreativeTab(tab)) {
+			for(int i = 0; i < 16; i++)
+				stacks.add(new ItemStack(this, 1, i));
+		}
 	}
 
 	@Nonnull

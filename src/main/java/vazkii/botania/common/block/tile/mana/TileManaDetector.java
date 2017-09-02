@@ -11,7 +11,6 @@
 package vazkii.botania.common.block.tile.mana;
 
 import com.google.common.base.Predicates;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.AxisAlignedBB;
 import vazkii.botania.api.internal.IManaBurst;

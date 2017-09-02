@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.item;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -20,7 +18,6 @@ import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.passive.AbstractChestHorse;
 import net.minecraft.entity.passive.AbstractHorse;
-import net.minecraft.entity.passive.EntityHorse;
 import net.minecraft.entity.passive.EntityLlama;
 import net.minecraft.entity.passive.EntitySkeletonHorse;
 import net.minecraft.entity.passive.EntityZombieHorse;
@@ -28,7 +25,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
@@ -45,6 +41,8 @@ import net.minecraftforge.items.IItemHandler;
 import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibObfuscation;
+
+import javax.annotation.Nonnull;
 
 public class ItemVirus extends ItemMod {
 
@@ -97,7 +95,7 @@ public class ItemVirus extends ItemMod {
 				IAttributeInstance health = attributes.getAttributeInstance(SharedMonsterAttributes.MAX_HEALTH);
 				health.applyModifier(new AttributeModifier("Ermergerd Virus D:", health.getBaseValue(), 0));
 
-				IAttributeInstance jumpHeight = attributes.getAttributeInstance(ReflectionHelper.getPrivateValue(AbstractHorse.class, null, LibObfuscation.HORSE_JUMP_STRENGTH));
+				IAttributeInstance jumpHeight = attributes.getAttributeInstance(AbstractHorse.JUMP_STRENGTH);
 				jumpHeight.applyModifier(new AttributeModifier("Ermergerd Virus D:", jumpHeight.getBaseValue() * 0.5, 0));
 
 				newHorse.playSound(SoundEvents.ENTITY_ZOMBIE_VILLAGER_CURE, 1.0F + living.world.rand.nextFloat(), living.world.rand.nextFloat() * 0.7F + 1.3F);
@@ -126,10 +124,11 @@ public class ItemVirus extends ItemMod {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
-	public void getSubItems(@Nonnull Item item, CreativeTabs tab, NonNullList<ItemStack> list) {
-		for(int i = 0; i < SUBTYPES; i++)
-			list.add(new ItemStack(item, 1, i));
+	public void getSubItems(@Nonnull CreativeTabs tab, @Nonnull NonNullList<ItemStack> list) {
+		if(isInCreativeTab(tab)) {
+			for(int i = 0; i < SUBTYPES; i++)
+				list.add(new ItemStack(this, 1, i));
+		}
 	}
 
 	@Nonnull

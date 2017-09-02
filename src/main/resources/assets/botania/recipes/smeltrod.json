@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "botania:smeltrod"
+  },
+  "pattern": [
+    " BF",
+    " TB",
+    "T  "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "B": {
+      "item": "minecraft:blaze_rod"
+    },
+    "T": {
+      "item": "#LIVINGWOODTWIG"
+    },
+    "F": {
+      "item": "#RUNEFIREB"
+    }
+  }
+}

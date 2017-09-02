@@ -1,0 +1,19 @@
+{
+  "result": {
+    "item": "botania:avatar"
+  },
+  "pattern": [
+    " W ",
+    "WDW",
+    "W W"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "D": {
+      "item": "#MANADIAMOND"
+    },
+    "W": {
+      "item": "#LIVINGWOOD"
+    }
+  }
+}

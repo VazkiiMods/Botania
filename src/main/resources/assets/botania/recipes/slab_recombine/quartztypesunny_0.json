@@ -1,0 +1,17 @@
+{
+  "result": {
+    "item": "botania:quartztypesunny",
+    "data": 0
+  },
+  "pattern": [
+    "Q",
+    "Q"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "Q": {
+      "item": "botania:quartzslabsunnyhalf",
+      "data": 0
+    }
+  }
+}

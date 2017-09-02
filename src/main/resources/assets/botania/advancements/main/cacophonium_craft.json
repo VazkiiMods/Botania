@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "item": "botania:cacophonium"
+    },
+    "title": {
+      "translate": "advancement.botania:cacophoniumCraft"
+    },
+    "description": {
+      "translate": "advancement.botania:cacophoniumCraft.desc"
+    }
+  },
+  "parent": "botania:main/root",
+  "criteria": {
+    "cacophonium": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "botania:cacophonium"
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "display": {
+    "icon": {
+      "item": "botania:manaresource",
+      "data": 15
+    },
+    "title": {
+      "translate": "advancement.botania:enderAirMake"
+    },
+    "description": {
+      "translate": "advancement.botania:enderAirMake.desc"
+    }
+  },
+  "parent": "botania:main/elf_portal_open",
+  "criteria": {
+    "air": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "botania:manaresource",
+            "data": 15
+          }
+        ]
+      }
+    }
+  }
+}

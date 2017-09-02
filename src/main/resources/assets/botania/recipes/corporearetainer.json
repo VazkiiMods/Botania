@@ -1,0 +1,15 @@
+{
+  "result": {
+    "item": "botania:corporearetainer"
+  },
+  "ingredients": [
+    {
+      "item": "#CHESTWOOD"
+    },
+    {
+      "item": "botania:corporeaspark",
+      "data": 0
+    }
+  ],
+  "type": "forge:ore_shapeless"
+}

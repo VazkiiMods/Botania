@@ -10,10 +10,6 @@
  */
 package vazkii.botania.common.entity;
 
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -26,13 +22,16 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
-import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.item.relic.ItemKingKey;
+
+import javax.annotation.Nonnull;
+import java.util.List;
 
 public class EntityBabylonWeapon extends EntityThrowableCopy {
 
@@ -111,7 +110,7 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 			setChargeTicks(chargeTime + 1);
 
 			if(world.rand.nextInt(20) == 0)
-				world.playSound(null, posX, posY, posZ, BotaniaSoundEvents.babylonSpawn, SoundCategory.PLAYERS, 0.1F, 1F + world.rand.nextFloat() * 3F);
+				world.playSound(null, posX, posY, posZ, ModSounds.babylonSpawn, SoundCategory.PLAYERS, 0.1F, 1F + world.rand.nextFloat() * 3F);
 		} else {
 			if(liveTime < delay) {
 				motionX = 0;
@@ -130,7 +129,7 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 				x = motionVec.x;
 				y = motionVec.y;
 				z = motionVec.z;
-				world.playSound(null, posX, posY, posZ, BotaniaSoundEvents.babylonAttack, SoundCategory.PLAYERS, 2F, 0.1F + world.rand.nextFloat() * 3F);
+				world.playSound(null, posX, posY, posZ, ModSounds.babylonAttack, SoundCategory.PLAYERS, 2F, 0.1F + world.rand.nextFloat() * 3F);
 			}
 			setLiveTicks(liveTime + 1);
 

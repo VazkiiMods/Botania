@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.crafting.recipe;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.block.Block;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
@@ -19,10 +17,18 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
+import net.minecraftforge.registries.IForgeRegistryEntry;
 import vazkii.botania.common.item.ItemBlackHoleTalisman;
 import vazkii.botania.common.item.ModItems;
 
-public class BlackHoleTalismanExtractRecipe implements IRecipe {
+import javax.annotation.Nonnull;
+
+public class BlackHoleTalismanExtractRecipe extends IForgeRegistryEntry.Impl<IRecipe> implements IRecipe {
+
+	@Override
+	public boolean isHidden() {
+		return true;
+	}
 
 	@Override
 	public boolean matches(@Nonnull InventoryCrafting var1, @Nonnull World var2) {
@@ -64,8 +70,8 @@ public class BlackHoleTalismanExtractRecipe implements IRecipe {
 	}
 
 	@Override
-	public int getRecipeSize() {
-		return 10;
+	public boolean canFit(int width, int height) {
+		return width * height > 0;
 	}
 
 	@Nonnull

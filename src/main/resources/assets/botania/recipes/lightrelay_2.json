@@ -1,0 +1,16 @@
+{
+  "result": {
+    "item": "botania:lightrelay",
+    "data": 2
+  },
+  "ingredients": [
+    {
+      "item": "botania:lightrelay",
+      "data": 0
+    },
+    {
+      "item": "minecraft:redstone_torch"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}

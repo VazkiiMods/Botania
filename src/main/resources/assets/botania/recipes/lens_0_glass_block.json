@@ -1,0 +1,20 @@
+{
+  "result": {
+    "item": "botania:lens",
+    "data": 0
+  },
+  "pattern": [
+    " S ",
+    "SGS",
+    " S "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "S": {
+      "item": "#INGOTMANASTEEL"
+    },
+    "G": {
+      "item": "#BLOCKGLASSCOLORLESS"
+    }
+  }
+}

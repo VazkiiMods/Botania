@@ -10,12 +10,12 @@
  */
 package vazkii.botania.common.item.block;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemSlab;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.common.block.decor.slabs.BlockModSlab;
+
+import javax.annotation.Nonnull;
 
 public class ItemBlockModSlab extends ItemSlab {
 

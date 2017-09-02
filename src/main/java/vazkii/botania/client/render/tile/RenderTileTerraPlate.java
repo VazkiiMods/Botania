@@ -10,10 +10,6 @@
  */
 package vazkii.botania.client.render.tile;
 
-import javax.annotation.Nonnull;
-
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
@@ -21,17 +17,19 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import org.lwjgl.opengl.GL11;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.common.block.tile.TileTerraPlate;
 
+import javax.annotation.Nonnull;
+
 public class RenderTileTerraPlate extends TileEntitySpecialRenderer<TileTerraPlate> {
 
 	@Override
-	public void renderTileEntityAt(@Nonnull TileTerraPlate plate, double d0, double d1, double d2, float f, int digProgress) {
+	public void render(@Nonnull TileTerraPlate plate, double d0, double d1, double d2, float f, int digProgress, float unused) {
 		float max = TileTerraPlate.MAX_MANA / 10F;
 		float alphaMod = Math.min(max, plate.getCurrentMana()) / max;
 		GlStateManager.pushMatrix();

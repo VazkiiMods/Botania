@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.core.command;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
@@ -21,6 +19,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.translation.I18n;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.world.SkyblockWorldEvents;
+
+import javax.annotation.Nonnull;
 
 public class CommandSkyblockSpread extends CommandBase {
 

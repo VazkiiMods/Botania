@@ -13,8 +13,8 @@ package vazkii.botania.common.block.subtile.generating;
 import net.minecraft.block.material.Material;
 import net.minecraft.util.SoundCategory;
 import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.lexicon.LexiconData;
 
 public class SubTileThermalily extends SubTileHydroangeas {
@@ -41,7 +41,7 @@ public class SubTileThermalily extends SubTileHydroangeas {
 
 	@Override
 	public void playSound() {
-		supertile.getWorld().playSound(null, supertile.getPos(), BotaniaSoundEvents.thermalily, SoundCategory.BLOCKS, 0.2F, 1F);
+		supertile.getWorld().playSound(null, supertile.getPos(), ModSounds.thermalily, SoundCategory.BLOCKS, 0.2F, 1F);
 	}
 
 	@Override
@@ -56,7 +56,7 @@ public class SubTileThermalily extends SubTileHydroangeas {
 
 	@Override
 	public int getValueForPassiveGeneration() {
-		return 20;
+		return 12;
 	}
 
 	@Override

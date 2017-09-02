@@ -10,19 +10,16 @@
  */
 package vazkii.botania.common.item;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -31,6 +28,7 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
@@ -48,9 +46,8 @@ import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.KnowledgeType;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.recipe.IElvenItem;
-import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.common.Botania;
-import vazkii.botania.common.achievement.ModAchievements;
+import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.core.helper.PlayerHelper;
@@ -58,6 +55,10 @@ import vazkii.botania.common.item.relic.ItemDice;
 import vazkii.botania.common.lib.LibGuiIDs;
 import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibMisc;
+
+import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 
@@ -99,20 +100,21 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
-	public void getSubItems(@Nonnull Item item, CreativeTabs tab, NonNullList<ItemStack> list) {
-		list.add(new ItemStack(item));
-		ItemStack creative = new ItemStack(item);
-		for(String s : BotaniaAPI.knowledgeTypes.keySet()) {
-			KnowledgeType type = BotaniaAPI.knowledgeTypes.get(s);
-			unlockKnowledge(creative, type);
+	public void getSubItems(@Nonnull CreativeTabs tab, @Nonnull NonNullList<ItemStack> list) {
+		if(isInCreativeTab(tab)) {
+			list.add(new ItemStack(this));
+			ItemStack creative = new ItemStack(this);
+			for(String s : BotaniaAPI.knowledgeTypes.keySet()) {
+				KnowledgeType type = BotaniaAPI.knowledgeTypes.get(s);
+				unlockKnowledge(creative, type);
+			}
+			list.add(creative);
 		}
-		list.add(creative);
 	}
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void addInformation(ItemStack par1ItemStack, EntityPlayer player, List<String> stacks, boolean par4) {
+	public void addInformation(ItemStack par1ItemStack, World world, List<String> stacks, ITooltipFlag flags) {
 		if(GuiScreen.isShiftKeyDown()) {
 			String edition = TextFormatting.GOLD + I18n.format("botaniamisc.edition", getEdition());
 			if(!edition.isEmpty())
@@ -179,10 +181,12 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 			}
 
 		Botania.proxy.setLexiconStack(stack);
-		player.addStat(ModAchievements.lexiconUse, 1);
 		player.openGui(Botania.instance, LibGuiIDs.LEXICON, world, 0, 0, 0);
-		if(!world.isRemote && !skipSound)
-			world.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.lexiconOpen, SoundCategory.PLAYERS, 0.5F, 1F);
+		if(!world.isRemote) {
+			if(!skipSound)
+				world.playSound(null, player.posX, player.posY, player.posZ, ModSounds.lexiconOpen, SoundCategory.PLAYERS, 0.5F, 1F);
+			PlayerHelper.grantCriterion((EntityPlayerMP) player, new ResourceLocation(LibMisc.MOD_ID, "main/lexicon_use"), "code_triggered");
+		}
 	}
 
 	@Override
@@ -259,8 +263,16 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void registerModels() {
-		ModelBakery.registerItemVariants(this, new ModelResourceLocation("botania:lexicon_default", "inventory"));
-		ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getRegistryName(), "inventory"));
+		// Load and bake the 2D models
+		ModelBakery.registerItemVariants(this,
+				new ModelResourceLocation("botania:lexicon_default", "inventory"),
+				new ModelResourceLocation("botania:lexicon_elven", "inventory"));
+
+		ModelResourceLocation default3dPath = new ModelResourceLocation("botania:lexicon_3d_default", "inventory");
+		ModelResourceLocation elven3dPath = new ModelResourceLocation("botania:lexicon_3d_elven", "inventory");
+
+		// smart model will dispatch between 2d/3d appropriately, see LexiconModel
+		ModelLoader.setCustomMeshDefinition(this, stack -> isElvenItem(stack) ? elven3dPath : default3dPath);
 	}
 
 }

@@ -10,19 +10,15 @@
  */
 package vazkii.botania.common.item.brew;
 
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
 import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.BotaniaAPI;
@@ -32,6 +28,9 @@ import vazkii.botania.api.brew.IBrewItem;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.lib.LibItemNames;
+
+import javax.annotation.Nonnull;
+import java.util.List;
 
 public class ItemIncenseStick extends ItemMod implements IBrewItem, IBrewContainer {
 
@@ -44,19 +43,20 @@ public class ItemIncenseStick extends ItemMod implements IBrewItem, IBrewContain
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
-	public void getSubItems(@Nonnull Item item, CreativeTabs tab, NonNullList<ItemStack> list) {
-		super.getSubItems(item, tab, list);
-		for(String s : BotaniaAPI.brewMap.keySet()) {
-			ItemStack brewStack = getItemForBrew(BotaniaAPI.brewMap.get(s), new ItemStack(this));
-			if(!brewStack.isEmpty())
-				list.add(brewStack);
+	public void getSubItems(@Nonnull CreativeTabs tab, @Nonnull NonNullList<ItemStack> list) {
+		super.getSubItems(tab, list);
+		if(isInCreativeTab(tab)) {
+			for(String s : BotaniaAPI.brewMap.keySet()) {
+				ItemStack brewStack = getItemForBrew(BotaniaAPI.brewMap.get(s), new ItemStack(this));
+				if(!brewStack.isEmpty())
+					list.add(brewStack);
+			}
 		}
 	}
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void addInformation(ItemStack stack, EntityPlayer player, List<String> list, boolean adv) {
+	public void addInformation(ItemStack stack, World world, List<String> list, ITooltipFlag flags) {
 		Brew brew = getBrew(stack);
 		if(brew == BotaniaAPI.fallbackBrew) {
 			addStringToTooltip(TextFormatting.LIGHT_PURPLE + I18n.format("botaniamisc.notInfused"), list);

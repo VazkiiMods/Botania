@@ -18,32 +18,34 @@ import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
+import net.minecraftforge.fml.relauncher.Side;
 import vazkii.botania.common.lib.LibMisc;
 
+@Mod.EventBusSubscriber(Side.CLIENT)
 public final class VersionChecker {
 
 	private VersionChecker() {}
 
 	private static final int FLAVOUR_MESSAGES = 65;
 
-	public static boolean doneChecking = false;
-	public static String onlineVersion = "";
+	public static volatile boolean doneChecking = false;
+	public static volatile String onlineVersion = "";
 	private static boolean triedToWarnPlayer = false;
 
-	public static boolean startedDownload = false;
-	public static boolean downloadedFile = false;
+	public static volatile boolean startedDownload = false;
+	public static volatile boolean downloadedFile = false;
 
 	public static void init() {
 		new ThreadVersionChecker();
-		MinecraftForge.EVENT_BUS.register(VersionChecker.class);
 	}
 
 	@SubscribeEvent
 	public static void onTick(ClientTickEvent event) {
-		if(doneChecking && event.phase == Phase.END && Minecraft.getMinecraft().player != null && !triedToWarnPlayer) {
+		if(event.phase == Phase.END && Minecraft.getMinecraft().player != null && !triedToWarnPlayer && doneChecking) {
 			if(!onlineVersion.isEmpty()) {
 				EntityPlayer player = Minecraft.getMinecraft().player;
 				int onlineBuild = Integer.parseInt(onlineVersion.split("-")[1]);

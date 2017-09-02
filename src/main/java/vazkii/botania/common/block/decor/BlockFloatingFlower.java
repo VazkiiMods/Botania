@@ -10,11 +10,6 @@
  */
 package vazkii.botania.common.block.decor;
 
-import java.util.List;
-import java.util.Random;
-
-import javax.annotation.Nonnull;
-
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -44,7 +39,6 @@ import net.minecraftforge.common.property.ExtendedBlockState;
 import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.common.property.IUnlistedProperty;
 import net.minecraftforge.fml.common.Optional;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import thaumcraft.api.crafting.IInfusionStabiliser;
@@ -61,9 +55,11 @@ import vazkii.botania.common.block.tile.TileFloatingFlower;
 import vazkii.botania.common.block.tile.TileFloatingSpecialFlower;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.IFloatingFlowerVariant;
-import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
+
+import javax.annotation.Nonnull;
+import java.util.Random;
 
 @Optional.Interface(modid = "Thaumcraft", iface = "thaumcraft.api.crafting.IInfusionStabiliser", striprefs = true)
 public class BlockFloatingFlower extends BlockMod implements ILexiconable, IInfusionStabiliser {
@@ -79,6 +75,7 @@ public class BlockFloatingFlower extends BlockMod implements ILexiconable, IInfu
 		setHardness(0.5F);
 		setSoundType(SoundType.GROUND);
 		setLightLevel(1F);
+		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.COLOR, EnumDyeColor.WHITE));
 	}
 
 	@Nonnull
@@ -103,11 +100,6 @@ public class BlockFloatingFlower extends BlockMod implements ILexiconable, IInfu
 	@Override
 	public BlockStateContainer createBlockState() {
 		return new ExtendedBlockState(this, new IProperty[] { BotaniaStateProps.COLOR }, new IUnlistedProperty[] { BotaniaStateProps.ISLAND_TYPE });
-	}
-
-	@Override
-	protected IBlockState pickDefaultState() {
-		return blockState.getBaseState().withProperty(BotaniaStateProps.COLOR, EnumDyeColor.WHITE);
 	}
 
 	@Override
@@ -137,15 +129,10 @@ public class BlockFloatingFlower extends BlockMod implements ILexiconable, IInfu
 		return state;
 	}
 
-	@Override
-	public void registerItemForm() {
-		GameRegistry.register(new ItemBlockWithMetadataAndName(this), getRegistryName());
-	}
-
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void randomDisplayTick(IBlockState state, World world, BlockPos pos, Random rand) {
-		int hex = state.getValue(BotaniaStateProps.COLOR).getMapColor().colorValue;
+		int hex = state.getValue(BotaniaStateProps.COLOR).getColorValue();
 		int r = (hex & 0xFF0000) >> 16;
 		int g = (hex & 0xFF00) >> 8;
 		int b = hex & 0xFF;
@@ -154,11 +141,10 @@ public class BlockFloatingFlower extends BlockMod implements ILexiconable, IInfu
 			Botania.proxy.sparkleFX(pos.getX() + 0.3 + rand.nextFloat() * 0.5, pos.getY() + 0.5 + rand.nextFloat() * 0.5, pos.getZ() + 0.3 + rand.nextFloat() * 0.5, r / 255F, g / 255F, b / 255F, rand.nextFloat(), 5);
 	}
 
-	@SideOnly(Side.CLIENT)
 	@Override
-	public void getSubBlocks(@Nonnull Item item, CreativeTabs par2, NonNullList<ItemStack> par3) {
+	public void getSubBlocks(CreativeTabs par2, NonNullList<ItemStack> par3) {
 		for(int i = 0; i < 16; i++)
-			par3.add(new ItemStack(item, 1, i));
+			par3.add(new ItemStack(this, 1, i));
 	}
 
 	@Override

@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.block.subtile.generating;
 
-import java.util.List;
-
 import net.minecraft.entity.monster.EntitySlime;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.util.EnumParticleTypes;
@@ -21,12 +19,15 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.Event.Result;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileGenerating;
 import vazkii.botania.common.lexicon.LexiconData;
+
+import java.util.List;
 
 public class SubTileNarslimmus extends SubTileGenerating {
 
@@ -44,7 +45,7 @@ public class SubTileNarslimmus extends SubTileGenerating {
 				if(slime.getEntityData().getBoolean(TAG_WORLD_SPAWNED) && !slime.isDead) {
 					int size = slime.getSlimeSize();
 					int mul = (int) Math.pow(2, size);
-					int mana = 820 * mul;
+					int mana = 500 * mul;
 					if(!slime.world.isRemote) {
 						slime.setDead();
 						slime.playSound(size > 1 ? SoundEvents.ENTITY_SLIME_SQUISH : SoundEvents.ENTITY_SMALL_SLIME_SQUISH, 1, 0.02F);
@@ -86,6 +87,7 @@ public class SubTileNarslimmus extends SubTileGenerating {
 		return LexiconData.narslimmus;
 	}
 
+	@Mod.EventBusSubscriber
 	public static class SpawnIntercepter {
 
 		@SubscribeEvent

@@ -10,13 +10,6 @@
  */
 package vazkii.botania.client.gui.lexicon;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-import org.lwjgl.input.Mouse;
-
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiTextField;
@@ -26,6 +19,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.text.TextFormatting;
+import org.lwjgl.input.Mouse;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.ILexicon;
 import vazkii.botania.api.lexicon.LexiconCategory;
@@ -36,6 +30,11 @@ import vazkii.botania.client.gui.lexicon.button.GuiButtonInvisible;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonPage;
 import vazkii.botania.common.lexicon.DogLexiconEntry;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class GuiLexiconIndex extends GuiLexicon implements IParented {
 
 	private static final String TAG_CATEGORY = "category";
@@ -43,23 +42,19 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 
 	LexiconCategory category;
 	String title;
-	int page = 0;
+	private int page = 0;
 
-	int tutPage = -1;
+	private int tutPage = -1;
 
-	GuiButton leftButton, rightButton, backButton;
-	GuiLexicon parent;
+	private GuiButton leftButton, rightButton, backButton;
+	private GuiLexicon parent;
 	GuiTextField searchField;
 
-	GuiButton currentButton;
-	LexiconEntry currentEntry;
-	float infoTime;
+	private GuiButton currentButton;
+	private LexiconEntry currentEntry;
+	private float infoTime;
 
 	final List<LexiconEntry> entriesToDisplay = new ArrayList<>();
-
-	public GuiLexiconIndex() {
-		parent = new GuiLexicon();
-	}
 
 	public GuiLexiconIndex(LexiconCategory category) {
 		this.category = category;
@@ -67,7 +62,7 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 		setTitle();
 	}
 
-	public void setTitle() {
+	private void setTitle() {
 		title = I18n.format(category == null ? "botaniamisc.lexiconIndex" : category.getUnlocalizedName());
 	}
 
@@ -106,7 +101,7 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 		buttonList.add(leftButton = new GuiButtonPage(13, left, top + guiHeight - 10, false));
 		buttonList.add(rightButton = new GuiButtonPage(14, left + guiWidth - 18, top + guiHeight - 10, true));
 
-		searchField = new GuiTextField(15, fontRendererObj, left + guiWidth / 2 + 28, top + guiHeight + 6, 200, 10);
+		searchField = new GuiTextField(15, fontRenderer, left + guiWidth / 2 + 28, top + guiHeight + 6, 200, 10);
 		searchField.setCanLoseFocus(false);
 		searchField.setFocused(true);
 		searchField.setEnableBackgroundDrawing(false);
@@ -114,7 +109,7 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 		updateAll();
 	}
 
-	void updateAll() {
+	private void updateAll() {
 		buildEntries();
 		updatePageButtons();
 		populateIndex();
@@ -130,7 +125,7 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 		Collections.sort(entriesToDisplay);
 	}
 
-	boolean matchesSearch(LexiconEntry e) {
+	private boolean matchesSearch(LexiconEntry e) {
 		String search = searchField.getText().trim();
 		if(search.isEmpty())
 			return true;
@@ -175,8 +170,8 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 	}
 
 	@Override
-	public void drawScreenAfterScale(int par1, int par2, float par3) {
-		super.drawScreenAfterScale(par1, par2, par3);
+	public void drawScreenAfterScale(int xCoord, int yCoord, float newPartialTicks) {
+		super.drawScreenAfterScale(xCoord, yCoord, newPartialTicks);
 
 		if(!searchField.getText().isEmpty()) {
 			drawBookmark(left + 138, top + guiHeight - 24, "  " + searchField.getText(), false);
@@ -185,18 +180,18 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 			drawTexturedModalRect(left + 134, top + guiHeight - 26, 86, 180, 12, 12);
 
 			if(entriesToDisplay.size() == 1) {
-				boolean unicode = mc.fontRendererObj.getUnicodeFlag();
-				mc.fontRendererObj.setUnicodeFlag(true);
+				boolean unicode = mc.fontRenderer.getUnicodeFlag();
+				mc.fontRenderer.setUnicodeFlag(true);
 				String s = I18n.format("botaniamisc.enterToView");
-				mc.fontRendererObj.drawString(s, left + guiWidth / 2 - mc.fontRendererObj.getStringWidth(s) / 2, top + 30, 0x666666);
-				mc.fontRendererObj.setUnicodeFlag(unicode);
+				mc.fontRenderer.drawString(s, left + guiWidth / 2 - mc.fontRenderer.getStringWidth(s) / 2, top + 30, 0x666666);
+				mc.fontRenderer.setUnicodeFlag(unicode);
 			}
 		} else {
-			boolean unicode = mc.fontRendererObj.getUnicodeFlag();
-			mc.fontRendererObj.setUnicodeFlag(true);
+			boolean unicode = mc.fontRenderer.getUnicodeFlag();
+			mc.fontRenderer.setUnicodeFlag(true);
 			String s = I18n.format("botaniamisc.typeToSearch");
-			mc.fontRendererObj.drawString(s, left + 120 - mc.fontRendererObj.getStringWidth(s), top + guiHeight - 18, 0x666666);
-			mc.fontRendererObj.setUnicodeFlag(unicode);
+			mc.fontRenderer.drawString(s, left + 120 - mc.fontRenderer.getStringWidth(s), top + guiHeight - 18, 0x666666);
+			mc.fontRenderer.setUnicodeFlag(unicode);
 		}
 
 		float animationTime = 4F;
@@ -210,12 +205,12 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 				int x;
 				int y;
 
-				x = currentButton.xPosition - 20;
-				y = currentButton.yPosition;
+				x = currentButton.x - 20;
+				y = currentButton.y;
 
-				mc.fontRendererObj.drawStringWithShadow("?", x, y, 0xFFFFFF);
+				mc.fontRenderer.drawStringWithShadow("?", x, y, 0xFFFFFF);
 				GlStateManager.scale(0.5F, 0.5F, 1F);
-				mc.fontRendererObj.drawStringWithShadow(TextFormatting.BOLD + "Shift", x * 2 - 6, y * 2 + 20, 0xFFFFFF);
+				mc.fontRenderer.drawStringWithShadow(TextFormatting.BOLD + "Shift", x * 2 - 6, y * 2 + 20, 0xFFFFFF);
 				GlStateManager.scale(2F, 2F, 1F);
 			}
 		}
@@ -223,12 +218,12 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 		if(currentButton != null && infoTime > 0) {
 			float fract = infoTime / animationTime;
 
-			int x = currentButton.xPosition;
-			int y = currentButton.yPosition;
+			int x = currentButton.x;
+			int y = currentButton.y;
 			String s = I18n.format(currentEntry.getTagline());
-			boolean unicode = mc.fontRendererObj.getUnicodeFlag();
-			mc.fontRendererObj.setUnicodeFlag(true);
-			int width = mc.fontRendererObj.getStringWidth(s);
+			boolean unicode = mc.fontRenderer.getUnicodeFlag();
+			mc.fontRenderer.setUnicodeFlag(true);
+			int width = mc.fontRenderer.getStringWidth(s);
 
 			GlStateManager.pushMatrix();
 			GlStateManager.translate(x, y, 0);
@@ -237,14 +232,14 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 			Gui.drawRect(10, -32, width + 22, -2, 0x44000000);
 
 			drawBookmark(width / 2 + 16, -8, s, true, 0xFFFFFF, 180);
-			mc.fontRendererObj.setUnicodeFlag(unicode);
+			mc.fontRenderer.setUnicodeFlag(unicode);
 
 			net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
 			GlStateManager.enableRescaleNormal();
 			ItemStack paper = new ItemStack(Items.PAPER, currentEntry.pages.size());
 
 			mc.getRenderItem().renderItemAndEffectIntoGUI(paper, 14, -28);
-			mc.getRenderItem().renderItemOverlays(mc.fontRendererObj, paper, 14, -28);
+			mc.getRenderItem().renderItemOverlays(mc.fontRenderer, paper, 14, -28);
 			List<ItemStack> stacks = currentEntry.getDisplayedRecipes();
 
 			if(stacks.size() > 0) {
@@ -325,7 +320,7 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 			}
 	}
 
-	void openEntry(int index) {
+	private void openEntry(int index) {
 		if(index >= entriesToDisplay.size())
 			return;
 
@@ -334,7 +329,7 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 		ClientTickHandler.notifyPageChange();
 	}
 
-	public void updatePageButtons() {
+	private void updatePageButtons() {
 		leftButton.enabled = page != 0;
 		rightButton.enabled = page < (entriesToDisplay.size() - 1) / 12;
 		putTutorialArrow();
@@ -345,8 +340,8 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 		parent = gui;
 	}
 
-	int fx = 0;
-	boolean swiped = false;
+	private int fx = 0;
+	private boolean swiped = false;
 
 	@Override
 	protected void mouseClickMove(int x, int y, int button, long time) {
@@ -424,21 +419,21 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 		super.keyTyped(par1, par2);
 	}
 
-	void back() {
+	private void back() {
 		if(backButton.enabled) {
 			actionPerformed(backButton);
 			backButton.playPressSound(mc.getSoundHandler());
 		}
 	}
 
-	void nextPage() {
+	private void nextPage() {
 		if(rightButton.enabled) {
 			actionPerformed(rightButton);
 			rightButton.playPressSound(mc.getSoundHandler());
 		}
 	}
 
-	void prevPage() {
+	private void prevPage() {
 		if(leftButton.enabled) {
 			actionPerformed(leftButton);
 			leftButton.playPressSound(mc.getSoundHandler());

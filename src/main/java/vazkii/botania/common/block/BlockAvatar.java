@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.block;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
@@ -45,6 +43,8 @@ import vazkii.botania.common.core.helper.InventoryHelper;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
+import javax.annotation.Nonnull;
+
 public class BlockAvatar extends BlockMod implements ILexiconable {
 
 	private static final AxisAlignedBB X_AABB = new AxisAlignedBB(.3125, 0, .21875, 1-.3125, 17/16.0, 1-.21875);
@@ -54,6 +54,7 @@ public class BlockAvatar extends BlockMod implements ILexiconable {
 		super(Material.WOOD, LibBlockNames.AVATAR);
 		setHardness(2.0F);
 		setSoundType(SoundType.WOOD);
+		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.CARDINALS, EnumFacing.NORTH));
 	}
 
 	@Nonnull
@@ -68,11 +69,6 @@ public class BlockAvatar extends BlockMod implements ILexiconable {
 	@Override
 	public BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, BotaniaStateProps.CARDINALS);
-	}
-
-	@Override
-	protected IBlockState pickDefaultState() {
-		return blockState.getBaseState().withProperty(BotaniaStateProps.CARDINALS, EnumFacing.NORTH);
 	}
 
 	@Override

@@ -10,10 +10,6 @@
  */
 package vazkii.botania.common.entity;
 
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -23,8 +19,10 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import vazkii.botania.common.core.handler.MethodHandles;
 import vazkii.botania.common.core.helper.Vector3;
+
+import javax.annotation.Nonnull;
+import java.util.List;
 
 public class EntityThrownItem extends EntityItem {
 
@@ -34,14 +32,8 @@ public class EntityThrownItem extends EntityItem {
 
 	public EntityThrownItem(World world, double x,
 			double y, double z, EntityItem item) {
-		super(world, x, y, z, item.getEntityItem());
-
-		int pickupDelay = 0;
-		try {
-			pickupDelay = (int) MethodHandles.pickupDelay_getter.invokeExact(item);
-		} catch (Throwable ignored) {}
-
-		setPickupDelay(pickupDelay);
+		super(world, x, y, z, item.getItem());
+		setPickupDelay(item.delayBeforeCanPickup);
 		motionX = item.motionX;
 		motionY = item.motionY;
 		motionZ = item.motionZ;
@@ -64,18 +56,11 @@ public class EntityThrownItem extends EntityItem {
 		if (!world.isRemote)
 		{
 			Entity entity = null;
-			List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox().addCoord(motionX*2, motionY*2, motionZ*2).expand(2.0D, 2.0D, 2.0D));
+			List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox().offset(motionX*2, motionY*2, motionZ*2).expand(2.0D, 2.0D, 2.0D));
 			double d0 = 0.0D;
 
 			for (Entity entity1 : list) {
-				int pickupDelay;
-				try {
-					pickupDelay = (int) MethodHandles.pickupDelay_getter.invokeExact(this);
-				} catch (Throwable ignored) {
-					continue;
-				}
-
-				if (entity1.canBeCollidedWith() && (!(entity1 instanceof EntityPlayer) || pickupDelay == 0)) {
+				if (entity1.canBeCollidedWith() && (!(entity1 instanceof EntityPlayer) || delayBeforeCanPickup == 0)) {
 					float f = 1.0F;
 					AxisAlignedBB axisalignedbb = entity1.getEntityBoundingBox().expand(f, f, f);
 					RayTraceResult RayTraceResult1 = axisalignedbb.calculateIntercept(vec3, vec31);
@@ -108,9 +93,9 @@ public class EntityThrownItem extends EntityItem {
 				if (RayTraceResult.entityHit != null) {
 					RayTraceResult.entityHit.attackEntityFrom(DamageSource.MAGIC, 2.0F);
 					if (!world.isRemote) {
-						Entity item = getEntityItem().getItem().createEntity(world, this, getEntityItem());
+						Entity item = getItem().getItem().createEntity(world, this, getItem());
 						if (item == null) {
-							item = new EntityItem(world, posX, posY, posZ, getEntityItem());
+							item = new EntityItem(world, posX, posY, posZ, getItem());
 							world.spawnEntity(item);
 							item.motionX = motionX*0.25F;
 							item.motionY = motionY*0.25F;
@@ -133,9 +118,9 @@ public class EntityThrownItem extends EntityItem {
 		Vector3 vec3m = new Vector3(motionX, motionY, motionZ);
 		if (vec3m.mag() < 1.0F) {
 			if (!world.isRemote) {
-				Entity item = getEntityItem().getItem().createEntity(world, this, getEntityItem());
+				Entity item = getItem().getItem().createEntity(world, this, getItem());
 				if (item == null) {
-					item = new EntityItem(world, posX, posY, posZ, getEntityItem());
+					item = new EntityItem(world, posX, posY, posZ, getItem());
 					world.spawnEntity(item);
 					item.motionX = motionX;
 					item.motionY = motionY;

@@ -1,0 +1,898 @@
+[
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "bEnderAirBottle"
+    },
+    "name": "BENDERAIRBOTTLE"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "bPlaceholder"
+    },
+    "name": "BPLACEHOLDER"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "bRedString"
+    },
+    "name": "BREDSTRING"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "blockBlaze"
+    },
+    "name": "BLOCKBLAZE"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "blockGlass"
+    },
+    "name": "BLOCKGLASS"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "blockGlassColorless"
+    },
+    "name": "BLOCKGLASSCOLORLESS"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "blockLapis"
+    },
+    "name": "BLOCKLAPIS"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "blockQuartz"
+    },
+    "name": "BLOCKQUARTZ"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "blockRedstone"
+    },
+    "name": "BLOCKREDSTONE"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "chestWood"
+    },
+    "name": "CHESTWOOD"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "clothManaweave"
+    },
+    "name": "CLOTHMANAWEAVE"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "cobblestone"
+    },
+    "name": "COBBLESTONE"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "cropWheat"
+    },
+    "name": "CROPWHEAT"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "dreamwood"
+    },
+    "name": "DREAMWOOD"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "dreamwoodTwig"
+    },
+    "name": "DREAMWOODTWIG"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "dustGlowstone"
+    },
+    "name": "DUSTGLOWSTONE"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "dustRedstone"
+    },
+    "name": "DUSTREDSTONE"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "dye"
+    },
+    "name": "DYE"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "elvenDragonstone"
+    },
+    "name": "ELVENDRAGONSTONE"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "elvenPixieDust"
+    },
+    "name": "ELVENPIXIEDUST"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "eternalLifeEssence"
+    },
+    "name": "ETERNALLIFEESSENCE"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "gemEmerald"
+    },
+    "name": "GEMEMERALD"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "gemLapis"
+    },
+    "name": "GEMLAPIS"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "gemPrismarine"
+    },
+    "name": "GEMPRISMARINE"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "gemQuartz"
+    },
+    "name": "GEMQUARTZ"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "glowstone"
+    },
+    "name": "GLOWSTONE"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "gravel"
+    },
+    "name": "GRAVEL"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "ingotBrass"
+    },
+    "name": "INGOTBRASS"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "ingotElvenElementium"
+    },
+    "name": "INGOTELVENELEMENTIUM"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "ingotGold"
+    },
+    "name": "INGOTGOLD"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "ingotIron"
+    },
+    "name": "INGOTIRON"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "ingotManasteel"
+    },
+    "name": "INGOTMANASTEEL"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "ingotTerrasteel"
+    },
+    "name": "INGOTTERRASTEEL"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "livingRoot"
+    },
+    "name": "LIVINGROOT"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "livingrock"
+    },
+    "name": "LIVINGROCK"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "livingwood"
+    },
+    "name": "LIVINGWOOD"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "livingwoodTwig"
+    },
+    "name": "LIVINGWOODTWIG"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "manaDiamond"
+    },
+    "name": "MANADIAMOND"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "manaPearl"
+    },
+    "name": "MANAPEARL"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "manaString"
+    },
+    "name": "MANASTRING"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "mysticFlowerBlack"
+    },
+    "name": "MYSTICFLOWERBLACK"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "mysticFlowerBlackDouble"
+    },
+    "name": "MYSTICFLOWERBLACKDOUBLE"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "mysticFlowerBlue"
+    },
+    "name": "MYSTICFLOWERBLUE"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "mysticFlowerBlueDouble"
+    },
+    "name": "MYSTICFLOWERBLUEDOUBLE"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "mysticFlowerBrown"
+    },
+    "name": "MYSTICFLOWERBROWN"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "mysticFlowerBrownDouble"
+    },
+    "name": "MYSTICFLOWERBROWNDOUBLE"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "mysticFlowerCyan"
+    },
+    "name": "MYSTICFLOWERCYAN"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "mysticFlowerCyanDouble"
+    },
+    "name": "MYSTICFLOWERCYANDOUBLE"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "mysticFlowerGray"
+    },
+    "name": "MYSTICFLOWERGRAY"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "mysticFlowerGrayDouble"
+    },
+    "name": "MYSTICFLOWERGRAYDOUBLE"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "mysticFlowerGreen"
+    },
+    "name": "MYSTICFLOWERGREEN"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "mysticFlowerGreenDouble"
+    },
+    "name": "MYSTICFLOWERGREENDOUBLE"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "mysticFlowerLightBlue"
+    },
+    "name": "MYSTICFLOWERLIGHTBLUE"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "mysticFlowerLightBlueDouble"
+    },
+    "name": "MYSTICFLOWERLIGHTBLUEDOUBLE"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "mysticFlowerLightGray"
+    },
+    "name": "MYSTICFLOWERLIGHTGRAY"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "mysticFlowerLightGrayDouble"
+    },
+    "name": "MYSTICFLOWERLIGHTGRAYDOUBLE"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "mysticFlowerLime"
+    },
+    "name": "MYSTICFLOWERLIME"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "mysticFlowerLimeDouble"
+    },
+    "name": "MYSTICFLOWERLIMEDOUBLE"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "mysticFlowerMagenta"
+    },
+    "name": "MYSTICFLOWERMAGENTA"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "mysticFlowerMagentaDouble"
+    },
+    "name": "MYSTICFLOWERMAGENTADOUBLE"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "mysticFlowerOrange"
+    },
+    "name": "MYSTICFLOWERORANGE"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "mysticFlowerOrangeDouble"
+    },
+    "name": "MYSTICFLOWERORANGEDOUBLE"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "mysticFlowerPink"
+    },
+    "name": "MYSTICFLOWERPINK"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "mysticFlowerPinkDouble"
+    },
+    "name": "MYSTICFLOWERPINKDOUBLE"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "mysticFlowerPurple"
+    },
+    "name": "MYSTICFLOWERPURPLE"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "mysticFlowerPurpleDouble"
+    },
+    "name": "MYSTICFLOWERPURPLEDOUBLE"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "mysticFlowerRed"
+    },
+    "name": "MYSTICFLOWERRED"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "mysticFlowerRedDouble"
+    },
+    "name": "MYSTICFLOWERREDDOUBLE"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "mysticFlowerWhite"
+    },
+    "name": "MYSTICFLOWERWHITE"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "mysticFlowerWhiteDouble"
+    },
+    "name": "MYSTICFLOWERWHITEDOUBLE"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "mysticFlowerYellow"
+    },
+    "name": "MYSTICFLOWERYELLOW"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "mysticFlowerYellowDouble"
+    },
+    "name": "MYSTICFLOWERYELLOWDOUBLE"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "nuggetElvenElementium"
+    },
+    "name": "NUGGETELVENELEMENTIUM"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "nuggetGold"
+    },
+    "name": "NUGGETGOLD"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "nuggetManaDiamond"
+    },
+    "name": "NUGGETMANADIAMOND"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "nuggetManasteel"
+    },
+    "name": "NUGGETMANASTEEL"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "nuggetTerrasteel"
+    },
+    "name": "NUGGETTERRASTEEL"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "paneGlassColorless"
+    },
+    "name": "PANEGLASSCOLORLESS"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "pebble"
+    },
+    "name": "PEBBLE"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "pestleAndMortar"
+    },
+    "name": "PESTLEANDMORTAR"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "petalBlack"
+    },
+    "name": "PETALBLACK"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "petalBlue"
+    },
+    "name": "PETALBLUE"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "petalBrown"
+    },
+    "name": "PETALBROWN"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "petalCyan"
+    },
+    "name": "PETALCYAN"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "petalGray"
+    },
+    "name": "PETALGRAY"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "petalGreen"
+    },
+    "name": "PETALGREEN"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "petalLightBlue"
+    },
+    "name": "PETALLIGHTBLUE"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "petalLightGray"
+    },
+    "name": "PETALLIGHTGRAY"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "petalLime"
+    },
+    "name": "PETALLIME"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "petalMagenta"
+    },
+    "name": "PETALMAGENTA"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "petalOrange"
+    },
+    "name": "PETALORANGE"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "petalPink"
+    },
+    "name": "PETALPINK"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "petalPurple"
+    },
+    "name": "PETALPURPLE"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "petalRed"
+    },
+    "name": "PETALRED"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "petalWhite"
+    },
+    "name": "PETALWHITE"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "petalYellow"
+    },
+    "name": "PETALYELLOW"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "plankWood"
+    },
+    "name": "PLANKWOOD"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "powderBlaze"
+    },
+    "name": "POWDERBLAZE"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "powderMana"
+    },
+    "name": "POWDERMANA"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "quartzBlaze"
+    },
+    "name": "QUARTZBLAZE"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "quartzDark"
+    },
+    "name": "QUARTZDARK"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "quartzElven"
+    },
+    "name": "QUARTZELVEN"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "quartzLavender"
+    },
+    "name": "QUARTZLAVENDER"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "quartzMana"
+    },
+    "name": "QUARTZMANA"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "quartzRed"
+    },
+    "name": "QUARTZRED"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "quartzSunny"
+    },
+    "name": "QUARTZSUNNY"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "rodBlaze"
+    },
+    "name": "RODBLAZE"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "runeAirB"
+    },
+    "name": "RUNEAIRB"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "runeAutumnB"
+    },
+    "name": "RUNEAUTUMNB"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "runeEarthB"
+    },
+    "name": "RUNEEARTHB"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "runeEnvyB"
+    },
+    "name": "RUNEENVYB"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "runeFireB"
+    },
+    "name": "RUNEFIREB"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "runeManaB"
+    },
+    "name": "RUNEMANAB"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "runePrideB"
+    },
+    "name": "RUNEPRIDEB"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "runeSlothB"
+    },
+    "name": "RUNESLOTHB"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "runeSpringB"
+    },
+    "name": "RUNESPRINGB"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "runeSummerB"
+    },
+    "name": "RUNESUMMERB"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "runeWaterB"
+    },
+    "name": "RUNEWATERB"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "runeWinterB"
+    },
+    "name": "RUNEWINTERB"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "runeWrathB"
+    },
+    "name": "RUNEWRATHB"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "shardManaPearl"
+    },
+    "name": "SHARDMANAPEARL"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "slabCobblestone"
+    },
+    "name": "SLABCOBBLESTONE"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "slimeball"
+    },
+    "name": "SLIMEBALL"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "stickWood"
+    },
+    "name": "STICKWOOD"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "stone"
+    },
+    "name": "STONE"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "treeLeaves"
+    },
+    "name": "TREELEAVES"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "treeSapling"
+    },
+    "name": "TREESAPLING"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "workbench"
+    },
+    "name": "WORKBENCH"
+  }
+]

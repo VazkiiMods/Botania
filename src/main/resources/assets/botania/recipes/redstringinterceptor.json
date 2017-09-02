@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "botania:redstringinterceptor"
+  },
+  "pattern": [
+    "RRR",
+    "RMS",
+    "RRR"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "R": {
+      "item": "#LIVINGROCK"
+    },
+    "S": {
+      "item": "#BREDSTRING"
+    },
+    "M": {
+      "item": "minecraft:stone_button"
+    }
+  }
+}

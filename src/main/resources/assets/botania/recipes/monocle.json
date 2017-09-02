@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "botania:monocle"
+  },
+  "pattern": [
+    "GN",
+    "IN",
+    " N"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "G": {
+      "item": "botania:managlass"
+    },
+    "I": {
+      "item": "#INGOTMANASTEEL"
+    },
+    "N": {
+      "item": "minecraft:gold_nugget"
+    }
+  }
+}

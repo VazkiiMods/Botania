@@ -10,10 +10,6 @@
  */
 package vazkii.botania.common.block;
 
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
@@ -29,8 +25,8 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.fml.common.Optional;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import thaumcraft.api.crafting.IInfusionStabiliser;
@@ -41,9 +37,10 @@ import vazkii.botania.api.state.enums.PylonVariant;
 import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.block.tile.TilePylon;
 import vazkii.botania.common.core.handler.ConfigHandler;
-import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
+
+import javax.annotation.Nonnull;
 
 @Optional.Interface(modid = "Thaumcraft", iface = "thaumcraft.api.crafting.IInfusionStabiliser", striprefs = true)
 public class BlockPylon extends BlockMod implements ILexiconable, IInfusionStabiliser {
@@ -55,6 +52,7 @@ public class BlockPylon extends BlockMod implements ILexiconable, IInfusionStabi
 		setHardness(5.5F);
 		setSoundType(SoundType.METAL);
 		setLightLevel(0.5F);
+		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.PYLON_VARIANT, PylonVariant.MANA));
 	}
 
 	@Nonnull
@@ -67,11 +65,6 @@ public class BlockPylon extends BlockMod implements ILexiconable, IInfusionStabi
 	@Override
 	public BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, BotaniaStateProps.PYLON_VARIANT);
-	}
-
-	@Override
-	protected IBlockState pickDefaultState() {
-		return blockState.getBaseState().withProperty(BotaniaStateProps.PYLON_VARIANT, PylonVariant.MANA);
 	}
 
 	@Override
@@ -89,20 +82,14 @@ public class BlockPylon extends BlockMod implements ILexiconable, IInfusionStabi
 	}
 
 	@Override
-	public void registerItemForm() {
-		GameRegistry.register(new ItemBlockWithMetadataAndName(this), getRegistryName());
-	}
-
-	@Override
 	public int damageDropped(IBlockState state) {
 		return getMetaFromState(state);
 	}
 
-	@SideOnly(Side.CLIENT)
 	@Override
-	public void getSubBlocks(@Nonnull Item item, CreativeTabs par2, NonNullList<ItemStack> par3) {
+	public void getSubBlocks(CreativeTabs par2, NonNullList<ItemStack> par3) {
 		for(int i = 0; i < PylonVariant.values().length; i++)
-			par3.add(new ItemStack(item, 1, i));
+			par3.add(new ItemStack(this, 1, i));
 	}
 
 	@Override
@@ -156,6 +143,7 @@ public class BlockPylon extends BlockMod implements ILexiconable, IInfusionStabi
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void registerModels() {
-		ModelHandler.registerBlockToState(this, PylonVariant.values().length);
+		String[] names = { "mana", "natura", "gaia" };
+		ModelHandler.registerCustomItemblock(this, names.length, i -> "pylon_" + names[i]);
 	}
 }

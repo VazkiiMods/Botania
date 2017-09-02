@@ -21,14 +21,12 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.item.IBaubleRender;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.lib.LibItemNames;
-import vazkii.botania.common.lib.LibObfuscation;
 
 public class ItemSuperLavaPendant extends ItemBauble implements IBaubleRender {
 
@@ -37,17 +35,13 @@ public class ItemSuperLavaPendant extends ItemBauble implements IBaubleRender {
 	}
 
 	@Override
-	public void onWornTick(ItemStack stack, EntityLivingBase player) {
-		setImmunity(player, true);
+	public void onWornTick(ItemStack stack, EntityLivingBase living) {
+		living.isImmuneToFire = true;
 	}
 
 	@Override
-	public void onUnequipped(ItemStack stack, EntityLivingBase player) {
-		setImmunity(player, false);
-	}
-
-	private void setImmunity(Entity entity, boolean immune) {
-		ReflectionHelper.setPrivateValue(Entity.class, entity, immune, LibObfuscation.IS_IMMUNE_TO_FIRE);
+	public void onUnequipped(ItemStack stack, EntityLivingBase living) {
+		living.isImmuneToFire = false;
 	}
 
 	@Override

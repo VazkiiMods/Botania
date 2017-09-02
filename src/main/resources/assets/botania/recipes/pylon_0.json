@@ -1,0 +1,23 @@
+{
+  "result": {
+    "item": "botania:pylon",
+    "data": 0
+  },
+  "pattern": [
+    " G ",
+    "MDM",
+    " G "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "D": {
+      "item": "#MANADIAMOND"
+    },
+    "G": {
+      "item": "#INGOTGOLD"
+    },
+    "M": {
+      "item": "#INGOTMANASTEEL"
+    }
+  }
+}

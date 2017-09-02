@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.item.equipment.tool;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
@@ -22,6 +20,8 @@ import net.minecraftforge.event.world.BlockEvent.HarvestDropsEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelPick;
 import vazkii.botania.common.lib.LibItemNames;
+
+import javax.annotation.Nonnull;
 
 public class ItemGlassPick extends ItemManasteelPick {
 

@@ -1,0 +1,31 @@
+{
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:mod_loaded",
+        "modid": "gardenofglass"
+      }
+    }
+  ],
+  "result": {
+    "item": "botania:cocoon"
+  },
+  "pattern": [
+    "SSS",
+    "SPS",
+    "SDS"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "S": {
+      "item": "minecraft:string"
+    },
+    "P": {
+      "item": "#ELVENPIXIEDUST"
+    },
+    "D": {
+      "item": "#ELVENDRAGONSTONE"
+    }
+  }
+}

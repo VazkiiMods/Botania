@@ -1,0 +1,19 @@
+{
+  "result": {
+    "item": "botania:manasteelsword"
+  },
+  "pattern": [
+    "S",
+    "S",
+    "T"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "S": {
+      "item": "#INGOTMANASTEEL"
+    },
+    "T": {
+      "item": "#LIVINGWOODTWIG"
+    }
+  }
+}

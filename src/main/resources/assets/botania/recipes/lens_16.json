@@ -1,0 +1,16 @@
+{
+  "result": {
+    "item": "botania:lens",
+    "data": 16
+  },
+  "ingredients": [
+    {
+      "item": "botania:lens",
+      "data": 0
+    },
+    {
+      "item": "botania:pistonrelay"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}

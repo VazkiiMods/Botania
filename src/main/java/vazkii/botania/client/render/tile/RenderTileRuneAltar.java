@@ -10,8 +10,6 @@
  */
 package vazkii.botania.client.render.tile;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
@@ -23,12 +21,14 @@ import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.model.ModelSpinningCubes;
 import vazkii.botania.common.block.tile.TileRuneAltar;
 
+import javax.annotation.Nonnull;
+
 public class RenderTileRuneAltar extends TileEntitySpecialRenderer<TileRuneAltar> {
 
 	final ModelSpinningCubes cubes = new ModelSpinningCubes();
 
 	@Override
-	public void renderTileEntityAt(@Nonnull TileRuneAltar altar, double x, double y, double z, float partticks, int digProgress) {
+	public void render(@Nonnull TileRuneAltar altar, double x, double y, double z, float partticks, int digProgress, float unused) {
 		GlStateManager.pushMatrix();
 		GlStateManager.color(1F, 1F, 1F, 1F);
 		GlStateManager.translate(x, y, z);

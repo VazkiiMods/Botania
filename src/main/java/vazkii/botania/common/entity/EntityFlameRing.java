@@ -11,10 +11,6 @@
 package vazkii.botania.common.entity;
 
 
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.SoundEvents;
@@ -25,6 +21,9 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.MathHelper;
+
+import javax.annotation.Nonnull;
+import java.util.List;
 
 
 public class EntityFlameRing extends Entity {

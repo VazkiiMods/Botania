@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.item.rod;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -26,6 +24,8 @@ import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.lib.LibItemNames;
+
+import javax.annotation.Nonnull;
 
 public class ItemCobbleRod extends ItemMod implements IManaUsingItem, IBlockProvider {
 

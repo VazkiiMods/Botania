@@ -1,0 +1,20 @@
+{
+  "result": {
+    "item": "botania:manaresource",
+    "data": 14
+  },
+  "pattern": [
+    " S ",
+    "SIS",
+    " S "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "S": {
+      "item": "#ETERNALLIFEESSENCE"
+    },
+    "I": {
+      "item": "#INGOTTERRASTEEL"
+    }
+  }
+}

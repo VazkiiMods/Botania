@@ -10,17 +10,17 @@
  */
 package vazkii.botania.api.lexicon.multiblock;
 
-import java.util.ArrayList;
-import java.util.EnumMap;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import vazkii.botania.api.lexicon.multiblock.component.MultiblockComponent;
+
+import java.util.ArrayList;
+import java.util.EnumMap;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This class describes a Mutiblock object. It's used to display a

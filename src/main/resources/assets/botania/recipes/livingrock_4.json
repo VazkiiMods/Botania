@@ -1,0 +1,18 @@
+{
+  "result": {
+    "item": "botania:livingrock",
+    "data": 4,
+    "count": 4
+  },
+  "pattern": [
+    "RR",
+    "RR"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "R": {
+      "item": "botania:livingrock",
+      "data": 1
+    }
+  }
+}

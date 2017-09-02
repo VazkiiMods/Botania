@@ -1,7 +1,7 @@
 {
     "parent": "minecraft:item/handheld",
     "textures": {
-        "layer0": "botania:items/elementiumshears"
+        "layer0": "botania:items/elementium_shears"
     },
     "overrides": [{
         "predicate": {

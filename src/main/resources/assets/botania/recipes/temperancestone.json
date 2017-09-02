@@ -1,0 +1,20 @@
+{
+  "result": {
+    "item": "botania:temperancestone",
+    "data": 0
+  },
+  "pattern": [
+    " S ",
+    "SRS",
+    " S "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "R": {
+      "item": "#RUNEEARTHB"
+    },
+    "S": {
+      "item": "#STONE"
+    }
+  }
+}

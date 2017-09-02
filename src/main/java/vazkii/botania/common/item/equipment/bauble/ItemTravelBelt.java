@@ -10,9 +10,6 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import baubles.api.BaubleType;
 import baubles.api.BaublesApi;
 import net.minecraft.block.material.Material;
@@ -34,6 +31,9 @@ import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.lib.LibItemNames;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ItemTravelBelt extends ItemBauble implements IBaubleRender, IManaUsingItem {
 
@@ -81,7 +81,7 @@ public class ItemTravelBelt extends ItemBauble implements IBaubleRender, IManaUs
 					if(player.world.isRemote) {
 						if((player.onGround || player.capabilities.isFlying) && player.moveForward > 0F && !player.isInsideOfMaterial(Material.WATER)) {
 							float speed = beltItem.getSpeed(belt);
-							player.moveRelative(0F, 1F, player.capabilities.isFlying ? speed : speed);
+							player.moveRelative(0F, 0F, 1F, player.capabilities.isFlying ? speed : speed);
 							beltItem.onMovedTick(belt, player);
 
 							if(player.ticksExisted % COST_INTERVAL == 0)

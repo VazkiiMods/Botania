@@ -10,28 +10,29 @@
  */
 package vazkii.botania.client.core.handler;
 
-import java.util.List;
-
-import org.lwjgl.opengl.ARBShaderObjects;
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockRendererDispatcher;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.client.shader.Shader;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import org.lwjgl.opengl.ARBShaderObjects;
+import org.lwjgl.opengl.GL11;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.common.item.ItemAstrolabe;
 
+import java.util.List;
+
+@Mod.EventBusSubscriber(Side.CLIENT)
 public final class AstrolabePreviewHandler {
 
 	@SubscribeEvent
@@ -77,15 +78,9 @@ public final class AstrolabePreviewHandler {
 	private static void renderBlockAt(Block block, int meta, BlockPos pos) {
 		IBlockState state = block.getStateFromMeta(meta);
 
-		double renderPosX, renderPosY, renderPosZ;
-
-		try {
-			renderPosX = (double) ClientMethodHandles.renderPosX_getter.invokeExact(Minecraft.getMinecraft().getRenderManager());
-			renderPosY = (double) ClientMethodHandles.renderPosY_getter.invokeExact(Minecraft.getMinecraft().getRenderManager());
-			renderPosZ = (double) ClientMethodHandles.renderPosZ_getter.invokeExact(Minecraft.getMinecraft().getRenderManager());
-		} catch (Throwable t) {
-			return;
-		}
+		double renderPosX = Minecraft.getMinecraft().getRenderManager().renderPosX;
+		double renderPosY = Minecraft.getMinecraft().getRenderManager().renderPosY;
+		double renderPosZ = Minecraft.getMinecraft().getRenderManager().renderPosZ;
 
 		GlStateManager.pushMatrix();
 		GlStateManager.translate(-renderPosX, -renderPosY, -renderPosZ);

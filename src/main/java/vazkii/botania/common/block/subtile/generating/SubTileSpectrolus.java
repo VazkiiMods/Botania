@@ -10,12 +10,6 @@
  */
 package vazkii.botania.common.block.subtile.generating;
 
-import java.awt.Color;
-import java.util.List;
-
-import net.minecraft.world.WorldServer;
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
@@ -27,13 +21,17 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.world.WorldServer;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileGenerating;
-import vazkii.botania.common.core.handler.MethodHandles;
 import vazkii.botania.common.lexicon.LexiconData;
+
+import java.awt.Color;
+import java.util.List;
 
 public class SubTileSpectrolus extends SubTileGenerating {
 
@@ -56,16 +54,9 @@ public class SubTileSpectrolus extends SubTileGenerating {
 		int slowdown = getSlowdownFactor();
 
 		for(EntityItem item : items) {
-			ItemStack stack = item.getEntityItem();
+			ItemStack stack = item.getItem();
 
-			int age;
-			try {
-				age = (int) MethodHandles.itemAge_getter.invokeExact(item);
-			} catch (Throwable t) {
-				continue;
-			}
-
-			if(!stack.isEmpty() && stack.getItem() == wool && !item.isDead && age >= slowdown) {
+			if(!stack.isEmpty() && stack.getItem() == wool && !item.isDead && item.age >= slowdown) {
 				int meta = stack.getItemDamage();
 				if(meta == nextColor) {
 					mana = Math.min(getMaxMana(), mana + 300);
@@ -112,11 +103,11 @@ public class SubTileSpectrolus extends SubTileGenerating {
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		if(!stack.isEmpty()) {
 			String stackName = stack.getDisplayName();
-			int width = 16 + mc.fontRendererObj.getStringWidth(stackName) / 2;
+			int width = 16 + mc.fontRenderer.getStringWidth(stackName) / 2;
 			int x = res.getScaledWidth() / 2 - width;
 			int y = res.getScaledHeight() / 2 + 30;
 
-			mc.fontRendererObj.drawStringWithShadow(stackName, x + 20, y + 5, color);
+			mc.fontRenderer.drawStringWithShadow(stackName, x + 20, y + 5, color);
 			RenderHelper.enableGUIStandardItemLighting();
 			mc.getRenderItem().renderItemAndEffectIntoGUI(stack, x, y);
 			RenderHelper.disableStandardItemLighting();

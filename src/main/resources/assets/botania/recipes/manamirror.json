@@ -1,0 +1,29 @@
+{
+  "result": {
+    "item": "botania:manamirror",
+    "data": 1000
+  },
+  "pattern": [
+    " PR",
+    " SI",
+    "T  "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "P": {
+      "item": "#MANAPEARL"
+    },
+    "R": {
+      "item": "#LIVINGROCK"
+    },
+    "S": {
+      "item": "#LIVINGWOODTWIG"
+    },
+    "T": {
+      "item": "botania:manatablet"
+    },
+    "I": {
+      "item": "#INGOTTERRASTEEL"
+    }
+  }
+}

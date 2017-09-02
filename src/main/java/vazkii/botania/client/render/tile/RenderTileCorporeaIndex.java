@@ -10,8 +10,6 @@
  */
 package vazkii.botania.client.render.tile;
 
-import javax.annotation.Nullable;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelEnderCrystal;
 import net.minecraft.client.renderer.GlStateManager;
@@ -21,6 +19,8 @@ import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
 
+import javax.annotation.Nullable;
+
 public class RenderTileCorporeaIndex extends TileEntitySpecialRenderer<TileCorporeaIndex> {
 
 	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_CORPOREA_INDEX);
@@ -28,7 +28,7 @@ public class RenderTileCorporeaIndex extends TileEntitySpecialRenderer<TileCorpo
 	public static boolean move = true;
 
 	@Override
-	public void renderTileEntityAt(@Nullable TileCorporeaIndex index, double x, double y, double z, float partticks, int digProgress) {
+	public void render(@Nullable TileCorporeaIndex index, double x, double y, double z, float partticks, int digProgress, float unused) {
 		move = index != null;
 
 		GlStateManager.pushMatrix();

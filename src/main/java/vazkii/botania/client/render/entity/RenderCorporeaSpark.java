@@ -10,8 +10,6 @@
  */
 package vazkii.botania.client.render.entity;
 
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
@@ -19,7 +17,7 @@ import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.datasync.DataParameter;
+import org.lwjgl.opengl.GL11;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.entity.EntityCorporeaSpark;
@@ -37,7 +35,7 @@ public class RenderCorporeaSpark extends RenderSparkBase<EntityCorporeaSpark> {
 
 	@Override
 	public void colorSpinningIcon(EntityCorporeaSpark entity, float a) {
-		int hex = entity.getNetwork().getMapColor().colorValue;
+		int hex = entity.getNetwork().getColorValue();
 		int r = (hex & 0xFF0000) >> 16;
 		int g = (hex & 0xFF00) >> 8;
 		int b = hex & 0xFF;

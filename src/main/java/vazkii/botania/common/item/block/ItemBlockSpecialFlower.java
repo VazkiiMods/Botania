@@ -10,22 +10,29 @@
  */
 package vazkii.botania.common.item.block;
 
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
+import net.minecraft.advancements.Advancement;
+import net.minecraft.advancements.AdvancementManager;
+import net.minecraft.advancements.PlayerAdvancements;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.entity.AbstractClientPlayer;
+import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.entity.item.EntityItem;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.stats.Achievement;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
+import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.BotaniaAPI;
@@ -34,14 +41,17 @@ import vazkii.botania.api.subtile.SubTileEntity;
 import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.api.subtile.SubTileGenerating;
 import vazkii.botania.api.subtile.signature.SubTileSignature;
-import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileSpecialFlower;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
-import vazkii.botania.common.lib.LibBlockNames;
+import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.lib.LibMisc;
 
+import javax.annotation.Nonnull;
+import java.util.List;
+
+@Mod.EventBusSubscriber
 public class ItemBlockSpecialFlower extends ItemBlockMod implements IRecipeKeyProvider {
 
 	public ItemBlockSpecialFlower(Block block1) {
@@ -82,11 +92,11 @@ public class ItemBlockSpecialFlower extends ItemBlockMod implements IRecipeKeyPr
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void addInformation(@Nonnull ItemStack par1ItemStack, @Nonnull EntityPlayer player, @Nonnull List<String> stacks, boolean par4) {
+	public void addInformation(@Nonnull ItemStack par1ItemStack, World world, @Nonnull List<String> stacks, @Nonnull ITooltipFlag flag) {
 		String type = getType(par1ItemStack);
 		SubTileSignature sig = BotaniaAPI.getSignatureForName(type);
 
-		sig.addTooltip(par1ItemStack, player, stacks);
+		sig.addTooltip(par1ItemStack, world, stacks);
 
 		if(ConfigHandler.referencesEnabled) {
 			String refUnlocalized = sig.getUnlocalizedLoreTextForStack(par1ItemStack);
@@ -118,31 +128,24 @@ public class ItemBlockSpecialFlower extends ItemBlockMod implements IRecipeKeyPr
 		return "flower." + getType(stack);
 	}
 
-	@Override
-	public Achievement getAchievementOnPickup(ItemStack stack, EntityPlayer player, EntityItem item) {
-		String type = getType(stack);
-		switch (type) {
-		case LibBlockNames.SUBTILE_KEKIMURUS:
-			return ModAchievements.kekimurusPickup;
-		case LibBlockNames.SUBTILE_HEISEI_DREAM:
-			return ModAchievements.heiseiDreamPickup;
-		case LibBlockNames.SUBTILE_POLLIDISIAC:
-			return ModAchievements.pollidisiacPickup;
-		case LibBlockNames.SUBTILE_BUBBELL:
-			return ModAchievements.bubbellPickup;
-		case LibBlockNames.SUBTILE_DANDELIFEON:
-			return ModAchievements.dandelifeonPickup;
-		case "":
-			return ModAchievements.nullFlower;
-		default:
-			Class<? extends SubTileEntity> clazz = BotaniaAPI.getSubTileMapping(type);
-			if(SubTileGenerating.class.isAssignableFrom(clazz))
-				return ModAchievements.daybloomPickup;
-			else if(SubTileFunctional.class.isAssignableFrom(clazz))
-				return ModAchievements.endoflamePickup;
+	@SubscribeEvent
+	public static void onItemPickup(EntityItemPickupEvent evt) {
+		if(evt.getItem().getItem().getItem() == Item.getItemFromBlock(ModBlocks.specialFlower)) {
+			String type = getType(evt.getItem().getItem());
+			Class subtile = BotaniaAPI.getSubTileMapping(type);
+
+			if(SubTileGenerating.class.isAssignableFrom(subtile)) {
+				PlayerHelper.grantCriterion((EntityPlayerMP) evt.getEntityPlayer(), new ResourceLocation(LibMisc.MOD_ID, "main/generating_flower"), "code_triggered");
+			}
+
+			if(SubTileFunctional.class.isAssignableFrom(subtile)) {
+				PlayerHelper.grantCriterion((EntityPlayerMP) evt.getEntityPlayer(), new ResourceLocation(LibMisc.MOD_ID, "main/functional_flower"), "code_triggered");
+			}
+
+			if("".equals(type)) {
+				PlayerHelper.grantCriterion((EntityPlayerMP) evt.getEntityPlayer(), new ResourceLocation(LibMisc.MOD_ID, "challenge/null_flower"), "code_triggered");
+			}
 		}
-		return null;
 	}
 
 }
-

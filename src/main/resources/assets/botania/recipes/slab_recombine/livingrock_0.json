@@ -1,0 +1,17 @@
+{
+  "result": {
+    "item": "botania:livingrock",
+    "data": 0
+  },
+  "pattern": [
+    "Q",
+    "Q"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "Q": {
+      "item": "botania:livingrock0slab",
+      "data": 0
+    }
+  }
+}

@@ -10,9 +10,9 @@
  */
 package vazkii.botania.api.corporea;
 
-import java.util.List;
-
 import net.minecraft.item.ItemStack;
+
+import java.util.List;
 
 /**
  * A TileEntity that implements this will be able to intercept corporea

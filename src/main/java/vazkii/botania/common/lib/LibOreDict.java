@@ -28,7 +28,6 @@ public final class LibOreDict {
 	public static final String ELEMENTIUM = "ingotElvenElementium";
 	public static final String PIXIE_DUST = "elvenPixieDust";
 	public static final String DRAGONSTONE = "elvenDragonstone";
-	public static final String PRISMARINE_SHARD = "shardPrismarine";
 	public static final String PLACEHOLDER = "bPlaceholder";
 	public static final String RED_STRING = "bRedString";
 	public static final String DREAMWOOD_TWIG = "dreamwoodTwig";
@@ -42,11 +41,12 @@ public final class LibOreDict {
 	public static final String PEBBLE = "pebble";
 	public static final String MANAWEAVE_CLOTH = "clothManaweave";
 	public static final String MANA_POWDER = "powderMana";
+	public static final String MANA_PEARL_SHARD = "shardManaPearl";
+	public static final String MANA_DIAMOND_CHUNK = "nuggetManaDiamond";
 
 	public static final String VIAL = "bVial";
 	public static final String FLASK = "bFlask";
 
-	public static final String PRISMARINE_BLOCK = "blockPrismarine";
 	public static final String BLAZE_BLOCK = "blockBlaze";
 
 	public static final String DYE_WILDCARD = "dye";

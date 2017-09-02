@@ -10,8 +10,6 @@
  */
 package vazkii.botania.client.core.handler;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
@@ -23,6 +21,8 @@ import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.Biome;
 import vazkii.botania.api.lexicon.multiblock.Multiblock;
 import vazkii.botania.api.lexicon.multiblock.component.MultiblockComponent;
+
+import javax.annotation.Nonnull;
 
 /**
  * This class acts as a wrapper around a block access to

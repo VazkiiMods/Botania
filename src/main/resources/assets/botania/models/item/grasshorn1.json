@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "botania:items/grasshorn1"
+    "layer0": "botania:items/horn_leaves"
   },
   "overrides": [{
     "predicate": {

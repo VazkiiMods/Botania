@@ -10,13 +10,6 @@
  */
 package vazkii.botania.common.block.tile;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Function;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
@@ -44,6 +37,12 @@ import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ItemLexicon;
 import vazkii.botania.common.lexicon.LexiconData;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Function;
 
 public class TileAlfPortal extends TileMod {
 
@@ -127,7 +126,7 @@ public class TileAlfPortal extends TileMod {
 					if(item.isDead)
 						continue;
 
-					ItemStack stack = item.getEntityItem();
+					ItemStack stack = item.getItem();
 					boolean consume;
 					if (item.getEntityData().hasKey(TAG_PORTAL_FLAG)) {
 						consume = false;

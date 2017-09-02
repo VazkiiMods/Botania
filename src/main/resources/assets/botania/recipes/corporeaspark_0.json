@@ -1,0 +1,18 @@
+{
+  "result": {
+    "item": "botania:corporeaspark",
+    "data": 0
+  },
+  "ingredients": [
+    {
+      "item": "botania:spark"
+    },
+    {
+      "item": "#ELVENPIXIEDUST"
+    },
+    {
+      "item": "#BENDERAIRBOTTLE"
+    }
+  ],
+  "type": "forge:ore_shapeless"
+}

@@ -1,0 +1,17 @@
+{
+  "result": {
+    "item": "botania:livingrock",
+    "data": 3,
+    "count": 2
+  },
+  "ingredients": [
+    {
+      "item": "botania:livingrock",
+      "data": 1
+    },
+    {
+      "item": "#COBBLESTONE"
+    }
+  ],
+  "type": "forge:ore_shapeless"
+}

@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "botania:exchangerod"
+  },
+  "pattern": [
+    " SR",
+    " TS",
+    "T  "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "R": {
+      "item": "#RUNESLOTHB"
+    },
+    "S": {
+      "item": "#STONE"
+    },
+    "T": {
+      "item": "#LIVINGWOODTWIG"
+    }
+  }
+}

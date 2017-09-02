@@ -1,0 +1,80 @@
+{
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:mod_loaded",
+        "modid": "gardenofglass"
+      }
+    }
+  ],
+  "result": {
+    "item": "botania:spreader",
+    "data": 0
+  },
+  "pattern": [
+    "WWW",
+    "GP ",
+    "WWW"
+  ],
+  "group": "botania:spreader",
+  "type": "forge:ore_shaped",
+  "key": {
+    "P": [
+      {
+        "item": "#PETALWHITE"
+      },
+      {
+        "item": "#PETALORANGE"
+      },
+      {
+        "item": "#PETALMAGENTA"
+      },
+      {
+        "item": "#PETALLIGHTBLUE"
+      },
+      {
+        "item": "#PETALYELLOW"
+      },
+      {
+        "item": "#PETALLIME"
+      },
+      {
+        "item": "#PETALPINK"
+      },
+      {
+        "item": "#PETALGRAY"
+      },
+      {
+        "item": "#PETALLIGHTGRAY"
+      },
+      {
+        "item": "#PETALCYAN"
+      },
+      {
+        "item": "#PETALPURPLE"
+      },
+      {
+        "item": "#PETALBLUE"
+      },
+      {
+        "item": "#PETALBROWN"
+      },
+      {
+        "item": "#PETALGREEN"
+      },
+      {
+        "item": "#PETALRED"
+      },
+      {
+        "item": "#PETALBLACK"
+      }
+    ],
+    "W": {
+      "item": "#LIVINGWOOD"
+    },
+    "G": {
+      "item": "#INGOTGOLD"
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "result": {
+    "item": "botania:lens",
+    "data": 22
+  },
+  "pattern": [
+    " P ",
+    "PLP",
+    " P "
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "P": {
+      "item": "minecraft:paper"
+    },
+    "L": {
+      "item": "botania:lens",
+      "data": 0
+    }
+  }
+}

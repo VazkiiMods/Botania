@@ -10,15 +10,14 @@
  */
 package vazkii.botania.common.block.tile.string;
 
-import java.util.Arrays;
-
-import javax.annotation.Nonnull;
-
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.items.CapabilityItemHandler;
+
+import javax.annotation.Nonnull;
+import java.util.Arrays;
 
 public class TileRedStringContainer extends TileRedString {
 

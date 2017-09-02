@@ -1,0 +1,25 @@
+{
+  "display": {
+    "icon": {
+      "item": "botania:thorring"
+    },
+    "title": {
+      "translate": "advancement.botania:thorRing"
+    },
+    "description": {
+      "translate": "advancement.botania:thorRing.desc"
+    },
+    "frame": "challenge"
+  },
+  "parent": "botania:challenge/root",
+  "criteria": {
+    "ring": {
+      "trigger": "botania:relic_bind",
+      "conditions": {
+        "relic": {
+          "item": "botania:thorring"
+        }
+      }
+    }
+  }
+}

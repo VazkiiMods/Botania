@@ -1,0 +1,21 @@
+{
+  "result": {
+    "item": "botania:sparkchanger"
+  },
+  "pattern": [
+    "ESE",
+    "SRS"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "R": {
+      "item": "#DUSTREDSTONE"
+    },
+    "S": {
+      "item": "#LIVINGROCK"
+    },
+    "E": {
+      "item": "#INGOTELVENELEMENTIUM"
+    }
+  }
+}

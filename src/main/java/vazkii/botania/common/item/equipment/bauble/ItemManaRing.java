@@ -10,13 +10,8 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
 import baubles.api.BaubleType;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.NonNullList;
@@ -28,6 +23,8 @@ import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.mana.IManaTooltipDisplay;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lib.LibItemNames;
+
+import javax.annotation.Nonnull;
 
 public class ItemManaRing extends ItemBauble implements IManaItem, IManaTooltipDisplay {
 
@@ -49,13 +46,14 @@ public class ItemManaRing extends ItemBauble implements IManaItem, IManaTooltipD
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
-	public void getSubItems(@Nonnull Item item, CreativeTabs tab, NonNullList<ItemStack> stacks) {
-		stacks.add(new ItemStack(item));
+	public void getSubItems(@Nonnull CreativeTabs tab, @Nonnull NonNullList<ItemStack> stacks) {
+		if(isInCreativeTab(tab)) {
+			stacks.add(new ItemStack(this));
 
-		ItemStack full = new ItemStack(item);
-		setMana(full, getMaxMana(full));
-		stacks.add(full);
+			ItemStack full = new ItemStack(this);
+			setMana(full, getMaxMana(full));
+			stacks.add(full);
+		}
 	}
 
 	@Override

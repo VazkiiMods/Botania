@@ -1,0 +1,16 @@
+{
+  "result": {
+    "item": "botania:quartztypeelf",
+    "data": 0
+  },
+  "pattern": [
+    "QQ",
+    "QQ"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "Q": {
+      "item": "#QUARTZELVEN"
+    }
+  }
+}

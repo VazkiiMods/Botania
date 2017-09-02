@@ -10,27 +10,19 @@
  */
 package vazkii.botania.client.core.proxy;
 
-import java.awt.Desktop;
-import java.io.File;
-import java.io.IOException;
-import java.net.URI;
-import java.time.LocalDateTime;
-import java.time.Month;
-import java.util.Map;
-
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.multiplayer.PlayerControllerMP;
 import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.client.renderer.entity.RenderSnowball;
+import net.minecraft.client.renderer.tileentity.TileEntityItemStackRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemRecord;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
@@ -69,7 +61,6 @@ import vazkii.botania.client.core.handler.DebugHandler;
 import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.client.core.handler.LightningHandler;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
-import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.client.core.handler.MultiblockRenderHandler;
 import vazkii.botania.client.core.handler.PersistentVariableHelper;
 import vazkii.botania.client.core.handler.RenderLexicon;
@@ -92,55 +83,11 @@ import vazkii.botania.client.render.entity.RenderPixie;
 import vazkii.botania.client.render.entity.RenderPoolMinecart;
 import vazkii.botania.client.render.entity.RenderSnowballStack;
 import vazkii.botania.client.render.entity.RenderSpark;
-import vazkii.botania.client.render.tile.RenderTileAlfPortal;
-import vazkii.botania.client.render.tile.RenderTileAltar;
-import vazkii.botania.client.render.tile.RenderTileAnimatedTorch;
-import vazkii.botania.client.render.tile.RenderTileAvatar;
-import vazkii.botania.client.render.tile.RenderTileBellows;
-import vazkii.botania.client.render.tile.RenderTileBrewery;
-import vazkii.botania.client.render.tile.RenderTileCocoon;
-import vazkii.botania.client.render.tile.RenderTileCorporeaCrystalCube;
-import vazkii.botania.client.render.tile.RenderTileCorporeaIndex;
-import vazkii.botania.client.render.tile.RenderTileEnchanter;
-import vazkii.botania.client.render.tile.RenderTileFloatingFlower;
-import vazkii.botania.client.render.tile.RenderTileGaiaHead;
-import vazkii.botania.client.render.tile.RenderTileHourglass;
-import vazkii.botania.client.render.tile.RenderTileIncensePlate;
-import vazkii.botania.client.render.tile.RenderTileLightRelay;
-import vazkii.botania.client.render.tile.RenderTilePool;
-import vazkii.botania.client.render.tile.RenderTilePrism;
-import vazkii.botania.client.render.tile.RenderTilePylon;
-import vazkii.botania.client.render.tile.RenderTileRedString;
-import vazkii.botania.client.render.tile.RenderTileRuneAltar;
-import vazkii.botania.client.render.tile.RenderTileSparkChanger;
-import vazkii.botania.client.render.tile.RenderTileSpreader;
-import vazkii.botania.client.render.tile.RenderTileStarfield;
-import vazkii.botania.client.render.tile.RenderTileTerraPlate;
-import vazkii.botania.client.render.tile.RenderTileTeruTeruBozu;
-import vazkii.botania.client.render.tile.RenderTileTinyPotato;
+import vazkii.botania.client.render.tile.*;
 import vazkii.botania.client.render.world.SkyblockRenderEvents;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.subtile.functional.BergamuteEventHandler;
-import vazkii.botania.common.block.tile.TileAlfPortal;
-import vazkii.botania.common.block.tile.TileAltar;
-import vazkii.botania.common.block.tile.TileAnimatedTorch;
-import vazkii.botania.common.block.tile.TileAvatar;
-import vazkii.botania.common.block.tile.TileBrewery;
-import vazkii.botania.common.block.tile.TileCocoon;
-import vazkii.botania.common.block.tile.TileEnchanter;
-import vazkii.botania.common.block.tile.TileFloatingFlower;
-import vazkii.botania.common.block.tile.TileFloatingSpecialFlower;
-import vazkii.botania.common.block.tile.TileGaiaHead;
-import vazkii.botania.common.block.tile.TileHourglass;
-import vazkii.botania.common.block.tile.TileIncensePlate;
-import vazkii.botania.common.block.tile.TileLightRelay;
-import vazkii.botania.common.block.tile.TilePylon;
-import vazkii.botania.common.block.tile.TileRuneAltar;
-import vazkii.botania.common.block.tile.TileSparkChanger;
-import vazkii.botania.common.block.tile.TileStarfield;
-import vazkii.botania.common.block.tile.TileTerraPlate;
-import vazkii.botania.common.block.tile.TileTeruTeruBozu;
-import vazkii.botania.common.block.tile.TileTinyPotato;
+import vazkii.botania.common.block.tile.*;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaCrystalCube;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
 import vazkii.botania.common.block.tile.mana.TileBellows;
@@ -172,6 +119,14 @@ import vazkii.botania.common.item.equipment.bauble.ItemMonocle;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibObfuscation;
 
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
+import java.net.URI;
+import java.time.LocalDateTime;
+import java.time.Month;
+import java.util.Map;
+
 public class ClientProxy implements IProxy {
 
 	public static final VertexFormat POSITION_TEX_LMAP_NORMAL =
@@ -190,7 +145,7 @@ public class ClientProxy implements IProxy {
 
 	private static final ModelBiped EMPTY_MODEL = new ModelBiped();
 	static {
-		EMPTY_MODEL.setInvisible(true);
+		EMPTY_MODEL.setVisible(false);
 	}
 
 	@Override
@@ -204,7 +159,6 @@ public class ClientProxy implements IProxy {
 		}
 
 		MinecraftForge.EVENT_BUS.register(MiscellaneousIcons.INSTANCE);
-		ModelHandler.registerModels();
 		initRenderers();
 	}
 
@@ -215,21 +169,8 @@ public class ClientProxy implements IProxy {
 
 		ModChallenges.init();
 
-		MinecraftForge.EVENT_BUS.register(ClientTickHandler.class);
-		MinecraftForge.EVENT_BUS.register(HUDHandler.class);
-		MinecraftForge.EVENT_BUS.register(LightningHandler.class);
 		if(ConfigHandler.boundBlockWireframe)
 			MinecraftForge.EVENT_BUS.register(BoundTileRenderer.class);
-		MinecraftForge.EVENT_BUS.register(TooltipHandler.class);
-		MinecraftForge.EVENT_BUS.register(TooltipAdditionDisplayHandler.class);
-		MinecraftForge.EVENT_BUS.register(DebugHandler.class);
-		MinecraftForge.EVENT_BUS.register(BlockHighlightRenderHandler.class);
-		MinecraftForge.EVENT_BUS.register(MultiblockRenderHandler.class);
-		MinecraftForge.EVENT_BUS.register(SkyblockRenderEvents.class);
-		MinecraftForge.EVENT_BUS.register(new RenderLexicon());
-		MinecraftForge.EVENT_BUS.register(BossBarHandler.class);
-		MinecraftForge.EVENT_BUS.register(BergamuteEventHandler.class);
-		MinecraftForge.EVENT_BUS.register(AstrolabePreviewHandler.class);
 
 		if(ConfigHandler.useAdaptativeConfig)
 			MinecraftForge.EVENT_BUS.register(AdaptorNotifier.class);
@@ -244,6 +185,7 @@ public class ClientProxy implements IProxy {
 				dootDoot = true;
 		}
 
+		TileEntityItemStackRenderer.instance = new RenderTilePylon.ForwardingTEISR(TileEntityItemStackRenderer.instance);
 	}
 
 	@Override
@@ -292,10 +234,11 @@ public class ClientProxy implements IProxy {
 		RenderingRegistry.registerEntityRenderingHandler(EntityBabylonWeapon.class, RenderBabylonWeapon::new);
 
 		RenderingRegistry.registerEntityRenderingHandler(EntityThornChakram.class, renderManager -> new RenderSnowballStack<>(renderManager, ModItems.thornChakram, Minecraft.getMinecraft().getRenderItem(), entity -> new ItemStack(ModItems.thornChakram, 1, entity.isFire() ? 1 : 0)));
-		RenderingRegistry.registerEntityRenderingHandler(EntityVineBall.class, renderManager -> new RenderSnowball(renderManager, ModItems.vineBall, Minecraft.getMinecraft().getRenderItem()));
+		RenderingRegistry.registerEntityRenderingHandler(EntityVineBall.class, renderManager -> new RenderSnowball<>(renderManager, ModItems.vineBall, Minecraft.getMinecraft().getRenderItem()));
 		RenderingRegistry.registerEntityRenderingHandler(EntityEnderAirBottle.class, renderManager -> new RenderSnowballStack<>(renderManager, ModItems.manaResource, Minecraft.getMinecraft().getRenderItem(), entity -> new ItemStack(ModItems.manaResource, 1, 15)));
 
 		ShaderHelper.initShaders();
+		ShaderHelper.registerReloadListener();
 	}
 
 	private void initAuxiliaryRender() {
@@ -346,10 +289,10 @@ public class ClientProxy implements IProxy {
 	@Override
 	public void setExtraReach(EntityLivingBase entity, float reach) {
 		Minecraft mc = Minecraft.getMinecraft();
-		EntityPlayer player = mc.player;
+		EntityPlayerSP player = mc.player;
 		if(entity == player) {
 			if(!(mc.playerController instanceof IExtendedPlayerController)) {
-				NetHandlerPlayClient net = ReflectionHelper.getPrivateValue(PlayerControllerMP.class, mc.playerController, LibObfuscation.NET_CLIENT_HANDLER);
+				NetHandlerPlayClient net = player.connection;
 				BotaniaPlayerController controller = new BotaniaPlayerController(mc, net);
 				boolean isFlying = player.capabilities.isFlying;
 				boolean allowFlying = player.capabilities.allowFlying;

@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "botania:craftinghalo"
+  },
+  "pattern": [
+    " P ",
+    "ICI",
+    " I "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "P": {
+      "item": "#MANAPEARL"
+    },
+    "C": {
+      "item": "#WORKBENCH"
+    },
+    "I": {
+      "item": "#INGOTMANASTEEL"
+    }
+  }
+}

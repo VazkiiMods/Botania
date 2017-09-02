@@ -1,7 +1,5 @@
 package vazkii.botania.client.render.entity;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
@@ -15,6 +13,8 @@ import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.render.tile.RenderTileGaiaHead;
 import vazkii.botania.common.block.tile.TileGaiaHead;
 import vazkii.botania.common.item.ModItems;
+
+import javax.annotation.Nonnull;
 
 public class LayerGaiaHead implements LayerRenderer<EntityPlayer> {
 
@@ -87,7 +87,7 @@ public class LayerGaiaHead implements LayerRenderer<EntityPlayer> {
 
 			// Botania - use gaia TESR
 			ShaderHelper.useShader(ShaderHelper.doppleganger, RenderDoppleganger.defaultCallback);
-			((RenderTileGaiaHead) (TileEntitySpecialRenderer) TileEntityRendererDispatcher.instance.getSpecialRendererByClass(TileGaiaHead.class))
+			((RenderTileGaiaHead) (TileEntitySpecialRenderer) TileEntityRendererDispatcher.instance.getRenderer(TileGaiaHead.class))
 			.renderSkull(-0.5F, 0.0F, -0.5F, EnumFacing.UP, 180.0F, itemstack.getMetadata(), null, -1, limbSwing);
 			ShaderHelper.releaseShader();
 

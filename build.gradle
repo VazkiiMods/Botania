@@ -14,7 +14,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:2.2-SNAPSHOT'
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
         classpath 'com.matthewprenger:CurseGradle:1.0-SNAPSHOT'
     }
 }
@@ -64,11 +64,18 @@ configurations {
 
 //End of the SCP config
 
+jar {
+    classifier = 'universal'
+    manifest {
+        attributes 'FMLAT': 'botania_at.cfg'
+    }
+}
+
 dependencies {
     compile files(
         'Baubles-deobf.jar'
     )
-    deobfCompile "mezz.jei:jei_1.11.2:4.2.8.244"
+    deobfCompile "mezz.jei:jei_1.12:4.7.0.67"
 
     //and a bit more for SCP
     sshAntTask "org.apache.ant:ant-jsch:1.7.1", "jsch:jsch:0.1.29"

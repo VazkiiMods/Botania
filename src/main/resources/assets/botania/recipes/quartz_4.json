@@ -1,0 +1,21 @@
+{
+  "result": {
+    "item": "botania:quartz",
+    "data": 4,
+    "count": 8
+  },
+  "pattern": [
+    "QQQ",
+    "QCQ",
+    "QQQ"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "Q": {
+      "item": "#GEMQUARTZ"
+    },
+    "C": {
+      "item": "minecraft:redstone"
+    }
+  }
+}

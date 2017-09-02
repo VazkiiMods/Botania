@@ -10,13 +10,13 @@
  */
 package vazkii.botania.common.lexicon;
 
-import javax.annotation.Nonnull;
-
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.ITwoNamedPage;
 import vazkii.botania.api.lexicon.LexiconCategory;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.lexicon.LexiconPage;
+
+import javax.annotation.Nonnull;
 
 public class BasicLexiconEntry extends LexiconEntry {
 

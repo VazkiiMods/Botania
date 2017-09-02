@@ -10,9 +10,6 @@
  */
 package vazkii.botania.common.item.lens;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.passive.EntitySheep;
@@ -27,6 +24,9 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.common.network.PacketBotaniaEffect;
 import vazkii.botania.common.network.PacketHandler;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class LensPaint extends Lens {
 

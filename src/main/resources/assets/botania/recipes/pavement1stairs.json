@@ -1,0 +1,18 @@
+{
+  "result": {
+    "item": "botania:pavement1stairs",
+    "count": 4
+  },
+  "pattern": [
+    "  Q",
+    " QQ",
+    "QQQ"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "Q": {
+      "item": "botania:pavement",
+      "data": 1
+    }
+  }
+}

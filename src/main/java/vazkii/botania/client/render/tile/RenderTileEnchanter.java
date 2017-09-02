@@ -10,10 +10,6 @@
  */
 package vazkii.botania.client.render.tile;
 
-import javax.annotation.Nonnull;
-
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
@@ -22,21 +18,22 @@ import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.item.EntityItem;
+import org.lwjgl.opengl.GL11;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.common.block.tile.TileEnchanter;
-import vazkii.botania.common.core.handler.MethodHandles;
+
+import javax.annotation.Nonnull;
 
 public class RenderTileEnchanter extends TileEntitySpecialRenderer<TileEnchanter> {
 
 	private EntityItem item;
 
 	@Override
-	public void renderTileEntityAt(@Nonnull TileEnchanter enchanter, double d0, double d1, double d2, float f, int digProgress) {
+	public void render(@Nonnull TileEnchanter enchanter, double d0, double d1, double d2, float f, int digProgress, float unused) {
 		float alphaMod = 0F;
 
 		if(enchanter.stage == TileEnchanter.State.GATHER_MANA)
@@ -50,11 +47,8 @@ public class RenderTileEnchanter extends TileEntitySpecialRenderer<TileEnchanter
 			if(item == null)
 				item = new EntityItem(enchanter.getWorld(), enchanter.getPos().getX(), enchanter.getPos().getY() + 1, enchanter.getPos().getZ(), enchanter.itemToEnchant);
 
-			try {
-				MethodHandles.itemAge_setter.invokeExact(item, ClientTickHandler.ticksInGame);
-			} catch (Throwable ignored) {}
-
-			item.setEntityItemStack(enchanter.itemToEnchant);
+			item.age = ClientTickHandler.ticksInGame;
+			item.setItem(enchanter.itemToEnchant);
 
 			GlStateManager.color(1F, 1F, 1F, 1F);
 			GlStateManager.translate(0.5F, 1.25F, 0.5F);

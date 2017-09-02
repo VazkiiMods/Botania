@@ -1,0 +1,21 @@
+{
+  "result": {
+    "item": "botania:thornchakram",
+    "data": 0,
+    "count": 2
+  },
+  "pattern": [
+    "VVV",
+    "VTV",
+    "VVV"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "T": {
+      "item": "#INGOTTERRASTEEL"
+    },
+    "V": {
+      "item": "minecraft:vine"
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "result": {
+    "item": "botania:thundersword"
+  },
+  "pattern": [
+    "  I",
+    "AD ",
+    "TA "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "A": {
+      "item": "#BENDERAIRBOTTLE"
+    },
+    "D": {
+      "item": "#MANADIAMOND"
+    },
+    "T": {
+      "item": "botania:terrasword"
+    },
+    "I": {
+      "item": "#INGOTELVENELEMENTIUM"
+    }
+  }
+}

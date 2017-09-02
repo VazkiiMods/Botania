@@ -1,0 +1,21 @@
+{
+  "result": {
+    "item": "botania:lightrelay",
+    "data": 0
+  },
+  "ingredients": [
+    {
+      "item": "#BREDSTRING"
+    },
+    {
+      "item": "#ELVENDRAGONSTONE"
+    },
+    {
+      "item": "#DUSTGLOWSTONE"
+    },
+    {
+      "item": "#DUSTGLOWSTONE"
+    }
+  ],
+  "type": "forge:ore_shapeless"
+}

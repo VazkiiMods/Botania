@@ -1,0 +1,21 @@
+{
+  "display": {
+    "icon": {
+      "item": "botania:specialFlower",
+      "nbt": "{\"type\": \"bellethorne\"}"
+    },
+    "title": {
+      "translate": "advancement.botania:functionalFlower"
+    },
+    "description": {
+      "translate": "advancement.botania:functionalFlower.desc"
+    }
+  },
+  "parent": "botania:main/mana_pool_pickup",
+  "__comment": "This is triggered by code in Botania. In the future, it may become data-driven",
+  "criteria": {
+    "code_triggered": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

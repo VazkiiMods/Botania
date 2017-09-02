@@ -1,0 +1,17 @@
+{
+  "result": {
+    "item": "botania:keepivy"
+  },
+  "ingredients": [
+    {
+      "item": "#ELVENPIXIEDUST"
+    },
+    {
+      "item": "minecraft:vine"
+    },
+    {
+      "item": "#BENDERAIRBOTTLE"
+    }
+  ],
+  "type": "forge:ore_shapeless"
+}

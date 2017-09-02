@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "botania:astrolabe"
+  },
+  "pattern": [
+    " EG",
+    "EEE",
+    "GED"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "D": {
+      "item": "#DREAMWOOD"
+    },
+    "E": {
+      "item": "#INGOTELVENELEMENTIUM"
+    },
+    "G": {
+      "item": "#ETERNALLIFEESSENCE"
+    }
+  }
+}

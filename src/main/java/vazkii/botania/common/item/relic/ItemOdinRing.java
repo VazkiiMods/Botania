@@ -10,29 +10,31 @@
  */
 package vazkii.botania.common.item.relic;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.google.common.collect.HashMultimap;
-import com.google.common.collect.Multimap;
-
 import baubles.api.BaubleType;
 import baubles.api.BaublesApi;
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Multimap;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.items.IItemHandler;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibItemNames;
+import vazkii.botania.common.lib.LibMisc;
 
+import java.util.ArrayList;
+import java.util.List;
+
+@Mod.EventBusSubscriber
 public class ItemOdinRing extends ItemRelicBauble {
 
 	private static final List<String> damageNegations = new ArrayList<>();
@@ -41,7 +43,6 @@ public class ItemOdinRing extends ItemRelicBauble {
 
 	public ItemOdinRing() {
 		super(LibItemNames.ODIN_RING);
-		MinecraftForge.EVENT_BUS.register(ItemOdinRing.class);
 
 		damageNegations.add(DamageSource.DROWN.damageType);
 		damageNegations.add(DamageSource.FALL.damageType);
@@ -83,7 +84,7 @@ public class ItemOdinRing extends ItemRelicBauble {
 	}
 
 	private static boolean isOdinRing(ItemStack stack) {
-		return !stack.isEmpty() && (stack.getItem() == ModItems.odinRing || stack.getItem() == ModItems.aesirRing);
+		return !stack.isEmpty() && stack.getItem() == ModItems.odinRing;
 	}
 
 	@Override
@@ -100,11 +101,16 @@ public class ItemOdinRing extends ItemRelicBauble {
 		player.getAttributeMap().removeAttributeModifiers(attributes);
 	}
 
-	void fillModifiers(Multimap<String, AttributeModifier> attributes, ItemStack stack) {
+	private void fillModifiers(Multimap<String, AttributeModifier> attributes, ItemStack stack) {
 		if(stack.isEmpty()) // workaround for Azanor/Baubles#156
 			return;
 		
 		attributes.put(SharedMonsterAttributes.MAX_HEALTH.getName(), new AttributeModifier(getBaubleUUID(stack), "Bauble modifier", 20, 0));
+	}
+
+	@Override
+	public ResourceLocation getAdvancement() {
+		return new ResourceLocation(LibMisc.MOD_ID, "challenge/odin_ring");
 	}
 
 }

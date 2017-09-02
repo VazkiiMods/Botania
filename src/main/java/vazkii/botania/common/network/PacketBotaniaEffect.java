@@ -1,7 +1,5 @@
 package vazkii.botania.common.network;
 
-import java.awt.Color;
-
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
@@ -18,9 +16,10 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.tile.TileTerraPlate;
 import vazkii.botania.common.core.handler.ConfigHandler;
-import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.entity.EntityDoppleganger;
+
+import java.awt.Color;
 
 public class PacketBotaniaEffect implements IMessage {
 
@@ -99,7 +98,7 @@ public class PacketBotaniaEffect implements IMessage {
 					}
 					case PAINT_LENS: {
 						EnumDyeColor placeColor = EnumDyeColor.byMetadata(message.args[0]);
-						int hex = placeColor.getMapColor().colorValue;
+						int hex = placeColor.getColorValue();
 						int r = (hex & 0xFF0000) >> 16;
 						int g = (hex & 0xFF00) >> 8;
 		int b = hex & 0xFF;
@@ -298,6 +297,19 @@ public class PacketBotaniaEffect implements IMessage {
 							float blue = (float) Math.random();
 							Botania.proxy.sparkleFX(message.x + 0.5 + Math.random() * 0.4 - 0.2, message.y + 1, message.z + 0.5 + Math.random() * 0.4 - 0.2, red, green, blue, (float) Math.random(), 10);
 						}
+						break;
+					}
+					case FLUGEL_EFFECT: {
+						Entity entity = world.getEntityByID(message.args[0]);
+						if(entity != null) {
+							for(int i = 0; i < 15; i++) {
+								float x = (float) (entity.posX + Math.random());
+								float y = (float) (entity.posY + Math.random());
+								float z = (float) (entity.posZ + Math.random());
+								Botania.proxy.wispFX(x, y, z, (float) Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random(), -0.3F + (float) Math.random() * 0.2F);
+							}
+						}
+						break;
 					}
 					}
 				}
@@ -322,7 +334,8 @@ public class PacketBotaniaEffect implements IMessage {
 		BREWERY_FINISH(1), // Arg: RGB
 		TERRA_PLATE(0),
 		APOTHECARY_CRAFT(0),
-		RUNE_CRAFT(0);
+		RUNE_CRAFT(0),
+		FLUGEL_EFFECT(1); // Arg: Entity ID
 
 		private final int argCount;
 

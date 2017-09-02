@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "item": "botania:terrasword"
+    },
+    "title": {
+      "translate": "advancement.botania:terrasteelWeaponCraft"
+    },
+    "description": {
+      "translate": "advancement.botania:terrasteelWeaponCraft.desc"
+    }
+  },
+  "parent": "botania:main/terrasteel_pickup",
+  "criteria": {
+    "terrablade": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "botania:terrasword"
+          }
+        ]
+      }
+    }
+  }
+}

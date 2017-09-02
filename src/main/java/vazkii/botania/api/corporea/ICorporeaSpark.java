@@ -10,10 +10,10 @@
  */
 package vazkii.botania.api.corporea;
 
-import java.util.List;
-
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
+
+import java.util.List;
 
 /**
  * An interface for a Corporea Spark. Includes functions for handling

@@ -19,7 +19,7 @@ public class PacketLeftClick implements IMessage {
 
 		@Override
 		public IMessage onMessage(PacketLeftClick message, MessageContext ctx) {
-			EntityPlayerMP player = ctx.getServerHandler().playerEntity;
+			EntityPlayerMP player = ctx.getServerHandler().player;
 			player.mcServer.addScheduledTask(() -> ((ItemTerraSword) ModItems.terraSword).trySpawnBurst(player));
 			return null;
 		}

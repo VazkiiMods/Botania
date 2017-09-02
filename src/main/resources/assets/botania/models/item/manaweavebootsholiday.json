@@ -1,6 +1,6 @@
 {
     "parent": "minecraft:item/generated",
     "textures": {
-        "layer0": "botania:items/manaweavebootsholiday"
+        "layer0": "botania:items/manaweave_boots_holiday"
     }
 }

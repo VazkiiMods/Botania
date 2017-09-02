@@ -10,10 +10,6 @@
  */
 package vazkii.botania.client.core.handler;
 
-import net.minecraft.util.EnumActionResult;
-import org.lwjgl.opengl.ARBShaderObjects;
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockRendererDispatcher;
@@ -22,6 +18,7 @@ import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
@@ -32,7 +29,11 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import org.lwjgl.opengl.ARBShaderObjects;
+import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.lexicon.multiblock.IMultiblockRenderHook;
 import vazkii.botania.api.lexicon.multiblock.Multiblock;
 import vazkii.botania.api.lexicon.multiblock.MultiblockSet;
@@ -40,6 +41,7 @@ import vazkii.botania.api.lexicon.multiblock.component.MultiblockComponent;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.common.block.ModBlocks;
 
+@Mod.EventBusSubscriber(Side.CLIENT)
 public final class MultiblockRenderHandler {
 
 	private MultiblockRenderHandler() {}
@@ -51,26 +53,6 @@ public final class MultiblockRenderHandler {
 	public static MultiblockSet currentMultiblock;
 	public static BlockPos anchor;
 	public static EnumFacing angle;
-
-	static {
-		// todo 1.8.8 temporary shim, because cannot renderBlockBrightness directly, see MinecraftForge issue 2353
-		IMultiblockRenderHook.renderHooks.put(ModBlocks.pylon, new IMultiblockRenderHook() {
-			@Override
-			public void renderBlockForMultiblock(IBlockAccess world, Multiblock mb, IBlockState state, MultiblockComponent comp) {
-				// Steal itemstack model since it has the proper group visibilities configured
-				ItemStack stack = new ItemStack(ModBlocks.pylon, 1, state.getBlock().getMetaFromState(state));
-				IBakedModel model = Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(stack);
-				GlStateManager.scale(0.65F, 0.65, 0.65F);
-				GlStateManager.translate(0.5F, -0.75F, 0.5F);
-				Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelRenderer().renderModelBrightness(model, state, 1.0F, false);
-			}
-
-			@Override
-			public boolean needsTranslate(IBlockState state) {
-				return true;
-			}
-		});
-	}
 
 	public static void setMultiblock(MultiblockSet set) {
 		currentMultiblock = set;
@@ -139,15 +121,9 @@ public final class MultiblockRenderHandler {
 	}
 
 	private static boolean renderComponentInWorld(World world, Multiblock mb, MultiblockComponent comp, BlockPos anchorPos) {
-		double renderPosX, renderPosY, renderPosZ;
-
-		try {
-			renderPosX = (double) ClientMethodHandles.renderPosX_getter.invokeExact(Minecraft.getMinecraft().getRenderManager());
-			renderPosY = (double) ClientMethodHandles.renderPosY_getter.invokeExact(Minecraft.getMinecraft().getRenderManager());
-			renderPosZ = (double) ClientMethodHandles.renderPosZ_getter.invokeExact(Minecraft.getMinecraft().getRenderManager());
-		} catch (Throwable t) {
-			return true;
-		}
+		double renderPosX = Minecraft.getMinecraft().getRenderManager().renderPosX;
+		double renderPosY = Minecraft.getMinecraft().getRenderManager().renderPosY;
+		double renderPosZ = Minecraft.getMinecraft().getRenderManager().renderPosZ;
 
 		BlockPos pos = comp.getRelativePosition();
 		BlockPos pos_ = pos.add(anchorPos);

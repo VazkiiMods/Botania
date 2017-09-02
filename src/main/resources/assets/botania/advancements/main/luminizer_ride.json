@@ -1,0 +1,20 @@
+{
+  "display": {
+    "icon": {
+      "item": "botania:lightrelay"
+    },
+    "title": {
+      "translate": "advancement.botania:luminizerRide"
+    },
+    "description": {
+      "translate": "advancement.botania:luminizerRide.desc"
+    }
+  },
+  "parent": "botania:main/ender_air_make",
+  "__comment": "This is triggered by code in Botania. In the future, it may become data-driven",
+  "criteria": {
+    "code_triggered": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

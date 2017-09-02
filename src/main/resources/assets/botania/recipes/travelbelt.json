@@ -1,0 +1,25 @@
+{
+  "result": {
+    "item": "botania:travelbelt"
+  },
+  "pattern": [
+    "EL ",
+    "L L",
+    "SLA"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "A": {
+      "item": "#RUNEAIRB"
+    },
+    "S": {
+      "item": "#INGOTMANASTEEL"
+    },
+    "E": {
+      "item": "#RUNEEARTHB"
+    },
+    "L": {
+      "item": "minecraft:leather"
+    }
+  }
+}

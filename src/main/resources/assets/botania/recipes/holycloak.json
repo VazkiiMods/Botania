@@ -1,0 +1,23 @@
+{
+  "result": {
+    "item": "botania:holycloak"
+  },
+  "pattern": [
+    "WWW",
+    "GWG",
+    "GSG"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "S": {
+      "item": "#ETERNALLIFEESSENCE"
+    },
+    "W": {
+      "item": "minecraft:wool",
+      "data": 0
+    },
+    "G": {
+      "item": "#DUSTGLOWSTONE"
+    }
+  }
+}

@@ -10,12 +10,6 @@
  */
 package vazkii.botania.common.block.tile;
 
-import java.awt.Color;
-import java.util.List;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.entity.item.EntityItem;
@@ -31,13 +25,18 @@ import vazkii.botania.api.brew.IBrewItem;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.api.recipe.RecipeBrew;
-import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.network.PacketBotaniaEffect;
 import vazkii.botania.common.network.PacketHandler;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.awt.Color;
+import java.util.List;
 
 // This is mostly copypasta from TileRuneAltar
 public class TileBrewery extends TileSimpleInventory implements IManaReceiver {
@@ -102,8 +101,8 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver {
 		if(!world.isRemote && recipe == null) {
 			List<EntityItem> items = world.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(pos.getX(), pos.getY(), pos.getZ(), pos.getX() + 1, pos.getY() + 1, pos.getZ() + 1));
 			for(EntityItem item : items)
-				if(!item.isDead && !item.getEntityItem().isEmpty()) {
-					ItemStack stack = item.getEntityItem();
+				if(!item.isDead && !item.getItem().isEmpty()) {
+					ItemStack stack = item.getItem();
 					addItem(null, stack, null);
 				}
 		}
@@ -165,7 +164,7 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver {
 	}
 
 	public void craftingFanciness() {
-		world.playSound(null, pos, BotaniaSoundEvents.potionCreate, SoundCategory.BLOCKS, 1F, 1.5F + (float) Math.random() * 0.25F);
+		world.playSound(null, pos, ModSounds.potionCreate, SoundCategory.BLOCKS, 1F, 1.5F + (float) Math.random() * 0.25F);
 		PacketHandler.sendToNearby(world, pos, new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.BREWERY_FINISH, pos.getX(), pos.getY(), pos.getZ(), recipe.getBrew().getColor(itemHandler.getStackInSlot(0))));
 	}
 

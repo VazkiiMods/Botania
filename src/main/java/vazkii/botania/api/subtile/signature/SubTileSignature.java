@@ -10,33 +10,36 @@
  */
 package vazkii.botania.api.subtile.signature;
 
-import java.util.List;
-
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.util.List;
 
 /**
  * A singleton instance for a SubTileEntity, this is called for a few methods.
  */
-public abstract class SubTileSignature {
+public interface SubTileSignature {
 
 	public static final String SPECIAL_FLOWER_PREFIX = "flower.";
 
 	/**
 	 * Gets the display name for the flower item.
 	 */
-	public abstract String getUnlocalizedNameForStack(ItemStack stack);
+	String getUnlocalizedNameForStack(ItemStack stack);
 
 	/**
 	 * Gets the lore text for the flower item, displayed in the item's tooltip.
 	 * If you do not want a reference return a key that does not have localization such
 	 * as "botaniamisc.noloc".
 	 */
-	public abstract String getUnlocalizedLoreTextForStack(ItemStack stack);
+	String getUnlocalizedLoreTextForStack(ItemStack stack);
 
 	/**
 	 * Adds additional text to the tooltip. This text is added after getUnlocalizedLoreTextForStack.
 	 */
-	public void addTooltip(ItemStack stack, EntityPlayer player, List<String> tooltip) {}
+	@SideOnly(Side.CLIENT)
+	default void addTooltip(ItemStack stack, World world, List<String> tooltip) {}
 
 }

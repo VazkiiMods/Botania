@@ -10,23 +10,17 @@
  */
 package vazkii.botania.common.block.decor.walls;
 
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
 import net.minecraft.block.BlockWall;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.statemap.StateMap;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -34,8 +28,9 @@ import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.BiomeStoneVariant;
 import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.block.ModFluffBlocks;
-import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lexicon.LexiconData;
+
+import javax.annotation.Nonnull;
 
 public class BlockBiomeStoneWall extends BlockModWall {
 
@@ -71,16 +66,9 @@ public class BlockBiomeStoneWall extends BlockModWall {
 	}
 
 	@Override
-	public void register() {
-		GameRegistry.register(this);
-		GameRegistry.register(new ItemBlockWithMetadataAndName(this), getRegistryName());
-	}
-
-	@SideOnly(Side.CLIENT)
-	@Override
-	public void getSubBlocks(@Nonnull Item item, CreativeTabs tabs, @Nonnull NonNullList<ItemStack> list) {
+	public void getSubBlocks(CreativeTabs tabs, @Nonnull NonNullList<ItemStack> list) {
 		for(int i = 0; i < 8; i++)
-			list.add(new ItemStack(item, 1, i));
+			list.add(new ItemStack(this, 1, i));
 	}
 
 	@Override

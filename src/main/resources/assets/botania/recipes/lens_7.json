@@ -1,0 +1,27 @@
+{
+  "result": {
+    "item": "botania:lens",
+    "data": 7
+  },
+  "pattern": [
+    " P ",
+    "ALA",
+    " R "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "P": {
+      "item": "minecraft:piston"
+    },
+    "A": {
+      "item": "#GEMLAPIS"
+    },
+    "R": {
+      "item": "#DUSTREDSTONE"
+    },
+    "L": {
+      "item": "botania:lens",
+      "data": 0
+    }
+  }
+}

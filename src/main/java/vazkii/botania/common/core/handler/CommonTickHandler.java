@@ -10,11 +10,13 @@
  */
 package vazkii.botania.common.core.handler;
 
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
 import net.minecraftforge.fml.common.gameevent.TickEvent.WorldTickEvent;
 import vazkii.botania.api.corporea.CorporeaHelper;
 
+@Mod.EventBusSubscriber
 public final class CommonTickHandler {
 
 	private CommonTickHandler() {}

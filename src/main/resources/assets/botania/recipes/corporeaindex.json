@@ -1,0 +1,26 @@
+{
+  "result": {
+    "item": "botania:corporeaindex"
+  },
+  "pattern": [
+    "AOA",
+    "OSO",
+    "DOD"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "A": {
+      "item": "#BENDERAIRBOTTLE"
+    },
+    "S": {
+      "item": "botania:corporeaspark",
+      "data": 0
+    },
+    "D": {
+      "item": "#ELVENDRAGONSTONE"
+    },
+    "O": {
+      "item": "minecraft:obsidian"
+    }
+  }
+}

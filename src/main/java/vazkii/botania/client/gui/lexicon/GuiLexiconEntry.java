@@ -10,13 +10,6 @@
  */
 package vazkii.botania.client.gui.lexicon;
 
-import java.awt.Desktop;
-import java.io.IOException;
-import java.net.URI;
-import java.util.List;
-
-import org.lwjgl.input.Mouse;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
@@ -25,6 +18,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
+import org.lwjgl.input.Mouse;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.IGuiLexiconEntry;
 import vazkii.botania.api.lexicon.IAddonEntry;
@@ -36,19 +30,24 @@ import vazkii.botania.client.gui.lexicon.button.GuiButtonPage;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonShare;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonViewOnline;
 
+import java.awt.Desktop;
+import java.io.IOException;
+import java.net.URI;
+import java.util.List;
+
 public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IParented {
 
 	private static final String TAG_ENTRY = "entry";
 	private static final String TAG_PAGE = "page";
 
 	public int page = 0;
-	public boolean firstEntry = false;
+	private boolean firstEntry = false;
 	LexiconEntry entry;
-	GuiScreen parent;
-	String title;
-	String subtitle;
+	private GuiScreen parent;
+	private String title;
+	private String subtitle;
 
-	GuiButton leftButton, rightButton, backButton;
+	private GuiButton leftButton, rightButton, backButton;
 
 	public GuiLexiconEntry() {
 		parent = new GuiLexicon();
@@ -61,7 +60,7 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 		setTitle();
 	}
 
-	public void setTitle() {
+	private void setTitle() {
 		if(entry == null) {
 			title = "(null)";
 			return;
@@ -193,11 +192,11 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 	}
 
 	@Override
-	public void drawScreenAfterScale(int par1, int par2, float par3) {
-		super.drawScreenAfterScale(par1, par2, par3);
+	public void drawScreenAfterScale(int xCoord, int yCoord, float newPartialTicks) {
+		super.drawScreenAfterScale(xCoord, yCoord, newPartialTicks);
 
 		LexiconPage page = entry.pages.get(this.page);
-		page.renderScreen(this, par1, par2);
+		page.renderScreen(this, xCoord, yCoord);
 	}
 
 	@Override
@@ -262,8 +261,8 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 		parent = gui;
 	}
 
-	int fx = 0;
-	boolean swiped = false;
+	private int fx = 0;
+	private boolean swiped = false;
 
 	@Override
 	protected void mouseClickMove(int x, int y, int button, long time) {
@@ -333,14 +332,14 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 		}
 	}
 
-	void back() {
+	private void back() {
 		if(backButton.enabled) {
 			actionPerformed(backButton);
 			backButton.playPressSound(mc.getSoundHandler());
 		}
 	}
 
-	void nextPage() {
+	private void nextPage() {
 		if(rightButton.enabled) {
 			actionPerformed(rightButton);
 			rightButton.playPressSound(mc.getSoundHandler());
@@ -348,7 +347,7 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 		}
 	}
 
-	void prevPage() {
+	private void prevPage() {
 		if(leftButton.enabled) {
 			actionPerformed(leftButton);
 			leftButton.playPressSound(mc.getSoundHandler());
@@ -356,11 +355,9 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 		}
 	}
 
-	void updateNote() {
+	private void updateNote() {
 		String key = getNotesKey();
-		if(!notes.containsKey(key))
-			note = "";
-		else note = notes.get(key);
+		note = notes.getOrDefault(key, "");
 	}
 
 	@Override

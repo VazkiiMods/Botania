@@ -1,0 +1,23 @@
+{
+  "conditions": [
+    {
+      "type": "botania:dark_quartz_enabled",
+      "value": true
+    }
+  ],
+  "result": {
+    "item": "botania:quartzslabdarkhalf",
+    "data": 0,
+    "count": 6
+  },
+  "pattern": [
+    "QQQ"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "Q": {
+      "item": "botania:quartztypedark",
+      "data": 0
+    }
+  }
+}

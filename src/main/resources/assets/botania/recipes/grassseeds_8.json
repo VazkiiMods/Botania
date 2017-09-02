@@ -1,0 +1,17 @@
+{
+  "result": {
+    "item": "botania:grassseeds",
+    "data": 8
+  },
+  "group": "botania:grassseeds",
+  "ingredients": [
+    {
+      "item": "botania:grassseeds",
+      "data": 0
+    },
+    {
+      "item": "minecraft:spider_eye"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}

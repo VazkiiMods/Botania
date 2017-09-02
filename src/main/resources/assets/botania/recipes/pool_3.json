@@ -1,0 +1,16 @@
+{
+  "result": {
+    "item": "botania:pool",
+    "data": 3
+  },
+  "pattern": [
+    "R R",
+    "RRR"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "R": {
+      "item": "botania:shimmerrock"
+    }
+  }
+}

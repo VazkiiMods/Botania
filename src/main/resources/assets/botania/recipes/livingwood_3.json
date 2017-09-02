@@ -1,0 +1,18 @@
+{
+  "result": {
+    "item": "botania:livingwood",
+    "data": 3,
+    "count": 4
+  },
+  "pattern": [
+    "WW",
+    "WW"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "W": {
+      "item": "botania:livingwood",
+      "data": 1
+    }
+  }
+}

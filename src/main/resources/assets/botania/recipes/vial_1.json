@@ -1,0 +1,17 @@
+{
+  "result": {
+    "item": "botania:vial",
+    "data": 1,
+    "count": 3
+  },
+  "pattern": [
+    "G G",
+    " G "
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "G": {
+      "item": "botania:elfglass"
+    }
+  }
+}

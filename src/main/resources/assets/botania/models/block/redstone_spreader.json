@@ -1,8 +1,0 @@
-{
-  "parent": "botania:block/shapes/spreader",
-  "textures": {
-    "inside": "botania:model/spreader_item/redstone_inside",
-    "side": "botania:model/spreader_item/redstone_side",
-    "material": "botania:model/spreader_item/redstone_material"
-  }
-}

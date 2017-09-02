@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.item.rod;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
@@ -27,12 +25,14 @@ import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.api.item.IManaProficiencyArmor;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
-import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.entity.EntityMagicMissile;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.lib.LibItemNames;
+
+import javax.annotation.Nonnull;
 
 public class ItemMissileRod extends ItemMod implements IManaUsingItem, IAvatarWieldable {
 
@@ -77,9 +77,9 @@ public class ItemMissileRod extends ItemMod implements IManaUsingItem, IAvatarWi
 		else missile = new EntityMagicMissile(world);
 
 		missile.setPosition(x, y, z);
-		if(missile.getTarget()) {
+		if(missile.findTarget()) {
 			if(!world.isRemote) {
-				missile.playSound(BotaniaSoundEvents.missile, 0.6F, 0.8F + (float) Math.random() * 0.2F);
+				missile.playSound(ModSounds.missile, 0.6F, 0.8F + (float) Math.random() * 0.2F);
 				world.spawnEntity(missile);
 			}
 

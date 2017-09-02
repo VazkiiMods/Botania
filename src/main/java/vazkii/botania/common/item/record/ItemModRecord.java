@@ -10,21 +10,20 @@
  */
 package vazkii.botania.common.item.record;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.ItemRecord;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.render.IModelRegister;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.lib.LibMisc;
+
+import javax.annotation.Nonnull;
 
 public class ItemModRecord extends ItemRecord implements IModelRegister {
 
@@ -33,7 +32,7 @@ public class ItemModRecord extends ItemRecord implements IModelRegister {
 	public ItemModRecord(String record, SoundEvent sound, String name) {
 		super("botania:" + record, sound);
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
-		GameRegistry.register(this, new ResourceLocation(LibMisc.MOD_ID, name));
+		setRegistryName(new ResourceLocation(LibMisc.MOD_ID, name));
 		setUnlocalizedName(name);
 		file = "botania:music." + record;
 	}
@@ -42,12 +41,6 @@ public class ItemModRecord extends ItemRecord implements IModelRegister {
 	@Override
 	public String getUnlocalizedNameInefficiently(@Nonnull ItemStack par1ItemStack) {
 		return super.getUnlocalizedNameInefficiently(par1ItemStack).replaceAll("item\\.", "item." + LibResources.PREFIX_MOD);
-	}
-
-	@Nonnull
-	@Override
-	public ResourceLocation getRecordResource(String name) {
-		return new ResourceLocation(file);
 	}
 
 	@SideOnly(Side.CLIENT)

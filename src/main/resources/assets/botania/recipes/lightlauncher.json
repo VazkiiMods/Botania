@@ -1,0 +1,19 @@
+{
+  "result": {
+    "item": "botania:lightlauncher"
+  },
+  "pattern": [
+    "DDD",
+    "DLD"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "D": {
+      "item": "#DREAMWOOD"
+    },
+    "L": {
+      "item": "botania:lightrelay",
+      "data": 0
+    }
+  }
+}

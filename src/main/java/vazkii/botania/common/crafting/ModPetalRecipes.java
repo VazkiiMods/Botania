@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.crafting;
 
-import java.util.Arrays;
-
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.api.BotaniaAPI;
@@ -22,6 +20,8 @@ import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibOreDict;
+
+import java.util.Arrays;
 
 public final class ModPetalRecipes {
 

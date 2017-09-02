@@ -10,11 +10,6 @@
  */
 package vazkii.botania.common.block.tile;
 
-import java.awt.Color;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.regex.Pattern;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
@@ -37,7 +32,6 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
-import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -47,17 +41,21 @@ import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.item.IPetalApothecary;
 import vazkii.botania.api.recipe.IFlowerComponent;
 import vazkii.botania.api.recipe.RecipePetals;
-import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.AltarVariant;
 import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.network.PacketBotaniaEffect;
 import vazkii.botania.common.network.PacketHandler;
 
 import javax.annotation.Nonnull;
+import java.awt.Color;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Pattern;
 
 public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 
@@ -77,7 +75,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 	int recipeKeepTicks = 0;
 
 	public boolean collideEntityItem(EntityItem item) {
-		ItemStack stack = item.getEntityItem();
+		ItemStack stack = item.getItem();
 		if(world.isRemote || stack.isEmpty() || item.isDead)
 			return false;
 
@@ -103,13 +101,13 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 					setWater(true);
 					world.updateComparatorOutputLevel(pos, world.getBlockState(pos).getBlock());
 					fluidHandler.drain(new FluidStack(FluidRegistry.WATER, Fluid.BUCKET_VOLUME), true);
-					item.setEntityItemStack(fluidHandler.getContainer());
+					item.setItem(fluidHandler.getContainer());
 					return true;
 				} else if(drainLava != null && drainLava.getFluid() == FluidRegistry.LAVA && drainLava.amount == Fluid.BUCKET_VOLUME) {
 					setLava(true);
 					world.updateComparatorOutputLevel(pos, world.getBlockState(pos).getBlock());
 					fluidHandler.drain(new FluidStack(FluidRegistry.LAVA, Fluid.BUCKET_VOLUME), true);
-					item.setEntityItemStack(fluidHandler.getContainer());
+					item.setItem(fluidHandler.getContainer());
 					return true;
 				}
 			}
@@ -210,7 +208,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 	}
 
 	private void craftingFanciness() {
-		world.playSound(null, pos, BotaniaSoundEvents.altarCraft, SoundCategory.BLOCKS, 1F, 1F);
+		world.playSound(null, pos, ModSounds.altarCraft, SoundCategory.BLOCKS, 1F, 1F);
 		PacketHandler.sendToNearby(world, getPos(),
 				new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.APOTHECARY_CRAFT, getPos().getX(), getPos().getY(), getPos().getZ()));
 	}
@@ -364,7 +362,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 					mc.getRenderItem().renderItemIntoGUI(stack, xc + radius + 32, yc - 8);
 					mc.getRenderItem().renderItemIntoGUI(new ItemStack(Items.WHEAT_SEEDS), xc + radius + 16, yc + 6);
 					net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
-					mc.fontRendererObj.drawStringWithShadow("+", xc + radius + 14, yc + 10, 0xFFFFFF);
+					mc.fontRenderer.drawStringWithShadow("+", xc + radius + 14, yc + 10, 0xFFFFFF);
 				}
 
 			net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
@@ -380,9 +378,9 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 			net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
 		} else if(recipeKeepTicks > 0 && hasWater) {
 			String s = I18n.format("botaniamisc.altarRefill0");
-			mc.fontRendererObj.drawStringWithShadow(s, xc - mc.fontRendererObj.getStringWidth(s) / 2, yc + 10, 0xFFFFFF);
+			mc.fontRenderer.drawStringWithShadow(s, xc - mc.fontRenderer.getStringWidth(s) / 2, yc + 10, 0xFFFFFF);
 			s = I18n.format("botaniamisc.altarRefill1");
-			mc.fontRendererObj.drawStringWithShadow(s, xc - mc.fontRendererObj.getStringWidth(s) / 2, yc + 20, 0xFFFFFF);
+			mc.fontRenderer.drawStringWithShadow(s, xc - mc.fontRenderer.getStringWidth(s) / 2, yc + 20, 0xFFFFFF);
 		}
 	}
 

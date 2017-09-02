@@ -1,0 +1,24 @@
+{
+  "display": {
+    "icon": {
+      "item": "botania:gaiahead"
+    },
+    "title": {
+      "translate": "advancement.botania:gaiaGuardianKill"
+    },
+    "description": {
+      "translate": "advancement.botania:gaiaGuardianKill.desc"
+    }
+  },
+  "parent": "botania:main/elf_portal_open",
+  "criteria": {
+    "guardian": {
+      "trigger": "minecraft:player_killed_entity",
+      "conditions": {
+        "entity": {
+          "type": "botania:doppleganger"
+        }
+      }
+    }
+  }
+}

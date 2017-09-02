@@ -10,10 +10,6 @@
  */
 package vazkii.botania.client.core.handler;
 
-import java.util.regex.Pattern;
-
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
@@ -23,6 +19,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.lwjgl.opengl.GL11;
+
+import java.util.regex.Pattern;
 
 public final class ItemsRemainingRenderHandler {
 
@@ -80,7 +79,7 @@ public final class ItemsRemainingRenderHandler {
 			} else text = customString;
 
 			int color = 0x00FFFFFF | (int) (alpha * 0xFF) << 24;
-			mc.fontRendererObj.drawStringWithShadow(text, x + 20, y + 6, color);
+			mc.fontRenderer.drawStringWithShadow(text, x + 20, y + 6, color);
 
 			GlStateManager.disableBlend();
 			GlStateManager.enableAlpha();

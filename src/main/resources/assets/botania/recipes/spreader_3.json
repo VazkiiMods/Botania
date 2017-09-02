@@ -1,0 +1,23 @@
+{
+  "result": {
+    "item": "botania:spreader",
+    "data": 3
+  },
+  "pattern": [
+    "ESD"
+  ],
+  "group": "botania:spreader",
+  "type": "forge:ore_shaped",
+  "key": {
+    "S": {
+      "item": "botania:spreader",
+      "data": 2
+    },
+    "D": {
+      "item": "#ELVENDRAGONSTONE"
+    },
+    "E": {
+      "item": "#ETERNALLIFEESSENCE"
+    }
+  }
+}

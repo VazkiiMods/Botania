@@ -1,13 +1,10 @@
 package vazkii.botania.common.item.equipment.tool.elementium;
 
-import java.util.Random;
-
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.AbstractSkeleton;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.monster.EntityPigZombie;
-import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.monster.EntityWitherSkeleton;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.player.EntityPlayer;
@@ -24,6 +21,8 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelAxe;
 import vazkii.botania.common.lib.LibItemNames;
 
+import java.util.Random;
+
 public class ItemElementiumAxe extends ItemManasteelAxe {
 
 	public ItemElementiumAxe() {
@@ -36,8 +35,8 @@ public class ItemElementiumAxe extends ItemManasteelAxe {
 
 	@SubscribeEvent
 	public void onEntityDrops(LivingDropsEvent event) {
-		if(event.isRecentlyHit() && event.getSource().getEntity() != null && event.getSource().getEntity() instanceof EntityPlayer) {
-			ItemStack weapon = ((EntityPlayer) event.getSource().getEntity()).getHeldItemMainhand();
+		if(event.isRecentlyHit() && event.getSource().getTrueSource() != null && event.getSource().getTrueSource() instanceof EntityPlayer) {
+			ItemStack weapon = ((EntityPlayer) event.getSource().getTrueSource()).getHeldItemMainhand();
 			if(!weapon.isEmpty() && weapon.getItem() == this) {
 				Random rand = event.getEntityLiving().world.rand;
 				int looting = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, weapon);

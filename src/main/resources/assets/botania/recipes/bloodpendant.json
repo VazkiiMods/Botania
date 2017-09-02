@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "botania:bloodpendant"
+  },
+  "pattern": [
+    " P ",
+    "PGP",
+    "DP "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "P": {
+      "item": "#GEMPRISMARINE"
+    },
+    "D": {
+      "item": "#MANADIAMOND"
+    },
+    "G": {
+      "item": "minecraft:ghast_tear"
+    }
+  }
+}

@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.block.corporea;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -40,6 +38,8 @@ import vazkii.botania.common.block.tile.corporea.TileCorporeaCrystalCube;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
+import javax.annotation.Nonnull;
+
 public class BlockCorporeaCrystalCube extends BlockCorporeaBase implements ILexiconable {
 
 	private static final AxisAlignedBB AABB = new AxisAlignedBB(3.0/16, 0, 3.0/16, 13.0/16, 1, 13.0/16);
@@ -48,17 +48,13 @@ public class BlockCorporeaCrystalCube extends BlockCorporeaBase implements ILexi
 		super(Material.IRON, LibBlockNames.CORPOREA_CRYSTAL_CUBE);
 		setHardness(5.5F);
 		setSoundType(SoundType.METAL);
+		setDefaultState(blockState.getBaseState().withProperty(Properties.StaticProperty, true));
 	}
 
 	@Nonnull
 	@Override
 	public BlockStateContainer createBlockState() {
 		return new ExtendedBlockState(this, new IProperty[] { Properties.StaticProperty }, new IUnlistedProperty[] { Properties.AnimationProperty } );
-	}
-
-	@Override
-	protected IBlockState pickDefaultState() {
-		return blockState.getBaseState().withProperty(Properties.StaticProperty, true);
 	}
 
 	@Override

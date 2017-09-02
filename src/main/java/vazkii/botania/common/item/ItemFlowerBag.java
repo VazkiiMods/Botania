@@ -10,9 +10,6 @@
  */
 package vazkii.botania.common.item;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -49,6 +46,9 @@ import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.lib.LibGuiIDs;
 import vazkii.botania.common.lib.LibItemNames;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 public class ItemFlowerBag extends ItemMod {
 
@@ -120,7 +120,7 @@ public class ItemFlowerBag extends ItemMod {
 
 	@SubscribeEvent
 	public void onPickupItem(EntityItemPickupEvent event) {
-		ItemStack entityStack = event.getItem().getEntityItem();
+		ItemStack entityStack = event.getItem().getItem();
 		if(entityStack.getItem() == Item.getItemFromBlock(ModBlocks.flower) && entityStack.getCount() > 0) {
 			int color = entityStack.getItemDamage();
 			if(color > 15)
@@ -137,7 +137,7 @@ public class ItemFlowerBag extends ItemMod {
 					ItemStack result = bagInv.insertItem(color, entityStack, false);
 					int numPickedUp = entityStack.getCount() - result.getCount();
 
-					event.getItem().setEntityItemStack(result);
+					event.getItem().setItem(result);
 
 					if(numPickedUp > 0) {
 						event.setCanceled(true);

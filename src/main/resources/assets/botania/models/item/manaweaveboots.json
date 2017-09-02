@@ -1,7 +1,7 @@
 {
     "parent": "minecraft:item/generated",
     "textures": {
-        "layer0": "botania:items/manaweaveboots"
+        "layer0": "botania:items/manaweave_boots"
     },
     "overrides": [{
         "predicate": {

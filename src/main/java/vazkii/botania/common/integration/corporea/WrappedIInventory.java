@@ -9,14 +9,14 @@
  */
 package vazkii.botania.common.integration.corporea;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import net.minecraft.item.ItemStack;
 import vazkii.botania.api.corporea.CorporeaRequest;
 import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.api.corporea.IWrappedInventory;
 import vazkii.botania.api.corporea.InvWithLocation;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class WrappedIInventory extends WrappedInventoryBase{
 

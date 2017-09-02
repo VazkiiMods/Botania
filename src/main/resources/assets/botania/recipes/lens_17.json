@@ -1,0 +1,24 @@
+{
+  "result": {
+    "item": "botania:lens",
+    "data": 17
+  },
+  "pattern": [
+    "GFG",
+    "FLF",
+    "GFG"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "F": {
+      "item": "minecraft:fire_charge"
+    },
+    "G": {
+      "item": "#GLOWSTONE"
+    },
+    "L": {
+      "item": "botania:lens",
+      "data": 0
+    }
+  }
+}

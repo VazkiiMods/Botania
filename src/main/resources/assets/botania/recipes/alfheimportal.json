@@ -1,0 +1,19 @@
+{
+  "result": {
+    "item": "botania:alfheimportal"
+  },
+  "pattern": [
+    "WWW",
+    "WTW",
+    "WWW"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "T": {
+      "item": "#NUGGETTERRASTEEL"
+    },
+    "W": {
+      "item": "#LIVINGWOOD"
+    }
+  }
+}

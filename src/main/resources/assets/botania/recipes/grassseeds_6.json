@@ -1,0 +1,17 @@
+{
+  "result": {
+    "item": "botania:grassseeds",
+    "data": 6
+  },
+  "group": "botania:grassseeds",
+  "ingredients": [
+    {
+      "item": "botania:grassseeds",
+      "data": 0
+    },
+    {
+      "item": "minecraft:blaze_powder"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}

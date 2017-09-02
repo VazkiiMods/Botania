@@ -10,44 +10,43 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
-import java.util.List;
-
 import baubles.api.BaubleType;
 import baubles.api.BaublesApi;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.Explosion;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.world.ExplosionEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraftforge.items.IItemHandler;
 import vazkii.botania.api.item.IBaubleRender;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.lib.LibItemNames;
 
+import java.util.List;
+
+@Mod.EventBusSubscriber
 public class ItemGoddessCharm extends ItemBauble implements IManaUsingItem, IBaubleRender {
 
 	public static final int COST = 1000;
 	
 	public ItemGoddessCharm() {
 		super(LibItemNames.GODDESS_CHARM);
-		MinecraftForge.EVENT_BUS.register(ItemGoddessCharm.class);
 	}
 
 	@SubscribeEvent
 	public static void onExplosion(ExplosionEvent.Detonate event) {
 		Explosion e = event.getExplosion();
 		Vec3d vec = e.getPosition();
-		List<EntityPlayer> players = event.getWorld().getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(vec.xCoord, vec.yCoord, vec.zCoord, vec.xCoord, vec.yCoord, vec.zCoord).expand(8, 8, 8));
+		List<EntityPlayer> players = event.getWorld().getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(vec.x, vec.y, vec.z, vec.x, vec.y, vec.z).expand(8, 8, 8));
 		
 		for(EntityPlayer player : players) {
 			ItemStack charm = BaublesApi.getBaublesHandler(player).getStackInSlot(6);

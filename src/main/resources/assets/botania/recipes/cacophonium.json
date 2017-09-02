@@ -1,0 +1,24 @@
+{
+  "result": {
+    "item": "botania:cacophonium"
+  },
+  "pattern": [
+    " G ",
+    "GNG",
+    "GG "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "G": [
+      {
+        "item": "#INGOTGOLD"
+      },
+      {
+        "item": "#INGOTBRASS"
+      }
+    ],
+    "N": {
+      "item": "minecraft:noteblock"
+    }
+  }
+}

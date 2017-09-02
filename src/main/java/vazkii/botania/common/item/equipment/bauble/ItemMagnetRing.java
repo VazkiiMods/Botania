@@ -10,15 +10,11 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
-import java.util.List;
-
-import com.google.common.collect.ImmutableList;
-
 import baubles.api.BaubleType;
 import baubles.api.BaublesApi;
+import com.google.common.collect.ImmutableList;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -38,6 +34,8 @@ import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.lib.LibItemNames;
+
+import java.util.List;
 
 public class ItemMagnetRing extends ItemBauble {
 
@@ -110,7 +108,7 @@ public class ItemMagnetRing extends ItemBauble {
 		if(item.isDead || SubTileSolegnolia.hasSolegnoliaAround(item))
 			return false;
 
-		ItemStack stack = item.getEntityItem();
+		ItemStack stack = item.getItem();
 		if(stack.isEmpty() || stack.getItem() instanceof IManaItem || stack.getItem() instanceof IRelic || BLACKLIST.contains(Item.REGISTRY.getNameForObject(stack.getItem())) || BotaniaAPI.isItemBlacklistedFromMagnet(stack))
 			return false;
 

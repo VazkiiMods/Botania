@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
-import java.util.List;
-
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -22,8 +20,9 @@ import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.Botania;
-import vazkii.botania.common.core.handler.MethodHandles;
 import vazkii.botania.common.lexicon.LexiconData;
+
+import java.util.List;
 
 public class SubTileDaffomill extends SubTileFunctional {
 
@@ -52,14 +51,7 @@ public class SubTileDaffomill extends SubTileFunctional {
 				List<EntityItem> items = supertile.getWorld().getEntitiesWithinAABB(EntityItem.class, axis);
 				int slowdown = getSlowdownFactor();
 				for(EntityItem item : items) {
-					int age;
-					try {
-						age = (int) MethodHandles.itemAge_getter.invokeExact(item);
-					} catch (Throwable t) {
-						continue;
-					}
-
-					if(!item.isDead && age >= slowdown) {
+					if(!item.isDead && item.age >= slowdown) {
 						item.motionX += orientation.getFrontOffsetX() * 0.05;
 						item.motionY += orientation.getFrontOffsetY() * 0.05;
 						item.motionZ += orientation.getFrontOffsetZ() * 0.05;

@@ -10,10 +10,6 @@
  */
 package vazkii.botania.common.block.mana;
 
-import java.util.Random;
-
-import javax.annotation.Nonnull;
-
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
@@ -46,9 +42,10 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
-public class BlockEnchanter extends BlockMod implements IWandable, ILexiconable, IWandHUD {
+import javax.annotation.Nonnull;
+import java.util.Random;
 
-	private final Random random = new Random();
+public class BlockEnchanter extends BlockMod implements IWandable, ILexiconable, IWandHUD {
 
 	public BlockEnchanter() {
 		super(Material.ROCK, LibBlockNames.ENCHANTER);
@@ -56,17 +53,13 @@ public class BlockEnchanter extends BlockMod implements IWandable, ILexiconable,
 		setResistance(5.0F);
 		setLightLevel(1.0F);
 		setSoundType(SoundType.STONE);
+		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.ENCHANTER_DIRECTION, EnumFacing.Axis.X));
 	}
 
 	@Nonnull
 	@Override
 	public BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, BotaniaStateProps.ENCHANTER_DIRECTION);
-	}
-
-	@Override
-	protected IBlockState pickDefaultState() {
-		return blockState.getBaseState().withProperty(BotaniaStateProps.ENCHANTER_DIRECTION, EnumFacing.Axis.X);
 	}
 
 	@Override

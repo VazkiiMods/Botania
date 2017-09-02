@@ -1,0 +1,28 @@
+{
+  "display": {
+    "icon": {
+      "item": "botania:dice"
+    },
+    "title": {
+      "translate": "advancement.botania_challenge"
+    },
+    "description": {
+      "translate": "advancement.botania_challenge.desc"
+    },
+    "background": "botania:textures/blocks/livingrock1.png",
+    "show_toast": false,
+    "announce_to_chat": false
+  },
+  "criteria": {
+    "flower": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "botania:flower"
+          }
+        ]
+      }
+    }
+  }
+}

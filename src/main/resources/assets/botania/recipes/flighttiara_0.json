@@ -1,0 +1,26 @@
+{
+  "result": {
+    "item": "botania:flighttiara",
+    "data": 0
+  },
+  "pattern": [
+    "LLL",
+    "ILI",
+    "FEF"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "E": {
+      "item": "#BENDERAIRBOTTLE"
+    },
+    "F": {
+      "item": "minecraft:feather"
+    },
+    "I": {
+      "item": "#INGOTELVENELEMENTIUM"
+    },
+    "L": {
+      "item": "#ETERNALLIFEESSENCE"
+    }
+  }
+}

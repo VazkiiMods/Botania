@@ -10,8 +10,6 @@
  */
 package vazkii.botania.api.internal;
 
-import java.util.List;
-
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.Entity;
@@ -20,7 +18,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
@@ -37,6 +34,8 @@ import vazkii.botania.api.recipe.RecipeManaInfusion;
 import vazkii.botania.api.recipe.RecipePetals;
 import vazkii.botania.api.recipe.RecipeRuneAltar;
 import vazkii.botania.api.subtile.SubTileEntity;
+
+import java.util.List;
 
 public class DummyMethodHandler implements IInternalMethodHandler {
 
@@ -56,12 +55,12 @@ public class DummyMethodHandler implements IInternalMethodHandler {
 	}
 
 	@Override
-	public LexiconPage craftingRecipesPage(String key, List<IRecipe> recipes) {
+	public LexiconPage craftingRecipesPage(String key, List<ResourceLocation> recipes) {
 		return dummyPage(key);
 	}
 
 	@Override
-	public LexiconPage craftingRecipePage(String key, IRecipe recipe) {
+	public LexiconPage craftingRecipePage(String key, ResourceLocation recipe) {
 		return dummyPage(key);
 	}
 

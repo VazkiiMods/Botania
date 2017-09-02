@@ -10,18 +10,9 @@
  */
 package vazkii.botania.api;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import com.google.common.base.Preconditions;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCarpet;
 import net.minecraft.block.BlockColored;
@@ -38,12 +29,10 @@ import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.common.Loader;
-import net.minecraftforge.fml.common.LoaderState;
 import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.internal.DummyMethodHandler;
@@ -65,6 +54,15 @@ import vazkii.botania.api.subtile.signature.SubTileSignature;
 import vazkii.botania.api.wiki.IWikiProvider;
 import vazkii.botania.api.wiki.SimpleWikiProvider;
 import vazkii.botania.api.wiki.WikiHooks;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public final class BotaniaAPI {
 
@@ -522,10 +520,9 @@ public final class BotaniaAPI {
 
 	/**
 	 * Registers a SubTileEntity, a new special flower. Look in the subtile package of the API.
-	 * Call this in preInit, and don't forget to register a model in BotaniaAPIClient.
+	 * Call this during {@code RegistryEvent.Register<Block>}, and don't forget to register a model in BotaniaAPIClient.
 	 */
 	public static void registerSubTile(String key, Class<? extends SubTileEntity> subtileClass) {
-		Preconditions.checkArgument(Loader.instance().isInState(LoaderState.PREINITIALIZATION));
 		subTiles.put(key, subtileClass);
 		subTileMods.put(key, Loader.instance().activeModContainer().getModId());
 	}
@@ -648,26 +645,6 @@ public final class BotaniaAPI {
 	 */
 	public static void blackListItemFromLoonium(Item item) {
 		looniumBlacklist.add(item);
-	}
-
-	/**
-	 * Gets the last recipe to have been added to the recipe list.
-	 */
-	public static IRecipe getLatestAddedRecipe() {
-		List<IRecipe> list = CraftingManager.getInstance().getRecipeList();
-		return list.get(list.size() - 1);
-	}
-
-	/**
-	 * Gets the last x recipes added to the recipe list.
-	 */
-	public static List<IRecipe> getLatestAddedRecipes(int x) {
-		List<IRecipe> list = CraftingManager.getInstance().getRecipeList();
-		List<IRecipe> newList = new ArrayList<>();
-		for(int i = x - 1; i >= 0; i--)
-			newList.add(list.get(list.size() - 1 - i));
-
-		return newList;
 	}
 
 	/**

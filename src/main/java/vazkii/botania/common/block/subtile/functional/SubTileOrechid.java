@@ -10,10 +10,6 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.block.state.pattern.BlockStateMatcher;
@@ -27,12 +23,16 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.ConfigHandler;
+import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.lexicon.LexiconData;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class SubTileOrechid extends SubTileFunctional {
 
@@ -61,7 +61,7 @@ public class SubTileOrechid extends SubTileFunctional {
 					supertile.getWorld().setBlockState(coords, block.getStateFromMeta(meta), 1 | 2);
 					if(ConfigHandler.blockBreakParticles)
 						supertile.getWorld().playEvent(2001, coords, Block.getIdFromBlock(block) + (meta << 12));
-					supertile.getWorld().playSound(null, supertile.getPos(), BotaniaSoundEvents.orechid, SoundCategory.BLOCKS, 2F, 1F);
+					supertile.getWorld().playSound(null, supertile.getPos(), ModSounds.orechid, SoundCategory.BLOCKS, 2F, 1F);
 
 					mana -= cost;
 					sync();

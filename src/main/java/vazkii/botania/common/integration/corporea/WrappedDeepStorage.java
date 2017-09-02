@@ -9,9 +9,6 @@
  */
 package vazkii.botania.common.integration.corporea;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.wrapper.InvWrapper;
@@ -21,6 +18,9 @@ import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.api.corporea.IWrappedInventory;
 import vazkii.botania.api.corporea.InvWithLocation;
 import vazkii.botania.common.Botania;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Wrapper for StorageDrawers compatibility.

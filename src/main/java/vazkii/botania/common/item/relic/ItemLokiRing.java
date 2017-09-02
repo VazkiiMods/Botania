@@ -10,33 +10,27 @@
  */
 package vazkii.botania.common.item.relic;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-import com.google.common.collect.ImmutableList;
-
 import baubles.api.BaubleType;
 import baubles.api.BaublesApi;
-import net.minecraft.block.material.Material;
+import com.google.common.collect.ImmutableList;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Enchantments;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -50,7 +44,13 @@ import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.lib.LibItemNames;
+import vazkii.botania.common.lib.LibMisc;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+@Mod.EventBusSubscriber
 public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinateListProvider, IManaUsingItem {
 
 	private static final String TAG_CURSOR_LIST = "cursorList";
@@ -65,7 +65,6 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 
 	public ItemLokiRing() {
 		super(LibItemNames.LOKI_RING);
-		MinecraftForge.EVENT_BUS.register(ItemLokiRing.class);
 	}
 
 	@SubscribeEvent
@@ -131,7 +130,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 				Item item = heldItemStack.getItem();
 				if(player.world.isAirBlock(pos) && ManaItemHandler.requestManaExact(lokiRing, player, cost, true)) {
 					ItemStack saveHeld = heldItemStack.copy();
-					item.onItemUse(player, player.world, pos, event.getHand(), lookPos.sideHit, (float) lookPos.hitVec.xCoord - pos.getX(), (float) lookPos.hitVec.yCoord - pos.getY(), (float) lookPos.hitVec.zCoord - pos.getZ());
+					item.onItemUse(player, player.world, pos, event.getHand(), lookPos.sideHit, (float) lookPos.hitVec.x - pos.getX(), (float) lookPos.hitVec.y - pos.getY(), (float) lookPos.hitVec.z - pos.getZ());
 					if (player.isCreative())
 						player.setHeldItem(event.getHand(), saveHeld);
 				}
@@ -207,7 +206,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 	}
 
 	private static boolean isLokiRing(ItemStack stack) {
-		return !stack.isEmpty() && (stack.getItem() == ModItems.lokiRing || stack.getItem() == ModItems.aesirRing);
+		return !stack.isEmpty() && stack.getItem() == ModItems.lokiRing;
 	}
 
 	private static BlockPos getOriginPos(ItemStack stack) {
@@ -276,6 +275,11 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 	@Override
 	public boolean usesMana(ItemStack stack) {
 		return true;
+	}
+
+	@Override
+	public ResourceLocation getAdvancement() {
+		return new ResourceLocation(LibMisc.MOD_ID, "challenge/loki_ring");
 	}
 
 }

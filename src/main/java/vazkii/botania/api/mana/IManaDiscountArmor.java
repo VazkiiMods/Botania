@@ -10,10 +10,10 @@
  */
 package vazkii.botania.api.mana;
 
-import javax.annotation.Nullable;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+
+import javax.annotation.Nullable;
 
 /**
  * An armor item that implements this can provide a mana discount for mana tools.

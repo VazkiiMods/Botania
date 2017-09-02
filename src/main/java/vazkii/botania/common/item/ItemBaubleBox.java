@@ -10,9 +10,6 @@
  */
 package vazkii.botania.common.item;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import baubles.api.IBauble;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -36,6 +33,9 @@ import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.lib.LibGuiIDs;
 import vazkii.botania.common.lib.LibItemNames;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 public class ItemBaubleBox extends ItemMod {
 

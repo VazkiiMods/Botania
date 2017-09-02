@@ -1,0 +1,16 @@
+{
+  "result": {
+    "item": "botania:lens",
+    "data": 8
+  },
+  "ingredients": [
+    {
+      "item": "botania:lens",
+      "data": 0
+    },
+    {
+      "item": "#RUNEWRATHB"
+    }
+  ],
+  "type": "forge:ore_shapeless"
+}

@@ -10,7 +10,6 @@
  */
 package vazkii.botania.api.internal;
 
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.server.management.PlayerChunkMapEntry;
 import net.minecraft.tileentity.TileEntity;

@@ -10,12 +10,7 @@
  */
 package vazkii.botania.common.entity;
 
-import java.util.Map;
-
-import javax.annotation.Nonnull;
-
 import com.google.common.collect.ImmutableMap;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockVine;
 import net.minecraft.block.properties.PropertyBool;
@@ -35,6 +30,9 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.ModItems;
+
+import javax.annotation.Nonnull;
+import java.util.Map;
 
 public class EntityVineBall extends EntityThrowable {
 

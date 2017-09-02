@@ -1,0 +1,19 @@
+{
+  "result": {
+    "item": "botania:dreamwood",
+    "data": 4,
+    "count": 4
+  },
+  "pattern": [
+    " W ",
+    "W W",
+    " W "
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "W": {
+      "item": "botania:dreamwood",
+      "data": 1
+    }
+  }
+}

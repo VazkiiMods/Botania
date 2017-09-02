@@ -1,0 +1,14 @@
+{
+  "result": {
+    "item": "botania:shimmerrock"
+  },
+  "ingredients": [
+    {
+      "item": "#LIVINGROCK"
+    },
+    {
+      "item": "botania:bifrostperm"
+    }
+  ],
+  "type": "forge:ore_shapeless"
+}

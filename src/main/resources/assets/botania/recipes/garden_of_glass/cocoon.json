@@ -1,0 +1,28 @@
+{
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "gardenofglass"
+    }
+  ],
+  "result": {
+    "item": "botania:cocoon"
+  },
+  "pattern": [
+    "SSS",
+    "SFS",
+    "SIS"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "S": {
+      "item": "minecraft:string"
+    },
+    "F": {
+      "item": "botania:felpumpkin"
+    },
+    "I": {
+      "item": "#INGOTMANASTEEL"
+    }
+  }
+}

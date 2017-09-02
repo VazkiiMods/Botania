@@ -1,0 +1,18 @@
+{
+  "result": {
+    "item": "botania:incenseplate"
+  },
+  "pattern": [
+    "WSS"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "S": {
+      "item": "botania:livingwood0slab",
+      "data": 0
+    },
+    "W": {
+      "item": "#LIVINGWOOD"
+    }
+  }
+}

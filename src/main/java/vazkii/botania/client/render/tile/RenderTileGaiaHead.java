@@ -10,11 +10,7 @@
  */
 package vazkii.botania.client.render.tile;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import com.mojang.authlib.GameProfile;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.client.renderer.tileentity.TileEntitySkullRenderer;
@@ -31,9 +27,12 @@ import net.minecraft.util.EnumFacing;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.render.entity.RenderDoppleganger;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 public class RenderTileGaiaHead extends TileEntitySkullRenderer {
 	@Override
-	public void renderTileEntityAt(TileEntitySkull skull, double x, double y, double z, float partialTicks, int digProgress) {
+	public void render(TileEntitySkull skull, double x, double y, double z, float partialTicks, int digProgress, float unused) {
 		ShaderHelper.useShader(ShaderHelper.doppleganger, RenderDoppleganger.defaultCallback);
 
 		// Null-safe copy of super

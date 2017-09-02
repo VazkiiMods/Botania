@@ -10,9 +10,6 @@
  */
 package vazkii.botania.common.lexicon.page;
 
-import java.awt.Desktop;
-import java.net.URI;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.util.text.Style;
@@ -23,6 +20,9 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.internal.IGuiLexiconEntry;
 import vazkii.botania.client.gui.lexicon.GuiLexicon;
+
+import java.awt.Desktop;
+import java.net.URI;
 
 public class PageTutorial extends PageText {
 
@@ -58,7 +58,7 @@ public class PageTutorial extends PageText {
 		super.renderScreen(gui, mx, my);
 
 		if(!VIDEO_ENABLED)
-			PageText.renderText(buttonText.xPosition + buttonText.width + 4, buttonText.yPosition - 14, 65, 100, "botaniamisc.noVideo");
+			PageText.renderText(buttonText.x + buttonText.width + 4, buttonText.y - 14, 65, 100, "botaniamisc.noVideo");
 	}
 
 	@Override

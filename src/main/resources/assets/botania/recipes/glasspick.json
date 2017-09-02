@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "botania:glasspick"
+  },
+  "pattern": [
+    "GIG",
+    " T ",
+    " T "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "T": {
+      "item": "#LIVINGWOODTWIG"
+    },
+    "G": {
+      "item": "#BLOCKGLASSCOLORLESS"
+    },
+    "I": {
+      "item": "#INGOTMANASTEEL"
+    }
+  }
+}

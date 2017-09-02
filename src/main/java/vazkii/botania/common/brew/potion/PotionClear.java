@@ -10,13 +10,13 @@
  */
 package vazkii.botania.common.brew.potion;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.common.lib.LibPotionNames;
+
+import javax.annotation.Nonnull;
 
 public class PotionClear extends PotionMod {
 

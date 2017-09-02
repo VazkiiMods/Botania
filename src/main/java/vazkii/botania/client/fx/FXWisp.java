@@ -10,23 +10,22 @@
  */
 package vazkii.botania.client.fx;
 
-import java.util.ArrayDeque;
-import java.util.Queue;
-
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.Particle;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.client.FMLClientHandler;
+import org.lwjgl.opengl.GL11;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.handler.ConfigHandler;
+
+import java.util.ArrayDeque;
+import java.util.Queue;
 
 public class FXWisp extends Particle {
 
@@ -127,7 +126,7 @@ public class FXWisp extends Particle {
 	}
 
 	@Override
-	public void renderParticle(VertexBuffer wr, Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
+	public void renderParticle(BufferBuilder wr, Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
 		this.f = f;
 		this.f1 = f1;
 		this.f2 = f2;

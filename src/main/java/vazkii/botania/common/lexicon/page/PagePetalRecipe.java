@@ -10,12 +10,6 @@
  */
 package vazkii.botania.common.lexicon.page;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiScreen;
@@ -27,6 +21,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
+import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.internal.IGuiLexiconEntry;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.lexicon.LexiconRecipeMappings;
@@ -35,6 +30,10 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ConfigHandler;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class PagePetalRecipe<T extends RecipePetals> extends PageRecipe {
 
@@ -99,7 +98,7 @@ public class PagePetalRecipe<T extends RecipePetals> extends PageRecipe {
 
 	@SideOnly(Side.CLIENT)
 	public void renderManaBar(IGuiLexiconEntry gui, T recipe, int mx, int my) {
-		FontRenderer font = Minecraft.getMinecraft().fontRendererObj;
+		FontRenderer font = Minecraft.getMinecraft().fontRenderer;
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 

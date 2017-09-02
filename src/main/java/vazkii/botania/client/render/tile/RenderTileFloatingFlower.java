@@ -10,10 +10,6 @@
  */
 package vazkii.botania.client.render.tile;
 
-import java.util.Random;
-
-import javax.annotation.Nonnull;
-
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockRendererDispatcher;
@@ -26,10 +22,13 @@ import net.minecraft.tileentity.TileEntity;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.common.core.handler.ConfigHandler;
 
+import javax.annotation.Nonnull;
+import java.util.Random;
+
 public class RenderTileFloatingFlower extends TileEntitySpecialRenderer {
 
 	@Override
-	public void renderTileEntityAt(@Nonnull TileEntity tile, double d0, double d1, double d2, float t, int digProgress) {
+	public void render(@Nonnull TileEntity tile, double d0, double d1, double d2, float t, int digProgress, float unused) {
 		if(ConfigHandler.staticFloaters)
 			return;
 

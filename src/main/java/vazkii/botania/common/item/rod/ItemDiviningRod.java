@@ -10,10 +10,6 @@
  */
 package vazkii.botania.common.item.rod;
 
-import java.util.Random;
-
-import javax.annotation.Nonnull;
-
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -33,11 +29,14 @@ import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.api.item.IManaProficiencyArmor;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
-import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.lib.LibItemNames;
+
+import javax.annotation.Nonnull;
+import java.util.Random;
 
 public class ItemDiviningRod extends ItemMod implements IManaUsingItem, IAvatarWieldable {
 
@@ -60,7 +59,7 @@ public class ItemDiviningRod extends ItemMod implements IManaUsingItem, IAvatarW
 				long seedxor = world.rand.nextLong();
 				doHighlight(world, new BlockPos(p), range, seedxor);
 				p.swingArm(hand);
-			} else world.playSound(null, p.posX, p.posY, p.posZ, BotaniaSoundEvents.divinationRod, SoundCategory.PLAYERS, 1F, 1F);
+			} else world.playSound(null, p.posX, p.posY, p.posZ, ModSounds.divinationRod, SoundCategory.PLAYERS, 1F, 1F);
 			return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
 		}
 

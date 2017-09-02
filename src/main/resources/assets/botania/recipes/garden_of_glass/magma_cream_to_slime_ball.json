@@ -1,0 +1,20 @@
+{
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "gardenofglass"
+    }
+  ],
+  "result": {
+    "item": "minecraft:slime_ball"
+  },
+  "ingredients": [
+    {
+      "item": "minecraft:magma_cream"
+    },
+    {
+      "item": "minecraft:water_bucket"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}

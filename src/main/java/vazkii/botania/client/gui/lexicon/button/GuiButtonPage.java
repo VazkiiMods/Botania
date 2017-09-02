@@ -10,15 +10,14 @@
  */
 package vazkii.botania.client.gui.lexicon.button;
 
-import java.util.Collections;
-
-import javax.annotation.Nonnull;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.gui.lexicon.GuiLexicon;
+
+import javax.annotation.Nonnull;
+import java.util.Collections;
 
 public class GuiButtonPage extends GuiButtonLexicon {
 
@@ -30,14 +29,14 @@ public class GuiButtonPage extends GuiButtonLexicon {
 	}
 
 	@Override
-	public void drawButton(@Nonnull Minecraft par1Minecraft, int par2, int par3) {
+	public void drawButton(@Nonnull Minecraft par1Minecraft, int par2, int par3, float partialTicks) {
 		if(enabled) {
-			hovered = par2 >= xPosition && par3 >= yPosition && par2 < xPosition + width && par3 < yPosition + height;
+			hovered = par2 >= x && par3 >= y && par2 < x + width && par3 < y + height;
 			int k = getHoverState(hovered);
 
 			par1Minecraft.renderEngine.bindTexture(GuiLexicon.texture);
 			GlStateManager.color(1F, 1F, 1F, 1F);
-			drawTexturedModalRect(xPosition, yPosition, k == 2 ? 18 : 0, right ? 180 : 190, 18, 10);
+			drawTexturedModalRect(x, y, k == 2 ? 18 : 0, right ? 180 : 190, 18, 10);
 
 			if(k == 2)
 				RenderHelper.renderTooltip(par2, par3, Collections.singletonList(I18n.format(right ? "botaniamisc.nextPage" : "botaniamisc.prevPage")));

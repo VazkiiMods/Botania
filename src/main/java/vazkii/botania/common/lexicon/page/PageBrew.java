@@ -10,9 +10,6 @@
  */
 package vazkii.botania.common.lexicon.page;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.resources.I18n;
@@ -29,6 +26,9 @@ import vazkii.botania.api.lexicon.ITwoNamedPage;
 import vazkii.botania.api.recipe.RecipeBrew;
 import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.item.ModItems;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PageBrew extends PageRecipe implements ITwoNamedPage {
 
@@ -50,7 +50,7 @@ public class PageBrew extends PageRecipe implements ITwoNamedPage {
 		int y = gui.getTop() + 12;
 
 		Brew brew = recipe.getBrew();
-		FontRenderer renderer = Minecraft.getMinecraft().fontRendererObj;
+		FontRenderer renderer = Minecraft.getMinecraft().fontRenderer;
 		boolean unicode = renderer.getUnicodeFlag();
 		renderer.setUnicodeFlag(true);
 		String s = TextFormatting.BOLD + I18n.format("botaniamisc.brewOf", I18n.format(brew.getUnlocalizedName()));

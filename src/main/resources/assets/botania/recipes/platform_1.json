@@ -1,0 +1,29 @@
+{
+  "result": {
+    "item": "botania:platform",
+    "data": 1,
+    "count": 2
+  },
+  "pattern": [
+    "343",
+    "0D0"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "0": {
+      "item": "botania:dreamwood",
+      "data": 0
+    },
+    "3": {
+      "item": "botania:dreamwood",
+      "data": 3
+    },
+    "4": {
+      "item": "botania:dreamwood",
+      "data": 4
+    },
+    "D": {
+      "item": "#ELVENPIXIEDUST"
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "display": {
+    "icon": {
+      "item": "botania:lokiring"
+    },
+    "title": {
+      "translate": "advancement.botania:lokiRing"
+    },
+    "description": {
+      "translate": "advancement.botania:lokiRing.desc"
+    },
+    "frame": "challenge"
+  },
+  "parent": "botania:challenge/root",
+  "criteria": {
+    "ring": {
+      "trigger": "botania:relic_bind",
+      "conditions": {
+        "relic": {
+          "item": "botania:lokiring"
+        }
+      }
+    }
+  }
+}

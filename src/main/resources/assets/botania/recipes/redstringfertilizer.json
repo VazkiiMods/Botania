@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "botania:redstringfertilizer"
+  },
+  "pattern": [
+    "RRR",
+    "RBS",
+    "RRR"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "R": {
+      "item": "#LIVINGROCK"
+    },
+    "B": {
+      "item": "botania:fertilizer"
+    },
+    "S": {
+      "item": "#BREDSTRING"
+    }
+  }
+}

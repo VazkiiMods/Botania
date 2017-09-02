@@ -10,14 +10,6 @@
  */
 package vazkii.botania.common.item;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Locale;
-import java.util.Random;
-
-import javax.annotation.Nonnull;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.state.IBlockState;
@@ -28,7 +20,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.EnumAction;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
@@ -48,6 +39,13 @@ import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibMisc;
 
+import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Locale;
+import java.util.Random;
+
 public class ItemGrassHorn extends ItemMod {
 
 	private static final int SUBTYPES = 3;
@@ -61,10 +59,11 @@ public class ItemGrassHorn extends ItemMod {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
-	public void getSubItems(@Nonnull Item item, CreativeTabs tab, NonNullList<ItemStack> list) {
-		for(int i = 0; i < SUBTYPES; i++)
-			list.add(new ItemStack(item, 1, i));
+	public void getSubItems(@Nonnull CreativeTabs tab, @Nonnull NonNullList<ItemStack> list) {
+		if(isInCreativeTab(tab)) {
+			for(int i = 0; i < SUBTYPES; i++)
+				list.add(new ItemStack(this, 1, i));
+		}
 	}
 
 	@Nonnull
@@ -130,7 +129,8 @@ public class ItemGrassHorn extends ItemMod {
 			BlockPos currCoords = coords.get(i);
 			IBlockState state = world.getBlockState(currCoords);
 			Block block = state.getBlock();
-			List<ItemStack> items = block.getDrops(world, currCoords, state, 0);
+			NonNullList<ItemStack> items = NonNullList.create();
+			block.getDrops(items, world, currCoords, state, 0);
 
 			if(block instanceof IHornHarvestable && ((IHornHarvestable) block).hasSpecialHornHarvest(world, currCoords, stack, type))
 				((IHornHarvestable) block).harvestByHorn(world, currCoords, stack, type);
