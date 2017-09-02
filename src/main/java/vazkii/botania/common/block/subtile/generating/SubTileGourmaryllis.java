@@ -75,7 +75,7 @@ public class SubTileGourmaryllis extends SubTileGenerating {
 					}
 
 					int val = Math.min(12, ((ItemFood) stack.getItem()).getHealAmount(stack));
-					digestingMana = val * val * 64;
+					digestingMana = val * val * 70;
 					digestingMana *= 1F / lastFoodCount;
 					cooldown = val * 10;
 					item.playSound(SoundEvents.ENTITY_GENERIC_EAT, 0.2F, 0.5F + (float) Math.random() * 0.5F);
@@ -113,7 +113,7 @@ public class SubTileGourmaryllis extends SubTileGenerating {
 
 	@Override
 	public int getMaxMana() {
-		return 8000;
+		return 9000;
 	}
 
 	@Override
