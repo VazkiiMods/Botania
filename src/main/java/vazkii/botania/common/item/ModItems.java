@@ -442,8 +442,6 @@ public final class ModItems {
 		OreDictionary.registerOre(LibOreDict.PEBBLE, new ItemStack(manaResource, 1, 21));
 		OreDictionary.registerOre(LibOreDict.MANAWEAVE_CLOTH, new ItemStack(manaResource, 1, 22));
 		OreDictionary.registerOre(LibOreDict.MANA_POWDER, new ItemStack(manaResource, 1, 23));
-		OreDictionary.registerOre(LibOreDict.MANA_PEARL_SHARD, new ItemStack(manaResource, 1, 24));
-		OreDictionary.registerOre(LibOreDict.MANA_DIAMOND_CHUNK, new ItemStack(manaResource, 1, 25));
 
 		OreDictionary.registerOre(LibOreDict.VIAL, new ItemStack(vial, 1, 0));
 		OreDictionary.registerOre(LibOreDict.FLASK, new ItemStack(vial, 1, 1));

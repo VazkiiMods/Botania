@@ -68,10 +68,10 @@ public class PageTerrasteel extends PageRecipe {
 		renderItem(gui, gui.getLeft() + gui.getWidth() / 2 - 8, gui.getTop() + 102, new ItemStack(block3), false);
 		GlStateManager.translate(0F, 0F, -10F);
 
-		renderItem(gui, gui.getLeft() + gui.getWidth() / 2 - 8, gui.getTop() + 30, new ItemStack(ModItems.manaResource, 1, 18), false);
-		renderItem(gui, gui.getLeft() + gui.getWidth() / 2 - 8, gui.getTop() + 80, new ItemStack(ModItems.manaResource, 1, 17), false);
-		renderItem(gui, gui.getLeft() + gui.getWidth() / 2 - 8 - 20, gui.getTop() + 86, new ItemStack(ModItems.manaResource, 1, 24), false);
-		renderItem(gui, gui.getLeft() + gui.getWidth() / 2 - 8 + 19, gui.getTop() + 86, new ItemStack(ModItems.manaResource, 1, 25), false);
+		renderItem(gui, gui.getLeft() + gui.getWidth() / 2 - 8, gui.getTop() + 30, new ItemStack(ModItems.manaResource, 1, 4), false);
+		renderItem(gui, gui.getLeft() + gui.getWidth() / 2 - 8, gui.getTop() + 80, new ItemStack(ModItems.manaResource, 1, 0), false);
+		renderItem(gui, gui.getLeft() + gui.getWidth() / 2 - 8 - 20, gui.getTop() + 86, new ItemStack(ModItems.manaResource, 1, 1), false);
+		renderItem(gui, gui.getLeft() + gui.getWidth() / 2 - 8 + 19, gui.getTop() + 86, new ItemStack(ModItems.manaResource, 1, 2), false);
 
 		Minecraft.getMinecraft().renderEngine.bindTexture(terrasteelOverlay);
 
@@ -84,13 +84,13 @@ public class PageTerrasteel extends PageRecipe {
 
 	@Override
 	public void onPageAdded(LexiconEntry entry, int index) {
-		LexiconRecipeMappings.map(new ItemStack(ModItems.manaResource, 1, 18), entry, index);
+		LexiconRecipeMappings.map(new ItemStack(ModItems.manaResource, 1, 4), entry, index);
 	}
 
 	@Override
 	public List<ItemStack> getDisplayedRecipes() {
 		ArrayList<ItemStack> list = new ArrayList<>();
-		list.add(new ItemStack(ModItems.manaResource, 1, 18));
+		list.add(new ItemStack(ModItems.manaResource, 1, 4));
 		return list;
 	}
 
