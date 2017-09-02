@@ -18,7 +18,6 @@ import org.lwjgl.opengl.GL11;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.tileentity.TileEntityItemStackRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
@@ -92,22 +91,15 @@ public class RenderTilePylon extends TileEntitySpecialRenderer<TilePylon> {
 
 		worldTime += renderingItem ? 0 : new Random(pylon.getPos().hashCode()).nextInt(360);
 		
-		/*
-		GlStateManager.translate(d0 + 0.2 + (type == PylonVariant.NATURA ? -0.1 : 0), d1 + 0.05, d2 + 0.8 + (type == PylonVariant.NATURA ? 0.1 : 0));
-		float scale = type == PylonVariant.NATURA ? 0.8F : 0.6F;
-		GlStateManager.scale(scale, 0.6F, scale);
-		*/
-		
-		GlStateManager.translate(d0, d1 + 1.5, d2);
+		GlStateManager.translate(d0, d1 + (renderingItem ? 1.35 : 1.5), d2);
 		GlStateManager.scale(1.0F, -1.0F, -1.0F);
 		
 		GlStateManager.pushMatrix();
 		GlStateManager.translate(0.5F, 0F, -0.5F);
 		if(!renderingItem)
 			GlStateManager.rotate((float) worldTime * 1.5F, 0F, 1F, 0F);
-		//GlStateManager.translate(-0.5F, 0F, 0.5F);
 
-		model.renderRing();
+		model.renderRing(); 
 		if(!renderingItem)
 			GlStateManager.translate(0D, Math.sin(worldTime / 20D) / 20 - 0.025, 0D);
 		GlStateManager.popMatrix();
@@ -117,30 +109,13 @@ public class RenderTilePylon extends TileEntitySpecialRenderer<TilePylon> {
 			GlStateManager.translate(0D, Math.sin(worldTime / 20D) / 17.5, 0D);
 
 		GlStateManager.translate(0.5F, 0F, -0.5F);
-		if(!renderingItem)
+		if(!renderingItem) 
 			GlStateManager.rotate((float) -worldTime, 0F, 1F, 0F);
-		//GlStateManager.translate(-0.5F, 0F, 0.5F);
-
 
 		GlStateManager.disableCull();
-		model.renderCrystal();
-
-		GlStateManager.color(1F, 1F, 1F, a);
-		if(!ShaderHelper.useShaders()) {
-			int light = 15728880;
-			int lightmapX = light % 65536;
-			int lightmapY = light / 65536;
-			OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, lightmapX, lightmapY);
-			float alpha = (float) ((Math.sin(worldTime / 20D) / 2D + 0.5) / 2D);
-			GlStateManager.color(1F, 1F, 1F, a * (alpha + 0.183F));
-		}
-
 		GlStateManager.disableAlpha();
-		GlStateManager.scale(1.1F, 1.1F, 1.1F);
-		GlStateManager.translate(-0.05F, -0.1F, 0.05F);
-
 		ShaderHelper.useShader(ShaderHelper.pylonGlow);
-		//model.renderCrystal();
+		model.renderCrystal();
 		ShaderHelper.releaseShader();
 
 		GlStateManager.enableAlpha();
