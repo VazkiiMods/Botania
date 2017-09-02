@@ -22,6 +22,7 @@ import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.core.handler.MethodHandles;
 import vazkii.botania.common.lexicon.LexiconData;
+import vazkii.botania.common.core.helper.ItemAgeHelper;
 import vazkii.botania.common.lib.LibObfuscation;
 
 public class SubTilePollidisiac extends SubTileFunctional {
@@ -52,7 +53,7 @@ public class SubTilePollidisiac extends SubTileFunctional {
 							continue;
 						}
 
-						if(age < 60 + slowdown || item.isDead)
+						if(!ItemAgeHelper.isLegalForFunctional(age, slowdown) || item.isDead)
 							continue;
 
 						ItemStack stack = item.getEntityItem();

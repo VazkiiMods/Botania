@@ -23,6 +23,7 @@ import net.minecraft.world.World;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.MethodHandles;
+import vazkii.botania.common.core.helper.ItemAgeHelper;
 
 public class TileOpenCrate extends TileSimpleInventory {
 
@@ -75,7 +76,7 @@ public class TileOpenCrate extends TileSimpleInventory {
 
 		if(redstone) {
 			try {
-				MethodHandles.itemAge_setter.invokeExact(item, -200);
+				MethodHandles.itemAge_setter.invokeExact(item, ItemAgeHelper.OPEN_CRATE_REDSTONE_AGE);
 			} catch (Throwable ignored) {}
 		}
 
