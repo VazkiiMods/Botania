@@ -268,7 +268,6 @@ public final class ModFluffBlocks {
 		r.register(bifrostPane);
 	}
 	
-	@SuppressWarnings("ConstantConditions")
 	@SubscribeEvent
 	public static void registerItemBlocks(RegistryEvent.Register<Item> evt) {
 		IForgeRegistry<Item> r = evt.getRegistry();

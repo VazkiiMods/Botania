@@ -301,7 +301,6 @@ public final class ModBlocks {
 		RecipeManaInfusion.conjurationState = conjurationCatalyst.getDefaultState();
 	}
 
-	@SuppressWarnings("ConstantConditions")
 	@SubscribeEvent
 	public static void registerItemBlocks(RegistryEvent.Register<Item> evt) {
 		IForgeRegistry<Item> r = evt.getRegistry();
