@@ -192,11 +192,11 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 	}
 
 	@Override
-	public void drawScreenAfterScale(int par1, int par2, float par3) {
-		super.drawScreenAfterScale(par1, par2, par3);
+	public void drawScreenAfterScale(int xCoord, int yCoord, float newPartialTicks) {
+		super.drawScreenAfterScale(xCoord, yCoord, newPartialTicks);
 
 		LexiconPage page = entry.pages.get(this.page);
-		page.renderScreen(this, par1, par2);
+		page.renderScreen(this, xCoord, yCoord);
 	}
 
 	@Override
