@@ -257,15 +257,15 @@ public class GuiLexicon extends GuiScreen {
 		}
 	}
 	
-	public void drawScreenAfterScale(int par1, int par2, float par3) {
-		float time = ClientTickHandler.ticksInGame + par3;
-		timeDelta = time - lastTime;
+	public void drawScreenAfterScale(int xCoord, int yCoord, float newPartialTicks) {
+		float time = ClientTickHandler.ticksInGame + newPartialTicks;
+		timeDelta = time - lastTime + newPartialTicks;
 		lastTime = time;
-		partialTicks = par3;
+		partialTicks = newPartialTicks;
 
 		GlStateManager.color(1F, 1F, 1F, 1F);
 		mc.renderEngine.bindTexture(texture);
-		drawNotes(par3);
+		drawNotes(newPartialTicks);
 
 		GlStateManager.color(1F, 1F, 1F, 1F);
 		mc.renderEngine.bindTexture(texture);
@@ -292,7 +292,7 @@ public class GuiLexicon extends GuiScreen {
 			GlStateManager.color(1F, 1F, 1F, 1F);
 			mc.renderEngine.bindTexture(texture);
 			drawTexturedModalRect(left - 19, top + 42, 67, 180, 19, 26);
-			if(par1 >= left - 19 && par1 < left && par2 >= top + 62 && par2 < top + 88) {
+			if(xCoord >= left - 19 && xCoord < left && yCoord >= top + 62 && yCoord < top + 88) {
 				mc.renderEngine.bindTexture(textureToff);
 				GlStateManager.pushMatrix();
 				GlStateManager.scale(0.5F, 0.5F, 0.5F);
@@ -302,24 +302,24 @@ public class GuiLexicon extends GuiScreen {
 
 				int w = 256;
 				int h = 152;
-				int x = (int) ((ClientTickHandler.ticksInGame + par3) * 6) % (width + w) - w;
-				int y = (int) (top + guiHeight / 2 - h / 4 + Math.sin((ClientTickHandler.ticksInGame + par3) / 6.0) * 40);
+				int x = (int) ((ClientTickHandler.ticksInGame + newPartialTicks) * 6) % (width + w) - w;
+				int y = (int) (top + guiHeight / 2 - h / 4 + Math.sin((ClientTickHandler.ticksInGame + newPartialTicks) / 6.0) * 40);
 
 				drawTexturedModalRect(x * 2, y * 2, 0, 0, w, h);
 				GlStateManager.disableBlend();
 				GlStateManager.popMatrix();
 
-				RenderHelper.renderTooltip(par1, par2, Arrays.asList(TextFormatting.GOLD + "#goldfishchris", TextFormatting.AQUA + "IT SAYS MANUAL"));
+				RenderHelper.renderTooltip(xCoord, yCoord, Arrays.asList(TextFormatting.GOLD + "#goldfishchris", TextFormatting.AQUA + "IT SAYS MANUAL"));
 			}
 		}
 
-		super.drawScreen(par1, par2, par3);
+		super.drawScreen(xCoord, yCoord, newPartialTicks);
 
 		if(hasTutorialArrow) {
 			mc.renderEngine.bindTexture(texture);
 			GlStateManager.enableBlend();
 			GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-			GlStateManager.color(1F, 1F, 1F, 0.7F + (float) (Math.sin((ClientTickHandler.ticksInGame + par3) * 0.3F) + 1) * 0.15F);
+			GlStateManager.color(1F, 1F, 1F, 0.7F + (float) (Math.sin((ClientTickHandler.ticksInGame + newPartialTicks) * 0.3F) + 1) * 0.15F);
 			drawTexturedModalRect(tutorialArrowX, tutorialArrowY, 20, 200, TUTORIAL_ARROW_WIDTH, TUTORIAL_ARROW_HEIGHT);
 			GlStateManager.disableBlend();
 		}
