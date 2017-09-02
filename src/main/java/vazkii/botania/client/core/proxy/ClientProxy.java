@@ -41,6 +41,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import vazkii.botania.api.boss.IBotaniaBoss;
 import vazkii.botania.api.item.IExtendedPlayerController;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.lexicon.multiblock.IMultiblockRenderHook;
 import vazkii.botania.api.lexicon.multiblock.Multiblock;
 import vazkii.botania.api.lexicon.multiblock.MultiblockSet;
 import vazkii.botania.api.lexicon.multiblock.component.AnyComponent;
@@ -86,6 +87,7 @@ import vazkii.botania.client.render.entity.RenderSpark;
 import vazkii.botania.client.render.tile.*;
 import vazkii.botania.client.render.world.SkyblockRenderEvents;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.subtile.functional.BergamuteEventHandler;
 import vazkii.botania.common.block.tile.*;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaCrystalCube;
@@ -195,11 +197,12 @@ public class ClientProxy implements IProxy {
 
 	private void initRenderers() {
 		RenderTileFloatingFlower renderTileFloatingFlower = new RenderTileFloatingFlower();
+		RenderTilePylon renderTilePylon = new RenderTilePylon();
 		ClientRegistry.bindTileEntitySpecialRenderer(TileAltar.class, new RenderTileAltar());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileSpreader.class, new RenderTileSpreader());
 		ClientRegistry.bindTileEntitySpecialRenderer(TilePool.class, new RenderTilePool());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileRuneAltar.class, new RenderTileRuneAltar());
-		ClientRegistry.bindTileEntitySpecialRenderer(TilePylon.class, new RenderTilePylon());
+		ClientRegistry.bindTileEntitySpecialRenderer(TilePylon.class, renderTilePylon);
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEnchanter.class, new RenderTileEnchanter());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileAlfPortal.class, new RenderTileAlfPortal());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileFloatingFlower.class, renderTileFloatingFlower);
@@ -239,6 +242,8 @@ public class ClientProxy implements IProxy {
 
 		ShaderHelper.initShaders();
 		ShaderHelper.registerReloadListener();
+		
+		IMultiblockRenderHook.renderHooks.put(ModBlocks.pylon, renderTilePylon);
 	}
 
 	private void initAuxiliaryRender() {

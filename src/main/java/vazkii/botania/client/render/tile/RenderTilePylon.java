@@ -16,6 +16,7 @@ import javax.annotation.Nonnull;
 
 import org.lwjgl.opengl.GL11;
 
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.tileentity.TileEntityItemStackRenderer;
@@ -25,6 +26,10 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.IBlockAccess;
+import vazkii.botania.api.lexicon.multiblock.IMultiblockRenderHook;
+import vazkii.botania.api.lexicon.multiblock.Multiblock;
+import vazkii.botania.api.lexicon.multiblock.component.MultiblockComponent;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.PylonVariant;
 import vazkii.botania.client.core.handler.ClientTickHandler;
@@ -38,7 +43,7 @@ import vazkii.botania.client.model.ModelPylonNatura;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TilePylon;
 
-public class RenderTilePylon extends TileEntitySpecialRenderer<TilePylon> {
+public class RenderTilePylon extends TileEntitySpecialRenderer<TilePylon> implements IMultiblockRenderHook {
 
 	private static final ResourceLocation MANA_TEXTURE = new ResourceLocation(LibResources.MODEL_PYLON_MANA);
 	private static final ResourceLocation NATURA_TEXTURE = new ResourceLocation(LibResources.MODEL_PYLON_NATURA);
@@ -55,29 +60,32 @@ public class RenderTilePylon extends TileEntitySpecialRenderer<TilePylon> {
 	public void render(@Nonnull TilePylon pylon, double d0, double d1, double d2, float pticks, int digProgress, float unused) {
 		boolean renderingItem = pylon == ForwardingTEISR.DUMMY;
 
-		if(!renderingItem &&
-				(!pylon.getWorld().isBlockLoaded(pylon.getPos(), false) || pylon.getWorld().getBlockState(pylon.getPos()).getBlock() != ModBlocks.pylon))
+		if(!renderingItem && (!pylon.getWorld().isBlockLoaded(pylon.getPos(), false) || pylon.getWorld().getBlockState(pylon.getPos()).getBlock() != ModBlocks.pylon))
 			return;
 
+		renderPylon(pylon, d0, d1, d2, pticks, renderingItem);
+	}
+	
+	private void renderPylon(@Nonnull TilePylon pylon, double d0, double d1, double d2, float pticks, boolean renderingItem) {
 		PylonVariant type = renderingItem ? forceVariant : ModBlocks.pylon.getStateFromMeta(pylon.getBlockMetadata()).getValue(BotaniaStateProps.PYLON_VARIANT);
 		IPylonModel model;
 		switch(type) {
-			default:
-			case MANA: {
-				model = manaModel;
-				Minecraft.getMinecraft().renderEngine.bindTexture(MANA_TEXTURE);
-				break;
-			}
-			case NATURA: {
-				model = naturaModel;
-				Minecraft.getMinecraft().renderEngine.bindTexture(NATURA_TEXTURE);
-				break;
-			}
-			case GAIA: {
-				model = gaiaModel;
-				Minecraft.getMinecraft().renderEngine.bindTexture(GAIA_TEXTURE);
-				break;
-			}
+		default:
+		case MANA: {
+			model = manaModel;
+			Minecraft.getMinecraft().renderEngine.bindTexture(MANA_TEXTURE);
+			break;
+		}
+		case NATURA: {
+			model = naturaModel;
+			Minecraft.getMinecraft().renderEngine.bindTexture(NATURA_TEXTURE);
+			break;
+		}
+		case GAIA: {
+			model = gaiaModel;
+			Minecraft.getMinecraft().renderEngine.bindTexture(GAIA_TEXTURE);
+			break;
+		}
 		}
 
 		GlStateManager.pushMatrix();
@@ -90,10 +98,10 @@ public class RenderTilePylon extends TileEntitySpecialRenderer<TilePylon> {
 		double worldTime = (double) (ClientTickHandler.ticksInGame + pticks);
 
 		worldTime += renderingItem ? 0 : new Random(pylon.getPos().hashCode()).nextInt(360);
-		
+
 		GlStateManager.translate(d0, d1 + (renderingItem ? 1.35 : 1.5), d2);
 		GlStateManager.scale(1.0F, -1.0F, -1.0F);
-		
+
 		GlStateManager.pushMatrix();
 		GlStateManager.translate(0.5F, 0F, -0.5F);
 		if(!renderingItem)
@@ -114,9 +122,12 @@ public class RenderTilePylon extends TileEntitySpecialRenderer<TilePylon> {
 
 		GlStateManager.disableCull();
 		GlStateManager.disableAlpha();
-		ShaderHelper.useShader(ShaderHelper.pylonGlow);
+
+		if(!renderingItem)
+			ShaderHelper.useShader(ShaderHelper.pylonGlow);
 		model.renderCrystal();
-		ShaderHelper.releaseShader();
+		if(!renderingItem)
+			ShaderHelper.releaseShader();
 
 		GlStateManager.enableAlpha();
 		GlStateManager.enableCull();
@@ -146,5 +157,18 @@ public class RenderTilePylon extends TileEntitySpecialRenderer<TilePylon> {
 				compose.renderByItem(stack, partialTicks);
 			}
 		}
+	}
+
+	@Override
+	public void renderBlockForMultiblock(IBlockAccess world, Multiblock mb, IBlockState state, MultiblockComponent comp) {
+		forceVariant = state.getValue(BotaniaStateProps.PYLON_VARIANT);
+		GlStateManager.translate(-0.5, -0.25, -0.5);
+		renderPylon((TilePylon) comp.getTileEntity(), 0, 0, 0, 0, true);
+		forceVariant = PylonVariant.MANA;
+	}
+
+	@Override
+	public boolean needsTranslate(IBlockState state) {
+		return true;
 	}
 }
