@@ -2,7 +2,7 @@
   "forge_marker": 1,
   "defaults": {
     "textures": {
-      "rail": "botania:blocks/ghostrail"
+      "rail": "botania:blocks/rail_ghost"
     }
   },
   "variants": {

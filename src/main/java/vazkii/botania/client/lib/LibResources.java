@@ -126,8 +126,8 @@ public final class LibResources {
 	public static final String MODEL_AVATAR_DIRT = PREFIX_MODEL + "avatar_dirt.png";
 
 	public static final String MISC_PARTICLES = PREFIX_MISC + "particles.png";
-	public static final String MISC_WISP_LARGE = PREFIX_MISC + "wispLarge.png";
-	public static final String MISC_WISP_SMALL = PREFIX_MISC + "wispSmall.png";
+	public static final String MISC_WISP_LARGE = PREFIX_MISC + "wisp_large.png";
+	public static final String MISC_WISP_SMALL = PREFIX_MISC + "wisp_small.png";
 	public static final String MISC_HALO = PREFIX_MISC + "halo.png";
 	public static final String MISC_GLOW_GREEN = PREFIX_MISC + "glow0.png";
 	public static final String MISC_GLOW_CYAN = PREFIX_MISC + "glow1.png";

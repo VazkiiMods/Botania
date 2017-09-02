@@ -4,14 +4,14 @@
     "normal": [{
       "model": "botania:shapes/cross_tinted",
       "textures": {
-        "cross": "botania:blocks/bergamute"
+        "cross": "botania:blocks/flower_func_bergamute"
       }
     }],
     "inventory": [{
       "model": "builtin/generated",
       "transform": "forge:default-item",
       "textures": {
-        "layer0": "botania:blocks/bergamute"
+        "layer0": "botania:blocks/flower_func_bergamute"
       }
     }]
   }

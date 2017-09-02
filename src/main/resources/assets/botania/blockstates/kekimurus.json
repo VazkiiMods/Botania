@@ -4,14 +4,14 @@
     "normal": [{
       "model": "botania:shapes/cross_tinted",
       "textures": {
-        "cross": "botania:blocks/kekimurus"
+        "cross": "botania:blocks/flower_gen_kekimurus"
       }
     }],
     "inventory": [{
       "model": "builtin/generated",
       "transform": "forge:default-item",
       "textures": {
-        "layer0": "botania:blocks/kekimurus"
+        "layer0": "botania:blocks/flower_gen_kekimurus"
       }
     }]
   }

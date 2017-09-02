@@ -66,7 +66,7 @@ public class ModelArmorTerrasteel extends ModelArmor {
 	public ModelArmorTerrasteel(EntityEquipmentSlot slot) {
 		super(slot);
 
-		textureWidth = 128;
+		textureWidth = 64;
 		textureHeight = 128;
 		float s = 0.01F;
 		

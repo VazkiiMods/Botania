@@ -4,14 +4,14 @@
     "normal": [{
       "model": "botania:shapes/cross_tinted",
       "textures": {
-        "cross": "botania:blocks/puredaisy"
+        "cross": "botania:blocks/flower_misc_pure_daisy"
       }
     }],
     "inventory": [{
       "model": "builtin/generated",
       "transform": "forge:default-item",
       "textures": {
-        "layer0": "botania:blocks/puredaisy"
+        "layer0": "botania:blocks/flower_misc_pure_daisy"
       }
     }]
   }
