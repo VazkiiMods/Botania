@@ -3,9 +3,9 @@
     "item": "botania:alfheimportal"
   },
   "pattern": [
-    "WWW",
     "WTW",
-    "WWW"
+    "WTW",
+    "WTW"
   ],
   "type": "forge:ore_shaped",
   "key": {

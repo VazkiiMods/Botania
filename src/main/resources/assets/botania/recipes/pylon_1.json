@@ -5,7 +5,7 @@
   },
   "pattern": [
     " T ",
-    " P ",
+    "TPT",
     " E "
   ],
   "type": "forge:ore_shaped",
