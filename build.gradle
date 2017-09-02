@@ -242,6 +242,7 @@ curseforge {
         relations {
             requiredLibrary 'baubles'
             optionalLibrary 'quark'
+            optionalLibrary 'albedo'
         }
     }
 }

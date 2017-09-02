@@ -1,3 +1,27 @@
+r1.10 346
+*<b>Updated to Minecraft 1.12.1</b> (williewillus)
+*<b>Retextured and remodeled a major part of the mod with a new art style by wiiv.</b>
+*Added support for <a href="https://twitter.com/Vazkii/status/904017697775767552">colored lights</a> with the <a href="https://minecraft.curseforge.com/projects/albedo">Albedo</a> mod.
+*Buffed the mana production of the Gourmaryllis by a bit.
+*Buffed the mana production of the Narslimmus by a lot.
+*Fixed a crash when clicking an Abstruse Platform disguised as a Chisel mod block. (williewillus)
+*Fixed being able to skip the Gaia Guardian mob wave by healing it. (williewillus)
+*Fixed particle motion having a bias for diagonals. (codewarrior0)
+*Fixed the Dreadthorne killing baby animals from the Animania mod. (williewillus)
+*Fixed the Eye of the Flugel animation and particles and made binding less intrusive. (williewillus)
+*Moved from Achievements to Advancements. (williewillus)
+*Relics now bind by UUID instead of names. (williewillus)
+*Removed the Ring of the Aesir.
+*Renamed the Blaze Lamp and Mana Distributor to Blaze Mesh and Mana Splitter, respectively.
+*Shaders now automatically disable themselves if Albedo or Optifine are loaded to prevent OpenGL errors.
+*Shimmering Mushrooms can now be used as if they were petals.
+*The Dice of Fate will no longer fizzle if there are still relics to be given.
+*The Gourmaryllis is now capped at 12 food points (6 chicken legs), any food higher than that is counted as 12.
+*The Gourmaryllis will now take diminishing returns if it eats the same type of food item multiple times in a row.
+*The Munchdew now has visual feedback while it's on cooldown. (williewillus)
+*The Rafflowsia can now eat any flower, not just generating ones. (williewillus)
+*[API] Added receiveClientEvent() to SubTileEntity as a hook for TE client events. (williewillus)
+*[API] Increased version number to 88. I think a few were skipped in the changelog >_>
 r1.9 345
 *Fixed a bad pixel in the checkmark for mana infision.
 *Fixed a dupe when interacting with sparks just as they're leaving the world.
