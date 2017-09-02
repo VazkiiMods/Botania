@@ -4,7 +4,7 @@
     "model": "minecraft:pane_post",
     "textures": {
       "edge": "botania:blocks/mana_glass_pane",
-      "pane": "botania:blocks/manag_lass"
+      "pane": "botania:blocks/mana_glass"
     }
   },
   "variants": {
