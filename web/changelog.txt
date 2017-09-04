@@ -1,3 +1,6 @@
+r1.10 347
+*Fixed crashes when viewing the Dandelifeon and Elven Mana Lenses pages.
+*Updated more textures and models to the new style.
 r1.10 346
 *<b>Updated to Minecraft 1.12.1</b> (williewillus)
 *<b>Retextured and remodeled a major part of the mod with a new art style by wiiv.</b>
