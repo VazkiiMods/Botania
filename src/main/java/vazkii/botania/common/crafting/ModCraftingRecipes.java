@@ -530,6 +530,7 @@ public final class ModCraftingRecipes {
 		recipeLensFirework = path("lens_20");
 		recipeLensFlare = path("lens_21");
 		recipeLensMessenger = path("lens_22");
+		recipeLensTripwire = path("lens_23");
 
 		recipeDistributor = ModBlocks.distributor.getRegistryName();
 		recipeManaVoid = ModBlocks.manaVoid.getRegistryName();
@@ -740,6 +741,7 @@ public final class ModCraftingRecipes {
 		recipeBlazeBlock = gogPath("blazeblock");
 		recipeCacophonium = ModItems.cacophonium.getRegistryName();
 		recipesPavement = allOfGroup(ModFluffBlocks.pavement.getRegistryName());
+		recipeCellBlock = ModBlocks.cellBlock.getRegistryName();
 
 	}
 

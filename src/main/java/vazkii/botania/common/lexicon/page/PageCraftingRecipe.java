@@ -39,6 +39,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import javax.annotation.Resource;
+
 public class PageCraftingRecipe extends PageRecipe {
 
 	private static final ResourceLocation craftingOverlay = new ResourceLocation(LibResources.GUI_CRAFTING_OVERLAY);
@@ -52,6 +54,10 @@ public class PageCraftingRecipe extends PageRecipe {
 	public PageCraftingRecipe(String unlocalizedName, List<ResourceLocation> recipes) {
 		super(unlocalizedName);
 		this.recipes = recipes;
+		
+		for(ResourceLocation res : recipes)
+			if(res == null)
+				throw new IllegalArgumentException("Null recipes arent allowed");
 	}
 
 	public PageCraftingRecipe(String unlocalizedName, ResourceLocation recipe) {
@@ -128,6 +134,9 @@ public class PageCraftingRecipe extends PageRecipe {
 
 	@SideOnly(Side.CLIENT)
 	public void renderCraftingRecipe(IGuiLexiconEntry gui, IRecipe recipe) {
+		if(recipe == null)
+			return;
+		
 		if(recipe instanceof ShapedRecipes || recipe instanceof ShapedOreRecipe) {
 			oreDictRecipe = recipe instanceof ShapedOreRecipe;
 
