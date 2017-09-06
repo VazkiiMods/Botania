@@ -222,7 +222,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 				double x = lastPingbackX;
 				double y = lastPingbackY;
 				double z = lastPingbackZ;
-				AxisAlignedBB aabb = new AxisAlignedBB(x, y, z, x, y, z).expand(PINGBACK_EXPIRED_SEARCH_DISTANCE, PINGBACK_EXPIRED_SEARCH_DISTANCE, PINGBACK_EXPIRED_SEARCH_DISTANCE);
+				AxisAlignedBB aabb = new AxisAlignedBB(x, y, z, x, y, z).grow(PINGBACK_EXPIRED_SEARCH_DISTANCE, PINGBACK_EXPIRED_SEARCH_DISTANCE, PINGBACK_EXPIRED_SEARCH_DISTANCE);
 				List bursts = world.getEntitiesWithinAABB(Entity.class, aabb, Predicates.instanceOf(IManaBurst.class));
 				IManaBurst found = null;
 				UUID identity = getIdentifier();

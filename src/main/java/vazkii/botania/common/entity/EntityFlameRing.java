@@ -80,7 +80,7 @@ public class EntityFlameRing extends Entity implements ILightProvider {
 		}
 
 		if(ticksExisted > 45) {
-			AxisAlignedBB boundingBox = new AxisAlignedBB(posX, posY, posZ, posX, posY, posZ).expand(radius, radius, radius);
+			AxisAlignedBB boundingBox = new AxisAlignedBB(posX, posY, posZ, posX, posY, posZ).grow(radius, radius, radius);
 			List<EntityLivingBase> entities = world.getEntitiesWithinAABB(EntityLivingBase.class, boundingBox);
 
 			if(entities.isEmpty())

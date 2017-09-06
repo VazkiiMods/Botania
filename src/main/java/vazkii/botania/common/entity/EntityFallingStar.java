@@ -54,7 +54,7 @@ public class EntityFallingStar extends EntityThrowableCopy implements ILightProv
 
 		EntityLivingBase thrower = getThrower();
 		if(!world.isRemote && thrower != null) {
-			AxisAlignedBB axis = new AxisAlignedBB(posX, posY, posZ, lastTickPosX, lastTickPosY, lastTickPosZ).expand(2, 2, 2);
+			AxisAlignedBB axis = new AxisAlignedBB(posX, posY, posZ, lastTickPosX, lastTickPosY, lastTickPosZ).grow(2);
 			List<EntityLivingBase> entities = world.getEntitiesWithinAABB(EntityLivingBase.class, axis);
 			for(EntityLivingBase living : entities) {
 				if(living == thrower)

@@ -85,7 +85,7 @@ public final class BlockHighlightRenderHandler {
 		for(Entity e : mc.world.loadedEntityList)
 			if(e instanceof EntityMagicLandmine) {
 				BlockPos bpos = e.getPosition();
-				AxisAlignedBB aabb = new AxisAlignedBB(bpos).offset(0, offY, 0).expand(2.5, 0, 2.5);
+				AxisAlignedBB aabb = new AxisAlignedBB(bpos).offset(0, offY, 0).grow(2.5, 0, 2.5);
 
 				float gs = (float) (Math.sin(ClientTickHandler.total / 20) + 1) * 0.2F + 0.6F;
 				int r = (int) (105 * gs);

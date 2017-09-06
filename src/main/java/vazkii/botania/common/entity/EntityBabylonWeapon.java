@@ -141,7 +141,7 @@ public class EntityBabylonWeapon extends EntityThrowableCopy implements ILightPr
 			setLiveTicks(liveTime + 1);
 
 			if(!world.isRemote) {
-				AxisAlignedBB axis = new AxisAlignedBB(posX, posY, posZ, lastTickPosX, lastTickPosY, lastTickPosZ).expand(2, 2, 2);
+				AxisAlignedBB axis = new AxisAlignedBB(posX, posY, posZ, lastTickPosX, lastTickPosY, lastTickPosZ).grow(2);
 				List<EntityLivingBase> entities = world.getEntitiesWithinAABB(EntityLivingBase.class, axis);
 				for(EntityLivingBase living : entities) {
 					if(living == thrower)

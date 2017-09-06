@@ -56,13 +56,13 @@ public class EntityThrownItem extends EntityItem {
 		if (!world.isRemote)
 		{
 			Entity entity = null;
-			List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox().offset(motionX*2, motionY*2, motionZ*2).expand(2.0D, 2.0D, 2.0D));
+			List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox().offset(motionX*2, motionY*2, motionZ*2).grow(2));
 			double d0 = 0.0D;
 
 			for (Entity entity1 : list) {
 				if (entity1.canBeCollidedWith() && (!(entity1 instanceof EntityPlayer) || delayBeforeCanPickup == 0)) {
 					float f = 1.0F;
-					AxisAlignedBB axisalignedbb = entity1.getEntityBoundingBox().expand(f, f, f);
+					AxisAlignedBB axisalignedbb = entity1.getEntityBoundingBox().grow(f);
 					RayTraceResult RayTraceResult1 = axisalignedbb.calculateIntercept(vec3, vec31);
 
 					if (RayTraceResult1 != null) {

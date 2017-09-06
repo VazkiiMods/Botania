@@ -46,7 +46,7 @@ public class ItemGoddessCharm extends ItemBauble implements IManaUsingItem, IBau
 	public static void onExplosion(ExplosionEvent.Detonate event) {
 		Explosion e = event.getExplosion();
 		Vec3d vec = e.getPosition();
-		List<EntityPlayer> players = event.getWorld().getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(vec.x, vec.y, vec.z, vec.x, vec.y, vec.z).expand(8, 8, 8));
+		List<EntityPlayer> players = event.getWorld().getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(vec.x, vec.y, vec.z, vec.x, vec.y, vec.z).grow(8));
 		
 		for(EntityPlayer player : players) {
 			ItemStack charm = BaublesApi.getBaublesHandler(player).getStackInSlot(6);
