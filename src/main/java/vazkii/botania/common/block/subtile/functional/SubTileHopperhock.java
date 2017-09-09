@@ -112,7 +112,7 @@ public class SubTileHopperhock extends SubTileFunctional {
 			}
 		}
 
-		if(pulledAny && mana > 1)
+		if(pulledAny && mana > 0)
 			mana--;
 	}
 
