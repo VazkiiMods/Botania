@@ -80,7 +80,8 @@ public class RenderLexicon {
 		Minecraft mc = Minecraft.getMinecraft();
 
 		GlStateManager.pushMatrix();
-		mc.renderEngine.bindTexture(elvenTexture);
+		GlStateManager.color(1F, 1F, 1F);
+		mc.renderEngine.bindTexture(((ItemLexicon) ModItems.lexicon).isElvenItem(stack) ? elvenTexture : texture);
 		float opening;
 		float pageFlip;
 
@@ -91,8 +92,8 @@ public class RenderLexicon {
 			else ticks -= partialTicks;
 		}
 
-		GlStateManager.translate(0.3F + 0.02F * ticks, 0.475F + 0.01F * ticks, -0.2F - 0.01F * ticks);
-		GlStateManager.rotate(87.5F + ticks * (side == EnumHandSide.RIGHT ? 5 : 10), 0F, 1F, 0F);
+		GlStateManager.translate(0.3F + 0.02F * ticks, 0.475F + 0.01F * ticks, -0.2F - (side == EnumHandSide.RIGHT ? 0.035F : 0.01F) * ticks);
+		GlStateManager.rotate(87.5F + ticks * (side == EnumHandSide.RIGHT ? 8 : 12), 0F, 1F, 0F);
 		GlStateManager.rotate(ticks * 2.85F, 0F, 0F, 1F);
 		opening = ticks / 12F;
 
@@ -106,8 +107,8 @@ public class RenderLexicon {
 		if(ticks < 3) {
 			FontRenderer font = Minecraft.getMinecraft().fontRenderer;
 			GlStateManager.rotate(180F, 0F, 0F, 1F);
-			GlStateManager.translate(-0.3F, -0.21F, -0.07F);
-			GlStateManager.scale(0.0035F, 0.0035F, -0.0035F);
+			GlStateManager.translate(-0.30F, -0.24F, -0.07F);
+			GlStateManager.scale(0.0030F, 0.0030F, -0.0030F);
 
 
 			String title = ItemLexicon.getTitle(stack);
@@ -123,11 +124,11 @@ public class RenderLexicon {
 
 			String quoteStr = QUOTES[quote];
 
-			GlStateManager.translate(-5F, 3F, 0F);
+			GlStateManager.translate(-5F, 15F, 0F);
 			PageText.renderText(0, 0, 140, 100, 0, false, 0x79ff92, quoteStr);
 			GlStateManager.color(1F, 1F, 1F);
 
-			GlStateManager.translate(2F, 98F, 0F);
+			GlStateManager.translate(8F, 110F, 0F);
 			font.drawString(I18n.format("botaniamisc.lexiconcover0"), 0, 0, 0x79ff92);
 
 			GlStateManager.translate(0F, 10F, 0F);
@@ -137,7 +138,7 @@ public class RenderLexicon {
 
 			String authorTitle = I18n.format("botaniamisc.lexiconcover2");
 			int len = font.getStringWidth(authorTitle);
-			font.drawString(authorTitle, 62 - len / 2, 0, 0xD69700);
+			font.drawString(authorTitle, 58 - len / 2, -8, 0xD69700);
 		}
 
 		GlStateManager.popMatrix();
@@ -148,7 +149,7 @@ public class RenderLexicon {
 	private static void transformSideFirstPerson(EnumHandSide p_187459_1_, float p_187459_2_)
 	{
 		int i = p_187459_1_ == EnumHandSide.RIGHT ? 1 : -1;
-		GlStateManager.translate(i * 0.56F, -0.52F + p_187459_2_ * -0.6F, -0.72F);
+		GlStateManager.translate(i * 0.56F, -0.44F + p_187459_2_ * -0.8F, -0.72F);
 	}
 
 	// Copy with modification - ItemRenderer.transformFirstPerson
@@ -157,9 +158,9 @@ public class RenderLexicon {
 	{
 		int i = p_187453_1_ == EnumHandSide.RIGHT ? 1 : -1;
 		// Botania - added
-		GlStateManager.translate(p_187453_1_ == EnumHandSide.RIGHT ? 0.5F : 0.3F, -0.25F, 0.2F);
-		GlStateManager.rotate(90F, 0F, 1F, 0F);
-		GlStateManager.rotate(12F, 0F, 0F, -1F);
+		GlStateManager.translate(p_187453_1_ == EnumHandSide.RIGHT ? 0.2F : 0.52F, -0.125F, p_187453_1_ == EnumHandSide.RIGHT ? 0.6F : 0.25F);
+		GlStateManager.rotate(p_187453_1_ == EnumHandSide.RIGHT ? 60F : 120F, 0F, 1F, 0F);
+		GlStateManager.rotate(30F, 0F, 0F, -1F);
 		// End add
 		float f = MathHelper.sin(p_187453_2_ * p_187453_2_ * (float)Math.PI);
 		GlStateManager.rotate(i * (45.0F + f * -20.0F), 0.0F, 1.0F, 0.0F);

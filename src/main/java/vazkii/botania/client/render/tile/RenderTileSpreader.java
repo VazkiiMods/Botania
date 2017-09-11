@@ -93,8 +93,10 @@ public class RenderTileSpreader extends TileEntitySpecialRenderer<TileSpreader> 
 			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 			stack.getItem();
 			GlStateManager.pushMatrix();
-			GlStateManager.translate(-0.0F, -1F, -0.4375F);
-			GlStateManager.scale(0.8F, 0.8F, 0.8F);
+			GlStateManager.translate(0.0F, -1F, -0.4675F);
+			GlStateManager.rotate(180, 0, 0, 1);
+			GlStateManager.rotate(180, 1, 0, 0);
+			GlStateManager.scale(1.0F, 1.0F, 1.0F);
 			Minecraft.getMinecraft().getRenderItem().renderItem(stack, ItemCameraTransforms.TransformType.NONE);
 			GlStateManager.popMatrix();
 		}

@@ -1,5 +1,5 @@
 {
   "variants": {
-    "normal": { "model": "botania:alchemy_catalyst" }
+    "normal": { "model": "botania:catalyst_alchemy" }
   }
 }

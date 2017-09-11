@@ -33,7 +33,7 @@ import javax.annotation.Nonnull;
 
 public class BlockSpawnerClaw extends BlockMod implements ILexiconable {
 
-	private static final AxisAlignedBB AABB = new AxisAlignedBB(0.125, 0, 0.125, 0.875, 1/16.0, 0.875);
+	private static final AxisAlignedBB AABB = new AxisAlignedBB(0.125, 0, 0.125, 0.875, 0.125, 0.875);
 
 	public BlockSpawnerClaw() {
 		super(Material.IRON, LibBlockNames.SPAWNER_CLAW);

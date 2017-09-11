@@ -106,8 +106,8 @@ public class MiscellaneousIcons {
 		lightRelayWorldIconRed = IconHelper.forName(evt.getMap(), "luminizer_detector", "blocks");
 		lightRelayWorldIconGreen = IconHelper.forName(evt.getMap(), "luminizer_fork", "blocks");
 		lightRelayWorldIconPurple = IconHelper.forName(evt.getMap(), "luminizer_toggle", "blocks");
-		alchemyCatalystOverlay = IconHelper.forName(evt.getMap(), "alchemy_catalyst_overlay", "blocks");
-		conjurationCatalystOverlay = IconHelper.forName(evt.getMap(), "conjuration_catalyst_overlay", "blocks");
+		alchemyCatalystOverlay = IconHelper.forName(evt.getMap(), "catalyst_alchemy_overlay", "blocks");
+		conjurationCatalystOverlay = IconHelper.forName(evt.getMap(), "catalyst_conjuration_overlay", "blocks");
 		enchanterOverlay = IconHelper.forName(evt.getMap(), "enchanter_overlay", "blocks");
 		manaVoidOverlay = IconHelper.forName(evt.getMap(), "mana_void_overlay", "blocks");
 		manaWater = IconHelper.forName(evt.getMap(), "mana_water", "blocks");
