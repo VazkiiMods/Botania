@@ -150,9 +150,10 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 		int fortune = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, stack);
 		boolean dispose = breaker.disposeOfTrashBlocks(stack);
 
-		for (BlockPos coords : cursors) {
+		for (BlockPos offset : cursors) {
+			BlockPos coords = pos.add(offset);
 			IBlockState state = world.getBlockState(coords);
-			breaker.breakOtherBlock(player, stack, coords, coords, side);
+			breaker.breakOtherBlock(player, stack, coords, pos, side);
 			ToolCommons.removeBlockWithDrops(player, stack, player.world, coords, pos, state.getBlock(), Collections.singletonList(state.getMaterial()), silk, fortune, dispose);
 		}
 	}
