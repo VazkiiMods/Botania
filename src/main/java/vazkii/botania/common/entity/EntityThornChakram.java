@@ -62,6 +62,11 @@ public class EntityThornChakram extends EntityThrowable {
 	}
 
 	@Override
+	public boolean isImmuneToExplosions() {
+		return true;
+	}
+
+	@Override
 	public void onUpdate() {
 		// Standard motion
 		double mx = motionX;
