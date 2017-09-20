@@ -12,6 +12,7 @@ package vazkii.botania.common.block;
 
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.statemap.StateMap;
@@ -141,6 +142,12 @@ public class BlockAvatar extends BlockMod implements ILexiconable {
 	@Override
 	public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
 		return new TileAvatar();
+	}
+
+	@Nonnull
+	@Override
+	public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing side) {
+		return BlockFaceShape.UNDEFINED;
 	}
 
 	@Override

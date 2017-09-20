@@ -12,6 +12,7 @@ package vazkii.botania.common.block.mana;
 
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.statemap.StateMap;
@@ -130,6 +131,12 @@ public class BlockBellows extends BlockMod implements ILexiconable {
 		ModelLoader.setCustomStateMapper(this, new StateMap.Builder().ignore(BotaniaStateProps.CARDINALS).build());
 		ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(this), 0, TileBellows.class);
 		ModelHandler.registerCustomItemblock(this, "bellows");
+	}
+
+	@Nonnull
+	@Override
+	public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing side) {
+		return BlockFaceShape.UNDEFINED;
 	}
 
 }

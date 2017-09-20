@@ -12,6 +12,7 @@ package vazkii.botania.common.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
@@ -182,6 +183,12 @@ public class BlockLightRelay extends BlockMod implements IWandable, ILexiconable
 		int i = 0;
 		for(LuminizerVariant v : LuminizerVariant.values())
 			ModelHandler.registerBlockToState(this, i++, getDefaultState().withProperty(BotaniaStateProps.LUMINIZER_VARIANT, v));
+	}
+
+	@Nonnull
+	@Override
+	public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing side) {
+		return BlockFaceShape.UNDEFINED;
 	}
 
 }

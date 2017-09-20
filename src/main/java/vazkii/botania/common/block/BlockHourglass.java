@@ -12,6 +12,7 @@ package vazkii.botania.common.block;
 
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -205,6 +206,12 @@ public class BlockHourglass extends BlockMod implements IManaTrigger, IWandable,
 		ModelLoader.setCustomStateMapper(this, new StateMap.Builder().ignore(BotaniaStateProps.POWERED).build());
 		ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(this), 0, TileHourglass.class);
 		ModelHandler.registerCustomItemblock(this, "hovering_hourglass");
+	}
+
+	@Nonnull
+	@Override
+	public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing side) {
+		return BlockFaceShape.UNDEFINED;
 	}
 
 }

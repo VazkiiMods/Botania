@@ -12,6 +12,7 @@ package vazkii.botania.common.block.mana;
 
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -131,6 +132,12 @@ public class BlockRuneAltar extends BlockMod implements IWandable, ILexiconable 
 	@Override
 	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.runicAltar;
+	}
+
+	@Nonnull
+	@Override
+	public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing side) {
+		return side == EnumFacing.DOWN ? BlockFaceShape.SOLID : BlockFaceShape.UNDEFINED;
 	}
 
 }

@@ -11,6 +11,7 @@
 package vazkii.botania.common.block;
 
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
@@ -135,6 +136,12 @@ public class BlockAnimatedTorch extends BlockMod implements IWandable, IManaTrig
 	@Override
 	public boolean hasTileEntity(IBlockState state) {
 		return true;
+	}
+
+	@Nonnull
+	@Override
+	public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing side) {
+		return BlockFaceShape.UNDEFINED;
 	}
 
 	@Override

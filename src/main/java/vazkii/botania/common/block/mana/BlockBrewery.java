@@ -12,6 +12,7 @@ package vazkii.botania.common.block.mana;
 
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -160,6 +161,12 @@ public class BlockBrewery extends BlockMod implements ILexiconable, IWandHUD {
 		ModelLoader.setCustomStateMapper(this, new StateMap.Builder().ignore(BotaniaStateProps.POWERED).build());
 		ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(this), 0, TileBrewery.class);
 		ModelHandler.registerCustomItemblock(this, "brewery");
+	}
+
+	@Nonnull
+	@Override
+	public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing side) {
+		return BlockFaceShape.UNDEFINED;
 	}
 
 }

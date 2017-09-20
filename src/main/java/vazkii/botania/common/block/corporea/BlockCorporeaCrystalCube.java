@@ -13,6 +13,7 @@ package vazkii.botania.common.block.corporea;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -128,6 +129,12 @@ public class BlockCorporeaCrystalCube extends BlockCorporeaBase implements ILexi
 	@Override
 	public int getComparatorInputOverride(IBlockState state, World world, BlockPos pos) {
 		return ((TileCorporeaCrystalCube) world.getTileEntity(pos)).compValue;
+	}
+
+	@Nonnull
+	@Override
+	public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing side) {
+		return BlockFaceShape.UNDEFINED;
 	}
 
 	@SideOnly(Side.CLIENT)
