@@ -63,7 +63,8 @@ public class RenderTileCorporeaCrystalCube extends TileEntitySpecialRenderer<Til
 			};
 
 			entity.age = ClientTickHandler.ticksInGame;
-			entity.setItem(cube.getRequestTarget());
+			stack = cube.getRequestTarget();
+			entity.setItem(stack);
 		}
 
 		double time = ClientTickHandler.ticksInGame + f;
