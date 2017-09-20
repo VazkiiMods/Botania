@@ -96,6 +96,6 @@ public class ItemPetal extends Item16Colors implements IFlowerComponent {
 
 	@Override
 	public int getParticleColor(ItemStack stack) {
-		return EnumDyeColor.byMetadata(stack.getItemDamage()).getColorValue();
+		return EnumDyeColor.byMetadata(stack.getItemDamage()).colorValue;
 	}
 }

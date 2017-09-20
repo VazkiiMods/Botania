@@ -232,7 +232,7 @@ public class ItemLens extends ItemMod implements ILensControl, ICompositableLens
 		if(storedColor == 16)
 			return Color.HSBtoRGB(Botania.proxy.getWorldElapsedTicks() * 2 % 360 / 360F, 1F, 1F);
 
-		return EnumDyeColor.byMetadata(storedColor).getColorValue();
+		return EnumDyeColor.byMetadata(storedColor).colorValue;
 	}
 
 	public static int getStoredColor(ItemStack stack) {

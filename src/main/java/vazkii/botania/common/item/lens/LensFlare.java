@@ -54,7 +54,7 @@ public class LensFlare extends Lens {
 		if(storedColor == 16) {
 			hex = Color.HSBtoRGB(tile.getWorld().getTotalWorldTime() * 2 % 360 / 360F, 1F, 1F);
 		} else if(storedColor >= 0) {
-			hex = EnumDyeColor.byMetadata(storedColor).getColorValue();
+			hex = EnumDyeColor.byMetadata(storedColor).colorValue;
 		}
 
 		float r = ((hex & 0xFF0000) >> 16) / 255F;
