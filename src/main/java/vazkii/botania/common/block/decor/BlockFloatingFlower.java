@@ -13,6 +13,7 @@ package vazkii.botania.common.block.decor;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.statemap.StateMap;
@@ -217,5 +218,11 @@ public class BlockFloatingFlower extends BlockMod implements ILexiconable, IInfu
 		ModelLoader.setCustomStateMapper(this, new StateMap.Builder().ignore(BotaniaStateProps.COLOR).build());
 		// All to variant inventory so smartmodel can work
 		ModelHandler.registerItemAllMeta(Item.getItemFromBlock(this), EnumDyeColor.values().length);
+	}
+
+	@Nonnull
+	@Override
+	public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing side) {
+		return BlockFaceShape.UNDEFINED;
 	}
 }

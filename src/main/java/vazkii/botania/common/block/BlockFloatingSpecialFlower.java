@@ -201,10 +201,4 @@ public class BlockFloatingSpecialFlower extends BlockFloatingFlower implements I
 	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
 		return ((TileSpecialFlower) world.getTileEntity(pos)).getEntry();
 	}
-
-	@Nonnull
-	@Override
-	public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing side) {
-		return BlockFaceShape.UNDEFINED;
-	}
 }
