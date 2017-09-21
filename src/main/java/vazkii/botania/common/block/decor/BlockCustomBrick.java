@@ -41,7 +41,7 @@ public class BlockCustomBrick extends BlockMod implements ILexiconable {
 		setHardness(2.0F);
 		setResistance(5.0F);
 		setSoundType(SoundType.STONE);
-		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.CUSTOMBRICK_VARIANT, CustomBrickVariant.HELLISH_BRICK));
+		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.CUSTOMBRICK_VARIANT, CustomBrickVariant.AZULEJO_0));
 	}
 
 	@Nonnull
@@ -71,7 +71,7 @@ public class BlockCustomBrick extends BlockMod implements ILexiconable {
 
 	@Override
 	public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> stacks) {
-		for(int i = 4; i < CustomBrickVariant.values().length; i++)
+		for(int i = 0; i < CustomBrickVariant.values().length; i++)
 			stacks.add(new ItemStack(this, 1, i));
 	}
 

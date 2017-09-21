@@ -13,10 +13,7 @@ import net.minecraft.util.IStringSerializable;
 import java.util.Locale;
 
 public enum CustomBrickVariant implements IStringSerializable {
-	HELLISH_BRICK,
-	SOUL_BRICK,
-	FROSTY_BRICK,
-	ROOF_TILE,
+	AZULEJO_0,
 	AZULEJO_1,
 	AZULEJO_2,
 	AZULEJO_3,
@@ -28,7 +25,10 @@ public enum CustomBrickVariant implements IStringSerializable {
 	AZULEJO_9,
 	AZULEJO_10,
 	AZULEJO_11,
-	AZULEJO_12;
+	AZULEJO_12,
+	AZULEJO_13,
+	AZULEJO_14,
+	AZULEJO_15;
 
 	@Override
 	public String getName() {
