@@ -71,7 +71,8 @@ public class TileOpenCrate extends TileSimpleInventory {
 		item.motionX = 0;
 		item.motionY = 0;
 		item.motionZ = 0;
-		item.age = -200;
+		if (redstone)
+			item.age = -200;
 
 		itemHandler.setStackInSlot(0, ItemStack.EMPTY);
 		world.spawnEntity(item);
