@@ -39,7 +39,7 @@ public class TileRFGenerator extends TileMod implements IManaReceiver {
 
 		@Override
 		public int getMaxEnergyStored() {
-			return Integer.MAX_VALUE;
+			return MAX_ENERGY;
 		}
 
 		// todo allow pulling?
