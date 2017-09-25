@@ -13,7 +13,13 @@ import net.minecraft.util.IStringSerializable;
 import java.util.Locale;
 
 public enum CustomBrickVariant implements IStringSerializable {
+	/* Azulejos 0, 13, 14, and 15 replaced the old bricks
+	They are here at the top because putting them at the bottom while deleting the bricks
+	would shift the variants of azulejos in older worlds.*/
 	AZULEJO_0,
+	AZULEJO_13,
+	AZULEJO_14,
+	AZULEJO_15,
 	AZULEJO_1,
 	AZULEJO_2,
 	AZULEJO_3,
@@ -25,10 +31,7 @@ public enum CustomBrickVariant implements IStringSerializable {
 	AZULEJO_9,
 	AZULEJO_10,
 	AZULEJO_11,
-	AZULEJO_12,
-	AZULEJO_13,
-	AZULEJO_14,
-	AZULEJO_15;
+	AZULEJO_12;
 
 	@Override
 	public String getName() {
