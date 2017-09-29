@@ -281,7 +281,7 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 				if(color != getNetwork().getMetadata()) {
 					setNetwork(EnumDyeColor.byMetadata(color));
 
-					if(master != null)
+					if(isMaster())
 						restartNetwork();
 					else findNetwork();
 
