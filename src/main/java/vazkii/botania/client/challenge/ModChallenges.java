@@ -50,6 +50,7 @@ public final class ModChallenges {
 		addChallenge(EnumChallengeLevel.HARD, "mobTower", new ItemStack(Items.BONE));
 		addChallenge(EnumChallengeLevel.HARD, "entropinnyumSetup", ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_ENTROPINNYUM));
 		addChallenge(EnumChallengeLevel.HARD, "spectrolusSetup", ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_SPECTROLUS));
+		addChallenge(EnumChallengeLevel.HARD, "shulkMeNotSetup", ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_SHULK_ME_NOT));
 		addChallenge(EnumChallengeLevel.HARD, "potionBrewer", new ItemStack(ModBlocks.brewery));
 
 		addChallenge(EnumChallengeLevel.LUNATIC, "kekimurusSetup", ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_KEKIMURUS));

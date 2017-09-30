@@ -610,7 +610,9 @@ botania.challenge.mobTower.desc=Create a tower style mob farm. Mobs must be sort
 botania.challenge.entropinnyumSetup=Entropinnyum Setup
 botania.challenge.entropinnyumSetup.desc=Create a system that automatically crafts TNT and safely feeds it to an Entropinnyum flower, creating mana. Bonus points if the sand and gunpowder required for the TNT don't need to be put in manually.
 botania.challenge.spectrolusSetup=Spectrolus Setup
-botania.challenge.spectrolusSetup.desc=Create a system that feeds a Spectrolus, generating mana. Aside from raw mana, no items may be input from outside the system. Bonus points if it operates at 100% efficiency, never wasting any wool. 
+botania.challenge.spectrolusSetup.desc=Create a system that feeds a Spectrolus, generating mana. Aside from raw mana, no items may be input from outside the system. Bonus points if it operates at 100% efficiency, never wasting any wool.
+botania.challenge.shulkMeNotSetup=Shulk Me Not Setup
+botania.challenge.shulkMeNotSetup.desc=Create a system that allows for a Shulk Me Not to produce mana automatically, without any mana, items or entities coming from outside the system. Bonus points if no unnecessary mob infighting happens. 
 botania.challenge.potionBrewer=Automated Brewing
 botania.challenge.potionBrewer.desc=Create a system that can make all types of brews automatically on demand. Bonus points if it keeps a set of incense always ignited in the player's base.
 
