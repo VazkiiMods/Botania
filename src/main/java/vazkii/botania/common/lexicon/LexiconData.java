@@ -134,6 +134,7 @@ public final class LexiconData {
 	public static LexiconEntry narslimmus;
 	public static LexiconEntry spectrolus;
 	public static LexiconEntry rafflowsia;
+	public static LexiconEntry shulkMeNot;
 	public static LexiconEntry dandelifeon;
 
 	public static LexiconEntry pylon;
@@ -676,6 +677,9 @@ public final class LexiconData {
 		rafflowsia = new AlfheimLexiconEntry(LibLexicon.GFLOWER_RAFFLOWSIA, categoryGenerationFlowers);
 		rafflowsia.setLexiconPages(new PageText("0"), new PagePetalRecipe<>("1", ModPetalRecipes.rafflowsiaRecipe));
 
+		shulkMeNot = new AlfheimLexiconEntry(LibLexicon.GFLOWER_SHULK_ME_NOT, categoryGenerationFlowers);
+		shulkMeNot.setLexiconPages(new PageText("0"), new PageText("1"), new PagePetalRecipe<>("2", ModPetalRecipes.shulkMeNotRecipe));
+		
 		dandelifeon = new AlfheimLexiconEntry(LibLexicon.GFLOWER_DANDELIFEON, categoryGenerationFlowers);
 		dandelifeon.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"),
 				new PageText("3"), new PageText("4"), new PageText("5"), new PageText("6"), new PageText("10"),

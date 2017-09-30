@@ -2545,6 +2545,13 @@ botania.page.dandelifeon7=&1Cellular Blocks&0 are crafted with &1Cactus&0, &1Car
 botania.page.dandelifeon8=&oCellCraft^2&r.
 botania.page.dandelifeon9=Creating &1Cellular Blocks&0
 
+# -- SHULK ME NOT
+botania.entry.shulk_me_not=Shulk Me Not
+botania.tagline.shulk_me_not=Mana from shulkers
+botania.page.shulk_me_not0=The &1Shulk Me Not&0 is a generating flower that creates &4Mana&0 by harnessing the power of the &4Levitation&0 effect.<br>The flower will create a massive amount of &4Mana&0 while its internal buffer is empty, and a monster within its range is hit with a shulker's projectile, causing it to gain &4Levitation&0.
+botania.page.shulk_me_not1=A few extra points are relevant to this generation process.<br>First off, both the hit entity and the shulker are killed, and their drops and experience suppressed. Second, for the process to happen, the shulker must be targetting the other monster, rather than the projectile just wandering in its way. Lastly, both entities need to be within the flower's range.
+botania.page.shulk_me_not2=&oPetal plucking not recommended&r.
+
 # - NATURAL APPARATUS
 # -- MANA PYLON
 botania.entry.pylon=Mana Pylon

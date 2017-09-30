@@ -14,8 +14,10 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
+import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileGenerating;
+import vazkii.botania.common.lexicon.LexiconData;
 
 public class SubTileShulkMeNot extends SubTileGenerating {
 
@@ -55,7 +57,6 @@ public class SubTileShulkMeNot extends SubTileGenerating {
 	}
 	
 	private void particles(World world, BlockPos pos, Entity entity) {
-		float f = 0.01F;
 		if(world instanceof WorldServer) {
 			WorldServer ws = (WorldServer) world;
 			ws.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, entity.posX + entity.width / 2, entity.posY + entity.height / 2, entity.posZ + entity.width / 2, 100, entity.width, entity.height, entity.width, 0.05);
@@ -76,6 +77,11 @@ public class SubTileShulkMeNot extends SubTileGenerating {
 	@Override
 	public int getMaxMana() {
 		return 75000;
+	}
+	
+	@Override
+	public LexiconEntry getEntry() {
+		return LexiconData.shulkMeNot;
 	}
 	
 }

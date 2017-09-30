@@ -12,6 +12,7 @@ package vazkii.botania.common.crafting;
 
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import scala.runtime.RichDouble;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.recipe.RecipePetals;
 import vazkii.botania.common.Botania;
@@ -48,6 +49,7 @@ public final class ModPetalRecipes {
 	public static RecipePetals narslimmusRecipe;
 	public static RecipePetals spectrolusRecipe;
 	public static RecipePetals rafflowsiaRecipe;
+	public static RecipePetals shulkMeNotRecipe;
 	public static RecipePetals dandelifeonRecipe;
 
 	public static RecipePetals jadedAmaranthusRecipe;
@@ -92,6 +94,7 @@ public final class ModPetalRecipes {
 		narslimmusRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_NARSLIMMUS), lime, lime, green, green, black, runeSummer, runeWater);
 		spectrolusRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_SPECTROLUS), red, red, green, green, blue, blue, white, white, runeWinter, runeAir, pixieDust);
 		rafflowsiaRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_RAFFLOWSIA), purple, purple, green, green, black, runeEarth, runePride, pixieDust);
+		shulkMeNotRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_SHULK_ME_NOT), purple, purple, magenta, magenta, lightGray, gaiaSpirit, runeEnvy, runeWrath);
 		dandelifeonRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_DANDELIFEON), purple, purple, lime, green, runeWater, runeFire, runeEarth, runeAir, gaiaSpirit);
 
 		jadedAmaranthusRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_JADED_AMARANTHUS), purple, lime, green, runeSpring, redstoneRoot);
