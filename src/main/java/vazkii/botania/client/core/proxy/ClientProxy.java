@@ -176,8 +176,8 @@ public class ClientProxy implements IProxy {
 
 		if(ConfigHandler.useAdaptativeConfig)
 			MinecraftForge.EVENT_BUS.register(AdaptorNotifier.class);
-		if(ConfigHandler.versionCheckEnabled)
-			VersionChecker.init();
+//		if(ConfigHandler.versionCheckEnabled)
+//			VersionChecker.init();
 
 		if(ConfigHandler.enableSeasonalFeatures) {
 			LocalDateTime now = LocalDateTime.now();

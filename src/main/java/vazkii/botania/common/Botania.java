@@ -217,7 +217,7 @@ public class Botania {
 
 	@EventHandler
 	public void serverStarting(FMLServerStartingEvent event) {
-		event.registerServerCommand(new CommandDownloadLatest());
+//		event.registerServerCommand(new CommandDownloadLatest());
 		event.registerServerCommand(new CommandShare());
 		event.registerServerCommand(new CommandOpen());
 		if(Botania.gardenOfGlassLoaded)
