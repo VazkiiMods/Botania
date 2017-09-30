@@ -1,3 +1,35 @@
+r1.10 348
+*Added new Azulejo variants.
+*Added the Shulk Me Not, a new endgame generating flower! <i>Only took me almost 2 years!</i>
+*Added the Shulk Me Not to the challenges as a Hard level challenge.
+*Changed the recipe for the Cocoon of Caprice.
+*Daffomills and Animated Torches will now face away from the player when placed. (quat)
+*Fixed a crash when using Red String.
+*Fixed a server crash when using the Mana in a Bottle.
+*Fixed Dreadthornes killing baby animals instead of adult animals.
+*Fixed Hopperhocks never running out of mana, even if their source is removed. (codycoolwaffle)
+*Fixed ladders, fences, and other stuff connecting to a lot of botania blocks they shouldn't connect to.
+*Fixed mana bursts piling up and causing horrible lag.
+*Fixed Mushrooms not fitting in the Petal Apothecary.
+*Fixed some weird crash on startup only some people were able to reproduce? I think I did.
+*Fixed switching a Corporea Spark to another network causing it to not connect until the chunk is reloaded.
+*Fixed the Corporea Crystal Cube not rendering the item inside.
+*Fixed the Lexica Botania not calling forge tooltip events in its item tooltips, causing mods like Quark to not show their stuff.
+*Fixed the Mana Fluxfield not reporting its max energy properly. (Infinoid)
+*Fixed the Matrix Wings.
+*Fixed the Open Crate delaying item pickup even if not powered.
+*Fixed the Petal Apothecary not having any sparkles when there's stuff inside.
+*Fixed the Ring of Loki not offsetting the mining with the Terra Shatterer properly.
+*Fixed the Third Eye not highlighting all mobs properly.
+*Fixed the Thorn Chakram being able to be killed by explosions.
+*Made the Cocoon of Caprice accept dropped items as modifiers.
+*Re-enabled the tutorial video in the lexica botania, using the new <a href="https://www.youtube.com/watch?v=aJqMRCvNA6A">Bit by Bit video</a> from Mischief of Mice. <i>Only took me almost 2 years!</i>
+*Removed references to the previously removed Ring of the Aesir.
+*Removed the version checker and ingame updater because it's 2017 and nobody needs those.
+*The Lexica Botania can now swap between items in recipes that have multiple valid items in one slot (like ore dictionary recipes). <i>Only took me 3 and a half years!</i>
+*The Lexica Botania will now have different textures before elven knowledge is unlocked.
+*The Rune Crafter challenge is now categorized as "Lunatic+" instead of "Lunatic" because it should probably stand apart from the others.
+*Updated a lot more textures and models and stuff to the new art style.
 r1.10 347
 *Fixed crashes when viewing the Dandelifeon and Elven Mana Lenses pages.
 *Updated more textures and models to the new style.
