@@ -84,6 +84,7 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 				LibBlockNames.SUBTILE_NARSLIMMUS,
 				LibBlockNames.SUBTILE_SPECTROLUS,
 				LibBlockNames.SUBTILE_RAFFLOWSIA,
+				LibBlockNames.SUBTILE_SHULK_ME_NOT,
 				LibBlockNames.SUBTILE_DANDELIFEON,
 
 				// Functional

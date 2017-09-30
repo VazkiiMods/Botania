@@ -1184,6 +1184,8 @@ tile.botania:flower.dandelifeon.name=Dandelifeon
 tile.botania:flower.dandelifeon.reference=C'est la vie
 tile.botania:flower.rafflowsia.name=Rafflowsia
 tile.botania:flower.rafflowsia.reference=Trap Hole Nightmare
+tile.botania:flower.shulk_me_not.name=Shulk Me Not
+tile.botania:flower.shulk_me_not.reference=Really feeling it
 
 # - FUNCTIONAL
 tile.botania:flower.bellethorn.name=Bellethorne
