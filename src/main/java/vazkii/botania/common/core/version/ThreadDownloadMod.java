@@ -51,7 +51,7 @@ public class ThreadDownloadMod extends Thread {
 
 			VersionChecker.startedDownload = true;
 
-			String base = "http://botaniamod.net/";
+			String base = "https://botaniamod.net/";
 			String file = fileName.replaceAll(" ", "%20");
 			URL url = new URL(base + "dl.php?file=" + file);
 
