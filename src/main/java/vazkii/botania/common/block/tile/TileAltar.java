@@ -21,6 +21,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
@@ -36,6 +37,7 @@ import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.IItemHandlerModifiable;
+import scala.reflect.internal.Trees.If;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.item.IPetalApothecary;
@@ -48,6 +50,7 @@ import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ModSounds;
+import vazkii.botania.common.item.equipment.bauble.ItemBalanceCloak;
 import vazkii.botania.common.network.PacketBotaniaEffect;
 import vazkii.botania.common.network.PacketHandler;
 
@@ -122,7 +125,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 
 		boolean didChange = false;
 
-		if(stack.getItem() instanceof IFlowerComponent && ((IFlowerComponent) stack.getItem()).canFit(stack, this)) {
+		if(isFlowerComponent(stack)) {
 			if(!itemHandler.getStackInSlot(getSizeInventory() - 1).isEmpty())
 				return false;
 
@@ -159,6 +162,21 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 		}
 
 		return didChange;
+	}
+	
+	private IFlowerComponent getFlowerComponent(ItemStack stack) {
+		IFlowerComponent c = null;
+		if(stack.getItem() instanceof IFlowerComponent)
+			c = (IFlowerComponent) stack.getItem();
+		else if(stack.getItem() instanceof ItemBlock && ((ItemBlock) stack.getItem()).getBlock() instanceof IFlowerComponent)
+			c = (IFlowerComponent) ((ItemBlock) stack.getItem()).getBlock();
+		
+		return c;
+	}
+	
+	private boolean isFlowerComponent(ItemStack stack) {
+		IFlowerComponent c = getFlowerComponent(stack);
+		return c != null && c.canFit(stack, this);
 	}
 
 	public void saveLastRecipe() {
@@ -239,13 +257,13 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 					break;
 
 				if(Math.random() >= 0.97) {
-					Color color = new Color(((IFlowerComponent) stackAt.getItem()).getParticleColor(stackAt));
+					Color color = new Color(getFlowerComponent(stackAt).getParticleColor(stackAt));
 					float red = color.getRed() / 255F;
 					float green = color.getGreen() / 255F;
 					float blue = color.getBlue() / 255F;
 					if(Math.random() >= 0.75F)
 						world.playSound(null, pos, SoundEvents.ENTITY_GENERIC_SPLASH, SoundCategory.BLOCKS, 0.1F, 10F);
-					Botania.proxy.sparkleFX(pos.getX() + 0.5 + Math.random() * 0.4 - 0.2, pos.getY() + 1, pos.getZ() + 0.5 + Math.random() * 0.4 - 0.2, red, green, blue, (float) Math.random(), 10);
+					Botania.proxy.sparkleFX(pos.getX() + 0.5 + Math.random() * 0.4 - 0.2, pos.getY() + 1.2, pos.getZ() + 0.5 + Math.random() * 0.4 - 0.2, red, green, blue, (float) Math.random(), 10);
 				}
 			}
 
