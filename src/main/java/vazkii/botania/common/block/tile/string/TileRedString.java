@@ -77,7 +77,11 @@ public abstract class TileRedString extends TileMod implements ITileBound {
 	}
 
 	public EnumFacing getOrientation() {
-		return world.getBlockState(getPos()).getValue(BotaniaStateProps.FACING);
+		IBlockState state = world.getBlockState(getPos());
+		if(state.getPropertyKeys().contains(BotaniaStateProps.FACING))
+			return state.getValue(BotaniaStateProps.FACING);
+		
+		return EnumFacing.WEST; // fallback
 	}
 
 	public TileEntity getTileAtBinding() {
