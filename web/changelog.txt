@@ -23,7 +23,7 @@ r1.10 348
 *Fixed the Third Eye not highlighting all mobs properly.
 *Fixed the Thorn Chakram being able to be killed by explosions.
 *Made the Cocoon of Caprice accept dropped items as modifiers.
-*Re-enabled the tutorial video in the lexica botania, using the new <a href="https://www.youtube.com/watch?v=aJqMRCvNA6A">Bit by Bit video</a> from Mischief of Mice. <i>Only took me almost 2 years!</i>
+*Re-enabled the tutorial video in the lexica botania, using the new <a href="https://www.youtube.com/watch?v=D75Aad-5QgQ">Bit by Bit video</a> from Mischief of Mice. <i>Only took me almost 2 years!</i>
 *Removed references to the previously removed Ring of the Aesir.
 *Removed the version checker and ingame updater because it's 2017 and nobody needs those.
 *The Lexica Botania can now swap between items in recipes that have multiple valid items in one slot (like ore dictionary recipes). <i>Only took me 3 and a half years!</i>
