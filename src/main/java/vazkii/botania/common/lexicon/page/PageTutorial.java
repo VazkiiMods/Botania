@@ -27,7 +27,7 @@ import java.net.URI;
 public class PageTutorial extends PageText {
 
 	// Turn this on once we have an up to date video
-	private static final boolean VIDEO_ENABLED = false;
+	private static final boolean VIDEO_ENABLED = true;
 
 	GuiButton buttonText, buttonVideo;
 
@@ -70,7 +70,7 @@ public class PageTutorial extends PageText {
 			Minecraft.getMinecraft().player.sendMessage(new TextComponentTranslation("botaniamisc.tutorialStarted").setStyle(new Style().setColor(TextFormatting.GREEN)));
 		} else if(button == buttonVideo && Desktop.isDesktopSupported()) {
 			try {
-				Desktop.getDesktop().browse(new URI("https://www.youtube.com/watch?v=rx0xyejC6fI"));
+				Desktop.getDesktop().browse(new URI("https://www.youtube.com/watch?v=D75Aad-5QgQ"));
 			} catch(Exception e) {
 				e.printStackTrace();
 			}
