@@ -81,7 +81,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 	private static final int SUBTYPES = 8;
 	public static final int WING_TYPES = 9;
 
-	public static final String SUPER_AWESOME_HASH = "82F1EAD6A9B815E56C4F94C03C4BFE3E92CAA52AA79A40D753924BEF720FF868";
+	public static final String SUPER_AWESOME_HASH = "4D0F274C5E3001C95640B5E88A821422C8B1E132264492C043A3D746B705C025";
 
 	public ItemFlightTiara() {
 		super(LibItemNames.FLIGHT_TIARA);
@@ -302,7 +302,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 		int meta = stack.getItemDamage();
 		if(type == RenderType.BODY) {
 			if(meta > 0 && meta <= MiscellaneousIcons.INSTANCE.tiaraWingIcons.length) {
-				TextureAtlasSprite icon = MiscellaneousIcons.INSTANCE.tiaraWingIcons[meta];
+				TextureAtlasSprite icon = MiscellaneousIcons.INSTANCE.tiaraWingIcons[meta - 1];
 				Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 
 				boolean flying = player.capabilities.isFlying;
@@ -379,8 +379,8 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 					OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, lightmapX, lightmapY);
 					rz = 180F;
 					rx = 0F;
-					s = 1.5F;
-					h = 1.2F;
+					h = 1.1F;
+					ry = -(float) ((Math.sin((double) (player.ticksExisted + partialTicks) * 0.2F) + 0.6F) * (flying ? 12F : 5F));
 					GlStateManager.color(1F, 1F, 1F, 0.5F + (flying ? (float) Math.cos((double) (player.ticksExisted + partialTicks) * 0.3F) * 0.25F + 0.25F : 0F));
 				}
 				}
@@ -516,7 +516,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void registerModels() {
-		ModelHandler.registerItemAllMeta(this, WING_TYPES);
+		ModelHandler.registerItemAllMeta(this, WING_TYPES + 1);
 	}
 
 }

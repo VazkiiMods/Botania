@@ -144,7 +144,7 @@ public class MiscellaneousIcons {
 
 		tiaraWingIcons = new TextureAtlasSprite[ItemFlightTiara.WING_TYPES];
 		for (int i = 0; i < tiaraWingIcons.length; i++) {
-			tiaraWingIcons[i] = IconHelper.forName(evt.getMap(), "headpiece_tiara_wing_" + i, "items");
+			tiaraWingIcons[i] = IconHelper.forName(evt.getMap(), "headpiece_tiara_wing_" + (i + 1), "items");
 		}
 
 		terrasteelHelmWillIcon = IconHelper.forName(evt.getMap(), "willFlame", "items");
