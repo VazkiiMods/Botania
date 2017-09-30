@@ -302,7 +302,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 		int meta = stack.getItemDamage();
 		if(type == RenderType.BODY) {
 			if(meta > 0 && meta <= MiscellaneousIcons.INSTANCE.tiaraWingIcons.length) {
-				TextureAtlasSprite icon = MiscellaneousIcons.INSTANCE.tiaraWingIcons[meta - 1];
+				TextureAtlasSprite icon = MiscellaneousIcons.INSTANCE.tiaraWingIcons[meta];
 				Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 
 				boolean flying = player.capabilities.isFlying;
