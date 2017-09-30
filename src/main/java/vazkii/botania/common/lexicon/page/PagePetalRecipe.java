@@ -10,6 +10,12 @@
  */
 package vazkii.botania.common.lexicon.page;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import org.lwjgl.opengl.GL11;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiScreen;
@@ -17,11 +23,11 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
-import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.internal.IGuiLexiconEntry;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.lexicon.LexiconRecipeMappings;
@@ -30,10 +36,6 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ConfigHandler;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 public class PagePetalRecipe<T extends RecipePetals> extends PageRecipe {
 
@@ -70,11 +72,15 @@ public class PagePetalRecipe<T extends RecipePetals> extends PageRecipe {
 		List<Object> inputs = recipe.getInputs();
 		int degreePerInput = (int) (360F / inputs.size());
 		float currentDegree = ConfigHandler.lexiconRotatingItems ? GuiScreen.isShiftKeyDown() ? ticksElapsed : ticksElapsed + ClientTickHandler.partialTicks : 0;
-
+		float baseDegree = currentDegree;
+		
 		for(Object obj : inputs) {
 			Object input = obj;
-			if(input instanceof String)
-				input = OreDictionary.getOres((String) input).get(0);
+			if(input instanceof String) {
+				NonNullList<ItemStack> list = OreDictionary.getOres((String) input); 
+				int size = list.size();
+				input = list.get(size - (int) (baseDegree / 40) % size - 1);
+			}
 
 			renderItemAtAngle(gui, currentDegree, (ItemStack) input);
 

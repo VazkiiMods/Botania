@@ -54,7 +54,7 @@ public class PageCraftingRecipe extends PageRecipe {
 	public PageCraftingRecipe(String unlocalizedName, List<ResourceLocation> recipes) {
 		super(unlocalizedName);
 		this.recipes = recipes;
-		
+
 		for(ResourceLocation res : recipes)
 			if(res == null)
 				throw new IllegalArgumentException("Null recipes arent allowed");
@@ -136,23 +136,25 @@ public class PageCraftingRecipe extends PageRecipe {
 	public void renderCraftingRecipe(IGuiLexiconEntry gui, IRecipe recipe) {
 		if(recipe == null)
 			return;
-		
+
 		if(recipe instanceof ShapedRecipes || recipe instanceof ShapedOreRecipe) {
 			oreDictRecipe = recipe instanceof ShapedOreRecipe;
 
 			int width = oreDictRecipe
 					? ReflectionHelper.getPrivateValue(ShapedOreRecipe.class, (ShapedOreRecipe) recipe, "width")
-					: ((ShapedRecipes) recipe).getWidth();
-			int height = oreDictRecipe
-					? ReflectionHelper.getPrivateValue(ShapedOreRecipe.class, (ShapedOreRecipe) recipe, "height")
-					: ((ShapedRecipes) recipe).getHeight();
+							: ((ShapedRecipes) recipe).getWidth();
+					int height = oreDictRecipe
+							? ReflectionHelper.getPrivateValue(ShapedOreRecipe.class, (ShapedOreRecipe) recipe, "height")
+									: ((ShapedRecipes) recipe).getHeight();
 
-			for(int y = 0; y < height; y++)
-				for(int x = 0; x < width; x++) {
-					Ingredient input = recipe.getIngredients().get(y * width + x);
-					if(input != Ingredient.EMPTY)
-						renderItemAtGridPos(gui, 1 + x, 1 + y, input.getMatchingStacks()[0], true); // TODO 1.12 this isn't just used for OD anymore. need to cycle through all matching stacks
-				}
+							for(int y = 0; y < height; y++)
+								for(int x = 0; x < width; x++) {
+									Ingredient input = recipe.getIngredients().get(y * width + x);
+									if(input != Ingredient.EMPTY) {
+										ItemStack[] stacks = input.getMatchingStacks(); 
+										renderItemAtGridPos(gui, 1 + x, 1 + y, stacks[(ticksElapsed / 40) % stacks.length], true);
+									}
+								}
 		} else if(recipe instanceof ShapelessRecipes || recipe instanceof ShapelessOreRecipe) {
 			shapelessRecipe = true;
 			oreDictRecipe = recipe instanceof ShapelessOreRecipe;
@@ -166,8 +168,10 @@ public class PageCraftingRecipe extends PageRecipe {
 							break drawGrid;
 
 						Ingredient input = recipe.getIngredients().get(index);
-						if(input != Ingredient.EMPTY)
-							renderItemAtGridPos(gui, 1 + x, 1 + y, input.getMatchingStacks()[0], true); // TODO 1.12 this isn't just used for OD anymore. need to cycle through all matching stacks
+						if(input != Ingredient.EMPTY) {
+							ItemStack[] stacks = input.getMatchingStacks(); 
+							renderItemAtGridPos(gui, 1 + x, 1 + y, stacks[(ticksElapsed / 40) % stacks.length], true);
+						}
 					}
 			}
 		}
