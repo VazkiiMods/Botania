@@ -11,6 +11,7 @@
 package vazkii.botania.common.lexicon.page;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
@@ -19,6 +20,9 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraftforge.client.ForgeHooksClient;
+import net.minecraftforge.client.event.RenderTooltipEvent;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.input.Mouse;
@@ -31,10 +35,13 @@ import vazkii.botania.api.lexicon.LexiconRecipeMappings.EntryData;
 import vazkii.botania.client.gui.lexicon.GuiLexiconEntry;
 import vazkii.botania.common.core.helper.PlayerHelper;
 
+import java.awt.font.FontRenderContext;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class PageRecipe extends LexiconPage {
 
@@ -75,8 +82,18 @@ public class PageRecipe extends LexiconPage {
 				first = false;
 			}
 
+			FontRenderer font = Minecraft.getMinecraft().fontRenderer;
+			int tooltipHeight = tooltipData.size() * 10 + 2;
+			int tooltipWidth = parsedTooltip.stream().map(font::getStringWidth).max((a, b) -> a - b).orElse(0);
+			int rmx = mx + 12;
+			int rmy = my - 12;
+			
 			vazkii.botania.client.core.helper.RenderHelper.renderTooltip(mx, my, parsedTooltip);
-
+			GlStateManager.disableDepth();
+			MinecraftForge.EVENT_BUS.post(new RenderTooltipEvent.PostBackground(tooltipStack, parsedTooltip, rmx, rmy, font, tooltipWidth, tooltipHeight));
+			MinecraftForge.EVENT_BUS.post(new RenderTooltipEvent.PostText(tooltipStack, parsedTooltip, rmx, rmy, font, tooltipWidth, tooltipHeight));
+			GlStateManager.enableDepth();
+			
 			int tooltipY = 8 + tooltipData.size() * 11;
 
 			if(tooltipEntry) {
