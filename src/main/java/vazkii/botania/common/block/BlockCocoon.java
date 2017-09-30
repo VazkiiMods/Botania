@@ -14,6 +14,8 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -69,22 +71,40 @@ public class BlockCocoon extends BlockMod implements ILexiconable {
 	public EnumBlockRenderType getRenderType(IBlockState state) {
 		return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
 	}
+	
+	@Override
+	public void onEntityCollidedWithBlock(World world, BlockPos pos, IBlockState state, Entity e) {
+		if(!world.isRemote && e instanceof EntityItem) {
+			EntityItem item = (EntityItem) e;
+			ItemStack stack = item.getItem();
+			addStack(world, pos, stack, false);
+			
+			if(stack.isEmpty())
+				item.setDead();
+		}
+	}
 
 	@Override
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing s, float xs, float ys, float zs) {
-		TileCocoon cocoon = (TileCocoon) world.getTileEntity(pos);
 		ItemStack stack = player.getHeldItem(hand);
 		Item item = stack.getItem();
 
+		return addStack(world, pos, stack, player.capabilities.isCreativeMode);
+	}
+	
+	private boolean addStack(World world, BlockPos pos, ItemStack stack, boolean creative) {
+		TileCocoon cocoon = (TileCocoon) world.getTileEntity(pos);
+		Item item = stack.getItem();
+		
 		if(cocoon != null && (item == Items.EMERALD || item == Items.CHORUS_FRUIT)) {
 			if(!world.isRemote) {
 				if(item == Items.EMERALD && cocoon.emeraldsGiven < TileCocoon.MAX_EMERALDS) {
-					if(!player.capabilities.isCreativeMode)
+					if(!creative)
 						stack.shrink(1);
 					cocoon.emeraldsGiven++;
-					world.playEvent(2005, pos, 6 + world.rand.nextInt(4));
+					((WorldServer) world).spawnParticle(EnumParticleTypes.VILLAGER_HAPPY, pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5, 1, 0, 0, 0, 0.5);
 				} else if(item == Items.CHORUS_FRUIT && cocoon.chorusFruitGiven < TileCocoon.MAX_CHORUS_FRUITS) {
-					if(!player.capabilities.isCreativeMode)
+					if(!creative)
 						stack.shrink(1);
 					cocoon.chorusFruitGiven++;
 					((WorldServer) world).spawnParticle(EnumParticleTypes.PORTAL, pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, 32, 0, 0, 0, 0.5);
@@ -93,7 +113,7 @@ public class BlockCocoon extends BlockMod implements ILexiconable {
 
 			return true;
 		}
-
+		
 		return false;
 	}
 
