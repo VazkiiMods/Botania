@@ -19,6 +19,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.items.ItemHandlerHelper;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -47,14 +48,21 @@ public class SubTileGourmaryllis extends SubTileGenerating {
 
 		if (supertile.getWorld().isRemote)
 			return;
-
+		
 		if(cooldown > -1)
 			cooldown--;
-		if(cooldown == 0 && digestingMana != 0) {
-			mana = Math.min(getMaxMana(), mana + digestingMana);
-			digestingMana = 0;
-			getWorld().playSound(null, supertile.getPos(), SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.BLOCKS, 1, 1);
-			sync();
+		if(digestingMana != 0) {
+			if(cooldown == 0) {
+				mana = Math.min(getMaxMana(), mana + digestingMana);
+				digestingMana = 0;
+				getWorld().playSound(null, supertile.getPos(), SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.BLOCKS, 1, 1);
+				sync();
+			} else if(cooldown % (2 + (2 * lastFoodCount)) == 0) {
+				getWorld().playSound(null, supertile.getPos(), SoundEvents.ENTITY_GENERIC_EAT, SoundCategory.BLOCKS, 0.5f, 1);
+				
+				Vec3d offset = getWorld().getBlockState(getPos()).getOffset(getWorld(), getPos()).addVector(0.4, 0.6, 0.4);
+				((WorldServer) supertile.getWorld()).spawnParticle(EnumParticleTypes.ITEM_CRACK, supertile.getPos().getX()+offset.x, supertile.getPos().getY()+offset.y, supertile.getPos().getZ()+offset.z, 10, 0.1D, 0.1D, 0.1D, 0.03D, Item.getIdFromItem(lastFood.getItem()), lastFood.getItemDamage());
+			}
 		}
 
 		int slowdown = getSlowdownFactor();
@@ -78,7 +86,7 @@ public class SubTileGourmaryllis extends SubTileGenerating {
 					digestingMana = val * val * 70;
 					digestingMana *= 1F / lastFoodCount;
 					cooldown = val * 10;
-					item.playSound(SoundEvents.ENTITY_GENERIC_EAT, 0.2F, 0.5F + (float) Math.random() * 0.5F);
+					item.playSound(SoundEvents.ENTITY_GENERIC_EAT, 0.2F, 0.6F);
 					sync();
 					((WorldServer) supertile.getWorld()).spawnParticle(EnumParticleTypes.ITEM_CRACK, false, item.posX, item.posY, item.posZ, 20, 0.1D, 0.1D, 0.1D, 0.05D, Item.getIdFromItem(stack.getItem()), stack.getItemDamage());
 				}
