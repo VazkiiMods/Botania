@@ -10,12 +10,16 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
@@ -107,6 +111,13 @@ public class SubTileDaffomill extends SubTileFunctional {
 
 			return true;
 		} else return super.onWanded(player, wand);
+	}
+	
+	@Override
+	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase entity, ItemStack stack) {
+		if(entity != null)
+			orientation = entity.getHorizontalFacing();
+		super.onBlockPlacedBy(world, pos, state, entity, stack);
 	}
 
 	@Override
