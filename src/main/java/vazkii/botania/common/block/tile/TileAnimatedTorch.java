@@ -12,6 +12,7 @@ package vazkii.botania.common.block.tile;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -22,6 +23,8 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.block.ModBlocks;
+
+import java.util.Arrays;
 
 public class TileAnimatedTorch extends TileMod {
 
@@ -60,6 +63,12 @@ public class TileAnimatedTorch extends TileMod {
 	public void handRotate() {
 		if(!world.isRemote)
 			world.addBlockEvent(getPos(), ModBlocks.animatedTorch, 0, (side + 1) % 4);
+	}
+	
+	public void onPlace(EntityLivingBase entity) {
+		if(entity != null) {
+			side = Arrays.asList(SIDES).indexOf(entity.getHorizontalFacing().getOpposite());
+		}
 	}
 
 	public void toggle() {
