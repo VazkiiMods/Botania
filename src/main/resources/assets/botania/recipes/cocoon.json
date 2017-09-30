@@ -13,7 +13,7 @@
   },
   "pattern": [
     "SSS",
-    "SPS",
+    "CPC",
     "SDS"
   ],
   "type": "forge:ore_shaped",
@@ -21,11 +21,14 @@
     "S": {
       "item": "minecraft:string"
     },
+    "C": {
+      "item": "#CLOTHMANAWEAVE"
+    },
     "P": {
-      "item": "#ELVENPIXIEDUST"
+      "item": "botania:felpumpkin"
     },
     "D": {
-      "item": "#ELVENDRAGONSTONE"
+      "item": "#ELVENPIXIEDUST"
     }
   }
 }
