@@ -21,6 +21,7 @@ import vazkii.botania.client.challenge.ModChallenges;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.PersistentVariableHelper;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonBack;
+import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lexicon.page.PageText;
 
 import java.io.IOException;
@@ -66,7 +67,7 @@ public class GuiLexiconChallenge extends GuiLexicon implements IParented {
 		boolean unicode = fontRenderer.getUnicodeFlag();
 		fontRenderer.setUnicodeFlag(true);
 		fontRenderer.drawString(TextFormatting.BOLD + I18n.format(challenge.unlocalizedName), left + 38, top + 13, 0);
-		fontRenderer.drawString(I18n.format(challenge.level.getName()) + " / " + (challenge.complete ? TextFormatting.DARK_GREEN : TextFormatting.DARK_RED) + I18n.format(challenge.complete ? "botaniamisc.completed" : "botaniamisc.notCompleted"), left + 38, top + 23, 0);
+		fontRenderer.drawString(I18n.format(challenge.level.getName()) + ((challenge.icon.getItem() == ModItems.rune) ? "+" : "") + " / " + (challenge.complete ? TextFormatting.DARK_GREEN : TextFormatting.DARK_RED) + I18n.format(challenge.complete ? "botaniamisc.completed" : "botaniamisc.notCompleted"), left + 38, top + 23, 0);
 
 		int width = guiWidth - 30;
 		int x = left + 16;
