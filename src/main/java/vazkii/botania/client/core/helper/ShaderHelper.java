@@ -11,6 +11,7 @@
 package vazkii.botania.client.core.helper;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.resources.SimpleReloadableResourceManager;
 import net.minecraftforge.fml.common.Loader;
@@ -49,6 +50,7 @@ public final class ShaderHelper {
 	
 	private static boolean hasIncompatibleMods = false;
 	private static boolean checkedIncompatibility = false;
+	private static boolean lighting;
 
 	private static void deleteShader(int id) {
 		if (id != 0) {
@@ -97,6 +99,9 @@ public final class ShaderHelper {
 		if(!useShaders())
 			return;
 
+		lighting = GL11.glGetBoolean(GL11.GL_LIGHTING);
+		GlStateManager.disableLighting();
+		
 		ARBShaderObjects.glUseProgramObjectARB(shader);
 
 		if(shader != 0) {
@@ -113,6 +118,8 @@ public final class ShaderHelper {
 	}
 
 	public static void releaseShader() {
+		if(lighting)
+			GlStateManager.enableLighting();
 		useShader(0);
 	}
 
@@ -122,7 +129,7 @@ public final class ShaderHelper {
 	
 	private static boolean checkIncompatibleMods() {
 		if(!checkedIncompatibility) {
-			hasIncompatibleMods = Loader.isModLoaded("albedo") || Loader.isModLoaded("optifine");
+			hasIncompatibleMods = Loader.isModLoaded("optifine");
 			checkedIncompatibility = true;
 		}
 		
