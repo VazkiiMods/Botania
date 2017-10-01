@@ -1,3 +1,6 @@
+r1.10 349
+*Botania shaders will no longer turn off if Albedo is loaded, so you can use it without compromising on visual effects.
+*Fixed another startup crash. Hopefully, because I couldn't reproduce it.
 r1.10 348
 *Added new Azulejo variants.
 *Added the Shulk Me Not, a new endgame generating flower! <i>Only took me almost 2 years!</i>
