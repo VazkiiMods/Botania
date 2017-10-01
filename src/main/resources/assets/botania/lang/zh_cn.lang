@@ -8,6 +8,8 @@
 
 # MISC
 itemGroup.botania=植物魔法
+botania.desc=这里便是植物魔法的描述。
+
 generator.botania-skyblock=水晶花园
 generator.botania-skyblock.info=不推荐植物魔法新手使用
 
@@ -85,7 +87,7 @@ botaniamisc.nearIndex0=附近有多媒体索引!
 botaniamisc.nearIndex1=你所说的一切都会被
 botaniamisc.nearIndex2=当做请求发送给索引
 botaniamisc.startTutorial=开始教程
-botaniamisc.tutorialStarted=你打开了教学,请跟随红色箭头的提示点击并阅读相关内容来学习植物魔法的基础知识. 
+botaniamisc.tutorialStarted=你打开了教学,请跟随红色箭头的提示点击并阅读相关内容来学习植物魔法的基础知识.
 botaniamisc.tutorialEnded=你的教学已结束,想必你对植物魔法已经有了初步的认识,建议再浏览其他章节来了解本模组的更多知识.
 botaniamisc.cosmeticBauble=&o装饰品
 botaniamisc.hasCosmetic=&o装饰品: &r%s
@@ -113,7 +115,7 @@ botaniamisc.clickToAddWarp=右击绑定该位置
 botaniamisc.hasKeepIvy=附有坚毅之藤
 botaniamisc.active=&a激活
 botaniamisc.inactive=&c关闭
-botaniamisc.advancements=植物魔法成就
+botaniamisc.advancements=植物魔法进度
 botaniamisc.dropIkea=&b将它扔出去会分裂开来
 botaniamisc.hourglassLock=沙漏已锁定.用森林法杖右击可解锁.
 botaniamisc.locked=锁定
@@ -130,7 +132,7 @@ botaniamisc.markNotCompleted=标记未完成
 botaniamisc.completed=已完成
 botaniamisc.notCompleted=未完成
 botaniamisc.info=信息
-botaniamisc.challengeInfo=了解关于挑战
+botaniamisc.challengeInfo=关于挑战
 botaniamisc.skyblockRangeTooLow=无效范围,必须至少为250.
 botaniamisc.skyblockRangeTooHigh=无效范围,不能比10000000(一千万)更大.
 botaniamisc.hideNotes=隐藏笔记
@@ -155,8 +157,9 @@ botaniamisc.altarRefill1=返回最后一个合成
 botaniamisc.santaweaveInfo=魔源套,因&c季&f节&c物&f转&c星&f移
 botaniamisc.enterToView=^ 按下回车键以查看 ^
 botaniamisc.scaleChange=缩放
+botaniamisc.invalidDodge=闪避数据包非法
 
-# NEI INTEGRATION
+# JEI INTEGRATION
 botania.nei.brewery=植物酿造
 botania.nei.elvenTrade=精灵交易
 botania.nei.floatingFlowers=浮空花
@@ -272,7 +275,7 @@ botania.armorset.will4.shortDesc=暴击伤害穿透护甲
 botania.armorset.will5.shortDesc=暴击施加凋零效果
 
 # ROMAN NUMERALS
-# 
+#
 # PLEASE
 # DON'T
 # COPY
@@ -281,7 +284,7 @@ botania.armorset.will5.shortDesc=暴击施加凋零效果
 # ENTRIES
 # BACK
 # HERE
-# 
+#
 # THESE
 # EMPTY
 # LINES
@@ -290,19 +293,19 @@ botania.armorset.will5.shortDesc=暴击施加凋零效果
 # ON
 # PURPOSE
 # THANKS
-# 
+#
 # 注：
 # 罗马数字不需要翻译
 # 请勿将对应条目重新
 # 复制回此处，这些空
 # 行仅供占位用，谢谢
-# 
-# 
-# 
-# 
-# 
-# 
-# 
+#
+#
+#
+#
+#
+#
+#
 
 # KNOWLEDGE
 botania.knowledge.minecraft=原版的知识
@@ -371,21 +374,21 @@ botania.versioning.flavour12=植物魔法已更新. #hoennconfirmed
 botania.versioning.flavour13=你激活了我的陷阱卡!我要发动 植物魔法更新!
 botania.versioning.flavour14=让我们玩个饮酒游戏,植物魔法更新一次就喝一杯. *hic*
 botania.versioning.flavour15=别关心植物魔法更新背后的阴谋.
-botania.versioning.flavour16=你有更新了!你有更新了!每 个 人 都 有 更 新 了! 
-botania.versioning.flavour17=你的版本不稳定并且你的头发就像个栗子球! 嘿. 呴. 
-botania.versioning.flavour18=为么什这条更信新息起来看是样这的!? 
-botania.versioning.flavour19=不用接受服务条款你就可以更新植物魔法. 
-botania.versioning.flavour20=(Doge脸)Wow such botania So update Much fix Very content 
+botania.versioning.flavour16=你有更新了!你有更新了!每 个 人 都 有 更 新 了!
+botania.versioning.flavour17=你的版本不稳定并且你的头发就像个栗子球! 嘿. 呴.
+botania.versioning.flavour18=为么什这条更信新息起来看是样这的!?
+botania.versioning.flavour19=不用接受服务条款你就可以更新植物魔法.
+botania.versioning.flavour20=(Doge脸)Wow such botania So update Much fix Very content
 botania.versioning.flavour21=这个植物魔法更新会自我销毁 3...2...
-botania.versioning.flavour22=植物魔法有些故障,但在火之国攻来时一切都变了.也可能没有. 
-botania.versioning.flavour23=植物魔法更新了.另一方面,德国完全贿赂了裁判. 
-botania.versioning.flavour24=嘿! 嘿玩家! 嘿玩家! 嘿玩家! 植物魔法更新了! 
-botania.versioning.flavour25=说什么来着，植物魔法更新了? 
-botania.versioning.flavour26=我抓住了植物魔法的更新然后我 把 它 扔 到 了 地 上! 啊! 
-botania.versioning.flavour27=如果你能空手撸树,为何不顺便更新下植物魔法呢? 
-botania.versioning.flavour28=植物魔法Wow!你每次都说wow!就如你聊天记录显示的! 
-botania.versioning.flavour29=快更新, 更新, 更新, 更新! 没有人想落后版本! 
-botania.versioning.flavour30=植物魔法使用了 更新! 这起到了 很大的效果! 
+botania.versioning.flavour22=植物魔法有些故障,但在火之国攻来时一切都变了.也可能没有.
+botania.versioning.flavour23=植物魔法更新了.另一方面,德国完全贿赂了裁判.
+botania.versioning.flavour24=嘿! 嘿玩家! 嘿玩家! 嘿玩家! 植物魔法更新了!
+botania.versioning.flavour25=说什么来着，植物魔法更新了?
+botania.versioning.flavour26=我抓住了植物魔法的更新然后我 把 它 扔 到 了 地 上! 啊!
+botania.versioning.flavour27=如果你能空手撸树,为何不顺便更新下植物魔法呢?
+botania.versioning.flavour28=植物魔法Wow!你每次都说wow!就如你聊天记录显示的!
+botania.versioning.flavour29=快更新, 更新, 更新, 更新! 没有人想落后版本!
+botania.versioning.flavour30=植物魔法使用了 更新! 这起到了 很大的效果!
 botania.versioning.flavour31=有可用的植物魔法更新了, 现在炫酷了20%.
 botania.versioning.flavour32=恭喜!你是第100,000位使用落后版本的植物魔法玩家, 点击这里获得 免费的iPad!
 botania.versioning.flavour33=在更新植物魔法版本前,你想安装疑问工具栏么?
@@ -427,7 +430,7 @@ botania.versioning.doneDownloading=%s已下载完成。请删除旧的Botania .j
 botania.versioning.downloadedAlready=你已下载最新版本。关闭你的游戏，从你的mods文件夹中删除就版本的mod文件，并且重启游戏以加载新版本！
 botania.versioning.downloadingAlready=更新正在下载中，给它点时间，好吗？
 botania.versioning.error=Woah!看起来在下载植物魔法新版本时出现了点问题。不知vazkii.us是否已经关闭了？
-botania.versioning.disabled=抱歉，自动升级由于服务器主机的原因已被禁用，很快应该就会好的。 
+botania.versioning.disabled=抱歉，自动升级由于服务器主机的原因已被禁用，很快应该就会好的。
 
 # BAUBLE TOOLTIPS
 botania.baubletype.amulet=装备在&a项链&7栏
@@ -466,6 +469,8 @@ entity.botania:babylonWeapon.name=贮藏库武器
 entity.botania:fallingStar.name=落星
 
 # ADVANCEMENT NAMES + DESC
+advancement.botania_challenge=植物魔法挑战
+advancement.botania_challenge.desc=为高阶园丁准备的挑战
 advancement.botania:flowerPickup=Sky of Beginning
 advancement.botania:flowerPickup.desc=拾取一朵神秘花
 advancement.botania:lexiconUse=現実的論理主義者
@@ -491,7 +496,7 @@ advancement.botania:manaBlasterShoot.desc=合成魔力脉冲枪再发射脉冲
 advancement.botania:tiaraWings=Heart Shooter
 advancement.botania:tiaraWings.desc=制作天翼族之冠并用翅膀装饰它
 advancement.botania:terrasteelPickup=Dancer in the Dark
-advancement.botania:terrasteelPickup.desc=用泰拉凝聚板制作一块泰拉锭
+advancement.botania:terrasteelPickup.desc=用泰拉凝聚板制作一块泰拉钢锭
 advancement.botania:elfPortalOpen=World Calling
 advancement.botania:elfPortalOpen.desc=打开通往精灵王国的传送门
 advancement.botania:gaiaGuardianKill=Dead and Seek
@@ -592,7 +597,7 @@ botania.challenge.apothecaryRefill.desc=建造一套当花瓣药剂台空的 时
 botania.challenge.treeFarm=树场
 botania.challenge.treeFarm.desc=创建一个自动化的,能够自我 维持的树场.如果能够种植多 种类型的树奖励积分.
 botania.challenge.fullCropFarm=齐全的作物农场
-botania.challenge.fullCropFarm.desc=创建一个有着所有类型作物 (小麦,胡萝卜,马铃薯,西瓜,南瓜, 可可豆和地狱疣)并且能够全 效率运作的农场.如果输出物 品分类奖励积分. 
+botania.challenge.fullCropFarm.desc=创建一个有着所有类型作物 (小麦,胡萝卜,马铃薯,西瓜,南瓜, 可可豆和地狱疣)并且能够全 效率运作的农场.如果输出物 品分类奖励积分.
 botania.challenge.animalFarm=动物农场
 botania.challenge.animalFarm.desc=创建一个有着所有能够饲养 的动物的自动化农场.如果不 需要手动喂养食物奖励积分.
 botania.challenge.boneMealFarm=骨粉农场
@@ -605,7 +610,9 @@ botania.challenge.mobTower.desc=创建一个塔状的刷怪场.生物 最终必�
 botania.challenge.entropinnyumSetup=热爆装置
 botania.challenge.entropinnyumSetup.desc=建造一套自动合成TNT并且 安全喂食热爆花来生产魔力 的系统.如果TNT需求的沙 子和火药不需要手动放置奖 励积分.
 botania.challenge.spectrolusSetup=斑斓装置
-botania.challenge.spectrolusSetup.desc=建造一套自动喂食斑斓花来 生产魔力的系统.除了最初的 魔力外,任何物品不允许从系 统外部输入.如果它100% 效率运行,不需要为羊毛而等 待奖励积分. 
+botania.challenge.spectrolusSetup.desc=建造一套自动喂食斑斓花来 生产魔力的系统.除了最初的 魔力外,任何物品不允许从系 统外部输入.如果它100% 效率运行,不需要为羊毛而等 待奖励积分.
+botania.challenge.shulkMeNotSetup=Shulk Me Not 装置
+botania.challenge.shulkMeNotSetup.desc=建造一套自动喂食Shulk Me Not来生产魔力的系统，不能从外部输入魔力、物品或任何实体。如果怪物之间没有内讧则奖励积分。
 botania.challenge.potionBrewer=自动酿造
 botania.challenge.potionBrewer.desc=建造一套能够自动制作所有 种类的药水的系统.如果它能 保持总是有一组熏香点燃玩家 基地奖励积分.
 
@@ -821,22 +828,10 @@ tile.botania:miniIsland14.name=红色浮空花
 tile.botania:miniIsland15.name=黑色浮空花
 tile.botania:tinyPotato.name=小土豆
 tile.botania:spawnerClaw.name=生命灌注器
-tile.botania:customBrick0.name=炼狱砖块
-tile.botania:customBrick1.name=灵魂砖块
-tile.botania:customBrick2.name=霜冻砖块
-tile.botania:customBrick3.name=瓦块
-tile.botania:customBrick0Stairs.name=炼狱砖楼梯
-tile.botania:customBrick1Stairs.name=灵魂砖楼梯
-tile.botania:customBrick2Stairs.name=霜冻砖楼梯
-tile.botania:customBrick3Stairs.name=瓦块楼梯
-tile.botania:customBrick0Slab.name=炼狱砖台阶
-tile.botania:customBrick0SlabFull.name=炼狱砖台阶
-tile.botania:customBrick1Slab.name=灵魂砖台阶
-tile.botania:customBrick1SlabFull.name=灵魂砖台阶
-tile.botania:customBrick2Slab.name=霜冻砖台阶
-tile.botania:customBrick2SlabFull.name=霜冻砖台阶
-tile.botania:customBrick3Slab.name=瓦块台阶
-tile.botania:customBrick3SlabFull.name=瓦块台阶
+tile.botania:customBrick0.name=阿兹勒赫瓷砖
+tile.botania:customBrick1.name=阿兹勒赫瓷砖
+tile.botania:customBrick2.name=阿兹勒赫瓷砖
+tile.botania:customBrick3.name=阿兹勒赫瓷砖
 tile.botania:customBrick4.name=阿兹勒赫瓷砖
 tile.botania:customBrick5.name=阿兹勒赫瓷砖
 tile.botania:customBrick6.name=阿兹勒赫瓷砖
@@ -1053,7 +1048,7 @@ tile.botania:stone12.name=錾制安山岩砖
 tile.botania:stone13.name=錾制玄武岩砖
 tile.botania:stone14.name=錾制闪长岩砖
 tile.botania:stone15.name=錾制花岗岩砖
-tile.botania:blazeBlock.name=烈焰灯
+tile.botania:blazeBlock.name=烈焰网
 tile.botania:corporeaInterceptor.name=多媒体拦截器
 tile.botania:corporeaCrystalCube.name=多媒体水晶魔方
 tile.botania:incensePlate.name=香盘
@@ -1184,13 +1179,15 @@ tile.botania:flower.kekimurus.reference=这朵花是个谎言
 tile.botania:flower.gourmaryllis.name=彼方兰
 tile.botania:flower.gourmaryllis.reference=不愉快です
 tile.botania:flower.narslimmus.name=粘球草
-tile.botania:flower.narslimmus.reference=这是什么? 粘粘的 
+tile.botania:flower.narslimmus.reference=这是什么? 粘粘的
 tile.botania:flower.spectrolus.name=斑斓花
 tile.botania:flower.spectrolus.reference=挑剔的家伙
 tile.botania:flower.dandelifeon.name=启命英
 tile.botania:flower.dandelifeon.reference=这就是生活
 tile.botania:flower.rafflowsia.name=噬草花
 tile.botania:flower.rafflowsia.reference=陷阱噩梦
+tile.botania:flower.shulk_me_not.name=Shulk Me Not
+tile.botania:flower.shulk_me_not.reference=哦，这感觉...
 
 # - FUNCTIONAL
 tile.botania:flower.bellethorn.name=娇媚之刺
@@ -1580,7 +1577,7 @@ item.botania:obedienceStick.name=植物遵从法杖
 item.botania:cacophonium.name=不和谐之音
 item.botania:slimeBottle.name=史莱姆罐子
 item.botania:starSword.name=召星者
-item.botania:exchangeRod.name=移壳杆 
+item.botania:exchangeRod.name=移壳杆
 item.botania:magnetRingGreater.name=巨型磁化环
 item.botania:thunderSword.name=召雷者
 item.botania:manaweaveCloth.name=魔源布匹
@@ -1598,6 +1595,12 @@ item.botania:speedUpBelt.name=平原旅带
 item.botania:baubleBox.name=饰品盒子
 item.botania:manaPowder.name=魔力尘
 item.botania:dodgeRing.name=闪避指环
+item.botania:invisibilityCloak.name=隐身斗篷
+item.botania:cloudPendant.name=卷云护符
+item.botania:superCloudPendant.name=筋斗云护符
+item.botania:thirdEye.name=第三只眼
+item.botania:astrolabe.name=世界塑造者之星盘
+item.botania:goddessCharm.name=仁慈女神的链饰
 
 # BREW NAMES
 botania.brew.fallback=退却
@@ -1633,7 +1636,7 @@ botania.potion.clear=赦免
 
 # GUI TEXT
 botania.gui.lexicon.header=植物魔法辞典 第%s版 - 目录
-botania.gui.lexicon.wip=(本条目的编纂工作仍在进行,其当前内容仍未完全定稿)
+botania.gui.lexicon.wip=（本条目的编纂工作仍在进行，其当前内容并非最终版）
 
 # MUSIC DISCS - Unless there is good tranlsation, please left these two as comment - 除非有合适的翻译，否则请不要移除下面两行开头的#注释标记
 # item.record.botania:gaia1.desc=Kain Vinosec - Endure Emptiness
@@ -1916,7 +1919,7 @@ botania.tagline.welcome=欢迎光临植物魔法酒店
 botania.page.welcome0=&o欢迎使用植物魔法！首先，我 祝贺你做出了正确的决定 - 把一本书和树苗绑在一起，或 者是偶然在什么箱子里找到了 这本巨著。怎样都可以啦。<br>&o你可以通过页面下方的箭头、 鼠标滚轮或键盘上的方向键来 浏览这本书。
 botania.page.welcome1=&o剥开其光鲜的外表，植物魔法 的本质却是“科技MOD”，因为对 于科技MOD的每一个环节来说， 你都需要心灵手巧、深思熟虑 还有红石电路，方能不断推进 科技前进。将这句话铭记在心， 会很有用的。<br>&o当然啦，不要担心，你同时还会 得到一些酷炫的新玩具、方块 还有装备。
 botania.page.welcome2=&o不论出于什么意图或者目的， 对于那些以建造好玩、新奇而 酷炫的东西为初心的玩家来说， 植物魔法都将会是他们的最爱。 虽然它是以完全独立，即可以单 独进行游戏的标准设计的，但 同时它也能和其它MOD打成一 片。<br>&o除去极少数个案，植物魔法的 一切都是可以仅靠Minecraft 的特性以及MOD自身的特性就 可以完成的。
-botania.page.welcome3=&o当你迷失前进的方向时，不妨 去看下本MOD的成就和挑战列 表，这两个列表都可以在本书首 页的左侧找到。<br>&o本书排版友好，同时也提供了 大量方便浏览的功能，所以请 在正式开始探究前稍微花点时 间来了解这些小玩意儿都能做 些什么。
+botania.page.welcome3=&o当你迷失前进的方向时，不妨 去看下本MOD的进度和挑战列 表，这两个列表都可以在本书首 页的左侧找到。<br>&o本书排版友好，同时也提供了 大量方便浏览的功能，所以请 在正式开始探究前稍微花点时 间来了解这些小玩意儿都能做 些什么。
 botania.page.welcome4=&o在这之后呢有一个十分钟左右 的基础教程，你可以选择浏览， 或者认真做笔记，抑或跳过。<br>&o然而呢，这本书只会教你最基 础的东西。所以，建议在深刻理 解每一个概念后，进行更深一层 的研究。
 botania.page.welcome5=&o如果你不知道你该了解些什么， 请在浏览时按住SHIFT，将各个 章节粗略浏览一遍，并对每个 东西都有一些简单的印象。<br>&o“辞典索引”分类对于搜索很有 帮助，因为这个分类集所有条 目于大成，本辞典的条目都可以 在此找到。
 botania.page.welcome6=&o然后这就是整个植物魔法简介 啦！你现在可以选择去浏览教程 了。谨此祝你在植物魔法的旅 程中玩得开心，就像我制作植物 魔法的旅程一样！<br>&o~Vazkii，植物魔法作者<br>&o要继续，请点击下方的“返回”按 钮。鼠标右键和退格键也有一 样的效果哦。
@@ -1935,7 +1938,7 @@ botania.page.gardenOfGlass2=创建&1水晶花园&0后，你可以从 脚下发�
 botania.page.gardenOfGlass3=制作&1树苗&0
 botania.page.gardenOfGlass4=制作&1花肥&0
 botania.page.gardenOfGlass5=制作&1圆石&0
-botania.page.gardenOfGlass6=除此之外, 有些东西在植 物魔法中调整得更适合空岛 游戏: &1凝矿兰&0将更容易制作 ,速度更快并且更便宜; &1随想之茧&0以及&1魔力发射器&0的 配方也有所改变; 用制作 &1黑曜石&0的&1烈焰灯&0,改为用烈焰 粉而不是烈焰棒合成;西瓜 种子和南瓜种子可以通过打掉 高草掉落;每份原料可以制作 更多的花肥.&1甘蔗&0和&1粘液球&0变 得可以制作.
+botania.page.gardenOfGlass6=除此之外, 有些东西在植 物魔法中调整得更适合空岛 游戏: &1凝矿兰&0将更容易制作 ,速度更快并且更便宜; &1随想之茧&0以及&1魔力发射器&0的 配方也有所改变; 用制作 &1黑曜石&0的&1烈焰网&0,改为用烈焰 粉而不是烈焰棒合成;西瓜 种子和南瓜种子可以通过打掉 高草掉落;每份原料可以制作 更多的花肥.&1甘蔗&0和&1粘液球&0变 得可以制作.
 botania.page.gardenOfGlass7=制作&1甘蔗&0
 botania.page.gardenOfGlass8=制作&1粘液球&0
 botania.page.gardenOfGlass13=注魔&1海晶石&0
@@ -1985,7 +1988,7 @@ botania.page.apothecary5=合成&1花药台&0.
 # -- PURE DAISY
 botania.entry.pureDaisy=白雏菊
 botania.tagline.pureDaisy=活木,活石与其他的创造者
-botania.page.pureDaisy0=&1白雏菊&0不仅是最基础的,也是 一个植物魔法师所有的最重 要的花.<br>这种花会净化任何相邻的&1木&0 &1头&0和&1石头&0方块,如下一页所示, 变为净化的产物,&1活木&0和&1活石&0 ,可用于合成.  
+botania.page.pureDaisy0=&1白雏菊&0不仅是最基础的,也是 一个植物魔法师所有的最重 要的花.<br>这种花会净化任何相邻的&1木&0 &1头&0和&1石头&0方块,如下一页所示, 变为净化的产物,&1活木&0和&1活石&0 ,可用于合成.
 botania.page.pureDaisy1=给它&4一分钟&0就会...
 botania.page.pureDaisy2=&1活木&0可做成活木枝
 botania.page.pureDaisy4=此外还有一些方块放在这朵 花旁边时也能被净化.尽管它 们并不像活木活石那样是必 需品,或许也能派上什么用场 .包括&1地狱岩&0变为&1圆石&0,&1灵魂沙&0 变为&1沙子&0以及&1冰&0变为&1浮冰&0.
@@ -2031,7 +2034,7 @@ botania.entry.terrasteel=泰拉钢
 botania.tagline.terrasteel=源于魔力与自然的强大金属
 botania.page.terrasteel0=&1泰拉钢&0是一种复杂的魔法合金 ,需注入大量&4魔力&0而成.事 实证明做出这种金属不是那么 简单.要制作的话,首先需要 一个&1泰拉凝聚板&0,将它置于一 个由&1青金石块&0和&1活石&0组成的棋 盘状的布局之上.需提供&4魔力&0 给这个方块,&1火花&0也许能加快 其工作效率.
 botania.page.terrasteel1=制作泰拉凝聚板
-botania.page.terrasteel2=泰拉凝聚板放置好且已做好接 收&4魔力&0的准备之后,将一个&1魔 力钢锭,魔力钻石与魔力珍珠&0 掷于其顶部即可开始注魔.<br>此过程中拾起任何物品均会使 注魔骤停,导致严重的 &4魔力流失&0.注魔将会使用一半 &1魔力池&0的魔力以制作一小块 &4泰拉钢&0,多个&1火花&0可加快注魔 速度.
+botania.page.terrasteel2=泰拉凝聚板放置好且已做好接 收&4魔力&0的准备之后，将一个&1魔 力钢锭、魔力钻石与魔力珍珠 &0掷于其顶部即可开始 注魔。<br>此过程中拾起任何物品均会使 注魔骤停，导致严重的 &4魔力流失&0。注魔将会使用一半 &1魔力池&0的魔力以制作一小块&4泰 拉钢粒&0，多个&1火花&0可加快注魔 速度。
 botania.page.terrasteel3=制作&1泰拉钢&0的模型
 # No translation # botania.page.terrasteel4=T.A. Plate
 
@@ -2044,7 +2047,7 @@ botania.page.blackLotus0=有这样一种难以捉摸的花,名 叫&1黑莲花&0,
 botania.entry.flowerBag=采花袋
 botania.tagline.flowerBag=帮你存储花瓣的可靠小袋
 botania.page.flowerBag0=众所周知,&4物品栏&0的空间是有 限的,这样一来带着各种颜色 的花就变成了一个难题.幸运的 是,&1采花袋&0考虑到了这些问题 .每种颜色的&1神秘花&0最多能储 存1组,除此之外,它还会主动 将持有者捡起的花装入其中.
-botania.page.flowerBag2=手上拿着的物品不会被自动 放入袋子中.<br>其次,用采花袋shift右击&1箱子&0 或其他容器会将储存的花装 入其中. 
+botania.page.flowerBag2=手上拿着的物品不会被自动 放入袋子中.<br>其次,用采花袋shift右击&1箱子&0 或其他容器会将储存的花装 入其中.
 botania.page.flowerBag1=Pull a copter out of it (任意颜色均可)
 
 # -- WRAP
@@ -2058,7 +2061,7 @@ botania.entry.mIntro=魔力的介绍
 botania.tagline.mIntro=始于魔力
 botania.page.mIntro0=&4魔力&0是一种虚无的物质.通俗 的说,它是&4神秘能量&0的一种形 态.感觉上来说它是变化无常 的,并且它的颜色由所在的环 境决定.<br>控制&4魔力&0是一个植物魔法师 所需掌握的最重要的技能之 一.
 botania.page.mIntro1=制造&4魔力&0要一系列&4产能类花&0 (浏览各个部分).&4魔力&0能通过 使用&1魔力发射器&0来传输并存 入&1魔力池&0.&4魔力&0能用于各种不 同的东西上.初学者可用于&4功&0 &4能类花&0(浏览各个部分).
-botania.page.mIntro2=掌握&4魔力&0的艺术需要先学习 如何使用&1太阳花&0,&1魔力发射器&0 和&1魔力池&0.<br>这些构成了一个基础的魔力 系统,可用于各种用途.详情浏 览本书&4功能植物&0和&4神秘设备&0 章节. 
+botania.page.mIntro2=掌握&4魔力&0的艺术需要先学习 如何使用&1太阳花&0,&1魔力发射器&0 和&1魔力池&0.<br>这些构成了一个基础的魔力 系统,可用于各种用途.详情浏 览本书&4功能植物&0和&4神秘设备&0 章节.
 
 # -- MANA SPREADER
 botania.entry.spreader=魔力发射器
@@ -2110,23 +2113,23 @@ botania.page.sparkUpgrades3=&1扩散升级&0会使&1火花&0将它自己 池中�
 botania.page.sparkUpgrades4=最后,&1隔绝升级&0会阻止&1火花&0与 任何聚集或扩散&1火花&0交互,但 仍可以和可通过&1火花&0网络接 收&4魔力&0的方块交互.
 botania.page.sparkUpgrades5=制作升级
 
-# -- MANA DISTRIBUTOR
+# -- MANA SPLITTER
 botania.entry.distributor=魔力分配器
 botania.tagline.distributor=均匀地分配魔力到每一个池子
-botania.page.distributor0=任何一个植物魔法师都会发 展到仅仅一个&1魔力池&0不够的 地步.<br>&1魔力分配器&0将能解决这些问 题.将它紧邻几个&1魔力池&0放置 ,当它收到来自&4魔力脉冲&0的&4魔&0 &4力&0时它会将这些魔力均分分 配给相邻的池子. 
+botania.page.distributor0=任何一个植物魔法师都会发 展到仅仅一个&1魔力池&0不够的 地步。<br>&1魔力分配器&0将能解决这些问 题。将它紧邻几个&1魔力池&0放置， 当它收到来自&4魔力脉冲&0的&4魔&0 &4力&0时它会将这些魔力均分分 配给相邻的池子。
 botania.page.distributor1=合成分配器
 
 # -- MANA VOID
 botania.entry.manaVoid=魔力销毁器
 botania.tagline.manaVoid=销毁一切进来的魔力
-botania.page.manaVoid0=&1魔力销毁器&0通俗的说,就是&4魔&0 &4力&0的垃圾桶.所有进入这个方 块的&4魔力&0都会消失在虚空,再 也不会出现.<br>将它放在一个&1魔力池&0下方会 让池子总是接收&4魔力&0,但销毁 超出容量的部分.
+botania.page.manaVoid0=简单来说，&1魔力销毁器&0是&4魔力&0 的垃圾桶。所有进入这个方块的 &4魔力&0都会被虚空永远地吞噬。<br>在&1魔力池&0下方放一个这个，就 可以让池子满地时候销毁多余 的&4魔力&0。
 # No translation # botania.page.manaVoid1=Even Chad from accounting?
 
 # -- MANA FLUXFIELD
 botania.entry.rfGenerator=魔力转换器
-botania.tagline.rfGenerator=魔力变RF啦!
-botania.page.rfGenerator0=将&4魔力&0引入红石能量场,就可 以将其从自然能量源形态转 为&4红石流量&0.<br>将一魔力发射器对向此方块, 就可把进入其中的&4魔力&0转化 为&4RF&0.之后就能用各种传输&4RF&0 的装置来输出.
-# No translation # botania.page.rfGenerator1=The bullet guys. I bit it.
+botania.tagline.rfGenerator=将 Mana 转化为能量
+botania.page.rfGenerator0=将&4魔力&0引入红石能量场,就可 以将其从自然能量源形态转 为&4FE能量&0。<br>只需将魔力发射器对准这转 换器，转换器就可以把输入的&4魔力&0转化 为&4FE能量&0，并输出到邻近的能 量传输设备中。
+botania.page.rfGenerator1=传统的挑战者，历史的终结者
 
 # -- MANA LENSES
 botania.entry.lens=魔力透镜
@@ -2152,7 +2155,7 @@ botania.page.lens39=信使透镜
 botania.page.lens16=&1引力透镜&0使得&4魔力脉冲&0受到 世上重力的作用,因此形成弧 形运动轨迹.作为补偿,也轻 微延迟了&4魔力&0的流失.
 botania.page.lens17=引力透镜
 botania.page.lens18=&1挖掘透镜&0赋予&4魔力脉冲&0破坏 它所接触的一切方块的能力, 使用它本身的魔力来运作.
-botania.page.lens19=挖掘透镜 
+botania.page.lens19=挖掘透镜
 botania.page.lens20=&1伤害透镜&0给予&4魔力脉冲&0伤害 它穿过的任何生物的力量,使 用它本身的魔力来运作.
 botania.page.lens21=伤害透镜
 botania.page.lens22=&1虚化透镜&0是个有趣的透镜. 通过利用&1奥秘平台&0和它的特 殊能力,就能做出一个使&4魔力&0 &4脉冲&0穿透方块的透镜.但这样 一来,它也会更早开始流失魔 力.
@@ -2297,7 +2300,7 @@ botania.page.bellethorne1=&o每朵玫瑰都有它自己的刺&r.
 # -- DREADTHORNE
 botania.entry.dreadthorne=恐惧之刺
 botania.tagline.dreadthorne=只伤害成年动物
-botania.page.dreadthorne0=&1恐惧之刺&0比起&1娇媚之刺&0稍 微特殊一点,因为它,不会无 差别伤害生物,只会伤害&4成年&0 动物而已. 
+botania.page.dreadthorne0=&1恐惧之刺&0比起&1娇媚之刺&0稍 微特殊一点,因为它,不会无 差别伤害生物,只会伤害&4成年&0 动物而已.
 botania.page.dreadthorne1=&o不,邦德先生,你可以去死了&r.
 
 # -- HEISEI DREAM
@@ -2353,7 +2356,7 @@ botania.page.hopperhock2=&o我猜我会带上我的萝莉私奔&r.
 # -- TANGLEBERRIE
 botania.entry.tangleberrie=束缚莓
 botania.tagline.tangleberrie=让怪物呆在这
-botania.page.tangleberrie0=&1束缚莓&0是一种消耗少量&4魔力&0 让所有邻近的动物和怪物限 制在一个圈内无法脱离的花. 
+botania.page.tangleberrie0=&1束缚莓&0是一种消耗少量&4魔力&0 让所有邻近的动物和怪物限 制在一个圈内无法脱离的花.
 botania.page.tangleberrie1=&o纠缠,勇敢和冻结&r.
 
 # -- JIYUULIA
@@ -2389,8 +2392,8 @@ botania.page.clayconia1=&o简直是杀手的笑话&r.
 
 # -- LOONIUM
 botania.entry.loonium=聚宝花
-botania.tagline.loonium=召唤地牢的战利品 
-botania.page.loonium0=任何疲于冒险的家伙们都知 道&4地牢&0会有些好东西.&1聚宝花&0 会消耗大量&4魔力&0,使这些物品 实体化并掉落在附近.
+botania.tagline.loonium=召唤地牢的战利品
+botania.page.loonium0=任何疲于冒险的家伙们都知 道&4地牢&0会有些好东西。&1聚宝花&0 会消耗大量&4魔力&0，使这些物品 实体化，它也因此吸引了无数探险家。<br>然而，天下没有免费的午餐。 探险家们将会遇到守卫宝藏的 怪物，而且这些怪物绝非等闲之 辈，迎战时请务必小心。不过 呢，这些强大的怪物会掉落&4来自 地牢的宝藏&0。
 botania.page.loonium1=&o箱子箱子我需要箱子&r!
 
 # -- DAFFOMILL
@@ -2480,7 +2483,7 @@ botania.page.thermalily1=&o最难对付的花&r.
 # -- ROSA ARCANA
 botania.entry.arcanerose=阿卡纳蔷薇
 botania.tagline.arcanerose=经验当魔力使
-botania.page.arcanerose0=&4经验点&0是一种形式的魔力. &1阿卡纳蔷薇&0能吸收附近玩家 的经验,并利用它产生&1魔力&0. 
+botania.page.arcanerose0=&4经验点&0是一种形式的魔力. &1阿卡纳蔷薇&0能吸收附近玩家 的经验,并利用它产生&1魔力&0.
 botania.page.arcanerose1=&o该卡被召唤时,投掷硬币&r.
 
 # -- MUNCHDEW
@@ -2506,15 +2509,15 @@ botania.page.kekimurus1=&oFlaxbeard之花就是它了&r.
 botania.entry.gourmaryllis=彼方兰
 botania.tagline.gourmaryllis=食物魔力
 botania.page.gourmaryllis0=&1彼方兰&0是朵饥饿的花.它会吃 掉它附近小范围内的一切食 物,并转为&4魔力&0.<br>问题在于,它在一定时间内只 能消化某种食物,消化完成时 便会制造出&4魔力&0.它所发现的 其他食物,也会被吃掉但不产 生任何魔力.
-botania.page.gourmaryllis1=消化美味的时间取决于它的 营养值,通俗来说,就是食物 所含的饱食度.<br>因此,一个&1牛排&0需要4秒来消 化,一个&1胡萝卜&0则需要2秒,一 个&1面包&0就需要2.5秒,以此类 推. 
-botania.page.gourmaryllis2=&4魔力&0的产量也取决于这个值, 食物越有营养它的效率就越 高.举例来说,单个&1牛排&0能比 两根&1胡萝卜&0产生更多的&1魔力&0, 无论是总量还是每秒的.
-botania.page.gourmaryllis3=&o为我们的新房客准备的火锅&r.
+botania.page.gourmaryllis1=消化美味的时间取决于它的 营养值，通俗来说，就是食物 所能提供的饱食度。<br>因此，一块&1牛排&0需要4秒来消 化，一个&1苹果&0则需要2秒，一 条&1面包&0就需要2.5秒，以此类 推。
+botania.page.gourmaryllis2=&4魔力&0的产量也取决于这个值， 换言之，食物越有营养它的效 率就越高。举个例子：一块&1牛排&0 能提供的&1魔力&0，以及它对应的 产魔速度，都是两个&1苹果&0所无 法达到的。<br>还有一点，连续给&1彼方兰&0喂一 样的食物会让这种食物产出的 &4魔力&0越来越少。
+botania.page.gourmaryllis3=&o为我们的新房客准备的火锅&r。
 
 # -- NARSLIMMUS
 botania.entry.narslimmus=粘球草
 botania.tagline.narslimmus=黏黏魔法
 botania.page.narslimmus0=这个世界上一些地方还存在 着未知的能量场,那里能产生 &1史莱姆&0.人们称其&4史莱姆区块&0 .&1粘球草&0就能利用这种能量.如 果它被种在了一只由那种能 量生出的&1史莱姆&0旁边,它就会 将其分解并收集由其产生的 所有&4魔力&0.&1史莱姆&0越大,产生 的&4魔力&0就越多.它也会弄得黏 黏糊糊的.
-# No translation # botania.page.narslimmus1=&oStick around, would ye&r? 
+# No translation # botania.page.narslimmus1=&oStick around, would ye&r?
 
 # -- SPECTROLUS
 botania.entry.spectrolus=斑斓花
@@ -2532,18 +2535,24 @@ botania.page.rafflowsia1=&o你可以说这是，新的黎明&r。
 # -- DANDELIFEON
 botania.entry.dandelifeon=启命英
 botania.tagline.dandelifeon=魔力源于生命
-botania.page.dandelifeon_w=警告: 这个系统仍处于实 验当中.<br>它也许很快就会变化. 所以 不要太依赖它.
 botania.page.dandelifeon0=&1启命英&0并不是一朵适合胆小 鬼的花.<br>因为它也许是植魔里最强大 的主动产能花,同时它产生 魔力的方式也是最为复杂的.
 botania.page.dandelifeon1=这朵花充分利用了众所周知 的&4康威生命游戏&0中的细胞自 主行动. 它的工作范围是以&1启命英&0为 中心,25x25的一个正方形.<br>当给出一个红石信号时, 这 朵花会以每秒2次的频率执 行游戏.
 botania.page.dandelifeon2=游戏以&4细胞&0为单位进行.25x 25的区域可视为一个25x25 的细胞网格<br>细胞有存活和死亡两种状态 ,如果该位置有一个&1细胞方 块&0则判定为存活 (往下看) 否则判定为死亡. 每一个 细胞同一平面上&4相邻&0八个细 胞.
 botania.page.dandelifeon3=游戏每执行一次, 都将发 生下述变动: &41)&0若相邻细胞中少 于2多于4个细胞或存活,则 该细胞死亡 &442)&0若相邻细胞中有2-3个存活, 则该细胞生死保持不变. &43)&0若某死亡的细胞相邻有3个细 胞存活,则该细胞复活.
 botania.page.dandelifeon4=所有这些变动都是同时发生 的.<br>除此之外, 还有一些规则 是传统&4康威生命游戏&0中不存 在而专属于&1启命英&0的,它们将 会在后面介绍.
-botania.page.dandelifeon5=所有细胞都有年龄, 从0开 始计算.无论细胞何时存活 ,若相邻有2-3个细胞存活, 该细胞年龄+1.当死亡的细 胞重新判定为存活时,该细胞 的年龄将等同于相邻细胞中 最老的细胞+1.所有年龄大于 60的细胞将在下一次执行后 死亡.
-botania.page.dandelifeon6=其次, &1启命英&0为中心3x3的 区域并不适合细胞居住.所 有即将在这个区域出现的细 胞方块都不会出现,取而代之 的是产生&4魔力&0.年龄越高的细 胞产生的&4魔力&0越多.年龄为0 的&4细胞&0不会产生任何魔力.
+botania.page.dandelifeon5=所有细胞都有年龄, 从0开 始计算.无论细胞何时存活 ,若相邻有2-3个细胞存活, 该细胞年龄+1.当死亡的细 胞重新判定为存活时,该细胞 的年龄将等同于相邻细胞中 最老的细胞+1.
+botania.page.dandelifeon6=其次, &1启命英&0为中心3x3的 区域并不适合细胞居住.所 有即将在这个区域出现的细 胞方块都不会出现,取而代之 的是产生&4魔力&0.年龄越高的细 胞产生的&4魔力&0越多.年龄为0 的&4细胞&0不会产生任何魔力.年龄大于 100的细胞所产生的魔力和年 龄为100的细胞一样.
 botania.page.dandelifeon10=每当该区域的细胞被吸收时, 外侧的细胞会全部死亡.<br>对于细胞还有一些别的限制 ,两朵不同的&1启命英&0对同一 个区域执行游戏会使得其中 的细胞死亡.最后,游戏中被&1启 命英&0游戏以外的行为移除的 细胞都会死亡.
-botania.page.dandelifeon7=&1细胞方块&0可由&1仙人掌&0,&1胡萝卜&0 和&1马铃薯&0制作,它们极度脆弱 ,一旦放置就不能挖掘或者被 &1活塞&0推动.也不能生成(通过 规则3)在任何非空气 方块上.<br>不在&1启命英&0范围内的细胞方 块与普通方块无异.
-botania.page.dandelifeon8=&o细胞工艺^2&r.
+botania.page.dandelifeon7=&1细胞方块&0可由&1仙人掌&0、&1胡萝卜&0、 &1马铃薯&0或&1甜菜根&0制作。它们极度脆弱， 一旦放置就不能挖掘或者被 &1活塞&0推动，也不能生成(通过 规则3)在任何非空气 方块上。<br>不在&1启命英&0范围内的细胞方 块与普通方块无异。
+botania.page.dandelifeon8=&o细胞工艺^2&r。
 botania.page.dandelifeon9=制作&1细胞方块&0
+
+# -- SHULK ME NOT
+botania.entry.shulk_me_not=Shulk Me Not
+botania.tagline.shulk_me_not=鹬蚌相争，渔翁得利
+botania.page.shulk_me_not0=&1Shulk Me Not&0是一朵可以驾驭&4飘浮 效果&0的能量，并将其转化为魔 力的产能花。<br>当某个怪物被潜影击中，并因 此悬浮在空中时，这朵花就可 以利用&4悬空效果&0所蕴含的能量 产出大量魔力。不过，这朵花 只会在内部没有魔力缓存时产 出魔力。
+botania.page.shulk_me_not1=关于这朵花有下面几点需要留 意。<br>第一，这朵花产能时会同时杀 死潜影贝和被潜影贝盯上的怪 物，且不会留下任何掉落物。 第二，仅当潜影贝盯上某个怪 物，且怪物受悬浮状态影响的 时候，这朵花才能利用这特殊 的能量；仅仅是被潜影贝的流 弹击中并不足以让花产能。最 后，潜影贝和它瞄上的生物都 必须在这朵花的工作范围内， 方能被这花所处理。
+botania.page.shulk_me_not2=&o禁止摘花&r。
 
 # - NATURAL APPARATUS
 # -- MANA PYLON
@@ -2596,6 +2605,7 @@ botania.page.manaAlchemy19=&1萤石粉&0和&1红石&0间转化
 botania.page.manaAlchemy20=将&1圆石&0粉碎成&1沙子&0
 botania.page.manaAlchemy21=将&1硬化粘土&0变成&1红沙&0
 botania.page.manaAlchemy22=粉碎&1粘土&0&1和砖块&0
+botania.page.manaAlchemy27=将&1紫颂果&0转化为&1紫颂花&0
 botania.page.manaAlchemy23=制作&1劣质土&0
 botania.page.manaAlchemy24=&1草类&0的转化
 botania.page.manaAlchemy25=寻常花的转化
@@ -2655,9 +2665,9 @@ botania.page.complexBrews2b=杀戮的小丑
 botania.page.complexBrews3a=有这种效果的生物将免疫任 何掉落伤害.
 botania.page.complexBrews3b=我称它为魔法
 botania.page.complexBrews4a=这种药水产生了虚空光环,周 围任何生物都会受到其影响. 在128格半径内,怪物不被允 许生成.
-botania.page.complexBrews4b=50$平民价!?
-botania.page.complexBrews5a=这种药水产生了虚空光环,周 围任何生物都会受到其影响. 在64半径内,怪物会无视亮度 或其它条件生成. 不能与&1空虚&0同时作用.
-botania.page.complexBrews5b=我们应该祈祷奇迹? 
+botania.page.complexBrews4b=50$平民价？！
+botania.page.complexBrews5a=这种药水产生了嗜血光环,周 围任何生物都会受到其影响. 在64半径内,怪物会无视亮度 或其它条件生成. 不能与&1空虚&0同时作用.
+botania.page.complexBrews5b=我们应该祈祷奇迹？
 botania.page.complexBrews6a=有这种药水效果的玩家会在 钓鱼时有更高的熟练度会以 2倍的速度钓到鱼和其它战利 品.
 botania.page.complexBrews6b=也许你会钓到大鱼
 botania.page.complexBrews7a=当你喝下这瓶药水,它会清除 你的所有药水效果.无论是正 面的,负面的还是其他什么 buff
@@ -2667,7 +2677,7 @@ botania.page.complexBrews7b=绝对的灵——————魂
 botania.entry.incense=药剂熏香
 botania.tagline.incense=区域酿造效果
 botania.page.incense0=&4药剂&0以液态形式存在时可以 提供多样化的效果.然而持续 时间却是它的短板,药水多了 还占空间.如果用&1熏香&0代替瓶 子就能解决这个问题了,它们 也能像普通的瓶子那样被灌 入&4药剂&0的效果,但需要约10倍 &4魔力&0才行.
-botania.page.incense1=&1熏香&0能通过右击放在&1香盘&0上, 这时再用&1打火石&0右击就能将 其点燃.一旦点着,熏香就不 能取下了.<br>在需要替换前,一根熏香能燃 烧60倍于对应药水时长的时 间.  
+botania.page.incense1=&1熏香&0能通过右击放在&1香盘&0上, 这时再用&1打火石&0右击就能将 其点燃.一旦点着,熏香就不 能取下了.<br>在需要替换前,一根熏香能燃 烧60倍于对应药水时长的时 间.
 botania.page.incense2=燃着&1熏香&0的&1香盘&0将会提供注 入&4药剂&0的效果,以香盘为中心 24格以内的所有玩家都会受 到影响.<br>但不是所有的&4药剂&0效果都能 注入&1熏香&0,比如&4瞬间治疗&0和&1伤&0 &1害吸收&0就不能注入,熏香也不 能有一个以上的效果.
 botania.page.incense5=对于喜欢熏香的自动化狂魔 而言,&1熏香&0能通过&1漏斗&0或其他 输入方式接收物品.有熏香时 &1比较器&0会输出强度为1的信号 ,燃烧的时候强度则是2.<br>最后,如果一束&1引燃透镜&0发出 的&4魔力脉冲&0击中了有熏香的 香盘,就会将其点着.
 botania.page.incense3=是熏香赢了
@@ -2769,9 +2779,9 @@ botania.page.canopyDrum1=鼓本身不会储存魔力,因此激 活它就需要�
 # -- COCOON OF CAPRICE
 botania.entry.cocoon=随想之茧
 botania.tagline.cocoon=孵化属于你的动物
-botania.page.cocoon0=茧通常是进化与蜕变的象征.<br>制作一个&1随想之茧&0并把它放 在地上会慢慢地将其中的基 本元素进化转变为&1小动物&0.很 多情况下不会演变成农场动 物,而可能是更为稀有的, 与众不同的，比如1狼&0或&1马&0
-botania.page.cocoon1=听说给茧&1绿宝石&0会稍微改变 茧的产出<br>也许真的会有什么 人来验证一下这个.  
-botania.page.cocoon2=新世界, 乌托邦
+botania.page.cocoon0=茧通常象征进化与蜕变。<br>制作一个&1随想之茧&0并把它放 在地上会慢慢地将其中的基 本元素进化转变为&1小动物&0。多 数时候，茧会孵出寻常的家禽 或家畜，但也有少数报告指出 它能孵化出&1狼&0或&1马&0。
+botania.page.cocoon1=据说给茧&1绿宝石&0和&1紫颂果&0会稍 微改变茧的产出。给予的方式 既可以是直接右键，也可以是 丢在茧的一旁。<br>也许真的会有什么 人来验证一下这个。
+botania.page.cocoon2=新世界，乌托邦
 
 # -- MANASTORM CHARGE
 botania.entry.manaBomb=魔力风暴
@@ -2903,7 +2913,7 @@ botania.page.elfGear2=首先,&1源质钢镐&0会破坏一切&1圆&0 &1石&0,&1�
 botania.page.elfGear3=我的包里倒出来都是圆石
 botania.page.elfGear4=&1源质钢铲&0,会让所挖的受重力 影响的方块(&1砂砾&0,&1沙子&0,等等 ),挖掉它上方/下方同样材料 的方块,挖矿时再也不会有砂 砾掉下来了.
 botania.page.elfGear5=把东西放在其他东西上
-botania.page.elfGear6=&1源质钢斧&0也能作为武器使用, 如果用在最后一击攻击&4僵尸&0 ,&4骷髅射手&0,&4苦力怕&0甚至其他 &4玩家&0,就有几率斩首,留下他 们的头.  
+botania.page.elfGear6=&1源质钢斧&0也能作为武器使用, 如果用在最后一击攻击&4僵尸&0 ,&4骷髅射手&0,&4苦力怕&0甚至其他 &4玩家&0,就有几率斩首,留下他 们的头.
 botania.page.elfGear7=砍下他们的头
 botania.page.elfGear8=&1源质钢剪&0拥有的能力就是,像 拿着弓一样拉伸时,会快速剪 下持有者为中心大范围内所 有羊的毛.
 botania.page.elfGear9=Nui?她是无害的
@@ -3133,11 +3143,18 @@ botania.page.sextant0=在这个方块世界,艺术的创 造往往不能避免�
 botania.page.sextant1=使用这个工具时会出现一个 蓝圈,作为要制作的圆的简 单预览.一旦设定好,一个 虚拟的&1圆石&0圈会显现出来作 为建筑参考.<br>潜行右击能够重设工具并移 除虚拟圆石
 botania.page.sextant2=你画了一个圆，来证明你的决 心
 
+# -- WORLDSHAPER's ASTROLABAE
+botania.entry.astrolabe=世界塑造者之星盘
+botania.tagline.astrolabe=平面塑造者
+botania.page.astrolabe0=&1世界塑造者之星盘&0是个相当好 用的工具，有了它，你就可以 快速铺开大量方块。<br>首先要用它右击某种方块，如 此可设定其要放置的方块种类。<br>潜行时右击星盘可以调整具体 的放置数量。
+botania.page.astrolabe1=手持星盘指向任意方块时，星 盘会显示效果预览，藉由此可 得知右键放置方块后的效果。<br>方块放置时会消耗&4魔力&0，自然 地也会消耗对应的方块；不过 你也可以使用能给&1移壳法杖&0 提供方块的物品（比如&1深渊法 杖s&0和&1末影之手&0）。
+# No translation # botania.page.astrolabe2=Builds walls, creates worlds
+
 # - ENDER ARTEFACTS
 # -- EXTRACTING ENDER AIR
 botania.entry.enderAir=获取末地空气
 botania.tagline.enderAir=制造末地石的可投掷瓶子
-botania.page.enderAir0=&1末地&0的空气看起来有一些变 异的特性.如果在&1末地&0用空的 &1玻璃瓶&0右击就会收集到那里 的空气,它也可以像喷溅药水 一样扔出去,着陆点附近的&1石&0 &1头&0则会变成&1末地石&0. 
+botania.page.enderAir0=&1末地&0的空气看起来有一些变 异的特性.如果在&1末地&0用空的 &1玻璃瓶&0右击就会收集到那里 的空气,它也可以像喷溅药水 一样扔出去,着陆点附近的&1石&0 &1头&0则会变成&1末地石&0.
 
 # -- ENDER OVERSEER
 botania.entry.enderEyeBlock=末影监视者
@@ -3504,7 +3521,7 @@ botania.page.speedUpBelt1=漫步的你是平原旅者
 # -- BAUBLE CASE
 botania.entry.baubleBox=饰品盒子
 botania.tagline.baubleBox=随身携带的饰品存储
-botania.page.baubleBox0=有时候携带太多的&4饰品&0是一件 麻烦事,背包空间是有限的. 于是更好的办法是将它们都 放在&1饰品盒子&0里,一个随手携 带&4饰品&0的箱子.<br>盒子的特殊设计允许你快速 切换佩戴饰品.它同时能放一 些&4魔力&0容器如&1魔力石板&0. 
+botania.page.baubleBox0=有时候携带太多的&4饰品&0是一件 麻烦事,背包空间是有限的. 于是更好的办法是将它们都 放在&1饰品盒子&0里,一个随手携 带&4饰品&0的箱子.<br>盒子的特殊设计允许你快速 切换佩戴饰品.它同时能放一 些&4魔力&0容器如&1魔力石板&0.
 botania.page.baubleBox1=它甚至能当船使!
 
 # -- RING OF DEXTEROUS MOTION
@@ -3512,6 +3529,36 @@ botania.entry.dodgeRing=闪避指环
 botania.tagline.dodgeRing=来回躲闪
 botania.page.dodgeRing0=&1闪避指环&0是个能让你轻易在战 斗中闪避攻击的实用首饰。 佩戴后，只需不断按&4左/右&0方向 键(默认使用A和D)就可以闪 避怪物攻击了。<br>闪避后，闪避指环会有一段冷 却时间，同时闪避也会消耗饥 饿。
 botania.page.dodgeRing1=闪避加成
+
+# -- INVISIBILITY CLOAK
+botania.entry.invisibilityCloak=隐身斗篷
+botania.tagline.invisibilityCloak=物如其名
+botania.page.invisibilityCloak0=顾名思义，&1隐身斗篷&0就是用来 隐身的。<br>它本身是件首饰，需装备在&4身体&0 格中。在魔力供应充足的情况下，佩戴 者及其身上所有的装备首饰都 会被隐去身形。
+botania.page.invisibilityCloak1=啊，史蒂夫，有若法师一般
+
+# -- CIRRUS AMULET
+botania.entry.cloudPendant=卷云护符
+botania.tagline.cloudPendant=二段跳！
+botania.page.cloudPendant0=&1卷云护符&0本身是件首饰，需装备 在&4护身符&0格。<br>这个护符的佩戴者不仅会获得 &4二段跳&0的能力，还会免疫所有 摔落伤害。
+botania.page.cloudPendant1=一切，尽在云上。
+
+# -- NIMBUS AMULET
+botania.entry.superCloudPendant=筋斗云护符
+botania.tagline.superCloudPendant=三段跳！
+botania.page.superCloudPendant0=&1筋斗云护符&0本身是升级版的&1卷云&0 &1护符&0。护符中注入了&1盖亚之魂&0的 力量，佩戴者也藉由此获得了&4三&0 &4段跳&0的能力。
+botania.page.superCloudPendant1=魔法超越物理
+
+# -- THIRD EYE
+botania.entry.thirdEye=第三只眼
+botania.tagline.thirdEye=看清所有的怪物
+botania.page.thirdEye0=&1第三只眼&0是个探测器一样的奇 怪存在。它本身是件饰品，需装备 于&4身体&0一格。<br>它有个特殊功能：佩戴者将能隔 墙看到附近的怪物（怪物的轮廓 会被高亮）；这个功能会消耗&4魔力&0。
+botania.page.thirdEye1=只能读位置，不能读心
+
+# -- BENEVOLENT GODDESS' CHARM
+botania.entry.goddessCharm=仁慈女神的链饰
+botania.tagline.goddessCharm=阻止爆炸破坏
+botania.page.goddessCharm0=&1仁慈女神的链饰&0是件防御用首 饰，需装备于&4坠饰&0格。<br>佩戴者只要能保证其&4魔力&0消耗， 它便能阻止佩戴者附近发生的 爆炸破坏地形。
+botania.page.goddessCharm1=没有爆炸！
 
 # - ALFHOMANCY
 # -- THE PORTAL TO ALFHEIM
@@ -3541,7 +3588,7 @@ botania.page.elfMessage6=&o最后,注意如果你送来我们没 有约好交易
 # -- THE RESOURCES OF ALFHEIM
 botania.entry.elfResources=精灵的交易
 botania.tagline.elfResources=物超所值
-botania.page.elfResources0=&4艾尔夫海姆&0有许多高级的材 料.可惜的是,大多数由于部 族间的竞争而变得稀缺.精灵 们乐于交易一些材料,比如&1梦&0 &1之木&0,&1源质钢锭&0,&1精灵尘&0和&1龙&0 &1石&0,这些都是他们那里的本土 资源. 
+botania.page.elfResources0=&4艾尔夫海姆&0有许多高级的材 料.可惜的是,大多数由于部 族间的竞争而变得稀缺.精灵 们乐于交易一些材料,比如&1梦&0 &1之木&0,&1源质钢锭&0,&1精灵尘&0和&1龙&0 &1石&0,这些都是他们那里的本土 资源.
 botania.page.elfResources1=交换&1梦之木&0
 botania.page.elfResources2=&1梦之木&0,类似&1活木&0能制成不同 的&4装饰方块&0,在&4杂项&0里浏览&4装&0 &4饰方块&0章节以查看合成.
 botania.page.elfResources10=&1梦之木棍&0
@@ -3581,7 +3628,7 @@ botania.tagline.relicInfo=他们终究是真实的
 botania.page.relicInfo0=从现状推测,这些遗物终究是 真实的.这些物品,通过&1命运 骰子&0中奇妙的力量物质化自 身,事实上因为这个骰子有六 个面,因此推断遗物很可能有 6个.<br>遗物似乎有着记忆它们拥有 者的智慧,因此将属于自己的 遗物交给别人使用是很糟糕 的主意.
 botania.page.relicInfo1=根据记载,相同的遗物不会授 予同一个人两次,因此必须尽 可能保证你的遗物安全.也许 使用类似&1坚毅之藤&0的道具是 个好的投资.<br>有趣的是,获得这个遗物的人 同时也会拥有使用它的知识.
 
-# -- THE FRUIT OF GRISAIA   
+# -- THE FRUIT OF GRISAIA
 botania.entry.infiniteFruit=禁忌之果
 botania.tagline.infiniteFruit=无穷无尽的营养供应
 botania.page.infiniteFruit0=被称为&1禁忌之果&0的遗物赋予 那些得到它的勇敢灵魂永垂 不朽的营养.它可以像普通的 食物一样食用,但不像一般食 物那样消耗自身,它利用背包 里的魔力填满你的饥饿度.<br>希望你喜欢苹果的味道...
@@ -3600,20 +3647,20 @@ botania.page.flugelEye1=这种传送不仅仅消耗&4魔力&0而 且不能跨维
 # -- RING OF THOR
 botania.entry.thorRing=托尔之戒
 botania.tagline.thorRing=因为泰拉粉碎者不够强大
-botania.page.thorRing0= &4亚瑟王&0所持有的三神戒之一, &1托尔之戒&0,戴上这枚戒指的人 将拥有雷神&4托尔&0的力量.这种 力量能够极大地增加&1泰拉粉 碎者&0激活时的开采范围.<br>这枚戒指能够与另外两枚&4亚 瑟王&0的戒指结合形成一个最强 的戒指.
+botania.page.thorRing0= &4亚瑟王&0所持有的三神戒之一，&1托尔之戒&0，戴上这枚戒指的人 将拥有雷神&4托尔&0的力量。这种 力量能够极大地增加&1泰拉粉 碎者&0激活时的开采范围。
 
 # -- RING OF LOKI
 botania.entry.lokiRing=洛基之戒
-botania.tagline.lokiRing=力量来自这边,那边,以及彼岸
+botania.tagline.lokiRing=力量来自这边，那边，以及彼岸
 botania.page.lokiRing0=&4亚瑟王&0所持有的三神戒之一,&1洛基之戒&0让穿戴者能像恶作剧之神&4洛基&0一样 一次放置多个方块.<br>要设定这项能力,首先最重要的是要空手操作.戴着&1洛基之戒&0并空手潜行右击一个方块开始使用它.
 botania.page.lokiRing1=一旦选定初始方块, 潜行右击另一些方块会记录初始方块的相对位置——利用戒指的力量.为了完成选择,你需要潜行右击一开始的方块.<br>潜行右击一个已经选中的方块能够取消选中它.要重置做好的选择,只需潜行右击地面两次.
-botania.page.lokiRing2=在你完成选择后,你会发现你看向的方块所选相对位置有框架标记.当你潜行放置一个方块时,框架标记的方块会模仿你的动作放下相同的方块, 这让你能够一次性放置大量的方块.这个能力同样会影响到&1泰拉粉碎者&0以及&1泰拉断裂者&0(挖掘时标记点会模仿你的挖掘,激活时也会).  
-botania.page.lokiRing3=当然这么强大的力量肯定不是免费的. 每放置一个方块都会消耗穿戴者背包里的&4魔力&0.要注意你选择的方块越多,&4每一个放置方块&0消耗魔力越多.<br>最后,这枚戒指能够与另外两 枚&4亚瑟王&0的戒指结合形成一 个最强的戒指.
+botania.page.lokiRing2=在你完成选择后,你会发现你看向的方块所选相对位置有框架标记.当你潜行放置一个方块时,框架标记的方块会模仿你的动作放下相同的方块, 这让你能够一次性放置大量的方块.这个能力同样会影响到&1泰拉粉碎者&0以及&1泰拉断裂者&0(挖掘时标记点会模仿你的挖掘,激活时也会).
+botania.page.lokiRing3=当然这么强大的力量肯定不是免费的。 每放置一个方块都会消耗穿戴者背包里的&4魔力&0。要注意你选择的方块越多，&4每一个放置方块&0消耗魔力越多。
 
 # -- RING OF ODIN
 botania.entry.odinRing=奥丁之戒
 botania.tagline.odinRing=神佑buff
-botania.page.odinRing0=&4亚瑟王&0所持有的三神戒之一, 赠与穿戴者主神&4奥丁&0的生命 力与活力.穿戴&1奥丁之戒&0不仅 会有额外10颗心的生命,还 能保护穿戴者免受各种环境 伤害如溺水,窒息,火焰以及 饥饿. 这枚戒指能够与另外 两枚&4亚瑟王&0的戒指结合形成 一个最强的戒指.
+botania.page.odinRing0=&4亚瑟王&0所持有的三神戒之一, 赠与穿戴者主神&4奥丁&0的生命 力与活力。穿戴&1奥丁之戒&0不仅 会有额外10颗心的生命，还 能保护穿戴者免受各种环境 伤害如溺水、窒息、火焰以及 饥饿。
 
 # -- ELVEN LORE - THE SHATTERING
 botania.entry.elvenLore=精灵传说-毁灭
@@ -3653,7 +3700,7 @@ botania.page.decorativeBlocks6=苔活木板
 botania.page.decorativeBlocks7=框边活木板
 botania.page.decorativeBlocks8=框纹活木板
 botania.page.decorativeBlocks9=微光活木
-botania.page.decorativeBlocks10=此外,将&1下界石英&0与其他物质 混合就能做出其他&1石英&0方块.<br>并且这些新的石英也能像原 版&1石英&0那样合成装饰方块. 
+botania.page.decorativeBlocks10=此外,将&1下界石英&0与其他物质 混合就能做出其他&1石英&0方块.<br>并且这些新的石英也能像原 版&1石英&0那样合成装饰方块.
 botania.page.decorativeBlocks11=烟熏石英
 botania.page.decorativeBlocks12=魔力石英
 botania.page.decorativeBlocks13=烈焰石英
@@ -3741,14 +3788,14 @@ botania.page.stoneAlchemy1=制作不同的石头
 botania.page.stoneAlchemy2=磨光
 botania.page.stoneAlchemy3=砌砖
 
-# Not sure why these are not removed but I will remove them in zh_CN at least
-# Not sure why these are not removed but I will remove them in zh_CN at least
-# Not sure why these are not removed but I will remove them in zh_CN at least
+# Not sure why these are not removed but let's remove them in zh_CN at least
+# Not sure why these are not removed but let's remove them in zh_CN at least
+# Not sure why these are not removed but let's remove them in zh_CN at least
 
 # -- BLAZE LIGHT
-botania.entry.blazeBlock=烈焰灯
+botania.entry.blazeBlock=烈焰网
 botania.tagline.blazeBlock=压缩烈焰棒存储,新的黑曜石获取方式
-botania.page.blazeBlock0=将一捆&1烈焰棒&0压实就能得到 一个发光的装饰方块,尽管粗 糙,却是个不错的光源.<br>类似&1煤块&0,&1烈焰灯&0也能用作燃 料.将它放在&1白雏菊&0旁边则会 被转化为&1黑曜石&0,真是见鬼了.
+botania.page.blazeBlock0=将一捆&1烈焰棒&0压实就能得到 一个发光的装饰方块,尽管粗 糙,却是个不错的光源.<br>类似&1煤块&0,&1烈焰网&0也能用作燃 料.将它放在&1白雏菊&0旁边则会 被转化为&1黑曜石&0,真是见鬼了.
 # No translation # botania.page.blazeBlock1=0x1a4
 
 # -- CHALLENGES
@@ -3775,7 +3822,7 @@ botania.page.pavement1=这很可靠
 botania.entry.tcIntegration=神秘学相关
 botania.tagline.tcIntegration=与神秘时代的各种互动
 botania.page.tcIntegration0=&4植物学&0与&4神秘学&0常有交叉之 处.使用本书中和&5神秘学&0中 提到的一些东西就能将两者 结合制造新的物品.
-botania.page.tcIntegration1=首先,将任何一种&1魔力金属&0头 盔和一副&1揭示之护目镜&0结合 就能兼得两者的能力.<br>护甲的保护力和恢复力都将 与护目镜的能力共存,但&4要素&0 减免的能力则会丢失. 
+botania.page.tcIntegration1=首先,将任何一种&1魔力金属&0头 盔和一副&1揭示之护目镜&0结合 就能兼得两者的能力.<br>护甲的保护力和恢复力都将 与护目镜的能力共存,但&4要素&0 减免的能力则会丢失.
 botania.page.tcIntegration2=揭示之头盔(植物魔法的头盔 都有效)
 botania.page.tcIntegration3=接下来,&4魔力&0也能作为一种特 殊的墨水来使用.给&1笔与墨&0注 入来自&1魔力池&0的&4魔力&0就能让 其将所提的&4魔力&0作为颜料源.<br>补充起来类似给&1魔力石板&0充 能,直接扔到池子上面即可.
 botania.page.tcIntegration4=制作&1植物学家的笔墨&0
@@ -3839,4 +3886,4 @@ botania.subtitle.terraPickMode=泰拉粉碎者升级
 botania.subtitle.terrasteelCraft=泰拉钢制作完成
 botania.subtitle.thermalily=炽玫瑰消耗熔岩
 botania.subtitle.unholyCloak=罪恶斗篷 激活
-# No translation # botania.subtitle.way=
+# No translation - meme protection association # botania.subtitle.way=
