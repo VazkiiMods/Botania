@@ -10,13 +10,10 @@
  */
 package vazkii.botania.common.block.mana;
 
-import java.util.Random;
-
-import javax.annotation.Nonnull;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -46,17 +43,20 @@ import vazkii.botania.common.core.helper.InventoryHelper;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
+import javax.annotation.Nonnull;
+import java.util.Random;
+
 public class BlockPrism extends BlockMod implements IManaTrigger, ILexiconable, IManaCollisionGhost {
-
 	private static final AxisAlignedBB AABB = new AxisAlignedBB(0.25, 0, 0.25, 0.75, 1, 0.75);
-
-	private final Random random = new Random();
 
 	public BlockPrism() {
 		super(Material.GLASS, LibBlockNames.PRISM);
 		setHardness(0.3F);
 		setSoundType(SoundType.GLASS);
 		setLightLevel(1.0F);
+		setDefaultState(blockState.getBaseState()
+				.withProperty(BotaniaStateProps.POWERED, false)
+				.withProperty(BotaniaStateProps.HAS_LENS, false));
 	}
 
 	@Nonnull
@@ -69,13 +69,6 @@ public class BlockPrism extends BlockMod implements IManaTrigger, ILexiconable, 
 	@Override
 	public BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, BotaniaStateProps.POWERED, BotaniaStateProps.HAS_LENS);
-	}
-
-	@Override
-	protected IBlockState pickDefaultState() {
-		return blockState.getBaseState()
-				.withProperty(BotaniaStateProps.POWERED, false)
-				.withProperty(BotaniaStateProps.HAS_LENS, false);
 	}
 
 	@Override
@@ -189,5 +182,11 @@ public class BlockPrism extends BlockMod implements IManaTrigger, ILexiconable, 
 	@Override
 	public boolean isGhost(IBlockState state, World world, BlockPos pos) {
 		return true;
+	}
+
+	@Nonnull
+	@Override
+	public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing side) {
+		return side.getAxis() == EnumFacing.Axis.Y ? BlockFaceShape.CENTER_BIG : BlockFaceShape.MIDDLE_POLE_THICK;
 	}
 }

@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "botania:supertravelbelt"
+  },
+  "pattern": [
+    "E  ",
+    " S ",
+    "L E"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "S": {
+      "item": "botania:travelbelt"
+    },
+    "E": {
+      "item": "#INGOTELVENELEMENTIUM"
+    },
+    "L": {
+      "item": "#ETERNALLIFEESSENCE"
+    }
+  }
+}

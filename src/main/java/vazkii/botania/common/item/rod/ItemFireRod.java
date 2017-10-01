@@ -10,9 +10,6 @@
  */
 package vazkii.botania.common.item.rod;
 
-import javax.annotation.Nonnull;
-
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
@@ -33,6 +30,8 @@ import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.entity.EntityFlameRing;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.lib.LibItemNames;
+
+import javax.annotation.Nonnull;
 
 public class ItemFireRod extends ItemMod implements IManaUsingItem, IAvatarWieldable {
 

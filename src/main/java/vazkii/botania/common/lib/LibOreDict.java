@@ -28,7 +28,6 @@ public final class LibOreDict {
 	public static final String ELEMENTIUM = "ingotElvenElementium";
 	public static final String PIXIE_DUST = "elvenPixieDust";
 	public static final String DRAGONSTONE = "elvenDragonstone";
-	public static final String PRISMARINE_SHARD = "shardPrismarine";
 	public static final String PLACEHOLDER = "bPlaceholder";
 	public static final String RED_STRING = "bRedString";
 	public static final String DREAMWOOD_TWIG = "dreamwoodTwig";

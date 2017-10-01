@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.item.equipment.tool.manasteel;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.Entity;
@@ -23,7 +21,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.BotaniaAPI;
@@ -37,6 +34,8 @@ import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibMisc;
 
+import javax.annotation.Nonnull;
+
 public class ItemManasteelSword extends ItemSword implements IManaUsingItem, IModelRegister {
 
 	public static final int MANA_PER_DAMAGE = 60;
@@ -48,7 +47,7 @@ public class ItemManasteelSword extends ItemSword implements IManaUsingItem, IMo
 	public ItemManasteelSword(ToolMaterial mat, String name) {
 		super(mat);
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
-		GameRegistry.register(this, new ResourceLocation(LibMisc.MOD_ID, name));
+		setRegistryName(new ResourceLocation(LibMisc.MOD_ID, name));
 		setUnlocalizedName(name);
 		addPropertyOverride(new ResourceLocation("botania", "elucidator"),
 				(stack, worldIn, entityIn) -> "the elucidator".equals(stack.getDisplayName().toLowerCase().trim()) ? 1 : 0);

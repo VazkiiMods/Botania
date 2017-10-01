@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.item.lens;
 
-import java.util.List;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.projectile.EntityThrowable;
@@ -19,6 +17,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.AxisAlignedBB;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.IManaSpreader;
+
+import java.util.List;
 
 public class LensTripwire extends Lens {
 
@@ -37,7 +37,7 @@ public class LensTripwire extends Lens {
 			if(entity.world.isRemote)
 				return;
 
-			AxisAlignedBB axis = new AxisAlignedBB(entity.posX, entity.posY, entity.posZ, entity.lastTickPosX, entity.lastTickPosY, entity.lastTickPosZ).expand(0.25, 0.25, 0.25);
+			AxisAlignedBB axis = new AxisAlignedBB(entity.posX, entity.posY, entity.posZ, entity.lastTickPosX, entity.lastTickPosY, entity.lastTickPosZ).grow(0.25);
 			List<EntityLivingBase> entities = entity.world.getEntitiesWithinAABB(EntityLivingBase.class, axis);
 			if(!entities.isEmpty()) {
 				Entity e = (Entity) burst;

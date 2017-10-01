@@ -10,8 +10,6 @@
  */
 package vazkii.botania.api.subtile;
 
-import java.util.List;
-
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
@@ -31,6 +29,8 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.wand.IWandBindable;
+
+import java.util.List;
 
 /**
  * A Sub-TileEntity, this is used for the flower system. Make sure to map subclasses
@@ -144,6 +144,14 @@ public class SubTileEntity {
 	 * Called when this sub tile is harvested
 	 */
 	public void onBlockHarvested(World world, BlockPos pos, IBlockState state, EntityPlayer player) {}
+
+	/**
+	 * Triggered by {@link TileEntity#receiveClientEvent} via {@link net.minecraft.block.Block#eventReceived} and {@link World#addBlockEvent}
+	 */
+	public boolean receiveClientEvent(int id, int param)
+	{
+		return false;
+	}
 
 	/**
 	 * Allows additional processing of sub tile drops

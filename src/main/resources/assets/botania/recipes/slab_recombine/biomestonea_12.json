@@ -1,0 +1,17 @@
+{
+  "result": {
+    "item": "botania:biomestonea",
+    "data": 12
+  },
+  "pattern": [
+    "Q",
+    "Q"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "Q": {
+      "item": "botania:biomestonea12slab",
+      "data": 0
+    }
+  }
+}

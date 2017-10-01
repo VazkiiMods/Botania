@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "botania:blocks/ghostrail"
+    "layer0": "botania:blocks/rail_ghost"
   }
 }

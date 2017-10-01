@@ -1,0 +1,29 @@
+{
+  "result": {
+    "item": "botania:thirdeye"
+  },
+  "pattern": [
+    "RSR",
+    "QEQ",
+    "RDR"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "Q": {
+      "item": "minecraft:quartz_block",
+      "data": 0
+    },
+    "R": {
+      "item": "minecraft:golden_carrot"
+    },
+    "S": {
+      "item": "#RUNEEARTHB"
+    },
+    "D": {
+      "item": "#MANADIAMOND"
+    },
+    "E": {
+      "item": "minecraft:ender_eye"
+    }
+  }
+}

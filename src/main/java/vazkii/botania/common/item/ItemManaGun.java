@@ -10,17 +10,15 @@
  */
 package vazkii.botania.common.item;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
@@ -29,28 +27,28 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraftforge.oredict.RecipeSorter;
-import net.minecraftforge.oredict.RecipeSorter.Category;
 import vazkii.botania.api.mana.BurstProperties;
 import vazkii.botania.api.mana.ILens;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
-import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.client.core.handler.ItemsRemainingRenderHandler;
-import vazkii.botania.common.achievement.ModAchievements;
+import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
-import vazkii.botania.common.crafting.recipe.ManaGunClipRecipe;
-import vazkii.botania.common.crafting.recipe.ManaGunLensRecipe;
-import vazkii.botania.common.crafting.recipe.ManaGunRemoveLensRecipe;
+import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.entity.EntityManaBurst;
 import vazkii.botania.common.lib.LibItemNames;
+import vazkii.botania.common.lib.LibMisc;
+
+import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ItemManaGun extends ItemMod implements IManaUsingItem {
 
@@ -66,13 +64,6 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 		setMaxDamage(COOLDOWN);
 		setMaxStackSize(1);
 		setNoRepair();
-
-		GameRegistry.addRecipe(new ManaGunLensRecipe());
-		GameRegistry.addRecipe(new ManaGunRemoveLensRecipe());
-		GameRegistry.addRecipe(new ManaGunClipRecipe());
-		RecipeSorter.register("botania:manaGunLens", ManaGunLensRecipe.class, Category.SHAPELESS, "");
-		RecipeSorter.register("botania:manaGunRemoveLens", ManaGunRemoveLensRecipe.class, Category.SHAPELESS, "");
-		RecipeSorter.register("botania:manaGunClip", ManaGunClipRecipe.class, Category.SHAPELESS, "");
 	}
 
 	@Nonnull
@@ -97,11 +88,12 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 			EntityManaBurst burst = getBurst(player, stack, true);
 			if(burst != null && ManaItemHandler.requestManaExact(stack, player, burst.getMana(), true)) {
 				if(!world.isRemote) {
-					world.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.manaBlaster, SoundCategory.PLAYERS, 0.6F, 1);
-					player.addStat(ModAchievements.manaBlasterShoot, 1);
-					if(isSugoiKawaiiDesuNe(stack))
-						player.addStat(ModAchievements.desuGun, 1);
+					world.playSound(null, player.posX, player.posY, player.posZ, ModSounds.manaBlaster, SoundCategory.PLAYERS, 0.6F, 1);
 					world.spawnEntity(burst);
+					PlayerHelper.grantCriterion((EntityPlayerMP) player, new ResourceLocation(LibMisc.MOD_ID, "main/mana_blaster_shoot"), "code_triggered");
+					if(isSugoiKawaiiDesuNe(stack)) {
+						PlayerHelper.grantCriterion((EntityPlayerMP) player, new ResourceLocation(LibMisc.MOD_ID, "challenge/desu_gun"), "code_triggered");
+					}
 				} else {
 					player.swingArm(hand);
 					player.motionX -= burst.motionX * 0.1;
@@ -179,7 +171,7 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void addInformation(ItemStack par1ItemStack, EntityPlayer player, List<String> stacks, boolean par4) {
+	public void addInformation(ItemStack par1ItemStack, World world, List<String> stacks, ITooltipFlag flags) {
 		boolean clip = hasClip(par1ItemStack);
 		if(clip && !GuiScreen.isShiftKeyDown()) {
 			addStringToTooltip(I18n.format("botaniamisc.shiftinfo"), stacks);
@@ -188,7 +180,7 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 
 		ItemStack lens = getLens(par1ItemStack);
 		if(!lens.isEmpty()) {
-			List<String> tooltip = lens.getTooltip(player, false);
+			List<String> tooltip = lens.getTooltip(Minecraft.getMinecraft().player, ITooltipFlag.TooltipFlags.NORMAL);
 			if(tooltip.size() > 1)
 				stacks.addAll(tooltip.subList(1, tooltip.size()));
 		}
@@ -200,7 +192,7 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 				String name;
 				TextFormatting formatting = i == pos ? TextFormatting.GREEN : TextFormatting.GRAY;
 				ItemStack lensAt = getLensAtPos(par1ItemStack, i);
-				if(lensAt == null)
+				if(lensAt.isEmpty())
 					name = I18n.format("botaniamisc.clipEmpty");
 				else name = lensAt.getDisplayName();
 				addStringToTooltip(formatting + " - " + name, stacks);
@@ -237,7 +229,7 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 
 	public static void rotatePos(ItemStack stack) {
 		int currPos = getClipPos(stack);
-		boolean acceptEmpty = getLensAtPos(stack, currPos) != null;
+		boolean acceptEmpty = !getLensAtPos(stack, currPos).isEmpty();
 		int[] slots = new int[CLIP_SLOTS - 1];
 
 		int index = 0;
@@ -248,7 +240,7 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 
 		for(int i : slots) {
 			ItemStack lensAt = getLensAtPos(stack, i);
-			if(acceptEmpty || lensAt != null) {
+			if(acceptEmpty || !lensAt.isEmpty()) {
 				setClipPos(stack, i);
 				return;
 			}

@@ -19,15 +19,11 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import vazkii.botania.api.recipe.IElvenItem;
 import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.client.render.IModelRegister;
 import vazkii.botania.common.core.BotaniaCreativeTab;
-import vazkii.botania.common.item.block.ItemBlockElven;
-import vazkii.botania.common.item.block.ItemBlockMod;
 import vazkii.botania.common.lib.LibMisc;
 
 public abstract class BlockMod extends Block implements IModelRegister {
@@ -35,20 +31,9 @@ public abstract class BlockMod extends Block implements IModelRegister {
 	public BlockMod(Material par2Material, String name) {
 		super(par2Material);
 		setUnlocalizedName(name);
-		setDefaultState(pickDefaultState()); // This MUST happen before registering the block
 		setRegistryName(new ResourceLocation(LibMisc.MOD_ID, name));
-		GameRegistry.register(this);
-		registerItemForm();
 		if(registerInCreative())
 			setCreativeTab(BotaniaCreativeTab.INSTANCE);
-	}
-
-	protected IBlockState pickDefaultState() {
-		return blockState.getBaseState();
-	}
-
-	public void registerItemForm() {
-		GameRegistry.register(this instanceof IElvenItem ? new ItemBlockElven(this) : new ItemBlockMod(this), getRegistryName());
 	}
 
 	protected boolean registerInCreative() {

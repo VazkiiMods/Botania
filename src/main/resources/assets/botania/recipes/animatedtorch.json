@@ -1,0 +1,18 @@
+{
+  "result": {
+    "item": "botania:animatedtorch"
+  },
+  "pattern": [
+    "D",
+    "T"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "D": {
+      "item": "#POWDERMANA"
+    },
+    "T": {
+      "item": "minecraft:redstone_torch"
+    }
+  }
+}

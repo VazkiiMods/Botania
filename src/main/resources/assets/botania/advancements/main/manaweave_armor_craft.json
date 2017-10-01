@@ -1,0 +1,60 @@
+{
+  "display": {
+    "icon": {
+      "item": "botania:manaresource",
+      "data": 22
+    },
+    "title": {
+      "translate": "advancement.botania:manaweaveArmorCraft"
+    },
+    "description": {
+      "translate": "advancement.botania:manaweaveArmorCraft.desc"
+    }
+  },
+  "parent": "botania:main/mana_pool_pickup",
+  "criteria": {
+    "head": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "botania:manaweavehelm"
+          }
+        ]
+      }
+    },
+    "chest": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "botania:manaweavechest"
+          }
+        ]
+      }
+    },
+    "legs": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "botania:manaweavelegs"
+          }
+        ]
+      }
+    },
+    "feet": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "botania:manaweaveboots"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [ "head", "chest", "legs", "feet" ]
+  ]
+}

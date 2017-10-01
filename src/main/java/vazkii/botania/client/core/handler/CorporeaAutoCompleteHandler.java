@@ -10,32 +10,29 @@
  */
 package vazkii.botania.client.core.handler;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.SortedSet;
-import java.util.TreeSet;
-
-import javax.annotation.Nonnull;
-
-import net.minecraft.util.NonNullList;
-import org.lwjgl.input.Keyboard;
-
 import com.google.common.collect.ImmutableList;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiChat;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
+import org.lwjgl.input.Keyboard;
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.common.lib.LibObfuscation;
+
+import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 public class CorporeaAutoCompleteHandler {
 
@@ -59,7 +56,7 @@ public class CorporeaAutoCompleteHandler {
 			if(item != null && item.getCreativeTab() != null) {
 				curList.clear();
 				try {
-					item.getSubItems(item, null, curList);
+					item.getSubItems(null, curList);
 					for(ItemStack stack : curList)
 						itemNames.add(CorporeaHelper.stripControlCodes(stack.getDisplayName().trim()));
 				}
@@ -95,11 +92,10 @@ public class CorporeaAutoCompleteHandler {
 		if(!CorporeaHelper.shouldAutoComplete())
 			return;
 
-		GuiTextField inputField = ReflectionHelper.getPrivateValue(GuiChat.class, chat, LibObfuscation.INPUT_FIELD);
 		if(!isAutoCompleted)
-			buildAutoCompletes(inputField, chat);
+			buildAutoCompletes(chat.inputField, chat);
 		if(isAutoCompleted && !completions.isEmpty())
-			advanceAutoComplete(inputField, chat);
+			advanceAutoComplete(chat.inputField, chat);
 	}
 
 	private void advanceAutoComplete(GuiTextField inputField, GuiChat chat) {

@@ -1,9 +1,6 @@
 {
   "variants": {
-    "variant=hellish_brick": { "model": "botania:bricks/hellish_brick" },
-    "variant=soul_brick": { "model": "botania:bricks/soul_brick" },
-    "variant=frosty_brick": { "model": "botania:bricks/frosty_brick" },
-    "variant=roof_tile": { "model": "botania:bricks/roof_tile" },
+	"variant=azulejo_0": { "model": "botania:bricks/azulejo_0" },
     "variant=azulejo_1": { "model": "botania:bricks/azulejo_1" },
     "variant=azulejo_2": { "model": "botania:bricks/azulejo_2" },
     "variant=azulejo_3": { "model": "botania:bricks/azulejo_3" },
@@ -15,6 +12,9 @@
     "variant=azulejo_9": { "model": "botania:bricks/azulejo_9" },
     "variant=azulejo_10": { "model": "botania:bricks/azulejo_10" },
     "variant=azulejo_11": { "model": "botania:bricks/azulejo_11" },
-    "variant=azulejo_12": { "model": "botania:bricks/azulejo_12" }
+    "variant=azulejo_12": { "model": "botania:bricks/azulejo_12" },
+	"variant=azulejo_13": { "model": "botania:bricks/azulejo_13" },
+    "variant=azulejo_14": { "model": "botania:bricks/azulejo_14" },
+    "variant=azulejo_15": { "model": "botania:bricks/azulejo_15" }
   }
 }

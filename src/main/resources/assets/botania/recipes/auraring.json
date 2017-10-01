@@ -1,0 +1,19 @@
+{
+  "result": {
+    "item": "botania:auraring"
+  },
+  "pattern": [
+    "RI ",
+    "I I",
+    " I "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "R": {
+      "item": "#RUNEMANAB"
+    },
+    "I": {
+      "item": "#INGOTMANASTEEL"
+    }
+  }
+}

@@ -10,14 +10,14 @@
  */
 package vazkii.botania.common.lexicon.page;
 
+import net.minecraft.client.gui.GuiButton;
+import net.minecraft.util.text.translation.I18n;
+import vazkii.botania.api.internal.IGuiLexiconEntry;
+
 import java.awt.Desktop;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.util.text.translation.I18n;
-import vazkii.botania.api.internal.IGuiLexiconEntry;
 
 public class PageGuide extends PageText {
 

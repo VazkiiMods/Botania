@@ -1,10 +1,10 @@
 {
   "parent": "minecraft:block/block",
   "textures": {
-    "bottom": "botania:blocks/prism0",
-    "top": "botania:blocks/prism0",
-    "side": "botania:blocks/prism1",
-    "particle": "botania:blocks/prism1"
+    "bottom": "botania:blocks/prism_top_bottom",
+    "top": "botania:blocks/prism_top_bottom",
+    "side": "botania:blocks/prism_side",
+    "particle": "botania:blocks/prism_side"
   },
   "elements": [
     {

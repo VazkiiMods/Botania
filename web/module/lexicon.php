@@ -12,7 +12,7 @@
 </div>
 
 <?php
-	$file = file('https://raw.githubusercontent.com/Vazkii/Botania/master/src/main/resources/assets/botania/lang/en_US.lang');
+	$file = file('https://raw.githubusercontent.com/Vazkii/Botania/master/src/main/resources/assets/botania/lang/en_us.lang');
 	
 	$started_docs = false;
 	$opened_div = false;

@@ -10,14 +10,7 @@
  */
 package vazkii.botania.common.entity;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
-import com.google.common.base.Optional;
 import com.google.common.base.Predicates;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumDyeColor;
@@ -38,6 +31,10 @@ import vazkii.botania.api.corporea.InvWithLocation;
 import vazkii.botania.common.core.helper.InventoryHelper;
 import vazkii.botania.common.item.ModItems;
 
+import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.List;
+
 public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 
 	private static final int SCAN_RANGE = 8;
@@ -49,7 +46,7 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 	private static final DataParameter<Boolean> MASTER = EntityDataManager.createKey(EntityCorporeaSpark.class, DataSerializers.BOOLEAN);
 	private static final DataParameter<Integer> NETWORK = EntityDataManager.createKey(EntityCorporeaSpark.class, DataSerializers.VARINT);
 	private static final DataParameter<Integer> ITEM_DISPLAY_TICKS = EntityDataManager.createKey(EntityCorporeaSpark.class, DataSerializers.VARINT);
-	private static final DataParameter<ItemStack> DISPLAY_STACK = EntityDataManager.createKey(EntityCorporeaSpark.class, DataSerializers.OPTIONAL_ITEM_STACK);
+	private static final DataParameter<ItemStack> DISPLAY_STACK = EntityDataManager.createKey(EntityCorporeaSpark.class, DataSerializers.ITEM_STACK);
 
 	private ICorporeaSpark master;
 	private List<ICorporeaSpark> connections = new ArrayList<>();
@@ -262,7 +259,7 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 	@Override
 	public boolean processInitialInteract(EntityPlayer player, EnumHand hand) {
 		ItemStack stack = player.getHeldItem(hand);
-		if(!stack.isEmpty()) {
+		if(!isDead && !stack.isEmpty()) {
 			if(player.world.isRemote) {
 				boolean valid = stack.getItem() == ModItems.twigWand || stack.getItem() == ModItems.dye || stack.getItem() == ModItems.phantomInk;
 				if(valid)
@@ -284,7 +281,7 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 				if(color != getNetwork().getMetadata()) {
 					setNetwork(EnumDyeColor.byMetadata(color));
 
-					if(master != null)
+					if(isMaster())
 						restartNetwork();
 					else findNetwork();
 

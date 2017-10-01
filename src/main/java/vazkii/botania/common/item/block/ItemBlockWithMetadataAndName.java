@@ -10,46 +10,22 @@
  */
 package vazkii.botania.common.item.block;
 
+import net.minecraft.block.Block;
+import net.minecraft.item.ItemStack;
+
 import javax.annotation.Nonnull;
 
-import net.minecraft.block.Block;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
-import net.minecraft.stats.Achievement;
-import vazkii.botania.client.lib.LibResources;
-import vazkii.botania.common.achievement.ICraftAchievement;
-import vazkii.botania.common.achievement.IPickupAchievement;
+public class ItemBlockWithMetadataAndName extends ItemBlockMod {
 
-public class ItemBlockWithMetadataAndName extends ItemBlock implements IPickupAchievement, ICraftAchievement {
-
-	public ItemBlockWithMetadataAndName(Block par2Block) {
-		super(par2Block);
+	public ItemBlockWithMetadataAndName(Block block) {
+		super(block);
 		setHasSubtypes(true);
-	}
-
-	@Nonnull
-	@Override
-	public String getUnlocalizedNameInefficiently(@Nonnull ItemStack par1ItemStack) {
-		return super.getUnlocalizedNameInefficiently(par1ItemStack).replaceAll("tile.", "tile." + LibResources.PREFIX_MOD);
 	}
 
 	@Nonnull
 	@Override
 	public String getUnlocalizedName(ItemStack par1ItemStack) {
 		return super.getUnlocalizedName(par1ItemStack) + par1ItemStack.getItemDamage();
-	}
-
-	@Override
-	public Achievement getAchievementOnCraft(ItemStack stack, EntityPlayer player, IInventory matrix) {
-		return block instanceof ICraftAchievement ? ((ICraftAchievement) block).getAchievementOnCraft(stack, player, matrix) : null;
-	}
-
-	@Override
-	public Achievement getAchievementOnPickup(ItemStack stack, EntityPlayer player, EntityItem item) {
-		return block instanceof IPickupAchievement ? ((IPickupAchievement) block).getAchievementOnPickup(stack, player, item) : null;
 	}
 
 	@Override

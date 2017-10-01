@@ -1,0 +1,25 @@
+{
+  "result": {
+    "item": "botania:hourglass"
+  },
+  "pattern": [
+    "GMG",
+    "RSR",
+    "GMG"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "R": {
+      "item": "#DUSTREDSTONE"
+    },
+    "S": {
+      "item": "#INGOTMANASTEEL"
+    },
+    "G": {
+      "item": "#INGOTGOLD"
+    },
+    "M": {
+      "item": "botania:managlass"
+    }
+  }
+}

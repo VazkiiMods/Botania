@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "botania:blocks/custombrick8"
+    "all": "botania:blocks/azulejo_5"
   }
 }

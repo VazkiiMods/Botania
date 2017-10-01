@@ -11,9 +11,7 @@
 package vazkii.botania.client.gui.box;
 
 import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.InventoryEffectRenderer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.util.ResourceLocation;
@@ -28,6 +26,13 @@ public class GuiBaubleBox extends GuiContainer {
 	}
 
 	@Override
+	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+		this.drawDefaultBackground();
+		super.drawScreen(mouseX, mouseY, partialTicks);
+		this.renderHoveredToolTip(mouseX, mouseY);
+	}
+
+	@Override
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 		mc.getTextureManager().bindTexture(texture);
@@ -38,8 +43,6 @@ public class GuiBaubleBox extends GuiContainer {
 			if(slot.getHasStack() && slot.getSlotStackLimit() == 1)
 				drawTexturedModalRect(guiLeft+slot.xPos, guiTop+slot.yPos, 200, 0, 16, 16);
 		}
-
-//		GuiInventory.drawEntityOnScreen(guiLeft + 43, guiTop + 61, 20, guiLeft + 43 - mouseX, guiTop + 45 - 30 - mouseY, mc.player);
 	}
 
 }

@@ -1,0 +1,16 @@
+{
+  "result": {
+    "item": "botania:lens",
+    "data": 18
+  },
+  "ingredients": [
+    {
+      "item": "botania:lens",
+      "data": 0
+    },
+    {
+      "item": "#ELVENPIXIEDUST"
+    }
+  ],
+  "type": "forge:ore_shapeless"
+}

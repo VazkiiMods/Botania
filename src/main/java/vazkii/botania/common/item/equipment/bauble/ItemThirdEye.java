@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
-import java.util.List;
-
 import baubles.api.BaubleType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
@@ -37,6 +35,8 @@ import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.lib.LibItemNames;
 
+import java.util.List;
+
 public class ItemThirdEye extends ItemBauble implements IManaUsingItem, IBaubleRender {
 
 	private static final int COST = 2;
@@ -54,7 +54,7 @@ public class ItemThirdEye extends ItemBauble implements IManaUsingItem, IBaubleR
 		EntityPlayer eplayer = (EntityPlayer) player;
 		
 		double range = 24;
-		AxisAlignedBB aabb = new AxisAlignedBB(player.posX, player.posY, player.posZ, player.posX, player.posY, player.posZ).expand(range, range, range);
+		AxisAlignedBB aabb = new AxisAlignedBB(player.posX, player.posY, player.posZ, player.posX, player.posY, player.posZ).grow(range);
 		List<EntityLivingBase> mobs = player.world.getEntitiesWithinAABB(EntityLivingBase.class, aabb, (Entity e) -> e instanceof IMob);
 		
 		if(!mobs.isEmpty())

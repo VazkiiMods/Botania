@@ -38,19 +38,21 @@ public class RenderTileSpreader extends TileEntitySpecialRenderer<TileSpreader> 
 	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_SPREADER);
 	private static final ResourceLocation textureRs = new ResourceLocation(LibResources.MODEL_SPREADER_REDSTONE);
 	private static final ResourceLocation textureDw = new ResourceLocation(LibResources.MODEL_SPREADER_DREAMWOOD);
-
+	private static final ResourceLocation textureG = new ResourceLocation(LibResources.MODEL_SPREADER_GAIA);
+	
 	private static final ResourceLocation textureHalloween = new ResourceLocation(LibResources.MODEL_SPREADER_HALLOWEEN);
 	private static final ResourceLocation textureRsHalloween = new ResourceLocation(LibResources.MODEL_SPREADER_REDSTONE_HALLOWEEN);
 	private static final ResourceLocation textureDwHalloween = new ResourceLocation(LibResources.MODEL_SPREADER_DREAMWOOD_HALLOWEEN);
+	private static final ResourceLocation textureGHalloween = new ResourceLocation(LibResources.MODEL_SPREADER_GAIA_HALLOWEEN);
 
 	private static final ModelSpreader model = new ModelSpreader();
 
 	@Override
-	public void renderTileEntityAt(@Nonnull TileSpreader spreader, double d0, double d1, double d2, float ticks, int digProgress) {
+	public void render(@Nonnull TileSpreader spreader, double d0, double d1, double d2, float ticks, int digProgress, float unused) {
 		if(!spreader.getWorld().isBlockLoaded(spreader.getPos(), false)
 				|| spreader.getWorld().getBlockState(spreader.getPos()).getBlock() != ModBlocks.spreader)
 			return;
-
+		
 		GlStateManager.pushMatrix();
 		GlStateManager.enableRescaleNormal();
 		GlStateManager.color(1F, 1F, 1F, 1F);
@@ -62,9 +64,9 @@ public class RenderTileSpreader extends TileEntitySpecialRenderer<TileSpreader> 
 		GlStateManager.rotate(spreader.rotationY, 1F, 0F, 0F);
 		GlStateManager.translate(0F, 1F, 0F);
 
-		ResourceLocation r = spreader.isRedstone() ? textureRs : spreader.isDreamwood() ? textureDw : texture;
+		ResourceLocation r = spreader.isRedstone() ? textureRs : spreader.isDreamwood() ? textureDw : spreader.isULTRA_SPREADER() ? textureG : texture;
 		if(ClientProxy.dootDoot)
-			r = spreader.isRedstone() ? textureRsHalloween : spreader.isDreamwood() ? textureDwHalloween : textureHalloween;
+			r = spreader.isRedstone() ? textureRsHalloween : spreader.isDreamwood() ? textureDwHalloween : spreader.isULTRA_SPREADER() ? textureGHalloween : textureHalloween;
 
 		Minecraft.getMinecraft().renderEngine.bindTexture(r);
 		GlStateManager.scale(1F, -1F, -1F);
@@ -91,8 +93,10 @@ public class RenderTileSpreader extends TileEntitySpecialRenderer<TileSpreader> 
 			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 			stack.getItem();
 			GlStateManager.pushMatrix();
-			GlStateManager.translate(-0.0F, -1F, -0.4375F);
-			GlStateManager.scale(0.8F, 0.8F, 0.8F);
+			GlStateManager.translate(0.0F, -1F, -0.4675F);
+			GlStateManager.rotate(180, 0, 0, 1);
+			GlStateManager.rotate(180, 1, 0, 0);
+			GlStateManager.scale(1.0F, 1.0F, 1.0F);
 			Minecraft.getMinecraft().getRenderItem().renderItem(stack, ItemCameraTransforms.TransformType.NONE);
 			GlStateManager.popMatrix();
 		}

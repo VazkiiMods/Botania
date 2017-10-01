@@ -1,0 +1,22 @@
+{
+  "conditions": [
+    {
+      "type": "botania:dark_quartz_enabled",
+      "value": true
+    }
+  ],
+  "result": {
+    "item": "botania:quartztypedark",
+    "data": 0
+  },
+  "pattern": [
+    "QQ",
+    "QQ"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "Q": {
+      "item": "#QUARTZDARK"
+    }
+  }
+}

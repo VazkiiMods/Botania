@@ -1,0 +1,16 @@
+{
+  "result": {
+    "item": "botania:lightrelay",
+    "data": 1
+  },
+  "ingredients": [
+    {
+      "item": "botania:lightrelay",
+      "data": 0
+    },
+    {
+      "item": "#DUSTREDSTONE"
+    }
+  ],
+  "type": "forge:ore_shapeless"
+}

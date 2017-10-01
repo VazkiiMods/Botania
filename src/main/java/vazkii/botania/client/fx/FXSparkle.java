@@ -10,25 +10,24 @@
  */
 package vazkii.botania.client.fx;
 
-import java.util.ArrayDeque;
-import java.util.Queue;
-
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.Particle;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import org.lwjgl.opengl.GL11;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.handler.ConfigHandler;
+
+import java.util.ArrayDeque;
+import java.util.Queue;
 
 public class FXSparkle extends Particle {
 
@@ -117,7 +116,7 @@ public class FXSparkle extends Particle {
 	}
 
 	@Override
-	public void renderParticle(VertexBuffer worldRendererIn, Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
+	public void renderParticle(BufferBuilder worldRendererIn, Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
 		this.f = f;
 		this.f1 = f1;
 		this.f2 = f2;
@@ -211,22 +210,26 @@ public class FXSparkle extends Particle {
 
 			float f = rand.nextFloat() * 0.05F + 0.025F; // Botania - made multiplier and add both smaller
 			float f1 = enumfacing.getAxisDirection().getOffset();
-			float secondary = (rand.nextFloat() - rand.nextFloat()) * 0.1F; // Botania - Make and use a secondary movement variable below
+			float secondary = (rand.nextFloat() - rand.nextFloat()) * 0.1F; // Botania - Make and use secondary movement variables below
+			float secondary2 = (rand.nextFloat() - rand.nextFloat()) * 0.1F;
 
 			if (enumfacing.getAxis() == EnumFacing.Axis.X)
 			{
 				motionX = f1 * f;
-				motionY = motionZ = secondary;
+				motionY = secondary;
+				motionZ = secondary2;
 			}
 			else if (enumfacing.getAxis() == EnumFacing.Axis.Y)
 			{
 				motionY = f1 * f;
-				motionX = motionZ = secondary;
+				motionX = secondary;
+				motionZ = secondary2;
 			}
 			else if (enumfacing.getAxis() == EnumFacing.Axis.Z)
 			{
 				motionZ = f1 * f;
-				motionX = motionY = secondary;
+				motionX = secondary;
+				motionY = secondary2;
 			}
 
 			return true;

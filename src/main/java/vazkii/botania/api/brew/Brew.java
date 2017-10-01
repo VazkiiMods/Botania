@@ -10,12 +10,11 @@
  */
 package vazkii.botania.api.brew;
 
-import java.util.List;
-
 import com.google.common.collect.ImmutableList;
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
+
+import java.util.List;
 
 /**
  * The class for a Brew definition, each one is a singleton.

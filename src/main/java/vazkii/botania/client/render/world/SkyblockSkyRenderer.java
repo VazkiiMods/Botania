@@ -10,25 +10,23 @@
  */
 package vazkii.botania.client.render.world;
 
-import java.util.Random;
-
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.WorldClient;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.client.IRenderHandler;
-import vazkii.botania.client.core.handler.ClientMethodHandles;
+import org.lwjgl.opengl.GL11;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.lib.LibResources;
+
+import java.util.Random;
 
 public class SkyblockSkyRenderer extends IRenderHandler {
 
@@ -49,20 +47,15 @@ public class SkyblockSkyRenderer extends IRenderHandler {
 	@Override
 	public void render(float partialTicks, WorldClient world, Minecraft mc) {
 		// Environment setup
-		int glSkyList;
-		net.minecraft.client.renderer.vertex.VertexBuffer skyVBO;
-
-		try {
-			glSkyList = (int) ClientMethodHandles.glSkyList_getter.invokeExact(mc.renderGlobal);
-			skyVBO = (net.minecraft.client.renderer.vertex.VertexBuffer) ClientMethodHandles.skyVBO_getter.invokeExact(mc.renderGlobal);
-		} catch (Throwable t) { return; }
+		int glSkyList = mc.renderGlobal.glSkyList;
+		net.minecraft.client.renderer.vertex.VertexBuffer skyVBO = mc.renderGlobal.skyVBO;
 
 		// Begin
 		GlStateManager.disableTexture2D();
 		Vec3d vec3d = world.getSkyColor(mc.getRenderViewEntity(), partialTicks);
-		float f = (float)vec3d.xCoord;
-		float f1 = (float)vec3d.yCoord;
-		float f2 = (float)vec3d.zCoord;
+		float f = (float)vec3d.x;
+		float f1 = (float)vec3d.y;
+		float f2 = (float)vec3d.z;
 
 		// Botania - darken when in void
 		float insideVoid = 0;
@@ -85,7 +78,7 @@ public class SkyblockSkyRenderer extends IRenderHandler {
 
 		GlStateManager.color(f, f1, f2);
 		Tessellator tessellator = Tessellator.getInstance();
-		VertexBuffer vertexbuffer = tessellator.getBuffer();
+		BufferBuilder BufferBuilder = tessellator.getBuffer();
 		GlStateManager.depthMask(false);
 		GlStateManager.enableFog();
 		GlStateManager.color(f, f1, f2);
@@ -133,14 +126,14 @@ public class SkyblockSkyRenderer extends IRenderHandler {
 				f8 = f11;
 			}*/
 
-			vertexbuffer.begin(6, DefaultVertexFormats.POSITION_COLOR);
-			vertexbuffer.pos(0.0D, 100.0D, 0.0D).color(f6, f7, f8, afloat[3] * (1F - insideVoid)).endVertex(); // Botania - darken in void
+			BufferBuilder.begin(6, DefaultVertexFormats.POSITION_COLOR);
+			BufferBuilder.pos(0.0D, 100.0D, 0.0D).color(f6, f7, f8, afloat[3] * (1F - insideVoid)).endVertex(); // Botania - darken in void
 			for (int l = 0; l <= 16; ++l)
 			{
 				float f21 = l * ((float)Math.PI * 2F) / 16.0F;
 				float f12 = MathHelper.sin(f21);
 				float f13 = MathHelper.cos(f21);
-				vertexbuffer.pos(f12 * 120.0F, f13 * 120.0F, -f13 * 40.0F * afloat[3]).color(afloat[0], afloat[1], afloat[2], 0.0F).endVertex();
+				BufferBuilder.pos(f12 * 120.0F, f13 * 120.0F, -f13 * 40.0F * afloat[3]).color(afloat[0], afloat[1], afloat[2], 0.0F).endVertex();
 			}
 
 			tessellator.draw();
@@ -319,11 +312,11 @@ public class SkyblockSkyRenderer extends IRenderHandler {
 		GlStateManager.rotate(world.getCelestialAngle(partialTicks) * 360.0F, 1.0F, 0.0F, 0.0F);
 		/*float*/ f17 = 60.0F; // Botania - 30 -> 60 and move declaration above "extra stuff"
 		mc.renderEngine.bindTexture(SUN_TEXTURES);
-		vertexbuffer.begin(7, DefaultVertexFormats.POSITION_TEX);
-		vertexbuffer.pos(-f17, 100.0D, -f17).tex(0.0D, 0.0D).endVertex();
-		vertexbuffer.pos(f17, 100.0D, -f17).tex(1.0D, 0.0D).endVertex();
-		vertexbuffer.pos(f17, 100.0D, f17).tex(1.0D, 1.0D).endVertex();
-		vertexbuffer.pos(-f17, 100.0D, f17).tex(0.0D, 1.0D).endVertex();
+		BufferBuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
+		BufferBuilder.pos(-f17, 100.0D, -f17).tex(0.0D, 0.0D).endVertex();
+		BufferBuilder.pos(f17, 100.0D, -f17).tex(1.0D, 0.0D).endVertex();
+		BufferBuilder.pos(f17, 100.0D, f17).tex(1.0D, 1.0D).endVertex();
+		BufferBuilder.pos(-f17, 100.0D, f17).tex(0.0D, 1.0D).endVertex();
 		tessellator.draw();
 		f17 = 60.0F; // Botania - 20 -> 60
 		mc.renderEngine.bindTexture(MOON_PHASES_TEXTURES);
@@ -334,11 +327,11 @@ public class SkyblockSkyRenderer extends IRenderHandler {
 		float f23 = (i1 + 0) / 2.0F;
 		float f24 = (k + 1) / 4.0F;
 		float f14 = (i1 + 1) / 2.0F;
-		vertexbuffer.begin(7, DefaultVertexFormats.POSITION_TEX);
-		vertexbuffer.pos(-f17, -100.0D, f17).tex(f24, f14).endVertex();
-		vertexbuffer.pos(f17, -100.0D, f17).tex(f22, f14).endVertex();
-		vertexbuffer.pos(f17, -100.0D, -f17).tex(f22, f23).endVertex();
-		vertexbuffer.pos(-f17, -100.0D, -f17).tex(f24, f23).endVertex();
+		BufferBuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
+		BufferBuilder.pos(-f17, -100.0D, f17).tex(f24, f14).endVertex();
+		BufferBuilder.pos(f17, -100.0D, f17).tex(f22, f14).endVertex();
+		BufferBuilder.pos(f17, -100.0D, -f17).tex(f22, f23).endVertex();
+		BufferBuilder.pos(-f17, -100.0D, -f17).tex(f24, f23).endVertex();
 		tessellator.draw();
 		GlStateManager.disableTexture2D();
 		// Botania - Custom star rendering
@@ -375,7 +368,7 @@ public class SkyblockSkyRenderer extends IRenderHandler {
 		// Botania - no horizon rendering
 		/* GlStateManager.disableTexture2D();
 		GlStateManager.color(0.0F, 0.0F, 0.0F);
-		double d0 = this.mc.player.getPositionEyes(partialTicks).yCoord - this.world.getHorizon();
+		double d0 = this.mc.player.getPositionEyes(partialTicks).y - this.world.getHorizon();
 
 		if (d0 < 0.0D)
 		{
@@ -400,27 +393,27 @@ public class SkyblockSkyRenderer extends IRenderHandler {
 			float f18 = 1.0F;
 			float f19 = -((float)(d0 + 65.0D));
 			float f20 = -1.0F;
-			vertexbuffer.begin(7, DefaultVertexFormats.POSITION_COLOR);
-			vertexbuffer.pos(-1.0D, (double)f19, 1.0D).color(0, 0, 0, 255).endVertex();
-			vertexbuffer.pos(1.0D, (double)f19, 1.0D).color(0, 0, 0, 255).endVertex();
-			vertexbuffer.pos(1.0D, -1.0D, 1.0D).color(0, 0, 0, 255).endVertex();
-			vertexbuffer.pos(-1.0D, -1.0D, 1.0D).color(0, 0, 0, 255).endVertex();
-			vertexbuffer.pos(-1.0D, -1.0D, -1.0D).color(0, 0, 0, 255).endVertex();
-			vertexbuffer.pos(1.0D, -1.0D, -1.0D).color(0, 0, 0, 255).endVertex();
-			vertexbuffer.pos(1.0D, (double)f19, -1.0D).color(0, 0, 0, 255).endVertex();
-			vertexbuffer.pos(-1.0D, (double)f19, -1.0D).color(0, 0, 0, 255).endVertex();
-			vertexbuffer.pos(1.0D, -1.0D, -1.0D).color(0, 0, 0, 255).endVertex();
-			vertexbuffer.pos(1.0D, -1.0D, 1.0D).color(0, 0, 0, 255).endVertex();
-			vertexbuffer.pos(1.0D, (double)f19, 1.0D).color(0, 0, 0, 255).endVertex();
-			vertexbuffer.pos(1.0D, (double)f19, -1.0D).color(0, 0, 0, 255).endVertex();
-			vertexbuffer.pos(-1.0D, (double)f19, -1.0D).color(0, 0, 0, 255).endVertex();
-			vertexbuffer.pos(-1.0D, (double)f19, 1.0D).color(0, 0, 0, 255).endVertex();
-			vertexbuffer.pos(-1.0D, -1.0D, 1.0D).color(0, 0, 0, 255).endVertex();
-			vertexbuffer.pos(-1.0D, -1.0D, -1.0D).color(0, 0, 0, 255).endVertex();
-			vertexbuffer.pos(-1.0D, -1.0D, -1.0D).color(0, 0, 0, 255).endVertex();
-			vertexbuffer.pos(-1.0D, -1.0D, 1.0D).color(0, 0, 0, 255).endVertex();
-			vertexbuffer.pos(1.0D, -1.0D, 1.0D).color(0, 0, 0, 255).endVertex();
-			vertexbuffer.pos(1.0D, -1.0D, -1.0D).color(0, 0, 0, 255).endVertex();
+			BufferBuilder.begin(7, DefaultVertexFormats.POSITION_COLOR);
+			BufferBuilder.pos(-1.0D, (double)f19, 1.0D).color(0, 0, 0, 255).endVertex();
+			BufferBuilder.pos(1.0D, (double)f19, 1.0D).color(0, 0, 0, 255).endVertex();
+			BufferBuilder.pos(1.0D, -1.0D, 1.0D).color(0, 0, 0, 255).endVertex();
+			BufferBuilder.pos(-1.0D, -1.0D, 1.0D).color(0, 0, 0, 255).endVertex();
+			BufferBuilder.pos(-1.0D, -1.0D, -1.0D).color(0, 0, 0, 255).endVertex();
+			BufferBuilder.pos(1.0D, -1.0D, -1.0D).color(0, 0, 0, 255).endVertex();
+			BufferBuilder.pos(1.0D, (double)f19, -1.0D).color(0, 0, 0, 255).endVertex();
+			BufferBuilder.pos(-1.0D, (double)f19, -1.0D).color(0, 0, 0, 255).endVertex();
+			BufferBuilder.pos(1.0D, -1.0D, -1.0D).color(0, 0, 0, 255).endVertex();
+			BufferBuilder.pos(1.0D, -1.0D, 1.0D).color(0, 0, 0, 255).endVertex();
+			BufferBuilder.pos(1.0D, (double)f19, 1.0D).color(0, 0, 0, 255).endVertex();
+			BufferBuilder.pos(1.0D, (double)f19, -1.0D).color(0, 0, 0, 255).endVertex();
+			BufferBuilder.pos(-1.0D, (double)f19, -1.0D).color(0, 0, 0, 255).endVertex();
+			BufferBuilder.pos(-1.0D, (double)f19, 1.0D).color(0, 0, 0, 255).endVertex();
+			BufferBuilder.pos(-1.0D, -1.0D, 1.0D).color(0, 0, 0, 255).endVertex();
+			BufferBuilder.pos(-1.0D, -1.0D, -1.0D).color(0, 0, 0, 255).endVertex();
+			BufferBuilder.pos(-1.0D, -1.0D, -1.0D).color(0, 0, 0, 255).endVertex();
+			BufferBuilder.pos(-1.0D, -1.0D, 1.0D).color(0, 0, 0, 255).endVertex();
+			BufferBuilder.pos(1.0D, -1.0D, 1.0D).color(0, 0, 0, 255).endVertex();
+			BufferBuilder.pos(1.0D, -1.0D, -1.0D).color(0, 0, 0, 255).endVertex();
 			tessellator.draw();
 		}
 
@@ -442,13 +435,8 @@ public class SkyblockSkyRenderer extends IRenderHandler {
 	}
 
 	private void renderStars(Minecraft mc, float alpha, float partialTicks) {
-		int starGLCallList;
-		net.minecraft.client.renderer.vertex.VertexBuffer starVBO;
-
-		try {
-			starGLCallList = (int) ClientMethodHandles.starGLCallList_getter.invokeExact(mc.renderGlobal);
-			starVBO = (net.minecraft.client.renderer.vertex.VertexBuffer) ClientMethodHandles.starVBO_getter.invokeExact(mc.renderGlobal);
-		} catch (Throwable t) { return; }
+		int starGLCallList = mc.renderGlobal.starGLCallList;
+		net.minecraft.client.renderer.vertex.VertexBuffer starVBO = mc.renderGlobal.starVBO;
 
 		float t = (ClientTickHandler.ticksInGame + partialTicks + 2000) * 0.005F;
 		GlStateManager.pushMatrix();

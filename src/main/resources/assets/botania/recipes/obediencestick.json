@@ -1,0 +1,19 @@
+{
+  "result": {
+    "item": "botania:obediencestick"
+  },
+  "pattern": [
+    "  M",
+    " T ",
+    "T  "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "T": {
+      "item": "#LIVINGWOODTWIG"
+    },
+    "M": {
+      "item": "#INGOTMANASTEEL"
+    }
+  }
+}

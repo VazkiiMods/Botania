@@ -10,14 +10,9 @@
  */
 package vazkii.botania.common.item;
 
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
 import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.NonNullList;
@@ -30,6 +25,9 @@ import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.mana.IManaTooltipDisplay;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lib.LibItemNames;
+
+import javax.annotation.Nonnull;
+import java.util.List;
 
 public class ItemManaTablet extends ItemMod implements IManaItem, ICreativeManaProvider, IManaTooltipDisplay {
 
@@ -45,21 +43,19 @@ public class ItemManaTablet extends ItemMod implements IManaItem, ICreativeManaP
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
-	public void getSubItems(@Nonnull Item item, CreativeTabs tab, NonNullList<ItemStack> stacks) {
-		// Empty tablet
-		stacks.add(new ItemStack(item));
+	public void getSubItems(@Nonnull CreativeTabs tab, @Nonnull NonNullList<ItemStack> stacks) {
+		if(isInCreativeTab(tab)) {
+			stacks.add(new ItemStack(this));
 
-		// Full tablet
-		ItemStack fullPower = new ItemStack(item);
-		setMana(fullPower, MAX_MANA);
-		stacks.add(fullPower);
+			ItemStack fullPower = new ItemStack(this);
+			setMana(fullPower, MAX_MANA);
+			stacks.add(fullPower);
 
-		// Creative Tablet
-		ItemStack creative = new ItemStack(item);
-		setMana(creative, MAX_MANA);
-		setStackCreative(creative);
-		stacks.add(creative);
+			ItemStack creative = new ItemStack(this);
+			setMana(creative, MAX_MANA);
+			setStackCreative(creative);
+			stacks.add(creative);
+		}
 	}
 
 	@Override
@@ -74,7 +70,7 @@ public class ItemManaTablet extends ItemMod implements IManaItem, ICreativeManaP
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void addInformation(ItemStack par1ItemStack, EntityPlayer player, List<String> stacks, boolean par4) {
+	public void addInformation(ItemStack par1ItemStack, World world, List<String> stacks, ITooltipFlag flags) {
 		if(isStackCreative(par1ItemStack))
 			stacks.add(I18n.format("botaniamisc.creative"));
 	}

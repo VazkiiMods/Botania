@@ -21,10 +21,10 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.core.handler.ConfigHandler;
+import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.lexicon.LexiconData;
 
 public class SubTileAgricarnation extends SubTileFunctional {
@@ -59,7 +59,7 @@ public class SubTileAgricarnation extends SubTileFunctional {
 					supertile.getWorld().scheduleUpdate(pos, block, 1);
 					if(ConfigHandler.blockBreakParticles)
 						supertile.getWorld().playEvent(2005, pos, 6 + supertile.getWorld().rand.nextInt(4));
-					supertile.getWorld().playSound(null, x, y, z, BotaniaSoundEvents.agricarnation, SoundCategory.BLOCKS, 0.01F, 0.5F + (float) Math.random() * 0.5F);
+					supertile.getWorld().playSound(null, x, y, z, ModSounds.agricarnation, SoundCategory.BLOCKS, 0.01F, 0.5F + (float) Math.random() * 0.5F);
 
 					break;
 				}

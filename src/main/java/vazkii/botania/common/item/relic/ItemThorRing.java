@@ -13,11 +13,12 @@ package vazkii.botania.common.item.relic;
 import baubles.api.BaubleType;
 import baubles.api.BaublesApi;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.items.IItemHandler;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibItemNames;
+import vazkii.botania.common.lib.LibMisc;
 
 public class ItemThorRing extends ItemRelicBauble {
 
@@ -30,6 +31,11 @@ public class ItemThorRing extends ItemRelicBauble {
 		return BaubleType.RING;
 	}
 
+	@Override
+	public ResourceLocation getAdvancement() {
+		return new ResourceLocation(LibMisc.MOD_ID, "challenge/thor_ring");
+	}
+
 	public static ItemStack getThorRing(EntityPlayer player) {
 		IItemHandler baubles = BaublesApi.getBaublesHandler(player);
 		ItemStack stack1 = baubles.getStackInSlot(1);
@@ -38,7 +44,7 @@ public class ItemThorRing extends ItemRelicBauble {
 	}
 
 	private static boolean isThorRing(ItemStack stack) {
-		return !stack.isEmpty() && (stack.getItem() == ModItems.thorRing || stack.getItem() == ModItems.aesirRing);
+		return !stack.isEmpty() && stack.getItem() == ModItems.thorRing;
 	}
 
 }

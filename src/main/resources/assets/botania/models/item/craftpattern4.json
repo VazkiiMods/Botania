@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "botania:items/craftpattern4"
+    "layer0": "botania:items/crafting_pattern_4"
   }
 }

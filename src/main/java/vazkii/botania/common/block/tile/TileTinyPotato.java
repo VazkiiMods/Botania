@@ -11,16 +11,20 @@
 package vazkii.botania.common.block.tile;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.items.ItemHandlerHelper;
-import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.core.handler.ModSounds;
+import vazkii.botania.common.core.helper.PlayerHelper;
+import vazkii.botania.common.lib.LibMisc;
 
 public class TileTinyPotato extends TileSimpleInventory {
 
@@ -55,7 +59,7 @@ public class TileTinyPotato extends TileSimpleInventory {
 		if(!world.isRemote) {
 			if(name.toLowerCase().trim().endsWith("shia labeouf")  && nextDoIt == 0) {
 				nextDoIt = 40;
-				world.playSound(null, pos, BotaniaSoundEvents.doit, SoundCategory.BLOCKS, 1F, 1F);
+				world.playSound(null, pos, ModSounds.doit, SoundCategory.BLOCKS, 1F, 1F);
 			}
 
 			for(int i = 0; i < getSizeInventory(); i++) {
@@ -65,6 +69,8 @@ public class TileTinyPotato extends TileSimpleInventory {
 					return;
 				}
 			}
+
+			PlayerHelper.grantCriterion((EntityPlayerMP) player, new ResourceLocation(LibMisc.MOD_ID, "main/tiny_potato_pet"), "code_triggered");
 		}
 	}
 

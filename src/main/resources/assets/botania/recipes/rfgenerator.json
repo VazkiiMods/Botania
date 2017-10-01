@@ -1,0 +1,28 @@
+{
+  "conditions": [
+    {
+      "type": "botania:fluxfield_enabled",
+      "value": true
+    }
+  ],
+  "result": {
+    "item": "botania:rfgenerator"
+  },
+  "pattern": [
+    "SRS",
+    "RMR",
+    "SRS"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "R": {
+      "item": "#BLOCKREDSTONE"
+    },
+    "S": {
+      "item": "#LIVINGROCK"
+    },
+    "M": {
+      "item": "#INGOTMANASTEEL"
+    }
+  }
+}

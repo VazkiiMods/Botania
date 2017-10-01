@@ -10,14 +10,8 @@
  */
 package vazkii.botania.common.item;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumDyeColor;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -27,6 +21,10 @@ import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.lib.LibItemNames;
+
+import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ItemFertilizer extends ItemMod {
 
@@ -45,7 +43,7 @@ public class ItemFertilizer extends ItemMod {
 				for(int j = -range - 1; j < range; j++) {
 					for(int k = 2; k >= -2; k--) {
 						BlockPos pos_ = pos.add(i + 1, k + 1, j + 1);
-						if(world.isAirBlock(pos_) && (!world.provider.hasNoSky() || pos_.getY() < 255) && ModBlocks.flower.canPlaceBlockAt(world, pos_))
+						if(world.isAirBlock(pos_) && (!world.provider.isNether() || pos_.getY() < 255) && ModBlocks.flower.canPlaceBlockAt(world, pos_))
 							validCoords.add(pos_);
 					}
 				}

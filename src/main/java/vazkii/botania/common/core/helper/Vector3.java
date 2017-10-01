@@ -10,15 +10,6 @@
  */
 package vazkii.botania.common.core.helper;
 
-import java.math.BigDecimal;
-import java.math.MathContext;
-import java.math.RoundingMode;
-import java.util.Objects;
-
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.util.vector.Vector3f;
-import org.lwjgl.util.vector.Vector4f;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -26,6 +17,14 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.util.vector.Vector3f;
+import org.lwjgl.util.vector.Vector4f;
+
+import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
+import java.util.Objects;
 
 public class Vector3
 {
@@ -44,7 +43,7 @@ public class Vector3
 	}
 
 	public Vector3(Vec3d vec) {
-		this(vec.xCoord, vec.yCoord, vec.zCoord);
+		this(vec.x, vec.y, vec.z);
 	}
 
 	public static Vector3 fromBlockPos(BlockPos pos) {

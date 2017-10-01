@@ -1,0 +1,35 @@
+{
+  "result": {
+    "item": "botania:terraformrod"
+  },
+  "pattern": [
+    " WT",
+    "ARS",
+    "GM "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "A": {
+      "item": "#RUNEAUTUMNB"
+    },
+    "R": {
+      "item": "botania:dirtrod"
+    },
+    "S": {
+      "item": "#RUNESPRINGB"
+    },
+    "T": {
+      "item": "#INGOTTERRASTEEL"
+    },
+    "G": {
+      "item": "botania:grassseeds",
+      "data": 0
+    },
+    "W": {
+      "item": "#RUNEWINTERB"
+    },
+    "M": {
+      "item": "#RUNESUMMERB"
+    }
+  }
+}

@@ -8,9 +8,9 @@
  */
 package vazkii.botania.api.state.enums;
 
-import java.util.Locale;
-
 import net.minecraft.util.IStringSerializable;
+
+import java.util.Locale;
 
 public enum LuminizerVariant implements IStringSerializable {
 	DEFAULT,

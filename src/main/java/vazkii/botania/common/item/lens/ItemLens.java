@@ -10,26 +10,18 @@
  */
 package vazkii.botania.common.item.lens;
 
-import java.awt.Color;
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
 import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.item.EnumDyeColor;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraftforge.oredict.RecipeSorter;
-import net.minecraftforge.oredict.RecipeSorter.Category;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.BurstProperties;
 import vazkii.botania.api.mana.ICompositableLens;
@@ -41,10 +33,12 @@ import vazkii.botania.api.mana.ITinyPlanetExcempt;
 import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
-import vazkii.botania.common.crafting.recipe.CompositeLensRecipe;
-import vazkii.botania.common.crafting.recipe.LensDyeingRecipe;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.lib.LibItemNames;
+
+import javax.annotation.Nonnull;
+import java.awt.Color;
+import java.util.List;
 
 public class ItemLens extends ItemMod implements ILensControl, ICompositableLens, ITinyPlanetExcempt {
 
@@ -149,18 +143,14 @@ public class ItemLens extends ItemMod implements ILensControl, ICompositableLens
 		super(LibItemNames.LENS);
 		setMaxStackSize(1);
 		setHasSubtypes(true);
-
-		GameRegistry.addRecipe(new CompositeLensRecipe());
-		GameRegistry.addRecipe(new LensDyeingRecipe());
-		RecipeSorter.register("botania:compositeLens", CompositeLensRecipe.class, Category.SHAPELESS, "");
-		RecipeSorter.register("botania:lensDying", LensDyeingRecipe.class, Category.SHAPELESS, "");
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
-	public void getSubItems(@Nonnull Item item, CreativeTabs tab, NonNullList<ItemStack> stacks) {
-		for(int i = 0; i < SUBTYPES; i++)
-			stacks.add(new ItemStack(item, 1, i));
+	public void getSubItems(@Nonnull CreativeTabs tab, @Nonnull NonNullList<ItemStack> stacks) {
+		if(isInCreativeTab(tab)) {
+			for(int i = 0; i < SUBTYPES; i++)
+				stacks.add(new ItemStack(this, 1, i));
+		}
 	}
 
 	@Nonnull
@@ -171,7 +161,7 @@ public class ItemLens extends ItemMod implements ILensControl, ICompositableLens
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void addInformation(ItemStack par1ItemStack, EntityPlayer player, List<String> stacks, boolean par4) {
+	public void addInformation(ItemStack par1ItemStack, World world, List<String> stacks, ITooltipFlag flags) {
 		int storedColor = getStoredColor(par1ItemStack);
 		if(storedColor != -1)
 			stacks.add(I18n.format("botaniamisc.color", I18n.format("botania.color" + storedColor)));
@@ -242,7 +232,7 @@ public class ItemLens extends ItemMod implements ILensControl, ICompositableLens
 		if(storedColor == 16)
 			return Color.HSBtoRGB(Botania.proxy.getWorldElapsedTicks() * 2 % 360 / 360F, 1F, 1F);
 
-		return EnumDyeColor.byMetadata(storedColor).getMapColor().colorValue;
+		return EnumDyeColor.byMetadata(storedColor).colorValue;
 	}
 
 	public static int getStoredColor(ItemStack stack) {
@@ -298,7 +288,7 @@ public class ItemLens extends ItemMod implements ILensControl, ICompositableLens
 
 	@Override
 	public ItemStack getCompositeLens(ItemStack stack) {
-		NBTTagCompound cmp = ItemNBTHelper.getCompound(stack, TAG_COMPOSITE_LENS, false);
+		NBTTagCompound cmp = ItemNBTHelper.getCompound(stack, TAG_COMPOSITE_LENS, true);
 		if(cmp == null)
 			return ItemStack.EMPTY;
 		else return new ItemStack(cmp);

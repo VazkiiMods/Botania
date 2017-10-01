@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/handheld",
   "textures": {
-    "layer0": "botania:items/obediencestick"
+    "layer0": "botania:items/stick_obedience"
   }
 }

@@ -1,0 +1,23 @@
+{
+  "result": {
+    "item": "botania:slimebottle",
+    "data": 0
+  },
+  "pattern": [
+    "EGE",
+    "ESE",
+    " E "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "S": {
+      "item": "#SLIMEBALL"
+    },
+    "E": {
+      "item": "#INGOTELVENELEMENTIUM"
+    },
+    "G": {
+      "item": "botania:elfglass"
+    }
+  }
+}

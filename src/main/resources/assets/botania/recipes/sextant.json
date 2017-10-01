@@ -1,0 +1,19 @@
+{
+  "result": {
+    "item": "botania:sextant"
+  },
+  "pattern": [
+    " TI",
+    " TT",
+    "III"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "T": {
+      "item": "#LIVINGWOODTWIG"
+    },
+    "I": {
+      "item": "#INGOTMANASTEEL"
+    }
+  }
+}

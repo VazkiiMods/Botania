@@ -10,26 +10,28 @@
  */
 package vazkii.botania.client.core.handler;
 
-import java.awt.Rectangle;
-import java.util.Collections;
-import java.util.Set;
-import java.util.UUID;
-import java.util.WeakHashMap;
-
-import org.lwjgl.opengl.ARBShaderObjects;
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import org.lwjgl.opengl.ARBShaderObjects;
+import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.boss.IBotaniaBoss;
 import vazkii.botania.api.internal.ShaderCallback;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.lib.LibResources;
 
+import java.awt.Rectangle;
+import java.util.Collections;
+import java.util.Set;
+import java.util.UUID;
+import java.util.WeakHashMap;
+
+@Mod.EventBusSubscriber(Side.CLIENT)
 public final class BossBarHandler {
 
 	private BossBarHandler() {}
@@ -56,7 +58,7 @@ public final class BossBarHandler {
 				int xf = x + (bgRect.width - fgRect.width) / 2;
 				int yf = y + (bgRect.height - fgRect.height) / 2;
 				int fw = (int) ((double) fgRect.width * evt.getBossInfo().getPercent());
-				int tx = c - mc.fontRendererObj.getStringWidth(name) / 2;
+				int tx = c - mc.fontRenderer.getStringWidth(name) / 2;
 
 				GlStateManager.color(1F, 1F, 1F, 1F);
 				int auxHeight = currentBoss.bossBarRenderCallback(evt.getResolution(), x, y);
@@ -65,9 +67,9 @@ public final class BossBarHandler {
 				mc.renderEngine.bindTexture(currentBoss.getBossBarTexture());
 				drawBar(currentBoss, x, y, bgRect.x, bgRect.y, bgRect.width, bgRect.height, true);
 				drawBar(currentBoss, xf, yf, fgRect.x, fgRect.y, fw, fgRect.height, false);
-				mc.fontRendererObj.drawStringWithShadow(name, tx, y - 10, 0xA2018C);
+				mc.fontRenderer.drawStringWithShadow(name, tx, y - 10, 0xA2018C);
 				GlStateManager.enableBlend();
-				evt.setIncrement(Math.max(bgRect.height, fgRect.height) + auxHeight + mc.fontRendererObj.FONT_HEIGHT);
+				evt.setIncrement(Math.max(bgRect.height, fgRect.height) + auxHeight + mc.fontRenderer.FONT_HEIGHT);
 			}
 		}
 	}

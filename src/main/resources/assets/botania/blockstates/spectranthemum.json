@@ -4,14 +4,14 @@
     "normal": [{
       "model": "botania:shapes/cross_tinted",
       "textures": {
-        "cross": "botania:blocks/spectranthemum"
+        "cross": "botania:blocks/flower_func_spectranthemum"
       }
     }],
     "inventory": [{
       "model": "builtin/generated",
       "transform": "forge:default-item",
       "textures": {
-        "layer0": "botania:blocks/spectranthemum"
+        "layer0": "botania:blocks/flower_func_spectranthemum"
       }
     }]
   }

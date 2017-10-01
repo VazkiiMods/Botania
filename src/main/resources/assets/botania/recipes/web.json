@@ -1,0 +1,19 @@
+{
+  "result": {
+    "item": "minecraft:web"
+  },
+  "pattern": [
+    "S S",
+    " M ",
+    "S S"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "S": {
+      "item": "minecraft:string"
+    },
+    "M": {
+      "item": "#MANASTRING"
+    }
+  }
+}

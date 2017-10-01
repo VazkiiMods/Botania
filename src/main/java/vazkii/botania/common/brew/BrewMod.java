@@ -10,12 +10,12 @@
  */
 package vazkii.botania.common.brew;
 
-import java.util.Arrays;
-
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.potion.PotionUtils;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
+
+import java.util.Arrays;
 
 public class BrewMod extends Brew {
 

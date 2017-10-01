@@ -1,0 +1,14 @@
+{
+  "result": {
+    "item": "botania:lexicon"
+  },
+  "ingredients": [
+    {
+      "item": "#TREESAPLING"
+    },
+    {
+      "item": "minecraft:book"
+    }
+  ],
+  "type": "forge:ore_shapeless"
+}

@@ -10,13 +10,13 @@
  */
 package vazkii.botania.common.item.equipment.armor.manasteel;
 
-import javax.annotation.Nullable;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.api.mana.IManaDiscountArmor;
 import vazkii.botania.common.lib.LibItemNames;
+
+import javax.annotation.Nullable;
 
 public class ItemManasteelHelm extends ItemManasteelArmor implements IManaDiscountArmor {
 

@@ -1,0 +1,23 @@
+{
+  "result": {
+    "item": "botania:redstringrelay"
+  },
+  "pattern": [
+    "RRR",
+    "RMS",
+    "RRR"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "R": {
+      "item": "#LIVINGROCK"
+    },
+    "S": {
+      "item": "#BREDSTRING"
+    },
+    "M": {
+      "item": "botania:spreader",
+      "data": 0
+    }
+  }
+}

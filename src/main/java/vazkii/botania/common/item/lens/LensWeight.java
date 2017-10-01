@@ -10,10 +10,7 @@
  */
 package vazkii.botania.common.item.lens;
 
-import java.util.Map;
-
 import com.google.common.collect.ImmutableMap;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityFallingBlock;
@@ -26,6 +23,8 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.WorldServer;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.common.core.handler.ConfigHandler;
+
+import java.util.Map;
 
 public class LensWeight extends Lens {
 

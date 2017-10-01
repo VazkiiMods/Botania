@@ -1,0 +1,16 @@
+{
+  "result": {
+    "item": "botania:manaresource",
+    "data": 11,
+    "count": 32
+  },
+  "ingredients": [
+    {
+      "item": "#WORKBENCH"
+    },
+    {
+      "item": "#LIVINGROCK"
+    }
+  ],
+  "type": "forge:ore_shapeless"
+}

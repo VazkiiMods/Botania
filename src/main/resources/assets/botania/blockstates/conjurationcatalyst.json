@@ -1,5 +1,5 @@
 {
   "variants": {
-    "normal": { "model": "botania:conjuration_catalyst" }
+    "normal": { "model": "botania:catalyst_conjuration" }
   }
 }

@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "botania:miningring"
+  },
+  "pattern": [
+    "EMP",
+    "M M",
+    " M "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "P": {
+      "item": "minecraft:golden_pickaxe"
+    },
+    "E": {
+      "item": "#RUNEEARTHB"
+    },
+    "M": {
+      "item": "#INGOTMANASTEEL"
+    }
+  }
+}

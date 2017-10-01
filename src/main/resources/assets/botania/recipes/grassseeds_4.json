@@ -1,0 +1,17 @@
+{
+  "result": {
+    "item": "botania:grassseeds",
+    "data": 4
+  },
+  "group": "botania:grassseeds",
+  "ingredients": [
+    {
+      "item": "botania:grassseeds",
+      "data": 0
+    },
+    {
+      "item": "minecraft:wheat"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}

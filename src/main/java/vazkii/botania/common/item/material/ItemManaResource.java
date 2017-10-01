@@ -10,18 +10,12 @@
  */
 package vazkii.botania.common.item.material;
 
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.stats.Achievement;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
@@ -30,6 +24,7 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -41,14 +36,15 @@ import vazkii.botania.api.recipe.IElvenItem;
 import vazkii.botania.api.recipe.IFlowerComponent;
 import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.Botania;
-import vazkii.botania.common.achievement.IPickupAchievement;
-import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.entity.EntityEnderAirBottle;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.lib.LibItemNames;
+import vazkii.botania.common.lib.LibMisc;
 
-public class ItemManaResource extends ItemMod implements IFlowerComponent, IElvenItem, IPickupAchievement {
+import javax.annotation.Nonnull;
+
+public class ItemManaResource extends ItemMod implements IFlowerComponent, IElvenItem {
 
 	final int types = 24;
 
@@ -69,15 +65,16 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 				event.getEntityPlayer().swingArm(event.getHand());
 			} else {
 				ItemStack stack1 = new ItemStack(this, 1, 15);
-				event.getEntityPlayer().addStat(ModAchievements.enderAirMake, 1);
 
 				ItemHandlerHelper.giveItemToPlayer(event.getEntityPlayer(), stack1);
 
 				stack.shrink(1);
 
 				event.getWorld().playSound(null, event.getPos(), SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.PLAYERS, 0.5F, 1F);
-				event.setCanceled(true);
 			}
+
+			event.setCanceled(true);
+			event.setCancellationResult(EnumActionResult.SUCCESS);
 		}
 	}
 
@@ -88,7 +85,7 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 
 		if(stack.getItemDamage() == 4 || stack.getItemDamage() == 14)
 			return EntityDoppleganger.spawn(player, stack, world, pos, stack.getItemDamage() == 14) ? EnumActionResult.SUCCESS : EnumActionResult.FAIL;
-		else if(stack.getItemDamage() == 20 && net.minecraft.item.ItemDye.applyBonemeal(stack, world, pos, player)) {
+		else if(stack.getItemDamage() == 20 && net.minecraft.item.ItemDye.applyBonemeal(stack, world, pos, player, hand)) {
 			if(!world.isRemote)
 				world.playEvent(2005, pos, 0);
 
@@ -121,11 +118,15 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
-	public void getSubItems(@Nonnull Item item, CreativeTabs tab, NonNullList<ItemStack> stacks) {
-		for(int i = 0; i < types; i++)
-			if(Botania.gardenOfGlassLoaded || i != 20 && i != 21)
-				stacks.add(new ItemStack(item, 1, i));
+	public void getSubItems(@Nonnull CreativeTabs tab, @Nonnull NonNullList<ItemStack> stacks) {
+		if(isInCreativeTab(tab)) {
+			for(int i = 0; i < types; i++) {
+				if("UNUSED".equals(LibItemNames.MANA_RESOURCE_NAMES[i]))
+					continue;
+				if(Botania.gardenOfGlassLoaded || i != 20 && i != 21)
+					stacks.add(new ItemStack(this, 1, i));
+			}
+		}
 	}
 
 	@Nonnull
@@ -157,15 +158,17 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 		return itemStack.getItemDamage() == 11 ? itemStack.copy() : ItemStack.EMPTY;
 	}
 
-	@Override
-	public Achievement getAchievementOnPickup(ItemStack stack, EntityPlayer player, EntityItem item) {
-		return stack.getItemDamage() == 4 ? ModAchievements.terrasteelPickup : null;
-	}
-
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void registerModels() {
-		ModelHandler.registerItemMetas(this, LibItemNames.MANA_RESOURCE_NAMES.length, i -> LibItemNames.MANA_RESOURCE_NAMES[i]);
+		for (int i = 0; i < LibItemNames.MANA_RESOURCE_NAMES.length; i++) {
+			if (!"UNUSED".equals(LibItemNames.MANA_RESOURCE_NAMES[i])) {
+				ModelLoader.setCustomModelResourceLocation(
+					this, i,
+					new ModelResourceLocation(LibMisc.MOD_ID + ":" + LibItemNames.MANA_RESOURCE_NAMES[i], "inventory")
+				);
+			}
+		}
 	}
 
 }

@@ -1,0 +1,25 @@
+{
+  "result": {
+    "item": "botania:icependant"
+  },
+  "pattern": [
+    "WS ",
+    "S S",
+    "MSR"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "R": {
+      "item": "#RUNEWATERB"
+    },
+    "S": {
+      "item": "#MANASTRING"
+    },
+    "W": {
+      "item": "#RUNEWINTERB"
+    },
+    "M": {
+      "item": "#INGOTMANASTEEL"
+    }
+  }
+}

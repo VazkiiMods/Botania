@@ -1,0 +1,95 @@
+{
+  "result": {
+    "item": "botania:laputashard",
+    "data": 0
+  },
+  "pattern": [
+    "SFS",
+    "PDP",
+    "ASE"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "P": {
+      "item": "#GEMPRISMARINE"
+    },
+    "A": {
+      "item": "#RUNEAIRB"
+    },
+    "S": {
+      "item": "#ETERNALLIFEESSENCE"
+    },
+    "D": {
+      "item": "#ELVENDRAGONSTONE"
+    },
+    "E": {
+      "item": "#RUNEEARTHB"
+    },
+    "F": [
+      {
+        "item": "botania:miniisland",
+        "data": 0
+      },
+      {
+        "item": "botania:miniisland",
+        "data": 1
+      },
+      {
+        "item": "botania:miniisland",
+        "data": 2
+      },
+      {
+        "item": "botania:miniisland",
+        "data": 3
+      },
+      {
+        "item": "botania:miniisland",
+        "data": 4
+      },
+      {
+        "item": "botania:miniisland",
+        "data": 5
+      },
+      {
+        "item": "botania:miniisland",
+        "data": 6
+      },
+      {
+        "item": "botania:miniisland",
+        "data": 7
+      },
+      {
+        "item": "botania:miniisland",
+        "data": 8
+      },
+      {
+        "item": "botania:miniisland",
+        "data": 9
+      },
+      {
+        "item": "botania:miniisland",
+        "data": 10
+      },
+      {
+        "item": "botania:miniisland",
+        "data": 11
+      },
+      {
+        "item": "botania:miniisland",
+        "data": 12
+      },
+      {
+        "item": "botania:miniisland",
+        "data": 13
+      },
+      {
+        "item": "botania:miniisland",
+        "data": 14
+      },
+      {
+        "item": "botania:miniisland",
+        "data": 15
+      }
+    ]
+  }
+}

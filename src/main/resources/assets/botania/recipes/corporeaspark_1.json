@@ -1,0 +1,16 @@
+{
+  "result": {
+    "item": "botania:corporeaspark",
+    "data": 1
+  },
+  "ingredients": [
+    {
+      "item": "botania:corporeaspark",
+      "data": 0
+    },
+    {
+      "item": "#ELVENDRAGONSTONE"
+    }
+  ],
+  "type": "forge:ore_shapeless"
+}

@@ -1,0 +1,24 @@
+{
+  "result": {
+    "item": "botania:pylon",
+    "data": 1
+  },
+  "pattern": [
+    " T ",
+    "TPT",
+    " E "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "P": {
+      "item": "botania:pylon",
+      "data": 0
+    },
+    "T": {
+      "item": "#NUGGETTERRASTEEL"
+    },
+    "E": {
+      "item": "minecraft:ender_eye"
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "display": {
+    "icon": {
+      "item": "botania:kingkey"
+    },
+    "title": {
+      "translate": "advancement.botania:kingKey"
+    },
+    "description": {
+      "translate": "advancement.botania:kingKey.desc"
+    },
+    "frame": "challenge"
+  },
+  "parent": "botania:challenge/root",
+  "criteria": {
+    "key": {
+      "trigger": "botania:relic_bind",
+      "conditions": {
+        "relic": {
+          "item": "botania:kingkey"
+        }
+      }
+    }
+  }
+}

@@ -10,15 +10,7 @@
  */
 package vazkii.botania.common.block.tile.mana;
 
-import java.util.List;
-import java.util.UUID;
-
-import javax.annotation.Nonnull;
-
-import org.lwjgl.opengl.GL11;
-
 import com.google.common.base.Predicates;
-
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
@@ -43,6 +35,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.BurstProperties;
@@ -57,7 +50,6 @@ import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.api.mana.IManaSpreader;
 import vazkii.botania.api.mana.IThrottledPacket;
 import vazkii.botania.api.mana.ManaNetworkEvent;
-import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.SpreaderVariant;
 import vazkii.botania.api.wand.IWandBindable;
@@ -67,9 +59,14 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.ManaNetworkHandler;
+import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.entity.EntityManaBurst;
 import vazkii.botania.common.entity.EntityManaBurst.PositionProperties;
+
+import javax.annotation.Nonnull;
+import java.util.List;
+import java.util.UUID;
 
 public class TileSpreader extends TileSimpleInventory implements IManaCollector, IWandBindable, IKeyLocked, IThrottledPacket, IManaSpreader, IDirectioned, ITickable {
 
@@ -225,7 +222,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 				double x = lastPingbackX;
 				double y = lastPingbackY;
 				double z = lastPingbackZ;
-				AxisAlignedBB aabb = new AxisAlignedBB(x, y, z, x, y, z).expand(PINGBACK_EXPIRED_SEARCH_DISTANCE, PINGBACK_EXPIRED_SEARCH_DISTANCE, PINGBACK_EXPIRED_SEARCH_DISTANCE);
+				AxisAlignedBB aabb = new AxisAlignedBB(x, y, z, x, y, z).grow(PINGBACK_EXPIRED_SEARCH_DISTANCE, PINGBACK_EXPIRED_SEARCH_DISTANCE, PINGBACK_EXPIRED_SEARCH_DISTANCE);
 				List bursts = world.getEntitiesWithinAABB(Entity.class, aabb, Predicates.instanceOf(IManaBurst.class));
 				IManaBurst found = null;
 				UUID identity = getIdentifier();
@@ -391,13 +388,13 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 				if(player instanceof EntityPlayerMP)
 					((EntityPlayerMP) player).connection.sendPacket(new SPacketUpdateTileEntity(pos, -999, nbttagcompound));
 			}
-			world.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.ding, SoundCategory.PLAYERS, 0.1F, 1);
+			world.playSound(null, player.posX, player.posY, player.posZ, ModSounds.ding, SoundCategory.PLAYERS, 0.1F, 1);
 		} else {
-			RayTraceResult pos = raytraceFromEntity(world, player, true, 5);
+			RayTraceResult pos = raytraceFromEntity(world, player, true);
 			if(pos != null && pos.hitVec != null && !world.isRemote) {
-				double x = pos.hitVec.xCoord - getPos().getX() - 0.5;
-				double y = pos.hitVec.yCoord - getPos().getY() - 0.5;
-				double z = pos.hitVec.zCoord - getPos().getZ() - 0.5;
+				double x = pos.hitVec.x - getPos().getX() - 0.5;
+				double y = pos.hitVec.y - getPos().getY() - 0.5;
+				double z = pos.hitVec.z - getPos().getZ() - 0.5;
 
 				if(pos.sideHit != EnumFacing.DOWN && pos.sideHit != EnumFacing.UP) {
 					Vector3 clickVector = new Vector3(x, 0, z);
@@ -446,7 +443,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 						world.spawnEntity(burst);
 						burst.ping();
 						if(!ConfigHandler.silentSpreaders)
-							world.playSound(null, pos, BotaniaSoundEvents.spreaderFire, SoundCategory.BLOCKS, 0.05F * (paddingColor != -1 ? 0.2F : 1F), 0.7F + 0.3F * (float) Math.random());
+							world.playSound(null, pos, ModSounds.spreaderFire, SoundCategory.BLOCKS, 0.05F * (paddingColor != -1 ? 0.2F : 1F), 0.7F + 0.3F * (float) Math.random());
 					}
 				}
 			}
@@ -461,7 +458,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	public boolean isDreamwood() {
 		updateContainingBlockInfo();
 		int variant = getBlockMetadata();
-		return world == null ? staticDreamwood : variant == SpreaderVariant.ELVEN.ordinal() || variant == SpreaderVariant.GAIA.ordinal();
+		return world == null ? staticDreamwood : variant == SpreaderVariant.ELVEN.ordinal();
 	}
 
 	public boolean isULTRA_SPREADER() {
@@ -548,27 +545,26 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 		return null;
 	}
 
-	public static RayTraceResult raytraceFromEntity(World world, Entity player, boolean par3, double range) {
-		float f = 1.0F;
-		float f1 = player.prevRotationPitch + (player.rotationPitch - player.prevRotationPitch) * f;
-		float f2 = player.prevRotationYaw + (player.rotationYaw - player.prevRotationYaw) * f;
-		double d0 = player.prevPosX + (player.posX - player.prevPosX) * f;
-		double d1 = player.prevPosY + (player.posY - player.prevPosY) * f;
-		if (!world.isRemote && player instanceof EntityPlayer)
-			d1 += 1.62D;
-		double d2 = player.prevPosZ + (player.posZ - player.prevPosZ) * f;
-		Vec3d vec3 = new Vec3d(d0, d1, d2);
-		float f3 = MathHelper.cos(-f2 * 0.017453292F - (float) Math.PI);
-		float f4 = MathHelper.sin(-f2 * 0.017453292F - (float) Math.PI);
-		float f5 = -MathHelper.cos(-f1 * 0.017453292F);
-		float f6 = MathHelper.sin(-f1 * 0.017453292F);
-		float f7 = f4 * f5;
-		float f8 = f3 * f5;
-		double d3 = range;
-		if (player instanceof EntityPlayerMP)
-			d3 = ((EntityPlayerMP) player).interactionManager.getBlockReachDistance();
-		Vec3d vec31 = vec3.addVector(f7 * d3, f6 * d3, f8 * d3);
-		return world.rayTraceBlocks(vec3, vec31, par3, !par3, par3);
+	// [VanillaCopy] Item.rayTrace
+	protected RayTraceResult raytraceFromEntity(World worldIn, EntityPlayer playerIn, boolean useLiquids) {
+		float f = playerIn.rotationPitch;
+		float f1 = playerIn.rotationYaw;
+		double d0 = playerIn.posX;
+		double d1 = playerIn.posY + (double) playerIn.getEyeHeight();
+		double d2 = playerIn.posZ;
+		Vec3d vec3d = new Vec3d(d0, d1, d2);
+		float f2 = MathHelper.cos(-f1 * 0.017453292F - (float) Math.PI);
+		float f3 = MathHelper.sin(-f1 * 0.017453292F - (float) Math.PI);
+		float f4 = -MathHelper.cos(-f * 0.017453292F);
+		float f5 = MathHelper.sin(-f * 0.017453292F);
+		float f6 = f3 * f4;
+		float f7 = f2 * f4;
+		double d3 = 5.0D;
+		if(playerIn instanceof net.minecraft.entity.player.EntityPlayerMP) {
+			d3 = ((net.minecraft.entity.player.EntityPlayerMP) playerIn).interactionManager.getBlockReachDistance();
+		}
+		Vec3d vec3d1 = vec3d.addVector((double) f6 * d3, (double) f5 * d3, (double) f7 * d3);
+		return worldIn.rayTraceBlocks(vec3d, vec3d1, useLiquids, !useLiquids, false);
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -582,11 +578,11 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 			GlStateManager.enableBlend();
 			GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 			String lensName = lens.getDisplayName();
-			int width = 16 + mc.fontRendererObj.getStringWidth(lensName) / 2;
+			int width = 16 + mc.fontRenderer.getStringWidth(lensName) / 2;
 			int x = res.getScaledWidth() / 2 - width;
 			int y = res.getScaledHeight() / 2 + 50;
 
-			mc.fontRendererObj.drawStringWithShadow(lensName, x + 20, y + 5, color);
+			mc.fontRenderer.drawStringWithShadow(lensName, x + 20, y + 5, color);
 			RenderHelper.enableGUIStandardItemLighting();
 			mc.getRenderItem().renderItemAndEffectIntoGUI(lens, x, y);
 			RenderHelper.disableStandardItemLighting();
@@ -601,11 +597,11 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 			GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 			if(!recieverStack.isEmpty()) {
 				String stackName = recieverStack.getDisplayName();
-				int width = 16 + mc.fontRendererObj.getStringWidth(stackName) / 2;
+				int width = 16 + mc.fontRenderer.getStringWidth(stackName) / 2;
 				int x = res.getScaledWidth() / 2 - width;
 				int y = res.getScaledHeight() / 2 + 30;
 
-				mc.fontRendererObj.drawStringWithShadow(stackName, x + 20, y + 5, color);
+				mc.fontRenderer.drawStringWithShadow(stackName, x + 20, y + 5, color);
 				RenderHelper.enableGUIStandardItemLighting();
 				mc.getRenderItem().renderItemAndEffectIntoGUI(recieverStack, x, y);
 				RenderHelper.disableStandardItemLighting();

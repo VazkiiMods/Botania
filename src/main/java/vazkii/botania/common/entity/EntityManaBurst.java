@@ -21,8 +21,8 @@ import java.util.UUID;
 
 import javax.annotation.Nonnull;
 
-import com.google.common.base.Optional;
-
+import elucent.albedo.lighting.ILightProvider;
+import elucent.albedo.lighting.Light;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.BlockLeaves;
@@ -44,6 +44,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.BotaniaAPI;
@@ -63,7 +64,8 @@ import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.equipment.bauble.ItemTinyPlanet;
 
-public class EntityManaBurst extends EntityThrowable implements IManaBurst {
+@Optional.Interface(iface="elucent.albedo.lighting.ILightProvider", modid="albedo")
+public class EntityManaBurst extends EntityThrowable implements IManaBurst, ILightProvider {
 
 	private static final String TAG_TICKS_EXISTED = "ticksExisted";
 	private static final String TAG_COLOR = "color";
@@ -90,7 +92,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 	private static final DataParameter<Float> MANA_LOSS_PER_TICK = EntityDataManager.createKey(EntityManaBurst.class, DataSerializers.FLOAT);
 	private static final DataParameter<Float> GRAVITY = EntityDataManager.createKey(EntityManaBurst.class, DataSerializers.FLOAT);
 	private static final DataParameter<BlockPos> SOURCE_COORDS = EntityDataManager.createKey(EntityManaBurst.class, DataSerializers.BLOCK_POS);
-	private static final DataParameter<ItemStack> SOURCE_LENS = EntityDataManager.createKey(EntityManaBurst.class, DataSerializers.OPTIONAL_ITEM_STACK);
+	private static final DataParameter<ItemStack> SOURCE_LENS = EntityDataManager.createKey(EntityManaBurst.class, DataSerializers.ITEM_STACK);
 
 	float accumulatedManaLoss = 0;
 	boolean fake = false;
@@ -186,12 +188,12 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 
 		if (raytraceresult != null)
 		{
-			vec3d1 = new Vec3d(raytraceresult.hitVec.xCoord, raytraceresult.hitVec.yCoord, raytraceresult.hitVec.zCoord);
+			vec3d1 = new Vec3d(raytraceresult.hitVec.x, raytraceresult.hitVec.y, raytraceresult.hitVec.z);
 		}
 
 		if(!world.isRemote) { // Botania - only do entity colliding on server
 			Entity entity = null;
-			List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox().addCoord(motionX, motionY, motionZ).expandXyz(1.0D));
+			List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox().offset(motionX, motionY, motionZ).grow(1.0D));
 			double d0 = 0.0D;
 			for (int i = 0; i < list.size(); ++i)
 			{
@@ -208,7 +210,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 					}
 					else
 					{
-						AxisAlignedBB axisalignedbb = entity1.getEntityBoundingBox().expandXyz(0.30000001192092896D);
+						AxisAlignedBB axisalignedbb = entity1.getEntityBoundingBox().grow(0.30000001192092896D);
 						RayTraceResult raytraceresult1 = axisalignedbb.calculateIntercept(vec3d, vec3d1);
 
 						if (raytraceresult1 != null)
@@ -456,10 +458,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		float r = color.getRed() / 255F;
 		float g = color.getGreen() / 255F;
 		float b = color.getBlue() / 255F;
-
-		int mana = getMana();
-		int maxMana = getStartingMana();
-		float osize = (float) mana / (float) maxMana;
+		float osize = getParticleSize();
 		float size = osize;
 
 		if(fake) {
@@ -524,6 +523,10 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 			if(monocle)
 				Botania.proxy.setWispFXDepthTest(true);
 		}
+	}
+	
+	public float getParticleSize() {
+		return (float) getMana() / (float) getStartingMana();
 	}
 
 	@Override
@@ -801,6 +804,13 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		TileEntity tile = world.getTileEntity(coords);
 		if(tile != null && tile instanceof IManaSpreader)
 			((IManaSpreader) tile).setLastBurstDeathTick(getTicksExisted());
+	}
+	
+	@Override
+	@Optional.Method(modid="albedo")
+	public Light provideLight() {
+		int color = getColor();
+		return Light.builder().pos(new Vec3d(posX - motionX, posY - motionY, posZ - motionZ)).color(color, false).radius(getParticleSize() * 8).build();
 	}
 
 	public static class PositionProperties {

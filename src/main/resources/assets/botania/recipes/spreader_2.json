@@ -1,0 +1,71 @@
+{
+  "result": {
+    "item": "botania:spreader",
+    "data": 2
+  },
+  "pattern": [
+    "WWW",
+    "EP ",
+    "WWW"
+  ],
+  "group": "botania:spreader",
+  "type": "forge:ore_shaped",
+  "key": {
+    "P": [
+      {
+        "item": "#PETALWHITE"
+      },
+      {
+        "item": "#PETALORANGE"
+      },
+      {
+        "item": "#PETALMAGENTA"
+      },
+      {
+        "item": "#PETALLIGHTBLUE"
+      },
+      {
+        "item": "#PETALYELLOW"
+      },
+      {
+        "item": "#PETALLIME"
+      },
+      {
+        "item": "#PETALPINK"
+      },
+      {
+        "item": "#PETALGRAY"
+      },
+      {
+        "item": "#PETALLIGHTGRAY"
+      },
+      {
+        "item": "#PETALCYAN"
+      },
+      {
+        "item": "#PETALPURPLE"
+      },
+      {
+        "item": "#PETALBLUE"
+      },
+      {
+        "item": "#PETALBROWN"
+      },
+      {
+        "item": "#PETALGREEN"
+      },
+      {
+        "item": "#PETALRED"
+      },
+      {
+        "item": "#PETALBLACK"
+      }
+    ],
+    "E": {
+      "item": "#INGOTELVENELEMENTIUM"
+    },
+    "W": {
+      "item": "#DREAMWOOD"
+    }
+  }
+}

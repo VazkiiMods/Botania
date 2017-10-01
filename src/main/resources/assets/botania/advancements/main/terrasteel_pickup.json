@@ -1,0 +1,28 @@
+{
+  "display": {
+    "icon": {
+      "item": "botania:manaresource",
+      "data": 4
+    },
+    "title": {
+      "translate": "advancement.botania:terrasteelPickup"
+    },
+    "description": {
+      "translate": "advancement.botania:terrasteelPickup.desc"
+    }
+  },
+  "parent": "botania:main/rune_pickup",
+  "criteria": {
+    "terrasteel": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "botania:manaresource",
+            "data": 4
+          }
+        ]
+      }
+    }
+  }
+}

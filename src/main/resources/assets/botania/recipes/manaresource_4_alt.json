@@ -1,0 +1,17 @@
+{
+  "result": {
+    "item": "botania:manaresource",
+    "data": 4
+  },
+  "pattern": [
+    "III",
+    "III",
+    "III"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "I": {
+      "item": "#NUGGETTERRASTEEL"
+    }
+  }
+}

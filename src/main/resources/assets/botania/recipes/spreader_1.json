@@ -1,0 +1,17 @@
+{
+  "result": {
+    "item": "botania:spreader",
+    "data": 1
+  },
+  "group": "botania:spreader",
+  "ingredients": [
+    {
+      "item": "botania:spreader",
+      "data": 0
+    },
+    {
+      "item": "#DUSTREDSTONE"
+    }
+  ],
+  "type": "forge:ore_shapeless"
+}

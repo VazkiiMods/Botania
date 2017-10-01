@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:item/handheld",
   "textures": {
-    "layer0": "botania:items/terrapick2",
-    "layer1": "botania:items/terrapick1"
+    "layer0": "botania:items/terrasteel_pickaxe_tipped",
+    "layer1": "botania:items/terrasteel_pickaxe_overlay"
   }
 }

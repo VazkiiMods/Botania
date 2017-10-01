@@ -10,10 +10,10 @@
  */
 package vazkii.botania.common.brew.potion;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.entity.EntityLivingBase;
 import vazkii.botania.common.lib.LibPotionNames;
+
+import javax.annotation.Nonnull;
 
 public class PotionFeatherfeet extends PotionMod {
 

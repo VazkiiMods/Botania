@@ -1,0 +1,37 @@
+{
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:mod_loaded",
+        "modid": "gardenofglass"
+      }
+    }
+  ],
+  "result": {
+    "item": "botania:fertilizer"
+  },
+  "ingredients": [
+    {
+      "item": "minecraft:dye",
+      "data": 15
+    },
+    {
+      "item": "botania:dye",
+      "data": 32767
+    },
+    {
+      "item": "botania:dye",
+      "data": 32767
+    },
+    {
+      "item": "botania:dye",
+      "data": 32767
+    },
+    {
+      "item": "botania:dye",
+      "data": 32767
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}

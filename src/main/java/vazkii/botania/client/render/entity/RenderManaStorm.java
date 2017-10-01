@@ -10,8 +10,6 @@
  */
 package vazkii.botania.client.render.entity;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
@@ -19,6 +17,8 @@ import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.util.ResourceLocation;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.entity.EntityManaStorm;
+
+import javax.annotation.Nonnull;
 
 public class RenderManaStorm extends Render<EntityManaStorm> {
 

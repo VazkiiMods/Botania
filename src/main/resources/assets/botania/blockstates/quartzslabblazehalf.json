@@ -6,8 +6,7 @@
       "bottom": "botania:blocks/blockblazequartz0",
       "top": "botania:blocks/blockblazequartz1",
       "side": "botania:blocks/blockblazequartz2"
-    },
-    "transform": "forge:default-block"
+    }
   },
   "variants": {
     "half=top": [{

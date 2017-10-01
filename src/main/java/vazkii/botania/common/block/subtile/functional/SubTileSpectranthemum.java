@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
-import java.util.List;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
@@ -28,10 +26,11 @@ import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
-import vazkii.botania.common.core.handler.MethodHandles;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.network.PacketBotaniaEffect;
 import vazkii.botania.common.network.PacketHandler;
+
+import java.util.List;
 
 public class SubTileSpectranthemum extends SubTileFunctional {
 
@@ -60,17 +59,10 @@ public class SubTileSpectranthemum extends SubTileFunctional {
 			int slowdown = getSlowdownFactor();
 
 			for(EntityItem item : items) {
-				int age;
-				try {
-					age = (int) MethodHandles.itemAge_getter.invokeExact(item);
-				} catch (Throwable t) {
-					continue;
-				}
-
-				if(age < 60 + slowdown || item.isDead || item.getEntityData().getBoolean(TAG_TELEPORTED))
+				if(item.age < 60 + slowdown || item.isDead || item.getEntityData().getBoolean(TAG_TELEPORTED))
 					continue;
 
-				ItemStack stack = item.getEntityItem();
+				ItemStack stack = item.getItem();
 				if(!stack.isEmpty()) {
 					Item sitem = stack.getItem();
 					if(sitem instanceof IManaItem)

@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "botania:tinyplanet"
+  },
+  "pattern": [
+    "LSL",
+    "SPS",
+    "LSL"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "P": {
+      "item": "#MANAPEARL"
+    },
+    "S": {
+      "item": "#STONE"
+    },
+    "L": {
+      "item": "#LIVINGROCK"
+    }
+  }
+}

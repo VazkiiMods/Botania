@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.item.material;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.state.IBlockState;
@@ -30,6 +28,8 @@ import vazkii.botania.api.recipe.IFlowerComponent;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.Item16Colors;
 import vazkii.botania.common.lib.LibItemNames;
+
+import javax.annotation.Nonnull;
 
 public class ItemPetal extends Item16Colors implements IFlowerComponent {
 
@@ -96,6 +96,6 @@ public class ItemPetal extends Item16Colors implements IFlowerComponent {
 
 	@Override
 	public int getParticleColor(ItemStack stack) {
-		return EnumDyeColor.byMetadata(stack.getItemDamage()).getMapColor().colorValue;
+		return EnumDyeColor.byMetadata(stack.getItemDamage()).colorValue;
 	}
 }

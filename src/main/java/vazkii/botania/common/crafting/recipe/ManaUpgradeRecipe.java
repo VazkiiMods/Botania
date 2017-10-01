@@ -17,7 +17,7 @@ import vazkii.botania.api.mana.IManaItem;
 
 public class ManaUpgradeRecipe extends ShapedOreRecipe {
 	public ManaUpgradeRecipe(ItemStack output, Object... inputs) {
-		super(output, inputs);
+		super(null, output, inputs);
 	}
 
 	public static ItemStack output(ItemStack output, InventoryCrafting var1) {

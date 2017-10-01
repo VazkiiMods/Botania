@@ -10,11 +10,7 @@
  */
 package vazkii.botania.common.lexicon.page;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.google.common.base.Joiner;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.resources.I18n;
@@ -23,6 +19,9 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.internal.IGuiLexiconEntry;
 import vazkii.botania.api.lexicon.LexiconPage;
 import vazkii.botania.common.core.handler.ConfigHandler;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PageText extends LexiconPage {
 
@@ -50,7 +49,7 @@ public class PageText extends LexiconPage {
 		y += 10;
 		width -= 4;
 
-		FontRenderer font = Minecraft.getMinecraft().fontRendererObj;
+		FontRenderer font = Minecraft.getMinecraft().fontRenderer;
 		boolean unicode = font.getUnicodeFlag();
 		if(useUnicode)
 			font.setUnicodeFlag(true);

@@ -10,14 +10,9 @@
  */
 package vazkii.botania.common.block.mana;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
@@ -27,8 +22,8 @@ import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.SoundCategory;
@@ -37,7 +32,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IShearable;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.internal.IManaBurst;
@@ -49,18 +43,23 @@ import vazkii.botania.api.state.enums.DrumVariant;
 import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.item.ItemGrassHorn;
-import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
+import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class BlockForestDrum extends BlockMod implements IManaTrigger, ILexiconable {
 
-	private static final AxisAlignedBB AABB = new AxisAlignedBB(3/16.0, 0, 3/16.0, 13/16.0, 14/16.0, 13/16.0);
+	private static final AxisAlignedBB AABB = new AxisAlignedBB(3/16.0, 1/16.0, 3/16.0, 13/16.0, 15/16.0, 13/16.0);
 
 	public BlockForestDrum() {
 		super(Material.WOOD, LibBlockNames.FOREST_DRUM);
 		setHardness(2.0F);
 		setSoundType(SoundType.WOOD);
+		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.DRUM_VARIANT, DrumVariant.WILD));
 	}
 
 	@Nonnull
@@ -73,11 +72,6 @@ public class BlockForestDrum extends BlockMod implements IManaTrigger, ILexicona
 	@Override
 	public BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, BotaniaStateProps.DRUM_VARIANT);
-	}
-
-	@Override
-	protected IBlockState pickDefaultState() {
-		return blockState.getBaseState().withProperty(BotaniaStateProps.DRUM_VARIANT, DrumVariant.WILD);
 	}
 
 	@Override
@@ -95,11 +89,6 @@ public class BlockForestDrum extends BlockMod implements IManaTrigger, ILexicona
 	}
 
 	@Override
-	public void registerItemForm() {
-		GameRegistry.register(new ItemBlockWithMetadataAndName(this), getRegistryName());
-	}
-
-	@Override
 	public boolean isFullCube(IBlockState state) {
 		return false;
 	}
@@ -114,11 +103,10 @@ public class BlockForestDrum extends BlockMod implements IManaTrigger, ILexicona
 		return state.getBlock().getMetaFromState(state);
 	}
 
-	@SideOnly(Side.CLIENT)
 	@Override
-	public void getSubBlocks(@Nonnull Item item, CreativeTabs tab, NonNullList<ItemStack> list) {
+	public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> list) {
 		for(int i = 0; i < 3; i++)
-			list.add(new ItemStack(item, 1, i));
+			list.add(new ItemStack(this, 1, i));
 	}
 
 	@Override
@@ -146,7 +134,7 @@ public class BlockForestDrum extends BlockMod implements IManaTrigger, ILexicona
 				} else if(entity instanceof EntityCow) {
 					List<EntityItem> items = world.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(entity.posX, entity.posY, entity.posZ, entity.posX + entity.width, entity.posY + entity.height, entity.posZ + entity.width));
 					for(EntityItem item : items) {
-						ItemStack itemstack = item.getEntityItem();
+						ItemStack itemstack = item.getItem();
 						if(!itemstack.isEmpty() && itemstack.getItem() == Items.BUCKET && !world.isRemote) {
 							while(itemstack.getCount() > 0) {
 								EntityItem ent = entity.entityDropItem(new ItemStack(Items.MILK_BUCKET), 1.0F);
@@ -203,6 +191,12 @@ public class BlockForestDrum extends BlockMod implements IManaTrigger, ILexicona
 	@Override
 	public void registerModels() {
 		ModelHandler.registerBlockToState(this, DrumVariant.values().length);
+	}
+
+	@Nonnull
+	@Override
+	public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing side) {
+		return BlockFaceShape.UNDEFINED;
 	}
 
 }

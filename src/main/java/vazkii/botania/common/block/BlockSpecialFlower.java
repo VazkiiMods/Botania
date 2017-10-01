@@ -10,12 +10,6 @@
  */
 package vazkii.botania.common.block;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
 import net.minecraft.block.BlockFlower;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.properties.IProperty;
@@ -29,10 +23,8 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.EnumDyeColor;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.NonNullList;
@@ -48,7 +40,6 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.property.ExtendedBlockState;
 import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.common.property.IUnlistedProperty;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.BotaniaAPI;
@@ -67,6 +58,11 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
+
+import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, IWandable, ILexiconable, IWandHUD, IModelRegister {
 
@@ -88,6 +84,7 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 				LibBlockNames.SUBTILE_NARSLIMMUS,
 				LibBlockNames.SUBTILE_SPECTROLUS,
 				LibBlockNames.SUBTILE_RAFFLOWSIA,
+				LibBlockNames.SUBTILE_SHULK_ME_NOT,
 				LibBlockNames.SUBTILE_DANDELIFEON,
 
 				// Functional
@@ -124,8 +121,6 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 	protected BlockSpecialFlower() {
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.COLOR, EnumDyeColor.WHITE).withProperty(type, EnumFlowerType.POPPY));
 		setRegistryName(new ResourceLocation(LibMisc.MOD_ID, LibBlockNames.SPECIAL_FLOWER));
-		GameRegistry.register(this);
-		GameRegistry.register(new ItemBlockSpecialFlower(this), getRegistryName());
 		setUnlocalizedName(LibBlockNames.SPECIAL_FLOWER);
 		setHardness(0.1F);
 		setSoundType(SoundType.PLANT);
@@ -136,7 +131,7 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 	@Nonnull
 	@Override
 	public AxisAlignedBB getBoundingBox(IBlockState state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos) {
-		return AABB;
+		return AABB.offset(state.getOffset(world, pos));
 	}
 
 	@Nonnull
@@ -205,16 +200,8 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 		return true;
 	}
 
-	@SideOnly(Side.CLIENT)
-	@Nonnull
 	@Override
-	public BlockRenderLayer getBlockLayer() {
-		return BlockRenderLayer.CUTOUT;
-	}
-
-	@SideOnly(Side.CLIENT)
-	@Override
-	public void getSubBlocks(@Nonnull Item item, CreativeTabs tab, @Nonnull NonNullList<ItemStack> stacks) {
+	public void getSubBlocks(CreativeTabs tab, @Nonnull NonNullList<ItemStack> stacks) {
 		for(String s : BotaniaAPI.subtilesForCreativeMenu) {
 			stacks.add(ItemBlockSpecialFlower.ofType(s));
 			if(BotaniaAPI.miniFlowers.containsKey(s))
@@ -273,10 +260,8 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 		world.setBlockToAir(pos);
 	}
 
-	@Nonnull
 	@Override
-	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, @Nonnull IBlockState state, int fortune) {
-		ArrayList<ItemStack> list = new ArrayList<>();
+	public void getDrops(NonNullList<ItemStack> list, IBlockAccess world, BlockPos pos, @Nonnull IBlockState state, int fortune) {
 		TileEntity tile = world.getTileEntity(pos);
 
 		if(tile != null) {
@@ -284,8 +269,6 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 			list.add(ItemBlockSpecialFlower.ofType(name));
 			((TileSpecialFlower) tile).getDrops(list);
 		}
-
-		return list;
 	}
 
 	@Override

@@ -10,10 +10,6 @@
  */
 package vazkii.botania.common.item;
 
-import javax.annotation.Nonnull;
-
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
@@ -29,12 +25,10 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.ContainerWorkbench;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.stats.Achievement;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
@@ -55,22 +49,21 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
-import vazkii.botania.client.core.handler.ClientMethodHandles;
+import org.lwjgl.opengl.GL11;
 import vazkii.botania.client.core.handler.ClientTickHandler;
-import vazkii.botania.client.gui.crafting.InventoryCraftingHalo;
+import vazkii.botania.client.gui.crafting.ContainerCraftingHalo;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.Botania;
-import vazkii.botania.common.achievement.ICraftAchievement;
-import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.lib.LibGuiIDs;
 import vazkii.botania.common.lib.LibItemNames;
 
+import javax.annotation.Nonnull;
 import java.util.Arrays;
 
-public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
+public class ItemCraftingHalo extends ItemMod {
 
 	private static final ResourceLocation glowTexture = new ResourceLocation(LibResources.MISC_GLOW_GREEN);
 	private static final ItemStack craftingTable = new ItemStack(Blocks.CRAFTING_TABLE);
@@ -160,7 +153,7 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 		for(int i = 0; i < 9; i++)
 			fakeInv.setInventorySlotContents(i, recipe[i]);
 
-		ItemStack result = CraftingManager.getInstance().findMatchingRecipe(fakeInv, player.world);
+		ItemStack result = CraftingManager.findMatchingResult(fakeInv, player.world);
 		if(result.isEmpty()) {
 			assignRecipe(stack, recipe[9], slot);
 			return null;
@@ -192,7 +185,7 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 			return;
 
 		Vec3d lookVec3 = player.getLookVec();
-		Vector3 centerVector = Vector3.fromEntityCenter(player).add(lookVec3.xCoord * 3, 1.3, lookVec3.zCoord * 3);
+		Vector3 centerVector = Vector3.fromEntityCenter(player).add(lookVec3.x * 3, 1.3, lookVec3.z * 3);
 		float m = 0.1F;
 		for(int i = 0; i < 4; i++)
 			Botania.proxy.wispFX(centerVector.x, centerVector.y, centerVector.z, 1F, 0F, 1F, 0.2F + 0.2F * (float) Math.random(), ((float) Math.random() - 0.5F) * m, ((float) Math.random() - 0.5F) * m, ((float) Math.random() - 0.5F) * m);
@@ -313,7 +306,7 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 
 	@SubscribeEvent
 	public void onItemCrafted(ItemCraftedEvent event) {
-		if(!(event.craftMatrix instanceof InventoryCraftingHalo))
+		if(!(event.player.openContainer instanceof ContainerCraftingHalo))
 			return;
 
 		for(int i = 0; i < event.player.inventory.getSizeInventory(); i++) {
@@ -327,7 +320,7 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 		NBTTagCompound cmp = new NBTTagCompound();
 		NBTTagCompound cmp1 = new NBTTagCompound();
 
-		ItemStack result = CraftingManager.getInstance().findMatchingRecipe((InventoryCrafting) event.craftMatrix, event.player.world);
+		ItemStack result = CraftingManager.findMatchingResult((InventoryCrafting) event.craftMatrix, event.player.world);
 		if(!result.isEmpty()) {
 			cmp1 = result.writeToNBT(cmp1);
 			cmp.setTag(TAG_ITEM_PREFIX + 9, cmp1);
@@ -417,16 +410,9 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 		Minecraft mc = Minecraft.getMinecraft();
 		Tessellator tess = Tessellator.getInstance();
 
-		double renderPosX, renderPosY, renderPosZ;
-
-		try {
-			renderPosX = (double) ClientMethodHandles.renderPosX_getter.invokeExact(Minecraft.getMinecraft().getRenderManager());
-			renderPosY = (double) ClientMethodHandles.renderPosY_getter.invokeExact(Minecraft.getMinecraft().getRenderManager());
-			renderPosZ = (double) ClientMethodHandles.renderPosZ_getter.invokeExact(Minecraft.getMinecraft().getRenderManager());
-		} catch (Throwable t) {
-			t.printStackTrace();
-			return;
-		}
+		double renderPosX = mc.getRenderManager().renderPosX;
+		double renderPosY = mc.getRenderManager().renderPosY;
+		double renderPosZ = mc.getRenderManager().renderPosZ;
 
 		GlStateManager.pushMatrix();
 		GlStateManager.enableBlend();
@@ -535,7 +521,7 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 
 		if(slot == 0) {
 			String name = craftingTable.getDisplayName();
-			int l = mc.fontRendererObj.getStringWidth(name);
+			int l = mc.fontRenderer.getStringWidth(name);
 			int x = resolution.getScaledWidth() / 2 - l / 2;
 			int y = resolution.getScaledHeight() / 2 - 65;
 
@@ -546,7 +532,7 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 			mc.getRenderItem().renderItemAndEffectIntoGUI(craftingTable, resolution.getScaledWidth() / 2 - 8, resolution.getScaledHeight() / 2 - 52);
 			net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
 
-			mc.fontRendererObj.drawStringWithShadow(name, x, y, 0xFFFFFF);
+			mc.fontRenderer.drawStringWithShadow(name, x, y, 0xFFFFFF);
 		} else {
 			ItemStack[] recipe = getCraftingItems(stack, slot);
 			String label = I18n.format("botaniamisc.unsetRecipe");
@@ -591,7 +577,7 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 			}
 
 			mc.getRenderItem().renderItemAndEffectIntoGUI(recipe[9], x + 72, y + 18);
-			mc.getRenderItem().renderItemOverlays(mc.fontRendererObj, recipe[9], x + 72, y + 18);
+			mc.getRenderItem().renderItemOverlays(mc.fontRenderer, recipe[9], x + 72, y + 18);
 
 			net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
 		}
@@ -599,16 +585,10 @@ public class ItemCraftingHalo extends ItemMod implements ICraftAchievement {
 		int yoff = 110;
 		if(setRecipe && !canCraft(recipe, getFakeInv(player))) {
 			String warning = TextFormatting.RED + I18n.format("botaniamisc.cantCraft");
-			mc.fontRendererObj.drawStringWithShadow(warning, resolution.getScaledWidth() / 2 - mc.fontRendererObj.getStringWidth(warning) / 2, resolution.getScaledHeight() / 2 - yoff, 0xFFFFFF);
+			mc.fontRenderer.drawStringWithShadow(warning, resolution.getScaledWidth() / 2 - mc.fontRenderer.getStringWidth(warning) / 2, resolution.getScaledHeight() / 2 - yoff, 0xFFFFFF);
 			yoff += 12;
 		}
 
-		mc.fontRendererObj.drawStringWithShadow(label, resolution.getScaledWidth() / 2 - mc.fontRendererObj.getStringWidth(label) / 2, resolution.getScaledHeight() / 2 - yoff, 0xFFFFFF);
+		mc.fontRenderer.drawStringWithShadow(label, resolution.getScaledWidth() / 2 - mc.fontRenderer.getStringWidth(label) / 2, resolution.getScaledHeight() / 2 - yoff, 0xFFFFFF);
 	}
-
-	@Override
-	public Achievement getAchievementOnCraft(ItemStack stack, EntityPlayer player, IInventory matrix) {
-		return ModAchievements.craftingHaloCraft;
-	}
-
 }

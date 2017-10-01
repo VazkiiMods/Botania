@@ -1,0 +1,19 @@
+{
+  "result": {
+    "item": "botania:lens",
+    "data": 23
+  },
+  "ingredients": [
+    {
+      "item": "botania:lens",
+      "data": 0
+    },
+    {
+      "item": "minecraft:tripwire_hook"
+    },
+    {
+      "item": "#INGOTELVENELEMENTIUM"
+    }
+  ],
+  "type": "forge:ore_shapeless"
+}

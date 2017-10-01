@@ -1,0 +1,16 @@
+{
+  "result": {
+    "item": "botania:clip"
+  },
+  "pattern": [
+    " D ",
+    "D D",
+    "DD "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "D": {
+      "item": "#DREAMWOOD"
+    }
+  }
+}

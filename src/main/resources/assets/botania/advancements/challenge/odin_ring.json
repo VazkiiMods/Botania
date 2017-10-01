@@ -1,0 +1,25 @@
+{
+  "display": {
+    "icon": {
+      "item": "botania:odinring"
+    },
+    "title": {
+      "translate": "advancement.botania:odinRing"
+    },
+    "description": {
+      "translate": "advancement.botania:odinRing.desc"
+    },
+    "frame": "challenge"
+  },
+  "parent": "botania:challenge/root",
+  "criteria": {
+    "ring": {
+      "trigger": "botania:relic_bind",
+      "conditions": {
+        "relic": {
+          "item": "botania:odinring"
+        }
+      }
+    }
+  }
+}

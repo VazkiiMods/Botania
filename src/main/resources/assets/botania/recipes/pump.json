@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "botania:pump"
+  },
+  "pattern": [
+    "SSS",
+    "IBI",
+    "SSS"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "B": {
+      "item": "minecraft:bucket"
+    },
+    "S": {
+      "item": "#LIVINGROCK"
+    },
+    "I": {
+      "item": "#INGOTMANASTEEL"
+    }
+  }
+}

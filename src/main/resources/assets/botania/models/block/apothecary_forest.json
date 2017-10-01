@@ -1,0 +1,10 @@
+{
+	"Comment": "Designed by Wiiv with Cubik Studio - https://cubik.studio",
+	"parent": "botania:block/shapes/petal_apothecary",
+	"textures": {
+		"side": "botania:model/apothecary/forest_side",
+		"goblet": "botania:model/apothecary/forest_goblet",
+		"top_bottom": "botania:model/apothecary/forest_top_bottom",
+		"particle": "botania:model/apothecary/forest_top_bottom"
+	}
+}

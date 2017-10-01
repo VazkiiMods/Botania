@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.entity;
 
-import java.util.List;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
@@ -20,10 +18,17 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.Optional;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.ConfigHandler;
 
-public class EntityFallingStar extends EntityThrowableCopy {
+import java.util.List;
+
+import elucent.albedo.lighting.ILightProvider;
+import elucent.albedo.lighting.Light;
+
+@Optional.Interface(iface="elucent.albedo.lighting.ILightProvider", modid="albedo")
+public class EntityFallingStar extends EntityThrowableCopy implements ILightProvider {
 
 	public EntityFallingStar(World world) {
 		super(world);
@@ -49,7 +54,7 @@ public class EntityFallingStar extends EntityThrowableCopy {
 
 		EntityLivingBase thrower = getThrower();
 		if(!world.isRemote && thrower != null) {
-			AxisAlignedBB axis = new AxisAlignedBB(posX, posY, posZ, lastTickPosX, lastTickPosY, lastTickPosZ).expand(2, 2, 2);
+			AxisAlignedBB axis = new AxisAlignedBB(posX, posY, posZ, lastTickPosX, lastTickPosY, lastTickPosZ).grow(2);
 			List<EntityLivingBase> entities = world.getEntitiesWithinAABB(EntityLivingBase.class, axis);
 			for(EntityLivingBase living : entities) {
 				if(living == thrower)
@@ -85,6 +90,12 @@ public class EntityFallingStar extends EntityThrowableCopy {
 		}
 
 		setDead();
+	}
+	
+	@Override
+	@Optional.Method(modid="albedo")
+	public Light provideLight() {
+		return Light.builder().pos(this).color(1F, 0F, 1F).radius(12).build();
 	}
 
 }

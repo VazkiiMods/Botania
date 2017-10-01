@@ -10,36 +10,34 @@
  */
 package vazkii.botania.common.item.relic;
 
-import java.util.List;
-import java.util.UUID;
-
-import javax.annotation.Nonnull;
-
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.stats.Achievement;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
-import net.minecraftforge.common.UsernameCache;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IRelic;
+import vazkii.botania.common.advancements.RelicBindTrigger;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.item.ModItems;
 
+import javax.annotation.Nonnull;
+import java.util.List;
+import java.util.UUID;
+
 public class ItemRelic extends ItemMod implements IRelic {
 
-	private static final String TAG_SOULBIND_NAME = "soulbind";
 	private static final String TAG_SOULBIND_UUID = "soulbindUUID";
-
-	private Achievement achievement;
 
 	public ItemRelic(String name) {
 		super(name);
@@ -54,23 +52,20 @@ public class ItemRelic extends ItemMod implements IRelic {
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void addInformation(ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advanced) {
-		addBindInfo(tooltip, stack, player);
+	public void addInformation(ItemStack stack, World world, List<String> tooltip, ITooltipFlag flags) {
+		addBindInfo(tooltip, stack);
 	}
 
 	@SideOnly(Side.CLIENT)
-	public void addBindInfo(List<String> list, ItemStack stack, EntityPlayer player) {
+	public void addBindInfo(List<String> list, ItemStack stack) {
 		if(GuiScreen.isShiftKeyDown()) {
 			if(!hasUUID(stack)) {
 				addStringToTooltip(I18n.format("botaniamisc.relicUnbound"), list);
 			} else {
-				addStringToTooltip(I18n.format("botaniamisc.relicSoulbound", getSoulbindUsername(stack)), list);
-				if(!getSoulbindUUID(stack).equals(player.getUniqueID()))
-					addStringToTooltip(I18n.format("botaniamisc.notYourSagittarius", getSoulbindUsername(stack)), list);
+				if(!getSoulbindUUID(stack).equals(Minecraft.getMinecraft().player.getUniqueID()))
+					addStringToTooltip(I18n.format("botaniamisc.notYourSagittarius"), list);
+				else addStringToTooltip(I18n.format("botaniamisc.relicSoulbound", Minecraft.getMinecraft().player.getName()), list);
 			}
-
-			if(stack.getItem() == ModItems.aesirRing)
-				addStringToTooltip(I18n.format("botaniamisc.dropIkea"), list);
 
 			if(stack.getItem() == ModItems.dice) {
 				addStringToTooltip("", list);
@@ -90,7 +85,7 @@ public class ItemRelic extends ItemMod implements IRelic {
 		return Integer.MAX_VALUE;
 	}
 
-	static void addStringToTooltip(String s, List<String> tooltip) {
+	private static void addStringToTooltip(String s, List<String> tooltip) {
 		tooltip.add(s.replaceAll("&", "\u00a7"));
 	}
 
@@ -99,30 +94,13 @@ public class ItemRelic extends ItemMod implements IRelic {
 			return;
 
 		boolean rightPlayer = true;
-		if(hasUUID(stack)) {
-			// Sync to username todo is this worth 'optimizing'?
-			if (UsernameCache.containsUUID(getSoulbindUUID(stack))) {
-				bindToUsername(UsernameCache.getLastKnownUsername(getSoulbindUUID(stack)), stack);
-			} else {
-				bindToUsername("", stack);
-			}
 
-			// UUID trumps username
-			rightPlayer = getSoulbindUUID(stack).equals(player.getUniqueID());
-		} else {
-			if ("".equals(getSoulbindUsername(stack))) {
-				// New user
-				bindToUUID(player.getUniqueID(), stack);
-				player.addStat(((IRelic) stack.getItem()).getBindAchievement(), 1);
-			} else {
-				if (player.getName().equals(getSoulbindUsername(stack))) {
-					// Old relic, correct owner, convert to UUID
-					bindToUUID(player.getUniqueID(), stack);
-				} else {
-					// Old relic, wrong owner, damage
-					rightPlayer = false;
-				}
-			}
+		if(!hasUUID(stack)) {
+			bindToUUID(player.getUniqueID(), stack);
+			if(player instanceof EntityPlayerMP)
+				RelicBindTrigger.INSTANCE.trigger((EntityPlayerMP) player, stack);
+		} else if (!getSoulbindUUID(stack).equals(player.getUniqueID())) {
+			rightPlayer = false;
 		}
 
 		if(!rightPlayer && player.ticksExisted % 10 == 0 && (!(stack.getItem() instanceof ItemRelic) || ((ItemRelic) stack.getItem()).shouldDamageWrongPlayer()))
@@ -130,25 +108,11 @@ public class ItemRelic extends ItemMod implements IRelic {
 	}
 
 	public boolean isRightPlayer(EntityPlayer player, ItemStack stack) {
-		if (hasUUID(stack)) {
-			return getSoulbindUUID(stack).equals(player.getUniqueID());
-		} else {
-			return getSoulbindUsername(stack).equals(player.getName());
-		}
+		return hasUUID(stack) && getSoulbindUUID(stack).equals(player.getUniqueID());
 	}
 
 	public static DamageSource damageSource() {
 		return new DamageSource("botania-relic");
-	}
-
-	@Override
-	public void bindToUsername(String playerName, ItemStack stack) {
-		ItemNBTHelper.setString(stack, TAG_SOULBIND_NAME, playerName);
-	}
-
-	@Override
-	public String getSoulbindUsername(ItemStack stack) {
-		return ItemNBTHelper.getString(stack, TAG_SOULBIND_NAME, "");
 	}
 
 	@Override
@@ -172,16 +136,6 @@ public class ItemRelic extends ItemMod implements IRelic {
 	@Override
 	public boolean hasUUID(ItemStack stack) {
 		return getSoulbindUUID(stack) != null;
-	}
-
-	@Override
-	public Achievement getBindAchievement() {
-		return achievement;
-	}
-
-	@Override
-	public void setBindAchievement(Achievement achievement) {
-		this.achievement = achievement;
 	}
 
 	@Nonnull

@@ -1,0 +1,15 @@
+{
+  "result": {
+    "item": "botania:corporeafunnel"
+  },
+  "ingredients": [
+    {
+      "item": "minecraft:dropper"
+    },
+    {
+      "item": "botania:corporeaspark",
+      "data": 0
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}

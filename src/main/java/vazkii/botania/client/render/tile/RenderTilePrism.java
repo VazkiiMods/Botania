@@ -10,8 +10,6 @@
  */
 package vazkii.botania.client.render.tile;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
@@ -22,12 +20,14 @@ import vazkii.botania.api.mana.ILens;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.common.block.tile.mana.TilePrism;
 
+import javax.annotation.Nonnull;
+
 //import vazkii.botania.client.render.item.RenderLens;
 
 public class RenderTilePrism extends TileEntitySpecialRenderer<TilePrism> {
 
 	@Override
-	public void renderTileEntityAt(@Nonnull TilePrism prism, double x, double y, double z, float partTicks, int digProgress) {
+	public void render(@Nonnull TilePrism prism, double x, double y, double z, float partTicks, int digProgress, float unused) {
 		GlStateManager.pushMatrix();
 		GlStateManager.translate(x, y, z);
 		float pos = (float) Math.sin((ClientTickHandler.ticksInGame + partTicks) * 0.05F) * 0.5F * (1F - 1F / 16F) - 0.5F;

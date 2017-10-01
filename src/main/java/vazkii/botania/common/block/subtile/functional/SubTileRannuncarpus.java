@@ -10,12 +10,6 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import net.minecraft.item.ItemPiston;
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -27,6 +21,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemBlockSpecial;
+import net.minecraft.item.ItemPiston;
 import net.minecraft.item.ItemRedstone;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -35,6 +30,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.item.IFloatingFlower;
 import vazkii.botania.api.item.IFlowerPlaceable;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -43,10 +39,12 @@ import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileEntity;
 import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.core.handler.ConfigHandler;
-import vazkii.botania.common.core.handler.MethodHandles;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibObfuscation;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SubTileRannuncarpus extends SubTileFunctional {
 
@@ -81,17 +79,10 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 			List<EntityItem> items = supertile.getWorld().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(supertile.getPos().add(-RANGE, -RANGE_Y, -RANGE), supertile.getPos().add(RANGE + 1, RANGE_Y + 1, RANGE + 1)));
 			int slowdown = getSlowdownFactor();
 			for(EntityItem item : items) {
-				int age;
-				try {
-					age = (int) MethodHandles.itemAge_getter.invokeExact(item);
-				} catch (Throwable t) {
-					continue;
-				}
-
-				if(age < 60 + slowdown || item.isDead || item.getEntityItem().isEmpty())
+				if(item.age < 60 + slowdown || item.isDead || item.getItem().isEmpty())
 					continue;
 
-				ItemStack stack = item.getEntityItem();
+				ItemStack stack = item.getItem();
 				Item stackItem = stack.getItem();
 				if(stackItem instanceof ItemBlock || stackItem instanceof ItemBlockSpecial || stackItem instanceof ItemRedstone || stackItem instanceof IFlowerPlaceable) {
 					if(!scanned) {
@@ -121,10 +112,10 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 							if(stackItem instanceof ItemPiston) // Workaround because the blockMeta ItemPiston gives crashes getStateFromMeta
 								blockMeta = 0;
 
-							stateToPlace = ((ItemBlock) stackItem).block.getStateFromMeta(blockMeta);
+							stateToPlace = ((ItemBlock) stackItem).getBlock().getStateFromMeta(blockMeta);
 						}
 						else if(stackItem instanceof ItemBlockSpecial)
-							stateToPlace = ((Block) ReflectionHelper.getPrivateValue(ItemBlockSpecial.class, (ItemBlockSpecial) stackItem, LibObfuscation.REED_ITEM)).getDefaultState();
+							stateToPlace = ((ItemBlockSpecial) stackItem).getBlock().getDefaultState();
 						else if(stackItem instanceof ItemRedstone)
 							stateToPlace = Blocks.REDSTONE_WIRE.getDefaultState();
 
@@ -182,11 +173,11 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		if(!recieverStack.isEmpty()) {
 			String stackName = recieverStack.getDisplayName();
-			int width = 16 + mc.fontRendererObj.getStringWidth(stackName) / 2;
+			int width = 16 + mc.fontRenderer.getStringWidth(stackName) / 2;
 			int x = res.getScaledWidth() / 2 - width;
 			int y = res.getScaledHeight() / 2 + 30;
 
-			mc.fontRendererObj.drawStringWithShadow(stackName, x + 20, y + 5, color);
+			mc.fontRenderer.drawStringWithShadow(stackName, x + 20, y + 5, color);
 			RenderHelper.enableGUIStandardItemLighting();
 			mc.getRenderItem().renderItemAndEffectIntoGUI(recieverStack, x, y);
 			RenderHelper.disableStandardItemLighting();

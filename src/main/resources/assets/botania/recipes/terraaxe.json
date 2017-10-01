@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "botania:terraaxe"
+  },
+  "pattern": [
+    "TTG",
+    "TST",
+    " S "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "S": {
+      "item": "#LIVINGWOODTWIG"
+    },
+    "T": {
+      "item": "#INGOTTERRASTEEL"
+    },
+    "G": {
+      "item": "#GLOWSTONE"
+    }
+  }
+}

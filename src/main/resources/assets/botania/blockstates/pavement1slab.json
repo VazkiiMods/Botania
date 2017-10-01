@@ -6,8 +6,7 @@
       "bottom": "botania:blocks/pavement1",
       "top": "botania:blocks/pavement1",
       "side": "botania:blocks/pavement1"
-    },
-    "transform": "forge:default-block"
+    }
   },
   "variants": {
     "half=top": [{

@@ -1,0 +1,27 @@
+{
+  "display": {
+    "icon": {
+      "item": "botania:flower",
+      "data": 6
+    },
+    "title": {
+      "translate": "advancement.botania:flowerPickup"
+    },
+    "description": {
+      "translate": "advancement.botania:flowerPickup.desc"
+    }
+  },
+  "parent": "botania:main/root",
+  "criteria": {
+    "flower": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "botania:flower"
+          }
+        ]
+      }
+    }
+  }
+}

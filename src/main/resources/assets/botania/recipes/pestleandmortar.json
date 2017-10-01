@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "botania:pestleandmortar"
+  },
+  "pattern": [
+    " S",
+    "W ",
+    "B "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "B": {
+      "item": "minecraft:bowl"
+    },
+    "S": {
+      "item": "#STICKWOOD"
+    },
+    "W": {
+      "item": "#PLANKWOOD"
+    }
+  }
+}

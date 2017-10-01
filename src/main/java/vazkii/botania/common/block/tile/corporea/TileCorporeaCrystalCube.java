@@ -10,12 +10,7 @@
  */
 package vazkii.botania.common.block.tile.corporea;
 
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
 import com.google.common.collect.ImmutableMap;
-
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -31,6 +26,9 @@ import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.corporea.ICorporeaRequestor;
 import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
+
+import javax.annotation.Nonnull;
+import java.util.List;
 
 public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorporeaRequestor {
 
@@ -48,7 +46,7 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 
 	public TileCorporeaCrystalCube() {
 		if (FMLCommonHandler.instance().getSide() == Side.CLIENT) {
-			asm = ModelLoaderRegistry.loadASM(new ResourceLocation("botania", "asms/block/crystalcube_cube.json"), ImmutableMap.of());
+			asm = ModelLoaderRegistry.loadASM(new ResourceLocation("botania", "asms/block/corporeacrystalcube.json"), ImmutableMap.of());
 		} else {
 			asm = null;
 		}

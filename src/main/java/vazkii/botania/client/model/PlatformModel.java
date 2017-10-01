@@ -8,12 +8,7 @@
  */
 package vazkii.botania.client.model;
 
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
 import com.google.common.collect.ImmutableList;
-
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.BakedQuad;
@@ -37,6 +32,9 @@ import vazkii.botania.common.block.BlockCamo;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileCamo;
 
+import javax.annotation.Nonnull;
+import java.util.List;
+
 public class PlatformModel implements IBakedModel {
 
 	@Nonnull
@@ -46,6 +44,10 @@ public class PlatformModel implements IBakedModel {
 			return Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelManager().getMissingModel().getQuads(state, side, rand);
 
 		BlockRenderLayer layer = MinecraftForgeClient.getRenderLayer();
+		if(layer == null) {
+			layer = BlockRenderLayer.SOLID; // workaround for when this isn't set (digging, etc.)
+		}
+
 		IBlockState heldState = ((IExtendedBlockState) state).getValue(BotaniaStateProps.HELD_STATE);
 		IBlockAccess heldWorld = ((IExtendedBlockState) state).getValue(BotaniaStateProps.HELD_WORLD);
 		BlockPos heldPos = ((IExtendedBlockState) state).getValue(BotaniaStateProps.HELD_POS);

@@ -1,18 +1,16 @@
 package vazkii.botania.common.core.loot;
 
-import java.util.Random;
-
-import javax.annotation.Nonnull;
-
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
-
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.storage.loot.LootContext;
 import net.minecraft.world.storage.loot.conditions.LootCondition;
 import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.lib.LibMisc;
+
+import javax.annotation.Nonnull;
+import java.util.Random;
 
 public class TrueGuardianKiller implements LootCondition {
 

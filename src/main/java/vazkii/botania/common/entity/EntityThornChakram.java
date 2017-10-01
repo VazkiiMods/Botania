@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.entity;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.BlockLeaves;
@@ -34,6 +32,8 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ModItems;
+
+import javax.annotation.Nonnull;
 
 public class EntityThornChakram extends EntityThrowable {
 
@@ -59,6 +59,11 @@ public class EntityThornChakram extends EntityThrowable {
 		dataManager.register(BOUNCES, 0);
 		dataManager.register(FLARE, false);
 		dataManager.register(RETURN_TO, -1);
+	}
+
+	@Override
+	public boolean isImmuneToExplosions() {
+		return true;
 	}
 
 	@Override

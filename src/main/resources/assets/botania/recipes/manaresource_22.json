@@ -1,0 +1,16 @@
+{
+  "result": {
+    "item": "botania:manaresource",
+    "data": 22
+  },
+  "pattern": [
+    "SS",
+    "SS"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "S": {
+      "item": "#MANASTRING"
+    }
+  }
+}

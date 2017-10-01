@@ -1,0 +1,19 @@
+{
+  "result": {
+    "item": "botania:swapring"
+  },
+  "pattern": [
+    "CM ",
+    "M M",
+    " M "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "C": {
+      "item": "minecraft:clay"
+    },
+    "M": {
+      "item": "#INGOTMANASTEEL"
+    }
+  }
+}

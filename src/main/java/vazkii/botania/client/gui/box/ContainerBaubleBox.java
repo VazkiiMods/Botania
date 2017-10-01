@@ -10,10 +10,6 @@
  */
 package vazkii.botania.client.gui.box;
 
-import javax.annotation.Nonnull;
-
-import baubles.api.BaubleType;
-import baubles.api.BaublesApi;
 import baubles.api.IBauble;
 import baubles.api.cap.BaublesCapabilities;
 import baubles.api.cap.IBaublesItemHandler;
@@ -29,6 +25,7 @@ import net.minecraftforge.items.SlotItemHandler;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.client.gui.SlotLocked;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 public class ContainerBaubleBox extends Container {

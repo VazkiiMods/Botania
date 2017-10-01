@@ -10,9 +10,6 @@
  */
 package vazkii.botania.api.subtile;
 
-import java.awt.Color;
-import java.util.List;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -33,7 +30,10 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.IManaNetwork;
 import vazkii.botania.api.mana.IManaCollector;
-import vazkii.botania.api.sound.BotaniaSoundEvents;
+import vazkii.botania.common.core.handler.ModSounds;
+
+import java.awt.Color;
+import java.util.List;
 
 /**
  * The basic class for a Generating Flower.
@@ -224,7 +224,7 @@ public class SubTileGenerating extends SubTileEntity {
 			sync();
 
 		knownMana = mana;
-		player.world.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.ding, SoundCategory.PLAYERS, 0.1F, 1F);
+		player.world.playSound(null, player.posX, player.posY, player.posZ, ModSounds.ding, SoundCategory.PLAYERS, 0.1F, 1F);
 
 		return super.onWanded(player, wand);
 	}

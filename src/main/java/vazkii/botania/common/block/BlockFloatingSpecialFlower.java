@@ -10,13 +10,8 @@
  */
 package vazkii.botania.common.block;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
-import javax.annotation.Nonnull;
-
 import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -24,7 +19,6 @@ import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
@@ -39,11 +33,8 @@ import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.common.property.ExtendedBlockState;
 import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.common.property.IUnlistedProperty;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraftforge.oredict.RecipeSorter;
-import net.minecraftforge.oredict.RecipeSorter.Category;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -54,18 +45,18 @@ import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.common.block.decor.BlockFloatingFlower;
 import vazkii.botania.common.block.tile.TileFloatingSpecialFlower;
 import vazkii.botania.common.block.tile.TileSpecialFlower;
-import vazkii.botania.common.crafting.recipe.SpecialFloatingFlowerRecipe;
-import vazkii.botania.common.item.block.ItemBlockFloatingSpecialFlower;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 import vazkii.botania.common.lib.LibBlockNames;
+
+import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class BlockFloatingSpecialFlower extends BlockFloatingFlower implements ISpecialFlower, IWandable, ILexiconable, IWandHUD {
 
 	public BlockFloatingSpecialFlower() {
 		super(LibBlockNames.FLOATING_SPECIAL_FLOWER);
-
-		GameRegistry.addRecipe(new SpecialFloatingFlowerRecipe());
-		RecipeSorter.register("botania:floatingSpecialFlower", SpecialFloatingFlowerRecipe.class, Category.SHAPELESS, "");
 	}
 
 	@Nonnull
@@ -123,13 +114,12 @@ public class BlockFloatingSpecialFlower extends BlockFloatingFlower implements I
 	@Override
 	public void randomDisplayTick(IBlockState state, World world, BlockPos pos, Random rand) {}
 
-	@SideOnly(Side.CLIENT)
 	@Override
-	public void getSubBlocks(@Nonnull Item item, CreativeTabs tab, NonNullList<ItemStack> stacks) {
+	public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> stacks) {
 		for(String s : BotaniaAPI.subtilesForCreativeMenu) {
-			stacks.add(ItemBlockSpecialFlower.ofType(new ItemStack(item), s));
+			stacks.add(ItemBlockSpecialFlower.ofType(new ItemStack(this), s));
 			if(BotaniaAPI.miniFlowers.containsKey(s))
-				stacks.add(ItemBlockSpecialFlower.ofType(new ItemStack(item), BotaniaAPI.miniFlowers.get(s)));
+				stacks.add(ItemBlockSpecialFlower.ofType(new ItemStack(this), BotaniaAPI.miniFlowers.get(s)));
 		}
 	}
 
@@ -164,10 +154,8 @@ public class BlockFloatingSpecialFlower extends BlockFloatingFlower implements I
 		world.setBlockToAir(pos);
 	}
 
-	@Nonnull
 	@Override
-	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, @Nonnull IBlockState state, int fortune) {
-		ArrayList<ItemStack> list = new ArrayList<>();
+	public void getDrops(NonNullList<ItemStack> list, IBlockAccess world, BlockPos pos, @Nonnull IBlockState state, int fortune) {
 		TileEntity tile = world.getTileEntity(pos);
 
 		if(tile != null) {
@@ -175,8 +163,6 @@ public class BlockFloatingSpecialFlower extends BlockFloatingFlower implements I
 			list.add(ItemBlockSpecialFlower.ofType(new ItemStack(state.getBlock()), name));
 			((TileSpecialFlower) tile).getDrops(list);
 		}
-
-		return list;
 	}
 
 	@Override
@@ -203,11 +189,6 @@ public class BlockFloatingSpecialFlower extends BlockFloatingFlower implements I
 	@Override
 	public void renderHUD(Minecraft mc, ScaledResolution res, World world, BlockPos pos) {
 		((TileSpecialFlower) world.getTileEntity(pos)).renderHUD(mc, res);
-	}
-
-	@Override
-	public void registerItemForm() {
-		GameRegistry.register(new ItemBlockFloatingSpecialFlower(this), getRegistryName());
 	}
 
 	@Nonnull

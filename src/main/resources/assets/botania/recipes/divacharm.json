@@ -1,0 +1,25 @@
+{
+  "result": {
+    "item": "botania:divacharm"
+  },
+  "pattern": [
+    "LGP",
+    " HG",
+    " GL"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "P": {
+      "item": "botania:tinyplanet"
+    },
+    "G": {
+      "item": "#INGOTGOLD"
+    },
+    "H": {
+      "item": "#RUNEPRIDEB"
+    },
+    "L": {
+      "item": "#ETERNALLIFEESSENCE"
+    }
+  }
+}

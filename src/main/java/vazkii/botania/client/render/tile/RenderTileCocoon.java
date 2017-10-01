@@ -10,22 +10,21 @@
  */
 package vazkii.botania.client.render.tile;
 
-import javax.annotation.Nonnull;
-
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import org.lwjgl.opengl.GL11;
 import vazkii.botania.common.block.tile.TileCocoon;
+
+import javax.annotation.Nonnull;
 
 public class RenderTileCocoon extends TileEntitySpecialRenderer<TileCocoon> {
 
 	@Override
-	public void renderTileEntityAt(@Nonnull TileCocoon cocoon, double d0, double d1, double d2, float f, int digProgress) {
+	public void render(@Nonnull TileCocoon cocoon, double d0, double d1, double d2, float f, int digProgress, float unused) {
 		float rot = 0F;
 		float modval = 60F - (float) cocoon.timePassed / (float) TileCocoon.TOTAL_TIME * 30F;
 		if(cocoon.timePassed % modval < 10) {

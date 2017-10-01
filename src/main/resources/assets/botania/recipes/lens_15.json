@@ -1,0 +1,16 @@
+{
+  "result": {
+    "item": "botania:lens",
+    "data": 15
+  },
+  "ingredients": [
+    {
+      "item": "botania:lens",
+      "data": 0
+    },
+    {
+      "item": "minecraft:fire_charge"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}

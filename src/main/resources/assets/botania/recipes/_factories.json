@@ -1,0 +1,6 @@
+{
+  "conditions": {
+    "dark_quartz_enabled": "vazkii.botania.common.crafting.DarkQuartzConditionFactory",
+    "fluxfield_enabled": "vazkii.botania.common.crafting.FluxfieldConditionFactory"
+  }
+}

@@ -10,17 +10,12 @@
  */
 package vazkii.botania.common.item.relic;
 
-import java.util.List;
-import java.util.UUID;
-
-import javax.annotation.Nonnull;
-
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.stats.Achievement;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -28,15 +23,13 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IRelic;
 import vazkii.botania.common.item.equipment.bauble.ItemBauble;
 
+import javax.annotation.Nonnull;
+import java.util.List;
+import java.util.UUID;
+
 public abstract class ItemRelicBauble extends ItemBauble implements IRelic {
 
-	Achievement achievement;
-	private final ItemRelic dummy = new ItemRelic("dummy") { // Delegate for relic stuff
-		@Override
-		protected boolean shouldRegister() {
-			return false;
-		}
-	};
+	private final ItemRelic dummy = new ItemRelic("dummy"); // Delegate for relic stuff
 
 	public ItemRelicBauble(String name) {
 		super(name);
@@ -61,9 +54,9 @@ public abstract class ItemRelicBauble extends ItemBauble implements IRelic {
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void addHiddenTooltip(ItemStack par1ItemStack, EntityPlayer player, List<String> stacks, boolean par4) {
-		super.addHiddenTooltip(par1ItemStack, player, stacks, par4);
-		dummy.addBindInfo(stacks, par1ItemStack, player);
+	public void addHiddenTooltip(ItemStack par1ItemStack, World world, List<String> stacks, ITooltipFlag flags) {
+		super.addHiddenTooltip(par1ItemStack, world, stacks, flags);
+		dummy.addBindInfo(stacks, par1ItemStack);
 	}
 
 	public void onValidPlayerWornTick(ItemStack stack, EntityPlayer player) {}
@@ -71,16 +64,6 @@ public abstract class ItemRelicBauble extends ItemBauble implements IRelic {
 	@Override
 	public boolean canEquip(ItemStack stack, EntityLivingBase player) {
 		return player instanceof EntityPlayer && dummy.isRightPlayer((EntityPlayer) player, stack);
-	}
-
-	@Override
-	public void bindToUsername(String playerName, ItemStack stack) {
-		dummy.bindToUsername(playerName, stack);
-	}
-
-	@Override
-	public String getSoulbindUsername(ItemStack stack) {
-		return dummy.getSoulbindUsername(stack);
 	}
 
 	@Override
@@ -96,16 +79,6 @@ public abstract class ItemRelicBauble extends ItemBauble implements IRelic {
 	@Override
 	public boolean hasUUID(ItemStack stack) {
 		return dummy.hasUUID(stack);
-	}
-
-	@Override
-	public Achievement getBindAchievement() {
-		return achievement;
-	}
-
-	@Override
-	public void setBindAchievement(Achievement achievement) {
-		this.achievement = achievement;
 	}
 
 	@Nonnull

@@ -1,0 +1,17 @@
+{
+  "result": {
+    "item": "botania:livingrock",
+    "data": 1,
+    "count": 4
+  },
+  "pattern": [
+    "RR",
+    "RR"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "R": {
+      "item": "#LIVINGROCK"
+    }
+  }
+}

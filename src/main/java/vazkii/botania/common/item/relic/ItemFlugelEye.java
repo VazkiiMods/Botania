@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.item.relic;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -23,6 +21,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -33,6 +32,11 @@ import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.lib.LibItemNames;
+import vazkii.botania.common.lib.LibMisc;
+import vazkii.botania.common.network.PacketBotaniaEffect;
+import vazkii.botania.common.network.PacketHandler;
+
+import javax.annotation.Nonnull;
 
 public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUsingItem {
 
@@ -65,15 +69,17 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 				ItemNBTHelper.setInt(stack, TAG_DIMENSION, world.provider.getDimension());
 				world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_ENDERMEN_TELEPORT, SoundCategory.PLAYERS, 1F, 5F);
 			}
+
+			return EnumActionResult.SUCCESS;
 		}
 
-		return EnumActionResult.SUCCESS;
+		return EnumActionResult.PASS;
 	}
 
 	@Override
 	public void onUsingTick(ItemStack stack, EntityLivingBase living, int count) {
 		float x = (float) (living.posX - Math.random() * living.width);
-		float y = (float) (living.posY - 1.6 + Math.random());
+		float y = (float) (living.posY + Math.random());
 		float z = (float) (living.posZ - Math.random() * living.width);
 		Botania.proxy.wispFX(x, y, z, (float) Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random() * 0.7F, -0.05F - (float) Math.random() * 0.05F);
 	}
@@ -101,7 +107,7 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 
 		if(y > -1 && dim == world.provider.getDimension() && ManaItemHandler.requestManaExact(stack, player, cost, true)) {
 			moveParticlesAndSound(player);
-			if(player instanceof EntityPlayerMP && !world.isRemote)
+			if(player instanceof EntityPlayerMP)
 				((EntityPlayerMP) player).connection.setPlayerLocation(x + 0.5, y + 1.6, z + 0.5, player.rotationYaw, player.rotationPitch);
 			moveParticlesAndSound(player);
 		}
@@ -110,14 +116,8 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 	}
 
 	private static void moveParticlesAndSound(Entity entity) {
-		for(int i = 0; i < 15; i++) {
-			float x = (float) (entity.posX + Math.random());
-			float y = (float) (entity.posY - 1.6 + Math.random());
-			float z = (float) (entity.posZ + Math.random());
-			Botania.proxy.wispFX(x, y, z, (float) Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random(), -0.3F + (float) Math.random() * 0.2F);
-		}
-		if(!entity.world.isRemote)
-			entity.world.playSound(null, entity.posX, entity.posY, entity.posZ, SoundEvents.ENTITY_ENDERMEN_TELEPORT, SoundCategory.PLAYERS, 1F, 1F);
+		PacketHandler.sendToNearby(entity.world, entity, new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.FLUGEL_EFFECT, entity.posX, entity.posY, entity.posZ, entity.getEntityId()));
+		entity.world.playSound(null, entity.posX, entity.posY, entity.posZ, SoundEvents.ENTITY_ENDERMEN_TELEPORT, SoundCategory.PLAYERS, 1F, 1F);
 	}
 
 	@Override
@@ -128,7 +128,7 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 	@Nonnull
 	@Override
 	public EnumAction getItemUseAction(ItemStack par1ItemStack) {
-		return EnumAction.BLOCK;
+		return EnumAction.BOW;
 	}
 
 	@Override
@@ -142,6 +142,11 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 	@Override
 	public boolean usesMana(ItemStack stack) {
 		return true;
+	}
+
+	@Override
+	public ResourceLocation getAdvancement() {
+		return new ResourceLocation(LibMisc.MOD_ID, "challenge/flugel_eye");
 	}
 
 }

@@ -1,0 +1,26 @@
+{
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "gardenofglass"
+    }
+  ],
+  "result": {
+    "item": "minecraft:cobblestone"
+  },
+  "ingredients": [
+    {
+      "item": "#PEBBLE"
+    },
+    {
+      "item": "#PEBBLE"
+    },
+    {
+      "item": "#PEBBLE"
+    },
+    {
+      "item": "#PEBBLE"
+    }
+  ],
+  "type": "forge:ore_shapeless"
+}

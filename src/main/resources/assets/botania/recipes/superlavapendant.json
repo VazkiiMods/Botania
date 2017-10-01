@@ -1,0 +1,25 @@
+{
+  "result": {
+    "item": "botania:superlavapendant"
+  },
+  "pattern": [
+    "BBB",
+    "BPB",
+    "NGN"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "P": {
+      "item": "botania:lavapendant"
+    },
+    "B": {
+      "item": "minecraft:blaze_rod"
+    },
+    "G": {
+      "item": "#ETERNALLIFEESSENCE"
+    },
+    "N": {
+      "item": "minecraft:nether_brick"
+    }
+  }
+}

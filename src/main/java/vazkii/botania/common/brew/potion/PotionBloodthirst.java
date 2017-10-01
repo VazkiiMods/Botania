@@ -35,7 +35,7 @@ public class PotionBloodthirst extends PotionMod {
 		if(event.getResult() != Result.ALLOW && event.getEntityLiving() instanceof IMob) {
 			AxisAlignedBB aabb = new AxisAlignedBB(event.getX() - RANGE, event.getY() - RANGE, event.getZ() - RANGE, event.getX() + RANGE, event.getY() + RANGE, event.getZ() + RANGE);
 			for(EntityPlayer player : event.getWorld().playerEntities) {
-				if(hasEffect(player) && !hasEffect(player, ModPotions.emptiness) && player.getEntityBoundingBox().intersectsWith(aabb)) {
+				if(hasEffect(player) && !hasEffect(player, ModPotions.emptiness) && player.getEntityBoundingBox().intersects(aabb)) {
 					event.setResult(Result.ALLOW);
 					return;
 				}

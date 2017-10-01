@@ -1,0 +1,25 @@
+{
+  "result": {
+    "item": "botania:lavapendant"
+  },
+  "pattern": [
+    "MS ",
+    "S S",
+    "DSF"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "S": {
+      "item": "#MANASTRING"
+    },
+    "D": {
+      "item": "#INGOTMANASTEEL"
+    },
+    "F": {
+      "item": "#RUNEFIREB"
+    },
+    "M": {
+      "item": "#RUNESUMMERB"
+    }
+  }
+}

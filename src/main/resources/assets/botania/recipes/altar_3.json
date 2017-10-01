@@ -1,0 +1,23 @@
+{
+  "result": {
+    "item": "botania:altar",
+    "data": 3
+  },
+  "pattern": [
+    "SSS",
+    "SAS",
+    "SSS"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "group": "botania:metamorphic_apothecary",
+  "key": {
+    "A": {
+      "item": "botania:altar",
+      "data": 0
+    },
+    "S": {
+      "item": "botania:biomestonea",
+      "data": 10
+    }
+  }
+}

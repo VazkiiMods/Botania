@@ -8,19 +8,15 @@
  */
 package vazkii.botania.api;
 
-import java.util.Collections;
-import java.util.Map;
-
-import com.google.common.base.Preconditions;
 import com.google.common.collect.Maps;
-
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraftforge.fml.common.Loader;
-import net.minecraftforge.fml.common.LoaderState;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.item.IFloatingFlower;
 import vazkii.botania.api.subtile.SubTileEntity;
+
+import java.util.Collections;
+import java.util.Map;
 
 /**
  * Class for API calls that must be made clientside
@@ -37,7 +33,7 @@ public final class BotaniaAPIClient {
 
 	/**
 	 * Register your model for the given subtile class here.
-	 * Call this DURING PREINIT. Calling it anytime after blockModels have already baked does not guarantee that your model will work.
+	 * Call this during {@code ModelRegistryEvent}. Calling it anytime after blockModels have already baked does not guarantee that your model will work.
 	 * Your model json must specify key "tintindex" in all the faces it wants tint applied.
 	 * Tint is applied whenever a player recolors the flower using floral dye
 	 *
@@ -46,7 +42,6 @@ public final class BotaniaAPIClient {
 	 * @param itemModel   A path to a blockstate json and variant to be used for this subtile's item form
 	 */
 	public static void registerSubtileModel(String subTileName, ModelResourceLocation model, ModelResourceLocation itemModel) {
-		Preconditions.checkState(Loader.instance().isInState(LoaderState.PREINITIALIZATION));
 		subtileBlockModels.put(subTileName, model);
 		subtileItemModels.put(subTileName, itemModel);
 	}
@@ -89,13 +84,12 @@ public final class BotaniaAPIClient {
 
 	/**
 	 * Registers your model for island type islandType here.
-	 * Call this DURING PREINIT.
+	 * Call this during {@code ModelRegistryEvent}.
 	 *
 	 * @param islandType The islandtype to register
 	 * @param model      The variant within a blockstate json to use as the islandtype's model
 	 */
 	public static void registerIslandTypeModel(IFloatingFlower.IslandType islandType, ModelResourceLocation model) {
-		Preconditions.checkState(Loader.instance().isInState(LoaderState.PREINITIALIZATION));
 		islandTypeModels.put(islandType, model);
 	}
 

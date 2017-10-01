@@ -1,0 +1,28 @@
+{
+  "display": {
+    "icon": {
+      "item": "botania:lexicon"
+    },
+    "title": {
+      "translate": "itemGroup.botania"
+    },
+    "description": {
+      "translate": "botania.desc"
+    },
+    "background": "botania:textures/blocks/livingwood0.png",
+    "show_toast": false,
+    "announce_to_chat": false
+  },
+  "criteria": {
+    "flower": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "botania:flower"
+          }
+        ]
+      }
+    }
+  }
+}

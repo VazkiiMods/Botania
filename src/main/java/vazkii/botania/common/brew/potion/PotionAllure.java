@@ -10,12 +10,12 @@
  */
 package vazkii.botania.common.brew.potion;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityFishHook;
 import vazkii.botania.common.lib.LibPotionNames;
+
+import javax.annotation.Nonnull;
 
 public class PotionAllure extends PotionMod {
 

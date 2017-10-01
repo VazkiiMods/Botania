@@ -10,31 +10,28 @@
  */
 package vazkii.botania.common.item.equipment.armor.manaweave;
 
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.stats.Achievement;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.armor.ModelArmorManaweave;
-import vazkii.botania.common.achievement.ICraftAchievement;
-import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelArmor;
 
-public class ItemManaweaveArmor extends ItemManasteelArmor implements ICraftAchievement {
+import javax.annotation.Nonnull;
+import java.util.List;
+
+public class ItemManaweaveArmor extends ItemManasteelArmor {
 
 	public ItemManaweaveArmor(EntityEquipmentSlot type, String name) {
 		super(type, name, BotaniaAPI.manaweaveArmorMaterial);
@@ -107,13 +104,13 @@ public class ItemManaweaveArmor extends ItemManasteelArmor implements ICraftAchi
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void addInformationAfterShift(ItemStack stack, EntityPlayer player, List<String> list, boolean adv) {
+	public void addInformationAfterShift(ItemStack stack, World world, List<String> list, ITooltipFlag flags) {
 		if(ClientProxy.jingleTheBells) {
 			addStringToTooltip(I18n.format("botaniamisc.santaweaveInfo"), list);
 			addStringToTooltip("", list);
 		}
 
-		super.addInformationAfterShift(stack, player, list, adv);
+		super.addInformationAfterShift(stack, world, list, flags);
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -122,10 +119,4 @@ public class ItemManaweaveArmor extends ItemManasteelArmor implements ICraftAchi
 		addStringToTooltip(I18n.format("botania.armorset.manaweave.desc0"), list);
 		addStringToTooltip(I18n.format("botania.armorset.manaweave.desc1"), list);
 	}
-
-	@Override
-	public Achievement getAchievementOnCraft(ItemStack stack, EntityPlayer player, IInventory matrix) {
-		return ModAchievements.manaweaveArmorCraft;
-	}
-
 }

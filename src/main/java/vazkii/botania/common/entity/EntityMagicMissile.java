@@ -10,12 +10,7 @@
  */
 package vazkii.botania.common.entity;
 
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
 import com.google.common.base.Predicates;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.BlockLeaves;
@@ -37,6 +32,9 @@ import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.lib.LibObfuscation;
 
+import javax.annotation.Nonnull;
+import java.util.List;
+
 public class EntityMagicMissile extends EntityThrowable {
 
 	private static final String TAG_TIME = "time";
@@ -52,8 +50,8 @@ public class EntityMagicMissile extends EntityThrowable {
 	}
 
 	public EntityMagicMissile(EntityLivingBase thrower, boolean evil) {
-		this(thrower.world);
-		ReflectionHelper.setPrivateValue(EntityThrowable.class, this, thrower, LibObfuscation.THROWER);
+		super(thrower.world, thrower);
+		setSize(0F, 0F);
 		setEvil(evil);
 	}
 
@@ -92,7 +90,7 @@ public class EntityMagicMissile extends EntityThrowable {
 
 		super.onUpdate();
 
-		if(!world.isRemote && (!getTarget() || time > 40)) {
+		if(!world.isRemote && (!findTarget() || time > 40)) {
 			setDead();
 			return;
 		}
@@ -133,7 +131,7 @@ public class EntityMagicMissile extends EntityThrowable {
 			motionZ = motionVec.z;
 
 			List<EntityLivingBase> targetList = world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(posX - 0.5, posY - 0.5, posZ - 0.5, posX + 0.5, posY + 0.5, posZ + 0.5));
-			if(targetList.contains(target) && target != null) {
+			if(targetList.contains(target)) {
 				EntityLivingBase thrower = getThrower();
 				if(thrower != null) {
 					EntityPlayer player = thrower instanceof EntityPlayer ? (EntityPlayer) thrower : null;
@@ -163,7 +161,7 @@ public class EntityMagicMissile extends EntityThrowable {
 	}
 
 
-	public boolean getTarget() {
+	public boolean findTarget() {
 		EntityLivingBase target = getTargetEntity();
 		if(target != null && target.getHealth() > 0 && !target.isDead && world.loadedEntityList.contains(target))
 			return true;

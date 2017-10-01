@@ -10,10 +10,6 @@
  */
 package vazkii.botania.common.entity;
 
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -25,16 +21,26 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import vazkii.botania.api.sound.BotaniaSoundEvents;
+import net.minecraftforge.fml.common.Optional;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.item.relic.ItemKingKey;
 
-public class EntityBabylonWeapon extends EntityThrowableCopy {
+import javax.annotation.Nonnull;
+
+import elucent.albedo.lighting.ILightProvider;
+import elucent.albedo.lighting.Light;
+
+import java.util.List;
+
+@Optional.Interface(iface="elucent.albedo.lighting.ILightProvider", modid="albedo")
+public class EntityBabylonWeapon extends EntityThrowableCopy implements ILightProvider {
 
 	private static final String TAG_CHARGING = "charging";
 	private static final String TAG_VARIETY = "variety";
@@ -111,7 +117,7 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 			setChargeTicks(chargeTime + 1);
 
 			if(world.rand.nextInt(20) == 0)
-				world.playSound(null, posX, posY, posZ, BotaniaSoundEvents.babylonSpawn, SoundCategory.PLAYERS, 0.1F, 1F + world.rand.nextFloat() * 3F);
+				world.playSound(null, posX, posY, posZ, ModSounds.babylonSpawn, SoundCategory.PLAYERS, 0.1F, 1F + world.rand.nextFloat() * 3F);
 		} else {
 			if(liveTime < delay) {
 				motionX = 0;
@@ -130,12 +136,12 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 				x = motionVec.x;
 				y = motionVec.y;
 				z = motionVec.z;
-				world.playSound(null, posX, posY, posZ, BotaniaSoundEvents.babylonAttack, SoundCategory.PLAYERS, 2F, 0.1F + world.rand.nextFloat() * 3F);
+				world.playSound(null, posX, posY, posZ, ModSounds.babylonAttack, SoundCategory.PLAYERS, 2F, 0.1F + world.rand.nextFloat() * 3F);
 			}
 			setLiveTicks(liveTime + 1);
 
 			if(!world.isRemote) {
-				AxisAlignedBB axis = new AxisAlignedBB(posX, posY, posZ, lastTickPosX, lastTickPosY, lastTickPosZ).expand(2, 2, 2);
+				AxisAlignedBB axis = new AxisAlignedBB(posX, posY, posZ, lastTickPosX, lastTickPosY, lastTickPosZ).grow(2);
 				List<EntityLivingBase> entities = world.getEntitiesWithinAABB(EntityLivingBase.class, axis);
 				for(EntityLivingBase living : entities) {
 					if(living == thrower)
@@ -196,6 +202,12 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 		setRotation(cmp.getFloat(TAG_ROTATION));
 	}
 
+	@Override
+	@Optional.Method(modid="albedo")
+	public Light provideLight() {
+		return Light.builder().pos(this).color(1F, 1F, 0F).radius(8).build();
+	}
+	
 	public boolean isCharging() {
 		return dataManager.get(CHARGING);
 	}

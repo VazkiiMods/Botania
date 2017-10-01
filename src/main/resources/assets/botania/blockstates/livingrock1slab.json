@@ -6,8 +6,7 @@
       "bottom": "botania:blocks/livingrock1",
       "top": "botania:blocks/livingrock1",
       "side": "botania:blocks/livingrock1"
-    },
-    "transform": "forge:default-block"
+    }
   },
   "variants": {
     "half=top": [{

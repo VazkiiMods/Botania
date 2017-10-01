@@ -10,9 +10,6 @@
  */
 package vazkii.botania.common.item.lens;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
@@ -20,6 +17,7 @@ import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
@@ -28,6 +26,9 @@ import vazkii.botania.api.mana.IManaBlock;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ModItems;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class LensMine extends Lens {
 
@@ -58,9 +59,8 @@ public class LensMine extends Lens {
 
 		BlockPos coords = burst.getBurstSourceBlockPos();
 		if(!coords.equals(pos.getBlockPos()) && !(tile instanceof IManaBlock) && neededHarvestLevel <= harvestLevel && hardness != -1 && hardness < 50F && (burst.isFake() || mana >= 24)) {
-			List<ItemStack> items = new ArrayList<>();
-
-			items.addAll(block.getDrops(world, pos_, world.getBlockState(pos_), 0));
+			NonNullList<ItemStack> items = NonNullList.create();
+			block.getDrops(items, world, pos_, world.getBlockState(pos_), 0);
 
 			if(!burst.hasAlreadyCollidedAt(pos_)) {
 				if(!burst.isFake() && !entity.world.isRemote) {

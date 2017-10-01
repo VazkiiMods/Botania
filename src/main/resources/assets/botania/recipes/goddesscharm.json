@@ -1,0 +1,25 @@
+{
+  "result": {
+    "item": "botania:goddesscharm"
+  },
+  "pattern": [
+    " P ",
+    " P ",
+    "ADS"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "P": {
+      "item": "#PETALPINK"
+    },
+    "A": {
+      "item": "#RUNEWATERB"
+    },
+    "S": {
+      "item": "#RUNESPRINGB"
+    },
+    "D": {
+      "item": "#MANADIAMOND"
+    }
+  }
+}

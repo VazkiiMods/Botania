@@ -23,6 +23,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -71,11 +72,15 @@ public class PagePetalRecipe<T extends RecipePetals> extends PageRecipe {
 		List<Object> inputs = recipe.getInputs();
 		int degreePerInput = (int) (360F / inputs.size());
 		float currentDegree = ConfigHandler.lexiconRotatingItems ? GuiScreen.isShiftKeyDown() ? ticksElapsed : ticksElapsed + ClientTickHandler.partialTicks : 0;
-
+		float baseDegree = currentDegree;
+		
 		for(Object obj : inputs) {
 			Object input = obj;
-			if(input instanceof String)
-				input = OreDictionary.getOres((String) input).get(0);
+			if(input instanceof String) {
+				NonNullList<ItemStack> list = OreDictionary.getOres((String) input); 
+				int size = list.size();
+				input = list.get(size - (int) (baseDegree / 40) % size - 1);
+			}
 
 			renderItemAtAngle(gui, currentDegree, (ItemStack) input);
 
@@ -99,7 +104,7 @@ public class PagePetalRecipe<T extends RecipePetals> extends PageRecipe {
 
 	@SideOnly(Side.CLIENT)
 	public void renderManaBar(IGuiLexiconEntry gui, T recipe, int mx, int my) {
-		FontRenderer font = Minecraft.getMinecraft().fontRendererObj;
+		FontRenderer font = Minecraft.getMinecraft().fontRenderer;
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 

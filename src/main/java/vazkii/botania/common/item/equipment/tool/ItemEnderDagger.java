@@ -10,10 +10,7 @@
  */
 package vazkii.botania.common.item.equipment.tool;
 
-import javax.annotation.Nonnull;
-
 import com.google.common.collect.Multimap;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -27,6 +24,8 @@ import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelSword;
 import vazkii.botania.common.lib.LibItemNames;
+
+import javax.annotation.Nonnull;
 
 public class ItemEnderDagger extends ItemManasteelSword {
 

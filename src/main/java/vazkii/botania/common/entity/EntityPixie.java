@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.entity;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.entity.EntityFlying;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -22,9 +20,16 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.Optional;
 import vazkii.botania.common.Botania;
 
-public class EntityPixie extends EntityFlying {
+import javax.annotation.Nonnull;
+
+import elucent.albedo.lighting.ILightProvider;
+import elucent.albedo.lighting.Light;
+
+@Optional.Interface(iface="elucent.albedo.lighting.ILightProvider", modid="albedo")
+public class EntityPixie extends EntityFlying implements ILightProvider {
 
 	private static final DataParameter<Integer> TYPE = EntityDataManager.createKey(EntityPixie.class, DataSerializers.VARINT);
 
@@ -104,7 +109,7 @@ public class EntityPixie extends EntityFlying {
 
 	@Override
 	public boolean attackEntityFrom(@Nonnull DamageSource par1DamageSource, float par2) {
-		if(getType() == 0 && par1DamageSource.getEntity() != summoner || getType() == 1 && par1DamageSource.getEntity() instanceof EntityPlayer)
+		if(getType() == 0 && par1DamageSource.getTrueSource() != summoner || getType() == 1 && par1DamageSource.getTrueSource() instanceof EntityPlayer)
 			return super.attackEntityFrom(par1DamageSource, par2);
 		return false;
 	}
@@ -139,6 +144,15 @@ public class EntityPixie extends EntityFlying {
 	@Override
 	public boolean canBeLeashedTo(EntityPlayer player) {
 		return false;
+	}
+
+	@Override
+	@Optional.Method(modid="albedo")
+	public Light provideLight() {
+		if(getType() == 1)
+			return null;
+		
+		return Light.builder().pos(this).color(1F, 0F, 0.5F).radius(8).build();
 	}
 
 }

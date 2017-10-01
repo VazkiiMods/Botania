@@ -1,0 +1,16 @@
+{
+  "result": {
+    "item": "botania:elementiumchest"
+  },
+  "pattern": [
+    "S S",
+    "SSS",
+    "SSS"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "S": {
+      "item": "#INGOTELVENELEMENTIUM"
+    }
+  }
+}

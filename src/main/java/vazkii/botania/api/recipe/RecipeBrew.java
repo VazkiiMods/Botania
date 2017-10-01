@@ -10,17 +10,16 @@
  */
 package vazkii.botania.api.recipe;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.google.common.collect.ImmutableList;
-
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.brew.IBrewContainer;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class RecipeBrew {
 

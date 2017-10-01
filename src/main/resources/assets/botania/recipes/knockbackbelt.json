@@ -1,0 +1,25 @@
+{
+  "result": {
+    "item": "botania:knockbackbelt"
+  },
+  "pattern": [
+    "AL ",
+    "L L",
+    "SLE"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "A": {
+      "item": "#RUNEFIREB"
+    },
+    "S": {
+      "item": "#INGOTMANASTEEL"
+    },
+    "E": {
+      "item": "#RUNEEARTHB"
+    },
+    "L": {
+      "item": "minecraft:leather"
+    }
+  }
+}

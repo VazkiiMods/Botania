@@ -10,10 +10,6 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import baubles.api.BaubleType;
 import baubles.api.BaublesApi;
 import gnu.trove.list.array.TIntArrayList;
@@ -50,6 +46,10 @@ import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lib.LibItemNames;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class ItemItemFinder extends ItemBauble implements IBaubleRender {
 
@@ -131,7 +131,7 @@ public class ItemItemFinder extends ItemBauble implements IBaubleRender {
 
 				} else if(e instanceof EntityItem) {
 					EntityItem item = (EntityItem) e;
-					ItemStack istack = item.getEntityItem();
+					ItemStack istack = item.getItem();
 					if(player.isSneaking() || istack.isItemEqual(pstack) && ItemStack.areItemStackTagsEqual(istack, pstack))
 						entIdBuilder.add(item.getEntityId());
 

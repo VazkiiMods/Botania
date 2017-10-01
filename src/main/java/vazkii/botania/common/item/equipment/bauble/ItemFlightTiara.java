@@ -10,14 +10,6 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
-import net.minecraft.util.NonNullList;
-import org.lwjgl.opengl.GL11;
-
 import baubles.api.BaubleType;
 import baubles.api.BaublesApi;
 import net.minecraft.client.Minecraft;
@@ -30,27 +22,27 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.stats.Achievement;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IBaubleRender;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
-import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.client.core.helper.IconHelper;
@@ -58,16 +50,19 @@ import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.Botania;
-import vazkii.botania.common.achievement.ICraftAchievement;
-import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.core.handler.ConfigHandler;
+import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.StringObfuscator;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibItemNames;
 
-public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaubleRender, ICraftAchievement {
+import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.List;
+
+public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaubleRender {
 
 	private static final ResourceLocation textureHud = new ResourceLocation(LibResources.GUI_HUD_ICONS);
 	private static final ResourceLocation textureHalo = new ResourceLocation(LibResources.MISC_HALO);
@@ -86,7 +81,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 	private static final int SUBTYPES = 8;
 	public static final int WING_TYPES = 9;
 
-	public static final String SUPER_AWESOME_HASH = "82F1EAD6A9B815E56C4F94C03C4BFE3E92CAA52AA79A40D753924BEF720FF868";
+	public static final String SUPER_AWESOME_HASH = "4D0F274C5E3001C95640B5E88A821422C8B1E132264492C043A3D746B705C025";
 
 	public ItemFlightTiara() {
 		super(LibItemNames.FLIGHT_TIARA);
@@ -100,16 +95,17 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
-	public void getSubItems(@Nonnull Item item, CreativeTabs tab, NonNullList<ItemStack> list) {
-		for(int i = 0; i < SUBTYPES + 1; i++)
-			list.add(new ItemStack(item, 1, i));
+	public void getSubItems(@Nonnull CreativeTabs tab, @Nonnull NonNullList<ItemStack> list) {
+		if(isInCreativeTab(tab)) {
+			for(int i = 0; i < SUBTYPES + 1; i++)
+				list.add(new ItemStack(this, 1, i));
+		}
 	}
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void addHiddenTooltip(ItemStack par1ItemStack, EntityPlayer player, List<String> stacks, boolean par4) {
-		super.addHiddenTooltip(par1ItemStack, player, stacks, par4);
+	public void addHiddenTooltip(ItemStack par1ItemStack, World world, List<String> stacks, ITooltipFlag flags) {
+		super.addHiddenTooltip(par1ItemStack, world, stacks, flags);
 		stacks.add(I18n.format("botania.wings" + par1ItemStack.getItemDamage()));
 	}
 
@@ -148,11 +144,11 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 				if(!wasSprting && isSprinting && cooldown == 0) {
 					p.motionX += look.x;
 					p.motionZ += look.z;
-					p.world.playSound(null, p.posX, p.posY, p.posZ, BotaniaSoundEvents.dash, SoundCategory.PLAYERS, 1F, 1F);
+					p.world.playSound(null, p.posX, p.posY, p.posZ, ModSounds.dash, SoundCategory.PLAYERS, 1F, 1F);
 					ItemNBTHelper.setInt(stack, TAG_DASH_COOLDOWN, maxCd);
 				} else if(cooldown > 0) {
 					if(maxCd - cooldown < 2)
-						player.moveRelative(0F, 1F, 5F);
+						player.moveRelative(0F, 0F, 1F, 5F);
 					else if(maxCd - cooldown < 10)
 						player.setSprinting(false);
 					ItemNBTHelper.setInt(stack, TAG_DASH_COOLDOWN, cooldown - 2);
@@ -383,8 +379,8 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 					OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, lightmapX, lightmapY);
 					rz = 180F;
 					rx = 0F;
-					s = 1.5F;
-					h = 1.2F;
+					h = 1.1F;
+					ry = -(float) ((Math.sin((double) (player.ticksExisted + partialTicks) * 0.2F) + 0.6F) * (flying ? 12F : 5F));
 					GlStateManager.color(1F, 1F, 1F, 0.5F + (flying ? (float) Math.cos((double) (player.ticksExisted + partialTicks) * 0.3F) * 0.25F + 0.25F : 0F));
 				}
 				}
@@ -517,15 +513,10 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 		mc.renderEngine.bindTexture(Gui.ICONS);
 	}
 
-	@Override
-	public Achievement getAchievementOnCraft(ItemStack stack, EntityPlayer player, IInventory matrix) {
-		return stack.getItemDamage() == 1 ? ModAchievements.tiaraWings : null;
-	}
-
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void registerModels() {
-		ModelHandler.registerItemAllMeta(this, WING_TYPES);
+		ModelHandler.registerItemAllMeta(this, WING_TYPES + 1);
 	}
 
 }

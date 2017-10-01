@@ -8,12 +8,7 @@
  */
 package vazkii.botania.client.integration.jei.puredaisy;
 
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
 import com.google.common.collect.ImmutableList;
-
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.block.Block;
@@ -23,6 +18,9 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.recipe.RecipePureDaisy;
+
+import javax.annotation.Nonnull;
+import java.util.List;
 
 public class PureDaisyRecipeWrapper implements IRecipeWrapper {
 

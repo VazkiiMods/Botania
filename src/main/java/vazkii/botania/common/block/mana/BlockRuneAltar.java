@@ -10,10 +10,9 @@
  */
 package vazkii.botania.common.block.mana;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -35,6 +34,8 @@ import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.core.helper.InventoryHelper;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
+
+import javax.annotation.Nonnull;
 
 public class BlockRuneAltar extends BlockMod implements IWandable, ILexiconable {
 
@@ -76,10 +77,12 @@ public class BlockRuneAltar extends BlockMod implements IWandable, ILexiconable 
 			if(altar.manaToGet == 0) {
 				InventoryHelper.withdrawFromInventory(altar, player);
 				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(altar);
+				return true;
 			}
 		} else if(altar.isEmpty() && stack.isEmpty()) {
 			altar.trySetLastRecipe(player);
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(altar);
+			return true;
 		} else if(!stack.isEmpty()) {
 			boolean result = altar.addItem(player, stack, hand);
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(altar);
@@ -129,6 +132,12 @@ public class BlockRuneAltar extends BlockMod implements IWandable, ILexiconable 
 	@Override
 	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.runicAltar;
+	}
+
+	@Nonnull
+	@Override
+	public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing side) {
+		return side == EnumFacing.DOWN ? BlockFaceShape.SOLID : BlockFaceShape.UNDEFINED;
 	}
 
 }

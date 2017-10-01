@@ -10,13 +10,13 @@
  */
 package vazkii.botania.common.block.decor.panes;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.block.ModBlocks;
+
+import javax.annotation.Nonnull;
 
 public class BlockBifrostPane extends BlockModPane {
 

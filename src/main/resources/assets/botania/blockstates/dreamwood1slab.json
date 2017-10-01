@@ -6,8 +6,7 @@
       "bottom": "botania:blocks/dreamwood1",
       "top": "botania:blocks/dreamwood1",
       "side": "botania:blocks/dreamwood1"
-    },
-    "transform": "forge:default-block"
+    }
   },
   "variants": {
     "half=top": [{

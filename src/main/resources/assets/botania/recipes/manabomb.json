@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "botania:manabomb"
+  },
+  "pattern": [
+    "LTL",
+    "TGT",
+    "LTL"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "T": {
+      "item": "minecraft:tnt"
+    },
+    "G": {
+      "item": "#ETERNALLIFEESSENCE"
+    },
+    "L": {
+      "item": "#LIVINGWOOD"
+    }
+  }
+}

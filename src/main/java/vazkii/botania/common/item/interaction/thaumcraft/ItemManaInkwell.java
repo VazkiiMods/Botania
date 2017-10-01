@@ -10,12 +10,7 @@
  */
 package vazkii.botania.common.item.interaction.thaumcraft;
 
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.NonNullList;
@@ -28,6 +23,8 @@ import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.lib.LibItemNames;
+
+import javax.annotation.Nonnull;
 
 @Optional.Interface(modid = "Thaumcraft", iface = "thaumcraft.api.items.IScribeTools")
 public class ItemManaInkwell extends ItemMod implements IManaItem, IScribeTools {
@@ -46,10 +43,11 @@ public class ItemManaInkwell extends ItemMod implements IManaItem, IScribeTools 
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
-	public void getSubItems(@Nonnull Item item, CreativeTabs tab, NonNullList<ItemStack> list) {
-		list.add(new ItemStack(item, 1, USES));
-		list.add(new ItemStack(item));
+	public void getSubItems(@Nonnull CreativeTabs tab, @Nonnull NonNullList<ItemStack> list) {
+		if(isInCreativeTab(tab)) {
+			list.add(new ItemStack(this, 1, USES));
+			list.add(new ItemStack(this));
+		}
 	}
 
 	@Override

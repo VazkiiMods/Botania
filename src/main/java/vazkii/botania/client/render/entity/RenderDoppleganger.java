@@ -10,25 +10,19 @@
  */
 package vazkii.botania.client.render.entity;
 
-import java.util.Map;
-import java.util.UUID;
-
-import javax.annotation.Nonnull;
-
-import net.minecraft.client.entity.AbstractClientPlayer;
-import org.lwjgl.opengl.ARBShaderObjects;
-
-import com.mojang.authlib.minecraft.MinecraftProfileTexture;
-
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.model.ModelPlayer;
 import net.minecraft.client.renderer.entity.RenderBiped;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.resources.DefaultPlayerSkin;
 import net.minecraft.util.ResourceLocation;
+import org.lwjgl.opengl.ARBShaderObjects;
 import vazkii.botania.api.internal.ShaderCallback;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.common.entity.EntityDoppleganger;
+
+import javax.annotation.Nonnull;
 
 public class RenderDoppleganger extends RenderBiped<EntityDoppleganger> {
 

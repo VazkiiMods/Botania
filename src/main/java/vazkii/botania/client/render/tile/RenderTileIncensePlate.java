@@ -10,12 +10,7 @@
  */
 package vazkii.botania.client.render.tile;
 
-import java.util.Map;
-
-import javax.annotation.Nonnull;
-
 import com.google.common.collect.ImmutableMap;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
@@ -27,13 +22,16 @@ import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileIncensePlate;
 
+import javax.annotation.Nonnull;
+import java.util.Map;
+
 public class RenderTileIncensePlate extends TileEntitySpecialRenderer<TileIncensePlate> {
 
 	private static final Map<EnumFacing, Integer> ROTATIONS = ImmutableMap.of(EnumFacing.NORTH, 180, EnumFacing.SOUTH, 0, EnumFacing.WEST, 270, EnumFacing.EAST, 90);
 
 	@SuppressWarnings("deprecation")
 	@Override
-	public void renderTileEntityAt(@Nonnull TileIncensePlate plate, double d0, double d1, double d2, float ticks, int digProgress) {
+	public void render(@Nonnull TileIncensePlate plate, double d0, double d1, double d2, float ticks, int digProgress, float unused) {
 		if(!plate.getWorld().isBlockLoaded(plate.getPos(), false)
 				|| plate.getWorld().getBlockState(plate.getPos()).getBlock() != ModBlocks.incensePlate)
 			return;

@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "botania:firerod"
+  },
+  "pattern": [
+    "  F",
+    " T ",
+    "R  "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "R": {
+      "item": "#RUNEFIREB"
+    },
+    "T": {
+      "item": "#LIVINGWOODTWIG"
+    },
+    "F": {
+      "item": "minecraft:blaze_powder"
+    }
+  }
+}

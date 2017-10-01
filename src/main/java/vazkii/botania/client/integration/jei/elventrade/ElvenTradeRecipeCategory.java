@@ -8,32 +8,30 @@
  */
 package vazkii.botania.client.integration.jei.elventrade;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import mezz.jei.api.ingredients.IIngredients;
-import org.lwjgl.opengl.GL11;
-
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.gui.IRecipeLayout;
+import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeCategory;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import org.lwjgl.opengl.GL11;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
+import vazkii.botania.common.lib.LibMisc;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ElvenTradeRecipeCategory implements IRecipeCategory {
 
@@ -83,7 +81,7 @@ public class ElvenTradeRecipeCategory implements IRecipeCategory {
 		minecraft.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 		TextureAtlasSprite sprite = MiscellaneousIcons.INSTANCE.alfPortalTex;
 		Tessellator tess = Tessellator.getInstance();
-		VertexBuffer wr = tess.getBuffer();
+		BufferBuilder wr = tess.getBuffer();
 		wr.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
 		int startX = 22;
 		int startY = 25;
@@ -119,6 +117,12 @@ public class ElvenTradeRecipeCategory implements IRecipeCategory {
 	@Override
 	public List getTooltipStrings(int mouseX, int mouseY) {
 		return new ArrayList();
+	}
+
+	@Nonnull
+	@Override
+	public String getModName() {
+		return LibMisc.MOD_NAME;
 	}
 	
 }

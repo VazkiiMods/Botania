@@ -10,17 +10,16 @@
  */
 package vazkii.botania.client.gui.lexicon.button;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.text.TextFormatting;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.gui.lexicon.GuiLexicon;
+
+import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GuiButtonOptions extends GuiButtonLexicon {
 
@@ -29,13 +28,13 @@ public class GuiButtonOptions extends GuiButtonLexicon {
 	}
 
 	@Override
-	public void drawButton(@Nonnull Minecraft par1Minecraft, int par2, int par3) {
-		hovered = par2 >= xPosition && par3 >= yPosition && par2 < xPosition + width && par3 < yPosition + height;
+	public void drawButton(@Nonnull Minecraft par1Minecraft, int par2, int par3, float partialTicks) {
+		hovered = par2 >= x && par3 >= y && par2 < x + width && par3 < y + height;
 		int k = getHoverState(hovered);
 
 		par1Minecraft.renderEngine.bindTexture(GuiLexicon.texture);
 		GlStateManager.color(1F, 1F, 1F, 1F);
-		drawTexturedModalRect(xPosition, yPosition, k == 2 ? 109 : 98, 180, 11, 11);
+		drawTexturedModalRect(x, y, k == 2 ? 109 : 98, 180, 11, 11);
 
 		List<String> tooltip = new ArrayList<>();
 		for(int i = 0; i < 3; i++)

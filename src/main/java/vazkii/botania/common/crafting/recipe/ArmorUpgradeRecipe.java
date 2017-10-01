@@ -20,7 +20,7 @@ import vazkii.botania.common.core.helper.ItemNBTHelper;
 public class ArmorUpgradeRecipe extends ShapedOreRecipe {
 
 	public ArmorUpgradeRecipe(ItemStack output, Object... inputs) {
-		super(output, inputs);
+		super(null, output, inputs);
 	}
 
 	@Override

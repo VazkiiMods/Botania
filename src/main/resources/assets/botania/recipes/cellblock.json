@@ -1,0 +1,27 @@
+{
+  "result": {
+    "item": "botania:cellblock",
+    "count": 3
+  },
+  "ingredients": [
+    {
+      "item": "minecraft:cactus"
+    },
+    {
+      "item": "minecraft:cactus"
+    },
+    {
+      "item": "minecraft:cactus"
+    },
+    {
+      "item": "minecraft:beetroot"
+    },
+    {
+      "item": "minecraft:carrot"
+    },
+    {
+      "item": "minecraft:potato"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}

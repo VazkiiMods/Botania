@@ -1,0 +1,19 @@
+{
+  "result": {
+    "item": "botania:lens",
+    "data": 20
+  },
+  "ingredients": [
+    {
+      "item": "botania:lens",
+      "data": 0
+    },
+    {
+      "item": "minecraft:fireworks"
+    },
+    {
+      "item": "#INGOTELVENELEMENTIUM"
+    }
+  ],
+  "type": "forge:ore_shapeless"
+}

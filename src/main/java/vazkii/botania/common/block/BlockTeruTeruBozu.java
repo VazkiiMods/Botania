@@ -10,9 +10,8 @@
  */
 package vazkii.botania.common.block;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
@@ -38,6 +37,8 @@ import vazkii.botania.common.block.tile.TileTeruTeruBozu;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
+import javax.annotation.Nonnull;
+
 public class BlockTeruTeruBozu extends BlockMod implements ILexiconable {
 
 	private static final AxisAlignedBB AABB = new AxisAlignedBB(0.25, 0.01, 0.25, 0.75, 0.99, 0.75);
@@ -56,7 +57,7 @@ public class BlockTeruTeruBozu extends BlockMod implements ILexiconable {
 	public void onEntityCollidedWithBlock(World world, BlockPos pos, IBlockState state, Entity e) {
 		if(!world.isRemote && e instanceof EntityItem) {
 			EntityItem item = (EntityItem) e;
-			ItemStack stack = item.getEntityItem();
+			ItemStack stack = item.getItem();
 			if(isSunflower(stack) && removeRain(world) || isBlueOrchid(stack) && startRain(world)) {
 				stack.shrink(1);
 			}
@@ -142,6 +143,12 @@ public class BlockTeruTeruBozu extends BlockMod implements ILexiconable {
 	@Override
 	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.teruTeruBozu;
+	}
+
+	@Nonnull
+	@Override
+	public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing side) {
+		return BlockFaceShape.UNDEFINED;
 	}
 
 	@SideOnly(Side.CLIENT)

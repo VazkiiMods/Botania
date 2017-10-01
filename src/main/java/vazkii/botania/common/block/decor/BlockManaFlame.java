@@ -10,17 +10,13 @@
  */
 package vazkii.botania.common.block.decor;
 
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
-import com.google.common.collect.ImmutableList;
-
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -41,6 +37,9 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.world.WorldTypeSkyblock;
+
+import javax.annotation.Nonnull;
+import java.util.Random;
 
 public class BlockManaFlame extends BlockMod implements ILexiconable {
 
@@ -115,8 +114,8 @@ public class BlockManaFlame extends BlockMod implements ILexiconable {
 
 	@Nonnull
 	@Override
-	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, @Nonnull IBlockState state, int fortune) {
-		return ImmutableList.of();
+	public Item getItemDropped(IBlockState state, @Nonnull Random rand, int fortune) {
+		return Items.AIR;
 	}
 
 	@Override
@@ -135,7 +134,9 @@ public class BlockManaFlame extends BlockMod implements ILexiconable {
 		return LexiconData.lenses;
 	}
 
+	@Nonnull
 	@Override
-	public void registerItemForm() {}
-
+	public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing side) {
+		return BlockFaceShape.UNDEFINED;
+	}
 }

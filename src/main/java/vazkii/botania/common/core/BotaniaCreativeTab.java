@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.core;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -24,6 +22,8 @@ import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibMisc;
+
+import javax.annotation.Nonnull;
 
 public final class BotaniaCreativeTab extends CreativeTabs {
 
@@ -222,7 +222,6 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 			addItem(ModItems.thorRing);
 			addItem(ModItems.odinRing);
 			addItem(ModItems.lokiRing);
-			addItem(ModItems.aesirRing);
 		}
 
 		addItem(ModItems.baubleBox);
@@ -372,12 +371,12 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 	}
 
 	private void addItem(Item item) {
-		item.getSubItems(item, this, list);
+		item.getSubItems(this, list);
 	}
 
 	private void addBlock(Block block) {
 		ItemStack stack = new ItemStack(block);
-		block.getSubBlocks(stack.getItem(), this, list);
+		block.getSubBlocks(this, list);
 	}
 
 }

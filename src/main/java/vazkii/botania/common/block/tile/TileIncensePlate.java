@@ -10,9 +10,6 @@
  */
 package vazkii.botania.common.block.tile;
 
-import java.awt.Color;
-import java.util.List;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
@@ -29,6 +26,8 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.brew.ItemIncenseStick;
 
 import javax.annotation.Nonnull;
+import java.awt.Color;
+import java.util.List;
 
 public class TileIncensePlate extends TileSimpleInventory  {
 

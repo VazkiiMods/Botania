@@ -10,8 +10,11 @@
  */
 package vazkii.botania.common.network;
 
+import net.minecraft.client.gui.inventory.GuiCrafting;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.ContainerWorkbench;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
 import vazkii.botania.client.gui.bag.ContainerFlowerBag;
@@ -21,7 +24,6 @@ import vazkii.botania.client.gui.box.ContainerBaubleBox;
 import vazkii.botania.client.gui.box.GuiBaubleBox;
 import vazkii.botania.client.gui.box.InventoryBaubleBox;
 import vazkii.botania.client.gui.crafting.ContainerCraftingHalo;
-import vazkii.botania.client.gui.crafting.GuiCraftingHalo;
 import vazkii.botania.client.gui.lexicon.GuiLexicon;
 import vazkii.botania.common.lib.LibGuiIDs;
 
@@ -51,7 +53,7 @@ public class GuiHandler implements IGuiHandler {
 		case LibGuiIDs.LEXICON :
 			return GuiLexicon.currentOpenLexicon;
 		case LibGuiIDs.CRAFTING_HALO :
-			return new GuiCraftingHalo(player.inventory, world);
+			return new GuiCrafting(player.inventory, world);
 		case LibGuiIDs.FLOWER_BAG :
 			return new GuiFlowerBag(player.inventory, new InventoryFlowerBag(player.getHeldItem(hand)));
 		case LibGuiIDs.BAUBLE_BOX :

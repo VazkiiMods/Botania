@@ -1,0 +1,24 @@
+{
+  "result": {
+    "item": "botania:manatablet"
+  },
+  "pattern": [
+    "SSS",
+    "SPS",
+    "SSS"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "P": [
+      {
+        "item": "#MANADIAMOND"
+      },
+      {
+        "item": "#MANAPEARL"
+      }
+    ],
+    "S": {
+      "item": "#LIVINGROCK"
+    }
+  }
+}

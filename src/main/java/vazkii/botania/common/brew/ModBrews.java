@@ -58,7 +58,7 @@ public class ModBrews {
 		nightVision = new BrewMod(LibBrewNames.NIGHT_VISION, 0x7C4BEB, 4000, new PotionEffect(MobEffects.NIGHT_VISION, 9600, 0));
 		absorption = new BrewMod(LibBrewNames.ABSORPTION, 0xF2EB23, 7000, new PotionEffect(MobEffects.ABSORPTION, 1800, 3)).setNotBloodPendantInfusable().setNotIncenseInfusable();
 
-		overload = new BrewMod(LibBrewNames.OVERLOAD, 0x232323, 12000, new PotionEffect(MobEffects.STRENGTH, 1800, 3), new PotionEffect(MobEffects.SPEED, 1800, 2), new PotionEffect(MobEffects.WEAKNESS, 3600, 2), new PotionEffect(MobEffects.HUNGER, 200, 2));
+		overload = new BrewMod(LibBrewNames.OVERLOAD, 0x232323, 12000, new PotionEffect(MobEffects.STRENGTH, 1800, 3), new PotionEffect(MobEffects.SPEED, 1800, 2), new PotionEffect(MobEffects.WEAKNESS, 3600, 1), new PotionEffect(MobEffects.HUNGER, 200, 2));
 		soulCross = new BrewMod(LibBrewNames.SOUL_CROSS, 10000, new PotionEffect(ModPotions.soulCross, 1800, 0));
 		featherfeet = new BrewMod(LibBrewNames.FEATHER_FEET, 7000, new PotionEffect(ModPotions.featherfeet, 1800, 0));
 		emptiness = new BrewMod(LibBrewNames.EMPTINESS, 30000, new PotionEffect(ModPotions.emptiness, 7200, 0));

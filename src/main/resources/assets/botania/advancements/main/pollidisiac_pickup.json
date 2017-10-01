@@ -1,0 +1,28 @@
+{
+  "display": {
+    "icon": {
+      "item": "botania:specialFlower",
+      "nbt": "{\"type\": \"pollidisiac\"}"
+    },
+    "title": {
+      "translate": "advancement.botania:pollidisiacPickup"
+    },
+    "description": {
+      "translate": "advancement.botania:pollidisiacPickup.desc"
+    }
+  },
+  "parent": "botania:main/rune_pickup",
+  "criteria": {
+    "pollidisiac": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "botania:specialFlower",
+            "nbt": "{\"type\": \"pollidisiac\"}"
+          }
+        ]
+      }
+    }
+  }
+}

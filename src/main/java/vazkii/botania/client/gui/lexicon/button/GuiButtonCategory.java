@@ -10,18 +10,15 @@
  */
 package vazkii.botania.client.gui.lexicon.button;
 
-import javax.annotation.Nonnull;
-
-import org.lwjgl.opengl.ARBMultitexture;
-import org.lwjgl.opengl.ARBShaderObjects;
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.ResourceLocation;
+import org.lwjgl.opengl.ARBMultitexture;
+import org.lwjgl.opengl.ARBShaderObjects;
+import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.internal.ShaderCallback;
 import vazkii.botania.api.lexicon.LexiconCategory;
 import vazkii.botania.client.core.helper.RenderHelper;
@@ -29,6 +26,8 @@ import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.gui.lexicon.GuiLexicon;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.handler.ConfigHandler;
+
+import javax.annotation.Nonnull;
 
 public class GuiButtonCategory extends GuiButtonLexicon {
 
@@ -74,8 +73,8 @@ public class GuiButtonCategory extends GuiButtonLexicon {
 	}
 
 	@Override
-	public void drawButton(@Nonnull Minecraft mc, int mx, int my) {
-		boolean inside = mx >= xPosition && my >= yPosition && mx < xPosition + width && my < yPosition + height;
+	public void drawButton(@Nonnull Minecraft mc, int mx, int my, float partialTicks) {
+		boolean inside = mx >= x && my >= y && mx < x + width && my < y + height;
 		if(inside)
 			ticksHovered = Math.min(time, ticksHovered + gui.timeDelta);
 		else ticksHovered = Math.max(0F, ticksHovered - gui.timeDelta);
@@ -111,7 +110,7 @@ public class GuiButtonCategory extends GuiButtonLexicon {
 		}
 
 		ShaderHelper.useShader(ShaderHelper.categoryButton, shaderCallback);
-		RenderHelper.drawTexturedModalRect(xPosition * 2, yPosition * 2, zLevel * 2, 0, 0, 32, 32, s, s);
+		RenderHelper.drawTexturedModalRect(x * 2, y * 2, zLevel * 2, 0, 0, 32, 32, s, s);
 		ShaderHelper.releaseShader();
 
 		if(shaders) {

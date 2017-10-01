@@ -6,8 +6,7 @@
       "bottom": "botania:blocks/shimmerrock",
       "top": "botania:blocks/shimmerrock",
       "side": "botania:blocks/shimmerrock"
-    },
-    "transform": "forge:default-block"
+    }
   },
   "variants": {
     "half=top": [{

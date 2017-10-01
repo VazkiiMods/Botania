@@ -10,11 +10,6 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
@@ -34,14 +29,17 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
+import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.corporea.InvWithLocation;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
-import vazkii.botania.common.core.handler.MethodHandles;
 import vazkii.botania.common.core.helper.InventoryHelper;
 import vazkii.botania.common.lexicon.LexiconData;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SubTileHopperhock extends SubTileFunctional {
 
@@ -70,17 +68,10 @@ public class SubTileHopperhock extends SubTileFunctional {
 		int slowdown = getSlowdownFactor();
 
 		for(EntityItem item : items) {
-			int age;
-			try {
-				age = (int) MethodHandles.itemAge_getter.invokeExact(item);
-			} catch (Throwable t) {
-				continue;
-			}
-
-			if(age < 60 + slowdown || age >= 105 && age < 110 || item.isDead || item.getEntityItem().isEmpty())
+			if(item.age < 60 + slowdown || item.age >= 105 && item.age < 110 || item.isDead || item.getItem().isEmpty())
 				continue;
 
-			ItemStack stack = item.getEntityItem();
+			ItemStack stack = item.getItem();
 			IItemHandler invToPutItemIn = null;
 			boolean priorityInv = false;
 			int amountToPutIn = 0;
@@ -116,12 +107,12 @@ public class SubTileHopperhock extends SubTileFunctional {
 			if(invToPutItemIn != null && !item.isDead) {
 				SubTileSpectranthemum.spawnExplosionParticles(item, 3);
 				ItemHandlerHelper.insertItem(invToPutItemIn, stack.splitStack(amountToPutIn), false);
-				item.setEntityItemStack(stack); // Just in case someone subclasses EntityItem and changes something important.
+				item.setItem(stack); // Just in case someone subclasses EntityItem and changes something important.
 				pulledAny = true;
 			}
 		}
 
-		if(pulledAny && mana > 1)
+		if(pulledAny && mana > 0)
 			mana--;
 	}
 
@@ -239,10 +230,10 @@ public class SubTileHopperhock extends SubTileFunctional {
 		String filter = I18n.format("botaniamisc.filter" + filterType);
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		int x = res.getScaledWidth() / 2 - mc.fontRendererObj.getStringWidth(filter) / 2;
+		int x = res.getScaledWidth() / 2 - mc.fontRenderer.getStringWidth(filter) / 2;
 		int y = res.getScaledHeight() / 2 + 30;
 
-		mc.fontRendererObj.drawStringWithShadow(filter, x, y, color);
+		mc.fontRenderer.drawStringWithShadow(filter, x, y, color);
 		GlStateManager.disableBlend();
 	}
 

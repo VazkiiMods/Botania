@@ -10,20 +10,13 @@
  */
 package vazkii.botania.client.render.tile;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.annotation.Nonnull;
-
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.LuminizerVariant;
 import vazkii.botania.client.core.handler.ClientTickHandler;
@@ -33,12 +26,16 @@ import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileLightRelay;
 
+import javax.annotation.Nonnull;
+import java.util.HashMap;
+import java.util.Map;
+
 public class RenderTileLightRelay extends TileEntitySpecialRenderer<TileLightRelay> {
 
 	private static Map<LuminizerVariant, TextureAtlasSprite> sprites = new HashMap();
 
 	@Override
-	public void renderTileEntityAt(@Nonnull TileLightRelay tile, double x, double y, double z, float pticks, int digProgress) {
+	public void render(@Nonnull TileLightRelay tile, double x, double y, double z, float pticks, int digProgress, float unused) {
 		if(!tile.getWorld().isBlockLoaded(tile.getPos(), false) || tile.getWorld().getBlockState(tile.getPos()).getBlock() != ModBlocks.lightRelay)
 			return;
 

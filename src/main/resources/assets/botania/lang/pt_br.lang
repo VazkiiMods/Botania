@@ -113,7 +113,7 @@ botaniamisc.clickToAddWarp=Clique direito para marcar essa posição
 botaniamisc.hasKeepIvy=Possúi Hera Resoluta
 botaniamisc.active=&aAtivo
 botaniamisc.inactive=&cInativo
-botaniamisc.achievements=Conquistas
+botaniamisc.advancements=Conquistas
 botaniamisc.dropIkea=&bDerrubar esse item o desmontará nos seus componentes originais
 botaniamisc.hourglassLock=Essa Ampulheta está travada. Clique com uma Varinha da Floresta para destravá-la.
 botaniamisc.locked=Travada
@@ -465,106 +465,104 @@ entity.botania:manaStorm.name=Epicentro de Manastorm
 entity.botania:babylonWeapon.name=Arma da Tesouraria
 entity.botania:fallingStar.name=Estrela Cadente
 
-# ACHIEVEMENT NAMES + DESC
+# ADVANCEMENT NAMES + DESC
 #
-achievement.botania:flowerPickup.desc=Colete uma Flor Mística no mundo
+advancement.botania:flowerPickup.desc=Colete uma Flor Mística no mundo
 #
-achievement.botania:lexiconUse.desc=Olhe o índice do Lexica Botania
+advancement.botania:lexiconUse.desc=Olhe o índice do Lexica Botania
 #
-achievement.botania:daybloomPickup.desc=Crie uma Daybloom no Boticário de Pétalas
+advancement.botania:generatingFlower.desc=Crie uma Daybloom no Boticário de Pétalas
 #
-achievement.botania:manaPoolPickup.desc=Melhore um Poço de Mana Diluído para um normal
+advancement.botania:manaPoolPickup.desc=Melhore um Poço de Mana Diluído para um normal
 #
-achievement.botania:endoflamePickup.desc=Crie uma Endoflame para uma melhor produção de Mana
+advancement.botania:functionalFlower.desc=Crie uma Endoflame para uma melhor produção de Mana
 #
-achievement.botania:tinyPotatoPet.desc=Domestique uma Batatinha
+advancement.botania:tinyPotatoPet.desc=Domestique uma Batatinha
 #
-achievement.botania:sparkCraft.desc=Crie uma Fagulha para ajudar na transferência de Mana
+advancement.botania:sparkCraft.desc=Crie uma Fagulha para ajudar na transferência de Mana
 #
-achievement.botania:baubleWear.desc=Crie qualquer Bauble e equipe
+advancement.botania:baubleWear.desc=Crie qualquer Bauble e equipe
 #
-achievement.botania:manaCookieEat.desc=Infunda e coma um Biscoito de Mana
+advancement.botania:manaCookieEat.desc=Infunda e coma um Biscoito de Mana
 #
-achievement.botania:runePickup.desc=Use o Altar Rúnico para criar uma Runa
+advancement.botania:runePickup.desc=Use o Altar Rúnico para criar uma Runa
 #
-achievement.botania:manaBlasterShoot.desc=Crie e use um Disparador de Mana
+advancement.botania:manaBlasterShoot.desc=Crie e use um Disparador de Mana
 #
-achievement.botania:tiaraWings.desc=Crie e adorne uma Tiara de Flügel com asas
+advancement.botania:tiaraWings.desc=Crie e adorne uma Tiara de Flügel com asas
 #
-achievement.botania:terrasteelPickup.desc=Conjure uma Barra de Terrasteel usando a Placa de Aglomeração Terrestre
+advancement.botania:terrasteelPickup.desc=Conjure uma Barra de Terrasteel usando a Placa de Aglomeração Terrestre
 #
-achievement.botania:elfPortalOpen.desc=Abra um portal para o reino de Alfheim
+advancement.botania:elfPortalOpen.desc=Abra um portal para o reino de Alfheim
 #
-achievement.botania:gaiaGuardianKill.desc=Invoque e mate um Guardião de Gaia
+advancement.botania:gaiaGuardianKill.desc=Invoque e mate um Guardião de Gaia
 #
-achievement.botania:terrasteelWeaponCraft.desc=Arme-se com uma arma feita de Terrasteel
+advancement.botania:terrasteelWeaponCraft.desc=Arme-se com uma arma feita de Terrasteel
 #
-achievement.botania:kekimurusPickup.desc=Crie uma Kekimurus para produzir grandes quantidades de Mana
+advancement.botania:kekimurusPickup.desc=Crie uma Kekimurus para produzir grandes quantidades de Mana
 #
-achievement.botania:heiseiDreamPickup.desc=Crie uma Heisei Dream para causar uma rebelião entre os monstros
+advancement.botania:heiseiDreamPickup.desc=Crie uma Heisei Dream para causar uma rebelião entre os monstros
 #
-achievement.botania:dirtRodCraft.desc=Crie um graveto su- er... Cajado das Terras
+advancement.botania:dirtRodCraft.desc=Crie um graveto su- er... Cajado das Terras
 #
-achievement.botania:spawnerMoverUse.desc=Use um Agregador de Vida para transportar um Invocador de Monstros
+advancement.botania:spawnerMoverUse.desc=Use um Agregador de Vida para transportar um Invocador de Monstros
 #
-achievement.botania:enderAirMake.desc=Colete uma Garrafa de ar do Fim
+advancement.botania:enderAirMake.desc=Colete uma Garrafa de ar do Fim
 #
-achievement.botania:corporeaCraft.desc=Crie um bloco que faça parte da Rede de Corporea
+advancement.botania:corporeaCraft.desc=Crie um bloco que faça parte da Rede de Corporea
 #
-achievement.botania:cacophoniumCraft.desc=Crie um Cacofônio para irritar seus inimigos
+advancement.botania:cacophoniumCraft.desc=Crie um Cacofônio para irritar seus inimigos
 #
-achievement.botania:manaCartCraft.desc=Crie um Carrinho com Poço de Mana para transporte de mana a longas distâncias
+advancement.botania:manaCartCraft.desc=Crie um Carrinho com Poço de Mana para transporte de mana a longas distâncias
 #
-achievement.botania:craftingHaloCraft.desc=Crie uma Auréola de Criação para facilitar montagem de items
+advancement.botania:craftingHaloCraft.desc=Crie uma Auréola de Criação para facilitar montagem de items
 #
-achievement.botania:manaweaveArmorCraft.desc=Faça uma Armadura de Tecido de Mana para melhorar suas varinhas e cajados
+advancement.botania:manaweaveArmorCraft.desc=Faça uma Armadura de Tecido de Mana para melhorar suas varinhas e cajados
 #
-achievement.botania:enchanterMake.desc=Crie um Encantador de Mana para ter controle sobre encantamentos
+advancement.botania:enchanterMake.desc=Crie um Encantador de Mana para ter controle sobre encantamentos
 #
-achievement.botania:pollidisiacPickup.desc=Crie uma Pollidisiac, espalhe o amor no ar
+advancement.botania:pollidisiacPickup.desc=Crie uma Pollidisiac, espalhe o amor no ar
 #
-achievement.botania:brewPickup.desc=Crie um Fermentador Botânico para fazer poções de sua preferência
+advancement.botania:brewPickup.desc=Crie um Fermentador Botânico para fazer poções de sua preferência
 #
-achievement.botania:terraformRodCraft.desc=Crie um Cajado de Terra Firma e mude o mundo
+advancement.botania:terraformRodCraft.desc=Crie um Cajado de Terra Firma e mude o mundo
 #
-achievement.botania:bubbellPickup.desc=Crie uma Bubbell para fazer construções sub-aquáticas
+advancement.botania:bubbellPickup.desc=Crie uma Bubbell para fazer construções sub-aquáticas
 #
-achievement.botania:luminizerRide.desc=Crie alguns Luminizers e os use para transporte
+advancement.botania:luminizerRide.desc=Crie alguns Luminizers e os use para transporte
 #
-achievement.botania:manaBombIgnite.desc=Crie uma Carga de Manastorm, e acenda-a em um lugar distante
+advancement.botania:manaBombIgnite.desc=Crie uma Carga de Manastorm, e acenda-a em um lugar distante
 #
-achievement.botania:dandelifeonPickup.desc=Crie uma Dandelifeon e desafie sua mente
+advancement.botania:dandelifeonPickup.desc=Crie uma Dandelifeon e desafie sua mente
 
 #
-achievement.botania:signalFlareStun.desc=Atordoe 100 ou mais monstros com uma única Fagulha Sinalizadora
+advancement.botania:signalFlareStun.desc=Atordoe 100 ou mais monstros com uma única Fagulha Sinalizadora
 #
-achievement.botania:l20ShardUse.desc=Ergua o solo ao céu com um Fragmento de Laputa Nível XX
+advancement.botania:l20ShardUse.desc=Ergua o solo ao céu com um Fragmento de Laputa Nível XX
 #
-achievement.botania:gaiaGuardianNoArmor.desc=Mate um Guardião de Gaia sem usar armadura em qualquer parte da luta
+advancement.botania:gaiaGuardianNoArmor.desc=Mate um Guardião de Gaia sem usar armadura em qualquer parte da luta
 #
-achievement.botania:rankSSPick.desc=Minere usando um Terra-Destruídor nível SS
+advancement.botania:rankSSPick.desc=Minere usando um Terra-Destruídor nível SS
 #
-achievement.botania:superCorporeaRequest.desc=Requisite 50000 ou mais de um único item com o Índice Corporea
+advancement.botania:superCorporeaRequest.desc=Requisite 50000 ou mais de um único item com o Índice Corporea
 #
-achievement.botania:pinkinator.desc=Dê um uso ao Pinkinator
+advancement.botania:pinkinator.desc=Dê um uso ao Pinkinator
 
 #
-achievement.botania:infiniteFruit.desc=Seja recompensado com uma Fruta de Grisaia por um ato heróico
+advancement.botania:infiniteFruit.desc=Seja recompensado com uma Fruta de Grisaia por um ato heróico
 #
-achievement.botania:excaliber.desc=Seja recompensado com a Espada Sagrada Excaliber por um ato heróico
+advancement.botania:excaliber.desc=Seja recompensado com a Espada Sagrada Excaliber por um ato heróico
 #
-achievement.botania:flugelEye.desc=Seja recompensado com um Olho dos Flügel por um ato heróico
+advancement.botania:flugelEye.desc=Seja recompensado com um Olho dos Flügel por um ato heróico
 #
-achievement.botania:thorRing.desc=Seja recompensado com o Anel de Thor por um ato heróico
+advancement.botania:thorRing.desc=Seja recompensado com o Anel de Thor por um ato heróico
 #
-achievement.botania:odinRing.desc=Seja recompensado com o Anel de Odin por um ato heróico
+advancement.botania:odinRing.desc=Seja recompensado com o Anel de Odin por um ato heróico
 #
-achievement.botania:lokiRing.desc=Seja recompensado com o Anel de Loki por um ato heróico
-#
-achievement.botania:aesirRing.desc=Crie um Anel de Aesir com os três anéis dos deuses
+advancement.botania:lokiRing.desc=Seja recompensado com o Anel de Loki por um ato heróico
 
 #
-achievement.botania:nullFlower.desc=Encontre algum bug que faça você conseguir uma flor indefinida. Não esqueça de reportá-lo!
+advancement.botania:nullFlower.desc=Encontre algum bug que faça você conseguir uma flor indefinida. Não esqueça de reportá-lo!
 #
 #THE CONSISTENCY
 #WAS BROKEN ._.
@@ -1454,7 +1452,6 @@ item.botania:fireRod.name=Cajado dos Infernos
 item.botania:vineBall.name=Bola de Vinhas
 item.botania:slingshot.name=Estilingue de Madeira-viva
 item.botania:manaBottle.name=Mana Engarrafada
-item.botania:prismarineShard.name=Fragmento de Prismarinho
 item.botania:laputaShard.name=Fragmento de Laputa
 item.botania:virus0.name=Vírus Necrodermal
 item.botania:virus1.name=Vírus Nullodermal
@@ -1564,7 +1561,6 @@ item.botania:flugelEye.name=Olho de Flügel
 item.botania:thorRing.name=Anel de Thor
 item.botania:odinRing.name=Anel de Odin
 item.botania:lokiRing.name=Anel de Loki
-item.botania:aesirRing.name=Anel de Aesir
 item.botania:dice.name=Dado do Destino
 item.botania:keepIvy.name=Hera Resoluta
 item.botania:blackHoleTalisman.name=Talismã do Buraco-negro

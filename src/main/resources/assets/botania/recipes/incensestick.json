@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "botania:incensestick"
+  },
+  "pattern": [
+    "  G",
+    " B ",
+    "T  "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "B": {
+      "item": "minecraft:blaze_powder"
+    },
+    "T": {
+      "item": "#LIVINGWOODTWIG"
+    },
+    "G": {
+      "item": "minecraft:ghast_tear"
+    }
+  }
+}

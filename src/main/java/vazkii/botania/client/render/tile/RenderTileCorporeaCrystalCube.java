@@ -10,18 +10,13 @@
  */
 package vazkii.botania.client.render.tile;
 
-import javax.annotation.Nonnull;
-
-import org.apache.commons.lang3.tuple.Pair;
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockRendererDispatcher;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.entity.RenderEntityItem;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -40,9 +35,12 @@ import net.minecraftforge.common.model.IModelState;
 import net.minecraftforge.common.model.animation.CapabilityAnimation;
 import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.common.property.Properties;
+import org.apache.commons.lang3.tuple.Pair;
+import org.lwjgl.opengl.GL11;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaCrystalCube;
-import vazkii.botania.common.core.handler.MethodHandles;
+
+import javax.annotation.Nonnull;
 
 public class RenderTileCorporeaCrystalCube extends TileEntitySpecialRenderer<TileCorporeaCrystalCube> {
 
@@ -50,7 +48,7 @@ public class RenderTileCorporeaCrystalCube extends TileEntitySpecialRenderer<Til
 	private RenderEntityItem itemRenderer = null;
 
 	@Override
-	public void renderTileEntityAt(@Nonnull TileCorporeaCrystalCube cube, double d0, double d1, double d2, float f, int digProgress) {
+	public void render(@Nonnull TileCorporeaCrystalCube cube, double d0, double d1, double d2, float f, int digProgress, float unused) {
 		ItemStack stack = ItemStack.EMPTY;
 		if (cube != null) {
 			if(entity == null)
@@ -64,12 +62,9 @@ public class RenderTileCorporeaCrystalCube extends TileEntitySpecialRenderer<Til
 				}
 			};
 
-			try {
-				MethodHandles.itemAge_setter.invokeExact(entity, ClientTickHandler.ticksInGame);
-			} catch (Throwable ignored) {}
-
+			entity.age = ClientTickHandler.ticksInGame;
 			stack = cube.getRequestTarget();
-			entity.setEntityItemStack(stack);
+			entity.setItem(stack);
 		}
 
 		double time = ClientTickHandler.ticksInGame + f;
@@ -115,16 +110,16 @@ public class RenderTileCorporeaCrystalCube extends TileEntitySpecialRenderer<Til
 			float s = 1F / 64F;
 			GlStateManager.scale(s, s, s);
 			GlStateManager.disableLighting();
-			int l = mc.fontRendererObj.getStringWidth(countStr);
+			int l = mc.fontRenderer.getStringWidth(countStr);
 
 			GlStateManager.translate(0F, 55F, 0F);
 			float tr = -16.5F;
 			for(int i = 0; i < 4; i++) {
 				GlStateManager.rotate(90F, 0F, 1F, 0F);
 				GlStateManager.translate(0F, 0F, tr);
-				mc.fontRendererObj.drawString(countStr, -l / 2, 0, color);
+				mc.fontRenderer.drawString(countStr, -l / 2, 0, color);
 				GlStateManager.translate(0F, 0F, 0.1F);
-				mc.fontRendererObj.drawString(countStr, -l / 2 + 1, 1, colorShade);
+				mc.fontRenderer.drawString(countStr, -l / 2 + 1, 1, colorShade);
 				GlStateManager.translate(0F, 0F, -tr - 0.1F);
 			}
 			GlStateManager.enableLighting();
@@ -141,9 +136,9 @@ public class RenderTileCorporeaCrystalCube extends TileEntitySpecialRenderer<Til
 	private static BlockRendererDispatcher blockRenderer;
 
 	private void renderAnimatedModel(TileCorporeaCrystalCube te, double x, double y, double z, float partialTick) {
-		// From FastTESR.renderTileEntityAt
+		// From FastTESR.render
 		Tessellator tessellator = Tessellator.getInstance();
-		VertexBuffer worldRenderer = tessellator.getBuffer();
+		BufferBuilder worldRenderer = tessellator.getBuffer();
 		bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 		RenderHelper.disableStandardItemLighting();
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
