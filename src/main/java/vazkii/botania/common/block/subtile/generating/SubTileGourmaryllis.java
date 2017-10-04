@@ -52,15 +52,20 @@ public class SubTileGourmaryllis extends SubTileGenerating {
 		if(cooldown > -1)
 			cooldown--;
 		if(digestingMana != 0) {
+			int munchInterval = 2 + (2 * lastFoodCount);
+			
 			if(cooldown == 0) {
 				mana = Math.min(getMaxMana(), mana + digestingMana);
 				digestingMana = 0;
-				getWorld().playSound(null, supertile.getPos(), SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.BLOCKS, 1, 1);
+				
+				float burpPitch = 1 - (lastFoodCount - 1) * 0.05F;
+				getWorld().playSound(null, supertile.getPos(), SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.BLOCKS, 1, burpPitch);
 				sync();
-			} else if(cooldown % (2 + (2 * lastFoodCount)) == 0) {
+			} else if(cooldown % munchInterval == 0) {
 				getWorld().playSound(null, supertile.getPos(), SoundEvents.ENTITY_GENERIC_EAT, SoundCategory.BLOCKS, 0.5f, 1);
 				
 				Vec3d offset = getWorld().getBlockState(getPos()).getOffset(getWorld(), getPos()).addVector(0.4, 0.6, 0.4);
+				
 				((WorldServer) supertile.getWorld()).spawnParticle(EnumParticleTypes.ITEM_CRACK, supertile.getPos().getX()+offset.x, supertile.getPos().getY()+offset.y, supertile.getPos().getZ()+offset.z, 10, 0.1D, 0.1D, 0.1D, 0.03D, Item.getIdFromItem(lastFood.getItem()), lastFood.getItemDamage());
 			}
 		}
