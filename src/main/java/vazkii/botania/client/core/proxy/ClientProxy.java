@@ -23,6 +23,7 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
@@ -293,21 +294,26 @@ public class ClientProxy implements IProxy {
 
 	@Override
 	public void setExtraReach(EntityLivingBase entity, float reach) {
-		Minecraft mc = Minecraft.getMinecraft();
-		EntityPlayerSP player = mc.player;
-		if(entity == player) {
-			if(!(mc.playerController instanceof IExtendedPlayerController)) {
-				NetHandlerPlayClient net = player.connection;
-				BotaniaPlayerController controller = new BotaniaPlayerController(mc, net);
-				boolean isFlying = player.capabilities.isFlying;
-				boolean allowFlying = player.capabilities.allowFlying;
-				controller.setGameType(mc.playerController.getCurrentGameType());
-				player.capabilities.isFlying = isFlying;
-				player.capabilities.allowFlying = allowFlying;
-				mc.playerController = controller;
-			}
+		if(!entity.world.isRemote) {
+			if(entity instanceof EntityPlayerMP)
+				((EntityPlayerMP) entity).interactionManager.setBlockReachDistance(Math.max(5, ((EntityPlayerMP) entity).interactionManager.getBlockReachDistance() + reach));
+		} else {
+			Minecraft mc = Minecraft.getMinecraft();
+			EntityPlayerSP player = mc.player;
+			if(entity == player) {
+				if(!(mc.playerController instanceof IExtendedPlayerController)) {
+					NetHandlerPlayClient net = player.connection;
+					BotaniaPlayerController controller = new BotaniaPlayerController(mc, net);
+					boolean isFlying = player.capabilities.isFlying;
+					boolean allowFlying = player.capabilities.allowFlying;
+					controller.setGameType(mc.playerController.getCurrentGameType());
+					player.capabilities.isFlying = isFlying;
+					player.capabilities.allowFlying = allowFlying;
+					mc.playerController = controller;
+				}
 
-			((IExtendedPlayerController) mc.playerController).setReachDistanceExtension(Math.max(0, ((IExtendedPlayerController) mc.playerController).getReachDistanceExtension() + reach));
+				((IExtendedPlayerController) mc.playerController).setReachDistanceExtension(Math.max(0, ((IExtendedPlayerController) mc.playerController).getReachDistanceExtension() + reach));
+			}
 		}
 	}
 
