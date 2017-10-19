@@ -58,7 +58,7 @@ public final class ShaderHelper {
 		}
 	}
 
-	public static void registerReloadListener() {
+	public static void initShaders() {
 		if (Minecraft.getMinecraft().getResourceManager() instanceof SimpleReloadableResourceManager) {
 			((SimpleReloadableResourceManager) Minecraft.getMinecraft().getResourceManager()).registerReloadListener(manager -> {
 				deleteShader(pylonGlow); pylonGlow = 0;
@@ -73,12 +73,12 @@ public final class ShaderHelper {
 				deleteShader(categoryButton); categoryButton = 0;
 				deleteShader(alpha); alpha = 0;
 
-				initShaders();
+				loadShaders();
 			});
 		}
 	}
 
-	public static void initShaders() {
+	private static void loadShaders() {
 		if(!useShaders())
 			return;
 
