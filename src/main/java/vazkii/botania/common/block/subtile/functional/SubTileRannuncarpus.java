@@ -125,6 +125,7 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 								if(ConfigHandler.blockBreakParticles)
 									supertile.getWorld().playEvent(2001, coords, Block.getStateId(stateToPlace));
 								validPositions.remove(coords);
+								ItemBlock.setTileEntityNBT(supertile.getWorld(), null, coords, stack);
 
 								TileEntity tile = supertile.getWorld().getTileEntity(coords);
 								if(tile != null && tile instanceof ISubTileContainer) {
