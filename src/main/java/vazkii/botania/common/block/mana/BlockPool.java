@@ -25,6 +25,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityFlowerPot;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.NonNullList;
@@ -52,14 +53,12 @@ import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
 public class BlockPool extends BlockMod implements IWandHUD, IWandable, ILexiconable {
-
 	private static final AxisAlignedBB AABB = new AxisAlignedBB(0, 0, 0, 1, 0.5, 1);
-
-	private boolean lastFragile = false;
 
 	public BlockPool() {
 		super(Material.ROCK, LibBlockNames.POOL);
@@ -114,17 +113,27 @@ public class BlockPool extends BlockMod implements IWandHUD, IWandable, ILexicon
 		return state.getBlock().getMetaFromState(state);
 	}
 
+	// If harvesting, delay setting block to air so getDrops can read the TE
 	@Override
-	public void breakBlock(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
-		TilePool pool = (TilePool) world.getTileEntity(pos);
-		lastFragile = pool.fragile;
-		super.breakBlock(world, pos, state);
+	public boolean removedByPlayer(IBlockState state, World world, BlockPos pos, EntityPlayer player, boolean willHarvest) {
+		if (willHarvest)
+			return true;
+		return super.removedByPlayer(state, world, pos, player, willHarvest);
 	}
 
 	@Override
-	public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, @Nonnull IBlockState state, int fortune) {
-		if(!lastFragile)
-			drops.add(new ItemStack(this, 1, state.getBlock().getMetaFromState(state)));
+	public void getDrops(net.minecraft.util.NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
+		TileEntity te = world.getTileEntity(pos);
+		if (te instanceof TilePool && !((TilePool) te).fragile) {
+			super.getDrops(drops, world, pos, state, fortune);
+		}
+	}
+
+	// After getDrops reads the TE, then delete the block
+	@Override
+	public void harvestBlock(World world, EntityPlayer player, BlockPos pos, IBlockState state, @Nullable TileEntity te, ItemStack tool) {
+		super.harvestBlock(world, player, pos, state, te, tool);
+		world.setBlockToAir(pos);
 	}
 
 	@Override
