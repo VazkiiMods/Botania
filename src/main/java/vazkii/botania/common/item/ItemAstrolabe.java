@@ -99,7 +99,7 @@ public class ItemAstrolabe extends ItemMod {
 	}
 
 	public boolean placeAllBlocks(ItemStack stack, EntityPlayer player) {
-		BlockPos[] blocksToPlace = getBlocksToPlace(stack, player);
+		List<BlockPos> blocksToPlace = getBlocksToPlace(stack, player);
 		if(!hasBlocks(stack, player, blocksToPlace))
 			return false;
 
@@ -151,7 +151,7 @@ public class ItemAstrolabe extends ItemMod {
 		}
 	}
 
-	public static boolean hasBlocks(ItemStack stack, EntityPlayer player, BlockPos[] blocks) {
+	public static boolean hasBlocks(ItemStack stack, EntityPlayer player, List<BlockPos> blocks) {
 		if (player.capabilities.isCreativeMode)
 			return true;
 
@@ -159,7 +159,7 @@ public class ItemAstrolabe extends ItemMod {
 		int meta = getBlockMeta(stack);
 		ItemStack reqStack = new ItemStack(block, 1, meta);
 		
-		int required = blocks.length;
+		int required = blocks.size();
 		int current = 0;
 		List<ItemStack> stacksToCheck = new ArrayList<>();
 		for (int i = 0; i < player.inventory.getSizeInventory(); i++) {
@@ -188,20 +188,19 @@ public class ItemAstrolabe extends ItemMod {
 		return false;
 	}
 
-	public static BlockPos[] getBlocksToPlace(ItemStack stack, EntityPlayer player) {
+	public static List<BlockPos> getBlocksToPlace(ItemStack stack, EntityPlayer player) {
 		List<BlockPos> coords = new ArrayList<>();
-		RayTraceResult pos = ToolCommons.raytraceFromEntity(player.world, player, true, 5);
-		if(pos != null) {
-			BlockPos bpos = pos.getBlockPos();
-			IBlockState state = player.world.getBlockState(bpos);
+		RayTraceResult rtr = ToolCommons.raytraceFromEntity(player.world, player, true, 5);
+		if(rtr != null) {
+			BlockPos pos = rtr.getBlockPos();
+			IBlockState state = player.world.getBlockState(pos);
 			Block block = state.getBlock();
-			if(block != null && block.isReplaceable(player.world, bpos))
-				bpos = bpos.down();;
+			if(block.isReplaceable(player.world, pos))
+				pos = pos.down();
 
-			int rotation = MathHelper.floor(player.rotationYaw * 4F / 360F + 0.5D) & 3;
 			int range = (getSize(stack) ^ 1) / 2;
 
-			EnumFacing dir = pos.sideHit;
+			EnumFacing dir = rtr.sideHit;
 			EnumFacing rotationDir = EnumFacing.fromAngle(player.rotationYaw);
 			
 			boolean pitchedVertically = player.rotationPitch > 70 || player.rotationPitch < -70;
@@ -209,30 +208,29 @@ public class ItemAstrolabe extends ItemMod {
 			boolean axisX = rotationDir.getAxis() == Axis.X;
 			boolean axisZ = rotationDir.getAxis() == Axis.Z;
 			
-			int xOff, yOff, zOff;
-			
-			xOff = axisZ || pitchedVertically ? range : 0;
-			yOff = pitchedVertically ? 0 : range;
-			zOff = axisX || pitchedVertically ? range : 0;
+			int xOff = axisZ || pitchedVertically ? range : 0;
+			int yOff = pitchedVertically ? 0 : range;
+			int zOff = axisX || pitchedVertically ? range : 0;
 			
 			for(int x = -xOff; x < xOff + 1; x++)
 				for(int y = 0; y < yOff * 2 + 1; y++) {
 					for(int z = -zOff; z < zOff + 1; z++) {
-						int xp = bpos.getX() + x + dir.getFrontOffsetX();
-						int yp = bpos.getY() + y + dir.getFrontOffsetY();
-						int zp = bpos.getZ() + z + dir.getFrontOffsetZ();
+						int xp = pos.getX() + x + dir.getFrontOffsetX();
+						int yp = pos.getY() + y + dir.getFrontOffsetY();
+						int zp = pos.getZ() + z + dir.getFrontOffsetZ();
 
 						BlockPos newPos = new BlockPos(xp, yp, zp);
 						IBlockState state1 = player.world.getBlockState(newPos);
 						Block block1 = state1.getBlock();
-						if(block1 == null || block1.isAir(state1, player.world, newPos) || block1.isReplaceable(player.world, newPos))
-							coords.add(new BlockPos(xp, yp, zp));
+						if(player.world.getWorldBorder().contains(newPos)
+								&& (block1.isAir(state1, player.world, newPos) || block1.isReplaceable(player.world, newPos)))
+							coords.add(newPos);
 					}
 				}
 
 		}
 
-		return coords.toArray(new BlockPos[coords.size()]);
+		return coords;
 	}
 	
 

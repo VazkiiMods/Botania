@@ -53,7 +53,7 @@ public final class AstrolabePreviewHandler {
 	}
 
 	private static void renderPlayerLook(EntityPlayer player, ItemStack stack) {
-		BlockPos[] coords = ItemAstrolabe.getBlocksToPlace(stack, player);
+		List<BlockPos> coords = ItemAstrolabe.getBlocksToPlace(stack, player);
 		if (ItemAstrolabe.hasBlocks(stack, player, coords)) {
 			Block block = ItemAstrolabe.getBlock(stack);
 			int meta = ItemAstrolabe.getBlockMeta(stack);
