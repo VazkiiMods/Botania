@@ -1,3 +1,13 @@
+r1.10 350
+*Added beetroot to the full crop farm challenge text. (codewarrior0)
+*Fixed a crash when moving a mana pool with a quark piston.
+*Fixed botania armor having twice as much armor as it should have.
+*Fixed botania chiseled quartz slabs not being craftable.
+*Fixed shaders loading twice on startup.
+*Fixed the rannuncarpus eating tile entity data, such as shulker boxes.
+*Fixed the ring of far reach desyncing blocks.
+*Fixed the Worldshaper's Astrolabe being able to place blocks outside the world border.
+*The Gourmaryllis now has audiovisual feedback based on the food it's eating. (quat)
 r1.10 349
 *Botania shaders will no longer turn off if Albedo is loaded, so you can use it without compromising on visual effects.
 *Fixed another startup crash. Hopefully, because I couldn't reproduce it.
