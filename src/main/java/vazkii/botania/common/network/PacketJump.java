@@ -13,17 +13,12 @@ package vazkii.botania.common.network;
 import baubles.api.BaublesApi;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.SoundCategory;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
-import vazkii.botania.api.mana.ManaItemHandler;
-import vazkii.botania.api.sound.BotaniaSoundEvents;
-import vazkii.botania.common.core.helper.ItemNBTHelper;
+import net.minecraftforge.items.IItemHandler;
 import vazkii.botania.common.item.equipment.bauble.CloudPendantShim;
-import vazkii.botania.common.item.equipment.bauble.ItemDodgeRing;
 import vazkii.botania.common.item.equipment.bauble.ItemTravelBelt;
 
 public class PacketJump implements IMessage {
@@ -38,18 +33,18 @@ public class PacketJump implements IMessage {
 
 		@Override
 		public IMessage onMessage(PacketJump message, MessageContext ctx) {
-			EntityPlayerMP player = ctx.getServerHandler().playerEntity;
+			EntityPlayerMP player = ctx.getServerHandler().player;
 			player.mcServer.addScheduledTask(() -> {
-				IInventory baublesInv = BaublesApi.getBaubles(player);
+				IItemHandler baublesInv = BaublesApi.getBaublesHandler(player);
 				ItemStack amuletStack = baublesInv.getStackInSlot(0);
 
-				if(amuletStack != null && amuletStack.getItem() instanceof CloudPendantShim) {
+				if(!amuletStack.isEmpty() && amuletStack.getItem() instanceof CloudPendantShim) {
 					player.addExhaustion(0.3F);
 					player.fallDistance = 0;
 					
-					ItemStack belt = BaublesApi.getBaubles(player).getStackInSlot(3);
+					ItemStack belt = BaublesApi.getBaublesHandler(player).getStackInSlot(3);
 
-					if(belt != null && belt.getItem() instanceof ItemTravelBelt)
+					if(!belt.isEmpty() && belt.getItem() instanceof ItemTravelBelt)
 						player.fallDistance = -((ItemTravelBelt) belt.getItem()).fallBuffer * ((CloudPendantShim) amuletStack.getItem()).getMaxAllowedJumps();
 				}
 			});

@@ -10,11 +10,6 @@
  */
 package vazkii.botania.common.lexicon.page;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
@@ -30,12 +25,16 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.internal.IGuiLexiconEntry;
 import vazkii.botania.api.lexicon.LexiconPage;
 import vazkii.botania.api.lexicon.multiblock.Multiblock;
 import vazkii.botania.api.lexicon.multiblock.MultiblockSet;
 import vazkii.botania.client.core.handler.MultiblockRenderHandler;
 import vazkii.botania.client.lib.LibResources;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PageMultiblock extends LexiconPage {
 
@@ -84,7 +83,7 @@ public class PageMultiblock extends LexiconPage {
 
 		GlStateManager.popMatrix();
 
-		FontRenderer font = Minecraft.getMinecraft().fontRendererObj;
+		FontRenderer font = Minecraft.getMinecraft().fontRenderer;
 		boolean unicode = font.getUnicodeFlag();
 		String s = TextFormatting.BOLD + I18n.format(getUnlocalizedName());
 		font.setUnicodeFlag(true);
@@ -105,7 +104,7 @@ public class PageMultiblock extends LexiconPage {
 			List<String> mats = new ArrayList<>();
 			mats.add(I18n.format("botaniamisc.materialsRequired"));
 			for(ItemStack stack : mb.materials) {
-				String size = "" + stack.stackSize;
+				String size = "" + stack.getCount();
 				if(size.length() < 2)
 					size = "0" + size;
 				mats.add(" " + TextFormatting.AQUA + size + " " + TextFormatting.GRAY + stack.getDisplayName());

@@ -10,12 +10,6 @@
  */
 package vazkii.botania.common.block.decor;
 
-import java.util.List;
-import java.util.Random;
-
-import javax.annotation.Nonnull;
-
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockDirt;
 import net.minecraft.block.BlockMushroom;
 import net.minecraft.block.SoundType;
@@ -25,35 +19,37 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.EnumDyeColor;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.Optional;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import thaumcraft.api.crafting.IInfusionStabiliser;
 import vazkii.botania.api.item.IHornHarvestable;
+import vazkii.botania.api.item.IPetalApothecary;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.recipe.IFlowerComponent;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.client.render.IModelRegister;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.core.handler.ConfigHandler;
-import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
+import javax.annotation.Nonnull;
+import java.util.Random;
+
 @Optional.Interface(modid = "Thaumcraft", iface = "thaumcraft.api.crafting.IInfusionStabiliser", striprefs = true)
-public class BlockModMushroom extends BlockMushroom implements IInfusionStabiliser, IHornHarvestable, ILexiconable, IModelRegister {
+public class BlockModMushroom extends BlockMushroom implements IInfusionStabiliser, IHornHarvestable, ILexiconable, IModelRegister, IFlowerComponent {
 
 	private static final AxisAlignedBB AABB = new AxisAlignedBB(0.3, 0, 0.3, 0.8, 1, 0.8);
 
@@ -66,8 +62,6 @@ public class BlockModMushroom extends BlockMushroom implements IInfusionStabilis
 		setTickRandomly(false);
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.COLOR, EnumDyeColor.WHITE));
-		GameRegistry.register(this);
-		GameRegistry.register(new ItemBlockWithMetadataAndName(this), getRegistryName());
 	}
 
 	@Nonnull
@@ -99,22 +93,27 @@ public class BlockModMushroom extends BlockMushroom implements IInfusionStabilis
 	@Override
 	public void updateTick(@Nonnull World world, @Nonnull BlockPos pos, IBlockState state, Random rand) {} // Prevent spreading
 
+	// [VanillaCopy] super, cleaned up and without light level requirement
 	@Override
-	public boolean canPlaceBlockAt(World world, BlockPos pos) {
-		if(pos.getY() >= 0 && pos.getY() < 256) {
-			IBlockState state = world.getBlockState(pos.down());
-			Block block = state.getBlock();
-			return block == Blocks.MYCELIUM || block == Blocks.DIRT && state.getValue(BlockDirt.VARIANT) == BlockDirt.DirtType.PODZOL || block.canSustainPlant(state, world, pos.down(), EnumFacing.UP, this);
+	public boolean canBlockStay(@Nonnull World worldIn, BlockPos pos, IBlockState state)
+	{
+		if (pos.getY() >= 0 && pos.getY() < 256)
+		{
+			IBlockState iblockstate = worldIn.getBlockState(pos.down());
+			return iblockstate.getBlock() == Blocks.MYCELIUM
+					|| (iblockstate.getBlock() == Blocks.DIRT && iblockstate.getValue(BlockDirt.VARIANT) == BlockDirt.DirtType.PODZOL
+					|| iblockstate.getBlock().canSustainPlant(iblockstate, worldIn, pos.down(), net.minecraft.util.EnumFacing.UP, this));
 		}
-
-		return false;
+		else
+		{
+			return false;
+		}
 	}
 
-	@SideOnly(Side.CLIENT)
 	@Override
-	public void getSubBlocks(@Nonnull Item item, CreativeTabs tab, List<ItemStack> stacks) {
+	public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> stacks) {
 		for(int i = 0; i < 16; i++)
-			stacks.add(new ItemStack(item, 1, i));
+			stacks.add(new ItemStack(this, 1, i));
 	}
 
 	@Override
@@ -125,7 +124,7 @@ public class BlockModMushroom extends BlockMushroom implements IInfusionStabilis
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void randomDisplayTick(IBlockState state, World world, BlockPos pos, Random rand) {
-		int hex = state.getValue(BotaniaStateProps.COLOR).getMapColor().colorValue;
+		int hex = state.getValue(BotaniaStateProps.COLOR).getColorValue();
 		int r = (hex & 0xFF0000) >> 16;
 		int g = (hex & 0xFF00) >> 8;
 		int b = hex & 0xFF;
@@ -161,5 +160,15 @@ public class BlockModMushroom extends BlockMushroom implements IInfusionStabilis
 	@Override
 	public void registerModels() {
 		ModelHandler.registerCustomItemblock(this, EnumDyeColor.values().length, i -> "mushroom_" + EnumDyeColor.byMetadata(i).getName());
+	}
+
+	@Override
+	public boolean canFit(ItemStack stack, IPetalApothecary apothecary) {
+		return true;
+	}
+
+	@Override
+	public int getParticleColor(ItemStack stack) {
+		return EnumDyeColor.byMetadata(stack.getItemDamage()).colorValue;
 	}
 }

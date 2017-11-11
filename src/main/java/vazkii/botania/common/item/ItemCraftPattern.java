@@ -10,18 +10,14 @@
  */
 package vazkii.botania.common.item;
 
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -29,6 +25,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.block.tile.TileCraftCrate;
 import vazkii.botania.common.lib.LibItemNames;
+
+import javax.annotation.Nonnull;
 
 public class ItemCraftPattern extends ItemMod {
 
@@ -40,11 +38,11 @@ public class ItemCraftPattern extends ItemMod {
 
 	@Nonnull
 	@Override
-	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer p, World world, BlockPos pos, EnumHand hand, EnumFacing side, float xs, float ys, float zs) {
+	public EnumActionResult onItemUse(EntityPlayer p, World world, BlockPos pos, EnumHand hand, EnumFacing side, float xs, float ys, float zs) {
 		TileEntity tile = world.getTileEntity(pos);
 		if(tile != null && tile instanceof TileCraftCrate) {
 			TileCraftCrate crate = (TileCraftCrate) tile;
-			crate.pattern = stack.getItemDamage();
+			crate.pattern = p.getHeldItem(hand).getItemDamage();
 			world.notifyBlockUpdate(pos, world.getBlockState(pos), world.getBlockState(pos), 8);
 			return EnumActionResult.SUCCESS;
 		}
@@ -52,10 +50,11 @@ public class ItemCraftPattern extends ItemMod {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
-	public void getSubItems(@Nonnull Item item, CreativeTabs tab, List<ItemStack> list) {
-		for(int i = 0; i < TileCraftCrate.PATTERNS.length; i++)
-			list.add(new ItemStack(item, 1, i));
+	public void getSubItems(@Nonnull CreativeTabs tab, @Nonnull NonNullList<ItemStack> list) {
+		if(isInCreativeTab(tab)) {
+			for(int i = 0; i < TileCraftCrate.PATTERNS.length; i++)
+				list.add(new ItemStack(this, 1, i));
+		}
 	}
 
 	@Nonnull

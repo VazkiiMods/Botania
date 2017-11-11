@@ -10,17 +10,24 @@
  */
 package vazkii.botania.common.crafting.recipe;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
+import net.minecraftforge.registries.IForgeRegistryEntry;
 import vazkii.botania.api.item.ICosmeticAttachable;
 import vazkii.botania.api.item.ICosmeticBauble;
 
-public class CosmeticRemoveRecipe implements IRecipe {
+import javax.annotation.Nonnull;
+
+public class CosmeticRemoveRecipe extends IForgeRegistryEntry.Impl<IRecipe> implements IRecipe {
+
+	@Override
+	public boolean isHidden() {
+		return true;
+	}
 
 	@Override
 	public boolean matches(@Nonnull InventoryCrafting var1, @Nonnull World var2) {
@@ -28,8 +35,8 @@ public class CosmeticRemoveRecipe implements IRecipe {
 
 		for(int i = 0; i < var1.getSizeInventory(); i++) {
 			ItemStack stack = var1.getStackInSlot(i);
-			if(stack != null) {
-				if(stack.getItem() instanceof ICosmeticAttachable && !(stack.getItem() instanceof ICosmeticBauble) && ((ICosmeticAttachable) stack.getItem()).getCosmeticItem(stack) != null)
+			if(!stack.isEmpty()) {
+				if(stack.getItem() instanceof ICosmeticAttachable && !(stack.getItem() instanceof ICosmeticBauble) && !((ICosmeticAttachable) stack.getItem()).getCosmeticItem(stack).isEmpty())
 					foundAttachable = true;
 				else return false;
 			}
@@ -38,38 +45,40 @@ public class CosmeticRemoveRecipe implements IRecipe {
 		return foundAttachable;
 	}
 
+	@Nonnull
 	@Override
 	public ItemStack getCraftingResult(@Nonnull InventoryCrafting var1) {
-		ItemStack attachableItem = null;
+		ItemStack attachableItem = ItemStack.EMPTY;
 
 		for(int i = 0; i < var1.getSizeInventory(); i++) {
 			ItemStack stack = var1.getStackInSlot(i);
-			if(stack != null)
+			if(!stack.isEmpty())
 				attachableItem = stack;
 		}
 
 		ICosmeticAttachable attachable = (ICosmeticAttachable) attachableItem.getItem();
-		if(attachable.getCosmeticItem(attachableItem) == null)
-			return null;
+		if(attachable.getCosmeticItem(attachableItem).isEmpty())
+			return ItemStack.EMPTY;
 
 		ItemStack copy = attachableItem.copy();
-		attachable.setCosmeticItem(copy, null);
+		attachable.setCosmeticItem(copy, ItemStack.EMPTY);
 		return copy;
 	}
 
 	@Override
-	public int getRecipeSize() {
-		return 10;
-	}
-
-	@Override
-	public ItemStack getRecipeOutput() {
-		return null;
+	public boolean canFit(int width, int height) {
+		return width * height > 0;
 	}
 
 	@Nonnull
 	@Override
-	public ItemStack[] getRemainingItems(@Nonnull InventoryCrafting inv) {
+	public ItemStack getRecipeOutput() {
+		return ItemStack.EMPTY;
+	}
+
+	@Nonnull
+	@Override
+	public NonNullList<ItemStack> getRemainingItems(@Nonnull InventoryCrafting inv) {
 		return ForgeHooks.defaultRecipeGetRemainingItems(inv);
 	}
 }

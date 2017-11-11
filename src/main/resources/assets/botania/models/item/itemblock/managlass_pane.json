@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "botania:blocks/manaGlass"
+    "layer0": "botania:blocks/mana_glass"
   }
 }

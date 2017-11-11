@@ -1,11 +1,10 @@
 package vazkii.botania.common.network;
 
-import java.awt.Color;
-
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.EnumDyeColor;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
@@ -15,10 +14,12 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.block.tile.TileTerraPlate;
 import vazkii.botania.common.core.handler.ConfigHandler;
-import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.entity.EntityDoppleganger;
+
+import java.awt.Color;
 
 public class PacketBotaniaEffect implements IMessage {
 
@@ -36,10 +37,6 @@ public class PacketBotaniaEffect implements IMessage {
 		this.y = y;
 		this.z = z;
 		this.args = args;
-	}
-
-	public PacketBotaniaEffect(EffectType type, double x, double y, double z, double... args) {
-		this(type, x, y, z, MathHelper.doubleArrayToIntArray(args));
 	}
 
 	@Override
@@ -76,7 +73,7 @@ public class PacketBotaniaEffect implements IMessage {
 				@Override
 				public void run() {
 					Minecraft mc = Minecraft.getMinecraft();
-					World world = mc.theWorld;
+					World world = mc.world;
 					switch (message.type) {
 					case POOL_CRAFT: {
 						for(int i = 0; i < 25; i++) {
@@ -101,7 +98,7 @@ public class PacketBotaniaEffect implements IMessage {
 					}
 					case PAINT_LENS: {
 						EnumDyeColor placeColor = EnumDyeColor.byMetadata(message.args[0]);
-						int hex = placeColor.getMapColor().colorValue;
+						int hex = placeColor.getColorValue();
 						int r = (hex & 0xFF0000) >> 16;
 						int g = (hex & 0xFF00) >> 8;
 		int b = hex & 0xFF;
@@ -133,13 +130,13 @@ public class PacketBotaniaEffect implements IMessage {
 
 						for(int i = 0; i < p; i++) {
 							double m = 0.01;
-							double d0 = item.worldObj.rand.nextGaussian() * m;
-							double d1 = item.worldObj.rand.nextGaussian() * m;
-							double d2 = item.worldObj.rand.nextGaussian() * m;
+							double d0 = item.world.rand.nextGaussian() * m;
+							double d1 = item.world.rand.nextGaussian() * m;
+							double d2 = item.world.rand.nextGaussian() * m;
 							double d3 = 10.0D;
-							item.worldObj.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL,
-									message.x + item.worldObj.rand.nextFloat() * item.width * 2.0F - item.width - d0 * d3, message.y + item.worldObj.rand.nextFloat() * item.height - d1 * d3,
-									message.z + item.worldObj.rand.nextFloat() * item.width * 2.0F - item.width - d2 * d3, d0, d1, d2);
+							item.world.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL,
+									message.x + item.world.rand.nextFloat() * item.width * 2.0F - item.width - d0 * d3, message.y + item.world.rand.nextFloat() * item.height - d1 * d3,
+									message.z + item.world.rand.nextFloat() * item.width * 2.0F - item.width - d2 * d3, d0, d1, d2);
 						}
 						break;
 					}
@@ -240,6 +237,80 @@ public class PacketBotaniaEffect implements IMessage {
 
 						break;
 					}
+					case BREWERY_FINISH: {
+						for(int i = 0; i < 25; i++) {
+							Color c = new Color(message.args[0]);
+							float r = c.getRed() / 255F;
+							float g = c.getGreen() / 255F;
+							float b = c.getBlue() / 255F;
+							Botania.proxy.sparkleFX(message.x + 0.5 + Math.random() * 0.4 - 0.2, message.y + 1, message.z + 0.5 + Math.random() * 0.4 - 0.2, r, g, b, (float) Math.random() * 2F + 0.5F, 10);
+							for(int j = 0; j < 2; j++)
+								Botania.proxy.wispFX(message.x + 0.7 - Math.random() * 0.4, message.y + 0.9 - Math.random() * 0.2, message.z + 0.7 - Math.random() * 0.4, 0.2F, 0.2F, 0.2F, 0.1F + (float) Math.random() * 0.2F, 0.05F - (float) Math.random() * 0.1F, 0.05F + (float) Math.random() * 0.03F, 0.05F - (float) Math.random() * 0.1F);
+						}
+					}
+					case TERRA_PLATE: {
+						TileEntity te = world.getTileEntity(new BlockPos(message.x, message.y, message.z));
+						if(te instanceof TileTerraPlate) {
+							int ticks = (int) (100.0 * ((double) ((TileTerraPlate) te).getCurrentMana() / (double) TileTerraPlate.MAX_MANA));
+
+							int totalSpiritCount = 3;
+							double tickIncrement = 360D / totalSpiritCount;
+
+							int speed = 5;
+							double wticks = ticks * speed - tickIncrement;
+
+							double r = Math.sin((ticks - 100) / 10D) * 2;
+							double g = Math.sin(wticks * Math.PI / 180 * 0.55);
+
+							for(int i = 0; i < totalSpiritCount; i++) {
+								double x = message.x + Math.sin(wticks * Math.PI / 180) * r + 0.5;
+								double y = message.y + 0.25 + Math.abs(r) * 0.7;
+								double z = message.z + Math.cos(wticks * Math.PI / 180) * r + 0.5;
+
+								wticks += tickIncrement;
+								float[] colorsfx = new float[] {
+										0F, (float) ticks / (float) 100, 1F - (float) ticks / (float) 100
+								};
+								Botania.proxy.wispFX(x, y, z, colorsfx[0], colorsfx[1], colorsfx[2], 0.85F, (float)g * 0.05F, 0.25F);
+								Botania.proxy.wispFX(x, y, z, colorsfx[0], colorsfx[1], colorsfx[2], (float) Math.random() * 0.1F + 0.1F, (float) (Math.random() - 0.5) * 0.05F, (float) (Math.random() - 0.5) * 0.05F, (float) (Math.random() - 0.5) * 0.05F, 0.9F);
+
+								if(ticks == 100)
+									for(int j = 0; j < 15; j++)
+										Botania.proxy.wispFX(message.x + 0.5, message.y + 0.5, message.z + 0.5, colorsfx[0], colorsfx[1], colorsfx[2], (float) Math.random() * 0.15F + 0.15F, (float) (Math.random() - 0.5F) * 0.125F, (float) (Math.random() - 0.5F) * 0.125F, (float) (Math.random() - 0.5F) * 0.125F);
+							}
+						}
+					}
+					case APOTHECARY_CRAFT: {
+						for(int i = 0; i < 25; i++) {
+							float red = (float) Math.random();
+							float green = (float) Math.random();
+							float blue = (float) Math.random();
+							Botania.proxy.sparkleFX(message.x + 0.5 + Math.random() * 0.4 - 0.2, message.y + 1, message.z + 0.5 + Math.random() * 0.4 - 0.2, red, green, blue, (float) Math.random(), 10);
+						}
+
+						break;
+					}
+					case RUNE_CRAFT: {
+						for(int i = 0; i < 25; i++) {
+							float red = (float) Math.random();
+							float green = (float) Math.random();
+							float blue = (float) Math.random();
+							Botania.proxy.sparkleFX(message.x + 0.5 + Math.random() * 0.4 - 0.2, message.y + 1, message.z + 0.5 + Math.random() * 0.4 - 0.2, red, green, blue, (float) Math.random(), 10);
+						}
+						break;
+					}
+					case FLUGEL_EFFECT: {
+						Entity entity = world.getEntityByID(message.args[0]);
+						if(entity != null) {
+							for(int i = 0; i < 15; i++) {
+								float x = (float) (entity.posX + Math.random());
+								float y = (float) (entity.posY + Math.random());
+								float z = (float) (entity.posZ + Math.random());
+								Botania.proxy.wispFX(x, y, z, (float) Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random(), -0.3F + (float) Math.random() * 0.2F);
+							}
+						}
+						break;
+					}
 					}
 				}
 			});
@@ -251,7 +322,7 @@ public class PacketBotaniaEffect implements IMessage {
 	public enum EffectType {
 		POOL_CRAFT(0),
 		POOL_CHARGE(1), // Arg: 1 if outputting, 0 if inputting
-		PAINT_LENS(1),  // Arg: colour
+		PAINT_LENS(1),  // Arg: EnumDyeColor
 		ARENA_INDICATOR(0),
 		ITEM_SMOKE(2), // Arg: Entity ID, number of particles
 		SPARK_NET_INDICATOR(2), // Arg: Entity ID from, Entity ID towards
@@ -259,7 +330,12 @@ public class PacketBotaniaEffect implements IMessage {
 		ENCHANTER_CRAFT(0),
 		ENCHANTER_DESTROY(0),
 		ENTROPINNYUM(0),
-		BLACK_LOTUS_DISSOLVE(0);
+		BLACK_LOTUS_DISSOLVE(0),
+		BREWERY_FINISH(1), // Arg: RGB
+		TERRA_PLATE(0),
+		APOTHECARY_CRAFT(0),
+		RUNE_CRAFT(0),
+		FLUGEL_EFFECT(1); // Arg: Entity ID
 
 		private final int argCount;
 

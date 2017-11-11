@@ -10,16 +10,6 @@
  */
 package vazkii.botania.common.item.equipment.tool.terrasteel;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Objects;
-import java.util.PriorityQueue;
-import java.util.Set;
-
-import javax.annotation.Nonnull;
-
 import gnu.trove.map.hash.TIntObjectHashMap;
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -43,6 +33,15 @@ import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelAxe;
 import vazkii.botania.common.item.relic.ItemLokiRing;
 import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibMisc;
+
+import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Objects;
+import java.util.PriorityQueue;
+import java.util.Set;
 
 public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker {
 
@@ -93,7 +92,7 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 
 	@Override
 	public boolean onBlockStartBreak(ItemStack stack, BlockPos pos, EntityPlayer player) {
-		RayTraceResult raycast = ToolCommons.raytraceFromEntity(player.worldObj, player, true, 10);
+		RayTraceResult raycast = ToolCommons.raytraceFromEntity(player.world, player, true, 10);
 		if(raycast != null) {
 			breakOtherBlock(player, stack, pos, pos, raycast.sideHit);
 			ItemLokiRing.breakOnAllCursors(player, this, stack, pos, raycast.sideHit);
@@ -110,7 +109,7 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 	@Override
 	public void breakOtherBlock(EntityPlayer player, ItemStack stack, BlockPos pos, BlockPos originPos, EnumFacing side) {
 		if(shouldBreak(player)) {
-			addBlockSwapper(player.worldObj, player, stack, pos, 32, true);
+			addBlockSwapper(player.world, player, stack, pos, 32, true);
 		}
 	}
 
@@ -297,7 +296,7 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 						null, ToolCommons.materialsAxe,
 						EnchantmentHelper.getEnchantmentLevel(Enchantments.SILK_TOUCH, truncator) > 0,
 						EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, truncator),
-						0F, false, treatLeavesSpecial);
+						false, treatLeavesSpecial);
 
 				remainingSwaps--;
 

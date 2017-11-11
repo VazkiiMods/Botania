@@ -10,10 +10,6 @@
  */
 package vazkii.botania.common.block.corporea;
 
-import java.util.Random;
-
-import javax.annotation.Nonnull;
-
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
@@ -32,23 +28,22 @@ import vazkii.botania.common.block.tile.corporea.TileCorporeaInterceptor;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
+import javax.annotation.Nonnull;
+import java.util.Random;
+
 public class BlockCorporeaInterceptor extends BlockCorporeaBase implements ILexiconable {
 
 	public BlockCorporeaInterceptor() {
 		super(Material.IRON, LibBlockNames.CORPOREA_INTERCEPTOR);
 		setHardness(5.5F);
 		setSoundType(SoundType.METAL);
+		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.POWERED, false));
 	}
 
 	@Nonnull
 	@Override
 	public BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, BotaniaStateProps.POWERED);
-	}
-
-	@Override
-	protected IBlockState pickDefaultState() {
-		return blockState.getBaseState().withProperty(BotaniaStateProps.POWERED, false);
 	}
 
 	@Override

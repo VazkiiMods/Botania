@@ -10,10 +10,6 @@
  */
 package vazkii.botania.common.entity;
 
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
@@ -23,10 +19,19 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
-import vazkii.botania.api.sound.BotaniaSoundEvents;
+import net.minecraftforge.fml.common.Optional;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.core.handler.ModSounds;
 
-public class EntityMagicLandmine extends Entity {
+import javax.annotation.Nonnull;
+
+import elucent.albedo.lighting.ILightProvider;
+import elucent.albedo.lighting.Light;
+
+import java.util.List;
+
+@Optional.Interface(iface="elucent.albedo.lighting.ILightProvider", modid="albedo")
+public class EntityMagicLandmine extends Entity implements ILightProvider {
 
 	public EntityDoppleganger summoner;
 
@@ -48,20 +53,20 @@ public class EntityMagicLandmine extends Entity {
 		float g = 0F;
 		float b = 0.2F;
 
-		//Botania.proxy.wispFX(worldObj, posX, posY, posZ, r, g, b, 0.6F, -0.2F, 1);
+		//Botania.proxy.wispFX(world, posX, posY, posZ, r, g, b, 0.6F, -0.2F, 1);
 		for(int i = 0; i < 6; i++)
 			Botania.proxy.wispFX(posX - range + Math.random() * range * 2, posY, posZ - range + Math.random() * range * 2, r, g, b, 0.4F, -0.015F, 1);
 
 		if(ticksExisted >= 55) {
-			worldObj.playSound(null, posX, posY, posZ, BotaniaSoundEvents.gaiaTrap, SoundCategory.NEUTRAL, 0.3F, 1F);
+			world.playSound(null, posX, posY, posZ, ModSounds.gaiaTrap, SoundCategory.NEUTRAL, 0.3F, 1F);
 
 			float m = 0.35F;
 			g = 0.4F;
 			for(int i = 0; i < 25; i++)
 				Botania.proxy.wispFX(posX, posY + 1, posZ, r, g, b, 0.5F, (float) (Math.random() - 0.5F) * m, (float) (Math.random() - 0.5F) * m, (float) (Math.random() - 0.5F) * m);
 
-			if(!worldObj.isRemote) {
-				List<EntityPlayer> players = worldObj.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(posX - range, posY - range, posZ - range, posX + range, posY + range, posZ + range));
+			if(!world.isRemote) {
+				List<EntityPlayer> players = world.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(posX - range, posY - range, posZ - range, posX + range, posY + range, posZ + range));
 				for(EntityPlayer player : players) {
 					player.attackEntityFrom(DamageSource.causeIndirectMagicDamage(this, summoner), 10);
 					player.addPotionEffect(new PotionEffect(MobEffects.BLINDNESS, 25, 0));
@@ -87,4 +92,10 @@ public class EntityMagicLandmine extends Entity {
 	protected void writeEntityToNBT(@Nonnull NBTTagCompound var1) {
 	}
 
+	@Override
+	@Optional.Method(modid="albedo")
+	public Light provideLight() {
+		return Light.builder().pos(this).color(0.6F, 0F, 1F).radius(15).build();
+	}
+	
 }

@@ -10,18 +10,25 @@
  */
 package vazkii.botania.common.crafting.recipe;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
+import net.minecraftforge.registries.IForgeRegistryEntry;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 
-public class SpecialFloatingFlowerRecipe implements IRecipe {
+import javax.annotation.Nonnull;
+
+public class SpecialFloatingFlowerRecipe extends IForgeRegistryEntry.Impl<IRecipe> implements IRecipe {
+
+	@Override
+	public boolean isHidden() {
+		return true;
+	}
 
 	@Override
 	public boolean matches(@Nonnull InventoryCrafting var1, @Nonnull World var2) {
@@ -30,7 +37,7 @@ public class SpecialFloatingFlowerRecipe implements IRecipe {
 
 		for(int i = 0; i < var1.getSizeInventory(); i++) {
 			ItemStack stack = var1.getStackInSlot(i);
-			if(stack != null) {
+			if(!stack.isEmpty()) {
 				if(stack.getItem() == Item.getItemFromBlock(ModBlocks.floatingFlower))
 					foundFloatingFlower = true;
 
@@ -44,35 +51,37 @@ public class SpecialFloatingFlowerRecipe implements IRecipe {
 		return foundFloatingFlower && foundSpecialFlower;
 	}
 
+	@Nonnull
 	@Override
 	public ItemStack getCraftingResult(@Nonnull InventoryCrafting var1) {
-		ItemStack specialFlower = null;
+		ItemStack specialFlower = ItemStack.EMPTY;
 
 		for(int i = 0; i < var1.getSizeInventory(); i++) {
 			ItemStack stack = var1.getStackInSlot(i);
-			if(stack != null && stack.getItem() == Item.getItemFromBlock(ModBlocks.specialFlower))
+			if(!stack.isEmpty() && stack.getItem() == Item.getItemFromBlock(ModBlocks.specialFlower))
 				specialFlower = stack;
 		}
 
-		if(specialFlower == null)
-			return null;
+		if(specialFlower.isEmpty())
+			return ItemStack.EMPTY;
 
 		return ItemBlockSpecialFlower.ofType(new ItemStack(ModBlocks.floatingSpecialFlower), ItemBlockSpecialFlower.getType(specialFlower));
 	}
 
 	@Override
-	public int getRecipeSize() {
-		return 10;
-	}
-
-	@Override
-	public ItemStack getRecipeOutput() {
-		return null;
+	public boolean canFit(int width, int height) {
+		return width * height >= 2;
 	}
 
 	@Nonnull
 	@Override
-	public ItemStack[] getRemainingItems(@Nonnull InventoryCrafting inv) {
+	public ItemStack getRecipeOutput() {
+		return ItemStack.EMPTY;
+	}
+
+	@Nonnull
+	@Override
+	public NonNullList<ItemStack> getRemainingItems(@Nonnull InventoryCrafting inv) {
 		return ForgeHooks.defaultRecipeGetRemainingItems(inv);
 	}
 }

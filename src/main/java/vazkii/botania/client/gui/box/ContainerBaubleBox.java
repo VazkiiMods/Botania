@@ -10,10 +10,6 @@
  */
 package vazkii.botania.client.gui.box;
 
-import javax.annotation.Nonnull;
-
-import baubles.api.BaubleType;
-import baubles.api.BaublesApi;
 import baubles.api.IBauble;
 import baubles.api.cap.BaublesCapabilities;
 import baubles.api.cap.IBaublesItemHandler;
@@ -23,9 +19,14 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.SlotItemHandler;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.client.gui.SlotLocked;
+
+import javax.annotation.Nonnull;
+import java.util.List;
 
 public class ContainerBaubleBox extends Container {
 
@@ -74,21 +75,17 @@ public class ContainerBaubleBox extends Container {
 				|| player.getHeldItemOffhand() == baubleBoxInv.box;
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
-	public void onContainerClosed(EntityPlayer player) {
-		super.onContainerClosed(player);
-		// TODO do we need anything here?
-	}
-
-	@Override
-	public void putStacksInSlots(ItemStack[] arr) {
+	public void setAll(List<ItemStack> l) {
     	baubles.setEventBlock(true);
-		super.putStacksInSlots(arr);
+		super.setAll(l);
 	}
 
+	@Nonnull
 	@Override
 	public ItemStack transferStackInSlot(EntityPlayer player, int slotIndex) {
-		ItemStack itemstack = null;
+		ItemStack itemstack = ItemStack.EMPTY;
 		Slot slot = inventorySlots.get(slotIndex);
 
 		if(slot != null && slot.getHasStack()) {
@@ -101,20 +98,20 @@ public class ContainerBaubleBox extends Container {
 			
 			if(slotIndex < boxEnd) {
 				if(!mergeItemStack(itemstack1, boxEnd, invEnd, true))
-					return null;
+					return ItemStack.EMPTY;
 			} else {
-				if(itemstack1 != null && (itemstack1.getItem() instanceof IBauble || itemstack1.getItem() instanceof IManaItem) && !mergeItemStack(itemstack1, boxStart, boxEnd, false))
-					return null;
+				if(!itemstack1.isEmpty() && (itemstack1.getItem() instanceof IBauble || itemstack1.getItem() instanceof IManaItem) && !mergeItemStack(itemstack1, boxStart, boxEnd, false))
+					return ItemStack.EMPTY;
 			}
 
-			if(itemstack1.stackSize == 0)
-				slot.putStack(null);
+			if(itemstack1.isEmpty())
+				slot.putStack(ItemStack.EMPTY);
 			else slot.onSlotChanged();
 
-			if(itemstack1.stackSize == itemstack.stackSize)
-				return null;
+			if(itemstack1.getCount() == itemstack.getCount())
+				return ItemStack.EMPTY;
 
-			slot.onPickupFromSlot(player, itemstack1);
+			slot.onTake(player, itemstack1);
 		}
 
 		return itemstack;

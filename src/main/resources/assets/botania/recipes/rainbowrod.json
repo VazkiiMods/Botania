@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "botania:rainbowrod"
+  },
+  "pattern": [
+    " PD",
+    " EP",
+    "E  "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "P": {
+      "item": "#ELVENPIXIEDUST"
+    },
+    "D": {
+      "item": "#ELVENDRAGONSTONE"
+    },
+    "E": {
+      "item": "#INGOTELVENELEMENTIUM"
+    }
+  }
+}

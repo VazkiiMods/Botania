@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
-import java.util.List;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
@@ -28,10 +26,11 @@ import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
-import vazkii.botania.common.core.handler.MethodHandles;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.network.PacketBotaniaEffect;
 import vazkii.botania.common.network.PacketHandler;
+
+import java.util.List;
 
 public class SubTileSpectranthemum extends SubTileFunctional {
 
@@ -60,23 +59,16 @@ public class SubTileSpectranthemum extends SubTileFunctional {
 			int slowdown = getSlowdownFactor();
 
 			for(EntityItem item : items) {
-				int age;
-				try {
-					age = (int) MethodHandles.itemAge_getter.invokeExact(item);
-				} catch (Throwable t) {
-					continue;
-				}
-
-				if(age < 60 + slowdown || item.isDead || item.getEntityData().getBoolean(TAG_TELEPORTED))
+				if(item.age < 60 + slowdown || item.isDead || item.getEntityData().getBoolean(TAG_TELEPORTED))
 					continue;
 
-				ItemStack stack = item.getEntityItem();
-				if(stack != null) {
+				ItemStack stack = item.getItem();
+				if(!stack.isEmpty()) {
 					Item sitem = stack.getItem();
 					if(sitem instanceof IManaItem)
 						continue;
 
-					int cost = stack.stackSize * COST;
+					int cost = stack.getCount() * COST;
 					if(mana >= cost) {
 						spawnExplosionParticles(item, 10);
 						item.setPosition(bindPos.getX() + 0.5, bindPos.getY() + 1.5, bindPos.getZ() + 0.5);
@@ -95,7 +87,7 @@ public class SubTileSpectranthemum extends SubTileFunctional {
 	}
 
 	static void spawnExplosionParticles(Entity item, int p) {
-		PacketHandler.sendToNearby(item.worldObj, new BlockPos(item), new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.ITEM_SMOKE, item.posX, item.posY, item.posZ, item.getEntityId(), p));
+		PacketHandler.sendToNearby(item.world, new BlockPos(item), new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.ITEM_SMOKE, item.posX, item.posY, item.posZ, item.getEntityId(), p));
 	}
 
 	@Override
@@ -153,7 +145,7 @@ public class SubTileSpectranthemum extends SubTileFunctional {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public BlockPos getBinding() {
-		return Minecraft.getMinecraft().thePlayer.isSneaking() && bindPos.getY() != -1 ? bindPos : super.getBinding();
+		return Minecraft.getMinecraft().player.isSneaking() && bindPos.getY() != -1 ? bindPos : super.getBinding();
 	}
 
 	@Override

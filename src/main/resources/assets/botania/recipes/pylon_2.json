@@ -1,0 +1,24 @@
+{
+  "result": {
+    "item": "botania:pylon",
+    "data": 2
+  },
+  "pattern": [
+    " D ",
+    "EPE",
+    " D "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "P": {
+      "item": "botania:pylon",
+      "data": 0
+    },
+    "D": {
+      "item": "#ELVENPIXIEDUST"
+    },
+    "E": {
+      "item": "#INGOTELVENELEMENTIUM"
+    }
+  }
+}

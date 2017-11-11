@@ -1,8 +1,8 @@
 {
   "parent": "minecraft:block/orientable",
   "textures": {
-    "top": "botania:blocks/redStringRelay",
-    "front": "botania:blocks/redStringSender",
-    "side": "botania:blocks/redStringRelay"
+    "top": "botania:blocks/red_string_relay",
+    "front": "botania:blocks/red_string_sender",
+    "side": "botania:blocks/red_string_relay"
   }
 }

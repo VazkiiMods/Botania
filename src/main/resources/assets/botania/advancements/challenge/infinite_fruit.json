@@ -1,0 +1,25 @@
+{
+  "display": {
+    "icon": {
+      "item": "botania:infinitefruit"
+    },
+    "title": {
+      "translate": "advancement.botania:infiniteFruit"
+    },
+    "description": {
+      "translate": "advancement.botania:infiniteFruit.desc"
+    },
+    "frame": "challenge"
+  },
+  "parent": "botania:challenge/root",
+  "criteria": {
+    "fruit": {
+      "trigger": "botania:relic_bind",
+      "conditions": {
+        "relic": {
+          "item": "botania:infinitefruit"
+        }
+      }
+    }
+  }
+}

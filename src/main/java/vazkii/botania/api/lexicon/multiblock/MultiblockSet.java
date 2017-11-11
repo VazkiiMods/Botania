@@ -10,11 +10,11 @@
  */
 package vazkii.botania.api.lexicon.multiblock;
 
-import java.util.Collections;
-import java.util.Map;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.util.EnumFacing;
+
+import java.util.Collections;
+import java.util.Map;
 
 /**
  * A set of Multiblock objects for various rotations.

@@ -10,13 +10,14 @@
  */
 package vazkii.botania.api.lexicon;
 
-import java.util.List;
-
+import com.google.common.collect.ImmutableList;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.internal.IGuiLexiconEntry;
+
+import java.util.List;
 
 public abstract class LexiconPage {
 
@@ -84,10 +85,10 @@ public abstract class LexiconPage {
 
 	/**
 	 * Shows the list of recipes present in this page for display in the category
-	 * page. Can return null for an entry with no recipes.
+	 * page.
 	 */
 	public List<ItemStack> getDisplayedRecipes() {
-		return null;
+		return ImmutableList.of();
 	}
 
 	public String getUnlocalizedName() {

@@ -10,12 +10,11 @@
  */
 package vazkii.botania.api.lexicon;
 
-import java.util.ArrayList;
-import java.util.List;
+import net.minecraft.util.ResourceLocation;
 
 import javax.annotation.Nonnull;
-
-import net.minecraft.util.ResourceLocation;
+import java.util.ArrayList;
+import java.util.List;
 
 public class LexiconCategory implements Comparable<LexiconCategory> {
 

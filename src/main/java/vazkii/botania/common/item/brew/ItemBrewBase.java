@@ -10,25 +10,20 @@
  */
 package vazkii.botania.common.item.brew;
 
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
 import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.EnumAction;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.stats.Achievement;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.text.TextFormatting;
@@ -38,13 +33,14 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.brew.IBrewItem;
-import vazkii.botania.common.achievement.IPickupAchievement;
-import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.lib.LibMisc;
 
-public abstract class ItemBrewBase extends ItemMod implements IBrewItem, IPickupAchievement {
+import javax.annotation.Nonnull;
+import java.util.List;
+
+public abstract class ItemBrewBase extends ItemMod implements IBrewItem {
 
 	private static final String TAG_BREW_KEY = "brewKey";
 	private static final String TAG_SWIGS_LEFT = "swigsLeft";
@@ -75,11 +71,12 @@ public abstract class ItemBrewBase extends ItemMod implements IBrewItem, IPickup
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
 		player.setActiveHand(hand);
-		return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
+		return ActionResult.newResult(EnumActionResult.SUCCESS, player.getHeldItem(hand));
 	}
 
+	@Nonnull
 	@Override
 	public ItemStack onItemUseFinish(@Nonnull ItemStack stack, World world, EntityLivingBase living) {
 		if(!world.isRemote) {
@@ -99,9 +96,7 @@ public abstract class ItemBrewBase extends ItemMod implements IBrewItem, IPickup
 					if(!((EntityPlayer) living).inventory.addItemStackToInventory(baseItem.copy()))
 						return baseItem.copy();
 					else {
-						ItemStack copy = stack.copy();
-						copy.stackSize = 0;
-						return copy;
+						return ItemStack.EMPTY;
 					}
 				}
 
@@ -114,12 +109,13 @@ public abstract class ItemBrewBase extends ItemMod implements IBrewItem, IPickup
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
-	public void getSubItems(@Nonnull Item item, CreativeTabs tab, List<ItemStack> list) {
-		for(String s : BotaniaAPI.brewMap.keySet()) {
-			ItemStack stack = new ItemStack(item);
-			setBrew(stack, s);
-			list.add(stack);
+	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> list) {
+		if(isInCreativeTab(tab)) {
+			for(String s : BotaniaAPI.brewMap.keySet()) {
+				ItemStack stack = new ItemStack(this);
+				setBrew(stack, s);
+				list.add(stack);
+			}
 		}
 	}
 
@@ -131,7 +127,7 @@ public abstract class ItemBrewBase extends ItemMod implements IBrewItem, IPickup
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void addInformation(ItemStack stack, EntityPlayer player, List<String> list, boolean adv) {
+	public void addInformation(ItemStack stack, World world, List<String> list, ITooltipFlag flags) {
 		Brew brew = getBrew(stack);
 		for(PotionEffect effect : brew.getPotionEffects(stack)) {
 			TextFormatting format = effect.getPotion().isBadEffect() ? TextFormatting.RED : TextFormatting.GRAY;
@@ -160,10 +156,4 @@ public abstract class ItemBrewBase extends ItemMod implements IBrewItem, IPickup
 	public void setSwigsLeft(ItemStack stack, int swigs) {
 		ItemNBTHelper.setInt(stack, TAG_SWIGS_LEFT, swigs);
 	}
-
-	@Override
-	public Achievement getAchievementOnPickup(ItemStack stack, EntityPlayer player, EntityItem item) {
-		return ModAchievements.brewPickup;
-	}
-
 }

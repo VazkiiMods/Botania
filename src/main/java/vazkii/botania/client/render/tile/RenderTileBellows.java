@@ -10,8 +10,6 @@
  */
 package vazkii.botania.client.render.tile;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
@@ -20,6 +18,8 @@ import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelBellows;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TileBellows;
+
+import javax.annotation.Nullable;
 
 public class RenderTileBellows extends TileEntitySpecialRenderer<TileBellows> {
 
@@ -31,7 +31,7 @@ public class RenderTileBellows extends TileEntitySpecialRenderer<TileBellows> {
 	private static final ModelBellows model = new ModelBellows();
 
 	@Override
-	public void renderTileEntityAt(@Nonnull TileBellows bellows, double d0, double d1, double d2, float f, int digProgress) {
+	public void render(@Nullable TileBellows bellows, double d0, double d1, double d2, float f, int digProgress, float unused) {
 		if (bellows != null)
 			if (!bellows.getWorld().isBlockLoaded(bellows.getPos(), false)
 					|| bellows.getWorld().getBlockState(bellows.getPos()).getBlock() != ModBlocks.bellows)

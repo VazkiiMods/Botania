@@ -1,0 +1,28 @@
+{
+  "result": {
+    "item": "botania:felpumpkin"
+  },
+  "pattern": [
+    " S ",
+    "BPF",
+    " G "
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "P": {
+      "item": "minecraft:pumpkin"
+    },
+    "B": {
+      "item": "minecraft:bone"
+    },
+    "S": {
+      "item": "minecraft:string"
+    },
+    "F": {
+      "item": "minecraft:rotten_flesh"
+    },
+    "G": {
+      "item": "minecraft:gunpowder"
+    }
+  }
+}

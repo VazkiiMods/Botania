@@ -10,16 +10,13 @@
  */
 package vazkii.botania.common.item;
 
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
 import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.NonNullList;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -28,6 +25,9 @@ import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.mana.IManaTooltipDisplay;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lib.LibItemNames;
+
+import javax.annotation.Nonnull;
+import java.util.List;
 
 public class ItemManaTablet extends ItemMod implements IManaItem, ICreativeManaProvider, IManaTooltipDisplay {
 
@@ -40,26 +40,22 @@ public class ItemManaTablet extends ItemMod implements IManaItem, ICreativeManaP
 	public ItemManaTablet() {
 		super(LibItemNames.MANA_TABLET);
 		setMaxStackSize(1);
-		setMaxDamage(1000);
-		setNoRepair();
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
-	public void getSubItems(@Nonnull Item item, CreativeTabs tab, List<ItemStack> stacks) {
-		// Empty tablet
-		stacks.add(new ItemStack(item, 1));
+	public void getSubItems(@Nonnull CreativeTabs tab, @Nonnull NonNullList<ItemStack> stacks) {
+		if(isInCreativeTab(tab)) {
+			stacks.add(new ItemStack(this));
 
-		// Full tablet
-		ItemStack fullPower = new ItemStack(item, 1);
-		setMana(fullPower, MAX_MANA);
-		stacks.add(fullPower);
+			ItemStack fullPower = new ItemStack(this);
+			setMana(fullPower, MAX_MANA);
+			stacks.add(fullPower);
 
-		// Creative Tablet
-		ItemStack creative = new ItemStack(item, 1);
-		setMana(creative, MAX_MANA);
-		setStackCreative(creative);
-		stacks.add(creative);
+			ItemStack creative = new ItemStack(this);
+			setMana(creative, MAX_MANA);
+			setStackCreative(creative);
+			stacks.add(creative);
+		}
 	}
 
 	@Override
@@ -74,7 +70,7 @@ public class ItemManaTablet extends ItemMod implements IManaItem, ICreativeManaP
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void addInformation(ItemStack par1ItemStack, EntityPlayer player, List<String> stacks, boolean par4) {
+	public void addInformation(ItemStack par1ItemStack, World world, List<String> stacks, ITooltipFlag flags) {
 		if(isStackCreative(par1ItemStack))
 			stacks.add(I18n.format("botaniamisc.creative"));
 	}
@@ -150,14 +146,16 @@ public class ItemManaTablet extends ItemMod implements IManaItem, ICreativeManaP
 
 	@Override
 	public boolean showDurabilityBar(ItemStack stack) {
-		// If the stack is not creative, show the durability bar.
 		return !isStackCreative(stack);
 	}
 
 	@Override
 	public double getDurabilityForDisplay(ItemStack stack) {
-		// I believe Forge has their durability values swapped, hence the (1.0 -).
-		// This will probably be fixed soon.
 		return 1.0 - getManaFractionForDisplay(stack);
+	}
+
+	@Override
+	public int getRGBDurabilityForDisplay(ItemStack stack) {
+		return MathHelper.hsvToRGB(getManaFractionForDisplay(stack) / 3.0F, 1.0F, 1.0F);
 	}
 }

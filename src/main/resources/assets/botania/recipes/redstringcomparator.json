@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "botania:redstringcomparator"
+  },
+  "pattern": [
+    "RRR",
+    "RCS",
+    "RRR"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "R": {
+      "item": "#LIVINGROCK"
+    },
+    "S": {
+      "item": "#BREDSTRING"
+    },
+    "C": {
+      "item": "minecraft:comparator"
+    }
+  }
+}

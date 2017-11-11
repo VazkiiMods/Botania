@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.block;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRailBase;
 import net.minecraft.block.BlockRailPowered;
@@ -25,8 +23,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.minecart.MinecartUpdateEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.lexicon.ILexiconable;
@@ -35,11 +33,13 @@ import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.client.render.IModelRegister;
 import vazkii.botania.common.core.BotaniaCreativeTab;
-import vazkii.botania.common.item.block.ItemBlockMod;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
+import javax.annotation.Nonnull;
+
+@Mod.EventBusSubscriber
 public class BlockGhostRail extends BlockRailBase implements ILexiconable, IModelRegister {
 
 	private static final String TAG_FLOAT_TICKS = "Botania_FloatTicks";
@@ -49,10 +49,7 @@ public class BlockGhostRail extends BlockRailBase implements ILexiconable, IMode
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.RAIL_DIRECTION, EnumRailDirection.NORTH_SOUTH));
 		setRegistryName(new ResourceLocation(LibMisc.MOD_ID, LibBlockNames.GHOST_RAIL));
-		GameRegistry.register(this);
-		GameRegistry.register(new ItemBlockMod(this), getRegistryName());
 		setUnlocalizedName(LibBlockNames.GHOST_RAIL);
-		MinecraftForge.EVENT_BUS.register(BlockGhostRail.class);
 	}
 
 	@Nonnull
@@ -75,9 +72,9 @@ public class BlockGhostRail extends BlockRailBase implements ILexiconable, IMode
 	@SubscribeEvent
 	public static void onMinecartUpdate(MinecartUpdateEvent event) {
 		BlockPos entPos = new BlockPos(event.getEntity());
-		IBlockState state = event.getEntity().worldObj.getBlockState(entPos);
+		IBlockState state = event.getEntity().world.getBlockState(entPos);
 		Block block = state.getBlock();
-		boolean air = block.isAir(state, event.getEntity().worldObj, entPos);
+		boolean air = block.isAir(state, event.getEntity().world, entPos);
 		int floatTicks = event.getEntity().getEntityData().getInteger(TAG_FLOAT_TICKS);
 
 		if(block == ModBlocks.ghostRail)
@@ -85,21 +82,21 @@ public class BlockGhostRail extends BlockRailBase implements ILexiconable, IMode
 		else if(block instanceof BlockRailBase || block == ModBlocks.dreamwood) {
 			event.getEntity().getEntityData().setInteger(TAG_FLOAT_TICKS, 0);
 			if(floatTicks > 0)
-				event.getEntity().worldObj.playEvent(2003, entPos, 0);
+				event.getEntity().world.playEvent(2003, entPos, 0);
 		}
 		floatTicks = event.getEntity().getEntityData().getInteger(TAG_FLOAT_TICKS);
 
 		if(floatTicks > 0) {
-			IBlockState stateBelow = event.getEntity().worldObj.getBlockState(entPos.down());
+			IBlockState stateBelow = event.getEntity().world.getBlockState(entPos.down());
 			Block blockBelow = stateBelow.getBlock();
-			boolean airBelow = blockBelow.isAir(stateBelow, event.getEntity().worldObj, entPos.down());
+			boolean airBelow = blockBelow.isAir(stateBelow, event.getEntity().world, entPos.down());
 			if(air && airBelow || !air && !airBelow)
 				event.getEntity().noClip = true;
 			event.getEntity().motionY = 0.2;
 			event.getEntity().motionX *= 1.4;
 			event.getEntity().motionZ *= 1.4;
 			event.getEntity().getEntityData().setInteger(TAG_FLOAT_TICKS, floatTicks - 1);
-			event.getEntity().worldObj.playEvent(2000, entPos, 0);
+			event.getEntity().world.playEvent(2000, entPos, 0);
 		} else event.getEntity().noClip = false;
 	}
 

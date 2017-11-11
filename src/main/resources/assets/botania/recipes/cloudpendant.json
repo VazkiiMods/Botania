@@ -1,0 +1,25 @@
+{
+  "result": {
+    "item": "botania:cloudpendant"
+  },
+  "pattern": [
+    "MS ",
+    "S S",
+    "DSF"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "S": {
+      "item": "#MANASTRING"
+    },
+    "D": {
+      "item": "#INGOTMANASTEEL"
+    },
+    "F": {
+      "item": "#RUNEAIRB"
+    },
+    "M": {
+      "item": "#RUNEAUTUMNB"
+    }
+  }
+}

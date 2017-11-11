@@ -10,23 +10,21 @@
  */
 package vazkii.botania.common.item;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumFacing.Axis;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.util.EnumFacing.Axis;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
@@ -41,6 +39,10 @@ import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.item.rod.ItemExchangeRod;
 import vazkii.botania.common.lib.LibItemNames;
 
+import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.List;
+
 public class ItemAstrolabe extends ItemMod {
 
 	private static final String TAG_BLOCK_NAME = "blockName";
@@ -52,8 +54,10 @@ public class ItemAstrolabe extends ItemMod {
 		setMaxStackSize(1);
 	}
 
+	@Nonnull
 	@Override
-	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+	public EnumActionResult onItemUse(EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+		ItemStack stack = playerIn.getHeldItem(hand);
 		IBlockState state = worldIn.getBlockState(pos);
 		Block block = state.getBlock();
 		int meta = block.getMetaFromState(state);
@@ -77,23 +81,25 @@ public class ItemAstrolabe extends ItemMod {
 		return EnumActionResult.PASS;
 	}
 
+	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, @Nonnull EnumHand hand) {
+		ItemStack stack = playerIn.getHeldItem(hand);
 		if(playerIn.isSneaking()) {
-			int size = getSize(itemStackIn);
+			int size = getSize(stack);
 			int newSize = size == 11 ? 3 : size + 2;
-			setSize(itemStackIn, newSize);
-			ItemsRemainingRenderHandler.set(itemStackIn, newSize + "x" + newSize);
+			setSize(stack, newSize);
+			ItemsRemainingRenderHandler.set(stack, newSize + "x" + newSize);
 			worldIn.playSound(playerIn, playerIn.getPosition(), SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.PLAYERS, 0.5F, 1F);
 			
-			return new ActionResult(EnumActionResult.SUCCESS, itemStackIn);
+			return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
 		}
 
-		return new ActionResult(EnumActionResult.PASS, itemStackIn);
+		return ActionResult.newResult(EnumActionResult.PASS, stack);
 	}
 
 	public boolean placeAllBlocks(ItemStack stack, EntityPlayer player) {
-		BlockPos[] blocksToPlace = getBlocksToPlace(stack, player);
+		List<BlockPos> blocksToPlace = getBlocksToPlace(stack, player);
 		if(!hasBlocks(stack, player, blocksToPlace))
 			return false;
 
@@ -117,24 +123,21 @@ public class ItemAstrolabe extends ItemMod {
 		Block block = Block.getBlockFromItem(blockToPlace.getItem());
 		int meta = blockToPlace.getItemDamage();
 		IBlockState state = block.getStateFromMeta(meta);
-		player.worldObj.setBlockState(coords, state, 1 | 2);
-		player.worldObj.playEvent(2001, coords, Block.getStateId(state));
+		player.world.setBlockState(coords, state, 1 | 2);
+		player.world.playEvent(2001, coords, Block.getStateId(state));
 
 		if(player.capabilities.isCreativeMode)
 			return;
 		
-		List<ItemStack> stacksToCheck = new ArrayList();
+		List<ItemStack> stacksToCheck = new ArrayList<>();
 		for(int i = 0; i < player.inventory.getSizeInventory(); i++) {
 			ItemStack stackInSlot = player.inventory.getStackInSlot(i);
-			if(stackInSlot != null && stackInSlot.getItem() == blockToPlace.getItem() && stackInSlot.getItemDamage() == blockToPlace.getItemDamage()) {
-				stackInSlot.stackSize--;
-				if(stackInSlot.stackSize == 0)
-					player.inventory.setInventorySlotContents(i, null);
-
+			if(!stackInSlot.isEmpty() && stackInSlot.getItem() == blockToPlace.getItem() && stackInSlot.getItemDamage() == blockToPlace.getItemDamage()) {
+				stackInSlot.shrink(1);
 				return;
 			}
 
-			if (stackInSlot != null && stackInSlot.getItem() instanceof IBlockProvider)
+			if (!stackInSlot.isEmpty() && stackInSlot.getItem() instanceof IBlockProvider)
 				stacksToCheck.add(stackInSlot);
 		}
 
@@ -148,7 +151,7 @@ public class ItemAstrolabe extends ItemMod {
 		}
 	}
 
-	public static boolean hasBlocks(ItemStack stack, EntityPlayer player, BlockPos[] blocks) {
+	public static boolean hasBlocks(ItemStack stack, EntityPlayer player, List<BlockPos> blocks) {
 		if (player.capabilities.isCreativeMode)
 			return true;
 
@@ -156,17 +159,17 @@ public class ItemAstrolabe extends ItemMod {
 		int meta = getBlockMeta(stack);
 		ItemStack reqStack = new ItemStack(block, 1, meta);
 		
-		int required = blocks.length;
+		int required = blocks.size();
 		int current = 0;
-		List<ItemStack> stacksToCheck = new ArrayList();
+		List<ItemStack> stacksToCheck = new ArrayList<>();
 		for (int i = 0; i < player.inventory.getSizeInventory(); i++) {
 			ItemStack stackInSlot = player.inventory.getStackInSlot(i);
-			if (stackInSlot != null && stackInSlot.getItem() == reqStack.getItem() && stackInSlot.getItemDamage() == reqStack.getItemDamage()) {
-				current += stackInSlot.stackSize;
+			if (!stackInSlot.isEmpty() && stackInSlot.getItem() == reqStack.getItem() && stackInSlot.getItemDamage() == reqStack.getItemDamage()) {
+				current += stackInSlot.getCount();
 				if (current >= required)
 					return true;
 			}
-			if(stackInSlot != null && stackInSlot.getItem() instanceof IBlockProvider)
+			if(!stackInSlot.isEmpty() && stackInSlot.getItem() instanceof IBlockProvider)
 				stacksToCheck.add(stackInSlot);
 		}
 		
@@ -185,20 +188,19 @@ public class ItemAstrolabe extends ItemMod {
 		return false;
 	}
 
-	public static BlockPos[] getBlocksToPlace(ItemStack stack, EntityPlayer player) {
-		List<BlockPos> coords = new ArrayList();
-		RayTraceResult pos = ToolCommons.raytraceFromEntity(player.worldObj, player, true, 5);
-		if(pos != null) {
-			BlockPos bpos = pos.getBlockPos();
-			IBlockState state = player.worldObj.getBlockState(bpos);
+	public static List<BlockPos> getBlocksToPlace(ItemStack stack, EntityPlayer player) {
+		List<BlockPos> coords = new ArrayList<>();
+		RayTraceResult rtr = ToolCommons.raytraceFromEntity(player.world, player, true, 5);
+		if(rtr != null) {
+			BlockPos pos = rtr.getBlockPos();
+			IBlockState state = player.world.getBlockState(pos);
 			Block block = state.getBlock();
-			if(block != null && block.isReplaceable(player.worldObj, bpos))
-				bpos = bpos.down();;
+			if(block.isReplaceable(player.world, pos))
+				pos = pos.down();
 
-			int rotation = MathHelper.floor_double(player.rotationYaw * 4F / 360F + 0.5D) & 3;
 			int range = (getSize(stack) ^ 1) / 2;
 
-			EnumFacing dir = pos.sideHit;
+			EnumFacing dir = rtr.sideHit;
 			EnumFacing rotationDir = EnumFacing.fromAngle(player.rotationYaw);
 			
 			boolean pitchedVertically = player.rotationPitch > 70 || player.rotationPitch < -70;
@@ -206,30 +208,29 @@ public class ItemAstrolabe extends ItemMod {
 			boolean axisX = rotationDir.getAxis() == Axis.X;
 			boolean axisZ = rotationDir.getAxis() == Axis.Z;
 			
-			int xOff, yOff, zOff;
-			
-			xOff = axisZ || pitchedVertically ? range : 0;
-			yOff = pitchedVertically ? 0 : range;
-			zOff = axisX || pitchedVertically ? range : 0;
+			int xOff = axisZ || pitchedVertically ? range : 0;
+			int yOff = pitchedVertically ? 0 : range;
+			int zOff = axisX || pitchedVertically ? range : 0;
 			
 			for(int x = -xOff; x < xOff + 1; x++)
 				for(int y = 0; y < yOff * 2 + 1; y++) {
 					for(int z = -zOff; z < zOff + 1; z++) {
-						int xp = bpos.getX() + x + dir.getFrontOffsetX();
-						int yp = bpos.getY() + y + dir.getFrontOffsetY();
-						int zp = bpos.getZ() + z + dir.getFrontOffsetZ();
+						int xp = pos.getX() + x + dir.getFrontOffsetX();
+						int yp = pos.getY() + y + dir.getFrontOffsetY();
+						int zp = pos.getZ() + z + dir.getFrontOffsetZ();
 
 						BlockPos newPos = new BlockPos(xp, yp, zp);
-						IBlockState state1 = player.worldObj.getBlockState(newPos);
+						IBlockState state1 = player.world.getBlockState(newPos);
 						Block block1 = state1.getBlock();
-						if(block1 == null || block1.isAir(state1, player.worldObj, newPos) || block1.isReplaceable(player.worldObj, newPos))
-							coords.add(new BlockPos(xp, yp, zp));
+						if(player.world.getWorldBorder().contains(newPos)
+								&& (block1.isAir(state1, player.world, newPos) || block1.isReplaceable(player.world, newPos)))
+							coords.add(newPos);
 					}
 				}
 
 		}
 
-		return coords.toArray(new BlockPos[coords.size()]);
+		return coords;
 	}
 	
 
@@ -237,12 +238,12 @@ public class ItemAstrolabe extends ItemMod {
 		Block block = getBlock(stack);
 		int meta = getBlockMeta(stack);
 		int count = ItemExchangeRod.getInventoryItemCount(player, stack, block, meta);
-		if(!player.worldObj.isRemote)
+		if(!player.world.isRemote)
 			ItemsRemainingRenderHandler.set(new ItemStack(block, 1, meta), count);
 	}
 
 	private boolean setBlock(ItemStack stack, Block block, int meta) {
-		if(Item.getItemFromBlock(block) != null) {
+		if(Item.getItemFromBlock(block) != Items.AIR) {
 			ItemNBTHelper.setString(stack, TAG_BLOCK_NAME, Block.REGISTRY.getNameForObject(block).toString());
 			ItemNBTHelper.setInt(stack, TAG_BLOCK_META, meta);
 			return true;
@@ -276,7 +277,7 @@ public class ItemAstrolabe extends ItemMod {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
+	public void addInformation(ItemStack par1ItemStack, World world, List par3List, ITooltipFlag flags) {
 		Block block = getBlock(par1ItemStack);
 		int size = getSize(par1ItemStack);
 

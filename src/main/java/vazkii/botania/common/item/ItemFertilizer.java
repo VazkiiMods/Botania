@@ -10,14 +10,8 @@
  */
 package vazkii.botania.common.item;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumDyeColor;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -28,6 +22,10 @@ import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.lib.LibItemNames;
 
+import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.List;
+
 public class ItemFertilizer extends ItemMod {
 
 	public ItemFertilizer() {
@@ -36,7 +34,7 @@ public class ItemFertilizer extends ItemMod {
 
 	@Nonnull
 	@Override
-	public EnumActionResult onItemUse(ItemStack par1ItemStack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
+	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
 		final int range = 3;
 		if(!world.isRemote) {
 			List<BlockPos> validCoords = new ArrayList<>();
@@ -45,7 +43,7 @@ public class ItemFertilizer extends ItemMod {
 				for(int j = -range - 1; j < range; j++) {
 					for(int k = 2; k >= -2; k--) {
 						BlockPos pos_ = pos.add(i + 1, k + 1, j + 1);
-						if(world.isAirBlock(pos_) && (!world.provider.getHasNoSky() || pos_.getY() < 255) && ModBlocks.flower.canPlaceBlockAt(world, pos_))
+						if(world.isAirBlock(pos_) && (!world.provider.isNether() || pos_.getY() < 255) && ModBlocks.flower.canPlaceBlockAt(world, pos_))
 							validCoords.add(pos_);
 					}
 				}
@@ -56,7 +54,7 @@ public class ItemFertilizer extends ItemMod {
 				validCoords.remove(coords);
 				world.setBlockState(coords, ModBlocks.flower.getDefaultState().withProperty(BotaniaStateProps.COLOR, EnumDyeColor.byMetadata(world.rand.nextInt(16))), 1 | 2);
 			}
-			par1ItemStack.stackSize--;
+			player.getHeldItem(hand).shrink(1);
 		} else {
 			for(int i = 0; i < 15; i++) {
 				double x = pos.getX() - range + world.rand.nextInt(range * 2 + 1) + Math.random();

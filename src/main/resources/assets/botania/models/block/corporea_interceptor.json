@@ -1,8 +1,8 @@
 {
   "parent": "minecraft:block/cube_bottom_top",
   "textures": {
-    "bottom": "botania:blocks/corporeaInterceptor0",
-    "top": "botania:blocks/corporeaInterceptor0",
-    "side": "botania:blocks/corporeaInterceptor1"
+    "bottom": "botania:blocks/corporea_interceptor_top_bottom",
+    "top": "botania:blocks/corporea_interceptor_top_bottom",
+    "side": "botania:blocks/corporea_interceptor_side"
   }
 }

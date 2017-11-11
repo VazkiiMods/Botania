@@ -10,10 +10,9 @@
  */
 package vazkii.botania.common.block.mana;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -46,6 +45,8 @@ import vazkii.botania.common.core.helper.InventoryHelper;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
+import javax.annotation.Nonnull;
+
 public class BlockBrewery extends BlockMod implements ILexiconable, IWandHUD {
 
 	private static final AxisAlignedBB AABB = new AxisAlignedBB(0.375, 0.05, 0.375, 0.625, 0.95, 0.625);
@@ -55,17 +56,13 @@ public class BlockBrewery extends BlockMod implements ILexiconable, IWandHUD {
 		setHardness(2.0F);
 		setResistance(10.0F);
 		setSoundType(SoundType.STONE);
+		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.POWERED, false));
 	}
 
 	@Nonnull
 	@Override
 	public BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, BotaniaStateProps.POWERED);
-	}
-
-	@Override
-	protected IBlockState pickDefaultState() {
-		return blockState.getBaseState().withProperty(BotaniaStateProps.POWERED, false);
 	}
 
 	@Override
@@ -86,14 +83,15 @@ public class BlockBrewery extends BlockMod implements ILexiconable, IWandHUD {
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack stack, EnumFacing side, float par7, float par8, float par9) {
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float par7, float par8, float par9) {
 		TileBrewery brew = (TileBrewery) world.getTileEntity(pos);
 
 		if(player.isSneaking()) {
 			if(brew.recipe == null && !state.getValue(BotaniaStateProps.POWERED))
 				InventoryHelper.withdrawFromInventory(brew, player);
 		} else {
-			if(stack != null)
+			ItemStack stack = player.getHeldItem(hand);
+			if(!stack.isEmpty())
 				return brew.addItem(player, stack, hand);
 		}
 		return false;
@@ -163,6 +161,12 @@ public class BlockBrewery extends BlockMod implements ILexiconable, IWandHUD {
 		ModelLoader.setCustomStateMapper(this, new StateMap.Builder().ignore(BotaniaStateProps.POWERED).build());
 		ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(this), 0, TileBrewery.class);
 		ModelHandler.registerCustomItemblock(this, "brewery");
+	}
+
+	@Nonnull
+	@Override
+	public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing side) {
+		return BlockFaceShape.UNDEFINED;
 	}
 
 }

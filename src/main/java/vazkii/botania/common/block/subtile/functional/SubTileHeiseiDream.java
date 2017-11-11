@@ -10,11 +10,7 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.google.common.base.Predicates;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
@@ -29,6 +25,9 @@ import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibObfuscation;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SubTileHeiseiDream extends SubTileFunctional {
 
@@ -65,7 +64,7 @@ public class SubTileHeiseiDream extends SubTileFunctional {
 
 		if(target == null || !(target instanceof IMob)) {
 			IMob newTarget;
-			do newTarget = mobs.get(entity.worldObj.rand.nextInt(mobs.size()));
+			do newTarget = mobs.get(entity.world.rand.nextInt(mobs.size()));
 			while(newTarget == entity);
 
 			if(newTarget instanceof EntityLiving) {
@@ -89,8 +88,8 @@ public class SubTileHeiseiDream extends SubTileFunctional {
 	}
 
 	private static void messWithGetTargetAI(EntityAINearestAttackableTarget aiEntry, EntityLivingBase target) {
-		ReflectionHelper.setPrivateValue(EntityAINearestAttackableTarget.class, aiEntry, Entity.class, LibObfuscation.TARGET_CLASS);
-		ReflectionHelper.setPrivateValue(EntityAINearestAttackableTarget.class, aiEntry, Predicates.equalTo(target), LibObfuscation.TARGET_ENTITY_SELECTOR); // todo 1.8 will this leak `target`?
+		aiEntry.targetClass = Entity.class;
+		aiEntry.targetEntitySelector = e -> e == target; // todo will this leak target?
 	}
 
 	@Override

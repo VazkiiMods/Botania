@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.block.tile;
 
-import java.util.List;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -24,39 +22,41 @@ import net.minecraft.world.WorldServer;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 
+import java.util.List;
+
 public class TileEnderEye extends TileMod {
 
 	@Override
 	public void update() {
-		if (worldObj.isRemote)
+		if (world.isRemote)
 			return;
 
-		boolean wasLooking = worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.POWERED);
+		boolean wasLooking = world.getBlockState(getPos()).getValue(BotaniaStateProps.POWERED);
 		int range = 80;
-		List<EntityPlayer> players = worldObj.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(pos.add(-range, -range, -range), pos.add(range, range, range)));
+		List<EntityPlayer> players = world.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(pos.add(-range, -range, -range), pos.add(range, range, range)));
 
 		boolean looking = false;
 		for(EntityPlayer player : players) {
 			ItemStack helm = player.getItemStackFromSlot(EntityEquipmentSlot.HEAD);
-			if(helm != null && helm.getItem() == Item.getItemFromBlock(Blocks.PUMPKIN))
+			if(!helm.isEmpty() && helm.getItem() == Item.getItemFromBlock(Blocks.PUMPKIN))
 				continue;
 
-			RayTraceResult pos = ToolCommons.raytraceFromEntity(worldObj, player, true, 64);
+			RayTraceResult pos = ToolCommons.raytraceFromEntity(world, player, true, 64);
 			if(pos != null && pos.getBlockPos() != null && pos.getBlockPos().equals(getPos())) {
 				looking = true;
 				break;
 			}
 		}
 
-		if(looking != wasLooking && !worldObj.isRemote)
-			worldObj.setBlockState(getPos(), worldObj.getBlockState(getPos()).withProperty(BotaniaStateProps.POWERED, looking), 1 | 2);
+		if(looking != wasLooking && !world.isRemote)
+			world.setBlockState(getPos(), world.getBlockState(getPos()).withProperty(BotaniaStateProps.POWERED, looking), 1 | 2);
 
 		if(looking) {
 			double x = getPos().getX() - 0.1 + Math.random() * 1.2;
 			double y = getPos().getY() - 0.1 + Math.random() * 1.2;
 			double z = getPos().getZ() - 0.1 + Math.random() * 1.2;
 
-			((WorldServer) worldObj).spawnParticle(EnumParticleTypes.REDSTONE, false, x, y, z, 0, 1.0D, 0.0D, 0.0D, 1.0D);
+			((WorldServer) world).spawnParticle(EnumParticleTypes.REDSTONE, false, x, y, z, 0, 1.0D, 0.0D, 0.0D, 1.0D);
 		}
 	}
 

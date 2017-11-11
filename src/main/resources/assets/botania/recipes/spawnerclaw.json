@@ -1,0 +1,30 @@
+{
+  "result": {
+    "item": "botania:spawnerclaw"
+  },
+  "pattern": [
+    "BSB",
+    "PMP",
+    "PEP"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "P": {
+      "item": "minecraft:prismarine",
+      "data": 2
+    },
+    "B": {
+      "item": "minecraft:blaze_rod"
+    },
+    "S": {
+      "item": "#INGOTELVENELEMENTIUM"
+    },
+    "E": {
+      "item": "#BENDERAIRBOTTLE"
+    },
+    "M": {
+      "item": "botania:storage",
+      "data": 0
+    }
+  }
+}

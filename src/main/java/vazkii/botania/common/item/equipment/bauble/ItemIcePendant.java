@@ -43,10 +43,10 @@ public class ItemIcePendant extends ItemBauble implements IBaubleRender {
 	@Override
 	public void onWornTick(ItemStack stack, EntityLivingBase entity) {
 		super.onWornTick(stack, entity);
-		if(!entity.worldObj.isRemote) {
+		if(!entity.world.isRemote) {
 			boolean lastOnGround = entity.onGround;
 			entity.onGround = true;
-			EnchantmentFrostWalker.freezeNearby(entity, entity.worldObj, new BlockPos(entity), 8);
+			EnchantmentFrostWalker.freezeNearby(entity, entity.world, new BlockPos(entity), 8);
 			entity.onGround = lastOnGround;
 		}
 	}
@@ -57,7 +57,7 @@ public class ItemIcePendant extends ItemBauble implements IBaubleRender {
 		if(type == RenderType.BODY) {
 			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 			Helper.rotateIfSneaking(player);
-			boolean armor = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST) != null;
+			boolean armor = !player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).isEmpty();
 			GlStateManager.rotate(180F, 1F, 0F, 0F);
 			GlStateManager.translate(-0.36F, -0.3F, armor ? 0.2F : 0.15F);
 			GlStateManager.rotate(-45F, 0F, 0F, 1F);

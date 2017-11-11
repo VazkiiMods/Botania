@@ -10,13 +10,10 @@
  */
 package vazkii.botania.common.block.mana;
 
-import java.util.Random;
-
-import javax.annotation.Nonnull;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -31,6 +28,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.items.ItemHandlerHelper;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -45,17 +43,20 @@ import vazkii.botania.common.core.helper.InventoryHelper;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
+import javax.annotation.Nonnull;
+import java.util.Random;
+
 public class BlockPrism extends BlockMod implements IManaTrigger, ILexiconable, IManaCollisionGhost {
-
 	private static final AxisAlignedBB AABB = new AxisAlignedBB(0.25, 0, 0.25, 0.75, 1, 0.75);
-
-	private final Random random = new Random();
 
 	public BlockPrism() {
 		super(Material.GLASS, LibBlockNames.PRISM);
 		setHardness(0.3F);
 		setSoundType(SoundType.GLASS);
 		setLightLevel(1.0F);
+		setDefaultState(blockState.getBaseState()
+				.withProperty(BotaniaStateProps.POWERED, false)
+				.withProperty(BotaniaStateProps.HAS_LENS, false));
 	}
 
 	@Nonnull
@@ -68,13 +69,6 @@ public class BlockPrism extends BlockMod implements IManaTrigger, ILexiconable, 
 	@Override
 	public BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, BotaniaStateProps.POWERED, BotaniaStateProps.HAS_LENS);
-	}
-
-	@Override
-	protected IBlockState pickDefaultState() {
-		return blockState.getBaseState()
-				.withProperty(BotaniaStateProps.POWERED, false)
-				.withProperty(BotaniaStateProps.HAS_LENS, false);
 	}
 
 	@Override
@@ -98,7 +92,7 @@ public class BlockPrism extends BlockMod implements IManaTrigger, ILexiconable, 
 	}
 
 	@Override
-	public AxisAlignedBB getCollisionBoundingBox(IBlockState state, @Nonnull World world, @Nonnull BlockPos pos) {
+	public AxisAlignedBB getCollisionBoundingBox(IBlockState state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos) {
 		return NULL_AABB;
 	}
 
@@ -113,27 +107,26 @@ public class BlockPrism extends BlockMod implements IManaTrigger, ILexiconable, 
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack heldItem, EnumFacing side, float par7, float par8, float par9) {
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float par7, float par8, float par9) {
 		TileEntity tile = world.getTileEntity(pos);
 		if(!(tile instanceof TilePrism))
 			return false;
 
 		TilePrism prism = (TilePrism) tile;
 		ItemStack lens = prism.getItemHandler().getStackInSlot(0);
-		boolean isHeldItemLens = heldItem != null && heldItem.getItem() instanceof ILens;
+		ItemStack heldItem = player.getHeldItem(hand);
+		boolean isHeldItemLens = !heldItem.isEmpty() && heldItem.getItem() instanceof ILens;
 
-		if(lens == null && isHeldItemLens) {
+		if(lens.isEmpty() && isHeldItemLens) {
 			if(!player.capabilities.isCreativeMode)
-				player.setHeldItem(hand, null);
+				player.setHeldItem(hand, ItemStack.EMPTY);
 
 			prism.getItemHandler().setStackInSlot(0, heldItem.copy());
 			prism.markDirty();
 			world.setBlockState(pos, state.withProperty(BotaniaStateProps.HAS_LENS, true), 1 | 2);
-		} else if(lens != null) {
-			ItemStack add = lens.copy();
-			if(!player.inventory.addItemStackToInventory(add))
-				player.dropItem(add, false);
-			prism.getItemHandler().setStackInSlot(0, null);
+		} else if(!lens.isEmpty()) {
+			ItemHandlerHelper.giveItemToPlayer(player, lens);
+			prism.getItemHandler().setStackInSlot(0, ItemStack.EMPTY);
 			prism.markDirty();
 			world.setBlockState(pos, state.withProperty(BotaniaStateProps.HAS_LENS, false), 1 | 2);
 		}
@@ -142,7 +135,7 @@ public class BlockPrism extends BlockMod implements IManaTrigger, ILexiconable, 
 	}
 
 	@Override
-	public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block) {
+	public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block, BlockPos fromPos) {
 		boolean power = world.isBlockIndirectlyGettingPowered(pos) > 0 || world.isBlockIndirectlyGettingPowered(pos.up()) > 0;
 		boolean powered = state.getValue(BotaniaStateProps.POWERED);
 
@@ -189,5 +182,11 @@ public class BlockPrism extends BlockMod implements IManaTrigger, ILexiconable, 
 	@Override
 	public boolean isGhost(IBlockState state, World world, BlockPos pos) {
 		return true;
+	}
+
+	@Nonnull
+	@Override
+	public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing side) {
+		return side.getAxis() == EnumFacing.Axis.Y ? BlockFaceShape.CENTER_BIG : BlockFaceShape.MIDDLE_POLE_THICK;
 	}
 }

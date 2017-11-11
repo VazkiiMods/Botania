@@ -1,0 +1,33 @@
+{
+	"forge_marker": 1,
+	"defaults": {
+		"textures": {
+			"cloth": "botania:blocks/corporea_crystal_cube_cloth",
+			"base": "botania:blocks/corporea_crystal_cube_base",
+			"glass": "botania:blocks/corporea_crystal_cube_glass",
+			"particle": "botania:blocks/corporea_crystal_cube_base"
+		}
+	},
+	"variants": {
+		"static": {
+			"true": {
+				"model": "botania:corporea_crystal_cube_base"
+			},
+			"false": {
+				"model": "botania:corporea_crystal_cube_glass"
+			}
+		},
+		"inventory": [{
+			"model": "botania:corporea_crystal_cube_base",
+			"transform": "forge:default-block",
+			"submodel": {
+				"cube": {
+					"model": "botania:corporea_crystal_cube_glass",
+					"transform": {
+						"translation": [ 0, 0.5, 0 ]
+					}
+				}
+			}
+		}]
+	}
+}

@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
-import java.util.List;
-
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureAttribute;
 import net.minecraft.entity.player.EntityPlayer;
@@ -22,6 +20,8 @@ import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.lexicon.LexiconData;
+
+import java.util.List;
 
 public class SubTileHyacidus extends SubTileFunctional {
 
@@ -38,7 +38,7 @@ public class SubTileHyacidus extends SubTileFunctional {
 
 		List<EntityLivingBase> entities = supertile.getWorld().getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(supertile.getPos().add(-RANGE, -RANGE, -RANGE), supertile.getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
 		for(EntityLivingBase entity : entities) {
-			if(!(entity instanceof EntityPlayer) && entity.getActivePotionEffect(MobEffects.POISON) == null && mana >= cost && !entity.worldObj.isRemote && entity.getCreatureAttribute() != EnumCreatureAttribute.UNDEAD) {
+			if(!(entity instanceof EntityPlayer) && entity.getActivePotionEffect(MobEffects.POISON) == null && mana >= cost && !entity.world.isRemote && entity.getCreatureAttribute() != EnumCreatureAttribute.UNDEAD) {
 				entity.addPotionEffect(new PotionEffect(MobEffects.POISON, 60, 0));
 				mana -= cost;
 			}

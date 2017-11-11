@@ -1,0 +1,18 @@
+{
+  "forge_marker": 1,
+  "variants": {
+    "normal": [{
+      "model": "botania:shapes/cross_tinted",
+      "textures": {
+        "cross": "botania:blocks/flower_gen_hydroangeas_decor"
+      }
+    }],
+    "inventory": [{
+      "model": "builtin/generated",
+      "transform": "forge:default-item",
+      "textures": {
+        "layer0": "botania:blocks/flower_gen_hydroangeas_decor"
+      }
+    }]
+  }
+}

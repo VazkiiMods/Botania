@@ -10,29 +10,25 @@
  */
 package vazkii.botania.common.item.equipment.tool;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.stats.Achievement;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.sound.BotaniaSoundEvents;
-import vazkii.botania.common.achievement.ICraftAchievement;
-import vazkii.botania.common.achievement.ModAchievements;
+import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.entity.EntityFallingStar;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelSword;
 import vazkii.botania.common.lib.LibItemNames;
 
-public class ItemStarSword extends ItemManasteelSword implements ICraftAchievement {
+import javax.annotation.Nonnull;
+
+public class ItemStarSword extends ItemManasteelSword {
 
 	private static final int MANA_PER_DAMAGE = 120;
 
@@ -61,7 +57,7 @@ public class ItemStarSword extends ItemManasteelSword implements ICraftAchieveme
 					star.motionX = motVec.x;
 					star.motionY = motVec.y;
 					star.motionZ = motVec.z;
-					world.spawnEntityInWorld(star);
+					world.spawnEntity(star);
 
 					if (!world.isRaining()
 							&& Math.abs(world.getWorldTime() - 18000) < 1800
@@ -71,11 +67,11 @@ public class ItemStarSword extends ItemManasteelSword implements ICraftAchieveme
 						bonusStar.motionX = motVec.x + Math.random() - 0.5;
 						bonusStar.motionY = motVec.y + Math.random() - 0.5;
 						bonusStar.motionZ = motVec.z + Math.random() - 0.5;
-						world.spawnEntityInWorld(bonusStar);
+						world.spawnEntity(bonusStar);
 					}
 
 					ToolCommons.damageItem(par1ItemStack, 1, player, MANA_PER_DAMAGE);
-					world.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.starcaller, SoundCategory.PLAYERS, 0.4F, 1.4F);
+					world.playSound(null, player.posX, player.posY, player.posZ, ModSounds.starcaller, SoundCategory.PLAYERS, 0.4F, 1.4F);
 				}
 			}
 		}
@@ -90,11 +86,4 @@ public class ItemStarSword extends ItemManasteelSword implements ICraftAchieveme
 	public boolean getIsRepairable(ItemStack par1ItemStack, @Nonnull ItemStack par2ItemStack) {
 		return par2ItemStack.getItem() == ModItems.manaResource && par2ItemStack.getItemDamage() == 4 ? true : super.getIsRepairable(par1ItemStack, par2ItemStack);
 	}
-
-	@Override
-	public Achievement getAchievementOnCraft(ItemStack stack, EntityPlayer player, IInventory matrix) {
-		return ModAchievements.terrasteelWeaponCraft;
-	}
-
-
 }

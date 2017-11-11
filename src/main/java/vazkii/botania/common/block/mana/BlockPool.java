@@ -10,13 +10,9 @@
  */
 package vazkii.botania.common.block.mana;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -26,20 +22,19 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.EnumDyeColor;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.stats.Achievement;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.ChunkCache;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.BotaniaAPI;
@@ -51,19 +46,17 @@ import vazkii.botania.api.state.enums.PoolVariant;
 import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.client.core.handler.ModelHandler;
-import vazkii.botania.common.achievement.ICraftAchievement;
-import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.mana.TilePool;
-import vazkii.botania.common.item.block.ItemBlockPool;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
-public class BlockPool extends BlockMod implements IWandHUD, IWandable, ILexiconable, ICraftAchievement {
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.List;
 
+public class BlockPool extends BlockMod implements IWandHUD, IWandable, ILexiconable {
 	private static final AxisAlignedBB AABB = new AxisAlignedBB(0, 0, 0, 1, 0.5, 1);
-
-	private boolean lastFragile = false;
 
 	public BlockPool() {
 		super(Material.ROCK, LibBlockNames.POOL);
@@ -71,19 +64,15 @@ public class BlockPool extends BlockMod implements IWandHUD, IWandable, ILexicon
 		setResistance(10.0F);
 		setSoundType(SoundType.STONE);
 		BotaniaAPI.blacklistBlockFromMagnet(this, Short.MAX_VALUE);
+		setDefaultState(blockState.getBaseState()
+				.withProperty(BotaniaStateProps.POOL_VARIANT, PoolVariant.DEFAULT)
+				.withProperty(BotaniaStateProps.COLOR, EnumDyeColor.WHITE));
 	}
 
 	@Nonnull
 	@Override
 	public BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, BotaniaStateProps.POOL_VARIANT, BotaniaStateProps.COLOR);
-	}
-
-	@Override
-	protected IBlockState pickDefaultState() {
-		return blockState.getBaseState()
-				.withProperty(BotaniaStateProps.POOL_VARIANT, PoolVariant.DEFAULT)
-				.withProperty(BotaniaStateProps.COLOR, EnumDyeColor.WHITE);
 	}
 
 	@Override
@@ -103,7 +92,7 @@ public class BlockPool extends BlockMod implements IWandHUD, IWandable, ILexicon
 	@Nonnull
 	@Override
 	public IBlockState getActualState(@Nonnull IBlockState state, IBlockAccess world, BlockPos pos) {
-		TileEntity te = world.getTileEntity(pos);
+		TileEntity te = world instanceof ChunkCache ? ((ChunkCache)world).getTileEntity(pos, Chunk.EnumCreateEntityType.CHECK) : world.getTileEntity(pos);
 		if (te instanceof TilePool) {
 			return state.withProperty(BotaniaStateProps.COLOR, ((TilePool) te).color);
 		} else {
@@ -118,40 +107,39 @@ public class BlockPool extends BlockMod implements IWandHUD, IWandable, ILexicon
 	}
 
 	@Override
-	public void registerItemForm() {
-		GameRegistry.register(new ItemBlockPool(this), getRegistryName());
-	}
-
-	@Override
 	public int damageDropped(IBlockState state) {
 		return state.getBlock().getMetaFromState(state);
 	}
 
+	// If harvesting, delay setting block to air so getDrops can read the TE
 	@Override
-	public void breakBlock(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
-		TilePool pool = (TilePool) world.getTileEntity(pos);
-		lastFragile = pool.fragile;
-		super.breakBlock(world, pos, state);
+	public boolean removedByPlayer(IBlockState state, World world, BlockPos pos, EntityPlayer player, boolean willHarvest) {
+		if (willHarvest)
+			return true;
+		return super.removedByPlayer(state, world, pos, player, willHarvest);
 	}
 
-	@Nonnull
 	@Override
-	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, @Nonnull IBlockState state, int fortune) {
-		ArrayList<ItemStack> drops = new ArrayList<>();
-
-		if(!lastFragile)
-			drops.add(new ItemStack(this, 1, state.getBlock().getMetaFromState(state)));
-
-		return drops;
+	public void getDrops(net.minecraft.util.NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
+		TileEntity te = world.getTileEntity(pos);
+		if (te instanceof TilePool && !((TilePool) te).fragile) {
+			super.getDrops(drops, world, pos, state, fortune);
+		}
 	}
 
-	@SideOnly(Side.CLIENT)
+	// After getDrops reads the TE, then delete the block
 	@Override
-	public void getSubBlocks(@Nonnull Item item, CreativeTabs par2, List<ItemStack> par3) {
-		par3.add(new ItemStack(item, 1, 0));
-		par3.add(new ItemStack(item, 1, 2));
-		par3.add(new ItemStack(item, 1, 3));
-		par3.add(new ItemStack(item, 1, 1));
+	public void harvestBlock(World world, EntityPlayer player, BlockPos pos, IBlockState state, @Nullable TileEntity te, ItemStack tool) {
+		super.harvestBlock(world, player, pos, state, te, tool);
+		world.setBlockToAir(pos);
+	}
+
+	@Override
+	public void getSubBlocks(CreativeTabs par2, NonNullList<ItemStack> par3) {
+		par3.add(new ItemStack(this, 1, 0));
+		par3.add(new ItemStack(this, 1, 2));
+		par3.add(new ItemStack(this, 1, 3));
+		par3.add(new ItemStack(this, 1, 1));
 	}
 
 	@Override
@@ -182,7 +170,7 @@ public class BlockPool extends BlockMod implements IWandHUD, IWandable, ILexicon
 
 
 	@Override
-	public void addCollisionBoxToList(IBlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull AxisAlignedBB entityBox, @Nonnull List<AxisAlignedBB> boxes, Entity entity) {
+	public void addCollisionBoxToList(IBlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull AxisAlignedBB entityBox, @Nonnull List<AxisAlignedBB> boxes, Entity entity, boolean isActualState) {
 		addCollisionBoxToList(pos, entityBox, boxes, BOTTOM_AABB);
 		addCollisionBoxToList(pos, entityBox, boxes, NORTH_AABB);
 		addCollisionBoxToList(pos, entityBox, boxes, SOUTH_AABB);
@@ -244,15 +232,16 @@ public class BlockPool extends BlockMod implements IWandHUD, IWandable, ILexicon
 		return world.getBlockState(pos).getValue(BotaniaStateProps.POOL_VARIANT) == PoolVariant.FABULOUS ? LexiconData.rainbowRod : LexiconData.pool;
 	}
 
-	@Override
-	public Achievement getAchievementOnCraft(ItemStack stack, EntityPlayer player, IInventory matrix) {
-		return ModAchievements.manaPoolPickup;
-	}
-
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void registerModels() {
 		ModelLoader.setCustomStateMapper(this, new StateMap.Builder().ignore(BotaniaStateProps.COLOR).build());
 		ModelHandler.registerBlockToState(this, PoolVariant.values().length);
+	}
+
+	@Nonnull
+	@Override
+	public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing side) {
+		return side == EnumFacing.DOWN ? BlockFaceShape.SOLID : BlockFaceShape.UNDEFINED;
 	}
 }

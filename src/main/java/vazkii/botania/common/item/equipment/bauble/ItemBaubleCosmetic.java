@@ -10,18 +10,12 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
-import org.lwjgl.opengl.GL11;
-
 import baubles.api.BaubleType;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.EntityRenderer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
@@ -29,21 +23,22 @@ import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.texture.TextureUtil;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
-import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraft.util.NonNullList;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraftforge.oredict.RecipeSorter;
-import net.minecraftforge.oredict.RecipeSorter.Category;
+import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.item.ICosmeticBauble;
 import vazkii.botania.client.core.handler.ModelHandler;
-import vazkii.botania.common.crafting.recipe.CosmeticAttachRecipe;
-import vazkii.botania.common.crafting.recipe.CosmeticRemoveRecipe;
 import vazkii.botania.common.lib.LibItemNames;
+
+import javax.annotation.Nonnull;
+import java.util.List;
 
 public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 
@@ -64,19 +59,15 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 	public ItemBaubleCosmetic() {
 		super(LibItemNames.COSMETIC);
 		setHasSubtypes(true);
-
-		GameRegistry.addRecipe(new CosmeticAttachRecipe());
-		GameRegistry.addRecipe(new CosmeticRemoveRecipe());
-		RecipeSorter.register("botania:cosmeticAttach", CosmeticAttachRecipe.class, Category.SHAPELESS, "");
-		RecipeSorter.register("botania:cosmeticRemove", CosmeticRemoveRecipe.class, Category.SHAPELESS, "");
 		renderStack = new ItemStack(this);
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
-	public void getSubItems(@Nonnull Item item, CreativeTabs tab, List<ItemStack> list) {
-		for(int i = 0; i < SUBTYPES; i++)
-			list.add(new ItemStack(item, 1, i));
+	public void getSubItems(@Nonnull CreativeTabs tab, @Nonnull NonNullList<ItemStack> list) {
+		if(isInCreativeTab(tab)) {
+			for(int i = 0; i < SUBTYPES; i++)
+				list.add(new ItemStack(this, 1, i));
+		}
 	}
 
 	@Nonnull
@@ -87,9 +78,9 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void addHiddenTooltip(ItemStack par1ItemStack, EntityPlayer player, List<String> stacks, boolean par4) {
+	public void addHiddenTooltip(ItemStack par1ItemStack, World world, List<String> stacks, ITooltipFlag flags) {
 		addStringToTooltip(I18n.format("botaniamisc.cosmeticBauble"), stacks);
-		super.addHiddenTooltip(par1ItemStack, player, stacks, par4);
+		super.addHiddenTooltip(par1ItemStack, world, stacks, flags);
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -345,7 +336,7 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 	// Adapted from RenderItem.renderModel(model, stack), added extra color param
 	private void renderModel(IBakedModel model, ItemStack stack, int color) {
 		Tessellator tessellator = Tessellator.getInstance();
-		VertexBuffer worldrenderer = tessellator.getBuffer();
+		BufferBuilder worldrenderer = tessellator.getBuffer();
 		worldrenderer.begin(7, DefaultVertexFormats.ITEM);
 
 		for (EnumFacing enumfacing : EnumFacing.values())
@@ -358,9 +349,9 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 	}
 
 	// Copy of RenderItem.renderQuads
-	private void renderQuads(VertexBuffer renderer, List<BakedQuad> quads, int color, ItemStack stack)
+	private void renderQuads(BufferBuilder renderer, List<BakedQuad> quads, int color, ItemStack stack)
 	{
-		boolean flag = color == -1 && stack != null;
+		boolean flag = color == -1 && !stack.isEmpty();
 		int i = 0;
 
 		for (int j = quads.size(); i < j; ++i)

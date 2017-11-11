@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "botania:items/spawner_mover"
+  },
+  "overrides": [{
+    "predicate": {
+      "botania:full": 1
+    },
+    "model": "botania:item/spawnermoverfull"
+  }]
+}

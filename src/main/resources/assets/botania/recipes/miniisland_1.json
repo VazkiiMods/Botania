@@ -1,0 +1,27 @@
+{
+  "result": {
+    "item": "botania:miniisland",
+    "data": 1
+  },
+  "pattern": [
+    "F",
+    "S",
+    "D"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "group": "botania:miniisland",
+  "key": {
+    "S": {
+      "item": "botania:grassseeds",
+      "data": 0
+    },
+    "D": {
+      "item": "minecraft:dirt",
+      "data": 0
+    },
+    "F": {
+      "item": "botania:shinyflower",
+      "data": 1
+    }
+  }
+}

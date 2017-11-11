@@ -10,9 +10,6 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.Blocks;
@@ -24,6 +21,9 @@ import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.lexicon.LexiconData;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SubTileClayconia extends SubTileFunctional {
 
@@ -46,7 +46,7 @@ public class SubTileClayconia extends SubTileFunctional {
 					if(ConfigHandler.blockBreakParticles)
 						supertile.getWorld().playEvent(2001, coords, Block.getStateId(Blocks.SAND.getDefaultState()));
 					EntityItem item = new EntityItem(supertile.getWorld(), coords.getX() + 0.5, coords.getY() + 0.5, coords.getZ() + 0.5, new ItemStack(Items.CLAY_BALL));
-					supertile.getWorld().spawnEntityInWorld(item);
+					supertile.getWorld().spawnEntity(item);
 					mana -= COST;
 				}
 			}

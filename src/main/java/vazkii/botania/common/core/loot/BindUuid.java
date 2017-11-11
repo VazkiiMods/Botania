@@ -1,13 +1,8 @@
 package vazkii.botania.common.core.loot;
 
-import java.util.Random;
-
-import javax.annotation.Nonnull;
-
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.storage.loot.LootContext;
@@ -16,6 +11,9 @@ import net.minecraft.world.storage.loot.functions.LootFunction;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.relic.ItemRelic;
 import vazkii.botania.common.lib.LibMisc;
+
+import javax.annotation.Nonnull;
+import java.util.Random;
 
 public class BindUuid extends LootFunction {
 

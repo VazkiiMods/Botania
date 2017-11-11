@@ -10,13 +10,6 @@
  */
 package vazkii.botania.common.item;
 
-import java.util.EnumMap;
-import java.util.Map;
-
-import javax.annotation.Nonnull;
-
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.ScaledResolution;
@@ -34,6 +27,7 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.lexicon.multiblock.Multiblock;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
@@ -41,6 +35,10 @@ import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.lib.LibItemNames;
+
+import javax.annotation.Nonnull;
+import java.util.EnumMap;
+import java.util.Map;
 
 public class ItemSextant extends ItemMod {
 
@@ -104,23 +102,24 @@ public class ItemSextant extends ItemMod {
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack par1ItemStack, World world, EntityPlayer player, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
 		Botania.proxy.removeSextantMultiblock();
 
+		ItemStack stack = player.getHeldItem(hand);
 		if(!player.isSneaking()) {
 			RayTraceResult pos = ToolCommons.raytraceFromEntity(world, player, false, 128);
 			if(pos != null && pos.entityHit == null && pos.getBlockPos() != null) {
 				if(!world.isRemote) {
-					ItemNBTHelper.setInt(par1ItemStack, TAG_SOURCE_X, pos.getBlockPos().getX());
-					ItemNBTHelper.setInt(par1ItemStack, TAG_SOURCE_Y, pos.getBlockPos().getY());
-					ItemNBTHelper.setInt(par1ItemStack, TAG_SOURCE_Z, pos.getBlockPos().getZ());
+					ItemNBTHelper.setInt(stack, TAG_SOURCE_X, pos.getBlockPos().getX());
+					ItemNBTHelper.setInt(stack, TAG_SOURCE_Y, pos.getBlockPos().getY());
+					ItemNBTHelper.setInt(stack, TAG_SOURCE_Z, pos.getBlockPos().getZ());
 				}
-			} else ItemNBTHelper.setInt(par1ItemStack, TAG_SOURCE_Y, -1);
+			} else ItemNBTHelper.setInt(stack, TAG_SOURCE_Y, -1);
 
 			player.setActiveHand(hand);
 		}
 
-		return ActionResult.newResult(EnumActionResult.SUCCESS, par1ItemStack);
+		return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
 	}
 
 	public static double calculateRadius(ItemStack stack, EntityPlayer player) {
@@ -136,9 +135,9 @@ public class ItemSextant extends ItemMod {
 		double mul = diffVec.y / lookVec.y;
 		lookVec = lookVec.multiply(mul).add(centerVec);
 
-		lookVec = new Vector3(net.minecraft.util.math.MathHelper.floor_double(lookVec.x),
+		lookVec = new Vector3(net.minecraft.util.math.MathHelper.floor(lookVec.x),
 				lookVec.y,
-				net.minecraft.util.math.MathHelper.floor_double(lookVec.z));
+				net.minecraft.util.math.MathHelper.floor(lookVec.z));
 
 		return MathHelper.pointDistancePlane(source.x, source.z, lookVec.x, lookVec.z);
 	}
@@ -150,7 +149,7 @@ public class ItemSextant extends ItemMod {
 
 		if(onUse == stack && stack.getItem().getMaxItemUseDuration(stack) - time >= 10) {
 			double radius = calculateRadius(stack, player);
-			FontRenderer font = Minecraft.getMinecraft().fontRendererObj;
+			FontRenderer font = Minecraft.getMinecraft().fontRenderer;
 			int x = resolution.getScaledWidth() / 2 + 30;
 			int y = resolution.getScaledHeight() / 2;
 

@@ -1,8 +1,49 @@
 {
-  "parent": "botania:block/shapes/twelve_high_bottom_top",
-  "textures": {
-    "top": "botania:blocks/runeAltar1",
-    "side": "botania:blocks/runeAltar2",
-    "bottom": "botania:blocks/runeAltar0"
-  }
+	"Comment": "Designed by Wiiv with Cubik Studio - https://cubik.studio",
+	"parent": "minecraft:block/block",
+	"textures": {
+		"bottom": "botania:blocks/runic_altar_bottom",
+		"up": "botania:blocks/runic_altar_top",
+		"side": "botania:blocks/runic_altar_side",
+		"particle": "botania:blocks/livingrock0"
+	},
+	"elements": [ 	 
+		{
+			"__comment": "top",
+			"from": [ 0, 6, 0 ],
+			"to": [ 16, 12, 16 ],
+			"faces": {
+				"down": { "uv": [ 0, 0, 16, 16 ], "texture": "bottom" },
+				"up": { "uv": [ 0, 0, 16, 16 ], "texture": "#up" },
+				"north": { "uv": [ 0, 4, 16, 10 ], "texture": "#side" },
+				"south": { "uv": [ 0, 4, 16, 10 ], "texture": "#side" },
+				"west": { "uv": [ 0, 4, 16, 10 ], "texture": "#side" },
+				"east": { "uv": [ 0, 4, 16, 10 ], "texture": "#side" }
+			}
+		},
+		{
+			"__comment": "center",
+			"from": [ 4, 4, 4 ],
+			"to": [ 12, 6, 12 ],
+			"faces": {
+				"north": { "uv": [ 4, 10, 12, 12 ], "texture": "#side" },
+				"south": { "uv": [ 4, 10, 12, 12 ], "texture": "#side" },
+				"west": { "uv": [ 4, 10, 12, 12 ], "texture": "#side" },
+				"east": { "uv": [ 4, 10, 12, 12 ], "texture": "#side" }
+			}
+		},
+		{
+			"__comment": "bottom",
+			"from": [ 2, 0, 2 ],
+			"to": [ 14, 4, 14 ],
+			"faces": {
+				"down": { "uv": [ 2, 2, 14, 14 ], "texture": "bottom" },
+				"up": { "uv": [ 2, 2, 14, 14 ], "texture": "bottom" },
+				"north": { "uv": [ 2, 12, 14, 16 ], "texture": "#side" },
+				"south": { "uv": [ 2, 12, 14, 16 ], "texture": "#side" },
+				"west": { "uv": [ 2, 12, 14, 16 ], "texture": "#side" },
+				"east": { "uv": [ 2, 12, 14, 16 ], "texture": "#side" }
+			}
+		}
+	]
 }

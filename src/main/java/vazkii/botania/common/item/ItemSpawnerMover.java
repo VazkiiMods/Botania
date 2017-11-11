@@ -10,15 +10,13 @@
  */
 package vazkii.botania.common.item;
 
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -34,8 +32,12 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.Botania;
-import vazkii.botania.common.achievement.ModAchievements;
+import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.lib.LibItemNames;
+import vazkii.botania.common.lib.LibMisc;
+
+import javax.annotation.Nonnull;
+import java.util.List;
 
 public class ItemSpawnerMover extends ItemMod {
 
@@ -82,7 +84,7 @@ public class ItemSpawnerMover extends ItemMod {
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void addInformation(ItemStack stack, EntityPlayer player, List<String> infoList, boolean advancedTooltips) {
+	public void addInformation(ItemStack stack, World world, List<String> infoList, ITooltipFlag flags) {
 		String id = getEntityId(stack);
 		if (id != null)
 			infoList.add(I18n.format("entity." + id + ".name"));
@@ -97,22 +99,27 @@ public class ItemSpawnerMover extends ItemMod {
 
 	@Nonnull
 	@Override
-	public EnumActionResult onItemUse(ItemStack itemstack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float xOffset, float yOffset, float zOffset) {
+	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float xOffset, float yOffset, float zOffset) {
+		ItemStack itemstack = player.getHeldItem(hand);
 		if(getEntityId(itemstack) == null) {
-			if(world.getBlockState(pos).getBlock().equals(Blocks.MOB_SPAWNER)) {
-				TileEntity te = world.getTileEntity(pos);
-				NBTTagCompound tag = new NBTTagCompound();
-				tag.setTag(TAG_SPAWNER, new NBTTagCompound());
-				te.writeToNBT(tag.getCompoundTag(TAG_SPAWNER));
-				tag.setInteger(TAG_PLACE_DELAY, 20);
-				itemstack.setTagCompound(tag);
-				world.setBlockToAir(pos);
-				player.renderBrokenItemStack(itemstack);
-				for(int i = 0; i < 50; i++) {
-					float red = (float) Math.random();
-					float green = (float) Math.random();
-					float blue = (float) Math.random();
-					Botania.proxy.wispFX(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, red, green, blue, (float) Math.random() * 0.1F + 0.05F, (float) (Math.random() - 0.5F) * 0.15F, (float) (Math.random() - 0.5F) * 0.15F, (float) (Math.random() - 0.5F) * 0.15F);
+			if(world.getBlockState(pos).getBlock() == Blocks.MOB_SPAWNER) {
+				if(!world.isRemote) {
+					TileEntity te = world.getTileEntity(pos);
+					NBTTagCompound tag = new NBTTagCompound();
+					tag.setTag(TAG_SPAWNER, new NBTTagCompound());
+					te.writeToNBT(tag.getCompoundTag(TAG_SPAWNER));
+					tag.setInteger(TAG_PLACE_DELAY, 20);
+					itemstack.setTagCompound(tag);
+					world.setBlockToAir(pos);
+					PlayerHelper.grantCriterion((EntityPlayerMP) player, new ResourceLocation(LibMisc.MOD_ID, "main/spawner_mover_use"), "code_triggered");
+				} else {
+					player.renderBrokenItemStack(itemstack);
+					for(int i = 0; i < 50; i++) {
+						float red = (float) Math.random();
+						float green = (float) Math.random();
+						float blue = (float) Math.random();
+						Botania.proxy.wispFX(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, red, green, blue, (float) Math.random() * 0.1F + 0.05F, (float) (Math.random() - 0.5F) * 0.15F, (float) (Math.random() - 0.5F) * 0.15F, (float) (Math.random() - 0.5F) * 0.15F);
+					}
 				}
 				return EnumActionResult.SUCCESS;
 			} else return EnumActionResult.PASS;
@@ -130,19 +137,18 @@ public class ItemSpawnerMover extends ItemMod {
 			pos = pos.offset(side);
 		}
 
-		if(itemstack.stackSize == 0) {
+		if(itemstack.isEmpty()) {
 			return false;
 		} else if(!player.canPlayerEdit(pos, side, itemstack)) {
 			return false;
-		} else if(world.canBlockBePlaced(Blocks.MOB_SPAWNER, pos, false, side, null, itemstack)) {
+		} else if(world.mayPlace(Blocks.MOB_SPAWNER, pos, false, side, null)) {
 			int meta = this.getMetadata(itemstack.getMetadata());
-			IBlockState iblockstate1 = Blocks.MOB_SPAWNER.onBlockPlaced(world, pos, side, xOffset, yOffset, zOffset, meta, player);
+			IBlockState iblockstate1 = Blocks.MOB_SPAWNER.getStateForPlacement(world, pos, side, xOffset, yOffset, zOffset, meta, player);
 
 			if (placeBlockAt(itemstack, player, world, pos, side, xOffset, yOffset, zOffset, iblockstate1)) {
 				world.playSound(null, pos, Blocks.MOB_SPAWNER.getSoundType().getPlaceSound(), SoundCategory.BLOCKS, (Blocks.MOB_SPAWNER.getSoundType().getVolume() + 1.0F) / 2.0F, Blocks.MOB_SPAWNER.getSoundType().getPitch() * 0.8F);
-				--itemstack.stackSize;
 				player.renderBrokenItemStack(itemstack);
-				player.addStat(ModAchievements.spawnerMoverUse, 1);
+				itemstack.shrink(1);
 				for(int i = 0; i < 100; i++)
 					Botania.proxy.sparkleFX(pos.getX() + Math.random(), pos.getY() + Math.random(), pos.getZ() + Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random(), 0.45F + 0.2F * (float) Math.random(), 6);
 			}

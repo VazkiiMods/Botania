@@ -1,0 +1,21 @@
+{
+  "display": {
+    "icon": {
+      "item": "botania:specialFlower",
+      "nbt": "{\"type\": \"endoflame\"}"
+    },
+    "title": {
+      "translate": "advancement.botania:generatingFlower"
+    },
+    "description": {
+      "translate": "advancement.botania:generatingFlower.desc"
+    }
+  },
+  "parent": "botania:main/lexicon_use",
+  "__comment": "This is triggered by code in Botania. In the future, it may become data-driven",
+  "criteria": {
+    "code_triggered": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

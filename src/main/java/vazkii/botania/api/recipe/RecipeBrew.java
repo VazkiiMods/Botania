@@ -10,17 +10,16 @@
  */
 package vazkii.botania.api.recipe;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.google.common.collect.ImmutableList;
-
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.brew.IBrewContainer;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class RecipeBrew {
 
@@ -45,7 +44,7 @@ public class RecipeBrew {
 
 		for(int i = 0; i < inv.getSlots(); i++) {
 			ItemStack stack = inv.getStackInSlot(i);
-			if(stack == null)
+			if(stack.isEmpty())
 				break;
 
 			if(stack.getItem() instanceof IBrewContainer)
@@ -106,7 +105,7 @@ public class RecipeBrew {
 	}
 
 	public ItemStack getOutput(ItemStack stack) {
-		if(stack == null || !(stack.getItem() instanceof IBrewContainer))
+		if(stack.isEmpty() || !(stack.getItem() instanceof IBrewContainer))
 			return new ItemStack(Items.GLASS_BOTTLE); // Fallback...
 		IBrewContainer container = (IBrewContainer) stack.getItem();
 

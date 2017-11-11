@@ -10,20 +10,21 @@
  */
 package vazkii.botania.common.lexicon.page;
 
-import java.lang.reflect.Constructor;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityList;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.internal.IGuiLexiconEntry;
 import vazkii.botania.api.lexicon.LexiconPage;
+
+import java.lang.reflect.Constructor;
 
 public class PageEntity extends LexiconPage{
 
@@ -35,7 +36,7 @@ public class PageEntity extends LexiconPage{
 
 	public PageEntity(String unlocalizedName, String entity, int size) {
 		super(unlocalizedName);
-		Class EntityClass = EntityList.NAME_TO_CLASS.get(entity);
+		Class EntityClass = ForgeRegistries.ENTITIES.getValue(new ResourceLocation(entity)).getEntityClass();
 		this.size = size;
 		try {
 			entityConstructor = EntityClass.getConstructor(World.class);
@@ -52,7 +53,7 @@ public class PageEntity extends LexiconPage{
 		int text_y = gui.getTop() + gui.getHeight() - 40;
 		int entity_scale = getEntityScale(size);
 		int entity_x = gui.getLeft() + gui.getWidth() / 2;
-		int entity_y = gui.getTop() + gui.getHeight() / 2 + MathHelper.floor_float(dummyEntity.height * entity_scale / 2);
+		int entity_y = gui.getTop() + gui.getHeight() / 2 + MathHelper.floor(dummyEntity.height * entity_scale / 2);
 
 		renderEntity(gui, dummyEntity, entity_x, entity_y, entity_scale, dummyEntity.ticksExisted * 2);
 
@@ -66,7 +67,7 @@ public class PageEntity extends LexiconPage{
 		if(dummyEntity.width < dummyEntity.height)
 			entity_size = dummyEntity.height;
 
-		return MathHelper.floor_float(size / entity_size);
+		return MathHelper.floor(size / entity_size);
 
 	}
 
@@ -78,7 +79,7 @@ public class PageEntity extends LexiconPage{
 
 	@SideOnly(Side.CLIENT)
 	public void renderEntity(IGuiLexiconEntry gui, Entity entity, int x, int y, int scale, float rotation) {
-		dummyEntity.worldObj = Minecraft.getMinecraft() != null ? Minecraft.getMinecraft().theWorld : null;
+		dummyEntity.world = Minecraft.getMinecraft() != null ? Minecraft.getMinecraft().world : null;
 
 		GlStateManager.enableColorMaterial();
 		GlStateManager.pushMatrix();
@@ -103,7 +104,7 @@ public class PageEntity extends LexiconPage{
 	public void prepDummy() {
 		if(dummyEntity == null || dummyEntity.isDead) {
 			try {
-				dummyEntity = (Entity) entityConstructor.newInstance(Minecraft.getMinecraft().theWorld);
+				dummyEntity = (Entity) entityConstructor.newInstance(Minecraft.getMinecraft().world);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

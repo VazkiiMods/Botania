@@ -10,10 +10,6 @@
  */
 package vazkii.botania.client.core.handler;
 
-import javax.annotation.Nonnull;
-
-import org.lwjgl.opengl.GL11;
-
 import baubles.api.BaublesApi;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
@@ -24,9 +20,10 @@ import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.items.IItemHandler;
+import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.item.IBaubleRender;
 import vazkii.botania.api.item.IBaubleRender.Helper;
 import vazkii.botania.api.item.IBaubleRender.RenderType;
@@ -36,6 +33,8 @@ import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.armor.terrasteel.ItemTerrasteelHelm;
 
+import javax.annotation.Nonnull;
+
 public final class BaubleRenderHandler implements LayerRenderer<EntityPlayer> {
 
 	@Override
@@ -43,10 +42,10 @@ public final class BaubleRenderHandler implements LayerRenderer<EntityPlayer> {
 		if(!ConfigHandler.renderBaubles || player.getActivePotionEffect(MobEffects.INVISIBILITY) != null)
 			return;
 
-		IInventory inv = BaublesApi.getBaubles(player);
+		IItemHandler inv = BaublesApi.getBaublesHandler(player);
 
 		dispatchRenders(inv, player, RenderType.BODY, partialTicks);
-		if(inv.getStackInSlot(3) != null)
+		if(!inv.getStackInSlot(3).isEmpty())
 			renderManaTablet(player);
 
 		float yaw = player.prevRotationYawHead + (player.rotationYawHead - player.prevRotationYawHead) * partialTicks;
@@ -60,16 +59,16 @@ public final class BaubleRenderHandler implements LayerRenderer<EntityPlayer> {
 		dispatchRenders(inv, player, RenderType.HEAD, partialTicks);
 
 		ItemStack helm = player.inventory.armorItemInSlot(3);
-		if(helm != null && helm.getItem() instanceof ItemTerrasteelHelm)
+		if(!helm.isEmpty() && helm.getItem() instanceof ItemTerrasteelHelm)
 			ItemTerrasteelHelm.renderOnPlayer(helm, player);
 
 		GlStateManager.popMatrix();
 	}
 
-	private void dispatchRenders(IInventory inv, EntityPlayer player, RenderType type, float partialTicks) {
-		for(int i = 0; i < inv.getSizeInventory(); i++) {
+	private void dispatchRenders(IItemHandler inv, EntityPlayer player, RenderType type, float partialTicks) {
+		for(int i = 0; i < inv.getSlots(); i++) {
 			ItemStack stack = inv.getStackInSlot(i);
-			if(stack != null) {
+			if(!stack.isEmpty()) {
 				Item item = stack.getItem();
 
 				if(item instanceof IPhantomInkable) {
@@ -81,7 +80,7 @@ public final class BaubleRenderHandler implements LayerRenderer<EntityPlayer> {
 				if(item instanceof ICosmeticAttachable) {
 					ICosmeticAttachable attachable = (ICosmeticAttachable) item;
 					ItemStack cosmetic = attachable.getCosmeticItem(stack);
-					if(cosmetic != null) {
+					if(!cosmetic.isEmpty()) {
 						GlStateManager.pushMatrix();
 						GL11.glColor3ub((byte) 255, (byte) 255, (byte) 255); // Some of the baubles use this so we must restore it manually as well
 						GlStateManager.color(1F, 1F, 1F, 1F);
@@ -107,11 +106,11 @@ public final class BaubleRenderHandler implements LayerRenderer<EntityPlayer> {
 		boolean renderedOne = false;
 		for(int i = 0; i < player.inventory.getSizeInventory(); i++) {
 			ItemStack stack = player.inventory.getStackInSlot(i);
-			if(stack != null && stack.getItem() == ModItems.manaTablet) {
+			if(!stack.isEmpty() && stack.getItem() == ModItems.manaTablet) {
 				GlStateManager.pushMatrix();
 				Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 				Helper.rotateIfSneaking(player);
-				boolean armor = player.getItemStackFromSlot(EntityEquipmentSlot.LEGS) != null;
+				boolean armor = !player.getItemStackFromSlot(EntityEquipmentSlot.LEGS).isEmpty();
 				GlStateManager.rotate(90, 0, 1, 0);
 				GlStateManager.rotate(180, 0, 0, 1);
 				GlStateManager.translate(0, -0.6, 0);

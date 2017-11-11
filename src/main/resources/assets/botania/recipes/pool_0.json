@@ -1,0 +1,16 @@
+{
+  "result": {
+    "item": "botania:pool",
+    "data": 0
+  },
+  "pattern": [
+    "R R",
+    "RRR"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "R": {
+      "item": "#LIVINGROCK"
+    }
+  }
+}

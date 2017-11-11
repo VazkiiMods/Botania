@@ -1,0 +1,15 @@
+{
+  "result": {
+    "item": "botania:corporeainterceptor"
+  },
+  "ingredients": [
+    {
+      "item": "#BLOCKREDSTONE"
+    },
+    {
+      "item": "botania:corporeaspark",
+      "data": 0
+    }
+  ],
+  "type": "forge:ore_shapeless"
+}

@@ -1,7 +1,5 @@
 package vazkii.botania.common.item.equipment.armor.elementium;
 
-import java.util.List;
-
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
@@ -16,6 +14,9 @@ import vazkii.botania.client.model.armor.ModelArmorElementium;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelArmor;
+
+import javax.annotation.Nonnull;
+import java.util.List;
 
 public abstract class ItemElementiumArmor extends ItemManasteelArmor implements IPixieSpawner {
 
@@ -36,7 +37,7 @@ public abstract class ItemElementiumArmor extends ItemManasteelArmor implements 
 	}
 
 	@Override
-	public boolean getIsRepairable(ItemStack par1ItemStack, ItemStack par2ItemStack) {
+	public boolean getIsRepairable(ItemStack par1ItemStack, @Nonnull ItemStack par2ItemStack) {
 		return par2ItemStack.getItem() == ModItems.manaResource && par2ItemStack.getItemDamage() == 7 ? true : super.getIsRepairable(par1ItemStack, par2ItemStack);
 	}
 
@@ -57,8 +58,11 @@ public abstract class ItemElementiumArmor extends ItemManasteelArmor implements 
 
 	@Override
 	public boolean hasArmorSetItem(EntityPlayer player, int i) {
-		ItemStack stack = player.inventory.armorInventory[3 - i];
-		if(stack == null)
+		if(player == null || player.inventory == null || player.inventory.armorInventory == null)
+			return false;
+		
+		ItemStack stack = player.inventory.armorInventory.get(3 - i);
+		if(stack.isEmpty())
 			return false;
 
 		switch(i) {

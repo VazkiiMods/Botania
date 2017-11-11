@@ -10,9 +10,8 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
-import com.google.common.collect.Multimap;
-
 import baubles.api.BaubleType;
+import com.google.common.collect.Multimap;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.GlStateManager;
@@ -43,10 +42,10 @@ public class ItemKnockbackBelt extends ItemBaubleModifier implements IBaubleRend
 
 	@Override
 	void fillModifiers(Multimap<String, AttributeModifier> attributes, ItemStack stack) {
-		if(stack == null) // workaround for Azanor/Baubles#156
+		if(stack.isEmpty()) // workaround for Azanor/Baubles#156
 			return;
 		
-		attributes.put(SharedMonsterAttributes.KNOCKBACK_RESISTANCE.getAttributeUnlocalizedName(), new AttributeModifier(getBaubleUUID(stack), "Bauble modifier", 1, 0));
+		attributes.put(SharedMonsterAttributes.KNOCKBACK_RESISTANCE.getName(), new AttributeModifier(getBaubleUUID(stack), "Bauble modifier", 1, 0));
 	}
 
 	@Override

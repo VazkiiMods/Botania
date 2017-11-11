@@ -10,14 +10,12 @@
  */
 package vazkii.botania.api.item;
 
-import javax.annotation.Nullable;
-
-import vazkii.botania.api.mana.ManaProficiencyEvent;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
+import vazkii.botania.api.mana.ManaProficiencyEvent;
 
 /**
  * An armor item that implements this gives the player wearing it mana proficiency, by
@@ -33,7 +31,7 @@ public interface IManaProficiencyArmor {
 		return false;
 	}
 	
-	default boolean shouldGiveProficiency(ItemStack armorStack, EntityEquipmentSlot slot, EntityPlayer player, @Nullable ItemStack rod) {
+	default boolean shouldGiveProficiency(ItemStack armorStack, EntityEquipmentSlot slot, EntityPlayer player, ItemStack rod) {
 		return shouldGiveProficiency(armorStack, slot, player);
 	}
 
@@ -41,17 +39,17 @@ public interface IManaProficiencyArmor {
 
 		@Deprecated
 		public static boolean hasProficiency(EntityPlayer player) {
-			return hasProficiency(player, null);
+			return hasProficiency(player, ItemStack.EMPTY);
 		}
 		
-		public static boolean hasProficiency(EntityPlayer player, @Nullable ItemStack rod) {
+		public static boolean hasProficiency(EntityPlayer player, ItemStack rod) {
 			boolean proficient = false;
 			
 			for(EntityEquipmentSlot e: EntityEquipmentSlot.values()) {
 				if(e.getSlotType() != EntityEquipmentSlot.Type.ARMOR)
 					continue;
 				ItemStack armor = player.getItemStackFromSlot(e);
-				if(armor != null) {
+				if(!armor.isEmpty()) {
 					Item item = armor.getItem();
 					if(item instanceof IManaProficiencyArmor && ((IManaProficiencyArmor) item).shouldGiveProficiency(armor, e, player, rod)) {
 						proficient = true;

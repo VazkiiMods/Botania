@@ -3,7 +3,7 @@
   "defaults": {
     "model": "botania:dummy",
     "textures": {
-      "particle": "botania:blocks/manaGlass"
+      "particle": "botania:blocks/mana_glass"
     }
   },
   "variants": {

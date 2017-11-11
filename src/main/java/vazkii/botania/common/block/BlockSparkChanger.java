@@ -10,11 +10,10 @@
  */
 package vazkii.botania.common.block;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -26,6 +25,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.items.ItemHandlerHelper;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.state.BotaniaStateProps;
@@ -36,6 +36,8 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
+import javax.annotation.Nonnull;
+
 public class BlockSparkChanger extends BlockMod implements ILexiconable {
 
 	private static final AxisAlignedBB AABB = new AxisAlignedBB(0, 0, 0, 1, 3.0/16, 1);
@@ -45,6 +47,7 @@ public class BlockSparkChanger extends BlockMod implements ILexiconable {
 		setHardness(2.0F);
 		setResistance(10.0F);
 		setSoundType(SoundType.STONE);
+		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.POWERED, true));
 	}
 
 	@Nonnull
@@ -57,11 +60,6 @@ public class BlockSparkChanger extends BlockMod implements ILexiconable {
 	@Override
 	public BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, BotaniaStateProps.POWERED);
-	}
-
-	@Override
-	protected IBlockState pickDefaultState() {
-		return blockState.getBaseState().withProperty(BotaniaStateProps.POWERED, true);
 	}
 
 	@Override
@@ -91,7 +89,7 @@ public class BlockSparkChanger extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block) {
+	public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block, BlockPos fromPos) {
 		boolean power = world.isBlockIndirectlyGettingPowered(pos) > 0 || world.isBlockIndirectlyGettingPowered(pos.up()) > 0;
 		boolean powered = state.getValue(BotaniaStateProps.POWERED);
 
@@ -103,24 +101,20 @@ public class BlockSparkChanger extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack pstack, EnumFacing s, float xs, float ys, float zs) {
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing s, float xs, float ys, float zs) {
 		TileSparkChanger changer = (TileSparkChanger) world.getTileEntity(pos);
+		ItemStack pstack = player.getHeldItem(hand);
 		ItemStack cstack = changer.getItemHandler().getStackInSlot(0);
-		if(cstack != null) {
-			changer.getItemHandler().setStackInSlot(0, null);
+		if(!cstack.isEmpty()) {
+			changer.getItemHandler().setStackInSlot(0, ItemStack.EMPTY);
 			world.updateComparatorOutputLevel(pos, this);
 			changer.markDirty();
-			if(!player.inventory.addItemStackToInventory(cstack))
-				player.dropItem(cstack, false);
+			ItemHandlerHelper.giveItemToPlayer(player, cstack);
 			return true;
-		} else if(pstack != null && pstack.getItem() == ModItems.sparkUpgrade) {
-			changer.getItemHandler().setStackInSlot(0, pstack.copy().splitStack(1));
+		} else if(!pstack.isEmpty() && pstack.getItem() == ModItems.sparkUpgrade) {
+			changer.getItemHandler().setStackInSlot(0, pstack.splitStack(1));
 			world.updateComparatorOutputLevel(pos, this);
 			changer.markDirty();
-
-			pstack.stackSize--;
-			if(pstack.stackSize == 0)
-				player.setHeldItem(hand, null);
 
 			return true;
 		}
@@ -146,7 +140,7 @@ public class BlockSparkChanger extends BlockMod implements ILexiconable {
 	public int getComparatorInputOverride(IBlockState state, World world, BlockPos pos) {
 		TileSparkChanger changer = (TileSparkChanger) world.getTileEntity(pos);
 		ItemStack stack = changer.getItemHandler().getStackInSlot(0);
-		if(stack == null)
+		if(stack.isEmpty())
 			return 0;
 		return stack.getItemDamage() + 1;
 	}
@@ -165,6 +159,12 @@ public class BlockSparkChanger extends BlockMod implements ILexiconable {
 	@Override
 	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.sparkChanger;
+	}
+
+	@Nonnull
+	@Override
+	public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing side) {
+		return side == EnumFacing.DOWN ? BlockFaceShape.SOLID : BlockFaceShape.UNDEFINED;
 	}
 
 }

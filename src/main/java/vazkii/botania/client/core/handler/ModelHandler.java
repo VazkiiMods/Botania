@@ -8,53 +8,28 @@
  */
 package vazkii.botania.client.core.handler;
 
-import java.util.Locale;
-import java.util.Map;
-import java.util.function.IntFunction;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.block.statemap.DefaultStateMapper;
 import net.minecraft.client.renderer.block.statemap.IStateMapper;
 import net.minecraft.item.Item;
+import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.client.model.obj.OBJLoader;
-import net.minecraftforge.fml.common.registry.RegistryDelegate;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.registries.IRegistryDelegate;
 import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.item.IFloatingFlower;
 import vazkii.botania.client.model.SpecialFlowerModel;
 import vazkii.botania.client.render.IModelRegister;
 import vazkii.botania.common.block.subtile.SubTileManastar;
 import vazkii.botania.common.block.subtile.SubTilePureDaisy;
-import vazkii.botania.common.block.subtile.functional.SubTileAgricarnation;
-import vazkii.botania.common.block.subtile.functional.SubTileBellethorn;
-import vazkii.botania.common.block.subtile.functional.SubTileBergamute;
-import vazkii.botania.common.block.subtile.functional.SubTileBubbell;
-import vazkii.botania.common.block.subtile.functional.SubTileClayconia;
-import vazkii.botania.common.block.subtile.functional.SubTileDaffomill;
-import vazkii.botania.common.block.subtile.functional.SubTileDreadthorn;
-import vazkii.botania.common.block.subtile.functional.SubTileExoflame;
-import vazkii.botania.common.block.subtile.functional.SubTileFallenKanade;
-import vazkii.botania.common.block.subtile.functional.SubTileHeiseiDream;
-import vazkii.botania.common.block.subtile.functional.SubTileHopperhock;
-import vazkii.botania.common.block.subtile.functional.SubTileHyacidus;
-import vazkii.botania.common.block.subtile.functional.SubTileJadedAmaranthus;
-import vazkii.botania.common.block.subtile.functional.SubTileJiyuulia;
-import vazkii.botania.common.block.subtile.functional.SubTileLoonuim;
-import vazkii.botania.common.block.subtile.functional.SubTileMarimorphosis;
-import vazkii.botania.common.block.subtile.functional.SubTileMedumone;
-import vazkii.botania.common.block.subtile.functional.SubTileOrechid;
-import vazkii.botania.common.block.subtile.functional.SubTileOrechidIgnem;
-import vazkii.botania.common.block.subtile.functional.SubTilePollidisiac;
-import vazkii.botania.common.block.subtile.functional.SubTileRannuncarpus;
-import vazkii.botania.common.block.subtile.functional.SubTileSolegnolia;
-import vazkii.botania.common.block.subtile.functional.SubTileSpectranthemum;
-import vazkii.botania.common.block.subtile.functional.SubTileTangleberrie;
-import vazkii.botania.common.block.subtile.functional.SubTileTigerseye;
-import vazkii.botania.common.block.subtile.functional.SubTileVinculotus;
+import vazkii.botania.common.block.subtile.functional.*;
 import vazkii.botania.common.block.subtile.generating.SubTileArcaneRose;
 import vazkii.botania.common.block.subtile.generating.SubTileDandelifeon;
 import vazkii.botania.common.block.subtile.generating.SubTileEndoflame;
@@ -65,14 +40,20 @@ import vazkii.botania.common.block.subtile.generating.SubTileKekimurus;
 import vazkii.botania.common.block.subtile.generating.SubTileMunchdew;
 import vazkii.botania.common.block.subtile.generating.SubTileNarslimmus;
 import vazkii.botania.common.block.subtile.generating.SubTileRafflowsia;
+import vazkii.botania.common.block.subtile.generating.SubTileShulkMeNot;
 import vazkii.botania.common.block.subtile.generating.SubTileSpectrolus;
 import vazkii.botania.common.block.subtile.generating.SubTileThermalily;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
-public final class ModelHandler {
+import java.util.Locale;
+import java.util.Map;
+import java.util.function.IntFunction;
 
-	public static void registerModels() {
+@Mod.EventBusSubscriber(Side.CLIENT)
+public final class ModelHandler {
+	@SubscribeEvent
+	public static void registerModels(ModelRegistryEvent evt) {
 		ModelLoaderRegistry.registerLoader(SpecialFlowerModel.Loader.INSTANCE);
 		OBJLoader.INSTANCE.addDomain(LibMisc.MOD_ID.toLowerCase(Locale.ROOT));
 
@@ -116,6 +97,7 @@ public final class ModelHandler {
 		BotaniaAPIClient.registerSubtileModel(SubTileSpectrolus.class, new ModelResourceLocation("botania:" + LibBlockNames.SUBTILE_SPECTROLUS));
 		BotaniaAPIClient.registerSubtileModel(SubTileDandelifeon.class, new ModelResourceLocation("botania:" + LibBlockNames.SUBTILE_DANDELIFEON));
 		BotaniaAPIClient.registerSubtileModel(SubTileRafflowsia.class, new ModelResourceLocation("botania:" + LibBlockNames.SUBTILE_RAFFLOWSIA));
+		BotaniaAPIClient.registerSubtileModel(SubTileShulkMeNot.class, new ModelResourceLocation("botania:" + LibBlockNames.SUBTILE_SHULK_ME_NOT));
 
 		BotaniaAPIClient.registerSubtileModel(SubTileBellethorn.class, new ModelResourceLocation("botania:" + LibBlockNames.SUBTILE_BELLETHORN));
 		BotaniaAPIClient.registerSubtileModel(SubTileBellethorn.Mini.class, new ModelResourceLocation("botania:" + LibBlockNames.SUBTILE_BELLETHORN + "Chibi"));
@@ -170,7 +152,7 @@ public final class ModelHandler {
 		}
 	}
 
-	private static final Map<RegistryDelegate<Block>, IStateMapper> customStateMappers = ReflectionHelper.getPrivateValue(ModelLoader.class, null, "customStateMappers");
+	private static final Map<IRegistryDelegate<Block>, IStateMapper> customStateMappers = ReflectionHelper.getPrivateValue(ModelLoader.class, null, "customStateMappers");
 	private static final DefaultStateMapper fallbackMapper = new DefaultStateMapper();
 
 	private static ModelResourceLocation getMrlForState(IBlockState state) {

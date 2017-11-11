@@ -1,0 +1,25 @@
+{
+  "result": {
+    "item": "botania:lens",
+    "data": 14
+  },
+  "pattern": [
+    " E ",
+    "WLW",
+    " E "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "E": {
+      "item": "#INGOTELVENELEMENTIUM"
+    },
+    "W": {
+      "item": "minecraft:wool",
+      "data": 32767
+    },
+    "L": {
+      "item": "botania:lens",
+      "data": 0
+    }
+  }
+}

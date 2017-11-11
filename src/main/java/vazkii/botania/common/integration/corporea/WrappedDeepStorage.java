@@ -9,9 +9,6 @@
  */
 package vazkii.botania.common.integration.corporea;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.wrapper.InvWrapper;
@@ -21,6 +18,9 @@ import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.api.corporea.IWrappedInventory;
 import vazkii.botania.api.corporea.InvWithLocation;
 import vazkii.botania.common.Botania;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Wrapper for StorageDrawers compatibility.
@@ -62,7 +62,7 @@ public class WrappedDeepStorage extends WrappedInventoryBase {
 			// for the case of barrel without contents set
 			return stacks;
 		}
-		int storedCount = prototype.stackSize;
+		int storedCount = prototype.getCount();
 
 		// WARNING: this code is very similar in all implementations of
 		// IWrappedInventory - keep it synch
@@ -73,7 +73,7 @@ public class WrappedDeepStorage extends WrappedInventoryBase {
 
 			if(rem > 0) {
 				ItemStack copy = prototype.copy();
-				copy.stackSize = rem;
+				copy.setCount(rem);
 				if(doit) {
 					stacks.addAll(breakDownBigStack(copy));
 				} else {
@@ -101,7 +101,7 @@ public class WrappedDeepStorage extends WrappedInventoryBase {
 	}
 
 	private void decreaseStoredCount(IDeepStorageUnit inventory, int rem) {
-		inventory.setStoredItemCount(inventory.getStoredItemType().stackSize - rem);
+		inventory.setStoredItemCount(inventory.getStoredItemType().getCount() - rem);
 	}
 
 	/**

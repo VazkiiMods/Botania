@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.item.material;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCarpet;
 import net.minecraft.block.BlockColored;
@@ -31,6 +29,8 @@ import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.common.item.Item16Colors;
 import vazkii.botania.common.lib.LibItemNames;
 
+import javax.annotation.Nonnull;
+
 public class ItemDye extends Item16Colors {
 
 	public ItemDye() {
@@ -39,13 +39,14 @@ public class ItemDye extends Item16Colors {
 
 	@Nonnull
 	@Override
-	public EnumActionResult onItemUse(ItemStack par1ItemStack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
+	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
+		ItemStack stack = player.getHeldItem(hand);
 		Block block = world.getBlockState(pos).getBlock();
-		EnumDyeColor color = EnumDyeColor.byMetadata(par1ItemStack.getItemDamage());
+		EnumDyeColor color = EnumDyeColor.byMetadata(stack.getItemDamage());
 		if(block == Blocks.WOOL && color != world.getBlockState(pos).getValue(BlockColored.COLOR)
 				|| block == Blocks.CARPET && color != world.getBlockState(pos).getValue(BlockCarpet.COLOR)) {
 			world.setBlockState(pos, world.getBlockState(pos).withProperty(block == Blocks.WOOL ? BlockColored.COLOR : BlockCarpet.COLOR, color), 1 | 2);
-			par1ItemStack.stackSize--;
+			stack.shrink(1);
 			return EnumActionResult.SUCCESS;
 		}
 
@@ -54,7 +55,7 @@ public class ItemDye extends Item16Colors {
 			IManaPool pool = (IManaPool) tile;
 			if(color != pool.getColor()) {
 				pool.setColor(color);
-				par1ItemStack.stackSize--;
+				stack.shrink(1);
 				return EnumActionResult.SUCCESS;
 			}
 		}
@@ -70,7 +71,7 @@ public class ItemDye extends Item16Colors {
 
 			if(!entitysheep.getSheared() && entitysheep.getFleeceColor() != i) {
 				entitysheep.setFleeceColor(i);
-				--stack.stackSize;
+				stack.shrink(1);
 			}
 
 			return true;

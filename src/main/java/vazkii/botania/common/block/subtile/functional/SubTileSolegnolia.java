@@ -10,16 +10,15 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
-import java.util.Collections;
-import java.util.Set;
-
 import com.google.common.collect.MapMaker;
-
 import net.minecraft.entity.Entity;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.lexicon.LexiconData;
+
+import java.util.Collections;
+import java.util.Set;
 
 public class SubTileSolegnolia extends SubTileFunctional {
 
@@ -45,7 +44,7 @@ public class SubTileSolegnolia extends SubTileFunctional {
 	public static boolean hasSolegnoliaAround(Entity e) {
 		return existingFlowers.stream()
 				.filter(f -> f.redstoneSignal == 0)
-				.filter(f -> f.supertile.getWorld() == e.worldObj)
+				.filter(f -> f.supertile.getWorld() == e.world)
 				.filter(f -> f.supertile.getWorld().getTileEntity(f.supertile.getPos()) == f.supertile)
 				.filter(f -> f.supertile.getDistanceSq(e.posX, e.posY, e.posZ) <= f.getRange() * f.getRange())
 				.findAny().isPresent();

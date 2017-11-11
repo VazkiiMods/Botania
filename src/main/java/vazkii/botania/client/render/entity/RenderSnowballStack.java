@@ -8,16 +8,15 @@
  */
 package vazkii.botania.client.render.entity;
 
-import java.util.function.Function;
-
-import javax.annotation.Nonnull;
-
 import net.minecraft.client.renderer.RenderItem;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.RenderSnowball;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+
+import javax.annotation.Nonnull;
+import java.util.function.Function;
 
 // Same as RenderSnowball, but ItemStack sensitive
 public class RenderSnowballStack<T extends Entity> extends RenderSnowball<T> {

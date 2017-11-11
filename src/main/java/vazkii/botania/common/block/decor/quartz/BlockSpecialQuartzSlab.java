@@ -10,10 +10,6 @@
  */
 package vazkii.botania.common.block.decor.quartz;
 
-import java.util.Random;
-
-import javax.annotation.Nonnull;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSlab;
 import net.minecraft.block.material.Material;
@@ -28,6 +24,9 @@ import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.block.decor.slabs.BlockModSlab;
 import vazkii.botania.common.lexicon.LexiconData;
+
+import javax.annotation.Nonnull;
+import java.util.Random;
 
 public class BlockSpecialQuartzSlab extends BlockModSlab {
 
@@ -86,13 +85,15 @@ public class BlockSpecialQuartzSlab extends BlockModSlab {
 		return new ItemStack(getSingleBlock());
 	}
 
+	@Nonnull
 	@Override
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
 		return Item.getItemFromBlock(getSingleBlock());
 	}
 
+	@Nonnull
 	@Override
-	public ItemStack createStackedBlock(@Nonnull IBlockState par1) {
+	public ItemStack getSilkTouchDrop(@Nonnull IBlockState par1) {
 		return new ItemStack(getSingleBlock());
 	}
 

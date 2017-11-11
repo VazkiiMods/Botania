@@ -1,0 +1,25 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "botania:crate",
+    "transform": "forge:default-block"
+  },
+  "variants": {
+    "pattern": {
+      "none": {},
+      "crafty_1_1": { "textures": { "side": "botania:blocks/crate_crafty_pattern_0" } },
+      "crafty_2_2": { "textures": { "side": "botania:blocks/crate_crafty_pattern_1" } },
+      "crafty_1_2": { "textures": { "side": "botania:blocks/crate_crafty_pattern_2" } },
+      "crafty_2_1": { "textures": { "side": "botania:blocks/crate_crafty_pattern_3" } },
+      "crafty_1_3": { "textures": { "side": "botania:blocks/crate_crafty_pattern_4" } },
+      "crafty_3_1": { "textures": { "side": "botania:blocks/crate_crafty_pattern_5" } },
+      "crafty_2_3": { "textures": { "side": "botania:blocks/crate_crafty_pattern_6" } },
+      "crafty_3_2": { "textures": { "side": "botania:blocks/crate_crafty_pattern_7" } },
+      "crafty_donut": { "textures": { "side": "botania:blocks/crate_crafty_pattern_8" } }
+    },
+    "variant": {
+      "open": { "textures": { "bottom": "botania:blocks/crate_open_bottom", "side": "botania:blocks/crate_open", "particle": "botania:blocks/crate_open" } },
+      "crafty": { "textures": { "bottom": "botania:blocks/crate_crafty_bottom", "side": "botania:blocks/crate_crafty", "particle": "botania:blocks/crate_crafty" } }
+    }
+  }
+}

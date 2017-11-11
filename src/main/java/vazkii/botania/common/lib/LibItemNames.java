@@ -53,7 +53,6 @@ public final class LibItemNames {
 	public static final String KNOCKBACK_BELT = "knockbackBelt";
 	public static final String ICE_PENDANT = "icePendant";
 	public static final String LAVA_PENDANT = "lavaPendant";
-	public static final String GOLDEN_LAUREL = "goldenLaurel";
 	public static final String MAGNET_RING = "magnetRing";
 	public static final String WATER_RING = "waterRing";
 	public static final String MINING_RING = "miningRing";
@@ -134,7 +133,6 @@ public final class LibItemNames {
 	public static final String THOR_RING = "thorRing";
 	public static final String ODIN_RING = "odinRing";
 	public static final String LOKI_RING = "lokiRing";
-	public static final String AESIR_RING = "aesirRing";
 	public static final String DICE = "dice";
 	public static final String KEEP_IVY = "keepIvy";
 	public static final String BLACK_HOLE_TALISMAN = "blackHoleTalisman";
@@ -206,7 +204,7 @@ public final class LibItemNames {
 			"elementium",
 			"pixieDust",
 			"dragonstone",
-			"prismarineShard",
+			"UNUSED",
 			"placeholder",
 			"redString",
 			"dreamwoodTwig",

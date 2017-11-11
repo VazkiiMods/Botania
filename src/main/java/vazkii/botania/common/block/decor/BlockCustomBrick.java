@@ -10,22 +10,17 @@
  */
 package vazkii.botania.common.block.decor;
 
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.lexicon.ILexiconable;
@@ -34,9 +29,10 @@ import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.CustomBrickVariant;
 import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.block.BlockMod;
-import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
+
+import javax.annotation.Nonnull;
 
 public class BlockCustomBrick extends BlockMod implements ILexiconable {
 
@@ -45,17 +41,13 @@ public class BlockCustomBrick extends BlockMod implements ILexiconable {
 		setHardness(2.0F);
 		setResistance(5.0F);
 		setSoundType(SoundType.STONE);
+		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.CUSTOMBRICK_VARIANT, CustomBrickVariant.AZULEJO_0));
 	}
 
 	@Nonnull
 	@Override
 	public BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, BotaniaStateProps.CUSTOMBRICK_VARIANT);
-	}
-
-	@Override
-	protected IBlockState pickDefaultState() {
-		return blockState.getBaseState().withProperty(BotaniaStateProps.CUSTOMBRICK_VARIANT, CustomBrickVariant.HELLISH_BRICK);
 	}
 
 	@Override
@@ -78,15 +70,9 @@ public class BlockCustomBrick extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public void registerItemForm() {
-		GameRegistry.register(new ItemBlockWithMetadataAndName(this), getRegistryName());
-	}
-
-	@SideOnly(Side.CLIENT)
-	@Override
-	public void getSubBlocks(@Nonnull Item item, CreativeTabs tab, List<ItemStack> stacks) {
-		for(int i = 4; i < CustomBrickVariant.values().length; i++)
-			stacks.add(new ItemStack(item, 1, i));
+	public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> stacks) {
+		for(int i = 0; i < CustomBrickVariant.values().length; i++)
+			stacks.add(new ItemStack(this, 1, i));
 	}
 
 	@Nonnull
@@ -97,8 +83,7 @@ public class BlockCustomBrick extends BlockMod implements ILexiconable {
 
 	@Override
 	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
-		CustomBrickVariant variant = world.getBlockState(pos).getValue(BotaniaStateProps.CUSTOMBRICK_VARIANT);
-		return variant.getName().contains("azulejo") ? LexiconData.azulejo : LexiconData.decorativeBlocks;
+		return LexiconData.azulejo;
 	}
 
 	@SideOnly(Side.CLIENT)

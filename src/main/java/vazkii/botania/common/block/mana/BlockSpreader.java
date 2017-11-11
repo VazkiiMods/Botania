@@ -10,13 +10,9 @@
  */
 package vazkii.botania.common.block.mana;
 
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
-import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -31,12 +27,14 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.items.ItemHandlerHelper;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.mana.ILens;
@@ -50,9 +48,10 @@ import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.mana.TileSpreader;
 import vazkii.botania.common.core.helper.InventoryHelper;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
+
+import javax.annotation.Nonnull;
 
 public class BlockSpreader extends BlockMod implements IWandable, IWandHUD, ILexiconable, IWireframeAABBProvider {
 
@@ -60,17 +59,13 @@ public class BlockSpreader extends BlockMod implements IWandable, IWandHUD, ILex
 		super(Material.WOOD, LibBlockNames.SPREADER);
 		setHardness(2.0F);
 		setSoundType(SoundType.WOOD);
+		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.SPREADER_VARIANT, SpreaderVariant.MANA));
 	}
 
 	@Nonnull
 	@Override
 	public BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, BotaniaStateProps.SPREADER_VARIANT);
-	}
-
-	@Override
-	protected IBlockState pickDefaultState() {
-		return blockState.getBaseState().withProperty(BotaniaStateProps.SPREADER_VARIANT, SpreaderVariant.MANA);
 	}
 
 	@Override
@@ -88,20 +83,14 @@ public class BlockSpreader extends BlockMod implements IWandable, IWandHUD, ILex
 	}
 
 	@Override
-	public void registerItemForm() {
-		GameRegistry.register(new ItemBlockWithMetadataAndName(this), getRegistryName());
-	}
-
-	@SideOnly(Side.CLIENT)
-	@Override
-	public void getSubBlocks(@Nonnull Item item, CreativeTabs par2, List<ItemStack> par3) {
+	public void getSubBlocks(CreativeTabs par2, NonNullList<ItemStack> par3) {
 		for(int i = 0; i < 4; i++)
-			par3.add(new ItemStack(item, 1, i));
+			par3.add(new ItemStack(this, 1, i));
 	}
 
 	@Override
 	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase par5EntityLivingBase, ItemStack par6ItemStack) {
-		EnumFacing orientation = BlockPistonBase.getFacingFromEntity(pos, par5EntityLivingBase);
+		EnumFacing orientation = EnumFacing.getDirectionFromEntityLiving(pos, par5EntityLivingBase);
 		TileSpreader spreader = (TileSpreader) world.getTileEntity(pos);
 		world.setBlockState(pos, getStateFromMeta(par6ItemStack.getItemDamage()), 1 | 2);
 
@@ -148,43 +137,41 @@ public class BlockSpreader extends BlockMod implements IWandable, IWandHUD, ILex
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack heldItem, EnumFacing par6, float par7, float par8, float par9) {
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing par6, float par7, float par8, float par9) {
 		TileEntity tile = world.getTileEntity(pos);
 		if(!(tile instanceof TileSpreader))
 			return false;
 
 		TileSpreader spreader = (TileSpreader) tile;
 		ItemStack lens = spreader.getItemHandler().getStackInSlot(0);
-		boolean isHeldItemLens = heldItem != null && heldItem.getItem() instanceof ILens;
-		boolean wool = heldItem != null && heldItem.getItem() == Item.getItemFromBlock(Blocks.WOOL);
+		ItemStack heldItem = player.getHeldItem(hand);
+		boolean isHeldItemLens = !heldItem.isEmpty() && heldItem.getItem() instanceof ILens;
+		boolean wool = !heldItem.isEmpty() && heldItem.getItem() == Item.getItemFromBlock(Blocks.WOOL);
 
-		if(heldItem != null)
+		if(!heldItem.isEmpty())
 			if(heldItem.getItem() == ModItems.twigWand)
 				return false;
 
-		if(lens == null && isHeldItemLens) {
+		if(lens.isEmpty() && isHeldItemLens) {
 			if (!player.capabilities.isCreativeMode)
-				player.setHeldItem(hand, null);
+				player.setHeldItem(hand, ItemStack.EMPTY);
 
 			spreader.getItemHandler().setStackInSlot(0, heldItem.copy());
 			spreader.markDirty();
-		} else if(lens != null && !wool) {
-			ItemStack add = lens.copy();
-			if(!player.inventory.addItemStackToInventory(add))
-				player.dropItem(add, false);
-			spreader.getItemHandler().setStackInSlot(0, null);
+		} else if(!lens.isEmpty() && !wool) {
+			ItemHandlerHelper.giveItemToPlayer(player, lens);
+			spreader.getItemHandler().setStackInSlot(0, ItemStack.EMPTY);
 			spreader.markDirty();
 		}
 
 		if(wool && spreader.paddingColor == -1) {
 			spreader.paddingColor = heldItem.getItemDamage();
-			heldItem.stackSize--;
-			if(heldItem.stackSize == 0)
-				player.setHeldItem(hand, null);
-		} else if(heldItem == null && spreader.paddingColor != -1 && lens == null) {
+			heldItem.shrink(1);
+			if(heldItem.isEmpty())
+				player.setHeldItem(hand, ItemStack.EMPTY);
+		} else if(heldItem.isEmpty() && spreader.paddingColor != -1 && lens.isEmpty()) {
 			ItemStack pad = new ItemStack(Blocks.WOOL, 1, spreader.paddingColor);
-			if(!player.inventory.addItemStackToInventory(pad))
-				player.dropItem(pad, false);
+			ItemHandlerHelper.giveItemToPlayer(player, pad);
 			spreader.paddingColor = -1;
 			spreader.markDirty();
 		}
@@ -239,7 +226,7 @@ public class BlockSpreader extends BlockMod implements IWandable, IWandHUD, ILex
 
 	@Override
 	public AxisAlignedBB getWireframeAABB(World world, BlockPos pos) {
-		return FULL_BLOCK_AABB.offset(pos).contract(1.0/16.0);
+		return FULL_BLOCK_AABB.offset(pos).shrink(1.0/16.0);
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -248,4 +235,9 @@ public class BlockSpreader extends BlockMod implements IWandable, IWandHUD, ILex
 		ModelHandler.registerBlockToState(this, SpreaderVariant.values().length);
 	}
 
+	@Nonnull
+	@Override
+	public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing side) {
+		return BlockFaceShape.UNDEFINED;
+	}
 }

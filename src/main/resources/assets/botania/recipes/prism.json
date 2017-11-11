@@ -1,0 +1,23 @@
+{
+  "result": {
+    "item": "botania:prism"
+  },
+  "pattern": [
+    "GPG",
+    "GSG",
+    "GPG"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "P": {
+      "item": "#GEMPRISMARINE"
+    },
+    "S": {
+      "item": "botania:platform",
+      "data": 1
+    },
+    "G": {
+      "item": "#BLOCKGLASSCOLORLESS"
+    }
+  }
+}

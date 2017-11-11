@@ -1,0 +1,23 @@
+{
+  "result": {
+    "item": "botania:blackholetalisman",
+    "data": 0
+  },
+  "pattern": [
+    " G ",
+    "EAE",
+    " E "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "A": {
+      "item": "#BENDERAIRBOTTLE"
+    },
+    "E": {
+      "item": "#INGOTELVENELEMENTIUM"
+    },
+    "G": {
+      "item": "#ETERNALLIFEESSENCE"
+    }
+  }
+}

@@ -10,9 +10,6 @@
  */
 package vazkii.botania.common.item;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import baubles.api.IBauble;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -37,6 +34,9 @@ import vazkii.botania.common.Botania;
 import vazkii.botania.common.lib.LibGuiIDs;
 import vazkii.botania.common.lib.LibItemNames;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 public class ItemBaubleBox extends ItemMod {
 
 	private static final String TAG_ITEMS = "InvItems";
@@ -55,9 +55,10 @@ public class ItemBaubleBox extends ItemMod {
 	private static class InvProvider implements ICapabilitySerializable<NBTBase> {
 
 		private final IItemHandler inv = new ItemStackHandler(24) {
+			@Nonnull
 			@Override
-			public ItemStack insertItem(int slot, ItemStack toInsert, boolean simulate) {
-				if(toInsert != null &&
+			public ItemStack insertItem(int slot, @Nonnull ItemStack toInsert, boolean simulate) {
+				if(!toInsert.isEmpty() &&
 						(toInsert.getItem() instanceof IManaItem
 								|| toInsert.getItem() instanceof IBauble))
 					return super.insertItem(slot, toInsert, simulate);
@@ -66,12 +67,12 @@ public class ItemBaubleBox extends ItemMod {
 		};
 
 		@Override
-		public boolean hasCapability(Capability<?> capability, @Nullable EnumFacing facing) {
+		public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {
 			return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY;
 		}
 
 		@Override
-		public <T> T getCapability(Capability<T> capability, @Nullable EnumFacing facing) {
+		public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
 			if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
 				return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(inv);
 			else return null;
@@ -105,9 +106,9 @@ public class ItemBaubleBox extends ItemMod {
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
 		player.openGui(Botania.instance, LibGuiIDs.BAUBLE_BOX, world, hand == EnumHand.OFF_HAND ? 1 : 0, 0, 0);
-		return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
+		return ActionResult.newResult(EnumActionResult.SUCCESS, player.getHeldItem(hand));
 	}
 
 }

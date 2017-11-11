@@ -10,10 +10,6 @@
  */
 package vazkii.botania.common.block.subtile.generating;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.Material;
@@ -34,6 +30,10 @@ import vazkii.botania.api.subtile.SubTileGenerating;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lexicon.LexiconData;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public class SubTileHydroangeas extends SubTileGenerating {
 
@@ -179,7 +179,7 @@ public class SubTileHydroangeas extends SubTileGenerating {
 
 	@Override
 	public int getDelayBetweenPassiveGeneration() {
-		boolean rain = supertile.getWorld().getBiomeGenForCoords(supertile.getPos()).getRainfall() > 0 && (supertile.getWorld().isRaining() || supertile.getWorld().isThundering());
+		boolean rain = supertile.getWorld().getBiome(supertile.getPos()).getRainfall() > 0 && (supertile.getWorld().isRaining() || supertile.getWorld().isThundering());
 		return rain ? 2 : 3;
 	}
 

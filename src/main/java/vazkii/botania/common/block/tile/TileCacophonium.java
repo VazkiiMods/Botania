@@ -19,10 +19,10 @@ public class TileCacophonium extends TileMod {
 
 	private static final String TAG_STACK = "stack";
 
-	public ItemStack stack;
+	public ItemStack stack = ItemStack.EMPTY;
 
 	public void annoyDirewolf() {
-		ItemCacophonium.playSound(worldObj, stack, pos.getX(), pos.getY(), pos.getZ(), SoundCategory.BLOCKS, 1F);
+		ItemCacophonium.playSound(world, stack, pos.getX(), pos.getY(), pos.getZ(), SoundCategory.BLOCKS, 1F);
 	}
 
 	@Override
@@ -30,8 +30,8 @@ public class TileCacophonium extends TileMod {
 		super.writePacketNBT(cmp);
 
 		NBTTagCompound cmp1 = new NBTTagCompound();
-		if(stack != null)
-			stack.writeToNBT(cmp1);
+		if(!stack.isEmpty())
+			cmp1 = stack.writeToNBT(cmp1);
 		cmp.setTag(TAG_STACK, cmp1);
 	}
 
@@ -40,7 +40,7 @@ public class TileCacophonium extends TileMod {
 		super.readPacketNBT(cmp);
 
 		NBTTagCompound cmp1 = cmp.getCompoundTag(TAG_STACK);
-		stack = ItemStack.loadItemStackFromNBT(cmp1);
+		stack = new ItemStack(cmp1);
 	}
 
 }

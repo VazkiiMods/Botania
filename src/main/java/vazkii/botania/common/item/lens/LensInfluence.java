@@ -10,10 +10,7 @@
  */
 package vazkii.botania.common.item.lens;
 
-import java.util.List;
-
 import com.google.common.base.Predicates;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityFallingBlock;
 import net.minecraft.entity.item.EntityItem;
@@ -25,17 +22,19 @@ import net.minecraft.util.math.AxisAlignedBB;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.common.item.ModItems;
 
+import java.util.List;
+
 public class LensInfluence extends Lens {
 
 	@Override
 	public void updateBurst(IManaBurst burst, EntityThrowable entity, ItemStack stack) {
 		if(!burst.isFake()) {
 			double range = 3.5;
-			List<Entity> movables = entity.worldObj.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(entity.posX - range, entity.posY - range, entity.posZ - range, entity.posX + range, entity.posY + range, entity.posZ + range));
-			movables.addAll(entity.worldObj.getEntitiesWithinAABB(EntityXPOrb.class, new AxisAlignedBB(entity.posX - range, entity.posY - range, entity.posZ - range, entity.posX + range, entity.posY + range, entity.posZ + range)));
-			movables.addAll(entity.worldObj.getEntitiesWithinAABB(EntityArrow.class, new AxisAlignedBB(entity.posX - range, entity.posY - range, entity.posZ - range, entity.posX + range, entity.posY + range, entity.posZ + range)));
-			movables.addAll(entity.worldObj.getEntitiesWithinAABB(EntityFallingBlock.class, new AxisAlignedBB(entity.posX - range, entity.posY - range, entity.posZ - range, entity.posX + range, entity.posY + range, entity.posZ + range)));
-			movables.addAll(entity.worldObj.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(entity.posX - range, entity.posY - range, entity.posZ - range, entity.posX + range, entity.posY + range, entity.posZ + range), Predicates.instanceOf(IManaBurst.class)));
+			List<Entity> movables = entity.world.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(entity.posX - range, entity.posY - range, entity.posZ - range, entity.posX + range, entity.posY + range, entity.posZ + range));
+			movables.addAll(entity.world.getEntitiesWithinAABB(EntityXPOrb.class, new AxisAlignedBB(entity.posX - range, entity.posY - range, entity.posZ - range, entity.posX + range, entity.posY + range, entity.posZ + range)));
+			movables.addAll(entity.world.getEntitiesWithinAABB(EntityArrow.class, new AxisAlignedBB(entity.posX - range, entity.posY - range, entity.posZ - range, entity.posX + range, entity.posY + range, entity.posZ + range)));
+			movables.addAll(entity.world.getEntitiesWithinAABB(EntityFallingBlock.class, new AxisAlignedBB(entity.posX - range, entity.posY - range, entity.posZ - range, entity.posX + range, entity.posY + range, entity.posZ + range)));
+			movables.addAll(entity.world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(entity.posX - range, entity.posY - range, entity.posZ - range, entity.posX + range, entity.posY + range, entity.posZ + range), Predicates.instanceOf(IManaBurst.class)));
 
 			for(Entity movable : movables) {
 				if(movable == burst)

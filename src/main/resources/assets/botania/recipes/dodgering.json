@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "botania:dodgering"
+  },
+  "pattern": [
+    "EM ",
+    "M M",
+    " MR"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "R": {
+      "item": "#RUNEAIRB"
+    },
+    "E": {
+      "item": "#GEMEMERALD"
+    },
+    "M": {
+      "item": "#INGOTMANASTEEL"
+    }
+  }
+}

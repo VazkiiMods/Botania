@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.block.tile.mana;
 
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
@@ -21,6 +19,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.text.TextFormatting;
+import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.block.tile.TileMod;
 
@@ -37,19 +36,19 @@ public class TileTurntable extends TileMod {
 		boolean redstone = false;
 
 		for(EnumFacing dir : EnumFacing.VALUES) {
-			int redstoneSide = worldObj.getRedstonePower(pos.offset(dir), dir);
+			int redstoneSide = world.getRedstonePower(pos.offset(dir), dir);
 			if(redstoneSide > 0)
 				redstone = true;
 		}
 
 		if(!redstone) {
-			TileEntity tile = worldObj.getTileEntity(pos.up());
+			TileEntity tile = world.getTileEntity(pos.up());
 			if(tile instanceof TileSpreader) {
 				TileSpreader spreader = (TileSpreader) tile;
 				spreader.rotationX += speed * (backwards ? -1 : 1);
 				if(spreader.rotationX >= 360F)
 					spreader.rotationX -= 360F;
-				if(!worldObj.isRemote)
+				if(!world.isRemote)
 					spreader.checkForReceiver();
 			}
 		}
@@ -74,7 +73,7 @@ public class TileTurntable extends TileMod {
 		if(player.isSneaking())
 			backwards = !backwards;
 		else speed = speed == 6 ? 1 : speed + 1;
-		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, pos);
+		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, pos);
 	}
 
 	public void renderHUD(Minecraft mc, ScaledResolution res) {
@@ -85,11 +84,11 @@ public class TileTurntable extends TileMod {
 		for(int i = 0; i < this.speed; i++)
 			speed = speed + motion;
 
-		int x = res.getScaledWidth() / 2 - mc.fontRendererObj.getStringWidth(speed) / 2;
+		int x = res.getScaledWidth() / 2 - mc.fontRenderer.getStringWidth(speed) / 2;
 		int y = res.getScaledHeight() / 2 - 15;
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		mc.fontRendererObj.drawStringWithShadow(speed, x, y, color);
+		mc.fontRenderer.drawStringWithShadow(speed, x, y, color);
 		GlStateManager.disableBlend();
 	}
 

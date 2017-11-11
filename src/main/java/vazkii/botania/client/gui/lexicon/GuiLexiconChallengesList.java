@@ -10,9 +10,6 @@
  */
 package vazkii.botania.client.gui.lexicon;
 
-import java.io.IOException;
-import java.util.List;
-
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.text.TextFormatting;
@@ -23,10 +20,13 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonBack;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonChallengeIcon;
 
+import java.io.IOException;
+import java.util.List;
+
 public class GuiLexiconChallengesList extends GuiLexicon implements IParented {
 
-	GuiLexicon parent;
-	GuiButton backButton;
+	private GuiLexicon parent;
+	private GuiButton backButton;
 
 	public GuiLexiconChallengesList() {
 		parent = new GuiLexicon();
@@ -55,11 +55,11 @@ public class GuiLexiconChallengesList extends GuiLexicon implements IParented {
 	}
 
 	@Override
-	public void drawScreenAfterScale(int par1, int par2, float par3) {
-		super.drawScreenAfterScale(par1, par2, par3);
+	public void drawScreenAfterScale(int xCoord, int yCoord, float newPartialTicks) {
+		super.drawScreenAfterScale(xCoord, yCoord, newPartialTicks);
 
-		boolean unicode = fontRendererObj.getUnicodeFlag();
-		fontRendererObj.setUnicodeFlag(true);
+		boolean unicode = fontRenderer.getUnicodeFlag();
+		fontRenderer.setUnicodeFlag(true);
 		for(EnumChallengeLevel level : EnumChallengeLevel.class.getEnumConstants()) {
 			List<Challenge> list = ModChallenges.challenges.get(level);
 			int complete = 0;
@@ -67,9 +67,9 @@ public class GuiLexiconChallengesList extends GuiLexicon implements IParented {
 				if(c.complete)
 					complete++;
 
-			fontRendererObj.drawString(TextFormatting.BOLD + I18n.format(level.getName()) + TextFormatting.RESET + " (" + complete + "/" + list.size() + ")", left + 20, top + 11 + level.ordinal() * 44, 0);
+			fontRenderer.drawString(TextFormatting.BOLD + I18n.format(level.getName()) + TextFormatting.RESET + " (" + complete + "/" + list.size() + ")", left + 20, top + 11 + level.ordinal() * 44, 0);
 		}
-		fontRendererObj.setUnicodeFlag(unicode);
+		fontRenderer.setUnicodeFlag(unicode);
 	}
 
 	@Override
@@ -106,7 +106,7 @@ public class GuiLexiconChallengesList extends GuiLexicon implements IParented {
 			notesEnabled = !notesEnabled;
 	}
 
-	void back() {
+	private void back() {
 		if(backButton.enabled) {
 			actionPerformed(backButton);
 			backButton.playPressSound(mc.getSoundHandler());

@@ -10,12 +10,12 @@
  */
 package vazkii.botania.common.block.tile;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import vazkii.botania.common.block.subtile.functional.SubTileBubbell;
+
+import javax.annotation.Nonnull;
 
 public class TileFakeAir extends TileMod {
 
@@ -30,7 +30,7 @@ public class TileFakeAir extends TileMod {
 	}
 
 	public boolean canStay() {
-		return SubTileBubbell.isValidBubbell(worldObj, flowerPos);
+		return SubTileBubbell.isValidBubbell(world, flowerPos);
 	}
 
 	@Nonnull

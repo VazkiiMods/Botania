@@ -10,17 +10,6 @@
  */
 package vazkii.botania.client.core.handler;
 
-import java.util.Map;
-import java.util.UUID;
-
-import org.lwjgl.opengl.ARBFragmentShader;
-import org.lwjgl.opengl.ContextCapabilities;
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL20;
-import org.lwjgl.opengl.GLContext;
-
-import com.google.common.base.Optional;
-
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
@@ -31,12 +20,24 @@ import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.common.property.IUnlistedProperty;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import org.lwjgl.opengl.ARBFragmentShader;
+import org.lwjgl.opengl.ContextCapabilities;
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL20;
+import org.lwjgl.opengl.GLContext;
 import vazkii.botania.client.fx.ParticleRenderDispatcher;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.ManaNetworkHandler;
 import vazkii.botania.common.lib.LibMisc;
 
+import java.util.Map;
+import java.util.Optional;
+import java.util.UUID;
+
+@Mod.EventBusSubscriber(Side.CLIENT)
 public final class DebugHandler {
 
 	private DebugHandler() {}
@@ -45,7 +46,7 @@ public final class DebugHandler {
 
 	@SubscribeEvent
 	public static void onDrawDebugText(RenderGameOverlayEvent.Text event) {
-		World world = Minecraft.getMinecraft().theWorld;
+		World world = Minecraft.getMinecraft().world;
 		if(Minecraft.getMinecraft().gameSettings.showDebugInfo) {
 			event.getLeft().add("");
 			String version = LibMisc.VERSION;
@@ -56,10 +57,10 @@ public final class DebugHandler {
 			event.getLeft().add(PREFIX + "(CLIENT) netColl: " + ManaNetworkHandler.instance.getAllCollectorsInWorld(world).size() + ", netPool: " + ManaNetworkHandler.instance.getAllPoolsInWorld(world).size() + ", rv: " + version);
 
 			if (Minecraft.getMinecraft().isSingleplayer()) {
-				UUID id = Minecraft.getMinecraft().thePlayer.getUniqueID();
+				UUID id = Minecraft.getMinecraft().player.getUniqueID();
 				Entity ent = Minecraft.getMinecraft().getIntegratedServer().getEntityFromUuid(id);
 				if (ent != null) {
-					World serverWorld = Minecraft.getMinecraft().getIntegratedServer().getEntityFromUuid(id).worldObj;
+					World serverWorld = Minecraft.getMinecraft().getIntegratedServer().getEntityFromUuid(id).world;
 					event.getLeft().add(PREFIX + String.format("(INTEGRATED SERVER DIM %d) netColl : %d, netPool: %d", serverWorld.provider.getDimension(), ManaNetworkHandler.instance.getAllCollectorsInWorld(serverWorld).size(), ManaNetworkHandler.instance.getAllPoolsInWorld(serverWorld).size()));
 				}
 			}
@@ -88,7 +89,7 @@ public final class DebugHandler {
 					if (state instanceof IExtendedBlockState) {
 						try {
 							for (Map.Entry<IUnlistedProperty<?>, Optional<?>> e : ((IExtendedBlockState) state).getUnlistedProperties().entrySet()) {
-								event.getRight().add(TextFormatting.LIGHT_PURPLE + e.getKey().getName() + ": " + TextFormatting.RESET + e.getValue().orNull());
+								event.getRight().add(TextFormatting.LIGHT_PURPLE + e.getKey().getName() + ": " + TextFormatting.RESET + e.getValue().orElse(null));
 							}
 						} catch (Throwable t) {
 							event.getRight().add("Error getting extended state");

@@ -10,19 +10,26 @@
  */
 package vazkii.botania.common.crafting.recipe;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.init.Items;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
+import net.minecraftforge.registries.IForgeRegistryEntry;
 import vazkii.botania.api.mana.ICompositableLens;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.lens.ItemLens;
 
-public class CompositeLensRecipe implements IRecipe {
+import javax.annotation.Nonnull;
+
+public class CompositeLensRecipe extends IForgeRegistryEntry.Impl<IRecipe> implements IRecipe {
+
+	@Override
+	public boolean isHidden() {
+		return true;
+	}
 
 	@Override
 	public boolean matches(@Nonnull InventoryCrafting var1, @Nonnull World var2) {
@@ -32,7 +39,7 @@ public class CompositeLensRecipe implements IRecipe {
 
 		for(int i = 0; i < var1.getSizeInventory(); i++) {
 			ItemStack stack = var1.getStackInSlot(i);
-			if(stack != null) {
+			if(!stack.isEmpty()) {
 				if(stack.getItem() instanceof ICompositableLens && !foundSecondLens) {
 					if(foundLens)
 						foundSecondLens = true;
@@ -46,16 +53,17 @@ public class CompositeLensRecipe implements IRecipe {
 		return foundSecondLens && foundSlimeball;
 	}
 
+	@Nonnull
 	@Override
 	public ItemStack getCraftingResult(@Nonnull InventoryCrafting var1) {
-		ItemStack lens = null;
-		ItemStack secondLens = null;
+		ItemStack lens = ItemStack.EMPTY;
+		ItemStack secondLens = ItemStack.EMPTY;
 
 		for(int i = 0; i < var1.getSizeInventory(); i++) {
 			ItemStack stack = var1.getStackInSlot(i);
-			if(stack != null) {
+			if(!stack.isEmpty()) {
 				if(stack.getItem() instanceof ICompositableLens)
-					if(lens == null)
+					if(lens.isEmpty())
 						lens = stack;
 					else secondLens = stack;
 			}
@@ -63,8 +71,8 @@ public class CompositeLensRecipe implements IRecipe {
 
 		if(lens.getItem() instanceof ICompositableLens) {
 			ICompositableLens lensItem = (ICompositableLens) lens.getItem();
-			if(secondLens == null || !lensItem.canCombineLenses(lens, secondLens) || lensItem.getCompositeLens(lens) != null || lensItem.getCompositeLens(secondLens) != null)
-				return null;
+			if(secondLens.isEmpty() || !lensItem.canCombineLenses(lens, secondLens) || !lensItem.getCompositeLens(lens).isEmpty() || !lensItem.getCompositeLens(secondLens).isEmpty())
+				return ItemStack.EMPTY;
 
 			ItemStack lensCopy = lens.copy();
 			((ItemLens) ModItems.lens).setCompositeLens(lensCopy, secondLens);
@@ -72,22 +80,23 @@ public class CompositeLensRecipe implements IRecipe {
 			return lensCopy;
 		}
 
-		return null;
+		return ItemStack.EMPTY;
 	}
 
 	@Override
-	public int getRecipeSize() {
-		return 10;
-	}
-
-	@Override
-	public ItemStack getRecipeOutput() {
-		return null;
+	public boolean canFit(int width, int height) {
+		return width * height >= 3;
 	}
 
 	@Nonnull
 	@Override
-	public ItemStack[] getRemainingItems(@Nonnull InventoryCrafting inv) {
+	public ItemStack getRecipeOutput() {
+		return ItemStack.EMPTY;
+	}
+
+	@Nonnull
+	@Override
+	public NonNullList<ItemStack> getRemainingItems(@Nonnull InventoryCrafting inv) {
 		return ForgeHooks.defaultRecipeGetRemainingItems(inv);
 	}
 }

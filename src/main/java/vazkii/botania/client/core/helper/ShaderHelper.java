@@ -10,22 +10,26 @@
  */
 package vazkii.botania.client.core.helper;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.stream.Collectors;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.OpenGlHelper;
+import net.minecraft.client.resources.SimpleReloadableResourceManager;
+import net.minecraftforge.fml.common.Loader;
 
 import org.lwjgl.opengl.ARBFragmentShader;
 import org.lwjgl.opengl.ARBShaderObjects;
 import org.lwjgl.opengl.ARBVertexShader;
 import org.lwjgl.opengl.GL11;
-
-import net.minecraft.client.renderer.OpenGlHelper;
 import vazkii.botania.api.internal.ShaderCallback;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.ConfigHandler;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.stream.Collectors;
 
 public final class ShaderHelper {
 
@@ -43,8 +47,38 @@ public final class ShaderHelper {
 	public static int gold = 0;
 	public static int categoryButton = 0;
 	public static int alpha = 0;
+	
+	private static boolean hasIncompatibleMods = false;
+	private static boolean checkedIncompatibility = false;
+	private static boolean lighting;
+
+	private static void deleteShader(int id) {
+		if (id != 0) {
+			ARBShaderObjects.glDeleteObjectARB(id);
+		}
+	}
 
 	public static void initShaders() {
+		if (Minecraft.getMinecraft().getResourceManager() instanceof SimpleReloadableResourceManager) {
+			((SimpleReloadableResourceManager) Minecraft.getMinecraft().getResourceManager()).registerReloadListener(manager -> {
+				deleteShader(pylonGlow); pylonGlow = 0;
+				deleteShader(enchanterRune); enchanterRune = 0;
+				deleteShader(manaPool); manaPool = 0;
+				deleteShader(doppleganger); doppleganger = 0;
+				deleteShader(halo); halo = 0;
+				deleteShader(dopplegangerBar); dopplegangerBar = 0;
+				deleteShader(terraPlateRune); terraPlateRune = 0;
+				deleteShader(filmGrain); filmGrain = 0;
+				deleteShader(gold); gold = 0;
+				deleteShader(categoryButton); categoryButton = 0;
+				deleteShader(alpha); alpha = 0;
+
+				loadShaders();
+			});
+		}
+	}
+
+	private static void loadShaders() {
 		if(!useShaders())
 			return;
 
@@ -65,6 +99,9 @@ public final class ShaderHelper {
 		if(!useShaders())
 			return;
 
+		lighting = GL11.glGetBoolean(GL11.GL_LIGHTING);
+		GlStateManager.disableLighting();
+		
 		ARBShaderObjects.glUseProgramObjectARB(shader);
 
 		if(shader != 0) {
@@ -81,11 +118,22 @@ public final class ShaderHelper {
 	}
 
 	public static void releaseShader() {
+		if(lighting)
+			GlStateManager.enableLighting();
 		useShader(0);
 	}
 
 	public static boolean useShaders() {
-		return ConfigHandler.useShaders && OpenGlHelper.shadersSupported;
+		return ConfigHandler.useShaders && OpenGlHelper.shadersSupported && checkIncompatibleMods();
+	}
+	
+	private static boolean checkIncompatibleMods() {
+		if(!checkedIncompatibility) {
+			hasIncompatibleMods = Loader.isModLoaded("optifine");
+			checkedIncompatibility = true;
+		}
+		
+		return !hasIncompatibleMods;
 	}
 
 	// Most of the code taken from the LWJGL wiki

@@ -26,17 +26,17 @@ public class LensLight extends Lens {
 	@Override
 	public boolean collideBurst(IManaBurst burst, EntityThrowable entity, RayTraceResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
 		BlockPos coords = burst.getBurstSourceBlockPos();
-		if(!entity.worldObj.isRemote && pos.getBlockPos() != null && !coords.equals(pos.getBlockPos()) && !burst.isFake() && !isManaBlock) {
+		if(!entity.world.isRemote && pos.getBlockPos() != null && !coords.equals(pos.getBlockPos()) && !burst.isFake() && !isManaBlock) {
 			BlockPos pos_ = pos.getBlockPos().offset(pos.sideHit);
 
-			Block blockAt = entity.worldObj.getBlockState(pos.getBlockPos()).getBlock();
-			Block blockAt_ = entity.worldObj.getBlockState(pos_).getBlock();
+			Block blockAt = entity.world.getBlockState(pos.getBlockPos()).getBlock();
+			Block blockAt_ = entity.world.getBlockState(pos_).getBlock();
 
 			if(blockAt == ModBlocks.manaFlame)
-				entity.worldObj.setBlockState(pos.getBlockPos(), Blocks.AIR.getDefaultState());
-			else if(blockAt_.isAir(entity.worldObj.getBlockState(pos_), entity.worldObj, pos_) || blockAt_.isReplaceable(entity.worldObj, pos_)) {
-				entity.worldObj.setBlockState(pos_, ModBlocks.manaFlame.getDefaultState());
-				TileEntity tile = entity.worldObj.getTileEntity(pos_);
+				entity.world.setBlockState(pos.getBlockPos(), Blocks.AIR.getDefaultState());
+			else if(blockAt_.isAir(entity.world.getBlockState(pos_), entity.world, pos_) || blockAt_.isReplaceable(entity.world, pos_)) {
+				entity.world.setBlockState(pos_, ModBlocks.manaFlame.getDefaultState());
+				TileEntity tile = entity.world.getTileEntity(pos_);
 
 				if(tile instanceof TileManaFlame)
 					((TileManaFlame) tile).setColor(burst.getColor());

@@ -1,0 +1,27 @@
+{
+  "result": {
+    "item": "botania:waterring"
+  },
+  "pattern": [
+    "WMP",
+    "M M",
+    "SM "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "P": {
+      "item": "minecraft:fish",
+      "data": 3
+    },
+    "S": {
+      "item": "minecraft:fish",
+      "data": 1
+    },
+    "W": {
+      "item": "#RUNEWATERB"
+    },
+    "M": {
+      "item": "#INGOTMANASTEEL"
+    }
+  }
+}

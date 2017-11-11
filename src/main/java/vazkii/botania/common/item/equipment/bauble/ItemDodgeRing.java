@@ -18,7 +18,6 @@ import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.common.MinecraftForge;
@@ -27,6 +26,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent.KeyInputEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.items.IItemHandler;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.Vector3;
@@ -53,11 +53,11 @@ public class ItemDodgeRing extends ItemBauble {
 	public void onKeyDown(KeyInputEvent event) {
 		Minecraft mc = Minecraft.getMinecraft();
 
-		IInventory baublesInv = BaublesApi.getBaubles(mc.thePlayer);
+		IItemHandler baublesInv = BaublesApi.getBaublesHandler(mc.player);
 		ItemStack ringStack = baublesInv.getStackInSlot(1);
-		if(ringStack == null || !(ringStack.getItem() instanceof ItemDodgeRing)) {
+		if(ringStack.isEmpty() || !(ringStack.getItem() instanceof ItemDodgeRing)) {
 			ringStack = baublesInv.getStackInSlot(2);
-			if(ringStack == null || !(ringStack.getItem() instanceof ItemDodgeRing))
+			if(ringStack.isEmpty() || !(ringStack.getItem() instanceof ItemDodgeRing))
 				return;
 		}
 
@@ -70,13 +70,13 @@ public class ItemDodgeRing extends ItemBauble {
 			leftDown = ClientTickHandler.ticksInGame;
 
 			if(leftDown - oldLeft < threshold)
-				dodge(mc.thePlayer, true);
+				dodge(mc.player, true);
 		} else if(mc.gameSettings.keyBindRight.isKeyDown()) {
 			int oldRight = rightDown;
 			rightDown = ClientTickHandler.ticksInGame;
 
 			if(rightDown - oldRight < threshold)
-				dodge(mc.thePlayer, false);
+				dodge(mc.player, false);
 		}
 	}
 

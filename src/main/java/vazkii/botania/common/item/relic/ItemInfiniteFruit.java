@@ -10,10 +10,6 @@
  */
 package vazkii.botania.common.item.relic;
 
-import java.util.Locale;
-
-import javax.annotation.Nonnull;
-
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
@@ -29,6 +25,9 @@ import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.lib.LibObfuscation;
+
+import javax.annotation.Nonnull;
+import java.util.Locale;
 
 public class ItemInfiniteFruit extends ItemRelic implements IManaUsingItem {
 
@@ -50,7 +49,8 @@ public class ItemInfiniteFruit extends ItemRelic implements IManaUsingItem {
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
+		ItemStack stack = player.getHeldItem(hand);
 		if(player.canEat(false) && isRightPlayer(player, stack)) {
 			player.setActiveHand(hand);
 			return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
@@ -70,7 +70,7 @@ public class ItemInfiniteFruit extends ItemRelic implements IManaUsingItem {
 
 			if(count == 5)
 				if(player.canEat(false))
-					ReflectionHelper.setPrivateValue(EntityLivingBase.class, player, 20, LibObfuscation.ITEM_IN_USE_COUNT);
+					player.activeItemStackUseCount = 20;
 		}
 	}
 
@@ -82,6 +82,11 @@ public class ItemInfiniteFruit extends ItemRelic implements IManaUsingItem {
 	@Override
 	public boolean usesMana(ItemStack stack) {
 		return true;
+	}
+
+	@Override
+	public ResourceLocation getAdvancement() {
+		return new ResourceLocation(LibMisc.MOD_ID, "challenge/infinite_fruit");
 	}
 
 }

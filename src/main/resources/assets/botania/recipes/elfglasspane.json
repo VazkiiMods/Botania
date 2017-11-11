@@ -1,0 +1,16 @@
+{
+  "result": {
+    "item": "botania:elfglasspane",
+    "count": 16
+  },
+  "pattern": [
+    "BBB",
+    "BBB"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "B": {
+      "item": "botania:elfglass"
+    }
+  }
+}

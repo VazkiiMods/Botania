@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.entity;
 
-import java.util.List;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
@@ -20,10 +18,17 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.Optional;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.ConfigHandler;
 
-public class EntityFallingStar extends EntityThrowableCopy {
+import java.util.List;
+
+import elucent.albedo.lighting.ILightProvider;
+import elucent.albedo.lighting.Light;
+
+@Optional.Interface(iface="elucent.albedo.lighting.ILightProvider", modid="albedo")
+public class EntityFallingStar extends EntityThrowableCopy implements ILightProvider {
 
 	public EntityFallingStar(World world) {
 		super(world);
@@ -48,9 +53,9 @@ public class EntityFallingStar extends EntityThrowableCopy {
 		}
 
 		EntityLivingBase thrower = getThrower();
-		if(!worldObj.isRemote && thrower != null) {
-			AxisAlignedBB axis = new AxisAlignedBB(posX, posY, posZ, lastTickPosX, lastTickPosY, lastTickPosZ).expand(2, 2, 2);
-			List<EntityLivingBase> entities = worldObj.getEntitiesWithinAABB(EntityLivingBase.class, axis);
+		if(!world.isRemote && thrower != null) {
+			AxisAlignedBB axis = new AxisAlignedBB(posX, posY, posZ, lastTickPosX, lastTickPosY, lastTickPosZ).grow(2);
+			List<EntityLivingBase> entities = world.getEntitiesWithinAABB(EntityLivingBase.class, axis);
 			for(EntityLivingBase living : entities) {
 				if(living == thrower)
 					continue;
@@ -68,23 +73,29 @@ public class EntityFallingStar extends EntityThrowableCopy {
 
 	@Override
 	protected void onImpact(RayTraceResult pos) {
-		if (worldObj.isRemote)
+		if (world.isRemote)
 			return;
 
 		EntityLivingBase thrower = getThrower();
 		if(pos.entityHit != null && thrower != null && pos.entityHit != thrower && !pos.entityHit.isDead) {
 			if(thrower instanceof EntityPlayer)
 				pos.entityHit.attackEntityFrom(DamageSource.causePlayerDamage((EntityPlayer) thrower), Math.random() < 0.25 ? 10 : 5);
-			else pos.entityHit.attackEntityFrom(DamageSource.generic, Math.random() < 0.25 ? 10 : 5);
+			else pos.entityHit.attackEntityFrom(DamageSource.GENERIC, Math.random() < 0.25 ? 10 : 5);
 		}
 
 		if (pos.getBlockPos() != null) {
-			IBlockState state = worldObj.getBlockState(pos.getBlockPos());
-			if(ConfigHandler.blockBreakParticles && !state.getBlock().isAir(state, worldObj, pos.getBlockPos()))
-				worldObj.playEvent(2001, pos.getBlockPos(), Block.getStateId(state));
+			IBlockState state = world.getBlockState(pos.getBlockPos());
+			if(ConfigHandler.blockBreakParticles && !state.getBlock().isAir(state, world, pos.getBlockPos()))
+				world.playEvent(2001, pos.getBlockPos(), Block.getStateId(state));
 		}
 
 		setDead();
+	}
+	
+	@Override
+	@Optional.Method(modid="albedo")
+	public Light provideLight() {
+		return Light.builder().pos(this).color(1F, 0F, 1F).radius(12).build();
 	}
 
 }

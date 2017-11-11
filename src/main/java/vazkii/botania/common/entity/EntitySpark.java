@@ -10,25 +10,11 @@
  */
 package vazkii.botania.common.entity;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.WeakHashMap;
-
-import javax.annotation.Nonnull;
-
 import baubles.api.BaublesApi;
 import gnu.trove.map.hash.TObjectIntHashMap;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
@@ -40,6 +26,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
+import net.minecraftforge.items.IItemHandler;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.mana.spark.ISparkAttachable;
@@ -50,12 +37,22 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.network.PacketBotaniaEffect;
 import vazkii.botania.common.network.PacketHandler;
 
+import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.WeakHashMap;
+
 public class EntitySpark extends Entity implements ISparkEntity {
 
 	private static final int TRANSFER_RATE = 1000;
 	private static final String TAG_UPGRADE = "upgrade";
 	private static final String TAG_INVIS = "invis";
-	public static final DataParameter<Integer> INVISIBILITY = EntityDataManager.createKey(EntitySpark.class, DataSerializers.VARINT);
 	private static final DataParameter<Integer> UPGRADE = EntityDataManager.createKey(EntitySpark.class, DataSerializers.VARINT);
 
 	private final Set<ISparkEntity> transfers = Collections.newSetFromMap(new WeakHashMap<>());
@@ -70,7 +67,6 @@ public class EntitySpark extends Entity implements ISparkEntity {
 	@Override
 	protected void entityInit() {
 		setSize(0.1F, 0.5F);
-		dataManager.register(INVISIBILITY, 0);
 		dataManager.register(UPGRADE, 0);
 	}
 
@@ -84,7 +80,7 @@ public class EntitySpark extends Entity implements ISparkEntity {
 	public void onUpdate() {
 		super.onUpdate();
 
-		if(worldObj.isRemote)
+		if(world.isRemote)
 			return;
 
 		ISparkAttachable tile = getAttachedTile();
@@ -96,30 +92,28 @@ public class EntitySpark extends Entity implements ISparkEntity {
 		SparkUpgradeType upgrade = getUpgrade();
 		List<ISparkEntity> allSparks = null;
 		if(upgrade == SparkUpgradeType.DOMINANT || upgrade == SparkUpgradeType.RECESSIVE)
-			allSparks = SparkHelper.getSparksAround(worldObj, posX, posY, posZ);
+			allSparks = SparkHelper.getSparksAround(world, posX, posY, posZ);
 
 		Collection<ISparkEntity> transfers = getTransfers();
 
 		switch(upgrade) {
 		case DISPERSIVE : {
-			List<EntityPlayer> players = SparkHelper.getEntitiesAround(EntityPlayer.class, worldObj, posX, posY, posZ);
+			List<EntityPlayer> players = SparkHelper.getEntitiesAround(EntityPlayer.class, world, posX, posY, posZ);
 
 			Map<EntityPlayer, TObjectIntHashMap<ItemStack>> receivingPlayers = new HashMap<>();
 
 			ItemStack input = new ItemStack(ModItems.spark);
 			for(EntityPlayer player : players) {
 				List<ItemStack> stacks = new ArrayList<>();
-				stacks.addAll(Arrays.asList(player.inventory.mainInventory));
-				stacks.addAll(Arrays.asList(player.inventory.armorInventory));
+				stacks.addAll(player.inventory.mainInventory);
+				stacks.addAll(player.inventory.armorInventory);
 				
-				IInventory baubles = BaublesApi.getBaubles(player);
-				ItemStack[] baubleStacks = new ItemStack[baubles.getSizeInventory()];
-				for(int i = 0; i < baubleStacks.length; i++)
-					baubleStacks[i] = baubles.getStackInSlot(i);
-				stacks.addAll(Arrays.asList(baubleStacks));
+				IItemHandler baubles = BaublesApi.getBaublesHandler(player);
+				for (int i = 0; i < baubles.getSlots(); i++)
+					stacks.add(baubles.getStackInSlot(i));
 
 				for(ItemStack stack : stacks) {
-					if(stack == null || !(stack.getItem() instanceof IManaItem))
+					if(stack.isEmpty() || !(stack.getItem() instanceof IManaItem))
 						continue;
 
 					IManaItem manaItem = (IManaItem) stack.getItem();
@@ -168,7 +162,7 @@ public class EntitySpark extends Entity implements ISparkEntity {
 					validSparks.add(spark);
 			}
 			if(validSparks.size() > 0)
-				validSparks.get(worldObj.rand.nextInt(validSparks.size())).registerTransfer(this);
+				validSparks.get(world.rand.nextInt(validSparks.size())).registerTransfer(this);
 
 			break;
 		}
@@ -216,13 +210,13 @@ public class EntitySpark extends Entity implements ISparkEntity {
 	}
 
 	private void particlesTowards(Entity e) {
-		PacketHandler.sendToNearby(worldObj, this,
+		PacketHandler.sendToNearby(world, this,
 				new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.SPARK_MANA_FLOW, posX, posY, posZ,
 						getEntityId(), e.getEntityId()));
 	}
 
 	public static void particleBeam(EntityPlayer player, Entity e1, Entity e2) {
-		if(e1 != null && e2 != null && !e1.worldObj.isRemote) {
+		if(e1 != null && e2 != null && !e1.world.isRemote) {
 			PacketHandler.sendTo((EntityPlayerMP) player,
 					new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.SPARK_NET_INDICATOR, e1.posX, e1.posY, e1.posZ,
 							e1.getEntityId(), e2.getEntityId()));
@@ -243,11 +237,16 @@ public class EntitySpark extends Entity implements ISparkEntity {
 	}
 
 	@Override
-	public boolean processInitialInteract(EntityPlayer player, ItemStack stack, EnumHand hand) {
-		if(stack != null) {
-			if(worldObj.isRemote)
-				return stack.getItem() == ModItems.twigWand || stack.getItem() == ModItems.sparkUpgrade
-				|| stack.getItem() == ModItems.phantomInk;
+	public boolean processInitialInteract(EntityPlayer player, EnumHand hand) {
+		ItemStack stack = player.getHeldItem(hand);
+		if(!isDead && !stack.isEmpty()) {
+			if(world.isRemote) {
+				boolean valid = stack.getItem() == ModItems.twigWand || stack.getItem() == ModItems.sparkUpgrade
+						|| stack.getItem() == ModItems.phantomInk;
+				if(valid)
+					player.swingArm(hand);
+				return valid;
+			}
 
 			SparkUpgradeType upgrade = getUpgrade();
 			if(stack.getItem() == ModItems.twigWand) {
@@ -259,23 +258,19 @@ public class EntitySpark extends Entity implements ISparkEntity {
 						transfers.clear();
 						removeTransferants = 2;
 					} else dropAndKill();
-					player.swingArm(hand);
 					return true;
 				} else {
-					List<ISparkEntity> allSparks = SparkHelper.getSparksAround(worldObj, posX, posY, posZ);
-					for(ISparkEntity spark : allSparks)
+					for(ISparkEntity spark : SparkHelper.getSparksAround(world, posX, posY, posZ))
 						particleBeam(player, this, (Entity) spark);
 					return true;
 				}
 			} else if(stack.getItem() == ModItems.sparkUpgrade && upgrade == SparkUpgradeType.NONE) {
 				int newUpgrade = stack.getItemDamage() + 1;
 				setUpgrade(SparkUpgradeType.values()[newUpgrade]);
-				stack.stackSize--;
-				player.swingArm(hand);
+				stack.shrink(1);
 				return true;
 			} else if (stack.getItem() == ModItems.phantomInk) {
-				int invis = dataManager.get(INVISIBILITY);
-				dataManager.set(INVISIBILITY, ~invis & 1);
+				setInvisible(true);
 				return true;
 			}
 		}
@@ -286,21 +281,21 @@ public class EntitySpark extends Entity implements ISparkEntity {
 	@Override
 	protected void readEntityFromNBT(@Nonnull NBTTagCompound cmp) {
 		setUpgrade(SparkUpgradeType.values()[cmp.getInteger(TAG_UPGRADE)]);
-		dataManager.set(INVISIBILITY, cmp.getInteger(TAG_INVIS));
+		setInvisible(cmp.getInteger(TAG_INVIS) == 1);
 	}
 
 	@Override
 	protected void writeEntityToNBT(@Nonnull NBTTagCompound cmp) {
 		cmp.setInteger(TAG_UPGRADE, getUpgrade().ordinal());
-		cmp.setInteger(TAG_INVIS, dataManager.get(INVISIBILITY));
+		cmp.setInteger(TAG_INVIS, isInvisible() ? 1 : 0);
 	}
 
 	@Override
 	public ISparkAttachable getAttachedTile() {
-		int x = MathHelper.floor_double(posX);
-		int y = MathHelper.floor_double(posY) - 1;
-		int z = MathHelper.floor_double(posZ);
-		TileEntity tile = worldObj.getTileEntity(new BlockPos(x, y, z));
+		int x = MathHelper.floor(posX);
+		int y = MathHelper.floor(posY) - 1;
+		int z = MathHelper.floor(posZ);
+		TileEntity tile = world.getTileEntity(new BlockPos(x, y, z));
 		if(tile != null && tile instanceof ISparkAttachable)
 			return (ISparkAttachable) tile;
 

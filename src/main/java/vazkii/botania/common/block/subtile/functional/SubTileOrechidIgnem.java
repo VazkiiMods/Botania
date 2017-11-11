@@ -10,13 +10,13 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
-import java.util.Map;
-
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.lexicon.LexiconData;
+
+import java.util.Map;
 
 public class SubTileOrechidIgnem extends SubTileOrechid {
 

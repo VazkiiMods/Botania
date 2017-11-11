@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.item;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
@@ -25,6 +23,8 @@ import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.lib.LibItemNames;
 
+import javax.annotation.Nonnull;
+
 public class ItemWorldSeed extends ItemMod {
 
 	public ItemWorldSeed() {
@@ -33,7 +33,8 @@ public class ItemWorldSeed extends ItemMod {
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
+		ItemStack stack = player.getHeldItem(hand);
 		BlockPos coords = world.getSpawnPoint();
 
 		if(MathHelper.pointDistanceSpace(coords.getX() + 0.5, coords.getY() + 0.5, coords.getZ() + 0.5, player.posX, player.posY, player.posZ) > 24) {
@@ -48,7 +49,7 @@ public class ItemWorldSeed extends ItemMod {
 			for(int i = 0; i < 50; i++)
 				Botania.proxy.sparkleFX(player.posX + Math.random() * player.width, player.posY - 1.6 + Math.random() * player.height, player.posZ + Math.random() * player.width, 0.25F, 1F, 0.25F, 1F, 10);
 
-			stack.stackSize--;
+			stack.shrink(1);
 			return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
 		}
 

@@ -10,9 +10,6 @@
  */
 package vazkii.botania.common.item;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -21,12 +18,11 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerDropsEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerRespawnEvent;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.oredict.RecipeSorter;
-import net.minecraftforge.oredict.RecipeSorter.Category;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
-import vazkii.botania.common.crafting.recipe.KeepIvyRecipe;
 import vazkii.botania.common.lib.LibItemNames;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ItemKeepIvy extends ItemMod {
 
@@ -38,8 +34,6 @@ public class ItemKeepIvy extends ItemMod {
 
 	public ItemKeepIvy() {
 		super(LibItemNames.KEEP_IVY);
-		GameRegistry.addRecipe(new KeepIvyRecipe());
-		RecipeSorter.register("botania:keepIvy", KeepIvyRecipe.class, Category.SHAPELESS, "");
 		MinecraftForge.EVENT_BUS.register(ItemKeepIvy.class);
 	}
 
@@ -47,8 +41,8 @@ public class ItemKeepIvy extends ItemMod {
 	public static void onPlayerDrops(PlayerDropsEvent event) {
 		List<EntityItem> keeps = new ArrayList<>();
 		for(EntityItem item : event.getDrops()) {
-			ItemStack stack = item.getEntityItem();
-			if(stack != null && ItemNBTHelper.detectNBT(stack) && ItemNBTHelper.getBoolean(stack, TAG_KEEP, false))
+			ItemStack stack = item.getItem();
+			if(!stack.isEmpty() && stack.hasTagCompound() && ItemNBTHelper.getBoolean(stack, TAG_KEEP, false))
 				keeps.add(item);
 		}
 
@@ -60,9 +54,8 @@ public class ItemKeepIvy extends ItemMod {
 
 			int i = 0;
 			for(EntityItem keep : keeps) {
-				ItemStack stack = keep.getEntityItem();
-				NBTTagCompound cmp1 = new NBTTagCompound();
-				stack.writeToNBT(cmp1);
+				ItemStack stack = keep.getItem();
+				NBTTagCompound cmp1 = stack.writeToNBT(new NBTTagCompound());
 				cmp.setTag(TAG_DROP_PREFIX + i, cmp1);
 				i++;
 			}
@@ -86,8 +79,8 @@ public class ItemKeepIvy extends ItemMod {
 			int count = cmp1.getInteger(TAG_DROP_COUNT);
 			for(int i = 0; i < count; i++) {
 				NBTTagCompound cmp2 = cmp1.getCompoundTag(TAG_DROP_PREFIX + i);
-				ItemStack stack = ItemStack.loadItemStackFromNBT(cmp2);
-				if(stack != null) {
+				ItemStack stack = new ItemStack(cmp2);
+				if(!stack.isEmpty()) {
 					ItemStack copy = stack.copy();
 					ItemNBTHelper.setBoolean(copy, TAG_KEEP, false);
 					event.player.inventory.addItemStackToInventory(copy);

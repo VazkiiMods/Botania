@@ -10,10 +10,7 @@
  */
 package vazkii.botania.common.item;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
@@ -29,6 +26,8 @@ import vazkii.botania.api.subtile.SubTileGenerating;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.lib.LibItemNames;
 
+import javax.annotation.Nonnull;
+
 public class ItemObedienceStick extends ItemMod {
 
 	public ItemObedienceStick() {
@@ -38,7 +37,7 @@ public class ItemObedienceStick extends ItemMod {
 
 	@Nonnull
 	@Override
-	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float xs, float ys, float zs) {
+	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float xs, float ys, float zs) {
 		TileEntity tileAt = world.getTileEntity(pos);
 		if(tileAt != null && (tileAt instanceof IManaPool || tileAt instanceof IManaCollector)) {
 			boolean pool = tileAt instanceof IManaPool;
@@ -60,7 +59,7 @@ public class ItemObedienceStick extends ItemMod {
 				}
 			}
 
-			if(player.worldObj.isRemote)
+			if(player.world.isRemote)
 				player.swingArm(hand);
 			return EnumActionResult.SUCCESS;
 		}

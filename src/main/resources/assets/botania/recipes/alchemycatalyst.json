@@ -1,0 +1,25 @@
+{
+  "result": {
+    "item": "botania:alchemycatalyst"
+  },
+  "pattern": [
+    "SGS",
+    "BPB",
+    "SGS"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "P": {
+      "item": "#MANAPEARL"
+    },
+    "B": {
+      "item": "minecraft:brewing_stand"
+    },
+    "S": {
+      "item": "#LIVINGROCK"
+    },
+    "G": {
+      "item": "#INGOTGOLD"
+    }
+  }
+}

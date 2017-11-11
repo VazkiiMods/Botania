@@ -10,10 +10,6 @@
  */
 package vazkii.botania.common.item;
 
-import java.util.function.Predicate;
-
-import javax.annotation.Nonnull;
-
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
@@ -27,6 +23,9 @@ import net.minecraft.world.World;
 import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.entity.EntityVineBall;
 import vazkii.botania.common.lib.LibItemNames;
+
+import javax.annotation.Nonnull;
+import java.util.function.Predicate;
 
 public class ItemSlingshot extends ItemMod {
 
@@ -56,7 +55,7 @@ public class ItemSlingshot extends ItemMod {
 			ball.motionX *= 1.6;
 			ball.motionY *= 1.6;
 			ball.motionZ *= 1.6;
-			world.spawnEntityInWorld(ball);
+			world.spawnEntity(ball);
 			world.playSound(null, living.posX, living.posY, living.posZ, SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.NEUTRAL, 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
 		}
 	}
@@ -74,13 +73,14 @@ public class ItemSlingshot extends ItemMod {
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack par1ItemStack, World world, EntityPlayer player, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
+		ItemStack stack = player.getHeldItem(hand);
 		if(player.capabilities.isCreativeMode || PlayerHelper.hasAmmo(player, AMMO_FUNC)) {
 			player.setActiveHand(hand);
-			return ActionResult.newResult(EnumActionResult.SUCCESS, par1ItemStack);
+			return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
 		}
 
-		return ActionResult.newResult(EnumActionResult.PASS, par1ItemStack);
+		return ActionResult.newResult(EnumActionResult.PASS, stack);
 	}
 
 }

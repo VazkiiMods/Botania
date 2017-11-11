@@ -10,24 +10,30 @@
  */
 package vazkii.botania.common.crafting.recipe;
 
-import java.util.Arrays;
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.oredict.OreDictionary;
+import net.minecraftforge.registries.IForgeRegistryEntry;
 import vazkii.botania.api.mana.ILens;
 import vazkii.botania.common.item.lens.ItemLens;
 import vazkii.botania.common.lib.LibOreDict;
 
-public class LensDyeingRecipe implements IRecipe {
+import javax.annotation.Nonnull;
+import java.util.Arrays;
+import java.util.List;
+
+public class LensDyeingRecipe extends IForgeRegistryEntry.Impl<IRecipe> implements IRecipe {
 
 	private static final List<String> DYES = Arrays.asList("dyeWhite", "dyeOrange", "dyeMagenta", "dyeLightBlue", "dyeYellow", "dyeLime", "dyePink", "dyeGray", "dyeLightGray", "dyeCyan", "dyePurple", "dyeBlue", "dyeBrown", "dyeGreen", "dyeRed", "dyeBlack", LibOreDict.MANA_PEARL);
+
+	@Override
+	public boolean isHidden() {
+		return true;
+	}
 
 	@Override
 	public boolean matches(@Nonnull InventoryCrafting var1, @Nonnull World var2) {
@@ -36,7 +42,7 @@ public class LensDyeingRecipe implements IRecipe {
 
 		for(int i = 0; i < var1.getSizeInventory(); i++) {
 			ItemStack stack = var1.getStackInSlot(i);
-			if(stack != null) {
+			if(!stack.isEmpty()) {
 				if(stack.getItem() instanceof ILens && !foundLens)
 					foundLens = true;
 				else if(!foundDye) {
@@ -52,15 +58,16 @@ public class LensDyeingRecipe implements IRecipe {
 		return foundLens && foundDye;
 	}
 
+	@Nonnull
 	@Override
 	public ItemStack getCraftingResult(@Nonnull InventoryCrafting var1) {
-		ItemStack lens = null;
+		ItemStack lens = ItemStack.EMPTY;
 		int color = -1;
 
 		for(int i = 0; i < var1.getSizeInventory(); i++) {
 			ItemStack stack = var1.getStackInSlot(i);
-			if(stack != null) {
-				if(stack.getItem() instanceof ILens && lens == null)
+			if(!stack.isEmpty()) {
+				if(stack.getItem() instanceof ILens && lens.isEmpty())
 					lens = stack;
 				else color = getStackColor(stack);//We can assume if its not a lens its a dye because we checked it in matches()
 			}
@@ -74,17 +81,18 @@ public class LensDyeingRecipe implements IRecipe {
 			return lensCopy;
 		}
 
-		return null;
+		return ItemStack.EMPTY;
 	}
 
 	@Override
-	public int getRecipeSize() {
-		return 10;
+	public boolean canFit(int width, int height) {
+		return width * height >= 2;
 	}
 
+	@Nonnull
 	@Override
 	public ItemStack getRecipeOutput() {
-		return null;
+		return ItemStack.EMPTY;
 	}
 
 	int getStackColor(ItemStack stack) {
@@ -100,7 +108,7 @@ public class LensDyeingRecipe implements IRecipe {
 
 	@Nonnull
 	@Override
-	public ItemStack[] getRemainingItems(@Nonnull InventoryCrafting inv) {
+	public NonNullList<ItemStack> getRemainingItems(@Nonnull InventoryCrafting inv) {
 		return ForgeHooks.defaultRecipeGetRemainingItems(inv);
 	}
 }

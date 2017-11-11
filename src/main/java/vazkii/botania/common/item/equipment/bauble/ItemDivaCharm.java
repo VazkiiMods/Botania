@@ -10,12 +10,9 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
-import java.util.List;
-
-import com.google.common.base.Predicates;
-
 import baubles.api.BaubleType;
 import baubles.api.BaublesApi;
+import com.google.common.base.Predicates;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
@@ -37,11 +34,13 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.item.IBaubleRender;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
-import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.subtile.functional.SubTileHeiseiDream;
+import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibObfuscation;
+
+import java.util.List;
 
 public class ItemDivaCharm extends ItemBauble implements IManaUsingItem, IBaubleRender {
 
@@ -52,25 +51,25 @@ public class ItemDivaCharm extends ItemBauble implements IManaUsingItem, IBauble
 
 	@SubscribeEvent
 	public void onEntityDamaged(LivingHurtEvent event) {
-		if(event.getSource().getEntity() instanceof EntityPlayer && event.getEntityLiving() instanceof EntityLiving && !event.getEntityLiving().worldObj.isRemote && Math.random() < 0.6F) {
-			EntityPlayer player = (EntityPlayer) event.getSource().getEntity();
-			ItemStack amulet = BaublesApi.getBaubles(player).getStackInSlot(6);
-			if(amulet != null && amulet.getItem() == this) {
+		if(event.getSource().getImmediateSource() instanceof EntityPlayer && event.getEntityLiving() instanceof EntityLiving && !event.getEntityLiving().world.isRemote && Math.random() < 0.6F) {
+			EntityPlayer player = (EntityPlayer) event.getSource().getImmediateSource();
+			ItemStack amulet = BaublesApi.getBaublesHandler(player).getStackInSlot(6);
+			if(!amulet.isEmpty() && amulet.getItem() == this) {
 				final int cost = 250;
 				if(ManaItemHandler.requestManaExact(amulet, player, cost, false)) {
 					final int range = 20;
 
-					List mobs = player.worldObj.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(event.getEntityLiving().posX - range, event.getEntityLiving().posY - range, event.getEntityLiving().posZ - range, event.getEntityLiving().posX + range, event.getEntityLiving().posY + range, event.getEntityLiving().posZ + range), Predicates.instanceOf(IMob.class));
+					List mobs = player.world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(event.getEntityLiving().posX - range, event.getEntityLiving().posY - range, event.getEntityLiving().posZ - range, event.getEntityLiving().posX + range, event.getEntityLiving().posY + range, event.getEntityLiving().posZ + range), Predicates.instanceOf(IMob.class));
 					if(mobs.size() > 1) {
 						if(SubTileHeiseiDream.brainwashEntity((EntityLiving) event.getEntityLiving(), (List<IMob>) mobs)) {
 							if(event.getEntityLiving() instanceof EntityCreeper)
-								ReflectionHelper.setPrivateValue(EntityCreeper.class, (EntityCreeper) event.getEntityLiving(), 2, LibObfuscation.TIME_SINCE_IGNITED);
+								((EntityCreeper) event.getEntityLiving()).timeSinceIgnited = 2;
 							event.getEntityLiving().heal(event.getEntityLiving().getMaxHealth());
 							if(event.getEntityLiving().isDead)
 								event.getEntityLiving().isDead = false;
 
 							ManaItemHandler.requestManaExact(amulet, player, cost, true);
-							player.worldObj.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.divaCharm, SoundCategory.PLAYERS, 1F, 1F);
+							player.world.playSound(null, player.posX, player.posY, player.posZ, ModSounds.divaCharm, SoundCategory.PLAYERS, 1F, 1F);
 
 							double x = event.getEntityLiving().posX;
 							double y = event.getEntityLiving().posY;

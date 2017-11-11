@@ -1,0 +1,19 @@
+{
+  "result": {
+    "item": "botania:tinyplanetblock"
+  },
+  "pattern": [
+    "SSS",
+    "SPS",
+    "SSS"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "P": {
+      "item": "botania:tinyplanet"
+    },
+    "S": {
+      "item": "#STONE"
+    }
+  }
+}

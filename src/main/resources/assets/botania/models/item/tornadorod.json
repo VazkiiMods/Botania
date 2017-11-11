@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "botania:items/rod_tornado"
+  },
+  "overrides": [{
+    "predicate": {
+      "botania:flying": 1
+    },
+    "model": "botania:item/tornadorod_flying"
+  }]
+}

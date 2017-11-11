@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.core.command;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
@@ -22,17 +20,19 @@ import net.minecraft.util.text.translation.I18n;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.world.SkyblockWorldEvents;
 
+import javax.annotation.Nonnull;
+
 public class CommandSkyblockSpread extends CommandBase {
 
 	@Nonnull
 	@Override
-	public String getCommandName() {
+	public String getName() {
 		return "botania-skyblock-spread";
 	}
 
 	@Nonnull
 	@Override
-	public String getCommandUsage(@Nonnull ICommandSender sender) {
+	public String getUsage(@Nonnull ICommandSender sender) {
 		return "<player> [<range>]";
 	}
 
@@ -58,12 +58,12 @@ public class CommandSkyblockSpread extends CommandBase {
 
 		EntityPlayer player = getPlayer(server, sender, args[0]);
 		if(player != null) {
-			BlockPos spawn = player.worldObj.getSpawnPoint();
+			BlockPos spawn = player.world.getSpawnPoint();
 			int x, z;
 
 			do {
-				x = player.worldObj.rand.nextInt(maxrange) - maxrange / 2 + spawn.getX();
-				z = player.worldObj.rand.nextInt(maxrange) - maxrange / 2 + spawn.getZ();
+				x = player.world.rand.nextInt(maxrange) - maxrange / 2 + spawn.getX();
+				z = player.world.rand.nextInt(maxrange) - maxrange / 2 + spawn.getZ();
 			} while(MathHelper.pointDistancePlane(x, z, spawn.getX(), spawn.getZ()) < minDist);
 
 			SkyblockWorldEvents.spawnPlayer(player, new BlockPos(x, spawn.getY(), z), true);

@@ -10,10 +10,6 @@
  */
 package vazkii.botania.client.core.handler;
 
-import java.awt.Color;
-
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
@@ -25,7 +21,10 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.subtile.ISubTileContainer;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileEntity;
@@ -35,6 +34,9 @@ import vazkii.botania.common.entity.EntityMagicLandmine;
 import vazkii.botania.common.item.ItemTwigWand;
 import vazkii.botania.common.item.ModItems;
 
+import java.awt.Color;
+
+@Mod.EventBusSubscriber(Side.CLIENT)
 public final class BlockHighlightRenderHandler {
 
 	private BlockHighlightRenderHandler() {}
@@ -55,14 +57,14 @@ public final class BlockHighlightRenderHandler {
 			if(Botania.proxy.isClientPlayerWearingMonocle() && pos != null && pos.entityHit == null) {
 				BlockPos bPos = pos.getBlockPos();
 
-				ItemStack stackHeld = PlayerHelper.getFirstHeldItem(mc.thePlayer, ModItems.twigWand);
-				if(stackHeld != null && ItemTwigWand.getBindMode(stackHeld)) {
+				ItemStack stackHeld = PlayerHelper.getFirstHeldItem(mc.player, ModItems.twigWand);
+				if(!stackHeld.isEmpty() && ItemTwigWand.getBindMode(stackHeld)) {
 					BlockPos coords = ItemTwigWand.getBoundTile(stackHeld);
 					if(coords.getY() != -1)
 						bPos = coords;
 				}
 
-				TileEntity tile = mc.theWorld.getTileEntity(bPos);
+				TileEntity tile = mc.world.getTileEntity(bPos);
 				if(tile == null || !(tile instanceof ISubTileContainer))
 					break boundTile;
 				ISubTileContainer container = (ISubTileContainer) tile;
@@ -80,10 +82,10 @@ public final class BlockHighlightRenderHandler {
 		}
 
 		double offY = -1.0 / 16 + 0.005;
-		for(Entity e : mc.theWorld.loadedEntityList)
+		for(Entity e : mc.world.loadedEntityList)
 			if(e instanceof EntityMagicLandmine) {
 				BlockPos bpos = e.getPosition();
-				AxisAlignedBB aabb = new AxisAlignedBB(bpos).offset(0, offY, 0).expand(2.5, 0, 2.5);
+				AxisAlignedBB aabb = new AxisAlignedBB(bpos).offset(0, offY, 0).grow(2.5, 0, 2.5);
 
 				float gs = (float) (Math.sin(ClientTickHandler.total / 20) + 1) * 0.2F + 0.6F;
 				int r = (int) (105 * gs);
@@ -108,15 +110,9 @@ public final class BlockHighlightRenderHandler {
 	}
 
 	private static void renderRectangle(AxisAlignedBB aabb, boolean inner, Color color, byte alpha) {
-		double renderPosX, renderPosY, renderPosZ;
-
-		try {
-			renderPosX = (double) ClientMethodHandles.renderPosX_getter.invokeExact(Minecraft.getMinecraft().getRenderManager());
-			renderPosY = (double) ClientMethodHandles.renderPosY_getter.invokeExact(Minecraft.getMinecraft().getRenderManager());
-			renderPosZ = (double) ClientMethodHandles.renderPosZ_getter.invokeExact(Minecraft.getMinecraft().getRenderManager());
-		} catch (Throwable t) {
-			return;
-		}
+		double renderPosX = Minecraft.getMinecraft().getRenderManager().renderPosX;
+		double renderPosY = Minecraft.getMinecraft().getRenderManager().renderPosY;
+		double renderPosZ = Minecraft.getMinecraft().getRenderManager().renderPosZ;
 
 		GlStateManager.pushMatrix();
 		GlStateManager.translate(aabb.minX - renderPosX, aabb.minY - renderPosY, aabb.minZ - renderPosZ);
@@ -155,15 +151,9 @@ public final class BlockHighlightRenderHandler {
 	}
 
 	private static void renderCircle(BlockPos center, double radius) {
-		double renderPosX, renderPosY, renderPosZ;
-
-		try {
-			renderPosX = (double) ClientMethodHandles.renderPosX_getter.invokeExact(Minecraft.getMinecraft().getRenderManager());
-			renderPosY = (double) ClientMethodHandles.renderPosY_getter.invokeExact(Minecraft.getMinecraft().getRenderManager());
-			renderPosZ = (double) ClientMethodHandles.renderPosZ_getter.invokeExact(Minecraft.getMinecraft().getRenderManager());
-		} catch (Throwable t) {
-			return;
-		}
+		double renderPosX = Minecraft.getMinecraft().getRenderManager().renderPosX;
+		double renderPosY = Minecraft.getMinecraft().getRenderManager().renderPosY;
+		double renderPosZ = Minecraft.getMinecraft().getRenderManager().renderPosZ;
 
 		GlStateManager.pushMatrix();
 		double x = center.getX() + 0.5;

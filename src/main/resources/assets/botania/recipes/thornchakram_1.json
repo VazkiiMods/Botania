@@ -1,0 +1,25 @@
+{
+  "result": {
+    "item": "botania:thornchakram",
+    "data": 1,
+    "count": 2
+  },
+  "pattern": [
+    "BBB",
+    "CPC",
+    "BBB"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "P": {
+      "item": "#ELVENPIXIEDUST"
+    },
+    "B": {
+      "item": "minecraft:blaze_powder"
+    },
+    "C": {
+      "item": "botania:thornchakram",
+      "data": 0
+    }
+  }
+}

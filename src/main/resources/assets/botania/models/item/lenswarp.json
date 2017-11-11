@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "botania:items/lens",
+    "layer1": "botania:items/lens_warp"
+  }
+}

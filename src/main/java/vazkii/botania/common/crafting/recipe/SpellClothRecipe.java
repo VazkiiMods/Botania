@@ -10,17 +10,24 @@
  */
 package vazkii.botania.common.crafting.recipe;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
+import net.minecraftforge.registries.IForgeRegistryEntry;
 import vazkii.botania.common.item.ModItems;
 
-public class SpellClothRecipe implements IRecipe {
+import javax.annotation.Nonnull;
+
+public class SpellClothRecipe extends IForgeRegistryEntry.Impl<IRecipe> implements IRecipe {
+
+	@Override
+	public boolean isHidden() {
+		return true;
+	}
 
 	@Override
 	public boolean matches(@Nonnull InventoryCrafting var1, @Nonnull World var2) {
@@ -29,7 +36,7 @@ public class SpellClothRecipe implements IRecipe {
 
 		for(int i = 0; i < var1.getSizeInventory(); i++) {
 			ItemStack stack = var1.getStackInSlot(i);
-			if(stack != null) {
+			if(!stack.isEmpty()) {
 				if(stack.isItemEnchanted() && !foundEnchanted && stack.getItem() != ModItems.spellCloth)
 					foundEnchanted = true;
 
@@ -43,19 +50,20 @@ public class SpellClothRecipe implements IRecipe {
 		return foundCloth && foundEnchanted;
 	}
 
+	@Nonnull
 	@Override
 	public ItemStack getCraftingResult(@Nonnull InventoryCrafting var1) {
-		ItemStack stackToDisenchant = null;
+		ItemStack stackToDisenchant = ItemStack.EMPTY;
 		for(int i = 0; i < var1.getSizeInventory(); i++) {
 			ItemStack stack = var1.getStackInSlot(i);
-			if(stack != null && stack.isItemEnchanted()) {
+			if(!stack.isEmpty() && stack.isItemEnchanted()) {
 				stackToDisenchant = stack.copy();
 				break;
 			}
 		}
 
-		if(stackToDisenchant == null)
-			return null;
+		if(stackToDisenchant.isEmpty())
+			return ItemStack.EMPTY;
 
 		NBTTagCompound cmp = stackToDisenchant.getTagCompound().copy();
 		cmp.removeTag("ench"); // Remove enchantments
@@ -65,18 +73,19 @@ public class SpellClothRecipe implements IRecipe {
 	}
 
 	@Override
-	public int getRecipeSize() {
-		return 10;
-	}
-
-	@Override
-	public ItemStack getRecipeOutput() {
-		return null;
+	public boolean canFit(int width, int height) {
+		return width * height >= 2;
 	}
 
 	@Nonnull
 	@Override
-	public ItemStack[] getRemainingItems(@Nonnull InventoryCrafting inv) {
+	public ItemStack getRecipeOutput() {
+		return ItemStack.EMPTY;
+	}
+
+	@Nonnull
+	@Override
+	public NonNullList<ItemStack> getRemainingItems(@Nonnull InventoryCrafting inv) {
 		return ForgeHooks.defaultRecipeGetRemainingItems(inv);
 	}
 }

@@ -10,16 +10,8 @@
  */
 package vazkii.botania.api.corporea;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.WeakHashMap;
-import java.util.regex.Pattern;
-
 import com.google.common.base.Predicates;
 import com.google.common.collect.ImmutableList;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -28,6 +20,13 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import vazkii.botania.api.BotaniaAPI;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.WeakHashMap;
+import java.util.regex.Pattern;
 
 public final class CorporeaHelper {
 
@@ -142,7 +141,7 @@ public final class CorporeaHelper {
 	 * Bridge for requestItem() using an ItemStack.
 	 */
 	public static List<ItemStack> requestItem(ItemStack stack, ICorporeaSpark spark, boolean checkNBT, boolean doit) {
-		return requestItem(stack, stack.stackSize, spark, checkNBT, doit);
+		return requestItem(stack, stack.getCount(), spark, checkNBT, doit);
 	}
 
 	/**
@@ -232,14 +231,14 @@ public final class CorporeaHelper {
 	 * Gets if two stacks match.
 	 */
 	public static boolean stacksMatch(ItemStack stack1, ItemStack stack2, boolean checkNBT) {
-		return stack1 != null && stack2 != null && stack1.isItemEqual(stack2) && (!checkNBT || ItemStack.areItemStackTagsEqual(stack1, stack2));
+		return !stack1.isEmpty() && !stack2.isEmpty() && stack1.isItemEqual(stack2) && (!checkNBT || ItemStack.areItemStackTagsEqual(stack1, stack2));
 	}
 
 	/**
 	 * Gets if the name of a stack matches the string passed in.
 	 */
 	public static boolean stacksMatch(ItemStack stack, String s) {
-		if(stack == null)
+		if(stack.isEmpty())
 			return false;
 
 		boolean contains = false;

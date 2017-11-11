@@ -1,23 +1,7 @@
 package vazkii.botania.client.model;
 
-import java.util.ArrayList;
-import java.util.EnumMap;
-import java.util.IdentityHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.vecmath.Matrix4f;
-import javax.vecmath.Vector3f;
-import javax.vecmath.Vector4f;
-
-import org.apache.commons.lang3.tuple.Pair;
-
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
-
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.BakedQuad;
@@ -31,12 +15,24 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
-import net.minecraftforge.client.model.IPerspectiveAwareModel;
 import net.minecraftforge.client.model.pipeline.IVertexConsumer;
 import net.minecraftforge.client.model.pipeline.UnpackedBakedQuad;
 import net.minecraftforge.client.model.pipeline.VertexTransformer;
 import net.minecraftforge.common.model.TRSRTransformation;
+import org.apache.commons.lang3.tuple.Pair;
 import vazkii.botania.common.item.ItemManaGun;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.vecmath.Matrix4f;
+import javax.vecmath.Vector3f;
+import javax.vecmath.Vector4f;
+import java.util.ArrayList;
+import java.util.EnumMap;
+import java.util.IdentityHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class GunModel implements IBakedModel {
 
@@ -49,9 +45,9 @@ public class GunModel implements IBakedModel {
 	private final ItemOverrideList itemHandler = new ItemOverrideList(ImmutableList.of()) {
 		@Nonnull
 		@Override
-		public IBakedModel handleItemState(@Nonnull IBakedModel model, ItemStack stack, @Nonnull World world, @Nonnull EntityLivingBase entity) {
+		public IBakedModel handleItemState(@Nonnull IBakedModel model, ItemStack stack, World world, EntityLivingBase entity) {
 			ItemStack lens = ItemManaGun.getLens(stack);
-			if(lens != null) {
+			if(!lens.isEmpty()) {
 				IBakedModel lensModel = Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(lens);
 				return GunModel.this.getModel(lensModel);
 			}
@@ -109,7 +105,7 @@ public class GunModel implements IBakedModel {
 		return builder.build();
 	}
 
-	private static class CompositeBakedModel implements IPerspectiveAwareModel {
+	private static class CompositeBakedModel implements IBakedModel {
 
 		private final IBakedModel gun;
 		private final List<BakedQuad> genQuads;
@@ -154,12 +150,10 @@ public class GunModel implements IBakedModel {
 		@Nonnull @Override public ItemOverrideList getOverrides() { return ItemOverrideList.NONE; }
 
 		@Override
-		public Pair<? extends IBakedModel, Matrix4f> handlePerspective(ItemCameraTransforms.TransformType cameraTransformType) {
-			if(gun instanceof IPerspectiveAwareModel) {
-				Pair<? extends IBakedModel, Matrix4f> pair = ((IPerspectiveAwareModel) gun).handlePerspective(cameraTransformType);
-				if(pair != null && pair.getRight() != null)
-					return Pair.of(this, pair.getRight());
-			}
+		public Pair<? extends IBakedModel, Matrix4f> handlePerspective(@Nonnull ItemCameraTransforms.TransformType cameraTransformType) {
+			Pair<? extends IBakedModel, Matrix4f> pair = gun.handlePerspective(cameraTransformType);
+			if(pair != null && pair.getRight() != null)
+				return Pair.of(this, pair.getRight());
 			return Pair.of(this, TRSRTransformation.identity().getMatrix());
 		}
 	}

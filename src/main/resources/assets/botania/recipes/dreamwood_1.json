@@ -1,0 +1,13 @@
+{
+  "result": {
+    "item": "botania:dreamwood",
+    "data": 1,
+    "count": 4
+  },
+  "ingredients": [
+    {
+      "item": "#DREAMWOOD"
+    }
+  ],
+  "type": "forge:ore_shapeless"
+}

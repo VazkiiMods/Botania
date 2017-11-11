@@ -1,0 +1,15 @@
+{
+  "result": {
+    "item": "botania:manaweavehelm"
+  },
+  "pattern": [
+    "SSS",
+    "S S"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "S": {
+      "item": "#CLOTHMANAWEAVE"
+    }
+  }
+}

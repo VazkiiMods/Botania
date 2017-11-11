@@ -34,7 +34,7 @@ public class PotionEmptiness extends PotionMod {
 		if(event.getResult() != Result.ALLOW && event.getEntityLiving() instanceof IMob) {
 			AxisAlignedBB aabb = new AxisAlignedBB(event.getX() - RANGE, event.getY() - RANGE, event.getZ() - RANGE, event.getX() + RANGE, event.getY() + RANGE, event.getZ() + RANGE);
 			for(EntityPlayer player : event.getWorld().playerEntities) {
-				if(hasEffect(player) && player.getEntityBoundingBox().intersectsWith(aabb)) {
+				if(hasEffect(player) && player.getEntityBoundingBox().intersects(aabb)) {
 					event.setResult(Result.DENY);
 					return;
 				}

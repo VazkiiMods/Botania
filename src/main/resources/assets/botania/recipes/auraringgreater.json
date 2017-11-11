@@ -1,0 +1,14 @@
+{
+  "result": {
+    "item": "botania:auraringgreater"
+  },
+  "ingredients": [
+    {
+      "item": "#INGOTTERRASTEEL"
+    },
+    {
+      "item": "botania:auraring"
+    }
+  ],
+  "type": "forge:ore_shapeless"
+}

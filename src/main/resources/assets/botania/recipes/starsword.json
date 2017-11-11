@@ -1,0 +1,25 @@
+{
+  "result": {
+    "item": "botania:starsword"
+  },
+  "pattern": [
+    "  I",
+    "AD ",
+    "TA "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "A": {
+      "item": "#BENDERAIRBOTTLE"
+    },
+    "D": {
+      "item": "#ELVENDRAGONSTONE"
+    },
+    "T": {
+      "item": "botania:terrasword"
+    },
+    "I": {
+      "item": "#INGOTELVENELEMENTIUM"
+    }
+  }
+}

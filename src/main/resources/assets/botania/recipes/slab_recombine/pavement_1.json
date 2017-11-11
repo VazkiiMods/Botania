@@ -1,0 +1,17 @@
+{
+  "result": {
+    "item": "botania:pavement",
+    "data": 1
+  },
+  "pattern": [
+    "Q",
+    "Q"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "Q": {
+      "item": "botania:pavement1slab",
+      "data": 0
+    }
+  }
+}

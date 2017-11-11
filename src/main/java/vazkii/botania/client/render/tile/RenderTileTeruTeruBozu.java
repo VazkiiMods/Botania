@@ -10,21 +10,19 @@
  */
 package vazkii.botania.client.render.tile;
 
-import java.util.Random;
-
-import javax.annotation.Nonnull;
-
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.util.ResourceLocation;
+import org.lwjgl.opengl.GL11;
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelTeruTeruBozu;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.tile.TileTeruTeruBozu;
+
+import javax.annotation.Nullable;
+import java.util.Random;
 
 public class RenderTileTeruTeruBozu extends TileEntitySpecialRenderer<TileTeruTeruBozu> {
 
@@ -33,7 +31,7 @@ public class RenderTileTeruTeruBozu extends TileEntitySpecialRenderer<TileTeruTe
 	final ModelTeruTeruBozu model = new ModelTeruTeruBozu();
 
 	@Override
-	public void renderTileEntityAt(@Nonnull TileTeruTeruBozu tileentity, double d0, double d1, double d2, float f, int digProgress) {
+	public void render(@Nullable TileTeruTeruBozu tileentity, double d0, double d1, double d2, float f, int digProgress, float unused) {
 		GlStateManager.pushMatrix();
 		GlStateManager.enableRescaleNormal();
 		GlStateManager.enableBlend();

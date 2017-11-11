@@ -10,20 +10,22 @@
  */
 package vazkii.botania.common.crafting.recipe;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
+import net.minecraftforge.registries.IForgeRegistryEntry;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ModItems;
 
-public class HelmRevealingRecipe implements IRecipe {
+import javax.annotation.Nonnull;
+
+public class HelmRevealingRecipe extends IForgeRegistryEntry.Impl<IRecipe> implements IRecipe {
 
 	@Override
 	public boolean matches(@Nonnull InventoryCrafting var1, @Nonnull World var2) {
@@ -35,7 +37,7 @@ public class HelmRevealingRecipe implements IRecipe {
 		boolean foundHelm = false;
 		for(int i = 0; i < var1.getSizeInventory(); i++) {
 			ItemStack stack = var1.getStackInSlot(i);
-			if(stack != null) {
+			if(!stack.isEmpty()) {
 				if(checkHelm(stack))
 					foundHelm = true;
 				else if(stack.getItem() == goggles)
@@ -46,18 +48,19 @@ public class HelmRevealingRecipe implements IRecipe {
 		return foundGoggles && foundHelm;
 	}
 
+	@Nonnull
 	@Override
 	public ItemStack getCraftingResult(@Nonnull InventoryCrafting var1) {
-		ItemStack helm = null;
+		ItemStack helm = ItemStack.EMPTY;
 
 		for(int i = 0; i < var1.getSizeInventory(); i++) {
 			ItemStack stack = var1.getStackInSlot(i);
-			if(stack != null && checkHelm(stack))
+			if(!stack.isEmpty() && checkHelm(stack))
 				helm = stack;
 		}
 
-		if(helm == null)
-			return null;
+		if(helm.isEmpty())
+			return ItemStack.EMPTY;
 
 		ItemStack helmCopy = helm.copy();
 		Item helmItem = helmCopy.getItem();
@@ -70,7 +73,7 @@ public class HelmRevealingRecipe implements IRecipe {
 			newHelm = new ItemStack(ModItems.terrasteelHelmRevealing);
 		else if(helmItem == ModItems.elementiumHelm)
 			newHelm = new ItemStack(ModItems.elementiumHelmRevealing);
-		else return null;
+		else return ItemStack.EMPTY;
 
 		//Copy Ancient Wills
 		for(int i = 0; i < 6; i++)
@@ -90,10 +93,11 @@ public class HelmRevealingRecipe implements IRecipe {
 	}
 
 	@Override
-	public int getRecipeSize() {
-		return 10;
+	public boolean canFit(int width, int height) {
+		return width * height >= 2;
 	}
 
+	@Nonnull
 	@Override
 	public ItemStack getRecipeOutput() {
 		return new ItemStack(ModItems.manasteelHelmRevealing);
@@ -106,7 +110,7 @@ public class HelmRevealingRecipe implements IRecipe {
 
 	@Nonnull
 	@Override
-	public ItemStack[] getRemainingItems(@Nonnull InventoryCrafting inv) {
+	public NonNullList<ItemStack> getRemainingItems(@Nonnull InventoryCrafting inv) {
 		return ForgeHooks.defaultRecipeGetRemainingItems(inv);
 	}
 }

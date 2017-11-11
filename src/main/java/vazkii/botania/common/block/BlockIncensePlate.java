@@ -10,10 +10,9 @@
  */
 package vazkii.botania.common.block;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
@@ -27,6 +26,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.items.ItemHandlerHelper;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -34,6 +34,8 @@ import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.tile.TileIncensePlate;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
+
+import javax.annotation.Nonnull;
 
 public class BlockIncensePlate extends BlockMod implements ILexiconable {
 
@@ -44,17 +46,13 @@ public class BlockIncensePlate extends BlockMod implements ILexiconable {
 		super(Material.WOOD, LibBlockNames.INCENSE_PLATE);
 		setHardness(2.0F);
 		setSoundType(SoundType.WOOD);
+		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.CARDINALS, EnumFacing.SOUTH));
 	}
 
 	@Nonnull
 	@Override
 	public BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, BotaniaStateProps.CARDINALS);
-	}
-
-	@Override
-	protected IBlockState pickDefaultState() {
-		return blockState.getBaseState().withProperty(BotaniaStateProps.CARDINALS, EnumFacing.SOUTH);
 	}
 
 	@Override
@@ -72,28 +70,27 @@ public class BlockIncensePlate extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack stack, EnumFacing s, float xs, float ys, float zs) {
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing s, float xs, float ys, float zs) {
 		TileIncensePlate plate = (TileIncensePlate) world.getTileEntity(pos);
 		ItemStack plateStack = plate.getItemHandler().getStackInSlot(0);
+		ItemStack stack = player.getHeldItem(hand);
 		boolean did = false;
 
 		if(world.isRemote)
 			return true;
 
-		if(plateStack == null && plate.acceptsItem(stack)) {
+		if(plateStack.isEmpty() && plate.acceptsItem(stack)) {
 			plate.getItemHandler().setStackInSlot(0, stack.copy());
-			stack.stackSize--;
+			stack.shrink(1);
 			did = true;
-		} else if(plateStack != null && !plate.burning) {
-			if(stack != null && stack.getItem() == Items.FLINT_AND_STEEL) {
+		} else if(!plateStack.isEmpty() && !plate.burning) {
+			if(!stack.isEmpty() && stack.getItem() == Items.FLINT_AND_STEEL) {
 				plate.ignite();
 				stack.damageItem(1, player);
 				did = true;
 			} else {
-				ItemStack addStack = plateStack.copy();
-				if(!player.inventory.addItemStackToInventory(addStack))
-					player.dropItem(addStack, false);
-				plate.getItemHandler().setStackInSlot(0, null);
+				ItemHandlerHelper.giveItemToPlayer(player, plateStack);
+				plate.getItemHandler().setStackInSlot(0, ItemStack.EMPTY);
 
 				did = true;
 			}
@@ -154,6 +151,12 @@ public class BlockIncensePlate extends BlockMod implements ILexiconable {
 	@Override
 	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.incense;
+	}
+
+	@Nonnull
+	@Override
+	public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing side) {
+		return BlockFaceShape.UNDEFINED;
 	}
 
 }

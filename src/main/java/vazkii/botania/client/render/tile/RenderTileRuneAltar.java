@@ -10,8 +10,6 @@
  */
 package vazkii.botania.client.render.tile;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
@@ -23,19 +21,21 @@ import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.model.ModelSpinningCubes;
 import vazkii.botania.common.block.tile.TileRuneAltar;
 
+import javax.annotation.Nonnull;
+
 public class RenderTileRuneAltar extends TileEntitySpecialRenderer<TileRuneAltar> {
 
 	final ModelSpinningCubes cubes = new ModelSpinningCubes();
 
 	@Override
-	public void renderTileEntityAt(@Nonnull TileRuneAltar altar, double x, double y, double z, float partticks, int digProgress) {
+	public void render(@Nonnull TileRuneAltar altar, double x, double y, double z, float partticks, int digProgress, float unused) {
 		GlStateManager.pushMatrix();
 		GlStateManager.color(1F, 1F, 1F, 1F);
 		GlStateManager.translate(x, y, z);
 
 		int items = 0;
 		for(int i = 0; i < altar.getSizeInventory(); i++)
-			if(altar.getItemHandler().getStackInSlot(i) == null)
+			if(altar.getItemHandler().getStackInSlot(i).isEmpty())
 				break;
 			else items++;
 		float[] angles = new float[altar.getSizeInventory()];
@@ -57,7 +57,7 @@ public class RenderTileRuneAltar extends TileEntitySpecialRenderer<TileRuneAltar
 			GlStateManager.translate(0D, 0.075 * Math.sin((time + i * 10) / 5D), 0F);
 			ItemStack stack = altar.getItemHandler().getStackInSlot(i);
 			Minecraft mc = Minecraft.getMinecraft();
-			if(stack != null) {
+			if(!stack.isEmpty()) {
 				mc.getRenderItem().renderItem(stack, ItemCameraTransforms.TransformType.GROUND);
 			}
 			GlStateManager.popMatrix();

@@ -14,9 +14,7 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.item.ItemRecord;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.FMLCommonHandler;
@@ -80,9 +78,6 @@ public class ServerProxy implements IProxy {
 	}
 
 	@Override
-	public void playRecordClientSided(World world, BlockPos pos, ItemRecord record) {}
-
-	@Override
 	public void setMultiblock(World world, int x, int y, int z, double radius, Block block) {}
 
 	@Override
@@ -90,7 +85,7 @@ public class ServerProxy implements IProxy {
 
 	@Override
 	public long getWorldElapsedTicks() {
-		return FMLCommonHandler.instance().getMinecraftServerInstance().worldServers[0].getTotalWorldTime();
+		return FMLCommonHandler.instance().getMinecraftServerInstance().worlds[0].getTotalWorldTime();
 	}
 
 	@Override

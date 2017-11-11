@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
-import java.util.List;
-
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.item.ItemStack;
@@ -20,9 +18,10 @@ import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
-import vazkii.botania.common.core.handler.MethodHandles;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibObfuscation;
+
+import java.util.List;
 
 public class SubTilePollidisiac extends SubTileFunctional {
 
@@ -45,25 +44,16 @@ public class SubTilePollidisiac extends SubTileFunctional {
 
 				if(animal.getGrowingAge() == 0 && !animal.isInLove()) {
 					for(EntityItem item : items) {
-						int age;
-						try {
-							age = (int) MethodHandles.itemAge_getter.invokeExact(item);
-						} catch (Throwable t) {
-							continue;
-						}
-
-						if(age < 60 + slowdown || item.isDead)
+						if(item.age < 60 + slowdown || item.isDead)
 							continue;
 
-						ItemStack stack = item.getEntityItem();
-						if(animal.isBreedingItem(stack)) {
-							stack.stackSize--;
-							if(stack.stackSize == 0)
-								item.setDead();
+						ItemStack stack = item.getItem();
+						if(!stack.isEmpty() && animal.isBreedingItem(stack)) {
+							stack.shrink(1);
 
 							mana -= manaCost;
 
-							ReflectionHelper.setPrivateValue(EntityAnimal.class, animal, 1200, LibObfuscation.IN_LOVE);
+							animal.inLove = 1200;
 							supertile.getWorld().setEntityState(animal, (byte)18);
 						}
 					}

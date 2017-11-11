@@ -10,16 +10,23 @@
  */
 package vazkii.botania.common.crafting.recipe;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
+import net.minecraftforge.registries.IForgeRegistryEntry;
 import vazkii.botania.common.item.ItemManaGun;
 
-public class ManaGunRemoveLensRecipe implements IRecipe {
+import javax.annotation.Nonnull;
+
+public class ManaGunRemoveLensRecipe extends IForgeRegistryEntry.Impl<IRecipe> implements IRecipe {
+
+	@Override
+	public boolean isHidden() {
+		return true;
+	}
 
 	@Override
 	public boolean matches(@Nonnull InventoryCrafting var1, @Nonnull World var2) {
@@ -27,8 +34,8 @@ public class ManaGunRemoveLensRecipe implements IRecipe {
 
 		for(int i = 0; i < var1.getSizeInventory(); i++) {
 			ItemStack stack = var1.getStackInSlot(i);
-			if(stack != null) {
-				if(stack.getItem() instanceof ItemManaGun && ItemManaGun.getLens(stack) != null)
+			if(!stack.isEmpty()) {
+				if(stack.getItem() instanceof ItemManaGun && !ItemManaGun.getLens(stack).isEmpty())
 					foundGun = true;
 
 				else return false; // Found an invalid item, breaking the recipe
@@ -38,37 +45,39 @@ public class ManaGunRemoveLensRecipe implements IRecipe {
 		return foundGun;
 	}
 
+	@Nonnull
 	@Override
 	public ItemStack getCraftingResult(@Nonnull InventoryCrafting var1) {
-		ItemStack gun = null;
+		ItemStack gun = ItemStack.EMPTY;
 
 		for(int i = 0; i < var1.getSizeInventory(); i++) {
 			ItemStack stack = var1.getStackInSlot(i);
-			if(stack != null) {
+			if(!stack.isEmpty()) {
 				if(stack.getItem() instanceof ItemManaGun)
 					gun = stack;
 			}
 		}
 
 		ItemStack gunCopy = gun.copy();
-		ItemManaGun.setLens(gunCopy, null);
+		ItemManaGun.setLens(gunCopy, ItemStack.EMPTY);
 
 		return gunCopy;
 	}
 
 	@Override
-	public int getRecipeSize() {
-		return 10;
-	}
-
-	@Override
-	public ItemStack getRecipeOutput() {
-		return null;
+	public boolean canFit(int width, int height) {
+		return width * height > 0;
 	}
 
 	@Nonnull
 	@Override
-	public ItemStack[] getRemainingItems(@Nonnull InventoryCrafting inv) {
+	public ItemStack getRecipeOutput() {
+		return ItemStack.EMPTY;
+	}
+
+	@Nonnull
+	@Override
+	public NonNullList<ItemStack> getRemainingItems(@Nonnull InventoryCrafting inv) {
 		return ForgeHooks.defaultRecipeGetRemainingItems(inv);
 	}
 }

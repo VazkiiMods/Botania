@@ -12,6 +12,7 @@ package vazkii.botania.common.block.tile;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -21,6 +22,9 @@ import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
+import vazkii.botania.common.block.ModBlocks;
+
+import java.util.Arrays;
 
 public class TileAnimatedTorch extends TileMod {
 
@@ -52,35 +56,47 @@ public class TileAnimatedTorch extends TileMod {
 
 	@Override
 	public void onLoad() {
-		if(!worldObj.isRemote)
-			nextRandomRotation = worldObj.rand.nextInt(4);
+		if(!world.isRemote)
+			nextRandomRotation = world.rand.nextInt(4);
 	}
 
 	public void handRotate() {
-		rotateTo((side + 1) % 4);
+		if(!world.isRemote)
+			world.addBlockEvent(getPos(), ModBlocks.animatedTorch, 0, (side + 1) % 4);
+	}
+	
+	public void onPlace(EntityLivingBase entity) {
+		if(entity != null) {
+			side = Arrays.asList(SIDES).indexOf(entity.getHorizontalFacing().getOpposite());
+		}
 	}
 
 	public void toggle() {
-		rotateTo(torchMode.modeSwitcher.rotate(this, side));
-
-		if(!worldObj.isRemote) {
-			nextRandomRotation = worldObj.rand.nextInt(4);
+		if(!world.isRemote) {
+			world.addBlockEvent(getPos(), ModBlocks.animatedTorch, 0, torchMode.modeSwitcher.rotate(this, side));
+			nextRandomRotation = world.rand.nextInt(4);
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 		}
 	}
 
 	public void onWanded() {
 		int modeOrdinal = torchMode.ordinal();
-		TorchMode[] modes = TorchMode.class.getEnumConstants();
+		TorchMode[] modes = TorchMode.values();
 
-		modeOrdinal++;
-		if(modeOrdinal >= modes.length)
-			modeOrdinal = 0;
-
-		torchMode = modes[modeOrdinal];
+		torchMode = modes[(modeOrdinal + 1) % modes.length];
 	}
 
-	public void rotateTo(int side) {
+	@Override
+	public boolean receiveClientEvent(int id, int param) {
+		if (id == 0) {
+			rotateTo(param);
+			return true;
+		} else {
+			return super.receiveClientEvent(id, param);
+		}
+	}
+
+	private void rotateTo(int side) {
 		if(rotating)
 			return;
 
@@ -96,7 +112,7 @@ public class TileAnimatedTorch extends TileMod {
 		this.side = side;
 		rotating = true;
 
-		worldObj.notifyNeighborsOfStateChange(getPos(), getBlockType());
+		world.notifyNeighborsOfStateChange(getPos(), getBlockType(), false);
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -105,7 +121,7 @@ public class TileAnimatedTorch extends TileMod {
 		int y = res.getScaledHeight() / 2 - 8;
 
 		mc.getRenderItem().renderItemAndEffectIntoGUI(new ItemStack(Blocks.REDSTONE_TORCH), x, y);
-		mc.fontRendererObj.drawStringWithShadow(I18n.translateToLocal("botania.animatedTorch." + torchMode.name().toLowerCase()), x + 18, y + 6, 0xFF4444);
+		mc.fontRenderer.drawStringWithShadow(I18n.translateToLocal("botania.animatedTorch." + torchMode.name().toLowerCase()), x + 18, y + 6, 0xFF4444);
 	}
 
 	@Override
@@ -117,7 +133,7 @@ public class TileAnimatedTorch extends TileMod {
 
 			if(rotationTicks <= 0) {
 				rotating = false;
-				worldObj.notifyNeighborsOfStateChange(getPos(), getBlockType());
+				world.notifyNeighborsOfStateChange(getPos(), getBlockType(), false);
 			}
 
 		} else rotation = side * 90;
@@ -128,7 +144,7 @@ public class TileAnimatedTorch extends TileMod {
 		double z = getPos().getZ() + 0.5 + Math.sin((rotation + 90) / 180.0 * Math.PI) * 0.35;
 
 		for(int i = 0; i < amt; i++)
-			worldObj.spawnParticle(EnumParticleTypes.REDSTONE, x, y, z, 0.0D, 0.0D, 0.0D, new int[0]);
+			world.spawnParticle(EnumParticleTypes.REDSTONE, x, y, z, 0.0D, 0.0D, 0.0D, new int[0]);
 	}
 
 	@Override
@@ -145,14 +161,14 @@ public class TileAnimatedTorch extends TileMod {
 	public void readPacketNBT(NBTTagCompound cmp) {
 		side = cmp.getInteger(TAG_SIDE);
 		rotating = cmp.getBoolean(TAG_ROTATING);
-		if(worldObj != null && !worldObj.isRemote)
+		if(world != null && !world.isRemote)
 			rotationTicks = cmp.getInteger(TAG_ROTATION_TICKS);
 		anglePerTick = cmp.getDouble(TAG_ANGLE_PER_TICK);
 		nextRandomRotation = cmp.getInteger(TAG_NEXT_RANDOM_ROTATION);
 
 		int modeOrdinal = cmp.getInteger(TAG_TORCH_MODE);
-		TorchMode[] modes = TorchMode.class.getEnumConstants();
-		torchMode = modes[Math.max(0, Math.min(modes.length - 1, modeOrdinal))];
+		TorchMode[] modes = TorchMode.values();
+		torchMode = modes[modeOrdinal % modes.length];
 	}
 
 	public static enum TorchMode {

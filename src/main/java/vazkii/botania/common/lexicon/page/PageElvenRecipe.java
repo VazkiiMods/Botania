@@ -1,11 +1,5 @@
 package vazkii.botania.common.lexicon.page;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.GlStateManager;
@@ -17,12 +11,17 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
+import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.internal.IGuiLexiconEntry;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.lexicon.LexiconRecipeMappings;
 import vazkii.botania.api.recipe.RecipeElvenTrade;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.lib.LibResources;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class PageElvenRecipe extends PageRecipe {
 
@@ -83,7 +82,7 @@ public class PageElvenRecipe extends PageRecipe {
 
 	@SideOnly(Side.CLIENT)
 	public void renderItemAtInputPos(IGuiLexiconEntry gui, int x, ItemStack stack) {
-		if(stack == null || stack.getItem() == null)
+		if(stack.isEmpty())
 			return;
 		stack = stack.copy();
 
@@ -101,7 +100,7 @@ public class PageElvenRecipe extends PageRecipe {
 
 	@SideOnly(Side.CLIENT)
 	public void renderItemAtOutputPos(IGuiLexiconEntry gui, int x, int y, ItemStack stack) {
-		if(stack == null || stack.getItem() == null)
+		if(stack.isEmpty())
 			return;
 		stack = stack.copy();
 

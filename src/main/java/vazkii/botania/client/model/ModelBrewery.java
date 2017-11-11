@@ -17,31 +17,31 @@ import vazkii.botania.client.render.tile.RenderTileBrewery;
 
 public class ModelBrewery extends ModelBase {
 
-	final ModelRenderer Pole;
-	final ModelRenderer Top;
-	final ModelRenderer Bottom;
-	final ModelRenderer Plate;
+	final ModelRenderer top;
+	final ModelRenderer pole;
+	final ModelRenderer bottom;
+	
+	final ModelRenderer plate;
 
 	public ModelBrewery() {
-		textureWidth = 64;
-		textureHeight = 32;
-
-		Pole = new ModelRenderer(this, 0, 6);
-		Pole.addBox(0F, 0F, 0F, 2, 10, 2);
-		Pole.setRotationPoint(-1F, 10F, -1F);
-		Pole.setTextureSize(64, 32);
-		Top = new ModelRenderer(this, 18, 0);
-		Top.addBox(0F, 0F, 0F, 4, 1, 4);
-		Top.setRotationPoint(-2F, 9F, -2F);
-		Top.setTextureSize(64, 32);
-		Bottom = new ModelRenderer(this, 18, 7);
-		Bottom.addBox(0F, 0F, 0F, 4, 1, 4);
-		Bottom.setRotationPoint(-2F, 20F, -2F);
-		Bottom.setTextureSize(64, 32);
-		Plate = new ModelRenderer(this, 0, 0);
-		Plate.addBox(5F, 0F, -2F, 4, 1, 4);
-		Plate.setRotationPoint(0F, 17F, 0F);
-		Plate.setTextureSize(64, 32);
+		
+		textureWidth = 32;
+		textureHeight = 16;
+		
+		top = new ModelRenderer(this, 8, 0);
+        top.setRotationPoint(0.0F, 16.0F, 0.0F);
+        top.addBox(-2.0F, -7.0F, -2.0F, 4, 1, 4, 0.0F);
+		pole = new ModelRenderer(this, 0, 0);
+        pole.setRotationPoint(0.0F, 16.0F, 0.0F);
+        pole.addBox(-1.0F, -6.0F, -1.0F, 2, 10, 2, 0.0F);
+        bottom = new ModelRenderer(this, 8, 5);
+        bottom.setRotationPoint(0.0F, 16.0F, 0.0F);
+        bottom.addBox(-2.0F, 4.0F, -2.0F, 4, 1, 4, 0.0F);
+        
+        plate = new ModelRenderer(this, 8, 5);
+        plate.setRotationPoint(0.0F, 17.0F, 0.0F);
+        plate.addBox(5.0F, 0.0F, -2.0F, 4, 1, 4, 0.0F);
+        
 	}
 
 	public void render(RenderTileBrewery render, double time) {
@@ -55,7 +55,7 @@ public class ModelBrewery extends ModelBase {
 
 		GlStateManager.translate(0F, offset, 0F);
 		GlStateManager.rotate(polerot, 0F, 1F, 0F);
-		if(hasTile && render.brewery.getItemHandler().getStackInSlot(0) != null) {
+		if(hasTile && !render.brewery.getItemHandler().getStackInSlot(0).isEmpty()) {
 			GlStateManager.rotate(180F, 1F, 0F, 0F);
 			GlStateManager.translate(0, -0.45, 0);
 			//GlStateManager.translate(-1F / 8F, -0.5F, 1F / 128F);
@@ -65,21 +65,21 @@ public class ModelBrewery extends ModelBase {
 			GlStateManager.rotate(-180F, 1F, 0F, 0F);
 		}
 
-		Pole.render(f);
-		Top.render(f);
-		Bottom.render(f);
+		pole.render(f);
+		top.render(f);
+		bottom.render(f);
 		GlStateManager.rotate(-polerot, 0F, 1F, 0F);
 
 		float degper = (float) (2F * Math.PI) / plates;
 		for(int i = 0; i < plates; i++) {
-			Plate.rotateAngleY = deg;
+			plate.rotateAngleY = deg;
 			float offset1 = (float) Math.sin(time / 20 + i * 40F) * 0.2F - 0.2F;
 			if(time == -1)
 				offset1 = 0F;
 
 			GlStateManager.translate(0F, offset1, 0F);
-			if(hasTile && render.brewery.getItemHandler().getStackInSlot(i + 1) != null) {
-				float rot = Plate.rotateAngleY * 180F / (float) Math.PI;
+			if(hasTile && !render.brewery.getItemHandler().getStackInSlot(i + 1).isEmpty()) {
+				float rot = plate.rotateAngleY * 180F / (float) Math.PI;
 				float transX = 0.3125F;
 				float transY = 1.06F;
 				float transZ = 0.1245F;
@@ -93,8 +93,7 @@ public class ModelBrewery extends ModelBase {
 				GlStateManager.translate(-transX, -transY, -transZ);
 				GlStateManager.rotate(-rot, 0F, 1F, 0F);
 			}
-
-			Plate.render(f);
+			plate.render(f);
 			GlStateManager.translate(0F, -offset1, 0F);
 
 			deg += degper;

@@ -10,16 +10,6 @@
  */
 package vazkii.botania.common.block;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Random;
-import java.util.Set;
-import java.util.UUID;
-
-import javax.annotation.Nonnull;
-
 import gnu.trove.map.hash.TObjectIntHashMap;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPistonExtension;
@@ -41,7 +31,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldSavedData;
+import net.minecraft.world.storage.WorldSavedData;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fml.common.FMLCommonHandler;
@@ -51,10 +41,19 @@ import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
 import net.minecraftforge.fml.common.gameevent.TickEvent.Type;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.api.wand.IWandable;
+import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
+
+import javax.annotation.Nonnull;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Random;
+import java.util.Set;
+import java.util.UUID;
 
 public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconable {
 
@@ -117,7 +116,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 		MinecraftServer server = FMLCommonHandler.instance().getMinecraftServerInstance();
 		if(server == null)
 			return Blocks.AIR.getDefaultState();
-		return server.worldServerForDimension(key.dim).getBlockState(key.blockPos);
+		return server.getWorld(key.dim).getBlockState(key.blockPos);
 	}
 
 	@Override
@@ -127,7 +126,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 
 		if(!player.isSneaking()) {
 			playerPositions.put(player.getUniqueID(), new DimWithPos(world.provider.getDimension(), pos));
-			world.playSound(null, pos, BotaniaSoundEvents.ding, SoundCategory.BLOCKS, 0.5F, 1F);
+			world.playSound(null, pos, ModSounds.ding, SoundCategory.BLOCKS, 0.5F, 1F);
 		} else {
 			spawnAsEntity(world, pos, new ItemStack(this));
 			world.setBlockToAir(pos);
@@ -217,12 +216,12 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 						{
 							int worldId = s.dim, x = s.blockPos.getX(), y = s.blockPos.getY(), z = s.blockPos.getZ();
 							BlockPos pos = s.blockPos;
-							World world = server.worldServerForDimension(worldId);
+							World world = server.getWorld(worldId);
 							if(world.isAirBlock(pos.offset(dir)))
 								world.setBlockState(pos.offset(dir), ModBlocks.pistonRelay.getDefaultState());
 							else if(!world.isRemote) {
 								ItemStack stack = new ItemStack(ModBlocks.pistonRelay);
-								world.spawnEntityInWorld(new EntityItem(world, x + dir.getFrontOffsetX(), y + dir.getFrontOffsetY(), z + dir.getFrontOffsetZ(), stack));
+								world.spawnEntity(new EntityItem(world, x + dir.getFrontOffsetX(), y + dir.getFrontOffsetY(), z + dir.getFrontOffsetZ(), stack));
 							}
 							checkedCoords.add(s);
 							newPos = new DimWithPos(world.provider.getDimension(), pos.offset(dir));
@@ -232,7 +231,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 							DimWithPos pos = mappedPositions.get(s);
 							int worldId = pos.dim;
 							BlockPos pos2 = pos.blockPos;
-							World world = server.worldServerForDimension(worldId);
+							World world = server.getWorld(worldId);
 
 							IBlockState srcState = world.getBlockState(pos2);
 							TileEntity tile = world.getTileEntity(pos2);

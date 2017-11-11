@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.item;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -24,6 +22,8 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import vazkii.botania.common.lib.LibItemNames;
 
+import javax.annotation.Nonnull;
+
 public class ItemOpenBucket extends ItemMod {
 
 	public ItemOpenBucket() {
@@ -33,20 +33,21 @@ public class ItemOpenBucket extends ItemMod {
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack par1ItemStack, World world, EntityPlayer player, EnumHand hand) {
-		RayTraceResult RayTraceResult = rayTrace(world, player, true);
+	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
+		RayTraceResult rtr = rayTrace(world, player, true);
+		ItemStack stack = player.getHeldItem(hand);
 
-		if(RayTraceResult == null)
-			return ActionResult.newResult(EnumActionResult.PASS, par1ItemStack);
+		if(rtr == null)
+			return ActionResult.newResult(EnumActionResult.PASS, stack);
 		else {
-			if(RayTraceResult.typeOfHit == net.minecraft.util.math.RayTraceResult.Type.BLOCK) {
-				BlockPos pos = RayTraceResult.getBlockPos();
+			if(rtr.typeOfHit == net.minecraft.util.math.RayTraceResult.Type.BLOCK) {
+				BlockPos pos = rtr.getBlockPos();
 
 				if(!world.isBlockModifiable(player, pos))
-					return ActionResult.newResult(EnumActionResult.PASS, par1ItemStack);
+					return ActionResult.newResult(EnumActionResult.PASS, stack);
 
-				if(!player.canPlayerEdit(pos, RayTraceResult.sideHit, par1ItemStack))
-					return ActionResult.newResult(EnumActionResult.PASS, par1ItemStack);
+				if(!player.canPlayerEdit(pos, rtr.sideHit, stack))
+					return ActionResult.newResult(EnumActionResult.PASS, stack);
 
 				Material material = world.getBlockState(pos).getMaterial();
 				int l = world.getBlockState(pos).getBlock().getMetaFromState(world.getBlockState(pos)); // hack to get meta so we don't have to know the level prop
@@ -57,11 +58,11 @@ public class ItemOpenBucket extends ItemMod {
 					for(int x = 0; x < 5; x++)
 						world.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, pos.getX() + Math.random(), pos.getY() + Math.random(), pos.getZ() + Math.random(), 0, 0, 0);
 
-					return ActionResult.newResult(EnumActionResult.SUCCESS, par1ItemStack);
+					return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
 				}
 			}
 
-			return ActionResult.newResult(EnumActionResult.PASS, par1ItemStack);
+			return ActionResult.newResult(EnumActionResult.PASS, stack);
 		}
 	}
 

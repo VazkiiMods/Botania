@@ -10,8 +10,6 @@
  */
 package vazkii.botania.client.gui.lexicon;
 
-import java.io.IOException;
-
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
@@ -23,19 +21,18 @@ import vazkii.botania.client.challenge.ModChallenges;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.PersistentVariableHelper;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonBack;
+import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lexicon.page.PageText;
+
+import java.io.IOException;
 
 public class GuiLexiconChallenge extends GuiLexicon implements IParented {
 
 	private static final String TAG_CHALLENGE = "challenge";
 
-	Challenge challenge;
-	GuiLexicon parent;
-	GuiButton backButton, completeButton;
-
-	public GuiLexiconChallenge() {
-		parent = new GuiLexiconChallengesList();
-	}
+	private Challenge challenge;
+	private GuiLexicon parent;
+	private GuiButton backButton, completeButton;
 
 	public GuiLexiconChallenge(GuiLexicon parent, Challenge challenge) {
 		this.parent = parent;
@@ -43,7 +40,7 @@ public class GuiLexiconChallenge extends GuiLexicon implements IParented {
 		setTitle();
 	}
 
-	public void setTitle() {
+	private void setTitle() {
 		title = challenge == null ? "(null)" : I18n.format(challenge.unlocalizedName);
 	}
 
@@ -58,8 +55,8 @@ public class GuiLexiconChallenge extends GuiLexicon implements IParented {
 	}
 
 	@Override
-	public void drawScreenAfterScale(int par1, int par2, float par3) {
-		super.drawScreenAfterScale(par1, par2, par3);
+	public void drawScreenAfterScale(int xCoord, int yCoord, float newPartialTicks) {
+		super.drawScreenAfterScale(xCoord, yCoord, newPartialTicks);
 
 		RenderHelper.enableGUIStandardItemLighting();
 		GlStateManager.enableRescaleNormal();
@@ -67,17 +64,17 @@ public class GuiLexiconChallenge extends GuiLexicon implements IParented {
 		RenderHelper.disableStandardItemLighting();
 		GlStateManager.enableBlend();
 
-		boolean unicode = fontRendererObj.getUnicodeFlag();
-		fontRendererObj.setUnicodeFlag(true);
-		fontRendererObj.drawString(TextFormatting.BOLD + I18n.format(challenge.unlocalizedName), left + 38, top + 13, 0);
-		fontRendererObj.drawString(I18n.format(challenge.level.getName()) + " / " + (challenge.complete ? TextFormatting.DARK_GREEN : TextFormatting.DARK_RED) + I18n.format(challenge.complete ? "botaniamisc.completed" : "botaniamisc.notCompleted"), left + 38, top + 23, 0);
+		boolean unicode = fontRenderer.getUnicodeFlag();
+		fontRenderer.setUnicodeFlag(true);
+		fontRenderer.drawString(TextFormatting.BOLD + I18n.format(challenge.unlocalizedName), left + 38, top + 13, 0);
+		fontRenderer.drawString(I18n.format(challenge.level.getName()) + ((challenge.icon.getItem() == ModItems.rune) ? "+" : "") + " / " + (challenge.complete ? TextFormatting.DARK_GREEN : TextFormatting.DARK_RED) + I18n.format(challenge.complete ? "botaniamisc.completed" : "botaniamisc.notCompleted"), left + 38, top + 23, 0);
 
 		int width = guiWidth - 30;
 		int x = left + 16;
 		int y = top + 28;
 
 		PageText.renderText(x, y, width, guiHeight, challenge.unlocalizedName + ".desc");
-		fontRendererObj.setUnicodeFlag(unicode);
+		fontRenderer.setUnicodeFlag(unicode);
 	}
 
 	@Override
@@ -115,11 +112,11 @@ public class GuiLexiconChallenge extends GuiLexicon implements IParented {
 			notesEnabled = !notesEnabled;
 	}
 
-	void setCompleteButtonTitle() {
+	private void setCompleteButtonTitle() {
 		completeButton.displayString = I18n.format(challenge.complete ? "botaniamisc.markNotCompleted" : "botaniamisc.markCompleted");
 	}
 
-	void back() {
+	private void back() {
 		if(backButton.enabled) {
 			actionPerformed(backButton);
 			backButton.playPressSound(mc.getSoundHandler());
@@ -166,8 +163,7 @@ public class GuiLexiconChallenge extends GuiLexicon implements IParented {
 	public void load(NBTTagCompound cmp) {
 		super.load(cmp);
 		String challengeName = cmp.getString(TAG_CHALLENGE);
-		Challenge c = ModChallenges.challengeLookup.get(challengeName);
-		challenge = c;
+		challenge = ModChallenges.challengeLookup.get(challengeName);
 		setTitle();
 	}
 

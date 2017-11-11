@@ -10,12 +10,8 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
-import java.util.List;
-import java.util.Random;
-
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
-
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
@@ -23,12 +19,12 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityCaveSpider;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.monster.EntityEnderman;
+import net.minecraft.entity.monster.EntityHusk;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.monster.EntitySpider;
+import net.minecraft.entity.monster.EntityStray;
 import net.minecraft.entity.monster.EntityZombie;
-import net.minecraft.entity.monster.SkeletonType;
-import net.minecraft.entity.monster.ZombieType;
 import net.minecraft.init.MobEffects;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -40,6 +36,7 @@ import net.minecraft.world.WorldServer;
 import net.minecraft.world.storage.loot.LootContext;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import vazkii.botania.api.BotaniaAPI;
@@ -47,6 +44,9 @@ import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.lexicon.LexiconData;
+
+import java.util.List;
+import java.util.Random;
 
 public class SubTileLoonuim extends SubTileFunctional {
 
@@ -56,16 +56,10 @@ public class SubTileLoonuim extends SubTileFunctional {
 	private static final String TAG_ITEMSTACK_TO_DROP = "botania:looniumItemStackToDrop";
 
 	private ResourceLocation lootTable = new ResourceLocation("minecraft", "chests/simple_dungeon");
-	private static boolean registered = false;
-	
+
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
-		
-		if(!registered) {
-			MinecraftForge.EVENT_BUS.register(DropHandler.class);
-			registered = true;
-		}
 
 		World world = supertile.getWorld();
 		if(!world.isRemote && redstoneSignal == 0 && ticksExisted % 100 == 0 && mana >= COST) {
@@ -77,7 +71,7 @@ public class SubTileLoonuim extends SubTileFunctional {
 				if (stacks.isEmpty())
 					return;
 				else stack = stacks.get(0);
-			} while(stack == null || BotaniaAPI.looniumBlacklist.contains(stack.getItem()));
+			} while(stack.isEmpty() || BotaniaAPI.looniumBlacklist.contains(stack.getItem()));
 
 			int bound = RANGE * 2 + 1;
 			int xp = supertile.getPos().getX() - RANGE + rand.nextInt(bound);
@@ -89,7 +83,7 @@ public class SubTileLoonuim extends SubTileFunctional {
 				pos = pos.up();
 				if(pos.getY() >= 254)
 					return;
-			} while(world.getBlockState(pos).getBlock().isVisuallyOpaque());
+			} while(world.getBlockState(pos).causesSuffocation());
 			pos = pos.up();
 
 			double x = pos.getX() + Math.random();
@@ -108,12 +102,12 @@ public class SubTileLoonuim extends SubTileFunctional {
 				case 0: 
 					entity = new EntityZombie(world);
 					if(world.rand.nextInt(10) == 0)
-						((EntityZombie) entity).func_189778_a(ZombieType.HUSK); // set zombie type
+						entity = new EntityHusk(world);
 					break;
 				case 1:
 					entity = new EntitySkeleton(world);
 					if(world.rand.nextInt(10) == 0)
-						((EntitySkeleton) entity).func_189768_a(SkeletonType.STRAY); // set skeleton type
+						entity = new EntityStray(world);
 					break;
 				case 2:
 					if(world.rand.nextInt(10) == 0)
@@ -126,19 +120,18 @@ public class SubTileLoonuim extends SubTileFunctional {
 			entity.motionX = entity.motionY = entity.motionZ = 0;
 			
 			Multimap map = HashMultimap.create();
-			map.put(SharedMonsterAttributes.MAX_HEALTH.getAttributeUnlocalizedName(), new AttributeModifier("Loonium Modififer Health", 2, 1));
-			map.put(SharedMonsterAttributes.ATTACK_DAMAGE.getAttributeUnlocalizedName(), new AttributeModifier("Loonium Modififer Damage", 1.5, 1));
+			map.put(SharedMonsterAttributes.MAX_HEALTH.getName(), new AttributeModifier("Loonium Modififer Health", 2, 1));
+			map.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier("Loonium Modififer Damage", 1.5, 1));
 			entity.getAttributeMap().applyAttributeModifiers(map);
 			
 			entity.addPotionEffect(new PotionEffect(MobEffects.FIRE_RESISTANCE, Integer.MAX_VALUE, 0));
 			entity.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, Integer.MAX_VALUE, 0));
 			
-			NBTTagCompound cmp = new NBTTagCompound();
-			stack.writeToNBT(cmp);
+			NBTTagCompound cmp = stack.writeToNBT(new NBTTagCompound());
 			entity.getEntityData().setTag(TAG_ITEMSTACK_TO_DROP, cmp);
-			
-			world.spawnEntityInWorld(entity);
+
 			entity.onInitialSpawn(world.getDifficultyForLocation(pos), null);
+			world.spawnEntity(entity);
 			SubTileSpectranthemum.spawnExplosionParticles(entity, 5);
 			
 			mana -= COST;
@@ -183,7 +176,8 @@ public class SubTileLoonuim extends SubTileFunctional {
 		super.writeToPacketNBT(cmp);
 		cmp.setString(TAG_LOOT_TABLE, lootTable.toString());
 	}
-	
+
+	@Mod.EventBusSubscriber
 	public static class DropHandler {
 		
 		@SubscribeEvent(priority = EventPriority.LOWEST)
@@ -191,9 +185,9 @@ public class SubTileLoonuim extends SubTileFunctional {
 			EntityLivingBase e = event.getEntityLiving();
 			if(e.getEntityData().hasKey(TAG_ITEMSTACK_TO_DROP)) {
 				NBTTagCompound cmp = e.getEntityData().getCompoundTag(TAG_ITEMSTACK_TO_DROP);
-				ItemStack stack = ItemStack.loadItemStackFromNBT(cmp);
+				ItemStack stack = new ItemStack(cmp);
 				event.getDrops().clear();
-				event.getDrops().add(new EntityItem(e.worldObj, e.posX, e.posY, e.posZ, stack));
+				event.getDrops().add(new EntityItem(e.world, e.posX, e.posY, e.posZ, stack));
 			}
 		}
 		

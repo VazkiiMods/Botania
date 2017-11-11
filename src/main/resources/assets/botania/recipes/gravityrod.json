@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "botania:gravityrod"
+  },
+  "pattern": [
+    " TD",
+    " WT",
+    "T  "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "T": {
+      "item": "#DREAMWOODTWIG"
+    },
+    "D": {
+      "item": "#ELVENDRAGONSTONE"
+    },
+    "W": {
+      "item": "#CROPWHEAT"
+    }
+  }
+}

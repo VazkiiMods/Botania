@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "botania:items/fertilizer"
+    "layer0": "botania:items/floral_fertilizer"
   }
 }

@@ -1,0 +1,21 @@
+{
+  "result": {
+    "item": "botania:starfield"
+  },
+  "pattern": [
+    "EPE",
+    "EOE"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "P": {
+      "item": "#ELVENPIXIEDUST"
+    },
+    "E": {
+      "item": "#INGOTELVENELEMENTIUM"
+    },
+    "O": {
+      "item": "minecraft:obsidian"
+    }
+  }
+}

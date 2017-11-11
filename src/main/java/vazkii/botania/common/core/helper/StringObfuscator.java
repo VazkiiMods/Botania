@@ -10,11 +10,10 @@
  */
 package vazkii.botania.common.core.helper;
 
+import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
-
-import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
 
 public final class StringObfuscator {
 

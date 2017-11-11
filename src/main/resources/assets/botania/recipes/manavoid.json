@@ -1,0 +1,19 @@
+{
+  "result": {
+    "item": "botania:manavoid"
+  },
+  "pattern": [
+    "SSS",
+    "O O",
+    "SSS"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "S": {
+      "item": "#LIVINGROCK"
+    },
+    "O": {
+      "item": "minecraft:obsidian"
+    }
+  }
+}

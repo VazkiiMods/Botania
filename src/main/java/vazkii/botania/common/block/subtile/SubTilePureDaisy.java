@@ -24,10 +24,14 @@ import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.lexicon.LexiconData;
 
+import java.util.Arrays;
+
 public class SubTilePureDaisy extends SubTileEntity {
 
 	private static final String TAG_POSITION = "position";
 	private static final String TAG_TICKS_REMAINING = "ticksRemaining";
+	private static final int UPDATE_ACTIVE_EVENT = 0;
+	private static final int RECIPE_COMPLETE_EVENT = 1;
 
 	private static final BlockPos[] POSITIONS = {
 			new BlockPos(-1, 0, -1 ),
@@ -40,12 +44,30 @@ public class SubTilePureDaisy extends SubTileEntity {
 			new BlockPos(0, 0, -1 ),
 	};
 
-	int positionAt = 0;
-	final int[] ticksRemaining = { -1, -1, -1, -1, -1, -1, -1, -1};
+	private int positionAt = 0;
+	private final int[] ticksRemaining = new int[POSITIONS.length];
+
+	// Bitfield of active positions, used clientside for particles
+	private int activePositions = 0;
+
+	public SubTilePureDaisy() {
+		Arrays.fill(ticksRemaining, -1);
+	}
 
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
+
+		if(getWorld().isRemote) {
+			for (int i = 0; i < POSITIONS.length; i++) {
+				if ((activePositions >>> i & 1) > 0) {
+					BlockPos coords = getPos().add(POSITIONS[i]);
+					Botania.proxy.sparkleFX(coords.getX() + Math.random(), coords.getY() + Math.random(), coords.getZ() + Math.random(), 1F, 1F, 1F, (float) Math.random(), 5);
+				}
+			}
+
+			return;
+		}
 
 		positionAt++;
 		if(positionAt == POSITIONS.length)
@@ -55,38 +77,72 @@ public class SubTilePureDaisy extends SubTileEntity {
 		BlockPos coords = supertile.getPos().add(acoords);
 		World world = supertile.getWorld();
 		if(!world.isAirBlock(coords)) {
-			IBlockState state = world.getBlockState(coords);
-			RecipePureDaisy recipe = null;
-			for(RecipePureDaisy recipe_ : BotaniaAPI.pureDaisyRecipes)
-				if(recipe_.matches(world, coords, this, state)) {
-					recipe = recipe_;
-					break;
-				}
-
+			RecipePureDaisy recipe = findRecipe(coords);
 
 			if(recipe != null) {
 				if (ticksRemaining[positionAt] == -1)
 					ticksRemaining[positionAt] = recipe.getTime();
 				ticksRemaining[positionAt]--;
 
-				Botania.proxy.sparkleFX(coords.getX() + Math.random(), coords.getY() + Math.random(), coords.getZ() + Math.random(), 1F, 1F, 1F, (float) Math.random(), 5);
-
 				if(ticksRemaining[positionAt] <= 0) {
 					ticksRemaining[positionAt] = -1;
 
 					if(recipe.set(world,coords, this)) {
-						for(int i = 0; i < 25; i++) {
-							double x = coords.getX() + Math.random();
-							double y = coords.getY() + Math.random() + 0.5;
-							double z = coords.getZ() + Math.random();
-
-							Botania.proxy.wispFX(x, y, z, 1F, 1F, 1F, (float) Math.random() / 2F);
-						}
+						world.addBlockEvent(getPos(), supertile.getBlockType(), RECIPE_COMPLETE_EVENT, positionAt);
 						if(ConfigHandler.blockBreakParticles)
 							supertile.getWorld().playEvent(2001, coords, Block.getStateId(recipe.getOutputState()));
 					}
 				}
 			} else ticksRemaining[positionAt] = -1;
+		} else ticksRemaining[positionAt] = -1;
+
+		updateActivePositions();
+	}
+
+	private void updateActivePositions() {
+		int newActivePositions = 0;
+		for (int i = 0; i < ticksRemaining.length; i++) {
+			if (ticksRemaining[i] > -1) {
+				newActivePositions |= 1 << i;
+			}
+		}
+
+		if (newActivePositions != activePositions) {
+			getWorld().addBlockEvent(getPos(), supertile.getBlockType(), UPDATE_ACTIVE_EVENT, newActivePositions);
+		}
+	}
+
+	private RecipePureDaisy findRecipe(BlockPos coords) {
+		IBlockState state = getWorld().getBlockState(coords);
+
+		for(RecipePureDaisy recipe : BotaniaAPI.pureDaisyRecipes) {
+			if(recipe.matches(getWorld(), coords, this, state)) {
+				return recipe;
+			}
+		}
+
+		return null;
+	}
+
+	@Override
+	public boolean receiveClientEvent(int type, int param) {
+		switch (type) {
+			case UPDATE_ACTIVE_EVENT: activePositions = param; return true;
+			case RECIPE_COMPLETE_EVENT: {
+				if (getWorld().isRemote) {
+					BlockPos coords = getPos().add(POSITIONS[param]);
+					for(int i = 0; i < 25; i++) {
+						double x = coords.getX() + Math.random();
+						double y = coords.getY() + Math.random() + 0.5;
+						double z = coords.getZ() + Math.random();
+
+						Botania.proxy.wispFX(x, y, z, 1F, 1F, 1F, (float) Math.random() / 2F);
+					}
+				}
+
+				return true;
+			}
+			default: return super.receiveClientEvent(type, param);
 		}
 	}
 

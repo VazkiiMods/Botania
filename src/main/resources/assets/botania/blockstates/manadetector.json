@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "powered=false": { "model": "botania:mana_detector" },
+    "powered=true": { "model": "botania:mana_detector_activated" }
+  }
+}

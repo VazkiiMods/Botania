@@ -10,13 +10,13 @@
  */
 package vazkii.botania.client.render.entity;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.RenderWither;
 import net.minecraft.entity.boss.EntityWither;
 import net.minecraft.util.ResourceLocation;
 import vazkii.botania.client.lib.LibResources;
+
+import javax.annotation.Nonnull;
 
 public class RenderPinkWither extends RenderWither {
 

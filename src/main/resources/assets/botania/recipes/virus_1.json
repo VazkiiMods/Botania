@@ -1,0 +1,28 @@
+{
+  "result": {
+    "item": "botania:virus",
+    "data": 1
+  },
+  "ingredients": [
+    {
+      "item": "#ELVENPIXIEDUST"
+    },
+    {
+      "item": "botania:vineball"
+    },
+    {
+      "item": "minecraft:magma_cream"
+    },
+    {
+      "item": "minecraft:fermented_spider_eye"
+    },
+    {
+      "item": "minecraft:ender_eye"
+    },
+    {
+      "item": "minecraft:skull",
+      "data": 0
+    }
+  ],
+  "type": "forge:ore_shapeless"
+}

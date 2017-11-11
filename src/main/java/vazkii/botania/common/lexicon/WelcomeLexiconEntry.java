@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.lexicon;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.item.ItemStack;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -19,6 +17,8 @@ import vazkii.botania.api.lexicon.LexiconPage;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lexicon.page.PageText;
 import vazkii.botania.common.lib.LibLexicon;
+
+import javax.annotation.Nonnull;
 
 public class WelcomeLexiconEntry extends BasicLexiconEntry {
 

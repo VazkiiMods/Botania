@@ -3,9 +3,7 @@ package vazkii.botania.common.core.proxy;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemRecord;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -39,8 +37,6 @@ public interface IProxy {
 	void setExtraReach(EntityLivingBase entity, float reach);
 
 	boolean openWikiPage(World world, Block block, RayTraceResult pos);
-
-	void playRecordClientSided(World world, BlockPos pos, ItemRecord record);
 
 	void setMultiblock(World world, int x, int y, int z, double radius, Block block);
 

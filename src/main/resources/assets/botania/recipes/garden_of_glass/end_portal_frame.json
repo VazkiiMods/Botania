@@ -1,0 +1,23 @@
+{
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "gardenofglass"
+    }
+  ],
+  "result": {
+    "item": "minecraft:end_portal_frame"
+  },
+  "pattern": [
+    "OGO"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "G": {
+      "item": "#ETERNALLIFEESSENCE"
+    },
+    "O": {
+      "item": "minecraft:obsidian"
+    }
+  }
+}

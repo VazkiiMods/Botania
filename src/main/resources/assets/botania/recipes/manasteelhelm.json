@@ -1,0 +1,15 @@
+{
+  "result": {
+    "item": "botania:manasteelhelm"
+  },
+  "pattern": [
+    "SSS",
+    "S S"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "S": {
+      "item": "#INGOTMANASTEEL"
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "result": {
+    "item": "botania:terraplate"
+  },
+  "pattern": [
+    "LLL",
+    "0M1",
+    "283"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "0": {
+      "item": "#RUNEWATERB"
+    },
+    "1": {
+      "item": "#RUNEFIREB"
+    },
+    "2": {
+      "item": "#RUNEEARTHB"
+    },
+    "3": {
+      "item": "#RUNEAIRB"
+    },
+    "8": {
+      "item": "#RUNEMANAB"
+    },
+    "L": {
+      "item": "#BLOCKLAPIS"
+    },
+    "M": {
+      "item": "botania:storage",
+      "data": 0
+    }
+  }
+}

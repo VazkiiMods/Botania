@@ -10,12 +10,9 @@
  */
 package vazkii.botania.common.block;
 
-import java.util.Random;
-
-import javax.annotation.Nonnull;
-
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -37,6 +34,7 @@ import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.items.ItemHandlerHelper;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -52,6 +50,9 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
+import javax.annotation.Nonnull;
+import java.util.Random;
+
 public class BlockHourglass extends BlockMod implements IManaTrigger, IWandable, IWandHUD, ILexiconable {
 
 	private static final AxisAlignedBB AABB = new AxisAlignedBB(0.25, 0, 0.25, 0.75, 1.15, 0.75);
@@ -60,6 +61,7 @@ public class BlockHourglass extends BlockMod implements IManaTrigger, IWandable,
 		super(Material.IRON, LibBlockNames.HOURGLASS);
 		setHardness(2.0F);
 		setSoundType(SoundType.METAL);
+		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.POWERED, false));
 	}
 
 	@Nonnull
@@ -75,11 +77,6 @@ public class BlockHourglass extends BlockMod implements IManaTrigger, IWandable,
 	}
 
 	@Override
-	protected IBlockState pickDefaultState() {
-		return blockState.getBaseState().withProperty(BotaniaStateProps.POWERED, false);
-	}
-
-	@Override
 	public int getMetaFromState(IBlockState state) {
 		return state.getValue(BotaniaStateProps.POWERED) ? 1 : 0;
 	}
@@ -91,28 +88,27 @@ public class BlockHourglass extends BlockMod implements IManaTrigger, IWandable,
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack stack, EnumFacing side, float xs, float ys, float zs) {
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float xs, float ys, float zs) {
 		TileHourglass hourglass = (TileHourglass) world.getTileEntity(pos);
 		ItemStack hgStack = hourglass.getItemHandler().getStackInSlot(0);
-		if(stack != null && stack.getItem() == ModItems.twigWand)
+		ItemStack stack = player.getHeldItem(hand);
+		if(!stack.isEmpty() && stack.getItem() == ModItems.twigWand)
 			return false;
 
 		if(hourglass.lock) {
-			if(!player.worldObj.isRemote)
-				player.addChatMessage(new TextComponentTranslation("botaniamisc.hourglassLock"));
+			if(!player.world.isRemote)
+				player.sendMessage(new TextComponentTranslation("botaniamisc.hourglassLock"));
 			return true;
 		}
 
-		if(hgStack == null && TileHourglass.getStackItemTime(stack) > 0) {
+		if(hgStack.isEmpty() && TileHourglass.getStackItemTime(stack) > 0) {
 			hourglass.getItemHandler().setStackInSlot(0, stack.copy());
 			hourglass.markDirty();
-			stack.stackSize = 0;
+			stack.setCount(0);
 			return true;
-		} else if(hgStack != null) {
-			ItemStack copy = hgStack.copy();
-			if(!player.inventory.addItemStackToInventory(copy))
-				player.dropItem(copy, false);
-			hourglass.getItemHandler().setStackInSlot(0, null);
+		} else if(!hgStack.isEmpty()) {
+			ItemHandlerHelper.giveItemToPlayer(player, hgStack);
+			hourglass.getItemHandler().setStackInSlot(0, ItemStack.EMPTY);
 			hourglass.markDirty();
 			return true;
 		}
@@ -210,6 +206,12 @@ public class BlockHourglass extends BlockMod implements IManaTrigger, IWandable,
 		ModelLoader.setCustomStateMapper(this, new StateMap.Builder().ignore(BotaniaStateProps.POWERED).build());
 		ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(this), 0, TileHourglass.class);
 		ModelHandler.registerCustomItemblock(this, "hovering_hourglass");
+	}
+
+	@Nonnull
+	@Override
+	public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing side) {
+		return BlockFaceShape.UNDEFINED;
 	}
 
 }

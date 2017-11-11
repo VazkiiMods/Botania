@@ -1,0 +1,25 @@
+{
+  "result": {
+    "item": "botania:conjurationcatalyst"
+  },
+  "pattern": [
+    "SBS",
+    "GPG",
+    "SGS"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "P": {
+      "item": "botania:alchemycatalyst"
+    },
+    "B": {
+      "item": "#ELVENPIXIEDUST"
+    },
+    "S": {
+      "item": "#LIVINGROCK"
+    },
+    "G": {
+      "item": "#INGOTELVENELEMENTIUM"
+    }
+  }
+}

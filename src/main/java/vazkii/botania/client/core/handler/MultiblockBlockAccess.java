@@ -10,9 +10,8 @@
  */
 package vazkii.botania.client.core.handler;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
@@ -22,6 +21,8 @@ import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.Biome;
 import vazkii.botania.api.lexicon.multiblock.Multiblock;
 import vazkii.botania.api.lexicon.multiblock.component.MultiblockComponent;
+
+import javax.annotation.Nonnull;
 
 /**
  * This class acts as a wrapper around a block access to
@@ -85,10 +86,10 @@ public class MultiblockBlockAccess implements IBlockAccess {
 
 	@Nonnull
 	@Override
-	public Biome getBiomeGenForCoords(@Nonnull BlockPos pos) {
+	public Biome getBiome(@Nonnull BlockPos pos) {
 		if(hasBlockAccess)
-			return originalBlockAccess.getBiomeGenForCoords(pos);
-		return null;
+			return originalBlockAccess.getBiome(pos);
+		return Biomes.DEFAULT;
 	}
 
 	@Override

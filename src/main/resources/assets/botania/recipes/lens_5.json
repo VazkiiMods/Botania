@@ -1,0 +1,16 @@
+{
+  "result": {
+    "item": "botania:lens",
+    "data": 5
+  },
+  "ingredients": [
+    {
+      "item": "botania:lens",
+      "data": 0
+    },
+    {
+      "item": "#RUNESUMMERB"
+    }
+  ],
+  "type": "forge:ore_shapeless"
+}

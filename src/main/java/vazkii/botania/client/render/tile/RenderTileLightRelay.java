@@ -10,34 +10,32 @@
  */
 package vazkii.botania.client.render.tile;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.annotation.Nonnull;
-
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.LuminizerVariant;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.core.helper.ShaderHelper;
+import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileLightRelay;
+
+import javax.annotation.Nonnull;
+import java.util.HashMap;
+import java.util.Map;
 
 public class RenderTileLightRelay extends TileEntitySpecialRenderer<TileLightRelay> {
 
 	private static Map<LuminizerVariant, TextureAtlasSprite> sprites = new HashMap();
 
 	@Override
-	public void renderTileEntityAt(@Nonnull TileLightRelay tile, double x, double y, double z, float pticks, int digProgress) {
+	public void render(@Nonnull TileLightRelay tile, double x, double y, double z, float pticks, int digProgress, float unused) {
 		if(!tile.getWorld().isBlockLoaded(tile.getPos(), false) || tile.getWorld().getBlockState(tile.getPos()).getBlock() != ModBlocks.lightRelay)
 			return;
 
@@ -77,7 +75,7 @@ public class RenderTileLightRelay extends TileEntitySpecialRenderer<TileLightRel
 
 		mc.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 		ShaderHelper.useShader(ShaderHelper.halo);
-		func_77026_a(tessellator, iicon);
+		renderIcon(tessellator, iicon);
 		ShaderHelper.releaseShader();
 
 		GlStateManager.popMatrix();
@@ -87,11 +85,11 @@ public class RenderTileLightRelay extends TileEntitySpecialRenderer<TileLightRel
 		GlStateManager.popMatrix();
 	}
 
-	private void func_77026_a(Tessellator p_77026_1_, TextureAtlasSprite p_77026_2_) {
-		float f = p_77026_2_.getMinU();
-		float f1 = p_77026_2_.getMaxU();
-		float f2 = p_77026_2_.getMinV();
-		float f3 = p_77026_2_.getMaxV();
+	private void renderIcon(Tessellator tess, TextureAtlasSprite icon) {
+		float f = icon.getMinU();
+		float f1 = icon.getMaxU();
+		float f2 = icon.getMinV();
+		float f3 = icon.getMaxV();
 		float size = f1 - f;
 		float pad = size / 8F;
 		f += pad;
@@ -103,13 +101,12 @@ public class RenderTileLightRelay extends TileEntitySpecialRenderer<TileLightRel
 		float f5 = 0.5F;
 		float f6 = 0.25F;
 
-		p_77026_1_.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_NORMAL);
-		//p_77026_1_.getBuffer().setBrightness(240);
-		p_77026_1_.getBuffer().pos(0.0F - f5, 0.0F - f6, 0.0D).tex(f, f3).normal(0, 1, 0).endVertex();
-		p_77026_1_.getBuffer().pos(f4 - f5, 0.0F - f6, 0.0D).tex(f1, f3).normal(0, 1, 0).endVertex();
-		p_77026_1_.getBuffer().pos(f4 - f5, f4 - f6, 0.0D).tex(f1, f2).normal(0, 1, 0).endVertex();
-		p_77026_1_.getBuffer().pos(0.0F - f5, f4 - f6, 0.0D).tex(f, f2).normal(0, 1, 0).endVertex();
-		p_77026_1_.draw();
+		tess.getBuffer().begin(GL11.GL_QUADS, ClientProxy.POSITION_TEX_LMAP_NORMAL);
+		tess.getBuffer().pos(0.0F - f5, 0.0F - f6, 0.0D).tex(f, f3).lightmap(240, 240).normal(0, 1, 0).endVertex();
+		tess.getBuffer().pos(f4 - f5, 0.0F - f6, 0.0D).tex(f1, f3).lightmap(240, 240).normal(0, 1, 0).endVertex();
+		tess.getBuffer().pos(f4 - f5, f4 - f6, 0.0D).tex(f1, f2).lightmap(240, 240).normal(0, 1, 0).endVertex();
+		tess.getBuffer().pos(0.0F - f5, f4 - f6, 0.0D).tex(f, f2).lightmap(240, 240).normal(0, 1, 0).endVertex();
+		tess.draw();
 
 	}
 

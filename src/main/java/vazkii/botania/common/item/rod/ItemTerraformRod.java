@@ -10,25 +10,18 @@
  */
 package vazkii.botania.common.item.rod;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
 import com.google.common.collect.ImmutableList;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFlower;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.stats.Achievement;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
@@ -43,12 +36,14 @@ import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.api.subtile.ISpecialFlower;
 import vazkii.botania.common.Botania;
-import vazkii.botania.common.achievement.ICraftAchievement;
-import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.lib.LibItemNames;
 
-public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockProvider, ICraftAchievement{
+import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.List;
+
+public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockProvider {
 
 	private static final int COST_PER = 55;
 
@@ -96,14 +91,14 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockP
 	@Override
 	public void onUsingTick(ItemStack stack, EntityLivingBase living, int count) {
 		if(count != getMaxItemUseDuration(stack) && count % 10 == 0 && living instanceof EntityPlayer)
-			terraform(stack, living.worldObj, (EntityPlayer) living);
+			terraform(stack, living.world, (EntityPlayer) living);
 	}
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack par1ItemStack, World world, EntityPlayer player, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
 		player.setActiveHand(hand);
-		return ActionResult.newResult(EnumActionResult.SUCCESS, par1ItemStack);
+		return ActionResult.newResult(EnumActionResult.SUCCESS, player.getHeldItem(hand));
 	}
 
 	private void terraform(ItemStack par1ItemStack, World world, EntityPlayer player) {
@@ -120,7 +115,7 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockP
 			IBlockState state = world.getBlockState(pos);
 			if(state.getBlock() == Blocks.AIR)
 				continue;
-			else if(Item.getItemFromBlock(state.getBlock()) == null)
+			else if(Item.getItemFromBlock(state.getBlock()) == Items.AIR)
 				continue;
 			int[] ids = OreDictionary.getOreIDs(new ItemStack(state.getBlock(), 1, state.getBlock().getMetaFromState(state)));
 			for(int id : ids)
@@ -192,10 +187,4 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockP
 			return -1;
 		return 0;
 	}
-
-	@Override
-	public Achievement getAchievementOnCraft(ItemStack stack, EntityPlayer player, IInventory matrix) {
-		return ModAchievements.terraformRodCraft;
-	}
-
 }

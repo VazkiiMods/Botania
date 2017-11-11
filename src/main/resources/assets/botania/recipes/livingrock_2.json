@@ -1,0 +1,16 @@
+{
+  "result": {
+    "item": "botania:livingrock",
+    "data": 2
+  },
+  "ingredients": [
+    {
+      "item": "botania:livingrock",
+      "data": 1
+    },
+    {
+      "item": "minecraft:wheat_seeds"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}

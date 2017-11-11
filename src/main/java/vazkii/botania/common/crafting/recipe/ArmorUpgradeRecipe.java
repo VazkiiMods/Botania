@@ -20,7 +20,7 @@ import vazkii.botania.common.core.helper.ItemNBTHelper;
 public class ArmorUpgradeRecipe extends ShapedOreRecipe {
 
 	public ArmorUpgradeRecipe(ItemStack output, Object... inputs) {
-		super(output, inputs);
+		super(null, output, inputs);
 	}
 
 	@Override
@@ -28,7 +28,7 @@ public class ArmorUpgradeRecipe extends ShapedOreRecipe {
 		ItemStack out = output.copy();
 		for (int i = 0; i < var1.getSizeInventory(); i++) {
 			ItemStack stack = var1.getStackInSlot(i);
-			if (stack != null && stack.getItem() instanceof ItemArmor && stack.hasTagCompound()) {
+			if (!stack.isEmpty() && stack.getItem() instanceof ItemArmor && stack.hasTagCompound()) {
 				EnchantmentHelper.setEnchantments(EnchantmentHelper.getEnchantments(stack), out);
 				byte runicHardening = ItemNBTHelper.getByte(stack, "RS.HARDEN", (byte)0);
 				if (runicHardening != 0)

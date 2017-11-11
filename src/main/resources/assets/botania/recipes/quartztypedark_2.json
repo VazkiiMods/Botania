@@ -1,0 +1,24 @@
+{
+  "conditions": [
+    {
+      "type": "botania:dark_quartz_enabled",
+      "value": true
+    }
+  ],
+  "result": {
+    "item": "botania:quartztypedark",
+    "data": 2,
+    "count": 2
+  },
+  "pattern": [
+    "Q",
+    "Q"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "Q": {
+      "item": "botania:quartztypedark",
+      "data": 0
+    }
+  }
+}

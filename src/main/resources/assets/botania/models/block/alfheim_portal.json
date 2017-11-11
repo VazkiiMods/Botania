@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "botania:blocks/alfheimPortal0"
+    "all": "botania:blocks/alfheim_portal"
   }
 }

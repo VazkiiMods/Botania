@@ -10,15 +10,7 @@
  */
 package vazkii.botania.common.block;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
-import javax.annotation.Nonnull;
-
 import com.google.common.collect.ImmutableList;
-
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockDoublePlant;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.properties.PropertyEnum;
@@ -28,18 +20,19 @@ import net.minecraft.client.renderer.block.statemap.StateMap;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.lexicon.ILexiconable;
@@ -49,10 +42,14 @@ import vazkii.botania.client.render.IModelRegister;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.core.handler.ConfigHandler;
-import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
+
+import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public abstract class BlockModDoubleFlower extends BlockDoublePlant implements ILexiconable, IModelRegister {
 	private static final int COUNT = 8;
@@ -66,8 +63,6 @@ public abstract class BlockModDoubleFlower extends BlockDoublePlant implements I
 		String name = LibBlockNames.DOUBLE_FLOWER + (second ? 2 : 1);
 		setDefaultState(pickDefaultState());
 		setRegistryName(new ResourceLocation(LibMisc.MOD_ID, name));
-		GameRegistry.register(this);
-		GameRegistry.register(new ItemBlockWithMetadataAndName(this), getRegistryName());
 		setUnlocalizedName(name);
 		setHardness(0F);
 		setTickRandomly(false);
@@ -87,9 +82,10 @@ public abstract class BlockModDoubleFlower extends BlockDoublePlant implements I
 	@Override
 	public abstract IBlockState getStateFromMeta(int meta);
 
+	@Nonnull
 	@Override
 	public Item getItemDropped(IBlockState state, @Nonnull Random rand, int fortune) {
-		return null;
+		return Items.AIR;
 	}
 
 	@Override
@@ -165,31 +161,17 @@ public abstract class BlockModDoubleFlower extends BlockDoublePlant implements I
 		return ret;
 	}
 
-	@Nonnull
 	@Override
-	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, @Nonnull IBlockState state, int fortune) {
-		return ImmutableList.of();
-	}
-
-	@Override
-	public void getSubBlocks(@Nonnull Item item, CreativeTabs tab, @Nonnull List<ItemStack> stacks) {
+	public void getSubBlocks(CreativeTabs tab, @Nonnull NonNullList<ItemStack> stacks) {
 		for(int i = 0; i < COUNT; ++i)
-			stacks.add(new ItemStack(item, 1, i));
-	}
-
-	@Nonnull
-	@Override
-	@SideOnly(Side.CLIENT)
-	public Block.EnumOffsetType getOffsetType()
-	{
-		return Block.EnumOffsetType.NONE;
+			stacks.add(new ItemStack(this, 1, i));
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void randomDisplayTick(IBlockState state, World world, BlockPos pos, Random rand) {
 		state = getActualState(state, world, pos);
-		int hex = state.getValue(second ? BotaniaStateProps.DOUBLEFLOWER_VARIANT_2 : BotaniaStateProps.DOUBLEFLOWER_VARIANT_1).getMapColor().colorValue;
+		int hex = state.getValue(second ? BotaniaStateProps.DOUBLEFLOWER_VARIANT_2 : BotaniaStateProps.DOUBLEFLOWER_VARIANT_1).getColorValue();
 		int r = (hex & 0xFF0000) >> 16;
 		int g = (hex & 0xFF00) >> 8;
 		int b = hex & 0xFF;

@@ -14,43 +14,6 @@ import net.minecraft.entity.Entity;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 
 public final class MathHelper {
-
-	public static int[] doubleArrayToIntArray(double[] doubles) {
-		int[] ret = new int[doubles.length * 2];
-		for (int i = 0; i < doubles.length; i++) {
-			long l = Double.doubleToLongBits(doubles[i]);
-			ret[i] = (int) (l >>> 32);
-			ret[i + 1] = (int) l;
-		}
-		return ret;
-	}
-
-	public static int[] longArrayToIntArray(long[] longs) {
-		int[] ret = new int[longs.length * 2];
-		for (int i = 0; i < longs.length; i++) {
-			ret[i] = (int) (longs[i] >>> 32);
-			ret[i + 1] = (int) longs[i];
-		}
-		return ret;
-	}
-
-	public static long[] intArrayToLongArray(int[] ints) {
-		long[] ret = new long[ints.length / 2];
-		for (int i = 0; i < ints.length; i += 2) {
-			ret[i / 2] = (long) ints[i] << 32 | ints[i + 1];
-		}
-		return ret;
-	}
-
-	public static double[] intArrayToDoubleArray(int[] ints) {
-		double[] ret = new double[ints.length / 2];
-		for (int i = 0; i < ints.length; i += 2) {
-			long l = (long) ints[i] << 32 | ints[i + 1];
-			ret[i / 2] = Double.longBitsToDouble(l);
-		}
-		return ret;
-	}
-
 	public static float pointDistanceSpace(double x1, double y1, double z1, double x2, double y2, double z2) {
 		return (float) Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2) + (z1 - z2) * (z1 - z2));
 	}

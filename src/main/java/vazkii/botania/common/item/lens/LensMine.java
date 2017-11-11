@@ -10,9 +10,6 @@
  */
 package vazkii.botania.common.item.lens;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
@@ -20,6 +17,7 @@ import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
@@ -29,11 +27,14 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ModItems;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class LensMine extends Lens {
 
 	@Override
 	public boolean collideBurst(IManaBurst burst, EntityThrowable entity, RayTraceResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
-		World world = entity.worldObj;
+		World world = entity.world;
 
 		BlockPos pos_ = pos.getBlockPos();
 		if (world.isRemote || pos_ == null)
@@ -58,15 +59,14 @@ public class LensMine extends Lens {
 
 		BlockPos coords = burst.getBurstSourceBlockPos();
 		if(!coords.equals(pos.getBlockPos()) && !(tile instanceof IManaBlock) && neededHarvestLevel <= harvestLevel && hardness != -1 && hardness < 50F && (burst.isFake() || mana >= 24)) {
-			List<ItemStack> items = new ArrayList<>();
-
-			items.addAll(block.getDrops(world, pos_, world.getBlockState(pos_), 0));
+			NonNullList<ItemStack> items = NonNullList.create();
+			block.getDrops(items, world, pos_, world.getBlockState(pos_), 0);
 
 			if(!burst.hasAlreadyCollidedAt(pos_)) {
-				if(!burst.isFake() && !entity.worldObj.isRemote) {
+				if(!burst.isFake() && !entity.world.isRemote) {
 					world.setBlockToAir(pos_);
 					if(ConfigHandler.blockBreakParticles)
-						entity.worldObj.playEvent(2001, pos_, Block.getStateId(state));
+						entity.world.playEvent(2001, pos_, Block.getStateId(state));
 
 					boolean offBounds = coords.getY() < 0;
 					boolean doWarp = warp && !offBounds;
@@ -75,7 +75,7 @@ public class LensMine extends Lens {
 					int dropZ = doWarp ? coords.getZ() : pos_.getZ();
 
 					for(ItemStack stack_ : items)
-						world.spawnEntityInWorld(new EntityItem(world, dropX + 0.5, dropY + 0.5, dropZ + 0.5, stack_));
+						world.spawnEntity(new EntityItem(world, dropX + 0.5, dropY + 0.5, dropZ + 0.5, stack_));
 
 					burst.setMana(mana - 24);
 				}

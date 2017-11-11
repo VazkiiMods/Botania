@@ -1,0 +1,20 @@
+{
+  "display": {
+    "icon": {
+      "item": "botania:manaring"
+    },
+    "title": {
+      "translate": "advancement.botania:baubleWear"
+    },
+    "description": {
+      "translate": "advancement.botania:baubleWear.desc"
+    }
+  },
+  "parent": "botania:main/mana_pool_pickup",
+  "__comment": "This is triggered by code in Botania. In the future, it may become data-driven",
+  "criteria": {
+    "code_triggered": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

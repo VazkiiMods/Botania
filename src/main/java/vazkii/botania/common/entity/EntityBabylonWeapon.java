@@ -10,10 +10,6 @@
  */
 package vazkii.botania.common.entity;
 
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -25,16 +21,26 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import vazkii.botania.api.sound.BotaniaSoundEvents;
+import net.minecraftforge.fml.common.Optional;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.item.relic.ItemKingKey;
 
-public class EntityBabylonWeapon extends EntityThrowableCopy {
+import javax.annotation.Nonnull;
+
+import elucent.albedo.lighting.ILightProvider;
+import elucent.albedo.lighting.Light;
+
+import java.util.List;
+
+@Optional.Interface(iface="elucent.albedo.lighting.ILightProvider", modid="albedo")
+public class EntityBabylonWeapon extends EntityThrowableCopy implements ILightProvider {
 
 	private static final String TAG_CHARGING = "charging";
 	private static final String TAG_VARIETY = "variety";
@@ -79,15 +85,15 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 	@Override
 	public void onUpdate() {
 		EntityLivingBase thrower = getThrower();
-		if(!worldObj.isRemote && (thrower == null || !(thrower instanceof EntityPlayer) || thrower.isDead)) {
+		if(!world.isRemote && (thrower == null || !(thrower instanceof EntityPlayer) || thrower.isDead)) {
 			setDead();
 			return;
 		}
 		EntityPlayer player = (EntityPlayer) thrower;
 		boolean charging = isCharging();
-		if(!worldObj.isRemote) {
-			ItemStack stack = player == null ? null : PlayerHelper.getFirstHeldItem(player, ModItems.kingKey);
-			boolean newCharging = stack != null && ItemKingKey.isCharging(stack);
+		if(!world.isRemote) {
+			ItemStack stack = player == null ? ItemStack.EMPTY : PlayerHelper.getFirstHeldItem(player, ModItems.kingKey);
+			boolean newCharging = !stack.isEmpty() && ItemKingKey.isCharging(stack);
 			if(charging != newCharging) {
 				setCharging(newCharging);
 				charging = newCharging;
@@ -110,8 +116,8 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 			int chargeTime = getChargeTicks();
 			setChargeTicks(chargeTime + 1);
 
-			if(worldObj.rand.nextInt(20) == 0)
-				worldObj.playSound(null, posX, posY, posZ, BotaniaSoundEvents.babylonSpawn, SoundCategory.PLAYERS, 0.1F, 1F + worldObj.rand.nextFloat() * 3F);
+			if(world.rand.nextInt(20) == 0)
+				world.playSound(null, posX, posY, posZ, ModSounds.babylonSpawn, SoundCategory.PLAYERS, 0.1F, 1F + world.rand.nextFloat() * 3F);
 		} else {
 			if(liveTime < delay) {
 				motionX = 0;
@@ -119,7 +125,7 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 				motionZ = 0;
 			} else if (liveTime == delay && player != null) {
 				Vector3 playerLook;
-				RayTraceResult lookat = ToolCommons.raytraceFromEntity(worldObj, player, true, 64);
+				RayTraceResult lookat = ToolCommons.raytraceFromEntity(world, player, true, 64);
 				if(lookat == null)
 					playerLook = new Vector3(player.getLookVec()).multiply(64).add(Vector3.fromEntity(player));
 				else playerLook = new Vector3(lookat.getBlockPos().getX() + 0.5, lookat.getBlockPos().getY() + 0.5, lookat.getBlockPos().getZ() + 0.5);
@@ -130,13 +136,13 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 				x = motionVec.x;
 				y = motionVec.y;
 				z = motionVec.z;
-				worldObj.playSound(null, posX, posY, posZ, BotaniaSoundEvents.babylonAttack, SoundCategory.PLAYERS, 2F, 0.1F + worldObj.rand.nextFloat() * 3F);
+				world.playSound(null, posX, posY, posZ, ModSounds.babylonAttack, SoundCategory.PLAYERS, 2F, 0.1F + world.rand.nextFloat() * 3F);
 			}
 			setLiveTicks(liveTime + 1);
 
-			if(!worldObj.isRemote) {
-				AxisAlignedBB axis = new AxisAlignedBB(posX, posY, posZ, lastTickPosX, lastTickPosY, lastTickPosZ).expand(2, 2, 2);
-				List<EntityLivingBase> entities = worldObj.getEntitiesWithinAABB(EntityLivingBase.class, axis);
+			if(!world.isRemote) {
+				AxisAlignedBB axis = new AxisAlignedBB(posX, posY, posZ, lastTickPosX, lastTickPosY, lastTickPosZ).grow(2);
+				List<EntityLivingBase> entities = world.getEntitiesWithinAABB(EntityLivingBase.class, axis);
 				for(EntityLivingBase living : entities) {
 					if(living == thrower)
 						continue;
@@ -144,7 +150,7 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 					if(living.hurtTime == 0) {
 						if(player != null)
 							living.attackEntityFrom(DamageSource.causePlayerDamage(player), 20);
-						else living.attackEntityFrom(DamageSource.generic, 20);
+						else living.attackEntityFrom(DamageSource.GENERIC, 20);
 						onImpact(new RayTraceResult(living));
 						return;
 					}
@@ -169,7 +175,7 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 	protected void onImpact(RayTraceResult pos) {
 		EntityLivingBase thrower = getThrower();
 		if(pos.entityHit == null || pos.entityHit != thrower) {
-			worldObj.createExplosion(this, posX, posY, posZ, 3F, false);
+			world.createExplosion(this, posX, posY, posZ, 3F, false);
 			setDead();
 		}
 	}
@@ -196,6 +202,12 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 		setRotation(cmp.getFloat(TAG_ROTATION));
 	}
 
+	@Override
+	@Optional.Method(modid="albedo")
+	public Light provideLight() {
+		return Light.builder().pos(this).color(1F, 1F, 0F).radius(8).build();
+	}
+	
 	public boolean isCharging() {
 		return dataManager.get(CHARGING);
 	}

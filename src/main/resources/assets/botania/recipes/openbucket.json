@@ -1,0 +1,15 @@
+{
+  "result": {
+    "item": "botania:openbucket"
+  },
+  "pattern": [
+    "E E",
+    " E "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "E": {
+      "item": "#INGOTELVENELEMENTIUM"
+    }
+  }
+}

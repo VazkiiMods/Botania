@@ -8,34 +8,32 @@
  */
 package vazkii.botania.client.integration.jei.runicaltar;
 
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
 import com.google.common.collect.ImmutableList;
-
+import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.recipe.RecipeRuneAltar;
 import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.common.block.tile.mana.TilePool;
 
+import javax.annotation.Nonnull;
+import java.util.List;
+
 public class RunicAltarRecipeWrapper implements IRecipeWrapper {
 
-	private final List input;
+	private final List<List<ItemStack>> input;
 	private final ItemStack output;
 	private final int manaUsage;
 
 	@SuppressWarnings("unchecked")
 	public RunicAltarRecipeWrapper(RecipeRuneAltar recipe) {
-		ImmutableList.Builder builder = ImmutableList.builder();
+		ImmutableList.Builder<List<ItemStack>> builder = ImmutableList.builder();
 		for(Object o : recipe.getInputs()) {
 			if(o instanceof ItemStack) {
-				builder.add(o);
+				builder.add(ImmutableList.of((ItemStack) o));
 			}
 			if(o instanceof String) {
 				builder.add(OreDictionary.getOres((String) o));
@@ -47,23 +45,9 @@ public class RunicAltarRecipeWrapper implements IRecipeWrapper {
 	}
 
 	@Override
-	public List getInputs() {
-		return input;
-	}
-
-	@Override
-	public List<ItemStack> getOutputs() {
-		return ImmutableList.of(output);
-	}
-
-	@Override
-	public List<FluidStack> getFluidInputs() {
-		return ImmutableList.of();
-	}
-
-	@Override
-	public List<FluidStack> getFluidOutputs() {
-		return ImmutableList.of();
+	public void getIngredients(@Nonnull IIngredients ingredients) {
+		ingredients.setInputLists(ItemStack.class, input);
+		ingredients.setOutput(ItemStack.class, output);
 	}
 
 	@Override
@@ -73,10 +57,7 @@ public class RunicAltarRecipeWrapper implements IRecipeWrapper {
 		GlStateManager.disableAlpha();
 	}
 
-	@Override
-	public void drawAnimations(@Nonnull Minecraft minecraft, int recipeWidth, int recipeHeight) {
-	}
-
+	@Nonnull
 	@Override
 	public List<String> getTooltipStrings(int mouseX, int mouseY) {
 		return ImmutableList.of();

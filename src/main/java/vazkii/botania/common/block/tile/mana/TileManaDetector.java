@@ -11,7 +11,6 @@
 package vazkii.botania.common.block.tile.mana;
 
 import com.google.common.base.Predicates;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.AxisAlignedBB;
 import vazkii.botania.api.internal.IManaBurst;
@@ -23,10 +22,10 @@ public class TileManaDetector extends TileMod {
 
 	@Override
 	public void update() {
-		boolean state = worldObj.getBlockState(getPos()).getValue(BotaniaStateProps.POWERED);
-		boolean expectedState = worldObj.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(pos, pos.add(1, 1, 1)), Predicates.instanceOf(IManaBurst.class)).size() != 0;
-		if(state != expectedState && !worldObj.isRemote)
-			worldObj.setBlockState(getPos(), worldObj.getBlockState(getPos()).withProperty(BotaniaStateProps.POWERED, expectedState), 1 | 2);
+		boolean state = world.getBlockState(getPos()).getValue(BotaniaStateProps.POWERED);
+		boolean expectedState = world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(pos, pos.add(1, 1, 1)), Predicates.instanceOf(IManaBurst.class)).size() != 0;
+		if(state != expectedState && !world.isRemote)
+			world.setBlockState(getPos(), world.getBlockState(getPos()).withProperty(BotaniaStateProps.POWERED, expectedState), 1 | 2);
 
 		if(expectedState)
 			for(int i = 0; i < 4; i++)

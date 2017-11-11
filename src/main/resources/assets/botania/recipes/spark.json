@@ -1,0 +1,69 @@
+{
+  "result": {
+    "item": "botania:spark"
+  },
+  "pattern": [
+    " P ",
+    "BNB",
+    " P "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "P": [
+      {
+        "item": "#PETALWHITE"
+      },
+      {
+        "item": "#PETALORANGE"
+      },
+      {
+        "item": "#PETALMAGENTA"
+      },
+      {
+        "item": "#PETALLIGHTBLUE"
+      },
+      {
+        "item": "#PETALYELLOW"
+      },
+      {
+        "item": "#PETALLIME"
+      },
+      {
+        "item": "#PETALPINK"
+      },
+      {
+        "item": "#PETALGRAY"
+      },
+      {
+        "item": "#PETALLIGHTGRAY"
+      },
+      {
+        "item": "#PETALCYAN"
+      },
+      {
+        "item": "#PETALPURPLE"
+      },
+      {
+        "item": "#PETALBLUE"
+      },
+      {
+        "item": "#PETALBROWN"
+      },
+      {
+        "item": "#PETALGREEN"
+      },
+      {
+        "item": "#PETALRED"
+      },
+      {
+        "item": "#PETALBLACK"
+      }
+    ],
+    "B": {
+      "item": "minecraft:blaze_powder"
+    },
+    "N": {
+      "item": "#NUGGETGOLD"
+    }
+  }
+}

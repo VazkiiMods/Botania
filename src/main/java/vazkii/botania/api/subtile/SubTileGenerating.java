@@ -10,9 +10,6 @@
  */
 package vazkii.botania.api.subtile;
 
-import java.awt.Color;
-import java.util.List;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -33,7 +30,10 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.IManaNetwork;
 import vazkii.botania.api.mana.IManaCollector;
-import vazkii.botania.api.sound.BotaniaSoundEvents;
+import vazkii.botania.common.core.handler.ModSounds;
+
+import java.awt.Color;
+import java.util.List;
 
 /**
  * The basic class for a Generating Flower.
@@ -197,7 +197,7 @@ public class SubTileGenerating extends SubTileEntity {
 	public void populateDropStackNBTs(List<ItemStack> drops) {
 		if(isPassiveFlower() && ticksExisted > 0 && BotaniaAPI.internalHandler.getPassiveFlowerDecay() > 0) {
 			ItemStack drop = drops.get(0);
-			if(drop != null) {
+			if(!drop.isEmpty()) {
 				if(!drop.hasTagCompound())
 					drop.setTagCompound(new NBTTagCompound());
 				NBTTagCompound cmp = drop.getTagCompound();
@@ -220,11 +220,11 @@ public class SubTileGenerating extends SubTileEntity {
 		if(player == null)
 			return false;
 
-		if(!player.worldObj.isRemote)
+		if(!player.world.isRemote)
 			sync();
 
 		knownMana = mana;
-		player.worldObj.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.ding, SoundCategory.PLAYERS, 0.1F, 1F);
+		player.world.playSound(null, player.posX, player.posY, player.posZ, ModSounds.ding, SoundCategory.PLAYERS, 0.1F, 1F);
 
 		return super.onWanded(player, wand);
 	}
@@ -289,7 +289,7 @@ public class SubTileGenerating extends SubTileEntity {
 
 		double dist = pos.distanceSq(supertile.getPos());
 		if(range >= dist) {
-			TileEntity tile = player.worldObj.getTileEntity(pos);
+			TileEntity tile = player.world.getTileEntity(pos);
 			if(tile instanceof IManaCollector) {
 				linkedCollector = tile;
 				return true;

@@ -1,0 +1,21 @@
+{
+  "result": {
+    "item": "botania:manaresource",
+    "data": 12
+  },
+  "ingredients": [
+    {
+      "item": "minecraft:string"
+    },
+    {
+      "item": "#BLOCKREDSTONE"
+    },
+    {
+      "item": "#ELVENPIXIEDUST"
+    },
+    {
+      "item": "#BENDERAIRBOTTLE"
+    }
+  ],
+  "type": "forge:ore_shapeless"
+}

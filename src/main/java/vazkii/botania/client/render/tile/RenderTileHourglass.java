@@ -10,21 +10,19 @@
  */
 package vazkii.botania.client.render.tile;
 
-import java.util.Random;
-
-import javax.annotation.Nonnull;
-
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import org.lwjgl.opengl.GL11;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelHourglass;
 import vazkii.botania.common.block.tile.TileHourglass;
+
+import javax.annotation.Nullable;
+import java.util.Random;
 
 public class RenderTileHourglass extends TileEntitySpecialRenderer<TileHourglass> {
 
@@ -32,7 +30,7 @@ public class RenderTileHourglass extends TileEntitySpecialRenderer<TileHourglass
 	final ModelHourglass model = new ModelHourglass();
 
 	@Override
-	public void renderTileEntityAt(@Nonnull TileHourglass hourglass, double d0, double d1, double d2, float ticks, int digProgress) {
+	public void render(@Nullable TileHourglass hourglass, double d0, double d1, double d2, float ticks, int digProgress, float unused) {
 		GlStateManager.pushMatrix();
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
@@ -48,11 +46,11 @@ public class RenderTileHourglass extends TileEntitySpecialRenderer<TileHourglass
 		float x = 0.5F + (float) Math.cos(time * 0.05F) * 0.025F;
 		float y = 0.55F + (float) (Math.sin(time * 0.04F) + 1F) * 0.05F;
 		float z = 0.5F + (float) Math.sin(time * 0.05F) * 0.025F;
-		ItemStack stack = hasWorld ? hourglass.getItemHandler().getStackInSlot(0) : null;
+		ItemStack stack = hasWorld ? hourglass.getItemHandler().getStackInSlot(0) : ItemStack.EMPTY;
 
-		float activeFraction = stack == null ? 0 : hourglass.lastFraction + (hourglass.timeFraction - hourglass.lastFraction) * ticks;
-		float fract1 = stack == null ? 0 : activeFraction;
-		float fract2 = stack == null ? 0 : 1F - activeFraction;
+		float activeFraction = stack.isEmpty() ? 0 : hourglass.lastFraction + (hourglass.timeFraction - hourglass.lastFraction) * ticks;
+		float fract1 = stack.isEmpty() ? 0 : activeFraction;
+		float fract2 = stack.isEmpty() ? 0 : 1F - activeFraction;
 		GlStateManager.translate(x, y, z);
 
 		float rot = hasWorld && hourglass.flip ? 180F : 1F;

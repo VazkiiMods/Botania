@@ -1,0 +1,766 @@
+# Note to translators: DO NOT COPY ENTRIES FROM ENGLISH
+# I repeat: do NOT copy entries from English!!
+# Any entry in this lang file should be in de_DE, or *should not be here at all*
+# Copying English entries will cause them to become outdated when the main English lang file changes
+# Untranslated entries will automatically be inherited from en_US
+#
+# Once again, don't copy from English, and THANK YOU for your hard work!
+
+
+# MISC
+itemGroup.botania=Botania
+botaniamisc.nextPage=Nächste Seite
+botaniamisc.prevPage=Vorherige Seite
+botaniamisc.back=Zurück
+botaniamisc.craftingContainer=Bei Herstellung zurückgegeben
+botaniamisc.shapeless=Formlose Herstellung
+botaniamisc.oredict=Ore Dictionary-Herstellung
+botaniamisc.statusUnknown=Unbekannter Status
+botaniamisc.color=%s gefärbt
+botaniamisc.manaUsage=Manaverbrauch
+botaniamisc.shiftToRead=Shift-rechtsklicke, um mehr zu lesen
+botaniamisc.clickToRecipe=Shift-klicke, um Rezept zu sehen
+botaniamisc.clickToIndex=Shift-klicke für Index
+botaniamisc.flareColor=Ladungen %s
+botaniamisc.outputtingPower=Gibt Energie an Items ab
+botaniamisc.inputtingPower=Nimmt Energie von Items auf
+botaniamisc.creative=Kreativ
+botaniamisc.invFull=Dein Inventar ist voll.
+botaniamisc.compositeLens=Gemisch mit %s
+botaniamisc.filter0=Nur Items in Rahmen aufsammeln
+botaniamisc.filter1=Nur Items außerhalb von Rahmen aufsammeln
+botaniamisc.filter2=Alle Items aufsammeln
+botaniamisc.creativePool0=Kreatives Manabecken, hat unendlich Mana
+botaniamisc.creativePool1=Eines Egoisten würdig
+botaniamisc.toolRank=%s&7-Rang
+
+# COLORS
+botania.color0=Weiß
+botania.color1=Orange
+botania.color2=Magentafarben
+botania.color3=Hellblau
+botania.color4=Gelb
+botania.color5=Hellgrün
+botania.color6=Pink
+botania.color7=Grau
+botania.color8=Hellgrau
+botania.color9=Türkis
+botania.color10=Violett
+botania.color11=Blau
+botania.color12=Braun
+botania.color13=Grün
+botania.color14=Rot
+botania.color15=Schwarz
+botania.color16=Regenbogenfarben
+
+# VERSION CHECKING
+botania.versioning.flavour0=WAS ZUM!? BOTANIA IST NICHT AKTUALISIERT!?
+botania.versioning.flavour1=Willst dur mir weismachen, dass du Botania noch nicht aktualisiert hast, du ignoranter Trottel?
+botania.versioning.flavour2=Als würde Botania wollen, nicht aktualiert zu werden!
+botania.versioning.flavour3=Beam mich hoch, Scotty. Wir haben eine neue Botania-Version.
+botania.versioning.flavour4=Das Botania-Update fragt, of du Vazkii als deinen Herren und Erlöser akzeptiert hast.
+botania.versioning.flavour5=Hey, ein Botania-Update, welch ein seltener Anblick, stimmt's?
+botania.versioning.flavour6="Dieses Botania-Update übersteigt mein Fassungsvermögen." - "Was sagst du?" - "Droggelbecher."
+botania.versioning.flavour7=Ach ja, noch ein neues Botania-Update. Wunderbar.
+botania.versioning.flavour8=Ein Leben zu haben ist zu Mainstream, hier hast du ein Botania-Update.
+botania.versioning.flavour9=Hey! Rate mal, was ich für dich habe! Richtig, ein Botania-Update!
+botania.versioning.flavour10=Two hundred updates, that's why they call me Mister Fahrenheit.
+botania.versioning.flavour11=Perry das Schnabeltier, ich präsentiere dir: Den Botania-Update-inator!
+botania.versioning.flavour12=Botania hat ein Update. #hoennconfirmed
+botania.versioning.flavour13=Du hast meine Fallenkarte aktiviert! Ich spiele das Botania-Update!
+botania.versioning.flavour14=Wie wäre es mit 'nem Trinkspiel: Für jedes Mal, wenn Botania ein Update hat, trink einen.
+botania.versioning.flavour15=Ein Botania-Update? Du bist ein wahres Glücksknilz.
+botania.versioning.outdated=Du verwendest Botania Build %s, der neueste ist Build %s.
+botania.versioning.updateMessage=["Klicken für... [",{"text":"Download","color":"green","hoverEvent":{"action":"show_text","value":{"text":"Klicke hierauf, um automatisch die neueste Version herunterzuladen","color":"green"}},"clickEvent":{"action":"open_url","value":"http://minecraft.curseforge.com/projects/botania-unofficial/files/latest"}},"] [",{"text":"Website","color":"green","hoverEvent":{"action":"show_text","value":{"text":"Klicke hierauf, um zur Website der Mod zu gelangen","color":"green"}},"clickEvent":{"action":"open_url","value":"http://minecraft.curseforge.com/projects/botania-unofficial"}},"] [",{"text":"Changelog","color":"green","hoverEvent":{"action":"show_text","value":{"text":"Klicke hierauf, um zum Changelog der Version zu gelangen","color":"green"}},"clickEvent":{"action":"open_url","value":"https://github.com/williewillus/Botania/releases/tag/%s"}},"]"]
+botania.versioning.startingDownload=Starte Download von %s. Bitte entferne deine Festplatte nicht.
+botania.versioning.doneDownloading=Download von %s beendet. Starte das Spiel neu, um zu updaten.
+botania.versioning.downloadedAlready=Du hast bereits die neueste Version installiert. Schließe das Spiel, lösche die alte Konfigurationsdatei aus deinem Mods-Ordner und lade das Spiel neu, um zu updaten!
+botania.versioning.downloadingAlready=Das Update wird bereits heruntergeladen, gib ihm etwas Zeit, okay?
+botania.versioning.error=Woah! Anscheinend ist etwas schiefgelaufen, während das Botania-Update heruntergeladen wurde. Ist vazkii.us nicht verfügbar?
+botania.versioning.disabled=Sorry. Dieses Feature ist momentan wegen Server-Host-Problemen deaktiviert, es sollte jedoch bald wieder zurück sein.
+
+# BAUBLE TOOLTIPS
+botania.baubletype.amulet=Ausrüstbar im &aAmulett&7-Slot
+botania.baubletype.ring=Ausrüstbar im &aRing&7-Slot
+botania.baubletype.belt=Ausrüstbar im &aGürtel&7-Slot
+botania.baubletooltip=Drücke &b%s&7, um das Baubles-Menü zu öffnen
+botania.baubleinfo=Halte &bSHIFT&7 für mehr Info
+
+# BLOCK NAMES
+tile.botania:flower0.name=Mystische Weiße Blume
+tile.botania:flower1.name=Mystische Orange Blume
+tile.botania:flower2.name=Mystische Magentafarbene Blume
+tile.botania:flower3.name=Mystische Hellblaue Blume
+tile.botania:flower4.name=Mystische Gelbe Blume
+tile.botania:flower5.name=Mystische Hellgrüne Blume
+tile.botania:flower6.name=Mystische Pinke Blume
+tile.botania:flower7.name=Mystische Graue Blume
+tile.botania:flower8.name=Mystische Hellgraue Blume
+tile.botania:flower9.name=Mystische Türkise Blume
+tile.botania:flower10.name=Mystische Violette Blume
+tile.botania:flower11.name=Mystische Blaue Blume
+tile.botania:flower12.name=Mystische Braune Blume
+tile.botania:flower13.name=Mystische Grüne Blume
+tile.botania:flower14.name=Mystische Rote Blume
+tile.botania:flower15.name=Mystische Schwarze Blume
+tile.botania:altar.name=Blütenblatttiegel
+tile.botania:livingrock0.name=Lebestein
+tile.botania:livingrock1.name=Lebesteinziegel
+tile.botania:livingrock2.name=Bemooste Lebesteinziegel
+tile.botania:livingrock3.name=Brüchige Lebesteinziegel
+tile.botania:livingrock4.name=Gerahmte Lebesteinziegel
+tile.botania:livingwood0.name=Lebeholz
+tile.botania:livingwood1.name=Lebeholzbretter
+tile.botania:livingwood2.name=Bemooste Lebeholzbretter
+tile.botania:livingwood3.name=Gerahmtes Lebeholz
+tile.botania:livingwood4.name=Schnittgerahmtes Lebeholz
+tile.botania:livingwood5.name=Schimmerndes Lebeholz
+tile.botania:spreader0.name=Manaverbreiter
+tile.botania:spreader1.name=Redstone-Manaverbreiter
+tile.botania:pool0.name=Manabecken
+tile.botania:pool1.name=Das immerwährende Becken der Schuld
+tile.botania:runeAltar.name=Runenaltar
+tile.botania:unstableBlock0.name=Weißer Instabiler Würfel
+tile.botania:unstableBlock1.name=Oranger Instabiler Würfel
+tile.botania:unstableBlock2.name=Magentafarbener Instabiler Würfel
+tile.botania:unstableBlock3.name=Hellblauer Instabiler Würfel
+tile.botania:unstableBlock4.name=Gelber Instabiler Würfel
+tile.botania:unstableBlock5.name=Hellgrüner Instabiler Würfel
+tile.botania:unstableBlock6.name=Pinker Instabiler Würfel
+tile.botania:unstableBlock7.name=Grauer Instabiler Würfel
+tile.botania:unstableBlock8.name=Hellgrauer Instabiler Würfel
+tile.botania:unstableBlock9.name=Türkiser Instabiler Würfel
+tile.botania:unstableBlock10.name=Violetter Instabiler Würfel
+tile.botania:unstableBlock11.name=Blauer Instabiler Würfel
+tile.botania:unstableBlock12.name=Brauner Instabiler Würfel
+tile.botania:unstableBlock13.name=Grüner Instabiler Würfel
+tile.botania:unstableBlock14.name=Roter Instabiler Würfel
+tile.botania:unstableBlock15.name=Schwarzer Instabiler Würfel
+tile.botania:pistonRelay.name=Kraftrelais
+tile.botania:distributor.name=Manaverteiler
+tile.botania:pylon.name=Manapylon
+tile.botania:manaBeacon0.name=Weißes Instabiles Leuchtfeuer
+tile.botania:manaBeacon1.name=Oranges Instabiles Leuchtfeuer
+tile.botania:manaBeacon2.name=Magentafarbenes Instabiles Leuchtfeuer
+tile.botania:manaBeacon3.name=Hellblaues Instabiles Leuchtfeuer
+tile.botania:manaBeacon4.name=Gelbes Instabiles Leuchtfeuer
+tile.botania:manaBeacon5.name=Hellgrünes Instabiles Leuchtfeuer
+tile.botania:manaBeacon6.name=Pinkes Instabiles Leuchtfeuer
+tile.botania:manaBeacon7.name=Graues Instabiles Leuchtfeuer
+tile.botania:manaBeacon8.name=Hellgraues Instabiles Leuchtfeuer
+tile.botania:manaBeacon9.name=Türkises Instabiles Leuchtfeuer
+tile.botania:manaBeacon10.name=Violettes Instabiles Leuchtfeuer
+tile.botania:manaBeacon11.name=Blaues Instabiles Leuchtfeuer
+tile.botania:manaBeacon12.name=Braunes Instabiles Leuchtfeuer
+tile.botania:manaBeacon13.name=Grünes Instabiles Leuchtfeuer
+tile.botania:manaBeacon14.name=Rotes Instabiles Leuchtfeuer
+tile.botania:manaBeacon15.name=Schwarzes Instabiles Leuchtfeuer
+tile.botania:manaVoid.name=Manaleere
+tile.botania:manaDetector.name=Mandetektor
+tile.botania:enchanter.name=Manaverzauberer
+tile.botania:turntable.name=Verbreiter-Drehscheibe
+tile.botania:tinyPlanetBlock.name=Winziger Planet
+tile.botania:alchemyCatalyst.name=Alchemiekatalysator
+tile.botania:openCrate.name=Offene Kiste
+tile.botania:forestEye.name=Auge der Ältesten
+tile.botania:storage0.name=Manastahlblock
+tile.botania:storage1.name=Terrastahlblock
+tile.botania:forestDrum.name=Trommel der Wildnis
+tile.botania:shinyFlower0.name=Schimmernde Weiße Blume
+tile.botania:shinyFlower1.name=Schimmernde Orange Blume
+tile.botania:shinyFlower2.name=Schimmernde Magentafarbene Blume
+tile.botania:shinyFlower3.name=Schimmernde Hellblaue Blume
+tile.botania:shinyFlower4.name=Schimmernde Gelbe Blume
+tile.botania:shinyFlower5.name=Schimmernde Hellgrüne Blume
+tile.botania:shinyFlower6.name=Schimmernde Pinke Blume
+tile.botania:shinyFlower7.name=Schimmernde Graue Blume
+tile.botania:shinyFlower8.name=Schimmernde Hellgraue Blume
+tile.botania:shinyFlower9.name=Schimmernde Türkise Blume
+tile.botania:shinyFlower10.name=Schimmernde Violette Blume
+tile.botania:shinyFlower11.name=Schimmernde Blaue Blume
+tile.botania:shinyFlower12.name=Schimmernde Braune Blume
+tile.botania:shinyFlower13.name=Schimmernde Grüne Blume
+tile.botania:shinyFlower14.name=Schimmernde Rote Blume
+tile.botania:shinyFlower15.name=Schimmernde Schwarze Blume
+tile.botania:platform.name=Schimmerplattform
+tile.botania:alfheimPortal.name=Weltenbaumextrakt
+
+# FLOWER NAMES
+tile.botania:flower..name=Botania-Blume
+# ^ This is the placeholder name for when no flower type is detected
+# The two dots are not a typo
+
+tile.botania:flower.puredaisy.name=Reines Gänseblümchen
+tile.botania:flower.puredaisy.reference=Welche Farbe möchtest du haben?
+tile.botania:flower.manastar.name=Manastern
+tile.botania:flower.manastar.reference=Wünsch dir was
+
+# - GENERATING
+tile.botania:flower.daybloom.name=Tagesblüte
+tile.botania:flower.daybloom.reference=Stechendes Licht
+tile.botania:flower.endoflame.name=Endoflamme
+tile.botania:flower.endoflame.reference=Eine endotherme Reaktion
+tile.botania:flower.hydroangeas.name=Hydroangea
+tile.botania:flower.hydroangeas.reference=Vorsicht: Nass
+tile.botania:flower.thermalily.name=Thermalilie
+tile.botania:flower.thermalily.reference=Scharlachrot
+tile.botania:flower.nightshade.name=Nachtschatten
+tile.botania:flower.nightshade.reference=Geisterhaft
+tile.botania:flower.arcanerose.name=Rosa Arcana
+tile.botania:flower.arcanerose.reference=Erfahrung ist wichtig
+tile.botania:flower.munchdew.name=Mampftau
+tile.botania:flower.munchdew.reference=Mhm. Lecker.
+tile.botania:flower.entropinnyum.name=Entropinnyum
+tile.botania:flower.entropinnyum.reference=ZERSTÖRUNG!...Doch nicht
+tile.botania:flower.kekimurus.name=Kekimurus
+tile.botania:flower.kekimurus.reference=Zu finden in jeder Konditorei
+
+# - FUNCTIONAL
+tile.botania:flower.bellethorn.name=Belldorn
+tile.botania:flower.bellethorn.reference=Schneide dich nicht
+tile.botania:flower.dreadthorn.name=Schreckdorn
+tile.botania:flower.dreadthorn.reference=Plan C
+tile.botania:flower.heiseiDream.name=Kehrnelke
+tile.botania:flower.heiseiDream.reference=Ich hasse dich
+tile.botania:flower.tigerseye.name=Tigerauge
+tile.botania:flower.tigerseye.reference=Fürchte dich!
+tile.botania:flower.jadedAmaranthus.name=Jaded-Amarant
+tile.botania:flower.jadedAmaranthus.reference=Blumen! Überall Blumen!
+tile.botania:flower.orechid.name=Erzblüte
+tile.botania:flower.orechid.reference=Bergbau ist langweilig
+tile.botania:flower.fallenKanade.name=Engelsblüte
+tile.botania:flower.fallenKanade.reference=Himmlisch
+tile.botania:flower.exoflame.name=Exoflamme
+tile.botania:flower.exoflame.reference=Eine exotherme Reaktion
+tile.botania:flower.agricarnation.name=Agraryophylle
+tile.botania:flower.agricarnation.reference=Jetzt wird geackert
+tile.botania:flower.hopperhock.name=Trichterkraut
+tile.botania:flower.hopperhock.reference=Es wurde mir eingetrichtert
+tile.botania:flower.tangleberrie.name=Wirrbeere
+tile.botania:flower.tangleberrie.reference=Hübsches Gefängnis
+tile.botania:flower.jiyuulia.name=Bannbeere
+tile.botania:flower.jiyuulia.reference=Kraftfeldartig
+tile.botania:flower.rannuncarpus.name=Rannawurzel
+tile.botania:flower.rannuncarpus.reference=Wie praktisch.
+tile.botania:flower.hyacidus.name=Cyazinthe
+tile.botania:flower.hyacidus.reference=Nur nicht bewegen
+tile.botania:flower.pollidisiac.name=Pollidisie
+tile.botania:flower.pollidisiac.reference=Immer nur das Eine
+tile.botania:flower.clayconia.name=Helehmie
+tile.botania:flower.clayconia.reference=Welch eine Wonne
+tile.botania:flower.loonium.name=Beutner
+tile.botania:flower.loonium.reference=Ich bin reich!
+
+# ITEM NAMES
+item.botania:lexicon.name=Lexica Botania
+item.botania:petal0.name=Mystisches Weißes Blütenblatt
+item.botania:petal1.name=Mystisches Oranges Blütenblatt
+item.botania:petal2.name=Mystisches Magentafarbenes Blütenblatt
+item.botania:petal3.name=Mystisches Hellblaues Blütenblatt
+item.botania:petal4.name=Mystisches Gelbes Blütenblatt
+item.botania:petal5.name=Mystisches Hellgrünes Blütenblatt
+item.botania:petal6.name=Mystisches Pinkes Blütenblatt
+item.botania:petal7.name=Mystisches Graues Blütenblatt
+item.botania:petal8.name=Mystisches Hellgraues Blütenblatt
+item.botania:petal9.name=Mystisches Türkises Blütenblatt
+item.botania:petal10.name=Mystisches Violettes Blütenblatt
+item.botania:petal11.name=Mystisches Blaues Blütenblatt
+item.botania:petal12.name=Mystisches Braunes Blütenblatt
+item.botania:petal13.name=Mystisches Grünes Blütenblatt
+item.botania:petal14.name=Mystisches Red Blütenblatt
+item.botania:petal15.name=Mystisches Black Blütenblatt
+item.botania:dye0.name=Weißes Blumenpulver
+item.botania:dye1.name=Oranges Blumenpulver
+item.botania:dye2.name=Magentafarbenes Blumenpulver
+item.botania:dye3.name=Hellblaues Blumenpulver
+item.botania:dye4.name=Gelbes Blumenpulver
+item.botania:dye5.name=Hellgrünes Blumenpulver
+item.botania:dye6.name=Pinkes Blumenpulver
+item.botania:dye7.name=Graues Blumenpulver
+item.botania:dye8.name=Hellgraues Blumenpulver
+item.botania:dye9.name=Türkises Blumenpulver
+item.botania:dye10.name=Violettes Blumenpulver
+item.botania:dye11.name=Blaues Blumenpulver
+item.botania:dye12.name=Braunes Blumenpulver
+item.botania:dye13.name=Grünes Blumenpulver
+item.botania:dye14.name=Rotes Blumenpulver
+item.botania:dye15.name=Schwarzes Blumenpulver
+item.botania:pestleAndMortar.name=Stößel und Mörser
+item.botania:twigWand.name=Stab des Waldes
+item.botania:manasteel.name=Manastahlbarren
+item.botania:manaPearl.name=Manaperle
+item.botania:manaDiamond.name=Manadiamant
+item.botania:lensNormal.name=Manalinse
+item.botania:lensSpeed.name=Manalinse: Geschwindigkeit
+item.botania:lensSpeed.short=Geschwindigkeit
+item.botania:lensPower.name=Manalinse: Macht
+item.botania:lensPower.short=Macht
+item.botania:lensTime.name=Manalinse: Resistenz
+item.botania:lensTime.short=Resistenz
+item.botania:lensEfficiency.name=Manalinse: Effizienz
+item.botania:lensEfficiency.short=Effizienz
+item.botania:lensBounce.name=Manalinse: Abprall
+item.botania:lensBounce.short=Abprall
+item.botania:lensGravity.name=Manalinse: Schwerkraft
+item.botania:lensGravity.short=Schwerkraft
+item.botania:lensMine.name=Manalinse: Bohren
+item.botania:lensMine.short=Bohren
+item.botania:lensDamage.name=Manalinse: Schädigung
+item.botania:lensDamage.short=Schädigung
+item.botania:lensPhantom.name=Manalinse: Phantom
+item.botania:lensPhantom.short=Phantom
+item.botania:lensMagnet.name=Manalinse: Magnetisierung
+item.botania:lensMagnet.short=MMagnetisierung
+item.botania:lensExplosive.name=Manalinse: Chaos
+item.botania:lensExplosive.short=Chaos
+item.botania:manaPetal0.name=Weißes Manablättchen
+item.botania:manaPetal1.name=Oranges Manablättchen
+item.botania:manaPetal2.name=Magentafarbenes Manablättchen
+item.botania:manaPetal3.name=Hellblaues Manablättchen
+item.botania:manaPetal4.name=Gelbes Manablättchen
+item.botania:manaPetal5.name=Hellgrünes Manablättchen
+item.botania:manaPetal6.name=Pinkes Manablättchen
+item.botania:manaPetal7.name=Graues Manablättchen
+item.botania:manaPetal8.name=Hellgraues Manablättchen
+item.botania:manaPetal9.name=Türkises Manablättchen
+item.botania:manaPetal10.name=Violettes Manablättchen
+item.botania:manaPetal11.name=Blaues Manablättchen
+item.botania:manaPetal12.name=Braunes Manablättchen
+item.botania:manaPetal13.name=Grünes Manablättchen
+item.botania:manaPetal14.name=Rotes Manablättchen
+item.botania:manaPetal15.name=Schwarzes Manablättchen
+item.botania:rune0.name=Rune des Wassers
+item.botania:rune1.name=Rune des Feuers
+item.botania:rune2.name=Rune der Erde
+item.botania:rune3.name=Rune der Luft
+item.botania:rune4.name=Rune des Frühlings
+item.botania:rune5.name=Rune des Sommers
+item.botania:rune6.name=Rune des Herbstes
+item.botania:rune7.name=Rune des Winters
+item.botania:rune8.name=Manarune
+item.botania:rune9.name=Rune der Wollust
+item.botania:rune10.name=Rune der Völlerei
+item.botania:rune11.name=Rune der Gier
+item.botania:rune12.name=Rune der Trägheit
+item.botania:rune13.name=Rune des Zorns
+item.botania:rune14.name=Rune des Neides
+item.botania:rune15.name=Rune des Hochmutes
+item.botania:signalFlare.name=Signalpistole
+item.botania:manaTablet.name=Manatablett
+item.botania:manaGun.name=Mana-Blaster
+item.botania:compositeLens.name=Verbundmanalinse: %s %s
+item.botania:manaCookie.name=Manakeks
+item.botania:fertilizer.name=Blumendünger
+item.botania:grassSeeds0.name=Weidesamen
+item.botania:grassSeeds1.name=Boreale Samen
+item.botania:grassSeeds2.name=Seuchensamen
+item.botania:livingwoodTwig.name=Lebeholzzweig
+item.botania:dirtRod.name=Stab der Böden
+item.botania:terraformRod.name=Terrafirmastab
+item.botania:manaMirror.name=Manaspiegel
+item.botania:manasteelHelm.name=Manastahlhelm
+item.botania:manasteelChest.name=Manastahlbrustpanzer
+item.botania:manasteelLegs.name=Manastahlbeinschutz
+item.botania:manasteelBoots.name=Manastahlstiefel
+item.botania:manasteelPick.name=Manastahlspitzhacke
+item.botania:manasteelShovel.name=Manastahlschaufel
+item.botania:manasteelAxe.name=Manastahlaxt
+item.botania:manasteelSword.name=Manastahlschwert
+item.botania:manasteelShears.name=Manastahlschere
+item.botania:grassHorn.name=Horn der Wildnis
+item.botania:terrasteel.name=Terrastahlbarren
+item.botania:terrasteelHelm.name=Terrastahlhelm
+item.botania:terrasteelChest.name=Terrastahlbrustpanzer
+item.botania:terrasteelLegs.name=Terrastahlbeinschutz
+item.botania:terrasteelBoots.name=Terrastahlstiefel
+item.botania:terraSword.name=Terraklinge
+item.botania:tinyPlanet.name=Winziger Planet
+item.botania:manaRing.name=Manaband
+item.botania:auraRing.name=Auraband
+item.botania:manaRingGreater.name=Besseres Manaband
+item.botania:auraRingGreater.name=Besseres Auraband
+item.botania:travelBelt.name=Schärpe des Reisenden
+item.botania:knockbackBelt.name=Tektonikgürtel
+item.botania:icePendant.name=Schneeflockanhänger
+item.botania:lavaPendant.name=Pyroklastanhänger
+item.botania:lifeEssence.name=Essenz des Ewigen Lebens
+item.botania:redstoneRoot.name=Redstone-Wurzel
+item.botania:magnetRing.name=Ring des Magnetismus
+item.botania:waterRing.name=Ring der Ozeane
+item.botania:miningRing.name=Ring des Erdmantels
+item.botania:terraPick.name=Terra-Brecher
+item.botania:divaCharm.name=Talisman der Diva
+item.botania:flightTiara.name=Flügel-Tiara
+
+# GUI TEXT
+botania.gui.lexicon.header=Lexica Botania Index - Wähle, welche Kategorie du studieren möchtest:
+botania.gui.lexicon.wip=(Dieser Eintag ist Work In Progress. Er ist noch nicht einmal in seiner finalen Form)
+
+# LEXICON CATEGORIES
+botania.category.basics=Basis
+botania.category.mana=Manamanipulation
+botania.category.functionalFlowers=Funktionelle Flora
+botania.category.generationFlowers=Generierende Flora
+botania.category.devices=Natürlicher Apparat
+botania.category.tools=Mystische Instumente
+botania.category.baubles=Krimskrams und Accessoires
+botania.category.alfhomancy=Alfhomantie
+botania.category.misc=Verschiedenes
+
+# LEXICON ENTRIES
+
+# - BASIC
+# -- LEXICA BOTANIA
+botania.entry.lexicon=Lexica Botania
+
+# -- MYSTICAL FLOWERS
+botania.entry.flowers=Mystische Blumen
+
+# -- PETAL APOTHECARY
+botania.entry.apothecary=Blütenblatttiegel
+
+# -- PURE DAISY
+botania.entry.pureDaisy=Reines Gänseblümchen
+botania.page.pureDaisy1=Gib ihr einfach &4eine Munute&0 oder so...
+botania.page.pureDaisy2=&1Lebeholz&0 kann zu Zweigen gemacht werden
+botania.page.pureDaisy3=Weiß ist hell und rein
+
+# -- WAND OF THE FOREST
+botania.entry.wand=Stab des Waldes
+
+# -- RUNIC ALTAR
+botania.entry.runeAltar=Runenaltar
+botania.page.runeAltar2=Herstellung des &1Runenaltars&0.
+botania.page.runeAltar3=Es gibt insgesamt 16 &1Runen&0.<br>Die grundlegenden und elementaren Runen sind nach den &4Vier Elementen&0 benannt. Die mittleren Runen sind nach den &4Vier Jahreszeiten&0 benannt und die am forgeschrittendsten Runen nach den &4Sieben Todsünden&0. Auch gibt es eine seperate &1Manarune&0.
+botania.page.runeAltar4=Die &1Rune des Wassers&0.
+botania.page.runeAltar5=Die &1Rune der Erde&0.
+botania.page.runeAltar6=Die &1Rune der Luft&0.
+botania.page.runeAltar7=Die &1Rune des Feuers&0.
+botania.page.runeAltar8=Die &1Rune des Frühlings&0.
+botania.page.runeAltar9=Die &1Rune des Sommers&0.
+botania.page.runeAltar10=Die &1Rune des Herbstes&0.
+botania.page.runeAltar11=Die &1Rune des Winters&0.
+botania.page.runeAltar12=Die &1Manarune&0.
+botania.page.runeAltar13=Die &1Rune der Wollust&0.
+botania.page.runeAltar14=Die &1Rune der Völlerei&0.
+botania.page.runeAltar15=Die &1Rune der Gier&0.
+botania.page.runeAltar16=Die &1Rune der Trägheit&0.
+botania.page.runeAltar17=Die &1Rune des Zorns&0.
+botania.page.runeAltar18=Die &1Rune des Neides&0.
+botania.page.runeAltar19=Die &1Rune des Hochmuts&0.
+
+# -- TERRASTEEL
+botania.entry.terrasteel=Terrastahl
+
+# - MANA
+# -- AN INTRODUCTION TO MANA
+botania.entry.mIntro=Eine Einführung in Mana
+
+# -- MANA SPREADER
+botania.entry.spreader=Manaverbreiter
+
+# -- MANA POOL
+botania.entry.pool=Manabecken
+
+# -- MANA DISTRIBUTOR
+botania.entry.distributor=Manaverteiler
+
+# -- MANA VOID
+botania.entry.manaVoid=Manaleere
+
+# -- MANA LENS: VELOCITY
+botania.entry.lensVelocity=Manalinse: Geschwindigkeit
+
+# -- MANA LENS: POTENCY
+botania.entry.lensPotency=Manalinse: Macht
+
+# -- MANA LENS: RESISTANCE
+botania.entry.lensResistance=Manalinse: Resistenz
+
+# -- MANA LENS: EFFICIENCY
+botania.entry.lensEfficiency=Manalinse: Effizienz
+
+# -- MANA LENS: BOUNCE
+botania.entry.lensBounce=Manalinse: Abprall
+
+# -- MANA LENS: GRAVITY
+botania.entry.lensGravity=Manalinse: Schwerkraft
+
+# -- MANA LENS: BORE
+botania.entry.lensBore=Manalinse: Bohren
+
+# -- MANA LENS: DAMAGING
+botania.entry.lensDamaging=Manalinse: Schädigung
+
+# -- MANA LENS: PHANTOM
+botania.entry.lensPhantom=Manalinse: Phantom
+
+# -- MANA LENS: MAGNETIZING
+botania.entry.lensMagnet=Manalinse: Magnetisierung
+
+# -- MANA LENS: ENTROPIC
+botania.entry.lensExplosive=Manalinse: Chaos
+
+# -- PORTABLE MANA TRANSPORT
+botania.entry.manaTransport=Tragbares Transportieren von Mana
+botania.page.manaTransport4=Spieglein, Spieglein an der Wand...
+
+# -- MANA DETECTOR
+botania.entry.manaDetector=Manadetektor
+
+# -- COMPOSITE MANA LENSES
+botania.entry.compositeLens=Verbundmanalinse
+
+# -- REDSTONE MANA SPREADER
+botania.entry.redstoneSpreader=Redstone-Manaverbreiter
+
+# -- MANASTAR
+botania.entry.manastar=Manastern
+
+# - FUNCTIONAL FLOWERS
+# -- AN INTRODUCTION TO FUNCTION
+botania.entry.fIntro=Eine Einführung in Funktion
+
+# -- JADED AMARANTHUS
+botania.entry.jadedAmaranthus=Jaded-Amarant
+
+# -- BELLETHRONE
+botania.entry.bellethorne=Belldorn
+
+# -- DREADTHORNE
+botania.entry.dreadthorne=Schreckdorn
+botania.page.dreadthorne1=&oNein, Mr. Bond - ich erwarte von Ihnen, dass Sie sterben&r.
+
+# -- HEISEI DREAM
+botania.entry.heiseiDream=Kehrnelke
+
+# -- TIGERSEYE
+botania.entry.tigerseye=Tigerauge
+
+# -- ORECHID
+botania.entry.orechid=Erzblüte
+
+# -- FALLEN KANADE
+botania.entry.fallenKanade=Engelsblüte
+
+# -- EXOFLAME
+botania.entry.exoflame=Exoflamme
+
+# -- AGRICARNATION
+botania.entry.agricarnation=Agraryophylle
+
+# -- HOPPERHOCK
+botania.entry.hopperhock=Trichterkraut
+
+# -- TANGLEBERRIE
+botania.entry.tangleberrie=Wirrbeere
+
+# -- JIYUULIA
+botania.entry.jiyuulia=Bannbeere
+
+# -- RANNUNCARPUS
+botania.entry.rannuncarpus=Rannawurzel
+
+# -- HYACIDUS
+botania.entry.hyacidus=Cyazinthe
+botania.page.hyacidus1=&oStahl ist immun&r.
+
+# -- POLLIDISIAC
+botania.entry.pollidisiac=Pollidisie
+
+# -- CLAYCONIA
+botania.entry.clayconia=Helehmie
+
+# -- LOONIUM
+botania.entry.loonium=Beutner
+
+# - GENERATING FLOWERS
+# -- AN INTRODUCTION TO GENERATION
+botania.entry.gIntro=Eine Einführung in Generierung
+
+# -- DAYBLOOM
+botania.entry.daybloom=Tagesblüte
+
+# -- NIGHTSHADE
+botania.entry.nightshade=Nachtschatten
+
+# -- ENDOFLAME
+botania.entry.endoflame=Endoflamme
+botania.page.endoflame2=&oNicht Nitor&r.
+
+# -- HYDROANGEAS
+botania.page.hydroangeas1=&oAquane Macht&r.
+
+# -- THERMALILY
+botania.entry.thermalily=Thermalilie
+
+# -- ROSA ARCANA
+
+# -- MUNCHDEW
+botania.entry.munchdew=Mampftau
+
+# -- ENTROPINNYUM
+botania.entry.entropinnyum=Entropinnyum
+
+# -- KEKIMURUS
+botania.entry.kekimurus=Kekimurus
+
+# - MAGICAL APPARATUS
+# -- FORCE RELAY
+botania.entry.pistonRelay=Kraftrelais
+
+# -- MANA PYLON
+botania.entry.pylon=Manapylon
+
+# -- MANA ENCHANTING
+botania.entry.manaEnchanting=Verzaubern mit Mana
+
+# -- SPREADER TURNTABLE
+botania.entry.turntable=Verbreiter-Drehscheibe
+
+# -- BOTANICAL ALCHEMY
+botania.entry.manaAlchemy=Alchemie mit Mana
+botania.page.manaAlchemy1=Kreieren eines &1Katalysators&0
+botania.page.manaAlchemy2=&1Verrottetes Fleisch&0 zu &1Leder&0
+botania.page.manaAlchemy3=Verschiedene Arten von &1Holz&0
+botania.page.manaAlchemy4=Verschiedene Arten von &1Setzlingen&0
+botania.page.manaAlchemy5=Zersetzung von &1Glowstone-Blöcken&0
+botania.page.manaAlchemy6=Zersetzung von &1Quarzblöcken&0
+botania.page.manaAlchemy7=Kreation von &1Gemeißelten Steinziegeln&0
+botania.page.manaAlchemy8=Frieren von &1Schnee&0 zu &1Eis&0
+botania.page.manaAlchemy9=Verwandlung zwischen &1Ranken&0 und &1Seerosenblättern&0
+botania.page.manaAlchemy10=Verschiedene Arten von &1Fisch&0
+botania.page.manaAlchemy11=Transmutation von &1Samen&0 und &1Getreide&0
+botania.page.manaAlchemy12=Reinigung von &1Giftigen Kartoffeln&0
+botania.page.manaAlchemy13=Beschwörung von &1Netherwarzen&0
+botania.page.manaAlchemy14=Verwandlung zwischen &1Schwarzpulver&0 und &1Feuerstein&0
+botania.page.manaAlchemy15=Herstellung von &1Namensschildern&0
+botania.page.manaAlchemy16=Teilung von &1Wolle&0 in &1Fäden&0
+botania.page.manaAlchemy17=Erschaffen von &1Schleimbällen&0
+botania.page.manaAlchemy17=Kreation von &1Enderperlen&0
+botania.page.manaAlchemy18=Verwandlung zwischen &1Glowstone&0 und &1Redstone&0
+botania.page.manaAlchemy19=Zersetzung von &1Pflasterstein&0 zu &1Sand&0
+
+# -- EYE OF THE ANCIENTS
+botania.entry.forestEye=Auge der Ältesten
+
+# -- OPEN CRATE
+botania.entry.openCrate=Offene Kiste
+
+# -- DRUM OF THE WILD
+botania.entry.forestDrum=Trommel der Wildnis
+
+# -- ABTRUSE PLATFORM
+botania.entry.platform=Schimmerplattform
+
+# - MYSTICAL INSTRUMENTS
+# -- MANA BLASTER
+botania.entry.manaBlaster=Mana-Blaster
+
+# -- PASTURE SEEDS
+botania.entry.grassSeeds=Weidesamen
+botania.page.grassSeeds1=&1Weidesamen&0 für Gras
+botania.page.grassSeeds2=&1Boreale Samen&0 für Podsol
+botania.page.grassSeeds3=&1Seuchensamen&0 für Myzel
+
+# -- ROD THE LANDS
+botania.entry.dirtRod=Stab der Böden
+botania.page.dirtRod1=Ziemlich dreckig
+
+# -- TERRA FIRMA ROD
+botania.entry.terraformRod=Terrafirmastab
+
+# -- MANASTEEL EQUIPMENT
+botania.entry.manaGear=Manastahl-Equipment
+botania.page.manaGear1=Die &1Manastahlspitzhacke&0
+botania.page.manaGear2=Die &1Manastahlschaufel&0
+botania.page.manaGear3=Die &1Manastahlaxt&0
+botania.page.manaGear4=Die &1Manastahlschere&0
+botania.page.manaGear5=Das &1Manastahlschwert&0
+botania.page.manaGear6=Der &1Manastahlhelm&0
+botania.page.manaGear7=Der &1Manastahlbrustpanzer&0
+botania.page.manaGear8=Der &1Manastahlbeinschutz&0
+botania.page.manaGear9=Die &1Manastahlstiefel&0
+
+# -- HORN OF THE WILD
+botania.entry.grassHorn=Horn der Wildnis
+
+# -- TERRASTEEL ARMOR
+botania.entry.terrasteelArmor=Terrastahlrüstung
+botania.page.terrasteelArmor1=Der &1Terrastahlhelmt&0
+botania.page.terrasteelArmor2=Der &1Terrastahlbrustpanzer&0
+botania.page.terrasteelArmor3=Der &1Terrastahlbeinschutz&0
+botania.page.terrasteelArmor4=Die &1Terrastahlstiefel&0
+
+# -- TERRA BLADE
+botania.entry.terraSword=Terraklinge
+
+# -- TERRA SHATTERER
+botania.entry.terraPick=Terra-Brecher
+
+# - BAUBLES
+# -- AN INTRODUCTION TO BAUBLES
+botania.entry.bIntro=Eine Einführung in Accessoires
+
+# -- TINY PLANET
+botania.entry.tinyPlanet=Winziger Planet
+botania.page.tinyPlanet2=Planetarischer als Pluto
+
+# -- BAND OF MANA
+botania.entry.manaRing=Manaband
+
+# -- BAND OF AURA
+botania.entry.auraRing=Auraband
+
+# -- SOUJOURNER'S SASH
+botania.entry.travelBelt=Schärpe des Reisenden
+
+# -- TECTONIC GIRDLE
+botania.entry.knockbackBelt=Tektonikgürtel
+
+# -- SNOWFLAKE PENDANT
+botania.entry.icePendant=Schneeflockanhänger
+
+# -- PYROCLAST PENDANT
+botania.entry.lavaPendant=Pyroklastanhänger
+
+# -- RING OF CHORDATA
+botania.entry.waterRing=Ring der Ozeane
+botania.page.waterRing1=Butter bei die Fische
+
+# -- RING OF THE MANTLE
+botania.entry.miningRing=Ring des Erdmantels
+
+# -- RING OF MAGNETIZATION
+botania.entry.magnetRing=Ring des Magnetismus
+
+# -- CHARM OF THE DIVA
+botania.entry.divaCharm=Talisman der Diva
+
+# -- FLUGEL TIARA
+botania.entry.flightTiara=Flügel-Tiara
+
+# -- ALFHOMANCY
+botania.entry.aIntro=Das Portal nach Alfheim
+
+# - MISCLANEOUS
+# -- UNSTABLE CUBE
+botania.entry.unstableBlocks=Instabile Würfel
+
+# -- DECORATIVE BLOCKS
+botania.entry.decorativeBlocks=Dekorative Blöcke
+botania.page.decorativeBlocks1=Lebesteinziegel
+botania.page.decorativeBlocks2=Die Ziegel bemoosen
+botania.page.decorativeBlocks3=Die Ziegel brüchig machen
+botania.page.decorativeBlocks4=Die Ziegel einrahmen
+botania.page.decorativeBlocks5=Holz zu Brettern verarbeiten
+botania.page.decorativeBlocks6=Die Bretter bemoosen
+botania.page.decorativeBlocks7=Die Bretter einrahmen
+botania.page.decorativeBlocks8=Schnittgerahmte Bretter
+botania.page.decorativeBlocks9=Schimmerndes Lebeholz
+
+# -- DISPENSER TWEAKS
+botania.entry.dispenserTweaks=Dispenser-Änderungen
+
+# -- GLIMMERING FLOWERS
+botania.entry.shinyFlowers=Schimmernde Blumen

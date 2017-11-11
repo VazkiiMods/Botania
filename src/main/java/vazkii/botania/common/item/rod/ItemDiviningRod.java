@@ -10,12 +10,9 @@
  */
 package vazkii.botania.common.item.rod;
 
-import java.util.Random;
-
-import javax.annotation.Nonnull;
-
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -32,11 +29,14 @@ import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.api.item.IManaProficiencyArmor;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
-import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.lib.LibItemNames;
+
+import javax.annotation.Nonnull;
+import java.util.Random;
 
 public class ItemDiviningRod extends ItemMod implements IManaUsingItem, IAvatarWieldable {
 
@@ -51,14 +51,15 @@ public class ItemDiviningRod extends ItemMod implements IManaUsingItem, IAvatarW
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack stack, World world, EntityPlayer p, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer p, @Nonnull EnumHand hand) {
+		ItemStack stack = p.getHeldItem(hand);
 		if(ManaItemHandler.requestManaExactForTool(stack, p, COST, true)) {
 			if(world.isRemote) {
 				int range = IManaProficiencyArmor.Helper.hasProficiency(p, stack) ? 20 : 15;
 				long seedxor = world.rand.nextLong();
 				doHighlight(world, new BlockPos(p), range, seedxor);
 				p.swingArm(hand);
-			} else world.playSound(null, p.posX, p.posY, p.posZ, BotaniaSoundEvents.divinationRod, SoundCategory.PLAYERS, 1F, 1F);
+			} else world.playSound(null, p.posX, p.posY, p.posZ, ModSounds.divinationRod, SoundCategory.PLAYERS, 1F, 1F);
 			return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
 		}
 
@@ -69,7 +70,7 @@ public class ItemDiviningRod extends ItemMod implements IManaUsingItem, IAvatarW
 		Botania.proxy.setWispFXDepthTest(false);
 		for(BlockPos pos_ : BlockPos.getAllInBox(pos.add(-range, -range, -range), pos.add(range, range, range))) {
 			IBlockState state = world.getBlockState(pos_);
-			if(Item.getItemFromBlock(state.getBlock()) == null)
+			if(Item.getItemFromBlock(state.getBlock()) == Items.AIR)
 				continue;
 			ItemStack orestack = new ItemStack(state.getBlock(), 1, state.getBlock().getMetaFromState(state));
 			for(int id : OreDictionary.getOreIDs(orestack)) {

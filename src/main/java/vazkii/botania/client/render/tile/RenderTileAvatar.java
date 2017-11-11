@@ -10,10 +10,6 @@
  */
 package vazkii.botania.client.render.tile;
 
-import javax.annotation.Nonnull;
-
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
@@ -23,6 +19,7 @@ import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
+import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.client.core.handler.ClientTickHandler;
@@ -30,6 +27,8 @@ import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelAvatar;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileAvatar;
+
+import javax.annotation.Nullable;
 
 public class RenderTileAvatar extends TileEntitySpecialRenderer<TileAvatar> {
 
@@ -41,7 +40,7 @@ public class RenderTileAvatar extends TileEntitySpecialRenderer<TileAvatar> {
 	private static final ModelAvatar model = new ModelAvatar();
 
 	@Override
-	public void renderTileEntityAt(@Nonnull TileAvatar avatar, double d0, double d1, double d2, float pticks, int digProgress) {
+	public void render(@Nullable TileAvatar avatar, double d0, double d1, double d2, float pticks, int digProgress, float unused) {
 		if (avatar != null)
 			if (!avatar.getWorld().isBlockLoaded(avatar.getPos(), false)
 					|| avatar.getWorld().getBlockState(avatar.getPos()).getBlock() != ModBlocks.avatar)
@@ -71,7 +70,7 @@ public class RenderTileAvatar extends TileEntitySpecialRenderer<TileAvatar> {
 				}
 
 				ItemStack stack = avatar.getItemHandler().getStackInSlot(0);
-				if(stack != null) {
+				if(!stack.isEmpty()) {
 					GlStateManager.pushMatrix();
 					Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 					float s = 0.6F;

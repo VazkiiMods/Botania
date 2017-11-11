@@ -10,29 +10,17 @@
  */
 package vazkii.botania.api.item;
 
-import java.util.UUID;
-
 import net.minecraft.item.ItemStack;
-import net.minecraft.stats.Achievement;
+import net.minecraft.util.ResourceLocation;
+
+import javax.annotation.Nullable;
+import java.util.UUID;
 
 /**
  * An item that implements this counts as a Relic item. This is purely for interaction
  * and other mod items should not implement this interface.
  */
 public interface IRelic {
-
-	/**
-	 * Binds to the player name passed in.
-	 */
-	@Deprecated
-	public void bindToUsername(String playerName, ItemStack stack);
-
-	/**
-	 * Gets the username of the person this relic is bound to, or the empty String if the username field is empty.
-	 * You should not use this to determine if a relic is bound, use UUIDs instead.
-	 */
-	@Deprecated
-	public String getSoulbindUsername(ItemStack stack);
 
 	/**
 	 * Binds to the UUID passed in.
@@ -42,6 +30,7 @@ public interface IRelic {
 	/**
 	 * Gets the UUID of the person this relic is bound to, or null if a well-formed UUID could not be found
 	 */
+	@Nullable
 	public UUID getSoulbindUUID(ItemStack stack);
 
 	/**
@@ -50,13 +39,11 @@ public interface IRelic {
 	public boolean hasUUID(ItemStack stack);
 
 	/**
-	 * Sets the achievement that this relic binds to.
+	 * Get the advancement granted when this relic binds
 	 */
-	public void setBindAchievement(Achievement achievement);
-
-	/**
-	 * Gets the achievement that this relic binds to.
-	 */
-	public Achievement getBindAchievement();
+	@Nullable
+	default ResourceLocation getAdvancement() {
+		return null;
+	}
 
 }

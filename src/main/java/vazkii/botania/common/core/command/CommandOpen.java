@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.core.command;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
@@ -23,17 +21,19 @@ import net.minecraft.util.text.TextFormatting;
 import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.item.ItemLexicon;
 
+import javax.annotation.Nonnull;
+
 public class CommandOpen extends CommandBase {
 
 	@Nonnull
 	@Override
-	public String getCommandName() {
+	public String getName() {
 		return "botania-open";
 	}
 
 	@Nonnull
 	@Override
-	public String getCommandUsage(@Nonnull ICommandSender sender) {
+	public String getUsage(@Nonnull ICommandSender sender) {
 		return "<entry>";
 	}
 
@@ -42,10 +42,10 @@ public class CommandOpen extends CommandBase {
 		if(sender instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) sender;
 			ItemStack stack = PlayerHelper.getFirstHeldItemClass(player, ItemLexicon.class);
-			if(stack != null) {
+			if(!stack.isEmpty()) {
 				ItemLexicon.setForcedPage(stack, args[0]);
 				ItemLexicon.setQueueTicks(stack, 5);
-			} else sender.addChatMessage(new TextComponentTranslation("botaniamisc.noLexicon").setStyle(new Style().setColor(TextFormatting.RED)));
+			} else sender.sendMessage(new TextComponentTranslation("botaniamisc.noLexicon").setStyle(new Style().setColor(TextFormatting.RED)));
 		}
 	}
 

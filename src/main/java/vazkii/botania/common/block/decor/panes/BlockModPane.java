@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.block.decor.panes;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPane;
 import net.minecraft.block.SoundType;
@@ -20,12 +18,12 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import vazkii.botania.client.render.IModelRegister;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.BotaniaCreativeTab;
-import vazkii.botania.common.item.block.ItemBlockMod;
 import vazkii.botania.common.lib.LibMisc;
+
+import javax.annotation.Nonnull;
 
 public class BlockModPane extends BlockPane implements IModelRegister {
 
@@ -34,8 +32,6 @@ public class BlockModPane extends BlockPane implements IModelRegister {
 		// Backward compat don't kill me
 		String name = source.getUnlocalizedName().replaceAll("tile.", "") + "Pane";
 		setRegistryName(new ResourceLocation(LibMisc.MOD_ID, name));
-		GameRegistry.register(this);
-		GameRegistry.register(new ItemBlockMod(this), getRegistryName());
 		setUnlocalizedName(name);
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
 		setHardness(0.3F);

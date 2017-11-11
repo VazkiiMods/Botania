@@ -10,10 +10,9 @@
  */
 package vazkii.botania.common.block.mana;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -34,6 +33,8 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
+import javax.annotation.Nonnull;
+
 public class BlockTerraPlate extends BlockMod implements ILexiconable {
 
 	private static final AxisAlignedBB AABB = new AxisAlignedBB(0, 0, 0, 1, 3.0/16, 1);
@@ -53,21 +54,16 @@ public class BlockTerraPlate extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public boolean onBlockActivated(World worldObj, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack stack, EnumFacing s, float xs, float ys, float zs) {
-		if(stack != null && stack.getItem() == ModItems.manaResource && stack.getItemDamage() < 3) {
-			if(player == null || !player.capabilities.isCreativeMode) {
-				stack.stackSize--;
-				if(stack.stackSize == 0 && player != null)
-					player.setHeldItem(hand, null);
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing s, float xs, float ys, float zs) {
+		ItemStack stack = player.getHeldItem(hand);
+		if(!stack.isEmpty() && stack.getItem() == ModItems.manaResource && stack.getItemDamage() < 3) {
+			if(!world.isRemote) {
+				ItemStack target = stack.splitStack(1);
+				EntityItem item = new EntityItem(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, target);
+				item.setPickupDelay(40);
+				item.motionX = item.motionY = item.motionZ = 0;
+				world.spawnEntity(item);
 			}
-
-			ItemStack target = stack.copy();
-			target.stackSize = 1;
-			EntityItem item = new EntityItem(worldObj, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, target);
-			item.setPickupDelay(40);
-			item.motionX = item.motionY = item.motionZ = 0;
-			if(!worldObj.isRemote)
-				worldObj.spawnEntityInWorld(item);
 
 			return true;
 		}
@@ -119,6 +115,12 @@ public class BlockTerraPlate extends BlockMod implements ILexiconable {
 			val = Math.max(val, 1);
 
 		return val;
+	}
+
+	@Nonnull
+	@Override
+	public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing side) {
+		return side == EnumFacing.DOWN ? BlockFaceShape.SOLID : BlockFaceShape.UNDEFINED;
 	}
 
 }

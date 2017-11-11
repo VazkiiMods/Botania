@@ -10,22 +10,12 @@
  */
 package vazkii.botania.common.block.tile.corporea;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.WeakHashMap;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import org.apache.commons.lang3.text.WordUtils;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextComponentTranslation;
@@ -35,12 +25,24 @@ import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.apache.commons.lang3.text.WordUtils;
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.corporea.ICorporeaAutoCompleteController;
 import vazkii.botania.api.corporea.ICorporeaRequestor;
 import vazkii.botania.api.corporea.ICorporeaSpark;
-import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.core.helper.MathHelper;
+import vazkii.botania.common.core.helper.PlayerHelper;
+import vazkii.botania.common.lib.LibMisc;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.WeakHashMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequestor {
 
@@ -154,7 +156,7 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 		double y = pos.getY() + 0.5;
 		double z = pos.getZ() + 0.5;
 
-		List<EntityPlayer> players = worldObj.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(x - RADIUS, y - RADIUS, z - RADIUS, x + RADIUS, y + RADIUS, z + RADIUS));
+		List<EntityPlayer> players = world.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(x - RADIUS, y - RADIUS, z - RADIUS, x + RADIUS, y + RADIUS, z + RADIUS));
 		hasCloseby = false;
 		for(EntityPlayer player : players)
 			if(isInRangeOfIndex(player, this)) {
@@ -200,14 +202,14 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 		List<ItemStack> stacks = CorporeaHelper.requestItem((String) request, count, spark, true);
 		spark.onItemsRequested(stacks);
 		for(ItemStack stack : stacks)
-			if(stack != null) {
-				EntityItem item = new EntityItem(worldObj, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, stack);
-				worldObj.spawnEntityInWorld(item);
+			if(!stack.isEmpty()) {
+				EntityItem item = new EntityItem(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, stack);
+				world.spawnEntity(item);
 			}
 	}
 
 	public static boolean isInRangeOfIndex(EntityPlayer player, TileCorporeaIndex index) {
-		return player.worldObj.provider.getDimension() == index.worldObj.provider.getDimension() && MathHelper.pointDistancePlane(index.getPos().getX() + 0.5, index.getPos().getZ() + 0.5, player.posX, player.posZ) < RADIUS && Math.abs(index.getPos().getY() + 0.5 - player.posY + (player.worldObj.isRemote ? 0 : 1.6)) < 5;
+		return player.world.provider.getDimension() == index.world.provider.getDimension() && MathHelper.pointDistancePlane(index.getPos().getX() + 0.5, index.getPos().getZ() + 0.5, player.posX, player.posZ) < RADIUS && Math.abs(index.getPos().getY() + 0.5 - player.posY + (player.world.isRemote ? 0 : 1.6)) < 5;
 	}
 
 	public static void addPattern(String pattern, IRegexStacker stacker) {
@@ -241,7 +243,7 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 			if(!nearbyIndexes.isEmpty()) {
 				String msg = event.getMessage().toLowerCase().trim();
 				for(TileCorporeaIndex index : nearbyIndexes) {
-					if(index.worldObj.isRemote)
+					if(index.world.isRemote)
 						continue;
 
 					ICorporeaSpark spark = index.getSpark();
@@ -260,15 +262,16 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 
 						if(name.equals("this")) {
 							ItemStack stack = event.getPlayer().getHeldItemMainhand();
-							if(stack != null)
+							if(!stack.isEmpty())
 								name = stack.getDisplayName().toLowerCase().trim();
 						}
 
 						index.doCorporeaRequest(name, count, spark);
 
-						event.getPlayer().addChatMessage(new TextComponentTranslation("botaniamisc.requestMsg", count, WordUtils.capitalizeFully(name), CorporeaHelper.lastRequestMatches, CorporeaHelper.lastRequestExtractions).setStyle(new Style().setColor(TextFormatting.LIGHT_PURPLE)));
-						if(CorporeaHelper.lastRequestExtractions >= 50000)
-							event.getPlayer().addStat(ModAchievements.superCorporeaRequest, 1);
+						event.getPlayer().sendMessage(new TextComponentTranslation("botaniamisc.requestMsg", count, WordUtils.capitalizeFully(name), CorporeaHelper.lastRequestMatches, CorporeaHelper.lastRequestExtractions).setStyle(new Style().setColor(TextFormatting.LIGHT_PURPLE)));
+						if(CorporeaHelper.lastRequestExtractions >= 50000) {
+							PlayerHelper.grantCriterion(event.getPlayer(), new ResourceLocation(LibMisc.MOD_ID, "challenge/super_corporea_request"), "code_triggered");
+						}
 					}
 				}
 
@@ -279,7 +282,7 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 		public static List<TileCorporeaIndex> getNearbyIndexes(EntityPlayer player) {
 			List<TileCorporeaIndex> indexList = new ArrayList<>();
 			for(TileCorporeaIndex index : indexes)
-				if(isInRangeOfIndex(player, index) && index.worldObj.isRemote == player.worldObj.isRemote)
+				if(isInRangeOfIndex(player, index) && index.world.isRemote == player.world.isRemote)
 					indexList.add(index);
 			return indexList;
 		}
@@ -287,7 +290,7 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 		@Override
 		@SideOnly(Side.CLIENT)
 		public boolean shouldAutoComplete() {
-			return !getNearbyIndexes(Minecraft.getMinecraft().thePlayer).isEmpty();
+			return !getNearbyIndexes(Minecraft.getMinecraft().player).isEmpty();
 		}
 
 	}

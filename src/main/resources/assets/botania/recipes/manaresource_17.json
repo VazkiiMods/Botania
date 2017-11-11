@@ -1,0 +1,13 @@
+{
+  "result": {
+    "item": "botania:manaresource",
+    "data": 17,
+    "count": 9
+  },
+  "ingredients": [
+    {
+      "item": "#INGOTMANASTEEL"
+    }
+  ],
+  "type": "forge:ore_shapeless"
+}

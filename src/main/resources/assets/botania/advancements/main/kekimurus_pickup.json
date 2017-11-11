@@ -1,0 +1,28 @@
+{
+  "display": {
+    "icon": {
+      "item": "botania:specialFlower",
+      "nbt": "{\"type\": \"kekimurus\"}"
+    },
+    "title": {
+      "translate": "advancement.botania:kekimurusPickup"
+    },
+    "description": {
+      "translate": "advancement.botania:kekimurusPickup.desc"
+    }
+  },
+  "parent": "botania:main/elf_portal_open",
+  "criteria": {
+    "kekimurus": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "botania:specialFlower",
+            "nbt": "{\"type\": \"kekimurus\"}"
+          }
+        ]
+      }
+    }
+  }
+}

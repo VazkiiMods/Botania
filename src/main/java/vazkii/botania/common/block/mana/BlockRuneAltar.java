@@ -10,10 +10,9 @@
  */
 package vazkii.botania.common.block.mana;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -35,6 +34,8 @@ import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.core.helper.InventoryHelper;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
+
+import javax.annotation.Nonnull;
 
 public class BlockRuneAltar extends BlockMod implements IWandable, ILexiconable {
 
@@ -65,21 +66,24 @@ public class BlockRuneAltar extends BlockMod implements IWandable, ILexiconable 
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack stack, EnumFacing side, float par7, float par8, float par9) {
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float par7, float par8, float par9) {
 		if(world.isRemote)
 			return true;
 
 		TileRuneAltar altar = (TileRuneAltar) world.getTileEntity(pos);
+		ItemStack stack = player.getHeldItem(hand);
 
 		if(player.isSneaking()) {
 			if(altar.manaToGet == 0) {
 				InventoryHelper.withdrawFromInventory(altar, player);
 				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(altar);
+				return true;
 			}
-		} else if(altar.isEmpty() && stack == null) {
+		} else if(altar.isEmpty() && stack.isEmpty()) {
 			altar.trySetLastRecipe(player);
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(altar);
-		} else if(stack != null) {
+			return true;
+		} else if(!stack.isEmpty()) {
 			boolean result = altar.addItem(player, stack, hand);
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(altar);
 			return result;
@@ -128,6 +132,12 @@ public class BlockRuneAltar extends BlockMod implements IWandable, ILexiconable 
 	@Override
 	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.runicAltar;
+	}
+
+	@Nonnull
+	@Override
+	public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing side) {
+		return side == EnumFacing.DOWN ? BlockFaceShape.SOLID : BlockFaceShape.UNDEFINED;
 	}
 
 }

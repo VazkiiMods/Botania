@@ -10,11 +10,8 @@
  */
 package vazkii.botania.common.item;
 
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
 import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.IInventory;
@@ -29,6 +26,9 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.lib.LibItemNames;
 
+import javax.annotation.Nonnull;
+import java.util.List;
+
 public class ItemTemperanceStone extends ItemMod {
 
 	public ItemTemperanceStone() {
@@ -39,7 +39,8 @@ public class ItemTemperanceStone extends ItemMod {
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
+		ItemStack stack = player.getHeldItem(hand);
 		int dmg = stack.getItemDamage();
 		stack.setItemDamage(~dmg & 1);
 		world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.NEUTRAL, 0.3F, 0.1F);
@@ -48,7 +49,7 @@ public class ItemTemperanceStone extends ItemMod {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void addInformation(ItemStack par1ItemStack, EntityPlayer player, List<String> stacks, boolean par4) {
+	public void addInformation(ItemStack par1ItemStack, World world, List<String> stacks, ITooltipFlag flags) {
 		if(par1ItemStack.getItemDamage() == 1)
 			addStringToTooltip(I18n.format("botaniamisc.active"), stacks);
 		else addStringToTooltip(I18n.format("botaniamisc.inactive"), stacks);
@@ -68,7 +69,7 @@ public class ItemTemperanceStone extends ItemMod {
 		IInventory inv = player.inventory;
 		for(int i = 0; i < inv.getSizeInventory(); i++) {
 			ItemStack stack = inv.getStackInSlot(i);
-			if(stack != null && stack.getItem() == ModItems.temperanceStone && stack.getItemDamage() == 1)
+			if(!stack.isEmpty() && stack.getItem() == ModItems.temperanceStone && stack.getItemDamage() == 1)
 				return true;
 		}
 

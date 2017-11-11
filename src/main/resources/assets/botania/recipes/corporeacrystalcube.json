@@ -1,0 +1,23 @@
+{
+  "result": {
+    "item": "botania:corporeacrystalcube"
+  },
+  "pattern": [
+    "C",
+    "G",
+    "W"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "C": {
+      "item": "botania:corporeaspark",
+      "data": 0
+    },
+    "G": {
+      "item": "botania:elfglass"
+    },
+    "W": {
+      "item": "#DREAMWOOD"
+    }
+  }
+}

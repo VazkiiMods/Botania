@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "item": "botania:dirtrod"
+    },
+    "title": {
+      "translate": "advancement.botania:dirtRodCraft"
+    },
+    "description": {
+      "translate": "advancement.botania:dirtRodCraft.desc"
+    }
+  },
+  "parent": "botania:main/rune_pickup",
+  "criteria": {
+    "dirtrod": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "botania:dirtrod"
+          }
+        ]
+      }
+    }
+  }
+}

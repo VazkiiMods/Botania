@@ -15,7 +15,6 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.Enchantments;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.lib.LibItemNames;
@@ -43,12 +42,6 @@ public class ItemCrystalBow extends ItemLivingwoodBow {
 	void onFire(ItemStack stack, EntityLivingBase living, boolean infinity, EntityArrow arrow) {
 		arrow.pickupStatus = EntityArrow.PickupStatus.CREATIVE_ONLY;
 		if(living instanceof EntityPlayer)
-			ManaItemHandler.requestManaExactForTool(stack, (EntityPlayer) living, ARROW_COST / (infinity ? 2 : 1), false);
+			ManaItemHandler.requestManaExactForTool(stack, (EntityPlayer) living, ARROW_COST / (infinity ? 2 : 1), true);
 	}
-
-	@Override
-	protected ItemStack getAmmo(EntityLivingBase player) {
-		return new ItemStack(Items.ARROW);
-	}
-
 }

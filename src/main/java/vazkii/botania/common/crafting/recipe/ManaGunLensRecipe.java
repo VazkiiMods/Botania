@@ -10,18 +10,25 @@
  */
 package vazkii.botania.common.crafting.recipe;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
+import net.minecraftforge.registries.IForgeRegistryEntry;
 import vazkii.botania.api.mana.ILens;
 import vazkii.botania.api.mana.ILensControl;
 import vazkii.botania.common.item.ItemManaGun;
 
-public class ManaGunLensRecipe implements IRecipe {
+import javax.annotation.Nonnull;
+
+public class ManaGunLensRecipe extends IForgeRegistryEntry.Impl<IRecipe> implements IRecipe {
+
+	@Override
+	public boolean isHidden() {
+		return true;
+	}
 
 	@Override
 	public boolean matches(@Nonnull InventoryCrafting var1, @Nonnull World var2) {
@@ -30,8 +37,8 @@ public class ManaGunLensRecipe implements IRecipe {
 
 		for(int i = 0; i < var1.getSizeInventory(); i++) {
 			ItemStack stack = var1.getStackInSlot(i);
-			if(stack != null) {
-				if(stack.getItem() instanceof ItemManaGun && ItemManaGun.getLens(stack) == null)
+			if(!stack.isEmpty()) {
+				if(stack.getItem() instanceof ItemManaGun && ItemManaGun.getLens(stack).isEmpty())
 					foundGun = true;
 
 				else if(stack.getItem() instanceof ILens) {
@@ -47,14 +54,15 @@ public class ManaGunLensRecipe implements IRecipe {
 		return foundLens && foundGun;
 	}
 
+	@Nonnull
 	@Override
 	public ItemStack getCraftingResult(@Nonnull InventoryCrafting var1) {
-		ItemStack lens = null;
-		ItemStack gun = null;
+		ItemStack lens = ItemStack.EMPTY;
+		ItemStack gun = ItemStack.EMPTY;
 
 		for(int i = 0; i < var1.getSizeInventory(); i++) {
 			ItemStack stack = var1.getStackInSlot(i);
-			if(stack != null) {
+			if(!stack.isEmpty()) {
 				if(stack.getItem() instanceof ItemManaGun)
 					gun = stack;
 				else if(stack.getItem() instanceof ILens)
@@ -62,8 +70,8 @@ public class ManaGunLensRecipe implements IRecipe {
 			}
 		}
 
-		if(lens == null || gun == null)
-			return null;
+		if(lens.isEmpty() || gun.isEmpty())
+			return ItemStack.EMPTY;
 
 		ItemStack gunCopy = gun.copy();
 		ItemManaGun.setLens(gunCopy, lens);
@@ -71,20 +79,20 @@ public class ManaGunLensRecipe implements IRecipe {
 		return gunCopy;
 	}
 
-
 	@Override
-	public int getRecipeSize() {
-		return 10;
-	}
-
-	@Override
-	public ItemStack getRecipeOutput() {
-		return null;
+	public boolean canFit(int width, int height) {
+		return width * height >= 2;
 	}
 
 	@Nonnull
 	@Override
-	public ItemStack[] getRemainingItems(@Nonnull InventoryCrafting inv) {
+	public ItemStack getRecipeOutput() {
+		return ItemStack.EMPTY;
+	}
+
+	@Nonnull
+	@Override
+	public NonNullList<ItemStack> getRemainingItems(@Nonnull InventoryCrafting inv) {
 		return ForgeHooks.defaultRecipeGetRemainingItems(inv);
 	}
 }

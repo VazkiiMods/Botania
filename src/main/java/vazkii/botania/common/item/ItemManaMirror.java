@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.item;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumDyeColor;
@@ -28,11 +26,13 @@ import net.minecraftforge.fml.common.FMLCommonHandler;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.mana.IManaTooltipDisplay;
-import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.api.wand.ICoordBoundItem;
 import vazkii.botania.common.block.tile.mana.TilePool;
+import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lib.LibItemNames;
+
+import javax.annotation.Nonnull;
 
 public class ItemManaMirror extends ItemMod implements IManaItem, ICoordBoundItem, IManaTooltipDisplay {
 
@@ -78,12 +78,12 @@ public class ItemManaMirror extends ItemMod implements IManaItem, ICoordBoundIte
 
 	@Nonnull
 	@Override
-	public EnumActionResult onItemUse(ItemStack par1ItemStack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
+	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
 		if(player.isSneaking() && !world.isRemote) {
 			TileEntity tile = world.getTileEntity(pos);
 			if(tile != null && tile instanceof IManaPool) {
-				bindPool(par1ItemStack, tile);
-				world.playSound(null, player.posX, player.posY, player.posZ, BotaniaSoundEvents.ding, SoundCategory.PLAYERS, 1F, 1F);
+				bindPool(player.getHeldItem(hand), tile);
+				world.playSound(null, player.posX, player.posY, player.posZ, ModSounds.ding, SoundCategory.PLAYERS, 1F, 1F);
 				return EnumActionResult.SUCCESS;
 			}
 		}
@@ -129,7 +129,7 @@ public class ItemManaMirror extends ItemMod implements IManaItem, ICoordBoundIte
 		if(pool != null) {
 			pool.recieveMana(mana);
 			TileEntity tile = (TileEntity) pool;
-			tile.getWorld().func_147453_f(tile.xCoord, tile.yCoord, tile.zCoord, tile.getWorld().getBlock(tile.xCoord, tile.yCoord, tile.zCoord));
+			tile.getWorld().func_147453_f(tile.x, tile.y, tile.z, tile.getWorld().getBlock(tile.x, tile.y, tile.z));
 		}
 	}*/
 
@@ -162,7 +162,7 @@ public class ItemManaMirror extends ItemMod implements IManaItem, ICoordBoundIte
 
 		int dim = getDimension(stack);
 		World world = null;
-		for(World w : server.worldServers)
+		for(World w : server.worlds)
 			if(w.provider.getDimension() == dim) {
 				world = w;
 				break;

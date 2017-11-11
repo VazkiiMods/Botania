@@ -10,11 +10,6 @@
  */
 package vazkii.botania.common.entity;
 
-
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.SoundEvents;
@@ -23,11 +18,19 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.Optional;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.MathHelper;
 
+import javax.annotation.Nonnull;
 
-public class EntityFlameRing extends Entity {
+import elucent.albedo.lighting.ILightProvider;
+import elucent.albedo.lighting.Light;
+
+import java.util.List;
+
+@Optional.Interface(iface="elucent.albedo.lighting.ILightProvider", modid="albedo")
+public class EntityFlameRing extends Entity implements ILightProvider {
 
 	public EntityFlameRing(World world) {
 		super(world);
@@ -50,7 +53,7 @@ public class EntityFlameRing extends Entity {
 			if(a % 2 == 0)
 				a = 45 + a;
 
-			if(worldObj.rand.nextInt(ticksExisted < 90 ? 8 : 20) == 0) {
+			if(world.rand.nextInt(ticksExisted < 90 ? 8 : 20) == 0) {
 				float rad = (float) (a * 4 * Math.PI / 180F);
 				double x = Math.cos(rad) * renderRadius;
 				double z = Math.sin(rad) * renderRadius;
@@ -65,10 +68,10 @@ public class EntityFlameRing extends Entity {
 			}
 		}
 
-		if(worldObj.rand.nextInt(20) == 0)
-			worldObj.playSound(posX, posY, posZ, SoundEvents.BLOCK_FIRE_AMBIENT, SoundCategory.BLOCKS, 1F, 1F, false);
+		if(world.rand.nextInt(20) == 0)
+			world.playSound(posX, posY, posZ, SoundEvents.BLOCK_FIRE_AMBIENT, SoundCategory.BLOCKS, 1F, 1F, false);
 
-		if(worldObj.isRemote)
+		if(world.isRemote)
 			return;
 
 		if(ticksExisted >= 300) {
@@ -77,8 +80,8 @@ public class EntityFlameRing extends Entity {
 		}
 
 		if(ticksExisted > 45) {
-			AxisAlignedBB boundingBox = new AxisAlignedBB(posX, posY, posZ, posX, posY, posZ).expand(radius, radius, radius);
-			List<EntityLivingBase> entities = worldObj.getEntitiesWithinAABB(EntityLivingBase.class, boundingBox);
+			AxisAlignedBB boundingBox = new AxisAlignedBB(posX, posY, posZ, posX, posY, posZ).grow(radius, radius, radius);
+			List<EntityLivingBase> entities = world.getEntitiesWithinAABB(EntityLivingBase.class, boundingBox);
 
 			if(entities.isEmpty())
 				return;
@@ -97,10 +100,15 @@ public class EntityFlameRing extends Entity {
 		return false;
 	}
 
-
 	@Override
 	protected void readEntityFromNBT(@Nonnull NBTTagCompound var1) {}
 
 	@Override
 	protected void writeEntityToNBT(@Nonnull NBTTagCompound var1) {}
+	
+	@Override
+	@Optional.Method(modid="albedo")
+	public Light provideLight() {
+		return Light.builder().pos(this).color(1F, 0.5F, 0F).radius(20).build();
+	}
 }

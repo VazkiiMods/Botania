@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/cube_bottom_top",
-  "textures": {
-    "bottom": "botania:blocks/alchemyCatalyst0",
-    "top": "botania:blocks/alchemyCatalyst1",
-    "side": "botania:blocks/alchemyCatalyst2"
-  }
-}

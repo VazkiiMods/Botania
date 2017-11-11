@@ -1,0 +1,24 @@
+{
+  "result": {
+    "item": "botania:lens",
+    "data": 12
+  },
+  "pattern": [
+    "PRP",
+    "PLP",
+    "PPP"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "P": {
+      "item": "#GEMPRISMARINE"
+    },
+    "R": {
+      "item": "#RUNEAIRB"
+    },
+    "L": {
+      "item": "botania:lens",
+      "data": 0
+    }
+  }
+}

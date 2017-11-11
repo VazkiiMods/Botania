@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "botania:crystalbow"
+  },
+  "pattern": [
+    " DS",
+    "T S",
+    " DS"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "S": {
+      "item": "#MANASTRING"
+    },
+    "T": {
+      "item": "#LIVINGWOODTWIG"
+    },
+    "D": {
+      "item": "#ELVENDRAGONSTONE"
+    }
+  }
+}

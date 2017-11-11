@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "botania:manadetector"
+  },
+  "pattern": [
+    "RSR",
+    "SCS",
+    "RSR"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "R": {
+      "item": "#DUSTREDSTONE"
+    },
+    "C": {
+      "item": "minecraft:comparator"
+    },
+    "S": {
+      "item": "#LIVINGROCK"
+    }
+  }
+}

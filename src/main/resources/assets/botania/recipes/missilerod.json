@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "botania:missilerod"
+  },
+  "pattern": [
+    "GDD",
+    " TD",
+    "T G"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "D": {
+      "item": "#ELVENDRAGONSTONE"
+    },
+    "T": {
+      "item": "#DREAMWOODTWIG"
+    },
+    "G": {
+      "item": "#ETERNALLIFEESSENCE"
+    }
+  }
+}

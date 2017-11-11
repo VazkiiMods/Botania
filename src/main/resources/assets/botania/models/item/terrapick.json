@@ -1,0 +1,27 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "botania:items/terrasteel_pickaxe"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "botania:enabled": 1
+      },
+      "model": "botania:item/terrapickenabled"
+    },
+    {
+      "predicate": {
+        "botania:tipped": 1
+      },
+      "model": "botania:item/terrapicktipped"
+    },
+    {
+      "predicate": {
+        "botania:tipped": 1,
+        "botania:enabled": 1
+      },
+      "model": "botania:item/terrapicktippedenabled"
+    }
+  ]
+}

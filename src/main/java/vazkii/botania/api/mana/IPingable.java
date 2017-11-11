@@ -10,9 +10,9 @@
  */
 package vazkii.botania.api.mana;
 
-import java.util.UUID;
-
 import vazkii.botania.api.internal.IManaBurst;
+
+import java.util.UUID;
 
 /**
  * This describes an interface of a Mana Sender block that should be able to pingbackable

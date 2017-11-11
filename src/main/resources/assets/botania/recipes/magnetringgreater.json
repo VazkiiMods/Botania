@@ -1,0 +1,14 @@
+{
+  "result": {
+    "item": "botania:magnetringgreater"
+  },
+  "ingredients": [
+    {
+      "item": "#INGOTTERRASTEEL"
+    },
+    {
+      "item": "botania:magnetring"
+    }
+  ],
+  "type": "forge:ore_shapeless"
+}

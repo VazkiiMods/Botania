@@ -14,5 +14,8 @@ void main() {
 
     if(maskgs <= heightMatch)
     	gl_FragColor = vec4(color.r, color.g, color.b, color.a);
-    else gl_FragColor = vec4(0, 0, 0, color.a);
+    else {
+        float gs = (color.r + color.g + color.b) / 3.0;
+        gl_FragColor = vec4(gs, gs, gs, color.a * 0.75);
+    }
 }

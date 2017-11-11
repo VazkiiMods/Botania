@@ -10,15 +10,14 @@
  */
 package vazkii.botania.common.block.decor;
 
-import java.util.Random;
-
-import javax.annotation.Nonnull;
-
+import net.minecraft.block.Block;
+import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.statemap.StateMap;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.util.EnumBlockRenderType;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -32,6 +31,9 @@ import vazkii.botania.common.block.BlockModFlower;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibBlockNames;
 
+import javax.annotation.Nonnull;
+import java.util.Random;
+
 public class BlockBuriedPetals extends BlockModFlower {
 
 	private static final AxisAlignedBB AABB = new AxisAlignedBB(0, 0, 0, 1, 0.1, 1);
@@ -43,7 +45,14 @@ public class BlockBuriedPetals extends BlockModFlower {
 
 	@Nonnull
 	@Override
-	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
+	@SideOnly(Side.CLIENT)
+	public Block.EnumOffsetType getOffsetType() {
+		return Block.EnumOffsetType.NONE;
+	}
+
+	@Nonnull
+	@Override
+	public AxisAlignedBB getBoundingBox(IBlockState state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos) {
 		return AABB;
 	}
 
@@ -51,7 +60,7 @@ public class BlockBuriedPetals extends BlockModFlower {
 	@Override
 	public void randomDisplayTick(IBlockState state, World world, BlockPos pos, Random rand) {
 		EnumDyeColor color = state.getValue(BotaniaStateProps.COLOR);
-		int hex = color.getMapColor().colorValue;
+		int hex = color.getColorValue();
 		int r = (hex & 0xFF0000) >> 16;
 		int g = (hex & 0xFF00) >> 8;
 		int b = hex & 0xFF;
@@ -67,13 +76,11 @@ public class BlockBuriedPetals extends BlockModFlower {
 		return false;
 	}
 
+	@Nonnull
 	@Override
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
 		return ModItems.petal;
 	}
-
-	@Override
-	public void registerItemForm() {}
 
 	@Nonnull
 	@Override
@@ -85,6 +92,12 @@ public class BlockBuriedPetals extends BlockModFlower {
 	@Override
 	public final void registerModels() {
 		ModelLoader.setCustomStateMapper(this, new StateMap.Builder().ignore(getTypeProperty()).build());
+	}
+
+	@Nonnull
+	@Override
+	public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing side) {
+		return BlockFaceShape.UNDEFINED;
 	}
 
 }

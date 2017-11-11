@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "item": "botania:poolminecart"
+    },
+    "title": {
+      "translate": "advancement.botania:manaCartCraft"
+    },
+    "description": {
+      "translate": "advancement.botania:manaCartCraft.desc"
+    }
+  },
+  "parent": "botania:main/mana_pool_pickup",
+  "criteria": {
+    "poolcart": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "botania:poolminecart"
+          }
+        ]
+      }
+    }
+  }
+}

@@ -10,10 +10,6 @@
  */
 package vazkii.botania.common.item.equipment.tool.bow;
 
-import java.util.function.Predicate;
-
-import javax.annotation.Nonnull;
-
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -36,7 +32,6 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.event.ForgeEventFactory;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.mana.IManaUsingItem;
@@ -50,6 +45,9 @@ import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibMisc;
 
+import javax.annotation.Nonnull;
+import java.util.function.Predicate;
+
 public class ItemLivingwoodBow extends ItemBow implements IManaUsingItem, IModelRegister {
 
 	private static final Predicate<ItemStack> AMMO_FUNC = s -> s != null && s.getItem() instanceof ItemArrow;
@@ -61,7 +59,7 @@ public class ItemLivingwoodBow extends ItemBow implements IManaUsingItem, IModel
 
 	public ItemLivingwoodBow(String name) {
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
-		GameRegistry.register(this, new ResourceLocation(LibMisc.MOD_ID, name));
+		setRegistryName(new ResourceLocation(LibMisc.MOD_ID, name));
 		setUnlocalizedName(name);
 		setMaxDamage(500);
 		addPropertyOverride(new ResourceLocation("minecraft:pull"), (stack, worldIn, entityIn) -> {
@@ -72,7 +70,7 @@ public class ItemLivingwoodBow extends ItemBow implements IManaUsingItem, IModel
 			else
 			{
 				ItemStack itemstack = entityIn.getActiveItemStack();
-				return itemstack != null && itemstack.getItem() instanceof ItemLivingwoodBow ? (stack.getMaxItemUseDuration() - entityIn.getItemInUseCount()) * chargeVelocityMultiplier() / 20.0F : 0.0F;
+				return !itemstack.isEmpty() && itemstack.getItem() instanceof ItemLivingwoodBow ? (stack.getMaxItemUseDuration() - entityIn.getItemInUseCount()) * chargeVelocityMultiplier() / 20.0F : 0.0F;
 			}
 		});
 	}
@@ -85,7 +83,8 @@ public class ItemLivingwoodBow extends ItemBow implements IManaUsingItem, IModel
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack stack, @Nonnull World world, EntityPlayer player, @Nonnull EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(@Nonnull World world, EntityPlayer player, @Nonnull EnumHand hand) {
+		ItemStack stack = player.getHeldItem(hand);
 		// Copy from superclass with our own check
 		boolean flag = canFire(stack, player);
 		ActionResult<ItemStack> ret = ForgeEventFactory.onArrowNock(stack, world, player, hand, flag);
@@ -104,22 +103,19 @@ public class ItemLivingwoodBow extends ItemBow implements IManaUsingItem, IModel
 
 	@Override
 	public void onPlayerStoppedUsing(@Nonnull ItemStack stack, @Nonnull World world, EntityLivingBase shooter, int useTicks) {
-
-		boolean isPlayer = shooter instanceof EntityPlayer;
-		EntityPlayer player = isPlayer ? (EntityPlayer) shooter : null;
+		EntityPlayer player = (EntityPlayer) shooter;
 
 		// Begin copy modified ItemBow.onPlayerStoppedUsing
-		boolean flag = !isPlayer || canFire(stack, player); // Botania - Custom canFire check
-		ItemStack itemstack = getAmmo(shooter);
+		boolean flag = canFire(stack, player); // Botania - Custom canFire check
+		ItemStack itemstack = getAmmo(player);
 
 		int i = (int) ((getMaxItemUseDuration(stack) - useTicks) * chargeVelocityMultiplier()); // Botania - velocity multiplier
-		if(isPlayer)
-			i = net.minecraftforge.event.ForgeEventFactory.onArrowLoose(stack, world, player, i, itemstack != null || flag);
+		i = net.minecraftforge.event.ForgeEventFactory.onArrowLoose(stack, world, player, i, !itemstack.isEmpty() || flag);
 		if (i < 0) return;
 
-		if (itemstack != null || flag)
+		if (!itemstack.isEmpty() || flag)
 		{
-			if (itemstack == null)
+			if (itemstack.isEmpty())
 			{
 				itemstack = new ItemStack(Items.ARROW);
 			}
@@ -128,7 +124,7 @@ public class ItemLivingwoodBow extends ItemBow implements IManaUsingItem, IModel
 
 			if (f >= 0.1D)
 			{
-				boolean infinite = !isPlayer || player.capabilities.isCreativeMode || itemstack.getItem() instanceof ItemArrow && ((ItemArrow) itemstack.getItem()).isInfinite(itemstack, stack, player);
+				boolean infinite = player.capabilities.isCreativeMode || (itemstack.getItem() instanceof ItemArrow ? ((ItemArrow)itemstack.getItem()).isInfinite(itemstack, stack, player) : false);
 
 				if (!world.isRemote)
 				{
@@ -167,17 +163,14 @@ public class ItemLivingwoodBow extends ItemBow implements IManaUsingItem, IModel
 						entityarrow.pickupStatus = EntityArrow.PickupStatus.CREATIVE_ONLY;
 					}
 
-					world.spawnEntityInWorld(entityarrow);
+					world.spawnEntity(entityarrow);
 					onFire(stack, shooter, infinite, entityarrow);
 				}
 
 
 				world.playSound(null, shooter.posX, shooter.posY, shooter.posZ, SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.NEUTRAL, 1.0F, 1.0F / (itemRand.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
 
-				// Botania - move ammo consumption into onFire (above)
-
-				if(isPlayer)
-					player.addStat(StatList.getObjectUseStats(this));
+				player.addStat(StatList.getObjectUseStats(this));
 			}
 		}
 		// End modified ItemBow.onPlayerStoppedUsing
@@ -194,7 +187,8 @@ public class ItemLivingwoodBow extends ItemBow implements IManaUsingItem, IModel
 	void onFire(ItemStack bow, EntityLivingBase living, boolean infinity, EntityArrow arrow) {
 		if(living instanceof EntityPlayerMP) {
 			ToolCommons.damageItem(bow, 1, living, MANA_PER_DAMAGE);
-			if(((EntityPlayerMP) living).interactionManager.getGameType().isSurvivalOrAdventure())
+			
+			if(((EntityPlayerMP) living).interactionManager.getGameType().isSurvivalOrAdventure() && !infinity)
 				PlayerHelper.consumeAmmo((EntityPlayerMP) living, AMMO_FUNC);
 		}
 	}
@@ -215,10 +209,19 @@ public class ItemLivingwoodBow extends ItemBow implements IManaUsingItem, IModel
 		return true;
 	}
 
-	protected ItemStack getAmmo(EntityLivingBase shooter) {
-		if(shooter instanceof EntityPlayer)
-			return PlayerHelper.getAmmo((EntityPlayer) shooter, AMMO_FUNC);
-		else return new ItemStack(Items.ARROW);
+	private ItemStack getAmmo(EntityPlayer player) {
+		if(isArrow(player.getHeldItem(EnumHand.OFF_HAND)))
+			return player.getHeldItem(EnumHand.OFF_HAND);
+		else if(isArrow(player.getHeldItem(EnumHand.MAIN_HAND)))
+			return player.getHeldItem(EnumHand.MAIN_HAND);
+		else for(int i = 0; i < player.inventory.getSizeInventory(); ++i) {
+			ItemStack itemstack = player.inventory.getStackInSlot(i);
+
+			if (isArrow(itemstack))
+				return itemstack;
+		}
+
+		return ItemStack.EMPTY;
 	}
 
 	@SideOnly(Side.CLIENT)

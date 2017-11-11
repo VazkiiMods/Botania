@@ -1,0 +1,2007 @@
+# Note to translators: DO NOT COPY ENTRIES FROM ENGLISH
+# I repeat: do NOT copy entries from English!!
+# Any entry in this lang file should be in ja_JP, or *should not be here at all*
+# Copying English entries will cause them to become outdated when the main English lang file changes
+# Untranslated entries will automatically be inherited from en_US
+#
+# Once again, don't copy from English, and THANK YOU for your hard work!
+
+# MISC
+itemGroup.botania=ボタニア
+generator.botania-skyblock=ガーデンオブグラス
+generator.botania-skyblock.info=初心者には非推奨
+
+botaniamisc.nextPage=次ページ
+botaniamisc.prevPage=前ページ
+botaniamisc.back=戻る
+botaniamisc.craftingContainer=クラフト時に返ってくる
+botaniamisc.shapeless=不定形レシピ
+botaniamisc.oredict=鉱石辞書レシピ
+botaniamisc.statusUnknown=不明な状態
+botaniamisc.color=%s に染められている
+botaniamisc.manaUsage=マナ使用量
+botaniamisc.shiftToRead=詳細を読む(シフト＋右クリック)
+botaniamisc.clickToRecipe=レシピを見る(シフトクリック)
+botaniamisc.clickToIndex=目次へ(シフト＋クリック)
+botaniamisc.outputtingPower=アイテムへマナを送る
+botaniamisc.inputtingPower=アイテムからマナを受け取る
+botaniamisc.creative=クリエイティブ
+botaniamisc.invFull=インベントリがいっぱいです
+botaniamisc.compositeLens=%s と複合している
+botaniamisc.filter0=フレーム内のアイテムのみを拾う
+botaniamisc.filter1=フレーム内のアイテム以外を拾う
+botaniamisc.filter2=すべてのアイテムを拾う
+botaniamisc.creativePool0=クリエイティブ用マナプール．無限にマナを保持する
+botaniamisc.creativePool1=エゴイスト向け
+botaniamisc.toolRank=ランク %s&7
+botaniamisc.edition=%s 版
+# ^ Leave this empty for no edition display
+botaniamisc.lexiconcover0=公式ガイドブック
+botaniamisc.lexiconcover1=ボタニアのすべてがここに!
+botaniamisc.lexiconcover2=Vazkii 著
+botaniamisc.shiftinfo=&bSHIFT&7 キーを押して詳しい情報を見る
+botaniamisc.knowledgeTypesSingular=%s 編の知識が入っている 
+botaniamisc.knowledgeTypesPlural=%s 編の知識が入っている 
+botaniamisc.bookmark=お気に入り #%s
+botaniamisc.clickToSee=クリックで読む
+botaniamisc.shiftToRemove=シフト＋クリックでお気に入りから外す
+botaniamisc.clickToAdd=お気に入りに追加
+botaniamisc.ratio=%sx 拡大(カーソルで拡大解除)
+botaniamisc.bottleTooltip=慣れ親しんだ味
+botaniamisc.shardLevel=シャードパワー %s
+botaniamisc.lexiconIndex=索引
+botaniamisc.shareMsg=[{"text":"%name%","color":"light_purple"},{"text":"ボタニア植物辞典","color":"green","hoverEvent":{"action":"show_text","value":{"text":"本と苗木からクラフト出来ます!","color":"aqua"}}},{"text":" を共有しました。 ","color":"blue"},{"text":" クリックで見る: ","color":"blue"},{"text":"[%entryname%]","color":"green","clickEvent":{"action":"run_command","value":"/botania-open %entry%"},"hoverEvent":{"action":"show_text","value":{"text":"これを読むにはクリックをしてください","color":"aqua"}}}]
+botaniamisc.noLexicon=これを読むには、ボタニア植物辞典を手に持ってください
+botaniamisc.cantOpen=ボタニア植物辞典にはこのページはないようです。外部ソース・・・？
+botaniamisc.clickToShare=共有
+botaniamisc.drop=ドロップ
+botaniamisc.dropTip0=Tip: アイテム上で %s キーを押すとドロップ
+botaniamisc.dropTip1=CTRL-%s キーでスタックごとドロップ
+botaniamisc.wandMode.bind=接続モード
+botaniamisc.wandMode.function=機能モード
+botaniamisc.playVideo=動画を再生
+botaniamisc.brewOf=%s の醸造
+botaniamisc.needsCatalysts=どれだけ一生懸命ビーコンにインゴットを押し当てても、なにも起こらないようだ。おそらく設定で触媒の柱(catalyst pylons)がオフになっているためだ。
+botaniamisc.peacefulNoob=インゴットを捧げようとしたが、ピースフルな雰囲気の中では出来ないようだ。おそらく難易度設定に関するなんやかんやをしなければいけない。
+botaniamisc.notInfused=マナ注入されていない
+botaniamisc.getALife=いいかげんにしなさい
+botaniamisc.floatingPrefix=浮遊している %s
+botaniamisc.unsetRecipe=[レシピが無い] 右クリックでセット:
+botaniamisc.cantCraft=素材が足りない!
+botaniamisc.lotusDesc=強い魔力を放出している
+botaniamisc.hasClip=&6レンズクリップ付き
+botaniamisc.clipEmpty=(空き)
+botaniamisc.armorset=&b防具をセット&r:
+botaniamisc.craftToAddWill=&aテラスチールヘルメットとクラフトすると次の効果を追加する:
+botaniamisc.requestMsg=%d 個の "%s" を要求した（総数 %d 個）。 %d 個取り寄せた。
+botaniamisc.nearIndex0=コーポリアの索引が近くに!
+botaniamisc.nearIndex1=言ったことはなんでも
+botaniamisc.nearIndex2=要求として解釈されます
+botaniamisc.startTutorial=チュートリアルを始める
+botaniamisc.tutorialStarted=チュートリアルが始まりました。赤い矢印にしたがって内容を読み進め、ボタニアの基本を学んでください！
+botaniamisc.tutorialEnded=チュートリアルは終了しました。ボタニアがどのようなものかという、基本的な考えを理解したと思います。興味に従って他のページを読み、ボタニアのさらなる使い方を習得してください！
+botaniamisc.cosmeticBauble=&o装飾品
+botaniamisc.hasCosmetic=&o見た目: &r%s
+botaniamisc.typeToSearch=(入力して検索)
+botaniamisc.viewOnline=ウェブページで見る
+botaniamisc.history=履歴
+botaniamisc.historyLong=履歴を検索
+botaniamisc.historyDesc=直近の検索履歴を見る
+botaniamisc.lexiconOptions0=オプション
+botaniamisc.lexiconOptions1=ゲーム内から設定を変更
+botaniamisc.lexiconOptions2=ゲーム再起動が必要なオプションもあります
+botaniamisc.hasPhantomInk=&bお化けインクで染められている
+botaniamisc.pinkinatorDesc=ウィザーに直接つかう
+botaniamisc.relicUnbound=この&6形見&7は, 誰にも属していない
+botaniamisc.relicSoulbound=この&6形見&7は, &f%sに属している
+botaniamisc.notYourSagittarius=&4この形見はあなたのものじゃないです
+botaniamisc.diceRoll=ダイスが %s で地面に着地し、なにか別のものに変わっていた。
+botaniamisc.dudDiceRoll=ダイスが %s で地面に着地したが、消えてしまったようだ
+botaniamisc.blockAway=1 ブロック離れている
+botaniamisc.blocksAway=%s ブロック離れている
+botaniamisc.clickToTeleport=右クリックでテレポート
+botaniamisc.clickToRemoveWarp=シフトクリックで取り除く
+botaniamisc.unboundWarp=ワープポイントを取り除きました
+botaniamisc.clickToAddWarp=右クリックでこの座標を設定
+botaniamisc.hasKeepIvy=頑固なツタを身にまとっている
+botaniamisc.active=&a有効
+botaniamisc.inactive=&c無効
+botaniamisc.advancements=実績
+botaniamisc.dropIkea=&bこのアイテムをドロップすると組み合わせ前に分離する
+botaniamisc.hourglassLock=この砂時計はロックされています．森の杖をもって右クリックでロックを解除
+botaniamisc.locked=ロックされている
+botaniamisc.stopped=止まっている
+botaniamisc.lockedStopped=ロック・止まっている
+botaniamisc.visualize=表示する
+botaniamisc.unvisualize=非表示にする
+botaniamisc.rightClickToAnchor=ブロックを右クリックで表示を固定
+botaniamisc.structureComplete=構造物が完成しました！
+botaniamisc.materialsRequired=必要な素材
+botaniamisc.challenges=チャレンジ
+botaniamisc.markCompleted="達成済"にする
+botaniamisc.markNotCompleted="未達成"に戻す
+botaniamisc.completed=達成済
+botaniamisc.notCompleted=未達成
+botaniamisc.info=チャレンジとは
+botaniamisc.challengeInfo=チャレンジについて学ぶ
+botaniamisc.skyblockRangeTooLow=無効な範囲です。最低250以上にしてください。
+botaniamisc.skyblockRangeTooHigh=無効な範囲です。1,000,000(100万)以下にしてください。
+botaniamisc.hideNotes=メモ帳を隠す
+botaniamisc.showNotes=メモ帳を表示する
+botaniamisc.notes=メモ帳
+botaniamisc.pay2win=このアイテムにマナを注入することでマナプールをアップグレードできます
+botaniamisc.justDoIt=ジャスト・ドゥー・イット
+botaniamisc.changes0=&aBotania&7 は最後につかったものから更新があります!
+botaniamisc.changes1=あなたが最後に使っていた &aBotania&7 は &b%s&7 です。
+botaniamisc.changes2=更新があったけど、動揺しないで。なにかなくなっているようなら、項目を読んでみてください。
+botaniamisc.changes3=&o誰もが 変化を恐れているけど、 変化によって私たちは前に進むことができる。
+botaniamisc.changes4=&f シフト+クリック&7 で更新を確認
+botaniamisc.changes5=&f クリック&7 でこれを非表示にする
+botaniamisc.badArena=どれだけ試してみても、ビーコンは生け贄を受け付けないようだ。おそらく儀式の設定が不適切なんだろう。近くに障害物がないか、あるいは地面に大きな段差がないか確認してみるといい。
+botaniamisc.tutorialText=ゲーム内
+botaniamisc.tutorialVideo=動画
+botaniamisc.shiftToStopSpin=(シフトで停止)
+botaniamisc.noVideo=&4動画は公開停 止中です。ご めんね(´ρ`)
+botaniamisc.altarRefill0=何も持ってない状態で右クリックすると
+botaniamisc.altarRefill1=最後に使ったレシピのアイテムを補充します
+botaniamisc.enterToView=^ エンターキーで見る ^
+botaniamisc.scaleChange=大きさ変更
+
+# NEI INTEGRATION
+botania.nei.brewery=ボタニア的醸造
+botania.nei.elvenTrade=エルブンとの交易
+botania.nei.floatingFlowers=浮遊している花
+botania.nei.manaPool=マナ注入
+botania.nei.petalApothecary=花びらの調合所
+botania.nei.runicAltar=ルーンの祭壇
+botania.nei.pureDaisy=ピュアデイジー
+botania.nei.lexica=ボタニア植物辞典
+nei.options.keys.gui.botania_corporea_request=コーポリアの要求
+
+botania.nei.lexicaSeparator=追加の情報:
+botania.nei.lexicaNoInfo=(この項目には追加の情報は ありません。ごめんね！)
+
+# NEI QUICK LOOKS
+botania.nei.quickInfo:tile.livingwood0~0=ピュアデイジーの隣に原木を置くことでリビングウッドを作成できる
+botania.nei.quickInfo:tile.livingrock0~0=ピュアデイジーの隣に焼石を置くことでリビングロックを作成できる
+
+botania.nei.quickInfo:item.bone~0=悪いことが起こるかも
+botania.nei.quickInfo:item.lexicon~0=正確にはなにを期待していたんだ？
+botania.nei.quickInfo:item.terrasteel~4=大地性集結プレートに適切なアイテムを投げ入れるとテラスチールが手に入ります
+botania.nei.quickInfo:item.enderAirBottle~15=エンドでガラス瓶を持って右クリックをすると手に入ります
+
+# BUILDCRAFT INTEGRATION
+botania.triggers.manaDetector=マナを検出している時
+botania.triggers.manaEmpty=マナが無いのとき
+botania.triggers.manaSpace=マナ受け入れスペースがあるとき
+botania.triggers.manaContains=マナがあるとき
+botania.triggers.manaFull=マナが満タンのとき
+botania.triggers.runeAltarCanCraft=祭壇がクラフト可能なとき
+
+# COLORS
+botania.color0=白色
+botania.color1=橙色
+botania.color2=赤紫色
+botania.color3=空色
+botania.color4=黄色
+botania.color5=黄緑色
+botania.color6=桃色
+botania.color7=灰色
+botania.color8=薄灰色
+botania.color9=水色
+botania.color10=紫色
+botania.color11=青色
+botania.color12=茶色
+botania.color13=緑色
+botania.color14=赤色
+botania.color15=黒色
+botania.color16=虹色
+
+# RANKS
+
+# ZODIAC SIGNS
+
+# WINGS
+botania.wings0=羽根無し
+botania.wings1=羽根: フリューゲル
+botania.wings2=羽根: 片翼の天使
+botania.wings3=羽根: 氷の妖精
+botania.wings4=羽根: フェニックス
+botania.wings5=羽根: 黒雪姫
+botania.wings6=羽根: 奈落の王
+botania.wings7=羽根: シルフ
+botania.wings8=羽根: メガ・ウルトラ・チキン
+
+# TORCH MODES
+botania.animatedTorch.toggle=切り替え
+botania.animatedTorch.rotate=回転
+botania.animatedTorch.random=ランダム
+
+# ARMOR SETS
+
+# ROMAN NUMERALS
+
+# KNOWLEDGE
+botania.knowledge.minecraft=マインクラフターの知恵
+botania.knowledge.alfheim=&aエレブン&7 の知恵
+botania.knowledge.relic=&5形見&7 の知恵
+
+# FLOWER TYPES
+botania.flowerType.passiveGenerating=受動的にマナを生成する花
+botania.flowerType.generating=マナを生成する花
+botania.flowerType.functional=機能を持つ花
+botania.flowerType.misc=その他の花
+
+# CONFIGURATION
+
+# VERSION CHECKING
+
+# BAUBLE TOOLTIPS
+botania.baubletype.amulet=&aアミュレット&7スロットに装備可能
+botania.baubletype.ring=&a指輪&7スロットに装備可能
+botania.baubletype.belt=&aベルト&7スロットに装備可能
+botania.baubletooltip=&b%s&7 キーを押して Baubles メニューを開く
+
+# RELIC POEMS
+
+
+# DEATH MESSAGES
+death.attack.botania-relic=%s は他人の形見を使ったために処罰された。
+
+# ENTITY NAMES
+entity.botania:manaBurst.name=マナ放射線
+entity.botania:pixie.name=ピクシィ
+entity.botania:vineBall.name=ツタ玉
+entity.botania:doppleganger.name=ガイアの守護者
+entity.botania:spark.name=スパーク
+entity.botania:thrownItem.name=投げ込まれたアイテム
+entity.botania:thornChakram.name=棘のチャクラム
+entity.botania:corporeaSpark.name=コーポリアスパーク
+entity.botania:enderAirBottle.name=エンダー空気瓶
+entity.botania:poolMinecart.name=マナプールマインカート
+entity.botania:pinkWither.name=桃色ウィザー
+entity.botania:playerMover.name=ルミナイザ光線
+entity.botania:babylonWeapon.name=宝物庫の武器
+entity.botania:fallingStar.name=流星
+
+# ADVANCEMENT NAMES + DESC
+advancement.botania:flowerPickup.desc=神秘的な花を拾う
+advancement.botania:lexiconUse=現実的論理主義者
+advancement.botania:lexiconUse.desc=レキシカ・ボタニアを開いて目次を見る
+advancement.botania:generatingFlower=エレクトリック・マジック
+advancement.botania:generatingFlower.desc=花びらの調合所でマナを生み出す花をつくる
+advancement.botania:manaPoolPickup.desc=マナを貯蔵するマナプールをクラフトする
+advancement.botania:functionalFlower=有頂天ビバーチェ
+advancement.botania:functionalFlower.desc=花びらの調合所で機能を持つ花をつくる
+advancement.botania:tinyPotatoPet.desc=小さなポテトをつくってペットにする
+advancement.botania:sparkCraft.desc=マナの運搬に役立つスパークをつくる
+advancement.botania:baubleWear.desc=装飾品をつくって装備する
+advancement.botania:manaCookieEat=腐れ外道とチョコレゐト
+advancement.botania:manaCookieEat.desc=マナを融合したおいしい"全快ビスケット"を食べる
+advancement.botania:runePickup.desc=ルーンの祭壇を使ってルーンを作る
+advancement.botania:manaBlasterShoot=M'AIDER遭難ガール
+advancement.botania:manaBlasterShoot.desc=マナブラスターをつくって発射する
+advancement.botania:tiaraWings.desc=フリューゲルの羽根で飾ったフリューゲルティアラをクラフトする
+advancement.botania:terrasteelPickup=ダンサーインザダーク
+advancement.botania:terrasteelPickup.desc=大地集積プレートをつかってテラスチールインゴットを作る
+advancement.botania:elfPortalOpen=ワールド・コーリング
+advancement.botania:elfPortalOpen.desc=エルフヘイムの地へのポータルを開く
+advancement.botania:gaiaGuardianKill=デッドアンドシーク
+advancement.botania:gaiaGuardianKill.desc=ガイアの儀式のために，ガイアを召喚して倒す
+advancement.botania:terrasteelWeaponCraft=絶境パラノイア
+advancement.botania:terrasteelWeaponCraft.desc=テラスチールの武器をつくって装備する
+advancement.botania:kekimurusPickup=放課後ストライド
+advancement.botania:kekimurusPickup.desc=沢山のマナを生み出すケキムラスをつくる
+advancement.botania:heiseiDreamPickup=ヘイセイカタクリズム
+advancement.botania:heiseiDreamPickup.desc=ヘイセイドリームをクラフトしてモブを混乱させる
+advancement.botania:dirtRodCraft=ロクベル
+advancement.botania:dirtRodCraft.desc=汚いぼ...じゃなかった、土の杖をクラフトしよう
+advancement.botania:spawnerMoverUse=◯◯◯脱げるもん！
+advancement.botania:spawnerMoverUse.desc=生命集積器をつかってモンスタースポナーを移動させる
+advancement.botania:enderAirMake.desc=エンダー空気瓶を集める
+advancement.botania:corporeaCraft=パケットヒーロー
+advancement.botania:corporeaCraft.desc=コーポリア・ネットワークに役立つブロックをクラフトする
+advancement.botania:cacophoniumCraft=ノイジーラバーソウル
+advancement.botania:cacophoniumCraft.desc=カコフォニアムをクラフトして、嫌いなアイツを静かに怒らせよう
+advancement.botania:manaCartCraft=ハウトゥー世界征服
+advancement.botania:manaCartCraft.desc=長距離マナ輸送のためにマナプールトロッコをクラフトする
+advancement.botania:craftingHaloCraft.desc=簡単にクラフトができる組み立ての光輪をクラフトする
+advancement.botania:manaweaveArmorCraft=想像フォレスト
+advancement.botania:manaweaveArmorCraft.desc=杖をパワーアップさせるマナウェーブ装備をクラフトする
+advancement.botania:enchanterMake.desc=エンチャントを制御するための、マナエンチャンターをクラフトする
+advancement.botania:pollidisiacPickup=ロミオとシンデレラ
+advancement.botania:pollidisiacPickup.desc=ポリディジアクをクラフトして、動物を繁殖させる
+advancement.botania:brewPickup=オサナナブルー
+advancement.botania:brewPickup.desc=ボタニア醸造台をクラフトして、なんでもいいから醸造する
+advancement.botania:terraformRodCraft=ワールドイズマイン
+advancement.botania:terraformRodCraft.desc=大地の杖をクラフトして世界を変える
+advancement.botania:bubbellPickup=深海少女
+advancement.botania:bubbellPickup.desc=バッベルをクラフトして水中拠点を作成できるようにする
+advancement.botania:luminizerRide=ワールズエンド・ダンスホール
+advancement.botania:luminizerRide.desc=ルミナイザをクラフトして輸送につかう
+advancement.botania:manaBombIgnite.desc=マナストーム・チャージをクラフトして、遠くで点火する
+advancement.botania:dandelifeonPickup=ドーナツホール
+advancement.botania:dandelifeonPickup.desc=ダンデライフオンをつくって、自分の心を試す
+
+advancement.botania:signalFlareStun=SEE THE LIGHTS
+advancement.botania:signalFlareStun.desc=シグナルフレアを使って、一回で100以上のモブをびっくりさせる
+advancement.botania:l20ShardUse=ずれていく
+advancement.botania:l20ShardUse.desc=パワー20のラピュタの破片をつかって地面を空に持ち上げる
+advancement.botania:gaiaGuardianNoArmor=終末のミュートロギア
+advancement.botania:gaiaGuardianNoArmor.desc=防具を付けずにガイアの守護者を倒す
+advancement.botania:rankSSPick=六兆年と一夜物語
+advancement.botania:rankSSPick.desc=ランクSSのテラシャッテラーをつかう
+advancement.botania:superCorporeaRequest=いんべーだーがーる
+advancement.botania:superCorporeaRequest.desc=コーポリアの索引で、50,000個以上の一種類のアイテムのリクエストに成功する
+advancement.botania:pinkinator.desc=ピンキネーターをつかう
+
+advancement.botania:infiniteFruit=イノセンティア
+advancement.botania:infiniteFruit.desc=英雄の功績として、グリザイアの果実を手に入れる
+advancement.botania:kingKey=マネマネサイコトロピック
+advancement.botania:kingKey.desc=英雄の功績として、王律鍵バヴ＝イルを手に入れる
+advancement.botania:flugelEye=ヤクビョウガミ
+advancement.botania:flugelEye.desc=英雄の功績として、フリューゲルの目を手に入れる
+advancement.botania:thorRing=ワンステップ・レイヤード
+advancement.botania:thorRing.desc=英雄の功績として、トールの指輪を手に入れる
+advancement.botania:odinRing=ロスタイムメモリー
+advancement.botania:odinRing.desc=英雄の功績として、オーディンの指輪を手に入れる
+advancement.botania:lokiRing=アリスメティック
+advancement.botania:lokiRing.desc=英雄の功績として、ロキの指輪を手に入れる
+
+advancement.botania:nullFlower=take it easy
+advancement.botania:nullFlower.desc=未定義のボタニア花を手に入れるバグを見つける．報告も忘れずに！
+advancement.botania:desuGun=裏表ラバーズ
+advancement.botania:desuGun.desc=ｱｻﾀﾞｻﾝｱｻﾀﾞｻﾝｱｻﾀﾞｻﾝｱｻﾀﾞｻﾝｱｻﾀﾞｻﾝｱｻﾀﾞｻﾝｱｻﾀﾞｻﾝｱｻﾀﾞｻﾝｱｻﾀﾞｻﾝｱｻﾀﾞｻﾝｱｻﾀﾞｻﾝｱｻﾀﾞｻﾝ
+#ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN
+#                                 ^ Don't localize
+
+# CHALLENGE LEVELS
+
+# CHALLENGE TEXT
+botania.challenge.flowerFarm=花農場
+botania.challenge.flowerFarm.desc=16色のボタニア花の自動 農場を作成する。<br>ボーナスポイント:花が自 動で分類される
+botania.challenge.recordFarm=レコードトラップ
+botania.challenge.recordFarm.desc=クリーパーがスケルトンの 手によって倒された時にで る、レコードの生産を自動 化する。<br>ボーナスポイント:プレイ ヤーがいなくても稼働する
+botania.challenge.reedFarm=サトウキビ農場
+botania.challenge.reedFarm.desc=サトウキビの自動農場を作 る。<br>ボーナスポイント:ピスト ンを使わない。
+botania.challenge.cobbleGen=丸石製造機
+botania.challenge.cobbleGen.desc=自動丸石製造・採掘機を作 る。<br>ボーナスポイント:カマド を使わないで焼石を作れる ようにする。
+botania.challenge.pureDaisy=ピュアデイジーの自動化
+botania.challenge.pureDaisy.desc=ピュアデイジーを自動化す る。<br>ボーナスポイント:マナ送 信機が一つしか使われない 。原木や石の搬入が自動
+botania.challenge.battery=マナ貯蔵庫
+botania.challenge.battery.desc=マナ貯蔵庫を作る。マナが 一つのマナプールから入っ てきて、別のマナプールか ら出ていく。十分なマナを 貯められるようにする。<br>ボーナスポイント:インプ ットやアウトプットを変え られるようにする。
+
+botania.challenge.apothecaryRefill=調合所補充器
+botania.challenge.apothecaryRefill.desc=花びらの調合所に自動で水 を補充するシステムをつく る。<br>ボーナスポイント:素材を いれると自動で花を作るシ ステムもつくる。
+botania.challenge.treeFarm=植林場
+botania.challenge.treeFarm.desc=自動で持続可能な植林場を つくる。<br>ボーナスポイント:様々な 種類の木に対応している。
+botania.challenge.fullCropFarm=畑
+botania.challenge.fullCropFarm.desc=全種の作物(小麦、人参、 じゃがいも、スイカ、かぼ ちゃ、カカオ、ネザーウォ ート)の最大効率で動く農 場を作る。<br>ボーナスポイント:作物が 分類されている。
+botania.challenge.animalFarm=動物農場
+botania.challenge.animalFarm.desc=飼育可能な全動物の自動農 場をつくる。<br>ボーナスポイント:餌を自 動で与えてくれる。
+botania.challenge.boneMealFarm=骨粉式促成作物
+botania.challenge.boneMealFarm.desc=必要に応じて高速で作物を 育てる、骨粉を利用した自 動農場を作る。<br>ボーナスポイント:野生の ドラムを使わない。
+botania.challenge.orechid=オアキドの自動化
+botania.challenge.orechid.desc=オアキド花の機能を自動で 使用するシステムを作る。<br>ボーナスポイント:作成物 が自動で精錬・分類される 。
+
+botania.challenge.mobTower=トラップタワー
+botania.challenge.mobTower.desc=トラップタワーをつくる。 モブが分類され、特定の部 屋に入るようにする。スポ ナー使用可。<br>ボーナスポイント:プレイ ヤーの干渉無しで100%効 率で機能する。
+botania.challenge.entropinnyumSetup=エントロピニウムの自動化
+botania.challenge.entropinnyumSetup.desc=TNTを自動クラフトし、エ ントロピニウムに安全に与 えるシステムをつくる。<br>ボーナスポイント:素材の 砂と火薬を自動で補充して くれる。
+botania.challenge.spectrolusSetup=スペクトロラスの自動化
+botania.challenge.spectrolusSetup.desc=スペクトロラスによるマナ 生成を自動化する。マナは 別として、アイテムが系外 から入らないようにする。<br>ボーナスポイント:100%効 率で動作し、無駄な羊毛を 消費しない。
+botania.challenge.potionBrewer=自動醸造
+botania.challenge.potionBrewer.desc=必要に応じて全種の醸造を してくれるシステムを構築 する。<br>ボーナスポイント:拠点内 で常にお香に火が灯ってい る状態にする。
+
+botania.challenge.kekimurusSetup=ケキムラスの自動化
+botania.challenge.kekimurusSetup.desc=ケキムラスのマナ生成を完 全自動化。システムのあら ゆる場所において自動・持 続可能にする<br>ボーナスポイント:クラフ ト木箱が一つしか使われな い。
+botania.challenge.autoQuarry=自動露天採掘
+botania.challenge.autoQuarry.desc=地下に生成される鉱石と石 を掘る露天採掘機を作成す る。チャンクを掘り抜いて 全リソースを掘り出し、分 類する。<br>ボーナスポイント:エリア 内の採掘が終了したら、自 動で再配置する。
+botania.challenge.runeCrafter=ルーン製造機
+botania.challenge.runeCrafter.desc=必要に応じて全種のルーン をクラフトするか、一定数 ストックしておくシステム を作成する。系のあらゆる 場所において、アイテム搬 入も含めて自動・持続可能 にする。<br>ボーナスポイント:ルーン の祭壇が一つしか使われな い。
+
+# BLOCK NAMES
+tile.botania:flower0.name=白色の神秘の花
+tile.botania:flower1.name=橙色の神秘の花
+tile.botania:flower2.name=赤紫色の神秘の花
+tile.botania:flower3.name=空色の神秘の花
+tile.botania:flower4.name=黄色の神秘の花
+tile.botania:flower5.name=黄緑色の神秘の花
+tile.botania:flower6.name=桃色の神秘の花
+tile.botania:flower7.name=灰色の神秘の花
+tile.botania:flower8.name=薄灰色の神秘の花
+tile.botania:flower9.name=水色の神秘の花
+tile.botania:flower10.name=紫色の神秘の花
+tile.botania:flower11.name=青色の神秘の花
+tile.botania:flower12.name=茶色の神秘の花
+tile.botania:flower13.name=緑色の神秘の花
+tile.botania:flower14.name=赤色の神秘の花
+tile.botania:flower15.name=黒色の神秘の花
+tile.botania:altar0.name=花びらの調合所
+tile.botania:altar1.name=森の花びらの調合所
+tile.botania:altar2.name=平原の花びらの調合所
+tile.botania:altar3.name=山の花びらの調合所
+tile.botania:altar4.name=きのこの花びらの調合所
+tile.botania:altar5.name=沼の花びらの調合所
+tile.botania:altar6.name=砂漠の花びらの調合所
+tile.botania:altar7.name=タイガの花びらの調合所
+tile.botania:altar8.name=メサの花びらの調合所
+tile.botania:livingrock0.name=リビングロック
+tile.botania:livingrock1.name=リビングロックレンガ
+tile.botania:livingrock2.name=苔むしたリビングロックレンガ	
+tile.botania:livingrock3.name=ひび割れたリビングロックレンガ
+tile.botania:livingrock4.name=模様入りのリビングロックレンガ
+tile.botania:livingwood0.name=リビングウッド
+tile.botania:livingwood1.name=リビングウッドの木材
+tile.botania:livingwood2.name=苔むしたリビングウッドの木材
+tile.botania:livingwood3.name=模様入りのリビングウッド
+tile.botania:livingwood4.name=規則的な模様入りのリビングウッド
+tile.botania:livingwood5.name=光り輝くリビングウッド
+tile.botania:spreader0.name=マナ送信機
+tile.botania:spreader1.name=パルスマナ送信機
+tile.botania:spreader2.name=エルヴェンマナ送信機
+tile.botania:spreader3.name=ガイアマナ送信機
+tile.botania:pool0.name=マナプール
+tile.botania:pool1.name=永遠のギルティプール
+tile.botania:pool2.name=弱いマナプール
+tile.botania:pool3.name=すばらしいマナプール
+tile.botania:runeAltar.name=ルーンの祭壇
+tile.botania:unstableBlock0.name=白色の不安定キューブ
+tile.botania:unstableBlock1.name=橙色の不安定キューブ
+tile.botania:unstableBlock2.name=赤紫色の不安定キューブ
+tile.botania:unstableBlock3.name=空色の不安定キューブ
+tile.botania:unstableBlock4.name=黄色の不安定キューブ
+tile.botania:unstableBlock5.name=黄緑色の不安定キューブ
+tile.botania:unstableBlock6.name=桃色の不安定キューブ
+tile.botania:unstableBlock7.name=灰色の不安定キューブ
+tile.botania:unstableBlock8.name=薄灰色の不安定キューブ
+tile.botania:unstableBlock9.name=水色の不安定キューブ
+tile.botania:unstableBlock10.name=紫色の不安定キューブ
+tile.botania:unstableBlock11.name=青色の不安定キューブ
+tile.botania:unstableBlock12.name=茶色の不安定キューブ
+tile.botania:unstableBlock13.name=緑色の不安定キューブ
+tile.botania:unstableBlock14.name=赤色の不安定キューブ
+tile.botania:unstableBlock15.name=黒色の不安定キューブ
+tile.botania:pistonRelay.name=フォース中継器
+tile.botania:distributor.name=マナ分配器
+tile.botania:pylon0.name=マナの支柱
+tile.botania:pylon1.name=ナツーラの支柱
+tile.botania:pylon2.name=ガイアの支柱
+tile.botania:manaBeacon0.name=白色の不安定ビーコン
+tile.botania:manaBeacon1.name=橙色の不安定ビーコン
+tile.botania:manaBeacon2.name=赤紫色の不安定ビーコン
+tile.botania:manaBeacon3.name=空色の不安定ビーコン
+tile.botania:manaBeacon4.name=黄色の不安定ビーコン
+tile.botania:manaBeacon5.name=黄緑色の不安定ビーコン
+tile.botania:manaBeacon6.name=桃色の不安定ビーコン
+tile.botania:manaBeacon7.name=灰色の不安定ビーコン
+tile.botania:manaBeacon8.name=薄灰色の不安定ビーコン
+tile.botania:manaBeacon9.name=水色の不安定ビーコン
+tile.botania:manaBeacon10.name=紫色の不安定ビーコン
+tile.botania:manaBeacon11.name=青色の不安定ビーコン
+tile.botania:manaBeacon12.name=茶色の不安定ビーコン
+tile.botania:manaBeacon13.name=緑色の不安定ビーコン
+tile.botania:manaBeacon14.name=赤色の不安定ビーコン
+tile.botania:manaBeacon15.name=黒色の不安定ビーコン
+tile.botania:manaVoid.name=マナボイド
+tile.botania:manaDetector.name=マナ検出器
+tile.botania:enchanter.name=マナエンチャンター
+tile.botania:turntable.name=送信機回転台
+tile.botania:tinyPlanetBlock.name=小さな惑星
+tile.botania:alchemyCatalyst.name=錬金術の触媒
+tile.botania:openCrate0.name=開けた木箱
+tile.botania:openCrate1.name=クラフト木箱
+tile.botania:forestEye.name=古代人の目
+tile.botania:storage0.name=マナスチールブロック
+tile.botania:storage1.name=テラスチールブロック
+tile.botania:storage2.name=エレメンチウムブロック
+tile.botania:storage3.name=マナダイヤモンドブロック
+tile.botania:storage4.name=ドラゴンストーンブロック
+tile.botania:forestDrum0.name=野生のドラム
+tile.botania:forestDrum1.name=収集のドラム
+tile.botania:forestDrum2.name=天蓋のドラム
+tile.botania:shinyFlower0.name=白色の光り輝く花
+tile.botania:shinyFlower1.name=橙色の光り輝く花
+tile.botania:shinyFlower2.name=赤紫色の光り輝く花
+tile.botania:shinyFlower3.name=空色のの光り輝く花
+tile.botania:shinyFlower4.name=黄色の光り輝く花
+tile.botania:shinyFlower5.name=黄緑色の光り輝く花
+tile.botania:shinyFlower6.name=桃色の光り輝く花
+tile.botania:shinyFlower7.name=灰色の光り輝く花
+tile.botania:shinyFlower8.name=薄灰色の光り輝く花
+tile.botania:shinyFlower9.name=水色の光り輝く花
+tile.botania:shinyFlower10.name=紫色の光り輝く花
+tile.botania:shinyFlower11.name=青色の光り輝く花
+tile.botania:shinyFlower12.name=茶色の光り輝く花
+tile.botania:shinyFlower13.name=緑色の光り輝く花
+tile.botania:shinyFlower14.name=赤色の光り輝く花
+tile.botania:shinyFlower15.name=黒色の光り輝く花
+tile.botania:platform0.name=難解なプラットフォーム
+tile.botania:platform1.name=幽霊のプラットフォーム
+tile.botania:platform2.name=丈夫なプラットフォーム
+tile.botania:alfheimPortal.name=エルフの出入り口の核
+tile.botania:blockDarkQuartz.name=煙がかったクォーツブロック
+tile.botania:chiseledDarkQuartz.name=模様入りの煙がかったクォーツブロック
+tile.botania:pillarDarkQuartz.name=柱の煙がかったクォーツブロック
+tile.botania:quartzSlabDarkHalf.name=煙がかったクォーツのハーフブロック
+tile.botania:quartzSlabDarkFull.name=煙がかったクォーツのハーフブロック
+tile.botania:quartzStairsDark.name=煙がかったクォーツの階段ブロック
+tile.botania:blockManaQuartz.name=マナクォーツブロック
+tile.botania:chiseledManaQuartz.name=模様入りのマナクォーツブロック
+tile.botania:pillarManaQuartz.name=柱のマナクォーツブロック
+tile.botania:quartzSlabManaHalf.name=マナクォーツハーフブロック
+tile.botania:quartzSlabManaFull.name=マナクォーツハーフブロック
+tile.botania:quartzStairsMana.name=マナクォーツ階段ブロック
+tile.botania:blockBlazeQuartz.name=ブレイズクォーツブロック
+tile.botania:chiseledBlazeQuartz.name=模様入りのブレイズクォーツブロック
+tile.botania:pillarBlazeQuartz.name=柱のブレイズクォーツブロック
+tile.botania:quartzSlabBlazeHalf.name=ブレイズクォーツハーフブロック
+tile.botania:quartzSlabBlazeFull.name=ブレイズクォーツハーフブロック
+tile.botania:quartzStairsBlaze.name=ブレイズクォーツ階段ブロック
+tile.botania:blockLavenderQuartz.name=ラベンダークォーツブロック
+tile.botania:chiseledLavenderQuartz.name=模様入りのラベンダークォーツブロック
+tile.botania:pillarLavenderQuartz.name=柱のラベンダークォーツブロック
+tile.botania:quartzSlabLavenderHalf.name=ラベンダークォーツハーフブロック
+tile.botania:quartzSlabLavenderFull.name=ラベンダークォーツハーフブロック
+tile.botania:quartzStairsLavender.name=ラベンダークォーツ階段ブロック
+tile.botania:blockRedQuartz.name=レッドクォーツブロック
+tile.botania:chiseledRedQuartz.name=模様入りのレッドクォーツブロック
+tile.botania:pillarRedQuartz.name=柱のレッドクォーツブロック
+tile.botania:quartzSlabRedHalf.name=レッドクォーツハーフブロック
+tile.botania:quartzSlabRedFull.name=レッドクォーツハーフブロック
+tile.botania:quartzStairsRed.name=レッドクォーツ階段ブロック
+tile.botania:blockElfQuartz.name=エルヴェンクォーツブロック
+tile.botania:chiseledElfQuartz.name=模様入りのエルヴェンクォーツブロック
+tile.botania:pillarElfQuartz.name=柱のエルブンクォーツブロック
+tile.botania:quartzSlabElfHalf.name=エルブンクォーツハーフブロック
+tile.botania:quartzSlabElfFull.name=エルブンクォーツハーフブロック
+tile.botania:quartzStairsElf.name=エルブンクォーツ階段ブロック
+tile.botania:blockSunnyQuartz.name=サニークォーツブロック
+tile.botania:chiseledSunnyQuartz.name=模様入りのサニークォーツブロック
+tile.botania:pillarSunnyQuartz.name=柱のサニークォーツブロック
+tile.botania:quartzSlabSunnyHalf.name=サニークォーツハーフブロック
+tile.botania:quartzSlabSunnyFull.name=サニークォーツハーフブロック
+tile.botania:quartzStairsSunny.name=サニークォーツ階段ブロック
+tile.botania:dreamwood0.name=ドリームウッド
+tile.botania:dreamwood1.name=ドリームウッドの木材
+tile.botania:dreamwood2.name=苔むしたドリームウッドの木材
+tile.botania:dreamwood3.name=模様入りのドリームウッド
+tile.botania:dreamwood4.name=規則的な模様入りのドリームウッド
+tile.botania:dreamwood5.name=光り輝くドリームウッド
+tile.botania:livingwood0Stairs.name=リビングウッドの階段
+tile.botania:livingwood0Slab.name=リビングウッドのハーフブロック
+tile.botania:livingwood0SlabFull.name=リビングウッドのハーフブロック
+tile.botania:livingwood1Stairs.name=リビングウッドの木材の階段
+tile.botania:livingwood1Slab.name=リビングウッドの木材のハーフブロック
+tile.botania:livingwood1SlabFull.name=リビングウッドの木材のハーフブロック
+tile.botania:livingrock0Stairs.name=リビングロックの階段
+tile.botania:livingrock0Slab.name=リビングロックのハーフブロック
+tile.botania:livingrock0SlabFull.name=リビングロックのハーフブロック
+tile.botania:livingrock1Stairs.name=リビングロックレンガの階段
+tile.botania:livingrock1Slab.name=リビングロックレンガのハーフブロック
+tile.botania:livingrock1SlabFull.name=リビングロックレンガのハーフブロック
+tile.botania:dreamwood0Stairs.name=ドリームウッドの階段
+tile.botania:dreamwood0Slab.name=ドリームウッドのハーフブロック
+tile.botania:dreamwood0SlabFull.name=ドリームウッドのハーフブロック
+tile.botania:dreamwood1Stairs.name=ドリームウッドの木材の階段
+tile.botania:dreamwood1Slab.name=ドリームウッドの木材のハーフブロック	
+tile.botania:dreamwood1SlabFull.name=ドリームウッドの木材のハーフブロック
+tile.botania:conjurationCatalyst.name=魔法の触媒
+tile.botania:miniIsland0.name=浮遊する白色の神秘の花
+tile.botania:miniIsland1.name=浮遊する橙色の神秘の花
+tile.botania:miniIsland2.name=浮遊する赤紫色の神秘の花
+tile.botania:miniIsland3.name=浮遊する空色の神秘の花
+tile.botania:miniIsland4.name=浮遊する黄色の神秘の花
+tile.botania:miniIsland5.name=浮遊する黄緑色の神秘の花
+tile.botania:miniIsland6.name=浮遊する桃色の神秘の花
+tile.botania:miniIsland7.name=浮遊する灰色の神秘の花
+tile.botania:miniIsland8.name=浮遊する薄灰色の神秘の花
+tile.botania:miniIsland9.name=浮遊する水色の神秘の花
+tile.botania:miniIsland10.name=浮遊する紫色の神秘の花
+tile.botania:miniIsland11.name=浮遊する青色の神秘の花
+tile.botania:miniIsland12.name=浮遊する茶色の神秘の花
+tile.botania:miniIsland13.name=浮遊する緑色の神秘の花
+tile.botania:miniIsland14.name=浮遊する赤色の神秘の花
+tile.botania:miniIsland15.name=浮遊する黒色の神秘の花
+tile.botania:tinyPotato.name=小さなポテト
+tile.botania:spawnerClaw.name=生命浸透器
+tile.botania:customBrick0.name=地獄レンガ
+tile.botania:customBrick1.name=ソウルレンガ
+tile.botania:customBrick2.name=雪レンガ
+tile.botania:customBrick3.name=屋根瓦
+tile.botania:customBrick0Stairs.name=地獄レンガの階段
+tile.botania:customBrick1Stairs.name=ソウルレンガの階段
+tile.botania:customBrick2Stairs.name=雪レンガの階段
+tile.botania:customBrick3Stairs.name=屋根瓦の階段
+tile.botania:customBrick0Slab.name=地獄レンガのハーフブロック
+tile.botania:customBrick0SlabFull.name=地獄レンガのハーフブロック
+tile.botania:customBrick1Slab.name=ソウルレンガのハーフブロック
+tile.botania:customBrick1SlabFull.name=ソウルレンガのハーフブロック
+tile.botania:customBrick2Slab.name=雪レンガのハーフブロック
+tile.botania:customBrick2SlabFull.name=雪レンガのハーフブロック
+tile.botania:customBrick3Slab.name=屋根瓦のハーフブロック
+tile.botania:customBrick3SlabFull.name=屋根瓦のハーフブロック
+tile.botania:customBrick4.name=アズレージョ
+tile.botania:customBrick5.name=アズレージョ
+tile.botania:customBrick6.name=アズレージョ
+tile.botania:customBrick7.name=アズレージョ
+tile.botania:customBrick8.name=アズレージョ
+tile.botania:customBrick9.name=アズレージョ
+tile.botania:customBrick10.name=アズレージョ
+tile.botania:customBrick11.name=アズレージョ
+tile.botania:customBrick12.name=アズレージョ
+tile.botania:customBrick13.name=アズレージョ
+tile.botania:customBrick14.name=アズレージョ
+tile.botania:customBrick15.name=アズレージョ
+tile.botania:enderEyeBlock.name=エンダー監視ブロック
+tile.botania:starfield.name=星空生成器
+tile.botania:rfGenerator.name=マナ-フラックス変換器
+tile.botania:elfGlass.name=アルフガラス
+tile.botania:brewery.name=ボタニア醸造台
+tile.botania:manaGlass.name=マナガラス
+tile.botania:terraPlate.name=大地性集結プレート
+tile.botania:redStringContainer.name=赤い糸で結ばれたコンテナ
+tile.botania:redStringDispenser.name=赤い糸で結ばれたディスペンサ
+tile.botania:redStringFertilizer.name=赤い糸で結ばれた肥料散布器
+tile.botania:redStringComparator.name=赤い糸で結ばれたコンパレータ
+tile.botania:redStringRelay.name=赤い糸で結ばれた偽装器
+tile.botania:redStringInterceptor.name=赤い糸で結ばれた分離器
+tile.botania:manaFlame.name=マナの閃光
+tile.botania:prism.name=マナプリズム
+tile.botania:dirtPath.name=踏み固められた土
+tile.botania:enchantedSoil.name=エンチャントされた土
+tile.botania:dirtPath0Slab.name=踏み固められた土のハーフブロック
+tile.botania:dirtPath0SlabFull.name=踏み固められた土のハーフブロック
+tile.botania:biomeStoneA0.name=森に変質した石
+tile.botania:biomeStoneA1.name=平原に変質した石
+tile.botania:biomeStoneA2.name=山に変質した石
+tile.botania:biomeStoneA3.name=きのこに変質した石
+tile.botania:biomeStoneA4.name=沼に変質した石
+tile.botania:biomeStoneA5.name=砂漠に変質した石
+tile.botania:biomeStoneA6.name=タイガに変質した石
+tile.botania:biomeStoneA7.name=メサに変質した石
+tile.botania:biomeStoneA8.name=森に変質した丸石
+tile.botania:biomeStoneA9.name=平原に変質した丸石
+tile.botania:biomeStoneA10.name=山に変質した丸石
+tile.botania:biomeStoneA11.name=きのこに変質した丸石
+tile.botania:biomeStoneA12.name=沼に変質した丸石
+tile.botania:biomeStoneA13.name=砂漠に変質した丸石
+tile.botania:biomeStoneA14.name=タイガに変質した丸石
+tile.botania:biomeStoneA15.name=メサに変質した丸石
+tile.botania:biomeStoneB0.name=森に変質した石レンガ
+tile.botania:biomeStoneB1.name=平原に変質した石レンガ
+tile.botania:biomeStoneB2.name=山に変質した石レンガ
+tile.botania:biomeStoneB3.name=きのこに変質した石レンガ
+tile.botania:biomeStoneB4.name=沼に変質した石レンガ
+tile.botania:biomeStoneB5.name=砂漠に変質した石レンガ
+tile.botania:biomeStoneB6.name=タイガに変質した石レンガ
+tile.botania:biomeStoneB7.name=メサに変質した石レンガ
+tile.botania:biomeStoneB8.name=森に変質した模様入り石レンガ
+tile.botania:biomeStoneB9.name=平原に変質した模様入り石レンガ
+tile.botania:biomeStoneB10.name=山に変質した模様入り石レンガ
+tile.botania:biomeStoneB11.name=きのこに変質した模様入り石レンガ
+tile.botania:biomeStoneB12.name=沼に変質した模様入り石レンガ
+tile.botania:biomeStoneB13.name=砂漠に変質した模様入り石レンガ
+tile.botania:biomeStoneB14.name=タイガに変質した模様入り石レンガ
+tile.botania:biomeStoneB15.name=メサに変質した模様入り石レンガ
+tile.botania:biomeStoneA0Stairs.name=森に変質した石の階段
+tile.botania:biomeStoneA1Stairs.name=平原に変質した石の階段
+tile.botania:biomeStoneA2Stairs.name=山に変質した石の階段
+tile.botania:biomeStoneA3Stairs.name=きのこに変質した石の階段
+tile.botania:biomeStoneA4Stairs.name=沼に変質した石の階段
+tile.botania:biomeStoneA5Stairs.name=砂漠に変質した石の階段
+tile.botania:biomeStoneA6Stairs.name=タイガに変質した石の階段
+tile.botania:biomeStoneA7Stairs.name=メサに変質した石の階段
+tile.botania:biomeStoneA8Stairs.name=森に変質した丸石の階段
+tile.botania:biomeStoneA9Stairs.name=平原に変質した丸石の階段
+tile.botania:biomeStoneA10Stairs.name=山に変質した丸石の階段
+tile.botania:biomeStoneA11Stairs.name=きのこに変質した丸石の階段
+tile.botania:biomeStoneA12Stairs.name=沼に変質した丸石の階段
+tile.botania:biomeStoneA13Stairs.name=砂漠に変質した丸石の階段
+tile.botania:biomeStoneA14Stairs.name=タイガに変質した丸石の階段
+tile.botania:biomeStoneA15Stairs.name=メサに変質した丸石の階段
+tile.botania:biomeStoneB0Stairs.name=森に変質した石レンガの階段
+tile.botania:biomeStoneB1Stairs.name=平原森に変質した石レンガの階段
+tile.botania:biomeStoneB2Stairs.name=山に変質した石レンガの階段
+tile.botania:biomeStoneB3Stairs.name=きのこに変質した石レンガの階段
+tile.botania:biomeStoneB4Stairs.name=沼に変質した石レンガの階段
+tile.botania:biomeStoneB5Stairs.name=砂漠に変質した石レンガの階段
+tile.botania:biomeStoneB6Stairs.name=タイガに変質した石レンガの階段
+tile.botania:biomeStoneB7Stairs.name=メサに変質した石レンガの階段
+tile.botania:biomeStoneA0Slab.name=森に変質した石のハーフブロック
+tile.botania:biomeStoneA1Slab.name=平原に変質した石のハーフブロック
+tile.botania:biomeStoneA2Slab.name=山に変質した石のハーフブロック
+tile.botania:biomeStoneA3Slab.name=キノコに変質した石のハーフブロック
+tile.botania:biomeStoneA4Slab.name=沼に変質した石のハーフブロック
+tile.botania:biomeStoneA5Slab.name=砂漠に変質した石のハーフブロック
+tile.botania:biomeStoneA6Slab.name=タイガに変質した石のハーフブロック
+tile.botania:biomeStoneA7Slab.name=メサに変質した石のハーフブロック
+tile.botania:biomeStoneA8Slab.name=森に変質した丸石のハーフブロック
+tile.botania:biomeStoneA9Slab.name=平原に変質した丸石のハーフブロック
+tile.botania:biomeStoneA10Slab.name=山に変質した丸石のハーフブロック
+tile.botania:biomeStoneA11Slab.name=きのこに変質した丸石のハーフブロック
+tile.botania:biomeStoneA12Slab.name=沼に変質した丸石のハーフブロック
+tile.botania:biomeStoneA13Slab.name=砂漠に変質した丸石のハーフブロック
+tile.botania:biomeStoneA14Slab.name=タイガに変質した丸石のハーフブロック
+tile.botania:biomeStoneA15Slab.name=メサに変質した丸石のハーフブロック
+tile.botania:biomeStoneB0Slab.name=森に変質した石レンガのハーフブロック
+tile.botania:biomeStoneB1Slab.name=平原に変質した石レンガのハーフブロック
+tile.botania:biomeStoneB2Slab.name=山に変質した石レンガのハーフブロック
+tile.botania:biomeStoneB3Slab.name=きのこに変質した石レンガのハーフブロック
+tile.botania:biomeStoneB4Slab.name=沼に変質した石レンガのハーフブロック
+tile.botania:biomeStoneB5Slab.name=砂漠に変質した石レンガのハーフブロック
+tile.botania:biomeStoneB6Slab.name=タイガに変質した石レンガのハーフブロック
+tile.botania:biomeStoneB7Slab.name=メサに変質した石レンガのハーフブロック
+tile.botania:biomeStoneA0SlabFull.name=森に変質した石のハーフブロック
+tile.botania:biomeStoneA1SlabFull.name=平原に変質した石のハーフブロック
+tile.botania:biomeStoneA2SlabFull.name=山に変質した石のハーフブロック
+tile.botania:biomeStoneA3SlabFull.name=きのこに変質した石のハーフブロック
+tile.botania:biomeStoneA4SlabFull.name=沼に変質した石のハーフブロック
+tile.botania:biomeStoneA5SlabFull.name=砂漠に変質した石のハーフブロック
+tile.botania:biomeStoneA6SlabFull.name=タイガに変質した石のハーフブロック
+tile.botania:biomeStoneA7SlabFull.name=メサに変質した石のハーフブロック
+tile.botania:biomeStoneA8SlabFull.name=森に変質した丸石のハーフブロック
+tile.botania:biomeStoneA9SlabFull.name=平原に変質した丸石のハーフブロック
+tile.botania:biomeStoneA10SlabFull.name=山に変質した丸石のハーフブロック
+tile.botania:biomeStoneA11SlabFull.name=きのこに変質した丸石のハーフブロック
+tile.botania:biomeStoneA12SlabFull.name=沼に変質した丸石のハーフブロック
+tile.botania:biomeStoneA13SlabFull.name=砂漠に変質した丸石のハーフブロック
+tile.botania:biomeStoneA14SlabFull.name=タイガに変質した丸石のハーフブロック
+tile.botania:biomeStoneA15SlabFull.name=メサに変質した丸石のハーフブロック
+tile.botania:biomeStoneB0SlabFull.name=森に変質した石レンガのハーフブロック
+tile.botania:biomeStoneB1SlabFull.name=平原に変質した石レンガのハーフブロック
+tile.botania:biomeStoneB2SlabFull.name=山に変質した石レンガのハーフブロック
+tile.botania:biomeStoneB3SlabFull.name=きのこに変質した石レンガのハーフブロック
+tile.botania:biomeStoneB4SlabFull.name=沼に変質した石レンガのハーフブロック
+tile.botania:biomeStoneB5SlabFull.name=砂漠に変質した石レンガのハーフブロック
+tile.botania:biomeStoneB6SlabFull.name=タイガに変質した石レンガのハーフブロック
+tile.botania:biomeStoneB7SlabFull.name=メサに変質した石レンガのハーフブロック
+tile.botania:petalBlock0.name=白色の花びらブロック
+tile.botania:petalBlock1.name=橙色の花びらブロック
+tile.botania:petalBlock2.name=赤紫色の花びらブロック
+tile.botania:petalBlock3.name=空色の花びらブロック
+tile.botania:petalBlock4.name=黄色の花びらブロック
+tile.botania:petalBlock5.name=黄緑色の花びらブロック
+tile.botania:petalBlock6.name=桃色の花びらブロック
+tile.botania:petalBlock7.name=灰色の花びらブロック
+tile.botania:petalBlock8.name=薄灰色の花びらブロック
+tile.botania:petalBlock9.name=水色の花びらブロック
+tile.botania:petalBlock10.name=紫色の花びらブロック
+tile.botania:petalBlock11.name=青色の花びらブロック
+tile.botania:petalBlock12.name=茶色の花びらブロック
+tile.botania:petalBlock13.name=緑色の花びらブロック
+tile.botania:petalBlock14.name=赤色の花びらブロック
+tile.botania:petalBlock15.name=黒色の花びらブロック
+tile.botania:corporeaIndex.name=コーポリア見出し
+tile.botania:corporeaFunnel.name=コーポリア漏斗
+tile.botania:endStoneBrick0.name=エンドストーンレンガ
+tile.botania:endStoneBrick1.name=模様入りエンドストーンレンガ
+tile.botania:endStoneBrick2.name=エンダーレンガ
+tile.botania:endStoneBrick3.name=柱のエンダーレンガ
+tile.botania:endStoneBrick0Slab.name=エンドストーンレンガのハーフブロック
+tile.botania:endStoneBrick0SlabFull.name=エンドストーンレンガのハーフブロック
+tile.botania:endStoneBrick0Stairs.name=エンドストーンレンガの階段
+tile.botania:endStoneBrick2Slab.name=エンダーレンガのハーフブロック
+tile.botania:endStoneBrick2SlabFull.name=エンダーレンガのハーフブロック
+tile.botania:endStoneBrick2Stairs.name=エンダーレンガの階段
+tile.botania:mushroom0.name=白色のきらめくキノコ
+tile.botania:mushroom1.name=橙色のきらめくキノコ
+tile.botania:mushroom2.name=赤紫色のきらめくキノコ
+tile.botania:mushroom3.name=空色のきらめくキノコ
+tile.botania:mushroom4.name=黄色のきらめくキノコ
+tile.botania:mushroom5.name=黄緑色のきらめくキノコ
+tile.botania:mushroom6.name=桃色のきらめくキノコ
+tile.botania:mushroom7.name=灰色のきらめくキノコ
+tile.botania:mushroom8.name=薄灰色のきらめくキノコ
+tile.botania:mushroom9.name=水色のきらめくキノコ
+tile.botania:mushroom10.name=紫色のきらめくキノコ
+tile.botania:mushroom11.name=青色のきらめくキノコ
+tile.botania:mushroom12.name=茶色のきらめくキノコ
+tile.botania:mushroom13.name=緑色のきらめくキノコ
+tile.botania:mushroom14.name=赤色のきらめくキノコ
+tile.botania:mushroom15.name=黒色のきらめくキノコ
+tile.botania:pump.name=マナポンプ
+tile.botania:doubleFlower10.name=背の高い白色の神秘の花
+tile.botania:doubleFlower11.name=背の高い橙色の神秘の花
+tile.botania:doubleFlower12.name=背の高い赤紫色の神秘の花
+tile.botania:doubleFlower13.name=背の高い空色の神秘の花
+tile.botania:doubleFlower14.name=背の高い黄色の神秘の花
+tile.botania:doubleFlower15.name=背の高い黄緑色の神秘の花
+tile.botania:doubleFlower16.name=背の高い桃色の神秘の花
+tile.botania:doubleFlower17.name=背の高い灰色の神秘の花
+tile.botania:doubleFlower20.name=背の高い薄灰色の神秘の花
+tile.botania:doubleFlower21.name=背の高い水色の神秘の花
+tile.botania:doubleFlower22.name=背の高い紫色の神秘の花
+tile.botania:doubleFlower23.name=背の高い青色の神秘の花
+tile.botania:doubleFlower24.name=背の高い茶色の神秘の花
+tile.botania:doubleFlower25.name=背の高い緑色の神秘の花
+tile.botania:doubleFlower26.name=背の高い赤色の神秘の花
+tile.botania:doubleFlower27.name=背の高い黒色の神秘の花
+tile.botania:doubleFlower18.name=背の高い白色の神秘の花
+tile.botania:doubleFlower19.name=背の高い橙色の神秘の花
+tile.botania:doubleFlower110.name=背の高い赤紫色の神秘の花
+tile.botania:doubleFlower111.name=背の高い空色の神秘の花
+tile.botania:doubleFlower112.name=背の高い黄色の神秘の花
+tile.botania:doubleFlower113.name=背の高い黄緑色の神秘の花
+tile.botania:doubleFlower114.name=背の高い桃色の神秘の花
+tile.botania:doubleFlower115.name=背の高い灰色の神秘の花
+tile.botania:doubleFlower28.name=背の高い薄灰色の神秘の花
+tile.botania:doubleFlower29.name=背の高い水色の神秘の花
+tile.botania:doubleFlower210.name=背の高い紫色の神秘の花
+tile.botania:doubleFlower211.name=背の高い青色の神秘の花
+tile.botania:doubleFlower212.name=背の高い茶色の神秘の花
+tile.botania:doubleFlower213.name=背の高い緑色の神秘の花
+tile.botania:doubleFlower214.name=背の高い赤色の神秘の花
+tile.botania:doubleFlower215.name=背の高い黒色の神秘の花
+tile.botania:stone12.name=模様入り安山岩ブロック
+tile.botania:stone13.name=模様入り玄武岩ブロック
+tile.botania:stone14.name=模様入り閃緑岩ブロック
+tile.botania:stone15.name=模様入り花崗岩ブロック
+tile.botania:blazeBlock.name=ブレイズランプ
+tile.botania:corporeaInterceptor.name=コーポリア妨害検出器
+tile.botania:corporeaCrystalCube.name=コーポリアクリスタルキューブ
+tile.botania:incensePlate.name=お香立て
+tile.botania:hourglass.name=浮遊している砂時計
+tile.botania:ghostRail.name=お化けレール
+tile.botania:sparkChanger.name=スパークティンカラー
+tile.botania:root.name=リビングルート
+tile.botania:felPumpkin.name=フェル・パンプキン
+tile.botania:cocoon.name=気まぐれサナギ
+tile.botania:lightRelay0.name=ルミナイザ
+tile.botania:lightRelay1.name=検出ルミナイザ
+tile.botania:lightRelay2.name=分岐ルミナイザ
+tile.botania:lightRelay3.name=切り替えルミナイザ
+tile.botania:lightLauncher.name=ルミナイザ発射器
+tile.botania:livingrock0Wall.name=リビングロックの壁
+tile.botania:livingwood0Wall.name=リビングウッドの壁
+tile.botania:dreamwood0Wall.name=ドリームウッドの壁
+tile.botania:prismarine0Wall.name=プリズマリンの壁
+tile.botania:reedBlock0Wall.name=サトウキビブロックの壁
+tile.botania:biomeStoneA0Wall0.name=森に変質した丸石の壁
+tile.botania:biomeStoneA0Wall1.name=平原に変質した丸石の壁
+tile.botania:biomeStoneA0Wall2.name=山に変質した丸石の壁
+tile.botania:biomeStoneA0Wall3.name=きのこに変質した丸石の壁
+tile.botania:biomeStoneA0Wall4.name=沼に変質した丸石の壁
+tile.botania:biomeStoneA0Wall5.name=砂漠に変質した丸石の壁
+tile.botania:biomeStoneA0Wall6.name=タイガに変質した丸石の壁
+tile.botania:biomeStoneA0Wall7.name=メサに変質した丸石の壁
+tile.botania:stone0Wall0.name=安山岩の壁
+tile.botania:stone0Wall1.name=玄武岩の壁
+tile.botania:stone0Wall2.name=閃緑岩の壁
+tile.botania:stone0Wall3.name=花崗岩の壁
+tile.botania:manaBomb.name=マナストーム・チャージ
+tile.botania:buriedPetals0=埋もれた白色の花びら
+tile.botania:buriedPetals0.name=埋もれた白色の花びら
+tile.botania:buriedPetals1.name=埋もれた橙色の花びら
+tile.botania:buriedPetals2.name=埋もれた赤紫色の花びら
+tile.botania:buriedPetals3.name=埋もれた空色の花びら
+tile.botania:buriedPetals4.name=埋もれた黄色の花びら
+tile.botania:buriedPetals5.name=埋もれた黄緑色の花びら
+tile.botania:buriedPetals6.name=埋もれた桃色の花びら
+tile.botania:buriedPetals7.name=埋もれた灰色の花びら
+tile.botania:buriedPetals8.name=埋もれた薄灰色の花びら
+tile.botania:buriedPetals9.name=埋もれた水色の花びら
+tile.botania:buriedPetals10.name=埋もれた紫色の花びら
+tile.botania:buriedPetals11.name=埋もれた青色の花びら
+tile.botania:buriedPetals12.name=埋もれた茶色の花びら
+tile.botania:buriedPetals13.name=埋もれた緑色の花びら
+tile.botania:buriedPetals14.name=埋もれた赤色の花びら
+tile.botania:buriedPetals15.name=埋もれた黒色の花びら
+tile.botania:cacophoniumBlock.name=カコフォニアムブロック
+tile.botania:bellows.name=マナ流ふいご
+tile.botania:bifrost.name=一時的な虹ブロック
+tile.botania:bifrostPerm.name=虹ブロック
+tile.botania:pavement0.name=白色のポルトガル式歩道
+tile.botania:pavement1.name=黒色のポルトガル式歩道
+tile.botania:pavement2.name=青色のポルトガル式歩道
+tile.botania:pavement3.name=赤色のポルトガル式歩道
+tile.botania:pavement4.name=黄色のポルトガル式歩道
+tile.botania:pavement5.name=緑色のポルトガル式歩道
+tile.botania:pavement0Stairs.name=白色のポルトガル式歩道の階段
+tile.botania:pavement1Stairs.name=黒色のポルトガル式歩道の階段
+tile.botania:pavement2Stairs.name=青色のポルトガル式歩道の階段
+tile.botania:pavement3Stairs.name=赤色のポルトガル式歩道の階段
+tile.botania:pavement4Stairs.name=黄色のポルトガル式歩道の階段
+tile.botania:pavement5Stairs.name=緑色のポルトガル式歩道の階段
+tile.botania:pavement0Slab.name=白色のポルトガル式歩道のハーフブロック
+tile.botania:pavement0SlabFull.name=白色のポルトガル式歩道のハーフブロック
+tile.botania:pavement1Slab.name=黒色のポルトガル式歩道のハーフブロック
+tile.botania:pavement1SlabFull.name=黒色のポルトガル式歩道のハーフブロック
+tile.botania:pavement2Slab.name=青色のポルトガル式歩道のハーフブロック
+tile.botania:pavement2SlabFull.name=青色のポルトガル式歩道のハーフブロック
+tile.botania:pavement3Slab.name=赤色のポルトガル式歩道のハーフブロック
+tile.botania:pavement3SlabFull.name=赤色のポルトガル式歩道のハーフブロック
+tile.botania:pavement4Slab.name=黄色のポルトガル式歩道のハーフブロック
+tile.botania:pavement4SlabFull.name=黄色のポルトガル式歩道のハーフブロック
+tile.botania:pavement5Slab.name=緑色のポルトガル式歩道のハーフブロック
+tile.botania:pavement5SlabFull.name=緑色のポルトガル式歩道のハーフブロック
+tile.botania:cellBlock.name=細胞ブロック
+tile.botania:gaiaHeadBlock.name=ガイアの守護者の頭
+tile.botania:corporeaRetainer.name=コーポリア信号維持器
+tile.botania:manaGlassPane.name=マナガラス板
+tile.botania:elfGlassPane.name=アルフガラス板
+tile.botania:bifrostPermPane.name=虹板
+tile.botania:teruTeruBozu.name=てるてる坊主
+tile.botania:shimmerrock.name=きらめく石
+tile.botania:shimmerrock0Slab.name=きらめく石のハーフブロック
+tile.botania:shimmerrock0SlabFull.name=きらめく石のハーフブロック
+tile.botania:shimmerrock0Stairs.name=きらめく石の階段
+tile.botania:shimmerwoodPlanks.name=きらめく木
+tile.botania:shimmerwoodPlanks0Slab.name=きらめく木のハーフブロック
+tile.botania:shimmerwoodPlanks0SlabFull.name=きらめく木のハーフブロック
+tile.botania:shimmerwoodPlanks0Stairs.name=きらめく木の階段
+tile.botania:avatar.name=リビングロックの化身
+tile.botania:altGrass0.name=乾燥した草ブロック
+tile.botania:altGrass1.name=金色の草ブロック
+tile.botania:altGrass2.name=鮮やかな草ブロック
+tile.botania:altGrass3.name=枯れた草ブロック
+tile.botania:altGrass4.name=マナで満たされた草ブロック
+tile.botania:altGrass5.name=変異した草ブロック
+tile.botania:animatedTorch.name=動く松明
+
+# FLOWER NAMES
+tile.botania:flower..name=ボタニア花
+# ^ This is the placeholder name for when no flower type is detected
+# The two dots are not a typo
+tile.botania:flower..reference=何か不具合があるようです。報告をお願いします。
+
+tile.botania:flower.puredaisy.name=ピュアデイジー
+tile.botania:flower.puredaisy.reference=ねえ。あなたは何色になりたい？
+tile.botania:flower.manastar.name=マナスター
+tile.botania:flower.manastar.reference=星に願いを
+
+# - GENERATING
+tile.botania:flower.endoflame.name=エンドフレイム
+tile.botania:flower.endoflame.reference=吸熱反応性
+tile.botania:flower.hydroangeas.name=ハイドロエンゲス
+tile.botania:flower.hydroangeas.reference=人懐っこい魚たち
+tile.botania:flower.thermalily.name=サーマリリー
+tile.botania:flower.thermalily.reference=ブラッドメイジにはお勧めしない
+tile.botania:flower.arcanerose.name=ローザ・アルカナ
+tile.botania:flower.arcanerose.reference=角に10個の青いオーブ
+tile.botania:flower.munchdew.name=マンチデュー
+tile.botania:flower.munchdew.reference=これはカニバリズムに含まれますか？
+tile.botania:flower.entropinnyum.name=エントロピニウム
+tile.botania:flower.entropinnyum.reference=取扱注意
+tile.botania:flower.kekimurus.name=ケキムラス
+tile.botania:flower.kekimurus.reference=この花は嘘
+tile.botania:flower.gourmaryllis.name=ガーマリリス
+tile.botania:flower.gourmaryllis.reference=不愉快です
+tile.botania:flower.narslimmus.name=ナースライムス
+tile.botania:flower.narslimmus.reference=なにこれ？ベタベタする
+tile.botania:flower.spectrolus.name=スペクトロラス
+tile.botania:flower.spectrolus.reference=憎悪を力に
+tile.botania:flower.dandelifeon.name=ダンデライフオン
+tile.botania:flower.dandelifeon.reference=これが人生さ
+tile.botania:flower.rafflowsia.name=ラフロージア
+tile.botania:flower.rafflowsia.reference=蠱惑の落とし穴
+
+# - FUNCTIONAL
+tile.botania:flower.bellethorn.name=ベレソーン
+tile.botania:flower.bellethornChibi.name=ベレソーン・プチ
+tile.botania:flower.dreadthorn.name=ドレッドソーン
+tile.botania:flower.dreadthorn.reference=ただ刺すだけ
+tile.botania:flower.heiseiDream.name=ヘイセイドリーム
+tile.botania:flower.heiseiDream.reference=ヘイセイヘイセイ
+tile.botania:flower.tigerseye.name=タイガーズアイ
+tile.botania:flower.tigerseye.reference=手乗りタイガー
+tile.botania:flower.jadedAmaranthus.name=ジェイディッド・アマランサス
+tile.botania:flower.jadedAmaranthus.reference=あるカップルはこれで死んだ
+tile.botania:flower.orechid.name=オアキド
+tile.botania:flower.orechid.reference=君がやったのはわかったよ
+tile.botania:flower.orechidIgnem.name=オアキド・イグネム
+tile.botania:flower.orechidIgnem.reference=バラのように赤い
+tile.botania:flower.fallenKanade.name=フォーレン・カナデ
+tile.botania:flower.fallenKanade.reference=あたしは天使なんかじゃないわ
+tile.botania:flower.exoflame.name=エクソフレイム
+tile.botania:flower.exoflame.reference=放熱反応性
+tile.botania:flower.agricarnation.name=アグリカーネーション
+tile.botania:flower.agricarnation.reference=4月25日に身に付ける
+tile.botania:flower.agricarnationChibi.name=アグリカーネーション・プチ
+tile.botania:flower.agricarnationChibi.reference=4月25日に身に付ける
+tile.botania:flower.hopperhock.name=ホッパーホック
+tile.botania:flower.hopperhock.reference=全部ここに流しこむ
+tile.botania:flower.hopperhockChibi.name=ホッパーホック・プチ
+tile.botania:flower.hopperhockChibi.reference=全部ここに流しこむ
+tile.botania:flower.tangleberrie.name=タングルベリー
+tile.botania:flower.tangleberrie.reference=フライパン禁止
+tile.botania:flower.jiyuulia.name=ジユーリア
+tile.botania:flower.jiyuulia.reference=フリューゲル・デア・フライハイト(自由の翼)
+tile.botania:flower.rannuncarpus.name=ラナンカーパス
+tile.botania:flower.rannuncarpus.reference=手のひらサイズ
+tile.botania:flower.rannuncarpusChibi.name=ラナンカーパス・プチ
+tile.botania:flower.rannuncarpusChibi.reference=手のひらサイズ
+tile.botania:flower.hyacidus.name=ヒヤシダス
+tile.botania:flower.hyacidus.reference=歩かなければ、毒を受けない
+tile.botania:flower.pollidisiac.name=ポリディジアク
+tile.botania:flower.pollidisiac.reference=鳥とハチと
+tile.botania:flower.clayconia.name=クレイコニア
+tile.botania:flower.clayconia.reference=ルピーは入っていません
+tile.botania:flower.clayconiaChibi.name=クレイコニア・プチ
+tile.botania:flower.clayconiaChibi.reference=ルピーは入っていません
+tile.botania:flower.loonium.name=ルーニウム
+tile.botania:flower.loonium.reference=頭の上に掲げてください
+tile.botania:flower.daffomill.name=ダフォミル
+tile.botania:flower.daffomill.reference=料理の手伝い
+tile.botania:flower.vinculotus.name=ヴィンキュロタス
+tile.botania:flower.vinculotus.reference=ExtraUtilitiesの完全にパクリ
+tile.botania:flower.spectranthemum.name=スペクトランセマム
+tile.botania:flower.spectranthemum.reference=攻殻のなかに
+tile.botania:flower.medumone.name=メデュモネ
+tile.botania:flower.medumone.reference=岩のように硬い
+tile.botania:flower.marimorphosis.name=マリモルフォシス
+tile.botania:flower.marimorphosis.reference=UMR!UMR!
+tile.botania:flower.marimorphosisChibi.name=マリモルフォシス・チビ
+tile.botania:flower.marimorphosisChibi.reference=UMAじゃないよ!
+tile.botania:flower.bubbell.name=バッベル
+tile.botania:flower.bubbell.reference=いまなら様々なオプション機能もついています
+tile.botania:flower.bubbellChibi.name=バッベル・プチ
+tile.botania:flower.bubbellChibi.reference=いまなら様々なオプション機能もついています
+tile.botania:flower.solegnolia.name=ソレノリア
+tile.botania:flower.solegnolia.reference=あなたは磁石をすべてわれわれが所属している！
+tile.botania:flower.solegnoliaChibi.name=ソレノリア・プチ
+tile.botania:flower.solegnoliaChibi.reference=あなたは磁石をすべてわれわれが所属している！
+tile.botania:flower.bergamute.name=ベルガミュート
+tile.botania:flower.bergamute.reference=閉ざしたままの口唇
+
+# ITEM NAMES
+item.botania:lexicon.name=ボタニア植物辞典
+item.botania:lexicon.bevo=ボタニア植物辞典
+item.botania:lexicon.saice=ボタニア植物辞典
+item.botania:petal0.name=白色の神秘的な花びら
+item.botania:petal1.name=橙色の神秘的な花びら
+item.botania:petal2.name=赤紫色の神秘的な花びら
+item.botania:petal3.name=空色の神秘的な花びら
+item.botania:petal4.name=黄色の神秘的な花びら
+item.botania:petal5.name=黄緑色の神秘的な花びら
+item.botania:petal6.name=桃色の神秘的な花びら
+item.botania:petal7.name=灰色の神秘的な花びら
+item.botania:petal8.name=薄灰色の神秘的な花びら
+item.botania:petal9.name=水色の神秘的な花びら
+item.botania:petal10.name=紫色の神秘的な花びら
+item.botania:petal11.name=青色の神秘的な花びら
+item.botania:petal12.name=茶色の神秘的な花びら
+item.botania:petal13.name=緑色の神秘的な花びら
+item.botania:petal14.name=赤色の神秘的な花びら
+item.botania:petal15.name=黒色の神秘的な花びら
+item.botania:dye0.name=白色の花の粉末
+item.botania:dye1.name=橙色の花の粉末
+item.botania:dye2.name=赤紫色の花の粉末
+item.botania:dye3.name=空色の花の粉末
+item.botania:dye4.name=黄色の花の粉末
+item.botania:dye5.name=黄緑色の花の粉末
+item.botania:dye6.name=桃色の花の粉末
+item.botania:dye7.name=灰色の花の粉末
+item.botania:dye8.name=薄灰色の花の粉末
+item.botania:dye9.name=水色の花の粉末
+item.botania:dye10.name=紫色の花の粉末
+item.botania:dye11.name=青色の花の粉末
+item.botania:dye12.name=茶色の花の粉末
+item.botania:dye13.name=緑色の花の粉末
+item.botania:dye14.name=赤色の花の粉末
+item.botania:dye15.name=黒色の花の粉末
+item.botania:pestleAndMortar.name=乳棒とすり鉢
+item.botania:twigWand.name=森の杖
+item.botania:manasteel.name=マナスチールインゴット
+item.botania:manaPearl.name=マナパール
+item.botania:manaDiamond.name=マナダイヤモンド
+item.botania:lensNormal.name=マナレンズ
+item.botania:lensSpeed.name=マナレンズ: 速度
+item.botania:lensSpeed.short=速度
+item.botania:lensPower.name=マナレンズ: 強度
+item.botania:lensPower.short=強度
+item.botania:lensTime.name=マナレンズ: 耐性
+item.botania:lensTime.short=耐性
+item.botania:lensEfficiency.name=マナレンズ: 効率
+item.botania:lensEfficiency.short=効率
+item.botania:lensBounce.name=マナレンズ: 反射
+item.botania:lensBounce.short=反射
+item.botania:lensGravity.name=マナレンズ: 重力
+item.botania:lensGravity.short=重力
+item.botania:lensMine.name=マナレンズ: 採掘
+item.botania:lensMine.short=採掘
+item.botania:lensDamage.name=マナレンズ: 攻撃
+item.botania:lensDamage.short=攻撃
+item.botania:lensPhantom.name=マナレンズ: 幻影
+item.botania:lensPhantom.short=幻影
+item.botania:lensMagnet.name=マナレンズ: 磁力
+item.botania:lensMagnet.short=磁力
+item.botania:lensExplosive.name=マナレンズ: 爆発
+item.botania:lensExplosive.short=爆発
+item.botania:lensInfluence.name=マナレンズ: 移動
+item.botania:lensInfluence.short=移動
+item.botania:lensWeight.name=マナレンズ: 重量
+item.botania:lensWeight.short=重量
+item.botania:lensPaint.name=マナレンズ: 着色
+item.botania:lensPaint.short=着色
+item.botania:lensFire.name=マナレンズ: 着火
+item.botania:lensFire.short=着火
+item.botania:lensPiston.name=マナレンズ: 力
+item.botania:lensPiston.short=力
+item.botania:lensLight.name=マナレンズ: 閃光
+item.botania:lensLight.short=閃光
+item.botania:lensWarp.name=マナレンズ: ワープ
+item.botania:lensWarp.short=ワープ
+item.botania:lensRedirect.name=マナレンズ: 方向転換
+item.botania:lensRedirect.short=方向転換
+item.botania:lensFirework.name=マナレンズ: 祝福
+item.botania:lensFirework.short=祝福
+item.botania:lensFlare.name=マナレンズ: フレア
+item.botania:lensFlare.short=フレア
+item.botania:lensMessenger.name=マナレンズ: 通信
+item.botania:lensMessenger.short=通信
+item.botania:lensTripwire.name=マナレンズ: トリップワイヤー
+item.botania:lensTripwire.short=トリップワイヤー
+item.botania:rune0.name=水のルーン
+item.botania:rune1.name=火のルーン
+item.botania:rune2.name=土のルーン
+item.botania:rune3.name=空気のルーン
+item.botania:rune4.name=春のルーン
+item.botania:rune5.name=夏のルーン
+item.botania:rune6.name=秋のルーン
+item.botania:rune7.name=冬のルーン
+item.botania:rune8.name=マナのルーン
+item.botania:rune9.name=色欲のルーン
+item.botania:rune10.name=暴食のルーン
+item.botania:rune11.name=貪食のルーン
+item.botania:rune12.name=怠惰のルーン
+item.botania:rune13.name=憤怒のルーン
+item.botania:rune14.name=嫉妬のルーン
+item.botania:rune15.name=高慢のルーン
+item.botania:signalFlare.name=信号フレア
+item.botania:manaTablet.name=マナタブレット
+item.botania:manaGun.name=マナ銃
+item.botania:compositeLens.name=複合マナレンズ: %s %s
+item.botania:manaCookie.name=全快クッキー
+item.botania:fertilizer.name=花の肥料
+item.botania:grassSeeds0.name=牧草の種
+item.botania:grassSeeds1.name=北国の種
+item.botania:grassSeeds2.name=寄生の種
+item.botania:grassSeeds3.name=乾燥した牧草の種
+item.botania:grassSeeds4.name=金色の牧草の種
+item.botania:grassSeeds5.name=鮮やかな牧草の種
+item.botania:grassSeeds6.name=枯れた牧草の種
+item.botania:grassSeeds7.name=マナで満たされた牧草の種
+item.botania:grassSeeds8.name=変異した牧草の種
+item.botania:livingwoodTwig.name=リビングングウッドの小枝
+item.botania:dirtRod.name=土の杖
+item.botania:terraformRod.name=大地の杖
+item.botania:manaMirror.name=マナ鏡
+item.botania:manasteelHelm.name=マナスチールのヘルメット
+item.botania:manasteelChest.name=マナスチールのチェストプレート
+item.botania:manasteelLegs.name=マナスチールのレギンス
+item.botania:manasteelBoots.name=マナスチールのブーツ
+item.botania:manasteelPick.name=マナスチールのツルハシ
+item.botania:manasteelShovel.name=マナスチールのシャベル
+item.botania:manasteelAxe.name=マナスチールの斧
+item.botania:manasteelSword.name=マナスチールの剣
+item.botania:manasteelShears.name=マナスチールのハサミ
+item.botania:grassHorn0.name=野生のホルン
+item.botania:grassHorn1.name=天蓋のホルン
+item.botania:grassHorn2.name=外被のホルン
+item.botania:terrasteel.name=テラスチールインゴット
+item.botania:terrasteelHelm.name=テラスチールのヘルメット
+item.botania:terrasteelChest.name=テラスチールのチェスト
+item.botania:terrasteelLegs.name=テラスチールのレギンス
+item.botania:terrasteelBoots.name=テラスチールのブーツ
+item.botania:terraSword.name=テラブレード
+item.botania:tinyPlanet.name=小さな惑星
+item.botania:manaRing.name=マナバンド
+item.botania:auraRing.name=オーラバンド
+item.botania:manaRingGreater.name=優れたマナバンド
+item.botania:auraRingGreater.name=優れたオーラバンド
+item.botania:travelBelt.name=ソジャーナのたすき
+item.botania:knockbackBelt.name=地殻のガードル
+item.botania:icePendant.name=雪片のペンダント
+item.botania:lavaPendant.name=火砕物のペンダント
+item.botania:lifeEssence.name=ガイアの魂
+item.botania:redstoneRoot.name=レッドストーンの根
+item.botania:magnetRing.name=磁力の指輪
+item.botania:waterRing.name=脊索動物の指輪
+item.botania:miningRing.name=マントルの指輪
+item.botania:reachRing.name=広範の指輪
+item.botania:terraPick.name=テラシャッタラー
+item.botania:divaCharm.name=歌姫のお守り
+item.botania:flightTiara.name=フリューゲルのティアラ
+item.botania:enderDagger.name=ソウルスクライブ
+item.botania:quartz0.name=煙がかったクォーツ
+item.botania:quartz1.name=マナクォーツ
+item.botania:quartz2.name=ブレイズクォーツ
+item.botania:quartz3.name=ラベンダークォーツ
+item.botania:quartz4.name=レッドクォーツ
+item.botania:quartz5.name=エレブンクォーツ
+item.botania:quartz6.name=サニークォーツ
+item.botania:elementium.name=エレメンチウムインゴット
+item.botania:pixieDust.name=ピクシィダスト
+item.botania:dragonstone.name=ドラゴンストーン
+item.botania:waterRod.name=海の杖
+item.botania:elementiumHelm.name=エレメンチウムのヘルメット
+item.botania:elementiumChest.name=エレメンチウムのチェストプレート
+item.botania:elementiumLegs.name=エレメンチウムのレギンス
+item.botania:elementiumBoots.name=エレメンチウムのブーツ
+item.botania:elementiumPick.name=エレメンチウムのツルハシ
+item.botania:elementiumShovel.name=エレメンチウムのシャベル
+item.botania:elementiumAxe.name=エレメンチウムの斧
+item.botania:elementiumSword.name=エレメンチウムの剣
+item.botania:elementiumShears.name=エレメンチウムのハサミ
+item.botania:openBucket.name=推定バケツ
+item.botania:spawnerMover.name=生命集積器
+item.botania:pixieRing.name=すばらしい妖精の指輪
+item.botania:superTravelBelt.name=世界旅行者のたすき
+item.botania:rainbowRod.name=虹の杖
+item.botania:tornadoRod.name=空の杖
+item.botania:fireRod.name=地獄の杖
+item.botania:vineBall.name=ツタ玉
+item.botania:slingshot.name=リビングウッドのパチンコ
+item.botania:manaBottle.name=マナ入り瓶
+item.botania:laputaShard.name=ラピュタの破片
+item.botania:virus0.name=表皮を腐らせるウィルス
+item.botania:virus1.name=表皮を溶かすウィルス
+item.botania:skyDirtRod.name=高地の杖
+item.botania:placeholder.name=クラフト空白
+item.botania:manasteelHelmReveal.name=洞察のマナスチールヘルメット
+item.botania:terrasteelHelmReveal.name=洞察のテラスチールヘルメット
+item.botania:elementiumHelmReveal.name=洞察のエレメンチウムヘルメット
+item.botania:itemFinder.name=観察者のバンド
+item.botania:superLavaPendant.name=クリムゾンペンダント
+item.botania:enderHand.name=エンダーの手
+item.botania:glassPick.name=ガラス質のツルハシ
+item.botania:spark.name=スパーク
+item.botania:sparkUpgrade0.name=スパーク強化：散布
+item.botania:sparkUpgrade1.name=スパーク強化：優性
+item.botania:sparkUpgrade2.name=スパーク強化：劣勢
+item.botania:sparkUpgrade3.name=スパーク強化：孤立
+item.botania:diviningRod.name=豊富なマントルの杖
+item.botania:gravityRod.name=暗がりのメサの杖
+item.botania:regenIvy.name=永遠のツタ
+item.botania:manaInkwell.name=植物魔法学者のインク瓶
+item.botania:vial0.name=マナガラスの小瓶
+item.botania:vial1.name=アルフガラスのフラスコ
+item.botania:brewVial.name=%s (%s) の小瓶
+item.botania:brewFlask.name=%s (%s) のフラスコ
+item.botania:bloodPendant.name=汚染された血のペンダント
+item.botania:redString.name=赤い糸
+item.botania:missileRod.name=不安定な貯蔵庫の杖
+item.botania:holyCloak.name=徳のマント
+item.botania:unholyCloak.name=罪のマント
+item.botania:balanceCloak.name=均衡のマント
+item.botania:craftingHalo.name=組立ての光輪
+item.botania:autocraftingHalo.name=工場の光輪
+item.botania:blackLotus0.name=黒スイレン
+item.botania:blackLotus1.name=漆黒スイレン
+item.botania:dreamwoodTwig.name=ドリームウッドの小枝
+item.botania:monocle.name=マナ観察者の片眼鏡
+item.botania:clip.name=レンズクリップ
+item.botania:cobbleRod.name=深淵の杖
+item.botania:smeltRod.name=融解核の杖
+item.botania:worldSeed.name=世界の種
+item.botania:spellCloth.name=呪文が織り込まれた布
+item.botania:thornChakram0.name=棘のチャクラム
+item.botania:thornChakram1.name=炎のチャクラム
+item.botania:overgrowthSeed.name=育ちすぎた種
+item.botania:craftPattern0.name=クラフトパターン #1: 1x1
+item.botania:craftPattern1.name=クラフトパターン #2: 2x2
+item.botania:craftPattern2.name=クラフトパターン #3: 1x2
+item.botania:craftPattern3.name=クラフトパターン #4: 2x1
+item.botania:craftPattern4.name=クラフトパターン #5: 1x3
+item.botania:craftPattern5.name=クラフトパターン #6: 3x1
+item.botania:craftPattern6.name=クラフトパターン #7: 2x3
+item.botania:craftPattern7.name=クラフトパターン #8: 3x2
+item.botania:craftPattern8.name=クラフトパターン #9: ドーナツ
+item.botania:gaiaIngot.name=ガイアの魂インゴット
+item.botania:ancientWill0.name=アリムの意思
+item.botania:ancientWill1.name=ダロクの意思
+item.botania:ancientWill2.name=グーサンの意思
+item.botania:ancientWill3.name=トラグの意思
+item.botania:ancientWill4.name=ベラックの意思
+item.botania:ancientWill5.name=カリルの意思
+item.botania:corporeaSpark0.name=コーポリアスパーク
+item.botania:corporeaSpark1.name=マスターコーポリアスパーク
+item.botania:enderAirBottle.name=エンダー空気瓶
+item.botania:livingwoodBow.name=リビングウッドの弓
+item.botania:crystalBow.name=水晶の弓
+item.botania:cosmetic0.name=黒色の蝶ネクタイ
+item.botania:cosmetic1.name=黒色のネクタイ
+item.botania:cosmetic2.name=赤色のメガネ
+item.botania:cosmetic3.name=ふっくらしたスカーフ
+item.botania:cosmetic4.name=エンジニアのゴーグル
+item.botania:cosmetic5.name=眼帯
+item.botania:cosmetic6.name=悪者の眼帯
+item.botania:cosmetic7.name=赤いリボン
+item.botania:cosmetic8.name=ピンクの花のつぼみ
+item.botania:cosmetic9.name=水玉模様のリボン
+item.botania:cosmetic10.name=青色の蝶
+item.botania:cosmetic11.name=ネコミミ
+item.botania:cosmetic12.name=魔女のピン
+item.botania:cosmetic13.name=悪魔のしっぽ
+item.botania:cosmetic14.name=カムイの目
+item.botania:cosmetic15.name=グーグルっぽい目
+item.botania:cosmetic16.name=四つ葉のクローバー
+item.botania:cosmetic17.name=時計の目
+item.botania:cosmetic18.name=ユニコーンの角
+item.botania:cosmetic19.name=悪魔の角
+item.botania:cosmetic20.name=ハイパープラス 
+item.botania:cosmetic21.name=植物学者の紋章
+item.botania:cosmetic22.name=古代のマスク
+item.botania:cosmetic23.name=不気味なマスク
+item.botania:cosmetic24.name=エイリアンのアンテナ
+item.botania:cosmetic25.name=3Dメガネ 
+item.botania:cosmetic26.name=橙色の影
+item.botania:cosmetic27.name=鼻メガネ
+item.botania:cosmetic28.name=濃いアイブロウ
+item.botania:cosmetic29.name=ルシタニアの盾
+item.botania:cosmetic30.name=小さなポテトのマスク
+item.botania:cosmetic31.name=クエスト担当者の印
+item.botania:manaString.name=マナが注入された糸
+item.botania:swapRing.name=適正の指輪
+item.botania:flowerBag.name=花入れ小袋
+item.botania:phantomInk.name=お化けインク
+item.botania:poolMinecart.name=マナプールカート
+item.botania:pinkinator.name=ピンキネイター
+item.botania:infiniteFruit.name=グリザイアの果実
+item.botania:kingKey.name=王律鍵
+item.botania:flugelEye.name=フリューゲルの目
+item.botania:thorRing.name=トールの指輪
+item.botania:odinRing.name=オーディンの指輪
+item.botania:lokiRing.name=ロキの指輪
+item.botania:dice.name=運命の賽
+item.botania:keepIvy.name=頑固なツタ
+item.botania:blackHoleTalisman.name=ブラックホールのお守り
+item.botania:recordGaia1.name=傷ついたレコード
+item.botania:recordGaia2.name=傷ついたレコード
+item.botania:temperanceStone.name=節制の石
+item.botania:incenseStick.name=線香
+item.botania:terraAxe.name=テラトランケーター
+item.botania:manasteelNugget.name=マナスチールのナゲット
+item.botania:terrasteelNugget.name=テラスチールのナゲット
+item.botania:elementiumNugget.name=エレメンチウムのナゲット
+item.botania:livingRoot.name=リビングルート
+item.botania:pebble.name=小石
+item.botania:waterBowl.name=水の入ったボウル
+item.botania:obedienceStick.name=花の指揮棒
+item.botania:cacophonium.name=カコフォニアム
+item.botania:slimeBottle.name=ボトル入りスライム
+item.botania:starSword.name=スターコーラー
+item.botania:exchangeRod.name=地殻変動の杖
+item.botania:magnetRingGreater.name=素晴らしい磁石の指輪
+item.botania:thunderSword.name=サンダーコーラー
+item.botania:manaweaveCloth.name=マナが織り込まれた布
+item.botania:manaweaveHelm.name=マナが織り込まれたずきん
+item.botania:manaweaveChest.name=マナが織り込まれたローブ(上)
+item.botania:manaweaveLegs.name=マナが織り込まれたローブ(下)
+item.botania:manaweaveBoots.name=マナが織り込まれたブーツ
+item.botania:santaweaveHelm.name=マナが織り込まれたサンタのずきん
+item.botania:santaweaveChest.name=マナが織り込まれたサンタのローブ(上)
+item.botania:santaweaveLegs.name=マナが織り込まれたサンタのローブ(下)
+item.botania:santaweaveBoots.name=マナが織り込まれたサンタのブーツ
+item.botania:gaiaHead.name=ガイアの守護者の頭
+item.botania:sextant.name=創造主の六分儀
+item.botania:speedUpBelt.name=大地を闊歩するもののたすき
+item.botania:baubleBox.name=装飾品入れ
+item.botania:manaPowder.name=マナの粉末
+item.botania:dodgeRing.name=器用な動きの指輪
+item.botania:invisibilityCloak.name=透明マント
+item.botania:cloudPendant.name=巻雲アミュレット
+item.botania:superCloudPendant.name=乱雲アミュレット
+item.botania:thirdEye.name=第三の眼
+item.botania:astrolabe.name=地形成形者のアストロラーベ
+item.botania:goddessCharm.name=慈悲深き女神のお守り
+
+# LEXICON CATEGORIES
+botania.category.basics=基本と機構
+botania.category.mana=マナの取り扱い
+botania.category.functionalFlowers=機能を持つ花
+botania.category.generationFlowers=マナを生み出す花
+botania.category.devices=自然の器具
+botania.category.tools=神秘的なアイテム
+botania.category.baubles=宝石とアクセサリ
+botania.category.ender=エンダーの工芸品
+botania.category.alfhomancy=エルフ学
+botania.category.misc=その他
+
+# LEXICON ENTRIES
+
+# - BASIC
+# -- WELCOME TO BOTANIA
+botania.entry.welcome=ボタニアへようこそ
+botania.tagline.welcome=ホテルボタニアへようこそ
+botania.page.welcome0=&oボタニアへようこそ!苗木 と本からこの説明書をクラ フトしたこと、あるいはチ ェストからこの本を見つけ たことを祝福します。<br>&oこの本はページの下にある 矢印か、マウスホイール、 あるいはキーボードの矢印 キーをつかうことでページ を移動できます。
+botania.page.welcome1=&o見た目と違って、ボタニア は本質的には”工業MOD” に定義される。MODをすす めてアイテムをクラフトす るのに、創意工夫やレッド ストーンの知識を要求され るからだ。このことを頭の 片隅に留めておいて欲しい 。<br>&oもちろんその苦労の報酬と して、アイテムやブロック 、装備品を手に入れること ができる。
+botania.page.welcome2=&oあらゆる意味において、カ ッコいいものを作ることを 目的にゲームをプレイして る人にとって、ボタニアは 楽しいMODになるだろう。 ボタニアは単独でも、他の MODと一緒にでも遊べるよ うに設計されている。<br>&o少しの例外を除いて、この MODのあらゆる要素は、マ インクラフトとボタニアの 要素のみで完全に自動化す ることが可能だ。
+botania.page.welcome3=&oもし何をすべきかわからな くなった時は、このMODの 実績やチャレンジをチェッ クしてみて欲しい。どちら もこの本のメインページの 左側にある。<br>&oこの本では役に立つ要素が わかりやすい方法でたくさ ん説明されているから、飛 び入りで遊び始める前に、 ちょっと時間をとってその 辺のちょっとした情報にい ろいろ触れてみて欲しい。
+botania.page.welcome4=&oその後必要ならチュートリ アルのページに進むとだい たい10分くらいでMODの基 礎を学ぶことができる。<br>&oでも、チュートリアルでは 本当の基本しか説明されな いから、そこで足がかりを 掴んだあとは、自分でさら に調べるといいだろう。
+botania.page.welcome5=&oもし学びたいことについて よくわからない時、シフト キーを押すと、それがどん なものかすぐに調べること ができる。<br>&o索引カテゴリは検索に非常 に便利で、この本にかいて あるすべての見出しが一つ にまとめて入っている。
+botania.page.welcome6=&o導入はここまでだ！さあチ ュートリアルに進もう。自 分がこのMODをつくったの と同じくらい、あなたが楽 しんでくれると嬉しい。<br>&o~Vazkii、MOD作者<br><br>&o下の”戻る”ボタンを押し て進む。右クリックやバッ クスペースキーでも同じ。
+
+# -- TUTORIAL OF THE BASICS
+botania.entry.tutorial=基本のチュートリアル
+botania.tagline.tutorial=簡単にセットアップしよう
+botania.page.tutorial0=この本は興味に応じて様々 な項目を見ることが出来る が、様々なチュートリアル も存在する。下のボタンを 押すとボタニアの基本的な コンセプトを学ぶことがで きる。<br>この本のゲーム内ガイドツ アーを選んでもいいし、( 比較的)短い動画を見ても いい。
+
+# -- GARDEN OF GLASS
+botania.entry.gardenOfGlass=ガーデンオブグラス
+botania.tagline.gardenOfGlass=新たなる挑戦
+botania.page.gardenOfGlass0=&2ガーデンオブグラス&0では、 あなたの悲鳴は誰にも聞こ えない。<br>あなたは孤独だ。<br>なんとわくわくすることだ ろう。
+botania.page.gardenOfGlass1=&2ガーデンオブグラス&0はボタ ニアのためのスカイブロッ クモードだ。それは多少の MOD経験があるプレイヤー にのみ勧められるが、もし あなたが初めてでも、とに かく試してみることは大歓 迎だ。<br>ほとんどのMOD機能は同 じだが、スカイブロックス タイルのゲームのためにい くつか微調整されている。 それらを以降のページに示 す。
+botania.page.gardenOfGlass2=&1ガーデンオブグラス&0にスポ ーンしたら、着地エリアの 下に&1リビングルート&0を発見 するだろう。これらは&1苗木&0 と&1花の肥料&0の作成に使え、 また&1骨粉&0としても機能する 。&1土&0か&1草&0ブロックを素手で シフト右クリックすると、 土壌を探り、いくらかの&1小 石&0を見付け、それを&1丸石&0に 変換できる。水ブロックを 右クリックした&1ボウル&0で、 &1花びらの調合所&0を満たすこ とができる。
+botania.page.gardenOfGlass3=&1苗木&0の作り方
+botania.page.gardenOfGlass4=&1花の肥料&0の作り方
+botania.page.gardenOfGlass5=&1丸石&0の作り方
+botania.page.gardenOfGlass6=それはさておき、ボタニア のいくつかのことがスカイ ブロックプレイに合わせて 異なっている。&1オアキド&0は より簡単に作れ、より速く 、より安い。&1気まぐれサナ ギ&0と&1マナ送信機&0はレシピが 異なる。&1黒曜石&0を作るのに 使える&1ブレイズランプ&0は、 ロッドの代わりにパウダー を使う。高い草からスイカ やカボチャの種がドロップ する。花の肥料の作成数が 増え、そしていくつかのレ シピが追加される。
+botania.page.gardenOfGlass7=&1サトウキビ&0の作り方
+botania.page.gardenOfGlass8=&1スライムボール&0の作り方
+botania.page.gardenOfGlass13=&1プリズマリン&0の注入
+botania.page.gardenOfGlass9=この世界で直面するかもし れない問題は、&4ネザー&0への 侵入だ。しかし心配は無用 、前述の&1ブレイズランプ&0で &1黒曜石&0を作れる。これらの ランプを入手するため、&1フ ェル・パンプキン&0で&1ブレイ ズ&0を生み出すのは良い投資 かもしれない。<br>&1火打石&0は容易に入手できな いため、&1ファイアチャージ&0 でポータルを開く必要があ る。
+botania.page.gardenOfGlass11=出発エリアに存在する&1マナ の閃光&0は光を提供するだけ ではなく、&1苗木&0で&1マナの閃 光&0を右クリックすることで 、&1ボタニア植物辞典&0を失っ たプレイヤーが&1苗木&0とそれ を交換することを可能にす る。<br>これはプレイヤーが&1ボタニ ア植物辞典&0を持っていない 場合のみ可能。
+botania.page.gardenOfGlass12=そしてついに、道はエンド へ達する。
+
+# -- LEXICA BOTANIA
+botania.entry.lexicon=ボタニア植物辞典
+botania.tagline.lexicon=今貴様が読んでいるものだ！バカめ！
+botania.page.lexicon0=&1ボタニア植物辞典&0は物事に 関係する，あらゆる植物に 対する知識の貯蔵庫だ。し かしそれはすでに知ってい ることだろう。<br>あらゆる情報はここに載っ ている．便宜上，目の前の ブロックにたまたま項目が 存在する場合，&1ボタニア植 物辞典&0を手に持ってシフト ＋右クリックでその項目を 開くことができる。
+botania.page.lexicon3=&oイタリック体&rで書かれてい る項目は&4基本&0の項目である 。そこには、ボタニアをプ レイする上で基本となる知 識が収録されている．基本 の項目は他よりも優先すべ きであり、ほとんどのセク ションに数個含まれている ため、それらをまずは読み 込むといいだろう。
+botania.page.lexicon1=&1ボタニア植物辞典&0の作成
+botania.page.lexicon2=&1ボタニア植物辞典&0はタイト ルをカスタマイズできる。&1 金床&0において名前を変更す ると、カバーだけじゃなく タイトルも変更することが 可能だ。<br>辞典の版は&4ボタニア&0のバー ジョンと一致する。そして ええと、第４の壁について は気にしないでおこう。
+
+# -- MYSTICAL FLOWERS
+botania.entry.flowers=神秘的な花
+botania.tagline.flowers=研究の根源
+botania.page.flowers0=ワールドのあらゆる場所で 、いろんな種類の神秘的な 花につまずくかも知れない 。その花を見つめていても 、ほどほどの量の輝きを放 っている以外の発見は無い だろう。<br>それらの花には&416&0種類の 色が存在する。<br>&1花の肥料&0を用いると育てる ことも可能だ。(続く)
+botania.page.flowers1=見渡すかぎりの花々…
+botania.page.flowers2=神秘的な花からは&1神秘的な 花びら&0を摘み取る事ができ 、この花びらを使うと魔法 のアイテムや植物を作るこ とができる。<br>花びらを持って地面を右ク リックすると、&4花びらを埋 める&0事ができ、埋まった花 びらはパーティクルを発す る。<br>花びらは&1花の粉末&0に加工す る事ができ、これはよくあ る染料と同じようにつかう ことができる。
+botania.page.flowers3=花から花びらを摘み取る
+botania.page.flowers4=&1乳棒とすり鉢&0のクラフト
+botania.page.flowers5=花びらを粉末にすりつぶす。
+botania.page.flowers5.5=ありふれた花を粉末にすり つぶす。
+botania.page.flowers6=&1羊毛&0や&1カーペット&0に対し&1花 の粉末&0で右クリックすると 、粉末の色に着色する事が できる。<br>&1花の粉末&0を&1骨粉&0と混ぜあわ せると、別の種類の肥料を 作ることができる。この&1花 の肥料&0は近くに少量の&1神秘 的な花&0を咲かせることがで きる。花が足りない時に役 に立つだろう。
+botania.page.flowers7=花の肥料の作成．(任意の色)
+botania.page.flowers8=よくある花の染料も使用可
+botania.page.flowers10=背の高いタイプの&1神秘的な 花&0も存在する。&1ハサミ&0を使 わないと回収できないが、 普通の花の２倍の量の花び らを手に入れることができ る。しかし、染色するには 少し大きすぎるようだ。
+botania.page.flowers12=背の高いタイプの花は、&1神 秘的な花&0か&1埋もれた花びら&0 に&1骨粉&0を与えると、手に入 れることができる。<br>特定の色の花が足りなくな った時は、その色の花びら を埋めて&1骨粉&0を与えてやる といいだろう。
+botania.page.flowers11=もしもの時のために
+botania.page.flowers9=花びらはブロックにもできる.
+botania.page.flowers13=そしてその反対も。
+
+# -- PETAL APOTHECARY
+botania.entry.apothecary=花びらの調合所
+botania.tagline.apothecary=花を作るために使用する
+botania.page.apothecary0=ボタニストが価値ある植物 の生を授けるには、特別な 方法を使って植物に神秘的 なエネルギーを吹き込まな ければならない。<br>幸運にも、&1花びらの調合所&0 がそれを可能にする。
+botania.page.apothecary1=&1花びらの調合所&0.
+botania.page.apothecary2=このブロックは、ワールド に設置されて(&1水バケツ&0を 使って)水が注がれた時、 投げ込まれる&1神秘的な花び ら&0を受け入れ、エネルギー を放出する。<br>正しい花びらを投入し最後 に何らかの&1種&0を投入すると 、花を作成することができ る。<br>水バケツを投げ入れても、 水を容器に満たすことがで きる。
+botania.page.apothecary3=この方法で沢山の植物を作 ることができるので、もっ と知りたい人は、&4機能を持 つ花&0や&4マナを生成する花&0の 項目を参照してほしい。<br>&1花びらの調合所&0を何も持た ずにシフト右クリックする と、最後に投げ入れたアイ テムを回収することができ る。
+botania.page.apothecary4=&1水&0の代わりに&1溶岩&0を入れる と、ゴミ焼却所として機能 する。投入されたあらゆる アイテムを焼却する。<br>それに加えて、&1つる&0を投入 すると苔むした外見にする ことができる。
+botania.page.apothecary7=&1コンパレーター&0は調合所に 水が入っているかどうかを 検出することができる。<br>&1花びらの調合所&0は&1水バケツ&0 のドロップで水を注ぐこと が出来、&1ディスペンサー&0を 使うとバケツに水を汲むこ とができる。これを利用す ると容器に自動で水を供給 する機構を作ることが可能 だ。
+botania.page.apothecary6=最大効率で植物をクラフト したい人のために次のコツ を提供しよう。花をクラフ トして20秒以内に素手で右 クリックすると、インベン トリからアイテムを引きだ して投入することができる 。これは調合所の水を再投 入した場合にのみ使える。
+botania.page.apothecary5=&1花びらの調合所&0のクラフト
+
+# -- PURE DAISY
+botania.entry.pureDaisy=ピュアデイジー
+botania.tagline.pureDaisy=リビングウッド、リビングロックなどの作り手
+botania.page.pureDaisy0=&1ピュアデイジー&0はボタニス トにとってもっとも基本的 な花であるだけでなく、も っとも重要な花でもある。<br>この花は隣接する&1原木&0や&1石&0 を浄化し、次のページにあ るように、&1リビングウッド&0 や&1リビングロック&0に変換す る。これらはクラフトで使 用するものだ。
+botania.page.pureDaisy1=&4 1分&0くらい待ってみましょう…
+botania.page.pureDaisy2=&1リビングウッド&0 は小枝にすることができる
+botania.page.pureDaisy4=他の数種類のブロックも花 の周りに置くと浄化するこ とができる。リビングブロ ックほど独特でもないし、 不可欠でもないが、これが 役に立つかもしれない。&1ネ ザーラック&0は&1丸石&0に変換で き、&1ソウルサンド&0は&1砂&0、&1氷&0 は&1氷塊&0、&1水&0は&1雪&0に変換でき る。
+botania.page.pureDaisy3=あなたの冒険を始めるため の白いキャンバス
+
+# -- WAND OF THE FOREST
+botania.entry.wand=森の杖
+botania.tagline.wand=必要不可欠なマルチツール
+botania.page.wand0=ボタニストにとって一般的 なマルチユースの道具とい えば、&1森の杖&0だ。<br>この杖は、任意の色の2片 の&1神秘的な花びら&0を数本の&1 リビングウッドの小枝&0に結 びつけたもので、さまざま なタスクで要求されるもの だ。
+botania.page.wand1=この杖は２つのモードを持 っている。&4接続モード&0と&4機 能モード&0だ。&4接続モード&0で は、選択可能なブロックを シフト右クリックすること で選択できる。別の場所を シフト右クリックすること で、それらの２つのブロッ クをつなげることができる 。&4機能モード&0では単純に、 シフト右クリックで別のこ とをする。<br>２つのモードは空中に向か ってシフト右クリックをす ることで自由に切り替えら れる。
+botania.page.wand2=杖がどのブロックにも関連 付けられてない時、シフト 右クリックをすることで、 ブロックを回転させること ができる。回転はクリック した面を軸として行われる 。<br>例えば、&1チェスト&0の上面を クリックすると、チェスト を回転させることができる 。大抵のブロックは回転で きるはずだ。
+botania.page.wand3=使用する花が杖の色だ
+
+# -- RUNIC ALTAR
+botania.entry.runeAltar=ルーンの祭壇
+botania.tagline.runeAltar=上位の花やアイテムのためにルーンをつくる
+botania.page.runeAltar21=ルーンの作成は複雑な植物 魔術を進めるために必要だ 。最初にもっとも重要なこ とは、この種のクラフトに はかなりの&4マナの扱い&0に関 する知識が必要だというこ とだ。さらにプロセスを進 める前に、&1ボタニア植物辞 典&0の(&oイタリック体&rで書か れている)重要な項目を読 み通すことをで、理解が深 まるだろう。
+botania.page.runeAltar0=&1ルーン&0は複雑な魔術装置や 魔法花にとって極めて重要 な構成素材だ。<br>これらを作成するには、&1ル ーンの祭壇&0を必要とする。<br>この&1ルーンの祭壇&0を利用す るためには、右クリックや 単に投げ入れることで、ル ーンの構成素材を設置する 。
+botania.page.runeAltar1=&1マナスプレッダー&0を祭壇に 向けて、&4マナ&0を祭壇に発射 することができる状態にす る。<br>祭壇が十分な&4マナ&0を受け取 ったことは、見たらわかる はずだ。それから、&1リビン グロック&0を祭壇の上にドロ ップ、あるいは右クリック し、さらに森の杖を使用す ることで、ルーンを集める ことができる。
+botania.page.runeAltar2=&1ルーンの祭壇&0の作成
+botania.page.runeAltar3=全部で16種類の&1ルーン&0が 存在する。<br>最も基本的で初歩的なルー ンは&4４元素&0から名付けられ ている。次のルーンは&4四季&0 から、そして最上位のルー ンは&4七つの大罪&0から名付け られている。それとは別に&1 マナのルーン&0も存在する。
+botania.page.runeAltar20=&4ルーンの祭壇&0がマナを受け 入れてない状態で、何も持 たずにシフト右クリックす ると、最後に入れたアイテ ムを取り除くことができる 。<br>最後に、&1コンパレーター&0を 祭壇につけると、祭壇がマ ナを受け入れている状態の 時、強度&11&0の信号を出し、 ルーンのクラフト準備がで きた時に強度&12&0の信号をだ す。
+botania.page.runeAltar22=&1ルーンの祭壇&0の素材として 使うルーンは、触媒として 働き、作成が完了すると戻 ってくる。<br>&1花びらの調合所&0と同様に、 レシピが完了したあとで何 も持たない状態で右クリッ クすると、最後のレシピの アイテムが補完される。こ れは大量作成に便利だ。
+botania.page.runeAltar4=&1水のルーン&0
+botania.page.runeAltar5=&1地のルーン&0
+botania.page.runeAltar6=&1空気のルーン&0
+botania.page.runeAltar7=&1火のルーン&0
+botania.page.runeAltar8=&1春のルーン&0
+botania.page.runeAltar9=&1夏のルーン&0
+botania.page.runeAltar10=&1秋のルーン&0
+botania.page.runeAltar11=&1冬のルーン&0
+botania.page.runeAltar12=&1マナのルーン&0
+botania.page.runeAltar13=&1色欲のルーン&0
+botania.page.runeAltar14=&1貪食のルーン&0
+botania.page.runeAltar15=&1貪欲のルーン&0
+botania.page.runeAltar16=&1怠惰のルーン&0
+botania.page.runeAltar17=&1憤怒のルーン&0
+botania.page.runeAltar18=&1嫉妬のルーン&0
+botania.page.runeAltar19=&1高慢のルーン&0
+
+# - FUNCTIONAL FLOWERS
+# -- BERGAMUTE
+botania.entry.bergamute=ベルガミュート
+botania.tagline.bergamute=音を吸収する
+botania.page.bergamute0=牧場主の役割を担ったこと がある誰もが、動物の群れ から生じる耳障りな騒音の 痛みを知っている。<br>&1ベルガミュート&0は自身の近 くで放出された音エネルギ ーを吸収し、僅かなマナに 変換して、周囲へ放出する 。吸収自体は&4マナ&0を必要と しない。
+botania.page.bergamute1=もう歌しか聞こえない
+
+# - GENERATING FLOWERS
+# -- AN INTRODUCTION TO GENERATION
+botania.entry.gIntro=マナの生成について
+botania.tagline.gIntro=資源を消費してマナを生み出す花
+botania.page.gIntro0=&4マナの生成&0は、全てのボタ ニストにとって最優先すべ きことだ。幸運にも、多様 な&4マナを生み出す花&0がその ために働いてくれる。<br>これらの花は名前のとおり 受動的もしくは能動的に&4マ ナ&0を生み出す。後者は外部 から干渉しない限り無限で はない資源を必要とするこ とを意味する。
+botania.page.gIntro1=全ての&4マナを生み出す花&0は &4機能を持つ花&0と同様に少量 の&4マナ&0を貯めるバッファを 持つ。<br>&4マナ&0測定値の読み方の基本 ルールとして、&1森の杖&0で右 クリックするとマナの測定 値を更新できる。<br>このマナは最も近くにある &1マナ送信機&0へ貯められる。
+botania.page.gIntro2=これらの花はどの&1マナ送信 機&0へ&4マナ&0を入れるべきかを 覚えている。これは重要な ので覚えておいてほしい。 花は設置されたときに最も 近くにあるマナ送信機にの みマナを貯める。他のマナ 送信機へは貯めない。&4接続 モード&0の杖を使えば他のマ ナ送信機に紐付けられる。
+botania.page.gIntro3=最初の&4マナを生み出す花&0の 採取は、非常に簡単な作業 だ。駆け出しボタニストで あるあなたには、&1エンドフ レイム&0と&1ハイドロエンゲス&0 の2つの選択肢がある。<br>&4マナ&0を生産するために、前 者は&1石炭&0や他の燃料を使う 。後者は同じ作業のために &1水&0を使い、無料で&4マナ&0を生 む代わりに現実世界の1時 間が経つと枯れる。
+
+# -- ENDOFLAME
+botania.entry.endoflame=エンドフレイム
+botania.tagline.endoflame=燃料からのマナ
+botania.page.endoflame0=&1エンドフレイム&0は非常に初 歩的な&4マナを生み出す花&0で 、近くにドロップされたか まど燃料になるアイテムや ブロックを吸収し (ただし 一度に1つだけ) 燃料がな くなるまでの間、マナを生 成するために燃える。<br>1つのアイテムを燃焼させ るためにかかる時間は、か まどのおよそ半分だ。
+botania.page.endoflame1=しかし少し注意点があり、 &1エンドフレイム&0は副産物を 返す物は燃やさない。例え ば空の&1バケツ&0を副産物とし て返す&1溶岩バケツ&0だ。<br>さらに、花は&1石炭ブロック&0 4個分の燃料しか保持でき ない。それより燃焼時間が 長い個々の燃料が使われる と、最高効率は得られない だろう。
+botania.page.endoflame3=&1エンドフレイム&0は多くの場 合ボタニストが最初に自動 化する&4能動的にマナを生成 する花&0としてふさわしい。 いつまでも手動のままでい ないのがベストだろう。花 はドロップされたアイテム を必要とするので、&1開けた 木箱&0 (&4自然の器具&0のセクシ ョンにある) とちょっとし た仕組み (タイマーや感圧 板) が最適だろう。
+botania.page.endoflame2=&o放火が役立つとき&r。
+
+# -- HYDROANGEAS
+botania.entry.hydroangeas=ハイドロエンゲス
+botania.tagline.hydroangeas=水からのマナ
+botania.page.hydroangeas0=&1ハイドロエンゲス&0は液体を 使ってマナを生成する。彼 らは周囲3x3の範囲で同じ 高さにある&1水源&0を吸い上げ 、&4マナ&0を生成する。生産量 は&1エンドフレイム&0に匹敵す る。また、&4雨&0の間は速く機 能するようだ。<br>&1ハイドロエンゲス&0は儚い花 であり、現実世界の1時間 で枯れる。
+botania.page.hydroangeas2=簡単な&1ハイドロエンゲス&0の 施設
+
+# -- THERMALILY
+botania.entry.thermalily=サーマリリー
+botania.tagline.thermalily=溶岩からのマナ
+botania.page.thermalily0=&1サーマリリー&0は&1ハイドロエ ンゲス&0の&1溶岩&0版だ。予想さ れるように、花は周囲の同 じ高さにある&1溶岩&0を吸収し 、&4マナ&0を生成する。<br>&1溶岩&0を吸収した後、約45秒 の間&4マナ&0を生成する。その 後、再び&1溶岩&0を吸収できる ようになる前に、約5分の クールダウンを必要とする 。
+botania.page.thermalily2=アクティブな期間に&1サーマ リリー&0が生成する&4マナ&0の量 は、極めて高い。クイック ブーストが必要な場合、非 常に有用だ。<br>”クールダウン”期間中は、 花が&4溶岩&0を吸収しても&4マナ&0 を生成しない上に、最初か らカウントしなおすのでそ こから5分待つ必要がある 。
+botania.page.thermalily3=&1溶岩&0を&1ディスペンサー&0で配 置することは確かに可能だ が、&4ネザー&0や地下深くから それらを自動で集め、運ぶ のは全く別の話だ。<br>このように、&1サーマリリー&0 は”半自動化可能”な花に 分類される。
+botania.page.thermalily1=&o最も難しい花&r。
+
+# -- ROSA ARCANA
+botania.entry.arcanerose=ローザ・アルカナ
+botania.tagline.arcanerose=経験値からのマナ
+botania.page.arcanerose0=&4経験値&0は魔法の一形態だ。 &1ローザ・アルカナ&0は周囲の 地表のプレイヤーの経験値 を吸収して、&1マナ&0に変える 。<br>プレイヤーがいなくても、 経験値オーブから経験値を 集めることもできる。しか しながら、この方法は効率 が悪く、生産性の低いやり 方だ。
+botania.page.arcanerose1=&oこの花が植えられたとき、 コイントスを1回行う&r。
+
+# -- MUNCHDEW
+botania.entry.munchdew=マンチデュー
+botania.tagline.munchdew=葉からのマナ
+botania.page.munchdew0=自然エネルギーの&4マナ&0を、 他の生き物から生み出すの はかなりよいプロセスだ。 &1マンチデュー&0を使うと、近 くの&1葉ブロック&0をむしゃむ しゃと食べ尽くし、&4マナ&0に 変換する。<br>注意すべきことは、苗木や 他のアイテムが葉ブロック からドロップすることはな い。
+botania.page.munchdew1=この花は1本の木からかなり のマナを生成する。<br>しかしながら、全ての葉を 食べ尽くした後、しばらく 休憩となり、1分以上経た ないと再び食べられない。
+botania.page.munchdew2=&oいただきます～&r
+
+# -- ENTROPINNYUM
+botania.entry.entropinnyum=エントロピニウム
+botania.tagline.entropinnyum=TNTからのマナ
+botania.page.entropinnyum0=&4マナ&0の爆風を起こすには、 実際には、近くの爆風が必 要になる場合がある。&1エン トロピニウム&0の近くで&1TNT&0 を点火すると、それが水に 落ちない限り、爆風により 生じたエントロピーを吸収 し、多量の&4マナ&0を生むと同 時にダメージを無効化して しまう。最後に、爆風を吸 収するためには、花が&4マナ&0 を全く蓄積していないこと 。さもなくば変換プロセス は失敗するだろう。
+botania.page.entropinnyum1=&oクールガイは爆発に 振り返らない&r。
+
+# -- KEKIMURUS
+botania.entry.kekimurus=ケキムラス
+botania.tagline.kekimurus=ケーキからのマナ
+botania.page.kekimurus0=&1ケーキ&0は美味しい。誰もが 愛する。花も例外ではない 。<br>&1ケキムラス&0もそんな&1ケーキ&0 愛好家で、近くにある物は 全部食べてしまうだろう。 栄養は&4マナ&0に変換される。
+
+# -- GOURMARYLLIS
+botania.entry.gourmaryllis=ガーマリリス
+botania.tagline.gourmaryllis=食物からのマナ
+botania.page.gourmaryllis0=&1ガーマリリス&0は腹ペコな花 だ。手近の食べ物を全部食 べてしまい、&4マナ&0に変換す る。<br>注意すべきことは、1度に 消化できる食べ物は1つだ けで、それが終わった時に &4マナ&0を生成する。もし他の 食べ物を見つけるとそれも 食べ尽くしてしまうが、そ こからマナを生成しない。
+botania.page.gourmaryllis1=消化する時間は栄養価に依 存する。分かりやすく言え ば、満腹度の回復量に依存 する。<br>そのため、&1ステーキ&0は4秒 で消化するし、&1リンゴ&0は2 秒だ。&1パン&0は2.5秒となる 。
+botania.page.gourmaryllis2=生成する&4マナ&0の量もこの値 を使う。しかし、より回復 量の高い食べ物があるよう で、それはより効率的とな る。例えば、1枚の&1ステー キ&0は2つの&1リンゴ&0よりも多 くの&1マナ&0になる。総量も、 1秒あたりの量も、いずれ も多くなる。
+botania.page.gourmaryllis3=&o私たちの新しい住人のため の鍋&r。
+
+# -- NARSLIMMUS
+botania.entry.narslimmus=ナースライムス
+botania.tagline.narslimmus=スライムからのマナ
+botania.page.narslimmus0=宇宙の未知のパワーの一種 が、&1スライム&0をランダムな 場所に生み出すようだ。人 はそれを&4スライムチャンク&0 と呼ぶ。&1ナースライムス&0は そのエネルギーを集められ る花だ。未知のパワーで生 み出された&1スライム&0のそば に設置されると、それを破 壊し、エントロピーから&4マ ナ&0を生成する。大きな&1スラ イム&0から、より多くの&4マナ&0 が作られる。また、少しベ タベタしている。
+botania.page.narslimmus1=&oゆっくりしていってね&r。
+
+# -- SPECTROLUS
+botania.entry.spectrolus=スペクトロラス
+botania.tagline.spectrolus=羊毛からのマナ
+botania.page.spectrolus0=&1スペクトロラス&0は様々な色 合いの&1羊毛&0を得に好む花だ 。近くにドロップされた全 ての&1羊毛&0ブロックを吸収し 、&4マナ&0を生み出す。<br>しかしながら、注意点があ る。それは欲しい色を選り 好みする。白から始まり、 1つの&1羊毛&0を吸収するたび スペクトル内の次の色に変 わっていく。
+botania.page.spectrolus1=それは周囲の全ての&1羊毛&0を 消費するが、それが欲しが る色の羊毛でしかマナを生 成しない。そのためデタラ メに&1羊毛&0を投げつけるのは もったいない。<br>それが次に吸収する適切な 色は、&1森の杖&0を花にかざす と分かる。
+botania.page.spectrolus2=&o虹を味わおう&r。
+
+# -- RAFFLOWSIA
+botania.entry.rafflowsia=ラフロージア
+botania.tagline.rafflowsia=花からのマナ
+botania.page.rafflowsia0=&1ラフロージア&0の機能は&1ケキ ムラス&0と似ているが、&1花び らの調合所&0でつくられた&1人 工の花&0を使う。近くの地面 にあるそれらを探し、破壊 して&4マナ&0を生成する。<br>しかしながら、この手続き によりリターンが減ってい く。最も効果的に使用する ために、同じ種類の花を連 続して複数回破壊させるべ きではない。
+botania.page.rafflowsia1=&o新しい夜明け、とも言える&r 。
+
+# -- DANDELIFEON
+botania.entry.dandelifeon=ダンデライフオン
+botania.tagline.dandelifeon=命からのマナ
+botania.page.dandelifeon0=&1ダンデライフオン&0は心臓の 弱い人にはお勧めできない 花だ。<br>ボタニストのツールベルト の中のマナを生み出す花の うちで最も有用な花となる 可能性があるが、働かせる のが最も困難な花の1つで もある。
+botania.page.dandelifeon1=この花は&4ライフゲーム&0とし て知られるセルオートマト ンを利用する。この手順の ための領域は、&1ダンデライ フオン&0自身を中心とした 25x25の正方形だ。<br>花がレッドストーン信号を 受けている間、1秒に2ステ ップずつゲームを進める。
+botania.page.dandelifeon2=ゲームは&4細胞&0の概念で実行 される。25x25の領域は、 25の細胞が25列並んだグリ ッドとみなせる。<br>細胞は生存と死亡の2つの 状態を持つ。&1細胞ブロック&0 (後述) がある細胞は生存、 何もない細胞は死亡である 。各細胞の周囲8マスを&4隣 接細胞&0と呼ぶ。
+botania.page.dandelifeon3=ゲームの各ステップでは、 以下の変化が起こる: <br>&41)&0生存細胞は、周囲に生存 細胞が2～3個隣接していな ければ、死ぬ。 <br>&42)&0生存細胞は、周囲に生存 細胞が2～3個隣接していれ ば、次ステップも生存。<br>&43)&0死亡細胞は、生存細胞が ちょうど3隣接していれば 生存細胞になる。
+botania.page.dandelifeon4=全ての遷移は同時に起こる 。<br>以上を踏まえつつ、&1ダンデ ライフオン&0の手順には以降 のページで挙げているとお り&4ライフゲーム&0の典型的な シミュレーションにはない いくつかの追加ルールがあ る。
+botania.page.dandelifeon5=全ての細胞は0から始まる 世代を持つ。生存細胞の周 囲に2～3の生存細胞があっ て生存し続ける時、1世代 増える。死亡細胞が生存細 胞に変わる時、新しい生存 細胞の世代は、最も世代の 高い隣人の世代+1になる。
+botania.page.dandelifeon6=第二に、&1ダンデライフオン&0 の周囲3x3には、細胞が住 めない。この区画にできる はずだった生存細胞は、&4マ ナ&0に変わる。生まれるはず だった生存細胞の世代が高 いであるほど多くの&4マナ&0を 生む。0世代の細胞は&4マナ&0 を生産しない。100世代以 上のセルは100世代として マナを生む。
+botania.page.dandelifeon10=中心の3x3区画で生存細胞 が吸収されると、盤上の他 の細胞は全て死ぬ。<br>他のいくつかの制限は細胞 に適用され、例えば2つの 異なる&1ダンデライフオン&0が 同じ細胞に作用する場合、 細胞は死ぬ。最後に、&1ダン デライフオン&0以外の手段で 移動された細胞は、死ぬ。
+botania.page.dandelifeon7=&1細胞ブロック&0は&1サボテン&0、 &1ニンジン&0、&1ジャガイモ&0、そ して&1ビートルート&0で作られ る。非常に脆く、一度置い たら回収できず、&1ピストン&0 でも動かせない。また、死 亡細胞の周囲に3つの生存 細胞が隣接していても、空 気ブロック以外の場所には 生成されない場合がある。<br>&1ダンデライフオン&0の効果範 囲でなければ、普通の建材 として機能する。
+botania.page.dandelifeon8=&oCellCraft^2&r。
+botania.page.dandelifeon9=&1細胞ブロック&0の作り方
+
+# - NATURAL APPARATUS
+
+# -- ANIMATED TORCH
+botania.entry.animatedTorch=動く松明
+botania.tagline.animatedTorch=浮遊レッドストーントーチでコンパクトなシステム
+botania.page.animatedTorch0=&1動く松明&0は、魔法的な自律 性のきらめきをまとって浮 遊する&1レッドストーントー チ&0に過ぎない。<br>トーチが置かれると水平方 向を向き、その向きへ信号 を出力する。素手でシフト 右クリックすると90度回転 し、新しい向きへ信号を出 力するようになる。
+botania.page.animatedTorch1=初期状態ではトーチがトリ ガーされる度に180度回転 し、T型フリップフロップ ラッチとして働く。<br>トーチをトリガーするには &4マナ放射線&0を当てるか、隣 接させた&1浮遊している砂時 計&0の反転を使う。いずれに してもトーチに指定の回転 を行わせる。
+botania.page.animatedTorch2=トーチに&1森の杖&0を使うとモ ードを変更できる。初期モ ードは前ページで説明した &4切り替え&0モードだ。<br>他の2つのモードは、毎回 90度ずつ回転させる&4回転&0モ ードと、ランダムな向きに 回転させる&4ランダム&0モード だ。
+botania.page.animatedTorch3=倒れてしまって起き上がれ ない
+
+# - MYSTICAL INSTRUMENTS
+# -- WORLDSHAPER's ASTROLABAE
+botania.entry.astrolabe=地形成形者のアストロラーベ
+botania.tagline.astrolabe=平面の作成を補助する道具
+botania.page.astrolabe0=&1地形成形者のアストロラー ベ&0は、大量のブロックを非 常に素早く設置するための 手持ち道具だ。<br>始めるには、アストロラー ベを持って世界のブロック に向けてシフト右クリック する。これで設置するブロ ックが設定される。<br>アストロラーベを持ち、空 中に向けてシフト右クリッ クすると、設置するブロッ クの数を変更できる。
+botania.page.astrolabe1=アストロラーベを持ちブロ ックを見ると、右クリック したときに設置されるブロ ックをプレビューできる。<br>表示された壁や床を作成す るには、&4マナ&0に加えて、設 置する各ブロックが使われ る。各ブロックは使用者の インベントリか、もしくは &1地殻変動の杖&0のようなアイ テムにブロックを供給でき るアイテム (例えば&1深淵の 杖&0、&1エンダーの手&0など) か ら使われる。
+botania.page.astrolabe2=壁を建て、世界を創ろう
+
+# - ENDER ARTEFACTS
+
+# - BAUBLES AND ACCESSORIES
+# -- AN INTRODUCTION TO BAUBLES
+botania.entry.bIntro=装飾品 (Baubles) について
+botania.tagline.bIntro=力を提供するアクセサリー
+botania.page.bIntro0=一般的に&4トリンケット&0や&4チ ャーム&0とも呼ばれる&4装飾品  (Baubles) &0は、着用すると 多彩な効果を提供する装備 の一部だ。<br>それらを装備するには、&4B&0 (設定可能) キーを押せば よい。1つの&4アミュレット&0 スロット、2つの&4指輪&0スロ ット、1つの&4ベルト&0スロッ トがある。
+botania.page.bIntro1=&4装飾品の画面&0
+botania.page.bIntro2=装飾品 (Baubles) のシステ ムを利用する、 &4Thaumcraft&0 やその他のMODがインスト ールされている場合、この インベントリは様々なMOD の間で共有されることに注 意してほしい。
+
+# -- COSMETIC BAUBLES
+botania.entry.cosmeticBaubles=見た目装飾品
+botania.tagline.cosmeticBaubles=力を提供しないアクセサリー
+botania.page.cosmeticBaubles0=プレイヤーが装備する装飾 品のスタイルを変えたり加 えたりするために、豊富な &1見た目装飾品&0を使用可能だ 。これらはそのままアミュ レットスロットに装備する こともできるし、クラフト グリッドで他の&4装飾品&0の隣 に置いてクラフトすること で装飾品の&4見た目上書き&0も できる。&4見た目上書き&0を取 り消すには、装飾品を再度 クラフティンググリッドに 置けばよい。
+botania.page.cosmeticBaubles1=これらの作成は、&1マナが注 入された糸&0に特定の花びら の色を織り込むという興味 深い方法で行われる。作成 されたアイテムの種類は、 色とは関係ないようだ。<br>これが実際どういう仕組み かはあまり知られておらず 、これを思いついた人はよ りよい素材や何かを使おう と思わなかったのだろうか 。
+botania.page.cosmeticBaubles4=不愉快です
+botania.page.cosmeticBaubles11=傘を傾けすぎ
+botania.page.cosmeticBaubles12=隣人部
+botania.page.cosmeticBaubles13=にゃー
+botania.page.cosmeticBaubles18=半年ROMれ
+botania.page.cosmeticBaubles20=激レア
+botania.page.cosmeticBaubles28=俺を誰だと思っていやがる ！
+botania.page.cosmeticBaubles31=スペインの一部ではない
+
+# -- TINY PLANET
+botania.entry.tinyPlanet=小さな惑星
+botania.tagline.tinyPlanet=あなたの周りを飛ぶマナ放射線を送信する
+botania.page.tinyPlanet0=&1小さな惑星&0は、重力の特性 を持つ&4装飾品&0で、装備して いる間、&1小さな惑星&0は着用 者へ向かう近くの&4マナ放射 線&0を引き寄せ、周囲を周回 させるだろう。<br>いくつかの&1石&0で重量を増や すことで、それを世界に配 置することもでき、同じ効 果を持つ。
+botania.page.tinyPlanet2=冥王星というより惑星だ
+
+# -- BAND OF MANA
+botania.entry.manaRing=マナバンド
+botania.tagline.manaRing=指輪型マナタブレット
+botania.page.manaRing0=&1マナタブレット&0を&1マナスチ ール&0と組み合わせれば、身 につけやすい&4指輪&0となる。 それを作るために使ったタ ブレットと全く同様の機能 を持つが、&4装飾品&0として身 につけられる。<br>&1テラスチール&0を使ってアッ プグレードすれば、約4倍 の&4マナ&0を保存させられるよ うになる。
+botania.page.manaRing1=指輪の作り方
+botania.page.manaRing2=指輪のアップグレード
+
+# -- BAND OF AURA
+botania.entry.auraRing=オーラバンド
+botania.tagline.auraRing=指輪で受動的なマナ生成
+botania.page.auraRing0=&1オーラバンド&0は、典型的な &1マナバンド&0とは少し異なっ たものだ。&4マナ&0を蓄積する 代わりに、装備している間 、ゆっくりとそれを生成し て、装着者のインベントリ にある&4マナ&0を貯められるア イテムに蓄積する。<br>&1テラスチール&0を使ってアッ プグレードすれば、かなり 速く&4マナ&0を生成できるよう になる。
+botania.page.auraRing1=指輪の作り方
+botania.page.auraRing2=指輪のアップグレード
+
+# -- SOUJOURNER'S SASH
+botania.entry.travelBelt=ソジャーナのたすき
+botania.tagline.travelBelt=速く動き、高く跳び、歩行を改善する
+botania.page.travelBelt0=地形を横断することは時々 困難であることが知られて いる。&1ソジャーナのたすき&0 は&4ベルト&0スロットに装備可 能で、装備している間、移 動速度が増加し、より高く 跳び、落下ダメージを軽減 する。この力は少しの&4マナ&0 を消費する。<br>最後に、スニーク中でない 場合、ジャンプせずに1ブ ロックの高さの段差を容易 に歩けるようになる。
+
+# -- TECTONIC GIRDLE
+botania.entry.knockbackBelt=地殻のガードル
+botania.tagline.knockbackBelt=全てのノックバックダメージを防ぐ
+botania.page.knockbackBelt0=&1地殻のガードル&0は着用時に 、地殻運動の力を利用して 、着用者への攻撃による全 ての&4ノックバック&0を無効化 する。
+botania.page.knockbackBelt1=動かないスティーブ
+
+# -- SNOWFLAKE PENDANT
+botania.entry.icePendant=雪片のペンダント
+botania.tagline.icePendant=氷を張って水面を歩く
+botania.page.icePendant0=&1雪片のペンダント&0は、凍結 エネルギーと共鳴する&4装飾 品&0で、着用している間、足 下の高さの静止した&1水&0ブロ ックが&1氷&0に変換される。<br>&1氷&0は、着用者がその場所を 離れるとすぐに溶けてしま う。最後に、このお守りは 着用者がスニーク中か、完 全に水没している場合、何 も凍らせない。
+botania.page.icePendant1=雪だるまつくろう？
+
+# -- PYROCLAST PENDANT
+botania.entry.lavaPendant=火砕物のペンダント
+botania.tagline.lavaPendant=多少の火炎耐性
+botania.page.lavaPendant0=&1火砕物のペンダント&0は、低 熱を吸収する&4装飾品&0で、着 用している間、着用者が炎 上しても、&1炎&0、&1溶岩&0、その 他燃焼を誘発するものの上 に直接立っていなければ鎮 火する。
+botania.page.lavaPendant1=ハナコはこれらの1つを使 っていた可能性がある
+
+
+# -- INVISIBILITY CLOAK
+botania.entry.invisibilityCloak=透明マント
+botania.tagline.invisibilityCloak=名前の通り
+botania.page.invisibilityCloak0=&1透明マント&0は名前の通り説 明不要。<br>この装飾品は&4胴&0スロットに 装備し、インベントリから &4マナ&0を消費し、装飾品も見 えなくする。
+botania.page.invisibilityCloak1=お前は魔法使いだ、スティ ーブ
+
+# -- CIRRUS AMULET
+botania.entry.cloudPendant=巻雲アミュレット
+botania.tagline.cloudPendant=二段ジャンプできるようになる
+botania.page.cloudPendant0=&1巻雲アミュレット&0は、&4アミ ュレット&0スロットに装備す る装飾品だ。<br>着用している間、&4二段ジャ ンプ&0の能力が与えられる。 二段目のジャンプをした時 、現在の全ての累積落下運 動量と、落下から生じるダ メージを一旦無効にする。
+botania.page.cloudPendant1=全てはクラウドにある
+
+# -- NIMBUS AMULET
+botania.entry.superCloudPendant=乱雲アミュレット
+botania.tagline.superCloudPendant=三段ジャンプできるようになる
+botania.page.superCloudPendant0=&1乱雲アミュレット&0は、&1ガイ アの魂&0の力が込められた&1巻 雲アミュレット&0の上位版だ 。着用者は&4三段ジャンプ&0で きるようになる。
+botania.page.superCloudPendant1=魔法 > 物理
+
+# -- THIRD EYE
+botania.entry.thirdEye=第三の眼
+botania.tagline.thirdEye=全てのモブを見る
+botania.page.thirdEye0=&1第三の眼&0は、&4胴&0スロットに 装備する、ある種の奇妙な 感覚補助具だ。<br>着用している間、いくらか の&4マナ&0を消費して、近くの モブがハイライトされて壁 越しに見ることができる。
+botania.page.thirdEye1=心ではなく位置を読む
+
+# -- BENEVOLENT GODDESS' CHARM
+botania.entry.goddessCharm=慈悲深き女神のお守り
+botania.tagline.goddessCharm=爆発での地形破壊を防ぐ
+botania.page.goddessCharm0=&1慈悲深き女神のお守り&0は防 御的な装飾品で、名前のと おり&4お守り&0スロットに装備 できる。<br>着用している間、着用者の インベントリからいくらか の&4マナ&0を消費して、着用者 の近くで起きた爆発が世界 のブロックにダメージを与 えないようにする。
+botania.page.goddessCharm1=爆破厳禁！
+
+# - ALFHOMANCY
+# -- THE PORTAL TO ALFHEIM
+botania.entry.aIntro=アルフヘイムへのポータル
+botania.tagline.aIntro=旅の次の段階へ...
+botania.page.aIntro0=かつて&4エルフ&0は我々&4マイン クラフター&0と世界を共有し ていたと言われている。原 因は不明だが、彼らは彼ら の世界、&4アルフヘイム&0へと 追放されたのだろうか。<br>二つの世界の間の隔たりを 埋める事が試みられ、その ためのポータルを作る方法 が発明された。
+botania.page.aIntro1=このポータルを作成するの は簡単ではなく、かなりの 数の精巧な素材を必要とす る。必要なものは以下の通 り:&1リビングウッド&0ブロッ ク8個、&1光り輝くリビング ウッド&0ブロック3個、&1エル フの出入り口の核&0 (後述) 1個、そして最低2つの&1マ ナプール&0と2本の&1ナツーラ の支柱&0 (後述) 。
+botania.page.aIntro2=&1エルフの出入り口の核&0の作 り方
+botania.page.aIntro3=&1ナツーラの支柱&0の作り方
+botania.page.aIntro4=アルフヘイムポータル
+botania.page.aIntro5=&1ナツーラの支柱&0の真下に&1マ ナプール&0を置いたものを、 最低2つ、核の周囲11x11 の領域に配置する必要があ る。ポータルを開くには、 単に&1森の杖&0で核を右クリッ クすればよい。<br>ポータルを開くために、プ ールにかなりの量の&4マナ&0を 貯めておく必要がある。コ ストはそれら全ての間で分 割される。
+botania.page.aIntro6=ポータルはアイテムを送る ことができるようだが、や り取りを成功させるために &4マナ&0を必要とする。ポータ ルを開くのと同様に、コス トは全てのプールの間で分 割される。また、接続は生 物が通過できるほど強くは ないため、&4アルフヘイム&0へ 飛び込むのは忘れることだ 。
+botania.page.aIntro7=この辞典に記載された&1アル フヘイム&0に関する情報は、 この項目だけである。それ はこの世界で失われた話題 のようだ。<br>&4エルフ&0にこれを見せれば有 益さを証明するかもしれな い。おそらく彼らは有用に なり得る知識を共有するこ とができる。
+
+# -- A MESSAGE FROM ELVEN GARDE
+botania.entry.elfMessage=エルフの番人からのメッセージ
+botania.tagline.elfMessage=確かにメッセージだ、うん
+botania.page.elfMessage1=&oこんにちは。我々は、我々 のポータルが他の世界から 開かれたことに気づきまし た。それは非常に衝撃的な ニュースです。あなたの世 界の知識の集積をご提供い ただき、誠にありがとうご ざいます。おかげさまで、 我々がそこから離れてから 何が起こったかを知ること ができました。しばらくぶ りです。上手くいっている ようで何よりです。
+botania.page.elfMessage2=&oエルフの番人の最高評議会 で議論した結果、我々はあ なたと協力することに決め ました。 "ボタニア植物辞 典" はあなたの世界の素材 を多く示してくれました。 それらは我々の土地には存 在しないため、是非とも入 手したいと切望しています 。
+botania.page.elfMessage3=&o既にご存じの通り、あなた が確立している接続はかな り弱く、生き物は通過する ことができません。しかし ながら、これには良い面も あり、接続が双方の世界の 時間に影響することで同期 を保てなくなっています。 それが、あなたの本がすぐ に戻ってきた理由です。
+botania.page.elfMessage4=&oマナやその他の魔術的なエ ネルギーについては十分な 蓄えがあり、こちら側のポ ータルが閉じる心配はあり ません。双方の文明の進歩 のために、あなたに不足し ている資源と引き替えで、 我々に不足しているあなた の世界の資源のセットを受 け取ることを誓います。
+botania.page.elfMessage5=&o我々は、我々の世界から提 供できる知識の素晴らしい セットをまとめるために、 最高の書記を割り当てる権 利を得ました。あなたの知 識を探すのと同じように、 あなたの辞典でそれを探せ ます。あなたがそれに価値 を見出し、我々の素材に投 資する気になっていただけ ればと願います。
+botania.page.elfMessage6=&o最後に、大事なことなので 覚えておいてほしいのです が、我々が取り引きを保証 していない物を送っていた だく場合、我々はそれを贈 り物だと思って頂戴いたし ますので、あらかじめご了 承ください。我々はあなた と資源を交換することを楽 しみにしています。<br>よろしくお願いします。エ ルフの番人の最高評議会よ り。
+
+# -- THE RESOURCES OF ALFHEIM
+botania.entry.elfResources=アルフヘイムの資源
+botania.tagline.elfResources=ゲートを越えるもの
+botania.page.elfResources0=&4アルフヘイム&0には、非常に 多様な精巧な資源がある。 しかし悲しいことに、それ らのほとんどは極度に不足 しており、様々な氏族間の 競争のため入手困難だ。エ ルフはいくつかの資源の交 易に興味を持っている。例 えば、&1ドリームウッド&0、&1エ レメンチウム&0、&1ピクシィダ スト&0、&1ドラゴンストーン&0な ど、彼らの土地に特有の資 源だ。
+botania.page.elfResources1=&1ドリームウッド&0の交易
+botania.page.elfResources2=&1ドリームウッド&0は&1リビング ウッド&0と同様に、様々な&4装 飾ブロック&0に変えられる。 レシピは&4その他&0の中の&4装飾 ブロック&0の項目を参照。
+botania.page.elfResources10=&1ドリームウッドの小枝&0
+botania.page.elfResources3=&1エレメンチウム&0の交易
+botania.page.elfResources4=&1ピクシィダスト&0の交易
+botania.page.elfResources5=&1ドラゴンストーン&0の交易
+botania.page.elfResources6=&1エルフ&0も&4ネザー&0にある白い 豪華なブロック、&1ネザー水 晶&0に非常に関心を持ってお り、彼らの世界にあるそれ は緑色に着色されている。 この水晶は、通常の&1ネザー 水晶&0や、&4その他&0の中の&4装飾 ブロック&0の項目にある装飾 用の変種と同じように機能 する。
+botania.page.elfResources7=&1エレブンクォーツ&0の交易
+botania.page.elfResources8=アルフヘイムは&1アルフガラ ス&0という&1ガラス&0の変種も持 っている。見た目は明るく 、置かれた場所によってラ ンダムな模様になる。<br>&1マナガラス&0で交易できる。
+botania.page.elfResources9=&1アルフガラス&0の交易
+
+# -- RITUAL OF GAIA
+botania.entry.gaiaRitual=ガイアの儀式
+botania.tagline.gaiaRitual=大いなる正義のため、ガイアの守護者を召喚せよ！
+botania.page.gaiaRitual0=&4ガイアの儀式&0は、ガイアの 女神の力の源である&1ガイア の魂&0を得るための唯一の方 法で、エルフがしばしば行 った儀式だ。<br>この儀式は、&4稼働中の&0&1ビー コン&0と、そこから1段高い 場所にいくつかの&1ガイアの 支柱&0 (後述) を並べた祭壇 と、生け贄として1本の&1テ ラスチールインゴット&0を必 要とする。
+botania.page.gaiaRitual1=&1ガイアの支柱&0の作り方
+botania.page.gaiaRitual2=ガイアの儀式
+botania.page.gaiaRitual3=儀式を始めるためには、単 に&1テラスチールインゴット&0 で&1ビーコン&0をシフト右クリ ックして、あなたの命のた めに一歩退いて戦闘準備を することだ。&4ガイアの守護 者&0との戦いは、&4ウィザー&0戦 よりもさらに熾烈を極める ため、入念な準備が必要だ 。&4守護者&0を打ち破った暁に は、戦利品として一握りの &4ガイアの魂&0を得ることがで きる。
+botania.page.gaiaRitual4=この儀式のための一般的な 衣装は、エンチャントされ た&1エレメンチウム防具&0一式 、&1テラブレード&0、そして&4醸 造&0と&4装飾品&0の詰め合わせだ 。&1ビーコン&0の効果は戦闘中 には無効化されるため、注 意してほしい。<br>&1守護者&0は膨大な体力を持っ ているため、&4エンチャント&0 と&4醸造&0での準備は必須だ!
+botania.page.gaiaRitual5=儀式の難易度と報酬は、参 加者の人数に依存する。5 人以上で儀式を実行するこ とは、混沌が生み出される 災害の原因となるかもしれ ないため、その規模での共 同儀式を試みるべきではな い。<br>最後に、紫から離れて留ま ることは良い考えかもしれ ない。
+
+# -- RITUAL OF GAIA II
+botania.entry.gaiaRitualHardmode=ガイアの儀式II
+botania.tagline.gaiaRitualHardmode=ピクシィブーガルー
+botania.page.gaiaRitualHardmode0=&1テラスチール&0と&1ガイアの魂&0 という、存在が知られてい る中で最も強力な素材の2 つを組み合わせることで、 手の付けられないような素 材を作ろうと考えるかもし れない。しかしながら、そ の素材はとても安定してい るようだ。それどころか、 インゴットに組み合わされ ると2つの力は互いに打ち 消しあい、全く役に立たな い合金となる。
+botania.page.gaiaRitualHardmode1=しかしこのインゴットは、 濃縮されたエネルギーと力 によって、より多くの抵抗 力、体力、速度を持った、 強力な&1ガイアの守護者&0を召 喚することを可能とする。<br>この全てのために、それは 通常より多くの&4ガイアの魂&0 だけでなく、一握りの素晴 らしい物や珍しい宝物をド ロップするので、戦う価値 のある敵となっている。
+botania.page.gaiaRitualHardmode2=&1ガイアの魂インゴット&0の作 り方。
+
+# -- THE RELICS OF THE AESIR
+botania.entry.relics=アース神族の形見
+botania.tagline.relics=神話? それとも実話?
+botania.page.relics0=アルフヘイム上級氏族には 古い言い伝えがある。"運 命の賽を振る者は神の贈り 物で報われるべきだ"とい うようなものである。これ らのいわゆる&1アース神族の 形見&0は、唯一かつ魂と結ば れていると噂されている。 1つだけ1個人に与えられ、 彼らだけがそれを使えるだ ろう。<br>しかし繰り返すが、これは 単なる言い伝えにすぎない 。
+
+# -- THE RELICS OF THE AESIR II
+botania.entry.relicInfo=アース神族の形見 II
+botania.tagline.relicInfo=それらはやはり実在する
+botania.page.relicInfo0=結局のところ、形見と考え られるものは実在するとい うことだ。&1運命の賽&0を振っ て具現化したこれらのアイ テムはとてつもない力を備 えており、ダイスが6面体 であるという事実は6種の アイテムが存在する可能性 を示している。<br>形見は誰に取得されたかの 知識を持っているようで、 それゆえに形見が属してい ない他の誰かに与えること は悪い考えかもしれない。
+botania.page.relicInfo1=原典によると、同じ形見が 同じ人に2回授与されるこ とはないだろう。アイテム を安全に保つことは優先事 項だ。おそらく&1頑固なツタ&0 のようなものがよい投資と なる。<br>興味深いことに、形見を取 得することで、その使い方 の知識もこの辞典で与えら れる。なんと便利なことか 。
+
+# -- THE FRUIT OF GRISAIA   
+botania.entry.infiniteFruit=グリザイアの果実
+botania.tagline.infiniteFruit=栄養の無限供給
+botania.page.infiniteFruit0=&1グリザイアの果実&0として知 られる形見は、それを獲得 した勇敢な魂を永遠に養う ための力と共に授けられる 。これは他の食べ物と同じ ように食べることができる が、物質を使うのではなく 、代わりに自分のインベン トリから&4マナ&0を使う。<br>アナタがリンゴの味が好き であることを切に願う。
+
+# -- KEY OF THE KING'S LAW
+botania.entry.kingKey=王律鍵
+botania.tagline.kingKey=宝物庫の扉を開けよ
+botania.page.kingKey0=&1王律鍵&0は、指示すると武器 を具現化する能力を持つ強 力な形見だ。この鍵を持ち 右クリックし続けると、ど こかから大量の武器を召喚 する。一度に最大20の武器 を作成できる。解放すると 、召喚者が見ているところ へ高速に全ての武器をまと めて発射する。これらの武 器は接触すると爆発を起こ す。
+
+# -- EYE OF THE FLUGEL
+botania.entry.flugelEye=フリューゲルの目
+botania.tagline.flugelEye=フリューゲルの真の力
+botania.page.flugelEye0=模造品の&1フリューゲルのテ ィアラ&0とは異なり、&1フリュ ーゲルの目&0は原初の&4フリュ ーゲル&0の魔力を含んでいる 。十分に強い魔力、すなわ ち訪れたことのある場所へ 自分自身を呼び戻すという &4フリューゲル&0の能力を使え る。<br>これを持ちどこかをシフト 右クリックすると、その位 置に紐付けできる。その後 、しばらく右クリックし続 ければ前述の場所へユーザ ーを呼び戻す。
+botania.page.flugelEye1=このテレポーテーション能 力は&4マナ&0を消費する。加え て残念なことに、2つの異 なるディメンション間では 実行できない。<br>他に、単に&1フリューゲルの 目&0を所持していることで、 &1フリューゲルのティアラ&0の 着用者は通常の限界を超え る飛行を可能とする。当然 ながら、消費はより大きい 。
+
+# -- RING OF THOR
+botania.entry.thorRing=トールの指輪
+botania.tagline.thorRing=テラシャッタラーが十分な強さではなかったので
+botania.page.thorRing0=&4アース神族&0の三種の神話の 指輪の一つ、&1トールの指輪&0 は、着用する者に雷神&4トー ル&0の力を与える。この力は 、&1テラシャッタラー&0で採掘 する際の効果範囲を大幅に 上昇させる。<br>この指輪は、作業台で他二 種の&4アース神族&0の指輪と組 み合わせることができ、究 極の指輪を作成できる。
+
+# -- RING OF LOKI
+botania.entry.lokiRing=ロキの指輪
+botania.tagline.lokiRing=力はここにも、そこにも、そしてあそこにも
+botania.page.lokiRing0=&4アース神族&0の三種の神話の 指輪の一つ、&1ロキの指輪&0は 、着用する者にトリックス ター、&4ロキ&0の、一度に複数 の場所へ効果する力を与え る。<br>この能力の準備には、何よ りもまず、素手が必要とな る。&1ロキの指輪&0を装備して いる時に、ブロックを素手 で右クリックすれば手続き が始まる。
+botania.page.lokiRing1=ソースブロックを選択して から他のブロックをシフト 右クリックすると、この力 が作用する相対的な位置と して追加される。手続きを 完了するには、元のブロッ クをシフト右クリックすれ ば良い。<br>選択されたブロックの1つ をシフト右クリックすれば 取り除ける。完成した選択 をリセットするには、地面 を2回シフト右クリックす る。
+botania.page.lokiRing2=選択が完了した後に周囲を 見ると、選択されたブロッ クと相対的な位置にある複 数のボックスに気づくだろ う。スニークしながらブロ ックを設置すると、設置行 為はそれら全ての位置で模 倣され、一度に大量のブロ ックを設置することを可能 にする。この能力はまた、 &1テラシャッタラー&0や&1テラト ランケーター&0を使った破壊 にも及ぶ。  
+botania.page.lokiRing3=もちろん、このような力は 無償で提供されない。この 能力を利用するには、各ブ ロックの設置毎にユーザー のインベントリから&4マナ&0を 消費する。より多くのブロ ックが選択されると、&4各設 置ブロック&0がより高コスト になることに注意せよ。<br>最後にこの指輪は、作業台 で他二種の&4アース神族&0の指 輪と組み合わせることがで き、究極の指輪を作成でき る。
+
+# -- RING OF ODIN
+botania.entry.odinRing=オーディンの指輪
+botania.tagline.odinRing=神のような抵抗力
+botania.page.odinRing0=&4アース神族&0の三種の神話の 指輪の一つ、&1オーディンの 指輪&0は、着用する者に旧神 &4オーディン&0の生命力と抵抗 力を与える。体力をハート 10個分追加するほか、&1オー ディンの指輪&0は溺没、窒息 、炎、そして飢餓といった 様々な自然ダメージから保 護する。この指輪は、作業 台で他二種の&4アース神族&0の 指輪と組み合わせることが でき、究極の指輪を作成で きる。
+
+
+# - MISCLANEOUS
+# -- UNSTABLE CUBE
+botania.entry.unstableBlocks=不安定キューブ
+botania.tagline.unstableBlocks=幻想的なアクセントブロック
+botania.page.unstableBlocks0=非常に強力な&4マナ&0注入され たオブジェクトをいじるこ とが、これらの奇妙なキュ ーブの創造につながった。 カラフルな稲光を放出する ように見えるが、それは見 た目以外の効果を持たない ようだ。
+botania.page.unstableBlocks1=幻想的に見える
+botania.page.unstableBlocks2=全部で16色
+botania.page.unstableBlocks3=雲にまで届くビームを空へ 向かって放つ、放出エネル ギー量の極めて大きいバー ジョンを作る方法もある。 これは&4レッドストーン信号&0 で停止できるようだ。これ はビーコンに似ているので &1不安定ビーコン&0と呼ばれる 。
+botania.page.unstableBlocks4=花火？
+botania.page.unstableBlocks5=一体化したエントロピー
+botania.page.unstableBlocks6=さらに、&1不安定ビーコン&0を 使って、管理可能で持ち運 べる&1信煙弾&0という形状にす ることも可能だ。<br>この銃のようなものは数秒 間残る色付きの円を空へ撃 ち、また、その時間だけ近 くの敵を全てスタンさせる 。
+botania.page.unstableBlocks7=巨人を発見次第、発射せよ
+
+# -- DECORATIVE BLOCKS
+botania.entry.decorativeBlocks=装飾ブロック
+botania.tagline.decorativeBlocks=名前のとおり
+botania.page.decorativeBlocks0=かなりの数の装飾ブロック が、建築物を格好よくする ために利用可能である。<br>始めよう。&1リビングロック&0 と&1リビングウッド&0を装飾ブ ロックに変えることが可能 だ。それぞれ4種の装飾バ リエーションを持つ。
+botania.page.decorativeBlocks1=リビングロックレンガ。
+botania.page.decorativeBlocks2=レンガを苔むさせる
+botania.page.decorativeBlocks3=レンガをひび割れさせる
+botania.page.decorativeBlocks4=レンガに模様を入れる
+botania.page.decorativeBlocks5=原木を木材にする
+botania.page.decorativeBlocks6=木材を苔むさせる
+botania.page.decorativeBlocks7=木材に模様を入れる
+botania.page.decorativeBlocks8=木材に規則的な模様を入れ る
+botania.page.decorativeBlocks9=リビングウッドを光らせる
+botania.page.decorativeBlocks10=続けて、&1ネザー水晶&0を他の 物質と組み合わせると、幅 広い種類の装飾&1ネザー水晶&0 を作成できる。<br>予想できるように、これら はいずれも、普通の&1ネザー 水晶&0と同じように、それぞ れの装飾ブロックにクラフ トできる。
+botania.page.decorativeBlocks11=煙がかったクォーツ
+botania.page.decorativeBlocks12=マナクォーツ
+botania.page.decorativeBlocks13=ブレイズクォーツ
+botania.page.decorativeBlocks14=ラベンダークォーツ
+botania.page.decorativeBlocks15=レッドクォーツ
+botania.page.decorativeBlocks23=サニークォーツ
+botania.page.decorativeBlocks16=いくつかのブロックは、新 しい建材ブロックを作るた めに、通常と異なる方法で 編成できる。例えば、&1屋根瓦&0、そして いくつかの新しい&1レンガ&0。 <br>これらは全て、階段とハー フブロックに加工すること もできる。
+botania.page.decorativeBlocks17=&1サトウキビブロック&0の作り 方
+botania.page.decorativeBlocks18=&1わらぶきブロック&0の作り方
+botania.page.decorativeBlocks19=&1屋根瓦&0の作り方
+botania.page.decorativeBlocks20=&1地獄レンガ&0の作り方
+botania.page.decorativeBlocks21=&1ソウルレンガ&0の作り方
+botania.page.decorativeBlocks22=&1雪レンガ&0の作り方
+
+# -- DISPENSER TWEAKS
+botania.entry.dispenserTweaks=ディスペンサーで植え付け
+botania.tagline.dispenserTweaks=ディスペンサーが種を植える
+botania.page.dispenserTweaks0=ボタニアは&1ディスペンサー&0 に変更を加え、各種の作物 を植えることを可能にする 。通常の小麦の&1種&0から&1ネザ ーウォート&0まで。&1カカオ豆&0 はディスペンサーの前に空 気を挟んで&1ジャングルの原 木&0を必要とする。<br>これにより&1野生のドラム&0な どの他のブロックとの組み 合わせで作物農場を可能に する。
+
+# -- GLIMMERING FLOWERS
+botania.entry.shinyFlowers=光り輝く花
+botania.tagline.shinyFlowers=光り輝く花と浮遊している花
+botania.page.shinyFlowers0=&1神秘の花&0をいくつかの&1グロ ウストーンダスト&0と組み合 わせると、さらに輝かせる ことができ、&1グロウストー ン&0と同じ明るさの光源とな る。<br>&1土&0と&1牧草の種&0を使えば、光 を発するだけでなく実に幻 想的な見た目の、小型の浮 遊している島に変えること が可能だ。
+botania.page.shinyFlowers3=任意の色の&1浮遊している花&0 と、効果を持つ花 (&1機能を 持つ花やマナを生成する花&0 など) を、作業台でくっつ けることができて、&1浮遊し ている花&0の見た目・特性と 、選んだ花の効果の両方を 1ブロックにできる。最後 に、浮遊している花を、任 意の種類の&1牧草の種&0か&1雪玉&0 で右クリックすると、見た 目を変えられる。
+botania.page.shinyFlowers2=ラピュタに似ているが (と ても) ちっちゃい
+
+# -- NATURAL SHEDDING
+botania.entry.shedding=自然に落とす物
+botania.tagline.shedding=他の物から落ちた物
+botania.page.shedding0=我々の世界に住んでいる生 物や無生物は、ずっと同じ 状態で生きてはいない。体 の一部が脱落したり、何か を落としたり、物を押し出 したりするのが普通だ。以 降のページでは、このよう な存在から得られるアイテ ムを挙げる。
+
+# -- TINY POTATO
+botania.entry.tinyPotato=小さなポテト
+botania.tagline.tinyPotato=みんなのお友達
+botania.page.tinyPotato0=それは、小さなポテト。あ なたを信じている。あなた ならできると信じている。<br>&1ジャガイモ&0を&1マナプール&0に 投げ込めば、ジャガイモは 少しの生気と幸せを得る。 それは活発で、右クリック してあげるともっと活発に なる!<br>&1金床&0で名前をつけることも できる。
+botania.page.tinyPotato2=いずれかの面を右クリック されると、ポテトはアイテ ムを受け取って飾ることが できる。<br>底面に設置されたアイテム は、前面の下半分に現れる 。<br>ポテトは器用ではないため 、いくつかのアイテムは位 置ずれして見える。
+botania.page.tinyPotato1=あなたは信じられている
+
+# -- HEAD CREATION
+botania.entry.headCreating=頭の作成
+botania.tagline.headCreating=任意のプレイヤーの頭を作る
+botania.page.headCreating0=エルフの典型的な呪文とし て、少しの資源と&1名札&0を組 み合わせることで、名札に 示された人物の頭のような レプリカを作成できる。<br>どういう仕組みかは知られ ていないが、&1ルーンの祭壇&0 で作成できるようだ。
+botania.page.headCreating2=コミュニティの一部では、 各種の装飾用に彼らの頭を 提供している。この辞典の 他のページと異なり、この ページの左にある&1ウェブペ ージで見る&0ボタンを押すと 、この目的のために使える 名前のリストがあるウェブ ページへ行ける。ただし、 このリストはボタニアとは 全く無関係であり、このよ うな頭を見付けるための唯 一の場所でもないことに注 意してほしい。
+botania.page.headCreating1=ゲームで頭を取れ
+
+# -- AZULEJO -- http://en.wikipedia.org/wiki/Azulejo
+botania.entry.azulejo=アズレージョ
+botania.tagline.azulejo=青と白の装飾タイル
+botania.page.azulejo0=&1アズレージョ&0は、簡単に言 えば装飾ブロックの一種で 、青と白のタイル状パター ンだ。それらを作成するに は、単に&1ラピスラズリ&0を&1ネ ザー水晶ブロック&0に混ぜれ ばよい。<br>そこから、単体クラフトす ることで12種類のパターン を循環できる。
+botania.page.azulejo1=様々なパターン
+botania.page.azulejo2=&1アズレージョ&0ブロックの作 り方
+botania.page.azulejo3=パターンの循環
+
+# -- STARFIELD CREATOR
+botania.entry.starfield=星空生成器
+botania.tagline.starfield=星空を作る
+botania.page.starfield0=&1星空生成器&0はその名の通り 、設置するとエルフのエネ ルギーを空に放ち、夜の間 にかなりの距離に渡って伸 びる星空を生み出す。
+botania.page.starfield1=きらきら
+
+# -- TRODDEN DIRT
+botania.entry.dirtPath=踏み固められた土
+botania.tagline.dirtPath=これは歩行用の土
+botania.page.dirtPath0=&1踏み固められた土&0は、風景 の中で自然に見える人工の 歩道を作るためにぴったり の土壌だ。&1耕地&0と同様、わ ずかに大地に埋め込まれて いて、上を歩けば少しの速 度増加を与える。
+botania.page.dirtPath1=黄色いレンガの道をたどっ て
+botania.page.dirtPath2=ハーフブロックにもできる
+
+# -- SHIMMERING MUSHROOMS
+botania.entry.mushrooms=きらめくキノコ
+botania.tagline.mushrooms=さわるとふらふら
+botania.page.mushrooms0=&1花の粉末&0を&1キノコ&0に振りか けると、それぞれの粉末の 色に変化し、新しい形状を 獲得し、薄明かりを放出す る能力を得るという面白い 効果を持っている。それら は興味深い見た目の他には 何もしていないように見え る。<br>これらはまた、地下深くの 孤立した区画で稀にしか見 つからない。
+botania.page.mushrooms1=取っても大きくはならない
+
+# -- PHANTOM INK
+botania.entry.phantomInk=お化けインク
+botania.tagline.phantomInk=鎧と宝石を見えなくする
+botania.page.phantomInk0=金属の鎧の下に美しい肌や 装飾品を持つことは、誰の 夢でもない。かさばるし、 平べったいし、そして何よ りもファッショナブルでは ない!<br>幸運なことに、クラフトグ リッドでこの恐ろしい鎧を &1お化けインク&0で染めること で、鎧はその全ての恩恵を 提供しながらも、完全に見 えなくなる。これは、&4マナ&0 を使える鎧一式でのみ機能 する。
+botania.page.phantomInk1=誰を呼ぶ？
+
+# -- STONE ALCHEMY
+botania.entry.stoneAlchemy=錬石術
+botania.tagline.stoneAlchemy=新しい種類の石を作る
+botania.page.stoneAlchemy0=&1錬金術の触媒&0を使う事は、 新しい種類の&1石&0を生成する 、相当に機能的な方法であ る。取り引きは単純で、触 媒にしたプールへ&1石&0を投げ 込むと、順番に他のものへ 変化するだろう。<br>これらの石や、レンガにし たものから、階段とハーフ ブロックを作ることができ る。
+botania.page.stoneAlchemy1=石を作る
+botania.page.stoneAlchemy2=レンガにする
+botania.page.stoneAlchemy3=彫刻する
+
+# -- BLAZE LIGHT
+botania.entry.blazeBlock=ブレイズランプ
+botania.tagline.blazeBlock=コンパクトな炎の貯蔵と、再生可能な黒曜石資源
+botania.page.blazeBlock0=炎の素材の束を粉砕して一 つにすると、使用可能な装 飾光源ブロックとなる。確 かに粗雑だが、それにもか かわらず光源である。<br>当然、&1石炭ブロック&0のよう に、&1ブレイズランプ&0はかま ど等の燃料として使用でき る。不思議なことに、ピュ アデイジーの隣に置くこと で&1黒曜石&0に変換される。
+
+# -- CHALLENGES
+botania.entry.challenges=チャレンジ
+botania.tagline.challenges=自分への挑戦
+botania.page.challenges0=&1チャレンジ&0は、&1ボタニア植 物辞典&0のトップページ下側 にあるカップのようなアイ コンをクリックすることで 利用可能だ。&1ボタニア&0と&1マ インクラフト&0それ自体で利 用可能な機能のみを使って 装置を作るという、文字通 りプレイヤーへの挑戦だ。<br>当然、それらを達成するた めに他のMODのアイテムを 使うこともできるが、それ では面白くない。
+botania.page.challenges1=もちろん全てのチャレンジ は達成可能だ。それらはい くらかの思考と、レッドス トーン信号の入出力の知識 と、&1ボタニア&0の仕組みそれ 自体とだけを必要とする。<br>チャレンジは他のMODの機 能を使わずに達成すること を念頭に置いて作られてい るため、それが強く推奨さ れる。それに、それらを即 座に解決するブロックを置 くのでは本当の挑戦とはい えない。
+botania.page.challenges2=チャレンジは決して義務で はなく、報酬の素材も提供 しない。それらは純粋に、 &1ボタニア&0でできること、賢 い自動化を提案し、しかし そのトピックの表面をなぞ っているだけである。チャ レンジは達成を手動で記録 する必要がある。<br>この世界の限界は自分の想 像力であることを心にとど めておくべきであり、だか らここにあるアイデアで停 止してはならない!
+
+# -- CACOPHONIUM
+botania.entry.cacophonium=カコフォニアム
+botania.tagline.cacophonium=Mobの音を真似る
+botania.page.cacophonium0=この面白い楽器、&1カコフォ ニアム&0は、自然界のほぼ全 ての生物の鳴き声を真似る 能力を持っており、"音楽 家"はそれらを思いのまま に演奏できる。鳴き声を持 つ動物をこれで右クリック すると、その音を記憶する 。それから右クリックしつ づけることで再生できる。<br>なぜ誰かがこうしたかった のかは、しかしながら、道 徳の理解を超えている。
+botania.page.cacophonium1=響け! カコフォニアム
+botania.page.cacophonium2=最大の不協和音のために、 &1カコフォニアム&0で&1音符ブロ ック&0をシフト右クリックす れば、動物やモンスターの 音を要求に応じて鳴らす能 力を生み出す。<br>この人でなし。
+
+# -- PORTUGUESE PAVEMENT
+botania.entry.pavement=ポルトガル式歩道
+botania.tagline.pavement=道路建設のための歩道
+botania.page.pavement0=&1ポルトガル式歩道&0は、詳細 な道路を作るための建材だ 。これは様々な色があり、 それら全てハーフブロック と階段にすることができる 。<br>マルチパーツとマイクロブ ロックスによる作品の経験 を持つ人のために、これら のブロックは模様を作成す るための見栄えのよい方法 を提供する。
+botania.page.pavement1=滑らない
+
+# -- THAUMCRAFT INTEGRATION
+botania.entry.tcIntegration=Thaumcraft連携
+botania.tagline.tcIntegration=Thaumcraftとのちょっとした連携
+botania.page.tcIntegration0=しばしば、&4植物学&0と&4魔術&0の 道は互いに交わる。本書に 記された遺産の混合も、&5Th aumcraft&0の流派からのいく らかも、これらを築くため に組み合わせることが可能 だ。
+botania.page.tcIntegration1=まず第一に、&1マナ金属&0ヘル メットのいずれかと&1洞察の 眼鏡&0一式を組み合わせて、 一つにすることができる 。<br>鎧の防御力と再生能力は眼 鏡の能力と一緒に機能する が、&4Vis&0の消費量減少は失 われる。
+botania.page.tcIntegration2=洞察のヘルメット (ボタニ アの任意のヘルメットで)
+botania.page.tcIntegration3=続けて、&4マナ&0はインクの興 味深い種類としての役割も 果たせる。黒い&1筆記具&0一式 へ、&1マナプール&0から&4マナ&0を 注入することで、その&4マナ&0 を色の素として使うことを 可能にする。<br>これらの道具の再充填は、 &1マナタブレット&0と同様にプ ールの上へ投げることで行 う。道具はあらかじめ充填 されてはいないことに注意 すること。
+botania.page.tcIntegration4=&1植物魔法学者のインク瓶&0の 作り方
+botania.page.tcIntegration5=次に、いくつかの素材、構 造物は、&1祭壇&0の不安定さを 低下させるための道具とし て働く。これらには&1光り輝 く花、浮遊している花、各 種支柱&0がある。
+botania.page.tcIntegration6a=おそらく、狂気はあらゆる 場面で最適な道具ではない かもしれない。これらの場 合、よい浴槽が一般的にそ れの手入れをする。醸造は おそらく、そのような作業 のためのよりよい方法だが …。
+botania.page.tcIntegration6b=公式しかめっ面
+
+# -- BUILDCRAFT INTEGRATION
+botania.entry.bcIntegration=Buildcraft連携
+botania.tagline.bcIntegration=ボタニア連携のためのゲート
+botania.page.bcIntegration0=配管技術の進歩により、&1ゲ ート&0が周囲の&4マナ&0を検出す ることができるようになっ た。&1ゲート&0は今や、&4マナ&0容 器が空か、満タンか、ある いはマナが入っているかど うかを検知できる。<br>&1ゲート&0はまた、マナがパイ プを通過したかどうかを検 出するトリガーとして&1マナ 検出器&0を使える。さらに、 &1ルーンの祭壇&0がルーンを作 成可能なことも検知できる 。
+
+# -- BANNER ADDITIONS
+botania.entry.banners=旗の追加
+botania.tagline.banners=多数の新しい旗の模様
+botania.page.banners0=&1ボタニア&0は旗に&415&0種類の 新しいアイコンを追加する 。元からある模様やアイコ ンと混ぜたり組み合わせた りできる。<br>&1旗&0にアイコンを追加するた めに、以下のアイテムをク ラフトグリッド内で染料と 共に使える: &1鉄ツール全て&0 、&1スパーク強化&0、&1生魚&0、&1リ ビングウッドとドリームウ ッドの小枝&0、&1ボタニア植物 辞典&0、&1テラスチール&0、そし て&1小さなポテト&0。
+botania.page.banners1=様々な旗の見本
+
+# -- PREVNTING DECAY
+# this works
+botania.entry.preventingDecay=マナの数値表示
+botania.tagline.preventingDecay=マナの量を数字で見る
+

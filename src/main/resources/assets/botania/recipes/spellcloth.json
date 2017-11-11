@@ -1,0 +1,19 @@
+{
+  "result": {
+    "item": "botania:spellcloth"
+  },
+  "pattern": [
+    " C ",
+    "CPC",
+    " C "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "P": {
+      "item": "#MANAPEARL"
+    },
+    "C": {
+      "item": "#CLOTHMANAWEAVE"
+    }
+  }
+}

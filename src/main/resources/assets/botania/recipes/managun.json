@@ -1,0 +1,29 @@
+{
+  "result": {
+    "item": "botania:managun"
+  },
+  "pattern": [
+    "SMD",
+    " WT",
+    "  W"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "S": {
+      "item": "botania:spreader",
+      "data": 1
+    },
+    "D": {
+      "item": "#MANADIAMOND"
+    },
+    "T": {
+      "item": "minecraft:tnt"
+    },
+    "W": {
+      "item": "#LIVINGWOOD"
+    },
+    "M": {
+      "item": "#RUNEMANAB"
+    }
+  }
+}

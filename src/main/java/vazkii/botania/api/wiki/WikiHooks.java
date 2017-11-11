@@ -10,11 +10,11 @@
  */
 package vazkii.botania.api.wiki;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import net.minecraft.block.Block;
 import net.minecraft.util.ResourceLocation;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class WikiHooks {
 

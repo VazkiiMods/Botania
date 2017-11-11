@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.block.subtile.generating;
 
-import java.util.List;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
@@ -27,6 +25,8 @@ import vazkii.botania.api.subtile.SubTileEntity;
 import vazkii.botania.api.subtile.SubTileGenerating;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lexicon.LexiconData;
+
+import java.util.List;
 
 public class SubTileRafflowsia extends SubTileGenerating {
 
@@ -49,13 +49,13 @@ public class SubTileRafflowsia extends SubTileGenerating {
 				for(int j = 0; j < RANGE * 2 + 1; j++)
 					for(int k = 0; k < RANGE * 2 + 1; k++) {
 						BlockPos pos = supertile.getPos().add(i - RANGE, j - RANGE, k - RANGE);
-						supertile.getWorld().getBlockState(pos).getBlock();
+
 						TileEntity tile = supertile.getWorld().getTileEntity(pos);
 						if(tile instanceof ISubTileContainer) {
 							SubTileEntity stile = ((ISubTileContainer) tile).getSubTile();
 							String name = stile.getUnlocalizedName();
 
-							if(stile instanceof SubTileGenerating && !(stile instanceof SubTileRafflowsia)) {
+							if(!(stile instanceof SubTileRafflowsia)) {
 								boolean last = name.equals(lastFlower);
 								if(last)
 									lastFlowerTimes++;
@@ -66,10 +66,7 @@ public class SubTileRafflowsia extends SubTileGenerating {
 
 								float mod = 1F / lastFlowerTimes;
 
-								IBlockState state = supertile.getWorld().getBlockState(pos);
-								supertile.getWorld().setBlockToAir(pos);
-
-								supertile.getWorld().playEvent(2001, pos, Block.getStateId(state));
+								getWorld().destroyBlock(pos, false);
 								this.mana += mana * mod;
 								sync();
 								return;

@@ -1,0 +1,21 @@
+{
+  "result": {
+    "item": "botania:craftpattern",
+    "data": 3
+  },
+  "pattern": [
+    "RRP",
+    "PPP",
+    "PPP"
+  ],
+  "type": "forge:ore_shaped",
+  "group": "botania:craftpattern",
+  "key": {
+    "P": {
+      "item": "#BPLACEHOLDER"
+    },
+    "R": {
+      "item": "#DUSTREDSTONE"
+    }
+  }
+}

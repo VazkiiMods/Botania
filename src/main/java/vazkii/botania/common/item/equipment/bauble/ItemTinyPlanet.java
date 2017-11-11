@@ -10,11 +10,8 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
-import java.util.List;
-
-import com.google.common.base.Predicates;
-
 import baubles.api.BaubleType;
+import com.google.common.base.Predicates;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -33,6 +30,8 @@ import vazkii.botania.api.mana.ITinyPlanetExcempt;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.lib.LibItemNames;
+
+import java.util.List;
 
 public class ItemTinyPlanet extends ItemBauble implements IBaubleRender {
 
@@ -54,10 +53,10 @@ public class ItemTinyPlanet extends ItemBauble implements IBaubleRender {
 		double x = player.posX;
 		double y = player.posY + 1.2F;
 		double z = player.posZ;
-		if(player.worldObj.isRemote)
+		if(player.world.isRemote)
 			y -= 1.62F;
 
-		applyEffect(player.worldObj, x, y, z);
+		applyEffect(player.world, x, y, z);
 	}
 
 	public static void applyEffect(World world, double x, double y, double z) {

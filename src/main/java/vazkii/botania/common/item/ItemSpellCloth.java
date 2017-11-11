@@ -10,14 +10,10 @@
  */
 package vazkii.botania.common.item;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.oredict.RecipeSorter;
-import net.minecraftforge.oredict.RecipeSorter.Category;
-import vazkii.botania.common.crafting.recipe.SpellClothRecipe;
 import vazkii.botania.common.lib.LibItemNames;
+
+import javax.annotation.Nonnull;
 
 public class ItemSpellCloth extends ItemMod {
 
@@ -26,9 +22,6 @@ public class ItemSpellCloth extends ItemMod {
 		setMaxDamage(35);
 		setMaxStackSize(1);
 		setNoRepair();
-
-		GameRegistry.addRecipe(new SpellClothRecipe());
-		RecipeSorter.register("botania:spellCloth", SpellClothRecipe.class, Category.SHAPELESS, "");
 	}
 
 	@Override

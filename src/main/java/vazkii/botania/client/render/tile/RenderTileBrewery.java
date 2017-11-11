@@ -10,8 +10,6 @@
  */
 package vazkii.botania.client.render.tile;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
@@ -24,6 +22,8 @@ import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelBrewery;
 import vazkii.botania.common.block.tile.TileBrewery;
 
+import javax.annotation.Nullable;
+
 public class RenderTileBrewery extends TileEntitySpecialRenderer<TileBrewery> {
 
 	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_BREWERY);
@@ -31,7 +31,7 @@ public class RenderTileBrewery extends TileEntitySpecialRenderer<TileBrewery> {
 	public TileBrewery brewery;
 
 	@Override
-	public void renderTileEntityAt(@Nonnull TileBrewery brewery, double d0, double d1, double d2, float f, int digProgress) {
+	public void render(@Nullable TileBrewery brewery, double d0, double d1, double d2, float f, int digProgress, float unused) {
 		this.brewery = brewery;
 		GlStateManager.pushMatrix();
 		GlStateManager.enableRescaleNormal();
@@ -50,7 +50,7 @@ public class RenderTileBrewery extends TileEntitySpecialRenderer<TileBrewery> {
 	}
 
 	public void renderItemStack(ItemStack stack) {
-		if(stack != null) {
+		if(!stack.isEmpty()) {
 			Minecraft mc = Minecraft.getMinecraft();
 			GlStateManager.pushMatrix();
 			mc.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);

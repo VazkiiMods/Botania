@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "botania:tornadorod"
+  },
+  "pattern": [
+    "  F",
+    " T ",
+    "R  "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "R": {
+      "item": "#RUNEAIRB"
+    },
+    "T": {
+      "item": "#LIVINGWOODTWIG"
+    },
+    "F": {
+      "item": "minecraft:feather"
+    }
+  }
+}

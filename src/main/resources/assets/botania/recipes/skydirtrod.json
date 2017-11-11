@@ -1,0 +1,17 @@
+{
+  "result": {
+    "item": "botania:skydirtrod"
+  },
+  "ingredients": [
+    {
+      "item": "botania:dirtrod"
+    },
+    {
+      "item": "#ELVENPIXIEDUST"
+    },
+    {
+      "item": "#RUNEAIRB"
+    }
+  ],
+  "type": "forge:ore_shapeless"
+}

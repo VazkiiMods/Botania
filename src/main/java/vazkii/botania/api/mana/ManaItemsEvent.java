@@ -10,11 +10,11 @@
  */
 package vazkii.botania.api.mana;
 
-import java.util.List;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.eventhandler.Event;
+
+import java.util.List;
 
 public class ManaItemsEvent extends Event {
 

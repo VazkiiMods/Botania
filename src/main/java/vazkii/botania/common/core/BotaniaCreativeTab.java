@@ -10,14 +10,11 @@
  */
 package vazkii.botania.common.core;
 
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
@@ -26,10 +23,12 @@ import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibMisc;
 
+import javax.annotation.Nonnull;
+
 public final class BotaniaCreativeTab extends CreativeTabs {
 
 	public static final BotaniaCreativeTab INSTANCE = new BotaniaCreativeTab();
-	List<ItemStack> list;
+	NonNullList<ItemStack> list;
 
 	public BotaniaCreativeTab() {
 		super(LibMisc.MOD_ID);
@@ -44,8 +43,8 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 	}
 
 	@Override
-	public Item getTabIconItem() {
-		return getIconItemStack().getItem();
+	public ItemStack getTabIconItem() {
+		return getIconItemStack();
 	}
 
 	@Override
@@ -54,7 +53,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 	}
 
 	@Override
-	public void displayAllRelevantItems(@Nonnull List<ItemStack> list) {
+	public void displayAllRelevantItems(@Nonnull NonNullList<ItemStack> list) {
 		this.list = list;
 
 		addItem(ModItems.lexicon);
@@ -223,7 +222,6 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 			addItem(ModItems.thorRing);
 			addItem(ModItems.odinRing);
 			addItem(ModItems.lokiRing);
-			addItem(ModItems.aesirRing);
 		}
 
 		addItem(ModItems.baubleBox);
@@ -257,7 +255,6 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addItem(ModItems.unholyCloak);
 		addItem(ModItems.balanceCloak);
 		addItem(ModItems.goddessCharm);
-		addItem(ModItems.goldLaurel);
 		addItem(ModItems.divaCharm);
 		addItem(ModItems.thirdEye);
 		addItem(ModItems.flightTiara);
@@ -374,12 +371,12 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 	}
 
 	private void addItem(Item item) {
-		item.getSubItems(item, this, list);
+		item.getSubItems(this, list);
 	}
 
 	private void addBlock(Block block) {
 		ItemStack stack = new ItemStack(block);
-		block.getSubBlocks(stack.getItem(), this, list);
+		block.getSubBlocks(this, list);
 	}
 
 }

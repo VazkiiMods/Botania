@@ -10,12 +10,11 @@
  */
 package vazkii.botania.common;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
+import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.advancements.ICriterionTrigger;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.MultiPartEntityPart;
 import net.minecraft.entity.boss.EntityDragon;
-import net.minecraft.entity.boss.EntityDragonPart;
 import net.minecraft.entity.boss.EntityWither;
 import net.minecraft.entity.item.EntityEnderCrystal;
 import net.minecraft.entity.item.EntityItemFrame;
@@ -37,11 +36,14 @@ import net.minecraftforge.fml.common.event.FMLServerAboutToStartEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.event.FMLServerStoppingEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
+import net.minecraftforge.fml.relauncher.ReflectionHelper;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.ITwoNamedPage;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.lexicon.LexiconPage;
-import vazkii.botania.common.achievement.ModAchievements;
+import vazkii.botania.common.advancements.RelicBindTrigger;
 import vazkii.botania.common.block.ModBanners;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModMultiblocks;
@@ -49,7 +51,6 @@ import vazkii.botania.common.block.subtile.generating.SubTileNarslimmus;
 import vazkii.botania.common.block.tile.TileLightRelay;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
 import vazkii.botania.common.brew.ModBrews;
-import vazkii.botania.common.brew.ModPotions;
 import vazkii.botania.common.core.command.CommandDownloadLatest;
 import vazkii.botania.common.core.command.CommandOpen;
 import vazkii.botania.common.core.command.CommandShare;
@@ -60,7 +61,6 @@ import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.IMCHandler;
 import vazkii.botania.common.core.handler.InternalMethodHandler;
 import vazkii.botania.common.core.handler.ManaNetworkHandler;
-import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.handler.PixieHandler;
 import vazkii.botania.common.core.handler.SheddingHandler;
 import vazkii.botania.common.core.loot.LootHandler;
@@ -71,7 +71,6 @@ import vazkii.botania.common.crafting.ModElvenTradeRecipes;
 import vazkii.botania.common.crafting.ModManaAlchemyRecipes;
 import vazkii.botania.common.crafting.ModManaConjurationRecipes;
 import vazkii.botania.common.crafting.ModManaInfusionRecipes;
-import vazkii.botania.common.crafting.ModMigrationRecipes;
 import vazkii.botania.common.crafting.ModPetalRecipes;
 import vazkii.botania.common.crafting.ModPureDaisyRecipes;
 import vazkii.botania.common.crafting.ModRuneRecipes;
@@ -85,14 +84,14 @@ import vazkii.botania.common.entity.EntityPinkWither;
 import vazkii.botania.common.entity.EntitySignalFlare;
 import vazkii.botania.common.entity.EntitySpark;
 import vazkii.botania.common.entity.ModEntities;
-import vazkii.botania.common.integration.buildcraft.StatementAPIPlugin;
-import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.network.GuiHandler;
 import vazkii.botania.common.network.PacketHandler;
 import vazkii.botania.common.world.SkyblockWorldEvents;
 import vazkii.botania.common.world.WorldTypeSkyblock;
+
+import java.lang.reflect.InvocationTargetException;
 
 @Mod(modid = LibMisc.MOD_ID, name = LibMisc.MOD_NAME, version = LibMisc.VERSION, dependencies = LibMisc.DEPENDENCIES, guiFactory = LibMisc.GUI_FACTORY)
 public class Botania {
@@ -104,8 +103,6 @@ public class Botania {
 	public static boolean bloodMagicLoaded = false;
 	public static boolean coloredLightsLoaded = false;
 	public static boolean etFuturumLoaded = false;
-	public static boolean rfApiLoaded = false;
-	public static boolean storageDrawersLoaded = false;
 
 	@Instance(LibMisc.MOD_ID)
 	public static Botania instance;
@@ -117,42 +114,35 @@ public class Botania {
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
-		gardenOfGlassLoaded = Loader.isModLoaded("GardenOfGlass");
+		gardenOfGlassLoaded = Loader.isModLoaded("gardenofglass");
 
-		thaumcraftLoaded = Loader.isModLoaded("Thaumcraft");
+		thaumcraftLoaded = Loader.isModLoaded("thaumcraft");
 		bcTriggersLoaded = ModAPIManager.INSTANCE.hasAPI("BuildCraftAPI|statements");
-		bloodMagicLoaded = Loader.isModLoaded("BloodMagic"); // Psh, noob
+		bloodMagicLoaded = Loader.isModLoaded("bloodmagic"); // Psh, noob
 		coloredLightsLoaded = Loader.isModLoaded("easycoloredlights");
 		etFuturumLoaded = Loader.isModLoaded("etfuturum");
-		rfApiLoaded = ModAPIManager.INSTANCE.hasAPI("CoFHAPI|energy");
-		storageDrawersLoaded = Loader.isModLoaded("StorageDrawers");
 
 		BotaniaAPI.internalHandler = new InternalMethodHandler();
 
 		ConfigHandler.loadConfig(event.getSuggestedConfigurationFile());
 
 		PacketHandler.init();
-		ModSounds.init();
-		ModBlocks.init();
-		ModItems.init();
 		ModEntities.init();
-		ModPotions.init();
 		ModBrews.init();
 
-		ModAchievements.init();
 		ModMultiblocks.init();
 		ModBanners.init();
 
 		if(Botania.gardenOfGlassLoaded)
 			new WorldTypeSkyblock();
 
+		CriteriaTriggers.register(RelicBindTrigger.INSTANCE);
+
 		proxy.preInit(event);
 	}
 
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
-		ModCraftingRecipes.init();
-		ModMigrationRecipes.init();
 		ModPetalRecipes.init();
 		ModPureDaisyRecipes.init();
 		ModRuneRecipes.init();
@@ -161,27 +151,23 @@ public class Botania {
 		ModManaInfusionRecipes.init();
 		ModElvenTradeRecipes.init();
 		ModBrewRecipes.init();
+		ModCraftingRecipes.init();
 		LexiconData.init();
 
 		NetworkRegistry.INSTANCE.registerGuiHandler(Botania.instance, new GuiHandler());
 
 		MinecraftForge.TERRAIN_GEN_BUS.register(BiomeDecorationHandler.class);
 		MinecraftForge.EVENT_BUS.register(ManaNetworkHandler.instance);
-		MinecraftForge.EVENT_BUS.register(PixieHandler.class);
-		MinecraftForge.EVENT_BUS.register(SheddingHandler.class);
-		MinecraftForge.EVENT_BUS.register(SubTileNarslimmus.SpawnIntercepter.class);
 		MinecraftForge.EVENT_BUS.register(TileCorporeaIndex.getInputHandler());
 		MinecraftForge.EVENT_BUS.register(new LootHandler());
 
 		if(Botania.gardenOfGlassLoaded)
 			MinecraftForge.EVENT_BUS.register(SkyblockWorldEvents.class);
 
-		MinecraftForge.EVENT_BUS.register(CommonTickHandler.class);
-
 		FMLInterModComms.sendMessage("ProjectE", "interdictionblacklist", EntityManaBurst.class.getCanonicalName());
 
-		if(Botania.bcTriggersLoaded)
-			new StatementAPIPlugin();
+		/*if(Botania.bcTriggersLoaded) todo buildcraft
+			new StatementAPIPlugin();*/
 		proxy.init(event);
 	}
 
@@ -198,7 +184,6 @@ public class Botania {
 		}
 
 		ModBlocks.addDispenserBehaviours();
-		ModBlocks.registerMultiparts();
 		ConfigHandler.loadPostInit();
 		LexiconData.postInit();
 
@@ -232,7 +217,7 @@ public class Botania {
 
 	@EventHandler
 	public void serverStarting(FMLServerStartingEvent event) {
-		event.registerServerCommand(new CommandDownloadLatest());
+//		event.registerServerCommand(new CommandDownloadLatest());
 		event.registerServerCommand(new CommandShare());
 		event.registerServerCommand(new CommandOpen());
 		if(Botania.gardenOfGlassLoaded)
@@ -257,7 +242,7 @@ public class Botania {
 	private void registerDefaultEntityBlacklist() {
 		// Vanilla
 		BotaniaAPI.blacklistEntityFromGravityRod(EntityDragon.class);
-		BotaniaAPI.blacklistEntityFromGravityRod(EntityDragonPart.class);
+		BotaniaAPI.blacklistEntityFromGravityRod(MultiPartEntityPart.class);
 		BotaniaAPI.blacklistEntityFromGravityRod(EntityWither.class);
 		BotaniaAPI.blacklistEntityFromGravityRod(EntityItemFrame.class);
 		BotaniaAPI.blacklistEntityFromGravityRod(EntityEnderCrystal.class);

@@ -1,0 +1,23 @@
+{
+  "result": {
+    "item": "botania:worldseed",
+    "count": 4
+  },
+  "pattern": [
+    "G",
+    "S",
+    "D"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "S": {
+      "item": "minecraft:wheat_seeds"
+    },
+    "D": {
+      "item": "#ELVENDRAGONSTONE"
+    },
+    "G": {
+      "item": "minecraft:grass"
+    }
+  }
+}

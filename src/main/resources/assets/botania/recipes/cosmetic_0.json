@@ -1,0 +1,21 @@
+{
+  "result": {
+    "item": "botania:cosmetic",
+    "data": 0
+  },
+  "pattern": [
+    "PPP",
+    "PSP",
+    "PPP"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "P": {
+      "item": "botania:petal",
+      "data": 0
+    },
+    "S": {
+      "item": "#MANASTRING"
+    }
+  }
+}

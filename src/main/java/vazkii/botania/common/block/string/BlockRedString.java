@@ -10,9 +10,6 @@
  */
 package vazkii.botania.common.block.string;
 
-import javax.annotation.Nonnull;
-
-import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
@@ -32,6 +29,8 @@ import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.lexicon.LexiconData;
 
+import javax.annotation.Nonnull;
+
 public abstract class BlockRedString extends BlockMod implements ILexiconable {
 
 	public BlockRedString(String name) {
@@ -49,7 +48,7 @@ public abstract class BlockRedString extends BlockMod implements ILexiconable {
 
 	@Override
 	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase par5EntityLivingBase, ItemStack par6ItemStack) {
-		EnumFacing orientation = BlockPistonBase.getFacingFromEntity(pos, par5EntityLivingBase);
+		EnumFacing orientation = EnumFacing.getDirectionFromEntityLiving(pos, par5EntityLivingBase);
 		world.setBlockState(pos, state.withProperty(BotaniaStateProps.FACING, orientation), 1 | 2);
 	}
 

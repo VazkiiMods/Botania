@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.block.tile;
 
-import java.util.List;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDirt;
 import net.minecraft.block.state.IBlockState;
@@ -36,6 +34,8 @@ import vazkii.botania.api.subtile.SubTileEntity;
 import vazkii.botania.api.wand.IWandBindable;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.string.TileRedStringRelay;
+
+import java.util.List;
 
 public class TileSpecialFlower extends TileMod implements IWandBindable, ISubTileSlowableContainer {
 
@@ -76,7 +76,7 @@ public class TileSpecialFlower extends TileMod implements IWandBindable, ISubTil
 	@Override
 	public void update() {
 		if(subTile != null) {
-			TileEntity tileBelow = worldObj.getTileEntity(pos.down());
+			TileEntity tileBelow = world.getTileEntity(pos.down());
 			if(tileBelow instanceof TileRedStringRelay) {
 				BlockPos coords = ((TileRedStringRelay) tileBelow).getBinding();
 				if(coords != null) {
@@ -104,7 +104,7 @@ public class TileSpecialFlower extends TileMod implements IWandBindable, ISubTil
 	}
 
 	public boolean isOnSpecialSoil() {
-		return worldObj.getBlockState(pos.down()).getBlock() == ModBlocks.enchantedSoil;
+		return world.getBlockState(pos.down()).getBlock() == ModBlocks.enchantedSoil;
 	}
 
 	@Override
@@ -146,8 +146,8 @@ public class TileSpecialFlower extends TileMod implements IWandBindable, ISubTil
 			subTile.onBlockPlacedBy(world, pos, state, entity, stack);
 	}
 
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack stack, EnumFacing side, float hitX, float hitY, float hitZ) {
-		return subTile == null ? false : subTile.onBlockActivated(world, pos, state, player, hand, stack, side, hitX, hitY, hitZ);
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+		return subTile == null ? false : subTile.onBlockActivated(world, pos, state, player, hand, side, hitX, hitY, hitZ);
 	}
 
 	public void onBlockAdded(World world, BlockPos pos, IBlockState state) {
@@ -165,6 +165,13 @@ public class TileSpecialFlower extends TileMod implements IWandBindable, ISubTil
 			subTile.getDrops(list);
 
 		return list;
+	}
+
+	@Override
+	public boolean receiveClientEvent(int id, int param) {
+		if(subTile != null)
+			return subTile.receiveClientEvent(id, param);
+		return super.receiveClientEvent(id, param);
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -214,12 +221,12 @@ public class TileSpecialFlower extends TileMod implements IWandBindable, ISubTil
 
 	@Override
 	public int getSlowdownFactor() {
-		Block below = worldObj.getBlockState(getPos().down()).getBlock();
+		Block below = world.getBlockState(getPos().down()).getBlock();
 		if(below == Blocks.MYCELIUM)
 			return SLOWDOWN_FACTOR_MYCEL;
 
 		if(below == Blocks.DIRT) {
-			BlockDirt.DirtType type = worldObj.getBlockState(getPos().down()).getValue(BlockDirt.VARIANT);
+			BlockDirt.DirtType type = world.getBlockState(getPos().down()).getValue(BlockDirt.VARIANT);
 			if(type == BlockDirt.DirtType.PODZOL)
 				return SLOWDOWN_FACTOR_PODZOL;
 		}

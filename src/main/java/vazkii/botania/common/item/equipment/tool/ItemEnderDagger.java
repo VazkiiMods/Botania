@@ -10,10 +10,7 @@
  */
 package vazkii.botania.common.item.equipment.tool;
 
-import javax.annotation.Nonnull;
-
 import com.google.common.collect.Multimap;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -28,6 +25,8 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelSword;
 import vazkii.botania.common.lib.LibItemNames;
 
+import javax.annotation.Nonnull;
+
 public class ItemEnderDagger extends ItemManasteelSword {
 
 	public ItemEnderDagger() {
@@ -38,10 +37,9 @@ public class ItemEnderDagger extends ItemManasteelSword {
 
 	@Override
 	public boolean hitEntity(ItemStack stack, EntityLivingBase target, @Nonnull EntityLivingBase attacker) {
-		if(!target.worldObj.isRemote
+		if(!target.world.isRemote
 				&& target instanceof EntityEnderman
-				&& attacker instanceof EntityPlayer
-				&& ((EntityPlayer) attacker).getCooledAttackStrength(0) == 1) {
+				&& attacker instanceof EntityPlayer) {
 			target.attackEntityFrom(DamageSource.causePlayerDamage((EntityPlayer) attacker), 20);
 		}
 
@@ -63,7 +61,7 @@ public class ItemEnderDagger extends ItemManasteelSword {
 		Multimap<String, AttributeModifier> multimap = super.getItemAttributeModifiers(equipmentSlot);
 
 		if (equipmentSlot == EntityEquipmentSlot.MAINHAND) {
-			multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getAttributeUnlocalizedName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", -1.25, 0));
+			multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", -1.25, 0));
 		}
 
 		return multimap;

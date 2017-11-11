@@ -10,12 +10,7 @@
  */
 package vazkii.botania.api.recipe;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import com.google.common.base.Preconditions;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
@@ -23,6 +18,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.subtile.SubTileEntity;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class RecipePureDaisy {
 
@@ -59,7 +58,7 @@ public class RecipePureDaisy {
 	}
 
 	private boolean isOreDict(ItemStack stack, String entry) {
-		if(stack == null || stack.getItem() == null)
+		if(stack.isEmpty())
 			return false;
 
 		List<ItemStack> ores;

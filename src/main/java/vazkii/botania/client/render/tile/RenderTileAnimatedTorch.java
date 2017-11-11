@@ -10,8 +10,6 @@
  */
 package vazkii.botania.client.render.tile;
 
-import java.util.Random;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
@@ -21,10 +19,12 @@ import net.minecraft.item.ItemStack;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.common.block.tile.TileAnimatedTorch;
 
+import java.util.Random;
+
 public class RenderTileAnimatedTorch extends TileEntitySpecialRenderer<TileAnimatedTorch> {
 
 	@Override
-	public void renderTileEntityAt(TileAnimatedTorch te, double x, double y, double z, float partialTicks, int destroyStage) {
+	public void render(TileAnimatedTorch te, double x, double y, double z, float partialTicks, int destroyStage, float unused) {
 		Minecraft mc = Minecraft.getMinecraft();
 		GlStateManager.pushMatrix();
 		GlStateManager.translate(x, y, z);

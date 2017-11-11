@@ -10,10 +10,6 @@
  */
 package vazkii.botania.common.block.subtile.generating;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -29,6 +25,10 @@ import vazkii.botania.api.subtile.SubTileGenerating;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lexicon.LexiconData;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class SubTileMunchdew extends SubTileGenerating {
 

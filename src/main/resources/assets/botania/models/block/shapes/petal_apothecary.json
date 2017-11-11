@@ -1,138 +1,117 @@
 {
-  "__comment": "The texture is split apart to facilitate efficient use of the atlas. Sorry for the clutter!",
-  "parent": "minecraft:block/block",
-  "display": {
-    "gui": {
-      "rotation": [ 30, 225, 0 ],
-      "translation": [ 0, -1, 0],
-      "scale":[ 0.55, 0.55, 0.55 ]
-    }
-  },
-  "elements": [
-    {
-      "name": "gobletBase",
-      "from": [ 0.0, 0.0, 0.0 ],
-      "to": [ 16.0, 2.0, 16.0 ],
-      "faces": {
-        "west": { "texture": "#gobletbaseside", "uv": [ 0.0, 0.0, 16.0, 2.0 ] },
-        "south": { "texture": "#gobletbaseside", "uv": [ 0.0, 3.0, 16.0, 5.0 ] },
-        "east": { "texture": "#gobletbaseside", "uv": [ 0.0, 6.0, 16.0, 8.0 ] },
-        "north": { "texture": "#gobletbaseside", "uv": [ 0.0, 9.0, 16.0, 11.0 ] },
-        "up": { "texture": "#gobletbasetop", "uv": [ 0.0, 0.0, 16.0, 16.0 ] },
-        "down": { "texture": "#gobletbasebottom", "uv": [ 0.0, 0.0, 16.0, 16.0 ], "cullface": "down" }
-      }
-    },
-    {
-      "name": "gobletBase2",
-      "from": [ 1.0, 2.0, 1.0 ],
-      "to": [ 15.0, 3.0, 15.0 ],
-      "faces": {
-        "west": { "texture": "#gobletbase2side", "uv": [ 1.0, 0.0, 15.0, 1.0 ] },
-        "south": { "texture": "#gobletbase2side", "uv": [ 1.0, 2.0, 15.0, 3.0 ] },
-        "east": { "texture": "#gobletbase2side", "uv": [ 1.0, 4.0, 15.0, 5.0 ] },
-        "north": { "texture": "#gobletbase2side", "uv": [ 1.0, 6.0, 15.0, 7.0 ] },
-        "up": { "texture": "#gobletbase2top", "uv": [ 1.0, 1.0, 15.0, 15.0 ] }
-      }
-    },
-    {
-      "name": "gobletBase3",
-      "from": [ 2.0, 3.0, 2.0 ],
-      "to": [ 14.0, 4.0, 14.0 ],
-      "faces": {
-        "west": { "texture": "#gobletbase3side", "uv": [ 2.0, 0.0, 14.0, 1.0 ] },
-        "south": { "texture": "#gobletbase3side", "uv": [ 2.0, 2.0, 14.0, 3.0 ] },
-        "east": { "texture": "#gobletbase3side", "uv": [ 2.0, 4.0, 14.0, 5.0 ] },
-        "north": { "texture": "#gobletbase3side", "uv": [ 2.0, 6.0, 14.0, 7.0 ] },
-        "up": { "texture": "#gobletbase3top", "uv": [ 2.0, 2.0, 14.0, 14.0 ] }
-      }
-    },
-    {
-      "name": "gobletStand",
-      "from": [ 5.0, 4.0, 5.0 ],
-      "to": [ 11.0, 12.0, 11.0 ],
-      "faces": {
-        "west": { "texture": "#gobletstandside", "uv": [ 2.0, 0.0, 14.0, 9.0 ] },
-        "south": { "texture": "#gobletstandside", "uv": [ 2.0, 0.0, 14.0, 9.0 ] },
-        "east": { "texture": "#gobletstandside", "uv": [ 2.0, 9.0, 14.0, 16.0 ] },
-        "north": { "texture": "#gobletstandside", "uv": [ 2.0, 9.0, 14.0, 16.0 ] }
-      }
-    },
-    {
-      "name": "kelkBase",
-      "from": [ 4.0, 12.0, 4.0 ],
-      "to": [ 12.0, 13.0, 12.0 ],
-      "faces": {
-        "west": { "texture": "#kelkbaseside", "uv": [ 4.0, 0.0, 12.0, 1.0 ] },
-        "south": { "texture": "#kelkbaseside", "uv": [ 4.0, 2.0, 12.0, 3.0 ] },
-        "east": { "texture": "#kelkbaseside", "uv": [ 4.0, 4.0, 12.0, 5.0 ] },
-        "north": { "texture": "#kelkbaseside", "uv": [ 4.0, 6.0, 12.0, 7.0 ] },
-        "down": { "texture": "#kelkbasetopbottom", "uv": [ 9.0, 4.0, 16.0, 12.0 ] }
-      }
-    },
-    {
-      "name": "kelkBase2",
-      "from": [ 3.0, 13.0, 3.0 ],
-      "to": [ 13.0, 14.0, 13.0 ],
-      "faces": {
-        "west": { "texture": "#kelkbase2side", "uv": [ 3.0, 0.0, 13.0, 1.0 ] },
-        "south": { "texture": "#kelkbase2side", "uv": [ 3.0, 2.0, 13.0, 3.0 ] },
-        "east": { "texture": "#kelkbase2side", "uv": [ 3.0, 4.0, 13.0, 5.0 ] },
-        "north": { "texture": "#kelkbase2side", "uv": [ 3.0, 6.0, 13.0, 7.0 ] },
-        "up": { "texture": "#kelkbase2top", "uv": [ 3.0, 3.0, 13.0, 13.0 ] },
-        "down": { "texture": "#kelkbase2bottom", "uv": [ 3.0, 3.0, 13.0, 13.0 ] }
-      }
-    },
-    {
-      "name": "kelkWallNorth",
-      "from": [ 3.0, 14.0, 2.0 ],
-      "to": [ 13.0, 20.0, 3.0 ],
-      "faces": {
-        "west": { "texture": "#kelkwall", "uv": [ 0.0, 1.0, 1.0, 7.0 ] },
-        "north": { "texture": "#kelkwall", "uv": [ 1.0, 1.0, 11.0, 7.0 ] },
-        "south": { "texture": "#kelkwall", "uv": [ 1.0, 9.0, 11.0, 15.0 ] },
-        "east": { "texture": "#kelkwall", "uv": [ 11.0, 9.0, 12.0, 15.0 ] },
-        "up": { "texture": "#kelkwall", "uv": [ 1.0, 0.0, 11.0, 1.0 ] },
-        "down": { "texture": "#kelkwall", "uv": [ 1.0, 8.0, 11.0, 9.0 ] }
-      }
-    },
-    {
-      "name": "kelkWallSouth",
-      "from": [ 3.0, 14.0, 13.0 ],
-      "to": [ 13.0, 20.0, 14.0 ],
-      "faces": {
-        "west": { "texture": "#kelkwall", "uv": [ 0.0, 1.0, 1.0, 7.0 ] },
-        "north": { "texture": "#kelkwall", "uv": [ 1.0, 1.0, 11.0, 7.0 ] },
-        "south": { "texture": "#kelkwall", "uv": [ 1.0, 9.0, 11.0, 15.0 ] },
-        "east": { "texture": "#kelkwall", "uv": [ 11.0, 9.0, 12.0, 15.0 ] },
-        "up": { "texture": "#kelkwall", "uv": [ 1.0, 0.0, 11.0, 1.0 ] },
-        "down": { "texture": "#kelkwall", "uv": [ 1.0, 8.0, 11.0, 9.0 ] }
-      }
-    },
-    {
-      "name": "kelkWallWest",
-      "from": [ 2.0, 14.0, 3.0 ],
-      "to": [ 3.0, 20.0, 13.0 ],
-      "faces": {
-        "north": { "texture": "#kelkwall", "uv": [ 0.0, 1.0, 1.0, 7.0 ] },
-        "west": { "texture": "#kelkwall", "uv": [ 1.0, 1.0, 11.0, 7.0 ] },
-        "east": { "texture": "#kelkwall", "uv": [ 1.0, 9.0, 11.0, 15.0 ] },
-        "south": { "texture": "#kelkwall", "uv": [ 11.0, 9.0, 12.0, 15.0 ] },
-        "up": { "texture": "#kelkwall", "uv": [ 13.0, 0.0, 14.0, 11.0 ] },
-        "down": { "texture": "#kelkwall", "uv": [ 14.0, 0.0, 15.0, 11.0 ] }
-      }
-    },
-    {
-      "name": "kelkWallEast",
-      "from": [ 13.0, 14.0, 3.0 ],
-      "to": [ 14.0, 20.0, 13.0 ],
-      "faces": {
-        "north": { "texture": "#kelkwall", "uv": [ 0.0, 1.0, 1.0, 7.0 ] },
-        "west": { "texture": "#kelkwall", "uv": [ 1.0, 1.0, 11.0, 7.0 ] },
-        "east": { "texture": "#kelkwall", "uv": [ 1.0, 9.0, 11.0, 15.0 ] },
-        "south": { "texture": "#kelkwall", "uv": [ 11.0, 9.0, 12.0, 15.0 ] },
-        "up": { "texture": "#kelkwall", "uv": [ 13.0, 0.0, 14.0, 11.0 ] },
-        "down": { "texture": "#kelkwall", "uv": [ 14.0, 0.0, 15.0, 11.0 ] }
-      }
-    }
-  ]
+	"Comment": "Designed by Wiiv with Cubik Studio - https://cubik.studio",
+	"parent": "minecraft:block/block",
+	"elements": [
+		{
+			"comment": "baseBottom",
+			"from": [ 0, 0, 0 ],
+			"to": [ 16, 2, 16 ],
+			"faces": {
+				"down": { "uv": [ 0, 0, 16, 16 ], "texture": "#top_bottom" },
+				"up": { "uv": [ 0, 0, 16, 16 ], "texture": "#top_bottom" },
+				"north": { "uv": [ 0, 14, 16, 16 ], "texture": "#side" },
+				"south": { "uv": [ 0, 14, 16, 16 ], "texture": "#side" },
+				"west": { "uv": [ 0, 14, 16, 16 ], "texture": "#side" },
+				"east": { "uv": [ 0, 14, 16, 16 ], "texture": "#side" }
+			}
+		},
+		{
+			"comment": "baseTop",
+			"from": [ 2, 2, 2 ],
+			"to": [ 14, 4, 14 ],
+			"faces": {
+				"down": { "uv": [ 2, 2, 14, 14 ], "texture": "#top_bottom" },
+				"up": { "uv": [ 2, 2, 14, 14 ], "texture": "#top_bottom" },
+				"north": { "uv": [ 2, 12, 14, 14 ], "texture": "#side" },
+				"south": { "uv": [ 2, 12, 14, 14 ], "texture": "#side" },
+				"west": { "uv": [ 2, 12, 14, 14 ], "texture": "#side" },
+				"east": { "uv": [ 2, 12, 14, 14 ], "texture": "#side" }
+			}
+		},
+		{
+			"comment": "pillar",
+			"from": [ 4, 4, 4 ],
+			"to": [ 12, 12, 12 ],
+			"faces": {
+				"down": { "uv": [ 4, 4, 12, 12 ], "texture": "#top_bottom" },
+				"up": { "uv": [ 4, 4, 12, 12 ], "texture": "#top_bottom" },
+				"north": { "uv": [ 4, 4, 12, 12 ], "texture": "#side" },
+				"south": { "uv": [ 4, 4, 12, 12 ], "texture": "#side" },
+				"west": { "uv": [ 4, 4, 12, 12 ], "texture": "#side" },
+				"east": { "uv": [ 4, 4, 12, 12 ], "texture": "#side" }
+			}
+		},
+		{
+			"comment": "baseGoblet",
+			"from": [ 2, 12, 2 ],
+			"to": [ 14, 14, 14 ],
+			"faces": {
+				"down": { "uv": [ 2, 2, 14, 14 ], "texture": "#top_bottom" },
+				"up": { "uv": [ 2, 2, 14, 14 ], "texture": "#top_bottom" },
+				"north": { "uv": [ 2, 2, 14, 4 ], "texture": "#side" },
+				"south": { "uv": [ 2, 2, 14, 4 ], "texture": "#side" },
+				"west": { "uv": [ 2, 2, 14, 4 ], "texture": "#side" },
+				"east": { "uv": [ 2, 2, 14, 4 ], "texture": "#side" }
+			}
+		},
+		{
+			"comment": "sideSouth",
+			"from": [ 2, 14, 13 ],
+			"to": [ 14, 20, 14 ],
+			"faces": {
+				"down": { "uv": [ 2, 2, 14, 3 ], "texture": "#top_bottom" },
+				"up": { "uv": [ 2, 13, 14, 14 ], "texture": "#top_bottom" },
+				"north": { "uv": [ 2, 10, 14, 16 ], "texture": "#goblet" },
+				"south": { "uv": [ 2, 10, 14, 16 ], "texture": "#goblet" },
+				"west": { "uv": [ 13, 10, 14, 16 ], "texture": "#goblet" },
+				"east": { "uv": [ 2, 10, 3, 16 ], "texture": "#goblet" }
+			}
+		},
+		{
+			"comment": "sideNorth",
+			"from": [ 2, 14, 2 ],
+			"to": [ 14, 20, 3 ],
+			"faces": {
+				"down": { "uv": [ 2, 13, 14, 14 ], "texture": "#top_bottom" },
+				"up": { "uv": [ 2, 2, 14, 3 ], "texture": "#top_bottom" },
+				"north": { "uv": [ 2, 10, 14, 16 ], "texture": "#goblet" },
+				"south": { "uv": [ 2, 10, 14, 16 ], "texture": "#goblet" },
+				"west": { "uv": [ 2, 10, 3, 16 ], "texture": "#goblet" },
+				"east": { "uv": [ 13, 10, 14, 16 ], "texture": "#goblet" }
+			}
+		},
+		{
+			"comment": "sideWest",
+			"from": [ 2, 14, 3 ],
+			"to": [ 3, 20, 13 ],
+			"faces": {
+				"down": { "uv": [ 2, 3, 3, 13 ], "texture": "#top_bottom" },
+				"up": { "uv": [ 2, 3, 3, 13 ], "texture": "#top_bottom" },
+				"north": { "uv": [ 13, 0, 14, 2 ], "texture": "#goblet" },
+				"south": { "uv": [ 2, 0, 3, 2 ], "texture": "#goblet" },
+				"west": { "uv": [ 3, 10, 13, 16 ], "texture": "#goblet" },
+				"east": { "uv": [ 3, 10, 13, 16 ], "texture": "#goblet" }
+			}
+		},
+		{
+			"comment": "sideEast",
+			"from": [ 13, 14, 3 ],
+			"to": [ 14, 20, 13 ],
+			"faces": {
+				"down": { "uv": [ 13, 3, 14, 13 ], "texture": "#top_bottom" },
+				"up": { "uv": [ 13, 3, 14, 13 ], "texture": "top_bottom" },
+				"north": { "uv": [ 2, 0, 3, 2 ], "texture": "#goblet" },
+				"south": { "uv": [ 13, 0, 14, 2 ], "texture": "#goblet" },
+				"west": { "uv": [ 3, 10, 13, 16 ], "texture": "#goblet" },
+				"east": { "uv": [ 3, 10, 13, 16 ], "texture": "#goblet" }
+			}
+		}
+	],
+	"display": {
+		"gui": {
+			"rotation":  [ 30, 225, 0 ],
+			"translation":  [ 0, -0.55, 0 ],
+			"scale":  [ 0.55, 0.55, 0.55 ]
+		}
+	}
 }

@@ -10,11 +10,7 @@
  */
 package vazkii.botania.client.render.tile;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import com.mojang.authlib.GameProfile;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.client.renderer.tileentity.TileEntitySkullRenderer;
@@ -23,17 +19,20 @@ import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.entity.boss.EntityWither;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.monster.EntitySkeleton;
+import net.minecraft.entity.monster.EntityWitherSkeleton;
 import net.minecraft.entity.monster.EntityZombie;
-import net.minecraft.entity.monster.SkeletonType;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntitySkull;
 import net.minecraft.util.EnumFacing;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.render.entity.RenderDoppleganger;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 public class RenderTileGaiaHead extends TileEntitySkullRenderer {
 	@Override
-	public void renderTileEntityAt(TileEntitySkull skull, double x, double y, double z, float partialTicks, int digProgress) {
+	public void render(TileEntitySkull skull, double x, double y, double z, float partialTicks, int digProgress, float unused) {
 		ShaderHelper.useShader(ShaderHelper.doppleganger, RenderDoppleganger.defaultCallback);
 
 		// Null-safe copy of super
@@ -61,11 +60,11 @@ public class RenderTileGaiaHead extends TileEntitySkullRenderer {
 		if(view instanceof EntityPlayer) {
 			skullType = 3;
 			profile = ((EntityPlayer) mc.getRenderViewEntity()).getGameProfile();
-		} else if (view instanceof EntitySkeleton) {
+		} else if (view instanceof EntitySkeleton)
 			skullType = 0;
-			if (((EntitySkeleton) view).func_189771_df() == SkeletonType.WITHER)
-				skullType = 1;
-		} else if(view instanceof EntityWither)
+		else if(view instanceof EntityWitherSkeleton)
+			skullType = 1;
+		else if(view instanceof EntityWither)
 			skullType = 1;
 		else if(view instanceof EntityZombie)
 			skullType = 2;

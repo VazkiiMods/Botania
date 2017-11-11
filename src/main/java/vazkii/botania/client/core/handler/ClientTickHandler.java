@@ -11,15 +11,16 @@
 package vazkii.botania.client.core.handler;
 
 import com.google.common.collect.ImmutableList;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
 import net.minecraftforge.fml.common.gameevent.TickEvent.RenderTickEvent;
+import net.minecraftforge.fml.relauncher.Side;
 import vazkii.botania.api.mana.IManaCollector;
 import vazkii.botania.api.mana.TileSignature;
 import vazkii.botania.client.gui.lexicon.GuiLexicon;
@@ -29,6 +30,7 @@ import vazkii.botania.common.core.handler.ManaNetworkHandler;
 import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.item.ModItems;
 
+@Mod.EventBusSubscriber(Side.CLIENT)
 public final class ClientTickHandler {
 
 	private ClientTickHandler() {}
@@ -61,7 +63,7 @@ public final class ClientTickHandler {
 			RedStringRenderer.tick();
 			ItemsRemainingRenderHandler.tick();
 
-			if(Minecraft.getMinecraft().theWorld == null) {
+			if(Minecraft.getMinecraft().world == null) {
 				ManaNetworkHandler.instance.clear();
 				TileCorporeaIndex.indexes.clear();
 				SubTileVinculotus.existingFlowers.clear();
@@ -72,10 +74,10 @@ public final class ClientTickHandler {
 				ticksInGame++;
 				partialTicks = 0;
 
-				EntityPlayer player = Minecraft.getMinecraft().thePlayer;
+				EntityPlayer player = Minecraft.getMinecraft().player;
 				if(player != null) {
 					if(PlayerHelper.hasHeldItemClass(player, ModItems.twigWand)) {
-						for(TileSignature sig : ImmutableList.copyOf(ManaNetworkHandler.instance.getAllCollectorsInWorld(Minecraft.getMinecraft().theWorld))) {
+						for(TileSignature sig : ImmutableList.copyOf(ManaNetworkHandler.instance.getAllCollectorsInWorld(Minecraft.getMinecraft().world))) {
 							if(!sig.isRemote())
 								continue;
 

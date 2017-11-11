@@ -1,0 +1,14 @@
+{
+  "result": {
+    "item": "botania:autocraftinghalo"
+  },
+  "ingredients": [
+    {
+      "item": "botania:craftinghalo"
+    },
+    {
+      "item": "#MANADIAMOND"
+    }
+  ],
+  "type": "forge:ore_shapeless"
+}

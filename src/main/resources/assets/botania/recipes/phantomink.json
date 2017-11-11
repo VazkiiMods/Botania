@@ -1,0 +1,30 @@
+{
+  "result": {
+    "item": "botania:phantomink",
+    "count": 4
+  },
+  "ingredients": [
+    {
+      "item": "#MANAPEARL"
+    },
+    {
+      "item": "#DYE"
+    },
+    {
+      "item": "#BLOCKGLASS"
+    },
+    {
+      "item": "minecraft:glass_bottle"
+    },
+    {
+      "item": "minecraft:glass_bottle"
+    },
+    {
+      "item": "minecraft:glass_bottle"
+    },
+    {
+      "item": "minecraft:glass_bottle"
+    }
+  ],
+  "type": "forge:ore_shapeless"
+}

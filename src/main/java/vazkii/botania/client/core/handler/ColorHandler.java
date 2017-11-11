@@ -1,8 +1,5 @@
 package vazkii.botania.client.core.handler;
 
-import java.awt.Color;
-import java.util.Map;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -14,8 +11,8 @@ import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.fml.common.registry.RegistryDelegate;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
+import net.minecraftforge.registries.IRegistryDelegate;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.brew.IBrewItem;
@@ -37,11 +34,14 @@ import vazkii.botania.common.item.equipment.bauble.ItemBloodPendant;
 import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
 import vazkii.botania.common.item.lens.ItemLens;
 
+import java.awt.Color;
+import java.util.Map;
+
 public final class ColorHandler {
 
 	public static void init() {
 		BlockColors blocks = Minecraft.getMinecraft().getBlockColors();
-		Map<RegistryDelegate<Block>, IBlockColor> map = ReflectionHelper.getPrivateValue(BlockColors.class, blocks, "blockColorMap");
+		Map<IRegistryDelegate<Block>, IBlockColor> map = ReflectionHelper.getPrivateValue(BlockColors.class, blocks, "blockColorMap");
 
 		// Steal vine colorer
 		blocks.registerBlockColorHandler(map.get(Blocks.VINE.delegate), ModBlocks.solidVines);
@@ -53,7 +53,7 @@ public final class ColorHandler {
 						float time = ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks;
 						return Color.HSBtoRGB(time * 0.005F, 0.6F, 1F);
 					} else {
-						return state.getValue(BotaniaStateProps.COLOR).getMapColor().colorValue;
+						return state.getValue(BotaniaStateProps.COLOR).getColorValue();
 					}
 				},
 				ModBlocks.pool
@@ -73,7 +73,7 @@ public final class ColorHandler {
 		// Petal Block
 		blocks.registerBlockColorHandler((state, world, pos, tintIndex) -> {
 			int meta = ModBlocks.petalBlock.getMetaFromState(state);
-			return EnumDyeColor.byMetadata(meta).getMapColor().colorValue;
+			return EnumDyeColor.byMetadata(meta).getColorValue();
 		},
 				ModBlocks.petalBlock
 				);
@@ -102,13 +102,13 @@ public final class ColorHandler {
 						ModItems.manaResource);
 
 		items.registerItemColorHandler((s, t) ->
-		t == 1 ? EnumDyeColor.byMetadata(ItemTwigWand.getColor1(s)).getMapColor().colorValue
-				: t == 2 ? EnumDyeColor.byMetadata(ItemTwigWand.getColor2(s)).getMapColor().colorValue
+		t == 1 ? EnumDyeColor.byMetadata(ItemTwigWand.getColor1(s)).getColorValue()
+				: t == 2 ? EnumDyeColor.byMetadata(ItemTwigWand.getColor2(s)).getColorValue()
 						: -1,
 						ModItems.twigWand);
 
-		items.registerItemColorHandler((s, t) -> EnumDyeColor.byMetadata(s.getItemDamage()).getMapColor().colorValue, ModItems.dye, ModItems.petal);
-		items.registerItemColorHandler((s, t) -> Minecraft.getMinecraft().getBlockColors().colorMultiplier(((ItemBlock)s.getItem()).block.getStateFromMeta(s.getMetadata()), null, null, t),
+		items.registerItemColorHandler((s, t) -> EnumDyeColor.byMetadata(s.getItemDamage()).getColorValue(), ModItems.dye, ModItems.petal);
+		items.registerItemColorHandler((s, t) -> Minecraft.getMinecraft().getBlockColors().colorMultiplier(((ItemBlock)s.getItem()).getBlock().getStateFromMeta(s.getMetadata()), null, null, t),
 				ModBlocks.petalBlock, ModBlocks.pool, ModBlocks.spreader);
 
 		items.registerItemColorHandler((s, t) -> t == 1 ? Color.HSBtoRGB(0.528F, (float) ((ItemManaMirror) ModItems.manaMirror).getMana(s) / (float) TilePool.MAX_MANA, 1F) : -1, ModItems.manaMirror);
@@ -138,11 +138,11 @@ public final class ColorHandler {
 
 		items.registerItemColorHandler((s, t) -> {
 			ItemStack lens = ItemManaGun.getLens(s);
-			if(lens != null && t == 0)
+			if(!lens.isEmpty() && t == 0)
 				return Minecraft.getMinecraft().getItemColors().getColorFromItemstack(lens, t);
 
 			if(t == 2) {
-				EntityManaBurst burst = ((ItemManaGun) s.getItem()).getBurst(Minecraft.getMinecraft().thePlayer, s, false);
+				EntityManaBurst burst = ((ItemManaGun) s.getItem()).getBurst(Minecraft.getMinecraft().player, s, false);
 				Color color = new Color(burst == null ? 0x20FF20 : burst.getColor());
 
 				float mul = (float) (Math.sin((double) ClientTickHandler.ticksInGame / 5) * 0.15F);

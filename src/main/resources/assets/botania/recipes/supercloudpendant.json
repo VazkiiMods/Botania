@@ -1,0 +1,29 @@
+{
+  "result": {
+    "item": "botania:supercloudpendant"
+  },
+  "pattern": [
+    "BEB",
+    "BPB",
+    "NGN"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "P": {
+      "item": "botania:cloudpendant"
+    },
+    "B": {
+      "item": "minecraft:ghast_tear"
+    },
+    "E": {
+      "item": "#INGOTELVENELEMENTIUM"
+    },
+    "G": {
+      "item": "#ETERNALLIFEESSENCE"
+    },
+    "N": {
+      "item": "minecraft:wool",
+      "data": 0
+    }
+  }
+}

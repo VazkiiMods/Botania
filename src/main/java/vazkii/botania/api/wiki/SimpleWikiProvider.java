@@ -10,14 +10,13 @@
  */
 package vazkii.botania.api.wiki;
 
-import org.apache.commons.lang3.text.WordUtils;
-
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
+import org.apache.commons.lang3.text.WordUtils;
 
 public class SimpleWikiProvider implements IWikiProvider {
 
@@ -53,10 +52,10 @@ public class SimpleWikiProvider implements IWikiProvider {
 
 		ItemStack stack = state.getBlock().getPickBlock(state, pos, world, bPos, player);
 
-		if(stack == null || stack.getItem() == null)
+		if(stack.isEmpty())
 			stack = new ItemStack(state.getBlock(), 1, state.getBlock().damageDropped(state));
 
-		if(stack.getItem() == null)
+		if(stack.isEmpty())
 			return null;
 
 		String name = stack.getDisplayName();

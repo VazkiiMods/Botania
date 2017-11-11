@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "botania:dye",
+    "data": 3
+  },
+  "group": "botania:dye",
+  "ingredients": [
+    [
+      {
+        "item": "minecraft:red_flower",
+        "data": 1
+      },
+      {
+        "item": "#PETALLIGHTBLUE"
+      }
+    ],
+    {
+      "item": "#PESTLEANDMORTAR"
+    }
+  ],
+  "type": "forge:ore_shapeless"
+}

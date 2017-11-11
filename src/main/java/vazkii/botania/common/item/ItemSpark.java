@@ -10,12 +10,8 @@
  */
 package vazkii.botania.common.item;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.stats.Achievement;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
@@ -25,12 +21,12 @@ import net.minecraft.world.World;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.IManaGivingItem;
 import vazkii.botania.api.mana.spark.ISparkAttachable;
-import vazkii.botania.common.achievement.ICraftAchievement;
-import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.entity.EntitySpark;
 import vazkii.botania.common.lib.LibItemNames;
 
-public class ItemSpark extends ItemMod implements ICraftAchievement, IManaGivingItem {
+import javax.annotation.Nonnull;
+
+public class ItemSpark extends ItemMod implements IManaGivingItem {
 
 	public ItemSpark() {
 		super(LibItemNames.SPARK);
@@ -38,16 +34,17 @@ public class ItemSpark extends ItemMod implements ICraftAchievement, IManaGiving
 
 	@Nonnull
 	@Override
-	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float xv, float yv, float zv) {
+	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float xv, float yv, float zv) {
 		TileEntity tile = world.getTileEntity(pos);
 		if(tile instanceof ISparkAttachable) {
 			ISparkAttachable attach = (ISparkAttachable) tile;
+			ItemStack stack = player.getHeldItem(hand);
 			if(attach.canAttachSpark(stack) && attach.getAttachedSpark() == null) {
-				stack.stackSize--;
 				if(!world.isRemote) {
+					stack.shrink(1);
 					EntitySpark spark = new EntitySpark(world);
 					spark.setPosition(pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5);
-					world.spawnEntityInWorld(spark);
+					world.spawnEntity(spark);
 					attach.attachSpark(spark);
 					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, pos);
 				}
@@ -56,10 +53,4 @@ public class ItemSpark extends ItemMod implements ICraftAchievement, IManaGiving
 		}
 		return EnumActionResult.PASS;
 	}
-
-	@Override
-	public Achievement getAchievementOnCraft(ItemStack stack, EntityPlayer player, IInventory matrix) {
-		return ModAchievements.sparkCraft;
-	}
-
 }

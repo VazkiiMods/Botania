@@ -1,0 +1,14 @@
+{
+  "result": {
+    "item": "botania:custombrick",
+    "data": 10
+  },
+  "group": "botania:azulejo_cycling",
+  "ingredients": [
+    {
+      "item": "botania:custombrick",
+      "data": 9
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}

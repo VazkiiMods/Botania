@@ -10,12 +10,6 @@
  */
 package vazkii.botania.client.core.handler;
 
-import java.util.ArrayDeque;
-import java.util.Queue;
-import java.util.Random;
-
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
@@ -23,10 +17,15 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
+import org.lwjgl.opengl.GL11;
 import vazkii.botania.common.block.tile.string.TileRedString;
 import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ModItems;
+
+import java.util.ArrayDeque;
+import java.util.Queue;
+import java.util.Random;
 
 public final class RedStringRenderer {
 
@@ -56,7 +55,7 @@ public final class RedStringRenderer {
 	}
 
 	public static void tick() {
-		EntityPlayer player = Minecraft.getMinecraft().thePlayer;
+		EntityPlayer player = Minecraft.getMinecraft().player;
 		boolean hasWand = player != null && PlayerHelper.hasHeldItem(player, ModItems.twigWand);
 		if(sizeAlpha > 0F && !hasWand)
 			sizeAlpha -= 0.1F;
@@ -65,15 +64,9 @@ public final class RedStringRenderer {
 	}
 
 	private static void renderTile(TileRedString tile) {
-		double renderPosX, renderPosY, renderPosZ;
-
-		try {
-			renderPosX = (double) ClientMethodHandles.renderPosX_getter.invokeExact(Minecraft.getMinecraft().getRenderManager());
-			renderPosY = (double) ClientMethodHandles.renderPosY_getter.invokeExact(Minecraft.getMinecraft().getRenderManager());
-			renderPosZ = (double) ClientMethodHandles.renderPosZ_getter.invokeExact(Minecraft.getMinecraft().getRenderManager());
-		} catch (Throwable t) {
-			return;
-		}
+		double renderPosX = Minecraft.getMinecraft().getRenderManager().renderPosX;
+		double renderPosY = Minecraft.getMinecraft().getRenderManager().renderPosY;
+		double renderPosZ = Minecraft.getMinecraft().getRenderManager().renderPosZ;
 
 		EnumFacing dir = tile.getOrientation();
 		BlockPos bind = tile.getBinding();

@@ -1,0 +1,26 @@
+{
+  "result": {
+    "item": "botania:brewery"
+  },
+  "pattern": [
+    "RSR",
+    "RAR",
+    "RMR"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "A": {
+      "item": "#RUNEMANAB"
+    },
+    "R": {
+      "item": "#LIVINGROCK"
+    },
+    "S": {
+      "item": "minecraft:brewing_stand"
+    },
+    "M": {
+      "item": "botania:storage",
+      "data": 0
+    }
+  }
+}

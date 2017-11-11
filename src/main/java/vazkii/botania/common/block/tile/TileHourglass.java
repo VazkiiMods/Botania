@@ -30,6 +30,8 @@ import vazkii.botania.api.item.IHourglassTrigger;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.item.ModItems;
 
+import javax.annotation.Nonnull;
+
 public class TileHourglass extends TileSimpleInventory {
 
 	private static final String TAG_TIME = "time";
@@ -52,7 +54,7 @@ public class TileHourglass extends TileSimpleInventory {
 	public void update() {
 		int totalTime = getTotalTime();
 		ItemStack dustStack = itemHandler.getStackInSlot(0);
-		dust = dustStack != null && dustStack.getItem() == ModItems.manaResource;
+		dust = !dustStack.isEmpty() && dustStack.getItem() == ModItems.manaResource;
 
 		if(totalTime > 0 || dust) {
 			if(move && !dust)
@@ -62,17 +64,17 @@ public class TileHourglass extends TileSimpleInventory {
 				time = 0;
 				flip = !flip;
 				flipTicks = 4;
-				if(!worldObj.isRemote) {
-					worldObj.setBlockState(getPos(), worldObj.getBlockState(getPos()).withProperty(BotaniaStateProps.POWERED, true), 1 | 2);
+				if(!world.isRemote) {
+					world.setBlockState(getPos(), world.getBlockState(getPos()).withProperty(BotaniaStateProps.POWERED, true), 1 | 2);
 					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
-					worldObj.scheduleUpdate(pos, getBlockType(), getBlockType().tickRate(worldObj));
+					world.scheduleUpdate(pos, getBlockType(), getBlockType().tickRate(world));
 				}
 
 				for(EnumFacing facing : EnumFacing.VALUES) {
 					BlockPos pos = getPos().offset(facing);
-					IBlockState state = worldObj.getBlockState(pos);
+					IBlockState state = world.getBlockState(pos);
 					if(state.getBlock() instanceof IHourglassTrigger)
-						((IHourglassTrigger) state.getBlock()).onTriggeredByHourglass(worldObj, pos, this);
+						((IHourglassTrigger) state.getBlock()).onTriggeredByHourglass(world, pos, this);
 				}
 			}
 
@@ -89,7 +91,7 @@ public class TileHourglass extends TileSimpleInventory {
 	}
 
 	public void onManaCollide() {
-		if(!worldObj.isRemote) {
+		if(!world.isRemote) {
 			if(dust)
 				time++;
 			else move = !move;
@@ -99,14 +101,14 @@ public class TileHourglass extends TileSimpleInventory {
 
 	public int getTotalTime() {
 		ItemStack stack = itemHandler.getStackInSlot(0);
-		if(stack == null)
+		if(stack.isEmpty())
 			return 0;
 
-		return getStackItemTime(stack) * stack.stackSize;
+		return getStackItemTime(stack) * stack.getCount();
 	}
 
 	public static int getStackItemTime(ItemStack stack) {
-		if(stack == null)
+		if(stack.isEmpty())
 			return 0;
 		if(stack.getItem() == Item.getItemFromBlock(Blocks.SAND))
 			return stack.getItemDamage() == 1 ? 200 : 20;
@@ -119,7 +121,7 @@ public class TileHourglass extends TileSimpleInventory {
 
 	public int getColor() {
 		ItemStack stack = itemHandler.getStackInSlot(0);
-		if(stack == null)
+		if(stack.isEmpty())
 			return 0;
 		if(stack.getItem() == Item.getItemFromBlock(Blocks.SAND))
 			return stack.getItemDamage() == 1 ? 0xE95800 : 0xFFEC49;
@@ -134,9 +136,10 @@ public class TileHourglass extends TileSimpleInventory {
 	@Override
 	protected SimpleItemStackHandler createItemHandler() {
 		return new SimpleItemStackHandler(this, true) {
+			@Nonnull
 			@Override
-			public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
-				if(stack != null && (stack.getItem() == Item.getItemFromBlock(Blocks.SAND) || stack.getItem() == Item.getItemFromBlock(Blocks.SOUL_SAND)) || stack.getItem() == ModItems.manaResource && stack.getItemDamage() == 23)
+			public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
+				if(!stack.isEmpty() && (stack.getItem() == Item.getItemFromBlock(Blocks.SAND) || stack.getItem() == Item.getItemFromBlock(Blocks.SOUL_SAND)) || stack.getItem() == ModItems.manaResource && stack.getItemDamage() == 23)
 					return super.insertItem(slot, stack, simulate);
 				else return stack;
 			}
@@ -185,17 +188,17 @@ public class TileHourglass extends TileSimpleInventory {
 		int y = res.getScaledHeight() / 2 - 10;
 
 		ItemStack stack = itemHandler.getStackInSlot(0);
-		if(stack != null) {
+		if(!stack.isEmpty()) {
 			RenderHelper.enableGUIStandardItemLighting();
 			GlStateManager.enableRescaleNormal();
 			mc.getRenderItem().renderItemIntoGUI(stack, x, y);
-			mc.getRenderItem().renderItemOverlays(mc.fontRendererObj, stack, x, y);
+			mc.getRenderItem().renderItemOverlays(mc.fontRenderer, stack, x, y);
 			GlStateManager.disableRescaleNormal();
 			RenderHelper.disableStandardItemLighting();
 
 			int time = getTotalTime();
 			String timeStr = StringUtils.ticksToElapsedTime(time);
-			mc.fontRendererObj.drawStringWithShadow(timeStr, x + 20, y, getColor());
+			mc.fontRenderer.drawStringWithShadow(timeStr, x + 20, y, getColor());
 
 			String status = "";
 			if(lock)
@@ -203,7 +206,7 @@ public class TileHourglass extends TileSimpleInventory {
 			if(!move)
 				status = status.isEmpty() ? "stopped" : "lockedStopped";
 			if(!status.isEmpty())
-				mc.fontRendererObj.drawStringWithShadow(I18n.format("botaniamisc." + status), x + 20, y + 12, getColor());
+				mc.fontRenderer.drawStringWithShadow(I18n.format("botaniamisc." + status), x + 20, y + 12, getColor());
 		}
 
 	}

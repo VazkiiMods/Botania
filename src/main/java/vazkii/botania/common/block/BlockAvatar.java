@@ -10,10 +10,9 @@
  */
 package vazkii.botania.common.block;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.statemap.StateMap;
@@ -33,6 +32,7 @@ import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.items.ItemHandlerHelper;
 import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -44,6 +44,8 @@ import vazkii.botania.common.core.helper.InventoryHelper;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
+import javax.annotation.Nonnull;
+
 public class BlockAvatar extends BlockMod implements ILexiconable {
 
 	private static final AxisAlignedBB X_AABB = new AxisAlignedBB(.3125, 0, .21875, 1-.3125, 17/16.0, 1-.21875);
@@ -53,6 +55,7 @@ public class BlockAvatar extends BlockMod implements ILexiconable {
 		super(Material.WOOD, LibBlockNames.AVATAR);
 		setHardness(2.0F);
 		setSoundType(SoundType.WOOD);
+		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.CARDINALS, EnumFacing.NORTH));
 	}
 
 	@Nonnull
@@ -70,11 +73,6 @@ public class BlockAvatar extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	protected IBlockState pickDefaultState() {
-		return blockState.getBaseState().withProperty(BotaniaStateProps.CARDINALS, EnumFacing.NORTH);
-	}
-
-	@Override
 	public int getMetaFromState(IBlockState state) {
 		return state.getValue(BotaniaStateProps.CARDINALS).getIndex();
 	}
@@ -89,19 +87,16 @@ public class BlockAvatar extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack stackOnPlayer, EnumFacing s, float xs, float ys, float zs) {
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing s, float xs, float ys, float zs) {
 		TileAvatar avatar = (TileAvatar) world.getTileEntity(pos);
 		ItemStack stackOnAvatar = avatar.getItemHandler().getStackInSlot(0);
-		if(stackOnAvatar != null) {
-			ItemStack copyStack = stackOnAvatar.copy();
-			avatar.getItemHandler().setStackInSlot(0, null);
-			if(!player.inventory.addItemStackToInventory(copyStack))
-				player.dropItem(copyStack, true);
+		ItemStack stackOnPlayer = player.getHeldItem(hand);
+		if(!stackOnAvatar.isEmpty()) {
+			avatar.getItemHandler().setStackInSlot(0, ItemStack.EMPTY);
+			ItemHandlerHelper.giveItemToPlayer(player, stackOnAvatar);
 			return true;
-		} else if(stackOnPlayer != null && stackOnPlayer.getItem() instanceof IAvatarWieldable) {
-			ItemStack copyStack = stackOnPlayer.copy();
-			avatar.getItemHandler().setStackInSlot(0, copyStack);
-			stackOnPlayer.stackSize--;
+		} else if(!stackOnPlayer.isEmpty() && stackOnPlayer.getItem() instanceof IAvatarWieldable) {
+			avatar.getItemHandler().setStackInSlot(0, stackOnPlayer.splitStack(1));
 			return true;
 		}
 
@@ -147,6 +142,12 @@ public class BlockAvatar extends BlockMod implements ILexiconable {
 	@Override
 	public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
 		return new TileAvatar();
+	}
+
+	@Nonnull
+	@Override
+	public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing side) {
+		return BlockFaceShape.UNDEFINED;
 	}
 
 	@Override

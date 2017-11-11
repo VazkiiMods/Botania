@@ -10,10 +10,7 @@
  */
 package vazkii.botania.common.block.tile;
 
-import java.util.List;
-
 import com.google.common.base.Predicates;
-
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
@@ -30,11 +27,14 @@ import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.mana.spark.ISparkAttachable;
 import vazkii.botania.api.mana.spark.ISparkEntity;
 import vazkii.botania.api.mana.spark.SparkHelper;
-import vazkii.botania.api.sound.BotaniaSoundEvents;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TilePool;
+import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.network.PacketBotaniaEffect;
+import vazkii.botania.common.network.PacketHandler;
+
+import java.util.List;
 
 public class TileTerraPlate extends TileMod implements ISparkAttachable {
 
@@ -71,6 +71,9 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable {
 
 	@Override
 	public void update() {
+		if(world.isRemote)
+			return;
+
 		boolean removeMana = true;
 
 		if(hasValidPlatform()) {
@@ -79,7 +82,7 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable {
 				removeMana = false;
 				ISparkEntity spark = getAttachedSpark();
 				if(spark != null) {
-					List<ISparkEntity> sparkEntities = SparkHelper.getSparksAround(worldObj, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
+					List<ISparkEntity> sparkEntities = SparkHelper.getSparksAround(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
 					for(ISparkEntity otherSpark : sparkEntities) {
 						if(spark == otherSpark)
 							continue;
@@ -88,19 +91,22 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable {
 							otherSpark.registerTransfer(spark);
 					}
 				}
-				if(mana > 0)
-					doParticles();
+				if(mana > 0) {
+					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, pos);
+					PacketHandler.sendToNearby(world, getPos(),
+						new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.TERRA_PLATE, getPos().getX(), getPos().getY(), getPos().getZ()));
+				}
 
-				if(mana >= MAX_MANA && !worldObj.isRemote) {
+				if(mana >= MAX_MANA) {
 					EntityItem item = items.get(0);
 					for(EntityItem otherItem : items)
 						if(otherItem != item)
 							otherItem.setDead();
-						else item.setEntityItemStack(new ItemStack(ModItems.manaResource, 1, 4));
-					worldObj.playSound(null, item.posX, item.posY, item.posZ, BotaniaSoundEvents.terrasteelCraft, SoundCategory.BLOCKS, 1, 1);
+						else item.setItem(new ItemStack(ModItems.manaResource, 1, 4));
+					world.playSound(null, item.posX, item.posY, item.posZ, ModSounds.terrasteelCraft, SoundCategory.BLOCKS, 1, 1);
 					mana = 0;
-					worldObj.updateComparatorOutputLevel(pos, worldObj.getBlockState(pos).getBlock());
-					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(worldObj, pos);
+					world.updateComparatorOutputLevel(pos, world.getBlockState(pos).getBlock());
+					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, pos);
 				}
 			}
 		}
@@ -109,52 +115,20 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable {
 			recieveMana(-1000);
 	}
 
-	void doParticles() {
-		if(worldObj.isRemote) {
-			int ticks = (int) (100.0 * ((double) getCurrentMana() / (double) MAX_MANA));
-
-			int totalSpiritCount = 3;
-			double tickIncrement = 360D / totalSpiritCount;
-
-			int speed = 5;
-			double wticks = ticks * speed - tickIncrement;
-
-			double r = Math.sin((ticks - 100) / 10D) * 2;
-			double g = Math.sin(wticks * Math.PI / 180 * 0.55);
-
-			for(int i = 0; i < totalSpiritCount; i++) {
-				double x = pos.getX() + Math.sin(wticks * Math.PI / 180) * r + 0.5;
-				double y = pos.getY() + 0.25 + Math.abs(r) * 0.7;
-				double z = pos.getZ() + Math.cos(wticks * Math.PI / 180) * r + 0.5;
-
-				wticks += tickIncrement;
-				float[] colorsfx = new float[] {
-						0F, (float) ticks / (float) 100, 1F - (float) ticks / (float) 100
-				};
-				Botania.proxy.wispFX(x, y, z, colorsfx[0], colorsfx[1], colorsfx[2], 0.85F, (float)g * 0.05F, 0.25F);
-				Botania.proxy.wispFX(x, y, z, colorsfx[0], colorsfx[1], colorsfx[2], (float) Math.random() * 0.1F + 0.1F, (float) (Math.random() - 0.5) * 0.05F, (float) (Math.random() - 0.5) * 0.05F, (float) (Math.random() - 0.5) * 0.05F, 0.9F);
-
-				if(ticks == 100)
-					for(int j = 0; j < 15; j++)
-						Botania.proxy.wispFX(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, colorsfx[0], colorsfx[1], colorsfx[2], (float) Math.random() * 0.15F + 0.15F, (float) (Math.random() - 0.5F) * 0.125F, (float) (Math.random() - 0.5F) * 0.125F, (float) (Math.random() - 0.5F) * 0.125F);
-			}
-		}
-	}
-
 	List<EntityItem> getItems() {
-		return worldObj.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(pos, pos.add(1, 1, 1)));
+		return world.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(pos, pos.add(1, 1, 1)));
 	}
 
 	boolean areItemsValid(List<EntityItem> items) {
 		if(items.size() != 3)
 			return false;
 
-		ItemStack ingot = null;
-		ItemStack pearl = null;
-		ItemStack diamond = null;
+		ItemStack ingot = ItemStack.EMPTY;
+		ItemStack pearl = ItemStack.EMPTY;
+		ItemStack diamond = ItemStack.EMPTY;
 		for(EntityItem item : items) {
-			ItemStack stack = item.getEntityItem();
-			if(stack.getItem() != ModItems.manaResource || stack.stackSize != 1)
+			ItemStack stack = item.getItem();
+			if(stack.getItem() != ModItems.manaResource || stack.getCount() != 1)
 				return false;
 
 			int meta = stack.getItemDamage();
@@ -167,7 +141,7 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable {
 			else return false;
 		}
 
-		return ingot != null && pearl != null && diamond != null;
+		return !ingot.isEmpty() && !pearl.isEmpty() && !diamond.isEmpty();
 	}
 
 	boolean hasValidPlatform() {
@@ -184,7 +158,7 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable {
 	}
 
 	boolean checkPlatform(int xOff, int zOff, Block block) {
-		return worldObj.getBlockState(pos.add(xOff, -1, zOff)).getBlock() == block;
+		return world.getBlockState(pos.add(xOff, -1, zOff)).getBlock() == block;
 	}
 
 	@Override
@@ -210,7 +184,7 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable {
 	@Override
 	public void recieveMana(int mana) {
 		this.mana = Math.max(0, Math.min(MAX_MANA, this.mana + mana));
-		worldObj.updateComparatorOutputLevel(pos, worldObj.getBlockState(pos).getBlock());
+		world.updateComparatorOutputLevel(pos, world.getBlockState(pos).getBlock());
 	}
 
 	@Override
@@ -228,7 +202,7 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable {
 
 	@Override
 	public ISparkEntity getAttachedSpark() {
-		List<Entity> sparks = worldObj.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(pos.up(), pos.up().add(1, 1, 1)), Predicates.instanceOf(ISparkEntity.class));
+		List<Entity> sparks = world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(pos.up(), pos.up().add(1, 1, 1)), Predicates.instanceOf(ISparkEntity.class));
 		if(sparks.size() == 1) {
 			Entity e = sparks.get(0);
 			return (ISparkEntity) e;

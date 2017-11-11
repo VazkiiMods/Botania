@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.block.dispenser;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.block.BlockRailBase;
 import net.minecraft.block.material.Material;
@@ -24,6 +22,8 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import vazkii.botania.common.entity.EntityPoolMinecart;
+
+import javax.annotation.Nonnull;
 
 public class BehaviourPoolMinecart extends BehaviorDefaultDispenseItem {
 
@@ -53,7 +53,7 @@ public class BehaviourPoolMinecart extends BehaviorDefaultDispenseItem {
 		if(stack.hasDisplayName())
 			entityminecart.setCustomNameTag(stack.getDisplayName());
 
-		world.spawnEntityInWorld(entityminecart);
+		world.spawnEntity(entityminecart);
 		stack.splitStack(1);
 		return stack;
 	}

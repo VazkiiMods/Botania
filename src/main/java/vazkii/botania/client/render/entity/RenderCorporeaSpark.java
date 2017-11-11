@@ -10,8 +10,6 @@
  */
 package vazkii.botania.client.render.entity;
 
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
@@ -19,7 +17,7 @@ import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.datasync.DataParameter;
+import org.lwjgl.opengl.GL11;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.entity.EntityCorporeaSpark;
@@ -31,18 +29,13 @@ public class RenderCorporeaSpark extends RenderSparkBase<EntityCorporeaSpark> {
 	}
 
 	@Override
-	protected DataParameter<Integer> getInvisibilityParam() {
-		return EntityCorporeaSpark.INVISIBILITY;
-	}
-
-	@Override
 	public TextureAtlasSprite getBaseIcon(EntityCorporeaSpark entity) {
 		return entity.isMaster() ? MiscellaneousIcons.INSTANCE.corporeaWorldIconMaster : MiscellaneousIcons.INSTANCE.corporeaWorldIcon;
 	}
 
 	@Override
 	public void colorSpinningIcon(EntityCorporeaSpark entity, float a) {
-		int hex = entity.getNetwork().getMapColor().colorValue;
+		int hex = entity.getNetwork().getColorValue();
 		int r = (hex & 0xFF0000) >> 16;
 		int g = (hex & 0xFF00) >> 8;
 		int b = hex & 0xFF;
@@ -62,8 +55,8 @@ public class RenderCorporeaSpark extends RenderSparkBase<EntityCorporeaSpark> {
 
 		float absTime = Math.abs(time) - pticks;
 
-		ItemStack stack = entity.getDisplayedItem().orNull();
-		if(stack == null)
+		ItemStack stack = entity.getDisplayedItem();
+		if(stack.isEmpty())
 			return;
 
 		GlStateManager.pushMatrix();
@@ -76,7 +69,7 @@ public class RenderCorporeaSpark extends RenderSparkBase<EntityCorporeaSpark> {
 		GlStateManager.translate(0F, 0F, -2F + (time < 0 ? -absTime : absTime) / 6);
 
 		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-		TextureAtlasSprite icon = Minecraft.getMinecraft().getRenderItem().getItemModelWithOverrides(stack, entity.worldObj, null).getParticleTexture();
+		TextureAtlasSprite icon = Minecraft.getMinecraft().getRenderItem().getItemModelWithOverrides(stack, entity.world, null).getParticleTexture();
 
 		if(icon != null) {
 			float minU = icon.getMinU();

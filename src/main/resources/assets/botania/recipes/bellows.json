@@ -1,0 +1,23 @@
+{
+  "result": {
+    "item": "botania:bellows"
+  },
+  "pattern": [
+    "SSS",
+    "RL ",
+    "SSS"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "R": {
+      "item": "#RUNEAIRB"
+    },
+    "S": {
+      "item": "botania:livingwood0slab",
+      "data": 0
+    },
+    "L": {
+      "item": "minecraft:leather"
+    }
+  }
+}

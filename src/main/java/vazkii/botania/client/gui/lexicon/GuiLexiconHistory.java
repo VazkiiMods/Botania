@@ -10,13 +10,13 @@
  */
 package vazkii.botania.client.gui.lexicon;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import net.minecraft.client.resources.I18n;
 import net.minecraft.nbt.NBTTagCompound;
 import vazkii.botania.api.lexicon.ILexicon;
 import vazkii.botania.api.lexicon.LexiconEntry;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class GuiLexiconHistory extends GuiLexiconIndex {
 
@@ -39,8 +39,7 @@ public class GuiLexiconHistory extends GuiLexiconIndex {
 	}
 
 	public static void visit(LexiconEntry entry) {
-		if(history.contains(entry))
-			history.remove(entry);
+		history.remove(entry);
 		history.add(entry);
 	}
 

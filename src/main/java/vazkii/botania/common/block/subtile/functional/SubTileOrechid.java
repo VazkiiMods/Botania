@@ -10,15 +10,12 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.block.state.pattern.BlockStateMatcher;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.WeightedRandom;
@@ -26,12 +23,16 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.api.sound.BotaniaSoundEvents;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.ConfigHandler;
+import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.lexicon.LexiconData;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class SubTileOrechid extends SubTileFunctional {
 
@@ -54,13 +55,13 @@ public class SubTileOrechid extends SubTileFunctional {
 			BlockPos coords = getCoordsToPut();
 			if(coords != null) {
 				ItemStack stack = getOreToPut();
-				if(stack != null && stack.getItem() != null) {
+				if(!stack.isEmpty()) {
 					Block block = Block.getBlockFromItem(stack.getItem());
 					int meta = stack.getItemDamage();
 					supertile.getWorld().setBlockState(coords, block.getStateFromMeta(meta), 1 | 2);
 					if(ConfigHandler.blockBreakParticles)
 						supertile.getWorld().playEvent(2001, coords, Block.getIdFromBlock(block) + (meta << 12));
-					supertile.getWorld().playSound(null, supertile.getPos(), BotaniaSoundEvents.orechid, SoundCategory.BLOCKS, 2F, 1F);
+					supertile.getWorld().playSound(null, supertile.getPos(), ModSounds.orechid, SoundCategory.BLOCKS, 2F, 1F);
 
 					mana -= cost;
 					sync();
@@ -91,6 +92,8 @@ public class SubTileOrechid extends SubTileFunctional {
 			// But take your TE ores
 			// and stick them in your behind.
 			if(clname.startsWith("gregtech") || clname.startsWith("gregapi"))
+				continue;
+			if(!(item instanceof ItemBlock))
 				continue;
 
 			return stack;

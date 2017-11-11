@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.core.command;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
@@ -19,17 +17,19 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.translation.I18n;
 
+import javax.annotation.Nonnull;
+
 public class CommandShare extends CommandBase {
 
 	@Nonnull
 	@Override
-	public String getCommandName() {
+	public String getName() {
 		return "botania-share";
 	}
 
 	@Nonnull
 	@Override
-	public String getCommandUsage(@Nonnull ICommandSender sender) {
+	public String getUsage(@Nonnull ICommandSender sender) {
 		return "<entry>";
 	}
 
@@ -41,7 +41,7 @@ public class CommandShare extends CommandBase {
 		json = json.replaceAll("%entryname%", I18n.translateToLocal(args[0]));
 
 		ITextComponent component = ITextComponent.Serializer.jsonToComponent(json);
-		server.getPlayerList().sendChatMsg(component);
+		server.getPlayerList().sendMessage(component);
 	}
 
 

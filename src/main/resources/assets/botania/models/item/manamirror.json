@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "botania:items/mana_mirror",
+    "layer1": "botania:items/mana_mirror_overlay"
+  }
+}

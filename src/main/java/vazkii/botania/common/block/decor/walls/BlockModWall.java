@@ -10,10 +10,6 @@
  */
 package vazkii.botania.common.block.decor.walls;
 
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockWall;
 import net.minecraft.block.state.BlockStateContainer;
@@ -21,21 +17,21 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.statemap.StateMap;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.render.IModelRegister;
 import vazkii.botania.common.core.BotaniaCreativeTab;
-import vazkii.botania.common.item.block.ItemBlockMod;
 import vazkii.botania.common.lexicon.LexiconData;
+
+import javax.annotation.Nonnull;
 
 public abstract class BlockModWall extends BlockWall implements ILexiconable, IModelRegister {
 
@@ -46,7 +42,6 @@ public abstract class BlockModWall extends BlockWall implements ILexiconable, IM
 		setRegistryName(name);
 		setUnlocalizedName(name);
 		setDefaultState(pickDefaultState());
-		register();
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
 	}
 
@@ -93,15 +88,9 @@ public abstract class BlockModWall extends BlockWall implements ILexiconable, IM
 		return true;
 	}
 
-	public void register() {
-		GameRegistry.register(this);
-		GameRegistry.register(new ItemBlockMod(this), getRegistryName());
-	}
-
-	@SideOnly(Side.CLIENT)
 	@Override
-	public void getSubBlocks(@Nonnull Item item, CreativeTabs tabs, @Nonnull List<ItemStack> list) {
-		list.add(new ItemStack(item));
+	public void getSubBlocks(CreativeTabs tabs, @Nonnull NonNullList<ItemStack> list) {
+		list.add(new ItemStack(this));
 	}
 
 	@Override

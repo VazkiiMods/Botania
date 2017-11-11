@@ -10,10 +10,6 @@
  */
 package vazkii.botania.common.block;
 
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
@@ -23,24 +19,27 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.ChunkCache;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.items.ItemHandlerHelper;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -53,10 +52,11 @@ import vazkii.botania.common.block.tile.TileAltar;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.core.helper.InventoryHelper;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.item.rod.ItemWaterRod;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
+
+import javax.annotation.Nonnull;
 
 public class BlockAltar extends BlockMod implements ILexiconable {
 
@@ -66,6 +66,8 @@ public class BlockAltar extends BlockMod implements ILexiconable {
 		super(Material.ROCK, LibBlockNames.ALTAR);
 		setHardness(3.5F);
 		setSoundType(SoundType.STONE);
+		setDefaultState(blockState.getBaseState()
+				.withProperty(BotaniaStateProps.ALTAR_VARIANT, AltarVariant.DEFAULT));
 	}
 
 	@Nonnull
@@ -78,12 +80,6 @@ public class BlockAltar extends BlockMod implements ILexiconable {
 	@Override
 	public BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, BotaniaStateProps.ALTAR_VARIANT);
-	}
-
-	@Override
-	protected IBlockState pickDefaultState() {
-		return blockState.getBaseState()
-				.withProperty(BotaniaStateProps.ALTAR_VARIANT, AltarVariant.DEFAULT);
 	}
 
 	@Override
@@ -103,7 +99,7 @@ public class BlockAltar extends BlockMod implements ILexiconable {
 	@Nonnull
 	@Override
 	public IBlockState getActualState(@Nonnull IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-		TileEntity te = worldIn.getTileEntity(pos);
+		TileEntity te = worldIn instanceof ChunkCache ? ((ChunkCache)worldIn).getTileEntity(pos, Chunk.EnumCreateEntityType.CHECK) : worldIn.getTileEntity(pos);
 		if (te instanceof TileAltar) {
 			TileAltar altar = (TileAltar) te;
 
@@ -122,22 +118,16 @@ public class BlockAltar extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public void registerItemForm() {
-		GameRegistry.register(new ItemBlockWithMetadataAndName(this), getRegistryName());
-	}
-
-	@SideOnly(Side.CLIENT)
-	@Override
-	public void getSubBlocks(@Nonnull Item item, CreativeTabs tab, List<ItemStack> list) {
+	public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> list) {
 		for(int i = 0; i < 9; i++)
-			list.add(new ItemStack(item, 1, i));
+			list.add(new ItemStack(this, 1, i));
 	}
 
 	@Override
-	public void onEntityCollidedWithBlock(World world, BlockPos pos, IBlockState state, Entity par5Entity) {
-		if(par5Entity instanceof EntityItem) {
+	public void onEntityCollidedWithBlock(World world, BlockPos pos, IBlockState state, Entity entity) {
+		if(!world.isRemote && entity instanceof EntityItem) {
 			TileAltar tile = (TileAltar) world.getTileEntity(pos);
-			if(tile.collideEntityItem((EntityItem) par5Entity))
+			if(tile.collideEntityItem((EntityItem) entity))
 				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(tile);
 		}
 	}
@@ -151,20 +141,24 @@ public class BlockAltar extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack stack, EnumFacing par6, float par7, float par8, float par9) {
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing par6, float par7, float par8, float par9) {
 		TileAltar tile = (TileAltar) world.getTileEntity(pos);
+		ItemStack stack = player.getHeldItem(hand);
 		if(player.isSneaking()) {
 			InventoryHelper.withdrawFromInventory(tile, player);
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(tile);
-		} else if(tile.isEmpty() && tile.hasWater && stack == null)
+			return true;
+		} else if(tile.isEmpty() && tile.hasWater && stack.isEmpty()) {
 			tile.trySetLastRecipe(player);
+			return true;
+		}
 		else {
-			if(stack != null && (isValidWaterContainer(stack) || stack.getItem() == ModItems.waterRod && ManaItemHandler.requestManaExact(stack, player, ItemWaterRod.COST, false))) {
+			if(!stack.isEmpty() && (isValidWaterContainer(stack) || stack.getItem() == ModItems.waterRod && ManaItemHandler.requestManaExact(stack, player, ItemWaterRod.COST, false))) {
 				if(!tile.hasWater) {
 					if(stack.getItem() == ModItems.waterRod)
 						ManaItemHandler.requestManaExact(stack, player, ItemWaterRod.COST, true);
 					else if(!player.capabilities.isCreativeMode)
-						drain(FluidRegistry.WATER, stack);
+						player.setHeldItem(hand, drain(FluidRegistry.WATER, stack));
 
 					tile.setWater(true);
 					world.updateComparatorOutputLevel(pos, this);
@@ -172,9 +166,9 @@ public class BlockAltar extends BlockMod implements ILexiconable {
 				}
 
 				return true;
-			} else if(stack != null && stack.getItem() == Items.LAVA_BUCKET) {
+			} else if(!stack.isEmpty() && stack.getItem() == Items.LAVA_BUCKET) {
 				if(!player.capabilities.isCreativeMode)
-					drain(FluidRegistry.LAVA, stack);
+					player.setHeldItem(hand, drain(FluidRegistry.LAVA, stack));
 
 				tile.setLava(true);
 				tile.setWater(false);
@@ -182,14 +176,13 @@ public class BlockAltar extends BlockMod implements ILexiconable {
 				world.checkLight(pos);
 
 				return true;
-			} else if(stack != null && stack.getItem() == Items.BUCKET && (tile.hasWater || tile.hasLava) && !Botania.gardenOfGlassLoaded) {
+			} else if(!stack.isEmpty() && stack.getItem() == Items.BUCKET && (tile.hasWater || tile.hasLava) && !Botania.gardenOfGlassLoaded) {
 				ItemStack bucket = tile.hasLava ? new ItemStack(Items.LAVA_BUCKET) : new ItemStack(Items.WATER_BUCKET);
-				if(stack.stackSize == 1)
+				if(stack.getCount() == 1)
 					player.setHeldItem(hand, bucket);
 				else {
-					if(!player.inventory.addItemStackToInventory(bucket))
-						player.dropItem(bucket, false);
-					stack.stackSize--;
+					ItemHandlerHelper.giveItemToPlayer(player, bucket);
+					stack.shrink(1);
 				}
 
 				if(tile.hasLava)
@@ -224,11 +217,11 @@ public class BlockAltar extends BlockMod implements ILexiconable {
 	}
 
 	private boolean isValidWaterContainer(ItemStack stack) {
-		if(stack == null || stack.stackSize != 1)
+		if(stack.isEmpty() || stack.getCount() != 1)
 			return false;
 
-		if(stack.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null)) {
-			IFluidHandler handler = stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null);
+		if(stack.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null)) {
+			IFluidHandler handler = stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
 			FluidStack simulate = handler.drain(new FluidStack(FluidRegistry.WATER, Fluid.BUCKET_VOLUME), false);
 			if(simulate != null && simulate.getFluid() == FluidRegistry.WATER && simulate.amount == Fluid.BUCKET_VOLUME)
 				return true;
@@ -237,9 +230,10 @@ public class BlockAltar extends BlockMod implements ILexiconable {
 		return false;
 	}
 
-	private void drain(Fluid fluid, ItemStack stack) {
-		stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null)
-		.drain(new FluidStack(fluid, Fluid.BUCKET_VOLUME), true);
+	private ItemStack drain(Fluid fluid, ItemStack stack) {
+		IFluidHandlerItem handler = stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
+		handler.drain(new FluidStack(fluid, Fluid.BUCKET_VOLUME), true);
+		return handler.getContainer();
 	}
 
 	@Override

@@ -10,24 +10,23 @@
  */
 package vazkii.botania.client.core.handler;
 
-import java.awt.Color;
-
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.client.event.RenderTooltipEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.lexicon.ILexicon;
 import vazkii.botania.api.lexicon.LexiconRecipeMappings;
 import vazkii.botania.api.lexicon.LexiconRecipeMappings.EntryData;
@@ -38,13 +37,16 @@ import vazkii.botania.common.item.ItemLexicon;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
 
+import java.awt.Color;
+
+@Mod.EventBusSubscriber(Side.CLIENT)
 public final class TooltipAdditionDisplayHandler {
 
 	private static float lexiconLookupTime = 0F;
 
 	@SubscribeEvent
 	public static void onToolTipRender(RenderTooltipEvent.PostText evt) {
-		if(evt.getStack() == null)
+		if(evt.getStack().isEmpty())
 			return;
 
 		ItemStack stack = evt.getStack();
@@ -63,11 +65,11 @@ public final class TooltipAdditionDisplayHandler {
 		EntryData data = LexiconRecipeMappings.getDataForStack(stack);
 		if(data != null) {
 			int lexSlot = -1;
-			ItemStack lexiconStack = null;
+			ItemStack lexiconStack = ItemStack.EMPTY;
 
 			for(int i = 0; i < InventoryPlayer.getHotbarSize(); i++) {
-				ItemStack stackAt = mc.thePlayer.inventory.getStackInSlot(i);
-				if(stackAt != null && stackAt.getItem() instanceof ILexicon && ((ILexicon) stackAt.getItem()).isKnowledgeUnlocked(stackAt, data.entry.getKnowledgeType())) {
+				ItemStack stackAt = mc.player.inventory.getStackInSlot(i);
+				if(!stackAt.isEmpty() && stackAt.getItem() instanceof ILexicon && ((ILexicon) stackAt.getItem()).isKnowledgeUnlocked(stackAt, data.entry.getKnowledgeType())) {
 					lexiconStack = stackAt;
 					lexSlot = i;
 					break;
@@ -96,7 +98,7 @@ public final class TooltipAdditionDisplayHandler {
 					GlStateManager.enableBlend();
 					GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
-					VertexBuffer buf = Tessellator.getInstance().getBuffer();
+					BufferBuilder buf = Tessellator.getInstance().getBuffer();
 					buf.begin(GL11.GL_TRIANGLE_FAN, DefaultVertexFormats.POSITION_COLOR);
 
 					float a = 0.5F + 0.2F * ((float) Math.cos((double) (ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks) / 10) * 0.5F + 0.5F);
@@ -115,11 +117,11 @@ public final class TooltipAdditionDisplayHandler {
 					GlStateManager.shadeModel(GL11.GL_FLAT);
 
 					if(lexiconLookupTime >= time) {
-						mc.thePlayer.inventory.currentItem = lexSlot;
+						mc.player.inventory.currentItem = lexSlot;
 						Botania.proxy.setEntryToOpen(data.entry);
 						Botania.proxy.setLexiconStack(lexiconStack);
-						mc.thePlayer.closeScreen();
-						ItemLexicon.openBook(mc.thePlayer, lexiconStack, mc.theWorld, false);
+						mc.player.closeScreen();
+						ItemLexicon.openBook(mc.player, lexiconStack, mc.world, false);
 
 					}
 				} else lexiconLookupTime = 0F;
@@ -131,7 +133,7 @@ public final class TooltipAdditionDisplayHandler {
 				GlStateManager.scale(0.5F, 0.5F, 1F);
 				boolean mac = Minecraft.IS_RUNNING_ON_MAC;
 
-				mc.fontRendererObj.drawStringWithShadow(TextFormatting.BOLD + (ConfigHandler.useShiftForQuickLookup ? "Shift" : mac ? "Cmd" : "Ctrl"), (x + 10) * 2 - 16, (tooltipY + 8) * 2 + 20, 0xFFFFFFFF);
+				mc.fontRenderer.drawStringWithShadow(TextFormatting.BOLD + (ConfigHandler.useShiftForQuickLookup ? "Shift" : mac ? "Cmd" : "Ctrl"), (x + 10) * 2 - 16, (tooltipY + 8) * 2 + 20, 0xFFFFFFFF);
 				GlStateManager.scale(2F, 2F, 1F);
 
 

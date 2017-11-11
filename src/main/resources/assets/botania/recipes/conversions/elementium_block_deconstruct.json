@@ -1,0 +1,14 @@
+{
+  "result": {
+    "item": "botania:manaresource",
+    "data": 7,
+    "count": 9
+  },
+  "ingredients": [
+    {
+      "item": "botania:storage",
+      "data": 2
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}

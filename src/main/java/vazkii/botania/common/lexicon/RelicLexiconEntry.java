@@ -10,31 +10,37 @@
  */
 package vazkii.botania.common.lexicon;
 
+import net.minecraft.advancements.Advancement;
+import net.minecraft.advancements.AdvancementProgress;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
-import net.minecraft.stats.Achievement;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.LexiconCategory;
 
 public class RelicLexiconEntry extends BasicLexiconEntry {
+	private final ResourceLocation advancement;
 
-	final Achievement a;
-
-	public RelicLexiconEntry(String unlocalizedName, LexiconCategory category, Achievement a) {
+	public RelicLexiconEntry(String unlocalizedName, LexiconCategory category, ResourceLocation advancement) {
 		super(unlocalizedName, category);
 		setKnowledgeType(BotaniaAPI.relicKnowledge);
-		this.a = a;
-		if(a != null)
-			setIcon(a.theItemStack.copy());
+		this.advancement = advancement;
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
 	public boolean isVisible() {
-		EntityPlayerSP player = Minecraft.getMinecraft().thePlayer;
-		return a == null || player.capabilities.isCreativeMode || player.getStatFileWriter().hasAchievementUnlocked(a);
+		EntityPlayerSP player = Minecraft.getMinecraft().player;
+		if(advancement == null || player.capabilities.isCreativeMode) {
+			return true;
+		} else {
+			Advancement adv = player.connection.getAdvancementManager().getAdvancementList().getAdvancement(advancement);
+			AdvancementProgress progress = player.connection.getAdvancementManager().advancementToProgress.get(adv);
+			return progress != null && progress.isDone();
+		}
 	}
 
 }

@@ -10,14 +10,13 @@
  */
 package vazkii.botania.api.recipe;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.google.common.collect.ImmutableList;
-
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.oredict.OreDictionary;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class RecipePetals {
 
@@ -42,7 +41,7 @@ public class RecipePetals {
 
 		for(int i = 0; i < inv.getSlots(); i++) {
 			ItemStack stack = inv.getStackInSlot(i);
-			if(stack == null)
+			if(stack.isEmpty())
 				break;
 
 			int stackIndex = -1, oredictIndex = -1;
