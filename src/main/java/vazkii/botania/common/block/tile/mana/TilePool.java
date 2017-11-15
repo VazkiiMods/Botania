@@ -134,7 +134,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 	@Override
 	public void onChunkUnload() {
 		super.onChunkUnload();
-		invalidate();
+		ManaNetworkEvent.removePool(this);
 	}
 
 	public static RecipeManaInfusion getMatchingRecipe(@Nonnull ItemStack stack, @Nonnull IBlockState state) {
