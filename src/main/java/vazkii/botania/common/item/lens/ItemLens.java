@@ -266,6 +266,9 @@ public class ItemLens extends ItemMod implements ILensControl, ICompositableLens
 		if(index == STORM)
 			return stormLens;
 
+		if(index < 0 || index >= lenses.length)
+			return fallbackLens;
+
 		Lens lens = lenses[index];
 		return lens == null ? fallbackLens : lens;
 	}
@@ -305,10 +308,7 @@ public class ItemLens extends ItemMod implements ILensControl, ICompositableLens
 
 	@Override
 	public int getManaToTransfer(IManaBurst burst, EntityThrowable entity, ItemStack stack, IManaReceiver receiver) {
-		if(stack.getItemDamage() >= lenses.length)
-			return 0;
-		
-		return lenses[stack.getItemDamage()].getManaToTransfer(burst, entity, stack, receiver);
+		return getLens(stack.getItemDamage()).getManaToTransfer(burst, entity, stack, receiver);
 	}
 	
 	@Override
@@ -323,17 +323,17 @@ public class ItemLens extends ItemMod implements ILensControl, ICompositableLens
 
 	@Override
 	public boolean allowBurstShooting(ItemStack stack, IManaSpreader spreader, boolean redstone) {
-		return lenses[stack.getItemDamage()].allowBurstShooting(stack, spreader, redstone);
+		return getLens(stack.getItemDamage()).allowBurstShooting(stack, spreader, redstone);
 	}
 
 	@Override
 	public void onControlledSpreaderTick(ItemStack stack, IManaSpreader spreader, boolean redstone) {
-		lenses[stack.getItemDamage()].onControlledSpreaderTick(stack, spreader, redstone);
+		getLens(stack.getItemDamage()).onControlledSpreaderTick(stack, spreader, redstone);
 	}
 
 	@Override
 	public void onControlledSpreaderPulse(ItemStack stack, IManaSpreader spreader, boolean redstone) {
-		lenses[stack.getItemDamage()].onControlledSpreaderPulse(stack, spreader, redstone);
+		getLens(stack.getItemDamage()).onControlledSpreaderPulse(stack, spreader, redstone);
 	}
 
 	@Override
