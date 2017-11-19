@@ -150,8 +150,8 @@ public class PageCraftingRecipe extends PageRecipe {
 							for(int y = 0; y < height; y++)
 								for(int x = 0; x < width; x++) {
 									Ingredient input = recipe.getIngredients().get(y * width + x);
-									if(input != Ingredient.EMPTY) {
-										ItemStack[] stacks = input.getMatchingStacks(); 
+									ItemStack[] stacks = input.getMatchingStacks();
+									if(stacks.length > 0) {
 										renderItemAtGridPos(gui, 1 + x, 1 + y, stacks[(ticksElapsed / 40) % stacks.length], true);
 									}
 								}
