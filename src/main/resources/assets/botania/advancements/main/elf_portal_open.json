@@ -11,10 +11,9 @@
     }
   },
   "parent": "botania:main/terrasteel_pickup",
-  "__comment": "This is triggered by code in Botania. In the future, it may become data-driven",
   "criteria": {
-    "code_triggered": {
-      "trigger": "minecraft:impossible"
+    "portal": {
+      "trigger": "botania:open_elf_portal"
     }
   }
 }

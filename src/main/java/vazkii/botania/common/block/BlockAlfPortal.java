@@ -23,11 +23,13 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.AlfPortalState;
 import vazkii.botania.api.wand.IWandable;
+import vazkii.botania.common.advancements.AlfPortalTrigger;
 import vazkii.botania.common.block.tile.TileAlfPortal;
 import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.lexicon.LexiconData;
@@ -85,7 +87,7 @@ public class BlockAlfPortal extends BlockMod implements IWandable, ILexiconable 
 	public boolean onUsedByWand(EntityPlayer player, ItemStack stack, World world, BlockPos pos, EnumFacing side) {
 		boolean did = ((TileAlfPortal) world.getTileEntity(pos)).onWanded();
 		if(!world.isRemote && did) {
-			PlayerHelper.grantCriterion((EntityPlayerMP) player, new ResourceLocation(LibMisc.MOD_ID, "main/elf_portal_open"), "code_triggered");
+			AlfPortalTrigger.INSTANCE.trigger((EntityPlayerMP) player, (WorldServer) world, pos, stack);
 		}
 		return did;
 	}
