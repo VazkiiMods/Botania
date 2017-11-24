@@ -44,6 +44,7 @@ import vazkii.botania.api.lexicon.ITwoNamedPage;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.lexicon.LexiconPage;
 import vazkii.botania.common.advancements.AlfPortalTrigger;
+import vazkii.botania.common.advancements.CorporeaRequestTrigger;
 import vazkii.botania.common.advancements.RelicBindTrigger;
 import vazkii.botania.common.block.ModBanners;
 import vazkii.botania.common.block.ModBlocks;
@@ -138,6 +139,7 @@ public class Botania {
 			new WorldTypeSkyblock();
 
 		CriteriaTriggers.register(AlfPortalTrigger.INSTANCE);
+		CriteriaTriggers.register(CorporeaRequestTrigger.INSTANCE);
 		CriteriaTriggers.register(RelicBindTrigger.INSTANCE);
 
 		proxy.preInit(event);

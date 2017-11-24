@@ -29,6 +29,7 @@ import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.corporea.ICorporeaAutoCompleteController;
 import vazkii.botania.api.corporea.ICorporeaRequestor;
 import vazkii.botania.api.corporea.ICorporeaSpark;
+import vazkii.botania.common.advancements.CorporeaRequestTrigger;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.lib.LibMisc;
@@ -253,9 +254,6 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 			if(!nearbyIndexes.isEmpty()) {
 				String msg = event.getMessage().toLowerCase().trim();
 				for(TileCorporeaIndex index : nearbyIndexes) {
-					if(index.world.isRemote)
-						continue;
-
 					ICorporeaSpark spark = index.getSpark();
 					if(spark != null) {
 						String name = "";
@@ -279,9 +277,7 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 						index.doCorporeaRequest(name, count, spark);
 
 						event.getPlayer().sendMessage(new TextComponentTranslation("botaniamisc.requestMsg", count, WordUtils.capitalizeFully(name), CorporeaHelper.lastRequestMatches, CorporeaHelper.lastRequestExtractions).setStyle(new Style().setColor(TextFormatting.LIGHT_PURPLE)));
-						if(CorporeaHelper.lastRequestExtractions >= 50000) {
-							PlayerHelper.grantCriterion(event.getPlayer(), new ResourceLocation(LibMisc.MOD_ID, "challenge/super_corporea_request"), "code_triggered");
-						}
+						CorporeaRequestTrigger.INSTANCE.trigger(event.getPlayer(), event.getPlayer().getServerWorld(), index.getPos(), CorporeaHelper.lastRequestExtractions);
 					}
 				}
 
