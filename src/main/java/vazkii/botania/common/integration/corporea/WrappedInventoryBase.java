@@ -20,7 +20,11 @@ import java.util.List;
 
 public abstract class WrappedInventoryBase implements IWrappedInventory {
 
-	protected ICorporeaSpark spark;
+	protected final ICorporeaSpark spark;
+
+	public WrappedInventoryBase(ICorporeaSpark spark) {
+		this.spark = spark;
+	}
 
 	@Override
 	public ICorporeaSpark getSpark() {
