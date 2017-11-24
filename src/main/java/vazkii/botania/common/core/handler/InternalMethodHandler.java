@@ -54,7 +54,6 @@ import vazkii.botania.common.block.BlockModFlower;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.decor.BlockFloatingFlower;
 import vazkii.botania.common.block.subtile.functional.SubTileSolegnolia;
-import vazkii.botania.common.integration.corporea.WrappedDeepStorage;
 import vazkii.botania.common.integration.corporea.WrappedIInventory;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
@@ -270,10 +269,8 @@ public class InternalMethodHandler extends DummyMethodHandler {
 		for(InvWithLocation inv : inventories) {
 			ICorporeaSpark spark = CorporeaHelper.getSparkForInventory(inv);
 			IWrappedInventory wrapped = null;
-			// try DeepStorageUnit
-			if(wrapped == null) {
-				wrapped = WrappedDeepStorage.wrap(inv, spark);
-			}
+			// try integrations
+
 			// last chance - this will always work
 			if(wrapped == null) {
 				wrapped = WrappedIInventory.wrap(inv, spark);
