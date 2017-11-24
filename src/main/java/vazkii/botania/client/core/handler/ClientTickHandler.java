@@ -65,7 +65,6 @@ public final class ClientTickHandler {
 
 			if(Minecraft.getMinecraft().world == null) {
 				ManaNetworkHandler.instance.clear();
-				TileCorporeaIndex.indexes.clear();
 				SubTileVinculotus.existingFlowers.clear();
 			}
 

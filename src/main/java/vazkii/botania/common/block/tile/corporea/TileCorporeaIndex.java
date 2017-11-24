@@ -13,7 +13,6 @@ package vazkii.botania.common.block.tile.corporea;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -34,7 +33,6 @@ import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.lib.LibMisc;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -43,13 +41,15 @@ import java.util.Set;
 import java.util.WeakHashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequestor {
 
 	public static final double RADIUS = 2.5;
 
 	private static InputHandler input;
-	public static final Set<TileCorporeaIndex> indexes = Collections.newSetFromMap(new WeakHashMap<>());
+	private static final Set<TileCorporeaIndex> serverIndexes = Collections.newSetFromMap(new WeakHashMap<>());
+	private static final Set<TileCorporeaIndex> clientIndexes = Collections.newSetFromMap(new WeakHashMap<>());
 
 	private static final Map<Pattern, IRegexStacker> patterns = new LinkedHashMap<>();
 
@@ -173,20 +173,20 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 		} else if(closeby > 0F)
 			closeby -= step;
 
-		if(!isInvalid() && !indexes.contains(this))
-			indexes.add(this);
+		if(!isInvalid())
+			addIndex(this);
 	}
 
 	@Override
 	public void invalidate() {
 		super.invalidate();
-		indexes.remove(this);
+		removeIndex(this);
 	}
 
 	@Override
 	public void onChunkUnload() {
 		super.onChunkUnload();
-		indexes.remove(this);
+		removeIndex(this);
 	}
 
 	@Override
@@ -229,6 +229,16 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 		if(input == null)
 			input = new InputHandler();
 		return input;
+	}
+
+	private static void addIndex(TileCorporeaIndex index) {
+		Set<TileCorporeaIndex> set = index.world.isRemote ? clientIndexes : serverIndexes;
+		set.add(index);
+	}
+
+	private static void removeIndex(TileCorporeaIndex index) {
+		Set<TileCorporeaIndex> set = index.world.isRemote ? clientIndexes : serverIndexes;
+		set.remove(index);
 	}
 
 	public static final class InputHandler implements ICorporeaAutoCompleteController {
@@ -280,11 +290,9 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 		}
 
 		public static List<TileCorporeaIndex> getNearbyIndexes(EntityPlayer player) {
-			List<TileCorporeaIndex> indexList = new ArrayList<>();
-			for(TileCorporeaIndex index : indexes)
-				if(isInRangeOfIndex(player, index) && index.world.isRemote == player.world.isRemote)
-					indexList.add(index);
-			return indexList;
+			return (player.world.isRemote ? clientIndexes : serverIndexes)
+					.stream().filter(i -> isInRangeOfIndex(player, i))
+					.collect(Collectors.toList());
 		}
 
 		@Override
