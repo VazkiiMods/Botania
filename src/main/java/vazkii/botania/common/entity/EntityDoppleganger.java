@@ -150,7 +150,9 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 		setSize(0.6F, 1.8F);
 		isImmuneToFire = true;
 		experienceValue = 825;
-		Botania.proxy.addBoss(this);
+		if(world.isRemote) {
+			Botania.proxy.addBoss(this);
+		}
 	}
 
 	public static MultiblockSet makeMultiblockSet() {
@@ -509,7 +511,9 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 
 	@Override
 	public void setDead() {
-		Botania.proxy.removeBoss(this);
+		if(world.isRemote) {
+			Botania.proxy.removeBoss(this);
+		}
 		world.playEvent(1010, getSource(), 0);
 		isPlayingMusic = false;
 		super.setDead();
