@@ -14,10 +14,7 @@ import net.minecraft.world.WorldServer;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class CorporeaRequestTrigger implements ICriterionTrigger<CorporeaRequestTrigger.Instance> {
     public static final ResourceLocation ID = new ResourceLocation(LibMisc.MOD_ID, "corporea_index_request");
@@ -70,9 +67,17 @@ public class CorporeaRequestTrigger implements ICriterionTrigger<CorporeaRequest
         }
 
         public void trigger(WorldServer world, BlockPos pos, int count) {
-            this.listeners.stream()
-                    .filter(l -> l.getCriterionInstance().test(world, pos, count))
-                    .forEach(l -> l.grantCriterion(this.playerAdvancements));
+            List<Listener<Instance>> list = new ArrayList<>();
+
+            for(Listener<CorporeaRequestTrigger.Instance> listener : this.listeners) {
+                if(listener.getCriterionInstance().test(world, pos, count)) {
+                    list.add(listener);
+                }
+            }
+
+            for(Listener<CorporeaRequestTrigger.Instance> listener : list) {
+                listener.grantCriterion(this.playerAdvancements);
+            }
         }
     }
 
