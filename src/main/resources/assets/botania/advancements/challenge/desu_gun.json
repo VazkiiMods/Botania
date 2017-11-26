@@ -13,10 +13,15 @@
     "frame": "challenge"
   },
   "parent": "botania:challenge/root",
-  "__comment": "This is triggered by code in Botania. In the future, it may become data-driven",
   "criteria": {
-    "code_triggered": {
-      "trigger": "minecraft:impossible"
+    "use_gun": {
+      "trigger": "botania:use_item_success",
+      "conditions": {
+        "item": {
+          "item": "botania:manaGun",
+          "nbt": "{\"display\": { \"Name\": \"desu gun\" }}"
+        }
+      }
     }
   }
 }

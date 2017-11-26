@@ -28,10 +28,12 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.advancements.UseItemSuccessTrigger;
 import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibMisc;
@@ -111,7 +113,7 @@ public class ItemSpawnerMover extends ItemMod {
 					tag.setInteger(TAG_PLACE_DELAY, 20);
 					itemstack.setTagCompound(tag);
 					world.setBlockToAir(pos);
-					PlayerHelper.grantCriterion((EntityPlayerMP) player, new ResourceLocation(LibMisc.MOD_ID, "main/spawner_mover_use"), "code_triggered");
+					UseItemSuccessTrigger.INSTANCE.trigger((EntityPlayerMP) player, itemstack, (WorldServer) world, pos.getX(), pos.getY(), pos.getZ());
 				} else {
 					player.renderBrokenItemStack(itemstack);
 					for(int i = 0; i < 50; i++) {
