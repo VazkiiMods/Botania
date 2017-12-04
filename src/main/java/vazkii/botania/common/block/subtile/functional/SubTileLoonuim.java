@@ -45,6 +45,7 @@ import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.lexicon.LexiconData;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -70,7 +71,10 @@ public class SubTileLoonuim extends SubTileFunctional {
 				List<ItemStack> stacks = world.getLootTableManager().getLootTableFromLocation(lootTable).generateLootForPools(rand, new LootContext.Builder((WorldServer) world).build());
 				if (stacks.isEmpty())
 					return;
-				else stack = stacks.get(0);
+				else {
+					Collections.shuffle(stacks);
+					stack = stacks.get(0);
+				}
 			} while(stack.isEmpty() || BotaniaAPI.looniumBlacklist.contains(stack.getItem()));
 
 			int bound = RANGE * 2 + 1;
@@ -96,18 +100,18 @@ public class SubTileLoonuim extends SubTileFunctional {
 			else if(world.rand.nextInt(10) == 0) {
 				entity = new EntityCreeper(world);
 				if(world.rand.nextInt(200) == 0)
-					((EntityCreeper) entity).onStruckByLightning(null);
+					entity.onStruckByLightning(null);
 			} else 
 				switch(world.rand.nextInt(3)) {
-				case 0: 
-					entity = new EntityZombie(world);
+				case 0:
 					if(world.rand.nextInt(10) == 0)
 						entity = new EntityHusk(world);
+					else entity = new EntityZombie(world);
 					break;
 				case 1:
-					entity = new EntitySkeleton(world);
 					if(world.rand.nextInt(10) == 0)
 						entity = new EntityStray(world);
+					else entity = new EntitySkeleton(world);
 					break;
 				case 2:
 					if(world.rand.nextInt(10) == 0)
@@ -132,7 +136,7 @@ public class SubTileLoonuim extends SubTileFunctional {
 
 			entity.onInitialSpawn(world.getDifficultyForLocation(pos), null);
 			world.spawnEntity(entity);
-			SubTileSpectranthemum.spawnExplosionParticles(entity, 5);
+			entity.spawnExplosionParticle();
 			
 			mana -= COST;
 			sync();
