@@ -178,7 +178,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	@Override
 	public void onChunkUnload() {
 		super.onChunkUnload();
-		invalidate();
+		ManaNetworkEvent.removeCollector(this);
 	}
 
 	@Override
