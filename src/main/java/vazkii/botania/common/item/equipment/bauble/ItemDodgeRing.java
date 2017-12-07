@@ -22,6 +22,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent.KeyInputEvent;
 import net.minecraftforge.fml.relauncher.Side;
@@ -34,23 +35,22 @@ import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.network.PacketDodge;
 import vazkii.botania.common.network.PacketHandler;
 
+@Mod.EventBusSubscriber(Side.CLIENT)
 public class ItemDodgeRing extends ItemBauble {
 
 	public static final String TAG_DODGE_COOLDOWN = "dodgeCooldown";
 	public static final int MAX_CD = 20;
 
-	int leftDown, rightDown;
+	private static boolean oldLeftDown, oldRightDown;
+	private static int leftDown, rightDown;
 
 	public ItemDodgeRing() {
 		super(LibItemNames.DODGE_RING);
-
-		if(FMLCommonHandler.instance().getSide().isClient())
-			MinecraftForge.EVENT_BUS.register(this);
 	}
 
 	@SubscribeEvent
 	@SideOnly(Side.CLIENT)
-	public void onKeyDown(KeyInputEvent event) {
+	public static void onKeyDown(KeyInputEvent event) {
 		Minecraft mc = Minecraft.getMinecraft();
 
 		IItemHandler baublesInv = BaublesApi.getBaublesHandler(mc.player);
@@ -65,19 +65,22 @@ public class ItemDodgeRing extends ItemBauble {
 			return;
 
 		int threshold = 4;
-		if(mc.gameSettings.keyBindLeft.isKeyDown()) {
+		if(mc.gameSettings.keyBindLeft.isKeyDown() && !oldLeftDown) {
 			int oldLeft = leftDown;
 			leftDown = ClientTickHandler.ticksInGame;
 
 			if(leftDown - oldLeft < threshold)
 				dodge(mc.player, true);
-		} else if(mc.gameSettings.keyBindRight.isKeyDown()) {
+		} else if(mc.gameSettings.keyBindRight.isKeyDown() && !oldRightDown) {
 			int oldRight = rightDown;
 			rightDown = ClientTickHandler.ticksInGame;
 
 			if(rightDown - oldRight < threshold)
 				dodge(mc.player, false);
 		}
+
+		oldLeftDown = mc.gameSettings.keyBindLeft.isKeyDown();
+		oldRightDown = mc.gameSettings.keyBindRight.isKeyDown();
 	}
 
 	@Override
@@ -87,8 +90,7 @@ public class ItemDodgeRing extends ItemBauble {
 			ItemNBTHelper.setInt(stack, TAG_DODGE_COOLDOWN, cd - 1);
 	}
 
-	@SideOnly(Side.CLIENT)
-	public void dodge(EntityPlayer player, boolean left) {
+	private static void dodge(EntityPlayer player, boolean left) {
 		if(player.capabilities.isFlying || !player.onGround || player.moveForward > 0.2 || player.moveForward < -0.2)
 			return;
 
@@ -107,8 +109,6 @@ public class ItemDodgeRing extends ItemBauble {
 
 	@SideOnly(Side.CLIENT)
 	public static void renderHUD(ScaledResolution resolution, EntityPlayer player, ItemStack stack, float pticks) {
-		Math.max(1, stack.getItemDamage());
-		Minecraft.getMinecraft();
 		int xo = resolution.getScaledWidth() / 2 - 20;
 		int y = resolution.getScaledHeight() / 2 + 20;
 
