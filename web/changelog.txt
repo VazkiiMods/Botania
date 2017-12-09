@@ -1,4 +1,4 @@
-r1.10 351
+r1.10 352
 *<b>Another big round of fixes provided by williewillus</b>
 *Fixed a division by zero crash when entering some entries with bad recipes.
 *Fixed a potential race condition in corporea indexes, which would cause them to not function properly.
@@ -12,6 +12,9 @@ r1.10 351
 *Fixed the loonium not drawing items properly out of the loot table.
 *Improved the way advancements work by using actual data-driven triggers.
 *Removed DSU integration since MFR isn't around.
+*Removed reference to the scrapped BotaniaV2 in the mcmod.info file.
+r1.10 351
+*Absolutely nothing because I'm stupid and forgot to pull the changes from the repository before building \:D/
 r1.10 350
 *Added beetroot to the full crop farm challenge text. (codewarrior0)
 *Fixed a crash when moving a mana pool with a quark piston.
