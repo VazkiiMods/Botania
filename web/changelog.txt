@@ -1,3 +1,17 @@
+r1.10 351
+*<b>Another big round of fixes provided by williewillus</b>
+*Fixed a division by zero crash when entering some entries with bad recipes.
+*Fixed a potential race condition in corporea indexes, which would cause them to not function properly.
+*Fixed a potential race condition in the gaia guardian boss bar, which would cause it to not function properly.
+*Fixed manastorm charge and corporea index star animations being choppy.
+*Fixed Manastorm Charges not giving mana.
+*Fixed pools and spreaders sometimes not getting removed from the network properly.
+*Fixed pressing any key twice while strafing left or right causing the ring of dexterous motion to activate.
+*Fixed requesting items from a corporea index showing the incorrect amount of items in the chat.
+*Fixed step assist height being incorrect. (InsomniaKitten)
+*Fixed the loonium not drawing items properly out of the loot table.
+*Improved the way advancements work by using actual data-driven triggers.
+*Removed DSU integration since MFR isn't around.
 r1.10 350
 *Added beetroot to the full crop farm challenge text. (codewarrior0)
 *Fixed a crash when moving a mana pool with a quark piston.
