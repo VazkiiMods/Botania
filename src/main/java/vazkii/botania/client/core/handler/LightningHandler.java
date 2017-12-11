@@ -26,11 +26,12 @@ import org.lwjgl.opengl.GL11;
 import vazkii.botania.client.fx.FXLightning;
 import vazkii.botania.client.fx.ParticleRenderDispatcher;
 import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.common.lib.LibMisc;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
 
-@Mod.EventBusSubscriber(Side.CLIENT)
+@Mod.EventBusSubscriber(value = Side.CLIENT, modid = LibMisc.MOD_ID)
 public class LightningHandler {
 
 	private LightningHandler() {}

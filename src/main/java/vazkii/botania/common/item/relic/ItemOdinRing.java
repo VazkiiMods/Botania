@@ -34,7 +34,7 @@ import vazkii.botania.common.lib.LibMisc;
 import java.util.ArrayList;
 import java.util.List;
 
-@Mod.EventBusSubscriber
+@Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
 public class ItemOdinRing extends ItemRelicBauble {
 
 	private static final List<String> damageNegations = new ArrayList<>();

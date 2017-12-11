@@ -122,9 +122,10 @@ import vazkii.botania.common.item.block.ItemBlockStorage;
 import vazkii.botania.common.item.block.ItemBlockTinyPotato;
 import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lib.LibBlockNames;
+import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.lib.LibOreDict;
 
-@Mod.EventBusSubscriber
+@Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
 public final class ModBlocks {
 	public static final Block flower = new BlockModFlower();
 	public static final Block altar = new BlockAltar();

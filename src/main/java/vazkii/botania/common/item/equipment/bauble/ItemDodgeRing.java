@@ -32,10 +32,11 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.lib.LibItemNames;
+import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.network.PacketDodge;
 import vazkii.botania.common.network.PacketHandler;
 
-@Mod.EventBusSubscriber(Side.CLIENT)
+@Mod.EventBusSubscriber(value = Side.CLIENT, modid = LibMisc.MOD_ID)
 public class ItemDodgeRing extends ItemBauble {
 
 	public static final String TAG_DODGE_COOLDOWN = "dodgeCooldown";

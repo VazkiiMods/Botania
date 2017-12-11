@@ -17,9 +17,10 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import vazkii.botania.common.core.handler.ConfigHandler;
+import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.world.WorldTypeSkyblock;
 
-@Mod.EventBusSubscriber(Side.CLIENT)
+@Mod.EventBusSubscriber(value = Side.CLIENT, modid = LibMisc.MOD_ID)
 public final class SkyblockRenderEvents {
 
 	@SubscribeEvent
