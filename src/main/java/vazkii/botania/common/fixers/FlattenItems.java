@@ -16,9 +16,9 @@ public class FlattenItems implements IFixableData {
 	private static final Map<String, IntFunction<String>> LOOKUP = new HashMap<>();
 
 	static {
-		LOOKUP.put(LibMisc.MOD_ID + ":manaresource", i -> {
+		LOOKUP.put("botania:manaresource", i -> {
 			if (i == 10) {
-				// support ancient prismarine from 1.
+				// support ancient prismarine from 1.7
 				return "minecraft:prismarine_shard";
 			} else {
 				return LibMisc.MOD_ID + ":" + LibItemNames.MANA_RESOURCE_NAMES[i].toLowerCase(Locale.ROOT);

@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.item.material;
 
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
@@ -20,29 +18,20 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.ItemHandlerHelper;
 import vazkii.botania.api.item.IPetalApothecary;
 import vazkii.botania.api.recipe.IElvenItem;
 import vazkii.botania.api.recipe.IFlowerComponent;
-import vazkii.botania.client.core.handler.ModelHandler;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.entity.EntityEnderAirBottle;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.lib.LibItemNames;
-import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
@@ -50,6 +39,7 @@ import javax.annotation.Nonnull;
 public class ItemManaResource extends ItemMod implements IFlowerComponent, IElvenItem {
 	public ItemManaResource(String registryName) {
 		super(registryName);
+		setUnlocalizedName(registryName);
 	}
 
 	@SubscribeEvent
@@ -113,12 +103,6 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 		}
 
 		return ActionResult.newResult(EnumActionResult.PASS, stack);
-	}
-
-	@Nonnull
-	@Override
-	public String getUnlocalizedName(ItemStack par1ItemStack) {
-		return "item." + getRegistryName().getResourcePath(); // todo set these properly
 	}
 
 	@Override
