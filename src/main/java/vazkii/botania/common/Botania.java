@@ -19,8 +19,10 @@ import net.minecraft.entity.boss.EntityWither;
 import net.minecraft.entity.item.EntityEnderCrystal;
 import net.minecraft.entity.item.EntityItemFrame;
 import net.minecraft.entity.item.EntityPainting;
+import net.minecraft.util.datafix.FixTypes;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.util.ModFixs;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
@@ -84,6 +86,7 @@ import vazkii.botania.common.entity.EntityPinkWither;
 import vazkii.botania.common.entity.EntitySignalFlare;
 import vazkii.botania.common.entity.EntitySpark;
 import vazkii.botania.common.entity.ModEntities;
+import vazkii.botania.common.fixers.FlattenItems;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.network.GuiHandler;
@@ -110,6 +113,8 @@ public class Botania {
 	@SidedProxy(serverSide = LibMisc.PROXY_SERVER, clientSide = LibMisc.PROXY_CLIENT)
 	public static IProxy proxy;
 
+	private static ModFixs fixer;
+
 	public static final Logger LOGGER = LogManager.getLogger(LibMisc.MOD_ID);
 
 	@EventHandler
@@ -132,6 +137,8 @@ public class Botania {
 
 		ModMultiblocks.init();
 		ModBanners.init();
+		fixer = FMLCommonHandler.instance().getDataFixer().init(LibMisc.MOD_ID, LibMisc.DATA_VERSION);
+		fixer.registerFix(FixTypes.ITEM_INSTANCE, new FlattenItems());
 
 		if(Botania.gardenOfGlassLoaded)
 			new WorldTypeSkyblock();

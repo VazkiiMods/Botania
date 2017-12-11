@@ -18,6 +18,7 @@ public final class LibMisc {
 	public static final String BUILD = "GRADLE:BUILD";
 	public static final String VERSION = "GRADLE:VERSION-" + BUILD;
 	public static final String DEPENDENCIES = "required-after:baubles;after:thaumcraft";
+	public static final int DATA_VERSION = 1;
 
 	// Network Contants
 	public static final String NETWORK_CHANNEL = MOD_ID;
