@@ -48,12 +48,8 @@ import javax.annotation.Nonnull;
 
 @Mod.EventBusSubscriber
 public class ItemManaResource extends ItemMod implements IFlowerComponent, IElvenItem {
-
-	final int types = 24;
-
-	public ItemManaResource() {
-		super(LibItemNames.MANA_RESOURCE);
-		setHasSubtypes(true);
+	public ItemManaResource(String registryName) {
+		super(registryName);
 	}
 
 	@SubscribeEvent
