@@ -561,8 +561,8 @@ public final class ModCraftingRecipes {
 		recipeCraftCrate = path("opencrate_1");
 		recipesPatterns = allOfGroup("craftpattern");
 		recipeBrewery = ModBlocks.brewery.getRegistryName();
-		recipeVial = path("vial_0");
-		recipeFlask = path("vial_1");
+		recipeVial = ModItems.vial.getRegistryName();
+		recipeFlask = ModItems.flask.getRegistryName();
 		recipeIncenseStick = ModItems.incenseStick.getRegistryName();
 		recipeIncensePlate = ModBlocks.incensePlate.getRegistryName();
 		recipeHourglass = ModBlocks.hourglass.getRegistryName();

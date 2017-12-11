@@ -61,7 +61,7 @@ public class PageBrew extends PageRecipe implements ITwoNamedPage {
 		ItemStack book = PlayerHelper.getFirstHeldItemClass(Minecraft.getMinecraft().player, ILexicon.class);
 		if(book != null && ((ILexicon) book.getItem()).isKnowledgeUnlocked(book, BotaniaAPI.elvenKnowledge)) {
 			renderItemAtLinePos(gui, 20, 2, y + 12, recipe.getOutput(new ItemStack(ModItems.vial)));
-			renderItemAtLinePos(gui, 20, 3, y + 12, recipe.getOutput(new ItemStack(ModItems.vial, 1, 1)));
+			renderItemAtLinePos(gui, 20, 3, y + 12, recipe.getOutput(new ItemStack(ModItems.flask)));
 		} else renderItemAtLinePos(gui, 0, -1, y + 12, recipe.getOutput(new ItemStack(ModItems.vial)));
 
 		int i = 0;

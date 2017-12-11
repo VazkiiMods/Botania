@@ -28,7 +28,7 @@ public class BreweryRecipeWrapper implements IRecipeWrapper {
 	@SuppressWarnings("unchecked")
 	public BreweryRecipeWrapper(RecipeBrew recipeBrew) {
 		ImmutableList.Builder<List<ItemStack>> builder = ImmutableList.builder();
-		builder.add(ImmutableList.of(new ItemStack(ModItems.vial, 1, 0), new ItemStack(ModItems.vial, 1, 1)));
+		builder.add(ImmutableList.of(new ItemStack(ModItems.vial), new ItemStack(ModItems.flask)));
 		for(Object o : recipeBrew.getInputs()) {
 			if(o instanceof ItemStack) {
 				builder.add(ImmutableList.of((ItemStack) o));
@@ -39,7 +39,7 @@ public class BreweryRecipeWrapper implements IRecipeWrapper {
 		}
 
 		input = builder.build();
-		output = ImmutableList.of(recipeBrew.getOutput(new ItemStack(ModItems.vial)).copy(), recipeBrew.getOutput(new ItemStack(ModItems.vial, 1, 1)).copy());
+		output = ImmutableList.of(recipeBrew.getOutput(new ItemStack(ModItems.vial)).copy(), recipeBrew.getOutput(new ItemStack(ModItems.flask)).copy());
 	}
 
 	@Override

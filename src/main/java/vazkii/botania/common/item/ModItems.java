@@ -205,7 +205,8 @@ public final class ModItems {
 	public static final Item diviningRod = new ItemDiviningRod();
 	public static final Item gravityRod = new ItemGravityRod();
 	public static final Item manaInkwell = new ItemManaInkwell();
-	public static final Item vial = new ItemVial();
+	public static final Item vial = new ItemVial(LibItemNames.VIAL);
+	public static final Item flask = new ItemVial(LibItemNames.FLASK);
 	public static final Item brewVial = new ItemBrewVial();
 	public static final Item brewFlask = new ItemBrewFlask();
 	public static final Item bloodPendant = new ItemBloodPendant();
@@ -384,6 +385,7 @@ public final class ModItems {
 		r.register(gravityRod);
 		r.register(manaInkwell);
 		r.register(vial);
+		r.register(flask);
 		r.register(brewVial);
 		r.register(brewFlask);
 		r.register(bloodPendant);
@@ -490,8 +492,8 @@ public final class ModItems {
 		OreDictionary.registerOre(LibOreDict.MANAWEAVE_CLOTH, new ItemStack(manaweaveCloth));
 		OreDictionary.registerOre(LibOreDict.MANA_POWDER, new ItemStack(manaPowder));
 
-		OreDictionary.registerOre(LibOreDict.VIAL, new ItemStack(vial, 1, 0));
-		OreDictionary.registerOre(LibOreDict.FLASK, new ItemStack(vial, 1, 1));
+		OreDictionary.registerOre(LibOreDict.VIAL, new ItemStack(vial));
+		OreDictionary.registerOre(LibOreDict.FLASK, new ItemStack(flask));
 
 		BotaniaAPI.blackListItemFromLoonium(lexicon);
 		BotaniaAPI.blackListItemFromLoonium(overgrowthSeed);

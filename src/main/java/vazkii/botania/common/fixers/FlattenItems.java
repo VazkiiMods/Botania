@@ -21,7 +21,14 @@ public class FlattenItems implements IFixableData {
 				// support ancient prismarine from 1.7
 				return "minecraft:prismarine_shard";
 			} else {
-				return LibMisc.MOD_ID + ":" + LibItemNames.MANA_RESOURCE_NAMES[i].toLowerCase(Locale.ROOT);
+				return LibMisc.MOD_ID + ":" + LibItemNames.MANA_RESOURCE_NAMES[i % LibItemNames.MANA_RESOURCE_NAMES.length].toLowerCase(Locale.ROOT);
+			}
+		});
+		LOOKUP.put("botania:vial", i -> {
+			if (i == 1) {
+				return LibMisc.MOD_ID + ":" + LibItemNames.FLASK;
+			} else {
+				return LibMisc.MOD_ID + ":" + LibItemNames.VIAL;
 			}
 		});
 	}

@@ -17,7 +17,7 @@ import vazkii.botania.common.lib.LibItemNames;
 public class ItemBrewFlask extends ItemBrewBase {
 
 	public ItemBrewFlask() {
-		super(LibItemNames.BREW_FLASK, 6, 24, new ItemStack(ModItems.vial, 1, 1));
+		super(LibItemNames.BREW_FLASK, 6, 24, new ItemStack(ModItems.flask));
 	}
 
 }
