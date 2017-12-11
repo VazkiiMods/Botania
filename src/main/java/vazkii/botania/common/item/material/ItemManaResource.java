@@ -27,6 +27,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -39,11 +40,13 @@ import vazkii.botania.common.Botania;
 import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.entity.EntityEnderAirBottle;
 import vazkii.botania.common.item.ItemMod;
+import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
+@Mod.EventBusSubscriber
 public class ItemManaResource extends ItemMod implements IFlowerComponent, IElvenItem {
 
 	final int types = 24;
@@ -51,11 +54,10 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 	public ItemManaResource() {
 		super(LibItemNames.MANA_RESOURCE);
 		setHasSubtypes(true);
-		MinecraftForge.EVENT_BUS.register(this);
 	}
 
 	@SubscribeEvent
-	public void onPlayerInteract(PlayerInteractEvent.RightClickBlock event) {
+	public static void onPlayerInteract(PlayerInteractEvent.RightClickBlock event) {
 		ItemStack stack = event.getItemStack();
 		boolean correctStack = !stack.isEmpty() && stack.getItem() == Items.GLASS_BOTTLE;
 		boolean ender = event.getWorld().provider.getDimension() == 1;
@@ -64,7 +66,7 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 			if (event.getWorld().isRemote) {
 				event.getEntityPlayer().swingArm(event.getHand());
 			} else {
-				ItemStack stack1 = new ItemStack(this, 1, 15);
+				ItemStack stack1 = new ItemStack(ModItems.enderAirBottle);
 
 				ItemHandlerHelper.giveItemToPlayer(event.getEntityPlayer(), stack1);
 
@@ -83,9 +85,9 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
 		ItemStack stack = player.getHeldItem(hand);
 
-		if(stack.getItemDamage() == 4 || stack.getItemDamage() == 14)
-			return EntityDoppleganger.spawn(player, stack, world, pos, stack.getItemDamage() == 14) ? EnumActionResult.SUCCESS : EnumActionResult.FAIL;
-		else if(stack.getItemDamage() == 20 && net.minecraft.item.ItemDye.applyBonemeal(stack, world, pos, player, hand)) {
+		if(this == ModItems.terrasteel || this == ModItems.gaiaIngot)
+			return EntityDoppleganger.spawn(player, stack, world, pos, this == ModItems.gaiaIngot) ? EnumActionResult.SUCCESS : EnumActionResult.FAIL;
+		else if(this == ModItems.livingroot && net.minecraft.item.ItemDye.applyBonemeal(stack, world, pos, player, hand)) {
 			if(!world.isRemote)
 				world.playEvent(2005, pos, 0);
 
@@ -99,7 +101,7 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
 		ItemStack stack = player.getHeldItem(hand);
-		if(stack.getItemDamage() == 15) {
+		if(this == ModItems.enderAirBottle) {
 			if(!player.capabilities.isCreativeMode)
 				stack.shrink(1);
 
@@ -117,28 +119,16 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 		return ActionResult.newResult(EnumActionResult.PASS, stack);
 	}
 
-	@Override
-	public void getSubItems(@Nonnull CreativeTabs tab, @Nonnull NonNullList<ItemStack> stacks) {
-		if(isInCreativeTab(tab)) {
-			for(int i = 0; i < types; i++) {
-				if("UNUSED".equals(LibItemNames.MANA_RESOURCE_NAMES[i]))
-					continue;
-				if(Botania.gardenOfGlassLoaded || i != 20 && i != 21)
-					stacks.add(new ItemStack(this, 1, i));
-			}
-		}
-	}
-
 	@Nonnull
 	@Override
 	public String getUnlocalizedName(ItemStack par1ItemStack) {
-		return "item." + LibItemNames.MANA_RESOURCE_NAMES[Math.min(types - 1, par1ItemStack.getItemDamage())];
+		return "item." + getRegistryName().getResourcePath(); // todo set these properly
 	}
 
 	@Override
 	public boolean canFit(ItemStack stack, IPetalApothecary apothecary) {
-		int meta = stack.getItemDamage();
-		return meta == 6 || meta == 8 || meta == 5 || meta == 23;
+		return this == ModItems.lifeEssence || this == ModItems.redstoneRoot
+				|| this == ModItems.pixieDust || this == ModItems.manaPowder;
 	}
 
 	@Override
@@ -148,27 +138,13 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 
 	@Override
 	public boolean isElvenItem(ItemStack stack) {
-		int meta = stack.getItemDamage();
-		return meta == 7 || meta == 8 || meta == 9;
+		return this == ModItems.elementium || this == ModItems.pixieDust || this == ModItems.dragonstone;
 	}
 
 	@Nonnull
 	@Override
 	public ItemStack getContainerItem(@Nonnull ItemStack itemStack) {
-		return itemStack.getItemDamage() == 11 ? itemStack.copy() : ItemStack.EMPTY;
-	}
-
-	@SideOnly(Side.CLIENT)
-	@Override
-	public void registerModels() {
-		for (int i = 0; i < LibItemNames.MANA_RESOURCE_NAMES.length; i++) {
-			if (!"UNUSED".equals(LibItemNames.MANA_RESOURCE_NAMES[i])) {
-				ModelLoader.setCustomModelResourceLocation(
-					this, i,
-					new ModelResourceLocation(LibMisc.MOD_ID + ":" + LibItemNames.MANA_RESOURCE_NAMES[i], "inventory")
-				);
-			}
-		}
+		return this == ModItems.placeholder ? itemStack.copy() : ItemStack.EMPTY;
 	}
 
 }

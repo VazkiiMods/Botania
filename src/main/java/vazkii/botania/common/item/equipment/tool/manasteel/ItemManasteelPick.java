@@ -110,8 +110,8 @@ public class ItemManasteelPick extends ItemPickaxe implements IManaUsingItem, IS
 	}
 
 	@Override
-	public boolean getIsRepairable(ItemStack par1ItemStack, @Nonnull ItemStack par2ItemStack) {
-		return par2ItemStack.getItem() == ModItems.manaResource && par2ItemStack.getItemDamage() == 0 ? true : super.getIsRepairable(par1ItemStack, par2ItemStack);
+	public boolean getIsRepairable(ItemStack pick, @Nonnull ItemStack material) {
+		return material.getItem() == ModItems.manaSteel ? true : super.getIsRepairable(pick, material);
 	}
 
 	@Override

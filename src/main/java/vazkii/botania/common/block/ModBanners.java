@@ -20,10 +20,10 @@ public final class ModBanners {
 
 	public static void init() {
 		Class<? extends Enum<?>> clazz = BannerPattern.class;
-		addPattern(clazz, "flower", "flr", new ItemStack(ModItems.manaResource, 1, 3));
+		addPattern(clazz, "flower", "flr", new ItemStack(ModItems.livingwoodTwig));
 		addPattern(clazz, "lexicon", "lex", new ItemStack(ModItems.lexicon));
-		addPattern(clazz, "logo", "lgo", new ItemStack(ModItems.manaResource, 1, 4));
-		addPattern(clazz, "sapling", "spl", new ItemStack(ModItems.manaResource, 1, 13));
+		addPattern(clazz, "logo", "lgo", new ItemStack(ModItems.terrasteel));
+		addPattern(clazz, "sapling", "spl", new ItemStack(ModItems.dreamwoodTwig));
 		addPattern(clazz, "tiny_potato", "tpt", new ItemStack(ModBlocks.tinyPotato));
 
 		addPattern(clazz, "spark_dispersive", "sds", new ItemStack(ModItems.sparkUpgrade, 1, 0));

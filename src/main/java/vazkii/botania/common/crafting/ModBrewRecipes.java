@@ -62,7 +62,7 @@ public class ModBrewRecipes {
 		nightVisionBrew = BotaniaAPI.registerBrewRecipe(ModBrews.nightVision, new ItemStack(Items.NETHER_WART), new ItemStack(Items.SPIDER_EYE), new ItemStack(Items.GOLDEN_CARROT));
 		absorptionBrew = BotaniaAPI.registerBrewRecipe(ModBrews.absorption, new ItemStack(Items.NETHER_WART), new ItemStack(Items.GOLDEN_APPLE), new ItemStack(Items.POTATO));
 
-		overloadBrew = BotaniaAPI.registerBrewRecipe(ModBrews.overload, new ItemStack(Items.NETHER_WART), new ItemStack(Items.BLAZE_POWDER), new ItemStack(Items.SUGAR), new ItemStack(Items.GLOWSTONE_DUST), new ItemStack(ModItems.manaResource), new ItemStack(Items.SPIDER_EYE));
+		overloadBrew = BotaniaAPI.registerBrewRecipe(ModBrews.overload, new ItemStack(Items.NETHER_WART), new ItemStack(Items.BLAZE_POWDER), new ItemStack(Items.SUGAR), new ItemStack(Items.GLOWSTONE_DUST), new ItemStack(ModItems.manaSteel), new ItemStack(Items.SPIDER_EYE));
 		soulCrossBrew = BotaniaAPI.registerBrewRecipe(ModBrews.soulCross, new ItemStack(Items.NETHER_WART), new ItemStack(Blocks.SOUL_SAND), new ItemStack(Items.PAPER), new ItemStack(Items.APPLE), new ItemStack(Items.BONE));
 		featherFeetBrew = BotaniaAPI.registerBrewRecipe(ModBrews.featherfeet, new ItemStack(Items.NETHER_WART), new ItemStack(Items.FEATHER), new ItemStack(Items.LEATHER), new ItemStack(Blocks.WOOL, 1, -1));
 		emptinessBrew = BotaniaAPI.registerBrewRecipe(ModBrews.emptiness, new ItemStack(Items.NETHER_WART), new ItemStack(Items.GUNPOWDER), new ItemStack(Items.ROTTEN_FLESH), new ItemStack(Items.BONE), new ItemStack(Items.STRING), new ItemStack(Items.ENDER_PEARL));

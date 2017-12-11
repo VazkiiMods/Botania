@@ -200,8 +200,8 @@ public class ItemLivingwoodBow extends ItemBow implements IManaUsingItem, IModel
 	}
 
 	@Override
-	public boolean getIsRepairable(ItemStack par1ItemStack, ItemStack par2ItemStack) {
-		return par2ItemStack.getItem() == ModItems.manaResource && par2ItemStack.getItemDamage() == 3 || super.getIsRepairable(par1ItemStack, par2ItemStack);
+	public boolean getIsRepairable(ItemStack bow, ItemStack material) {
+		return material.getItem() == ModItems.livingwoodTwig || super.getIsRepairable(bow, material);
 	}
 
 	@Override

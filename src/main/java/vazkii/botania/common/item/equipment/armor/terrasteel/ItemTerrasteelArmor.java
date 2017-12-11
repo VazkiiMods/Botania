@@ -50,8 +50,8 @@ public class ItemTerrasteelArmor extends ItemManasteelArmor {
 	}
 
 	@Override
-	public boolean getIsRepairable(ItemStack par1ItemStack, @Nonnull ItemStack par2ItemStack) {
-		return par2ItemStack.getItem() == ModItems.manaResource && par2ItemStack.getItemDamage() == 4 || super.getIsRepairable(par1ItemStack, par2ItemStack);
+	public boolean getIsRepairable(ItemStack armor, @Nonnull ItemStack material) {
+		return material.getItem() == ModItems.terrasteel || super.getIsRepairable(armor, material);
 	}
 
 	@Nonnull

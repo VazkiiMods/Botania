@@ -45,12 +45,7 @@ public class BlockRoot extends BlockMod implements ILexiconable {
 	@Nonnull
 	@Override
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-		return ModItems.manaResource;
-	}
-
-	@Override
-	public int damageDropped(IBlockState state) {
-		return 20;
+		return ModItems.livingroot;
 	}
 
 	@Override

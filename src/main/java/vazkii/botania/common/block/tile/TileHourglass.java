@@ -54,7 +54,7 @@ public class TileHourglass extends TileSimpleInventory {
 	public void update() {
 		int totalTime = getTotalTime();
 		ItemStack dustStack = itemHandler.getStackInSlot(0);
-		dust = !dustStack.isEmpty() && dustStack.getItem() == ModItems.manaResource;
+		dust = !dustStack.isEmpty() && dustStack.getItem() == ModItems.manaPowder;
 
 		if(totalTime > 0 || dust) {
 			if(move && !dust)
@@ -114,7 +114,7 @@ public class TileHourglass extends TileSimpleInventory {
 			return stack.getItemDamage() == 1 ? 200 : 20;
 		if(stack.getItem() == Item.getItemFromBlock(Blocks.SOUL_SAND))
 			return 1200;
-		if(stack.getItem() == ModItems.manaResource)
+		if(stack.getItem() == ModItems.manaPowder)
 			return 1;
 		return 0;
 	}
@@ -127,7 +127,7 @@ public class TileHourglass extends TileSimpleInventory {
 			return stack.getItemDamage() == 1 ? 0xE95800 : 0xFFEC49;
 		if(stack.getItem() == Item.getItemFromBlock(Blocks.SOUL_SAND))
 			return 0x5A412f;
-		if(stack.getItem() == ModItems.manaResource)
+		if(stack.getItem() == ModItems.manaPowder)
 			return 0x03abff;
 
 		return 0;
@@ -139,7 +139,7 @@ public class TileHourglass extends TileSimpleInventory {
 			@Nonnull
 			@Override
 			public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
-				if(!stack.isEmpty() && (stack.getItem() == Item.getItemFromBlock(Blocks.SAND) || stack.getItem() == Item.getItemFromBlock(Blocks.SOUL_SAND)) || stack.getItem() == ModItems.manaResource && stack.getItemDamage() == 23)
+				if(!stack.isEmpty() && (stack.getItem() == Item.getItemFromBlock(Blocks.SAND) || stack.getItem() == Item.getItemFromBlock(Blocks.SOUL_SAND)) || stack.getItem() == ModItems.manaPowder)
 					return super.insertItem(slot, stack, simulate);
 				else return stack;
 			}

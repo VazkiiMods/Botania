@@ -124,8 +124,8 @@ public class ItemManasteelShears extends ItemShears implements IManaUsingItem, I
 	}
 
 	@Override
-	public boolean getIsRepairable(ItemStack par1ItemStack, ItemStack par2ItemStack) {
-		return par2ItemStack.getItem() == ModItems.manaResource && par2ItemStack.getItemDamage() == 0 ? true : super.getIsRepairable(par1ItemStack, par2ItemStack);
+	public boolean getIsRepairable(ItemStack shears, ItemStack material) {
+		return material.getItem() == ModItems.manaSteel || super.getIsRepairable(shears, material);
 	}
 
 	@Override

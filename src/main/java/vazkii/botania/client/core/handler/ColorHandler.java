@@ -97,9 +97,8 @@ public final class ColorHandler {
 
 		ItemColors items = Minecraft.getMinecraft().getItemColors();
 
-		items.registerItemColorHandler((s, t) -> s.getItemDamage() == 5 || s.getItemDamage() == 14
-				? Color.HSBtoRGB(Botania.proxy.getWorldElapsedTicks() * 2 % 360 / 360F, 0.25F, 1F) : -1,
-						ModItems.manaResource);
+		items.registerItemColorHandler((s, t) -> Color.HSBtoRGB(Botania.proxy.getWorldElapsedTicks() * 2 % 360 / 360F, 0.25F, 1F),
+						ModItems.lifeEssence, ModItems.gaiaIngot);
 
 		items.registerItemColorHandler((s, t) ->
 		t == 1 ? EnumDyeColor.byMetadata(ItemTwigWand.getColor1(s)).getColorValue()

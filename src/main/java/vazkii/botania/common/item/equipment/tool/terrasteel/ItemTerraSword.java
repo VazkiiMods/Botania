@@ -143,7 +143,7 @@ public class ItemTerraSword extends ItemManasteelSword implements ILensEffect {
 	}
 
 	@Override
-	public boolean getIsRepairable(ItemStack par1ItemStack, @Nonnull ItemStack par2ItemStack) {
-		return par2ItemStack.getItem() == ModItems.manaResource && par2ItemStack.getItemDamage() == 4 ? true : super.getIsRepairable(par1ItemStack, par2ItemStack);
+	public boolean getIsRepairable(ItemStack sword, @Nonnull ItemStack material) {
+		return material.getItem() == ModItems.terrasteel || super.getIsRepairable(sword, material);
 	}
 }

@@ -1,7 +1,6 @@
 {
   "result": {
-    "item": "botania:manaresource",
-    "data": 0
+    "item": "botania:terrasteel"
   },
   "pattern": [
     "III",
@@ -11,7 +10,7 @@
   "type": "forge:ore_shaped",
   "key": {
     "I": {
-      "item": "#NUGGETMANASTEEL"
+      "item": "#NUGGETTERRASTEEL"
     }
   }
 }

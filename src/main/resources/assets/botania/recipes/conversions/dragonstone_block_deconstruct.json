@@ -1,13 +1,12 @@
 {
   "result": {
-    "item": "botania:manaresource",
-    "data": 2,
+    "item": "botania:dragonstone",
     "count": 9
   },
   "ingredients": [
     {
       "item": "botania:storage",
-      "data": 3
+      "data": 4
     }
   ],
   "type": "minecraft:crafting_shapeless"

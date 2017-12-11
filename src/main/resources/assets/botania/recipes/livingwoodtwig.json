@@ -1,7 +1,6 @@
 {
   "result": {
-    "item": "botania:manaresource",
-    "data": 13
+    "item": "botania:livingwoodtwig"
   },
   "pattern": [
     "W",
@@ -10,7 +9,7 @@
   "type": "forge:ore_shaped",
   "key": {
     "W": {
-      "item": "#DREAMWOOD"
+      "item": "#LIVINGWOOD"
     }
   }
 }

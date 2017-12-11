@@ -1,7 +1,6 @@
 {
   "result": {
-    "item": "botania:manaresource",
-    "data": 12
+    "item": "botania:redstring"
   },
   "ingredients": [
     {
@@ -15,9 +14,6 @@
     },
     {
       "item": "#BENDERAIRBOTTLE"
-    },
-    {
-      "item": "minecraft:pumpkin"
     }
   ],
   "type": "forge:ore_shapeless"

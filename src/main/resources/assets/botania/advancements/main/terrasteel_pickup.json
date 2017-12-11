@@ -1,8 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "botania:manaresource",
-      "data": 4
+      "item": "botania:terrasteel"
     },
     "title": {
       "translate": "advancement.botania:terrasteelPickup"
@@ -18,8 +17,7 @@
       "conditions": {
         "items": [
           {
-            "item": "botania:manaresource",
-            "data": 4
+            "item": "botania:manasteel"
           }
         ]
       }

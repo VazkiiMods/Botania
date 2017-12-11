@@ -385,7 +385,7 @@ public final class LexiconData {
 		terrasteel = new BasicLexiconEntry(LibLexicon.BASICS_TERRASTEEL, categoryBasics);
 		terrasteel.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeTerraPlate),
 				new PageText("2"), new PageMultiblock("4", ModMultiblocks.terrasteelPlate), new PageTerrasteel("3"))
-		.setIcon(new ItemStack(ModItems.manaResource, 1, 4));
+		.setIcon(new ItemStack(ModItems.terrasteel));
 
 		blackLotus = new BasicLexiconEntry(LibLexicon.BASICS_BLACK_LOTUS, categoryBasics);
 		blackLotus.setLexiconPages(new PageText("0")).setIcon(new ItemStack(ModItems.blackLotus));
@@ -405,7 +405,7 @@ public final class LexiconData {
 					new PageCraftingRecipe("8", ModCraftingRecipes.recipeMagmaToSlimeball),
 					new PageManaInfusionRecipe("13", ModManaAlchemyRecipes.prismarineRecipes), new PageText("9"),
 					new PageText("11"), new PageCraftingRecipe("12", ModCraftingRecipes.recipeEndPortal));
-			gardenOfGlass.setPriority().setIcon(new ItemStack(ModItems.manaResource, 1, 20));
+			gardenOfGlass.setPriority().setIcon(new ItemStack(ModItems.livingroot));
 		}
 
 		if (Botania.thaumcraftLoaded)
@@ -1046,8 +1046,8 @@ public final class LexiconData {
 		// ENDER ENTRIES
 		enderAir = new BasicLexiconEntry(LibLexicon.ENDER_AIR, categoryEnder);
 		enderAir.setPriority().setLexiconPages(new PageText("0"));
-		enderAir.addExtraDisplayedRecipe(new ItemStack(ModItems.manaResource, 1, 15));
-		LexiconRecipeMappings.map(new ItemStack(ModItems.manaResource, 1, 15), enderAir, 0);
+		enderAir.addExtraDisplayedRecipe(new ItemStack(ModItems.enderAirBottle));
+		LexiconRecipeMappings.map(new ItemStack(ModItems.enderAirBottle), enderAir, 0);
 
 		enderEyeBlock = new BasicLexiconEntry(LibLexicon.ENDER_ENDER_EYE_BLOCK, categoryEnder);
 		enderEyeBlock.setLexiconPages(new PageText("0"),
@@ -1280,19 +1280,19 @@ public final class LexiconData {
 				new PageElvenRecipe("5", ModElvenTradeRecipes.dragonstoneRecipes), new PageText("6"),
 				new PageElvenRecipe("7", ModElvenTradeRecipes.elvenQuartzRecipe), new PageText("8"),
 				new PageElvenRecipe("9", ModElvenTradeRecipes.alfglassRecipe))
-		.setIcon(new ItemStack(ModItems.manaResource, 1, 9));
+		.setIcon(new ItemStack(ModItems.dragonstone));
 
 		gaiaRitual = new AlfheimLexiconEntry(LibLexicon.ALF_GAIA_RITUAL, categoryAlfhomancy);
 		gaiaRitual.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipeGaiaPylon),
 				new PageMultiblock("2", ModMultiblocks.gaiaRitual), new PageText("3"), new PageText("4"),
-				new PageText("5")).setIcon(new ItemStack(ModItems.manaResource, 1, 5));
-		LexiconRecipeMappings.map(new ItemStack(ModItems.manaResource, 1, 5), gaiaRitual, 0);
+				new PageText("5")).setIcon(new ItemStack(ModItems.lifeEssence));
+		LexiconRecipeMappings.map(new ItemStack(ModItems.lifeEssence), gaiaRitual, 0);
 
 		gaiaRitualHardmode = new AlfheimLexiconEntry(LibLexicon.ALF_GAIA_RITUAL_HARDMODE, categoryAlfhomancy);
 		gaiaRitualHardmode
 		.setLexiconPages(new PageText("0"), new PageText("1"),
 				new PageCraftingRecipe("2", ModCraftingRecipes.recipeGaiaIngot))
-		.setIcon(new ItemStack(ModItems.manaResource, 1, 14));
+		.setIcon(new ItemStack(ModItems.gaiaIngot));
 
 		elvenLore = new AlfheimLexiconEntry(LibLexicon.ALF_LORE, categoryAlfhomancy);
 		elvenLore

@@ -61,8 +61,8 @@ public class ItemManaweaveArmor extends ItemManasteelArmor {
 	}
 
 	@Override
-	public boolean getIsRepairable(ItemStack par1ItemStack, @Nonnull ItemStack par2ItemStack) {
-		return par2ItemStack.getItem() == ModItems.manaResource && par2ItemStack.getItemDamage() == 22 ? true : super.getIsRepairable(par1ItemStack, par2ItemStack);
+	public boolean getIsRepairable(ItemStack armor, @Nonnull ItemStack material) {
+		return material.getItem() == ModItems.manaweaveCloth || super.getIsRepairable(armor, material);
 	}
 
 	private static ItemStack[] armorset;

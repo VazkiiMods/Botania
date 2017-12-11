@@ -6,9 +6,8 @@
       "rolls": 1,
       "entries": [{
         "type": "item",
-        "name": "botania:manaResource",
+        "name": "botania:lifeessence",
         "functions": [
-          { "function": "set_data", "data": 5 },
           { "function": "set_count", "count": 10 },
           {
             "function": "set_count",
@@ -81,7 +80,7 @@
       "rolls": 1,
       "entries": [{
         "type": "item",
-        "name": "botania:manaResource",
+        "name": "botania:manasteel",
         "functions": [{ "function": "set_count", "count": { "min": 16, "max": 27 } }]
       }]
     },
@@ -94,9 +93,8 @@
       "rolls": 1,
       "entries": [{
         "type": "item",
-        "name": "botania:manaResource",
+        "name": "botania:manapearl",
         "functions": [
-          { "function": "set_data", "data": 1 },
           { "function": "set_count", "count": { "min": 8, "max": 13 } }
         ]
       }]
@@ -110,9 +108,8 @@
       "rolls": 1,
       "entries": [{
         "type": "item",
-        "name": "botania:manaResource",
+        "name": "botania:manadiamond",
         "functions": [
-          { "function": "set_data", "data": 2 },
           { "function": "set_count", "count": { "min": 4, "max": 6 } }
         ]
       }]

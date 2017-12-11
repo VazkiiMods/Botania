@@ -131,7 +131,7 @@ public class TileCraftCrate extends TileOpenCrate {
 		for(int i = 0; i < 9; i++) {
 			ItemStack stack = itemHandler.getStackInSlot(i);
 
-			if(stack.isEmpty() || isLocked(i) || stack.getItem() == ModItems.manaResource && stack.getItemDamage() == 11)
+			if(stack.isEmpty() || isLocked(i) || stack.getItem() == ModItems.placeholder)
 				continue;
 
 			craft.setInventorySlotContents(i, stack.copy());

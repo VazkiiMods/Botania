@@ -82,7 +82,7 @@ public final class SkyblockWorldEvents {
 						event.getWorld().playSound(null, event.getPos(), block.getSoundType().getBreakSound(), SoundCategory.BLOCKS, block.getSoundType().getVolume() * 0.4F, block.getSoundType().getPitch() + (float) (Math.random() * 0.2 - 0.1));
 
 						if(Math.random() < 0.8)
-							event.getEntityPlayer().dropItem(new ItemStack(ModItems.manaResource, 1, 21), false);
+							event.getEntityPlayer().dropItem(new ItemStack(ModItems.pebble), false);
 					}
 
 					event.setCanceled(true);

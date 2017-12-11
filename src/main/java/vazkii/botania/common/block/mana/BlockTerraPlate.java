@@ -56,7 +56,8 @@ public class BlockTerraPlate extends BlockMod implements ILexiconable {
 	@Override
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing s, float xs, float ys, float zs) {
 		ItemStack stack = player.getHeldItem(hand);
-		if(!stack.isEmpty() && stack.getItem() == ModItems.manaResource && stack.getItemDamage() < 3) {
+		if(!stack.isEmpty()
+				&& (stack.getItem() == ModItems.manaSteel || stack.getItem() == ModItems.manaPearl || stack.getItem() == ModItems.manaDiamond)) {
 			if(!world.isRemote) {
 				ItemStack target = stack.splitStack(1);
 				EntityItem item = new EntityItem(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, target);
