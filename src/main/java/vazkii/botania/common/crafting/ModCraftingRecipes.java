@@ -483,7 +483,7 @@ public final class ModCraftingRecipes {
 		recipeApothecary = path("altar_0");
 		recipeLexicon = ModItems.lexicon.getRegistryName();
 		recipesTwigWand = allOfGroup(ModItems.twigWand.getRegistryName());
-		recipeLivingwoodTwig = path("manaresource_3");
+		recipeLivingwoodTwig = ModItems.livingwoodTwig.getRegistryName();
 		recipeRuneAltar = ModBlocks.runeAltar.getRegistryName();
 		recipeTerraPlate = ModBlocks.terraPlate.getRegistryName();
 		recipeFlowerBag = ModItems.flowerBag.getRegistryName();
@@ -545,7 +545,7 @@ public final class ModCraftingRecipes {
 		recipePump = ModBlocks.pump.getRegistryName();
 		recipeSparkChanger = ModBlocks.sparkChanger.getRegistryName();
 		recipeBellows = ModBlocks.bellows.getRegistryName();
-		recipeRedstoneRoot = path("manaresource_6");
+		recipeRedstoneRoot = ModItems.redstoneRoot.getRegistryName();
 		recipesAltarMeta = allOfGroup("metamorphic_apothecary");
 		recipePylon = path("pylon_0");
 		recipeTurntable = ModBlocks.turntable.getRegistryName();
@@ -557,7 +557,7 @@ public final class ModCraftingRecipes {
 		recipeConjurationCatalyst = ModBlocks.conjurationCatalyst.getRegistryName();
 		recipeSpectralPlatform = path("platform_1");
 		recipeGatherDrum = path("forestdrum_1");
-		recipePlaceholder = path("manaresource_11");
+		recipePlaceholder = ModItems.placeholder.getRegistryName();
 		recipeCraftCrate = path("opencrate_1");
 		recipesPatterns = allOfGroup("craftpattern");
 		recipeBrewery = ModBlocks.brewery.getRegistryName();
@@ -639,7 +639,7 @@ public final class ModCraftingRecipes {
 		recipeObedienceStick = ModItems.obedienceStick.getRegistryName();
 		recipeSlimeBottle = ModItems.slimeBottle.getRegistryName();
 		recipeExchangeRod = ModItems.exchangeRod.getRegistryName();
-		recipeManaweaveCloth = path("manaresource_22");
+		recipeManaweaveCloth = ModItems.manaweaveCloth.getRegistryName();
 		recipeManaweaveHelm = ModItems.manaweaveHelm.getRegistryName();
 		recipeManaweaveChest = ModItems.manaweaveChest.getRegistryName();
 		recipeManaweaveLegs = ModItems.manaweaveLegs.getRegistryName();
@@ -651,7 +651,7 @@ public final class ModCraftingRecipes {
 		recipeEnderHand = ModItems.enderHand.getRegistryName();
 		recipeEnderDagger = ModItems.enderDagger.getRegistryName();
 		recipeSpawnerClaw = ModBlocks.spawnerClaw.getRegistryName();
-		recipeRedString = path("manaresource_12");
+		recipeRedString = ModItems.redString.getRegistryName();
 		recipeRedStringContainer = ModBlocks.redStringContainer.getRegistryName();
 		recipeRedStringDispenser = ModBlocks.redStringDispenser.getRegistryName();
 		recipeRedStringFertilizer = ModBlocks.redStringFertilizer.getRegistryName();
@@ -714,9 +714,9 @@ public final class ModCraftingRecipes {
 		recipeGoddessCharm = ModItems.goddessCharm.getRegistryName();
 		recipeAlfPortal = ModBlocks.alfPortal.getRegistryName();
 		recipeNaturaPylon = path("pylon_1");
-		recipeDreamwoodTwig = path("manaresource_13");
+		recipeDreamwoodTwig = ModItems.dreamwoodTwig.getRegistryName();
 		recipeGaiaPylon = path("pylon_2");
-		recipeGaiaIngot = path("manaresource_14");
+		recipeGaiaIngot = ModItems.gaiaIngot.getRegistryName();
 		recipeLivingrockDecor1 = path("livingrock_1");
 		recipeLivingrockDecor2 = path("livingrock_2");
 		recipeLivingrockDecor3 = path("livingrock_3");
