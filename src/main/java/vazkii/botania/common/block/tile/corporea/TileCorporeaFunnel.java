@@ -67,16 +67,6 @@ public class TileCorporeaFunnel extends TileCorporeaBase implements ICorporeaReq
 	}
 
 	@Override
-	public int getSizeInventory() {
-		return 1;
-	}
-
-	@Override
-	protected SimpleItemStackHandler createItemHandler() {
-		return new SimpleItemStackHandler(this, false);
-	}
-
-	@Override
 	public void doCorporeaRequest(Object request, int count, ICorporeaSpark spark) {
 		if(!(request instanceof ItemStack))
 			return;

@@ -132,20 +132,10 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 		itemCount = par1nbtTagCompound.getInteger(TAG_ITEM_COUNT);
 	}
 
-	@Override
-	public int getSizeInventory() {
-		return 1;
-	}
-
 	public int getComparatorValue() {
 		if(itemCount == 0)
 			return 0;
 		return Math.min(15, (int) Math.floor(Math.log(itemCount) / LOG_2) + 1);
-	}
-
-	@Override
-	protected SimpleItemStackHandler createItemHandler() {
-		return new SimpleItemStackHandler(this, false);
 	}
 
 	@Override

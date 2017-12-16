@@ -191,11 +191,6 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 	}
 
 	@Override
-	public int getSizeInventory() {
-		return 0;
-	}
-
-	@Override
 	public void doCorporeaRequest(Object request, int count, ICorporeaSpark spark) {
 		if(!(request instanceof String))
 			return;
