@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "botania:terrasteel"
+      "item": "botania:terrasteel_ingot"
     },
     "title": {
       "translate": "advancement.botania:terrasteelPickup"
@@ -17,7 +17,7 @@
       "conditions": {
         "items": [
           {
-            "item": "botania:manasteel"
+            "item": "botania:terrasteel_ingot"
           }
         ]
       }

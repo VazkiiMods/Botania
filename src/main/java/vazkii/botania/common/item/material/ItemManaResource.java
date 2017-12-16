@@ -39,7 +39,6 @@ import javax.annotation.Nonnull;
 public class ItemManaResource extends ItemMod implements IFlowerComponent, IElvenItem {
 	public ItemManaResource(String registryName) {
 		super(registryName);
-		setUnlocalizedName(registryName);
 	}
 
 	@SubscribeEvent

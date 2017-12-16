@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "botania:enderairbottle"
+      "item": "botania:ender_air_bottle"
     },
     "title": {
       "translate": "advancement.botania:enderAirMake"
@@ -17,7 +17,7 @@
       "conditions": {
         "items": [
           {
-            "item": "botania:enderairbottle"
+            "item": "botania:ender_air_bottle"
           }
         ]
       }
