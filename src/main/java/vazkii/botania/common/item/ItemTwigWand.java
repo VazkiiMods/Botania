@@ -59,7 +59,7 @@ import javax.annotation.Nonnull;
 import java.awt.Color;
 import java.util.List;
 
-public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
+public class ItemTwigWand extends ItemMod implements ICoordBoundItem {
 
 	private static final String TAG_COLOR1 = "color1";
 	private static final String TAG_COLOR2 = "color2";
@@ -238,12 +238,6 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 		}
 	}
 
-	@Nonnull
-	@Override
-	public String getUnlocalizedName(ItemStack par1ItemStack) {
-		return getUnlocalizedNameLazy(par1ItemStack);
-	}
-
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void addInformation(ItemStack stack, World world, List<String> list, ITooltipFlag flags) {
@@ -313,12 +307,6 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 		}
 
 		return null;
-	}
-
-	@SideOnly(Side.CLIENT)
-	@Override
-	public void registerModels() {
-		ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getRegistryName(), "inventory"));
 	}
 
 }

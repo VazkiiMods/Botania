@@ -12,6 +12,7 @@ package vazkii.botania.common.item;
 
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemRecord;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -521,10 +522,11 @@ public final class ModItems {
 		BotaniaAPI.blackListItemFromLoonium(lexicon);
 		BotaniaAPI.blackListItemFromLoonium(overgrowthSeed);
 		BotaniaAPI.blackListItemFromLoonium(blackLotus);
-		int min = Item.getIdFromItem(Items.RECORD_13);
-		int max = Item.getIdFromItem(Items.RECORD_WAIT);
-		for(int i = min; i <= max; i++)
-			BotaniaAPI.blackListItemFromLoonium(Item.getItemById(i));
+		for(Item i : Item.REGISTRY) {
+			if("minecraft".equals(i.getRegistryName().getResourceDomain()) & i instanceof ItemRecord) {
+				BotaniaAPI.blackListItemFromLoonium(i);
+			}
+		}
 
 		OreDictionary.registerOre("rodBlaze", Items.BLAZE_ROD);
 		OreDictionary.registerOre("powderBlaze", Items.BLAZE_POWDER);

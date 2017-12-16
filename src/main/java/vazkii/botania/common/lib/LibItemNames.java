@@ -17,9 +17,7 @@ public final class LibItemNames {
 	public static final String DYE = "dye";
 	public static final String PESTLE_AND_MORTAR = "pestleAndMortar";
 	public static final String TWIG_WAND = "twigWand";
-	public static final String MANA_RESOURCE = "manaResource";
 	public static final String LENS = "lens";
-	public static final String MANA_PETAL = "manaPetal";
 	public static final String RUNE = "rune";
 	public static final String MANA_TABLET = "manaTablet";
 	public static final String MANA_GUN = "manaGun";
