@@ -34,6 +34,7 @@ import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ItemMod;
+import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibItemNames;
 
 import javax.annotation.Nonnull;
@@ -41,37 +42,7 @@ import java.awt.Color;
 import java.util.List;
 
 public class ItemLens extends ItemMod implements ILensControl, ICompositableLens, ITinyPlanetExcempt {
-
-	public static final int SUBTYPES = 24;
-
-	public static final int NORMAL = 0,
-			SPEED = 1,
-			POWER = 2,
-			TIME = 3,
-			EFFICIENCY = 4,
-			BOUNCE = 5,
-			GRAVITY = 6,
-			MINE = 7,
-			DAMAGE = 8,
-			PHANTOM = 9,
-			MAGNET = 10,
-			EXPLOSIVE = 11,
-			INFLUENCE = 12,
-			WEIGHT = 13,
-			PAINT = 14,
-			FIRE = 15,
-			PISTON = 16,
-			LIGHT = 17,
-			WARP = 18,
-			REDIRECT = 19,
-			FIREWORK = 20,
-			FLARE = 21,
-			MESSENGER = 22,
-			TRIPWIRE = 23;
-
-	public static final int STORM = 5000;
-
-	private static final int PROP_NONE = 0,
+	public static final int PROP_NONE = 0,
 			PROP_POWER = 1,
 			PROP_ORIENTATION = 1 << 1,
 			PROP_TOUCH = 1 << 2,
@@ -79,84 +50,17 @@ public class ItemLens extends ItemMod implements ILensControl, ICompositableLens
 			PROP_DAMAGE = 1 << 4,
 			PROP_CONTROL = 1 << 5;
 
-	private static final int[] props = new int[SUBTYPES];
-	private static final Lens[] lenses = new Lens[SUBTYPES];
-	private static final Lens fallbackLens = new Lens();
-	private static final Lens stormLens = new LensStorm();
-
-	static {
-		setProps(NORMAL, PROP_NONE);
-		setProps(SPEED, PROP_NONE);
-		setProps(POWER, PROP_POWER);
-		setProps(TIME, PROP_NONE);
-		setProps(EFFICIENCY, PROP_NONE);
-		setProps(BOUNCE, PROP_TOUCH);
-		setProps(GRAVITY, PROP_ORIENTATION);
-		setProps(MINE, PROP_TOUCH | PROP_INTERACTION);
-		setProps(DAMAGE, PROP_DAMAGE);
-		setProps(PHANTOM, PROP_TOUCH);
-		setProps(MAGNET, PROP_ORIENTATION);
-		setProps(EXPLOSIVE, PROP_DAMAGE | PROP_TOUCH | PROP_INTERACTION);
-		setProps(INFLUENCE, PROP_NONE);
-		setProps(WEIGHT, PROP_TOUCH | PROP_INTERACTION);
-		setProps(PAINT, PROP_TOUCH | PROP_INTERACTION);
-		setProps(FIRE, PROP_DAMAGE | PROP_TOUCH | PROP_INTERACTION);
-		setProps(PISTON, PROP_TOUCH | PROP_INTERACTION);
-		setProps(LIGHT, PROP_TOUCH | PROP_INTERACTION);
-		setProps(WARP, PROP_NONE);
-		setProps(REDIRECT, PROP_TOUCH | PROP_INTERACTION);
-		setProps(FIREWORK, PROP_TOUCH);
-		setProps(FLARE, PROP_CONTROL);
-		setProps(MESSENGER, PROP_POWER);
-		setProps(TRIPWIRE, PROP_CONTROL);
-
-		setLens(NORMAL, fallbackLens);
-		setLens(SPEED, new LensSpeed());
-		setLens(POWER, new LensPower());
-		setLens(TIME, new LensTime());
-		setLens(EFFICIENCY, new LensEfficiency());
-		setLens(BOUNCE, new LensBounce());
-		setLens(GRAVITY, new LensGravity());
-		setLens(MINE, new LensMine());
-		setLens(DAMAGE, new LensDamage());
-		setLens(PHANTOM, new LensPhantom());
-		setLens(MAGNET, new LensMagnet());
-		setLens(EXPLOSIVE, new LensExplosive());
-		setLens(INFLUENCE, new LensInfluence());
-		setLens(WEIGHT, new LensWeight());
-		setLens(PAINT, new LensPaint());
-		setLens(FIRE, new LensFire());
-		setLens(PISTON, new LensPiston());
-		setLens(LIGHT, new LensLight());
-		setLens(WARP, new LensWarp());
-		setLens(REDIRECT, new LensRedirect());
-		setLens(FIREWORK, new LensFirework());
-		setLens(FLARE, new LensFlare());
-		setLens(MESSENGER, new LensMessenger());
-		setLens(TRIPWIRE, new LensTripwire());
-	}
-
 	private static final String TAG_COLOR = "color";
 	private static final String TAG_COMPOSITE_LENS = "compositeLens";
 
-	public ItemLens() {
-		super(LibItemNames.LENS);
+	private final Lens lens;
+	private final int props;
+
+	public ItemLens(String name, Lens lens, int props) {
+		super(name);
 		setMaxStackSize(1);
-		setHasSubtypes(true);
-	}
-
-	@Override
-	public void getSubItems(@Nonnull CreativeTabs tab, @Nonnull NonNullList<ItemStack> stacks) {
-		if(isInCreativeTab(tab)) {
-			for(int i = 0; i < SUBTYPES; i++)
-				stacks.add(new ItemStack(this, 1, i));
-		}
-	}
-
-	@Nonnull
-	@Override
-	public String getUnlocalizedName(ItemStack par1ItemStack) {
-		return "item." + LibItemNames.LENS_NAMES[Math.min(SUBTYPES - 1, par1ItemStack.getItemDamage())];
+		this.lens = lens;
+		this.props = props;
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -187,7 +91,7 @@ public class ItemLens extends ItemMod implements ILensControl, ICompositableLens
 		if(storedColor != -1)
 			props.color = getLensColor(stack);
 
-		getLens(stack.getItemDamage()).apply(stack, props);
+		getLens(stack).apply(stack, props);
 
 		ItemStack compositeLens = getCompositeLens(stack);
 		if(!compositeLens.isEmpty() && compositeLens.getItem() instanceof ILens)
@@ -198,7 +102,7 @@ public class ItemLens extends ItemMod implements ILensControl, ICompositableLens
 	public boolean collideBurst(IManaBurst burst, RayTraceResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
 		EntityThrowable entity = (EntityThrowable) burst;
 
-		dead = getLens(stack.getItemDamage()).collideBurst(burst, entity, pos, isManaBlock, dead, stack);
+		dead = getLens(stack).collideBurst(burst, entity, pos, isManaBlock, dead, stack);
 
 		ItemStack compositeLens = getCompositeLens(stack);
 		if(!compositeLens.isEmpty() && compositeLens.getItem() instanceof ILens)
@@ -215,7 +119,7 @@ public class ItemLens extends ItemMod implements ILensControl, ICompositableLens
 		if(storedColor == 16 && entity.world.isRemote)
 			burst.setColor(getLensColor(stack));
 
-		getLens(stack.getItemDamage()).updateBurst(burst, entity, stack);
+		getLens(stack).updateBurst(burst, entity, stack);
 
 		ItemStack compositeLens = getCompositeLens(stack);
 		if(!compositeLens.isEmpty() && compositeLens.getItem() instanceof ILens)
@@ -248,29 +152,16 @@ public class ItemLens extends ItemMod implements ILensControl, ICompositableLens
 		return true;
 	}
 
-	public static void setProps(int lens, int props_) {
-		props[lens] = props_;
-	}
-
-	public static void setLens(int index, Lens lens) {
-		lenses[index] = lens;
-	}
-
 	public static boolean isBlacklisted(ItemStack lens1, ItemStack lens2) {
 		ICompositableLens item1 = (ICompositableLens) lens1.getItem();
 		ICompositableLens item2 = (ICompositableLens) lens2.getItem();
 		return (item1.getProps(lens1) & item2.getProps(lens2)) != 0;
 	}
 
-	public static Lens getLens(int index) {
-		if(index == STORM)
-			return stormLens;
-
-		if(index < 0 || index >= lenses.length)
-			return fallbackLens;
-
-		Lens lens = lenses[index];
-		return lens == null ? fallbackLens : lens;
+	public static Lens getLens(ItemStack stack) {
+		if(stack.getItem() instanceof ItemLens)
+			return ((ItemLens) stack.getItem()).lens;
+		else return new Lens();
 	}
 
 	@Override
@@ -308,12 +199,12 @@ public class ItemLens extends ItemMod implements ILensControl, ICompositableLens
 
 	@Override
 	public int getManaToTransfer(IManaBurst burst, EntityThrowable entity, ItemStack stack, IManaReceiver receiver) {
-		return getLens(stack.getItemDamage()).getManaToTransfer(burst, entity, stack, receiver);
+		return getLens(stack).getManaToTransfer(burst, entity, stack, receiver);
 	}
 	
 	@Override
 	public boolean shouldPull(ItemStack stack) {
-		return stack.getItemDamage() != STORM;
+		return stack.getItem() != ModItems.lensStorm;
 	}
 
 	@Override
@@ -323,33 +214,27 @@ public class ItemLens extends ItemMod implements ILensControl, ICompositableLens
 
 	@Override
 	public boolean allowBurstShooting(ItemStack stack, IManaSpreader spreader, boolean redstone) {
-		return getLens(stack.getItemDamage()).allowBurstShooting(stack, spreader, redstone);
+		return getLens(stack).allowBurstShooting(stack, spreader, redstone);
 	}
 
 	@Override
 	public void onControlledSpreaderTick(ItemStack stack, IManaSpreader spreader, boolean redstone) {
-		getLens(stack.getItemDamage()).onControlledSpreaderTick(stack, spreader, redstone);
+		getLens(stack).onControlledSpreaderTick(stack, spreader, redstone);
 	}
 
 	@Override
 	public void onControlledSpreaderPulse(ItemStack stack, IManaSpreader spreader, boolean redstone) {
-		getLens(stack.getItemDamage()).onControlledSpreaderPulse(stack, spreader, redstone);
+		getLens(stack).onControlledSpreaderPulse(stack, spreader, redstone);
 	}
 
 	@Override
 	public int getProps(ItemStack stack) {
-		return props[stack.getItemDamage()];
+		return props;
 	}
 
 	@Override
 	public boolean isCombinable(ItemStack stack) {
-		return stack.getItemDamage() != NORMAL;
-	}
-
-	@SideOnly(Side.CLIENT)
-	@Override
-	public void registerModels() {
-		ModelHandler.registerItemMetas(this, LibItemNames.LENS_NAMES.length, i -> LibItemNames.LENS_NAMES[i]);
+		return stack.getItem() != ModItems.lensNormal;
 	}
 
 }

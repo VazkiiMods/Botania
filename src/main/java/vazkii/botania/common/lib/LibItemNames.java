@@ -17,7 +17,6 @@ public final class LibItemNames {
 	public static final String DYE = "dye";
 	public static final String PESTLE_AND_MORTAR = "pestleAndMortar";
 	public static final String TWIG_WAND = "twigWand";
-	public static final String LENS = "lens";
 	public static final String RUNE = "rune";
 	public static final String MANA_TABLET = "manaTablet";
 	public static final String MANA_GUN = "manaGun";
@@ -176,30 +175,31 @@ public final class LibItemNames {
 	public static final String GODDESS_CHARM = "goddessCharm";
 
 	public static final String[] LENS_NAMES = new String[] {
-			"lensNormal",
-			"lensSpeed",
-			"lensPower",
-			"lensTime",
-			"lensEfficiency",
-			"lensBounce",
-			"lensGravity",
-			"lensMine",
-			"lensDamage",
-			"lensPhantom",
-			"lensMagnet",
-			"lensExplosive",
-			"lensInfluence",
-			"lensWeight",
-			"lensPaint",
-			"lensFire",
-			"lensPiston",
-			"lensLight",
-			"lensWarp",
-			"lensRedirect",
-			"lensFirework",
-			"lensFlare",
-			"lensMessenger",
-			"lensTripwire"
+			"lens_normal",
+			"lens_speed",
+			"lens_power",
+			"lens_time",
+			"lens_efficiency",
+			"lens_bounce",
+			"lens_gravity",
+			"lens_mine",
+			"lens_damage",
+			"lens_phantom",
+			"lens_magnet",
+			"lens_explosive",
+			"lens_influence",
+			"lens_weight",
+			"lens_paint",
+			"lens_fire",
+			"lens_piston",
+			"lens_light",
+			"lens_warp",
+			"lens_redirect",
+			"lens_firework",
+			"lens_flare",
+			"lens_messenger",
+			"lens_tripwire",
+			"lens_storm"
 	};
 
 	public static final String[] MANA_RESOURCE_NAMES = new String[] {

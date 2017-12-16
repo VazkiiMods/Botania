@@ -75,7 +75,7 @@ public class CompositeLensRecipe extends IForgeRegistryEntry.Impl<IRecipe> imple
 				return ItemStack.EMPTY;
 
 			ItemStack lensCopy = lens.copy();
-			((ItemLens) ModItems.lens).setCompositeLens(lensCopy, secondLens);
+			((ItemLens) lens.getItem()).setCompositeLens(lensCopy, secondLens);
 
 			return lensCopy;
 		}

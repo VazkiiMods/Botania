@@ -1,12 +1,10 @@
 {
   "result": {
-    "item": "botania:lens",
-    "data": 15
+    "item": "botania:lens_fire"
   },
   "ingredients": [
     {
-      "item": "botania:lens",
-      "data": 0
+      "item": "botania:lens_normal"
     },
     {
       "item": "minecraft:fire_charge"

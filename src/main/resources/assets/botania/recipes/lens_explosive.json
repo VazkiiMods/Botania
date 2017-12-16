@@ -1,12 +1,10 @@
 {
   "result": {
-    "item": "botania:lens",
-    "data": 11
+    "item": "botania:lens_explosive"
   },
   "ingredients": [
     {
-      "item": "botania:lens",
-      "data": 0
+      "item": "botania:lens_normal"
     },
     {
       "item": "#RUNEENVYB"

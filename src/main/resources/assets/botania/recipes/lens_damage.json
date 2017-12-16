@@ -1,12 +1,10 @@
 {
   "result": {
-    "item": "botania:lens",
-    "data": 8
+    "item": "botania:lens_damage"
   },
   "ingredients": [
     {
-      "item": "botania:lens",
-      "data": 0
+      "item": "botania:lens_normal"
     },
     {
       "item": "#RUNEWRATHB"

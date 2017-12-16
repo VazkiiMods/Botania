@@ -73,8 +73,7 @@ public class EntityManaStorm extends Entity {
 		burst.setManaLossPerTick(1F);
 		burst.setGravity(0F);
 
-		ItemStack lens = new ItemStack(ModItems.lens, 1, ItemLens.STORM);
-		burst.setSourceLens(lens);
+		burst.setSourceLens(new ItemStack(ModItems.lensStorm));
 
 		Vector3 motion = new Vector3(Math.random() - 0.5, Math.random() - 0.5, Math.random() - 0.5).normalize().multiply(motionModifier);
 		burst.setMotion(motion.x, motion.y, motion.z);

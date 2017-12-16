@@ -43,7 +43,7 @@ public class LensInfluence extends Lens {
 				if(movable instanceof IManaBurst) {
 					IManaBurst otherBurst = (IManaBurst) movable;
 					ItemStack lens = otherBurst.getSourceLens();
-					if(lens != null && lens.getItem() == ModItems.lens && lens.getItemDamage() == ItemLens.INFLUENCE)
+					if(!lens.isEmpty() && lens.getItem() == ModItems.lensInfluence)
 						continue;
 
 					((IManaBurst) movable).setMotion(entity.motionX, entity.motionY, entity.motionZ);

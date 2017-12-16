@@ -1,7 +1,6 @@
 {
   "result": {
-    "item": "botania:lens",
-    "data": 22
+    "item": "botania:lens_messenger"
   },
   "pattern": [
     " P ",
@@ -14,8 +13,7 @@
       "item": "minecraft:paper"
     },
     "L": {
-      "item": "botania:lens",
-      "data": 0
+      "item": "botania:lens_normal"
     }
   }
 }

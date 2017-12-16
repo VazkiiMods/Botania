@@ -1,7 +1,6 @@
 {
   "result": {
-    "item": "botania:lens",
-    "data": 17
+    "item": "botania:lens_light"
   },
   "pattern": [
     "GFG",
@@ -17,8 +16,7 @@
       "item": "#GLOWSTONE"
     },
     "L": {
-      "item": "botania:lens",
-      "data": 0
+      "item": "botania:lens_normal"
     }
   }
 }

@@ -1,12 +1,10 @@
 {
   "result": {
-    "item": "botania:lens",
-    "data": 10
+    "item": "botania:lens_magnet"
   },
   "ingredients": [
     {
-      "item": "botania:lens",
-      "data": 0
+      "item": "botania:lens_normal"
     },
     {
       "item": "#INGOTIRON"

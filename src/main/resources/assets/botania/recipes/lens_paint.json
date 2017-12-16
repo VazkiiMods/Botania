@@ -1,7 +1,6 @@
 {
   "result": {
-    "item": "botania:lens",
-    "data": 14
+    "item": "botania:lens_paint"
   },
   "pattern": [
     " E ",
@@ -18,8 +17,7 @@
       "data": 32767
     },
     "L": {
-      "item": "botania:lens",
-      "data": 0
+      "item": "botania:lens_normal"
     }
   }
 }

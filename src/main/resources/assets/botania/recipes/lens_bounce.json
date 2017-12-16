@@ -1,12 +1,10 @@
 {
   "result": {
-    "item": "botania:lens",
-    "data": 5
+    "item": "botania:lens_bounce"
   },
   "ingredients": [
     {
-      "item": "botania:lens",
-      "data": 0
+      "item": "botania:lens_normal"
     },
     {
       "item": "#RUNESUMMERB"

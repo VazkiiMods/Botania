@@ -47,6 +47,7 @@ public class FlattenItems implements IFixableData {
 				case 2: return LibMisc.MOD_ID + ":" + LibItemNames.SNOW_HORN;
 			}
 		});
+		LOOKUP.put("botania:lens", i -> LibMisc.MOD_ID + ":" + LibItemNames.LENS_NAMES[i % LibItemNames.LENS_NAMES.length]);
 	}
 
 	@Override

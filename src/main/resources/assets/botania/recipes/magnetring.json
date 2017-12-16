@@ -10,8 +10,7 @@
   "type": "forge:ore_shaped",
   "key": {
     "L": {
-      "item": "botania:lens",
-      "data": 10
+      "item": "botania:lens_magnet"
     },
     "M": {
       "item": "#INGOTMANASTEEL"

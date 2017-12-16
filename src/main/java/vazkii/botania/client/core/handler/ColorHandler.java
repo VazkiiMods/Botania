@@ -5,9 +5,11 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.color.BlockColors;
 import net.minecraft.client.renderer.color.IBlockColor;
+import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -33,6 +35,7 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.bauble.ItemBloodPendant;
 import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
 import vazkii.botania.common.item.lens.ItemLens;
+import vazkii.botania.common.lib.LibMisc;
 
 import java.awt.Color;
 import java.util.Map;
@@ -155,7 +158,13 @@ public final class ColorHandler {
 
 		items.registerItemColorHandler((s, t) -> t == 1 && ItemTerraPick.isEnabled(s) ? Color.HSBtoRGB(0.375F, (float) Math.min(1F, Math.sin(System.currentTimeMillis() / 200D) * 0.5 + 1F), 1F) : -1, ModItems.terraPick);
 
-		items.registerItemColorHandler((s, t) -> t == 0 ? ((ItemLens) s.getItem()).getLensColor(s) : -1, ModItems.lens);
+		// todo 1.13 use tags instead of looping registry
+		IItemColor handler = (s, t) -> t == 0 ? ((ItemLens) s.getItem()).getLensColor(s) : -1;
+		for (Item i : Item.REGISTRY) {
+			if(i instanceof ItemLens && i.getRegistryName().getResourceDomain().equals(LibMisc.MOD_ID)) {
+				items.registerItemColorHandler(handler, i);
+			}
+		}
 	}
 
 	private ColorHandler() {}
