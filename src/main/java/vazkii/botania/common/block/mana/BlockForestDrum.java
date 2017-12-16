@@ -42,7 +42,8 @@ import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.DrumVariant;
 import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.block.BlockMod;
-import vazkii.botania.common.item.ItemGrassHorn;
+import vazkii.botania.common.item.ItemHorn;
+import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
@@ -119,9 +120,9 @@ public class BlockForestDrum extends BlockMod implements IManaTrigger, ILexicona
 		}
 		DrumVariant variant = world.getBlockState(pos).getValue(BotaniaStateProps.DRUM_VARIANT);
 		if(variant == DrumVariant.WILD)
-			ItemGrassHorn.breakGrass(world, null, 0, pos);
+			ItemHorn.breakGrass(world, new ItemStack(ModItems.grassHorn), pos);
 		else if(variant == DrumVariant.CANOPY)
-			ItemGrassHorn.breakGrass(world, null, 1, pos);
+			ItemHorn.breakGrass(world, new ItemStack(ModItems.leavesHorn), pos);
 		else {
 			int range = 10;
 			List<EntityLiving> entities = world.getEntitiesWithinAABB(EntityLiving.class, new AxisAlignedBB(pos.add(-range, -range, -range), pos.add(range + 1, range + 1, range + 1)));

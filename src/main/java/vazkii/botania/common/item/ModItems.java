@@ -135,7 +135,9 @@ public final class ModItems {
 	public static final Item grassSeeds = new ItemGrassSeeds();
 	public static final Item dirtRod = new ItemDirtRod();
 	public static final Item terraformRod = new ItemTerraformRod();
-	public static final Item grassHorn = new ItemGrassHorn();
+	public static final Item grassHorn = new ItemHorn(LibItemNames.GRASS_HORN);
+	public static final Item leavesHorn = new ItemHorn(LibItemNames.LEAVES_HORN);
+	public static final Item snowHorn = new ItemHorn(LibItemNames.SNOW_HORN);
 	public static final Item manaMirror = new ItemManaMirror();
 	public static final Item manasteelHelm = new ItemManasteelHelm();
 	public static final Item manasteelHelmRevealing = new ItemManasteelHelmRevealing();
@@ -322,6 +324,8 @@ public final class ModItems {
 		r.register(dirtRod);
 		r.register(terraformRod);
 		r.register(grassHorn);
+		r.register(leavesHorn);
+		r.register(snowHorn);
 		r.register(manaMirror);
 		r.register(manasteelHelm);
 		r.register(manasteelHelmRevealing);

@@ -1,12 +1,10 @@
 {
   "result": {
-    "item": "botania:grasshorn",
-    "data": 1
+    "item": "botania:horn_leaves"
   },
   "ingredients": [
     {
-      "item": "botania:grasshorn",
-      "data": 0
+      "item": "botania:horn_grass"
     },
     {
       "item": "#TREELEAVES"

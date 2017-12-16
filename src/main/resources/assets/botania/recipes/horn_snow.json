@@ -1,12 +1,10 @@
 {
   "result": {
-    "item": "botania:grasshorn",
-    "data": 2
+    "item": "botania:horn_snow"
   },
   "ingredients": [
     {
-      "item": "botania:grasshorn",
-      "data": 0
+      "item": "botania:horn_grass"
     },
     {
       "item": "minecraft:snowball"

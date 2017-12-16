@@ -591,9 +591,9 @@ public final class ModCraftingRecipes {
 		recipeTerrasteelChest = ModItems.terrasteelChest.getRegistryName();
 		recipeTerrasteelLegs = ModItems.terrasteelLegs.getRegistryName();
 		recipeTerrasteelBoots = ModItems.terrasteelBoots.getRegistryName();
-		recipeGrassHorn = path("grasshorn_0");
-		recipeLeafHorn = path("grasshorn_1");
-		recipeSnowHorn = path("grasshorn_2");
+		recipeGrassHorn = ModItems.grassHorn.getRegistryName();
+		recipeLeafHorn = ModItems.leavesHorn.getRegistryName();
+		recipeSnowHorn = ModItems.snowHorn.getRegistryName();
 		recipeTerraSword = ModItems.terraSword.getRegistryName();
 		recipeTerraPick = ModItems.terraPick.getRegistryName();
 		recipeWaterRod = ModItems.waterRod.getRegistryName();

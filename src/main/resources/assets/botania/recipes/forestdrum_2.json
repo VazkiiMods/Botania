@@ -14,8 +14,7 @@
       "item": "#LIVINGWOOD"
     },
     "H": {
-      "item": "botania:grasshorn",
-      "data": 1
+      "item": "botania:horn_leaves"
     },
     "L": {
       "item": "minecraft:leather"

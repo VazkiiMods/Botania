@@ -38,7 +38,9 @@ public final class LibItemNames {
 	public static final String MANASTEEL_AXE = "manasteelAxe";
 	public static final String MANASTEEL_SWORD = "manasteelSword";
 	public static final String MANASTEEL_SHEARS = "manasteelShears";
-	public static final String GRASS_HORN = "grassHorn";
+	public static final String GRASS_HORN = "horn_grass";
+	public static final String LEAVES_HORN = "horn_leaves";
+	public static final String SNOW_HORN = "horn_snow";
 	public static final String TERRASTEEL_HELM = "terrasteelHelm";
 	public static final String TERRASTEEL_CHEST = "terrasteelChest";
 	public static final String TERRASTEEL_LEGS = "terrasteelLegs";

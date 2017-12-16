@@ -46,36 +46,12 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 
-public class ItemGrassHorn extends ItemMod {
-
-	private static final int SUBTYPES = 3;
-
-	public ItemGrassHorn() {
-		super(LibItemNames.GRASS_HORN);
+public class ItemHorn extends ItemMod {
+	public ItemHorn(String name) {
+		super(name);
 		setMaxStackSize(1);
-		setHasSubtypes(true);
 		addPropertyOverride(new ResourceLocation(LibMisc.MOD_ID, "vuvuzela"),
 				(stack, worldIn, entityIn) -> stack.getDisplayName().toLowerCase(Locale.ROOT).contains("vuvuzela") ? 1 : 0);
-	}
-
-	@Override
-	public void getSubItems(@Nonnull CreativeTabs tab, @Nonnull NonNullList<ItemStack> list) {
-		if(isInCreativeTab(tab)) {
-			for(int i = 0; i < SUBTYPES; i++)
-				list.add(new ItemStack(this, 1, i));
-		}
-	}
-
-	@Nonnull
-	@Override
-	public String getUnlocalizedName(ItemStack par1ItemStack) {
-		return super.getUnlocalizedName(par1ItemStack) + par1ItemStack.getItemDamage();
-	}
-
-	@SideOnly(Side.CLIENT)
-	@Override
-	public void registerModels() {
-		ModelHandler.registerItemAppendMeta(this, 3, LibItemNames.GRASS_HORN);
 	}
 
 	@Nonnull
@@ -100,31 +76,39 @@ public class ItemGrassHorn extends ItemMod {
 	public void onUsingTick(ItemStack stack, EntityLivingBase player, int time) {
 		if(!player.world.isRemote) {
 			if(time != getMaxItemUseDuration(stack) && time % 5 == 0)
-				breakGrass(player.world, stack, stack.getItemDamage(), new BlockPos(player));
+				breakGrass(player.world, stack, new BlockPos(player));
 			player.world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.BLOCK_NOTE_BASS, SoundCategory.BLOCKS, 1F, 0.001F);
 		}
 	}
 
-	public static void breakGrass(World world, ItemStack stack, int stackDmg, BlockPos srcPos) {
-		EnumHornType type = EnumHornType.getTypeForMeta(stackDmg);
+	public static void breakGrass(World world, ItemStack stack, BlockPos srcPos) {
+		EnumHornType type = null;
+		if (stack.getItem() == ModItems.grassHorn) {
+			type = EnumHornType.WILD;
+		} else if (stack.getItem() == ModItems.leavesHorn) {
+			type = EnumHornType.CANOPY;
+		} else if (stack.getItem() == ModItems.snowHorn) {
+			type = EnumHornType.COVERING;
+		}
+
 		Random rand = new Random(srcPos.hashCode());
-		int range = 12 - stackDmg * 3;
-		int rangeY = 3 + stackDmg * 4;
+		int range = 12 - type.ordinal() * 3;
+		int rangeY = 3 + type.ordinal() * 4;
 		List<BlockPos> coords = new ArrayList<>();
 
 		for(BlockPos pos : BlockPos.getAllInBox(srcPos.add(-range, -rangeY, -range), srcPos.add(range, rangeY, range))) {
 			Block block = world.getBlockState(pos).getBlock();
 			if(block instanceof IHornHarvestable
 					? ((IHornHarvestable) block).canHornHarvest(world, pos, stack, type)
-							: stackDmg == 0 && block instanceof BlockBush && !(block instanceof ISpecialFlower)
-							|| stackDmg == 1 && block.isLeaves(world.getBlockState(pos), world, pos)
-							|| stackDmg == 2 && block == Blocks.SNOW_LAYER)
+							: type == EnumHornType.WILD && block instanceof BlockBush && !(block instanceof ISpecialFlower)
+							|| type == EnumHornType.CANOPY && block.isLeaves(world.getBlockState(pos), world, pos)
+							|| type == EnumHornType.COVERING && block == Blocks.SNOW_LAYER)
 				coords.add(pos);
 		}
 
 		Collections.shuffle(coords, rand);
 
-		int count = Math.min(coords.size(), 32 + stackDmg * 16);
+		int count = Math.min(coords.size(), 32 + type.ordinal() * 16);
 		for(int i = 0; i < count; i++) {
 			BlockPos currCoords = coords.get(i);
 			IBlockState state = world.getBlockState(currCoords);
