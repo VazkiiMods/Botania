@@ -726,11 +726,11 @@ public final class ModCraftingRecipes {
 		recipeLivingwoodDecor3 = path("livingwood_3");
 		recipeLivingwoodDecor4 = path("livingwood_4");
 		recipeLivingwoodDecor5 = path("livingwood_5");
-		recipeDarkQuartz = path("quartz_0");
-		recipeBlazeQuartz = path("quartz_2");
-		recipeLavenderQuartz = path("quartz_3");
-		recipeRedQuartz = path("quartz_4");
-		recipeSunnyQuartz = path("quartz_6");
+		recipeDarkQuartz = ModItems.darkQuartz.getRegistryName();
+		recipeBlazeQuartz = ModItems.blazeQuartz.getRegistryName();
+		recipeLavenderQuartz = ModItems.lavenderQuartz.getRegistryName();
+		recipeRedQuartz = ModItems.redQuartz.getRegistryName();
+		recipeSunnyQuartz = ModItems.sunnyQuartz.getRegistryName();
 		recipesShinyFlowers = allOfGroup(ModBlocks.shinyFlower.getRegistryName());
 		recipesMiniIsland = allOfGroup(ModBlocks.floatingFlower.getRegistryName());
 		recipeAzulejo = path("custombrick_4");

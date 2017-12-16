@@ -1,7 +1,6 @@
 {
   "result": {
-    "item": "botania:quartz",
-    "data": 6,
+    "item": "botania:quartz_red",
     "count": 8
   },
   "pattern": [
@@ -15,8 +14,7 @@
       "item": "#GEMQUARTZ"
     },
     "C": {
-      "item": "minecraft:double_plant",
-      "data": 0
+      "item": "minecraft:redstone"
     }
   }
 }

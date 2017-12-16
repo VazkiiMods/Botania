@@ -7,7 +7,6 @@ import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 import java.util.function.IntFunction;
 
@@ -21,7 +20,7 @@ public class FlattenItems implements IFixableData {
 				// support ancient prismarine from 1.7
 				return "minecraft:prismarine_shard";
 			} else {
-				return LibMisc.MOD_ID + ":" + LibItemNames.MANA_RESOURCE_NAMES[i % LibItemNames.MANA_RESOURCE_NAMES.length].toLowerCase(Locale.ROOT);
+				return LibMisc.MOD_ID + ":" + LibItemNames.MANA_RESOURCE_NAMES[i % LibItemNames.MANA_RESOURCE_NAMES.length];
 			}
 		});
 		LOOKUP.put("botania:vial", i -> {
@@ -31,6 +30,7 @@ public class FlattenItems implements IFixableData {
 				return LibMisc.MOD_ID + ":" + LibItemNames.VIAL;
 			}
 		});
+		LOOKUP.put("botania:quartz", i -> LibMisc.MOD_ID + ":" + LibItemNames.QUARTZ_NAMES[i % LibItemNames.QUARTZ_NAMES.length]);
 	}
 
 	@Override

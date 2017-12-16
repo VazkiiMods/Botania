@@ -71,7 +71,7 @@ public final class ModManaInfusionRecipes {
 		mycelSeedsRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.grassSeeds, 1, 2), new ItemStack(Blocks.RED_MUSHROOM), 6500));
 		mycelSeedsRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.grassSeeds, 1, 2), new ItemStack(Blocks.BROWN_MUSHROOM), 6500));
 
-		manaQuartzRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.quartz, 1, 1), new ItemStack(Items.QUARTZ), 250);
+		manaQuartzRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaQuartz), new ItemStack(Items.QUARTZ), 250);
 		tinyPotatoRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModBlocks.tinyPotato), new ItemStack(Items.POTATO), 1337);
 
 		if(Botania.thaumcraftLoaded) {

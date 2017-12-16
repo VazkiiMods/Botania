@@ -60,7 +60,15 @@ public final class LibItemNames {
 	public static final String DIVA_CHARM = "divaCharm";
 	public static final String FLIGHT_TIARA = "flightTiara";
 	public static final String ENDER_DAGGER = "enderDagger";
-	public static final String QUARTZ = "quartz";
+	public static final String[] QUARTZ_NAMES = {
+			"quartz_dark",
+			"quartz_mana",
+			"quartz_blaze",
+			"quartz_lavender",
+			"quartz_red",
+			"quartz_elven",
+			"quartz_sunny"
+	};
 	public static final String WATER_ROD = "waterRod";
 	public static final String ELEMENTIUM_HELM = "elementiumHelm";
 	public static final String ELEMENTIUM_CHEST = "elementiumChest";

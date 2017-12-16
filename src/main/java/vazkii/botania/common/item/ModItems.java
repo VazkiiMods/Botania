@@ -68,7 +68,6 @@ import vazkii.botania.common.item.material.ItemDye;
 import vazkii.botania.common.item.material.ItemManaResource;
 import vazkii.botania.common.item.material.ItemPestleAndMortar;
 import vazkii.botania.common.item.material.ItemPetal;
-import vazkii.botania.common.item.material.ItemQuartz;
 import vazkii.botania.common.item.material.ItemRune;
 import vazkii.botania.common.item.record.ItemRecordGaia1;
 import vazkii.botania.common.item.record.ItemRecordGaia2;
@@ -170,7 +169,13 @@ public final class ModItems {
 	public static final Item divaCharm = new ItemDivaCharm();
 	public static final Item flightTiara = new ItemFlightTiara();
 	public static final Item enderDagger = new ItemEnderDagger();
-	public static final Item quartz = new ItemQuartz();
+	public static final Item darkQuartz = new ItemMod(LibItemNames.QUARTZ_NAMES[0]);
+	public static final Item manaQuartz = new ItemMod(LibItemNames.QUARTZ_NAMES[1]);
+	public static final Item blazeQuartz = new ItemMod(LibItemNames.QUARTZ_NAMES[2]);
+	public static final Item lavenderQuartz = new ItemMod(LibItemNames.QUARTZ_NAMES[3]);
+	public static final Item redQuartz = new ItemMod(LibItemNames.QUARTZ_NAMES[4]);
+	public static final Item elfQuartz = new ItemElven(LibItemNames.QUARTZ_NAMES[5]);
+	public static final Item sunnyQuartz = new ItemMod(LibItemNames.QUARTZ_NAMES[6]);
 	public static final Item waterRod = new ItemWaterRod();
 	public static final Item elementiumHelm = new ItemElementiumHelm();
 	public static final Item elementiumHelmRevealing = new ItemElementiumHelmRevealing();
@@ -349,7 +354,13 @@ public final class ModItems {
 		r.register(divaCharm);
 		r.register(flightTiara);
 		r.register(enderDagger);
-		r.register(quartz);
+		r.register(darkQuartz);
+		r.register(manaQuartz);
+		r.register(blazeQuartz);
+		r.register(lavenderQuartz);
+		r.register(redQuartz);
+		r.register(elfQuartz);
+		r.register(sunnyQuartz);
 		r.register(waterRod);
 		r.register(elementiumHelm);
 		r.register(elementiumHelmRevealing);
@@ -464,8 +475,14 @@ public final class ModItems {
 			OreDictionary.registerOre(LibOreDict.RUNE[i], new ItemStack(rune, 1, i));
 		}
 		OreDictionary.registerOre(LibOreDict.DYE_WILDCARD, new ItemStack(dye, 1, OreDictionary.WILDCARD_VALUE));
-		for(int i = 0; i < 7; i++)
-			OreDictionary.registerOre(LibOreDict.QUARTZ[i], new ItemStack(quartz, 1, i));
+
+		OreDictionary.registerOre(LibOreDict.QUARTZ[0], new ItemStack(darkQuartz));
+		OreDictionary.registerOre(LibOreDict.QUARTZ[1], new ItemStack(manaQuartz));
+		OreDictionary.registerOre(LibOreDict.QUARTZ[2], new ItemStack(blazeQuartz));
+		OreDictionary.registerOre(LibOreDict.QUARTZ[3], new ItemStack(lavenderQuartz));
+		OreDictionary.registerOre(LibOreDict.QUARTZ[4], new ItemStack(redQuartz));
+		OreDictionary.registerOre(LibOreDict.QUARTZ[5], new ItemStack(elfQuartz));
+		OreDictionary.registerOre(LibOreDict.QUARTZ[6], new ItemStack(sunnyQuartz));
 
 		OreDictionary.registerOre(LibOreDict.PESTLE_AND_MORTAR, pestleAndMortar);
 		OreDictionary.registerOre(LibOreDict.MANA_STEEL, new ItemStack(manaSteel));

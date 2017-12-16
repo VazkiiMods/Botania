@@ -33,7 +33,7 @@ public class ModElvenTradeRecipes {
 		dragonstoneRecipes.add(BotaniaAPI.registerElvenTradeRecipe(new ItemStack(ModItems.dragonstone), LibOreDict.MANA_DIAMOND));
 		dragonstoneRecipes.add(BotaniaAPI.registerElvenTradeRecipe(new ItemStack(ModBlocks.storage, 1, 4), new ItemStack(ModBlocks.storage, 1, 3)));
 
-		elvenQuartzRecipe = BotaniaAPI.registerElvenTradeRecipe(new ItemStack(ModItems.quartz, 1, 5), new ItemStack(Items.QUARTZ));
+		elvenQuartzRecipe = BotaniaAPI.registerElvenTradeRecipe(new ItemStack(ModItems.elfQuartz), new ItemStack(Items.QUARTZ));
 		alfglassRecipe = BotaniaAPI.registerElvenTradeRecipe(new ItemStack(ModBlocks.elfGlass), new ItemStack(ModBlocks.manaGlass));
 
 		BotaniaAPI.registerElvenTradeRecipe(new ItemStack(Items.IRON_INGOT), new ItemStack(Items.IRON_INGOT));

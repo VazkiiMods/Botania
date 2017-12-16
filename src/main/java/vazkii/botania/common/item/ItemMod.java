@@ -24,7 +24,7 @@ import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
-public abstract class ItemMod extends Item implements IModelRegister {
+public class ItemMod extends Item implements IModelRegister {
 
 	public ItemMod(String name) {
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);

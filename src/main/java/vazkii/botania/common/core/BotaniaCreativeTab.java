@@ -351,7 +351,14 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addBlock(ModFluffBlocks.shimmerrockStairs);
 		addBlock(ModFluffBlocks.shimmerrockSlab);
 
-		addItem(ModItems.quartz);
+		addItem(ModItems.darkQuartz);
+		addItem(ModItems.manaQuartz);
+		addItem(ModItems.blazeQuartz);
+		addItem(ModItems.lavenderQuartz);
+		addItem(ModItems.redQuartz);
+		addItem(ModItems.elfQuartz);
+		addItem(ModItems.sunnyQuartz);
+
 		addBlock(ModFluffBlocks.darkQuartz);
 		addBlock(ModFluffBlocks.darkQuartzSlab);
 		addBlock(ModFluffBlocks.darkQuartzStairs);
