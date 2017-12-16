@@ -30,10 +30,11 @@ import vazkii.botania.api.item.IBaubleRender;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.lib.LibItemNames;
+import vazkii.botania.common.lib.LibMisc;
 
 import java.util.List;
 
-@Mod.EventBusSubscriber
+@Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
 public class ItemGoddessCharm extends ItemBauble implements IManaUsingItem, IBaubleRender {
 
 	public static final int COST = 1000;

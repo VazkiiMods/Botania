@@ -91,7 +91,7 @@ public class ItemTravelBelt extends ItemBauble implements IBaubleRender, IManaUs
 
 					if(player.isSneaking())
 						player.stepHeight = 0.60001F; // Not 0.6F because that is the default
-						else player.stepHeight = 1F;
+						else player.stepHeight = 1.25F;
 
 				} else {
 					player.stepHeight = 0.6F;
@@ -99,7 +99,7 @@ public class ItemTravelBelt extends ItemBauble implements IBaubleRender, IManaUs
 				}
 			} else if(shouldPlayerHaveStepup(player)) {
 				playersWithStepup.add(s);
-				player.stepHeight = 1F;
+				player.stepHeight = 1.25F;
 			}
 		}
 	}

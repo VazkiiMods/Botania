@@ -32,6 +32,7 @@ repositories {
 
 apply plugin: 'net.minecraftforge.gradle.forge'
 apply plugin: 'com.matthewprenger.cursegradle'
+apply plugin: 'maven'
 
 ext.configFile = file('build.properties')
 
@@ -243,6 +244,14 @@ curseforge {
             requiredLibrary 'baubles'
             optionalLibrary 'quark'
             optionalLibrary 'albedo'
+        }
+    }
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: "file://" + (System.getenv("local_maven") != null ? System.getenv("local_maven") : System.getenv("bamboo_local_maven")))
         }
     }
 }

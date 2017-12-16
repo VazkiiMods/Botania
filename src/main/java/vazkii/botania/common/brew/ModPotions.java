@@ -20,8 +20,9 @@ import vazkii.botania.common.brew.potion.PotionClear;
 import vazkii.botania.common.brew.potion.PotionEmptiness;
 import vazkii.botania.common.brew.potion.PotionFeatherfeet;
 import vazkii.botania.common.brew.potion.PotionSoulCross;
+import vazkii.botania.common.lib.LibMisc;
 
-@Mod.EventBusSubscriber
+@Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
 public class ModPotions {
 
 	public static final Potion soulCross = new PotionSoulCross();

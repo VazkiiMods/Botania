@@ -420,7 +420,7 @@ public final class ConfigHandler {
 
 	}
 
-	@Mod.EventBusSubscriber
+	@Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
 	public static class ChangeListener {
 
 		@SubscribeEvent

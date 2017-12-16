@@ -20,6 +20,7 @@ import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.lexicon.LexiconData;
+import vazkii.botania.common.lib.LibMisc;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -27,6 +28,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.WeakHashMap;
 
+@Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
 public class SubTileVinculotus extends SubTileFunctional {
 
 	public static final Set<SubTileVinculotus> existingFlowers = Collections.newSetFromMap(new WeakHashMap<>());
@@ -66,43 +68,37 @@ public class SubTileVinculotus extends SubTileFunctional {
 		return LexiconData.vinculotus;
 	}
 
-	@Mod.EventBusSubscriber
-	public static class EndermanIntercepter {
+	@SubscribeEvent
+	public static void onEndermanTeleport(EnderTeleportEvent event) {
+		int cost = 50;
 
-		@SubscribeEvent
-		public static void onEndermanTeleport(EnderTeleportEvent event) {
-			int cost = 50;
+		if(event.getEntityLiving() instanceof EntityEnderman) {
+			List<SubTileVinculotus> possibleFlowers = new ArrayList<>();
+			for(SubTileVinculotus flower : existingFlowers) {
+				if(flower.redstoneSignal > 0 || flower.mana <= cost || flower.supertile.getWorld() != event.getEntityLiving().world || flower.supertile.getWorld().getTileEntity(flower.supertile.getPos()) != flower.supertile)
+					continue;
 
-			if(event.getEntityLiving() instanceof EntityEnderman) {
-				List<SubTileVinculotus> possibleFlowers = new ArrayList<>();
-				for(SubTileVinculotus flower : existingFlowers) {
-					if(flower.redstoneSignal > 0 || flower.mana <= cost || flower.supertile.getWorld() != event.getEntityLiving().world || flower.supertile.getWorld().getTileEntity(flower.supertile.getPos()) != flower.supertile)
-						continue;
+				double x = flower.supertile.getPos().getX() + 0.5;
+				double y = flower.supertile.getPos().getY() + 1.5;
+				double z = flower.supertile.getPos().getZ() + 0.5;
 
-					double x = flower.supertile.getPos().getX() + 0.5;
-					double y = flower.supertile.getPos().getY() + 1.5;
-					double z = flower.supertile.getPos().getZ() + 0.5;
+				if(MathHelper.pointDistanceSpace(x, y, z, event.getTargetX(), event.getTargetY(), event.getTargetZ()) < RANGE)
+					possibleFlowers.add(flower);
+			}
 
-					if(MathHelper.pointDistanceSpace(x, y, z, event.getTargetX(), event.getTargetY(), event.getTargetZ()) < RANGE)
-						possibleFlowers.add(flower);
-				}
+			if(!possibleFlowers.isEmpty()) {
+				SubTileVinculotus flower = possibleFlowers.get(event.getEntityLiving().world.rand.nextInt(possibleFlowers.size()));
 
-				if(!possibleFlowers.isEmpty()) {
-					SubTileVinculotus flower = possibleFlowers.get(event.getEntityLiving().world.rand.nextInt(possibleFlowers.size()));
+				double x = flower.supertile.getPos().getX() + 0.5;
+				double y = flower.supertile.getPos().getY() + 1.5;
+				double z = flower.supertile.getPos().getZ() + 0.5;
 
-					double x = flower.supertile.getPos().getX() + 0.5;
-					double y = flower.supertile.getPos().getY() + 1.5;
-					double z = flower.supertile.getPos().getZ() + 0.5;
-
-					event.setTargetX(x + Math.random() * 3 - 1);
-					event.setTargetY(y);
-					event.setTargetZ(z + Math.random() * 3 - 1);
-					flower.mana -= cost;
-					flower.sync();
-				}
+				event.setTargetX(x + Math.random() * 3 - 1);
+				event.setTargetY(y);
+				event.setTargetZ(z + Math.random() * 3 - 1);
+				flower.mana -= cost;
+				flower.sync();
 			}
 		}
-
 	}
-
 }

@@ -51,7 +51,7 @@ import vazkii.botania.common.lib.LibMisc;
 import javax.annotation.Nonnull;
 import java.util.List;
 
-@Mod.EventBusSubscriber
+@Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
 public class ItemBlockSpecialFlower extends ItemBlockMod implements IRecipeKeyProvider {
 
 	public ItemBlockSpecialFlower(Block block1) {

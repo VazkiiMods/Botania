@@ -8,7 +8,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.registries.IForgeRegistry;
 import vazkii.botania.common.lib.LibMisc;
 
-@Mod.EventBusSubscriber
+@Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
 public final class ModSounds {
 	public static final SoundEvent airRod = makeSoundEvent("airrod");
 	public static final SoundEvent agricarnation = makeSoundEvent("agricarnation");

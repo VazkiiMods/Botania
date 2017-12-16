@@ -60,12 +60,13 @@ import vazkii.botania.common.item.block.ItemBlockModSlab;
 import vazkii.botania.common.item.block.ItemBlockSpecialQuartz;
 import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lib.LibBlockNames;
+import vazkii.botania.common.lib.LibMisc;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-@Mod.EventBusSubscriber
+@Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
 public final class ModFluffBlocks {
 
 	public static List<Block> slabsToRegister = new ArrayList<>();

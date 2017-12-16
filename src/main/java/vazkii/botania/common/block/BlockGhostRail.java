@@ -39,7 +39,7 @@ import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
-@Mod.EventBusSubscriber
+@Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
 public class BlockGhostRail extends BlockRailBase implements ILexiconable, IModelRegister {
 
 	private static final String TAG_FLOAT_TICKS = "Botania_FloatTicks";

@@ -26,9 +26,11 @@ import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileGenerating;
 import vazkii.botania.common.lexicon.LexiconData;
+import vazkii.botania.common.lib.LibMisc;
 
 import java.util.List;
 
+@Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
 public class SubTileNarslimmus extends SubTileGenerating {
 
 	public static final String TAG_WORLD_SPAWNED = "Botania:WorldSpawned";
@@ -87,20 +89,15 @@ public class SubTileNarslimmus extends SubTileGenerating {
 		return LexiconData.narslimmus;
 	}
 
-	@Mod.EventBusSubscriber
-	public static class SpawnIntercepter {
+	@SubscribeEvent
+	public static void onSpawn(LivingSpawnEvent.CheckSpawn event) {
+		if(event.getEntityLiving() instanceof EntitySlime && event.getResult() != Result.DENY && isSlimeChunk(event.getEntityLiving().world, MathHelper.floor(event.getX()), MathHelper.floor(event.getZ())))
+			event.getEntityLiving().getEntityData().setBoolean(TAG_WORLD_SPAWNED, true);
+	}
 
-		@SubscribeEvent
-		public static void onSpawn(LivingSpawnEvent.CheckSpawn event) {
-			if(event.getEntityLiving() instanceof EntitySlime && event.getResult() != Result.DENY && isSlimeChunk(event.getEntityLiving().world, MathHelper.floor(event.getX()), MathHelper.floor(event.getZ())))
-				event.getEntityLiving().getEntityData().setBoolean(TAG_WORLD_SPAWNED, true);
-		}
-
-		public static boolean isSlimeChunk(World world, int x, int z) {
-			Chunk chunk = world.getChunkFromBlockCoords(new BlockPos(x, 0, z));
-			return chunk.getRandomWithSeed(987234911L).nextInt(10) == 0;
-		}
-
+	public static boolean isSlimeChunk(World world, int x, int z) {
+		Chunk chunk = world.getChunkFromBlockCoords(new BlockPos(x, 0, z));
+		return chunk.getRandomWithSeed(987234911L).nextInt(10) == 0;
 	}
 
 }

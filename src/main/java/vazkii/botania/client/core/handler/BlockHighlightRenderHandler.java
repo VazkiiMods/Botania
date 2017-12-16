@@ -33,10 +33,11 @@ import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.entity.EntityMagicLandmine;
 import vazkii.botania.common.item.ItemTwigWand;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.lib.LibMisc;
 
 import java.awt.Color;
 
-@Mod.EventBusSubscriber(Side.CLIENT)
+@Mod.EventBusSubscriber(value = Side.CLIENT, modid = LibMisc.MOD_ID)
 public final class BlockHighlightRenderHandler {
 
 	private BlockHighlightRenderHandler() {}
