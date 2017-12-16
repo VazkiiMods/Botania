@@ -83,7 +83,7 @@ public class LexiconEntry implements Comparable<LexiconEntry> {
 	}
 
 	public String getTagline() {
-		return null; // Override this if you want a tagline. You probably do
+		return ""; // Override this if you want a tagline. You probably do
 	}
 
 	@SideOnly(Side.CLIENT)
