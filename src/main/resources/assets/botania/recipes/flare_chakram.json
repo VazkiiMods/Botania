@@ -1,7 +1,6 @@
 {
   "result": {
-    "item": "botania:thornchakram",
-    "data": 1,
+    "item": "botania:flare_chakram",
     "count": 2
   },
   "pattern": [
@@ -18,8 +17,7 @@
       "item": "minecraft:blaze_powder"
     },
     "C": {
-      "item": "botania:thornchakram",
-      "data": 0
+      "item": "botania:thorn_chakram"
     }
   }
 }

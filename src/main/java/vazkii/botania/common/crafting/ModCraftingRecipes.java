@@ -630,8 +630,8 @@ public final class ModCraftingRecipes {
 		recipeSmeltRod = ModItems.smeltRod.getRegistryName();
 		recipeWorldSeed = ModItems.worldSeed.getRegistryName();
 		recipeSpellCloth = ModItems.spellCloth.getRegistryName();
-		recipeThornChakram = path("thornchakram_0");
-		recipeFireChakram = path("thornchakram_1");
+		recipeThornChakram = ModItems.thornChakram.getRegistryName();
+		recipeFireChakram = ModItems.flareChakram.getRegistryName();
 		recipeLivingwoodBow = ModItems.livingwoodBow.getRegistryName();
 		recipeCrystalBow = ModItems.crystalBow.getRegistryName();
 		recipeTemperanceStone = ModItems.temperanceStone.getRegistryName();

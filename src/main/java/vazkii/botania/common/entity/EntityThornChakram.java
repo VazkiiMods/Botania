@@ -124,7 +124,9 @@ public class EntityThornChakram extends EntityThrowable {
 	}
 
 	private ItemStack getItemStack() {
-		return !stack.isEmpty() ? stack.copy() : new ItemStack(ModItems.thornChakram, 1, isFire() ? 1 : 0);
+		return !stack.isEmpty()
+				? stack.copy()
+				: isFire() ? new ItemStack(ModItems.flareChakram) : new ItemStack(ModItems.thornChakram);
 	}
 
 	@Override

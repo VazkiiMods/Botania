@@ -31,6 +31,13 @@ public class FlattenItems implements IFixableData {
 			}
 		});
 		LOOKUP.put("botania:quartz", i -> LibMisc.MOD_ID + ":" + LibItemNames.QUARTZ_NAMES[i % LibItemNames.QUARTZ_NAMES.length]);
+		LOOKUP.put("botania:thornchakram", i -> {
+			if(i == 1) {
+				 return LibMisc.MOD_ID + ":" + LibItemNames.FLARE_CHAKRAM;
+			} else {
+				return LibMisc.MOD_ID + ":" + LibItemNames.THORN_CHAKRAM;
+			}
+		});
 	}
 
 	@Override

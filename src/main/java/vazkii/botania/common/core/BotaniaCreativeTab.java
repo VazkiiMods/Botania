@@ -29,7 +29,7 @@ import javax.annotation.Nonnull;
 public final class BotaniaCreativeTab extends CreativeTabs {
 
 	public static final BotaniaCreativeTab INSTANCE = new BotaniaCreativeTab();
-	NonNullList<ItemStack> list;
+	private NonNullList<ItemStack> list;
 
 	public BotaniaCreativeTab() {
 		super(LibMisc.MOD_ID);
@@ -37,15 +37,9 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		setBackgroundImageName(LibResources.GUI_CREATIVE);
 	}
 
-	@Nonnull
-	@Override
-	public ItemStack getIconItemStack() {
-		return new ItemStack(ModItems.lexicon);
-	}
-
 	@Override
 	public ItemStack getTabIconItem() {
-		return getIconItemStack();
+		return new ItemStack(ModItems.lexicon);
 	}
 
 	@Override
@@ -222,6 +216,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addItem(ModItems.elementiumBoots);
 		addItem(ModItems.terraSword);
 		addItem(ModItems.thornChakram);
+		addItem(ModItems.flareChakram);
 		addItem(ModItems.terraPick);
 		addItem(ModItems.terraAxe);
 		addItem(ModItems.temperanceStone);
@@ -404,7 +399,6 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 	}
 
 	private void addBlock(Block block) {
-		ItemStack stack = new ItemStack(block);
 		block.getSubBlocks(this, list);
 	}
 

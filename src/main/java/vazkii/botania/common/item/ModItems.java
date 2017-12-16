@@ -227,7 +227,8 @@ public final class ModItems {
 	public static final Item smeltRod = new ItemSmeltRod();
 	public static final Item worldSeed = new ItemWorldSeed();
 	public static final Item spellCloth = new ItemSpellCloth();
-	public static final Item thornChakram = new ItemThornChakram();
+	public static final Item thornChakram = new ItemThornChakram(LibItemNames.THORN_CHAKRAM);
+	public static final Item flareChakram = new ItemThornChakram(LibItemNames.FLARE_CHAKRAM);
 	public static final Item overgrowthSeed = new ItemOvergrowthSeed();
 	public static final Item craftPattern = new ItemCraftPattern();
 	public static final Item ancientWill = new ItemAncientWill();
@@ -413,6 +414,7 @@ public final class ModItems {
 		r.register(worldSeed);
 		r.register(spellCloth);
 		r.register(thornChakram);
+		r.register(flareChakram);
 		r.register(overgrowthSeed);
 		r.register(craftPattern);
 		r.register(ancientWill);
