@@ -352,11 +352,9 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addBlock(ModFluffBlocks.shimmerrockSlab);
 
 		addItem(ModItems.quartz);
-		if(ConfigHandler.darkQuartzEnabled) {
-			addBlock(ModFluffBlocks.darkQuartz);
-			addBlock(ModFluffBlocks.darkQuartzSlab);
-			addBlock(ModFluffBlocks.darkQuartzStairs);
-		}
+		addBlock(ModFluffBlocks.darkQuartz);
+		addBlock(ModFluffBlocks.darkQuartzSlab);
+		addBlock(ModFluffBlocks.darkQuartzStairs);
 
 		addBlock(ModFluffBlocks.manaQuartz);
 		addBlock(ModFluffBlocks.manaQuartzSlab);

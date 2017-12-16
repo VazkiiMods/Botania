@@ -175,13 +175,11 @@ public final class ModFluffBlocks {
 		r.register(dreamwoodPlankSlab);
 		r.register(dreamwoodPlankSlabFull);
 
-		if(ConfigHandler.darkQuartzEnabled) {
-			r.register(darkQuartz);
-			r.register(darkQuartzSlab);
-			r.register(darkQuartzSlabFull);
-			r.register(darkQuartzStairs);
-		}
-		
+		r.register(darkQuartz);
+		r.register(darkQuartzSlab);
+		r.register(darkQuartzSlabFull);
+		r.register(darkQuartzStairs);
+
 		r.register(manaQuartz);
 		r.register(manaQuartzSlab);
 		r.register(manaQuartzSlabFull);
@@ -292,12 +290,10 @@ public final class ModFluffBlocks {
 		r.register(new ItemBlockMod(dreamwoodPlankStairs).setRegistryName(dreamwoodPlankStairs.getRegistryName()));
 		r.register(new ItemBlockModSlab(dreamwoodPlankSlab).setRegistryName(dreamwoodPlankSlab.getRegistryName()));
 		
-		if(ConfigHandler.darkQuartzEnabled) {
-			r.register(new ItemBlockSpecialQuartz(darkQuartz).setRegistryName(darkQuartz.getRegistryName()));
-			r.register(new ItemBlockModSlab(darkQuartzSlab).setRegistryName(darkQuartzSlab.getRegistryName()));
-			r.register(new ItemBlockMod(darkQuartzStairs).setRegistryName(darkQuartzStairs.getRegistryName()));
-		}
-		
+		r.register(new ItemBlockSpecialQuartz(darkQuartz).setRegistryName(darkQuartz.getRegistryName()));
+		r.register(new ItemBlockModSlab(darkQuartzSlab).setRegistryName(darkQuartzSlab.getRegistryName()));
+		r.register(new ItemBlockMod(darkQuartzStairs).setRegistryName(darkQuartzStairs.getRegistryName()));
+
 		r.register(new ItemBlockSpecialQuartz(manaQuartz).setRegistryName(manaQuartz.getRegistryName()));
 		r.register(new ItemBlockModSlab(manaQuartzSlab).setRegistryName(manaQuartzSlab.getRegistryName()));
 		r.register(new ItemBlockMod(manaQuartzStairs).setRegistryName(manaQuartzStairs.getRegistryName()));

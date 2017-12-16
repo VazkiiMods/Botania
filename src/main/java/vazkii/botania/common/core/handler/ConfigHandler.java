@@ -75,7 +75,6 @@ public final class ConfigHandler {
 	public static boolean enderPickpocketEnabled = true;
 
 	public static boolean fallenKanadeEnabled = true;
-	public static boolean darkQuartzEnabled = true;
 	public static boolean enchanterEnabled = true;
 	public static boolean fluxfieldEnabled = true;
 	public static boolean relicsEnabled = true;
@@ -203,9 +202,6 @@ public final class ConfigHandler {
 
 		desc = "Set this to false to disable the Fallen Kanade flower (gives Regeneration). This config option is here for those using Blood Magic. Note: Turning this off will not remove ones already in the world, it'll simply prevent the crafting.";
 		fallenKanadeEnabled = loadPropBool("fallenKanade.enabled", desc, fallenKanadeEnabled);
-
-		desc = "Set this to false to disable the Smokey Quartz blocks. This config option is here for those using Thaumic Tinkerer";
-		darkQuartzEnabled = loadPropBool("darkQuartz.enabled", desc, darkQuartzEnabled);
 
 		desc = "Set this to false to disable the Mana Enchanter. Since some people find it OP or something. This only disables the entry and creation. Old ones that are already in the world will stay.";
 		enchanterEnabled = loadPropBool("manaEnchanter.enabled", desc, enchanterEnabled);
