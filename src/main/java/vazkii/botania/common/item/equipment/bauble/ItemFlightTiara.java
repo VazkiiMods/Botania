@@ -12,6 +12,7 @@ package vazkii.botania.common.item.equipment.bauble;
 
 import baubles.api.BaubleType;
 import baubles.api.BaublesApi;
+import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
@@ -477,7 +478,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 		int xo = resolution.getScaledWidth() / 2 + 10;
 		int x = xo;
 		int y = resolution.getScaledHeight() - ConfigHandler.flightBarHeight;
-		if(player.getAir() < 300)
+		if(player.isInsideOfMaterial(Material.WATER))
 			y = resolution.getScaledHeight() - ConfigHandler.flightBarBreathHeight;
 
 		int left = ItemNBTHelper.getInt(stack, TAG_TIME_LEFT, MAX_FLY_TIME);
