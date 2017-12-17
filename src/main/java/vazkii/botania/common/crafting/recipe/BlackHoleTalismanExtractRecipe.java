@@ -26,7 +26,7 @@ import javax.annotation.Nonnull;
 public class BlackHoleTalismanExtractRecipe extends IForgeRegistryEntry.Impl<IRecipe> implements IRecipe {
 
 	@Override
-	public boolean isHidden() {
+	public boolean isDynamic() {
 		return true;
 	}
 

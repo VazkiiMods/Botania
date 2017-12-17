@@ -25,7 +25,7 @@ import javax.annotation.Nonnull;
 public class SpellClothRecipe extends IForgeRegistryEntry.Impl<IRecipe> implements IRecipe {
 
 	@Override
-	public boolean isHidden() {
+	public boolean isDynamic() {
 		return true;
 	}
 
