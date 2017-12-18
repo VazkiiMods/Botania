@@ -23,16 +23,20 @@ public abstract class ItemBaubleModifier extends ItemBauble {
 
 	@Override
 	public void onEquippedOrLoadedIntoWorld(ItemStack stack, EntityLivingBase player) {
-		Multimap<String, AttributeModifier> attributes = HashMultimap.create();
-		fillModifiers(attributes, stack);
-		player.getAttributeMap().applyAttributeModifiers(attributes);
+		if(!player.world.isRemote) {
+			Multimap<String, AttributeModifier> attributes = HashMultimap.create();
+			fillModifiers(attributes, stack);
+			player.getAttributeMap().applyAttributeModifiers(attributes);
+		}
 	}
 
 	@Override
 	public void onUnequipped(ItemStack stack, EntityLivingBase player) {
-		Multimap<String, AttributeModifier> attributes = HashMultimap.create();
-		fillModifiers(attributes, stack);
-		player.getAttributeMap().removeAttributeModifiers(attributes);
+		if(!player.world.isRemote) {
+			Multimap<String, AttributeModifier> attributes = HashMultimap.create();
+			fillModifiers(attributes, stack);
+			player.getAttributeMap().removeAttributeModifiers(attributes);
+		}
 	}
 
 	abstract void fillModifiers(Multimap<String, AttributeModifier> attributes, ItemStack stack);

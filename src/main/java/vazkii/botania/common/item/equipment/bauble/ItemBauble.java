@@ -27,9 +27,13 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Optional;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
 import thaumcraft.api.items.IRunicArmor;
 import vazkii.botania.api.item.ICosmeticAttachable;
@@ -46,6 +50,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Optional.Interface(modid = "Thaumcraft", iface = "thaumcraft.api.items.IRunicArmor")
+@Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
 public abstract class ItemBauble extends ItemMod implements IBauble, ICosmeticAttachable, IPhantomInkable, IRunicArmor {
 
 	private static final String TAG_HASHCODE = "playerHashcode";
@@ -57,6 +62,26 @@ public abstract class ItemBauble extends ItemMod implements IBauble, ICosmeticAt
 	public ItemBauble(String name) {
 		super(name);
 		setMaxStackSize(1);
+	}
+
+	// Apparently baubles doesn't unequip on death, which causes attribute modifiers to get weird/desync on respawn
+	// See Baubles#236
+	// Do it for our baubles if they're going to drop
+	// TODO there is still some weirdness going on when dying/returning in the End, figure that out
+	@SubscribeEvent
+	public static void onDeath(LivingDeathEvent evt) {
+		if(!evt.getEntityLiving().world.isRemote
+				&& evt.getEntityLiving() instanceof EntityPlayer
+				&& !evt.getEntityLiving().world.getGameRules().getBoolean("keepInventory")
+				&& !((EntityPlayer) evt.getEntityLiving()).isSpectator()) {
+			IItemHandler inv = BaublesApi.getBaublesHandler((EntityPlayer) evt.getEntityLiving());
+			for(int i = 0; i < inv.getSlots(); i++) {
+				ItemStack stack = inv.getStackInSlot(i);
+				if (!stack.isEmpty() && stack.getItem().getRegistryName().getResourceDomain().equals(LibMisc.MOD_ID)) {
+					((ItemBauble) stack.getItem()).onUnequipped(stack, evt.getEntityLiving());
+				}
+			}
+		}
 	}
 
 	@Nonnull
