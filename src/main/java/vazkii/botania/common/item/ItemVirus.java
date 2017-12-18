@@ -10,7 +10,6 @@
  */
 package vazkii.botania.common.item;
 
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AbstractAttributeMap;
@@ -28,30 +27,18 @@ import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.relauncher.ReflectionHelper;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
-import vazkii.botania.client.core.handler.ModelHandler;
-import vazkii.botania.common.lib.LibItemNames;
-import vazkii.botania.common.lib.LibObfuscation;
+import vazkii.botania.common.lib.LibMisc;
 
-import javax.annotation.Nonnull;
-
+@Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
 public class ItemVirus extends ItemMod {
-
-	private static final int SUBTYPES = 2;
-
-	public ItemVirus() {
-		super(LibItemNames.VIRUS);
-		setHasSubtypes(true);
-		MinecraftForge.EVENT_BUS.register(ItemVirus.class);
+	public ItemVirus(String name) {
+		super(name);
 	}
 
 	@Override
@@ -79,7 +66,7 @@ public class ItemVirus extends ItemMod {
 
 				horse.setDead();
 
-				AbstractHorse newHorse = stack.getItemDamage() == 0 ? new EntityZombieHorse(player.world) : new EntitySkeletonHorse(player.world);
+				AbstractHorse newHorse = stack.getItem() == ModItems.necroVirus ? new EntityZombieHorse(player.world) : new EntitySkeletonHorse(player.world);
 				newHorse.setTamedBy(player);
 				newHorse.setPositionAndRotation(horse.posX, horse.posY, horse.posZ, horse.rotationYaw, horse.rotationPitch);
 
@@ -121,26 +108,6 @@ public class ItemVirus extends ItemMod {
 				&& ((AbstractHorse) entity).isTame()) {
 			event.setCanceled(true);
 		}
-	}
-
-	@Override
-	public void getSubItems(@Nonnull CreativeTabs tab, @Nonnull NonNullList<ItemStack> list) {
-		if(isInCreativeTab(tab)) {
-			for(int i = 0; i < SUBTYPES; i++)
-				list.add(new ItemStack(this, 1, i));
-		}
-	}
-
-	@Nonnull
-	@Override
-	public String getUnlocalizedName(ItemStack stack) {
-		return super.getUnlocalizedName(stack) + stack.getItemDamage();
-	}
-
-	@SideOnly(Side.CLIENT)
-	@Override
-	public void registerModels() {
-		ModelHandler.registerItemAppendMeta(this, 2, LibItemNames.VIRUS);
 	}
 
 }

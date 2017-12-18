@@ -238,7 +238,8 @@ public final class ModItems {
 	public static final Item slingshot = new ItemSlingshot();
 	public static final Item manaBottle = new ItemBottledMana();
 	public static final Item laputaShard = new ItemLaputaShard();
-	public static final Item virus = new ItemVirus();
+	public static final Item necroVirus = new ItemVirus(LibItemNames.NECRO_VIRUS);
+	public static final Item nullVirus = new ItemVirus(LibItemNames.NULL_VIRUS);
 	public static final Item reachRing = new ItemReachRing();
 	public static final Item skyDirtRod = new ItemSkyDirtRod();
 	public static final Item itemFinder = new ItemItemFinder();
@@ -450,7 +451,8 @@ public final class ModItems {
 		r.register(slingshot);
 		r.register(manaBottle);
 		r.register(laputaShard);
-		r.register(virus);
+		r.register(necroVirus);
+		r.register(nullVirus);
 		r.register(reachRing);
 		r.register(skyDirtRod);
 		r.register(itemFinder);

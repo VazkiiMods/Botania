@@ -558,8 +558,8 @@ public final class ModCraftingRecipes {
 		recipeSlingshot = ModItems.slingshot.getRegistryName();
 		recipeLaputaShard = path("laputashard_0");
 		recipesLaputaShardUpgrade = allOfGroup("laputashard_upgrade");
-		recipeVirusZombie = path("virus_0");
-		recipeVirusSkeleton = path("virus_1");
+		recipeVirusZombie = ModItems.necroVirus.getRegistryName();
+		recipeVirusSkeleton = ModItems.nullVirus.getRegistryName();
 		recipeSkyDirtRod = ModItems.skyDirtRod.getRegistryName();
 		recipeGlassPick = ModItems.glassPick.getRegistryName();
 		recipeDiviningRod = ModItems.diviningRod.getRegistryName();

@@ -89,7 +89,8 @@ public final class LibItemNames {
 	public static final String SLINGSHOT = "slingshot";
 	public static final String MANA_BOTTLE = "manaBottle";
 	public static final String LAPUTA_SHARD = "laputaShard";
-	public static final String VIRUS = "virus";
+	public static final String NECRO_VIRUS = "virus_necrodermal";
+	public static final String NULL_VIRUS = "virus_nullodermal";
 	public static final String REACH_RING = "reachRing";
 	public static final String SKY_DIRT_ROD = "skyDirtRod";
 	public static final String MANASTEEL_HELM_R = "manasteelHelmReveal";

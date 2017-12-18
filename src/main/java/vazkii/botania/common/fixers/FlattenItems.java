@@ -57,6 +57,13 @@ public class FlattenItems implements IFixableData {
 			EnumDyeColor color = EnumDyeColor.byMetadata(i);
 			return LibMisc.MOD_ID + ":" + LibItemNames.PETAL + "_" + color.getName();
 		});
+		LOOKUP.put("botania:virus", i -> {
+			if (i == 1) {
+				return LibMisc.MOD_ID + ":" + LibItemNames.NULL_VIRUS;
+			} else {
+				return LibMisc.MOD_ID + ":" + LibItemNames.NECRO_VIRUS;
+			}
+		});
 	}
 
 	@Override

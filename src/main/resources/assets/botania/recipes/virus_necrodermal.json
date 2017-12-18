@@ -1,7 +1,6 @@
 {
   "result": {
-    "item": "botania:virus",
-    "data": 1
+    "item": "botania:virus_necrodermal"
   },
   "ingredients": [
     {
@@ -21,7 +20,7 @@
     },
     {
       "item": "minecraft:skull",
-      "data": 0
+      "data": 2
     }
   ],
   "type": "forge:ore_shapeless"
