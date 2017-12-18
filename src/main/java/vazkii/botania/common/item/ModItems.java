@@ -11,6 +11,7 @@
 package vazkii.botania.common.item;
 
 import net.minecraft.init.Items;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemRecord;
 import net.minecraft.item.ItemStack;
@@ -96,11 +97,21 @@ import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.lib.LibOreDict;
 
+import java.util.EnumMap;
+import java.util.Map;
+
 @Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
 public final class ModItems {
 	public static final Item lexicon = new ItemLexicon();
-	public static final Item petal = new ItemPetal();
-	public static final Item dye = new ItemDye();
+	public static final Map<EnumDyeColor, Item> petals = new EnumMap<>(EnumDyeColor.class);
+	public static final Map<EnumDyeColor, Item> dyes = new EnumMap<>(EnumDyeColor.class);
+	static {
+		for(EnumDyeColor color : EnumDyeColor.values()) {
+			petals.put(color, new ItemPetal(color));
+			dyes.put(color, new ItemDye(color));
+		}
+	}
+
 	public static final Item pestleAndMortar = new ItemPestleAndMortar();
 	public static final Item twigWand = new ItemTwigWand();
 	
@@ -314,8 +325,8 @@ public final class ModItems {
 		IForgeRegistry<Item> r = evt.getRegistry();
 
 		r.register(lexicon);
-		r.register(petal);
-		r.register(dye);
+		petals.values().forEach(r::register);
+		dyes.values().forEach(r::register);
 		r.register(pestleAndMortar);
 		r.register(twigWand);
 		r.register(manaSteel);
@@ -526,12 +537,16 @@ public final class ModItems {
 	
 	private static void registerOreDictionary() {
 		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
+		for(EnumDyeColor color : EnumDyeColor.values()) {
+			OreDictionary.registerOre(LibOreDict.PETAL[color.getMetadata()], new ItemStack(petals.get(color)));
+			OreDictionary.registerOre(LibOreDict.DYE[color.getMetadata()], new ItemStack(dyes.get(color)));
+			OreDictionary.registerOre(LibOreDict.DYE_WILDCARD, new ItemStack(dyes.get(color)));
+		}
+
 		for(int i = 0; i < 16; i++) {
-			OreDictionary.registerOre(LibOreDict.PETAL[i], new ItemStack(petal, 1, i));
-			OreDictionary.registerOre(LibOreDict.DYE[i], new ItemStack(dye, 1, i));
 			OreDictionary.registerOre(LibOreDict.RUNE[i], new ItemStack(rune, 1, i));
 		}
-		OreDictionary.registerOre(LibOreDict.DYE_WILDCARD, new ItemStack(dye, 1, OreDictionary.WILDCARD_VALUE));
+
 
 		OreDictionary.registerOre(LibOreDict.QUARTZ[0], new ItemStack(darkQuartz));
 		OreDictionary.registerOre(LibOreDict.QUARTZ[1], new ItemStack(manaQuartz));

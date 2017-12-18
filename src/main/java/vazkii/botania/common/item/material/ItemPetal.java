@@ -13,6 +13,7 @@ package vazkii.botania.common.item.material;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
@@ -23,18 +24,22 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
+import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.item.IPetalApothecary;
 import vazkii.botania.api.recipe.IFlowerComponent;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.Item16Colors;
 import vazkii.botania.common.lib.LibItemNames;
+import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
 public class ItemPetal extends Item16Colors implements IFlowerComponent {
 
-	public ItemPetal() {
-		super(LibItemNames.PETAL);
+	public ItemPetal(EnumDyeColor color) {
+		super(LibItemNames.PETAL, color);
 	}
 
 	@Nonnull
@@ -86,7 +91,7 @@ public class ItemPetal extends Item16Colors implements IFlowerComponent {
 
 	@Override
 	public int getMetadata(int stackMeta) {
-		return MathHelper.clamp(stackMeta, 0, 15);
+		return color.getMetadata();
 	}
 
 	@Override
@@ -96,6 +101,12 @@ public class ItemPetal extends Item16Colors implements IFlowerComponent {
 
 	@Override
 	public int getParticleColor(ItemStack stack) {
-		return EnumDyeColor.byMetadata(stack.getItemDamage()).colorValue;
+		return color.colorValue;
+	}
+
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void registerModels() {
+		ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(LibMisc.MOD_ID + ":" + LibItemNames.PETAL, "inventory"));
 	}
 }

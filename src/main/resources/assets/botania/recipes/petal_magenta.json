@@ -1,0 +1,13 @@
+{
+  "result": {
+    "item": "botania:petal_magenta",
+    "count": 2
+  },
+  "group": "botania:petal",
+  "ingredients": [
+    {
+      "item": "#MYSTICFLOWERMAGENTA"
+    }
+  ],
+  "type": "forge:ore_shapeless"
+}

@@ -1,7 +1,6 @@
 {
   "result": {
-    "item": "botania:petal",
-    "data": 5,
+    "item": "botania:petal_lime",
     "count": 9
   },
   "group": "botania:petal_block_deconstruct",

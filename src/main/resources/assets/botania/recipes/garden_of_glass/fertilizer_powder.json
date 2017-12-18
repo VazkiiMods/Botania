@@ -15,20 +15,16 @@
       "data": 15
     },
     {
-      "item": "botania:dye",
-      "data": 32767
+      "item": "#ALL_DYES"
     },
     {
-      "item": "botania:dye",
-      "data": 32767
+      "item": "#ALL_DYES"
     },
     {
-      "item": "botania:dye",
-      "data": 32767
+      "item": "#ALL_DYES"
     },
     {
-      "item": "botania:dye",
-      "data": 32767
+      "item": "#ALL_DYES"
     }
   ],
   "type": "minecraft:crafting_shapeless"

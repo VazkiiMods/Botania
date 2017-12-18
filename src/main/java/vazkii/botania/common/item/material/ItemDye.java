@@ -13,6 +13,7 @@ package vazkii.botania.common.item.material;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCarpet;
 import net.minecraft.block.BlockColored;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.player.EntityPlayer;
@@ -25,16 +26,20 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.common.item.Item16Colors;
 import vazkii.botania.common.lib.LibItemNames;
+import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
 public class ItemDye extends Item16Colors {
 
-	public ItemDye() {
-		super(LibItemNames.DYE);
+	public ItemDye(EnumDyeColor color) {
+		super(LibItemNames.DYE, color);
 	}
 
 	@Nonnull
@@ -42,7 +47,7 @@ public class ItemDye extends Item16Colors {
 	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
 		ItemStack stack = player.getHeldItem(hand);
 		Block block = world.getBlockState(pos).getBlock();
-		EnumDyeColor color = EnumDyeColor.byMetadata(stack.getItemDamage());
+
 		if(block == Blocks.WOOL && color != world.getBlockState(pos).getValue(BlockColored.COLOR)
 				|| block == Blocks.CARPET && color != world.getBlockState(pos).getValue(BlockCarpet.COLOR)) {
 			world.setBlockState(pos, world.getBlockState(pos).withProperty(block == Blocks.WOOL ? BlockColored.COLOR : BlockCarpet.COLOR, color), 1 | 2);
@@ -67,16 +72,21 @@ public class ItemDye extends Item16Colors {
 	public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer player, EntityLivingBase target, EnumHand hand) {
 		if(target instanceof EntitySheep) {
 			EntitySheep entitysheep = (EntitySheep)target;
-			EnumDyeColor i = EnumDyeColor.byMetadata(stack.getItemDamage());
 
-			if(!entitysheep.getSheared() && entitysheep.getFleeceColor() != i) {
-				entitysheep.setFleeceColor(i);
+			if(!entitysheep.getSheared() && entitysheep.getFleeceColor() != color) {
+				entitysheep.setFleeceColor(color);
 				stack.shrink(1);
 			}
 
 			return true;
 		}
 		return false;
+	}
+
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void registerModels() {
+		ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(LibMisc.MOD_ID + ":" + LibItemNames.DYE, "inventory"));
 	}
 
 }

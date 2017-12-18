@@ -14,8 +14,7 @@
       }
     ],
     {
-      "item": "botania:dye",
-      "data": 7
+      "item": "botania:dye_gray"
     }
   ],
   "type": "minecraft:crafting_shapeless"

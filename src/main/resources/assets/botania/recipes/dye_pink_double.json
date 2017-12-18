@@ -1,0 +1,17 @@
+{
+  "result": {
+    "item": "botania:dye_pink",
+    "count": 2
+  },
+  "group": "botania:dye_double",
+  "ingredients": [
+    {
+      "item": "minecraft:double_plant",
+      "data": 5
+    },
+    {
+      "item": "#PESTLEANDMORTAR"
+    }
+  ],
+  "type": "forge:ore_shapeless"
+}

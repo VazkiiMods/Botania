@@ -42,6 +42,7 @@ import vazkii.botania.common.crafting.recipe.SpecialFloatingFlowerRecipe;
 import vazkii.botania.common.crafting.recipe.SpellClothRecipe;
 import vazkii.botania.common.crafting.recipe.TerraPickTippingRecipe;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.lib.LibOreDict;
 
@@ -409,9 +410,9 @@ public final class ModCraftingRecipes {
 
 	public static void init() {
 		// Can't do this in RegistryEvent.Register event handler since it seems JSON recipes aren't loaded yet
-		recipesPetals = allOfGroup(ModItems.petal.getRegistryName());
+		recipesPetals = allOfGroup(new ResourceLocation(LibMisc.MOD_ID, LibItemNames.PETAL));
 		recipePestleAndMortar = ModItems.pestleAndMortar.getRegistryName();
-		recipesDyes = allOfGroup(ModItems.dye.getRegistryName());
+		recipesDyes = allOfGroup(new ResourceLocation(LibMisc.MOD_ID, LibItemNames.DYE));
 		recipeFertilizerPowder = gogPath("fertilizer_powder");
 		recipeFerilizerDye = path("fertilizer_dye");
 		recipesPetalsDouble = allOfGroup("petal_double");

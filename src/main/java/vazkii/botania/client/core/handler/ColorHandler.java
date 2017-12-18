@@ -27,6 +27,7 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileCamo;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.entity.EntityManaBurst;
+import vazkii.botania.common.item.Item16Colors;
 import vazkii.botania.common.item.ItemManaGun;
 import vazkii.botania.common.item.ItemManaMirror;
 import vazkii.botania.common.item.ItemManaTablet;
@@ -109,7 +110,12 @@ public final class ColorHandler {
 						: -1,
 						ModItems.twigWand);
 
-		items.registerItemColorHandler((s, t) -> EnumDyeColor.byMetadata(s.getItemDamage()).getColorValue(), ModItems.dye, ModItems.petal);
+		IItemColor handler = (s, t) -> ((Item16Colors) s.getItem()).color.colorValue;
+		Item[] dyes = ModItems.dyes.values().toArray(new Item[0]);
+		Item[] petals = ModItems.petals.values().toArray(new Item[0]);
+		items.registerItemColorHandler(handler, dyes);
+		items.registerItemColorHandler(handler, petals);
+
 		items.registerItemColorHandler((s, t) -> Minecraft.getMinecraft().getBlockColors().colorMultiplier(((ItemBlock)s.getItem()).getBlock().getStateFromMeta(s.getMetadata()), null, null, t),
 				ModBlocks.petalBlock, ModBlocks.pool, ModBlocks.spreader);
 
@@ -159,7 +165,7 @@ public final class ColorHandler {
 		items.registerItemColorHandler((s, t) -> t == 1 && ItemTerraPick.isEnabled(s) ? Color.HSBtoRGB(0.375F, (float) Math.min(1F, Math.sin(System.currentTimeMillis() / 200D) * 0.5 + 1F), 1F) : -1, ModItems.terraPick);
 
 		// todo 1.13 use tags instead of looping registry
-		IItemColor handler = (s, t) -> t == 0 ? ((ItemLens) s.getItem()).getLensColor(s) : -1;
+		handler = (s, t) -> t == 0 ? ((ItemLens) s.getItem()).getLensColor(s) : -1;
 		for (Item i : Item.REGISTRY) {
 			if(i instanceof ItemLens && i.getRegistryName().getResourceDomain().equals(LibMisc.MOD_ID)) {
 				items.registerItemColorHandler(handler, i);

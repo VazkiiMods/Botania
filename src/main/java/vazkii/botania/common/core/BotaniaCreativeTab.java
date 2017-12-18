@@ -55,9 +55,9 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 
 		addBlock(ModBlocks.flower);
 		addBlock(ModBlocks.specialFlower);
-		addItem(ModItems.petal);
+		ModItems.petals.values().forEach(this::addItem);
 		addItem(ModItems.pestleAndMortar);
-		addItem(ModItems.dye);
+		ModItems.dyes.values().forEach(this::addItem);
 		addItem(ModItems.fertilizer);
 		addItem(ModItems.flowerBag);
 		addItem(ModItems.blackLotus);

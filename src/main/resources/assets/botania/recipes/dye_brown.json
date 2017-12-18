@@ -1,0 +1,15 @@
+{
+  "result": {
+    "item": "botania:dye_brown"
+  },
+  "group": "botania:dye",
+  "ingredients": [
+    {
+      "item": "#PETALBROWN"
+    },
+    {
+      "item": "#PESTLEANDMORTAR"
+    }
+  ],
+  "type": "forge:ore_shapeless"
+}

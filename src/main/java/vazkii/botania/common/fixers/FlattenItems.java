@@ -1,5 +1,6 @@
 package vazkii.botania.common.fixers;
 
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.datafix.IFixableData;
 import vazkii.botania.common.lib.LibItemNames;
@@ -48,6 +49,14 @@ public class FlattenItems implements IFixableData {
 			}
 		});
 		LOOKUP.put("botania:lens", i -> LibMisc.MOD_ID + ":" + LibItemNames.LENS_NAMES[i % LibItemNames.LENS_NAMES.length]);
+		LOOKUP.put("botania:dye", i -> {
+			EnumDyeColor color = EnumDyeColor.byMetadata(i);
+			return LibMisc.MOD_ID + ":" + LibItemNames.DYE + "_" + color.getName();
+		});
+		LOOKUP.put("botania:petal", i -> {
+			EnumDyeColor color = EnumDyeColor.byMetadata(i);
+			return LibMisc.MOD_ID + ":" + LibItemNames.PETAL + "_" + color.getName();
+		});
 	}
 
 	@Override

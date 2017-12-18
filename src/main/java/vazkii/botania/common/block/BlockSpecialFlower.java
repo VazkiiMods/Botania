@@ -56,6 +56,7 @@ import vazkii.botania.common.block.tile.TileSpecialFlower;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
+import vazkii.botania.common.item.material.ItemDye;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
@@ -312,8 +313,8 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 	@Override
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
 		ItemStack stack = player.getHeldItem(hand);
-		if(!stack.isEmpty() && stack.getItem() == ModItems.dye) {
-			EnumDyeColor newColor = EnumDyeColor.byMetadata(stack.getItemDamage());
+		if(!stack.isEmpty() && stack.getItem() instanceof ItemDye) {
+			EnumDyeColor newColor = ((ItemDye) stack.getItem()).color;
 			EnumDyeColor oldColor = state.getValue(BotaniaStateProps.COLOR);
 			if(newColor != oldColor)
 				world.setBlockState(pos, state.withProperty(BotaniaStateProps.COLOR, newColor), 1 | 2);

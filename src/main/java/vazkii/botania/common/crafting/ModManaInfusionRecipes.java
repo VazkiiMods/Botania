@@ -59,8 +59,8 @@ public final class ModManaInfusionRecipes {
 		manaPowderRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaPowder), new ItemStack(Items.REDSTONE), 500));
 		manaPowderRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaPowder), new ItemStack(Items.GLOWSTONE_DUST), 500));
 		manaPowderRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaPowder), new ItemStack(Items.SUGAR), 500));
-		for(int i = 0; i < 16; i++)
-			manaPowderRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaPowder), new ItemStack(ModItems.dye, 1, i), 400));
+		for(Item dye : ModItems.dyes.values())
+			manaPowderRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaPowder), new ItemStack(dye), 400));
 
 		pistonRelayRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModBlocks.pistonRelay), new ItemStack(Blocks.PISTON), 15000);
 		manaCookieRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaCookie), new ItemStack(Items.COOKIE), 20000);

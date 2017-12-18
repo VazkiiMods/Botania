@@ -1,5 +1,47 @@
 [
   {
+    "ingredient": [
+      { "item": "botania:dye_white" },
+      { "item": "botania:dye_orange" },
+      { "item": "botania:dye_magenta" },
+      { "item": "botania:dye_light_blue" },
+      { "item": "botania:dye_yellow" },
+      { "item": "botania:dye_lime" },
+      { "item": "botania:dye_pink" },
+      { "item": "botania:dye_gray" },
+      { "item": "botania:dye_silver" },
+      { "item": "botania:dye_cyan" },
+      { "item": "botania:dye_purple" },
+      { "item": "botania:dye_blue" },
+      { "item": "botania:dye_brown" },
+      { "item": "botania:dye_green" },
+      { "item": "botania:dye_red" },
+      { "item": "botania:dye_black" }
+    ],
+    "name": "ALL_DYES"
+  },
+  {
+    "ingredient": [
+      { "item": "botania:petal_white" },
+      { "item": "botania:petal_orange" },
+      { "item": "botania:petal_magenta" },
+      { "item": "botania:petal_light_blue" },
+      { "item": "botania:petal_yellow" },
+      { "item": "botania:petal_lime" },
+      { "item": "botania:petal_pink" },
+      { "item": "botania:petal_gray" },
+      { "item": "botania:petal_silver" },
+      { "item": "botania:petal_cyan" },
+      { "item": "botania:petal_purple" },
+      { "item": "botania:petal_blue" },
+      { "item": "botania:petal_brown" },
+      { "item": "botania:petal_green" },
+      { "item": "botania:petal_red" },
+      { "item": "botania:petal_black" }
+    ],
+    "name": "ALL_PETALS"
+  },
+  {
     "ingredient": {
       "type": "forge:ore_dict",
       "ore": "bEnderAirBottle"

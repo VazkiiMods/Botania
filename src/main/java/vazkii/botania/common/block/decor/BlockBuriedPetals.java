@@ -79,7 +79,12 @@ public class BlockBuriedPetals extends BlockModFlower {
 	@Nonnull
 	@Override
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-		return ModItems.petal;
+		return ModItems.petals.get(state.getValue(BotaniaStateProps.COLOR));
+	}
+
+	@Override
+	public int damageDropped(IBlockState state) {
+		return 0;
 	}
 
 	@Nonnull

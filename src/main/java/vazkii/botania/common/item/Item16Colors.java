@@ -10,45 +10,14 @@
  */
 package vazkii.botania.common.item;
 
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.EnumDyeColor;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.NonNullList;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-import vazkii.botania.client.core.handler.ModelHandler;
-
-import javax.annotation.Nonnull;
 
 public class Item16Colors extends ItemMod {
+	public final EnumDyeColor color;
 
-	public Item16Colors(String name) {
-		super(name);
-		setHasSubtypes(true);
-	}
-
-	@Override
-	public void getSubItems(@Nonnull CreativeTabs tab, @Nonnull NonNullList<ItemStack> stacks) {
-		if(isInCreativeTab(tab)) {
-			for(int i = 0; i < 16; i++)
-				stacks.add(new ItemStack(this, 1, i));
-		}
-	}
-
-	@Nonnull
-	@Override
-	public String getUnlocalizedName(ItemStack par1ItemStack) {
-		return getUnlocalizedNameLazy(par1ItemStack) + par1ItemStack.getItemDamage();
-	}
-
-	@SideOnly(Side.CLIENT)
-	@Override
-	public void registerModels() {
-		ModelHandler.registerItemAllMeta(this, EnumDyeColor.values().length);
-	}
-
-	String getUnlocalizedNameLazy(ItemStack par1ItemStack) {
-		return super.getUnlocalizedName(par1ItemStack);
+	public Item16Colors(String name, EnumDyeColor color) {
+		super(name + "_" + color.getName());
+		this.color = color;
 	}
 
 }

@@ -11,8 +11,7 @@
   "type": "forge:ore_shaped",
   "key": {
     "P": {
-      "item": "botania:petal",
-      "data": 6
+      "item": "botania:petal_pink"
     },
     "S": {
       "item": "#MANASTRING"

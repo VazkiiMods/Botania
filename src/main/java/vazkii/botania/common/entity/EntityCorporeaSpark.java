@@ -30,6 +30,7 @@ import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.api.corporea.InvWithLocation;
 import vazkii.botania.common.core.helper.InventoryHelper;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.material.ItemDye;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -261,7 +262,7 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 		ItemStack stack = player.getHeldItem(hand);
 		if(!isDead && !stack.isEmpty()) {
 			if(player.world.isRemote) {
-				boolean valid = stack.getItem() == ModItems.twigWand || stack.getItem() == ModItems.dye || stack.getItem() == ModItems.phantomInk;
+				boolean valid = stack.getItem() == ModItems.twigWand || stack.getItem() instanceof ItemDye || stack.getItem() == ModItems.phantomInk;
 				if(valid)
 					player.swingArm(hand);
 				return valid;
@@ -276,10 +277,10 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 					displayRelatives(player, new ArrayList<>(), master);
 				}
 				return true;
-			} else if(stack.getItem() == ModItems.dye) {
-				int color = stack.getItemDamage();
-				if(color != getNetwork().getMetadata()) {
-					setNetwork(EnumDyeColor.byMetadata(color));
+			} else if(stack.getItem() instanceof ItemDye) {
+				EnumDyeColor color = ((ItemDye) stack.getItem()).color;
+				if(color != getNetwork()) {
+					setNetwork(color);
 
 					if(isMaster())
 						restartNetwork();

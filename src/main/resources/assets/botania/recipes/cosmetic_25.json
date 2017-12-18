@@ -11,8 +11,7 @@
   "type": "forge:ore_shaped",
   "key": {
     "P": {
-      "item": "botania:dye",
-      "data": 9
+      "item": "botania:dye_cyan"
     },
     "S": {
       "item": "#MANASTRING"

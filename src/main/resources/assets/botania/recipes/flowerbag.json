@@ -10,8 +10,7 @@
   "type": "minecraft:crafting_shaped",
   "key": {
     "P": {
-      "item": "botania:petal",
-      "data": 32767
+      "item": "#ALL_PETALS"
     },
     "W": {
       "item": "minecraft:wool",

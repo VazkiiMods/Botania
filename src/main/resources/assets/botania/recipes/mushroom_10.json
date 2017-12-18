@@ -14,8 +14,7 @@
       }
     ],
     {
-      "item": "botania:dye",
-      "data": 10
+      "item": "botania:dye_purple"
     }
   ],
   "type": "minecraft:crafting_shapeless"
