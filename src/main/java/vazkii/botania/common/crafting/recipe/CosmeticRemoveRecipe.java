@@ -25,7 +25,7 @@ import javax.annotation.Nonnull;
 public class CosmeticRemoveRecipe extends IForgeRegistryEntry.Impl<IRecipe> implements IRecipe {
 
 	@Override
-	public boolean isHidden() {
+	public boolean isDynamic() {
 		return true;
 	}
 

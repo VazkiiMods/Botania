@@ -130,7 +130,7 @@ public class ItemLivingwoodBow extends ItemBow implements IManaUsingItem, IModel
 				{
 					ItemArrow itemarrow = (ItemArrow) (itemstack.getItem() instanceof ItemArrow ? itemstack.getItem() : Items.ARROW);
 					EntityArrow entityarrow = itemarrow.createArrow(world, itemstack, shooter);
-					entityarrow.setAim(shooter, shooter.rotationPitch, shooter.rotationYaw, 0.0F, f * 3.0F, 1.0F);
+					entityarrow.shoot(shooter, shooter.rotationPitch, shooter.rotationYaw, 0.0F, f * 3.0F, 1.0F);
 
 					if (f == 1.0F)
 					{

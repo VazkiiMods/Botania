@@ -12,10 +12,7 @@ package vazkii.botania.client.core.proxy;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.model.ModelBiped;
-import net.minecraft.client.multiplayer.PlayerControllerMP;
-import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.client.renderer.entity.RenderSnowball;
 import net.minecraft.client.renderer.tileentity.TileEntityItemStackRenderer;
@@ -23,7 +20,6 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
@@ -37,10 +33,8 @@ import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import vazkii.botania.api.boss.IBotaniaBoss;
-import vazkii.botania.api.item.IExtendedPlayerController;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.lexicon.multiblock.IMultiblockRenderHook;
 import vazkii.botania.api.lexicon.multiblock.Multiblock;
@@ -49,25 +43,16 @@ import vazkii.botania.api.lexicon.multiblock.component.AnyComponent;
 import vazkii.botania.api.wiki.IWikiProvider;
 import vazkii.botania.api.wiki.WikiHooks;
 import vazkii.botania.client.challenge.ModChallenges;
-import vazkii.botania.client.core.handler.AstrolabePreviewHandler;
 import vazkii.botania.client.core.handler.BaubleRenderHandler;
-import vazkii.botania.client.core.handler.BlockHighlightRenderHandler;
 import vazkii.botania.client.core.handler.BossBarHandler;
-import vazkii.botania.client.core.handler.BotaniaPlayerController;
 import vazkii.botania.client.core.handler.BoundTileRenderer;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.ColorHandler;
 import vazkii.botania.client.core.handler.ContributorFancinessHandler;
 import vazkii.botania.client.core.handler.CorporeaAutoCompleteHandler;
-import vazkii.botania.client.core.handler.DebugHandler;
-import vazkii.botania.client.core.handler.HUDHandler;
-import vazkii.botania.client.core.handler.LightningHandler;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.core.handler.MultiblockRenderHandler;
 import vazkii.botania.client.core.handler.PersistentVariableHelper;
-import vazkii.botania.client.core.handler.RenderLexicon;
-import vazkii.botania.client.core.handler.TooltipAdditionDisplayHandler;
-import vazkii.botania.client.core.handler.TooltipHandler;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.fx.FXLightning;
 import vazkii.botania.client.fx.FXSparkle;
@@ -86,10 +71,8 @@ import vazkii.botania.client.render.entity.RenderPoolMinecart;
 import vazkii.botania.client.render.entity.RenderSnowballStack;
 import vazkii.botania.client.render.entity.RenderSpark;
 import vazkii.botania.client.render.tile.*;
-import vazkii.botania.client.render.world.SkyblockRenderEvents;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.block.subtile.functional.BergamuteEventHandler;
 import vazkii.botania.common.block.tile.*;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaCrystalCube;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
@@ -104,7 +87,6 @@ import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.core.proxy.IProxy;
 import vazkii.botania.common.core.version.AdaptorNotifier;
-import vazkii.botania.common.core.version.VersionChecker;
 import vazkii.botania.common.entity.EntityBabylonWeapon;
 import vazkii.botania.common.entity.EntityCorporeaSpark;
 import vazkii.botania.common.entity.EntityDoppleganger;
@@ -120,7 +102,6 @@ import vazkii.botania.common.item.ItemSextant.MultiblockSextant;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.bauble.ItemMonocle;
 import vazkii.botania.common.lexicon.LexiconData;
-import vazkii.botania.common.lib.LibObfuscation;
 
 import java.awt.Desktop;
 import java.io.File;
@@ -290,31 +271,6 @@ public class ClientProxy implements IProxy {
 	@Override
 	public boolean isClientPlayerWearingMonocle() {
 		return ItemMonocle.hasMonocle(Minecraft.getMinecraft().player);
-	}
-
-	@Override
-	public void setExtraReach(EntityLivingBase entity, float reach) {
-		if(!entity.world.isRemote) {
-			if(entity instanceof EntityPlayerMP)
-				((EntityPlayerMP) entity).interactionManager.setBlockReachDistance(Math.max(5, ((EntityPlayerMP) entity).interactionManager.getBlockReachDistance() + reach));
-		} else {
-			Minecraft mc = Minecraft.getMinecraft();
-			EntityPlayerSP player = mc.player;
-			if(entity == player) {
-				if(!(mc.playerController instanceof IExtendedPlayerController)) {
-					NetHandlerPlayClient net = player.connection;
-					BotaniaPlayerController controller = new BotaniaPlayerController(mc, net);
-					boolean isFlying = player.capabilities.isFlying;
-					boolean allowFlying = player.capabilities.allowFlying;
-					controller.setGameType(mc.playerController.getCurrentGameType());
-					player.capabilities.isFlying = isFlying;
-					player.capabilities.allowFlying = allowFlying;
-					mc.playerController = controller;
-				}
-
-				((IExtendedPlayerController) mc.playerController).setReachDistanceExtension(Math.max(0, ((IExtendedPlayerController) mc.playerController).getReachDistanceExtension() + reach));
-			}
-		}
 	}
 
 	@Override

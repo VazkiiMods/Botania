@@ -94,7 +94,7 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 
 			if(!world.isRemote) {
 				EntityEnderAirBottle b = new EntityEnderAirBottle(world, player);
-				b.setHeadingFromThrower(player, player.rotationPitch, player.rotationYaw, 0F, 1.5F, 1F);
+				b.shoot(player, player.rotationPitch, player.rotationYaw, 0F, 1.5F, 1F);
 				world.spawnEntity(b);
 			}
 			else player.swingArm(hand);

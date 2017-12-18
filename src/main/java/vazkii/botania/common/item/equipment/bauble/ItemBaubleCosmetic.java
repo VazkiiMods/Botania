@@ -361,7 +361,7 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 
 			if (flag && bakedquad.hasTintIndex())
 			{
-				k = Minecraft.getMinecraft().getItemColors().getColorFromItemstack(stack, bakedquad.getTintIndex());
+				k = Minecraft.getMinecraft().getItemColors().colorMultiplier(stack, bakedquad.getTintIndex());
 
 				if (EntityRenderer.anaglyphEnable)
 				{

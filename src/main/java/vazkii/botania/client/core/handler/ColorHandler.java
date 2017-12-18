@@ -141,7 +141,7 @@ public final class ColorHandler {
 		items.registerItemColorHandler((s, t) -> {
 			ItemStack lens = ItemManaGun.getLens(s);
 			if(!lens.isEmpty() && t == 0)
-				return Minecraft.getMinecraft().getItemColors().getColorFromItemstack(lens, t);
+				return Minecraft.getMinecraft().getItemColors().colorMultiplier(lens, t);
 
 			if(t == 2) {
 				EntityManaBurst burst = ((ItemManaGun) s.getItem()).getBurst(Minecraft.getMinecraft().player, s, false);
