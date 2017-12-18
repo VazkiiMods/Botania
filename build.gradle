@@ -22,8 +22,8 @@ buildscript {
 repositories {
     mavenCentral()
     maven {
-        name = "chickenbones"
-        url = "http://chickenbones.net/maven/"
+        name = "thiakil"
+        url = "http://maven.thiakil.com"
     }
     maven {
         url "http://dvs1.progwml6.com/files/maven"
@@ -73,9 +73,7 @@ jar {
 }
 
 dependencies {
-    compile files(
-        'Baubles-deobf.jar'
-    )
+    deobfCompile "com.azanor.baubles:Baubles:1.12-1.5.2"
     deobfCompile "mezz.jei:jei_1.12:4.7.0.67"
 
     //and a bit more for SCP
