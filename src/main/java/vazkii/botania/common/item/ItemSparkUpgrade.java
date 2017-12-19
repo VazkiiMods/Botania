@@ -10,46 +10,29 @@
  */
 package vazkii.botania.common.item;
 
-import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.NonNullList;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-import vazkii.botania.client.core.handler.ModelHandler;
+import vazkii.botania.api.mana.spark.SparkUpgradeType;
 import vazkii.botania.common.lib.LibItemNames;
 
-import javax.annotation.Nonnull;
+import java.util.Locale;
 
 public class ItemSparkUpgrade extends ItemMod {
+	public final SparkUpgradeType type;
 
-	public static final int VARIANTS = 4;
-
-	public ItemSparkUpgrade() {
-		super(LibItemNames.SPARK_UPGRADE);
-		setHasSubtypes(true);
+	public ItemSparkUpgrade(SparkUpgradeType type) {
+		super(LibItemNames.SPARK_UPGRADE + "_" + type.name().toLowerCase(Locale.ROOT));
+		this.type = type;
 	}
 
-	@Override
-	public void getSubItems(@Nonnull CreativeTabs tab, @Nonnull NonNullList<ItemStack> list) {
-		if(isInCreativeTab(tab)) {
-			for(int i = 0; i < VARIANTS; i++)
-				list.add(new ItemStack(this, 1, i));
+	public static ItemStack getByType(SparkUpgradeType type) {
+		switch(type) {
+			case DOMINANT: return new ItemStack(ModItems.sparkUpgradeDominant);
+			case RECESSIVE: return new ItemStack(ModItems.sparkUpgradeRecessive);
+			case DISPERSIVE: return new ItemStack(ModItems.sparkUpgradeDispersive);
+			case ISOLATED: return new ItemStack(ModItems.sparkUpgradeIsolated);
+			default: return ItemStack.EMPTY;
 		}
 	}
 
-	@Nonnull
-	@Override
-	public String getUnlocalizedName(ItemStack par1ItemStack) {
-		return getUnlocalizedNameLazy(par1ItemStack) + par1ItemStack.getItemDamage();
-	}
-
-	@SideOnly(Side.CLIENT)
-	@Override
-	public void registerModels() {
-		ModelHandler.registerItemAppendMeta(this, 4, LibItemNames.SPARK_UPGRADE);
-	}
-
-	String getUnlocalizedNameLazy(ItemStack par1ItemStack) {
-		return super.getUnlocalizedName(par1ItemStack);
-	}
 }

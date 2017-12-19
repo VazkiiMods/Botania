@@ -32,6 +32,7 @@ import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.block.tile.TileSparkChanger;
 import vazkii.botania.common.core.helper.InventoryHelper;
+import vazkii.botania.common.item.ItemSparkUpgrade;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -111,7 +112,7 @@ public class BlockSparkChanger extends BlockMod implements ILexiconable {
 			changer.markDirty();
 			ItemHandlerHelper.giveItemToPlayer(player, cstack);
 			return true;
-		} else if(!pstack.isEmpty() && pstack.getItem() == ModItems.sparkUpgrade) {
+		} else if(!pstack.isEmpty() && pstack.getItem() instanceof ItemSparkUpgrade) {
 			changer.getItemHandler().setStackInSlot(0, pstack.splitStack(1));
 			world.updateComparatorOutputLevel(pos, this);
 			changer.markDirty();

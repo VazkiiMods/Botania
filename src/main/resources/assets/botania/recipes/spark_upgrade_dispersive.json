@@ -1,7 +1,6 @@
 {
   "result": {
-    "item": "botania:sparkupgrade",
-    "data": 3
+    "item": "botania:spark_upgrade_dispersive"
   },
   "group": "botania:spark_upgrade",
   "ingredients": [
@@ -12,7 +11,7 @@
       "item": "#INGOTMANASTEEL"
     },
     {
-      "item": "#RUNEAIRB"
+      "item": "#RUNEWATERB"
     }
   ],
   "type": "forge:ore_shapeless"

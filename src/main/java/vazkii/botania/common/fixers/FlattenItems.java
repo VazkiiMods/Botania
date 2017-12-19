@@ -79,8 +79,17 @@ public class FlattenItems implements IFixableData {
 				case 8: return ModItems.mutatedSeeds.getRegistryName().toString();
 			}
 		});
-		// Just remove the meta (moved to NBT, defaults back to inactive)
+		// Just remove the meta (moved to NBT, defaults back to inactive) TODO is this really needed in 1.13, the meta might just disappear by itself
 		LOOKUP.put("botania:temperancestone", i -> ModItems.temperanceStone.getRegistryName().toString());
+		LOOKUP.put("botania:sparkupgrade", i -> {
+			switch(i) {
+				default:
+				case 0: return ModItems.sparkUpgradeDispersive.getRegistryName().toString();
+				case 1: return ModItems.sparkUpgradeDominant.getRegistryName().toString();
+				case 2: return ModItems.sparkUpgradeRecessive.getRegistryName().toString();
+				case 3: return ModItems.sparkUpgradeIsolated.getRegistryName().toString();
+			}
+		});
 	}
 
 	@Override

@@ -17,6 +17,7 @@ import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.spark.ISparkAttachable;
 import vazkii.botania.api.mana.spark.ISparkEntity;
 import vazkii.botania.api.mana.spark.SparkUpgradeType;
+import vazkii.botania.common.item.ItemSparkUpgrade;
 import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
@@ -39,7 +40,7 @@ public class TileSparkChanger extends TileSimpleInventory {
 				ISparkEntity spark = attach.getAttachedSpark();
 				if(spark != null) {
 					SparkUpgradeType upg = spark.getUpgrade();
-					SparkUpgradeType newUpg = changeStack.isEmpty() ? SparkUpgradeType.NONE : SparkUpgradeType.values()[changeStack.getItemDamage() + 1];
+					SparkUpgradeType newUpg = changeStack.isEmpty() ? SparkUpgradeType.NONE : ((ItemSparkUpgrade) changeStack.getItem()).type;
 					if(upg != newUpg)
 						attachables.add(attach);
 				}
@@ -50,8 +51,8 @@ public class TileSparkChanger extends TileSimpleInventory {
 			ISparkAttachable attach = attachables.get(world.rand.nextInt(attachables.size()));
 			ISparkEntity spark = attach.getAttachedSpark();
 			SparkUpgradeType upg = spark.getUpgrade();
-			ItemStack sparkStack = upg == SparkUpgradeType.NONE ? ItemStack.EMPTY : new ItemStack(ModItems.sparkUpgrade, 1, upg.ordinal() - 1);
-			SparkUpgradeType newUpg = changeStack.isEmpty() ? SparkUpgradeType.NONE : SparkUpgradeType.values()[changeStack.getItemDamage() + 1];
+			ItemStack sparkStack = ItemSparkUpgrade.getByType(upg);
+			SparkUpgradeType newUpg = changeStack.isEmpty() ? SparkUpgradeType.NONE : ((ItemSparkUpgrade) changeStack.getItem()).type;
 			spark.setUpgrade(newUpg);
 			Collection transfers = spark.getTransfers();
 			if(transfers != null)
@@ -78,7 +79,7 @@ public class TileSparkChanger extends TileSimpleInventory {
 			@Nonnull
 			@Override
 			public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
-				if(!stack.isEmpty() && stack.getItem() == ModItems.sparkUpgrade)
+				if(!stack.isEmpty() && stack.getItem() instanceof ItemSparkUpgrade)
 					return super.insertItem(slot, stack, simulate);
 				else return stack;
 			}

@@ -117,8 +117,8 @@ public class MiscellaneousIcons {
 		corporeaIconStar = IconHelper.forName(evt.getMap(), "spark_corporea_star", "items");
 		sparkWorldIcon = IconHelper.forName(evt.getMap(), "spark", "items");
 
-		sparkUpgradeIcons = new TextureAtlasSprite[ItemSparkUpgrade.VARIANTS];
-		for(int i = 0; i < ItemSparkUpgrade.VARIANTS; i++) {
+		sparkUpgradeIcons = new TextureAtlasSprite[4];
+		for(int i = 0; i < 4; i++) {
 			sparkUpgradeIcons[i] = IconHelper.forName(evt.getMap(), "spark_upgrade_rune_" + i, "items");
 		}
 

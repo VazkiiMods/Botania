@@ -33,6 +33,7 @@ import vazkii.botania.api.mana.spark.ISparkAttachable;
 import vazkii.botania.api.mana.spark.ISparkEntity;
 import vazkii.botania.api.mana.spark.SparkHelper;
 import vazkii.botania.api.mana.spark.SparkUpgradeType;
+import vazkii.botania.common.item.ItemSparkUpgrade;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.network.PacketBotaniaEffect;
 import vazkii.botania.common.network.PacketHandler;
@@ -227,7 +228,7 @@ public class EntitySpark extends Entity implements ISparkEntity {
 		SparkUpgradeType upgrade = getUpgrade();
 		entityDropItem(new ItemStack(ModItems.spark), 0F);
 		if(upgrade !=  SparkUpgradeType.NONE)
-			entityDropItem(new ItemStack(ModItems.sparkUpgrade, 1, upgrade.ordinal() - 1), 0F);
+			entityDropItem(ItemSparkUpgrade.getByType(upgrade), 0F);
 		setDead();
 	}
 
@@ -241,7 +242,7 @@ public class EntitySpark extends Entity implements ISparkEntity {
 		ItemStack stack = player.getHeldItem(hand);
 		if(!isDead && !stack.isEmpty()) {
 			if(world.isRemote) {
-				boolean valid = stack.getItem() == ModItems.twigWand || stack.getItem() == ModItems.sparkUpgrade
+				boolean valid = stack.getItem() == ModItems.twigWand || stack.getItem() instanceof ItemSparkUpgrade
 						|| stack.getItem() == ModItems.phantomInk;
 				if(valid)
 					player.swingArm(hand);
@@ -252,7 +253,7 @@ public class EntitySpark extends Entity implements ISparkEntity {
 			if(stack.getItem() == ModItems.twigWand) {
 				if(player.isSneaking()) {
 					if(upgrade != SparkUpgradeType.NONE) {
-						entityDropItem(new ItemStack(ModItems.sparkUpgrade, 1, upgrade.ordinal() - 1), 0F);
+						entityDropItem(ItemSparkUpgrade.getByType(upgrade), 0F);
 						setUpgrade(SparkUpgradeType.NONE);
 
 						transfers.clear();
@@ -264,9 +265,8 @@ public class EntitySpark extends Entity implements ISparkEntity {
 						particleBeam(player, this, (Entity) spark);
 					return true;
 				}
-			} else if(stack.getItem() == ModItems.sparkUpgrade && upgrade == SparkUpgradeType.NONE) {
-				int newUpgrade = stack.getItemDamage() + 1;
-				setUpgrade(SparkUpgradeType.values()[newUpgrade]);
+			} else if(stack.getItem() instanceof ItemSparkUpgrade && upgrade == SparkUpgradeType.NONE) {
+				setUpgrade(((ItemSparkUpgrade) stack.getItem()).type);
 				stack.shrink(1);
 				return true;
 			} else if (stack.getItem() == ModItems.phantomInk) {

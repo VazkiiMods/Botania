@@ -26,10 +26,10 @@ public final class ModBanners {
 		addPattern(clazz, "sapling", "spl", new ItemStack(ModItems.dreamwoodTwig));
 		addPattern(clazz, "tiny_potato", "tpt", new ItemStack(ModBlocks.tinyPotato));
 
-		addPattern(clazz, "spark_dispersive", "sds", new ItemStack(ModItems.sparkUpgrade, 1, 0));
-		addPattern(clazz, "spark_dominant", "sdm", new ItemStack(ModItems.sparkUpgrade, 1, 1));
-		addPattern(clazz, "spark_recessive", "src", new ItemStack(ModItems.sparkUpgrade, 1, 2));
-		addPattern(clazz, "spark_isolated", "sis", new ItemStack(ModItems.sparkUpgrade, 1, 3));
+		addPattern(clazz, "spark_dispersive", "sds", new ItemStack(ModItems.sparkUpgradeDispersive));
+		addPattern(clazz, "spark_dominant", "sdm", new ItemStack(ModItems.sparkUpgradeDominant));
+		addPattern(clazz, "spark_recessive", "src", new ItemStack(ModItems.sparkUpgradeRecessive));
+		addPattern(clazz, "spark_isolated", "sis", new ItemStack(ModItems.sparkUpgradeIsolated));
 
 		addPattern(clazz, "fish", "fis", new ItemStack(Items.FISH));
 		addPattern(clazz, "axe", "axe", new ItemStack(Items.IRON_AXE));

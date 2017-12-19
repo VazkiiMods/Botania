@@ -334,7 +334,10 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addItem(ModItems.manaGun);
 		addItem(ModItems.clip);
 		addItem(ModItems.spark);
-		addItem(ModItems.sparkUpgrade);
+		addItem(ModItems.sparkUpgradeDispersive);
+		addItem(ModItems.sparkUpgradeDominant);
+		addItem(ModItems.sparkUpgradeRecessive);
+		addItem(ModItems.sparkUpgradeIsolated);
 		addBlock(ModBlocks.sparkChanger);
 		addItem(ModItems.corporeaSpark);
 		addBlock(ModBlocks.corporeaIndex);
