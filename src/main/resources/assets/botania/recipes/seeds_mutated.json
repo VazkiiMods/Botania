@@ -1,13 +1,11 @@
 {
   "result": {
-    "item": "botania:grassseeds",
-    "data": 8
+    "item": "botania:seeds_mutated"
   },
-  "group": "botania:grassseeds",
+  "group": "botania:seeds",
   "ingredients": [
     {
-      "item": "botania:grassseeds",
-      "data": 0
+      "item": "botania:seeds_grass"
     },
     {
       "item": "minecraft:spider_eye"

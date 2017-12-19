@@ -10,8 +10,7 @@
   "type": "minecraft:crafting_shaped",
   "key": {
     "P": {
-      "item": "botania:grassseeds",
-      "data": 0
+      "item": "botania:seeds_grass"
     },
     "B": {
       "item": "botania:travelbelt"

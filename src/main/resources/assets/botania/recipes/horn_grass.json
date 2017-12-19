@@ -10,8 +10,7 @@
   "type": "forge:ore_shaped",
   "key": {
     "S": {
-      "item": "botania:grassseeds",
-      "data": 0
+      "item": "botania:seeds_grass"
     },
     "W": {
       "item": "#LIVINGWOOD"

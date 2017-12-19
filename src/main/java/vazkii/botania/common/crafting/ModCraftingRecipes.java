@@ -516,7 +516,7 @@ public final class ModCraftingRecipes {
 		recipeFelPumpkin = ModBlocks.felPumpkin.getRegistryName();
 		recipeAnimatedTorch = ModBlocks.animatedTorch.getRegistryName();
 		recipeManaBlaster = ModItems.manaGun.getRegistryName();
-		recipesAltGrassSeeds = allOfGroup(ModItems.grassSeeds.getRegistryName());
+		recipesAltGrassSeeds = allOfGroup(new ResourceLocation(LibMisc.MOD_ID, LibItemNames.GRASS_SEEDS));
 		recipeDirtRod = ModItems.dirtRod.getRegistryName();
 		recipeTerraformRod = ModItems.terraformRod.getRegistryName();
 		recipeManasteelPick = ModItems.manasteelPick.getRegistryName();

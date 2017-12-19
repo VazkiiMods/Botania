@@ -21,6 +21,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.registries.IForgeRegistry;
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.item.IFloatingFlower;
 import vazkii.botania.common.item.brew.ItemBrewFlask;
 import vazkii.botania.common.item.brew.ItemBrewVial;
 import vazkii.botania.common.item.brew.ItemIncenseStick;
@@ -170,7 +171,17 @@ public final class ModItems {
 	public static final Item manaGun = new ItemManaGun();
 	public static final Item manaCookie = new ItemManaCookie();
 	public static final Item fertilizer = new ItemFertilizer();
-	public static final Item grassSeeds = new ItemGrassSeeds();
+
+	public static final Item grassSeeds = new ItemGrassSeeds(IFloatingFlower.IslandType.GRASS);
+	public static final Item podzolSeeds = new ItemGrassSeeds(IFloatingFlower.IslandType.PODZOL);
+	public static final Item mycelSeeds = new ItemGrassSeeds(IFloatingFlower.IslandType.MYCEL);
+	public static final Item drySeeds = new ItemGrassSeeds(IFloatingFlower.IslandType.DRY);
+	public static final Item goldenSeeds = new ItemGrassSeeds(IFloatingFlower.IslandType.GOLDEN);
+	public static final Item vividSeeds = new ItemGrassSeeds(IFloatingFlower.IslandType.VIVID);
+	public static final Item scorchedSeeds = new ItemGrassSeeds(IFloatingFlower.IslandType.SCORCHED);
+	public static final Item infusedSeeds = new ItemGrassSeeds(IFloatingFlower.IslandType.INFUSED);
+	public static final Item mutatedSeeds = new ItemGrassSeeds(IFloatingFlower.IslandType.MUTATED);
+
 	public static final Item dirtRod = new ItemDirtRod();
 	public static final Item terraformRod = new ItemTerraformRod();
 	public static final Item grassHorn = new ItemHorn(LibItemNames.GRASS_HORN);
@@ -384,6 +395,14 @@ public final class ModItems {
 		r.register(manaCookie);
 		r.register(fertilizer);
 		r.register(grassSeeds);
+		r.register(podzolSeeds);
+		r.register(mycelSeeds);
+		r.register(drySeeds);
+		r.register(goldenSeeds);
+		r.register(vividSeeds);
+		r.register(scorchedSeeds);
+		r.register(infusedSeeds);
+		r.register(mutatedSeeds);
 		r.register(dirtRod);
 		r.register(terraformRod);
 		r.register(grassHorn);

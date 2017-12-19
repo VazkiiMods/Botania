@@ -122,6 +122,14 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addItem(ModItems.overgrowthSeed);
 		addBlock(ModBlocks.enchantedSoil);
 		addItem(ModItems.grassSeeds);
+		addItem(ModItems.podzolSeeds);
+		addItem(ModItems.mycelSeeds);
+		addItem(ModItems.drySeeds);
+		addItem(ModItems.goldenSeeds);
+		addItem(ModItems.vividSeeds);
+		addItem(ModItems.scorchedSeeds);
+		addItem(ModItems.infusedSeeds);
+		addItem(ModItems.mutatedSeeds);
 		addBlock(ModBlocks.altGrass);
 		if(Botania.thaumcraftLoaded)
 			addItem(ModItems.manaInkwell);

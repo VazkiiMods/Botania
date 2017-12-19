@@ -22,8 +22,7 @@
       "item": "#INGOTTERRASTEEL"
     },
     "G": {
-      "item": "botania:grassseeds",
-      "data": 0
+      "item": "botania:seeds_grass"
     },
     "W": {
       "item": "#RUNEWINTERB"

@@ -1,13 +1,11 @@
 {
   "result": {
-    "item": "botania:grassseeds",
-    "data": 7
+    "item": "botania:seeds_infused"
   },
-  "group": "botania:grassseeds",
+  "group": "botania:seeds",
   "ingredients": [
     {
-      "item": "botania:grassseeds",
-      "data": 0
+      "item": "botania:seeds_grass"
     },
     {
       "item": "minecraft:prismarine_shard"

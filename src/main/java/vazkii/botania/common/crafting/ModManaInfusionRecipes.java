@@ -65,11 +65,11 @@ public final class ModManaInfusionRecipes {
 		pistonRelayRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModBlocks.pistonRelay), new ItemStack(Blocks.PISTON), 15000);
 		manaCookieRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaCookie), new ItemStack(Items.COOKIE), 20000);
 		grassSeedsRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.grassSeeds), new ItemStack(Blocks.TALLGRASS, 1, 1), 2500);
-		podzolSeedsRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.grassSeeds, 1, 1), new ItemStack(Blocks.DEADBUSH), 2500);
+		podzolSeedsRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.podzolSeeds), new ItemStack(Blocks.DEADBUSH), 2500);
 
 		mycelSeedsRecipes = new ArrayList<>();
-		mycelSeedsRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.grassSeeds, 1, 2), new ItemStack(Blocks.RED_MUSHROOM), 6500));
-		mycelSeedsRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.grassSeeds, 1, 2), new ItemStack(Blocks.BROWN_MUSHROOM), 6500));
+		mycelSeedsRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.mycelSeeds), new ItemStack(Blocks.RED_MUSHROOM), 6500));
+		mycelSeedsRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.mycelSeeds), new ItemStack(Blocks.BROWN_MUSHROOM), 6500));
 
 		manaQuartzRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaQuartz), new ItemStack(Items.QUARTZ), 250);
 		tinyPotatoRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModBlocks.tinyPotato), new ItemStack(Items.POTATO), 1337);

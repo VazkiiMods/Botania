@@ -10,6 +10,7 @@
  */
 package vazkii.botania.common.item;
 
+import com.google.common.collect.ImmutableMap;
 import gnu.trove.map.hash.TIntObjectHashMap;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDirt;
@@ -25,6 +26,7 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
@@ -37,49 +39,42 @@ import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.lib.LibItemNames;
+import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
+@Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
 public class ItemGrassSeeds extends ItemMod implements IFloatingFlowerVariant {
-
 	/**
 	 * Represents a map of dimension IDs to a set of all block swappers
 	 * active in that dimension.
 	 */
 	private static final TIntObjectHashMap<Set<BlockSwapper>> blockSwappers = new TIntObjectHashMap<>();
+	private static final Map<IslandType, float[]> COLORS = ImmutableMap.<IslandType, float[]>builder()
+			.put(IslandType.GRASS, new float[] {0F, 0.4F, 0F})
+			.put(IslandType.PODZOL, new float[] {0.5F, 0.37F, 0F})
+			.put(IslandType.MYCEL, new float[] {0.27F, 0F, 0.33F})
+			.put(IslandType.DRY, new float[] {0.4F, 0.5F, 0.05F})
+			.put(IslandType.GOLDEN, new float[] {0.75F, 0.7F, 0F})
+			.put(IslandType.VIVID, new float[] {0F, 0.5F, 0.1F})
+			.put(IslandType.SCORCHED, new float[] {0.75F, 0F, 0F})
+			.put(IslandType.INFUSED, new float[] {0F, 0.55F, 0.55F})
+			.put(IslandType.MUTATED, new float[] {0.4F, 0.1F, 0.4F})
+			.build();
 
-	private static final IslandType[] ISLAND_TYPES = {
-			IslandType.GRASS, IslandType.PODZOL, IslandType.MYCEL,
-			IslandType.DRY, IslandType.GOLDEN, IslandType.VIVID,
-			IslandType.SCORCHED, IslandType.INFUSED, IslandType.MUTATED
-	};
+	private final IslandType type;
 
-	private static final int SUBTYPES = 9;
-
-	public ItemGrassSeeds() {
-		super(LibItemNames.GRASS_SEEDS);
-		setHasSubtypes(true);
-		MinecraftForge.EVENT_BUS.register(this);
-	}
-
-	@Override
-	public void getSubItems(@Nonnull CreativeTabs tab, @Nonnull NonNullList<ItemStack> list) {
-		if(isInCreativeTab(tab)) {
-			for(int i = 0; i < SUBTYPES; i++)
-				list.add(new ItemStack(this, 1, i));
-		}
-	}
-
-	@Nonnull
-	@Override
-	public String getUnlocalizedName(ItemStack stack) {
-		return super.getUnlocalizedName() + stack.getItemDamage();
+	public ItemGrassSeeds(IslandType type) {
+		super(LibItemNames.GRASS_SEEDS + "_" + type.toString().toLowerCase(Locale.ROOT));
+		this.type = type;
 	}
 
 	@Nonnull
@@ -88,73 +83,27 @@ public class ItemGrassSeeds extends ItemMod implements IFloatingFlowerVariant {
 		IBlockState state = world.getBlockState(pos);
 		ItemStack stack = player.getHeldItem(hand);
 
-		if(state.getBlock() == Blocks.DIRT && state.getValue(BlockDirt.VARIANT) == BlockDirt.DirtType.DIRT || state.getBlock() == Blocks.GRASS && stack.getItemDamage() != 0) {
-			int meta = stack.getItemDamage();
-
+		if(state.getBlock() == Blocks.DIRT && state.getValue(BlockDirt.VARIANT) == BlockDirt.DirtType.DIRT || state.getBlock() == Blocks.GRASS && type != IslandType.GRASS) {
 			if(!world.isRemote) {
-				BlockSwapper swapper = addBlockSwapper(world, pos, meta);
-				world.setBlockState(pos, swapper.stateToSet, 1 | 2);
+				BlockSwapper swapper = addBlockSwapper(world, pos, type);
+				world.setBlockState(pos, swapper.stateToSet);
 				stack.shrink(1);
 			} else {
+				float r = 0F;
+				float g = 0.4F;
+				float b = 0F;
+
+				if(COLORS.containsKey(type)) {
+					float[] colors = COLORS.get(type);
+					r = colors[0];
+					g = colors[1];
+					b = colors[2];
+				}
+
 				for(int i = 0; i < 50; i++) {
 					double x = (Math.random() - 0.5) * 3;
 					double y = Math.random() - 0.5 + 1;
 					double z = (Math.random() - 0.5) * 3;
-
-					float r = 0F;
-					float g = 0.4F;
-					float b = 0F;
-					switch(meta) {
-						case 1: {
-							r = 0.5F;
-							g = 0.37F;
-							b = 0F;
-							break;
-						}
-						case 2: {
-							r = 0.27F;
-							g = 0F;
-							b = 0.33F;
-							break;
-						}
-						case 3: {
-							r = 0.4F;
-							g = 0.5F;
-							b = 0.05F;
-							break;
-						}
-						case 4: {
-							r = 0.75F;
-							g = 0.7F;
-							b = 0F;
-							break;
-						}
-						case 5: {
-							r = 0F;
-							g = 0.5F;
-							b = 0.1F;
-							break;
-						}
-						case 6: {
-							r = 0.75F;
-							g = 0F;
-							b = 0F;
-							break;
-						}
-						case 7: {
-							r = 0F;
-							g = 0.55F;
-							b = 0.55F;
-							break;
-						}
-						case 8: {
-							r = 0.4F;
-							g = 0.1F;
-							b = 0.4F;
-							break;
-						}
-					}
-
 					float velMul = 0.025F;
 
 					Botania.proxy.wispFX(pos.getX() + 0.5 + x, pos.getY() + 0.5 + y, pos.getZ() + 0.5 + z, r, g, b, (float) Math.random() * 0.15F + 0.15F, (float) -x * velMul, (float) -y * velMul, (float) -z * velMul);
@@ -167,14 +116,8 @@ public class ItemGrassSeeds extends ItemMod implements IFloatingFlowerVariant {
 		return EnumActionResult.PASS;
 	}
 
-	@SideOnly(Side.CLIENT)
-	@Override
-	public void registerModels() {
-		ModelHandler.registerItemAppendMeta(this, 9, LibItemNames.GRASS_SEEDS);
-	}
-
 	@SubscribeEvent
-	public void onTickEnd(TickEvent.WorldTickEvent event) {
+	public static void onTickEnd(TickEvent.WorldTickEvent event) {
 		// Block swapper updates should only occur on the server
 		if(event.world.isRemote)
 			return;
@@ -205,11 +148,11 @@ public class ItemGrassSeeds extends ItemMod implements IFloatingFlowerVariant {
 	 * the provided information but is not ticked.
 	 * @param world The world the swapper will be in.
 	 * @param pos The position of the swapper.
-	 * @param meta The meta value representing the type of block being swapped.
+	 * @param type The IslandType of the grass seed
 	 * @return The created block swapper.
 	 */
-	private static BlockSwapper addBlockSwapper(World world, BlockPos pos, int meta) {
-		BlockSwapper swapper = swapperFromMeta(world, pos, meta);
+	private static BlockSwapper addBlockSwapper(World world, BlockPos pos, IslandType type) {
+		BlockSwapper swapper = new BlockSwapper(world, pos, stateForType(type));
 
 		// If a set for the dimension doesn't exist, create it.
 		int dim = world.provider.getDimension();
@@ -222,18 +165,24 @@ public class ItemGrassSeeds extends ItemMod implements IFloatingFlowerVariant {
 		return swapper;
 	}
 
-	private static BlockSwapper swapperFromMeta(World world, BlockPos pos, int meta) {
-		switch(meta) {
-		case 1 : return new BlockSwapper(world, pos,  Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.PODZOL));
-		case 2 : return new BlockSwapper(world, pos,  Blocks.MYCELIUM.getDefaultState());
-		case 3 : return new BlockSwapper(world, pos,  ModBlocks.altGrass.getDefaultState().withProperty(BotaniaStateProps.ALTGRASS_VARIANT, AltGrassVariant.DRY));
-		case 4 : return new BlockSwapper(world, pos,  ModBlocks.altGrass.getDefaultState().withProperty(BotaniaStateProps.ALTGRASS_VARIANT, AltGrassVariant.GOLDEN));
-		case 5 : return new BlockSwapper(world, pos,  ModBlocks.altGrass.getDefaultState().withProperty(BotaniaStateProps.ALTGRASS_VARIANT, AltGrassVariant.VIVID));
-		case 6 : return new BlockSwapper(world, pos,  ModBlocks.altGrass.getDefaultState().withProperty(BotaniaStateProps.ALTGRASS_VARIANT, AltGrassVariant.SCORCHED));
-		case 7 : return new BlockSwapper(world, pos,  ModBlocks.altGrass.getDefaultState().withProperty(BotaniaStateProps.ALTGRASS_VARIANT, AltGrassVariant.INFUSED));
-		case 8 : return new BlockSwapper(world, pos,  ModBlocks.altGrass.getDefaultState().withProperty(BotaniaStateProps.ALTGRASS_VARIANT, AltGrassVariant.MUTATED));
-		default : return new BlockSwapper(world, pos,  Blocks.GRASS.getDefaultState());
-		}
+	private static IBlockState stateForType(IslandType type) {
+		if(type == IslandType.PODZOL)
+			return Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.PODZOL);
+		else if(type == IslandType.MYCEL)
+			return Blocks.MYCELIUM.getDefaultState();
+		else if(type == IslandType.DRY)
+			return ModBlocks.altGrass.getDefaultState().withProperty(BotaniaStateProps.ALTGRASS_VARIANT, AltGrassVariant.DRY);
+		else if(type == IslandType.GOLDEN)
+			return ModBlocks.altGrass.getDefaultState().withProperty(BotaniaStateProps.ALTGRASS_VARIANT, AltGrassVariant.GOLDEN);
+		else if(type == IslandType.VIVID)
+			return ModBlocks.altGrass.getDefaultState().withProperty(BotaniaStateProps.ALTGRASS_VARIANT, AltGrassVariant.VIVID);
+		else if(type == IslandType.SCORCHED)
+			return ModBlocks.altGrass.getDefaultState().withProperty(BotaniaStateProps.ALTGRASS_VARIANT, AltGrassVariant.SCORCHED);
+		else if(type == IslandType.INFUSED)
+			return ModBlocks.altGrass.getDefaultState().withProperty(BotaniaStateProps.ALTGRASS_VARIANT, AltGrassVariant.INFUSED);
+		else if(type == IslandType.MUTATED)
+			return ModBlocks.altGrass.getDefaultState().withProperty(BotaniaStateProps.ALTGRASS_VARIANT, AltGrassVariant.MUTATED);
+		else return Blocks.GRASS.getDefaultState();
 	}
 
 	/**
@@ -346,7 +295,7 @@ public class ItemGrassSeeds extends ItemMod implements IFloatingFlowerVariant {
 
 	@Override
 	public IslandType getIslandType(ItemStack stack) {
-		return ISLAND_TYPES[Math.min(stack.getItemDamage(), ISLAND_TYPES.length - 1)];
+		return type;
 	}
 
 }

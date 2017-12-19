@@ -12,8 +12,7 @@
   "group": "botania:miniisland",
   "key": {
     "S": {
-      "item": "botania:grassseeds",
-      "data": 0
+      "item": "botania:seeds_grass"
     },
     "D": {
       "item": "minecraft:dirt",
