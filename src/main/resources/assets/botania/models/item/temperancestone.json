@@ -1,0 +1,14 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "botania:items/stone_temperance"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "botania:active": 1
+      },
+      "model": "botania:item/temperancestone_active"
+    }
+  ]
+}

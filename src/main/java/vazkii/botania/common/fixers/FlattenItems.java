@@ -79,6 +79,8 @@ public class FlattenItems implements IFixableData {
 				case 8: return ModItems.mutatedSeeds.getRegistryName().toString();
 			}
 		});
+		// Just remove the meta (moved to NBT, defaults back to inactive)
+		LOOKUP.put("botania:temperancestone", i -> ModItems.temperanceStone.getRegistryName().toString());
 	}
 
 	@Override
