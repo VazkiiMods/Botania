@@ -28,6 +28,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -40,19 +41,21 @@ import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.entity.EntityPixie;
 import vazkii.botania.common.entity.EntitySignalFlare;
 import vazkii.botania.common.lib.LibItemNames;
+import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Random;
 
 public class ItemBottledMana extends ItemMod {
-
+	public static final int SWIGS = 6;
+	public static final String TAG_SWIGS_LEFT = "swigsLeft";
 	private static final String TAG_SEED = "randomSeed";
 
 	public ItemBottledMana() {
 		super(LibItemNames.MANA_BOTTLE);
 		setMaxStackSize(1);
-		setMaxDamage(6);
+		addPropertyOverride(new ResourceLocation(LibMisc.MOD_ID, "swigs_taken"), (stack, world, entity) -> SWIGS - getSwigsLeft(stack));
 	}
 
 	public void effect(ItemStack stack, EntityLivingBase living, int id) {
@@ -225,14 +228,16 @@ public class ItemBottledMana extends ItemMod {
 
 	@Nonnull
 	@Override
-	public ItemStack onItemUseFinish(@Nonnull ItemStack par1ItemStack, World world, EntityLivingBase living) {
-		randomEffect(living, par1ItemStack);
-		par1ItemStack.setItemDamage(par1ItemStack.getItemDamage() + 1);
-		randomSeed(par1ItemStack);
-
-		if(par1ItemStack.getItemDamage() == 6)
+	public ItemStack onItemUseFinish(@Nonnull ItemStack stack, World world, EntityLivingBase living) {
+		randomEffect(living, stack);
+		int left = getSwigsLeft(stack);
+		if(left <= 1) {
 			return new ItemStack(Items.GLASS_BOTTLE);
-		return par1ItemStack;
+		} else {
+			setSwigsLeft(stack, left - 1);
+			randomSeed(stack);
+			return stack;
+		}
 	}
 
 	@Override
@@ -246,10 +251,12 @@ public class ItemBottledMana extends ItemMod {
 		return EnumAction.DRINK;
 	}
 
-	@SideOnly(Side.CLIENT)
-	@Override
-	public void registerModels() {
-		ModelHandler.registerItemAppendMeta(this, 6, LibItemNames.MANA_BOTTLE);
+	private int getSwigsLeft(ItemStack stack) {
+		return ItemNBTHelper.getInt(stack, TAG_SWIGS_LEFT, SWIGS);
+	}
+
+	private void setSwigsLeft(ItemStack stack, int swigs) {
+		ItemNBTHelper.setInt(stack, TAG_SWIGS_LEFT, swigs);
 	}
 
 }

@@ -1,5 +1,6 @@
 package vazkii.botania.common.fixers;
 
+import net.minecraft.init.Items;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.datafix.IFixableData;
@@ -12,6 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.IntFunction;
 
+// Flattens meta variants by splitting out to new ID's
 public class FlattenItems implements IFixableData {
 	// old id to (meta -> new id)
 	private static final Map<String, IntFunction<String>> LOOKUP = new HashMap<>();
@@ -20,7 +22,7 @@ public class FlattenItems implements IFixableData {
 		LOOKUP.put("botania:manaresource", i -> {
 			if(i == 10) {
 				// support ancient prismarine from 1.7
-				return "minecraft:prismarine_shard";
+				return Items.PRISMARINE_SHARD.getRegistryName().toString();
 			} else {
 				return LibMisc.MOD_ID + ":" + LibItemNames.MANA_RESOURCE_NAMES[i % LibItemNames.MANA_RESOURCE_NAMES.length];
 			}

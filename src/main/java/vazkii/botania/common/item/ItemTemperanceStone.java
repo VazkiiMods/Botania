@@ -33,7 +33,7 @@ import javax.annotation.Nonnull;
 import java.util.List;
 
 public class ItemTemperanceStone extends ItemMod {
-	private static final String TAG_ACTIVE = "active";
+	public static final String TAG_ACTIVE = "active";
 
 	public ItemTemperanceStone() {
 		super(LibItemNames.TEMPERANCE_STONE);

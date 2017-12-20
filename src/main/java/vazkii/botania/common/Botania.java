@@ -87,6 +87,7 @@ import vazkii.botania.common.entity.EntitySignalFlare;
 import vazkii.botania.common.entity.EntitySpark;
 import vazkii.botania.common.entity.ModEntities;
 import vazkii.botania.common.fixers.FlattenItems;
+import vazkii.botania.common.fixers.FlattenNBT;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.network.GuiHandler;
@@ -139,6 +140,7 @@ public class Botania {
 		ModBanners.init();
 		fixer = FMLCommonHandler.instance().getDataFixer().init(LibMisc.MOD_ID, LibMisc.DATA_VERSION);
 		fixer.registerFix(FixTypes.ITEM_INSTANCE, new FlattenItems());
+		fixer.registerFix(FixTypes.ITEM_INSTANCE, new FlattenNBT());
 
 		if(Botania.gardenOfGlassLoaded)
 			new WorldTypeSkyblock();
