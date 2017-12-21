@@ -25,6 +25,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
@@ -38,13 +39,14 @@ import vazkii.botania.client.core.handler.ItemsRemainingRenderHandler;
 import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lib.LibItemNames;
+import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
 public class ItemBlackHoleTalisman extends ItemMod implements IBlockProvider {
-
+	public static final String TAG_ACTIVE = "active";
 	private static final String TAG_BLOCK_NAME = "blockName";
 	private static final String TAG_BLOCK_META = "blockMeta";
 	private static final String TAG_BLOCK_COUNT = "blockCount";
@@ -52,7 +54,8 @@ public class ItemBlackHoleTalisman extends ItemMod implements IBlockProvider {
 	public ItemBlackHoleTalisman() {
 		super(LibItemNames.BLACK_HOLE_TALISMAN);
 		setMaxStackSize(1);
-		setHasSubtypes(true);
+		addPropertyOverride(new ResourceLocation(LibMisc.MOD_ID, "active"),
+				(stack, worldIn, entityIn) -> ItemNBTHelper.getBoolean(stack, TAG_ACTIVE, false) ? 1 : 0);
 	}
 
 	@Nonnull
@@ -60,8 +63,7 @@ public class ItemBlackHoleTalisman extends ItemMod implements IBlockProvider {
 	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
 		ItemStack stack = player.getHeldItem(hand);
 		if(getBlock(stack) != null && player.isSneaking()) {
-			int dmg = stack.getItemDamage();
-			stack.setItemDamage(~dmg & 1);
+			ItemNBTHelper.setBoolean(stack, TAG_ACTIVE, !ItemNBTHelper.getBoolean(stack, TAG_ACTIVE, false));
 			player.playSound(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, 0.3F, 0.1F);
 			return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
 		}
@@ -121,7 +123,7 @@ public class ItemBlackHoleTalisman extends ItemMod implements IBlockProvider {
 	@Override
 	public void onUpdate(ItemStack itemstack, World world, Entity entity, int slot, boolean selected) {
 		Block block = getBlock(itemstack);
-		if(!entity.world.isRemote && itemstack.getItemDamage() == 1 && block != null && entity instanceof EntityPlayer) {
+		if(!entity.world.isRemote && ItemNBTHelper.getBoolean(itemstack, TAG_ACTIVE, false) && block != null && entity instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) entity;
 			int meta = getBlockMeta(itemstack);
 
@@ -194,10 +196,7 @@ public class ItemBlackHoleTalisman extends ItemMod implements IBlockProvider {
 		int extract = Math.min(64, count);
 		ItemStack copy = itemStack.copy();
 		remove(copy, extract);
-
-		int dmg = copy.getItemDamage();
-		if(dmg == 1)
-			copy.setItemDamage(0);
+		ItemNBTHelper.setBoolean(copy, TAG_ACTIVE, false);
 
 		return copy;
 	}
@@ -223,14 +222,14 @@ public class ItemBlackHoleTalisman extends ItemMod implements IBlockProvider {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void addInformation(ItemStack par1ItemStack, World world, List<String> stacks, ITooltipFlag flags) {
-		Block block = getBlock(par1ItemStack);
+	public void addInformation(ItemStack stack, World world, List<String> stacks, ITooltipFlag flags) {
+		Block block = getBlock(stack);
 		if(block != null) {
-			int count = getBlockCount(par1ItemStack);
-			stacks.add(count + " " + I18n.format(new ItemStack(block, 1, getBlockMeta(par1ItemStack)).getUnlocalizedName() + ".name"));
+			int count = getBlockCount(stack);
+			stacks.add(count + " " + I18n.format(new ItemStack(block, 1, getBlockMeta(stack)).getUnlocalizedName() + ".name"));
 		}
 
-		if(par1ItemStack.getItemDamage() == 1)
+		if(ItemNBTHelper.getBoolean(stack, TAG_ACTIVE, false))
 			addStringToTooltip(I18n.format("botaniamisc.active"), stacks);
 		else addStringToTooltip(I18n.format("botaniamisc.inactive"), stacks);
 	}
@@ -290,12 +289,6 @@ public class ItemBlackHoleTalisman extends ItemMod implements IBlockProvider {
 		if(stored == block && storedMeta == meta)
 			return getBlockCount(stack);
 		return 0;
-	}
-
-	@SideOnly(Side.CLIENT)
-	@Override
-	public void registerModels() {
-		ModelHandler.registerItemAppendMeta(this, 2, LibItemNames.BLACK_HOLE_TALISMAN);
 	}
 
 }

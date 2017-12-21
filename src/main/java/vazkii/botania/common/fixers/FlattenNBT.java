@@ -18,6 +18,7 @@ public class FlattenNBT implements IFixableData {
 	static {
 		LOOKUP.put(ModItems.manaBottle.getRegistryName().toString(), (swigsTaken, tag) -> tag.setInteger(ItemBottledMana.TAG_SWIGS_LEFT, ItemBottledMana.SWIGS - swigsTaken));
 		LOOKUP.put(ModItems.temperanceStone.getRegistryName().toString(), (meta, tag) -> tag.setBoolean(ItemTemperanceStone.TAG_ACTIVE, meta == 1));
+		LOOKUP.put(ModItems.blackHoleTalisman.getRegistryName().toString(), (meta, tag) -> tag.setBoolean(ItemTemperanceStone.TAG_ACTIVE, meta == 1));
 	}
 
 	@Override
