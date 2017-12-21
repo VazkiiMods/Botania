@@ -16,6 +16,7 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import vazkii.botania.api.item.IAncientWillContainer;
+import vazkii.botania.common.item.ItemAncientWill;
 import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
@@ -35,7 +36,7 @@ public class AncientWillRecipe extends IForgeRegistryEntry.Impl<IRecipe> impleme
 		for(int i = 0; i < var1.getSizeInventory(); i++) {
 			ItemStack stack = var1.getStackInSlot(i);
 			if(!stack.isEmpty()) {
-				if(stack.getItem() == ModItems.ancientWill && !foundWill)
+				if(stack.getItem() instanceof ItemAncientWill && !foundWill)
 					foundWill = true;
 				else if(!foundItem) {
 					if(stack.getItem() instanceof IAncientWillContainer)
@@ -52,14 +53,14 @@ public class AncientWillRecipe extends IForgeRegistryEntry.Impl<IRecipe> impleme
 	@Override
 	public ItemStack getCraftingResult(@Nonnull InventoryCrafting var1) {
 		ItemStack item = ItemStack.EMPTY;
-		int will = -1;
+		IAncientWillContainer.AncientWillType will = null;
 
 		for(int i = 0; i < var1.getSizeInventory(); i++) {
 			ItemStack stack = var1.getStackInSlot(i);
 			if(!stack.isEmpty()) {
 				if(stack.getItem() instanceof IAncientWillContainer && item.isEmpty())
 					item = stack;
-				else will = stack.getItemDamage();
+				else will = ((ItemAncientWill) stack.getItem()).type; // we already verified this is a will in matches()
 			}
 		}
 

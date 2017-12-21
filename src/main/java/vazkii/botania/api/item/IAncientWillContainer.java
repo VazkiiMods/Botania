@@ -17,9 +17,17 @@ import net.minecraft.item.ItemStack;
  * crafted onto it.
  */
 public interface IAncientWillContainer {
+	enum AncientWillType {
+		AHRIM,
+		DHAROK,
+		GUTHAN,
+		TORAG,
+		VERAC,
+		KARIL
+	}
 
-	public void addAncientWill(ItemStack stack, int will);
+	public void addAncientWill(ItemStack stack, AncientWillType will);
 
-	public boolean hasAncientWill(ItemStack stack, int will);
+	public boolean hasAncientWill(ItemStack stack, AncientWillType will);
 
 }

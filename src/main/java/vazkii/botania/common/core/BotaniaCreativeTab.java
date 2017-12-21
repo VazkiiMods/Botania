@@ -241,7 +241,12 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addItem(ModItems.cacophonium);
 		addItem(ModItems.recordGaia1);
 		addItem(ModItems.recordGaia2);
-		addItem(ModItems.ancientWill);
+		addItem(ModItems.ancientWillAhrim);
+		addItem(ModItems.ancientWillDharok);
+		addItem(ModItems.ancientWillGuthan);
+		addItem(ModItems.ancientWillTorag);
+		addItem(ModItems.ancientWillVerac);
+		addItem(ModItems.ancientWillKaril);
 		addItem(ModItems.pinkinator);
 		addItem(ModItems.gaiaHead);
 		if(ConfigHandler.relicsEnabled) {

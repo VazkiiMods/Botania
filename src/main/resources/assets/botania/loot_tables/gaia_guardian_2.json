@@ -52,11 +52,32 @@
       "name": "ancient_wills",
       "conditions": [{ "condition": "killed_by_player" }],
       "rolls": 1,
-      "entries": [{
-        "type": "item",
-        "name": "botania:ancientWill",
-        "functions": [{ "function": "set_data", "data": { "min": 0, "max": 5 } }]
-      }]
+      "entries": [
+        {
+          "type": "item",
+          "name": "botania:ancient_will_ahrim"
+        },
+        {
+          "type": "item",
+          "name": "botania:ancient_will_dharok"
+        },
+        {
+          "type": "item",
+          "name": "botania:ancient_will_guthan"
+        },
+        {
+          "type": "item",
+          "name": "botania:ancient_will_torag"
+        },
+        {
+          "type": "item",
+          "name": "botania:ancient_will_verac"
+        },
+        {
+          "type": "item",
+          "name": "botania:ancient_will_karil"
+        }
+      ]
     },
     {
       "name": "overgrowth_seeds",

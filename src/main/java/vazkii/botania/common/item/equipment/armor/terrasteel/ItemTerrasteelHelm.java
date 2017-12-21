@@ -39,10 +39,11 @@ import vazkii.botania.common.lib.LibItemNames;
 
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.Locale;
 
 public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDiscountArmor, IAncientWillContainer, IManaGivingItem {
 
-	private static final String TAG_ANCIENT_WILL = "AncientWill";
+	public static final String TAG_ANCIENT_WILL = "AncientWill";
 
 	public ItemTerrasteelHelm() {
 		this(LibItemNames.TERRASTEEL_HELM);
@@ -70,31 +71,31 @@ public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDisc
 	}
 
 	@Override
-	public void addAncientWill(ItemStack stack, int will) {
-		ItemNBTHelper.setBoolean(stack, TAG_ANCIENT_WILL + will, true);
+	public void addAncientWill(ItemStack stack, AncientWillType will) {
+		ItemNBTHelper.setBoolean(stack, TAG_ANCIENT_WILL + "_" + will.name().toLowerCase(Locale.ROOT), true);
 	}
 
 	@Override
-	public boolean hasAncientWill(ItemStack stack, int will) {
+	public boolean hasAncientWill(ItemStack stack, AncientWillType will) {
 		return hasAncientWill_(stack, will);
 	}
 
-	public static boolean hasAncientWill_(ItemStack stack, int will) {
-		return ItemNBTHelper.getBoolean(stack, TAG_ANCIENT_WILL + will, false);
+	private static boolean hasAncientWill_(ItemStack stack, AncientWillType will) {
+		return ItemNBTHelper.getBoolean(stack, TAG_ANCIENT_WILL + "_" + will.name().toLowerCase(Locale.ROOT), false);
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void addArmorSetDescription(ItemStack stack, List<String> list) {
 		super.addArmorSetDescription(stack, list);
-		for(int i = 0; i < 6; i++)
-			if(hasAncientWill(stack, i))
-				addStringToTooltip(I18n.format("botania.armorset.will" + i + ".desc"), list);
+		for(AncientWillType type : AncientWillType.values())
+			if(hasAncientWill(stack, type))
+				addStringToTooltip(I18n.format("botania.armorset.will_" + type.name().toLowerCase(Locale.ROOT) + ".desc"), list);
 	}
 
-	public static boolean hasAnyWill(ItemStack stack) {
-		for(int i = 0; i < 6; i++)
-			if(hasAncientWill_(stack, i))
+	private static boolean hasAnyWill(ItemStack stack) {
+		for(AncientWillType type : AncientWillType.values())
+			if(hasAncientWill_(stack, type))
 				return true;
 
 		return false;
@@ -128,24 +129,17 @@ public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDisc
 				boolean crit = player.fallDistance > 0.0F && !player.onGround && !player.isOnLadder() && !player.isInWater() && !player.isPotionActive(MobEffects.BLINDNESS) && !player.isRiding();
 				ItemStack stack = player.getItemStackFromSlot(EntityEquipmentSlot.HEAD);
 				if(crit && !stack.isEmpty() && stack.getItem() instanceof ItemTerrasteelHelm) {
-					boolean ahrim = hasAncientWill(stack, 0);
-					boolean dharok = hasAncientWill(stack, 1);
-					boolean guthan = hasAncientWill(stack, 2);
-					boolean torag = hasAncientWill(stack, 3);
-					boolean verac = hasAncientWill(stack, 4);
-					boolean karil = hasAncientWill(stack, 5);
-
-					if(ahrim)
+					if(hasAncientWill(stack, AncientWillType.AHRIM))
 						event.getEntityLiving().addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 20, 1));
-					if(dharok)
+					if(hasAncientWill(stack, AncientWillType.DHAROK))
 						event.setAmount(event.getAmount() * (1F + (1F - player.getHealth() / player.getMaxHealth()) * 0.5F));
-					if(guthan)
+					if(hasAncientWill(stack, AncientWillType.GUTHAN))
 						player.heal(event.getAmount() * 0.25F);
-					if(torag)
+					if(hasAncientWill(stack, AncientWillType.TORAG))
 						event.getEntityLiving().addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 60, 1));
-					if(verac)
+					if(hasAncientWill(stack, AncientWillType.VERAC))
 						event.getSource().setDamageBypassesArmor();
-					if(karil)
+					if(hasAncientWill(stack, AncientWillType.KARIL))
 						event.getEntityLiving().addPotionEffect(new PotionEffect(MobEffects.WITHER, 60, 1));
 				}
 			}
