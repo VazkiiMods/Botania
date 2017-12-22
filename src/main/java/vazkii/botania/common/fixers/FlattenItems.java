@@ -5,6 +5,7 @@ import net.minecraft.item.EnumDyeColor;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.datafix.IFixableData;
 import vazkii.botania.api.item.IAncientWillContainer;
+import vazkii.botania.api.state.enums.CratePattern;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibMisc;
@@ -95,6 +96,11 @@ public class FlattenItems implements IFixableData {
 		LOOKUP.put("botania:ancientwill", i -> {
 			IAncientWillContainer.AncientWillType[] vals = IAncientWillContainer.AncientWillType.values();
 			return LibMisc.MOD_ID + ":" + LibItemNames.ANCIENT_WILL + "_" + vals[i & vals.length].name().toLowerCase(Locale.ROOT);
+		});
+		LOOKUP.put("botania:craftpattern", i -> {
+			// +1 since there was no NONE meta variant
+			CratePattern[] vals = CratePattern.values();
+			return LibMisc.MOD_ID + ":" + LibItemNames.CRAFT_PATTERN + "_" + vals[(i + 1) % vals.length].name().toLowerCase(Locale.ROOT);
 		});
 	}
 

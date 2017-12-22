@@ -21,55 +21,15 @@ import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
+import vazkii.botania.api.state.enums.CratePattern;
 import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
 
 public class TileCraftCrate extends TileOpenCrate {
+	public static final String TAG_PATTERN = "pattern";
 
-	public static final boolean[][] PATTERNS = new boolean[][] {
-		{
-			true, false, false,
-			false, false, false,
-			false, false, false
-		}, {
-			true, true, false,
-			true, true, false,
-			false, false, false
-		}, {
-			true, false, false,
-			true, false, false,
-			false, false, false
-		}, {
-			true, true, false,
-			false, false, false,
-			false, false, false
-		}, {
-			true, false, false,
-			true, false, false,
-			true, false, false
-		}, {
-			true, true, true,
-			false, false, false,
-			false, false, false
-		}, {
-			true, true, false,
-			true, true, false,
-			true, true, false
-		}, {
-			true, true, true,
-			true, true, true,
-			false, false, false
-		}, {
-			true, true, true,
-			true, false, true,
-			true, true, true
-		}
-	};
-
-	private static final String TAG_PATTERN = "pattern";
-
-	public int pattern = -1;
+	public CratePattern pattern = CratePattern.NONE;
 	private int signal = 0;
 
 	@Override
@@ -95,8 +55,8 @@ public class TileCraftCrate extends TileOpenCrate {
 		};
 	}
 
-	public boolean isLocked(int slot) {
-		return pattern != -1 && !PATTERNS[pattern][slot];
+	private boolean isLocked(int slot) {
+		return !pattern.openSlots.get(slot);
 	}
 
 	@Override
@@ -176,13 +136,13 @@ public class TileCraftCrate extends TileOpenCrate {
 	@Override
 	public void writePacketNBT(NBTTagCompound par1nbtTagCompound) {
 		super.writePacketNBT(par1nbtTagCompound);
-		par1nbtTagCompound.setInteger(TAG_PATTERN, pattern);
+		par1nbtTagCompound.setInteger(TAG_PATTERN, pattern.ordinal());
 	}
 
 	@Override
 	public void readPacketNBT(NBTTagCompound par1nbtTagCompound) {
 		super.readPacketNBT(par1nbtTagCompound);
-		pattern = par1nbtTagCompound.getInteger(TAG_PATTERN);
+		pattern = CratePattern.values()[par1nbtTagCompound.getInteger(TAG_PATTERN)];
 	}
 
 	@Override
@@ -207,7 +167,7 @@ public class TileCraftCrate extends TileOpenCrate {
 
 	@Override
 	public void onDataPacket(NetworkManager manager, SPacketUpdateTileEntity packet) {
-		int lastPattern = pattern;
+		CratePattern lastPattern = pattern;
 		super.onDataPacket(manager, packet);
 		if(pattern != lastPattern)
 			world.markBlockRangeForRenderUpdate(pos, pos);

@@ -1,15 +1,14 @@
 {
   "result": {
-    "item": "botania:craftpattern",
-    "data": 6
+    "item": "botania:pattern_crafty_1_3"
   },
   "pattern": [
-    "RRP",
-    "RRP",
-    "RRP"
+    "RPP",
+    "RPP",
+    "RPP"
   ],
   "type": "forge:ore_shaped",
-  "group": "botania:craftpattern",
+  "group": "botania:craft_pattern",
   "key": {
     "P": {
       "item": "#BPLACEHOLDER"

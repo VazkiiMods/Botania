@@ -85,7 +85,7 @@ public class BlockOpenCrate extends BlockMod implements ILexiconable, IWandable,
 		TileEntity te = world instanceof ChunkCache ? ((ChunkCache)world).getTileEntity(pos, Chunk.EnumCreateEntityType.CHECK) : world.getTileEntity(pos);
 		if (te instanceof TileCraftCrate) {
 			TileCraftCrate tile = (TileCraftCrate) te;
-			state = state.withProperty(BotaniaStateProps.CRATE_PATTERN, CratePattern.values()[tile.pattern + 1]);
+			state = state.withProperty(BotaniaStateProps.CRATE_PATTERN, tile.pattern);
 		} else {
 			state = state.withProperty(BotaniaStateProps.CRATE_PATTERN, CratePattern.NONE);
 		}
@@ -170,8 +170,8 @@ public class BlockOpenCrate extends BlockMod implements ILexiconable, IWandable,
 					int yp = yc + i * 18;
 
 					boolean enabled = true;
-					if(craft.pattern > -1)
-						enabled = TileCraftCrate.PATTERNS[craft.pattern][index];
+					if(craft.pattern != CratePattern.NONE)
+						enabled = craft.pattern.openSlots.get(index);
 
 					Gui.drawRect(xp, yp, xp + 16, yp + 16, enabled ? 0x22FFFFFF : 0x22FF0000);
 

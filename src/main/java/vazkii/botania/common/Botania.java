@@ -87,6 +87,7 @@ import vazkii.botania.common.entity.EntitySignalFlare;
 import vazkii.botania.common.entity.EntitySpark;
 import vazkii.botania.common.entity.ModEntities;
 import vazkii.botania.common.fixers.AttachedWills;
+import vazkii.botania.common.fixers.CraftyCrateTE;
 import vazkii.botania.common.fixers.FlattenItems;
 import vazkii.botania.common.fixers.FlattenNBT;
 import vazkii.botania.common.lexicon.LexiconData;
@@ -143,6 +144,7 @@ public class Botania {
 		fixer.registerFix(FixTypes.ITEM_INSTANCE, new FlattenItems());
 		fixer.registerFix(FixTypes.ITEM_INSTANCE, new FlattenNBT());
 		fixer.registerFix(FixTypes.ITEM_INSTANCE, new AttachedWills());
+		fixer.registerFix(FixTypes.BLOCK_ENTITY, new CraftyCrateTE());
 
 		if(Botania.gardenOfGlassLoaded)
 			new WorldTypeSkyblock();

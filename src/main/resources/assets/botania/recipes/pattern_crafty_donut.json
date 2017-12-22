@@ -1,15 +1,14 @@
 {
   "result": {
-    "item": "botania:craftpattern",
-    "data": 0
+    "item": "botania:pattern_crafty_donut"
   },
   "pattern": [
-    "RPP",
-    "PPP",
-    "PPP"
+    "RRR",
+    "RPR",
+    "RRR"
   ],
   "type": "forge:ore_shaped",
-  "group": "botania:craftpattern",
+  "group": "botania:craft_pattern",
   "key": {
     "P": {
       "item": "#BPLACEHOLDER"

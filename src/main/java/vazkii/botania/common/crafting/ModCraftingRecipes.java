@@ -500,7 +500,7 @@ public final class ModCraftingRecipes {
 		recipeGatherDrum = path("forestdrum_1");
 		recipePlaceholder = ModItems.placeholder.getRegistryName();
 		recipeCraftCrate = path("opencrate_1");
-		recipesPatterns = allOfGroup("craftpattern");
+		recipesPatterns = allOfGroup("craft_pattern");
 		recipeBrewery = ModBlocks.brewery.getRegistryName();
 		recipeVial = ModItems.vial.getRegistryName();
 		recipeFlask = ModItems.flask.getRegistryName();
