@@ -169,7 +169,23 @@ public final class ModItems {
 	public static final Item lensTripwire = new ItemLens(LibItemNames.LENS_NAMES[23], new LensTripwire(), ItemLens.PROP_CONTROL);
 	public static final Item lensStorm = new ItemLens(LibItemNames.LENS_NAMES[24], new LensStorm(), ItemLens.PROP_NONE);
 	
-	public static final Item rune = new ItemRune();
+	public static final Item runeWater = new ItemRune(LibItemNames.RUNE_NAMES[0]);
+	public static final Item runeFire = new ItemRune(LibItemNames.RUNE_NAMES[1]);
+	public static final Item runeEarth = new ItemRune(LibItemNames.RUNE_NAMES[2]);
+	public static final Item runeAir = new ItemRune(LibItemNames.RUNE_NAMES[3]);
+	public static final Item runeSpring = new ItemRune(LibItemNames.RUNE_NAMES[4]);
+	public static final Item runeSummer = new ItemRune(LibItemNames.RUNE_NAMES[5]);
+	public static final Item runeAutumn = new ItemRune(LibItemNames.RUNE_NAMES[6]);
+	public static final Item runeWinter = new ItemRune(LibItemNames.RUNE_NAMES[7]);
+	public static final Item runeMana = new ItemRune(LibItemNames.RUNE_NAMES[8]);
+	public static final Item runeLust = new ItemRune(LibItemNames.RUNE_NAMES[9]);
+	public static final Item runeGluttony = new ItemRune(LibItemNames.RUNE_NAMES[10]);
+	public static final Item runeGreed = new ItemRune(LibItemNames.RUNE_NAMES[11]);
+	public static final Item runeSloth = new ItemRune(LibItemNames.RUNE_NAMES[12]);
+	public static final Item runeWrath = new ItemRune(LibItemNames.RUNE_NAMES[13]);
+	public static final Item runeEnvy = new ItemRune(LibItemNames.RUNE_NAMES[14]);
+	public static final Item runePride = new ItemRune(LibItemNames.RUNE_NAMES[15]);
+
 	public static final Item manaTablet = new ItemManaTablet();
 	public static final Item manaGun = new ItemManaGun();
 	public static final Item manaCookie = new ItemManaCookie();
@@ -408,7 +424,22 @@ public final class ModItems {
 		r.register(lensMessenger);
 		r.register(lensTripwire);
 		r.register(lensStorm);
-		r.register(rune);
+		r.register(runeWater);
+		r.register(runeFire);
+		r.register(runeEarth);
+		r.register(runeAir);
+		r.register(runeSpring);
+		r.register(runeSummer);
+		r.register(runeAutumn);
+		r.register(runeWinter);
+		r.register(runeMana);
+		r.register(runeLust);
+		r.register(runeGluttony);
+		r.register(runeGreed);
+		r.register(runeSloth);
+		r.register(runeWrath);
+		r.register(runeEnvy);
+		r.register(runePride);
 		r.register(manaTablet);
 		r.register(manaGun);
 		r.register(manaCookie);
@@ -599,10 +630,22 @@ public final class ModItems {
 			OreDictionary.registerOre(LibOreDict.DYE_WILDCARD, new ItemStack(dyes.get(color)));
 		}
 
-		for(int i = 0; i < 16; i++) {
-			OreDictionary.registerOre(LibOreDict.RUNE[i], new ItemStack(rune, 1, i));
-		}
-
+		OreDictionary.registerOre(LibOreDict.RUNE[0], new ItemStack(runeWater));
+		OreDictionary.registerOre(LibOreDict.RUNE[1], new ItemStack(runeFire));
+		OreDictionary.registerOre(LibOreDict.RUNE[2], new ItemStack(runeEarth));
+		OreDictionary.registerOre(LibOreDict.RUNE[3], new ItemStack(runeAir));
+		OreDictionary.registerOre(LibOreDict.RUNE[4], new ItemStack(runeSpring));
+		OreDictionary.registerOre(LibOreDict.RUNE[5], new ItemStack(runeSummer));
+		OreDictionary.registerOre(LibOreDict.RUNE[6], new ItemStack(runeAutumn));
+		OreDictionary.registerOre(LibOreDict.RUNE[7], new ItemStack(runeWinter));
+		OreDictionary.registerOre(LibOreDict.RUNE[8], new ItemStack(runeMana));
+		OreDictionary.registerOre(LibOreDict.RUNE[9], new ItemStack(runeLust));
+		OreDictionary.registerOre(LibOreDict.RUNE[10], new ItemStack(runeGluttony));
+		OreDictionary.registerOre(LibOreDict.RUNE[11], new ItemStack(runeGreed));
+		OreDictionary.registerOre(LibOreDict.RUNE[12], new ItemStack(runeSloth));
+		OreDictionary.registerOre(LibOreDict.RUNE[13], new ItemStack(runeWrath));
+		OreDictionary.registerOre(LibOreDict.RUNE[14], new ItemStack(runeEnvy));
+		OreDictionary.registerOre(LibOreDict.RUNE[15], new ItemStack(runePride));
 
 		OreDictionary.registerOre(LibOreDict.QUARTZ[0], new ItemStack(darkQuartz));
 		OreDictionary.registerOre(LibOreDict.QUARTZ[1], new ItemStack(manaQuartz));

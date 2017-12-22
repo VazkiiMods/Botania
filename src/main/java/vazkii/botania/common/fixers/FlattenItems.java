@@ -102,6 +102,7 @@ public class FlattenItems implements IFixableData {
 			CratePattern[] vals = CratePattern.values();
 			return LibMisc.MOD_ID + ":" + LibItemNames.CRAFT_PATTERN + "_" + vals[(i + 1) % vals.length].name().toLowerCase(Locale.ROOT);
 		});
+		LOOKUP.put("botania:rune", i -> LibMisc.MOD_ID + ":" + LibItemNames.RUNE_NAMES[i % LibItemNames.RUNE_NAMES.length]);
 	}
 
 	@Override

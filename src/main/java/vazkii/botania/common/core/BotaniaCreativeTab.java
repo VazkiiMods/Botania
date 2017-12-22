@@ -88,8 +88,22 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addItem(ModItems.manaPowder);
 		addBlock(ModBlocks.storage);
 		addItem(ModItems.manaCookie);
-		addItem(ModItems.rune);
-
+		addItem(ModItems.runeWater);
+		addItem(ModItems.runeFire);
+		addItem(ModItems.runeEarth);
+		addItem(ModItems.runeAir);
+		addItem(ModItems.runeSpring);
+		addItem(ModItems.runeSummer);
+		addItem(ModItems.runeAutumn);
+		addItem(ModItems.runeWinter);
+		addItem(ModItems.runeMana);
+		addItem(ModItems.runeLust);
+		addItem(ModItems.runeGluttony);
+		addItem(ModItems.runeGreed);
+		addItem(ModItems.runeSloth);
+		addItem(ModItems.runeWrath);
+		addItem(ModItems.runeEnvy);
+		addItem(ModItems.runePride);
 		addBlock(ModBlocks.avatar);
 		addItem(ModItems.dirtRod);
 		addItem(ModItems.skyDirtRod);

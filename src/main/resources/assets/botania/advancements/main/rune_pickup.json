@@ -12,15 +12,171 @@
   },
   "parent": "botania:main/mana_pool_pickup",
   "criteria": {
-    "rune": {
+    "rune_water": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "botania:rune"
+            "item": "botania:rune_water"
+          }
+        ]
+      }
+    },
+    "rune_fire": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "botania:rune_fire"
+          }
+        ]
+      }
+    },
+    "rune_earth": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "botania:rune_earth"
+          }
+        ]
+      }
+    },
+    "rune_air": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "botania:rune_air"
+          }
+        ]
+      }
+    },
+    "rune_spring": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "botania:rune_spring"
+          }
+        ]
+      }
+    },
+    "rune_summer": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "botania:rune_summer"
+          }
+        ]
+      }
+    },
+    "rune_autumn": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "botania:rune_autumn"
+          }
+        ]
+      }
+    },
+    "rune_winter": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "botania:rune_winter"
+          }
+        ]
+      }
+    },
+    "rune_mana": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "botania:rune_mana"
+          }
+        ]
+      }
+    },
+    "rune_lust": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "botania:rune_lust"
+          }
+        ]
+      }
+    },
+    "rune_gluttony": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "botania:rune_gluttony"
+          }
+        ]
+      }
+    },
+    "rune_greed": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "botania:rune_greed"
+          }
+        ]
+      }
+    },
+    "rune_sloth": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "botania:rune_sloth"
+          }
+        ]
+      }
+    },
+    "rune_wrath": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "botania:rune_wrath"
+          }
+        ]
+      }
+    },
+    "rune_envy": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "botania:rune_envy"
+          }
+        ]
+      }
+    },
+    "rune_pride": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "botania:rune_pride"
           }
         ]
       }
     }
-  }
+  },
+  "requirements": [
+    [
+      "rune_water", "rune_fire", "rune_earth", "rune_air", "rune_spring", "rune_summer", "rune_autumn", "rune_winter",
+      "rune_mana", "rune_lust", "rune_gluttony", "rune_greed", "rune_sloth", "rune_wrath", "rune_envy", "rune_pride"
+    ]
+  ]
 }

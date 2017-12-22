@@ -139,15 +139,104 @@
       "name": "runes",
       "conditions": [{ "condition": "killed_by_player" }],
       "rolls": { "min": 1, "max": 6 },
-      "entries": [{
-        "conditions": [{ "condition": "random_chance", "chance": 0.3 }],
-        "type": "item",
-        "name": "botania:rune",
-        "functions": [
-          { "function": "set_data", "data": { "min": 0, "max": 15 } },
-          { "function": "set_count", "count": { "min": 2, "max": 4 } }
-        ]
-      }]
+      "entries": [
+        {
+          "conditions": [{ "condition": "random_chance", "chance": 0.3 }],
+          "type": "item",
+          "name": "botania:rune_water",
+          "functions": [{ "function": "set_count", "count": { "min": 2, "max": 4 } }]
+        },
+        {
+          "conditions": [{ "condition": "random_chance", "chance": 0.3 }],
+          "type": "item",
+          "name": "botania:rune_fire",
+          "functions": [{ "function": "set_count", "count": { "min": 2, "max": 4 } }]
+        },
+        {
+          "conditions": [{ "condition": "random_chance", "chance": 0.3 }],
+          "type": "item",
+          "name": "botania:rune_earth",
+          "functions": [{ "function": "set_count", "count": { "min": 2, "max": 4 } }]
+        },
+        {
+          "conditions": [{ "condition": "random_chance", "chance": 0.3 }],
+          "type": "item",
+          "name": "botania:rune_air",
+          "functions": [{ "function": "set_count", "count": { "min": 2, "max": 4 } }]
+        },
+        {
+          "conditions": [{ "condition": "random_chance", "chance": 0.3 }],
+          "type": "item",
+          "name": "botania:rune_spring",
+          "functions": [{ "function": "set_count", "count": { "min": 2, "max": 4 } }]
+        },
+        {
+          "conditions": [{ "condition": "random_chance", "chance": 0.3 }],
+          "type": "item",
+          "name": "botania:rune_summer",
+          "functions": [{ "function": "set_count", "count": { "min": 2, "max": 4 } }]
+        },
+        {
+          "conditions": [{ "condition": "random_chance", "chance": 0.3 }],
+          "type": "item",
+          "name": "botania:rune_autumn",
+          "functions": [{ "function": "set_count", "count": { "min": 2, "max": 4 } }]
+        },
+        {
+          "conditions": [{ "condition": "random_chance", "chance": 0.3 }],
+          "type": "item",
+          "name": "botania:rune_winter",
+          "functions": [{ "function": "set_count", "count": { "min": 2, "max": 4 } }]
+        },
+        {
+          "conditions": [{ "condition": "random_chance", "chance": 0.3 }],
+          "type": "item",
+          "name": "botania:rune_mana",
+          "functions": [{ "function": "set_count", "count": { "min": 2, "max": 4 } }]
+        },
+        {
+          "conditions": [{ "condition": "random_chance", "chance": 0.3 }],
+          "type": "item",
+          "name": "botania:rune_lust",
+          "functions": [{ "function": "set_count", "count": { "min": 2, "max": 4 } }]
+        },
+        {
+          "conditions": [{ "condition": "random_chance", "chance": 0.3 }],
+          "type": "item",
+          "name": "botania:rune_gluttony",
+          "functions": [{ "function": "set_count", "count": { "min": 2, "max": 4 } }]
+        },
+        {
+          "conditions": [{ "condition": "random_chance", "chance": 0.3 }],
+          "type": "item",
+          "name": "botania:rune_greed",
+          "functions": [{ "function": "set_count", "count": { "min": 2, "max": 4 } }]
+        },
+        {
+          "conditions": [{ "condition": "random_chance", "chance": 0.3 }],
+          "type": "item",
+          "name": "botania:rune_sloth",
+          "functions": [{ "function": "set_count", "count": { "min": 2, "max": 4 } }]
+        },
+        {
+          "conditions": [{ "condition": "random_chance", "chance": 0.3 }],
+          "type": "item",
+          "name": "botania:rune_wrath",
+          "functions": [{ "function": "set_count", "count": { "min": 2, "max": 4 } }]
+        },
+        {
+          "conditions": [{ "condition": "random_chance", "chance": 0.3 }],
+          "type": "item",
+          "name": "botania:rune_envy",
+          "functions": [{ "function": "set_count", "count": { "min": 2, "max": 4 } }]
+        },
+        {
+          "conditions": [{ "condition": "random_chance", "chance": 0.3 }],
+          "type": "item",
+          "name": "botania:rune_pride",
+          "functions": [{ "function": "set_count", "count": { "min": 2, "max": 4 } }]
+        }
+      ]
     },
     {
       "name": "pinkinator",

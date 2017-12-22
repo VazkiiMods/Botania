@@ -17,7 +17,12 @@ public final class LibItemNames {
 	public static final String DYE = "dye";
 	public static final String PESTLE_AND_MORTAR = "pestleAndMortar";
 	public static final String TWIG_WAND = "twigWand";
-	public static final String RUNE = "rune";
+	public static final String[] RUNE_NAMES = {
+			"rune_water", "rune_fire", "rune_earth", "rune_air",
+			"rune_spring", "rune_summer", "rune_autumn", "rune_winter",
+			"rune_mana",
+			"rune_lust", "rune_gluttony", "rune_greed", "rune_sloth", "rune_wrath", "rune_envy", "rune_pride"
+	};
 	public static final String MANA_TABLET = "manaTablet";
 	public static final String MANA_GUN = "manaGun";
 	public static final String MANA_COOKIE = "manaCookie";

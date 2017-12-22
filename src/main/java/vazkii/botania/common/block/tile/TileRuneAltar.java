@@ -34,6 +34,7 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.material.ItemRune;
 import vazkii.botania.common.network.PacketBotaniaEffect;
 import vazkii.botania.common.network.PacketHandler;
 
@@ -243,7 +244,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver 
 				for(int i = 0; i < getSizeInventory(); i++) {
 					ItemStack stack = itemHandler.getStackInSlot(i);
 					if(!stack.isEmpty()) {
-						if(stack.getItem() == ModItems.rune && (player == null || !player.capabilities.isCreativeMode)) {
+						if(stack.getItem() instanceof ItemRune && (player == null || !player.capabilities.isCreativeMode)) {
 							EntityItem outputRune = new EntityItem(world, getPos().getX() + 0.5, getPos().getY() + 1.5, getPos().getZ() + 0.5, stack.copy());
 							world.spawnEntity(outputRune);
 						}
