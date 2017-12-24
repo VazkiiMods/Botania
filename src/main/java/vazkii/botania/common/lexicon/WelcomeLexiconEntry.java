@@ -15,6 +15,7 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.lexicon.LexiconPage;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.equipment.bauble.ItemBaubleCosmetic;
 import vazkii.botania.common.lexicon.page.PageText;
 import vazkii.botania.common.lib.LibLexicon;
 
@@ -27,7 +28,7 @@ public class WelcomeLexiconEntry extends BasicLexiconEntry {
 	public WelcomeLexiconEntry() {
 		super(LibLexicon.BASICS_WELCOME, BotaniaAPI.categoryBasics);
 		setPriority();
-		setIcon(new ItemStack(ModItems.cosmetic, 1, 31));
+		setIcon(new ItemStack(ModItems.cosmetics.get(ItemBaubleCosmetic.Variant.QUESTGIVER_MARK)));
 
 		LexiconPage[] pages = new LexiconPage[PAGES];
 		for(int i = 0; i < PAGES; i++)

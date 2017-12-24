@@ -101,8 +101,11 @@ import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.lib.LibOreDict;
 
+import java.util.Arrays;
 import java.util.EnumMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
 public final class ModItems {
@@ -322,7 +325,12 @@ public final class ModItems {
 	public static final Item corporeaSpark = new ItemCorporeaSpark();
 	public static final Item livingwoodBow = new ItemLivingwoodBow();
 	public static final Item crystalBow = new ItemCrystalBow();
-	public static final Item cosmetic = new ItemBaubleCosmetic();
+	public static final Map<ItemBaubleCosmetic.Variant, Item> cosmetics = new EnumMap<>(ItemBaubleCosmetic.Variant.class);
+	static {
+		for(ItemBaubleCosmetic.Variant v : ItemBaubleCosmetic.Variant.values()) {
+			cosmetics.put(v, new ItemBaubleCosmetic(v));
+		}
+	}
 	public static final Item swapRing = new ItemSwapRing();
 	public static final Item flowerBag = new ItemFlowerBag();
 	public static final Item phantomInk = new ItemPhantomInk();
@@ -574,7 +582,7 @@ public final class ModItems {
 		r.register(corporeaSpark);
 		r.register(livingwoodBow);
 		r.register(crystalBow);
-		r.register(cosmetic);
+		cosmetics.values().forEach(r::register);
 		r.register(swapRing);
 		r.register(flowerBag);
 		r.register(phantomInk);

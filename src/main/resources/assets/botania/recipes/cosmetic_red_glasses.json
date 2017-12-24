@@ -1,0 +1,19 @@
+{
+  "result": {
+    "item": "botania:cosmetic_red_glasses"
+  },
+  "pattern": [
+    "PPP",
+    "PSP",
+    "PPP"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "P": {
+      "item": "botania:petal_magenta"
+    },
+    "S": {
+      "item": "#MANASTRING"
+    }
+  }
+}

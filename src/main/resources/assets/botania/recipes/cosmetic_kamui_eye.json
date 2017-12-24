@@ -1,0 +1,19 @@
+{
+  "result": {
+    "item": "botania:cosmetic_kamui_eye"
+  },
+  "pattern": [
+    "PPP",
+    "PSP",
+    "PPP"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "P": {
+      "item": "botania:petal_red"
+    },
+    "S": {
+      "item": "#MANASTRING"
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "result": {
+    "item": "botania:cosmetic_googly_eyes"
+  },
+  "pattern": [
+    "PPP",
+    "PSP",
+    "PPP"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "P": {
+      "item": "botania:petal_black"
+    },
+    "S": {
+      "item": "#MANASTRING"
+    }
+  }
+}

@@ -457,7 +457,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		for (Block pavementSlab : ModFluffBlocks.pavementSlabs)
 			addBlock(pavementSlab);
 
-		addItem(ModItems.cosmetic);
+		ModItems.cosmetics.values().forEach(this::addItem);
 	}
 
 	private void addItem(Item item) {

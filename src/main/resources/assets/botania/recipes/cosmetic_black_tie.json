@@ -1,0 +1,19 @@
+{
+  "result": {
+    "item": "botania:cosmetic_black_tie"
+  },
+  "pattern": [
+    "PPP",
+    "PSP",
+    "PPP"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "P": {
+      "item": "botania:petal_orange"
+    },
+    "S": {
+      "item": "#MANASTRING"
+    }
+  }
+}

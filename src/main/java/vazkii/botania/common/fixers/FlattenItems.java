@@ -7,6 +7,7 @@ import net.minecraft.util.datafix.IFixableData;
 import vazkii.botania.api.item.IAncientWillContainer;
 import vazkii.botania.api.state.enums.CratePattern;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.equipment.bauble.ItemBaubleCosmetic;
 import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibMisc;
 
@@ -103,6 +104,10 @@ public class FlattenItems implements IFixableData {
 			return LibMisc.MOD_ID + ":" + LibItemNames.CRAFT_PATTERN + "_" + vals[(i + 1) % vals.length].name().toLowerCase(Locale.ROOT);
 		});
 		LOOKUP.put("botania:rune", i -> LibMisc.MOD_ID + ":" + LibItemNames.RUNE_NAMES[i % LibItemNames.RUNE_NAMES.length]);
+		LOOKUP.put("botania:cosmetic", i -> {
+			ItemBaubleCosmetic.Variant[] vals = ItemBaubleCosmetic.Variant.values();
+			return LibMisc.MOD_ID + ":" + LibItemNames.COSMETIC + "_" + vals[i % vals.length].name().toLowerCase(Locale.ROOT);
+		});
 	}
 
 	@Override

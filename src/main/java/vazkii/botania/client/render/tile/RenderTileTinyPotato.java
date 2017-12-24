@@ -52,7 +52,6 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer<TileTinyPota
 	private static final ResourceLocation textureGrayscale = new ResourceLocation(LibResources.MODEL_TINY_POTATO_GS);
 	private static final ResourceLocation textureHalloween = new ResourceLocation(LibResources.MODEL_TINY_POTATO_HALLOWEEN);
 	private static final ModelTinyPotato model = new ModelTinyPotato();
-	private final ItemStack[] cosmetics = Arrays.stream(ItemBaubleCosmetic.Variants.values()).map(v -> new ItemStack(ModItems.cosmetic, 1, v.ordinal())).toArray(ItemStack[]::new);
 
 
 	private static boolean matches(String name, String match) {

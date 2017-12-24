@@ -1,0 +1,19 @@
+{
+  "result": {
+    "item": "botania:cosmetic_alien_antenna"
+  },
+  "pattern": [
+    "PPP",
+    "PSP",
+    "PPP"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "P": {
+      "item": "botania:dye_silver"
+    },
+    "S": {
+      "item": "#MANASTRING"
+    }
+  }
+}

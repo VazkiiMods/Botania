@@ -37,6 +37,7 @@ import vazkii.botania.common.crafting.ModPetalRecipes;
 import vazkii.botania.common.crafting.ModRuneRecipes;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
+import vazkii.botania.common.item.equipment.bauble.ItemBaubleCosmetic;
 import vazkii.botania.common.lexicon.page.PageBrew;
 import vazkii.botania.common.lexicon.page.PageCraftingRecipe;
 import vazkii.botania.common.lexicon.page.PageElvenRecipe;
@@ -1382,7 +1383,7 @@ public final class LexiconData {
 
 		challenges = new BasicLexiconEntry(LibLexicon.MISC_CHALLENGES, categoryMisc);
 		challenges.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2")).setPriority()
-		.setIcon(new ItemStack(ModItems.cosmetic, 1, 31));
+		.setIcon(new ItemStack(ModItems.cosmetics.get(ItemBaubleCosmetic.Variant.QUESTGIVER_MARK)));
 
 		cacophonium = new BasicLexiconEntry(LibLexicon.MISC_CACOPHONIUM, categoryMisc);
 		cacophonium.setLexiconPages(new PageText("0"),

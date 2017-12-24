@@ -1,0 +1,19 @@
+{
+  "result": {
+    "item": "botania:cosmetic_puffy_scarf"
+  },
+  "pattern": [
+    "PPP",
+    "PSP",
+    "PPP"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "P": {
+      "item": "botania:petal_light_blue"
+    },
+    "S": {
+      "item": "#MANASTRING"
+    }
+  }
+}
