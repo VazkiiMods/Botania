@@ -37,28 +37,13 @@ public class ItemBlackLotus extends ItemMod implements IManaDissolvable {
 	private static final int MANA_PER = 8000;
 	private static final int MANA_PER_T2 = 100000;
 
-	public ItemBlackLotus() {
-		super(LibItemNames.BLACK_LOTUS);
-		setHasSubtypes(true);
+	public ItemBlackLotus(String name) {
+		super(name);
 	}
 
 	@Override
-	public void getSubItems(@Nonnull CreativeTabs tab, @Nonnull NonNullList<ItemStack> list) {
-		if(isInCreativeTab(tab)) {
-			for(int i = 0; i < 2; i++)
-				list.add(new ItemStack(this, 1, i));
-		}
-	}
-
-	@Override
-	public boolean hasEffect(ItemStack par1ItemStack) {
-		return par1ItemStack.getItemDamage() > 0;
-	}
-
-	@Nonnull
-	@Override
-	public String getUnlocalizedName(ItemStack par1ItemStack) {
-		return super.getUnlocalizedName(par1ItemStack) + par1ItemStack.getItemDamage();
+	public boolean hasEffect(ItemStack stack) {
+		return stack.getItem() == ModItems.blackerLotus;
 	}
 
 	@Override
@@ -67,7 +52,7 @@ public class ItemBlackLotus extends ItemMod implements IManaDissolvable {
 			return;
 
 		TileEntity tile = (TileEntity) pool;
-		boolean t2 = stack.getItemDamage() > 0;
+		boolean t2 = stack.getItem() == ModItems.blackerLotus;
 
 		if(!item.world.isRemote) {
 			pool.recieveMana(t2 ? MANA_PER_T2 : MANA_PER);
@@ -83,12 +68,6 @@ public class ItemBlackLotus extends ItemMod implements IManaDissolvable {
 	@Override
 	public void addInformation(ItemStack stack, World world, List<String> list, ITooltipFlag flags) {
 		list.add(I18n.format("botaniamisc.lotusDesc"));
-	}
-
-	@SideOnly(Side.CLIENT)
-	@Override
-	public void registerModels() {
-		ModelHandler.registerItemAppendMeta(this, 2, LibItemNames.BLACK_LOTUS);
 	}
 
 }

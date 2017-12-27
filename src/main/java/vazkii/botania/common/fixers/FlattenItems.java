@@ -115,6 +115,13 @@ public class FlattenItems implements IFixableData {
 				return ModItems.corporeaSpark.getRegistryName().toString();
 			}
 		});
+		LOOKUP.put("botania:blacklotus", i -> {
+			if(i == 1) {
+				return ModItems.blackerLotus.getRegistryName().toString();
+			} else {
+				return ModItems.blackLotus.getRegistryName().toString();
+			}
+		});
 	}
 
 	@Override

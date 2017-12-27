@@ -297,7 +297,8 @@ public final class ModItems {
 	public static final Item unholyCloak = new ItemUnholyCloak();
 	public static final Item balanceCloak = new ItemBalanceCloak();
 	public static final Item craftingHalo = new ItemCraftingHalo();
-	public static final Item blackLotus = new ItemBlackLotus();
+	public static final Item blackLotus = new ItemBlackLotus(LibItemNames.BLACK_LOTUS);
+	public static final Item blackerLotus = new ItemBlackLotus(LibItemNames.BLACKER_LOTUS);
 	public static final Item monocle = new ItemMonocle();
 	public static final Item clip = new ItemClip();
 	public static final Item cobbleRod = new ItemCobbleRod();
@@ -556,6 +557,7 @@ public final class ModItems {
 		r.register(balanceCloak);
 		r.register(craftingHalo);
 		r.register(blackLotus);
+		r.register(blackerLotus);
 		r.register(monocle);
 		r.register(clip);
 		r.register(cobbleRod);
@@ -696,6 +698,7 @@ public final class ModItems {
 		BotaniaAPI.blackListItemFromLoonium(lexicon);
 		BotaniaAPI.blackListItemFromLoonium(overgrowthSeed);
 		BotaniaAPI.blackListItemFromLoonium(blackLotus);
+		BotaniaAPI.blackListItemFromLoonium(blackerLotus);
 		for(Item i : Item.REGISTRY) {
 			if("minecraft".equals(i.getRegistryName().getResourceDomain()) & i instanceof ItemRecord) {
 				BotaniaAPI.blackListItemFromLoonium(i);

@@ -120,7 +120,8 @@ public final class LibItemNames {
 	public static final String UNHOLY_CLOAK = "unholycloak";
 	public static final String BALANCE_CLOAK = "balancecloak";
 	public static final String CRAFTING_HALO = "craftinghalo";
-	public static final String BLACK_LOTUS = "blacklotus";
+	public static final String BLACK_LOTUS = "black_lotus";
+	public static final String BLACKER_LOTUS = "blacker_lotus";
 	public static final String MONOCLE = "monocle";
 	public static final String CLIP = "clip";
 	public static final String COBBLE_ROD = "cobblerod";
