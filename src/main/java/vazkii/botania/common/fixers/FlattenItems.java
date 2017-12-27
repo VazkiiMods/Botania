@@ -108,6 +108,13 @@ public class FlattenItems implements IFixableData {
 			ItemBaubleCosmetic.Variant[] vals = ItemBaubleCosmetic.Variant.values();
 			return LibMisc.MOD_ID + ":" + LibItemNames.COSMETIC + "_" + vals[i % vals.length].name().toLowerCase(Locale.ROOT);
 		});
+		LOOKUP.put("botania:corporeaspark", i -> {
+			if(i == 1) {
+				return ModItems.corporeaSparkMaster.getRegistryName().toString();
+			} else {
+				return ModItems.corporeaSpark.getRegistryName().toString();
+			}
+		});
 	}
 
 	@Override

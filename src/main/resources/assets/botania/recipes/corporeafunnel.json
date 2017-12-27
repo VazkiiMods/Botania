@@ -7,8 +7,7 @@
       "item": "minecraft:dropper"
     },
     {
-      "item": "botania:corporeaspark",
-      "data": 0
+      "item": "botania:corporea_spark"
     }
   ],
   "type": "minecraft:crafting_shapeless"

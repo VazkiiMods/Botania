@@ -601,8 +601,8 @@ public final class ModCraftingRecipes {
 		recipeRedStringInterceptor = ModBlocks.redStringInterceptor.getRegistryName();
 		recipeFlightTiara = path("flighttiara_0");
 		recipesWings = allOfGroup("flighttiara_wings");
-		recipeCorporeaSpark = path("corporeaspark_0");
-		recipeMasterCorporeaSpark = path("corporeaspark_1");
+		recipeCorporeaSpark = ModItems.corporeaSpark.getRegistryName();
+		recipeMasterCorporeaSpark = ModItems.corporeaSparkMaster.getRegistryName();
 		recipeCorporeaIndex = ModBlocks.corporeaIndex.getRegistryName();
 		recipeCorporeaFunnel = ModBlocks.corporeaFunnel.getRegistryName();
 		recipeCorporeaInterceptor = ModBlocks.corporeaInterceptor.getRegistryName();

@@ -322,7 +322,8 @@ public final class ModItems {
 	public static final Item ancientWillTorag = new ItemAncientWill(IAncientWillContainer.AncientWillType.TORAG);
 	public static final Item ancientWillVerac = new ItemAncientWill(IAncientWillContainer.AncientWillType.VERAC);
 	public static final Item ancientWillKaril = new ItemAncientWill(IAncientWillContainer.AncientWillType.KARIL);
-	public static final Item corporeaSpark = new ItemCorporeaSpark();
+	public static final Item corporeaSpark = new ItemCorporeaSpark(LibItemNames.CORPOREA_SPARK);
+	public static final Item corporeaSparkMaster = new ItemCorporeaSpark(LibItemNames.CORPOREA_SPARK_MASTER);
 	public static final Item livingwoodBow = new ItemLivingwoodBow();
 	public static final Item crystalBow = new ItemCrystalBow();
 	public static final Map<ItemBaubleCosmetic.Variant, Item> cosmetics = new EnumMap<>(ItemBaubleCosmetic.Variant.class);
@@ -580,6 +581,7 @@ public final class ModItems {
 		r.register(ancientWillVerac);
 		r.register(ancientWillKaril);
 		r.register(corporeaSpark);
+		r.register(corporeaSparkMaster);
 		r.register(livingwoodBow);
 		r.register(crystalBow);
 		cosmetics.values().forEach(r::register);

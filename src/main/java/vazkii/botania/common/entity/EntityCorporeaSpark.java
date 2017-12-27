@@ -71,7 +71,7 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 	@Nonnull
 	@Override
 	public ItemStack getPickedResult(RayTraceResult target) {
-		return isMaster() ? new ItemStack(ModItems.corporeaSpark, 1, 1) : new ItemStack(ModItems.corporeaSpark);
+		return isMaster() ? new ItemStack(ModItems.corporeaSparkMaster) : new ItemStack(ModItems.corporeaSpark);
 	}
 
 	@Override
@@ -114,7 +114,7 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 	}
 
 	private void dropAndKill() {
-		entityDropItem(new ItemStack(ModItems.corporeaSpark, 1, isMaster() ? 1 : 0), 0F);
+		entityDropItem(new ItemStack(isMaster() ? ModItems.corporeaSparkMaster : ModItems.corporeaSpark), 0F);
 		setDead();
 	}
 

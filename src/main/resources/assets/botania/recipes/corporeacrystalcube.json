@@ -10,8 +10,7 @@
   "type": "forge:ore_shaped",
   "key": {
     "C": {
-      "item": "botania:corporeaspark",
-      "data": 0
+      "item": "botania:corporea_spark"
     },
     "G": {
       "item": "botania:elfglass"

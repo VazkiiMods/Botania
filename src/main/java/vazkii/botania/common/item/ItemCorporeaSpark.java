@@ -10,39 +10,24 @@
  */
 package vazkii.botania.common.item;
 
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.CapabilityItemHandler;
 import vazkii.botania.api.corporea.CorporeaHelper;
-import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.entity.EntityCorporeaSpark;
-import vazkii.botania.common.lib.LibItemNames;
 
 import javax.annotation.Nonnull;
 
 public class ItemCorporeaSpark extends ItemMod {
 
-	public ItemCorporeaSpark() {
-		super(LibItemNames.CORPOREA_SPARK);
-		setHasSubtypes(true);
-	}
-
-	@Override
-	public void getSubItems(@Nonnull CreativeTabs tab, @Nonnull NonNullList<ItemStack> list) {
-		if(isInCreativeTab(tab)) {
-			for(int i = 0; i < 2; i++)
-				list.add(new ItemStack(this, 1, i));
-		}
+	public ItemCorporeaSpark(String name) {
+		super(name);
 	}
 
 	@Nonnull
@@ -55,27 +40,14 @@ public class ItemCorporeaSpark extends ItemMod {
 			stack.shrink(1);
 			if(!world.isRemote) {
 				EntityCorporeaSpark spark = new EntityCorporeaSpark(world);
-				if(stack.getItemDamage() == 1)
+				if(this == ModItems.corporeaSparkMaster)
 					spark.setMaster(true);
 				spark.setPosition(pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5);
 				world.spawnEntity(spark);
-				world.notifyBlockUpdate(pos, world.getBlockState(pos), world.getBlockState(pos), 0);
 			}
 			return EnumActionResult.SUCCESS;
 		}
 		return EnumActionResult.PASS;
-	}
-
-	@Nonnull
-	@Override
-	public String getUnlocalizedName(ItemStack par1ItemStack) {
-		return super.getUnlocalizedName(par1ItemStack) + par1ItemStack.getItemDamage();
-	}
-
-	@SideOnly(Side.CLIENT)
-	@Override
-	public void registerModels() {
-		ModelHandler.registerItemAppendMeta(this, 2, LibItemNames.CORPOREA_SPARK);
 	}
 
 }

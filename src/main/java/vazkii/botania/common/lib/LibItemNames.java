@@ -132,7 +132,8 @@ public final class LibItemNames {
 	public static final String OVERGROWTH_SEED = "overgrowthseed";
 	public static final String CRAFT_PATTERN = "pattern";
 	public static final String ANCIENT_WILL = "ancient_will";
-	public static final String CORPOREA_SPARK = "corporeaspark";
+	public static final String CORPOREA_SPARK = "corporea_spark";
+	public static final String CORPOREA_SPARK_MASTER = "corporea_spark_master";
 	public static final String LIVINGWOOD_BOW = "livingwoodbow";
 	public static final String CRYSTAL_BOW = "crystalbow";
 	public static final String COSMETIC = "cosmetic";
