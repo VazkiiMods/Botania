@@ -38,10 +38,10 @@ import javax.annotation.Nullable;
 import java.awt.Color;
 import java.util.List;
 
-// This is mostly copypasta from TileRuneAltar
 public class TileBrewery extends TileSimpleInventory implements IManaReceiver {
 
 	private static final String TAG_MANA = "mana";
+	private static final int CRAFT_EFFECT_EVENT = 0;
 
 	public RecipeBrew recipe;
 	int mana = 0;
@@ -129,16 +129,14 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver {
 				if(mana >= getManaCost() && !world.isRemote) {
 					int mana = getManaCost();
 					recieveMana(-mana);
-					if(!world.isRemote) {
-						ItemStack output = recipe.getOutput(itemHandler.getStackInSlot(0));
-						EntityItem outputItem = new EntityItem(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, output);
-						world.spawnEntity(outputItem);
-					}
+
+					ItemStack output = recipe.getOutput(itemHandler.getStackInSlot(0));
+					EntityItem outputItem = new EntityItem(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, output);
+					world.spawnEntity(outputItem);
+					world.addBlockEvent(getPos(), ModBlocks.brewery, CRAFT_EFFECT_EVENT, recipe.getBrew().getColor(output));
 
 					for(int i = 0; i < getSizeInventory(); i++)
 						itemHandler.setStackInSlot(i, ItemStack.EMPTY);
-
-					craftingFanciness();
 				}
 			}
 		}
@@ -155,17 +153,33 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver {
 		manaLastTick = mana;
 	}
 
+	@Override
+	public boolean receiveClientEvent(int event, int param) {
+		if(event == CRAFT_EFFECT_EVENT) {
+			if(world.isRemote) {
+				for(int i = 0; i < 25; i++) {
+					Color c = new Color(param);
+					float r = c.getRed() / 255F;
+					float g = c.getGreen() / 255F;
+					float b = c.getBlue() / 255F;
+					Botania.proxy.sparkleFX(pos.getX() + 0.5 + Math.random() * 0.4 - 0.2, pos.getY() + 1, pos.getZ() + 0.5 + Math.random() * 0.4 - 0.2, r, g, b, (float) Math.random() * 2F + 0.5F, 10);
+					for(int j = 0; j < 2; j++)
+						Botania.proxy.wispFX(pos.getX() + 0.7 - Math.random() * 0.4, pos.getY() + 0.9 - Math.random() * 0.2, pos.getZ() + 0.7 - Math.random() * 0.4, 0.2F, 0.2F, 0.2F, 0.1F + (float) Math.random() * 0.2F, 0.05F - (float) Math.random() * 0.1F, 0.05F + (float) Math.random() * 0.03F, 0.05F - (float) Math.random() * 0.1F);
+				}
+				world.playSound(pos.getX(), pos.getY(), pos.getZ(), ModSounds.potionCreate, SoundCategory.BLOCKS, 1F, 1.5F + (float) Math.random() * 0.25F, false);
+			}
+			return true;
+		} else {
+			return super.receiveClientEvent(event, param);
+		}
+	}
+
 	public int getManaCost() {
 		ItemStack stack = itemHandler.getStackInSlot(0);
 		if(recipe == null || stack.isEmpty() || !(stack.getItem() instanceof IBrewContainer))
 			return 0;
 		IBrewContainer container = (IBrewContainer) stack.getItem();
 		return container.getManaCost(recipe.getBrew(), stack);
-	}
-
-	public void craftingFanciness() {
-		world.playSound(null, pos, ModSounds.potionCreate, SoundCategory.BLOCKS, 1F, 1.5F + (float) Math.random() * 0.25F);
-		PacketHandler.sendToNearby(world, pos, new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.BREWERY_FINISH, pos.getX(), pos.getY(), pos.getZ(), recipe.getBrew().getColor(itemHandler.getStackInSlot(0))));
 	}
 
 	@Override

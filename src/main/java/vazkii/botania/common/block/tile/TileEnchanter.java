@@ -42,6 +42,7 @@ import vazkii.botania.api.mana.spark.ISparkEntity;
 import vazkii.botania.api.mana.spark.SparkHelper;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.client.core.helper.RenderHelper;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.network.PacketBotaniaEffect;
@@ -63,6 +64,7 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 	private static final String TAG_MANA = "mana";
 	private static final String TAG_ITEM = "item";
 	private static final String TAG_ENCHANTS = "enchantsToApply";
+	private static final int CRAFT_EFFECT_EVENT = 0;
 
 	public State stage = State.IDLE;
 	public int stageTicks = 0;
@@ -246,7 +248,7 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 				manaRequired = -1;
 				mana = 0;
 
-				craftingFanciness();
+				world.addBlockEvent(getPos(), ModBlocks.enchanter, CRAFT_EFFECT_EVENT, 0);
 				advanceStage();
 			}
 			break;
@@ -282,10 +284,25 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 		sync();
 	}
 
-	private void craftingFanciness() {
-		world.playSound(null, pos, ModSounds.enchanterEnchant, SoundCategory.BLOCKS, 1F, 1F);
-		PacketHandler.sendToNearby(world, pos,
-				new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.ENCHANTER_CRAFT, pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5));
+	@Override
+	public boolean receiveClientEvent(int event, int param) {
+		switch(event) {
+			case CRAFT_EFFECT_EVENT: {
+				if(world.isRemote) {
+					for(int i = 0; i < 25; i++) {
+						float red = (float) Math.random();
+						float green = (float) Math.random();
+						float blue = (float) Math.random();
+						Botania.proxy.sparkleFX(
+								getPos().getX() + Math.random() * 0.4 - 0.2, getPos().getY(), getPos().getZ() + Math.random() * 0.4 - 0.2,
+								red, green, blue, (float) Math.random(), 10);
+					}
+					world.playSound(pos.getX(), pos.getY(), pos.getZ(), ModSounds.enchanterEnchant, SoundCategory.BLOCKS, 1F, 1F, false);
+				}
+				return true;
+			}
+			default: return super.receiveClientEvent(event, param);
+		}
 	}
 
 	@Nonnull

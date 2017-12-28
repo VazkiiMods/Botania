@@ -64,6 +64,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 
 	private static final Pattern SEED_PATTERN = Pattern.compile("(?:(?:(?:[A-Z-_.:]|^)seed)|(?:(?:[a-z-_.:]|^)Seed))(?:[sA-Z-_.:]|$)");
 	private static final int SET_KEEP_TICKS_EVENT = 0;
+	private static final int CRAFT_EFFECT_EVENT = 1;
 
 	public static final String TAG_HAS_WATER = "hasWater";
 	public static final String TAG_HAS_LAVA = "hasLava";
@@ -153,7 +154,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 					setWater(false);
 					world.updateComparatorOutputLevel(pos, world.getBlockState(pos).getBlock());
 
-					craftingFanciness();
+					world.addBlockEvent(getPos(), getBlockType(), CRAFT_EFFECT_EVENT, 0);
 					didChange = true;
 
 					break;
@@ -223,12 +224,6 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 			EntityPlayerMP mp = (EntityPlayerMP) player;
 			mp.inventoryContainer.detectAndSendChanges();
 		}
-	}
-
-	private void craftingFanciness() {
-		world.playSound(null, pos, ModSounds.altarCraft, SoundCategory.BLOCKS, 1F, 1F);
-		PacketHandler.sendToNearby(world, getPos(),
-				new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.APOTHECARY_CRAFT, getPos().getX(), getPos().getY(), getPos().getZ()));
 	}
 
 	public boolean isEmpty() {
@@ -308,11 +303,21 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 
 	@Override
 	public boolean receiveClientEvent(int id, int param) {
-		if(id == SET_KEEP_TICKS_EVENT) {
-			recipeKeepTicks = param;
-			return true;
-		} else {
-			return false;
+		switch(id) {
+			case SET_KEEP_TICKS_EVENT: recipeKeepTicks = param; return true;
+			case CRAFT_EFFECT_EVENT: {
+				if(world.isRemote) {
+					for(int i = 0; i < 25; i++) {
+						float red = (float) Math.random();
+						float green = (float) Math.random();
+						float blue = (float) Math.random();
+						Botania.proxy.sparkleFX(pos.getX() + 0.5 + Math.random() * 0.4 - 0.2, pos.getY() + 1, pos.getZ() + 0.5 + Math.random() * 0.4 - 0.2, red, green, blue, (float) Math.random(), 10);
+					}
+					world.playSound(pos.getX(), pos.getY(), pos.getZ(), ModSounds.altarCraft, SoundCategory.BLOCKS, 1F, 1F, false);
+				}
+				return true;
+			}
+			default: return super.receiveClientEvent(id, param);
 		}
 	}
 

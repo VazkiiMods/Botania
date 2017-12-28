@@ -48,6 +48,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver 
 	private static final String TAG_MANA_TO_GET = "manaToGet";
 	private static final int SET_KEEP_TICKS_EVENT = 0;
 	private static final int SET_COOLDOWN_EVENT = 1;
+	private static final int CRAFT_EFFECT_EVENT = 2;
 
 	RecipeRuneAltar currentRecipe;
 
@@ -105,6 +106,18 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver 
 		switch (id) {
 			case SET_KEEP_TICKS_EVENT: recipeKeepTicks = param; return true;
 			case SET_COOLDOWN_EVENT: cooldown = param; return true;
+			case CRAFT_EFFECT_EVENT: {
+				if(world.isRemote) {
+					for(int i = 0; i < 25; i++) {
+						float red = (float) Math.random();
+						float green = (float) Math.random();
+						float blue = (float) Math.random();
+						Botania.proxy.sparkleFX(pos.getX() + 0.5 + Math.random() * 0.4 - 0.2, pos.getY() + 1, pos.getZ() + 0.5 + Math.random() * 0.4 - 0.2, red, green, blue, (float) Math.random(), 10);
+					}
+					world.playSound(pos.getX(), pos.getY(), pos.getZ(), ModSounds.runeAltarCraft, SoundCategory.BLOCKS, 1, 1, false);
+				}
+				return true;
+			}
 			default: return super.receiveClientEvent(id, param);
 		}
 	}
@@ -238,6 +251,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver 
 				world.spawnEntity(outputItem);
 				currentRecipe = null;
 				world.addBlockEvent(getPos(), ModBlocks.runeAltar, SET_COOLDOWN_EVENT, 60);
+				world.addBlockEvent(getPos(), ModBlocks.runeAltar, CRAFT_EFFECT_EVENT, 0);
 
 				saveLastRecipe();
 				for(int i = 0; i < getSizeInventory(); i++) {
@@ -253,16 +267,8 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver 
 				}
 
 				livingrock.getItem().shrink(1);
-
-				craftingFanciness();
 			}
 		}
-	}
-
-	public void craftingFanciness() {
-		world.playSound(null, pos, ModSounds.runeAltarCraft, SoundCategory.BLOCKS, 1, 1);
-		PacketHandler.sendToNearby(world, getPos(),
-				new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.RUNE_CRAFT, getPos().getX(), getPos().getY(), getPos().getZ()));
 	}
 
 	public boolean isEmpty() {
