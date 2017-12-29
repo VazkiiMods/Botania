@@ -8,12 +8,10 @@
  */
 package vazkii.botania.client.integration.jei;
 
-import mezz.jei.api.IJeiRuntime;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.IModRegistry;
 import mezz.jei.api.ISubtypeRegistry;
 import mezz.jei.api.JEIPlugin;
-import mezz.jei.api.ingredients.IModIngredientRegistration;
 import mezz.jei.api.recipe.IRecipeCategoryRegistration;
 import mezz.jei.api.recipe.VanillaRecipeCategoryUid;
 import net.minecraft.item.Item;
@@ -54,9 +52,6 @@ public class JEIBotaniaPlugin implements IModPlugin {
 		subtypeRegistry.registerSubtypeInterpreter(Item.getItemFromBlock(ModBlocks.specialFlower), ItemBlockSpecialFlower::getType);
 		subtypeRegistry.registerSubtypeInterpreter(Item.getItemFromBlock(ModBlocks.floatingSpecialFlower), ItemBlockSpecialFlower::getType);
 	}
-
-	@Override
-	public void registerIngredients(@Nonnull IModIngredientRegistration registry) {}
 
 	@Override
 	public void registerCategories(IRecipeCategoryRegistration registry) {
@@ -108,8 +103,5 @@ public class JEIBotaniaPlugin implements IModPlugin {
 
 		registry.getRecipeTransferRegistry().addRecipeTransferHandler(ContainerCraftingHalo.class, VanillaRecipeCategoryUid.CRAFTING, 1, 9, 10, 36);
 	}
-
-	@Override
-	public void onRuntimeAvailable(@Nonnull IJeiRuntime jeiRuntime) {}
 
 }

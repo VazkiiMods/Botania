@@ -57,15 +57,4 @@ public class RunicAltarRecipeWrapper implements IRecipeWrapper {
 		GlStateManager.disableAlpha();
 	}
 
-	@Nonnull
-	@Override
-	public List<String> getTooltipStrings(int mouseX, int mouseY) {
-		return ImmutableList.of();
-	}
-
-	@Override
-	public boolean handleClick(@Nonnull Minecraft minecraft, int mouseX, int mouseY, int mouseButton) {
-		return false;
-	}
-
 }

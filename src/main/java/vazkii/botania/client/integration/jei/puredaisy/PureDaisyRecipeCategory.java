@@ -61,12 +61,6 @@ public class PureDaisyRecipeCategory implements IRecipeCategory {
 		return background;
 	}
 
-	@Nullable
-	@Override
-	public IDrawable getIcon() {
-		return null;
-	}
-
 	@Override
 	public void drawExtras(@Nonnull Minecraft minecraft) {
 		GlStateManager.enableAlpha();
@@ -102,11 +96,6 @@ public class PureDaisyRecipeCategory implements IRecipeCategory {
 			recipeLayout.getItemStacks().init(2, false, 99, 12);
 			recipeLayout.getItemStacks().set(2, ingredients.getOutputs(ItemStack.class).get(0));
 		}
-	}
-
-	@Override
-	public List getTooltipStrings(int mouseX, int mouseY) {
-		return new ArrayList();
 	}
 
 	@Nonnull

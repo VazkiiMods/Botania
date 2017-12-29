@@ -62,16 +62,6 @@ public class BreweryRecipeCategory implements IRecipeCategory {
 		return background;
 	}
 
-	@Nullable
-	@Override
-	public IDrawable getIcon() {
-		return null;
-	}
-
-	@Override
-	public void drawExtras(@Nonnull Minecraft minecraft) {
-	}
-
 	@Override
 	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull IRecipeWrapper recipeWrapper, @Nonnull IIngredients ingredients) {
 		if(!(recipeWrapper instanceof BreweryRecipeWrapper))
@@ -94,10 +84,4 @@ public class BreweryRecipeCategory implements IRecipeCategory {
 		recipeLayout.getItemStacks().init(7, false, 87, 41);
 		recipeLayout.getItemStacks().set(7, ingredients.getOutputs(ItemStack.class).get(0));
 	}
-	
-	@Override
-	public List getTooltipStrings(int mouseX, int mouseY) {
-		return new ArrayList();
-	}
-
 }
