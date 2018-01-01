@@ -10,39 +10,26 @@
  */
 package vazkii.botania.common.block;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockRenderLayer;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.lexicon.ILexiconable;
-import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.block.tile.TileBifrost;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
 import javax.annotation.Nonnull;
 import java.util.Random;
 
-public class BlockBifrost extends BlockMod implements ILexiconable {
+public class BlockBifrost extends BlockBifrostPerm implements ILexiconable {
 
 	public BlockBifrost() {
-		super(Material.GLASS, LibBlockNames.BIFROST);
-		setLightOpacity(0);
-		setLightLevel(1F);
+		super(LibBlockNames.BIFROST);
 		setBlockUnbreakable();
-		setSoundType(SoundType.GLASS);
 	}
 
 	@Override
@@ -50,28 +37,10 @@ public class BlockBifrost extends BlockMod implements ILexiconable {
 		return false;
 	}
 
-	@Override
-	public boolean isOpaqueCube(IBlockState state) {
-		return false;
-	}
-
 	@Nonnull
 	@Override
 	public ItemStack getPickBlock(@Nonnull IBlockState state, RayTraceResult target, @Nonnull World world, @Nonnull BlockPos pos, EntityPlayer player) {
 		return new ItemStack(ModItems.rainbowRod);
-	}
-
-	@Override
-	public boolean shouldSideBeRendered(IBlockState state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos, EnumFacing side) {
-		Block block = world.getBlockState(pos.offset(side)).getBlock();
-		return block != this && super.shouldSideBeRendered(state, world, pos, side);
-	}
-
-	@SideOnly(Side.CLIENT)
-	@Nonnull
-	@Override
-	public BlockRenderLayer getBlockLayer() {
-		return BlockRenderLayer.TRANSLUCENT;
 	}
 
 	@Override
@@ -89,10 +58,4 @@ public class BlockBifrost extends BlockMod implements ILexiconable {
 	public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
 		return new TileBifrost();
 	}
-
-	@Override
-	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
-		return LexiconData.rainbowRod;
-	}
-
 }
