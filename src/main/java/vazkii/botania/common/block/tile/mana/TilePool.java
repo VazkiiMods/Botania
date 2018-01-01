@@ -140,6 +140,13 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 		ManaNetworkEvent.removePool(this);
 	}
 
+	public static int calculateComparatorLevel(int mana, int max) {
+		int val = (int) ((double) mana / (double) max * 15.0);
+		if(mana > 0)
+			val = Math.max(val, 1);
+		return val;
+	}
+
 	public static RecipeManaInfusion getMatchingRecipe(@Nonnull ItemStack stack, @Nonnull IBlockState state) {
 		List<RecipeManaInfusion> matchingNonCatRecipes = new ArrayList<>();
 		List<RecipeManaInfusion> matchingCatRecipes = new ArrayList<>();
