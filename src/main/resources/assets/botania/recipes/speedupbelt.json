@@ -19,9 +19,15 @@
     "S": {
       "item": "minecraft:sugar"
     },
-    "M": {
-      "item": "minecraft:filled_map",
-      "data": 32767
-    }
+    "M": [
+      {
+        "item": "minecraft:filled_map",
+        "data": 0
+      },
+      {
+        "item": "minecraft:filled_map",
+        "data": 32767
+      }
+    ]
   }
 }
