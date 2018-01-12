@@ -27,6 +27,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ITickable;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -55,7 +56,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class TileEnchanter extends TileMod implements ISparkAttachable {
+public class TileEnchanter extends TileMod implements ISparkAttachable, ITickable {
 
 	private static final String TAG_STAGE = "stage";
 	private static final String TAG_STAGE_TICKS = "stageTicks";

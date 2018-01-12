@@ -11,11 +11,12 @@
 package vazkii.botania.common.block.tile;
 
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ITickable;
 import vazkii.botania.common.Botania;
 
 import javax.annotation.Nonnull;
 
-public class TileBifrost extends TileMod {
+public class TileBifrost extends TileMod implements ITickable {
 
 	private static final String TAG_TICKS = "ticks";
 

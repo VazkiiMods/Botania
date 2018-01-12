@@ -16,6 +16,7 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import vazkii.botania.api.state.BotaniaStateProps;
@@ -23,7 +24,7 @@ import vazkii.botania.common.block.ModBlocks;
 
 import javax.annotation.Nonnull;
 
-public class TileOpenCrate extends TileSimpleInventory {
+public class TileOpenCrate extends TileSimpleInventory implements ITickable {
 
 	@Override
 	public boolean shouldRefresh(World world, BlockPos pos, @Nonnull IBlockState oldState, @Nonnull IBlockState newState) {

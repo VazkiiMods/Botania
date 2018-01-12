@@ -18,6 +18,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ITickable;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -26,7 +27,7 @@ import vazkii.botania.common.block.ModBlocks;
 
 import java.util.Arrays;
 
-public class TileAnimatedTorch extends TileMod {
+public class TileAnimatedTorch extends TileMod implements ITickable {
 
 	public static final String TAG_SIDE = "side";
 	public static final String TAG_ROTATING = "rotating";

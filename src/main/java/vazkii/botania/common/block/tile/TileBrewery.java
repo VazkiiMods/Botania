@@ -17,6 +17,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.ITickable;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import vazkii.botania.api.BotaniaAPI;
@@ -38,7 +39,7 @@ import javax.annotation.Nullable;
 import java.awt.Color;
 import java.util.List;
 
-public class TileBrewery extends TileSimpleInventory implements IManaReceiver {
+public class TileBrewery extends TileSimpleInventory implements IManaReceiver, ITickable {
 
 	private static final String TAG_MANA = "mana";
 	private static final int CRAFT_EFFECT_EVENT = 0;

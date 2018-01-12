@@ -12,6 +12,7 @@ package vazkii.botania.common.block.tile.mana;
 
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ITickable;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.mana.IManaReceiver;
@@ -20,7 +21,7 @@ import vazkii.botania.common.block.tile.TileMod;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TileDistributor extends TileMod implements IManaReceiver {
+public class TileDistributor extends TileMod implements IManaReceiver, ITickable {
 
 	final List<IManaReceiver> validPools = new ArrayList<>();
 

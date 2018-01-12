@@ -27,6 +27,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ITickable;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.fluids.Fluid;
@@ -60,7 +61,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
-public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
+public class TileAltar extends TileSimpleInventory implements IPetalApothecary, ITickable {
 
 	private static final Pattern SEED_PATTERN = Pattern.compile("(?:(?:(?:[A-Z-_.:]|^)seed)|(?:(?:[a-z-_.:]|^)Seed))(?:[sA-Z-_.:]|$)");
 	private static final int SET_KEEP_TICKS_EVENT = 0;

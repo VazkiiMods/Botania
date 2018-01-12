@@ -27,6 +27,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ITickable;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -67,7 +68,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAttachable, IThrottledPacket {
+public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAttachable, IThrottledPacket, ITickable {
 
 	public static final Color PARTICLE_COLOR = new Color(0x00C6FF);
 	public static final int MAX_MANA = 1000000;

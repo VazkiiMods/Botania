@@ -15,6 +15,7 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ITickable;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.common.capabilities.Capability;
@@ -30,7 +31,7 @@ import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import javax.annotation.Nonnull;
 import java.util.List;
 
-public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorporeaRequestor {
+public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorporeaRequestor, ITickable {
 
 	private static final String TAG_REQUEST_TARGET = "requestTarget";
 	private static final String TAG_ITEM_COUNT = "itemCount";

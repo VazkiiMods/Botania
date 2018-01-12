@@ -20,6 +20,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.ITickable;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import org.lwjgl.opengl.GL11;
@@ -42,7 +43,7 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver {
+public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver, ITickable {
 
 	private static final String TAG_MANA = "mana";
 	private static final String TAG_MANA_TO_GET = "manaToGet";

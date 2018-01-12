@@ -23,6 +23,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -37,7 +38,7 @@ import vazkii.botania.common.block.tile.string.TileRedStringRelay;
 
 import java.util.List;
 
-public class TileSpecialFlower extends TileMod implements IWandBindable, ISubTileSlowableContainer {
+public class TileSpecialFlower extends TileMod implements IWandBindable, ISubTileSlowableContainer, ITickable {
 
 	private static final String TAG_SUBTILE_NAME = "subTileName";
 	private static final String TAG_SUBTILE_CMP = "subTileCmp";
