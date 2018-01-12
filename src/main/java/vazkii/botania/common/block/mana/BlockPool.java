@@ -209,11 +209,7 @@ public class BlockPool extends BlockMod implements IWandHUD, IWandable, ILexicon
 	@Override
 	public int getComparatorInputOverride(IBlockState state, World world, BlockPos pos) {
 		TilePool pool = (TilePool) world.getTileEntity(pos);
-		int val = (int) ((double) pool.getCurrentMana() / (double) pool.manaCap * 15.0);
-		if(pool.getCurrentMana() > 0)
-			val = Math.max(val, 1);
-
-		return val;
+		return TilePool.calculateComparatorLevel(pool.getCurrentMana(), pool.manaCap);
 	}
 
 	@Override

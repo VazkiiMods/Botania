@@ -10,10 +10,11 @@
  */
 package vazkii.botania.common.block.tile;
 
+import net.minecraft.util.ITickable;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.Botania;
 
-public class TileStarfield extends TileMod {
+public class TileStarfield extends TileMod implements ITickable {
 
 	@Override
 	public void update() {

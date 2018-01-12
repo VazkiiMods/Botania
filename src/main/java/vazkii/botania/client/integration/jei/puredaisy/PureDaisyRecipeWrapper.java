@@ -12,6 +12,7 @@ import com.google.common.collect.ImmutableList;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -32,12 +33,14 @@ public class PureDaisyRecipeWrapper implements IRecipeWrapper {
 	public PureDaisyRecipeWrapper(RecipePureDaisy recipe) {
 		if(recipe.getInput() instanceof String) {
 			inputs = ImmutableList.copyOf(OreDictionary.getOres((String) recipe.getInput()));
-		} else if(recipe.getInput() instanceof Block) {
-			Block b = (Block) recipe.getInput();
+		} else if(recipe.getInput() instanceof Block || recipe.getInput() instanceof IBlockState) {
+			IBlockState state = recipe.getInput() instanceof IBlockState ? (IBlockState) recipe.getInput() : ((Block) recipe.getInput()).getDefaultState();
+			Block b = state.getBlock();
+
 			if(FluidRegistry.lookupFluidForBlock(b) != null) {
 				fluidInput = new FluidStack(FluidRegistry.lookupFluidForBlock(b), 1000);
 			} else {
-				inputs = ImmutableList.of(new ItemStack(b, 1, b.getMetaFromState(b.getDefaultState())));
+				inputs = ImmutableList.of(new ItemStack(b, 1, b.getMetaFromState(state)));
 			}
 		}
 
@@ -64,21 +67,6 @@ public class PureDaisyRecipeWrapper implements IRecipeWrapper {
 		if (fluidOutput != null) {
 			ingredients.setOutput(FluidStack.class, fluidOutput);
 		}
-	}
-
-	@Override
-	public void drawInfo(@Nonnull Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
-	}
-
-	@Nonnull
-	@Override
-	public List<String> getTooltipStrings(int mouseX, int mouseY) {
-		return ImmutableList.of();
-	}
-
-	@Override
-	public boolean handleClick(@Nonnull Minecraft minecraft, int mouseX, int mouseY, int mouseButton) {
-		return false;
 	}
 
 }

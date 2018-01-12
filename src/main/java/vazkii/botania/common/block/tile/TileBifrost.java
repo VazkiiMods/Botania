@@ -11,11 +11,12 @@
 package vazkii.botania.common.block.tile;
 
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ITickable;
 import vazkii.botania.common.Botania;
 
 import javax.annotation.Nonnull;
 
-public class TileBifrost extends TileMod {
+public class TileBifrost extends TileMod implements ITickable {
 
 	private static final String TAG_TICKS = "ticks";
 
@@ -27,8 +28,7 @@ public class TileBifrost extends TileMod {
 			if(ticks <= 0) {
 				world.setBlockToAir(pos);
 			} else ticks--;
-		} else if(Math.random() < 0.1)
-			Botania.proxy.sparkleFX(pos.getX() + Math.random(), pos.getY() + Math.random(), pos.getZ() + Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random(), 0.45F + 0.2F * (float) Math.random(), 6);
+		}
 	}
 
 	@Nonnull

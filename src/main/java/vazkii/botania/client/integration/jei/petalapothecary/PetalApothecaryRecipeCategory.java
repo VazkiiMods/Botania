@@ -61,12 +61,6 @@ public class PetalApothecaryRecipeCategory implements IRecipeCategory {
 		return background;
 	}
 
-	@Nullable
-	@Override
-	public IDrawable getIcon() {
-		return null;
-	}
-
 	@Override
 	public void drawExtras(@Nonnull Minecraft minecraft) {
 		GlStateManager.enableAlpha();
@@ -104,11 +98,6 @@ public class PetalApothecaryRecipeCategory implements IRecipeCategory {
 		double newX = Math.cos(rad) * (in.x - about.x) - Math.sin(rad) * (in.y - about.y) + about.x;
 		double newY = Math.sin(rad) * (in.x - about.x) + Math.cos(rad) * (in.y - about.y) + about.y;
 		return new Point((int) newX, (int) newY);
-	}
-
-	@Override
-	public List getTooltipStrings(int mouseX, int mouseY) {
-		return new ArrayList();
 	}
 
 	@Nonnull

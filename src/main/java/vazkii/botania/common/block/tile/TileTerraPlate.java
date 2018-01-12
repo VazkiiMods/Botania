@@ -17,6 +17,7 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ITickable;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -36,7 +37,7 @@ import vazkii.botania.common.network.PacketHandler;
 
 import java.util.List;
 
-public class TileTerraPlate extends TileMod implements ISparkAttachable {
+public class TileTerraPlate extends TileMod implements ISparkAttachable, ITickable {
 
 	public static final int MAX_MANA = TilePool.MAX_MANA / 2;
 

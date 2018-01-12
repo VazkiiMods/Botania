@@ -33,6 +33,7 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ITickable;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -49,7 +50,7 @@ import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.lib.LibMisc;
 
-public class TileLightRelay extends TileMod implements IWandBindable {
+public class TileLightRelay extends TileMod implements ITickable, IWandBindable {
 
 	private static final int MAX_DIST = 20;
 

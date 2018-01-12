@@ -13,6 +13,7 @@ package vazkii.botania.common.block.tile;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ITickable;
 import net.minecraftforge.items.IItemHandler;
 import vazkii.botania.api.item.IAvatarTile;
 import vazkii.botania.api.item.IAvatarWieldable;
@@ -20,7 +21,7 @@ import vazkii.botania.api.state.BotaniaStateProps;
 
 import javax.annotation.Nonnull;
 
-public class TileAvatar extends TileSimpleInventory implements IAvatarTile {
+public class TileAvatar extends TileSimpleInventory implements IAvatarTile, ITickable {
 
 	private static final int MAX_MANA = 6400;
 

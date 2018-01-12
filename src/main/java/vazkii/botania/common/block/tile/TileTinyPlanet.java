@@ -10,9 +10,10 @@
  */
 package vazkii.botania.common.block.tile;
 
+import net.minecraft.util.ITickable;
 import vazkii.botania.common.item.equipment.bauble.ItemTinyPlanet;
 
-public class TileTinyPlanet extends TileMod {
+public class TileTinyPlanet extends TileMod implements ITickable {
 
 	@Override
 	public void update() {

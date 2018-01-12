@@ -18,6 +18,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.MobSpawnerBaseLogic;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityMobSpawner;
+import net.minecraft.util.ITickable;
 import net.minecraft.util.WeightedSpawnerEntity;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -26,7 +27,7 @@ import net.minecraft.world.chunk.storage.AnvilChunkLoader;
 import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.common.Botania;
 
-public class TileSpawnerClaw extends TileMod implements IManaReceiver {
+public class TileSpawnerClaw extends TileMod implements IManaReceiver, ITickable {
 
 	private static final String TAG_MANA = "mana";
 

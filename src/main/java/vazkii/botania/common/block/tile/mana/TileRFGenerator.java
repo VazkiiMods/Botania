@@ -13,6 +13,7 @@ package vazkii.botania.common.block.tile.mana;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.energy.CapabilityEnergy;
@@ -23,7 +24,7 @@ import vazkii.botania.common.block.tile.TileMod;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class TileRFGenerator extends TileMod implements IManaReceiver {
+public class TileRFGenerator extends TileMod implements IManaReceiver, ITickable {
 
 	private static final int MANA_TO_FE = 10;
 	private static final int MAX_ENERGY = 1280 * MANA_TO_FE;

@@ -51,6 +51,6 @@ public abstract class BlockMod extends Block implements IModelRegister {
 	public boolean eventReceived(IBlockState state, World world, BlockPos pos, int id, int param) {
 		super.eventReceived(state, world, pos, id, param);
 		TileEntity tileentity = world.getTileEntity(pos);
-		return tileentity != null ? tileentity.receiveClientEvent(id, param) : false;
+		return tileentity != null && tileentity.receiveClientEvent(id, param);
 	}
 }

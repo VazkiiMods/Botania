@@ -151,6 +151,15 @@ public class BlockAnimatedTorch extends BlockMod implements IWandable, IManaTrig
 	}
 
 	@Override
+	public void onBlockDestroyedByPlayer(World world, BlockPos pos, IBlockState state) {
+		// TE is already gone so best we can do is just notify everyone
+		for(EnumFacing side : EnumFacing.VALUES) {
+			world.notifyNeighborsOfStateChange(pos.offset(side), this, false);
+		}
+		super.onBlockDestroyedByPlayer(world, pos, state);
+	}
+
+	@Override
 	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.animatedTorch;
 	}
