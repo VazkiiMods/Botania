@@ -124,9 +124,12 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 
 	@Override
 	public void recieveMana(int mana) {
+		int old = this.mana;
 		this.mana = Math.max(0, Math.min(getCurrentMana() + mana, manaCap));
-		world.updateComparatorOutputLevel(pos, world.getBlockState(pos).getBlock());
-		markDispatchable();
+		if(old != this.mana) {
+			world.updateComparatorOutputLevel(pos, world.getBlockState(pos).getBlock());
+			markDispatchable();
+		}
 	}
 
 	@Override
