@@ -257,10 +257,12 @@ public class InternalMethodHandler extends DummyMethodHandler {
 		return block instanceof BlockModFlower || block instanceof BlockFloatingFlower || block instanceof ISpecialFlower;
 	}
 
+	// todo use our own sync packet or use the autosync system
 	@Override
 	public void sendBaubleUpdatePacket(EntityPlayer player, int slot) {
-		if(player instanceof EntityPlayerMP)
-			PacketHandler.INSTANCE.sendTo(new PacketSync(player, slot), (EntityPlayerMP) player);
+		if(player instanceof EntityPlayerMP) {
+			PacketHandler.INSTANCE.sendTo(new PacketSync(player, slot, BaublesApi.getBaublesHandler(player).getStackInSlot(slot)), (EntityPlayerMP) player);
+		}
 	}
 	
 	@Override

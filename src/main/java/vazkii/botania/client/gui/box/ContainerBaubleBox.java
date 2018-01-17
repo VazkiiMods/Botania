@@ -10,8 +10,8 @@
  */
 package vazkii.botania.client.gui.box;
 
+import baubles.api.BaublesApi;
 import baubles.api.IBauble;
-import baubles.api.cap.BaublesCapabilities;
 import baubles.api.cap.IBaublesItemHandler;
 import baubles.common.container.SlotBauble;
 import net.minecraft.entity.player.EntityPlayer;
@@ -40,7 +40,7 @@ public class ContainerBaubleBox extends Container {
 		IInventory playerInv = player.inventory;
 		baubleBoxInv = boxInv;
 
-        baubles = player.getCapability(BaublesCapabilities.CAPABILITY_BAUBLES, null);
+        baubles = BaublesApi.getBaublesHandler(player);
 
 		addSlotToContainer(new SlotBauble(player, baubles, 0, 8, 8 + 0 * 18));
 		addSlotToContainer(new SlotBauble(player, baubles, 1, 8, 8 + 1 * 18));
