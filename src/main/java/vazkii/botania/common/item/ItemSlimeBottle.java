@@ -11,21 +11,29 @@
 package vazkii.botania.common.item;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.block.subtile.generating.SubTileNarslimmus;
+import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lib.LibItemNames;
+import vazkii.botania.common.lib.LibMisc;
+
+import javax.annotation.Nullable;
 
 public class ItemSlimeBottle extends ItemMod {
+	private static final String TAG_ACTIVE = "active";
 
 	public ItemSlimeBottle() {
 		super(LibItemNames.SLIME_BOTTLE);
 		setMaxStackSize(1);
-		setHasSubtypes(true);
+		addPropertyOverride(new ResourceLocation(LibMisc.MOD_ID, "active"), (stack, worldIn, entityIn) -> stack.hasTagCompound() && stack.getTagCompound().getBoolean(TAG_ACTIVE) ? 1.0F : 0.0F);
 	}
 
 	@Override
@@ -34,17 +42,7 @@ public class ItemSlimeBottle extends ItemMod {
 			int x = MathHelper.floor(entity.posX);
 			int z = MathHelper.floor(entity.posZ);
 			boolean slime = SubTileNarslimmus.isSlimeChunk(world, x, z);
-			int meta = stack.getItemDamage();
-			int newMeta = slime ? 1 : 0;
-			if(meta != newMeta)
-				stack.setItemDamage(newMeta);
+			ItemNBTHelper.setBoolean(stack, TAG_ACTIVE, slime);
 		}
 	}
-
-	@SideOnly(Side.CLIENT)
-	@Override
-	public void registerModels() {
-		ModelHandler.registerItemAppendMeta(this, 2, LibItemNames.SLIME_BOTTLE);
-	}
-
 }
