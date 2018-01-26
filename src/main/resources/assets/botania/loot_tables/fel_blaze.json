@@ -1,0 +1,28 @@
+{
+  "pools": [{
+    "name": "main",
+    "rolls": 1,
+    "entries": [
+      {
+        "type": "item",
+        "entryName": "normal_death_powder",
+        "name": "minecraft:blaze_powder",
+        "functions": [
+          { "function": "set_count", "count": 6 }
+        ]
+      },
+      {
+        "type": "item",
+        "entryName": "player_kill_powder",
+        "name": "minecraft:blaze_powder",
+        "conditions": [
+          { "condition": "killed_by_player" }
+        ],
+        "functions": [
+          { "function": "set_count", "count": 10 },
+          { "function": "looting_enchant", "count": { "min": 0, "max": 6 }}
+        ]
+      }
+    ]
+  }]
+}
