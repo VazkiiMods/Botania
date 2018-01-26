@@ -49,13 +49,16 @@ public class TileHourglass extends TileSimpleInventory implements ITickable {
 	public int flipTicks = 0;
 	public boolean lock = false;
 	public boolean move = true;
-	public boolean dust = false;
+
+	private boolean isDust() {
+		ItemStack stack = itemHandler.getStackInSlot(0);
+		return !stack.isEmpty() && stack.getItem() == ModItems.manaResource && stack.getMetadata() == 23;
+	}
 
 	@Override
 	public void update() {
 		int totalTime = getTotalTime();
-		ItemStack dustStack = itemHandler.getStackInSlot(0);
-		dust = !dustStack.isEmpty() && dustStack.getItem() == ModItems.manaResource;
+		boolean dust = isDust();
 
 		if(totalTime > 0 || dust) {
 			if(move && !dust)
@@ -66,8 +69,7 @@ public class TileHourglass extends TileSimpleInventory implements ITickable {
 				flip = !flip;
 				flipTicks = 4;
 				if(!world.isRemote) {
-					world.setBlockState(getPos(), world.getBlockState(getPos()).withProperty(BotaniaStateProps.POWERED, true), 1 | 2);
-					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
+					world.setBlockState(getPos(), world.getBlockState(getPos()).withProperty(BotaniaStateProps.POWERED, true), 1);
 					world.scheduleUpdate(pos, getBlockType(), getBlockType().tickRate(world));
 				}
 
@@ -93,7 +95,7 @@ public class TileHourglass extends TileSimpleInventory implements ITickable {
 
 	public void onManaCollide() {
 		if(!world.isRemote) {
-			if(dust)
+			if(isDust())
 				time++;
 			else move = !move;
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
@@ -144,6 +146,16 @@ public class TileHourglass extends TileSimpleInventory implements ITickable {
 					return super.insertItem(slot, stack, simulate);
 				else return stack;
 			}
+
+			@Override
+			public void onContentsChanged(int slot) {
+				super.onContentsChanged(slot);
+				if(!TileHourglass.this.world.isRemote) {
+					time = 0;
+					timeFraction = 0F;
+					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(TileHourglass.this);
+				}
+			}
 		};
 	}
 
@@ -172,14 +184,6 @@ public class TileHourglass extends TileSimpleInventory implements ITickable {
 	@Override
 	public int getSizeInventory() {
 		return 1;
-	}
-
-	@Override
-	public void markDirty() {
-		super.markDirty();
-		time = 0;
-		timeFraction = 0F;
-		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 	}
 
 	@SideOnly(Side.CLIENT)
