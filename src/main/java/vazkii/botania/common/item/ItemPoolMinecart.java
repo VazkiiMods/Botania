@@ -27,7 +27,7 @@ import vazkii.botania.common.lib.LibItemNames;
 
 import javax.annotation.Nonnull;
 
-@Optional.Interface(modid = "Railcraft", iface = "mods.railcraft.api.core.items.IMinecartItem", striprefs = true)
+@Optional.Interface(modid = "railcraft", iface = "mods.railcraft.api.core.items.IMinecartItem", striprefs = true)
 public class ItemPoolMinecart extends ItemMod implements IMinecartItem {
 
 	public ItemPoolMinecart() {

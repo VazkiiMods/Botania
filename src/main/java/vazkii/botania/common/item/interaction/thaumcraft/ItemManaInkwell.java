@@ -26,7 +26,7 @@ import vazkii.botania.common.lib.LibItemNames;
 
 import javax.annotation.Nonnull;
 
-@Optional.Interface(modid = "Thaumcraft", iface = "thaumcraft.api.items.IScribeTools")
+@Optional.Interface(modid = "thaumcraft", iface = "thaumcraft.api.items.IScribeTools")
 public class ItemManaInkwell extends ItemMod implements IManaItem, IScribeTools {
 
 	private static final int COST_PER_USE = 50;

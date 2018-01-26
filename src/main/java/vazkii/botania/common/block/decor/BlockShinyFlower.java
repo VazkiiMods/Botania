@@ -32,7 +32,7 @@ import vazkii.botania.common.lib.LibBlockNames;
 
 import javax.annotation.Nonnull;
 
-@Optional.Interface(modid = "Thaumcraft", iface = "thaumcraft.api.crafting.IInfusionStabiliser", striprefs = true)
+@Optional.Interface(modid = "thaumcraft", iface = "thaumcraft.api.crafting.IInfusionStabiliser", striprefs = true)
 public class BlockShinyFlower extends BlockModFlower implements IInfusionStabiliser, IHornHarvestable {
 
 	public BlockShinyFlower() {
