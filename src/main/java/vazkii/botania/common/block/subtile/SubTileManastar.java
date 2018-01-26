@@ -12,6 +12,7 @@ package vazkii.botania.common.block.subtile;
 
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.subtile.SubTileEntity;
@@ -35,9 +36,12 @@ public class SubTileManastar extends SubTileEntity {
 		} else {
 			int mana = 0;
 			for(EnumFacing dir : EnumFacing.HORIZONTALS) {
-				TileEntity tile = supertile.getWorld().getTileEntity(supertile.getPos().offset(dir));
-				if(tile instanceof IManaPool)
-					mana += ((IManaPool) tile).getCurrentMana();
+				BlockPos pos = supertile.getPos().offset(dir);
+				if(getWorld().isBlockLoaded(pos)) {
+					TileEntity tile = supertile.getWorld().getTileEntity(pos);
+					if(tile instanceof IManaPool)
+						mana += ((IManaPool) tile).getCurrentMana();
+				}
 			}
 
 			int newState = mana > lastMana ? INCREASING : mana < lastMana ? DECREASING : NONE;
