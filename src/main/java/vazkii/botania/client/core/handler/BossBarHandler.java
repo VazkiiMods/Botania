@@ -24,6 +24,7 @@ import vazkii.botania.api.internal.ShaderCallback;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.common.lib.LibMisc;
 
 import java.awt.Rectangle;
 import java.util.Collections;
@@ -31,7 +32,7 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.WeakHashMap;
 
-@Mod.EventBusSubscriber(Side.CLIENT)
+@Mod.EventBusSubscriber(value = Side.CLIENT, modid = LibMisc.MOD_ID)
 public final class BossBarHandler {
 
 	private BossBarHandler() {}

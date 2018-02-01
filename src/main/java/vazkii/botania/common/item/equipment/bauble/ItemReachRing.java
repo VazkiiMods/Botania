@@ -11,25 +11,21 @@
 package vazkii.botania.common.item.equipment.bauble;
 
 import baubles.api.BaubleType;
-import net.minecraft.entity.EntityLivingBase;
+import com.google.common.collect.Multimap;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.lib.LibItemNames;
 
-public class ItemReachRing extends ItemBauble {
+public class ItemReachRing extends ItemBaubleModifier {
 
 	public ItemReachRing() {
 		super(LibItemNames.REACH_RING);
 	}
 
 	@Override
-	public void onEquippedOrLoadedIntoWorld(ItemStack stack, EntityLivingBase player) {
-		Botania.proxy.setExtraReach(player, 3.5F);
-	}
-
-	@Override
-	public void onUnequipped(ItemStack stack, EntityLivingBase player) {
-		Botania.proxy.setExtraReach(player, -3.5F);
+	void fillModifiers(Multimap<String, AttributeModifier> attributes, ItemStack stack) {
+		attributes.put(EntityPlayer.REACH_DISTANCE.getName(), new AttributeModifier(getBaubleUUID(stack), "Reach Ring", 3.5, 0).setSaved(false));
 	}
 
 	@Override

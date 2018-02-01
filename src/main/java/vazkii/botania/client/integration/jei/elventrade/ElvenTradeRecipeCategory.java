@@ -64,12 +64,6 @@ public class ElvenTradeRecipeCategory implements IRecipeCategory {
 		return background;
 	}
 
-	@Nullable
-	@Override
-	public IDrawable getIcon() {
-		return null;
-	}
-
 	@Override
 	public void drawExtras(@Nonnull Minecraft minecraft) {
 		GlStateManager.enableAlpha();
@@ -112,11 +106,6 @@ public class ElvenTradeRecipeCategory implements IRecipeCategory {
 			recipeLayout.getItemStacks().init(index + i, false, 93 + i % 2 * 20, 41 + i / 2 * 20);
 			recipeLayout.getItemStacks().set(index + i, stacks);
 		}
-	}
-
-	@Override
-	public List getTooltipStrings(int mouseX, int mouseY) {
-		return new ArrayList();
 	}
 
 	@Nonnull

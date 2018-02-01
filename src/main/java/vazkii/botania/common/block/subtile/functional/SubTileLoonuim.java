@@ -44,11 +44,13 @@ import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.lexicon.LexiconData;
+import vazkii.botania.common.lib.LibMisc;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
+@Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
 public class SubTileLoonuim extends SubTileFunctional {
 
 	private static final int COST = 35000;
@@ -127,10 +129,10 @@ public class SubTileLoonuim extends SubTileFunctional {
 			map.put(SharedMonsterAttributes.MAX_HEALTH.getName(), new AttributeModifier("Loonium Modififer Health", 2, 1));
 			map.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier("Loonium Modififer Damage", 1.5, 1));
 			entity.getAttributeMap().applyAttributeModifiers(map);
-			
-			entity.addPotionEffect(new PotionEffect(MobEffects.FIRE_RESISTANCE, Integer.MAX_VALUE, 0));
-			entity.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, Integer.MAX_VALUE, 0));
-			
+
+			entity.addPotionEffect(new PotionEffect(MobEffects.FIRE_RESISTANCE, entity instanceof EntityCreeper ? 100 : Integer.MAX_VALUE, 0));
+			entity.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, entity instanceof EntityCreeper ? 100 : Integer.MAX_VALUE, 0));
+
 			NBTTagCompound cmp = stack.writeToNBT(new NBTTagCompound());
 			entity.getEntityData().setTag(TAG_ITEMSTACK_TO_DROP, cmp);
 
@@ -181,20 +183,14 @@ public class SubTileLoonuim extends SubTileFunctional {
 		cmp.setString(TAG_LOOT_TABLE, lootTable.toString());
 	}
 
-	@Mod.EventBusSubscriber
-	public static class DropHandler {
-		
-		@SubscribeEvent(priority = EventPriority.LOWEST)
-		public static void onDrops(LivingDropsEvent event) {
-			EntityLivingBase e = event.getEntityLiving();
-			if(e.getEntityData().hasKey(TAG_ITEMSTACK_TO_DROP)) {
-				NBTTagCompound cmp = e.getEntityData().getCompoundTag(TAG_ITEMSTACK_TO_DROP);
-				ItemStack stack = new ItemStack(cmp);
-				event.getDrops().clear();
-				event.getDrops().add(new EntityItem(e.world, e.posX, e.posY, e.posZ, stack));
-			}
+	@SubscribeEvent(priority = EventPriority.LOWEST)
+	public static void onDrops(LivingDropsEvent event) {
+		EntityLivingBase e = event.getEntityLiving();
+		if(e.getEntityData().hasKey(TAG_ITEMSTACK_TO_DROP)) {
+			NBTTagCompound cmp = e.getEntityData().getCompoundTag(TAG_ITEMSTACK_TO_DROP);
+			ItemStack stack = new ItemStack(cmp);
+			event.getDrops().clear();
+			event.getDrops().add(new EntityItem(e.world, e.posX, e.posY, e.posZ, stack));
 		}
-		
 	}
-
 }

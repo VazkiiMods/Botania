@@ -1,3 +1,49 @@
+r1.10 353
+*Blazes spawned from a Fel Pumpkin now get their drops from a loot table.
+*Changed a bunch of stuff internally that you won't really notice.
+*Detector rails can now accept a signal from mana pool minecarts.
+*Fixed a crash when unequipping active baubles.
+*Fixed a crash while holding the Lexica Botania and the sneak key.
+*Fixed Blaze Meshes turning into Blaze Powder instead of Blaze Rods. (TheWhiteWolves)
+*Fixed Hopperhocks not sorting properly with quark variant chests. (quat)
+*Fixed Loonium spawning creepers with infinitely long potion effects that are propagated to the player.
+*Fixed mana pools with sparks constantly sending network packets if there's nothing going on.
+*Fixed Mana Splitters and Manastars loading chunks when placed in chunk borders.
+*Fixed some Portuguese Pavement double slabs having the wrong color.
+*Fixed the animated torch not causing block updates in some cases.
+*Fixed the config GUI being broken.
+*Fixed the crafty crate textures for the 3x2 and 2x3 patterns being the same. (quat)
+*Fixed the flugel tiara flight bar conflicting with the breath indicator while under the effect of a water breathing potion.
+*Fixed the Hovering Hourglass sending a needless amount of network packets and causing needless chunk redraws.
+*Fixed the lexica recipe pages for toggle and fork luminizer being switched. (quat)
+*Fixed the Planestrider's Sash recipe not being shown properly. (TheWhiteWolves)
+*Hid the helments of revealing from the recipe book since TC isn't here yet.
+*Improved network usage by using vanilla block events where applicable.
+*Made the Tainted Blood Pendant update the potion effect sooner to prevent possible network desync.
+*Removed the tickable property from some tile entities for optimization.
+*The Manastar now uses server side information.
+*The Ring of Far Reach now uses the new forge reach attribute instead of being a massive hack.
+*Updated TC interface references to the new lowercase mod ID in case it updates anytime soon.
+*Updated the baubles dependency to the latest version, fixing crashes when used with it.
+*[API] Pure Daisy recipe inputs can now be state sensitive.
+*[API] Increased Version Number to 89.
+r1.10 352
+*<b>Another big round of fixes provided by williewillus</b>
+*Fixed a division by zero crash when entering some entries with bad recipes.
+*Fixed a potential race condition in corporea indexes, which would cause them to not function properly.
+*Fixed a potential race condition in the gaia guardian boss bar, which would cause it to not function properly.
+*Fixed manastorm charge and corporea index star animations being choppy.
+*Fixed Manastorm Charges not giving mana.
+*Fixed pools and spreaders sometimes not getting removed from the network properly.
+*Fixed pressing any key twice while strafing left or right causing the ring of dexterous motion to activate.
+*Fixed requesting items from a corporea index showing the incorrect amount of items in the chat.
+*Fixed step assist height being incorrect. (InsomniaKitten)
+*Fixed the loonium not drawing items properly out of the loot table.
+*Improved the way advancements work by using actual data-driven triggers.
+*Removed DSU integration since MFR isn't around.
+*Removed reference to the scrapped BotaniaV2 in the mcmod.info file.
+r1.10 351
+*Absolutely nothing because I'm stupid and forgot to pull the changes from the repository before building \:D/
 r1.10 350
 *Added beetroot to the full crop farm challenge text. (codewarrior0)
 *Fixed a crash when moving a mana pool with a quark piston.

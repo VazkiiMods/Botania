@@ -22,6 +22,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
@@ -36,12 +37,13 @@ import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
+import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
-@Mod.EventBusSubscriber
+@Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
 public class BlockFelPumpkin extends BlockMod implements ILexiconable {
-
+	private static final ResourceLocation LOOT_TABLE = new ResourceLocation(LibMisc.MOD_ID, "fel_blaze");
 	private static final String TAG_FEL_SPAWNED = "Botania-FelSpawned";
 
 	public BlockFelPumpkin() {
@@ -78,7 +80,7 @@ public class BlockFelPumpkin extends BlockMod implements ILexiconable {
 			world.setBlockState(pos.down(2), Blocks.AIR.getDefaultState(), 2);
 			EntityBlaze blaze = new EntityBlaze(world);
 			blaze.setLocationAndAngles(pos.getX() + 0.5D, pos.getY() - 1.95D, pos.getZ() + 0.5D, 0.0F, 0.0F);
-			blaze.getEntityData().setBoolean(TAG_FEL_SPAWNED, true);
+			blaze.deathLootTable = LOOT_TABLE;
 			blaze.onInitialSpawn(world.getDifficultyForLocation(pos), null);
 			world.spawnEntity(blaze);
 			world.notifyNeighborsOfStateChange(pos, Blocks.AIR, false);
@@ -92,6 +94,7 @@ public class BlockFelPumpkin extends BlockMod implements ILexiconable {
 		world.setBlockState(pos, state.withProperty(BotaniaStateProps.CARDINALS, placer.getHorizontalFacing().getOpposite()));
 	}
 
+	// Legacy support
 	@SubscribeEvent
 	public static void onDrops(LivingDropsEvent event) {
 		if(event.getEntityLiving() instanceof EntityBlaze && event.getEntityLiving().getEntityData().getBoolean(TAG_FEL_SPAWNED))

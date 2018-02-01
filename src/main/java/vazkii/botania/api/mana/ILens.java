@@ -26,7 +26,7 @@ public interface ILens extends ILensEffect {
 	public boolean canCombineLenses(ItemStack sourceLens, ItemStack compositeLens);
 
 	/**
-	 * Gets the composite lens in the stack passed in, return null for none.
+	 * Gets the composite lens in the stack passed in, return empty for none.
 	 */
 	public ItemStack getCompositeLens(ItemStack stack);
 

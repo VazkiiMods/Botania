@@ -10,13 +10,16 @@
  */
 package vazkii.botania.common.block.subtile.generating;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityTNTPrimed;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileGenerating;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.network.PacketBotaniaEffect;
 import vazkii.botania.common.network.PacketHandler;
@@ -26,6 +29,7 @@ import java.util.List;
 public class SubTileEntropinnyum extends SubTileGenerating {
 
 	private static final int RANGE = 12;
+	private static final int EXPLODE_EFFECT_EVENT = 0;
 
 	@Override
 	public void onUpdate() {
@@ -40,9 +44,26 @@ public class SubTileEntropinnyum extends SubTileGenerating {
 					mana += getMaxMana();
 					sync();
 
-					PacketHandler.sendToNearby(supertile.getWorld(), supertile.getPos(), new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.ENTROPINNYUM, tnt.posX, tnt.posY, tnt.posZ));
+					getWorld().addBlockEvent(getPos(), supertile.getBlockType(), EXPLODE_EFFECT_EVENT, tnt.getEntityId());
 				}
 			}
+		}
+	}
+
+	@Override
+	public boolean receiveClientEvent(int event, int param) {
+		if(event == EXPLODE_EFFECT_EVENT) {
+			if(getWorld().isRemote && getWorld().getEntityByID(param) instanceof EntityTNTPrimed) {
+				Entity e = getWorld().getEntityByID(param);
+
+				for(int i = 0; i < 50; i++)
+					Botania.proxy.sparkleFX(e.posX + Math.random() * 4 - 2, e.posY + Math.random() * 4 - 2, e.posZ + Math.random() * 4 - 2, 1F, (float) Math.random() * 0.25F, (float) Math.random() * 0.25F, (float) (Math.random() * 0.65F + 1.25F), 12);
+
+				getWorld().spawnParticle(EnumParticleTypes.EXPLOSION_HUGE, e.posX, e.posY, e.posZ, 1D, 0D, 0D);
+			}
+			return true;
+		} else {
+			return super.receiveClientEvent(event, param);
 		}
 	}
 

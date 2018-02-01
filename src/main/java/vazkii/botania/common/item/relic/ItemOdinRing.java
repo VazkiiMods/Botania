@@ -34,12 +34,10 @@ import vazkii.botania.common.lib.LibMisc;
 import java.util.ArrayList;
 import java.util.List;
 
-@Mod.EventBusSubscriber
+@Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
 public class ItemOdinRing extends ItemRelicBauble {
 
 	private static final List<String> damageNegations = new ArrayList<>();
-
-	private final Multimap<String, AttributeModifier> attributes = HashMultimap.create();
 
 	public ItemOdinRing() {
 		super(LibItemNames.ODIN_RING);
@@ -89,23 +87,27 @@ public class ItemOdinRing extends ItemRelicBauble {
 
 	@Override
 	public void onEquippedOrLoadedIntoWorld(ItemStack stack, EntityLivingBase player) {
-		attributes.clear();
-		fillModifiers(attributes, stack);
-		player.getAttributeMap().applyAttributeModifiers(attributes);
+		if(!player.world.isRemote) {
+			Multimap<String, AttributeModifier> attributes = HashMultimap.create();
+			fillModifiers(attributes, stack);
+			player.getAttributeMap().applyAttributeModifiers(attributes);
+		}
 	}
 
 	@Override
 	public void onUnequipped(ItemStack stack, EntityLivingBase player) {
-		attributes.clear();
-		fillModifiers(attributes, stack);
-		player.getAttributeMap().removeAttributeModifiers(attributes);
+		if(!player.world.isRemote) {
+			Multimap<String, AttributeModifier> attributes = HashMultimap.create();
+			fillModifiers(attributes, stack);
+			player.getAttributeMap().removeAttributeModifiers(attributes);
+		}
 	}
 
 	private void fillModifiers(Multimap<String, AttributeModifier> attributes, ItemStack stack) {
 		if(stack.isEmpty()) // workaround for Azanor/Baubles#156
 			return;
 		
-		attributes.put(SharedMonsterAttributes.MAX_HEALTH.getName(), new AttributeModifier(getBaubleUUID(stack), "Bauble modifier", 20, 0));
+		attributes.put(SharedMonsterAttributes.MAX_HEALTH.getName(), new AttributeModifier(getBaubleUUID(stack), "Odin Ring", 20, 0).setSaved(false));
 	}
 
 	@Override

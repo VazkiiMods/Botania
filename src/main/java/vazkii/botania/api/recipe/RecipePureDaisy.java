@@ -41,8 +41,8 @@ public class RecipePureDaisy {
 		this.input = input;
 		outputState = state;
 		this.time = time;
-		if(input != null && !(input instanceof String || input instanceof Block))
-			throw new IllegalArgumentException("input must be an oredict String or a Block.");
+		if(input != null && !(input instanceof String || input instanceof Block || input instanceof IBlockState))
+			throw new IllegalArgumentException("input must be an oredict String, Block, or IBlockState");
 	}
 
 	/**
@@ -51,6 +51,9 @@ public class RecipePureDaisy {
 	public boolean matches(World world, BlockPos pos, SubTileEntity pureDaisy, IBlockState state) {
 		if(input instanceof Block)
 			return state.getBlock() == input;
+
+		if(input instanceof IBlockState)
+			return state == input;
 
 		ItemStack stack = new ItemStack(state.getBlock(), 1, state.getBlock().damageDropped(state));
 		String oredict = (String) input;
@@ -88,7 +91,7 @@ public class RecipePureDaisy {
 	 */
 	public boolean set(World world, BlockPos pos, SubTileEntity pureDaisy) {
 		if(!world.isRemote)
-			world.setBlockState(pos, outputState, 1 | 2);
+			world.setBlockState(pos, outputState);
 		return true;
 	}
 

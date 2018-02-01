@@ -34,8 +34,6 @@ public interface IProxy {
 
 	String getLastVersion();
 
-	void setExtraReach(EntityLivingBase entity, float reach);
-
 	boolean openWikiPage(World world, Block block, RayTraceResult pos);
 
 	void setMultiblock(World world, int x, int y, int z, double radius, Block block);

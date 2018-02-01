@@ -34,12 +34,15 @@ import java.util.Random;
 public class BlockBifrostPerm extends BlockMod implements ILexiconable {
 
 	public BlockBifrostPerm() {
-		super(Material.GLASS, LibBlockNames.BIFROST_PERM);
-		setLightOpacity(0);
+		this(LibBlockNames.BIFROST_PERM);
 		setHardness(0.3F);
+	}
+
+	public BlockBifrostPerm(String name) {
+		super(Material.GLASS, name);
+		setLightOpacity(0);
 		setLightLevel(1F);
 		setSoundType(SoundType.GLASS);
-		setTickRandomly(true);
 	}
 
 	@Override
@@ -48,8 +51,8 @@ public class BlockBifrostPerm extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public boolean isFullBlock(IBlockState state) {
-		return true;
+	public boolean isFullCube(IBlockState state) {
+		return false;
 	}
 
 	@Override

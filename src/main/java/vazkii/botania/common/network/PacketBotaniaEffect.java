@@ -21,6 +21,8 @@ import vazkii.botania.common.entity.EntityDoppleganger;
 
 import java.awt.Color;
 
+// Prefer using World.addBlockEvent/Block.eventReceived/TileEntity.receiveClientEvent where possible
+// as those use less network bandwidth (~14 bytes), vs 26+ bytes here
 public class PacketBotaniaEffect implements IMessage {
 
 	private EffectType type;
@@ -41,7 +43,7 @@ public class PacketBotaniaEffect implements IMessage {
 
 	@Override
 	public void fromBytes(ByteBuf buf) {
-		type = EffectType.values()[buf.readShort()];
+		type = EffectType.values()[buf.readByte()];
 		x = buf.readDouble();
 		y = buf.readDouble();
 		z = buf.readDouble();
@@ -54,7 +56,7 @@ public class PacketBotaniaEffect implements IMessage {
 
 	@Override
 	public void toBytes(ByteBuf buf) {
-		buf.writeShort(type.ordinal());
+		buf.writeByte(type.ordinal());
 		buf.writeDouble(x);
 		buf.writeDouble(y);
 		buf.writeDouble(z);
@@ -75,27 +77,6 @@ public class PacketBotaniaEffect implements IMessage {
 					Minecraft mc = Minecraft.getMinecraft();
 					World world = mc.world;
 					switch (message.type) {
-					case POOL_CRAFT: {
-						for(int i = 0; i < 25; i++) {
-							float red = (float) Math.random();
-							float green = (float) Math.random();
-							float blue = (float) Math.random();
-							Botania.proxy.sparkleFX(message.x + 0.5 + Math.random() * 0.4 - 0.2, message.y + 0.75, message.z + 0.5 + Math.random() * 0.4 - 0.2,
-									red, green, blue, (float) Math.random(), 10);
-						}
-						break;
-					}
-					case POOL_CHARGE: {
-						if(ConfigHandler.chargingAnimationEnabled) {
-							boolean outputting = message.args[0] == 1;
-							BlockPos pos = new BlockPos(message.x, message.y, message.z);
-							Vector3 itemVec = Vector3.fromBlockPos(pos).add(0.5, 0.5 + Math.random() * 0.3, 0.5);
-							Vector3 tileVec = Vector3.fromBlockPos(pos).add(0.2 + Math.random() * 0.6, 0, 0.2 + Math.random() * 0.6);
-							Botania.proxy.lightningFX(outputting ? tileVec : itemVec,
-									outputting ? itemVec : tileVec, 80, world.rand.nextLong(), 0x4400799c, 0x4400C6FF);
-						}
-						break;
-					}
 					case PAINT_LENS: {
 						EnumDyeColor placeColor = EnumDyeColor.byMetadata(message.args[0]);
 						int hex = placeColor.getColorValue();
@@ -192,17 +173,6 @@ public class PacketBotaniaEffect implements IMessage {
 								size, (float) motion.x, (float) motion.y, (float) motion.z);
 						break;
 					}
-					case ENCHANTER_CRAFT: {
-						for(int i = 0; i < 25; i++) {
-							float red = (float) Math.random();
-							float green = (float) Math.random();
-							float blue = (float) Math.random();
-							Botania.proxy.sparkleFX(
-									message.x + Math.random() * 0.4 - 0.2, message.y, message.z + Math.random() * 0.4 - 0.2,
-									red, green, blue, (float) Math.random(), 10);
-						}
-						break;
-					}
 					case ENCHANTER_DESTROY: {
 						for(int i = 0; i < 50; i++) {
 							float red = (float) Math.random();
@@ -211,13 +181,6 @@ public class PacketBotaniaEffect implements IMessage {
 							Botania.proxy.wispFX(message.x, message.y, message.z,
 									red, green, blue, (float) Math.random() * 0.15F + 0.15F, (float) (Math.random() - 0.5F) * 0.25F, (float) (Math.random() - 0.5F) * 0.25F, (float) (Math.random() - 0.5F) * 0.25F);
 						}
-						break;
-					}
-					case ENTROPINNYUM: {
-						for(int i = 0; i < 50; i++)
-							Botania.proxy.sparkleFX(message.x + Math.random() * 4 - 2, message.y + Math.random() * 4 - 2, message.z + Math.random() * 4 - 2, 1F, (float) Math.random() * 0.25F, (float) Math.random() * 0.25F, (float) (Math.random() * 0.65F + 1.25F), 12);
-
-						world.spawnParticle(EnumParticleTypes.EXPLOSION_HUGE, message.x, message.y, message.z, 1D, 0D, 0D);
 						break;
 					}
 					case BLACK_LOTUS_DISSOLVE: {
@@ -236,17 +199,6 @@ public class PacketBotaniaEffect implements IMessage {
 						}
 
 						break;
-					}
-					case BREWERY_FINISH: {
-						for(int i = 0; i < 25; i++) {
-							Color c = new Color(message.args[0]);
-							float r = c.getRed() / 255F;
-							float g = c.getGreen() / 255F;
-							float b = c.getBlue() / 255F;
-							Botania.proxy.sparkleFX(message.x + 0.5 + Math.random() * 0.4 - 0.2, message.y + 1, message.z + 0.5 + Math.random() * 0.4 - 0.2, r, g, b, (float) Math.random() * 2F + 0.5F, 10);
-							for(int j = 0; j < 2; j++)
-								Botania.proxy.wispFX(message.x + 0.7 - Math.random() * 0.4, message.y + 0.9 - Math.random() * 0.2, message.z + 0.7 - Math.random() * 0.4, 0.2F, 0.2F, 0.2F, 0.1F + (float) Math.random() * 0.2F, 0.05F - (float) Math.random() * 0.1F, 0.05F + (float) Math.random() * 0.03F, 0.05F - (float) Math.random() * 0.1F);
-						}
 					}
 					case TERRA_PLATE: {
 						TileEntity te = world.getTileEntity(new BlockPos(message.x, message.y, message.z));
@@ -280,25 +232,6 @@ public class PacketBotaniaEffect implements IMessage {
 							}
 						}
 					}
-					case APOTHECARY_CRAFT: {
-						for(int i = 0; i < 25; i++) {
-							float red = (float) Math.random();
-							float green = (float) Math.random();
-							float blue = (float) Math.random();
-							Botania.proxy.sparkleFX(message.x + 0.5 + Math.random() * 0.4 - 0.2, message.y + 1, message.z + 0.5 + Math.random() * 0.4 - 0.2, red, green, blue, (float) Math.random(), 10);
-						}
-
-						break;
-					}
-					case RUNE_CRAFT: {
-						for(int i = 0; i < 25; i++) {
-							float red = (float) Math.random();
-							float green = (float) Math.random();
-							float blue = (float) Math.random();
-							Botania.proxy.sparkleFX(message.x + 0.5 + Math.random() * 0.4 - 0.2, message.y + 1, message.z + 0.5 + Math.random() * 0.4 - 0.2, red, green, blue, (float) Math.random(), 10);
-						}
-						break;
-					}
 					case FLUGEL_EFFECT: {
 						Entity entity = world.getEntityByID(message.args[0]);
 						if(entity != null) {
@@ -320,21 +253,14 @@ public class PacketBotaniaEffect implements IMessage {
 	}
 
 	public enum EffectType {
-		POOL_CRAFT(0),
-		POOL_CHARGE(1), // Arg: 1 if outputting, 0 if inputting
 		PAINT_LENS(1),  // Arg: EnumDyeColor
 		ARENA_INDICATOR(0),
 		ITEM_SMOKE(2), // Arg: Entity ID, number of particles
 		SPARK_NET_INDICATOR(2), // Arg: Entity ID from, Entity ID towards
 		SPARK_MANA_FLOW(2), // Arg: Entity ID from, Entity ID towards
-		ENCHANTER_CRAFT(0),
 		ENCHANTER_DESTROY(0),
-		ENTROPINNYUM(0),
 		BLACK_LOTUS_DISSOLVE(0),
-		BREWERY_FINISH(1), // Arg: RGB
 		TERRA_PLATE(0),
-		APOTHECARY_CRAFT(0),
-		RUNE_CRAFT(0),
 		FLUGEL_EFFECT(1); // Arg: Entity ID
 
 		private final int argCount;

@@ -15,6 +15,12 @@ import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 
 public abstract class TileCorporeaBase extends TileSimpleInventory {
+	// These TE's only extend TileSimpleInventory to give sparks an inventory to attach to
+	// TODO make sparks able to detect corporea blocks and not require them to have an inventory
+	@Override
+	public final int getSizeInventory() {
+		return 0;
+	}
 
 	public ICorporeaSpark getSpark() {
 		return CorporeaHelper.getSparkForBlock(world, getPos());

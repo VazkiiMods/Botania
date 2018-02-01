@@ -17,25 +17,26 @@ import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.item.ItemStack;
 
 public abstract class ItemBaubleModifier extends ItemBauble {
-
-	final Multimap<String, AttributeModifier> attributes = HashMultimap.create();
-
 	public ItemBaubleModifier(String name) {
 		super(name);
 	}
 
 	@Override
 	public void onEquippedOrLoadedIntoWorld(ItemStack stack, EntityLivingBase player) {
-		attributes.clear();
-		fillModifiers(attributes, stack);
-		player.getAttributeMap().applyAttributeModifiers(attributes);
+		if(!player.world.isRemote) {
+			Multimap<String, AttributeModifier> attributes = HashMultimap.create();
+			fillModifiers(attributes, stack);
+			player.getAttributeMap().applyAttributeModifiers(attributes);
+		}
 	}
 
 	@Override
 	public void onUnequipped(ItemStack stack, EntityLivingBase player) {
-		attributes.clear();
-		fillModifiers(attributes, stack);
-		player.getAttributeMap().removeAttributeModifiers(attributes);
+		if(!player.world.isRemote) {
+			Multimap<String, AttributeModifier> attributes = HashMultimap.create();
+			fillModifiers(attributes, stack);
+			player.getAttributeMap().removeAttributeModifiers(attributes);
+		}
 	}
 
 	abstract void fillModifiers(Multimap<String, AttributeModifier> attributes, ItemStack stack);

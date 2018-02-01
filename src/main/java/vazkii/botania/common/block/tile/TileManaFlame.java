@@ -11,9 +11,10 @@
 package vazkii.botania.common.block.tile;
 
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ITickable;
 import vazkii.botania.common.Botania;
 
-public class TileManaFlame extends TileMod {
+public class TileManaFlame extends TileMod implements ITickable {
 
 	private static final String TAG_COLOR = "color";
 

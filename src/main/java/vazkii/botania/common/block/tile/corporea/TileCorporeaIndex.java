@@ -14,6 +14,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ITickable;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.text.Style;
@@ -44,7 +45,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequestor {
+public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequestor, ITickable {
 
 	public static final double RADIUS = 2.5;
 
@@ -188,11 +189,6 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 	public void onChunkUnload() {
 		super.onChunkUnload();
 		removeIndex(this);
-	}
-
-	@Override
-	public int getSizeInventory() {
-		return 0;
 	}
 
 	@Override

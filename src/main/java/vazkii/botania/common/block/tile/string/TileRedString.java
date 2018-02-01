@@ -15,6 +15,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ITickable;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import vazkii.botania.api.state.BotaniaStateProps;
@@ -23,7 +24,7 @@ import vazkii.botania.common.block.tile.TileMod;
 
 import javax.annotation.Nonnull;
 
-public abstract class TileRedString extends TileMod implements ITileBound {
+public abstract class TileRedString extends TileMod implements ITileBound, ITickable {
 
 	private BlockPos binding;
 

@@ -10,9 +10,10 @@
  */
 package vazkii.botania.common.block.tile;
 
+import net.minecraft.util.ITickable;
 import net.minecraft.world.World;
 
-public class TileTeruTeruBozu extends TileMod {
+public class TileTeruTeruBozu extends TileMod implements ITickable {
 
 	public boolean wasRaining = false;
 

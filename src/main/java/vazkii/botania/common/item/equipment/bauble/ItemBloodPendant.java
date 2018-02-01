@@ -165,7 +165,7 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 				float f3 = icon.getMaxV();
 				IconHelper.renderIconIn3D(Tessellator.getInstance(), f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 32F);
 
-				Color color = new Color(Minecraft.getMinecraft().getItemColors().getColorFromItemstack(stack, 1));
+				Color color = new Color(Minecraft.getMinecraft().getItemColors().colorMultiplier(stack, 1));
 				GL11.glColor3ub((byte) color.getRed(), (byte) color.getGreen(), (byte) color.getBlue());
 				int light = 15728880;
 				int lightmapX = light % 65536;

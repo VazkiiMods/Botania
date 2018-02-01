@@ -33,7 +33,7 @@ public class EntityThrownItem extends EntityItem {
 	public EntityThrownItem(World world, double x,
 			double y, double z, EntityItem item) {
 		super(world, x, y, z, item.getItem());
-		setPickupDelay(item.delayBeforeCanPickup);
+		setPickupDelay(item.pickupDelay);
 		motionX = item.motionX;
 		motionY = item.motionY;
 		motionZ = item.motionZ;
@@ -60,7 +60,7 @@ public class EntityThrownItem extends EntityItem {
 			double d0 = 0.0D;
 
 			for (Entity entity1 : list) {
-				if (entity1.canBeCollidedWith() && (!(entity1 instanceof EntityPlayer) || delayBeforeCanPickup == 0)) {
+				if (entity1.canBeCollidedWith() && (!(entity1 instanceof EntityPlayer) || pickupDelay == 0)) {
 					float f = 1.0F;
 					AxisAlignedBB axisalignedbb = entity1.getEntityBoundingBox().grow(f);
 					RayTraceResult RayTraceResult1 = axisalignedbb.calculateIntercept(vec3, vec31);

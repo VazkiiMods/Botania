@@ -1,8 +1,8 @@
 [
 {
-  "modid": "Botania",
+  "modid": "botania",
   "name": "Botania",
-  "description": "Botania is a mod that adds nature magic to Minecraft. This time with a fancy number in front.",
+  "description": "Botania is a mod that adds nature magic to Minecraft",
   "version": "${version}",
   "mcversion": "${mcversion}",
   "logoFile": "assets/botania/textures/logo.png",

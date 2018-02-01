@@ -110,7 +110,7 @@ public class EntityThornChakram extends EntityThrowable {
 				dropAndKill();
 			} else {
 				setEntityToReturnTo(thrower.getEntityId());
-				if(getDistanceSqToEntity(thrower) < 2)
+				if(getDistanceSq(thrower) < 2)
 					dropAndKill();
 			}
 		}

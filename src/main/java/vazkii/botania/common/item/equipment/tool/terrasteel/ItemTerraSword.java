@@ -125,7 +125,7 @@ public class ItemTerraSword extends ItemManasteelSword implements ILensEffect {
 				int mana = burst.getMana();
 				if(mana >= cost) {
 					burst.setMana(mana - cost);
-					float damage = 4F + BotaniaAPI.terrasteelToolMaterial.getDamageVsEntity();
+					float damage = 4F + BotaniaAPI.terrasteelToolMaterial.getAttackDamage();
 					if(!burst.isFake() && !entity.world.isRemote) {
 						EntityPlayer player = living.world.getPlayerEntityByName(attacker);
 						living.attackEntityFrom(player == null ? DamageSource.MAGIC : DamageSource.causePlayerDamage(player), damage);

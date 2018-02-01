@@ -411,7 +411,7 @@ public final class BotaniaAPI {
 
 	/**
 	 * Registers a Pure Daisy Recipe with the default time
-	 * @param input The block that works as an input for the recipe. Can be a Block or an oredict String.
+	 * @param input The input for the recipe. Can be a Block (meta-insensitive), IBlockState (meta-sensitive), or an oredict String.
 	 * @param outputState The blockstate to be placed upon recipe completion.
 	 * @return The recipe created.
 	 */
@@ -421,7 +421,7 @@ public final class BotaniaAPI {
 
 	/**
 	 * Registers a Pure Daisy Recipe.
-	 * @param input The block that works as an input for the recipe. Can be a Block or an oredict String.
+	 * @param input The input for the recipe. Can be a Block (meta-insensitive), IBlockState (meta-sensitive), or an oredict String.
 	 * @param outputState The blockstate to be placed upon recipe completion.
 	 * @param time The amount of time in ticks to complete this recipe. Note that this is ticks on your block, not total time.
 	 *             The Pure Daisy only ticks one block at a time in a round robin fashion.

@@ -179,7 +179,7 @@ public class EntityPoolMinecart extends EntityMinecart {
 
 					if(can) {
 						pump.hasCartOnTop = true;
-						pump.comparator = (int) ((double) getMana() / (double) TilePool.MAX_MANA * 15);
+						pump.comparator = (int) ((double) getMana() / (double) TilePool.MAX_MANA * 15); // different from TilePool.calculateComparatorLevel, kept for compatibility
 					}
 
 				}
@@ -197,6 +197,11 @@ public class EntityPoolMinecart extends EntityMinecart {
 	protected void readEntityFromNBT(NBTTagCompound cmp) {
 		super.readEntityFromNBT(cmp);
 		setMana(cmp.getInteger(TAG_MANA));
+	}
+
+	@Override
+	public int getComparatorLevel() {
+		return TilePool.calculateComparatorLevel(getMana(), TilePool.MAX_MANA);
 	}
 
 	public int getMana() {

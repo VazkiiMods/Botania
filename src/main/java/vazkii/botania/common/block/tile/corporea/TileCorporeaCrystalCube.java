@@ -15,6 +15,7 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ITickable;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.common.capabilities.Capability;
@@ -30,7 +31,7 @@ import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import javax.annotation.Nonnull;
 import java.util.List;
 
-public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorporeaRequestor {
+public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorporeaRequestor, ITickable {
 
 	private static final String TAG_REQUEST_TARGET = "requestTarget";
 	private static final String TAG_ITEM_COUNT = "itemCount";
@@ -132,20 +133,10 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 		itemCount = par1nbtTagCompound.getInteger(TAG_ITEM_COUNT);
 	}
 
-	@Override
-	public int getSizeInventory() {
-		return 1;
-	}
-
 	public int getComparatorValue() {
 		if(itemCount == 0)
 			return 0;
 		return Math.min(15, (int) Math.floor(Math.log(itemCount) / LOG_2) + 1);
-	}
-
-	@Override
-	protected SimpleItemStackHandler createItemHandler() {
-		return new SimpleItemStackHandler(this, false);
 	}
 
 	@Override
