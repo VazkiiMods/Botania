@@ -1,8 +1,9 @@
+<!--
 # Notice
 Please do not use github issues to post ideas. Ideas should be posted on the [minecraft forum topic](https://www.minecraftforum.net/forums/mapping-and-modding-java-edition/minecraft-mods/1294116-botania-an-innovative-natural-magic-themed-tech) or [Botania Reddit](https://www.reddit.com/r/botania/).  
 Please delete everything above the version information, including this notice before submitting your issue.  
-Tip: Use two spaces at the end of lines to force a new line.  
-
+Tip: Use two spaces at the end of lines to force a new line.
+-->
 # Version Information
 Forge version:  
 Botania version:  
