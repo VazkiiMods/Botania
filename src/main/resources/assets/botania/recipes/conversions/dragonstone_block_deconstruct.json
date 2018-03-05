@@ -5,8 +5,7 @@
   },
   "ingredients": [
     {
-      "item": "botania:storage",
-      "data": 4
+      "item": "botania:dragonstone_block"
     }
   ],
   "type": "minecraft:crafting_shapeless"

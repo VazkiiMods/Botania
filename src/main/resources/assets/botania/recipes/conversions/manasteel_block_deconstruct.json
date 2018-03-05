@@ -5,8 +5,7 @@
   },
   "ingredients": [
     {
-      "item": "botania:storage",
-      "data": 0
+      "item": "botania:manasteel_block"
     }
   ],
   "type": "minecraft:crafting_shapeless"

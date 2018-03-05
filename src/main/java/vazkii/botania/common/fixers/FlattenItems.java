@@ -136,6 +136,16 @@ public class FlattenItems implements IFixableData {
 				case 5: return ModBlocks.mutatedGrass.getRegistryName().toString();
 			}
 		});
+		LOOKUP.put("botania:storage", i -> {
+			switch (i) {
+				default:
+				case 0: return ModBlocks.manasteelBlock.getRegistryName().toString();
+				case 1: return ModBlocks.terrasteelBlock.getRegistryName().toString();
+				case 2: return ModBlocks.elementiumBlock.getRegistryName().toString();
+				case 3: return ModBlocks.manaDiamondBlock.getRegistryName().toString();
+				case 4: return ModBlocks.dragonstoneBlock.getRegistryName().toString();
+			}
+		});
 	}
 
 	@Override

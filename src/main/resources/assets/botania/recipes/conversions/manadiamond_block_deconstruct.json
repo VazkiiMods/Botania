@@ -5,8 +5,7 @@
   },
   "ingredients": [
     {
-      "item": "botania:storage",
-      "data": 3
+      "item": "botania:mana_diamond_block"
     }
   ],
   "type": "minecraft:crafting_shapeless"

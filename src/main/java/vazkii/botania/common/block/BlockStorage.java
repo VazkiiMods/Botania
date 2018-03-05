@@ -12,66 +12,37 @@ package vazkii.botania.common.block;
 
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.state.BlockStateContainer;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.api.state.BotaniaStateProps;
-import vazkii.botania.api.state.enums.StorageVariant;
-import vazkii.botania.client.core.handler.ModelHandler;
+import vazkii.botania.api.recipe.IElvenItem;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
-import javax.annotation.Nonnull;
+import java.util.Locale;
 
-public class BlockStorage extends BlockMod implements ILexiconable {
+public class BlockStorage extends BlockMod implements IElvenItem, ILexiconable {
 
-	public BlockStorage() {
-		super(Material.IRON, LibBlockNames.STORAGE);
+	public enum Variant {
+		MANASTEEL,
+		TERRASTEEL,
+		ELEMENTIUM,
+		MANA_DIAMOND,
+		DRAGONSTONE
+	}
+
+	private final Variant variant;
+
+	public BlockStorage(Variant v) {
+		super(Material.IRON, v.name().toLowerCase(Locale.ROOT) + LibBlockNames.STORAGE_SUFFIX);
 		setHardness(3F);
 		setResistance(10F);
 		setSoundType(SoundType.METAL);
-		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.STORAGE_VARIANT, StorageVariant.MANASTEEL));
-	}
-
-	@Nonnull
-	@Override
-	public BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this, BotaniaStateProps.STORAGE_VARIANT);
-	}
-
-	@Override
-	public int getMetaFromState(IBlockState state) {
-		return state.getValue(BotaniaStateProps.STORAGE_VARIANT).ordinal();
-	}
-
-	@Nonnull
-	@Override
-	public IBlockState getStateFromMeta(int meta) {
-		if (meta >= StorageVariant.values().length) {
-			meta = 0;
-		}
-		return getDefaultState().withProperty(BotaniaStateProps.STORAGE_VARIANT, StorageVariant.values()[meta]);
-	}
-
-	@Override
-	public void getSubBlocks(CreativeTabs par2, NonNullList<ItemStack> par3) {
-		for(int i = 0; i < StorageVariant.values().length; i++)
-			par3.add(new ItemStack(this, 1, i));
-	}
-
-	@Override
-	public int damageDropped(IBlockState state) {
-		return getMetaFromState(state);
+		this.variant = v;
 	}
 
 	@Override
@@ -81,14 +52,11 @@ public class BlockStorage extends BlockMod implements ILexiconable {
 
 	@Override
 	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
-		StorageVariant variant = world.getBlockState(pos).getValue(BotaniaStateProps.STORAGE_VARIANT);
-		return variant == StorageVariant.MANASTEEL ? LexiconData.pool : LexiconData.terrasteel;
+		return variant == Variant.MANASTEEL ? LexiconData.pool : LexiconData.terrasteel;
 	}
 
-	@SideOnly(Side.CLIENT)
 	@Override
-	public void registerModels() {
-		ModelHandler.registerBlockToState(this, StorageVariant.values().length);
+	public boolean isElvenItem(ItemStack stack) {
+		return variant == Variant.ELEMENTIUM;
 	}
-
 }

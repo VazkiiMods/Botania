@@ -46,13 +46,13 @@ public final class ModManaInfusionRecipes {
 	public static void init() {
 		manasteelRecipes = new ArrayList<>();
 		manasteelRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaSteel), "ingotIron", 3000));
-		manasteelRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModBlocks.storage, 1, 0), new ItemStack(Blocks.IRON_BLOCK), 27000));
+		manasteelRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModBlocks.manasteelBlock), new ItemStack(Blocks.IRON_BLOCK), 27000));
 
 		manaPearlRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaPearl), new ItemStack(Items.ENDER_PEARL), 6000);
 
 		manaDiamondRecipes = new ArrayList<>();
 		manaDiamondRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaDiamond), "gemDiamond", 10000));
-		manaDiamondRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModBlocks.storage, 1, 3), new ItemStack(Blocks.DIAMOND_BLOCK), 90000));
+		manaDiamondRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModBlocks.manaDiamondBlock), new ItemStack(Blocks.DIAMOND_BLOCK), 90000));
 
 		manaPowderRecipes = new ArrayList<>();
 		manaPowderRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaPowder), new ItemStack(Items.GUNPOWDER), 500));

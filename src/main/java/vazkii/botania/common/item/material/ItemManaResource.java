@@ -35,6 +35,7 @@ import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
 
+// todo 1.13 further break this up
 @Mod.EventBusSubscriber
 public class ItemManaResource extends ItemMod implements IFlowerComponent, IElvenItem {
 	public ItemManaResource(String registryName) {

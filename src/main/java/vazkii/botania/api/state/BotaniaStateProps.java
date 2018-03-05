@@ -37,7 +37,6 @@ import vazkii.botania.api.state.enums.PoolVariant;
 import vazkii.botania.api.state.enums.PylonVariant;
 import vazkii.botania.api.state.enums.QuartzVariant;
 import vazkii.botania.api.state.enums.SpreaderVariant;
-import vazkii.botania.api.state.enums.StorageVariant;
 
 /**
  * Holds all Botania block state properties. Use these to set botania blockstates
@@ -171,9 +170,6 @@ public final class BotaniaStateProps {
 
 	// BlockSpreader
 	public static final PropertyEnum<SpreaderVariant> SPREADER_VARIANT = PropertyEnum.create("variant", SpreaderVariant.class);
-
-	// BlockStorage
-	public static final PropertyEnum<StorageVariant> STORAGE_VARIANT = PropertyEnum.create("variant", StorageVariant.class);
 
 	private BotaniaStateProps() {
 	}

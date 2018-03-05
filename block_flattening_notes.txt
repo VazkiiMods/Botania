@@ -5,3 +5,10 @@ botania:altgrass[variant={dry, golden, vivid, scorched, infused, mutated}]
 => botania:scorched_grass
 => botania:infused_grass
 => botania:mutated_grass
+
+botania:storage[variant={manasteel, terrasteel, elementium, mana_diamond, terrasteel}]
+=> botania:manasteel_block
+=> botania:terrasteel_block
+=> botania:elementium_block
+=> botania:mana_diamond_block
+=> botania:terrasteel_block

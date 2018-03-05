@@ -23,8 +23,7 @@
       "item": "#BENDERAIRBOTTLE"
     },
     "M": {
-      "item": "botania:storage",
-      "data": 0
+      "item": "botania:manasteel_block"
     }
   }
 }

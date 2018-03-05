@@ -30,7 +30,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.state.BotaniaStateProps;
-import vazkii.botania.api.state.enums.StorageVariant;
 import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaBase;
@@ -84,7 +83,7 @@ public class BlockCorporeaIndex extends BlockCorporeaBase implements ILexiconabl
 			d0 = 2.5D;
 		}
 		int i = (int)(150.0D * d0);
-		world.spawnParticle(EnumParticleTypes.BLOCK_DUST, entity.posX, entity.posY, entity.posZ, i, 0.0D, 0.0D, 0.0D, 0.15000000596046448D, Block.getStateId(ModBlocks.storage.getDefaultState().withProperty(BotaniaStateProps.STORAGE_VARIANT, StorageVariant.ELEMENTIUM)));
+		world.spawnParticle(EnumParticleTypes.BLOCK_DUST, entity.posX, entity.posY, entity.posZ, i, 0.0D, 0.0D, 0.0D, 0.15000000596046448D, Block.getStateId(ModBlocks.elementiumBlock.getDefaultState()));
 		return true;
 	}
 
@@ -101,7 +100,7 @@ public class BlockCorporeaIndex extends BlockCorporeaBase implements ILexiconabl
 						double d0 = pos.getX() + (j + 0.5D) / i;
 						double d1 = pos.getY() + (k + 0.5D) / i;
 						double d2 = pos.getZ() + (l + 0.5D) / i;
-						effectRenderer.addEffect(factory.createParticle(-1, world, d0, d1, d2, d0 - pos.getX() - 0.5D, d1 - pos.getY() - 0.5D, d2 - pos.getZ() - 0.5D, Block.getStateId(ModBlocks.storage.getDefaultState().withProperty(BotaniaStateProps.STORAGE_VARIANT, StorageVariant.ELEMENTIUM))));
+						effectRenderer.addEffect(factory.createParticle(-1, world, d0, d1, d2, d0 - pos.getX() - 0.5D, d1 - pos.getY() - 0.5D, d2 - pos.getZ() - 0.5D, Block.getStateId(ModBlocks.elementiumBlock.getDefaultState())));
 					}
 				}
 			}

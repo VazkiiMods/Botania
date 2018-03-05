@@ -5,8 +5,7 @@
   },
   "ingredients": [
     {
-      "item": "botania:storage",
-      "data": 1
+      "item": "botania:terrasteel_block"
     }
   ],
   "type": "minecraft:crafting_shapeless"

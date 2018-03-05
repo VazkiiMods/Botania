@@ -1,7 +1,6 @@
 {
   "result": {
-    "item": "botania:storage",
-    "data": 1
+    "item": "botania:mana_diamond_block"
   },
   "pattern": [
     "III",
@@ -11,7 +10,7 @@
   "type": "forge:ore_shaped",
   "key": {
     "I": {
-      "item": "#INGOTTERRASTEEL"
+      "item": "#MANADIAMOND"
     }
   }
 }

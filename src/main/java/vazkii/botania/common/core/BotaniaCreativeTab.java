@@ -87,7 +87,11 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addItem(ModItems.pebble);
 		addItem(ModItems.manaweaveCloth);
 		addItem(ModItems.manaPowder);
-		addBlock(ModBlocks.storage);
+		addBlock(ModBlocks.manasteelBlock);
+		addBlock(ModBlocks.terrasteelBlock);
+		addBlock(ModBlocks.elementiumBlock);
+		addBlock(ModBlocks.manaDiamondBlock);
+		addBlock(ModBlocks.dragonstoneBlock);
 		addItem(ModItems.manaCookie);
 		addItem(ModItems.runeWater);
 		addItem(ModItems.runeFire);

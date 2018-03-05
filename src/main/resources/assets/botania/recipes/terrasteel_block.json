@@ -1,7 +1,6 @@
 {
   "result": {
-    "item": "botania:storage",
-    "data": 0
+    "item": "botania:terrasteel_block"
   },
   "pattern": [
     "III",
@@ -11,7 +10,7 @@
   "type": "forge:ore_shaped",
   "key": {
     "I": {
-      "item": "#INGOTMANASTEEL"
+      "item": "#INGOTTERRASTEEL"
     }
   }
 }
