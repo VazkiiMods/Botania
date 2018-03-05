@@ -208,7 +208,12 @@ public final class ModBlocks {
 	public static final Block shimmerrock = new BlockShimmerrock();
 	public static final Block shimmerwoodPlanks = new BlockShimmerwoodPlanks();
 	public static final Block avatar = new BlockAvatar();
-	public static final Block altGrass = new BlockAltGrass();
+	public static final Block dryGrass = new BlockAltGrass(BlockAltGrass.Variant.DRY);
+	public static final Block goldenGrass = new BlockAltGrass(BlockAltGrass.Variant.GOLDEN);
+	public static final Block vividGrass = new BlockAltGrass(BlockAltGrass.Variant.VIVID);
+	public static final Block scorchedGrass = new BlockAltGrass(BlockAltGrass.Variant.SCORCHED);
+	public static final Block infusedGrass = new BlockAltGrass(BlockAltGrass.Variant.INFUSED);
+	public static final Block mutatedGrass = new BlockAltGrass(BlockAltGrass.Variant.MUTATED);
 	public static final Block animatedTorch = new BlockAnimatedTorch();
 
 	@SubscribeEvent
@@ -296,7 +301,12 @@ public final class ModBlocks {
 		r.register(shimmerrock);
 		r.register(shimmerwoodPlanks);
 		r.register(avatar);
-		r.register(altGrass);
+		r.register(dryGrass);
+		r.register(goldenGrass);
+		r.register(vividGrass);
+		r.register(scorchedGrass);
+		r.register(infusedGrass);
+		r.register(mutatedGrass);
 		r.register(animatedTorch);
 
 		RecipeManaInfusion.alchemyState = alchemyCatalyst.getDefaultState();
@@ -382,7 +392,12 @@ public final class ModBlocks {
 		r.register(new ItemBlockMod(shimmerrock).setRegistryName(shimmerrock.getRegistryName()));
 		r.register(new ItemBlockMod(shimmerwoodPlanks).setRegistryName(shimmerwoodPlanks.getRegistryName()));
 		r.register(new ItemBlockMod(avatar).setRegistryName(avatar.getRegistryName()));
-		r.register(new ItemBlockWithMetadataAndName(altGrass).setRegistryName(altGrass.getRegistryName()));
+		r.register(new ItemBlockMod(dryGrass).setRegistryName(dryGrass.getRegistryName()));
+		r.register(new ItemBlockMod(goldenGrass).setRegistryName(goldenGrass.getRegistryName()));
+		r.register(new ItemBlockMod(vividGrass).setRegistryName(vividGrass.getRegistryName()));
+		r.register(new ItemBlockMod(scorchedGrass).setRegistryName(scorchedGrass.getRegistryName()));
+		r.register(new ItemBlockMod(infusedGrass).setRegistryName(infusedGrass.getRegistryName()));
+		r.register(new ItemBlockMod(mutatedGrass).setRegistryName(mutatedGrass.getRegistryName()));
 		r.register(new ItemBlockMod(animatedTorch).setRegistryName(animatedTorch.getRegistryName()));
 		initOreDict();
 

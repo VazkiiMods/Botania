@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "normal": [
+      { "model": "botania:golden_grass" },
+      { "model": "botania:golden_grass", "y": 90 },
+      { "model": "botania:golden_grass", "y": 180 },
+      { "model": "botania:golden_grass", "y": 270 }
+    ]
+  }
+}

@@ -75,7 +75,8 @@ public final class SkyblockWorldEvents {
 			ItemStack equipped = event.getItemStack();
 			if(equipped.isEmpty() && event.getEntityPlayer().isSneaking()) {
 				Block block = event.getWorld().getBlockState(event.getPos()).getBlock();
-				if(ImmutableSet.of(Blocks.GRASS, Blocks.GRASS_PATH, Blocks.FARMLAND, Blocks.DIRT, ModBlocks.altGrass).contains(block)) {
+				// FIXME 1.13 use a tag and readd the alt grasses
+				if(ImmutableSet.of(Blocks.GRASS, Blocks.GRASS_PATH, Blocks.FARMLAND, Blocks.DIRT/*, ModBlocks.altGrass*/).contains(block)) {
 					if(event.getWorld().isRemote)
 						event.getEntityPlayer().swingArm(event.getHand());
 					else {

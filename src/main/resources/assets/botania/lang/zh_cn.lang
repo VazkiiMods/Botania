@@ -1142,12 +1142,12 @@ tile.botania:shimmerwoodPlanks0Slab.name=微光木板台阶
 tile.botania:shimmerwoodPlanks0SlabFull.name=微光木板台阶
 tile.botania:shimmerwoodPlanks0Stairs.name=微光木板楼梯
 tile.botania:avatar.name=活木枝化身
-tile.botania:altGrass0.name=干草地
-tile.botania:altGrass1.name=黄金草地
-tile.botania:altGrass2.name=鲜草草地
-tile.botania:altGrass3.name=焦草草地
-tile.botania:altGrass4.name=注魔草地
-tile.botania:altGrass5.name=异变草地
+tile.botania:dry_grass.name=干草地
+tile.botania:golden_grass.name=黄金草地
+tile.botania:vivid_grass.name=鲜草草地
+tile.botania:scorched_grass.name=焦草草地
+tile.botania:infused_grass.name=注魔草地
+tile.botania:mutated_grass.name=异变草地
 tile.botania:animatedTorch.name=活化红石火把
 
 # FLOWER NAMES

@@ -22,6 +22,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
@@ -34,29 +35,34 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.state.BotaniaStateProps;
-import vazkii.botania.api.state.enums.AltGrassVariant;
 import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
 import javax.annotation.Nonnull;
+import java.util.Locale;
 import java.util.Random;
 
 public class BlockAltGrass extends BlockMod implements ILexiconable {
 
-	public BlockAltGrass() {
-		super(Material.GRASS, LibBlockNames.ALT_GRASS);
+	public enum Variant {
+		DRY,
+		GOLDEN,
+		VIVID,
+		SCORCHED,
+		INFUSED,
+		MUTATED
+	}
+
+	private final Variant variant;
+
+	public BlockAltGrass(Variant v) {
+		super(Material.GRASS, v.name().toLowerCase(Locale.ROOT) + LibBlockNames.ALT_GRASS_SUFFIX);
 		setHardness(0.6F);
 		setSoundType(SoundType.PLANT);
 		setTickRandomly(true);
-		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.ALTGRASS_VARIANT, AltGrassVariant.DRY));
-	}
-
-	@Nonnull
-	@Override
-	public BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this, BotaniaStateProps.ALTGRASS_VARIANT);
+		this.variant = v;
 	}
 
 	@Override
@@ -65,33 +71,15 @@ public class BlockAltGrass extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public int getMetaFromState(IBlockState state) {
-		return state.getValue(BotaniaStateProps.ALTGRASS_VARIANT).ordinal();
-	}
-
-	@Nonnull
-	@Override
-	public IBlockState getStateFromMeta(int meta) {
-		return getDefaultState().withProperty(BotaniaStateProps.ALTGRASS_VARIANT, AltGrassVariant.values()[meta]);
-	}
-
-	@Override
-	public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> list) {
-		for(int i = 0; i < 6; i++)
-			list.add(new ItemStack(this, 1, i));
-	}
-
-	@Override
 	public void updateTick(World world, BlockPos pos, IBlockState state, Random rand) {
 		if(!world.isRemote && state.getBlock() == this && world.getLight(pos.up()) >= 9) {
-			AltGrassVariant variant = state.getValue(BotaniaStateProps.ALTGRASS_VARIANT);
 			for(int l = 0; l < 4; ++l) {
 				BlockPos pos1 = pos.add(rand.nextInt(3) - 1, rand.nextInt(5) - 3, rand.nextInt(3) - 1);
 
 				world.getBlockState(pos1.up()).getBlock();
 
 				if(world.getBlockState(pos1).getBlock() == Blocks.DIRT && world.getBlockState(pos1).getValue(BlockDirt.VARIANT) == BlockDirt.DirtType.DIRT && world.getLight(pos1.up()) >= 4 && world.getBlockLightOpacity(pos1.up()) <= 2)
-					world.setBlockState(pos1, getDefaultState().withProperty(BotaniaStateProps.ALTGRASS_VARIANT, variant), 1 | 2);
+					world.setBlockState(pos1, getDefaultState(), 1 | 2);
 			}
 		}
 	}
@@ -100,12 +88,6 @@ public class BlockAltGrass extends BlockMod implements ILexiconable {
 	@Override
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
 		return Blocks.DIRT.getItemDropped(state, rand, fortune);
-	}
-
-	@Nonnull
-	@Override
-	public ItemStack getPickBlock(@Nonnull IBlockState state, RayTraceResult target, @Nonnull World world, @Nonnull BlockPos pos, EntityPlayer player) {
-		return new ItemStack(this, 1, getMetaFromState(world.getBlockState(pos)));
 	}
 
 	@Override
@@ -119,7 +101,6 @@ public class BlockAltGrass extends BlockMod implements ILexiconable {
 	public void randomDisplayTick(IBlockState state, World world, BlockPos pos, Random r) {
 		if (state.getBlock() != this)
 			return;
-		AltGrassVariant variant = state.getValue(BotaniaStateProps.ALTGRASS_VARIANT);
 		switch(variant) {
 		case DRY:
 			break;
@@ -148,11 +129,5 @@ public class BlockAltGrass extends BlockMod implements ILexiconable {
 	@Override
 	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.grassSeeds;
-	}
-
-	@SideOnly(Side.CLIENT)
-	@Override
-	public void registerModels() {
-		ModelHandler.registerBlockToState(this, AltGrassVariant.values().length);
 	}
 }

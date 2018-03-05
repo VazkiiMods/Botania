@@ -34,7 +34,6 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.item.IFloatingFlower.IslandType;
 import vazkii.botania.api.state.BotaniaStateProps;
-import vazkii.botania.api.state.enums.AltGrassVariant;
 import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
@@ -171,17 +170,17 @@ public class ItemGrassSeeds extends ItemMod implements IFloatingFlowerVariant {
 		else if(type == IslandType.MYCEL)
 			return Blocks.MYCELIUM.getDefaultState();
 		else if(type == IslandType.DRY)
-			return ModBlocks.altGrass.getDefaultState().withProperty(BotaniaStateProps.ALTGRASS_VARIANT, AltGrassVariant.DRY);
+			return ModBlocks.dryGrass.getDefaultState();
 		else if(type == IslandType.GOLDEN)
-			return ModBlocks.altGrass.getDefaultState().withProperty(BotaniaStateProps.ALTGRASS_VARIANT, AltGrassVariant.GOLDEN);
+			return ModBlocks.goldenGrass.getDefaultState();
 		else if(type == IslandType.VIVID)
-			return ModBlocks.altGrass.getDefaultState().withProperty(BotaniaStateProps.ALTGRASS_VARIANT, AltGrassVariant.VIVID);
+			return ModBlocks.vividGrass.getDefaultState();
 		else if(type == IslandType.SCORCHED)
-			return ModBlocks.altGrass.getDefaultState().withProperty(BotaniaStateProps.ALTGRASS_VARIANT, AltGrassVariant.SCORCHED);
+			return ModBlocks.scorchedGrass.getDefaultState();
 		else if(type == IslandType.INFUSED)
-			return ModBlocks.altGrass.getDefaultState().withProperty(BotaniaStateProps.ALTGRASS_VARIANT, AltGrassVariant.INFUSED);
+			return ModBlocks.infusedGrass.getDefaultState();
 		else if(type == IslandType.MUTATED)
-			return ModBlocks.altGrass.getDefaultState().withProperty(BotaniaStateProps.ALTGRASS_VARIANT, AltGrassVariant.MUTATED);
+			return ModBlocks.mutatedGrass.getDefaultState();
 		else return Blocks.GRASS.getDefaultState();
 	}
 

@@ -931,12 +931,12 @@ tile.botania:shimmerwoodPlanks0Slab.name=きらめく木のハーフブロック
 tile.botania:shimmerwoodPlanks0SlabFull.name=きらめく木のハーフブロック
 tile.botania:shimmerwoodPlanks0Stairs.name=きらめく木の階段
 tile.botania:avatar.name=リビングロックの化身
-tile.botania:altGrass0.name=乾燥した草ブロック
-tile.botania:altGrass1.name=金色の草ブロック
-tile.botania:altGrass2.name=鮮やかな草ブロック
-tile.botania:altGrass3.name=枯れた草ブロック
-tile.botania:altGrass4.name=マナで満たされた草ブロック
-tile.botania:altGrass5.name=変異した草ブロック
+tile.botania:dry_grass.name=乾燥した草ブロック
+tile.botania:golden_grass.name=金色の草ブロック
+tile.botania:vivid_grass.name=鮮やかな草ブロック
+tile.botania:scorched_grass.name=枯れた草ブロック
+tile.botania:infused_grass.name=マナで満たされた草ブロック
+tile.botania:mutated_grass.name=変異した草ブロック
 tile.botania:animatedTorch.name=動く松明
 
 # FLOWER NAMES

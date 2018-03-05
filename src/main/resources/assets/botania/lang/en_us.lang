@@ -1142,12 +1142,12 @@ tile.botania:shimmerwoodPlanks0Slab.name=Shimmerwood Plank Slab
 tile.botania:shimmerwoodPlanks0SlabFull.name=Shimmerwood Plank Slab
 tile.botania:shimmerwoodPlanks0Stairs.name=Shimmerwood Plank Stairs
 tile.botania:avatar.name=Livingwood Avatar
-tile.botania:altGrass0.name=Dry Grass
-tile.botania:altGrass1.name=Golden Grass
-tile.botania:altGrass2.name=Vivid Grass
-tile.botania:altGrass3.name=Scorched Grass
-tile.botania:altGrass4.name=Infused Grass
-tile.botania:altGrass5.name=Mutated Grass
+tile.botania:dry_grass.name=Dry Grass
+tile.botania:golden_grass.name=Golden Grass
+tile.botania:vivid_grass.name=Vivid Grass
+tile.botania:scorched_grass.name=Scorched Grass
+tile.botania:infused_grass.name=Infused Grass
+tile.botania:mutated_grass.name=Mutated Grass
 tile.botania:animatedTorch.name=Animated Torch
 
 # FLOWER NAMES

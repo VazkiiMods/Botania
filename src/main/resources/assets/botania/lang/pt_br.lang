@@ -1147,12 +1147,12 @@ tile.botania:shimmerwoodPlanks0Slab.name=Laje de Madeira Reluzente
 tile.botania:shimmerwoodPlanks0SlabFull.name=Laje de Madeira Reluzente
 tile.botania:shimmerwoodPlanks0Stairs.name=Escadas de de Madeira Reluzente
 tile.botania:avatar.name=Avatar de Madeira-viva
-tile.botania:altGrass0.name=Grama Seca
-tile.botania:altGrass1.name=Grama Dourada
-tile.botania:altGrass2.name=Grama Vívia
-tile.botania:altGrass3.name=Grama Queimada
-tile.botania:altGrass4.name=Grama Infusa
-tile.botania:altGrass5.name=Grama Mutante
+tile.botania:dry_grass.name=Grama Seca
+tile.botania:golden_grass.name=Grama Dourada
+tile.botania:vivid_grass.name=Grama Vívia
+tile.botania:scorched_grass.name=Grama Queimada
+tile.botania:infused_grass.name=Grama Infusa
+tile.botania:mutated_grass.name=Grama Mutante
 tile.botania:animatedTorch.name=Tocha Animada
 
 # FLOWER NAMES

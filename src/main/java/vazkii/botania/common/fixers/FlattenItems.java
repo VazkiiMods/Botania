@@ -6,6 +6,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.datafix.IFixableData;
 import vazkii.botania.api.item.IAncientWillContainer;
 import vazkii.botania.api.state.enums.CratePattern;
+import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.bauble.ItemBaubleCosmetic;
 import vazkii.botania.common.lib.LibItemNames;
@@ -120,6 +121,19 @@ public class FlattenItems implements IFixableData {
 				return ModItems.blackerLotus.getRegistryName().toString();
 			} else {
 				return ModItems.blackLotus.getRegistryName().toString();
+			}
+		});
+
+		// ItemBlocks
+		LOOKUP.put("botania:altgrass", i -> {
+			switch (i) {
+				default:
+				case 0: return ModBlocks.dryGrass.getRegistryName().toString();
+				case 1: return ModBlocks.goldenGrass.getRegistryName().toString();
+				case 2: return ModBlocks.vividGrass.getRegistryName().toString();
+				case 3: return ModBlocks.scorchedGrass.getRegistryName().toString();
+				case 4: return ModBlocks.infusedGrass.getRegistryName().toString();
+				case 5: return ModBlocks.mutatedGrass.getRegistryName().toString();
 			}
 		});
 	}

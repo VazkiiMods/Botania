@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "normal": [
+      { "model": "botania:vivid_grass" },
+      { "model": "botania:vivid_grass", "y": 90 },
+      { "model": "botania:vivid_grass", "y": 180 },
+      { "model": "botania:vivid_grass", "y": 270 }
+    ]
+  }
+}

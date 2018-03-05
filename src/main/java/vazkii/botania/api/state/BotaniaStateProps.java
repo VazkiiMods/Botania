@@ -22,7 +22,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import vazkii.botania.api.item.IFloatingFlower;
 import vazkii.botania.api.state.enums.AlfPortalState;
-import vazkii.botania.api.state.enums.AltGrassVariant;
 import vazkii.botania.api.state.enums.AltarVariant;
 import vazkii.botania.api.state.enums.BiomeBrickVariant;
 import vazkii.botania.api.state.enums.BiomeStoneVariant;
@@ -92,9 +91,6 @@ public final class BotaniaStateProps {
 
 	// BlockAltar
 	public static final PropertyEnum<AltarVariant> ALTAR_VARIANT = PropertyEnum.create("variant", AltarVariant.class);
-
-	// BlockAltGrass
-	public static final PropertyEnum<AltGrassVariant> ALTGRASS_VARIANT = PropertyEnum.create("variant", AltGrassVariant.class);
 
 	// BlockBiomeStoneA
 	public static final PropertyEnum<BiomeStoneVariant> BIOMESTONE_VARIANT = PropertyEnum.create("variant", BiomeStoneVariant.class);

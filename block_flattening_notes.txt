@@ -1,0 +1,7 @@
+botania:altgrass[variant={dry, golden, vivid, scorched, infused, mutated}]
+=> botania:dry_grass
+=> botania:golden_grass
+=> botania:vivid_grass
+=> botania:scorched_grass
+=> botania:infused_grass
+=> botania:mutated_grass

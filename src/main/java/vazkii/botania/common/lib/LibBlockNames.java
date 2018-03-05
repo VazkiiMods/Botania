@@ -102,7 +102,7 @@ public final class LibBlockNames {
 	public static final String SHIMMERROCK = "shimmerrock";
 	public static final String SHIMMERWOOD_PLANKS = "shimmerwoodPlanks";
 	public static final String AVATAR = "avatar";
-	public static final String ALT_GRASS = "altGrass";
+	public static final String ALT_GRASS_SUFFIX = "_grass";
 	public static final String ANIMATED_TORCH = "animatedTorch";
 
 	public static final String SUBTILE_PUREDAISY = "puredaisy";
