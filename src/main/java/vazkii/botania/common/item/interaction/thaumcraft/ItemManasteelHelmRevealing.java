@@ -22,8 +22,8 @@ import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelHelm;
 import vazkii.botania.common.lib.LibItemNames;
 
 @Optional.InterfaceList({
-	@Optional.Interface(modid = "Thaumcraft", iface = "thaumcraft.api.items.IGoggles", striprefs = true),
-	@Optional.Interface(modid = "Thaumcraft", iface = "thaumcraft.api.items.IRevealer", striprefs = true)})
+	@Optional.Interface(modid = "thaumcraft", iface = "thaumcraft.api.items.IGoggles", striprefs = true),
+	@Optional.Interface(modid = "thaumcraft", iface = "thaumcraft.api.items.IRevealer", striprefs = true)})
 public class ItemManasteelHelmRevealing extends ItemManasteelHelm implements IGoggles, IRevealer {
 
 	public ItemManasteelHelmRevealing() {

@@ -49,7 +49,7 @@ import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.UUID;
 
-@Optional.Interface(modid = "Thaumcraft", iface = "thaumcraft.api.items.IRunicArmor")
+@Optional.Interface(modid = "thaumcraft", iface = "thaumcraft.api.items.IRunicArmor")
 @Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
 public abstract class ItemBauble extends ItemMod implements IBauble, ICosmeticAttachable, IPhantomInkable, IRunicArmor {
 

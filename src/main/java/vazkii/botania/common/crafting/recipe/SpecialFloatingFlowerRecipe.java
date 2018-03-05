@@ -22,6 +22,11 @@ import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 import javax.annotation.Nonnull;
 
 public class SpecialFloatingFlowerRecipe extends IForgeRegistryEntry.Impl<IRecipe> implements IRecipe {
+	public final String type;
+
+	public SpecialFloatingFlowerRecipe(String type) {
+		this.type = type;
+	}
 
 	@Override
 	public boolean isDynamic() {
@@ -39,7 +44,7 @@ public class SpecialFloatingFlowerRecipe extends IForgeRegistryEntry.Impl<IRecip
 				if(stack.getItem() == Item.getItemFromBlock(ModBlocks.floatingFlower))
 					foundFloatingFlower = true;
 
-				else if(stack.getItem() == Item.getItemFromBlock(ModBlocks.specialFlower))
+				else if(stack.getItem() == Item.getItemFromBlock(ModBlocks.specialFlower) && ItemBlockSpecialFlower.getType(stack).equals(type))
 					foundSpecialFlower = true;
 
 				else return false; // Found an invalid item, breaking the recipe
@@ -56,14 +61,14 @@ public class SpecialFloatingFlowerRecipe extends IForgeRegistryEntry.Impl<IRecip
 
 		for(int i = 0; i < var1.getSizeInventory(); i++) {
 			ItemStack stack = var1.getStackInSlot(i);
-			if(!stack.isEmpty() && stack.getItem() == Item.getItemFromBlock(ModBlocks.specialFlower))
+			if(!stack.isEmpty() && stack.getItem() == Item.getItemFromBlock(ModBlocks.specialFlower) && ItemBlockSpecialFlower.getType(stack).equals(type))
 				specialFlower = stack;
 		}
 
 		if(specialFlower.isEmpty())
 			return ItemStack.EMPTY;
 
-		return ItemBlockSpecialFlower.ofType(new ItemStack(ModBlocks.floatingSpecialFlower), ItemBlockSpecialFlower.getType(specialFlower));
+		return ItemBlockSpecialFlower.ofType(new ItemStack(ModBlocks.floatingSpecialFlower), type);
 	}
 
 	@Override

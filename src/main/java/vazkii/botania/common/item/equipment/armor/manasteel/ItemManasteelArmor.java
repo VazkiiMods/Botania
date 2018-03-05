@@ -54,7 +54,7 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
-@Optional.Interface(modid = "Thaumcraft", iface = "thaumcraft.api.items.IRunicArmor")
+@Optional.Interface(modid = "thaumcraft", iface = "thaumcraft.api.items.IRunicArmor")
 public class ItemManasteelArmor extends ItemArmor implements ISpecialArmor, IManaUsingItem, IPhantomInkable, IRunicArmor, IModelRegister {
 
 	private static final int MANA_PER_DAMAGE = 70;

@@ -28,6 +28,7 @@ import vazkii.botania.api.state.enums.PoolVariant;
 import vazkii.botania.client.gui.crafting.ContainerCraftingHalo;
 import vazkii.botania.client.integration.jei.brewery.BreweryRecipeCategory;
 import vazkii.botania.client.integration.jei.brewery.BreweryRecipeWrapper;
+import vazkii.botania.client.integration.jei.crafting.SpecialFloatingFlowerWrapper;
 import vazkii.botania.client.integration.jei.elventrade.ElvenTradeRecipeCategory;
 import vazkii.botania.client.integration.jei.elventrade.ElvenTradeRecipeWrapper;
 import vazkii.botania.client.integration.jei.manapool.ManaPoolRecipeCategory;
@@ -39,6 +40,7 @@ import vazkii.botania.client.integration.jei.puredaisy.PureDaisyRecipeWrapper;
 import vazkii.botania.client.integration.jei.runicaltar.RunicAltarRecipeCategory;
 import vazkii.botania.client.integration.jei.runicaltar.RunicAltarRecipeWrapper;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.crafting.recipe.SpecialFloatingFlowerRecipe;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 
@@ -73,6 +75,7 @@ public class JEIBotaniaPlugin implements IModPlugin {
 		registry.handleRecipes(RecipePetals.class, PetalApothecaryRecipeWrapper::new, PetalApothecaryRecipeCategory.UID);
 		registry.handleRecipes(RecipeElvenTrade.class, ElvenTradeRecipeWrapper::new, ElvenTradeRecipeCategory.UID);
 		registry.handleRecipes(RecipeManaInfusion.class, ManaPoolRecipeWrapper::new, ManaPoolRecipeCategory.UID);
+		registry.handleRecipes(SpecialFloatingFlowerRecipe.class, SpecialFloatingFlowerWrapper::new, VanillaRecipeCategoryUid.CRAFTING);
 
 		registry.addRecipes(BotaniaAPI.brewRecipes, BreweryRecipeCategory.UID);
 		registry.addRecipes(BotaniaAPI.pureDaisyRecipes, PureDaisyRecipeCategory.UID);
