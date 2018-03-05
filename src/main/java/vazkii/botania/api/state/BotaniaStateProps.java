@@ -28,7 +28,6 @@ import vazkii.botania.api.state.enums.BiomeStoneVariant;
 import vazkii.botania.api.state.enums.CratePattern;
 import vazkii.botania.api.state.enums.CrateVariant;
 import vazkii.botania.api.state.enums.CustomBrickVariant;
-import vazkii.botania.api.state.enums.DrumVariant;
 import vazkii.botania.api.state.enums.LivingRockVariant;
 import vazkii.botania.api.state.enums.LivingWoodVariant;
 import vazkii.botania.api.state.enums.LuminizerVariant;
@@ -113,9 +112,6 @@ public final class BotaniaStateProps {
 
 	// BlockEnchanter
 	public static final PropertyEnum<EnumFacing.Axis> ENCHANTER_DIRECTION = PropertyEnum.create("facing", EnumFacing.Axis.class, Predicates.not(Predicates.equalTo(EnumFacing.Axis.Y)));
-
-	// BlockForestDrum
-	public static final PropertyEnum<DrumVariant> DRUM_VARIANT = PropertyEnum.create("variant", DrumVariant.class);
 
 	// BlockGhostRail
 	public static final PropertyEnum<BlockRailBase.EnumRailDirection> RAIL_DIRECTION = BlockRailPowered.SHAPE;

@@ -497,11 +497,11 @@ public final class ModCraftingRecipes {
 		recipeAlchemyCatalyst = ModBlocks.alchemyCatalyst.getRegistryName();
 		recipeOpenCrate = path("opencrate_0");
 		recipeForestEye = ModBlocks.forestEye.getRegistryName();
-		recipeForestDrum = path("forestdrum_0");
+		recipeForestDrum = ModBlocks.wildDrum.getRegistryName();
 		recipePlatform = path("platform_0");
 		recipeConjurationCatalyst = ModBlocks.conjurationCatalyst.getRegistryName();
 		recipeSpectralPlatform = path("platform_1");
-		recipeGatherDrum = path("forestdrum_1");
+		recipeGatherDrum = ModBlocks.gatheringDrum.getRegistryName();
 		recipePlaceholder = ModItems.placeholder.getRegistryName();
 		recipeCraftCrate = path("opencrate_1");
 		recipesPatterns = allOfGroup("craft_pattern");
@@ -512,7 +512,7 @@ public final class ModCraftingRecipes {
 		recipeIncensePlate = ModBlocks.incensePlate.getRegistryName();
 		recipeHourglass = ModBlocks.hourglass.getRegistryName();
 		recipeGhostRail = ModBlocks.ghostRail.getRegistryName();
-		recipeCanopyDrum = path("forestdrum_2");
+		recipeCanopyDrum = ModBlocks.canopyDrum.getRegistryName();
 		recipeCocoon = gogPath("cocoon");
 		recipeManaBomb = ModBlocks.manaBomb.getRegistryName();
 		recipeTeruTeruBozu = ModBlocks.teruTeruBozu.getRegistryName();

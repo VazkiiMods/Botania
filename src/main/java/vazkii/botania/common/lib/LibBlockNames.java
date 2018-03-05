@@ -33,7 +33,7 @@ public final class LibBlockNames {
 	public static final String CRAFT_CRATE = "craftCrate";
 	public static final String FOREST_EYE = "forestEye";
 	public static final String STORAGE_SUFFIX = "_block";
-	public static final String FOREST_DRUM = "forestDrum";
+	public static final String DRUM_PREFIX = "drum_";
 	public static final String SHINY_FLOWER = "shinyFlower";
 	public static final String PLATFORM = "platform";
 	public static final String ALF_PORTAL = "alfheimPortal";

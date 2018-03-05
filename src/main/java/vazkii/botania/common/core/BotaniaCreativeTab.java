@@ -157,7 +157,9 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addBlock(ModBlocks.mutatedGrass);
 		if(Botania.thaumcraftLoaded)
 			addItem(ModItems.manaInkwell);
-		addBlock(ModBlocks.forestDrum);
+		addBlock(ModBlocks.wildDrum);
+		addBlock(ModBlocks.gatheringDrum);
+		addBlock(ModBlocks.canopyDrum);
 		addBlock(ModBlocks.forestEye);
 		addBlock(ModBlocks.enderEye);
 		addItem(ModItems.enderHand);

@@ -150,7 +150,9 @@ public final class ModBlocks {
 	public static final Block elementiumBlock = new BlockStorage(BlockStorage.Variant.ELEMENTIUM);
 	public static final Block manaDiamondBlock = new BlockStorage(BlockStorage.Variant.MANA_DIAMOND);
 	public static final Block dragonstoneBlock = new BlockStorage(BlockStorage.Variant.DRAGONSTONE);
-	public static final Block forestDrum = new BlockForestDrum();
+	public static final Block wildDrum = new BlockForestDrum(BlockForestDrum.Variant.WILD);
+	public static final Block gatheringDrum = new BlockForestDrum(BlockForestDrum.Variant.GATHERING);
+	public static final Block canopyDrum = new BlockForestDrum(BlockForestDrum.Variant.CANOPY);
 	public static final Block shinyFlower = new BlockShinyFlower();
 	public static final Block platform = new BlockPlatform();
 	public static final Block alfPortal = new BlockAlfPortal();
@@ -247,7 +249,9 @@ public final class ModBlocks {
 		r.register(elementiumBlock);
 		r.register(manaDiamondBlock);
 		r.register(dragonstoneBlock);
-		r.register(forestDrum);
+		r.register(wildDrum);
+		r.register(gatheringDrum);
+		r.register(canopyDrum);
 		r.register(shinyFlower);
 		r.register(platform);
 		r.register(alfPortal);
@@ -347,7 +351,9 @@ public final class ModBlocks {
 		r.register(new ItemBlockElven(elementiumBlock).setRegistryName(elementiumBlock.getRegistryName()));
 		r.register(new ItemBlockMod(manaDiamondBlock).setRegistryName(manaDiamondBlock.getRegistryName()));
 		r.register(new ItemBlockMod(dragonstoneBlock).setRegistryName(dragonstoneBlock.getRegistryName()));
-		r.register(new ItemBlockWithMetadataAndName(forestDrum).setRegistryName(forestDrum.getRegistryName()));
+		r.register(new ItemBlockMod(wildDrum).setRegistryName(wildDrum.getRegistryName()));
+		r.register(new ItemBlockMod(gatheringDrum).setRegistryName(gatheringDrum.getRegistryName()));
+		r.register(new ItemBlockMod(canopyDrum).setRegistryName(canopyDrum.getRegistryName()));
 		r.register(new ItemBlockWithMetadataAndName(shinyFlower).setRegistryName(shinyFlower.getRegistryName()));
 		r.register(new ItemBlockWithMetadataAndName(platform).setRegistryName(platform.getRegistryName()));
 		r.register(new ItemBlockMod(alfPortal).setRegistryName(alfPortal.getRegistryName()));

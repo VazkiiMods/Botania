@@ -1,20 +1,19 @@
 {
   "result": {
-    "item": "botania:forestdrum",
-    "data": 0
+    "item": "botania:drum_gathering"
   },
   "pattern": [
     "WLW",
-    "WHW",
+    "WEW",
     "WLW"
   ],
   "type": "forge:ore_shaped",
   "key": {
-    "W": {
-      "item": "#LIVINGWOOD"
+    "E": {
+      "item": "#INGOTELVENELEMENTIUM"
     },
-    "H": {
-      "item": "botania:horn_grass"
+    "W": {
+      "item": "#DREAMWOOD"
     },
     "L": {
       "item": "minecraft:leather"

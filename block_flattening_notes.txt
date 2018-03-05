@@ -12,3 +12,9 @@ botania:storage[variant={manasteel, terrasteel, elementium, mana_diamond, terras
 => botania:elementium_block
 => botania:mana_diamond_block
 => botania:terrasteel_block
+
+botania:forestdrum[variant={wild, gathering, canopy}]
+=> botania:drum_wild
+=> botania:drum_gathering
+=> botania:drum_canopy
+

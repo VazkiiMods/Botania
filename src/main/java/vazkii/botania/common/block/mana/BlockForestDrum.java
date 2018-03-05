@@ -13,9 +13,7 @@ package vazkii.botania.common.block.mana;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockFaceShape;
-import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.EntityCow;
@@ -25,22 +23,16 @@ import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IShearable;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.mana.IManaTrigger;
-import vazkii.botania.api.state.BotaniaStateProps;
-import vazkii.botania.api.state.enums.DrumVariant;
-import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.item.ItemHorn;
 import vazkii.botania.common.item.ModItems;
@@ -51,42 +43,30 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 public class BlockForestDrum extends BlockMod implements IManaTrigger, ILexiconable {
 
-	private static final AxisAlignedBB AABB = new AxisAlignedBB(3/16.0, 1/16.0, 3/16.0, 13/16.0, 15/16.0, 13/16.0);
+	public enum Variant {
+		WILD,
+		GATHERING,
+		CANOPY
+	}
 
-	public BlockForestDrum() {
-		super(Material.WOOD, LibBlockNames.FOREST_DRUM);
+	private static final AxisAlignedBB AABB = new AxisAlignedBB(3/16.0, 1/16.0, 3/16.0, 13/16.0, 15/16.0, 13/16.0);
+	private final Variant variant;
+
+	public BlockForestDrum(Variant v) {
+		super(Material.WOOD, LibBlockNames.DRUM_PREFIX + v.name().toLowerCase(Locale.ROOT));
 		setHardness(2.0F);
 		setSoundType(SoundType.WOOD);
-		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.DRUM_VARIANT, DrumVariant.WILD));
+		this.variant = v;
 	}
 
 	@Nonnull
 	@Override
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
 		return AABB;
-	}
-
-	@Nonnull
-	@Override
-	public BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this, BotaniaStateProps.DRUM_VARIANT);
-	}
-
-	@Override
-	public int getMetaFromState(IBlockState state) {
-		return state.getValue(BotaniaStateProps.DRUM_VARIANT).ordinal();
-	}
-
-	@Nonnull
-	@Override
-	public IBlockState getStateFromMeta(int meta) {
-		if (meta >= DrumVariant.values().length) {
-			meta = 0;
-		}
-		return getDefaultState().withProperty(BotaniaStateProps.DRUM_VARIANT, DrumVariant.values()[meta]);
 	}
 
 	@Override
@@ -100,17 +80,6 @@ public class BlockForestDrum extends BlockMod implements IManaTrigger, ILexicona
 	}
 
 	@Override
-	public int damageDropped(IBlockState state) {
-		return state.getBlock().getMetaFromState(state);
-	}
-
-	@Override
-	public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> list) {
-		for(int i = 0; i < 3; i++)
-			list.add(new ItemStack(this, 1, i));
-	}
-
-	@Override
 	public void onBurstCollision(IManaBurst burst, World world, BlockPos pos) {
 		if(burst.isFake())
 			return;
@@ -118,10 +87,9 @@ public class BlockForestDrum extends BlockMod implements IManaTrigger, ILexicona
 			world.spawnParticle(EnumParticleTypes.NOTE, pos.getX() + 0.5, pos.getY() + 1.2, pos.getZ() + 0.5D, 1.0 / 24.0, 0, 0);
 			return;
 		}
-		DrumVariant variant = world.getBlockState(pos).getValue(BotaniaStateProps.DRUM_VARIANT);
-		if(variant == DrumVariant.WILD)
+		if(variant == Variant.WILD)
 			ItemHorn.breakGrass(world, new ItemStack(ModItems.grassHorn), pos);
-		else if(variant == DrumVariant.CANOPY)
+		else if(variant == Variant.CANOPY)
 			ItemHorn.breakGrass(world, new ItemStack(ModItems.leavesHorn), pos);
 		else {
 			int range = 10;
@@ -175,8 +143,6 @@ public class BlockForestDrum extends BlockMod implements IManaTrigger, ILexicona
 
 	@Override
 	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
-		DrumVariant variant = world.getBlockState(pos).getValue(BotaniaStateProps.DRUM_VARIANT);
-
 		switch(variant) {
 		case GATHERING:
 			return LexiconData.gatherDrum;
@@ -186,12 +152,6 @@ public class BlockForestDrum extends BlockMod implements IManaTrigger, ILexicona
 		default:
 			return LexiconData.forestDrum;
 		}
-	}
-
-	@SideOnly(Side.CLIENT)
-	@Override
-	public void registerModels() {
-		ModelHandler.registerBlockToState(this, DrumVariant.values().length);
 	}
 
 	@Nonnull

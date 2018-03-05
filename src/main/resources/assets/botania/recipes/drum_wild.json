@@ -1,7 +1,6 @@
 {
   "result": {
-    "item": "botania:forestdrum",
-    "data": 2
+    "item": "botania:drum_wild"
   },
   "pattern": [
     "WLW",
@@ -14,7 +13,7 @@
       "item": "#LIVINGWOOD"
     },
     "H": {
-      "item": "botania:horn_leaves"
+      "item": "botania:horn_grass"
     },
     "L": {
       "item": "minecraft:leather"
