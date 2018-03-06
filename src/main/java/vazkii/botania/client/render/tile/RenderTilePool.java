@@ -11,6 +11,7 @@
 package vazkii.botania.client.render.tile;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
@@ -21,13 +22,13 @@ import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.mana.IPoolOverlayProvider;
 import vazkii.botania.api.state.BotaniaStateProps;
-import vazkii.botania.api.state.enums.PoolVariant;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.core.handler.MultiblockRenderHandler;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.mana.BlockPool;
 import vazkii.botania.common.block.tile.mana.TilePool;
 
 import javax.annotation.Nonnull;
@@ -37,13 +38,13 @@ import java.util.Random;
 public class RenderTilePool extends TileEntitySpecialRenderer<TilePool> {
 
 	// Overrides for when we call this TESR without an actual pool
-	public static PoolVariant forceVariant = PoolVariant.DEFAULT;
+	public static BlockPool.Variant forceVariant = BlockPool.Variant.DEFAULT;
 	public static int forceManaNumber = -1;
 
 	@Override
 	public void render(@Nonnull TilePool pool, double d0, double d1, double d2, float f, int digProgress, float unused) {
 		if(pool != null && (!pool.getWorld().isBlockLoaded(pool.getPos(), false)
-				|| pool.getWorld().getBlockState(pool.getPos()).getBlock() != ModBlocks.pool))
+				|| !(pool.getBlockType() instanceof BlockPool)))
 			return;
 
 		GlStateManager.pushMatrix();
@@ -59,7 +60,7 @@ public class RenderTilePool extends TileEntitySpecialRenderer<TilePool> {
 			GlStateManager.translate(d0, d1, d2);
 		}
 
-		boolean fab = pool == null ? forceVariant == PoolVariant.FABULOUS : pool.getWorld().getBlockState(pool.getPos()).getValue(BotaniaStateProps.POOL_VARIANT) == PoolVariant.FABULOUS;
+		boolean fab = pool == null ? forceVariant == BlockPool.Variant.FABULOUS : ((BlockPool) pool.getBlockType()).variant == BlockPool.Variant.FABULOUS;
 
 		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 		int color = 0xFFFFFF;
@@ -75,7 +76,7 @@ public class RenderTilePool extends TileEntitySpecialRenderer<TilePool> {
 			int red = (color & 0xFF0000) >> 16;
 			int green = (color & 0xFF00) >> 8;
 			int blue = color & 0xFF;
-			IBakedModel model = Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelForState(pool == null ? ModBlocks.pool.getDefaultState().withProperty(BotaniaStateProps.POOL_VARIANT, forceVariant) : pool.getWorld().getBlockState(pool.getPos()));
+			IBakedModel model = Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelForState(pool == null ? poolForVariant(forceVariant) : pool.getWorld().getBlockState(pool.getPos()));
 			Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelRenderer().renderModelBrightnessColor(model, 1.0F, red / 255F, green / 255F, blue / 255F);
 		}
 
@@ -138,11 +139,11 @@ public class RenderTilePool extends TileEntitySpecialRenderer<TilePool> {
 		}
 		GlStateManager.popMatrix();
 
-		forceVariant = PoolVariant.DEFAULT;
+		forceVariant = BlockPool.Variant.DEFAULT;
 		forceManaNumber = -1;
 	}
 
-	public void renderIcon(int par1, int par2, TextureAtlasSprite par3Icon, int par4, int par5, int brightness) {
+	private void renderIcon(int par1, int par2, TextureAtlasSprite par3Icon, int par4, int par5, int brightness) {
 		Tessellator tessellator = Tessellator.getInstance();
 		tessellator.getBuffer().begin(GL11.GL_QUADS, ClientProxy.POSITION_TEX_LMAP);
 		tessellator.getBuffer().pos(par1 + 0, par2 + par5, 0).tex(par3Icon.getMinU(), par3Icon.getMaxV()).lightmap(brightness, brightness).endVertex();
@@ -150,6 +151,16 @@ public class RenderTilePool extends TileEntitySpecialRenderer<TilePool> {
 		tessellator.getBuffer().pos(par1 + par4, par2 + 0, 0).tex(par3Icon.getMaxU(), par3Icon.getMinV()).lightmap(brightness, brightness).endVertex();
 		tessellator.getBuffer().pos(par1 + 0, par2 + 0, 0).tex(par3Icon.getMinU(), par3Icon.getMinV()).lightmap(brightness, brightness).endVertex();
 		tessellator.draw();
+	}
+
+	private IBlockState poolForVariant(BlockPool.Variant v) {
+		switch (v) {
+			default:
+			case DEFAULT: return ModBlocks.manaPool.getDefaultState();
+			case CREATIVE: return ModBlocks.creativePool.getDefaultState();
+			case DILUTED: return ModBlocks.dilutedPool.getDefaultState();
+			case FABULOUS: return ModBlocks.fabulousPool.getDefaultState();
+		}
 	}
 
 }

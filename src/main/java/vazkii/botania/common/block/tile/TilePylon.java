@@ -19,6 +19,7 @@ import vazkii.botania.api.state.enums.AlfPortalState;
 import vazkii.botania.api.state.enums.PylonVariant;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.mana.BlockPool;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.Vector3;
 
@@ -41,7 +42,7 @@ public class TilePylon extends TileEntity implements ITickable {
 
 		if(activated && world.isRemote) {
 			if(world.getBlockState(centerPos).getBlock() != getBlockForMeta()
-					|| variant == PylonVariant.NATURA && (portalOff() || world.getBlockState(getPos().down()).getBlock() != ModBlocks.pool)) {
+					|| variant == PylonVariant.NATURA && (portalOff() || !(world.getBlockState(getPos().down()).getBlock() instanceof BlockPool))) {
 				activated = false;
 				return;
 			}

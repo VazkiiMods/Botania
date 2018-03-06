@@ -165,6 +165,15 @@ public class FlattenItems implements IFixableData {
 
 			return LibMisc.MOD_ID + ":" + LibBlockNames.AZULEJO_PREFIX + new_variant;
 		});
+		LOOKUP.put("botania:pool", i -> {
+			switch (i) {
+				default:
+				case 0: return ModBlocks.manaPool.getRegistryName().toString();
+				case 1: return ModBlocks.creativePool.getRegistryName().toString();
+				case 2: return ModBlocks.dilutedPool.getRegistryName().toString();
+				case 3: return ModBlocks.fabulousPool.getRegistryName().toString();
+			}
+		});
 	}
 
 	@Override

@@ -18,18 +18,18 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import vazkii.botania.api.state.enums.PoolVariant;
+import vazkii.botania.common.block.mana.BlockPool;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 import java.util.List;
 
-public class ItemBlockPool extends ItemBlockWithMetadataAndName {
+public class ItemBlockPool extends ItemBlockMod {
 
-	public ItemBlockPool(Block par2Block) {
-		super(par2Block);
+	public ItemBlockPool(Block block) {
+		super(block);
 		addPropertyOverride(new ResourceLocation(LibMisc.MOD_ID, "full"), (stack, worldIn, entityIn) -> {
-			boolean renderFull = stack.getItemDamage() == PoolVariant.CREATIVE.ordinal() || stack.hasTagCompound() && stack.getTagCompound().getBoolean("RenderFull");
+			boolean renderFull = ((BlockPool) block).variant == BlockPool.Variant.CREATIVE || stack.hasTagCompound() && stack.getTagCompound().getBoolean("RenderFull");
 			return renderFull ? 1F : 0F;
 		});
 	}
@@ -37,7 +37,7 @@ public class ItemBlockPool extends ItemBlockWithMetadataAndName {
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void addInformation(@Nonnull ItemStack par1ItemStack, World world, @Nonnull List<String> stacks, @Nonnull ITooltipFlag flag) {
-		if(par1ItemStack.getItemDamage() == 1)
+		if(((BlockPool) block).variant == BlockPool.Variant.CREATIVE)
 			for(int i = 0; i < 2; i++)
 				stacks.add(I18n.format("botaniamisc.creativePool" + i));
 	}

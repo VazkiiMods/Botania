@@ -435,7 +435,7 @@ public final class LexiconData {
 				new PageManaInfusionRecipe("12", ModManaInfusionRecipes.manaStringRecipe),
 				new PageCraftingRecipe("13", ModCraftingRecipes.recipeCobweb),
 				new PageManaInfusionRecipe("7", ModManaInfusionRecipes.manaCookieRecipe))
-		.setIcon(new ItemStack(ModBlocks.pool));
+		.setIcon(new ItemStack(ModBlocks.manaPool));
 
 		sparks = new BasicLexiconEntry(LibLexicon.MANA_SPARKS, categoryMana);
 		sparks.setPriority().setLexiconPages(new PageText("0"), new PageText("1"), new PageText("3"),

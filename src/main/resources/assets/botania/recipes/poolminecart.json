@@ -7,8 +7,7 @@
       "item": "minecraft:minecart"
     },
     {
-      "item": "botania:pool",
-      "data": 0
+      "item": "botania:pool_default"
     }
   ],
   "type": "minecraft:crafting_shapeless"

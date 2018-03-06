@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "botania:pool"
+      "item": "botania:pool_default"
     },
     "title": {
       "translate": "advancement.botania:manaPoolPickup"
@@ -12,15 +12,48 @@
   },
   "parent": "botania:main/generating_flower",
   "criteria": {
-    "pool": {
+    "default": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "botania:pool"
+            "item": "botania:pool_default"
+          }
+        ]
+      }
+    },
+    "creative": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "botania:pool_creative"
+          }
+        ]
+      }
+    },
+    "diluted": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "botania:pool_diluted"
+          }
+        ]
+      }
+    },
+    "fabulous": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "botania:pool_fabulous"
           }
         ]
       }
     }
-  }
+  },
+  "requirements": [
+    [ "default", "creative", "diluted", "fabulous" ]
+  ]
 }

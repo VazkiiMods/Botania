@@ -202,7 +202,7 @@ public class InternalMethodHandler extends DummyMethodHandler {
 
 	@Override
 	public ItemStack getBindDisplayForFlowerType(SubTileEntity e) {
-		return e instanceof SubTileGenerating ? new ItemStack(ModBlocks.spreader) : e instanceof SubTileFunctional ? new ItemStack(ModBlocks.pool) : new ItemStack(ModItems.twigWand);
+		return e instanceof SubTileGenerating ? new ItemStack(ModBlocks.spreader) : e instanceof SubTileFunctional ? new ItemStack(ModBlocks.manaPool) : new ItemStack(ModItems.twigWand);
 	}
 
 	@Override

@@ -34,7 +34,7 @@ public class ManaPoolRecipeCategory implements IRecipeCategory {
 	private final IDrawable background;
 	private final String localizedName;
 	private final IDrawable overlay;
-	private final ItemStack renderStack = new ItemStack(ModBlocks.pool);
+	private final ItemStack renderStack = new ItemStack(ModBlocks.manaPool);
 
 	public ManaPoolRecipeCategory(IGuiHelper guiHelper) {
 		background = guiHelper.createBlankDrawable(168, 64);

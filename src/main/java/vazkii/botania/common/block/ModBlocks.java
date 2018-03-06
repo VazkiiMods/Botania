@@ -132,7 +132,10 @@ public final class ModBlocks {
 	public static final Block livingwood = new BlockLivingwood();
 	public static final Block specialFlower = new BlockSpecialFlower();
 	public static final Block spreader = new BlockSpreader();
-	public static final Block pool = new BlockPool();
+	public static final Block manaPool = new BlockPool(BlockPool.Variant.DEFAULT);
+	public static final Block creativePool = new BlockPool(BlockPool.Variant.CREATIVE);
+	public static final Block dilutedPool = new BlockPool(BlockPool.Variant.DILUTED);
+	public static final Block fabulousPool = new BlockPool(BlockPool.Variant.FABULOUS);
 	public static final Block runeAltar = new BlockRuneAltar();
 	public static final Block pylon = new BlockPylon();
 	public static final Block pistonRelay = new BlockPistonRelay();
@@ -246,7 +249,10 @@ public final class ModBlocks {
 		r.register(livingwood);
 		r.register(specialFlower);
 		r.register(spreader);
-		r.register(pool);
+		r.register(manaPool);
+		r.register(creativePool);
+		r.register(dilutedPool);
+		r.register(fabulousPool);
 		r.register(runeAltar);
 		r.register(pylon);
 		r.register(pistonRelay);
@@ -363,7 +369,10 @@ public final class ModBlocks {
 		r.register(new ItemBlockWithMetadataAndName(livingwood).setRegistryName(livingwood.getRegistryName()));
 		r.register(new ItemBlockSpecialFlower(specialFlower).setRegistryName(specialFlower.getRegistryName()));
 		r.register(new ItemBlockWithMetadataAndName(spreader).setRegistryName(spreader.getRegistryName()));
-		r.register(new ItemBlockPool(pool).setRegistryName(pool.getRegistryName()));
+		r.register(new ItemBlockPool(manaPool).setRegistryName(manaPool.getRegistryName()));
+		r.register(new ItemBlockPool(creativePool).setRegistryName(creativePool.getRegistryName()));
+		r.register(new ItemBlockPool(dilutedPool).setRegistryName(dilutedPool.getRegistryName()));
+		r.register(new ItemBlockPool(fabulousPool).setRegistryName(fabulousPool.getRegistryName()));
 		r.register(new ItemBlockMod(runeAltar).setRegistryName(runeAltar.getRegistryName()));
 		r.register(new ItemBlockWithMetadataAndName(pylon).setRegistryName(pylon.getRegistryName()));
 		r.register(new ItemBlockMod(pistonRelay).setRegistryName(pistonRelay.getRegistryName()));

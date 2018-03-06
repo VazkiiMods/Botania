@@ -14,9 +14,9 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.RenderMinecart;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
-import vazkii.botania.api.state.enums.PoolVariant;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.render.tile.RenderTilePool;
+import vazkii.botania.common.block.mana.BlockPool;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.entity.EntityPoolMinecart;
 
@@ -30,7 +30,7 @@ public class RenderPoolMinecart extends RenderMinecart<EntityPoolMinecart> {
 
 	@Override
 	protected void renderCartContents(EntityPoolMinecart poolCart, float partialTicks, @Nonnull IBlockState state) {
-		RenderTilePool.forceVariant = PoolVariant.DEFAULT;
+		RenderTilePool.forceVariant = BlockPool.Variant.DEFAULT;
 		RenderTilePool.forceManaNumber = poolCart.getMana();
 		TileEntityRendererDispatcher.instance.getRenderer(TilePool.class).render(null, poolCart.posX, poolCart.posY, poolCart.posZ, ClientTickHandler.partialTicks, -1, 0);
 	}

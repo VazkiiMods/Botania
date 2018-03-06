@@ -61,7 +61,7 @@ public class EntityPoolMinecart extends EntityMinecart {
 	@Nonnull
 	@Override
 	public IBlockState getDisplayTile() {
-		return ModBlocks.pool.getDefaultState();
+		return ModBlocks.manaPool.getDefaultState();
 	}
 
 	@Nonnull
@@ -100,7 +100,7 @@ public class EntityPoolMinecart extends EntityMinecart {
 	@Override
 	public void killMinecart(DamageSource source) {
 		super.killMinecart(source);
-		dropItemWithOffset(Item.getItemFromBlock(ModBlocks.pool), 1, 0.0F);
+		dropItemWithOffset(Item.getItemFromBlock(ModBlocks.manaPool), 1, 0.0F);
 	}
 
 	@Override

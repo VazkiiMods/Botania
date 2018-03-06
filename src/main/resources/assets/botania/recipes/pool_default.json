@@ -1,7 +1,6 @@
 {
   "result": {
-    "item": "botania:pool",
-    "data": 0
+    "item": "botania:pool_default"
   },
   "pattern": [
     "R R",

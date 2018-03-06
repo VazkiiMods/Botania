@@ -18,7 +18,6 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.block.statemap.StateMap;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -27,7 +26,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ChunkCache;
@@ -42,10 +40,8 @@ import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.state.BotaniaStateProps;
-import vazkii.botania.api.state.enums.PoolVariant;
 import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.api.wand.IWandable;
-import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.lexicon.LexiconData;
@@ -54,39 +50,40 @@ import vazkii.botania.common.lib.LibBlockNames;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.Locale;
 
 public class BlockPool extends BlockMod implements IWandHUD, IWandable, ILexiconable {
 	private static final AxisAlignedBB AABB = new AxisAlignedBB(0, 0, 0, 1, 0.5, 1);
 
-	public BlockPool() {
-		super(Material.ROCK, LibBlockNames.POOL);
+	public enum Variant {
+		DEFAULT,
+		CREATIVE,
+		DILUTED,
+		FABULOUS
+	}
+
+	public final Variant variant;
+
+	public BlockPool(Variant v) {
+		super(Material.ROCK, LibBlockNames.POOL_PREFIX + v.name().toLowerCase(Locale.ROOT));
 		setHardness(2.0F);
 		setResistance(10.0F);
 		setSoundType(SoundType.STONE);
 		BotaniaAPI.blacklistBlockFromMagnet(this, Short.MAX_VALUE);
 		setDefaultState(blockState.getBaseState()
-				.withProperty(BotaniaStateProps.POOL_VARIANT, PoolVariant.DEFAULT)
 				.withProperty(BotaniaStateProps.COLOR, EnumDyeColor.WHITE));
+		this.variant = v;
 	}
 
 	@Nonnull
 	@Override
 	public BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this, BotaniaStateProps.POOL_VARIANT, BotaniaStateProps.COLOR);
+		return new BlockStateContainer(this, BotaniaStateProps.COLOR);
 	}
 
 	@Override
 	public int getMetaFromState(IBlockState state) {
-		return state.getValue(BotaniaStateProps.POOL_VARIANT).ordinal();
-	}
-
-	@Nonnull
-	@Override
-	public IBlockState getStateFromMeta(int meta) {
-		if (meta > PoolVariant.values().length) {
-			meta = 0;
-		}
-		return getDefaultState().withProperty(BotaniaStateProps.POOL_VARIANT, PoolVariant.values()[meta]);
+		return 0;
 	}
 
 	@Nonnull
@@ -104,11 +101,6 @@ public class BlockPool extends BlockMod implements IWandHUD, IWandable, ILexicon
 	@Override
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
 		return AABB;
-	}
-
-	@Override
-	public int damageDropped(IBlockState state) {
-		return state.getBlock().getMetaFromState(state);
 	}
 
 	// If harvesting, delay setting block to air so getDrops can read the TE
@@ -132,14 +124,6 @@ public class BlockPool extends BlockMod implements IWandHUD, IWandable, ILexicon
 	public void harvestBlock(World world, EntityPlayer player, BlockPos pos, IBlockState state, @Nullable TileEntity te, ItemStack tool) {
 		super.harvestBlock(world, player, pos, state, te, tool);
 		world.setBlockToAir(pos);
-	}
-
-	@Override
-	public void getSubBlocks(CreativeTabs par2, NonNullList<ItemStack> par3) {
-		par3.add(new ItemStack(this, 1, 0));
-		par3.add(new ItemStack(this, 1, 2));
-		par3.add(new ItemStack(this, 1, 3));
-		par3.add(new ItemStack(this, 1, 1));
 	}
 
 	@Override
@@ -196,7 +180,7 @@ public class BlockPool extends BlockMod implements IWandHUD, IWandable, ILexicon
 	@Nonnull
 	@Override
 	public EnumBlockRenderType getRenderType(IBlockState state) {
-		if (state.getValue(BotaniaStateProps.POOL_VARIANT) == PoolVariant.FABULOUS)
+		if (variant == Variant.FABULOUS)
 			return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
 		else return EnumBlockRenderType.MODEL;
 	}
@@ -225,14 +209,14 @@ public class BlockPool extends BlockMod implements IWandHUD, IWandable, ILexicon
 
 	@Override
 	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
-		return world.getBlockState(pos).getValue(BotaniaStateProps.POOL_VARIANT) == PoolVariant.FABULOUS ? LexiconData.rainbowRod : LexiconData.pool;
+		return variant == Variant.FABULOUS ? LexiconData.rainbowRod : LexiconData.pool;
 	}
 
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void registerModels() {
 		ModelLoader.setCustomStateMapper(this, new StateMap.Builder().ignore(BotaniaStateProps.COLOR).build());
-		ModelHandler.registerBlockToState(this, PoolVariant.values().length);
+		super.registerModels();
 	}
 
 	@Nonnull

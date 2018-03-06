@@ -54,7 +54,7 @@ public class PageManaInfusionRecipe extends PageRecipe {
 	public PageManaInfusionRecipe(String unlocalizedName, List<RecipeManaInfusion> recipes) {
 		super(unlocalizedName);
 		this.recipes = recipes;
-		renderStack = new ItemStack(ModBlocks.pool, 1, 0);
+		renderStack = new ItemStack(ModBlocks.manaPool);
 		ItemNBTHelper.setBoolean(renderStack, "RenderFull", true);
 	}
 
@@ -81,7 +81,6 @@ public class PageManaInfusionRecipe extends PageRecipe {
 
 		renderItemAtGridPos(gui, 1, 1, (ItemStack) input, false);
 
-		renderStack.setItemDamage(recipe.getOutput().getItem() == Item.getItemFromBlock(ModBlocks.pool) ? 2 : 0);
 		renderItemAtGridPos(gui, 2, 1, renderStack, false);
 
 		renderItemAtGridPos(gui, 3, 1, recipe.getOutput(), false);

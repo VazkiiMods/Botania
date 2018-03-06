@@ -34,6 +34,7 @@ import vazkii.botania.api.state.enums.LivingWoodVariant;
 import vazkii.botania.api.state.enums.PylonVariant;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.mana.BlockPool;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ItemLexicon;
@@ -313,17 +314,16 @@ public class TileAlfPortal extends TileMod implements ITickable {
 	}
 
 	public List<BlockPos> locatePylons() {
-		List<BlockPos> list = new ArrayList();
+		List<BlockPos> list = new ArrayList<>();
 		int range = 5;
 
 		IBlockState pylonState = ModBlocks.pylon.getDefaultState().withProperty(BotaniaStateProps.PYLON_VARIANT, PylonVariant.NATURA);
-		IBlockState poolState = ModBlocks.pool.getDefaultState();
 
 		for(int i = -range; i < range + 1; i++)
 			for(int j = -range; j < range + 1; j++)
 				for(int k = -range; k < range + 1; k++) {
 					BlockPos pos = new BlockPos(i, j, k);
-					if(checkPosition(pos, pylonState, false) && checkPosition(pos.down(), poolState, true))
+					if(checkPosition(pos, pylonState, false) && world.getBlockState(pos.down()).getBlock() instanceof BlockPool)
 						list.add(pos);
 				}
 

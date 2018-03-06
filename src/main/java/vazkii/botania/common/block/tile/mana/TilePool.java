@@ -47,12 +47,12 @@ import vazkii.botania.api.mana.spark.ISparkAttachable;
 import vazkii.botania.api.mana.spark.ISparkEntity;
 import vazkii.botania.api.recipe.RecipeManaInfusion;
 import vazkii.botania.api.state.BotaniaStateProps;
-import vazkii.botania.api.state.enums.PoolVariant;
 import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.mana.BlockPool;
 import vazkii.botania.common.block.tile.TileMod;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.ManaNetworkHandler;
@@ -60,8 +60,6 @@ import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ItemManaTablet;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.network.PacketBotaniaEffect;
-import vazkii.botania.common.network.PacketHandler;
 
 import javax.annotation.Nonnull;
 import java.awt.Color;
@@ -111,9 +109,9 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 	public boolean shouldRefresh(World world, BlockPos pos, @Nonnull IBlockState oldState, @Nonnull IBlockState newState) {
 		if(oldState.getBlock() != newState.getBlock())
 			return true;
-		if(oldState.getBlock() != ModBlocks.pool || newState.getBlock() != ModBlocks.pool)
+		if(!(oldState.getBlock() instanceof BlockPool) || !(newState.getBlock() instanceof BlockPool))
 			return true;
-		return oldState.getValue(BotaniaStateProps.POOL_VARIANT) != newState.getValue(BotaniaStateProps.POOL_VARIANT);
+		return false;
 	}
 
 	@Override
@@ -249,7 +247,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 	@Override
 	public void update() {
 		if(manaCap == -1)
-			manaCap = world.getBlockState(getPos()).getValue(BotaniaStateProps.POOL_VARIANT) == PoolVariant.DILUTED ? MAX_MANA_DILLUTED : MAX_MANA;
+			manaCap = ((BlockPool) getBlockType()).variant == BlockPool.Variant.DILUTED ? MAX_MANA_DILLUTED : MAX_MANA;
 
 		if(!ManaNetworkHandler.instance.isPoolIn(this) && !isInvalid())
 			ManaNetworkEvent.addPool(this);
@@ -394,7 +392,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 
 	@SideOnly(Side.CLIENT)
 	public void renderHUD(Minecraft mc, ScaledResolution res) {
-		ItemStack pool = new ItemStack(ModBlocks.pool, 1, world.getBlockState(getPos()).getValue(BotaniaStateProps.POOL_VARIANT).ordinal());
+		ItemStack pool = new ItemStack(getBlockType());
 		String name = I18n.format(pool.getUnlocalizedName().replaceAll("tile.", "tile." + LibResources.PREFIX_MOD) + ".name");
 		int color = 0x4444FF;
 		HUDHandler.drawSimpleManaHUD(color, knownMana, manaCap, name, res);
@@ -436,12 +434,9 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 
 	@Override
 	public int getCurrentMana() {
-		if(world != null) {
-			IBlockState state = world.getBlockState(getPos());
-			if(state.getProperties().containsKey(BotaniaStateProps.POOL_VARIANT))
-				return state.getValue(BotaniaStateProps.POOL_VARIANT) == PoolVariant.CREATIVE ? MAX_MANA : mana;
+		if (getBlockType() instanceof BlockPool) {
+			return ((BlockPool) getBlockType()).variant == BlockPool.Variant.CREATIVE ? MAX_MANA : mana;
 		}
-		
 		return 0;
 	}
 

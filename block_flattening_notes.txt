@@ -5,6 +5,7 @@ botania:altgrass[variant={dry, golden, vivid, scorched, infused, mutated}]
 => botania:scorched_grass
 => botania:infused_grass
 => botania:mutated_grass
+reason: each is a different variant
 
 botania:storage[variant={manasteel, terrasteel, elementium, mana_diamond, terrasteel}]
 => botania:manasteel_block
@@ -12,14 +13,25 @@ botania:storage[variant={manasteel, terrasteel, elementium, mana_diamond, terras
 => botania:elementium_block
 => botania:mana_diamond_block
 => botania:terrasteel_block
+reason: each is a different variant
 
 botania:forestdrum[variant={wild, gathering, canopy}]
 => botania:drum_wild
 => botania:drum_gathering
 => botania:drum_canopy
+reason: each is a different variant
 
 botania:custombrick[variant={azulejo_0, ..., azulejo_15}]
 => botania:azulejo_0
 => ...
 => botania:azulejo_15
 (ordered 0, 13, 14, 15, then 1-12, due to legacy reasons)
+reason: each is a different variant
+
+botania:pool[variant={default, creative, diluted, fabulous}, color={16 colors}]
+=> botania:mana_pool[color={16 colors}]
+=> botania:creative_pool[color={16 colors}]
+=> botania:diluted_pool[color={16 colors}]
+=> botania:fabulous_pool[color={16 colors}]
+reason: each is a different variant, but changing the color only can be done by using an item on a existing pool, so no need to flatten the colors out
+

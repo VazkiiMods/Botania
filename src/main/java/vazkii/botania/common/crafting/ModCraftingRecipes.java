@@ -441,9 +441,9 @@ public final class ModCraftingRecipes {
 
 		recipesSpreader = allOfGroup(ModBlocks.spreader.getRegistryName());
 
-		recipePool = path("pool_0");
-		recipePoolDiluted = path("pool_2");
-		recipePoolFabulous = path("pool_3");
+		recipePool = ModBlocks.manaPool.getRegistryName();
+		recipePoolDiluted = ModBlocks.dilutedPool.getRegistryName();
+		recipePoolFabulous = ModBlocks.fabulousPool.getRegistryName();
 		recipeCobweb = path("web");
 
 		recipeSpark = ModItems.spark.getRegistryName();
