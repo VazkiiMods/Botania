@@ -678,7 +678,7 @@ public final class ModCraftingRecipes {
 		recipeSunnyQuartz = ModItems.sunnyQuartz.getRegistryName();
 		recipesShinyFlowers = allOfGroup(ModBlocks.shinyFlower.getRegistryName());
 		recipesMiniIsland = allOfGroup(ModBlocks.floatingFlower.getRegistryName());
-		recipeAzulejo = path("custombrick_4");
+		recipeAzulejo = ModBlocks.azulejo0.getRegistryName();
 		recipesAzulejoCycling = allOfGroup("azulejo_cycling");
 		recipeStarfield = ModBlocks.starfield.getRegistryName();
 		recipesMushrooms = allOfGroup(ModBlocks.mushroom.getRegistryName());

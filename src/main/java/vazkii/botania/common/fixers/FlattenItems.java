@@ -9,6 +9,7 @@ import vazkii.botania.api.state.enums.CratePattern;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.bauble.ItemBaubleCosmetic;
+import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibMisc;
 
@@ -145,6 +146,24 @@ public class FlattenItems implements IFixableData {
 				case 3: return ModBlocks.manaDiamondBlock.getRegistryName().toString();
 				case 4: return ModBlocks.dragonstoneBlock.getRegistryName().toString();
 			}
+		});
+		LOOKUP.put("botania:custombrick", i -> {
+			int new_variant = 0;
+			// azulejos 1-12 in metas 4-15
+			if (i >= 4) {
+				new_variant = i - 3;
+			} else {
+				// azulejos 0, 13, 14, 15 in metas 0-3
+				switch (i) {
+					default:
+					case 0: new_variant = 0; break;
+					case 1: new_variant = 13; break;
+					case 2: new_variant = 14; break;
+					case 3: new_variant = 15; break;
+				}
+			}
+
+			return LibMisc.MOD_ID + ":" + LibBlockNames.AZULEJO_PREFIX + new_variant;
 		});
 	}
 

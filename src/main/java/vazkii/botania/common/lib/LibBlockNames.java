@@ -49,7 +49,7 @@ public final class LibBlockNames {
 	public static final String SPAWNER_CLAW = "spawnerClaw";
 	public static final String REED_BLOCK = "reedBlock";
 	public static final String THATCH = "thatch";
-	public static final String CUSTOM_BRICK = "customBrick";
+	public static final String AZULEJO_PREFIX = "azulejo_";
 	public static final String ENDER_EYE_BLOCK = "enderEyeBlock";
 	public static final String STARFIELD = "starfield";
 	public static final String RF_GENERATOR = "rfGenerator";

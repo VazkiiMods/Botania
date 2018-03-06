@@ -18,3 +18,8 @@ botania:forestdrum[variant={wild, gathering, canopy}]
 => botania:drum_gathering
 => botania:drum_canopy
 
+botania:custombrick[variant={azulejo_0, ..., azulejo_15}]
+=> botania:azulejo_0
+=> ...
+=> botania:azulejo_15
+(ordered 0, 13, 14, 15, then 1-12, due to legacy reasons)

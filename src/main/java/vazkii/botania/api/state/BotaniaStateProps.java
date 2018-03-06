@@ -27,7 +27,6 @@ import vazkii.botania.api.state.enums.BiomeBrickVariant;
 import vazkii.botania.api.state.enums.BiomeStoneVariant;
 import vazkii.botania.api.state.enums.CratePattern;
 import vazkii.botania.api.state.enums.CrateVariant;
-import vazkii.botania.api.state.enums.CustomBrickVariant;
 import vazkii.botania.api.state.enums.LivingRockVariant;
 import vazkii.botania.api.state.enums.LivingWoodVariant;
 import vazkii.botania.api.state.enums.LuminizerVariant;
@@ -103,9 +102,6 @@ public final class BotaniaStateProps {
 			return input.getName().contains("cobble");
 		}
 	});
-
-	// BlockCustomBrick
-	public static final PropertyEnum<CustomBrickVariant> CUSTOMBRICK_VARIANT = PropertyEnum.create("variant", CustomBrickVariant.class);
 
 	// BlockDreamWood, BlockLivingWood
 	public static final PropertyEnum<LivingWoodVariant> LIVINGWOOD_VARIANT = PropertyEnum.create("variant", LivingWoodVariant.class);

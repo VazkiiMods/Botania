@@ -403,7 +403,22 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 
 		addBlock(ModBlocks.blazeBlock);
 
-		addBlock(ModBlocks.customBrick);
+		addBlock(ModBlocks.azulejo0);
+		addBlock(ModBlocks.azulejo1);
+		addBlock(ModBlocks.azulejo2);
+		addBlock(ModBlocks.azulejo3);
+		addBlock(ModBlocks.azulejo4);
+		addBlock(ModBlocks.azulejo5);
+		addBlock(ModBlocks.azulejo6);
+		addBlock(ModBlocks.azulejo7);
+		addBlock(ModBlocks.azulejo8);
+		addBlock(ModBlocks.azulejo9);
+		addBlock(ModBlocks.azulejo10);
+		addBlock(ModBlocks.azulejo11);
+		addBlock(ModBlocks.azulejo12);
+		addBlock(ModBlocks.azulejo13);
+		addBlock(ModBlocks.azulejo14);
+		addBlock(ModBlocks.azulejo15);
 
 		addBlock(ModFluffBlocks.livingwoodStairs);
 		addBlock(ModFluffBlocks.livingwoodSlab);
