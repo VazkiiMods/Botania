@@ -225,7 +225,9 @@ public class ClientProxy implements IProxy {
 
 		ShaderHelper.initShaders();
 
-		IMultiblockRenderHook.renderHooks.put(ModBlocks.pylon, renderTilePylon);
+		IMultiblockRenderHook.renderHooks.put(ModBlocks.manaPylon, renderTilePylon);
+		IMultiblockRenderHook.renderHooks.put(ModBlocks.naturaPylon, renderTilePylon);
+		IMultiblockRenderHook.renderHooks.put(ModBlocks.gaiaPylon, renderTilePylon);
 	}
 
 	private void initAuxiliaryRender() {

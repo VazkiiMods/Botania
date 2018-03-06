@@ -14,6 +14,7 @@ import java.util.Random;
 
 import javax.annotation.Nonnull;
 
+import net.minecraft.block.Block;
 import org.lwjgl.opengl.GL11;
 
 import net.minecraft.block.state.IBlockState;
@@ -30,8 +31,6 @@ import net.minecraft.world.IBlockAccess;
 import vazkii.botania.api.lexicon.multiblock.IMultiblockRenderHook;
 import vazkii.botania.api.lexicon.multiblock.Multiblock;
 import vazkii.botania.api.lexicon.multiblock.component.MultiblockComponent;
-import vazkii.botania.api.state.BotaniaStateProps;
-import vazkii.botania.api.state.enums.PylonVariant;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MultiblockRenderHandler;
 import vazkii.botania.client.core.helper.ShaderHelper;
@@ -40,6 +39,7 @@ import vazkii.botania.client.model.IPylonModel;
 import vazkii.botania.client.model.ModelPylonGaia;
 import vazkii.botania.client.model.ModelPylonMana;
 import vazkii.botania.client.model.ModelPylonNatura;
+import vazkii.botania.common.block.BlockPylon;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TilePylon;
 
@@ -54,20 +54,20 @@ public class RenderTilePylon extends TileEntitySpecialRenderer<TilePylon> implem
 	private final ModelPylonGaia gaiaModel = new ModelPylonGaia();
 
 	// Overrides for when we call this TESR without an actual pylon
-	private static PylonVariant forceVariant = PylonVariant.MANA;
+	private static BlockPylon.Variant forceVariant = BlockPylon.Variant.MANA;
 
 	@Override
 	public void render(@Nonnull TilePylon pylon, double d0, double d1, double d2, float pticks, int digProgress, float unused) {
 		boolean renderingItem = pylon == ForwardingTEISR.DUMMY;
 
-		if(!renderingItem && (!pylon.getWorld().isBlockLoaded(pylon.getPos(), false) || pylon.getWorld().getBlockState(pylon.getPos()).getBlock() != ModBlocks.pylon))
+		if(!renderingItem && (!pylon.getWorld().isBlockLoaded(pylon.getPos(), false) || !(pylon.getBlockType() instanceof BlockPylon)))
 			return;
 
 		renderPylon(pylon, d0, d1, d2, pticks, renderingItem);
 	}
 	
 	private void renderPylon(@Nonnull TilePylon pylon, double d0, double d1, double d2, float pticks, boolean renderingItem) {
-		PylonVariant type = renderingItem ? forceVariant : ModBlocks.pylon.getStateFromMeta(pylon.getBlockMetadata()).getValue(BotaniaStateProps.PYLON_VARIANT);
+		BlockPylon.Variant type = renderingItem ? forceVariant : ((BlockPylon) pylon.getBlockType()).variant;
 		IPylonModel model;
 		switch(type) {
 		default:
@@ -138,7 +138,7 @@ public class RenderTilePylon extends TileEntitySpecialRenderer<TilePylon> implem
 		GlStateManager.popMatrix();
 	}
 
-	// Dirty hack to make the TEISR aware of the stack metas
+	// Dirty hack to make the TESR know which variant of pylon it's rendering
 	public static class ForwardingTEISR extends TileEntityItemStackRenderer {
 		private static final TilePylon DUMMY = new TilePylon();
 
@@ -150,8 +150,8 @@ public class RenderTilePylon extends TileEntitySpecialRenderer<TilePylon> implem
 
 		@Override
 		public void renderByItem(ItemStack stack, float partialTicks) {
-			if(stack.getItem() == Item.getItemFromBlock(ModBlocks.pylon)) {
-				RenderTilePylon.forceVariant = PylonVariant.values()[MathHelper.clamp(stack.getItemDamage(), 0, PylonVariant.values().length)];
+			if(Block.getBlockFromItem(stack.getItem()) instanceof BlockPylon) {
+				RenderTilePylon.forceVariant = ((BlockPylon) Block.getBlockFromItem(stack.getItem())).variant;
 				TileEntityRendererDispatcher.instance.render(DUMMY, 0, 0, 0, partialTicks);
 			} else {
 				compose.renderByItem(stack, partialTicks);
@@ -161,10 +161,10 @@ public class RenderTilePylon extends TileEntitySpecialRenderer<TilePylon> implem
 
 	@Override
 	public void renderBlockForMultiblock(IBlockAccess world, Multiblock mb, IBlockState state, MultiblockComponent comp) {
-		forceVariant = state.getValue(BotaniaStateProps.PYLON_VARIANT);
+		forceVariant = ((BlockPylon) state.getBlock()).variant;
 		GlStateManager.translate(-0.5, -0.25, -0.5);
 		renderPylon((TilePylon) comp.getTileEntity(), 0, 0, 0, 0, true);
-		forceVariant = PylonVariant.MANA;
+		forceVariant = BlockPylon.Variant.MANA;
 	}
 
 	@Override

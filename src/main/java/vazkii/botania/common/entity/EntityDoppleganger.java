@@ -70,7 +70,6 @@ import vazkii.botania.api.lexicon.multiblock.Multiblock;
 import vazkii.botania.api.lexicon.multiblock.MultiblockSet;
 import vazkii.botania.api.lexicon.multiblock.component.MultiblockComponent;
 import vazkii.botania.api.state.BotaniaStateProps;
-import vazkii.botania.api.state.enums.PylonVariant;
 import vazkii.botania.client.core.handler.BossBarHandler;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.common.Botania;
@@ -160,7 +159,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 		Multiblock mb = new Multiblock();
 
 		for(BlockPos p : PYLON_LOCATIONS)
-			mb.addComponent(p.up(), ModBlocks.pylon.getDefaultState().withProperty(BotaniaStateProps.PYLON_VARIANT, PylonVariant.GAIA));
+			mb.addComponent(p.up(), ModBlocks.gaiaPylon.getDefaultState());
 
 		for(int i = 0; i < 3; i++)
 			for(int j = 0; j < 3; j++)
@@ -185,7 +184,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 
 				IBlockState state = world.getBlockState(pos_);
 				Block blockat = state.getBlock();
-				if(blockat != ModBlocks.pylon || state.getValue(BotaniaStateProps.PYLON_VARIANT) != PylonVariant.GAIA) {
+				if(blockat != ModBlocks.gaiaPylon) {
 					if(!world.isRemote)
 						player.sendMessage(new TextComponentTranslation("botaniamisc.needsCatalysts").setStyle(new Style().setColor(TextFormatting.RED)));
 					return false;

@@ -35,3 +35,7 @@ botania:pool[variant={default, creative, diluted, fabulous}, color={16 colors}]
 => botania:fabulous_pool[color={16 colors}]
 reason: each is a different variant, but changing the color only can be done by using an item on a existing pool, so no need to flatten the colors out
 
+botania:pylon[variant={mana, natura, gaia}]
+=> botania:mana_pylon
+=> botania:natura_pylon
+=> botania:gaia_pylon

@@ -104,7 +104,7 @@ public class TileEnchanter extends TileMod implements ISparkAttachable, ITickabl
 		for(BlockPos o : OBSIDIAN_LOCATIONS)
 			mb.addComponent(o.up(), Blocks.OBSIDIAN.getDefaultState());
 		for(BlockPos p : PYLON_LOCATIONS.get(EnumFacing.Axis.X)) {
-			mb.addComponent(p.up(), ModBlocks.pylon.getDefaultState());
+			mb.addComponent(p.up(), ModBlocks.manaPylon.getDefaultState());
 			mb.addComponent(new FlowerComponent(p, ModBlocks.flower));
 		}
 		for(BlockPos f : FLOWER_LOCATIONS)
@@ -406,7 +406,7 @@ public class TileEnchanter extends TileMod implements ISparkAttachable, ITickabl
 				return false;
 
 		for(BlockPos pylon : PYLON_LOCATIONS.get(axis))
-			if(world.getBlockState(pos.add(pylon)).getBlock() != ModBlocks.pylon || !BotaniaAPI.internalHandler.isBotaniaFlower(world, pos.add(pylon).down()))
+			if(world.getBlockState(pos.add(pylon)).getBlock() != ModBlocks.manaPylon || !BotaniaAPI.internalHandler.isBotaniaFlower(world, pos.add(pylon).down()))
 				return false;
 
 		for(BlockPos flower : FLOWER_LOCATIONS)

@@ -16,8 +16,8 @@ import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.AlfPortalState;
-import vazkii.botania.api.state.enums.PylonVariant;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.block.BlockPylon;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.mana.BlockPool;
 import vazkii.botania.common.core.handler.ConfigHandler;
@@ -35,21 +35,21 @@ public class TilePylon extends TileEntity implements ITickable {
 	public void update() {
 		++ticks;
 
-		if(world.getBlockState(getPos()).getBlock() != ModBlocks.pylon)
+		if(!(getBlockType() instanceof BlockPylon))
 			return;
 
-		PylonVariant variant = world.getBlockState(getPos()).getValue(BotaniaStateProps.PYLON_VARIANT);
+		BlockPylon.Variant variant = ((BlockPylon) getBlockType()).variant;
 
 		if(activated && world.isRemote) {
 			if(world.getBlockState(centerPos).getBlock() != getBlockForMeta()
-					|| variant == PylonVariant.NATURA && (portalOff() || !(world.getBlockState(getPos().down()).getBlock() instanceof BlockPool))) {
+					|| variant == BlockPylon.Variant.NATURA && (portalOff() || !(world.getBlockState(getPos().down()).getBlock() instanceof BlockPool))) {
 				activated = false;
 				return;
 			}
 
 			Vector3 centerBlock = new Vector3(centerPos.getX() + 0.5, centerPos.getY() + 0.75 + (Math.random() - 0.5 * 0.25), centerPos.getZ() + 0.5);
 
-			if(variant == PylonVariant.NATURA) {
+			if(variant == BlockPylon.Variant.NATURA) {
 				if(ConfigHandler.elfPortalParticlesEnabled) {
 					double worldTime = ticks;
 					worldTime += new Random(pos.hashCode()).nextInt(1000);
@@ -89,11 +89,11 @@ public class TilePylon extends TileEntity implements ITickable {
 		}
 
 		if(world.rand.nextBoolean() && world.isRemote)
-			Botania.proxy.sparkleFX(pos.getX() + Math.random(), pos.getY() + Math.random() * 1.5, pos.getZ() + Math.random(), variant == PylonVariant.GAIA ? 1F : 0.5F, variant == PylonVariant.NATURA ? 1F : 0.5F, variant == PylonVariant.NATURA ? 0.5F : 1F, (float) Math.random(), 2);
+			Botania.proxy.sparkleFX(pos.getX() + Math.random(), pos.getY() + Math.random() * 1.5, pos.getZ() + Math.random(), variant == BlockPylon.Variant.GAIA ? 1F : 0.5F, variant == BlockPylon.Variant.NATURA ? 1F : 0.5F, variant == BlockPylon.Variant.NATURA ? 0.5F : 1F, (float) Math.random(), 2);
 	}
 
 	private Block getBlockForMeta() {
-		return world.getBlockState(pos).getValue(BotaniaStateProps.PYLON_VARIANT) == PylonVariant.MANA ? ModBlocks.enchanter : ModBlocks.alfPortal;
+		return ((BlockPylon) getBlockType()).variant == BlockPylon.Variant.MANA ? ModBlocks.enchanter : ModBlocks.alfPortal;
 	}
 
 	private boolean portalOff() {

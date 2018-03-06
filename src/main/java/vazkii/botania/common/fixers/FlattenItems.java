@@ -174,6 +174,14 @@ public class FlattenItems implements IFixableData {
 				case 3: return ModBlocks.fabulousPool.getRegistryName().toString();
 			}
 		});
+		LOOKUP.put("botania:pylon", i -> {
+			switch (i) {
+				default:
+				case 0: return ModBlocks.manaPylon.getRegistryName().toString();
+				case 1: return ModBlocks.naturaPylon.getRegistryName().toString();
+				case 2: return ModBlocks.gaiaPylon.getRegistryName().toString();
+			}
+		});
 	}
 
 	@Override

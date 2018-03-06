@@ -492,7 +492,7 @@ public final class ModCraftingRecipes {
 		recipeBellows = ModBlocks.bellows.getRegistryName();
 		recipeRedstoneRoot = ModItems.redstoneRoot.getRegistryName();
 		recipesAltarMeta = allOfGroup("metamorphic_apothecary");
-		recipePylon = path("pylon_0");
+		recipePylon = ModBlocks.manaPylon.getRegistryName();
 		recipeTurntable = ModBlocks.turntable.getRegistryName();
 		recipeAlchemyCatalyst = ModBlocks.alchemyCatalyst.getRegistryName();
 		recipeOpenCrate = path("opencrate_0");
@@ -658,9 +658,9 @@ public final class ModCraftingRecipes {
 		recipeThirdEye = ModItems.thirdEye.getRegistryName();
 		recipeGoddessCharm = ModItems.goddessCharm.getRegistryName();
 		recipeAlfPortal = ModBlocks.alfPortal.getRegistryName();
-		recipeNaturaPylon = path("pylon_1");
+		recipeNaturaPylon = ModBlocks.naturaPylon.getRegistryName();
 		recipeDreamwoodTwig = ModItems.dreamwoodTwig.getRegistryName();
-		recipeGaiaPylon = path("pylon_2");
+		recipeGaiaPylon = ModBlocks.gaiaPylon.getRegistryName();
 		recipeGaiaIngot = ModItems.gaiaIngot.getRegistryName();
 		recipeLivingrockDecor1 = path("livingrock_1");
 		recipeLivingrockDecor2 = path("livingrock_2");

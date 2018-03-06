@@ -208,7 +208,9 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addItem(ModItems.incenseStick);
 		addItem(ModItems.bloodPendant);
 		addBlock(ModBlocks.felPumpkin);
-		addBlock(ModBlocks.pylon);
+		addBlock(ModBlocks.manaPylon);
+		addBlock(ModBlocks.naturaPylon);
+		addBlock(ModBlocks.gaiaPylon);
 		addBlock(ModBlocks.pistonRelay);
 		addBlock(ModBlocks.hourglass);
 		addBlock(ModBlocks.animatedTorch);

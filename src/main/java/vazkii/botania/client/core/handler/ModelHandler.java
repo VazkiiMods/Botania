@@ -55,7 +55,6 @@ public final class ModelHandler {
 	@SubscribeEvent
 	public static void registerModels(ModelRegistryEvent evt) {
 		ModelLoaderRegistry.registerLoader(SpecialFlowerModel.Loader.INSTANCE);
-		OBJLoader.INSTANCE.addDomain(LibMisc.MOD_ID.toLowerCase(Locale.ROOT));
 
 		registerSubtiles();
 

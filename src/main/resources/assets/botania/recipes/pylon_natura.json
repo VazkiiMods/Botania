@@ -1,7 +1,6 @@
 {
   "result": {
-    "item": "botania:pylon",
-    "data": 1
+    "item": "botania:pylon_natura"
   },
   "pattern": [
     " T ",
@@ -11,8 +10,7 @@
   "type": "forge:ore_shaped",
   "key": {
     "P": {
-      "item": "botania:pylon",
-      "data": 0
+      "item": "botania:pylon_mana"
     },
     "T": {
       "item": "#NUGGETTERRASTEEL"

@@ -1,7 +1,6 @@
 {
   "result": {
-    "item": "botania:pylon",
-    "data": 2
+    "item": "botania:pylon_gaia"
   },
   "pattern": [
     " D ",
@@ -11,8 +10,7 @@
   "type": "forge:ore_shaped",
   "key": {
     "P": {
-      "item": "botania:pylon",
-      "data": 0
+      "item": "botania:pylon_mana"
     },
     "D": {
       "item": "#ELVENPIXIEDUST"

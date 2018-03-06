@@ -1,7 +1,6 @@
 {
   "result": {
-    "item": "botania:pylon",
-    "data": 0
+    "item": "botania:pylon_mana"
   },
   "pattern": [
     " G ",

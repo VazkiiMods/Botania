@@ -31,7 +31,6 @@ import vazkii.botania.api.state.enums.LivingRockVariant;
 import vazkii.botania.api.state.enums.LivingWoodVariant;
 import vazkii.botania.api.state.enums.LuminizerVariant;
 import vazkii.botania.api.state.enums.PlatformVariant;
-import vazkii.botania.api.state.enums.PylonVariant;
 import vazkii.botania.api.state.enums.QuartzVariant;
 import vazkii.botania.api.state.enums.SpreaderVariant;
 
@@ -152,9 +151,6 @@ public final class BotaniaStateProps {
 
 	// BlockPrism
 	public static final PropertyBool HAS_LENS = PropertyBool.create("has_lens");
-
-	// BlockPylon
-	public static final PropertyEnum<PylonVariant> PYLON_VARIANT = PropertyEnum.create("variant", PylonVariant.class);
 
 	// BlockSpreader
 	public static final PropertyEnum<SpreaderVariant> SPREADER_VARIANT = PropertyEnum.create("variant", SpreaderVariant.class);

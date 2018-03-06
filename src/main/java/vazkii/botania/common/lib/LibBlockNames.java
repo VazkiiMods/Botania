@@ -22,6 +22,7 @@ public final class LibBlockNames {
 	public static final String POOL_PREFIX = POOL + "_";
 	public static final String RUNE_ALTAR = "runeAltar";
 	public static final String PYLON = "pylon";
+	public static final String PYLON_PREFIX = PYLON + "_";
 	public static final String PISTON_RELAY = "pistonRelay";
 	public static final String DISTRIBUTOR = "distributor";
 	public static final String MANA_VOID = "manaVoid";

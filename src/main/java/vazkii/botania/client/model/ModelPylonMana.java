@@ -12,7 +12,6 @@ package vazkii.botania.client.model;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
-import vazkii.botania.api.state.enums.PylonVariant;
 
 public class ModelPylonMana extends ModelBase implements IPylonModel {
 

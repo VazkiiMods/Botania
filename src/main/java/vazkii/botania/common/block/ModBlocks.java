@@ -137,7 +137,9 @@ public final class ModBlocks {
 	public static final Block dilutedPool = new BlockPool(BlockPool.Variant.DILUTED);
 	public static final Block fabulousPool = new BlockPool(BlockPool.Variant.FABULOUS);
 	public static final Block runeAltar = new BlockRuneAltar();
-	public static final Block pylon = new BlockPylon();
+	public static final Block manaPylon = new BlockPylon(BlockPylon.Variant.MANA);
+	public static final Block naturaPylon = new BlockPylon(BlockPylon.Variant.NATURA);
+	public static final Block gaiaPylon = new BlockPylon(BlockPylon.Variant.GAIA);
 	public static final Block pistonRelay = new BlockPistonRelay();
 	public static final Block distributor = new BlockDistributor();
 	public static final Block manaVoid = new BlockManaVoid();
@@ -254,7 +256,9 @@ public final class ModBlocks {
 		r.register(dilutedPool);
 		r.register(fabulousPool);
 		r.register(runeAltar);
-		r.register(pylon);
+		r.register(manaPylon);
+		r.register(naturaPylon);
+		r.register(gaiaPylon);
 		r.register(pistonRelay);
 		r.register(distributor);
 		r.register(manaVoid);
@@ -374,7 +378,9 @@ public final class ModBlocks {
 		r.register(new ItemBlockPool(dilutedPool).setRegistryName(dilutedPool.getRegistryName()));
 		r.register(new ItemBlockPool(fabulousPool).setRegistryName(fabulousPool.getRegistryName()));
 		r.register(new ItemBlockMod(runeAltar).setRegistryName(runeAltar.getRegistryName()));
-		r.register(new ItemBlockWithMetadataAndName(pylon).setRegistryName(pylon.getRegistryName()));
+		r.register(new ItemBlockMod(manaPylon).setRegistryName(manaPylon.getRegistryName()));
+		r.register(new ItemBlockMod(naturaPylon).setRegistryName(naturaPylon.getRegistryName()));
+		r.register(new ItemBlockMod(gaiaPylon).setRegistryName(gaiaPylon.getRegistryName()));
 		r.register(new ItemBlockMod(pistonRelay).setRegistryName(pistonRelay.getRegistryName()));
 		r.register(new ItemBlockMod(distributor).setRegistryName(distributor.getRegistryName()));
 		r.register(new ItemBlockMod(manaVoid).setRegistryName(manaVoid.getRegistryName()));

@@ -31,7 +31,6 @@ import vazkii.botania.api.recipe.RecipeElvenTrade;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.AlfPortalState;
 import vazkii.botania.api.state.enums.LivingWoodVariant;
-import vazkii.botania.api.state.enums.PylonVariant;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.mana.BlockPool;
@@ -317,13 +316,13 @@ public class TileAlfPortal extends TileMod implements ITickable {
 		List<BlockPos> list = new ArrayList<>();
 		int range = 5;
 
-		IBlockState pylonState = ModBlocks.pylon.getDefaultState().withProperty(BotaniaStateProps.PYLON_VARIANT, PylonVariant.NATURA);
+		IBlockState pylonState = ModBlocks.naturaPylon.getDefaultState();
 
 		for(int i = -range; i < range + 1; i++)
 			for(int j = -range; j < range + 1; j++)
 				for(int k = -range; k < range + 1; k++) {
 					BlockPos pos = new BlockPos(i, j, k);
-					if(checkPosition(pos, pylonState, false) && world.getBlockState(pos.down()).getBlock() instanceof BlockPool)
+					if(world.getBlockState(pos) == pylonState && world.getBlockState(pos.down()).getBlock() instanceof BlockPool)
 						list.add(pos);
 				}
 
