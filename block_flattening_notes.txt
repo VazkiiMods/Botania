@@ -39,3 +39,8 @@ botania:pylon[variant={mana, natura, gaia}]
 => botania:mana_pylon
 => botania:natura_pylon
 => botania:gaia_pylon
+
+botania:platform[variant={abstruse, spectral, infrangible}]
+=> botania:abstruse_platform
+=> botania:spectral_platform
+=> botania:infrangible_platform

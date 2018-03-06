@@ -7,8 +7,7 @@
       "item": "botania:lens_normal"
     },
     {
-      "item": "botania:platform",
-      "data": 0
+      "item": "botania:abstruse_platform"
     }
   ],
   "type": "minecraft:crafting_shapeless"

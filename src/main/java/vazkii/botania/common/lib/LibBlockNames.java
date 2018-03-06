@@ -38,6 +38,7 @@ public final class LibBlockNames {
 	public static final String DRUM_PREFIX = "drum_";
 	public static final String SHINY_FLOWER = "shinyFlower";
 	public static final String PLATFORM = "platform";
+	public static final String PLATFORM_SUFFIX = "_" + PLATFORM;
 	public static final String ALF_PORTAL = "alfheimPortal";
 	public static final String DREAM_WOOD = "dreamwood";
 	public static final String CONJURATION_CATALYST = "conjurationCatalyst";

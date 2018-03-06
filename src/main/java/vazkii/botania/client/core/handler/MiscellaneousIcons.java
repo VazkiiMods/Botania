@@ -19,7 +19,6 @@ import vazkii.botania.client.model.FloatingFlowerModel;
 import vazkii.botania.client.model.GunModel;
 import vazkii.botania.client.model.LexiconModel;
 import vazkii.botania.client.model.PlatformModel;
-import vazkii.botania.common.item.ItemSparkUpgrade;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
 import vazkii.botania.common.item.relic.ItemKingKey;
 
@@ -81,7 +80,16 @@ public class MiscellaneousIcons {
 		evt.getModelRegistry().putObject(new ModelResourceLocation("botania:floatingSpecialFlower", "inventory"), model);
 
 		// Platforms
-		evt.getModelRegistry().putObject(new ModelResourceLocation("botania:platform", "normal"), new PlatformModel());
+		ModelResourceLocation abstruseName = new ModelResourceLocation("botania:abstruse_platform", "normal");
+		IBakedModel abstruse = evt.getModelRegistry().getObject(abstruseName);
+		ModelResourceLocation spectralName = new ModelResourceLocation("botania:spectral_platform", "normal");
+		IBakedModel spectral = evt.getModelRegistry().getObject(spectralName);
+		ModelResourceLocation infrangibleName = new ModelResourceLocation("botania:infrangible_platform", "normal");
+		IBakedModel infrangible = evt.getModelRegistry().getObject(infrangibleName);
+
+		evt.getModelRegistry().putObject(abstruseName, new PlatformModel(abstruse));
+		evt.getModelRegistry().putObject(spectralName, new PlatformModel(spectral));
+		evt.getModelRegistry().putObject(infrangibleName, new PlatformModel(infrangible));
 
 		// Lexicon
 		evt.getModelRegistry().putObject(new ModelResourceLocation("botania:lexicon_3d_default", "inventory"),

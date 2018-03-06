@@ -7,8 +7,7 @@
       "item": "minecraft:rail"
     },
     {
-      "item": "botania:platform",
-      "data": 1
+      "item": "botania:spectral_platform"
     }
   ],
   "type": "minecraft:crafting_shapeless"

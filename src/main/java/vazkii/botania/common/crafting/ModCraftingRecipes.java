@@ -498,9 +498,9 @@ public final class ModCraftingRecipes {
 		recipeOpenCrate = path("opencrate_0");
 		recipeForestEye = ModBlocks.forestEye.getRegistryName();
 		recipeForestDrum = ModBlocks.wildDrum.getRegistryName();
-		recipePlatform = path("platform_0");
+		recipePlatform = ModBlocks.abstrusePlatform.getRegistryName();
 		recipeConjurationCatalyst = ModBlocks.conjurationCatalyst.getRegistryName();
-		recipeSpectralPlatform = path("platform_1");
+		recipeSpectralPlatform = ModBlocks.spectralPlatform.getRegistryName();
 		recipeGatherDrum = ModBlocks.gatheringDrum.getRegistryName();
 		recipePlaceholder = ModItems.placeholder.getRegistryName();
 		recipeCraftCrate = path("opencrate_1");

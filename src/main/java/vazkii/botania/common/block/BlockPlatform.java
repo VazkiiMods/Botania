@@ -50,37 +50,33 @@ import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.List;
+import java.util.Locale;
 
 public class BlockPlatform extends BlockCamo implements ILexiconable, IWandable, IManaCollisionGhost {
 
-	public BlockPlatform() {
-		super(Material.WOOD, LibBlockNames.PLATFORM);
+	public enum Variant {
+		ABSTRUSE,
+		SPECTRAL,
+		INFRANGIBLE
+	}
+
+	public final Variant variant;
+
+	public BlockPlatform(Variant v) {
+		super(Material.WOOD, v.name().toLowerCase(Locale.ROOT) + LibBlockNames.PLATFORM_SUFFIX);
 		setHardness(2.0F);
 		setResistance(5.0F);
 		setSoundType(SoundType.WOOD);
-		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.PLATFORM_VARIANT, PlatformVariant.ABSTRUSE));
+		this.variant = v;
 	}
 
 	@Nonnull
 	@Override
 	public BlockStateContainer createBlockState() {
-		return new ExtendedBlockState(this, new IProperty[] { BotaniaStateProps.PLATFORM_VARIANT, },
+		return new ExtendedBlockState(this, new IProperty[0],
 				new IUnlistedProperty[] { BotaniaStateProps.HELD_STATE, BotaniaStateProps.HELD_WORLD, BotaniaStateProps.HELD_POS });
-	}
-
-	@Override
-	public int getMetaFromState(IBlockState state) {
-		return state.getValue(BotaniaStateProps.PLATFORM_VARIANT).ordinal();
-	}
-
-	@Nonnull
-	@Override
-	public IBlockState getStateFromMeta(int meta) {
-		if (meta > PlatformVariant.values().length) {
-			meta = 0;
-		}
-		return getDefaultState().withProperty(BotaniaStateProps.PLATFORM_VARIANT, PlatformVariant.values()[meta]);
 	}
 
 	@Nonnull
@@ -103,39 +99,25 @@ public class BlockPlatform extends BlockCamo implements ILexiconable, IWandable,
 		return true;
 	}
 
-
-	@Override
-	public int damageDropped(IBlockState state) {
-		return getMetaFromState(state);
-	}
-
-	@Override
-	public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> stacks) {
-		for(int i = 0; i < PlatformVariant.values().length; i++)
-			stacks.add(new ItemStack(this, 1, i));
-	}
-
 	@Override
 	public void addCollisionBoxToList(IBlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull AxisAlignedBB par5AxisAlignedBB, @Nonnull List<AxisAlignedBB> stacks, Entity par7Entity, boolean isActualState) {
-		PlatformVariant variant = state.getValue(BotaniaStateProps.PLATFORM_VARIANT);
-		if(variant == PlatformVariant.INFRANGIBLE || variant == PlatformVariant.ABSTRUSE && par7Entity != null && par7Entity.posY > pos.getY() + 0.9 && (!(par7Entity instanceof EntityPlayer) || !par7Entity.isSneaking()))
+		if(variant == Variant.INFRANGIBLE || variant == Variant.ABSTRUSE && par7Entity != null && par7Entity.posY > pos.getY() + 0.9 && (!(par7Entity instanceof EntityPlayer) || !par7Entity.isSneaking()))
 			super.addCollisionBoxToList(state, world, pos, par5AxisAlignedBB, stacks, par7Entity, isActualState);
 	}
 
 	@Override
 	public float getBlockHardness(IBlockState state, World world, BlockPos pos) {
-		PlatformVariant variant = world.getBlockState(pos).getValue(BotaniaStateProps.PLATFORM_VARIANT);
-		return variant == PlatformVariant.INFRANGIBLE ? -1F : super.getBlockHardness(state, world, pos);
+		return variant == Variant.INFRANGIBLE ? -1F : super.getBlockHardness(state, world, pos);
 	}
 	
 	@Override
 	public boolean canEntityDestroy(IBlockState state, IBlockAccess world, BlockPos pos, Entity entity) {
-		return state.getValue(BotaniaStateProps.PLATFORM_VARIANT) != PlatformVariant.INFRANGIBLE;
+		return variant != Variant.INFRANGIBLE;
 	}
 
 	@Override
-	public float getExplosionResistance(World world, BlockPos pos, @Nonnull Entity exploder, Explosion explosion) {
-		return world.getBlockState(pos).getValue(BotaniaStateProps.PLATFORM_VARIANT) != PlatformVariant.INFRANGIBLE ? super.getExplosionResistance(world, pos, exploder, explosion) : Float.MAX_VALUE;
+	public float getExplosionResistance(World world, BlockPos pos, @Nullable Entity exploder, Explosion explosion) {
+		return variant != Variant.INFRANGIBLE ? super.getExplosionResistance(world, pos, exploder, explosion) : Float.MAX_VALUE;
 	}
 	
 	@Nonnull
@@ -146,8 +128,7 @@ public class BlockPlatform extends BlockCamo implements ILexiconable, IWandable,
 
 	@Override
 	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
-		PlatformVariant variant = world.getBlockState(pos).getValue(BotaniaStateProps.PLATFORM_VARIANT);
-		return variant == PlatformVariant.ABSTRUSE ? LexiconData.platform : variant == PlatformVariant.INFRANGIBLE ? null : LexiconData.spectralPlatform;
+		return variant == Variant.ABSTRUSE ? LexiconData.platform : variant == Variant.INFRANGIBLE ? null : LexiconData.spectralPlatform;
 	}
 
 	@Override
@@ -159,14 +140,5 @@ public class BlockPlatform extends BlockCamo implements ILexiconable, IWandable,
 	@Override
 	public boolean isGhost(IBlockState state, World world, BlockPos pos) {
 		return true;
-	}
-
-	@SideOnly(Side.CLIENT)
-	@Override
-	public void registerModels() {
-		ModelHandler.registerBlockToState(this, 3);
-		// Statemapper after item registration, because the items should be registered to the actual variant names
-		ModelLoader.setCustomStateMapper(this, new StateMap.Builder().ignore(BotaniaStateProps.PLATFORM_VARIANT).build());
-
 	}
 }

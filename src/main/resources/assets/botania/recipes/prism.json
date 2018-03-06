@@ -13,8 +13,7 @@
       "item": "#GEMPRISMARINE"
     },
     "S": {
-      "item": "botania:platform",
-      "data": 1
+      "item": "botania:spectral_platform"
     },
     "G": {
       "item": "#BLOCKGLASSCOLORLESS"

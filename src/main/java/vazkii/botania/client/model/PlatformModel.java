@@ -29,6 +29,7 @@ import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.property.IExtendedBlockState;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.BlockCamo;
+import vazkii.botania.common.block.BlockPlatform;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileCamo;
 
@@ -36,11 +37,20 @@ import javax.annotation.Nonnull;
 import java.util.List;
 
 public class PlatformModel implements IBakedModel {
+	private final IBakedModel original;
+
+	public PlatformModel(IBakedModel original) {
+		this.original = original;
+	}
 
 	@Nonnull
 	@Override
 	public List<BakedQuad> getQuads(IBlockState state, EnumFacing side, long rand) {
-		if(state.getBlock() != ModBlocks.platform)
+		// rendering the item form
+		if(state == null)
+			return original.getQuads(state, side, rand);
+
+		if(!(state.getBlock() instanceof BlockPlatform))
 			return Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelManager().getMissingModel().getQuads(state, side, rand);
 
 		BlockRenderLayer layer = MinecraftForgeClient.getRenderLayer();
@@ -59,8 +69,7 @@ public class PlatformModel implements IBakedModel {
 		Minecraft mc = Minecraft.getMinecraft();
 		if(heldState == null && layer == BlockRenderLayer.SOLID) {
 			// No camo
-			ModelResourceLocation path = new ModelResourceLocation("botania:platform", "variant=" + state.getValue(BotaniaStateProps.PLATFORM_VARIANT).getName());
-			return mc.getBlockRendererDispatcher().getBlockModelShapes().getModelManager().getModel(path).getQuads(state, side, rand);
+			return original.getQuads(state, side, rand);
 		} else if(heldState != null) {
 
 			// Some people used this to get an invisible block in the past, accommodate that.
@@ -82,37 +91,21 @@ public class PlatformModel implements IBakedModel {
 		return ImmutableList.of(); // Nothing renders
 	}
 
-	@Override
-	public boolean isAmbientOcclusion() {
-		return true;
+	@Override public boolean isAmbientOcclusion() {
+		return original.isAmbientOcclusion();
 	}
-
-	@Override
-	public boolean isGui3d() {
-		return true;
+	@Override public boolean isGui3d() {
+		return original.isGui3d();
 	}
-
-	@Override
-	public boolean isBuiltInRenderer() {
-		return false;
+	@Override public boolean isBuiltInRenderer() {
+		return original.isBuiltInRenderer();
 	}
-
-	@Nonnull
-	@Override
-	public TextureAtlasSprite getParticleTexture() {
-		return Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite("botania:blocks/livingwood0");
+	@Nonnull @Override public TextureAtlasSprite getParticleTexture() { return original.getParticleTexture(); }
+	@Nonnull @Override public ItemCameraTransforms getItemCameraTransforms() {
+		return original.getItemCameraTransforms();
 	}
-
-	@Nonnull
-	@Override
-	public ItemCameraTransforms getItemCameraTransforms() {
-		return ItemCameraTransforms.DEFAULT;
-	}
-
-	@Nonnull
-	@Override
-	public ItemOverrideList getOverrides() {
-		return ItemOverrideList.NONE;
+	@Nonnull @Override public ItemOverrideList getOverrides() {
+		return original.getOverrides();
 	}
 
 	private static class FakeBlockAccess implements IBlockAccess {

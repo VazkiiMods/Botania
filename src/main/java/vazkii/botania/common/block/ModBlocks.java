@@ -159,7 +159,9 @@ public final class ModBlocks {
 	public static final Block gatheringDrum = new BlockForestDrum(BlockForestDrum.Variant.GATHERING);
 	public static final Block canopyDrum = new BlockForestDrum(BlockForestDrum.Variant.CANOPY);
 	public static final Block shinyFlower = new BlockShinyFlower();
-	public static final Block platform = new BlockPlatform();
+	public static final Block abstrusePlatform = new BlockPlatform(BlockPlatform.Variant.ABSTRUSE);
+	public static final Block spectralPlatform = new BlockPlatform(BlockPlatform.Variant.SPECTRAL);
+	public static final Block infrangiblePlatform = new BlockPlatform(BlockPlatform.Variant.INFRANGIBLE);
 	public static final Block alfPortal = new BlockAlfPortal();
 	public static final Block dreamwood = new BlockDreamwood();
 	public static final Block conjurationCatalyst = new BlockConjurationCatalyst();
@@ -278,7 +280,9 @@ public final class ModBlocks {
 		r.register(gatheringDrum);
 		r.register(canopyDrum);
 		r.register(shinyFlower);
-		r.register(platform);
+		r.register(abstrusePlatform);
+		r.register(spectralPlatform);
+		r.register(infrangiblePlatform);
 		r.register(alfPortal);
 		r.register(dreamwood);
 		r.register(conjurationCatalyst);
@@ -400,7 +404,9 @@ public final class ModBlocks {
 		r.register(new ItemBlockMod(gatheringDrum).setRegistryName(gatheringDrum.getRegistryName()));
 		r.register(new ItemBlockMod(canopyDrum).setRegistryName(canopyDrum.getRegistryName()));
 		r.register(new ItemBlockWithMetadataAndName(shinyFlower).setRegistryName(shinyFlower.getRegistryName()));
-		r.register(new ItemBlockWithMetadataAndName(platform).setRegistryName(platform.getRegistryName()));
+		r.register(new ItemBlockMod(abstrusePlatform).setRegistryName(abstrusePlatform.getRegistryName()));
+		r.register(new ItemBlockMod(spectralPlatform).setRegistryName(spectralPlatform.getRegistryName()));
+		r.register(new ItemBlockMod(infrangiblePlatform).setRegistryName(infrangiblePlatform.getRegistryName()));
 		r.register(new ItemBlockMod(alfPortal).setRegistryName(alfPortal.getRegistryName()));
 		r.register(new ItemBlockDreamwood(dreamwood).setRegistryName(dreamwood.getRegistryName()));
 		r.register(new ItemBlockMod(conjurationCatalyst).setRegistryName(conjurationCatalyst.getRegistryName()));

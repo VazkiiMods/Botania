@@ -97,7 +97,7 @@ public final class ColorHandler {
 						}
 					}
 					return 0xFFFFFF;
-				}, ModBlocks.platform);
+				}, ModBlocks.abstrusePlatform, ModBlocks.spectralPlatform, ModBlocks.infrangiblePlatform);
 
 		ItemColors items = Minecraft.getMinecraft().getItemColors();
 

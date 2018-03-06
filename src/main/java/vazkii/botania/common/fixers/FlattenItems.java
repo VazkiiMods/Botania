@@ -182,6 +182,14 @@ public class FlattenItems implements IFixableData {
 				case 2: return ModBlocks.gaiaPylon.getRegistryName().toString();
 			}
 		});
+		LOOKUP.put("botania:platform", i -> {
+			switch (i) {
+				default:
+				case 0: return ModBlocks.abstrusePlatform.getRegistryName().toString();
+				case 1: return ModBlocks.spectralPlatform.getRegistryName().toString();
+				case 2: return ModBlocks.infrangiblePlatform.getRegistryName().toString();
+			}
+		});
 	}
 
 	@Override

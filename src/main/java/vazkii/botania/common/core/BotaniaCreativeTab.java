@@ -194,7 +194,9 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addItem(ModItems.craftPattern3_2);
 		addItem(ModItems.craftPatternDonut);
 
-		addBlock(ModBlocks.platform);
+		addBlock(ModBlocks.abstrusePlatform);
+		addBlock(ModBlocks.spectralPlatform);
+		addBlock(ModBlocks.infrangiblePlatform);
 		addBlock(ModBlocks.alfPortal);
 		addBlock(ModBlocks.altar);
 		addBlock(ModBlocks.runeAltar);
