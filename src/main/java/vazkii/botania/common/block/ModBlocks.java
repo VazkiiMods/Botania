@@ -127,7 +127,16 @@ import vazkii.botania.common.lib.LibOreDict;
 @Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
 public final class ModBlocks {
 	public static final Block flower = new BlockModFlower();
-	public static final Block altar = new BlockAltar();
+	public static final Block defaultAltar = new BlockAltar(BlockAltar.Variant.DEFAULT);
+	public static final Block forestAltar = new BlockAltar(BlockAltar.Variant.FOREST);
+	public static final Block plainsAltar = new BlockAltar(BlockAltar.Variant.PLAINS);
+	public static final Block mountainAltar = new BlockAltar(BlockAltar.Variant.MOUNTAIN);
+	public static final Block fungalAltar = new BlockAltar(BlockAltar.Variant.FUNGAL);
+	public static final Block swampAltar = new BlockAltar(BlockAltar.Variant.SWAMP);
+	public static final Block desertAltar = new BlockAltar(BlockAltar.Variant.DESERT);
+	public static final Block taigaAltar = new BlockAltar(BlockAltar.Variant.TAIGA);
+	public static final Block mesaAltar = new BlockAltar(BlockAltar.Variant.MESA);
+	public static final Block mossyAltar = new BlockAltar(BlockAltar.Variant.MOSSY);
 	public static final Block livingrock = new BlockLivingrock();
 	public static final Block livingwood = new BlockLivingwood();
 	public static final Block specialFlower = new BlockSpecialFlower();
@@ -248,7 +257,16 @@ public final class ModBlocks {
 		IForgeRegistry<Block> r = evt.getRegistry();
 
 		r.register(flower);
-		r.register(altar);
+		r.register(defaultAltar);
+		r.register(forestAltar);
+		r.register(plainsAltar);
+		r.register(mountainAltar);
+		r.register(fungalAltar);
+		r.register(swampAltar);
+		r.register(desertAltar);
+		r.register(taigaAltar);
+		r.register(mesaAltar);
+		r.register(mossyAltar);
 		r.register(livingrock);
 		r.register(livingwood);
 		r.register(specialFlower);
@@ -372,7 +390,16 @@ public final class ModBlocks {
 	public static void registerItemBlocks(RegistryEvent.Register<Item> evt) {
 		IForgeRegistry<Item> r = evt.getRegistry();
 		r.register(new ItemBlockWithMetadataAndName(flower).setRegistryName(flower.getRegistryName()));
-		r.register(new ItemBlockWithMetadataAndName(altar).setRegistryName(altar.getRegistryName()));
+		r.register(new ItemBlockMod(defaultAltar).setRegistryName(defaultAltar.getRegistryName()));
+		r.register(new ItemBlockMod(forestAltar).setRegistryName(forestAltar.getRegistryName()));
+		r.register(new ItemBlockMod(plainsAltar).setRegistryName(plainsAltar.getRegistryName()));
+		r.register(new ItemBlockMod(mountainAltar).setRegistryName(mountainAltar.getRegistryName()));
+		r.register(new ItemBlockMod(fungalAltar).setRegistryName(fungalAltar.getRegistryName()));
+		r.register(new ItemBlockMod(swampAltar).setRegistryName(swampAltar.getRegistryName()));
+		r.register(new ItemBlockMod(desertAltar).setRegistryName(desertAltar.getRegistryName()));
+		r.register(new ItemBlockMod(taigaAltar).setRegistryName(taigaAltar.getRegistryName()));
+		r.register(new ItemBlockMod(mesaAltar).setRegistryName(mesaAltar.getRegistryName()));
+		r.register(new ItemBlockMod(mossyAltar).setRegistryName(mossyAltar.getRegistryName()));
 		r.register(new ItemBlockWithMetadataAndName(livingrock).setRegistryName(livingrock.getRegistryName()));
 		r.register(new ItemBlockWithMetadataAndName(livingwood).setRegistryName(livingwood.getRegistryName()));
 		r.register(new ItemBlockSpecialFlower(specialFlower).setRegistryName(specialFlower.getRegistryName()));

@@ -76,7 +76,7 @@ public class PetalApothecaryRecipeCategory implements IRecipeCategory {
 			return;
 
 		recipeLayout.getItemStacks().init(0, true, 64, 52);
-		recipeLayout.getItemStacks().set(0, new ItemStack(ModBlocks.altar));
+		recipeLayout.getItemStacks().set(0, new ItemStack(ModBlocks.defaultAltar));
 
 		int index = 1;
 		double angleBetweenEach = 360.0 / ingredients.getInputs(ItemStack.class).size();

@@ -1,7 +1,6 @@
 {
   "result": {
-    "item": "botania:altar",
-    "data": 5
+    "item": "botania:apothecary_swamp"
   },
   "pattern": [
     "SSS",
@@ -12,8 +11,7 @@
   "group": "botania:metamorphic_apothecary",
   "key": {
     "A": {
-      "item": "botania:altar",
-      "data": 0
+      "item": "botania:apothecary_default"
     },
     "S": {
       "item": "botania:biomestonea",

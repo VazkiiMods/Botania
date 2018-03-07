@@ -198,7 +198,16 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addBlock(ModBlocks.spectralPlatform);
 		addBlock(ModBlocks.infrangiblePlatform);
 		addBlock(ModBlocks.alfPortal);
-		addBlock(ModBlocks.altar);
+		addBlock(ModBlocks.defaultAltar);
+		addBlock(ModBlocks.forestAltar);
+		addBlock(ModBlocks.plainsAltar);
+		addBlock(ModBlocks.mountainAltar);
+		addBlock(ModBlocks.fungalAltar);
+		addBlock(ModBlocks.swampAltar);
+		addBlock(ModBlocks.desertAltar);
+		addBlock(ModBlocks.taigaAltar);
+		addBlock(ModBlocks.mesaAltar);
+		addBlock(ModBlocks.mossyAltar);
 		addBlock(ModBlocks.runeAltar);
 		addBlock(ModBlocks.terraPlate);
 		addBlock(ModBlocks.brewery);

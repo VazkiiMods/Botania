@@ -423,7 +423,7 @@ public final class ModCraftingRecipes {
 		recipesPetalBlocks = allOfGroup(ModBlocks.petalBlock.getRegistryName());
 		recipesReversePetalBlocks = allOfGroup("petal_block_deconstruct");
 
-		recipeApothecary = path("altar_0");
+		recipeApothecary = ModBlocks.defaultAltar.getRegistryName();
 		recipeLexicon = ModItems.lexicon.getRegistryName();
 		recipesTwigWand = allOfGroup(ModItems.twigWand.getRegistryName());
 		recipeLivingwoodTwig = ModItems.livingwoodTwig.getRegistryName();

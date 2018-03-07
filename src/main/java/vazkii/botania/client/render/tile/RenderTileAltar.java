@@ -33,8 +33,7 @@ public class RenderTileAltar extends TileEntitySpecialRenderer<TileAltar> {
 
 	@Override
 	public void render(@Nonnull TileAltar altar, double d0, double d1, double d2, float pticks, int digProgress, float unused) {
-		if(!altar.getWorld().isBlockLoaded(altar.getPos(), false)
-				|| altar.getWorld().getBlockState(altar.getPos()).getBlock() != ModBlocks.altar)
+		if(!altar.getWorld().isBlockLoaded(altar.getPos(), false))
 			return;
 
 		GlStateManager.pushMatrix();

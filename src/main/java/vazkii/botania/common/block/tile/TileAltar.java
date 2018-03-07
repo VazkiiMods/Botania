@@ -10,6 +10,7 @@
  */
 package vazkii.botania.common.block.tile;
 
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
@@ -24,8 +25,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.SoundCategory;
@@ -38,22 +37,16 @@ import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.IItemHandlerModifiable;
-import scala.reflect.internal.Trees.If;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.item.IPetalApothecary;
 import vazkii.botania.api.recipe.IFlowerComponent;
 import vazkii.botania.api.recipe.RecipePetals;
-import vazkii.botania.api.state.BotaniaStateProps;
-import vazkii.botania.api.state.enums.AltarVariant;
 import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ModSounds;
-import vazkii.botania.common.item.equipment.bauble.ItemBalanceCloak;
-import vazkii.botania.common.network.PacketBotaniaEffect;
-import vazkii.botania.common.network.PacketHandler;
 
 import javax.annotation.Nonnull;
 import java.awt.Color;
@@ -74,7 +67,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 	public boolean hasWater = false;
 	public boolean hasLava = false;
 
-	public boolean isMossy = false;
+	private boolean mossyLegacy = false;
 
 	List<ItemStack> lastRecipe = null;
 	int recipeKeepTicks = 0;
@@ -84,14 +77,12 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 		if(world.isRemote || stack.isEmpty() || item.isDead)
 			return false;
 
-		if(!isMossy && world.getBlockState(getPos()).getValue(BotaniaStateProps.ALTAR_VARIANT) == AltarVariant.DEFAULT) {
-			if(stack.getItem() == Item.getItemFromBlock(Blocks.VINE)) {
-				isMossy = true;
-				world.updateComparatorOutputLevel(pos, world.getBlockState(pos).getBlock());
-				stack.shrink(1);
+		if(getBlockType() == ModBlocks.defaultAltar && stack.getItem() == Item.getItemFromBlock(Blocks.VINE)) {
+			// todo 1.13 this resets the tile entity/drops all contents
+			world.setBlockState(getPos(), ModBlocks.mossyAltar.getDefaultState());
+			stack.shrink(1);
 
-				return true;
-			}
+			return true;
 		}
 
 		if(!hasWater() && !hasLava()) {
@@ -190,7 +181,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 			lastRecipe.add(stack.copy());
 		}
 		recipeKeepTicks = 400;
-		world.addBlockEvent(getPos(), ModBlocks.altar, SET_KEEP_TICKS_EVENT, 400);
+		world.addBlockEvent(getPos(), getBlockType(), SET_KEEP_TICKS_EVENT, 400);
 	}
 
 	public void trySetLastRecipe(EntityPlayer player) {
@@ -238,6 +229,11 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 	@Override
 	public void update() {
 		if(!world.isRemote) {
+			if(mossyLegacy) {
+				world.setBlockState(getPos(), ModBlocks.mossyAltar.getDefaultState());
+				mossyLegacy = false;
+			}
+
 			List<EntityItem> items = world.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(pos.add(0, 1D / 16D * 20D, 0), pos.add(1, 1D / 16D * 32D, 1)));
 
 			boolean didChange = false;
@@ -264,7 +260,6 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 			}
 
 			if(hasLava()) {
-				isMossy = false;
 				world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, pos.getX() + 0.5 + Math.random() * 0.4 - 0.2, pos.getY() + 1, pos.getZ() + 0.5 + Math.random() * 0.4 - 0.2, 0, 0.05, 0);
 				if(Math.random() > 0.9)
 					world.spawnParticle(EnumParticleTypes.LAVA, pos.getX() + 0.5 + Math.random() * 0.4 - 0.2, pos.getY() + 1, pos.getZ() + 0.5 + Math.random() * 0.4 - 0.2, 0, 0.01, 0);
@@ -282,7 +277,6 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 
 		cmp.setBoolean(TAG_HAS_WATER, hasWater());
 		cmp.setBoolean(TAG_HAS_LAVA, hasLava());
-		cmp.setBoolean(TAG_IS_MOSSY, isMossy);
 	}
 
 	@Override
@@ -291,15 +285,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 
 		hasWater = cmp.getBoolean(TAG_HAS_WATER);
 		hasLava = cmp.getBoolean(TAG_HAS_LAVA);
-		isMossy = cmp.getBoolean(TAG_IS_MOSSY);
-	}
-
-	@Override
-	public void onDataPacket(NetworkManager manager, SPacketUpdateTileEntity packet) {
-		boolean lastMossy = isMossy;
-		super.onDataPacket(manager, packet);
-		if(isMossy != lastMossy)
-			world.markBlockRangeForRenderUpdate(pos, pos);
+		mossyLegacy = cmp.getBoolean(TAG_IS_MOSSY);
 	}
 
 	@Override

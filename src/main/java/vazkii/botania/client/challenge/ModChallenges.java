@@ -40,7 +40,7 @@ public final class ModChallenges {
 		addChallenge(EnumChallengeLevel.EASY, "pureDaisy", ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_PUREDAISY));
 		addChallenge(EnumChallengeLevel.EASY, "battery", new ItemStack(ModBlocks.manaPool));
 
-		addChallenge(EnumChallengeLevel.NORMAL, "apothecaryRefill", new ItemStack(ModBlocks.altar));
+		addChallenge(EnumChallengeLevel.NORMAL, "apothecaryRefill", new ItemStack(ModBlocks.defaultAltar));
 		addChallenge(EnumChallengeLevel.NORMAL, "treeFarm", new ItemStack(Blocks.SAPLING));
 		addChallenge(EnumChallengeLevel.NORMAL, "fullCropFarm", new ItemStack(Items.WHEAT_SEEDS));
 		addChallenge(EnumChallengeLevel.NORMAL, "animalFarm", new ItemStack(Items.LEATHER));

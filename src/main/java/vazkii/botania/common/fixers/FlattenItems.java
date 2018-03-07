@@ -6,6 +6,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.datafix.IFixableData;
 import vazkii.botania.api.item.IAncientWillContainer;
 import vazkii.botania.api.state.enums.CratePattern;
+import vazkii.botania.common.block.BlockAltar;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.bauble.ItemBaubleCosmetic;
@@ -190,6 +191,7 @@ public class FlattenItems implements IFixableData {
 				case 2: return ModBlocks.infrangiblePlatform.getRegistryName().toString();
 			}
 		});
+		LOOKUP.put("botania:altar", i -> LibMisc.MOD_ID + ":" + LibBlockNames.APOTHECARY_PREFIX + BlockAltar.Variant.values()[i % 10].name().toLowerCase(Locale.ROOT));
 	}
 
 	@Override

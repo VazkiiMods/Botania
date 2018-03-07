@@ -1,7 +1,6 @@
 {
   "result": {
-    "item": "botania:altar",
-    "data": 6
+    "item": "botania:apothecary_mountain"
   },
   "pattern": [
     "SSS",
@@ -12,12 +11,11 @@
   "group": "botania:metamorphic_apothecary",
   "key": {
     "A": {
-      "item": "botania:altar",
-      "data": 0
+      "item": "botania:apothecary_default"
     },
     "S": {
       "item": "botania:biomestonea",
-      "data": 13
+      "data": 10
     }
   }
 }

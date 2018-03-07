@@ -99,7 +99,7 @@ public class PagePetalRecipe<T extends RecipePetals> extends PageRecipe {
 	}
 
 	ItemStack getMiddleStack() {
-		return new ItemStack(ModBlocks.altar);
+		return new ItemStack(ModBlocks.defaultAltar);
 	}
 
 	@SideOnly(Side.CLIENT)

@@ -12,25 +12,21 @@ package vazkii.botania.common.block;
 
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.ChunkCache;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
@@ -44,9 +40,6 @@ import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.mana.ManaItemHandler;
-import vazkii.botania.api.state.BotaniaStateProps;
-import vazkii.botania.api.state.enums.AltarVariant;
-import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.tile.TileAltar;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
@@ -57,57 +50,39 @@ import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
 import javax.annotation.Nonnull;
+import java.util.Locale;
+import java.util.Random;
 
 public class BlockAltar extends BlockMod implements ILexiconable {
 
 	private static final AxisAlignedBB AABB = new AxisAlignedBB(0.125, 0.125, 0.125, 0.875, 20.0/16, 0.875);
 
-	protected BlockAltar() {
-		super(Material.ROCK, LibBlockNames.ALTAR);
+	public enum Variant {
+		DEFAULT,
+		FOREST,
+		PLAINS,
+		MOUNTAIN,
+		FUNGAL,
+		SWAMP,
+		DESERT,
+		TAIGA,
+		MESA,
+		MOSSY
+	}
+
+	public final Variant variant;
+
+	protected BlockAltar(Variant v) {
+		super(Material.ROCK, LibBlockNames.APOTHECARY_PREFIX + v.name().toLowerCase(Locale.ROOT));
 		setHardness(3.5F);
 		setSoundType(SoundType.STONE);
-		setDefaultState(blockState.getBaseState()
-				.withProperty(BotaniaStateProps.ALTAR_VARIANT, AltarVariant.DEFAULT));
+		this.variant = v;
 	}
 
 	@Nonnull
 	@Override
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
 		return AABB;
-	}
-
-	@Nonnull
-	@Override
-	public BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this, BotaniaStateProps.ALTAR_VARIANT);
-	}
-
-	@Override
-	public int getMetaFromState(IBlockState state) {
-		return state.getValue(BotaniaStateProps.ALTAR_VARIANT).ordinal();
-	}
-
-	@Nonnull
-	@Override
-	public IBlockState getStateFromMeta(int meta) {
-		if (meta < 0 || meta >= AltarVariant.values().length ) {
-			meta = 0;
-		}
-		return getDefaultState().withProperty(BotaniaStateProps.ALTAR_VARIANT, AltarVariant.values()[meta]);
-	}
-
-	@Nonnull
-	@Override
-	public IBlockState getActualState(@Nonnull IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-		TileEntity te = worldIn instanceof ChunkCache ? ((ChunkCache)worldIn).getTileEntity(pos, Chunk.EnumCreateEntityType.CHECK) : worldIn.getTileEntity(pos);
-		if (te instanceof TileAltar) {
-			TileAltar altar = (TileAltar) te;
-
-			if (altar.isMossy) {
-				state = state.withProperty(BotaniaStateProps.ALTAR_VARIANT, AltarVariant.MOSSY);
-			}
-		}
-		return state;
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -117,10 +92,14 @@ public class BlockAltar extends BlockMod implements ILexiconable {
 		return BlockRenderLayer.CUTOUT;
 	}
 
+	@Nonnull
 	@Override
-	public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> list) {
-		for(int i = 0; i < 9; i++)
-			list.add(new ItemStack(this, 1, i));
+	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
+		if(variant == Variant.MOSSY) {
+			return Item.getItemFromBlock(ModBlocks.defaultAltar);
+		} else {
+			return super.getItemDropped(state, rand, fortune);
+		}
 	}
 
 	@Override
@@ -211,11 +190,6 @@ public class BlockAltar extends BlockMod implements ILexiconable {
 		}
 	}
 
-	@Override
-	public int damageDropped(IBlockState state) {
-		return getMetaFromState(state);
-	}
-
 	private boolean isValidWaterContainer(ItemStack stack) {
 		if(stack.isEmpty() || stack.getCount() != 1)
 			return false;
@@ -281,11 +255,4 @@ public class BlockAltar extends BlockMod implements ILexiconable {
 	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.apothecary;
 	}
-
-	@SideOnly(Side.CLIENT)
-	@Override
-	public void registerModels() {
-		ModelHandler.registerBlockToState(this, AltarVariant.values().length - 1);
-	}
-
 }

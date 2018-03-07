@@ -44,3 +44,7 @@ botania:platform[variant={abstruse, spectral, infrangible}]
 => botania:abstruse_platform
 => botania:spectral_platform
 => botania:infrangible_platform
+
+block:altar[variant={default, forest, plains, mountain, fungal, swamp, desert, taiga, mesa, mossy}]
+=> botania:apothecary_<variant>
+mossy moved from actual state read from TE to a real separate block
