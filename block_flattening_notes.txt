@@ -39,12 +39,19 @@ botania:pylon[variant={mana, natura, gaia}]
 => botania:mana_pylon
 => botania:natura_pylon
 => botania:gaia_pylon
+reason: each is a different variant
 
 botania:platform[variant={abstruse, spectral, infrangible}]
 => botania:abstruse_platform
 => botania:spectral_platform
 => botania:infrangible_platform
+reason: each is a different variant
 
-block:altar[variant={default, forest, plains, mountain, fungal, swamp, desert, taiga, mesa, mossy}]
+botania:altar[variant={default, forest, plains, mountain, fungal, swamp, desert, taiga, mesa, mossy}]
 => botania:apothecary_<variant>
-mossy moved from actual state read from TE to a real separate block
+reason: each is a different variant. mossy moved from actual state read from TE to a real separate block
+
+botania:opencrate[variant={open, crafty}, pattern={..}]
+=> botania:opencrate
+=> botania:craftcrate[pattern={..}]
+reason: split open and crafty crate. Crafty patterns can stay blockstate properties since a pattern can only be changed by using an item on a existing crate

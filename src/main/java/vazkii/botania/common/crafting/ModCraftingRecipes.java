@@ -495,7 +495,7 @@ public final class ModCraftingRecipes {
 		recipePylon = ModBlocks.manaPylon.getRegistryName();
 		recipeTurntable = ModBlocks.turntable.getRegistryName();
 		recipeAlchemyCatalyst = ModBlocks.alchemyCatalyst.getRegistryName();
-		recipeOpenCrate = path("opencrate_0");
+		recipeOpenCrate = ModBlocks.openCrate.getRegistryName();
 		recipeForestEye = ModBlocks.forestEye.getRegistryName();
 		recipeForestDrum = ModBlocks.wildDrum.getRegistryName();
 		recipePlatform = ModBlocks.abstrusePlatform.getRegistryName();
@@ -503,7 +503,7 @@ public final class ModCraftingRecipes {
 		recipeSpectralPlatform = ModBlocks.spectralPlatform.getRegistryName();
 		recipeGatherDrum = ModBlocks.gatheringDrum.getRegistryName();
 		recipePlaceholder = ModItems.placeholder.getRegistryName();
-		recipeCraftCrate = path("opencrate_1");
+		recipeCraftCrate = ModBlocks.craftCrate.getRegistryName();
 		recipesPatterns = allOfGroup("craft_pattern");
 		recipeBrewery = ModBlocks.brewery.getRegistryName();
 		recipeVial = ModItems.vial.getRegistryName();

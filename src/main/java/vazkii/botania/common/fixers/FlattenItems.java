@@ -192,6 +192,13 @@ public class FlattenItems implements IFixableData {
 			}
 		});
 		LOOKUP.put("botania:altar", i -> LibMisc.MOD_ID + ":" + LibBlockNames.APOTHECARY_PREFIX + BlockAltar.Variant.values()[i % 10].name().toLowerCase(Locale.ROOT));
+		LOOKUP.put("botania:opencrate", i -> {
+			if(i == 1) {
+				return ModBlocks.craftCrate.getRegistryName().toString();
+			} else {
+				return ModBlocks.openCrate.getRegistryName().toString();
+			}
+		});
 	}
 
 	@Override

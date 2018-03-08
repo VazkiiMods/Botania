@@ -25,7 +25,6 @@ import vazkii.botania.api.state.enums.AlfPortalState;
 import vazkii.botania.api.state.enums.BiomeBrickVariant;
 import vazkii.botania.api.state.enums.BiomeStoneVariant;
 import vazkii.botania.api.state.enums.CratePattern;
-import vazkii.botania.api.state.enums.CrateVariant;
 import vazkii.botania.api.state.enums.LivingRockVariant;
 import vazkii.botania.api.state.enums.LivingWoodVariant;
 import vazkii.botania.api.state.enums.LuminizerVariant;
@@ -129,7 +128,6 @@ public final class BotaniaStateProps {
 	});
 
 	// BlockOpenCrate
-	public static final PropertyEnum<CrateVariant> CRATE_VARIANT = PropertyEnum.create("variant", CrateVariant.class);
 	public static final PropertyEnum<CratePattern> CRATE_PATTERN = PropertyEnum.create("pattern", CratePattern.class);
 
 	// BlockPavement

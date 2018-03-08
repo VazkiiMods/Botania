@@ -32,7 +32,7 @@ public class TileOpenCrate extends TileSimpleInventory implements ITickable {
 			return true;
 		if(oldState.getBlock() != ModBlocks.openCrate || newState.getBlock() != ModBlocks.openCrate)
 			return true;
-		return oldState.getValue(BotaniaStateProps.CRATE_VARIANT) != newState.getValue(BotaniaStateProps.CRATE_VARIANT);
+		return false;
 	}
 
 	@Override

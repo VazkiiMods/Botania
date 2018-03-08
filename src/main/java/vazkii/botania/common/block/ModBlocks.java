@@ -158,6 +158,7 @@ public final class ModBlocks {
 	public static final Block tinyPlanet = new BlockTinyPlanet();
 	public static final Block alchemyCatalyst = new BlockAlchemyCatalyst();
 	public static final Block openCrate = new BlockOpenCrate();
+	public static final Block craftCrate = new BlockCraftyCrate();
 	public static final Block forestEye = new BlockForestEye();
 	public static final Block manasteelBlock = new BlockStorage(BlockStorage.Variant.MANASTEEL);
 	public static final Block terrasteelBlock = new BlockStorage(BlockStorage.Variant.TERRASTEEL);
@@ -288,6 +289,7 @@ public final class ModBlocks {
 		r.register(tinyPlanet);
 		r.register(alchemyCatalyst);
 		r.register(openCrate);
+		r.register(craftCrate);
 		r.register(forestEye);
 		r.register(manasteelBlock);
 		r.register(terrasteelBlock);
@@ -420,7 +422,8 @@ public final class ModBlocks {
 		r.register(new ItemBlockMod(turntable).setRegistryName(turntable.getRegistryName()));
 		r.register(new ItemBlockMod(tinyPlanet).setRegistryName(tinyPlanet.getRegistryName()));
 		r.register(new ItemBlockMod(alchemyCatalyst).setRegistryName(alchemyCatalyst.getRegistryName()));
-		r.register(new ItemBlockWithMetadataAndName(openCrate).setRegistryName(openCrate.getRegistryName()));
+		r.register(new ItemBlockMod(openCrate).setRegistryName(openCrate.getRegistryName()));
+		r.register(new ItemBlockMod(craftCrate).setRegistryName(craftCrate.getRegistryName()));
 		r.register(new ItemBlockMod(forestEye).setRegistryName(forestEye.getRegistryName()));
 		r.register(new ItemBlockMod(manasteelBlock).setRegistryName(manasteelBlock.getRegistryName()));
 		r.register(new ItemBlockMod(terrasteelBlock).setRegistryName(terrasteelBlock.getRegistryName()));

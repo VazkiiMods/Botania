@@ -184,6 +184,7 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addBlock(ModBlocks.livingwood);
 
 		addBlock(ModBlocks.openCrate);
+		addBlock(ModBlocks.craftCrate);
 		addItem(ModItems.craftPattern1_1);
 		addItem(ModItems.craftPattern2_2);
 		addItem(ModItems.craftPattern1_2);

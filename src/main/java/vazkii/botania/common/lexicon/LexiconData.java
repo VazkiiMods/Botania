@@ -777,7 +777,7 @@ public final class LexiconData {
 				new PageText("4"), new PageText("7"), new PageImage("5", LibResources.ENTRY_CRAFT_CRATE),
 				new PageCraftingRecipe("6", ModCraftingRecipes.recipeCraftCrate), new PageText("8"),
 				new PageCraftingRecipe("9", ModCraftingRecipes.recipesPatterns))
-		.setIcon(new ItemStack(ModBlocks.openCrate, 1, 1));
+		.setIcon(new ItemStack(ModBlocks.craftCrate));
 
 		brewery = new BasicLexiconEntry(LibLexicon.DEVICE_BREWERY, categoryDevices);
 		brewery.setLexiconPages(new PageText("0"), new PageText("1"),
