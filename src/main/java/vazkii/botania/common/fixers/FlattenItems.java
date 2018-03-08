@@ -208,6 +208,7 @@ public class FlattenItems implements IFixableData {
 				case 3: return ModBlocks.gaiaSpreader.getRegistryName().toString();
 			}
 		});
+		LOOKUP.put("botania:petalblock", i -> LibMisc.MOD_ID + ":" + EnumDyeColor.byMetadata(i).getName() + LibBlockNames.PETAL_BLOCK_SUFFIX);
 	}
 
 	@Override

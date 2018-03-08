@@ -55,3 +55,7 @@ botania:opencrate[variant={open, crafty}, pattern={..}]
 => botania:opencrate
 => botania:craftcrate[pattern={..}]
 reason: split open and crafty crate. Crafty patterns can stay blockstate properties since a pattern can only be changed by using an item on a existing crate
+
+botania:petalblock[color={16 colors}]
+=> botania:{color}_petal_block
+reason: each is a different variant

@@ -420,7 +420,7 @@ public final class ModCraftingRecipes {
 		recipeFertilizerPowder = gogPath("fertilizer_powder");
 		recipeFerilizerDye = path("fertilizer_dye");
 		recipesPetalsDouble = allOfGroup("petal_double");
-		recipesPetalBlocks = allOfGroup(ModBlocks.petalBlock.getRegistryName());
+		recipesPetalBlocks = allOfGroup("petal_block");
 		recipesReversePetalBlocks = allOfGroup("petal_block_deconstruct");
 
 		recipeApothecary = ModBlocks.defaultAltar.getRegistryName();

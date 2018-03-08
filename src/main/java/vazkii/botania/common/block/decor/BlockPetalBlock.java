@@ -37,54 +37,16 @@ import javax.annotation.Nonnull;
 
 public class BlockPetalBlock extends BlockMod implements ILexiconable {
 
-	public BlockPetalBlock() {
-		super(Material.PLANTS, LibBlockNames.PETAL_BLOCK);
+	public final EnumDyeColor color;
+	public BlockPetalBlock(EnumDyeColor color) {
+		super(Material.PLANTS, color.getName() + LibBlockNames.PETAL_BLOCK_SUFFIX);
 		setHardness(0.4F);
 		setSoundType(SoundType.PLANT);
-		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.COLOR, EnumDyeColor.WHITE));
-	}
-
-	@Nonnull
-	@Override
-	public BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this, BotaniaStateProps.COLOR);
-	}
-
-	@Override
-	public int getMetaFromState(IBlockState state) {
-		return state.getValue(BotaniaStateProps.COLOR).getMetadata();
-	}
-
-	@Nonnull
-	@Override
-	public IBlockState getStateFromMeta(int meta) {
-		if (meta >= EnumDyeColor.values().length) {
-			meta = 0;
-		}
-		return getDefaultState().withProperty(BotaniaStateProps.COLOR, EnumDyeColor.byMetadata(meta));
-	}
-
-	@Override
-	public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> list) {
-		for(int i = 0; i < 16; i++)
-			list.add(new ItemStack(this, 1, i));
-	}
-
-	@Override
-	public int damageDropped(IBlockState state) {
-		return getMetaFromState(state);
+		this.color = color;
 	}
 
 	@Override
 	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.flowers;
 	}
-
-	@SideOnly(Side.CLIENT)
-	@Override
-	public void registerModels() {
-		ModelLoader.setCustomStateMapper(this, new StateMap.Builder().ignore(BotaniaStateProps.COLOR).build());
-		ModelHandler.registerBlockToState(this, EnumDyeColor.values().length);
-	}
-
 }

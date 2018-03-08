@@ -1,0 +1,17 @@
+{
+  "result": {
+    "item": "botania:orange_petal_block"
+  },
+  "pattern": [
+    "PPP",
+    "PPP",
+    "PPP"
+  ],
+  "type": "forge:ore_shaped",
+  "group": "botania:petal_block",
+  "key": {
+    "P": {
+      "item": "#PETALORANGE"
+    }
+  }
+}

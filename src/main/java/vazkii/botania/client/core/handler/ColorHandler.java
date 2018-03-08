@@ -22,6 +22,7 @@ import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.BlockCamo;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.decor.BlockPetalBlock;
 import vazkii.botania.common.block.mana.BlockPool;
 import vazkii.botania.common.block.tile.TileCamo;
 import vazkii.botania.common.block.tile.mana.TilePool;
@@ -72,11 +73,11 @@ public final class ColorHandler {
 				);
 
 		// Petal Block
-		blocks.registerBlockColorHandler((state, world, pos, tintIndex) -> {
-			int meta = ModBlocks.petalBlock.getMetaFromState(state);
-			return EnumDyeColor.byMetadata(meta).getColorValue();
-		},
-				ModBlocks.petalBlock
+		blocks.registerBlockColorHandler((state, world, pos, tintIndex) -> ((BlockPetalBlock) state.getBlock()).color.getColorValue(),
+				ModBlocks.petalBlockWhite, ModBlocks.petalBlockOrange, ModBlocks.petalBlockMagenta, ModBlocks.petalBlockLightBlue,
+				ModBlocks.petalBlockYellow, ModBlocks.petalBlockLime, ModBlocks.petalBlockPink, ModBlocks.petalBlockGray,
+				ModBlocks.petalBlockSilver, ModBlocks.petalBlockCyan, ModBlocks.petalBlockPurple, ModBlocks.petalBlockBlue,
+				ModBlocks.petalBlockBrown, ModBlocks.petalBlockGreen, ModBlocks.petalBlockRed, ModBlocks.petalBlockBlack
 				);
 
 		// Platforms
@@ -114,7 +115,11 @@ public final class ColorHandler {
 		items.registerItemColorHandler(handler, petals);
 
 		items.registerItemColorHandler((s, t) -> Minecraft.getMinecraft().getBlockColors().colorMultiplier(((ItemBlock)s.getItem()).getBlock().getStateFromMeta(s.getMetadata()), null, null, t),
-				ModBlocks.petalBlock, ModBlocks.manaPool, ModBlocks.creativePool, ModBlocks.dilutedPool, ModBlocks.fabulousPool, ModBlocks.gaiaSpreader);
+				ModBlocks.petalBlockWhite, ModBlocks.petalBlockOrange, ModBlocks.petalBlockMagenta, ModBlocks.petalBlockLightBlue,
+				ModBlocks.petalBlockYellow, ModBlocks.petalBlockLime, ModBlocks.petalBlockPink, ModBlocks.petalBlockGray,
+				ModBlocks.petalBlockSilver, ModBlocks.petalBlockCyan, ModBlocks.petalBlockPurple, ModBlocks.petalBlockBlue,
+				ModBlocks.petalBlockBrown, ModBlocks.petalBlockGreen, ModBlocks.petalBlockRed, ModBlocks.petalBlockBlack,
+				ModBlocks.manaPool, ModBlocks.creativePool, ModBlocks.dilutedPool, ModBlocks.fabulousPool, ModBlocks.gaiaSpreader);
 
 		items.registerItemColorHandler((s, t) -> t == 1 ? Color.HSBtoRGB(0.528F, (float) ((ItemManaMirror) ModItems.manaMirror).getMana(s) / (float) TilePool.MAX_MANA, 1F) : -1, ModItems.manaMirror);
 

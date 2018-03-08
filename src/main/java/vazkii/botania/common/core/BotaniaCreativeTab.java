@@ -418,7 +418,22 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		addBlock(ModBlocks.shinyFlower);
 		addBlock(ModBlocks.floatingFlower);
 		addBlock(ModBlocks.floatingSpecialFlower);
-		addBlock(ModBlocks.petalBlock);
+		addBlock(ModBlocks.petalBlockWhite);
+		addBlock(ModBlocks.petalBlockOrange);
+		addBlock(ModBlocks.petalBlockMagenta);
+		addBlock(ModBlocks.petalBlockLightBlue);
+		addBlock(ModBlocks.petalBlockYellow);
+		addBlock(ModBlocks.petalBlockLime);
+		addBlock(ModBlocks.petalBlockPink);
+		addBlock(ModBlocks.petalBlockGray);
+		addBlock(ModBlocks.petalBlockSilver);
+		addBlock(ModBlocks.petalBlockCyan);
+		addBlock(ModBlocks.petalBlockPurple);
+		addBlock(ModBlocks.petalBlockBlue);
+		addBlock(ModBlocks.petalBlockBrown);
+		addBlock(ModBlocks.petalBlockGreen);
+		addBlock(ModBlocks.petalBlockRed);
+		addBlock(ModBlocks.petalBlockBlack);
 		addBlock(ModBlocks.mushroom);
 
 		addBlock(ModBlocks.blazeBlock);
