@@ -49,10 +49,6 @@ public class RenderTileSpreader extends TileEntitySpecialRenderer<TileSpreader> 
 
 	@Override
 	public void render(@Nonnull TileSpreader spreader, double d0, double d1, double d2, float ticks, int digProgress, float unused) {
-		if(!spreader.getWorld().isBlockLoaded(spreader.getPos(), false)
-				|| spreader.getWorld().getBlockState(spreader.getPos()).getBlock() != ModBlocks.spreader)
-			return;
-		
 		GlStateManager.pushMatrix();
 		GlStateManager.enableRescaleNormal();
 		GlStateManager.color(1F, 1F, 1F, 1F);

@@ -39,7 +39,6 @@ import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.mana.ILens;
 import vazkii.botania.api.state.BotaniaStateProps;
-import vazkii.botania.api.state.enums.SpreaderVariant;
 import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.api.wand.IWireframeAABBProvider;
@@ -52,40 +51,23 @@ import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
 import javax.annotation.Nonnull;
+import java.util.Locale;
 
 public class BlockSpreader extends BlockMod implements IWandable, IWandHUD, ILexiconable, IWireframeAABBProvider {
 
-	public BlockSpreader() {
-		super(Material.WOOD, LibBlockNames.SPREADER);
+	public enum Variant {
+		MANA,
+		REDSTONE,
+		ELVEN,
+		GAIA
+	}
+
+	public final Variant variant;
+	public BlockSpreader(Variant v) {
+		super(Material.WOOD, v.name().toLowerCase(Locale.ROOT) + LibBlockNames.SPREADER_SUFFIX);
 		setHardness(2.0F);
 		setSoundType(SoundType.WOOD);
-		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.SPREADER_VARIANT, SpreaderVariant.MANA));
-	}
-
-	@Nonnull
-	@Override
-	public BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this, BotaniaStateProps.SPREADER_VARIANT);
-	}
-
-	@Override
-	public int getMetaFromState(IBlockState state) {
-		return state.getValue(BotaniaStateProps.SPREADER_VARIANT).ordinal();
-	}
-
-	@Nonnull
-	@Override
-	public IBlockState getStateFromMeta(int meta) {
-		if (meta > SpreaderVariant.values().length) {
-			meta = 0;
-		}
-		return getDefaultState().withProperty(BotaniaStateProps.SPREADER_VARIANT, SpreaderVariant.values()[meta]);
-	}
-
-	@Override
-	public void getSubBlocks(CreativeTabs par2, NonNullList<ItemStack> par3) {
-		for(int i = 0; i < 4; i++)
-			par3.add(new ItemStack(this, 1, i));
+		this.variant = v;
 	}
 
 	@Override
@@ -220,19 +202,12 @@ public class BlockSpreader extends BlockMod implements IWandable, IWandHUD, ILex
 
 	@Override
 	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
-		SpreaderVariant variant = world.getBlockState(pos).getValue(BotaniaStateProps.SPREADER_VARIANT);
-		return variant == SpreaderVariant.MANA ? LexiconData.spreader : variant == SpreaderVariant.REDSTONE ? LexiconData.redstoneSpreader : LexiconData.dreamwoodSpreader;
+		return variant == Variant.MANA ? LexiconData.spreader : variant == Variant.REDSTONE ? LexiconData.redstoneSpreader : LexiconData.dreamwoodSpreader;
 	}
 
 	@Override
 	public AxisAlignedBB getWireframeAABB(World world, BlockPos pos) {
 		return FULL_BLOCK_AABB.offset(pos).shrink(1.0/16.0);
-	}
-
-	@SideOnly(Side.CLIENT)
-	@Override
-	public void registerModels() {
-		ModelHandler.registerBlockToState(this, SpreaderVariant.values().length);
 	}
 
 	@Nonnull

@@ -10,6 +10,7 @@
  */
 package vazkii.botania.common.block.subtile.generating;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.Item;
@@ -24,6 +25,7 @@ import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileGenerating;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.mana.BlockSpreader;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.lexicon.LexiconData;
 
@@ -61,7 +63,7 @@ public class SubTileEndoflame extends SubTileGenerating {
 							if(stack.isEmpty() || stack.getItem().hasContainerItem(stack))
 								continue;
 
-							int burnTime = stack.getItem() == Item.getItemFromBlock(ModBlocks.spreader) ? 0 : TileEntityFurnace.getItemBurnTime(stack);
+							int burnTime = Block.getBlockFromItem(stack.getItem()) instanceof BlockSpreader ? 0 : TileEntityFurnace.getItemBurnTime(stack);
 							if(burnTime > 0 && stack.getCount() > 0) {
 								this.burnTime = Math.min(FUEL_CAP, burnTime) / 2;
 

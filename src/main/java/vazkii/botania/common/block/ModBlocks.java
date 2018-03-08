@@ -140,7 +140,10 @@ public final class ModBlocks {
 	public static final Block livingrock = new BlockLivingrock();
 	public static final Block livingwood = new BlockLivingwood();
 	public static final Block specialFlower = new BlockSpecialFlower();
-	public static final Block spreader = new BlockSpreader();
+	public static final Block manaSpreader = new BlockSpreader(BlockSpreader.Variant.MANA);
+	public static final Block redstoneSpreader = new BlockSpreader(BlockSpreader.Variant.REDSTONE);
+	public static final Block elvenSpreader = new BlockSpreader(BlockSpreader.Variant.ELVEN);
+	public static final Block gaiaSpreader = new BlockSpreader(BlockSpreader.Variant.GAIA);
 	public static final Block manaPool = new BlockPool(BlockPool.Variant.DEFAULT);
 	public static final Block creativePool = new BlockPool(BlockPool.Variant.CREATIVE);
 	public static final Block dilutedPool = new BlockPool(BlockPool.Variant.DILUTED);
@@ -271,7 +274,10 @@ public final class ModBlocks {
 		r.register(livingrock);
 		r.register(livingwood);
 		r.register(specialFlower);
-		r.register(spreader);
+		r.register(manaSpreader);
+		r.register(redstoneSpreader);
+		r.register(elvenSpreader);
+		r.register(gaiaSpreader);
 		r.register(manaPool);
 		r.register(creativePool);
 		r.register(dilutedPool);
@@ -405,7 +411,10 @@ public final class ModBlocks {
 		r.register(new ItemBlockWithMetadataAndName(livingrock).setRegistryName(livingrock.getRegistryName()));
 		r.register(new ItemBlockWithMetadataAndName(livingwood).setRegistryName(livingwood.getRegistryName()));
 		r.register(new ItemBlockSpecialFlower(specialFlower).setRegistryName(specialFlower.getRegistryName()));
-		r.register(new ItemBlockWithMetadataAndName(spreader).setRegistryName(spreader.getRegistryName()));
+		r.register(new ItemBlockMod(manaSpreader).setRegistryName(manaSpreader.getRegistryName()));
+		r.register(new ItemBlockMod(redstoneSpreader).setRegistryName(redstoneSpreader.getRegistryName()));
+		r.register(new ItemBlockMod(elvenSpreader).setRegistryName(elvenSpreader.getRegistryName()));
+		r.register(new ItemBlockMod(gaiaSpreader).setRegistryName(gaiaSpreader.getRegistryName()));
 		r.register(new ItemBlockPool(manaPool).setRegistryName(manaPool.getRegistryName()));
 		r.register(new ItemBlockPool(creativePool).setRegistryName(creativePool.getRegistryName()));
 		r.register(new ItemBlockPool(dilutedPool).setRegistryName(dilutedPool.getRegistryName()));

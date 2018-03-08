@@ -19,7 +19,6 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.brew.IBrewItem;
 import vazkii.botania.api.state.BotaniaStateProps;
-import vazkii.botania.api.state.enums.SpreaderVariant;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.BlockCamo;
 import vazkii.botania.common.block.ModBlocks;
@@ -66,12 +65,10 @@ public final class ColorHandler {
 		// Spreader
 		blocks.registerBlockColorHandler(
 				(state, world, pos, tintIndex) -> {
-					if(state.getValue(BotaniaStateProps.SPREADER_VARIANT) != SpreaderVariant.GAIA)
-						return 0xFFFFFF;
 					float time = ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks;
 					return Color.HSBtoRGB(time * 5 % 360 / 360F, 0.4F, 0.9F);
 				},
-				ModBlocks.spreader
+				ModBlocks.gaiaSpreader
 				);
 
 		// Petal Block
@@ -117,7 +114,7 @@ public final class ColorHandler {
 		items.registerItemColorHandler(handler, petals);
 
 		items.registerItemColorHandler((s, t) -> Minecraft.getMinecraft().getBlockColors().colorMultiplier(((ItemBlock)s.getItem()).getBlock().getStateFromMeta(s.getMetadata()), null, null, t),
-				ModBlocks.petalBlock, ModBlocks.manaPool, ModBlocks.creativePool, ModBlocks.dilutedPool, ModBlocks.fabulousPool, ModBlocks.spreader);
+				ModBlocks.petalBlock, ModBlocks.manaPool, ModBlocks.creativePool, ModBlocks.dilutedPool, ModBlocks.fabulousPool, ModBlocks.gaiaSpreader);
 
 		items.registerItemColorHandler((s, t) -> t == 1 ? Color.HSBtoRGB(0.528F, (float) ((ItemManaMirror) ModItems.manaMirror).getMana(s) / (float) TilePool.MAX_MANA, 1F) : -1, ModItems.manaMirror);
 

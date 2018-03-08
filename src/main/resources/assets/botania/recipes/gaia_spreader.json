@@ -1,7 +1,6 @@
 {
   "result": {
-    "item": "botania:spreader",
-    "data": 3
+    "item": "botania:gaia_spreader"
   },
   "pattern": [
     "ESD"
@@ -10,8 +9,7 @@
   "type": "forge:ore_shaped",
   "key": {
     "S": {
-      "item": "botania:spreader",
-      "data": 2
+      "item": "botania:elven_spreader"
     },
     "D": {
       "item": "#ELVENDRAGONSTONE"

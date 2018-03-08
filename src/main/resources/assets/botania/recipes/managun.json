@@ -10,8 +10,7 @@
   "type": "forge:ore_shaped",
   "key": {
     "S": {
-      "item": "botania:spreader",
-      "data": 1
+      "item": "botania:redstone_spreader"
     },
     "D": {
       "item": "#MANADIAMOND"

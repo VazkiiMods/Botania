@@ -439,7 +439,7 @@ public final class ModCraftingRecipes {
 			recipeEndPortal = gogPath("end_portal_frame");
 		}
 
-		recipesSpreader = allOfGroup(ModBlocks.spreader.getRegistryName());
+		recipesSpreader = allOfGroup("spreader");
 
 		recipePool = ModBlocks.manaPool.getRegistryName();
 		recipePoolDiluted = ModBlocks.dilutedPool.getRegistryName();
@@ -482,9 +482,9 @@ public final class ModCraftingRecipes {
 		recipeManaTablet = ModItems.manaTablet.getRegistryName();
 		recipeManaMirror = ModItems.manaMirror.getRegistryName();
 		recipeManaDetector = ModBlocks.manaDetector.getRegistryName();
-		recipeRedstoneSpreader = path("spreader_1");
-		recipeDreamwoodSpreader = path("spreader_2");
-		recipeUltraSpreader = path("spreader_3");
+		recipeRedstoneSpreader = ModBlocks.redstoneSpreader.getRegistryName();
+		recipeDreamwoodSpreader = ModBlocks.elvenSpreader.getRegistryName();
+		recipeUltraSpreader = ModBlocks.gaiaSpreader.getRegistryName();
 		recipePrism = ModBlocks.prism.getRegistryName();
 		recipePoolCart = ModItems.poolMinecart.getRegistryName();
 		recipePump = ModBlocks.pump.getRegistryName();

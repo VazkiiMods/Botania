@@ -199,6 +199,15 @@ public class FlattenItems implements IFixableData {
 				return ModBlocks.openCrate.getRegistryName().toString();
 			}
 		});
+		LOOKUP.put("botania:spreader", i -> {
+			switch(i) {
+				default:
+				case 0: return ModBlocks.manaSpreader.getRegistryName().toString();
+				case 1: return ModBlocks.redstoneSpreader.getRegistryName().toString();
+				case 2: return ModBlocks.elvenSpreader.getRegistryName().toString();
+				case 3: return ModBlocks.gaiaSpreader.getRegistryName().toString();
+			}
+		});
 	}
 
 	@Override

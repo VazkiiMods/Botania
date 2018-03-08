@@ -28,9 +28,7 @@ import vazkii.botania.api.state.enums.CratePattern;
 import vazkii.botania.api.state.enums.LivingRockVariant;
 import vazkii.botania.api.state.enums.LivingWoodVariant;
 import vazkii.botania.api.state.enums.LuminizerVariant;
-import vazkii.botania.api.state.enums.PlatformVariant;
 import vazkii.botania.api.state.enums.QuartzVariant;
-import vazkii.botania.api.state.enums.SpreaderVariant;
 
 /**
  * Holds all Botania block state properties. Use these to set botania blockstates
@@ -127,7 +125,7 @@ public final class BotaniaStateProps {
 		}
 	});
 
-	// BlockOpenCrate
+	// BlockCraftyCrate
 	public static final PropertyEnum<CratePattern> CRATE_PATTERN = PropertyEnum.create("pattern", CratePattern.class);
 
 	// BlockPavement
@@ -140,14 +138,8 @@ public final class BotaniaStateProps {
 		}
 	});
 
-	// BlockPlatform
-	public static final PropertyEnum<PlatformVariant> PLATFORM_VARIANT = PropertyEnum.create("variant", PlatformVariant.class);
-
 	// BlockPrism
 	public static final PropertyBool HAS_LENS = PropertyBool.create("has_lens");
-
-	// BlockSpreader
-	public static final PropertyEnum<SpreaderVariant> SPREADER_VARIANT = PropertyEnum.create("variant", SpreaderVariant.class);
 
 	private BotaniaStateProps() {
 	}

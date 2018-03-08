@@ -1,8 +1,0 @@
-{
-  "variants": {
-    "variant=mana": { "model": "botania:spreader_mana" },
-    "variant=redstone": { "model": "botania:spreader_redstone" },
-    "variant=elven": { "model": "botania:spreader_elven" },
-    "variant=gaia": { "model": "botania:spreader_gaia" }
-  }
-}

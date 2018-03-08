@@ -51,7 +51,6 @@ import vazkii.botania.api.mana.IManaSpreader;
 import vazkii.botania.api.mana.IThrottledPacket;
 import vazkii.botania.api.mana.ManaNetworkEvent;
 import vazkii.botania.api.state.BotaniaStateProps;
-import vazkii.botania.api.state.enums.SpreaderVariant;
 import vazkii.botania.api.wand.IWandBindable;
 import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.client.lib.LibResources;
@@ -149,15 +148,6 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 
 	List<PositionProperties> lastTentativeBurst;
 	boolean invalidTentativeBurst = false;
-
-	@Override
-	public boolean shouldRefresh(World world, BlockPos pos, @Nonnull IBlockState oldState, @Nonnull IBlockState newState) {
-		if(oldState.getBlock() != newState.getBlock())
-			return true;
-		if(oldState.getBlock() != ModBlocks.spreader || newState.getBlock() != ModBlocks.spreader)
-			return true;
-		return oldState.getValue(BotaniaStateProps.SPREADER_VARIANT) != newState.getValue(BotaniaStateProps.SPREADER_VARIANT);
-	}
 
 	@Override
 	public boolean isFull() {
@@ -452,18 +442,17 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 
 	public boolean isRedstone() {
 		updateContainingBlockInfo();
-		return world == null ? staticRedstone : getBlockMetadata() == SpreaderVariant.REDSTONE.ordinal();
+		return world == null ? staticRedstone : getBlockType() == ModBlocks.redstoneSpreader;
 	}
 
 	public boolean isDreamwood() {
 		updateContainingBlockInfo();
-		int variant = getBlockMetadata();
-		return world == null ? staticDreamwood : variant == SpreaderVariant.ELVEN.ordinal();
+		return world == null ? staticDreamwood : getBlockType() == ModBlocks.elvenSpreader;
 	}
 
 	public boolean isULTRA_SPREADER() {
 		updateContainingBlockInfo();
-		return world == null ? staticUltra : getBlockMetadata() == SpreaderVariant.GAIA.ordinal();
+		return world == null ? staticUltra : getBlockType() == ModBlocks.gaiaSpreader;
 	}
 
 	public void checkForReceiver() {
@@ -569,7 +558,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 
 	@SideOnly(Side.CLIENT)
 	public void renderHUD(Minecraft mc, ScaledResolution res) {
-		String name = I18n.format(new ItemStack(ModBlocks.spreader, 1, world.getBlockState(getPos()).getValue(BotaniaStateProps.SPREADER_VARIANT).ordinal()).getUnlocalizedName().replaceAll("tile.", "tile." + LibResources.PREFIX_MOD) + ".name");
+		String name = new ItemStack(getBlockType()).getDisplayName();
 		int color = isRedstone() ? 0xFF0000 : isDreamwood() ? 0xFF00AE :  0x00FF00;
 		HUDHandler.drawSimpleManaHUD(color, knownMana, getMaxMana(), name, res);
 

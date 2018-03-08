@@ -1,13 +1,11 @@
 {
   "result": {
-    "item": "botania:spreader",
-    "data": 1
+    "item": "botania:redstone_spreader"
   },
   "group": "botania:spreader",
   "ingredients": [
     {
-      "item": "botania:spreader",
-      "data": 0
+      "item": "botania:mana_spreader"
     },
     {
       "item": "#DUSTREDSTONE"

@@ -19,6 +19,7 @@ public final class LibBlockNames {
 	public static final String LIVING_ROCK = "livingrock";
 	public static final String LIVING_WOOD = "livingwood";
 	public static final String SPREADER = "spreader";
+	public static final String SPREADER_SUFFIX = "_" + SPREADER;
 	public static final String POOL = "pool";
 	public static final String POOL_PREFIX = POOL + "_";
 	public static final String RUNE_ALTAR = "runeAltar";
