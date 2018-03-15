@@ -129,9 +129,7 @@ public class Botania {
 		PacketHandler.init();
 		ModEntities.init();
 		ModBrews.init();
-
 		ModMultiblocks.init();
-		ModBanners.init();
 
 		if(Botania.gardenOfGlassLoaded)
 			new WorldTypeSkyblock();
@@ -147,6 +145,7 @@ public class Botania {
 
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
+		ModBanners.init();
 		ModPetalRecipes.init();
 		ModPureDaisyRecipes.init();
 		ModRuneRecipes.init();
