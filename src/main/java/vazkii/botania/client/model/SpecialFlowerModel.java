@@ -8,14 +8,9 @@
  */
 package vazkii.botania.client.model;
 
-import com.google.common.cache.CacheBuilder;
-import com.google.common.cache.CacheLoader;
-import com.google.common.cache.LoadingCache;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.BakedQuad;
@@ -45,29 +40,25 @@ import net.minecraftforge.common.property.IExtendedBlockState;
 import org.apache.commons.lang3.tuple.Pair;
 import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.state.BotaniaStateProps;
-import vazkii.botania.common.Botania;
-import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 
 import javax.annotation.Nonnull;
 import javax.vecmath.Matrix4f;
-import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.function.Function;
 
 public class SpecialFlowerModel implements IModel {
+	private static final ModelResourceLocation MISSING = new ModelResourceLocation("builtin/missing", "missing");
+	private final ModelResourceLocation baseModel;
+	private final ImmutableMap<String, ModelResourceLocation> blockModels;
+	private final ImmutableMap<String, ModelResourceLocation> itemModels;
 
-	// SpecialFlowerModel for when there are no blockModels registered for a subtile
-	public static final SpecialFlowerModel INSTANCE = new SpecialFlowerModel(ImmutableMap.of(), ImmutableMap.of());
-
-	private final ImmutableMap<Optional<String>, ModelResourceLocation> blockModels;
-	private final ImmutableMap<Optional<String>, ModelResourceLocation> itemModels;
-
-	public SpecialFlowerModel(ImmutableMap<Optional<String>, ModelResourceLocation> blockModels,
-			ImmutableMap<Optional<String>, ModelResourceLocation> itemModels) {
+	private SpecialFlowerModel(ModelResourceLocation baseModel,
+								ImmutableMap<String, ModelResourceLocation> blockModels,
+								ImmutableMap<String, ModelResourceLocation> itemModels) {
+		this.baseModel = baseModel;
 		this.blockModels = blockModels;
 		this.itemModels = itemModels;
 	}
@@ -75,6 +66,8 @@ public class SpecialFlowerModel implements IModel {
 	@Override
 	public Collection<ResourceLocation> getDependencies() {
 		ImmutableSet.Builder<ResourceLocation> builder = ImmutableSet.builder();
+		if(!MISSING.equals(baseModel))
+			builder.add(baseModel);
 		builder.addAll(blockModels.values());
 		builder.addAll(itemModels.values());
 
@@ -91,8 +84,27 @@ public class SpecialFlowerModel implements IModel {
 
 	@Override
 	public IBakedModel bake(IModelState state, VertexFormat format, Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
-		// "Bake" the SpecialFlowerModel (in reality, just create another wrapper for all the delegate blockModels)
-		return new SpecialFlowerBakedModel(blockModels, itemModels, PerspectiveMapWrapper.getTransforms(state));
+		ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> transforms = PerspectiveMapWrapper.getTransforms(state);
+		IModelState transformState = new SimpleModelState(transforms);
+
+		IBakedModel baseModelBaked = ModelLoaderRegistry.getModelOrMissing(baseModel)
+				.bake(transformState, DefaultVertexFormats.ITEM, ModelLoader.defaultTextureGetter());
+
+		ImmutableMap.Builder<String, IBakedModel> bakedBlockBuilder = ImmutableMap.builder();
+		for(Map.Entry<String, ModelResourceLocation> e : blockModels.entrySet()) {
+			IModel model = ModelLoaderRegistry.getModelOrMissing(e.getValue());
+			if(model != ModelLoaderRegistry.getMissingModel())
+				bakedBlockBuilder.put(e.getKey(), model.bake(transformState, DefaultVertexFormats.ITEM, ModelLoader.defaultTextureGetter()));
+		}
+
+		ImmutableMap.Builder<String, IBakedModel> bakedItemBuilder = ImmutableMap.builder();
+		for(Map.Entry<String, ModelResourceLocation> e : itemModels.entrySet()) {
+			IModel model = ModelLoaderRegistry.getModelOrMissing(e.getValue());
+			if(model != ModelLoaderRegistry.getMissingModel())
+				bakedItemBuilder.put(e.getKey(), model.bake(transformState, DefaultVertexFormats.ITEM, ModelLoader.defaultTextureGetter()));
+		}
+
+		return new SpecialFlowerBakedModel(baseModelBaked, bakedBlockBuilder.build(), bakedItemBuilder.build(), transforms);
 	}
 
 	@Override
@@ -103,35 +115,15 @@ public class SpecialFlowerModel implements IModel {
 	@Override
 	public IModel process(ImmutableMap<String, String> customData) {
 		// Load the base variant from blockstate json, and also add all the model paths we received from external API
-		ImmutableMap.Builder<Optional<String>, ModelResourceLocation> blockBuilder = ImmutableMap.builder();
-		ImmutableMap.Builder<Optional<String>, ModelResourceLocation> itemBuilder = ImmutableMap.builder();
 
-		for(String key : customData.keySet()) {
-			if("base".equals(key)) {
-				blockBuilder.put(Optional.empty(), getLocation(customData.get(key)));
-			}
-		}
+		ModelResourceLocation base = baseModel;
+		if(customData.containsKey("base"))
+			// Forge blockstate gives custom data in json form, have to drop the quotes
+			base = new ModelResourceLocation(customData.get("base").substring(1, customData.get("base").length() - 1));
 
-		for(Map.Entry<String, ModelResourceLocation> e : BotaniaAPIClient.getRegisteredSubtileBlockModels().entrySet()) {
-			blockBuilder.put(Optional.of(e.getKey()), e.getValue());
-		}
-		for(Map.Entry<String, ModelResourceLocation> e : BotaniaAPIClient.getRegisteredSubtileItemModels().entrySet()) {
-			itemBuilder.put(Optional.of(e.getKey()), e.getValue());
-		}
-
-		ImmutableMap<Optional<String>, ModelResourceLocation> blockModels = blockBuilder.build();
-		ImmutableMap<Optional<String>, ModelResourceLocation> itemModels = itemBuilder.build();
-		if(blockModels.isEmpty() && itemModels.isEmpty()) return INSTANCE;
-		return new SpecialFlowerModel(blockModels, itemModels);
-	}
-
-	private ModelResourceLocation getLocation(String json) {
-		JsonElement e = new JsonParser().parse(json);
-		if(e.isJsonPrimitive() && e.getAsJsonPrimitive().isString()) {
-			return new ModelResourceLocation(e.getAsString());
-		}
-		Botania.LOGGER.error("Expect ModelResourceLocation, got: ", json);
-		return new ModelResourceLocation("builtin/missing", "missing");
+		ImmutableMap<String, ModelResourceLocation> blockModels = ImmutableMap.copyOf(BotaniaAPIClient.getRegisteredSubtileBlockModels());
+		ImmutableMap<String, ModelResourceLocation> itemModels = ImmutableMap.copyOf(BotaniaAPIClient.getRegisteredSubtileItemModels());
+		return new SpecialFlowerModel(base, blockModels, itemModels);
 	}
 
 	public enum Loader implements ICustomModelLoader {
@@ -149,79 +141,40 @@ public class SpecialFlowerModel implements IModel {
 			}
 
 			@Override
-			public IModel loadModel(ResourceLocation modelLocation) throws IOException {
+			public IModel loadModel(ResourceLocation modelLocation) {
 				// Load a dummy model for now, all actual blockModels added in process().
-				return SpecialFlowerModel.INSTANCE;
+				return new SpecialFlowerModel(new ModelResourceLocation("builtin/missing", "missing"), ImmutableMap.of(), ImmutableMap.of());
 			}
 		}
 	}
 
 	private static class SpecialFlowerBakedModel implements IBakedModel {
-
-		private final ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> transforms;
-		private final ImmutableMap<Optional<String>, ModelResourceLocation> blockModels;
-		private final ImmutableMap<Optional<String>, ModelResourceLocation> itemModels;
-
 		private final IBakedModel baseModel;
-		private final LoadingCache<String, Optional<IBakedModel>> bakedBlockModels;
-		private final LoadingCache<String, Optional<IBakedModel>> bakedItemModels;
+		private final ImmutableMap<String, IBakedModel> bakedBlockModels;
+		private final ImmutableMap<String, IBakedModel> bakedItemModels;
+		private final ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> transforms;
 
-		SpecialFlowerBakedModel(ImmutableMap<Optional<String>, ModelResourceLocation> blockModels,
-				ImmutableMap<Optional<String>, ModelResourceLocation> itemModels, ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> cameraTransforms) {
-			this.blockModels = blockModels;
-			this.itemModels = itemModels;
-			transforms = cameraTransforms;
-
-			ModelResourceLocation baseModelPath = blockModels.getOrDefault(Optional.empty(),
-					new ModelResourceLocation("builtin/missing", "missing"));
-			baseModel = ModelLoaderRegistry.getModelOrMissing(baseModelPath)
-					.bake(new SimpleModelState(transforms), DefaultVertexFormats.ITEM, ModelLoader.defaultTextureGetter());
-
-			bakedBlockModels = CacheBuilder.newBuilder().build(new Loader(true));
-			bakedItemModels = CacheBuilder.newBuilder().build(new Loader(false));
-		}
-
-		private class Loader extends CacheLoader<String, Optional<IBakedModel>> {
-
-			private final boolean loadBlocks;
-
-			Loader(boolean blocks) {
-				loadBlocks = blocks;
-			}
-
-			@Override
-			public Optional<IBakedModel> load(@Nonnull String key) {
-				Map<Optional<String>, ModelResourceLocation> loadFrom = loadBlocks ? blockModels : itemModels;
-
-				ModelResourceLocation loc = loadFrom.get(Optional.of(key));
-				if(loc == null)
-					return Optional.empty();
-
-				IModel model = ModelLoaderRegistry.getModelOrMissing(loc);
-				if(model == ModelLoaderRegistry.getMissingModel())
-					return Optional.empty();
-
-				return Optional.of(model.bake(new SimpleModelState(transforms), DefaultVertexFormats.ITEM, ModelLoader.defaultTextureGetter()));
-			}
+		SpecialFlowerBakedModel(IBakedModel baseModel,
+								ImmutableMap<String, IBakedModel> bakedBlockModels,
+								ImmutableMap<String, IBakedModel> bakedItemModels,
+								ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> cameraTransforms) {
+			this.baseModel = baseModel;
+			this.bakedBlockModels = bakedBlockModels;
+			this.bakedItemModels = bakedItemModels;
+			this.transforms = cameraTransforms;
 		}
 
 		@Nonnull
 		@Override
 		public List<BakedQuad> getQuads(IBlockState state, EnumFacing face, long rand) {
-			if(state.getBlock() != ModBlocks.specialFlower) {
-				Botania.LOGGER.fatal("FOREIGN BLOCK: " + state);
-				return Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelManager().getMissingModel().getQuads(state, face, rand);
-			}
-
 			IExtendedBlockState extendedState = (IExtendedBlockState) state;
 			String subtileId = extendedState.getValue(BotaniaStateProps.SUBTILE_ID);
 
-			IBakedModel ret = Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelManager().getMissingModel();
-			Optional<IBakedModel> specialModel = bakedBlockModels.getUnchecked(subtileId == null ? "" : subtileId);
-			if(specialModel.isPresent())
-				ret = specialModel.get();
+			IBakedModel model = bakedBlockModels.get(subtileId == null ? "" : subtileId);
+			if(model == null)
+				model = Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelManager().getMissingModel();
 
-			return ret.getQuads(state, face, rand);
+			return model.getQuads(state, face, rand);
 		}
 
 		@Nonnull
@@ -236,14 +189,14 @@ public class SpecialFlowerModel implements IModel {
 			@Nonnull
 			@Override
 			public IBakedModel handleItemState(@Nonnull IBakedModel original, ItemStack stack, World world, EntityLivingBase living) {
-				Optional<IBakedModel> item = bakedItemModels.getUnchecked(ItemBlockSpecialFlower.getType(stack));
+				IBakedModel model = bakedItemModels.get(ItemBlockSpecialFlower.getType(stack));
 
-				if(!item.isPresent())
-					item = bakedBlockModels.getUnchecked(ItemBlockSpecialFlower.getType(stack));
+				if(model == null)
+					model = bakedBlockModels.get(ItemBlockSpecialFlower.getType(stack));
+				if(model == null)
+					model = Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(roseFallback);
 
-				return item.isPresent()
-						? item.get()
-								: Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(roseFallback);
+				return model;
 			}
 		};
 

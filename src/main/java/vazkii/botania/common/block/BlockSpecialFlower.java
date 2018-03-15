@@ -334,6 +334,6 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 	public void registerModels() {
 		// Let custom loader work
 		ModelLoader.setCustomStateMapper(this, new StateMap.Builder().ignore(BotaniaStateProps.COLOR).ignore(getTypeProperty()).build());
-		ModelHandler.registerInventoryVariant(this);
+		ModelHandler.registerBlockToState(this, 0, getDefaultState());
 	}
 }
