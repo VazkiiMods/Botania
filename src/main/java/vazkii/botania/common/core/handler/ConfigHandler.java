@@ -66,6 +66,7 @@ public final class ConfigHandler {
 
 	public static boolean altFlowerTextures = false;
 	public static boolean staticFloaters = false;
+	public static boolean debugInfo = true;
 	public static boolean matrixMode = false;
 	public static boolean referencesEnabled = true;
 
@@ -182,6 +183,9 @@ public final class ConfigHandler {
 
 		desc = "Set this to true if you use lots of floating flowers and are experiencing rendering lag. Will disable the floating flowers' animations and render them statically for a major performance boost. Hit F3+A in-world after toggling this.";
 		staticFloaters = loadPropBool("staticFloaters.enabled", desc, staticFloaters);
+
+		desc = "Set to false to disable Botania's messages in the F3 debug screen";
+		debugInfo = loadPropBool("debugInfo.enabled", desc, debugInfo);
 
 		desc = "Set this to true if you are the chosen one. For lovers of glitch art and just general mad people.";
 		matrixMode = loadPropBool("matrixMode.enabled", desc, matrixMode);

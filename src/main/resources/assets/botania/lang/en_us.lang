@@ -351,6 +351,7 @@ shaders.enabled=Enable Shader Usage
 baubleRender.enabled=Enable Bauble Rendering
 spreader.posShift=Spreader Pos Shift
 staticFloaters.enabled=Enable Static Floating Flowers
+debugInfo.enabled=Enable Botania's F3 debug information
 versionChecking.enabled=Enable Version Checking
 wandBeam.static=Enable Static Wand Beam
 worldgen.flower.density=Worldgen Flower Density
