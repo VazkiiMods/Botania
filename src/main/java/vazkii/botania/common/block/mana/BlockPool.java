@@ -212,6 +212,7 @@ public class BlockPool extends BlockMod implements IWandHUD, IWandable, ILexicon
 		return TilePool.calculateComparatorLevel(pool.getCurrentMana(), pool.manaCap);
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public void renderHUD(Minecraft mc, ScaledResolution res, World world, BlockPos pos) {
 		((TilePool) world.getTileEntity(pos)).renderHUD(mc, res);

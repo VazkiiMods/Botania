@@ -213,6 +213,7 @@ public class BlockSpreader extends BlockMod implements IWandable, IWandHUD, ILex
 		return new TileSpreader();
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public void renderHUD(Minecraft mc, ScaledResolution res, World world, BlockPos pos) {
 		((TileSpreader) world.getTileEntity(pos)).renderHUD(mc, res);
