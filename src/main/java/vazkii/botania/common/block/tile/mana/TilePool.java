@@ -481,7 +481,12 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 
 	@Override
 	public int getAvailableSpaceForMana() {
-		return Math.max(0, manaCap - getCurrentMana());
+		int space = Math.max(0, manaCap - getCurrentMana());
+		if(space > 0)
+			return space;
+		else if(world.getBlockState(pos.down()).getBlock() == ModBlocks.manaVoid)
+			return manaCap;
+		else return 0;
 	}
 
 	@Override
