@@ -688,7 +688,8 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 		if (world.isRemote) {
 			particles();
 			EntityPlayer player = Botania.proxy.getClientPlayer();
-			player.capabilities.isFlying = player.capabilities.isFlying && player.capabilities.isCreativeMode;
+			if(getPlayersAround().contains(player))
+				player.capabilities.isFlying = player.capabilities.isFlying && player.capabilities.isCreativeMode;
 			return;
 		}
 
@@ -814,8 +815,6 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 				if(spawnMissiles)
 					spawnMissile();
 			} else {
-				float range = 3F;
-				players = world.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(posX - range, posY - range, posZ - range, posX + range, posY + range, posZ + range));
 				if(!players.isEmpty())
 					damageEntity(DamageSource.causePlayerDamage(players.get(0)), 0);
 			}
