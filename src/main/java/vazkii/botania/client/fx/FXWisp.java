@@ -158,6 +158,13 @@ public class FXWisp extends Particle {
 		this.motionZ *= 0.9800000190734863D;
 	}
 
+	@Override
+	protected void setSize(float width, float height) {
+		super.setSize(width, height);
+		// fix MC-12269: the bb is expanded only in +X +Z directions by super, call setPosition again to recalculate a correct BB
+		setPosition(posX, posY, posZ);
+	}
+
 	public void setGravity(float value) {
 		particleGravity = value;
 	}

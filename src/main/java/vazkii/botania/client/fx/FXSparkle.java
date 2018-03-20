@@ -160,6 +160,13 @@ public class FXSparkle extends Particle {
 			setExpired();
 	}
 
+	@Override
+	protected void setSize(float width, float height) {
+		super.setSize(width, height);
+		// fix MC-12269: the bb is expanded only in +X +Z directions by super, call setPosition again to recalculate a correct BB
+		setPosition(posX, posY, posZ);
+	}
+
 	public void setGravity(float value) {
 		particleGravity = value;
 	}
