@@ -52,7 +52,6 @@ public class SubTileHydroangeas extends SubTileGenerating {
 			cooldown--;
 			for(int i = 0; i < 3; i++)
 				Botania.proxy.wispFX(supertile.getPos().getX() + 0.5 + Math.random() * 0.2 - 0.1, supertile.getPos().getY() + 0.5 + Math.random() * 0.2 - 0.1, supertile.getPos().getZ() + 0.5 + Math.random() * 0.2 - 0.1, 0.1F, 0.1F, 0.1F, (float) Math.random() / 6, (float) -Math.random() / 30);
-			return;
 		}
 
 		if(burnTime == 0) {
