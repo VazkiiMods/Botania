@@ -59,3 +59,14 @@ reason: split open and crafty crate. Crafty patterns can stay blockstate propert
 botania:petalblock[color={16 colors}]
 => botania:{color}_petal_block
 reason: each is a different variant
+
+botania:specialflower{nbt subtiles}
+=> each will receive its own block ID.
+=> subtiles still exist because the logic will need to be shared across normal/floating flowers etc.
+=> there will also still be only one TE implementation (the benefits of flattening do not really apply much to TE's)
+=> as before, addons should still be able to make their own subtile containers
+=> however, the item and block forms of all flowers within botania will be flattened as it will simplify lots of logic
+   => mostly, to get rid of NBT variants on the itemblocks and allow the ability to use the vanilla Tags system
+   => addons are encouraged to flatten their standalone flowers
+   => the Item and Block implementations should be simplified and moved to the API to allow addons to extend them
+   => provide convenience methods in API to register a sane default Item and Block?
