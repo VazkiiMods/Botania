@@ -10,6 +10,7 @@ package vazkii.botania.api;
 
 import com.google.common.collect.Maps;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.item.IFloatingFlower;
@@ -24,8 +25,8 @@ import java.util.Map;
 @SideOnly(Side.CLIENT)
 public final class BotaniaAPIClient {
 
-	private static final Map<String, ModelResourceLocation> subtileBlockModels = Maps.newHashMap();
-	private static final Map<String, ModelResourceLocation> subtileItemModels = Maps.newHashMap();
+	private static final Map<ResourceLocation, ModelResourceLocation> subtileBlockModels = Maps.newHashMap();
+	private static final Map<ResourceLocation, ModelResourceLocation> subtileItemModels = Maps.newHashMap();
 	private static final Map<IFloatingFlower.IslandType, ModelResourceLocation> islandTypeModels = Maps.newHashMap();
 
 	private BotaniaAPIClient() {
@@ -41,7 +42,7 @@ public final class BotaniaAPIClient {
 	 * @param model       A path to a blockstate json and variant to be used for this subtile
 	 * @param itemModel   A path to a blockstate json and variant to be used for this subtile's item form
 	 */
-	public static void registerSubtileModel(String subTileName, ModelResourceLocation model, ModelResourceLocation itemModel) {
+	public static void registerSubtileModel(ResourceLocation subTileName, ModelResourceLocation model, ModelResourceLocation itemModel) {
 		subtileBlockModels.put(subTileName, model);
 		subtileItemModels.put(subTileName, itemModel);
 	}
@@ -55,7 +56,7 @@ public final class BotaniaAPIClient {
 	 * @param subTileName The String ID of the subtile
 	 * @param model       A path to a blockstate json and variant to be used the block. The item model will be drawn from the same blockstate json, from variant "inventory"
 	 */
-	public static void registerSubtileModel(String subTileName, ModelResourceLocation model) {
+	public static void registerSubtileModel(ResourceLocation subTileName, ModelResourceLocation model) {
 		registerSubtileModel(subTileName, model, new ModelResourceLocation(model.getResourceDomain() + ":" + model.getResourcePath(), "inventory"));
 	}
 
@@ -71,14 +72,14 @@ public final class BotaniaAPIClient {
 	/**
 	 * @return An immutable and live view of the registered subtile block model map
 	 */
-	public static Map<String, ModelResourceLocation> getRegisteredSubtileBlockModels() {
+	public static Map<ResourceLocation, ModelResourceLocation> getRegisteredSubtileBlockModels() {
 		return Collections.unmodifiableMap(subtileBlockModels);
 	}
 
 	/**
 	 * @return An immutable and live view of the registered subtile item model map
 	 */
-	public static Map<String, ModelResourceLocation> getRegisteredSubtileItemModels() {
+	public static Map<ResourceLocation, ModelResourceLocation> getRegisteredSubtileItemModels() {
 		return Collections.unmodifiableMap(subtileItemModels);
 	}
 

@@ -110,7 +110,7 @@ public class ItemBlockSpecialFlower extends ItemBlockMod implements IRecipeKeyPr
 	}
 
 	public static ResourceLocation getType(ItemStack stack) {
-		return stack.hasTagCompound() ? new ResourceLocation(ItemNBTHelper.getString(stack, SubTileEntity.TAG_TYPE, "")) : BotaniaAPI.DUMMY_SUBTILE_NAME;
+		return stack.hasTagCompound() ? new ResourceLocation(ItemNBTHelper.getString(stack, SubTileEntity.TAG_TYPE, BotaniaAPI.DUMMY_SUBTILE_NAME.toString())) : BotaniaAPI.DUMMY_SUBTILE_NAME;
 	}
 
 	public static ItemStack ofType(ResourceLocation type) {

@@ -20,6 +20,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.function.IntFunction;
 
+// TODO add support for migrating subtiles to add a domain
 // Flattens meta variants by splitting out to new ID's
 public class FlattenItems implements IFixableData {
 	// old id to (meta -> new id)

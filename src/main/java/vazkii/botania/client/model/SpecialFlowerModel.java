@@ -38,6 +38,7 @@ import net.minecraftforge.common.model.IModelState;
 import net.minecraftforge.common.model.TRSRTransformation;
 import net.minecraftforge.common.property.IExtendedBlockState;
 import org.apache.commons.lang3.tuple.Pair;
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
@@ -52,12 +53,12 @@ import java.util.function.Function;
 public class SpecialFlowerModel implements IModel {
 	private static final ModelResourceLocation MISSING = new ModelResourceLocation("builtin/missing", "missing");
 	private final ModelResourceLocation baseModel;
-	private final ImmutableMap<String, ModelResourceLocation> blockModels;
-	private final ImmutableMap<String, ModelResourceLocation> itemModels;
+	private final ImmutableMap<ResourceLocation, ModelResourceLocation> blockModels;
+	private final ImmutableMap<ResourceLocation, ModelResourceLocation> itemModels;
 
 	private SpecialFlowerModel(ModelResourceLocation baseModel,
-								ImmutableMap<String, ModelResourceLocation> blockModels,
-								ImmutableMap<String, ModelResourceLocation> itemModels) {
+								ImmutableMap<ResourceLocation, ModelResourceLocation> blockModels,
+								ImmutableMap<ResourceLocation, ModelResourceLocation> itemModels) {
 		this.baseModel = baseModel;
 		this.blockModels = blockModels;
 		this.itemModels = itemModels;
@@ -90,15 +91,15 @@ public class SpecialFlowerModel implements IModel {
 		IBakedModel baseModelBaked = ModelLoaderRegistry.getModelOrMissing(baseModel)
 				.bake(transformState, DefaultVertexFormats.ITEM, ModelLoader.defaultTextureGetter());
 
-		ImmutableMap.Builder<String, IBakedModel> bakedBlockBuilder = ImmutableMap.builder();
-		for(Map.Entry<String, ModelResourceLocation> e : blockModels.entrySet()) {
+		ImmutableMap.Builder<ResourceLocation, IBakedModel> bakedBlockBuilder = ImmutableMap.builder();
+		for(Map.Entry<ResourceLocation, ModelResourceLocation> e : blockModels.entrySet()) {
 			IModel model = ModelLoaderRegistry.getModelOrMissing(e.getValue());
 			if(model != ModelLoaderRegistry.getMissingModel())
 				bakedBlockBuilder.put(e.getKey(), model.bake(transformState, DefaultVertexFormats.ITEM, ModelLoader.defaultTextureGetter()));
 		}
 
-		ImmutableMap.Builder<String, IBakedModel> bakedItemBuilder = ImmutableMap.builder();
-		for(Map.Entry<String, ModelResourceLocation> e : itemModels.entrySet()) {
+		ImmutableMap.Builder<ResourceLocation, IBakedModel> bakedItemBuilder = ImmutableMap.builder();
+		for(Map.Entry<ResourceLocation, ModelResourceLocation> e : itemModels.entrySet()) {
 			IModel model = ModelLoaderRegistry.getModelOrMissing(e.getValue());
 			if(model != ModelLoaderRegistry.getMissingModel())
 				bakedItemBuilder.put(e.getKey(), model.bake(transformState, DefaultVertexFormats.ITEM, ModelLoader.defaultTextureGetter()));
@@ -121,8 +122,8 @@ public class SpecialFlowerModel implements IModel {
 			// Forge blockstate gives custom data in json form, have to drop the quotes
 			base = new ModelResourceLocation(customData.get("base").substring(1, customData.get("base").length() - 1));
 
-		ImmutableMap<String, ModelResourceLocation> blockModels = ImmutableMap.copyOf(BotaniaAPIClient.getRegisteredSubtileBlockModels());
-		ImmutableMap<String, ModelResourceLocation> itemModels = ImmutableMap.copyOf(BotaniaAPIClient.getRegisteredSubtileItemModels());
+		ImmutableMap<ResourceLocation, ModelResourceLocation> blockModels = ImmutableMap.copyOf(BotaniaAPIClient.getRegisteredSubtileBlockModels());
+		ImmutableMap<ResourceLocation, ModelResourceLocation> itemModels = ImmutableMap.copyOf(BotaniaAPIClient.getRegisteredSubtileItemModels());
 		return new SpecialFlowerModel(base, blockModels, itemModels);
 	}
 
@@ -150,13 +151,13 @@ public class SpecialFlowerModel implements IModel {
 
 	private static class SpecialFlowerBakedModel implements IBakedModel {
 		private final IBakedModel baseModel;
-		private final ImmutableMap<String, IBakedModel> bakedBlockModels;
-		private final ImmutableMap<String, IBakedModel> bakedItemModels;
+		private final ImmutableMap<ResourceLocation, IBakedModel> bakedBlockModels;
+		private final ImmutableMap<ResourceLocation, IBakedModel> bakedItemModels;
 		private final ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> transforms;
 
 		SpecialFlowerBakedModel(IBakedModel baseModel,
-								ImmutableMap<String, IBakedModel> bakedBlockModels,
-								ImmutableMap<String, IBakedModel> bakedItemModels,
+								ImmutableMap<ResourceLocation, IBakedModel> bakedBlockModels,
+								ImmutableMap<ResourceLocation, IBakedModel> bakedItemModels,
 								ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> cameraTransforms) {
 			this.baseModel = baseModel;
 			this.bakedBlockModels = bakedBlockModels;
@@ -168,9 +169,9 @@ public class SpecialFlowerModel implements IModel {
 		@Override
 		public List<BakedQuad> getQuads(IBlockState state, EnumFacing face, long rand) {
 			IExtendedBlockState extendedState = (IExtendedBlockState) state;
-			String subtileId = extendedState.getValue(BotaniaStateProps.SUBTILE_ID);
+			ResourceLocation subtileId = extendedState.getValue(BotaniaStateProps.SUBTILE_ID);
 
-			IBakedModel model = bakedBlockModels.get(subtileId == null ? "" : subtileId);
+			IBakedModel model = bakedBlockModels.get(subtileId == null ? BotaniaAPI.DUMMY_SUBTILE_NAME : subtileId);
 			if(model == null)
 				model = Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelManager().getMissingModel();
 

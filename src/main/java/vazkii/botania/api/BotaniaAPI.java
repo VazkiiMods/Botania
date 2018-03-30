@@ -140,7 +140,7 @@ public final class BotaniaAPI {
 	public static final Brew fallbackBrew = new Brew("fallback", "botania.brew.fallback", 0, 0);
 
 	static {
-		registerSubTile(DUMMY_SUBTILE_NAME, DummySubTile.class);
+		subTiles.register(0, DUMMY_SUBTILE_NAME, DummySubTile.class); // int id irrelevant, this is just to set the default value
 
 		basicKnowledge = registerKnowledgeType("minecraft", TextFormatting.RESET, true);
 		elvenKnowledge = registerKnowledgeType("alfheim", TextFormatting.DARK_GREEN, false);

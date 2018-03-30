@@ -25,6 +25,7 @@ import net.minecraft.client.renderer.vertex.VertexFormatElement;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
@@ -40,6 +41,7 @@ import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
+import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 import javax.vecmath.Matrix4f;
@@ -52,8 +54,8 @@ import java.util.Map;
 
 public class FloatingFlowerModel implements IBakedModel {
 
-	private static final String MUNDANE_PREFIX = "botania:shimmeringFlower_";
-	private final Table<IFloatingFlower.IslandType, String, CompositeBakedModel> CACHE = HashBasedTable.create();
+	private static final String MUNDANE_PREFIX = "shimmeringFlower_";
+	private final Table<IFloatingFlower.IslandType, ResourceLocation, CompositeBakedModel> CACHE = HashBasedTable.create();
 
 	protected static BakedQuad transform(BakedQuad quad, final TRSRTransformation transform) {
 		UnpackedBakedQuad.Builder builder = new UnpackedBakedQuad.Builder(DefaultVertexFormats.ITEM);
@@ -88,21 +90,21 @@ public class FloatingFlowerModel implements IBakedModel {
 			return Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelManager().getMissingModel().getQuads(state, face, rand);
 		IExtendedBlockState realState = (IExtendedBlockState) state;
 		IFloatingFlower.IslandType islandType = realState.getValue(BotaniaStateProps.ISLAND_TYPE);
-		String identifier;
+		ResourceLocation identifier;
 
 		if(state.getBlock() == ModBlocks.floatingSpecialFlower) {
 			// Magic flower
 			identifier = realState.getValue(BotaniaStateProps.SUBTILE_ID);
 		} else {
 			// Mundane flower
-			identifier = MUNDANE_PREFIX + state.getValue(BotaniaStateProps.COLOR).getMetadata();
+			identifier = new ResourceLocation(LibMisc.MOD_ID, MUNDANE_PREFIX + state.getValue(BotaniaStateProps.COLOR).getMetadata());
 		}
 
 		return getModel(islandType, identifier).getQuads(state, face, rand);
 	}
 
 	// Get the model for this islandtype + flower type combination. If it's not cached already, generate it.
-	private CompositeBakedModel getModel(IFloatingFlower.IslandType islandType, String identifier) {
+	private CompositeBakedModel getModel(IFloatingFlower.IslandType islandType, ResourceLocation identifier) {
 		ModelManager modelManager = Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getModelManager();
 
 		if(CACHE.contains(islandType, identifier)) {
@@ -117,8 +119,8 @@ public class FloatingFlowerModel implements IBakedModel {
 
 			IBakedModel flowerModel;
 
-			if(identifier.startsWith(MUNDANE_PREFIX)) {
-				int meta = Integer.parseInt(identifier.substring(identifier.indexOf(MUNDANE_PREFIX) + MUNDANE_PREFIX.length()));
+			if(identifier.getResourcePath().startsWith(MUNDANE_PREFIX)) {
+				int meta = Integer.parseInt(identifier.getResourcePath().substring(identifier.getResourcePath().indexOf(MUNDANE_PREFIX) + MUNDANE_PREFIX.length()));
 				flowerModel = Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(new ItemStack(ModBlocks.shinyFlower, 1, meta));
 			} else {
 				ItemStack stack = ItemBlockSpecialFlower.ofType(identifier);
@@ -215,14 +217,14 @@ public class FloatingFlowerModel implements IBakedModel {
 		public IBakedModel handleItemState(@Nonnull IBakedModel model, ItemStack stack, World world, EntityLivingBase entity) {
 			// Items always have GRASS island
 			IFloatingFlower.IslandType islandType = IFloatingFlower.IslandType.GRASS;
-			String identifier;
+			ResourceLocation identifier;
 
 			if(Block.getBlockFromItem(stack.getItem()) == ModBlocks.floatingSpecialFlower) {
 				// Magic flower
 				identifier = ItemBlockSpecialFlower.getType(stack);
 			} else {
 				// Mundane flower
-				identifier = MUNDANE_PREFIX + stack.getItemDamage();
+				identifier = new ResourceLocation(LibMisc.MOD_ID, MUNDANE_PREFIX + stack.getItemDamage());
 			}
 
 			return FloatingFlowerModel.this.getModel(islandType, identifier);
