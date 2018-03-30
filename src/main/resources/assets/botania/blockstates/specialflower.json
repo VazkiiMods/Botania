@@ -2,15 +2,11 @@
   "forge_marker": 1,
   "defaults": {
     "model": "botania_special:specialFlower",
-    "transform": "forge:default-item"
+    "transform": "forge:default-item",
+    "custom": { "base": "botania:specialflower#basemodel" }
   },
   "variants": {
-    "normal": [{
-      "custom": { "base": "botania:specialflower#basemodel" }
-    }],
-    "inventory": [{
-      "custom": { "base": "botania:specialflower#basemodel" }
-    }],
+    "normal": [{}],
     "basemodel": [{
       "model": "minecraft:cross",
       "textures": {

@@ -137,9 +137,7 @@ public class Botania {
 		PacketHandler.init();
 		ModEntities.init();
 		ModBrews.init();
-
 		ModMultiblocks.init();
-		ModBanners.init();
 		fixer = FMLCommonHandler.instance().getDataFixer().init(LibMisc.MOD_ID, LibMisc.DATA_VERSION);
 		fixer.registerFix(FixTypes.ITEM_INSTANCE, new FlattenItems());
 		fixer.registerFix(FixTypes.ITEM_INSTANCE, new FlattenNBT());
@@ -160,6 +158,7 @@ public class Botania {
 
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
+		ModBanners.init();
 		ModPetalRecipes.init();
 		ModPureDaisyRecipes.init();
 		ModRuneRecipes.init();

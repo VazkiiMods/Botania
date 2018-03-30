@@ -10,7 +10,9 @@
  */
 package vazkii.botania.common.item;
 
+import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
@@ -20,6 +22,9 @@ import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.IFluidBlock;
 import vazkii.botania.common.lib.LibItemNames;
 
 import javax.annotation.Nonnull;
@@ -49,10 +54,13 @@ public class ItemOpenBucket extends ItemMod {
 				if(!player.canPlayerEdit(pos, rtr.sideHit, stack))
 					return ActionResult.newResult(EnumActionResult.PASS, stack);
 
-				Material material = world.getBlockState(pos).getMaterial();
-				int l = world.getBlockState(pos).getBlock().getMetaFromState(world.getBlockState(pos)); // hack to get meta so we don't have to know the level prop
+				IBlockState state = world.getBlockState(pos);
+				Fluid fluid = FluidRegistry.lookupFluidForBlock(state.getBlock());
+				boolean isFull = state.getBlock() instanceof BlockLiquid && state.getValue(BlockLiquid.LEVEL) == 0
+						|| state.getBlock() instanceof IFluidBlock && Math.abs(((IFluidBlock) state.getBlock()).getFilledPercentage(world, pos)) >= 1;
 
-				if((material == Material.LAVA || material == Material.WATER) && l == 0) {
+				if(fluid != null && isFull) {
+					player.playSound(fluid.getFillSound(world, pos), 1.0f, 1.0f);
 					world.setBlockToAir(pos);
 
 					for(int x = 0; x < 5; x++)

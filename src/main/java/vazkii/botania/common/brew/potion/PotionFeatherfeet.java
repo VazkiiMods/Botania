@@ -29,7 +29,8 @@ public class PotionFeatherfeet extends PotionMod {
 
 	@Override
 	public void performEffect(@Nonnull EntityLivingBase living, int amplified) {
-		living.fallDistance = 2.5F;
+		if(living.fallDistance > 2.5F)
+			living.fallDistance = 2.5F;
 	}
 
 }
