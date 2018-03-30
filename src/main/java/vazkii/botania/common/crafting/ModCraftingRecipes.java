@@ -341,8 +341,8 @@ public final class ModCraftingRecipes {
 		r.register(new PhantomInkRecipe().setRegistryName(new ResourceLocation(LibMisc.MOD_ID, "phantom_ink")));
 		r.register(new TerraPickTippingRecipe().setRegistryName(new ResourceLocation(LibMisc.MOD_ID, "terra_pick_tipping")));
 
-		for (String s : BotaniaAPI.getAllSubTiles()) {
-			r.register(new SpecialFloatingFlowerRecipe(s).setRegistryName(new ResourceLocation(LibMisc.MOD_ID, "floating_" + s)));
+		for (ResourceLocation s : BotaniaAPI.getAllSubTiles()) {
+			r.register(new SpecialFloatingFlowerRecipe(s).setRegistryName(new ResourceLocation(LibMisc.MOD_ID, "floating_" + s.toString().replaceAll(":", "_"))));
 		}
 
 		for(int i = 0; i < 8; i++) {

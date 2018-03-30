@@ -14,6 +14,7 @@ import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import vazkii.botania.common.block.ModBlocks;
@@ -22,9 +23,9 @@ import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 import javax.annotation.Nonnull;
 
 public class SpecialFloatingFlowerRecipe extends IForgeRegistryEntry.Impl<IRecipe> implements IRecipe {
-	public final String type;
+	public final ResourceLocation type;
 
-	public SpecialFloatingFlowerRecipe(String type) {
+	public SpecialFloatingFlowerRecipe(ResourceLocation type) {
 		this.type = type;
 	}
 

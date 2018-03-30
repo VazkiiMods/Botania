@@ -17,6 +17,7 @@ import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -708,12 +709,12 @@ public final class ModBlocks {
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_BERGAMUTE, SubTileBergamute.class);
 	}
 
-	private static void registerSubTileWithMini(String key, Class<? extends SubTileEntity> clazz) {
+	private static void registerSubTileWithMini(ResourceLocation key, Class<? extends SubTileEntity> clazz) {
 		BotaniaAPI.registerSubTile(key, clazz);
 
 		for(Class innerClazz : clazz.getDeclaredClasses())
 			if(innerClazz.getSimpleName().equals("Mini"))
-				BotaniaAPI.registerMiniSubTile(key + "Chibi", innerClazz, key);
+				BotaniaAPI.registerMiniSubTile(new ResourceLocation(key.getResourceDomain(), key.getResourcePath() + "Chibi"), innerClazz, key);
 	}
 
 	private static void registerTile(Class<? extends TileEntity> clazz, String key) {

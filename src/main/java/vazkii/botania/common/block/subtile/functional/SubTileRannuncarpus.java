@@ -25,6 +25,7 @@ import net.minecraft.item.ItemPiston;
 import net.minecraft.item.ItemRedstone;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
@@ -130,7 +131,7 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 								TileEntity tile = supertile.getWorld().getTileEntity(coords);
 								if(tile != null && tile instanceof ISubTileContainer) {
 									ISubTileContainer container = (ISubTileContainer) tile;
-									String subtileName = ItemBlockSpecialFlower.getType(stack);
+									ResourceLocation subtileName = ItemBlockSpecialFlower.getType(stack);
 									container.setSubTile(subtileName);
 									SubTileEntity subtile = container.getSubTile();
 									subtile.onBlockPlacedBy(supertile.getWorld(), coords, supertile.getWorld().getBlockState(coords), null, stack);

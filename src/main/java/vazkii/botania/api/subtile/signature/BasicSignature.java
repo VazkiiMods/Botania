@@ -11,6 +11,7 @@
 package vazkii.botania.api.subtile.signature;
 
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
@@ -28,9 +29,9 @@ import java.util.List;
  */
 public class BasicSignature implements SubTileSignature {
 
-	private final String name;
+	private final ResourceLocation name;
 
-	public BasicSignature(String name) {
+	public BasicSignature(ResourceLocation name) {
 		this.name = name;
 	}
 
@@ -44,7 +45,7 @@ public class BasicSignature implements SubTileSignature {
 		return unlocalizedName(".reference");
 	}
 
-	public String getName() {
+	public ResourceLocation getName() {
 		return name;
 	}
 

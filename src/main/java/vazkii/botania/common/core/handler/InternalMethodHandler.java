@@ -161,17 +161,17 @@ public class InternalMethodHandler extends DummyMethodHandler {
 	}
 
 	@Override
-	public ItemStack getSubTileAsStack(String subTile) {
+	public ItemStack getSubTileAsStack(ResourceLocation subTile) {
 		return ItemBlockSpecialFlower.ofType(subTile);
 	}
 
 	@Override
-	public ItemStack getSubTileAsFloatingFlowerStack(String subTile) {
+	public ItemStack getSubTileAsFloatingFlowerStack(ResourceLocation subTile) {
 		return ItemBlockSpecialFlower.ofType(new ItemStack(ModBlocks.floatingSpecialFlower), subTile);
 	}
 
 	@Override
-	public String getStackSubTileKey(ItemStack stack) {
+	public ResourceLocation getStackSubTileKey(ItemStack stack) {
 		return ItemBlockSpecialFlower.getType(stack);
 	}
 

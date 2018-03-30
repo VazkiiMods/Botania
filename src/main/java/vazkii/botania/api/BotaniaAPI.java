@@ -30,6 +30,9 @@ import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.registry.RegistryNamespaced;
+import net.minecraft.util.registry.RegistryNamespacedDefaultedByKey;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.common.Loader;
@@ -84,11 +87,11 @@ public final class BotaniaAPI {
 	public static final List<RecipeBrew> brewRecipes = new ArrayList<>();
 	public static final List<RecipeManaInfusion> miniFlowerRecipes = new ArrayList<>();
 
-	private static final BiMap<String, Class<? extends SubTileEntity>> subTiles = HashBiMap.create();
+	public static final ResourceLocation DUMMY_SUBTILE_NAME = new ResourceLocation("botania", "dummy");
+	private static final RegistryNamespacedDefaultedByKey<ResourceLocation, Class<? extends SubTileEntity>> subTiles = new RegistryNamespacedDefaultedByKey<>(DUMMY_SUBTILE_NAME);
 	private static final Map<Class<? extends SubTileEntity>, SubTileSignature> subTileSignatures = new HashMap<>();
-	public static final Set<String> subtilesForCreativeMenu = new LinkedHashSet<>();
-	public static final Map<String, String> subTileMods = new HashMap<>();
-	public static final BiMap<String, String> miniFlowers = HashBiMap.create();
+	public static final Set<ResourceLocation> subtilesForCreativeMenu = new LinkedHashSet<>();
+	public static final BiMap<ResourceLocation, ResourceLocation> miniFlowers = HashBiMap.create();
 
 	public static final Map<String, Integer> oreWeights = new HashMap<>();
 	public static final Map<String, Integer> oreWeightsNether = new HashMap<>();
@@ -137,7 +140,7 @@ public final class BotaniaAPI {
 	public static final Brew fallbackBrew = new Brew("fallback", "botania.brew.fallback", 0, 0);
 
 	static {
-		registerSubTile("", DummySubTile.class);
+		registerSubTile(DUMMY_SUBTILE_NAME, DummySubTile.class);
 
 		basicKnowledge = registerKnowledgeType("minecraft", TextFormatting.RESET, true);
 		elvenKnowledge = registerKnowledgeType("alfheim", TextFormatting.DARK_GREEN, false);
@@ -522,20 +525,19 @@ public final class BotaniaAPI {
 	 * Registers a SubTileEntity, a new special flower. Look in the subtile package of the API.
 	 * Call this during {@code RegistryEvent.Register<Block>}, and don't forget to register a model in BotaniaAPIClient.
 	 */
-	public static void registerSubTile(String key, Class<? extends SubTileEntity> subtileClass) {
-		subTiles.put(key, subtileClass);
-		subTileMods.put(key, Loader.instance().activeModContainer().getModId());
+	public static void registerSubTile(ResourceLocation id, Class<? extends SubTileEntity> subtileClass) {
+		subTiles.putObject(id, subtileClass);
 	}
 
 	/**
 	 * Register a SubTileEntity and makes it a mini flower. Also adds the recipe and returns it.
 	 * @see BotaniaAPI#registerSubTile
 	 */
-	public static RecipeManaInfusion registerMiniSubTile(String key, Class<? extends SubTileEntity> subtileClass, String original) {
-		registerSubTile(key, subtileClass);
-		miniFlowers.put(original, key);
+	public static RecipeManaInfusion registerMiniSubTile(ResourceLocation id, Class<? extends SubTileEntity> subtileClass, ResourceLocation original) {
+		registerSubTile(id, subtileClass);
+		miniFlowers.put(original, id);
 
-		RecipeMiniFlower recipe = new RecipeMiniFlower(key, original, 2500);
+		RecipeMiniFlower recipe = new RecipeMiniFlower(id, original, 2500);
 		manaInfusionRecipes.add(recipe);
 		miniFlowerRecipes.add(recipe);
 		return recipe;
@@ -555,7 +557,7 @@ public final class BotaniaAPI {
 	 */
 	public static SubTileSignature getSignatureForClass(Class<? extends SubTileEntity> subtileClass) {
 		if(!subTileSignatures.containsKey(subtileClass))
-			registerSubTileSignature(subtileClass, new BasicSignature(subTiles.inverse().get(subtileClass)));
+			registerSubTileSignature(subtileClass, new BasicSignature(subTiles.getNameForObject(subtileClass)));
 
 		return subTileSignatures.get(subtileClass);
 	}
@@ -564,8 +566,8 @@ public final class BotaniaAPI {
 	 * Gets the singleton signature for a SubTileEntity's name. Registers a fallback if one wasn't registered
 	 * before the call.
 	 */
-	public static SubTileSignature getSignatureForName(String name) {
-		Class<? extends SubTileEntity> subtileClass = subTiles.get(name);
+	public static SubTileSignature getSignatureForName(ResourceLocation name) {
+		Class<? extends SubTileEntity> subtileClass = subTiles.getObject(name);
 		return getSignatureForClass(subtileClass);
 	}
 
@@ -574,7 +576,7 @@ public final class BotaniaAPI {
 	 * subtilesForCreativeMenu Set. This does not need to be called for mini flowers,
 	 * those will just use the mini flower map to add themselves next to the source.
 	 */
-	public static void addSubTileToCreativeMenu(String key) {
+	public static void addSubTileToCreativeMenu(ResourceLocation key) {
 		subtilesForCreativeMenu.add(key);
 	}
 
@@ -655,19 +657,16 @@ public final class BotaniaAPI {
 		WikiHooks.registerModWiki(mod, provider);
 	}
 
-	public static Class<? extends SubTileEntity> getSubTileMapping(String key) {
-		if(!subTiles.containsKey(key))
-			key = "";
-
-		return subTiles.get(key);
+	public static Class<? extends SubTileEntity> getSubTileMapping(ResourceLocation key) {
+		return subTiles.getObject(key);
 	}
 
-	public static String getSubTileStringMapping(Class<? extends SubTileEntity> clazz) {
-		return subTiles.inverse().get(clazz);
+	public static ResourceLocation getSubTileStringMapping(Class<? extends SubTileEntity> clazz) {
+		return subTiles.getNameForObject(clazz);
 	}
 
-	public static Set<String> getAllSubTiles() {
-		return subTiles.keySet();
+	public static Set<ResourceLocation> getAllSubTiles() {
+		return subTiles.getKeys();
 	}
 
 	private static String getMagnetKey(ItemStack stack) {

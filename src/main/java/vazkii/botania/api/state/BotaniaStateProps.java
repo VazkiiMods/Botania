@@ -18,6 +18,7 @@ import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import vazkii.botania.api.item.IFloatingFlower;
@@ -38,7 +39,7 @@ public final class BotaniaStateProps {
 	/** Unlisted properties **/
 
 	// The property for specialFlower subtile id
-	public static final PropertyObject<String> SUBTILE_ID = new PropertyObject<>("subtile_id", String.class);
+	public static final PropertyObject<ResourceLocation> SUBTILE_ID = new PropertyObject<>("subtile_id", ResourceLocation.class);
 
 	// The property for floating flower island type
 	public static final PropertyObject<IFloatingFlower.IslandType> ISLAND_TYPE = new PropertyObject<>("islandtype", IFloatingFlower.IslandType.class);

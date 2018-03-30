@@ -10,6 +10,8 @@
  */
 package vazkii.botania.common.lib;
 
+import net.minecraft.util.ResourceLocation;
+
 public final class LibBlockNames {
 
 	public static final String FLOWER = "flower";
@@ -110,50 +112,50 @@ public final class LibBlockNames {
 	public static final String ALT_GRASS_SUFFIX = "_grass";
 	public static final String ANIMATED_TORCH = "animatedTorch";
 
-	public static final String SUBTILE_PUREDAISY = "puredaisy";
-	public static final String SUBTILE_MANASTAR = "manastar";
+	public static final ResourceLocation SUBTILE_PUREDAISY = prefix("puredaisy");
+	public static final ResourceLocation SUBTILE_MANASTAR = prefix("manastar");
 
-	public static final String SUBTILE_ENDOFLAME = "endoflame";
-	public static final String SUBTILE_HYDROANGEAS = "hydroangeas";
-	public static final String SUBTILE_THERMALILY = "thermalily";
-	public static final String SUBTILE_NIGHTSHADE_PRIME = "nightshadePrime";
-	public static final String SUBTILE_ARCANE_ROSE = "arcanerose";
-	public static final String SUBTILE_MUNCHDEW = "munchdew";
-	public static final String SUBTILE_ENTROPINNYUM = "entropinnyum";
-	public static final String SUBTILE_KEKIMURUS = "kekimurus";
-	public static final String SUBTILE_GOURMARYLLIS = "gourmaryllis";
-	public static final String SUBTILE_NARSLIMMUS = "narslimmus";
-	public static final String SUBTILE_SPECTROLUS = "spectrolus";
-	public static final String SUBTILE_DANDELIFEON = "dandelifeon";
-	public static final String SUBTILE_RAFFLOWSIA = "rafflowsia";
-	public static final String SUBTILE_SHULK_ME_NOT = "shulk_me_not";
+	public static final ResourceLocation SUBTILE_ENDOFLAME = prefix("endoflame");
+	public static final ResourceLocation SUBTILE_HYDROANGEAS = prefix("hydroangeas");
+	public static final ResourceLocation SUBTILE_THERMALILY = prefix("thermalily");
+	public static final ResourceLocation SUBTILE_NIGHTSHADE_PRIME = prefix("nightshadePrime");
+	public static final ResourceLocation SUBTILE_ARCANE_ROSE = prefix("arcanerose");
+	public static final ResourceLocation SUBTILE_MUNCHDEW = prefix("munchdew");
+	public static final ResourceLocation SUBTILE_ENTROPINNYUM = prefix("entropinnyum");
+	public static final ResourceLocation SUBTILE_KEKIMURUS = prefix("kekimurus");
+	public static final ResourceLocation SUBTILE_GOURMARYLLIS = prefix("gourmaryllis");
+	public static final ResourceLocation SUBTILE_NARSLIMMUS = prefix("narslimmus");
+	public static final ResourceLocation SUBTILE_SPECTROLUS = prefix("spectrolus");
+	public static final ResourceLocation SUBTILE_DANDELIFEON = prefix("dandelifeon");
+	public static final ResourceLocation SUBTILE_RAFFLOWSIA = prefix("rafflowsia");
+	public static final ResourceLocation SUBTILE_SHULK_ME_NOT = prefix("shulk_me_not");
 
-	public static final String SUBTILE_BELLETHORN = "bellethorn";
-	public static final String SUBTILE_BERGAMUTE = "bergamute";
-	public static final String SUBTILE_DREADTHORN = "dreadthorn";
-	public static final String SUBTILE_HEISEI_DREAM = "heiseiDream";
-	public static final String SUBTILE_TIGERSEYE = "tigerseye";
-	public static final String SUBTILE_JADED_AMARANTHUS = "jadedAmaranthus";
-	public static final String SUBTILE_ORECHID = "orechid";
-	public static final String SUBTILE_FALLEN_KANADE = "fallenKanade";
-	public static final String SUBTILE_EXOFLAME = "exoflame";
-	public static final String SUBTILE_AGRICARNATION = "agricarnation";
-	public static final String SUBTILE_HOPPERHOCK = "hopperhock";
-	public static final String SUBTILE_TANGLEBERRIE = "tangleberrie";
-	public static final String SUBTILE_JIYUULIA = "jiyuulia";
-	public static final String SUBTILE_RANNUNCARPUS = "rannuncarpus";
-	public static final String SUBTILE_HYACIDUS = "hyacidus";
-	public static final String SUBTILE_POLLIDISIAC = "pollidisiac";
-	public static final String SUBTILE_CLAYCONIA = "clayconia";
-	public static final String SUBTILE_LOONIUM = "loonium";
-	public static final String SUBTILE_DAFFOMILL = "daffomill";
-	public static final String SUBTILE_VINCULOTUS = "vinculotus";
-	public static final String SUBTILE_SPECTRANTHEMUM = "spectranthemum";
-	public static final String SUBTILE_MEDUMONE = "medumone";
-	public static final String SUBTILE_MARIMORPHOSIS = "marimorphosis";
-	public static final String SUBTILE_BUBBELL = "bubbell";
-	public static final String SUBTILE_SOLEGNOLIA = "solegnolia";
-	public static final String SUBTILE_ORECHID_IGNEM = "orechidIgnem";
+	public static final ResourceLocation SUBTILE_BELLETHORN = prefix("bellethorn");
+	public static final ResourceLocation SUBTILE_BERGAMUTE = prefix("bergamute");
+	public static final ResourceLocation SUBTILE_DREADTHORN = prefix("dreadthorn");
+	public static final ResourceLocation SUBTILE_HEISEI_DREAM = prefix("heiseiDream");
+	public static final ResourceLocation SUBTILE_TIGERSEYE = prefix("tigerseye");
+	public static final ResourceLocation SUBTILE_JADED_AMARANTHUS = prefix("jadedAmaranthus");
+	public static final ResourceLocation SUBTILE_ORECHID = prefix("orechid");
+	public static final ResourceLocation SUBTILE_FALLEN_KANADE = prefix("fallenKanade");
+	public static final ResourceLocation SUBTILE_EXOFLAME = prefix("exoflame");
+	public static final ResourceLocation SUBTILE_AGRICARNATION = prefix("agricarnation");
+	public static final ResourceLocation SUBTILE_HOPPERHOCK = prefix("hopperhock");
+	public static final ResourceLocation SUBTILE_TANGLEBERRIE = prefix("tangleberrie");
+	public static final ResourceLocation SUBTILE_JIYUULIA = prefix("jiyuulia");
+	public static final ResourceLocation SUBTILE_RANNUNCARPUS = prefix("rannuncarpus");
+	public static final ResourceLocation SUBTILE_HYACIDUS = prefix("hyacidus");
+	public static final ResourceLocation SUBTILE_POLLIDISIAC = prefix("pollidisiac");
+	public static final ResourceLocation SUBTILE_CLAYCONIA = prefix("clayconia");
+	public static final ResourceLocation SUBTILE_LOONIUM = prefix("loonium");
+	public static final ResourceLocation SUBTILE_DAFFOMILL = prefix("daffomill");
+	public static final ResourceLocation SUBTILE_VINCULOTUS = prefix("vinculotus");
+	public static final ResourceLocation SUBTILE_SPECTRANTHEMUM = prefix("spectranthemum");
+	public static final ResourceLocation SUBTILE_MEDUMONE = prefix("medumone");
+	public static final ResourceLocation SUBTILE_MARIMORPHOSIS = prefix("marimorphosis");
+	public static final ResourceLocation SUBTILE_BUBBELL = prefix("bubbell");
+	public static final ResourceLocation SUBTILE_SOLEGNOLIA = prefix("solegnolia");
+	public static final ResourceLocation SUBTILE_ORECHID_IGNEM = prefix("orechidIgnem");
 
 	public static final String QUARTZ_DARK = "Dark";
 	public static final String QUARTZ_MANA = "Mana";
@@ -162,5 +164,9 @@ public final class LibBlockNames {
 	public static final String QUARTZ_RED = "Red";
 	public static final String QUARTZ_ELF = "Elf";
 	public static final String QUARTZ_SUNNY = "Sunny";
+	
+	private static ResourceLocation prefix(String name) {
+		return new ResourceLocation(LibMisc.MOD_ID, name);
+	}
 
 }

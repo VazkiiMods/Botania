@@ -20,6 +20,7 @@ import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EnumPlayerModelParts;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import vazkii.botania.api.item.IBaubleRender.Helper;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.client.core.helper.ShaderHelper;
@@ -27,6 +28,7 @@ import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.version.VersionChecker;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
+import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 import java.io.IOException;
@@ -89,7 +91,7 @@ public final class ContributorFancinessHandler implements LayerRenderer<EntityPl
 					throw new NumberFormatException();
 				flowerMap.put(key, new ItemStack(ModBlocks.flower, 1, i));
 			} catch(NumberFormatException e) {
-				flowerMap.put(key, ItemBlockSpecialFlower.ofType(value));
+				flowerMap.put(key, ItemBlockSpecialFlower.ofType(new ResourceLocation(LibMisc.MOD_ID, value)));
 			}
 		}
 	}

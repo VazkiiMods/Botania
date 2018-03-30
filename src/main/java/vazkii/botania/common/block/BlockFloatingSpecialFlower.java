@@ -24,6 +24,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.ChunkCache;
@@ -116,7 +117,7 @@ public class BlockFloatingSpecialFlower extends BlockFloatingFlower implements I
 
 	@Override
 	public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> stacks) {
-		for(String s : BotaniaAPI.subtilesForCreativeMenu) {
+		for(ResourceLocation s : BotaniaAPI.subtilesForCreativeMenu) {
 			stacks.add(ItemBlockSpecialFlower.ofType(new ItemStack(this), s));
 			if(BotaniaAPI.miniFlowers.containsKey(s))
 				stacks.add(ItemBlockSpecialFlower.ofType(new ItemStack(this), BotaniaAPI.miniFlowers.get(s)));
@@ -126,7 +127,7 @@ public class BlockFloatingSpecialFlower extends BlockFloatingFlower implements I
 	@Nonnull
 	@Override
 	public ItemStack getPickBlock(@Nonnull IBlockState state, RayTraceResult target, @Nonnull World world, @Nonnull BlockPos pos, EntityPlayer player) {
-		String name = ((TileSpecialFlower) world.getTileEntity(pos)).subTileName;
+		ResourceLocation name = ((TileSpecialFlower) world.getTileEntity(pos)).subTileName;
 		return ItemBlockSpecialFlower.ofType(new ItemStack(state.getBlock()), name);
 	}
 
@@ -159,7 +160,7 @@ public class BlockFloatingSpecialFlower extends BlockFloatingFlower implements I
 		TileEntity tile = world.getTileEntity(pos);
 
 		if(tile != null) {
-			String name = ((TileSpecialFlower) tile).subTileName;
+			ResourceLocation name = ((TileSpecialFlower) tile).subTileName;
 			list.add(ItemBlockSpecialFlower.ofType(new ItemStack(state.getBlock()), name));
 			((TileSpecialFlower) tile).getDrops(list);
 		}

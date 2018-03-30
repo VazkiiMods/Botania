@@ -41,6 +41,7 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.crafting.recipe.SpecialFloatingFlowerRecipe;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
+import vazkii.botania.common.lib.LibBlockNames;
 
 import javax.annotation.Nonnull;
 
@@ -49,8 +50,8 @@ public class JEIBotaniaPlugin implements IModPlugin {
 
 	@Override
 	public void registerItemSubtypes(@Nonnull ISubtypeRegistry subtypeRegistry) {
-		subtypeRegistry.registerSubtypeInterpreter(Item.getItemFromBlock(ModBlocks.specialFlower), ItemBlockSpecialFlower::getType);
-		subtypeRegistry.registerSubtypeInterpreter(Item.getItemFromBlock(ModBlocks.floatingSpecialFlower), ItemBlockSpecialFlower::getType);
+		subtypeRegistry.registerSubtypeInterpreter(Item.getItemFromBlock(ModBlocks.specialFlower), stack -> ItemBlockSpecialFlower.getType(stack).toString());
+		subtypeRegistry.registerSubtypeInterpreter(Item.getItemFromBlock(ModBlocks.floatingSpecialFlower), stack -> ItemBlockSpecialFlower.getType(stack).toString());
 	}
 
 	@Override
@@ -101,8 +102,8 @@ public class JEIBotaniaPlugin implements IModPlugin {
 		registry.addRecipeCatalyst(new ItemStack(ModBlocks.mesaAltar), PetalApothecaryRecipeCategory.UID);
 		registry.addRecipeCatalyst(new ItemStack(ModBlocks.mossyAltar), PetalApothecaryRecipeCategory.UID);
 
-		registry.addRecipeCatalyst(ItemBlockSpecialFlower.ofType("puredaisy"), PureDaisyRecipeCategory.UID);
-		registry.addRecipeCatalyst(ItemBlockSpecialFlower.ofType(new ItemStack(ModBlocks.floatingSpecialFlower), "puredaisy"), PureDaisyRecipeCategory.UID);
+		registry.addRecipeCatalyst(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_PUREDAISY), PureDaisyRecipeCategory.UID);
+		registry.addRecipeCatalyst(ItemBlockSpecialFlower.ofType(new ItemStack(ModBlocks.floatingSpecialFlower), LibBlockNames.SUBTILE_PUREDAISY), PureDaisyRecipeCategory.UID);
 
 
 		registry.addRecipeCatalyst(new ItemStack(ModBlocks.runeAltar), RunicAltarRecipeCategory.UID);

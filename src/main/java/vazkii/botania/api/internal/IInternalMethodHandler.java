@@ -79,11 +79,11 @@ public interface IInternalMethodHandler {
 
 	public IManaNetwork getManaNetworkInstance();
 
-	public ItemStack getSubTileAsStack(String subTile);
+	public ItemStack getSubTileAsStack(ResourceLocation subTile);
 
-	public ItemStack getSubTileAsFloatingFlowerStack(String subTile);
+	public ItemStack getSubTileAsFloatingFlowerStack(ResourceLocation subTile);
 
-	public String getStackSubTileKey(ItemStack stack);
+	public ResourceLocation getStackSubTileKey(ItemStack stack);
 
 	@SideOnly(Side.CLIENT)
 	public ModelResourceLocation getSubTileBlockModelForName(String name);

@@ -147,7 +147,7 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 		TileEntity te = world instanceof ChunkCache ? ((ChunkCache)world).getTileEntity(pos, Chunk.EnumCreateEntityType.CHECK) : world.getTileEntity(pos);
 		if (te instanceof TileSpecialFlower && ((TileSpecialFlower) te).getSubTile() != null) {
 			Class<? extends SubTileEntity> clazz = ((TileSpecialFlower) te).getSubTile().getClass();
-			String id = BotaniaAPI.getSubTileStringMapping(clazz);
+			ResourceLocation id = BotaniaAPI.getSubTileStringMapping(clazz);
 			return ((IExtendedBlockState) state).withProperty(BotaniaStateProps.SUBTILE_ID, id);
 		} else {
 			return (IExtendedBlockState) state;
@@ -203,7 +203,7 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 
 	@Override
 	public void getSubBlocks(CreativeTabs tab, @Nonnull NonNullList<ItemStack> stacks) {
-		for(String s : BotaniaAPI.subtilesForCreativeMenu) {
+		for(ResourceLocation s : BotaniaAPI.subtilesForCreativeMenu) {
 			stacks.add(ItemBlockSpecialFlower.ofType(s));
 			if(BotaniaAPI.miniFlowers.containsKey(s))
 				stacks.add(ItemBlockSpecialFlower.ofType(BotaniaAPI.miniFlowers.get(s)));
@@ -219,7 +219,7 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 	@Nonnull
 	@Override
 	public ItemStack getPickBlock(@Nonnull IBlockState state, RayTraceResult target, @Nonnull World world, @Nonnull BlockPos pos, EntityPlayer player) {
-		String name = ((TileSpecialFlower) world.getTileEntity(pos)).subTileName;
+		ResourceLocation name = ((TileSpecialFlower) world.getTileEntity(pos)).subTileName;
 		return ItemBlockSpecialFlower.ofType(name);
 	}
 
@@ -266,7 +266,7 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 		TileEntity tile = world.getTileEntity(pos);
 
 		if(tile != null) {
-			String name = ((TileSpecialFlower) tile).subTileName;
+			ResourceLocation name = ((TileSpecialFlower) tile).subTileName;
 			list.add(ItemBlockSpecialFlower.ofType(name));
 			((TileSpecialFlower) tile).getDrops(list);
 		}

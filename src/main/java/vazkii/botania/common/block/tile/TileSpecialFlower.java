@@ -24,6 +24,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ITickable;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -43,7 +44,7 @@ public class TileSpecialFlower extends TileMod implements IWandBindable, ISubTil
 	private static final String TAG_SUBTILE_NAME = "subTileName";
 	private static final String TAG_SUBTILE_CMP = "subTileCmp";
 
-	public String subTileName = "";
+	public ResourceLocation subTileName = BotaniaAPI.DUMMY_SUBTILE_NAME;
 	private SubTileEntity subTile;
 
 	@Override
@@ -52,7 +53,7 @@ public class TileSpecialFlower extends TileMod implements IWandBindable, ISubTil
 	}
 
 	@Override
-	public void setSubTile(String name) {
+	public void setSubTile(ResourceLocation name) {
 		subTileName = name;
 		provideSubTile(subTileName);
 	}
@@ -62,7 +63,7 @@ public class TileSpecialFlower extends TileMod implements IWandBindable, ISubTil
 		subTile.setSupertile(this);
 	}
 
-	private void provideSubTile(String name) {
+	private void provideSubTile(ResourceLocation name) {
 		subTileName = name;
 
 		Class<? extends SubTileEntity> tileClass = BotaniaAPI.getSubTileMapping(name);
@@ -112,7 +113,7 @@ public class TileSpecialFlower extends TileMod implements IWandBindable, ISubTil
 	public void writePacketNBT(NBTTagCompound cmp) {
 		super.writePacketNBT(cmp);
 
-		cmp.setString(TAG_SUBTILE_NAME, subTileName);
+		cmp.setString(TAG_SUBTILE_NAME, subTileName.toString());
 		NBTTagCompound subCmp = new NBTTagCompound();
 		cmp.setTag(TAG_SUBTILE_CMP, subCmp);
 
@@ -124,7 +125,7 @@ public class TileSpecialFlower extends TileMod implements IWandBindable, ISubTil
 	public void readPacketNBT(NBTTagCompound cmp) {
 		super.readPacketNBT(cmp);
 
-		subTileName = cmp.getString(TAG_SUBTILE_NAME);
+		subTileName = new ResourceLocation(cmp.getString(TAG_SUBTILE_NAME));
 		NBTTagCompound subCmp = cmp.getCompoundTag(TAG_SUBTILE_CMP);
 
 		if(subTile == null || !BotaniaAPI.getSubTileStringMapping(subTile.getClass()).equals(subTileName))

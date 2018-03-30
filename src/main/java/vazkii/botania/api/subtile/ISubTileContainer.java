@@ -10,6 +10,8 @@
  */
 package vazkii.botania.api.subtile;
 
+import net.minecraft.util.ResourceLocation;
+
 /**
  * A TileEntity that implements this contains a SubTileEntity.
  */
@@ -24,6 +26,6 @@ public interface ISubTileContainer {
 	/**
 	 * Sets the SubTile on this block from it's name.
 	 */
-	public void setSubTile(String name);
+	public void setSubTile(ResourceLocation name);
 
 }

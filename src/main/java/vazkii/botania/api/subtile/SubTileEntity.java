@@ -98,7 +98,7 @@ public class SubTileEntity {
 	}
 
 	public String getUnlocalizedName() {
-		return BotaniaAPI.getSubTileStringMapping(getClass());
+		return BotaniaAPI.getSubTileStringMapping(getClass()).toString();
 	}
 
 	/**
