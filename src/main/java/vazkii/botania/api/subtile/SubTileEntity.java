@@ -21,6 +21,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -38,6 +39,7 @@ import java.util.List;
  * a no parameter constructor.
  */
 public class SubTileEntity {
+	public static final ResourceLocation DING_SOUND_EVENT = new ResourceLocation("botania", "ding");
 
 	protected TileEntity supertile;
 
