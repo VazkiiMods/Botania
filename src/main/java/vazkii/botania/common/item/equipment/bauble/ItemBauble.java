@@ -103,6 +103,10 @@ public abstract class ItemBauble extends ItemMod implements IBauble, ICosmeticAt
 				if(baubles.isItemValidForSlot(i, toEquip, player)) {
 					ItemStack stackInSlot = baubles.getStackInSlot(i);
 					if(stackInSlot.isEmpty() || ((IBauble) stackInSlot.getItem()).canUnequip(stackInSlot, player)) {
+						// If toEquip and stackInSlot are stacks with equal value but not identity, ItemStackHandler.setStackInSlot actually does nothing >.>
+						// Prevent it from trying to be overly smart by going through empty first
+						baubles.setStackInSlot(i, ItemStack.EMPTY);
+
 						baubles.setStackInSlot(i, toEquip);
 						((IBauble) toEquip.getItem()).onEquipped(toEquip, player);
 
