@@ -26,6 +26,8 @@ import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
+import net.minecraft.util.Mirror;
+import net.minecraft.util.Rotation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -739,6 +741,43 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	@Override
 	public void setRotationY(float rot) {
 		rotationY = rot;
+	}
+
+	@Override
+	public void rotate(Rotation rotationIn) {
+		switch (rotationIn)
+		{
+		case CLOCKWISE_90:
+			rotationX += 270F;
+			break;
+		case CLOCKWISE_180:
+			rotationX += 180F;
+			break;
+		case COUNTERCLOCKWISE_90:
+			rotationX += 90F;
+			break;
+		default: break;
+		}
+
+		if(rotationX >= 360F)
+			rotationX -= 360F;
+	}
+
+	@Override
+	public void mirror(Mirror mirrorIn) {
+		switch (mirrorIn)
+		{
+		case LEFT_RIGHT:
+			rotationX = 360F - rotationX;
+			break;
+		case FRONT_BACK:
+			rotationX = 180F - rotationX;
+			break;
+		default: break;
+		}
+
+		if(rotationX < 0F)
+			rotationX += 360F;
 	}
 
 	@Override
