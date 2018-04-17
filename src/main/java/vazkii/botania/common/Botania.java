@@ -167,7 +167,7 @@ public class Botania {
 		if(Botania.gardenOfGlassLoaded)
 			MinecraftForge.EVENT_BUS.register(SkyblockWorldEvents.class);
 
-		FMLInterModComms.sendMessage("ProjectE", "interdictionblacklist", EntityManaBurst.class.getCanonicalName());
+		FMLInterModComms.sendMessage("projecte", "interdictionblacklist", EntityManaBurst.class.getCanonicalName());
 
 		/*if(Botania.bcTriggersLoaded) todo buildcraft
 			new StatementAPIPlugin();*/
