@@ -252,7 +252,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 				if(stackAt.isEmpty())
 					break;
 
-				if(Math.random() >= 0.97) {
+				if(Math.random() >= 0.97 && getFlowerComponent(stackAt) != null) {
 					Color color = new Color(getFlowerComponent(stackAt).getParticleColor(stackAt));
 					float red = color.getRed() / 255F;
 					float green = color.getGreen() / 255F;
