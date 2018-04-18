@@ -46,15 +46,19 @@ public class SubTileMunchdew extends SubTileGenerating {
 	public void onUpdate() {
 		super.onUpdate();
 
+		if(getWorld().isRemote)
+			return;
+
 		if(cooldown > 0) {
 			cooldown--;
 			ticksWithoutEating = 0;
+			ateOnce = false; // don't start ticking ticksWithoutEating again until we eat again
 			return;
 		}
 
 		int manaPerLeaf = 160;
 		eatLeaves : {
-			if(getMaxMana() - mana >= manaPerLeaf && !supertile.getWorld().isRemote && ticksExisted % 4 == 0) {
+			if(getMaxMana() - mana >= manaPerLeaf && ticksExisted % 4 == 0) {
 				List<BlockPos> coords = new ArrayList<>();
 				BlockPos pos = supertile.getPos();
 
@@ -91,8 +95,10 @@ public class SubTileMunchdew extends SubTileGenerating {
 
 		if(ateOnce) {
 			ticksWithoutEating++;
-			if(ticksWithoutEating >= 5)
+			if(ticksWithoutEating >= 5) {
 				cooldown = 1600;
+				sync();
+			}
 		}
 	}
 
