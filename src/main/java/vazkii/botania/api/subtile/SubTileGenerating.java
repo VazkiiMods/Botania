@@ -24,6 +24,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.relauncher.Side;
@@ -94,8 +95,13 @@ public class SubTileGenerating extends SubTileEntity {
 		if(supertile.getWorld().isRemote) {
 			double particleChance = 1F - (double) mana / (double) getMaxMana() / 3.5F;
 			Color color = new Color(getColor());
-			if(Math.random() > particleChance)
-				BotaniaAPI.internalHandler.sparkleFX(supertile.getWorld(), supertile.getPos().getX() + 0.3 + Math.random() * 0.5, supertile.getPos().getY() + 0.5 + Math.random()  * 0.5, supertile.getPos().getZ() + 0.3 + Math.random() * 0.5, color.getRed() / 255F, color.getGreen() / 255F, color.getBlue() / 255F, (float) Math.random(), 5);
+			if(Math.random() > particleChance) {
+				Vec3d offset = getWorld().getBlockState(getPos()).getOffset(getWorld(), getPos());
+				double x = getPos().getX() + offset.x;
+				double y = getPos().getY() + offset.y;
+				double z = getPos().getZ() + offset.z;
+				BotaniaAPI.internalHandler.sparkleFX(supertile.getWorld(), x + 0.3 + Math.random() * 0.5, y + 0.5 + Math.random() * 0.5, z + 0.3 + Math.random() * 0.5, color.getRed() / 255F, color.getGreen() / 255F, color.getBlue() / 255F, (float) Math.random(), 5);
+			}
 		}
 
 		boolean passive = isPassiveFlower();
