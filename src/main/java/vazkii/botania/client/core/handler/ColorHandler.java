@@ -11,11 +11,13 @@ import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumHand;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.registries.IRegistryDelegate;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.brew.IBrewItem;
+import vazkii.botania.api.mana.BurstProperties;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.PoolVariant;
 import vazkii.botania.api.state.enums.SpreaderVariant;
@@ -142,8 +144,8 @@ public final class ColorHandler {
 				return Minecraft.getMinecraft().getItemColors().colorMultiplier(lens, t);
 
 			if(t == 2) {
-				EntityManaBurst burst = ((ItemManaGun) s.getItem()).getBurst(Minecraft.getMinecraft().player, s, false);
-				Color color = new Color(burst == null ? 0x20FF20 : burst.getColor());
+				BurstProperties props = ((ItemManaGun) s.getItem()).getBurstProps(Minecraft.getMinecraft().player, s, false, EnumHand.MAIN_HAND);
+				Color color = new Color(props.color);
 
 				float mul = (float) (Math.sin((double) ClientTickHandler.ticksInGame / 5) * 0.15F);
 				int c = (int) (255 * mul);

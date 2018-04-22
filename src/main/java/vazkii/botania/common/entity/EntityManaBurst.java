@@ -37,6 +37,7 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -140,15 +141,15 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst, ILig
 		setMotion(mx, my, mz);
 	}
 
-	public EntityManaBurst(EntityPlayer player) {
+	public EntityManaBurst(EntityPlayer player, EnumHand hand) {
 		this(player.world);
 
 		setBurstSourceCoords(new BlockPos(0, -1, 0));
 		setLocationAndAngles(player.posX, player.posY + player.getEyeHeight(), player.posZ, player.rotationYaw + 180, -player.rotationPitch);
 
-		posX -= MathHelper.cos((rotationYaw + 180) / 180.0F * (float) Math.PI) * 0.16F;
+		posX -= (hand == EnumHand.OFF_HAND ? -1 : 1) * MathHelper.cos((rotationYaw + 180) / 180.0F * (float) Math.PI) * 0.16F;
 		posY -= 0.10000000149011612D;
-		posZ -= MathHelper.sin((rotationYaw + 180) / 180.0F * (float) Math.PI) * 0.16F;
+		posZ -= (hand == EnumHand.OFF_HAND ? -1 : 1) * MathHelper.sin((rotationYaw + 180) / 180.0F * (float) Math.PI) * 0.16F;
 
 		setPosition(posX, posY, posZ);
 		float f = 0.4F;

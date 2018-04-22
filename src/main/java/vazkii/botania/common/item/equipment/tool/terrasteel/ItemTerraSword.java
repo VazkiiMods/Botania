@@ -15,6 +15,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.RayTraceResult;
@@ -83,7 +84,7 @@ public class ItemTerraSword extends ItemManasteelSword implements ILensEffect {
 	}
 
 	public EntityManaBurst getBurst(EntityPlayer player, ItemStack stack) {
-		EntityManaBurst burst = new EntityManaBurst(player);
+		EntityManaBurst burst = new EntityManaBurst(player, EnumHand.MAIN_HAND);
 
 		float motionModifier = 7F;
 

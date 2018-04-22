@@ -84,7 +84,7 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 			stack.setItemDamage(effCd);
 			return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
 		} else if(stack.getItemDamage() == 0) {
-			EntityManaBurst burst = getBurst(player, stack, true);
+			EntityManaBurst burst = getBurst(player, stack, true, hand);
 			if(burst != null && ManaItemHandler.requestManaExact(stack, player, burst.getMana(), true)) {
 				if(!world.isRemote) {
 					world.playSound(null, player.posX, player.posY, player.posZ, ModSounds.manaBlaster, SoundCategory.PLAYERS, 0.6F, 1);
@@ -134,9 +134,8 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 		return getLens(itemStack);
 	}
 
-	public EntityManaBurst getBurst(EntityPlayer player, ItemStack stack, boolean request) {
-		EntityManaBurst burst = new EntityManaBurst(player);
-
+	@Nonnull
+	public BurstProperties getBurstProps(EntityPlayer player, ItemStack stack, boolean request, EnumHand hand) {
 		int maxMana = 120;
 		int color = 0x20FF20;
 		int ticksBeforeManaLoss = 60;
@@ -148,9 +147,14 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 		ItemStack lens = getLens(stack);
 		if(!lens.isEmpty())
 			((ILens) lens.getItem()).apply(lens, props);
+		return props;
+	}
 
+	public EntityManaBurst getBurst(EntityPlayer player, ItemStack stack, boolean request, EnumHand hand) {
+		EntityManaBurst burst = new EntityManaBurst(player, hand);
+		BurstProperties props = getBurstProps(player, stack, request, hand);
 
-		burst.setSourceLens(lens);
+		burst.setSourceLens(getLens(stack));
 		if(!request || ManaItemHandler.requestManaExact(stack, player, props.maxMana, false)) {
 			burst.setColor(props.color);
 			burst.setMana(props.maxMana);
