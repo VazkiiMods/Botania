@@ -34,7 +34,7 @@ import net.minecraftforge.common.ISpecialArmor;
 import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import thaumcraft.api.items.IRunicArmor;
+//import thaumcraft.api.items.IRunicArmor;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IPhantomInkable;
 import vazkii.botania.api.mana.IManaUsingItem;
@@ -54,8 +54,8 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
-@Optional.Interface(modid = "thaumcraft", iface = "thaumcraft.api.items.IRunicArmor")
-public class ItemManasteelArmor extends ItemArmor implements ISpecialArmor, IManaUsingItem, IPhantomInkable, IRunicArmor, IModelRegister {
+//@Optional.Interface(modid = "thaumcraft", iface = "thaumcraft.api.items.IRunicArmor")
+public class ItemManasteelArmor extends ItemArmor implements ISpecialArmor, IManaUsingItem, IPhantomInkable, IModelRegister {
 
 	private static final int MANA_PER_DAMAGE = 70;
 
@@ -265,11 +265,11 @@ public class ItemManasteelArmor extends ItemArmor implements ISpecialArmor, IMan
 		ItemNBTHelper.setBoolean(stack, TAG_PHANTOM_INK, ink);
 	}
 
-	@Override
+	/*@Override
 	@Optional.Method(modid = "Thaumcraft")
 	public int getRunicCharge(ItemStack itemstack) {
 		return 0;
-	}
+	}*/
 
 	@SideOnly(Side.CLIENT)
 	@Override
