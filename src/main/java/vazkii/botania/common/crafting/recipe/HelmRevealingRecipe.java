@@ -13,37 +13,26 @@ package vazkii.botania.common.crafting.recipe;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.item.crafting.ShapelessRecipes;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
-import net.minecraftforge.registries.IForgeRegistryEntry;
+import net.minecraft.util.NonNullList;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
 
-public class HelmRevealingRecipe extends IForgeRegistryEntry.Impl<IRecipe> implements IRecipe {
+public class HelmRevealingRecipe extends ShapelessRecipes {
+	@GameRegistry.ObjectHolder("thaumcraft:goggles")
+	private static Item goggles = null;
 
-	@Override
-	public boolean matches(@Nonnull InventoryCrafting var1, @Nonnull World var2) {
-		Item goggles = Item.REGISTRY.getObject(new ResourceLocation("thaumcraft", "goggles"));
-		if(goggles == null)
-			return false; // NO TC loaded
+	private final Item botaniaHelm;
 
-		boolean foundGoggles = false;
-		boolean foundHelm = false;
-		for(int i = 0; i < var1.getSizeInventory(); i++) {
-			ItemStack stack = var1.getStackInSlot(i);
-			if(!stack.isEmpty()) {
-				if(checkHelm(stack))
-					foundHelm = true;
-				else if(stack.getItem() == goggles)
-					foundGoggles = true;
-				else return false; // Found an invalid item, breaking the recipe
-			}
-		}
-		return foundGoggles && foundHelm;
+	public HelmRevealingRecipe(Item output, Item botaniaHelm) {
+		super("botania:helm_revealing", new ItemStack(output),
+				NonNullList.from(Ingredient.EMPTY, Ingredient.fromItem(botaniaHelm), Ingredient.fromItem(goggles)));
+		this.botaniaHelm = botaniaHelm;
 	}
 
 	@Nonnull
@@ -53,7 +42,7 @@ public class HelmRevealingRecipe extends IForgeRegistryEntry.Impl<IRecipe> imple
 
 		for(int i = 0; i < var1.getSizeInventory(); i++) {
 			ItemStack stack = var1.getStackInSlot(i);
-			if(!stack.isEmpty() && checkHelm(stack))
+			if(!stack.isEmpty() && stack.getItem() == botaniaHelm)
 				helm = stack;
 		}
 
@@ -84,26 +73,11 @@ public class HelmRevealingRecipe extends IForgeRegistryEntry.Impl<IRecipe> imple
 			ItemNBTHelper.setList(newHelm, "ench", enchList);
 
 		//Copy Runic Hardening
+		// TODO does tc6 still have this?
 		byte runicHardening = ItemNBTHelper.getByte(helmCopy, "RS.HARDEN", (byte)0);
 		ItemNBTHelper.setByte(newHelm, "RS.HARDEN", runicHardening);
 
 		return newHelm;
-	}
-
-	@Override
-	public boolean canFit(int width, int height) {
-		return width * height >= 2;
-	}
-
-	@Nonnull
-	@Override
-	public ItemStack getRecipeOutput() {
-		return new ItemStack(ModItems.manasteelHelmRevealing);
-	}
-
-	private boolean checkHelm(ItemStack helmStack) {
-		Item helmItem = helmStack.getItem();
-		return helmItem == ModItems.manasteelHelm || helmItem == ModItems.terrasteelHelm || helmItem == ModItems.elementiumHelm;
 	}
 
 	@Override
