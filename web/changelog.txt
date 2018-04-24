@@ -1,3 +1,26 @@
+r1.10 354
+*Added a config to disable botania's F3 info.
+*Fixed baubles disappearing when they're right clicked with one already equipped.
+*Fixed chisels&bits complaining about some blocks not being chisel-able.
+*Fixed crashing with Thaumcraft 6.
+*Fixed feather feet increasing fall distance.
+*Fixed JEI integration for floating special flowers.
+*Fixed mana bursts not being properly blacklisted from the Project-E interdiction torch.
+*Fixed munchdews going on cooldown too often.
+*Fixed particles snapping into place.
+*Fixed some flower particles not accounting for the vanilla random flower shift.
+*Fixed some petal apothecary crashes.
+*Fixed sparks not transfering mana properly to pools with mana void.
+*Fixed the functional flower advancement having a broken icon.
+*Fixed the tiny potato banner not being craftable.
+*Fixed thermalilies not penalizing if lava is given on cooldown.
+*Improved model loading performance for special flowers.
+*Mana blaster bursts now spawn off the correct hand.
+*Mana spreaders can now be rotated properly in structures.
+*The extrapolated bucket can now pick up mod fluids.
+*The Life Agreggator now uses the vanilla cooldown system.
+*[API] Fixed a dependency on the mod itself.
+*[API] Increased Version Number to 90.
 r1.10 353
 *Blazes spawned from a Fel Pumpkin now get their drops from a loot table.
 *Changed a bunch of stuff internally that you won't really notice.
