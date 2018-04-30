@@ -86,7 +86,7 @@ public class BlockAlfPortal extends BlockMod implements IWandable, ILexiconable 
 	@Override
 	public boolean onUsedByWand(EntityPlayer player, ItemStack stack, World world, BlockPos pos, EnumFacing side) {
 		boolean did = ((TileAlfPortal) world.getTileEntity(pos)).onWanded();
-		if(!world.isRemote && did) {
+		if(!world.isRemote && did && player instanceof EntityPlayerMP) {
 			AlfPortalTrigger.INSTANCE.trigger((EntityPlayerMP) player, (WorldServer) world, pos, stack);
 		}
 		return did;
