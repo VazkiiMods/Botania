@@ -18,6 +18,7 @@ import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -61,8 +62,8 @@ public class ItemTinyPlanet extends ItemBauble implements IBaubleRender {
 
 	public static void applyEffect(World world, double x, double y, double z) {
 		int range = 8;
-		List<Entity> entities = world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(x - range, y - range, z - range, x + range, y + range, z + range), Predicates.instanceOf(IManaBurst.class));
-		for(Entity entity : entities) {
+		List<EntityThrowable> entities = world.getEntitiesWithinAABB(EntityThrowable.class, new AxisAlignedBB(x - range, y - range, z - range, x + range, y + range, z + range), Predicates.instanceOf(IManaBurst.class));
+		for(EntityThrowable entity : entities) {
 			IManaBurst burst = (IManaBurst) entity;
 			ItemStack lens = burst.getSourceLens();
 			if(lens != null && lens.getItem() instanceof ITinyPlanetExcempt && !((ITinyPlanetExcempt) lens.getItem()).shouldPull(lens))

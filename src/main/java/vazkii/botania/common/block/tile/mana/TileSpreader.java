@@ -20,6 +20,7 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
@@ -225,7 +226,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 				double y = lastPingbackY;
 				double z = lastPingbackZ;
 				AxisAlignedBB aabb = new AxisAlignedBB(x, y, z, x, y, z).grow(PINGBACK_EXPIRED_SEARCH_DISTANCE, PINGBACK_EXPIRED_SEARCH_DISTANCE, PINGBACK_EXPIRED_SEARCH_DISTANCE);
-				List bursts = world.getEntitiesWithinAABB(Entity.class, aabb, Predicates.instanceOf(IManaBurst.class));
+				List bursts = world.getEntitiesWithinAABB(EntityThrowable.class, aabb, Predicates.instanceOf(IManaBurst.class));
 				IManaBurst found = null;
 				UUID identity = getIdentifier();
 				for(IManaBurst burst : (List<IManaBurst>) bursts)
