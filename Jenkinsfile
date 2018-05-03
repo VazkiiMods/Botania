@@ -13,7 +13,7 @@ pipeline {
         stage('Setup') {
             steps {
                 echo 'Setting up Workspace'
-                sh './gradlew setupDecompWorkspace'
+                sh './gradlew setupCIWorkspace'
             }
         }
         stage('Build and Deploy') {
