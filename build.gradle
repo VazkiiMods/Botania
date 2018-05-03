@@ -43,6 +43,11 @@ version = "${config.version}-${config.build_number}"
 group = "vazkii.botania" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = config.mod_name
 
+if (System.getenv().BUILD_NUMBER != null) { 
+    //adds the build number to the end of the version string if on a build server
+    version += ".${System.getenv().BUILD_NUMBER}"
+}
+
 minecraft {
     version = "${config.mc_version}-${config.forge_version}"
     runDir = "eclipse/assets"
