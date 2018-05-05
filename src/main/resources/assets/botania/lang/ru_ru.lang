@@ -1933,34 +1933,34 @@ botania.page.welcome6=&oЕсли вы не уверены в том, что хо
 botania.page.welcome7=&oНа этом введение закончено Теперь вы можете перейти к учебнику и к обучающему видео. Надеюсь, вам понравится играть с Botania так, как мне понравилось это делать! <br>&o~Vazkii, автор мода <br>&oПеревод:Prosta4ok_ua<br>&oПродолжайте, нажав кнопку «Назад» внизу.Нажатие ПКМ или BACKSPASE будут иметь тот же эффект.
 
 # -- TUTORIAL OF THE BASICS
-botania.entry.tutorial=Учебное пособие по основам
-botania.tagline.tutorial=Быстрые знания
-botania.page.tutorial0=В то время как можно было просто пройти через различные записи в книге на досуге, есть также учебное пособие. Нажав кнопки ниже, вы познакомитесь с основными понятиями Ботании. Вы можете выбрать между изучением книги и полезным видео.
+botania.entry.tutorial=Oбучение основам
+botania.tagline.tutorial=Быстро приобретем новые знания
+botania.page.tutorial0=В то время как кто-то на досуге просто листал бы записи в книге, Вы могли бы пройти обучение. Если Вы нажмете на кнопки под этим текстом, Вас ознакомят с азами Ботании. Вы можете выбрать либо внутриигровую экскурсию по страницам Лексики, либо короткое видео.
 
 # -- GARDEN OF GLASS
-botania.entry.gardenOfGlass=Garden of Glass
-botania.tagline.gardenOfGlass=Your new challenge
-botania.page.gardenOfGlass0=In the &2Garden of Glass&0 nobody can hear you scream.<br>You're alone in space.<br>How exciting.
-botania.page.gardenOfGlass1=The &2Garden of Glass&0 is a skyblock mode for Botania. It's advised only for players who are somewhat experienced in the mod, but if you're new to it, you're more than welcome to try it out anyway.<br>Most of the mod functions the same, but some tweaks have been put in place to allow for the skyblock style game. They'll be listed in the following pages. 
-botania.page.gardenOfGlass2=After spawning in the &1Garden of Glass&0 you'll find &1Living Roots&0 below the landing area. These can be used to create &1Saplings&0 and &1Floral Fertilizer&0. They also work as &1Bone Meal&0. Shift-right clicking a &1Dirt&0 or &1Grass&0 block with an empty hand will have you rummage through the soil, finding some &1Pebbles&0, that can be converted into &1Cobblestone&0. Filling a &1Petal Apothecary&0 can be done with a &1Bowl&0 by clicking on a water block.
-botania.page.gardenOfGlass3=Creating &1Saplings&0
-botania.page.gardenOfGlass4=Creating &1Floral Fertilizer&0
-botania.page.gardenOfGlass5=Creating &1Cobblestone&0
-botania.page.gardenOfGlass6=Aside from that, some things in Botania are different to fit the Skyblock play: The &1Orechid&0 is easier to make, faster, and much cheaper; The &1Cocoon of Caprice&0 and the &1Mana Spreader&0 have different recipes; the &1Blaze Mesh&0, which can be used to create &1Obsidian&0, uses powder instead of rods; melon or pumpkin seeds may drop from tall grass; floral fertilizer creates more per craft, and some recipes are added.
-botania.page.gardenOfGlass7=Creating &1Sugar Canes&0
-botania.page.gardenOfGlass8=Creating &1Slimeballs&0
-botania.page.gardenOfGlass13=Infusing &1Prismarine&0
-botania.page.gardenOfGlass9=A problem that one might face in this world is entering the &4Nether&0. Worry not, however, as &1Blaze Meshes&0, as mentioned previously, can create &1Obsidian&0. To get these lamps, creating &1Blazes&0 using &1Fel Pumpkins&0 might be a good investment.<br>Since there's no easily available &1Flint&0, opening the portal with a &1Fire Charge&0 will have to do.
-botania.page.gardenOfGlass11=Aside from providing light, the &1Mana Flash&0 present in the starting area allows a player who has lost their &1Lexica Botania&0 to exchange a &1Sapling&0 for it, by right clicking with the &1Sapling&0 on the &1Mana Flame&0.<br>This can only be done if the player doesn't have a &1Lexica Botania&0 on them.
-botania.page.gardenOfGlass12=Lastly, a way to reach the End
+botania.entry.gardenOfGlass=Стеклянный сад
+botania.tagline.gardenOfGlass=Твое новое испытание
+botania.page.gardenOfGlass0=В &2Саде стекла&0 никто не слышит, как вы кричите. Вы одиноки в космосе.
+botania.page.gardenOfGlass1=&4Стеклянный сад&0-это режим skyblock для Botania. Это рекомендуется только для игроков, которые в некоторой степени ощущают себя в моде, но если вы новичок в этом, вы более чем можете попробовать его в любом случае. <br> Большинство функций мода одинаковы, но некоторые настройки были изменены, чтобы позволить игру в стиле skyblock. Они будут перечислены на следующих страницах.
+botania.page.gardenOfGlass2=После спауна в &1Саду стекла&0 вы найдете &1Живокорень&0 ниже зоны посадки. Они могут быть использованы для создания &1деревьев&0 и &1Цветочного удобрения&0. Они также работают как &1Костная мука&0. Щелчок ПКМ по блоку &1Земли&0 или &1Блока земли с травой&0 с пустой рукой заставит вас рыться в почве, найдя некоторую &1гальку&0, которые могут быть преобразованы в &1Булыжник&0. Заполнение a &1Лепесткового аптекаря&0 можно сделать с помощью &1Миски&0, нажав на блок воды.
+botania.page.gardenOfGlass3=Создание &1Дерева&0
+botania.page.gardenOfGlass4=Создание &1Цветочного удобрения&0
+botania.page.gardenOfGlass5=Создание &1Булыжника&0
+botania.page.gardenOfGlass6=Кроме того, некоторые вещи в Ботании отличаются от игры Skyblock: &1Рудноцвет&0 легче сделать, быстрее и намного дешевле; &1Кокон жизни&0 и &1Распространитель маны&0 имеют разные рецепты; Лампа &1Ифрита&0, которую можно использовать для создания &1Обсидиана&0,который использует порошок вместо стержней; Семена дыни или тыквы могут выпасть из высокой травы; Цветочное удобрение создает больше за каждое крафт,&1Сахарный тростник&0 и &1Сгустки слизи&0 могут быть созданы.
+botania.page.gardenOfGlass7=Создание &1Сахарного тростника&0
+botania.page.gardenOfGlass8=Создание &1Сгустка слизи&0
+botania.page.gardenOfGlass13=Cоздание &1Призмарина&0
+botania.page.gardenOfGlass9=Проблема, с которой можно столкнуться в этом мире, вход в &4Ад&0. Однако не волнуйтесь так, как &1Лампы ифрита&0, как уже упоминалось ранее, могут создать &1Обсидиан&0. Чтобы получить эти лампы, создайте &1Ифритов&0 с использованием &1Fel Pumpkins &0, который может быть хорошей инвестицией. <br> Поскольку нет легкодоступного &1Огнива&0, открытие портала с помощью будет &1Огненного шара&0
+botania.page.gardenOfGlass11=Помимо обеспечения света, &1Манавспышка&0, присутствующая в начальной области, позволяет игроку, который потерял их &1Лексику ботании&0, поменять &1Саженец дерева&0 , щелкнув ПКМ с &1Саженец дерева&0 на &1Манавспышку&0. Может быть сделано только в том случае, если у игрока нет и &1Лексики ботании&0.
+botania.page.gardenOfGlass12=Наконец, рецепт &1Эндер портала&0
 
 # -- LEXICA BOTANIA
 botania.entry.lexicon=Лексика Botania
-botania.tagline.lexicon=То, что ты сейчас читаешь, идиот
-botania.page.lexicon0=&1Лексика Botania&0 это всех знаний, обо всём связанном с Botania. Но Вы, наверное, уже знали это.<br>Вся информация находится здесь. Для удобства, описание блока есть в Лексике, Вы можете нажать на него ПКМ, держа &1Лексику Botania&0 в руке, чтобы сразу открыть нужный раздел.
-botania.page.lexicon3=Любые разделы написанные &oКурсивом&r это &4основные&0 разделы, которые содержат самые базовые знания, необходимые для игры с Botania. Они должны быть приоритетными по сравнению с другими. Большинство разделов содержит одну или более статей, поэтому хорошо изучите их - это хорошая идея.
+botania.tagline.lexicon=Это то, что ты сейчас читаешь, болван!
+botania.page.lexicon0=&1Лексика Botania&0 - это хранилище абсолютно всех знаний по всем вопросам, связанным с Ботанией. Но Вы, наверное, это уже знали.<br>Вся информация находится именно здесь. Для удобства, если у блока есть описание в Лексике, Вы можете нажать ею Shift+ПКМ по этому блоку, чтобы сразу открыть нужную статью.
+botania.page.lexicon3=Любые статьи, написанные &oкурсивом&r являются &4основными&0, т.е. содержат самые базовые знания, необходимые для игры с Ботанией. Они всегда находятся выше остальных статей. Большинство разделов содержит одну или несколько таких статей, поэтому советуем хорошенько изучить их.
 botania.page.lexicon1=Создание &1Лексики Botania&0.
-botania.page.lexicon2=Название &1Лексики Botania&0 может быть изменено. Просто положите её в &1Наковальню&0 и переименуйте.<br>Издание Лексики показывает версию &4Botania&0, которая установлена у Вас. <br>И нет, Я не забочусь о четвёртой стене.
+botania.page.lexicon2=Кстати заголовок &1Лексики Botania&0 можно изменить. Положив ее на &1Наковальню&0 и переименовав, поменяется не только ее заголовок, но и название.<br>Издание Лексики показывает версию &4Ботании&0, которую Вы установили, и нет, я не забочусь о Четвертой стене.
 
 # -- MYSTICAL FLOWERS
 botania.entry.flowers=Мистические цветы
@@ -1983,15 +1983,15 @@ botania.page.flowers13=И наоборот
 
 # -- PETAL APOTHECARY
 botania.entry.apothecary=Petal Apothecary
-botania.tagline.apothecary=What you use to make flowers
-botania.page.apothecary0=In order for a botanist to create plantlife that can do their bidding, they would need a special means of infusing plants with mystical energy.<br>Luckily, the &1Petal Apothecary&0 does just that.
-botania.page.apothecary1=The &1Petal Apothecary&0.
-botania.page.apothecary2=This block, when placed in the world and given some water (by use of a &1Water Bucket&0), will accept any &1Mystical Petals&0 thrown at it, releasing their energies.<br>Once one has inserted the correct petals, throwing some &1Seeds&0 in will finalize the proccess.<br>Tossing in a full bucket will also fill the apothecary with water.
-botania.page.apothecary3=Quite a few plants can be made using this method. For more information, read on the &4Functional Flora&0 and &4Generation Flora&0 sections of this Lexicon.<br>Shift-right clicking the &1Petal Apothecary&0 with an empty hand will remove the last item thrown in.
-botania.page.apothecary4=Instead of &1Water&0, one can place &1Lava&0 in this block, if that is done, it'll serve as a brazier and incinerator, destroying any items that come in contact.<br>Furthermore, tossing in &1Vines&0 also gives the block an overgrown visual.
-botania.page.apothecary7=&1Comparators&0 can detect whether the block has water or not.<br>Since the &1Petal Apothecary&0 can be filled by usage of a dropped &1Water Bucket&0, and &1Dispensers&0 can fill buckets, creating a system that can automatically refill the water in the dish shouldn't prove too difficult.
-botania.page.apothecary6=A simple tip for those who want to squeeze the biggest efficiency out of every block is as follows: Up to twenty seconds after crafting a flower, right clicking the apothecary with an empty hand will pull another set of the same ingredients out of your inventory and put them into the apothecary for quick mass crafting. This only works if the apothecary's water is refilled.
-botania.page.apothecary5=Crafting the &1Petal Apothecary&0.
+botania.tagline.apothecary=То, что Вы используете для создания цветов
+botania.page.apothecary0=Для того чтобы создать растения, которые смогли бы выполнять какие-нибудь указания, ботанику необходимо наполнить их мистической энергией.<br>К счастью для Вас, &1Лепестковый аптекарь&0 именно это и делает.
+botania.page.apothecary1=&1Лепестковый аптекарь&0.
+botania.page.apothecary2=Поставив этот блок и наполнив его водой, Вы сможете кинуть внутрь &1Мистические лепестки&0, чтобы высвободить их энергию.<br>После того, как в нем будут находиться нужные лепестки, киньте &1Семена&0, чтобы завершить процесс.<br>Вы также можете наполнить аптекаря, бросив на него ведро с водой.
+botania.page.apothecary3=С помощью &1Лепесткового аптекаря&0 можно делать довольно много растений, о которых подробно написано в разделах &4Действующая флора&0 и &4Создающая флора&0.<br>Нажав по &1Аптекарю&0 Shift+ПКМ пустой рукой, Вы вернете себе последний закинутый предмет.
+botania.page.apothecary4=Вместо &1Воды&0, Вы можете налить в него &1Лаву&0, и тогда он будет служить мусоросжигателем, уничтожая любые предметы, что попадают в него.<br>Если бросить в него &1Лозу&0, он приобретет замшелый вид.
+botania.page.apothecary7=Кстати с помощью &1Компараторов&0 можно определить, есть ли в &1Аптекаре&0 вода или нет.<br>Раз &1Аптекаря&0 можно наполнить, кинув на него &1Ведро с водой&0, а &1Раздатчик&0 способен налить воду в ведра, можно создать систему, которая будет автоматически пополнять воду в &1Аптекаре&0. Сделать это не так уж и сложно.
+botania.page.apothecary6=Простой совет для тех, кто любит использовать каждый блок по максимуму: в течение 20 секунд после создания цветка в &1Аптекаре&0, Вы можете нажать по нему ПКМ пустой рукой, чтобы выкинуть все предметы из инвентаря, которые были необходимы для пред. рецепта, что полезно для создания большого количества цветов. Работает, только если внутри есть вода.
+botania.page.apothecary5=Создание &1Лепесткового аптекаря&0.
 
 # -- PURE DAISY
 botania.entry.pureDaisy=Pure Daisy
@@ -2012,30 +2012,30 @@ botania.page.wand3=The petals used determine the colors of the wand
 
 # -- RUNIC ALTAR
 botania.entry.runeAltar=Runic Altar
-botania.tagline.runeAltar=Create runes for stronger flowers and items
-botania.page.runeAltar21=Runic creation is a rather important complex in the advancement of the botanical magics. First and foremost, though, this type of crafting requires a decent knowledge of &4Mana Manipulation&0. Before proceeding further, a read through the important entries (those in &oItalics&r) on that section of the &1Lexica Botania&0 might prove enlightening.
-botania.page.runeAltar0=&1Runes&0 are extremely important components of complex magical devices or flora.<br>In order to create these, one requires a &1Runic Altar&0.<br>To utilize this &1Runic Altar&0, start by placing, via either a right click or simply tossing, the components of the rune you want to create.
-botania.page.runeAltar1=Proceed by pointing a &1Mana Spreader&0 to the altar so that &4Mana&0 transfer can occur.<br>It should be apparent when the altar has received enough &4Mana&0. When that happens, just drop or right click a piece of &1Livingrock&0 on top of it, then use the wand on it again to collect your rune.
-botania.page.runeAltar2=Crafting the &1Runic Altar&0.
-botania.page.runeAltar3=A total of 16 &1Runes&0 exist.<br>The most basic and elementary runes are named after the &4Four Elements&0. The intermediate runes are named after the &4Four Seasons&0, and the most advanced runes are named after the &4Seven Deadly Sins&0. A separate &1Rune of Mana&0 also exists.
-botania.page.runeAltar20=Sneaking and right-clicking the &1Runic Altar&0 with an empty hand while it's not accepting mana will remove the last item put into it.<br>Last but not least, attaching a &1Comparator&0 to it will emit signal strength &41&0 if the altar is accepting &4Mana&0 and signal strength &42&0 if it's ready to craft the rune.
-botania.page.runeAltar22=Any runes used for recipes in the &1Runic Altar&0 function as catalysts, and will be given back upon completion of the rune recipe.<br>Similarly to the &1Petal Apothecary&0, right clicking this block with an empty hand after a recipe is complete will place back the items used for the last recipe for faster mass crafting.
-botania.page.runeAltar4=The &1Rune of Water&0.
-botania.page.runeAltar5=The &1Rune of Earth&0.
-botania.page.runeAltar6=The &1Rune of Air&0.
-botania.page.runeAltar7=The &1Rune of Fire&0.
-botania.page.runeAltar8=The &1Rune of Spring&0.
-botania.page.runeAltar9=The &1Rune of Summer&0.
-botania.page.runeAltar10=The &1Rune of Autumn&0.
-botania.page.runeAltar11=The &1Rune of Winter&0.
-botania.page.runeAltar12=The &1Rune of Mana&0.
-botania.page.runeAltar13=The &1Rune of Lust&0.
-botania.page.runeAltar14=The &1Rune of Gluttony&0.
-botania.page.runeAltar15=The &1Rune of Greed&0.
-botania.page.runeAltar16=The &1Rune of Sloth&0.
-botania.page.runeAltar17=The &1Rune of Wrath&0.
-botania.page.runeAltar18=The &1Rune of Envy&0.
-botania.page.runeAltar19=The &1Rune of Pride&0.
+botania.tagline.runeAltar=Создает руны, которые нужны для более мощных цветов и предметов
+botania.page.runeAltar21=Создание рун - это довольно важный шаг в развитии ботанической магии. И чтобы узнать, как их создавать, Вам, в первую очередь, нужно хорошо понимать, как управлять маной. Поэтому прежде чем продолжить, прочитайте важные статьи в разделе &4Управление маной&0 (написаны &oКурсивом&r).
+botania.page.runeAltar0=&1Руны&0 - это чрезвычайно важные компоненты, использующиеся в создании сложных магических устройств и продвинутой флоры. Чтобы их сделать, Вам понадобится, как Вы уже могли догадаться, &1Рунический алтарь&0.<br>Для начала разложите на нем предметы, необходимые для создания нужной руны, нажимая ими ПКМ по алтарю или просто бросая их на него.
+botania.page.runeAltar1=После этого направьте на алтарь &1Распространитель маны&0, чтобы передать ему некоторое количество &4маны&0. Процесс наполнения алтаря &4маной&0 можно увидеть, просто посмотрев на него. Когда шкала прогресса полностью станет зеленой, киньте на алтарь &1Жизнекамень&0, а потом нажмите по нему ПКМ &1Посохом леса&0, чтобы завершить создание руны.
+botania.page.runeAltar2=Создание &1Рунического алтаря&0.
+botania.page.runeAltar3=Всего существует 16 типов &1Рун&0.<br>Самые основные, элементарные руны названы в честь &4четырех стихий&0. Руны среднего уровня названы в честь &4четырех сезонов&0, а самые продвинутые руны названы в честь &4семи смертных грехов&0. И последняя руна в этом списке - &1Руна маны&0.
+botania.page.runeAltar20=Нажав Shift+ПКМ пустой рукой по &1Руническому алтарю&0, пока он не принимает ману, Вы вернете себе последний положенный в него предмет.<br>И еще кое-что: подсоединенный к алтарю &1Компаратор&0 будет выдавать сигналой силой &41&0, если алтарь сейчас принимает &4ману&0, и силой &42&0, если он готов создать руну.
+botania.page.runeAltar22=Любые руны, которые используются для создания чего-либо на &1Руническом алтаре&0, действуют в качестве катализаторов и не тратятся после завершения создания.<br>Как и с &1Лепестковым аптекарем&0, нажав ПКМ по алтарю пустой рукой, Вы выложите на него те предметы, что использовались в последнем рецепте.
+botania.page.runeAltar4=&1Руна воды&0.
+botania.page.runeAltar5=&1Руна земли&0.
+botania.page.runeAltar6=&1Руна воздуха&0.
+botania.page.runeAltar7=&1Руна огня&0.
+botania.page.runeAltar8=&1Руна весны&0.
+botania.page.runeAltar9=&1Руна лета&0.
+botania.page.runeAltar10=&1Руна осени&0.
+botania.page.runeAltar11=&1Руна зимы&0.
+botania.page.runeAltar12=&1Руна маны&0.
+botania.page.runeAltar13=&1Руна похоти&0.
+botania.page.runeAltar14=&1Руна обжорства&0.
+botania.page.runeAltar15=&1Руна жадности&0.
+botania.page.runeAltar16=&1Руна лени&0.
+botania.page.runeAltar17=&1Руна гнева&0.
+botania.page.runeAltar18=&1Руна зависти&0.
+botania.page.runeAltar19=&1Руна гордости&0.
 
 # -- TERRASTEEL
 botania.entry.terrasteel=Terrasteel
@@ -2059,9 +2059,9 @@ botania.page.flowerBag2=Items won't be added automatically to the pouch if the p
 botania.page.flowerBag1=It's about the same size on the inside (any colors work)
 
 # -- WRAP
-botania.entry.wrap=Оболочка
-botania.tagline.wrap=Это оболочка
-botania.page.wrap0=Похоже, создатель этого мода решил добавить странную игровую механику в виде &1Оболочки&0. Я действительно не знаю, что оно делает, вероятно, что-то плохое. :/<br>Что это за "Четвертая Стена", про которую вы говорите...?
+botania.entry.wrap=Врап
+botania.tagline.wrap=Это конец...
+botania.page.wrap0=Похоже, что создатель мода решил добавить странную игровую механику, называемую... &1Врапом&0. Понятия не имею, что она делает, но, скорее всего, что-то плохое. :/<br>Да что за "Четвертая стена", о которой Вы все время говорите...?
 
 # - MANA
 # -- AN INTRODUCTION TO MANA
