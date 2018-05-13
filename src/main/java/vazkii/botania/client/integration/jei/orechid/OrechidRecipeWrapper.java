@@ -70,7 +70,6 @@ public class OrechidRecipeWrapper implements IRecipeWrapper, Comparable<OrechidR
 
     @Override
     public void getIngredients(IIngredients ingredients) {
-
         ingredients.setInput(ItemStack.class, getInputStack());
         ingredients.setOutputLists(ItemStack.class, getOutputStacks());
     }

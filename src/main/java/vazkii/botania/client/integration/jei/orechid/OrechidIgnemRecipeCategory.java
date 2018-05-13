@@ -65,16 +65,13 @@ public class OrechidIgnemRecipeCategory implements IRecipeCategory {
         final IGuiItemStackGroup itemStacks = recipeLayout.getItemStacks();
 
         itemStacks.init(0, true, 40, 12);
-
         itemStacks.set(0, ingredients.getInputs(ItemStack.class).get(0));
 
         itemStacks.init(1, true, 70, 12);
         itemStacks.set(1, ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_ORECHID_IGNEM));
 
         itemStacks.init(2, true, 99, 12);
-
         itemStacks.set(2, ingredients.getOutputs(ItemStack.class).get(0));
-
     }
 
     @Override
