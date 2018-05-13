@@ -20,7 +20,8 @@ public class OrechidIgnemRecipeWrapper extends OrechidRecipeWrapper {
         super(entry);
     }
 
-    public ItemStack getInputStack() {
+    @Override
+    protected ItemStack getInputStack() {
         return new ItemStack(Blocks.NETHERRACK, 64);
     }
 

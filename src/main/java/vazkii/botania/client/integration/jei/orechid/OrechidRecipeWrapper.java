@@ -24,15 +24,15 @@ import java.util.stream.Collectors;
 import static vazkii.botania.client.integration.jei.JEIBotaniaPlugin.doesOreExist;
 
 public class OrechidRecipeWrapper implements IRecipeWrapper, Comparable<OrechidRecipeWrapper> {
-    public int weight;
 
-    final List<List<ItemStack>> outputStacks;
+    private final int weight;
+    private final List<List<ItemStack>> outputStacks;
 
-    public ItemStack getInputStack() {
+    protected ItemStack getInputStack() {
         return new ItemStack(Blocks.STONE, 64);
     }
 
-    public List<List<ItemStack>> getOutputStacks() {
+    private List<List<ItemStack>> getOutputStacks() {
         return outputStacks;
     }
 
@@ -57,7 +57,7 @@ public class OrechidRecipeWrapper implements IRecipeWrapper, Comparable<OrechidR
         return BotaniaAPI.oreWeights;
     }
 
-    public float getTotalOreWeight() {
+    private float getTotalOreWeight() {
         return (getOreWeights().entrySet().stream()
                 .filter(e -> doesOreExist(e.getKey()))
                 .map(Map.Entry::getValue)
