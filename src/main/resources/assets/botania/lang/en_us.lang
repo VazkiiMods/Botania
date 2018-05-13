@@ -168,6 +168,9 @@ botania.nei.petalApothecary=Petal Apothecary
 botania.nei.runicAltar=Runic Altar
 botania.nei.pureDaisy=Pure Daisy
 botania.nei.lexica=Lexica Botania
+botania.nei.orechid=Orechid
+botania.nei.orechidIgnem=Orechid Ignem
+
 nei.options.keys.gui.botania_corporea_request=Corporea Request
 
 botania.nei.lexicaSeparator=Extra Info:
