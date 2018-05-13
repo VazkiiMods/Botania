@@ -26,35 +26,32 @@ public class OrechidRecipeWrapper implements IRecipeWrapper, Comparable<OrechidR
     public String oreDictKey;
     public int weight;
 
-    static ItemStack inputStack;
-    List<List<ItemStack>> outputStacks;
+    final List<List<ItemStack>> outputStacks;
 
     public ItemStack getInputStack() {
-        if (inputStack == null) inputStack = new ItemStack(Blocks.STONE, 64);
-        return inputStack;
+        return new ItemStack(Blocks.STONE, 64);
     }
 
     public List<List<ItemStack>> getOutputStacks() {
-        if (outputStacks == null) {
-            final int amount = Math.max(1, Math.round((float) weight * 64 / getTotalOreWeight()));
-
-            // Shouldn't ever return an empty list since the ore weight
-            // list is filtered to only have ores with ItemBlocks
-            List<ItemStack> stackList = OreDictionary.getOres(oreDictKey).stream()
-                    .filter(s -> s.getItem() instanceof ItemBlock)
-                    .map(ItemStack::copy)
-                    .collect(Collectors.toList());
-
-            stackList.forEach(s -> s.setCount(amount));
-
-            outputStacks = Collections.singletonList(stackList);
-        }
         return outputStacks;
     }
 
     public OrechidRecipeWrapper(Map.Entry<String, Integer> entry) {
         this.oreDictKey = entry.getKey();
         this.weight = entry.getValue();
+
+        final int amount = Math.max(1, Math.round((float) weight * 64 / getTotalOreWeight()));
+
+        // Shouldn't ever return an empty list since the ore weight
+        // list is filtered to only have ores with ItemBlocks
+        List<ItemStack> stackList = OreDictionary.getOres(oreDictKey).stream()
+                .filter(s -> s.getItem() instanceof ItemBlock)
+                .map(ItemStack::copy)
+                .collect(Collectors.toList());
+
+        stackList.forEach(s -> s.setCount(amount));
+
+        outputStacks = Collections.singletonList(stackList);
     }
 
     public Map<String, Integer> getOreWeights() {
