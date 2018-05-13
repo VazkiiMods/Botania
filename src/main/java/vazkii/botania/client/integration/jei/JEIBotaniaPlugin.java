@@ -81,9 +81,9 @@ public class JEIBotaniaPlugin implements IModPlugin {
 		);
 	}
 
-	public static boolean doesOreExist(Map.Entry<String, Integer> entry) {
-		return OreDictionary.doesOreNameExist(entry.getKey())
-				&& OreDictionary.getOres(entry.getKey()).stream()
+	public static boolean doesOreExist(String key) {
+		return OreDictionary.doesOreNameExist(key)
+				&& OreDictionary.getOres(key).stream()
 				.anyMatch(s -> s.getItem() instanceof ItemBlock);
 	}
 
@@ -106,7 +106,7 @@ public class JEIBotaniaPlugin implements IModPlugin {
 
 		registry.addRecipes(
 				BotaniaAPI.oreWeights.entrySet().stream()
-						.filter(JEIBotaniaPlugin::doesOreExist)
+						.filter(e -> doesOreExist(e.getKey()))
 						.map(OrechidRecipeWrapper::new)
 						.sorted()
 						.collect(Collectors.toList()),
@@ -114,7 +114,7 @@ public class JEIBotaniaPlugin implements IModPlugin {
 
 		registry.addRecipes(
 				BotaniaAPI.oreWeightsNether.entrySet().stream()
-						.filter(JEIBotaniaPlugin::doesOreExist)
+						.filter(e -> doesOreExist(e.getKey()))
 						.map(OrechidIgnemRecipeWrapper::new)
 						.sorted()
 						.collect(Collectors.toList()),

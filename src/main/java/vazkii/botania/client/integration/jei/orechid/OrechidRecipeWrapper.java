@@ -15,12 +15,13 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.client.integration.jei.JEIBotaniaPlugin;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+
+import static vazkii.botania.client.integration.jei.JEIBotaniaPlugin.doesOreExist;
 
 public class OrechidRecipeWrapper implements IRecipeWrapper, Comparable<OrechidRecipeWrapper> {
     public String oreDictKey;
@@ -60,7 +61,7 @@ public class OrechidRecipeWrapper implements IRecipeWrapper, Comparable<OrechidR
 
     public float getTotalOreWeight() {
         return (getOreWeights().entrySet().stream()
-                .filter(JEIBotaniaPlugin::doesOreExist)
+                .filter(e -> doesOreExist(e.getKey()))
                 .map(Map.Entry::getValue)
                 .reduce(Integer::sum)).orElse(weight * 64 * 64);
     }
