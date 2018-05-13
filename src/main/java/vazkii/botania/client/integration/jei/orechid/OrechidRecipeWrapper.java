@@ -24,7 +24,6 @@ import java.util.stream.Collectors;
 import static vazkii.botania.client.integration.jei.JEIBotaniaPlugin.doesOreExist;
 
 public class OrechidRecipeWrapper implements IRecipeWrapper, Comparable<OrechidRecipeWrapper> {
-    public String oreDictKey;
     public int weight;
 
     final List<List<ItemStack>> outputStacks;
@@ -38,14 +37,13 @@ public class OrechidRecipeWrapper implements IRecipeWrapper, Comparable<OrechidR
     }
 
     public OrechidRecipeWrapper(Map.Entry<String, Integer> entry) {
-        this.oreDictKey = entry.getKey();
         this.weight = entry.getValue();
 
         final int amount = Math.max(1, Math.round((float) weight * 64 / getTotalOreWeight()));
 
         // Shouldn't ever return an empty list since the ore weight
         // list is filtered to only have ores with ItemBlocks
-        List<ItemStack> stackList = OreDictionary.getOres(oreDictKey).stream()
+        List<ItemStack> stackList = OreDictionary.getOres(entry.getKey()).stream()
                 .filter(s -> s.getItem() instanceof ItemBlock)
                 .map(ItemStack::copy)
                 .collect(Collectors.toList());
