@@ -32,10 +32,6 @@ public class OrechidRecipeWrapper implements IRecipeWrapper, Comparable<OrechidR
         return new ItemStack(Blocks.STONE, 64);
     }
 
-    private List<List<ItemStack>> getOutputStacks() {
-        return outputStacks;
-    }
-
     public OrechidRecipeWrapper(Map.Entry<String, Integer> entry) {
         this.weight = entry.getValue();
 
@@ -67,7 +63,7 @@ public class OrechidRecipeWrapper implements IRecipeWrapper, Comparable<OrechidR
     @Override
     public void getIngredients(IIngredients ingredients) {
         ingredients.setInput(ItemStack.class, getInputStack());
-        ingredients.setOutputLists(ItemStack.class, getOutputStacks());
+        ingredients.setOutputLists(ItemStack.class, outputStacks);
     }
 
     @Override
