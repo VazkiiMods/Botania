@@ -92,13 +92,13 @@ public class EntitySpark extends Entity implements ISparkEntity {
 		SparkUpgradeType upgrade = getUpgrade();
 		List<ISparkEntity> allSparks = null;
 		if(upgrade == SparkUpgradeType.DOMINANT || upgrade == SparkUpgradeType.RECESSIVE)
-			allSparks = SparkHelper.getSparksAround(world, posX, posY, posZ);
+			allSparks = SparkHelper.getSparksAround(world, posX, posY + (height / 2.0), posZ);
 
 		Collection<ISparkEntity> transfers = getTransfers();
 
 		switch(upgrade) {
 		case DISPERSIVE : {
-			List<EntityPlayer> players = SparkHelper.getEntitiesAround(EntityPlayer.class, world, posX, posY, posZ);
+			List<EntityPlayer> players = SparkHelper.getEntitiesAround(EntityPlayer.class, world, posX, posY + (height / 2.0), posZ);
 
 			Map<EntityPlayer, TObjectIntHashMap<ItemStack>> receivingPlayers = new HashMap<>();
 
@@ -260,7 +260,7 @@ public class EntitySpark extends Entity implements ISparkEntity {
 					} else dropAndKill();
 					return true;
 				} else {
-					for(ISparkEntity spark : SparkHelper.getSparksAround(world, posX, posY, posZ))
+					for(ISparkEntity spark : SparkHelper.getSparksAround(world, posX, posY + (height / 2.0), posZ))
 						particleBeam(player, this, (Entity) spark);
 					return true;
 				}
