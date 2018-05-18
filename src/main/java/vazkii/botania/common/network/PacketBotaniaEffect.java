@@ -231,6 +231,7 @@ public class PacketBotaniaEffect implements IMessage {
 										Botania.proxy.wispFX(message.x + 0.5, message.y + 0.5, message.z + 0.5, colorsfx[0], colorsfx[1], colorsfx[2], (float) Math.random() * 0.15F + 0.15F, (float) (Math.random() - 0.5F) * 0.125F, (float) (Math.random() - 0.5F) * 0.125F, (float) (Math.random() - 0.5F) * 0.125F);
 							}
 						}
+						break;
 					}
 					case FLUGEL_EFFECT: {
 						Entity entity = world.getEntityByID(message.args[0]);
