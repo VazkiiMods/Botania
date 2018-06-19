@@ -18,7 +18,7 @@ import java.util.Map;
 
 public class WikiHooks {
 
-	private static final IWikiProvider FALLBACK_PROVIDER = new SimpleWikiProvider("FTB Wiki", "http://ftb.gamepedia.com/%s");
+	private static final IWikiProvider FALLBACK_PROVIDER = new SimpleWikiProvider("FTB Wiki", "https://ftb.gamepedia.com/%s");
 
 	private static final Map<String, IWikiProvider> modWikis = new HashMap<>();
 
