@@ -12,6 +12,8 @@ import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelPick;
 import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
 import vazkii.botania.common.lib.LibItemNames;
 
+import javax.annotation.Nonnull;
+
 public class ItemElementiumPick extends ItemManasteelPick {
 
 	public ItemElementiumPick() {
@@ -53,5 +55,10 @@ public class ItemElementiumPick extends ItemManasteelPick {
 				return true;
 		}
 		return false;
+	}
+
+	@Override
+	public boolean getIsRepairable(ItemStack par1ItemStack, @Nonnull ItemStack par2ItemStack) {
+		return par2ItemStack.getItem() == ModItems.manaResource && par2ItemStack.getItemDamage() == 7 ? true : super.getIsRepairable(par1ItemStack, par2ItemStack);
 	}
 }

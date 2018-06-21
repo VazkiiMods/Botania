@@ -21,6 +21,7 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelAxe;
 import vazkii.botania.common.lib.LibItemNames;
 
+import javax.annotation.Nonnull;
 import java.util.Random;
 
 public class ItemElementiumAxe extends ItemManasteelAxe {
@@ -61,6 +62,11 @@ public class ItemElementiumAxe extends ItemManasteelAxe {
 		EntityItem entityitem = new EntityItem(event.getEntityLiving().world, event.getEntityLiving().posX, event.getEntityLiving().posY, event.getEntityLiving().posZ, drop);
 		entityitem.setPickupDelay(10);
 		event.getDrops().add(entityitem);
+	}
+
+	@Override
+	public boolean getIsRepairable(ItemStack par1ItemStack, @Nonnull ItemStack par2ItemStack) {
+		return par2ItemStack.getItem() == ModItems.manaResource && par2ItemStack.getItemDamage() == 7 ? true : super.getIsRepairable(par1ItemStack, par2ItemStack);
 	}
 
 }
