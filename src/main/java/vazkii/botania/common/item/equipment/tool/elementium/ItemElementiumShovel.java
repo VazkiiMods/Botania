@@ -12,10 +12,12 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelShovel;
 import vazkii.botania.common.lib.LibItemNames;
 
+import javax.annotation.Nonnull;
 import java.util.Arrays;
 import java.util.List;
 
@@ -46,6 +48,11 @@ public class ItemElementiumShovel extends ItemManasteelShovel {
 			ToolCommons.removeBlocksInIteration(player, stack, world, pos, new Vec3i(0, -12, 0), new Vec3i(1, 12, 1), blk, materialsShovel, silk, fortune, false);
 
 		return false;
+	}
+
+	@Override
+	public boolean getIsRepairable(ItemStack toRepair, @Nonnull ItemStack repairBy) {
+		return repairBy.getItem() == ModItems.manaResource && repairBy.getItemDamage() == 7 ? true : super.getIsRepairable(toRepair, repairBy);
 	}
 
 }
