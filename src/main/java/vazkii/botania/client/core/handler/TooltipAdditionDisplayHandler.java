@@ -64,7 +64,7 @@ public final class TooltipAdditionDisplayHandler {
 			drawManaBar(stack, (IManaTooltipDisplay) stack.getItem(), tooltipX, tooltipY, width, height);
 
 		EntryData data = LexiconRecipeMappings.getDataForStack(stack);
-		if(data != null) {
+		if(mc.player != null && data != null) {
 			int lexSlot = -1;
 			ItemStack lexiconStack = ItemStack.EMPTY;
 
