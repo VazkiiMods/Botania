@@ -406,17 +406,6 @@ public final class ModCraftingRecipes {
 				'I', LibOreDict.TERRA_STEEL,
 				'L', LibOreDict.LIVINGWOOD_TWIG).setRegistryName(ModItems.terraPick.getRegistryName()));
 
-		/*
-		todo if tc ever comes back?
-		// Revealing Helmet Recipes
-		if(Botania.thaumcraftLoaded) {
-			Item goggles = Item.REGISTRY.getObject(new ResourceLocation("thaumcraft", "goggles"));
-			addShapelessRecipe(new ItemStack(ModItems.manasteelHelmRevealing), new ItemStack(ModItems.manasteelHelm), goggles);
-			recipeHelmetOfRevealing = BotaniaAPI.getLatestAddedRecipe(); //We want manasteel to show in the Lexicon
-			addShapelessRecipe(new ItemStack(ModItems.terrasteelHelmRevealing), new ItemStack(ModItems.terrasteelHelm), goggles);
-			addShapelessRecipe(new ItemStack(ModItems.elementiumHelmRevealing), new ItemStack(ModItems.elementiumHelm), goggles);
-		}
-		*/
 	}
 
 	public static void init() {

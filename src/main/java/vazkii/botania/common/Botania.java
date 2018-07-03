@@ -84,6 +84,7 @@ import vazkii.botania.common.entity.EntityPinkWither;
 import vazkii.botania.common.entity.EntitySignalFlare;
 import vazkii.botania.common.entity.EntitySpark;
 import vazkii.botania.common.entity.ModEntities;
+import vazkii.botania.common.integration.thaumcraft.TCAspects;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.network.GuiHandler;
@@ -179,9 +180,10 @@ public class Botania {
 		if(Botania.thaumcraftLoaded) {
 			ModBrews.initTC();
 			ModBrewRecipes.initTC();
+			TCAspects.init();
 			try {
 				@SuppressWarnings("unchecked")
-				Class<? extends Entity> clazz = (Class<? extends Entity>) Class.forName("thaumcraft.common.lib.aura.EntityAuraNode");
+				Class<? extends Entity> clazz = (Class<? extends Entity>) Class.forName("thaumcraft.common.entities.EntityFluxRift");
 				BotaniaAPI.blacklistEntityFromGravityRod(clazz);
 			} catch (ClassNotFoundException ignored) {}
 		}
