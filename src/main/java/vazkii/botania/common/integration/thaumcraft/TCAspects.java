@@ -35,11 +35,13 @@ import static thaumcraft.api.aspects.Aspect.*;
 
 public class TCAspects {
 	private static final int ANY = OreDictionary.WILDCARD_VALUE;
-	
+
 	public static void init() {
-		registerFlowerAspects();
-		registerItemAspects();
-		registerEntityAspects();
+		if(ConfigHandler.enableThaumcraftAspects) {
+			registerFlowerAspects();
+			registerItemAspects();
+			registerEntityAspects();
+		}
 	}
 
 	private static void registerFlowerAspects() {
@@ -86,7 +88,7 @@ public class TCAspects {
 		registerFlower(LibBlockNames.SUBTILE_SOLEGNOLIA,     new AspectList().add(METAL, 5).add(TRAP, 5));
 		registerFlower(LibBlockNames.SUBTILE_BERGAMUTE,      new AspectList().add(SENSES, 5).add(TRAP, 5));
 	}
-	
+
 	//Each category is mostly ordered by order of its recipe registration.
 	private static void registerItemAspects() {
 		//Pure Daisy
@@ -160,7 +162,7 @@ public class TCAspects {
 		register(LibOreDict.LIVINGWOOD_TWIG, new AspectList().add(PLANT, 8).add(LIFE, 4));
 		register(LibOreDict.DREAMWOOD_TWIG, new AspectList().add(PLANT, 8).add(ELDRITCH, 4));
 		registerComplex(ModItems.twigWand, ANY, new AspectList().add(TOOL, 8));
-		
+
 		//Rods
 		registerComplex(ModItems.terraformRod, ANY, new AspectList().add(EXCHANGE, 15));
 		registerComplex(ModItems.rainbowRod,   ANY, new AspectList().add(SENSES, 10).add(LIGHT, 10));
@@ -170,7 +172,7 @@ public class TCAspects {
 		registerComplex(ModItems.missileRod,   ANY, new AspectList().add(AVERSION, 30));
 		registerComplex(ModItems.cobbleRod,    ANY, new AspectList().add(EARTH, 20));
 		registerComplex(ModItems.exchangeRod,  ANY, new AspectList().add(EXCHANGE, 30));
-		
+
 		register(LibOreDict.RED_STRING, new AspectList()
 				.add(ENERGY, 30).add(EXCHANGE, 20).add(ELDRITCH, 15).add(MECHANISM, 15).add(MAGIC, 10));
 		registerComplex(ModItems.manaTablet, ANY, new AspectList().add(VOID, 5).add(MAGIC, 5));
@@ -394,7 +396,7 @@ public class TCAspects {
 	private static void register(Block block, int meta, AspectList aspects) {
 		ThaumcraftApi.registerObjectTag(new ItemStack(block, 1, meta), aspects);
 	}
-	
+
 	private static void register(String oreDict, AspectList aspects) {
 		ThaumcraftApi.registerObjectTag(oreDict, aspects);
 	}
