@@ -15,15 +15,10 @@ import mezz.jei.api.ISubtypeRegistry;
 import mezz.jei.api.JEIPlugin;
 import mezz.jei.api.recipe.IRecipeCategoryRegistration;
 import mezz.jei.api.recipe.VanillaRecipeCategoryUid;
-import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.client.settings.KeyConflictContext;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.oredict.OreDictionary;
-import org.lwjgl.input.Keyboard;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.recipe.RecipeBrew;
 import vazkii.botania.api.recipe.RecipeElvenTrade;
@@ -33,6 +28,7 @@ import vazkii.botania.api.recipe.RecipePureDaisy;
 import vazkii.botania.api.recipe.RecipeRuneAltar;
 import vazkii.botania.api.state.enums.AltarVariant;
 import vazkii.botania.api.state.enums.PoolVariant;
+import vazkii.botania.client.core.handler.CorporeaInputHandler;
 import vazkii.botania.client.gui.crafting.ContainerCraftingHalo;
 import vazkii.botania.client.integration.jei.brewery.BreweryRecipeCategory;
 import vazkii.botania.client.integration.jei.brewery.BreweryRecipeWrapper;
@@ -55,7 +51,6 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.crafting.recipe.SpecialFloatingFlowerRecipe;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
-import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 import java.util.stream.Collectors;
@@ -66,8 +61,6 @@ import static vazkii.botania.common.lib.LibBlockNames.SUBTILE_PUREDAISY;
 
 @JEIPlugin
 public class JEIBotaniaPlugin implements IModPlugin {
-
-	public static final KeyBinding CORPOREA_REQUEST = new KeyBinding("nei.options.keys.gui.botania_corporea_request", KeyConflictContext.GUI, Keyboard.KEY_C, LibMisc.MOD_NAME);
 
 	@Override
 	public void registerItemSubtypes(@Nonnull ISubtypeRegistry subtypeRegistry) {
@@ -158,8 +151,12 @@ public class JEIBotaniaPlugin implements IModPlugin {
 
 	@Override
 	public void onRuntimeAvailable(IJeiRuntime jeiRuntime) {
-		ClientRegistry.registerKeyBinding(CORPOREA_REQUEST);
-		MinecraftForge.EVENT_BUS.register(new JEIInputHandler(jeiRuntime));
+		CorporeaInputHandler.jeiPanelSupplier = () -> {
+			Object o = jeiRuntime.getIngredientListOverlay().getIngredientUnderMouse();
+			if(o instanceof ItemStack)
+				return (ItemStack) o;
+			return ItemStack.EMPTY;
+		};
 	}
 
 }
