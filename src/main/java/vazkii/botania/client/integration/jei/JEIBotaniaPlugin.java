@@ -8,6 +8,7 @@
  */
 package vazkii.botania.client.integration.jei;
 
+import mezz.jei.api.IJeiRuntime;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.IModRegistry;
 import mezz.jei.api.ISubtypeRegistry;
@@ -27,6 +28,7 @@ import vazkii.botania.api.recipe.RecipePureDaisy;
 import vazkii.botania.api.recipe.RecipeRuneAltar;
 import vazkii.botania.api.state.enums.AltarVariant;
 import vazkii.botania.api.state.enums.PoolVariant;
+import vazkii.botania.client.core.handler.CorporeaInputHandler;
 import vazkii.botania.client.gui.crafting.ContainerCraftingHalo;
 import vazkii.botania.client.integration.jei.brewery.BreweryRecipeCategory;
 import vazkii.botania.client.integration.jei.brewery.BreweryRecipeWrapper;
@@ -51,7 +53,6 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 
 import javax.annotation.Nonnull;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import static vazkii.botania.common.lib.LibBlockNames.SUBTILE_ORECHID;
@@ -146,6 +147,16 @@ public class JEIBotaniaPlugin implements IModPlugin {
 		registry.addRecipeCatalyst(new ItemStack(ModItems.craftingHalo), VanillaRecipeCategoryUid.CRAFTING);
 
 		registry.getRecipeTransferRegistry().addRecipeTransferHandler(ContainerCraftingHalo.class, VanillaRecipeCategoryUid.CRAFTING, 1, 9, 10, 36);
+	}
+
+	@Override
+	public void onRuntimeAvailable(IJeiRuntime jeiRuntime) {
+		CorporeaInputHandler.jeiPanelSupplier = () -> {
+			Object o = jeiRuntime.getIngredientListOverlay().getIngredientUnderMouse();
+			if(o instanceof ItemStack)
+				return (ItemStack) o;
+			return ItemStack.EMPTY;
+		};
 	}
 
 }
