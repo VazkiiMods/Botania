@@ -164,7 +164,7 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 			case GOOGLY_EYES:
 				GlStateManager.rotate(180F, 0F, 1F, 0F);
 				GlStateManager.scale(1.5F, 1.5F, 1F);
-				GlStateManager.translate(0F, -0.05F, -0.15F);
+				GlStateManager.translate(0F, -0.05F, 0F);
 				renderItem();
 				break;
 			case CLOCK_EYE:
