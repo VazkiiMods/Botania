@@ -37,6 +37,7 @@ import vazkii.botania.common.crafting.ModPetalRecipes;
 import vazkii.botania.common.crafting.ModRuneRecipes;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
+import vazkii.botania.common.item.equipment.bauble.ItemBaubleCosmetic;
 import vazkii.botania.common.lexicon.page.PageBrew;
 import vazkii.botania.common.lexicon.page.PageCraftingRecipe;
 import vazkii.botania.common.lexicon.page.PageElvenRecipe;
@@ -1149,7 +1150,7 @@ public final class LexiconData {
 			List<LexiconPage> pages = new ArrayList<>();
 			pages.add(new PageText("0"));
 			pages.add(new PageText("1"));
-			for (int i = 0; i < 32; i++)
+			for (int i = 0; i < ItemBaubleCosmetic.SUBTYPES; i++)
 				pages.add(new PageCraftingRecipe("" + (i + 2), ModCraftingRecipes.recipesCosmeticItems.get(i)));
 			cosmeticBaubles.setPriority().setLexiconPages(pages.toArray(new LexiconPage[pages.size()]));
 		}
