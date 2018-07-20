@@ -54,7 +54,7 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 		THINKING_HAND
 	}
 
-	private static final int SUBTYPES = Variants.values().length;
+	public static final int SUBTYPES = Variants.values().length;
 	private ItemStack renderStack;
 
 	public ItemBaubleCosmetic() {
