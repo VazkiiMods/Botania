@@ -13,6 +13,7 @@ package vazkii.botania.common.block.tile.corporea;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.corporea.ICorporeaRequestor;
 import vazkii.botania.api.corporea.ICorporeaSpark;
@@ -34,11 +35,15 @@ public class TileCorporeaRetainer extends TileMod {
 	private static final int REQUEST_ITEMSTACK = 1;
 	private static final int REQUEST_STRING = 2;
 
+	private static final double LOG_2 = Math.log(2.0);
+	
 	boolean pendingRequest = false;
 	BlockPos requestPos = BlockPos.ORIGIN;
 	Object request;
 	int requestCount;
 
+	int comparatorStrength;
+	
 	public void setPendingRequest(BlockPos pos, Object request, int requestCount) {
 		if(pendingRequest)
 			return;
@@ -47,11 +52,17 @@ public class TileCorporeaRetainer extends TileMod {
 		this.request = request;
 		this.requestCount = requestCount;
 		pendingRequest = true;
+		
+		comparatorStrength = Math.min(15, MathHelper.fastFloor(Math.log(requestCount) / LOG_2) + 1);
 		world.updateComparatorOutputLevel(getPos(), world.getBlockState(getPos()).getBlock());
 	}
 
 	public boolean hasPendingRequest() {
 		return pendingRequest;
+	}
+	
+	public int getComparatorStrength() {
+		return pendingRequest ? comparatorStrength : 0;
 	}
 
 	public void fulfilRequest() {
