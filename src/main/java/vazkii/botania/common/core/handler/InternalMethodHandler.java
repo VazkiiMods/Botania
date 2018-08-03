@@ -27,6 +27,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import vazkii.botania.api.BotaniaAPIClient;
@@ -34,6 +35,7 @@ import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.api.corporea.IWrappedInventory;
 import vazkii.botania.api.corporea.InvWithLocation;
+import vazkii.botania.api.corporea.InventoryWrapEvent;
 import vazkii.botania.api.internal.DummyMethodHandler;
 import vazkii.botania.api.internal.IManaNetwork;
 import vazkii.botania.api.lexicon.LexiconPage;
@@ -270,13 +272,14 @@ public class InternalMethodHandler extends DummyMethodHandler {
 		List<IWrappedInventory> arrayList = new ArrayList<IWrappedInventory>();
 		for(InvWithLocation inv : inventories) {
 			ICorporeaSpark spark = CorporeaHelper.getSparkForInventory(inv);
-			IWrappedInventory wrapped = null;
-			// try integrations
-
-			// last chance - this will always work
+			
+			InventoryWrapEvent wrapEvent = new InventoryWrapEvent(spark);
+			MinecraftForge.EVENT_BUS.post(wrapEvent);
+			IWrappedInventory wrapped = wrapEvent.getWrappedInventory();
 			if(wrapped == null) {
 				wrapped = WrappedIInventory.wrap(inv, spark);
 			}
+			
 			arrayList.add(wrapped);
 		}
 		return arrayList;
