@@ -18,11 +18,11 @@ import vazkii.botania.api.corporea.InvWithLocation;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WrappedIInventory extends WrappedInventoryBase{
+public class WrappedIInventory extends WrappedInventoryBase {
 
 	private final InvWithLocation inv;
 
-	private WrappedIInventory(InvWithLocation inv, ICorporeaSpark spark) {
+	protected WrappedIInventory(InvWithLocation inv, ICorporeaSpark spark) {
 		super(spark);
 		this.inv = inv;
 	}
