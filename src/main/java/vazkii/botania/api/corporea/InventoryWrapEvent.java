@@ -15,19 +15,11 @@ import net.minecraftforge.fml.common.eventhandler.Event;
  * InventoryWrapEvent is fired when the corporea system attempts to wrap an inventory for use.
  * */
 public class InventoryWrapEvent extends Event {
-	private IWrappedInventory wrapped = null;
+	public IWrappedInventory wrapped = null;
 	final ICorporeaSpark spark;
 	
 	public InventoryWrapEvent(ICorporeaSpark spark) {
 		this.spark = spark;
-	}
-	
-	public IWrappedInventory getWrappedInventory() {
-		return wrapped;
-	}
-	
-	public void setWrappedInventory(IWrappedInventory wrapped) {
-		this.wrapped = wrapped;
 	}
 	
 	public ICorporeaSpark getSpark() {

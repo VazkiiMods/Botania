@@ -275,7 +275,7 @@ public class InternalMethodHandler extends DummyMethodHandler {
 			
 			InventoryWrapEvent wrapEvent = new InventoryWrapEvent(spark);
 			MinecraftForge.EVENT_BUS.post(wrapEvent);
-			IWrappedInventory wrapped = wrapEvent.getWrappedInventory();
+			IWrappedInventory wrapped = wrapEvent.wrapped;
 			if(wrapped == null) {
 				wrapped = WrappedIInventory.wrap(inv, spark);
 			}
