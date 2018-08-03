@@ -139,6 +139,18 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 			@Override public int getCount(Matcher m) { return 42; }
 			@Override public String getName(Matcher m) { return m.group(1); }
 		});
+		
+		// [a ]nice [of ](name) = 69 
+		addPattern("(?:a )?nice (?:of )?(.+)", new IRegexStacker() {
+			@Override public int getCount(Matcher m) { return 69; }
+			@Override public String getName(Matcher m) { return m.group(1); }
+		});
+		
+		// (n)[x] nice[s][ of] (name) = n * 69
+		addPattern("(\\d+)x?? nices?(?: of)? (.+)", new IRegexStacker() {
+			@Override public int getCount(Matcher m) { return 69 * i(m, 1); }
+			@Override public String getName(Matcher m) { return m.group(2); }
+		});
 
 		// <count/show/display/tell> (name) = 0 (display only)
 		addPattern("(?:count|show|display|tell) (.+)", new IRegexStacker() {
