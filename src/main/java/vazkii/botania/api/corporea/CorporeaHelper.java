@@ -297,4 +297,12 @@ public final class CorporeaHelper {
 	public static String stripControlCodes(String str) {
 		return patternControlCode.matcher(str).replaceAll("");
 	}
+	
+	/** 
+	 * Returns the comparator strength for a corporea request that corporea crystal cubes and retainers use, following the usual "each step up requires double the items" formula.
+	 */
+	private static final double LOG_2 = Math.log(2);
+	public static int signalStrengthForRequestSize(int requestSize) {
+		return requestSize == 0 ? 0 : Math.min(15, (int) Math.floor(Math.log(requestSize) / LOG_2) + 1);
+	}
 }

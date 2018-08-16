@@ -38,6 +38,7 @@ public class TileCorporeaRetainer extends TileMod {
 	BlockPos requestPos = BlockPos.ORIGIN;
 	Object request;
 	int requestCount;
+	int compValue;
 
 	public void setPendingRequest(BlockPos pos, Object request, int requestCount) {
 		if(pendingRequest)
@@ -47,9 +48,15 @@ public class TileCorporeaRetainer extends TileMod {
 		this.request = request;
 		this.requestCount = requestCount;
 		pendingRequest = true;
+		
+		compValue = CorporeaHelper.signalStrengthForRequestSize(requestCount);
 		world.updateComparatorOutputLevel(getPos(), world.getBlockState(getPos()).getBlock());
 	}
-
+	
+	public int getComparatorValue() {
+		return compValue;
+	}
+	
 	public boolean hasPendingRequest() {
 		return pendingRequest;
 	}
