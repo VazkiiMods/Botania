@@ -170,6 +170,9 @@ public class Botania {
 
 		FMLInterModComms.sendMessage("projecte", "interdictionblacklist", EntityManaBurst.class.getCanonicalName());
 
+		if(Botania.thaumcraftLoaded && ConfigHandler.enableThaumcraftAspects)
+			MinecraftForge.EVENT_BUS.register(TCAspects.class);
+
 		/*if(Botania.bcTriggersLoaded) todo buildcraft
 			new StatementAPIPlugin();*/
 		proxy.init(event);
@@ -180,7 +183,6 @@ public class Botania {
 		if(Botania.thaumcraftLoaded) {
 			ModBrews.initTC();
 			ModBrewRecipes.initTC();
-			TCAspects.init();
 			try {
 				@SuppressWarnings("unchecked")
 				Class<? extends Entity> clazz = (Class<? extends Entity>) Class.forName("thaumcraft.common.entities.EntityFluxRift");
