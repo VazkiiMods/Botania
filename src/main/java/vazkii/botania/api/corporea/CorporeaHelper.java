@@ -17,6 +17,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import vazkii.botania.api.BotaniaAPI;
@@ -301,8 +302,9 @@ public final class CorporeaHelper {
 	/** 
 	 * Returns the comparator strength for a corporea request that corporea crystal cubes and retainers use, following the usual "each step up requires double the items" formula.
 	 */
-	private static final double LOG_2 = Math.log(2);
 	public static int signalStrengthForRequestSize(int requestSize) {
-		return requestSize == 0 ? 0 : Math.min(15, (int) Math.floor(Math.log(requestSize) / LOG_2) + 1);
+		if(requestSize <= 0) return 0;
+		else if (requestSize >= 16384) return 15;
+		else return Math.min(15, MathHelper.log2(requestSize) + 1);
 	}
 }
