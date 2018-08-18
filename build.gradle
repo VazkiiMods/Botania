@@ -82,8 +82,8 @@ jar {
 
 dependencies {
     deobfCompile "com.azanor.baubles:Baubles:1.12-1.5.2"
-    deobfCompile "mezz.jei:jei_1.12:4.7.0.67"
-    deobfCompile "thaumcraft:Thaumcraft:1.12.2:6.1.BETA17"
+    deobfCompile "mezz.jei:jei_1.12.2:4.10.0.198"
+    deobfCompile "thaumcraft:Thaumcraft:1.12.2:6.1.BETA21"
 
     //and a bit more for SCP
     sshAntTask "org.apache.ant:ant-jsch:1.7.1", "jsch:jsch:0.1.29"

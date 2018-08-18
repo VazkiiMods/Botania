@@ -16,10 +16,13 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.oredict.OreDictionary;
 import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.aspects.Aspect;
+import thaumcraft.api.aspects.AspectEventProxy;
 import thaumcraft.api.aspects.AspectList;
+import thaumcraft.api.aspects.AspectRegistryEvent;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
@@ -35,16 +38,21 @@ import static thaumcraft.api.aspects.Aspect.*;
 
 public class TCAspects {
 	private static final int ANY = OreDictionary.WILDCARD_VALUE;
+	private final AspectEventProxy proxy;
 
-	public static void init() {
-		if(ConfigHandler.enableThaumcraftAspects) {
-			registerFlowerAspects();
-			registerItemAspects();
-			registerEntityAspects();
-		}
+	private TCAspects(AspectEventProxy proxy) {
+		this.proxy = proxy;
 	}
 
-	private static void registerFlowerAspects() {
+	@SubscribeEvent
+	public static void registerAspects(AspectRegistryEvent event) {
+		TCAspects handler = new TCAspects(event.register);
+		handler.registerFlowerAspects();
+		handler.registerItemAspects();
+		handler.registerEntityAspects();
+	}
+
+	private void registerFlowerAspects() {
 		registerFlower(LibBlockNames.SUBTILE_PUREDAISY,      new AspectList().add(LIFE, 10).add(EXCHANGE, 5));
 		registerFlower(LibBlockNames.SUBTILE_MANASTAR,       new AspectList().add(SENSES, 5).add(AURA, 5));
 
@@ -90,7 +98,7 @@ public class TCAspects {
 	}
 
 	//Each category is mostly ordered by order of its recipe registration.
-	private static void registerItemAspects() {
+	private void registerItemAspects() {
 		//Pure Daisy
 		register(LibOreDict.LIVING_WOOD, new AspectList(new ItemStack(Blocks.LOG)).add(LIFE, 5));
 		register(LibOreDict.LIVING_ROCK, new AspectList(new ItemStack(Blocks.STONE)).add(LIFE, 3));
@@ -145,7 +153,7 @@ public class TCAspects {
 		//The rest - items with no recipes, loot, overrides of autoassigned aspects, etc.
 		//Ordered mostly by ModItems / ModBlocks
 		register(LibOreDict.TERRA_STEEL, new AspectList().add(METAL, 15).add(MAGIC, 20).add(EARTH, 10));
-		register(LibOreDict.LIFE_ESSENCE, new AspectList().add(LIFE, 15).add(EARTH, 10).add(SOUL, 10).add(ORDER, 10).add(MAGIC, 10).add(ELDRITCH, 5));
+		register(LibOreDict.LIFE_ESSENCE, new AspectList().add(LIFE, 15).add(EARTH, 10).add(SOUL, 10).add(ORDER, 5).add(MAGIC, 5).add(ELDRITCH, 5));
 		register(LibOreDict.ENDER_AIR_BOTTLE, new AspectList().add(ELDRITCH, 5).add(AIR, 5));
 		register(LibOreDict.PLACEHOLDER, new AspectList().add(CRAFT, 1));
 
@@ -157,11 +165,36 @@ public class TCAspects {
 			register(name, new AspectList().add(SENSES, 5).add(PLANT, 5));
 
 		register(ModItems.dye, ANY, new AspectList().add(SENSES, 5).add(PLANT, 1));
+		registerComplex(ModItems.lexicon, ANY, new AspectList().add(MAGIC, 5).add(MIND, 10));
 
 		registerComplex(ModItems.pestleAndMortar, ANY, new AspectList().add(TOOL, 4));
 		register(LibOreDict.LIVINGWOOD_TWIG, new AspectList().add(PLANT, 8).add(LIFE, 4));
 		register(LibOreDict.DREAMWOOD_TWIG, new AspectList().add(PLANT, 8).add(ELDRITCH, 4));
 		registerComplex(ModItems.twigWand, ANY, new AspectList().add(TOOL, 8));
+
+		//Lenses
+		registerComplex(ModItems.lens,  1, new AspectList().add(MOTION, 10));               //Velocity
+		registerComplex(ModItems.lens,  2, new AspectList().add(ENERGY, 10));               //Potency
+		registerComplex(ModItems.lens,  3, new AspectList().add(PROTECT, 10));              //Resistance
+		registerComplex(ModItems.lens,  4, new AspectList().add(TRAP, 10));                 //Efficiency
+		registerComplex(ModItems.lens,  5, new AspectList().add(MOTION, 10));               //Bounce
+		registerComplex(ModItems.lens,  6, new AspectList().add(EARTH, 10));                //Gravity
+		registerComplex(ModItems.lens,  7, new AspectList().add(TOOL, 10));                 //Bore
+		registerComplex(ModItems.lens,  8, new AspectList().add(AVERSION, 10));             //Damaging
+		registerComplex(ModItems.lens,  9, new AspectList().add(ELDRITCH, 10));             //Phantom
+		registerComplex(ModItems.lens, 10, new AspectList().add(DESIRE, 10));              //Magnetizing
+		registerComplex(ModItems.lens, 11, new AspectList().add(ENTROPY, 10));             //Entropic
+		registerComplex(ModItems.lens, 12, new AspectList().add(DESIRE, 10));              //Influence
+		registerComplex(ModItems.lens, 13, new AspectList().add(METAL, 10));               //Weight
+		registerComplex(ModItems.lens, 14, new AspectList().add(SENSES, 10));              //Paintslinger
+		registerComplex(ModItems.lens, 15, new AspectList().add(FIRE, 10));                //Kindle
+		registerComplex(ModItems.lens, 16, new AspectList().add(MECHANISM, 10));           //Force
+		registerComplex(ModItems.lens, 18, new AspectList().add(ELDRITCH, 10));            //Warp
+		registerComplex(ModItems.lens, 19, new AspectList().add(SOUL, 10));                //Redirective
+		registerComplex(ModItems.lens, 20, new AspectList().add(MAN, 10));                 //Celebratory
+		registerComplex(ModItems.lens, 21, new AspectList().add(LIGHT, 5).add(SENSES, 5)); //Flare
+		registerComplex(ModItems.lens, 22, new AspectList().add(MOTION, 10));              //Messenger
+		registerComplex(ModItems.lens, 23, new AspectList().add(MAN, 10));                 //Tripwire
 
 		//Rods
 		registerComplex(ModItems.terraformRod, ANY, new AspectList().add(EXCHANGE, 15));
@@ -182,7 +215,7 @@ public class TCAspects {
 				.add(EARTH, 10).add(PLANT, 10).add(ELDRITCH, 10).add(EXCHANGE, 5).add(MAGIC, 10).add(METAL, 10));
 		registerComplex(ModItems.travelBelt, ANY, new AspectList().add(MOTION, 10));
 		registerComplex(ModItems.magnetRing, ANY, new AspectList().add(DESIRE, 10));
-		registerComplex(ModItems.flightTiara, ANY, new AspectList().add(FLIGHT, 30));
+		registerComplex(ModItems.flightTiara, ANY, new AspectList().add(FLIGHT, 38));
 
 		if(ConfigHandler.darkQuartzEnabled)
 			register(ModItems.quartz, 0, new AspectList(new ItemStack(Items.QUARTZ)).add(ENERGY, 1).add(DARKNESS, 1)); //Smokey
@@ -209,14 +242,14 @@ public class TCAspects {
 		register(ModItems.clip, 0, new AspectList(new ItemStack(ModBlocks.dreamwood)).add(VOID, 5).add(MECHANISM, 2));
 		registerComplex(ModItems.worldSeed, ANY, new AspectList().add(MOTION, 10).add(PLANT, 5).add(ELDRITCH, 3));
 		registerComplex(ModItems.thornChakram, 0, new AspectList().add(AVERSION, 12).add(DEATH, 6));
-		registerComplex(ModItems.thornChakram, 1, new AspectList().merge(AVERSION, 16)); //Flare Chakram
+		registerComplex(ModItems.thornChakram, 1, new AspectList().merge(AVERSION, 7)); //Flare Chakram
 		register(ModItems.overgrowthSeed, ANY, new AspectList().add(LIFE, 30).add(MAGIC, 25));
 		register(ModItems.craftPattern, ANY, new AspectList().add(CRAFT, 10).add(ENERGY, 10));
 
 		registerComplex(ModItems.swapRing, 0, new AspectList().add(TOOL, 8).add(EXCHANGE, 8));
 		registerComplex(ModItems.flowerBag, 0, new AspectList().add(VOID, 5));
 		registerComplex(ModItems.phantomInk, 0, new AspectList().add(SENSES, 9).add(VOID, 4));
-		register(ModItems.corporeaSpark, 0, new AspectList(new ItemStack(ModItems.spark)).add(EXCHANGE, 15).add(ELDRITCH, 10));
+		register(ModItems.corporeaSpark, 0, new AspectList().add(AURA, 15).add(MOTION, 15).add(SENSES, 10).add(EXCHANGE, 15).add(ELDRITCH, 10));
 
 		AspectList willAspects = new AspectList().add(MAGIC, 10).add(AVERSION, 10).add(SOUL, 10);
 		register(ModItems.ancientWill, 0, willAspects.copy().add(PROTECT, 10)); //Ahrim - weakness
@@ -244,6 +277,7 @@ public class TCAspects {
 		registerComplex(ModItems.temperanceStone, ANY, new AspectList().add(TRAP, 5));
 		registerComplex(ModItems.obedienceStick, ANY, new AspectList().add(TOOL, 4));
 		registerComplex(ModItems.slimeBottle, ANY, new AspectList(new ItemStack(Items.SLIME_BALL)).add(SENSES, 10));
+		registerComplex(ModItems.magnetRingGreater, ANY, new AspectList().add(DESIRE, 15));
 		registerComplex(ModItems.thunderSword, ANY, new AspectList().add(ENERGY, 15));
 		registerComplex(ModItems.autocraftingHalo, ANY, new AspectList().add(CRAFT, 15).add(EXCHANGE, 10));
 		register(ModItems.gaiaHead, ANY, new AspectList().add(DEATH, 10).add(SOUL, 15).add(ELDRITCH, 10).add(EARTH, 10));
@@ -291,7 +325,7 @@ public class TCAspects {
 		registerComplex(ModBlocks.terraPlate, ANY, new AspectList().add(CRAFT, 20).add(EXCHANGE, 20));
 		register(ModBlocks.enchantedSoil, ANY, new AspectList().add(LIFE, 20).add(MAGIC, 15).add(EARTH, 10));
 
-		AspectList corporeaAspects = new AspectList(new ItemStack(ModItems.corporeaSpark)).add(MECHANISM, 15).merge(ELDRITCH, 15);
+		AspectList corporeaAspects = new AspectList(new ItemStack(ModItems.corporeaSpark)).add(MECHANISM, 15).merge(ELDRITCH, 15).remove(AURA);
 		register(ModBlocks.corporeaIndex, ANY, corporeaAspects.copy().add(DESIRE, 25).add(MIND, 25));
 		register(ModBlocks.corporeaCrystalCube, ANY, corporeaAspects.copy().add(SENSES, 15).add(CRYSTAL, 15));
 		register(ModBlocks.corporeaFunnel, ANY, corporeaAspects.copy().add(DESIRE, 20));
@@ -346,7 +380,7 @@ public class TCAspects {
 		}
 	}
 
-	private static void registerEntityAspects() {
+	private void registerEntityAspects() {
 		registerEntity(LibEntityNames.MANA_BURST,       new AspectList().add(ENERGY, 5).add(MOTION, 5).add(AURA, 5));
 		registerEntity(LibEntityNames.SIGNAL_FLARE,     new AspectList().add(SENSES, 10).add(LIGHT, 5));
 		registerEntity(LibEntityNames.PIXIE,            new AspectList().add(FLIGHT, 5).add(ELDRITCH, 5).add(LIGHT, 5));
@@ -367,17 +401,17 @@ public class TCAspects {
 		registerEntity(LibEntityNames.FALLING_STAR,     new AspectList().add(AVERSION, 10).add(ELDRITCH, 10).add(LIGHT, 5));
 	}
 
-	private static void registerFlower(String flowerId, AspectList extraAspects) {
+	private void registerFlower(String flowerId, AspectList extraAspects) {
 		AspectList aspects = extraAspects.copy().add(PLANT, 15).add(SENSES, 15).add(MAGIC, 5);
 		AspectList floatingAspects = aspects.copy().add(FLIGHT, 5).add(LIGHT, 5).add(EARTH, 3);
 
-		ThaumcraftApi.registerObjectTag(ItemBlockSpecialFlower.ofType(flowerId), aspects);
-		ThaumcraftApi.registerObjectTag(ItemBlockSpecialFlower.ofType(new ItemStack(ModBlocks.floatingSpecialFlower), flowerId), floatingAspects);
+		proxy.registerObjectTag(ItemBlockSpecialFlower.ofType(flowerId), aspects);
+		proxy.registerObjectTag(ItemBlockSpecialFlower.ofType(new ItemStack(ModBlocks.floatingSpecialFlower), flowerId), floatingAspects);
 
 		if (BotaniaAPI.miniFlowers.containsKey(flowerId)) {
 			String miniFlowerId = BotaniaAPI.miniFlowers.get(flowerId);
-			ThaumcraftApi.registerObjectTag(ItemBlockSpecialFlower.ofType(miniFlowerId), petiteAspects(aspects));
-			ThaumcraftApi.registerObjectTag(ItemBlockSpecialFlower.ofType(new ItemStack(ModBlocks.floatingSpecialFlower), miniFlowerId), petiteAspects(floatingAspects));
+			proxy.registerObjectTag(ItemBlockSpecialFlower.ofType(miniFlowerId), petiteAspects(aspects));
+			proxy.registerObjectTag(ItemBlockSpecialFlower.ofType(new ItemStack(ModBlocks.floatingSpecialFlower), miniFlowerId), petiteAspects(floatingAspects));
 		}
 	}
 
@@ -389,27 +423,27 @@ public class TCAspects {
 	}
 
 	//Convenience aspect registration methods
-	private static void register(Item item, int meta, AspectList aspects) {
-		ThaumcraftApi.registerObjectTag(new ItemStack(item, 1, meta), aspects);
+	private void register(Item item, int meta, AspectList aspects) {
+		proxy.registerObjectTag(new ItemStack(item, 1, meta), aspects);
 	}
 
-	private static void register(Block block, int meta, AspectList aspects) {
-		ThaumcraftApi.registerObjectTag(new ItemStack(block, 1, meta), aspects);
+	private void register(Block block, int meta, AspectList aspects) {
+		proxy.registerObjectTag(new ItemStack(block, 1, meta), aspects);
 	}
 
-	private static void register(String oreDict, AspectList aspects) {
-		ThaumcraftApi.registerObjectTag(oreDict, aspects);
+	private void register(String oreDict, AspectList aspects) {
+		proxy.registerObjectTag(oreDict, aspects);
 	}
 
-	private static void registerComplex(Item item, int meta, AspectList aspects) {
-		ThaumcraftApi.registerComplexObjectTag(new ItemStack(item, 1, meta), aspects);
+	private void registerComplex(Item item, int meta, AspectList aspects) {
+		proxy.registerComplexObjectTag(new ItemStack(item, 1, meta), aspects);
 	}
 
-	private static void registerComplex(Block block, int meta, AspectList aspects) {
-		ThaumcraftApi.registerComplexObjectTag(new ItemStack(block, 1, meta), aspects);
+	private void registerComplex(Block block, int meta, AspectList aspects) {
+		proxy.registerComplexObjectTag(new ItemStack(block, 1, meta), aspects);
 	}
 
-	private static void registerEntity(String entityName, AspectList aspects) {
-		ThaumcraftApi.registerEntityTag(entityName, aspects);
+	private void registerEntity(String entityName, AspectList aspects) {
+		ThaumcraftApi.registerEntityTag(entityName, aspects); //Not in the event (as of TC beta 21)
 	}
 }
