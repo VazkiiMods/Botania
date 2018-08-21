@@ -13,7 +13,7 @@
       "item": "#LIVINGROCK"
     },
     "O": {
-      "item": "minecraft:obsidian"
+      "item": "#OBSIDIAN"
     }
   }
 }

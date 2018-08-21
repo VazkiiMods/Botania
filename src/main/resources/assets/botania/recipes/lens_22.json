@@ -11,7 +11,7 @@
   "type": "minecraft:crafting_shaped",
   "key": {
     "P": {
-      "item": "minecraft:paper"
+      "item": "#PAPER"
     },
     "L": {
       "item": "botania:lens",

@@ -16,7 +16,7 @@
       "item": "minecraft:ender_eye"
     },
     "O": {
-      "item": "minecraft:obsidian"
+      "item": "#OBSIDIAN"
     }
   }
 }
