@@ -136,6 +136,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 	);
 
 	private boolean isPlayingMusic = false;
+	private long timestampMusicStart = 0;
 	private boolean spawnLandmines = false;
 	private boolean spawnPixies = false;
 	private boolean anyWithArmor = false;
@@ -578,6 +579,11 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 		if(!isPlayingMusic && !isDead && !getPlayersAround().isEmpty()) {
 			world.playEvent(1010, getSource(), Item.getIdFromItem(isHardMode() ? ModItems.recordGaia2 : ModItems.recordGaia1));
 			isPlayingMusic = true;
+			timestampMusicStart = System.currentTimeMillis();
+		}
+		if(System.currentTimeMillis() - timestampMusicStart > 202*1000) // If it has been long enough that the music has ended.
+		{
+			isPlayingMusic = false;
 		}
 	}
 
