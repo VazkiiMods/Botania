@@ -16,10 +16,10 @@
       "item": "minecraft:ender_chest"
     },
     "L": {
-      "item": "minecraft:leather"
+      "item": "#LEATHER"
     },
     "O": {
-      "item": "minecraft:obsidian"
+      "item": "#OBSIDIAN"
     }
   }
 }

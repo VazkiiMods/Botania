@@ -20,7 +20,7 @@
       "item": "#ELVENDRAGONSTONE"
     },
     "O": {
-      "item": "minecraft:obsidian"
+      "item": "#OBSIDIAN"
     }
   }
 }
