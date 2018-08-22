@@ -365,6 +365,11 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 	}
 
 	@Override
+	public void onKillCommand() {
+		this.setHealth(0.0F);
+	}
+
+	@Override
 	public boolean attackEntityFrom(@Nonnull DamageSource source, float par2) {
 		Entity e = source.getTrueSource();
 		if (e instanceof EntityPlayer && isTruePlayer(e) && getInvulTime() == 0) {
