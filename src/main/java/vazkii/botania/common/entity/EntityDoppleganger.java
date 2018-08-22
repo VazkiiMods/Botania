@@ -10,11 +10,11 @@
  */
 package vazkii.botania.common.entity;
 
-import com.google.common.base.Optional;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.audio.MovingSound;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -35,7 +35,6 @@ import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
@@ -48,6 +47,7 @@ import net.minecraft.tileentity.TileEntityBeacon;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -62,7 +62,6 @@ import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.util.FakePlayer;
-import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -80,7 +79,6 @@ import vazkii.botania.common.Botania;
 import vazkii.botania.common.advancements.DopplegangerNoArmorTrigger;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ModSounds;
-import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibEntityNames;
@@ -134,7 +132,6 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 			new ResourceLocation("thaumictinkerer", "magnet")
 	);
 
-	private boolean isPlayingMusic = false;
 	private boolean spawnLandmines = false;
 	private boolean spawnPixies = false;
 	private boolean anyWithArmor = false;
@@ -309,6 +306,10 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 		return dataManager.get(INVUL_TIME);
 	}
 
+	public BlockPos getSource() {
+		return source;
+	}
+
 	public void setInvulTime(int time) {
 		dataManager.set(INVUL_TIME, time);
 	}
@@ -366,7 +367,6 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 	@Override
 	public boolean attackEntityFrom(@Nonnull DamageSource source, float par2) {
 		Entity e = source.getTrueSource();
-
 		if (e instanceof EntityPlayer && isTruePlayer(e) && getInvulTime() == 0) {
 			EntityPlayer player = (EntityPlayer) e;
 
@@ -489,8 +489,6 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 		if(world.isRemote) {
 			Botania.proxy.removeBoss(this);
 		}
-		world.playEvent(1010, source, 0);
-		isPlayingMusic = false;
 		super.setDead();
 	}
 
@@ -542,13 +540,6 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 				Botania.proxy.wispFX(partPos.x, partPos.y, partPos.z, r, g, b, 0.25F + (float) Math.random() * 0.1F, -0.075F - (float) Math.random() * 0.015F);
 				Botania.proxy.wispFX(partPos.x, partPos.y, partPos.z, r, g, b, 0.4F, (float) mot.x, (float) mot.y, (float) mot.z);
 			}
-		}
-	}
-
-	private void playMusic() {
-		if(!isPlayingMusic && !isDead && !getPlayersAround().isEmpty()) {
-			world.playEvent(1010, source, Item.getIdFromItem(hardMode ? ModItems.recordGaia2 : ModItems.recordGaia1));
-			isPlayingMusic = true;
 		}
 	}
 
@@ -660,8 +651,6 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 				player.capabilities.isFlying = player.capabilities.isFlying && player.capabilities.isCreativeMode;
 			return;
 		}
-
-		playMusic();
 
 		bossInfo.setPercent(getHealth() / getMaxHealth());
 
@@ -1043,6 +1032,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
 	public void readSpawnData(ByteBuf additionalData) {
 		playerCount = additionalData.readInt();
 		hardMode = additionalData.readBoolean();
@@ -1050,6 +1040,28 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 		long msb = additionalData.readLong();
 		long lsb = additionalData.readLong();
 		bossInfoUUID = new UUID(msb, lsb);
+		Minecraft.getMinecraft().getSoundHandler().playSound(new DopplegangerMusic(this));
+	}
+
+	@SideOnly(Side.CLIENT)
+	private static class DopplegangerMusic extends MovingSound {
+		private final EntityDoppleganger guardian;
+
+		public DopplegangerMusic(EntityDoppleganger guardian) {
+			super(guardian.hardMode ? ModSounds.gaiaMusic2 : ModSounds.gaiaMusic1, SoundCategory.RECORDS);
+			this.guardian = guardian;
+			this.xPosF = guardian.getSource().getX();
+			this.yPosF = guardian.getSource().getY();
+			this.zPosF = guardian.getSource().getZ();
+			this.repeat = true;
+		}
+
+		@Override
+		public void update() {
+			if (!guardian.isEntityAlive()) {
+				donePlaying = true;
+			}
+		}
 	}
 
 	private static class BeaconComponent extends MultiblockComponent {
