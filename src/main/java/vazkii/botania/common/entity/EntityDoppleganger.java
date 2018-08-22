@@ -11,6 +11,7 @@
 package vazkii.botania.common.entity;
 
 import com.google.common.base.Optional;
+import io.netty.buffer.ByteBuf;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -61,6 +62,8 @@ import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.util.FakePlayer;
+import net.minecraftforge.fml.common.network.ByteBufUtils;
+import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.ARBShaderObjects;
@@ -95,7 +98,7 @@ import java.util.UUID;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
+public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IEntityAdditionalSpawnData {
 
 	public static final float ARENA_RANGE = 12F;
 	private static final int SPAWN_TICKS = 160;
@@ -118,10 +121,6 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 	private static final String TAG_PLAYER_COUNT = "playerCount";
 
 	private static final DataParameter<Integer> INVUL_TIME = EntityDataManager.createKey(EntityDoppleganger.class, DataSerializers.VARINT);
-	private static final DataParameter<Integer> PLAYER_COUNT = EntityDataManager.createKey(EntityDoppleganger.class, DataSerializers.VARINT);
-	private static final DataParameter<Boolean> HARD_MODE = EntityDataManager.createKey(EntityDoppleganger.class, DataSerializers.BOOLEAN);
-	private static final DataParameter<BlockPos> SOURCE = EntityDataManager.createKey(EntityDoppleganger.class, DataSerializers.BLOCK_POS);
-	private static final DataParameter<Optional<UUID>> BOSSINFO_ID = EntityDataManager.createKey(EntityDoppleganger.class, DataSerializers.OPTIONAL_UNIQUE_ID);
 
 	private static final BlockPos[] PYLON_LOCATIONS = {
 			new BlockPos(4, 1, 4),
@@ -142,8 +141,12 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 	private boolean aggro = false;
 	private int tpDelay = 0;
 	private int mobSpawnTicks = 0;
+	private int playerCount = 0;
+	private boolean hardMode = false;
+	private BlockPos source = BlockPos.ORIGIN;
 	private final List<UUID> playersWhoAttacked = new ArrayList<>();
 	private final BossInfoServer bossInfo = (BossInfoServer) new BossInfoServer(new TextComponentTranslation("entity." + LibEntityNames.DOPPLEGANGER_REGISTRY + ".name"), BossInfo.Color.PINK, BossInfo.Overlay.PROGRESS).setCreateFog(true);;
+	private UUID bossInfoUUID = bossInfo.getUniqueId();
 	public EntityPlayer trueKiller = null;
 
 	public EntityDoppleganger(World world) {
@@ -216,12 +219,12 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 			e.setPosition(pos.getX() + 0.5, pos.getY() + 3, pos.getZ() + 0.5);
 			e.setInvulTime(SPAWN_TICKS);
 			e.setHealth(1F);
-			e.setSource(pos);
+			e.source = pos;
 			e.mobSpawnTicks = MOB_SPAWN_TICKS;
-			e.setHardMode(hard);
+			e.hardMode = hard;
 
 			int playerCount = (int) e.getPlayersAround().stream().filter(EntityDoppleganger::isTruePlayer).count();
-			e.setPlayerCount(playerCount);
+			e.playerCount = playerCount;
 			e.getAttributeMap().getAttributeInstance(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(MAX_HP * playerCount);
 			if (hard)
 				e.getAttributeMap().getAttributeInstance(SharedMonsterAttributes.ARMOR).setBaseValue(15);
@@ -300,42 +303,14 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 	protected void entityInit() {
 		super.entityInit();
 		dataManager.register(INVUL_TIME, 0);
-		dataManager.register(SOURCE, BlockPos.ORIGIN);
-		dataManager.register(HARD_MODE, false);
-		dataManager.register(PLAYER_COUNT, 0);
-		dataManager.register(BOSSINFO_ID, Optional.absent());
 	}
 
 	public int getInvulTime() {
 		return dataManager.get(INVUL_TIME);
 	}
 
-	public BlockPos getSource() {
-		return dataManager.get(SOURCE);
-	}
-
-	public boolean isHardMode() {
-		return dataManager.get(HARD_MODE);
-	}
-
-	public int getPlayerCount() {
-		return dataManager.get(PLAYER_COUNT);
-	}
-
 	public void setInvulTime(int time) {
 		dataManager.set(INVUL_TIME, time);
-	}
-
-	public void setSource(BlockPos pos) {
-		dataManager.set(SOURCE, pos);
-	}
-
-	public void setHardMode(boolean hardMode) {
-		dataManager.set(HARD_MODE, hardMode);
-	}
-
-	public void setPlayerCount(int count) {
-		dataManager.set(PLAYER_COUNT, count);
 	}
 
 	@Override
@@ -345,13 +320,12 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 		par1nbtTagCompound.setBoolean(TAG_AGGRO, aggro);
 		par1nbtTagCompound.setInteger(TAG_MOB_SPAWN_TICKS, mobSpawnTicks);
 
-		BlockPos source = getSource();
 		par1nbtTagCompound.setInteger(TAG_SOURCE_X, source.getX());
 		par1nbtTagCompound.setInteger(TAG_SOURCE_Y, source.getY());
 		par1nbtTagCompound.setInteger(TAG_SOURCE_Z, source.getZ());
 
-		par1nbtTagCompound.setBoolean(TAG_HARD_MODE, isHardMode());
-		par1nbtTagCompound.setInteger(TAG_PLAYER_COUNT, getPlayerCount());
+		par1nbtTagCompound.setBoolean(TAG_HARD_MODE, hardMode);
+		par1nbtTagCompound.setInteger(TAG_PLAYER_COUNT, playerCount);
 	}
 
 	@Override
@@ -364,12 +338,12 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 		int x = par1nbtTagCompound.getInteger(TAG_SOURCE_X);
 		int y = par1nbtTagCompound.getInteger(TAG_SOURCE_Y);
 		int z = par1nbtTagCompound.getInteger(TAG_SOURCE_Z);
-		setSource(new BlockPos(x, y, z));
+		source = new BlockPos(x, y, z);
 
-		setHardMode(par1nbtTagCompound.getBoolean(TAG_HARD_MODE));
+		hardMode = par1nbtTagCompound.getBoolean(TAG_HARD_MODE);
 		if(par1nbtTagCompound.hasKey(TAG_PLAYER_COUNT))
-			setPlayerCount(par1nbtTagCompound.getInteger(TAG_PLAYER_COUNT));
-		else setPlayerCount(1);
+			playerCount = par1nbtTagCompound.getInteger(TAG_PLAYER_COUNT);
+		else playerCount = 1;
 
 		if (this.hasCustomName()) {
 			this.bossInfo.setName(this.getDisplayName());
@@ -466,7 +440,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 
 	@Override
 	public ResourceLocation getLootTable() {
-		return new ResourceLocation(LibMisc.MOD_ID, isHardMode() ? "gaia_guardian_2" : "gaia_guardian");
+		return new ResourceLocation(LibMisc.MOD_ID, hardMode ? "gaia_guardian_2" : "gaia_guardian");
 	}
 
 	@Override
@@ -515,13 +489,12 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 		if(world.isRemote) {
 			Botania.proxy.removeBoss(this);
 		}
-		world.playEvent(1010, getSource(), 0);
+		world.playEvent(1010, source, 0);
 		isPlayingMusic = false;
 		super.setDead();
 	}
 
 	private List<EntityPlayer> getPlayersAround() {
-		BlockPos source = getSource();
 		float range = 15F;
 		return world.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(source.getX() + 0.5 - range, source.getY() + 0.5 - range, source.getZ() + 0.5 - range, source.getX() + 0.5 + range, source.getY() + 0.5 + range, source.getZ() + 0.5 + range));
 	}
@@ -533,8 +506,6 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 	}
 
 	private void particles() {
-		BlockPos source = getSource();
-
 		for(int i = 0; i < 360; i += 8) {
 			float r = 0.6F;
 			float g = 0F;
@@ -576,7 +547,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 
 	private void playMusic() {
 		if(!isPlayingMusic && !isDead && !getPlayersAround().isEmpty()) {
-			world.playEvent(1010, getSource(), Item.getIdFromItem(isHardMode() ? ModItems.recordGaia2 : ModItems.recordGaia1));
+			world.playEvent(1010, source, Item.getIdFromItem(hardMode ? ModItems.recordGaia2 : ModItems.recordGaia1));
 			isPlayingMusic = true;
 		}
 	}
@@ -616,7 +587,6 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 	}
 
 	private void keepInsideArena(EntityPlayer player) {
-		BlockPos source = getSource();
 		if(vazkii.botania.common.core.helper.MathHelper.pointDistanceSpace(player.posX, player.posY, player.posZ, source.getX() + 0.5, source.getY() + 0.5, source.getZ() + 0.5) >= ARENA_RANGE) {
 			Vector3 sourceVector = new Vector3(source.getX() + 0.5, source.getY() + 0.5, source.getZ() + 0.5);
 			Vector3 playerVector = Vector3.fromEntityCenter(player);
@@ -630,14 +600,13 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 	}
 
 	private void spawnMobs(List<EntityPlayer> players) {
-		int playerCount = getPlayerCount();
 		for(int pl = 0; pl < playerCount; pl++) {
 			for(int i = 0; i < 3 + world.rand.nextInt(2); i++) {
 				EntityLiving entity = null;
 				switch (world.rand.nextInt(2)) {
 					case 0: {
 						entity = new EntityZombie(world);
-						if(world.rand.nextInt(isHardMode() ? 3 : 12) == 0) {
+						if(world.rand.nextInt(hardMode ? 3 : 12) == 0) {
 							entity = new EntityWitch(world);
 						}
 						break;
@@ -651,7 +620,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 					}
 					case 3: {
 						if(!players.isEmpty()) {
-							for(int j = 0; j < 1 + world.rand.nextInt(isHardMode() ? 8 : 5); j++) {
+							for(int j = 0; j < 1 + world.rand.nextInt(hardMode ? 8 : 5); j++) {
 								EntityPixie pixie = new EntityPixie(world);
 								pixie.setProps(players.get(rand.nextInt(players.size())), this, 1, 8);
 								pixie.setPosition(posX + width / 2, posY + 2, posZ + width / 2);
@@ -669,7 +638,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 					float range = 6F;
 					entity.setPosition(posX + 0.5 + Math.random() * range - range / 2, posY - 1, posZ + 0.5 + Math.random() * range - range / 2);
 					entity.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(entity)), null);
-					if(entity instanceof EntityWitherSkeleton && isHardMode()) {
+					if(entity instanceof EntityWitherSkeleton && hardMode) {
 						entity.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(ModItems.elementiumSword));
 					}
 					world.spawnEntity(entity);
@@ -682,7 +651,6 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 	public void onLivingUpdate() {
 		super.onLivingUpdate();
 
-		BlockPos source = getSource();
 		int invul = getInvulTime();
 
 		if (world.isRemote) {
@@ -695,7 +663,6 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 
 		playMusic();
 
-		dataManager.set(BOSSINFO_ID, Optional.of(bossInfo.getUniqueId()));
 		bossInfo.setPercent(getHealth() / getMaxHealth());
 
 		if(!getPassengers().isEmpty())
@@ -706,9 +673,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 
 		smashCheatyBlocks();
 
-		boolean hard = isHardMode();
 		List<EntityPlayer> players = getPlayersAround();
-		int playerCount = getPlayerCount();
 
 		if(players.isEmpty() && !world.playerEntities.isEmpty())
 			setDead();
@@ -730,7 +695,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 		if(isDead)
 			return;
 
-		boolean spawnMissiles = hard && ticksExisted % 15 < 4;
+		boolean spawnMissiles = hardMode && ticksExisted % 15 < 4;
 
 		if(invul > 0 && mobSpawnTicks == MOB_SPAWN_TICKS) {
 			if(invul < SPAWN_TICKS)  {
@@ -760,7 +725,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 					if(reverseTicks > MOB_SPAWN_START_TICKS * 2 && mobSpawnTicks > MOB_SPAWN_END_TICKS && mobSpawnTicks % MOB_SPAWN_WAVE_TIME == 0) {
 						spawnMobs(players);
 
-						if(hard && ticksExisted % 3 < 2) {
+						if(hardMode && ticksExisted % 3 < 2) {
 							for(int i = 0; i < playerCount; i++)
 								spawnMissile();
 							spawnMissiles = false;
@@ -782,7 +747,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 							teleportTo(source.getX() + 0.5, source.getY() + 1.6, source.getZ() + 0.5);
 
 						if(spawnLandmines) {
-							int count = dying && hard ? 7 : 6;
+							int count = dying && hardMode ? 7 : 6;
 							for(int i = 0; i < count; i++) {
 								int x = source.getX() - 10 + rand.nextInt(20);
 								int z = source.getZ() - 10 + rand.nextInt(20);
@@ -798,7 +763,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 
 						if(!players.isEmpty())
 							for(int pl = 0; pl < playerCount; pl++)
-								for(int i = 0; i < (spawnPixies ? world.rand.nextInt(hard ? 6 : 3) : 1); i++) {
+								for(int i = 0; i < (spawnPixies ? world.rand.nextInt(hardMode ? 6 : 3) : 1); i++) {
 									EntityPixie pixie = new EntityPixie(world);
 									pixie.setProps(players.get(rand.nextInt(players.size())), this, 1, 8);
 									pixie.setPosition(posX + width / 2, posY + 2, posZ + width / 2);
@@ -806,7 +771,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 									world.spawnEntity(pixie);
 								}
 
-						tpDelay = hard ? dying ? 35 : 45 : dying ? 40 : 60;
+						tpDelay = hardMode ? dying ? 35 : 45 : dying ? 40 : 60;
 						spawnLandmines = true;
 						spawnPixies = false;
 					}
@@ -937,7 +902,6 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 				}
 
 				// Botania - Prevent out of bounds teleporting
-				BlockPos source = getSource();
 				if(vazkii.botania.common.core.helper.MathHelper.pointDistanceSpace(posX, posY, posZ, source.getX(), source.getY(), source.getZ()) > 12)
 					flag = false;
 			}
@@ -1030,7 +994,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 
 		boolean unicode = mc.fontRenderer.getUnicodeFlag();
 		mc.fontRenderer.setUnicodeFlag(true);
-		mc.fontRenderer.drawStringWithShadow("" + getPlayerCount(), px + 15, py + 4, 0xFFFFFF);
+		mc.fontRenderer.drawStringWithShadow("" + playerCount, px + 15, py + 4, 0xFFFFFF);
 		mc.fontRenderer.setUnicodeFlag(unicode);
 		GlStateManager.popMatrix();
 
@@ -1039,7 +1003,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 
 	@Override
 	public UUID getBossInfoUuid() {
-		return dataManager.get(BOSSINFO_ID).or(new UUID(0, 0));
+		return bossInfoUUID;
 	}
 
 	@Override
@@ -1060,13 +1024,32 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss {
 				int hpFractUniform = ARBShaderObjects.glGetUniformLocationARB(shader1, "hpFract");
 
 				float time = getInvulTime();
-				float grainIntensity = time > 20 ? 1F : Math.max(isHardMode() ? 0.5F : 0F, time / 20F);
+				float grainIntensity = time > 20 ? 1F : Math.max(hardMode ? 0.5F : 0F, time / 20F);
 
 				ARBShaderObjects.glUniform1fARB(grainIntensityUniform, grainIntensity);
 				ARBShaderObjects.glUniform1fARB(hpFractUniform, getHealth() / getMaxHealth());
 			};
 
 			return background ? null : shaderCallback;
+	}
+
+	@Override
+	public void writeSpawnData(ByteBuf buffer) {
+		buffer.writeInt(playerCount);
+		buffer.writeBoolean(hardMode);
+		buffer.writeLong(source.toLong());
+		buffer.writeLong(bossInfoUUID.getMostSignificantBits());
+		buffer.writeLong(bossInfoUUID.getLeastSignificantBits());
+	}
+
+	@Override
+	public void readSpawnData(ByteBuf additionalData) {
+		playerCount = additionalData.readInt();
+		hardMode = additionalData.readBoolean();
+		source = BlockPos.fromLong(additionalData.readLong());
+		long msb = additionalData.readLong();
+		long lsb = additionalData.readLong();
+		bossInfoUUID = new UUID(msb, lsb);
 	}
 
 	private static class BeaconComponent extends MultiblockComponent {
