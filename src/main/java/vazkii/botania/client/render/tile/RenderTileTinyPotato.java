@@ -41,6 +41,7 @@ import vazkii.botania.client.model.ModelTinyPotato;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileTinyPotato;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.block.ItemBlockTinyPotato;
 import vazkii.botania.common.item.equipment.bauble.ItemBaubleCosmetic;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
 
@@ -173,44 +174,61 @@ public class RenderTileTinyPotato extends TileEntitySpecialRenderer<TileTinyPota
 			}
 
 			boolean block = stack.getItem() instanceof ItemBlock;
+			boolean mySon = stack.getItem() instanceof ItemBlockTinyPotato;
 
 			switch(side) {
 			case UP:
-				if(block)
+				if(mySon)
 					GlStateManager.translate(0F, 0.6F, 0.5F);
+				else if(block)
+					GlStateManager.translate(0F, 0.3F, 0.5F);
 				GlStateManager.translate(0F, -0.5F, -0.4F);
 				break;
 			case DOWN:
 				GlStateManager.translate(0, -2.3, -0.88);
-				if(block)
+				if(mySon)
+					GlStateManager.translate(0, .65, 0.6);
+				else if(block)
 					GlStateManager.translate(0, 1, 0.6);
 				break;
 			case NORTH:
 				GlStateManager.translate(0, -1.9, 0.02);
-				if(block)
+				if(mySon)
+					GlStateManager.translate(0, 1, 0.6);
+				else if(block)
 					GlStateManager.translate(0, 1, 0.6);
 				break;
 			case SOUTH:
 				GlStateManager.translate(0, -1.6, -0.89);
-				if(block)
-					GlStateManager.translate(0, 1, 0.6);
+				if(mySon)
+					GlStateManager.translate(0, 1.4, 0.5);
+				else if(block)
+					GlStateManager.translate(0, 1.0, 0.5);
 				break;
 			case EAST:
-				if(block)
+				if(mySon)
+					GlStateManager.translate(-0.4F, 0.65F, 0F);
+				else if(block)
 					GlStateManager.translate(-0.4F, 0.8F, 0F);
 				else GlStateManager.rotate(-90F, 0F, 1F, 0F);
 				GlStateManager.translate(-0.3F, -1.9F, 0.04F);
 				break;
 			case WEST:
-				if(block)
+				if(mySon)
+					GlStateManager.translate(1F, 0.65F, 1F);
+				else if(block)
 					GlStateManager.translate(1F, 0.8F, 1F);
 				else GlStateManager.rotate(-90F, 0F, 1F, 0F);
 				GlStateManager.translate(-0.3F, -1.9F, -0.92F);
 				break;
 			}
 
-			if(block)
+			if (mySon)
+				GlStateManager.scale(1.1, 1.1, 1.1);
+			else if(block)
 				GlStateManager.scale(0.5, 0.5, 0.5);
+			if(block && side != EnumFacing.NORTH)
+				GlStateManager.rotate(180F, 0, 1, 0);
 			renderItem(stack);
 			GlStateManager.popMatrix();
 		}
