@@ -14,6 +14,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -75,6 +76,7 @@ public class TileAlfPortal extends TileMod implements ITickable {
 	public int ticksOpen = 0;
 	private int ticksSinceLastItem = 0;
 	private boolean closeNow = false;
+	private boolean explode = false;
 
 	private static final Function<BlockPos, BlockPos> CONVERTER_X_Z = input -> new BlockPos(input.getZ(), input.getY(), input.getX());
 
@@ -164,6 +166,9 @@ public class TileAlfPortal extends TileMod implements ITickable {
 				for(int i = 0; i < 36; i++)
 					blockParticle(state);
 			world.setBlockState(getPos(), world.getBlockState(getPos()).withProperty(BotaniaStateProps.ALFPORTAL_STATE, newState), 1 | 2);
+		} else if(explode) {
+			world.createExplosion(null, pos.getX() + .5, pos.getY() + 2.0, pos.getZ() + .5, 3f, true);
+			explode = false;
 		}
 	}
 
@@ -182,6 +187,9 @@ public class TileAlfPortal extends TileMod implements ITickable {
 				}
 			}
 		}
+		if(inputStack.getItem() == Items.BREAD) //Don't teleport bread. (See also: #2403)
+			explode = true;
+
 		return false;
 	}
 
