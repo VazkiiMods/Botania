@@ -1,7 +1,7 @@
 <?php
+	header('Location: https://minecraft.curseforge.com/projects/botania');
 
-
-	if(isset($_GET['file']))
+	/*if(isset($_GET['file']))
 		dl_mod($_GET['file']);
 	function dl_mod($mod) {
 		if(strlen($mod) > 0 && file_exists("files/$mod") && strpos($mod, "/") === false) {
@@ -32,5 +32,5 @@
 		file_put_contents($file, '0');
 		return get_dls($mod);
 	}
-	
+	*/
 ?>
