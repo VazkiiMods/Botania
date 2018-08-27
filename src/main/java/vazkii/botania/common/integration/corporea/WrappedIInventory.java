@@ -18,11 +18,11 @@ import vazkii.botania.api.corporea.InvWithLocation;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WrappedIInventory extends WrappedInventoryBase{
+public class WrappedIInventory extends WrappedInventoryBase {
 
-	private final InvWithLocation inv;
+	protected final InvWithLocation inv;
 
-	private WrappedIInventory(InvWithLocation inv, ICorporeaSpark spark) {
+	protected WrappedIInventory(InvWithLocation inv, ICorporeaSpark spark) {
 		super(spark);
 		this.inv = inv;
 	}
@@ -42,7 +42,7 @@ public class WrappedIInventory extends WrappedInventoryBase{
 		return iterateOverSlots(request, true);
 	}
 
-	private List<ItemStack> iterateOverSlots(CorporeaRequest request, boolean doit) {
+	protected List<ItemStack> iterateOverSlots(CorporeaRequest request, boolean doit) {
 		List<ItemStack> stacks = new ArrayList<ItemStack>();
 
 		for (int i = inv.handler.getSlots() - 1; i >= 0; i--) {
