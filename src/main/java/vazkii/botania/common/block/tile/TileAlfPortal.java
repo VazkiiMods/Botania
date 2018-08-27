@@ -14,6 +14,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -21,6 +22,7 @@ import net.minecraft.util.ITickable;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.ILexicon;
 import vazkii.botania.api.lexicon.multiblock.Multiblock;
@@ -74,6 +76,7 @@ public class TileAlfPortal extends TileMod implements ITickable {
 	public int ticksOpen = 0;
 	private int ticksSinceLastItem = 0;
 	private boolean closeNow = false;
+	private boolean explode = false;
 
 	private static final Function<BlockPos, BlockPos> CONVERTER_X_Z = input -> new BlockPos(input.getZ(), input.getY(), input.getX());
 
@@ -141,7 +144,8 @@ public class TileAlfPortal extends TileMod implements ITickable {
 
 					if (consume) {
 						item.setDead();
-						addItem(stack);
+						if (validateItemUsage(stack))
+							addItem(stack);
 						ticksSinceLastItem = 0;
 					}
 				}
@@ -162,7 +166,31 @@ public class TileAlfPortal extends TileMod implements ITickable {
 				for(int i = 0; i < 36; i++)
 					blockParticle(state);
 			world.setBlockState(getPos(), world.getBlockState(getPos()).withProperty(BotaniaStateProps.ALFPORTAL_STATE, newState), 1 | 2);
+		} else if(explode) {
+			world.createExplosion(null, pos.getX() + .5, pos.getY() + 2.0, pos.getZ() + .5, 3f, true);
+			explode = false;
 		}
+	}
+
+	private boolean validateItemUsage(ItemStack inputStack) {
+		for(RecipeElvenTrade recipe : BotaniaAPI.elvenTradeRecipes) {
+			for(Object o : recipe.getInputs()) {
+				if(o instanceof String) {
+					for(ItemStack target : OreDictionary.getOres((String) o)) {
+						if(OreDictionary.itemMatches(target, inputStack, false))
+							return true;
+					}
+				} else if(o instanceof ItemStack) {
+					ItemStack target = (ItemStack) o;
+					if(inputStack.getItem() == target.getItem() && inputStack.getItemDamage() == target.getItemDamage())
+						return true;
+				}
+			}
+		}
+		if(inputStack.getItem() == Items.BREAD) //Don't teleport bread. (See also: #2403)
+			explode = true;
+
+		return false;
 	}
 
 	private void blockParticle(AlfPortalState state) {
