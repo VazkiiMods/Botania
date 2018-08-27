@@ -180,14 +180,6 @@ task sort(type: Delete) {
 
 // This is the upload task from the build.xml
 task upload() << {
-    scp('/files') {
-        fileset(file: jar.archivePath)
-    }
-	
-	scp('/files/deobf') {
-        fileset(file: deobfJar.archivePath)
-    }
-
     scp('/') {
         fileset(file: 'web/changelog.txt')
         fileset(file: 'web/versions.ini')
@@ -273,4 +265,4 @@ uploadArchives {
     }
 }
 
-defaultTasks 'clean', 'build', 'sort', 'forgecraft', 'incrementBuildNumber', 'curseforge', 'upload'
+defaultTasks 'clean', 'build', 'sort', 'incrementBuildNumber', 'upload'

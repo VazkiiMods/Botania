@@ -1,3 +1,37 @@
+r1.10 355
+*Added a Thinking Hand cosmetic bauble (quat)
+*Added back the ability to request items from the Corporea Index with a keybind from JEI. (Hubry)
+*Added JEI support for the Orechid and Orechid Ignem. (codewarrior0)
+*Added Thaumcraft Aspects for all major Botania base things. (Hubry)
+*Added the ability to request a nice amount of items from the Coporea Index. (quat)
+*Corporea Retainers use the same logarithmic signal scale as Crystal Cubes.
+*Fixed a crash when creating Terrasteel. 
+*Fixed a crash when trying to activate the elven portal with a dispenser.
+*Fixed a crash with other modders rendering tooltips before a world exists.
+*Fixed a network crash. (codewarrior0)
+*Fixed Elementium tools being repaired with Manasteel instead of Elementium. (ALongStringOfNumbers)
+*Fixed Googly Eyes rendering inside the player's head. (quat)
+*Fixed some typos.
+*Fixed Sparks' vertical distance being inconsistent between the up and down directions. 
+*Fixed the Alfheim Portal storing useless items internally. (Hubry)
+*Fixed the Entropynnium absorbing multiple TNTs at once.
+*Fixed the Gaia Guardian being immune to /kill.
+*Fixed the Manufactory Halo crashing the game if you use a Thaumcraft Thaumatorium. (Hubry)
+*Fixed the Orechid misbehaving around Granite, Andesite, and Diorite.
+*Fixed the Tainted Blood Pendant with Night Vision causing horrible flickering. (codycoolwaffle)
+*Flowers added by other mods will now show the name of the mod that adds them in the tooltip instead of Botania if you have a mod that adds that feature.
+*Going under sea level in Garden of Glass will no longer make the sky black. (Xaphiosis)
+*Llamas and parrots can now spawn from the Cocoon of Caprice. (Hubry)
+*Made some internal bounding boxes smaller so which improves performance a tiny bit. 
+*Removed Railcraft support for the Mana Poll with Minecart because the API for it isn't stable yet and was causing crashes. (matthijsvdmeulen)
+*Rewrote a bit of internal Gaia Guardian logic.
+*The Gaia Guardian's music now repeats while the battle goes on.
+*Tiny Potatoes being held by other Tiny Potatoes look better now. Very important fix. (codewarrior0)
+*Updated a bunch of recipes to use ore dictionary tags. (Hubry)
+*Updated Thaumcraft Integration for TC6. (Hubry)
+*[API] Added in a bunch of hooks for corporea stuff. (quat)
+*[API] Updated the wiki links to new ones. (Hubry)
+*[API] Increased Version Number to 91.
 r1.10 354
 *Added a config to disable botania's F3 info.
 *Fixed baubles disappearing when they're right clicked with one already equipped.
