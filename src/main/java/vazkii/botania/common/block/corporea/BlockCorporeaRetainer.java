@@ -75,7 +75,7 @@ public class BlockCorporeaRetainer extends BlockMod implements ILexiconable {
 
 	@Override
 	public int getComparatorInputOverride(IBlockState state, World world, BlockPos pos) {
-		return ((TileCorporeaRetainer) world.getTileEntity(pos)).hasPendingRequest() ? 15 : 0;
+		return ((TileCorporeaRetainer) world.getTileEntity(pos)).getComparatorValue();
 	}
 
 	@Override

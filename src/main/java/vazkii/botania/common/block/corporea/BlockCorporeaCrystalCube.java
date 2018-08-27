@@ -128,7 +128,7 @@ public class BlockCorporeaCrystalCube extends BlockCorporeaBase implements ILexi
 
 	@Override
 	public int getComparatorInputOverride(IBlockState state, World world, BlockPos pos) {
-		return ((TileCorporeaCrystalCube) world.getTileEntity(pos)).compValue;
+		return ((TileCorporeaCrystalCube) world.getTileEntity(pos)).getComparatorValue();
 	}
 
 	@Nonnull
