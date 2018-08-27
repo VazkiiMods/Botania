@@ -306,7 +306,7 @@ public class ItemCraftingHalo extends ItemMod {
 
 	@SubscribeEvent
 	public void onItemCrafted(ItemCraftedEvent event) {
-		if(!(event.player.openContainer instanceof ContainerCraftingHalo))
+		if(!(event.player.openContainer instanceof ContainerCraftingHalo) || !(event.craftMatrix instanceof InventoryCrafting))
 			return;
 
 		for(int i = 0; i < event.player.inventory.getSizeInventory(); i++) {
