@@ -44,11 +44,7 @@ public class RecipeElvenTrade {
 					List<ItemStack> validStacks = OreDictionary.getOres((String) input);
 					boolean found = false;
 					for(ItemStack ostack : validStacks) {
-						ItemStack cstack = ostack.copy();
-						if(cstack.getItemDamage() == Short.MAX_VALUE)
-							cstack.setItemDamage(stack.getItemDamage());
-
-						if(stack.isItemEqual(cstack)) {
+						if(OreDictionary.itemMatches(ostack, stack, false)) {
 							if(!stacksToRemove.contains(stack))
 								stacksToRemove.add(stack);
 							oredictIndex = j;
