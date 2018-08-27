@@ -16,8 +16,10 @@ import net.minecraft.entity.monster.EntityShulker;
 import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.passive.EntityHorse;
+import net.minecraft.entity.passive.EntityLlama;
 import net.minecraft.entity.passive.EntityMooshroom;
 import net.minecraft.entity.passive.EntityOcelot;
+import net.minecraft.entity.passive.EntityParrot;
 import net.minecraft.entity.passive.EntityPig;
 import net.minecraft.entity.passive.EntityRabbit;
 import net.minecraft.entity.passive.EntitySheep;
@@ -66,7 +68,7 @@ public class TileCocoon extends TileMod implements ITickable{
 			} else {
 				float specialChance = 0.05F;
 				if(Math.random() < specialChance) {
-					int entityType = world.rand.nextInt(3);
+					int entityType = world.rand.nextInt(5);
 					switch(entityType) {
 					case 0:
 						entity = new EntityHorse(world);
@@ -76,6 +78,12 @@ public class TileCocoon extends TileMod implements ITickable{
 						break;
 					case 2:
 						entity = new EntityOcelot(world);
+						break;
+					case 3:
+						entity = new EntityParrot(world);
+						break;
+					case 4:
+						entity = new EntityLlama(world);
 						break;
 					}
 				} else {
