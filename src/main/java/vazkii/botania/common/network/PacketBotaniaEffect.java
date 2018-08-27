@@ -107,6 +107,8 @@ public class PacketBotaniaEffect implements IMessage {
 					}
 					case ITEM_SMOKE: {
 						Entity item = world.getEntityByID(message.args[0]);
+						if (item == null) return;
+						
 						int p = message.args[1];
 
 						for(int i = 0; i < p; i++) {
