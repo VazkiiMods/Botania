@@ -21,6 +21,7 @@ import net.minecraft.util.ITickable;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.ILexicon;
 import vazkii.botania.api.lexicon.multiblock.Multiblock;
@@ -141,7 +142,8 @@ public class TileAlfPortal extends TileMod implements ITickable {
 
 					if (consume) {
 						item.setDead();
-						addItem(stack);
+						if (validateItemUsage(stack))
+							addItem(stack);
 						ticksSinceLastItem = 0;
 					}
 				}
@@ -163,6 +165,24 @@ public class TileAlfPortal extends TileMod implements ITickable {
 					blockParticle(state);
 			world.setBlockState(getPos(), world.getBlockState(getPos()).withProperty(BotaniaStateProps.ALFPORTAL_STATE, newState), 1 | 2);
 		}
+	}
+
+	private boolean validateItemUsage(ItemStack inputStack) {
+		for(RecipeElvenTrade recipe : BotaniaAPI.elvenTradeRecipes) {
+			for(Object o : recipe.getInputs()) {
+				if(o instanceof String) {
+					for(ItemStack target : OreDictionary.getOres((String) o)) {
+						if(OreDictionary.itemMatches(target, inputStack, false))
+							return true;
+					}
+				} else if(o instanceof ItemStack) {
+					ItemStack target = (ItemStack) o;
+					if(inputStack.getItem() == target.getItem() && inputStack.getItemDamage() == target.getItemDamage())
+						return true;
+				}
+			}
+		}
+		return false;
 	}
 
 	private void blockParticle(AlfPortalState state) {
