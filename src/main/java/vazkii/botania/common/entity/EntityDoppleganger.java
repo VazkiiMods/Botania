@@ -452,8 +452,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 	protected void dropLoot(boolean wasRecentlyHit, int lootingModifier, @Nonnull DamageSource source)
 	{
 		// Save true killer, they get extra loot
-		if ("player".equals(source.getDamageType())
-				&& source.getTrueSource() instanceof EntityPlayer) {
+		if (wasRecentlyHit && source.getTrueSource() instanceof EntityPlayer) {
 			trueKiller = (EntityPlayer) source.getTrueSource();
 		}
 
