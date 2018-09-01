@@ -38,6 +38,8 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
+import vazkii.botania.api.item.IAvatarTile;
+import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.wand.ICoordBoundItem;
 import vazkii.botania.api.wand.ITileBound;
@@ -59,7 +61,7 @@ import javax.annotation.Nonnull;
 import java.awt.Color;
 import java.util.List;
 
-public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
+public class ItemTwigWand extends Item16Colors implements ICoordBoundItem, IAvatarWieldable {
 
 	private static final String TAG_COLOR1 = "color1";
 	private static final String TAG_COLOR2 = "color2";
@@ -68,6 +70,8 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 	private static final String TAG_BOUND_TILE_Z = "boundTileZ";
 	private static final String TAG_BIND_MODE = "bindMode";
 	private static final BlockPos UNBOUND_POS = new BlockPos(0, -1, 0);
+	
+	private static final ResourceLocation avatarOverlay = new ResourceLocation(LibResources.MODEL_AVATAR_DIRT);
 
 	public ItemTwigWand() {
 		super(LibItemNames.TWIG_WAND);
@@ -319,6 +323,31 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 	@Override
 	public void registerModels() {
 		ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getRegistryName(), "inventory"));
+	}
+	
+	@Override
+	public void onAvatarUpdate(IAvatarTile tile, ItemStack stack) {
+		TileEntity te = (TileEntity) tile;
+		World world = te.getWorld();
+		if(!world.isRemote) {
+			if (tile.isEnabled() && !getBindMode()) {
+				EnumFacing facing = tile.getAvatarFacing();
+				BlockPos pos = source.getBlockPos().offset(facing);
+				Block block = world.getBlockState(pos).getBlock();
+				if(block instanceof IWandable) {
+					((IWandable) block).onUsedByWand(null, stack, world, pos, facing.getOpposite());
+				}
+				
+				setBindMode(true);
+			} else if (!tile.isEnabled() && getBindMode()) {
+				setBindMode(false);
+			}
+		}
+	}
+
+	@Override
+	public ResourceLocation getOverlayResource(IAvatarTile tile, ItemStack stack) {
+		return avatarOverlay;
 	}
 
 }
