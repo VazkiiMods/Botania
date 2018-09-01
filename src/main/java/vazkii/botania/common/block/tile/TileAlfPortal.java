@@ -39,6 +39,7 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ItemLexicon;
+import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lexicon.LexiconData;
 
 import javax.annotation.Nonnull;
@@ -173,6 +174,9 @@ public class TileAlfPortal extends TileMod implements ITickable {
 	}
 
 	private boolean validateItemUsage(ItemStack inputStack) {
+		if(inputStack.getItem() == ModItems.lexicon)
+			return true;
+
 		for(RecipeElvenTrade recipe : BotaniaAPI.elvenTradeRecipes) {
 			for(Object o : recipe.getInputs()) {
 				if(o instanceof String) {
