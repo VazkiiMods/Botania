@@ -1,3 +1,6 @@
+r1.10 356
+*Fixed Elven Knowledge not being unlockable because you wouldn't get the book back.
+*Fixed the Gaia Guardian not dropping the right amount of Gaia Spirits if killed by a bow.
 r1.10 355
 *Added a Thinking Hand cosmetic bauble (quat)
 *Added back the ability to request items from the Corporea Index with a keybind from JEI. (Hubry)
