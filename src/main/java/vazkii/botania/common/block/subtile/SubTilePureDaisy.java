@@ -77,7 +77,9 @@ public class SubTilePureDaisy extends SubTileEntity {
 		BlockPos coords = supertile.getPos().add(acoords);
 		World world = supertile.getWorld();
 		if(!world.isAirBlock(coords)) {
+			world.profiler.startSection("findRecipe");
 			RecipePureDaisy recipe = findRecipe(coords);
+			world.profiler.endSection();
 
 			if(recipe != null) {
 				if (ticksRemaining[positionAt] == -1)
