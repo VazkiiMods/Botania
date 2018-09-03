@@ -14,14 +14,19 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import org.apache.commons.lang3.text.WordUtils;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.client.model.FloatingFlowerModel;
 import vazkii.botania.client.model.GunModel;
 import vazkii.botania.client.model.LexiconModel;
 import vazkii.botania.client.model.PlatformModel;
+import vazkii.botania.common.integration.buildcraft.TriggerManaLevel;
 import vazkii.botania.common.item.ItemSparkUpgrade;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
 import vazkii.botania.common.item.relic.ItemKingKey;
+
+import java.util.EnumMap;
+import java.util.Map;
 
 public class MiscellaneousIcons {
 
@@ -49,7 +54,7 @@ public class MiscellaneousIcons {
 
 	public TextureAtlasSprite[] sparkUpgradeIcons;
 	public TextureAtlasSprite[] kingKeyWeaponIcons;
-	// todo buildcraft public final Map<TriggerManaLevel.State, TextureAtlasSprite> manaLevelTriggerIcons = Maps.newEnumMap(TriggerManaLevel.State.class);
+	public final Map<TriggerManaLevel.State, TextureAtlasSprite> manaLevelTriggerIcons = new EnumMap<>(TriggerManaLevel.State.class);
 	public TextureAtlasSprite[] tiaraWingIcons;
 	public TextureAtlasSprite[] thirdEyeLayers;
 
@@ -138,9 +143,9 @@ public class MiscellaneousIcons {
 		manaDetectorIcon = IconHelper.forName(evt.getMap(), "triggers/manaDetector", "items");
 		runeAltarTriggerIcon = IconHelper.forName(evt.getMap(), "triggers/runeAltarCanCraft", "items");
 
-		/*for (TriggerManaLevel.State s : TriggerManaLevel.State.values()) { todo buildcraft
+		for (TriggerManaLevel.State s : TriggerManaLevel.State.values()) {
 			manaLevelTriggerIcons.put(s, IconHelper.forName(evt.getMap(), "triggers/mana" + WordUtils.capitalizeFully(s.name()), "items"));
-		}*/
+		}
 
 		tiaraWingIcons = new TextureAtlasSprite[ItemFlightTiara.WING_TYPES];
 		for (int i = 0; i < tiaraWingIcons.length; i++) {

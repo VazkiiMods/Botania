@@ -22,6 +22,10 @@ buildscript {
 repositories {
     mavenCentral()
     maven {
+        name = "buildcraft"
+        url = "https://mod-buildcraft.com/maven"
+    }
+    maven {
         name = "thiakil"
         url = "http://maven.thiakil.com"
     }
@@ -81,6 +85,7 @@ jar {
 }
 
 dependencies {
+    deobfCompile "com.mod-buildcraft:buildcraft-api:7.99.17"
     deobfCompile "com.azanor.baubles:Baubles:1.12-1.5.2"
     deobfCompile "mezz.jei:jei_1.12.2:4.10.0.198"
     deobfCompile "thaumcraft:Thaumcraft:1.12.2:6.1.BETA21"

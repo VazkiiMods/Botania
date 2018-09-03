@@ -11,7 +11,6 @@
 package vazkii.botania.common;
 
 import net.minecraft.advancements.CriteriaTriggers;
-import net.minecraft.advancements.ICriterionTrigger;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.MultiPartEntityPart;
 import net.minecraft.entity.boss.EntityDragon;
@@ -36,7 +35,6 @@ import net.minecraftforge.fml.common.event.FMLServerAboutToStartEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.event.FMLServerStoppingEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
-import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import vazkii.botania.api.BotaniaAPI;
@@ -47,22 +45,17 @@ import vazkii.botania.common.advancements.*;
 import vazkii.botania.common.block.ModBanners;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModMultiblocks;
-import vazkii.botania.common.block.subtile.generating.SubTileNarslimmus;
 import vazkii.botania.common.block.tile.TileLightRelay;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
 import vazkii.botania.common.brew.ModBrews;
-import vazkii.botania.common.core.command.CommandDownloadLatest;
 import vazkii.botania.common.core.command.CommandOpen;
 import vazkii.botania.common.core.command.CommandShare;
 import vazkii.botania.common.core.command.CommandSkyblockSpread;
 import vazkii.botania.common.core.handler.BiomeDecorationHandler;
-import vazkii.botania.common.core.handler.CommonTickHandler;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.IMCHandler;
 import vazkii.botania.common.core.handler.InternalMethodHandler;
 import vazkii.botania.common.core.handler.ManaNetworkHandler;
-import vazkii.botania.common.core.handler.PixieHandler;
-import vazkii.botania.common.core.handler.SheddingHandler;
 import vazkii.botania.common.core.loot.LootHandler;
 import vazkii.botania.common.core.proxy.IProxy;
 import vazkii.botania.common.crafting.ModBrewRecipes;
@@ -84,6 +77,7 @@ import vazkii.botania.common.entity.EntityPinkWither;
 import vazkii.botania.common.entity.EntitySignalFlare;
 import vazkii.botania.common.entity.EntitySpark;
 import vazkii.botania.common.entity.ModEntities;
+import vazkii.botania.common.integration.buildcraft.StatementAPIPlugin;
 import vazkii.botania.common.integration.thaumcraft.TCAspects;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibMisc;
@@ -92,15 +86,13 @@ import vazkii.botania.common.network.PacketHandler;
 import vazkii.botania.common.world.SkyblockWorldEvents;
 import vazkii.botania.common.world.WorldTypeSkyblock;
 
-import java.lang.reflect.InvocationTargetException;
-
 @Mod(modid = LibMisc.MOD_ID, name = LibMisc.MOD_NAME, version = LibMisc.VERSION, dependencies = LibMisc.DEPENDENCIES, guiFactory = LibMisc.GUI_FACTORY)
 public class Botania {
 
 	public static boolean gardenOfGlassLoaded = false;
 
 	public static boolean thaumcraftLoaded = false;
-	public static boolean bcTriggersLoaded = false;
+	public static boolean bcApiLoaded = false;
 	public static boolean bloodMagicLoaded = false;
 	public static boolean coloredLightsLoaded = false;
 	public static boolean etFuturumLoaded = false;
@@ -118,7 +110,7 @@ public class Botania {
 		gardenOfGlassLoaded = Loader.isModLoaded("gardenofglass");
 
 		thaumcraftLoaded = Loader.isModLoaded("thaumcraft");
-		bcTriggersLoaded = ModAPIManager.INSTANCE.hasAPI("BuildCraftAPI|statements");
+		bcApiLoaded = Loader.isModLoaded("buildcraftlib");
 		bloodMagicLoaded = Loader.isModLoaded("bloodmagic"); // Psh, noob
 		coloredLightsLoaded = Loader.isModLoaded("easycoloredlights");
 		etFuturumLoaded = Loader.isModLoaded("etfuturum");
@@ -173,8 +165,8 @@ public class Botania {
 		if(Botania.thaumcraftLoaded && ConfigHandler.enableThaumcraftAspects)
 			MinecraftForge.EVENT_BUS.register(TCAspects.class);
 
-		/*if(Botania.bcTriggersLoaded) todo buildcraft
-			new StatementAPIPlugin();*/
+		if(Botania.bcApiLoaded)
+			new StatementAPIPlugin();
 		proxy.init(event);
 	}
 

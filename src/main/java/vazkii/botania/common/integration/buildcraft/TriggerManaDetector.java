@@ -1,15 +1,14 @@
-/*
 package vazkii.botania.common.integration.buildcraft;
 
+import buildcraft.api.core.render.ISprite;
 import com.google.common.base.Predicates;
 
 import buildcraft.api.statements.IStatementContainer;
 import buildcraft.api.statements.IStatementParameter;
 import buildcraft.api.statements.ITriggerInternal;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -22,18 +21,19 @@ public class TriggerManaDetector extends StatementBase implements ITriggerIntern
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public TextureAtlasSprite getGuiSprite() {
-		return MiscellaneousIcons.INSTANCE.manaDetectorIcon;
+	public ISprite getSprite() {
+		return new TASprite(MiscellaneousIcons.INSTANCE.manaDetectorIcon);
 	}
 
 	@Override
 	public String getUniqueTag() {
-		return "botania:manaDetector";
+		return "botania:mana_detector";
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
 	public String getDescription() {
-		return I18n.translateToLocal(LibTriggerNames.TRIGGER_MANA_DETECTOR);
+		return I18n.format(LibTriggerNames.TRIGGER_MANA_DETECTOR);
 	}
 
 	@Override
@@ -43,11 +43,11 @@ public class TriggerManaDetector extends StatementBase implements ITriggerIntern
 
 		boolean output = world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(x, y, z, x + 1, y + 1, z + 1), Predicates.instanceOf(IManaBurst.class)).size() != 0;
 
-		if(output) for(int i = 0; i < 4; i++)
-			Botania.proxy.sparkleFX(x + Math.random(), y + Math.random(), z + Math.random(), 1F, 0.2F, 0.2F, 0.7F + 0.5F * (float) Math.random(), 5);
+		if(output)
+			for(int i = 0; i < 4; i++)
+				Botania.proxy.sparkleFX(x + Math.random(), y + Math.random(), z + Math.random(), 1F, 0.2F, 0.2F, 0.7F + 0.5F * (float) Math.random(), 5);
 
 		return output;
 	}
 
 }
-*/

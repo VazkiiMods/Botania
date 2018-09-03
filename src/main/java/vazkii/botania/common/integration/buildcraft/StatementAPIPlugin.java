@@ -1,29 +1,24 @@
-/*
 package vazkii.botania.common.integration.buildcraft;
 
-import java.util.ArrayList;
 import java.util.Collection;
 
-import buildcraft.api.statements.IStatementContainer;
-import buildcraft.api.statements.ITriggerExternal;
-import buildcraft.api.statements.ITriggerInternal;
-import buildcraft.api.statements.ITriggerProvider;
-import buildcraft.api.statements.StatementManager;
+import buildcraft.api.statements.*;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import vazkii.botania.api.mana.IManaBlock;
 import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.common.block.tile.TileRuneAltar;
 
+import javax.annotation.Nonnull;
+
 public class StatementAPIPlugin implements ITriggerProvider {
+	static final ITriggerExternal triggerManaEmpty = new TriggerManaLevel(TriggerManaLevel.State.EMPTY);
+	static final ITriggerExternal triggerManaContains = new TriggerManaLevel(TriggerManaLevel.State.CONTAINS);
+	static final ITriggerExternal triggerManaSpace = new TriggerManaLevel(TriggerManaLevel.State.SPACE);
+	static final ITriggerExternal triggerManaFull = new TriggerManaLevel(TriggerManaLevel.State.FULL);
+	private static final ITriggerInternal triggerManaDetector = new TriggerManaDetector();
 
-	public static final ITriggerExternal triggerManaEmpty = new TriggerManaLevel(TriggerManaLevel.State.EMPTY);
-	public static final ITriggerExternal triggerManaContains = new TriggerManaLevel(TriggerManaLevel.State.CONTAINS);
-	public static final ITriggerExternal triggerManaSpace = new TriggerManaLevel(TriggerManaLevel.State.SPACE);
-	public static final ITriggerExternal triggerManaFull = new TriggerManaLevel(TriggerManaLevel.State.FULL);
-	public static final ITriggerInternal triggerManaDetector = new TriggerManaDetector();
-
-	public static final ITriggerExternal triggerRuneAltarCanCraft = new TriggerRuneAltarCanCraft();
+	private static final ITriggerExternal triggerRuneAltarCanCraft = new TriggerRuneAltarCanCraft();
 
 	public StatementAPIPlugin() {
 		StatementManager.registerStatement(triggerManaEmpty);
@@ -38,28 +33,25 @@ public class StatementAPIPlugin implements ITriggerProvider {
 	}
 
 	@Override
-	public Collection<ITriggerInternal> getInternalTriggers(IStatementContainer container) {
-		ArrayList<ITriggerInternal> list = new ArrayList<>();
-		list.add(triggerManaDetector);
-		return list;
+	public void addInternalTriggers(Collection<ITriggerInternal> triggers, IStatementContainer container) {
+		triggers.add(triggerManaDetector);
 	}
 
 	@Override
-	public Collection<ITriggerExternal> getExternalTriggers(EnumFacing side, TileEntity tile) {
-		ArrayList<ITriggerExternal> list = new ArrayList<>();
+	public void addInternalSidedTriggers(Collection<ITriggerInternalSided> triggers, IStatementContainer container, @Nonnull EnumFacing side) { }
 
+	@Override
+	public void addExternalTriggers(Collection<ITriggerExternal> triggers, @Nonnull EnumFacing side, TileEntity tile) {
 		if (tile instanceof IManaBlock) {
-			list.add(triggerManaEmpty);
-			list.add(triggerManaContains);
+			triggers.add(triggerManaEmpty);
+			triggers.add(triggerManaContains);
 			if (tile instanceof IManaReceiver) {
-				list.add(triggerManaSpace);
-				list.add(triggerManaFull);
+				triggers.add(triggerManaSpace);
+				triggers.add(triggerManaFull);
 			}
 		}
 
-		if (tile instanceof TileRuneAltar) list.add(triggerRuneAltarCanCraft);
-
-		return list;
+		if (tile instanceof TileRuneAltar)
+			triggers.add(triggerRuneAltarCanCraft);
 	}
 }
-*/

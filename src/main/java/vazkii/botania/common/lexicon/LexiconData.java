@@ -1416,7 +1416,7 @@ public final class LexiconData {
 		banners.setLexiconPages(new PageText("0"), new PageImage("1", LibResources.ENTRY_BANNERS))
 				.setIcon(new ItemStack(ModItems.lexicon));
 
-		if (Botania.bcTriggersLoaded) {
+		if (Botania.bcApiLoaded) {
 			bcIntegration = new CompatLexiconEntry(LibLexicon.MISC_BC_INTEGRATION, categoryMisc, "BuildCraft");
 			bcIntegration.setLexiconPages(new PageText("0")).setIcon(new ItemStack(Items.REDSTONE));
 		}
