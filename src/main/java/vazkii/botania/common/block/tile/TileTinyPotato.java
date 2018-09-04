@@ -22,6 +22,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.items.ItemHandlerHelper;
+import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.PlayerHelper;
@@ -89,6 +90,12 @@ public class TileTinyPotato extends TileSimpleInventory implements ITickable {
 			jumpTicks--;
 		if(nextDoIt > 0)
 			nextDoIt--;
+	}
+
+	@Override
+	public void markDirty() {
+		super.markDirty();
+		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, pos);
 	}
 
 	@Override
