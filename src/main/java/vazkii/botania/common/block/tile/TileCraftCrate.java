@@ -134,7 +134,7 @@ public class TileCraftCrate extends TileOpenCrate {
 			if(stack.isEmpty() || isLocked(i) || stack.getItem() == ModItems.manaResource && stack.getItemDamage() == 11)
 				continue;
 
-			craft.setInventorySlotContents(i, stack.copy());
+			craft.setInventorySlotContents(i, stack);
 		}
 
 		for(IRecipe recipe : ForgeRegistries.RECIPES)
