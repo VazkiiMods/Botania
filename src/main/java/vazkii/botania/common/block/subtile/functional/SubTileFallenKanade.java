@@ -35,7 +35,7 @@ public class SubTileFallenKanade extends SubTileFunctional {
 			List<EntityPlayer> players = supertile.getWorld().getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(supertile.getPos().add(-RANGE, -RANGE, -RANGE), supertile.getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
 			for(EntityPlayer player : players) {
 				if(player.getActivePotionEffect(MobEffects.REGENERATION) == null && mana >= COST) {
-					player.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 60, 2, true, true));
+					player.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 59, 2, true, true));
 					mana -= COST;
 					did = true;
 				}
