@@ -18,6 +18,7 @@ import vazkii.botania.common.block.tile.TileTerraPlate;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.entity.EntityDoppleganger;
+import vazkii.botania.common.item.ItemTwigWand;
 
 import java.awt.Color;
 
@@ -247,6 +248,12 @@ public class PacketBotaniaEffect implements IMessage {
 						}
 						break;
 					}
+					case PARTICLE_BEAM: {
+						ItemTwigWand.doParticleBeam(Minecraft.getMinecraft().world,
+								new Vector3(message.x, message.y, message.z),
+								new Vector3(message.args[0] + 0.5, message.args[1] + 0.5, message.args[2] + 0.5));
+						break;
+					}
 					}
 				}
 			});
@@ -264,7 +271,9 @@ public class PacketBotaniaEffect implements IMessage {
 		ENCHANTER_DESTROY(0),
 		BLACK_LOTUS_DISSOLVE(0),
 		TERRA_PLATE(0),
-		FLUGEL_EFFECT(1); // Arg: Entity ID
+		FLUGEL_EFFECT(1), // Arg: Entity ID
+		PARTICLE_BEAM(3), // Args: dest xyz
+		;
 
 		private final int argCount;
 
