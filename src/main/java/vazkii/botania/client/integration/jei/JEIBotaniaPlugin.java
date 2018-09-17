@@ -51,6 +51,7 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.crafting.recipe.SpecialFloatingFlowerRecipe;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
+import vazkii.botania.common.item.brew.ItemBrewBase;
 
 import javax.annotation.Nonnull;
 import java.util.stream.Collectors;
@@ -66,6 +67,10 @@ public class JEIBotaniaPlugin implements IModPlugin {
 	public void registerItemSubtypes(@Nonnull ISubtypeRegistry subtypeRegistry) {
 		subtypeRegistry.registerSubtypeInterpreter(Item.getItemFromBlock(ModBlocks.specialFlower), ItemBlockSpecialFlower::getType);
 		subtypeRegistry.registerSubtypeInterpreter(Item.getItemFromBlock(ModBlocks.floatingSpecialFlower), ItemBlockSpecialFlower::getType);
+		subtypeRegistry.registerSubtypeInterpreter(ModItems.brewVial, ItemBrewBase::getSubtype);
+		subtypeRegistry.registerSubtypeInterpreter(ModItems.brewFlask, ItemBrewBase::getSubtype);
+		subtypeRegistry.registerSubtypeInterpreter(ModItems.incenseStick, ItemBrewBase::getSubtype);
+		subtypeRegistry.registerSubtypeInterpreter(ModItems.bloodPendant, ItemBrewBase::getSubtype);
 	}
 
 	@Override
