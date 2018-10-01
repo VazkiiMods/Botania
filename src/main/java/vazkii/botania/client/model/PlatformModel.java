@@ -40,6 +40,9 @@ public class PlatformModel implements IBakedModel {
 	@Nonnull
 	@Override
 	public List<BakedQuad> getQuads(IBlockState state, EnumFacing side, long rand) {
+		if(state == null)
+			return ImmutableList.of();
+
 		if(state.getBlock() != ModBlocks.platform)
 			return Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelManager().getMissingModel().getQuads(state, side, rand);
 
