@@ -25,6 +25,7 @@ import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
 import vazkii.botania.common.lib.LibMisc;
 
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 @Mod.EventBusSubscriber(modid = LibMisc.MOD_ID, value = Side.CLIENT)
@@ -33,10 +34,13 @@ public class CorporeaInputHandler {
 	/** Replaced in JEIBotaniaPlugin when JEI's loaded to provide stacks from the JEI item panel. */
 	public static Supplier<ItemStack> jeiPanelSupplier = () -> ItemStack.EMPTY;
 
+	/** Filter for usable guis to handle requests. Added to in JEIBotaniaPlugin */
+	public static Predicate<GuiScreen> supportedGuiFilter = gui -> gui instanceof GuiContainer;
+
 	@SubscribeEvent
 	public static void buttonPressed(KeyboardInputEvent.Post event) {
 		Minecraft mc = Minecraft.getMinecraft();
-		if(mc.world == null || !(mc.currentScreen instanceof GuiContainer)
+		if(mc.world == null || !supportedGuiFilter.test(mc.currentScreen)
 				|| Keyboard.getEventKey() != ClientProxy.CORPOREA_REQUEST.getKeyCode()
 				|| !Keyboard.getEventKeyState()
 				|| Keyboard.isRepeatEvent()

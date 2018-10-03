@@ -11,10 +11,13 @@ package vazkii.botania.client.integration.jei;
 import mezz.jei.api.IJeiRuntime;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.IModRegistry;
+import mezz.jei.api.IRecipesGui;
 import mezz.jei.api.ISubtypeRegistry;
 import mezz.jei.api.JEIPlugin;
 import mezz.jei.api.recipe.IRecipeCategoryRegistration;
 import mezz.jei.api.recipe.VanillaRecipeCategoryUid;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
@@ -158,10 +161,16 @@ public class JEIBotaniaPlugin implements IModPlugin {
 	public void onRuntimeAvailable(IJeiRuntime jeiRuntime) {
 		CorporeaInputHandler.jeiPanelSupplier = () -> {
 			Object o = jeiRuntime.getIngredientListOverlay().getIngredientUnderMouse();
+
+			if(o == null && Minecraft.getMinecraft().currentScreen == jeiRuntime.getRecipesGui())
+				o = jeiRuntime.getRecipesGui().getIngredientUnderMouse();
+
 			if(o instanceof ItemStack)
 				return (ItemStack) o;
 			return ItemStack.EMPTY;
 		};
+
+		CorporeaInputHandler.supportedGuiFilter = gui -> gui instanceof GuiContainer || gui instanceof IRecipesGui;
 	}
 
 }
