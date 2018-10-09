@@ -292,10 +292,7 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 				// This is a ridiculous function call here.
 				ToolCommons.removeBlockWithDrops(player, truncator, world,
 						cand.coordinates,
-						origin,
-						null, ToolCommons.materialsAxe,
-						EnchantmentHelper.getEnchantmentLevel(Enchantments.SILK_TOUCH, truncator) > 0,
-						EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, truncator),
+						state -> ToolCommons.materialsAxe.contains(state.getMaterial()),
 						false, treatLeavesSpecial);
 
 				remainingSwaps--;

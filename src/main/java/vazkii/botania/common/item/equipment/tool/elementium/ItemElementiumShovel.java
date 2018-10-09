@@ -40,12 +40,11 @@ public class ItemElementiumShovel extends ItemManasteelShovel {
 		if (block == null)
 			return false;
 
-		int fortune = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, stack);
-		boolean silk = EnchantmentHelper.getEnchantmentLevel(Enchantments.SILK_TOUCH, stack) > 0;
-
 		Block blk = world.getBlockState(pos).getBlock();
 		if(blk instanceof BlockFalling)
-			ToolCommons.removeBlocksInIteration(player, stack, world, pos, new Vec3i(0, -12, 0), new Vec3i(1, 12, 1), blk, materialsShovel, silk, fortune, false);
+			ToolCommons.removeBlocksInIteration(player, stack, world, pos, new Vec3i(0, -12, 0), new Vec3i(1, 12, 1),
+					state -> state.getBlock() == blk,
+					false);
 
 		return false;
 	}

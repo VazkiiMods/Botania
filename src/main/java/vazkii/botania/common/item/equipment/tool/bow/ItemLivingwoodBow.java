@@ -50,7 +50,7 @@ import java.util.function.Predicate;
 
 public class ItemLivingwoodBow extends ItemBow implements IManaUsingItem, IModelRegister {
 
-	private static final Predicate<ItemStack> AMMO_FUNC = s -> s != null && s.getItem() instanceof ItemArrow;
+	private static final Predicate<ItemStack> AMMO_FUNC = s -> !s.isEmpty() && s.getItem() instanceof ItemArrow;
 	public static final int MANA_PER_DAMAGE = 40;
 
 	public ItemLivingwoodBow() {
