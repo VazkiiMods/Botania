@@ -11,8 +11,8 @@
 package vazkii.botania.common.item.lens;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockShulkerBox;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -27,11 +27,7 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ModItems;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class LensMine extends Lens {
-
 	@Override
 	public boolean collideBurst(IManaBurst burst, EntityThrowable entity, RayTraceResult rtr, boolean isManaBlock, boolean dead, ItemStack stack) {
 		World world = entity.world;
@@ -73,9 +69,13 @@ public class LensMine extends Lens {
 					boolean doWarp = warp && !offBounds;
 					BlockPos dropCoord = doWarp ? source : collidePos;
 
-					for(ItemStack stack_ : items)
+					for(ItemStack stack_ : items) {
+						// Shulker boxes do weird things and drop themselves in breakBlock, so don't drop any dupes
+						if(block instanceof BlockShulkerBox && Block.getBlockFromItem(stack_.getItem()) instanceof BlockShulkerBox)
+							continue;
 						if(world.rand.nextFloat() <= chance)
 							Block.spawnAsEntity(world, dropCoord, stack_);
+					}
 
 					burst.setMana(mana - 24);
 				}
