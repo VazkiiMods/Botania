@@ -78,10 +78,16 @@ configurations {
 //End of the SCP config
 
 jar {
-    classifier = 'universal'
     manifest {
         attributes 'FMLAT': 'botania_at.cfg'
     }
+    
+    //rename the default output, for some better... sanity with scipts
+    archiveName = "${baseName} ${version}.${extension}"
+
+    exclude "**/*.bat"
+    exclude "**/*.psd"
+    exclude "**/*.exe"
 }
 
 dependencies {
@@ -125,9 +131,15 @@ task deobfJar(type: Jar) {
 	archiveName = "${baseName} ${version}-deobf.${extension}"
 }
 
-artifacts {
-    archives deobfJar
+task srcJar(type: Jar) {
+    from(sourceSets.main.java)
+    classifier = 'sources'
+    archiveName = "${baseName} ${version}-sources.${extension}"
 }
+artifacts {
+    archives srcJar
+}
+
 /**
  * Increments the buildnumber in your config file, and saves it
  */
@@ -233,15 +245,6 @@ def parseConfig(File config) {
 	}
 }
 
-jar {
-    //rename the default output, for some better... sanity with scipts
-    archiveName = "${baseName} ${version}.${extension}"
-
-    exclude "**/*.bat"
-    exclude "**/*.psd"
-    exclude "**/*.exe"
-}
-
 curseforge {
 	if(priv == null){
 		return;
@@ -269,5 +272,6 @@ uploadArchives {
         }
     }
 }
+tasks.uploadArchives.dependsOn reobfJar
 
 defaultTasks 'clean', 'build', 'sort', 'incrementBuildNumber', 'upload'
