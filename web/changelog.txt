@@ -1,3 +1,18 @@
+r1.10 357
+*Brought back BuildCraft integration.
+*Brought back the ability to request items from corporea systems in JEI (prev NEI). (Hubry)
+*Fixed a crash when opening the Flower Pouch.
+*Fixed a crash when putting things that shouldn't go in the Abstruse Platform in the Abstruse Platform.
+*Fixed a dupe with the Bore Lens and Shulker Boxes.
+*Fixed the Bore lens and some other items of the sort not respecting forge's drops event.
+*Fixed the Tiny Potato's equipment not syncing to clients. (codewarrior0)
+*Fixed withdrawing items from the Botanical Brewery taking two at a time.
+*Force Relays now give some visual feedback when bound.
+*Implemented profiler entries for flower sub-tiles.
+*Improved handing of Brewing recipes in JEI. (Hubry)
+*Made the Fallen Kanade not heal you during Gaia Guardian fights. (codewarrior0)
+*Metamorphic Stones can now be silk-dropped by the Weight Lens.
+*Optimized the Pure Daisy's code a bit.
 r1.10 356
 *Fixed Elven Knowledge not being unlockable because you wouldn't get the book back.
 *Fixed the Gaia Guardian not dropping the right amount of Gaia Spirits if killed by a bow.
