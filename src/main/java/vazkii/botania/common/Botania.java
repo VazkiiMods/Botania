@@ -11,6 +11,7 @@
 package vazkii.botania.common;
 
 import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.MultiPartEntityPart;
 import net.minecraft.entity.boss.EntityDragon;
@@ -161,6 +162,9 @@ public class Botania {
 			MinecraftForge.EVENT_BUS.register(SkyblockWorldEvents.class);
 
 		FMLInterModComms.sendMessage("projecte", "interdictionblacklist", EntityManaBurst.class.getCanonicalName());
+
+		for(Block b : new Block[]{ ModBlocks.manaGlass, ModBlocks.elfGlass, ModBlocks.bifrostPerm })
+			FMLInterModComms.sendMessage("chiselsandbits", "ignoreblocklogic", b.getRegistryName().toString());
 
 		if(Botania.thaumcraftLoaded && ConfigHandler.enableThaumcraftAspects)
 			MinecraftForge.EVENT_BUS.register(TCAspects.class);
