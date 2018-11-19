@@ -360,7 +360,25 @@ versionChecking.enabled=Enable Version Checking
 wandBeam.static=Enable Static Wand Beam
 worldgen.flower.density=Worldgen Flower Density
 worldgen.flower.quantity=Worldgen Flower Quantity
+worldgen.flower.patchChance=Worldgen Flower Patch Chance
+worldgen.flower.patchSize=Worldgen Flower Patch Size
+worldgen.flower.tallChance=Worldgen Flower Tall Chance
 worldgen.mushroom.quantity=Worldgen Mushroom Quantity
+adaptativeConfig.enabled=Adaptative Config
+armorModels.enable=Custom Armor Models
+fancySkybox.enable=Fancy Skybox
+fancySkybox.normalWorlds=Fancy Skybox in non-GoG Worlds
+flightBar.height=Flugel Tiara Flight Bar Height
+flightBarBreath.height=Flight Bar Height with Breath Bar
+harvestLevel.boreLens=Bore Lens Harvest Level
+harvestLevel.weightLens=Weight Lens Harvest Level
+magnetRing.invert=Inverted Magnet Ring Controls
+quickLookup.lexicaOfflineMode=Lexica Wiki Lookup Offline Mode
+quickLookup.useShift=Lexica Quick Lookup Uses Shift Key
+seasonalFeatures.enabled=Seasonal Features
+shedding.enable=Natural Shedding
+thaumcraftAspects.enabled=TC Aspects
+thaumraftStabilizers.enabled=TC Infusion Stabilizers
 
 # VERSION CHECKING
 botania.versioning.flavour0=NANI SORE!? BOTANIA IS OUTDATED!?

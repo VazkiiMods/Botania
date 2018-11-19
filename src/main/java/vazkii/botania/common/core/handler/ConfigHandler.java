@@ -15,7 +15,6 @@ import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
@@ -55,6 +54,7 @@ public final class ConfigHandler {
 	public static boolean renderBaubles = true;
 	public static boolean enableSeasonalFeatures = true;
 	public static boolean useShiftForQuickLookup = false;
+	public static boolean lexicaOfflineMode = false;
 	public static boolean enableArmorModels = true;
 	public static boolean enableFancySkybox = true;
 	public static boolean enableFancySkyboxInNormalWorlds = false;
@@ -160,6 +160,9 @@ public final class ConfigHandler {
 
 		desc = "Set this to true to use Shift instead of Ctrl for the inventory lexica botania quick lookup feature.";
 		useShiftForQuickLookup = loadPropBool("quickLookup.useShift", desc, useShiftForQuickLookup);
+
+		desc = "Set this to true to disable the wiki lookup feature of the lexica, for offline usage.";
+		lexicaOfflineMode = loadPropBool("quickLookup.lexicaOfflineMode", desc, lexicaOfflineMode);
 
 		desc = "Set this to false to disable custom armor models.";
 		enableArmorModels = loadPropBool("armorModels.enable", desc, enableArmorModels);
