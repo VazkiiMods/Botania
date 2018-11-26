@@ -14,7 +14,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityList;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
@@ -35,16 +35,16 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.advancements.UseItemSuccessTrigger;
-import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.lib.LibItemNames;
-import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 import java.util.List;
 
 public class ItemSpawnerMover extends ItemMod {
 
-	public static final String TAG_SPAWNER = "spawner";
+	private static final String TAG_SPAWNER = "spawner";
+	private static final String TAG_SPAWN_DATA = "SpawnData";
+	private static final String TAG_ID = "id";
 
 	public ItemSpawnerMover() {
 		super(LibItemNames.SPAWNER_MOVER);
@@ -54,11 +54,8 @@ public class ItemSpawnerMover extends ItemMod {
 
 	public static NBTTagCompound getSpawnerTag(ItemStack stack) {
 		NBTTagCompound tag = stack.getTagCompound();
-		if(tag != null) {
-			if(tag.hasKey(TAG_SPAWNER))
-				return tag.getCompoundTag(TAG_SPAWNER);
-			if(tag.hasKey("EntityId"))
-				return tag;
+		if(tag != null && tag.hasKey(TAG_SPAWNER)) {
+			return tag.getCompoundTag(TAG_SPAWNER);
 		}
 
 		return null;
@@ -66,8 +63,12 @@ public class ItemSpawnerMover extends ItemMod {
 
 	private static String getEntityId(ItemStack stack) {
 		NBTTagCompound tag = getSpawnerTag(stack);
-		if(tag != null)
-			return tag.getString("EntityId");
+		if(tag != null && tag.hasKey(TAG_SPAWN_DATA)) {
+			tag = tag.getCompoundTag(TAG_SPAWN_DATA);
+			if(tag.hasKey(TAG_ID)) {
+				return EntityList.getTranslationName(new ResourceLocation(tag.getString(TAG_ID)));
+			}
+		}
 
 		return null;
 	}
