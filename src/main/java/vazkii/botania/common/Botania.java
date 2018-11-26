@@ -165,9 +165,14 @@ public class Botania {
 
 		for(Block b : new Block[]{ ModBlocks.manaGlass, ModBlocks.elfGlass, ModBlocks.bifrostPerm })
 			FMLInterModComms.sendMessage("chiselsandbits", "ignoreblocklogic", b.getRegistryName().toString());
-
-		if(Botania.thaumcraftLoaded && ConfigHandler.enableThaumcraftAspects)
-			MinecraftForge.EVENT_BUS.register(TCAspects.class);
+		
+		if(Botania.thaumcraftLoaded) {
+			if(ConfigHandler.enableThaumcraftAspects) {
+				MinecraftForge.EVENT_BUS.register(TCAspects.class);
+			}
+			ModBrews.initTC();
+			ModBrewRecipes.initTC();
+		}
 
 		if(Botania.bcApiLoaded)
 			new StatementAPIPlugin();
@@ -177,8 +182,6 @@ public class Botania {
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
 		if(Botania.thaumcraftLoaded) {
-			ModBrews.initTC();
-			ModBrewRecipes.initTC();
 			try {
 				@SuppressWarnings("unchecked")
 				Class<? extends Entity> clazz = (Class<? extends Entity>) Class.forName("thaumcraft.common.entities.EntityFluxRift");
