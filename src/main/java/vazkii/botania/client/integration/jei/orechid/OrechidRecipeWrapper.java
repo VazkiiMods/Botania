@@ -9,6 +9,7 @@
 package vazkii.botania.client.integration.jei.orechid;
 
 import mezz.jei.api.ingredients.IIngredients;
+import mezz.jei.api.ingredients.VanillaTypes;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemBlock;
@@ -62,8 +63,8 @@ public class OrechidRecipeWrapper implements IRecipeWrapper, Comparable<OrechidR
 
     @Override
     public void getIngredients(IIngredients ingredients) {
-        ingredients.setInput(ItemStack.class, getInputStack());
-        ingredients.setOutputLists(ItemStack.class, outputStacks);
+        ingredients.setInput(VanillaTypes.ITEM, getInputStack());
+        ingredients.setOutputLists(VanillaTypes.ITEM, outputStacks);
     }
 
     @Override

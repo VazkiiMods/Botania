@@ -29,12 +29,14 @@ public final class BiomeDecorationHandler {
 
 	@SubscribeEvent(priority = EventPriority.LOWEST)
 	public static void onWorldDecoration(DecorateBiomeEvent.Decorate event) {
+		BlockPos pos = event.getPlacementPos() != null ? event.getPlacementPos() : event.getChunkPos().getBlock(0, 0, 0);
+
 		if((event.getResult() == Result.ALLOW || event.getResult() == Result.DEFAULT) && event.getType() == EventType.FLOWERS) {
 			boolean flowers = true;
 			if(event.getWorld().provider instanceof IFlowerlessWorld)
 				flowers = ((IFlowerlessWorld) event.getWorld().provider).generateFlowers(event.getWorld());
-			else if(event.getWorld().getBiome(event.getPos()) instanceof IFlowerlessBiome)
-				flowers = ((IFlowerlessBiome) event.getWorld().getBiome(event.getPos())).canGenerateFlowers(event.getWorld(), event.getPos().getX(), event.getPos().getZ());
+			else if(event.getWorld().getBiome(pos) instanceof IFlowerlessBiome)
+				flowers = ((IFlowerlessBiome) event.getWorld().getBiome(pos)).canGenerateFlowers(event.getWorld(), pos.getX(), pos.getZ());
 
 			if(!flowers)
 				return;
@@ -42,9 +44,9 @@ public final class BiomeDecorationHandler {
 			int dist = Math.min(8, Math.max(1, ConfigHandler.flowerPatchSize));
 			for(int i = 0; i < ConfigHandler.flowerQuantity; i++) {
 				if(event.getRand().nextInt(ConfigHandler.flowerPatchChance) == 0) {
-					int x = event.getPos().getX() + event.getRand().nextInt(16) + 8;
-					int z = event.getPos().getZ() + event.getRand().nextInt(16) + 8;
-					int y = event.getWorld().getTopSolidOrLiquidBlock(event.getPos()).getY();
+					int x = pos.getX() + event.getRand().nextInt(16) + 8;
+					int z = pos.getZ() + event.getRand().nextInt(16) + 8;
+					int y = event.getWorld().getTopSolidOrLiquidBlock(pos).getY();
 
 					EnumDyeColor color = EnumDyeColor.byMetadata(event.getRand().nextInt(16));
 
@@ -63,8 +65,8 @@ public final class BiomeDecorationHandler {
 			}
 
 			for(int i = 0; i < ConfigHandler.mushroomQuantity; i++) {
-				int x = event.getPos().getX() + event.getRand().nextInt(16) + 8;
-				int z = event.getPos().getZ() + event.getRand().nextInt(16) + 8;
+				int x = pos.getX() + event.getRand().nextInt(16) + 8;
+				int z = pos.getZ() + event.getRand().nextInt(16) + 8;
 				int y = event.getRand().nextInt(26) + 4;
 				BlockPos pos3 = new BlockPos(x, y, z);
 				EnumDyeColor color = EnumDyeColor.byMetadata(event.getRand().nextInt(16));
