@@ -31,12 +31,12 @@ import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.items.ItemHandlerHelper;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.TileManaFlame;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
-import vazkii.botania.common.world.WorldTypeSkyblock;
 
 import javax.annotation.Nonnull;
 import java.util.Random;
@@ -98,7 +98,7 @@ public class BlockManaFlame extends BlockMod implements ILexiconable {
 
 	@Override
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing s, float xs, float ys, float zs) {
-		if(WorldTypeSkyblock.isWorldSkyblock(world)) {
+		if(Botania.gardenOfGlassLoaded) {
 			ItemStack stack = player.getHeldItem(hand);
 			if(!stack.isEmpty() && stack.getItem() == Item.getItemFromBlock(Blocks.SAPLING) && !player.inventory.hasItemStack(new ItemStack(ModItems.lexicon))) {
 				if(!world.isRemote) {

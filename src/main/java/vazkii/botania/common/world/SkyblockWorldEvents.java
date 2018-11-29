@@ -29,6 +29,7 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.items.ItemHandlerHelper;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileManaFlame;
 import vazkii.botania.common.item.ModItems;
@@ -71,7 +72,7 @@ public final class SkyblockWorldEvents {
 
 	@SubscribeEvent
 	public static void onPlayerInteract(PlayerInteractEvent.RightClickBlock event) {
-		if(WorldTypeSkyblock.isWorldSkyblock(event.getWorld())) {
+		if(Botania.gardenOfGlassLoaded) {
 			ItemStack equipped = event.getItemStack();
 			if(equipped.isEmpty() && event.getEntityPlayer().isSneaking()) {
 				Block block = event.getWorld().getBlockState(event.getPos()).getBlock();
@@ -112,7 +113,7 @@ public final class SkyblockWorldEvents {
 
 	@SubscribeEvent
 	public static void onDrops(BlockEvent.HarvestDropsEvent event) {
-		if(WorldTypeSkyblock.isWorldSkyblock(event.getWorld()) && event.getState().getBlock() == Blocks.TALLGRASS) {
+		if(Botania.gardenOfGlassLoaded && event.getState().getBlock() == Blocks.TALLGRASS) {
 			ItemStack stackToRemove = ItemStack.EMPTY;
 			for(ItemStack stack : event.getDrops())
 				if(stack.getItem() == Items.WHEAT_SEEDS && event.getWorld().rand.nextInt(4) == 0) {
