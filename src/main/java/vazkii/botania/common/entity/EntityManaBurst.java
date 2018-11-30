@@ -67,7 +67,7 @@ import vazkii.botania.common.item.equipment.bauble.ItemTinyPlanet;
 
 @Optional.Interface(iface="elucent.albedo.lighting.ILightProvider", modid="albedo")
 public class EntityManaBurst extends EntityThrowable implements IManaBurst, ILightProvider {
-
+	
 	private static final String TAG_TICKS_EXISTED = "ticksExisted";
 	private static final String TAG_COLOR = "color";
 	private static final String TAG_MANA = "mana";
@@ -192,7 +192,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst, ILig
 			vec3d1 = new Vec3d(raytraceresult.hitVec.x, raytraceresult.hitVec.y, raytraceresult.hitVec.z);
 		}
 
-		if(!world.isRemote) { // Botania - only do entity colliding on server
+		if(!scanBeam && !world.isRemote) { // Botania - only do entity colliding on server and while not scanning
 			Entity entity = null;
 			List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox().offset(motionX, motionY, motionZ).grow(1.0D));
 			double d0 = 0.0D;
@@ -288,6 +288,8 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst, ILig
 		rotationYaw = prevRotationYaw + (rotationYaw - prevRotationYaw) * 0.2F;
 		float f2 = getGravityVelocity();
 
+		// Botania - don't do water particles, bursts are never inWater
+		/*
 		if (isInWater())
 		{
 			for (int j = 0; j < 4; ++j)
@@ -295,7 +297,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst, ILig
 				float f3 = 0.25F;
 				world.spawnParticle(EnumParticleTypes.WATER_BUBBLE, posX - motionX * f3, posY - motionY * f3, posZ - motionZ * f3, motionX, motionY, motionZ, new int[0]);
 			}
-		}
+		}*/
 
 		// Botania - don't apply drag
 		// this.motionX *= (double)f1;
@@ -310,7 +312,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst, ILig
 		setTicksExisted(getTicksExisted() + 1);
 		superUpdate();
 
-		if(!fake && !isDead)
+		if(!fake && !isDead && !scanBeam)
 			ping();
 
 		ILensEffect lens = getLensInstance();
@@ -358,14 +360,23 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst, ILig
 		return false;
 	}
 
+	@Override
+	public boolean isInLava() {
+		//Avoids expensive getBlockState check in Entity#onEntityUpdate (see super impl)
+		return false;
+	}
+
 	private TileEntity collidedTile = null;
 	private boolean noParticles = false;
 
 	public TileEntity getCollidedTile(boolean noParticles) {
 		this.noParticles = noParticles;
 
-		while(!isDead)
+		int iterations = 0;
+		while(!isDead && iterations < ConfigHandler.spreaderTraceTime) {
 			onUpdate();
+			iterations++;
+		}
 
 		if(fake)
 			incrementFakeParticleTick();
