@@ -163,11 +163,6 @@ public class BlockModMushroom extends BlockMushroom implements IInfusionStabilis
 	}
 
 	@Override
-	public boolean canFit(ItemStack stack, IPetalApothecary apothecary) {
-		return true;
-	}
-
-	@Override
 	public int getParticleColor(ItemStack stack) {
 		return EnumDyeColor.byMetadata(stack.getItemDamage()).colorValue;
 	}

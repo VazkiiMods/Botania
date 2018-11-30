@@ -136,12 +136,6 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 	}
 
 	@Override
-	public boolean canFit(ItemStack stack, IPetalApothecary apothecary) {
-		int meta = stack.getItemDamage();
-		return meta == 6 || meta == 8 || meta == 5 || meta == 23;
-	}
-
-	@Override
 	public int getParticleColor(ItemStack stack) {
 		return 0x9b0000;
 	}
