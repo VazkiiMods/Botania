@@ -360,6 +360,12 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst, ILig
 		return false;
 	}
 
+	@Override
+	public boolean isInLava() {
+		//Avoids expensive getBlockState check in Entity#onEntityUpdate (see super impl)
+		return false;
+	}
+
 	private TileEntity collidedTile = null;
 	private boolean noParticles = false;
 
