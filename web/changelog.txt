@@ -1,3 +1,18 @@
+r1.10 358
+*Added an Offline Mode config. (Hubry)
+*All Garden of Glass features now depend on the GoG mod being loaded, rather than the GoG world type.
+*Buffed the Spectrolus by 8x. (quat)
+*Fixed Botania glasses not being usable with Chisels&Bits. (Hubry)
+*Fixed horse viruses breaking attributes and turning horses into babies. (Hubry)
+*Fixed the Bauble Case not supporting baubles that use capabilities.
+*Fixed the Life Aggregator having the wrong tooltip. (Hubry)
+*Optimized Mana Spreaders a bunch, they'll be more performant now. (quat)
+*Removed a pointless bit of debug text.
+*The gunpowder to flint recipe is now the same price as flint to gunpowder. (quat)
+*The Petal Apothecary now accepts all items and can NBT match then. Rejoice pack makers! (quat)
+*Tweaked Thaumcraft integration and aspects around a bunch. (Hubry)
+*[API] Deprecated IFlowerComponent and made canFit() default to true. (quat)
+*[API] Increased Version Number to 92.
 r1.10 357
 *Brought back BuildCraft integration.
 *Brought back the ability to request items from corporea systems in JEI (prev NEI). (Hubry)
