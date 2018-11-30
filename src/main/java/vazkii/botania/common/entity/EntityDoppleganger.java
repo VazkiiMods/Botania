@@ -278,10 +278,8 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 
 		if(tripped) {
 			Botania.proxy.setWispFXDepthTest(false);
-			for(BlockPos pos : trippedPositions) {
-				System.out.println(world.isRemote);
+			for(BlockPos pos : trippedPositions) 
 				Botania.proxy.wispFX(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 1F, 0.2F, 0.2F, 0.5F, 0F, 8);
-			}
 			Botania.proxy.setWispFXDepthTest(true);
 
 			return false;
