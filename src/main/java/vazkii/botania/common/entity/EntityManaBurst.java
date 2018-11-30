@@ -67,8 +67,6 @@ import vazkii.botania.common.item.equipment.bauble.ItemTinyPlanet;
 
 @Optional.Interface(iface="elucent.albedo.lighting.ILightProvider", modid="albedo")
 public class EntityManaBurst extends EntityThrowable implements IManaBurst, ILightProvider {
-
-	private static final int MAX_SIMULATION_TICKS = 400;
 	
 	private static final String TAG_TICKS_EXISTED = "ticksExisted";
 	private static final String TAG_COLOR = "color";
@@ -369,7 +367,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst, ILig
 		this.noParticles = noParticles;
 
 		int iterations = 0;
-		while(!isDead && iterations < MAX_SIMULATION_TICKS) {
+		while(!isDead && iterations < ConfigHandler.spreaderTraceTime) {
 			onUpdate();
 			iterations++;
 		}

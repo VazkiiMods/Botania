@@ -72,6 +72,7 @@ public final class ConfigHandler {
 
 //	public static boolean versionCheckEnabled = true;
 	public static int spreaderPositionShift = 1;
+	public static int spreaderTraceTime = 400;
 	public static boolean flowerForceCheck = true;
 	public static boolean enderPickpocketEnabled = true;
 
@@ -199,6 +200,9 @@ public final class ConfigHandler {
 
 		desc = "Do not ever touch this value if not asked to. Possible symptoms of doing so include your head turning backwards, the appearance of Titans near the walls or you being trapped in a game of Sword Art Online.";
 		spreaderPositionShift = loadPropInt("spreader.posShift", desc, spreaderPositionShift);
+
+		desc = "How many ticks into the future will mana spreaders attempt to predict where mana bursts go? Setting this lower will improve spreader performance, but will cause them to not fire at targets that are too far away.";
+		spreaderTraceTime = loadPropInt("spreader.traceTime", desc, spreaderTraceTime);
 
 		desc = "Turn this off ONLY IF you're on an extremely large world with an exaggerated count of Mana Spreaders/Mana Pools and are experiencing TPS lag. This toggles whether flowers are strict with their checking for connecting to pools/spreaders or just check whenever possible.";
 		flowerForceCheck = loadPropBool("flower.forceCheck", desc, flowerForceCheck);
