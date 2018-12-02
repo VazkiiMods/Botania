@@ -71,6 +71,8 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 	public static final String TAG_HAS_LAVA = "hasLava";
 	public static final String TAG_IS_MOSSY = "isMossy";
 
+	private static final String ITEM_TAG_APOTHECARY_SPAWNED = "ApothecarySpawned";
+
 	public boolean hasWater = false;
 	public boolean hasLava = false;
 
@@ -138,6 +140,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 					
 					ItemStack output = recipe.getOutput().copy();
 					EntityItem outputItem = new EntityItem(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, output);
+					outputItem.addTag(ITEM_TAG_APOTHECARY_SPAWNED);
 					world.spawnEntity(outputItem);
 					
 					setWater(false);
@@ -148,7 +151,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 					return true;
 				}
 			}
-		} else if(!hasFluidCapability) {
+		} else if(!hasFluidCapability && !item.getTags().contains(ITEM_TAG_APOTHECARY_SPAWNED)) {
 			if(!itemHandler.getStackInSlot(getSizeInventory() - 1).isEmpty())
 				return false;
 			
