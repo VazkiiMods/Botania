@@ -100,7 +100,7 @@ botaniamisc.historyDesc=Просмотреть последние просмот
 botaniamisc.lexiconOptions0=Настройки Botania
 botaniamisc.lexiconOptions1=Настроить Botania в игре
 botaniamisc.lexiconOptions2=Некоторым параметрам может потребоваться перезапуск игры
-botaniamisc.hasPhantomInk=&bОкрашенный фантомными чернилами
+botaniamisc.hasPhantomInk=&bОкрашено фантомными чернилами
 botaniamisc.pinkinatorDesc=Применить непосредственно к Иссушителю
 botaniamisc.relicUnbound=&6Реликвия&7. Не привязана
 botaniamisc.relicSoulbound=&6Реликвия&7. Привязана к &f%s
@@ -1497,7 +1497,7 @@ item.botania:brewVial.name=Пузырёк %s (%s)
 item.botania:brewFlask.name=Колба %s (%s)
 item.botania:bloodPendant.name=Кровавый кулон
 item.botania:redString.name=Красная нить
-item.botania:missileRod.name=Жезл неустойчивой энергии
+item.botania:missileRod.name=Жезл Неустойчивой энергии
 item.botania:holyCloak.name=Плащ Добродетеля
 item.botania:unholyCloak.name=Плащ Греха
 item.botania:balanceCloak.name=Плащ Равновесия
@@ -1613,12 +1613,12 @@ item.botania:santaweaveBoots.name=Сантатканные сапоги
 item.botania:gaiaHead.name=Голова стража Гайи
 item.botania:sextant.name=Форменный секстант
 item.botania:speedUpBelt.name=Кушак ускорения
-item.botania:baubleBox.name=Ящик с фенечками
+item.botania:baubleBox.name=Кейс для фенечек
 item.botania:manaPowder.name=Мана порошок
 item.botania:dodgeRing.name=Ring of Dexterous Motion
-item.botania:invisibilityCloak.name=Плащ невидимости
-item.botania:cloudPendant.name=Cirrus Amulet
-item.botania:superCloudPendant.name=Nimbus Amulet
+item.botania:invisibilityCloak.name=Плащ-невидимка
+item.botania:cloudPendant.name=Амулет перистого облака
+item.botania:superCloudPendant.name=Амулет нимба
 item.botania:thirdEye.name=Третий глаз
 item.botania:astrolabe.name=Worldshaper's Astrolabe
 item.botania:goddessCharm.name=Benevolent Goddess' Charm
@@ -3330,7 +3330,62 @@ botania.page.itemFinder2=Вы слышите эти голоса?
 botania.entry.superLavaPendant=Багровый кулон
 botania.tagline.bloodPendant=Двойник пирокластического кулона
 botania.page.superLavaPendant0=&1Багровый кулон&0 - это, в простом понимании, улучшеный двойник &1Пирокластического кулона&0. При ношении он даёт иммунитет ко всем видам повреждений от огня и лавы, а не просто тушит возгорание.
-botania.page.superLavaPendant1=Призёр на монолит код
+botania.page.superLavaPendant1=Теперь Вы можете принять лавовую ванну
+
+# -- MANASEER MONOCLE
+botania.entry.monocle=Монокль
+botania.tagline.monocle=Инструмент для просмотра зоны действия цветов
+botania.page.monocle0=Монокль - это удобный аксессуар для тех, кто хочет узнать, откуда идут &4Всплески маны&0. Монокль также позволит Вам видеть все близлежащие &4Всплески маны&0 даже сквозь стены. Более важным, пожалуй, является то, что когда Вы носите монокль и смотрите на цветок, Вы сможете увидеть его зону действия.
+botania.page.monocle2=В качестве дополнительного бонуса, глядя на редстоун, будет отображаться текущее количество энергии в нём.<br>Монокль может использоваться как &4Косметическое переопределение&0 для любой другой фенечки.
+botania.page.monocle1=Ну, привет, старина
+
+# -- RING OF CORRECTION
+botania.entry.swapRing=Кольцо исправления
+botania.tagline.swapRing=Позволяет использовать правильный инструмент для работы
+botania.page.swapRing0=Переключение инструментов - это боль. Люди часто копают землю... киркой? Использование &1Кольца исправления&0 - отличный способ избежать этого.<br>При ношении кольцо будет самостоятельно менять инструменты у Вас в руках для добычи блоков, но это будет работать только с теми инструментами, которые могут использовать &4Ману&0.
+botania.page.swapRing1=Используй только правильные инструменты
+
+# -- PLANESTRIDER'S SASH
+botania.entry.speedUpBelt=Кушак ускорения
+botania.tagline.speedUpBelt=Ускоряет вас во время ходьбы
+botania.page.speedUpBelt0=&1Кушак усорения&0 является альтернативой &1Кушака Пилигрима&0.<br>По сравнению с &1Кушаком Пилигрима&0, &1Кушак ускорения&0 увеличивает скорость передвижения не сразу. Таким образом, чем больше Вы ходите, тем Вы быстрее. Если Вы остановитесь, бонус ускорения будет сброшен.
+botania.page.speedUpBelt1=Если Вы медленно передвигаетесь, Вы Мироходец
+
+# -- BAUBLE CASE
+botania.entry.baubleBox=Кейс для фенечек
+botania.tagline.baubleBox=Контейнер для хранения ваших фенечек.
+botania.page.baubleBox0=Иногда большое количество &4Фенечек&0 может быть реальной проблемой, поскольку место в инвентаре ограничено. Лучшим способом было бы хранить все фенечки в специальном &1Кейсе&0.<br> Интерфейс кейса позволяет быстро менять фенечки. Кейс также может хранить предметы, которые могут содержать в себе &4Ману&0 (Например, &1Планшет маны&0).
+botania.page.baubleBox1=Это может быть даже в лодке!
+
+# -- INVISIBILITY CLOAK
+botania.entry.invisibilityCloak=Плащ-невидимка
+botania.tagline.invisibilityCloak=Накладывает эффект невидимости
+botania.page.invisibilityCloak0=Для этой вещи не потребуется много объяснений.<br>Это фенечка, которую можно носить в слоте &4тела&0. При ношении плащ будет потреблять небольшое количество &4Маны&0, накладывая на Вас эффект невидимости.
+botania.page.invisibilityCloak1=Стив, ты волшебник!
+
+# -- CIRRUS AMULET
+botania.entry.cloudPendant=Амулет перистого облака
+botania.tagline.cloudPendant=Даёт возможность двойного прыжка
+botania.page.cloudPendant0=&1Амулет перистого облака&0 - это фенечка, которую можно носить в слоте &4амулета&0.<br>При ношении даёт возможность &4двойного прыжка&0. Второй прыжок убирает урон от падения.
+botania.page.cloudPendant1=Это всё в облаке
+
+# -- NIMBUS AMULET
+botania.entry.superCloudPendant=Амулет нимба
+botania.tagline.superCloudPendant=Даёт возможность тройного прыжка
+botania.page.superCloudPendant0=&1Амулет нимба&0 - это улучшенная версия &1Амулета перистого облака&0, заряженная силой &1Духа Гайи&0, которая позволяет делать &4тройной прыжок&0.
+botania.page.superCloudPendant1=Магия > Физика
+
+# -- THIRD EYE
+botania.entry.thirdEye=Третий глаз
+botania.tagline.thirdEye=Подсвечивает мобов
+botania.page.thirdEye0=&1Третий глаз&0 - это необычный помощник, который можно носить в слоте &4тела&0.<br>При ношении он будет потреблять небольшое количество &4Маны&0, подсвечивая ближайших мобов и позволяя видеть их сквозь стены.
+botania.page.thirdEye1=Читайте их позиции, а не мысли
+
+# -- BENEVOLENT GODDESS' CHARM
+botania.entry.goddessCharm=Очарование доброжелательной богини
+botania.tagline.goddessCharm=Предотвращает различные взрывы
+botania.page.goddessCharm0=&1Очарование доброжелательной богини&0 - это защитная фенечка, которую можно носить в слоте &4брелока&0.<br>При ношении потребляет &4Ману&0 и предотвращает любые взрывы рядом с Вами.
+botania.page.goddessCharm1=Скажи "НЕТ!" взрывам
 
 # - ALFHOMANCY
 # -- THE PORTAL TO ALFHEIM
@@ -3456,3 +3511,46 @@ botania.entry.starfield=Творец созвездий
 botania.tagline.starfield=Создаёт звёздное небо
 botania.page.starfield0=&1Творец созвездий&0 делает то, что вы видите из названия. Выпуская эльфийскую энергию в воздух, он, если размещен в мире, в ночное время будет создавать звездное небо, которое простирается на большое расстояние.
 botania.page.starfield1=Блести и сверкай
+
+# -- TRODDEN DIRT
+botania.entry.dirtPath=Протоптанная земля
+botania.tagline.dirtPath=Земля для ходьбы
+botania.page.dirtPath0=&1Протоптанная земля&0 - это тип почвы, который используется для создания ественных и в то же время искуственных путей. Как и &1Пашня&0, эта земля немного ниже обычной, а ходьба по этой земле немного ускоряет Вас.
+botania.page.dirtPath1=Следуйте по жёлтой дорожке
+botania.page.dirtPath2=Также доступно в плитах
+
+# -- SHIMMERING MUSHROOMS
+botania.entry.mushrooms=Мерцающие грибы
+botania.tagline.mushrooms=Прикоснитесь к этому
+botania.page.mushrooms0=Посыпав &1Цветочное удобрение&0 на &1Гриб&0, они, кажется, имеют интересный эффект от их мутирования в цвет удобрения, приобретая новую форму и получая способность излучать тусклый свет. Они кажется, ничего не делают, но выглядят интереснее.<br>Их также можно увидеть в шахтах.
+botania.page.mushrooms1=Они не делают Вас больше
+
+# -- PHANTOM INK
+botania.entry.phantomInk=Фантомные чернила
+botania.tagline.phantomInk=Делают Вашу броню и фенечки невидимыми
+botania.page.phantomInk0=Наличие множества аксессуаров под комплектом доспехов - это не мечта. Это слишком громодно, плоско и некрасиво!<br>К счастью, покрасив доспехи или фенечки &1Фантомными чернилами&0 (совместив их в сетке крафта) Вы можете сделать их полностью невидимыми, но при этом они будут иметь те же свойства. Это будет работать только с бронёй, которая может использовать &4Ману&0.
+botania.page.phantomInk1=Кого Вы собираетесь позвать?
+
+# -- STONE ALCHEMY
+botania.entry.stoneAlchemy=Каменная алхимия
+botania.tagline.stoneAlchemy=Создание новых типов камней
+botania.page.stoneAlchemy0=Использование &1Алхимического катализатора&0 оказывается хорошим методом создания новых типов &1Камней&0. Бросив камень в бассейн маны с алхимическим катализатором, он трансформируется в другой тип.<br>Лестницы и плиты могут быть изготовлены из грубых и кирпичных вариантов камней.
+botania.page.stoneAlchemy1=Создание камней
+botania.page.stoneAlchemy2=Кирпичный вариант
+botania.page.stoneAlchemy3=Обработка
+
+#botania.page.stoneAlchemy2=Польский камень
+#botania.page.stoneAlchemy3=Кирпичный вариант
+#botania.page.stoneAlchemy4=Обработка
+
+# -- BLAZE LIGHT
+botania.entry.blazeBlock=Светильник ифрита
+botania.tagline.blazeBlock=Компактное хранилище и возобновляемый источник обсидиана
+botania.page.blazeBlock0=Большое количество пылающего материала позволяет создать декоративный светящийся блок.<br>Как и &1Угольный блок&0, &1Светильник ифрита&0 может использоваться качестве топлива. Разместив этот блок рядом с &1Чистой маргариткой&0, он превратится в &1Обсидиан&0.
+botania.page.blazeBlock1=0x1a4
+
+# -- PORTUGUESE PAVEMENT
+botania.entry.pavement=Португальская плитка
+botania.tagline.pavement=Плитка для строительства дорог
+botania.page.pavement0=&1Португальская плитка&0 - тип строительного блока, предназначенный для строительства дорог. Плитка поставляется в различных цветах, все из которых можно превратить в плиты и лестницы.<br>Для тех, кто обладает опытом в области строительства из микроблоков, эти блоки отлично подойдут для создания узоров.
+botania.page.pavement1=Они не скользкие
