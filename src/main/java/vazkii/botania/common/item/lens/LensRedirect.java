@@ -28,7 +28,7 @@ public class LensRedirect extends Lens {
 		BlockPos coords = burst.getBurstSourceBlockPos();
 		if(!entity.world.isRemote && pos.entityHit == null && coords.getY() != -1 && (pos.getBlockPos() == null || !pos.getBlockPos().equals(coords))) {
 			TileEntity tile = entity.world.getTileEntity(pos.getBlockPos());
-			if(tile != null && tile instanceof IDirectioned) {
+			if(tile instanceof IDirectioned) {
 				if(!burst.isFake()) {
 					IDirectioned redir = (IDirectioned) tile;
 					Vector3 tileVec = Vector3.fromTileEntityCenter(tile);
@@ -62,11 +62,6 @@ public class LensRedirect extends Lens {
 						((IThrottledPacket) redir).markDispatchable();
 				}
 			}
-		}
-
-		if(!isManaBlock) {
-			dead = false;
-			burst.setMinManaLoss(Math.max(0, burst.getMinManaLoss() - 4));
 		}
 
 		return dead;
