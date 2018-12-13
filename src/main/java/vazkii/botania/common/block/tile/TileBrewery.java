@@ -74,7 +74,7 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver, I
 		if(did) {
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, pos);
 			for(RecipeBrew recipe : BotaniaAPI.brewRecipes)
-				if(recipe.matches(itemHandler) && recipe.getOutput(itemHandler.getStackInSlot(0)) != null) {
+				if(recipe.matches(itemHandler) && !recipe.getOutput(itemHandler.getStackInSlot(0)).isEmpty()) {
 					this.recipe = recipe;
 					world.setBlockState(pos, ModBlocks.brewery.getDefaultState().withProperty(BotaniaStateProps.POWERED, true), 1 | 2);
 				}
