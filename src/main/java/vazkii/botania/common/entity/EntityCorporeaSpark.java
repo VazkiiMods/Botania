@@ -55,12 +55,12 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 
 	public EntityCorporeaSpark(World world) {
 		super(world);
+		setSize(0.1F, 0.5F);
 		isImmuneToFire = true;
 	}
 
 	@Override
 	protected void entityInit() {
-		setSize(0.1F, 0.5F);
 		dataManager.register(MASTER, false);
 		dataManager.register(NETWORK, 0);
 		dataManager.register(ITEM_DISPLAY_TICKS, 0);
@@ -74,8 +74,8 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 	}
 
 	@Override
-	public boolean canBeCollidedWith() {
-		return true;
+	public boolean canBeAttackedWithItem() {
+		return false;
 	}
 
 	@Override
