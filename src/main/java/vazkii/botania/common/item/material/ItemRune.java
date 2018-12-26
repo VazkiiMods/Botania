@@ -40,12 +40,12 @@ public class ItemRune extends ItemMod implements IFlowerComponent {
 
 	@Nonnull
 	@Override
-	public String getUnlocalizedName(ItemStack par1ItemStack) {
-		return getUnlocalizedNameLazy(par1ItemStack) + par1ItemStack.getItemDamage();
+	public String getTranslationKey(ItemStack stack) {
+		return getUnlocalizedNameLazy(stack) + stack.getItemDamage();
 	}
 
-	String getUnlocalizedNameLazy(ItemStack par1ItemStack) {
-		return super.getUnlocalizedName(par1ItemStack);
+	String getUnlocalizedNameLazy(ItemStack stack) {
+		return super.getTranslationKey(stack);
 	}
 
 	@Override

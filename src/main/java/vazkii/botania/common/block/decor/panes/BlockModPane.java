@@ -30,9 +30,9 @@ public class BlockModPane extends BlockPane implements IModelRegister {
 	public BlockModPane(Block source) {
 		super(Material.GLASS, false);
 		// Backward compat don't kill me
-		String name = source.getUnlocalizedName().replaceAll("tile.", "") + "Pane";
+		String name = source.getTranslationKey().replaceAll("tile.", "") + "Pane";
 		setRegistryName(new ResourceLocation(LibMisc.MOD_ID, name));
-		setUnlocalizedName(name);
+		setTranslationKey(name);
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
 		setHardness(0.3F);
 		setSoundType(SoundType.GLASS);

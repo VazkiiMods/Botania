@@ -227,7 +227,7 @@ public class ItemBlackHoleTalisman extends ItemMod implements IBlockProvider {
 		Block block = getBlock(par1ItemStack);
 		if(block != null) {
 			int count = getBlockCount(par1ItemStack);
-			stacks.add(count + " " + I18n.format(new ItemStack(block, 1, getBlockMeta(par1ItemStack)).getUnlocalizedName() + ".name"));
+			stacks.add(count + " " + I18n.format(new ItemStack(block, 1, getBlockMeta(par1ItemStack)).getTranslationKey() + ".name"));
 		}
 
 		if(par1ItemStack.getItemDamage() == 1)

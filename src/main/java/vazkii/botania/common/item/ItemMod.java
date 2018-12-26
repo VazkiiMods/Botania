@@ -29,7 +29,7 @@ public abstract class ItemMod extends Item implements IModelRegister {
 	public ItemMod(String name) {
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
 		setRegistryName(new ResourceLocation(LibMisc.MOD_ID, name));
-		setUnlocalizedName(name);
+		setTranslationKey(name);
 	}
 
 	@Nonnull

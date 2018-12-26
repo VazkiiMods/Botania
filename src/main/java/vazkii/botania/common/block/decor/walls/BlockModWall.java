@@ -38,9 +38,9 @@ public abstract class BlockModWall extends BlockWall implements ILexiconable, IM
 	public BlockModWall(Block block, int meta) {
 		super(block);
 		// For backward compat don't kill me
-		String name = block.getUnlocalizedName().replaceAll("tile.", "") + meta + "Wall";
+		String name = block.getTranslationKey().replaceAll("tile.", "") + meta + "Wall";
 		setRegistryName(name);
-		setUnlocalizedName(name);
+		setTranslationKey(name);
 		setDefaultState(pickDefaultState());
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
 	}

@@ -57,8 +57,8 @@ public class ItemBlackLotus extends ItemMod implements IManaDissolvable {
 
 	@Nonnull
 	@Override
-	public String getUnlocalizedName(ItemStack par1ItemStack) {
-		return super.getUnlocalizedName(par1ItemStack) + par1ItemStack.getItemDamage();
+	public String getTranslationKey(ItemStack stack) {
+		return super.getTranslationKey(stack) + stack.getItemDamage();
 	}
 
 	@Override

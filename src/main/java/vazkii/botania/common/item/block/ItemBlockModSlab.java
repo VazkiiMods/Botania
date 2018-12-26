@@ -25,8 +25,8 @@ public class ItemBlockModSlab extends ItemSlab {
 
 	@Nonnull
 	@Override
-	public String getUnlocalizedName(ItemStack par1ItemStack) {
-		return block.getUnlocalizedName().replaceAll("tile.", "tile.botania:");
+	public String getTranslationKey(ItemStack stack) {
+		return block.getTranslationKey().replaceAll("tile.", "tile.botania:");
 	}
 
 }

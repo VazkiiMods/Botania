@@ -41,7 +41,7 @@ public class SubTileDaffomill extends SubTileFunctional {
 		super.onUpdate();
 
 		if(supertile.getWorld().rand.nextInt(4) == 0)
-			Botania.proxy.wispFX(supertile.getPos().getX() + Math.random(), supertile.getPos().getY() + Math.random(), supertile.getPos().getZ() + Math.random(), 0.05F, 0.05F, 0.05F, 0.25F + (float) Math.random() * 0.15F, orientation.getFrontOffsetX() * 0.1F, orientation.getFrontOffsetY() * 0.1F, orientation.getFrontOffsetZ() * 0.1F);
+			Botania.proxy.wispFX(supertile.getPos().getX() + Math.random(), supertile.getPos().getY() + Math.random(), supertile.getPos().getZ() + Math.random(), 0.05F, 0.05F, 0.05F, 0.25F + (float) Math.random() * 0.15F, orientation.getXOffset() * 0.1F, orientation.getYOffset() * 0.1F, orientation.getZOffset() * 0.1F);
 
 		if(windTicks == 0 && mana > 0) {
 			windTicks = 20;
@@ -56,9 +56,9 @@ public class SubTileDaffomill extends SubTileFunctional {
 				int slowdown = getSlowdownFactor();
 				for(EntityItem item : items) {
 					if(!item.isDead && item.age >= slowdown) {
-						item.motionX += orientation.getFrontOffsetX() * 0.05;
-						item.motionY += orientation.getFrontOffsetY() * 0.05;
-						item.motionZ += orientation.getFrontOffsetZ() * 0.05;
+						item.motionX += orientation.getXOffset() * 0.05;
+						item.motionY += orientation.getYOffset() * 0.05;
+						item.motionZ += orientation.getZOffset() * 0.05;
 					}
 				}
 			}
@@ -154,7 +154,7 @@ public class SubTileDaffomill extends SubTileFunctional {
 	public void readFromPacketNBT(NBTTagCompound cmp) {
 		super.readFromPacketNBT(cmp);
 
-		orientation = EnumFacing.getFront(cmp.getInteger(TAG_ORIENTATION) + 2); // retain compat with 1.7 saves
+		orientation = EnumFacing.byIndex(cmp.getInteger(TAG_ORIENTATION) + 2); // retain compat with 1.7 saves
 		windTicks = cmp.getInteger(TAG_WIND_TICKS);
 	}
 

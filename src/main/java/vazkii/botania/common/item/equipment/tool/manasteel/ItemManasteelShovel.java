@@ -58,7 +58,7 @@ public class ItemManasteelShovel extends ItemSpade implements IManaUsingItem, IS
 		super(mat);
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
 		setRegistryName(new ResourceLocation(LibMisc.MOD_ID, name));
-		setUnlocalizedName(name);
+		setTranslationKey(name);
 	}
 
 	@Nonnull

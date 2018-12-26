@@ -140,7 +140,7 @@ public class ClientProxy implements IProxy {
 
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
-		PersistentVariableHelper.setCacheFile(new File(Minecraft.getMinecraft().mcDataDir, "BotaniaVars.dat"));
+		PersistentVariableHelper.setCacheFile(new File(Minecraft.getMinecraft().gameDir, "BotaniaVars.dat"));
 		try {
 			PersistentVariableHelper.load();
 			PersistentVariableHelper.save();

@@ -171,9 +171,9 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 		int fortune = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, stack);
 		boolean silk = EnchantmentHelper.getEnchantmentLevel(Enchantments.SILK_TOUCH, stack) > 0;
 		boolean thor = ItemThorRing.getThorRing(player) != null;
-		boolean doX = thor || side.getFrontOffsetX() == 0;
-		boolean doY = thor || side.getFrontOffsetY() == 0;
-		boolean doZ = thor || side.getFrontOffsetZ() == 0;
+		boolean doX = thor || side.getXOffset() == 0;
+		boolean doY = thor || side.getYOffset() == 0;
+		boolean doZ = thor || side.getZOffset() == 0;
 
 		int origLevel = getLevel(stack);
 		int level = origLevel + (thor ? 1 : 0);

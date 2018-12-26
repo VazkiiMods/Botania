@@ -55,7 +55,7 @@ public class BlockModMushroom extends BlockMushroom implements IInfusionStabilis
 
 	public BlockModMushroom() {
 		setRegistryName(new ResourceLocation(LibMisc.MOD_ID, LibBlockNames.MUSHROOM));
-		setUnlocalizedName(LibBlockNames.MUSHROOM);
+		setTranslationKey(LibBlockNames.MUSHROOM);
 		setLightLevel(0.2F);
 		setHardness(0F);
 		setSoundType(SoundType.PLANT);

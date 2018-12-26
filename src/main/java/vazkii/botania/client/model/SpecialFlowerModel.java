@@ -134,10 +134,10 @@ public class SpecialFlowerModel implements IModel {
 
 			@Override
 			public boolean accepts(ResourceLocation modelLocation) {
-				return modelLocation.getResourceDomain().equals("botania_special") && (
-						modelLocation.getResourcePath().equals("specialflower") ||
-						modelLocation.getResourcePath().equals("models/block/specialflower") ||
-						modelLocation.getResourcePath().equals("models/item/specialflower"));
+				return modelLocation.getNamespace().equals("botania_special") && (
+						modelLocation.getPath().equals("specialflower") ||
+						modelLocation.getPath().equals("models/block/specialflower") ||
+						modelLocation.getPath().equals("models/item/specialflower"));
 			}
 
 			@Override

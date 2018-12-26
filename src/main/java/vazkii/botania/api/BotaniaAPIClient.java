@@ -56,7 +56,7 @@ public final class BotaniaAPIClient {
 	 * @param model       A path to a blockstate json and variant to be used the block. The item model will be drawn from the same blockstate json, from variant "inventory"
 	 */
 	public static void registerSubtileModel(String subTileName, ModelResourceLocation model) {
-		registerSubtileModel(subTileName, model, new ModelResourceLocation(model.getResourceDomain() + ":" + model.getResourcePath(), "inventory"));
+		registerSubtileModel(subTileName, model, new ModelResourceLocation(model.getNamespace() + ":" + model.getPath(), "inventory"));
 	}
 
 	// Convenience overloads for the above two calls

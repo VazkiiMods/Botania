@@ -30,7 +30,7 @@ public abstract class BlockMod extends Block implements IModelRegister {
 
 	public BlockMod(Material par2Material, String name) {
 		super(par2Material);
-		setUnlocalizedName(name);
+		setTranslationKey(name);
 		setRegistryName(new ResourceLocation(LibMisc.MOD_ID, name));
 		if(registerInCreative())
 			setCreativeTab(BotaniaCreativeTab.INSTANCE);

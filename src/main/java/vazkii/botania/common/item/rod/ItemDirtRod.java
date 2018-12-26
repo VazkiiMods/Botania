@@ -72,7 +72,7 @@ public class ItemDirtRod extends ItemMod implements IManaUsingItem, IBlockProvid
 				if(stackToPlace.isEmpty()) {
 					ManaItemHandler.requestManaExactForTool(stack, player, cost, true);
 					for(int i = 0; i < 6; i++)
-						Botania.proxy.sparkleFX(pos.getX() + side.getFrontOffsetX() + Math.random(), pos.getY() + side.getFrontOffsetY() + Math.random(), pos.getZ() + side.getFrontOffsetZ() + Math.random(), r, g, b, 1F, 5);
+						Botania.proxy.sparkleFX(pos.getX() + side.getXOffset() + Math.random(), pos.getY() + side.getYOffset() + Math.random(), pos.getZ() + side.getZOffset() + Math.random(), r, g, b, 1F, 5);
 					return EnumActionResult.SUCCESS;
 				}
 			}

@@ -221,7 +221,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 								world.setBlockState(pos.offset(dir), ModBlocks.pistonRelay.getDefaultState());
 							else if(!world.isRemote) {
 								ItemStack stack = new ItemStack(ModBlocks.pistonRelay);
-								world.spawnEntity(new EntityItem(world, x + dir.getFrontOffsetX(), y + dir.getFrontOffsetY(), z + dir.getFrontOffsetZ(), stack));
+								world.spawnEntity(new EntityItem(world, x + dir.getXOffset(), y + dir.getYOffset(), z + dir.getZOffset(), stack));
 							}
 							checkedCoords.add(s);
 							newPos = new DimWithPos(world.provider.getDimension(), pos.offset(dir));
@@ -237,7 +237,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 							TileEntity tile = world.getTileEntity(pos2);
 							Material mat = srcState.getMaterial();
 
-							if(!sticky && tile == null && mat.getMobilityFlag() == EnumPushReaction.NORMAL && srcState.getBlockHardness(world, pos2) != -1 && !srcState.getBlock().isAir(srcState, world, pos2)) {
+							if(!sticky && tile == null && mat.getPushReaction() == EnumPushReaction.NORMAL && srcState.getBlockHardness(world, pos2) != -1 && !srcState.getBlock().isAir(srcState, world, pos2)) {
 								Material destMat = world.getBlockState(pos2.offset(dir)).getMaterial();
 								if(world.isAirBlock(pos2.offset(dir)) || destMat.isReplaceable()) {
 									world.setBlockState(pos2, Blocks.AIR.getDefaultState());

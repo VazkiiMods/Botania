@@ -39,8 +39,8 @@ public class ItemSparkUpgrade extends ItemMod {
 
 	@Nonnull
 	@Override
-	public String getUnlocalizedName(ItemStack par1ItemStack) {
-		return getUnlocalizedNameLazy(par1ItemStack) + par1ItemStack.getItemDamage();
+	public String getTranslationKey(ItemStack stack) {
+		return getUnlocalizedNameLazy(stack) + stack.getItemDamage();
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -49,7 +49,7 @@ public class ItemSparkUpgrade extends ItemMod {
 		ModelHandler.registerItemAppendMeta(this, 4, LibItemNames.SPARK_UPGRADE);
 	}
 
-	String getUnlocalizedNameLazy(ItemStack par1ItemStack) {
-		return super.getUnlocalizedName(par1ItemStack);
+	String getUnlocalizedNameLazy(ItemStack stack) {
+		return super.getTranslationKey(stack);
 	}
 }

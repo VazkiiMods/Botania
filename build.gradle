@@ -94,7 +94,7 @@ dependencies {
     deobfCompile "com.mod-buildcraft:buildcraft-api:7.99.17"
     deobfCompile "com.azanor.baubles:Baubles:1.12-1.5.2"
     deobfCompile "mezz.jei:jei_1.12.2:4.13.1.220"
-    deobfCompile "thaumcraft:Thaumcraft:1.12.2:6.1.BETA21"
+    deobfCompile "thaumcraft:Thaumcraft:1.12.2:6.1.BETA26"
 
     //and a bit more for SCP
     sshAntTask "org.apache.ant:ant-jsch:1.7.1", "jsch:jsch:0.1.29"

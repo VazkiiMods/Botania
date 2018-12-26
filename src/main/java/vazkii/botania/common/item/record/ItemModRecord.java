@@ -33,7 +33,7 @@ public class ItemModRecord extends ItemRecord implements IModelRegister {
 		super("botania:" + record, sound);
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
 		setRegistryName(new ResourceLocation(LibMisc.MOD_ID, name));
-		setUnlocalizedName(name);
+		setTranslationKey(name);
 		file = "botania:music." + record;
 	}
 

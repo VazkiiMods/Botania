@@ -60,7 +60,7 @@ public abstract class BlockRedString extends BlockMod implements ILexiconable {
 	@Nonnull
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
-		return getDefaultState().withProperty(BotaniaStateProps.FACING, EnumFacing.getFront(meta));
+		return getDefaultState().withProperty(BotaniaStateProps.FACING, EnumFacing.byIndex(meta));
 	}
 
 	@Override

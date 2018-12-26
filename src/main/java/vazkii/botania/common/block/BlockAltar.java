@@ -113,7 +113,7 @@ public class BlockAltar extends BlockMod implements ILexiconable {
 	@SideOnly(Side.CLIENT)
 	@Nonnull
 	@Override
-	public BlockRenderLayer getBlockLayer() {
+	public BlockRenderLayer getRenderLayer() {
 		return BlockRenderLayer.CUTOUT;
 	}
 
@@ -124,7 +124,7 @@ public class BlockAltar extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public void onEntityCollidedWithBlock(World world, BlockPos pos, IBlockState state, Entity entity) {
+	public void onEntityCollision(World world, BlockPos pos, IBlockState state, Entity entity) {
 		if(!world.isRemote && entity instanceof EntityItem) {
 			TileAltar tile = (TileAltar) world.getTileEntity(pos);
 			if(tile.collideEntityItem((EntityItem) entity))

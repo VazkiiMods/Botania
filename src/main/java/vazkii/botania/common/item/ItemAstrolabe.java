@@ -215,9 +215,9 @@ public class ItemAstrolabe extends ItemMod {
 			for(int x = -xOff; x < xOff + 1; x++)
 				for(int y = 0; y < yOff * 2 + 1; y++) {
 					for(int z = -zOff; z < zOff + 1; z++) {
-						int xp = pos.getX() + x + dir.getFrontOffsetX();
-						int yp = pos.getY() + y + dir.getFrontOffsetY();
-						int zp = pos.getZ() + z + dir.getFrontOffsetZ();
+						int xp = pos.getX() + x + dir.getXOffset();
+						int yp = pos.getY() + y + dir.getYOffset();
+						int zp = pos.getZ() + z + dir.getZOffset();
 
 						BlockPos newPos = new BlockPos(xp, yp, zp);
 						IBlockState state1 = player.world.getBlockState(newPos);

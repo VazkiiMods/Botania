@@ -142,7 +142,7 @@ public class EntityThornChakram extends EntityThrowable {
 			if(bounces < MAX_BOUNCES) {
 				Vector3 currentMovementVec = new Vector3(motionX, motionY, motionZ);
 				EnumFacing dir = pos.sideHit;
-				Vector3 normalVector = new Vector3(dir.getFrontOffsetX(), dir.getFrontOffsetY(), dir.getFrontOffsetZ()).normalize();
+				Vector3 normalVector = new Vector3(dir.getXOffset(), dir.getYOffset(), dir.getZOffset()).normalize();
 				Vector3 movementVec = normalVector.multiply(-2 * currentMovementVec.dotProduct(normalVector)).add(currentMovementVec);
 
 				motionX = movementVec.x;

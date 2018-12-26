@@ -80,7 +80,7 @@ public class ItemBlockSpecialFlower extends ItemBlockMod implements IRecipeKeyPr
 
 	@Nonnull
 	@Override
-	public String getUnlocalizedName(ItemStack stack) {
+	public String getTranslationKey(ItemStack stack) {
 		return BotaniaAPI.getSignatureForName(getType(stack)).getUnlocalizedNameForStack(stack);
 	}
 

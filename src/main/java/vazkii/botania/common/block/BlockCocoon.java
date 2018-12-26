@@ -73,7 +73,7 @@ public class BlockCocoon extends BlockMod implements ILexiconable {
 	}
 	
 	@Override
-	public void onEntityCollidedWithBlock(World world, BlockPos pos, IBlockState state, Entity e) {
+	public void onEntityCollision(World world, BlockPos pos, IBlockState state, Entity e) {
 		if(!world.isRemote && e instanceof EntityItem) {
 			EntityItem item = (EntityItem) e;
 			ItemStack stack = item.getItem();
@@ -87,8 +87,6 @@ public class BlockCocoon extends BlockMod implements ILexiconable {
 	@Override
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing s, float xs, float ys, float zs) {
 		ItemStack stack = player.getHeldItem(hand);
-		Item item = stack.getItem();
-
 		return addStack(world, pos, stack, player.capabilities.isCreativeMode);
 	}
 	

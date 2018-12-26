@@ -246,8 +246,8 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 
 	@Nonnull
 	@Override
-	public String getUnlocalizedName(ItemStack par1ItemStack) {
-		return getUnlocalizedNameLazy(par1ItemStack);
+	public String getTranslationKey(ItemStack stack) {
+		return getUnlocalizedNameLazy(stack);
 	}
 
 	@SideOnly(Side.CLIENT)

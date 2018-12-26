@@ -65,7 +65,7 @@ public final class LexiconRecipeMappings {
 		if(stack.hasTagCompound() && stack.getItem() instanceof IRecipeKeyProvider)
 			return ((IRecipeKeyProvider) stack.getItem()).getKey(stack);
 
-		return stack.getUnlocalizedName() + (forceIgnore || ignoreMeta(stack) ? "" : "~" + stack.getItemDamage());
+		return stack.getTranslationKey() + (forceIgnore || ignoreMeta(stack) ? "" : "~" + stack.getItemDamage());
 	}
 
 	public static boolean ignoreMeta(ItemStack stack) {

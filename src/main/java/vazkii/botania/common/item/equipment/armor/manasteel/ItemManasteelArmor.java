@@ -70,7 +70,7 @@ public class ItemManasteelArmor extends ItemArmor implements ISpecialArmor, IMan
 		this.type = type;
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
 		setRegistryName(new ResourceLocation(LibMisc.MOD_ID, name));
-		setUnlocalizedName(name);
+		setTranslationKey(name);
 	}
 
 	@Nonnull

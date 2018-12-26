@@ -660,11 +660,11 @@ public final class BotaniaAPI {
 		if(stack.isEmpty())
 			return "";
 
-		return "i_" + stack.getItem().getUnlocalizedName() + "@" + stack.getItemDamage();
+		return "i_" + stack.getItem().getTranslationKey() + "@" + stack.getItemDamage();
 	}
 
 	private static String getMagnetKey(Block block, int meta) {
-		return "bm_" + block.getUnlocalizedName() + "@" + meta;
+		return "bm_" + block.getTranslationKey() + "@" + meta;
 	}
 
 }

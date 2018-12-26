@@ -24,7 +24,7 @@ public class WikiHooks {
 
 	public static IWikiProvider getWikiFor(Block block) {
 		ResourceLocation mod = Block.REGISTRY.getNameForObject(block);
-		return getWikiFor(mod == null ? "" : mod.getResourceDomain().toLowerCase());
+		return getWikiFor(mod == null ? "" : mod.getNamespace().toLowerCase());
 	}
 
 	public static IWikiProvider getWikiFor(String mod) {

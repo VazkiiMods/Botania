@@ -136,7 +136,7 @@ public final class ModelHandler {
 	}
 
 	public static void registerItemAllMeta(Item item, int range) {
-		registerItemMetas(item, range, i -> item.getRegistryName().getResourcePath());
+		registerItemMetas(item, range, i -> item.getRegistryName().getPath());
 	}
 
 	public static void registerItemAppendMeta(Item item, int maxExclusive, String loc) {

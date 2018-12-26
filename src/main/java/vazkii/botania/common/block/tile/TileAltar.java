@@ -128,7 +128,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 			return true;
 		}
 		
-		if(SEED_PATTERN.matcher(stack.getUnlocalizedName()).find()) {
+		if(SEED_PATTERN.matcher(stack.getTranslationKey()).find()) {
 			for(RecipePetals recipe : BotaniaAPI.petalRecipes) {
 				if(recipe.matches(itemHandler)) {
 					saveLastRecipe();

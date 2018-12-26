@@ -38,13 +38,8 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 
 	@Nonnull
 	@Override
-	public ItemStack getIconItemStack() {
+	public ItemStack createIcon() {
 		return new ItemStack(ModItems.lexicon);
-	}
-
-	@Override
-	public ItemStack getTabIconItem() {
-		return getIconItemStack();
 	}
 
 	@Override

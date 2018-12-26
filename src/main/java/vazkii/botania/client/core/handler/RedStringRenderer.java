@@ -106,9 +106,9 @@ public final class RedStringRenderer {
 		double freq = 20;
 		double ampl = (0.15 * (Math.sin(l * 2F) * 0.5 + 0.5) + 0.1) * sizeAlpha;
 		double randMul = 0.05;
-		double x = xpos + Math.sin(l * freq) * ampl * Math.abs(Math.abs(dir.getFrontOffsetX()) - 1) + rand * randMul;
-		double y = ypos + Math.cos(l * freq) * ampl * Math.abs(Math.abs(dir.getFrontOffsetY()) - 1) + rand * randMul;
-		double z = zpos + (dir.getFrontOffsetY() == 0 ? Math.sin(l * freq) : Math.cos(l * freq)) * ampl * Math.abs(Math.abs(dir.getFrontOffsetZ()) - 1) + rand * randMul;
+		double x = xpos + Math.sin(l * freq) * ampl * Math.abs(Math.abs(dir.getXOffset()) - 1) + rand * randMul;
+		double y = ypos + Math.cos(l * freq) * ampl * Math.abs(Math.abs(dir.getYOffset()) - 1) + rand * randMul;
+		double z = zpos + (dir.getYOffset() == 0 ? Math.sin(l * freq) : Math.cos(l * freq)) * ampl * Math.abs(Math.abs(dir.getZOffset()) - 1) + rand * randMul;
 
 		tess.getBuffer().pos(x, y, z).endVertex();
 	}

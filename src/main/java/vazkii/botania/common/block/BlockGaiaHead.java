@@ -42,7 +42,7 @@ public class BlockGaiaHead extends BlockSkull implements IModelRegister {
 
 	public BlockGaiaHead() {
 		setRegistryName(new ResourceLocation(LibMisc.MOD_ID, LibBlockNames.GAIA_HEAD));
-		setUnlocalizedName(LibBlockNames.GAIA_HEAD);
+		setTranslationKey(LibBlockNames.GAIA_HEAD);
 		setHardness(1.0F);
 	}
 

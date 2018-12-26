@@ -85,7 +85,7 @@ public final class HUDHandler {
 	@SubscribeEvent(priority = EventPriority.HIGHEST)
 	public static void onDrawScreenPre(RenderGameOverlayEvent.Pre event) {
 		Minecraft mc = Minecraft.getMinecraft();
-		Profiler profiler = mc.mcProfiler;
+		Profiler profiler = mc.profiler;
 
 		if(event.getType() == ElementType.HEALTH) {
 			profiler.startSection("botania-hud");
@@ -117,7 +117,7 @@ public final class HUDHandler {
 	@SubscribeEvent
 	public static void onDrawScreenPost(RenderGameOverlayEvent.Post event) {
 		Minecraft mc = Minecraft.getMinecraft();
-		Profiler profiler = mc.mcProfiler;
+		Profiler profiler = mc.profiler;
 		ItemStack main = mc.player.getHeldItemMainhand();
 		ItemStack offhand = mc.player.getHeldItemOffhand();
 
@@ -262,7 +262,7 @@ public final class HUDHandler {
 
 	private static void renderWandModeDisplay(ItemStack stack, ScaledResolution res) {
 		Minecraft mc = Minecraft.getMinecraft();
-		Profiler profiler = mc.mcProfiler;
+		Profiler profiler = mc.profiler;
 
 		profiler.startSection("wandMode");
 		int ticks = mc.ingameGUI.remainingHighlightTicks;
@@ -314,7 +314,7 @@ public final class HUDHandler {
 
 	private static void renderPoolRecipeHUD(ScaledResolution res, TilePool tile, ItemStack stack) {
 		Minecraft mc = Minecraft.getMinecraft();
-		Profiler profiler = mc.mcProfiler;
+		Profiler profiler = mc.profiler;
 
 		profiler.startSection("poolRecipe");
 		RecipeManaInfusion recipe = TilePool.getMatchingRecipe(stack, tile.getWorld().getBlockState(tile.getPos().down()));
@@ -346,7 +346,7 @@ public final class HUDHandler {
 
 	private static void renderCrystalCubeHUD(ScaledResolution res, TileCorporeaCrystalCube tile) {
 		Minecraft mc = Minecraft.getMinecraft();
-		Profiler profiler = mc.mcProfiler;
+		Profiler profiler = mc.profiler;
 
 		profiler.startSection("crystalCube");
 		ItemStack target = tile.getRequestTarget();
@@ -373,7 +373,7 @@ public final class HUDHandler {
 	private static void drawLexiconHUD(ItemStack stack, IBlockState state, RayTraceResult pos, ScaledResolution res) {
 		Minecraft mc = Minecraft.getMinecraft();
 		Block block = state.getBlock();
-		Profiler profiler = mc.mcProfiler;
+		Profiler profiler = mc.profiler;
 
 		profiler.startSection("lexicon");
 		FontRenderer font = mc.fontRenderer;

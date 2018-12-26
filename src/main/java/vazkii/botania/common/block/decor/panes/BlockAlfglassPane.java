@@ -27,7 +27,7 @@ public class BlockAlfglassPane extends BlockModPane {
 	@SideOnly(Side.CLIENT)
 	@Nonnull
 	@Override
-	public BlockRenderLayer getBlockLayer() {
+	public BlockRenderLayer getRenderLayer() {
 		return BlockRenderLayer.TRANSLUCENT;
 	}
 

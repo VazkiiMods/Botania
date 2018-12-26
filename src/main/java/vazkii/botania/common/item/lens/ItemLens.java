@@ -155,8 +155,8 @@ public class ItemLens extends ItemMod implements ILensControl, ICompositableLens
 
 	@Nonnull
 	@Override
-	public String getUnlocalizedName(ItemStack par1ItemStack) {
-		return "item." + LibItemNames.LENS_NAMES[Math.min(SUBTYPES - 1, par1ItemStack.getItemDamage())];
+	public String getTranslationKey(ItemStack stack) {
+		return "item." + LibItemNames.LENS_NAMES[Math.min(SUBTYPES - 1, stack.getItemDamage())];
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -169,7 +169,7 @@ public class ItemLens extends ItemMod implements ILensControl, ICompositableLens
 
 
 	private String getItemShortTermName(ItemStack stack) {
-		return net.minecraft.util.text.translation.I18n.translateToLocal(stack.getUnlocalizedName().replaceAll("item.", "item.botania:") + ".short");
+		return net.minecraft.util.text.translation.I18n.translateToLocal(stack.getTranslationKey().replaceAll("item.", "item.botania:") + ".short");
 	}
 
 	@Nonnull

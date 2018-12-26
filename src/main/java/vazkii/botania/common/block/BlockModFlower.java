@@ -56,7 +56,7 @@ public class BlockModFlower extends BlockFlower implements ILexiconable, IGrowab
 	}
 
 	protected BlockModFlower(String name) {
-		setUnlocalizedName(name);
+		setTranslationKey(name);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.COLOR, EnumDyeColor.WHITE).withProperty(type, EnumFlowerType.POPPY));
 		setRegistryName(new ResourceLocation(LibMisc.MOD_ID, name));
 		setHardness(0F);

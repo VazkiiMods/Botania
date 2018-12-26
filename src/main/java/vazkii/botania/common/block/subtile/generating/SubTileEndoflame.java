@@ -44,7 +44,7 @@ public class SubTileEndoflame extends SubTileGenerating {
 
 		if(getWorld().isRemote) {
 			if(burnTime > 0 && supertile.getWorld().rand.nextInt(10) == 0) {
-				Vec3d offset = getWorld().getBlockState(getPos()).getOffset(getWorld(), getPos()).addVector(0.4, 0.7, 0.4);
+				Vec3d offset = getWorld().getBlockState(getPos()).getOffset(getWorld(), getPos()).add(0.4, 0.7, 0.4);
 				supertile.getWorld().spawnParticle(EnumParticleTypes.FLAME, supertile.getPos().getX() + offset.x + Math.random() * 0.2, supertile.getPos().getY() + offset.y, supertile.getPos().getZ() + offset.z + Math.random() * 0.2, 0.0D, 0.0D, 0.0D);
 			}
 			return;

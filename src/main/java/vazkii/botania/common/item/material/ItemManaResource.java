@@ -131,8 +131,8 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 
 	@Nonnull
 	@Override
-	public String getUnlocalizedName(ItemStack par1ItemStack) {
-		return "item." + LibItemNames.MANA_RESOURCE_NAMES[Math.min(types - 1, par1ItemStack.getItemDamage())];
+	public String getTranslationKey(ItemStack stack) {
+		return "item." + LibItemNames.MANA_RESOURCE_NAMES[Math.min(types - 1, stack.getItemDamage())];
 	}
 
 	@Override
