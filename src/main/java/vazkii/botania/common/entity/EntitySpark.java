@@ -61,12 +61,12 @@ public class EntitySpark extends Entity implements ISparkEntity {
 
 	public EntitySpark(World world) {
 		super(world);
-		setSize(0.1F, 0.5F);
 		isImmuneToFire = true;
 	}
 
 	@Override
 	protected void entityInit() {
+		setSize(0.1F, 0.5F);
 		dataManager.register(UPGRADE, 0);
 	}
 
@@ -74,11 +74,6 @@ public class EntitySpark extends Entity implements ISparkEntity {
 	@Override
 	public ItemStack getPickedResult(RayTraceResult target) {
 		return new ItemStack(ModItems.spark);
-	}
-
-	@Override
-	public boolean canBeAttackedWithItem() {
-		return false;
 	}
 
 	@Override
@@ -234,6 +229,11 @@ public class EntitySpark extends Entity implements ISparkEntity {
 		if(upgrade !=  SparkUpgradeType.NONE)
 			entityDropItem(new ItemStack(ModItems.sparkUpgrade, 1, upgrade.ordinal() - 1), 0F);
 		setDead();
+	}
+
+	@Override
+	public boolean canBeCollidedWith() {
+		return true;
 	}
 
 	@Override
