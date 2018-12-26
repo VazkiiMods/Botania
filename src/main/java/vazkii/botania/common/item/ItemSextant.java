@@ -24,6 +24,7 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -41,7 +42,7 @@ import java.util.EnumMap;
 import java.util.Map;
 
 public class ItemSextant extends ItemMod {
-
+	private static final int MAX_RADIUS = 256;
 	private static final String TAG_SOURCE_X = "sourceX";
 	private static final String TAG_SOURCE_Y = "sourceY";
 	private static final String TAG_SOURCE_Z = "sourceZ";
@@ -91,7 +92,7 @@ public class ItemSextant extends ItemMod {
 		if(!(living instanceof EntityPlayer)) return;
 
 		double radius = calculateRadius(stack, (EntityPlayer) living);
-		if(radius > 1) {
+		if(1 < radius && radius <= MAX_RADIUS) {
 			int x = ItemNBTHelper.getInt(stack, TAG_SOURCE_X, 0);
 			int y = ItemNBTHelper.getInt(stack, TAG_SOURCE_Y, -1);
 			int z = ItemNBTHelper.getInt(stack, TAG_SOURCE_Z, 0);
@@ -153,10 +154,14 @@ public class ItemSextant extends ItemMod {
 			int x = resolution.getScaledWidth() / 2 + 30;
 			int y = resolution.getScaledHeight() / 2;
 
-			String s = "" + (int) radius;
+			String s = Integer.toString((int) radius);
+			boolean inRange = 0 < radius && radius <= MAX_RADIUS;
+			if (!inRange)
+				s = TextFormatting.RED + s;
+
 			font.drawStringWithShadow(s, x - font.getStringWidth(s) / 2, y - 4, 0xFFFFFF);
 
-			if(radius > 0) {
+			if(inRange) {
 				radius += 4;
 				GlStateManager.disableTexture2D();
 				GL11.glLineWidth(3F);
