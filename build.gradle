@@ -1,6 +1,3 @@
-import groovy.json.JsonSlurper
-import groovy.json.JsonOutput
-
 buildscript {
     repositories {
         mavenCentral()
@@ -123,9 +120,6 @@ processResources {
     }
 }
 
-/**
- * These, go outside of the processResources {}* Though, this was added with the NEI intergation commit (8bf4680)
- */
 task deobfJar(type: Jar) {
     from(sourceSets.main.output)
 	archiveName = "${baseName} ${version}-deobf.${extension}"
@@ -136,77 +130,78 @@ task srcJar(type: Jar) {
     classifier = 'sources'
     archiveName = "${baseName} ${version}-sources.${extension}"
 }
+
+task apiJar(type: Jar) {
+    // Remove sources from the api jar when MinecraftForge/ForgeGradle#369 is fixed
+    from(sourceSets.main.allJava)
+    from(sourceSets.main.output)
+    include 'vazkii/botania/api/**'
+
+    classifier = 'api'
+    archiveName = "${baseName} ${version}-api.${extension}"
+}
+
 artifacts {
-    archives srcJar
+    archives srcJar, apiJar
 }
 
 /**
  * Increments the buildnumber in your config file, and saves it
+ * Note: The doFirst is important, without it the build number
+ * will be incremented every time tasks are configured, i.e every
+ * time gradle is run on this project. 
  */
-task incrementBuildNumber(dependsOn: 'reobfJar') << {
-    config.build_number = (config.build_number.toString().toInteger()) + 1
-    configFile.withWriter {
-        config.toProperties().store(it, "")
+task incrementBuildNumber {
+    doFirst {
+        config.build_number = (config.build_number.toString().toInteger()) + 1
+        configFile.withWriter {
+            config.toProperties().store(it, "")
+        }
+
+        // todo make this flexibile - collection of supported mc versions
+
+        file('web/versions.ini').append("\n${version}=${minecraft.version}")
+        file("${config.dir_repo}/version/${minecraft.version}.txt").write("${version}")
     }
-
-    // todo make this flexibile - collection of supported mc versions
-
-    file('web/versions.ini').append("\n${version}=${minecraft.version}")
-    file("${config.dir_repo}/version/${minecraft.version}.txt").write("${version}")
 }
 
-// I have no idea what I'm doing
-task wtfGradle2(type: Copy) {
-    from(jar.destinationDir)
-    into file("${config.dir_output}/wtf")
-}
 
-// Seriously, I'm desperate to make this work
-task wtfGradle1(type: Delete) {
-	dependsOn "wtfGradle2"
-    delete "${config.dir_output}/wtf/${deobfJar.archiveName}"
-}
+import java.util.regex.Pattern
 
-task output(type: Copy) {
-	dependsOn "wtfGradle1"
-	from(jar.destinationDir)
-    into file(config.dir_output)
-}
-
-task outputDeobf(type: Copy) {
-	dependsOn "output"
-	from(config.dir_output) {
-		include deobfJar.archiveName
-	}
-    into file("${config.dir_output}/deobf")
-}
-
-task forgecraft(type: Copy) {
-	if(priv == null){
-		return;
-	}
-	dependsOn "outputDeobf"
-	from "${config.dir_output}/wtf"
-	into file(priv.dir_forgecraft)
-}
-
-task sort(type: Delete) {
-	dependsOn "forgecraft"
-	delete "${config.dir_output}/${deobfJar.archiveName}", "${config.dir_output}/wtf"
+task sortArtifacts(type: Copy) {
+    from jar.destinationDir
+    into config.dir_output
+    //Put each jar with a classifier in a subfolder with the classifier as its name
+    eachFile {
+        //This matcher is used to get the classifier of the jar
+        def matcher = Pattern.compile("$config.mod_name $version-(?<classifier>\\w+).jar").matcher(it.name)
+        //Only change the destination for full matches, i.e jars with classifiers
+        if (matcher.matches())
+        {
+            def classifier = matcher.group('classifier')
+            /* Set the relative path to change the destination, since 
+             * Gradle doesn't seem to like the absolute path being set*/
+            it.relativePath = it.relativePath.parent.append(false, classifier, it.name)
+        }
+    }
 }
 
 // This is the upload task from the build.xml
-task upload() << {
-    scp('/') {
-        fileset(file: 'web/changelog.txt')
-        fileset(file: 'web/versions.ini')
+task upload {
+    doLast {
+        scp('/') {
+            fileset(file: 'web/changelog.txt')
+            fileset(file: 'web/versions.ini')
+        }
     }
 }
 
 // This is deploy_web task
-task deployWeb << {
-    scp('/') {
-        fileset(dir: 'web') //everything from the web directory
+task deployWeb {
+    doLast {
+        scp('/') {
+            fileset(dir: 'web') //everything from the web directory
+        }
     }
 }
 
@@ -241,13 +236,13 @@ def parseConfig(File config) {
 			return (new ConfigSlurper().parse(prop))
 		}
 	} else {
-		return null;
+		return null
 	}
 }
 
 curseforge {
 	if(priv == null){
-		return;
+		return
 	}
     apiKey = priv.cfkey
     project {
@@ -274,4 +269,4 @@ uploadArchives {
 }
 tasks.uploadArchives.dependsOn reobfJar
 
-defaultTasks 'clean', 'build', 'sort', 'incrementBuildNumber', 'upload'
+defaultTasks 'clean', 'build', 'sortArtifacts', 'incrementBuildNumber', 'upload'
