@@ -15,18 +15,18 @@ import vazkii.botania.api.BotaniaAPI;
 import java.util.Map;
 
 public class OrechidIgnemRecipeWrapper extends OrechidRecipeWrapper {
-    
-    public OrechidIgnemRecipeWrapper(Map.Entry<String, Integer> entry) {
-        super(entry);
-    }
 
-    @Override
-    protected ItemStack getInputStack() {
-        return new ItemStack(Blocks.NETHERRACK, 64);
-    }
+	public OrechidIgnemRecipeWrapper(Map.Entry<String, Integer> entry) {
+		super(entry);
+	}
 
-    public Map<String, Integer> getOreWeights() {
-        return BotaniaAPI.oreWeightsNether;
-    }
+	@Override
+	protected ItemStack getInputStack() {
+		return new ItemStack(Blocks.NETHERRACK, 64);
+	}
+
+	public Map<String, Integer> getOreWeights() {
+		return BotaniaAPI.oreWeightsNether;
+	}
 
 }

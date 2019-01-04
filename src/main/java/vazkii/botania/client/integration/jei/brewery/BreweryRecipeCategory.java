@@ -13,9 +13,9 @@ import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.gui.IDrawableStatic;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
+import mezz.jei.api.ingredients.VanillaTypes;
 import mezz.jei.api.recipe.IFocus;
 import mezz.jei.api.recipe.IRecipeCategory;
-import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -25,7 +25,7 @@ import javax.annotation.Nonnull;
 import java.util.Collections;
 import java.util.List;
 
-public class BreweryRecipeCategory implements IRecipeCategory {
+public class BreweryRecipeCategory implements IRecipeCategory<BreweryRecipeWrapper> {
 
 	public static final String UID = "botania.brewery";
 	private final IDrawableStatic background;
@@ -33,7 +33,7 @@ public class BreweryRecipeCategory implements IRecipeCategory {
 
 	public BreweryRecipeCategory(IGuiHelper guiHelper) {
 		ResourceLocation location = new ResourceLocation("botania", "textures/gui/neiBrewery.png");
-		background = guiHelper.createDrawable(location, 0, 0, 166, 65, 0, 0, 0, 0);
+		background = guiHelper.createDrawable(location, 0, 0, 166, 65);
 		localizedName = I18n.format("botania.nei.brewery");
 	}
 
@@ -62,12 +62,10 @@ public class BreweryRecipeCategory implements IRecipeCategory {
 	}
 
 	@Override
-	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull IRecipeWrapper recipeWrapper, @Nonnull IIngredients ingredients) {
-		if(!(recipeWrapper instanceof BreweryRecipeWrapper))
-			return;
+	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull BreweryRecipeWrapper recipeWrapper, @Nonnull IIngredients ingredients) {
 
-		List<List<ItemStack>> inputs = ingredients.getInputs(ItemStack.class);
-		List<List<ItemStack>> outputs = ingredients.getOutputs(ItemStack.class);
+		List<List<ItemStack>> inputs = ingredients.getInputs(VanillaTypes.ITEM);
+		List<List<ItemStack>> outputs = ingredients.getOutputs(VanillaTypes.ITEM);
 		IFocus<?> focus = recipeLayout.getFocus();
 
 		recipeLayout.getItemStacks().init(0, true, 39, 41);

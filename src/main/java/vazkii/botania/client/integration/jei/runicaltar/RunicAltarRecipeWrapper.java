@@ -10,6 +10,7 @@ package vazkii.botania.client.integration.jei.runicaltar;
 
 import com.google.common.collect.ImmutableList;
 import mezz.jei.api.ingredients.IIngredients;
+import mezz.jei.api.ingredients.VanillaTypes;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
@@ -28,7 +29,6 @@ public class RunicAltarRecipeWrapper implements IRecipeWrapper {
 	private final ItemStack output;
 	private final int manaUsage;
 
-	@SuppressWarnings("unchecked")
 	public RunicAltarRecipeWrapper(RecipeRuneAltar recipe) {
 		ImmutableList.Builder<List<ItemStack>> builder = ImmutableList.builder();
 		for(Object o : recipe.getInputs()) {
@@ -46,8 +46,8 @@ public class RunicAltarRecipeWrapper implements IRecipeWrapper {
 
 	@Override
 	public void getIngredients(@Nonnull IIngredients ingredients) {
-		ingredients.setInputLists(ItemStack.class, input);
-		ingredients.setOutput(ItemStack.class, output);
+		ingredients.setInputLists(VanillaTypes.ITEM, input);
+		ingredients.setOutput(VanillaTypes.ITEM, output);
 	}
 
 	@Override

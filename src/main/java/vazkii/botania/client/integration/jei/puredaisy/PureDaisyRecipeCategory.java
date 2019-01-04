@@ -12,6 +12,7 @@ import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
+import mezz.jei.api.ingredients.VanillaTypes;
 import mezz.jei.api.recipe.IRecipeCategory;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;
@@ -29,7 +30,7 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PureDaisyRecipeCategory implements IRecipeCategory {
+public class PureDaisyRecipeCategory implements IRecipeCategory<PureDaisyRecipeWrapper> {
 
 	public static final String UID = "botania.pureDaisy";
 	private final IDrawable background;
@@ -71,19 +72,16 @@ public class PureDaisyRecipeCategory implements IRecipeCategory {
 	}
 
 	@Override
-	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull IRecipeWrapper recipeWrapper, @Nonnull IIngredients ingredients) {
-		if(!(recipeWrapper instanceof PureDaisyRecipeWrapper))
-			return;
-
-		boolean inputFluid = !ingredients.getInputs(FluidStack.class).isEmpty();
-		boolean outputFluid = !ingredients.getOutputs(FluidStack.class).isEmpty();
+	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull PureDaisyRecipeWrapper recipeWrapper, @Nonnull IIngredients ingredients) {
+		boolean inputFluid = !ingredients.getInputs(VanillaTypes.FLUID).isEmpty();
+		boolean outputFluid = !ingredients.getOutputs(VanillaTypes.FLUID).isEmpty();
 
 		if(inputFluid) {
 			recipeLayout.getFluidStacks().init(0, true, 40, 12, 16, 16, 1000, false, null);
-			recipeLayout.getFluidStacks().set(0, ingredients.getInputs(FluidStack.class).get(0));
+			recipeLayout.getFluidStacks().set(0, ingredients.getInputs(VanillaTypes.FLUID).get(0));
 		} else {
 			recipeLayout.getItemStacks().init(0, true, 40, 12);
-			recipeLayout.getItemStacks().set(0, ingredients.getInputs(ItemStack.class).get(0));
+			recipeLayout.getItemStacks().set(0, ingredients.getInputs(VanillaTypes.ITEM).get(0));
 		}
 
 		recipeLayout.getItemStacks().init(1, true, 70, 12);
@@ -91,10 +89,10 @@ public class PureDaisyRecipeCategory implements IRecipeCategory {
 
 		if(outputFluid) {
 			recipeLayout.getFluidStacks().init(2, false, 99, 12, 16, 16, 1000, false, null);
-			recipeLayout.getFluidStacks().set(2, ingredients.getOutputs(FluidStack.class).get(0));
+			recipeLayout.getFluidStacks().set(2, ingredients.getOutputs(VanillaTypes.FLUID).get(0));
 		} else {
 			recipeLayout.getItemStacks().init(2, false, 99, 12);
-			recipeLayout.getItemStacks().set(2, ingredients.getOutputs(ItemStack.class).get(0));
+			recipeLayout.getItemStacks().set(2, ingredients.getOutputs(VanillaTypes.ITEM).get(0));
 		}
 	}
 

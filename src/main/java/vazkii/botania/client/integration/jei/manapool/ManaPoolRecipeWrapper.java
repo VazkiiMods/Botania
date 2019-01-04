@@ -10,6 +10,7 @@ package vazkii.botania.client.integration.jei.manapool;
 
 import com.google.common.collect.ImmutableList;
 import mezz.jei.api.ingredients.IIngredients;
+import mezz.jei.api.ingredients.VanillaTypes;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -54,8 +55,8 @@ public class ManaPoolRecipeWrapper implements IRecipeWrapper {
 
 	@Override
 	public void getIngredients(@Nonnull IIngredients ingredients) {
-		ingredients.setInputLists(ItemStack.class, input);
-		ingredients.setOutput(ItemStack.class, output);
+		ingredients.setInputLists(VanillaTypes.ITEM, input);
+		ingredients.setOutput(VanillaTypes.ITEM, output);
 	}
 
 	@Override

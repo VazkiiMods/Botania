@@ -12,8 +12,8 @@ import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
+import mezz.jei.api.ingredients.VanillaTypes;
 import mezz.jei.api.recipe.IRecipeCategory;
-import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
@@ -29,11 +29,9 @@ import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.util.ArrayList;
 import java.util.List;
 
-public class ElvenTradeRecipeCategory implements IRecipeCategory {
+public class ElvenTradeRecipeCategory implements IRecipeCategory<ElvenTradeRecipeWrapper> {
 
 	public static final String UID = "botania.elvenTrade";
 	private final String localizedName;
@@ -89,20 +87,17 @@ public class ElvenTradeRecipeCategory implements IRecipeCategory {
 	}
 
 	@Override
-	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull IRecipeWrapper recipeWrapper, @Nonnull IIngredients ingredients) {
-		if(!(recipeWrapper instanceof ElvenTradeRecipeWrapper))
-			return;
-
+	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull ElvenTradeRecipeWrapper recipeWrapper, @Nonnull IIngredients ingredients) {
 		int index = 0, posX = 42;
-		for(List<ItemStack> o : ingredients.getInputs(ItemStack.class)) {
+		for(List<ItemStack> o : ingredients.getInputs(VanillaTypes.ITEM)) {
 			recipeLayout.getItemStacks().init(index, true, posX, 0);
 			recipeLayout.getItemStacks().set(index, o);
 			index++;
 			posX += 18;
 		}
 
-		for (int i = 0; i < ingredients.getOutputs(ItemStack.class).size(); i++) {
-			List<ItemStack> stacks = ingredients.getOutputs(ItemStack.class).get(i);
+		for(int i = 0; i < ingredients.getOutputs(VanillaTypes.ITEM).size(); i++) {
+			List<ItemStack> stacks = ingredients.getOutputs(VanillaTypes.ITEM).get(i);
 			recipeLayout.getItemStacks().init(index + i, false, 93 + i % 2 * 20, 41 + i / 2 * 20);
 			recipeLayout.getItemStacks().set(index + i, stacks);
 		}
@@ -113,5 +108,5 @@ public class ElvenTradeRecipeCategory implements IRecipeCategory {
 	public String getModName() {
 		return LibMisc.MOD_NAME;
 	}
-	
+
 }

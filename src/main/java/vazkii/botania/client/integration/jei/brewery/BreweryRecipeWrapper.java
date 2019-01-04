@@ -10,6 +10,7 @@ package vazkii.botania.client.integration.jei.brewery;
 
 import com.google.common.collect.ImmutableList;
 import mezz.jei.api.ingredients.IIngredients;
+import mezz.jei.api.ingredients.VanillaTypes;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
@@ -24,8 +25,8 @@ public class BreweryRecipeWrapper implements IRecipeWrapper {
 
 	private final List<List<ItemStack>> input;
 	private final List<ItemStack> output;
-	
-	private static final List<ItemStack> inputs = Arrays.asList(new ItemStack(ModItems.vial), 
+
+	private static final List<ItemStack> inputs = Arrays.asList(new ItemStack(ModItems.vial),
 		new ItemStack(ModItems.vial, 1, 1), new ItemStack(ModItems.incenseStick), new ItemStack(ModItems.bloodPendant));
 
 	public BreweryRecipeWrapper(RecipeBrew recipeBrew) {
@@ -41,7 +42,7 @@ public class BreweryRecipeWrapper implements IRecipeWrapper {
 			}
 		}
 		inputBuilder.add(containers.build());
-		
+
 		for(Object o : recipeBrew.getInputs()) {
 			if(o instanceof ItemStack) {
 				inputBuilder.add(ImmutableList.of((ItemStack) o));
@@ -57,7 +58,7 @@ public class BreweryRecipeWrapper implements IRecipeWrapper {
 
 	@Override
 	public void getIngredients(@Nonnull IIngredients ingredients) {
-		ingredients.setInputLists(ItemStack.class, input);
-		ingredients.setOutputLists(ItemStack.class, ImmutableList.of(output));
+		ingredients.setInputLists(VanillaTypes.ITEM, input);
+		ingredients.setOutputLists(VanillaTypes.ITEM, ImmutableList.of(output));
 	}
 }
