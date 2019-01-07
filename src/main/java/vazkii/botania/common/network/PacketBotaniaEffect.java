@@ -254,6 +254,19 @@ public class PacketBotaniaEffect implements IMessage {
 								new Vector3(message.args[0] + 0.5, message.args[1] + 0.5, message.args[2] + 0.5));
 						break;
 					}
+					case DIVA_EFFECT: {
+						Entity target = Minecraft.getMinecraft().world.getEntityByID(message.args[0]);
+						if(target == null)
+							break;
+
+						double x = target.posX;
+						double y = target.posY;
+						double z = target.posZ;
+
+						for(int i = 0; i < 50; i++)
+							Botania.proxy.sparkleFX(x + Math.random() * target.width, y + Math.random() * target.height, z + Math.random() * target.width, 1F, 1F, 0.25F, 1F, 3);
+						break;
+					}
 					}
 				}
 			});
@@ -273,6 +286,7 @@ public class PacketBotaniaEffect implements IMessage {
 		TERRA_PLATE(0),
 		FLUGEL_EFFECT(1), // Arg: Entity ID
 		PARTICLE_BEAM(3), // Args: dest xyz
+		DIVA_EFFECT(1), // Arg: EntityID
 		;
 
 		private final int argCount;

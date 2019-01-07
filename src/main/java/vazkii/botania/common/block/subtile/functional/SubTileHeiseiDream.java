@@ -15,6 +15,8 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
+import net.minecraft.entity.ai.EntityAIBase;
+import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
 import net.minecraft.entity.monster.IMob;
@@ -62,34 +64,31 @@ public class SubTileHeiseiDream extends SubTileFunctional {
 		EntityLivingBase target = entity.getAttackTarget();
 		boolean did = false;
 
-		if(target == null || !(target instanceof IMob)) {
+		if(!(target instanceof IMob)) {
 			IMob newTarget;
 			do newTarget = mobs.get(entity.world.rand.nextInt(mobs.size()));
 			while(newTarget == entity);
 
 			if(newTarget instanceof EntityLiving) {
-				List<EntityAITaskEntry> entries = new ArrayList<>(entity.tasks.taskEntries);
-				entries.addAll(new ArrayList<>(entity.targetTasks.taskEntries));
+				entity.setAttackTarget(null);
 
-				for(EntityAITaskEntry entry : entries)
-					if(entry.action instanceof EntityAINearestAttackableTarget) {
-						messWithGetTargetAI((EntityAINearestAttackableTarget) entry.action, (EntityLiving) newTarget);
-						did = true;
-					} else if(entry.action instanceof EntityAIAttackMelee) {
-						did = true;
+				// Move any EntityAIHurtByTarget to highest priority
+				for (EntityAITaskEntry entry : entity.targetTasks.taskEntries) {
+					if (entry.action instanceof EntityAIHurtByTarget) {
+						// Concurrent modification OK since we break out of the loop
+						entity.targetTasks.removeTask(entry.action);
+						entity.targetTasks.addTask(-1, entry.action);
+						break;
 					}
+				}
 
-				if(did)
-					entity.setAttackTarget((EntityLiving) newTarget);
+				// Now set revenge target, which EntityAIHurtByTarget will pick up
+				entity.setRevengeTarget((EntityLiving) newTarget);
+				did = true;
 			}
 		}
 
 		return did;
-	}
-
-	private static void messWithGetTargetAI(EntityAINearestAttackableTarget aiEntry, EntityLivingBase target) {
-		aiEntry.targetClass = Entity.class;
-		aiEntry.targetEntitySelector = e -> e == target; // todo will this leak target?
 	}
 
 	@Override

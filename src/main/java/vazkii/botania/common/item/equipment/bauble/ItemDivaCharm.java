@@ -13,6 +13,7 @@ package vazkii.botania.common.item.equipment.bauble;
 import baubles.api.BaubleType;
 import baubles.api.BaublesApi;
 import com.google.common.base.Predicates;
+import com.google.common.util.concurrent.ListenableFutureTask;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
@@ -23,10 +24,12 @@ import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.fml.relauncher.Side;
@@ -39,6 +42,8 @@ import vazkii.botania.common.block.subtile.functional.SubTileHeiseiDream;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibObfuscation;
+import vazkii.botania.common.network.PacketBotaniaEffect;
+import vazkii.botania.common.network.PacketHandler;
 
 import java.util.List;
 
@@ -51,35 +56,39 @@ public class ItemDivaCharm extends ItemBauble implements IManaUsingItem, IBauble
 
 	@SubscribeEvent
 	public void onEntityDamaged(LivingHurtEvent event) {
-		if(event.getSource().getImmediateSource() instanceof EntityPlayer && event.getEntityLiving() instanceof EntityLiving && !event.getEntityLiving().world.isRemote && Math.random() < 0.6F) {
-			EntityPlayer player = (EntityPlayer) event.getSource().getImmediateSource();
-			ItemStack amulet = BaublesApi.getBaublesHandler(player).getStackInSlot(6);
-			if(!amulet.isEmpty() && amulet.getItem() == this) {
-				final int cost = 250;
-				if(ManaItemHandler.requestManaExact(amulet, player, cost, false)) {
-					final int range = 20;
+		if (event.getSource().getImmediateSource() instanceof EntityPlayer && event.getEntityLiving() instanceof EntityLiving && !event.getEntityLiving().world.isRemote && Math.random() < 0.6F) {
+			Runnable lambda = () -> {
+				EntityLiving target = (EntityLiving) event.getEntityLiving();
+				EntityPlayer player = (EntityPlayer) event.getSource().getImmediateSource();
+				ItemStack amulet = BaublesApi.getBaublesHandler(player).getStackInSlot(6);
 
-					List mobs = player.world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(event.getEntityLiving().posX - range, event.getEntityLiving().posY - range, event.getEntityLiving().posZ - range, event.getEntityLiving().posX + range, event.getEntityLiving().posY + range, event.getEntityLiving().posZ + range), Predicates.instanceOf(IMob.class));
-					if(mobs.size() > 1) {
-						if(SubTileHeiseiDream.brainwashEntity((EntityLiving) event.getEntityLiving(), (List<IMob>) mobs)) {
-							if(event.getEntityLiving() instanceof EntityCreeper)
-								((EntityCreeper) event.getEntityLiving()).timeSinceIgnited = 2;
-							event.getEntityLiving().heal(event.getEntityLiving().getMaxHealth());
-							if(event.getEntityLiving().isDead)
-								event.getEntityLiving().isDead = false;
+				if(!amulet.isEmpty() && amulet.getItem() == this) {
+					final int cost = 250;
+					if(ManaItemHandler.requestManaExact(amulet, player, cost, false)) {
+						final int range = 20;
 
-							ManaItemHandler.requestManaExact(amulet, player, cost, true);
-							player.world.playSound(null, player.posX, player.posY, player.posZ, ModSounds.divaCharm, SoundCategory.PLAYERS, 1F, 1F);
+						List mobs = player.world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(target.posX - range, target.posY - range, target.posZ - range, target.posX + range, target.posY + range, target.posZ + range), Predicates.instanceOf(IMob.class));
+						if(mobs.size() > 1) {
+							if(SubTileHeiseiDream.brainwashEntity(target, (List<IMob>) mobs)) {
+								target.heal(target.getMaxHealth());
+								target.isDead = false;
+								if(target instanceof EntityCreeper)
+									((EntityCreeper) event.getEntityLiving()).timeSinceIgnited = 2;
 
-							double x = event.getEntityLiving().posX;
-							double y = event.getEntityLiving().posY;
-							double z = event.getEntityLiving().posZ;
-
-							for(int i = 0; i < 50; i++)
-								Botania.proxy.sparkleFX(x + Math.random() * event.getEntityLiving().width, y + Math.random() * event.getEntityLiving().height, z + Math.random() * event.getEntityLiving().width, 1F, 1F, 0.25F, 1F, 3);
+								ManaItemHandler.requestManaExact(amulet, player, cost, true);
+								player.world.playSound(null, player.posX, player.posY, player.posZ, ModSounds.divaCharm, SoundCategory.PLAYERS, 1F, 1F);
+								PacketHandler.sendToNearby(target.world, target, new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.DIVA_EFFECT, target.posX, target.posY, target.posZ, target.getEntityId()));
+							}
 						}
 					}
 				}
+			};
+
+			// Have to delay a tick because setAttackTarget(player) is called *after* the event fires, and we want to get rid of that
+			// addScheduledTask runs the lambda immediately if on the main thread, hence this trickery
+			MinecraftServer server = FMLCommonHandler.instance().getMinecraftServerInstance();
+			synchronized (server.futureTaskQueue) {
+				server.futureTaskQueue.add(ListenableFutureTask.create(lambda, null));
 			}
 		}
 	}
