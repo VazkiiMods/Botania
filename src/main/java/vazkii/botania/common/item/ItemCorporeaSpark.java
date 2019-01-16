@@ -49,5 +49,4 @@ public class ItemCorporeaSpark extends ItemMod {
 		}
 		return EnumActionResult.PASS;
 	}
-
 }

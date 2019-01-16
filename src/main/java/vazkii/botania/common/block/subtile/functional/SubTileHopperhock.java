@@ -84,7 +84,7 @@ public class SubTileHopperhock extends SubTileFunctional {
 					List<ItemStack> filter = getFilterForInventory(pos_, true);
 					boolean canAccept = canAcceptItem(stack, filter, filterType);
 
-					ItemStack simulate = ItemHandlerHelper.insertItem(inv.handler, stack.copy(), true);
+					ItemStack simulate = ItemHandlerHelper.insertItem(inv.handler, stack, true);
 					int availablePut = stack.getCount() - simulate.getCount();
 
 					canAccept &= availablePut > 0;

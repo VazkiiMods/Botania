@@ -111,7 +111,7 @@ public final class ItemsRemainingRenderHandler {
 		int count = 0;
 		for(int i = 0; i < player.inventory.getSizeInventory(); i++) {
 			ItemStack stack = player.inventory.getStackInSlot(i);
-			if(!stack.isEmpty() && pattern.matcher(stack.getUnlocalizedName()).find())
+			if(!stack.isEmpty() && pattern.matcher(stack.getTranslationKey()).find())
 				count += stack.getCount();
 		}
 

@@ -27,7 +27,7 @@ public class LensBounce extends Lens {
 			if(!coords.equals(pos.getBlockPos())) {
 				Vector3 currentMovementVec = new Vector3(entity.motionX, entity.motionY, entity.motionZ);
 				EnumFacing dir = pos.sideHit;
-				Vector3 normalVector = new Vector3(dir.getFrontOffsetX(), dir.getFrontOffsetY(), dir.getFrontOffsetZ()).normalize();
+				Vector3 normalVector = new Vector3(dir.getXOffset(), dir.getYOffset(), dir.getZOffset()).normalize();
 				Vector3 movementVec = normalVector.multiply(-2 * currentMovementVec.dotProduct(normalVector)).add(currentMovementVec);
 
 				burst.setMotion(movementVec.x, movementVec.y, movementVec.z);

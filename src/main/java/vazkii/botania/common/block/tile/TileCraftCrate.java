@@ -25,6 +25,7 @@ import vazkii.botania.api.state.enums.CratePattern;
 import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
+import java.util.List;
 
 public class TileCraftCrate extends TileOpenCrate {
 	public static final String TAG_PATTERN = "pattern";
@@ -88,26 +89,22 @@ public class TileCraftCrate extends TileOpenCrate {
 				return false;
 			}
 		}, 3, 3);
-		for(int i = 0; i < 9; i++) {
+		for(int i = 0; i < craft.getSizeInventory(); i++) {
 			ItemStack stack = itemHandler.getStackInSlot(i);
 
 			if(stack.isEmpty() || isLocked(i) || stack.getItem() == ModItems.placeholder)
 				continue;
 
-			craft.setInventorySlotContents(i, stack.copy());
+			craft.setInventorySlotContents(i, stack);
 		}
 
 		for(IRecipe recipe : ForgeRegistries.RECIPES)
 			if(recipe.matches(craft, world)) {
 				itemHandler.setStackInSlot(9, recipe.getCraftingResult(craft));
 
-				for(int i = 0; i < 9; i++) {
-					ItemStack stack = itemHandler.getStackInSlot(i);
-					if(stack.isEmpty())
-						continue;
-
-					ItemStack container = stack.getItem().getContainerItem(stack);
-					itemHandler.setStackInSlot(i, container);
+				List<ItemStack> remainders = recipe.getRemainingItems(craft);
+				for(int i = 0; i < craft.getSizeInventory(); i++) {
+					itemHandler.setStackInSlot(i, remainders.get(i));
 				}
 				return true;
 			}

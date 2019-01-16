@@ -24,7 +24,7 @@ public class BlockModStairs extends BlockStairs implements ILexiconable, IModelR
 	public BlockModStairs(IBlockState state, String name) {
 		super(state);
 		setRegistryName(new ResourceLocation(LibMisc.MOD_ID, name));
-		setUnlocalizedName(name);
+		setTranslationKey(name);
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
 		useNeighborBrightness = true;
 	}

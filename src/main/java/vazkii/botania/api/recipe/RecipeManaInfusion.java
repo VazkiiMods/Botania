@@ -35,22 +35,12 @@ public class RecipeManaInfusion {
 
 	public boolean matches(ItemStack stack) {
 		if(input instanceof ItemStack) {
-			ItemStack inputCopy = ((ItemStack) input).copy();
-			if(inputCopy.getItemDamage() == Short.MAX_VALUE)
-				inputCopy.setItemDamage(stack.getItemDamage());
-
-			return stack.isItemEqual(inputCopy);
+			return OreDictionary.itemMatches((ItemStack) input, stack, false);
 		}
 
 		if(input instanceof String) {
-			List<ItemStack> validStacks = OreDictionary.getOres((String) input);
-
-			for(ItemStack ostack : validStacks) {
-				ItemStack cstack = ostack.copy();
-				if(cstack.getItemDamage() == Short.MAX_VALUE)
-					cstack.setItemDamage(stack.getItemDamage());
-
-				if(stack.isItemEqual(cstack))
+			for(ItemStack ostack : OreDictionary.getOres((String) input, false)) {
+				if(OreDictionary.itemMatches(ostack, stack, false))
 					return true;
 			}
 		}

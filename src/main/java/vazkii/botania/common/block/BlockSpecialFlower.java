@@ -122,7 +122,7 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 	protected BlockSpecialFlower() {
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.COLOR, EnumDyeColor.WHITE).withProperty(type, EnumFlowerType.POPPY));
 		setRegistryName(new ResourceLocation(LibMisc.MOD_ID, LibBlockNames.SPECIAL_FLOWER));
-		setUnlocalizedName(LibBlockNames.SPECIAL_FLOWER);
+		setTranslationKey(LibBlockNames.SPECIAL_FLOWER);
 		setHardness(0.1F);
 		setSoundType(SoundType.PLANT);
 		setTickRandomly(false);

@@ -1150,7 +1150,7 @@ public final class LexiconData {
 			List<LexiconPage> pages = new ArrayList<>();
 			pages.add(new PageText("0"));
 			pages.add(new PageText("1"));
-			for (int i = 0; i < 32; i++)
+			for (int i = 0; i < ItemBaubleCosmetic.SUBTYPES; i++)
 				pages.add(new PageCraftingRecipe("" + (i + 2), ModCraftingRecipes.recipesCosmeticItems.get(i)));
 			cosmeticBaubles.setPriority().setLexiconPages(pages.toArray(new LexiconPage[pages.size()]));
 		}
@@ -1399,7 +1399,7 @@ public final class LexiconData {
 		banners.setLexiconPages(new PageText("0"), new PageImage("1", LibResources.ENTRY_BANNERS))
 				.setIcon(new ItemStack(ModItems.lexicon));
 
-		if (Botania.bcTriggersLoaded) {
+		if (Botania.bcApiLoaded) {
 			bcIntegration = new CompatLexiconEntry(LibLexicon.MISC_BC_INTEGRATION, categoryMisc, "BuildCraft");
 			bcIntegration.setLexiconPages(new PageText("0")).setIcon(new ItemStack(Items.REDSTONE));
 		}

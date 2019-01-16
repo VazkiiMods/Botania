@@ -11,7 +11,7 @@
 package vazkii.botania.common.block.tile.mana;
 
 import com.google.common.base.Predicates;
-import net.minecraft.entity.Entity;
+import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.AxisAlignedBB;
 import vazkii.botania.api.internal.IManaBurst;
@@ -24,7 +24,7 @@ public class TileManaDetector extends TileMod implements ITickable {
 	@Override
 	public void update() {
 		boolean state = world.getBlockState(getPos()).getValue(BotaniaStateProps.POWERED);
-		boolean expectedState = world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(pos, pos.add(1, 1, 1)), Predicates.instanceOf(IManaBurst.class)).size() != 0;
+		boolean expectedState = world.getEntitiesWithinAABB(EntityThrowable.class, new AxisAlignedBB(pos, pos.add(1, 1, 1)), Predicates.instanceOf(IManaBurst.class)).size() != 0;
 		if(state != expectedState && !world.isRemote)
 			world.setBlockState(getPos(), world.getBlockState(getPos()).withProperty(BotaniaStateProps.POWERED, expectedState), 1 | 2);
 

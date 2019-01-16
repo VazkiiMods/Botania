@@ -2,7 +2,7 @@
   "display": {
     "icon": {
       "item": "botania:specialFlower",
-      "nbt": "{\"type\": \"bellethorne\"}"
+      "nbt": "{\"type\": \"bellethorn\"}"
     },
     "title": {
       "translate": "advancement.botania:functionalFlower"

@@ -48,7 +48,7 @@ public class ItemManasteelSword extends ItemSword implements IManaUsingItem, IMo
 		super(mat);
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
 		setRegistryName(new ResourceLocation(LibMisc.MOD_ID, name));
-		setUnlocalizedName(name);
+		setTranslationKey(name);
 		addPropertyOverride(new ResourceLocation("botania", "elucidator"),
 				(stack, worldIn, entityIn) -> "the elucidator".equals(stack.getDisplayName().toLowerCase().trim()) ? 1 : 0);
 	}

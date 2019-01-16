@@ -37,6 +37,7 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -66,7 +67,7 @@ import vazkii.botania.common.item.equipment.bauble.ItemTinyPlanet;
 
 @Optional.Interface(iface="elucent.albedo.lighting.ILightProvider", modid="albedo")
 public class EntityManaBurst extends EntityThrowable implements IManaBurst, ILightProvider {
-
+	
 	private static final String TAG_TICKS_EXISTED = "ticksExisted";
 	private static final String TAG_COLOR = "color";
 	private static final String TAG_MANA = "mana";
@@ -140,15 +141,15 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst, ILig
 		setMotion(mx, my, mz);
 	}
 
-	public EntityManaBurst(EntityPlayer player) {
+	public EntityManaBurst(EntityPlayer player, EnumHand hand) {
 		this(player.world);
 
 		setBurstSourceCoords(new BlockPos(0, -1, 0));
 		setLocationAndAngles(player.posX, player.posY + player.getEyeHeight(), player.posZ, player.rotationYaw + 180, -player.rotationPitch);
 
-		posX -= MathHelper.cos((rotationYaw + 180) / 180.0F * (float) Math.PI) * 0.16F;
+		posX -= (hand == EnumHand.OFF_HAND ? -1 : 1) * MathHelper.cos((rotationYaw + 180) / 180.0F * (float) Math.PI) * 0.16F;
 		posY -= 0.10000000149011612D;
-		posZ -= MathHelper.sin((rotationYaw + 180) / 180.0F * (float) Math.PI) * 0.16F;
+		posZ -= (hand == EnumHand.OFF_HAND ? -1 : 1) * MathHelper.sin((rotationYaw + 180) / 180.0F * (float) Math.PI) * 0.16F;
 
 		setPosition(posX, posY, posZ);
 		float f = 0.4F;
@@ -191,7 +192,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst, ILig
 			vec3d1 = new Vec3d(raytraceresult.hitVec.x, raytraceresult.hitVec.y, raytraceresult.hitVec.z);
 		}
 
-		if(!world.isRemote) { // Botania - only do entity colliding on server
+		if(!scanBeam && !world.isRemote) { // Botania - only do entity colliding on server and while not scanning
 			Entity entity = null;
 			List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox().offset(motionX, motionY, motionZ).grow(1.0D));
 			double d0 = 0.0D;
@@ -287,6 +288,8 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst, ILig
 		rotationYaw = prevRotationYaw + (rotationYaw - prevRotationYaw) * 0.2F;
 		float f2 = getGravityVelocity();
 
+		// Botania - don't do water particles, bursts are never inWater
+		/*
 		if (isInWater())
 		{
 			for (int j = 0; j < 4; ++j)
@@ -294,7 +297,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst, ILig
 				float f3 = 0.25F;
 				world.spawnParticle(EnumParticleTypes.WATER_BUBBLE, posX - motionX * f3, posY - motionY * f3, posZ - motionZ * f3, motionX, motionY, motionZ, new int[0]);
 			}
-		}
+		}*/
 
 		// Botania - don't apply drag
 		// this.motionX *= (double)f1;
@@ -309,7 +312,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst, ILig
 		setTicksExisted(getTicksExisted() + 1);
 		superUpdate();
 
-		if(!fake && !isDead)
+		if(!fake && !isDead && !scanBeam)
 			ping();
 
 		ILensEffect lens = getLensInstance();
@@ -357,14 +360,23 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst, ILig
 		return false;
 	}
 
+	@Override
+	public boolean isInLava() {
+		//Avoids expensive getBlockState check in Entity#onEntityUpdate (see super impl)
+		return false;
+	}
+
 	private TileEntity collidedTile = null;
 	private boolean noParticles = false;
 
 	public TileEntity getCollidedTile(boolean noParticles) {
 		this.noParticles = noParticles;
 
-		while(!isDead)
+		int iterations = 0;
+		while(!isDead && iterations < ConfigHandler.spreaderTraceTime) {
 			onUpdate();
+			iterations++;
+		}
 
 		if(fake)
 			incrementFakeParticleTick();

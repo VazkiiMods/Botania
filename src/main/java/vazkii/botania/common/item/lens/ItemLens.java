@@ -73,7 +73,7 @@ public class ItemLens extends ItemMod implements ILensControl, ICompositableLens
 
 
 	private String getItemShortTermName(ItemStack stack) {
-		return net.minecraft.util.text.translation.I18n.translateToLocal(stack.getUnlocalizedName().replaceAll("item.", "item.botania:") + ".short");
+		return net.minecraft.util.text.translation.I18n.translateToLocal(stack.getTranslationKey().replaceAll("item.", "item.botania:") + ".short");
 	}
 
 	@Nonnull

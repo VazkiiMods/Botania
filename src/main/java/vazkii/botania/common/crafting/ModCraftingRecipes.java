@@ -43,6 +43,7 @@ import vazkii.botania.common.crafting.recipe.SpecialFloatingFlowerRecipe;
 import vazkii.botania.common.crafting.recipe.SpellClothRecipe;
 import vazkii.botania.common.crafting.recipe.TerraPickTippingRecipe;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.equipment.bauble.ItemBaubleCosmetic;
 import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.lib.LibOreDict;
@@ -210,7 +211,7 @@ public final class ModCraftingRecipes {
 	public static ResourceLocation recipeRFGenerator;
 	public static ResourceLocation recipeGravityRod;
 	public static ResourceLocation recipeUltraSpreader;
-	public static ResourceLocation recipeHelmetOfRevealing;
+	public static List<ResourceLocation> recipeHelmetOfRevealing;
 	public static ResourceLocation recipeVial;
 	public static ResourceLocation recipeFlask;
 	public static ResourceLocation recipeBrewery;
@@ -332,7 +333,14 @@ public final class ModCraftingRecipes {
 		r.register(new CompositeLensRecipe().setRegistryName(new ResourceLocation(LibMisc.MOD_ID, "composite_lens")));
 		r.register(new CosmeticAttachRecipe().setRegistryName(new ResourceLocation(LibMisc.MOD_ID, "cosmetic_attach")));
 		r.register(new CosmeticRemoveRecipe().setRegistryName(new ResourceLocation(LibMisc.MOD_ID, "cosmetic_remove")));
-		r.register(new HelmRevealingRecipe().setRegistryName(new ResourceLocation(LibMisc.MOD_ID, "helm_revealing")));
+		if(Botania.thaumcraftLoaded) {
+			r.register(new HelmRevealingRecipe(ModItems.terrasteelHelmRevealing, ModItems.terrasteelHelm)
+					.setRegistryName(LibMisc.MOD_ID, LibItemNames.TERRASTEEL_HELM_R + "_from_goggles"));
+			r.register(new HelmRevealingRecipe(ModItems.manasteelHelmRevealing, ModItems.manasteelHelm)
+					.setRegistryName(LibMisc.MOD_ID, LibItemNames.MANASTEEL_HELM_R + "_from_goggles"));
+			r.register(new HelmRevealingRecipe(ModItems.elementiumHelmRevealing, ModItems.elementiumHelm)
+					.setRegistryName(LibMisc.MOD_ID, LibItemNames.ELEMENTIUM_HELM_R + "_from_goggles"));
+		}
 		r.register(new KeepIvyRecipe().setRegistryName(new ResourceLocation(LibMisc.MOD_ID, "keep_ivy_attach")));
 		r.register(new LensDyeingRecipe().setRegistryName(new ResourceLocation(LibMisc.MOD_ID, "lens_dye")));
 		r.register(new ManaGunLensRecipe().setRegistryName(new ResourceLocation(LibMisc.MOD_ID, "mana_gun_add_lens")));
@@ -399,17 +407,6 @@ public final class ModCraftingRecipes {
 				'I', LibOreDict.TERRA_STEEL,
 				'L', LibOreDict.LIVINGWOOD_TWIG).setRegistryName(ModItems.terraPick.getRegistryName()));
 
-		/*
-		todo if tc ever comes back?
-		// Revealing Helmet Recipes
-		if(Botania.thaumcraftLoaded) {
-			Item goggles = Item.REGISTRY.getObject(new ResourceLocation("thaumcraft", "goggles"));
-			addShapelessRecipe(new ItemStack(ModItems.manasteelHelmRevealing), new ItemStack(ModItems.manasteelHelm), goggles);
-			recipeHelmetOfRevealing = BotaniaAPI.getLatestAddedRecipe(); //We want manasteel to show in the Lexicon
-			addShapelessRecipe(new ItemStack(ModItems.terrasteelHelmRevealing), new ItemStack(ModItems.terrasteelHelm), goggles);
-			addShapelessRecipe(new ItemStack(ModItems.elementiumHelmRevealing), new ItemStack(ModItems.elementiumHelm), goggles);
-		}
-		*/
 	}
 
 	public static void init() {
@@ -451,7 +448,7 @@ public final class ModCraftingRecipes {
 		recipeRFGenerator = ModBlocks.rfGenerator.getRegistryName();
 
 		ResourceLocation name = ModItems.lensNormal.getRegistryName();
-		recipesManaLens = ImmutableList.of(path(name.getResourcePath() + "_glass_block"), path(name.getResourcePath() + "_glass_pane"));
+		recipesManaLens = ImmutableList.of(path(name.getPath() + "_glass_block"), path(name.getPath() + "_glass_pane"));
 		recipeLensVelocity = ModItems.lensSpeed.getRegistryName();
 		recipeLensPotency = ModItems.lensPower.getRegistryName();
 		recipeLensResistance = ModItems.lensTime.getRegistryName();
@@ -469,7 +466,7 @@ public final class ModCraftingRecipes {
 		recipeLensFire = ModItems.lensFire.getRegistryName();
 		recipeLensPiston = ModItems.lensPiston.getRegistryName();
 		name = ModItems.lensLight.getRegistryName();
-		recipesLensFlash = ImmutableList.of(name, path(name.getResourcePath() + "_alt"));
+		recipesLensFlash = ImmutableList.of(name, path(name.getPath() + "_alt"));
 		recipeLensWarp = ModItems.lensWarp.getRegistryName();
 		recipeLensRedirect = ModItems.lensRedirect.getRegistryName();
 		recipeLensFirework = ModItems.lensFirework.getRegistryName();
@@ -485,6 +482,7 @@ public final class ModCraftingRecipes {
 		recipeRedstoneSpreader = ModBlocks.redstoneSpreader.getRegistryName();
 		recipeDreamwoodSpreader = ModBlocks.elvenSpreader.getRegistryName();
 		recipeUltraSpreader = ModBlocks.gaiaSpreader.getRegistryName();
+		recipeHelmetOfRevealing = allOfGroup("helm_revealing");
 		recipePrism = ModBlocks.prism.getRegistryName();
 		recipePoolCart = ModItems.poolMinecart.getRegistryName();
 		recipePump = ModBlocks.pump.getRegistryName();
@@ -622,7 +620,7 @@ public final class ModCraftingRecipes {
 		recipeStarSword = ModItems.starSword.getRegistryName();
 		recipeThunderSword = ModItems.thunderSword.getRegistryName();
 		recipeCorporeaRetainer = ModBlocks.corporeaRetainer.getRegistryName();
-		recipesCosmeticItems = IntStream.range(0, 32).mapToObj(i -> path("cosmetic_" + i)).collect(Collectors.toList());
+		recipesCosmeticItems = IntStream.range(0, ItemBaubleCosmetic.SUBTYPES).mapToObj(i -> path("cosmetic_" + i)).collect(Collectors.toList());
 		recipeTinyPlanet = ModItems.tinyPlanet.getRegistryName();
 		recipeTinyPlanetBlock = ModBlocks.tinyPlanet.getRegistryName();
 		recipeManaRing = ModItems.manaRing.getRegistryName();

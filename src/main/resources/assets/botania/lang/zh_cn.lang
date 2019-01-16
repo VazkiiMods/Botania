@@ -1173,7 +1173,7 @@ tile.botania:flower.arcanerose.reference=角落里的经验球
 tile.botania:flower.munchdew.name=咀叶花
 tile.botania:flower.munchdew.reference=这也算自相残杀？
 tile.botania:flower.entropinnyum.name=热爆花
-tile.botania:flower.entropinnyum.reference=你可以选择成为魔法少女
+tile.botania:flower.entropinnyum.reference=小心轻放
 tile.botania:flower.kekimurus.name=贪食花
 tile.botania:flower.kekimurus.reference=这朵花是个谎言
 tile.botania:flower.gourmaryllis.name=彼方兰
@@ -3244,7 +3244,7 @@ botania.page.corporeaIndex2=输入"铁..."将搜索任何名称包 括"铁"的�
 botania.page.corporeaIndex3=物品名称的复数形式只能在 常规名词涉及到复数(以"-s", "-es"或"-ies"为后缀)时使用, 当前版本同样适用于多个物 品请求,例如"10 苹果".<br>"10 of this"搜索10个等同于 玩家手持物品的物品.
 botania.page.corporeaIndex4=复数请求的例子包括 "10 apples", "a stack of apples", "2 stacks of apples", "2 stacks and 20 apples", "half a stack of apples", "a dozen apples",等等.<br>索引可以识别或多或少的搜 索的繁琐形式,所以: "2x stacks and 20x of apples"等同于 "2 stack 2 apple"或 "2 stacks + 2 apples".
 botania.page.corporeaIndex5=搜索"all"或"every"会提供网络 内符合条件的全部物品,所以 "all 苹果"将提供网络内所有 苹果.<br>另外,搜索"count","show","tell" 或"display"不会抽取任何物品, 但会显示物品库存.
-botania.page.corporeaIndex8=若有人在&1多媒体索引&0附近使用 &4NEI&0,只需对着物品栏中某个物品 按C(NEI面板中亦可)即可请求一 个对应物品. <br>按住SHIFT则可请求一组, 按住 CTRL可请求半组,同时按住SHIFT和 CTRL则可请求四分之一组.
+botania.page.corporeaIndex8=若有人在&1多媒体索引&0附近使用 &4JEI&0,只需对着物品栏中某个物品 按C(JEI面板中亦可)即可请求一 个对应物品. <br>按住SHIFT则可请求一组, 按住 CTRL可请求半组,同时按住SHIFT和 CTRL则可请求四分之一组.
 botania.page.corporeaIndex6=最后,在&1多媒体索引&0附近,并在聊 天窗口中输入物品名称的一部 分后,可使用TAB键补全物品全名.
 botania.page.corporeaIndex7=魔法禁书索引，不对，目录
 

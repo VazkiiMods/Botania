@@ -67,7 +67,7 @@ public class BlockFelPumpkin extends BlockMod implements ILexiconable {
 	@Nonnull
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
-		return getDefaultState().withProperty(BotaniaStateProps.CARDINALS, EnumFacing.getHorizontal(meta));
+		return getDefaultState().withProperty(BotaniaStateProps.CARDINALS, EnumFacing.byHorizontalIndex(meta));
 	}
 
 	@Override

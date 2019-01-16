@@ -49,7 +49,7 @@ public class BlockGhostRail extends BlockRailBase implements ILexiconable, IMode
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.RAIL_DIRECTION, EnumRailDirection.NORTH_SOUTH));
 		setRegistryName(new ResourceLocation(LibMisc.MOD_ID, LibBlockNames.GHOST_RAIL));
-		setUnlocalizedName(LibBlockNames.GHOST_RAIL);
+		setTranslationKey(LibBlockNames.GHOST_RAIL);
 	}
 
 	@Nonnull

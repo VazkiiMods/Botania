@@ -171,9 +171,9 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 		int fortune = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, stack);
 		boolean silk = EnchantmentHelper.getEnchantmentLevel(Enchantments.SILK_TOUCH, stack) > 0;
 		boolean thor = ItemThorRing.getThorRing(player) != null;
-		boolean doX = thor || side.getFrontOffsetX() == 0;
-		boolean doY = thor || side.getFrontOffsetY() == 0;
-		boolean doZ = thor || side.getFrontOffsetZ() == 0;
+		boolean doX = thor || side.getXOffset() == 0;
+		boolean doY = thor || side.getYOffset() == 0;
+		boolean doZ = thor || side.getZOffset() == 0;
 
 		int origLevel = getLevel(stack);
 		int level = origLevel + (thor ? 1 : 0);
@@ -189,7 +189,7 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 		Vec3i beginDiff = new Vec3i(doX ? -range : 0, doY ? -1 : 0, doZ ? -range : 0);
 		Vec3i endDiff = new Vec3i(doX ? range : 0, doY ? rangeY * 2 - 1 : 0, doZ ? range : 0);
 
-		ToolCommons.removeBlocksInIteration(player, stack, world, pos, beginDiff, endDiff, null, MATERIALS, silk, fortune, isTipped(stack));
+		ToolCommons.removeBlocksInIteration(player, stack, world, pos, beginDiff, endDiff, state -> MATERIALS.contains(state.getMaterial()), isTipped(stack));
 
 		if(origLevel == 5) {
 			PlayerHelper.grantCriterion((EntityPlayerMP) player, new ResourceLocation(LibMisc.MOD_ID, "challenge/rank_ss_pick"), "code_triggered");

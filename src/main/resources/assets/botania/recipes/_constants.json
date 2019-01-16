@@ -191,6 +191,13 @@
   {
     "ingredient": {
       "type": "forge:ore_dict",
+      "ore": "feather"
+    },
+    "name": "FEATHER"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
       "ore": "gemEmerald"
     },
     "name": "GEMEMERALD"
@@ -271,6 +278,13 @@
       "ore": "ingotTerrasteel"
     },
     "name": "INGOTTERRASTEEL"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "leather"
+    },
+    "name": "LEATHER"
   },
   {
     "ingredient": {
@@ -576,9 +590,23 @@
   {
     "ingredient": {
       "type": "forge:ore_dict",
+      "ore": "obsidian"
+    },
+    "name": "OBSIDIAN"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
       "ore": "paneGlassColorless"
     },
     "name": "PANEGLASSCOLORLESS"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "paper"
+    },
+    "name": "PAPER"
   },
   {
     "ingredient": {
@@ -915,6 +943,13 @@
       "ore": "treeSapling"
     },
     "name": "TREESAPLING"
+  },
+  {
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "vine"
+    },
+    "name": "VINE"
   },
   {
     "ingredient": {

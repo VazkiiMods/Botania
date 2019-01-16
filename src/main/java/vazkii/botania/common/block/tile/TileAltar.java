@@ -64,6 +64,8 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 	public static final String TAG_HAS_LAVA = "hasLava";
 	public static final String TAG_IS_MOSSY = "isMossy";
 
+	private static final String ITEM_TAG_APOTHECARY_SPAWNED = "ApothecarySpawned";
+
 	public boolean hasWater = false;
 	public boolean hasLava = false;
 
@@ -85,9 +87,10 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 			return true;
 		}
 
+		boolean hasFluidCapability = stack.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
+		
 		if(!hasWater() && !hasLava()) {
-
-			if(stack.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null)) {
+			if(hasFluidCapability) {
 				IFluidHandlerItem fluidHandler = stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
 
 				FluidStack drainWater = fluidHandler.drain(new FluidStack(FluidRegistry.WATER, Fluid.BUCKET_VOLUME), false);
@@ -115,46 +118,44 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 			item.setFire(100);
 			return true;
 		}
-
-		boolean didChange = false;
-
-		if(isFlowerComponent(stack)) {
-			if(!itemHandler.getStackInSlot(getSizeInventory() - 1).isEmpty())
-				return false;
-
-			for(int i = 0; i < getSizeInventory(); i++)
-				if(itemHandler.getStackInSlot(i).isEmpty()) {
-					itemHandler.setStackInSlot(i, stack.splitStack(1));
-					didChange = true;
-					world.playSound(null, pos, SoundEvents.ENTITY_GENERIC_SPLASH, SoundCategory.BLOCKS, 0.1F, 10F);
-					break;
-				}
-		} else if(!stack.isEmpty() && SEED_PATTERN.matcher(stack.getItem().getUnlocalizedName(stack)).find()) {
+		
+		if(SEED_PATTERN.matcher(stack.getTranslationKey()).find()) {
 			for(RecipePetals recipe : BotaniaAPI.petalRecipes) {
 				if(recipe.matches(itemHandler)) {
 					saveLastRecipe();
-
+					
 					for(int i = 0; i < getSizeInventory(); i++)
 						itemHandler.setStackInSlot(i, ItemStack.EMPTY);
-
+					
 					stack.shrink(1);
-
+					
 					ItemStack output = recipe.getOutput().copy();
 					EntityItem outputItem = new EntityItem(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, output);
+					outputItem.addTag(ITEM_TAG_APOTHECARY_SPAWNED);
 					world.spawnEntity(outputItem);
-
+					
 					setWater(false);
 					world.updateComparatorOutputLevel(pos, world.getBlockState(pos).getBlock());
-
+					
 					world.addBlockEvent(getPos(), getBlockType(), CRAFT_EFFECT_EVENT, 0);
-					didChange = true;
-
-					break;
+					
+					return true;
+				}
+			}
+		} else if(!hasFluidCapability && !item.getTags().contains(ITEM_TAG_APOTHECARY_SPAWNED)) {
+			if(!itemHandler.getStackInSlot(getSizeInventory() - 1).isEmpty())
+				return false;
+			
+			for(int i = 0; i < getSizeInventory(); i++) {
+				if(itemHandler.getStackInSlot(i).isEmpty()) {
+					itemHandler.setStackInSlot(i, stack.splitStack(1));
+					world.playSound(null, pos, SoundEvents.ENTITY_GENERIC_SPLASH, SoundCategory.BLOCKS, 0.1F, 10F);
+					return true;
 				}
 			}
 		}
 
-		return didChange;
+		return false;
 	}
 	
 	private IFlowerComponent getFlowerComponent(ItemStack stack) {
@@ -165,11 +166,6 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 			c = (IFlowerComponent) ((ItemBlock) stack.getItem()).getBlock();
 		
 		return c;
-	}
-	
-	private boolean isFlowerComponent(ItemStack stack) {
-		IFlowerComponent c = getFlowerComponent(stack);
-		return c != null && c.canFit(stack, this);
 	}
 
 	public void saveLastRecipe() {
@@ -249,7 +245,8 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 					break;
 
 				if(Math.random() >= 0.97) {
-					Color color = new Color(getFlowerComponent(stackAt).getParticleColor(stackAt));
+					IFlowerComponent comp = getFlowerComponent(stackAt);
+					Color color = new Color(comp == null ? 0x888888 : comp.getParticleColor(stackAt));
 					float red = color.getRed() / 255F;
 					float green = color.getGreen() / 255F;
 					float blue = color.getBlue() / 255F;

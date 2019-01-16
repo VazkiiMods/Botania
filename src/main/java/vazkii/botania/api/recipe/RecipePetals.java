@@ -12,6 +12,7 @@ package vazkii.botania.api.recipe;
 
 import com.google.common.collect.ImmutableList;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -49,14 +50,9 @@ public class RecipePetals {
 			for(int j = 0; j < inputsMissing.size(); j++) {
 				Object input = inputsMissing.get(j);
 				if(input instanceof String) {
-					List<ItemStack> validStacks = OreDictionary.getOres((String) input);
 					boolean found = false;
-					for(ItemStack ostack : validStacks) {
-						ItemStack cstack = ostack.copy();
-						if(cstack.getItemDamage() == Short.MAX_VALUE)
-							cstack.setItemDamage(stack.getItemDamage());
-
-						if(stack.isItemEqual(cstack)) {
+					for(ItemStack ostack : OreDictionary.getOres((String) input, false)) {
+						if(OreDictionary.itemMatches(ostack, stack, false)) {
 							oredictIndex = j;
 							found = true;
 							break;
@@ -66,7 +62,7 @@ public class RecipePetals {
 
 					if(found)
 						break;
-				} else if(input instanceof ItemStack && simpleAreStacksEqual((ItemStack) input, stack)) {
+				} else if(input instanceof ItemStack && compareStacks((ItemStack) input, stack)) {
 					stackIndex = j;
 					break;
 				}
@@ -82,8 +78,20 @@ public class RecipePetals {
 		return inputsMissing.isEmpty();
 	}
 
-	private boolean simpleAreStacksEqual(ItemStack stack, ItemStack stack2) {
-		return stack.getItem() == stack2.getItem() && stack.getItemDamage() == stack2.getItemDamage();
+	private boolean compareStacks(ItemStack recipe, ItemStack supplied) {
+		if(recipe.getItem() == supplied.getItem() && recipe.getItemDamage() == supplied.getItemDamage()) {
+			//check that the user supplied nbt tag is a superset of the recipe item nbt tag
+			//if the recipe doesn't have an NBT tag, the user supplied one doesn't matter, it is a superset
+			if(!recipe.hasTagCompound()) return true;
+			//if the recipe does have an NBT tag but the user supplied doesn't, also no way it's a superset
+			if(!supplied.hasTagCompound()) return false;
+			
+			NBTTagCompound mergedNBT = supplied.getTagCompound().copy();
+			mergedNBT.merge(recipe.getTagCompound());
+			return supplied.getTagCompound().equals(mergedNBT);
+		}
+		
+		return false;
 	}
 
 	public List<Object> getInputs() {

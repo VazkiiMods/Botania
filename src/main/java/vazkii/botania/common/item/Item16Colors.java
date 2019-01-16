@@ -19,5 +19,4 @@ public class Item16Colors extends ItemMod {
 		super(name + "_" + color.getName());
 		this.color = color;
 	}
-
 }

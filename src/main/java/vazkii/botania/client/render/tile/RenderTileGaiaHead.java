@@ -37,7 +37,7 @@ public class RenderTileGaiaHead extends TileEntitySkullRenderer {
 
 		// Null-safe copy of super
 		renderSkull((float)x, (float)y, (float)z,
-				skull == null ? EnumFacing.NORTH : EnumFacing.getFront(skull.getBlockMetadata() & 7),
+				skull == null ? EnumFacing.NORTH : EnumFacing.byIndex(skull.getBlockMetadata() & 7),
 						skull == null ? 0 : skull.getSkullRotation() * 360 / 16.0F,
 								3, null, digProgress, partialTicks);
 

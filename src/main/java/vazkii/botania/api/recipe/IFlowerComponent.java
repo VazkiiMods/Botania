@@ -14,12 +14,17 @@ import net.minecraft.item.ItemStack;
 import vazkii.botania.api.item.IPetalApothecary;
 
 /**
- * Have an Item implement this to allow it to be used in the Petal Apothecary.
+ * An Item or Block that implements this interface can have a special particle color in the Petal Apothecary.
+ * TODO (breaking change): Rename to something more like "ISpecialApothecary", since now all items can go in the Apothecary
  */
 public interface IFlowerComponent {
 
-	public boolean canFit(ItemStack stack, IPetalApothecary apothecary);
-
+	//TODO remove 1.13, unused, all items can go in the Petal Apothecary
+	@Deprecated
+	public default boolean canFit(ItemStack stack, IPetalApothecary apothecary) {
+		return true;
+	}
+	
 	public int getParticleColor(ItemStack stack);
 
 }

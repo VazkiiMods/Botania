@@ -80,7 +80,7 @@ public class ItemBlockSpecialFlower extends ItemBlockMod implements IRecipeKeyPr
 
 	@Nonnull
 	@Override
-	public String getUnlocalizedName(ItemStack stack) {
+	public String getTranslationKey(ItemStack stack) {
 		return BotaniaAPI.getSignatureForName(getType(stack)).getUnlocalizedNameForStack(stack);
 	}
 
@@ -104,9 +104,11 @@ public class ItemBlockSpecialFlower extends ItemBlockMod implements IRecipeKeyPr
 			if(!refLocalized.equals(refUnlocalized))
 				stacks.add(TextFormatting.ITALIC + refLocalized);
 		}
+	}
 
-		if(!type.getResourceDomain().equals(LibMisc.MOD_ID))
-			stacks.add(TextFormatting.ITALIC + "[" + type.getResourceDomain() + "]");
+	@Override
+	public String getCreatorModId(ItemStack itemStack) {
+	    return getType(itemStack).getNamespace();
 	}
 
 	public static ResourceLocation getType(ItemStack stack) {

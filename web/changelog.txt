@@ -1,3 +1,93 @@
+r1.10 358
+*Added an Offline Mode config. (Hubry)
+*All Garden of Glass features now depend on the GoG mod being loaded, rather than the GoG world type.
+*Buffed the Spectrolus by 8x. (quat)
+*Fixed Botania glasses not being usable with Chisels&Bits. (Hubry)
+*Fixed horse viruses breaking attributes and turning horses into babies. (Hubry)
+*Fixed the Bauble Case not supporting baubles that use capabilities.
+*Fixed the Life Aggregator having the wrong tooltip. (Hubry)
+*Optimized Mana Spreaders a bunch, they'll be more performant now. (quat)
+*Removed a pointless bit of debug text.
+*The gunpowder to flint recipe is now the same price as flint to gunpowder. (quat)
+*The Petal Apothecary now accepts all items and can NBT match then. Rejoice pack makers! (quat)
+*Tweaked Thaumcraft integration and aspects around a bunch. (Hubry)
+*[API] Deprecated IFlowerComponent and made canFit() default to true. (quat)
+*[API] Increased Version Number to 92.
+r1.10 357
+*Brought back BuildCraft integration.
+*Brought back the ability to request items from corporea systems in JEI (prev NEI). (Hubry)
+*Fixed a crash when opening the Flower Pouch.
+*Fixed a crash when putting things that shouldn't go in the Abstruse Platform in the Abstruse Platform.
+*Fixed a dupe with the Bore Lens and Shulker Boxes.
+*Fixed the Bore lens and some other items of the sort not respecting forge's drops event.
+*Fixed the Tiny Potato's equipment not syncing to clients. (codewarrior0)
+*Fixed withdrawing items from the Botanical Brewery taking two at a time.
+*Force Relays now give some visual feedback when bound.
+*Implemented profiler entries for flower sub-tiles.
+*Improved handing of Brewing recipes in JEI. (Hubry)
+*Made the Fallen Kanade not heal you during Gaia Guardian fights. (codewarrior0)
+*Metamorphic Stones can now be silk-dropped by the Weight Lens.
+*Optimized the Pure Daisy's code a bit.
+r1.10 356
+*Fixed Elven Knowledge not being unlockable because you wouldn't get the book back.
+*Fixed the Gaia Guardian not dropping the right amount of Gaia Spirits if killed by a bow.
+r1.10 355
+*Added a Thinking Hand cosmetic bauble (quat)
+*Added back the ability to request items from the Corporea Index with a keybind from JEI. (Hubry)
+*Added JEI support for the Orechid and Orechid Ignem. (codewarrior0)
+*Added Thaumcraft Aspects for all major Botania base things. (Hubry)
+*Added the ability to request a nice amount of items from the Coporea Index. (quat)
+*Corporea Retainers use the same logarithmic signal scale as Crystal Cubes.
+*Fixed a crash when creating Terrasteel. 
+*Fixed a crash when trying to activate the elven portal with a dispenser.
+*Fixed a crash with other modders rendering tooltips before a world exists.
+*Fixed a network crash. (codewarrior0)
+*Fixed Elementium tools being repaired with Manasteel instead of Elementium. (ALongStringOfNumbers)
+*Fixed Googly Eyes rendering inside the player's head. (quat)
+*Fixed some typos.
+*Fixed Sparks' vertical distance being inconsistent between the up and down directions. 
+*Fixed the Alfheim Portal storing useless items internally. (Hubry)
+*Fixed the Entropynnium absorbing multiple TNTs at once.
+*Fixed the Gaia Guardian being immune to /kill.
+*Fixed the Manufactory Halo crashing the game if you use a Thaumcraft Thaumatorium. (Hubry)
+*Fixed the Orechid misbehaving around Granite, Andesite, and Diorite.
+*Fixed the Tainted Blood Pendant with Night Vision causing horrible flickering. (codycoolwaffle)
+*Flowers added by other mods will now show the name of the mod that adds them in the tooltip instead of Botania if you have a mod that adds that feature.
+*Going under sea level in Garden of Glass will no longer make the sky black. (Xaphiosis)
+*Llamas and parrots can now spawn from the Cocoon of Caprice. (Hubry)
+*Made some internal bounding boxes smaller so which improves performance a tiny bit. 
+*Removed Railcraft support for the Mana Poll with Minecart because the API for it isn't stable yet and was causing crashes. (matthijsvdmeulen)
+*Rewrote a bit of internal Gaia Guardian logic.
+*The Gaia Guardian's music now repeats while the battle goes on.
+*Tiny Potatoes being held by other Tiny Potatoes look better now. Very important fix. (codewarrior0)
+*Updated a bunch of recipes to use ore dictionary tags. (Hubry)
+*Updated Thaumcraft Integration for TC6. (Hubry)
+*[API] Added in a bunch of hooks for corporea stuff. (quat)
+*[API] Updated the wiki links to new ones. (Hubry)
+*[API] Increased Version Number to 91.
+r1.10 354
+*Added a config to disable botania's F3 info.
+*Fixed baubles disappearing when they're right clicked with one already equipped.
+*Fixed chisels&bits complaining about some blocks not being chisel-able.
+*Fixed crashing with Thaumcraft 6.
+*Fixed feather feet increasing fall distance.
+*Fixed JEI integration for floating special flowers.
+*Fixed mana bursts not being properly blacklisted from the Project-E interdiction torch.
+*Fixed munchdews going on cooldown too often.
+*Fixed particles snapping into place.
+*Fixed some flower particles not accounting for the vanilla random flower shift.
+*Fixed some petal apothecary crashes.
+*Fixed sparks not transfering mana properly to pools with mana void.
+*Fixed the functional flower advancement having a broken icon.
+*Fixed the tiny potato banner not being craftable.
+*Fixed thermalilies not penalizing if lava is given on cooldown.
+*Improved model loading performance for special flowers.
+*Mana blaster bursts now spawn off the correct hand.
+*Mana spreaders can now be rotated properly in structures.
+*The extrapolated bucket can now pick up mod fluids.
+*The Life Agreggator now uses the vanilla cooldown system.
+*[API] Fixed a dependency on the mod itself.
+*[API] Increased Version Number to 90.
 r1.10 353
 *Blazes spawned from a Fel Pumpkin now get their drops from a loot table.
 *Changed a bunch of stuff internally that you won't really notice.

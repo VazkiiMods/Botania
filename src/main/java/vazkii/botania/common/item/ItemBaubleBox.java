@@ -11,6 +11,7 @@
 package vazkii.botania.common.item;
 
 import baubles.api.IBauble;
+import baubles.api.cap.BaublesCapabilities;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -58,11 +59,12 @@ public class ItemBaubleBox extends ItemMod {
 			@Nonnull
 			@Override
 			public ItemStack insertItem(int slot, @Nonnull ItemStack toInsert, boolean simulate) {
-				if(!toInsert.isEmpty() &&
-						(toInsert.getItem() instanceof IManaItem
-								|| toInsert.getItem() instanceof IBauble))
-					return super.insertItem(slot, toInsert, simulate);
-				else return toInsert;
+				if(!toInsert.isEmpty()) {
+					boolean isBauble = toInsert.hasCapability(BaublesCapabilities.CAPABILITY_ITEM_BAUBLE, null);
+					if(toInsert.getItem() instanceof IManaItem || isBauble)
+						return super.insertItem(slot, toInsert, simulate);
+				}
+				return toInsert;
 			}
 		};
 

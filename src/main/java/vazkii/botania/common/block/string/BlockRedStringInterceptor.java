@@ -63,7 +63,7 @@ public class BlockRedStringInterceptor extends BlockRedString {
 	public IBlockState getStateFromMeta(int meta) {
 		boolean powered = (meta & 8) != 0;
 		meta &= -9;
-		EnumFacing facing = EnumFacing.getFront(meta);
+		EnumFacing facing = EnumFacing.byIndex(meta);
 		return getDefaultState().withProperty(BotaniaStateProps.FACING, facing).withProperty(BotaniaStateProps.POWERED, powered);
 	}
 

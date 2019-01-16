@@ -32,7 +32,7 @@ public class LensPiston extends Lens {
 				IBlockState state = entity.world.getBlockState(pos.getBlockPos());
 				TileEntity tile = entity.world.getTileEntity(pos.getBlockPos());
 
-				if(state.getMobilityFlag() == EnumPushReaction.NORMAL && state.getBlock() != Blocks.OBSIDIAN && state.getBlockHardness(entity.world, pos_) >= 0 && tile == null) {
+				if(state.getPushReaction() == EnumPushReaction.NORMAL && state.getBlock() != Blocks.OBSIDIAN && state.getBlockHardness(entity.world, pos_) >= 0 && tile == null) {
 					entity.world.destroyBlock(pos.getBlockPos(), false);
 					entity.world.setBlockState(pos_, state, 1 | 2);
 				}

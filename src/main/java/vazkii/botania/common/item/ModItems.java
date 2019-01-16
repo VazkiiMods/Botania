@@ -700,7 +700,7 @@ public final class ModItems {
 		BotaniaAPI.blackListItemFromLoonium(blackLotus);
 		BotaniaAPI.blackListItemFromLoonium(blackerLotus);
 		for(Item i : Item.REGISTRY) {
-			if("minecraft".equals(i.getRegistryName().getResourceDomain()) & i instanceof ItemRecord) {
+			if("minecraft".equals(i.getRegistryName().getNamespace()) & i instanceof ItemRecord) {
 				BotaniaAPI.blackListItemFromLoonium(i);
 			}
 		}

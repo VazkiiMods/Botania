@@ -16,6 +16,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IShearable;
+import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelShears;
 import vazkii.botania.common.lib.LibItemNames;
@@ -74,6 +75,11 @@ public class ItemElementiumShears extends ItemManasteelShears {
 				}
 			}
 		}
+	}
+
+	@Override
+	public boolean getIsRepairable(ItemStack toRepair, @Nonnull ItemStack repairBy) {
+		return repairBy.getItem() == ModItems.manaResource && repairBy.getItemDamage() == 7 ? true : super.getIsRepairable(toRepair, repairBy);
 	}
 
 }

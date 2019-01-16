@@ -32,9 +32,9 @@ public class BehaviourPoolMinecart extends BehaviorDefaultDispenseItem {
 	public ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
 		World world = source.getWorld();
 		EnumFacing enumfacing = world.getBlockState(source.getBlockPos()).getValue(BlockDispenser.FACING);
-		double d0 = source.getX() + enumfacing.getFrontOffsetX() * 1.125F;
-		double d1 = source.getY() + enumfacing.getFrontOffsetY() * 1.125F;
-		double d2 = source.getZ() + enumfacing.getFrontOffsetZ() * 1.125F;
+		double d0 = source.getX() + enumfacing.getXOffset() * 1.125F;
+		double d1 = source.getY() + enumfacing.getYOffset() * 1.125F;
+		double d2 = source.getZ() + enumfacing.getZOffset() * 1.125F;
 		BlockPos pos = source.getBlockPos().offset(enumfacing);
 		IBlockState state = world.getBlockState(pos);
 		double d3;

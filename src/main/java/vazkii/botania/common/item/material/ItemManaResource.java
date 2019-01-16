@@ -21,6 +21,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldProviderEnd;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -46,7 +47,7 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 	public static void onPlayerInteract(PlayerInteractEvent.RightClickBlock event) {
 		ItemStack stack = event.getItemStack();
 		boolean correctStack = !stack.isEmpty() && stack.getItem() == Items.GLASS_BOTTLE;
-		boolean ender = event.getWorld().provider.getDimension() == 1;
+		boolean ender = event.getWorld().provider instanceof WorldProviderEnd;
 
 		if(correctStack && ender) {
 			if (event.getWorld().isRemote) {
@@ -103,12 +104,6 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 		}
 
 		return ActionResult.newResult(EnumActionResult.PASS, stack);
-	}
-
-	@Override
-	public boolean canFit(ItemStack stack, IPetalApothecary apothecary) {
-		return this == ModItems.lifeEssence || this == ModItems.redstoneRoot
-				|| this == ModItems.pixieDust || this == ModItems.manaPowder;
 	}
 
 	@Override

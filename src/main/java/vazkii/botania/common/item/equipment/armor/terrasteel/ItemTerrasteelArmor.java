@@ -58,7 +58,7 @@ public class ItemTerrasteelArmor extends ItemManasteelArmor {
 	@Override
 	public Multimap<String, AttributeModifier> getAttributeModifiers(@Nonnull EntityEquipmentSlot slot, ItemStack stack) {
 		Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack);
-		UUID uuid = new UUID((getUnlocalizedName() + slot.toString()).hashCode(), 0);
+		UUID uuid = new UUID((getTranslationKey(stack) + slot.toString()).hashCode(), 0);
 		if (slot == armorType) {
 			multimap.put(SharedMonsterAttributes.KNOCKBACK_RESISTANCE.getName(), new AttributeModifier(uuid, "Terrasteel modifier " + type, (double) getArmorDisplay(null, new ItemStack(this), type.getIndex()) / 20, 0));
 		}

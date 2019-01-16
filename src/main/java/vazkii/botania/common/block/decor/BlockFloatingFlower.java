@@ -92,8 +92,9 @@ public class BlockFloatingFlower extends BlockMod implements ILexiconable, IInfu
 	}
 
 	@Nonnull
+	@SideOnly(Side.CLIENT)
 	@Override
-	public BlockRenderLayer getBlockLayer() {
+	public BlockRenderLayer getRenderLayer() {
 		return BlockRenderLayer.CUTOUT;
 	}
 

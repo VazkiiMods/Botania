@@ -41,7 +41,7 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 	ItemStack requestTarget = ItemStack.EMPTY;
 	int itemCount = 0;
 	int ticks = 0;
-	public int compValue = 0;
+	int compValue = 0;
 
 	private final IAnimationStateMachine asm;
 
@@ -111,8 +111,10 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 	}
 
 	private void onUpdateCount() {
-		compValue = getComparatorValue();
-		world.updateComparatorOutputLevel(pos, world.getBlockState(pos).getBlock());
+		int oldCompValue = compValue;
+		compValue = CorporeaHelper.signalStrengthForRequestSize(itemCount);
+		if(compValue != oldCompValue)
+			world.updateComparatorOutputLevel(pos, world.getBlockState(pos).getBlock());
 	}
 
 	@Override
@@ -134,9 +136,7 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 	}
 
 	public int getComparatorValue() {
-		if(itemCount == 0)
-			return 0;
-		return Math.min(15, (int) Math.floor(Math.log(itemCount) / LOG_2) + 1);
+		return compValue;
 	}
 
 	@Override

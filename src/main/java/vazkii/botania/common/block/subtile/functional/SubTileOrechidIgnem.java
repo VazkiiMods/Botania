@@ -10,7 +10,9 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
+import com.google.common.base.Predicate;
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -24,7 +26,7 @@ public class SubTileOrechidIgnem extends SubTileOrechid {
 
 	@Override
 	public boolean canOperate() {
-		return supertile.getWorld().provider.doesWaterVaporize();
+		return supertile.getWorld().provider.isNether();
 	}
 
 	@Override
@@ -33,8 +35,8 @@ public class SubTileOrechidIgnem extends SubTileOrechid {
 	}
 
 	@Override
-	public Block getSourceBlock() {
-		return Blocks.NETHERRACK;
+	public Predicate<IBlockState> getReplaceMatcher() {
+		return state -> state.getBlock() == Blocks.NETHERRACK;
 	}
 
 	@Override

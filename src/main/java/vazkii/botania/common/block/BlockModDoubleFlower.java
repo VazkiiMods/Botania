@@ -63,7 +63,7 @@ public abstract class BlockModDoubleFlower extends BlockDoublePlant implements I
 		String name = LibBlockNames.DOUBLE_FLOWER + (second ? 2 : 1);
 		setDefaultState(pickDefaultState());
 		setRegistryName(new ResourceLocation(LibMisc.MOD_ID, name));
-		setUnlocalizedName(name);
+		setTranslationKey(name);
 		setHardness(0F);
 		setTickRandomly(false);
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);

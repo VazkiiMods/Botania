@@ -55,7 +55,7 @@ public class BlockModMushroom extends BlockMushroom implements IInfusionStabilis
 
 	public BlockModMushroom() {
 		setRegistryName(new ResourceLocation(LibMisc.MOD_ID, LibBlockNames.MUSHROOM));
-		setUnlocalizedName(LibBlockNames.MUSHROOM);
+		setTranslationKey(LibBlockNames.MUSHROOM);
 		setLightLevel(0.2F);
 		setHardness(0F);
 		setSoundType(SoundType.PLANT);
@@ -160,11 +160,6 @@ public class BlockModMushroom extends BlockMushroom implements IInfusionStabilis
 	@Override
 	public void registerModels() {
 		ModelHandler.registerCustomItemblock(this, EnumDyeColor.values().length, i -> "mushroom_" + EnumDyeColor.byMetadata(i).getName());
-	}
-
-	@Override
-	public boolean canFit(ItemStack stack, IPetalApothecary apothecary) {
-		return true;
 	}
 
 	@Override

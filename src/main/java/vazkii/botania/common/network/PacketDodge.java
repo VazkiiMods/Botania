@@ -38,7 +38,7 @@ public class PacketDodge implements IMessage {
 		@Override
 		public IMessage onMessage(PacketDodge message, MessageContext ctx) {
 			EntityPlayerMP player = ctx.getServerHandler().player;
-			player.mcServer.addScheduledTask(() -> {
+			player.server.addScheduledTask(() -> {
 				player.world.playSound(null, player.posX, player.posY, player.posZ, ModSounds.dash, SoundCategory.PLAYERS, 1F, 1F);
 
 				IItemHandler baublesInv = BaublesApi.getBaublesHandler(player);

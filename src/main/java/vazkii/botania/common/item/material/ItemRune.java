@@ -22,11 +22,6 @@ public class ItemRune extends ItemMod implements IFlowerComponent {
 	}
 
 	@Override
-	public boolean canFit(ItemStack stack, IPetalApothecary apothecary) {
-		return true;
-	}
-
-	@Override
 	public int getParticleColor(ItemStack stack) {
 		return 0xA8A8A8;
 	}

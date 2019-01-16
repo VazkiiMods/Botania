@@ -11,7 +11,7 @@ itemGroup.botania=Botania
 botania.desc=Botania description here.
 
 generator.botania-skyblock=Garden of Glass
-generator.botania-skyblock.info=Not recommended for botania newcomers
+generator.botania-skyblock.info=Not recommended for Botania newcomers
 
 # Something that is not localized, translators, do NOT change this line.
 # You do not need to copy this into your lang file
@@ -90,6 +90,7 @@ botaniamisc.startTutorial=Start Tutorial
 botaniamisc.tutorialStarted=You have started your tutorial, follow the red arrows and read the contents to be guided through the basics of Botania!
 botaniamisc.tutorialEnded=Your tutorial is over, you should now have a basic idea of how Botania works. Make sure to read through the other pages at your leisure to learn more ways of using the mod.
 botaniamisc.cosmeticBauble=&oCosmetic
+botaniamisc.cosmeticThinking=&oReally makes you think
 botaniamisc.hasCosmetic=&oHas Cosmetic Override: &r%s
 botaniamisc.typeToSearch=(type to search)
 botaniamisc.viewOnline=View Online
@@ -168,6 +169,9 @@ botania.nei.petalApothecary=Petal Apothecary
 botania.nei.runicAltar=Runic Altar
 botania.nei.pureDaisy=Pure Daisy
 botania.nei.lexica=Lexica Botania
+botania.nei.orechid=Orechid
+botania.nei.orechidIgnem=Orechid Ignem
+
 nei.options.keys.gui.botania_corporea_request=Corporea Request
 
 botania.nei.lexicaSeparator=Extra Info:
@@ -350,13 +354,32 @@ references.enabled=Enable Tooltip References
 shaders.enabled=Enable Shader Usage
 baubleRender.enabled=Enable Bauble Rendering
 spreader.posShift=Spreader Pos Shift
+spreader.traceTime=Spreader Trace Time
 staticFloaters.enabled=Enable Static Floating Flowers
 debugInfo.enabled=Enable Botania's F3 debug information
 versionChecking.enabled=Enable Version Checking
 wandBeam.static=Enable Static Wand Beam
 worldgen.flower.density=Worldgen Flower Density
 worldgen.flower.quantity=Worldgen Flower Quantity
+worldgen.flower.patchChance=Worldgen Flower Patch Chance
+worldgen.flower.patchSize=Worldgen Flower Patch Size
+worldgen.flower.tallChance=Worldgen Flower Tall Chance
 worldgen.mushroom.quantity=Worldgen Mushroom Quantity
+adaptativeConfig.enabled=Adaptative Config
+armorModels.enable=Custom Armor Models
+fancySkybox.enable=Fancy Skybox
+fancySkybox.normalWorlds=Fancy Skybox in non-GoG Worlds
+flightBar.height=Flugel Tiara Flight Bar Height
+flightBarBreath.height=Flight Bar Height with Breath Bar
+harvestLevel.boreLens=Bore Lens Harvest Level
+harvestLevel.weightLens=Weight Lens Harvest Level
+magnetRing.invert=Inverted Magnet Ring Controls
+quickLookup.lexicaOfflineMode=Lexica Wiki Lookup Offline Mode
+quickLookup.useShift=Lexica Quick Lookup Uses Shift Key
+seasonalFeatures.enabled=Seasonal Features
+shedding.enable=Natural Shedding
+thaumcraftAspects.enabled=TC Aspects
+thaumraftStabilizers.enabled=TC Infusion Stabilizers
 
 # VERSION CHECKING
 botania.versioning.flavour0=NANI SORE!? BOTANIA IS OUTDATED!?
@@ -1548,6 +1571,7 @@ item.botania:cosmetic_thick_eyebrows.name=Thick Eyebrows
 item.botania:cosmetic_lusitanic_shield.name=Lusitanic Shield
 item.botania:cosmetic_tiny_potato_mask.name=Tiny Potato Mask
 item.botania:cosmetic_questgiver_mark.name=Questgiver Mark
+item.botania:cosmetic_thinking_hand.name=Thinking Hand
 item.botania:mana_string.name=Mana Infused String
 item.botania:swapring.name=Ring of Correction
 item.botania:flowerbag.name=Flower Pouch
@@ -1979,7 +2003,7 @@ botania.entry.apothecary=Petal Apothecary
 botania.tagline.apothecary=What you use to make flowers
 botania.page.apothecary0=In order for a botanist to create plantlife that can do their bidding, they would need a special means of infusing plants with mystical energy.<br>Luckily, the &1Petal Apothecary&0 does just that.
 botania.page.apothecary1=The &1Petal Apothecary&0.
-botania.page.apothecary2=This block, when placed in the world and given some water (by use of a &1Water Bucket&0), will accept any &1Mystical Petals&0 thrown at it, releasing their energies.<br>Once one has inserted the correct petals, throwing some &1Seeds&0 in will finalize the proccess.<br>Tossing in a full bucket will also fill the apothecary with water.
+botania.page.apothecary2=This block, when placed in the world and given some water (by use of a &1Water Bucket&0), will accept any &1Mystical Petals&0 thrown at it, releasing their energies.<br>Once one has inserted the correct petals, throwing some &1Seeds&0 in will finalize the process.<br>Tossing in a full bucket will also fill the apothecary with water.
 botania.page.apothecary3=Quite a few plants can be made using this method. For more information, read on the &4Functional Flora&0 and &4Generation Flora&0 sections of this Lexicon.<br>Shift-right clicking the &1Petal Apothecary&0 with an empty hand will remove the last item thrown in.
 botania.page.apothecary4=Instead of &1Water&0, one can place &1Lava&0 in this block, if that is done, it'll serve as a brazier and incinerator, destroying any items that come in contact.<br>Furthermore, tossing in &1Vines&0 also gives the block an overgrown visual.
 botania.page.apothecary7=&1Comparators&0 can detect whether the block has water or not.<br>Since the &1Petal Apothecary&0 can be filled by usage of a dropped &1Water Bucket&0, and &1Dispensers&0 can fill buckets, creating a system that can automatically refill the water in the dish shouldn't prove too difficult.
@@ -2080,7 +2104,7 @@ botania.page.spreader10=Right clicking the spreader with a piece of &1Wool&0 wil
 botania.entry.pool=Mana Pool
 botania.tagline.pool=Mana storage for the masses
 botania.page.pool0=The &1Mana Pool&0 is, simply put, a storage of &4Mana&0.<br>Mana can be inserted into it by usage of a &1Mana Spreader&0, and any adjacent &1Mana Spreaders&0 will pull mana from it to increase their internal buffer automatically.<br>Any &4Functional Flowers&0 require a nearby &1Mana Pool&0 to draw power from.
-botania.page.pool9=&1Mana Pools&0 come in two varieties, a weaker, &1Diluted&0 variety which only stores a very small amount of &4Mana&0, and a &1Normal&0 variety, which can store as much as a hundred times more than the dilluted one.<br>Whenever "Mana Pool" is refered elsewhere for scale, it refers to a normal one.
+botania.page.pool9=&1Mana Pools&0 come in two varieties, a weaker, &1Diluted&0 variety which only stores a very small amount of &4Mana&0, and a &1Normal&0 variety, which can store as much as a hundred times more than the diluted one.<br>Whenever "Mana Pool" is referred elsewhere for scale, it refers to a normal one.
 botania.page.pool1=Making a &1Mana Pool&0.
 botania.page.pool10=Making a &1Diluted Mana Pool&0
 botania.page.pool14=The &1Diluted Mana Pool&0 can be a useful tool for when one might want a small buffer for a flower or system that doesn't use much &4Mana&0, as the normal pool holds a very large amount of it. Thanks to that, &4Mana&0 readings for the normal pool won't be entirely accurate, due to the scale, it's normal that the displayed bar's size will increase very slowly.
@@ -2230,12 +2254,12 @@ botania.page.elvenLenses8=Celebratory Lens
 botania.page.elvenLenses9=The &1Flare Lens&0 takes over a &1Mana Spreader&0's functionality, preventing it from firing any bursts. This type of lens is called a &4Control Lens&0.<br>The effect of this &4Control Lens&0 in particular, is to make the spreader become a continuous particle burst of the color the lens is dyed, in the direction the spreader is firing. There's surely plenty of decorative uses for this.
 botania.page.elvenLenses10=Flare Lens
 botania.page.elvenLenses11=The &1Tripwire Lens&0 is another &4Control Lens&0.<br>A spreader that has it attached will only be allowed to fire if there is one or more mobs, or players, in the path described by the &4mana burst&0 that the spreader would shoot.
-botania.page.elvenLenses12=Tripwire Lenss
+botania.page.elvenLenses12=Tripwire Lens
 
 # -- MANA PRISM
 botania.entry.prism=Mana Prism
 botania.tagline.prism=Switch a Mana Burst's effective Lens on the fly
-botania.page.prism0=The concept of &1Mana Lens&0 allows for the manipulation of the power convyed through &4Mana Bursts&0, the &1Mana Prism&0 works on that technology to allow a burst to have its lens effect switched on the fly.<br>Using a &1Spectral Platform&0 as a component, this block does not have a physical presence, entities and bursts can go through it as if it doesn't exist.
+botania.page.prism0=The concept of &1Mana Lens&0 allows for the manipulation of the power conveyed through &4Mana Bursts&0, the &1Mana Prism&0 works on that technology to allow a burst to have its lens effect switched on the fly.<br>Using a &1Spectral Platform&0 as a component, this block does not have a physical presence, entities and bursts can go through it as if it doesn't exist.
 botania.page.prism1=Right clicking it with any variety of &1Mana Lens&0 sets the lens in the prism. Whenever a &4Mana Burst&0 goes through the prism, its color and effect will be set to that of the lens in the prism. Case the lens is not dyed, the burst will turn white.<br>Using any of the four basic lenses also increases the time the burst can go before losing &4Mana&0, allowing it to go further.
 botania.page.prism2=It can also be turned off by the use of a redstone signal.
 botania.page.prism3=Another pixel in the wall
@@ -2244,7 +2268,7 @@ botania.page.prism3=Another pixel in the wall
 botania.entry.poolCart=Mana on Rails
 botania.tagline.poolCart=This is not a web framework
 botania.page.poolCart0=What could be an easier way to transport &4Mana&0 over large distances than attaching a &1Mana Pool&0 to a &1Minecart&0 and watch it do the merry-go-round? It's simple. Similarly to other types of carts, one can create a &1Minecart with Mana Pool&0 that can store and transport &4Mana&0 on rails.<br>Breaking the cart while there's any &4Mana&0 in it will waste the &4Mana&0, care should be taken with it.
-botania.page.poolCart1=Transfering &4Mana&0 between the cart and a pool is done with a &1Mana Pump&0. It can face any of the four cardinal directions and will transfer &4Mana&0 between a pool adjacent to it and a cart with a pool on an rail opposite to the target pool.<br>The transfer rate is extremely fast due to the mechanical nature, so fast that overflow is possible, causing &4Mana Loss&0.
+botania.page.poolCart1=Transferring &4Mana&0 between the cart and a pool is done with a &1Mana Pump&0. It can face any of the four cardinal directions and will transfer &4Mana&0 between a pool adjacent to it and a cart with a pool on an rail opposite to the target pool.<br>The transfer rate is extremely fast due to the mechanical nature, so fast that overflow is possible, causing &4Mana Loss&0.
 botania.page.poolCart2=The side of the pump where the &4Mana&0 will go towards is the pink one, &4Mana&0 is pulled from the blue side.<br>The pump can be turned off with redstone, and a &1Comparator&0 on it will output how much &4Mana&0 exists in the cart.<br>Lastly, a pool on a cart serves purely for transport, and can not receive, send, transfer or infuse any items with its &4Mana&0.
 botania.page.poolCart3=I like trains
 botania.page.poolCart4=This is not a pipe
@@ -2307,7 +2331,7 @@ botania.page.dreadthorne1=&oIt's a modus operandi&r.
 # -- HEISEI DREAM
 botania.entry.heiseiDream=Heisei Dream
 botania.tagline.heiseiDream=Turns mobs against each other
-botania.page.heiseiDream0=The &1Heisei Dream&0 will, by utilizing &4Mana&0, awaken feelings of anger and revenge in any nearby &4mobs&0, turning them against eachother.
+botania.page.heiseiDream0=The &1Heisei Dream&0 will, by utilizing &4Mana&0, awaken feelings of anger and revenge in any nearby &4mobs&0, turning them against each other.
 botania.page.heiseiDream1=&oA pleasant era will murder people&r.
 
 # -- TIGERSEYE
@@ -2446,7 +2470,7 @@ botania.page.solegnolia1=On/Off
 # -- BERGAMUTE
 botania.entry.bergamute=Bergamute
 botania.tagline.bergamute=Absorbs sound
-botania.page.bergamute0=Anyone that has ever taken on the role of a rancher knows the pain of the cacaphonous din that arises from their herds of animals.<br>The &1Bergamute&0 absorbs sound energy emitted in a close radius around itself, converting it into negligible amounts of mana and emitting it into the environment. The absorption itself needs no &4mana&0 to occur.
+botania.page.bergamute0=Anyone that has ever taken on the role of a rancher knows the pain of the cacophonous din that arises from their herds of animals.<br>The &1Bergamute&0 absorbs sound energy emitted in a close radius around itself, converting it into negligible amounts of mana and emitting it into the environment. The absorption itself needs no &4mana&0 to occur.
 botania.page.bergamute1=Deaf to All but the Song
 
 # - GENERATING FLOWERS
@@ -2478,7 +2502,7 @@ botania.entry.thermalily=Thermalily
 botania.tagline.thermalily=Mana from lava
 botania.page.thermalily0=The &1Thermalily&0 acts as a &1Lava&0 counterpart to the &1Hydroangeas&0. As expected, the flower will absorb &1Lava&0 around it, in the same height as it, to create &4Mana&0.<br>After absorbing the &1Lava&0, the flower will produce &4Mana&0 for around 45 seconds. After it stops, it needs a bit of time, around 5 minutes, to cool down, before it can absorb more &1Lava&0.
 botania.page.thermalily2=The amount of &4Mana&0 the &1Thermalily&0 produces during its active period is extremely high, serving as a very functional flower for when a quick boost is needed.<br>During the "cooldown" period, if the flower were to absorb any &4Lava&0, it instead consumes it, generating no &4Mana&0 and having to wait 5 minutes from there to start over.
-botania.page.thermalily3=While placing &1Lava&0 in the world is definitely possible via &1Dispensers&0, automatically gathering it and carrying it from the &4Nether&0 or deep underground is another story entirely.<br>As such, the &1Thermalily&0 is clasified as a "semi-automatable" flower.
+botania.page.thermalily3=While placing &1Lava&0 in the world is definitely possible via &1Dispensers&0, automatically gathering it and carrying it from the &4Nether&0 or deep underground is another story entirely.<br>As such, the &1Thermalily&0 is classified as a "semi-automatable" flower.
 botania.page.thermalily1=&oThe hardest flower in the game&r.
 
 # -- ROSA ARCANA
@@ -2539,9 +2563,9 @@ botania.tagline.dandelifeon=Mana from life
 botania.page.dandelifeon0=The &1Dandelifeon&0 is a flower not recommended for those faint of heart.<br>While it's possibly the strongest available generating flower within the botanist's toolbelt, it's also one of the less straightforward to put to work.
 botania.page.dandelifeon1=This flower makes use of a cellular automata known as &4Conway's Game of Life&0. The area for this procedure is a 25x25 square centered around the &1Dandelifeon&0 itself.<br>While the flower has a redstone signal, twice every second it'll step the game once.
 botania.page.dandelifeon2=The game is executed with the concept of &4Cells&0. The 25x25 area can be seen as a grid of 25 by 25 cells<br>Cells may be live or dead, live if the block in that position is a &1Cellular Block&0 (read on) or dead if it's anything else. &4Neighbours&0 are the eight blocks in the same plane around any one cell.
-botania.page.dandelifeon3=Every step of the game, the following transitions might happen: &41)&0 Any live cell with fewer than two or more than three live neighbours dies. &42)&0 Any live cell with exactly two or three live neigbours lives on. &43)&0 Any dead cell with exactly three live neigbours becomes a live cell.
+botania.page.dandelifeon3=Every step of the game, the following transitions might happen: &41)&0 Any live cell with fewer than two or more than three live neighbours dies. &42)&0 Any live cell with exactly two or three live neighbours lives on. &43)&0 Any dead cell with exactly three live neighbours becomes a live cell.
 botania.page.dandelifeon4=All of the transitions happen at the same time.<br>Aside from those, a few additional rules not present in a typical simulation of &4Conway's Game of Life&0 are also present in the &1Dandelifeon&0 procedures, listed in the following pages.
-botania.page.dandelifeon5=All cells have an age, starting at zero. Whenever a cell lives on, by having two or three neighbours, its age inreases by one. Whenever a dead cell becomes a live cell, the age of the new live cell is equal to the age of the oldest neighbour, plus one.
+botania.page.dandelifeon5=All cells have an age, starting at zero. Whenever a cell lives on, by having two or three neighbours, its age increases by one. Whenever a dead cell becomes a live cell, the age of the new live cell is equal to the age of the oldest neighbour, plus one.
 botania.page.dandelifeon6=Second off, the 3x3 zone centered around the &1Dandelifeon&0 itself is not habitable by cells. Any live cells that would exist in that area are turned into &4Mana&0 instead. The older the cell that would be created, the more &4Mana&0 it makes. Age zero cells produce no &4Mana&0. Any cells older than 100 generations will produce mana as if they were age 100.
 botania.page.dandelifeon10=Whenever any live cells are absorbed by the 3x3 zone in the center, all other cells in the board die.<br>A few other restrictions apply to cells, such as having two different &1Dandelifeon&0 flowers affect the same cell will kill it. Lastly, any cell will die if moved by any other means than the &1Dandelifeon&0 itself.
 botania.page.dandelifeon7=&1Cellular Blocks&0 are crafted with &1Cactus&0, &1Carrots&0, &1Potatoes&0, and &1Beetroots&0, and are extremely fragile, they may not be picked once placed down or moved by &1Pistons&0 and may not be created (through having 3 live neighbours on a dead cell) on any block that isn't air.<br>If not within the range of a &1Dandelifeon&0 they work as normal building blocks.
@@ -2552,7 +2576,7 @@ botania.page.dandelifeon9=Creating &1Cellular Blocks&0
 botania.entry.shulk_me_not=Shulk Me Not
 botania.tagline.shulk_me_not=Mana from shulkers
 botania.page.shulk_me_not0=The &1Shulk Me Not&0 is a generating flower that creates &4Mana&0 by harnessing the power of the &4Levitation&0 effect.<br>The flower will create a massive amount of &4Mana&0 while its internal buffer is empty, and a monster within its range is hit with a shulker's projectile, causing it to gain &4Levitation&0.
-botania.page.shulk_me_not1=A few extra points are relevant to this generation process.<br>First off, both the hit entity and the shulker are killed, and their drops and experience suppressed. Second, for the process to happen, the shulker must be targetting the other monster, rather than the projectile just wandering in its way. Lastly, both entities need to be within the flower's range.
+botania.page.shulk_me_not1=A few extra points are relevant to this generation process.<br>First off, both the hit entity and the shulker are killed, and their drops and experience suppressed. Second, for the process to happen, the shulker must be targeting the other monster, rather than the projectile just wandering in its way. Lastly, both entities need to be within the flower's range.
 botania.page.shulk_me_not2=&oPetal plucking not recommended&r.
 
 # - NATURAL APPARATUS
@@ -2650,7 +2674,7 @@ botania.page.brewery16b=You're gonna catch a cold
 # -- BREWING FLASKS
 botania.entry.flasks=Brewing Flasks
 botania.tagline.flasks=Bigger brew containers
-botania.page.flasks0=&1Alfglass&0 seems to be more maleable than the typical &1Managlass&0 used for &1Vials&0. A &1Flask&0, made with &1Alfglass&0 is the typical elven container for &4Brews&0, and can contain 6 doses of one, rather than the 4 a &1Vial&0 does.
+botania.page.flasks0=&1Alfglass&0 seems to be more malleable than the typical &1Managlass&0 used for &1Vials&0. A &1Flask&0, made with &1Alfglass&0 is the typical elven container for &4Brews&0, and can contain 6 doses of one, rather than the 4 a &1Vial&0 does.
 botania.page.flasks1=While the ingredient cost to brew something in a &1Flask&0 is smaller, the &4Mana&0 cost is double that of a regular &1Vial&0.<br>Lastly, given that the bottleneck of a &1Flask&0 is larger than that of a &1Vial&0, the contents can be consumed faster.
 botania.page.flasks2=Get one under the bridge
 
@@ -2779,7 +2803,7 @@ botania.page.canopyDrum1=The Pinking Drum
 # -- COCOON OF CAPRICE
 botania.entry.cocoon=Cocoon of Caprice
 botania.tagline.cocoon=Hatch your own animals
-botania.page.cocoon0=A cocoon is usually a symbol of change, of evolution.<br>Creating a &1Cocoon of Caprice&0 and placing it down will slowly evolve the rudimentary contents inside it into a &1Baby Animal&0. More often than not the animal hatched will be a farm animal, but on rare ocasions, different animals such as &1Wolves&0 or &1Horses&0 may be created.
+botania.page.cocoon0=A cocoon is usually a symbol of change, of evolution.<br>Creating a &1Cocoon of Caprice&0 and placing it down will slowly evolve the rudimentary contents inside it into a &1Baby Animal&0. More often than not the animal hatched will be a farm animal, but on rare occasions, different animals such as &1Wolves&0 or &1Horses&0 may be created.
 botania.page.cocoon1=Speculation says that giving the cocoon &1Emeralds&0 or &1Chorus Fruit&0 influences the outcome towards something a bit different.<br>Giving the items can be done via a right click or simply dropping them on it.<br>What could come out of such experiment is anyone's guess, really.
 botania.page.cocoon2=New World, Perfect World
 
@@ -2821,7 +2845,7 @@ botania.page.animatedTorch3=It's fallen and it can't get up
 botania.entry.manaBlaster=Mana Blaster
 botania.tagline.manaBlaster=Portable Mana Spreader, with lenses!
 botania.page.manaBlaster0=The &1Mana Blaster&0 is like a portable &1Mana Spreader&0, while shaped like a pistol for easy handling, it's not exactly a firearm, as much as it is just a portable spreader.<br>By utilizing &4Mana&0 from &4Mana carrying items&0 in the holder's inventory, it can shoot a mana burst wherever one is looking.
-botania.page.manaBlaster1=This burst is a bit different from the one fired from speaders, as it's faster, but carries only three quarters of the mana a spreader burst would. There's also a short cooldown period after firing the blaster until another burst can be shot.
+botania.page.manaBlaster1=This burst is a bit different from the one fired from spreaders, as it's faster, but carries only three quarters of the mana a spreader burst would. There's also a short cooldown period after firing the blaster until another burst can be shot.
 botania.page.manaBlaster2=&1Mana Lenses&0 also function with the blaster. To attach one to it, put them side by side on a crafting table, to remove it, simply place the &1Mana Blaster&0 back on the crafting grid.<br>If the shooter has a &1Haste&0 effect present on their person, the speed at which they can fire the blaster also increases.
 botania.page.manaBlaster3=We need more dakka
 
@@ -3115,7 +3139,7 @@ botania.page.slimeBottle1=JUMPYDOLL
 botania.entry.exchangeRod=Rod of the Shifting Crust
 botania.tagline.exchangeRod=A rod to change blocks
 botania.page.exchangeRod0=&1Rod of the Shifting Crust&0 is a magical device with the ability to swap blocks in the world at very fast speeds. In order to achieve this, one must first select a block to swap with, this is done by shift-right clicking that block in the world.<br>After this block is selected, left clicking any other block in the world will swap it for that block, assuming it's present in the user's inventory.
-botania.page.exchangeRod1=Right clicking on a block in the world will start a larger transformation, which will swap all highlighted blocks into the one selected. Obviously, these blocks do come from the user's inventory as well. Only proper, full size blocks can be used for this swap, so no flowers, torches or other shenenigans of the sort. Using this power does, naturally, require &4Mana&0 from the user's inventory.
+botania.page.exchangeRod1=Right clicking on a block in the world will start a larger transformation, which will swap all highlighted blocks into the one selected. Obviously, these blocks do come from the user's inventory as well. Only proper, full size blocks can be used for this swap, so no flowers, torches or other shenanigans of the sort. Using this power does, naturally, require &4Mana&0 from the user's inventory.
 botania.page.exchangeRod2=Other rods or devices can be used to extend the power of the &1Rod of the Shifting Crust&0.<br>For example, having a &1Rod of the Lands&0 in one's inventory provides the &1Rod of the Shifting Crust&0 with an endless supply of &1Dirt&0, assuming the &4Mana&0 cost for the &1Rod of the Lands&0' dirt conjuration is fulfilled.
 botania.page.exchangeRod3=Bootlegged equal trade
 
@@ -3244,7 +3268,7 @@ botania.page.corporeaIndex2=Requests can be more complex than just a single item
 botania.page.corporeaIndex3=The plural form of an item's name may only be used case it's a regular noun when it comes to the plural (suffixed by "-s", "-es" or "-ies"), the singular version works just as well for requests of multiple items, such as "10 apple".<br>"10 of this" requests 10 items whose name equals the item in the player's hand, as expected.
 botania.page.corporeaIndex4=Examples of complex requests include "10 apples", "a stack of apples", "2 stacks of apples", "2 stacks and 20 apples", "half a stack of apples", "a dozen apples", and so on.<br>The index will also recognise more or less verbose forms of request, so "2x stacks and 20x of apples" is equal to "2 stack 2 apple" or "2 stacks + 2 apples".
 botania.page.corporeaIndex5=Requesting with "all" or "every" will deliver every single item in the network that matches the criteria, so "all apples" will deliver all the apples in the network.<br>On the other side, requesting "count", "show", "display" or "tell" won't request any, but will tell the requester how many exist in the network.
-botania.page.corporeaIndex8=While near a &1Corporea Index&0, if one is using &4NotEnoughItems&0, pressing C on an item in one's inventory (or NEI panel) will request 1 of said item.<br>Using SHIFT will instead request a full stack, CTRL will request half a stack and SHIFT+CTRL a quarter of a stack.
+botania.page.corporeaIndex8=While near a &1Corporea Index&0, pressing C on an item in one's inventory (or, if one is using &4JustEnoughItems&0, the JEI panel) will request 1 of said item.<br>Using SHIFT will instead request a full stack, CTRL will request half a stack and SHIFT+CTRL a quarter of a stack.
 botania.page.corporeaIndex6=Lastly, while near a &1Corporea Index&0, writing part of an item's name and pressing TAB in the chat menu will autocomplete the item's name.
 botania.page.corporeaIndex7=A certain magical one at that
 
@@ -3296,7 +3320,7 @@ botania.page.spawnerMover1=A spawner parcel
 # -- RESOLUTE IVY
 botania.entry.keepIvy=Resolute Ivy
 botania.tagline.keepIvy=Ivy that can be attached to items to keep them after death
-botania.page.keepIvy0=Everyone knows that before being ressurected, one's items splatter all over the ground, generally a massive nuisance. The fix for this is rather simple. By attaching a piece of &1Resolute Ivy&0 to an item through a crafting grid, that item will presist on one's inventory through death. The ivy will degenerate after that fact and will need to be applied again if one wishes to have the item survive another downfall.
+botania.page.keepIvy0=Everyone knows that before being resurrected, one's items splatter all over the ground, generally a massive nuisance. The fix for this is rather simple. By attaching a piece of &1Resolute Ivy&0 to an item through a crafting grid, that item will persist on one's inventory through death. The ivy will degenerate after that fact and will need to be applied again if one wishes to have the item survive another downfall.
 botania.page.keepIvy2=There is, however, one restriction to the items in which this ivy can be attached to.<br>For &otechnical reasons&r, the ivy may not be attached to any item that, upon being used in a crafting table, gives something in return, such as &1Buckets of Water&0 or the &1Mortar and Pestle&0.
 botania.page.keepIvy1=Because people die if they are killed
 
@@ -3333,7 +3357,7 @@ botania.page.starSword1=Caller, fury, whatever...
 # -- THUNDERCALLER
 botania.entry.thunderSword=Thundercaller
 botania.tagline.thunderSword=A sword that calls upon thunder
-botania.page.thunderSword0=The &1Thundercaller&0 is a dual pronged sword with the ability to conjure lightning. Created using a &1Terra Blade&0, &1Ender Air&0 and some other materials, the &1Thundercaller&0 scarifices the power of long range attacks to be able to zap multiple targets.<br>Attacks initiated with the &1Thundercaller&0 invoke upon chain lightning that homes on nearby hostile mobs, dealing decreasing damage per hit.
+botania.page.thunderSword0=The &1Thundercaller&0 is a dual pronged sword with the ability to conjure lightning. Created using a &1Terra Blade&0, &1Ender Air&0 and some other materials, the &1Thundercaller&0 sacrifices the power of long range attacks to be able to zap multiple targets.<br>Attacks initiated with the &1Thundercaller&0 invoke upon chain lightning that homes on nearby hostile mobs, dealing decreasing damage per hit.
 botania.page.thunderSword1=Blessed Blade of the Trade Chat
 
 # - BAUBLES AND ACCESSORIES
@@ -3381,6 +3405,7 @@ botania.page.cosmeticBaubles30=I can fly with these
 botania.page.cosmeticBaubles31=Not actually part of spain
 botania.page.cosmeticBaubles32=Now you too can believe
 botania.page.cosmeticBaubles33=Get on the treadmill, angbadang
+botania.page.cosmeticBaubles34=Really makes you think
 
 # -- TINY PLANET
 botania.entry.tinyPlanet=Tiny Planet
@@ -3533,7 +3558,7 @@ botania.page.dodgeRing1=Dexterity bonus
 # -- INVISIBILITY CLOAK
 botania.entry.invisibilityCloak=Invisibility Cloak
 botania.tagline.invisibilityCloak=Exactly what it says on the tin
-botania.page.invisibilityCloak0=Not much explanation is required for the &1Invisibility Cloak&0.<br>It's a bauble worn on the &4body&0 slot, that will take &4Mana&0 from the wearer's inventory to make them, and their baubles invisible as long as it's worn and the cost is fulfiled.
+botania.page.invisibilityCloak0=Not much explanation is required for the &1Invisibility Cloak&0.<br>It's a bauble worn on the &4body&0 slot, that will take &4Mana&0 from the wearer's inventory to make them, and their baubles invisible as long as it's worn and the cost is fulfilled.
 botania.page.invisibilityCloak1=You're a wizard, steve
 
 # -- CIRRUS AMULET
@@ -3613,7 +3638,7 @@ botania.page.gaiaRitual5=The difficulty and rewards bestowed by the ritual depen
 # -- RITUAL OF GAIA II
 botania.entry.gaiaRitualHardmode=Ritual of Gaia II
 botania.tagline.gaiaRitualHardmode=Pixie Boogaloo
-botania.page.gaiaRitualHardmode0=One would think that combining two of the most powerful resources known to existance, in the form of &1Terrasteel&0 and &1Gaia Spirits&0 would create an unstoppable material. It seems that the material is very much stoppable, though. In fact, the two forces cancel eachother out when combined into an ingot, creating an utterly useless alloy.
+botania.page.gaiaRitualHardmode0=One would think that combining two of the most powerful resources known to existence, in the form of &1Terrasteel&0 and &1Gaia Spirits&0 would create an unstoppable material. It seems that the material is very much stoppable, though. In fact, the two forces cancel each other out when combined into an ingot, creating an utterly useless alloy.
 botania.page.gaiaRitualHardmode1=This ingot, though, due to the concentrated energy and power in it, does allow for the summoning of a stronger &1Gaia Guardian&0, with more resistance, strength and speed.<br>For all of this, it also drops more &1Gaia Spirits&0 than normal, as well as a handful of goodies and rare treasure, making it a worthwhile foe.
 botania.page.gaiaRitualHardmode2=Creating the &1Gaia Spirit Ingot&0.
 
@@ -3625,7 +3650,7 @@ botania.page.relics0=There's an old tale from the high clans of Alfheim. It says
 # -- THE RELICS OF THE AESIR II
 botania.entry.relicInfo=The Relics of the Aesir II
 botania.tagline.relicInfo=They're real after all
-botania.page.relicInfo0=It appears as if the speculated relics are, in fact, real. These items, materialized from rolls of the &1Dice of Fate&0 possess incredible powers, the fact that the dice is six-sided possibly indicates to the existance of six of these.<br>Relics seem to contain knowledge of who earned them, and thus giving someone else a relic that doesn't belong to them might be a poor idea.
+botania.page.relicInfo0=It appears as if the speculated relics are, in fact, real. These items, materialized from rolls of the &1Dice of Fate&0 possess incredible powers, the fact that the dice is six-sided possibly indicates to the existence of six of these.<br>Relics seem to contain knowledge of who earned them, and thus giving someone else a relic that doesn't belong to them might be a poor idea.
 botania.page.relicInfo1=According to the original texts, the same relic may not be awarded to any one person twice, so keeping the item safe is a priority. Perhaps something like &1Resolute Ivy&0 would be a good investment.<br>Interestingly enough, earning a relic also imparts upon this lexicon the knowledge on how to use it. How useful.
 
 # -- THE FRUIT OF GRISAIA
@@ -3636,7 +3661,7 @@ botania.page.infiniteFruit0=The relic known as &1The Fruit of Grisaia&0 is besto
 # -- KEY OF THE KING'S LAW
 botania.entry.kingKey=Key of the King's Law
 botania.tagline.kingKey=Open the treasury
-botania.page.kingKey0=The &1Key of the King's Law&0 is a powerful relic with the ability to materialize weapons at command. Holding right click with this key will summon a plenthora of varied weapons from... somewhere. Up to twenty weapons can be created at once. Releasing the grip on the key will launch all the weapons, one at a time, where the summoner is looking at, at high speed. These weapons will create an explosion on contact.
+botania.page.kingKey0=The &1Key of the King's Law&0 is a powerful relic with the ability to materialize weapons at command. Holding right click with this key will summon a plethora of varied weapons from... somewhere. Up to twenty weapons can be created at once. Releasing the grip on the key will launch all the weapons, one at a time, where the summoner is looking at, at high speed. These weapons will create an explosion on contact.
 
 # -- EYE OF THE FLUGEL
 botania.entry.flugelEye=Eye of the Flügel
@@ -3777,13 +3802,13 @@ botania.page.mushrooms1=They don't make you bigger
 # -- PHANTOM INK
 botania.entry.phantomInk=Phantom Ink
 botania.tagline.phantomInk=Make your armor and baubles invisible
-botania.page.phantomInk0=Having your beautiful skin and accessories under a set of metal armor is nobody's dream. It's bulky, flat, and worst of all, not fashionable!<br>Luckilly, by tinging this horrendous armor with &1Phantom Ink&0 in a crafting grid, the armor will be completely invisible, while still providing all of its benefits. This will only work with armor sets that can use &4Mana&0.
+botania.page.phantomInk0=Having your beautiful skin and accessories under a set of metal armor is nobody's dream. It's bulky, flat, and worst of all, not fashionable!<br>Luckily, by tinging this horrendous armor with &1Phantom Ink&0 in a crafting grid, the armor will be completely invisible, while still providing all of its benefits. This will only work with armor sets that can use &4Mana&0.
 botania.page.phantomInk1=Who you gonna call?
 
 # -- STONE ALCHEMY
 botania.entry.stoneAlchemy=Stone Alchemy
 botania.tagline.stoneAlchemy=Create new stone types
-botania.page.stoneAlchemy0=Using an &1Alchemy Catalyst&0 proves to be a decently functional method of generating new types of &1Stone&0. Simple deal, tossing a piece of &1Stone&0 into the catalized pool will transform it into another in a cycle.<br> Stairs and slabs can be made from the rough and brick variants of these.
+botania.page.stoneAlchemy0=Using an &1Alchemy Catalyst&0 proves to be a decently functional method of generating new types of &1Stone&0. Simple deal, tossing a piece of &1Stone&0 into the catalyzed pool will transform it into another in a cycle.<br> Stairs and slabs can be made from the rough and brick variants of these.
 botania.page.stoneAlchemy1=Creating the stones
 botania.page.stoneAlchemy2=Brickage
 botania.page.stoneAlchemy3=Chiseling
@@ -3864,7 +3889,7 @@ botania.subtitle.enchanterForm=Mana Enchanter forms
 botania.subtitle.enchanterFade=Mana Enchanter fades
 botania.subtitle.enchanterEnchant=Mana Enchanter finishes
 botania.subtitle.endoflame=Endoflame ignites item
-botania.subtitle.equipBauble=Bauble is equipped
+botania.subtitle.equipBauble=Bauble equips
 botania.subtitle.gaiaTrap=Gaia Guardian's spell swooshes
 botania.subtitle.holyCloak=Cloak of Virtue activates
 botania.subtitle.laputaStart=Laputa Shard triggers
@@ -3873,15 +3898,15 @@ botania.subtitle.lexiconPage=Lexica Botania page turns
 botania.subtitle.lightRelay=Luminizer whooshes
 botania.subtitle.manaBlaster=Mana Blaster fires
 botania.subtitle.manaPoolCraft=Mana Pool infuses
-botania.subtitle.missile=Magic Missile is fired
+botania.subtitle.missile=Magic Missile fires
 botania.subtitle.orechid=Stone transforms into ore
 botania.subtitle.potionCreate=Brewery finishes
 botania.subtitle.runeAltarCraft=Runic Altar finishes
 botania.subtitle.runeAltarStart=Runic Altar starts
 botania.subtitle.spreaderFire=Spreader shoots mana
 botania.subtitle.starcaller=Stars descend from the sky
-botania.subtitle.terraBlade=Terrasteel Sword actives
-botania.subtitle.terraformRod=Land is terrraformed
+botania.subtitle.terraBlade=Terrasteel Sword activates
+botania.subtitle.terraformRod=Land terrraforms
 botania.subtitle.terraPickMode=Terrasteel Pick powers up
 botania.subtitle.terrasteelCraft=Terrasteel finishes
 botania.subtitle.thermalily=Thermalily consumes lava

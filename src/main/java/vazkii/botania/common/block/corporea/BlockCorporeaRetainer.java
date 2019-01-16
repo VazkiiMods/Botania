@@ -58,7 +58,7 @@ public class BlockCorporeaRetainer extends BlockMod implements ILexiconable {
 
 	@Override
 	public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block, BlockPos fromPos) {
-		boolean power = world.isBlockIndirectlyGettingPowered(pos) > 0 || world.isBlockIndirectlyGettingPowered(pos.up()) > 0;
+		boolean power = world.getRedstonePowerFromNeighbors(pos) > 0 || world.getRedstonePowerFromNeighbors(pos.up()) > 0;
 		boolean powered = state.getValue(BotaniaStateProps.POWERED);
 
 		if(power && !powered) {
@@ -75,7 +75,7 @@ public class BlockCorporeaRetainer extends BlockMod implements ILexiconable {
 
 	@Override
 	public int getComparatorInputOverride(IBlockState state, World world, BlockPos pos) {
-		return ((TileCorporeaRetainer) world.getTileEntity(pos)).hasPendingRequest() ? 15 : 0;
+		return ((TileCorporeaRetainer) world.getTileEntity(pos)).getComparatorValue();
 	}
 
 	@Override

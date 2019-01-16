@@ -1,2 +1,2 @@
-sh gradlew
+gradlew.bat
 pause

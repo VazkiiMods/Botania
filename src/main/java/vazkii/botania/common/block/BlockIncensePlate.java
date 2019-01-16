@@ -66,7 +66,7 @@ public class BlockIncensePlate extends BlockMod implements ILexiconable {
 		if (meta < 2 || meta > 5) {
 			meta = 2;
 		}
-		return getDefaultState().withProperty(BotaniaStateProps.CARDINALS, EnumFacing.getFront(meta));
+		return getDefaultState().withProperty(BotaniaStateProps.CARDINALS, EnumFacing.byIndex(meta));
 	}
 
 	@Override

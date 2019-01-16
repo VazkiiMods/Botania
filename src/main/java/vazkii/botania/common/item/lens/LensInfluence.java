@@ -30,11 +30,12 @@ public class LensInfluence extends Lens {
 	public void updateBurst(IManaBurst burst, EntityThrowable entity, ItemStack stack) {
 		if(!burst.isFake()) {
 			double range = 3.5;
-			List<Entity> movables = entity.world.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(entity.posX - range, entity.posY - range, entity.posZ - range, entity.posX + range, entity.posY + range, entity.posZ + range));
-			movables.addAll(entity.world.getEntitiesWithinAABB(EntityXPOrb.class, new AxisAlignedBB(entity.posX - range, entity.posY - range, entity.posZ - range, entity.posX + range, entity.posY + range, entity.posZ + range)));
-			movables.addAll(entity.world.getEntitiesWithinAABB(EntityArrow.class, new AxisAlignedBB(entity.posX - range, entity.posY - range, entity.posZ - range, entity.posX + range, entity.posY + range, entity.posZ + range)));
-			movables.addAll(entity.world.getEntitiesWithinAABB(EntityFallingBlock.class, new AxisAlignedBB(entity.posX - range, entity.posY - range, entity.posZ - range, entity.posX + range, entity.posY + range, entity.posZ + range)));
-			movables.addAll(entity.world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(entity.posX - range, entity.posY - range, entity.posZ - range, entity.posX + range, entity.posY + range, entity.posZ + range), Predicates.instanceOf(IManaBurst.class)));
+			AxisAlignedBB bounds = new AxisAlignedBB(entity.posX - range, entity.posY - range, entity.posZ - range, entity.posX + range, entity.posY + range, entity.posZ + range);
+			List<Entity> movables = entity.world.getEntitiesWithinAABB(EntityItem.class, bounds);
+			movables.addAll(entity.world.getEntitiesWithinAABB(EntityXPOrb.class, bounds));
+			movables.addAll(entity.world.getEntitiesWithinAABB(EntityArrow.class, bounds));
+			movables.addAll(entity.world.getEntitiesWithinAABB(EntityFallingBlock.class, bounds));
+			movables.addAll(entity.world.getEntitiesWithinAABB(EntityThrowable.class, bounds, Predicates.instanceOf(IManaBurst.class)));
 
 			for(Entity movable : movables) {
 				if(movable == burst)

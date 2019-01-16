@@ -54,7 +54,7 @@ public class ItemManasteelShears extends ItemShears implements IManaUsingItem, I
 	public ItemManasteelShears(String name) {
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
 		setRegistryName(new ResourceLocation(LibMisc.MOD_ID, name));
-		setUnlocalizedName(name);
+		setTranslationKey(name);
 	}
 
 	@Nonnull
@@ -111,6 +111,7 @@ public class ItemManasteelShears extends ItemShears implements IManaUsingItem, I
 
 				ToolCommons.damageItem(itemstack, 1, player, MANA_PER_DAMAGE);
 				player.addStat(StatList.getBlockStats(block), 1);
+				return true;
 			}
 		}
 

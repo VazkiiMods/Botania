@@ -18,6 +18,7 @@ import vazkii.botania.common.block.tile.TileTerraPlate;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.entity.EntityDoppleganger;
+import vazkii.botania.common.item.ItemTwigWand;
 
 import java.awt.Color;
 
@@ -107,6 +108,8 @@ public class PacketBotaniaEffect implements IMessage {
 					}
 					case ITEM_SMOKE: {
 						Entity item = world.getEntityByID(message.args[0]);
+						if (item == null) return;
+						
 						int p = message.args[1];
 
 						for(int i = 0; i < p; i++) {
@@ -231,6 +234,7 @@ public class PacketBotaniaEffect implements IMessage {
 										Botania.proxy.wispFX(message.x + 0.5, message.y + 0.5, message.z + 0.5, colorsfx[0], colorsfx[1], colorsfx[2], (float) Math.random() * 0.15F + 0.15F, (float) (Math.random() - 0.5F) * 0.125F, (float) (Math.random() - 0.5F) * 0.125F, (float) (Math.random() - 0.5F) * 0.125F);
 							}
 						}
+						break;
 					}
 					case FLUGEL_EFFECT: {
 						Entity entity = world.getEntityByID(message.args[0]);
@@ -242,6 +246,25 @@ public class PacketBotaniaEffect implements IMessage {
 								Botania.proxy.wispFX(x, y, z, (float) Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random(), -0.3F + (float) Math.random() * 0.2F);
 							}
 						}
+						break;
+					}
+					case PARTICLE_BEAM: {
+						ItemTwigWand.doParticleBeam(Minecraft.getMinecraft().world,
+								new Vector3(message.x, message.y, message.z),
+								new Vector3(message.args[0] + 0.5, message.args[1] + 0.5, message.args[2] + 0.5));
+						break;
+					}
+					case DIVA_EFFECT: {
+						Entity target = Minecraft.getMinecraft().world.getEntityByID(message.args[0]);
+						if(target == null)
+							break;
+
+						double x = target.posX;
+						double y = target.posY;
+						double z = target.posZ;
+
+						for(int i = 0; i < 50; i++)
+							Botania.proxy.sparkleFX(x + Math.random() * target.width, y + Math.random() * target.height, z + Math.random() * target.width, 1F, 1F, 0.25F, 1F, 3);
 						break;
 					}
 					}
@@ -261,7 +284,10 @@ public class PacketBotaniaEffect implements IMessage {
 		ENCHANTER_DESTROY(0),
 		BLACK_LOTUS_DISSOLVE(0),
 		TERRA_PLATE(0),
-		FLUGEL_EFFECT(1); // Arg: Entity ID
+		FLUGEL_EFFECT(1), // Arg: Entity ID
+		PARTICLE_BEAM(3), // Args: dest xyz
+		DIVA_EFFECT(1), // Arg: EntityID
+		;
 
 		private final int argCount;
 

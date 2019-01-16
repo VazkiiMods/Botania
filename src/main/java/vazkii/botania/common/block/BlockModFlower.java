@@ -26,6 +26,7 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
@@ -55,7 +56,7 @@ public class BlockModFlower extends BlockFlower implements ILexiconable, IGrowab
 	}
 
 	protected BlockModFlower(String name) {
-		setUnlocalizedName(name);
+		setTranslationKey(name);
 		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.COLOR, EnumDyeColor.WHITE).withProperty(type, EnumFlowerType.POPPY));
 		setRegistryName(new ResourceLocation(LibMisc.MOD_ID, name));
 		setHardness(0F);
@@ -124,9 +125,13 @@ public class BlockModFlower extends BlockFlower implements ILexiconable, IGrowab
 		int r = (hex & 0xFF0000) >> 16;
 		int g = (hex & 0xFF00) >> 8;
 		int b = hex & 0xFF;
+		Vec3d offset = state.getOffset(world, pos);
+		double x = pos.getX() + offset.x;
+		double y = pos.getY() + offset.y;
+		double z = pos.getZ() + offset.z;
 
 		if(rand.nextDouble() < ConfigHandler.flowerParticleFrequency)
-			Botania.proxy.sparkleFX(pos.getX() + 0.3 + rand.nextFloat() * 0.5, pos.getY() + 0.5 + rand.nextFloat() * 0.5, pos.getZ() + 0.3 + rand.nextFloat() * 0.5, r / 255F, g / 255F, b / 255F, rand.nextFloat(), 5);
+			Botania.proxy.sparkleFX(x + 0.3 + rand.nextFloat() * 0.5, y + 0.5 + rand.nextFloat() * 0.5, z + 0.3 + rand.nextFloat() * 0.5, r / 255F, g / 255F, b / 255F, rand.nextFloat(), 5);
 	}
 
 	@Override

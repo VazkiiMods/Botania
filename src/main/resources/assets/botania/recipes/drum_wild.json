@@ -16,7 +16,7 @@
       "item": "botania:horn_grass"
     },
     "L": {
-      "item": "minecraft:leather"
+      "item": "#LEATHER"
     }
   }
 }

@@ -20,6 +20,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.ServerChatEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -27,6 +28,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.commons.lang3.text.WordUtils;
 import vazkii.botania.api.corporea.CorporeaHelper;
+import vazkii.botania.api.corporea.CorporeaIndexRequestEvent;
 import vazkii.botania.api.corporea.ICorporeaAutoCompleteController;
 import vazkii.botania.api.corporea.ICorporeaRequestor;
 import vazkii.botania.api.corporea.ICorporeaSpark;
@@ -138,6 +140,18 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 		addPattern("(?:the )?answer to life,? the universe and everything (?:of )?(.+)", new IRegexStacker() {
 			@Override public int getCount(Matcher m) { return 42; }
 			@Override public String getName(Matcher m) { return m.group(1); }
+		});
+		
+		// [a ]nice [of ](name) = 69 
+		addPattern("(?:a )?nice (?:of )?(.+)", new IRegexStacker() {
+			@Override public int getCount(Matcher m) { return 69; }
+			@Override public String getName(Matcher m) { return m.group(1); }
+		});
+		
+		// (n)[x] nice[s][ of] (name) = n * 69
+		addPattern("(\\d+)x?? nices?(?: of)? (.+)", new IRegexStacker() {
+			@Override public int getCount(Matcher m) { return 69 * i(m, 1); }
+			@Override public String getName(Matcher m) { return m.group(2); }
 		});
 
 		// <count/show/display/tell> (name) = 0 (display only)
@@ -269,11 +283,14 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 							if(!stack.isEmpty())
 								name = stack.getDisplayName().toLowerCase().trim();
 						}
-
-						index.doCorporeaRequest(name, count, spark);
-
-						event.getPlayer().sendMessage(new TextComponentTranslation("botaniamisc.requestMsg", count, WordUtils.capitalizeFully(name), CorporeaHelper.lastRequestMatches, CorporeaHelper.lastRequestExtractions).setStyle(new Style().setColor(TextFormatting.LIGHT_PURPLE)));
-						CorporeaRequestTrigger.INSTANCE.trigger(event.getPlayer(), event.getPlayer().getServerWorld(), index.getPos(), CorporeaHelper.lastRequestExtractions);
+						
+						CorporeaIndexRequestEvent indexReqEvent = new CorporeaIndexRequestEvent(event.getPlayer(), name, count, spark);
+						if(!MinecraftForge.EVENT_BUS.post(indexReqEvent)) {
+							index.doCorporeaRequest(name, count, spark);
+							
+							event.getPlayer().sendMessage(new TextComponentTranslation("botaniamisc.requestMsg", count, WordUtils.capitalizeFully(name), CorporeaHelper.lastRequestMatches, CorporeaHelper.lastRequestExtractions).setStyle(new Style().setColor(TextFormatting.LIGHT_PURPLE)));
+							CorporeaRequestTrigger.INSTANCE.trigger(event.getPlayer(), event.getPlayer().getServerWorld(), index.getPos(), CorporeaHelper.lastRequestExtractions);
+						}
 					}
 				}
 

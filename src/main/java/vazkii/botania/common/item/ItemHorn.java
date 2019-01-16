@@ -113,18 +113,14 @@ public class ItemHorn extends ItemMod {
 			BlockPos currCoords = coords.get(i);
 			IBlockState state = world.getBlockState(currCoords);
 			Block block = state.getBlock();
-			NonNullList<ItemStack> items = NonNullList.create();
-			block.getDrops(items, world, currCoords, state, 0);
 
 			if(block instanceof IHornHarvestable && ((IHornHarvestable) block).hasSpecialHornHarvest(world, currCoords, stack, type))
 				((IHornHarvestable) block).harvestByHorn(world, currCoords, stack, type);
 			else {
+				block.dropBlockAsItem(world, currCoords, state, 0);
 				world.setBlockToAir(currCoords);
 				if(ConfigHandler.blockBreakParticles)
 					world.playEvent(2001, currCoords, Block.getStateId(state));
-
-				for(ItemStack stack_ : items)
-					world.spawnEntity(new EntityItem(world, currCoords.getX() + 0.5, currCoords.getY() + 0.5, currCoords.getZ() + 0.5, stack_));
 			}
 		}
 	}

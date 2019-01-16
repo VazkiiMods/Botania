@@ -95,11 +95,6 @@ public class ItemPetal extends Item16Colors implements IFlowerComponent {
 	}
 
 	@Override
-	public boolean canFit(ItemStack stack, IPetalApothecary apothecary) {
-		return true;
-	}
-
-	@Override
 	public int getParticleColor(ItemStack stack) {
 		return color.colorValue;
 	}

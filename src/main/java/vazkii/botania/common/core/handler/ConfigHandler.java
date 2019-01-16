@@ -15,7 +15,6 @@ import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
@@ -55,6 +54,7 @@ public final class ConfigHandler {
 	public static boolean renderBaubles = true;
 	public static boolean enableSeasonalFeatures = true;
 	public static boolean useShiftForQuickLookup = false;
+	public static boolean lexicaOfflineMode = false;
 	public static boolean enableArmorModels = true;
 	public static boolean enableFancySkybox = true;
 	public static boolean enableFancySkyboxInNormalWorlds = false;
@@ -72,6 +72,7 @@ public final class ConfigHandler {
 
 //	public static boolean versionCheckEnabled = true;
 	public static int spreaderPositionShift = 1;
+	public static int spreaderTraceTime = 400;
 	public static boolean flowerForceCheck = true;
 	public static boolean enderPickpocketEnabled = true;
 
@@ -82,6 +83,7 @@ public final class ConfigHandler {
 	public static boolean ringOfOdinFireResist = true;
 	public static boolean invertMagnetRing = false;
 	public static boolean enableThaumcraftStablizers = true;
+	public static boolean enableThaumcraftAspects = true;
 	public static boolean enableShedding = false;
 
 	public static int harvestLevelWeight = 2;
@@ -159,6 +161,9 @@ public final class ConfigHandler {
 		desc = "Set this to true to use Shift instead of Ctrl for the inventory lexica botania quick lookup feature.";
 		useShiftForQuickLookup = loadPropBool("quickLookup.useShift", desc, useShiftForQuickLookup);
 
+		desc = "Set this to true to disable the wiki lookup feature of the lexica, for offline usage.";
+		lexicaOfflineMode = loadPropBool("quickLookup.lexicaOfflineMode", desc, lexicaOfflineMode);
+
 		desc = "Set this to false to disable custom armor models.";
 		enableArmorModels = loadPropBool("armorModels.enable", desc, enableArmorModels);
 
@@ -198,6 +203,9 @@ public final class ConfigHandler {
 		desc = "Do not ever touch this value if not asked to. Possible symptoms of doing so include your head turning backwards, the appearance of Titans near the walls or you being trapped in a game of Sword Art Online.";
 		spreaderPositionShift = loadPropInt("spreader.posShift", desc, spreaderPositionShift);
 
+		desc = "How many ticks into the future will mana spreaders attempt to predict where mana bursts go? Setting this lower will improve spreader performance, but will cause them to not fire at targets that are too far away.";
+		spreaderTraceTime = loadPropInt("spreader.traceTime", desc, spreaderTraceTime);
+
 		desc = "Turn this off ONLY IF you're on an extremely large world with an exaggerated count of Mana Spreaders/Mana Pools and are experiencing TPS lag. This toggles whether flowers are strict with their checking for connecting to pools/spreaders or just check whenever possible.";
 		flowerForceCheck = loadPropBool("flower.forceCheck", desc, flowerForceCheck);
 
@@ -225,9 +233,12 @@ public final class ConfigHandler {
 		desc = "Set this to false to disable Thaumcraft Infusion Stabilizing in botania blocks";
 		enableThaumcraftStablizers = loadPropBool("thaumraftStabilizers.enabled", desc, enableThaumcraftStablizers);
 
+		desc = "Set this to false to disable Thaumcraft aspects on Botania items";
+		enableThaumcraftAspects = loadPropBool("thaumcraftAspects.enabled", desc, enableThaumcraftAspects);
+
 		desc = "Set this to true to enable the Shedding feature from 1.7.10. You'll need to load the game to generate the options. No options are enabled by default. This increases load time.";
 		enableShedding = loadPropBool("shedding.enable", desc, enableShedding);
-		
+
 		desc = "The harvest level of the Mana Lens: Weight. 3 is diamond level. Defaults to 2 (iron level)";
 		harvestLevelWeight = loadPropInt("harvestLevel.weightLens", desc, harvestLevelWeight);
 

@@ -57,7 +57,7 @@ public class ItemManasteelPick extends ItemPickaxe implements IManaUsingItem, IS
 		super(mat);
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
 		setRegistryName(new ResourceLocation(LibMisc.MOD_ID, name));
-		setUnlocalizedName(name);
+		setTranslationKey(name);
 	}
 
 	@Nonnull
@@ -85,7 +85,7 @@ public class ItemManasteelPick extends ItemPickaxe implements IManaUsingItem, IS
 	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float sx, float sy, float sz) {
 		for(int i = 0; i < player.inventory.getSizeInventory(); i++) {
 			ItemStack stackAt = player.inventory.getStackInSlot(i);
-			if(!stackAt.isEmpty() && TORCH_PATTERN.matcher(stackAt.getItem().getUnlocalizedName()).find()) {
+			if(!stackAt.isEmpty() && TORCH_PATTERN.matcher(stackAt.getItem().getTranslationKey()).find()) {
 				ItemStack saveHeldStack = player.getHeldItem(hand);
 				player.setHeldItem(hand, stackAt);
 				EnumActionResult did = stackAt.getItem().onItemUse(player, world, pos, hand, side, sx, sy, sz);

@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.item;
 
-import com.mojang.authlib.GameProfile;
-import mods.railcraft.api.core.items.IMinecartItem;
 import net.minecraft.block.BlockRailBase;
 import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.entity.player.EntityPlayer;
@@ -21,14 +19,12 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.Optional;
 import vazkii.botania.common.entity.EntityPoolMinecart;
 import vazkii.botania.common.lib.LibItemNames;
 
 import javax.annotation.Nonnull;
 
-@Optional.Interface(modid = "railcraft", iface = "mods.railcraft.api.core.items.IMinecartItem", striprefs = true)
-public class ItemPoolMinecart extends ItemMod implements IMinecartItem {
+public class ItemPoolMinecart extends ItemMod {
 
 	public ItemPoolMinecart() {
 		super(LibItemNames.POOL_MINECART);
@@ -55,27 +51,6 @@ public class ItemPoolMinecart extends ItemMod implements IMinecartItem {
 		}
 
 		return EnumActionResult.PASS;
-	}
-
-	@Override
-	public boolean canBePlacedByNonPlayer(ItemStack cart) {
-		return true;
-	}
-
-	@Override
-	public EntityMinecart placeCart(GameProfile owner, ItemStack cart, World world, int i, int j, int k) {
-		if(BlockRailBase.isRailBlock(world.getBlockState(new BlockPos(i, j, k)))) {
-			if(!world.isRemote) {
-				EntityMinecart entityminecart = new EntityPoolMinecart(world, i + 0.5,j + 0.5, k + 0.5);
-
-				if(cart.hasDisplayName())
-					entityminecart.setCustomNameTag(cart.getDisplayName());
-
-				if(world.spawnEntity(entityminecart))
-					return entityminecart;
-			}
-		}
-		return null;
 	}
 
 }

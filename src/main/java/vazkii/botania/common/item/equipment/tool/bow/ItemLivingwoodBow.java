@@ -50,7 +50,7 @@ import java.util.function.Predicate;
 
 public class ItemLivingwoodBow extends ItemBow implements IManaUsingItem, IModelRegister {
 
-	private static final Predicate<ItemStack> AMMO_FUNC = s -> s != null && s.getItem() instanceof ItemArrow;
+	private static final Predicate<ItemStack> AMMO_FUNC = s -> !s.isEmpty() && s.getItem() instanceof ItemArrow;
 	public static final int MANA_PER_DAMAGE = 40;
 
 	public ItemLivingwoodBow() {
@@ -60,7 +60,7 @@ public class ItemLivingwoodBow extends ItemBow implements IManaUsingItem, IModel
 	public ItemLivingwoodBow(String name) {
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
 		setRegistryName(new ResourceLocation(LibMisc.MOD_ID, name));
-		setUnlocalizedName(name);
+		setTranslationKey(name);
 		setMaxDamage(500);
 		addPropertyOverride(new ResourceLocation("minecraft:pull"), (stack, worldIn, entityIn) -> {
 			if (entityIn == null)

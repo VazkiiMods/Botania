@@ -61,4 +61,16 @@ public class WorldTypeSkyblock extends WorldType {
 		return flat;
 	}
 
+	/* In skyblock worlds, do not darken the sky until player hits y=0 */
+	@Override
+	public double getHorizon(World world)
+	{
+		return 0.0D;
+	}
+
+	@Override
+	public double voidFadeMagnitude() {
+		return 1.0D;
+	}
+
 }

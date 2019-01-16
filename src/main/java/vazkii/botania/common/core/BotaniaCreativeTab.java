@@ -37,8 +37,9 @@ public final class BotaniaCreativeTab extends CreativeTabs {
 		setBackgroundImageName(LibResources.GUI_CREATIVE);
 	}
 
+	@Nonnull
 	@Override
-	public ItemStack getTabIconItem() {
+	public ItemStack createIcon() {
 		return new ItemStack(ModItems.lexicon);
 	}
 

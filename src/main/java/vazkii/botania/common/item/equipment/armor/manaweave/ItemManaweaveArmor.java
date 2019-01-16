@@ -53,8 +53,8 @@ public class ItemManaweaveArmor extends ItemManasteelArmor {
 	@Nonnull
 	@Override
 	@SideOnly(Side.CLIENT)
-	public String getUnlocalizedName(ItemStack stack) {
-		String name = super.getUnlocalizedName(stack);
+	public String getTranslationKey(ItemStack stack) {
+		String name = super.getTranslationKey(stack);
 		if(ClientProxy.jingleTheBells)
 			name = name.replaceAll("manaweave", "santaweave");
 		return name;

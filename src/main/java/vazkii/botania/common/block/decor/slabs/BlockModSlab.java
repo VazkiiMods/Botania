@@ -40,7 +40,7 @@ public abstract class BlockModSlab extends BlockSlab implements ILexiconable, IM
 	public BlockModSlab(boolean full, Material mat, String name) {
 		super(mat);
 		this.name = name;
-		setUnlocalizedName(name);
+		setTranslationKey(name);
 		setRegistryName(new ResourceLocation(LibMisc.MOD_ID, name));
 		doubleSlab = full;
 		if(!full) {
@@ -101,7 +101,7 @@ public abstract class BlockModSlab extends BlockSlab implements ILexiconable, IM
 
 	@Nonnull
 	@Override
-	public String getUnlocalizedName(int i) {
+	public String getTranslationKey(int i) {
 		return name;
 	}
 

@@ -12,6 +12,10 @@ package vazkii.botania.common.block.decor.biomestone;
 
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.state.BotaniaStateProps;
@@ -49,12 +53,9 @@ public class BlockBiomeStoneA extends BlockBiomeStone {
 	}
 
 	@Override
-	public int damageDropped(IBlockState state) {
-		int meta = getMetaFromState(state);
-		if (meta < 8) {
-			meta += 8; // Drop cobblestone variant
-		}
-		return meta;
+	public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
+		int cobbleMeta = getMetaFromState(state) | 0x8;
+		drops.add(new ItemStack(this, 1, cobbleMeta));
 	}
 
 	@SideOnly(Side.CLIENT)

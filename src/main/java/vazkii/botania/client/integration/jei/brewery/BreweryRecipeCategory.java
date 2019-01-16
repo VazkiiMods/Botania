@@ -13,17 +13,16 @@ import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.gui.IDrawableStatic;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
+import mezz.jei.api.recipe.IFocus;
 import mezz.jei.api.recipe.IRecipeCategory;
 import mezz.jei.api.recipe.IRecipeWrapper;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class BreweryRecipeCategory implements IRecipeCategory {
@@ -68,9 +67,11 @@ public class BreweryRecipeCategory implements IRecipeCategory {
 			return;
 
 		List<List<ItemStack>> inputs = ingredients.getInputs(ItemStack.class);
+		List<List<ItemStack>> outputs = ingredients.getOutputs(ItemStack.class);
+		IFocus<?> focus = recipeLayout.getFocus();
 
 		recipeLayout.getItemStacks().init(0, true, 39, 41);
-		recipeLayout.getItemStacks().set(0, inputs.get(0));
+		recipeLayout.getItemStacks().set(0, getItemMatchingFocus(focus, IFocus.Mode.OUTPUT, outputs.get(0), inputs.get(0)));
 
 		int index = 1, posX = 60;
 		for(int i = 1; i < inputs.size(); i++) {
@@ -82,6 +83,19 @@ public class BreweryRecipeCategory implements IRecipeCategory {
 		}
 
 		recipeLayout.getItemStacks().init(7, false, 87, 41);
-		recipeLayout.getItemStacks().set(7, ingredients.getOutputs(ItemStack.class).get(0));
+		recipeLayout.getItemStacks().set(7, getItemMatchingFocus(focus, IFocus.Mode.INPUT, inputs.get(0), outputs.get(0)));
+	}
+
+	/**
+	 * If an item in this recipe is focused, returns the corresponding item instead of all the containers/results.
+	 */
+	private List<ItemStack> getItemMatchingFocus(IFocus<?> focus, IFocus.Mode mode, List<ItemStack> focused, List<ItemStack> other) {
+		if(focus != null && focus.getMode() == mode) {
+			ItemStack focusStack = (ItemStack) focus.getValue();
+			for(int i = 0; i < focused.size(); i++)
+				if(focusStack.isItemEqual(focused.get(i)))
+					return Collections.singletonList(other.get(i));
+		}
+		return other;
 	}
 }

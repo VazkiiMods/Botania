@@ -96,7 +96,7 @@ public class SubTileNarslimmus extends SubTileGenerating {
 	}
 
 	public static boolean isSlimeChunk(World world, int x, int z) {
-		Chunk chunk = world.getChunkFromBlockCoords(new BlockPos(x, 0, z));
+		Chunk chunk = world.getChunk(new BlockPos(x, 0, z));
 		return chunk.getRandomWithSeed(987234911L).nextInt(10) == 0;
 	}
 

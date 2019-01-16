@@ -1,0 +1,13 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "botania:items/cosmetic32"
+  },
+  "display": {
+    "head": {
+      "rotation": [0, 180, 15],
+      "translation": [4, 4, 7],
+      "scale": [1, 1, 1]
+    }
+  }
+}

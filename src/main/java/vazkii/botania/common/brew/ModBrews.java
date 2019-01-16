@@ -68,8 +68,7 @@ public class ModBrews {
 	}
 
 	public static void initTC() {
-		Potion warpWardPotion = Potion.REGISTRY.getObject(new ResourceLocation("minecraft:warp_ward"));
-		// thaumcraft 5 is registering its potions under the Minecraft namespace
+		Potion warpWardPotion = Potion.REGISTRY.getObject(new ResourceLocation("thaumcraft:warpward"));
 
 		if(warpWardPotion != null)
 			warpWard = new BrewMod(LibBrewNames.WARP_WARD, 0xFBBDFF, 25000, new PotionEffect(warpWardPotion, 12000, 0)).setNotBloodPendantInfusable();

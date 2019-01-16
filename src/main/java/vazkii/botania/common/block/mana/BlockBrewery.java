@@ -87,8 +87,10 @@ public class BlockBrewery extends BlockMod implements ILexiconable, IWandHUD {
 		TileBrewery brew = (TileBrewery) world.getTileEntity(pos);
 
 		if(player.isSneaking()) {
-			if(brew.recipe == null && !state.getValue(BotaniaStateProps.POWERED))
+			if(brew.recipe == null && !state.getValue(BotaniaStateProps.POWERED)) {
 				InventoryHelper.withdrawFromInventory(brew, player);
+				return true;
+			}
 		} else {
 			ItemStack stack = player.getHeldItem(hand);
 			if(!stack.isEmpty())

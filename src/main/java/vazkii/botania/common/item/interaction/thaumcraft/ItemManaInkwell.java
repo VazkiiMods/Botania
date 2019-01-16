@@ -46,7 +46,9 @@ public class ItemManaInkwell extends ItemMod implements IManaItem, IScribeTools 
 	public void getSubItems(@Nonnull CreativeTabs tab, @Nonnull NonNullList<ItemStack> list) {
 		if(isInCreativeTab(tab)) {
 			list.add(new ItemStack(this, 1, USES));
-			list.add(new ItemStack(this));
+			ItemStack full = new ItemStack(this);
+			setMana(full, MAX_MANA);
+			list.add(full);
 		}
 	}
 

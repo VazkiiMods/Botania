@@ -69,7 +69,7 @@ public class ItemRelic extends ItemMod implements IRelic {
 
 			if(stack.getItem() == ModItems.dice) {
 				addStringToTooltip("", list);
-				String name = stack.getUnlocalizedName() + ".poem";
+				String name = stack.getTranslationKey() + ".poem";
 				for(int i = 0; i < 4; i++)
 					addStringToTooltip(TextFormatting.ITALIC + I18n.format(name + i), list);
 			}

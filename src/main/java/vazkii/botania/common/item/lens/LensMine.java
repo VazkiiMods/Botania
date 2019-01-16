@@ -11,8 +11,8 @@
 package vazkii.botania.common.item.lens;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockShulkerBox;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -27,20 +27,17 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ModItems;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class LensMine extends Lens {
-
 	@Override
-	public boolean collideBurst(IManaBurst burst, EntityThrowable entity, RayTraceResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
+	public boolean collideBurst(IManaBurst burst, EntityThrowable entity, RayTraceResult rtr, boolean isManaBlock, boolean dead, ItemStack stack) {
 		World world = entity.world;
 
-		BlockPos pos_ = pos.getBlockPos();
-		if (world.isRemote || pos_ == null)
+		BlockPos collidePos = rtr.getBlockPos();
+		if (world.isRemote || collidePos == null)
 			return false;
 
-		Block block = world.getBlockState(pos_).getBlock();
+		IBlockState state = world.getBlockState(collidePos);
+		Block block = state.getBlock();
 
 		ItemStack composite = ((ItemLens) stack.getItem()).getCompositeLens(stack);
 		boolean warp = !composite.isEmpty() && composite.getItem() == ModItems.lensWarp;
@@ -50,32 +47,35 @@ public class LensMine extends Lens {
 
 		int harvestLevel = ConfigHandler.harvestLevelBore;
 
-		TileEntity tile = world.getTileEntity(pos_);
+		TileEntity tile = world.getTileEntity(collidePos);
 
-		IBlockState state = world.getBlockState(pos_);
-		float hardness = state.getBlockHardness(world, pos_);
+		float hardness = state.getBlockHardness(world, collidePos);
 		int neededHarvestLevel = block.getHarvestLevel(state);
 		int mana = burst.getMana();
 
-		BlockPos coords = burst.getBurstSourceBlockPos();
-		if(!coords.equals(pos.getBlockPos()) && !(tile instanceof IManaBlock) && neededHarvestLevel <= harvestLevel && hardness != -1 && hardness < 50F && (burst.isFake() || mana >= 24)) {
-			NonNullList<ItemStack> items = NonNullList.create();
-			block.getDrops(items, world, pos_, world.getBlockState(pos_), 0);
+		BlockPos source = burst.getBurstSourceBlockPos();
+		if(!source.equals(rtr.getBlockPos()) && !(tile instanceof IManaBlock) && neededHarvestLevel <= harvestLevel && hardness != -1 && hardness < 50F && (burst.isFake() || mana >= 24)) {
+			if(!burst.hasAlreadyCollidedAt(collidePos)) {
+				if(!burst.isFake()) {
+					NonNullList<ItemStack> items = NonNullList.create();
+					block.getDrops(items, world, collidePos, world.getBlockState(collidePos), 0);
+					float chance = net.minecraftforge.event.ForgeEventFactory.fireBlockHarvesting(items, world, collidePos, state, 0, 1.0f, false, null);
 
-			if(!burst.hasAlreadyCollidedAt(pos_)) {
-				if(!burst.isFake() && !entity.world.isRemote) {
-					world.setBlockToAir(pos_);
+					world.setBlockToAir(collidePos);
 					if(ConfigHandler.blockBreakParticles)
-						entity.world.playEvent(2001, pos_, Block.getStateId(state));
+						world.playEvent(2001, collidePos, Block.getStateId(state));
 
-					boolean offBounds = coords.getY() < 0;
+					boolean offBounds = source.getY() < 0;
 					boolean doWarp = warp && !offBounds;
-					int dropX = doWarp ? coords.getX() : pos_.getX();
-					int dropY = doWarp ? coords.getY() : pos_.getY();
-					int dropZ = doWarp ? coords.getZ() : pos_.getZ();
+					BlockPos dropCoord = doWarp ? source : collidePos;
 
-					for(ItemStack stack_ : items)
-						world.spawnEntity(new EntityItem(world, dropX + 0.5, dropY + 0.5, dropZ + 0.5, stack_));
+					for(ItemStack stack_ : items) {
+						// Shulker boxes do weird things and drop themselves in breakBlock, so don't drop any dupes
+						if(block instanceof BlockShulkerBox && Block.getBlockFromItem(stack_.getItem()) instanceof BlockShulkerBox)
+							continue;
+						if(world.rand.nextFloat() <= chance)
+							Block.spawnAsEntity(world, dropCoord, stack_);
+					}
 
 					burst.setMana(mana - 24);
 				}

@@ -45,6 +45,7 @@ public class SubTileEntropinnyum extends SubTileGenerating {
 					sync();
 
 					getWorld().addBlockEvent(getPos(), supertile.getBlockType(), EXPLODE_EFFECT_EVENT, tnt.getEntityId());
+					break;
 				}
 			}
 		}

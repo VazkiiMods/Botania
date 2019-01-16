@@ -25,7 +25,7 @@ public class ItemBlockFloatingSpecialFlower extends ItemBlockSpecialFlower {
 	@Nonnull
 	@Override
 	public String getItemStackDisplayName(@Nonnull ItemStack stack) {
-		String flowerName = getUnlocalizedName(stack) + ".name";
+		String flowerName = getTranslationKey(stack) + ".name";
 		return String.format(I18n.translateToLocal("botaniamisc.floatingPrefix"), I18n.translateToLocal(flowerName));
 	}
 

@@ -34,7 +34,7 @@ public class PacketJump implements IMessage {
 		@Override
 		public IMessage onMessage(PacketJump message, MessageContext ctx) {
 			EntityPlayerMP player = ctx.getServerHandler().player;
-			player.mcServer.addScheduledTask(() -> {
+			player.server.addScheduledTask(() -> {
 				IItemHandler baublesInv = BaublesApi.getBaublesHandler(player);
 				ItemStack amuletStack = baublesInv.getStackInSlot(0);
 

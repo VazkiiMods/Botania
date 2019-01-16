@@ -51,10 +51,12 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 		FOUR_LEAF_CLOVER, CLOCK_EYE, UNICORN_HORN, DEVIL_HORNS,
 		HYPER_PLUS, BOTANIST_EMBLEM, ANCIENT_MASK, EERIE_MASK,
 		ALIEN_ANTENNA, ANAGLYPH_GLASSES, ORANGE_SHADES, GROUCHO_GLASSES,
-		THICK_EYEBROWS, LUSITANIC_SHIELD, TINY_POTATO_MASK, QUESTGIVER_MARK
+		THICK_EYEBROWS, LUSITANIC_SHIELD, TINY_POTATO_MASK, QUESTGIVER_MARK,
+		THINKING_HAND
 	}
 
 	private final Variant variant;
+	public static final int SUBTYPES = Variant.values().length;
 
 	public ItemBaubleCosmetic(Variant variant) {
 		super(LibItemNames.COSMETIC + "_" + variant.name().toLowerCase(Locale.ROOT));
@@ -63,9 +65,9 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void addHiddenTooltip(ItemStack par1ItemStack, World world, List<String> stacks, ITooltipFlag flags) {
-		addStringToTooltip(I18n.format("botaniamisc.cosmeticBauble"), stacks);
-		super.addHiddenTooltip(par1ItemStack, world, stacks, flags);
+	public void addHiddenTooltip(ItemStack stack, World world, List<String> stacks, ITooltipFlag flags) {
+		addStringToTooltip(I18n.format(stack.getItemDamage() == 32 ? "botaniamisc.cosmeticThinking" : "botaniamisc.cosmeticBauble"), stacks);
+		super.addHiddenTooltip(stack, world, stacks, flags);
 	}
 
 	@Override
@@ -137,7 +139,7 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 			case GOOGLY_EYES:
 				GlStateManager.rotate(180F, 0F, 1F, 0F);
 				GlStateManager.scale(1.5F, 1.5F, 1F);
-				GlStateManager.translate(0F, -0.05F, -0.15F);
+				GlStateManager.translate(0F, -0.05F, 0F);
 				renderItem(stack);
 				break;
 			case CLOCK_EYE:
@@ -211,6 +213,13 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 			case QUESTGIVER_MARK:
 				scale(0.8F);
 				GlStateManager.translate(0F, 1F, 0.3F);
+				renderItem(stack);
+				break;
+			case THINKING_HAND:
+				scale(0.9f);
+				GlStateManager.translate(0.2F, -0.5F, 0F);
+				GlStateManager.scale(-1, 1, 1);
+				GlStateManager.rotate(15F, 0F, 0F, 1F);
 				renderItem(stack);
 				break;
 			default: break;

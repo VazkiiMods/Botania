@@ -15,7 +15,7 @@ import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.ShapedOreRecipe;
-import vazkii.botania.common.core.helper.ItemNBTHelper;
+import vazkii.botania.common.Botania;
 
 public class ArmorUpgradeRecipe extends ShapedOreRecipe {
 
@@ -30,9 +30,8 @@ public class ArmorUpgradeRecipe extends ShapedOreRecipe {
 			ItemStack stack = var1.getStackInSlot(i);
 			if (!stack.isEmpty() && stack.getItem() instanceof ItemArmor && stack.hasTagCompound()) {
 				EnchantmentHelper.setEnchantments(EnchantmentHelper.getEnchantments(stack), out);
-				byte runicHardening = ItemNBTHelper.getByte(stack, "RS.HARDEN", (byte)0);
-				if (runicHardening != 0)
-					ItemNBTHelper.setByte(out, "RS.HARDEN", runicHardening);
+				if(Botania.thaumcraftLoaded)
+					HelmRevealingRecipe.copyTCData(stack, out);
 				break;
 			}
 		}
