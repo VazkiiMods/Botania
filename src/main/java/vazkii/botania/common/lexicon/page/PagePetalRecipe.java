@@ -41,9 +41,9 @@ public class PagePetalRecipe<T extends RecipePetals> extends PageRecipe {
 
 	private static final ResourceLocation petalOverlay = new ResourceLocation(LibResources.GUI_PETAL_OVERLAY);
 
-	final List<T> recipes;
-	int ticksElapsed = 0;
-	int recipeAt = 0;
+	private final List<T> recipes;
+	private int ticksElapsed = 0;
+	private int recipeAt = 0;
 
 	public PagePetalRecipe(String unlocalizedName, List<T> recipes) {
 		super(unlocalizedName);
@@ -72,14 +72,14 @@ public class PagePetalRecipe<T extends RecipePetals> extends PageRecipe {
 		List<Object> inputs = recipe.getInputs();
 		int degreePerInput = (int) (360F / inputs.size());
 		float currentDegree = ConfigHandler.lexiconRotatingItems ? GuiScreen.isShiftKeyDown() ? ticksElapsed : ticksElapsed + ClientTickHandler.partialTicks : 0;
-		float baseDegree = currentDegree;
-		
+		int inputIndex = ticksElapsed / 40;
+
 		for(Object obj : inputs) {
 			Object input = obj;
 			if(input instanceof String) {
 				NonNullList<ItemStack> list = OreDictionary.getOres((String) input); 
 				int size = list.size();
-				input = list.get(size - (int) (baseDegree / 40) % size - 1);
+				input = list.get(size - inputIndex % size - 1);
 			}
 
 			renderItemAtAngle(gui, currentDegree, (ItemStack) input);
