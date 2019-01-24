@@ -539,7 +539,7 @@ public final class LexiconData {
 		flowerShrinking = new BasicLexiconEntry(LibLexicon.FFLOWER_SHRINKING, categoryFunctionalFlowers);
 		flowerShrinking.setPriority()
 		.setLexiconPages(new PageText("0"), new PageManaInfusionRecipe("1", BotaniaAPI.miniFlowerRecipes))
-		.setIcon(ItemBlockSpecialFlower.ofType(new ResourceLocation(LibBlockNames.SUBTILE_BELLETHORN.getResourceDomain(), LibBlockNames.SUBTILE_BELLETHORN.getResourcePath() + "Chibi")));
+		.setIcon(ItemBlockSpecialFlower.ofType(new ResourceLocation(LibBlockNames.SUBTILE_BELLETHORN.getNamespace(), LibBlockNames.SUBTILE_BELLETHORN.getPath() + "Chibi")));
 
 		flowerSpeed = new BasicLexiconEntry(LibLexicon.FFLOWER_SPEED, categoryFunctionalFlowers);
 		flowerSpeed.setPriority().setLexiconPages(new PageText("0"), new PageText("1"));

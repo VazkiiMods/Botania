@@ -171,7 +171,7 @@ public final class ColorHandler {
 		// todo 1.13 use tags instead of looping registry
 		handler = (s, t) -> t == 0 ? ((ItemLens) s.getItem()).getLensColor(s) : -1;
 		for (Item i : Item.REGISTRY) {
-			if(i instanceof ItemLens && i.getRegistryName().getResourceDomain().equals(LibMisc.MOD_ID)) {
+			if(i instanceof ItemLens && i.getRegistryName().getNamespace().equals(LibMisc.MOD_ID)) {
 				items.registerItemColorHandler(handler, i);
 			}
 		}

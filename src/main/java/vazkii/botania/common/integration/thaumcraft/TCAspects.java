@@ -120,15 +120,15 @@ public class TCAspects {
 		register(ModItems.manaCookie, 0, new AspectList(new ItemStack(Items.COOKIE)).merge(LIFE, 20).add(MAGIC, 5));
 
 		AspectList grassSeedAspects =  new AspectList().add(PLANT, 5).add(LIFE, 5).add(EXCHANGE, 2);
-		register(ModItems.grassSeeds, 0, grassSeedAspects); //Pasture Seed
-		register(ModItems.grassSeeds, 1, grassSeedAspects); //Boreal Seed
-		register(ModItems.grassSeeds, 2, grassSeedAspects.copy().add(DARKNESS, 5).add(FLUX, 1)); //Infestation Spore
+		register(ModItems.grassSeeds, 0, grassSeedAspects);
+		register(ModItems.podzolSeeds, 1, grassSeedAspects);
+		register(ModItems.mycelSeeds, 2, grassSeedAspects.copy().add(DARKNESS, 5).add(FLUX, 1));
 
-		register(ModItems.quartz, 1, new AspectList(new ItemStack(Items.QUARTZ)).add(MAGIC, 2)); //Mana Quartz
+		register(ModItems.manaQuartz, 1, new AspectList(new ItemStack(Items.QUARTZ)).add(MAGIC, 2));
 		register(ModBlocks.tinyPotato, ANY, new AspectList(new ItemStack(Items.POTATO)).add(LIFE, 5).add(MOTION, 2));
 		register(ModItems.manaInkwell, ANY, new AspectList().add(SENSES, 5).add(MAGIC, 5).add(WATER, 2).add(BEAST, 1));
 		register(ModBlocks.manaGlass, 0, new AspectList(new ItemStack(Blocks.GLASS)).add(LIGHT, 5).add(MAGIC, 1));
-		register(ModItems.manaResource, 16, new AspectList(new ItemStack(Items.STRING)).merge(CRAFT, 2).add(MAGIC, 2)); //Mana Infused String
+		register(ModItems.manaString, 16, new AspectList(new ItemStack(Items.STRING)).merge(CRAFT, 2).add(MAGIC, 2));
 		register(ModItems.manaBottle, ANY, new AspectList().add(MAGIC, 5).add(CRYSTAL, 5));
 
 		//Elven Trade
@@ -136,27 +136,27 @@ public class TCAspects {
 		register(LibOreDict.ELEMENTIUM, new AspectList().add(METAL, 10).add(ELDRITCH, 5));
 		register(LibOreDict.PIXIE_DUST, new AspectList(new ItemStack(Items.ENDER_PEARL)).add(MAGIC, 10));
 		register(LibOreDict.DRAGONSTONE, new AspectList(new ItemStack(Items.DIAMOND)).add(ELDRITCH, 10));
-		register(ModItems.quartz, 5, new AspectList(new ItemStack(Items.QUARTZ)).add(ELDRITCH, 1));
+		register(ModItems.elfQuartz, 5, new AspectList(new ItemStack(Items.QUARTZ)).add(ELDRITCH, 1));
 		register(ModBlocks.elfGlass, 0, new AspectList(new ItemStack(Blocks.GLASS)).add(LIGHT, 5).add(ELDRITCH, 1));
 
 		//Runic Altar
 		AspectList runeAspects = new AspectList().add(EARTH, 5).add(MAGIC, 5);
-		register(ModItems.rune,  0, runeAspects.copy().add(WATER,  25));  //Water
-		register(ModItems.rune,  1, runeAspects.copy().add(FIRE,   25));  //Fire
-		register(ModItems.rune,  2, runeAspects.copy().add(EARTH,  25));  //Earth
-		register(ModItems.rune,  3, runeAspects.copy().add(AIR,    25));  //Air
-		register(ModItems.rune,  4, runeAspects.copy().add(LIFE,   10).add(PLANT, 15));  //Spring
-		register(ModItems.rune,  5, runeAspects.copy().add(LIFE,   10).add(FIRE,  15));  //Summer
-		register(ModItems.rune,  6, runeAspects.copy().add(LIFE,   10).add(DEATH, 15));  //Autumn
-		register(ModItems.rune,  7, runeAspects.copy().add(LIFE,   10).add(COLD,  15));  //Winter
-		register(ModItems.rune,  8, runeAspects.copy().add(AURA,   25));                 //Mana
-		register(ModItems.rune,  9, runeAspects.copy().add(DESIRE, 10).add(MAN,  15));     //Lust
-		register(ModItems.rune, 10, runeAspects.copy().add(DESIRE, 10).add(LIFE, 15));     //Gluttony
-		register(ModItems.rune, 11, runeAspects.copy().add(DESIRE, 25));                   //Greed
-		register(ModItems.rune, 12, runeAspects.copy().add(DESIRE, 10).add(TRAP, 15));     //Sloth
-		register(ModItems.rune, 13, runeAspects.copy().add(DESIRE, 10).add(AVERSION, 15)); //Wrath
-		register(ModItems.rune, 14, runeAspects.copy().add(DESIRE, 10).add(EXCHANGE, 15)); //Envy
-		register(ModItems.rune, 15, runeAspects.copy().add(DESIRE, 10).add(SENSES, 15));   //Pride
+		register(ModItems.runeWater,  0, runeAspects.copy().add(WATER,  25));
+		register(ModItems.runeFire,  0, runeAspects.copy().add(FIRE,   25));
+		register(ModItems.runeEarth,  0, runeAspects.copy().add(EARTH,  25));
+		register(ModItems.runeAir,  0, runeAspects.copy().add(AIR,    25));
+		register(ModItems.runeSpring,  0, runeAspects.copy().add(LIFE,   10).add(PLANT, 15));
+		register(ModItems.runeSummer,  0, runeAspects.copy().add(LIFE,   10).add(FIRE,  15));
+		register(ModItems.runeAutumn,  0, runeAspects.copy().add(LIFE,   10).add(DEATH, 15));
+		register(ModItems.runeWinter,  0, runeAspects.copy().add(LIFE,   10).add(COLD,  15));
+		register(ModItems.runeMana,  0, runeAspects.copy().add(AURA,   25));
+		register(ModItems.runeLust,  0, runeAspects.copy().add(DESIRE, 10).add(MAN,  15));
+		register(ModItems.runeGluttony, 0, runeAspects.copy().add(DESIRE, 10).add(LIFE, 15));
+		register(ModItems.runeGreed, 0, runeAspects.copy().add(DESIRE, 25));
+		register(ModItems.runeSloth, 0, runeAspects.copy().add(DESIRE, 10).add(TRAP, 15));
+		register(ModItems.runeWrath, 0, runeAspects.copy().add(DESIRE, 10).add(AVERSION, 15));
+		register(ModItems.runeEnvy, 0, runeAspects.copy().add(DESIRE, 10).add(EXCHANGE, 15));
+		register(ModItems.runePride, 0, runeAspects.copy().add(DESIRE, 10).add(SENSES, 15));
 
 		//The rest - items with no recipes, loot, overrides of autoassigned aspects, etc.
 		//Ordered mostly by ModItems / ModBlocks
@@ -172,8 +172,8 @@ public class TCAspects {
 		for(String name : LibOreDict.PETAL)
 			register(name, new AspectList().add(SENSES, 5).add(PLANT, 5));
 
-		for(int i = 0; i < 15; i++)
-			register(ModItems.dye, i, new AspectList().add(SENSES, 5).add(PLANT, 1));
+		for(Item dye : ModItems.dyes.values())
+			register(dye, 0, new AspectList().add(SENSES, 5).add(PLANT, 1));
 		registerComplex(ModItems.lexicon, 0, new AspectList().add(MAGIC, 5).add(MIND, 10));
 
 		registerComplex(ModItems.pestleAndMortar, 0, new AspectList().add(TOOL, 4));
@@ -182,28 +182,28 @@ public class TCAspects {
 		registerComplex(ModItems.twigWand, 0, new AspectList().add(TOOL, 8));
 
 		//Lenses
-		registerComplex(ModItems.lens,  1, new AspectList().add(MOTION, 10));              //Velocity
-		registerComplex(ModItems.lens,  2, new AspectList().add(ENERGY, 10));              //Potency
-		registerComplex(ModItems.lens,  3, new AspectList().add(PROTECT, 10));             //Resistance
-		registerComplex(ModItems.lens,  4, new AspectList().add(TRAP, 10));                //Efficiency
-		registerComplex(ModItems.lens,  5, new AspectList().add(MOTION, 10));              //Bounce
-		registerComplex(ModItems.lens,  6, new AspectList().add(EARTH, 10));               //Gravity
-		registerComplex(ModItems.lens,  7, new AspectList().add(TOOL, 10));                //Bore
-		registerComplex(ModItems.lens,  8, new AspectList().add(AVERSION, 10));            //Damaging
-		registerComplex(ModItems.lens,  9, new AspectList().add(ELDRITCH, 10));            //Phantom
-		registerComplex(ModItems.lens, 10, new AspectList().add(DESIRE, 10));              //Magnetizing
-		registerComplex(ModItems.lens, 11, new AspectList().add(ENTROPY, 10));             //Entropic
-		registerComplex(ModItems.lens, 12, new AspectList().add(DESIRE, 10));              //Influence
-		registerComplex(ModItems.lens, 13, new AspectList().add(METAL, 10));               //Weight
-		registerComplex(ModItems.lens, 14, new AspectList().add(SENSES, 10));              //Paintslinger
-		registerComplex(ModItems.lens, 15, new AspectList().add(FIRE, 10));                //Kindle
-		registerComplex(ModItems.lens, 16, new AspectList().add(MECHANISM, 10));           //Force
-		registerComplex(ModItems.lens, 18, new AspectList().add(ELDRITCH, 10));            //Warp
-		registerComplex(ModItems.lens, 19, new AspectList().add(SOUL, 10));                //Redirective
-		registerComplex(ModItems.lens, 20, new AspectList().add(MAN, 10));                 //Celebratory
-		registerComplex(ModItems.lens, 21, new AspectList().add(LIGHT, 5).add(SENSES, 5)); //Flare
-		registerComplex(ModItems.lens, 22, new AspectList().add(MOTION, 10));              //Messenger
-		registerComplex(ModItems.lens, 23, new AspectList().add(MAN, 10));                 //Tripwire
+		registerComplex(ModItems.lensSpeed,  1, new AspectList().add(MOTION, 10));
+		registerComplex(ModItems.lensPower,  2, new AspectList().add(ENERGY, 10));
+		registerComplex(ModItems.lensTime,  3, new AspectList().add(PROTECT, 10));
+		registerComplex(ModItems.lensEfficiency,  4, new AspectList().add(TRAP, 10));
+		registerComplex(ModItems.lensBounce,  5, new AspectList().add(MOTION, 10));
+		registerComplex(ModItems.lensGravity,  6, new AspectList().add(EARTH, 10));
+		registerComplex(ModItems.lensMine,  7, new AspectList().add(TOOL, 10));
+		registerComplex(ModItems.lensDamage,  8, new AspectList().add(AVERSION, 10));
+		registerComplex(ModItems.lensPhantom,  9, new AspectList().add(ELDRITCH, 10));
+		registerComplex(ModItems.lensMagnet, 10, new AspectList().add(DESIRE, 10));
+		registerComplex(ModItems.lensExplosive, 11, new AspectList().add(ENTROPY, 10));
+		registerComplex(ModItems.lensInfluence, 12, new AspectList().add(DESIRE, 10));
+		registerComplex(ModItems.lensWeight, 13, new AspectList().add(METAL, 10));
+		registerComplex(ModItems.lensPaint, 14, new AspectList().add(SENSES, 10));
+		registerComplex(ModItems.lensFire, 15, new AspectList().add(FIRE, 10));
+		registerComplex(ModItems.lensPiston, 16, new AspectList().add(MECHANISM, 10));
+		registerComplex(ModItems.lensWarp, 18, new AspectList().add(ELDRITCH, 10));
+		registerComplex(ModItems.lensRedirect, 19, new AspectList().add(SOUL, 10));
+		registerComplex(ModItems.lensFirework, 20, new AspectList().add(MAN, 10));
+		registerComplex(ModItems.lensFlare, 21, new AspectList().add(LIGHT, 5).add(SENSES, 5));
+		registerComplex(ModItems.lensMessenger, 22, new AspectList().add(MOTION, 10));
+		registerComplex(ModItems.lensTripwire, 23, new AspectList().add(MAN, 10));
 
 		//Rods
 		registerComplex(ModItems.terraformRod, 0, new AspectList().add(EXCHANGE, 15));
@@ -226,12 +226,11 @@ public class TCAspects {
 		registerComplex(ModItems.magnetRing, 0, new AspectList().add(DESIRE, 10));
 		registerComplex(ModItems.flightTiara, ANY, new AspectList().add(FLIGHT, 38));
 
-		if(ConfigHandler.darkQuartzEnabled)
-			register(ModItems.quartz, 0, new AspectList(new ItemStack(Items.QUARTZ)).add(ENERGY, 1).add(DARKNESS, 1)); //Smokey
-		register(ModItems.quartz, 2, new AspectList(new ItemStack(Items.QUARTZ)).add(FIRE, 1).add(ALCHEMY, 1)); //Blaze
-		register(ModItems.quartz, 3, new AspectList(new ItemStack(Items.QUARTZ)).add(SENSES, 1).add(PLANT, 1)); //Lavender
-		register(ModItems.quartz, 4, new AspectList(new ItemStack(Items.QUARTZ)).add(ENERGY, 2));               //Redquartz
-		register(ModItems.quartz, 6, new AspectList(new ItemStack(Items.QUARTZ)).add(SENSES, 1).add(PLANT, 1)); //Sunny
+		register(ModItems.darkQuartz, 0, new AspectList(new ItemStack(Items.QUARTZ)).add(ENERGY, 1).add(DARKNESS, 1));
+		register(ModItems.blazeQuartz, 2, new AspectList(new ItemStack(Items.QUARTZ)).add(FIRE, 1).add(ALCHEMY, 1));
+		register(ModItems.lavenderQuartz, 3, new AspectList(new ItemStack(Items.QUARTZ)).add(SENSES, 1).add(PLANT, 1));
+		register(ModItems.redQuartz, 4, new AspectList(new ItemStack(Items.QUARTZ)).add(ENERGY, 2));
+		register(ModItems.sunnyQuartz, 6, new AspectList(new ItemStack(Items.QUARTZ)).add(SENSES, 1).add(PLANT, 1));
 
 		registerComplex(ModItems.openBucket, 0, new AspectList().add(VOID, 15));
 		registerComplex(ModItems.pixieRing, 0, new AspectList().add(AURA, 5).add(FLIGHT, 5));
@@ -254,7 +253,15 @@ public class TCAspects {
 		registerComplex(ModItems.thornChakram, 0, new AspectList().add(AVERSION, 12).add(DEATH, 6));
 		registerComplex(ModItems.thornChakram, 1, new AspectList().merge(AVERSION, 7)); //Flare Chakram
 		register(ModItems.overgrowthSeed, 0, new AspectList().add(LIFE, 30).add(MAGIC, 25));
-		register(ModItems.craftPattern, ANY, new AspectList().add(CRAFT, 10).add(ENERGY, 10));
+		register(ModItems.craftPattern1_1, ANY, new AspectList().add(CRAFT, 10).add(ENERGY, 10));
+		register(ModItems.craftPattern1_2, ANY, new AspectList().add(CRAFT, 10).add(ENERGY, 10));
+		register(ModItems.craftPattern1_3, ANY, new AspectList().add(CRAFT, 10).add(ENERGY, 10));
+		register(ModItems.craftPattern2_1, ANY, new AspectList().add(CRAFT, 10).add(ENERGY, 10));
+		register(ModItems.craftPattern2_2, ANY, new AspectList().add(CRAFT, 10).add(ENERGY, 10));
+		register(ModItems.craftPattern2_3, ANY, new AspectList().add(CRAFT, 10).add(ENERGY, 10));
+		register(ModItems.craftPattern3_1, ANY, new AspectList().add(CRAFT, 10).add(ENERGY, 10));
+		register(ModItems.craftPattern3_2, ANY, new AspectList().add(CRAFT, 10).add(ENERGY, 10));
+		register(ModItems.craftPatternDonut, ANY, new AspectList().add(CRAFT, 10).add(ENERGY, 10));
 
 		registerComplex(ModItems.swapRing, 0, new AspectList().add(TOOL, 8).add(EXCHANGE, 8));
 		registerComplex(ModItems.flowerBag, 0, new AspectList().add(VOID, 5));
@@ -262,12 +269,12 @@ public class TCAspects {
 		register(ModItems.corporeaSpark, 0, new AspectList().add(AURA, 15).add(MOTION, 15).add(SENSES, 10).add(EXCHANGE, 15).add(ELDRITCH, 10));
 
 		AspectList willAspects = new AspectList().add(MAGIC, 10).add(AVERSION, 10).add(SOUL, 10);
-		register(ModItems.ancientWill, 0, willAspects.copy().add(PROTECT, 10)); //Ahrim - weakness
-		register(ModItems.ancientWill, 1, willAspects.copy().add(BEAST, 10));   //Dharok - low HP damage boost
-		register(ModItems.ancientWill, 2, willAspects.copy().add(UNDEAD, 10));  //Guthan - lifesteal
-		register(ModItems.ancientWill, 3, willAspects.copy().add(TRAP, 10));    //Torag - slowness
-		register(ModItems.ancientWill, 4, willAspects.copy().add(DEATH, 10));   //Verac - armor pierce
-		register(ModItems.ancientWill, 5, willAspects.copy().add(FLUX, 10));    //Karil - withering
+		register(ModItems.ancientWillAhrim, 0, willAspects.copy().add(PROTECT, 10)); //Ahrim - weakness
+		register(ModItems.ancientWillDharok, 1, willAspects.copy().add(BEAST, 10));   //Dharok - low HP damage boost
+		register(ModItems.ancientWillGuthan, 2, willAspects.copy().add(UNDEAD, 10));  //Guthan - lifesteal
+		register(ModItems.ancientWillTorag, 3, willAspects.copy().add(TRAP, 10));    //Torag - slowness
+		register(ModItems.ancientWillVerac, 4, willAspects.copy().add(DEATH, 10));   //Verac - armor pierce
+		register(ModItems.ancientWillKaril, 5, willAspects.copy().add(FLUX, 10));    //Karil - withering
 
 		register(ModItems.pinkinator, 0, new AspectList().add(LIFE, 30).add(ORDER, 20).add(EXCHANGE, 20));
 
@@ -298,19 +305,19 @@ public class TCAspects {
 		registerComplex(ModItems.invisibilityCloak, 0, new AspectList().add(SENSES, 15));
 
 		//Blocks
-		registerComplex(ModBlocks.altar, 0, new AspectList().add(CRAFT, 10));
+		registerComplex(ModBlocks.defaultAltar, 0, new AspectList().add(CRAFT, 10));
 		registerComplex(ModBlocks.runeAltar, 0, new AspectList().add(CRAFT, 10).add(MAGIC, 5));
 
-		registerComplex(ModBlocks.spreader, 0, new AspectList().add(MOTION, 10).add(MAGIC, 10));
-		registerComplex(ModBlocks.spreader, 1, new AspectList(new ItemStack(ModBlocks.spreader)).add(ENERGY, 10).add(MECHANISM, 5));
-		registerComplex(ModBlocks.spreader, 2, new AspectList().add(MOTION, 15).add(MAGIC, 15));
-		registerComplex(ModBlocks.spreader, 3, new AspectList().add(MOTION, 8).add(MAGIC, 8).add(SENSES, 10));
+		registerComplex(ModBlocks.manaSpreader, 0, new AspectList().add(MOTION, 10).add(MAGIC, 10));
+		registerComplex(ModBlocks.redstoneSpreader, 1, new AspectList(new ItemStack(ModBlocks.manaSpreader)).add(ENERGY, 10).add(MECHANISM, 5));
+		registerComplex(ModBlocks.elvenSpreader, 2, new AspectList().add(MOTION, 15).add(MAGIC, 15));
+		registerComplex(ModBlocks.gaiaSpreader, 3, new AspectList().add(MOTION, 8).add(MAGIC, 8).add(SENSES, 10));
 
-		registerComplex(ModBlocks.pool, 0, new AspectList().add(VOID, 10).add(MAGIC, 5)); //Mana Pool
-		registerComplex(ModBlocks.pool, 2, new AspectList().add(VOID, 3).add(MAGIC, 3)); //Diluted
+		registerComplex(ModBlocks.manaPool, 0, new AspectList().add(VOID, 10).add(MAGIC, 5));
+		registerComplex(ModBlocks.dilutedPool, 2, new AspectList().add(VOID, 3).add(MAGIC, 3));
 		//Next entry is made with shimmerrock, and proper autoassignment depends on this
 		register(ModBlocks.bifrostPerm, 0, new AspectList(new ItemStack(ModBlocks.elfGlass)).add(SENSES, 5));
-		registerComplex(ModBlocks.pool, 3, new AspectList().add(VOID, 10).add(MAGIC, 5)); //Fabulous
+		registerComplex(ModBlocks.fabulousPool, 3, new AspectList().add(VOID, 10).add(MAGIC, 5));
 
 		registerComplex(ModBlocks.distributor, 0, new AspectList().add(MECHANISM, 5).add(MAGIC, 5));
 		registerComplex(ModBlocks.manaVoid, 0, new AspectList().add(VOID, 20));
@@ -318,16 +325,31 @@ public class TCAspects {
 		register(ModBlocks.enchanter, 0, new AspectList(new ItemStack(Blocks.LAPIS_BLOCK)).add(MAGIC, 25).add(CRAFT, 15));
 		registerComplex(ModBlocks.tinyPlanet, 0, new AspectList().add(EARTH, 50));
 		registerComplex(ModBlocks.openCrate, 0, new AspectList().add(VOID, 5));
-		registerComplex(ModBlocks.openCrate, 1, new AspectList().add(MECHANISM, 5)); //Crafty Crate
+		registerComplex(ModBlocks.craftCrate, 1, new AspectList().add(MECHANISM, 5));
 		registerComplex(ModBlocks.forestEye, 0, new AspectList().add(SENSES, 10).add(BEAST, 10));
-		registerComplex(ModBlocks.forestDrum, 1, new AspectList().add(SENSES, 5).add(TOOL, 5));
+		registerComplex(ModBlocks.gatheringDrum, 1, new AspectList().add(SENSES, 5).add(TOOL, 5));
 		register(ModBlocks.bifrost, 0, new AspectList(new ItemStack(ModBlocks.bifrostPerm)));
 		registerComplex(ModBlocks.floatingFlower, ANY, new AspectList().add(FLIGHT, 5));
 		registerComplex(ModBlocks.spawnerClaw, 0, new AspectList().add(LIFE, 30));
 		registerComplex(ModBlocks.alfPortal, 0, new AspectList().merge(EXCHANGE, 20).add(ELDRITCH, 20));
 
-		register(ModBlocks.customBrick, ANY, new AspectList(new ItemStack(Blocks.QUARTZ_BLOCK))
-				.add(SENSES, 3).add(DESIRE, 1).add(EARTH, 1)); //Azulejo
+		AspectList azulejo = new AspectList(new ItemStack(Blocks.QUARTZ_BLOCK)).add(SENSES, 3).add(DESIRE, 1).add(EARTH, 1);
+		register(ModBlocks.azulejo0, 0, azulejo);
+		register(ModBlocks.azulejo1, 0, azulejo);
+		register(ModBlocks.azulejo2, 0, azulejo);
+		register(ModBlocks.azulejo3, 0, azulejo);
+		register(ModBlocks.azulejo4, 0, azulejo);
+		register(ModBlocks.azulejo5, 0, azulejo);
+		register(ModBlocks.azulejo6, 0, azulejo);
+		register(ModBlocks.azulejo7, 0, azulejo);
+		register(ModBlocks.azulejo8, 0, azulejo);
+		register(ModBlocks.azulejo9, 0, azulejo);
+		register(ModBlocks.azulejo10, 0, azulejo);
+		register(ModBlocks.azulejo11, 0, azulejo);
+		register(ModBlocks.azulejo12, 0, azulejo);
+		register(ModBlocks.azulejo13, 0, azulejo);
+		register(ModBlocks.azulejo14, 0, azulejo);
+		register(ModBlocks.azulejo15, 0, azulejo);
 		registerComplex(ModBlocks.enderEye, 0, new AspectList().add(MECHANISM, 10));
 		registerComplex(ModBlocks.starfield, 0, new AspectList().add(DARKNESS, 20).add(LIGHT, 20));
 		registerComplex(ModBlocks.rfGenerator, 0, new AspectList().add(MECHANISM, 20));
@@ -353,7 +375,12 @@ public class TCAspects {
 		registerComplex(ModBlocks.teruTeruBozu, 0, new AspectList().add(EXCHANGE, 10).add(SENSES, 10));
 		registerComplex(ModBlocks.avatar, 0, new AspectList().add(MECHANISM, 15).add(MAN, 10));
 
-		register(ModBlocks.altGrass, ANY, new AspectList(new ItemStack(Blocks.GRASS)).add(SENSES, 3));
+		register(ModBlocks.dryGrass, ANY, new AspectList(new ItemStack(Blocks.GRASS)).add(SENSES, 3));
+		register(ModBlocks.goldenGrass, ANY, new AspectList(new ItemStack(Blocks.GRASS)).add(SENSES, 3));
+		register(ModBlocks.vividGrass, ANY, new AspectList(new ItemStack(Blocks.GRASS)).add(SENSES, 3));
+		register(ModBlocks.scorchedGrass, ANY, new AspectList(new ItemStack(Blocks.GRASS)).add(SENSES, 3));
+		register(ModBlocks.infusedGrass, ANY, new AspectList(new ItemStack(Blocks.GRASS)).add(SENSES, 3));
+		register(ModBlocks.mutatedGrass, ANY, new AspectList(new ItemStack(Blocks.GRASS)).add(SENSES, 3));
 		registerComplex(ModBlocks.animatedTorch, 0, new AspectList().add(MOTION, 5));
 
 		//Livingrock Brick variants
@@ -385,7 +412,7 @@ public class TCAspects {
 			register(ModItems.waterBowl, 0, new AspectList(new ItemStack(Items.BOWL)).add(WATER, 10));
 			register(LibOreDict.PEBBLE, new AspectList().add(EARTH, 1));
 			register(ModBlocks.root, 0, new AspectList().add(PLANT, 15).add(LIFE, 5));
-			register(ModItems.manaResource, 20, new AspectList().add(PLANT, 5).add(LIFE, 2)); //Living Root item
+			register(ModItems.livingroot, 20, new AspectList().add(PLANT, 5).add(LIFE, 2));
 		}
 	}
 

@@ -59,6 +59,6 @@ public class ItemElementiumPick extends ItemManasteelPick {
 
 	@Override
 	public boolean getIsRepairable(ItemStack toRepair, @Nonnull ItemStack repairBy) {
-		return repairBy.getItem() == ModItems.manaResource && repairBy.getItemDamage() == 7 ? true : super.getIsRepairable(toRepair, repairBy);
+		return repairBy.getItem() == ModItems.elementium ? true : super.getIsRepairable(toRepair, repairBy);
 	}
 }

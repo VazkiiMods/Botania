@@ -78,7 +78,7 @@ public class TileSpecialFlower extends TileMod implements IWandBindable, ISubTil
 	@Override
 	public void update() {
 		if(subTile != null) {
-			world.profiler.startSection(subTileName);
+			world.profiler.func_194340_a(() -> subTileName.toString());
 			TileEntity tileBelow = world.getTileEntity(pos.down());
 			if(tileBelow instanceof TileRedStringRelay) {
 				BlockPos coords = ((TileRedStringRelay) tileBelow).getBinding();
