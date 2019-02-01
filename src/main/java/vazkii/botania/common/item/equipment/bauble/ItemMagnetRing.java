@@ -12,7 +12,7 @@ package vazkii.botania.common.item.equipment.bauble;
 
 import baubles.api.BaubleType;
 import baubles.api.BaublesApi;
-import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.Item;
@@ -41,7 +41,7 @@ public class ItemMagnetRing extends ItemBauble {
 
 	private static final String TAG_COOLDOWN = "cooldown";
 
-	private static final List<ResourceLocation> BLACKLIST = ImmutableList.of(new ResourceLocation("appliedenergistics2", "item.ItemCrystalSeed"));
+	private static final List<ResourceLocation> BLACKLIST = Lists.newArrayList(new ResourceLocation("appliedenergistics2", "crystal_seed"));
 
 	private final int range;
 
@@ -105,7 +105,7 @@ public class ItemMagnetRing extends ItemBauble {
 	}
 
 	private boolean canPullItem(EntityItem item) {
-		if(item.isDead || SubTileSolegnolia.hasSolegnoliaAround(item))
+		if(item.isDead || item.pickupDelay >= 40 || SubTileSolegnolia.hasSolegnoliaAround(item))
 			return false;
 
 		ItemStack stack = item.getItem();
