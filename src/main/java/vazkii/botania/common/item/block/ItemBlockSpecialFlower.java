@@ -114,6 +114,7 @@ public class ItemBlockSpecialFlower extends ItemBlockMod implements IRecipeKeyPr
 		return LibMisc.MOD_ID;
 	}
 
+	@Nonnull
 	public static String getType(ItemStack stack) {
 		return stack.hasTagCompound() ? ItemNBTHelper.getString(stack, SubTileEntity.TAG_TYPE, "") : "";
 	}

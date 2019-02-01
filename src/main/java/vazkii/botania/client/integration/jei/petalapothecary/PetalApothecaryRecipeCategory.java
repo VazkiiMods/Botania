@@ -13,6 +13,7 @@ import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.gui.IDrawableStatic;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
+import mezz.jei.api.ingredients.VanillaTypes;
 import mezz.jei.api.recipe.IRecipeCategory;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;
@@ -29,7 +30,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PetalApothecaryRecipeCategory implements IRecipeCategory {
+public class PetalApothecaryRecipeCategory implements IRecipeCategory<PetalApothecaryRecipeWrapper> {
 
 	public static final String UID = "botania.petals";
 	private final IDrawableStatic background;
@@ -71,18 +72,15 @@ public class PetalApothecaryRecipeCategory implements IRecipeCategory {
 	}
 
 	@Override
-	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull IRecipeWrapper recipeWrapper, @Nonnull IIngredients ingredients) {
-		if(!(recipeWrapper instanceof PetalApothecaryRecipeWrapper))
-			return;
-
+	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull PetalApothecaryRecipeWrapper recipeWrapper, @Nonnull IIngredients ingredients) {
 		recipeLayout.getItemStacks().init(0, true, 64, 52);
 		recipeLayout.getItemStacks().set(0, new ItemStack(ModBlocks.altar));
 
 		int index = 1;
-		double angleBetweenEach = 360.0 / ingredients.getInputs(ItemStack.class).size();
+		double angleBetweenEach = 360.0 / ingredients.getInputs(VanillaTypes.ITEM).size();
 		Point point = new Point(64, 20), center = new Point(64, 52);
 
-		for(List<ItemStack> o : ingredients.getInputs(ItemStack.class)) {
+		for(List<ItemStack> o : ingredients.getInputs(VanillaTypes.ITEM)) {
 			recipeLayout.getItemStacks().init(index, true, point.x, point.y);
 			recipeLayout.getItemStacks().set(index, o);
 			index += 1;
@@ -90,7 +88,7 @@ public class PetalApothecaryRecipeCategory implements IRecipeCategory {
 		}
 
 		recipeLayout.getItemStacks().init(index, false, 103, 17);
-		recipeLayout.getItemStacks().set(index, ingredients.getOutputs(ItemStack.class).get(0));
+		recipeLayout.getItemStacks().set(index, ingredients.getOutputs(VanillaTypes.ITEM).get(0));
 	}
 
 	private Point rotatePointAbout(Point in, Point about, double degrees) {

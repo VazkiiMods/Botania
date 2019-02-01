@@ -10,6 +10,7 @@ package vazkii.botania.client.integration.jei.puredaisy;
 
 import com.google.common.collect.ImmutableList;
 import mezz.jei.api.ingredients.IIngredients;
+import mezz.jei.api.ingredients.VanillaTypes;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -54,18 +55,18 @@ public class PureDaisyRecipeWrapper implements IRecipeWrapper {
 
 	@Override
 	public void getIngredients(@Nonnull IIngredients ingredients) {
-		ingredients.setInputs(ItemStack.class, inputs);
+		ingredients.setInputs(VanillaTypes.ITEM, inputs);
 
 		if (fluidInput != null) {
-			ingredients.setInput(FluidStack.class, fluidInput);
+			ingredients.setInput(VanillaTypes.FLUID, fluidInput);
 		}
 
 		if (!output.isEmpty()) {
-			ingredients.setOutput(ItemStack.class, output);
+			ingredients.setOutput(VanillaTypes.ITEM, output);
 		}
 
 		if (fluidOutput != null) {
-			ingredients.setOutput(FluidStack.class, fluidOutput);
+			ingredients.setOutput(VanillaTypes.FLUID, fluidOutput);
 		}
 	}
 

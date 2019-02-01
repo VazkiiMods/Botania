@@ -12,8 +12,8 @@ import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
+import mezz.jei.api.ingredients.VanillaTypes;
 import mezz.jei.api.recipe.IRecipeCategory;
-import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
@@ -23,12 +23,10 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.awt.Point;
-import java.util.ArrayList;
 import java.util.List;
 
-public class RunicAltarRecipeCategory implements IRecipeCategory {
+public class RunicAltarRecipeCategory implements IRecipeCategory<RunicAltarRecipeWrapper> {
 
 	public static final String UID = "botania.runicAltar";
 	private final IDrawable background;
@@ -70,19 +68,15 @@ public class RunicAltarRecipeCategory implements IRecipeCategory {
 	}
 
 	@Override
-	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull IRecipeWrapper recipeWrapper, @Nonnull IIngredients ingredients) {
-		if(!(recipeWrapper instanceof RunicAltarRecipeWrapper))
-			return;
-		RunicAltarRecipeWrapper wrapper = (RunicAltarRecipeWrapper) recipeWrapper;
-
+	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull RunicAltarRecipeWrapper recipeWrapper, @Nonnull IIngredients ingredients) {
 		recipeLayout.getItemStacks().init(0, true, 64, 52);
 		recipeLayout.getItemStacks().set(0, new ItemStack(ModBlocks.runeAltar));
 
 		int index = 1;
-		double angleBetweenEach = 360.0 / ingredients.getInputs(ItemStack.class).size();
+		double angleBetweenEach = 360.0 / ingredients.getInputs(VanillaTypes.ITEM).size();
 		Point point = new Point(64, 20), center = new Point(64, 52);
 
-		for(List<ItemStack> o : ingredients.getInputs(ItemStack.class)) {
+		for(List<ItemStack> o : ingredients.getInputs(VanillaTypes.ITEM)) {
 			recipeLayout.getItemStacks().init(index, true, point.x, point.y);
 			recipeLayout.getItemStacks().set(index, o);
 			index += 1;
@@ -90,7 +84,7 @@ public class RunicAltarRecipeCategory implements IRecipeCategory {
 		}
 
 		recipeLayout.getItemStacks().init(index, false, 103, 17);
-		recipeLayout.getItemStacks().set(index, ingredients.getOutputs(ItemStack.class).get(0));
+		recipeLayout.getItemStacks().set(index, ingredients.getOutputs(VanillaTypes.ITEM).get(0));
 
 	}
 
@@ -106,5 +100,5 @@ public class RunicAltarRecipeCategory implements IRecipeCategory {
 	public String getModName() {
 		return LibMisc.MOD_NAME;
 	}
-	
+
 }
