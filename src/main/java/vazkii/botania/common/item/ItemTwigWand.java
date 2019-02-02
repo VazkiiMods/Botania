@@ -142,8 +142,6 @@ public class ItemTwigWand extends Item16Colors implements ICoordBoundItem {
 
 				return EnumActionResult.SUCCESS;
 			}
-
-			return EnumActionResult.PASS;
 		}
 
 		if(block instanceof IWandable) {
