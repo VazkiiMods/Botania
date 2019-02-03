@@ -52,9 +52,9 @@ public class LensFlare extends Lens {
 
 		TileEntity tile = (TileEntity) spreader;
 		if(storedColor == 16) {
-			hex = Color.HSBtoRGB(tile.getWorld().getTotalWorldTime() * 2 % 360 / 360F, 1F, 1F);
+			hex = Color.HSBtoRGB(tile.getWorld().getGameTime() * 2 % 360 / 360F, 1F, 1F);
 		} else if(storedColor >= 0) {
-			hex = EnumDyeColor.byMetadata(storedColor).colorValue;
+			hex = EnumDyeColor.byId(storedColor).colorValue;
 		}
 
 		float r = ((hex & 0xFF0000) >> 16) / 255F;

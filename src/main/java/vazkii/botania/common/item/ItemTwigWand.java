@@ -16,12 +16,10 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.EnumRarity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResult;
@@ -33,10 +31,12 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.wand.ICoordBoundItem;
@@ -71,9 +71,8 @@ public class ItemTwigWand extends ItemMod implements ICoordBoundItem {
 	private static final String TAG_BIND_MODE = "bindMode";
 	private static final BlockPos UNBOUND_POS = new BlockPos(0, -1, 0);
 
-	public ItemTwigWand() {
-		super(LibItemNames.TWIG_WAND);
-		setMaxStackSize(1);
+	public ItemTwigWand(Item.Builder builder) {
+		super(builder);
 		addPropertyOverride(new ResourceLocation("botania", "bindmode"), (stack, worldIn, entityIn) -> getBindMode(stack) ? 1 : 0);
 	}
 
@@ -121,7 +120,7 @@ public class ItemTwigWand extends ItemMod implements ICoordBoundItem {
 
 			if(axis != null) {
 				if(!world.isRemote) {
-					world.setBlockState(pos, ModBlocks.enchanter.getDefaultState().withProperty(BotaniaStateProps.ENCHANTER_DIRECTION, axis), 1 | 2);
+					world.setBlockState(pos, ModBlocks.enchanter.getDefaultState().with(BotaniaStateProps.ENCHANTER_DIRECTION, axis), 1 | 2);
 					world.playSound(null, pos, ModSounds.enchanterForm, SoundCategory.BLOCKS, 0.5F, 0.6F);
 					PlayerHelper.grantCriterion((EntityPlayerMP) player, new ResourceLocation(LibMisc.MOD_ID, "main/enchanter_make"), "code_triggered");
 				} else {
@@ -173,7 +172,7 @@ public class ItemTwigWand extends ItemMod implements ICoordBoundItem {
 
 		if(!world.isRemote && ((BlockPistonRelay) ModBlocks.pistonRelay).playerPositions.containsKey(player.getUniqueID())) {
 			BlockPistonRelay.DimWithPos bindPos = ((BlockPistonRelay) ModBlocks.pistonRelay).playerPositions.get(player.getUniqueID());
-			BlockPistonRelay.DimWithPos currentPos = new BlockPistonRelay.DimWithPos(world.provider.getDimension(), pos);
+			BlockPistonRelay.DimWithPos currentPos = new BlockPistonRelay.DimWithPos(world.getDimension().getId(), pos);
 
 			((BlockPistonRelay) ModBlocks.pistonRelay).playerPositions.remove(player.getUniqueID());
 			((BlockPistonRelay) ModBlocks.pistonRelay).mappedPositions.put(bindPos, currentPos);
@@ -216,7 +215,7 @@ public class ItemTwigWand extends ItemMod implements ICoordBoundItem {
 	}
 
 	@Override
-	public void onUpdate(ItemStack par1ItemStack, World world, Entity par3Entity, int par4, boolean par5) {
+	public void inventoryTick(ItemStack par1ItemStack, World world, Entity par3Entity, int par4, boolean par5) {
 		BlockPos coords = getBoundTile(par1ItemStack);
 		TileEntity tile = world.getTileEntity(coords);
 		if(tile == null || !(tile instanceof IWandBindable))
@@ -244,10 +243,10 @@ public class ItemTwigWand extends ItemMod implements ICoordBoundItem {
 		}
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void addInformation(ItemStack stack, World world, List<String> list, ITooltipFlag flags) {
-		list.add(I18n.format(getModeString(stack)));
+	public void addInformation(ItemStack stack, World world, List<ITextComponent> list, ITooltipFlag flags) {
+		list.add(new TextComponentTranslation(getModeString(stack)));
 	}
 
 	@Nonnull
@@ -303,9 +302,9 @@ public class ItemTwigWand extends ItemMod implements ICoordBoundItem {
 		if(bound.getY() != -1)
 			return bound;
 
-		RayTraceResult pos = Minecraft.getMinecraft().objectMouseOver;
-		if(pos != null && pos.typeOfHit == RayTraceResult.Type.BLOCK) {
-			TileEntity tile = Minecraft.getMinecraft().world.getTileEntity(pos.getBlockPos());
+		RayTraceResult pos = Minecraft.getInstance().objectMouseOver;
+		if(pos != null && pos.type == RayTraceResult.Type.BLOCK) {
+			TileEntity tile = Minecraft.getInstance().world.getTileEntity(pos.getBlockPos());
 			if(tile != null && tile instanceof ITileBound) {
 				BlockPos coords = ((ITileBound) tile).getBinding();
 				return coords;

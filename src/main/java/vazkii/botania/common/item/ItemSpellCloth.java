@@ -10,6 +10,7 @@
  */
 package vazkii.botania.common.item;
 
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.common.lib.LibItemNames;
 
@@ -17,11 +18,8 @@ import javax.annotation.Nonnull;
 
 public class ItemSpellCloth extends ItemMod {
 
-	public ItemSpellCloth() {
-		super(LibItemNames.SPELL_CLOTH);
-		setMaxDamage(35);
-		setMaxStackSize(1);
-		setNoRepair();
+	public ItemSpellCloth(Item.Builder builder) {
+		super(builder);
 	}
 
 	@Override
@@ -38,7 +36,7 @@ public class ItemSpellCloth extends ItemMod {
 	@Override
 	public ItemStack getContainerItem(@Nonnull ItemStack itemStack) {
 		ItemStack stack = itemStack.copy();
-		stack.setItemDamage(stack.getItemDamage() + 1);
+		stack.setDamage(stack.getDamage() + 1);
 		return stack;
 	}
 

@@ -16,18 +16,19 @@ import net.minecraft.entity.boss.EntityWither;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.common.advancements.UseItemSuccessTrigger;
 import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.entity.EntityPinkWither;
@@ -39,10 +40,8 @@ import java.util.List;
 
 public class ItemPinkinator extends ItemMod {
 
-	public ItemPinkinator() {
-		super(LibItemNames.PINKINATOR);
-		setMaxStackSize(1);
-		setFull3D();
+	public ItemPinkinator(Item.Builder builder) {
+		super(builder);
 	}
 
 	@Nonnull
@@ -52,11 +51,11 @@ public class ItemPinkinator extends ItemMod {
 		int range = 16;
 		List<EntityWither> withers = world.getEntitiesWithinAABB(EntityWither.class, new AxisAlignedBB(player.posX - range, player.posY - range, player.posZ - range, player.posX + range, player.posY + range, player.posZ + range));
 		for(EntityWither wither : withers)
-			if(!world.isRemote && !wither.isDead && !(wither instanceof EntityPinkWither)) {
-				wither.setDead();
+			if(!world.isRemote && !wither.removed && !(wither instanceof EntityPinkWither)) {
+				wither.remove();
 				EntityPinkWither pink = new EntityPinkWither(world);
 				pink.setLocationAndAngles(wither.posX, wither.posY, wither.posZ, wither.rotationYaw, wither.rotationPitch);
-				pink.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(pink)), null);
+				pink.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(pink)), null, null);
 				world.spawnEntity(pink);
 				pink.spawnExplosionParticle();
 				pink.playSound(SoundEvents.ENTITY_GENERIC_EXPLODE, 4F, (1F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F) * 0.7F);
@@ -68,10 +67,10 @@ public class ItemPinkinator extends ItemMod {
 		return ActionResult.newResult(EnumActionResult.PASS, stack);
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void addInformation(ItemStack stack, World world, List<String> tooltip, ITooltipFlag flags) {
-		tooltip.add(I18n.format("botaniamisc.pinkinatorDesc"));
+	public void addInformation(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flags) {
+		tooltip.add(new TextComponentTranslation("botaniamisc.pinkinatorDesc"));
 	}
 
 }

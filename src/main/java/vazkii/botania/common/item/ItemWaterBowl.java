@@ -11,6 +11,7 @@
 package vazkii.botania.common.item;
 
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
@@ -24,9 +25,8 @@ import javax.annotation.Nonnull;
 
 public class ItemWaterBowl extends ItemMod  {
 
-	public ItemWaterBowl() {
-		super(LibItemNames.WATER_BOWL);
-		setMaxStackSize(1);
+	public ItemWaterBowl(Item.Builder builder) {
+		super(builder);
 	}
 
 	@Nonnull

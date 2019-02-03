@@ -36,9 +36,9 @@ public class LensFire extends Lens {
 			Block blockAt = entity.world.getBlockState(pos).getBlock();
 			Block blockAtOffset = entity.world.getBlockState(offPos).getBlock();
 
-			if(blockAt == Blocks.PORTAL)
+			if(blockAt == Blocks.NETHER_PORTAL)
 				entity.world.setBlockState(pos, Blocks.AIR.getDefaultState());
-			if(blockAtOffset == Blocks.PORTAL)
+			if(blockAtOffset == Blocks.NETHER_PORTAL)
 				entity.world.setBlockState(offPos, Blocks.AIR.getDefaultState());
 			else if(blockAt == ModBlocks.incensePlate) {
 				TileIncensePlate plate = (TileIncensePlate) entity.world.getTileEntity(pos);

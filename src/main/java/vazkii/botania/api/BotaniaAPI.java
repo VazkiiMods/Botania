@@ -30,6 +30,7 @@ import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.state.EnumProperty;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.RegistryNamespaced;
 import net.minecraft.util.registry.RegistryNamespacedDefaultedByKey;
@@ -97,7 +98,7 @@ public final class BotaniaAPI {
 	public static final Map<String, Integer> oreWeightsNether = new HashMap<>();
 
 	public static final Set<Item> looniumBlacklist = new LinkedHashSet<>();
-	public static final Map<Block, PropertyEnum<EnumDyeColor>> paintableBlocks = new LinkedHashMap<>();
+	public static final Map<Block, EnumProperty<EnumDyeColor>> paintableBlocks = new LinkedHashMap<>();
 	public static final Set<String> magnetBlacklist = new LinkedHashSet<>();
 	public static final Set<Class<? extends Entity>> gravityRodBlacklist = new LinkedHashSet<>();
 

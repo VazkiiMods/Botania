@@ -28,7 +28,7 @@ public class LensMagnet extends Lens {
 	@Override
 	public void updateBurst(IManaBurst burst, EntityThrowable entity, ItemStack stack) {
 		BlockPos basePos = new BlockPos(entity);
-		boolean magnetized = entity.getEntityData().hasKey(TAG_MAGNETIZED);
+		boolean magnetized = entity.getData().hasKey(TAG_MAGNETIZED);
 		int range = 3;
 
 		magnetize : {

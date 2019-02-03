@@ -22,7 +22,7 @@ public class LensBounce extends Lens {
 
 	@Override
 	public boolean collideBurst(IManaBurst burst, EntityThrowable entity, RayTraceResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
-		if(!isManaBlock && pos.entityHit == null && pos.getBlockPos() != null) {
+		if(!isManaBlock && pos.entity == null && pos.getBlockPos() != null) {
 			BlockPos coords = burst.getBurstSourceBlockPos();
 			if(!coords.equals(pos.getBlockPos())) {
 				Vector3 currentMovementVec = new Vector3(entity.motionX, entity.motionY, entity.motionZ);

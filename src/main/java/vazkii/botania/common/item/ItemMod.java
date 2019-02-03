@@ -26,7 +26,8 @@ import javax.annotation.Nonnull;
 
 public class ItemMod extends Item implements IModelRegister {
 
-	public ItemMod(String name) {
+	public ItemMod(Item.Builder builder) {
+		super(builder);
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
 		setRegistryName(new ResourceLocation(LibMisc.MOD_ID, name));
 		setTranslationKey(name);

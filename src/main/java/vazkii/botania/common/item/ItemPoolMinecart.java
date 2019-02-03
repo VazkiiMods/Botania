@@ -13,7 +13,9 @@ package vazkii.botania.common.item;
 import net.minecraft.block.BlockRailBase;
 import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -26,22 +28,23 @@ import javax.annotation.Nonnull;
 
 public class ItemPoolMinecart extends ItemMod {
 
-	public ItemPoolMinecart() {
-		super(LibItemNames.POOL_MINECART);
-		setMaxStackSize(1);
+	public ItemPoolMinecart(Item.Builder builder) {
+		super(builder);
 	}
 
 	@Nonnull
 	@Override
-	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
-		ItemStack stack = player.getHeldItem(hand);
+	public EnumActionResult onItemUse(ItemUseContext ctx) {
+		World world = ctx.getWorld();
+		BlockPos pos = ctx.getPos();
+		ItemStack stack = ctx.getItem();
 
-		if(BlockRailBase.isRailBlock(world.getBlockState(pos))) {
+		if(BlockRailBase.isRail(world.getBlockState(pos))) {
 			if(!world.isRemote) {
 				EntityMinecart entityminecart = new EntityPoolMinecart(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
 
 				if(stack.hasDisplayName())
-					entityminecart.setCustomNameTag(stack.getDisplayName());
+					entityminecart.setCustomName(stack.getDisplayName());
 
 				world.spawnEntity(entityminecart);
 			}

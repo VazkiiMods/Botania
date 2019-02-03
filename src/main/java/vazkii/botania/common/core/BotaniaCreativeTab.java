@@ -11,8 +11,8 @@
 package vazkii.botania.common.core;
 
 import net.minecraft.block.Block;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import vazkii.botania.client.lib.LibResources;
@@ -26,7 +26,7 @@ import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
-public final class BotaniaCreativeTab extends CreativeTabs {
+public final class BotaniaCreativeTab extends ItemGroup {
 
 	public static final BotaniaCreativeTab INSTANCE = new BotaniaCreativeTab();
 	private NonNullList<ItemStack> list;

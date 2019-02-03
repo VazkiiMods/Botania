@@ -12,6 +12,7 @@ package vazkii.botania.common.item;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
@@ -27,8 +28,8 @@ import javax.annotation.Nonnull;
 
 public class ItemWorldSeed extends ItemMod {
 
-	public ItemWorldSeed() {
-		super(LibItemNames.WORLD_SEED);
+	public ItemWorldSeed(Item.Builder builder) {
+		super(builder);
 	}
 
 	@Nonnull
@@ -42,10 +43,10 @@ public class ItemWorldSeed extends ItemMod {
 			player.rotationYaw = 0F;
 			player.setPositionAndUpdate(coords.getX() + 0.5, coords.getY() + 0.5, coords.getZ() + 0.5);
 
-			while(!world.getCollisionBoxes(player, player.getEntityBoundingBox()).isEmpty())
+			while(!world.getCollisionBoxes(player, player.getBoundingBox()).isEmpty())
 				player.setPositionAndUpdate(player.posX, player.posY + 1, player.posZ);
 
-			world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_ENDERMEN_TELEPORT, SoundCategory.PLAYERS, 1F, 1F);
+			world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.PLAYERS, 1F, 1F);
 			for(int i = 0; i < 50; i++)
 				Botania.proxy.sparkleFX(player.posX + Math.random() * player.width, player.posY - 1.6 + Math.random() * player.height, player.posZ + Math.random() * player.width, 0.25F, 1F, 0.25F, 1F, 10);
 

@@ -20,8 +20,8 @@ import java.util.Locale;
 public class ItemSparkUpgrade extends ItemMod {
 	public final SparkUpgradeType type;
 
-	public ItemSparkUpgrade(SparkUpgradeType type) {
-		super(LibItemNames.SPARK_UPGRADE + "_" + type.name().toLowerCase(Locale.ROOT));
+	public ItemSparkUpgrade(Item.Builder builder, SparkUpgradeType type) {
+		super(builder);
 		this.type = type;
 	}
 

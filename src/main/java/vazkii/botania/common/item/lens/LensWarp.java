@@ -32,7 +32,7 @@ public class LensWarp extends Lens {
 		if(block == ModBlocks.pistonRelay) {
 			BlockPistonRelay.DimWithPos key = ((BlockPistonRelay) ModBlocks.pistonRelay).mappedPositions.get(new BlockPistonRelay.DimWithPos(entity.world.provider.getDimension(), pos.getBlockPos()));
 			if(key != null) {
-				if(key.dim == entity.world.provider.getDimension()) {
+				if(key.dim == entity.world.getDimension().getId()) {
 					entity.setPosition(key.blockPos.getX() + 0.5, key.blockPos.getY() + 0.5, key.blockPos.getZ() + 0.5);
 					burst.setCollidedAt(key.blockPos);
 					

@@ -20,7 +20,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Enchantments;
 import net.minecraft.item.Item;
-import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemTool;
 import net.minecraft.tileentity.TileEntity;
@@ -83,15 +82,15 @@ public final class ToolCommons {
 
 		if(!world.isRemote && filter.test(state)
 				&& !block.isAir(state, world, pos) && state.getPlayerRelativeBlockHardness(player, world, pos) > 0
-				&& block.canHarvestBlock(player.world, pos, player)) {
+				&& state.canHarvestBlock(player.world, pos, player)) {
 			int exp = ForgeHooks.onBlockBreakEvent(world, ((EntityPlayerMP) player).interactionManager.getGameType(), (EntityPlayerMP) player, pos);
 			if(exp == -1)
 				return;
 
-			if(!player.capabilities.isCreativeMode) {
+			if(!player.abilities.isCreativeMode) {
 				TileEntity tile = world.getTileEntity(pos);
 
-				if(block.removedByPlayer(state, world, pos, player, true)) {
+				if(block.removedByPlayer(state, world, pos, player, true, world.getFluidState(pos))) {
 					block.onPlayerDestroy(world, pos, state);
 
 					if(!dispose || !ItemElementiumPick.isDisposable(block)) {
@@ -101,7 +100,7 @@ public final class ToolCommons {
 				}
 
 				damageItem(stack, 1, player, 80);
-			} else world.setBlockToAir(pos);
+			} else world.removeBlock(pos);
 
 			if(particles && ConfigHandler.blockBreakParticles && ConfigHandler.blockBreakParticlesTool)
 				world.playEvent(2001, pos, Block.getStateId(state));

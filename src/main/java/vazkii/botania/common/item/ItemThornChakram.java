@@ -12,6 +12,7 @@ package vazkii.botania.common.item;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
@@ -24,9 +25,8 @@ import javax.annotation.Nonnull;
 
 public class ItemThornChakram extends ItemMod {
 
-	public ItemThornChakram(String name) {
-		super(name);
-		setMaxStackSize(6);
+	public ItemThornChakram(Item.Builder builder) {
+		super(builder);
 	}
 
 	@Nonnull
@@ -42,7 +42,7 @@ public class ItemThornChakram extends ItemMod {
 			if(stack.getItem() == ModItems.flareChakram)
 				c.setFire(true);
 			world.spawnEntity(c);
-			world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
+			world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
 			stack.shrink(1);
 		}
 

@@ -18,6 +18,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.EnumAction;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
@@ -26,6 +27,8 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
@@ -47,25 +50,24 @@ public class ItemSextant extends ItemMod {
 	private static final String TAG_SOURCE_Y = "sourceY";
 	private static final String TAG_SOURCE_Z = "sourceZ";
 
-	public ItemSextant() {
-		super(LibItemNames.SEXTANT);
-		setMaxStackSize(1);
+	public ItemSextant(Item.Builder builder) {
+		super(builder);
 	}
 
 	@Nonnull
 	@Override
-	public EnumAction getItemUseAction(ItemStack par1ItemStack) {
+	public EnumAction getUseAction(ItemStack par1ItemStack) {
 		return EnumAction.BOW;
 	}
 
 	@Override
-	public int getMaxItemUseDuration(ItemStack par1ItemStack) {
+	public int getUseDuration(ItemStack par1ItemStack) {
 		return 72000;
 	}
 
 	@Override
 	public void onUsingTick(ItemStack stack, EntityLivingBase living, int count) {
-		if(getMaxItemUseDuration(stack) - count < 10
+		if(getUseDuration(stack) - count < 10
 				|| !(living instanceof EntityPlayer))
 			return;
 
@@ -109,7 +111,7 @@ public class ItemSextant extends ItemMod {
 		ItemStack stack = player.getHeldItem(hand);
 		if(!player.isSneaking()) {
 			RayTraceResult pos = ToolCommons.raytraceFromEntity(world, player, false, 128);
-			if(pos != null && pos.entityHit == null && pos.getBlockPos() != null) {
+			if(pos != null && pos.entity == null && pos.getBlockPos() != null) {
 				if(!world.isRemote) {
 					ItemNBTHelper.setInt(stack, TAG_SOURCE_X, pos.getBlockPos().getX());
 					ItemNBTHelper.setInt(stack, TAG_SOURCE_Y, pos.getBlockPos().getY());
@@ -143,14 +145,14 @@ public class ItemSextant extends ItemMod {
 		return MathHelper.pointDistancePlane(source.x, source.z, lookVec.x, lookVec.z);
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public static void renderHUD(ScaledResolution resolution, EntityPlayer player, ItemStack stack) {
 		ItemStack onUse = player.getActiveItemStack();
 		int time = player.getItemInUseCount();
 
-		if(onUse == stack && stack.getItem().getMaxItemUseDuration(stack) - time >= 10) {
+		if(onUse == stack && stack.getItem().getUseDuration(stack) - time >= 10) {
 			double radius = calculateRadius(stack, player);
-			FontRenderer font = Minecraft.getMinecraft().fontRenderer;
+			FontRenderer font = Minecraft.getInstance().fontRenderer;
 			int x = resolution.getScaledWidth() / 2 + 30;
 			int y = resolution.getScaledHeight() / 2;
 
@@ -166,7 +168,7 @@ public class ItemSextant extends ItemMod {
 				GlStateManager.disableTexture2D();
 				GL11.glLineWidth(3F);
 				GL11.glBegin(GL11.GL_LINE_STRIP);
-				GlStateManager.color(0F, 1F, 1F, 1F);
+				GlStateManager.color4f(0F, 1F, 1F, 1F);
 				for(int i = 0; i < 361; i++) {
 					float radian = (float) (i * Math.PI / 180);
 					double xp = x + Math.cos(radian) * radius;
@@ -184,7 +186,7 @@ public class ItemSextant extends ItemMod {
 		@Override
 		public Map<EnumFacing, Multiblock> createRotations() {
 			Map<EnumFacing, Multiblock> ret = new EnumMap<>(EnumFacing.class);
-			for (EnumFacing e : EnumFacing.VALUES) {
+			for (EnumFacing e : EnumFacing.BY_INDEX) {
 				ret.put(e, this);
 			}
 			return ret;

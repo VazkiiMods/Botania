@@ -10,6 +10,7 @@
  */
 package vazkii.botania.common.item.brew;
 
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.brew.IBrewContainer;
@@ -18,8 +19,8 @@ import vazkii.botania.common.item.ModItems;
 
 public class ItemVial extends ItemMod implements IBrewContainer {
 
-	public ItemVial(String name) {
-		super(name);
+	public ItemVial(Item.Builder builder) {
+		super(builder);
 	}
 
 	@Override

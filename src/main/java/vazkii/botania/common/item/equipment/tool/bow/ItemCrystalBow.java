@@ -15,6 +15,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.Enchantments;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.lib.LibItemNames;
@@ -23,8 +24,8 @@ public class ItemCrystalBow extends ItemLivingwoodBow {
 
 	private final int ARROW_COST = 200;
 
-	public ItemCrystalBow() {
-		super(LibItemNames.CRYSTAL_BOW);
+	public ItemCrystalBow(Item.Builder builder) {
+		super(builder);
 	}
 
 	@Override
@@ -35,7 +36,7 @@ public class ItemCrystalBow extends ItemLivingwoodBow {
 	@Override
 	boolean canFire(ItemStack stack, EntityPlayer player) {
 		int infinity = EnchantmentHelper.getEnchantmentLevel(Enchantments.INFINITY, stack);
-		return player.capabilities.isCreativeMode || ManaItemHandler.requestManaExactForTool(stack, player, ARROW_COST / (infinity + 1), false);
+		return player.abilities.isCreativeMode || ManaItemHandler.requestManaExactForTool(stack, player, ARROW_COST / (infinity + 1), false);
 	}
 
 	@Override

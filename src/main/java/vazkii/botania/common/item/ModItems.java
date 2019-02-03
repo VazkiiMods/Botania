@@ -25,10 +25,9 @@ import vazkii.botania.api.item.IFloatingFlower;
 import vazkii.botania.api.mana.spark.SparkUpgradeType;
 import vazkii.botania.api.item.IAncientWillContainer;
 import vazkii.botania.api.state.enums.CratePattern;
-import vazkii.botania.common.item.brew.ItemBrewFlask;
-import vazkii.botania.common.item.brew.ItemBrewVial;
-import vazkii.botania.common.item.brew.ItemIncenseStick;
-import vazkii.botania.common.item.brew.ItemVial;
+import vazkii.botania.common.core.BotaniaCreativeTab;
+import vazkii.botania.common.core.handler.ModSounds;
+import vazkii.botania.common.item.brew.*;
 import vazkii.botania.common.item.equipment.armor.elementium.ItemElementiumBoots;
 import vazkii.botania.common.item.equipment.armor.elementium.ItemElementiumChest;
 import vazkii.botania.common.item.equipment.armor.elementium.ItemElementiumHelm;
@@ -75,6 +74,7 @@ import vazkii.botania.common.item.material.ItemManaResource;
 import vazkii.botania.common.item.material.ItemPestleAndMortar;
 import vazkii.botania.common.item.material.ItemPetal;
 import vazkii.botania.common.item.material.ItemRune;
+import vazkii.botania.common.item.record.ItemModRecord;
 import vazkii.botania.common.item.record.ItemRecordGaia1;
 import vazkii.botania.common.item.record.ItemRecordGaia2;
 import vazkii.botania.common.item.relic.ItemDice;
@@ -101,10 +101,7 @@ import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.lib.LibOreDict;
 
-import java.util.Arrays;
-import java.util.EnumMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Mod.EventBusSubscriber(modid = LibMisc.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -119,8 +116,8 @@ public final class ModItems {
 		}
 	}
 
-	public static final Item pestleAndMortar = new ItemPestleAndMortar();
-	public static final Item twigWand = new ItemTwigWand();
+	public static final Item pestleAndMortar = new ItemPestleAndMortar(unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.PESTLE_AND_MORTAR);
+	public static final Item twigWand = new ItemTwigWand(unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.TWIG_WAND);
 	
 	public static final Item manaSteel = new ItemManaResource(LibItemNames.MANA_RESOURCE_NAMES[0]);
 	public static final Item manaPearl = new ItemManaResource(LibItemNames.MANA_RESOURCE_NAMES[1]);
@@ -146,48 +143,48 @@ public final class ModItems {
 	public static final Item manaweaveCloth = new ItemManaResource(LibItemNames.MANA_RESOURCE_NAMES[22]);
 	public static final Item manaPowder = new ItemManaResource(LibItemNames.MANA_RESOURCE_NAMES[23]);
 	
-	public static final Item lensNormal = new ItemLens(LibItemNames.LENS_NAMES[0], new Lens(), ItemLens.PROP_NONE);
-	public static final Item lensSpeed = new ItemLens(LibItemNames.LENS_NAMES[1], new LensSpeed(), ItemLens.PROP_NONE);
-	public static final Item lensPower = new ItemLens(LibItemNames.LENS_NAMES[2], new LensPower(), ItemLens.PROP_POWER);
-	public static final Item lensTime = new ItemLens(LibItemNames.LENS_NAMES[3], new LensTime(), ItemLens.PROP_NONE);
-	public static final Item lensEfficiency = new ItemLens(LibItemNames.LENS_NAMES[4], new LensEfficiency(), ItemLens.PROP_NONE);
-	public static final Item lensBounce = new ItemLens(LibItemNames.LENS_NAMES[5], new LensBounce(), ItemLens.PROP_TOUCH);
-	public static final Item lensGravity = new ItemLens(LibItemNames.LENS_NAMES[6], new LensGravity(), ItemLens.PROP_ORIENTATION);
-	public static final Item lensMine = new ItemLens(LibItemNames.LENS_NAMES[7], new LensMine(), ItemLens.PROP_TOUCH | ItemLens.PROP_ORIENTATION);
-	public static final Item lensDamage = new ItemLens(LibItemNames.LENS_NAMES[8], new LensDamage(), ItemLens.PROP_DAMAGE);
-	public static final Item lensPhantom = new ItemLens(LibItemNames.LENS_NAMES[9], new LensPhantom(), ItemLens.PROP_TOUCH);
-	public static final Item lensMagnet = new ItemLens(LibItemNames.LENS_NAMES[10], new LensMagnet(), ItemLens.PROP_ORIENTATION);
-	public static final Item lensExplosive = new ItemLens(LibItemNames.LENS_NAMES[11], new LensExplosive(), ItemLens.PROP_DAMAGE | ItemLens.PROP_TOUCH | ItemLens.PROP_INTERACTION);
-	public static final Item lensInfluence = new ItemLens(LibItemNames.LENS_NAMES[12], new LensInfluence(), ItemLens.PROP_NONE);
-	public static final Item lensWeight = new ItemLens(LibItemNames.LENS_NAMES[13], new LensWeight(), ItemLens.PROP_TOUCH | ItemLens.PROP_INTERACTION);
-	public static final Item lensPaint = new ItemLens(LibItemNames.LENS_NAMES[14], new LensPaint(), ItemLens.PROP_TOUCH | ItemLens.PROP_INTERACTION);
-	public static final Item lensFire = new ItemLens(LibItemNames.LENS_NAMES[15], new LensFire(), ItemLens.PROP_DAMAGE | ItemLens.PROP_TOUCH | ItemLens.PROP_INTERACTION);
-	public static final Item lensPiston = new ItemLens(LibItemNames.LENS_NAMES[16], new LensPiston(), ItemLens.PROP_TOUCH | ItemLens.PROP_INTERACTION);
-	public static final Item lensLight = new ItemLens(LibItemNames.LENS_NAMES[17], new LensLight(), ItemLens.PROP_TOUCH | ItemLens.PROP_INTERACTION);
-	public static final Item lensWarp = new ItemLens(LibItemNames.LENS_NAMES[18], new LensWarp(), ItemLens.PROP_NONE);
-	public static final Item lensRedirect = new ItemLens(LibItemNames.LENS_NAMES[19], new LensRedirect(), ItemLens.PROP_TOUCH | ItemLens.PROP_INTERACTION);
-	public static final Item lensFirework = new ItemLens(LibItemNames.LENS_NAMES[20], new LensFirework(), ItemLens.PROP_TOUCH);
-	public static final Item lensFlare = new ItemLens(LibItemNames.LENS_NAMES[21], new LensFlare(), ItemLens.PROP_CONTROL);
-	public static final Item lensMessenger = new ItemLens(LibItemNames.LENS_NAMES[22], new LensMessenger(), ItemLens.PROP_POWER);
-	public static final Item lensTripwire = new ItemLens(LibItemNames.LENS_NAMES[23], new LensTripwire(), ItemLens.PROP_CONTROL);
-	public static final Item lensStorm = new ItemLens(LibItemNames.LENS_NAMES[24], new LensStorm(), ItemLens.PROP_NONE);
+	public static final Item lensNormal = new ItemLens(unstackable(), new Lens(), ItemLens.PROP_NONE).setRegistryName(LibMisc.MOD_ID, LibItemNames.LENS_NAMES[0]);
+	public static final Item lensSpeed = new ItemLens(unstackable(), new LensSpeed(), ItemLens.PROP_NONE).setRegistryName(LibMisc.MOD_ID, LibItemNames.LENS_NAMES[1]);
+	public static final Item lensPower = new ItemLens(unstackable(), new LensPower(), ItemLens.PROP_POWER).setRegistryName(LibMisc.MOD_ID, LibItemNames.LENS_NAMES[2]);
+	public static final Item lensTime = new ItemLens(unstackable(), new LensTime(), ItemLens.PROP_NONE).setRegistryName(LibMisc.MOD_ID, LibItemNames.LENS_NAMES[3]);
+	public static final Item lensEfficiency = new ItemLens(unstackable(), new LensEfficiency(), ItemLens.PROP_NONE).setRegistryName(LibMisc.MOD_ID, LibItemNames.LENS_NAMES[4]);
+	public static final Item lensBounce = new ItemLens(unstackable(), new LensBounce(), ItemLens.PROP_TOUCH).setRegistryName(LibMisc.MOD_ID, LibItemNames.LENS_NAMES[5]);
+	public static final Item lensGravity = new ItemLens(unstackable(), new LensGravity(), ItemLens.PROP_ORIENTATION).setRegistryName(LibMisc.MOD_ID, LibItemNames.LENS_NAMES[6]);
+	public static final Item lensMine = new ItemLens(unstackable(), new LensMine(), ItemLens.PROP_TOUCH | ItemLens.PROP_ORIENTATION).setRegistryName(LibMisc.MOD_ID, LibItemNames.LENS_NAMES[7]);
+	public static final Item lensDamage = new ItemLens(unstackable(), new LensDamage(), ItemLens.PROP_DAMAGE).setRegistryName(LibMisc.MOD_ID, LibItemNames.LENS_NAMES[8]);
+	public static final Item lensPhantom = new ItemLens(unstackable(), new LensPhantom(), ItemLens.PROP_TOUCH).setRegistryName(LibMisc.MOD_ID, LibItemNames.LENS_NAMES[9]);
+	public static final Item lensMagnet = new ItemLens(unstackable(), new LensMagnet(), ItemLens.PROP_ORIENTATION).setRegistryName(LibMisc.MOD_ID, LibItemNames.LENS_NAMES[10]);
+	public static final Item lensExplosive = new ItemLens(unstackable(), new LensExplosive(), ItemLens.PROP_DAMAGE | ItemLens.PROP_TOUCH | ItemLens.PROP_INTERACTION).setRegistryName(LibMisc.MOD_ID, LibItemNames.LENS_NAMES[11]);
+	public static final Item lensInfluence = new ItemLens(unstackable(), new LensInfluence(), ItemLens.PROP_NONE).setRegistryName(LibMisc.MOD_ID, LibItemNames.LENS_NAMES[12]);
+	public static final Item lensWeight = new ItemLens(unstackable(), new LensWeight(), ItemLens.PROP_TOUCH | ItemLens.PROP_INTERACTION).setRegistryName(LibMisc.MOD_ID, LibItemNames.LENS_NAMES[13]);
+	public static final Item lensPaint = new ItemLens(unstackable(), new LensPaint(), ItemLens.PROP_TOUCH | ItemLens.PROP_INTERACTION).setRegistryName(LibMisc.MOD_ID, LibItemNames.LENS_NAMES[14]);
+	public static final Item lensFire = new ItemLens(unstackable(), new LensFire(), ItemLens.PROP_DAMAGE | ItemLens.PROP_TOUCH | ItemLens.PROP_INTERACTION).setRegistryName(LibMisc.MOD_ID, LibItemNames.LENS_NAMES[15]);
+	public static final Item lensPiston = new ItemLens(unstackable(), new LensPiston(), ItemLens.PROP_TOUCH | ItemLens.PROP_INTERACTION).setRegistryName(LibMisc.MOD_ID, LibItemNames.LENS_NAMES[16]);
+	public static final Item lensLight = new ItemLens(unstackable(), new LensLight(), ItemLens.PROP_TOUCH | ItemLens.PROP_INTERACTION).setRegistryName(LibMisc.MOD_ID, LibItemNames.LENS_NAMES[17]);
+	public static final Item lensWarp = new ItemLens(unstackable(), new LensWarp(), ItemLens.PROP_NONE).setRegistryName(LibMisc.MOD_ID, LibItemNames.LENS_NAMES[18]);
+	public static final Item lensRedirect = new ItemLens(unstackable(), new LensRedirect(), ItemLens.PROP_TOUCH | ItemLens.PROP_INTERACTION).setRegistryName(LibMisc.MOD_ID, LibItemNames.LENS_NAMES[19]);
+	public static final Item lensFirework = new ItemLens(unstackable(), new LensFirework(), ItemLens.PROP_TOUCH).setRegistryName(LibMisc.MOD_ID, LibItemNames.LENS_NAMES[20]);
+	public static final Item lensFlare = new ItemLens(unstackable(), new LensFlare(), ItemLens.PROP_CONTROL).setRegistryName(LibMisc.MOD_ID, LibItemNames.LENS_NAMES[21]);
+	public static final Item lensMessenger = new ItemLens(unstackable(), new LensMessenger(), ItemLens.PROP_POWER).setRegistryName(LibMisc.MOD_ID, LibItemNames.LENS_NAMES[22]);
+	public static final Item lensTripwire = new ItemLens(unstackable(), new LensTripwire(), ItemLens.PROP_CONTROL).setRegistryName(LibMisc.MOD_ID, LibItemNames.LENS_NAMES[23]);
+	public static final Item lensStorm = new ItemLens(unstackable(), new LensStorm(), ItemLens.PROP_NONE).setRegistryName(LibMisc.MOD_ID, LibItemNames.LENS_NAMES[24]);
 	
-	public static final Item runeWater = new ItemRune(LibItemNames.RUNE_NAMES[0]);
-	public static final Item runeFire = new ItemRune(LibItemNames.RUNE_NAMES[1]);
-	public static final Item runeEarth = new ItemRune(LibItemNames.RUNE_NAMES[2]);
-	public static final Item runeAir = new ItemRune(LibItemNames.RUNE_NAMES[3]);
-	public static final Item runeSpring = new ItemRune(LibItemNames.RUNE_NAMES[4]);
-	public static final Item runeSummer = new ItemRune(LibItemNames.RUNE_NAMES[5]);
-	public static final Item runeAutumn = new ItemRune(LibItemNames.RUNE_NAMES[6]);
-	public static final Item runeWinter = new ItemRune(LibItemNames.RUNE_NAMES[7]);
-	public static final Item runeMana = new ItemRune(LibItemNames.RUNE_NAMES[8]);
-	public static final Item runeLust = new ItemRune(LibItemNames.RUNE_NAMES[9]);
-	public static final Item runeGluttony = new ItemRune(LibItemNames.RUNE_NAMES[10]);
-	public static final Item runeGreed = new ItemRune(LibItemNames.RUNE_NAMES[11]);
-	public static final Item runeSloth = new ItemRune(LibItemNames.RUNE_NAMES[12]);
-	public static final Item runeWrath = new ItemRune(LibItemNames.RUNE_NAMES[13]);
-	public static final Item runeEnvy = new ItemRune(LibItemNames.RUNE_NAMES[14]);
-	public static final Item runePride = new ItemRune(LibItemNames.RUNE_NAMES[15]);
+	public static final Item runeWater = new ItemRune(defaultBuilder()).setRegistryName(LibMisc.MOD_ID, LibItemNames.RUNE_NAMES[0]);
+	public static final Item runeFire = new ItemRune(defaultBuilder()).setRegistryName(LibMisc.MOD_ID, LibItemNames.RUNE_NAMES[1]);
+	public static final Item runeEarth = new ItemRune(defaultBuilder()).setRegistryName(LibMisc.MOD_ID, LibItemNames.RUNE_NAMES[2]);
+	public static final Item runeAir = new ItemRune(defaultBuilder()).setRegistryName(LibMisc.MOD_ID, LibItemNames.RUNE_NAMES[3]);
+	public static final Item runeSpring = new ItemRune(defaultBuilder()).setRegistryName(LibMisc.MOD_ID, LibItemNames.RUNE_NAMES[4]);
+	public static final Item runeSummer = new ItemRune(defaultBuilder()).setRegistryName(LibMisc.MOD_ID, LibItemNames.RUNE_NAMES[5]);
+	public static final Item runeAutumn = new ItemRune(defaultBuilder()).setRegistryName(LibMisc.MOD_ID, LibItemNames.RUNE_NAMES[6]);
+	public static final Item runeWinter = new ItemRune(defaultBuilder()).setRegistryName(LibMisc.MOD_ID, LibItemNames.RUNE_NAMES[7]);
+	public static final Item runeMana = new ItemRune(defaultBuilder()).setRegistryName(LibMisc.MOD_ID, LibItemNames.RUNE_NAMES[8]);
+	public static final Item runeLust = new ItemRune(defaultBuilder()).setRegistryName(LibMisc.MOD_ID, LibItemNames.RUNE_NAMES[9]);
+	public static final Item runeGluttony = new ItemRune(defaultBuilder()).setRegistryName(LibMisc.MOD_ID, LibItemNames.RUNE_NAMES[10]);
+	public static final Item runeGreed = new ItemRune(defaultBuilder()).setRegistryName(LibMisc.MOD_ID, LibItemNames.RUNE_NAMES[11]);
+	public static final Item runeSloth = new ItemRune(defaultBuilder()).setRegistryName(LibMisc.MOD_ID, LibItemNames.RUNE_NAMES[12]);
+	public static final Item runeWrath = new ItemRune(defaultBuilder()).setRegistryName(LibMisc.MOD_ID, LibItemNames.RUNE_NAMES[13]);
+	public static final Item runeEnvy = new ItemRune(defaultBuilder()).setRegistryName(LibMisc.MOD_ID, LibItemNames.RUNE_NAMES[14]);
+	public static final Item runePride = new ItemRune(defaultBuilder()).setRegistryName(LibMisc.MOD_ID, LibItemNames.RUNE_NAMES[15]);
 
 	public static final Item manaTablet = new ItemManaTablet();
 	public static final Item manaGun = new ItemManaGun();
@@ -267,30 +264,30 @@ public final class ModItems {
 	public static final Item rainbowRod = new ItemRainbowRod();
 	public static final Item tornadoRod = new ItemTornadoRod();
 	public static final Item fireRod = new ItemFireRod();
-	public static final Item vineBall = new ItemVineBall();
-	public static final Item slingshot = new ItemSlingshot();
+	public static final Item vineBall = new ItemVineBall(defaultBuilder()).setRegistryName(LibMisc.MOD_ID, LibItemNames.VINE_BALL);
+	public static final Item slingshot = new ItemSlingshot(unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.SLINGSHOT);
 	public static final Item manaBottle = new ItemBottledMana();
 	public static final Item laputaShard = new ItemLaputaShard();
-	public static final Item necroVirus = new ItemVirus(LibItemNames.NECRO_VIRUS);
-	public static final Item nullVirus = new ItemVirus(LibItemNames.NULL_VIRUS);
+	public static final Item necroVirus = new ItemVirus(defaultBuilder()).setRegistryName(LibMisc.MOD_ID, LibItemNames.NECRO_VIRUS);
+	public static final Item nullVirus = new ItemVirus(defaultBuilder()).setRegistryName(LibMisc.MOD_ID, LibItemNames.NULL_VIRUS);
 	public static final Item reachRing = new ItemReachRing();
 	public static final Item skyDirtRod = new ItemSkyDirtRod();
 	public static final Item itemFinder = new ItemItemFinder();
 	public static final Item superLavaPendant = new ItemSuperLavaPendant();
 	public static final Item enderHand = new ItemEnderHand();
 	public static final Item glassPick = new ItemGlassPick();
-	public static final Item spark = new ItemSpark();
-	public static final Item sparkUpgradeDispersive = new ItemSparkUpgrade(SparkUpgradeType.DISPERSIVE);
-	public static final Item sparkUpgradeDominant = new ItemSparkUpgrade(SparkUpgradeType.DOMINANT);
-	public static final Item sparkUpgradeRecessive = new ItemSparkUpgrade(SparkUpgradeType.RECESSIVE);
-	public static final Item sparkUpgradeIsolated = new ItemSparkUpgrade(SparkUpgradeType.ISOLATED);
+	public static final Item spark = new ItemSpark(defaultBuilder()).setRegistryName(LibMisc.MOD_ID, LibItemNames.SPARK);
+	public static final Item sparkUpgradeDispersive = new ItemSparkUpgrade(defaultBuilder(), SparkUpgradeType.DISPERSIVE).setRegistryName(LibMisc.MOD_ID, LibItemNames.SPARK_UPGRADE + "_" + SparkUpgradeType.DISPERSIVE.name().toLowerCase(Locale.ROOT));
+	public static final Item sparkUpgradeDominant = new ItemSparkUpgrade(defaultBuilder(), SparkUpgradeType.DOMINANT).setRegistryName(LibMisc.MOD_ID, LibItemNames.SPARK_UPGRADE + "_" + SparkUpgradeType.DOMINANT.name().toLowerCase(Locale.ROOT));
+	public static final Item sparkUpgradeRecessive = new ItemSparkUpgrade(defaultBuilder(), SparkUpgradeType.RECESSIVE).setRegistryName(LibMisc.MOD_ID, LibItemNames.SPARK_UPGRADE + "_" + SparkUpgradeType.RECESSIVE.name().toLowerCase(Locale.ROOT));
+	public static final Item sparkUpgradeIsolated = new ItemSparkUpgrade(defaultBuilder(), SparkUpgradeType.ISOLATED).setRegistryName(LibMisc.MOD_ID, LibItemNames.SPARK_UPGRADE + "_" + SparkUpgradeType.ISOLATED.name().toLowerCase(Locale.ROOT));
 	public static final Item diviningRod = new ItemDiviningRod();
 	public static final Item gravityRod = new ItemGravityRod();
 	public static final Item manaInkwell = new ItemManaInkwell();
-	public static final Item vial = new ItemVial(LibItemNames.VIAL);
-	public static final Item flask = new ItemVial(LibItemNames.FLASK);
-	public static final Item brewVial = new ItemBrewVial();
-	public static final Item brewFlask = new ItemBrewFlask();
+	public static final Item vial = new ItemVial(defaultBuilder()).setRegistryName(LibMisc.MOD_ID, LibItemNames.VIAL);
+	public static final Item flask = new ItemVial(defaultBuilder()).setRegistryName(LibMisc.MOD_ID, LibItemNames.FLASK);
+	public static final Item brewVial = new ItemBrewBase(unstackable(), 4, 32, new ItemStack(vial)).setRegistryName(LibMisc.MOD_ID, LibItemNames.BREW_VIAL);
+	public static final Item brewFlask = new ItemBrewBase(unstackable(), 6, 24, new ItemStack(flask)).setRegistryName(LibMisc.MOD_ID, LibItemNames.BREW_FLASK);
 	public static final Item bloodPendant = new ItemBloodPendant();
 	public static final Item missileRod = new ItemMissileRod();
 	public static final Item holyCloak = new ItemHolyCloak();
@@ -303,10 +300,10 @@ public final class ModItems {
 	public static final Item clip = new ItemClip();
 	public static final Item cobbleRod = new ItemCobbleRod();
 	public static final Item smeltRod = new ItemSmeltRod();
-	public static final Item worldSeed = new ItemWorldSeed();
-	public static final Item spellCloth = new ItemSpellCloth();
-	public static final Item thornChakram = new ItemThornChakram(LibItemNames.THORN_CHAKRAM);
-	public static final Item flareChakram = new ItemThornChakram(LibItemNames.FLARE_CHAKRAM);
+	public static final Item worldSeed = new ItemWorldSeed(defaultBuilder()).setRegistryName(LibMisc.MOD_ID, LibItemNames.WORLD_SEED);
+	public static final Item spellCloth = new ItemSpellCloth(unstackable().defaultMaxDamage(35).setNoRepair()).setRegistryName(LibMisc.MOD_ID, LibItemNames.SPELL_CLOTH);
+	public static final Item thornChakram = new ItemThornChakram(defaultBuilder().maxStackSize(6)).setRegistryName(LibMisc.MOD_ID, LibItemNames.THORN_CHAKRAM);
+	public static final Item flareChakram = new ItemThornChakram(defaultBuilder().maxStackSize(6)).setRegistryName(LibMisc.MOD_ID, LibItemNames.FLARE_CHAKRAM);
 	public static final Item overgrowthSeed = new ItemOvergrowthSeed();
 	public static final Item craftPattern1_1 = new ItemCraftPattern(CratePattern.CRAFTY_1_1);
 	public static final Item craftPattern2_2 = new ItemCraftPattern(CratePattern.CRAFTY_2_2);
@@ -325,8 +322,8 @@ public final class ModItems {
 	public static final Item ancientWillKaril = new ItemAncientWill(IAncientWillContainer.AncientWillType.KARIL);
 	public static final Item corporeaSpark = new ItemCorporeaSpark(LibItemNames.CORPOREA_SPARK);
 	public static final Item corporeaSparkMaster = new ItemCorporeaSpark(LibItemNames.CORPOREA_SPARK_MASTER);
-	public static final Item livingwoodBow = new ItemLivingwoodBow();
-	public static final Item crystalBow = new ItemCrystalBow();
+	public static final Item livingwoodBow = new ItemLivingwoodBow(defaultBuilder().defaultMaxDamage(500)).setRegistryName(LibMisc.MOD_ID, LibItemNames.LIVINGWOOD_BOW);
+	public static final Item crystalBow = new ItemCrystalBow(defaultBuilder().defaultMaxDamage(500)).setRegistryName(LibMisc.MOD_ID, LibItemNames.CRYSTAL_BOW);
 	public static final Map<ItemBaubleCosmetic.Variant, Item> cosmetics = new EnumMap<>(ItemBaubleCosmetic.Variant.class);
 	static {
 		for(ItemBaubleCosmetic.Variant v : ItemBaubleCosmetic.Variant.values()) {
@@ -335,9 +332,9 @@ public final class ModItems {
 	}
 	public static final Item swapRing = new ItemSwapRing();
 	public static final Item flowerBag = new ItemFlowerBag();
-	public static final Item phantomInk = new ItemPhantomInk();
-	public static final Item poolMinecart = new ItemPoolMinecart();
-	public static final Item pinkinator = new ItemPinkinator();
+	public static final Item phantomInk = new ItemMod(defaultBuilder()).setRegistryName(LibMisc.MOD_ID, LibItemNames.PHANTOM_INK);
+	public static final Item poolMinecart = new ItemPoolMinecart(unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.POOL_MINECART);
+	public static final Item pinkinator = new ItemPinkinator(unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.PINKINATOR);
 	public static final Item infiniteFruit = new ItemInfiniteFruit();
 	public static final Item kingKey = new ItemKingKey();
 	public static final Item flugelEye = new ItemFlugelEye();
@@ -347,15 +344,15 @@ public final class ModItems {
 	public static final Item dice = new ItemDice();
 	public static final Item keepIvy = new ItemKeepIvy();
 	public static final Item blackHoleTalisman = new ItemBlackHoleTalisman();
-	public static final Item recordGaia1 = new ItemRecordGaia1();
-	public static final Item recordGaia2 = new ItemRecordGaia2();
-	public static final Item temperanceStone = new ItemTemperanceStone();
-	public static final Item incenseStick = new ItemIncenseStick();
+	public static final Item recordGaia1 = new ItemModRecord(1, ModSounds.gaiaMusic1, unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.RECORD_GAIA1);
+	public static final Item recordGaia2 = new ItemModRecord(1, ModSounds.gaiaMusic2, unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.RECORD_GAIA2);
+	public static final Item temperanceStone = new ItemTemperanceStone(unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.TEMPERANCE_STONE);
+	public static final Item incenseStick = new ItemIncenseStick(unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.INCENSE_STICK);
 	public static final Item terraAxe = new ItemTerraAxe();
-	public static final Item waterBowl = new ItemWaterBowl();
+	public static final Item waterBowl = new ItemWaterBowl(unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.WATER_BOWL);
 	public static final Item obedienceStick = new ItemObedienceStick();
 	public static final Item cacophonium = new ItemCacophonium();
-	public static final Item slimeBottle = new ItemSlimeBottle();
+	public static final Item slimeBottle = new ItemSlimeBottle(unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.SLIME_BOTTLE);
 	public static final Item starSword = new ItemStarSword();
 	public static final Item exchangeRod = new ItemExchangeRod();
 	public static final Item magnetRingGreater = new ItemGreaterMagnetRing();
@@ -366,7 +363,7 @@ public final class ModItems {
 	public static final Item manaweaveBoots = new ItemManaweaveBoots();
 	public static final Item autocraftingHalo = new ItemAutocraftingHalo();
 	public static final Item gaiaHead = new ItemGaiaHead();
-	public static final Item sextant = new ItemSextant();
+	public static final Item sextant = new ItemSextant(unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.SEXTANT);
 	public static final Item speedUpBelt = new ItemSpeedUpBelt();
 	public static final Item baubleBox = new ItemBaubleBox();
 	public static final Item dodgeRing = new ItemDodgeRing();
@@ -376,6 +373,14 @@ public final class ModItems {
 	public static final Item thirdEye = new ItemThirdEye();
 	public static final Item astrolabe = new ItemAstrolabe();
 	public static final Item goddessCharm = new ItemGoddessCharm();
+
+	private static Item.Builder defaultBuilder() {
+		return new Item.Builder().group(BotaniaCreativeTab.INSTANCE);
+	}
+
+	private static Item.Builder unstackable() {
+		return defaultBuilder().maxStackSize(1);
+	}
 
 	@SubscribeEvent
 	public static void registerItems(RegistryEvent.Register<Item> evt) {

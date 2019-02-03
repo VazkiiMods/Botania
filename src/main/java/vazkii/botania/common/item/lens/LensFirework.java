@@ -27,7 +27,7 @@ public class LensFirework extends Lens {
 	public boolean collideBurst(IManaBurst burst, EntityThrowable entity, RayTraceResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
 		if(!entity.world.isRemote && !burst.isFake()) {
 			BlockPos coords = burst.getBurstSourceBlockPos();
-			if(pos.entityHit == null && !isManaBlock && (pos.getBlockPos() == null || !pos.getBlockPos().equals(coords))) {
+			if(pos.entity == null && !isManaBlock && (pos.getBlockPos() == null || !pos.getBlockPos().equals(coords))) {
 				ItemStack fireworkStack = generateFirework(burst.getColor());
 
 				EntityFireworkRocket rocket = new EntityFireworkRocket(entity.world, entity.posX, entity.posY, entity.posZ, fireworkStack);
@@ -39,7 +39,7 @@ public class LensFirework extends Lens {
 	}
 
 	public ItemStack generateFirework(int color) {
-		ItemStack stack = new ItemStack(Items.FIREWORKS);
+		ItemStack stack = new ItemStack(Items.FIREWORK_ROCKET);
 		NBTTagCompound explosion = new NBTTagCompound();
 		explosion.setIntArray("Colors", new int[] { color });
 
@@ -51,7 +51,7 @@ public class LensFirework extends Lens {
 			else type = 0;
 		}
 
-		explosion.setInteger("Type", type);
+		explosion.setInt("Type", type);
 
 		if(Math.random() < 0.05)
 			if(Math.random() < 0.5)
@@ -61,10 +61,10 @@ public class LensFirework extends Lens {
 		ItemNBTHelper.setCompound(stack, "Explosion", explosion);
 
 		NBTTagCompound fireworks = new NBTTagCompound();
-		fireworks.setInteger("Flight", (int) (Math.random() * 3 + 2));
+		fireworks.setInt("Flight", (int) (Math.random() * 3 + 2));
 
 		NBTTagList explosions = new NBTTagList();
-		explosions.appendTag(explosion);
+		explosions.add(explosion);
 		fireworks.setTag("Explosions", explosions);
 
 		ItemNBTHelper.setCompound(stack, "Fireworks", fireworks);

@@ -13,12 +13,11 @@ package vazkii.botania.common.item;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.IItemPropertyGetter;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.block.subtile.generating.SubTileNarslimmus;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
@@ -30,14 +29,13 @@ import javax.annotation.Nullable;
 public class ItemSlimeBottle extends ItemMod {
 	private static final String TAG_ACTIVE = "active";
 
-	public ItemSlimeBottle() {
-		super(LibItemNames.SLIME_BOTTLE);
-		setMaxStackSize(1);
-		addPropertyOverride(new ResourceLocation(LibMisc.MOD_ID, "active"), (stack, worldIn, entityIn) -> stack.hasTagCompound() && stack.getTagCompound().getBoolean(TAG_ACTIVE) ? 1.0F : 0.0F);
+	public ItemSlimeBottle(Item.Builder builder) {
+		super(builder);
+		addPropertyOverride(new ResourceLocation(LibMisc.MOD_ID, "active"), (stack, worldIn, entityIn) -> stack.hasTag() && stack.getTag().getBoolean(TAG_ACTIVE) ? 1.0F : 0.0F);
 	}
 
 	@Override
-	public void onUpdate(ItemStack stack, World world, Entity entity, int something, boolean somethingelse) {
+	public void inventoryTick(ItemStack stack, World world, Entity entity, int something, boolean somethingelse) {
 		if(!world.isRemote) {
 			int x = MathHelper.floor(entity.posX);
 			int z = MathHelper.floor(entity.posZ);

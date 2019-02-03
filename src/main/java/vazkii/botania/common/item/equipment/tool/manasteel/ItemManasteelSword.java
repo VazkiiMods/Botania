@@ -76,8 +76,8 @@ public class ItemManasteelSword extends ItemSword implements IManaUsingItem, IMo
 
 	@Override
 	public void onUpdate(ItemStack stack, World world, Entity player, int par4, boolean par5) {
-		if(!world.isRemote && player instanceof EntityPlayer && stack.getItemDamage() > 0 && ManaItemHandler.requestManaExactForTool(stack, (EntityPlayer) player, getManaPerDamage() * 2, true))
-			stack.setItemDamage(stack.getItemDamage() - 1);
+		if(!world.isRemote && player instanceof EntityPlayer && stack.getDamage() > 0 && ManaItemHandler.requestManaExactForTool(stack, (EntityPlayer) player, getManaPerDamage() * 2, true))
+			stack.setDamage(stack.getDamage() - 1);
 	}
 
 	public int getManaPerDamage() {

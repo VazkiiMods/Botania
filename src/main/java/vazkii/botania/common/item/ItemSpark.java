@@ -11,7 +11,9 @@
 package vazkii.botania.common.item;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUseContext;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
@@ -28,17 +30,19 @@ import javax.annotation.Nonnull;
 
 public class ItemSpark extends ItemMod implements IManaGivingItem {
 
-	public ItemSpark() {
-		super(LibItemNames.SPARK);
+	public ItemSpark(Item.Builder builder) {
+		super(builder);
 	}
 
 	@Nonnull
 	@Override
-	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float xv, float yv, float zv) {
+	public EnumActionResult onItemUse(ItemUseContext ctx) {
+		World world = ctx.getWorld();
+		BlockPos pos = ctx.getPos();
 		TileEntity tile = world.getTileEntity(pos);
 		if(tile instanceof ISparkAttachable) {
 			ISparkAttachable attach = (ISparkAttachable) tile;
-			ItemStack stack = player.getHeldItem(hand);
+			ItemStack stack = ctx.getItem();
 			if(attach.canAttachSpark(stack) && attach.getAttachedSpark() == null) {
 				if(!world.isRemote) {
 					stack.shrink(1);

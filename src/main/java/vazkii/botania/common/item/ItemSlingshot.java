@@ -14,6 +14,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.EnumAction;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
@@ -31,23 +32,22 @@ public class ItemSlingshot extends ItemMod {
 
 	private static final Predicate<ItemStack> AMMO_FUNC = s -> s != null && s.getItem() == ModItems.vineBall;
 
-	public ItemSlingshot() {
-		super(LibItemNames.SLINGSHOT);
-		setMaxStackSize(1);
+	public ItemSlingshot(Item.Builder builder) {
+		super(builder);
 	}
 
 	@Override
 	public void onPlayerStoppedUsing(ItemStack par1ItemStack, World world, EntityLivingBase living, int par4) {
-		int j = getMaxItemUseDuration(par1ItemStack) - par4;
+		int j = getUseDuration(par1ItemStack) - par4;
 
-		if(!world.isRemote && (!(living instanceof EntityPlayer) || ((EntityPlayer) living).capabilities.isCreativeMode || PlayerHelper.hasAmmo((EntityPlayer) living, AMMO_FUNC))) {
+		if(!world.isRemote && (!(living instanceof EntityPlayer) || ((EntityPlayer) living).abilities.isCreativeMode || PlayerHelper.hasAmmo((EntityPlayer) living, AMMO_FUNC))) {
 			float f = j / 20.0F;
 			f = (f * f + f * 2.0F) / 3.0F;
 
 			if(f < 1F)
 				return;
 
-			if(living instanceof EntityPlayer && !((EntityPlayer) living).capabilities.isCreativeMode)
+			if(living instanceof EntityPlayer && !((EntityPlayer) living).abilities.isCreativeMode)
 				PlayerHelper.consumeAmmo((EntityPlayer) living, AMMO_FUNC);
 
 			EntityVineBall ball = new EntityVineBall(living, false);
@@ -56,18 +56,18 @@ public class ItemSlingshot extends ItemMod {
 			ball.motionY *= 1.6;
 			ball.motionZ *= 1.6;
 			world.spawnEntity(ball);
-			world.playSound(null, living.posX, living.posY, living.posZ, SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.NEUTRAL, 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
+			world.playSound(null, living.posX, living.posY, living.posZ, SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.NEUTRAL, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
 		}
 	}
 
 	@Override
-	public int getMaxItemUseDuration(ItemStack par1ItemStack) {
+	public int getUseDuration(ItemStack par1ItemStack) {
 		return 72000;
 	}
 
 	@Nonnull
 	@Override
-	public EnumAction getItemUseAction(ItemStack par1ItemStack) {
+	public EnumAction getUseAction(ItemStack par1ItemStack) {
 		return EnumAction.BOW;
 	}
 
@@ -75,7 +75,7 @@ public class ItemSlingshot extends ItemMod {
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
 		ItemStack stack = player.getHeldItem(hand);
-		if(player.capabilities.isCreativeMode || PlayerHelper.hasAmmo(player, AMMO_FUNC)) {
+		if(player.abilities.isCreativeMode || PlayerHelper.hasAmmo(player, AMMO_FUNC)) {
 			player.setActiveHand(hand);
 			return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
 		}

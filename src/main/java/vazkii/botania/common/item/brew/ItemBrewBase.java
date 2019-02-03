@@ -12,11 +12,12 @@ package vazkii.botania.common.item.brew;
 
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.EnumAction;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
@@ -28,8 +29,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.brew.IBrewItem;
@@ -40,7 +39,7 @@ import vazkii.botania.common.lib.LibMisc;
 import javax.annotation.Nonnull;
 import java.util.List;
 
-public abstract class ItemBrewBase extends ItemMod implements IBrewItem {
+public class ItemBrewBase extends ItemMod implements IBrewItem {
 
 	private static final String TAG_BREW_KEY = "brewKey";
 	private static final String TAG_SWIGS_LEFT = "swigsLeft";
@@ -49,23 +48,22 @@ public abstract class ItemBrewBase extends ItemMod implements IBrewItem {
 	private final int drinkSpeed;
 	private final ItemStack baseItem;
 
-	public ItemBrewBase(String name, int swigs, int drinkSpeed, ItemStack baseItem) {
-		super(name);
+	public ItemBrewBase(Item.Builder builder, int swigs, int drinkSpeed, ItemStack baseItem) {
+		super(builder);
 		this.swigs = swigs;
 		this.drinkSpeed = drinkSpeed;
 		this.baseItem = baseItem;
-		setMaxStackSize(1);
 		addPropertyOverride(new ResourceLocation(LibMisc.MOD_ID, "swigs_taken"), (stack, world, entity) -> swigs - getSwigsLeft(stack));
 	}
 
 	@Override
-	public int getMaxItemUseDuration(ItemStack stack) {
+	public int getUseDuration(ItemStack stack) {
 		return drinkSpeed;
 	}
 
 	@Nonnull
 	@Override
-	public EnumAction getItemUseAction(ItemStack stack) {
+	public EnumAction getUseAction(ItemStack stack) {
 		return EnumAction.DRINK;
 	}
 
@@ -91,7 +89,7 @@ public abstract class ItemBrewBase extends ItemMod implements IBrewItem {
 				world.playSound(null, living.posX, living.posY, living.posZ, SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.PLAYERS, 1F, 1F);
 
 			int swigs = getSwigsLeft(stack);
-			if(living instanceof EntityPlayer && !((EntityPlayer) living).capabilities.isCreativeMode) {
+			if(living instanceof EntityPlayer && !((EntityPlayer) living).abilities.isCreativeMode) {
 				if(swigs == 1) {
 					if(!((EntityPlayer) living).inventory.addItemStackToInventory(baseItem.copy()))
 						return baseItem.copy();
@@ -109,8 +107,8 @@ public abstract class ItemBrewBase extends ItemMod implements IBrewItem {
 	}
 
 	@Override
-	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> list) {
-		if(isInCreativeTab(tab)) {
+	public void fillItemGroup(ItemGroup tab, NonNullList<ItemStack> list) {
+		if(isInGroup(tab)) {
 			for(String s : BotaniaAPI.brewMap.keySet()) {
 				ItemStack stack = new ItemStack(this);
 				setBrew(stack, s);
@@ -151,7 +149,7 @@ public abstract class ItemBrewBase extends ItemMod implements IBrewItem {
 
 	@Nonnull
 	public static String getSubtype(ItemStack stack) {
-		return stack.hasTagCompound() ? ItemNBTHelper.getString(stack, TAG_BREW_KEY, "none") : "none";
+		return stack.hasTag() ? ItemNBTHelper.getString(stack, TAG_BREW_KEY, "none") : "none";
 	}
 	
 	public int getSwigsLeft(ItemStack stack) {

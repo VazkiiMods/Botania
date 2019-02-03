@@ -112,8 +112,8 @@ public final class LibItemNames {
 	public static final String MANA_INKWELL = "manainkwell";
 	public static final String VIAL = "vial";
 	public static final String FLASK = "flask";
-	public static final String BREW_VIAL = "brewvial";
-	public static final String BREW_FLASK = "brewflask";
+	public static final String BREW_VIAL = "brew_vial";
+	public static final String BREW_FLASK = "brew_flask";
 	public static final String BLOOD_PENDANT = "bloodpendant";
 	public static final String MISSILE_ROD = "missilerod";
 	public static final String HOLY_CLOAK = "holycloak";
@@ -135,8 +135,8 @@ public final class LibItemNames {
 	public static final String ANCIENT_WILL = "ancient_will";
 	public static final String CORPOREA_SPARK = "corporea_spark";
 	public static final String CORPOREA_SPARK_MASTER = "corporea_spark_master";
-	public static final String LIVINGWOOD_BOW = "livingwoodbow";
-	public static final String CRYSTAL_BOW = "crystalbow";
+	public static final String LIVINGWOOD_BOW = "livingwood_bow";
+	public static final String CRYSTAL_BOW = "crystal_bow";
 	public static final String COSMETIC = "cosmetic";
 	public static final String SWAP_RING = "swapring";
 	public static final String FLOWER_BAG = "flowerbag";
@@ -155,7 +155,7 @@ public final class LibItemNames {
 	public static final String RECORD_GAIA1 = "recordgaia1";
 	public static final String RECORD_GAIA2 = "recordgaia2";
 	public static final String TEMPERANCE_STONE = "temperancestone";
-	public static final String INCENSE_STICK = "incensestick";
+	public static final String INCENSE_STICK = "incense_stick";
 	public static final String TERRA_AXE = "terraaxe";
 	public static final String WATER_BOWL = "waterbowl";
 	public static final String OBEDIENCE_STICK = "obediencestick";

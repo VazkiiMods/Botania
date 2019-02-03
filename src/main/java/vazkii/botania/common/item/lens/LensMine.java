@@ -42,7 +42,7 @@ public class LensMine extends Lens {
 		ItemStack composite = ((ItemLens) stack.getItem()).getCompositeLens(stack);
 		boolean warp = !composite.isEmpty() && composite.getItem() == ModItems.lensWarp;
 
-		if(warp && (block == ModBlocks.pistonRelay || block == Blocks.PISTON || block == Blocks.PISTON_EXTENSION || block == Blocks.PISTON_HEAD))
+		if(warp && (block == ModBlocks.pistonRelay || block == Blocks.PISTON || block == Blocks.MOVING_PISTON || block == Blocks.PISTON_HEAD))
 			return false;
 
 		int harvestLevel = ConfigHandler.harvestLevelBore;
@@ -58,10 +58,10 @@ public class LensMine extends Lens {
 			if(!burst.hasAlreadyCollidedAt(collidePos)) {
 				if(!burst.isFake()) {
 					NonNullList<ItemStack> items = NonNullList.create();
-					block.getDrops(items, world, collidePos, world.getBlockState(collidePos), 0);
+					state.getDrops(items, world, collidePos, 0);
 					float chance = net.minecraftforge.event.ForgeEventFactory.fireBlockHarvesting(items, world, collidePos, state, 0, 1.0f, false, null);
 
-					world.setBlockToAir(collidePos);
+					world.removeBlock(collidePos);
 					if(ConfigHandler.blockBreakParticles)
 						world.playEvent(2001, collidePos, Block.getStateId(state));
 

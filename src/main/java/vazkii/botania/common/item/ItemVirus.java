@@ -24,21 +24,22 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import vazkii.botania.common.lib.LibMisc;
 
 @Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
 public class ItemVirus extends ItemMod {
-	public ItemVirus(String name) {
-		super(name);
+	public ItemVirus(Item.Builder builder) {
+		super(builder);
 	}
 
 	@Override
@@ -48,7 +49,7 @@ public class ItemVirus extends ItemMod {
 				return true;
 			AbstractHorse horse = (AbstractHorse) living;
 			if(horse.isTame()) {
-				IItemHandler inv = horse.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
+				IItemHandler inv = horse.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).orElseThrow(NullPointerException::new);
 				ItemStack saddle = inv.getStackInSlot(0);
 
 				// Not all AbstractHorse's have saddles in slot 0
@@ -64,7 +65,7 @@ public class ItemVirus extends ItemMod {
 				if (horse instanceof AbstractChestHorse && ((AbstractChestHorse) horse).hasChest())
 					horse.entityDropItem(new ItemStack(Blocks.CHEST), 0);
 
-				horse.setDead();
+				horse.remove();
 
 				AbstractHorse newHorse = stack.getItem() == ModItems.necroVirus ? new EntityZombieHorse(player.world) : new EntitySkeletonHorse(player.world);
 				newHorse.setTamedBy(player);
@@ -72,7 +73,7 @@ public class ItemVirus extends ItemMod {
 
 				// Put the saddle back
 				if(!saddle.isEmpty())
-					newHorse.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).insertItem(0, saddle, false);
+					newHorse.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).orElseThrow(NullPointerException::new).insertItem(0, saddle, false);
 
 				AbstractAttributeMap oldAttributes = horse.getAttributeMap();
 				AbstractAttributeMap attributes = newHorse.getAttributeMap();
@@ -90,7 +91,7 @@ public class ItemVirus extends ItemMod {
 				jumpHeight.applyModifier(new AttributeModifier("Ermergerd Virus D:", jumpHeight.getBaseValue() * 0.5, 0));
 
 				newHorse.playSound(SoundEvents.ENTITY_ZOMBIE_VILLAGER_CURE, 1.0F + living.world.rand.nextFloat(), living.world.rand.nextFloat() * 0.7F + 1.3F);
-				newHorse.onInitialSpawn(player.world.getDifficultyForLocation(new BlockPos(newHorse)), null);
+				newHorse.onInitialSpawn(player.world.getDifficultyForLocation(new BlockPos(newHorse)), null, null);
 				newHorse.setGrowingAge(horse.getGrowingAge());
 				player.world.spawnEntity(newHorse);
 				newHorse.spawnExplosionParticle();
@@ -105,7 +106,7 @@ public class ItemVirus extends ItemMod {
 	@SubscribeEvent
 	public static void onLivingHurt(LivingHurtEvent event) {
 		EntityLivingBase entity = event.getEntityLiving();
-		if(entity.isRiding() && entity.getRidingEntity() instanceof EntityLivingBase)
+		if(entity.isPassenger() && entity.getRidingEntity() instanceof EntityLivingBase)
 			entity = (EntityLivingBase) entity.getRidingEntity();
 
 		if((entity instanceof EntityZombieHorse || entity instanceof EntitySkeletonHorse)
