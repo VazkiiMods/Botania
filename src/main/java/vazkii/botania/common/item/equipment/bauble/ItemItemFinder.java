@@ -191,7 +191,7 @@ public class ItemItemFinder extends ItemBauble implements IBaubleRender {
 	}
 
 	private boolean scanInventory(IItemHandler inv, ItemStack pstack) {
-		if(pstack.isEmpty())
+		if(pstack.isEmpty() || inv == null)
 			return false;
 
 		for(int l = 0; l < inv.getSlots(); l++) {
