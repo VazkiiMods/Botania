@@ -3,17 +3,54 @@ buildscript {
         mavenCentral()
         maven {
             name = "forge"
-            url = "http://files.minecraftforge.net/maven"
-        }
-        maven {
-            name = "sonatype"
-            url = "https://oss.sonatype.org/content/repositories/snapshots/"
+            url = "https://files.minecraftforge.net/maven"
         }
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
-        classpath 'com.matthewprenger:CurseGradle:1.0-SNAPSHOT'
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
+        // classpath 'com.matthewprenger:CurseGradle:1.0-SNAPSHOT'
     }
+}
+apply plugin: 'net.minecraftforge.gradle'
+apply plugin: 'eclipse'
+apply plugin: 'maven'
+
+
+// apply plugin: 'com.matthewprenger.cursegradle'
+ext.configFile = file('build.properties')
+ext.config = parseConfig(configFile)
+ext.priv = parseConfig(file('private.properties'))
+
+version = "${config.version}-${config.build_number}"
+group = "vazkii.botania" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = config.mod_name
+
+sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
+
+minecraft {
+    mappings channel: 'snapshot', version: '20180921-1.13'
+    runs {
+        client = {
+            properties 'forge.logging.markers': 'SCAN,REGISTRIES,REGISTRYDUMP'
+            properties 'forge.logging.console.level': 'debug'
+            workingDirectory project.file('run').canonicalPath
+            source sourceSets.main
+        }
+        server = {
+            properties 'forge.logging.markers': 'SCAN,REGISTRIES,REGISTRYDUMP'
+            properties 'forge.logging.console.level': 'debug'
+            workingDirectory project.file('run').canonicalPath
+            source sourceSets.main
+        }
+    }
+    // replace 'GRADLE:BUILD', config.build_number
+    // replace 'GRADLE:VERSION', config.version
+
+    // replaceIn 'LibMisc.java' //I may have missed another file, though I can only find it in here.
+}
+
+dependencies {
+    minecraft 'net.minecraftforge.test:forge:1.13-24.0.150-1.13-pre'
 }
 
 repositories {
@@ -34,37 +71,9 @@ repositories {
     }
 }
 
-apply plugin: 'net.minecraftforge.gradle.forge'
-apply plugin: 'com.matthewprenger.cursegradle'
-apply plugin: 'maven'
-
-ext.configFile = file('build.properties')
-
-ext.config = parseConfig(configFile)
-ext.priv = parseConfig(file('private.properties'))
-
-version = "${config.version}-${config.build_number}"
-group = "vazkii.botania" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = config.mod_name
-
 if (System.getenv().BUILD_NUMBER != null) { 
     //adds the build number to the end of the version string if on a build server
     version += ".${System.getenv().BUILD_NUMBER}"
-}
-
-minecraft {
-    version = "${config.mc_version}-${config.forge_version}"
-    runDir = "eclipse/assets"
-
-    mappings = config.mc_mappings
-    //This, does the token replacement.
-    //Though, I reccomend this to be replaced with a token such as @VERSION@
-    replace 'GRADLE:BUILD', config.build_number
-    replace 'GRADLE:VERSION', config.version
-
-    replaceIn 'LibMisc.java' //I may have missed another file, though I can only find it in here.
-    useDepAts = true
-    makeObfSourceJar = false
 }
 
 //This here is for SCP
@@ -76,7 +85,13 @@ configurations {
 
 jar {
     manifest {
-        attributes 'FMLAT': 'botania_at.cfg'
+        attributes(["Specification-Title": "botania",
+                    "Specification-Vendor": "botania",
+                    "Specification-Version": "24.0",
+                    "Implementation-Title": project.name,
+                    "Implementation-Version": "${version}",
+                    "Implementation-Vendor": "botania",
+                    "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")],)
     }
     
     //rename the default output, for some better... sanity with scipts
@@ -88,36 +103,13 @@ jar {
 }
 
 dependencies {
-    deobfCompile "com.mod-buildcraft:buildcraft-api:7.99.17"
-    deobfCompile "com.azanor.baubles:Baubles:1.12-1.5.2"
-    deobfCompile "mezz.jei:jei_1.12.2:4.13.1.220"
-    deobfCompile "thaumcraft:Thaumcraft:1.12.2:6.1.BETA26"
+    //deobfCompile "com.mod-buildcraft:buildcraft-api:7.99.17"
+    //deobfCompile "com.azanor.baubles:Baubles:1.12-1.5.2"
+    //deobfCompile "mezz.jei:jei_1.12.2:4.13.1.220"
+    //deobfCompile "thaumcraft:Thaumcraft:1.12.2:6.1.BETA26"
 
     //and a bit more for SCP
     sshAntTask "org.apache.ant:ant-jsch:1.7.1", "jsch:jsch:0.1.29"
-}
-
-compileJava {
-    sourceCompatibility = 1.8
-    targetCompatibility = 1.8
-}
-
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
-
-processResources {
-    // replace stuff in mcmod.info, nothing else
-    from(sourceSets.main.resources.srcDirs) {
-        include 'mcmod.info'
-
-        // replace version and mcversion
-        expand 'version': project.version, 'mcversion': project.minecraft.version
-    }
-
-    // copy everything else, thats not the mcmod.info
-    from(sourceSets.main.resources.srcDirs) {
-        exclude 'mcmod.info'
-    }
 }
 
 task deobfJar(type: Jar) {
@@ -240,6 +232,7 @@ def parseConfig(File config) {
 	}
 }
 
+/*
 curseforge {
 	if(priv == null){
 		return
@@ -259,6 +252,7 @@ curseforge {
         }
     }
 }
+*/
 
 uploadArchives {
     repositories {
@@ -267,6 +261,6 @@ uploadArchives {
         }
     }
 }
-tasks.uploadArchives.dependsOn reobfJar
+// tasks.uploadArchives.dependsOn reobfJar
 
 defaultTasks 'clean', 'build', 'sortArtifacts', 'incrementBuildNumber', 'upload'
