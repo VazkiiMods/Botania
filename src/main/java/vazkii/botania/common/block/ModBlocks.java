@@ -17,10 +17,11 @@ import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.registries.IForgeRegistry;
@@ -113,7 +114,7 @@ import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.lib.LibOreDict;
 
-@Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
+@Mod.EventBusSubscriber(modid = LibMisc.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public final class ModBlocks {
 	public static final Block flower = new BlockModFlower();
 	public static final Block defaultAltar = new BlockAltar(BlockAltar.Variant.DEFAULT);
@@ -213,7 +214,7 @@ public final class ModBlocks {
 	public static final Block petalBlockLime = new BlockPetalBlock(EnumDyeColor.LIME);
 	public static final Block petalBlockPink = new BlockPetalBlock(EnumDyeColor.PINK);
 	public static final Block petalBlockGray = new BlockPetalBlock(EnumDyeColor.GRAY);
-	public static final Block petalBlockSilver = new BlockPetalBlock(EnumDyeColor.SILVER);
+	public static final Block petalBlockSilver = new BlockPetalBlock(EnumDyeColor.LIGHT_GRAY);
 	public static final Block petalBlockCyan = new BlockPetalBlock(EnumDyeColor.CYAN);
 	public static final Block petalBlockPurple = new BlockPetalBlock(EnumDyeColor.PURPLE);
 	public static final Block petalBlockBlue = new BlockPetalBlock(EnumDyeColor.BLUE);
@@ -556,14 +557,12 @@ public final class ModBlocks {
 		r.register(new ItemBlockMod(mutatedGrass).setRegistryName(mutatedGrass.getRegistryName()));
 		r.register(new ItemBlockMod(animatedTorch).setRegistryName(animatedTorch.getRegistryName()));
 		initOreDict();
-
-		initTileEntities();
 	}
 
 	public static void addDispenserBehaviours() {
-		BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(ModItems.twigWand, new BehaviourWand());
-		BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(ModItems.poolMinecart, new BehaviourPoolMinecart());
-		BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(Item.getItemFromBlock(ModBlocks.felPumpkin), new BehaviourFelPumpkin());
+		BlockDispenser.registerDispenseBehavior(ModItems.twigWand, new BehaviourWand());
+		BlockDispenser.registerDispenseBehavior(ModItems.poolMinecart, new BehaviourPoolMinecart());
+		BlockDispenser.registerDispenseBehavior(ModBlocks.felPumpkin, new BehaviourFelPumpkin());
 
 		SeedBehaviours.init();
 	}
@@ -595,61 +594,62 @@ public final class ModBlocks {
 		OreDictionary.registerOre("slabCobblestone", new ItemStack(Blocks.STONE_SLAB, 1, 3));
 	}
 
-	private static void initTileEntities() {
-		registerTile(TileAltar.class, LibBlockNames.ALTAR);
-		registerTile(TileSpecialFlower.class, LibBlockNames.SPECIAL_FLOWER);
-		registerTile(TileSpreader.class, LibBlockNames.SPREADER);
-		registerTile(TilePool.class, LibBlockNames.POOL);
-		registerTile(TileRuneAltar.class, LibBlockNames.RUNE_ALTAR);
-		registerTile(TilePylon.class, LibBlockNames.PYLON);
-		registerTile(TileDistributor.class, LibBlockNames.DISTRIBUTOR);
-		registerTile(TileManaVoid.class, LibBlockNames.MANA_VOID);
-		registerTile(TileManaDetector.class, LibBlockNames.MANA_DETECTOR);
-		registerTile(TileEnchanter.class, LibBlockNames.ENCHANTER);
-		registerTile(TileTurntable.class, LibBlockNames.TURNTABLE);
-		registerTile(TileTinyPlanet.class, LibBlockNames.TINY_PLANET);
-		registerTile(TileOpenCrate.class, LibBlockNames.OPEN_CRATE);
-		registerTile(TileCraftCrate.class, LibBlockNames.CRAFT_CRATE);
-		registerTile(TileForestEye.class, LibBlockNames.FOREST_EYE);
-		registerTile(TilePlatform.class, LibBlockNames.PLATFORM);
-		registerTile(TileAlfPortal.class, LibBlockNames.ALF_PORTAL);
-		registerTile(TileBifrost.class, LibBlockNames.BIFROST);
-		registerTile(TileFloatingFlower.class, LibBlockNames.MINI_ISLAND);
-		registerTile(TileTinyPotato.class, LibBlockNames.TINY_POTATO);
-		registerTile(TileSpawnerClaw.class, LibBlockNames.SPAWNER_CLAW);
-		registerTile(TileEnderEye.class, LibBlockNames.ENDER_EYE_BLOCK);
-		registerTile(TileStarfield.class, LibBlockNames.STARFIELD);
-		registerTile(TileRFGenerator.class, LibBlockNames.RF_GENERATOR);
-		registerTile(TileBrewery.class, LibBlockNames.BREWERY);
-		registerTile(TileTerraPlate.class, LibBlockNames.TERRA_PLATE);
-		registerTile(TileRedStringContainer.class, LibBlockNames.RED_STRING_CONTAINER);
-		registerTile(TileRedStringDispenser.class, LibBlockNames.RED_STRING_DISPENSER);
-		registerTile(TileRedStringFertilizer.class, LibBlockNames.RED_STRING_FERTILIZER);
-		registerTile(TileRedStringComparator.class, LibBlockNames.RED_STRING_COMPARATOR);
-		registerTile(TileRedStringRelay.class, LibBlockNames.RED_STRING_RELAY);
-		registerTile(TileFloatingSpecialFlower.class, LibBlockNames.FLOATING_SPECIAL_FLOWER);
-		registerTile(TileManaFlame.class, LibBlockNames.MANA_FLAME);
-		registerTile(TilePrism.class, LibBlockNames.PRISM);
-		registerTile(TileCorporeaIndex.class, LibBlockNames.CORPOREA_INDEX);
-		registerTile(TileCorporeaFunnel.class, LibBlockNames.CORPOREA_FUNNEL);
-		registerTile(TilePump.class, LibBlockNames.PUMP);
-		registerTile(TileFakeAir.class, LibBlockNames.FAKE_AIR);
-		registerTile(TileCorporeaInterceptor.class, LibBlockNames.CORPOREA_INTERCEPTOR);
-		registerTile(TileCorporeaCrystalCube.class, LibBlockNames.CORPOREA_CRYSTAL_CUBE);
-		registerTile(TileIncensePlate.class, LibBlockNames.INCENSE_PLATE);
-		registerTile(TileHourglass.class, LibBlockNames.HOURGLASS);
-		registerTile(TileSparkChanger.class, LibBlockNames.SPARK_CHANGER);
-		registerTile(TileCocoon.class, LibBlockNames.COCOON);
-		registerTile(TileLightRelay.class, LibBlockNames.LIGHT_RELAY);
-		registerTile(TileCacophonium.class, LibBlockNames.CACOPHONIUM);
-		registerTile(TileBellows.class, LibBlockNames.BELLOWS);
-		registerTile(TileCell.class, LibBlockNames.CELL_BLOCK);
-		registerTile(TileRedStringInterceptor.class, LibBlockNames.RED_STRING_INTERCEPTOR);
-		registerTile(TileGaiaHead.class, LibBlockNames.GAIA_HEAD);
-		registerTile(TileCorporeaRetainer.class, LibBlockNames.CORPOREA_RETAINER);
-		registerTile(TileTeruTeruBozu.class, LibBlockNames.TERU_TERU_BOZU);
-		registerTile(TileAvatar.class, LibBlockNames.AVATAR);
-		registerTile(TileAnimatedTorch.class, LibBlockNames.ANIMATED_TORCH);
+	@SubscribeEvent
+	public static void initTileEntities(RegistryEvent.Register<TileEntityType<?>> evt) {
+		TileEntityType.Builder.create(TileAltar::new).build(null).setRegistryName(LibMisc.MOD_ID, LibBlockNames.ALTAR);
+		TileEntityType.Builder.create(TileSpecialFlower::new).build(null).setRegistryName(LibMisc.MOD_ID, LibBlockNames.SPECIAL_FLOWER);
+		TileEntityType.Builder.create(TileSpreader::new).build(null).setRegistryName(LibMisc.MOD_ID, LibBlockNames.SPREADER);
+		TileEntityType.Builder.create(TilePool::new).build(null).setRegistryName(LibMisc.MOD_ID, LibBlockNames.POOL);
+		TileEntityType.Builder.create(TileRuneAltar::new).build(null).setRegistryName(LibMisc.MOD_ID, LibBlockNames.RUNE_ALTAR);
+		TileEntityType.Builder.create(TilePylon::new).build(null).setRegistryName(LibMisc.MOD_ID, LibBlockNames.PYLON);
+		TileEntityType.Builder.create(TileDistributor::new).build(null).setRegistryName(LibMisc.MOD_ID, LibBlockNames.DISTRIBUTOR);
+		TileEntityType.Builder.create(TileManaVoid::new).build(null).setRegistryName(LibMisc.MOD_ID, LibBlockNames.MANA_VOID);
+		TileEntityType.Builder.create(TileManaDetector::new).build(null).setRegistryName(LibMisc.MOD_ID, LibBlockNames.MANA_DETECTOR);
+		TileEntityType.Builder.create(TileEnchanter::new).build(null).setRegistryName(LibMisc.MOD_ID, LibBlockNames.ENCHANTER);
+		TileEntityType.Builder.create(TileTurntable::new).build(null).setRegistryName(LibMisc.MOD_ID, LibBlockNames.TURNTABLE);
+		TileEntityType.Builder.create(TileTinyPlanet::new).build(null).setRegistryName(LibMisc.MOD_ID, LibBlockNames.TINY_PLANET);
+		TileEntityType.Builder.create(TileOpenCrate::new).build(null).setRegistryName(LibMisc.MOD_ID, LibBlockNames.OPEN_CRATE);
+		TileEntityType.Builder.create(TileCraftCrate::new).build(null).setRegistryName(LibMisc.MOD_ID, LibBlockNames.CRAFT_CRATE);
+		TileEntityType.Builder.create(TileForestEye::new).build(null).setRegistryName(LibMisc.MOD_ID, LibBlockNames.FOREST_EYE);
+		TileEntityType.Builder.create(TilePlatform::new).build(null).setRegistryName(LibMisc.MOD_ID, LibBlockNames.PLATFORM);
+		TileEntityType.Builder.create(TileAlfPortal::new).build(null).setRegistryName(LibMisc.MOD_ID, LibBlockNames.ALF_PORTAL);
+		TileEntityType.Builder.create(TileBifrost::new).build(null).setRegistryName(LibMisc.MOD_ID, LibBlockNames.BIFROST);
+		TileEntityType.Builder.create(TileFloatingFlower::new).build(null).setRegistryName(LibMisc.MOD_ID, LibBlockNames.MINI_ISLAND);
+		TileEntityType.Builder.create(TileTinyPotato::new).build(null).setRegistryName(LibMisc.MOD_ID, LibBlockNames.TINY_POTATO);
+		TileEntityType.Builder.create(TileSpawnerClaw::new).build(null).setRegistryName(LibMisc.MOD_ID, LibBlockNames.SPAWNER_CLAW);
+		TileEntityType.Builder.create(TileEnderEye::new).build(null).setRegistryName(LibMisc.MOD_ID, LibBlockNames.ENDER_EYE_BLOCK);
+		TileEntityType.Builder.create(TileStarfield::new).build(null).setRegistryName(LibMisc.MOD_ID, LibBlockNames.STARFIELD);
+		TileEntityType.Builder.create(TileRFGenerator::new).build(null).setRegistryName(LibMisc.MOD_ID, LibBlockNames.RF_GENERATOR);
+		TileEntityType.Builder.create(TileBrewery::new).build(null).setRegistryName(LibMisc.MOD_ID, LibBlockNames.BREWERY);
+		TileEntityType.Builder.create(TileTerraPlate::new).build(null).setRegistryName(LibMisc.MOD_ID, LibBlockNames.TERRA_PLATE);
+		TileEntityType.Builder.create(TileRedStringContainer::new).build(null).setRegistryName(LibMisc.MOD_ID, LibBlockNames.RED_STRING_CONTAINER);
+		TileEntityType.Builder.create(TileRedStringDispenser::new).build(null).setRegistryName(LibMisc.MOD_ID, LibBlockNames.RED_STRING_DISPENSER);
+		TileEntityType.Builder.create(TileRedStringFertilizer::new).build(null).setRegistryName(LibMisc.MOD_ID, LibBlockNames.RED_STRING_FERTILIZER);
+		TileEntityType.Builder.create(TileRedStringComparator::new).build(null).setRegistryName(LibMisc.MOD_ID, LibBlockNames.RED_STRING_COMPARATOR);
+		TileEntityType.Builder.create(TileRedStringRelay::new).build(null).setRegistryName(LibMisc.MOD_ID, LibBlockNames.RED_STRING_RELAY);
+		TileEntityType.Builder.create(TileFloatingSpecialFlower::new).build(null).setRegistryName(LibMisc.MOD_ID, LibBlockNames.FLOATING_SPECIAL_FLOWER);
+		TileEntityType.Builder.create(TileManaFlame::new).build(null).setRegistryName(LibMisc.MOD_ID, LibBlockNames.MANA_FLAME);
+		TileEntityType.Builder.create(TilePrism::new).build(null).setRegistryName(LibMisc.MOD_ID, LibBlockNames.PRISM);
+		TileEntityType.Builder.create(TileCorporeaIndex::new).build(null).setRegistryName(LibMisc.MOD_ID, LibBlockNames.CORPOREA_INDEX);
+		TileEntityType.Builder.create(TileCorporeaFunnel::new).build(null).setRegistryName(LibMisc.MOD_ID, LibBlockNames.CORPOREA_FUNNEL);
+		TileEntityType.Builder.create(TilePump::new).build(null).setRegistryName(LibMisc.MOD_ID, LibBlockNames.PUMP);
+		TileEntityType.Builder.create(TileFakeAir::new).build(null).setRegistryName(LibMisc.MOD_ID, LibBlockNames.FAKE_AIR);
+		TileEntityType.Builder.create(TileCorporeaInterceptor::new).build(null).setRegistryName(LibMisc.MOD_ID, LibBlockNames.CORPOREA_INTERCEPTOR);
+		TileEntityType.Builder.create(TileCorporeaCrystalCube::new).build(null).setRegistryName(LibMisc.MOD_ID, LibBlockNames.CORPOREA_CRYSTAL_CUBE);
+		TileEntityType.Builder.create(TileIncensePlate::new).build(null).setRegistryName(LibMisc.MOD_ID, LibBlockNames.INCENSE_PLATE);
+		TileEntityType.Builder.create(TileHourglass::new).build(null).setRegistryName(LibMisc.MOD_ID, LibBlockNames.HOURGLASS);
+		TileEntityType.Builder.create(TileSparkChanger::new).build(null).setRegistryName(LibMisc.MOD_ID, LibBlockNames.SPARK_CHANGER);
+		TileEntityType.Builder.create(TileCocoon::new).build(null).setRegistryName(LibMisc.MOD_ID, LibBlockNames.COCOON);
+		TileEntityType.Builder.create(TileLightRelay::new).build(null).setRegistryName(LibMisc.MOD_ID, LibBlockNames.LIGHT_RELAY);
+		TileEntityType.Builder.create(TileCacophonium::new).build(null).setRegistryName(LibMisc.MOD_ID, LibBlockNames.CACOPHONIUM);
+		TileEntityType.Builder.create(TileBellows::new).build(null).setRegistryName(LibMisc.MOD_ID, LibBlockNames.BELLOWS);
+		TileEntityType.Builder.create(TileCell::new).build(null).setRegistryName(LibMisc.MOD_ID, LibBlockNames.CELL_BLOCK);
+		TileEntityType.Builder.create(TileRedStringInterceptor::new).build(null).setRegistryName(LibMisc.MOD_ID, LibBlockNames.RED_STRING_INTERCEPTOR);
+		TileEntityType.Builder.create(TileGaiaHead::new).build(null).setRegistryName(LibMisc.MOD_ID, LibBlockNames.GAIA_HEAD);
+		TileEntityType.Builder.create(TileCorporeaRetainer::new).build(null).setRegistryName(LibMisc.MOD_ID, LibBlockNames.CORPOREA_RETAINER);
+		TileEntityType.Builder.create(TileTeruTeruBozu::new).build(null).setRegistryName(LibMisc.MOD_ID, LibBlockNames.TERU_TERU_BOZU);
+		TileEntityType.Builder.create(TileAvatar::new).build(null).setRegistryName(LibMisc.MOD_ID, LibBlockNames.AVATAR);
+		TileEntityType.Builder.create(TileAnimatedTorch::new).build(null).setRegistryName(LibMisc.MOD_ID, LibBlockNames.ANIMATED_TORCH);
 
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_PUREDAISY, SubTilePureDaisy.class);
 		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_MANASTAR, SubTileManastar.class);
@@ -702,10 +702,6 @@ public final class ModBlocks {
 		for(Class innerClazz : clazz.getDeclaredClasses())
 			if(innerClazz.getSimpleName().equals("Mini"))
 				BotaniaAPI.registerMiniSubTile(new ResourceLocation(key.getNamespace(), key.getPath() + "Chibi"), innerClazz, key);
-	}
-
-	private static void registerTile(Class<? extends TileEntity> clazz, String key) {
-		GameRegistry.registerTileEntity(clazz, LibResources.PREFIX_MOD + key);
 	}
 
 }

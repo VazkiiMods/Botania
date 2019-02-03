@@ -10,35 +10,75 @@
  */
 package vazkii.botania.common.entity;
 
-import net.minecraftforge.fml.common.registry.EntityRegistry;
-import vazkii.botania.common.Botania;
+import net.minecraft.entity.EntityType;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 import vazkii.botania.common.block.tile.TileLightRelay.EntityPlayerMover;
 import vazkii.botania.common.lib.LibEntityNames;
+import vazkii.botania.common.lib.LibMisc;
 
+@Mod.EventBusSubscriber(modid = LibMisc.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public final class ModEntities {
-
-	public static void init() {
-		int id = 0;
-
-		EntityRegistry.registerModEntity(LibEntityNames.MANA_BURST_REGISTRY, EntityManaBurst.class, LibEntityNames.MANA_BURST, id++, Botania.instance, 64, 10, true);
-		EntityRegistry.registerModEntity(LibEntityNames.SIGNAL_FLARE_REGISTRY, EntitySignalFlare.class, LibEntityNames.SIGNAL_FLARE, id++, Botania.instance, 2048, 10, false);
-		EntityRegistry.registerModEntity(LibEntityNames.PIXIE_REGISTRY, EntityPixie.class, LibEntityNames.PIXIE, id++, Botania.instance, 16, 3, true);
-		EntityRegistry.registerModEntity(LibEntityNames.FLAME_RING_REGISTRY, EntityFlameRing.class, LibEntityNames.FLAME_RING, id++, Botania.instance, 32, 40, false);
-		EntityRegistry.registerModEntity(LibEntityNames.VINE_BALL_REGISTRY, EntityVineBall.class, LibEntityNames.VINE_BALL, id++, Botania.instance, 64, 10, true);
-		EntityRegistry.registerModEntity(LibEntityNames.DOPPLEGANGER_REGISTRY, EntityDoppleganger.class, LibEntityNames.DOPPLEGANGER, id++, Botania.instance, 128, 3, true);
-		EntityRegistry.registerModEntity(LibEntityNames.MAGIC_LANDMINE_REGISTRY, EntityMagicLandmine.class, LibEntityNames.MAGIC_LANDMINE, id++, Botania.instance, 128, 40, false);
-		EntityRegistry.registerModEntity(LibEntityNames.SPARK_REGISTRY, EntitySpark.class, LibEntityNames.SPARK, id++, Botania.instance, 64, 10, false);
-		EntityRegistry.registerModEntity(LibEntityNames.THROWN_ITEM_REGISTRY, EntityThrownItem.class, LibEntityNames.THROWN_ITEM, id++, Botania.instance, 64, 20, true);
-		EntityRegistry.registerModEntity(LibEntityNames.MAGIC_MISSILE_REGISTRY, EntityMagicMissile.class, LibEntityNames.MAGIC_MISSILE, id++, Botania.instance, 64, 2, true);
-		EntityRegistry.registerModEntity(LibEntityNames.THORN_CHAKRAM_REGISTRY, EntityThornChakram.class, LibEntityNames.THORN_CHAKRAM, id++, Botania.instance, 64, 10, true);
-		EntityRegistry.registerModEntity(LibEntityNames.CORPOREA_SPARK_REGISTRY, EntityCorporeaSpark.class, LibEntityNames.CORPOREA_SPARK, id++, Botania.instance, 64, 10, false);
-		EntityRegistry.registerModEntity(LibEntityNames.ENDER_AIR_BOTTLE_REGISTRY, EntityEnderAirBottle.class, LibEntityNames.ENDER_AIR_BOTTLE, id++, Botania.instance, 64, 10, true);
-		EntityRegistry.registerModEntity(LibEntityNames.POOL_MINECART_REGISTRY, EntityPoolMinecart.class, LibEntityNames.POOL_MINECART, id++, Botania.instance, 80, 3, true);
-		EntityRegistry.registerModEntity(LibEntityNames.PINK_WITHER_REGISTRY, EntityPinkWither.class, LibEntityNames.PINK_WITHER, id++, Botania.instance, 80, 3, false);
-		EntityRegistry.registerModEntity(LibEntityNames.PLAYER_MOVER_REGISTRY, EntityPlayerMover.class, LibEntityNames.PLAYER_MOVER, id++, Botania.instance, 40, 3, true);
-		EntityRegistry.registerModEntity(LibEntityNames.MANA_STORM_REGISTRY, EntityManaStorm.class, LibEntityNames.MANA_STORM, id++, Botania.instance, 64, 10, false);
-		EntityRegistry.registerModEntity(LibEntityNames.BABYLON_WEAPON_REGISTRY, EntityBabylonWeapon.class, LibEntityNames.BABYLON_WEAPON, id++, Botania.instance, 64, 10, true);
-		EntityRegistry.registerModEntity(LibEntityNames.FALLING_STAR_REGISTRY, EntityFallingStar.class, LibEntityNames.FALLING_STAR, id++, Botania.instance, 64, 10, true);
+	@SubscribeEvent
+	public static void registerEntities(RegistryEvent.Register<EntityType<?>> evt) {
+		evt.getRegistry().register(EntityType.Builder.create(EntityManaBurst.class, EntityManaBurst::new)
+				.tracker(64, 10, true).build("")
+				.setRegistryName(LibEntityNames.MANA_BURST));
+		evt.getRegistry().register(EntityType.Builder.create(EntitySignalFlare.class, EntitySignalFlare::new)
+				.tracker(2048, 10, false).build("")
+				.setRegistryName(LibEntityNames.SIGNAL_FLARE));
+		evt.getRegistry().register(EntityType.Builder.create(EntityPixie.class, EntityPixie::new)
+				.tracker(16, 3, true).build("")
+				.setRegistryName(LibEntityNames.PIXIE));
+		evt.getRegistry().register(EntityType.Builder.create(EntityFlameRing.class, EntityFlameRing::new)
+				.tracker(32, 40, false).build("")
+				.setRegistryName(LibEntityNames.FLAME_RING));
+		evt.getRegistry().register(EntityType.Builder.create(EntityVineBall.class, EntityVineBall::new)
+				.tracker(64, 10, true).build("")
+				.setRegistryName(LibEntityNames.VINE_BALL));
+		evt.getRegistry().register(EntityType.Builder.create(EntityDoppleganger.class, EntityDoppleganger::new)
+				.tracker(128, 10, true).build("")
+				.setRegistryName(LibEntityNames.DOPPLEGANGER));
+		evt.getRegistry().register(EntityType.Builder.create(EntityMagicLandmine.class, EntityMagicLandmine::new)
+				.tracker(128, 40, false).build("")
+				.setRegistryName(LibEntityNames.MAGIC_LANDMINE));
+		evt.getRegistry().register(EntityType.Builder.create(EntitySpark.class, EntitySpark::new)
+				.tracker(64, 10, false).build("")
+				.setRegistryName(LibEntityNames.SPARK));
+		evt.getRegistry().register(EntityType.Builder.create(EntityThrownItem.class, EntityThrownItem::new)
+				.tracker(64, 20, true).build("")
+				.setRegistryName(LibEntityNames.THROWN_ITEM));
+		evt.getRegistry().register(EntityType.Builder.create(EntityMagicMissile.class, EntityMagicMissile::new)
+				.tracker(64, 2, true).build("")
+				.setRegistryName(LibEntityNames.MAGIC_MISSILE));
+		evt.getRegistry().register(EntityType.Builder.create(EntityThornChakram.class, EntityThornChakram::new)
+				.tracker(64, 10, true).build("")
+				.setRegistryName(LibEntityNames.THORN_CHAKRAM));
+		evt.getRegistry().register(EntityType.Builder.create(EntityCorporeaSpark.class, EntityCorporeaSpark::new)
+				.tracker(64, 10, false).build("")
+				.setRegistryName(LibEntityNames.CORPOREA_SPARK));
+		evt.getRegistry().register(EntityType.Builder.create(EntityEnderAirBottle.class, EntityEnderAirBottle::new)
+				.tracker(64, 10, true).build("")
+				.setRegistryName(LibEntityNames.ENDER_AIR_BOTTLE));
+		evt.getRegistry().register(EntityType.Builder.create(EntityPoolMinecart.class, EntityPoolMinecart::new)
+				.tracker(80, 3, true).build("")
+				.setRegistryName(LibEntityNames.POOL_MINECART));
+		evt.getRegistry().register(EntityType.Builder.create(EntityPinkWither.class, EntityPinkWither::new)
+				.tracker(80, 3, false).build("")
+				.setRegistryName(LibEntityNames.PINK_WITHER));
+		evt.getRegistry().register(EntityType.Builder.create(EntityPlayerMover.class, EntityPlayerMover::new)
+				.tracker(40, 3, true).build("")
+				.setRegistryName(LibEntityNames.PLAYER_MOVER));
+		evt.getRegistry().register(EntityType.Builder.create(EntityManaStorm.class, EntityManaStorm::new)
+				.tracker(64, 10, false).build("")
+				.setRegistryName(LibEntityNames.MANA_STORM));
+		evt.getRegistry().register(EntityType.Builder.create(EntityBabylonWeapon.class, EntityBabylonWeapon::new)
+				.tracker(64, 10, true).build("")
+				.setRegistryName(LibEntityNames.BABYLON_WEAPON));
+		evt.getRegistry().register(EntityType.Builder.create(EntityFallingStar.class, EntityFallingStar::new)
+				.tracker(64, 10, true).build("")
+				.setRegistryName(LibEntityNames.FALLING_STAR));
 	}
 
 }

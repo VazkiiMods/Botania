@@ -9,6 +9,7 @@
  * File Created @ [Jun 19, 2018, 8:25:10 PM (GMT)]
  */
 
+/*
 package vazkii.botania.common.integration.thaumcraft;
 
 import net.minecraft.block.Block;
@@ -508,3 +509,4 @@ public class TCAspects {
 		ThaumcraftApi.registerEntityTag(entityName, aspects); //Not in the event (as of TC beta 21)
 	}
 }
+*/

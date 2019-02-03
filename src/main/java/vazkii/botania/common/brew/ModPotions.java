@@ -12,8 +12,8 @@ package vazkii.botania.common.brew;
 
 import net.minecraft.potion.Potion;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import vazkii.botania.common.brew.potion.PotionAllure;
 import vazkii.botania.common.brew.potion.PotionBloodthirst;
 import vazkii.botania.common.brew.potion.PotionClear;
@@ -22,7 +22,7 @@ import vazkii.botania.common.brew.potion.PotionFeatherfeet;
 import vazkii.botania.common.brew.potion.PotionSoulCross;
 import vazkii.botania.common.lib.LibMisc;
 
-@Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
+@Mod.EventBusSubscriber(modid = LibMisc.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ModPotions {
 
 	public static final Potion soulCross = new PotionSoulCross();

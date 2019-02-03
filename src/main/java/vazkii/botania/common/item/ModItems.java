@@ -16,8 +16,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemRecord;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.registries.IForgeRegistry;
 import vazkii.botania.api.BotaniaAPI;
@@ -107,7 +107,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-@Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
+@Mod.EventBusSubscriber(modid = LibMisc.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public final class ModItems {
 	public static final Item lexicon = new ItemLexicon();
 	public static final Map<EnumDyeColor, Item> petals = new EnumMap<>(EnumDyeColor.class);

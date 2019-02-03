@@ -21,6 +21,8 @@ import net.minecraft.entity.item.EntityItemFrame;
 import net.minecraft.entity.item.EntityPainting;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.DistExecutor;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
@@ -36,12 +38,15 @@ import net.minecraftforge.fml.common.event.FMLServerAboutToStartEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.event.FMLServerStoppingEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.javafmlmod.FMLModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.ITwoNamedPage;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.lexicon.LexiconPage;
+import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.common.advancements.*;
 import vazkii.botania.common.block.ModBanners;
 import vazkii.botania.common.block.ModBlocks;
@@ -59,6 +64,7 @@ import vazkii.botania.common.core.handler.InternalMethodHandler;
 import vazkii.botania.common.core.handler.ManaNetworkHandler;
 import vazkii.botania.common.core.loot.LootHandler;
 import vazkii.botania.common.core.proxy.IProxy;
+import vazkii.botania.common.core.proxy.ServerProxy;
 import vazkii.botania.common.crafting.ModBrewRecipes;
 import vazkii.botania.common.crafting.ModCraftingRecipes;
 import vazkii.botania.common.crafting.ModElvenTradeRecipes;
@@ -87,7 +93,7 @@ import vazkii.botania.common.network.PacketHandler;
 import vazkii.botania.common.world.SkyblockWorldEvents;
 import vazkii.botania.common.world.WorldTypeSkyblock;
 
-@Mod(modid = LibMisc.MOD_ID, name = LibMisc.MOD_NAME, version = LibMisc.VERSION, dependencies = LibMisc.DEPENDENCIES, guiFactory = LibMisc.GUI_FACTORY)
+@Mod(LibMisc.MOD_ID)
 public class Botania {
 
 	public static boolean gardenOfGlassLoaded = false;
@@ -98,30 +104,31 @@ public class Botania {
 	public static boolean coloredLightsLoaded = false;
 	public static boolean etFuturumLoaded = false;
 
-	@Instance(LibMisc.MOD_ID)
 	public static Botania instance;
-
-	@SidedProxy(serverSide = LibMisc.PROXY_SERVER, clientSide = LibMisc.PROXY_CLIENT)
 	public static IProxy proxy;
 
 	public static final Logger LOGGER = LogManager.getLogger(LibMisc.MOD_ID);
 
-	@EventHandler
-	public void preInit(FMLPreInitializationEvent event) {
-		gardenOfGlassLoaded = Loader.isModLoaded("gardenofglass");
+	public Botania() {
+		instance = this;
+		proxy = DistExecutor.runForDist(() -> ClientProxy::new, () -> ServerProxy::new);
+		FMLModLoadingContext.get().getModEventBus().addListener(this::commonSetup);
+	}
 
-		thaumcraftLoaded = Loader.isModLoaded("thaumcraft");
-		bcApiLoaded = Loader.isModLoaded("buildcraftlib");
-		bloodMagicLoaded = Loader.isModLoaded("bloodmagic"); // Psh, noob
-		coloredLightsLoaded = Loader.isModLoaded("easycoloredlights");
-		etFuturumLoaded = Loader.isModLoaded("etfuturum");
+	private void commonSetup(FMLCommonSetupEvent event) {
+		gardenOfGlassLoaded = ModList.get().isLoaded("gardenofglass");
+
+		thaumcraftLoaded = ModList.get().isLoaded("thaumcraft");
+		bcApiLoaded = ModList.get().isLoaded("buildcraftlib");
+		bloodMagicLoaded = ModList.get().isLoaded("bloodmagic"); // Psh, noob
+		coloredLightsLoaded = ModList.get().isLoaded("easycoloredlights");
+		etFuturumLoaded = ModList.get().isLoaded("etfuturum");
 
 		BotaniaAPI.internalHandler = new InternalMethodHandler();
 
 		ConfigHandler.loadConfig(event.getSuggestedConfigurationFile());
 
 		PacketHandler.init();
-		ModEntities.init();
 		ModBrews.init();
 		ModMultiblocks.init();
 
