@@ -13,14 +13,14 @@ import com.google.common.base.Predicates;
 import net.minecraft.block.BlockRailBase;
 import net.minecraft.block.BlockRailPowered;
 import net.minecraft.block.BlockRotatedPillar;
-import net.minecraft.block.properties.PropertyBool;
-import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.EnumDyeColor;
+import net.minecraft.state.BooleanProperty;
+import net.minecraft.state.EnumProperty;
+import net.minecraft.state.properties.RailShape;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
 import vazkii.botania.api.item.IFloatingFlower;
 import vazkii.botania.api.state.enums.AlfPortalState;
 import vazkii.botania.api.state.enums.BiomeBrickVariant;
@@ -56,39 +56,39 @@ public final class BotaniaStateProps {
 	/** Common properties to all blocks to use **/
 
 	// The 16 Minecraft colors
-	public static final PropertyEnum<EnumDyeColor> COLOR = PropertyEnum.create("color", EnumDyeColor.class);
+	public static final EnumProperty<EnumDyeColor> COLOR = EnumProperty.create("color", EnumDyeColor.class);
 
 	// The four cardinal directions
-	public static final PropertyEnum<EnumFacing> CARDINALS = PropertyEnum.create("facing", EnumFacing.class, EnumFacing.Plane.HORIZONTAL);
+	public static final EnumProperty<EnumFacing> CARDINALS = EnumProperty.create("facing", EnumFacing.class, EnumFacing.Plane.HORIZONTAL);
 
 	// All 6 directions
-	public static final PropertyEnum<EnumFacing> FACING = PropertyEnum.create("facing", EnumFacing.class);
+	public static final EnumProperty<EnumFacing> FACING = EnumProperty.create("facing", EnumFacing.class);
 
 	// Redstone power - boolean
 	// Also for any other simple boolean "on/off" state
-	public static final PropertyBool POWERED = PropertyBool.create("powered");
+	public static final BooleanProperty POWERED = BooleanProperty.create("powered");
 
 	/** Properties for certain kinds of blocks **/
 
 	// The axis directions (think quartz pillars and wood logs)
-	public static final PropertyEnum<EnumFacing.Axis> AXIS_FACING = BlockRotatedPillar.AXIS;
+	public static final EnumProperty<EnumFacing.Axis> AXIS_FACING = BlockRotatedPillar.AXIS;
 
 	// Extra Quartz Blocks
-	public static final PropertyEnum<QuartzVariant> QUARTZ_VARIANT = PropertyEnum.create("variant", QuartzVariant.class);
+	public static final EnumProperty<QuartzVariant> QUARTZ_VARIANT = EnumProperty.create("variant", QuartzVariant.class);
 
 	/** Properties for individual blocks **/
 
 	// BlockAlfPortal
-	public static final PropertyEnum<AlfPortalState> ALFPORTAL_STATE = PropertyEnum.create("state", AlfPortalState.class);
+	public static final EnumProperty<AlfPortalState> ALFPORTAL_STATE = EnumProperty.create("state", AlfPortalState.class);
 
 	// BlockBiomeStoneA
-	public static final PropertyEnum<BiomeStoneVariant> BIOMESTONE_VARIANT = PropertyEnum.create("variant", BiomeStoneVariant.class);
+	public static final EnumProperty<BiomeStoneVariant> BIOMESTONE_VARIANT = EnumProperty.create("variant", BiomeStoneVariant.class);
 
 	// BlockBiomeStoneB
-	public static final PropertyEnum<BiomeBrickVariant> BIOMEBRICK_VARIANT = PropertyEnum.create("variant", BiomeBrickVariant.class);
+	public static final EnumProperty<BiomeBrickVariant> BIOMEBRICK_VARIANT = EnumProperty.create("variant", BiomeBrickVariant.class);
 
 	// BlockBiomeStoneWall
-	public static final PropertyEnum<BiomeStoneVariant> BIOMESTONEWALL_VARIANT = PropertyEnum.create("bswall_variant", BiomeStoneVariant.class, new Predicate<BiomeStoneVariant>() {
+	public static final EnumProperty<BiomeStoneVariant> BIOMESTONEWALL_VARIANT = EnumProperty.create("bswall_variant", BiomeStoneVariant.class, new Predicate<BiomeStoneVariant>() {
 		@Override
 		public boolean apply(BiomeStoneVariant input) {
 			return input.getName().contains("cobble");
@@ -96,22 +96,22 @@ public final class BotaniaStateProps {
 	});
 
 	// BlockDreamWood, BlockLivingWood
-	public static final PropertyEnum<LivingWoodVariant> LIVINGWOOD_VARIANT = PropertyEnum.create("variant", LivingWoodVariant.class);
+	public static final EnumProperty<LivingWoodVariant> LIVINGWOOD_VARIANT = EnumProperty.create("variant", LivingWoodVariant.class);
 
 	// BlockEnchanter
-	public static final PropertyEnum<EnumFacing.Axis> ENCHANTER_DIRECTION = PropertyEnum.create("facing", EnumFacing.Axis.class, Predicates.not(Predicates.equalTo(EnumFacing.Axis.Y)));
+	public static final EnumProperty<EnumFacing.Axis> ENCHANTER_DIRECTION = EnumProperty.create("facing", EnumFacing.Axis.class, Predicates.not(Predicates.equalTo(EnumFacing.Axis.Y)));
 
 	// BlockGhostRail
-	public static final PropertyEnum<BlockRailBase.EnumRailDirection> RAIL_DIRECTION = BlockRailPowered.SHAPE;
+	public static final EnumProperty<RailShape> RAIL_DIRECTION = BlockRailPowered.SHAPE;
 
 	// BlockLightRelay
-	public static final PropertyEnum<LuminizerVariant> LUMINIZER_VARIANT = PropertyEnum.create("variant", LuminizerVariant.class);
+	public static final EnumProperty<LuminizerVariant> LUMINIZER_VARIANT = EnumProperty.create("variant", LuminizerVariant.class);
 
 	// BlockLivingRock
-	public static final PropertyEnum<LivingRockVariant> LIVINGROCK_VARIANT = PropertyEnum.create("variant", LivingRockVariant.class);
+	public static final EnumProperty<LivingRockVariant> LIVINGROCK_VARIANT = EnumProperty.create("variant", LivingRockVariant.class);
 
 	// BlockModDoubleFlower (white to gray)
-	public static final PropertyEnum<EnumDyeColor> DOUBLEFLOWER_VARIANT_1 = PropertyEnum.create("df_variant", EnumDyeColor.class, new Predicate<EnumDyeColor>() {
+	public static final EnumProperty<EnumDyeColor> DOUBLEFLOWER_VARIANT_1 = EnumProperty.create("df_variant", EnumDyeColor.class, new Predicate<EnumDyeColor>() {
 		@Override
 		public boolean apply(EnumDyeColor input) {
 			return input.ordinal() >= 0 && input.ordinal() <= 7;
@@ -119,7 +119,7 @@ public final class BotaniaStateProps {
 	});
 
 	// (silver to black)
-	public static final PropertyEnum<EnumDyeColor> DOUBLEFLOWER_VARIANT_2 = PropertyEnum.create("df_variant", EnumDyeColor.class, new Predicate<EnumDyeColor>() {
+	public static final EnumProperty<EnumDyeColor> DOUBLEFLOWER_VARIANT_2 = EnumProperty.create("df_variant", EnumDyeColor.class, new Predicate<EnumDyeColor>() {
 		@Override
 		public boolean apply(EnumDyeColor input) {
 			return input.ordinal() >= 8 && input.ordinal() <= 15;
@@ -127,10 +127,10 @@ public final class BotaniaStateProps {
 	});
 
 	// BlockCraftyCrate
-	public static final PropertyEnum<CratePattern> CRATE_PATTERN = PropertyEnum.create("pattern", CratePattern.class);
+	public static final EnumProperty<CratePattern> CRATE_PATTERN = EnumProperty.create("pattern", CratePattern.class);
 
 	// BlockPavement
-	public static final PropertyEnum<EnumDyeColor> PAVEMENT_COLOR = PropertyEnum.create("color", EnumDyeColor.class, new Predicate<EnumDyeColor>() {
+	public static final EnumProperty<EnumDyeColor> PAVEMENT_COLOR = EnumProperty.create("color", EnumDyeColor.class, new Predicate<EnumDyeColor>() {
 		@Override
 		public boolean apply(EnumDyeColor color) {
 			return color == EnumDyeColor.WHITE || color == EnumDyeColor.BLACK
@@ -140,7 +140,7 @@ public final class BotaniaStateProps {
 	});
 
 	// BlockPrism
-	public static final PropertyBool HAS_LENS = PropertyBool.create("has_lens");
+	public static final BooleanProperty HAS_LENS = BooleanProperty.create("has_lens");
 
 	private BotaniaStateProps() {
 	}

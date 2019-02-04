@@ -26,17 +26,17 @@ public class BehaviourWand extends BehaviorDefaultDispenseItem {
 
 	@Nonnull
 	@Override
-	protected ItemStack dispenseStack(IBlockSource source, ItemStack par2ItemStack) {
+	protected ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
 		World world = source.getWorld();
-		EnumFacing facing = world.getBlockState(source.getBlockPos()).getValue(BlockDispenser.FACING);
+		EnumFacing facing = world.getBlockState(source.getBlockPos()).get(BlockDispenser.FACING);
 		BlockPos pos = source.getBlockPos().offset(facing);
 		Block block = world.getBlockState(pos).getBlock();
 		if(block instanceof IWandable) {
-			((IWandable) block).onUsedByWand(null, par2ItemStack, world, pos, facing.getOpposite());
-			return par2ItemStack;
+			((IWandable) block).onUsedByWand(null, stack, world, pos, facing.getOpposite());
+			return stack;
 		}
 
-		return super.dispenseStack(source, par2ItemStack);
+		return super.dispenseStack(source, stack);
 	}
 
 }

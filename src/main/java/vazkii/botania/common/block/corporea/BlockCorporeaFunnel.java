@@ -18,6 +18,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -45,31 +46,20 @@ public class BlockCorporeaFunnel extends BlockCorporeaBase implements ILexiconab
 	}
 
 	@Override
-	public int getMetaFromState(IBlockState state) {
-		return state.getValue(BotaniaStateProps.POWERED) ? 8 : 0;
-	}
-
-	@Nonnull
-	@Override
-	public IBlockState getStateFromMeta(int meta) {
-		return getDefaultState().withProperty(BotaniaStateProps.POWERED, meta == 8);
-	}
-
-	@Override
 	public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block, BlockPos fromPos) {
 		boolean power = world.getRedstonePowerFromNeighbors(pos) > 0 || world.getRedstonePowerFromNeighbors(pos.up()) > 0;
-		boolean powered = state.getValue(BotaniaStateProps.POWERED);
+		boolean powered = state.get(BotaniaStateProps.POWERED);
 
 		if(power && !powered) {
 			((TileCorporeaFunnel) world.getTileEntity(pos)).doRequest();
-			world.setBlockState(pos, state.withProperty(BotaniaStateProps.POWERED, true), 4);
+			world.setBlockState(pos, state.with(BotaniaStateProps.POWERED, true), 4);
 		} else if(!power && powered)
-			world.setBlockState(pos, state.withProperty(BotaniaStateProps.POWERED, false), 4);
+			world.setBlockState(pos, state.with(BotaniaStateProps.POWERED, false), 4);
 	}
 
 	@Nonnull
 	@Override
-	public TileCorporeaBase createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
+	public TileCorporeaBase createTileEntity(@Nonnull IBlockState state, @Nonnull IBlockReader world) {
 		return new TileCorporeaFunnel();
 	}
 

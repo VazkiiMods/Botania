@@ -10,18 +10,18 @@
  */
 package vazkii.botania.common.block.string;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
+import net.minecraft.state.StateContainer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.state.BotaniaStateProps;
@@ -33,34 +33,18 @@ import javax.annotation.Nonnull;
 
 public abstract class BlockRedString extends BlockMod implements ILexiconable {
 
-	public BlockRedString(String name) {
-		super(Material.ROCK, name);
-		setHardness(2.0F);
-		setResistance(10.0F);
-		setSoundType(SoundType.STONE);
-	}
-
-	@Nonnull
-	@Override
-	public BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this, BotaniaStateProps.FACING);
+	public BlockRedString(Block.Builder builder) {
+		super(builder);
 	}
 
 	@Override
-	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase par5EntityLivingBase, ItemStack par6ItemStack) {
-		EnumFacing orientation = EnumFacing.getDirectionFromEntityLiving(pos, par5EntityLivingBase);
-		world.setBlockState(pos, state.withProperty(BotaniaStateProps.FACING, orientation), 1 | 2);
+	protected void fillStateContainer(StateContainer.Builder<Block, IBlockState> builder) {
+		builder.add(BotaniaStateProps.FACING);
 	}
 
 	@Override
-	public int getMetaFromState(IBlockState state) {
-		return state.getValue(BotaniaStateProps.FACING).getIndex();
-	}
-
-	@Nonnull
-	@Override
-	public IBlockState getStateFromMeta(int meta) {
-		return getDefaultState().withProperty(BotaniaStateProps.FACING, EnumFacing.byIndex(meta));
+	public IBlockState getStateForPlacement(BlockItemUseContext context) {
+		return getDefaultState().with(BotaniaStateProps.FACING, context.getNearestLookingDirection());
 	}
 
 	@Override
@@ -71,12 +55,6 @@ public abstract class BlockRedString extends BlockMod implements ILexiconable {
 	@Override
 	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.redString;
-	}
-
-	@SideOnly(Side.CLIENT)
-	@Override
-	public void registerModels() {
-		ModelHandler.registerBlockToState(this, 0, getDefaultState().withProperty(BotaniaStateProps.FACING, EnumFacing.NORTH));
 	}
 
 }

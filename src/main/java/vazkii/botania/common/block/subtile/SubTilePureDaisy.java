@@ -90,7 +90,7 @@ public class SubTilePureDaisy extends SubTileEntity {
 					ticksRemaining[positionAt] = -1;
 
 					if(recipe.set(world,coords, this)) {
-						world.addBlockEvent(getPos(), supertile.getBlockType(), RECIPE_COMPLETE_EVENT, positionAt);
+						world.addBlockEvent(getPos(), supertile.getBlockState().getBlock(), RECIPE_COMPLETE_EVENT, positionAt);
 						if(ConfigHandler.blockBreakParticles)
 							supertile.getWorld().playEvent(2001, coords, Block.getStateId(recipe.getOutputState()));
 					}
@@ -110,7 +110,7 @@ public class SubTilePureDaisy extends SubTileEntity {
 		}
 
 		if (newActivePositions != activePositions) {
-			getWorld().addBlockEvent(getPos(), supertile.getBlockType(), UPDATE_ACTIVE_EVENT, newActivePositions);
+			getWorld().addBlockEvent(getPos(), supertile.getBlockState().getBlock(), UPDATE_ACTIVE_EVENT, newActivePositions);
 		}
 	}
 
@@ -155,18 +155,18 @@ public class SubTilePureDaisy extends SubTileEntity {
 
 	@Override
 	public void readFromPacketNBT(NBTTagCompound cmp) {
-		positionAt = cmp.getInteger(TAG_POSITION);
+		positionAt = cmp.getInt(TAG_POSITION);
 
 		if(supertile.getWorld() != null && !supertile.getWorld().isRemote)
 			for(int i = 0; i < ticksRemaining.length; i++)
-				ticksRemaining[i] = cmp.getInteger(TAG_TICKS_REMAINING + i);
+				ticksRemaining[i] = cmp.getInt(TAG_TICKS_REMAINING + i);
 	}
 
 	@Override
 	public void writeToPacketNBT(NBTTagCompound cmp) {
-		cmp.setInteger(TAG_POSITION, positionAt);
+		cmp.setInt(TAG_POSITION, positionAt);
 		for(int i = 0; i < ticksRemaining.length; i++)
-			cmp.setInteger(TAG_TICKS_REMAINING + i, ticksRemaining[i]);
+			cmp.setInt(TAG_TICKS_REMAINING + i, ticksRemaining[i]);
 	}
 
 	@Override

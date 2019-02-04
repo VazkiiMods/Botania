@@ -12,6 +12,8 @@ package vazkii.botania.common.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDispenser;
+import net.minecraft.block.SoundType;
+import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
@@ -197,10 +199,10 @@ public final class ModBlocks {
 	public static final Block brewery = new BlockBrewery();
 	public static final Block manaGlass = new BlockManaGlass();
 	public static final Block terraPlate = new BlockTerraPlate();
-	public static final Block redStringContainer = new BlockRedStringContainer();
-	public static final Block redStringDispenser = new BlockRedStringDispenser();
-	public static final Block redStringFertilizer = new BlockRedStringFertilizer();
-	public static final Block redStringComparator = new BlockRedStringComparator();
+	public static final Block redStringContainer = new BlockRedStringContainer(Block.Builder.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE)).setRegistryName(LibMisc.MOD_ID, LibBlockNames.RED_STRING_CONTAINER);
+	public static final Block redStringDispenser = new BlockRedStringDispenser(Block.Builder.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE)).setRegistryName(LibMisc.MOD_ID, LibBlockNames.RED_STRING_DISPENSER);
+	public static final Block redStringFertilizer = new BlockRedStringFertilizer(Block.Builder.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE)).setRegistryName(LibMisc.MOD_ID, LibBlockNames.RED_STRING_FERTILIZER);
+	public static final Block redStringComparator = new BlockRedStringComparator(Block.Builder.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE)).setRegistryName(LibMisc.MOD_ID, LibBlockNames.RED_STRING_COMPARATOR);
 	public static final Block redStringRelay = new BlockRedStringRelay();
 	public static final Block floatingSpecialFlower = new BlockFloatingSpecialFlower();
 	public static final Block manaFlame = new BlockManaFlame();
@@ -222,7 +224,7 @@ public final class ModBlocks {
 	public static final Block petalBlockGreen = new BlockPetalBlock(EnumDyeColor.GREEN);
 	public static final Block petalBlockRed = new BlockPetalBlock(EnumDyeColor.RED);
 	public static final Block petalBlockBlack = new BlockPetalBlock(EnumDyeColor.BLACK);
-	public static final Block corporeaIndex = new BlockCorporeaIndex();
+	public static final Block corporeaIndex = new BlockCorporeaIndex(Block.Builder.create(Material.IRON).hardnessAndResistance(5.5F).sound(SoundType.METAL)).setRegistryName(LibMisc.MOD_ID, LibBlockNames.CORPOREA_INDEX);
 	public static final Block corporeaFunnel = new BlockCorporeaFunnel();
 	public static final Block mushroom = new BlockModMushroom();
 	public static final Block pump = new BlockPump();
@@ -230,8 +232,8 @@ public final class ModBlocks {
 	public static final Block doubleFlower2 = new BlockModDoubleFlower2();
 	public static final Block fakeAir = new BlockFakeAir();
 	public static final Block blazeBlock = new BlockBlaze();
-	public static final Block corporeaInterceptor = new BlockCorporeaInterceptor();
-	public static final Block corporeaCrystalCube = new BlockCorporeaCrystalCube();
+	public static final Block corporeaInterceptor = new BlockCorporeaInterceptor(Block.Builder.create(Material.IRON).hardnessAndResistance(5.5F).sound(SoundType.METAL)).setRegistryName(LibMisc.MOD_ID, LibBlockNames.CORPOREA_INTERCEPTOR);
+	public static final Block corporeaCrystalCube = new BlockCorporeaCrystalCube(Block.Builder.create(Material.IRON).hardnessAndResistance(5.5F).sound(SoundType.METAL)).setRegistryName(LibMisc.MOD_ID, LibBlockNames.CORPOREA_CRYSTAL_CUBE);
 	public static final Block incensePlate = new BlockIncensePlate();
 	public static final Block hourglass = new BlockHourglass();
 	public static final Block ghostRail = new BlockGhostRail();
@@ -248,7 +250,7 @@ public final class ModBlocks {
 	public static final Block cellBlock = new BlockCell();
 	public static final Block redStringInterceptor = new BlockRedStringInterceptor();
 	public static final Block gaiaHead = new BlockGaiaHead();
-	public static final Block corporeaRetainer = new BlockCorporeaRetainer();
+	public static final Block corporeaRetainer = new BlockCorporeaRetainer(Block.Builder.create(Material.IRON).hardnessAndResistance(5.5F).sound(SoundType.METAL)).setRegistryName(LibMisc.MOD_ID, LibBlockNames.CORPOREA_RETAINER);
 	public static final Block teruTeruBozu = new BlockTeruTeruBozu();
 	public static final Block shimmerrock = new BlockShimmerrock();
 	public static final Block shimmerwoodPlanks = new BlockShimmerwoodPlanks();

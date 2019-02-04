@@ -10,24 +10,21 @@
  */
 package vazkii.botania.common.block.string;
 
-import net.minecraft.block.state.BlockStateContainer;
+import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.block.statemap.StateMap;
+import net.minecraft.state.StateContainer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.IBlockReader;
+import net.minecraft.world.IWorldReaderBase;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.tile.string.TileRedString;
 import vazkii.botania.common.block.tile.string.TileRedStringInterceptor;
-import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
@@ -36,35 +33,15 @@ import java.util.Random;
 @Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
 public class BlockRedStringInterceptor extends BlockRedString {
 
-	public BlockRedStringInterceptor() {
-		super(LibBlockNames.RED_STRING_INTERCEPTOR);
-		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.FACING, EnumFacing.DOWN).withProperty(BotaniaStateProps.POWERED, false));
-	}
-
-	@Nonnull
-	@Override
-	public BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this, BotaniaStateProps.FACING, BotaniaStateProps.POWERED);
+	public BlockRedStringInterceptor(Block.Builder builder) {
+		super(builder);
+		setDefaultState(stateContainer.getBaseState().with(BotaniaStateProps.FACING, EnumFacing.DOWN).with(BotaniaStateProps.POWERED, false));
 	}
 
 	@Override
-	public int getMetaFromState(IBlockState state) {
-		int meta = state.getValue(BotaniaStateProps.FACING).getIndex();
-		if (state.getValue(BotaniaStateProps.POWERED)) {
-			meta |= 8;
-		} else {
-			meta &= -9;
-		}
-		return meta;
-	}
-
-	@Nonnull
-	@Override
-	public IBlockState getStateFromMeta(int meta) {
-		boolean powered = (meta & 8) != 0;
-		meta &= -9;
-		EnumFacing facing = EnumFacing.byIndex(meta);
-		return getDefaultState().withProperty(BotaniaStateProps.FACING, facing).withProperty(BotaniaStateProps.POWERED, powered);
+	protected void fillStateContainer(StateContainer.Builder<Block, IBlockState> builder) {
+		super.fillStateContainer(builder);
+		builder.add(BotaniaStateProps.POWERED);
 	}
 
 	@SubscribeEvent
@@ -78,31 +55,23 @@ public class BlockRedStringInterceptor extends BlockRedString {
 	}
 
 	@Override
-	public int getWeakPower(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side) {
-		return state.getValue(BotaniaStateProps.POWERED) ? 15 : 0;
+	public int getWeakPower(IBlockState state, IBlockReader world, BlockPos pos, EnumFacing side) {
+		return state.get(BotaniaStateProps.POWERED) ? 15 : 0;
 	}
 
 	@Override
-	public void updateTick(World world, BlockPos pos, IBlockState state, Random update) {
-		world.setBlockState(pos, state.withProperty(BotaniaStateProps.POWERED, false), 1 | 2);
+	public void tick(IBlockState state, World world, BlockPos pos, Random update) {
+		world.setBlockState(pos, state.with(BotaniaStateProps.POWERED, false), 1 | 2);
 	}
 
 	@Override
-	public int tickRate(World world) {
+	public int tickRate(IWorldReaderBase world) {
 		return 2;
 	}
 
 	@Nonnull
 	@Override
-	public TileRedString createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
+	public TileRedString createTileEntity(@Nonnull IBlockState state, @Nonnull IBlockReader world) {
 		return new TileRedStringInterceptor();
 	}
-
-	@SideOnly(Side.CLIENT)
-	@Override
-	public void registerModels() {
-		ModelLoader.setCustomStateMapper(this, new StateMap.Builder().ignore(BotaniaStateProps.POWERED).build());
-		super.registerModels();
-	}
-
 }

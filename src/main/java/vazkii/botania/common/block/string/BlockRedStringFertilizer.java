@@ -10,10 +10,12 @@
  */
 package vazkii.botania.common.block.string;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.IGrowable;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.tile.string.TileRedString;
@@ -25,13 +27,13 @@ import java.util.Random;
 
 public class BlockRedStringFertilizer extends BlockRedString implements IGrowable {
 
-	public BlockRedStringFertilizer() {
-		super(LibBlockNames.RED_STRING_FERTILIZER);
-		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.FACING, EnumFacing.DOWN));
+	public BlockRedStringFertilizer(Block.Builder builder) {
+		super(builder);
+		setDefaultState(stateContainer.getBaseState().with(BotaniaStateProps.FACING, EnumFacing.DOWN));
 	}
 
 	@Override
-	public boolean canGrow(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState state, boolean isClient) {
+	public boolean canGrow(@Nonnull IBlockReader world, @Nonnull BlockPos pos, @Nonnull IBlockState state, boolean isClient) {
 		return ((TileRedStringFertilizer) world.getTileEntity(pos)).canGrow(world, isClient);
 	}
 
@@ -47,7 +49,7 @@ public class BlockRedStringFertilizer extends BlockRedString implements IGrowabl
 
 	@Nonnull
 	@Override
-	public TileRedString createTileEntity(@Nonnull World world, @Nonnull IBlockState meta) {
+	public TileRedString createTileEntity(@Nonnull IBlockState meta, @Nonnull IBlockReader world) {
 		return new TileRedStringFertilizer();
 	}
 }

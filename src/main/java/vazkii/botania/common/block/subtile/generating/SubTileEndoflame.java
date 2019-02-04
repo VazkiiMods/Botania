@@ -13,11 +13,11 @@ package vazkii.botania.common.block.subtile.generating;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.init.Particles;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntityFurnace;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.Vec3d;
@@ -47,7 +47,7 @@ public class SubTileEndoflame extends SubTileGenerating {
 		if(getWorld().isRemote) {
 			if(burnTime > 0 && supertile.getWorld().rand.nextInt(10) == 0) {
 				Vec3d offset = getWorld().getBlockState(getPos()).getOffset(getWorld(), getPos()).add(0.4, 0.7, 0.4);
-				supertile.getWorld().spawnParticle(EnumParticleTypes.FLAME, supertile.getPos().getX() + offset.x + Math.random() * 0.2, supertile.getPos().getY() + offset.y, supertile.getPos().getZ() + offset.z + Math.random() * 0.2, 0.0D, 0.0D, 0.0D);
+				supertile.getWorld().spawnParticle(Particles.FLAME, supertile.getPos().getX() + offset.x + Math.random() * 0.2, supertile.getPos().getY() + offset.y, supertile.getPos().getZ() + offset.z + Math.random() * 0.2, 0.0D, 0.0D, 0.0D);
 			}
 			return;
 		}
@@ -58,7 +58,7 @@ public class SubTileEndoflame extends SubTileGenerating {
 					int slowdown = getSlowdownFactor();
 
 					for(EntityItem item : supertile.getWorld().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(supertile.getPos().add(-RANGE, -RANGE, -RANGE), supertile.getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)))) {
-						if(item.age >= 59 + slowdown && !item.isDead) {
+						if(item.age >= 59 + slowdown && !item.removed) {
 							ItemStack stack = item.getItem();
 							if(stack.isEmpty() || stack.getItem().hasContainerItem(stack))
 								continue;
@@ -86,8 +86,8 @@ public class SubTileEndoflame extends SubTileGenerating {
 		if(event == START_BURN_EVENT) {
 			Entity e = getWorld().getEntityByID(param);
 			if(e != null) {
-				e.world.spawnParticle(EnumParticleTypes.SMOKE_LARGE, e.posX, e.posY + 0.1, e.posZ, 0.0D, 0.0D, 0.0D);
-				e.world.spawnParticle(EnumParticleTypes.FLAME, e.posX, e.posY, e.posZ, 0.0D, 0.0D, 0.0D);
+				e.world.spawnParticle(Particles.LARGE_SMOKE, e.posX, e.posY + 0.1, e.posZ, 0.0D, 0.0D, 0.0D);
+				e.world.spawnParticle(Particles.FLAME, e.posX, e.posY, e.posZ, 0.0D, 0.0D, 0.0D);
 			}
 			return true;
 		} else {
@@ -124,14 +124,14 @@ public class SubTileEndoflame extends SubTileGenerating {
 	public void writeToPacketNBT(NBTTagCompound cmp) {
 		super.writeToPacketNBT(cmp);
 
-		cmp.setInteger(TAG_BURN_TIME, burnTime);
+		cmp.setInt(TAG_BURN_TIME, burnTime);
 	}
 
 	@Override
 	public void readFromPacketNBT(NBTTagCompound cmp) {
 		super.readFromPacketNBT(cmp);
 
-		burnTime = cmp.getInteger(TAG_BURN_TIME);
+		burnTime = cmp.getInt(TAG_BURN_TIME);
 	}
 
 	@Override

@@ -17,8 +17,10 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -32,40 +34,26 @@ import javax.annotation.Nonnull;
 
 public class BlockCorporeaRetainer extends BlockMod implements ILexiconable {
 
-	public BlockCorporeaRetainer() {
-		super(Material.IRON, LibBlockNames.CORPOREA_RETAINER);
-		setHardness(5.5F);
-		setSoundType(SoundType.METAL);
-		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.POWERED, false));
-	}
-
-	@Nonnull
-	@Override
-	public BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this, BotaniaStateProps.POWERED);
+	public BlockCorporeaRetainer(Block.Builder builder) {
+		super(builder);
+		setDefaultState(stateContainer.getBaseState().with(BotaniaStateProps.POWERED, false));
 	}
 
 	@Override
-	public int getMetaFromState(IBlockState state) {
-		return state.getValue(BotaniaStateProps.POWERED) ? 8 : 0;
-	}
-
-	@Nonnull
-	@Override
-	public IBlockState getStateFromMeta(int meta) {
-		return getDefaultState().withProperty(BotaniaStateProps.POWERED, meta == 8);
+	protected void fillStateContainer(StateContainer.Builder<Block, IBlockState> builder) {
+		builder.add(BotaniaStateProps.POWERED);
 	}
 
 	@Override
 	public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block, BlockPos fromPos) {
 		boolean power = world.getRedstonePowerFromNeighbors(pos) > 0 || world.getRedstonePowerFromNeighbors(pos.up()) > 0;
-		boolean powered = state.getValue(BotaniaStateProps.POWERED);
+		boolean powered = state.get(BotaniaStateProps.POWERED);
 
 		if(power && !powered) {
 			((TileCorporeaRetainer) world.getTileEntity(pos)).fulfilRequest();
-			world.setBlockState(pos, state.withProperty(BotaniaStateProps.POWERED, true), 4);
+			world.setBlockState(pos, state.with(BotaniaStateProps.POWERED, true), 4);
 		} else if(!power && powered)
-			world.setBlockState(pos, state.withProperty(BotaniaStateProps.POWERED, false), 4);
+			world.setBlockState(pos, state.with(BotaniaStateProps.POWERED, false), 4);
 	}
 
 	@Override
@@ -85,7 +73,7 @@ public class BlockCorporeaRetainer extends BlockMod implements ILexiconable {
 
 	@Nonnull
 	@Override
-	public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
+	public TileEntity createTileEntity(@Nonnull IBlockState state, @Nonnull IBlockReader world) {
 		return new TileCorporeaRetainer();
 	}
 

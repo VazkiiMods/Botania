@@ -10,6 +10,7 @@
  */
 package vazkii.botania.common.block.corporea;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -24,6 +25,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.common.property.ExtendedBlockState;
@@ -45,28 +47,15 @@ public class BlockCorporeaCrystalCube extends BlockCorporeaBase implements ILexi
 
 	private static final AxisAlignedBB AABB = new AxisAlignedBB(3.0/16, 0, 3.0/16, 13.0/16, 1, 13.0/16);
 
-	public BlockCorporeaCrystalCube() {
-		super(Material.IRON, LibBlockNames.CORPOREA_CRYSTAL_CUBE);
-		setHardness(5.5F);
-		setSoundType(SoundType.METAL);
-		setDefaultState(blockState.getBaseState().withProperty(Properties.StaticProperty, true));
+	public BlockCorporeaCrystalCube(Block.Builder builder) {
+		super(builder);
+		setDefaultState(stateContainer.getBaseState().withProperty(Properties.StaticProperty, true));
 	}
 
 	@Nonnull
 	@Override
-	public BlockStateContainer createBlockState() {
+	public void createBlockState() {
 		return new ExtendedBlockState(this, new IProperty[] { Properties.StaticProperty }, new IUnlistedProperty[] { Properties.AnimationProperty } );
-	}
-
-	@Override
-	public int getMetaFromState(IBlockState state) {
-		return 0;
-	}
-
-	@Nonnull
-	@Override
-	public IBlockState getStateFromMeta(int meta) {
-		return getDefaultState();
 	}
 
 	@Nonnull
@@ -76,7 +65,7 @@ public class BlockCorporeaCrystalCube extends BlockCorporeaBase implements ILexi
 	}
 
 	@Override
-	public void onBlockClicked(World world, BlockPos pos, EntityPlayer player) {
+	public void onBlockClicked(IBlockState state, World world, BlockPos pos, EntityPlayer player) {
 		if(!world.isRemote) {
 			TileCorporeaCrystalCube cube = (TileCorporeaCrystalCube) world.getTileEntity(pos);
 			cube.doRequest(player.isSneaking());
@@ -90,7 +79,7 @@ public class BlockCorporeaCrystalCube extends BlockCorporeaBase implements ILexi
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing s, float xs, float ys, float zs) {
+	public boolean onBlockActivated(IBlockState state, World world, BlockPos pos, EntityPlayer player, EnumHand hand, EnumFacing s, float xs, float ys, float zs) {
 		ItemStack stack = player.getHeldItem(hand);
 		if(!stack.isEmpty()) {
 			TileCorporeaCrystalCube cube = (TileCorporeaCrystalCube) world.getTileEntity(pos);
@@ -101,18 +90,13 @@ public class BlockCorporeaCrystalCube extends BlockCorporeaBase implements ILexi
 	}
 
 	@Override
-	public boolean isOpaqueCube(IBlockState state) {
-		return false;
-	}
-
-	@Override
 	public boolean isFullCube(IBlockState state) {
 		return false;
 	}
 
 	@Nonnull
 	@Override
-	public TileCorporeaBase createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
+	public TileCorporeaBase createTileEntity(@Nonnull IBlockState state, @Nonnull IBlockReader world) {
 		return new TileCorporeaCrystalCube();
 	}
 
@@ -133,7 +117,7 @@ public class BlockCorporeaCrystalCube extends BlockCorporeaBase implements ILexi
 
 	@Nonnull
 	@Override
-	public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing side) {
+	public BlockFaceShape getBlockFaceShape(IBlockReader world, IBlockState state, BlockPos pos, EnumFacing side) {
 		return BlockFaceShape.UNDEFINED;
 	}
 

@@ -21,16 +21,16 @@ public class SeedBehaviours {
 	// Quark's own feature disables itself if Botania is present
 
 	public static void init() {
-		BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(Items.WHEAT_SEEDS, new BehaviourSeeds(Blocks.WHEAT));
-		BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(Items.POTATO, new BehaviourSeeds(Blocks.POTATOES));
-		BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(Items.CARROT, new BehaviourSeeds(Blocks.CARROTS));
-		BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(Items.NETHER_WART, new BehaviourSeeds(Blocks.NETHER_WART));
-		BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(Items.PUMPKIN_SEEDS, new BehaviourSeeds(Blocks.PUMPKIN_STEM));
-		BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(Items.MELON_SEEDS, new BehaviourSeeds(Blocks.MELON_STEM));
-		BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(Items.BEETROOT_SEEDS, new BehaviourSeeds(Blocks.BEETROOTS));
-		BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(Item.getItemFromBlock(Blocks.CHORUS_FLOWER), new BehaviourSeeds(Blocks.CHORUS_FLOWER));
+		BlockDispenser.registerDispenseBehavior(Items.WHEAT_SEEDS, new BehaviourSeeds(Blocks.WHEAT));
+		BlockDispenser.registerDispenseBehavior(Items.POTATO, new BehaviourSeeds(Blocks.POTATOES));
+		BlockDispenser.registerDispenseBehavior(Items.CARROT, new BehaviourSeeds(Blocks.CARROTS));
+		BlockDispenser.registerDispenseBehavior(Items.NETHER_WART, new BehaviourSeeds(Blocks.NETHER_WART));
+		BlockDispenser.registerDispenseBehavior(Items.PUMPKIN_SEEDS, new BehaviourSeeds(Blocks.PUMPKIN_STEM));
+		BlockDispenser.registerDispenseBehavior(Items.MELON_SEEDS, new BehaviourSeeds(Blocks.MELON_STEM));
+		BlockDispenser.registerDispenseBehavior(Items.BEETROOT_SEEDS, new BehaviourSeeds(Blocks.BEETROOTS));
+		BlockDispenser.registerDispenseBehavior(Blocks.CHORUS_FLOWER, new BehaviourSeeds(Blocks.CHORUS_FLOWER));
 
-		BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(Items.DYE, new BehaviourCocoaBeans(BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.getObject(Items.DYE)));
+		BlockDispenser.registerDispenseBehavior(Items.COCOA_BEANS, new BehaviourCocoaBeans(BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.getObject(Items.DYE)));
 	}
 
 }

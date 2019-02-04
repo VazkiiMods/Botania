@@ -10,9 +10,11 @@
  */
 package vazkii.botania.common.block.string;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.tile.string.TileRedString;
@@ -23,9 +25,9 @@ import javax.annotation.Nonnull;
 
 public class BlockRedStringComparator extends BlockRedString {
 
-	public BlockRedStringComparator() {
-		super(LibBlockNames.RED_STRING_COMPARATOR);
-		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.FACING, EnumFacing.DOWN));
+	public BlockRedStringComparator(Block.Builder builder) {
+		super(builder);
+		setDefaultState(stateContainer.getBaseState().with(BotaniaStateProps.FACING, EnumFacing.DOWN));
 	}
 
 	@Override
@@ -40,7 +42,7 @@ public class BlockRedStringComparator extends BlockRedString {
 
 	@Nonnull
 	@Override
-	public TileRedString createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
+	public TileRedString createTileEntity(@Nonnull IBlockState state, @Nonnull IBlockReader world) {
 		return new TileRedStringComparator();
 	}
 

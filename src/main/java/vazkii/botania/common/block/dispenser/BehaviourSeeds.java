@@ -22,8 +22,7 @@ import net.minecraft.world.World;
 import javax.annotation.Nonnull;
 
 public class BehaviourSeeds extends BehaviorDefaultDispenseItem {
-
-	Block block;
+	private Block block;
 
 	public BehaviourSeeds(Block block) {
 		this.block = block;
@@ -32,7 +31,7 @@ public class BehaviourSeeds extends BehaviorDefaultDispenseItem {
 	@Nonnull
 	@Override
 	public ItemStack dispenseStack(IBlockSource par1IBlockSource, ItemStack par2ItemStack) {
-		EnumFacing facing = par1IBlockSource.getBlockState().getValue(BlockDispenser.FACING);
+		EnumFacing facing = par1IBlockSource.getBlockState().get(BlockDispenser.FACING);
 		BlockPos pos = par1IBlockSource.getBlockPos().offset(facing);
 		World world = par1IBlockSource.getWorld();
 

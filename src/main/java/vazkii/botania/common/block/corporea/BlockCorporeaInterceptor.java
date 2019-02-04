@@ -10,15 +10,17 @@
  */
 package vazkii.botania.common.block.corporea;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.state.StateContainer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.IBlockReader;
+import net.minecraft.world.IWorldReaderBase;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -33,33 +35,19 @@ import java.util.Random;
 
 public class BlockCorporeaInterceptor extends BlockCorporeaBase implements ILexiconable {
 
-	public BlockCorporeaInterceptor() {
-		super(Material.IRON, LibBlockNames.CORPOREA_INTERCEPTOR);
-		setHardness(5.5F);
-		setSoundType(SoundType.METAL);
-		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.POWERED, false));
-	}
-
-	@Nonnull
-	@Override
-	public BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this, BotaniaStateProps.POWERED);
+	public BlockCorporeaInterceptor(Block.Builder builder) {
+		super(builder);
+		setDefaultState(stateContainer.getBaseState().with(BotaniaStateProps.POWERED, false));
 	}
 
 	@Override
-	public int getMetaFromState(IBlockState state) {
-		return state.getValue(BotaniaStateProps.POWERED) ? 1 : 0;
-	}
-
-	@Nonnull
-	@Override
-	public IBlockState getStateFromMeta(int meta) {
-		return getDefaultState().withProperty(BotaniaStateProps.POWERED, meta == 1);
+	protected void fillStateContainer(StateContainer.Builder<Block, IBlockState> builder) {
+		builder.add(BotaniaStateProps.POWERED);
 	}
 
 	@Override
-	public void updateTick(World world, BlockPos pos, IBlockState state, Random rand) {
-		world.setBlockState(pos, state.withProperty(BotaniaStateProps.POWERED, false), 1 | 2);
+	public void randomTick(IBlockState state, World world, BlockPos pos, Random rand) {
+		world.setBlockState(pos, state.with(BotaniaStateProps.POWERED, false), 1 | 2);
 	}
 
 	@Override
@@ -68,18 +56,18 @@ public class BlockCorporeaInterceptor extends BlockCorporeaBase implements ILexi
 	}
 
 	@Override
-	public int getWeakPower(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side) {
-		return state.getValue(BotaniaStateProps.POWERED) ? 15 : 0;
+	public int getWeakPower(IBlockState state, IBlockReader world, BlockPos pos, EnumFacing side) {
+		return state.get(BotaniaStateProps.POWERED) ? 15 : 0;
 	}
 
 	@Override
-	public int tickRate(World world) {
+	public int tickRate(IWorldReaderBase world) {
 		return 2;
 	}
 
 	@Nonnull
 	@Override
-	public TileCorporeaBase createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
+	public TileCorporeaBase createTileEntity(@Nonnull IBlockState state, @Nonnull IBlockReader world) {
 		return new TileCorporeaInterceptor();
 	}
 

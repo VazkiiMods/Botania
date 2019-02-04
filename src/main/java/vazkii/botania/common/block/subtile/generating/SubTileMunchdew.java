@@ -65,7 +65,7 @@ public class SubTileMunchdew extends SubTileGenerating {
 				for(BlockPos pos_ : BlockPos.getAllInBox(pos.add(-RANGE, 0, -RANGE), pos.add(RANGE, RANGE_Y, RANGE))) {
 					if(supertile.getWorld().getBlockState(pos_).getMaterial() == Material.LEAVES) {
 						boolean exposed = false;
-						for(EnumFacing dir : EnumFacing.VALUES) {
+						for(EnumFacing dir : EnumFacing.BY_INDEX) {
 							IBlockState offState = supertile.getWorld().getBlockState(pos_.offset(dir));
 							if(offState.getBlock().isAir(offState, supertile.getWorld(), pos_.offset(dir))) {
 								exposed = true;
@@ -84,7 +84,7 @@ public class SubTileMunchdew extends SubTileGenerating {
 				Collections.shuffle(coords);
 				BlockPos breakCoords = coords.get(0);
 				IBlockState state = supertile.getWorld().getBlockState(breakCoords);
-				supertile.getWorld().setBlockToAir(breakCoords);
+				supertile.getWorld().removeBlock(breakCoords);
 				ticksWithoutEating = 0;
 				ateOnce = true;
 				if(ConfigHandler.blockBreakParticles)
@@ -111,7 +111,7 @@ public class SubTileMunchdew extends SubTileGenerating {
 	public void writeToPacketNBT(NBTTagCompound cmp) {
 		super.writeToPacketNBT(cmp);
 
-		cmp.setInteger(TAG_COOLDOWN, cooldown);
+		cmp.setInt(TAG_COOLDOWN, cooldown);
 		cmp.setBoolean(TAG_ATE_ONCE, ateOnce);
 	}
 
@@ -119,7 +119,7 @@ public class SubTileMunchdew extends SubTileGenerating {
 	public void readFromPacketNBT(NBTTagCompound cmp) {
 		super.readFromPacketNBT(cmp);
 
-		cooldown = cmp.getInteger(TAG_COOLDOWN);
+		cooldown = cmp.getInt(TAG_COOLDOWN);
 		ateOnce = cmp.getBoolean(TAG_ATE_ONCE);
 	}
 

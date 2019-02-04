@@ -81,7 +81,7 @@ public class SubTileRafflowsia extends SubTileGenerating {
 		super.writeToPacketNBT(cmp);
 
 		cmp.setString(TAG_LAST_FLOWER, lastFlower);
-		cmp.setInteger(TAG_LAST_FLOWER_TIMES, lastFlowerTimes);
+		cmp.setInt(TAG_LAST_FLOWER_TIMES, lastFlowerTimes);
 	}
 
 	@Override
@@ -89,7 +89,7 @@ public class SubTileRafflowsia extends SubTileGenerating {
 		super.readFromPacketNBT(cmp);
 
 		lastFlower = cmp.getString(TAG_LAST_FLOWER);
-		lastFlowerTimes = cmp.getInteger(TAG_LAST_FLOWER_TIMES);
+		lastFlowerTimes = cmp.getInt(TAG_LAST_FLOWER_TIMES);
 	}
 
 	@Override

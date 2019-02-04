@@ -7,6 +7,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityShulker;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.init.MobEffects;
+import net.minecraft.init.Particles;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundCategory;
@@ -37,12 +38,12 @@ public class SubTileShulkMeNot extends SubTileGenerating {
 				if(getMaxMana() - mana < generate)
 					break;
 				
-				if(!shulker.isDead && shulker.getDistanceSq(pos) < RADIUS * RADIUS) {
+				if(shulker.isAlive() && shulker.getDistanceSq(pos) < RADIUS * RADIUS) {
 					EntityLivingBase target = shulker.getAttackTarget();
-					if(target != null && target instanceof IMob && !target.isDead 
+					if(target != null && target instanceof IMob && target.isAlive()
 							&& target.getDistanceSq(pos) < RADIUS * RADIUS && target.getActivePotionEffect(MobEffects.LEVITATION) != null) {
-						target.setDead();
-						shulker.setDead();
+						target.remove();
+						shulker.remove();
 	
 						for(int i = 0; i < 10; i++) // so it's really loud >_>
 							world.playSound(null, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, SoundEvents.ENTITY_SHULKER_DEATH, SoundCategory.BLOCKS, 10F, 0.1F);
@@ -59,8 +60,8 @@ public class SubTileShulkMeNot extends SubTileGenerating {
 	private void particles(World world, BlockPos pos, Entity entity) {
 		if(world instanceof WorldServer) {
 			WorldServer ws = (WorldServer) world;
-			ws.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, entity.posX + entity.width / 2, entity.posY + entity.height / 2, entity.posZ + entity.width / 2, 100, entity.width, entity.height, entity.width, 0.05);
-			ws.spawnParticle(EnumParticleTypes.PORTAL, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 40, 0, 0, 0, 0.6);
+			ws.spawnParticle(Particles.EXPLOSION, entity.posX + entity.width / 2, entity.posY + entity.height / 2, entity.posZ + entity.width / 2, 100, entity.width, entity.height, entity.width, 0.05);
+			ws.spawnParticle(Particles.PORTAL, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 40, 0, 0, 0, 0.6);
 		}
 	}
 	

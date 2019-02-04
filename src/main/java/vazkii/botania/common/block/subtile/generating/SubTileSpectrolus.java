@@ -16,9 +16,11 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Particles;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.particles.ItemParticleData;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.WorldServer;
@@ -63,10 +65,10 @@ public class SubTileSpectrolus extends SubTileGenerating {
 					nextColor = nextColor == 15 ? 0 : nextColor + 1;
 					sync();
 
-					((WorldServer) supertile.getWorld()).spawnParticle(EnumParticleTypes.ITEM_CRACK, false, item.posX, item.posY, item.posZ, 20, 0.1D, 0.1D, 0.1D, 0.05D, Item.getIdFromItem(stack.getItem()), stack.getItemDamage());
+					((WorldServer) supertile.getWorld()).spawnParticle(new ItemParticleData(Particles.ITEM, stack), false, item.posX, item.posY, item.posZ, 20, 0.1D, 0.1D, 0.1D, 0.05D);
 				}
 
-				item.setDead();
+				item.remove();
 			}
 		}
 	}
@@ -120,13 +122,13 @@ public class SubTileSpectrolus extends SubTileGenerating {
 	@Override
 	public void writeToPacketNBT(NBTTagCompound cmp) {
 		super.writeToPacketNBT(cmp);
-		cmp.setInteger(TAG_NEXT_COLOR, nextColor);
+		cmp.setInt(TAG_NEXT_COLOR, nextColor);
 	}
 
 	@Override
 	public void readFromPacketNBT(NBTTagCompound cmp) {
 		super.readFromPacketNBT(cmp);
-		nextColor = cmp.getInteger(TAG_NEXT_COLOR);
+		nextColor = cmp.getInt(TAG_NEXT_COLOR);
 	}
 
 }

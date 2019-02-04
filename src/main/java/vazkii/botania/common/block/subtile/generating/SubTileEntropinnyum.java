@@ -12,8 +12,8 @@ package vazkii.botania.common.block.subtile.generating;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityTNTPrimed;
+import net.minecraft.init.Particles;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -38,13 +38,13 @@ public class SubTileEntropinnyum extends SubTileGenerating {
 		if(!supertile.getWorld().isRemote && mana == 0) {
 			List<EntityTNTPrimed> tnts = supertile.getWorld().getEntitiesWithinAABB(EntityTNTPrimed.class, new AxisAlignedBB(supertile.getPos().add(-RANGE, -RANGE, -RANGE), supertile.getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
 			for(EntityTNTPrimed tnt : tnts) {
-				if(tnt.getFuse() == 1 && !tnt.isDead && !supertile.getWorld().getBlockState(new BlockPos(tnt)).getMaterial().isLiquid()) {
+				if(tnt.getFuse() == 1 && !tnt.removed && !supertile.getWorld().getBlockState(new BlockPos(tnt)).getMaterial().isLiquid()) {
 					tnt.playSound(SoundEvents.ENTITY_GENERIC_EXPLODE, 0.2F, (1F + (supertile.getWorld().rand.nextFloat() - supertile.getWorld().rand.nextFloat()) * 0.2F) * 0.7F);
-					tnt.setDead();
+					tnt.remove();
 					mana += getMaxMana();
 					sync();
 
-					getWorld().addBlockEvent(getPos(), supertile.getBlockType(), EXPLODE_EFFECT_EVENT, tnt.getEntityId());
+					getWorld().addBlockEvent(getPos(), supertile.getBlockState().getBlock(), EXPLODE_EFFECT_EVENT, tnt.getEntityId());
 					break;
 				}
 			}
@@ -60,7 +60,7 @@ public class SubTileEntropinnyum extends SubTileGenerating {
 				for(int i = 0; i < 50; i++)
 					Botania.proxy.sparkleFX(e.posX + Math.random() * 4 - 2, e.posY + Math.random() * 4 - 2, e.posZ + Math.random() * 4 - 2, 1F, (float) Math.random() * 0.25F, (float) Math.random() * 0.25F, (float) (Math.random() * 0.65F + 1.25F), 12);
 
-				getWorld().spawnParticle(EnumParticleTypes.EXPLOSION_HUGE, e.posX, e.posY, e.posZ, 1D, 0D, 0D);
+				getWorld().spawnParticle(Particles.EXPLOSION_EMITTER, e.posX, e.posY, e.posZ, 1D, 0D, 0D);
 			}
 			return true;
 		} else {

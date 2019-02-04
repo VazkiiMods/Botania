@@ -11,11 +11,13 @@
 package vazkii.botania.common.block.subtile.generating;
 
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.init.Particles;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.particles.ItemParticleData;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -66,7 +68,7 @@ public class SubTileGourmaryllis extends SubTileGenerating {
 				
 				Vec3d offset = getWorld().getBlockState(getPos()).getOffset(getWorld(), getPos()).add(0.4, 0.6, 0.4);
 				
-				((WorldServer) supertile.getWorld()).spawnParticle(EnumParticleTypes.ITEM_CRACK, supertile.getPos().getX()+offset.x, supertile.getPos().getY()+offset.y, supertile.getPos().getZ()+offset.z, 10, 0.1D, 0.1D, 0.1D, 0.03D, Item.getIdFromItem(lastFood.getItem()), lastFood.getItemDamage());
+				((WorldServer) supertile.getWorld()).spawnParticle(new ItemParticleData(Particles.ITEM, lastFood), supertile.getPos().getX()+offset.x, supertile.getPos().getY()+offset.y, supertile.getPos().getZ()+offset.z, 10, 0.1D, 0.1D, 0.1D, 0.03D);
 			}
 		}
 
@@ -77,7 +79,7 @@ public class SubTileGourmaryllis extends SubTileGenerating {
 		for(EntityItem item : items) {
 			ItemStack stack = item.getItem();
 
-			if(!stack.isEmpty() && stack.getItem() instanceof ItemFood && !item.isDead && item.age >= slowdown) {
+			if(!stack.isEmpty() && stack.getItem() instanceof ItemFood && !item.removed && item.age >= slowdown) {
 				if(cooldown <= 0) {
 					if(ItemHandlerHelper.canItemStacksStack(lastFood, stack)) {
 						lastFoodCount++;
@@ -93,10 +95,10 @@ public class SubTileGourmaryllis extends SubTileGenerating {
 					cooldown = val * 10;
 					item.playSound(SoundEvents.ENTITY_GENERIC_EAT, 0.2F, 0.6F);
 					sync();
-					((WorldServer) supertile.getWorld()).spawnParticle(EnumParticleTypes.ITEM_CRACK, false, item.posX, item.posY, item.posZ, 20, 0.1D, 0.1D, 0.1D, 0.05D, Item.getIdFromItem(stack.getItem()), stack.getItemDamage());
+					((WorldServer) supertile.getWorld()).spawnParticle(new ItemParticleData(Particles.ITEM, stack), false, item.posX, item.posY, item.posZ, 20, 0.1D, 0.1D, 0.1D, 0.05D);
 				}
 
-				item.setDead();
+				item.remove();
 			}
 		}
 	}
@@ -104,19 +106,19 @@ public class SubTileGourmaryllis extends SubTileGenerating {
 	@Override
 	public void writeToPacketNBT(NBTTagCompound cmp) {
 		super.writeToPacketNBT(cmp);
-		cmp.setInteger(TAG_COOLDOWN, cooldown);
-		cmp.setInteger(TAG_DIGESTING_MANA, digestingMana);
-		cmp.setTag(TAG_LAST_FOOD, lastFood.writeToNBT(new NBTTagCompound()));
-		cmp.setInteger(TAG_LAST_FOOD_COUNT, lastFoodCount);
+		cmp.setInt(TAG_COOLDOWN, cooldown);
+		cmp.setInt(TAG_DIGESTING_MANA, digestingMana);
+		cmp.setTag(TAG_LAST_FOOD, lastFood.write(new NBTTagCompound()));
+		cmp.setInt(TAG_LAST_FOOD_COUNT, lastFoodCount);
 	}
 
 	@Override
 	public void readFromPacketNBT(NBTTagCompound cmp) {
 		super.readFromPacketNBT(cmp);
-		cooldown = cmp.getInteger(TAG_COOLDOWN);
-		digestingMana = cmp.getInteger(TAG_DIGESTING_MANA);
-		lastFood = new ItemStack(cmp.getCompoundTag(TAG_LAST_FOOD));
-		lastFoodCount = cmp.getInteger(TAG_LAST_FOOD_COUNT);
+		cooldown = cmp.getInt(TAG_COOLDOWN);
+		digestingMana = cmp.getInt(TAG_DIGESTING_MANA);
+		lastFood = ItemStack.read(cmp.getCompound(TAG_LAST_FOOD));
+		lastFoodCount = cmp.getInt(TAG_LAST_FOOD_COUNT);
 	}
 
 	@Override

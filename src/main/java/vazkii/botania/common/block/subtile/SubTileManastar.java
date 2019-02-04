@@ -35,7 +35,7 @@ public class SubTileManastar extends SubTileEntity {
 				Botania.proxy.wispFX(supertile.getPos().getX() + 0.55 + Math.random() * 0.2 - 0.1, supertile.getPos().getY() + 0.75 + Math.random() * 0.2 - 0.1, supertile.getPos().getZ() + 0.5, state == INCREASING ? 0.05F : 1F, 0.05F, state == INCREASING ? 1F : 0.05F, (float) Math.random() / 7, (float) -Math.random() / 50);
 		} else {
 			int mana = 0;
-			for(EnumFacing dir : EnumFacing.HORIZONTALS) {
+			for(EnumFacing dir : EnumFacing.BY_HORIZONTAL_INDEX) {
 				BlockPos pos = supertile.getPos().offset(dir);
 				if(getWorld().isBlockLoaded(pos)) {
 					TileEntity tile = supertile.getWorld().getTileEntity(pos);
@@ -46,7 +46,7 @@ public class SubTileManastar extends SubTileEntity {
 
 			int newState = mana > lastMana ? INCREASING : mana < lastMana ? DECREASING : NONE;
 			if(newState != state)
-				getWorld().addBlockEvent(getPos(), supertile.getBlockType(), SET_STATE_EVENT, newState);
+				getWorld().addBlockEvent(getPos(), supertile.getBlockState().getBlock(), SET_STATE_EVENT, newState);
 
 			if(ticksExisted % 60 == 0)
 				lastMana = mana;

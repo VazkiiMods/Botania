@@ -10,6 +10,7 @@
  */
 package vazkii.botania.common.block.corporea;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;
@@ -22,17 +23,17 @@ import javax.annotation.Nonnull;
 
 public abstract class BlockCorporeaBase extends BlockMod {
 
-	public BlockCorporeaBase(Material material, String name) {
-		super(material, name);
+	public BlockCorporeaBase(Block.Builder builder) {
+		super(builder);
 	}
 
 	@Override
-	public void breakBlock(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
+	public void onReplaced(@Nonnull IBlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState newState, boolean isMoving) {
 		TileSimpleInventory inv = (TileSimpleInventory) world.getTileEntity(pos);
 
 		InventoryHelper.dropInventory(inv, world, state, pos);
 
-		super.breakBlock(world, pos, state);
+		super.onReplaced(state, world, pos, newState, isMoving);
 	}
 
 	@Override

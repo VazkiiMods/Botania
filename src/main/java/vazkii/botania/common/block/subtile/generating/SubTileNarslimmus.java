@@ -11,17 +11,19 @@
 package vazkii.botania.common.block.subtile.generating;
 
 import net.minecraft.entity.monster.EntitySlime;
+import net.minecraft.init.Particles;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.SharedSeedRandom;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent;
+import net.minecraftforge.eventbus.api.Event;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.Event.Result;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileGenerating;
@@ -44,13 +46,13 @@ public class SubTileNarslimmus extends SubTileGenerating {
 		if(ticksExisted % 5 == 0) {
 			List<EntitySlime> slimes = supertile.getWorld().getEntitiesWithinAABB(EntitySlime.class, new AxisAlignedBB(supertile.getPos().add(-RANGE, -RANGE, -RANGE), supertile.getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
 			for(EntitySlime slime : slimes) {
-				if(slime.getEntityData().getBoolean(TAG_WORLD_SPAWNED) && !slime.isDead) {
+				if(slime.getEntityData().getBoolean(TAG_WORLD_SPAWNED) && slime.isAlive()) {
 					int size = slime.getSlimeSize();
 					int mul = (int) Math.pow(2, size);
 					int mana = 1200 * mul;
 					if(!slime.world.isRemote) {
-						slime.setDead();
-						slime.playSound(size > 1 ? SoundEvents.ENTITY_SLIME_SQUISH : SoundEvents.ENTITY_SMALL_SLIME_SQUISH, 1, 0.02F);
+						slime.remove();
+						slime.playSound(size > 1 ? SoundEvents.ENTITY_SLIME_SQUISH : SoundEvents.ENTITY_SLIME_SQUISH_SMALL, 1, 0.02F);
 						this.mana = Math.min(getMaxMana(), this.mana + mana);
 						sync();
 					}
@@ -61,7 +63,7 @@ public class SubTileNarslimmus extends SubTileGenerating {
 						float f2 = MathHelper.sin(f) * size * 0.5F * f1;
 						float f3 = MathHelper.cos(f) * size * 0.5F * f1;
 						float f4 = slime.world.rand.nextFloat() * size * 0.5F * f1;
-						slime.world.spawnParticle(EnumParticleTypes.SLIME, slime.posX + f2, slime.getEntityBoundingBox().minY + f4, slime.posZ + f3, 0.0D, 0.0D, 0.0D);
+						slime.world.spawnParticle(Particles.ITEM_SLIME, slime.posX + f2, slime.getBoundingBox().minY + f4, slime.posZ + f3, 0.0D, 0.0D, 0.0D);
 					}
 					break;
 				}
@@ -91,13 +93,13 @@ public class SubTileNarslimmus extends SubTileGenerating {
 
 	@SubscribeEvent
 	public static void onSpawn(LivingSpawnEvent.CheckSpawn event) {
-		if(event.getEntityLiving() instanceof EntitySlime && event.getResult() != Result.DENY && isSlimeChunk(event.getEntityLiving().world, MathHelper.floor(event.getX()), MathHelper.floor(event.getZ())))
+		if(event.getEntityLiving() instanceof EntitySlime && event.getResult() != Event.Result.DENY && isSlimeChunk(event.getEntityLiving().world, MathHelper.floor(event.getX()), MathHelper.floor(event.getZ())))
 			event.getEntityLiving().getEntityData().setBoolean(TAG_WORLD_SPAWNED, true);
 	}
 
-	public static boolean isSlimeChunk(World world, int x, int z) {
-		Chunk chunk = world.getChunk(new BlockPos(x, 0, z));
-		return chunk.getRandomWithSeed(987234911L).nextInt(10) == 0;
+	public static boolean isSlimeChunk(World world, BlockPos pos) {
+		ChunkPos chunkpos = new ChunkPos(pos);
+		return SharedSeedRandom.seedSlimeChunk(chunkpos.x, chunkpos.z, world.getSeed(), 987234911L).nextInt(10) == 0;
 	}
 
 }

@@ -17,13 +17,18 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.particle.ParticleDigging;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Particles;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.particles.BlockParticleData;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -41,15 +46,8 @@ import javax.annotation.Nonnull;
 
 public class BlockCorporeaIndex extends BlockCorporeaBase implements ILexiconable {
 
-	public BlockCorporeaIndex() {
-		super(Material.IRON, LibBlockNames.CORPOREA_INDEX);
-		setHardness(5.5F);
-		setSoundType(SoundType.METAL);
-	}
-
-	@Override
-	public boolean isOpaqueCube(IBlockState state) {
-		return false;
+	public BlockCorporeaIndex(Block.Builder builder) {
+		super(builder);
 	}
 
 	@Override
@@ -65,7 +63,7 @@ public class BlockCorporeaIndex extends BlockCorporeaBase implements ILexiconabl
 
 	@Nonnull
 	@Override
-	public TileCorporeaBase createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
+	public TileCorporeaBase createTileEntity(@Nonnull IBlockState state, @Nonnull IBlockReader world) {
 		return new TileCorporeaIndex();
 	}
 
@@ -83,13 +81,13 @@ public class BlockCorporeaIndex extends BlockCorporeaBase implements ILexiconabl
 			d0 = 2.5D;
 		}
 		int i = (int)(150.0D * d0);
-		world.spawnParticle(EnumParticleTypes.BLOCK_DUST, entity.posX, entity.posY, entity.posZ, i, 0.0D, 0.0D, 0.0D, 0.15000000596046448D, Block.getStateId(ModBlocks.elementiumBlock.getDefaultState()));
+		world.spawnParticle(new BlockParticleData(Particles.BLOCK, ModBlocks.elementiumBlock.getDefaultState()), entity.posX, entity.posY, entity.posZ, i, 0.0D, 0.0D, 0.0D, 0.15000000596046448D);
 		return true;
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
-	public boolean addDestroyEffects(World world, BlockPos pos, net.minecraft.client.particle.ParticleManager effectRenderer)
+	@OnlyIn(Dist.CLIENT)
+	public boolean addDestroyEffects(IBlockState state, World world, BlockPos pos, net.minecraft.client.particle.ParticleManager effectRenderer)
 	{
 		if (world.getBlockState(pos).getBlock() == this) {
 			int i = 4;
@@ -100,7 +98,7 @@ public class BlockCorporeaIndex extends BlockCorporeaBase implements ILexiconabl
 						double d0 = pos.getX() + (j + 0.5D) / i;
 						double d1 = pos.getY() + (k + 0.5D) / i;
 						double d2 = pos.getZ() + (l + 0.5D) / i;
-						effectRenderer.addEffect(factory.createParticle(-1, world, d0, d1, d2, d0 - pos.getX() - 0.5D, d1 - pos.getY() - 0.5D, d2 - pos.getZ() - 0.5D, Block.getStateId(ModBlocks.elementiumBlock.getDefaultState())));
+						effectRenderer.addEffect(factory.makeParticle(new BlockParticleData(Particles.BLOCK, ModBlocks.elementiumBlock), world, d0, d1, d2, d0 - pos.getX() - 0.5D, d1 - pos.getY() - 0.5D, d2 - pos.getZ() - 0.5D));
 					}
 				}
 			}

@@ -170,7 +170,7 @@ public class SubTileDandelifeon extends SubTileGenerating {
 			//world.setBlockToAir(x, y, z);
 		} else if(blockAt == ModBlocks.cellBlock) {
 			if(gen < 0)
-				world.setBlockToAir(pos);
+				world.removeBlock(pos);
 			else ((TileCell) tile).setGeneration(supertile, gen);
 		} else if(gen >= 0 && blockAt.isAir(stateAt, supertile.getWorld(), pos)) {
 			world.setBlockState(pos, ModBlocks.cellBlock.getDefaultState());
