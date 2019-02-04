@@ -83,7 +83,7 @@ public final class ModManaInfusionRecipes {
 		manaStringRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaString), new ItemStack(Items.STRING), 5000);
 
 		if(Botania.gardenOfGlassLoaded)
-			sugarCaneRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(Items.REEDS), new ItemStack(Blocks.HAY_BLOCK), 2000);
+			sugarCaneRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(Blocks.SUGAR_CANE), new ItemStack(Blocks.HAY_BLOCK), 2000);
 
 		BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaBottle), new ItemStack(Items.GLASS_BOTTLE), 5000);
 	}

@@ -18,10 +18,7 @@ import net.minecraft.client.audio.MovingSound;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.monster.EntitySkeleton;
@@ -30,13 +27,11 @@ import net.minecraft.entity.monster.EntityWitherSkeleton;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.init.MobEffects;
-import net.minecraft.init.SoundEvents;
+import net.minecraft.init.*;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
@@ -53,6 +48,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
@@ -61,10 +57,13 @@ import net.minecraft.world.BossInfoServer;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.registries.ObjectHolder;
 import org.lwjgl.opengl.ARBShaderObjects;
 import vazkii.botania.api.boss.IBotaniaBoss;
 import vazkii.botania.api.internal.ShaderCallback;
@@ -86,6 +85,7 @@ import vazkii.botania.common.network.PacketBotaniaEffect;
 import vazkii.botania.common.network.PacketHandler;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -96,6 +96,8 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IEntityAdditionalSpawnData {
+	@ObjectHolder(LibMisc.MOD_ID + ":doppleganger")
+	public static EntityType<?> TYPE;
 
 	public static final float ARENA_RANGE = 12F;
 	private static final int SPAWN_TICKS = 160;
@@ -146,7 +148,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 	public EntityPlayer trueKiller = null;
 
 	public EntityDoppleganger(World world) {
-		super(world);
+		super(TYPE, world);
 		setSize(0.6F, 1.8F);
 		isImmuneToFire = true;
 		experienceValue = 825;
@@ -225,8 +227,8 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 			if (hard)
 				e.getAttributeMap().getAttributeInstance(SharedMonsterAttributes.ARMOR).setBaseValue(15);
 
-			e.playSound(SoundEvents.ENTITY_ENDERDRAGON_GROWL, 10F, 0.1F);
-			e.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(e)), null);
+			e.playSound(SoundEvents.ENTITY_ENDER_DRAGON_GROWL, 10F, 0.1F);
+			e.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(e)), null, null);
 			world.spawnEntity(e);
 			return true;
 		}
@@ -312,35 +314,35 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 	}
 
 	@Override
-	public void writeEntityToNBT(NBTTagCompound par1nbtTagCompound) {
-		super.writeEntityToNBT(par1nbtTagCompound);
-		par1nbtTagCompound.setInteger(TAG_INVUL_TIME, getInvulTime());
+	public void writeAdditional(NBTTagCompound par1nbtTagCompound) {
+		super.writeAdditional(par1nbtTagCompound);
+		par1nbtTagCompound.setInt(TAG_INVUL_TIME, getInvulTime());
 		par1nbtTagCompound.setBoolean(TAG_AGGRO, aggro);
-		par1nbtTagCompound.setInteger(TAG_MOB_SPAWN_TICKS, mobSpawnTicks);
+		par1nbtTagCompound.setInt(TAG_MOB_SPAWN_TICKS, mobSpawnTicks);
 
-		par1nbtTagCompound.setInteger(TAG_SOURCE_X, source.getX());
-		par1nbtTagCompound.setInteger(TAG_SOURCE_Y, source.getY());
-		par1nbtTagCompound.setInteger(TAG_SOURCE_Z, source.getZ());
+		par1nbtTagCompound.setInt(TAG_SOURCE_X, source.getX());
+		par1nbtTagCompound.setInt(TAG_SOURCE_Y, source.getY());
+		par1nbtTagCompound.setInt(TAG_SOURCE_Z, source.getZ());
 
 		par1nbtTagCompound.setBoolean(TAG_HARD_MODE, hardMode);
-		par1nbtTagCompound.setInteger(TAG_PLAYER_COUNT, playerCount);
+		par1nbtTagCompound.setInt(TAG_PLAYER_COUNT, playerCount);
 	}
 
 	@Override
-	public void readEntityFromNBT(NBTTagCompound par1nbtTagCompound) {
-		super.readEntityFromNBT(par1nbtTagCompound);
-		setInvulTime(par1nbtTagCompound.getInteger(TAG_INVUL_TIME));
+	public void readAdditional(NBTTagCompound par1nbtTagCompound) {
+		super.readAdditional(par1nbtTagCompound);
+		setInvulTime(par1nbtTagCompound.getInt(TAG_INVUL_TIME));
 		aggro = par1nbtTagCompound.getBoolean(TAG_AGGRO);
-		mobSpawnTicks = par1nbtTagCompound.getInteger(TAG_MOB_SPAWN_TICKS);
+		mobSpawnTicks = par1nbtTagCompound.getInt(TAG_MOB_SPAWN_TICKS);
 
-		int x = par1nbtTagCompound.getInteger(TAG_SOURCE_X);
-		int y = par1nbtTagCompound.getInteger(TAG_SOURCE_Y);
-		int z = par1nbtTagCompound.getInteger(TAG_SOURCE_Z);
+		int x = par1nbtTagCompound.getInt(TAG_SOURCE_X);
+		int y = par1nbtTagCompound.getInt(TAG_SOURCE_Y);
+		int z = par1nbtTagCompound.getInt(TAG_SOURCE_Z);
 		source = new BlockPos(x, y, z);
 
 		hardMode = par1nbtTagCompound.getBoolean(TAG_HARD_MODE);
 		if(par1nbtTagCompound.hasKey(TAG_PLAYER_COUNT))
-			playerCount = par1nbtTagCompound.getInteger(TAG_PLAYER_COUNT);
+			playerCount = par1nbtTagCompound.getInt(TAG_PLAYER_COUNT);
 		else playerCount = 1;
 
 		if (this.hasCustomName()) {
@@ -349,8 +351,8 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 	}
 
 	@Override
-	public void setCustomNameTag(@Nonnull String name) {
-		super.setCustomNameTag(name);
+	public void setCustomName(@Nullable ITextComponent name) {
+		super.setCustomName(name);
 		this.bossInfo.setName(this.getDisplayName());
 	}
 
@@ -389,7 +391,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 
 		EntityPlayer player = (EntityPlayer) e;
 
-		String name = player.getName();
+		String name = player.getName().getUnformattedComponentText();
 		return !(player instanceof FakePlayer || FAKE_PLAYER_PATTERN.matcher(name).matches());
 	}
 
@@ -424,15 +426,15 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 		}
 
 		playSound(SoundEvents.ENTITY_GENERIC_EXPLODE, 20F, (1F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F) * 0.7F);
-		world.spawnParticle(EnumParticleTypes.EXPLOSION_HUGE, posX, posY, posZ, 1D, 0D, 0D);
+		world.spawnParticle(Particles.EXPLOSION_EMITTER, posX, posY, posZ, 1D, 0D, 0D);
 	}
 
 	@Override
-	protected void applyEntityAttributes() {
-		super.applyEntityAttributes();
-		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.4);
-		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(MAX_HP);
-		getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(1.0);
+	protected void registerAttributes() {
+		super.registerAttributes();
+		getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.4);
+		getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(MAX_HP);
+		getAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(1.0);
 	}
 
 	@Override
@@ -486,11 +488,11 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 	}
 
 	@Override
-	public void setDead() {
+	public void remove() {
 		if(world.isRemote) {
 			Botania.proxy.removeBoss(this);
 		}
-		super.setDead();
+		super.remove();
 	}
 
 	private List<EntityPlayer> getPlayersAround() {
@@ -567,7 +569,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 		int posZInt = MathHelper.floor(posZ);
 
 		List<Potion> potionsToRemove = player.getActivePotionEffects().stream()
-				.filter(effect -> effect.getDuration() < 160 && effect.getIsAmbient() && !effect.getPotion().isBadEffect())
+				.filter(effect -> effect.getDuration() < 160 && effect.isAmbient() && !effect.getPotion().isBadEffect())
 				.map(PotionEffect::getPotion)
 				.distinct()
 				.collect(Collectors.toList());
@@ -616,7 +618,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 								EntityPixie pixie = new EntityPixie(world);
 								pixie.setProps(players.get(rand.nextInt(players.size())), this, 1, 8);
 								pixie.setPosition(posX + width / 2, posY + 2, posZ + width / 2);
-								pixie.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(pixie)), null);
+								pixie.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(pixie)), null, null);
 								world.spawnEntity(pixie);
 							}
 						}
@@ -629,7 +631,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 						entity.addPotionEffect(new PotionEffect(MobEffects.FIRE_RESISTANCE, 600, 0));
 					float range = 6F;
 					entity.setPosition(posX + 0.5 + Math.random() * range - range / 2, posY - 1, posZ + 0.5 + Math.random() * range - range / 2);
-					entity.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(entity)), null);
+					entity.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(entity)), null, null);
 					if(entity instanceof EntityWitherSkeleton && hardMode) {
 						entity.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(ModItems.elementiumSword));
 					}
@@ -640,8 +642,8 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 	}
 	
 	@Override
-	public void onLivingUpdate() {
-		super.onLivingUpdate();
+	public void livingTick() {
+		super.livingTick();
 
 		int invul = getInvulTime();
 
@@ -649,14 +651,14 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 			particles();
 			EntityPlayer player = Botania.proxy.getClientPlayer();
 			if(getPlayersAround().contains(player))
-				player.capabilities.isFlying = player.capabilities.isFlying && player.capabilities.isCreativeMode;
+				player.abilities.isFlying = player.abilities.isFlying && player.abilities.isCreativeMode;
 			return;
 		}
 
 		bossInfo.setPercent(getHealth() / getMaxHealth());
 
 		if(!getPassengers().isEmpty())
-			dismountRidingEntity();
+			stopRiding();
 
 		if(world.getDifficulty() == EnumDifficulty.PEACEFUL)
 			setDead();
@@ -678,11 +680,11 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 
 				clearPotions(player);
 				keepInsideArena(player);
-				player.capabilities.isFlying = player.capabilities.isFlying && player.capabilities.isCreativeMode;
+				player.abilities.isFlying = player.abilities.isFlying && player.abilities.isCreativeMode;
 			}
 		}
 
-		if(isDead)
+		if(removed)
 			return;
 
 		boolean spawnMissiles = hardMode && ticksExisted % 15 < 4;
@@ -757,7 +759,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 									EntityPixie pixie = new EntityPixie(world);
 									pixie.setProps(players.get(rand.nextInt(players.size())), this, 1, 8);
 									pixie.setPosition(posX + width / 2, posY + 2, posZ + width / 2);
-									pixie.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(pixie)), null);
+									pixie.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(pixie)), null, null);
 									world.spawnEntity(pixie);
 								}
 
@@ -818,7 +820,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 
 	private static boolean isCheatyBlock(World world, BlockPos pos) {
 		Block block = world.getBlockState(pos).getBlock();
-		return CHEATY_BLOCKS.contains(Block.REGISTRY.getNameForObject(block));
+		return CHEATY_BLOCKS.contains(block.getRegistryName());
 	}
 
 	// [VanillaCopy] EntityEnderman.teleportRandomly, edits noted.
@@ -941,18 +943,18 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public ResourceLocation getBossBarTexture() {
 		return BossBarHandler.defaultBossBar;
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	private static Rectangle barRect;
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	private static Rectangle hpBarRect;
 
 	@Override
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public Rectangle getBossBarTextureRect() {
 		if(barRect == null)
 			barRect = new Rectangle(0, 0, 185, 15);
@@ -960,7 +962,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public Rectangle getBossBarHPTextureRect() {
 		if(hpBarRect == null)
 			hpBarRect = new Rectangle(0, barRect.y + barRect.height, 181, 7);
@@ -968,18 +970,18 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public int bossBarRenderCallback(ScaledResolution res, int x, int y) {
 		GlStateManager.pushMatrix();
 		int px = x + 160;
 		int py = y + 12;
 
-		Minecraft mc = Minecraft.getMinecraft();
-		ItemStack stack = new ItemStack(Items.SKULL, 1, 3);
-		mc.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+		Minecraft mc = Minecraft.getInstance();
+		ItemStack stack = new ItemStack(Items.PLAYER_HEAD);
+		mc.textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 		net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
 		GlStateManager.enableRescaleNormal();
-		mc.getRenderItem().renderItemIntoGUI(stack, px, py);
+		mc.getItemRenderer().renderItemIntoGUI(stack, px, py);
 		net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
 
 		boolean unicode = mc.fontRenderer.getUnicodeFlag();
@@ -997,16 +999,16 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public int getBossBarShaderProgram(boolean background) {
 		return background ? 0 : ShaderHelper.dopplegangerBar;
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	private ShaderCallback shaderCallback;
 
 	@Override
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public ShaderCallback getBossBarShaderCallback(boolean background, int shader) {
 		if(shaderCallback == null)
 			shaderCallback = shader1 -> {
@@ -1033,33 +1035,33 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
-	public void readSpawnData(ByteBuf additionalData) {
+	@OnlyIn(Dist.CLIENT)
+	public void readSpawnData(PacketBuffer additionalData) {
 		playerCount = additionalData.readInt();
 		hardMode = additionalData.readBoolean();
 		source = BlockPos.fromLong(additionalData.readLong());
 		long msb = additionalData.readLong();
 		long lsb = additionalData.readLong();
 		bossInfoUUID = new UUID(msb, lsb);
-		Minecraft.getMinecraft().getSoundHandler().playSound(new DopplegangerMusic(this));
+		Minecraft.getInstance().getSoundHandler().play(new DopplegangerMusic(this));
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	private static class DopplegangerMusic extends MovingSound {
 		private final EntityDoppleganger guardian;
 
 		public DopplegangerMusic(EntityDoppleganger guardian) {
 			super(guardian.hardMode ? ModSounds.gaiaMusic2 : ModSounds.gaiaMusic1, SoundCategory.RECORDS);
 			this.guardian = guardian;
-			this.xPosF = guardian.getSource().getX();
-			this.yPosF = guardian.getSource().getY();
-			this.zPosF = guardian.getSource().getZ();
+			this.x = guardian.getSource().getX();
+			this.y = guardian.getSource().getY();
+			this.z = guardian.getSource().getZ();
 			this.repeat = true;
 		}
 
 		@Override
-		public void update() {
-			if (!guardian.isEntityAlive()) {
+		public void tick() {
+			if (!guardian.isAlive()) {
 				donePlaying = true;
 			}
 		}

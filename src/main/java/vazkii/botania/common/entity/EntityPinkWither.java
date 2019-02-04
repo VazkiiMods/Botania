@@ -10,20 +10,25 @@
  */
 package vazkii.botania.common.entity;
 
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.EntityAIAttackRanged;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.boss.EntityWither;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.init.Particles;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
+import net.minecraftforge.registries.ObjectHolder;
+import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
 public class EntityPinkWither extends EntityWither {
+	@ObjectHolder(LibMisc.MOD_ID + ":pink_wither")
+	public static EntityType<?> TYPE;
 
 	public EntityPinkWither(World world) {
 		super(world);
@@ -34,16 +39,22 @@ public class EntityPinkWither extends EntityWither {
 				|| entry.action instanceof EntityAINearestAttackableTarget); // Remove revenge and aggro
 	}
 
+	@Nonnull
 	@Override
-	public void onLivingUpdate() {
-		super.onLivingUpdate();
+	public EntityType<?> getType() {
+		return TYPE;
+	}
+
+	@Override
+	public void livingTick() {
+		super.livingTick();
 
 		if(Math.random() < 0.1)
 			for(int j = 0; j < 3; ++j) {
-				double d10 = func_82214_u(j);
-				double d2 = func_82208_v(j);
-				double d4 = func_82213_w(j);
-				world.spawnParticle(EnumParticleTypes.HEART, d10 + rand.nextGaussian() * 0.30000001192092896D, d2 + rand.nextGaussian() * 0.30000001192092896D, d4 + rand.nextGaussian() * 0.30000001192092896D, 0.0D, 0.0D, 0.0D);
+				double d10 = getHeadX(j);
+				double d2 = getHeadY(j);
+				double d4 = getHeadZ(j);
+				world.spawnParticle(Particles.HEART, d10 + rand.nextGaussian() * 0.30000001192092896D, d2 + rand.nextGaussian() * 0.30000001192092896D, d4 + rand.nextGaussian() * 0.30000001192092896D, 0.0D, 0.0D, 0.0D);
 			}
 	}
 
@@ -68,38 +79,29 @@ public class EntityPinkWither extends EntityWither {
 	@Override
 	public void addTrackingPlayer(@Nonnull EntityPlayerMP player) {}
 
-	// COPYPASTA
+	// [VanillaCopy] super
 
-	private double func_82214_u(int p_82214_1_)
-	{
-		if (p_82214_1_ <= 0)
-		{
-			return posX;
-		}
-		else
-		{
-			float f = (renderYawOffset + 180 * (p_82214_1_ - 1)) / 180.0F * (float)Math.PI;
+	private double getHeadX(int p_82214_1_) {
+		if (p_82214_1_ <= 0) {
+			return this.posX;
+		} else {
+			float f = (this.renderYawOffset + (float)(180 * (p_82214_1_ - 1))) * ((float)Math.PI / 180F);
 			float f1 = MathHelper.cos(f);
-			return posX + f1 * 1.3D;
+			return this.posX + (double)f1 * 1.3D;
 		}
 	}
 
-	private double func_82208_v(int p_82208_1_)
-	{
-		return p_82208_1_ <= 0 ? posY + 3.0D : posY + 2.2D;
+	private double getHeadY(int p_82208_1_) {
+		return p_82208_1_ <= 0 ? this.posY + 3.0D : this.posY + 2.2D;
 	}
 
-	private double func_82213_w(int p_82213_1_)
-	{
-		if (p_82213_1_ <= 0)
-		{
-			return posZ;
-		}
-		else
-		{
-			float f = (renderYawOffset + 180 * (p_82213_1_ - 1)) / 180.0F * (float)Math.PI;
+	private double getHeadZ(int p_82213_1_) {
+		if (p_82213_1_ <= 0) {
+			return this.posZ;
+		} else {
+			float f = (this.renderYawOffset + (float)(180 * (p_82213_1_ - 1))) * ((float)Math.PI / 180F);
 			float f1 = MathHelper.sin(f);
-			return posZ + f1 * 1.3D;
+			return this.posZ + (double)f1 * 1.3D;
 		}
 	}
 }

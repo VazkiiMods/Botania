@@ -12,6 +12,7 @@ package vazkii.botania.common.entity;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.EntityType;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
@@ -19,6 +20,7 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.Optional;
+import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.MathHelper;
 
@@ -26,24 +28,26 @@ import javax.annotation.Nonnull;
 
 import elucent.albedo.lighting.ILightProvider;
 import elucent.albedo.lighting.Light;
+import vazkii.botania.common.lib.LibMisc;
 
 import java.util.List;
 
 @Optional.Interface(iface="elucent.albedo.lighting.ILightProvider", modid="albedo")
 public class EntityFlameRing extends Entity implements ILightProvider {
+	@ObjectHolder(LibMisc.MOD_ID + ":flame_ring")
+	public static EntityType<?> TYPE;
 
 	public EntityFlameRing(World world) {
-		super(world);
-	}
-
-	@Override
-	protected void entityInit() {
+		super(TYPE, world);
 		setSize(0F, 0F);
 	}
 
 	@Override
-	public void onEntityUpdate() {
-		super.onEntityUpdate();
+	protected void registerData() {}
+
+	@Override
+	public void baseTick() {
+		super.baseTick();
 
 		float radius = 5F;
 		float renderRadius = (float) (radius - Math.random());
@@ -75,7 +79,7 @@ public class EntityFlameRing extends Entity implements ILightProvider {
 			return;
 
 		if(ticksExisted >= 300) {
-			setDead();
+			remove();
 			return;
 		}
 
@@ -101,10 +105,10 @@ public class EntityFlameRing extends Entity implements ILightProvider {
 	}
 
 	@Override
-	protected void readEntityFromNBT(@Nonnull NBTTagCompound var1) {}
+	protected void readAdditional(@Nonnull NBTTagCompound var1) {}
 
 	@Override
-	protected void writeEntityToNBT(@Nonnull NBTTagCompound var1) {}
+	protected void writeAdditional(@Nonnull NBTTagCompound var1) {}
 	
 	@Override
 	@Optional.Method(modid="albedo")

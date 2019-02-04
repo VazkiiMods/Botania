@@ -11,6 +11,7 @@
 package vazkii.botania.common.entity;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.nbt.NBTTagCompound;
@@ -20,6 +21,7 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.Optional;
+import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.ModSounds;
 
@@ -27,25 +29,28 @@ import javax.annotation.Nonnull;
 
 import elucent.albedo.lighting.ILightProvider;
 import elucent.albedo.lighting.Light;
+import vazkii.botania.common.lib.LibMisc;
 
 import java.util.List;
 
 @Optional.Interface(iface="elucent.albedo.lighting.ILightProvider", modid="albedo")
 public class EntityMagicLandmine extends Entity implements ILightProvider {
+	@ObjectHolder(LibMisc.MOD_ID + ":magic_landmine")
+	public static EntityType<?> TYPE;
 
 	public EntityDoppleganger summoner;
 
 	public EntityMagicLandmine(World world) {
-		super(world);
+		super(TYPE, world);
 		setSize(0F, 0F);
 	}
 
 	@Override
-	public void onUpdate() {
+	public void tick() {
 		motionX = 0;
 		motionY = 0;
 		motionZ = 0;
-		super.onUpdate();
+		super.tick();
 
 		float range = 2.5F;
 
@@ -76,20 +81,20 @@ public class EntityMagicLandmine extends Entity implements ILightProvider {
 				}
 			}
 
-			setDead();
+			remove();
 		}
 	}
 
 	@Override
-	protected void entityInit() {
+	protected void registerData() {
 	}
 
 	@Override
-	protected void readEntityFromNBT(@Nonnull NBTTagCompound var1) {
+	protected void readAdditional(@Nonnull NBTTagCompound var1) {
 	}
 
 	@Override
-	protected void writeEntityToNBT(@Nonnull NBTTagCompound var1) {
+	protected void writeAdditional(@Nonnull NBTTagCompound var1) {
 	}
 
 	@Override

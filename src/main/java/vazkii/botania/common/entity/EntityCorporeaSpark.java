@@ -12,6 +12,7 @@ package vazkii.botania.common.entity;
 
 import com.google.common.base.Predicates;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
@@ -26,17 +27,21 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
+import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.api.corporea.InvWithLocation;
 import vazkii.botania.common.core.helper.InventoryHelper;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.material.ItemDye;
+import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
 public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
+	@ObjectHolder(LibMisc.MOD_ID + ":corporea_spark")
+	public static EntityType<?> TYPE;
 
 	private static final int SCAN_RANGE = 8;
 
@@ -55,12 +60,12 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 	private boolean firstTick = true;
 
 	public EntityCorporeaSpark(World world) {
-		super(world);
+		super(TYPE, world);
 		isImmuneToFire = true;
 	}
 
 	@Override
-	protected void entityInit() {
+	protected void registerData() {
 		setSize(0.1F, 0.5F);
 		dataManager.register(MASTER, false);
 		dataManager.register(NETWORK, 0);
@@ -80,8 +85,8 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 	}
 
 	@Override
-	public void onUpdate() {
-		super.onUpdate();
+	public void tick() {
+		super.tick();
 
 		if(world.isRemote)
 			return;
@@ -103,7 +108,7 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 			firstTick = false;
 		}
 
-		if(master != null && (((Entity) master).isDead || master.getNetwork() != getNetwork()))
+		if(master != null && (((Entity) master).removed || master.getNetwork() != getNetwork()))
 			master = null;
 
 		int displayTicks = getItemDisplayTicks();
@@ -115,12 +120,12 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 
 	private void dropAndKill() {
 		entityDropItem(new ItemStack(isMaster() ? ModItems.corporeaSparkMaster : ModItems.corporeaSpark), 0F);
-		setDead();
+		remove();
 	}
 
 	@Override
-	public void setDead() {
-		super.setDead();
+	public void remove() {
+		super.remove();
 		connections.remove(this);
 		restartNetwork();
 	}
@@ -129,7 +134,7 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 	public void registerConnections(ICorporeaSpark master, ICorporeaSpark referrer, List<ICorporeaSpark> connections) {
 		relatives.clear();
 		for(ICorporeaSpark spark : getNearbySparks()) {
-			if(spark == null || connections.contains(spark) || spark.getNetwork() != getNetwork() || spark.isMaster() || ((Entity) spark).isDead)
+			if(spark == null || connections.contains(spark) || spark.getNetwork() != getNetwork() || spark.isMaster() || ((Entity) spark).removed)
 				continue;
 
 			connections.add(spark);
@@ -159,7 +164,7 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 
 	private void findNetwork() {
 		for(ICorporeaSpark spark : getNearbySparks())
-			if(spark.getNetwork() == getNetwork() && !((Entity) spark).isDead) {
+			if(spark.getNetwork() == getNetwork() && !((Entity) spark).removed) {
 				ICorporeaSpark master = spark.getMaster();
 				if(master != null) {
 					this.master = master;
@@ -233,12 +238,12 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 	}
 
 	public void setNetwork(EnumDyeColor network) {
-		dataManager.set(NETWORK, network.getMetadata());
+		dataManager.set(NETWORK, network.getId());
 	}
 
 	@Override
 	public EnumDyeColor getNetwork() {
-		return EnumDyeColor.byMetadata(dataManager.get(NETWORK));
+		return EnumDyeColor.byId(dataManager.get(NETWORK));
 	}
 
 	public int getItemDisplayTicks() {
@@ -260,7 +265,7 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 	@Override
 	public boolean processInitialInteract(EntityPlayer player, EnumHand hand) {
 		ItemStack stack = player.getHeldItem(hand);
-		if(!isDead && !stack.isEmpty()) {
+		if(!removed && !stack.isEmpty()) {
 			if(player.world.isRemote) {
 				boolean valid = stack.getItem() == ModItems.twigWand || stack.getItem() instanceof ItemDye || stack.getItem() == ModItems.phantomInk;
 				if(valid)
@@ -299,17 +304,17 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 	}
 
 	@Override
-	protected void readEntityFromNBT(@Nonnull NBTTagCompound cmp) {
+	protected void readAdditional(@Nonnull NBTTagCompound cmp) {
 		setMaster(cmp.getBoolean(TAG_MASTER));
-		setNetwork(EnumDyeColor.byMetadata(cmp.getInteger(TAG_NETWORK)));
-		setInvisible(cmp.getInteger(TAG_INVIS) == 1);
+		setNetwork(EnumDyeColor.byId(cmp.getInt(TAG_NETWORK)));
+		setInvisible(cmp.getInt(TAG_INVIS) == 1);
 	}
 
 	@Override
-	protected void writeEntityToNBT(@Nonnull NBTTagCompound cmp) {
+	protected void writeAdditional(@Nonnull NBTTagCompound cmp) {
 		cmp.setBoolean(TAG_MASTER, isMaster());
-		cmp.setInteger(TAG_NETWORK, getNetwork().getMetadata());
-		cmp.setInteger(TAG_INVIS, isInvisible() ? 1 : 0);
+		cmp.setInt(TAG_NETWORK, getNetwork().getId());
+		cmp.setInt(TAG_INVIS, isInvisible() ? 1 : 0);
 	}
 
 }

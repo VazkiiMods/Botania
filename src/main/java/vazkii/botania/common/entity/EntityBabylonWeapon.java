@@ -11,6 +11,7 @@
 package vazkii.botania.common.entity;
 
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -24,6 +25,7 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.Optional;
+import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.PlayerHelper;
@@ -36,11 +38,14 @@ import javax.annotation.Nonnull;
 
 import elucent.albedo.lighting.ILightProvider;
 import elucent.albedo.lighting.Light;
+import vazkii.botania.common.lib.LibMisc;
 
 import java.util.List;
 
 @Optional.Interface(iface="elucent.albedo.lighting.ILightProvider", modid="albedo")
 public class EntityBabylonWeapon extends EntityThrowableCopy implements ILightProvider {
+	@ObjectHolder(LibMisc.MOD_ID + ":babylon_weapon")
+	public static EntityType<?> TYPE;
 
 	private static final String TAG_CHARGING = "charging";
 	private static final String TAG_VARIETY = "variety";
@@ -57,16 +62,16 @@ public class EntityBabylonWeapon extends EntityThrowableCopy implements ILightPr
 	private static final DataParameter<Float> ROTATION = EntityDataManager.createKey(EntityBabylonWeapon.class, DataSerializers.FLOAT);
 
 	public EntityBabylonWeapon(World world) {
-		super(world);
+		super(TYPE, world);
 	}
 
-	public EntityBabylonWeapon(World world, EntityLivingBase thrower) {
-		super(world, thrower);
+	public EntityBabylonWeapon(EntityLivingBase thrower, World world) {
+		super(TYPE, thrower, world);
 	}
 
 	@Override
-	protected void entityInit() {
-		super.entityInit();
+	protected void registerData() {
+		super.registerData();
 		setSize(0F, 0F);
 
 		dataManager.register(CHARGING, false);
@@ -83,10 +88,10 @@ public class EntityBabylonWeapon extends EntityThrowableCopy implements ILightPr
 	}
 
 	@Override
-	public void onUpdate() {
+	public void tick() {
 		EntityLivingBase thrower = getThrower();
-		if(!world.isRemote && (thrower == null || !(thrower instanceof EntityPlayer) || thrower.isDead)) {
-			setDead();
+		if(!world.isRemote && (thrower == null || !(thrower instanceof EntityPlayer) || thrower.removed)) {
+			remove();
 			return;
 		}
 		EntityPlayer player = (EntityPlayer) thrower;
@@ -158,7 +163,7 @@ public class EntityBabylonWeapon extends EntityThrowableCopy implements ILightPr
 			}
 		}
 
-		super.onUpdate();
+		super.tick();
 
 		motionX = x;
 		motionY = y;
@@ -168,37 +173,37 @@ public class EntityBabylonWeapon extends EntityThrowableCopy implements ILightPr
 			Botania.proxy.wispFX(posX, posY, posZ, 1F, 1F, 0F, 0.3F, 0F);
 
 		if(liveTime > 200 + delay)
-			setDead();
+			remove();
 	}
 
 	@Override
 	protected void onImpact(RayTraceResult pos) {
 		EntityLivingBase thrower = getThrower();
-		if(pos.entityHit == null || pos.entityHit != thrower) {
+		if(pos.entity == null || pos.entity != thrower) {
 			world.createExplosion(this, posX, posY, posZ, 3F, false);
-			setDead();
+			remove();
 		}
 	}
 
 	@Override
-	public void writeEntityToNBT(@Nonnull NBTTagCompound cmp) {
-		super.writeEntityToNBT(cmp);
+	public void writeAdditional(@Nonnull NBTTagCompound cmp) {
+		super.writeAdditional(cmp);
 		cmp.setBoolean(TAG_CHARGING, isCharging());
-		cmp.setInteger(TAG_VARIETY, getVariety());
-		cmp.setInteger(TAG_CHARGE_TICKS, getChargeTicks());
-		cmp.setInteger(TAG_LIVE_TICKS, getLiveTicks());
-		cmp.setInteger(TAG_DELAY, getDelay());
+		cmp.setInt(TAG_VARIETY, getVariety());
+		cmp.setInt(TAG_CHARGE_TICKS, getChargeTicks());
+		cmp.setInt(TAG_LIVE_TICKS, getLiveTicks());
+		cmp.setInt(TAG_DELAY, getDelay());
 		cmp.setFloat(TAG_ROTATION, getRotation());
 	}
 
 	@Override
-	public void readEntityFromNBT(@Nonnull NBTTagCompound cmp) {
-		super.readEntityFromNBT(cmp);
+	public void readAdditional(@Nonnull NBTTagCompound cmp) {
+		super.readAdditional(cmp);
 		setCharging(cmp.getBoolean(TAG_CHARGING));
-		setVariety(cmp.getInteger(TAG_VARIETY));
-		setChargeTicks(cmp.getInteger(TAG_CHARGE_TICKS));
-		setLiveTicks(cmp.getInteger(TAG_LIVE_TICKS));
-		setDelay(cmp.getInteger(TAG_DELAY));
+		setVariety(cmp.getInt(TAG_VARIETY));
+		setChargeTicks(cmp.getInt(TAG_CHARGE_TICKS));
+		setLiveTicks(cmp.getInt(TAG_LIVE_TICKS));
+		setDelay(cmp.getInt(TAG_DELAY));
 		setRotation(cmp.getFloat(TAG_ROTATION));
 	}
 

@@ -16,6 +16,7 @@ import net.minecraft.block.BlockBush;
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityThrowable;
@@ -28,14 +29,18 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
+import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.Vector3;
+import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.lib.LibObfuscation;
 
 import javax.annotation.Nonnull;
 import java.util.List;
 
 public class EntityMagicMissile extends EntityThrowable {
+	@ObjectHolder(LibMisc.MOD_ID + ":magic_missile")
+	public static EntityType<?> TYPE;
 
 	private static final String TAG_TIME = "time";
 	private static final DataParameter<Boolean> EVIL = EntityDataManager.createKey(EntityMagicMissile.class, DataSerializers.BOOLEAN);
@@ -45,18 +50,18 @@ public class EntityMagicMissile extends EntityThrowable {
 	int time = 0;
 
 	public EntityMagicMissile(World world) {
-		super(world);
+		super(TYPE, world);
 		setSize(0F, 0F);
 	}
 
 	public EntityMagicMissile(EntityLivingBase thrower, boolean evil) {
-		super(thrower.world, thrower);
+		super(TYPE, thrower, thrower.world);
 		setSize(0F, 0F);
 		setEvil(evil);
 	}
 
 	@Override
-	protected void entityInit() {
+	protected void registerData() {
 		dataManager.register(EVIL, false);
 		dataManager.register(TARGET, 0);
 	}
@@ -83,15 +88,15 @@ public class EntityMagicMissile extends EntityThrowable {
 	}
 
 	@Override
-	public void onUpdate() {
+	public void tick() {
 		double lastTickPosX = this.lastTickPosX;
 		double lastTickPosY = this.lastTickPosY;
 		double lastTickPosZ = this.lastTickPosZ;
 
-		super.onUpdate();
+		super.tick();
 
 		if(!world.isRemote && (!findTarget() || time > 40)) {
-			setDead();
+			remove();
 			return;
 		}
 
@@ -138,32 +143,32 @@ public class EntityMagicMissile extends EntityThrowable {
 					target.attackEntityFrom(player == null ? DamageSource.causeMobDamage(thrower) : DamageSource.causePlayerDamage(player), evil ? 12 : 7);
 				} else target.attackEntityFrom(DamageSource.GENERIC, evil ? 12 : 7);
 
-				setDead();
+				remove();
 			}
 
 			if(evil && diffVec.mag() < 1)
-				setDead();
+				remove();
 		}
 
 		time++;
 	}
 
 	@Override
-	public void writeEntityToNBT(NBTTagCompound cmp) {
-		super.writeEntityToNBT(cmp);
-		cmp.setInteger(TAG_TIME, time);
+	public void writeAdditional(NBTTagCompound cmp) {
+		super.writeAdditional(cmp);
+		cmp.setInt(TAG_TIME, time);
 	}
 
 	@Override
-	public void readEntityFromNBT(NBTTagCompound cmp) {
-		super.readEntityFromNBT(cmp);
-		time = cmp.getInteger(TAG_TIME);
+	public void readAdditional(NBTTagCompound cmp) {
+		super.readAdditional(cmp);
+		time = cmp.getInt(TAG_TIME);
 	}
 
 
 	public boolean findTarget() {
 		EntityLivingBase target = getTargetEntity();
-		if(target != null && target.getHealth() > 0 && !target.isDead && world.loadedEntityList.contains(target))
+		if(target != null && target.getHealth() > 0 && !target.removed && world.loadedEntityList.contains(target))
 			return true;
 		if(target != null)
 			setTarget(null);
@@ -178,7 +183,7 @@ public class EntityMagicMissile extends EntityThrowable {
 		}
 		while(entities.size() > 0) {
 			Entity e = (Entity) entities.get(world.rand.nextInt(entities.size()));
-			if(!(e instanceof EntityLivingBase) || e.isDead) { // Just in case...
+			if(!(e instanceof EntityLivingBase) || e.removed) { // Just in case...
 				entities.remove(e);
 				continue;
 			}
@@ -193,20 +198,20 @@ public class EntityMagicMissile extends EntityThrowable {
 
 	@Override
 	protected void onImpact(@Nonnull RayTraceResult pos) {
-		switch (pos.typeOfHit) {
+		switch (pos.type) {
 		case BLOCK: {
 			Block block = world.getBlockState(pos.getBlockPos()).getBlock();
 			if(!(block instanceof BlockBush) && !(block instanceof BlockLeaves))
-				setDead();
+				remove();
 			break;
 		}
 		case ENTITY: {
-			if (pos.entityHit == getTargetEntity())
-				setDead();
+			if (pos.entity == getTargetEntity())
+				remove();
 			break;
 		}
 		default: {
-			setDead();
+			remove();
 			break;
 		}
 		}

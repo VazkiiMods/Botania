@@ -51,7 +51,7 @@ public class ModBrewRecipes {
 		speedBrew = BotaniaAPI.registerBrewRecipe(ModBrews.speed, new ItemStack(Items.NETHER_WART), new ItemStack(Items.SUGAR), new ItemStack(Items.REDSTONE));
 		strengthBrew = BotaniaAPI.registerBrewRecipe(ModBrews.strength, new ItemStack(Items.NETHER_WART), new ItemStack(Items.BLAZE_POWDER), new ItemStack(Items.GLOWSTONE_DUST));
 		hasteBrew = BotaniaAPI.registerBrewRecipe(ModBrews.haste, new ItemStack(Items.NETHER_WART), new ItemStack(Items.SUGAR), new ItemStack(Items.GOLD_NUGGET));
-		healingBrew = BotaniaAPI.registerBrewRecipe(ModBrews.healing, new ItemStack(Items.NETHER_WART), new ItemStack(Items.SPECKLED_MELON), new ItemStack(Items.POTATO));
+		healingBrew = BotaniaAPI.registerBrewRecipe(ModBrews.healing, new ItemStack(Items.NETHER_WART), new ItemStack(Items.GLISTERING_MELON_SLICE), new ItemStack(Items.POTATO));
 		jumpBoostBrew = BotaniaAPI.registerBrewRecipe(ModBrews.jumpBoost, new ItemStack(Items.NETHER_WART), new ItemStack(Items.FEATHER), new ItemStack(Items.CARROT));
 		regenerationBrew = BotaniaAPI.registerBrewRecipe(ModBrews.regen, new ItemStack(Items.NETHER_WART), new ItemStack(Items.GHAST_TEAR), new ItemStack(Items.GLOWSTONE_DUST));
 		weakRegenerationBrew = BotaniaAPI.registerBrewRecipe(ModBrews.regenWeak, new ItemStack(Items.NETHER_WART), new ItemStack(Items.GHAST_TEAR), new ItemStack(Items.REDSTONE));
@@ -66,15 +66,15 @@ public class ModBrewRecipes {
 		soulCrossBrew = BotaniaAPI.registerBrewRecipe(ModBrews.soulCross, new ItemStack(Items.NETHER_WART), new ItemStack(Blocks.SOUL_SAND), new ItemStack(Items.PAPER), new ItemStack(Items.APPLE), new ItemStack(Items.BONE));
 		featherFeetBrew = BotaniaAPI.registerBrewRecipe(ModBrews.featherfeet, new ItemStack(Items.NETHER_WART), new ItemStack(Items.FEATHER), new ItemStack(Items.LEATHER), new ItemStack(Blocks.WOOL, 1, -1));
 		emptinessBrew = BotaniaAPI.registerBrewRecipe(ModBrews.emptiness, new ItemStack(Items.NETHER_WART), new ItemStack(Items.GUNPOWDER), new ItemStack(Items.ROTTEN_FLESH), new ItemStack(Items.BONE), new ItemStack(Items.STRING), new ItemStack(Items.ENDER_PEARL));
-		bloodthirstBrew = BotaniaAPI.registerBrewRecipe(ModBrews.bloodthirst, new ItemStack(Items.NETHER_WART), new ItemStack(Items.FERMENTED_SPIDER_EYE), new ItemStack(Items.DYE, 1, 4), new ItemStack(Items.FIRE_CHARGE), new ItemStack(Items.IRON_INGOT));
-		allureBrew = BotaniaAPI.registerBrewRecipe(ModBrews.allure, new ItemStack(Items.NETHER_WART), new ItemStack(Items.FISH), new ItemStack(Items.QUARTZ), new ItemStack(Items.GOLDEN_CARROT));
-		clearBrew = BotaniaAPI.registerBrewRecipe(ModBrews.clear, new ItemStack(Items.NETHER_WART), new ItemStack(Items.QUARTZ), new ItemStack(Items.EMERALD), new ItemStack(Items.MELON));
+		bloodthirstBrew = BotaniaAPI.registerBrewRecipe(ModBrews.bloodthirst, new ItemStack(Items.NETHER_WART), new ItemStack(Items.FERMENTED_SPIDER_EYE), new ItemStack(Items.LAPIS_LAZULI), new ItemStack(Items.FIRE_CHARGE), new ItemStack(Items.IRON_INGOT));
+		allureBrew = BotaniaAPI.registerBrewRecipe(ModBrews.allure, new ItemStack(Items.NETHER_WART), new ItemStack(Items.COD), new ItemStack(Items.QUARTZ), new ItemStack(Items.GOLDEN_CARROT));
+		clearBrew = BotaniaAPI.registerBrewRecipe(ModBrews.clear, new ItemStack(Items.NETHER_WART), new ItemStack(Items.QUARTZ), new ItemStack(Items.EMERALD), new ItemStack(Items.MELON_SLICE));
 	}
 
 	public static void initTC() {
-		Item salisMundus = Item.REGISTRY.getObject(new ResourceLocation("thaumcraft", "salis_mundus"));
-		Item bathSalts = Item.REGISTRY.getObject(new ResourceLocation("thaumcraft", "bath_salts"));
-		Item amber = Item.REGISTRY.getObject(new ResourceLocation("thaumcraft", "amber"));
+		Item salisMundus = Item.REGISTRY.get(new ResourceLocation("thaumcraft", "salis_mundus"));
+		Item bathSalts = Item.REGISTRY.get(new ResourceLocation("thaumcraft", "bath_salts"));
+		Item amber = Item.REGISTRY.get(new ResourceLocation("thaumcraft", "amber"));
 
 		warpWardBrew = BotaniaAPI.registerBrewRecipe(ModBrews.warpWard, new ItemStack(Items.NETHER_WART), new ItemStack(salisMundus), new ItemStack(bathSalts), new ItemStack(amber));
 	}

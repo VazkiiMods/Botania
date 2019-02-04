@@ -15,10 +15,12 @@ import net.minecraft.block.BlockBush;
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.init.MobEffects;
+import net.minecraft.init.Particles;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
@@ -27,15 +29,18 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
+import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
 public class EntityThornChakram extends EntityThrowable {
+	@ObjectHolder(LibMisc.MOD_ID + ":thorn_chakram")
+	public static EntityType<?> TYPE;
 
 	private static final DataParameter<Integer> BOUNCES = EntityDataManager.createKey(EntityThornChakram.class, DataSerializers.VARINT);
 	private static final DataParameter<Boolean> FLARE = EntityDataManager.createKey(EntityThornChakram.class, DataSerializers.BOOLEAN);
@@ -45,17 +50,17 @@ public class EntityThornChakram extends EntityThrowable {
 	private ItemStack stack = ItemStack.EMPTY;
 
 	public EntityThornChakram(World world) {
-		super(world);
+		super(TYPE, world);
 	}
 
-	public EntityThornChakram(World world, EntityLivingBase e, ItemStack stack) {
-		super(world, e);
+	public EntityThornChakram(EntityLivingBase e, World world, ItemStack stack) {
+		super(TYPE, e, world);
 		this.stack = stack.copy();
 	}
 
 	@Override
-	protected void entityInit() {
-		super.entityInit();
+	protected void registerData() {
+		super.registerData();
 		dataManager.register(BOUNCES, 0);
 		dataManager.register(FLARE, false);
 		dataManager.register(RETURN_TO, -1);
@@ -67,13 +72,13 @@ public class EntityThornChakram extends EntityThrowable {
 	}
 
 	@Override
-	public void onUpdate() {
+	public void tick() {
 		// Standard motion
 		double mx = motionX;
 		double my = motionY;
 		double mz = motionZ;
 
-		super.onUpdate();
+		super.tick();
 
 		if(!bounced) {
 			// Reset the drag applied by super
@@ -100,7 +105,7 @@ public class EntityThornChakram extends EntityThrowable {
 			double r = 0.1;
 			double m = 0.1;
 			for(int i = 0; i < 3; i++)
-				world.spawnParticle(EnumParticleTypes.FLAME, posX + r * (Math.random() - 0.5), posY + r * (Math.random() - 0.5), posZ + r * (Math.random() - 0.5), m * (Math.random() - 0.5), m * (Math.random() - 0.5), m * (Math.random() - 0.5));
+				world.spawnParticle(Particles.FLAME, posX + r * (Math.random() - 0.5), posY + r * (Math.random() - 0.5), posZ + r * (Math.random() - 0.5), m * (Math.random() - 0.5), m * (Math.random() - 0.5), m * (Math.random() - 0.5));
 		}
 
 		// Server state control
@@ -120,7 +125,7 @@ public class EntityThornChakram extends EntityThrowable {
 		ItemStack stack = getItemStack();
 		EntityItem item = new EntityItem(world, posX, posY, posZ, stack);
 		world.spawnEntity(item);
-		setDead();
+		remove();
 	}
 
 	private ItemStack getItemStack() {
@@ -134,7 +139,7 @@ public class EntityThornChakram extends EntityThrowable {
 		if(isReturning())
 			return;
 
-		switch (pos.typeOfHit) {
+		switch (pos.type) {
 		case BLOCK: {
 			Block block = world.getBlockState(pos.getBlockPos()).getBlock();
 			if(block instanceof BlockBush || block instanceof BlockLeaves)
@@ -159,13 +164,13 @@ public class EntityThornChakram extends EntityThrowable {
 			break;
 		}
 		case ENTITY: {
-			if(!world.isRemote && pos.entityHit != null && pos.entityHit instanceof EntityLivingBase && pos.entityHit != getThrower()) {
+			if(!world.isRemote && pos.entity != null && pos.entity instanceof EntityLivingBase && pos.entity != getThrower()) {
 				EntityLivingBase thrower = getThrower();
-				pos.entityHit.attackEntityFrom(thrower != null ? thrower instanceof EntityPlayer ? DamageSource.causeThrownDamage(this, thrower) : DamageSource.causeMobDamage(thrower) : DamageSource.GENERIC, 12);
+				pos.entity.attackEntityFrom(thrower != null ? thrower instanceof EntityPlayer ? DamageSource.causeThrownDamage(this, thrower) : DamageSource.causeMobDamage(thrower) : DamageSource.GENERIC, 12);
 				if(isFire())
-					pos.entityHit.setFire(5);
+					pos.entity.setFire(5);
 				else if(world.rand.nextInt(3) == 0)
-					((EntityLivingBase) pos.entityHit).addPotionEffect(new PotionEffect(MobEffects.POISON, 60, 0));
+					((EntityLivingBase) pos.entity).addPotionEffect(new PotionEffect(MobEffects.POISON, 60, 0));
 			}
 
 			break;
@@ -208,19 +213,19 @@ public class EntityThornChakram extends EntityThrowable {
 	}
 
 	@Override
-	public void writeEntityToNBT(NBTTagCompound compound) {
-		super.writeEntityToNBT(compound);
+	public void writeAdditional(NBTTagCompound compound) {
+		super.writeAdditional(compound);
 		if(!stack.isEmpty()) {
-			compound.setTag("fly_stack", stack.writeToNBT(new NBTTagCompound()));
+			compound.setTag("fly_stack", stack.write(new NBTTagCompound()));
 		}
 		compound.setBoolean("flare", isFire());
 	}
 
 	@Override
-	public void readEntityFromNBT(NBTTagCompound compound) {
-		super.readEntityFromNBT(compound);
+	public void readAdditional(NBTTagCompound compound) {
+		super.readAdditional(compound);
 		if(compound.hasKey("fly_stack")) {
-			stack = new ItemStack(compound.getCompoundTag("fly_stack"));
+			stack = ItemStack.read(compound.getCompound("fly_stack"));
 		}
 		setFire(compound.getBoolean("flare"));
 	}

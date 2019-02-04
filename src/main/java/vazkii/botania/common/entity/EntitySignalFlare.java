@@ -11,6 +11,7 @@
 package vazkii.botania.common.entity;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.nbt.NBTTagCompound;
@@ -18,41 +19,44 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.world.World;
+import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
 public class EntitySignalFlare extends Entity {
-
+	@ObjectHolder(LibMisc.MOD_ID + ":signal_flare")
+	public static EntityType<?> TYPE;
 	private static final String COLOR_TAG = "color";
 	private static final String FIRED_Y_TAG = "firedY";
 	private static final DataParameter<Integer> COLOR = EntityDataManager.createKey(EntitySignalFlare.class, DataSerializers.VARINT);
 	private static final DataParameter<Integer> FIRED_Y = EntityDataManager.createKey(EntitySignalFlare.class, DataSerializers.VARINT);
 
 	public EntitySignalFlare(World world) {
-		super(world);
+		super(TYPE, world);
 		setSize(0F, 0F);
 	}
 
 	@Override
-	protected void entityInit() {
+	protected void registerData() {
 		dataManager.register(COLOR, 0);
 		dataManager.register(FIRED_Y, 0);
 	}
 
 	@Override
-	public void onEntityUpdate() {
-		super.onEntityUpdate();
+	public void baseTick() {
+		super.baseTick();
 		if(ticksExisted++ >= 100)
-			setDead();
+			remove();
 
-		if(!isDead) {
+		if(!removed) {
 			if(ticksExisted % 10 == 0)
 				playSound(SoundEvents.ENTITY_CREEPER_PRIMED, 1F, 1F);
 
 			int color = getColor();
 			if(color < 16 && color >= 0) {
-				int hex = EnumDyeColor.byMetadata(color).colorValue;
+				int hex = EnumDyeColor.byId(color).colorValue;
 				int r = (hex & 0xFF0000) >> 16;
 				int g = (hex & 0xFF00) >> 8;
 				int b = hex & 0xFF;
@@ -69,15 +73,15 @@ public class EntitySignalFlare extends Entity {
 	}
 
 	@Override
-	protected void readEntityFromNBT(@Nonnull NBTTagCompound nbttagcompound) {
-		setColor(nbttagcompound.getInteger(COLOR_TAG));
-		setFiredAt(nbttagcompound.getInteger(FIRED_Y_TAG));
+	protected void readAdditional(@Nonnull NBTTagCompound nbttagcompound) {
+		setColor(nbttagcompound.getInt(COLOR_TAG));
+		setFiredAt(nbttagcompound.getInt(FIRED_Y_TAG));
 	}
 
 	@Override
-	protected void writeEntityToNBT(@Nonnull NBTTagCompound nbttagcompound) {
-		nbttagcompound.setInteger(COLOR_TAG, getColor());
-		nbttagcompound.setInteger(FIRED_Y_TAG, getFiredAt());
+	protected void writeAdditional(@Nonnull NBTTagCompound nbttagcompound) {
+		nbttagcompound.setInt(COLOR_TAG, getColor());
+		nbttagcompound.setInt(FIRED_Y_TAG, getFiredAt());
 	}
 
 	public void setColor(int color) {

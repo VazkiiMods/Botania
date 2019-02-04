@@ -13,6 +13,7 @@ package vazkii.botania.common.entity;
 import baubles.api.BaublesApi;
 import gnu.trove.map.hash.TObjectIntHashMap;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
@@ -27,6 +28,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.mana.spark.ISparkAttachable;
@@ -35,6 +37,7 @@ import vazkii.botania.api.mana.spark.SparkHelper;
 import vazkii.botania.api.mana.spark.SparkUpgradeType;
 import vazkii.botania.common.item.ItemSparkUpgrade;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.network.PacketBotaniaEffect;
 import vazkii.botania.common.network.PacketHandler;
 
@@ -50,7 +53,8 @@ import java.util.Set;
 import java.util.WeakHashMap;
 
 public class EntitySpark extends Entity implements ISparkEntity {
-
+	@ObjectHolder(LibMisc.MOD_ID + ":spark")
+	public static EntityType<?> TYPE;
 	private static final int TRANSFER_RATE = 1000;
 	private static final String TAG_UPGRADE = "upgrade";
 	private static final String TAG_INVIS = "invis";
@@ -61,13 +65,13 @@ public class EntitySpark extends Entity implements ISparkEntity {
 	private int removeTransferants = 2;
 
 	public EntitySpark(World world) {
-		super(world);
+		super(TYPE, world);
 		isImmuneToFire = true;
+		setSize(0.1F, 0.5F);
 	}
 
 	@Override
-	protected void entityInit() {
-		setSize(0.1F, 0.5F);
+	protected void registerData() {
 		dataManager.register(UPGRADE, 0);
 	}
 
@@ -78,8 +82,8 @@ public class EntitySpark extends Entity implements ISparkEntity {
 	}
 
 	@Override
-	public void onUpdate() {
-		super.onUpdate();
+	public void tick() {
+		super.tick();
 
 		if(world.isRemote)
 			return;
@@ -101,7 +105,7 @@ public class EntitySpark extends Entity implements ISparkEntity {
 		case DISPERSIVE : {
 			List<EntityPlayer> players = SparkHelper.getEntitiesAround(EntityPlayer.class, world, posX, posY + (height / 2.0), posZ);
 
-			Map<EntityPlayer, TObjectIntHashMap<ItemStack>> receivingPlayers = new HashMap<>();
+			Map<EntityPlayer, Map<ItemStack, Integer>> receivingPlayers = new HashMap<>();
 
 			ItemStack input = new ItemStack(ModItems.spark);
 			for(EntityPlayer player : players) {
@@ -119,11 +123,11 @@ public class EntitySpark extends Entity implements ISparkEntity {
 
 					IManaItem manaItem = (IManaItem) stack.getItem();
 					if(manaItem.canReceiveManaFromItem(stack, input)) {
-						TObjectIntHashMap<ItemStack> receivingStacks;
+						Map<ItemStack, Integer> receivingStacks;
 						boolean add = false;
 						if(!receivingPlayers.containsKey(player)) {
 							add = true;
-							receivingStacks = new TObjectIntHashMap<>();
+							receivingStacks = new HashMap<>();
 						} else receivingStacks = receivingPlayers.get(player);
 
 						int recv = Math.min(getAttachedTile().getCurrentMana(), Math.min(TRANSFER_RATE, manaItem.getMaxMana(stack) - manaItem.getMana(stack)));
@@ -141,7 +145,7 @@ public class EntitySpark extends Entity implements ISparkEntity {
 				Collections.shuffle(keys);
 				EntityPlayer player = keys.iterator().next();
 
-				TObjectIntHashMap<ItemStack> items = receivingPlayers.get(player);
+				Map<ItemStack, Integer> items = receivingPlayers.get(player);
 				ItemStack stack = items.keySet().iterator().next();
 				int cost = items.get(stack);
 				int manaToPut = Math.min(getAttachedTile().getCurrentMana(), cost);
@@ -229,7 +233,7 @@ public class EntitySpark extends Entity implements ISparkEntity {
 		entityDropItem(new ItemStack(ModItems.spark), 0F);
 		if(upgrade !=  SparkUpgradeType.NONE)
 			entityDropItem(ItemSparkUpgrade.getByType(upgrade), 0F);
-		setDead();
+		remove();
 	}
 
 	@Override
@@ -240,7 +244,7 @@ public class EntitySpark extends Entity implements ISparkEntity {
 	@Override
 	public boolean processInitialInteract(EntityPlayer player, EnumHand hand) {
 		ItemStack stack = player.getHeldItem(hand);
-		if(!isDead && !stack.isEmpty()) {
+		if(!removed && !stack.isEmpty()) {
 			if(world.isRemote) {
 				boolean valid = stack.getItem() == ModItems.twigWand || stack.getItem() instanceof ItemSparkUpgrade
 						|| stack.getItem() == ModItems.phantomInk;
@@ -279,15 +283,15 @@ public class EntitySpark extends Entity implements ISparkEntity {
 	}
 
 	@Override
-	protected void readEntityFromNBT(@Nonnull NBTTagCompound cmp) {
-		setUpgrade(SparkUpgradeType.values()[cmp.getInteger(TAG_UPGRADE)]);
-		setInvisible(cmp.getInteger(TAG_INVIS) == 1);
+	protected void readAdditional(@Nonnull NBTTagCompound cmp) {
+		setUpgrade(SparkUpgradeType.values()[cmp.getInt(TAG_UPGRADE)]);
+		setInvisible(cmp.getInt(TAG_INVIS) == 1);
 	}
 
 	@Override
-	protected void writeEntityToNBT(@Nonnull NBTTagCompound cmp) {
-		cmp.setInteger(TAG_UPGRADE, getUpgrade().ordinal());
-		cmp.setInteger(TAG_INVIS, isInvisible() ? 1 : 0);
+	protected void writeAdditional(@Nonnull NBTTagCompound cmp) {
+		cmp.setInt(TAG_UPGRADE, getUpgrade().ordinal());
+		cmp.setInt(TAG_INVIS, isInvisible() ? 1 : 0);
 	}
 
 	@Override

@@ -90,7 +90,7 @@ public class ItemKingKey extends ItemRelic implements IManaUsingItem {
 
 			Vector3 end = pl.add(axis1);
 
-			EntityBabylonWeapon weapon = new EntityBabylonWeapon(living.world, living);
+			EntityBabylonWeapon weapon = new EntityBabylonWeapon(living, living.world);
 			weapon.posX = end.x;
 			weapon.posY = end.y;
 			weapon.posZ = end.z;

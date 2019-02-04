@@ -37,7 +37,7 @@ public class ItemThornChakram extends ItemMod {
 		if(!world.isRemote) {
 			ItemStack copy = stack.copy();
 			copy.setCount(1);
-			EntityThornChakram c = new EntityThornChakram(world, player, copy);
+			EntityThornChakram c = new EntityThornChakram(player, world, copy);
 			c.shoot(player, player.rotationPitch, player.rotationYaw, 0.0F, 1.5F, 1.0F);
 			if(stack.getItem() == ModItems.flareChakram)
 				c.setFire(true);

@@ -52,7 +52,7 @@ public class ItemStarSword extends ItemManasteelSword {
 					posVec = posVec.add(motVec);
 					motVec = motVec.normalize().negate().multiply(1.5);
 
-					EntityFallingStar star = new EntityFallingStar(world, player);
+					EntityFallingStar star = new EntityFallingStar(player, world);
 					star.setPosition(posVec.x, posVec.y, posVec.z);
 					star.motionX = motVec.x;
 					star.motionY = motVec.y;
@@ -62,7 +62,7 @@ public class ItemStarSword extends ItemManasteelSword {
 					if (!world.isRaining()
 							&& Math.abs(world.getWorldTime() - 18000) < 1800
 							&& Math.random() < 0.125) {
-						EntityFallingStar bonusStar = new EntityFallingStar(world, player);
+						EntityFallingStar bonusStar = new EntityFallingStar(player, world);
 						bonusStar.setPosition(posVec.x, posVec.y, posVec.z);
 						bonusStar.motionX = motVec.x + Math.random() - 0.5;
 						bonusStar.motionY = motVec.y + Math.random() - 0.5;

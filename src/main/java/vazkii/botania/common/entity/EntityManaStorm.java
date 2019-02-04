@@ -11,16 +11,21 @@
 package vazkii.botania.common.entity;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
+import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.lens.ItemLens;
+import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
 public class EntityManaStorm extends Entity {
+	@ObjectHolder(LibMisc.MOD_ID + ":mana_storm")
+	public static EntityType<?> TYPE;
 
 	private static final String TAG_TIME = "time";
 	private static final String TAG_BURSTS_FIRED = "burstsFired";
@@ -34,15 +39,15 @@ public class EntityManaStorm extends Entity {
 	public int deathTime;
 
 	public EntityManaStorm(World world) {
-		super(world);
+		super(TYPE, world);
 	}
 
 	@Override
-	protected void entityInit() {}
+	protected void registerData() {}
 
 	@Override
-	public void onUpdate() {
-		super.onUpdate();
+	public void tick() {
+		super.tick();
 		liveTime++;
 
 		int diffTime = Math.max(1, 30 - (int) (liveTime / 45f));
@@ -55,7 +60,7 @@ public class EntityManaStorm extends Entity {
 		if(burstsFired >= TOTAL_BURSTS) {
 			deathTime++;
 			if(deathTime >= DEATH_TIME) {
-				setDead();
+				remove();
 				world.newExplosion(this, posX, posY, posZ, 8F, true, true);
 			}
 		}
@@ -81,17 +86,17 @@ public class EntityManaStorm extends Entity {
 	}
 
 	@Override
-	protected void readEntityFromNBT(@Nonnull NBTTagCompound cmp) {
-		liveTime = cmp.getInteger(TAG_TIME);
-		burstsFired = cmp.getInteger(TAG_BURSTS_FIRED);
-		deathTime = cmp.getInteger(TAG_DEATH_TIME);
+	protected void readAdditional(@Nonnull NBTTagCompound cmp) {
+		liveTime = cmp.getInt(TAG_TIME);
+		burstsFired = cmp.getInt(TAG_BURSTS_FIRED);
+		deathTime = cmp.getInt(TAG_DEATH_TIME);
 	}
 
 	@Override
-	protected void writeEntityToNBT(@Nonnull NBTTagCompound cmp) {
-		cmp.setInteger(TAG_TIME, liveTime);
-		cmp.setInteger(TAG_BURSTS_FIRED, burstsFired);
-		cmp.setInteger(TAG_DEATH_TIME, deathTime);
+	protected void writeAdditional(@Nonnull NBTTagCompound cmp) {
+		cmp.setInt(TAG_TIME, liveTime);
+		cmp.setInt(TAG_BURSTS_FIRED, burstsFired);
+		cmp.setInt(TAG_DEATH_TIME, deathTime);
 	}
 
 }

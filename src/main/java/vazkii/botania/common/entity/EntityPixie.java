@@ -12,6 +12,7 @@ package vazkii.botania.common.entity;
 
 import net.minecraft.entity.EntityFlying;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.datasync.DataParameter;
@@ -21,52 +22,55 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.Optional;
+import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.common.Botania;
 
 import javax.annotation.Nonnull;
 
 import elucent.albedo.lighting.ILightProvider;
 import elucent.albedo.lighting.Light;
+import vazkii.botania.common.lib.LibMisc;
 
 @Optional.Interface(iface="elucent.albedo.lighting.ILightProvider", modid="albedo")
 public class EntityPixie extends EntityFlying implements ILightProvider {
-
-	private static final DataParameter<Integer> TYPE = EntityDataManager.createKey(EntityPixie.class, DataSerializers.VARINT);
+	@ObjectHolder(LibMisc.MOD_ID + ":pixie")
+	public static EntityType<?> TYPE;
+	private static final DataParameter<Integer> PIXIE_TYPE = EntityDataManager.createKey(EntityPixie.class, DataSerializers.VARINT);
 
 	private EntityLivingBase summoner = null;
 	private float damage = 0;
 	private PotionEffect effect = null;
 
 	public EntityPixie(World world) {
-		super(world);
+		super(TYPE, world);
 		setSize(1.0F, 1.0F);
 	}
 
 	@Override
-	protected void entityInit() {
-		super.entityInit();
-		dataManager.register(TYPE, 0);
+	protected void registerData() {
+		super.registerData();
+		dataManager.register(PIXIE_TYPE, 0);
 	}
 
 	@Override
-	protected void applyEntityAttributes() {
-		super.applyEntityAttributes();
-		getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(2.0);
+	protected void registerAttributes() {
+		super.registerAttributes();
+		getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(2.0);
 	}
 
-	public void setType(int type) {
-		dataManager.set(TYPE, type);
+	public void setPixieType(int type) {
+		dataManager.set(PIXIE_TYPE, type);
 	}
 
-	public int getType() {
-		return dataManager.get(TYPE);
+	public int getPixieType() {
+		return dataManager.get(PIXIE_TYPE);
 	}
 
 	public void setProps(EntityLivingBase target, EntityLivingBase summoner, int type, float damage) {
 		setAttackTarget(target);
 		this.summoner = summoner;
 		this.damage = damage;
-		setType(type);
+		setPixieType(type);
 	}
 
 	public void setApplyPotionEffect(PotionEffect effect) {
@@ -83,7 +87,7 @@ public class EntityPixie extends EntityFlying implements ILightProvider {
 			double d3 = d0 * d0 + d1 * d1 + d2 * d2;
 
 			float mod = 0.45F;
-			if(getType() == 1)
+			if(getPixieType() == 1)
 				mod = 0.1F;
 
 			motionX += d0 / d3 * mod;
@@ -109,31 +113,31 @@ public class EntityPixie extends EntityFlying implements ILightProvider {
 
 	@Override
 	public boolean attackEntityFrom(@Nonnull DamageSource par1DamageSource, float par2) {
-		if(getType() == 0 && par1DamageSource.getTrueSource() != summoner || getType() == 1 && par1DamageSource.getTrueSource() instanceof EntityPlayer)
+		if(getPixieType() == 0 && par1DamageSource.getTrueSource() != summoner || getPixieType() == 1 && par1DamageSource.getTrueSource() instanceof EntityPlayer)
 			return super.attackEntityFrom(par1DamageSource, par2);
 		return false;
 	}
 
 	@Override
-	public void onEntityUpdate() {
-		super.onEntityUpdate();
+	public void baseTick() {
+		super.baseTick();
 
 		if(!world.isRemote
 				&& (getAttackTarget() == null || ticksExisted > 200))
 			setDead();
 
-		boolean dark = getType() == 1;
+		boolean dark = getPixieType() == 1;
 		if(world.isRemote)
 			for(int i = 0; i < 4; i++)
 				Botania.proxy.sparkleFX(posX + (Math.random() - 0.5) * 0.25, posY + 0.5  + (Math.random() - 0.5) * 0.25, posZ + (Math.random() - 0.5) * 0.25, dark ? 0.1F : 1F, dark ? 0.025F : 0.25F, dark ? 0.09F : 0.9F, 0.1F + (float) Math.random() * 0.25F, 12);
 	}
 
 	@Override
-	public void setDead() {
-		if(world != null && world.isRemote && getType() == 0)
+	public void remove() {
+		if(world != null && world.isRemote && getPixieType() == 0)
 			for(int i = 0; i < 12; i++)
 				Botania.proxy.sparkleFX(posX + (Math.random() - 0.5) * 0.25, posY + 0.5  + (Math.random() - 0.5) * 0.25, posZ + (Math.random() - 0.5) * 0.25, 1F, 0.25F, 0.9F, 1F + (float) Math.random() * 0.25F, 5);
-		super.setDead();
+		super.remove();
 	}
 
 	@Override
@@ -149,7 +153,7 @@ public class EntityPixie extends EntityFlying implements ILightProvider {
 	@Override
 	@Optional.Method(modid="albedo")
 	public Light provideLight() {
-		if(getType() == 1)
+		if(getPixieType() == 1)
 			return null;
 		
 		return Light.builder().pos(this).color(1F, 0F, 0.5F).radius(8).build();

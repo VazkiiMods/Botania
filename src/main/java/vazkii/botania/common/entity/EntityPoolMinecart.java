@@ -12,6 +12,7 @@ package vazkii.botania.common.entity;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -26,6 +27,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
+import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.state.BotaniaStateProps;
@@ -34,27 +36,29 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.block.tile.mana.TilePump;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 import java.awt.Color;
 
 public class EntityPoolMinecart extends EntityMinecart {
-
+	@ObjectHolder(LibMisc.MOD_ID + ":pool_minecart")
+	public static EntityType<?> TYPE;
 	private static final int TRANSFER_RATE = 10000;
 	private static final String TAG_MANA = "mana";
 	private static final DataParameter<Integer> MANA = EntityDataManager.createKey(EntityPoolMinecart.class, DataSerializers.VARINT);
 
 	public EntityPoolMinecart(World world) {
-		super(world);
+		super(TYPE, world);
 	}
 
 	public EntityPoolMinecart(World world, double x, double y, double z) {
-		super(world, x, y, z);
+		super(TYPE, world, x, y, z);
 	}
 
 	@Override
-	protected void entityInit() {
-		super.entityInit();
+	protected void registerData() {
+		super.registerData();
 		dataManager.register(MANA, 0);
 	}
 
@@ -72,7 +76,7 @@ public class EntityPoolMinecart extends EntityMinecart {
 
 	@Nonnull
 	@Override
-	public EntityMinecart.Type getType() {
+	public EntityMinecart.Type getMinecartType() {
 		return Type.RIDEABLE;
 	}
 
@@ -100,7 +104,7 @@ public class EntityPoolMinecart extends EntityMinecart {
 	@Override
 	public void killMinecart(DamageSource source) {
 		super.killMinecart(source);
-		dropItemWithOffset(Item.getItemFromBlock(ModBlocks.manaPool), 1, 0.0F);
+		entityDropItem(ModBlocks.manaPool, 0);
 	}
 
 	@Override
@@ -109,8 +113,8 @@ public class EntityPoolMinecart extends EntityMinecart {
 	}
 
 	@Override
-	public void onUpdate() {
-		super.onUpdate();
+	public void tick() {
+		super.tick();
 
 		if(world.isRemote) {
 			double particleChance = 1F - (double) getMana() / (double) TilePool.MAX_MANA * 0.1;
@@ -127,7 +131,7 @@ public class EntityPoolMinecart extends EntityMinecart {
 	public void moveMinecartOnRail(BlockPos pos) {
 		super.moveMinecartOnRail(pos);
 
-		for(EnumFacing dir : EnumFacing.HORIZONTALS) {
+		for(EnumFacing dir : EnumFacing.BY_HORIZONTAL_INDEX) {
 			BlockPos posP = pos.offset(dir);
 			Block block = world.getBlockState(posP).getBlock();
 			if(block == ModBlocks.pump) {
@@ -138,7 +142,7 @@ public class EntityPoolMinecart extends EntityMinecart {
 
 				if(tile != null && tile instanceof IManaPool) {
 					IManaPool pool = (IManaPool) tile;
-					EnumFacing pumpDir = world.getBlockState(posP).getValue(BotaniaStateProps.CARDINALS);
+					EnumFacing pumpDir = world.getBlockState(posP).get(BotaniaStateProps.CARDINALS);
 					boolean did = false;
 					boolean can = false;
 
@@ -188,15 +192,15 @@ public class EntityPoolMinecart extends EntityMinecart {
 	}
 
 	@Override
-	protected void writeEntityToNBT(@Nonnull NBTTagCompound cmp) {
-		super.writeEntityToNBT(cmp);
-		cmp.setInteger(TAG_MANA, getMana());
+	protected void writeAdditional(@Nonnull NBTTagCompound cmp) {
+		super.writeAdditional(cmp);
+		cmp.setInt(TAG_MANA, getMana());
 	}
 
 	@Override
-	protected void readEntityFromNBT(NBTTagCompound cmp) {
-		super.readEntityFromNBT(cmp);
-		setMana(cmp.getInteger(TAG_MANA));
+	protected void readAdditional(NBTTagCompound cmp) {
+		super.readAdditional(cmp);
+		setMana(cmp.getInt(TAG_MANA));
 	}
 
 	@Override

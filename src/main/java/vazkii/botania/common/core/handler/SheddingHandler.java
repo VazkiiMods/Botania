@@ -11,18 +11,17 @@
 package vazkii.botania.common.core.handler;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.registry.EntityEntry;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
+import net.minecraftforge.registries.ForgeRegistries;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lexicon.page.PageShedding;
 import vazkii.botania.common.lib.LibMisc;
@@ -30,7 +29,6 @@ import vazkii.botania.common.lib.LibMisc;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
-import java.util.Objects;
 
 @Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
 public final class SheddingHandler {
@@ -55,7 +53,7 @@ public final class SheddingHandler {
 
 	private static ShedPattern getShedPattern(Entity entity) {
 		for(ShedPattern pattern : patterns)
-			if(pattern.EntityClass.isInstance(entity))
+			if(pattern.type.getEntityClass().isInstance(entity))
 				return pattern;
 
 		return null;
@@ -71,7 +69,7 @@ public final class SheddingHandler {
 
 		int i = 1;
 		for(ShedPattern pattern : patterns) {
-			PageShedding page = new PageShedding(String.valueOf(i), Objects.toString(EntityList.getKey(pattern.EntityClass)), pattern.lexiconSize, pattern.getItemStack());
+			PageShedding page = new PageShedding(String.valueOf(i), pattern.getEntityString(), pattern.lexiconSize, pattern.getItemStack());
 			LexiconData.shedding.addPage(page);
 		}
 	}
@@ -93,7 +91,7 @@ public final class SheddingHandler {
 			defaultNames.add(pattern.getEntityString());
 		}
 
-		for(Entry<ResourceLocation, EntityEntry> entry : ForgeRegistries.ENTITIES.getEntries()) {
+		for(Entry<ResourceLocation, EntityType<?>> entry : ForgeRegistries.ENTITIES.getEntries()) {
 			if(EntityLiving.class.isAssignableFrom(entry.getValue().getEntityClass())) {
 				String name = entry.getKey().toString();
 				if(!defaultNames.contains(name))
@@ -104,13 +102,11 @@ public final class SheddingHandler {
 
 	private static void loadFromConfig(Configuration config, String key, ShedPattern defaultPattern) {
 		String itemName = "";
-		int metadata = 0;
 		int rate = -1;
 		int lexiconSize = 40;
 
 		if(defaultPattern != null) {
-			itemName = Item.REGISTRY.getNameForObject(defaultPattern.getItemStack().getItem()).toString();
-			metadata = defaultPattern.getItemStack().getItemDamage();
+			itemName = defaultPattern.getItemStack().getItem().getRegistryName().toString();
 			rate = defaultPattern.rate;
 			lexiconSize = defaultPattern.lexiconSize;
 		}
@@ -119,22 +115,21 @@ public final class SheddingHandler {
 		prop.setComment("Configuration of Shedding for "+key);
 		itemName = prop.getString();
 		rate = config.get("Shedding", key + ".rate", rate).getInt();
-		metadata = config.get("Shedding", key + ".metadata", metadata).getInt();
 		lexiconSize = config.get("Shedding", key + ".lexiconDisplaySize", lexiconSize).getInt();
 
 		if(itemName != null && Item.REGISTRY.getObject(new ResourceLocation(itemName)) != null && rate != -1)
-			patterns.add(new ShedPattern(EntityList.getClass(new ResourceLocation(key)), new ItemStack(Item.REGISTRY.getObject(new ResourceLocation(itemName)), 1, metadata), rate, lexiconSize));
+			patterns.add(new ShedPattern(EntityList.getClass(new ResourceLocation(key)), new ItemStack(Item.REGISTRY.getObject(new ResourceLocation(itemName))), rate, lexiconSize));
 	}
 
 	private static class ShedPattern {
 
-		private final Class EntityClass;
+		private final EntityType<?> type;
 		private final ItemStack itemStack;
 		private final int rate;
 		private final int lexiconSize;
 
-		public ShedPattern(Class EntityClass, ItemStack itemStack, int rate, int lexiconSize) {
-			this.EntityClass = EntityClass;
+		public ShedPattern(EntityType<?> type, ItemStack itemStack, int rate, int lexiconSize) {
+			this.type = type;
 			this.itemStack = itemStack;
 			this.rate = rate;
 			this.lexiconSize = lexiconSize;
@@ -148,7 +143,7 @@ public final class SheddingHandler {
 		}
 
 		public String getEntityString() {
-			return Objects.toString(EntityList.getKey(EntityClass));
+			return type.getRegistryName().toString();
 		}
 	}
 

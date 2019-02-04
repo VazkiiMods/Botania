@@ -14,11 +14,14 @@ import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.block.state.pattern.BlockStateMatcher;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
+import net.minecraftforge.registries.ObjectHolder;
+import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -27,13 +30,15 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class EntityEnderAirBottle extends EntityThrowable {
+	@ObjectHolder(LibMisc.MOD_ID + ":ender_air_bottle")
+	public static EntityType<?> TYPE;
 
 	public EntityEnderAirBottle(World world) {
-		super(world);
+		super(TYPE, world);
 	}
 
-	public EntityEnderAirBottle(World world, EntityLivingBase entity) {
-		super(world, entity);
+	public EntityEnderAirBottle(EntityLivingBase entity, World world) {
+		super(TYPE, entity, world);
 	}
 
 	@Override
@@ -47,7 +52,7 @@ public class EntityEnderAirBottle extends EntityThrowable {
 				if(Math.random() < 0.1)
 					world.playEvent(2001, coords, Block.getStateId(Blocks.END_STONE.getDefaultState()));
 			}
-			setDead();
+			remove();
 		}
 	}
 

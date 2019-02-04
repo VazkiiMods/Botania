@@ -11,6 +11,7 @@
 package vazkii.botania.common.entity;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -19,15 +20,20 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.common.core.helper.Vector3;
+import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 import java.util.List;
 
 public class EntityThrownItem extends EntityItem {
+	@ObjectHolder(LibMisc.MOD_ID + ":thrown_item")
+	public static EntityType<?> TYPE;
 
 	public EntityThrownItem(World world) {
 		super(world);
+		setInvulnerable(true);
 	}
 
 	public EntityThrownItem(World world, double x,
@@ -37,16 +43,18 @@ public class EntityThrownItem extends EntityItem {
 		motionX = item.motionX;
 		motionY = item.motionY;
 		motionZ = item.motionZ;
+		setInvulnerable(true);
+	}
+
+	@Nonnull
+	@Override
+	public EntityType<?> getType() {
+		return TYPE;
 	}
 
 	@Override
-	public boolean isEntityInvulnerable(@Nonnull DamageSource source) {
-		return true;
-	}
-
-	@Override
-	public void onUpdate() {
-		super.onUpdate();
+	public void tick() {
+		super.tick();
 		Vec3d vec3 = new Vec3d(posX, posY, posZ);
 		Vec3d vec31 = new Vec3d(posX + motionX, posY + motionY, posZ + motionZ);
 
@@ -56,13 +64,13 @@ public class EntityThrownItem extends EntityItem {
 		if (!world.isRemote)
 		{
 			Entity entity = null;
-			List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox().offset(motionX*2, motionY*2, motionZ*2).grow(2));
+			List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(this, getBoundingBox().offset(motionX*2, motionY*2, motionZ*2).grow(2));
 			double d0 = 0.0D;
 
 			for (Entity entity1 : list) {
 				if (entity1.canBeCollidedWith() && (!(entity1 instanceof EntityPlayer) || pickupDelay == 0)) {
 					float f = 1.0F;
-					AxisAlignedBB axisalignedbb = entity1.getEntityBoundingBox().grow(f);
+					AxisAlignedBB axisalignedbb = entity1.getBoundingBox().grow(f);
 					RayTraceResult RayTraceResult1 = axisalignedbb.calculateIntercept(vec3, vec31);
 
 					if (RayTraceResult1 != null) {
@@ -84,14 +92,14 @@ public class EntityThrownItem extends EntityItem {
 
 		if (RayTraceResult != null)
 		{
-			if (RayTraceResult.typeOfHit == net.minecraft.util.math.RayTraceResult.Type.BLOCK && world.getBlockState(RayTraceResult.getBlockPos()).getBlock() == Blocks.PORTAL)
+			if (RayTraceResult.type == net.minecraft.util.math.RayTraceResult.Type.BLOCK && world.getBlockState(RayTraceResult.getBlockPos()).getBlock() == Blocks.NETHER_PORTAL)
 			{
 				setPortal(RayTraceResult.getBlockPos());
 			}
 			else
 			{
-				if (RayTraceResult.entityHit != null) {
-					RayTraceResult.entityHit.attackEntityFrom(DamageSource.MAGIC, 2.0F);
+				if (RayTraceResult.type != null) {
+					RayTraceResult.entity.attackEntityFrom(DamageSource.MAGIC, 2.0F);
 					if (!world.isRemote) {
 						Entity item = getItem().getItem().createEntity(world, this, getItem());
 						if (item == null) {
@@ -109,7 +117,7 @@ public class EntityThrownItem extends EntityItem {
 							item.motionZ = motionZ*0.25F;
 						}
 					}
-					setDead();
+					remove();
 
 				}
 			}
@@ -133,7 +141,7 @@ public class EntityThrownItem extends EntityItem {
 					item.motionZ = motionZ;
 				}
 			}
-			setDead();
+			remove();
 		}
 	}
 }

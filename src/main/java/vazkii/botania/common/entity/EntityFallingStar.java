@@ -13,12 +13,14 @@ package vazkii.botania.common.entity;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.Optional;
+import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.ConfigHandler;
 
@@ -26,23 +28,26 @@ import java.util.List;
 
 import elucent.albedo.lighting.ILightProvider;
 import elucent.albedo.lighting.Light;
+import vazkii.botania.common.lib.LibMisc;
 
 @Optional.Interface(iface="elucent.albedo.lighting.ILightProvider", modid="albedo")
 public class EntityFallingStar extends EntityThrowableCopy implements ILightProvider {
+	@ObjectHolder(LibMisc.MOD_ID + ":falling_star")
+	public static EntityType<?> TYPE;
 
 	public EntityFallingStar(World world) {
-		super(world);
+		super(TYPE, world);
 		setSize(0F, 0F);
 	}
 
-	public EntityFallingStar(World world, EntityLivingBase e) {
-		super(world, e);
+	public EntityFallingStar(EntityLivingBase e, World world) {
+		super(TYPE, e, world);
 		setSize(0F, 0F);
 	}
 
 	@Override
-	public void onUpdate() {
-		super.onUpdate();
+	public void tick() {
+		super.tick();
 
 		float dist = 1.5F;
 		for(int i = 0; i < 10; i++) {
@@ -68,7 +73,7 @@ public class EntityFallingStar extends EntityThrowableCopy implements ILightProv
 		}
 
 		if(ticksExisted > 200)
-			setDead();
+			remove();
 	}
 
 	@Override
@@ -77,10 +82,10 @@ public class EntityFallingStar extends EntityThrowableCopy implements ILightProv
 			return;
 
 		EntityLivingBase thrower = getThrower();
-		if(pos.entityHit != null && thrower != null && pos.entityHit != thrower && !pos.entityHit.isDead) {
+		if(pos.entity != null && thrower != null && pos.entity != thrower && !pos.entity.removed) {
 			if(thrower instanceof EntityPlayer)
-				pos.entityHit.attackEntityFrom(DamageSource.causePlayerDamage((EntityPlayer) thrower), Math.random() < 0.25 ? 10 : 5);
-			else pos.entityHit.attackEntityFrom(DamageSource.GENERIC, Math.random() < 0.25 ? 10 : 5);
+				pos.entity.attackEntityFrom(DamageSource.causePlayerDamage((EntityPlayer) thrower), Math.random() < 0.25 ? 10 : 5);
+			else pos.entity.attackEntityFrom(DamageSource.GENERIC, Math.random() < 0.25 ? 10 : 5);
 		}
 
 		if (pos.getBlockPos() != null) {
@@ -89,7 +94,7 @@ public class EntityFallingStar extends EntityThrowableCopy implements ILightProv
 				world.playEvent(2001, pos.getBlockPos(), Block.getStateId(state));
 		}
 
-		setDead();
+		remove();
 	}
 	
 	@Override

@@ -129,7 +129,7 @@ public final class ModPetalRecipes {
 		solegnoliaRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_SOLEGNOLIA), brown, brown, red, blue, redstoneRoot);
 		bergamuteRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_BERGAMUTE), orange, green, green, redstoneRoot);
 
-		ItemStack stack = new ItemStack(Items.SKULL, 1, 3);
+		ItemStack stack = new ItemStack(Items.PLAYER_HEAD);
 		ItemNBTHelper.setString(stack, "SkullOwner", "Vazkii");
 		Object[] inputs = new Object[16];
 		Arrays.fill(inputs, pink);
