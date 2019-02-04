@@ -17,6 +17,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Enchantments;
 import net.minecraft.item.ItemShears;
 import net.minecraft.item.ItemStack;
@@ -111,6 +112,7 @@ public class ItemManasteelShears extends ItemShears implements IManaUsingItem, I
 
 				ToolCommons.damageItem(itemstack, 1, player, MANA_PER_DAMAGE);
 				player.addStat(StatList.getBlockStats(block), 1);
+				player.world.setBlockState(pos, Blocks.AIR.getDefaultState(), 11);
 				return true;
 			}
 		}
