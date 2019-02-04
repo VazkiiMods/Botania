@@ -13,7 +13,7 @@ package vazkii.botania.common.core.handler;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import vazkii.botania.api.internal.IManaNetwork;
 import vazkii.botania.api.mana.ManaNetworkEvent;
 import vazkii.botania.api.mana.ManaNetworkEvent.Action;
@@ -79,7 +79,7 @@ public final class ManaNetworkHandler implements IManaNetwork {
 		return tiles.stream()
 				.filter(ts -> ts.isRemote() == remoteCheck)
 				.map(TileSignature::getTile)
-				.filter(t -> !t.isInvalid())
+				.filter(t -> !t.isRemoved())
 				.filter(t -> t.getPos().distanceSq(pos) <= limit * limit)
 				.reduce(BinaryOperator.minBy(Comparator.comparing(t -> t.getPos().distanceSq(pos), Double::compare)))
 				.orElse(null);

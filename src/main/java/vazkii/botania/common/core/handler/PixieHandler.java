@@ -9,8 +9,8 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.items.IItemHandler;
 import vazkii.botania.api.item.IPixieSpawner;
 import vazkii.botania.common.core.helper.PlayerHelper;
@@ -58,7 +58,7 @@ public final class PixieHandler {
 					dmg += 2;
 
 				pixie.setProps((EntityLivingBase) event.getSource().getTrueSource(), player, 0, dmg);
-				pixie.onInitialSpawn(player.world.getDifficultyForLocation(new BlockPos(pixie)), null);
+				pixie.onInitialSpawn(player.world.getDifficultyForLocation(new BlockPos(pixie)), null, null);
 				player.world.spawnEntity(pixie);
 			}
 		}

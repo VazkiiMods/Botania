@@ -14,14 +14,13 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import vazkii.botania.common.lib.LibPotionNames;
 
 import javax.annotation.Nonnull;
 
 public class PotionClear extends PotionMod {
 
 	public PotionClear() {
-		super(LibPotionNames.CLEAR, false, 0xFFFFFF, 0);
+		super(false, 0xFFFFFF, 0);
 	}
 
 	@Override

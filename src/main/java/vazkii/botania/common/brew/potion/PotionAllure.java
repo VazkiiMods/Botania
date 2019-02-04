@@ -20,7 +20,7 @@ import javax.annotation.Nonnull;
 public class PotionAllure extends PotionMod {
 
 	public PotionAllure() {
-		super(LibPotionNames.ALLURE, false, 0x0034E4, 5);
+		super(false, 0x0034E4, 5);
 		setBeneficial();
 	}
 
@@ -34,7 +34,7 @@ public class PotionAllure extends PotionMod {
 		if(living instanceof EntityPlayer) {
 			EntityFishHook hook = ((EntityPlayer) living).fishEntity;
 			if(hook != null)
-				hook.onUpdate();
+				hook.tick();
 		}
 	}
 

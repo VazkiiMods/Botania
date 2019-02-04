@@ -18,10 +18,10 @@ import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
-import net.minecraftforge.items.VanillaDoubleChestItemHandler;
 import vazkii.botania.api.corporea.InvWithLocation;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 
@@ -40,13 +40,10 @@ public class InventoryHelper {
 		if(te == null)
 			return null;
 
-		IItemHandler ret = te.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, side) ?
-				te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, side) : null;
-
-				if(ret == null && te.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null))
-					ret = te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
-
-				return ret;
+		LazyOptional<IItemHandler> ret = te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, side);
+		if (!ret.isPresent())
+			ret = te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
+		return ret.orElse(null);
 	}
 
 	public static void dropInventory(TileSimpleInventory inv, World world, IBlockState state, BlockPos pos) {

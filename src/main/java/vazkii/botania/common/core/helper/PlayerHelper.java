@@ -106,7 +106,7 @@ public final class PlayerHelper {
 
 	public static void grantCriterion(EntityPlayerMP player, ResourceLocation advancementId, String criterion) {
 		PlayerAdvancements advancements = player.getAdvancements();
-		AdvancementManager manager = player.getServerWorld().getAdvancementManager();
+		AdvancementManager manager = player.getServerWorld().getServer().getAdvancementManager();
 		Advancement advancement = manager.getAdvancement(advancementId);
 		if(advancement != null) {
 			advancements.grantCriterion(advancement, criterion);

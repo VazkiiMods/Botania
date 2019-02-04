@@ -10,16 +10,16 @@
  */
 package vazkii.botania.common.core.helper;
 
+import net.minecraft.client.renderer.Vector3f;
+import net.minecraft.client.renderer.Vector4f;
 import net.minecraft.entity.Entity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.util.vector.Vector3f;
-import org.lwjgl.util.vector.Vector4f;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
@@ -181,15 +181,17 @@ public class Vector3
 		return x == 0 ? y == 0 || z == 0 : y == 0 && z == 0;
 	}
 
+	@OnlyIn(Dist.CLIENT)
 	public Vector3f vector3f() {
 		return new Vector3f((float)x, (float)y, (float)z);
 	}
 
+	@OnlyIn(Dist.CLIENT)
 	public Vector4f vector4f() {
 		return new Vector4f((float)x, (float)y, (float)z, 1);
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public void glVertex() {
 		GL11.glVertex3d(x, y, z);
 	}

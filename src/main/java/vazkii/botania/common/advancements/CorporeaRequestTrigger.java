@@ -5,8 +5,8 @@ import com.google.gson.JsonObject;
 import net.minecraft.advancements.ICriterionInstance;
 import net.minecraft.advancements.ICriterionTrigger;
 import net.minecraft.advancements.PlayerAdvancements;
-import net.minecraft.advancements.critereon.LocationPredicate;
-import net.minecraft.advancements.critereon.MinMaxBounds;
+import net.minecraft.advancements.criterion.LocationPredicate;
+import net.minecraft.advancements.criterion.MinMaxBounds;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
@@ -55,7 +55,7 @@ public class CorporeaRequestTrigger implements ICriterionTrigger<CorporeaRequest
     @Nonnull
     @Override
     public Instance deserializeInstance(@Nonnull JsonObject json, @Nonnull JsonDeserializationContext context) {
-        return new Instance(MinMaxBounds.deserialize(json.get("extracted")), LocationPredicate.deserialize(json.get("location")));
+        return new Instance(MinMaxBounds.IntBound.fromJson(json.get("extracted")), LocationPredicate.deserialize(json.get("location")));
     }
 
     static class PlayerTracker {
@@ -89,10 +89,10 @@ public class CorporeaRequestTrigger implements ICriterionTrigger<CorporeaRequest
     }
 
     static class Instance implements ICriterionInstance {
-        private final MinMaxBounds count;
+        private final MinMaxBounds.IntBound count;
         private final LocationPredicate indexPos;
 
-        Instance(MinMaxBounds count, LocationPredicate indexPos) {
+        Instance(MinMaxBounds.IntBound count, LocationPredicate indexPos) {
             this.count = count;
             this.indexPos = indexPos;
         }

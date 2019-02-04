@@ -12,25 +12,26 @@ package vazkii.botania.common.brew.potion;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import vazkii.botania.common.lib.LibPotionNames;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
+import vazkii.botania.common.brew.ModPotions;
+import vazkii.botania.common.lib.LibMisc;
 
+@Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
 public class PotionSoulCross extends PotionMod {
 
 	public PotionSoulCross() {
-		super(LibPotionNames.SOUL_CROSS, false, 0x47453d, 0);
-		MinecraftForge.EVENT_BUS.register(this);
+		super(false, 0x47453d, 0);
 		setBeneficial();
 	}
 
 	@SubscribeEvent
-	public void onEntityKill(LivingDeathEvent event) {
+	public static void onEntityKill(LivingDeathEvent event) {
 		Entity killer = event.getSource().getTrueSource();
-		if(killer != null && killer instanceof EntityLivingBase) {
+		if(killer instanceof EntityLivingBase) {
 			EntityLivingBase living = (EntityLivingBase) killer;
-			if(hasEffect(living))
+			if(living.isPotionActive(ModPotions.soulCross))
 				living.heal(event.getEntityLiving().getMaxHealth() / 20);
 		}
 	}

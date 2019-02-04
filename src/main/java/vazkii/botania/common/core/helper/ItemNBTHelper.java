@@ -21,115 +21,107 @@ public final class ItemNBTHelper {
 
 	private static final int[] EMPTY_INT_ARRAY = new int[0];
 
-	/** Gets the NBTTagCompound in an ItemStack. Tries to init it
-	 * previously in case there isn't one present **/
-	public static NBTTagCompound getNBT(ItemStack stack) {
-		if(!stack.hasTagCompound())
-			stack.setTagCompound(new NBTTagCompound());
-		return stack.getTagCompound();
-	}
-
 	// SETTERS ///////////////////////////////////////////////////////////////////
 
 	public static void setBoolean(ItemStack stack, String tag, boolean b) {
-		getNBT(stack).setBoolean(tag, b);
+		stack.getOrCreateTag().setBoolean(tag, b);
 	}
 
 	public static void setByte(ItemStack stack, String tag, byte b) {
-		getNBT(stack).setByte(tag, b);
+		stack.getOrCreateTag().setByte(tag, b);
 	}
 
 	public static void setShort(ItemStack stack, String tag, short s) {
-		getNBT(stack).setShort(tag, s);
+		stack.getOrCreateTag().setShort(tag, s);
 	}
 
 	public static void setInt(ItemStack stack, String tag, int i) {
-		getNBT(stack).setInteger(tag, i);
+		stack.getOrCreateTag().setInt(tag, i);
 	}
 
 	public static void setIntArray(ItemStack stack, String tag, int[] val) {
-		getNBT(stack).setIntArray(tag, val);
+		stack.getOrCreateTag().setIntArray(tag, val);
 	}
 
 	public static void setLong(ItemStack stack, String tag, long l) {
-		getNBT(stack).setLong(tag, l);
+		stack.getOrCreateTag().setLong(tag, l);
 	}
 
 	public static void setFloat(ItemStack stack, String tag, float f) {
-		getNBT(stack).setFloat(tag, f);
+		stack.getOrCreateTag().setFloat(tag, f);
 	}
 
 	public static void setDouble(ItemStack stack, String tag, double d) {
-		getNBT(stack).setDouble(tag, d);
+		stack.getOrCreateTag().setDouble(tag, d);
 	}
 
 	public static void setCompound(ItemStack stack, String tag, NBTTagCompound cmp) {
 		if(!tag.equalsIgnoreCase("ench")) // not override the enchantments
-			getNBT(stack).setTag(tag, cmp);
+			stack.getOrCreateTag().setTag(tag, cmp);
 	}
 
 	public static void setString(ItemStack stack, String tag, String s) {
-		getNBT(stack).setString(tag, s);
+		stack.getOrCreateTag().setString(tag, s);
 	}
 
 	public static void setList(ItemStack stack, String tag, NBTTagList list) {
-		getNBT(stack).setTag(tag, list);
+		stack.getOrCreateTag().setTag(tag, list);
 	}
 
 	public static void removeEntry(ItemStack stack, String tag) {
-		getNBT(stack).removeTag(tag);
+		stack.getOrCreateTag().removeTag(tag);
 	}
 
 	// GETTERS ///////////////////////////////////////////////////////////////////
 
 	public static boolean verifyExistance(ItemStack stack, String tag) {
-		return !stack.isEmpty() && getNBT(stack).hasKey(tag);
+		return !stack.isEmpty() && stack.getOrCreateTag().hasKey(tag);
 	}
 
 	public static boolean getBoolean(ItemStack stack, String tag, boolean defaultExpected) {
-		return verifyExistance(stack, tag) ? getNBT(stack).getBoolean(tag) : defaultExpected;
+		return verifyExistance(stack, tag) ? stack.getOrCreateTag().getBoolean(tag) : defaultExpected;
 	}
 
 	public static byte getByte(ItemStack stack, String tag, byte defaultExpected) {
-		return verifyExistance(stack, tag) ? getNBT(stack).getByte(tag) : defaultExpected;
+		return verifyExistance(stack, tag) ? stack.getOrCreateTag().getByte(tag) : defaultExpected;
 	}
 
 	public static short getShort(ItemStack stack, String tag, short defaultExpected) {
-		return verifyExistance(stack, tag) ? getNBT(stack).getShort(tag) : defaultExpected;
+		return verifyExistance(stack, tag) ? stack.getOrCreateTag().getShort(tag) : defaultExpected;
 	}
 
 	public static int getInt(ItemStack stack, String tag, int defaultExpected) {
-		return verifyExistance(stack, tag) ? getNBT(stack).getInteger(tag) : defaultExpected;
+		return verifyExistance(stack, tag) ? stack.getOrCreateTag().getInt(tag) : defaultExpected;
 	}
 
 	public static int[] getIntArray(ItemStack stack, String tag) {
-		return verifyExistance(stack, tag) ? getNBT(stack).getIntArray(tag) : EMPTY_INT_ARRAY;
+		return verifyExistance(stack, tag) ? stack.getOrCreateTag().getIntArray(tag) : EMPTY_INT_ARRAY;
 	}
 
 	public static long getLong(ItemStack stack, String tag, long defaultExpected) {
-		return verifyExistance(stack, tag) ? getNBT(stack).getLong(tag) : defaultExpected;
+		return verifyExistance(stack, tag) ? stack.getOrCreateTag().getLong(tag) : defaultExpected;
 	}
 
 	public static float getFloat(ItemStack stack, String tag, float defaultExpected) {
-		return verifyExistance(stack, tag) ? getNBT(stack).getFloat(tag) : defaultExpected;
+		return verifyExistance(stack, tag) ? stack.getOrCreateTag().getFloat(tag) : defaultExpected;
 	}
 
 	public static double getDouble(ItemStack stack, String tag, double defaultExpected) {
-		return verifyExistance(stack, tag) ? getNBT(stack).getDouble(tag) : defaultExpected;
+		return verifyExistance(stack, tag) ? stack.getOrCreateTag().getDouble(tag) : defaultExpected;
 	}
 
 	/** If nullifyOnFail is true it'll return null if it doesn't find any
 	 * compounds, otherwise it'll return a new one. **/
 	public static NBTTagCompound getCompound(ItemStack stack, String tag, boolean nullifyOnFail) {
-		return verifyExistance(stack, tag) ? getNBT(stack).getCompoundTag(tag) : nullifyOnFail ? null : new NBTTagCompound();
+		return verifyExistance(stack, tag) ? stack.getOrCreateTag().getCompound(tag) : nullifyOnFail ? null : new NBTTagCompound();
 	}
 
 	public static String getString(ItemStack stack, String tag, String defaultExpected) {
-		return verifyExistance(stack, tag) ? getNBT(stack).getString(tag) : defaultExpected;
+		return verifyExistance(stack, tag) ? stack.getOrCreateTag().getString(tag) : defaultExpected;
 	}
 
 	public static NBTTagList getList(ItemStack stack, String tag, int objtype, boolean nullifyOnFail) {
-		return verifyExistance(stack, tag) ? getNBT(stack).getTagList(tag, objtype) : nullifyOnFail ? null : new NBTTagList();
+		return verifyExistance(stack, tag) ? stack.getOrCreateTag().getList(tag, objtype) : nullifyOnFail ? null : new NBTTagList();
 	}
 
 }

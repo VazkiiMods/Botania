@@ -21,16 +21,17 @@ import vazkii.botania.common.brew.potion.PotionEmptiness;
 import vazkii.botania.common.brew.potion.PotionFeatherfeet;
 import vazkii.botania.common.brew.potion.PotionSoulCross;
 import vazkii.botania.common.lib.LibMisc;
+import vazkii.botania.common.lib.LibPotionNames;
 
 @Mod.EventBusSubscriber(modid = LibMisc.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ModPotions {
 
-	public static final Potion soulCross = new PotionSoulCross();
-	public static final Potion featherfeet = new PotionFeatherfeet();
-	public static final Potion emptiness = new PotionEmptiness();
-	public static final Potion bloodthrst = new PotionBloodthirst();
-	public static final Potion allure = new PotionAllure();
-	public static final Potion clear = new PotionClear();
+	public static final Potion soulCross = new PotionSoulCross().setRegistryName(LibMisc.MOD_ID, LibPotionNames.SOUL_CROSS);
+	public static final Potion featherfeet = new PotionFeatherfeet().setRegistryName(LibMisc.MOD_ID, LibPotionNames.FEATHER_FEET);
+	public static final Potion emptiness = new PotionEmptiness().setRegistryName(LibMisc.MOD_ID, LibPotionNames.EMPTINESS);
+	public static final Potion bloodthrst = new PotionBloodthirst().setRegistryName(LibMisc.MOD_ID, LibPotionNames.BLOODTHIRST);
+	public static final Potion allure = new PotionAllure().setRegistryName(LibMisc.MOD_ID, LibPotionNames.ALLURE);
+	public static final Potion clear = new PotionClear().setRegistryName(LibMisc.MOD_ID, LibPotionNames.CLEAR);
 
 	@SubscribeEvent
 	public static void registerPotions(RegistryEvent.Register<Potion> evt)

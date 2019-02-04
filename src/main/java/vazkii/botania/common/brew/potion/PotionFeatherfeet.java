@@ -11,14 +11,13 @@
 package vazkii.botania.common.brew.potion;
 
 import net.minecraft.entity.EntityLivingBase;
-import vazkii.botania.common.lib.LibPotionNames;
 
 import javax.annotation.Nonnull;
 
 public class PotionFeatherfeet extends PotionMod {
 
 	public PotionFeatherfeet() {
-		super(LibPotionNames.FEATHER_FEET, false, 0x26ADFF, 1);
+		super(false, 0x26ADFF, 1);
 		setBeneficial();
 	}
 
