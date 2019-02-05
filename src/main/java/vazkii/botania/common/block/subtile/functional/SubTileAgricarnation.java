@@ -18,6 +18,7 @@ import net.minecraft.block.IGrowable;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -56,7 +57,7 @@ public class SubTileAgricarnation extends SubTileFunctional {
 				if(isPlant(pos) && mana > 5) {
 					Block block = supertile.getWorld().getBlockState(pos).getBlock();
 					mana -= 5;
-					supertile.getWorld().scheduleUpdate(pos, block, 1);
+					supertile.getWorld().getPendingBlockTicks().scheduleTick(pos, block, 1);
 					if(ConfigHandler.blockBreakParticles)
 						supertile.getWorld().playEvent(2005, pos, 6 + supertile.getWorld().rand.nextInt(4));
 					supertile.getWorld().playSound(null, x, y, z, ModSounds.agricarnation, SoundCategory.BLOCKS, 0.01F, 0.5F + (float) Math.random() * 0.5F);
@@ -75,7 +76,7 @@ public class SubTileAgricarnation extends SubTileFunctional {
 	private boolean isPlant(BlockPos pos) {
 		IBlockState state = supertile.getWorld().getBlockState(pos);
 		Block block = state.getBlock();
-		if(block == Blocks.GRASS || block == Blocks.LEAVES || block == Blocks.LEAVES2 || block instanceof BlockBush && !(block instanceof BlockCrops) && !(block instanceof BlockSapling))
+		if(block == Blocks.GRASS || BlockTags.LEAVES.contains(block) || block instanceof BlockBush && !(block instanceof BlockCrops) && !(block instanceof BlockSapling))
 			return false;
 
 		Material mat = state.getMaterial();

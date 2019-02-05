@@ -44,7 +44,7 @@ public class SubTilePollidisiac extends SubTileFunctional {
 
 				if(animal.getGrowingAge() == 0 && !animal.isInLove()) {
 					for(EntityItem item : items) {
-						if(item.age < 60 + slowdown || item.isDead)
+						if(item.age < 60 + slowdown || !item.isAlive())
 							continue;
 
 						ItemStack stack = item.getItem();

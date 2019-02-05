@@ -26,7 +26,7 @@ public class SubTileOrechidIgnem extends SubTileOrechid {
 
 	@Override
 	public boolean canOperate() {
-		return supertile.getWorld().provider.isNether();
+		return supertile.getWorld().getDimension().isNether();
 	}
 
 	@Override

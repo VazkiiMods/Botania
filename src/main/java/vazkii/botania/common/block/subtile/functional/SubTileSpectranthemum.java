@@ -20,6 +20,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -59,7 +61,7 @@ public class SubTileSpectranthemum extends SubTileFunctional {
 			int slowdown = getSlowdownFactor();
 
 			for(EntityItem item : items) {
-				if(item.age < 60 + slowdown || item.isDead || item.getEntityData().getBoolean(TAG_TELEPORTED))
+				if(item.age < 60 + slowdown || !item.isAlive() || item.getEntityData().getBoolean(TAG_TELEPORTED))
 					continue;
 
 				ItemStack stack = item.getItem();
@@ -98,18 +100,18 @@ public class SubTileSpectranthemum extends SubTileFunctional {
 	@Override
 	public void writeToPacketNBT(NBTTagCompound cmp) {
 		super.writeToPacketNBT(cmp);
-		cmp.setInteger(TAG_BIND_X, bindPos.getX());
-		cmp.setInteger(TAG_BIND_Y, bindPos.getY());
-		cmp.setInteger(TAG_BIND_Z, bindPos.getZ());
+		cmp.setInt(TAG_BIND_X, bindPos.getX());
+		cmp.setInt(TAG_BIND_Y, bindPos.getY());
+		cmp.setInt(TAG_BIND_Z, bindPos.getZ());
 	}
 
 	@Override
 	public void readFromPacketNBT(NBTTagCompound cmp) {
 		super.readFromPacketNBT(cmp);
 		bindPos = new BlockPos(
-				cmp.getInteger(TAG_BIND_X),
-				cmp.getInteger(TAG_BIND_Y),
-				cmp.getInteger(TAG_BIND_Z)
+				cmp.getInt(TAG_BIND_X),
+				cmp.getInt(TAG_BIND_Y),
+				cmp.getInt(TAG_BIND_Z)
 				);
 	}
 
@@ -143,9 +145,9 @@ public class SubTileSpectranthemum extends SubTileFunctional {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public BlockPos getBinding() {
-		return Minecraft.getMinecraft().player.isSneaking() && bindPos.getY() != -1 ? bindPos : super.getBinding();
+		return Minecraft.getInstance().player.isSneaking() && bindPos.getY() != -1 ? bindPos : super.getBinding();
 	}
 
 	@Override

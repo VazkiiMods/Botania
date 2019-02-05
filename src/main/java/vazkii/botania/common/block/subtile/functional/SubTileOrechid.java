@@ -127,7 +127,7 @@ public class SubTileOrechid extends SubTileFunctional {
 	}
 
 	public Predicate<IBlockState> getReplaceMatcher() {
-		return state -> state.getBlock() == Blocks.STONE && state.getValue(BlockStone.VARIANT) == BlockStone.EnumType.STONE;
+		return state -> state.getBlock() == Blocks.STONE;
 	}
 
 	public int getCost() {

@@ -14,6 +14,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.world.dimension.EndDimension;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
@@ -30,7 +31,7 @@ public class SubTileFallenKanade extends SubTileFunctional {
 	public void onUpdate() {
 		super.onUpdate();
 
-		if(!supertile.getWorld().isRemote && supertile.getWorld().provider.getDimension() != 1) {
+		if(!supertile.getWorld().isRemote && !(supertile.getWorld().getDimension() instanceof EndDimension)) {
 			boolean did = false;
 			List<EntityPlayer> players = supertile.getWorld().getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(supertile.getPos().add(-RANGE, -RANGE, -RANGE), supertile.getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
 			for(EntityPlayer player : players) {

@@ -68,7 +68,7 @@ public class SubTileHopperhock extends SubTileFunctional {
 		int slowdown = getSlowdownFactor();
 
 		for(EntityItem item : items) {
-			if(item.age < 60 + slowdown || item.age >= 105 && item.age < 110 || item.isDead || item.getItem().isEmpty())
+			if(item.age < 60 + slowdown || item.age >= 105 && item.age < 110 || !item.isAlive() || item.getItem().isEmpty())
 				continue;
 
 			ItemStack stack = item.getItem();
@@ -76,7 +76,7 @@ public class SubTileHopperhock extends SubTileFunctional {
 			boolean priorityInv = false;
 			int amountToPutIn = 0;
 
-			for(EnumFacing dir : EnumFacing.VALUES) {
+			for(EnumFacing dir : EnumFacing.BY_INDEX) {
 				BlockPos pos_ = pos.offset(dir);
 
 				InvWithLocation inv = InventoryHelper.getInventoryWithLocation(supertile.getWorld(), pos_, dir);
@@ -104,9 +104,9 @@ public class SubTileHopperhock extends SubTileFunctional {
 				}
 			}
 
-			if(invToPutItemIn != null && !item.isDead) {
+			if(invToPutItemIn != null && item.isAlive()) {
 				SubTileSpectranthemum.spawnExplosionParticles(item, 3);
-				ItemHandlerHelper.insertItem(invToPutItemIn, stack.splitStack(amountToPutIn), false);
+				ItemHandlerHelper.insertItem(invToPutItemIn, stack.split(amountToPutIn), false);
 				item.setItem(stack); // Just in case someone subclasses EntityItem and changes something important.
 				pulledAny = true;
 			}
@@ -132,13 +132,9 @@ public class SubTileHopperhock extends SubTileFunctional {
 				anyFilter = true;
 
 				boolean itemEqual = stack.getItem() == filterEntry.getItem();
-				boolean damageEqual = stack.getItemDamage() == filterEntry.getItemDamage();
 				boolean nbtEqual = ItemStack.areItemStackTagsEqual(filterEntry, stack);
 
-				if(itemEqual && damageEqual && nbtEqual)
-					return true;
-
-				if(!stack.getHasSubtypes() && stack.isItemStackDamageable() && stack.getMaxStackSize() == 1 && itemEqual && nbtEqual)
+				if(itemEqual && nbtEqual)
 					return true;
 
 				if(stack.getItem() instanceof IManaItem && itemEqual)
@@ -160,14 +156,14 @@ public class SubTileHopperhock extends SubTileFunctional {
 			Block chest = supertile.getWorld().getBlockState(pos).getBlock();
 
 			if(tileEntity instanceof TileEntityChest)
-				for(EnumFacing dir : EnumFacing.HORIZONTALS)
+				for(EnumFacing dir : EnumFacing.BY_HORIZONTAL_INDEX)
 					if(supertile.getWorld().getBlockState(pos.offset(dir)).getBlock() == chest) {
 						filter.addAll(getFilterForInventory(pos.offset(dir), false));
 						break;
 					}
 		}
 
-		for(EnumFacing dir : EnumFacing.HORIZONTALS) {
+		for(EnumFacing dir : EnumFacing.BY_HORIZONTAL_INDEX) {
 			AxisAlignedBB aabb = new AxisAlignedBB(pos.offset(dir), pos.offset(dir).add(1, 1, 1));
 			List<EntityItemFrame> frames = supertile.getWorld().getEntitiesWithinAABB(EntityItemFrame.class, aabb);
 			for(EntityItemFrame frame : frames) {
@@ -211,14 +207,14 @@ public class SubTileHopperhock extends SubTileFunctional {
 	public void writeToPacketNBT(NBTTagCompound cmp) {
 		super.writeToPacketNBT(cmp);
 
-		cmp.setInteger(TAG_FILTER_TYPE, filterType);
+		cmp.setInt(TAG_FILTER_TYPE, filterType);
 	}
 
 	@Override
 	public void readFromPacketNBT(NBTTagCompound cmp) {
 		super.readFromPacketNBT(cmp);
 
-		filterType = cmp.getInteger(TAG_FILTER_TYPE);
+		filterType = cmp.getInt(TAG_FILTER_TYPE);
 	}
 
 	@SideOnly(Side.CLIENT)

@@ -11,13 +11,12 @@
 package vazkii.botania.common.block.subtile.functional;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockFurnace;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.common.crafting.VanillaRecipeTypes;
 import vazkii.botania.api.item.IExoflameHeatable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
@@ -43,13 +42,13 @@ public class SubTileExoflame extends SubTileFunctional {
 			TileEntity tile = supertile.getWorld().getTileEntity(pos);
 			Block block = supertile.getWorld().getBlockState(pos).getBlock();
 			if(tile != null) {
-				if(tile instanceof TileEntityFurnace && (block == Blocks.FURNACE || block == Blocks.LIT_FURNACE)) {
+				if(tile instanceof TileEntityFurnace && block == Blocks.FURNACE) {
 					TileEntityFurnace furnace = (TileEntityFurnace) tile;
 					boolean canSmelt = canFurnaceSmelt(furnace);
 					if(canSmelt && mana > 2) {
 						if(furnace.getField(0) < 2) { // Field 0 -> Burn time
-							if(furnace.getField(0) == 0)
-								BlockFurnace.setState(true, supertile.getWorld(), pos);
+							/*if(furnace.getField(0) == 0) todo 1.13 check if necessary now
+								BlockFurnace.setState(true, supertile.getWorld(), pos);*/
 							furnace.setField(0, 200);
 							mana = Math.max(0, mana - COST);
 						}
@@ -88,7 +87,7 @@ public class SubTileExoflame extends SubTileFunctional {
 		if(furnace.getStackInSlot(0).isEmpty())
 			return false;
 		else {
-			ItemStack itemstack = FurnaceRecipes.instance().getSmeltingResult(furnace.getStackInSlot(0));
+			ItemStack itemstack = furnace.getWorld().getRecipeManager().getResult(furnace, furnace.getWorld(), VanillaRecipeTypes.SMELTING);;
 
 			if(itemstack.isEmpty())
 				return false;

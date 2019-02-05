@@ -55,7 +55,7 @@ public class SubTileDaffomill extends SubTileFunctional {
 				List<EntityItem> items = supertile.getWorld().getEntitiesWithinAABB(EntityItem.class, axis);
 				int slowdown = getSlowdownFactor();
 				for(EntityItem item : items) {
-					if(!item.isDead && item.age >= slowdown) {
+					if(item.isAlive() && item.age >= slowdown) {
 						item.motionX += orientation.getXOffset() * 0.05;
 						item.motionY += orientation.getYOffset() * 0.05;
 						item.motionZ += orientation.getZOffset() * 0.05;
@@ -146,16 +146,16 @@ public class SubTileDaffomill extends SubTileFunctional {
 	public void writeToPacketNBT(NBTTagCompound cmp) {
 		super.writeToPacketNBT(cmp);
 
-		cmp.setInteger(TAG_ORIENTATION, orientation.getIndex() - 2); // retain compat with 1.7 saves
-		cmp.setInteger(TAG_WIND_TICKS, windTicks);
+		cmp.setInt(TAG_ORIENTATION, orientation.getIndex());
+		cmp.setInt(TAG_WIND_TICKS, windTicks);
 	}
 
 	@Override
 	public void readFromPacketNBT(NBTTagCompound cmp) {
 		super.readFromPacketNBT(cmp);
 
-		orientation = EnumFacing.byIndex(cmp.getInteger(TAG_ORIENTATION) + 2); // retain compat with 1.7 saves
-		windTicks = cmp.getInteger(TAG_WIND_TICKS);
+		orientation = EnumFacing.byIndex(cmp.getInt(TAG_ORIENTATION));
+		windTicks = cmp.getInt(TAG_WIND_TICKS);
 	}
 
 }

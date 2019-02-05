@@ -80,12 +80,12 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 			List<EntityItem> items = supertile.getWorld().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(supertile.getPos().add(-RANGE, -RANGE_Y, -RANGE), supertile.getPos().add(RANGE + 1, RANGE_Y + 1, RANGE + 1)));
 			int slowdown = getSlowdownFactor();
 			for(EntityItem item : items) {
-				if(item.age < 60 + slowdown || item.isDead || item.getItem().isEmpty())
+				if(item.age < 60 + slowdown || !item.isAlive() || item.getItem().isEmpty())
 					continue;
 
 				ItemStack stack = item.getItem();
 				Item stackItem = stack.getItem();
-				if(stackItem instanceof ItemBlock || stackItem instanceof ItemBlockSpecial || stackItem instanceof ItemRedstone || stackItem instanceof IFlowerPlaceable) {
+				if(stackItem instanceof ItemBlock || stackItem instanceof IFlowerPlaceable) {
 					if(!scanned) {
 						for(BlockPos pos_ : BlockPos.getAllInBox(pos.add(-rangePlace, -rangePlaceY, -rangePlace), pos.add(rangePlace, rangePlaceY, rangePlace))) {
 							IBlockState stateAbove = supertile.getWorld().getBlockState(pos_.up());
@@ -115,10 +115,6 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 
 							stateToPlace = ((ItemBlock) stackItem).getBlock().getStateFromMeta(blockMeta);
 						}
-						else if(stackItem instanceof ItemBlockSpecial)
-							stateToPlace = ((ItemBlockSpecial) stackItem).getBlock().getDefaultState();
-						else if(stackItem instanceof ItemRedstone)
-							stateToPlace = Blocks.REDSTONE_WIRE.getDefaultState();
 
 						if(stateToPlace != null) {
 							if(stateToPlace.getBlock().canPlaceBlockAt(supertile.getWorld(), coords)) {
