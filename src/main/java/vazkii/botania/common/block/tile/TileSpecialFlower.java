@@ -76,9 +76,9 @@ public class TileSpecialFlower extends TileMod implements IWandBindable, ISubTil
 	}
 
 	@Override
-	public void update() {
+	public void tick() {
 		if(subTile != null) {
-			world.profiler.func_194340_a(() -> subTileName.toString());
+			world.profiler.startSection(() -> subTileName.toString());
 			TileEntity tileBelow = world.getTileEntity(pos.down());
 			if(tileBelow instanceof TileRedStringRelay) {
 				BlockPos coords = ((TileRedStringRelay) tileBelow).getBinding();
@@ -129,7 +129,7 @@ public class TileSpecialFlower extends TileMod implements IWandBindable, ISubTil
 		super.readPacketNBT(cmp);
 
 		subTileName = new ResourceLocation(cmp.getString(TAG_SUBTILE_NAME));
-		NBTTagCompound subCmp = cmp.getCompoundTag(TAG_SUBTILE_CMP);
+		NBTTagCompound subCmp = cmp.getCompound(TAG_SUBTILE_CMP);
 
 		if(subTile == null || !BotaniaAPI.getSubTileStringMapping(subTile.getClass()).equals(subTileName))
 			provideSubTile(subTileName);
@@ -230,10 +230,8 @@ public class TileSpecialFlower extends TileMod implements IWandBindable, ISubTil
 		if(below == Blocks.MYCELIUM)
 			return SLOWDOWN_FACTOR_MYCEL;
 
-		if(below == Blocks.DIRT) {
-			BlockDirt.DirtType type = world.getBlockState(getPos().down()).getValue(BlockDirt.VARIANT);
-			if(type == BlockDirt.DirtType.PODZOL)
-				return SLOWDOWN_FACTOR_PODZOL;
+		if(below == Blocks.PODZOL) {
+			return SLOWDOWN_FACTOR_PODZOL;
 		}
 
 		return 0;

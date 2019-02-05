@@ -32,13 +32,13 @@ public class TilePylon extends TileEntity implements ITickable {
 	int ticks = 0;
 
 	@Override
-	public void update() {
+	public void tick() {
 		++ticks;
 
-		if(!(getBlockType() instanceof BlockPylon))
+		if(!(getBlockState().getBlock() instanceof BlockPylon))
 			return;
 
-		BlockPylon.Variant variant = ((BlockPylon) getBlockType()).variant;
+		BlockPylon.Variant variant = ((BlockPylon) getBlockState().getBlock()).variant;
 
 		if(activated && world.isRemote) {
 			if(world.getBlockState(centerPos).getBlock() != getBlockForMeta()
@@ -73,7 +73,7 @@ public class TilePylon extends TileEntity implements ITickable {
 
 				Block block = world.getBlockState(pos.down()).getBlock();
 				if(block == ModBlocks.flower || block == ModBlocks.shinyFlower) {
-					int hex = world.getBlockState(pos.down()).getValue(BotaniaStateProps.COLOR).colorValue;
+					int hex = world.getBlockState(pos.down()).get(BotaniaStateProps.COLOR).colorValue;
 					int r = (hex & 0xFF0000) >> 16;
 					int g = (hex & 0xFF00) >> 8;
 					int b = hex & 0xFF;
@@ -93,12 +93,12 @@ public class TilePylon extends TileEntity implements ITickable {
 	}
 
 	private Block getBlockForMeta() {
-		return ((BlockPylon) getBlockType()).variant == BlockPylon.Variant.MANA ? ModBlocks.enchanter : ModBlocks.alfPortal;
+		return ((BlockPylon) getBlockState().getBlock()).variant == BlockPylon.Variant.MANA ? ModBlocks.enchanter : ModBlocks.alfPortal;
 	}
 
 	private boolean portalOff() {
 		return world.getBlockState(centerPos).getBlock() != ModBlocks.alfPortal
-				|| world.getBlockState(centerPos).getValue(BotaniaStateProps.ALFPORTAL_STATE) == AlfPortalState.OFF;
+				|| world.getBlockState(centerPos).get(BotaniaStateProps.ALFPORTAL_STATE) == AlfPortalState.OFF;
 	}
 
 }

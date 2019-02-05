@@ -34,9 +34,9 @@ public class TileAvatar extends TileSimpleInventory implements IAvatarTile, ITic
 	int mana;
 
 	@Override
-	public void update() {
+	public void tick() {
 		enabled = true;
-		for(EnumFacing dir : EnumFacing.VALUES) {
+		for(EnumFacing dir : EnumFacing.BY_INDEX) {
 			int redstoneSide = world.getRedstonePower(pos.offset(dir), dir);
 			if(redstoneSide > 0) {
 				enabled = false;
@@ -58,16 +58,16 @@ public class TileAvatar extends TileSimpleInventory implements IAvatarTile, ITic
 	public void writePacketNBT(NBTTagCompound par1nbtTagCompound) {
 		super.writePacketNBT(par1nbtTagCompound);
 		par1nbtTagCompound.setBoolean(TAG_ENABLED, enabled);
-		par1nbtTagCompound.setInteger(TAG_TICKS_ELAPSED, ticksElapsed);
-		par1nbtTagCompound.setInteger(TAG_MANA, mana);
+		par1nbtTagCompound.setInt(TAG_TICKS_ELAPSED, ticksElapsed);
+		par1nbtTagCompound.setInt(TAG_MANA, mana);
 	}
 
 	@Override
 	public void readPacketNBT(NBTTagCompound par1nbtTagCompound) {
 		super.readPacketNBT(par1nbtTagCompound);
 		enabled = par1nbtTagCompound.getBoolean(TAG_ENABLED);
-		ticksElapsed = par1nbtTagCompound.getInteger(TAG_TICKS_ELAPSED);
-		mana = par1nbtTagCompound.getInteger(TAG_MANA);
+		ticksElapsed = par1nbtTagCompound.getInt(TAG_TICKS_ELAPSED);
+		mana = par1nbtTagCompound.getInt(TAG_MANA);
 	}
 
 	@Override
@@ -112,7 +112,7 @@ public class TileAvatar extends TileSimpleInventory implements IAvatarTile, ITic
 
 	@Override
 	public EnumFacing getAvatarFacing() {
-		return world.getBlockState(getPos()).getValue(BotaniaStateProps.CARDINALS);
+		return world.getBlockState(getPos()).get(BotaniaStateProps.CARDINALS);
 	}
 
 	@Override

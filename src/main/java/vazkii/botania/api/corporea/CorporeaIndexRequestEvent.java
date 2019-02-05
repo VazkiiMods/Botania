@@ -10,8 +10,8 @@
 package vazkii.botania.api.corporea;
 
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraftforge.fml.common.eventhandler.Cancelable;
-import net.minecraftforge.fml.common.eventhandler.Event;
+import net.minecraftforge.eventbus.api.Cancelable;
+import net.minecraftforge.eventbus.api.Event;
 
 /** 
  * CorporeaIndexRequestEvent is fired when a player attempts to request an item from a corporea index.

@@ -16,7 +16,7 @@ import vazkii.botania.common.item.equipment.bauble.ItemTinyPlanet;
 public class TileTinyPlanet extends TileMod implements ITickable {
 
 	@Override
-	public void update() {
+	public void tick() {
 		ItemTinyPlanet.applyEffect(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
 	}
 

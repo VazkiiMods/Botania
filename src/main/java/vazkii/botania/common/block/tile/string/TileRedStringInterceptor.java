@@ -29,8 +29,8 @@ public class TileRedStringInterceptor extends TileRedString {
 	private static final Set<TileRedStringInterceptor> interceptors = new HashSet<>();
 
 	@Override
-	public void update() {
-		super.update();
+	public void tick() {
+		super.tick();
 		if(!world.isRemote)
 			interceptors.add(this);
 	}
@@ -41,7 +41,7 @@ public class TileRedStringInterceptor extends TileRedString {
 	}
 
 	private boolean saneState() {
-		return !isInvalid() && world.getTileEntity(pos) == this;
+		return !isRemoved() && world.getTileEntity(pos) == this;
 	}
 
 	public static void onInteract(EntityPlayer player, World world, BlockPos pos, EnumHand hand) {
@@ -61,9 +61,9 @@ public class TileRedStringInterceptor extends TileRedString {
 			if(inter.world == world) {
 				BlockPos coords = inter.getBinding();
 				if(coords != null && coords.equals(pos)) {
-					Block block = inter.getBlockType();
-					world.setBlockState(inter.getPos(), world.getBlockState(inter.getPos()).withProperty(BotaniaStateProps.POWERED, true), 1 | 2);
-					world.scheduleUpdate(inter.getPos(), block, block.tickRate(world));
+					Block block = inter.getBlockState().getBlock();
+					world.setBlockState(inter.getPos(), world.getBlockState(inter.getPos()).with(BotaniaStateProps.POWERED, true), 1 | 2);
+					world.getPendingBlockTicks().scheduleTick(inter.getPos(), block, block.tickRate(world));
 					did = true;
 				}
 			}

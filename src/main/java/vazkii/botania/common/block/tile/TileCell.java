@@ -37,7 +37,7 @@ public class TileCell extends TileMod {
 			validCoords = getPos();
 			ticked = true;
 		} else if(!matchCoords(validCoords, this) || !matchCoords(flowerCoords, flower))
-			world.setBlockToAir(pos);
+			world.removeBlock(pos);
 	}
 
 	public boolean isSameFlower(TileEntity flower) {
@@ -54,32 +54,32 @@ public class TileCell extends TileMod {
 
 	@Override
 	public void writePacketNBT(NBTTagCompound cmp) {
-		cmp.setInteger(TAG_GENERATION, generation);
+		cmp.setInt(TAG_GENERATION, generation);
 		cmp.setBoolean(TAG_TICKED, ticked);
 		if(ticked) {
-			cmp.setInteger(TAG_FLOWER_X, flowerCoords.getX());
-			cmp.setInteger(TAG_FLOWER_Y, flowerCoords.getY());
-			cmp.setInteger(TAG_FLOWER_Z, flowerCoords.getZ());
-			cmp.setInteger(TAG_VALID_X, validCoords.getX());
-			cmp.setInteger(TAG_VALID_Y, validCoords.getY());
-			cmp.setInteger(TAG_VALID_Z, validCoords.getZ());
+			cmp.setInt(TAG_FLOWER_X, flowerCoords.getX());
+			cmp.setInt(TAG_FLOWER_Y, flowerCoords.getY());
+			cmp.setInt(TAG_FLOWER_Z, flowerCoords.getZ());
+			cmp.setInt(TAG_VALID_X, validCoords.getX());
+			cmp.setInt(TAG_VALID_Y, validCoords.getY());
+			cmp.setInt(TAG_VALID_Z, validCoords.getZ());
 		}
 	}
 
 	@Override
 	public void readPacketNBT(NBTTagCompound cmp) {
-		generation = cmp.getInteger(TAG_GENERATION);
+		generation = cmp.getInt(TAG_GENERATION);
 		ticked = cmp.getBoolean(TAG_TICKED);
 		if(ticked) {
 			flowerCoords = new BlockPos(
-					cmp.getInteger(TAG_FLOWER_X),
-					cmp.getInteger(TAG_FLOWER_Y),
-					cmp.getInteger(TAG_FLOWER_Z)
+					cmp.getInt(TAG_FLOWER_X),
+					cmp.getInt(TAG_FLOWER_Y),
+					cmp.getInt(TAG_FLOWER_Z)
 					);
 			validCoords = new BlockPos(
-					cmp.getInteger(TAG_VALID_X),
-					cmp.getInteger(TAG_VALID_Y),
-					cmp.getInteger(TAG_VALID_Z)
+					cmp.getInt(TAG_VALID_X),
+					cmp.getInt(TAG_VALID_Y),
+					cmp.getInt(TAG_VALID_Z)
 					);
 		}
 	}

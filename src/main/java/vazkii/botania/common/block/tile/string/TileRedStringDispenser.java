@@ -27,7 +27,7 @@ public class TileRedStringDispenser extends TileRedStringContainer {
 		if(bind != null) {
 			TileEntity tile = world.getTileEntity(bind);
 			if(tile instanceof TileEntityDispenser)
-				world.scheduleUpdate(bind, tile.getBlockType(), tile.getBlockType().tickRate(world));
+				world.getPendingBlockTicks().scheduleTick(bind, tile.getBlockState().getBlock(), tile.getBlockState().getBlock().tickRate(world));
 		}
 	}
 

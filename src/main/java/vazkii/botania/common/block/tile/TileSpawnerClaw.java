@@ -34,7 +34,7 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver, ITickable
 	int mana = 0;
 
 	@Override
-	public void update() {
+	public void tick() {
 		TileEntity tileBelow = world.getTileEntity(pos.down());
 		if(mana >= 5 && tileBelow instanceof TileEntityMobSpawner) {
 			TileEntityMobSpawner spawner = (TileEntityMobSpawner) tileBelow;
@@ -47,7 +47,7 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver, ITickable
 				if(!world.isRemote)
 					mana -= 6;
 
-				if(logic.getSpawnerWorld().isRemote) {
+				if(logic.getWorld().isRemote) {
 					if(logic.spawnDelay > 0) {
 						--logic.spawnDelay;
 					}
@@ -120,12 +120,12 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver, ITickable
 
 	@Override
 	public void writePacketNBT(NBTTagCompound cmp) {
-		cmp.setInteger(TAG_MANA, mana);
+		cmp.setInt(TAG_MANA, mana);
 	}
 
 	@Override
 	public void readPacketNBT(NBTTagCompound cmp) {
-		mana = cmp.getInteger(TAG_MANA);
+		mana = cmp.getInt(TAG_MANA);
 	}
 
 	@Override

@@ -18,7 +18,7 @@ public class TileSpiritShrine extends TileMod implements ITickable {
 	int ticks;
 
 	@Override
-	public void update() {
+	public void tick() {
 		if(world.isRemote) {
 			if(ticks >= 40) {
 				float[][] colors = new float[][] {

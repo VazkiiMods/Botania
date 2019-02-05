@@ -44,7 +44,7 @@ public class TileTinyPotato extends TileSimpleInventory implements ITickable {
 				player.setHeldItem(hand, stackAt);
 				getItemHandler().setStackInSlot(index, ItemStack.EMPTY);
 			} else if(!stack.isEmpty()) {
-				ItemStack copy = stack.splitStack(1);
+				ItemStack copy = stack.split(1);
 
 				if(stack.isEmpty())
 					player.setHeldItem(hand, stackAt);
@@ -82,7 +82,7 @@ public class TileTinyPotato extends TileSimpleInventory implements ITickable {
 	}
 
 	@Override
-	public void update() {
+	public void tick() {
 		if(world.rand.nextInt(100) == 0)
 			jump();
 

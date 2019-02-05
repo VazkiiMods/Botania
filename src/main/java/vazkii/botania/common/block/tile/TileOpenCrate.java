@@ -41,12 +41,12 @@ public class TileOpenCrate extends TileSimpleInventory implements ITickable {
 	}
 
 	@Override
-	public void update() {
+	public void tick() {
 		if (world.isRemote)
 			return;
 
 		boolean redstone = false;
-		for(EnumFacing dir : EnumFacing.VALUES) {
+		for(EnumFacing dir : EnumFacing.BY_INDEX) {
 			int redstoneSide = world.getRedstonePower(pos.offset(dir), dir);
 			if(redstoneSide > 0) {
 				redstone = true;

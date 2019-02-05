@@ -56,7 +56,7 @@ public class TileHourglass extends TileSimpleInventory implements ITickable {
 	}
 
 	@Override
-	public void update() {
+	public void tick() {
 		int totalTime = getTotalTime();
 		boolean dust = isDust();
 
@@ -69,11 +69,11 @@ public class TileHourglass extends TileSimpleInventory implements ITickable {
 				flip = !flip;
 				flipTicks = 4;
 				if(!world.isRemote) {
-					world.setBlockState(getPos(), world.getBlockState(getPos()).withProperty(BotaniaStateProps.POWERED, true), 1);
-					world.scheduleUpdate(pos, getBlockType(), getBlockType().tickRate(world));
+					world.setBlockState(getPos(), world.getBlockState(getPos()).with(BotaniaStateProps.POWERED, true), 1);
+					world.getPendingBlockTicks().scheduleTick(pos, getBlockState().getBlock(), getBlockState().getBlock().tickRate(world));
 				}
 
-				for(EnumFacing facing : EnumFacing.VALUES) {
+				for(EnumFacing facing : EnumFacing.BY_INDEX) {
 					BlockPos pos = getPos().offset(facing);
 					IBlockState state = world.getBlockState(pos);
 					if(state.getBlock() instanceof IHourglassTrigger)
@@ -162,10 +162,10 @@ public class TileHourglass extends TileSimpleInventory implements ITickable {
 	@Override
 	public void writePacketNBT(NBTTagCompound par1nbtTagCompound) {
 		super.writePacketNBT(par1nbtTagCompound);
-		par1nbtTagCompound.setInteger(TAG_TIME, time);
+		par1nbtTagCompound.setInt(TAG_TIME, time);
 		par1nbtTagCompound.setFloat(TAG_TIME_FRACTION, timeFraction);
 		par1nbtTagCompound.setBoolean(TAG_FLIP, flip);
-		par1nbtTagCompound.setInteger(TAG_FLIP_TICKS, flipTicks);
+		par1nbtTagCompound.setInt(TAG_FLIP_TICKS, flipTicks);
 		par1nbtTagCompound.setBoolean(TAG_MOVE, move);
 		par1nbtTagCompound.setBoolean(TAG_LOCK, lock);
 	}
@@ -173,10 +173,10 @@ public class TileHourglass extends TileSimpleInventory implements ITickable {
 	@Override
 	public void readPacketNBT(NBTTagCompound par1nbtTagCompound) {
 		super.readPacketNBT(par1nbtTagCompound);
-		time = par1nbtTagCompound.getInteger(TAG_TIME);
+		time = par1nbtTagCompound.getInt(TAG_TIME);
 		timeFraction = par1nbtTagCompound.getFloat(TAG_TIME_FRACTION);
 		flip = par1nbtTagCompound.getBoolean(TAG_FLIP);
-		flipTicks = par1nbtTagCompound.getInteger(TAG_FLIP_TICKS);
+		flipTicks = par1nbtTagCompound.getInt(TAG_FLIP_TICKS);
 		move = par1nbtTagCompound.getBoolean(TAG_MOVE);
 		lock = par1nbtTagCompound.getBoolean(TAG_LOCK);
 	}

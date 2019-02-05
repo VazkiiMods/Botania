@@ -68,7 +68,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 
 		if(stack.getItem() == Item.getItemFromBlock(ModBlocks.livingrock) && stack.getItemDamage() == 0) {
 			if(!world.isRemote) {
-				ItemStack toSpawn = player != null && player.capabilities.isCreativeMode ? stack.copy().splitStack(1) : stack.splitStack(1);
+				ItemStack toSpawn = player != null && player.abilities.isCreativeMode ? stack.copy().splitStack(1) : stack.splitStack(1);
 				EntityItem item = new EntityItem(world, getPos().getX() + 0.5, getPos().getY() + 1, getPos().getZ() + 0.5, toSpawn);
 				item.setPickupDelay(40);
 				item.motionX = item.motionY = item.motionZ = 0;
@@ -90,7 +90,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 				stackToAdd.setCount(1);
 				itemHandler.setStackInSlot(i, stackToAdd);
 
-				if(player == null || !player.capabilities.isCreativeMode) {
+				if(player == null || !player.abilities.isCreativeMode) {
 					stack.shrink(1);
 				}
 
@@ -125,7 +125,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 	}
 
 	@Override
-	public void update() {
+	public void tick() {
 
 		// Update every tick.
 		recieveMana(0);
@@ -134,7 +134,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 			if(manaToGet == 0) {
 				List<EntityItem> items = world.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(pos, pos.add(1, 1, 1)));
 				for(EntityItem item : items)
-					if(!item.isDead && !item.getItem().isEmpty() && item.getItem().getItem() != Item.getItemFromBlock(ModBlocks.livingrock)) {
+					if(item.isAlive() && !item.getItem().isEmpty() && item.getItem().getItem() != Item.getItemFromBlock(ModBlocks.livingrock)) {
 						ItemStack stack = item.getItem();
 						addItem(null, stack, null);
 					}
@@ -240,7 +240,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 			List<EntityItem> items = world.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(pos, pos.add(1, 1, 1)));
 			EntityItem livingrock = null;
 			for(EntityItem item : items)
-				if(!item.isDead && !item.getItem().isEmpty() && item.getItem().getItem() == Item.getItemFromBlock(ModBlocks.livingrock)) {
+				if(item.isAlive() && !item.getItem().isEmpty() && item.getItem().getItem() == Item.getItemFromBlock(ModBlocks.livingrock)) {
 					livingrock = item;
 					break;
 				}
@@ -285,16 +285,16 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 	public void writePacketNBT(NBTTagCompound par1nbtTagCompound) {
 		super.writePacketNBT(par1nbtTagCompound);
 
-		par1nbtTagCompound.setInteger(TAG_MANA, mana);
-		par1nbtTagCompound.setInteger(TAG_MANA_TO_GET, manaToGet);
+		par1nbtTagCompound.setInt(TAG_MANA, mana);
+		par1nbtTagCompound.setInt(TAG_MANA_TO_GET, manaToGet);
 	}
 
 	@Override
 	public void readPacketNBT(NBTTagCompound par1nbtTagCompound) {
 		super.readPacketNBT(par1nbtTagCompound);
 
-		mana = par1nbtTagCompound.getInteger(TAG_MANA);
-		manaToGet = par1nbtTagCompound.getInteger(TAG_MANA_TO_GET);
+		mana = par1nbtTagCompound.getInt(TAG_MANA);
+		manaToGet = par1nbtTagCompound.getInt(TAG_MANA_TO_GET);
 	}
 
 	@Override

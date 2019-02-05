@@ -48,7 +48,7 @@ public class TileCorporeaFunnel extends TileCorporeaBase implements ICorporeaReq
 				1, 2, 4, 8, 16, 32, 48, 64
 		};
 
-		for(EnumFacing dir : EnumFacing.HORIZONTALS) {
+		for(EnumFacing dir : EnumFacing.BY_HORIZONTAL_INDEX) {
 			List<EntityItemFrame> frames = world.getEntitiesWithinAABB(EntityItemFrame.class, new AxisAlignedBB(pos.offset(dir), pos.offset(dir).add(1, 1, 1)));
 			for(EntityItemFrame frame : frames) {
 				EnumFacing orientation = frame.facingDirection;

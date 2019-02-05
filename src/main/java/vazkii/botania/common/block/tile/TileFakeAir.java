@@ -35,21 +35,21 @@ public class TileFakeAir extends TileMod {
 
 	@Nonnull
 	@Override
-	public NBTTagCompound writeToNBT(NBTTagCompound par1nbtTagCompound) {
-		NBTTagCompound ret = super.writeToNBT(par1nbtTagCompound);
-		ret.setInteger(TAG_FLOWER_X, flowerPos.getX());
-		ret.setInteger(TAG_FLOWER_Y, flowerPos.getY());
-		ret.setInteger(TAG_FLOWER_Z, flowerPos.getZ());
+	public NBTTagCompound write(NBTTagCompound par1nbtTagCompound) {
+		NBTTagCompound ret = super.write(par1nbtTagCompound);
+		ret.setInt(TAG_FLOWER_X, flowerPos.getX());
+		ret.setInt(TAG_FLOWER_Y, flowerPos.getY());
+		ret.setInt(TAG_FLOWER_Z, flowerPos.getZ());
 		return ret;
 	}
 
 	@Override
-	public void readFromNBT(NBTTagCompound par1nbtTagCompound) {
-		super.readFromNBT(par1nbtTagCompound);
+	public void read(NBTTagCompound par1nbtTagCompound) {
+		super.read(par1nbtTagCompound);
 		flowerPos = new BlockPos(
-				par1nbtTagCompound.getInteger(TAG_FLOWER_X),
-				par1nbtTagCompound.getInteger(TAG_FLOWER_Y),
-				par1nbtTagCompound.getInteger(TAG_FLOWER_Z)
+				par1nbtTagCompound.getInt(TAG_FLOWER_X),
+				par1nbtTagCompound.getInt(TAG_FLOWER_Y),
+				par1nbtTagCompound.getInt(TAG_FLOWER_Z)
 				);
 	}
 

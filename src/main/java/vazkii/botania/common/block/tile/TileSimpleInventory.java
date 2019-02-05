@@ -14,7 +14,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.ItemStackHandler;
 
@@ -23,6 +25,7 @@ import javax.annotation.Nonnull;
 public abstract class TileSimpleInventory extends TileMod {
 
 	protected SimpleItemStackHandler itemHandler = createItemHandler();
+	private final LazyOptional<IItemHandler> automationItemHandler = LazyOptional.of(() -> itemHandler);
 
 	@Override
 	public void readPacketNBT(NBTTagCompound par1NBTTagCompound) {
@@ -45,16 +48,10 @@ public abstract class TileSimpleInventory extends TileMod {
 		return itemHandler;
 	}
 
+	@Nonnull
 	@Override
-	public boolean hasCapability(@Nonnull Capability<?> cap, EnumFacing side) {
-		return cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY || super.hasCapability(cap, side);
-	}
-
-	@Override
-	public <T> T getCapability(@Nonnull Capability<T> cap, EnumFacing side) {
-		if(cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
-			return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(itemHandler);
-		return super.getCapability(cap, side);
+	public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, EnumFacing side) {
+		return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.orEmpty(cap, automationItemHandler);
 	}
 
 	/* Extension of ItemStackHandler that uses our own slot array, allows for control of writing,

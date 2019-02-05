@@ -71,7 +71,7 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable, ITickab
 	}
 
 	@Override
-	public void update() {
+	public void tick() {
 		if(world.isRemote)
 			return;
 
@@ -102,7 +102,7 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable, ITickab
 					EntityItem item = items.get(0);
 					for(EntityItem otherItem : items)
 						if(otherItem != item)
-							otherItem.setDead();
+							otherItem.remove();
 						else item.setItem(new ItemStack(ModItems.terrasteel));
 					world.playSound(null, item.posX, item.posY, item.posZ, ModSounds.terrasteelCraft, SoundCategory.BLOCKS, 1, 1);
 					mana = 0;
@@ -163,12 +163,12 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable, ITickab
 
 	@Override
 	public void writePacketNBT(NBTTagCompound cmp) {
-		cmp.setInteger(TAG_MANA, mana);
+		cmp.setInt(TAG_MANA, mana);
 	}
 
 	@Override
 	public void readPacketNBT(NBTTagCompound cmp) {
-		mana = cmp.getInteger(TAG_MANA);
+		mana = cmp.getInt(TAG_MANA);
 	}
 
 	@Override

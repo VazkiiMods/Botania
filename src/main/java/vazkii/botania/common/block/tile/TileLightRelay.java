@@ -78,7 +78,7 @@ public class TileLightRelay extends TileMod implements ITickable, IWandBindable 
 	}
 
 	@Override
-	public void update() {
+	public void tick() {
 		ticksElapsed++;
 
 		BlockPos nextDest = getNextDestination();
@@ -222,17 +222,17 @@ public class TileLightRelay extends TileMod implements ITickable, IWandBindable 
 	@Override
 	public void readPacketNBT(NBTTagCompound cmp) {
 		bindPos = new BlockPos(
-				cmp.getInteger(TAG_BIND_X),
-				cmp.getInteger(TAG_BIND_Y),
-				cmp.getInteger(TAG_BIND_Z)
+				cmp.getInt(TAG_BIND_X),
+				cmp.getInt(TAG_BIND_Y),
+				cmp.getInt(TAG_BIND_Z)
 				);
 	}
 
 	@Override
 	public void writePacketNBT(NBTTagCompound cmp) {
-		cmp.setInteger(TAG_BIND_X, bindPos.getX());
-		cmp.setInteger(TAG_BIND_Y, bindPos.getY());
-		cmp.setInteger(TAG_BIND_Z, bindPos.getZ());
+		cmp.setInt(TAG_BIND_X, bindPos.getX());
+		cmp.setInt(TAG_BIND_Y, bindPos.getY());
+		cmp.setInt(TAG_BIND_Z, bindPos.getZ());
 	}
 
 	@Optional.Interface(iface="elucent.albedo.lighting.ILightProvider", modid="albedo")
@@ -262,11 +262,11 @@ public class TileLightRelay extends TileMod implements ITickable, IWandBindable 
 		}
 
 		@Override
-		public void onUpdate() {
-			super.onUpdate();
+		public void tick() {
+			super.tick();
 
 			if(getPassengers().isEmpty() && !world.isRemote) {
-				setDead();
+				remove();
 				return;
 			}
 
@@ -294,12 +294,12 @@ public class TileLightRelay extends TileMod implements ITickable, IWandBindable 
 				}
 
 				for(Entity e : getPassengers()) {
-					e.dismountRidingEntity();
+					e.stopRiding();
 					if(e instanceof EntityPlayerMP)
 						((EntityPlayerMP) e).connection.setPlayerLocation(posX, posY, posZ, e.rotationYaw, e.rotationPitch);
 					else e.setPosition(posX, posY, posZ);
 				}
-				setDead();
+				remove();
 			} else {
 				Vector3 thisVec = Vector3.fromEntity(this);
 				Vector3 motVec = thisVec.negate().add(exitPos.getX() + 0.5, exitPos.getY() + 0.5, exitPos.getZ() + 0.5).normalize().multiply(0.5);
@@ -334,16 +334,16 @@ public class TileLightRelay extends TileMod implements ITickable, IWandBindable 
 		}
 
 		@Override
-		protected void readEntityFromNBT(@Nonnull NBTTagCompound cmp) {
-			setExit(new BlockPos(cmp.getInteger(TAG_EXIT_X), cmp.getInteger(TAG_EXIT_Y), cmp.getInteger(TAG_EXIT_Z)));
+		protected void readAdditional(@Nonnull NBTTagCompound cmp) {
+			setExit(new BlockPos(cmp.getInt(TAG_EXIT_X), cmp.getInt(TAG_EXIT_Y), cmp.getInt(TAG_EXIT_Z)));
 		}
 
 		@Override
-		protected void writeEntityToNBT(@Nonnull NBTTagCompound cmp) {
+		protected void writeAdditional(@Nonnull NBTTagCompound cmp) {
 			BlockPos exit = getExitPos();
-			cmp.setInteger(TAG_EXIT_X, exit.getX());
-			cmp.setInteger(TAG_EXIT_Y, exit.getY());
-			cmp.setInteger(TAG_EXIT_Z, exit.getZ());
+			cmp.setInt(TAG_EXIT_X, exit.getX());
+			cmp.setInt(TAG_EXIT_Y, exit.getY());
+			cmp.setInt(TAG_EXIT_Z, exit.getZ());
 		}
 
 		public BlockPos getExitPos() {

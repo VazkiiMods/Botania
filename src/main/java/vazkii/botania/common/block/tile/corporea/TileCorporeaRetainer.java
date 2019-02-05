@@ -82,26 +82,26 @@ public class TileCorporeaRetainer extends TileMod {
 		super.writePacketNBT(cmp);
 
 		cmp.setBoolean(TAG_PENDING_REQUEST, pendingRequest);
-		cmp.setInteger(TAG_REQUEST_X, requestPos.getX());
-		cmp.setInteger(TAG_REQUEST_Y, requestPos.getY());
-		cmp.setInteger(TAG_REQUEST_Z, requestPos.getZ());
+		cmp.setInt(TAG_REQUEST_X, requestPos.getX());
+		cmp.setInt(TAG_REQUEST_Y, requestPos.getY());
+		cmp.setInt(TAG_REQUEST_Z, requestPos.getZ());
 
 		int reqType = REQUEST_NULL;
 		if(request != null)
 			reqType = request instanceof String ? REQUEST_STRING : REQUEST_ITEMSTACK;
-		cmp.setInteger(TAG_REQUEST_TYPE, reqType);
+		cmp.setInt(TAG_REQUEST_TYPE, reqType);
 
 		switch (reqType) {
 		case REQUEST_STRING:
 			cmp.setString(TAG_REQUEST_CONTENTS, (String) request);
 			break;
 		case REQUEST_ITEMSTACK:
-			NBTTagCompound cmp1 = ((ItemStack) request).writeToNBT(new NBTTagCompound());
+			NBTTagCompound cmp1 = ((ItemStack) request).write(new NBTTagCompound());
 			cmp.setTag(TAG_REQUEST_STACK, cmp1);
 			break;
 		default: break;
 		}
-		cmp.setInteger(TAG_REQUEST_COUNT, requestCount);
+		cmp.setInt(TAG_REQUEST_COUNT, requestCount);
 	}
 
 	@Override
@@ -109,23 +109,23 @@ public class TileCorporeaRetainer extends TileMod {
 		super.readPacketNBT(cmp);
 
 		pendingRequest = cmp.getBoolean(TAG_PENDING_REQUEST);
-		int x = cmp.getInteger(TAG_REQUEST_X);
-		int y = cmp.getInteger(TAG_REQUEST_Y);
-		int z = cmp.getInteger(TAG_REQUEST_Z);
+		int x = cmp.getInt(TAG_REQUEST_X);
+		int y = cmp.getInt(TAG_REQUEST_Y);
+		int z = cmp.getInt(TAG_REQUEST_Z);
 		requestPos = new BlockPos(x, y, z);
 
-		int reqType = cmp.getInteger(TAG_REQUEST_TYPE);
+		int reqType = cmp.getInt(TAG_REQUEST_TYPE);
 		switch (reqType) {
 		case REQUEST_STRING:
 			request = cmp.getString(TAG_REQUEST_CONTENTS);
 			break;
 		case REQUEST_ITEMSTACK:
-			NBTTagCompound cmp1 = cmp.getCompoundTag(TAG_REQUEST_STACK);
-			request = new ItemStack(cmp1);
+			NBTTagCompound cmp1 = cmp.getCompound(TAG_REQUEST_STACK);
+			request = ItemStack.read(cmp1);
 			break;
 		default: break;
 		}
-		requestCount = cmp.getInteger(TAG_REQUEST_COUNT);
+		requestCount = cmp.getInt(TAG_REQUEST_COUNT);
 	}
 
 }

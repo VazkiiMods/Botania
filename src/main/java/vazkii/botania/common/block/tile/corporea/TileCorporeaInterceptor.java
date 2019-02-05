@@ -38,14 +38,14 @@ public class TileCorporeaInterceptor extends TileCorporeaBase implements ICorpor
 				for(ItemStack stack_ : stacks)
 					missing -= stack_.getCount();
 
-				if(missing > 0 && !world.getBlockState(getPos()).getValue(BotaniaStateProps.POWERED)) {
-					world.setBlockState(getPos(), world.getBlockState(getPos()).withProperty(BotaniaStateProps.POWERED, true), 1 | 2);
-					world.scheduleUpdate(getPos(), getBlockType(), 2);
+				if(missing > 0 && !world.getBlockState(getPos()).get(BotaniaStateProps.POWERED)) {
+					world.setBlockState(getPos(), world.getBlockState(getPos()).with(BotaniaStateProps.POWERED, true), 1 | 2);
+					world.getPendingBlockTicks().scheduleTick(getPos(), getBlockState().getBlock(), 2);
 
 					TileEntity requestor = source.getSparkInventory().world.getTileEntity(source.getSparkInventory().pos);
-					for(EnumFacing dir : EnumFacing.HORIZONTALS) {
+					for(EnumFacing dir : EnumFacing.BY_INDEX) {
 						TileEntity tile = world.getTileEntity(pos.offset(dir));
-						if(tile != null && tile instanceof TileCorporeaRetainer)
+						if(tile instanceof TileCorporeaRetainer)
 							((TileCorporeaRetainer) tile).setPendingRequest(requestor.getPos(), request, count);
 					}
 
@@ -71,7 +71,7 @@ public class TileCorporeaInterceptor extends TileCorporeaBase implements ICorpor
 	public List<ItemStack> getFilter() {
 		List<ItemStack> filter = new ArrayList<>();
 
-		for(EnumFacing dir : EnumFacing.HORIZONTALS) {
+		for(EnumFacing dir : EnumFacing.BY_INDEX) {
 			List<EntityItemFrame> frames = world.getEntitiesWithinAABB(EntityItemFrame.class, new AxisAlignedBB(pos.offset(dir), pos.offset(dir).add(1, 1, 1)));
 			for(EntityItemFrame frame : frames) {
 				EnumFacing orientation = frame.facingDirection;

@@ -18,8 +18,8 @@ public class TileRedStringComparator extends TileRedString {
 	private int comparatorValue = 0;
 
 	@Override
-	public void update() {
-		super.update();
+	public void tick() {
+		super.tick();
 		BlockPos binding = getBinding();
 		IBlockState state = getStateAtBinding();
 		int origVal = comparatorValue;

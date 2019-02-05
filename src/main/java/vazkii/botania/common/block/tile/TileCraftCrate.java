@@ -61,7 +61,7 @@ public class TileCraftCrate extends TileOpenCrate {
 	}
 
 	@Override
-	public void update() {
+	public void tick() {
 		if (world.isRemote)
 			return;
 
@@ -133,13 +133,13 @@ public class TileCraftCrate extends TileOpenCrate {
 	@Override
 	public void writePacketNBT(NBTTagCompound par1nbtTagCompound) {
 		super.writePacketNBT(par1nbtTagCompound);
-		par1nbtTagCompound.setInteger(TAG_PATTERN, pattern.ordinal());
+		par1nbtTagCompound.setInt(TAG_PATTERN, pattern.ordinal());
 	}
 
 	@Override
 	public void readPacketNBT(NBTTagCompound par1nbtTagCompound) {
 		super.readPacketNBT(par1nbtTagCompound);
-		pattern = CratePattern.values()[par1nbtTagCompound.getInteger(TAG_PATTERN)];
+		pattern = CratePattern.values()[par1nbtTagCompound.getInt(TAG_PATTERN)];
 	}
 
 	@Override

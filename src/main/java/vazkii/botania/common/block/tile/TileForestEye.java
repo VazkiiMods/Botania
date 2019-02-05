@@ -19,7 +19,7 @@ public class TileForestEye extends TileMod implements ITickable {
 	public int entities = 0;
 
 	@Override
-	public void update() {
+	public void tick() {
 		if (world.isRemote)
 			return;
 		int range = 6;

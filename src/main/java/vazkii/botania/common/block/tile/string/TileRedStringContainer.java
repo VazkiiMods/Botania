@@ -14,6 +14,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
 
 import javax.annotation.Nonnull;
@@ -25,24 +26,16 @@ public class TileRedStringContainer extends TileRedString {
 	public boolean acceptBlock(BlockPos pos) {
 		TileEntity tile = world.getTileEntity(pos);
 		return tile != null
-				&& Arrays.stream(EnumFacing.VALUES)
+				&& Arrays.stream(EnumFacing.BY_INDEX)
 				.anyMatch(e -> tile.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, e));
 	}
 
+	@Nonnull
 	@Override
-	public boolean hasCapability(@Nonnull Capability<?> cap, EnumFacing side) {
+	public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, EnumFacing side) {
+		// todo 1.13 need to invalidate when binding breaks
 		if(cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY
-				&& getTileAtBinding() != null
-				&& getTileAtBinding().hasCapability(cap, side))
-			return true;
-		return super.hasCapability(cap, side);
-	}
-
-	@Override
-	public <T> T getCapability(@Nonnull Capability<T> cap, EnumFacing side) {
-		if(cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY
-				&& getTileAtBinding() != null
-				&& getTileAtBinding().hasCapability(cap, side))
+				&& getTileAtBinding() != null)
 			return getTileAtBinding().getCapability(cap, side);
 		return super.getCapability(cap, side);
 	}

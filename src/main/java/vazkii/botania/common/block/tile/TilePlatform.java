@@ -34,7 +34,7 @@ public class TilePlatform extends TileCamo {
 	}
 
 	void swapSurroudings(TilePlatform tile, boolean empty) {
-		for(EnumFacing dir : EnumFacing.VALUES) {
+		for(EnumFacing dir : EnumFacing.BY_INDEX) {
 			BlockPos pos = tile.getPos().offset(dir);
 			TileEntity tileAt = world.getTileEntity(pos);
 			if(tileAt != null && tileAt instanceof TilePlatform) {

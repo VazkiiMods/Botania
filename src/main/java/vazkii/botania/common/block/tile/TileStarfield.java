@@ -17,12 +17,12 @@ import vazkii.botania.common.Botania;
 public class TileStarfield extends TileMod implements ITickable {
 
 	@Override
-	public void update() {
-		boolean state = world.getBlockState(getPos()).getValue(BotaniaStateProps.POWERED);
+	public void tick() {
+		boolean state = world.getBlockState(getPos()).get(BotaniaStateProps.POWERED);
 		if(!world.isRemote) {
 			boolean newState = !world.isDaytime();
 			if(newState != state) {
-				world.setBlockState(getPos(), world.getBlockState(getPos()).withProperty(BotaniaStateProps.POWERED, newState), 1 | 2);
+				world.setBlockState(getPos(), world.getBlockState(getPos()).with(BotaniaStateProps.POWERED, newState), 1 | 2);
 				state = newState;
 			}
 		}

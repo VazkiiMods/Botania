@@ -29,7 +29,7 @@ public abstract class TileRedString extends TileMod implements ITileBound, ITick
 	private BlockPos binding;
 
 	@Override
-	public void update() {
+	public void tick() {
 		EnumFacing dir = getOrientation();
 		BlockPos pos_ = getPos();
 		int range = getRange();
@@ -79,8 +79,8 @@ public abstract class TileRedString extends TileMod implements ITileBound, ITick
 
 	public EnumFacing getOrientation() {
 		IBlockState state = world.getBlockState(getPos());
-		if(state.getPropertyKeys().contains(BotaniaStateProps.FACING))
-			return state.getValue(BotaniaStateProps.FACING);
+		if(state.getProperties().contains(BotaniaStateProps.FACING))
+			return state.get(BotaniaStateProps.FACING);
 		
 		return EnumFacing.WEST; // fallback
 	}

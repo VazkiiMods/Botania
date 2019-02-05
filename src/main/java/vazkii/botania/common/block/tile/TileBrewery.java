@@ -62,7 +62,7 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver, I
 				stackToAdd.setCount(1);
 				itemHandler.setStackInSlot(i, stackToAdd);
 
-				if(player == null || !player.capabilities.isCreativeMode) {
+				if(player == null || !player.abilities.isCreativeMode) {
 					stack.shrink(1);
 					if(stack.isEmpty() && player != null)
 						player.setHeldItem(hand, ItemStack.EMPTY);
@@ -76,7 +76,7 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver, I
 			for(RecipeBrew recipe : BotaniaAPI.brewRecipes)
 				if(recipe.matches(itemHandler) && !recipe.getOutput(itemHandler.getStackInSlot(0)).isEmpty()) {
 					this.recipe = recipe;
-					world.setBlockState(pos, ModBlocks.brewery.getDefaultState().withProperty(BotaniaStateProps.POWERED, true), 1 | 2);
+					world.setBlockState(pos, ModBlocks.brewery.getDefaultState().with(BotaniaStateProps.POWERED, true), 1 | 2);
 				}
 		}
 
@@ -84,12 +84,12 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver, I
 	}
 
 	@Override
-	public void update() {
+	public void tick() {
 		if(mana > 0 && recipe == null) {
 			for(RecipeBrew recipe : BotaniaAPI.brewRecipes)
 				if(recipe.matches(itemHandler)) {
 					this.recipe = recipe;
-					world.setBlockState(pos, ModBlocks.brewery.getDefaultState().withProperty(BotaniaStateProps.POWERED, true), 1 | 2);
+					world.setBlockState(pos, ModBlocks.brewery.getDefaultState().with(BotaniaStateProps.POWERED, true), 1 | 2);
 				}
 
 			if(recipe == null)
@@ -102,7 +102,7 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver, I
 		if(!world.isRemote && recipe == null) {
 			List<EntityItem> items = world.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(pos.getX(), pos.getY(), pos.getZ(), pos.getX() + 1, pos.getY() + 1, pos.getZ() + 1));
 			for(EntityItem item : items)
-				if(!item.isDead && !item.getItem().isEmpty()) {
+				if(item.isAlive() && !item.getItem().isEmpty()) {
 					ItemStack stack = item.getItem();
 					addItem(null, stack, null);
 				}
@@ -187,14 +187,14 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver, I
 	public void writePacketNBT(NBTTagCompound par1nbtTagCompound) {
 		super.writePacketNBT(par1nbtTagCompound);
 
-		par1nbtTagCompound.setInteger(TAG_MANA, mana);
+		par1nbtTagCompound.setInt(TAG_MANA, mana);
 	}
 
 	@Override
 	public void readPacketNBT(NBTTagCompound par1nbtTagCompound) {
 		super.readPacketNBT(par1nbtTagCompound);
 
-		mana = par1nbtTagCompound.getInteger(TAG_MANA);
+		mana = par1nbtTagCompound.getInt(TAG_MANA);
 	}
 
 	@Override

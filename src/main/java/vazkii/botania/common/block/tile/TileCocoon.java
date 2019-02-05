@@ -44,7 +44,7 @@ public class TileCocoon extends TileMod implements ITickable{
 	public int chorusFruitGiven;
 
 	@Override
-	public void update() {
+	public void tick() {
 		timePassed++;
 		if(timePassed >= TOTAL_TIME)
 			hatch();
@@ -114,7 +114,7 @@ public class TileCocoon extends TileMod implements ITickable{
 				entity.setPosition(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
 				if(entity instanceof EntityAgeable)
 					((EntityAgeable) entity).setGrowingAge(-24000);
-				entity.onInitialSpawn(world.getDifficultyForLocation(getPos()), null);
+				entity.onInitialSpawn(world.getDifficultyForLocation(getPos()), null, null);
 				world.spawnEntity(entity);
 				entity.spawnExplosionParticle();
 			}
@@ -123,16 +123,16 @@ public class TileCocoon extends TileMod implements ITickable{
 
 	@Override
 	public void writePacketNBT(NBTTagCompound cmp) {
-		cmp.setInteger(TAG_TIME_PASSED, timePassed);
-		cmp.setInteger(TAG_EMERALDS_GIVEN, emeraldsGiven);
-		cmp.setInteger(TAG_CHORUS_FRUIT_GIVEN, chorusFruitGiven);
+		cmp.setInt(TAG_TIME_PASSED, timePassed);
+		cmp.setInt(TAG_EMERALDS_GIVEN, emeraldsGiven);
+		cmp.setInt(TAG_CHORUS_FRUIT_GIVEN, chorusFruitGiven);
 	}
 
 	@Override
 	public void readPacketNBT(NBTTagCompound cmp) {
-		timePassed = cmp.getInteger(TAG_TIME_PASSED);
-		emeraldsGiven = cmp.getInteger(TAG_EMERALDS_GIVEN);
-		chorusFruitGiven = cmp.getInteger(TAG_CHORUS_FRUIT_GIVEN);
+		timePassed = cmp.getInt(TAG_TIME_PASSED);
+		emeraldsGiven = cmp.getInt(TAG_EMERALDS_GIVEN);
+		chorusFruitGiven = cmp.getInt(TAG_CHORUS_FRUIT_GIVEN);
 	}
 
 }

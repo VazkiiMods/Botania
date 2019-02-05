@@ -31,7 +31,7 @@ public class TileCacophonium extends TileMod {
 
 		NBTTagCompound cmp1 = new NBTTagCompound();
 		if(!stack.isEmpty())
-			cmp1 = stack.writeToNBT(cmp1);
+			cmp1 = stack.write(cmp1);
 		cmp.setTag(TAG_STACK, cmp1);
 	}
 
@@ -39,8 +39,8 @@ public class TileCacophonium extends TileMod {
 	public void readPacketNBT(NBTTagCompound cmp) {
 		super.readPacketNBT(cmp);
 
-		NBTTagCompound cmp1 = cmp.getCompoundTag(TAG_STACK);
-		stack = new ItemStack(cmp1);
+		NBTTagCompound cmp1 = cmp.getCompound(TAG_STACK);
+		stack = ItemStack.read(cmp1);
 	}
 
 }

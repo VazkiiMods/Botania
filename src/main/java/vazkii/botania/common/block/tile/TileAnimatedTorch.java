@@ -131,7 +131,7 @@ public class TileAnimatedTorch extends TileMod implements ITickable {
 	}
 
 	@Override
-	public void update() {
+	public void tick() {
 		if(rotating) {
 			lastTickRotation = rotation;
 			rotation = (rotation + anglePerTick) % 360;

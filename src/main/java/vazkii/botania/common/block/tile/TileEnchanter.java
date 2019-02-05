@@ -116,7 +116,7 @@ public class TileEnchanter extends TileMod implements ISparkAttachable, ITickabl
 	}
 
 	public void onWanded(EntityPlayer player, ItemStack wand) {
-		if(stage != State.IDLE || itemToEnchant.isEmpty() || !itemToEnchant.isItemEnchantable())
+		if(stage != State.IDLE || itemToEnchant.isEmpty() || !itemToEnchant.isEnchantable())
 			return;
 
 		List<EntityItem> items = world.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(pos.getX() - 2, pos.getY(), pos.getZ() - 2, pos.getX() + 3, pos.getY() + 1, pos.getZ() + 3));
@@ -127,8 +127,8 @@ public class TileEnchanter extends TileMod implements ISparkAttachable, ITickabl
 				ItemStack item = entity.getItem();
 				if(item.getItem() == Items.ENCHANTED_BOOK) {
 					NBTTagList enchants = ItemEnchantedBook.getEnchantments(item);
-					if(enchants.tagCount() > 0) {
-						NBTTagCompound enchant = enchants.getCompoundTagAt(0);
+					if(enchants.size() > 0) {
+						NBTTagCompound enchant = enchants.getCompound(0); // todo 1.13 update
 						short id = enchant.getShort("id");
 						if(isEnchantmentValid(Enchantment.getEnchantmentByID(id))) {
 							advanceStage();
@@ -141,9 +141,9 @@ public class TileEnchanter extends TileMod implements ISparkAttachable, ITickabl
 	}
 
 	@Override
-	public void update() {
+	public void tick() {
 		IBlockState state = world.getBlockState(getPos());
-		EnumFacing.Axis axis = state.getValue(BotaniaStateProps.ENCHANTER_DIRECTION);
+		EnumFacing.Axis axis = state.get(BotaniaStateProps.ENCHANTER_DIRECTION);
 
 		for(BlockPos pylon : PYLON_LOCATIONS.get(axis)) {
 			TileEntity tile = world.getTileEntity(pos.add(pylon));
@@ -179,8 +179,8 @@ public class TileEnchanter extends TileMod implements ISparkAttachable, ITickabl
 						ItemStack item = entity.getItem();
 						if(item.getItem() == Items.ENCHANTED_BOOK) {
 							NBTTagList enchants = ItemEnchantedBook.getEnchantments(item);
-							if(enchants.tagCount() > 0) {
-								NBTTagCompound enchant = enchants.getCompoundTagAt(0);
+							if(enchants.size() > 0) {
+								NBTTagCompound enchant = enchants.getCompound(0);
 								short enchantId = enchant.getShort("id");
 								short enchantLvl = enchant.getShort("lvl");
 								Enchantment ench = Enchantment.getEnchantmentByID(enchantId);
@@ -338,15 +338,15 @@ public class TileEnchanter extends TileMod implements ISparkAttachable, ITickabl
 
 	@Override
 	public void writePacketNBT(NBTTagCompound cmp) {
-		cmp.setInteger(TAG_MANA, mana);
-		cmp.setInteger(TAG_MANA_REQUIRED, manaRequired);
-		cmp.setInteger(TAG_STAGE, stage.ordinal());
-		cmp.setInteger(TAG_STAGE_TICKS, stageTicks);
-		cmp.setInteger(TAG_STAGE_3_END_TICKS, stage3EndTicks);
+		cmp.setInt(TAG_MANA, mana);
+		cmp.setInt(TAG_MANA_REQUIRED, manaRequired);
+		cmp.setInt(TAG_STAGE, stage.ordinal());
+		cmp.setInt(TAG_STAGE_TICKS, stageTicks);
+		cmp.setInt(TAG_STAGE_3_END_TICKS, stage3EndTicks);
 
 		NBTTagCompound itemCmp = new NBTTagCompound();
 		if(!itemToEnchant.isEmpty())
-			itemCmp = itemToEnchant.writeToNBT(itemCmp);
+			itemCmp = itemToEnchant.write(itemCmp);
 		cmp.setTag(TAG_ITEM, itemCmp);
 
 		String enchStr = enchants.stream()
@@ -357,14 +357,14 @@ public class TileEnchanter extends TileMod implements ISparkAttachable, ITickabl
 
 	@Override
 	public void readPacketNBT(NBTTagCompound cmp) {
-		mana = cmp.getInteger(TAG_MANA);
-		manaRequired = cmp.getInteger(TAG_MANA_REQUIRED);
-		stage = State.values()[cmp.getInteger(TAG_STAGE)];
-		stageTicks = cmp.getInteger(TAG_STAGE_TICKS);
-		stage3EndTicks = cmp.getInteger(TAG_STAGE_3_END_TICKS);
+		mana = cmp.getInt(TAG_MANA);
+		manaRequired = cmp.getInt(TAG_MANA_REQUIRED);
+		stage = State.values()[cmp.getInt(TAG_STAGE)];
+		stageTicks = cmp.getInt(TAG_STAGE_TICKS);
+		stage3EndTicks = cmp.getInt(TAG_STAGE_3_END_TICKS);
 
-		NBTTagCompound itemCmp = cmp.getCompoundTag(TAG_ITEM);
-		itemToEnchant = new ItemStack(itemCmp);
+		NBTTagCompound itemCmp = cmp.getCompound(TAG_ITEM);
+		itemToEnchant = ItemStack.read(itemCmp);
 
 		enchants.clear();
 		String enchStr = cmp.getString(TAG_ENCHANTS);

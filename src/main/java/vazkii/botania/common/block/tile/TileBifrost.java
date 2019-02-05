@@ -23,26 +23,26 @@ public class TileBifrost extends TileMod implements ITickable {
 	public int ticks = 0;
 
 	@Override
-	public void update() {
+	public void tick() {
 		if(!world.isRemote) {
 			if(ticks <= 0) {
-				world.setBlockToAir(pos);
+				world.removeBlock(pos);
 			} else ticks--;
 		}
 	}
 
 	@Nonnull
 	@Override
-	public NBTTagCompound writeToNBT(NBTTagCompound par1nbtTagCompound) {
-		NBTTagCompound ret = super.writeToNBT(par1nbtTagCompound);
-		ret.setInteger(TAG_TICKS, ticks);
+	public NBTTagCompound write(NBTTagCompound par1nbtTagCompound) {
+		NBTTagCompound ret = super.write(par1nbtTagCompound);
+		ret.setInt(TAG_TICKS, ticks);
 		return ret;
 	}
 
 	@Override
-	public void readFromNBT(NBTTagCompound par1nbtTagCompound) {
-		super.readFromNBT(par1nbtTagCompound);
-		ticks = par1nbtTagCompound.getInteger(TAG_TICKS);
+	public void read(NBTTagCompound par1nbtTagCompound) {
+		super.read(par1nbtTagCompound);
+		ticks = par1nbtTagCompound.getInt(TAG_TICKS);
 	}
 
 }

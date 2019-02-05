@@ -18,7 +18,7 @@ public class TileTeruTeruBozu extends TileMod implements ITickable {
 	public boolean wasRaining = false;
 
 	@Override
-	public void update() {
+	public void tick() {
 		if (world.isRemote)
 			return;
 

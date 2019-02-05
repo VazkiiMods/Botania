@@ -30,7 +30,7 @@ public class TileManaFlame extends TileMod implements ITickable {
 	}
 
 	@Override
-	public void update() {
+	public void tick() {
 		float c = 0.3F;
 
 		if(world.isRemote && Math.random() < c) {
@@ -71,12 +71,12 @@ public class TileManaFlame extends TileMod implements ITickable {
 
 	@Override
 	public void writePacketNBT(NBTTagCompound cmp) {
-		cmp.setInteger(TAG_COLOR, color);
+		cmp.setInt(TAG_COLOR, color);
 	}
 
 	@Override
 	public void readPacketNBT(NBTTagCompound cmp) {
-		color = cmp.getInteger(TAG_COLOR);
+		color = cmp.getInt(TAG_COLOR);
 	}
 
 }

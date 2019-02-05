@@ -28,11 +28,11 @@ import java.util.List;
 public class TileEnderEye extends TileMod implements ITickable {
 
 	@Override
-	public void update() {
+	public void tick() {
 		if (world.isRemote)
 			return;
 
-		boolean wasLooking = world.getBlockState(getPos()).getValue(BotaniaStateProps.POWERED);
+		boolean wasLooking = world.getBlockState(getPos()).get(BotaniaStateProps.POWERED);
 		int range = 80;
 		List<EntityPlayer> players = world.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(pos.add(-range, -range, -range), pos.add(range, range, range)));
 
@@ -50,7 +50,7 @@ public class TileEnderEye extends TileMod implements ITickable {
 		}
 
 		if(looking != wasLooking && !world.isRemote)
-			world.setBlockState(getPos(), world.getBlockState(getPos()).withProperty(BotaniaStateProps.POWERED, looking), 1 | 2);
+			world.setBlockState(getPos(), world.getBlockState(getPos()).with(BotaniaStateProps.POWERED, looking), 1 | 2);
 
 		if(looking) {
 			double x = getPos().getX() - 0.1 + Math.random() * 1.2;

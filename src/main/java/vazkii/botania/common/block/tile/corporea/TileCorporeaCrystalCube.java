@@ -17,12 +17,13 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.model.animation.CapabilityAnimation;
 import net.minecraftforge.common.model.animation.IAnimationStateMachine;
-import net.minecraftforge.fml.common.FMLCommonHandler;
-import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.fml.loading.FMLEnvironment;
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.corporea.ICorporeaRequestor;
 import vazkii.botania.api.corporea.ICorporeaSpark;
@@ -44,17 +45,20 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 	int compValue = 0;
 
 	private final IAnimationStateMachine asm;
+	private final LazyOptional<IAnimationStateMachine> asmCap;
 
 	public TileCorporeaCrystalCube() {
-		if (FMLCommonHandler.instance().getSide() == Side.CLIENT) {
+		if (FMLEnvironment.dist == Dist.CLIENT) {
 			asm = ModelLoaderRegistry.loadASM(new ResourceLocation("botania", "asms/block/corporeacrystalcube.json"), ImmutableMap.of());
+			asmCap = LazyOptional.of(() -> asm);
 		} else {
 			asm = null;
+			asmCap = LazyOptional.empty();
 		}
 	}
 
 	@Override
-	public void update() {
+	public void tick() {
 		++ticks;
 		if(ticks % 20 == 0)
 			updateCount();
@@ -122,17 +126,17 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 		super.writePacketNBT(par1nbtTagCompound);
 		NBTTagCompound cmp = new NBTTagCompound();
 		if(!requestTarget.isEmpty())
-			cmp = requestTarget.writeToNBT(cmp);
+			cmp = requestTarget.write(cmp);
 		par1nbtTagCompound.setTag(TAG_REQUEST_TARGET, cmp);
-		par1nbtTagCompound.setInteger(TAG_ITEM_COUNT, itemCount);
+		par1nbtTagCompound.setInt(TAG_ITEM_COUNT, itemCount);
 	}
 
 	@Override
 	public void readPacketNBT(NBTTagCompound par1nbtTagCompound) {
 		super.readPacketNBT(par1nbtTagCompound);
-		NBTTagCompound cmp = par1nbtTagCompound.getCompoundTag(TAG_REQUEST_TARGET);
-		requestTarget = new ItemStack(cmp);
-		itemCount = par1nbtTagCompound.getInteger(TAG_ITEM_COUNT);
+		NBTTagCompound cmp = par1nbtTagCompound.getCompound(TAG_REQUEST_TARGET);
+		requestTarget = ItemStack.read(cmp);
+		itemCount = par1nbtTagCompound.getInt(TAG_ITEM_COUNT);
 	}
 
 	public int getComparatorValue() {
@@ -162,14 +166,9 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 	}
 
 	@Override
-	public boolean hasCapability(@Nonnull Capability<?> cap, EnumFacing side) {
-		return cap == CapabilityAnimation.ANIMATION_CAPABILITY || super.hasCapability(cap, side);
-	}
-
-	@Override
-	public <T> T getCapability(@Nonnull Capability<T> cap, EnumFacing side) {
+	public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, EnumFacing side) {
 		if(cap == CapabilityAnimation.ANIMATION_CAPABILITY) {
-			return CapabilityAnimation.ANIMATION_CAPABILITY.cast(asm);
+			return asmCap.cast();
 		} else return super.getCapability(cap, side);
 	}
 
