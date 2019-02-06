@@ -13,8 +13,8 @@ package vazkii.botania.api.lexicon;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.internal.IGuiLexiconEntry;
 
 import java.util.List;
@@ -34,20 +34,20 @@ public abstract class LexiconPage {
 	 * @param mx The mouse's relative X position.
 	 * @param my The mouse's relative Y position.
 	 */
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public abstract void renderScreen(IGuiLexiconEntry gui, int mx, int my);
 
 	/**
 	 * Called per update tick. Non gui-sensitive version, kept for backwards compatibility only.
 	 */
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public void updateScreen() {}
 
 	/**
 	 * Called per update tick. Feel free to override fully, the
 	 * call to updateScreen() is for backwards compatibility.
 	 */
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public void updateScreen(IGuiLexiconEntry gui) {
 		updateScreen();
 	}
@@ -56,26 +56,26 @@ public abstract class LexiconPage {
 	 * Called when this page is opened, be it via initGui() or when the player changes page.
 	 * You can add buttons and whatever you'd do on initGui() here.
 	 */
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public void onOpened(IGuiLexiconEntry gui) {}
 
 	/**
 	 * Called when this page is opened, be it via closing the gui or when the player changes page.
 	 * Make sure to dispose of anything you don't use any more, such as buttons in the gui's buttonList.
 	 */
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public void onClosed(IGuiLexiconEntry gui) {}
 
 	/**
 	 * Called when a button is pressed, equivalent to GuiScreen.actionPerformed.
 	 */
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public void onActionPerformed(IGuiLexiconEntry gui, GuiButton button) {}
 
 	/**
 	 * Called when a key is pressed.
 	 */
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public void onKeyPressed(char c, int key) {}
 
 	/**

@@ -25,8 +25,8 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.client.render.IModelRegister;
 import vazkii.botania.common.block.tile.TileGaiaHead;
 import vazkii.botania.common.item.ModItems;
@@ -80,7 +80,7 @@ public class BlockGaiaHead extends BlockSkull implements IModelRegister {
 		return new TileGaiaHead();
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void registerModels() {
 		ModelLoader.setCustomStateMapper(this, new StateMap.Builder().ignore(FACING, NODROP).build());

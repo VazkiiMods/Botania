@@ -22,8 +22,8 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.block.BlockMod;
@@ -99,7 +99,7 @@ public class BlockPavement extends BlockMod {
 		return new ItemStack(this, 1, getMetaFromState(world.getBlockState(pos)));
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void registerModels() {
 		ModelHandler.registerBlockToState(this, BotaniaStateProps.PAVEMENT_COLOR.getAllowedValues().size());

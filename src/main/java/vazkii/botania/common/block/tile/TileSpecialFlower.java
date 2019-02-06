@@ -27,8 +27,8 @@ import net.minecraft.util.ITickable;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.ISubTileSlowableContainer;
@@ -179,7 +179,7 @@ public class TileSpecialFlower extends TileMod implements IWandBindable, ISubTil
 		return super.receiveClientEvent(id, param);
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public void renderHUD(Minecraft mc, ScaledResolution res) {
 		if(subTile != null)
 			subTile.renderHUD(mc, res);

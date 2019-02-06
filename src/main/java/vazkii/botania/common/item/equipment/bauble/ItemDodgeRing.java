@@ -25,8 +25,8 @@ import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent.KeyInputEvent;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.items.IItemHandler;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
@@ -50,7 +50,7 @@ public class ItemDodgeRing extends ItemBauble {
 	}
 
 	@SubscribeEvent
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public static void onKeyDown(KeyInputEvent event) {
 		Minecraft mc = Minecraft.getMinecraft();
 
@@ -108,7 +108,7 @@ public class ItemDodgeRing extends ItemBauble {
 		PacketHandler.sendToServer(new PacketDodge());
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public static void renderHUD(ScaledResolution resolution, EntityPlayer player, ItemStack stack, float pticks) {
 		int xo = resolution.getScaledWidth() / 2 - 20;
 		int y = resolution.getScaledHeight() / 2 + 20;

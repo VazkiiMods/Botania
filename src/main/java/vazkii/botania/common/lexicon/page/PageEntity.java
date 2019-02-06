@@ -19,8 +19,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.internal.IGuiLexiconEntry;
 import vazkii.botania.api.lexicon.LexiconPage;
 
@@ -46,7 +46,7 @@ public class PageEntity extends LexiconPage{
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public void renderScreen(IGuiLexiconEntry gui, int mx, int my) {
 		prepDummy();
 		int text_x = gui.getLeft() + 16;
@@ -60,7 +60,7 @@ public class PageEntity extends LexiconPage{
 		PageText.renderText(text_x, text_y, gui.getWidth() - 30, gui.getHeight(), getUnlocalizedName());
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public int getEntityScale(int targetSize) {
 		float entity_size = dummyEntity.width;
 
@@ -77,7 +77,7 @@ public class PageEntity extends LexiconPage{
 		dummyEntity.ticksExisted++;
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public void renderEntity(IGuiLexiconEntry gui, Entity entity, int x, int y, int scale, float rotation) {
 		dummyEntity.world = Minecraft.getMinecraft() != null ? Minecraft.getMinecraft().world : null;
 

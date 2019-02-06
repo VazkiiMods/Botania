@@ -15,7 +15,7 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.client.event.RenderSpecificHandEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.api.distmarker.Dist;
 import vazkii.botania.client.gui.lexicon.GuiLexicon;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.Botania;

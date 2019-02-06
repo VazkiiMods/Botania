@@ -10,8 +10,8 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.common.Botania;
@@ -20,7 +20,7 @@ import vazkii.botania.common.lib.LibTriggerNames;
 public class TriggerManaDetector extends StatementBase implements ITriggerInternal {
 
 	@Override
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public ISprite getSprite() {
 		return new TASprite(MiscellaneousIcons.INSTANCE.manaDetectorIcon);
 	}
@@ -31,7 +31,7 @@ public class TriggerManaDetector extends StatementBase implements ITriggerIntern
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public String getDescription() {
 		return I18n.format(LibTriggerNames.TRIGGER_MANA_DETECTOR);
 	}

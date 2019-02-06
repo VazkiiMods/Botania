@@ -19,8 +19,8 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.items.SlotItemHandler;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.client.gui.SlotLocked;
@@ -75,7 +75,7 @@ public class ContainerBaubleBox extends Container {
 				|| player.getHeldItemOffhand() == baubleBoxInv.box;
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void setAll(List<ItemStack> l) {
     	baubles.setEventBlock(true);

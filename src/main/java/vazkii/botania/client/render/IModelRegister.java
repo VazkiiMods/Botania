@@ -1,7 +1,7 @@
 package vazkii.botania.client.render;
 
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 public interface IModelRegister {
 	/**
@@ -9,6 +9,6 @@ public interface IModelRegister {
 	 * For Blocks, statemapper registration needs to be done BEFORE itemblock registration
 	 * Exceptions to that rule are noted
 	 */
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	void registerModels();
 }

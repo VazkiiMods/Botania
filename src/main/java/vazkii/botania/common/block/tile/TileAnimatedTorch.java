@@ -20,8 +20,8 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.text.translation.I18n;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.block.ModBlocks;
 
@@ -70,7 +70,7 @@ public class TileAnimatedTorch extends TileMod implements ITickable {
 		if(entity != null) {
 			side = Arrays.asList(SIDES).indexOf(entity.getHorizontalFacing().getOpposite());
 		}
-		world.notifyNeighborsOfStateChange(getPos().offset(SIDES[side].getOpposite()), getBlockType(), false);
+		world.notifyNeighborsOfStateChange(getPos().offset(SIDES[side].getOpposite()), getBlockState().getBlock());
 	}
 
 	public void toggle() {
@@ -115,13 +115,13 @@ public class TileAnimatedTorch extends TileMod implements ITickable {
 		rotating = true;
 
 		// tell neighbors that signal is off because we are rotating
-		world.notifyNeighborsOfStateChange(getPos(), getBlockType(), false);
+		world.notifyNeighborsOfStateChange(getPos(), getBlockState().getBlock());
 		for(EnumFacing e : EnumFacing.VALUES) {
-			world.notifyNeighborsOfStateChange(getPos().offset(e), getBlockType(), false);
+			world.notifyNeighborsOfStateChange(getPos().offset(e), getBlockState().getBlock());
 		}
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public void renderHUD(Minecraft mc, ScaledResolution res) {
 		int x = res.getScaledWidth() / 2 + 10;
 		int y = res.getScaledHeight() / 2 - 8;
@@ -140,9 +140,9 @@ public class TileAnimatedTorch extends TileMod implements ITickable {
 			if(rotationTicks <= 0) {
 				rotating = false;
 				// done rotating, tell neighbors
-				world.notifyNeighborsOfStateChange(getPos(), getBlockType(), false);
-				for(EnumFacing e : EnumFacing.VALUES) {
-					world.notifyNeighborsOfStateChange(getPos().offset(e), getBlockType(), false);
+				world.notifyNeighborsOfStateChange(getPos(), getBlockState().getBlock());
+				for(EnumFacing e : EnumFacing.BY_INDEX) {
+					world.notifyNeighborsOfStateChange(getPos().offset(e), getBlockState().getBlock());
 				}
 			}
 
@@ -161,24 +161,24 @@ public class TileAnimatedTorch extends TileMod implements ITickable {
 
 	@Override
 	public void writePacketNBT(NBTTagCompound cmp) {
-		cmp.setInteger(TAG_SIDE, side);
+		cmp.setInt(TAG_SIDE, side);
 		cmp.setBoolean(TAG_ROTATING, rotating);
-		cmp.setInteger(TAG_ROTATION_TICKS, rotationTicks);
+		cmp.setInt(TAG_ROTATION_TICKS, rotationTicks);
 		cmp.setDouble(TAG_ANGLE_PER_TICK, anglePerTick);
-		cmp.setInteger(TAG_TORCH_MODE, torchMode.ordinal());
-		cmp.setInteger(TAG_NEXT_RANDOM_ROTATION, nextRandomRotation);
+		cmp.setInt(TAG_TORCH_MODE, torchMode.ordinal());
+		cmp.setInt(TAG_NEXT_RANDOM_ROTATION, nextRandomRotation);
 	}
 
 	@Override
 	public void readPacketNBT(NBTTagCompound cmp) {
-		side = cmp.getInteger(TAG_SIDE);
+		side = cmp.getInt(TAG_SIDE);
 		rotating = cmp.getBoolean(TAG_ROTATING);
 		if(world != null && !world.isRemote)
-			rotationTicks = cmp.getInteger(TAG_ROTATION_TICKS);
+			rotationTicks = cmp.getInt(TAG_ROTATION_TICKS);
 		anglePerTick = cmp.getDouble(TAG_ANGLE_PER_TICK);
-		nextRandomRotation = cmp.getInteger(TAG_NEXT_RANDOM_ROTATION);
+		nextRandomRotation = cmp.getInt(TAG_NEXT_RANDOM_ROTATION);
 
-		int modeOrdinal = cmp.getInteger(TAG_TORCH_MODE);
+		int modeOrdinal = cmp.getInt(TAG_TORCH_MODE);
 		TorchMode[] modes = TorchMode.values();
 		torchMode = modes[modeOrdinal % modes.length];
 	}

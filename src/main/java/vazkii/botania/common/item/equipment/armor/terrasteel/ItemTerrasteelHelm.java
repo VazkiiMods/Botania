@@ -25,8 +25,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.item.IAncientWillContainer;
 import vazkii.botania.api.item.IBaubleRender;
 import vazkii.botania.api.mana.IManaDiscountArmor;
@@ -85,7 +85,7 @@ public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDisc
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public void addArmorSetDescription(ItemStack stack, List<String> list) {
 		super.addArmorSetDescription(stack, list);
 		for(AncientWillType type : AncientWillType.values())
@@ -101,7 +101,7 @@ public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDisc
 		return false;
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public static void renderOnPlayer(ItemStack stack, EntityPlayer player) {
 		if(hasAnyWill(stack) && !((ItemTerrasteelArmor) stack.getItem()).hasPhantomInk(stack)) {
 			GlStateManager.pushMatrix();

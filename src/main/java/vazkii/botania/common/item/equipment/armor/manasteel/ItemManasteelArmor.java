@@ -31,8 +31,8 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.ISpecialArmor;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IPhantomInkable;
 import vazkii.botania.api.mana.IManaUsingItem;
@@ -128,7 +128,7 @@ public class ItemManasteelArmor extends ItemArmor implements ISpecialArmor, IMan
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped original) {
 		if(ConfigHandler.enableArmorModels) {
 			ModelBiped model = getArmorModelForSlot(entityLiving, itemStack, armorSlot);
@@ -144,7 +144,7 @@ public class ItemManasteelArmor extends ItemArmor implements ISpecialArmor, IMan
 		return super.getArmorModel(entityLiving, itemStack, armorSlot, original);
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public ModelBiped getArmorModelForSlot(EntityLivingBase entity, ItemStack stack, EntityEquipmentSlot slot) {
 		if(models == null)
 			models = new EnumMap<>(EntityEquipmentSlot.class);
@@ -152,7 +152,7 @@ public class ItemManasteelArmor extends ItemArmor implements ISpecialArmor, IMan
 		return models.get(slot);
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public ModelBiped provideArmorModelForSlot(ItemStack stack, EntityEquipmentSlot slot) {
 		models.put(slot, new ModelArmorManasteel(slot));
 		return models.get(slot);
@@ -168,7 +168,7 @@ public class ItemManasteelArmor extends ItemArmor implements ISpecialArmor, IMan
 		return true;
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void addInformation(ItemStack stack, World world, List<String> list, ITooltipFlag flags) {
 		if(GuiScreen.isShiftKeyDown())
@@ -176,7 +176,7 @@ public class ItemManasteelArmor extends ItemArmor implements ISpecialArmor, IMan
 		else addStringToTooltip(I18n.format("botaniamisc.shiftinfo"), list);
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public void addInformationAfterShift(ItemStack stack, World world, List<String> list, ITooltipFlag flags) {
 		EntityPlayer player = Minecraft.getMinecraft().player;
 		addStringToTooltip(getArmorSetTitle(player), list);
@@ -237,17 +237,17 @@ public class ItemManasteelArmor extends ItemArmor implements ISpecialArmor, IMan
 		return pieces;
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public String getArmorSetName() {
 		return I18n.format("botania.armorset.manasteel.name");
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	private String getArmorSetTitle(EntityPlayer player) {
 		return I18n.format("botaniamisc.armorset") + " " + getArmorSetName() + " (" + getSetPiecesEquipped(player) + "/" + getArmorSetStacks().length + ")";
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public void addArmorSetDescription(ItemStack stack, List<String> list) {
 		addStringToTooltip(I18n.format("botania.armorset.manasteel.desc"), list);
 	}
@@ -262,7 +262,7 @@ public class ItemManasteelArmor extends ItemArmor implements ISpecialArmor, IMan
 		ItemNBTHelper.setBoolean(stack, TAG_PHANTOM_INK, ink);
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void registerModels() {
 		ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getRegistryName(), "inventory"));

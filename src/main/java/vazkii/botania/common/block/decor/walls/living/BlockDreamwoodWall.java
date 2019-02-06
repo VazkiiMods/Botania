@@ -11,8 +11,8 @@
 package vazkii.botania.common.block.decor.walls.living;
 
 import net.minecraft.block.SoundType;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.decor.walls.BlockModWall;
@@ -25,7 +25,7 @@ public class BlockDreamwoodWall extends BlockModWall {
 		setSoundType(SoundType.WOOD);
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void registerModels() {
 		ModelHandler.registerCustomItemblock(this, "dreamwood_wall");

@@ -15,8 +15,8 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.internal.IGuiLexiconEntry;
 import vazkii.botania.api.recipe.RecipeRuneAltar;
@@ -42,7 +42,7 @@ public class PageRuneRecipe extends PagePetalRecipe<RecipeRuneAltar> {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public void renderManaBar(IGuiLexiconEntry gui, RecipeRuneAltar recipe, int mx, int my) {
 		FontRenderer font = Minecraft.getMinecraft().fontRenderer;
 		GlStateManager.enableBlend();

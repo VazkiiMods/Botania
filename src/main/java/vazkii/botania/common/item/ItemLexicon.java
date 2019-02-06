@@ -39,8 +39,8 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.ILexicon;
 import vazkii.botania.api.lexicon.ILexiconable;
@@ -114,7 +114,7 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 		}
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void addInformation(ItemStack par1ItemStack, World world, List<String> stacks, ITooltipFlag flags) {
 		if(GuiScreen.isShiftKeyDown()) {
@@ -142,7 +142,7 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 		tooltip.add(s.replaceAll("&", "\u00a7"));
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public static String getEdition() {
 		String version = LibMisc.BUILD;
 		int build = version.contains("GRADLE") ? 0 : Integer.parseInt(version);
@@ -262,7 +262,7 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 		return isKnowledgeUnlocked(stack, BotaniaAPI.elvenKnowledge);
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void registerModels() {
 		// Load and bake the 2D models

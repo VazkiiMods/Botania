@@ -23,8 +23,8 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.client.event.RenderTooltipEvent;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.internal.IGuiLexiconEntry;
@@ -56,7 +56,7 @@ public class PageRecipe extends LexiconPage {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public void renderScreen(IGuiLexiconEntry gui, int mx, int my) {
 		relativeMouseX = mx;
 		relativeMouseY = my;
@@ -111,10 +111,10 @@ public class PageRecipe extends LexiconPage {
 		mouseDownLastTick = Mouse.isButtonDown(0);
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public void renderRecipe(IGuiLexiconEntry gui, int mx, int my) {}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public void renderItemAtAngle(IGuiLexiconEntry gui, float angle, ItemStack stack) {
 		if(stack.isEmpty())
 			return;
@@ -132,7 +132,7 @@ public class PageRecipe extends LexiconPage {
 		renderItem(gui, xPos, yPos, workStack, false);
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public void renderItemAtGridPos(IGuiLexiconEntry gui, int x, int y, ItemStack stack, boolean accountForContainer) {
 		if(stack.isEmpty())
 			return;
@@ -150,7 +150,7 @@ public class PageRecipe extends LexiconPage {
 		renderItem(gui, xPos, yPos, stack1, accountForContainer);
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public void renderItem(IGuiLexiconEntry gui, double xPos, double yPos, ItemStack stack, boolean accountForContainer) {
 		RenderItem render = Minecraft.getMinecraft().getRenderItem();
 		boolean mouseDown = Mouse.isButtonDown(0);

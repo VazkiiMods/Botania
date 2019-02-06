@@ -8,8 +8,8 @@ import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.oredict.OreDictionary;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.internal.IGuiLexiconEntry;
@@ -48,7 +48,7 @@ public class PageElvenRecipe extends PageRecipe {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public void renderRecipe(IGuiLexiconEntry gui, int mx, int my) {
 		RecipeElvenTrade recipe = recipes.get(recipeAt);
 		TextureManager render = Minecraft.getMinecraft().renderEngine;
@@ -80,7 +80,7 @@ public class PageElvenRecipe extends PageRecipe {
 		((GuiScreen) gui).drawTexturedModalRect(gui.getLeft() + 22, gui.getTop() + 36, portalIcon, 48, 48);
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public void renderItemAtInputPos(IGuiLexiconEntry gui, int x, ItemStack stack) {
 		if(stack.isEmpty())
 			return;
@@ -98,7 +98,7 @@ public class PageElvenRecipe extends PageRecipe {
 		renderItem(gui, xPos, yPos, stack1, false);
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public void renderItemAtOutputPos(IGuiLexiconEntry gui, int x, int y, ItemStack stack) {
 		if(stack.isEmpty())
 			return;
@@ -120,7 +120,7 @@ public class PageElvenRecipe extends PageRecipe {
 
 
 	@Override
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public void updateScreen() {
 		if(GuiScreen.isShiftKeyDown())
 			return;

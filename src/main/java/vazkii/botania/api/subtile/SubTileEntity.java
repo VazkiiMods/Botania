@@ -24,8 +24,8 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -106,7 +106,7 @@ public class SubTileEntity {
 	/**
 	 * Gets the block model path for this subtile
 	 */
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public ModelResourceLocation getBlockModel() {
 		return BotaniaAPI.internalHandler.getSubTileBlockModelForName(getUnlocalizedName());
 	}
@@ -114,7 +114,7 @@ public class SubTileEntity {
 	/**
 	 * Gets the item model path for this subtile
 	 */
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public ModelResourceLocation getItemModel() {
 		return BotaniaAPI.internalHandler.getSubTileItemModelForName(getUnlocalizedName());
 	}
@@ -173,7 +173,7 @@ public class SubTileEntity {
 	 * Gets the block coordinates this is bound to, for use with the wireframe render
 	 * when the sub tile is being hovered with a wand of the forest.
 	 */
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public BlockPos getBinding() {
 		return null;
 	}
@@ -182,7 +182,7 @@ public class SubTileEntity {
 	 * Returns a descriptor for the radius of this sub tile. This is called while a player
 	 * is looking at the block with a Manaseer Monocle (IBurstViewerBauble).
 	 */
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public RadiusDescriptor getRadius() {
 		return null;
 	}
@@ -212,7 +212,7 @@ public class SubTileEntity {
 	 * Called on the client when the block being pointed at is the one with this sub tile.
 	 * Used to render a HUD portraying some data from this sub tile.
 	 */
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public void renderHUD(Minecraft mc, ScaledResolution res) {}
 
 	/**

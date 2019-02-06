@@ -11,8 +11,8 @@ package vazkii.botania.api;
 import com.google.common.collect.Maps;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.item.IFloatingFlower;
 import vazkii.botania.api.subtile.SubTileEntity;
 
@@ -22,7 +22,7 @@ import java.util.Map;
 /**
  * Class for API calls that must be made clientside
  */
-@SideOnly(Side.CLIENT)
+@OnlyIn(Dist.CLIENT)
 public final class BotaniaAPIClient {
 
 	private static final Map<ResourceLocation, ModelResourceLocation> subtileBlockModels = Maps.newHashMap();

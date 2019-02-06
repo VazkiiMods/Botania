@@ -33,8 +33,8 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.lexicon.ILexiconable;
@@ -196,7 +196,7 @@ public class BlockPool extends BlockMod implements IWandHUD, IWandable, ILexicon
 		return TilePool.calculateComparatorLevel(pool.getCurrentMana(), pool.manaCap);
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void renderHUD(Minecraft mc, ScaledResolution res, World world, BlockPos pos) {
 		((TilePool) world.getTileEntity(pos)).renderHUD(mc, res);
@@ -213,7 +213,7 @@ public class BlockPool extends BlockMod implements IWandHUD, IWandable, ILexicon
 		return variant == Variant.FABULOUS ? LexiconData.rainbowRod : LexiconData.pool;
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void registerModels() {
 		ModelLoader.setCustomStateMapper(this, new StateMap.Builder().ignore(BotaniaStateProps.COLOR).build());

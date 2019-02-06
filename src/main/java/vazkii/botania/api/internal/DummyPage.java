@@ -10,8 +10,8 @@
  */
 package vazkii.botania.api.internal;
 
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.lexicon.LexiconPage;
 
 /**
@@ -26,7 +26,7 @@ public class DummyPage extends LexiconPage {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public void renderScreen(IGuiLexiconEntry gui, int x, int y) {}
 
 }

@@ -27,7 +27,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.BlockEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.items.ItemHandlerHelper;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
@@ -93,7 +93,7 @@ public final class SkyblockWorldEvents {
 			} else if(!equipped.isEmpty() && equipped.getItem() == Items.BOWL) {
 				RayTraceResult rtr = ToolCommons.raytraceFromEntity(event.getWorld(), event.getEntityPlayer(), true, 4.5F);
 				if(rtr != null) {
-					if (rtr.typeOfHit == net.minecraft.util.math.RayTraceResult.Type.BLOCK) {
+					if (rtr.type == net.minecraft.util.math.RayTraceResult.Type.BLOCK) {
 						if(event.getWorld().getBlockState(rtr.getBlockPos()).getMaterial() == Material.WATER) {
 							if(!event.getWorld().isRemote) {
 								equipped.shrink(1);
@@ -114,17 +114,17 @@ public final class SkyblockWorldEvents {
 
 	@SubscribeEvent
 	public static void onDrops(BlockEvent.HarvestDropsEvent event) {
-		if(Botania.gardenOfGlassLoaded && event.getState().getBlock() == Blocks.TALLGRASS) {
+		if(Botania.gardenOfGlassLoaded && event.getState().getBlock() == Blocks.GRASS) {
 			ItemStack stackToRemove = ItemStack.EMPTY;
 			for(ItemStack stack : event.getDrops())
-				if(stack.getItem() == Items.WHEAT_SEEDS && event.getWorld().rand.nextInt(4) == 0) {
+				if(stack.getItem() == Items.WHEAT_SEEDS && event.getWorld().getRandom().nextInt(4) == 0) {
 					stackToRemove = stack;
 					break;
 				}
 
 			if(!stackToRemove.isEmpty()) {
 				event.getDrops().remove(stackToRemove);
-				event.getDrops().add(new ItemStack(event.getWorld().rand.nextBoolean() ? Items.PUMPKIN_SEEDS : Items.MELON_SEEDS));
+				event.getDrops().add(new ItemStack(event.getWorld().getRandom().nextBoolean() ? Items.PUMPKIN_SEEDS : Items.MELON_SEEDS));
 			}
 		}
 	}
@@ -143,7 +143,7 @@ public final class SkyblockWorldEvents {
 			if(player instanceof EntityPlayerMP) {
 				EntityPlayerMP pmp = (EntityPlayerMP) player;
 				pmp.setPositionAndUpdate(pos.getX() + 0.5, pos.getY() + 1.6, pos.getZ() + 0.5);
-				pmp.setSpawnChunk(pos, true, player.world.provider.getDimension());
+				pmp.setSpawnPoint(pos, true, player.world.getDimension().getId());
 				player.inventory.addItemStackToInventory(new ItemStack(ModItems.lexicon));
 			}
 
@@ -170,7 +170,7 @@ public final class SkyblockWorldEvents {
 			for(int j = 0; j < 4; j++)
 				for(int k = 0; k < 3; k++)
 					world.setBlockState(pos.add(-1 + i, -1 - j, -1 + k), j == 0 ? Blocks.GRASS.getDefaultState() : Blocks.DIRT.getDefaultState());
-		world.setBlockState(pos.add(-1, -2, 0), Blocks.FLOWING_WATER.getDefaultState());
+		world.setBlockState(pos.add(-1, -2, 0), Blocks.WATER.getDefaultState());
 		world.setBlockState(pos.add(1, 2, 1), ModBlocks.manaFlame.getDefaultState());
 		((TileManaFlame) world.getTileEntity(pos.add(1, 2, 1))).setColor(new Color(70 + world.rand.nextInt(185), 70 + world.rand.nextInt(185), 70 + world.rand.nextInt(185)).getRGB());
 

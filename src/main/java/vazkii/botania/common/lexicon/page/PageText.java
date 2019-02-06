@@ -14,8 +14,8 @@ import com.google.common.base.Joiner;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.resources.I18n;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.internal.IGuiLexiconEntry;
 import vazkii.botania.api.lexicon.LexiconPage;
 import vazkii.botania.common.core.handler.ConfigHandler;
@@ -30,7 +30,7 @@ public class PageText extends LexiconPage {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public void renderScreen(IGuiLexiconEntry gui, int mx, int my) {
 		int width = gui.getWidth() - 30;
 		int x = gui.getLeft() + 16;
@@ -43,7 +43,7 @@ public class PageText extends LexiconPage {
 		renderText(x, y, width, height, 10, true, 0, unlocalizedText);
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public static void renderText(int x, int y, int width, int height, int paragraphSize, boolean useUnicode, int color, String unlocalizedText) {
 		x += 2;
 		y += 10;

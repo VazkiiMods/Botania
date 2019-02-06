@@ -18,8 +18,8 @@ import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.armor.ModelArmorTerrasteel;
@@ -38,7 +38,7 @@ public class ItemTerrasteelArmor extends ItemManasteelArmor {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public ModelBiped provideArmorModelForSlot(ItemStack stack, EntityEquipmentSlot slot) {
 		models.put(slot, new ModelArmorTerrasteel(slot));
 		return models.get(slot);
@@ -99,13 +99,13 @@ public class ItemTerrasteelArmor extends ItemManasteelArmor {
 		return false;
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	@Override
 	public String getArmorSetName() {
 		return I18n.format("botania.armorset.terrasteel.name");
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void addArmorSetDescription(ItemStack stack, List<String> list) {
 		addStringToTooltip(I18n.format("botania.armorset.terrasteel.desc0"), list);

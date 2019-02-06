@@ -17,8 +17,8 @@ import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import org.lwjgl.opengl.GL11;
 
 import java.util.regex.Pattern;
@@ -32,7 +32,7 @@ public final class ItemsRemainingRenderHandler {
 	private static String customString;
 	private static int ticks, count;
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public static void render(ScaledResolution resolution, float partTicks) {
 		if(ticks > 0 && !stack.isEmpty()) {
 			int pos = maxTicks - ticks;
@@ -86,7 +86,7 @@ public final class ItemsRemainingRenderHandler {
 		}
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public static void tick() {
 		if(ticks > 0)
 			--ticks;

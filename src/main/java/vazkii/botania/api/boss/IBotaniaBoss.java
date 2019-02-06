@@ -12,8 +12,8 @@ package vazkii.botania.api.boss;
 
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.internal.ShaderCallback;
 
 import java.awt.Rectangle;
@@ -51,7 +51,7 @@ public interface IBotaniaBoss {
 	 * here if needed.
 	 * @return How tall your auxiliary renders were
 	 */
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public int bossBarRenderCallback(ScaledResolution res, int x, int y);
 
 	/**

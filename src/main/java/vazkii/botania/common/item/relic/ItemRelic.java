@@ -22,8 +22,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IRelic;
 import vazkii.botania.common.advancements.RelicBindTrigger;
@@ -50,13 +50,13 @@ public class ItemRelic extends ItemMod implements IRelic {
 			updateRelic(stack, (EntityPlayer) entity);
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void addInformation(ItemStack stack, World world, List<String> tooltip, ITooltipFlag flags) {
 		addBindInfo(tooltip, stack);
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public void addBindInfo(List<String> list, ItemStack stack) {
 		if(GuiScreen.isShiftKeyDown()) {
 			if(!hasUUID(stack)) {

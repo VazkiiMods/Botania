@@ -24,8 +24,8 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.StringUtils;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.item.IHourglassTrigger;
 import vazkii.botania.api.state.BotaniaStateProps;
@@ -186,7 +186,7 @@ public class TileHourglass extends TileSimpleInventory implements ITickable {
 		return 1;
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public void renderHUD(ScaledResolution res) {
 		Minecraft mc = Minecraft.getMinecraft();
 		int x = res.getScaledWidth() / 2 + 10;

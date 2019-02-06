@@ -27,8 +27,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.Optional;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import thaumcraft.api.crafting.IInfusionStabiliser;
 import vazkii.botania.api.item.IHornHarvestable;
 import vazkii.botania.api.item.IPetalApothecary;
@@ -121,7 +121,7 @@ public class BlockModMushroom extends BlockMushroom implements IInfusionStabilis
 		return getMetaFromState(state);
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void randomDisplayTick(IBlockState state, World world, BlockPos pos, Random rand) {
 		int hex = state.getValue(BotaniaStateProps.COLOR).getColorValue();
@@ -156,7 +156,7 @@ public class BlockModMushroom extends BlockMushroom implements IInfusionStabilis
 	@Override
 	public void harvestByHorn(World world, BlockPos pos, ItemStack stack, EnumHornType hornType) {}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void registerModels() {
 		ModelHandler.registerCustomItemblock(this, EnumDyeColor.values().length, i -> "mushroom_" + EnumDyeColor.byMetadata(i).getName());

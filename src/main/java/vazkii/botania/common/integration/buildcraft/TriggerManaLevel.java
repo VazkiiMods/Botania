@@ -10,8 +10,8 @@ import buildcraft.api.statements.IStatementParameter;
 import buildcraft.api.statements.ITriggerExternal;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.mana.IManaBlock;
 import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
@@ -39,13 +39,13 @@ public class TriggerManaLevel extends StatementBase implements ITriggerExternal 
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public ISprite getSprite() {
 		return new TASprite(MiscellaneousIcons.INSTANCE.manaLevelTriggerIcons.get(state));
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public String getDescription() {
 		return I18n.format(LibTriggerNames.TRIGGER_MANA_PREFIX + WordUtils.capitalizeFully(state.name()));
 	}

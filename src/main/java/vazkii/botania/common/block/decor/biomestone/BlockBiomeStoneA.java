@@ -16,8 +16,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.BiomeStoneVariant;
 import vazkii.botania.client.core.handler.ModelHandler;
@@ -58,7 +58,7 @@ public class BlockBiomeStoneA extends BlockBiomeStone {
 		drops.add(new ItemStack(this, 1, cobbleMeta));
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void registerModels() {
 		ModelHandler.registerBlockToState(this, BiomeStoneVariant.values().length);

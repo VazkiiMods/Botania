@@ -12,8 +12,8 @@ package vazkii.botania.api.lexicon;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.translation.I18n;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.BotaniaAPI;
 
 import javax.annotation.Nonnull;
@@ -86,7 +86,7 @@ public class LexiconEntry implements Comparable<LexiconEntry> {
 		return ""; // Override this if you want a tagline. You probably do
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public boolean isVisible() {
 		return true;
 	}

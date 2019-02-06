@@ -30,8 +30,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.item.ICosmeticBauble;
 import vazkii.botania.client.core.handler.ModelHandler;
@@ -63,7 +63,7 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 		this.variant = variant;
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void addHiddenTooltip(ItemStack stack, World world, List<String> stacks, ITooltipFlag flags) {
 		addStringToTooltip(I18n.format(stack.getItemDamage() == 32 ? "botaniamisc.cosmeticThinking" : "botaniamisc.cosmeticBauble"), stacks);

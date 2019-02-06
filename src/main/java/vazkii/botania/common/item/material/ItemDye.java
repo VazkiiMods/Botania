@@ -27,8 +27,8 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.common.item.Item16Colors;
 import vazkii.botania.common.lib.LibItemNames;
@@ -83,7 +83,7 @@ public class ItemDye extends Item16Colors {
 		return false;
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void registerModels() {
 		ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(LibMisc.MOD_ID + ":" + LibItemNames.DYE, "inventory"));

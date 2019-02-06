@@ -5,8 +5,8 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IPixieSpawner;
 import vazkii.botania.client.lib.LibResources;
@@ -25,7 +25,7 @@ public abstract class ItemElementiumArmor extends ItemManasteelArmor implements 
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public ModelBiped provideArmorModelForSlot(ItemStack stack, EntityEquipmentSlot slot) {
 		models.put(slot, new ModelArmorElementium(slot));
 		return models.get(slot);
@@ -75,13 +75,13 @@ public abstract class ItemElementiumArmor extends ItemManasteelArmor implements 
 		return false;
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	@Override
 	public String getArmorSetName() {
 		return I18n.format("botania.armorset.elementium.name");
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void addArmorSetDescription(ItemStack stack, List<String> list) {
 		super.addArmorSetDescription(stack, list);

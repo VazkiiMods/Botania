@@ -21,8 +21,8 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.IManaNetwork;
 import vazkii.botania.api.mana.IManaPool;
@@ -215,7 +215,7 @@ public class SubTileFunctional extends SubTileEntity {
 		return linkedPool != null && linkedPool.hasWorld() && !linkedPool.isInvalid() && supertile.getWorld().isBlockLoaded(linkedPool.getPos(), false) && supertile.getWorld().getTileEntity(linkedPool.getPos()) == linkedPool;
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void renderHUD(Minecraft mc, ScaledResolution res) {
 		String name = I18n.format("tile.botania:flower." + getUnlocalizedName() + ".name");

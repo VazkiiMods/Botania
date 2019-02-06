@@ -37,8 +37,8 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IBaubleRender;
@@ -103,7 +103,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 		}
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void addHiddenTooltip(ItemStack par1ItemStack, World world, List<String> stacks, ITooltipFlag flags) {
 		super.addHiddenTooltip(par1ItemStack, world, stacks, flags);
@@ -298,7 +298,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
 		int meta = stack.getItemDamage();
 		if(type == RenderType.BODY) {
@@ -432,7 +432,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 			renderHalo(player, partialTicks);
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public static void renderHalo(EntityPlayer player, float partialTicks) {
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
@@ -468,7 +468,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 		GlStateManager.enableCull();
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public static void renderHUD(ScaledResolution resolution, EntityPlayer player, ItemStack stack) {
 		int u = Math.max(1, stack.getItemDamage()) * 9 - 9;
 		int v = 0;
@@ -514,7 +514,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 		mc.renderEngine.bindTexture(Gui.ICONS);
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void registerModels() {
 		ModelHandler.registerItemAllMeta(this, WING_TYPES + 1);

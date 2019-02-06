@@ -15,8 +15,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.common.lexicon.LexiconData;
@@ -34,7 +34,7 @@ public class BlockConjurationCatalyst extends BlockAlchemyCatalyst {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public TextureAtlasSprite getIcon(World world, BlockPos pos) {
 		return MiscellaneousIcons.INSTANCE.conjurationCatalystOverlay;
 	}

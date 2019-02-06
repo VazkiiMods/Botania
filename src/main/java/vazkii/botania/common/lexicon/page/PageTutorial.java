@@ -16,8 +16,8 @@ import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.internal.IGuiLexiconEntry;
 import vazkii.botania.client.gui.lexicon.GuiLexicon;
 
@@ -62,7 +62,7 @@ public class PageTutorial extends PageText {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public void onActionPerformed(IGuiLexiconEntry gui, GuiButton button) {
 		if(button == buttonText) {
 			GuiLexicon.startTutorial();

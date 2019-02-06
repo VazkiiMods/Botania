@@ -25,8 +25,8 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.internal.IGuiLexiconEntry;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -61,7 +61,7 @@ public class PagePetalRecipe<T extends RecipePetals> extends PageRecipe {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public void renderRecipe(IGuiLexiconEntry gui, int mx, int my) {
 		T recipe = recipes.get(recipeAt);
 		TextureManager render = Minecraft.getMinecraft().renderEngine;
@@ -102,7 +102,7 @@ public class PagePetalRecipe<T extends RecipePetals> extends PageRecipe {
 		return new ItemStack(ModBlocks.defaultAltar);
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public void renderManaBar(IGuiLexiconEntry gui, T recipe, int mx, int my) {
 		FontRenderer font = Minecraft.getMinecraft().fontRenderer;
 		GlStateManager.enableBlend();
@@ -121,7 +121,7 @@ public class PagePetalRecipe<T extends RecipePetals> extends PageRecipe {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public void updateScreen() {
 		if(GuiScreen.isShiftKeyDown())
 			return;

@@ -39,7 +39,7 @@ public class TileBellows extends TileMod implements ITickable {
 	}
 
 	@Override
-	public void update() {
+	public void tick() {
 		boolean disable = true;
 		TileEntity tile = getLinkedTile();
 		if(!active && tile instanceof TilePool) {
@@ -119,7 +119,7 @@ public class TileBellows extends TileMod implements ITickable {
 	}
 
 	public TileEntity getLinkedTile() {
-		EnumFacing side = world.getBlockState(getPos()).getValue(BotaniaStateProps.CARDINALS);
+		EnumFacing side = world.getBlockState(getPos()).get(BotaniaStateProps.CARDINALS);
 		return world.getTileEntity(getPos().offset(side));
 	}
 

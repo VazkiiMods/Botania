@@ -34,8 +34,8 @@ import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.common.property.ExtendedBlockState;
 import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.common.property.IUnlistedProperty;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -111,7 +111,7 @@ public class BlockFloatingSpecialFlower extends BlockFloatingFlower implements I
 		return true;
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void randomDisplayTick(IBlockState state, World world, BlockPos pos, Random rand) {}
 
@@ -186,7 +186,7 @@ public class BlockFloatingSpecialFlower extends BlockFloatingFlower implements I
 		((TileSpecialFlower) world.getTileEntity(pos)).onBlockAdded(world, pos, state);
 	}
 
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void renderHUD(Minecraft mc, ScaledResolution res, World world, BlockPos pos) {
 		((TileSpecialFlower) world.getTileEntity(pos)).renderHUD(mc, res);

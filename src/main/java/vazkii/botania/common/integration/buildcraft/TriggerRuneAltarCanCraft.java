@@ -7,8 +7,8 @@ import buildcraft.api.statements.ITriggerExternal;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.common.block.tile.TileRuneAltar;
 import vazkii.botania.common.lib.LibTriggerNames;
@@ -21,13 +21,13 @@ public class TriggerRuneAltarCanCraft extends StatementBase implements ITriggerE
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public ISprite getSprite() {
 		return new TASprite(MiscellaneousIcons.INSTANCE.runeAltarTriggerIcon);
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
+	@OnlyIn(Dist.CLIENT)
 	public String getDescription() {
 		return I18n.format(LibTriggerNames.TRIGGER_RUNE_ALTAR_CAN_CRAFT);
 	}
