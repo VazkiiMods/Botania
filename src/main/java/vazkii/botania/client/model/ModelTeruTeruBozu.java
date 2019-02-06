@@ -11,8 +11,8 @@
 package vazkii.botania.client.model;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.model.ModelBase;
-import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.client.renderer.entity.model.ModelBase;
+import net.minecraft.client.renderer.entity.model.ModelRenderer;
 
 public class ModelTeruTeruBozu extends ModelBase {
 
@@ -43,7 +43,7 @@ public class ModelTeruTeruBozu extends ModelBase {
 
 	public void render() {
 		float f5 = 1F / 16F;
-		if(Minecraft.getMinecraft().world.isRaining())
+		if(Minecraft.getInstance().world.isRaining())
 			sadFace.render(f5);
 		else happyFace.render(f5);
 		thread.render(f5);

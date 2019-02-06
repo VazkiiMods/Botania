@@ -17,12 +17,13 @@ import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.block.model.ItemOverrideList;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.fluid.IFluidState;
 import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.client.MinecraftForgeClient;
@@ -35,6 +36,7 @@ import vazkii.botania.common.block.tile.TileCamo;
 
 import javax.annotation.Nonnull;
 import java.util.List;
+import java.util.Random;
 
 public class PlatformModel implements IBakedModel {
 	private final IBakedModel original;
@@ -45,12 +47,12 @@ public class PlatformModel implements IBakedModel {
 
 	@Nonnull
 	@Override
-	public List<BakedQuad> getQuads(IBlockState state, EnumFacing side, long rand) {
+	public List<BakedQuad> getQuads(IBlockState state, EnumFacing side, Random rand) {
 		if(state == null)
 			return ImmutableList.of();
 
 		if(!(state.getBlock() instanceof BlockPlatform))
-			return Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelManager().getMissingModel().getQuads(state, side, rand);
+			return Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelShapes().getModelManager().getMissingModel().getQuads(state, side, rand);
 
 		BlockRenderLayer layer = MinecraftForgeClient.getRenderLayer();
 		if(layer == null) {
@@ -58,14 +60,14 @@ public class PlatformModel implements IBakedModel {
 		}
 
 		IBlockState heldState = ((IExtendedBlockState) state).getValue(BotaniaStateProps.HELD_STATE);
-		IBlockAccess heldWorld = ((IExtendedBlockState) state).getValue(BotaniaStateProps.HELD_WORLD);
+		IBlockReader heldWorld = ((IExtendedBlockState) state).getValue(BotaniaStateProps.HELD_WORLD);
 		BlockPos heldPos = ((IExtendedBlockState) state).getValue(BotaniaStateProps.HELD_POS);
 
 		if (heldWorld == null || heldPos == null) {
 			return ImmutableList.of();
 		}
 
-		Minecraft mc = Minecraft.getMinecraft();
+		Minecraft mc = Minecraft.getInstance();
 		if(heldState == null && layer == BlockRenderLayer.SOLID) {
 			// No camo
 			return original.getQuads(state, side, rand);
@@ -76,13 +78,11 @@ public class PlatformModel implements IBakedModel {
 				return ImmutableList.of();
 
 			if(heldState.getBlock().canRenderInLayer(heldState, layer)) {
-				IBlockState actual = heldState.getBlock().getActualState(heldState, new FakeBlockAccess(heldWorld), heldPos);
-
 				// Steal camo's model
-				IBakedModel model = mc.getBlockRendererDispatcher().getBlockModelShapes().getModelForState(actual);
+				IBakedModel model = mc.getBlockRendererDispatcher().getBlockModelShapes().getModel(heldState);
 
 				// Their model can be smart too
-				IBlockState extended = heldState.getBlock().getExtendedState(actual, new FakeBlockAccess(heldWorld), heldPos);
+				IBlockState extended = heldState.getBlock().getExtendedState(heldState, new FakeBlockAccess(heldWorld), heldPos);
 				return model.getQuads(extended, side, rand);
 			}
 		}
@@ -107,22 +107,17 @@ public class PlatformModel implements IBakedModel {
 		return original.getOverrides();
 	}
 
-	private static class FakeBlockAccess implements IBlockAccess {
+	private static class FakeBlockAccess implements IBlockReader {
 
-		private final IBlockAccess compose;
+		private final IBlockReader compose;
 
-		private FakeBlockAccess(IBlockAccess compose) {
+		private FakeBlockAccess(IBlockReader compose) {
 			this.compose = compose;
 		}
 
 		@Override
 		public TileEntity getTileEntity(@Nonnull BlockPos pos) {
 			return compose.getTileEntity(pos);
-		}
-
-		@Override
-		public int getCombinedLight(@Nonnull BlockPos pos, int lightValue) {
-			return 15 << 20 | 15 << 4;
 		}
 
 		@Nonnull
@@ -135,31 +130,10 @@ public class PlatformModel implements IBakedModel {
 			return state == null ? Blocks.AIR.getDefaultState() : state;
 		}
 
-		@Override
-		public boolean isAirBlock(@Nonnull BlockPos pos) {
-			return compose.isAirBlock(pos);
-		}
-
 		@Nonnull
 		@Override
-		public Biome getBiome(@Nonnull BlockPos pos) {
-			return compose.getBiome(pos);
-		}
-
-		@Override
-		public int getStrongPower(@Nonnull BlockPos pos, @Nonnull EnumFacing direction) {
-			return compose.getStrongPower(pos, direction);
-		}
-
-		@Nonnull
-		@Override
-		public WorldType getWorldType() {
-			return compose.getWorldType();
-		}
-
-		@Override
-		public boolean isSideSolid(@Nonnull BlockPos pos, @Nonnull EnumFacing side, boolean _default) {
-			return compose.isSideSolid(pos, side, _default);
+		public IFluidState getFluidState(@Nonnull BlockPos pos) {
+			return compose.getFluidState(pos);
 		}
 	}
 

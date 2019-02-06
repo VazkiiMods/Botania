@@ -15,6 +15,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.IBakedModel;
+import net.minecraft.client.renderer.block.model.IUnbakedModel;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.block.model.ItemOverrideList;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -50,7 +51,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
-public class SpecialFlowerModel implements IModel {
+public class SpecialFlowerModel implements IUnbakedModel {
 	private static final ModelResourceLocation MISSING = new ModelResourceLocation("builtin/missing", "missing");
 	private final ModelResourceLocation baseModel;
 	private final ImmutableMap<ResourceLocation, ModelResourceLocation> blockModels;

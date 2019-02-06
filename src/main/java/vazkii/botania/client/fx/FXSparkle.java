@@ -55,7 +55,7 @@ public class FXSparkle extends Particle {
 		particleGravity = 0;
 		motionX = motionY = motionZ = 0;
 		particleScale *= size;
-		particleMaxAge = 3 * m;
+		maxAge = 3 * m;
 		multiplier = m;
 		setSize(0.01F, 0.01F);
 		prevPosX = posX;
@@ -67,8 +67,8 @@ public class FXSparkle extends Particle {
 		ParticleRenderDispatcher.sparkleFxCount = 0;
 		ParticleRenderDispatcher.fakeSparkleFxCount = 0;
 
-		GlStateManager.color(1.0F, 1.0F, 1.0F, 0.75F);
-		Minecraft.getMinecraft().renderEngine.bindTexture(ConfigHandler.matrixMode ? vanillaParticles : particles);
+		GlStateManager.color4f(1.0F, 1.0F, 1.0F, 0.75F);
+		Minecraft.getInstance().textureManager.bindTexture(ConfigHandler.matrixMode ? vanillaParticles : particles);
 
 		tessellator.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_COLOR);
 		for(FXSparkle sparkle : queuedRenders)
@@ -91,14 +91,14 @@ public class FXSparkle extends Particle {
 			ParticleRenderDispatcher.fakeSparkleFxCount++;
 		else ParticleRenderDispatcher.sparkleFxCount++;
 
-		int part = particle + particleAge/multiplier;
+		int part = particle + age/multiplier;
 
 		float var8 = part % 8 / 8.0F;
 		float var9 = var8 + 0.0624375F*2;
 		float var10 = part / 8 / 8.0F;
 		float var11 = var10 + 0.0624375F*2;
 		float var12 = 0.1F * particleScale;
-		if (shrink) var12 *= (particleMaxAge-particleAge+1)/(float)particleMaxAge;
+		if (shrink) var12 *= (maxAge-age+1)/(float)maxAge;
 		float var13 = (float)(prevPosX + (posX - prevPosX) * f - interpPosX);
 		float var14 = (float)(prevPosY + (posY - prevPosY) * f - interpPosY);
 		float var15 = (float)(prevPosZ + (posZ - prevPosZ) * f - interpPosZ);
@@ -130,12 +130,12 @@ public class FXSparkle extends Particle {
 	}
 
 	@Override
-	public void onUpdate() {
+	public void tick() {
 		prevPosX = posX;
 		prevPosY = posY;
 		prevPosZ = posZ;
 
-		if (particleAge++ >= particleMaxAge)
+		if (age++ >= maxAge)
 			setExpired();
 
 		motionY -= 0.04D * particleGravity;
@@ -156,7 +156,7 @@ public class FXSparkle extends Particle {
 			}
 		}
 
-		if(fake && particleAge > 1)
+		if(fake && age > 1)
 			setExpired();
 	}
 

@@ -32,6 +32,7 @@ import java.util.EnumMap;
 import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 public class GunModel implements IBakedModel {
@@ -42,13 +43,13 @@ public class GunModel implements IBakedModel {
 		this.originalModel = Preconditions.checkNotNull(originalModel);
 	}
 
-	private final ItemOverrideList itemHandler = new ItemOverrideList(ImmutableList.of()) {
+	private final ItemOverrideList itemHandler = new ItemOverrideList() {
 		@Nonnull
 		@Override
-		public IBakedModel handleItemState(@Nonnull IBakedModel model, ItemStack stack, World world, EntityLivingBase entity) {
+		public IBakedModel getModelWithOverrides(IBakedModel model, ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
 			ItemStack lens = ItemManaGun.getLens(stack);
 			if(!lens.isEmpty()) {
-				IBakedModel lensModel = Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(lens);
+				IBakedModel lensModel = Minecraft.getInstance().getItemRenderer().getItemModelMesher().getItemModel(lens);
 				return GunModel.this.getModel(lensModel);
 			}
 			else return GunModel.this;
@@ -61,7 +62,7 @@ public class GunModel implements IBakedModel {
 		return itemHandler;
 	}
 
-	@Nonnull @Override public List<BakedQuad> getQuads(@Nullable IBlockState state, @Nullable EnumFacing side, long rand) { return originalModel.getQuads(state, side, rand); }
+	@Nonnull @Override public List<BakedQuad> getQuads(@Nullable IBlockState state, @Nullable EnumFacing side, @Nonnull Random rand) { return originalModel.getQuads(state, side, rand); }
 	@Override public boolean isAmbientOcclusion() { return originalModel.isAmbientOcclusion(); }
 	@Override public boolean isGui3d() { return originalModel.isGui3d(); }
 	@Override public boolean isBuiltInRenderer() { return originalModel.isBuiltInRenderer(); }
@@ -89,7 +90,7 @@ public class GunModel implements IBakedModel {
 				case POSITION: {
 					float[] newData = new float[4];
 					Vector4f vec = new Vector4f(data);
-					transform.getMatrix().transform(vec);
+					transform.getMatrixVec().transform(vec);
 					vec.get(newData);
 					parent.put(element, newData);
 					break;
@@ -117,29 +118,29 @@ public class GunModel implements IBakedModel {
 			ImmutableList.Builder<BakedQuad> genBuilder = ImmutableList.builder();
 			final TRSRTransformation transform = TRSRTransformation.blockCenterToCorner(new TRSRTransformation(new Vector3f(-0.4F, 0.25F, 0), null, new Vector3f(0.625F, 0.625F, 0.625F), TRSRTransformation.quatFromXYZ(0, (float) Math.PI / 2, 0)));
 
-			for(EnumFacing e : EnumFacing.VALUES)
+			for(EnumFacing e : EnumFacing.BY_INDEX)
 				faceQuads.put(e, new ArrayList<>());
 
 			// Add lens quads, scaled and translated
-			for(BakedQuad quad : lens.getQuads(null, null, 0)) {
+			for(BakedQuad quad : lens.getQuads(null, null, new Random(0))) {
 				genBuilder.add(transform(quad, transform));
 			}
 
-			for(EnumFacing e : EnumFacing.VALUES) {
-				faceQuads.get(e).addAll(lens.getQuads(null, e, 0).stream().map(input -> transform(input, transform)).collect(Collectors.toList()));
+			for(EnumFacing e : EnumFacing.BY_INDEX) {
+				faceQuads.get(e).addAll(lens.getQuads(null, e, new Random(0)).stream().map(input -> transform(input, transform)).collect(Collectors.toList()));
 			}
 
 			// Add gun quads
-			genBuilder.addAll(gun.getQuads(null, null, 0));
-			for(EnumFacing e : EnumFacing.VALUES) {
-				faceQuads.get(e).addAll(gun.getQuads(null, e, 0));
+			genBuilder.addAll(gun.getQuads(null, null, new Random(0)));
+			for(EnumFacing e : EnumFacing.BY_INDEX) {
+				faceQuads.get(e).addAll(gun.getQuads(null, e, new Random(0)));
 			}
 
 			genQuads = genBuilder.build();
 
 		}
 
-		@Nonnull @Override public List<BakedQuad> getQuads(IBlockState state, EnumFacing face, long rand) { return face == null ? genQuads : faceQuads.get(face); }
+		@Nonnull @Override public List<BakedQuad> getQuads(IBlockState state, EnumFacing face, @Nonnull Random rand) { return face == null ? genQuads : faceQuads.get(face); }
 
 		// Forward all to gun model
 		@Override public boolean isAmbientOcclusion() { return gun.isAmbientOcclusion(); }
@@ -147,14 +148,14 @@ public class GunModel implements IBakedModel {
 		@Override public boolean isBuiltInRenderer() { return gun.isBuiltInRenderer(); }
 		@Nonnull @Override public TextureAtlasSprite getParticleTexture() { return gun.getParticleTexture();}
 		@Nonnull @Override public ItemCameraTransforms getItemCameraTransforms() { return gun.getItemCameraTransforms(); }
-		@Nonnull @Override public ItemOverrideList getOverrides() { return ItemOverrideList.NONE; }
+		@Nonnull @Override public ItemOverrideList getOverrides() { return ItemOverrideList.EMPTY; }
 
 		@Override
 		public Pair<? extends IBakedModel, Matrix4f> handlePerspective(@Nonnull ItemCameraTransforms.TransformType cameraTransformType) {
 			Pair<? extends IBakedModel, Matrix4f> pair = gun.handlePerspective(cameraTransformType);
 			if(pair != null && pair.getRight() != null)
 				return Pair.of(this, pair.getRight());
-			return Pair.of(this, TRSRTransformation.identity().getMatrix());
+			return Pair.of(this, TRSRTransformation.identity().getMatrixVec());
 		}
 	}
 

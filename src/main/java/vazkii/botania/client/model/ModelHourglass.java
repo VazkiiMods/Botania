@@ -10,9 +10,9 @@
  */
 package vazkii.botania.client.model;
 
-import net.minecraft.client.model.ModelBase;
-import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.entity.model.ModelBase;
+import net.minecraft.client.renderer.entity.model.ModelRenderer;
 import org.lwjgl.opengl.GL11;
 
 import java.awt.Color;
@@ -78,12 +78,12 @@ public class ModelHourglass extends ModelBase {
 		if(fract1 > 0) {
 			GlStateManager.pushMatrix();
 			if(flip)
-				GlStateManager.translate(-2.0F * f, 1.0F * f, -2.0F * f);
+				GlStateManager.translatef(-2.0F * f, 1.0F * f, -2.0F * f);
 			else {
-				GlStateManager.rotate(180F, 0F, 0F, 1F);
-				GlStateManager.translate(-2.0F * f, -5.0F * f, -2.0F * f);
+				GlStateManager.rotatef(180F, 0F, 0F, 1F);
+				GlStateManager.translatef(-2.0F * f, -5.0F * f, -2.0F * f);
 			}
-			GlStateManager.scale(1F, fract1, 1F);
+			GlStateManager.scalef(1F, fract1, 1F);
 			sandT.render(f);
 			GlStateManager.popMatrix();
 		}
@@ -91,12 +91,12 @@ public class ModelHourglass extends ModelBase {
 		if(fract2 > 0) {
 			GlStateManager.pushMatrix();
 			if(flip)
-				GlStateManager.translate(-2.0F * f, -5.0F * f, -2.0F * f);
+				GlStateManager.translatef(-2.0F * f, -5.0F * f, -2.0F * f);
 			else {
-				GlStateManager.rotate(180F, 0F, 0F, 1F);
-				GlStateManager.translate(-2.0F * f, 1.0F * f, -2.0F * f);
+				GlStateManager.rotatef(180F, 0F, 0F, 1F);
+				GlStateManager.translatef(-2.0F * f, 1.0F * f, -2.0F * f);
 			}
-			GlStateManager.scale(1F, fract2, 1F);
+			GlStateManager.scalef(1F, fract2, 1F);
 			sandB.render(f);
 			GlStateManager.popMatrix();
 		}

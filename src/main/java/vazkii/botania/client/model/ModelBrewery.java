@@ -10,9 +10,9 @@
  */
 package vazkii.botania.client.model;
 
-import net.minecraft.client.model.ModelBase;
-import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.entity.model.ModelBase;
+import net.minecraft.client.renderer.entity.model.ModelRenderer;
 import vazkii.botania.client.render.tile.RenderTileBrewery;
 
 public class ModelBrewery extends ModelBase {
@@ -53,22 +53,22 @@ public class ModelBrewery extends ModelBase {
 		float deg = (float) time / 16F;
 		float polerot = -deg * 25F;
 
-		GlStateManager.translate(0F, offset, 0F);
-		GlStateManager.rotate(polerot, 0F, 1F, 0F);
+		GlStateManager.translatef(0F, offset, 0F);
+		GlStateManager.rotatef(polerot, 0F, 1F, 0F);
 		if(hasTile && !render.brewery.getItemHandler().getStackInSlot(0).isEmpty()) {
-			GlStateManager.rotate(180F, 1F, 0F, 0F);
-			GlStateManager.translate(0, -0.45, 0);
+			GlStateManager.rotatef(180F, 1F, 0F, 0F);
+			GlStateManager.translatef(0, -0.45F, 0);
 			//GlStateManager.translate(-1F / 8F, -0.5F, 1F / 128F);
 			render.renderItemStack(render.brewery.getItemHandler().getStackInSlot(0));
 			//GlStateManager.translate(1F / 8F, 0.5F, -1F / 128F);
-			GlStateManager.translate(0, 0.45, 0);
-			GlStateManager.rotate(-180F, 1F, 0F, 0F);
+			GlStateManager.translatef(0, 0.45F, 0);
+			GlStateManager.rotatef(-180F, 1F, 0F, 0F);
 		}
 
 		pole.render(f);
 		top.render(f);
 		bottom.render(f);
-		GlStateManager.rotate(-polerot, 0F, 1F, 0F);
+		GlStateManager.rotatef(-polerot, 0F, 1F, 0F);
 
 		float degper = (float) (2F * Math.PI) / plates;
 		for(int i = 0; i < plates; i++) {
@@ -77,28 +77,28 @@ public class ModelBrewery extends ModelBase {
 			if(time == -1)
 				offset1 = 0F;
 
-			GlStateManager.translate(0F, offset1, 0F);
+			GlStateManager.translatef(0F, offset1, 0F);
 			if(hasTile && !render.brewery.getItemHandler().getStackInSlot(i + 1).isEmpty()) {
 				float rot = plate.rotateAngleY * 180F / (float) Math.PI;
 				float transX = 0.3125F;
 				float transY = 1.06F;
 				float transZ = 0.1245F;
-				GlStateManager.rotate(rot, 0F, 1F, 0F);
-				GlStateManager.translate(transX, transY, transZ);
-				GlStateManager.rotate(-90F, 1F, 0F, 0F);
-				GlStateManager.translate(0.125, 0.125, 0);
+				GlStateManager.rotatef(rot, 0F, 1F, 0F);
+				GlStateManager.translatef(transX, transY, transZ);
+				GlStateManager.rotatef(-90F, 1F, 0F, 0F);
+				GlStateManager.translatef(0.125F, 0.125F, 0);
 				render.renderItemStack(render.brewery.getItemHandler().getStackInSlot(i + 1));
-				GlStateManager.translate(-0.125, -0.125, 0);
-				GlStateManager.rotate(90F, 1F, 0F, 0F);
-				GlStateManager.translate(-transX, -transY, -transZ);
-				GlStateManager.rotate(-rot, 0F, 1F, 0F);
+				GlStateManager.translatef(-0.125F, -0.125F, 0);
+				GlStateManager.rotatef(90F, 1F, 0F, 0F);
+				GlStateManager.translatef(-transX, -transY, -transZ);
+				GlStateManager.rotatef(-rot, 0F, 1F, 0F);
 			}
 			plate.render(f);
-			GlStateManager.translate(0F, -offset1, 0F);
+			GlStateManager.translatef(0F, -offset1, 0F);
 
 			deg += degper;
 		}
-		GlStateManager.translate(0F, -offset, 0F);
+		GlStateManager.translatef(0F, -offset, 0F);
 	}
 
 }

@@ -1,10 +1,10 @@
 package vazkii.botania.client.render.entity;
 
-import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
+import net.minecraft.client.renderer.entity.model.ModelRenderer;
+import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
@@ -27,7 +27,7 @@ public class LayerGaiaHead implements LayerRenderer<EntityPlayer> {
 
 	// Copied from LayerCustomHead, edits noted
 	@Override
-	public void doRenderLayer(@Nonnull EntityPlayer player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+	public void render(@Nonnull EntityPlayer player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 		ItemStack itemstack = player.getItemStackFromSlot(EntityEquipmentSlot.HEAD);
 
 		if (!itemstack.isEmpty() && itemstack.getItem() == ModItems.gaiaHead) // Botania - check for head
@@ -36,7 +36,7 @@ public class LayerGaiaHead implements LayerRenderer<EntityPlayer> {
 
 			if (player.isSneaking())
 			{
-				GlStateManager.translate(0.0F, 0.2F, 0.0F);
+				GlStateManager.translatef(0.0F, 0.2F, 0.0F);
 			}
 
 			/*boolean flag = player instanceof EntityVillager || player instanceof EntityZombie && ((EntityZombie)player).isVillager();
@@ -51,10 +51,10 @@ public class LayerGaiaHead implements LayerRenderer<EntityPlayer> {
             } Botania - N/A */
 
 			modelRenderer.postRender(0.0625F);
-			GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+			GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
 
 			float f2 = 1.1875F;
-			GlStateManager.scale(f2, -f2, -f2);
+			GlStateManager.scalef(f2, -f2, -f2);
 
 			// Botania - remove if check for skull and else branch. Check done above.
 
@@ -87,8 +87,8 @@ public class LayerGaiaHead implements LayerRenderer<EntityPlayer> {
 
 			// Botania - use gaia TESR
 			ShaderHelper.useShader(ShaderHelper.doppleganger, RenderDoppleganger.defaultCallback);
-			((RenderTileGaiaHead) (TileEntitySpecialRenderer) TileEntityRendererDispatcher.instance.getRenderer(TileGaiaHead.class))
-			.renderSkull(-0.5F, 0.0F, -0.5F, EnumFacing.UP, 180.0F, itemstack.getMetadata(), null, -1, limbSwing);
+			((RenderTileGaiaHead) (TileEntityRenderer) TileEntityRendererDispatcher.instance.getRenderer(TileGaiaHead.class))
+			.renderSkull(-0.5F, 0.0F, -0.5F, EnumFacing.UP, 180.0F, 0, null, -1, limbSwing);
 			ShaderHelper.releaseShader();
 
 			GlStateManager.popMatrix();

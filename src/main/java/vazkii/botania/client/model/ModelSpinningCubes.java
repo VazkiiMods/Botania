@@ -10,10 +10,10 @@
  */
 package vazkii.botania.client.model;
 
-import net.minecraft.client.model.ModelBase;
-import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
+import net.minecraft.client.renderer.entity.model.ModelBase;
+import net.minecraft.client.renderer.entity.model.ModelRenderer;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 
@@ -40,7 +40,7 @@ public class ModelSpinningCubes extends ModelBase {
 		float offsetPerCube = 360 / cubes;
 
 		GlStateManager.pushMatrix();
-		GlStateManager.translate(-0.025F, 0.85F, -0.025F);
+		GlStateManager.translatef(-0.025F, 0.85F, -0.025F);
 		for(int i = 0; i < cubes; i++) {
 			float offset = offsetPerCube * i;
 			float deg = (int) (ticks / rotationModifier % 360F + offset);
@@ -52,18 +52,18 @@ public class ModelSpinningCubes extends ModelBase {
 			float y = (float) Math.cos((ticks + 50 * i) / 5F) / 10F;
 
 			GlStateManager.pushMatrix();
-			GlStateManager.translate(x, y, z);
+			GlStateManager.translatef(x, y, z);
 			float xRotate = (float) Math.sin(ticks * rotationModifier) / 2F;
 			float yRotate = (float) Math.max(0.6F, Math.sin(ticks * 0.1F) / 2F + 0.5F);
 			float zRotate = (float) Math.cos(ticks * rotationModifier) / 2F;
 
-			GlStateManager.rotate(deg, xRotate, yRotate, zRotate);
+			GlStateManager.rotatef(deg, xRotate, yRotate, zRotate);
 			if(repeat < origRepeat) {
-				GlStateManager.color(1F, 1F, 1F, (float) repeat / (float) origRepeat * 0.4F);
+				GlStateManager.color4f(1F, 1F, 1F, (float) repeat / (float) origRepeat * 0.4F);
 				GlStateManager.enableBlend();
 				GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-				GlStateManager.disableAlpha();
-			} else GlStateManager.color(1F, 1F, 1F, 1F);
+				GlStateManager.disableAlphaTest();
+			} else GlStateManager.color4f(1F, 1F, 1F, 1F);
 
 			int light = 15728880;
 			int lightmapX = light % 65536;
@@ -74,7 +74,7 @@ public class ModelSpinningCubes extends ModelBase {
 
 			if(repeat < origRepeat) {
 				GlStateManager.disableBlend();
-				GlStateManager.enableAlpha();
+				GlStateManager.enableAlphaTest();
 			}
 
 			GlStateManager.popMatrix();

@@ -10,9 +10,9 @@
  */
 package vazkii.botania.client.model;
 
-import net.minecraft.client.model.ModelBase;
-import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.entity.model.ModelBase;
+import net.minecraft.client.renderer.entity.model.ModelRenderer;
 
 public class ModelBellows extends ModelBase {
 
@@ -48,15 +48,15 @@ public class ModelBellows extends ModelBase {
 		//float fract = Math.max(0.1F, (float) (Math.sin(((double) ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks) * 0.2) + 1F) * 0.5F);
 		float mov = (1F - fract) * 0.5F;
 
-		GlStateManager.translate(0F, mov, 0F);
+		GlStateManager.translatef(0F, mov, 0F);
 		top.render(f5);
-		GlStateManager.translate(0F, -mov, 0F);
+		GlStateManager.translatef(0F, -mov, 0F);
 
-		GlStateManager.rotate(180F, 1F, 0F, 0F);
-		GlStateManager.translate(-0.19F, -1.375F, -0.19F);
-		GlStateManager.scale(1F, fract, 1F);
+		GlStateManager.rotatef(180F, 1F, 0F, 0F);
+		GlStateManager.translatef(-0.19F, -1.375F, -0.19F);
+		GlStateManager.scalef(1F, fract, 1F);
 		funnel.render(f5);
-		GlStateManager.scale(1F, 1F / fract, 1F);
+		GlStateManager.scalef(1F, 1F / fract, 1F);
 	}
 
 

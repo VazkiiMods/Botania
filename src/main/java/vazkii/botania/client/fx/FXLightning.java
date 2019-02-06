@@ -1,6 +1,5 @@
 package vazkii.botania.client.fx;
 
-import gnu.trove.map.hash.TIntIntHashMap;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.Particle;
@@ -14,15 +13,17 @@ import vazkii.botania.common.core.helper.Vector3;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 // Originally taken with permission from WRCBE - heavily modified
 public class FXLightning extends Particle {
 
 	private static final int fadetime = 20;
-	private final TIntIntHashMap splitParents = new TIntIntHashMap();
+	private final Map<Integer, Integer> splitParents = new HashMap<>();
 	private final double length;
 	private final Random rand;
 	private final int colorOuter;
@@ -40,8 +41,8 @@ public class FXLightning extends Particle {
 		this.colorOuter = colorOuter;
 		this.colorInner = colorInner;
 		length = targetvec.subtract(sourcevec).mag();
-		particleMaxAge = fadetime + rand.nextInt(fadetime) - fadetime / 2;
-		particleAge = -(int) (length * speed);
+		maxAge = fadetime + rand.nextInt(fadetime) - fadetime / 2;
+		age = -(int) (length * speed);
 
 		segments.add(new FXLightningSegment(sourcevec, targetvec));
 
@@ -55,7 +56,7 @@ public class FXLightning extends Particle {
 
 		calculateCollisionAndDiffs();
 
-		Collections.sort(segments, (o1, o2) -> Float.compare(o2.light, o1.light));
+		segments.sort((o1, o2) -> Float.compare(o2.light, o1.light));
 	}
 
 	@Override
@@ -67,7 +68,7 @@ public class FXLightning extends Particle {
 		ParticleRenderDispatcher.lightningCount++;
 		BufferBuilder wr = Tessellator.getInstance().getBuffer();
 
-		float boltAge = particleAge < 0 ? 0 : (float) particleAge / (float) particleMaxAge;
+		float boltAge = age < 0 ? 0 : (float) age / (float) maxAge;
 		float mainAlpha;
 		if(pass == 0)
 			mainAlpha = (1 - boltAge) * 0.4F;
@@ -75,8 +76,8 @@ public class FXLightning extends Particle {
 
 		int expandTime = (int) (length * speed);
 
-		int renderstart = (int) ((expandTime / 2 - particleMaxAge + particleAge) / (float) (expandTime / 2) * segmentCount);
-		int renderend = (int) ((particleAge + expandTime) / (float) expandTime * segmentCount);
+		int renderstart = (int) ((expandTime / 2 - maxAge + age) / (float) (expandTime / 2) * segmentCount);
+		int renderend = (int) ((age + expandTime) / (float) expandTime * segmentCount);
 
 		for(FXLightningSegment rendersegment : segments) {
 			if(rendersegment.segmentNo < renderstart || rendersegment.segmentNo > renderend)
@@ -185,23 +186,23 @@ public class FXLightning extends Particle {
 		if(mop == null)
 			return prevresistance;
 
-		if(mop.typeOfHit == RayTraceResult.Type.BLOCK) {
+		if(mop.type == RayTraceResult.Type.BLOCK) {
 			Block block = world.getBlockState(mop.getBlockPos()).getBlock();
 
 			if(world.isAirBlock(mop.getBlockPos()))
 				return prevresistance;
 
-			return prevresistance + block.getExplosionResistance(null) + 0.3F;
+			return prevresistance + block.getExplosionResistance() + 0.3F;
 		} else return prevresistance;
 	}
 
 	private void calculateCollisionAndDiffs() {
-		TIntIntHashMap lastactivesegment = new TIntIntHashMap();
+		Map<Integer, Integer> lastactivesegment = new HashMap<>();
 
-		Collections.sort(segments, (o1, o2) -> {
-			int comp = Integer.valueOf(o1.splitNo).compareTo(o2.splitNo);
-			if(comp == 0)
-				return Integer.valueOf(o1.segmentNo).compareTo(o2.segmentNo);
+		segments.sort((o1, o2) -> {
+			int comp = Integer.compare(o1.splitNo, o2.splitNo);
+			if (comp == 0)
+				return Integer.compare(o1.segmentNo, o2.segmentNo);
 			else return comp;
 		});
 
@@ -241,7 +242,7 @@ public class FXLightning extends Particle {
 	}
 
 	private static Vector3 getRelativeViewVector(Vector3 pos) {
-		Entity renderEntity = Minecraft.getMinecraft().getRenderViewEntity();
+		Entity renderEntity = Minecraft.getInstance().getRenderViewEntity();
 		return new Vector3((float) renderEntity.posX - pos.x, (float) renderEntity.posY + renderEntity.getEyeHeight() - pos.y, (float) renderEntity.posZ - pos.z);
 	}
 

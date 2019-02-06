@@ -19,7 +19,6 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.client.FMLClientHandler;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.handler.ConfigHandler;
@@ -53,20 +52,20 @@ public class FXWisp extends Particle {
 		motionX = motionY = motionZ = 0;
 		particleScale *= size;
 		moteParticleScale = particleScale;
-		particleMaxAge = (int)(28D / (Math.random() * 0.3D + 0.7D) * maxAgeMul);
+		maxAge = (int)(28D / (Math.random() * 0.3D + 0.7D) * maxAgeMul);
 		this.depthTest = depthTest;
 
-		moteHalfLife = particleMaxAge / 2;
+		moteHalfLife = maxAge / 2;
 		setSize(0.01F, 0.01F);
-		Entity renderentity = FMLClientHandler.instance().getClient().getRenderViewEntity();
+		Entity renderentity = Minecraft.getInstance().getRenderViewEntity();
 
 		if(distanceLimit) {
 			int visibleDistance = 50;
-			if (!FMLClientHandler.instance().getClient().gameSettings.fancyGraphics)
+			if (!Minecraft.getInstance().gameSettings.fancyGraphics)
 				visibleDistance = 25;
 
 			if (renderentity == null || renderentity.getDistance(posX, posY, posZ) > visibleDistance)
-				particleMaxAge = 0;
+				maxAge = 0;
 		}
 
 		prevPosX = posX;
@@ -78,8 +77,8 @@ public class FXWisp extends Particle {
 		ParticleRenderDispatcher.wispFxCount = 0;
 		ParticleRenderDispatcher.depthIgnoringWispFxCount = 0;
 
-		GlStateManager.color(1.0F, 1.0F, 1.0F, 0.75F);
-		Minecraft.getMinecraft().renderEngine.bindTexture(ConfigHandler.matrixMode ? vanillaParticles : particles);
+		GlStateManager.color4f(1.0F, 1.0F, 1.0F, 0.75F);
+		Minecraft.getInstance().textureManager.bindTexture(ConfigHandler.matrixMode ? vanillaParticles : particles);
 
 		if(!queuedRenders.isEmpty()) {
 			tessellator.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_LMAP_COLOR);
@@ -89,12 +88,12 @@ public class FXWisp extends Particle {
 		}
 
 		if(!queuedDepthIgnoringRenders.isEmpty()) {
-			GlStateManager.disableDepth();
+			GlStateManager.disableDepthTest();
 			tessellator.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_LMAP_COLOR);
 			for(FXWisp wisp : queuedDepthIgnoringRenders)
 				wisp.renderQueued(tessellator, false);
 			tessellator.draw();
-			GlStateManager.enableDepth();
+			GlStateManager.enableDepthTest();
 		}
 
 		queuedRenders.clear();
@@ -106,7 +105,7 @@ public class FXWisp extends Particle {
 			ParticleRenderDispatcher.wispFxCount++;
 		else ParticleRenderDispatcher.depthIgnoringWispFxCount++;
 
-		float agescale = (float)particleAge / (float) moteHalfLife;
+		float agescale = (float)age / (float) moteHalfLife;
 		if (agescale > 1F)
 			agescale = 2 - agescale;
 
@@ -141,12 +140,12 @@ public class FXWisp extends Particle {
 
 	// [VanillaCopy] of super, without drag when onGround is true
 	@Override
-	public void onUpdate() {
+	public void tick() {
 		this.prevPosX = this.posX;
 		this.prevPosY = this.posY;
 		this.prevPosZ = this.posZ;
 
-		if (this.particleAge++ >= this.particleMaxAge)
+		if (this.age++ >= this.maxAge)
 		{
 			this.setExpired();
 		}

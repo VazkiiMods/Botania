@@ -44,6 +44,7 @@ import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.vecmath.Matrix4f;
 import javax.vecmath.Vector3f;
 import javax.vecmath.Vector4f;
@@ -51,6 +52,7 @@ import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 public class FloatingFlowerModel implements IBakedModel {
 
@@ -67,7 +69,7 @@ public class FloatingFlowerModel implements IBakedModel {
 				case POSITION: {
 					float[] newData = new float[4];
 					Vector4f vec = new Vector4f(data);
-					transform.getMatrix().transform(vec);
+					transform.getMatrixVec().transform(vec);
 					vec.get(newData);
 					parent.put(element, newData);
 					break;
@@ -85,9 +87,9 @@ public class FloatingFlowerModel implements IBakedModel {
 
 	@Nonnull
 	@Override
-	public List<BakedQuad> getQuads(IBlockState state, EnumFacing face, long rand) {
+	public List<BakedQuad> getQuads(IBlockState state, EnumFacing face, @Nonnull Random rand) {
 		if(state.getBlock() != ModBlocks.floatingSpecialFlower && state.getBlock() != ModBlocks.floatingFlower)
-			return Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelManager().getMissingModel().getQuads(state, face, rand);
+			return Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelShapes().getModelManager().getMissingModel().getQuads(state, face, rand);
 		IExtendedBlockState realState = (IExtendedBlockState) state;
 		IFloatingFlower.IslandType islandType = realState.getValue(BotaniaStateProps.ISLAND_TYPE);
 		ResourceLocation identifier;
@@ -97,7 +99,7 @@ public class FloatingFlowerModel implements IBakedModel {
 			identifier = realState.getValue(BotaniaStateProps.SUBTILE_ID);
 		} else {
 			// Mundane flower
-			identifier = new ResourceLocation(LibMisc.MOD_ID, MUNDANE_PREFIX + state.getValue(BotaniaStateProps.COLOR).getMetadata());
+			identifier = new ResourceLocation(LibMisc.MOD_ID, MUNDANE_PREFIX + state.get(BotaniaStateProps.COLOR));
 		}
 
 		return getModel(islandType, identifier).getQuads(state, face, rand);
@@ -105,7 +107,7 @@ public class FloatingFlowerModel implements IBakedModel {
 
 	// Get the model for this islandtype + flower type combination. If it's not cached already, generate it.
 	private CompositeBakedModel getModel(IFloatingFlower.IslandType islandType, ResourceLocation identifier) {
-		ModelManager modelManager = Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getModelManager();
+		ModelManager modelManager = Minecraft.getInstance().getItemRenderer().getItemModelMesher().getModelManager();
 
 		if(CACHE.contains(islandType, identifier)) {
 			return CACHE.get(islandType, identifier);
@@ -125,7 +127,7 @@ public class FloatingFlowerModel implements IBakedModel {
 			} else {
 				ItemStack stack = ItemBlockSpecialFlower.ofType(identifier);
 				IBakedModel specialFlowerModel = Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(stack);
-				flowerModel = specialFlowerModel.getOverrides().handleItemState(specialFlowerModel, stack, null, null);
+				flowerModel = specialFlowerModel.getOverrides().getModelWithOverrides(specialFlowerModel, stack, null, null);
 			}
 
 			// Enhance!
@@ -145,7 +147,7 @@ public class FloatingFlowerModel implements IBakedModel {
 	@Override public boolean isAmbientOcclusion() { return false; }
 	@Override public boolean isGui3d() { return true; }
 	@Override public boolean isBuiltInRenderer() { return false; }
-	@Nonnull @Override public TextureAtlasSprite getParticleTexture() { return Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite("minecraft:blocks/dirt"); }
+	@Nonnull @Override public TextureAtlasSprite getParticleTexture() { return Minecraft.getInstance().getTextureMap().getAtlasSprite("minecraft:blocks/dirt"); }
 	@Nonnull @Override public ItemCameraTransforms getItemCameraTransforms() { return ItemCameraTransforms.DEFAULT; }
 
 	private static class CompositeBakedModel implements IBakedModel {
@@ -162,27 +164,27 @@ public class FloatingFlowerModel implements IBakedModel {
 			ImmutableList.Builder<BakedQuad> genBuilder = ImmutableList.builder();
 			final TRSRTransformation transform = TRSRTransformation.blockCenterToCorner(new TRSRTransformation(new Vector3f(0F, 0.2F, 0F), null, new Vector3f(0.5F, 0.5F, 0.5F), null));
 
-			for(EnumFacing e : EnumFacing.VALUES)
+			for(EnumFacing e : EnumFacing.BY_INDEX)
 				faceQuads.put(e, new ArrayList<>());
 
 			// Add flower quads, scaled and translated
-			flower.getQuads(null, null, 0).stream().map(q -> transform(q, transform)).forEach(genBuilder::add);
-			for(EnumFacing e : EnumFacing.VALUES) {
+			flower.getQuads(null, null, new Random(0)).stream().map(q -> transform(q, transform)).forEach(genBuilder::add);
+			for(EnumFacing e : EnumFacing.BY_INDEX) {
 				List<BakedQuad> faceQ = faceQuads.get(e);
-				flower.getQuads(null, e, 0).stream().map(input -> transform(input, transform)).forEach(faceQ::add);
+				flower.getQuads(null, e, new Random(0)).stream().map(input -> transform(input, transform)).forEach(faceQ::add);
 			}
 
 			// Add island quads
-			genBuilder.addAll(island.getQuads(null, null, 0));
-			for(EnumFacing e : EnumFacing.VALUES) {
-				faceQuads.get(e).addAll(island.getQuads(null, e, 0));
+			genBuilder.addAll(island.getQuads(null, null, new Random(0)));
+			for(EnumFacing e : EnumFacing.BY_INDEX) {
+				faceQuads.get(e).addAll(island.getQuads(null, e, new Random(0)));
 			}
 
 			genQuads = genBuilder.build();
 		}
 
 		// Forward all to flower model
-		@Nonnull @Override public List<BakedQuad> getQuads(IBlockState state, EnumFacing face, long rand) {
+		@Nonnull @Override public List<BakedQuad> getQuads(IBlockState state, EnumFacing face, @Nonnull Random rand) {
 			return face == null ? genQuads : faceQuads.get(face);
 		}
 		@Override public boolean isAmbientOcclusion() {
@@ -200,21 +202,21 @@ public class FloatingFlowerModel implements IBakedModel {
 		@Nonnull @Override public ItemCameraTransforms getItemCameraTransforms() {
 			return flower.getItemCameraTransforms();
 		}
-		@Nonnull @Override public ItemOverrideList getOverrides() { return ItemOverrideList.NONE; }
+		@Nonnull @Override public ItemOverrideList getOverrides() { return ItemOverrideList.EMPTY; }
 
 		@Override
 		public Pair<? extends IBakedModel, Matrix4f> handlePerspective(ItemCameraTransforms.TransformType cameraTransformType) {
 			Pair<? extends IBakedModel, Matrix4f> pair = island.handlePerspective(cameraTransformType);
 			if(pair != null && pair.getRight() != null)
 				return Pair.of(this, pair.getRight());
-			return Pair.of(this, TRSRTransformation.identity().getMatrix());
+			return Pair.of(this, TRSRTransformation.identity().getMatrixVec());
 		}
 	}
 
-	private final ItemOverrideList itemHandler = new ItemOverrideList(ImmutableList.of()) {
+	private final ItemOverrideList itemHandler = new ItemOverrideList() {
 		@Nonnull
 		@Override
-		public IBakedModel handleItemState(@Nonnull IBakedModel model, ItemStack stack, World world, EntityLivingBase entity) {
+		public IBakedModel getModelWithOverrides(IBakedModel model, ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
 			// Items always have GRASS island
 			IFloatingFlower.IslandType islandType = IFloatingFlower.IslandType.GRASS;
 			ResourceLocation identifier;

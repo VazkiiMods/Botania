@@ -21,6 +21,7 @@ import net.minecraft.state.properties.RailShape;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockReader;
 import vazkii.botania.api.item.IFloatingFlower;
 import vazkii.botania.api.state.enums.AlfPortalState;
 import vazkii.botania.api.state.enums.BiomeBrickVariant;
@@ -48,7 +49,7 @@ public final class BotaniaStateProps {
 	public static final PropertyObject<IBlockState> HELD_STATE = new PropertyObject<>("held_state", IBlockState.class);
 
 	// The property for platform world object
-	public static final PropertyObject<IBlockAccess> HELD_WORLD = new PropertyObject<>("held_world", IBlockAccess.class);
+	public static final PropertyObject<IBlockReader> HELD_WORLD = new PropertyObject<>("held_world", IBlockReader.class);
 
 	// The proeprty for platform world pos
 	public static final PropertyObject<BlockPos> HELD_POS = new PropertyObject<>("held_pos", BlockPos.class);
