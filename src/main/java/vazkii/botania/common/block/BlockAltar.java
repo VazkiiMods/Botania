@@ -10,6 +10,7 @@
  */
 package vazkii.botania.common.block;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -23,9 +24,12 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.IItemProvider;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
+import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.world.IBlockReader;
+import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -55,7 +59,7 @@ import java.util.Random;
 
 public class BlockAltar extends BlockMod implements ILexiconable {
 
-	private static final AxisAlignedBB AABB = new AxisAlignedBB(0.125, 0.125, 0.125, 0.875, 20.0/16, 0.875);
+	private static final VoxelShape AABB = Block.makeCuboidShape(2, 2, 2, 14, 20, 14);
 
 	public enum Variant {
 		DEFAULT,
@@ -72,16 +76,14 @@ public class BlockAltar extends BlockMod implements ILexiconable {
 
 	public final Variant variant;
 
-	protected BlockAltar(Variant v) {
-		super(Material.ROCK, LibBlockNames.APOTHECARY_PREFIX + v.name().toLowerCase(Locale.ROOT));
-		setHardness(3.5F);
-		setSoundType(SoundType.STONE);
+	protected BlockAltar(Variant v, Block.Builder builder) {
+		super(builder);
 		this.variant = v;
 	}
 
 	@Nonnull
 	@Override
-	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
+	public VoxelShape getShape(IBlockState state, IBlockReader world, BlockPos pos) {
 		return AABB;
 	}
 
@@ -94,16 +96,16 @@ public class BlockAltar extends BlockMod implements ILexiconable {
 
 	@Nonnull
 	@Override
-	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
+	public IItemProvider getItemDropped(IBlockState state, World world, BlockPos pos, int fortune) {
 		if(variant == Variant.MOSSY) {
-			return Item.getItemFromBlock(ModBlocks.defaultAltar);
+			return ModBlocks.defaultAltar;
 		} else {
-			return super.getItemDropped(state, rand, fortune);
+			return super.getItemDropped(state, world, pos, fortune);
 		}
 	}
 
 	@Override
-	public void onEntityCollision(World world, BlockPos pos, IBlockState state, Entity entity) {
+	public void onEntityCollision(IBlockState state, World world, BlockPos pos, Entity entity) {
 		if(!world.isRemote && entity instanceof EntityItem) {
 			TileAltar tile = (TileAltar) world.getTileEntity(pos);
 			if(tile.collideEntityItem((EntityItem) entity))
@@ -112,7 +114,7 @@ public class BlockAltar extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public int getLightValue(@Nonnull IBlockState state, IBlockAccess world, @Nonnull BlockPos pos) {
+	public int getLightValue(@Nonnull IBlockState state, IWorldReader world, @Nonnull BlockPos pos) {
 		if(world.getBlockState(pos).getBlock() != this)
 			return world.getBlockState(pos).getLightValue(world, pos);
 		TileAltar tile = (TileAltar) world.getTileEntity(pos);
@@ -120,7 +122,7 @@ public class BlockAltar extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing par6, float par7, float par8, float par9) {
+	public boolean onBlockActivated(IBlockState state, World world, BlockPos pos, EntityPlayer player, EnumHand hand, EnumFacing par6, float par7, float par8, float par9) {
 		TileAltar tile = (TileAltar) world.getTileEntity(pos);
 		ItemStack stack = player.getHeldItem(hand);
 		if(player.isSneaking()) {
@@ -136,7 +138,7 @@ public class BlockAltar extends BlockMod implements ILexiconable {
 				if(!tile.hasWater) {
 					if(stack.getItem() == ModItems.waterRod)
 						ManaItemHandler.requestManaExact(stack, player, ItemWaterRod.COST, true);
-					else if(!player.capabilities.isCreativeMode)
+					else if(!player.abilities.isCreativeMode)
 						player.setHeldItem(hand, drain(FluidRegistry.WATER, stack));
 
 					tile.setWater(true);
@@ -146,7 +148,7 @@ public class BlockAltar extends BlockMod implements ILexiconable {
 
 				return true;
 			} else if(!stack.isEmpty() && stack.getItem() == Items.LAVA_BUCKET) {
-				if(!player.capabilities.isCreativeMode)
+				if(!player.abilities.isCreativeMode)
 					player.setHeldItem(hand, drain(FluidRegistry.LAVA, stack));
 
 				tile.setLava(true);
@@ -232,12 +234,12 @@ public class BlockAltar extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public void breakBlock(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
+	public void onReplaced(@Nonnull IBlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState newState, boolean isMoving) {
 		TileSimpleInventory inv = (TileSimpleInventory) world.getTileEntity(pos);
 
 		InventoryHelper.dropInventory(inv, world, state, pos);
 
-		super.breakBlock(world, pos, state);
+		super.onReplaced(state, world, pos, newState, isMoving);
 	}
 
 	@Override

@@ -27,7 +27,9 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.registries.IForgeRegistry;
+import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.recipe.RecipeManaInfusion;
 import vazkii.botania.api.subtile.SubTileEntity;
 import vazkii.botania.client.lib.LibResources;
@@ -112,25 +114,41 @@ import vazkii.botania.common.item.block.ItemBlockPool;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 import vazkii.botania.common.item.block.ItemBlockTinyPotato;
 import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
+import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.lib.LibOreDict;
 
+import java.util.Locale;
+
 @Mod.EventBusSubscriber(modid = LibMisc.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
+@ObjectHolder(LibMisc.MOD_ID)
 public final class ModBlocks {
 	public static final Block flower = new BlockModFlower();
-	public static final Block defaultAltar = new BlockAltar(BlockAltar.Variant.DEFAULT);
-	public static final Block forestAltar = new BlockAltar(BlockAltar.Variant.FOREST);
-	public static final Block plainsAltar = new BlockAltar(BlockAltar.Variant.PLAINS);
-	public static final Block mountainAltar = new BlockAltar(BlockAltar.Variant.MOUNTAIN);
-	public static final Block fungalAltar = new BlockAltar(BlockAltar.Variant.FUNGAL);
-	public static final Block swampAltar = new BlockAltar(BlockAltar.Variant.SWAMP);
-	public static final Block desertAltar = new BlockAltar(BlockAltar.Variant.DESERT);
-	public static final Block taigaAltar = new BlockAltar(BlockAltar.Variant.TAIGA);
-	public static final Block mesaAltar = new BlockAltar(BlockAltar.Variant.MESA);
-	public static final Block mossyAltar = new BlockAltar(BlockAltar.Variant.MOSSY);
-	public static final Block livingrock = new BlockLivingrock();
-	public static final Block livingwood = new BlockLivingwood();
+	@ObjectHolder("apothecary_default") public static Block defaultAltar;
+	@ObjectHolder("apothecary_forest") public static Block forestAltar;
+	@ObjectHolder("apothecary_plains") public static Block plainsAltar;
+	@ObjectHolder("apothecary_mountain") public static Block mountainAltar;
+	@ObjectHolder("apothecary_fungal") public static Block fungalAltar;
+	@ObjectHolder("apothecary_swamp") public static Block swampAltar;
+	@ObjectHolder("apothecary_desert") public static Block desertAltar;
+	@ObjectHolder("apothecary_taiga") public static Block taigaAltar;
+	@ObjectHolder("apothecary_mesa") public static Block mesaAltar;
+	@ObjectHolder("apothecary_mossy") public static Block mossyAltar;
+
+	@ObjectHolder(LibBlockNames.LIVING_ROCK) public static Block livingrock;
+	@ObjectHolder(LibBlockNames.LIVING_ROCK_BRICK) public static Block livingrockBrick;
+	@ObjectHolder(LibBlockNames.LIVING_ROCK_BRICK_CHISELED) public static Block livingrockBrickChiseled;
+	@ObjectHolder(LibBlockNames.LIVING_ROCK_BRICK_CRACKED) public static Block livingrockBrickCracked;
+	@ObjectHolder(LibBlockNames.LIVING_ROCK_BRICK_MOSSY) public static Block livingrockBrickMossy;
+
+	@ObjectHolder(LibBlockNames.LIVING_WOOD) public static Block livingwood;
+	@ObjectHolder(LibBlockNames.LIVING_WOOD_PLANKS) public static Block livingwoodPlanks;
+	@ObjectHolder(LibBlockNames.LIVING_WOOD_PLANKS_MOSSY) public static Block livingwoodPlanksMossy;
+	@ObjectHolder(LibBlockNames.LIVING_WOOD_FRAMED) public static Block livingwoodFramed;
+	@ObjectHolder(LibBlockNames.LIVING_WOOD_PATTERN_FRAMED) public static Block livingwoodPatternFramed;
+	@ObjectHolder(LibBlockNames.LIVING_WOOD_GLIMMERING) public static Block livingwoodGlimmering;
+
 	public static final Block specialFlower = new BlockSpecialFlower();
 	public static final Block manaSpreader = new BlockSpreader(BlockSpreader.Variant.MANA);
 	public static final Block redstoneSpreader = new BlockSpreader(BlockSpreader.Variant.REDSTONE);
@@ -266,19 +284,34 @@ public final class ModBlocks {
 	@SubscribeEvent
 	public static void registerBlocks(RegistryEvent.Register<Block> evt) {
 		IForgeRegistry<Block> r = evt.getRegistry();
+		ILexiconable decorative = (w, po, pl, st) -> LexiconData.decorativeBlocks;
 
 		r.register(flower);
-		r.register(defaultAltar);
-		r.register(forestAltar);
-		r.register(plainsAltar);
-		r.register(mountainAltar);
-		r.register(fungalAltar);
-		r.register(swampAltar);
-		r.register(desertAltar);
-		r.register(taigaAltar);
-		r.register(mesaAltar);
-		r.register(mossyAltar);
-		r.register(livingrock);
+
+		Block.Builder builder = Block.Builder.create(Material.ROCK).hardnessAndResistance(3.5F).sound(SoundType.STONE);
+		for(BlockAltar.Variant v : BlockAltar.Variant.values()) {
+			r.register(new BlockAltar(v, builder)
+					.setRegistryName(LibMisc.MOD_ID, LibBlockNames.APOTHECARY_PREFIX + v.name().toLowerCase(Locale.ROOT)));
+		}
+
+		// Livingstones
+		builder = Block.Builder.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE);
+		r.register(new BlockModLexiconable(builder, (w, po, pl, st) -> LexiconData.pureDaisy).setRegistryName(LibMisc.MOD_ID, LibBlockNames.LIVING_ROCK));
+		r.register(new BlockModLexiconable(builder, decorative).setRegistryName(LibMisc.MOD_ID, LibBlockNames.LIVING_ROCK_BRICK));
+		r.register(new BlockModLexiconable(builder, decorative).setRegistryName(LibMisc.MOD_ID, LibBlockNames.LIVING_ROCK_BRICK_MOSSY));
+		r.register(new BlockModLexiconable(builder, decorative).setRegistryName(LibMisc.MOD_ID, LibBlockNames.LIVING_ROCK_BRICK_CRACKED));
+		r.register(new BlockModLexiconable(builder, decorative).setRegistryName(LibMisc.MOD_ID, LibBlockNames.LIVING_ROCK_BRICK_CHISELED));
+
+		// Livingwoods
+		builder = Block.Builder.create(Material.WOOD).hardnessAndResistance(2).sound(SoundType.WOOD);
+		// todo 1.13: livingwood should support leaves
+		r.register(new BlockModLexiconable(builder, (w, po, pl, st) -> LexiconData.pureDaisy).setRegistryName(LibMisc.MOD_ID, LibBlockNames.LIVING_WOOD));
+		r.register(new BlockModLexiconable(builder, decorative).setRegistryName(LibMisc.MOD_ID, LibBlockNames.LIVING_WOOD_PLANKS));
+		r.register(new BlockModLexiconable(builder, decorative).setRegistryName(LibMisc.MOD_ID, LibBlockNames.LIVING_WOOD_PLANKS_MOSSY));
+		r.register(new BlockModLexiconable(builder, decorative).setRegistryName(LibMisc.MOD_ID, LibBlockNames.LIVING_WOOD_FRAMED));
+		r.register(new BlockModLexiconable(builder, decorative).setRegistryName(LibMisc.MOD_ID, LibBlockNames.LIVING_WOOD_PATTERN_FRAMED);
+		r.register(new BlockModLexiconable(builder.lightValue(12), decorative).setRegistryName(LibMisc.MOD_ID, LibBlockNames.LIVING_WOOD_GLIMMERING));
+
 		r.register(livingwood);
 		r.register(specialFlower);
 		r.register(manaSpreader);

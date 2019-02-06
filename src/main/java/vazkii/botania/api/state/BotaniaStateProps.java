@@ -27,7 +27,6 @@ import vazkii.botania.api.state.enums.AlfPortalState;
 import vazkii.botania.api.state.enums.BiomeBrickVariant;
 import vazkii.botania.api.state.enums.BiomeStoneVariant;
 import vazkii.botania.api.state.enums.CratePattern;
-import vazkii.botania.api.state.enums.LivingRockVariant;
 import vazkii.botania.api.state.enums.LivingWoodVariant;
 import vazkii.botania.api.state.enums.LuminizerVariant;
 import vazkii.botania.api.state.enums.QuartzVariant;
@@ -107,9 +106,6 @@ public final class BotaniaStateProps {
 
 	// BlockLightRelay
 	public static final EnumProperty<LuminizerVariant> LUMINIZER_VARIANT = EnumProperty.create("variant", LuminizerVariant.class);
-
-	// BlockLivingRock
-	public static final EnumProperty<LivingRockVariant> LIVINGROCK_VARIANT = EnumProperty.create("variant", LivingRockVariant.class);
 
 	// BlockModDoubleFlower (white to gray)
 	public static final EnumProperty<EnumDyeColor> DOUBLEFLOWER_VARIANT_1 = EnumProperty.create("df_variant", EnumDyeColor.class, new Predicate<EnumDyeColor>() {

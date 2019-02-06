@@ -19,6 +19,7 @@ import net.minecraft.world.World;
  * Any block that implements this can be right clicked with
  * a Lexica Botania to open a entry page.
  */
+@FunctionalInterface
 public interface ILexiconable {
 
 	/**

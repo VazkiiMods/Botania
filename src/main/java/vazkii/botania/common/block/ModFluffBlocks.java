@@ -41,6 +41,7 @@ import vazkii.botania.common.block.decor.slabs.living.BlockLivingwoodSlab;
 import vazkii.botania.common.block.decor.slabs.living.BlockShimmerrockSlab;
 import vazkii.botania.common.block.decor.slabs.living.BlockShimmerwoodPlankSlab;
 import vazkii.botania.common.block.decor.stairs.BlockBiomeStoneStairs;
+import vazkii.botania.common.block.decor.stairs.BlockModStairs;
 import vazkii.botania.common.block.decor.stairs.BlockPavementStairs;
 import vazkii.botania.common.block.decor.stairs.living.BlockDreamwoodPlankStairs;
 import vazkii.botania.common.block.decor.stairs.living.BlockDreamwoodStairs;
@@ -71,55 +72,43 @@ public final class ModFluffBlocks {
 
 	public static List<Block> slabsToRegister = new ArrayList<>();
 
-	public static final Block livingwoodStairs = new BlockLivingwoodStairs();
+	public static final Block livingwoodStairs = new BlockModStairs(ModBlocks.livingwood.getDefaultState(), Block.Builder.from(ModBlocks.livingwood));
 	public static final Block livingwoodSlab = new BlockLivingwoodSlab(false);
-	public static final Block livingwoodSlabFull = new BlockLivingwoodSlab(true);
 	public static final Block livingwoodWall = new BlockLivingwoodWall();
 	public static final Block livingwoodPlankStairs = new BlockLivingwoodPlankStairs();
 	public static final Block livingwoodPlankSlab = new BlockLivingwoodPlankSlab(false);
-	public static final Block livingwoodPlankSlabFull = new BlockLivingwoodPlankSlab(true);
 	public static final Block livingrockStairs = new BlockLivingrockStairs();
 	public static final Block livingrockSlab = new BlockLivingrockSlab(false);
 	public static final Block livingrockSlabFull = new BlockLivingrockSlab(true);
 	public static final Block livingrockWall = new BlockLivingrockWall();
 	public static final Block livingrockBrickStairs = new BlockLivingrockBrickStairs();
 	public static final Block livingrockBrickSlab = new BlockLivingrockBrickSlab(false);
-	public static final Block livingrockBrickSlabFull = new BlockLivingrockBrickSlab(true);
 	public static final Block dreamwoodStairs = new BlockDreamwoodStairs();
 	public static final Block dreamwoodSlab = new BlockDreamwoodSlab(false);
-	public static final Block dreamwoodSlabFull = new BlockDreamwoodSlab(true);
 	public static final Block dreamwoodWall = new BlockDreamwoodWall();
 	public static final Block dreamwoodPlankStairs = new BlockDreamwoodPlankStairs();
 	public static final Block dreamwoodPlankSlab = new BlockDreamwoodPlankSlab(false);
-	public static final Block dreamwoodPlankSlabFull = new BlockDreamwoodPlankSlab(true);
 
 	public static final Block darkQuartz = new BlockSpecialQuartz(LibBlockNames.QUARTZ_DARK);
 	public static final Block darkQuartzSlab = new BlockSpecialQuartzSlab(darkQuartz, false);
-	public static final Block darkQuartzSlabFull = new BlockSpecialQuartzSlab(darkQuartz, true);
 	public static final Block darkQuartzStairs = new BlockSpecialQuartzStairs(darkQuartz);
 	public static final Block manaQuartz = new BlockSpecialQuartz(LibBlockNames.QUARTZ_MANA);
 	public static final Block manaQuartzSlab = new BlockSpecialQuartzSlab(manaQuartz, false);
-	public static final Block manaQuartzSlabFull = new BlockSpecialQuartzSlab(manaQuartz, true);
 	public static final Block manaQuartzStairs = new BlockSpecialQuartzStairs(manaQuartz);
 	public static final Block blazeQuartz = new BlockSpecialQuartz(LibBlockNames.QUARTZ_BLAZE);
 	public static final Block blazeQuartzSlab = new BlockSpecialQuartzSlab(blazeQuartz, false);
-	public static final Block blazeQuartzSlabFull = new BlockSpecialQuartzSlab(blazeQuartz, true);
 	public static final Block blazeQuartzStairs = new BlockSpecialQuartzStairs(blazeQuartz);
 	public static final Block lavenderQuartz = new BlockSpecialQuartz(LibBlockNames.QUARTZ_LAVENDER);
 	public static final Block lavenderQuartzSlab = new BlockSpecialQuartzSlab(lavenderQuartz, false);
-	public static final Block lavenderQuartzSlabFull = new BlockSpecialQuartzSlab(lavenderQuartz, true);
 	public static final Block lavenderQuartzStairs = new BlockSpecialQuartzStairs(lavenderQuartz);
 	public static final Block redQuartz = new BlockSpecialQuartz(LibBlockNames.QUARTZ_RED);
 	public static final Block redQuartzSlab = new BlockSpecialQuartzSlab(redQuartz, false);
-	public static final Block redQuartzSlabFull = new BlockSpecialQuartzSlab(redQuartz, true);
 	public static final Block redQuartzStairs = new BlockSpecialQuartzStairs(redQuartz);
 	public static final Block elfQuartz = new BlockSpecialQuartz(LibBlockNames.QUARTZ_ELF);
 	public static final Block elfQuartzSlab = new BlockSpecialQuartzSlab(elfQuartz, false);
-	public static final Block elfQuartzSlabFull = new BlockSpecialQuartzSlab(elfQuartz, true);
 	public static final Block elfQuartzStairs = new BlockSpecialQuartzStairs(elfQuartz);
 	public static final Block sunnyQuartz = new BlockSpecialQuartz(LibBlockNames.QUARTZ_SUNNY);
 	public static final Block sunnyQuartzSlab = new BlockSpecialQuartzSlab(sunnyQuartz, false);
-	public static final Block sunnyQuartzSlabFull = new BlockSpecialQuartzSlab(sunnyQuartz, true);
 	public static final Block sunnyQuartzStairs = new BlockSpecialQuartzStairs(sunnyQuartz);
 
 	public static final Block biomeStoneA = new BlockBiomeStoneA();
@@ -128,18 +117,14 @@ public final class ModFluffBlocks {
 
 	public static final Block[] biomeStoneStairs = new Block[24];
 	public static final Block[] biomeStoneSlabs = new Block[24];
-	public static final Block[] biomeStoneFullSlabs = new Block[24];
 	public static final Block biomeStoneWall = new BlockBiomeStoneWall();
 
 	public static final Block[] pavementStairs = new Block[BlockPavement.TYPES];
 	public static final Block[] pavementSlabs = new Block[BlockPavement.TYPES];
-	public static final Block[] pavementFullSlabs = new Block[BlockPavement.TYPES];
 
 	public static final Block shimmerrockSlab = new BlockShimmerrockSlab(false);
-	public static final Block shimmerrockSlabFull = new BlockShimmerrockSlab(true);
 	public static final Block shimmerrockStairs = new BlockShimmerrockStairs();
 	public static final Block shimmerwoodPlankSlab = new BlockShimmerwoodPlankSlab(false);
-	public static final Block shimmerwoodPlankSlabFull = new BlockShimmerwoodPlankSlab(true);
 	public static final Block shimmerwoodPlankStairs = new BlockShimmerwoodPlankStairs();
 
 	public static final Block managlassPane = new BlockManaglassPane();
@@ -151,13 +136,11 @@ public final class ModFluffBlocks {
 		IForgeRegistry<Block> r = evt.getRegistry();
 		r.register(livingwoodStairs);
 		r.register(livingwoodSlab);
-		r.register(livingwoodSlabFull);
 		r.register(livingwoodWall);
 		
 		r.register(livingwoodPlankStairs);
 		r.register(livingwoodPlankSlab);
-		r.register(livingwoodPlankSlabFull);
-		
+
 		r.register(livingrockStairs);
 		r.register(livingrockSlab);
 		r.register(livingrockSlabFull);
@@ -165,50 +148,40 @@ public final class ModFluffBlocks {
 		
 		r.register(livingrockBrickStairs);
 		r.register(livingrockBrickSlab);
-		r.register(livingrockBrickSlabFull);
-		
+
 		r.register(dreamwoodStairs);
 		r.register(dreamwoodSlab);
-		r.register(dreamwoodSlabFull);
 		r.register(dreamwoodWall);
 		
 		r.register(dreamwoodPlankStairs);
 		r.register(dreamwoodPlankSlab);
-		r.register(dreamwoodPlankSlabFull);
 
 		r.register(darkQuartz);
 		r.register(darkQuartzSlab);
-		r.register(darkQuartzSlabFull);
 		r.register(darkQuartzStairs);
 
 		r.register(manaQuartz);
 		r.register(manaQuartzSlab);
-		r.register(manaQuartzSlabFull);
 		r.register(manaQuartzStairs);
 		
 		r.register(blazeQuartz);
 		r.register(blazeQuartzSlab);
-		r.register(blazeQuartzSlabFull);
 		r.register(blazeQuartzStairs);
 		
 		r.register(lavenderQuartz);
 		r.register(lavenderQuartzSlab);
-		r.register(lavenderQuartzSlabFull);
 		r.register(lavenderQuartzStairs);
 		
 		r.register(redQuartz);
 		r.register(redQuartzSlab);
-		r.register(redQuartzSlabFull);
 		r.register(redQuartzStairs);
 		
 		r.register(elfQuartz);
 		r.register(elfQuartzSlab);
-		r.register(elfQuartzSlabFull);
 		r.register(elfQuartzStairs);
 		
 		r.register(sunnyQuartz);
 		r.register(sunnyQuartzSlab);
-		r.register(sunnyQuartzSlabFull);
 		r.register(sunnyQuartzStairs);
 
 		r.register(biomeStoneA);
@@ -219,10 +192,8 @@ public final class ModFluffBlocks {
 		for (BiomeStoneVariant variant : BiomeStoneVariant.values()) {
 			biomeStoneStairs[count] = new BlockBiomeStoneStairs(biomeStoneA.getDefaultState().withProperty(BotaniaStateProps.BIOMESTONE_VARIANT, variant));
 			biomeStoneSlabs[count] = new BlockBiomeStoneSlab(false, biomeStoneA.getDefaultState().withProperty(BotaniaStateProps.BIOMESTONE_VARIANT, variant), count);
-			biomeStoneFullSlabs[count] = new BlockBiomeStoneSlab(true, biomeStoneA.getDefaultState().withProperty(BotaniaStateProps.BIOMESTONE_VARIANT, variant), count);
 			r.register(biomeStoneStairs[count]);
 			r.register(biomeStoneSlabs[count]);
-			r.register(biomeStoneFullSlabs[count]);
 			count++;
 		}
 
@@ -233,10 +204,8 @@ public final class ModFluffBlocks {
 			}
 			biomeStoneStairs[count] = new BlockBiomeStoneStairs(biomeStoneB.getDefaultState().withProperty(BotaniaStateProps.BIOMEBRICK_VARIANT, variant));
 			biomeStoneSlabs[count] = new BlockBiomeStoneSlab(false, biomeStoneB.getDefaultState().withProperty(BotaniaStateProps.BIOMEBRICK_VARIANT, variant), count);
-			biomeStoneFullSlabs[count] = new BlockBiomeStoneSlab(true, biomeStoneB.getDefaultState().withProperty(BotaniaStateProps.BIOMEBRICK_VARIANT, variant), count);
 			r.register(biomeStoneStairs[count]);
 			r.register(biomeStoneSlabs[count]);
-			r.register(biomeStoneFullSlabs[count]);
 			count++;
 		}
 		
@@ -247,19 +216,15 @@ public final class ModFluffBlocks {
 				EnumDyeColor.RED, EnumDyeColor.YELLOW, EnumDyeColor.GREEN)) {
 			pavementStairs[count] = new BlockPavementStairs(color);
 			pavementSlabs[count] = new BlockPavementSlab(false, color, count);
-			pavementFullSlabs[count] = new BlockPavementSlab(true, color, count);
 			r.register(pavementStairs[count]);
 			r.register(pavementSlabs[count]);
-			r.register(pavementFullSlabs[count]);
 			count++;
 		}
 
 		r.register(shimmerrockSlab);
-		r.register(shimmerrockSlabFull);
 		r.register(shimmerrockStairs);
 		
 		r.register(shimmerwoodPlankSlab);
-		r.register(shimmerwoodPlankSlabFull);
 		r.register(shimmerwoodPlankStairs);
 
 		r.register(managlassPane);
@@ -291,31 +256,31 @@ public final class ModFluffBlocks {
 		r.register(new ItemBlockMod(dreamwoodPlankStairs).setRegistryName(dreamwoodPlankStairs.getRegistryName()));
 		r.register(new ItemBlockMod(dreamwoodPlankSlab).setRegistryName(dreamwoodPlankSlab.getRegistryName()));
 		
-		r.register(new ItemBlockSpecialQuartz(darkQuartz).setRegistryName(darkQuartz.getRegistryName()));
+		r.register(new ItemBlockMod(darkQuartz).setRegistryName(darkQuartz.getRegistryName()));
 		r.register(new ItemBlockMod(darkQuartzSlab).setRegistryName(darkQuartzSlab.getRegistryName()));
 		r.register(new ItemBlockMod(darkQuartzStairs).setRegistryName(darkQuartzStairs.getRegistryName()));
 
-		r.register(new ItemBlockSpecialQuartz(manaQuartz).setRegistryName(manaQuartz.getRegistryName()));
+		r.register(new ItemBlockMod(manaQuartz).setRegistryName(manaQuartz.getRegistryName()));
 		r.register(new ItemBlockMod(manaQuartzSlab).setRegistryName(manaQuartzSlab.getRegistryName()));
 		r.register(new ItemBlockMod(manaQuartzStairs).setRegistryName(manaQuartzStairs.getRegistryName()));
 		
-		r.register(new ItemBlockSpecialQuartz(blazeQuartz).setRegistryName(blazeQuartz.getRegistryName()));
+		r.register(new ItemBlockMod(blazeQuartz).setRegistryName(blazeQuartz.getRegistryName()));
 		r.register(new ItemBlockMod(blazeQuartzSlab).setRegistryName(blazeQuartzSlab.getRegistryName()));
 		r.register(new ItemBlockMod(blazeQuartzStairs).setRegistryName(blazeQuartzStairs.getRegistryName()));
 		
-		r.register(new ItemBlockSpecialQuartz(lavenderQuartz).setRegistryName(lavenderQuartz.getRegistryName()));
+		r.register(new ItemBlockMod(lavenderQuartz).setRegistryName(lavenderQuartz.getRegistryName()));
 		r.register(new ItemBlockMod(lavenderQuartzSlab).setRegistryName(lavenderQuartzSlab.getRegistryName()));
 		r.register(new ItemBlockMod(lavenderQuartzStairs).setRegistryName(lavenderQuartzStairs.getRegistryName()));
 		
-		r.register(new ItemBlockSpecialQuartz(redQuartz).setRegistryName(redQuartz.getRegistryName()));
+		r.register(new ItemBlockMod(redQuartz).setRegistryName(redQuartz.getRegistryName()));
 		r.register(new ItemBlockMod(redQuartzSlab).setRegistryName(redQuartzSlab.getRegistryName()));
 		r.register(new ItemBlockMod(redQuartzStairs).setRegistryName(redQuartzStairs.getRegistryName()));
 		
-		r.register(new ItemBlockSpecialQuartz(elfQuartz).setRegistryName(elfQuartz.getRegistryName()));
+		r.register(new ItemBlockMod(elfQuartz).setRegistryName(elfQuartz.getRegistryName()));
 		r.register(new ItemBlockMod(elfQuartzSlab).setRegistryName(elfQuartzSlab.getRegistryName()));
 		r.register(new ItemBlockMod(elfQuartzStairs).setRegistryName(elfQuartzStairs.getRegistryName()));
 		
-		r.register(new ItemBlockSpecialQuartz(sunnyQuartz).setRegistryName(sunnyQuartz.getRegistryName()));
+		r.register(new ItemBlockMod(sunnyQuartz).setRegistryName(sunnyQuartz.getRegistryName()));
 		r.register(new ItemBlockMod(sunnyQuartzSlab).setRegistryName(sunnyQuartzSlab.getRegistryName()));
 		r.register(new ItemBlockMod(sunnyQuartzStairs).setRegistryName(sunnyQuartzStairs.getRegistryName()));
 		

@@ -1,5 +1,6 @@
 package vazkii.botania.common.block.decor.stairs;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockStairs;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -21,12 +22,9 @@ import vazkii.botania.common.lib.LibMisc;
 
 public class BlockModStairs extends BlockStairs implements ILexiconable, IModelRegister {
 
-	public BlockModStairs(IBlockState state, String name) {
-		super(state);
-		setRegistryName(new ResourceLocation(LibMisc.MOD_ID, name));
-		setTranslationKey(name);
+	public BlockModStairs(IBlockState state, Block.Builder builder) {
+		super(state, builder);
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
-		useNeighborBrightness = true;
 	}
 
 	@Override
