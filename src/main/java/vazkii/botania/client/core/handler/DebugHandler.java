@@ -20,14 +20,14 @@ import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.common.property.IUnlistedProperty;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.api.distmarker.Dist;
 import org.lwjgl.opengl.ARBFragmentShader;
-import org.lwjgl.opengl.ContextCapabilities;
+import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
-import org.lwjgl.opengl.GLContext;
+import org.lwjgl.opengl.GLCapabilities;
 import vazkii.botania.client.fx.ParticleRenderDispatcher;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.ManaNetworkHandler;
@@ -37,7 +37,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
-@Mod.EventBusSubscriber(value = Side.CLIENT, modid = LibMisc.MOD_ID)
+@Mod.EventBusSubscriber(value = Dist.CLIENT, modid = LibMisc.MOD_ID)
 public final class DebugHandler {
 
 	private DebugHandler() {}
@@ -46,8 +46,8 @@ public final class DebugHandler {
 
 	@SubscribeEvent
 	public static void onDrawDebugText(RenderGameOverlayEvent.Text event) {
-		World world = Minecraft.getMinecraft().world;
-		if(ConfigHandler.debugInfo && Minecraft.getMinecraft().gameSettings.showDebugInfo) {
+		World world = Minecraft.getInstance().world;
+		if(ConfigHandler.debugInfo && Minecraft.getInstance().gameSettings.showDebugInfo) {
 			event.getLeft().add("");
 			String version = LibMisc.VERSION;
 			if(version.contains("GRADLE"))
@@ -56,11 +56,11 @@ public final class DebugHandler {
 			event.getLeft().add(PREFIX + "pS: " + ParticleRenderDispatcher.sparkleFxCount + ", pFS: " + ParticleRenderDispatcher.fakeSparkleFxCount + ", pW: " + ParticleRenderDispatcher.wispFxCount + ", pDIW: " + ParticleRenderDispatcher.depthIgnoringWispFxCount + ", pLB: " + ParticleRenderDispatcher.lightningCount);
 			event.getLeft().add(PREFIX + "(CLIENT) netColl: " + ManaNetworkHandler.instance.getAllCollectorsInWorld(world).size() + ", netPool: " + ManaNetworkHandler.instance.getAllPoolsInWorld(world).size() + ", rv: " + version);
 
-			if (Minecraft.getMinecraft().isSingleplayer()) {
-				UUID id = Minecraft.getMinecraft().player.getUniqueID();
-				Entity ent = Minecraft.getMinecraft().getIntegratedServer().getEntityFromUuid(id);
+			if (Minecraft.getInstance().isSingleplayer()) {
+				UUID id = Minecraft.getInstance().player.getUniqueID();
+				Entity ent = Minecraft.getInstance().getIntegratedServer().getEntityFromUuid(id);
 				if (ent != null) {
-					World serverWorld = Minecraft.getMinecraft().getIntegratedServer().getEntityFromUuid(id).world;
+					World serverWorld = ent.world;
 					event.getLeft().add(PREFIX + String.format("(INTEGRATED SERVER DIM %d) netColl : %d, netPool: %d", serverWorld.provider.getDimension(), ManaNetworkHandler.instance.getAllCollectorsInWorld(serverWorld).size(), ManaNetworkHandler.instance.getAllPoolsInWorld(serverWorld).size()));
 				}
 			}
@@ -70,7 +70,7 @@ public final class DebugHandler {
 				event.getLeft().add("  shaders.enabled: " + ConfigHandler.useShaders);
 				event.getLeft().add("  shaders.secondaryUnit: " + ConfigHandler.glSecondaryTextureUnit);
 
-				ContextCapabilities caps = GLContext.getCapabilities();
+				GLCapabilities caps = GL.getCapabilities();
 				event.getLeft().add(PREFIX + "OpenGL Context");
 				event.getLeft().add("  GL_VERSION: " + GL11.glGetString(GL11.GL_VERSION));
 				event.getLeft().add("  GL_RENDERER: " + GL11.glGetString(GL11.GL_RENDERER));
@@ -80,11 +80,10 @@ public final class DebugHandler {
 				event.getLeft().add("  GL_ARB_texture_non_power_of_two: " + caps.GL_ARB_texture_non_power_of_two);
 				event.getLeft().add("  OpenGL13: " + caps.OpenGL13);
 
-				if (Minecraft.getMinecraft().objectMouseOver != null
-						&& Minecraft.getMinecraft().objectMouseOver.getBlockPos() != null) {
-					BlockPos pos = Minecraft.getMinecraft().objectMouseOver.getBlockPos();
+				if (Minecraft.getInstance().objectMouseOver != null
+						&& Minecraft.getInstance().objectMouseOver.getBlockPos() != null) {
+					BlockPos pos = Minecraft.getInstance().objectMouseOver.getBlockPos();
 					IBlockState state = world.getBlockState(pos);
-					state = state.getActualState(world, pos);
 					state = state.getBlock().getExtendedState(state, world, pos);
 					if (state instanceof IExtendedBlockState) {
 						try {

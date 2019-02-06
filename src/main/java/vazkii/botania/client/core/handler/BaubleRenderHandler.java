@@ -38,7 +38,7 @@ import javax.annotation.Nonnull;
 public final class BaubleRenderHandler implements LayerRenderer<EntityPlayer> {
 
 	@Override
-	public void doRenderLayer(@Nonnull EntityPlayer player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+	public void render(@Nonnull EntityPlayer player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 		if(!ConfigHandler.renderBaubles || player.getActivePotionEffect(MobEffects.INVISIBILITY) != null)
 			return;
 
@@ -53,9 +53,9 @@ public final class BaubleRenderHandler implements LayerRenderer<EntityPlayer> {
 		float pitch = player.prevRotationPitch + (player.rotationPitch - player.prevRotationPitch) * partialTicks;
 
 		GlStateManager.pushMatrix();
-		GlStateManager.rotate(yawOffset, 0, -1, 0);
-		GlStateManager.rotate(yaw - 270, 0, 1, 0);
-		GlStateManager.rotate(pitch, 0, 0, 1);
+		GlStateManager.rotatef(yawOffset, 0, -1, 0);
+		GlStateManager.rotatef(yaw - 270, 0, 1, 0);
+		GlStateManager.rotatef(pitch, 0, 0, 1);
 		dispatchRenders(inv, player, RenderType.HEAD, partialTicks);
 
 		ItemStack helm = player.inventory.armorItemInSlot(3);
@@ -83,7 +83,7 @@ public final class BaubleRenderHandler implements LayerRenderer<EntityPlayer> {
 					if(!cosmetic.isEmpty()) {
 						GlStateManager.pushMatrix();
 						GL11.glColor3ub((byte) 255, (byte) 255, (byte) 255); // Some of the baubles use this so we must restore it manually as well
-						GlStateManager.color(1F, 1F, 1F, 1F);
+						GlStateManager.color4f(1F, 1F, 1F, 1F);
 						((IBaubleRender) cosmetic.getItem()).onPlayerBaubleRender(cosmetic, player, type, partialTicks);
 						GlStateManager.popMatrix();
 						continue;
@@ -93,7 +93,7 @@ public final class BaubleRenderHandler implements LayerRenderer<EntityPlayer> {
 				if(item instanceof IBaubleRender) {
 					GlStateManager.pushMatrix();
 					GL11.glColor3ub((byte) 255, (byte) 255, (byte) 255); // Some of the baubles use this so we must restore it manually as well
-					GlStateManager.color(1F, 1F, 1F, 1F);
+					GlStateManager.color4f(1F, 1F, 1F, 1F);
 					((IBaubleRender) stack.getItem()).onPlayerBaubleRender(stack, player, type, partialTicks);
 					GlStateManager.popMatrix();
 				}
@@ -108,27 +108,27 @@ public final class BaubleRenderHandler implements LayerRenderer<EntityPlayer> {
 			ItemStack stack = player.inventory.getStackInSlot(i);
 			if(!stack.isEmpty() && stack.getItem() == ModItems.manaTablet) {
 				GlStateManager.pushMatrix();
-				Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+				Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 				Helper.rotateIfSneaking(player);
 				boolean armor = !player.getItemStackFromSlot(EntityEquipmentSlot.LEGS).isEmpty();
-				GlStateManager.rotate(90, 0, 1, 0);
-				GlStateManager.rotate(180, 0, 0, 1);
-				GlStateManager.translate(0, -0.6, 0);
-				GlStateManager.scale(0.55, 0.55, 0.55);
+				GlStateManager.rotatef(90, 0, 1, 0);
+				GlStateManager.rotatef(180, 0, 0, 1);
+				GlStateManager.translated(0, -0.6, 0);
+				GlStateManager.scaled(0.55, 0.55, 0.55);
 
 				if (renderedOne)
-					GlStateManager.translate(0F, 0F, armor ? 0.55F : 0.5F);
+					GlStateManager.translatef(0F, 0F, armor ? 0.55F : 0.5F);
 				else
-					GlStateManager.translate(0F, 0F, armor ? -0.55F : -0.5F);
+					GlStateManager.translatef(0F, 0F, armor ? -0.55F : -0.5F);
 
-				GlStateManager.scale(0.75F, 0.75F, 0.75F);
+				GlStateManager.scalef(0.75F, 0.75F, 0.75F);
 
-				GlStateManager.color(1F, 1F, 1F);
+				GlStateManager.color3f(1F, 1F, 1F);
 				int light = 15728880;
 				int lightmapX = light % 65536;
 				int lightmapY = light / 65536;
 				OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, lightmapX, lightmapY);
-				Minecraft.getMinecraft().getRenderItem().renderItem(stack, ItemCameraTransforms.TransformType.NONE);
+				Minecraft.getInstance().getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.NONE);
 				GlStateManager.popMatrix();
 
 				if(renderedOne)

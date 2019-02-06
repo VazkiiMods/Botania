@@ -513,23 +513,23 @@ public class ItemCraftingHalo extends ItemMod {
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public static void renderHUD(ScaledResolution resolution, EntityPlayer player, ItemStack stack) {
-		Minecraft mc = Minecraft.getMinecraft();
+	public static void renderHUD(EntityPlayer player, ItemStack stack) {
+		Minecraft mc = Minecraft.getInstance();
 		int slot = getSegmentLookedAt(stack, player);
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
 		if(slot == 0) {
-			String name = craftingTable.getDisplayName();
+			String name = craftingTable.getDisplayName().getUnformattedComponentText();
 			int l = mc.fontRenderer.getStringWidth(name);
-			int x = resolution.getScaledWidth() / 2 - l / 2;
-			int y = resolution.getScaledHeight() / 2 - 65;
+			int x = mc.mainWindow.getScaledWidth() / 2 - l / 2;
+			int y = mc.mainWindow.getScaledHeight() / 2 - 65;
 
 			Gui.drawRect(x - 6, y - 6, x + l + 6, y + 37, 0x22000000);
 			Gui.drawRect(x - 4, y - 4, x + l + 4, y + 35, 0x22000000);
 			net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
 			GlStateManager.enableRescaleNormal();
-			mc.getRenderItem().renderItemAndEffectIntoGUI(craftingTable, resolution.getScaledWidth() / 2 - 8, resolution.getScaledHeight() / 2 - 52);
+			mc.getItemRenderer().renderItemAndEffectIntoGUI(craftingTable, mc.mainWindow.getScaledWidth() / 2 - 8, mc.mainWindow.getScaledHeight() / 2 - 52);
 			net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
 
 			mc.fontRenderer.drawStringWithShadow(name, x, y, 0xFFFFFF);
@@ -545,17 +545,17 @@ public class ItemCraftingHalo extends ItemMod {
 				setRecipe = true;
 			}
 
-			renderRecipe(resolution, label, recipe, player, setRecipe);
+			renderRecipe(label, recipe, player, setRecipe);
 		}
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public static void renderRecipe(ScaledResolution resolution, String label, ItemStack[] recipe, EntityPlayer player, boolean setRecipe) {
-		Minecraft mc = Minecraft.getMinecraft();
+	public static void renderRecipe(String label, ItemStack[] recipe, EntityPlayer player, boolean setRecipe) {
+		Minecraft mc = Minecraft.getInstance();
 
 		if(!recipe[9].isEmpty()) {
-			int x = resolution.getScaledWidth() / 2 - 45;
-			int y = resolution.getScaledHeight() / 2 - 90;
+			int x = mc.mainWindow.getScaledWidth() / 2 - 45;
+			int y = mc.mainWindow.getScaledHeight() / 2 - 90;
 
 			Gui.drawRect(x - 6, y - 6, x + 90 + 6, y + 60, 0x22000000);
 			Gui.drawRect(x - 4, y - 4, x + 90 + 4, y + 58, 0x22000000);
@@ -572,12 +572,12 @@ public class ItemCraftingHalo extends ItemMod {
 					int ypos = y + i / 3 * 18;
 					Gui.drawRect(xpos, ypos, xpos + 16, ypos + 16, 0x22000000);
 
-					mc.getRenderItem().renderItemAndEffectIntoGUI(stack, xpos, ypos);
+					mc.getItemRenderer().renderItemAndEffectIntoGUI(stack, xpos, ypos);
 				}
 			}
 
-			mc.getRenderItem().renderItemAndEffectIntoGUI(recipe[9], x + 72, y + 18);
-			mc.getRenderItem().renderItemOverlays(mc.fontRenderer, recipe[9], x + 72, y + 18);
+			mc.getItemRenderer().renderItemAndEffectIntoGUI(recipe[9], x + 72, y + 18);
+			mc.getItemRenderer().renderItemOverlays(mc.fontRenderer, recipe[9], x + 72, y + 18);
 
 			net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
 		}
@@ -585,10 +585,10 @@ public class ItemCraftingHalo extends ItemMod {
 		int yoff = 110;
 		if(setRecipe && !canCraft(recipe, getFakeInv(player))) {
 			String warning = TextFormatting.RED + I18n.format("botaniamisc.cantCraft");
-			mc.fontRenderer.drawStringWithShadow(warning, resolution.getScaledWidth() / 2 - mc.fontRenderer.getStringWidth(warning) / 2, resolution.getScaledHeight() / 2 - yoff, 0xFFFFFF);
+			mc.fontRenderer.drawStringWithShadow(warning, mc.mainWindow.getScaledWidth() / 2 - mc.fontRenderer.getStringWidth(warning) / 2, mc.mainWindow.getScaledHeight() / 2 - yoff, 0xFFFFFF);
 			yoff += 12;
 		}
 
-		mc.fontRenderer.drawStringWithShadow(label, resolution.getScaledWidth() / 2 - mc.fontRenderer.getStringWidth(label) / 2, resolution.getScaledHeight() / 2 - yoff, 0xFFFFFF);
+		mc.fontRenderer.drawStringWithShadow(label, mc.mainWindow.getScaledWidth() / 2 - mc.fontRenderer.getStringWidth(label) / 2, mc.mainWindow.getScaledHeight() / 2 - yoff, 0xFFFFFF);
 	}
 }

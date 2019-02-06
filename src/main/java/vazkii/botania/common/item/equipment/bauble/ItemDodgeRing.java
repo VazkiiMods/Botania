@@ -109,22 +109,22 @@ public class ItemDodgeRing extends ItemBauble {
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public static void renderHUD(ScaledResolution resolution, EntityPlayer player, ItemStack stack, float pticks) {
-		int xo = resolution.getScaledWidth() / 2 - 20;
-		int y = resolution.getScaledHeight() / 2 + 20;
+	public static void renderHUD(EntityPlayer player, ItemStack stack, float pticks) {
+		int xo = Minecraft.getInstance().mainWindow.getScaledWidth() / 2 - 20;
+		int y = Minecraft.getInstance().mainWindow.getScaledHeight() / 2 + 20;
 
-		if(!player.capabilities.isFlying) {
+		if(!player.abilities.isFlying) {
 			int cd = ItemNBTHelper.getInt(stack, TAG_DODGE_COOLDOWN, 0);
 			int width = Math.min((int) ((cd - pticks) * 2), 40);
-			GlStateManager.color(1F, 1F, 1F, 1F);
+			GlStateManager.color4f(1F, 1F, 1F, 1F);
 			if(width > 0) {
 				Gui.drawRect(xo, y - 2, xo + 40, y - 1, 0x88000000);
 				Gui.drawRect(xo, y - 2, xo + width, y - 1, 0xFFFFFFFF);
 			}
 		}
 
-		GlStateManager.enableAlpha();
-		GlStateManager.color(1F, 1F, 1F, 1F);
+		GlStateManager.enableAlphaTest();
+		GlStateManager.color4f(1F, 1F, 1F, 1F);
 	}
 
 	@Override

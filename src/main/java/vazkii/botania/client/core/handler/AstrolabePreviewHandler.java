@@ -22,8 +22,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.api.distmarker.Dist;
 import org.lwjgl.opengl.ARBShaderObjects;
 import org.lwjgl.opengl.GL11;
@@ -33,12 +33,12 @@ import vazkii.botania.common.lib.LibMisc;
 
 import java.util.List;
 
-@Mod.EventBusSubscriber(value = Side.CLIENT, modid = LibMisc.MOD_ID)
+@Mod.EventBusSubscriber(value = Dist.CLIENT, modid = LibMisc.MOD_ID)
 public final class AstrolabePreviewHandler {
 
 	@SubscribeEvent
 	public static void onWorldRenderLast(RenderWorldLastEvent event) {
-		World world = Minecraft.getMinecraft().world;
+		World world = Minecraft.getInstance().world;
 		List<EntityPlayer> playerEntities = world.playerEntities;
 		for (EntityPlayer player : playerEntities) {
 			ItemStack currentStack = player.getHeldItemMainhand();
@@ -56,8 +56,7 @@ public final class AstrolabePreviewHandler {
 	private static void renderPlayerLook(EntityPlayer player, ItemStack stack) {
 		List<BlockPos> coords = ItemAstrolabe.getBlocksToPlace(stack, player);
 		if (ItemAstrolabe.hasBlocks(stack, player, coords)) {
-			Block block = ItemAstrolabe.getBlock(stack);
-			int meta = ItemAstrolabe.getBlockMeta(stack);
+			IBlockState state = ItemAstrolabe.getBlockState(stack);
 
 			GL11.glPushMatrix();
 			GL11.glEnable(GL11.GL_BLEND);
@@ -69,36 +68,34 @@ public final class AstrolabePreviewHandler {
 			});
 			
 			for(BlockPos coord : coords)
-				renderBlockAt(block, meta, coord);
+				renderBlockAt(state, coord);
 			
 			ShaderHelper.releaseShader();
 			GL11.glPopMatrix();
 		}
 	}
 
-	private static void renderBlockAt(Block block, int meta, BlockPos pos) {
-		IBlockState state = block.getStateFromMeta(meta);
-
-		double renderPosX = Minecraft.getMinecraft().getRenderManager().renderPosX;
-		double renderPosY = Minecraft.getMinecraft().getRenderManager().renderPosY;
-		double renderPosZ = Minecraft.getMinecraft().getRenderManager().renderPosZ;
+	private static void renderBlockAt(IBlockState state, BlockPos pos) {
+		double renderPosX = Minecraft.getInstance().getRenderManager().renderPosX;
+		double renderPosY = Minecraft.getInstance().getRenderManager().renderPosY;
+		double renderPosZ = Minecraft.getInstance().getRenderManager().renderPosZ;
 
 		GlStateManager.pushMatrix();
-		GlStateManager.translate(-renderPosX, -renderPosY, -renderPosZ);
-		GlStateManager.disableDepth();
+		GlStateManager.translated(-renderPosX, -renderPosY, -renderPosZ);
+		GlStateManager.disableDepthTest();
 		
 		GlStateManager.pushMatrix();
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
-		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-		BlockRendererDispatcher brd = Minecraft.getMinecraft().getBlockRendererDispatcher();
-		GlStateManager.translate(pos.getX(), pos.getY(), pos.getZ() + 1);
-		GlStateManager.color(1, 1, 1, 1);
+		Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+		BlockRendererDispatcher brd = Minecraft.getInstance().getBlockRendererDispatcher();
+		GlStateManager.translatef(pos.getX(), pos.getY(), pos.getZ() + 1);
+		GlStateManager.color4f(1, 1, 1, 1);
 		brd.renderBlockBrightness(state, 1.0F);
 
-		GlStateManager.color(1F, 1F, 1F, 1F);
-		GlStateManager.enableDepth();
+		GlStateManager.color4f(1F, 1F, 1F, 1F);
+		GlStateManager.enableDepthTest();
 		GlStateManager.popMatrix();
 		GlStateManager.popMatrix();
 	}

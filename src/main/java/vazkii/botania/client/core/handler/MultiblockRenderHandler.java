@@ -25,12 +25,11 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.api.distmarker.Dist;
 import org.lwjgl.opengl.ARBShaderObjects;
 import org.lwjgl.opengl.GL11;
@@ -42,7 +41,7 @@ import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.lib.LibMisc;
 
-@Mod.EventBusSubscriber(value = Side.CLIENT, modid = LibMisc.MOD_ID)
+@Mod.EventBusSubscriber(value = Dist.CLIENT, modid = LibMisc.MOD_ID)
 public final class MultiblockRenderHandler {
 
 	private MultiblockRenderHandler() {}
@@ -60,14 +59,14 @@ public final class MultiblockRenderHandler {
 		anchor = null;
 		angle = EnumFacing.SOUTH;
 
-		Minecraft mc = Minecraft.getMinecraft();
+		Minecraft mc = Minecraft.getInstance();
 		if(mc.world != null)
-			dimension = mc.world.provider.getDimension();
+			dimension = mc.world.getDimension().getId();
 	}
 
 	@SubscribeEvent
 	public static void onWorldRenderLast(RenderWorldLastEvent event) {
-		Minecraft mc = Minecraft.getMinecraft();
+		Minecraft mc = Minecraft.getInstance();
 		if(mc.player != null && mc.objectMouseOver != null && mc.objectMouseOver.getBlockPos() != null && (!mc.player.isSneaking() || anchor != null)) {
 			renderPlayerLook(mc.player, mc.objectMouseOver);
 		}
@@ -84,7 +83,7 @@ public final class MultiblockRenderHandler {
 	}
 
 	private static void renderPlayerLook(EntityPlayer player, RayTraceResult src) {
-		if(currentMultiblock != null && dimension == player.world.provider.getDimension()) {
+		if(currentMultiblock != null && dimension == player.world.getDimension().getId()) {
 			BlockPos anchorPos = anchor != null ? anchor : src.getBlockPos();
 
 			GlStateManager.pushMatrix();
@@ -122,9 +121,9 @@ public final class MultiblockRenderHandler {
 	}
 
 	private static boolean renderComponentInWorld(World world, Multiblock mb, MultiblockComponent comp, BlockPos anchorPos) {
-		double renderPosX = Minecraft.getMinecraft().getRenderManager().renderPosX;
-		double renderPosY = Minecraft.getMinecraft().getRenderManager().renderPosY;
-		double renderPosZ = Minecraft.getMinecraft().getRenderManager().renderPosZ;
+		double renderPosX = Minecraft.getInstance().getRenderManager().renderPosX;
+		double renderPosY = Minecraft.getInstance().getRenderManager().renderPosY;
+		double renderPosZ = Minecraft.getInstance().getRenderManager().renderPosZ;
 
 		BlockPos pos = comp.getRelativePosition();
 		BlockPos pos_ = pos.add(anchorPos);
@@ -132,15 +131,15 @@ public final class MultiblockRenderHandler {
 			return false;
 
 		GlStateManager.pushMatrix();
-		GlStateManager.translate(-renderPosX, -renderPosY, -renderPosZ);
-		GlStateManager.disableDepth();
+		GlStateManager.translated(-renderPosX, -renderPosY, -renderPosZ);
+		GlStateManager.disableDepthTest();
 		doRenderComponent(mb, comp, pos_);
 		GlStateManager.popMatrix();
 		return true;
 	}
 
 	public static void renderMultiblockOnPage(Multiblock mb) {
-		GlStateManager.translate(-0.5, -0.5, -0.5);
+		GlStateManager.translated(-0.5, -0.5, -0.5);
 		blockAccess.update(null, mb, mb.offPos);
 		for(MultiblockComponent comp : mb.getComponents()) {
 			BlockPos pos = comp.getRelativePosition();
@@ -153,25 +152,25 @@ public final class MultiblockRenderHandler {
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		IBlockState state = comp.getBlockState();
-		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+		Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 		if(state == null)
 			return;
 		if(IMultiblockRenderHook.renderHooks.containsKey(state.getBlock())) {
-			GlStateManager.color(1F, 1F, 1F, 1F);
+			GlStateManager.color4f(1F, 1F, 1F, 1F);
 			IMultiblockRenderHook renderHook = IMultiblockRenderHook.renderHooks.get(state.getBlock());
 			if(renderHook.needsTranslate(state)) {
-				GlStateManager.translate(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
+				GlStateManager.translated(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
 			}
 			renderHook.renderBlockForMultiblock(blockAccess, mb, state, comp);
 		}
 		else {
-			BlockRendererDispatcher brd = Minecraft.getMinecraft().getBlockRendererDispatcher();
-			GlStateManager.translate(pos.getX(), pos.getY(), pos.getZ() + 1);
-			GlStateManager.color(1, 1, 1, 1);
+			BlockRendererDispatcher brd = Minecraft.getInstance().getBlockRendererDispatcher();
+			GlStateManager.translated(pos.getX(), pos.getY(), pos.getZ() + 1);
+			GlStateManager.color4f(1, 1, 1, 1);
 			brd.renderBlockBrightness(state, 1.0F);
 		}
-		GlStateManager.color(1F, 1F, 1F, 1F);
-		GlStateManager.enableDepth();
+		GlStateManager.color4f(1F, 1F, 1F, 1F);
+		GlStateManager.enableDepthTest();
 		GlStateManager.popMatrix();
 	}
 }

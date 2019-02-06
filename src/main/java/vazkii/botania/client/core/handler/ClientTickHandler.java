@@ -15,8 +15,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
 import net.minecraftforge.fml.common.gameevent.TickEvent.RenderTickEvent;
@@ -31,7 +31,7 @@ import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibMisc;
 
-@Mod.EventBusSubscriber(value = Side.CLIENT, modid = LibMisc.MOD_ID)
+@Mod.EventBusSubscriber(value = Dist.CLIENT, modid = LibMisc.MOD_ID)
 public final class ClientTickHandler {
 
 	private ClientTickHandler() {}
@@ -64,20 +64,20 @@ public final class ClientTickHandler {
 			RedStringRenderer.tick();
 			ItemsRemainingRenderHandler.tick();
 
-			if(Minecraft.getMinecraft().world == null) {
+			if(Minecraft.getInstance().world == null) {
 				ManaNetworkHandler.instance.clear();
 				SubTileVinculotus.existingFlowers.clear();
 			}
 
-			GuiScreen gui = Minecraft.getMinecraft().currentScreen;
+			GuiScreen gui = Minecraft.getInstance().currentScreen;
 			if(gui == null || !gui.doesGuiPauseGame()) {
 				ticksInGame++;
 				partialTicks = 0;
 
-				EntityPlayer player = Minecraft.getMinecraft().player;
+				EntityPlayer player = Minecraft.getInstance().player;
 				if(player != null) {
 					if(PlayerHelper.hasHeldItemClass(player, ModItems.twigWand)) {
-						for(TileSignature sig : ImmutableList.copyOf(ManaNetworkHandler.instance.getAllCollectorsInWorld(Minecraft.getMinecraft().world))) {
+						for(TileSignature sig : ImmutableList.copyOf(ManaNetworkHandler.instance.getAllCollectorsInWorld(Minecraft.getInstance().world))) {
 							if(!sig.isRemote())
 								continue;
 

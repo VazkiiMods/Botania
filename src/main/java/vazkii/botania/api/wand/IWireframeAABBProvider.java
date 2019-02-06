@@ -14,12 +14,14 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import java.util.List;
+
 /**
  * A block that implements this can provide a custom AABB
  * for rendering the wireframe with ITileBound.
  */
 public interface IWireframeAABBProvider {
 
-	public AxisAlignedBB getWireframeAABB(World world, BlockPos pos);
+	public List<AxisAlignedBB> getWireframeAABB(World world, BlockPos pos);
 
 }

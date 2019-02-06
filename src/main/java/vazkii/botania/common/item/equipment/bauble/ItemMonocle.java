@@ -28,6 +28,7 @@ import net.minecraft.init.Items;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.state.properties.ComparatorMode;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.api.distmarker.Dist;
@@ -66,8 +67,8 @@ public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, ICosm
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public static void renderHUD(ScaledResolution resolution, EntityPlayer player) {
-		Minecraft mc = Minecraft.getMinecraft();
+	public static void renderHUD(EntityPlayer player) {
+		Minecraft mc = Minecraft.getInstance();
 		RayTraceResult pos = mc.objectMouseOver;
 		if(pos == null || pos.getBlockPos() == null)
 			return;
@@ -80,23 +81,23 @@ public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, ICosm
 
 		if(block == Blocks.REDSTONE_WIRE) {
 			dispStack = new ItemStack(Items.REDSTONE);
-			text = TextFormatting.RED + "" + state.getValue(BlockRedstoneWire.POWER);
-		} else if(block == Blocks.UNPOWERED_REPEATER || block == Blocks.POWERED_REPEATER) {
-			dispStack = new ItemStack(Items.REPEATER);
-			text = "" + state.getValue(BlockRedstoneRepeater.DELAY);
-		} else if(block == Blocks.UNPOWERED_COMPARATOR || block == Blocks.POWERED_COMPARATOR) {
-			dispStack = new ItemStack(Items.COMPARATOR);
-			text = state.getValue(BlockRedstoneComparator.MODE) == BlockRedstoneComparator.Mode.SUBTRACT ? "-" : "+";
+			text = TextFormatting.RED + "" + state.get(BlockRedstoneWire.POWER);
+		} else if(block == Blocks.REPEATER) {
+			dispStack = new ItemStack(Blocks.REPEATER);
+			text = "" + state.get(BlockRedstoneRepeater.DELAY);
+		} else if(block == Blocks.COMPARATOR) {
+			dispStack = new ItemStack(Blocks.COMPARATOR);
+			text = state.get(BlockRedstoneComparator.MODE) == ComparatorMode.SUBTRACT ? "-" : "+";
 		}
 
 		if(dispStack.isEmpty())
 			return;
 
-		int x = resolution.getScaledWidth() / 2 + 15;
-		int y = resolution.getScaledHeight() / 2 - 8;
+		int x = mc.mainWindow.getScaledWidth() / 2 + 15;
+		int y = mc.mainWindow.getScaledHeight() / 2 - 8;
 
 		net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
-		mc.getRenderItem().renderItemAndEffectIntoGUI(dispStack, x, y);
+		mc.getItemRenderer().renderItemAndEffectIntoGUI(dispStack, x, y);
 		net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
 
 		mc.fontRenderer.drawStringWithShadow(text, x + 20, y + 4, 0xFFFFFF);

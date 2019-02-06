@@ -10,23 +10,23 @@
  */
 package vazkii.botania.client.core.handler;
 
-import net.minecraft.client.resources.I18n;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.EventPriority;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.api.distmarker.Dist;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ItemKeepIvy;
 import vazkii.botania.common.lib.LibMisc;
 
-@Mod.EventBusSubscriber(value = Side.CLIENT, modid = LibMisc.MOD_ID)
+@Mod.EventBusSubscriber(value = Dist.CLIENT, modid = LibMisc.MOD_ID)
 public final class TooltipHandler {
 
 	@SubscribeEvent(priority = EventPriority.HIGHEST)
 	public static void onTooltipEvent(ItemTooltipEvent event) {
-		if(event.getItemStack().hasTagCompound() && ItemNBTHelper.getBoolean(event.getItemStack(), ItemKeepIvy.TAG_KEEP, false))
-			event.getToolTip().add(I18n.format("botaniamisc.hasKeepIvy"));
+		if(event.getItemStack().hasTag() && ItemNBTHelper.getBoolean(event.getItemStack(), ItemKeepIvy.TAG_KEEP, false))
+			event.getToolTip().add(new TextComponentTranslation("botaniamisc.hasKeepIvy"));
 	}
 
 }

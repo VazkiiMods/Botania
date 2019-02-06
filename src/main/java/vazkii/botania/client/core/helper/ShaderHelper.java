@@ -13,9 +13,9 @@ package vazkii.botania.client.core.helper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
-import net.minecraft.client.resources.SimpleReloadableResourceManager;
-import net.minecraftforge.fml.common.Loader;
 
+import net.minecraft.resources.SimpleReloadableResourceManager;
+import net.minecraftforge.fml.ModList;
 import org.lwjgl.opengl.ARBFragmentShader;
 import org.lwjgl.opengl.ARBShaderObjects;
 import org.lwjgl.opengl.ARBVertexShader;
@@ -59,8 +59,8 @@ public final class ShaderHelper {
 	}
 
 	public static void initShaders() {
-		if (Minecraft.getMinecraft().getResourceManager() instanceof SimpleReloadableResourceManager) {
-			((SimpleReloadableResourceManager) Minecraft.getMinecraft().getResourceManager()).registerReloadListener(manager -> {
+		if (Minecraft.getInstance().getResourceManager() instanceof SimpleReloadableResourceManager) {
+			((SimpleReloadableResourceManager) Minecraft.getInstance().getResourceManager()).addReloadListener(manager -> {
 				deleteShader(pylonGlow); pylonGlow = 0;
 				deleteShader(enchanterRune); enchanterRune = 0;
 				deleteShader(manaPool); manaPool = 0;
@@ -129,7 +129,7 @@ public final class ShaderHelper {
 	
 	private static boolean checkIncompatibleMods() {
 		if(!checkedIncompatibility) {
-			hasIncompatibleMods = Loader.isModLoaded("optifine");
+			hasIncompatibleMods = ModList.get().isLoaded("optifine");
 			checkedIncompatibility = true;
 		}
 		

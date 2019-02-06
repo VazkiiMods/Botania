@@ -333,9 +333,9 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public void renderHUD(Minecraft mc, ScaledResolution res) {
-		int xc = res.getScaledWidth() / 2;
-		int yc = res.getScaledHeight() / 2;
+	public void renderHUD(Minecraft mc) {
+		int xc = mc.mainWindow.getScaledWidth() / 2;
+		int yc = mc.mainWindow.getScaledHeight() / 2;
 
 		float angle = -90;
 		int radius = 24;

@@ -23,7 +23,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
@@ -45,11 +45,11 @@ public final class BoundTileRenderer {
 	public static void onWorldRenderLast(RenderWorldLastEvent event) {
 		GlStateManager.pushMatrix();
 		GL11.glPushAttrib(GL11.GL_LIGHTING_BIT);
-		GlStateManager.disableDepth();
+		GlStateManager.disableDepthTest();
 		GlStateManager.disableTexture2D();
 		GlStateManager.enableBlend();
 
-		EntityPlayer player = Minecraft.getMinecraft().player;
+		EntityPlayer player = Minecraft.getInstance().player;
 		int color = Color.HSBtoRGB(ClientTickHandler.ticksInGame % 200 / 200F, 0.6F, 1F);
 
 		if(!player.getHeldItemMainhand().isEmpty() && player.getHeldItemMainhand().getItem() instanceof ICoordBoundItem) {
@@ -83,7 +83,7 @@ public final class BoundTileRenderer {
 			}
 		}
 
-		GlStateManager.enableDepth();
+		GlStateManager.enableDepthTest();
 		GlStateManager.enableTexture2D();
 		GlStateManager.disableBlend();
 		GL11.glPopAttrib();
@@ -95,38 +95,40 @@ public final class BoundTileRenderer {
 	}
 
 	private static void renderBlockOutlineAt(BlockPos pos, int color, float thickness) {
-		double renderPosX = Minecraft.getMinecraft().getRenderManager().renderPosX;
-		double renderPosY = Minecraft.getMinecraft().getRenderManager().renderPosY;
-		double renderPosZ = Minecraft.getMinecraft().getRenderManager().renderPosZ;
+		double renderPosX = Minecraft.getInstance().getRenderManager().renderPosX;
+		double renderPosY = Minecraft.getInstance().getRenderManager().renderPosY;
+		double renderPosZ = Minecraft.getInstance().getRenderManager().renderPosZ;
 
 		GlStateManager.pushMatrix();
-		GlStateManager.translate(pos.getX() - renderPosX, pos.getY() - renderPosY, pos.getZ() - renderPosZ + 1);
+		GlStateManager.translated(pos.getX() - renderPosX, pos.getY() - renderPosY, pos.getZ() - renderPosZ + 1);
 		Color colorRGB = new Color(color);
 		GL11.glColor4ub((byte) colorRGB.getRed(), (byte) colorRGB.getGreen(), (byte) colorRGB.getBlue(), (byte) 255);
 
-		World world = Minecraft.getMinecraft().world;
+		World world = Minecraft.getInstance().world;
 		IBlockState state = world.getBlockState(pos);
 		Block block = state.getBlock();
 		drawWireframe : {
-			if(block != null) {
-				AxisAlignedBB axis;
+			List<AxisAlignedBB> list;
 
-				if(block instanceof IWireframeAABBProvider)
-					axis = ((IWireframeAABBProvider) block).getWireframeAABB(world, pos);
-				else axis = state.getSelectedBoundingBox(world, pos);
+			if(block instanceof IWireframeAABBProvider)
+				list = ((IWireframeAABBProvider) block).getWireframeAABB(world, pos);
+			else list = state.getShape(world, pos).toBoundingBoxList();
 
-				if(axis == null)
-					break drawWireframe;
+			if(list == null)
+				break drawWireframe;
 
+			GlStateManager.scalef(1F, 1F, 1F);
+
+			GL11.glLineWidth(thickness);
+			for(AxisAlignedBB axis : list) {
 				axis = axis.offset(-pos.getX(), -pos.getY(), -(pos.getZ() + 1));
-
-				GlStateManager.scale(1F, 1F, 1F);
-
-				GL11.glLineWidth(thickness);
 				renderBlockOutline(axis);
+			}
 
-				GL11.glLineWidth(thickness + 3F);
-				GL11.glColor4ub((byte) colorRGB.getRed(), (byte) colorRGB.getGreen(), (byte) colorRGB.getBlue(), (byte) 64);
+			GL11.glLineWidth(thickness + 3F);
+			GL11.glColor4ub((byte) colorRGB.getRed(), (byte) colorRGB.getGreen(), (byte) colorRGB.getBlue(), (byte) 64);
+			for(AxisAlignedBB axis : list) {
+				axis = axis.offset(-pos.getX(), -pos.getY(), -(pos.getZ() + 1));
 				renderBlockOutline(axis);
 			}
 		}

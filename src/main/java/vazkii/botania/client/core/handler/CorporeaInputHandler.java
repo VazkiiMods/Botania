@@ -15,11 +15,9 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.client.event.GuiScreenEvent.KeyboardInputEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.api.distmarker.Dist;
-import org.lwjgl.input.Keyboard;
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
@@ -28,7 +26,7 @@ import vazkii.botania.common.lib.LibMisc;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
-@Mod.EventBusSubscriber(modid = LibMisc.MOD_ID, value = Side.CLIENT)
+@Mod.EventBusSubscriber(modid = LibMisc.MOD_ID, value = Dist.CLIENT)
 public class CorporeaInputHandler {
 
 	/** Replaced in JEIBotaniaPlugin when JEI's loaded to provide stacks from the JEI item panel. */
@@ -71,7 +69,7 @@ public class CorporeaInputHandler {
 	}
 
 	private static ItemStack getStackUnderMouse() {
-		GuiScreen screen = Minecraft.getMinecraft().currentScreen;
+		GuiScreen screen = Minecraft.getInstance().currentScreen;
 		if(screen instanceof GuiContainer) {
 			Slot slotUnderMouse = ((GuiContainer) screen).getSlotUnderMouse();
 			if(slotUnderMouse != null)

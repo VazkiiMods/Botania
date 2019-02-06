@@ -48,7 +48,7 @@ public final class PersistentVariableHelper {
 
 		List<GuiLexicon> bookmarks = GuiLexicon.bookmarks;
 		int count = bookmarks.size();
-		cmp.setInteger(TAG_BOOKMARK_COUNT, count);
+		cmp.setInt(TAG_BOOKMARK_COUNT, count);
 		NBTTagCompound bookmarksCmp = new NBTTagCompound();
 		for(int i = 0; i < count; i++) {
 			GuiLexicon lex = bookmarks.get(i);
@@ -74,7 +74,7 @@ public final class PersistentVariableHelper {
 		cmp.setBoolean(TAG_FIRST_LOAD, firstLoad);
 		cmp.setBoolean(TAG_DOG, dog);
 		cmp.setString(TAG_LAST_BOTANIA_VERSION, lastBotaniaVersion);
-		cmp.setInteger(TAG_LEXICON_GUI_SCALE, lexiconGuiScale);
+		cmp.setInt(TAG_LEXICON_GUI_SCALE, lexiconGuiScale);
 
 		injectNBTToFile(cmp, getCacheFile());
 	}
@@ -82,12 +82,12 @@ public final class PersistentVariableHelper {
 	public static void load() throws IOException {
 		NBTTagCompound cmp = getCacheCompound();
 
-		int count = cmp.getInteger(TAG_BOOKMARK_COUNT);
+		int count = cmp.getInt(TAG_BOOKMARK_COUNT);
 		GuiLexicon.bookmarks.clear();
 		if(count > 0) {
-			NBTTagCompound bookmarksCmp = cmp.getCompoundTag(TAG_BOOKMARKS);
+			NBTTagCompound bookmarksCmp = cmp.getCompound(TAG_BOOKMARKS);
 			for(int i = 0; i < count; i++) {
-				NBTTagCompound bookmarkCmp = bookmarksCmp.getCompoundTag(TAG_BOOKMARK_PREFIX + i);
+				NBTTagCompound bookmarkCmp = bookmarksCmp.getCompound(TAG_BOOKMARK_PREFIX + i);
 				GuiLexicon gui = GuiLexicon.create(bookmarkCmp);
 				if(gui != null) {
 					GuiLexicon.bookmarks.add(gui);
@@ -97,14 +97,14 @@ public final class PersistentVariableHelper {
 		}
 
 		if(cmp.hasKey(TAG_CHALLENGES)) {
-			NBTTagCompound challengesCmp = cmp.getCompoundTag(TAG_CHALLENGES);
+			NBTTagCompound challengesCmp = cmp.getCompound(TAG_CHALLENGES);
 			for(Challenge c : ModChallenges.challengeLookup.values())
 				c.readFromNBT(challengesCmp);
 		}
 
 		if(cmp.hasKey(TAG_LEXICON_NOTES)) {
-			NBTTagCompound notesCmp = cmp.getCompoundTag(TAG_LEXICON_NOTES);
-			Set<String> keys = notesCmp.getKeySet();
+			NBTTagCompound notesCmp = cmp.getCompound(TAG_LEXICON_NOTES);
+			Set<String> keys = notesCmp.keySet();
 			GuiLexicon.notes.clear();
 			for(String key : keys)
 				GuiLexicon.notes.put(key, notesCmp.getString(key));
@@ -117,7 +117,7 @@ public final class PersistentVariableHelper {
 			lastBotaniaVersion = LibMisc.VERSION;
 
 		dog = cmp.getBoolean(TAG_DOG);
-		lexiconGuiScale = cmp.getInteger(TAG_LEXICON_GUI_SCALE);
+		lexiconGuiScale = cmp.getInt(TAG_LEXICON_GUI_SCALE);
 	}
 
 	public static void saveSafe() {

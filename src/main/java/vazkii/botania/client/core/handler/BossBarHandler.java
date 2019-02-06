@@ -14,8 +14,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.api.distmarker.Dist;
 import org.lwjgl.opengl.ARBShaderObjects;
 import org.lwjgl.opengl.GL11;
@@ -32,7 +32,7 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.WeakHashMap;
 
-@Mod.EventBusSubscriber(value = Side.CLIENT, modid = LibMisc.MOD_ID)
+@Mod.EventBusSubscriber(value = Dist.CLIENT, modid = LibMisc.MOD_ID)
 public final class BossBarHandler {
 
 	private BossBarHandler() {}
@@ -49,11 +49,11 @@ public final class BossBarHandler {
 			if(currentBoss.getBossInfoUuid().equals(infoUuid)) {
 				evt.setCanceled(true);
 
-				Minecraft mc = Minecraft.getMinecraft();
+				Minecraft mc = Minecraft.getInstance();
 				Rectangle bgRect = currentBoss.getBossBarTextureRect();
 				Rectangle fgRect = currentBoss.getBossBarHPTextureRect();
 				String name = evt.getBossInfo().getName().getFormattedText();
-				int c = evt.getResolution().getScaledWidth() / 2;
+				int c = Minecraft.getInstance().mainWindow.getScaledWidth() / 2;
 				int x = evt.getX();
 				int y = evt.getY();
 				int xf = x + (bgRect.width - fgRect.width) / 2;
@@ -61,11 +61,11 @@ public final class BossBarHandler {
 				int fw = (int) ((double) fgRect.width * evt.getBossInfo().getPercent());
 				int tx = c - mc.fontRenderer.getStringWidth(name) / 2;
 
-				GlStateManager.color(1F, 1F, 1F, 1F);
-				int auxHeight = currentBoss.bossBarRenderCallback(evt.getResolution(), x, y);
+				GlStateManager.color4f(1F, 1F, 1F, 1F);
+				int auxHeight = currentBoss.bossBarRenderCallback(x, y);
 				GlStateManager.enableBlend();
 				GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-				mc.renderEngine.bindTexture(currentBoss.getBossBarTexture());
+				mc.textureManager.bindTexture(currentBoss.getBossBarTexture());
 				drawBar(currentBoss, x, y, bgRect.x, bgRect.y, bgRect.width, bgRect.height, true);
 				drawBar(currentBoss, xf, yf, fgRect.x, fgRect.y, fw, fgRect.height, false);
 				mc.fontRenderer.drawStringWithShadow(name, tx, y - 10, 0xA2018C);

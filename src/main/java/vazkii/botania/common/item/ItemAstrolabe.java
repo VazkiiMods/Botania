@@ -19,6 +19,7 @@ import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTUtil;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
@@ -45,8 +46,7 @@ import java.util.List;
 
 public class ItemAstrolabe extends ItemMod {
 
-	private static final String TAG_BLOCK_NAME = "blockName";
-	private static final String TAG_BLOCK_META = "blockMeta";
+	private static final String TAG_BLOCKSTATE = "blockstate";
 	private static final String TAG_SIZE = "size";
 
 	public ItemAstrolabe() {
@@ -242,10 +242,9 @@ public class ItemAstrolabe extends ItemMod {
 			ItemsRemainingRenderHandler.set(new ItemStack(block, 1, meta), count);
 	}
 
-	private boolean setBlock(ItemStack stack, Block block, int meta) {
-		if(Item.getItemFromBlock(block) != Items.AIR) {
-			ItemNBTHelper.setString(stack, TAG_BLOCK_NAME, Block.REGISTRY.getNameForObject(block).toString());
-			ItemNBTHelper.setInt(stack, TAG_BLOCK_META, meta);
+	private boolean setBlock(ItemStack stack, IBlockState state) {
+		if(!state.isAir()) {
+			ItemNBTHelper.setCompound(stack, TAG_BLOCKSTATE, NBTUtil.writeBlockState(state));
 			return true;
 		}
 		return false;
@@ -260,19 +259,11 @@ public class ItemAstrolabe extends ItemMod {
 	}
 
 	public static Block getBlock(ItemStack stack) {
-		Block block = Block.getBlockFromName(getBlockName(stack));
-		if(block == null)
-			return Blocks.AIR;
-		
-		return block;
+		return getBlockState(stack).getBlock();
 	}
 
-	public static String getBlockName(ItemStack stack) {
-		return ItemNBTHelper.getString(stack, TAG_BLOCK_NAME, "");
-	}
-
-	public static int getBlockMeta(ItemStack stack) {
-		return ItemNBTHelper.getInt(stack, TAG_BLOCK_META, 0);
+	public static IBlockState getBlockState(ItemStack stack) {
+		return NBTUtil.readBlockState(ItemNBTHelper.getCompound(stack, TAG_BLOCKSTATE, null));
 	}
 
 	@Override

@@ -10,7 +10,6 @@
  */
 package vazkii.botania.api.boss;
 
-import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -52,7 +51,7 @@ public interface IBotaniaBoss {
 	 * @return How tall your auxiliary renders were
 	 */
 	@OnlyIn(Dist.CLIENT)
-	public int bossBarRenderCallback(ScaledResolution res, int x, int y);
+	public int bossBarRenderCallback(int x, int y);
 
 	/**
 	 * Get the serverside UUID of the {@link net.minecraft.world.BossInfoServer} instance tracking this boss

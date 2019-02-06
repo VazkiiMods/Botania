@@ -11,14 +11,12 @@
 package vazkii.botania.client.core.handler;
 
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Biomes;
+import net.minecraft.fluid.IFluidState;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Fluids;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.WorldType;
-import net.minecraft.world.biome.Biome;
+import net.minecraft.world.IBlockReader;
 import vazkii.botania.api.lexicon.multiblock.Multiblock;
 import vazkii.botania.api.lexicon.multiblock.component.MultiblockComponent;
 
@@ -28,10 +26,9 @@ import javax.annotation.Nonnull;
  * This class acts as a wrapper around a block access to
  * replace blocks with the blocks involved in the multiblock specified
  */
-public class MultiblockBlockAccess implements IBlockAccess {
+public class MultiblockBlockAccess implements IBlockReader {
 
-	private IBlockAccess originalBlockAccess;
-	private boolean hasBlockAccess = false;
+	private IBlockReader compose;
 	private BlockPos anchorPos;
 	protected Multiblock multiblock;
 
@@ -41,9 +38,15 @@ public class MultiblockBlockAccess implements IBlockAccess {
 		MultiblockComponent comp=getComponent(pos);
 		if(comp != null)
 			return comp.getBlockState();
-		if(hasBlockAccess)
-			return originalBlockAccess.getBlockState(pos);
+		if(compose != null)
+			return compose.getBlockState(pos);
 		return Blocks.AIR.getDefaultState();
+	}
+
+	@Nonnull
+	@Override
+	public IFluidState getFluidState(BlockPos pos) {
+		return compose != null ? compose.getFluidState(pos) : Fluids.EMPTY.getDefaultState();
 	}
 
 	@Override
@@ -51,62 +54,18 @@ public class MultiblockBlockAccess implements IBlockAccess {
 		MultiblockComponent comp=getComponent(pos);
 		if(comp != null)
 			return comp.getTileEntity();
-		if(hasBlockAccess)
-			return originalBlockAccess.getTileEntity(pos);
+		if(compose != null)
+			return compose.getTileEntity(pos);
 		return null;
-	}
-
-	@Override
-	public int getCombinedLight(@Nonnull BlockPos pos, int lightValue) {
-		if(hasBlockAccess)
-			return originalBlockAccess.getCombinedLight(pos, lightValue);
-		return 15728640;
-	}
-
-	@Override
-	public int getStrongPower(@Nonnull BlockPos pos, @Nonnull EnumFacing direction) {
-		return 0;
-	}
-
-	@Nonnull
-	@Override
-	public WorldType getWorldType() {
-		return WorldType.DEFAULT;
-	}
-
-	@Override
-	public boolean isAirBlock(@Nonnull BlockPos pos) {
-		MultiblockComponent comp=getComponent(pos);
-		if(comp != null)
-			return false;
-		if(hasBlockAccess)
-			return originalBlockAccess.isAirBlock(pos);
-		return true;
-	}
-
-	@Nonnull
-	@Override
-	public Biome getBiome(@Nonnull BlockPos pos) {
-		if(hasBlockAccess)
-			return originalBlockAccess.getBiome(pos);
-		return Biomes.DEFAULT;
-	}
-
-	@Override
-	public boolean isSideSolid(@Nonnull BlockPos pos, @Nonnull EnumFacing side, boolean _default) {
-		if(hasBlockAccess)
-			return originalBlockAccess.isSideSolid(pos, side, _default);
-		return _default;
 	}
 
 	/**
 	 * Updates the block access to the new parameters
 	 */
-	public void update(IBlockAccess access, Multiblock mb, BlockPos anchorPos) {
-		originalBlockAccess = access;
+	public void update(IBlockReader access, Multiblock mb, BlockPos anchorPos) {
+		compose = access;
 		multiblock = mb;
 		this.anchorPos = anchorPos;
-		hasBlockAccess = access != null;
 	}
 
 	/**

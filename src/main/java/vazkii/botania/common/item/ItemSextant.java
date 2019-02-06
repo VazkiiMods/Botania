@@ -146,15 +146,15 @@ public class ItemSextant extends ItemMod {
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public static void renderHUD(ScaledResolution resolution, EntityPlayer player, ItemStack stack) {
+	public static void renderHUD(EntityPlayer player, ItemStack stack) {
 		ItemStack onUse = player.getActiveItemStack();
 		int time = player.getItemInUseCount();
 
 		if(onUse == stack && stack.getItem().getUseDuration(stack) - time >= 10) {
 			double radius = calculateRadius(stack, player);
 			FontRenderer font = Minecraft.getInstance().fontRenderer;
-			int x = resolution.getScaledWidth() / 2 + 30;
-			int y = resolution.getScaledHeight() / 2;
+			int x = Minecraft.getInstance().mainWindow.getScaledWidth() / 2 + 30;
+			int y = Minecraft.getInstance().mainWindow.getScaledHeight() / 2;
 
 			String s = Integer.toString((int) radius);
 			boolean inRange = 0 < radius && radius <= MAX_RADIUS;

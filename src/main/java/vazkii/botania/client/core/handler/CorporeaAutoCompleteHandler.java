@@ -19,11 +19,9 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.TextComponentString;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
-import net.minecraftforge.fml.relauncher.ReflectionHelper;
-import org.lwjgl.input.Keyboard;
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.common.lib.LibObfuscation;
 
@@ -53,12 +51,12 @@ public class CorporeaAutoCompleteHandler {
 		while(iterator.hasNext()) {
 			Item item = iterator.next();
 
-			if(item != null && item.getCreativeTab() != null) {
+			if(item != null && item.getGroup() != null) {
 				curList.clear();
 				try {
 					item.getSubItems(null, curList);
 					for(ItemStack stack : curList)
-						itemNames.add(CorporeaHelper.stripControlCodes(stack.getDisplayName().trim()));
+						itemNames.add(CorporeaHelper.stripControlCodes(stack.getDisplayName().getUnformattedComponentText().trim()));
 				}
 				catch (Exception e) {}
 			}
@@ -69,7 +67,7 @@ public class CorporeaAutoCompleteHandler {
 	public void onTick(ClientTickEvent event) {
 		if(event.phase != Phase.END)
 			return;
-		GuiScreen screen = Minecraft.getMinecraft().currentScreen;
+		GuiScreen screen = Minecraft.getInstance().currentScreen;
 		if(!(screen instanceof GuiChat)) {
 			isAutoCompleted = false;
 			return;

@@ -11,16 +11,13 @@ package vazkii.botania.client.core.handler;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.client.renderer.block.statemap.DefaultStateMapper;
-import net.minecraft.client.renderer.block.statemap.IStateMapper;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.client.model.obj.OBJLoader;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.registries.IRegistryDelegate;
 import vazkii.botania.api.BotaniaAPIClient;
@@ -50,7 +47,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.function.IntFunction;
 
-@Mod.EventBusSubscriber(value = Side.CLIENT, modid = LibMisc.MOD_ID)
+@Mod.EventBusSubscriber(value = Dist.CLIENT, modid = LibMisc.MOD_ID)
 public final class ModelHandler {
 	@SubscribeEvent
 	public static void registerModels(ModelRegistryEvent evt) {

@@ -46,14 +46,14 @@ import java.util.Map;
 public final class ColorHandler {
 
 	public static void init() {
-		BlockColors blocks = Minecraft.getMinecraft().getBlockColors();
+		BlockColors blocks = Minecraft.getInstance().getBlockColors();
 		Map<IRegistryDelegate<Block>, IBlockColor> map = ReflectionHelper.getPrivateValue(BlockColors.class, blocks, "blockColorMap");
 
 		// Steal vine colorer
-		blocks.registerBlockColorHandler(map.get(Blocks.VINE.delegate), ModBlocks.solidVines);
+		blocks.register(map.get(Blocks.VINE.delegate), ModBlocks.solidVines);
 
 		// Pool
-		blocks.registerBlockColorHandler(
+		blocks.register(
 				(state, world, pos, tintIndex) -> {
 					if (((BlockPool) state.getBlock()).variant == BlockPool.Variant.FABULOUS) {
 						float time = ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks;
@@ -66,7 +66,7 @@ public final class ColorHandler {
 				);
 
 		// Spreader
-		blocks.registerBlockColorHandler(
+		blocks.register(
 				(state, world, pos, tintIndex) -> {
 					float time = ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks;
 					return Color.HSBtoRGB(time * 5 % 360 / 360F, 0.4F, 0.9F);
@@ -75,7 +75,7 @@ public final class ColorHandler {
 				);
 
 		// Petal Block
-		blocks.registerBlockColorHandler((state, world, pos, tintIndex) -> ((BlockPetalBlock) state.getBlock()).color.getColorValue(),
+		blocks.register((state, world, pos, tintIndex) -> ((BlockPetalBlock) state.getBlock()).color.getColorValue(),
 				ModBlocks.petalBlockWhite, ModBlocks.petalBlockOrange, ModBlocks.petalBlockMagenta, ModBlocks.petalBlockLightBlue,
 				ModBlocks.petalBlockYellow, ModBlocks.petalBlockLime, ModBlocks.petalBlockPink, ModBlocks.petalBlockGray,
 				ModBlocks.petalBlockSilver, ModBlocks.petalBlockCyan, ModBlocks.petalBlockPurple, ModBlocks.petalBlockBlue,
@@ -83,7 +83,7 @@ public final class ColorHandler {
 				);
 
 		// Platforms
-		blocks.registerBlockColorHandler(
+		blocks.register(
 				(state, world, pos, tintIndex) -> {
 					if (world != null && pos != null) {
 						TileEntity tile = world.getTileEntity(pos);
@@ -93,43 +93,43 @@ public final class ColorHandler {
 							if(camoState != null)
 								return camoState.getBlock() instanceof BlockCamo
 										? 0xFFFFFF
-												: Minecraft.getMinecraft().getBlockColors().colorMultiplier(camoState, world, pos, tintIndex);
+												: Minecraft.getInstance().getBlockColors().getColor(camoState, world, pos, tintIndex);
 						}
 					}
 					return 0xFFFFFF;
 				}, ModBlocks.abstrusePlatform, ModBlocks.spectralPlatform, ModBlocks.infrangiblePlatform);
 
-		ItemColors items = Minecraft.getMinecraft().getItemColors();
+		ItemColors items = Minecraft.getInstance().getItemColors();
 
-		items.registerItemColorHandler((s, t) -> Color.HSBtoRGB(Botania.proxy.getWorldElapsedTicks() * 2 % 360 / 360F, 0.25F, 1F),
+		items.register((s, t) -> Color.HSBtoRGB(Botania.proxy.getWorldElapsedTicks() * 2 % 360 / 360F, 0.25F, 1F),
 						ModItems.lifeEssence, ModItems.gaiaIngot);
 
-		items.registerItemColorHandler((s, t) ->
-		t == 1 ? EnumDyeColor.byMetadata(ItemTwigWand.getColor1(s)).getColorValue()
-				: t == 2 ? EnumDyeColor.byMetadata(ItemTwigWand.getColor2(s)).getColorValue()
+		items.register((s, t) ->
+		t == 1 ? EnumDyeColor.byId(ItemTwigWand.getColor1(s)).getColorValue()
+				: t == 2 ? EnumDyeColor.byId(ItemTwigWand.getColor2(s)).getColorValue()
 						: -1,
 						ModItems.twigWand);
 
 		IItemColor handler = (s, t) -> ((Item16Colors) s.getItem()).color.colorValue;
 		Item[] dyes = ModItems.dyes.values().toArray(new Item[0]);
 		Item[] petals = ModItems.petals.values().toArray(new Item[0]);
-		items.registerItemColorHandler(handler, dyes);
-		items.registerItemColorHandler(handler, petals);
+		items.register(handler, dyes);
+		items.register(handler, petals);
 
-		items.registerItemColorHandler((s, t) -> Minecraft.getMinecraft().getBlockColors().colorMultiplier(((ItemBlock)s.getItem()).getBlock().getStateFromMeta(s.getMetadata()), null, null, t),
+		items.register((s, t) -> Minecraft.getInstance().getBlockColors().getColor(((ItemBlock)s.getItem()).getBlock().getDefaultState(), null, null, t),
 				ModBlocks.petalBlockWhite, ModBlocks.petalBlockOrange, ModBlocks.petalBlockMagenta, ModBlocks.petalBlockLightBlue,
 				ModBlocks.petalBlockYellow, ModBlocks.petalBlockLime, ModBlocks.petalBlockPink, ModBlocks.petalBlockGray,
 				ModBlocks.petalBlockSilver, ModBlocks.petalBlockCyan, ModBlocks.petalBlockPurple, ModBlocks.petalBlockBlue,
 				ModBlocks.petalBlockBrown, ModBlocks.petalBlockGreen, ModBlocks.petalBlockRed, ModBlocks.petalBlockBlack,
 				ModBlocks.manaPool, ModBlocks.creativePool, ModBlocks.dilutedPool, ModBlocks.fabulousPool, ModBlocks.gaiaSpreader);
 
-		items.registerItemColorHandler((s, t) -> t == 1 ? Color.HSBtoRGB(0.528F, (float) ((ItemManaMirror) ModItems.manaMirror).getMana(s) / (float) TilePool.MAX_MANA, 1F) : -1, ModItems.manaMirror);
+		items.register((s, t) -> t == 1 ? Color.HSBtoRGB(0.528F, (float) ((ItemManaMirror) ModItems.manaMirror).getMana(s) / (float) TilePool.MAX_MANA, 1F) : -1, ModItems.manaMirror);
 
-		items.registerItemColorHandler((s, t) -> t == 1 ? Color.HSBtoRGB(0.528F, (float) ((ItemManaTablet) ModItems.manaTablet).getMana(s) / (float) ItemManaTablet.MAX_MANA, 1F) : -1, ModItems.manaTablet);
+		items.register((s, t) -> t == 1 ? Color.HSBtoRGB(0.528F, (float) ((ItemManaTablet) ModItems.manaTablet).getMana(s) / (float) ItemManaTablet.MAX_MANA, 1F) : -1, ModItems.manaTablet);
 
-		items.registerItemColorHandler((s, t) -> Color.HSBtoRGB(0.55F, ((float) s.getMaxDamage() - (float) s.getItemDamage()) / (float)s.getMaxDamage() * 0.5F, 1F), ModItems.spellCloth);
+		items.register((s, t) -> Color.HSBtoRGB(0.55F, ((float) s.getMaxDamage() - (float) s.getDamage()) / (float)s.getMaxDamage() * 0.5F, 1F), ModItems.spellCloth);
 
-		items.registerItemColorHandler((s, t) -> {
+		items.register((s, t) -> {
 			if(t != 1)
 				return -1;
 
@@ -148,13 +148,13 @@ public final class ColorHandler {
 			return r << 16 | g << 8 | b;
 		}, ModItems.bloodPendant, ModItems.incenseStick, ModItems.brewFlask, ModItems.brewVial);
 
-		items.registerItemColorHandler((s, t) -> {
+		items.register((s, t) -> {
 			ItemStack lens = ItemManaGun.getLens(s);
 			if(!lens.isEmpty() && t == 0)
-				return Minecraft.getMinecraft().getItemColors().colorMultiplier(lens, t);
+				return Minecraft.getInstance().getItemColors().getColor(lens, t);
 
 			if(t == 2) {
-				BurstProperties props = ((ItemManaGun) s.getItem()).getBurstProps(Minecraft.getMinecraft().player, s, false, EnumHand.MAIN_HAND);
+				BurstProperties props = ((ItemManaGun) s.getItem()).getBurstProps(Minecraft.getInstance().player, s, false, EnumHand.MAIN_HAND);
 				Color color = new Color(props.color);
 
 				float mul = (float) (Math.sin((double) ClientTickHandler.ticksInGame / 5) * 0.15F);
@@ -164,15 +164,15 @@ public final class ColorHandler {
 			} else return -1;
 		}, ModItems.manaGun);
 
-		items.registerItemColorHandler((s, t) -> t == 1 ? Color.HSBtoRGB(0.75F, 1F, 1.5F - (float) Math.min(1F, Math.sin(System.currentTimeMillis() / 100D) * 0.5 + 1.2F)) : -1, ModItems.enderDagger);
+		items.register((s, t) -> t == 1 ? Color.HSBtoRGB(0.75F, 1F, 1.5F - (float) Math.min(1F, Math.sin(System.currentTimeMillis() / 100D) * 0.5 + 1.2F)) : -1, ModItems.enderDagger);
 
-		items.registerItemColorHandler((s, t) -> t == 1 && ItemTerraPick.isEnabled(s) ? Color.HSBtoRGB(0.375F, (float) Math.min(1F, Math.sin(System.currentTimeMillis() / 200D) * 0.5 + 1F), 1F) : -1, ModItems.terraPick);
+		items.register((s, t) -> t == 1 && ItemTerraPick.isEnabled(s) ? Color.HSBtoRGB(0.375F, (float) Math.min(1F, Math.sin(System.currentTimeMillis() / 200D) * 0.5 + 1F), 1F) : -1, ModItems.terraPick);
 
 		// todo 1.13 use tags instead of looping registry
 		handler = (s, t) -> t == 0 ? ((ItemLens) s.getItem()).getLensColor(s) : -1;
 		for (Item i : Item.REGISTRY) {
 			if(i instanceof ItemLens && i.getRegistryName().getNamespace().equals(LibMisc.MOD_ID)) {
-				items.registerItemColorHandler(handler, i);
+				items.register(handler, i);
 			}
 		}
 	}

@@ -44,17 +44,17 @@ public final class ContributorFancinessHandler implements LayerRenderer<EntityPl
 	private static boolean startedLoading = false;
 
 	@Override
-	public void doRenderLayer(@Nonnull EntityPlayer player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-		String name = player.getDisplayName().getUnformattedText();
+	public void render(@Nonnull EntityPlayer player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+		String name = player.getDisplayName().getUnformattedComponentText();
 
 		float yaw = player.prevRotationYawHead + (player.rotationYawHead - player.prevRotationYawHead) * partialTicks;
 		float yawOffset = player.prevRenderYawOffset + (player.renderYawOffset - player.prevRenderYawOffset) * partialTicks;
 		float pitch = player.prevRotationPitch + (player.rotationPitch - player.prevRotationPitch) * partialTicks;
 
 		GlStateManager.pushMatrix();
-		GlStateManager.rotate(yawOffset, 0, -1, 0);
-		GlStateManager.rotate(yaw - 270, 0, 1, 0);
-		GlStateManager.rotate(pitch, 0, 0, 1);
+		GlStateManager.rotatef(yawOffset, 0, -1, 0);
+		GlStateManager.rotatef(yaw - 270, 0, 1, 0);
+		GlStateManager.rotatef(pitch, 0, 0, 1);
 
 		if(name.equals("haighyorkie"))
 			renderGoldfish(player);
@@ -104,12 +104,12 @@ public final class ContributorFancinessHandler implements LayerRenderer<EntityPl
 		float f2 = icon.getMinV();
 		float f3 = icon.getMaxV();
 		Helper.rotateIfSneaking(player);
-		GlStateManager.rotate(180F, 0F, 0F, 1F);
-		GlStateManager.rotate(90F, 0F, 1F, 0F);
-		GlStateManager.scale(0.4F, 0.4F, 0.4F);
-		GlStateManager.translate(-0.5F, 1.6F, 0F);
-		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-		IconHelper.renderIconIn3D(Tessellator.getInstance(), f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
+		GlStateManager.rotatef(180F, 0F, 0F, 1F);
+		GlStateManager.rotatef(90F, 0F, 1F, 0F);
+		GlStateManager.scalef(0.4F, 0.4F, 0.4F);
+		GlStateManager.translatef(-0.5F, 1.6F, 0F);
+		Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+		IconHelper.renderIconIn3D(Tessellator.getInstance(), f1, f2, f, f3, icon.getWidth(), icon.getHeight(), 1F / 16F);
 		GlStateManager.popMatrix();
 	}
 
@@ -117,13 +117,13 @@ public final class ContributorFancinessHandler implements LayerRenderer<EntityPl
 	private static void renderFlower(EntityPlayer player, ItemStack flower) {
 		GlStateManager.pushMatrix();
 		Helper.translateToHeadLevel(player);
-		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-		GlStateManager.rotate(180, 0, 0, 1);
-		GlStateManager.translate(0, -0.85, 0);
-		GlStateManager.rotate(-90, 0, 1, 0);
-		GlStateManager.scale(0.5, 0.5, 0.5);
+		Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+		GlStateManager.rotatef(180, 0, 0, 1);
+		GlStateManager.translated(0, -0.85, 0);
+		GlStateManager.rotatef(-90, 0, 1, 0);
+		GlStateManager.scaled(0.5, 0.5, 0.5);
 		ShaderHelper.useShader(ShaderHelper.gold);
-		Minecraft.getMinecraft().getRenderItem().renderItem(flower, player, ItemCameraTransforms.TransformType.NONE, false);
+		Minecraft.getInstance().getItemRenderer().renderItem(flower, player, ItemCameraTransforms.TransformType.NONE, false);
 		ShaderHelper.releaseShader();
 		GlStateManager.popMatrix();
 	}

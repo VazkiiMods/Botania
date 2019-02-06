@@ -40,7 +40,7 @@ public final class RedStringRenderer {
 			GL11.glPushAttrib(GL11.GL_LIGHTING_BIT);
 			GlStateManager.disableLighting();
 			GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-			GlStateManager.color(1F, 0F, 0F, sizeAlpha);
+			GlStateManager.color4f(1F, 0F, 0F, sizeAlpha);
 
 			TileRedString tile;
 			while((tile = redStringTiles.poll()) != null)
@@ -55,7 +55,7 @@ public final class RedStringRenderer {
 	}
 
 	public static void tick() {
-		EntityPlayer player = Minecraft.getMinecraft().player;
+		EntityPlayer player = Minecraft.getInstance().player;
 		boolean hasWand = player != null && PlayerHelper.hasHeldItem(player, ModItems.twigWand);
 		if(sizeAlpha > 0F && !hasWand)
 			sizeAlpha -= 0.1F;
@@ -64,16 +64,16 @@ public final class RedStringRenderer {
 	}
 
 	private static void renderTile(TileRedString tile) {
-		double renderPosX = Minecraft.getMinecraft().getRenderManager().renderPosX;
-		double renderPosY = Minecraft.getMinecraft().getRenderManager().renderPosY;
-		double renderPosZ = Minecraft.getMinecraft().getRenderManager().renderPosZ;
+		double renderPosX = Minecraft.getInstance().getRenderManager().renderPosX;
+		double renderPosY = Minecraft.getInstance().getRenderManager().renderPosY;
+		double renderPosZ = Minecraft.getInstance().getRenderManager().renderPosZ;
 
 		EnumFacing dir = tile.getOrientation();
 		BlockPos bind = tile.getBinding();
 
 		if(bind != null) {
 			GlStateManager.pushMatrix();
-			GlStateManager.translate(tile.getPos().getX() + 0.5 - renderPosX, tile.getPos().getY() + 0.5 - renderPosY, tile.getPos().getZ() + 0.5 - renderPosZ);
+			GlStateManager.translated(tile.getPos().getX() + 0.5 - renderPosX, tile.getPos().getY() + 0.5 - renderPosY, tile.getPos().getZ() + 0.5 - renderPosZ);
 			Vector3 vecOrig = new Vector3(bind.getX() - tile.getPos().getX(), bind.getY() - tile.getPos().getY(), bind.getZ() - tile.getPos().getZ());
 			Vector3 vecNorm = vecOrig.normalize();
 			Vector3 vecMag = vecNorm.multiply(0.025);

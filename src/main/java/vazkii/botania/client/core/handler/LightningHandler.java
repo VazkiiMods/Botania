@@ -19,8 +19,8 @@ import net.minecraft.entity.Entity;
 import net.minecraft.profiler.Profiler;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.api.distmarker.Dist;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.client.fx.FXLightning;
@@ -31,7 +31,7 @@ import vazkii.botania.common.lib.LibMisc;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
-@Mod.EventBusSubscriber(value = Side.CLIENT, modid = LibMisc.MOD_ID)
+@Mod.EventBusSubscriber(value = Dist.CLIENT, modid = LibMisc.MOD_ID)
 public class LightningHandler {
 
 	private LightningHandler() {}
@@ -43,7 +43,7 @@ public class LightningHandler {
 
 	@SubscribeEvent
 	public static void onRenderWorldLast(RenderWorldLastEvent event) {
-		Profiler profiler = Minecraft.getMinecraft().profiler;
+		Profiler profiler = Minecraft.getInstance().profiler;
 
 		profiler.startSection("botania-particles");
 		ParticleRenderDispatcher.dispatch();
@@ -52,15 +52,15 @@ public class LightningHandler {
 		profiler.endStartSection("lightning");
 
 		float frame = event.getPartialTicks();
-		Entity entity = Minecraft.getMinecraft().player;
-		TextureManager render = Minecraft.getMinecraft().renderEngine;
+		Entity entity = Minecraft.getInstance().player;
+		TextureManager render = Minecraft.getInstance().textureManager;
 
 		double interpPosX = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * frame;
 		double interpPosY = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * frame;
 		double interpPosZ = entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * frame;
 
 		GlStateManager.pushMatrix();
-		GlStateManager.translate(-interpPosX, -interpPosY, -interpPosZ);
+		GlStateManager.translated(-interpPosX, -interpPosY, -interpPosZ);
 
 		Tessellator tessellator = Tessellator.getInstance();
 
@@ -103,7 +103,7 @@ public class LightningHandler {
 		GlStateManager.disableBlend();
 		GlStateManager.depthMask(true);
 
-		GlStateManager.translate(interpPosX, interpPosY, interpPosZ);
+		GlStateManager.translated(interpPosX, interpPosY, interpPosZ);
 		GlStateManager.popMatrix();
 
 		profiler.endSection();

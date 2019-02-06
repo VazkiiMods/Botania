@@ -13,7 +13,7 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import org.apache.commons.lang3.text.WordUtils;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.client.model.FloatingFlowerModel;
@@ -79,37 +79,37 @@ public class MiscellaneousIcons {
 	public void onModelBake(ModelBakeEvent evt) {
 		// Floating flowers
 		FloatingFlowerModel model = new FloatingFlowerModel();
-		evt.getModelRegistry().putObject(new ModelResourceLocation("botania:miniIsland", "normal"), model);
-		evt.getModelRegistry().putObject(new ModelResourceLocation("botania:miniIsland", "inventory"), model);
-		evt.getModelRegistry().putObject(new ModelResourceLocation("botania:floatingSpecialFlower", "normal"), model);
-		evt.getModelRegistry().putObject(new ModelResourceLocation("botania:floatingSpecialFlower", "inventory"), model);
+		evt.getModelRegistry().put(new ModelResourceLocation("botania:miniIsland", "normal"), model);
+		evt.getModelRegistry().put(new ModelResourceLocation("botania:miniIsland", "inventory"), model);
+		evt.getModelRegistry().put(new ModelResourceLocation("botania:floatingSpecialFlower", "normal"), model);
+		evt.getModelRegistry().put(new ModelResourceLocation("botania:floatingSpecialFlower", "inventory"), model);
 
 		// Platforms
 		ModelResourceLocation abstruseName = new ModelResourceLocation("botania:abstruse_platform", "normal");
-		IBakedModel abstruse = evt.getModelRegistry().getObject(abstruseName);
+		IBakedModel abstruse = evt.getModelRegistry().get(abstruseName);
 		ModelResourceLocation spectralName = new ModelResourceLocation("botania:spectral_platform", "normal");
-		IBakedModel spectral = evt.getModelRegistry().getObject(spectralName);
+		IBakedModel spectral = evt.getModelRegistry().get(spectralName);
 		ModelResourceLocation infrangibleName = new ModelResourceLocation("botania:infrangible_platform", "normal");
-		IBakedModel infrangible = evt.getModelRegistry().getObject(infrangibleName);
+		IBakedModel infrangible = evt.getModelRegistry().get(infrangibleName);
 
-		evt.getModelRegistry().putObject(abstruseName, new PlatformModel(abstruse));
-		evt.getModelRegistry().putObject(spectralName, new PlatformModel(spectral));
-		evt.getModelRegistry().putObject(infrangibleName, new PlatformModel(infrangible));
+		evt.getModelRegistry().put(abstruseName, new PlatformModel(abstruse));
+		evt.getModelRegistry().put(spectralName, new PlatformModel(spectral));
+		evt.getModelRegistry().put(infrangibleName, new PlatformModel(infrangible));
 
 		// Lexicon
-		evt.getModelRegistry().putObject(new ModelResourceLocation("botania:lexicon_3d_default", "inventory"),
+		evt.getModelRegistry().put(new ModelResourceLocation("botania:lexicon_3d_default", "inventory"),
 				new LexiconModel(new ModelResourceLocation("botania:lexicon_default", "inventory")));
-		evt.getModelRegistry().putObject(new ModelResourceLocation("botania:lexicon_3d_elven", "inventory"),
+		evt.getModelRegistry().put(new ModelResourceLocation("botania:lexicon_3d_elven", "inventory"),
 				new LexiconModel(new ModelResourceLocation("botania:lexicon_elven", "inventory")));
 
 		// Mana Blaster
 		ModelResourceLocation key = new ModelResourceLocation("botania:managun", "inventory");
-		IBakedModel originalModel = evt.getModelRegistry().getObject(key);
-		evt.getModelRegistry().putObject(key, new GunModel(originalModel));
+		IBakedModel originalModel = evt.getModelRegistry().get(key);
+		evt.getModelRegistry().put(key, new GunModel(originalModel));
 
 		key = new ModelResourceLocation("botania:managunclip", "inventory");
-		originalModel = evt.getModelRegistry().getObject(key);
-		evt.getModelRegistry().putObject(key, new GunModel(originalModel));
+		originalModel = evt.getModelRegistry().get(key);
+		evt.getModelRegistry().put(key, new GunModel(originalModel));
 	}
 
 	@SubscribeEvent

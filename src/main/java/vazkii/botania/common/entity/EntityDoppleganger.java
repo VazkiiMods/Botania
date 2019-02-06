@@ -971,7 +971,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public int bossBarRenderCallback(ScaledResolution res, int x, int y) {
+	public int bossBarRenderCallback(int x, int y) {
 		GlStateManager.pushMatrix();
 		int px = x + 160;
 		int py = y + 12;

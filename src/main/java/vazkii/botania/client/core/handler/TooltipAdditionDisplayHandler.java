@@ -23,8 +23,8 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.client.event.RenderTooltipEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.api.distmarker.Dist;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.lexicon.ILexicon;
@@ -40,7 +40,7 @@ import vazkii.botania.common.lib.LibMisc;
 
 import java.awt.Color;
 
-@Mod.EventBusSubscriber(value = Side.CLIENT, modid = LibMisc.MOD_ID)
+@Mod.EventBusSubscriber(value = Dist.CLIENT, modid = LibMisc.MOD_ID)
 public final class TooltipAdditionDisplayHandler {
 
 	private static float lexiconLookupTime = 0F;
@@ -51,7 +51,7 @@ public final class TooltipAdditionDisplayHandler {
 			return;
 
 		ItemStack stack = evt.getStack();
-		Minecraft mc = Minecraft.getMinecraft();
+		Minecraft mc = Minecraft.getInstance();
 		int width = evt.getWidth();
 		int height = 3;
 		int tooltipX = evt.getX();
@@ -79,7 +79,7 @@ public final class TooltipAdditionDisplayHandler {
 
 			if(lexSlot > -1) {
 				int x = tooltipX - 34;
-				GlStateManager.disableDepth();
+				GlStateManager.disableDepthTest();
 
 				Gui.drawRect(x - 4, tooltipY - 4, x + 20, tooltipY + 26, 0x44000000);
 				Gui.drawRect(x - 6, tooltipY - 6, x + 22, tooltipY + 28, 0x44000000);
@@ -127,18 +127,18 @@ public final class TooltipAdditionDisplayHandler {
 					}
 				} else lexiconLookupTime = 0F;
 
-				mc.getRenderItem().renderItemIntoGUI(new ItemStack(ModItems.lexicon), x, tooltipY);
+				mc.getItemRenderer().renderItemIntoGUI(new ItemStack(ModItems.lexicon), x, tooltipY);
 				GlStateManager.disableLighting();
 
 				font.drawStringWithShadow("?", x + 10, tooltipY + 8, 0xFFFFFFFF);
-				GlStateManager.scale(0.5F, 0.5F, 1F);
+				GlStateManager.scalef(0.5F, 0.5F, 1F);
 				boolean mac = Minecraft.IS_RUNNING_ON_MAC;
 
 				mc.fontRenderer.drawStringWithShadow(TextFormatting.BOLD + (ConfigHandler.useShiftForQuickLookup ? "Shift" : mac ? "Cmd" : "Ctrl"), (x + 10) * 2 - 16, (tooltipY + 8) * 2 + 20, 0xFFFFFFFF);
-				GlStateManager.scale(2F, 2F, 1F);
+				GlStateManager.scalef(2F, 2F, 1F);
 
 
-				GlStateManager.enableDepth();
+				GlStateManager.enableDepthTest();
 			} else lexiconLookupTime = 0F;
 		} else lexiconLookupTime = 0F;
 	}
@@ -153,7 +153,7 @@ public final class TooltipAdditionDisplayHandler {
 		float huePer = width == 0 ? 0F : 1F / width;
 		float hueOff = (ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks) * 0.01F;
 
-		GlStateManager.disableDepth();
+		GlStateManager.disableDepthTest();
 		Gui.drawRect(mouseX - 1, mouseY - height - 1, mouseX + width + 1, mouseY, 0xFF000000);
 		for(int i = 0; i < rainbowWidth; i++)
 			Gui.drawRect(mouseX + i, mouseY - height, mouseX + i + 1, mouseY, Color.HSBtoRGB(hueOff + huePer * i, 1F, 1F));
@@ -169,7 +169,7 @@ public final class TooltipAdditionDisplayHandler {
 			font.drawStringWithShadow(rank, mouseX + width - font.getStringWidth(rank), mouseY - 12, 0xFFFFFF);
 		}
 		GlStateManager.enableLighting();
-		GlStateManager.enableDepth();
+		GlStateManager.enableDepthTest();
 		GL11.glPopAttrib();
 	}
 
@@ -177,7 +177,7 @@ public final class TooltipAdditionDisplayHandler {
 		float fraction = display.getManaFractionForDisplay(stack);
 		int manaBarWidth = (int) Math.ceil(width * fraction);
 
-		GlStateManager.disableDepth();
+		GlStateManager.disableDepthTest();
 		Gui.drawRect(mouseX - 1, mouseY - height - 1, mouseX + width + 1, mouseY, 0xFF000000);
 		Gui.drawRect(mouseX, mouseY - height, mouseX + manaBarWidth, mouseY, Color.HSBtoRGB(0.528F, ((float) Math.sin((ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks) * 0.2) + 1F) * 0.3F + 0.4F, 1F));
 		Gui.drawRect(mouseX + manaBarWidth, mouseY - height, mouseX + width, mouseY, 0xFF555555);

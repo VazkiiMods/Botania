@@ -11,7 +11,6 @@
 package vazkii.botania.client.core.handler;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.entity.player.EntityPlayer;
@@ -33,38 +32,38 @@ public final class ItemsRemainingRenderHandler {
 	private static int ticks, count;
 
 	@OnlyIn(Dist.CLIENT)
-	public static void render(ScaledResolution resolution, float partTicks) {
+	public static void render(float partTicks) {
 		if(ticks > 0 && !stack.isEmpty()) {
 			int pos = maxTicks - ticks;
-			Minecraft mc = Minecraft.getMinecraft();
-			int x = resolution.getScaledWidth() / 2 + 10 + Math.max(0, pos - leaveTicks);
-			int y = resolution.getScaledHeight() / 2;
+			Minecraft mc = Minecraft.getInstance();
+			int x = mc.mainWindow.getScaledWidth() / 2 + 10 + Math.max(0, pos - leaveTicks);
+			int y = mc.mainWindow.getScaledHeight() / 2;
 
 			int start = maxTicks - leaveTicks;
 			float alpha = ticks + partTicks > start ? 1F : (ticks + partTicks) / start;
 
-			GlStateManager.disableAlpha();
+			GlStateManager.disableAlphaTest();
 			GlStateManager.enableBlend();
 			GlStateManager.enableRescaleNormal();
 			GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
-			GlStateManager.color(1F, 1F, 1F, alpha);
+			GlStateManager.color4f(1F, 1F, 1F, alpha);
 			RenderHelper.enableGUIStandardItemLighting();
 			int xp = x + (int) (16F * (1F - alpha));
-			GlStateManager.translate(xp, y, 0F);
-			GlStateManager.scale(alpha, 1F, 1F);
-			mc.getRenderItem().renderItemAndEffectIntoGUI(stack, 0, 0);
-			GlStateManager.scale(1F / alpha,1F, 1F);
-			GlStateManager.translate(-xp, -y, 0F);
+			GlStateManager.translatef(xp, y, 0F);
+			GlStateManager.scalef(alpha, 1F, 1F);
+			mc.getItemRenderer().renderItemAndEffectIntoGUI(stack, 0, 0);
+			GlStateManager.scalef(1F / alpha,1F, 1F);
+			GlStateManager.translatef(-xp, -y, 0F);
 			RenderHelper.disableStandardItemLighting();
-			GlStateManager.color(1F, 1F, 1F, 1F);
+			GlStateManager.color4f(1F, 1F, 1F, 1F);
 			GlStateManager.enableBlend();
 
 			String text = "";
 
 			if(customString == null) {
 				if(!stack.isEmpty()) {
-					text = TextFormatting.GREEN + stack.getDisplayName();
+					text = TextFormatting.GREEN + stack.getDisplayName().getUnformattedComponentText();
 					if(count >= 0) {
 						int max = stack.getMaxStackSize();
 						int stacks = count / max;
@@ -82,7 +81,7 @@ public final class ItemsRemainingRenderHandler {
 			mc.fontRenderer.drawStringWithShadow(text, x + 20, y + 6, color);
 
 			GlStateManager.disableBlend();
-			GlStateManager.enableAlpha();
+			GlStateManager.enableAlphaTest();
 		}
 	}
 

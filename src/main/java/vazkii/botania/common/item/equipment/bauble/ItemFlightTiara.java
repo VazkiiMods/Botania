@@ -469,17 +469,17 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public static void renderHUD(ScaledResolution resolution, EntityPlayer player, ItemStack stack) {
+	public static void renderHUD(EntityPlayer player, ItemStack stack) {
 		int u = Math.max(1, stack.getItemDamage()) * 9 - 9;
 		int v = 0;
 
-		Minecraft mc = Minecraft.getMinecraft();
-		mc.renderEngine.bindTexture(textureHud);
-		int xo = resolution.getScaledWidth() / 2 + 10;
+		Minecraft mc = Minecraft.getInstance();
+		mc.textureManager.bindTexture(textureHud);
+		int xo = mc.mainWindow.getScaledWidth() / 2 + 10;
 		int x = xo;
-		int y = resolution.getScaledHeight() - ConfigHandler.flightBarHeight;
+		int y = mc.mainWindow.getScaledHeight() - ConfigHandler.flightBarHeight;
 		if(player.isInsideOfMaterial(Material.WATER))
-			y = resolution.getScaledHeight() - ConfigHandler.flightBarBreathHeight;
+			y = mc.mainWindow.getScaledHeight() - ConfigHandler.flightBarBreathHeight;
 
 		int left = ItemNBTHelper.getInt(stack, TAG_TIME_LEFT, MAX_FLY_TIME);
 
@@ -493,25 +493,25 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 				trans = (float) last / (float) segTime;
 				GlStateManager.enableBlend();
 				GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-				GlStateManager.disableAlpha();
+				GlStateManager.disableAlphaTest();
 			}
 
-			GlStateManager.color(1F, 1F, 1F, trans);
+			GlStateManager.color4f(1F, 1F, 1F, trans);
 			RenderHelper.drawTexturedModalRect(x, y, 0, u, v, 9, 9);
 			x += 8;
 		}
 
-		if(player.capabilities.isFlying) {
+		if(player.abilities.isFlying) {
 			int width = ItemNBTHelper.getInt(stack, TAG_DASH_COOLDOWN, 0);
-			GlStateManager.color(1F, 1F, 1F, 1F);
+			GlStateManager.color4f(1F, 1F, 1F, 1F);
 			if(width > 0)
 				Gui.drawRect(xo, y - 2, xo + 80, y - 1, 0x88000000);
 			Gui.drawRect(xo, y - 2, xo + width, y - 1, 0xFFFFFFFF);
 		}
 
-		GlStateManager.enableAlpha();
-		GlStateManager.color(1F, 1F, 1F, 1F);
-		mc.renderEngine.bindTexture(Gui.ICONS);
+		GlStateManager.enableAlphaTest();
+		GlStateManager.color4f(1F, 1F, 1F, 1F);
+		mc.textureManager.bindTexture(Gui.ICONS);
 	}
 
 	@OnlyIn(Dist.CLIENT)

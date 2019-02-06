@@ -21,8 +21,8 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.api.distmarker.Dist;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.subtile.ISubTileContainer;
@@ -37,14 +37,14 @@ import vazkii.botania.common.lib.LibMisc;
 
 import java.awt.Color;
 
-@Mod.EventBusSubscriber(value = Side.CLIENT, modid = LibMisc.MOD_ID)
+@Mod.EventBusSubscriber(value = Dist.CLIENT, modid = LibMisc.MOD_ID)
 public final class BlockHighlightRenderHandler {
 
 	private BlockHighlightRenderHandler() {}
 
 	@SubscribeEvent
 	public static void onWorldRenderLast(RenderWorldLastEvent event) {
-		Minecraft mc = Minecraft.getMinecraft();
+		Minecraft mc = Minecraft.getInstance();
 		RayTraceResult pos = mc.objectMouseOver;
 
 		GlStateManager.pushMatrix();
@@ -55,7 +55,7 @@ public final class BlockHighlightRenderHandler {
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
 		boundTile: {
-			if(Botania.proxy.isClientPlayerWearingMonocle() && pos != null && pos.entityHit == null) {
+			if(Botania.proxy.isClientPlayerWearingMonocle() && pos != null && pos.entity == null) {
 				BlockPos bPos = pos.getBlockPos();
 
 				ItemStack stackHeld = PlayerHelper.getFirstHeldItem(mc.player, ModItems.twigWand);
@@ -111,12 +111,12 @@ public final class BlockHighlightRenderHandler {
 	}
 
 	private static void renderRectangle(AxisAlignedBB aabb, boolean inner, Color color, byte alpha) {
-		double renderPosX = Minecraft.getMinecraft().getRenderManager().renderPosX;
-		double renderPosY = Minecraft.getMinecraft().getRenderManager().renderPosY;
-		double renderPosZ = Minecraft.getMinecraft().getRenderManager().renderPosZ;
+		double renderPosX = Minecraft.getInstance().getRenderManager().renderPosX;
+		double renderPosY = Minecraft.getInstance().getRenderManager().renderPosY;
+		double renderPosZ = Minecraft.getInstance().getRenderManager().renderPosZ;
 
 		GlStateManager.pushMatrix();
-		GlStateManager.translate(aabb.minX - renderPosX, aabb.minY - renderPosY, aabb.minZ - renderPosZ);
+		GlStateManager.translated(aabb.minX - renderPosX, aabb.minY - renderPosY, aabb.minZ - renderPosZ);
 
 		if(color == null)
 			color = Color.getHSBColor(ClientTickHandler.ticksInGame % 200 / 200F, 0.6F, 1F);
@@ -152,15 +152,15 @@ public final class BlockHighlightRenderHandler {
 	}
 
 	private static void renderCircle(BlockPos center, double radius) {
-		double renderPosX = Minecraft.getMinecraft().getRenderManager().renderPosX;
-		double renderPosY = Minecraft.getMinecraft().getRenderManager().renderPosY;
-		double renderPosZ = Minecraft.getMinecraft().getRenderManager().renderPosZ;
+		double renderPosX = Minecraft.getInstance().getRenderManager().renderPosX;
+		double renderPosY = Minecraft.getInstance().getRenderManager().renderPosY;
+		double renderPosZ = Minecraft.getInstance().getRenderManager().renderPosZ;
 
 		GlStateManager.pushMatrix();
 		double x = center.getX() + 0.5;
 		double y = center.getY();
 		double z = center.getZ() + 0.5;
-		GlStateManager.translate(x - renderPosX, y - renderPosY, z - renderPosZ);
+		GlStateManager.translated(x - renderPosX, y - renderPosY, z - renderPosZ);
 		int color = Color.HSBtoRGB(ClientTickHandler.ticksInGame % 200 / 200F, 0.6F, 1F);
 
 		Color colorRGB = new Color(color);
