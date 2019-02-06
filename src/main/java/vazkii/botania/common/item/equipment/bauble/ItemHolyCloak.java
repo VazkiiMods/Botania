@@ -56,7 +56,7 @@ public class ItemHolyCloak extends ItemBauble implements IBaubleRender {
 
 	@SubscribeEvent
 	public void onPlayerDamage(LivingHurtEvent event) {
-		if(event.getEntityLiving() instanceof EntityPlayer) {
+		if(event.getEntityLiving() instanceof EntityPlayer && !event.getSource().canHarmInCreative()) {
 			EntityPlayer player = (EntityPlayer) event.getEntityLiving();
 			ItemStack belt = BaublesApi.getBaublesHandler(player).getStackInSlot(5);
 			if(!belt.isEmpty() && belt.getItem() instanceof ItemHolyCloak && !isInEffect(belt)) {
