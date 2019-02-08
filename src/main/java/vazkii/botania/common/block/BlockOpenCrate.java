@@ -18,6 +18,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -32,14 +33,8 @@ import javax.annotation.Nonnull;
 
 public class BlockOpenCrate extends BlockMod implements ILexiconable, IWandable {
 
-	public BlockOpenCrate() {
-		this(LibBlockNames.OPEN_CRATE);
-	}
-
-	protected BlockOpenCrate(String name) {
-		super(Material.WOOD, name);
-		setHardness(2.0F);
-		setSoundType(SoundType.WOOD);
+	protected BlockOpenCrate(Builder builder) {
+		super(builder);
 	}
 
 	@Override
@@ -54,13 +49,13 @@ public class BlockOpenCrate extends BlockMod implements ILexiconable, IWandable 
 	}
 
 	@Override
-	public void breakBlock(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
+	public void onReplaced(@Nonnull IBlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState newState, boolean isMoving) {
 		if (!world.isRemote) {
 			TileSimpleInventory inv = (TileSimpleInventory) world.getTileEntity(pos);
 			InventoryHelper.dropInventory(inv, world, state, pos);
 		}
 
-		super.breakBlock(world, pos, state);
+		super.onReplaced(state, world, pos, newState, isMoving);
 	}
 
 	@Override
@@ -70,7 +65,7 @@ public class BlockOpenCrate extends BlockMod implements ILexiconable, IWandable 
 
 	@Nonnull
 	@Override
-	public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
+	public TileEntity createTileEntity(@Nonnull IBlockState state, @Nonnull IBlockReader world) {
 		return new TileOpenCrate();
 	}
 

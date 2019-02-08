@@ -11,7 +11,6 @@
 package vazkii.botania.common.block.tile.mana;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -20,6 +19,8 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.block.tile.TileMod;
@@ -33,10 +34,10 @@ public class TileTurntable extends TileMod implements ITickable {
 	boolean backwards = false;
 
 	@Override
-	public void update() {
+	public void tick() {
 		boolean redstone = false;
 
-		for(EnumFacing dir : EnumFacing.VALUES) {
+		for(EnumFacing dir : EnumFacing.BY_INDEX) {
 			int redstoneSide = world.getRedstonePower(pos.offset(dir), dir);
 			if(redstoneSide > 0)
 				redstone = true;
@@ -57,13 +58,13 @@ public class TileTurntable extends TileMod implements ITickable {
 
 	@Override
 	public void writePacketNBT(NBTTagCompound cmp) {
-		cmp.setInteger(TAG_SPEED, speed);
+		cmp.setInt(TAG_SPEED, speed);
 		cmp.setBoolean(TAG_BACKWARDS, backwards);
 	}
 
 	@Override
 	public void readPacketNBT(NBTTagCompound cmp) {
-		speed = cmp.getInteger(TAG_SPEED);
+		speed = cmp.getInt(TAG_SPEED);
 		backwards = cmp.getBoolean(TAG_BACKWARDS);
 	}
 
@@ -77,7 +78,8 @@ public class TileTurntable extends TileMod implements ITickable {
 		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, pos);
 	}
 
-	public void renderHUD(Minecraft mc, ScaledResolution res) {
+	@OnlyIn(Dist.CLIENT)
+	public void renderHUD(Minecraft mc) {
 		int color = 0xAA006600;
 
 		char motion = backwards ? '<' : '>';
@@ -85,8 +87,8 @@ public class TileTurntable extends TileMod implements ITickable {
 		for(int i = 0; i < this.speed; i++)
 			speed = speed + motion;
 
-		int x = res.getScaledWidth() / 2 - mc.fontRenderer.getStringWidth(speed) / 2;
-		int y = res.getScaledHeight() / 2 - 15;
+		int x = mc.mainWindow.getScaledWidth() / 2 - mc.fontRenderer.getStringWidth(speed) / 2;
+		int y = mc.mainWindow.getScaledHeight() / 2 - 15;
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		mc.fontRenderer.drawStringWithShadow(speed, x, y, color);

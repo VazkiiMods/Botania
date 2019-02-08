@@ -10,18 +10,19 @@
  */
 package vazkii.botania.common.block.mana;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.lexicon.ILexiconable;
@@ -38,29 +39,14 @@ import java.util.List;
 
 public class BlockManaDetector extends BlockMod implements ILexiconable, IManaCollisionGhost {
 
-	public BlockManaDetector() {
-		super(Material.ROCK, LibBlockNames.MANA_DETECTOR);
-		setHardness(2.0F);
-		setResistance(10.0F);
-		setSoundType(SoundType.STONE);
-		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.POWERED, false));
-	}
-
-	@Nonnull
-	@Override
-	public BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this, BotaniaStateProps.POWERED);
+	public BlockManaDetector(Builder builder) {
+		super(builder);
+		setDefaultState(stateContainer.getBaseState().with(BotaniaStateProps.POWERED, false));
 	}
 
 	@Override
-	public int getMetaFromState(IBlockState state) {
-		return state.getValue(BotaniaStateProps.POWERED) ? 1 : 0;
-	}
-
-	@Nonnull
-	@Override
-	public IBlockState getStateFromMeta(int meta) {
-		return getDefaultState().withProperty(BotaniaStateProps.POWERED, meta == 1);
+	protected void fillStateContainer(StateContainer.Builder<Block, IBlockState> builder) {
+		builder.add(BotaniaStateProps.POWERED);
 	}
 
 	@Override
@@ -69,8 +55,8 @@ public class BlockManaDetector extends BlockMod implements ILexiconable, IManaCo
 	}
 
 	@Override
-	public int getWeakPower(IBlockState state, IBlockAccess par1iBlockAccess, BlockPos pos, EnumFacing side) {
-		return state.getValue(BotaniaStateProps.POWERED) ? 15 : 0;
+	public int getWeakPower(IBlockState state, IBlockReader par1iBlockAccess, BlockPos pos, EnumFacing side) {
+		return state.get(BotaniaStateProps.POWERED) ? 15 : 0;
 	}
 
 	@Override
@@ -86,7 +72,7 @@ public class BlockManaDetector extends BlockMod implements ILexiconable, IManaCo
 
 	@Nonnull
 	@Override
-	public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
+	public TileEntity createTileEntity(@Nonnull IBlockState state, @Nonnull IBlockReader world) {
 		return new TileManaDetector();
 	}
 

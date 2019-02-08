@@ -14,12 +14,12 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -36,10 +36,8 @@ import javax.annotation.Nonnull;
 
 public class BlockTurntable extends BlockMod implements IWandable, IWandHUD, ILexiconable {
 
-	public BlockTurntable() {
-		super(Material.WOOD, LibBlockNames.TURNTABLE);
-		setHardness(2.0F);
-		setSoundType(SoundType.WOOD);
+	public BlockTurntable(Builder builder) {
+		super(builder);
 	}
 
 	@Override
@@ -49,14 +47,14 @@ public class BlockTurntable extends BlockMod implements IWandable, IWandHUD, ILe
 
 	@Nonnull
 	@Override
-	public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
+	public TileEntity createTileEntity(@Nonnull IBlockState state, @Nonnull IBlockReader world) {
 		return new TileTurntable();
 	}
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void renderHUD(Minecraft mc, ScaledResolution res, World world, BlockPos pos) {
-		((TileTurntable) world.getTileEntity(pos)).renderHUD(mc, res);
+	public void renderHUD(Minecraft mc, World world, BlockPos pos) {
+		((TileTurntable) world.getTileEntity(pos)).renderHUD(mc);
 	}
 
 	@Override

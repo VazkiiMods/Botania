@@ -560,19 +560,19 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public void renderHUD(Minecraft mc, ScaledResolution res) {
-		String name = new ItemStack(getBlockType()).getDisplayName();
+	public void renderHUD(Minecraft mc) {
+		String name = new ItemStack(getBlockState().getBlock()).getDisplayName().getUnformattedComponentText();
 		int color = isRedstone() ? 0xFF0000 : isDreamwood() ? 0xFF00AE :  0x00FF00;
-		HUDHandler.drawSimpleManaHUD(color, knownMana, getMaxMana(), name, res);
+		HUDHandler.drawSimpleManaHUD(color, knownMana, getMaxMana(), name);
 
 		ItemStack lens = itemHandler.getStackInSlot(0);
 		if(!lens.isEmpty()) {
 			GlStateManager.enableBlend();
 			GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-			String lensName = lens.getDisplayName();
+			String lensName = lens.getDisplayName().getUnformattedComponentText();
 			int width = 16 + mc.fontRenderer.getStringWidth(lensName) / 2;
-			int x = res.getScaledWidth() / 2 - width;
-			int y = res.getScaledHeight() / 2 + 50;
+			int x = mc.mainWindow.getScaledWidth() / 2 - width;
+			int y = mc.mainWindow.getScaledHeight() / 2 + 50;
 
 			mc.fontRenderer.drawStringWithShadow(lensName, x + 20, y + 5, color);
 			RenderHelper.enableGUIStandardItemLighting();
@@ -588,14 +588,14 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 			GlStateManager.enableBlend();
 			GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 			if(!recieverStack.isEmpty()) {
-				String stackName = recieverStack.getDisplayName();
+				String stackName = recieverStack.getDisplayName().getUnformattedComponentText();
 				int width = 16 + mc.fontRenderer.getStringWidth(stackName) / 2;
-				int x = res.getScaledWidth() / 2 - width;
-				int y = res.getScaledHeight() / 2 + 30;
+				int x = mc.mainWindow.getScaledWidth() / 2 - width;
+				int y = mc.mainWindow.getScaledHeight() / 2 + 30;
 
 				mc.fontRenderer.drawStringWithShadow(stackName, x + 20, y + 5, color);
 				RenderHelper.enableGUIStandardItemLighting();
-				mc.getRenderItem().renderItemAndEffectIntoGUI(recieverStack, x, y);
+				mc.getItemRenderer().renderItemAndEffectIntoGUI(recieverStack, x, y);
 				RenderHelper.disableStandardItemLighting();
 			}
 
@@ -603,7 +603,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 			GlStateManager.disableBlend();
 		}
 
-		GlStateManager.color(1F, 1F, 1F, 1F);
+		GlStateManager.color4f(1F, 1F, 1F, 1F);
 	}
 
 	@Override

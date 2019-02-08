@@ -12,6 +12,7 @@ package vazkii.botania.common.block.tile;
 
 import com.google.common.base.Predicates;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentData;
@@ -32,6 +33,8 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.lexicon.multiblock.Multiblock;
@@ -445,10 +448,11 @@ public class TileEnchanter extends TileMod implements ISparkAttachable, ITickabl
 		return Math.max(0, manaRequired - getCurrentMana());
 	}
 
-	public void renderHUD(ScaledResolution res) {
+	@OnlyIn(Dist.CLIENT)
+	public void renderHUD() {
 		if(manaRequired > 0 && !itemToEnchant.isEmpty()) {
-			int x = res.getScaledWidth() / 2 + 20;
-			int y = res.getScaledHeight() / 2 - 8;
+			int x = Minecraft.getInstance().mainWindow.getScaledWidth() / 2 + 20;
+			int y = Minecraft.getInstance().mainWindow.getScaledHeight() / 2 - 8;
 
 			RenderHelper.renderProgressPie(x, y, (float) mana / (float) manaRequired, itemToEnchant);
 		}

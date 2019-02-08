@@ -16,6 +16,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.Optional;
@@ -35,9 +36,8 @@ import javax.annotation.Nonnull;
 @Optional.Interface(modid = "thaumcraft", iface = "thaumcraft.api.crafting.IInfusionStabiliser", striprefs = true)
 public class BlockShinyFlower extends BlockModFlower implements IInfusionStabiliser, IHornHarvestable {
 
-	public BlockShinyFlower() {
-		super(LibBlockNames.SHINY_FLOWER);
-		setLightLevel(1F);
+	public BlockShinyFlower(EnumDyeColor color, Builder builder) {
+		super(color, builder);
 	}
 
 	@Override
@@ -46,7 +46,7 @@ public class BlockShinyFlower extends BlockModFlower implements IInfusionStabili
 	}
 
 	@Override
-	public boolean canGrow(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState state, boolean fuckifiknow) {
+	public boolean canGrow(@Nonnull IBlockReader world, @Nonnull BlockPos pos, @Nonnull IBlockState state, boolean fuckifiknow) {
 		return false;
 	}
 
@@ -67,12 +67,5 @@ public class BlockShinyFlower extends BlockModFlower implements IInfusionStabili
 
 	@Override
 	public void harvestByHorn(World world, BlockPos pos, ItemStack stack, EnumHornType hornType) {}
-
-	@OnlyIn(Dist.CLIENT)
-	@Override
-	public void registerModels() {
-		ModelLoader.setCustomStateMapper(this, new StateMap.Builder().ignore(getTypeProperty()).build());
-		ModelHandler.registerCustomItemblock(this, EnumDyeColor.values().length, i -> "glimmering_flower_" + EnumDyeColor.byMetadata(i).getName());
-	}
 
 }

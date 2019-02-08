@@ -10,6 +10,7 @@
  */
 package vazkii.botania.common.block;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockFaceShape;
@@ -17,17 +18,16 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
+import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.world.IBlockReader;
+import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
-import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -45,7 +45,7 @@ import java.util.Locale;
 
 @Optional.Interface(modid = "thaumcraft", iface = "thaumcraft.api.crafting.IInfusionStabiliser", striprefs = true)
 public class BlockPylon extends BlockMod implements ILexiconable, IInfusionStabiliser {
-	private static final AxisAlignedBB AABB = new AxisAlignedBB(0.125, 0, 0.125, 0.875, 21.0/16, 0.875);
+	private static final VoxelShape SHAPE = Block.makeCuboidShape(2, 0, 2, 14, 21, 14);
 
 	public enum Variant {
 		MANA,
@@ -54,23 +54,15 @@ public class BlockPylon extends BlockMod implements ILexiconable, IInfusionStabi
 	}
 
 	public final Variant variant;
-	public BlockPylon(Variant v) {
-		super(Material.IRON, LibBlockNames.PYLON_PREFIX + v.name().toLowerCase(Locale.ROOT));
-		setHardness(5.5F);
-		setSoundType(SoundType.METAL);
-		setLightLevel(0.5F);
+	public BlockPylon(Variant v, Builder builder) {
+		super(builder);
 		this.variant = v;
 	}
 
 	@Nonnull
 	@Override
-	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
-		return AABB;
-	}
-
-	@Override
-	public boolean isOpaqueCube(IBlockState state) {
-		return false;
+	public VoxelShape getShape(IBlockState state, IBlockReader world, BlockPos pos) {
+		return SHAPE;
 	}
 
 	@Override
@@ -85,7 +77,7 @@ public class BlockPylon extends BlockMod implements ILexiconable, IInfusionStabi
 	}
 
 	@Override
-	public float getEnchantPowerBonus(World world, BlockPos pos) {
+	public float getEnchantPowerBonus(IBlockState state, IWorldReader world, BlockPos pos) {
 		if (variant == Variant.MANA) {
 			return 8;
 		} else {
@@ -100,7 +92,7 @@ public class BlockPylon extends BlockMod implements ILexiconable, IInfusionStabi
 
 	@Nonnull
 	@Override
-	public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
+	public TileEntity createTileEntity(@Nonnull IBlockState state, @Nonnull IBlockReader world) {
 		return new TilePylon();
 	}
 
@@ -114,15 +106,9 @@ public class BlockPylon extends BlockMod implements ILexiconable, IInfusionStabi
 		return ConfigHandler.enableThaumcraftStablizers;
 	}
 
-	@OnlyIn(Dist.CLIENT)
-	@Override
-	public void registerModels() {
-		ModelHandler.registerInventoryVariant(this);
-	}
-
 	@Nonnull
 	@Override
-	public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing side) {
+	public BlockFaceShape getBlockFaceShape(IBlockReader world, IBlockState state, BlockPos pos, EnumFacing side) {
 		return BlockFaceShape.UNDEFINED;
 	}
 }

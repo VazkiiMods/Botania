@@ -31,6 +31,7 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -63,10 +64,8 @@ public class BlockSpreader extends BlockMod implements IWandable, IWandHUD, ILex
 	}
 
 	public final Variant variant;
-	public BlockSpreader(Variant v) {
-		super(Material.WOOD, v.name().toLowerCase(Locale.ROOT) + LibBlockNames.SPREADER_SUFFIX);
-		setHardness(2.0F);
-		setSoundType(SoundType.WOOD);
+	public BlockSpreader(Variant v, Builder builder) {
+		super(builder);
 		this.variant = v;
 	}
 
@@ -98,16 +97,6 @@ public class BlockSpreader extends BlockMod implements IWandable, IWandHUD, ILex
 	}
 
 	@Override
-	public int damageDropped(IBlockState par1) {
-		return getMetaFromState(par1);
-	}
-
-	@Override
-	public boolean isOpaqueCube(IBlockState state) {
-		return false;
-	}
-
-	@Override
 	public boolean isFullCube(IBlockState state) {
 		return false;
 	}
@@ -119,7 +108,7 @@ public class BlockSpreader extends BlockMod implements IWandable, IWandHUD, ILex
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing par6, float par7, float par8, float par9) {
+	public boolean onBlockActivated(IBlockState state, World world, BlockPos pos, EntityPlayer player, EnumHand hand, EnumFacing par6, float par7, float par8, float par9) {
 		TileEntity tile = world.getTileEntity(pos);
 		if(!(tile instanceof TileSpreader))
 			return false;
@@ -135,7 +124,7 @@ public class BlockSpreader extends BlockMod implements IWandable, IWandHUD, ILex
 				return false;
 
 		if(lens.isEmpty() && isHeldItemLens) {
-			if (!player.capabilities.isCreativeMode)
+			if (!player.abilities.isCreativeMode)
 				player.setHeldItem(hand, ItemStack.EMPTY);
 
 			spreader.getItemHandler().setStackInSlot(0, heldItem.copy());
@@ -162,7 +151,7 @@ public class BlockSpreader extends BlockMod implements IWandable, IWandHUD, ILex
 	}
 
 	@Override
-	public void breakBlock(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
+	public void onReplaced(@Nonnull IBlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState newState, boolean isMoving) {
 		TileEntity tile = world.getTileEntity(pos);
 		if(!(tile instanceof TileSpreader))
 			return;
@@ -175,7 +164,7 @@ public class BlockSpreader extends BlockMod implements IWandable, IWandHUD, ILex
 
 		InventoryHelper.dropInventory(inv, world, state, pos);
 
-		super.breakBlock(world, pos, state);
+		super.onReplaced(state, world, pos, newState, isMoving);
 	}
 
 	@Override
@@ -191,14 +180,14 @@ public class BlockSpreader extends BlockMod implements IWandable, IWandHUD, ILex
 
 	@Nonnull
 	@Override
-	public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
+	public TileEntity createTileEntity(@Nonnull IBlockState state, @Nonnull IBlockReader world) {
 		return new TileSpreader();
 	}
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void renderHUD(Minecraft mc, ScaledResolution res, World world, BlockPos pos) {
-		((TileSpreader) world.getTileEntity(pos)).renderHUD(mc, res);
+	public void renderHUD(Minecraft mc, World world, BlockPos pos) {
+		((TileSpreader) world.getTileEntity(pos)).renderHUD(mc);
 	}
 
 	@Override
@@ -213,7 +202,7 @@ public class BlockSpreader extends BlockMod implements IWandable, IWandHUD, ILex
 
 	@Nonnull
 	@Override
-	public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing side) {
+	public BlockFaceShape getBlockFaceShape(IBlockReader world, IBlockState state, BlockPos pos, EnumFacing side) {
 		return BlockFaceShape.UNDEFINED;
 	}
 }

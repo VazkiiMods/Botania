@@ -10,22 +10,24 @@
  */
 package vazkii.botania.common.block.mana;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.IItemProvider;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -47,39 +49,14 @@ import java.util.Random;
 
 public class BlockEnchanter extends BlockMod implements IWandable, ILexiconable, IWandHUD {
 
-	public BlockEnchanter() {
-		super(Material.ROCK, LibBlockNames.ENCHANTER);
-		setHardness(3.0F);
-		setResistance(5.0F);
-		setLightLevel(1.0F);
-		setSoundType(SoundType.STONE);
-		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.ENCHANTER_DIRECTION, EnumFacing.Axis.X));
-	}
-
-	@Nonnull
-	@Override
-	public BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this, BotaniaStateProps.ENCHANTER_DIRECTION);
+	public BlockEnchanter(Builder builder) {
+		super(builder);
+		setDefaultState(stateContainer.getBaseState().with(BotaniaStateProps.ENCHANTER_DIRECTION, EnumFacing.Axis.X));
 	}
 
 	@Override
-	public int getMetaFromState(IBlockState state) {
-		switch (state.getValue(BotaniaStateProps.ENCHANTER_DIRECTION)) {
-		case Z: return 1;
-		case X:
-		default: return 0;
-		}
-	}
-
-	@Nonnull
-	@Override
-	public IBlockState getStateFromMeta(int meta) {
-		return getDefaultState().withProperty(BotaniaStateProps.ENCHANTER_DIRECTION, meta == 1 ? EnumFacing.Axis.Z : EnumFacing.Axis.X);
-	}
-
-	@Override
-	public boolean registerInCreative() {
-		return false;
+	protected void fillStateContainer(StateContainer.Builder<Block, IBlockState> builder) {
+		builder.add(BotaniaStateProps.ENCHANTER_DIRECTION);
 	}
 
 	@Override
@@ -89,23 +66,18 @@ public class BlockEnchanter extends BlockMod implements IWandable, ILexiconable,
 
 	@Nonnull
 	@Override
-	public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
+	public TileEntity createTileEntity(@Nonnull IBlockState state, @Nonnull IBlockReader world) {
 		return new TileEnchanter();
 	}
 
 	@Nonnull
 	@Override
-	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-		return Item.getItemFromBlock(Blocks.LAPIS_BLOCK);
+	public IItemProvider getItemDropped(IBlockState state, World world, BlockPos pos, int fortune) {
+		return Blocks.LAPIS_BLOCK;
 	}
 
 	@Override
-	public boolean isOpaqueCube(IBlockState state) {
-		return false;
-	}
-
-	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float par7, float par8, float par9) {
+	public boolean onBlockActivated(IBlockState state, World world, BlockPos pos, EntityPlayer player, EnumHand hand, EnumFacing side, float par7, float par8, float par9) {
 		TileEnchanter enchanter = (TileEnchanter) world.getTileEntity(pos);
 		ItemStack stack = player.getHeldItem(hand);
 		if(!stack.isEmpty() && stack.getItem() == ModItems.twigWand)
@@ -113,7 +85,7 @@ public class BlockEnchanter extends BlockMod implements IWandable, ILexiconable,
 
 		boolean stackEnchantable = !stack.isEmpty()
 				&& stack.getItem() != Items.BOOK
-				&& stack.isItemEnchantable()
+				&& stack.isEnchantable()
 				&& stack.getCount() == 1;
 
 		if(enchanter.itemToEnchant.isEmpty()) {
@@ -134,7 +106,7 @@ public class BlockEnchanter extends BlockMod implements IWandable, ILexiconable,
 	}
 
 	@Override
-	public void breakBlock(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
+	public void onReplaced(@Nonnull IBlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState newState, boolean isMoving) {
 		TileEnchanter enchanter = (TileEnchanter) world.getTileEntity(pos);
 
 		if(!enchanter.itemToEnchant.isEmpty()) {
@@ -143,7 +115,7 @@ public class BlockEnchanter extends BlockMod implements IWandable, ILexiconable,
 
 		world.updateComparatorOutputLevel(pos, state.getBlock());
 
-		super.breakBlock(world, pos, state);
+		super.onReplaced(state, world, pos, newState, isMoving);
 	}
 
 	@Override
@@ -159,14 +131,7 @@ public class BlockEnchanter extends BlockMod implements IWandable, ILexiconable,
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void renderHUD(Minecraft mc, ScaledResolution res, World world, BlockPos pos) {
-		((TileEnchanter) world.getTileEntity(pos)).renderHUD(res);
+	public void renderHUD(Minecraft mc, World world, BlockPos pos) {
+		((TileEnchanter) world.getTileEntity(pos)).renderHUD();
 	}
-
-	@OnlyIn(Dist.CLIENT)
-	@Override
-	public void registerModels() {
-		ModelHandler.registerBlockToState(this, 0, getDefaultState().withProperty(BotaniaStateProps.ENCHANTER_DIRECTION, EnumFacing.Axis.X));
-	}
-
 }

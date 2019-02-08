@@ -10,8 +10,7 @@
  */
 package vazkii.botania.common.block.mana;
 
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
+import net.minecraft.block.Block;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -21,7 +20,8 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
+import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
@@ -33,31 +33,22 @@ import vazkii.botania.common.block.tile.TileRuneAltar;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.core.helper.InventoryHelper;
 import vazkii.botania.common.lexicon.LexiconData;
-import vazkii.botania.common.lib.LibBlockNames;
 
 import javax.annotation.Nonnull;
 
 public class BlockRuneAltar extends BlockMod implements IWandable, ILexiconable {
 
-	private static final AxisAlignedBB AABB = new AxisAlignedBB(0, 0, 0, 1, 0.75, 1);
+	private static final VoxelShape SHAPE = Block.makeCuboidShape(0, 0, 0, 16, 12, 16);
 
-	public BlockRuneAltar() {
-		super(Material.ROCK, LibBlockNames.RUNE_ALTAR);
-		setHardness(2.0F);
-		setResistance(10.0F);
-		setSoundType(SoundType.STONE);
+	public BlockRuneAltar(Builder builder) {
+		super(builder);
 		BotaniaAPI.blacklistBlockFromMagnet(this, Short.MAX_VALUE);
 	}
 
 	@Nonnull
 	@Override
-	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
-		return AABB;
-	}
-
-	@Override
-	public boolean isOpaqueCube(IBlockState state) {
-		return false;
+	public VoxelShape getShape(IBlockState state, IBlockReader world, BlockPos pos) {
+		return SHAPE;
 	}
 
 	@Override
@@ -66,7 +57,7 @@ public class BlockRuneAltar extends BlockMod implements IWandable, ILexiconable 
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float par7, float par8, float par9) {
+	public boolean onBlockActivated(IBlockState state, World world, BlockPos pos, EntityPlayer player, EnumHand hand, EnumFacing side, float par7, float par8, float par9) {
 		if(world.isRemote)
 			return true;
 
@@ -93,12 +84,12 @@ public class BlockRuneAltar extends BlockMod implements IWandable, ILexiconable 
 	}
 
 	@Override
-	public void breakBlock(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
+	public void onReplaced(@Nonnull IBlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState newState, boolean isMoving) {
 		TileSimpleInventory inv = (TileSimpleInventory) world.getTileEntity(pos);
 
 		InventoryHelper.dropInventory(inv, world, state, pos);
 
-		super.breakBlock(world, pos, state);
+		super.onReplaced(state, world, pos, newState, isMoving);
 	}
 
 	@Override
@@ -108,7 +99,7 @@ public class BlockRuneAltar extends BlockMod implements IWandable, ILexiconable 
 
 	@Nonnull
 	@Override
-	public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
+	public TileEntity createTileEntity(@Nonnull IBlockState state, @Nonnull IBlockReader world) {
 		return new TileRuneAltar();
 	}
 
@@ -136,7 +127,7 @@ public class BlockRuneAltar extends BlockMod implements IWandable, ILexiconable 
 
 	@Nonnull
 	@Override
-	public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing side) {
+	public BlockFaceShape getBlockFaceShape(IBlockReader world, IBlockState state, BlockPos pos, EnumFacing side) {
 		return side == EnumFacing.DOWN ? BlockFaceShape.SOLID : BlockFaceShape.UNDEFINED;
 	}
 

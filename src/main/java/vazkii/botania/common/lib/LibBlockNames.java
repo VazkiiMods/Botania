@@ -14,7 +14,7 @@ import net.minecraft.util.ResourceLocation;
 
 public final class LibBlockNames {
 
-	public static final String FLOWER = "flower";
+	public static final String MYSTICAL_FLOWER_SUFFIX = "_mystical_flower";
 	public static final String ALTAR = "altar";
 	public static final String APOTHECARY_PREFIX = "apothecary_";
 	public static final String SPECIAL_FLOWER = "special_flower";
@@ -30,12 +30,17 @@ public final class LibBlockNames {
 	public static final String LIVING_WOOD_PATTERN_FRAMED = "pattern_framed_livingwood";
 	public static final String LIVING_WOOD_GLIMMERING = "glimmering_livingwood";
 	public static final String SPREADER = "spreader";
-	public static final String SPREADER_SUFFIX = "_" + SPREADER;
-	public static final String POOL = "pool";
-	public static final String POOL_PREFIX = POOL + "_";
-	public static final String RUNE_ALTAR = "runeAltar";
-	public static final String PYLON = "pylon";
-	public static final String PYLON_PREFIX = PYLON + "_";
+	public static final String SPREADER_REDSTONE = "redstone_spreader";
+	public static final String SPREADER_ELVEN = "elven_spreader";
+	public static final String SPREADER_GAIA = "gaia_spreader";
+	public static final String POOL = "mana_pool";
+	public static final String POOL_CREATIVE = "creative_pool";
+	public static final String POOL_DILUTED = "diluted_pool";
+	public static final String POOL_FABULOUS = "fabulous_pool";
+	public static final String RUNE_ALTAR = "runic_altar";
+	public static final String PYLON = "mana_pylon";
+	public static final String PYLON_NATURA = "natura_pylon";
+	public static final String PYLON_GAIA = "gaia_pylon";
 	public static final String PISTON_RELAY = "piston_relay";
 	public static final String DISTRIBUTOR = "distributor";
 	public static final String MANA_VOID = "mana_void";
@@ -47,11 +52,18 @@ public final class LibBlockNames {
 	public static final String OPEN_CRATE = "open_crate";
 	public static final String CRAFT_CRATE = "crafty_crate";
 	public static final String FOREST_EYE = "forest_eye";
-	public static final String STORAGE_SUFFIX = "_block";
-	public static final String DRUM_PREFIX = "drum_";
-	public static final String SHINY_FLOWER = "shiny_flower";
-	public static final String PLATFORM = "platform";
-	public static final String PLATFORM_SUFFIX = "_" + PLATFORM;
+    public static final String MANASTEEL_BLOCK = "manasteel_block";
+    public static final String TERRASTEEL_BLOCK = "terrasteel_block";
+    public static final String ELEMENTIUM_BLOCK = "elementium_block";
+    public static final String MANA_DIAMOND_BLOCK = "mana_diamond_block";
+    public static final String DRAGONSTONE_BLOCK = "dragonstone_block";
+	public static final String DRUM_WILD = "drum_wild";
+    public static final String DRUM_GATHERING = "drum_gathering";
+    public static final String DRUM_CANOPY = "drum_canopy";
+	public static final String SHINY_FLOWER_SUFFIX = "_shiny_flower";
+	public static final String PLATFORM_ABSTRUSE = "abstruse_platform";
+	public static final String PLATFORM_SPECTRAL = "spectral_platform";
+	public static final String PLATFORM_INFRANGIBLE = "infrangible_platform";
 	public static final String ALF_PORTAL = "alfheim_portal";
 	public static final String DREAM_WOOD = "dreamwood";
 	public static final String CONJURATION_CATALYST = "conjuration_catalyst";

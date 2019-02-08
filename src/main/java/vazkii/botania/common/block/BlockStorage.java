@@ -12,10 +12,12 @@ package vazkii.botania.common.block;
 
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.IBlockReader;
+import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -27,36 +29,22 @@ import java.util.Locale;
 
 public class BlockStorage extends BlockMod implements IElvenItem, ILexiconable {
 
-	public enum Variant {
-		MANASTEEL,
-		TERRASTEEL,
-		ELEMENTIUM,
-		MANA_DIAMOND,
-		DRAGONSTONE
-	}
-
-	private final Variant variant;
-
-	public BlockStorage(Variant v) {
-		super(Material.IRON, v.name().toLowerCase(Locale.ROOT) + LibBlockNames.STORAGE_SUFFIX);
-		setHardness(3F);
-		setResistance(10F);
-		setSoundType(SoundType.METAL);
-		this.variant = v;
+	public BlockStorage(Builder builder) {
+		super(builder);
 	}
 
 	@Override
-	public boolean isBeaconBase(IBlockAccess world, BlockPos pos, BlockPos beaconPos) {
+	public boolean isBeaconBase(IBlockState state, IWorldReader world, BlockPos pos, BlockPos beaconPos) {
 		return true;
 	}
 
 	@Override
 	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
-		return variant == Variant.MANASTEEL ? LexiconData.pool : LexiconData.terrasteel;
+		return this == ModBlocks.manasteelBlock ? LexiconData.pool : LexiconData.terrasteel;
 	}
 
 	@Override
 	public boolean isElvenItem(ItemStack stack) {
-		return variant == Variant.ELEMENTIUM;
+		return this == ModBlocks.elementiumBlock;
 	}
 }

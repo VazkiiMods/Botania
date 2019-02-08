@@ -10,6 +10,7 @@
  */
 package vazkii.botania.common.block.mana;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockFaceShape;
@@ -19,14 +20,15 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
+import net.minecraft.init.Particles;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
+import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IShearable;
 import vazkii.botania.api.internal.IManaBurst;
@@ -34,6 +36,7 @@ import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.mana.IManaTrigger;
 import vazkii.botania.common.block.BlockMod;
+import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.ItemHorn;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lexicon.LexiconData;
@@ -53,20 +56,18 @@ public class BlockForestDrum extends BlockMod implements IManaTrigger, ILexicona
 		CANOPY
 	}
 
-	private static final AxisAlignedBB AABB = new AxisAlignedBB(3/16.0, 1/16.0, 3/16.0, 13/16.0, 15/16.0, 13/16.0);
+	private static final VoxelShape SHAPE = Block.makeCuboidShape(3, 1, 3, 13, 15, 13);
 	private final Variant variant;
 
-	public BlockForestDrum(Variant v) {
-		super(Material.WOOD, LibBlockNames.DRUM_PREFIX + v.name().toLowerCase(Locale.ROOT));
-		setHardness(2.0F);
-		setSoundType(SoundType.WOOD);
+	public BlockForestDrum(Variant v, Builder builder) {
+		super(builder);
 		this.variant = v;
 	}
 
 	@Nonnull
 	@Override
-	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
-		return AABB;
+	public VoxelShape getShape(IBlockState state, IBlockReader world, BlockPos pos) {
+		return SHAPE;
 	}
 
 	@Override
@@ -75,16 +76,11 @@ public class BlockForestDrum extends BlockMod implements IManaTrigger, ILexicona
 	}
 
 	@Override
-	public boolean isOpaqueCube(IBlockState state) {
-		return false;
-	}
-
-	@Override
 	public void onBurstCollision(IManaBurst burst, World world, BlockPos pos) {
 		if(burst.isFake())
 			return;
 		if(world.isRemote) {
-			world.spawnParticle(EnumParticleTypes.NOTE, pos.getX() + 0.5, pos.getY() + 1.2, pos.getZ() + 0.5D, 1.0 / 24.0, 0, 0);
+			world.spawnParticle(Particles.NOTE, pos.getX() + 0.5, pos.getY() + 1.2, pos.getZ() + 0.5D, 1.0 / 24.0, 0, 0);
 			return;
 		}
 		if(variant == Variant.WILD)
@@ -95,7 +91,7 @@ public class BlockForestDrum extends BlockMod implements IManaTrigger, ILexicona
 			int range = 10;
 			List<EntityLiving> entities = world.getEntitiesWithinAABB(EntityLiving.class, new AxisAlignedBB(pos.add(-range, -range, -range), pos.add(range + 1, range + 1, range + 1)));
 			List<EntityLiving> shearables = new ArrayList<>();
-			ItemStack stack = new ItemStack(this, 1, 1);
+			ItemStack stack = new ItemStack(ModBlocks.gatheringDrum);
 
 			for(EntityLiving entity : entities) {
 				if(entity instanceof IShearable && ((IShearable) entity).isShearable(stack, world, new BlockPos(entity))) {
@@ -112,7 +108,7 @@ public class BlockForestDrum extends BlockMod implements IManaTrigger, ILexicona
 								ent.motionZ += (world.rand.nextFloat() - world.rand.nextFloat()) * 0.1F;
 								itemstack.shrink(1);
 							}
-							item.setDead();
+							item.remove();
 						}
 					}
 				}
@@ -138,7 +134,7 @@ public class BlockForestDrum extends BlockMod implements IManaTrigger, ILexicona
 		}
 
 		for(int i = 0; i < 10; i++)
-			world.playSound(null, pos, SoundEvents.BLOCK_NOTE_BASEDRUM, SoundCategory.BLOCKS, 1F, 1F);
+			world.playSound(null, pos, SoundEvents.BLOCK_NOTE_BLOCK_BASEDRUM, SoundCategory.BLOCKS, 1F, 1F);
 	}
 
 	@Override
@@ -156,7 +152,7 @@ public class BlockForestDrum extends BlockMod implements IManaTrigger, ILexicona
 
 	@Nonnull
 	@Override
-	public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing side) {
+	public BlockFaceShape getBlockFaceShape(IBlockReader world, IBlockState state, BlockPos pos, EnumFacing side) {
 		return BlockFaceShape.UNDEFINED;
 	}
 

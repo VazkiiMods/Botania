@@ -29,6 +29,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ChunkCache;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.IBlockReader;
+import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.client.model.ModelLoader;
@@ -64,11 +66,8 @@ public class BlockPlatform extends BlockCamo implements ILexiconable, IWandable,
 
 	public final Variant variant;
 
-	public BlockPlatform(Variant v) {
-		super(Material.WOOD, v.name().toLowerCase(Locale.ROOT) + LibBlockNames.PLATFORM_SUFFIX);
-		setHardness(2.0F);
-		setResistance(5.0F);
-		setSoundType(SoundType.WOOD);
+	public BlockPlatform(Variant v, Builder builder) {
+		super(builder);
 		this.variant = v;
 	}
 
@@ -111,18 +110,18 @@ public class BlockPlatform extends BlockCamo implements ILexiconable, IWandable,
 	}
 	
 	@Override
-	public boolean canEntityDestroy(IBlockState state, IBlockAccess world, BlockPos pos, Entity entity) {
+	public boolean canEntityDestroy(IBlockState state, IBlockReader world, BlockPos pos, Entity entity) {
 		return variant != Variant.INFRANGIBLE;
 	}
 
 	@Override
-	public float getExplosionResistance(World world, BlockPos pos, @Nullable Entity exploder, Explosion explosion) {
-		return variant != Variant.INFRANGIBLE ? super.getExplosionResistance(world, pos, exploder, explosion) : Float.MAX_VALUE;
+	public float getExplosionResistance(IBlockState state, IWorldReader world, BlockPos pos, @Nullable Entity exploder, Explosion explosion) {
+		return variant != Variant.INFRANGIBLE ? super.getExplosionResistance(state, world, pos, exploder, explosion) : Float.MAX_VALUE;
 	}
 	
 	@Nonnull
 	@Override
-	public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
+	public TileEntity createTileEntity(@Nonnull IBlockState state, @Nonnull IBlockReader world) {
 		return new TilePlatform();
 	}
 

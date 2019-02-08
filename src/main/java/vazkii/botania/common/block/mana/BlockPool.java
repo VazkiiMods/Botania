@@ -10,6 +10,7 @@
  */
 package vazkii.botania.common.block.mana;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockFaceShape;
@@ -23,6 +24,7 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
+import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
@@ -30,6 +32,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ChunkCache;
 import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.client.model.ModelLoader;
@@ -64,37 +67,17 @@ public class BlockPool extends BlockMod implements IWandHUD, IWandable, ILexicon
 
 	public final Variant variant;
 
-	public BlockPool(Variant v) {
-		super(Material.ROCK, LibBlockNames.POOL_PREFIX + v.name().toLowerCase(Locale.ROOT));
-		setHardness(2.0F);
-		setResistance(10.0F);
-		setSoundType(SoundType.STONE);
+	public BlockPool(Variant v, Builder builder) {
+		super(builder);
 		BotaniaAPI.blacklistBlockFromMagnet(this, Short.MAX_VALUE);
-		setDefaultState(blockState.getBaseState()
-				.withProperty(BotaniaStateProps.COLOR, EnumDyeColor.WHITE));
+		setDefaultState(stateContainer.getBaseState()
+				.with(BotaniaStateProps.COLOR, EnumDyeColor.WHITE));
 		this.variant = v;
 	}
 
-	@Nonnull
 	@Override
-	public BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this, BotaniaStateProps.COLOR);
-	}
-
-	@Override
-	public int getMetaFromState(IBlockState state) {
-		return 0;
-	}
-
-	@Nonnull
-	@Override
-	public IBlockState getActualState(@Nonnull IBlockState state, IBlockAccess world, BlockPos pos) {
-		TileEntity te = world instanceof ChunkCache ? ((ChunkCache)world).getTileEntity(pos, Chunk.EnumCreateEntityType.CHECK) : world.getTileEntity(pos);
-		if (te instanceof TilePool) {
-			return state.withProperty(BotaniaStateProps.COLOR, ((TilePool) te).color);
-		} else {
-			return state.withProperty(BotaniaStateProps.COLOR, EnumDyeColor.WHITE);
-		}
+	protected void fillStateContainer(StateContainer.Builder<Block, IBlockState> builder) {
+		builder.add(BotaniaStateProps.COLOR);
 	}
 
 	@Nonnull
@@ -138,7 +121,7 @@ public class BlockPool extends BlockMod implements IWandHUD, IWandable, ILexicon
 	}
 
 	@Override
-	public void onEntityCollision(World world, BlockPos pos, IBlockState state, Entity entity) {
+	public void onEntityCollision(IBlockState state, World world, BlockPos pos, Entity entity) {
 		if(entity instanceof EntityItem) {
 			TilePool tile = (TilePool) world.getTileEntity(pos);
 			if(tile.collideEntityItem((EntityItem) entity))
@@ -160,16 +143,6 @@ public class BlockPool extends BlockMod implements IWandHUD, IWandable, ILexicon
 		addCollisionBoxToList(pos, entityBox, boxes, SOUTH_AABB);
 		addCollisionBoxToList(pos, entityBox, boxes, WEST_AABB);
 		addCollisionBoxToList(pos, entityBox, boxes, EAST_AABB);
-	}
-
-	@Override
-	public boolean isSideSolid(IBlockState state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos, EnumFacing side) {
-		return side == EnumFacing.DOWN;
-	}
-
-	@Override
-	public boolean isOpaqueCube(IBlockState state) {
-		return false;
 	}
 
 	@Override
@@ -198,8 +171,8 @@ public class BlockPool extends BlockMod implements IWandHUD, IWandable, ILexicon
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void renderHUD(Minecraft mc, ScaledResolution res, World world, BlockPos pos) {
-		((TilePool) world.getTileEntity(pos)).renderHUD(mc, res);
+	public void renderHUD(Minecraft mc, World world, BlockPos pos) {
+		((TilePool) world.getTileEntity(pos)).renderHUD(mc);
 	}
 
 	@Override
@@ -213,16 +186,9 @@ public class BlockPool extends BlockMod implements IWandHUD, IWandable, ILexicon
 		return variant == Variant.FABULOUS ? LexiconData.rainbowRod : LexiconData.pool;
 	}
 
-	@OnlyIn(Dist.CLIENT)
-	@Override
-	public void registerModels() {
-		ModelLoader.setCustomStateMapper(this, new StateMap.Builder().ignore(BotaniaStateProps.COLOR).build());
-		super.registerModels();
-	}
-
 	@Nonnull
 	@Override
-	public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing side) {
+	public BlockFaceShape getBlockFaceShape(IBlockReader world, IBlockState state, BlockPos pos, EnumFacing side) {
 		return side == EnumFacing.DOWN ? BlockFaceShape.SOLID : BlockFaceShape.UNDEFINED;
 	}
 }

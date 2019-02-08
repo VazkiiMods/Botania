@@ -29,15 +29,8 @@ import vazkii.botania.common.lib.LibBlockNames;
 
 public class BlockAlchemyCatalyst extends BlockMod implements ILexiconable, IPoolOverlayProvider {
 
-	public BlockAlchemyCatalyst() {
-		this(LibBlockNames.ALCHEMY_CATALYST);
-	}
-
-	public BlockAlchemyCatalyst(String name) {
-		super(Material.ROCK, name);
-		setHardness(2.0F);
-		setResistance(10.0F);
-		setSoundType(SoundType.STONE);
+	public BlockAlchemyCatalyst(Builder builder) {
+		super(builder);
 	}
 
 	@Override

@@ -24,8 +24,8 @@ import vazkii.botania.common.lib.LibBlockNames;
 
 public class BlockConjurationCatalyst extends BlockAlchemyCatalyst {
 
-	public BlockConjurationCatalyst() {
-		super(LibBlockNames.CONJURATION_CATALYST);
+	public BlockConjurationCatalyst(Builder builder) {
+		super(builder);
 	}
 
 	@Override

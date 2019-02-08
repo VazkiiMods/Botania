@@ -18,13 +18,11 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.ObjectHolder;
@@ -32,7 +30,6 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.recipe.RecipeManaInfusion;
 import vazkii.botania.api.subtile.SubTileEntity;
-import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.block.corporea.BlockCorporeaCrystalCube;
 import vazkii.botania.common.block.corporea.BlockCorporeaFunnel;
 import vazkii.botania.common.block.corporea.BlockCorporeaIndex;
@@ -50,7 +47,6 @@ import vazkii.botania.common.block.mana.BlockConjurationCatalyst;
 import vazkii.botania.common.block.mana.BlockDistributor;
 import vazkii.botania.common.block.mana.BlockEnchanter;
 import vazkii.botania.common.block.mana.BlockForestDrum;
-import vazkii.botania.common.block.mana.BlockManaDetector;
 import vazkii.botania.common.block.mana.BlockManaVoid;
 import vazkii.botania.common.block.mana.BlockPool;
 import vazkii.botania.common.block.mana.BlockPrism;
@@ -124,7 +120,23 @@ import java.util.Locale;
 @Mod.EventBusSubscriber(modid = LibMisc.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 @ObjectHolder(LibMisc.MOD_ID)
 public final class ModBlocks {
-	public static final Block flower = new BlockModFlower();
+	@ObjectHolder("white" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX) public static Block whiteFlower;
+	@ObjectHolder("orange" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX) public static Block orangeFlower;
+	@ObjectHolder("magenta" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX) public static Block magentaFlower;
+	@ObjectHolder("light_blue" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX) public static Block lightBlueFlower;
+	@ObjectHolder("yellow" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX) public static Block yellowFlower;
+	@ObjectHolder("lime" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX) public static Block limeFlower;
+	@ObjectHolder("pink" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX) public static Block pinkFlower;
+	@ObjectHolder("gray" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX) public static Block grayFlower;
+	@ObjectHolder("light_gray" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX) public static Block lightGrayFlower;
+	@ObjectHolder("cyan" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX) public static Block cyanFlower;
+	@ObjectHolder("purple" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX) public static Block purpleFlower;
+	@ObjectHolder("blue" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX) public static Block blueFlower;
+	@ObjectHolder("brown" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX) public static Block brownFlower;
+	@ObjectHolder("green" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX) public static Block greenFlower;
+	@ObjectHolder("red" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX) public static Block redFlower;
+	@ObjectHolder("black" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX) public static Block blackFlower;
+
 	@ObjectHolder("apothecary_default") public static Block defaultAltar;
 	@ObjectHolder("apothecary_forest") public static Block forestAltar;
 	@ObjectHolder("apothecary_plains") public static Block plainsAltar;
@@ -150,41 +162,59 @@ public final class ModBlocks {
 	@ObjectHolder(LibBlockNames.LIVING_WOOD_GLIMMERING) public static Block livingwoodGlimmering;
 
 	public static final Block specialFlower = new BlockSpecialFlower();
-	public static final Block manaSpreader = new BlockSpreader(BlockSpreader.Variant.MANA);
-	public static final Block redstoneSpreader = new BlockSpreader(BlockSpreader.Variant.REDSTONE);
-	public static final Block elvenSpreader = new BlockSpreader(BlockSpreader.Variant.ELVEN);
-	public static final Block gaiaSpreader = new BlockSpreader(BlockSpreader.Variant.GAIA);
-	public static final Block manaPool = new BlockPool(BlockPool.Variant.DEFAULT);
-	public static final Block creativePool = new BlockPool(BlockPool.Variant.CREATIVE);
-	public static final Block dilutedPool = new BlockPool(BlockPool.Variant.DILUTED);
-	public static final Block fabulousPool = new BlockPool(BlockPool.Variant.FABULOUS);
-	public static final Block runeAltar = new BlockRuneAltar();
-	public static final Block manaPylon = new BlockPylon(BlockPylon.Variant.MANA);
-	public static final Block naturaPylon = new BlockPylon(BlockPylon.Variant.NATURA);
-	public static final Block gaiaPylon = new BlockPylon(BlockPylon.Variant.GAIA);
-	public static final Block pistonRelay = new BlockPistonRelay();
-	public static final Block distributor = new BlockDistributor();
-	public static final Block manaVoid = new BlockManaVoid();
-	public static final Block manaDetector = new BlockManaDetector();
-	public static final Block enchanter = new BlockEnchanter();
-	public static final Block turntable = new BlockTurntable();
-	public static final Block tinyPlanet = new BlockTinyPlanet();
-	public static final Block alchemyCatalyst = new BlockAlchemyCatalyst();
-	public static final Block openCrate = new BlockOpenCrate();
-	public static final Block craftCrate = new BlockCraftyCrate();
-	public static final Block forestEye = new BlockForestEye();
-	public static final Block manasteelBlock = new BlockStorage(BlockStorage.Variant.MANASTEEL);
-	public static final Block terrasteelBlock = new BlockStorage(BlockStorage.Variant.TERRASTEEL);
-	public static final Block elementiumBlock = new BlockStorage(BlockStorage.Variant.ELEMENTIUM);
-	public static final Block manaDiamondBlock = new BlockStorage(BlockStorage.Variant.MANA_DIAMOND);
-	public static final Block dragonstoneBlock = new BlockStorage(BlockStorage.Variant.DRAGONSTONE);
-	public static final Block wildDrum = new BlockForestDrum(BlockForestDrum.Variant.WILD);
-	public static final Block gatheringDrum = new BlockForestDrum(BlockForestDrum.Variant.GATHERING);
-	public static final Block canopyDrum = new BlockForestDrum(BlockForestDrum.Variant.CANOPY);
-	public static final Block shinyFlower = new BlockShinyFlower();
-	public static final Block abstrusePlatform = new BlockPlatform(BlockPlatform.Variant.ABSTRUSE);
-	public static final Block spectralPlatform = new BlockPlatform(BlockPlatform.Variant.SPECTRAL);
-	public static final Block infrangiblePlatform = new BlockPlatform(BlockPlatform.Variant.INFRANGIBLE);
+	@ObjectHolder(LibBlockNames.SPREADER) public static Block manaSpreader;
+	@ObjectHolder(LibBlockNames.SPREADER_REDSTONE) public static Block redstoneSpreader;
+	@ObjectHolder(LibBlockNames.SPREADER_ELVEN) public static Block elvenSpreader;
+	@ObjectHolder(LibBlockNames.SPREADER_GAIA) public static Block gaiaSpreader;
+
+	@ObjectHolder(LibBlockNames.POOL) public static Block manaPool;
+	@ObjectHolder(LibBlockNames.POOL_CREATIVE) public static Block creativePool;
+	@ObjectHolder(LibBlockNames.POOL_DILUTED) public static Block dilutedPool;
+	@ObjectHolder(LibBlockNames.POOL_FABULOUS) public static Block fabulousPool;
+
+	@ObjectHolder(LibBlockNames.RUNE_ALTAR) public static Block runeAltar;
+	@ObjectHolder(LibBlockNames.PYLON) public static Block manaPylon;
+	@ObjectHolder(LibBlockNames.PYLON_NATURA) public static Block naturaPylon;
+	@ObjectHolder(LibBlockNames.PYLON_GAIA) public static Block gaiaPylon;
+
+	@ObjectHolder(LibBlockNames.PISTON_RELAY) public static Block pistonRelay;
+	@ObjectHolder(LibBlockNames.DISTRIBUTOR) public static Block distributor;
+	@ObjectHolder(LibBlockNames.MANA_VOID) public static Block manaVoid;
+	@ObjectHolder(LibBlockNames.MANA_DETECTOR) public static Block manaDetector;
+	@ObjectHolder(LibBlockNames.ENCHANTER) public static Block enchanter;
+	@ObjectHolder(LibBlockNames.TURNTABLE) public static Block turntable;
+	@ObjectHolder(LibBlockNames.TINY_PLANET) public static Block tinyPlanet;
+	@ObjectHolder(LibBlockNames.ALCHEMY_CATALYST) public static Block alchemyCatalyst;
+	@ObjectHolder(LibBlockNames.OPEN_CRATE) public static Block openCrate;
+	@ObjectHolder(LibBlockNames.CRAFT_CRATE) public static Block craftCrate;
+	@ObjectHolder(LibBlockNames.FOREST_EYE) public static Block forestEye;
+	@ObjectHolder(LibBlockNames.MANASTEEL_BLOCK) public static Block manasteelBlock;
+	@ObjectHolder(LibBlockNames.TERRASTEEL_BLOCK) public static Block terrasteelBlock;
+	@ObjectHolder(LibBlockNames.ELEMENTIUM_BLOCK) public static Block elementiumBlock;
+	@ObjectHolder(LibBlockNames.MANA_DIAMOND_BLOCK) public static Block manaDiamondBlock;
+	@ObjectHolder(LibBlockNames.DRAGONSTONE_BLOCK) public static Block dragonstoneBlock;
+	@ObjectHolder(LibBlockNames.DRUM_WILD) public static Block wildDrum;
+	@ObjectHolder(LibBlockNames.DRUM_GATHERING) public static Block gatheringDrum;
+	@ObjectHolder(LibBlockNames.DRUM_CANOPY) public static Block canopyDrum;
+	@ObjectHolder("white" + LibBlockNames.SHINY_FLOWER_SUFFIX) public static Block whiteShinyFlower;
+	@ObjectHolder("orange" + LibBlockNames.SHINY_FLOWER_SUFFIX) public static Block orangeShinyFlower;
+	@ObjectHolder("magenta" + LibBlockNames.SHINY_FLOWER_SUFFIX) public static Block magentaShinyFlower;
+	@ObjectHolder("light_blue" + LibBlockNames.SHINY_FLOWER_SUFFIX) public static Block lightBlueShinyFlower;
+	@ObjectHolder("yellow" + LibBlockNames.SHINY_FLOWER_SUFFIX) public static Block yellowShinyFlower;
+	@ObjectHolder("lime" + LibBlockNames.SHINY_FLOWER_SUFFIX) public static Block limeShinyFlower;
+	@ObjectHolder("pink" + LibBlockNames.SHINY_FLOWER_SUFFIX) public static Block pinkShinyFlower;
+	@ObjectHolder("gray" + LibBlockNames.SHINY_FLOWER_SUFFIX) public static Block grayShinyFlower;
+	@ObjectHolder("light_gray" + LibBlockNames.SHINY_FLOWER_SUFFIX) public static Block lightGrayShinyFlower;
+	@ObjectHolder("cyan" + LibBlockNames.SHINY_FLOWER_SUFFIX) public static Block cyanShinyFlower;
+	@ObjectHolder("purple" + LibBlockNames.SHINY_FLOWER_SUFFIX) public static Block purpleShinyFlower;
+	@ObjectHolder("blue" + LibBlockNames.SHINY_FLOWER_SUFFIX) public static Block blueShinyFlower;
+	@ObjectHolder("brown" + LibBlockNames.SHINY_FLOWER_SUFFIX) public static Block brownShinyFlower;
+	@ObjectHolder("green" + LibBlockNames.SHINY_FLOWER_SUFFIX) public static Block greenShinyFlower;
+	@ObjectHolder("red" + LibBlockNames.SHINY_FLOWER_SUFFIX) public static Block redShinyFlower;
+	@ObjectHolder("black" + LibBlockNames.SHINY_FLOWER_SUFFIX) public static Block blackShinyFlower;
+	@ObjectHolder(LibBlockNames.PLATFORM_ABSTRUSE) public static Block abstrusePlatform;
+	@ObjectHolder(LibBlockNames.PLATFORM_SPECTRAL) public static Block spectralPlatform;
+	@ObjectHolder(LibBlockNames.PLATFORM_INFRANGIBLE) public static Block infrangiblePlatform;
 	public static final Block alfPortal = new BlockAlfPortal();
 	public static final Block dreamwood = new BlockDreamwood();
 	public static final Block conjurationCatalyst = new BlockConjurationCatalyst();
@@ -286,15 +316,17 @@ public final class ModBlocks {
 		IForgeRegistry<Block> r = evt.getRegistry();
 		ILexiconable decorative = (w, po, pl, st) -> LexiconData.decorativeBlocks;
 
-		r.register(flower);
+		Block.Builder builder = Block.Builder.create(Material.PLANTS).doesNotBlockMovement().hardnessAndResistance(0).sound(SoundType.PLANT);
+		for(EnumDyeColor color : EnumDyeColor.values()) {
+			r.register(new BlockModFlower(color, builder).setRegistryName(LibMisc.MOD_ID, color.getName() + LibBlockNames.MYSTICAL_FLOWER_SUFFIX));
+		}
 
-		Block.Builder builder = Block.Builder.create(Material.ROCK).hardnessAndResistance(3.5F).sound(SoundType.STONE);
+		builder = Block.Builder.create(Material.ROCK).hardnessAndResistance(3.5F).sound(SoundType.STONE);
 		for(BlockAltar.Variant v : BlockAltar.Variant.values()) {
 			r.register(new BlockAltar(v, builder)
 					.setRegistryName(LibMisc.MOD_ID, LibBlockNames.APOTHECARY_PREFIX + v.name().toLowerCase(Locale.ROOT)));
 		}
 
-		// Livingstones
 		builder = Block.Builder.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE);
 		r.register(new BlockModLexiconable(builder, (w, po, pl, st) -> LexiconData.pureDaisy).setRegistryName(LibMisc.MOD_ID, LibBlockNames.LIVING_ROCK));
 		r.register(new BlockModLexiconable(builder, decorative).setRegistryName(LibMisc.MOD_ID, LibBlockNames.LIVING_ROCK_BRICK));
@@ -302,7 +334,6 @@ public final class ModBlocks {
 		r.register(new BlockModLexiconable(builder, decorative).setRegistryName(LibMisc.MOD_ID, LibBlockNames.LIVING_ROCK_BRICK_CRACKED));
 		r.register(new BlockModLexiconable(builder, decorative).setRegistryName(LibMisc.MOD_ID, LibBlockNames.LIVING_ROCK_BRICK_CHISELED));
 
-		// Livingwoods
 		builder = Block.Builder.create(Material.WOOD).hardnessAndResistance(2).sound(SoundType.WOOD);
 		// todo 1.13: livingwood should support leaves
 		r.register(new BlockModLexiconable(builder, (w, po, pl, st) -> LexiconData.pureDaisy).setRegistryName(LibMisc.MOD_ID, LibBlockNames.LIVING_WOOD));
@@ -312,43 +343,72 @@ public final class ModBlocks {
 		r.register(new BlockModLexiconable(builder, decorative).setRegistryName(LibMisc.MOD_ID, LibBlockNames.LIVING_WOOD_PATTERN_FRAMED);
 		r.register(new BlockModLexiconable(builder.lightValue(12), decorative).setRegistryName(LibMisc.MOD_ID, LibBlockNames.LIVING_WOOD_GLIMMERING));
 
-		r.register(livingwood);
 		r.register(specialFlower);
-		r.register(manaSpreader);
-		r.register(redstoneSpreader);
-		r.register(elvenSpreader);
-		r.register(gaiaSpreader);
-		r.register(manaPool);
-		r.register(creativePool);
-		r.register(dilutedPool);
-		r.register(fabulousPool);
-		r.register(runeAltar);
-		r.register(manaPylon);
-		r.register(naturaPylon);
-		r.register(gaiaPylon);
-		r.register(pistonRelay);
-		r.register(distributor);
-		r.register(manaVoid);
-		r.register(manaDetector);
-		r.register(enchanter);
-		r.register(turntable);
-		r.register(tinyPlanet);
-		r.register(alchemyCatalyst);
-		r.register(openCrate);
-		r.register(craftCrate);
-		r.register(forestEye);
-		r.register(manasteelBlock);
-		r.register(terrasteelBlock);
-		r.register(elementiumBlock);
-		r.register(manaDiamondBlock);
-		r.register(dragonstoneBlock);
-		r.register(wildDrum);
-		r.register(gatheringDrum);
-		r.register(canopyDrum);
-		r.register(shinyFlower);
-		r.register(abstrusePlatform);
-		r.register(spectralPlatform);
-		r.register(infrangiblePlatform);
+
+		builder = Block.Builder.create(Material.WOOD).hardnessAndResistance(2).sound(SoundType.WOOD);
+		r.register(new BlockSpreader(BlockSpreader.Variant.MANA, builder).setRegistryName(LibMisc.MOD_ID, LibBlockNames.SPREADER));
+		r.register(new BlockSpreader(BlockSpreader.Variant.REDSTONE, builder).setRegistryName(LibMisc.MOD_ID, LibBlockNames.SPREADER_REDSTONE));
+		r.register(new BlockSpreader(BlockSpreader.Variant.ELVEN, builder).setRegistryName(LibMisc.MOD_ID, LibBlockNames.SPREADER_ELVEN));
+		r.register(new BlockSpreader(BlockSpreader.Variant.GAIA, builder).setRegistryName(LibMisc.MOD_ID, LibBlockNames.SPREADER_GAIA));
+
+		builder = Block.Builder.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE);
+		r.register(new BlockPool(BlockPool.Variant.DEFAULT, builder).setRegistryName(LibMisc.MOD_ID, LibBlockNames.POOL));
+		r.register(new BlockPool(BlockPool.Variant.CREATIVE, builder).setRegistryName(LibMisc.MOD_ID, LibBlockNames.POOL_CREATIVE));
+		r.register(new BlockPool(BlockPool.Variant.DILUTED, builder).setRegistryName(LibMisc.MOD_ID, LibBlockNames.POOL_DILUTED));
+		r.register(new BlockPool(BlockPool.Variant.FABULOUS, builder).setRegistryName(LibMisc.MOD_ID, LibBlockNames.POOL_FABULOUS));
+
+		builder = Block.Builder.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE);
+		r.register(new BlockRuneAltar(builder).setRegistryName(LibMisc.MOD_ID, LibBlockNames.RUNE_ALTAR));
+
+		builder = Block.Builder.create(Material.IRON).hardnessAndResistance(5.5).sound(SoundType.METAL).lightValue(7);
+		r.register(new BlockPylon(BlockPylon.Variant.MANA, builder).setRegistryName(LibMisc.MOD_ID, LibBlockNames.PYLON));
+		r.register(new BlockPylon(BlockPylon.Variant.NATURA, builder).setRegistryName(LibMisc.MOD_ID, LibBlockNames.PYLON_NATURA));
+		r.register(new BlockPylon(BlockPylon.Variant.GAIA, builder).setRegistryName(LibMisc.MOD_ID, LibBlockNames.PYLON_GAIA));
+
+		builder = Block.Builder.create(Material.GOURD).hardnessAndResistance(2, 10).sound(SoundType.METAL);
+		r.register(new BlockPistonRelay(builder).setRegistryName(LibMisc.MOD_ID, LibBlockNames.PISTON_RELAY));
+
+		builder = Block.Builder.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE);
+		r.register(new BlockDistributor(builder).setRegistryName(LibMisc.MOD_ID, LibBlockNames.DISTRIBUTOR));
+
+		builder = Block.Builder.create(Material.ROCK).hardnessAndResistance(2, 2000).sound(SoundType.STONE);
+		r.register(new BlockManaVoid(builder).setRegistryName(LibMisc.MOD_ID, LibBlockNames.MANA_VOID));
+
+		builder = Block.Builder.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE);
+		r.register(new BlockDistributor(builder).setRegistryName(LibMisc.MOD_ID, LibBlockNames.MANA_DETECTOR));
+
+		r.register(new BlockEnchanter(Block.Builder.create(Material.ROCK).hardnessAndResistance(3, 5).lightValue(15).sound(SoundType.STONE)).setRegistryName(LibMisc.MOD_ID, LibBlockNames.ENCHANTER));
+		r.register(new BlockTurntable(Block.Builder.create(Material.WOOD).hardnessAndResistance(2).sound(SoundType.WOOD)).setRegistryName(LibMisc.MOD_ID, LibBlockNames.TURNTABLE)));
+		r.register(new BlockTinyPlanet(Block.Builder.create(Material.ROCK).hardnessAndResistance(20, 100).sound(SoundType.STONE)).setRegistryName(LibMisc.MOD_ID, LibBlockNames.TINY_PLANET));
+		r.register(new BlockAlchemyCatalyst(Block.Builder.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE)).setRegistryName(LibMisc.MOD_ID, LibBlockNames.ALCHEMY_CATALYST));
+		
+		builder = Block.Builder.create(Material.WOOD).hardnessAndResistance(2).sound(SoundType.WOOD);
+		r.register(new BlockOpenCrate(builder).setRegistryName(LibMisc.MOD_ID, LibBlockNames.OPEN_CRATE));
+		r.register(new BlockCraftyCrate(builder).setRegistryName(LibMisc.MOD_ID, LibBlockNames.CRAFT_CRATE));
+		
+		r.register(new BlockForestEye(Block.Builder.create(Material.IRON).hardnessAndResistance(5, 10).sound(SoundType.METAL)).setRegistryName(LibMisc.MOD_ID, LibBlockNames.FOREST_EYE));
+
+		builder = Block.Builder.create(Material.IRON).hardnessAndResistance(3, 10).sound(SoundType.METAL);
+		r.register(new BlockStorage(builder).setRegistryName(LibMisc.MOD_ID, LibBlockNames.MANASTEEL_BLOCK));
+		r.register(new BlockStorage(builder).setRegistryName(LibMisc.MOD_ID, LibBlockNames.TERRASTEEL_BLOCK));
+		r.register(new BlockStorage(builder).setRegistryName(LibMisc.MOD_ID, LibBlockNames.ELEMENTIUM_BLOCK));
+		r.register(new BlockStorage(builder).setRegistryName(LibMisc.MOD_ID, LibBlockNames.MANA_DIAMOND_BLOCK));
+		r.register(new BlockStorage(builder).setRegistryName(LibMisc.MOD_ID, LibBlockNames.DRAGONSTONE_BLOCK));
+
+		builder = Block.Builder.create(Material.WOOD).hardnessAndResistance(2).sound(SoundType.WOOD);
+		r.register(new BlockForestDrum(BlockForestDrum.Variant.WILD, builder).setRegistryName(LibMisc.MOD_ID, LibBlockNames.DRUM_WILD));
+		r.register(new BlockForestDrum(BlockForestDrum.Variant.CANOPY, builder).setRegistryName(LibMisc.MOD_ID, LibBlockNames.DRUM_CANOPY));
+		r.register(new BlockForestDrum(BlockForestDrum.Variant.GATHERING, builder).setRegistryName(LibMisc.MOD_ID, LibBlockNames.DRUM_GATHERING));
+		
+		builder = Block.Builder.create(Material.PLANTS).doesNotBlockMovement().hardnessAndResistance(0).sound(SoundType.PLANT).lightValue(15);
+		for (EnumDyeColor color : EnumDyeColor.values()) {
+			r.register(new BlockShinyFlower(color, builder).setRegistryName(LibMisc.MOD_ID, color.getName() + LibBlockNames.SHINY_FLOWER_SUFFIX));
+		}
+		
+		builder = Block.Builder.create(Material.WOOD).hardnessAndResistance(2, 5).sound(SoundType.WOOD);
+		r.register(new BlockPlatform(BlockPlatform.Variant.ABSTRUSE, builder).setRegistryName(LibMisc.MOD_ID, LibBlockNames.PLATFORM_ABSTRUSE));
+		r.register(new BlockPlatform(BlockPlatform.Variant.SPECTRAL, builder).setRegistryName(LibMisc.MOD_ID, LibBlockNames.PLATFORM_SPECTRAL));
+		r.register(new BlockPlatform(BlockPlatform.Variant.INFRANGIBLE, builder).setRegistryName(LibMisc.MOD_ID, LibBlockNames.PLATFORM_INFRANGIBLE));
 		r.register(alfPortal);
 		r.register(dreamwood);
 		r.register(conjurationCatalyst);
@@ -452,7 +512,22 @@ public final class ModBlocks {
 	@SubscribeEvent
 	public static void registerItemBlocks(RegistryEvent.Register<Item> evt) {
 		IForgeRegistry<Item> r = evt.getRegistry();
-		r.register(new ItemBlockWithMetadataAndName(flower).setRegistryName(flower.getRegistryName()));
+		r.register(new ItemBlockMod(whiteFlower).setRegistryName(whiteFlower.getRegistryName()));
+		r.register(new ItemBlockMod(orangeFlower).setRegistryName(orangeFlower.getRegistryName()));
+		r.register(new ItemBlockMod(magentaFlower).setRegistryName(magentaFlower.getRegistryName()));
+		r.register(new ItemBlockMod(lightBlueFlower).setRegistryName(lightBlueFlower.getRegistryName()));
+		r.register(new ItemBlockMod(yellowFlower).setRegistryName(yellowFlower.getRegistryName()));
+		r.register(new ItemBlockMod(limeFlower).setRegistryName(limeFlower.getRegistryName()));
+		r.register(new ItemBlockMod(pinkFlower).setRegistryName(pinkFlower.getRegistryName()));
+		r.register(new ItemBlockMod(grayFlower).setRegistryName(grayFlower.getRegistryName()));
+		r.register(new ItemBlockMod(lightGrayFlower).setRegistryName(lightGrayFlower.getRegistryName()));
+		r.register(new ItemBlockMod(cyanFlower).setRegistryName(cyanFlower.getRegistryName()));
+		r.register(new ItemBlockMod(purpleFlower).setRegistryName(purpleFlower.getRegistryName()));
+		r.register(new ItemBlockMod(blueFlower).setRegistryName(blueFlower.getRegistryName()));
+		r.register(new ItemBlockMod(brownFlower).setRegistryName(brownFlower.getRegistryName()));
+		r.register(new ItemBlockMod(greenFlower).setRegistryName(greenFlower.getRegistryName()));
+		r.register(new ItemBlockMod(redFlower).setRegistryName(redFlower.getRegistryName()));
+		r.register(new ItemBlockMod(blackFlower).setRegistryName(blackFlower.getRegistryName()));
 		r.register(new ItemBlockMod(defaultAltar).setRegistryName(defaultAltar.getRegistryName()));
 		r.register(new ItemBlockMod(forestAltar).setRegistryName(forestAltar.getRegistryName()));
 		r.register(new ItemBlockMod(plainsAltar).setRegistryName(plainsAltar.getRegistryName()));
@@ -463,8 +538,17 @@ public final class ModBlocks {
 		r.register(new ItemBlockMod(taigaAltar).setRegistryName(taigaAltar.getRegistryName()));
 		r.register(new ItemBlockMod(mesaAltar).setRegistryName(mesaAltar.getRegistryName()));
 		r.register(new ItemBlockMod(mossyAltar).setRegistryName(mossyAltar.getRegistryName()));
-		r.register(new ItemBlockWithMetadataAndName(livingrock).setRegistryName(livingrock.getRegistryName()));
-		r.register(new ItemBlockWithMetadataAndName(livingwood).setRegistryName(livingwood.getRegistryName()));
+		r.register(new ItemBlockMod(livingrock).setRegistryName(livingrock.getRegistryName()));
+		r.register(new ItemBlockMod(livingrockBrick).setRegistryName(livingrockBrick.getRegistryName()));
+		r.register(new ItemBlockMod(livingrockBrickChiseled).setRegistryName(livingrockBrickChiseled.getRegistryName()));
+		r.register(new ItemBlockMod(livingrockBrickCracked).setRegistryName(livingrockBrickCracked.getRegistryName()));
+		r.register(new ItemBlockMod(livingrockBrickMossy).setRegistryName(livingrockBrickMossy.getRegistryName()));
+		r.register(new ItemBlockMod(livingwood).setRegistryName(livingwood.getRegistryName()));
+		r.register(new ItemBlockMod(livingwoodPlanks).setRegistryName(livingwoodPlanks.getRegistryName()));
+		r.register(new ItemBlockMod(livingwoodPlanksMossy).setRegistryName(livingwoodPlanksMossy.getRegistryName()));
+		r.register(new ItemBlockMod(livingwoodFramed).setRegistryName(livingwoodFramed.getRegistryName()));
+		r.register(new ItemBlockMod(livingwoodPatternFramed).setRegistryName(livingwoodPatternFramed.getRegistryName()));
+		r.register(new ItemBlockMod(livingwoodGlimmering).setRegistryName(livingwoodGlimmering.getRegistryName()));
 		r.register(new ItemBlockSpecialFlower(specialFlower).setRegistryName(specialFlower.getRegistryName()));
 		r.register(new ItemBlockMod(manaSpreader).setRegistryName(manaSpreader.getRegistryName()));
 		r.register(new ItemBlockMod(redstoneSpreader).setRegistryName(redstoneSpreader.getRegistryName()));
@@ -497,7 +581,22 @@ public final class ModBlocks {
 		r.register(new ItemBlockMod(wildDrum).setRegistryName(wildDrum.getRegistryName()));
 		r.register(new ItemBlockMod(gatheringDrum).setRegistryName(gatheringDrum.getRegistryName()));
 		r.register(new ItemBlockMod(canopyDrum).setRegistryName(canopyDrum.getRegistryName()));
-		r.register(new ItemBlockWithMetadataAndName(shinyFlower).setRegistryName(shinyFlower.getRegistryName()));
+		r.register(new ItemBlockMod(whiteShinyFlower).setRegistryName(whiteShinyFlower.getRegistryName()));
+		r.register(new ItemBlockMod(orangeShinyFlower).setRegistryName(orangeShinyFlower.getRegistryName()));
+		r.register(new ItemBlockMod(magentaShinyFlower).setRegistryName(magentaShinyFlower.getRegistryName()));
+		r.register(new ItemBlockMod(lightBlueShinyFlower).setRegistryName(lightBlueShinyFlower.getRegistryName()));
+		r.register(new ItemBlockMod(yellowShinyFlower).setRegistryName(yellowShinyFlower.getRegistryName()));
+		r.register(new ItemBlockMod(limeShinyFlower).setRegistryName(limeShinyFlower.getRegistryName()));
+		r.register(new ItemBlockMod(pinkShinyFlower).setRegistryName(pinkShinyFlower.getRegistryName()));
+		r.register(new ItemBlockMod(grayShinyFlower).setRegistryName(grayShinyFlower.getRegistryName()));
+		r.register(new ItemBlockMod(lightGrayShinyFlower).setRegistryName(lightGrayShinyFlower.getRegistryName()));
+		r.register(new ItemBlockMod(cyanShinyFlower).setRegistryName(cyanShinyFlower.getRegistryName()));
+		r.register(new ItemBlockMod(purpleShinyFlower).setRegistryName(purpleShinyFlower.getRegistryName()));
+		r.register(new ItemBlockMod(blueShinyFlower).setRegistryName(blueShinyFlower.getRegistryName()));
+		r.register(new ItemBlockMod(brownShinyFlower).setRegistryName(brownShinyFlower.getRegistryName()));
+		r.register(new ItemBlockMod(greenShinyFlower).setRegistryName(greenShinyFlower.getRegistryName()));
+		r.register(new ItemBlockMod(redShinyFlower).setRegistryName(redShinyFlower.getRegistryName()));
+		r.register(new ItemBlockMod(blackShinyFlower).setRegistryName(blackShinyFlower.getRegistryName()));
 		r.register(new ItemBlockMod(abstrusePlatform).setRegistryName(abstrusePlatform.getRegistryName()));
 		r.register(new ItemBlockMod(spectralPlatform).setRegistryName(spectralPlatform.getRegistryName()));
 		r.register(new ItemBlockMod(infrangiblePlatform).setRegistryName(infrangiblePlatform.getRegistryName()));

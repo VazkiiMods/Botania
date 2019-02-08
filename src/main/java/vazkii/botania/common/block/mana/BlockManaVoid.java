@@ -34,11 +34,8 @@ import javax.annotation.Nonnull;
 
 public class BlockManaVoid extends BlockMod implements ILexiconable, IPoolOverlayProvider {
 
-	public BlockManaVoid() {
-		super(Material.ROCK, LibBlockNames.MANA_VOID);
-		setHardness(2.0F);
-		setResistance(2000F);
-		setSoundType(SoundType.STONE);
+	public BlockManaVoid(Builder builder) {
+		super(builder);
 	}
 
 	@Override

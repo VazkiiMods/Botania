@@ -20,7 +20,9 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -33,28 +35,20 @@ import javax.annotation.Nonnull;
 
 public class BlockTinyPlanet extends BlockMod implements ILexiconable, IManaCollisionGhost {
 
-	private static final AxisAlignedBB AABB = new AxisAlignedBB(3.0/16, 3.0/16, 3.0/16, 13.0/16, 13.0/16, 13.0/16);
+	private static final VoxelShape AABB = makeCuboidShape(3, 3, 3, 13, 13, 13);
 
-	protected BlockTinyPlanet() {
-		super(Material.ROCK, LibBlockNames.TINY_PLANET);
-		setHardness(20F);
-		setResistance(100F);
-		setSoundType(SoundType.STONE);
+	protected BlockTinyPlanet(Builder builder) {
+		super(builder);
 	}
 
 	@Nonnull
 	@Override
-	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
+	public VoxelShape getShape(IBlockState state, IBlockReader world, BlockPos pos) {
 		return AABB;
 	}
 
 	@Override
 	public boolean isFullCube(IBlockState state) {
-		return false;
-	}
-
-	@Override
-	public boolean isOpaqueCube(IBlockState state) {
 		return false;
 	}
 
@@ -65,7 +59,7 @@ public class BlockTinyPlanet extends BlockMod implements ILexiconable, IManaColl
 
 	@Nonnull
 	@Override
-	public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
+	public TileEntity createTileEntity(@Nonnull IBlockState state, @Nonnull IBlockReader world) {
 		return new TileTinyPlanet();
 	}
 
@@ -81,7 +75,7 @@ public class BlockTinyPlanet extends BlockMod implements ILexiconable, IManaColl
 
 	@Nonnull
 	@Override
-	public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing side) {
+	public BlockFaceShape getBlockFaceShape(IBlockReader world, IBlockState state, BlockPos pos, EnumFacing side) {
 		return BlockFaceShape.UNDEFINED;
 	}
 }

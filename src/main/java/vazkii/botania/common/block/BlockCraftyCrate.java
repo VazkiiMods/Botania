@@ -1,17 +1,17 @@
 package vazkii.botania.common.block;
 
-import net.minecraft.block.state.BlockStateContainer;
+import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
-import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ChunkCache;
-import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.api.distmarker.Dist;
@@ -28,15 +28,14 @@ import javax.annotation.Nonnull;
 
 public class BlockCraftyCrate extends BlockOpenCrate implements IWandHUD {
 
-	public BlockCraftyCrate() {
-		super(LibBlockNames.CRAFT_CRATE);
-		setDefaultState(getDefaultState().withProperty(BotaniaStateProps.CRATE_PATTERN, CratePattern.NONE));
+	public BlockCraftyCrate(Builder builder) {
+		super(builder);
+		setDefaultState(stateContainer.getBaseState().with(BotaniaStateProps.CRATE_PATTERN, CratePattern.NONE));
 	}
 
-	@Nonnull
 	@Override
-	public BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this, BotaniaStateProps.CRATE_PATTERN);
+	protected void fillStateContainer(StateContainer.Builder<Block, IBlockState> builder) {
+		builder.add(BotaniaStateProps.CRATE_PATTERN);
 	}
 
 	@Nonnull
@@ -51,14 +50,9 @@ public class BlockCraftyCrate extends BlockOpenCrate implements IWandHUD {
 		return state;
 	}
 
-	@Override
-	public int getMetaFromState(IBlockState state) {
-		return 0;
-	}
-
 	@Nonnull
 	@Override
-	public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
+	public TileEntity createTileEntity(@Nonnull IBlockState state, @Nonnull IBlockReader world) {
 		return new TileCraftCrate();
 	}
 
@@ -69,15 +63,15 @@ public class BlockCraftyCrate extends BlockOpenCrate implements IWandHUD {
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void renderHUD(Minecraft mc, ScaledResolution res, World world, BlockPos pos) {
+	public void renderHUD(Minecraft mc, World world, BlockPos pos) {
 		TileEntity tile = world.getTileEntity(pos);
 		if(tile instanceof TileCraftCrate) {
 			TileCraftCrate craft = (TileCraftCrate) tile;
 
 			int width = 52;
 			int height = 52;
-			int xc = res.getScaledWidth() / 2 + 20;
-			int yc = res.getScaledHeight() / 2 - height / 2;
+			int xc = mc.mainWindow.getScaledWidth() / 2 + 20;
+			int yc = mc.mainWindow.getScaledHeight() / 2 - height / 2;
 
 			Gui.drawRect(xc - 6, yc - 6, xc + width + 6, yc + height + 6, 0x22000000);
 			Gui.drawRect(xc - 4, yc - 4, xc + width + 4, yc + height + 4, 0x22000000);
@@ -97,7 +91,7 @@ public class BlockCraftyCrate extends BlockOpenCrate implements IWandHUD {
 					ItemStack item = craft.getItemHandler().getStackInSlot(index);
 					net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
 					GlStateManager.enableRescaleNormal();
-					mc.getRenderItem().renderItemAndEffectIntoGUI(item, xp, yp);
+					mc.getItemRenderer().renderItemAndEffectIntoGUI(item, xp, yp);
 					net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
 				}
 		}

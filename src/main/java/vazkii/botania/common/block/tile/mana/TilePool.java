@@ -334,11 +334,11 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 
 	@Override
 	public void writePacketNBT(NBTTagCompound cmp) {
-		cmp.setInteger(TAG_MANA, mana);
+		cmp.setInt(TAG_MANA, mana);
 		cmp.setBoolean(TAG_OUTPUTTING, outputting);
-		cmp.setInteger(TAG_COLOR, color.getMetadata());
+		cmp.setInt(TAG_COLOR, color.getId());
 
-		cmp.setInteger(TAG_MANA_CAP, manaCap);
+		cmp.setInt(TAG_MANA_CAP, manaCap);
 		cmp.setBoolean(TAG_CAN_ACCEPT, canAccept);
 		cmp.setBoolean(TAG_CAN_SPARE, canSpare);
 		cmp.setBoolean(TAG_FRAGILE, fragile);
@@ -349,12 +349,12 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 
 	@Override
 	public void readPacketNBT(NBTTagCompound cmp) {
-		mana = cmp.getInteger(TAG_MANA);
+		mana = cmp.getInt(TAG_MANA);
 		outputting = cmp.getBoolean(TAG_OUTPUTTING);
-		color = EnumDyeColor.byMetadata(cmp.getInteger(TAG_COLOR));
+		color = EnumDyeColor.byId(cmp.getInt(TAG_COLOR));
 
 		if(cmp.hasKey(TAG_MANA_CAP))
-			manaCap = cmp.getInteger(TAG_MANA_CAP);
+			manaCap = cmp.getInt(TAG_MANA_CAP);
 		if(cmp.hasKey(TAG_CAN_ACCEPT))
 			canAccept = cmp.getBoolean(TAG_CAN_ACCEPT);
 		if(cmp.hasKey(TAG_CAN_SPARE))
@@ -367,7 +367,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 			inputKey = cmp.getString(TAG_OUTPUT_KEY);
 
 		if(cmp.hasKey(TAG_KNOWN_MANA))
-			knownMana = cmp.getInteger(TAG_KNOWN_MANA);
+			knownMana = cmp.getInt(TAG_KNOWN_MANA);
 	}
 
 	public void onWanded(EntityPlayer player, ItemStack wand) {
@@ -382,7 +382,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 		if(!world.isRemote) {
 			NBTTagCompound nbttagcompound = new NBTTagCompound();
 			writePacketNBT(nbttagcompound);
-			nbttagcompound.setInteger(TAG_KNOWN_MANA, getCurrentMana());
+			nbttagcompound.setInt(TAG_KNOWN_MANA, getCurrentMana());
 			if(player instanceof EntityPlayerMP)
 				((EntityPlayerMP) player).connection.sendPacket(new SPacketUpdateTileEntity(pos, -999, nbttagcompound));
 		}
@@ -391,14 +391,14 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public void renderHUD(Minecraft mc, ScaledResolution res) {
-		ItemStack pool = new ItemStack(getBlockType());
+	public void renderHUD(Minecraft mc) {
+		ItemStack pool = new ItemStack(getBlockState().getBlock());
 		String name = I18n.format(pool.getTranslationKey().replaceAll("tile.", "tile." + LibResources.PREFIX_MOD) + ".name");
 		int color = 0x4444FF;
-		HUDHandler.drawSimpleManaHUD(color, knownMana, manaCap, name, res);
+		HUDHandler.drawSimpleManaHUD(color, knownMana, manaCap, name);
 
-		int x = res.getScaledWidth() / 2 - 11;
-		int y = res.getScaledHeight() / 2 + 30;
+		int x = Minecraft.getInstance().mainWindow.getScaledWidth() / 2 - 11;
+		int y = Minecraft.getInstance().mainWindow.getScaledHeight() / 2 + 30;
 
 		int u = outputting ? 22 : 0;
 		int v = 38;
@@ -406,16 +406,16 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
-		mc.renderEngine.bindTexture(HUDHandler.manaBar);
+		mc.textureManager.bindTexture(HUDHandler.manaBar);
 		RenderHelper.drawTexturedModalRect(x, y, 0, u, v, 22, 15);
-		GlStateManager.color(1F, 1F, 1F, 1F);
+		GlStateManager.color4f(1F, 1F, 1F, 1F);
 
 		ItemStack tablet = new ItemStack(ModItems.manaTablet);
 		ItemManaTablet.setStackCreative(tablet);
 
 		net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
-		mc.getRenderItem().renderItemAndEffectIntoGUI(tablet, x - 20, y);
-		mc.getRenderItem().renderItemAndEffectIntoGUI(pool, x + 26, y);
+		mc.getItemRenderer().renderItemAndEffectIntoGUI(tablet, x - 20, y);
+		mc.getItemRenderer().renderItemAndEffectIntoGUI(pool, x + 26, y);
 		net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
 
 		GlStateManager.disableLighting();

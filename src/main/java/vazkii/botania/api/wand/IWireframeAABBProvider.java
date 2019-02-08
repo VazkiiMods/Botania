@@ -22,6 +22,9 @@ import java.util.List;
  */
 public interface IWireframeAABBProvider {
 
+	/**
+	 * Retrieves wireframes to render, in world coordinates
+	 */
 	public List<AxisAlignedBB> getWireframeAABB(World world, BlockPos pos);
 
 }
