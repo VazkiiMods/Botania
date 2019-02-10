@@ -10,23 +10,24 @@
  */
 package vazkii.botania.common.block;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockFaceShape;
-import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.block.statemap.StateMap;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
+import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.client.model.ModelLoader;
@@ -48,46 +49,29 @@ import javax.annotation.Nonnull;
 
 public class BlockAvatar extends BlockMod implements ILexiconable {
 
-	private static final AxisAlignedBB X_AABB = new AxisAlignedBB(.3125, 0, .21875, 1-.3125, 17/16.0, 1-.21875);
-	private static final AxisAlignedBB Z_AABB = new AxisAlignedBB(.21875, 0, .3125, 1-.21875, 17/16.0, 1-.3125);
+	private static final VoxelShape X_AABB = makeCuboidShape(5, 0, 3.5, 11, 17, 12.5);
+	private static final VoxelShape Z_AABB = makeCuboidShape(3.5, 0, 5, 12.5, 17, 11);
 
-	protected BlockAvatar() {
-		super(Material.WOOD, LibBlockNames.AVATAR);
-		setHardness(2.0F);
-		setSoundType(SoundType.WOOD);
-		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.CARDINALS, EnumFacing.NORTH));
+	protected BlockAvatar(Builder builder) {
+		super(builder);
+		setDefaultState(stateContainer.getBaseState().with(BotaniaStateProps.CARDINALS, EnumFacing.NORTH));
 	}
 
 	@Nonnull
 	@Override
-	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
-		if(state.getValue(BotaniaStateProps.CARDINALS).getAxis() == EnumFacing.Axis.X)
+	public VoxelShape getShape(IBlockState state, IBlockReader world, BlockPos pos) {
+		if(state.get(BotaniaStateProps.CARDINALS).getAxis() == EnumFacing.Axis.X)
 			return X_AABB;
 		else return Z_AABB;
 	}
 
-	@Nonnull
 	@Override
-	public BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this, BotaniaStateProps.CARDINALS);
+	protected void fillStateContainer(StateContainer.Builder<Block, IBlockState> builder) {
+		builder.add(BotaniaStateProps.CARDINALS);
 	}
 
 	@Override
-	public int getMetaFromState(IBlockState state) {
-		return state.getValue(BotaniaStateProps.CARDINALS).getIndex();
-	}
-
-	@Nonnull
-	@Override
-	public IBlockState getStateFromMeta(int meta) {
-		if (meta < 2 || meta > 5) {
-			meta = 2;
-		}
-		return getDefaultState().withProperty(BotaniaStateProps.CARDINALS, EnumFacing.byIndex(meta));
-	}
-
-	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing s, float xs, float ys, float zs) {
+	public boolean onBlockActivated(IBlockState state, World world, BlockPos pos, EntityPlayer player, EnumHand hand, EnumFacing s, float xs, float ys, float zs) {
 		TileAvatar avatar = (TileAvatar) world.getTileEntity(pos);
 		ItemStack stackOnAvatar = avatar.getItemHandler().getStackInSlot(0);
 		ItemStack stackOnPlayer = player.getHeldItem(hand);
@@ -96,7 +80,7 @@ public class BlockAvatar extends BlockMod implements ILexiconable {
 			ItemHandlerHelper.giveItemToPlayer(player, stackOnAvatar);
 			return true;
 		} else if(!stackOnPlayer.isEmpty() && stackOnPlayer.getItem() instanceof IAvatarWieldable) {
-			avatar.getItemHandler().setStackInSlot(0, stackOnPlayer.splitStack(1));
+			avatar.getItemHandler().setStackInSlot(0, stackOnPlayer.split(1));
 			return true;
 		}
 
@@ -104,22 +88,18 @@ public class BlockAvatar extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public void breakBlock(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
+	public void onReplaced(@Nonnull IBlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState newstate, boolean isMoving) {
 		TileSimpleInventory inv = (TileSimpleInventory) world.getTileEntity(pos);
 
 		InventoryHelper.dropInventory(inv, world, state, pos);
 
-		super.breakBlock(world, pos, state);
+		super.onReplaced(state, world, pos, newstate, isMoving);
 	}
 
 	@Override
 	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
-		world.setBlockState(pos, state.withProperty(BotaniaStateProps.CARDINALS, placer.getHorizontalFacing().getOpposite()));
-	}
-
-	@Override
-	public boolean isOpaqueCube(IBlockState state) {
-		return false;
+		// todo 1.13 getstateforplacement
+		world.setBlockState(pos, state.with(BotaniaStateProps.CARDINALS, placer.getHorizontalFacing().getOpposite()));
 	}
 
 	@Override
@@ -140,27 +120,19 @@ public class BlockAvatar extends BlockMod implements ILexiconable {
 
 	@Nonnull
 	@Override
-	public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
+	public TileEntity createTileEntity(@Nonnull IBlockState state, @Nonnull IBlockReader world) {
 		return new TileAvatar();
 	}
 
 	@Nonnull
 	@Override
-	public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing side) {
+	public BlockFaceShape getBlockFaceShape(IBlockReader world, IBlockState state, BlockPos pos, EnumFacing side) {
 		return BlockFaceShape.UNDEFINED;
 	}
 
 	@Override
 	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.avatar;
-	}
-
-	@OnlyIn(Dist.CLIENT)
-	@Override
-	public void registerModels() {
-		ModelLoader.setCustomStateMapper(this, new StateMap.Builder().ignore(BotaniaStateProps.CARDINALS).build());
-		ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(this), 0, TileAvatar.class);
-		ModelHandler.registerCustomItemblock(this, "avatar");
 	}
 
 }

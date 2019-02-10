@@ -10,28 +10,27 @@
  */
 package vazkii.botania.common.block;
 
-import net.minecraft.block.BlockDirt;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Particles;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.IItemProvider;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.common.ToolType;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.state.BotaniaStateProps;
@@ -57,28 +56,25 @@ public class BlockAltGrass extends BlockMod implements ILexiconable {
 
 	private final Variant variant;
 
-	public BlockAltGrass(Variant v) {
-		super(Material.GRASS, v.name().toLowerCase(Locale.ROOT) + LibBlockNames.ALT_GRASS_SUFFIX);
-		setHardness(0.6F);
-		setSoundType(SoundType.PLANT);
-		setTickRandomly(true);
+	public BlockAltGrass(Variant v, Builder builder) {
+		super(builder);
 		this.variant = v;
 	}
 
 	@Override
-	public boolean isToolEffective(String type, @Nonnull IBlockState state) {
-		return type.equals("shovel");
+	public boolean isToolEffective(IBlockState state, ToolType tool) {
+		return tool.equals(ToolType.SHOVEL);
 	}
 
 	@Override
-	public void updateTick(World world, BlockPos pos, IBlockState state, Random rand) {
+	public void tick(IBlockState state, World world, BlockPos pos, Random rand) {
 		if(!world.isRemote && state.getBlock() == this && world.getLight(pos.up()) >= 9) {
 			for(int l = 0; l < 4; ++l) {
 				BlockPos pos1 = pos.add(rand.nextInt(3) - 1, rand.nextInt(5) - 3, rand.nextInt(3) - 1);
 
 				world.getBlockState(pos1.up()).getBlock();
 
-				if(world.getBlockState(pos1).getBlock() == Blocks.DIRT && world.getBlockState(pos1).getValue(BlockDirt.VARIANT) == BlockDirt.DirtType.DIRT && world.getLight(pos1.up()) >= 4 && world.getBlockLightOpacity(pos1.up()) <= 2)
+				if(world.getBlockState(pos1).getBlock() == Blocks.DIRT && world.getLight(pos1.up()) >= 4 && world.getBlockLightOpacity(pos1.up()) <= 2)
 					world.setBlockState(pos1, getDefaultState(), 1 | 2);
 			}
 		}
@@ -86,21 +82,19 @@ public class BlockAltGrass extends BlockMod implements ILexiconable {
 
 	@Nonnull
 	@Override
-	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-		return Blocks.DIRT.getItemDropped(state, rand, fortune);
+	public IItemProvider getItemDropped(IBlockState state, World world, BlockPos pos, int fortune) {
+		return Blocks.DIRT.getItemDropped(state, world, pos, fortune);
 	}
 
 	@Override
-	public boolean canSustainPlant(@Nonnull IBlockState state, @Nonnull IBlockAccess world, BlockPos pos, @Nonnull EnumFacing direction, IPlantable plantable) {
+	public boolean canSustainPlant(@Nonnull IBlockState state, @Nonnull IBlockReader world, BlockPos pos, @Nonnull EnumFacing direction, IPlantable plantable) {
 		EnumPlantType type = plantable.getPlantType(world, pos.down());
 		return type == EnumPlantType.Plains || type == EnumPlantType.Beach;
 	}
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void randomDisplayTick(IBlockState state, World world, BlockPos pos, Random r) {
-		if (state.getBlock() != this)
-			return;
+	public void animateTick(IBlockState state, World world, BlockPos pos, Random r) {
 		switch(variant) {
 		case DRY:
 			break;
@@ -110,7 +104,7 @@ public class BlockAltGrass extends BlockMod implements ILexiconable {
 			break;
 		case SCORCHED:
 			if(r.nextInt(80) == 0)
-				world.spawnParticle(EnumParticleTypes.FLAME, pos.getX() + r.nextFloat(), pos.getY() + 1.1, pos.getZ() + r.nextFloat(), 0, 0, 0);
+				world.spawnParticle(Particles.FLAME, pos.getX() + r.nextFloat(), pos.getY() + 1.1, pos.getZ() + r.nextFloat(), 0, 0, 0);
 			break;
 		case INFUSED:
 			if(r.nextInt(100) == 0)

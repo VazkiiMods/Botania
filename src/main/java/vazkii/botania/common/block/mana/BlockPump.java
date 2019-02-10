@@ -12,9 +12,7 @@ package vazkii.botania.common.block.mana;
 
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockFaceShape;
-import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -23,9 +21,9 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
+import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
-import net.minecraftforge.common.property.ExtendedBlockState;
 import net.minecraftforge.common.property.IUnlistedProperty;
 import net.minecraftforge.common.property.Properties;
 import net.minecraftforge.api.distmarker.Dist;
@@ -46,11 +44,8 @@ public class BlockPump extends BlockMod implements ILexiconable {
 	private static final AxisAlignedBB X_AABB = new AxisAlignedBB(0, 0, 0.25, 1, 0.5, 0.75);
 	private static final AxisAlignedBB Z_AABB = new AxisAlignedBB(0.25, 0, 0, 0.75, 0.5, 1);
 
-	public BlockPump() {
-		super(Material.ROCK, LibBlockNames.PUMP);
-		setHardness(2.0F);
-		setResistance(10.0F);
-		setSoundType(SoundType.STONE);
+	public BlockPump(Builder builder) {
+		super(builder);
 		setDefaultState(blockState.getBaseState().withProperty(Properties.StaticProperty, true).withProperty(BotaniaStateProps.CARDINALS, EnumFacing.SOUTH));
 	}
 
@@ -60,44 +55,26 @@ public class BlockPump extends BlockMod implements ILexiconable {
 		return new ExtendedBlockState(this, new IProperty[] { BotaniaStateProps.CARDINALS, Properties.StaticProperty }, new IUnlistedProperty[] { Properties.AnimationProperty });
 	}
 
-	@Override
-	public int getMetaFromState(IBlockState state) {
-		return state.getValue(BotaniaStateProps.CARDINALS).getIndex();
-	}
-
 	@Nonnull
 	@Override
 	public IBlockState getActualState(@Nonnull IBlockState state, IBlockAccess world, BlockPos pos) {
 		return state.withProperty(Properties.StaticProperty, true);
 	}
 
-	@Nonnull
-	@Override
-	public IBlockState getStateFromMeta(int meta) {
-		if (meta < 2 || meta > 5) {
-			meta = 2;
-		}
-		return getDefaultState().withProperty(BotaniaStateProps.CARDINALS, EnumFacing.byIndex(meta));
-	}
-
 	@Override
 	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
-		world.setBlockState(pos, state.withProperty(BotaniaStateProps.CARDINALS, placer.getHorizontalFacing().getOpposite()), 2);
+		// todo getplacementstate
+		world.setBlockState(pos, state.with(BotaniaStateProps.CARDINALS, placer.getHorizontalFacing().getOpposite()), 2);
 	}
 
 	@Nonnull
 	@Override
-	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
-		if(state.getValue(BotaniaStateProps.CARDINALS).getAxis() == EnumFacing.Axis.X) {
+	public VoxelShape getShape(IBlockState state, IBlockReader world, BlockPos pos) {
+		if(state.get(BotaniaStateProps.CARDINALS).getAxis() == EnumFacing.Axis.X) {
 			return X_AABB;
 		} else {
 			return Z_AABB;
 		}
-	}
-
-	@Override
-	public boolean isOpaqueCube(IBlockState state) {
-		return false;
 	}
 
 	@Override
@@ -128,19 +105,13 @@ public class BlockPump extends BlockMod implements ILexiconable {
 
 	@Nonnull
 	@Override
-	public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
+	public TileEntity createTileEntity(@Nonnull IBlockState state, @Nonnull IBlockReader world) {
 		return new TilePump();
-	}
-
-	@OnlyIn(Dist.CLIENT)
-	@Override
-	public void registerModels() {
-		ModelHandler.registerInventoryVariant(this);
 	}
 
 	@Nonnull
 	@Override
-	public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing side) {
+	public BlockFaceShape getBlockFaceShape(IBlockReader world, IBlockState state, BlockPos pos, EnumFacing side) {
 		return BlockFaceShape.UNDEFINED;
 	}
 }

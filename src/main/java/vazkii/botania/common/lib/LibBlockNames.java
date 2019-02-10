@@ -102,7 +102,7 @@ public final class LibBlockNames {
 	public static final String PETAL_BLOCK_SUFFIX = "_petal_block";
 	public static final String CORPOREA_INDEX = "corporea_index";
 	public static final String CORPOREA_FUNNEL = "corporea_funnel";
-	public static final String MUSHROOM = "mushroom";
+	public static final String MUSHROOM_SUFFIX = "_mushroom";
 	public static final String PUMP = "pump";
 	public static final String DOUBLE_FLOWER = "double_flower";
 	public static final String STONE = "stone";

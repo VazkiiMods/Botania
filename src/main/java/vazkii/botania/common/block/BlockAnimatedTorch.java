@@ -10,11 +10,9 @@
  */
 package vazkii.botania.common.block;
 
-import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -24,7 +22,9 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
+import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.world.IBlockReader;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -35,24 +35,21 @@ import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.mana.IManaTrigger;
 import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.api.wand.IWandable;
-import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.block.tile.TileAnimatedTorch;
 import vazkii.botania.common.lexicon.LexiconData;
-import vazkii.botania.common.lib.LibBlockNames;
 
 import javax.annotation.Nonnull;
 
 public class BlockAnimatedTorch extends BlockMod implements IWandable, IManaTrigger, IHourglassTrigger, IWandHUD, ILexiconable {
 
-	private static final AxisAlignedBB AABB = new AxisAlignedBB(0, 0, 0, 1, 0.25, 1);
+	private static final VoxelShape SHAPE = makeCuboidShape(0, 0, 0, 16, 4, 16);
 
-	public BlockAnimatedTorch() {
-		super(Material.CIRCUITS, LibBlockNames.ANIMATED_TORCH);
-		setLightLevel(0.5F);
+	public BlockAnimatedTorch(Builder builder) {
+		super(builder);
 	}
 
 	@Override
-	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+	public boolean onBlockActivated(IBlockState state, World worldIn, BlockPos pos, EntityPlayer playerIn, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
 		if(hand == EnumHand.MAIN_HAND && playerIn.isSneaking() && playerIn.getHeldItem(hand).isEmpty()) {
 			((TileAnimatedTorch) worldIn.getTileEntity(pos)).handRotate();
 			return true;
@@ -85,8 +82,8 @@ public class BlockAnimatedTorch extends BlockMod implements IWandable, IManaTrig
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public void renderHUD(Minecraft mc, ScaledResolution res, World world, BlockPos pos) {
-		((TileAnimatedTorch) world.getTileEntity(pos)).renderHUD(mc, res);
+	public void renderHUD(Minecraft mc, World world, BlockPos pos) {
+		((TileAnimatedTorch) world.getTileEntity(pos)).renderHUD(mc);
 	}
 
 	@Override
@@ -95,12 +92,12 @@ public class BlockAnimatedTorch extends BlockMod implements IWandable, IManaTrig
 	}
 
 	@Override
-	public int getStrongPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
+	public int getStrongPower(IBlockState blockState, IBlockReader blockAccess, BlockPos pos, EnumFacing side) {
 		return getWeakPower(blockState, blockAccess, pos, side);
 	}
 
 	@Override
-	public int getWeakPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
+	public int getWeakPower(IBlockState blockState, IBlockReader blockAccess, BlockPos pos, EnumFacing side) {
 		TileAnimatedTorch tile = (TileAnimatedTorch) blockAccess.getTileEntity(pos);
 
 		if(tile.rotating)
@@ -119,23 +116,18 @@ public class BlockAnimatedTorch extends BlockMod implements IWandable, IManaTrig
 	}
 
 	@Override
-	public boolean isOpaqueCube(IBlockState state) {
-		return false;
-	}
-
-	@Override
 	public boolean isFullCube(IBlockState state) {
 		return false;
 	}
 
 	@Nonnull
 	@Override
-	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
-		return AABB;
+	public VoxelShape getShape(IBlockState state, IBlockReader world, BlockPos pos) {
+		return SHAPE;
 	}
 
 	@Override
-	public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
+	public TileEntity createTileEntity(@Nonnull IBlockState state, @Nonnull IBlockReader world) {
 		return new TileAnimatedTorch();
 	}
 
@@ -146,29 +138,20 @@ public class BlockAnimatedTorch extends BlockMod implements IWandable, IManaTrig
 
 	@Nonnull
 	@Override
-	public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing side) {
+	public BlockFaceShape getBlockFaceShape(IBlockReader world, IBlockState state, BlockPos pos, EnumFacing side) {
 		return BlockFaceShape.UNDEFINED;
 	}
 
 	@Override
-	public void onPlayerDestroy(World world, BlockPos pos, IBlockState state) {
+	public void onPlayerDestroy(IWorld world, BlockPos pos, IBlockState state) {
 		// TE is already gone so best we can do is just notify everyone
-		for(EnumFacing side : EnumFacing.VALUES) {
-			world.notifyNeighborsOfStateChange(pos.offset(side), this, false);
-		}
+		world.notifyNeighbors(pos, this);
 		super.onPlayerDestroy(world, pos, state);
 	}
 
 	@Override
 	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.animatedTorch;
-	}
-
-	@OnlyIn(Dist.CLIENT)
-	@Override
-	public void registerModels() {
-		super.registerModels();
-		ModelHandler.registerCustomItemblock(this, "animatedtorch");
 	}
 
 }

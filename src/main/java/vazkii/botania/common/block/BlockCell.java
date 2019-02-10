@@ -18,7 +18,9 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.IItemProvider;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -31,14 +33,13 @@ import java.util.Random;
 
 public class BlockCell extends BlockMod implements ILexiconable {
 
-	public BlockCell() {
-		super(Material.GOURD, LibBlockNames.CELL_BLOCK);
-		setSoundType(SoundType.CLOTH);
+	public BlockCell(Builder builder) {
+		super(builder);
 	}
 
 	@Nonnull
 	@Override
-	public Item getItemDropped(IBlockState state, @Nonnull Random rand, int fortune) {
+	public IItemProvider getItemDropped(IBlockState state, World world, BlockPos pos, int fortune) {
 		return Items.AIR;
 	}
 
@@ -49,7 +50,7 @@ public class BlockCell extends BlockMod implements ILexiconable {
 
 	@Nonnull
 	@Override
-	public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
+	public TileEntity createTileEntity(@Nonnull IBlockState state, @Nonnull IBlockReader world) {
 		return new TileCell();
 	}
 

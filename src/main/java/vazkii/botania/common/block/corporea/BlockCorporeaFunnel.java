@@ -32,11 +32,9 @@ import javax.annotation.Nonnull;
 
 public class BlockCorporeaFunnel extends BlockCorporeaBase implements ILexiconable {
 
-	public BlockCorporeaFunnel() {
-		super(Material.IRON, LibBlockNames.CORPOREA_FUNNEL);
-		setHardness(5.5F);
-		setSoundType(SoundType.METAL);
-		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.POWERED, false));
+	public BlockCorporeaFunnel(Builder builder) {
+		super(builder);
+		setDefaultState(stateContainer.getBaseState().with(BotaniaStateProps.POWERED, false));
 	}
 
 	@Nonnull

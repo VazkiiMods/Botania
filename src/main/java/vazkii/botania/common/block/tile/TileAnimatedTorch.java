@@ -122,11 +122,11 @@ public class TileAnimatedTorch extends TileMod implements ITickable {
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public void renderHUD(Minecraft mc, ScaledResolution res) {
-		int x = res.getScaledWidth() / 2 + 10;
-		int y = res.getScaledHeight() / 2 - 8;
+	public void renderHUD(Minecraft mc) {
+		int x = mc.mainWindow.getScaledWidth() / 2 + 10;
+		int y = mc.mainWindow.getScaledHeight() / 2 - 8;
 
-		mc.getRenderItem().renderItemAndEffectIntoGUI(new ItemStack(Blocks.REDSTONE_TORCH), x, y);
+		mc.getItemRenderer().renderItemAndEffectIntoGUI(new ItemStack(Blocks.REDSTONE_TORCH), x, y);
 		mc.fontRenderer.drawStringWithShadow(I18n.translateToLocal("botania.animatedTorch." + torchMode.name().toLowerCase()), x + 18, y + 6, 0xFF4444);
 	}
 

@@ -17,7 +17,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
@@ -25,14 +24,11 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
+import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
-import net.minecraftforge.client.ForgeHooksClient;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.block.tile.TileTeruTeruBozu;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -41,20 +37,20 @@ import javax.annotation.Nonnull;
 
 public class BlockTeruTeruBozu extends BlockMod implements ILexiconable {
 
-	private static final AxisAlignedBB AABB = new AxisAlignedBB(0.25, 0.01, 0.25, 0.75, 0.99, 0.75);
+	private static final VoxelShape SHAPE = makeCuboidShape(4, 0.16, 4, 12, 15.84, 12);
 
-	public BlockTeruTeruBozu() {
-		super(Material.CLOTH, LibBlockNames.TERU_TERU_BOZU);
+	public BlockTeruTeruBozu(Builder builder) {
+		super(builder);
 	}
 
 	@Nonnull
 	@Override
-	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
-		return AABB;
+	public VoxelShape getShape(IBlockState state, IBlockReader world, BlockPos pos) {
+		return SHAPE;
 	}
 
 	@Override
-	public void onEntityCollision(World world, BlockPos pos, IBlockState state, Entity e) {
+	public void onEntityCollision(IBlockState state, World world, BlockPos pos, Entity e) {
 		if(!world.isRemote && e instanceof EntityItem) {
 			EntityItem item = (EntityItem) e;
 			ItemStack stack = item.getItem();
@@ -65,10 +61,10 @@ public class BlockTeruTeruBozu extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing s, float xs, float ys, float zs) {
+	public boolean onBlockActivated(IBlockState state, World world, BlockPos pos, EntityPlayer player, EnumHand hand, EnumFacing s, float xs, float ys, float zs) {
 		ItemStack stack = player.getHeldItem(hand);
 		if(!stack.isEmpty() && (isSunflower(stack) && removeRain(world) || isBlueOrchid(stack) && startRain(world))) {
-			if(!player.capabilities.isCreativeMode)
+			if(!player.abilities.isCreativeMode)
 				stack.shrink(1);
 			return true;
 		}
@@ -76,11 +72,11 @@ public class BlockTeruTeruBozu extends BlockMod implements ILexiconable {
 	}
 
 	private boolean isSunflower(ItemStack stack) {
-		return stack.getItem() == Item.getItemFromBlock(Blocks.DOUBLE_PLANT) && stack.getItemDamage() == 0;
+		return stack.getItem() == Blocks.SUNFLOWER.asItem();
 	}
 
 	private boolean isBlueOrchid(ItemStack stack) {
-		return stack.getItem() == Item.getItemFromBlock(Blocks.RED_FLOWER) && stack.getItemDamage() == 1;
+		return stack.getItem() == Blocks.BLUE_ORCHID.asItem();
 	}
 
 	private boolean removeRain(World world) {
@@ -114,11 +110,6 @@ public class BlockTeruTeruBozu extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public boolean isOpaqueCube(IBlockState state) {
-		return false;
-	}
-
-	@Override
 	public boolean isFullCube(IBlockState state) {
 		return false;
 	}
@@ -136,7 +127,7 @@ public class BlockTeruTeruBozu extends BlockMod implements ILexiconable {
 
 	@Nonnull
 	@Override
-	public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
+	public TileEntity createTileEntity(@Nonnull IBlockState state, @Nonnull IBlockReader world) {
 		return new TileTeruTeruBozu();
 	}
 
@@ -147,15 +138,8 @@ public class BlockTeruTeruBozu extends BlockMod implements ILexiconable {
 
 	@Nonnull
 	@Override
-	public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing side) {
+	public BlockFaceShape getBlockFaceShape(IBlockReader world, IBlockState state, BlockPos pos, EnumFacing side) {
 		return BlockFaceShape.UNDEFINED;
-	}
-
-	@OnlyIn(Dist.CLIENT)
-	@Override
-	public void registerModels() {
-		ModelHandler.registerCustomItemblock(this, "teru_teru_bozu");
-		ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(this), 0, TileTeruTeruBozu.class);
 	}
 
 }

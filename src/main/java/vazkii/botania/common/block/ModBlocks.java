@@ -292,14 +292,29 @@ public final class ModBlocks {
 	@ObjectHolder("green" + LibBlockNames.PETAL_BLOCK_SUFFIX) public static Block petalBlockGreen;
 	@ObjectHolder("red" + LibBlockNames.PETAL_BLOCK_SUFFIX) public static Block petalBlockRed;
 	@ObjectHolder("black" + LibBlockNames.PETAL_BLOCK_SUFFIX) public static Block petalBlockBlack;
-	public static final Block corporeaIndex = new BlockCorporeaIndex(Block.Builder.create(Material.IRON).hardnessAndResistance(5.5F).sound(SoundType.METAL)).setRegistryName(LibMisc.MOD_ID, LibBlockNames.CORPOREA_INDEX);
-	public static final Block corporeaFunnel = new BlockCorporeaFunnel();
-	public static final Block mushroom = new BlockModMushroom();
-	public static final Block pump = new BlockPump();
+	@ObjectHolder(LibBlockNames.CORPOREA_INDEX) public static Block corporeaIndex;
+	@ObjectHolder(LibBlockNames.CORPOREA_FUNNEL) public static Block corporeaFunnel;
+	@ObjectHolder("white" + LibBlockNames.MUSHROOM_SUFFIX) public static Block mushroomWhite;
+	@ObjectHolder("orange" + LibBlockNames.MUSHROOM_SUFFIX) public static Block mushroomOrange;
+	@ObjectHolder("magenta" + LibBlockNames.MUSHROOM_SUFFIX) public static Block mushroomMagenta;
+	@ObjectHolder("light_blue" + LibBlockNames.MUSHROOM_SUFFIX) public static Block mushroomLightBlue;
+	@ObjectHolder("yellow" + LibBlockNames.MUSHROOM_SUFFIX) public static Block mushroomYellow;
+	@ObjectHolder("lime" + LibBlockNames.MUSHROOM_SUFFIX) public static Block mushroomLime;
+	@ObjectHolder("pink" + LibBlockNames.MUSHROOM_SUFFIX) public static Block mushroomPink;
+	@ObjectHolder("gray" + LibBlockNames.MUSHROOM_SUFFIX) public static Block mushroomGray;
+	@ObjectHolder("light_gray" + LibBlockNames.MUSHROOM_SUFFIX) public static Block mushroomSilver;
+	@ObjectHolder("cyan" + LibBlockNames.MUSHROOM_SUFFIX) public static Block mushroomCyan;
+	@ObjectHolder("purple" + LibBlockNames.MUSHROOM_SUFFIX) public static Block mushroomPurple;
+	@ObjectHolder("blue" + LibBlockNames.MUSHROOM_SUFFIX) public static Block mushroomBlue;
+	@ObjectHolder("brown" + LibBlockNames.MUSHROOM_SUFFIX) public static Block mushroomBrown;
+	@ObjectHolder("green" + LibBlockNames.MUSHROOM_SUFFIX) public static Block mushroomGreen;
+	@ObjectHolder("red" + LibBlockNames.MUSHROOM_SUFFIX) public static Block mushroomRed;
+	@ObjectHolder("black" + LibBlockNames.MUSHROOM_SUFFIX) public static Block mushroomBlack;
+	@ObjectHolder(LibBlockNames.PUMP) public static Block pump;
 	public static final Block doubleFlower1 = new BlockModDoubleFlower1();
 	public static final Block doubleFlower2 = new BlockModDoubleFlower2();
-	public static final Block fakeAir = new BlockFakeAir();
-	public static final Block blazeBlock = new BlockBlaze();
+	@ObjectHolder(LibBlockNames.FAKE_AIR) public static Block fakeAir;
+	@ObjectHolder(LibBlockNames.BLAZE_BLOCK) public static Block blazeBlock;
 	public static final Block corporeaInterceptor = new BlockCorporeaInterceptor(Block.Builder.create(Material.IRON).hardnessAndResistance(5.5F).sound(SoundType.METAL)).setRegistryName(LibMisc.MOD_ID, LibBlockNames.CORPOREA_INTERCEPTOR);
 	public static final Block corporeaCrystalCube = new BlockCorporeaCrystalCube(Block.Builder.create(Material.IRON).hardnessAndResistance(5.5F).sound(SoundType.METAL)).setRegistryName(LibMisc.MOD_ID, LibBlockNames.CORPOREA_CRYSTAL_CUBE);
 	public static final Block incensePlate = new BlockIncensePlate();
@@ -315,21 +330,21 @@ public final class ModBlocks {
 	public static final Block cacophonium = new BlockCacophonium();
 	public static final Block bellows = new BlockBellows();
 	@ObjectHolder(LibBlockNames.BIFROST_PERM) public static Block bifrostPerm;
-	public static final Block cellBlock = new BlockCell();
-	public static final Block redStringInterceptor = new BlockRedStringInterceptor();
-	public static final Block gaiaHead = new BlockGaiaHead();
-	public static final Block corporeaRetainer = new BlockCorporeaRetainer(Block.Builder.create(Material.IRON).hardnessAndResistance(5.5F).sound(SoundType.METAL)).setRegistryName(LibMisc.MOD_ID, LibBlockNames.CORPOREA_RETAINER);
-	public static final Block teruTeruBozu = new BlockTeruTeruBozu();
-	public static final Block shimmerrock = new BlockShimmerrock();
-	public static final Block shimmerwoodPlanks = new BlockShimmerwoodPlanks();
-	public static final Block avatar = new BlockAvatar();
-	public static final Block dryGrass = new BlockAltGrass(BlockAltGrass.Variant.DRY);
-	public static final Block goldenGrass = new BlockAltGrass(BlockAltGrass.Variant.GOLDEN);
-	public static final Block vividGrass = new BlockAltGrass(BlockAltGrass.Variant.VIVID);
-	public static final Block scorchedGrass = new BlockAltGrass(BlockAltGrass.Variant.SCORCHED);
-	public static final Block infusedGrass = new BlockAltGrass(BlockAltGrass.Variant.INFUSED);
-	public static final Block mutatedGrass = new BlockAltGrass(BlockAltGrass.Variant.MUTATED);
-	public static final Block animatedTorch = new BlockAnimatedTorch();
+	@ObjectHolder(LibBlockNames.CELL_BLOCK) public static Block cellBlock;
+	@ObjectHolder(LibBlockNames.RED_STRING_INTERCEPTOR) public static Block redStringInterceptor;
+	@ObjectHolder(LibBlockNames.GAIA_HEAD) public static Block gaiaHead;
+	@ObjectHolder(LibBlockNames.CORPOREA_RETAINER) public static Block corporeaRetainer;
+	@ObjectHolder(LibBlockNames.TERU_TERU_BOZU) public static Block teruTeruBozu;
+	@ObjectHolder(LibBlockNames.SHIMMERROCK) public static Block shimmerrock;
+	@ObjectHolder(LibBlockNames.SHIMMERWOOD_PLANKS) public static Block shimmerwoodPlanks;
+	@ObjectHolder(LibBlockNames.AVATAR) public static Block avatar;
+	@ObjectHolder("dry" + LibBlockNames.ALT_GRASS_SUFFIX) public static Block dryGrass;
+	@ObjectHolder("golden" + LibBlockNames.ALT_GRASS_SUFFIX) public static Block goldenGrass;
+	@ObjectHolder("vivid" + LibBlockNames.ALT_GRASS_SUFFIX) public static Block vividGrass;
+	@ObjectHolder("scorched" + LibBlockNames.ALT_GRASS_SUFFIX) public static Block scorchedGrass;
+	@ObjectHolder("infused" + LibBlockNames.ALT_GRASS_SUFFIX) public static Block infusedGrass;
+	@ObjectHolder("mutated" + LibBlockNames.ALT_GRASS_SUFFIX) public static Block mutatedGrass;
+	@ObjectHolder(LibBlockNames.ANIMATED_TORCH) public static Block animatedTorch;
 
 	@SubscribeEvent
 	public static void registerBlocks(RegistryEvent.Register<Block> evt) {
@@ -361,7 +376,7 @@ public final class ModBlocks {
 		r.register(new BlockModLexiconable(builder, decorative).setRegistryName(LibMisc.MOD_ID, LibBlockNames.LIVING_WOOD_PLANKS));
 		r.register(new BlockModLexiconable(builder, decorative).setRegistryName(LibMisc.MOD_ID, LibBlockNames.LIVING_WOOD_PLANKS_MOSSY));
 		r.register(new BlockModLexiconable(builder, decorative).setRegistryName(LibMisc.MOD_ID, LibBlockNames.LIVING_WOOD_FRAMED));
-		r.register(new BlockModLexiconable(builder, decorative).setRegistryName(LibMisc.MOD_ID, LibBlockNames.LIVING_WOOD_PATTERN_FRAMED);
+		r.register(new BlockModLexiconable(builder, decorative).setRegistryName(LibMisc.MOD_ID, LibBlockNames.LIVING_WOOD_PATTERN_FRAMED));
 		r.register(new BlockModLexiconable(builder.lightValue(12), decorative).setRegistryName(LibMisc.MOD_ID, LibBlockNames.LIVING_WOOD_GLIMMERING));
 
 		r.register(specialFlower);
@@ -381,7 +396,7 @@ public final class ModBlocks {
 		builder = Block.Builder.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE);
 		r.register(new BlockRuneAltar(builder).setRegistryName(LibMisc.MOD_ID, LibBlockNames.RUNE_ALTAR));
 
-		builder = Block.Builder.create(Material.IRON).hardnessAndResistance(5.5).sound(SoundType.METAL).lightValue(7);
+		builder = Block.Builder.create(Material.IRON).hardnessAndResistance(5.5F).sound(SoundType.METAL).lightValue(7);
 		r.register(new BlockPylon(BlockPylon.Variant.MANA, builder).setRegistryName(LibMisc.MOD_ID, LibBlockNames.PYLON));
 		r.register(new BlockPylon(BlockPylon.Variant.NATURA, builder).setRegistryName(LibMisc.MOD_ID, LibBlockNames.PYLON_NATURA));
 		r.register(new BlockPylon(BlockPylon.Variant.GAIA, builder).setRegistryName(LibMisc.MOD_ID, LibBlockNames.PYLON_GAIA));
@@ -399,7 +414,7 @@ public final class ModBlocks {
 		r.register(new BlockDistributor(builder).setRegistryName(LibMisc.MOD_ID, LibBlockNames.MANA_DETECTOR));
 
 		r.register(new BlockEnchanter(Block.Builder.create(Material.ROCK).hardnessAndResistance(3, 5).lightValue(15).sound(SoundType.STONE)).setRegistryName(LibMisc.MOD_ID, LibBlockNames.ENCHANTER));
-		r.register(new BlockTurntable(Block.Builder.create(Material.WOOD).hardnessAndResistance(2).sound(SoundType.WOOD)).setRegistryName(LibMisc.MOD_ID, LibBlockNames.TURNTABLE)));
+		r.register(new BlockTurntable(Block.Builder.create(Material.WOOD).hardnessAndResistance(2).sound(SoundType.WOOD)).setRegistryName(LibMisc.MOD_ID, LibBlockNames.TURNTABLE));
 		r.register(new BlockTinyPlanet(Block.Builder.create(Material.ROCK).hardnessAndResistance(20, 100).sound(SoundType.STONE)).setRegistryName(LibMisc.MOD_ID, LibBlockNames.TINY_PLANET));
 		r.register(new BlockAlchemyCatalyst(Block.Builder.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE)).setRegistryName(LibMisc.MOD_ID, LibBlockNames.ALCHEMY_CATALYST));
 		
@@ -438,7 +453,7 @@ public final class ModBlocks {
 		r.register(new BlockModLexiconable(builder, elvenResource).setRegistryName(LibMisc.MOD_ID, LibBlockNames.DREAM_WOOD_PLANKS));
 		r.register(new BlockModLexiconable(builder, elvenResource).setRegistryName(LibMisc.MOD_ID, LibBlockNames.DREAM_WOOD_PLANKS_MOSSY));
 		r.register(new BlockModLexiconable(builder, elvenResource).setRegistryName(LibMisc.MOD_ID, LibBlockNames.DREAM_WOOD_FRAMED));
-		r.register(new BlockModLexiconable(builder, elvenResource).setRegistryName(LibMisc.MOD_ID, LibBlockNames.DREAM_WOOD_PATTERN_FRAMED);
+		r.register(new BlockModLexiconable(builder, elvenResource).setRegistryName(LibMisc.MOD_ID, LibBlockNames.DREAM_WOOD_PATTERN_FRAMED));
 		r.register(new BlockModLexiconable(builder.lightValue(12), elvenResource).setRegistryName(LibMisc.MOD_ID, LibBlockNames.DREAM_WOOD_GLIMMERING));
 
 		r.register(new BlockConjurationCatalyst(Block.Builder.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE)).setRegistryName(LibMisc.MOD_ID, LibBlockNames.CONJURATION_CATALYST));
@@ -474,6 +489,7 @@ public final class ModBlocks {
 		r.register(new BlockRedStringFertilizer(builder).setRegistryName(LibMisc.MOD_ID, LibBlockNames.RED_STRING_FERTILIZER));
 		r.register(new BlockRedStringComparator(builder).setRegistryName(LibMisc.MOD_ID, LibBlockNames.RED_STRING_COMPARATOR));
 		r.register(new BlockRedStringRelay(builder).setRegistryName(LibMisc.MOD_ID, LibBlockNames.RED_STRING_RELAY));
+        r.register(new BlockRedStringInterceptor(builder).setRegistryName(LibMisc.MOD_ID, LibBlockNames.RED_STRING_INTERCEPTOR));
 		r.register(floatingSpecialFlower);
 		r.register(new BlockManaFlame(Block.Builder.create(Material.CLOTH).sound(SoundType.CLOTH).lightValue(15).doesNotBlockMovement()).setRegistryName(LibMisc.MOD_ID, LibBlockNames.MANA_FLAME));
 		r.register(new BlockPrism(Block.Builder.create(Material.GLASS).hardnessAndResistance(0.3F).sound(SoundType.GLASS).lightValue(15).doesNotBlockMovement()).setRegistryName(LibMisc.MOD_ID, LibBlockNames.PRISM));
@@ -484,14 +500,20 @@ public final class ModBlocks {
 			r.register(new BlockPetalBlock(color, builder).setRegistryName(LibMisc.MOD_ID, color.getName() + LibBlockNames.PETAL_BLOCK_SUFFIX));
 		}
 
-		r.register(corporeaIndex);
-		r.register(corporeaFunnel);
-		r.register(mushroom);
-		r.register(pump);
+		r.register(new BlockCorporeaIndex(Block.Builder.create(Material.IRON).hardnessAndResistance(5.5F).sound(SoundType.METAL)).setRegistryName(LibMisc.MOD_ID, LibBlockNames.CORPOREA_INDEX));
+		r.register(new BlockCorporeaFunnel(Block.Builder.create(Material.IRON).hardnessAndResistance(5.5F).sound(SoundType.METAL)).setRegistryName(LibMisc.MOD_ID, LibBlockNames.CORPOREA_FUNNEL));
+		
+		builder = Block.Builder.create(Material.PLANTS).doesNotBlockMovement().needsRandomTick().hardnessAndResistance(0).sound(SoundType.PLANT).lightValue(3);
+		for(EnumDyeColor color : EnumDyeColor.values()) {
+			r.register(new BlockModMushroom(color, builder).setRegistryName(LibMisc.MOD_ID, color.getName() + LibBlockNames.MUSHROOM_SUFFIX));
+		}
+		
+		r.register(new BlockPump(Block.Builder.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE)).setRegistryName(LibMisc.MOD_ID, LibBlockNames.PUMP));
 		r.register(doubleFlower1);
 		r.register(doubleFlower2);
-		r.register(fakeAir);
-		r.register(blazeBlock);
+		r.register(new BlockFakeAir(Block.Builder.create(Material.STRUCTURE_VOID).needsRandomTick()).setRegistryName(LibMisc.MOD_ID, LibBlockNames.FAKE_AIR));
+		r.register(new BlockModLexiconable(Block.Builder.create(Material.IRON).hardnessAndResistance(3, 10).sound(SoundType.METAL).lightValue(15), (w, po, pl, st) -> LexiconData.blazeBlock)
+				.setRegistryName(LibMisc.MOD_ID, LibBlockNames.BLAZE_BLOCK));
 		r.register(corporeaInterceptor);
 		r.register(corporeaCrystalCube);
 		r.register(incensePlate);
@@ -506,22 +528,22 @@ public final class ModBlocks {
 		r.register(manaBomb);
 		r.register(cacophonium);
 		r.register(bellows);
-		r.register(new BlockBifrostPerm(Block.Builder.create(Material.GLASS).hardnessAndResistance(0.3).lightValue(15).sound(SoundType.GLASS)).setRegistryName(LibMisc.MOD_ID, LibBlockNames.BIFROST_PERM));
-		r.register(cellBlock);
-		r.register(redStringInterceptor);
-		r.register(gaiaHead);
-		r.register(corporeaRetainer);
-		r.register(teruTeruBozu);
-		r.register(shimmerrock);
-		r.register(shimmerwoodPlanks);
-		r.register(avatar);
-		r.register(dryGrass);
-		r.register(goldenGrass);
-		r.register(vividGrass);
-		r.register(scorchedGrass);
-		r.register(infusedGrass);
-		r.register(mutatedGrass);
-		r.register(animatedTorch);
+		r.register(new BlockBifrostPerm(Block.Builder.create(Material.GLASS).hardnessAndResistance(0.3F).lightValue(15).sound(SoundType.GLASS)).setRegistryName(LibMisc.MOD_ID, LibBlockNames.BIFROST_PERM));
+		r.register(new BlockCell(Block.Builder.create(Material.GOURD).sound(SoundType.CLOTH)).setRegistryName(LibMisc.MOD_ID, LibBlockNames.CELL_BLOCK));
+		r.register(new BlockGaiaHead(Block.Builder.create(Material.CIRCUITS).hardnessAndResistance(1)));
+		r.register(new BlockCorporeaRetainer(Block.Builder.create(Material.IRON).hardnessAndResistance(5.5F).sound(SoundType.METAL)).setRegistryName(LibMisc.MOD_ID, LibBlockNames.CORPOREA_RETAINER));
+		r.register(new BlockTeruTeruBozu(Block.Builder.create(Material.CLOTH)).setRegistryName(LibMisc.MOD_ID, LibBlockNames.TERU_TERU_BOZU));
+		ILexiconable rainbowRod = (w, po, pl, st) -> LexiconData.rainbowRod;
+		r.register(new BlockModLexiconable(Block.Builder.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE), rainbowRod).setRegistryName(LibMisc.MOD_ID, LibBlockNames.SHIMMERROCK));
+		r.register(new BlockModLexiconable(Block.Builder.create(Material.WOOD).hardnessAndResistance(2).sound(SoundType.WOOD), rainbowRod).setRegistryName(LibMisc.MOD_ID, LibBlockNames.SHIMMERWOOD_PLANKS));
+		r.register(new BlockAvatar(Block.Builder.create(Material.WOOD).hardnessAndResistance(2).sound(SoundType.WOOD)).setRegistryName(LibMisc.MOD_ID, LibBlockNames.AVATAR));
+
+		builder = Block.Builder.create(Material.GRASS).hardnessAndResistance(0.6F).needsRandomTick().sound(SoundType.PLANT);
+		for(BlockAltGrass.Variant v : BlockAltGrass.Variant.values()) {
+			r.register(new BlockAltGrass(v, builder).setRegistryName(LibMisc.MOD_ID, v.name().toLowerCase(Locale.ROOT) + LibBlockNames.ALT_GRASS_SUFFIX));
+		}
+
+		r.register(new BlockAnimatedTorch(Block.Builder.create(Material.CIRCUITS).lightValue(7)).setRegistryName(LibMisc.MOD_ID, LibBlockNames.ANIMATED_TORCH));
 
 		RecipeManaInfusion.alchemyState = alchemyCatalyst.getDefaultState();
 		RecipeManaInfusion.conjurationState = conjurationCatalyst.getDefaultState();
