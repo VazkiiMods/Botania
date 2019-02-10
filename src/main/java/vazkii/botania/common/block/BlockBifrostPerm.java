@@ -18,7 +18,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -32,22 +31,8 @@ import javax.annotation.Nonnull;
 import java.util.Random;
 
 public class BlockBifrostPerm extends BlockMod implements ILexiconable {
-
-	public BlockBifrostPerm() {
-		this(LibBlockNames.BIFROST_PERM);
-		setHardness(0.3F);
-	}
-
-	public BlockBifrostPerm(String name) {
-		super(Material.GLASS, name);
-		setLightOpacity(0);
-		setLightLevel(1F);
-		setSoundType(SoundType.GLASS);
-	}
-
-	@Override
-	public boolean isOpaqueCube(IBlockState state) {
-		return false;
+	public BlockBifrostPerm(Builder builder) {
+		super(builder);
 	}
 
 	@Override
@@ -55,16 +40,9 @@ public class BlockBifrostPerm extends BlockMod implements ILexiconable {
 		return false;
 	}
 
+	@OnlyIn(Dist.CLIENT)
 	@Override
-	public boolean shouldSideBeRendered(IBlockState state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos, EnumFacing side) {
-		if (world.getBlockState(pos.offset(side)).getBlock() == this) {
-			return false;
-		}
-		return super.shouldSideBeRendered(state, world, pos, side);
-	}
-
-	@Override
-	public void randomDisplayTick(IBlockState state, World world, BlockPos pos, Random rand) {
+	public void animateTick(IBlockState state, World world, BlockPos pos, Random rand) {
 		if(rand.nextBoolean())
 			Botania.proxy.sparkleFX(pos.getX() + Math.random(), pos.getY() + Math.random(), pos.getZ() + Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random(), 0.45F + 0.2F * (float) Math.random(), 6);
 	}

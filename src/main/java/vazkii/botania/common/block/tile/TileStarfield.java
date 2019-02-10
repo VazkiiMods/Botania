@@ -18,16 +18,7 @@ public class TileStarfield extends TileMod implements ITickable {
 
 	@Override
 	public void tick() {
-		boolean state = world.getBlockState(getPos()).get(BotaniaStateProps.POWERED);
-		if(!world.isRemote) {
-			boolean newState = !world.isDaytime();
-			if(newState != state) {
-				world.setBlockState(getPos(), world.getBlockState(getPos()).with(BotaniaStateProps.POWERED, newState), 1 | 2);
-				state = newState;
-			}
-		}
-
-		if(state) {
+		if(!world.isDaytime() && world.isRemote) {
 			double radius = 512;
 			int iter = 2;
 			for(int i = 0; i < iter; i++) {

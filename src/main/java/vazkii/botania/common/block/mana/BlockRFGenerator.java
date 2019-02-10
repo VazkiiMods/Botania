@@ -17,6 +17,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -29,11 +30,8 @@ import javax.annotation.Nonnull;
 
 public class BlockRFGenerator extends BlockMod implements ILexiconable {
 
-	public BlockRFGenerator() {
-		super(Material.ROCK, LibBlockNames.RF_GENERATOR);
-		setHardness(2.0F);
-		setResistance(10.0F);
-		setSoundType(SoundType.STONE);
+	public BlockRFGenerator(Builder builder) {
+		super(builder);
 	}
 
 	@Override
@@ -43,7 +41,7 @@ public class BlockRFGenerator extends BlockMod implements ILexiconable {
 
 	@Nonnull
 	@Override
-	public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
+	public TileEntity createTileEntity(@Nonnull IBlockState state, @Nonnull IBlockReader world) {
 		return new TileRFGenerator();
 	}
 

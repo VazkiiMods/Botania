@@ -561,7 +561,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 
 	@OnlyIn(Dist.CLIENT)
 	public void renderHUD(Minecraft mc) {
-		String name = new ItemStack(getBlockState().getBlock()).getDisplayName().getUnformattedComponentText();
+		String name = new ItemStack(getBlockState().getBlock()).getDisplayName().getString();
 		int color = isRedstone() ? 0xFF0000 : isDreamwood() ? 0xFF00AE :  0x00FF00;
 		HUDHandler.drawSimpleManaHUD(color, knownMana, getMaxMana(), name);
 
@@ -569,14 +569,14 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 		if(!lens.isEmpty()) {
 			GlStateManager.enableBlend();
 			GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-			String lensName = lens.getDisplayName().getUnformattedComponentText();
+			String lensName = lens.getDisplayName().getString();
 			int width = 16 + mc.fontRenderer.getStringWidth(lensName) / 2;
 			int x = mc.mainWindow.getScaledWidth() / 2 - width;
 			int y = mc.mainWindow.getScaledHeight() / 2 + 50;
 
 			mc.fontRenderer.drawStringWithShadow(lensName, x + 20, y + 5, color);
 			RenderHelper.enableGUIStandardItemLighting();
-			mc.getRenderItem().renderItemAndEffectIntoGUI(lens, x, y);
+			mc.getItemRenderer().renderItemAndEffectIntoGUI(lens, x, y);
 			RenderHelper.disableStandardItemLighting();
 			GlStateManager.disableLighting();
 			GlStateManager.disableBlend();
@@ -588,7 +588,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 			GlStateManager.enableBlend();
 			GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 			if(!recieverStack.isEmpty()) {
-				String stackName = recieverStack.getDisplayName().getUnformattedComponentText();
+				String stackName = recieverStack.getDisplayName().getString();
 				int width = 16 + mc.fontRenderer.getStringWidth(stackName) / 2;
 				int x = mc.mainWindow.getScaledWidth() / 2 - width;
 				int y = mc.mainWindow.getScaledHeight() / 2 + 30;

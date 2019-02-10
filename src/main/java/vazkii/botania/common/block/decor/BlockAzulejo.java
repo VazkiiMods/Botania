@@ -26,9 +26,6 @@ public class BlockAzulejo extends BlockMod implements ILexiconable {
 
 	public BlockAzulejo(int variant) {
 		super(Material.ROCK, LibBlockNames.AZULEJO_PREFIX + variant);
-		setHardness(2.0F);
-		setResistance(5.0F);
-		setSoundType(SoundType.STONE);
 	}
 
 	@Override

@@ -16,6 +16,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.common.block.tile.TileBifrost;
@@ -27,24 +28,18 @@ import java.util.Random;
 
 public class BlockBifrost extends BlockBifrostPerm implements ILexiconable {
 
-	public BlockBifrost() {
-		super(LibBlockNames.BIFROST);
-		setBlockUnbreakable();
-	}
-
-	@Override
-	public boolean registerInCreative() {
-		return false;
+	public BlockBifrost(Builder builder) {
+		super(builder);
 	}
 
 	@Nonnull
 	@Override
-	public ItemStack getPickBlock(@Nonnull IBlockState state, RayTraceResult target, @Nonnull World world, @Nonnull BlockPos pos, EntityPlayer player) {
+	public ItemStack getPickBlock(@Nonnull IBlockState state, RayTraceResult target, @Nonnull IBlockReader world, @Nonnull BlockPos pos, EntityPlayer player) {
 		return new ItemStack(ModItems.rainbowRod);
 	}
 
 	@Override
-	public int quantityDropped(IBlockState state, int fortune, @Nonnull Random random) {
+	public int quantityDropped(IBlockState state, @Nonnull Random random) {
 		return 0;
 	}
 
@@ -55,7 +50,7 @@ public class BlockBifrost extends BlockBifrostPerm implements ILexiconable {
 
 	@Nonnull
 	@Override
-	public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
+	public TileEntity createTileEntity(@Nonnull IBlockState state, @Nonnull IBlockReader world) {
 		return new TileBifrost();
 	}
 }

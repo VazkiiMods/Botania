@@ -238,11 +238,11 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver, I
 		return !isFull();
 	}
 
-	public void renderHUD(Minecraft mc, ScaledResolution res) {
+	public void renderHUD(Minecraft mc) {
 		int manaToGet = getManaCost();
 		if(manaToGet > 0) {
-			int x = res.getScaledWidth() / 2 + 20;
-			int y = res.getScaledHeight() / 2 - 8;
+			int x = mc.mainWindow.getScaledWidth() / 2 + 20;
+			int y = mc.mainWindow.getScaledHeight() / 2 - 8;
 
 			if(recipe == null)
 				return;

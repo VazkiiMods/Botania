@@ -20,6 +20,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.items.ItemHandlerHelper;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
@@ -33,7 +34,7 @@ public class TileTinyPotato extends TileSimpleInventory implements ITickable {
 	private static final String TAG_NAME = "name";
 
 	public int jumpTicks = 0;
-	public String name = "";
+	public ITextComponent name = new TextComponentString("");
 	public int nextDoIt = 0;
 
 	public void interact(EntityPlayer player, EnumHand hand, ItemStack stack, EnumFacing side) {
@@ -59,7 +60,7 @@ public class TileTinyPotato extends TileSimpleInventory implements ITickable {
 		jump();
 
 		if(!world.isRemote) {
-			if(name.toLowerCase().trim().endsWith("shia labeouf")  && nextDoIt == 0) {
+			if(name.getString().toLowerCase().trim().endsWith("shia labeouf")  && nextDoIt == 0) {
 				nextDoIt = 40;
 				world.playSound(null, pos, ModSounds.doit, SoundCategory.BLOCKS, 1F, 1F);
 			}
@@ -101,13 +102,13 @@ public class TileTinyPotato extends TileSimpleInventory implements ITickable {
 	@Override
 	public void writePacketNBT(NBTTagCompound cmp) {
 		super.writePacketNBT(cmp);
-		cmp.setString(TAG_NAME, name);
+		cmp.setString(TAG_NAME, ITextComponent.Serializer.toJson(name));
 	}
 
 	@Override
 	public void readPacketNBT(NBTTagCompound cmp) {
 		super.readPacketNBT(cmp);
-		name = cmp.getString(TAG_NAME);
+		name = ITextComponent.Serializer.fromJson(cmp.getString(TAG_NAME));
 	}
 
 	@Override

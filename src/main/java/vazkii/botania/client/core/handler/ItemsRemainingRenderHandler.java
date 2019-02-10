@@ -63,7 +63,7 @@ public final class ItemsRemainingRenderHandler {
 
 			if(customString == null) {
 				if(!stack.isEmpty()) {
-					text = TextFormatting.GREEN + stack.getDisplayName().getUnformattedComponentText();
+					text = TextFormatting.GREEN + stack.getDisplayName().getString();
 					if(count >= 0) {
 						int max = stack.getMaxStackSize();
 						int stacks = count / max;

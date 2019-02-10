@@ -520,7 +520,7 @@ public class ItemCraftingHalo extends ItemMod {
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
 		if(slot == 0) {
-			String name = craftingTable.getDisplayName().getUnformattedComponentText();
+			String name = craftingTable.getDisplayName().getString();
 			int l = mc.fontRenderer.getStringWidth(name);
 			int x = mc.mainWindow.getScaledWidth() / 2 - l / 2;
 			int y = mc.mainWindow.getScaledHeight() / 2 - 65;

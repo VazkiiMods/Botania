@@ -391,7 +391,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 
 		EntityPlayer player = (EntityPlayer) e;
 
-		String name = player.getName().getUnformattedComponentText();
+		String name = player.getName().getString();
 		return !(player instanceof FakePlayer || FAKE_PLAYER_PATTERN.matcher(name).matches());
 	}
 

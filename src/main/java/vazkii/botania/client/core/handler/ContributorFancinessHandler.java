@@ -45,7 +45,7 @@ public final class ContributorFancinessHandler implements LayerRenderer<EntityPl
 
 	@Override
 	public void render(@Nonnull EntityPlayer player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-		String name = player.getDisplayName().getUnformattedComponentText();
+		String name = player.getDisplayName().getString();
 
 		float yaw = player.prevRotationYawHead + (player.rotationYawHead - player.prevRotationYawHead) * partialTicks;
 		float yawOffset = player.prevRenderYawOffset + (player.renderYawOffset - player.prevRenderYawOffset) * partialTicks;

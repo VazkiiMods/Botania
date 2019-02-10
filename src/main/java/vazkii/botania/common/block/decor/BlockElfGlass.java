@@ -22,8 +22,8 @@ import vazkii.botania.common.lib.LibBlockNames;
 
 public class BlockElfGlass extends BlockManaGlass implements IElvenItem, ILexiconable {
 
-	public BlockElfGlass() {
-		super(LibBlockNames.ELF_GLASS);
+	public BlockElfGlass(Builder builder) {
+		super(builder);
 	}
 
 	@Override

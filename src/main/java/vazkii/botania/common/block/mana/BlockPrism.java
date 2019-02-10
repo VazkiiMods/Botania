@@ -11,20 +11,19 @@
 package vazkii.botania.common.block.mana;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockFaceShape;
-import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
+import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -41,47 +40,28 @@ import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.block.tile.mana.TilePrism;
 import vazkii.botania.common.core.helper.InventoryHelper;
 import vazkii.botania.common.lexicon.LexiconData;
-import vazkii.botania.common.lib.LibBlockNames;
 
 import javax.annotation.Nonnull;
-import java.util.Random;
 
 public class BlockPrism extends BlockMod implements IManaTrigger, ILexiconable, IManaCollisionGhost {
-	private static final AxisAlignedBB AABB = new AxisAlignedBB(0.25, 0, 0.25, 0.75, 1, 0.75);
+	private static final VoxelShape SHAPE = makeCuboidShape(4, 0, 4, 12, 16, 12);
 
-	public BlockPrism() {
-		super(Material.GLASS, LibBlockNames.PRISM);
-		setHardness(0.3F);
-		setSoundType(SoundType.GLASS);
-		setLightLevel(1.0F);
-		setDefaultState(blockState.getBaseState()
-				.withProperty(BotaniaStateProps.POWERED, false)
-				.withProperty(BotaniaStateProps.HAS_LENS, false));
+	public BlockPrism(Builder builder) {
+		super(builder);
+		setDefaultState(stateContainer.getBaseState()
+				.with(BotaniaStateProps.POWERED, false)
+				.with(BotaniaStateProps.HAS_LENS, false));
 	}
 
 	@Nonnull
 	@Override
-	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
-		return AABB;
-	}
-
-	@Nonnull
-	@Override
-	public BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this, BotaniaStateProps.POWERED, BotaniaStateProps.HAS_LENS);
+	public VoxelShape getShape(IBlockState state, IBlockReader world, BlockPos pos) {
+		return SHAPE;
 	}
 
 	@Override
-	public int getMetaFromState(IBlockState state) {
-		return (state.getValue(BotaniaStateProps.POWERED) ? 8 : 0)
-				+ (state.getValue(BotaniaStateProps.HAS_LENS) ? 1 : 0);
-	}
-
-	@Nonnull
-	@Override
-	public IBlockState getStateFromMeta(int meta) {
-		return getDefaultState().withProperty(BotaniaStateProps.POWERED, (meta & 8) > 0)
-				.withProperty(BotaniaStateProps.HAS_LENS, (meta & 1) > 0);
+	protected void fillStateContainer(StateContainer.Builder<Block, IBlockState> builder) {
+		builder.add(BotaniaStateProps.POWERED, BotaniaStateProps.HAS_LENS);
 	}
 
 	@Nonnull
@@ -92,22 +72,12 @@ public class BlockPrism extends BlockMod implements IManaTrigger, ILexiconable, 
 	}
 
 	@Override
-	public AxisAlignedBB getCollisionBoundingBox(IBlockState state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos) {
-		return NULL_AABB;
-	}
-
-	@Override
-	public boolean isOpaqueCube(IBlockState state) {
-		return false;
-	}
-
-	@Override
 	public boolean isFullCube(IBlockState state) {
 		return false;
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float par7, float par8, float par9) {
+	public boolean onBlockActivated(IBlockState state, World world, BlockPos pos, EntityPlayer player, EnumHand hand, EnumFacing side, float par7, float par8, float par9) {
 		TileEntity tile = world.getTileEntity(pos);
 		if(!(tile instanceof TilePrism))
 			return false;
@@ -118,17 +88,17 @@ public class BlockPrism extends BlockMod implements IManaTrigger, ILexiconable, 
 		boolean isHeldItemLens = !heldItem.isEmpty() && heldItem.getItem() instanceof ILens;
 
 		if(lens.isEmpty() && isHeldItemLens) {
-			if(!player.capabilities.isCreativeMode)
+			if(!player.abilities.isCreativeMode)
 				player.setHeldItem(hand, ItemStack.EMPTY);
 
 			prism.getItemHandler().setStackInSlot(0, heldItem.copy());
 			prism.markDirty();
-			world.setBlockState(pos, state.withProperty(BotaniaStateProps.HAS_LENS, true), 1 | 2);
+			world.setBlockState(pos, state.with(BotaniaStateProps.HAS_LENS, true), 1 | 2);
 		} else if(!lens.isEmpty()) {
 			ItemHandlerHelper.giveItemToPlayer(player, lens);
 			prism.getItemHandler().setStackInSlot(0, ItemStack.EMPTY);
 			prism.markDirty();
-			world.setBlockState(pos, state.withProperty(BotaniaStateProps.HAS_LENS, false), 1 | 2);
+			world.setBlockState(pos, state.with(BotaniaStateProps.HAS_LENS, false), 1 | 2);
 		}
 
 		return true;
@@ -137,23 +107,23 @@ public class BlockPrism extends BlockMod implements IManaTrigger, ILexiconable, 
 	@Override
 	public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block, BlockPos fromPos) {
 		boolean power = world.getRedstonePowerFromNeighbors(pos) > 0 || world.getRedstonePowerFromNeighbors(pos.up()) > 0;
-		boolean powered = state.getValue(BotaniaStateProps.POWERED);
+		boolean powered = state.get(BotaniaStateProps.POWERED);
 
 		if(!world.isRemote) {
 			if(power && !powered)
-				world.setBlockState(pos, state.withProperty(BotaniaStateProps.POWERED, true), 1 | 2);
+				world.setBlockState(pos, state.with(BotaniaStateProps.POWERED, true), 1 | 2);
 			else if(!power && powered)
-				world.setBlockState(pos, state.withProperty(BotaniaStateProps.POWERED, false), 1 | 2);
+				world.setBlockState(pos, state.with(BotaniaStateProps.POWERED, false), 1 | 2);
 		}
 	}
 
 	@Override
-	public void breakBlock(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
+	public void onReplaced(@Nonnull IBlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState newState, boolean isMoving) {
 		TileSimpleInventory inv = (TileSimpleInventory) world.getTileEntity(pos);
 
 		InventoryHelper.dropInventory(inv, world, state, pos);
 
-		super.breakBlock(world, pos, state);
+		super.onReplaced(state, world, pos, newState, isMoving);
 	}
 
 	@Override
@@ -163,7 +133,7 @@ public class BlockPrism extends BlockMod implements IManaTrigger, ILexiconable, 
 
 	@Nonnull
 	@Override
-	public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
+	public TileEntity createTileEntity(@Nonnull IBlockState state, @Nonnull IBlockReader world) {
 		return new TilePrism();
 	}
 
@@ -186,7 +156,7 @@ public class BlockPrism extends BlockMod implements IManaTrigger, ILexiconable, 
 
 	@Nonnull
 	@Override
-	public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing side) {
+	public BlockFaceShape getBlockFaceShape(IBlockReader world, IBlockState state, BlockPos pos, EnumFacing side) {
 		return side.getAxis() == EnumFacing.Axis.Y ? BlockFaceShape.CENTER_BIG : BlockFaceShape.MIDDLE_POLE_THICK;
 	}
 }

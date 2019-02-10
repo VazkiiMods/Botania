@@ -18,8 +18,10 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.IItemProvider;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.IBlockReader;
+import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.common.IPlantable;
@@ -33,30 +35,23 @@ import java.util.Random;
 
 public class BlockEnchantedSoil extends BlockMod implements ILexiconable {
 
-	public BlockEnchantedSoil() {
-		super(Material.GRASS, LibBlockNames.ENCHANTED_SOIL);
-		setHardness(0.6F);
-		setSoundType(SoundType.PLANT);
-	}
-
-	@Override
-	protected boolean registerInCreative() {
-		return false;
+	public BlockEnchantedSoil(Builder builder) {
+		super(builder);
 	}
 
 	@Nonnull
 	@Override
-	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-		return Blocks.DIRT.getItemDropped(state, rand, fortune);
+	public IItemProvider getItemDropped(IBlockState state, World world, BlockPos pos, int fortune) {
+		return Blocks.DIRT.getItemDropped(state, world, pos, fortune);
 	}
 
 	@Override
-	public boolean canSustainPlant(@Nonnull IBlockState state, @Nonnull IBlockAccess world, BlockPos pos, @Nonnull EnumFacing direction, IPlantable plantable) {
+	public boolean canSustainPlant(@Nonnull IBlockState state, @Nonnull IBlockReader world, BlockPos pos, @Nonnull EnumFacing direction, IPlantable plantable) {
 		return plantable.getPlantType(world, pos.down()) == EnumPlantType.Plains;
 	}
 
 	@Override
-	public boolean canSilkHarvest(World world, BlockPos pos, @Nonnull IBlockState state, EntityPlayer player) {
+	public boolean canSilkHarvest(@Nonnull IBlockState state, IWorldReader world, BlockPos pos, EntityPlayer player) {
 		return false;
 	}
 

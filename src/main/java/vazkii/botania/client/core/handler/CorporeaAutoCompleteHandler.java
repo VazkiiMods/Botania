@@ -56,7 +56,7 @@ public class CorporeaAutoCompleteHandler {
 				try {
 					item.getSubItems(null, curList);
 					for(ItemStack stack : curList)
-						itemNames.add(CorporeaHelper.stripControlCodes(stack.getDisplayName().getUnformattedComponentText().trim()));
+						itemNames.add(CorporeaHelper.stripControlCodes(stack.getDisplayName().getString().trim()));
 				}
 				catch (Exception e) {}
 			}

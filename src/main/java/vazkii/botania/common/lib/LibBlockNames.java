@@ -66,10 +66,15 @@ public final class LibBlockNames {
 	public static final String PLATFORM_INFRANGIBLE = "infrangible_platform";
 	public static final String ALF_PORTAL = "alfheim_portal";
 	public static final String DREAM_WOOD = "dreamwood";
+	public static final String DREAM_WOOD_PLANKS = "dreamwood_planks";
+	public static final String DREAM_WOOD_PLANKS_MOSSY = "mossy_dreamwood_planks";
+	public static final String DREAM_WOOD_FRAMED = "framed_dreamwood";
+	public static final String DREAM_WOOD_PATTERN_FRAMED = "pattern_framed_dreamwood";
+	public static final String DREAM_WOOD_GLIMMERING = "glimmering_dreamwood";
 	public static final String CONJURATION_CATALYST = "conjuration_catalyst";
 	public static final String BIFROST = "bifrost";
 	public static final String SOLID_VINE = "solid_vine";
-	public static final String BURIED_PETALS = "buried_petals";
+	public static final String BURIED_PETALS_SUFFIX = "_buried_petals";
 	public static final String PRISMARINE = "prismarine";
 	public static final String MINI_ISLAND = "mini_island";
 	public static final String TINY_POTATO = "tiny_potato";

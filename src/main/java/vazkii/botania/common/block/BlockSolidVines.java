@@ -20,7 +20,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.IBlockReader;
+import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -33,30 +34,21 @@ import java.util.Random;
 
 public class BlockSolidVines extends BlockVine implements ILexiconable {
 
-	public BlockSolidVines() {
-		setRegistryName(new ResourceLocation(LibMisc.MOD_ID, LibBlockNames.SOLID_VINE));
-		setTranslationKey(LibBlockNames.SOLID_VINE);
-		setHardness(0.5F);
-		setSoundType(SoundType.PLANT);
-		setCreativeTab(null);
+	public BlockSolidVines(Builder builder) {
+		super(builder);
 	}
 
 	@Override
-	public AxisAlignedBB getCollisionBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
-		return getBoundingBox(state, world, pos);
-	}
+	public void tick(@Nonnull IBlockState state, World world, @Nonnull BlockPos pos, @Nonnull Random rand) {}
 
 	@Override
-	public void updateTick(World world, @Nonnull BlockPos pos, @Nonnull IBlockState state, @Nonnull Random rand) {}
-
-	@Override
-	public boolean isShearable(ItemStack item, IBlockAccess world, BlockPos pos) {
+	public boolean isShearable(ItemStack item, IWorldReader world, BlockPos pos) {
 		return false;
 	}
 
 	@Nonnull
 	@Override
-	public ItemStack getPickBlock(@Nonnull IBlockState state, RayTraceResult target, @Nonnull World world, @Nonnull BlockPos pos, EntityPlayer player) {
+	public ItemStack getPickBlock(@Nonnull IBlockState state, RayTraceResult target, @Nonnull IBlockReader world, @Nonnull BlockPos pos, EntityPlayer player) {
 		return new ItemStack(Blocks.VINE);
 	}
 
