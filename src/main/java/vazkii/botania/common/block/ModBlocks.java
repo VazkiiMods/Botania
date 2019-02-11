@@ -25,6 +25,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.registries.IForgeRegistry;
+import net.minecraftforge.registries.IForgeRegistryEntry;
 import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.ILexiconable;
@@ -358,7 +359,7 @@ public final class ModBlocks {
 
 		Block.Builder builder = Block.Builder.create(Material.PLANTS).doesNotBlockMovement().hardnessAndResistance(0).sound(SoundType.PLANT);
 		for(EnumDyeColor color : EnumDyeColor.values()) {
-			r.register(new BlockModFlower(color, builder).setRegistryName(LibMisc.MOD_ID, color.getName() + LibBlockNames.MYSTICAL_FLOWER_SUFFIX));
+			register(r, new BlockModFlower(color, builder), color.getName() + LibBlockNames.MYSTICAL_FLOWER_SUFFIX);
 		}
 
 		builder = Block.Builder.create(Material.ROCK).hardnessAndResistance(3.5F).sound(SoundType.STONE);
@@ -368,192 +369,191 @@ public final class ModBlocks {
 		}
 
 		builder = Block.Builder.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE);
-		r.register(new BlockModLexiconable(builder, (w, po, pl, st) -> LexiconData.pureDaisy).setRegistryName(LibMisc.MOD_ID, LibBlockNames.LIVING_ROCK));
-		r.register(new BlockModLexiconable(builder, decorative).setRegistryName(LibMisc.MOD_ID, LibBlockNames.LIVING_ROCK_BRICK));
-		r.register(new BlockModLexiconable(builder, decorative).setRegistryName(LibMisc.MOD_ID, LibBlockNames.LIVING_ROCK_BRICK_MOSSY));
-		r.register(new BlockModLexiconable(builder, decorative).setRegistryName(LibMisc.MOD_ID, LibBlockNames.LIVING_ROCK_BRICK_CRACKED));
-		r.register(new BlockModLexiconable(builder, decorative).setRegistryName(LibMisc.MOD_ID, LibBlockNames.LIVING_ROCK_BRICK_CHISELED));
+		register(r, new BlockModLexiconable(builder, (w, po, pl, st) -> LexiconData.pureDaisy), LibBlockNames.LIVING_ROCK);
+		register(r, new BlockModLexiconable(builder, decorative), LibBlockNames.LIVING_ROCK_BRICK);
+		register(r, new BlockModLexiconable(builder, decorative), LibBlockNames.LIVING_ROCK_BRICK_MOSSY);
+		register(r, new BlockModLexiconable(builder, decorative), LibBlockNames.LIVING_ROCK_BRICK_CRACKED);
+		register(r, new BlockModLexiconable(builder, decorative), LibBlockNames.LIVING_ROCK_BRICK_CHISELED);
 
 		builder = Block.Builder.create(Material.WOOD).hardnessAndResistance(2).sound(SoundType.WOOD);
 		// todo 1.13: livingwood should support leaves
-		r.register(new BlockModLexiconable(builder, (w, po, pl, st) -> LexiconData.pureDaisy).setRegistryName(LibMisc.MOD_ID, LibBlockNames.LIVING_WOOD));
-		r.register(new BlockModLexiconable(builder, decorative).setRegistryName(LibMisc.MOD_ID, LibBlockNames.LIVING_WOOD_PLANKS));
-		r.register(new BlockModLexiconable(builder, decorative).setRegistryName(LibMisc.MOD_ID, LibBlockNames.LIVING_WOOD_PLANKS_MOSSY));
-		r.register(new BlockModLexiconable(builder, decorative).setRegistryName(LibMisc.MOD_ID, LibBlockNames.LIVING_WOOD_FRAMED));
-		r.register(new BlockModLexiconable(builder, decorative).setRegistryName(LibMisc.MOD_ID, LibBlockNames.LIVING_WOOD_PATTERN_FRAMED));
-		r.register(new BlockModLexiconable(builder.lightValue(12), decorative).setRegistryName(LibMisc.MOD_ID, LibBlockNames.LIVING_WOOD_GLIMMERING));
+		register(r, new BlockModLexiconable(builder, (w, po, pl, st) -> LexiconData.pureDaisy), LibBlockNames.LIVING_WOOD);
+		register(r, new BlockModLexiconable(builder, decorative), LibBlockNames.LIVING_WOOD_PLANKS);
+		register(r, new BlockModLexiconable(builder, decorative), LibBlockNames.LIVING_WOOD_PLANKS_MOSSY);
+		register(r, new BlockModLexiconable(builder, decorative), LibBlockNames.LIVING_WOOD_FRAMED);
+		register(r, new BlockModLexiconable(builder, decorative), LibBlockNames.LIVING_WOOD_PATTERN_FRAMED);
+		register(r, new BlockModLexiconable(builder.lightValue(12), decorative), LibBlockNames.LIVING_WOOD_GLIMMERING);
 
 		r.register(specialFlower);
 
 		builder = Block.Builder.create(Material.WOOD).hardnessAndResistance(2).sound(SoundType.WOOD);
-		r.register(new BlockSpreader(BlockSpreader.Variant.MANA, builder).setRegistryName(LibMisc.MOD_ID, LibBlockNames.SPREADER));
-		r.register(new BlockSpreader(BlockSpreader.Variant.REDSTONE, builder).setRegistryName(LibMisc.MOD_ID, LibBlockNames.SPREADER_REDSTONE));
-		r.register(new BlockSpreader(BlockSpreader.Variant.ELVEN, builder).setRegistryName(LibMisc.MOD_ID, LibBlockNames.SPREADER_ELVEN));
-		r.register(new BlockSpreader(BlockSpreader.Variant.GAIA, builder).setRegistryName(LibMisc.MOD_ID, LibBlockNames.SPREADER_GAIA));
+		register(r, new BlockSpreader(BlockSpreader.Variant.MANA, builder), LibBlockNames.SPREADER);
+		register(r, new BlockSpreader(BlockSpreader.Variant.REDSTONE, builder), LibBlockNames.SPREADER_REDSTONE);
+		register(r, new BlockSpreader(BlockSpreader.Variant.ELVEN, builder), LibBlockNames.SPREADER_ELVEN);
+		register(r, new BlockSpreader(BlockSpreader.Variant.GAIA, builder), LibBlockNames.SPREADER_GAIA);
 
 		builder = Block.Builder.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE);
-		r.register(new BlockPool(BlockPool.Variant.DEFAULT, builder).setRegistryName(LibMisc.MOD_ID, LibBlockNames.POOL));
-		r.register(new BlockPool(BlockPool.Variant.CREATIVE, builder).setRegistryName(LibMisc.MOD_ID, LibBlockNames.POOL_CREATIVE));
-		r.register(new BlockPool(BlockPool.Variant.DILUTED, builder).setRegistryName(LibMisc.MOD_ID, LibBlockNames.POOL_DILUTED));
-		r.register(new BlockPool(BlockPool.Variant.FABULOUS, builder).setRegistryName(LibMisc.MOD_ID, LibBlockNames.POOL_FABULOUS));
+		register(r, new BlockPool(BlockPool.Variant.DEFAULT, builder), LibBlockNames.POOL);
+		register(r, new BlockPool(BlockPool.Variant.CREATIVE, builder), LibBlockNames.POOL_CREATIVE);
+		register(r, new BlockPool(BlockPool.Variant.DILUTED, builder), LibBlockNames.POOL_DILUTED);
+		register(r, new BlockPool(BlockPool.Variant.FABULOUS, builder), LibBlockNames.POOL_FABULOUS);
 
 		builder = Block.Builder.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE);
-		r.register(new BlockRuneAltar(builder).setRegistryName(LibMisc.MOD_ID, LibBlockNames.RUNE_ALTAR));
+		register(r, new BlockRuneAltar(builder), LibBlockNames.RUNE_ALTAR);
 
 		builder = Block.Builder.create(Material.IRON).hardnessAndResistance(5.5F).sound(SoundType.METAL).lightValue(7);
-		r.register(new BlockPylon(BlockPylon.Variant.MANA, builder).setRegistryName(LibMisc.MOD_ID, LibBlockNames.PYLON));
-		r.register(new BlockPylon(BlockPylon.Variant.NATURA, builder).setRegistryName(LibMisc.MOD_ID, LibBlockNames.PYLON_NATURA));
-		r.register(new BlockPylon(BlockPylon.Variant.GAIA, builder).setRegistryName(LibMisc.MOD_ID, LibBlockNames.PYLON_GAIA));
+		register(r, new BlockPylon(BlockPylon.Variant.MANA, builder), LibBlockNames.PYLON);
+		register(r, new BlockPylon(BlockPylon.Variant.NATURA, builder), LibBlockNames.PYLON_NATURA);
+		register(r, new BlockPylon(BlockPylon.Variant.GAIA, builder), LibBlockNames.PYLON_GAIA);
 
 		builder = Block.Builder.create(Material.GOURD).hardnessAndResistance(2, 10).sound(SoundType.METAL);
-		r.register(new BlockPistonRelay(builder).setRegistryName(LibMisc.MOD_ID, LibBlockNames.PISTON_RELAY));
+		register(r, new BlockPistonRelay(builder), LibBlockNames.PISTON_RELAY);
 
 		builder = Block.Builder.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE);
-		r.register(new BlockDistributor(builder).setRegistryName(LibMisc.MOD_ID, LibBlockNames.DISTRIBUTOR));
+		register(r, new BlockDistributor(builder), LibBlockNames.DISTRIBUTOR);
 
 		builder = Block.Builder.create(Material.ROCK).hardnessAndResistance(2, 2000).sound(SoundType.STONE);
-		r.register(new BlockManaVoid(builder).setRegistryName(LibMisc.MOD_ID, LibBlockNames.MANA_VOID));
+		register(r, new BlockManaVoid(builder), LibBlockNames.MANA_VOID);
 
 		builder = Block.Builder.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE);
-		r.register(new BlockDistributor(builder).setRegistryName(LibMisc.MOD_ID, LibBlockNames.MANA_DETECTOR));
+		register(r, new BlockDistributor(builder), LibBlockNames.MANA_DETECTOR);
 
-		r.register(new BlockEnchanter(Block.Builder.create(Material.ROCK).hardnessAndResistance(3, 5).lightValue(15).sound(SoundType.STONE)).setRegistryName(LibMisc.MOD_ID, LibBlockNames.ENCHANTER));
-		r.register(new BlockTurntable(Block.Builder.create(Material.WOOD).hardnessAndResistance(2).sound(SoundType.WOOD)).setRegistryName(LibMisc.MOD_ID, LibBlockNames.TURNTABLE));
-		r.register(new BlockTinyPlanet(Block.Builder.create(Material.ROCK).hardnessAndResistance(20, 100).sound(SoundType.STONE)).setRegistryName(LibMisc.MOD_ID, LibBlockNames.TINY_PLANET));
-		r.register(new BlockAlchemyCatalyst(Block.Builder.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE)).setRegistryName(LibMisc.MOD_ID, LibBlockNames.ALCHEMY_CATALYST));
+		register(r, new BlockEnchanter(Block.Builder.create(Material.ROCK).hardnessAndResistance(3, 5).lightValue(15).sound(SoundType.STONE)), LibBlockNames.ENCHANTER);
+		register(r, new BlockTurntable(Block.Builder.create(Material.WOOD).hardnessAndResistance(2).sound(SoundType.WOOD)), LibBlockNames.TURNTABLE);
+		register(r, new BlockTinyPlanet(Block.Builder.create(Material.ROCK).hardnessAndResistance(20, 100).sound(SoundType.STONE)), LibBlockNames.TINY_PLANET);
+		register(r, new BlockAlchemyCatalyst(Block.Builder.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE)), LibBlockNames.ALCHEMY_CATALYST);
 		
 		builder = Block.Builder.create(Material.WOOD).hardnessAndResistance(2).sound(SoundType.WOOD);
-		r.register(new BlockOpenCrate(builder).setRegistryName(LibMisc.MOD_ID, LibBlockNames.OPEN_CRATE));
-		r.register(new BlockCraftyCrate(builder).setRegistryName(LibMisc.MOD_ID, LibBlockNames.CRAFT_CRATE));
+		register(r, new BlockOpenCrate(builder), LibBlockNames.OPEN_CRATE);
+		register(r, new BlockCraftyCrate(builder), LibBlockNames.CRAFT_CRATE);
 		
-		r.register(new BlockForestEye(Block.Builder.create(Material.IRON).hardnessAndResistance(5, 10).sound(SoundType.METAL)).setRegistryName(LibMisc.MOD_ID, LibBlockNames.FOREST_EYE));
+		register(r, new BlockForestEye(Block.Builder.create(Material.IRON).hardnessAndResistance(5, 10).sound(SoundType.METAL)), LibBlockNames.FOREST_EYE);
 
 		builder = Block.Builder.create(Material.IRON).hardnessAndResistance(3, 10).sound(SoundType.METAL);
-		r.register(new BlockStorage(builder).setRegistryName(LibMisc.MOD_ID, LibBlockNames.MANASTEEL_BLOCK));
-		r.register(new BlockStorage(builder).setRegistryName(LibMisc.MOD_ID, LibBlockNames.TERRASTEEL_BLOCK));
-		r.register(new BlockStorage(builder).setRegistryName(LibMisc.MOD_ID, LibBlockNames.ELEMENTIUM_BLOCK));
-		r.register(new BlockStorage(builder).setRegistryName(LibMisc.MOD_ID, LibBlockNames.MANA_DIAMOND_BLOCK));
-		r.register(new BlockStorage(builder).setRegistryName(LibMisc.MOD_ID, LibBlockNames.DRAGONSTONE_BLOCK));
+		register(r, new BlockStorage(builder), LibBlockNames.MANASTEEL_BLOCK);
+		register(r, new BlockStorage(builder), LibBlockNames.TERRASTEEL_BLOCK);
+		register(r, new BlockStorage(builder), LibBlockNames.ELEMENTIUM_BLOCK);
+		register(r, new BlockStorage(builder), LibBlockNames.MANA_DIAMOND_BLOCK);
+		register(r, new BlockStorage(builder), LibBlockNames.DRAGONSTONE_BLOCK);
 
 		builder = Block.Builder.create(Material.WOOD).hardnessAndResistance(2).sound(SoundType.WOOD);
-		r.register(new BlockForestDrum(BlockForestDrum.Variant.WILD, builder).setRegistryName(LibMisc.MOD_ID, LibBlockNames.DRUM_WILD));
-		r.register(new BlockForestDrum(BlockForestDrum.Variant.CANOPY, builder).setRegistryName(LibMisc.MOD_ID, LibBlockNames.DRUM_CANOPY));
-		r.register(new BlockForestDrum(BlockForestDrum.Variant.GATHERING, builder).setRegistryName(LibMisc.MOD_ID, LibBlockNames.DRUM_GATHERING));
+		register(r, new BlockForestDrum(BlockForestDrum.Variant.WILD, builder), LibBlockNames.DRUM_WILD);
+		register(r, new BlockForestDrum(BlockForestDrum.Variant.CANOPY, builder), LibBlockNames.DRUM_CANOPY);
+		register(r, new BlockForestDrum(BlockForestDrum.Variant.GATHERING, builder), LibBlockNames.DRUM_GATHERING);
 		
 		builder = Block.Builder.create(Material.PLANTS).doesNotBlockMovement().hardnessAndResistance(0).sound(SoundType.PLANT).lightValue(15);
 		for (EnumDyeColor color : EnumDyeColor.values()) {
-			r.register(new BlockShinyFlower(color, builder).setRegistryName(LibMisc.MOD_ID, color.getName() + LibBlockNames.SHINY_FLOWER_SUFFIX));
+			register(r, new BlockShinyFlower(color, builder), color.getName() + LibBlockNames.SHINY_FLOWER_SUFFIX);
 		}
 		
 		builder = Block.Builder.create(Material.WOOD).hardnessAndResistance(2, 5).sound(SoundType.WOOD);
-		r.register(new BlockPlatform(BlockPlatform.Variant.ABSTRUSE, builder).setRegistryName(LibMisc.MOD_ID, LibBlockNames.PLATFORM_ABSTRUSE));
-		r.register(new BlockPlatform(BlockPlatform.Variant.SPECTRAL, builder).setRegistryName(LibMisc.MOD_ID, LibBlockNames.PLATFORM_SPECTRAL));
-		r.register(new BlockPlatform(BlockPlatform.Variant.INFRANGIBLE, builder).setRegistryName(LibMisc.MOD_ID, LibBlockNames.PLATFORM_INFRANGIBLE));
-		r.register(new BlockAlfPortal(Block.Builder.create(Material.WOOD).hardnessAndResistance(10).sound(SoundType.WOOD)).setRegistryName(LibMisc.MOD_ID, LibBlockNames.ALF_PORTAL));
+		register(r, new BlockPlatform(BlockPlatform.Variant.ABSTRUSE, builder), LibBlockNames.PLATFORM_ABSTRUSE);
+		register(r, new BlockPlatform(BlockPlatform.Variant.SPECTRAL, builder), LibBlockNames.PLATFORM_SPECTRAL);
+		register(r, new BlockPlatform(BlockPlatform.Variant.INFRANGIBLE, builder), LibBlockNames.PLATFORM_INFRANGIBLE);
+		register(r, new BlockAlfPortal(Block.Builder.create(Material.WOOD).hardnessAndResistance(10).sound(SoundType.WOOD)), LibBlockNames.ALF_PORTAL);
 
 		builder = Block.Builder.create(Material.WOOD).hardnessAndResistance(2).sound(SoundType.WOOD);
 		// todo 1.13: dreamwood should support leaves?
-		r.register(new BlockModLexiconable(builder, elvenResource).setRegistryName(LibMisc.MOD_ID, LibBlockNames.DREAM_WOOD));
-		r.register(new BlockModLexiconable(builder, elvenResource).setRegistryName(LibMisc.MOD_ID, LibBlockNames.DREAM_WOOD_PLANKS));
-		r.register(new BlockModLexiconable(builder, elvenResource).setRegistryName(LibMisc.MOD_ID, LibBlockNames.DREAM_WOOD_PLANKS_MOSSY));
-		r.register(new BlockModLexiconable(builder, elvenResource).setRegistryName(LibMisc.MOD_ID, LibBlockNames.DREAM_WOOD_FRAMED));
-		r.register(new BlockModLexiconable(builder, elvenResource).setRegistryName(LibMisc.MOD_ID, LibBlockNames.DREAM_WOOD_PATTERN_FRAMED));
-		r.register(new BlockModLexiconable(builder.lightValue(12), elvenResource).setRegistryName(LibMisc.MOD_ID, LibBlockNames.DREAM_WOOD_GLIMMERING));
+		register(r, new BlockModLexiconable(builder, elvenResource), LibBlockNames.DREAM_WOOD);
+		register(r, new BlockModLexiconable(builder, elvenResource), LibBlockNames.DREAM_WOOD_PLANKS);
+		register(r, new BlockModLexiconable(builder, elvenResource), LibBlockNames.DREAM_WOOD_PLANKS_MOSSY);
+		register(r, new BlockModLexiconable(builder, elvenResource), LibBlockNames.DREAM_WOOD_FRAMED);
+		register(r, new BlockModLexiconable(builder, elvenResource), LibBlockNames.DREAM_WOOD_PATTERN_FRAMED);
+		register(r, new BlockModLexiconable(builder.lightValue(12), elvenResource), LibBlockNames.DREAM_WOOD_GLIMMERING);
 
-		r.register(new BlockConjurationCatalyst(Block.Builder.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE)).setRegistryName(LibMisc.MOD_ID, LibBlockNames.CONJURATION_CATALYST));
-		r.register(new BlockBifrost(Block.Builder.create(Material.GLASS).hardnessAndResistance(-1, 0.3F).lightValue(15).sound(SoundType.GLASS)).setRegistryName(LibMisc.MOD_ID, LibBlockNames.BIFROST));
-		r.register(new BlockSolidVines(Block.Builder.create(Material.VINE).hardnessAndResistance(0.2F).sound(SoundType.PLANT)).setRegistryName(LibMisc.MOD_ID, LibBlockNames.SOLID_VINE));
+		register(r, new BlockConjurationCatalyst(Block.Builder.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE)), LibBlockNames.CONJURATION_CATALYST);
+		register(r, new BlockBifrost(Block.Builder.create(Material.GLASS).hardnessAndResistance(-1, 0.3F).lightValue(15).sound(SoundType.GLASS)), LibBlockNames.BIFROST);
+		register(r, new BlockSolidVines(Block.Builder.create(Material.VINE).hardnessAndResistance(0.2F).sound(SoundType.PLANT)), LibBlockNames.SOLID_VINE);
 		
 		builder = Block.Builder.create(Material.PLANTS).doesNotBlockMovement().hardnessAndResistance(0).sound(SoundType.PLANT).lightValue(4);
 		for(EnumDyeColor color : EnumDyeColor.values()) {
-			r.register(new BlockBuriedPetals(color, builder).setRegistryName(LibMisc.MOD_ID, color.getName() + LibBlockNames.BURIED_PETALS_SUFFIX));
+			register(r, new BlockBuriedPetals(color, builder), color.getName() + LibBlockNames.BURIED_PETALS_SUFFIX);
 		}
 		
 		r.register(floatingFlower);
-		r.register(new BlockTinyPotato(Block.Builder.create(Material.CLOTH).hardnessAndResistance(0.25F)).setRegistryName(LibMisc.MOD_ID, LibBlockNames.TINY_POTATO));
-		r.register(new BlockSpawnerClaw(Block.Builder.create(Material.IRON).hardnessAndResistance(3)).setRegistryName(LibMisc.MOD_ID, LibBlockNames.SPAWNER_CLAW));
+		register(r, new BlockTinyPotato(Block.Builder.create(Material.CLOTH).hardnessAndResistance(0.25F)), LibBlockNames.TINY_POTATO);
+		register(r, new BlockSpawnerClaw(Block.Builder.create(Material.IRON).hardnessAndResistance(3)), LibBlockNames.SPAWNER_CLAW);
 
 		builder = Block.Builder.create(Material.ROCK).hardnessAndResistance(2, 5).sound(SoundType.STONE);
 		ILexiconable azulejo = (w, po ,pl, st) -> LexiconData.azulejo;
 		for (int i = 0; i < 15; i++) {
-			r.register(new BlockModLexiconable(builder, azulejo).setRegistryName(LibMisc.MOD_ID, LibBlockNames.AZULEJO_PREFIX + i));
+			register(r, new BlockModLexiconable(builder, azulejo), LibBlockNames.AZULEJO_PREFIX + i);
 		}
 
-		r.register(new BlockEnderEye(Block.Builder.create(Material.IRON).hardnessAndResistance(3, 10).sound(SoundType.METAL)).setRegistryName(LibMisc.MOD_ID, LibBlockNames.ENDER_EYE_BLOCK));
-		r.register(new BlockStarfield(Block.Builder.create(Material.IRON).hardnessAndResistance(5, 2000).sound(SoundType.METAL)).setRegistryName(LibMisc.MOD_ID, LibBlockNames.STARFIELD));
-		r.register(new BlockRFGenerator(Block.Builder.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE)).setRegistryName(LibMisc.MOD_ID, LibBlockNames.RF_GENERATOR));
-		r.register(new BlockElfGlass(Block.Builder.create(Material.GLASS).hardnessAndResistance(0.3F).sound(SoundType.GLASS).lightValue(15)).setRegistryName(LibMisc.MOD_ID, LibBlockNames.ELF_GLASS));
-		r.register(new BlockBrewery(Block.Builder.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE)).setRegistryName(LibMisc.MOD_ID, LibBlockNames.BREWERY));
-		r.register(new BlockManaGlass(Block.Builder.create(Material.GLASS).hardnessAndResistance(0.3F).sound(SoundType.GLASS).lightValue(15)).setRegistryName(LibMisc.MOD_ID, LibBlockNames.MANA_GLASS));
-		r.register(new BlockTerraPlate(Block.Builder.create(Material.IRON).hardnessAndResistance(3, 10).sound(SoundType.METAL)).setRegistryName(LibMisc.MOD_ID, LibBlockNames.TERRA_PLATE));
+		register(r, new BlockEnderEye(Block.Builder.create(Material.IRON).hardnessAndResistance(3, 10).sound(SoundType.METAL)), LibBlockNames.ENDER_EYE_BLOCK);
+		register(r, new BlockStarfield(Block.Builder.create(Material.IRON).hardnessAndResistance(5, 2000).sound(SoundType.METAL)), LibBlockNames.STARFIELD);
+		register(r, new BlockRFGenerator(Block.Builder.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE)), LibBlockNames.RF_GENERATOR);
+		register(r, new BlockElfGlass(Block.Builder.create(Material.GLASS).hardnessAndResistance(0.3F).sound(SoundType.GLASS).lightValue(15)), LibBlockNames.ELF_GLASS);
+		register(r, new BlockBrewery(Block.Builder.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE)), LibBlockNames.BREWERY);
+		register(r, new BlockManaGlass(Block.Builder.create(Material.GLASS).hardnessAndResistance(0.3F).sound(SoundType.GLASS).lightValue(15)), LibBlockNames.MANA_GLASS);
+		register(r, new BlockTerraPlate(Block.Builder.create(Material.IRON).hardnessAndResistance(3, 10).sound(SoundType.METAL)), LibBlockNames.TERRA_PLATE);
 
 		builder = Block.Builder.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE);
-		r.register(new BlockRedStringContainer(builder).setRegistryName(LibMisc.MOD_ID, LibBlockNames.RED_STRING_CONTAINER));
-		r.register(new BlockRedStringDispenser(builder).setRegistryName(LibMisc.MOD_ID, LibBlockNames.RED_STRING_DISPENSER));
-		r.register(new BlockRedStringFertilizer(builder).setRegistryName(LibMisc.MOD_ID, LibBlockNames.RED_STRING_FERTILIZER));
-		r.register(new BlockRedStringComparator(builder).setRegistryName(LibMisc.MOD_ID, LibBlockNames.RED_STRING_COMPARATOR));
-		r.register(new BlockRedStringRelay(builder).setRegistryName(LibMisc.MOD_ID, LibBlockNames.RED_STRING_RELAY));
-        r.register(new BlockRedStringInterceptor(builder).setRegistryName(LibMisc.MOD_ID, LibBlockNames.RED_STRING_INTERCEPTOR));
+		register(r, new BlockRedStringContainer(builder), LibBlockNames.RED_STRING_CONTAINER);
+		register(r, new BlockRedStringDispenser(builder), LibBlockNames.RED_STRING_DISPENSER);
+		register(r, new BlockRedStringFertilizer(builder), LibBlockNames.RED_STRING_FERTILIZER);
+		register(r, new BlockRedStringComparator(builder), LibBlockNames.RED_STRING_COMPARATOR);
+		register(r, new BlockRedStringRelay(builder), LibBlockNames.RED_STRING_RELAY);
+        register(r, new BlockRedStringInterceptor(builder), LibBlockNames.RED_STRING_INTERCEPTOR);
 		r.register(floatingSpecialFlower);
-		r.register(new BlockManaFlame(Block.Builder.create(Material.CLOTH).sound(SoundType.CLOTH).lightValue(15).doesNotBlockMovement()).setRegistryName(LibMisc.MOD_ID, LibBlockNames.MANA_FLAME));
-		r.register(new BlockPrism(Block.Builder.create(Material.GLASS).hardnessAndResistance(0.3F).sound(SoundType.GLASS).lightValue(15).doesNotBlockMovement()).setRegistryName(LibMisc.MOD_ID, LibBlockNames.PRISM));
-		r.register(new BlockEnchantedSoil(Block.Builder.create(Material.GRASS).hardnessAndResistance(0.6F).sound(SoundType.PLANT)).setRegistryName(LibMisc.MOD_ID, LibBlockNames.ENCHANTED_SOIL));
+		register(r, new BlockManaFlame(Block.Builder.create(Material.CLOTH).sound(SoundType.CLOTH).lightValue(15).doesNotBlockMovement()), LibBlockNames.MANA_FLAME);
+		register(r, new BlockPrism(Block.Builder.create(Material.GLASS).hardnessAndResistance(0.3F).sound(SoundType.GLASS).lightValue(15).doesNotBlockMovement()), LibBlockNames.PRISM);
+		register(r, new BlockEnchantedSoil(Block.Builder.create(Material.GRASS).hardnessAndResistance(0.6F).sound(SoundType.PLANT)), LibBlockNames.ENCHANTED_SOIL);
 
 		builder = Block.Builder.create(Material.PLANTS).hardnessAndResistance(0.4F).sound(SoundType.PLANT);
 		for(EnumDyeColor color : EnumDyeColor.values()) {
-			r.register(new BlockPetalBlock(color, builder).setRegistryName(LibMisc.MOD_ID, color.getName() + LibBlockNames.PETAL_BLOCK_SUFFIX));
+			register(r, new BlockPetalBlock(color, builder), color.getName() + LibBlockNames.PETAL_BLOCK_SUFFIX);
 		}
 
-		r.register(new BlockCorporeaIndex(Block.Builder.create(Material.IRON).hardnessAndResistance(5.5F).sound(SoundType.METAL)).setRegistryName(LibMisc.MOD_ID, LibBlockNames.CORPOREA_INDEX));
-		r.register(new BlockCorporeaFunnel(Block.Builder.create(Material.IRON).hardnessAndResistance(5.5F).sound(SoundType.METAL)).setRegistryName(LibMisc.MOD_ID, LibBlockNames.CORPOREA_FUNNEL));
+		register(r, new BlockCorporeaIndex(Block.Builder.create(Material.IRON).hardnessAndResistance(5.5F).sound(SoundType.METAL)), LibBlockNames.CORPOREA_INDEX);
+		register(r, new BlockCorporeaFunnel(Block.Builder.create(Material.IRON).hardnessAndResistance(5.5F).sound(SoundType.METAL)), LibBlockNames.CORPOREA_FUNNEL);
 		
 		builder = Block.Builder.create(Material.PLANTS).doesNotBlockMovement().needsRandomTick().hardnessAndResistance(0).sound(SoundType.PLANT).lightValue(3);
 		for(EnumDyeColor color : EnumDyeColor.values()) {
-			r.register(new BlockModMushroom(color, builder).setRegistryName(LibMisc.MOD_ID, color.getName() + LibBlockNames.MUSHROOM_SUFFIX));
+			register(r, new BlockModMushroom(color, builder), color.getName() + LibBlockNames.MUSHROOM_SUFFIX);
 		}
 		
-		r.register(new BlockPump(Block.Builder.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE)).setRegistryName(LibMisc.MOD_ID, LibBlockNames.PUMP));
+		register(r, new BlockPump(Block.Builder.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE)), LibBlockNames.PUMP);
 		r.register(doubleFlower1);
 		r.register(doubleFlower2);
-		r.register(new BlockFakeAir(Block.Builder.create(Material.STRUCTURE_VOID).needsRandomTick()).setRegistryName(LibMisc.MOD_ID, LibBlockNames.FAKE_AIR));
-		r.register(new BlockModLexiconable(Block.Builder.create(Material.IRON).hardnessAndResistance(3, 10).sound(SoundType.METAL).lightValue(15), (w, po, pl, st) -> LexiconData.blazeBlock)
-				.setRegistryName(LibMisc.MOD_ID, LibBlockNames.BLAZE_BLOCK));
-		r.register(new BlockCorporeaInterceptor(Block.Builder.create(Material.IRON).hardnessAndResistance(5.5F).sound(SoundType.METAL)).setRegistryName(LibMisc.MOD_ID, LibBlockNames.CORPOREA_INTERCEPTOR));
-		r.register(new BlockCorporeaCrystalCube(Block.Builder.create(Material.IRON).hardnessAndResistance(5.5F).sound(SoundType.METAL)).setRegistryName(LibMisc.MOD_ID, LibBlockNames.CORPOREA_CRYSTAL_CUBE));
-		r.register(new BlockIncensePlate(Block.Builder.create(Material.WOOD).hardnessAndResistance(2).sound(SoundType.WOOD)).setRegistryName(LibMisc.MOD_ID, LibBlockNames.INCENSE_PLATE));
-		r.register(new BlockHourglass(Block.Builder.create(Material.IRON).hardnessAndResistance(2).sound(SoundType.METAL)).setRegistryName(LibMisc.MOD_ID, LibBlockNames.HOURGLASS));
-		r.register(new BlockGhostRail(Block.Builder.create(Material.CIRCUITS).doesNotBlockMovement().hardnessAndResistance(0.7F).sound(SoundType.METAL)).setRegistryName(LibMisc.MOD_ID, LibBlockNames.GHOST_RAIL));
-		r.register(new BlockSparkChanger(Block.Builder.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE)).setRegistryName(LibMisc.MOD_ID, LibBlockNames.SPARK_CHANGER));
-		r.register(new BlockRoot(Block.Builder.create(Material.PLANTS).hardnessAndResistance(1.2F).sound(SoundType.WOOD)).setRegistryName(LibMisc.MOD_ID, LibBlockNames.ROOT));
-		r.register(new BlockFelPumpkin(Block.Builder.from(Blocks.CARVED_PUMPKIN)));
-		r.register(new BlockCocoon(Block.Builder.create(Material.CLOTH).hardnessAndResistance(3, 60).sound(SoundType.CLOTH)).setRegistryName(LibMisc.MOD_ID, LibBlockNames.COCOON));
+		register(r, new BlockFakeAir(Block.Builder.create(Material.STRUCTURE_VOID).needsRandomTick()), LibBlockNames.FAKE_AIR);
+		register(r, new BlockModLexiconable(Block.Builder.create(Material.IRON).hardnessAndResistance(3, 10).sound(SoundType.METAL).lightValue(15), (w, po, pl, st) -> LexiconData.blazeBlock), LibBlockNames.BLAZE_BLOCK));
+		register(r, new BlockCorporeaInterceptor(Block.Builder.create(Material.IRON).hardnessAndResistance(5.5F).sound(SoundType.METAL)), LibBlockNames.CORPOREA_INTERCEPTOR);
+		register(r, new BlockCorporeaCrystalCube(Block.Builder.create(Material.IRON).hardnessAndResistance(5.5F).sound(SoundType.METAL)), LibBlockNames.CORPOREA_CRYSTAL_CUBE);
+		register(r, new BlockIncensePlate(Block.Builder.create(Material.WOOD).hardnessAndResistance(2).sound(SoundType.WOOD)), LibBlockNames.INCENSE_PLATE);
+		register(r, new BlockHourglass(Block.Builder.create(Material.IRON).hardnessAndResistance(2).sound(SoundType.METAL)), LibBlockNames.HOURGLASS);
+		register(r, new BlockGhostRail(Block.Builder.create(Material.CIRCUITS).doesNotBlockMovement().hardnessAndResistance(0.7F).sound(SoundType.METAL)), LibBlockNames.GHOST_RAIL);
+		register(r, new BlockSparkChanger(Block.Builder.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE)), LibBlockNames.SPARK_CHANGER);
+		register(r, new BlockRoot(Block.Builder.create(Material.PLANTS).hardnessAndResistance(1.2F).sound(SoundType.WOOD)), LibBlockNames.ROOT);
+		register(r, new BlockFelPumpkin(Block.Builder.from(Blocks.CARVED_PUMPKIN)), LibBlockNames.FEL_PUMPKIN);
+		register(r, new BlockCocoon(Block.Builder.create(Material.CLOTH).hardnessAndResistance(3, 60).sound(SoundType.CLOTH)), LibBlockNames.COCOON);
 
 		builder = Block.Builder.create(Material.GLASS).doesNotBlockMovement();
-		r.register(new BlockLightRelay(LuminizerVariant.DEFAULT, builder).setRegistryName(LibMisc.MOD_ID, LibBlockNames.LIGHT_RELAY));
-		r.register(new BlockLightRelay(LuminizerVariant.DETECTOR, builder).setRegistryName(LibMisc.MOD_ID, "detector" + LibBlockNames.LIGHT_RELAY_SUFFIX));
-		r.register(new BlockLightRelay(LuminizerVariant.FORK, builder).setRegistryName(LibMisc.MOD_ID, "fork" + LibBlockNames.LIGHT_RELAY_SUFFIX));
-		r.register(new BlockLightRelay(LuminizerVariant.TOGGLE, builder).setRegistryName(LibMisc.MOD_ID, "toggle" + LibBlockNames.LIGHT_RELAY_SUFFIX));
+		register(r, new BlockLightRelay(LuminizerVariant.DEFAULT, builder), LibBlockNames.LIGHT_RELAY);
+		register(r, new BlockLightRelay(LuminizerVariant.DETECTOR, builder), "detector" + LibBlockNames.LIGHT_RELAY_SUFFIX);
+		register(r, new BlockLightRelay(LuminizerVariant.FORK, builder), "fork" + LibBlockNames.LIGHT_RELAY_SUFFIX);
+		register(r, new BlockLightRelay(LuminizerVariant.TOGGLE, builder), "toggle" + LibBlockNames.LIGHT_RELAY_SUFFIX);
 
-		r.register(new BlockLightLauncher(Block.Builder.create(Material.WOOD).hardnessAndResistance(2).sound(SoundType.WOOD)).setRegistryName(LibMisc.MOD_ID, LibBlockNames.LIGHT_LAUNCHER));
-		r.register(new BlockManaBomb(Block.Builder.create(Material.WOOD).hardnessAndResistance(12).sound(SoundType.WOOD)).setRegistryName(LibMisc.MOD_ID, LibBlockNames.MANA_BOMB));
-		r.register(new BlockCacophonium(Block.Builder.create(Material.WOOD).hardnessAndResistance(0.8F)).setRegistryName(LibMisc.MOD_ID, LibBlockNames.CACOPHONIUM));
-		r.register(new BlockBellows(Block.Builder.create(Material.WOOD).hardnessAndResistance(2).sound(SoundType.WOOD)).setRegistryName(LibMisc.MOD_ID, LibBlockNames.BELLOWS));
-		r.register(new BlockBifrostPerm(Block.Builder.create(Material.GLASS).hardnessAndResistance(0.3F).lightValue(15).sound(SoundType.GLASS)).setRegistryName(LibMisc.MOD_ID, LibBlockNames.BIFROST_PERM));
-		r.register(new BlockCell(Block.Builder.create(Material.GOURD).sound(SoundType.CLOTH)).setRegistryName(LibMisc.MOD_ID, LibBlockNames.CELL_BLOCK));
-		r.register(new BlockGaiaHead(Block.Builder.create(Material.CIRCUITS).hardnessAndResistance(1)));
-		r.register(new BlockCorporeaRetainer(Block.Builder.create(Material.IRON).hardnessAndResistance(5.5F).sound(SoundType.METAL)).setRegistryName(LibMisc.MOD_ID, LibBlockNames.CORPOREA_RETAINER));
-		r.register(new BlockTeruTeruBozu(Block.Builder.create(Material.CLOTH)).setRegistryName(LibMisc.MOD_ID, LibBlockNames.TERU_TERU_BOZU));
+		register(r, new BlockLightLauncher(Block.Builder.create(Material.WOOD).hardnessAndResistance(2).sound(SoundType.WOOD)), LibBlockNames.LIGHT_LAUNCHER);
+		register(r, new BlockManaBomb(Block.Builder.create(Material.WOOD).hardnessAndResistance(12).sound(SoundType.WOOD)), LibBlockNames.MANA_BOMB);
+		register(r, new BlockCacophonium(Block.Builder.create(Material.WOOD).hardnessAndResistance(0.8F)), LibBlockNames.CACOPHONIUM);
+		register(r, new BlockBellows(Block.Builder.create(Material.WOOD).hardnessAndResistance(2).sound(SoundType.WOOD)), LibBlockNames.BELLOWS);
+		register(r, new BlockBifrostPerm(Block.Builder.create(Material.GLASS).hardnessAndResistance(0.3F).lightValue(15).sound(SoundType.GLASS)), LibBlockNames.BIFROST_PERM);
+		register(r, new BlockCell(Block.Builder.create(Material.GOURD).sound(SoundType.CLOTH)), LibBlockNames.CELL_BLOCK);
+		register(r, new BlockGaiaHead(Block.Builder.create(Material.CIRCUITS).hardnessAndResistance(1)), LibBlockNames.GAIA_HEAD);
+		register(r, new BlockCorporeaRetainer(Block.Builder.create(Material.IRON).hardnessAndResistance(5.5F).sound(SoundType.METAL)), LibBlockNames.CORPOREA_RETAINER);
+		register(r, new BlockTeruTeruBozu(Block.Builder.create(Material.CLOTH)), LibBlockNames.TERU_TERU_BOZU);
 		ILexiconable rainbowRod = (w, po, pl, st) -> LexiconData.rainbowRod;
-		r.register(new BlockModLexiconable(Block.Builder.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE), rainbowRod).setRegistryName(LibMisc.MOD_ID, LibBlockNames.SHIMMERROCK));
-		r.register(new BlockModLexiconable(Block.Builder.create(Material.WOOD).hardnessAndResistance(2).sound(SoundType.WOOD), rainbowRod).setRegistryName(LibMisc.MOD_ID, LibBlockNames.SHIMMERWOOD_PLANKS));
-		r.register(new BlockAvatar(Block.Builder.create(Material.WOOD).hardnessAndResistance(2).sound(SoundType.WOOD)).setRegistryName(LibMisc.MOD_ID, LibBlockNames.AVATAR));
+		register(r, new BlockModLexiconable(Block.Builder.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE), rainbowRod), LibBlockNames.SHIMMERROCK);
+		register(r, new BlockModLexiconable(Block.Builder.create(Material.WOOD).hardnessAndResistance(2).sound(SoundType.WOOD), rainbowRod), LibBlockNames.SHIMMERWOOD_PLANKS);
+		register(r, new BlockAvatar(Block.Builder.create(Material.WOOD).hardnessAndResistance(2).sound(SoundType.WOOD)), LibBlockNames.AVATAR);
 
 		builder = Block.Builder.create(Material.GRASS).hardnessAndResistance(0.6F).needsRandomTick().sound(SoundType.PLANT);
 		for(BlockAltGrass.Variant v : BlockAltGrass.Variant.values()) {
-			r.register(new BlockAltGrass(v, builder).setRegistryName(LibMisc.MOD_ID, v.name().toLowerCase(Locale.ROOT) + LibBlockNames.ALT_GRASS_SUFFIX));
+			register(r, new BlockAltGrass(v, builder), v.name().toLowerCase(Locale.ROOT) + LibBlockNames.ALT_GRASS_SUFFIX);
 		}
 
-		r.register(new BlockAnimatedTorch(Block.Builder.create(Material.CIRCUITS).lightValue(7)).setRegistryName(LibMisc.MOD_ID, LibBlockNames.ANIMATED_TORCH));
+		register(r, new BlockAnimatedTorch(Block.Builder.create(Material.CIRCUITS).lightValue(7)), LibBlockNames.ANIMATED_TORCH);
 
 		RecipeManaInfusion.alchemyState = alchemyCatalyst.getDefaultState();
 		RecipeManaInfusion.conjurationState = conjurationCatalyst.getDefaultState();
@@ -741,6 +741,10 @@ public final class ModBlocks {
 		r.register(new ItemBlockMod(mutatedGrass).setRegistryName(mutatedGrass.getRegistryName()));
 		r.register(new ItemBlockMod(animatedTorch).setRegistryName(animatedTorch.getRegistryName()));
 		initOreDict();
+	}
+	
+	private static <V extends IForgeRegistryEntry<V>> void register(IForgeRegistry<V> reg, IForgeRegistryEntry<V> thing, String name) {
+		reg.register(thing.setRegistryName(new ResourceLocation(LibMisc.MOD_ID, name)));
 	}
 
 	public static void addDispenserBehaviours() {
