@@ -14,47 +14,44 @@ import baubles.api.BaublesApi;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
-import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+import net.minecraftforge.fml.network.NetworkEvent;
 import net.minecraftforge.items.IItemHandler;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
+import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.bauble.ItemDodgeRing;
+import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraSword;
 
-public class PacketDodge implements IMessage {
+import java.util.function.Supplier;
 
-	@Override
-	public void fromBytes(ByteBuf buf) {}
+public class PacketDodge {
+	public static void encode(PacketDodge msg, PacketBuffer buf) {}
 
-	@Override
-	public void toBytes(ByteBuf buf) {}
-
-	public static class Handler implements IMessageHandler<PacketDodge, IMessage> {
-
-		@Override
-		public IMessage onMessage(PacketDodge message, MessageContext ctx) {
-			EntityPlayerMP player = ctx.getServerHandler().player;
-			player.server.addScheduledTask(() -> {
-				player.world.playSound(null, player.posX, player.posY, player.posZ, ModSounds.dash, SoundCategory.PLAYERS, 1F, 1F);
-
-				IItemHandler baublesInv = BaublesApi.getBaublesHandler(player);
-				ItemStack ringStack = baublesInv.getStackInSlot(1);
-				if(ringStack.isEmpty() || !(ringStack.getItem() instanceof ItemDodgeRing)) {
-					ringStack = baublesInv.getStackInSlot(2);
-					if(ringStack.isEmpty() || !(ringStack.getItem() instanceof ItemDodgeRing))
-						ctx.getServerHandler().disconnect(new TextComponentTranslation("botaniamisc.invalidDodge"));
-					return;
-				}
-
-				player.addExhaustion(0.3F);
-				ItemNBTHelper.setInt(ringStack, ItemDodgeRing.TAG_DODGE_COOLDOWN, ItemDodgeRing.MAX_CD);
-			});
-			return null;
-		}
+	public static PacketDodge decode(PacketBuffer buf) {
+		return new PacketDodge();
 	}
 
+	public static void handle(PacketDodge msg, Supplier<NetworkEvent.Context> ctx) {
+		ctx.get().enqueueWork(() -> {
+			EntityPlayerMP player = ctx.get().getSender();
+			player.world.playSound(null, player.posX, player.posY, player.posZ, ModSounds.dash, SoundCategory.PLAYERS, 1F, 1F);
+
+			IItemHandler baublesInv = BaublesApi.getBaublesHandler(player);
+			ItemStack ringStack = baublesInv.getStackInSlot(1);
+			if(ringStack.isEmpty() || !(ringStack.getItem() instanceof ItemDodgeRing)) {
+				ringStack = baublesInv.getStackInSlot(2);
+				if(ringStack.isEmpty() || !(ringStack.getItem() instanceof ItemDodgeRing))
+					player.connection.disconnect(new TextComponentTranslation("botaniamisc.invalidDodge"));
+				return;
+			}
+
+			player.addExhaustion(0.3F);
+			ItemNBTHelper.setInt(ringStack, ItemDodgeRing.TAG_DODGE_COOLDOWN, ItemDodgeRing.MAX_CD);
+		});
+		ctx.get().setPacketHandled(true);
+	}
 }

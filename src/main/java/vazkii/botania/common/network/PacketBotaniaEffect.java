@@ -3,16 +3,14 @@ package vazkii.botania.common.network;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
+import net.minecraft.init.Particles;
 import net.minecraft.item.EnumDyeColor;
+import net.minecraft.network.PacketBuffer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.network.ByteBufUtils;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
-import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+import net.minecraftforge.fml.network.NetworkEvent;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.tile.TileTerraPlate;
 import vazkii.botania.common.core.handler.ConfigHandler;
@@ -21,18 +19,17 @@ import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.item.ItemTwigWand;
 
 import java.awt.Color;
+import java.util.function.Supplier;
 
 // Prefer using World.addBlockEvent/Block.eventReceived/TileEntity.receiveClientEvent where possible
 // as those use less network bandwidth (~14 bytes), vs 26+ bytes here
-public class PacketBotaniaEffect implements IMessage {
+public class PacketBotaniaEffect {
 
-	private EffectType type;
-	private double x;
-	private double y;
-	private double z;
-	private int[] args;
-
-	public PacketBotaniaEffect() {}
+	private final EffectType type;
+	private final double x;
+	private final double y;
+	private final double z;
+	private final int[] args;
 
 	public PacketBotaniaEffect(EffectType type, double x, double y, double z, int... args) {
 		this.type = type;
@@ -42,50 +39,47 @@ public class PacketBotaniaEffect implements IMessage {
 		this.args = args;
 	}
 
-	@Override
-	public void fromBytes(ByteBuf buf) {
-		type = EffectType.values()[buf.readByte()];
-		x = buf.readDouble();
-		y = buf.readDouble();
-		z = buf.readDouble();
-		args = new int[type.argCount];
+	public static PacketBotaniaEffect decode(PacketBuffer buf) {
+		EffectType type = EffectType.values()[buf.readByte()];
+		double x = buf.readDouble();
+		double y = buf.readDouble();
+		double z = buf.readDouble();
+		int[] args = new int[type.argCount];
 
 		for (int i = 0; i < args.length; i++) {
-			args[i] = ByteBufUtils.readVarInt(buf, 5);
+			args[i] = buf.readVarInt();
+		}
+		return new PacketBotaniaEffect(type, x, y, z, args);
+	}
+
+	public static void encode(PacketBotaniaEffect msg, PacketBuffer buf) {
+		buf.writeByte(msg.type.ordinal());
+		buf.writeDouble(msg.x);
+		buf.writeDouble(msg.y);
+		buf.writeDouble(msg.z);
+
+		for (int i = 0; i < msg.type.argCount; i++) {
+			buf.writeVarInt(msg.args[i]);
 		}
 	}
 
-	@Override
-	public void toBytes(ByteBuf buf) {
-		buf.writeByte(type.ordinal());
-		buf.writeDouble(x);
-		buf.writeDouble(y);
-		buf.writeDouble(z);
-
-		for (int i = 0; i < type.argCount; i++) {
-			ByteBufUtils.writeVarInt(buf, args[i], 5);
-		}
-	}
-
-	public static class Handler implements IMessageHandler<PacketBotaniaEffect, IMessage> {
-
-		@Override
-		public IMessage onMessage(final PacketBotaniaEffect message, final MessageContext ctx) {
-			Minecraft.getMinecraft().addScheduledTask(new Runnable() {
+	public static class Handler {
+		public static void handle(final PacketBotaniaEffect message, final Supplier<NetworkEvent.Context> ctx) {
+			ctx.get().enqueueWork(new Runnable() {
 				// Use anon - lambda causes classloading issues
 				@Override
 				public void run() {
-					Minecraft mc = Minecraft.getMinecraft();
+					Minecraft mc = Minecraft.getInstance();
 					World world = mc.world;
 					switch (message.type) {
 					case PAINT_LENS: {
-						EnumDyeColor placeColor = EnumDyeColor.byMetadata(message.args[0]);
+						EnumDyeColor placeColor = EnumDyeColor.byId(message.args[0]);
 						int hex = placeColor.getColorValue();
 						int r = (hex & 0xFF0000) >> 16;
 						int g = (hex & 0xFF00) >> 8;
 		int b = hex & 0xFF;
 		for(int i = 0; i < 10; i++) {
-			BlockPos pos = new BlockPos(message.x, message.y, message.z).offset(EnumFacing.VALUES[world.rand.nextInt(6)]);
+			BlockPos pos = new BlockPos(message.x, message.y, message.z).offset(EnumFacing.BY_INDEX[world.rand.nextInt(6)]);
 			Botania.proxy.sparkleFX(
 					pos.getX() + (float) Math.random(), pos.getY() + (float) Math.random(), pos.getZ() + (float) Math.random(),
 					r / 255F, g / 255F, b / 255F, 0.6F + (float) Math.random() * 0.5F, 5);
@@ -118,7 +112,7 @@ public class PacketBotaniaEffect implements IMessage {
 							double d1 = item.world.rand.nextGaussian() * m;
 							double d2 = item.world.rand.nextGaussian() * m;
 							double d3 = 10.0D;
-							item.world.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL,
+							item.world.spawnParticle(Particles.POOF,
 									message.x + item.world.rand.nextFloat() * item.width * 2.0F - item.width - d0 * d3, message.y + item.world.rand.nextFloat() * item.height - d1 * d3,
 									message.z + item.world.rand.nextFloat() * item.width * 2.0F - item.width - d2 * d3, d0, d1, d2);
 						}
@@ -249,13 +243,13 @@ public class PacketBotaniaEffect implements IMessage {
 						break;
 					}
 					case PARTICLE_BEAM: {
-						ItemTwigWand.doParticleBeam(Minecraft.getMinecraft().world,
+						ItemTwigWand.doParticleBeam(Minecraft.getInstance().world,
 								new Vector3(message.x, message.y, message.z),
 								new Vector3(message.args[0] + 0.5, message.args[1] + 0.5, message.args[2] + 0.5));
 						break;
 					}
 					case DIVA_EFFECT: {
-						Entity target = Minecraft.getMinecraft().world.getEntityByID(message.args[0]);
+						Entity target = Minecraft.getInstance().world.getEntityByID(message.args[0]);
 						if(target == null)
 							break;
 
@@ -271,7 +265,7 @@ public class PacketBotaniaEffect implements IMessage {
 				}
 			});
 
-			return null;
+			ctx.get().setPacketHandled(true);
 		}
 	}
 

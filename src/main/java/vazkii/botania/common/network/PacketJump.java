@@ -14,42 +14,39 @@ import baubles.api.BaublesApi;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
-import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+import net.minecraft.network.PacketBuffer;
+import net.minecraftforge.fml.network.NetworkEvent;
 import net.minecraftforge.items.IItemHandler;
+import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.bauble.CloudPendantShim;
 import vazkii.botania.common.item.equipment.bauble.ItemTravelBelt;
+import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraSword;
 
-public class PacketJump implements IMessage {
+import java.util.function.Supplier;
 
-	@Override
-	public void fromBytes(ByteBuf buf) {}
+public class PacketJump {
+	public static void encode(PacketJump msg, PacketBuffer buf) {}
 
-	@Override
-	public void toBytes(ByteBuf buf) {}
-
-	public static class Handler implements IMessageHandler<PacketJump, IMessage> {
-
-		@Override
-		public IMessage onMessage(PacketJump message, MessageContext ctx) {
-			EntityPlayerMP player = ctx.getServerHandler().player;
-			player.server.addScheduledTask(() -> {
-				IItemHandler baublesInv = BaublesApi.getBaublesHandler(player);
-				ItemStack amuletStack = baublesInv.getStackInSlot(0);
-
-				if(!amuletStack.isEmpty() && amuletStack.getItem() instanceof CloudPendantShim) {
-					player.addExhaustion(0.3F);
-					player.fallDistance = 0;
-					
-					ItemStack belt = BaublesApi.getBaublesHandler(player).getStackInSlot(3);
-
-					if(!belt.isEmpty() && belt.getItem() instanceof ItemTravelBelt)
-						player.fallDistance = -((ItemTravelBelt) belt.getItem()).fallBuffer * ((CloudPendantShim) amuletStack.getItem()).getMaxAllowedJumps();
-				}
-			});
-			return null;
-		}
+	public static PacketJump decode(PacketBuffer buf) {
+		return new PacketJump();
 	}
 
+	public static void handle(PacketJump msg, Supplier<NetworkEvent.Context> ctx) {
+		ctx.get().enqueueWork(() -> {
+			EntityPlayerMP player = ctx.get().getSender();
+			IItemHandler baublesInv = BaublesApi.getBaublesHandler(player);
+			ItemStack amuletStack = baublesInv.getStackInSlot(0);
+
+			if(!amuletStack.isEmpty() && amuletStack.getItem() instanceof CloudPendantShim) {
+				player.addExhaustion(0.3F);
+				player.fallDistance = 0;
+
+				ItemStack belt = BaublesApi.getBaublesHandler(player).getStackInSlot(3);
+
+				if(!belt.isEmpty() && belt.getItem() instanceof ItemTravelBelt)
+					player.fallDistance = -((ItemTravelBelt) belt.getItem()).fallBuffer * ((CloudPendantShim) amuletStack.getItem()).getMaxAllowedJumps();
+			}
+		});
+		ctx.get().setPacketHandled(true);
+	}
 }

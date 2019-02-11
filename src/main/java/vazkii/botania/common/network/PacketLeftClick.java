@@ -1,28 +1,23 @@
 package vazkii.botania.common.network;
 
-import io.netty.buffer.ByteBuf;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
-import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+import net.minecraft.network.PacketBuffer;
+import net.minecraftforge.fml.network.NetworkEvent;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraSword;
 
-public class PacketLeftClick implements IMessage {
-	@Override
-	public void fromBytes(ByteBuf buf) {}
+import java.util.function.Supplier;
 
-	@Override
-	public void toBytes(ByteBuf buf) {}
+public class PacketLeftClick {
+	public static void encode(PacketLeftClick msg, PacketBuffer buf) {}
 
-	public static class Handler implements IMessageHandler<PacketLeftClick, IMessage> {
-
-		@Override
-		public IMessage onMessage(PacketLeftClick message, MessageContext ctx) {
-			EntityPlayerMP player = ctx.getServerHandler().player;
-			player.server.addScheduledTask(() -> ((ItemTerraSword) ModItems.terraSword).trySpawnBurst(player));
-			return null;
-		}
+	public static PacketLeftClick decode(PacketBuffer buf) {
+		return new PacketLeftClick();
 	}
 
+	public static void handle(PacketLeftClick msg, Supplier<NetworkEvent.Context> ctx) {
+		ctx.get().enqueueWork(() -> {
+			((ItemTerraSword) ModItems.terraSword).trySpawnBurst(ctx.get().getSender());
+		});
+		ctx.get().setPacketHandled(true);
+	}
 }
