@@ -61,6 +61,7 @@ public final class LibBlockNames {
     public static final String DRUM_GATHERING = "drum_gathering";
     public static final String DRUM_CANOPY = "drum_canopy";
 	public static final String SHINY_FLOWER_SUFFIX = "_shiny_flower";
+	public static final String PLATFORM = "platform";
 	public static final String PLATFORM_ABSTRUSE = "abstruse_platform";
 	public static final String PLATFORM_SPECTRAL = "spectral_platform";
 	public static final String PLATFORM_INFRANGIBLE = "infrangible_platform";
@@ -118,6 +119,7 @@ public final class LibBlockNames {
 	public static final String FEL_PUMPKIN = "fel_pumpkin";
 	public static final String COCOON = "cocoon";
 	public static final String LIGHT_RELAY = "light_relay";
+	public static final String LIGHT_RELAY_SUFFIX = "_" + LIGHT_RELAY;
 	public static final String LIGHT_LAUNCHER = "light_launcher";
 	public static final String MANA_BOMB = "mana_bomb";
 	public static final String CACOPHONIUM = "cacophonium_block";

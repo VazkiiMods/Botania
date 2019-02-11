@@ -13,18 +13,19 @@ package vazkii.botania.common.block;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRailBase;
 import net.minecraft.block.BlockRailPowered;
-import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.state.IProperty;
+import net.minecraft.state.StateContainer;
+import net.minecraft.state.properties.BlockStateProperties;
+import net.minecraft.state.properties.RailShape;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.minecart.MinecartUpdateEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.lexicon.ILexiconable;
@@ -44,29 +45,14 @@ public class BlockGhostRail extends BlockRailBase implements ILexiconable, IMode
 
 	private static final String TAG_FLOAT_TICKS = "Botania_FloatTicks";
 
-	public BlockGhostRail() {
-		super(true);
-		setCreativeTab(BotaniaCreativeTab.INSTANCE);
-		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.RAIL_DIRECTION, EnumRailDirection.NORTH_SOUTH));
-		setRegistryName(new ResourceLocation(LibMisc.MOD_ID, LibBlockNames.GHOST_RAIL));
-		setTranslationKey(LibBlockNames.GHOST_RAIL);
-	}
-
-	@Nonnull
-	@Override
-	public BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this, BotaniaStateProps.RAIL_DIRECTION);
+	public BlockGhostRail(Builder builder) {
+		super(true, builder);
+		setDefaultState(stateContainer.getBaseState().with(BlockStateProperties.RAIL_SHAPE_STRAIGHT, RailShape.NORTH_SOUTH));
 	}
 
 	@Override
-	public int getMetaFromState(IBlockState state) {
-		return state.getValue(BotaniaStateProps.RAIL_DIRECTION).getMetadata();
-	}
-
-	@Nonnull
-	@Override
-	public IBlockState getStateFromMeta(int meta) {
-		return getDefaultState().withProperty(BotaniaStateProps.RAIL_DIRECTION, EnumRailDirection.byMetadata(meta));
+	protected void fillStateContainer(StateContainer.Builder<Block, IBlockState> builder) {
+		builder.add(BlockStateProperties.RAIL_SHAPE_STRAIGHT);
 	}
 
 	@SubscribeEvent
@@ -107,8 +93,8 @@ public class BlockGhostRail extends BlockRailBase implements ILexiconable, IMode
 
 	@Nonnull
 	@Override
-	public IProperty<EnumRailDirection> getShapeProperty() {
-		return BlockRailPowered.SHAPE;
+	public IProperty<RailShape> getShapeProperty() {
+		return BlockStateProperties.RAIL_SHAPE_STRAIGHT;
 	}
 
 	@OnlyIn(Dist.CLIENT)

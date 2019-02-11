@@ -27,17 +27,15 @@ import vazkii.botania.common.lib.LibBlockNames;
 
 public class BlockManaBomb extends BlockMod implements IManaTrigger, ILexiconable {
 
-	public BlockManaBomb() {
-		super(Material.WOOD, LibBlockNames.MANA_BOMB);
-		setHardness(12.0F);
-		setSoundType(SoundType.WOOD);
+	public BlockManaBomb(Builder builder) {
+		super(builder);
 	}
 
 	@Override
 	public void onBurstCollision(IManaBurst burst, World world, BlockPos pos) {
 		if(!burst.isFake() && !world.isRemote) {
 			world.playEvent(2001, pos, Block.getStateId(getDefaultState()));
-			world.setBlockToAir(pos);
+			world.removeBlock(pos);
 			EntityManaStorm storm = new EntityManaStorm(world);
 			storm.setPosition(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
 			world.spawnEntity(storm);

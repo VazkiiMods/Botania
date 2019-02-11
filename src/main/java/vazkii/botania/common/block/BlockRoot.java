@@ -30,26 +30,18 @@ import java.util.Random;
 
 public class BlockRoot extends BlockMod implements ILexiconable {
 
-	public BlockRoot() {
-		super(Material.PLANTS, LibBlockNames.ROOT);
-		setHardness(1.2F);
-		setSoundType(SoundType.WOOD);
+	public BlockRoot(Builder builder) {
+		super(builder);
 	}
 
 	@Nonnull
 	@Override
-	public ItemStack getPickBlock(@Nonnull IBlockState state, RayTraceResult target, @Nonnull World world, @Nonnull BlockPos pos, EntityPlayer player) {
-		return new ItemStack(this);
-	}
-
-	@Nonnull
-	@Override
-	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
+	public Item getItemDropped(IBlockState state, World world, BlockPos pos, int fortune) {
 		return ModItems.livingroot;
 	}
 
 	@Override
-	public int quantityDropped(Random r) {
+	public int quantityDropped(IBlockState state, Random r) {
 		return 2 + r.nextInt(3);
 	}
 

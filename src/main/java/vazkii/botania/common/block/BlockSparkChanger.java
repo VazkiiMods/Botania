@@ -14,16 +14,17 @@ import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockFaceShape;
-import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
+import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.items.ItemHandlerHelper;
 import vazkii.botania.api.lexicon.ILexiconable;
@@ -33,7 +34,6 @@ import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.block.tile.TileSparkChanger;
 import vazkii.botania.common.core.helper.InventoryHelper;
 import vazkii.botania.common.item.ItemSparkUpgrade;
-import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
@@ -41,37 +41,22 @@ import javax.annotation.Nonnull;
 
 public class BlockSparkChanger extends BlockMod implements ILexiconable {
 
-	private static final AxisAlignedBB AABB = new AxisAlignedBB(0, 0, 0, 1, 3.0/16, 1);
+	private static final VoxelShape SHAPE = makeCuboidShape(0, 0, 0, 16, 3, 16);
 
-	public BlockSparkChanger() {
-		super(Material.ROCK, LibBlockNames.SPARK_CHANGER);
-		setHardness(2.0F);
-		setResistance(10.0F);
-		setSoundType(SoundType.STONE);
-		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.POWERED, true));
+	public BlockSparkChanger(Builder builder) {
+		super(builder);
+		setDefaultState(stateContainer.getBaseState().with(BotaniaStateProps.POWERED, true));
 	}
 
 	@Nonnull
 	@Override
-	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
-		return AABB;
-	}
-
-	@Nonnull
-	@Override
-	public BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this, BotaniaStateProps.POWERED);
+	public VoxelShape getShape(IBlockState state, IBlockReader world, BlockPos pos) {
+		return SHAPE;
 	}
 
 	@Override
-	public int getMetaFromState(IBlockState state) {
-		return state.getValue(BotaniaStateProps.POWERED) ? 8 : 0;
-	}
-
-	@Nonnull
-	@Override
-	public IBlockState getStateFromMeta(int meta) {
-		return getDefaultState().withProperty(BotaniaStateProps.POWERED, meta == 8);
+	protected void fillStateContainer(StateContainer.Builder<Block, IBlockState> builder) {
+		builder.add(BotaniaStateProps.POWERED);
 	}
 
 	@Override
@@ -80,29 +65,19 @@ public class BlockSparkChanger extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public boolean isOpaqueCube(IBlockState state) {
-		return false;
-	}
-
-	@Override
-	public boolean isPassable(IBlockAccess world, BlockPos pos) {
-		return false;
-	}
-
-	@Override
 	public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block, BlockPos fromPos) {
 		boolean power = world.getRedstonePowerFromNeighbors(pos) > 0 || world.getRedstonePowerFromNeighbors(pos.up()) > 0;
-		boolean powered = state.getValue(BotaniaStateProps.POWERED);
+		boolean powered = state.get(BotaniaStateProps.POWERED);
 
 		if(power && !powered) {
 			((TileSparkChanger) world.getTileEntity(pos)).doSwap();
-			world.setBlockState(pos, state.withProperty(BotaniaStateProps.POWERED, true), 4);
+			world.setBlockState(pos, state.with(BotaniaStateProps.POWERED, true), 4);
 		} else if(!power && powered)
-			world.setBlockState(pos, state.withProperty(BotaniaStateProps.POWERED, false), 4);
+			world.setBlockState(pos, state.with(BotaniaStateProps.POWERED, false), 4);
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing s, float xs, float ys, float zs) {
+	public boolean onBlockActivated(IBlockState state, World world, BlockPos pos, EntityPlayer player, EnumHand hand, EnumFacing s, float xs, float ys, float zs) {
 		TileSparkChanger changer = (TileSparkChanger) world.getTileEntity(pos);
 		ItemStack pstack = player.getHeldItem(hand);
 		ItemStack cstack = changer.getItemHandler().getStackInSlot(0);
@@ -113,7 +88,7 @@ public class BlockSparkChanger extends BlockMod implements ILexiconable {
 			ItemHandlerHelper.giveItemToPlayer(player, cstack);
 			return true;
 		} else if(!pstack.isEmpty() && pstack.getItem() instanceof ItemSparkUpgrade) {
-			changer.getItemHandler().setStackInSlot(0, pstack.splitStack(1));
+			changer.getItemHandler().setStackInSlot(0, pstack.split(1));
 			world.updateComparatorOutputLevel(pos, this);
 			changer.markDirty();
 
@@ -124,12 +99,12 @@ public class BlockSparkChanger extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public void breakBlock(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
+	public void onReplaced(@Nonnull IBlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState newState, boolean isMoving) {
 		TileSimpleInventory inv = (TileSimpleInventory) world.getTileEntity(pos);
 
 		InventoryHelper.dropInventory(inv, world, state, pos);
 
-		super.breakBlock(world, pos, state);
+		super.onReplaced(state, world, pos, newState, isMoving);
 	}
 
 	@Override
@@ -153,7 +128,7 @@ public class BlockSparkChanger extends BlockMod implements ILexiconable {
 
 	@Nonnull
 	@Override
-	public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
+	public TileEntity createTileEntity(@Nonnull IBlockState state, @Nonnull IBlockReader world) {
 		return new TileSparkChanger();
 	}
 
@@ -164,7 +139,7 @@ public class BlockSparkChanger extends BlockMod implements ILexiconable {
 
 	@Nonnull
 	@Override
-	public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing side) {
+	public BlockFaceShape getBlockFaceShape(IBlockReader world, IBlockState state, BlockPos pos, EnumFacing side) {
 		return side == EnumFacing.DOWN ? BlockFaceShape.SOLID : BlockFaceShape.UNDEFINED;
 	}
 

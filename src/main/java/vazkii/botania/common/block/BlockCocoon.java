@@ -10,59 +10,49 @@
  */
 package vazkii.botania.common.block;
 
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
+import net.minecraft.init.Particles;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
+import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.world.IBlockReader;
+import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.block.tile.TileCocoon;
 import vazkii.botania.common.lexicon.LexiconData;
-import vazkii.botania.common.lib.LibBlockNames;
 
 import javax.annotation.Nonnull;
-import java.util.Random;
 
 public class BlockCocoon extends BlockMod implements ILexiconable {
 
-	private static final AxisAlignedBB AABB = new AxisAlignedBB(3.0/16, 0, 3.0/16, 13.0/16, 0.875, 13.0/16);;
+	private static final VoxelShape SHAPE = makeCuboidShape(3, 0, 3, 13, 14, 13);;
 
-	protected BlockCocoon() {
-		super(Material.CLOTH, LibBlockNames.COCOON);
-		setHardness(3.0F);
-		setResistance(50.0F);
-		setSoundType(SoundType.CLOTH);
+	protected BlockCocoon(Builder builder) {
+		super(builder);
 	}
 
 	@Nonnull
 	@Override
-	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
-		return AABB;
+	public VoxelShape getShape(IBlockState state, IBlockReader world, BlockPos pos) {
+		return SHAPE;
 	}
 
 	@Override
 	public boolean isFullCube(IBlockState state) {
-		return false;
-	}
-
-	@Override
-	public boolean isOpaqueCube(IBlockState state) {
 		return false;
 	}
 
@@ -73,21 +63,21 @@ public class BlockCocoon extends BlockMod implements ILexiconable {
 	}
 	
 	@Override
-	public void onEntityCollision(World world, BlockPos pos, IBlockState state, Entity e) {
+	public void onEntityCollision(IBlockState state, World world, BlockPos pos, Entity e) {
 		if(!world.isRemote && e instanceof EntityItem) {
 			EntityItem item = (EntityItem) e;
 			ItemStack stack = item.getItem();
 			addStack(world, pos, stack, false);
 			
 			if(stack.isEmpty())
-				item.setDead();
+				item.remove();
 		}
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing s, float xs, float ys, float zs) {
+	public boolean onBlockActivated(IBlockState state, World world, BlockPos pos, EntityPlayer player, EnumHand hand, EnumFacing s, float xs, float ys, float zs) {
 		ItemStack stack = player.getHeldItem(hand);
-		return addStack(world, pos, stack, player.capabilities.isCreativeMode);
+		return addStack(world, pos, stack, player.abilities.isCreativeMode);
 	}
 	
 	private boolean addStack(World world, BlockPos pos, ItemStack stack, boolean creative) {
@@ -100,12 +90,12 @@ public class BlockCocoon extends BlockMod implements ILexiconable {
 					if(!creative)
 						stack.shrink(1);
 					cocoon.emeraldsGiven++;
-					((WorldServer) world).spawnParticle(EnumParticleTypes.VILLAGER_HAPPY, pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5, 1, 0, 0, 0, 0.5);
+					((WorldServer) world).spawnParticle(Particles.HAPPY_VILLAGER, pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5, 1, 0, 0, 0, 0.5);
 				} else if(item == Items.CHORUS_FRUIT && cocoon.chorusFruitGiven < TileCocoon.MAX_CHORUS_FRUITS) {
 					if(!creative)
 						stack.shrink(1);
 					cocoon.chorusFruitGiven++;
-					((WorldServer) world).spawnParticle(EnumParticleTypes.PORTAL, pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, 32, 0, 0, 0, 0.5);
+					((WorldServer) world).spawnParticle(Particles.PORTAL, pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, 32, 0, 0, 0, 0.5);
 				}
 			}
 
@@ -117,12 +107,12 @@ public class BlockCocoon extends BlockMod implements ILexiconable {
 
 	@Nonnull
 	@Override
-	public Item getItemDropped(IBlockState state, @Nonnull Random rand, int fortune) {
+	public Item getItemDropped(IBlockState state, World world, BlockPos pos, int fortune) {
 		return Items.AIR;
 	}
 
 	@Override
-	public boolean canSilkHarvest(World world, BlockPos pos, @Nonnull IBlockState state, EntityPlayer player) {
+	public boolean canSilkHarvest(@Nonnull IBlockState state, IWorldReader world, BlockPos pos, EntityPlayer player) {
 		return false;
 	}
 
@@ -133,7 +123,7 @@ public class BlockCocoon extends BlockMod implements ILexiconable {
 
 	@Nonnull
 	@Override
-	public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
+	public TileEntity createTileEntity(@Nonnull IBlockState state, @Nonnull IBlockReader world) {
 		return new TileCocoon();
 	}
 
@@ -144,7 +134,7 @@ public class BlockCocoon extends BlockMod implements ILexiconable {
 
 	@Nonnull
 	@Override
-	public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing side) {
+	public BlockFaceShape getBlockFaceShape(IBlockReader world, IBlockState state, BlockPos pos, EnumFacing side) {
 		return side.getAxis() == EnumFacing.Axis.Y ? BlockFaceShape.CENTER_BIG : BlockFaceShape.MIDDLE_POLE_THICK;
 	}
 

@@ -187,17 +187,17 @@ public class TileHourglass extends TileSimpleInventory implements ITickable {
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public void renderHUD(ScaledResolution res) {
-		Minecraft mc = Minecraft.getMinecraft();
-		int x = res.getScaledWidth() / 2 + 10;
-		int y = res.getScaledHeight() / 2 - 10;
+	public void renderHUD() {
+		Minecraft mc = Minecraft.getInstance();
+		int x = mc.mainWindow.getScaledWidth() / 2 + 10;
+		int y = mc.mainWindow.getScaledHeight() / 2 - 10;
 
 		ItemStack stack = itemHandler.getStackInSlot(0);
 		if(!stack.isEmpty()) {
 			RenderHelper.enableGUIStandardItemLighting();
 			GlStateManager.enableRescaleNormal();
-			mc.getRenderItem().renderItemIntoGUI(stack, x, y);
-			mc.getRenderItem().renderItemOverlays(mc.fontRenderer, stack, x, y);
+			mc.getItemRenderer().renderItemIntoGUI(stack, x, y);
+			mc.getItemRenderer().renderItemOverlays(mc.fontRenderer, stack, x, y);
 			GlStateManager.disableRescaleNormal();
 			RenderHelper.disableStandardItemLighting();
 

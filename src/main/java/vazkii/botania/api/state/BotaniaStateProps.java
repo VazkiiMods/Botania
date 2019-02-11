@@ -101,12 +101,6 @@ public final class BotaniaStateProps {
 	// BlockEnchanter
 	public static final EnumProperty<EnumFacing.Axis> ENCHANTER_DIRECTION = EnumProperty.create("facing", EnumFacing.Axis.class, Predicates.not(Predicates.equalTo(EnumFacing.Axis.Y)));
 
-	// BlockGhostRail
-	public static final EnumProperty<RailShape> RAIL_DIRECTION = BlockRailPowered.SHAPE;
-
-	// BlockLightRelay
-	public static final EnumProperty<LuminizerVariant> LUMINIZER_VARIANT = EnumProperty.create("variant", LuminizerVariant.class);
-
 	// BlockModDoubleFlower (white to gray)
 	public static final EnumProperty<EnumDyeColor> DOUBLEFLOWER_VARIANT_1 = EnumProperty.create("df_variant", EnumDyeColor.class, new Predicate<EnumDyeColor>() {
 		@Override

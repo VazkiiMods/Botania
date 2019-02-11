@@ -12,15 +12,17 @@ package vazkii.botania.common.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.fluid.IFluidState;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
+import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.IBlockReader;
+import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.tile.TileCacophonium;
@@ -32,62 +34,44 @@ import java.util.List;
 
 public class BlockCacophonium extends BlockMod {
 
-	protected BlockCacophonium() {
-		super(Material.WOOD, LibBlockNames.CACOPHONIUM);
-		setHardness(0.8F);
-		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.POWERED, false));
-	}
-
-	@Nonnull
-	@Override
-	public BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this, BotaniaStateProps.POWERED);
+	protected BlockCacophonium(Builder builder) {
+		super(builder);
+		setDefaultState(stateContainer.getBaseState().with(BotaniaStateProps.POWERED, false));
 	}
 
 	@Override
-	public int getMetaFromState(IBlockState state) {
-		return state.getValue(BotaniaStateProps.POWERED) ? 8 : 0;
-	}
-
-	@Nonnull
-	@Override
-	public IBlockState getStateFromMeta(int meta) {
-		return getDefaultState().withProperty(BotaniaStateProps.POWERED, meta == 8);
+	protected void fillStateContainer(StateContainer.Builder<Block, IBlockState> builder) {
+		builder.add(BotaniaStateProps.POWERED);
 	}
 
 	@Override
-	public boolean canSilkHarvest(World world, BlockPos pos, @Nonnull IBlockState state, EntityPlayer player) {
-		return false;
-	}
-
-	@Override
-	public boolean registerInCreative() {
+	public boolean canSilkHarvest(@Nonnull IBlockState state, IWorldReader world, BlockPos pos, EntityPlayer player) {
 		return false;
 	}
 
 	@Override
 	public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block, BlockPos fromPos) {
 		boolean power = world.getRedstonePowerFromNeighbors(pos) > 0 || world.getRedstonePowerFromNeighbors(pos.up()) > 0;
-		boolean powered = state.getValue(BotaniaStateProps.POWERED);
+		boolean powered = state.get(BotaniaStateProps.POWERED);
 
 		if(power && !powered) {
 			TileEntity tile = world.getTileEntity(pos);
 			if(tile != null && tile instanceof TileCacophonium)
 				((TileCacophonium) tile).annoyDirewolf();
-			world.setBlockState(pos, state.withProperty(BotaniaStateProps.POWERED, true), 4);
+			world.setBlockState(pos, state.with(BotaniaStateProps.POWERED, true), 4);
 		} else if(!power && powered)
-			world.setBlockState(pos, state.withProperty(BotaniaStateProps.POWERED, false), 4);
+			world.setBlockState(pos, state.with(BotaniaStateProps.POWERED, false), 4);
 	}
 
 	@Override
-	public boolean removedByPlayer(@Nonnull IBlockState state, World world, @Nonnull BlockPos pos, @Nonnull EntityPlayer player, boolean willHarvest) {
+	public boolean removedByPlayer(@Nonnull IBlockState state, World world, @Nonnull BlockPos pos, @Nonnull EntityPlayer player, boolean willHarvest, IFluidState fluid) {
 		if (willHarvest) {
 			// Copy of super.removedByPlayer but don't set to air yet
 			// This is so getDrops below will have a TE to work with
 			onBlockHarvested(world, pos, state, player);
 			return true;
 		} else {
-			return super.removedByPlayer(state, world, pos, player, willHarvest);
+			return super.removedByPlayer(state, world, pos, player, willHarvest, fluid);
 		}
 	}
 
@@ -95,14 +79,14 @@ public class BlockCacophonium extends BlockMod {
 	public void harvestBlock(@Nonnull World world, EntityPlayer player, @Nonnull BlockPos pos, @Nonnull IBlockState state, TileEntity te, ItemStack stack) {
 		super.harvestBlock(world, player, pos, state, te, stack);
 		// Now delete the block and TE
-		world.setBlockToAir(pos);
+		world.removeBlock(pos);
 	}
 
 	@Override
-	public void getDrops(NonNullList<ItemStack> stacks, IBlockAccess world, BlockPos pos, @Nonnull IBlockState state, int fortune) {
+	public void getDrops(@Nonnull IBlockState state, NonNullList<ItemStack> stacks, World world, BlockPos pos, int fortune) {
 		TileEntity tile = world.getTileEntity(pos);
 		if(tile != null && tile instanceof TileCacophonium) {
-			stacks.add(new ItemStack(Blocks.NOTEBLOCK));
+			stacks.add(new ItemStack(Blocks.NOTE_BLOCK));
 			ItemStack thingy = ((TileCacophonium) tile).stack;
 			if(!thingy.isEmpty())
 				stacks.add(thingy.copy());
@@ -116,7 +100,7 @@ public class BlockCacophonium extends BlockMod {
 
 	@Nonnull
 	@Override
-	public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
+	public TileEntity createTileEntity(@Nonnull IBlockState state, @Nonnull IBlockReader world) {
 		return new TileCacophonium();
 	}
 

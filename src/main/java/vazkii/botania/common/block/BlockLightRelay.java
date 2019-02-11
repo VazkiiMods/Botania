@@ -11,142 +11,93 @@
 package vazkii.botania.common.block;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockFaceShape;
-import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
+import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.world.IBlockReader;
+import net.minecraft.world.IWorldReaderBase;
 import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.LuminizerVariant;
 import vazkii.botania.api.wand.IWandable;
-import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.block.tile.TileLightRelay;
 import vazkii.botania.common.lexicon.LexiconData;
-import vazkii.botania.common.lib.LibBlockNames;
 
 import javax.annotation.Nonnull;
 import java.util.Random;
 
 public class BlockLightRelay extends BlockMod implements IWandable, ILexiconable {
 
-	private static final AxisAlignedBB AABB = new AxisAlignedBB(5.0/16, 5.0/16, 5.0/16, 11.0/16, 11.0/16, 11.0/16);
+	private static final VoxelShape SHAPE = makeCuboidShape(5, 5, 5, 11, 11, 11);
+	private final LuminizerVariant variant;
 
-	protected BlockLightRelay() {
-		super(Material.GLASS, LibBlockNames.LIGHT_RELAY);
-		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.LUMINIZER_VARIANT, LuminizerVariant.DEFAULT).withProperty(BotaniaStateProps.POWERED, false));
+	protected BlockLightRelay(LuminizerVariant variant, Builder builder) {
+		super(builder);
+		this.variant = variant;
+		setDefaultState(stateContainer.getBaseState().with(BotaniaStateProps.POWERED, false));
 	}
 
 	@Nonnull
 	@Override
-	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
-		return AABB;
-	}
-
-	@Nonnull
-	@Override
-	public BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this, BotaniaStateProps.LUMINIZER_VARIANT, BotaniaStateProps.POWERED);
+	public VoxelShape getShape(IBlockState state, IBlockReader world, BlockPos pos) {
+		return SHAPE;
 	}
 
 	@Override
-	public int getMetaFromState(IBlockState state) {
-		int meta = state.getValue(BotaniaStateProps.LUMINIZER_VARIANT).ordinal();
-		if (state.getValue(BotaniaStateProps.POWERED)) {
-			meta |= 8;
-		} else {
-			meta &= -9;
-		}
-		return meta;
-	}
-
-	@Nonnull
-	@Override
-	public IBlockState getStateFromMeta(int meta) {
-		boolean powered = (meta & 8) != 0;
-		meta &= -9;
-		return getDefaultState().withProperty(BotaniaStateProps.POWERED, powered).withProperty(BotaniaStateProps.LUMINIZER_VARIANT, LuminizerVariant.class.getEnumConstants()[meta]);
+	protected void fillStateContainer(StateContainer.Builder<Block, IBlockState> builder) {
+		builder.add(BotaniaStateProps.POWERED);
 	}
 
 	@Override
-	public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> list) {
-		for(int i = 0; i < 4; i++)
-			list.add(new ItemStack(this, 1, i));
-	}
-
-	@Override
-	public int damageDropped(IBlockState state) {
-		return state.getValue(BotaniaStateProps.LUMINIZER_VARIANT).ordinal();
-	}
-
-	@Override
-	public boolean isPassable(IBlockAccess world, BlockPos pos) {
-		return false;
-	}
-
-	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing s, float xs, float ys, float zs) {
+	public boolean onBlockActivated(IBlockState state, World world, BlockPos pos, EntityPlayer player, EnumHand hand, EnumFacing s, float xs, float ys, float zs) {
 		((TileLightRelay) world.getTileEntity(pos)).mountEntity(player);
 		return true;
 	}
 
 	@Override
-	public AxisAlignedBB getCollisionBoundingBox(IBlockState state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos) {
-		return NULL_AABB;
-	}
-
-	@Override
-	public int tickRate(World world) {
+	public int tickRate(IWorldReaderBase world) {
 		return 2;
 	}
 
 	@Override
 	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-		if(!worldIn.isRemote && state.getValue(BotaniaStateProps.LUMINIZER_VARIANT) == LuminizerVariant.TOGGLE) {
-			if(state.getValue(BotaniaStateProps.POWERED) && !worldIn.isBlockPowered(pos))
-				worldIn.setBlockState(pos, state.withProperty(BotaniaStateProps.POWERED, false));
-			else if(!state.getValue(BotaniaStateProps.POWERED) && worldIn.isBlockPowered(pos))
-				worldIn.setBlockState(pos, state.withProperty(BotaniaStateProps.POWERED, true));
+		if(!worldIn.isRemote && variant == LuminizerVariant.TOGGLE) {
+			if(state.get(BotaniaStateProps.POWERED) && !worldIn.isBlockPowered(pos))
+				worldIn.setBlockState(pos, state.with(BotaniaStateProps.POWERED, false));
+			else if(!state.get(BotaniaStateProps.POWERED) && worldIn.isBlockPowered(pos))
+				worldIn.setBlockState(pos, state.with(BotaniaStateProps.POWERED, true));
 		}
 	}
 
 	@Override
-	public void updateTick(World world, BlockPos pos, IBlockState state, Random rand) {
-		world.setBlockState(pos, state.withProperty(BotaniaStateProps.POWERED, false), 1 | 2);
+	public void tick(IBlockState state, World world, BlockPos pos, Random rand) {
+		world.setBlockState(pos, state.with(BotaniaStateProps.POWERED, false), 1 | 2);
 	}
 
 	@Override
 	public boolean canProvidePower(IBlockState state) {
-		return state.getValue(BotaniaStateProps.LUMINIZER_VARIANT) == LuminizerVariant.DETECTOR;
+		return variant == LuminizerVariant.DETECTOR;
 	}
 
 	@Override
-	public int getWeakPower(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing s) {
-		return state.getValue(BotaniaStateProps.LUMINIZER_VARIANT) == LuminizerVariant.DETECTOR
-				&& state.getValue(BotaniaStateProps.POWERED) ? 15 : 0;
+	public int getWeakPower(IBlockState state, IBlockReader world, BlockPos pos, EnumFacing s) {
+		return variant == LuminizerVariant.DETECTOR
+				&& state.get(BotaniaStateProps.POWERED) ? 15 : 0;
 	}
 
 	@Override
 	public boolean isFullCube(IBlockState state) {
-		return false;
-	}
-
-	@Override
-	public boolean isOpaqueCube(IBlockState state) {
 		return false;
 	}
 
@@ -163,7 +114,7 @@ public class BlockLightRelay extends BlockMod implements IWandable, ILexiconable
 
 	@Nonnull
 	@Override
-	public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
+	public TileEntity createTileEntity(@Nonnull IBlockState state, @Nonnull IBlockReader world) {
 		return new TileLightRelay();
 	}
 
@@ -177,17 +128,9 @@ public class BlockLightRelay extends BlockMod implements IWandable, ILexiconable
 		return LexiconData.luminizerTransport;
 	}
 
-	@OnlyIn(Dist.CLIENT)
-	@Override
-	public void registerModels() {
-		int i = 0;
-		for(LuminizerVariant v : LuminizerVariant.values())
-			ModelHandler.registerBlockToState(this, i++, getDefaultState().withProperty(BotaniaStateProps.LUMINIZER_VARIANT, v));
-	}
-
 	@Nonnull
 	@Override
-	public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing side) {
+	public BlockFaceShape getBlockFaceShape(IBlockReader world, IBlockState state, BlockPos pos, EnumFacing side) {
 		return BlockFaceShape.UNDEFINED;
 	}
 
