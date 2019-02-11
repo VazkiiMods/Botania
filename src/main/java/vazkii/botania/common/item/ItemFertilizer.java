@@ -52,7 +52,7 @@ public class ItemFertilizer extends ItemMod {
 			for(int i = 0; i < flowerCount; i++) {
 				BlockPos coords = validCoords.get(world.rand.nextInt(validCoords.size()));
 				validCoords.remove(coords);
-				world.setBlockState(coords, ModBlocks.flower.getDefaultState().withProperty(BotaniaStateProps.COLOR, EnumDyeColor.byMetadata(world.rand.nextInt(16))), 1 | 2);
+				world.setBlockState(coords, ModBlocks.flower.getDefaultState().with(BotaniaStateProps.COLOR, EnumDyeColor.byMetadata(world.rand.nextInt(16))), 1 | 2);
 			}
 			player.getHeldItem(hand).shrink(1);
 		} else {

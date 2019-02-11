@@ -40,11 +40,11 @@ public class BlockCraftyCrate extends BlockOpenCrate implements IWandHUD {
 
 	@Nonnull
 	@Override
-	public IBlockState getActualState(@Nonnull IBlockState state, IBlockAccess world, BlockPos pos) {
+	public IBlockState getActualState(@Nonnull IBlockState state, IBlockReader world, BlockPos pos) {
 		TileEntity te = world instanceof ChunkCache ? ((ChunkCache)world).getTileEntity(pos, Chunk.EnumCreateEntityType.CHECK) : world.getTileEntity(pos);
 		if(te instanceof TileCraftCrate) {
 			TileCraftCrate tile = (TileCraftCrate) te;
-			state = state.withProperty(BotaniaStateProps.CRATE_PATTERN, tile.pattern);
+			state = state.with(BotaniaStateProps.CRATE_PATTERN, tile.pattern);
 		}
 
 		return state;

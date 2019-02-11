@@ -47,7 +47,7 @@ public abstract class BlockModSlab extends BlockSlab implements ILexiconable, IM
 			setCreativeTab(BotaniaCreativeTab.INSTANCE);
 			useNeighborBrightness = true;
 		}
-		setDefaultState(blockState.getBaseState().withProperty(HALF, EnumBlockHalf.BOTTOM).withProperty(DUMMY, DummyEnum.SINGLETON));
+		setDefaultState(blockState.getBaseState().with(HALF, EnumBlockHalf.BOTTOM).with(DUMMY, DummyEnum.SINGLETON));
 		if(!isDouble())
 			ModFluffBlocks.slabsToRegister.add(this);
 	}
@@ -64,7 +64,7 @@ public abstract class BlockModSlab extends BlockSlab implements ILexiconable, IM
 		if (doubleSlab) {
 			return getDefaultState();
 		} else {
-			return getDefaultState().withProperty(HALF, meta == 8 ? EnumBlockHalf.TOP : EnumBlockHalf.BOTTOM);
+			return getDefaultState().with(HALF, meta == 8 ? EnumBlockHalf.TOP : EnumBlockHalf.BOTTOM);
 		}
 	}
 
@@ -73,7 +73,7 @@ public abstract class BlockModSlab extends BlockSlab implements ILexiconable, IM
 		if (doubleSlab) {
 			return 0;
 		} else {
-			return state.getValue(HALF) == EnumBlockHalf.TOP ? 8 : 0;
+			return state.get(HALF) == EnumBlockHalf.TOP ? 8 : 0;
 		}
 	}
 

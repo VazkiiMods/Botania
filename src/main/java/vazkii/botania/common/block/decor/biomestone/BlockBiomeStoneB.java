@@ -25,7 +25,7 @@ public class BlockBiomeStoneB extends BlockBiomeStone {
 
 	public BlockBiomeStoneB() {
 		super(LibBlockNames.BIOME_STONE_B);
-		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.BIOMEBRICK_VARIANT, BiomeBrickVariant.FOREST));
+		setDefaultState(blockState.getBaseState().with(BotaniaStateProps.BIOMEBRICK_VARIANT, BiomeBrickVariant.FOREST));
 	}
 
 	@Nonnull
@@ -36,7 +36,7 @@ public class BlockBiomeStoneB extends BlockBiomeStone {
 
 	@Override
 	public int getMetaFromState(IBlockState state) {
-		return state.getValue(BotaniaStateProps.BIOMEBRICK_VARIANT).ordinal();
+		return state.get(BotaniaStateProps.BIOMEBRICK_VARIANT).ordinal();
 	}
 
 	@Nonnull
@@ -45,7 +45,7 @@ public class BlockBiomeStoneB extends BlockBiomeStone {
 		if (meta >= BiomeBrickVariant.values().length) {
 			meta = 0;
 		}
-		return getDefaultState().withProperty(BotaniaStateProps.BIOMEBRICK_VARIANT, BiomeBrickVariant.values()[meta]);
+		return getDefaultState().with(BotaniaStateProps.BIOMEBRICK_VARIANT, BiomeBrickVariant.values()[meta]);
 	}
 
 	@OnlyIn(Dist.CLIENT)

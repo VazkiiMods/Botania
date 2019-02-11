@@ -82,7 +82,7 @@ public class ItemGrassSeeds extends ItemMod implements IFloatingFlowerVariant {
 		IBlockState state = world.getBlockState(pos);
 		ItemStack stack = player.getHeldItem(hand);
 
-		if(state.getBlock() == Blocks.DIRT && state.getValue(BlockDirt.VARIANT) == BlockDirt.DirtType.DIRT || state.getBlock() == Blocks.GRASS && type != IslandType.GRASS) {
+		if(state.getBlock() == Blocks.DIRT && state.get(BlockDirt.VARIANT) == BlockDirt.DirtType.DIRT || state.getBlock() == Blocks.GRASS && type != IslandType.GRASS) {
 			if(!world.isRemote) {
 				BlockSwapper swapper = addBlockSwapper(world, pos, type);
 				world.setBlockState(pos, swapper.stateToSet);
@@ -166,7 +166,7 @@ public class ItemGrassSeeds extends ItemMod implements IFloatingFlowerVariant {
 
 	private static IBlockState stateForType(IslandType type) {
 		if(type == IslandType.PODZOL)
-			return Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.PODZOL);
+			return Blocks.DIRT.getDefaultState().with(BlockDirt.VARIANT, BlockDirt.DirtType.PODZOL);
 		else if(type == IslandType.MYCEL)
 			return Blocks.MYCELIUM.getDefaultState();
 		else if(type == IslandType.DRY)
@@ -287,7 +287,7 @@ public class ItemGrassSeeds extends ItemMod implements IFloatingFlowerVariant {
 			// levels by 2 or more blocks grass growth.
 
 			return (block == Blocks.DIRT || block == Blocks.GRASS)
-					&& (block != Blocks.DIRT || state.getValue(BlockDirt.VARIANT) == BlockDirt.DirtType.DIRT)
+					&& (block != Blocks.DIRT || state.get(BlockDirt.VARIANT) == BlockDirt.DirtType.DIRT)
 					&& world.getBlockState(pos.up()).getLightOpacity(world, pos.up()) <= 1;
 		}
 	}

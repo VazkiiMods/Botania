@@ -190,8 +190,8 @@ public final class ModFluffBlocks {
 		
 		int count = 0;
 		for (BiomeStoneVariant variant : BiomeStoneVariant.values()) {
-			biomeStoneStairs[count] = new BlockBiomeStoneStairs(biomeStoneA.getDefaultState().withProperty(BotaniaStateProps.BIOMESTONE_VARIANT, variant));
-			biomeStoneSlabs[count] = new BlockBiomeStoneSlab(false, biomeStoneA.getDefaultState().withProperty(BotaniaStateProps.BIOMESTONE_VARIANT, variant), count);
+			biomeStoneStairs[count] = new BlockBiomeStoneStairs(biomeStoneA.getDefaultState().with(BotaniaStateProps.BIOMESTONE_VARIANT, variant));
+			biomeStoneSlabs[count] = new BlockBiomeStoneSlab(false, biomeStoneA.getDefaultState().with(BotaniaStateProps.BIOMESTONE_VARIANT, variant), count);
 			r.register(biomeStoneStairs[count]);
 			r.register(biomeStoneSlabs[count]);
 			count++;
@@ -202,8 +202,8 @@ public final class ModFluffBlocks {
 				// No chiseled stairs/slabs
 				continue;
 			}
-			biomeStoneStairs[count] = new BlockBiomeStoneStairs(biomeStoneB.getDefaultState().withProperty(BotaniaStateProps.BIOMEBRICK_VARIANT, variant));
-			biomeStoneSlabs[count] = new BlockBiomeStoneSlab(false, biomeStoneB.getDefaultState().withProperty(BotaniaStateProps.BIOMEBRICK_VARIANT, variant), count);
+			biomeStoneStairs[count] = new BlockBiomeStoneStairs(biomeStoneB.getDefaultState().with(BotaniaStateProps.BIOMEBRICK_VARIANT, variant));
+			biomeStoneSlabs[count] = new BlockBiomeStoneSlab(false, biomeStoneB.getDefaultState().with(BotaniaStateProps.BIOMEBRICK_VARIANT, variant), count);
 			r.register(biomeStoneStairs[count]);
 			r.register(biomeStoneSlabs[count]);
 			count++;

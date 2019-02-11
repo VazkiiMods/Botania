@@ -30,7 +30,7 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.api.distmarker.Dist;
@@ -99,7 +99,7 @@ public abstract class BlockModDoubleFlower extends BlockDoublePlant implements I
 	}
 
 	@Override
-	public boolean canHarvestBlock(IBlockAccess world, @Nonnull BlockPos pos, @Nonnull EntityPlayer player) {
+	public boolean canHarvestBlock(IBlockReader world, @Nonnull BlockPos pos, @Nonnull EntityPlayer player) {
 		return false;
 	}
 
@@ -110,11 +110,11 @@ public abstract class BlockModDoubleFlower extends BlockDoublePlant implements I
 
 	@Override
 	public void onBlockHarvested(World world, BlockPos pos, IBlockState state, @Nonnull EntityPlayer player) {
-		if(state.getValue(HALF) == BlockDoublePlant.EnumBlockHalf.UPPER) {
+		if(state.get(HALF) == BlockDoublePlant.EnumBlockHalf.UPPER) {
 			if(world.getBlockState(pos.down()).getBlock() == this) {
 				if (!player.capabilities.isCreativeMode) {
 					// IBlockState iblockstate = worldIn.getBlockState(pos.down());
-					// BlockDoublePlant.EnumPlantType blockdoubleplant$enumplanttype = (BlockDoublePlant.EnumPlantType) iblockstate.getValue(VARIANT);
+					// BlockDoublePlant.EnumPlantType blockdoubleplant$enumplanttype = (BlockDoublePlant.EnumPlantType) iblockstate.get(VARIANT);
 
 					//if (blockdoubleplant$enumplanttype != BlockDoublePlant.EnumPlantType.FERN && blockdoubleplant$enumplanttype != BlockDoublePlant.EnumPlantType.GRASS) {
 					// worldIn.destroyBlock(pos.down(), true);
@@ -139,22 +139,22 @@ public abstract class BlockModDoubleFlower extends BlockDoublePlant implements I
 	}
 
 	@Override
-	public boolean isShearable(ItemStack item, IBlockAccess world, @Nonnull BlockPos pos) {
+	public boolean isShearable(ItemStack item, IBlockReader world, @Nonnull BlockPos pos) {
 		return true;
 	}
 
 	@Nonnull
 	@Override
-	public List<ItemStack> onSheared(ItemStack item, IBlockAccess world, @Nonnull BlockPos pos, int fortune) {
+	public List<ItemStack> onSheared(ItemStack item, IBlockReader world, @Nonnull BlockPos pos, int fortune) {
 		ArrayList<ItemStack> ret = new ArrayList<>();
 		IBlockState state = world.getBlockState(pos);
 		IBlockState stateBelow = world.getBlockState(pos.down());
 
-		if (stateBelow.getBlock() == this && stateBelow.getValue(HALF) == EnumBlockHalf.LOWER && state.getValue(HALF) == EnumBlockHalf.UPPER) {
+		if (stateBelow.getBlock() == this && stateBelow.getValue(HALF) == EnumBlockHalf.LOWER && state.get(HALF) == EnumBlockHalf.UPPER) {
 			ret.add(new ItemStack(this, 1, getMetaFromState(world.getBlockState(pos.down()))));
 		}
 
-		if (state.getValue(HALF) == EnumBlockHalf.LOWER) {
+		if (state.get(HALF) == EnumBlockHalf.LOWER) {
 			ret.add(new ItemStack(this, 1, getMetaFromState(state)));
 		}
 
@@ -171,7 +171,7 @@ public abstract class BlockModDoubleFlower extends BlockDoublePlant implements I
 	@OnlyIn(Dist.CLIENT)
 	public void randomDisplayTick(IBlockState state, World world, BlockPos pos, Random rand) {
 		state = getActualState(state, world, pos);
-		int hex = state.getValue(second ? BotaniaStateProps.DOUBLEFLOWER_VARIANT_2 : BotaniaStateProps.DOUBLEFLOWER_VARIANT_1).getColorValue();
+		int hex = state.get(second ? BotaniaStateProps.DOUBLEFLOWER_VARIANT_2 : BotaniaStateProps.DOUBLEFLOWER_VARIANT_1).getColorValue();
 		int r = (hex & 0xFF0000) >> 16;
 		int g = (hex & 0xFF00) >> 8;
 		int b = hex & 0xFF;
@@ -188,17 +188,17 @@ public abstract class BlockModDoubleFlower extends BlockDoublePlant implements I
 
 	@Nonnull
 	@Override
-	public IBlockState getActualState(IBlockState state, @Nonnull IBlockAccess worldIn, @Nonnull BlockPos pos) {
-		if (state.getValue(HALF) == BlockDoublePlant.EnumBlockHalf.UPPER) {
+	public IBlockState getActualState(IBlockState state, @Nonnull IBlockReader worldIn, @Nonnull BlockPos pos) {
+		if (state.get(HALF) == BlockDoublePlant.EnumBlockHalf.UPPER) {
 			IBlockState iblockstate = worldIn.getBlockState(pos.down());
 
 			if (iblockstate.getBlock() == this) {
 				PropertyEnum<EnumDyeColor> prop = second ? BotaniaStateProps.DOUBLEFLOWER_VARIANT_2 : BotaniaStateProps.DOUBLEFLOWER_VARIANT_1;
-				state = state.withProperty(prop, iblockstate.getValue(prop));
+				state = state.with(prop, iblockstate.get(prop));
 			}
 		}
 
-		return state.withProperty(VARIANT, EnumPlantType.SUNFLOWER).withProperty(FACING, EnumFacing.SOUTH);
+		return state.with(VARIANT, EnumPlantType.SUNFLOWER).with(FACING, EnumFacing.SOUTH);
 	}
 
 	@Nonnull
@@ -206,7 +206,7 @@ public abstract class BlockModDoubleFlower extends BlockDoublePlant implements I
 	public ItemStack getPickBlock(@Nonnull IBlockState state, RayTraceResult target, @Nonnull World world, @Nonnull BlockPos pos, EntityPlayer player) {
 		state = state.getBlock().getActualState(state, world, pos);
 		PropertyEnum<EnumDyeColor> prop = second ? BotaniaStateProps.DOUBLEFLOWER_VARIANT_2 : BotaniaStateProps.DOUBLEFLOWER_VARIANT_1;
-		return new ItemStack(Item.getItemFromBlock(state.getBlock()), 1, state.getValue(prop).ordinal() - (second ? 8 : 0));
+		return new ItemStack(Item.getItemFromBlock(state.getBlock()), 1, state.get(prop).ordinal() - (second ? 8 : 0));
 	}
 
 	@OnlyIn(Dist.CLIENT)

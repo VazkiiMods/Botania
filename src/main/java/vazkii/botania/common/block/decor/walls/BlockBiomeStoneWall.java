@@ -48,12 +48,12 @@ public class BlockBiomeStoneWall extends BlockModWall {
 
 	@Override
 	protected IBlockState pickDefaultState() {
-		return super.pickDefaultState().withProperty(BotaniaStateProps.BIOMESTONEWALL_VARIANT, BiomeStoneVariant.FOREST_COBBLE);
+		return super.pickDefaultState().with(BotaniaStateProps.BIOMESTONEWALL_VARIANT, BiomeStoneVariant.FOREST_COBBLE);
 	}
 
 	@Override
 	public int getMetaFromState(IBlockState state) {
-		return state.getValue(BotaniaStateProps.BIOMESTONEWALL_VARIANT).ordinal() - 8;
+		return state.get(BotaniaStateProps.BIOMESTONEWALL_VARIANT).ordinal() - 8;
 	}
 
 	@Nonnull
@@ -62,7 +62,7 @@ public class BlockBiomeStoneWall extends BlockModWall {
 		if (meta < 0 || meta >= BotaniaStateProps.BIOMESTONEWALL_VARIANT.getAllowedValues().size()) {
 			meta = 0;
 		}
-		return getDefaultState().withProperty(BotaniaStateProps.BIOMESTONEWALL_VARIANT, BiomeStoneVariant.values()[meta + 8]);
+		return getDefaultState().with(BotaniaStateProps.BIOMESTONEWALL_VARIANT, BiomeStoneVariant.values()[meta + 8]);
 	}
 
 	@Override

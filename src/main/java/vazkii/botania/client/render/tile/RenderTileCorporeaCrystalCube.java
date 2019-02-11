@@ -27,7 +27,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.IBlockReader;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.client.model.animation.Animation;
 import net.minecraftforge.common.animation.Event;
@@ -163,11 +163,11 @@ public class RenderTileCorporeaCrystalCube extends TileEntitySpecialRenderer<Til
 		}
 		if(blockRenderer == null) blockRenderer = Minecraft.getMinecraft().getBlockRendererDispatcher();
 		BlockPos pos = te.getPos();
-		IBlockAccess world = MinecraftForgeClient.getRegionRenderCache(te.getWorld(), pos);
+		IBlockReader world = MinecraftForgeClient.getRegionRenderCache(te.getWorld(), pos);
 		IBlockState state = world.getBlockState(pos);
 		if(state.getPropertyKeys().contains(Properties.StaticProperty))
 		{
-			state = state.withProperty(Properties.StaticProperty, false);
+			state = state.with(Properties.StaticProperty, false);
 		}
 		if(state instanceof IExtendedBlockState)
 		{
@@ -179,7 +179,7 @@ public class RenderTileCorporeaCrystalCube extends TileEntitySpecialRenderer<Til
 				// handleEvents(te, time, pair.getRight());
 
 				IBakedModel model = blockRenderer.getBlockModelShapes().getModelForState(exState.getClean());
-				exState = exState.withProperty(Properties.AnimationProperty, pair.getLeft());
+				exState = exState.with(Properties.AnimationProperty, pair.getLeft());
 
 				worldRenderer.setTranslation(x - pos.getX(), y - pos.getY(), z - pos.getZ());
 

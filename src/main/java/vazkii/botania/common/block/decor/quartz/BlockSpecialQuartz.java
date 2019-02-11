@@ -43,7 +43,7 @@ public class BlockSpecialQuartz extends BlockMod implements ILexiconable {
 		this.type = type;
 		setHardness(0.8F);
 		setResistance(10F);
-		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.QUARTZ_VARIANT, QuartzVariant.NORMAL));
+		setDefaultState(blockState.getBaseState().with(BotaniaStateProps.QUARTZ_VARIANT, QuartzVariant.NORMAL));
 	}
 
 	@Nonnull
@@ -54,7 +54,7 @@ public class BlockSpecialQuartz extends BlockMod implements ILexiconable {
 
 	@Override
 	public int getMetaFromState(IBlockState state) {
-		return state.getValue(BotaniaStateProps.QUARTZ_VARIANT).ordinal();
+		return state.get(BotaniaStateProps.QUARTZ_VARIANT).ordinal();
 	}
 
 	@Nonnull
@@ -63,7 +63,7 @@ public class BlockSpecialQuartz extends BlockMod implements ILexiconable {
 		if (meta >= QuartzVariant.values().length) {
 			meta = 0;
 		}
-		return getDefaultState().withProperty(BotaniaStateProps.QUARTZ_VARIANT, QuartzVariant.values()[meta]);
+		return getDefaultState().with(BotaniaStateProps.QUARTZ_VARIANT, QuartzVariant.values()[meta]);
 	}
 
 	public String[] getNames() {
@@ -80,11 +80,11 @@ public class BlockSpecialQuartz extends BlockMod implements ILexiconable {
 		if (meta == 2) { // Pillar quartz variant
 			switch (side.getAxis()) {
 			case Y:
-				return getDefaultState().withProperty(BotaniaStateProps.QUARTZ_VARIANT, QuartzVariant.PILLAR_Y);
+				return getDefaultState().with(BotaniaStateProps.QUARTZ_VARIANT, QuartzVariant.PILLAR_Y);
 			case Z:
-				return getDefaultState().withProperty(BotaniaStateProps.QUARTZ_VARIANT, QuartzVariant.PILLAR_Z);
+				return getDefaultState().with(BotaniaStateProps.QUARTZ_VARIANT, QuartzVariant.PILLAR_Z);
 			case X:
-				return getDefaultState().withProperty(BotaniaStateProps.QUARTZ_VARIANT, QuartzVariant.PILLAR_X);
+				return getDefaultState().with(BotaniaStateProps.QUARTZ_VARIANT, QuartzVariant.PILLAR_X);
 			}
 		}
 
@@ -93,9 +93,9 @@ public class BlockSpecialQuartz extends BlockMod implements ILexiconable {
 
 	@Override
 	public int damageDropped(IBlockState state) {
-		QuartzVariant variant = state.getValue(BotaniaStateProps.QUARTZ_VARIANT);
+		QuartzVariant variant = state.get(BotaniaStateProps.QUARTZ_VARIANT);
 		if (variant == QuartzVariant.PILLAR_X || variant == QuartzVariant.PILLAR_Z) {
-			state = state.withProperty(BotaniaStateProps.QUARTZ_VARIANT, QuartzVariant.PILLAR_Y);
+			state = state.with(BotaniaStateProps.QUARTZ_VARIANT, QuartzVariant.PILLAR_Y);
 		}
 		return getMetaFromState(state);
 	}
@@ -122,8 +122,8 @@ public class BlockSpecialQuartz extends BlockMod implements ILexiconable {
 	@Override
 	public void registerModels() {
 		ModelHandler.registerBlockToState(this, 0, getDefaultState());
-		ModelHandler.registerBlockToState(this, 1, getDefaultState().withProperty(BotaniaStateProps.QUARTZ_VARIANT, QuartzVariant.CHISELED));
-		ModelHandler.registerBlockToState(this, 2, getDefaultState().withProperty(BotaniaStateProps.QUARTZ_VARIANT, QuartzVariant.PILLAR_Y));
+		ModelHandler.registerBlockToState(this, 1, getDefaultState().with(BotaniaStateProps.QUARTZ_VARIANT, QuartzVariant.CHISELED));
+		ModelHandler.registerBlockToState(this, 2, getDefaultState().with(BotaniaStateProps.QUARTZ_VARIANT, QuartzVariant.PILLAR_Y));
 	}
 
 }

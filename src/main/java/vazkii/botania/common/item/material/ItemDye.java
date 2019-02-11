@@ -50,7 +50,7 @@ public class ItemDye extends Item16Colors {
 
 		if(block == Blocks.WOOL && color != world.getBlockState(pos).getValue(BlockColored.COLOR)
 				|| block == Blocks.CARPET && color != world.getBlockState(pos).getValue(BlockCarpet.COLOR)) {
-			world.setBlockState(pos, world.getBlockState(pos).withProperty(block == Blocks.WOOL ? BlockColored.COLOR : BlockCarpet.COLOR, color), 1 | 2);
+			world.setBlockState(pos, world.getBlockState(pos).with(block == Blocks.WOOL ? BlockColored.COLOR : BlockCarpet.COLOR, color), 1 | 2);
 			stack.shrink(1);
 			return EnumActionResult.SUCCESS;
 		}

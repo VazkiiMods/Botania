@@ -28,7 +28,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ChunkCache;
 import net.minecraft.world.Explosion;
-import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
@@ -80,14 +80,14 @@ public class BlockPlatform extends BlockCamo implements ILexiconable, IWandable,
 
 	@Nonnull
 	@Override
-	public IBlockState getExtendedState(@Nonnull IBlockState state, IBlockAccess world, BlockPos pos) {
-		state = ((IExtendedBlockState) state).withProperty(BotaniaStateProps.HELD_WORLD, world)
-				.withProperty(BotaniaStateProps.HELD_POS, pos);
+	public IBlockState getExtendedState(@Nonnull IBlockState state, IBlockReader world, BlockPos pos) {
+		state = ((IExtendedBlockState) state).with(BotaniaStateProps.HELD_WORLD, world)
+				.with(BotaniaStateProps.HELD_POS, pos);
 
 		TileEntity te = world instanceof ChunkCache ? ((ChunkCache)world).getTileEntity(pos, Chunk.EnumCreateEntityType.CHECK) : world.getTileEntity(pos);
 		if (te instanceof TileCamo) {
 			TileCamo tile = (TileCamo) te;
-			return ((IExtendedBlockState) state).withProperty(BotaniaStateProps.HELD_STATE, tile.camoState);
+			return ((IExtendedBlockState) state).with(BotaniaStateProps.HELD_STATE, tile.camoState);
 		} else {
 			return state;
 		}

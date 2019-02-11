@@ -46,7 +46,7 @@ public class BlockPump extends BlockMod implements ILexiconable {
 
 	public BlockPump(Builder builder) {
 		super(builder);
-		setDefaultState(blockState.getBaseState().withProperty(Properties.StaticProperty, true).withProperty(BotaniaStateProps.CARDINALS, EnumFacing.SOUTH));
+		setDefaultState(blockState.getBaseState().with(Properties.StaticProperty, true).with(BotaniaStateProps.CARDINALS, EnumFacing.SOUTH));
 	}
 
 	@Nonnull
@@ -57,8 +57,8 @@ public class BlockPump extends BlockMod implements ILexiconable {
 
 	@Nonnull
 	@Override
-	public IBlockState getActualState(@Nonnull IBlockState state, IBlockAccess world, BlockPos pos) {
-		return state.withProperty(Properties.StaticProperty, true);
+	public IBlockState getActualState(@Nonnull IBlockState state, IBlockReader world, BlockPos pos) {
+		return state.with(Properties.StaticProperty, true);
 	}
 
 	@Override

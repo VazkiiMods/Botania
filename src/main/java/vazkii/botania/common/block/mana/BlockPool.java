@@ -31,7 +31,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ChunkCache;
-import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
@@ -82,7 +82,7 @@ public class BlockPool extends BlockMod implements IWandHUD, IWandable, ILexicon
 
 	@Nonnull
 	@Override
-	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockReader world, BlockPos pos) {
 		return AABB;
 	}
 
@@ -95,7 +95,7 @@ public class BlockPool extends BlockMod implements IWandHUD, IWandable, ILexicon
 	}
 
 	@Override
-	public void getDrops(net.minecraft.util.NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
+	public void getDrops(net.minecraft.util.NonNullList<ItemStack> drops, IBlockReader world, BlockPos pos, IBlockState state, int fortune) {
 		TileEntity te = world.getTileEntity(pos);
 		if (te instanceof TilePool && !((TilePool) te).fragile) {
 			super.getDrops(drops, world, pos, state, fortune);

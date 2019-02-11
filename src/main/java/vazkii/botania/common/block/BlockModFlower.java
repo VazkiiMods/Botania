@@ -89,7 +89,7 @@ public class BlockModFlower extends BlockFlower implements ILexiconable, IGrowab
 
 	public static void placeDoubleFlower(World world, BlockPos pos, EnumDyeColor color, int flags) {
 		Block flower = color.getMetadata() >= 8 ? ModBlocks.doubleFlower2 : ModBlocks.doubleFlower1;
-		world.setBlockState(pos, flower.getDefaultState().withProperty(color.getMetadata() >= 8 ? BotaniaStateProps.DOUBLEFLOWER_VARIANT_2 : BotaniaStateProps.DOUBLEFLOWER_VARIANT_1, color).withProperty(BlockDoublePlant.HALF, BlockDoublePlant.EnumBlockHalf.LOWER), flags);
-		world.setBlockState(pos.up(), flower.getDefaultState().withProperty(color.getMetadata() >= 8 ? BotaniaStateProps.DOUBLEFLOWER_VARIANT_2 : BotaniaStateProps.DOUBLEFLOWER_VARIANT_1, color).withProperty(BlockDoublePlant.HALF, BlockDoublePlant.EnumBlockHalf.UPPER), flags);
+		world.setBlockState(pos, flower.getDefaultState().with(color.getMetadata() >= 8 ? BotaniaStateProps.DOUBLEFLOWER_VARIANT_2 : BotaniaStateProps.DOUBLEFLOWER_VARIANT_1, color).with(BlockDoublePlant.HALF, BlockDoublePlant.EnumBlockHalf.LOWER), flags);
+		world.setBlockState(pos.up(), flower.getDefaultState().with(color.getMetadata() >= 8 ? BotaniaStateProps.DOUBLEFLOWER_VARIANT_2 : BotaniaStateProps.DOUBLEFLOWER_VARIANT_1, color).with(BlockDoublePlant.HALF, BlockDoublePlant.EnumBlockHalf.UPPER), flags);
 	}
 }

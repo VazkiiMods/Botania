@@ -26,7 +26,7 @@ public class BlockPavementSlab extends BlockLivingSlab {
 	final int index;
 
 	public BlockPavementSlab(boolean full, EnumDyeColor color, int index) {
-		super(full, ModFluffBlocks.pavement.getDefaultState().withProperty(BotaniaStateProps.PAVEMENT_COLOR, color));
+		super(full, ModFluffBlocks.pavement.getDefaultState().with(BotaniaStateProps.PAVEMENT_COLOR, color));
 		this.index = index;
 		setHardness(2F);
 		setResistance(10F);

@@ -100,7 +100,7 @@ public class RenderTileSpreader extends TileEntitySpecialRenderer<TileSpreader> 
 		if(spreader.paddingColor != -1) {
 			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 
-			IBlockState carpet = Blocks.CARPET.getDefaultState().withProperty(BlockCarpet.COLOR, EnumDyeColor.byMetadata(spreader.paddingColor));
+			IBlockState carpet = Blocks.CARPET.getDefaultState().with(BlockCarpet.COLOR, EnumDyeColor.byMetadata(spreader.paddingColor));
 
 			GlStateManager.translate(-0.5F, -0.5F, 0.5F);
 			float f = 1 / 16F;

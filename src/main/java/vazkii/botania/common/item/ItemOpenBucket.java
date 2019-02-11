@@ -56,7 +56,7 @@ public class ItemOpenBucket extends ItemMod {
 
 				IBlockState state = world.getBlockState(pos);
 				Fluid fluid = FluidRegistry.lookupFluidForBlock(state.getBlock());
-				boolean isFull = state.getBlock() instanceof BlockLiquid && state.getValue(BlockLiquid.LEVEL) == 0
+				boolean isFull = state.getBlock() instanceof BlockLiquid && state.get(BlockLiquid.LEVEL) == 0
 						|| state.getBlock() instanceof IFluidBlock && Math.abs(((IFluidBlock) state.getBlock()).getFilledPercentage(world, pos)) >= 1;
 
 				if(fluid != null && isFull) {

@@ -176,9 +176,9 @@ public class TileLightRelay extends TileMod implements ITickable, IWandBindable 
 
 	public BlockPos getNextDestination() {
 		IBlockState state = world.getBlockState(pos);
-		if(state.getValue(BotaniaStateProps.LUMINIZER_VARIANT) == LuminizerVariant.TOGGLE && state.getValue(BotaniaStateProps.POWERED))
+		if(state.get(BotaniaStateProps.LUMINIZER_VARIANT) == LuminizerVariant.TOGGLE && state.get(BotaniaStateProps.POWERED))
 			return null;
-		else if(state.getValue(BotaniaStateProps.LUMINIZER_VARIANT) == LuminizerVariant.FORK) {
+		else if(state.get(BotaniaStateProps.LUMINIZER_VARIANT) == LuminizerVariant.FORK) {
 			BlockPos torchPos = null;
 			for(int i = -2; i < 3; i++) {
 				BlockPos testPos = pos.add(0, i, 0);
@@ -281,7 +281,7 @@ public class TileLightRelay extends TileMod implements ITickable, IWandBindable 
 				TileEntity tile = world.getTileEntity(pos);
 				if(tile != null && tile instanceof TileLightRelay) {
 					if(world.getBlockState(pos).getValue(BotaniaStateProps.LUMINIZER_VARIANT) == LuminizerVariant.DETECTOR) {
-						world.setBlockState(pos, world.getBlockState(pos).withProperty(BotaniaStateProps.POWERED, true), 1 | 2);
+						world.setBlockState(pos, world.getBlockState(pos).with(BotaniaStateProps.POWERED, true), 1 | 2);
 						world.scheduleUpdate(pos, tile.getBlockType(), tile.getBlockType().tickRate(world));
 					}
 

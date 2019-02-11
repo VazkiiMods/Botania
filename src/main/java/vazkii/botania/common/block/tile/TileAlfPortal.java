@@ -91,9 +91,9 @@ public class TileAlfPortal extends TileMod implements ITickable {
 		for(BlockPos l : LIVINGWOOD_POSITIONS)
 			mb.addComponent(l.up(), ModBlocks.livingwood.getDefaultState());
 		for(BlockPos g : GLIMMERING_LIVINGWOOD_POSITIONS)
-			mb.addComponent(g.up(), ModBlocks.livingwood.getDefaultState().withProperty(BotaniaStateProps.LIVINGWOOD_VARIANT, LivingWoodVariant.GLIMMERING));
+			mb.addComponent(g.up(), ModBlocks.livingwood.getDefaultState().with(BotaniaStateProps.LIVINGWOOD_VARIANT, LivingWoodVariant.GLIMMERING));
 		//		for(BlockPos p : PYLON_POSITIONS)
-		//			mb.addComponent(new BlockPos(-p.getX(), p.getY() + 1, -p.getZ()), ModBlocks.pylon.getDefaultState().withProperty(BotaniaStateProps.PYLON_VARIANT, PylonVariant.NATURA));
+		//			mb.addComponent(new BlockPos(-p.getX(), p.getY() + 1, -p.getZ()), ModBlocks.pylon.getDefaultState().with(BotaniaStateProps.PYLON_VARIANT, PylonVariant.NATURA));
 		//		for(BlockPos p : POOL_POSITIONS)
 		//			mb.addComponent(new StateInsensitiveComponent(new BlockPos(-p.getX(), p.getY() + 1, -p.getZ()), ModBlocks.pool));
 
@@ -166,7 +166,7 @@ public class TileAlfPortal extends TileMod implements ITickable {
 			if(newState == AlfPortalState.OFF)
 				for(int i = 0; i < 36; i++)
 					blockParticle(state);
-			world.setBlockState(getPos(), world.getBlockState(getPos()).withProperty(BotaniaStateProps.ALFPORTAL_STATE, newState), 1 | 2);
+			world.setBlockState(getPos(), world.getBlockState(getPos()).with(BotaniaStateProps.ALFPORTAL_STATE, newState), 1 | 2);
 		} else if(explode) {
 			world.createExplosion(null, pos.getX() + .5, pos.getY() + 2.0, pos.getZ() + .5, 3f, true);
 			explode = false;
@@ -214,7 +214,7 @@ public class TileAlfPortal extends TileMod implements ITickable {
 		if(state == AlfPortalState.OFF) {
 			AlfPortalState newState = getValidState();
 			if(newState != AlfPortalState.OFF) {
-				world.setBlockState(getPos(), world.getBlockState(getPos()).withProperty(BotaniaStateProps.ALFPORTAL_STATE, newState), 1 | 2);
+				world.setBlockState(getPos(), world.getBlockState(getPos()).with(BotaniaStateProps.ALFPORTAL_STATE, newState), 1 | 2);
 				return true;
 			}
 		}
@@ -331,11 +331,11 @@ public class TileAlfPortal extends TileMod implements ITickable {
 	private final boolean checkMultipleConverters(Function<BlockPos, BlockPos>... converters) {
 		if(!check2DArray(AIR_POSITIONS, Blocks.AIR.getDefaultState(), true, converters))
 			return false;
-		if(!check2DArray(LIVINGWOOD_POSITIONS, ModBlocks.livingwood.getDefaultState().withProperty(BotaniaStateProps.LIVINGWOOD_VARIANT, LivingWoodVariant.DEFAULT), false, converters))
+		if(!check2DArray(LIVINGWOOD_POSITIONS, ModBlocks.livingwood.getDefaultState().with(BotaniaStateProps.LIVINGWOOD_VARIANT, LivingWoodVariant.DEFAULT), false, converters))
 			return false;
-		if(!check2DArray(GLIMMERING_LIVINGWOOD_POSITIONS, ModBlocks.livingwood.getDefaultState().withProperty(BotaniaStateProps.LIVINGWOOD_VARIANT, LivingWoodVariant.GLIMMERING), false, converters))
+		if(!check2DArray(GLIMMERING_LIVINGWOOD_POSITIONS, ModBlocks.livingwood.getDefaultState().with(BotaniaStateProps.LIVINGWOOD_VARIANT, LivingWoodVariant.GLIMMERING), false, converters))
 			return false;
-		//		if(!check2DArray(PYLON_POSITIONS, ModBlocks.pylon.getDefaultState().withProperty(BotaniaStateProps.PYLON_VARIANT, PylonVariant.NATURA), false, converters))
+		//		if(!check2DArray(PYLON_POSITIONS, ModBlocks.pylon.getDefaultState().with(BotaniaStateProps.PYLON_VARIANT, PylonVariant.NATURA), false, converters))
 		//			return false;
 		//		if(!check2DArray(POOL_POSITIONS, ModBlocks.pool.getDefaultState(), true, converters))
 		//			return false;

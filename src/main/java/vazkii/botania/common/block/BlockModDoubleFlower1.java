@@ -27,16 +27,16 @@ public class BlockModDoubleFlower1 extends BlockModDoubleFlower {
 	@Override
 	protected IBlockState pickDefaultState() {
 		return blockState.getBaseState()
-				.withProperty(FACING, EnumFacing.SOUTH)
-				.withProperty(VARIANT, EnumPlantType.SUNFLOWER)
-				.withProperty(HALF, BlockDoublePlant.EnumBlockHalf.LOWER)
-				.withProperty(BotaniaStateProps.DOUBLEFLOWER_VARIANT_1, EnumDyeColor.WHITE);
+				.with(FACING, EnumFacing.SOUTH)
+				.with(VARIANT, EnumPlantType.SUNFLOWER)
+				.with(HALF, BlockDoublePlant.EnumBlockHalf.LOWER)
+				.with(BotaniaStateProps.DOUBLEFLOWER_VARIANT_1, EnumDyeColor.WHITE);
 	}
 
 	@Override
 	public int getMetaFromState(IBlockState state) {
-		int meta = state.getValue(BotaniaStateProps.DOUBLEFLOWER_VARIANT_1).getMetadata();
-		if (state.getValue(HALF) == BlockDoublePlant.EnumBlockHalf.UPPER) {
+		int meta = state.get(BotaniaStateProps.DOUBLEFLOWER_VARIANT_1).getMetadata();
+		if (state.get(HALF) == BlockDoublePlant.EnumBlockHalf.UPPER) {
 			meta |= 8;
 		}
 		return meta;
@@ -47,7 +47,7 @@ public class BlockModDoubleFlower1 extends BlockModDoubleFlower {
 	public IBlockState getStateFromMeta(int meta) {
 		BlockDoublePlant.EnumBlockHalf half = (meta & 8) > 0 ? BlockDoublePlant.EnumBlockHalf.UPPER : BlockDoublePlant.EnumBlockHalf.LOWER;
 		meta &= -9;
-		return getDefaultState().withProperty(HALF, half).withProperty(BotaniaStateProps.DOUBLEFLOWER_VARIANT_1, EnumDyeColor.byMetadata(meta));
+		return getDefaultState().with(HALF, half).with(BotaniaStateProps.DOUBLEFLOWER_VARIANT_1, EnumDyeColor.byMetadata(meta));
 	}
 
 	@OnlyIn(Dist.CLIENT)

@@ -59,7 +59,7 @@ public final class ColorHandler {
 						float time = ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks;
 						return Color.HSBtoRGB(time * 0.005F, 0.6F, 1F);
 					} else {
-						return state.getValue(BotaniaStateProps.COLOR).getColorValue();
+						return state.get(BotaniaStateProps.COLOR).getColorValue();
 					}
 				},
 				ModBlocks.manaPool, ModBlocks.creativePool, ModBlocks.dilutedPool, ModBlocks.fabulousPool

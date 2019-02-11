@@ -15,7 +15,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.IBlockReader;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.state.BotaniaStateProps;
@@ -29,7 +29,7 @@ public class BlockBiomeStoneA extends BlockBiomeStone {
 
 	public BlockBiomeStoneA() {
 		super(LibBlockNames.BIOME_STONE_A);
-		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.BIOMESTONE_VARIANT, BiomeStoneVariant.FOREST));
+		setDefaultState(blockState.getBaseState().with(BotaniaStateProps.BIOMESTONE_VARIANT, BiomeStoneVariant.FOREST));
 	}
 
 	@Nonnull
@@ -40,7 +40,7 @@ public class BlockBiomeStoneA extends BlockBiomeStone {
 
 	@Override
 	public int getMetaFromState(IBlockState state) {
-		return state.getValue(BotaniaStateProps.BIOMESTONE_VARIANT).ordinal();
+		return state.get(BotaniaStateProps.BIOMESTONE_VARIANT).ordinal();
 	}
 
 	@Nonnull
@@ -49,11 +49,11 @@ public class BlockBiomeStoneA extends BlockBiomeStone {
 		if (meta >= BiomeStoneVariant.values().length) {
 			meta = 0;
 		}
-		return getDefaultState().withProperty(BotaniaStateProps.BIOMESTONE_VARIANT, BiomeStoneVariant.values()[meta]);
+		return getDefaultState().with(BotaniaStateProps.BIOMESTONE_VARIANT, BiomeStoneVariant.values()[meta]);
 	}
 
 	@Override
-	public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
+	public void getDrops(NonNullList<ItemStack> drops, IBlockReader world, BlockPos pos, IBlockState state, int fortune) {
 		int cobbleMeta = getMetaFromState(state) | 0x8;
 		drops.add(new ItemStack(this, 1, cobbleMeta));
 	}

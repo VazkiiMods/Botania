@@ -23,7 +23,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
@@ -77,7 +77,7 @@ public class BlockTerraPlate extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public boolean isPassable(IBlockAccess world, BlockPos pos) {
+	public boolean isPassable(IBlockReader world, BlockPos pos) {
 		return false;
 	}
 

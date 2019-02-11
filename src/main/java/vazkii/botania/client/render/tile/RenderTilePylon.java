@@ -27,7 +27,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.IBlockReader;
 import vazkii.botania.api.lexicon.multiblock.IMultiblockRenderHook;
 import vazkii.botania.api.lexicon.multiblock.Multiblock;
 import vazkii.botania.api.lexicon.multiblock.component.MultiblockComponent;
@@ -160,7 +160,7 @@ public class RenderTilePylon extends TileEntitySpecialRenderer<TilePylon> implem
 	}
 
 	@Override
-	public void renderBlockForMultiblock(IBlockAccess world, Multiblock mb, IBlockState state, MultiblockComponent comp) {
+	public void renderBlockForMultiblock(IBlockReader world, Multiblock mb, IBlockState state, MultiblockComponent comp) {
 		forceVariant = ((BlockPylon) state.getBlock()).variant;
 		GlStateManager.translate(-0.5, -0.25, -0.5);
 		renderPylon((TilePylon) comp.getTileEntity(), 0, 0, 0, 0, true);

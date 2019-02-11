@@ -32,7 +32,7 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ChunkCache;
-import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.client.model.ModelLoader;
@@ -76,12 +76,12 @@ public class BlockFloatingFlower extends BlockMod implements ILexiconable, IInfu
 		setHardness(0.5F);
 		setSoundType(SoundType.GROUND);
 		setLightLevel(1F);
-		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.COLOR, EnumDyeColor.WHITE));
+		setDefaultState(blockState.getBaseState().with(BotaniaStateProps.COLOR, EnumDyeColor.WHITE));
 	}
 
 	@Nonnull
 	@Override
-	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockReader world, BlockPos pos) {
 		return AABB;
 	}
 
@@ -106,7 +106,7 @@ public class BlockFloatingFlower extends BlockMod implements ILexiconable, IInfu
 
 	@Override
 	public int getMetaFromState(IBlockState state) {
-		return state.getValue(BotaniaStateProps.COLOR).getMetadata();
+		return state.get(BotaniaStateProps.COLOR).getMetadata();
 	}
 
 	@Nonnull
@@ -115,18 +115,18 @@ public class BlockFloatingFlower extends BlockMod implements ILexiconable, IInfu
 		if (meta >= EnumDyeColor.values().length) {
 			meta = 0;
 		}
-		return getDefaultState().withProperty(BotaniaStateProps.COLOR, EnumDyeColor.byMetadata(meta));
+		return getDefaultState().with(BotaniaStateProps.COLOR, EnumDyeColor.byMetadata(meta));
 	}
 
 	@Nonnull
 	@Override
-	public IBlockState getExtendedState(@Nonnull IBlockState state, IBlockAccess world, BlockPos pos) {
+	public IBlockState getExtendedState(@Nonnull IBlockState state, IBlockReader world, BlockPos pos) {
 		state = getActualState(state, world, pos);
 		TileEntity te = world instanceof ChunkCache ? ((ChunkCache)world).getTileEntity(pos, Chunk.EnumCreateEntityType.CHECK) : world.getTileEntity(pos);
 		if (te instanceof TileFloatingFlower) {
-			state = ((IExtendedBlockState) state).withProperty(BotaniaStateProps.ISLAND_TYPE, ((TileFloatingFlower) te).getIslandType());
+			state = ((IExtendedBlockState) state).with(BotaniaStateProps.ISLAND_TYPE, ((TileFloatingFlower) te).getIslandType());
 		} else if (te instanceof TileFloatingSpecialFlower) {
-			state = ((IExtendedBlockState) state).withProperty(BotaniaStateProps.ISLAND_TYPE, ((TileFloatingSpecialFlower) te).getIslandType());
+			state = ((IExtendedBlockState) state).with(BotaniaStateProps.ISLAND_TYPE, ((TileFloatingSpecialFlower) te).getIslandType());
 		}
 		return state;
 	}
@@ -134,7 +134,7 @@ public class BlockFloatingFlower extends BlockMod implements ILexiconable, IInfu
 	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void randomDisplayTick(IBlockState state, World world, BlockPos pos, Random rand) {
-		int hex = state.getValue(BotaniaStateProps.COLOR).getColorValue();
+		int hex = state.get(BotaniaStateProps.COLOR).getColorValue();
 		int r = (hex & 0xFF0000) >> 16;
 		int g = (hex & 0xFF00) >> 8;
 		int b = hex & 0xFF;
@@ -223,7 +223,7 @@ public class BlockFloatingFlower extends BlockMod implements ILexiconable, IInfu
 
 	@Nonnull
 	@Override
-	public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing side) {
+	public BlockFaceShape getBlockFaceShape(IBlockReader world, IBlockState state, BlockPos pos, EnumFacing side) {
 		return BlockFaceShape.UNDEFINED;
 	}
 }

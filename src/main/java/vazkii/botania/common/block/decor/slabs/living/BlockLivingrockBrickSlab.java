@@ -11,7 +11,7 @@ import vazkii.botania.common.block.decor.slabs.BlockLivingSlab;
 public class BlockLivingrockBrickSlab extends BlockLivingSlab {
 
 	public BlockLivingrockBrickSlab(boolean full) {
-		super(full, ModBlocks.livingrock.getDefaultState().withProperty(BotaniaStateProps.LIVINGROCK_VARIANT, LivingRockVariant.BRICK));
+		super(full, ModBlocks.livingrock.getDefaultState().with(BotaniaStateProps.LIVINGROCK_VARIANT, LivingRockVariant.BRICK));
 		setHardness(2.0F);
 		setResistance(10.0F);
 		setSoundType(SoundType.STONE);

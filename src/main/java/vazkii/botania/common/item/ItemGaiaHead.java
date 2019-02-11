@@ -92,7 +92,7 @@ public class ItemGaiaHead extends ItemMod {
 				if (worldIn.isRemote) {
 					return EnumActionResult.SUCCESS;
 				} else {
-					worldIn.setBlockState(pos, ModBlocks.gaiaHead.getDefaultState().withProperty(BlockSkull.FACING, facing), 11); // Botania - skull -> gaia head
+					worldIn.setBlockState(pos, ModBlocks.gaiaHead.getDefaultState().with(BlockSkull.FACING, facing), 11); // Botania - skull -> gaia head
 					int i = 0;
 
 					if (facing == EnumFacing.UP) {

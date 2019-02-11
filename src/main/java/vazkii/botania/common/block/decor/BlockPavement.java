@@ -40,7 +40,7 @@ public class BlockPavement extends BlockMod {
 		setHardness(2.0F);
 		setResistance(10.0F);
 		setSoundType(SoundType.STONE);
-		setDefaultState(blockState.getBaseState().withProperty(BotaniaStateProps.PAVEMENT_COLOR, EnumDyeColor.WHITE));
+		setDefaultState(blockState.getBaseState().with(BotaniaStateProps.PAVEMENT_COLOR, EnumDyeColor.WHITE));
 	}
 
 	@Nonnull
@@ -51,7 +51,7 @@ public class BlockPavement extends BlockMod {
 
 	@Override
 	public int getMetaFromState(IBlockState state) {
-		switch (state.getValue(BotaniaStateProps.PAVEMENT_COLOR)) {
+		switch (state.get(BotaniaStateProps.PAVEMENT_COLOR)) {
 		case GREEN: return 5;
 		case YELLOW: return 4;
 		case RED: return 3;
@@ -79,7 +79,7 @@ public class BlockPavement extends BlockMod {
 		case 0:
 		default: color = EnumDyeColor.WHITE; break;
 		}
-		return getDefaultState().withProperty(BotaniaStateProps.PAVEMENT_COLOR, color);
+		return getDefaultState().with(BotaniaStateProps.PAVEMENT_COLOR, color);
 	}
 
 	@Override

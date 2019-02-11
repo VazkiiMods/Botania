@@ -17,7 +17,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.IBlockReader;
 import vazkii.botania.client.render.IModelRegister;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.BotaniaCreativeTab;
@@ -41,12 +41,12 @@ public class BlockModPane extends BlockPane implements IModelRegister {
 	}
 
 	/*@Override
-	public boolean shouldSideBeRendered(IBlockState state, IBlockAccess iblockaccess, BlockPos pos, EnumFacing side) {
+	public boolean shouldSideBeRendered(IBlockState state, IBlockReader iblockaccess, BlockPos pos, EnumFacing side) {
 		return false;
 	}*/
 
 	@Override
-	public boolean canPaneConnectTo(IBlockAccess world, BlockPos pos, @Nonnull EnumFacing dir) {
+	public boolean canPaneConnectTo(IBlockReader world, BlockPos pos, @Nonnull EnumFacing dir) {
 		Block block = world.getBlockState(pos).getBlock();
 		return block == ModBlocks.elfGlass || block == ModBlocks.manaGlass || block == ModBlocks.bifrostPerm || super.canPaneConnectTo(world, pos, dir);
 	}

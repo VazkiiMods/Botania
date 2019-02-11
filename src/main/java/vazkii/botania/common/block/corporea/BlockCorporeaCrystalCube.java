@@ -24,7 +24,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.client.ForgeHooksClient;
@@ -49,7 +49,7 @@ public class BlockCorporeaCrystalCube extends BlockCorporeaBase implements ILexi
 
 	public BlockCorporeaCrystalCube(Block.Builder builder) {
 		super(builder);
-		setDefaultState(stateContainer.getBaseState().withProperty(Properties.StaticProperty, true));
+		setDefaultState(stateContainer.getBaseState().with(Properties.StaticProperty, true));
 	}
 
 	@Nonnull
@@ -60,8 +60,8 @@ public class BlockCorporeaCrystalCube extends BlockCorporeaBase implements ILexi
 
 	@Nonnull
 	@Override
-	public IBlockState getActualState(@Nonnull IBlockState state, IBlockAccess world, BlockPos pos) {
-		return state.withProperty(Properties.StaticProperty, true);
+	public IBlockState getActualState(@Nonnull IBlockState state, IBlockReader world, BlockPos pos) {
+		return state.with(Properties.StaticProperty, true);
 	}
 
 	@Override
@@ -74,7 +74,7 @@ public class BlockCorporeaCrystalCube extends BlockCorporeaBase implements ILexi
 
 	@Nonnull
 	@Override
-	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockReader world, BlockPos pos) {
 		return AABB;
 	}
 

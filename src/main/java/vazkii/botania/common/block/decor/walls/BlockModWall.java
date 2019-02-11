@@ -20,7 +20,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.api.distmarker.Dist;
@@ -47,8 +47,8 @@ public abstract class BlockModWall extends BlockWall implements ILexiconable, IM
 
 	@Nonnull
 	@Override
-	public IBlockState getActualState(IBlockState state, IBlockAccess world, BlockPos pos) {
-		return super.getActualState(state, world, pos).withProperty(VARIANT, EnumType.NORMAL);
+	public IBlockState getActualState(IBlockState state, IBlockReader world, BlockPos pos) {
+		return super.getActualState(state, world, pos).with(VARIANT, EnumType.NORMAL);
 	}
 
 	@Override
@@ -64,12 +64,12 @@ public abstract class BlockModWall extends BlockWall implements ILexiconable, IM
 
 	protected IBlockState pickDefaultState() {
 		return blockState.getBaseState()
-				.withProperty(UP, false)
-				.withProperty(NORTH, false)
-				.withProperty(SOUTH, false)
-				.withProperty(WEST, false)
-				.withProperty(EAST, false)
-				.withProperty(VARIANT, EnumType.NORMAL);
+				.with(UP, false)
+				.with(NORTH, false)
+				.with(SOUTH, false)
+				.with(WEST, false)
+				.with(EAST, false)
+				.with(VARIANT, EnumType.NORMAL);
 	}
 
 	@Override
@@ -84,7 +84,7 @@ public abstract class BlockModWall extends BlockWall implements ILexiconable, IM
 	}
 
 	@Override
-	public boolean canPlaceTorchOnTop(IBlockState state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos) {
+	public boolean canPlaceTorchOnTop(IBlockState state, @Nonnull IBlockReader world, @Nonnull BlockPos pos) {
 		return true;
 	}
 

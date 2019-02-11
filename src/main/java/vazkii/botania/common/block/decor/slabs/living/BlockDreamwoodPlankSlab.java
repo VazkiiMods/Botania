@@ -10,7 +10,7 @@ import vazkii.botania.common.block.decor.slabs.BlockLivingSlab;
 public class BlockDreamwoodPlankSlab extends BlockLivingSlab {
 
 	public BlockDreamwoodPlankSlab(boolean full) {
-		super(full, ModBlocks.dreamwood.getDefaultState().withProperty(BotaniaStateProps.LIVINGWOOD_VARIANT, LivingWoodVariant.PLANKS));
+		super(full, ModBlocks.dreamwood.getDefaultState().with(BotaniaStateProps.LIVINGWOOD_VARIANT, LivingWoodVariant.PLANKS));
 		setHardness(2.0F);
 	}
 

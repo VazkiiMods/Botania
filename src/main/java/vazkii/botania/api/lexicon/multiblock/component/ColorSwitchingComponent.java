@@ -33,7 +33,7 @@ public class ColorSwitchingComponent extends MultiblockComponent {
 
 	@Override
 	public IBlockState getBlockState() {
-		return state.withProperty(colorProp, EnumDyeColor.byMetadata((int) (BotaniaAPI.internalHandler.getWorldElapsedTicks() / 20) % 16));
+		return state.with(colorProp, EnumDyeColor.byMetadata((int) (BotaniaAPI.internalHandler.getWorldElapsedTicks() / 20) % 16));
 	}
 
 	@Override
