@@ -14,8 +14,11 @@
 package vazkii.botania.common.core.helper;
 
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+
+import javax.annotation.Nullable;
 
 public final class ItemNBTHelper {
 
@@ -132,4 +135,36 @@ public final class ItemNBTHelper {
 		return verifyExistance(stack, tag) ? getNBT(stack).getTagList(tag, objtype) : nullifyOnFail ? null : new NBTTagList();
 	}
 
+	/**
+	 * Checks that one tag is a subset of another - that is, it's ok if the superset has more NBT keys than the subset, but the subset has to have at least all the same keys as the superset, and the values of the keys that *are* shared between the two must match.
+	 * 
+	 * This is useful when, e.g. matching NBT tags in recipes.
+	 */
+	public static boolean isTagSubset(@Nullable NBTTagCompound subset, @Nullable NBTTagCompound superset) {
+		//an empty set is a subset of everything
+		if(subset == null || subset.isEmpty()) return true;
+		//an empty set is a superset of only another empty set (which was already checked above)
+		if(superset == null || superset.isEmpty()) return false;
+		//a subset can't be bigger than its superset
+		if(subset.getKeySet().size() > superset.getKeySet().size()) return false;
+		
+		//it's not an easy case, so we actually have to check the contents of each tag
+		for(String key : superset.getKeySet()) {
+			//it's ok if the subset is missing a key from the superset
+			if(!subset.hasKey(key)) continue;
+			
+			NBTBase supersetEntry = superset.getTag(key);
+			NBTBase subsetEntry = subset.getTag(key);
+			
+			//if a value is present on both tags, but they do not match, fail
+			if(supersetEntry instanceof NBTTagCompound && subsetEntry instanceof NBTTagCompound) {
+				//recurse into tag compounds (this properly compares nested tag compounds)
+				if(!isTagSubset((NBTTagCompound) subsetEntry, (NBTTagCompound) supersetEntry)) return false;
+			} else {
+				if(!supersetEntry.equals(subsetEntry)) return false;
+			}
+		}
+		
+		return true;
+	}
 }
