@@ -494,7 +494,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 		super.setDead();
 	}
 
-	private List<EntityPlayer> getPlayersAround() {
+	public List<EntityPlayer> getPlayersAround() {
 		float range = 15F;
 		return world.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(source.getX() + 0.5 - range, source.getY() + 0.5 - range, source.getZ() + 0.5 - range, source.getX() + 0.5 + range, source.getY() + 0.5 + range, source.getZ() + 0.5 + range));
 	}
@@ -677,9 +677,12 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 					}
 				}
 
+				//also see SleepingHandler
+				if(player.isPlayerSleeping()) player.wakeUpPlayer(true, true, false);
+				
 				clearPotions(player);
 				keepInsideArena(player);
-				player.capabilities.isFlying = player.capabilities.isFlying && player.capabilities.isCreativeMode;
+				player.capabilities.isFlying &= player.capabilities.isCreativeMode;
 			}
 		}
 
