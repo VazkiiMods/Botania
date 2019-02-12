@@ -15,6 +15,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.oredict.OreDictionary;
+import vazkii.botania.common.core.helper.ItemNBTHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,19 +80,7 @@ public class RecipePetals {
 	}
 
 	private boolean compareStacks(ItemStack recipe, ItemStack supplied) {
-		if(recipe.getItem() == supplied.getItem() && recipe.getItemDamage() == supplied.getItemDamage()) {
-			//check that the user supplied nbt tag is a superset of the recipe item nbt tag
-			//if the recipe doesn't have an NBT tag, the user supplied one doesn't matter, it is a superset
-			if(!recipe.hasTagCompound()) return true;
-			//if the recipe does have an NBT tag but the user supplied doesn't, also no way it's a superset
-			if(!supplied.hasTagCompound()) return false;
-			
-			NBTTagCompound mergedNBT = supplied.getTagCompound().copy();
-			mergedNBT.merge(recipe.getTagCompound());
-			return supplied.getTagCompound().equals(mergedNBT);
-		}
-		
-		return false;
+		return recipe.getItem() == supplied.getItem() && recipe.getItemDamage() == supplied.getItemDamage() && ItemNBTHelper.isTagSubset(recipe.getTagCompound(), supplied.getTagCompound());
 	}
 
 	public List<Object> getInputs() {
