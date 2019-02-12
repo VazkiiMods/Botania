@@ -11,6 +11,7 @@
 package vazkii.botania.common.block;
 
 import net.minecraft.block.BlockDirt;
+import net.minecraft.block.BlockStem;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
@@ -111,7 +112,7 @@ public class BlockAltGrass extends BlockMod implements ILexiconable {
 	@Override
 	public boolean canSustainPlant(@Nonnull IBlockState state, @Nonnull IBlockAccess world, BlockPos pos, @Nonnull EnumFacing direction, IPlantable plantable) {
 		EnumPlantType type = plantable.getPlantType(world, pos.down());
-		return type == EnumPlantType.Plains || type == EnumPlantType.Beach;
+		return type == EnumPlantType.Plains || type == EnumPlantType.Beach || plantable instanceof BlockStem;
 	}
 
 	@SideOnly(Side.CLIENT)
