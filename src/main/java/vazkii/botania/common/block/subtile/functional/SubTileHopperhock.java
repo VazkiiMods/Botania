@@ -79,7 +79,7 @@ public class SubTileHopperhock extends SubTileFunctional {
 			for(EnumFacing dir : EnumFacing.VALUES) {
 				BlockPos pos_ = pos.offset(dir);
 
-				InvWithLocation inv = InventoryHelper.getInventoryWithLocation(supertile.getWorld(), pos_, dir);
+				InvWithLocation inv = InventoryHelper.getInventoryWithLocation(supertile.getWorld(), pos_, dir.getOpposite());
 				if(inv != null) {
 					List<ItemStack> filter = getFilterForInventory(pos_, true);
 					boolean canAccept = canAcceptItem(stack, filter, filterType);
