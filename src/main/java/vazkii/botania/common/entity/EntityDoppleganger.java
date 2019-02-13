@@ -192,11 +192,18 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 				}
 			}
 
-			if(!hasProperArena(world, pos)) {
-				if(!world.isRemote) {
+			List<BlockPos> invalidArenaBlocks = checkArena(world, pos);
+			
+			if(!invalidArenaBlocks.isEmpty()) {
+				if(world.isRemote) {
+					Botania.proxy.setWispFXDepthTest(false);
+					for(BlockPos pos_ : invalidArenaBlocks)
+						Botania.proxy.wispFX(pos_.getX() + 0.5, pos_.getY() + 0.5, pos_.getZ() + 0.5, 1F, 0.2F, 0.2F, 0.5F, 0F, 8);
+					Botania.proxy.setWispFXDepthTest(true);
+				} else {
 					PacketHandler.sendTo((EntityPlayerMP) player,
 							new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.ARENA_INDICATOR, pos.getX(), pos.getY(), pos.getZ()));
-
+					
 					player.sendMessage(new TextComponentTranslation("botaniamisc.badArena").setStyle(new Style().setColor(TextFormatting.RED)));
 				}
 
@@ -235,57 +242,32 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 		return false;
 	}
 
-	private static boolean hasProperArena(World world, BlockPos startPos) {
+	private static List<BlockPos> checkArena(World world, BlockPos beaconPos) {
 		List<BlockPos> trippedPositions = new ArrayList<>();
-		boolean tripped = false;
-
-		int heightCheck = 3;
-		int heightMin = 2;
 		int range = (int) Math.ceil(ARENA_RANGE);
-		for(int i = -range; i < range + 1; i++)
-			for(int j = -range; j < range + 1; j++) {
-				if(Math.abs(i) == 4 && Math.abs(j) == 4 || vazkii.botania.common.core.helper.MathHelper.pointDistancePlane(i, j, 0, 0) > ARENA_RANGE)
+		BlockPos pos;
+
+		for(int x = -range; x < range + 1; x++)
+			for(int z = -range; z < range + 1; z++) {
+				if(Math.abs(x) == 4 && Math.abs(z) == 4 || vazkii.botania.common.core.helper.MathHelper.pointDistancePlane(x, z, 0, 0) > ARENA_RANGE)
 					continue; // Ignore pylons and out of circle
 
-				int air = 0;
+				for(int y = -1; y <= 5; y++) {
+					if(x == 0 && y == 0 && z == 0)
+						continue; //this is the beacon
 
-				yCheck: {
-					BlockPos pos = null;
-					int trippedColumn = 0;
+					pos = beaconPos.add(x, y, z);
 
-					for(int k = heightCheck + heightMin; k >= -heightCheck; k--) {
-						pos = startPos.add(i, k, j);
-						boolean isAir = world.getBlockState(pos).getCollisionBoundingBox(world, pos) == null;
-						if(isAir)
-							air++;
-						else {
-							if(air >= 2)
-								break yCheck;
-							else if(trippedColumn < 2) {
-								trippedPositions.add(pos);
-								trippedColumn++;
-							}
-							air = 0;
-						}
-					}
+					boolean expectedBlockHere = y == -1; //the floor
+					boolean isBlockHere = world.getBlockState(pos).getCollisionBoundingBox(world, pos) != null;
 
-					if(trippedColumn == 0)
+					if(expectedBlockHere != isBlockHere) {
 						trippedPositions.add(pos);
-
-					tripped = true;
+					}
 				}
 			}
 
-		if(tripped) {
-			Botania.proxy.setWispFXDepthTest(false);
-			for(BlockPos pos : trippedPositions) 
-				Botania.proxy.wispFX(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 1F, 0.2F, 0.2F, 0.5F, 0F, 8);
-			Botania.proxy.setWispFXDepthTest(true);
-
-			return false;
-		}
-
-		return true;
+		return trippedPositions;
 	}
 
 	@Override
