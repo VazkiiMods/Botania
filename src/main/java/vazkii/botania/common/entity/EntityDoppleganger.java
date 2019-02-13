@@ -99,6 +99,8 @@ import java.util.stream.Collectors;
 public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IEntityAdditionalSpawnData {
 
 	public static final float ARENA_RANGE = 12F;
+	public static final int ARENA_HEIGHT = 5;
+
 	private static final int SPAWN_TICKS = 160;
 	private static final float MAX_HP = 320F;
 
@@ -173,50 +175,53 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 	}
 
 	public static boolean spawn(EntityPlayer player, ItemStack stack, World world, BlockPos pos, boolean hard) {
-		if(world.getTileEntity(pos) instanceof TileEntityBeacon && isTruePlayer(player)) {
-			if(world.getDifficulty() == EnumDifficulty.PEACEFUL) {
+		//initial checks
+		if(
+			!(world.getTileEntity(pos) instanceof TileEntityBeacon) || 
+			!isTruePlayer(player) ||
+			countGaiaGuardiansAround(world, pos) > 0
+		)
+			return false;
+		
+		//check difficulty
+		if(world.getDifficulty() == EnumDifficulty.PEACEFUL) {
+			if(!world.isRemote)
+				player.sendMessage(new TextComponentTranslation("botaniamisc.peacefulNoob").setStyle(new Style().setColor(TextFormatting.RED)));
+			return false;
+		}
+
+		//check pylons
+		for(BlockPos coords : PYLON_LOCATIONS) {
+			BlockPos pos_ = pos.add(coords);
+
+			IBlockState state = world.getBlockState(pos_);
+			if(state.getBlock() != ModBlocks.pylon || state.getValue(BotaniaStateProps.PYLON_VARIANT) != PylonVariant.GAIA) {
 				if(!world.isRemote)
-					player.sendMessage(new TextComponentTranslation("botaniamisc.peacefulNoob").setStyle(new Style().setColor(TextFormatting.RED)));
+					player.sendMessage(new TextComponentTranslation("botaniamisc.needsCatalysts").setStyle(new Style().setColor(TextFormatting.RED)));
 				return false;
 			}
+		}
 
-			for(BlockPos coords : PYLON_LOCATIONS) {
-				BlockPos pos_ = pos.add(coords);
+		//check arena shape
+		List<BlockPos> invalidArenaBlocks = checkArena(world, pos);
+		if(!invalidArenaBlocks.isEmpty()) {
+			if(world.isRemote) {
+				Botania.proxy.setWispFXDepthTest(false);
+				for(BlockPos pos_ : invalidArenaBlocks)
+					Botania.proxy.wispFX(pos_.getX() + 0.5, pos_.getY() + 0.5, pos_.getZ() + 0.5, 1F, 0.2F, 0.2F, 0.5F, 0F, 8);
+				Botania.proxy.setWispFXDepthTest(true);
+			} else {
+				PacketHandler.sendTo((EntityPlayerMP) player,
+					new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.ARENA_INDICATOR, pos.getX(), pos.getY(), pos.getZ()));
 
-				IBlockState state = world.getBlockState(pos_);
-				Block blockat = state.getBlock();
-				if(blockat != ModBlocks.pylon || state.getValue(BotaniaStateProps.PYLON_VARIANT) != PylonVariant.GAIA) {
-					if(!world.isRemote)
-						player.sendMessage(new TextComponentTranslation("botaniamisc.needsCatalysts").setStyle(new Style().setColor(TextFormatting.RED)));
-					return false;
-				}
+				player.sendMessage(new TextComponentTranslation("botaniamisc.badArena").setStyle(new Style().setColor(TextFormatting.RED)));
 			}
 
-			List<BlockPos> invalidArenaBlocks = checkArena(world, pos);
-			
-			if(!invalidArenaBlocks.isEmpty()) {
-				if(world.isRemote) {
-					Botania.proxy.setWispFXDepthTest(false);
-					for(BlockPos pos_ : invalidArenaBlocks)
-						Botania.proxy.wispFX(pos_.getX() + 0.5, pos_.getY() + 0.5, pos_.getZ() + 0.5, 1F, 0.2F, 0.2F, 0.5F, 0F, 8);
-					Botania.proxy.setWispFXDepthTest(true);
-				} else {
-					PacketHandler.sendTo((EntityPlayerMP) player,
-							new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.ARENA_INDICATOR, pos.getX(), pos.getY(), pos.getZ()));
-					
-					player.sendMessage(new TextComponentTranslation("botaniamisc.badArena").setStyle(new Style().setColor(TextFormatting.RED)));
-				}
+			return false;
+		}
 
-				return false;
-			}
-
-			int guardians = getGaiaGuardiansAround(world, pos);
-			if(guardians > 0)
-				return false;
-			
-			if(world.isRemote)
-				return true;
-
+		//all checks ok, spawn the boss
+		if(!world.isRemote) {
 			stack.shrink(1);
 
 			EntityDoppleganger e = new EntityDoppleganger(world);
@@ -227,19 +232,18 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 			e.mobSpawnTicks = MOB_SPAWN_TICKS;
 			e.hardMode = hard;
 
-			int playerCount = (int) e.getPlayersAround().stream().filter(EntityDoppleganger::isTruePlayer).count();
+			int playerCount = e.getPlayersAround().size();
 			e.playerCount = playerCount;
 			e.getAttributeMap().getAttributeInstance(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(MAX_HP * playerCount);
-			if (hard)
+			if(hard)
 				e.getAttributeMap().getAttributeInstance(SharedMonsterAttributes.ARMOR).setBaseValue(15);
 
 			e.playSound(SoundEvents.ENTITY_ENDERDRAGON_GROWL, 10F, 0.1F);
 			e.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(e)), null);
 			world.spawnEntity(e);
-			return true;
 		}
-
-		return false;
+		
+		return true;
 	}
 
 	private static List<BlockPos> checkArena(World world, BlockPos beaconPos) {
@@ -247,12 +251,12 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 		int range = (int) Math.ceil(ARENA_RANGE);
 		BlockPos pos;
 
-		for(int x = -range; x < range + 1; x++)
-			for(int z = -range; z < range + 1; z++) {
+		for(int x = -range; x <= range; x++)
+			for(int z = -range; z <= range; z++) {
 				if(Math.abs(x) == 4 && Math.abs(z) == 4 || vazkii.botania.common.core.helper.MathHelper.pointDistancePlane(x, z, 0, 0) > ARENA_RANGE)
 					continue; // Ignore pylons and out of circle
 
-				for(int y = -1; y <= 5; y++) {
+				for(int y = -1; y <= ARENA_HEIGHT; y++) {
 					if(x == 0 && y == 0 && z == 0)
 						continue; //this is the beacon
 
@@ -295,35 +299,35 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 	}
 
 	@Override
-	public void writeEntityToNBT(NBTTagCompound par1nbtTagCompound) {
-		super.writeEntityToNBT(par1nbtTagCompound);
-		par1nbtTagCompound.setInteger(TAG_INVUL_TIME, getInvulTime());
-		par1nbtTagCompound.setBoolean(TAG_AGGRO, aggro);
-		par1nbtTagCompound.setInteger(TAG_MOB_SPAWN_TICKS, mobSpawnTicks);
+	public void writeEntityToNBT(NBTTagCompound cmp) {
+		super.writeEntityToNBT(cmp);
+		cmp.setInteger(TAG_INVUL_TIME, getInvulTime());
+		cmp.setBoolean(TAG_AGGRO, aggro);
+		cmp.setInteger(TAG_MOB_SPAWN_TICKS, mobSpawnTicks);
 
-		par1nbtTagCompound.setInteger(TAG_SOURCE_X, source.getX());
-		par1nbtTagCompound.setInteger(TAG_SOURCE_Y, source.getY());
-		par1nbtTagCompound.setInteger(TAG_SOURCE_Z, source.getZ());
+		cmp.setInteger(TAG_SOURCE_X, source.getX());
+		cmp.setInteger(TAG_SOURCE_Y, source.getY());
+		cmp.setInteger(TAG_SOURCE_Z, source.getZ());
 
-		par1nbtTagCompound.setBoolean(TAG_HARD_MODE, hardMode);
-		par1nbtTagCompound.setInteger(TAG_PLAYER_COUNT, playerCount);
+		cmp.setBoolean(TAG_HARD_MODE, hardMode);
+		cmp.setInteger(TAG_PLAYER_COUNT, playerCount);
 	}
 
 	@Override
-	public void readEntityFromNBT(NBTTagCompound par1nbtTagCompound) {
-		super.readEntityFromNBT(par1nbtTagCompound);
-		setInvulTime(par1nbtTagCompound.getInteger(TAG_INVUL_TIME));
-		aggro = par1nbtTagCompound.getBoolean(TAG_AGGRO);
-		mobSpawnTicks = par1nbtTagCompound.getInteger(TAG_MOB_SPAWN_TICKS);
+	public void readEntityFromNBT(NBTTagCompound cmp) {
+		super.readEntityFromNBT(cmp);
+		setInvulTime(cmp.getInteger(TAG_INVUL_TIME));
+		aggro = cmp.getBoolean(TAG_AGGRO);
+		mobSpawnTicks = cmp.getInteger(TAG_MOB_SPAWN_TICKS);
 
-		int x = par1nbtTagCompound.getInteger(TAG_SOURCE_X);
-		int y = par1nbtTagCompound.getInteger(TAG_SOURCE_Y);
-		int z = par1nbtTagCompound.getInteger(TAG_SOURCE_Z);
+		int x = cmp.getInteger(TAG_SOURCE_X);
+		int y = cmp.getInteger(TAG_SOURCE_Y);
+		int z = cmp.getInteger(TAG_SOURCE_Z);
 		source = new BlockPos(x, y, z);
 
-		hardMode = par1nbtTagCompound.getBoolean(TAG_HARD_MODE);
-		if(par1nbtTagCompound.hasKey(TAG_PLAYER_COUNT))
-			playerCount = par1nbtTagCompound.getInteger(TAG_PLAYER_COUNT);
+		hardMode = cmp.getBoolean(TAG_HARD_MODE);
+		if(cmp.hasKey(TAG_PLAYER_COUNT))
+			playerCount = cmp.getInteger(TAG_PLAYER_COUNT);
 		else playerCount = 1;
 
 		if (this.hasCustomName()) {
@@ -377,10 +381,10 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 	}
 
 	@Override
-	protected void damageEntity(@Nonnull DamageSource par1DamageSource, float par2) {
-		super.damageEntity(par1DamageSource, par2);
+	protected void damageEntity(@Nonnull DamageSource source, float par2) {
+		super.damageEntity(source, par2);
 
-		Entity attacker = par1DamageSource.getImmediateSource();
+		Entity attacker = source.getImmediateSource();
 		if(attacker != null) {
 			Vector3 thisVector = Vector3.fromEntityCenter(this);
 			Vector3 playerVector = Vector3.fromEntityCenter(attacker);
@@ -429,8 +433,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 	}
 
 	@Override
-	protected void dropLoot(boolean wasRecentlyHit, int lootingModifier, @Nonnull DamageSource source)
-	{
+	protected void dropLoot(boolean wasRecentlyHit, int lootingModifier, @Nonnull DamageSource source) {
 		// Save true killer, they get extra loot
 		if (wasRecentlyHit && source.getTrueSource() instanceof EntityPlayer) {
 			trueKiller = (EntityPlayer) source.getTrueSource();
@@ -478,10 +481,10 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 
 	public List<EntityPlayer> getPlayersAround() {
 		float range = 15F;
-		return world.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(source.getX() + 0.5 - range, source.getY() + 0.5 - range, source.getZ() + 0.5 - range, source.getX() + 0.5 + range, source.getY() + 0.5 + range, source.getZ() + 0.5 + range));
+		return world.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(source.getX() + 0.5 - range, source.getY() + 0.5 - range, source.getZ() + 0.5 - range, source.getX() + 0.5 + range, source.getY() + 0.5 + range, source.getZ() + 0.5 + range), EntityDoppleganger::isTruePlayer);
 	}
 
-	private static int getGaiaGuardiansAround(World world, BlockPos source) {
+	private static int countGaiaGuardiansAround(World world, BlockPos source) {
 		float range = 15F;
 		List l = world.getEntitiesWithinAABB(EntityDoppleganger.class, new AxisAlignedBB(source.getX() + 0.5 - range, source.getY() + 0.5 - range, source.getZ() + 0.5 - range, source.getX() + 0.5 + range, source.getY() + 0.5 + range, source.getZ() + 0.5 + range));
 		return l.size();
@@ -628,11 +631,11 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 
 		int invul = getInvulTime();
 
-		if (world.isRemote) {
+		if(world.isRemote) {
 			particles();
 			EntityPlayer player = Botania.proxy.getClientPlayer();
 			if(getPlayersAround().contains(player))
-				player.capabilities.isFlying = player.capabilities.isFlying && player.capabilities.isCreativeMode;
+				player.capabilities.isFlying &= player.capabilities.isCreativeMode;
 			return;
 		}
 
@@ -763,21 +766,18 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 	}
 
 	@Override
-	public boolean isNonBoss()
-	{
+	public boolean isNonBoss() {
 		return false;
 	}
 
 	@Override
-	public void addTrackingPlayer(EntityPlayerMP player)
-	{
+	public void addTrackingPlayer(EntityPlayerMP player) {
 		super.addTrackingPlayer(player);
 		bossInfo.addPlayer(player);
 	}
 
 	@Override
-	public void removeTrackingPlayer(EntityPlayerMP player)
-	{
+	public void removeTrackingPlayer(EntityPlayerMP player) {
 		super.removeTrackingPlayer(player);
 		bossInfo.removePlayer(player);
 	}
