@@ -13,6 +13,8 @@ package vazkii.botania.common.block.tile;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import vazkii.botania.api.item.IFloatingFlower;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.ModBlocks;
@@ -21,7 +23,7 @@ public class TileFloatingFlower extends TileMod implements IFloatingFlower {
 
 	public static final String TAG_ISLAND_TYPE = "islandType";
 	public static ItemStack forcedStack = ItemStack.EMPTY;
-	IslandType type = IslandType.GRASS;
+	private IslandType type = IslandType.GRASS;
 
 	@Override
 	public ItemStack getDisplayStack() {
@@ -33,6 +35,15 @@ public class TileFloatingFlower extends TileMod implements IFloatingFlower {
 		EnumDyeColor color = world.getBlockState(getPos()).getBlock() != ModBlocks.floatingFlower ? EnumDyeColor.WHITE
 				: world.getBlockState(getPos()).getValue(BotaniaStateProps.COLOR);
 		return new ItemStack(ModBlocks.shinyFlower, 1, color.getMetadata());
+	}
+
+	@Override
+	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
+		IslandType oldType = getIslandType();
+		super.onDataPacket(net, packet);
+		if(oldType != getIslandType()) {
+			world.markBlockRangeForRenderUpdate(pos, pos);
+		}
 	}
 
 	@Override

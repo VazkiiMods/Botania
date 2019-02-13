@@ -105,6 +105,11 @@ public class FloatingFlowerModel implements IBakedModel {
 	private CompositeBakedModel getModel(IFloatingFlower.IslandType islandType, String identifier) {
 		ModelManager modelManager = Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getModelManager();
 
+		if(islandType == null) // This and the next one can be null if obtained from a non-extended state
+			islandType = IFloatingFlower.IslandType.GRASS;
+		if(identifier == null)
+			identifier = "";
+
 		if(CACHE.contains(islandType, identifier)) {
 			return CACHE.get(islandType, identifier);
 		} else {
