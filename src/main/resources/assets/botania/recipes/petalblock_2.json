@@ -12,7 +12,8 @@
   "group": "botania:petalblock",
   "key": {
     "P": {
-      "item": "#PETALMAGENTA"
+      "item": "botania:petal",
+      "data": 2
     }
   }
 }
