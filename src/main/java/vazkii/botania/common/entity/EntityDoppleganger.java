@@ -485,7 +485,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 
 	public List<EntityPlayer> getPlayersAround() {
 		float range = 15F;
-		return world.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(source.getX() + 0.5 - range, source.getY() + 0.5 - range, source.getZ() + 0.5 - range, source.getX() + 0.5 + range, source.getY() + 0.5 + range, source.getZ() + 0.5 + range), EntityDoppleganger::isTruePlayer);
+		return world.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(source.getX() + 0.5 - range, source.getY() + 0.5 - range, source.getZ() + 0.5 - range, source.getX() + 0.5 + range, source.getY() + 0.5 + range, source.getZ() + 0.5 + range), player -> isTruePlayer(player) && !player.isSpectator());
 	}
 
 	private static int countGaiaGuardiansAround(World world, BlockPos source) {
