@@ -543,7 +543,10 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 					int z = centerZ + dz;
 					
 					BlockPos pos = new BlockPos(x, y, z);
-					Block block = world.getBlockState(pos).getBlock();
+					IBlockState state = world.getBlockState(pos);
+					Block block = state.getBlock();
+					
+					if(state.getBlockHardness(world, pos) == -1) continue;
 					
 					if(CHEATY_BLOCKS.contains(block.getRegistryName())) {
 						world.destroyBlock(pos, true);
@@ -659,7 +662,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 		if(world.getDifficulty() == EnumDifficulty.PEACEFUL)
 			setDead();
 
-		smashBlocksAround((int) posX, (int) posY, (int) posZ, 1);
+		smashBlocksAround(MathHelper.floor(posX), MathHelper.floor(posY), MathHelper.floor(posZ), 1);
 
 		List<EntityPlayer> players = getPlayersAround();
 
@@ -870,9 +873,9 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 			if(breakSteps >= 2) {
 				for(int i = 0; i < breakSteps; i++) {
 					float progress = i / (float) (breakSteps - 1);
-					int breakX = (int) (oldX + (newX - oldX) * progress);
-					int breakY = (int) (oldY + (newY - oldY) * progress);
-					int breakZ = (int) (oldZ + (newZ - oldZ) * progress);
+					int breakX = MathHelper.floor(oldX + (newX - oldX) * progress);
+					int breakY = MathHelper.floor(oldY + (newY - oldY) * progress);
+					int breakZ = MathHelper.floor(oldZ + (newZ - oldZ) * progress);
 
 					smashBlocksAround(breakX, breakY, breakZ, 1);
 				}
