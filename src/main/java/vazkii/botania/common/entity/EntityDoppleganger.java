@@ -45,6 +45,7 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.tileentity.TileEntityBeacon;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
@@ -66,6 +67,7 @@ import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.ARBShaderObjects;
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.boss.IBotaniaBoss;
 import vazkii.botania.api.internal.ShaderCallback;
 import vazkii.botania.api.lexicon.multiblock.Multiblock;
@@ -90,8 +92,10 @@ import javax.annotation.Nonnull;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 import java.util.UUID;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -130,8 +134,8 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 	};
 
 	private static final List<ResourceLocation> CHEATY_BLOCKS = Arrays.asList(
-			new ResourceLocation("openblocks", "beartrap"),
-			new ResourceLocation("thaumictinkerer", "magnet")
+		new ResourceLocation("openblocks", "beartrap"),
+		new ResourceLocation("thaumictinkerer", "magnet")
 	);
 
 	private boolean spawnLandmines = false;
@@ -530,20 +534,28 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 		}
 	}
 
-	private void smashCheatyBlocks() {
-		int radius = 1;
-		int posXInt = MathHelper.floor(posX);
-		int posYInt = MathHelper.floor(posY);
-		int posZInt = MathHelper.floor(posZ);
-		for(int i = -radius; i < radius + 1; i++)
-			for(int j = -radius; j < radius + 1; j++)
-				for(int k = -radius; k < radius + 1; k++) {
-					int xp = posXInt + i;
-					int yp = posYInt + j;
-					int zp = posZInt + k;
-					BlockPos posp = new BlockPos(xp, yp, zp);
-					if(isCheatyBlock(world, posp)) {
-						world.destroyBlock(posp, true);
+	private void smashBlocksAround(int centerX, int centerY, int centerZ, int radius) {
+		for(int dx = -radius; dx <= radius; dx++)
+			for(int dy = -radius; dy <= radius + 1; dy++)
+				for(int dz = -radius; dz <= radius; dz++) {
+					int x = centerX + dx;
+					int y = centerY + dy;
+					int z = centerZ + dz;
+					
+					BlockPos pos = new BlockPos(x, y, z);
+					Block block = world.getBlockState(pos).getBlock();
+					
+					if(CHEATY_BLOCKS.contains(block.getRegistryName())) {
+						world.destroyBlock(pos, true);
+					} else {
+						//don't break blacklisted blocks
+						if(BotaniaAPI.gaiaBreakBlacklist.contains(block)) continue;
+						//don't break the floor
+						if(y == source.getY() - 1) continue;
+						//don't break blocks in pylon columns
+						if(Math.abs(source.getX() - x) == 4 && Math.abs(source.getZ() - z) == 4) continue;
+						
+						world.destroyBlock(pos, true);
 					}
 				}
 	}
@@ -647,7 +659,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 		if(world.getDifficulty() == EnumDifficulty.PEACEFUL)
 			setDead();
 
-		smashCheatyBlocks();
+		smashBlocksAround((int) posX, (int) posY, (int) posZ, 1);
 
 		List<EntityPlayer> players = getPlayersAround();
 
@@ -719,11 +731,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 
 					tpDelay--;
 					if(tpDelay == 0 && getHealth() > 0) {
-						int tries = 0;
-						while(!teleportRandomly() && tries < 50)
-							tries++;
-						if(tries >= 50)
-							teleportTo(source.getX() + 0.5, source.getY() + 1.6, source.getZ() + 0.5);
+						teleportRandomly();
 
 						if(spawnLandmines) {
 							int count = dying && hardMode ? 7 : 6;
@@ -802,127 +810,73 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 		}
 	}
 
-	private static boolean isCheatyBlock(World world, BlockPos pos) {
-		Block block = world.getBlockState(pos).getBlock();
-		return CHEATY_BLOCKS.contains(Block.REGISTRY.getNameForObject(block));
-	}
+	private void teleportRandomly() {
+		//choose a location to teleport to
+		double oldX = posX, oldY = posY, oldZ = posZ;
+		double newX, newY, newZ;
+		int tries = 0;
 
-	// [VanillaCopy] EntityEnderman.teleportRandomly, edits noted.
-	private boolean teleportRandomly() {
-		double d0 = this.posX + (this.rand.nextDouble() - 0.5D) * 64.0D;
-		double d1 = this.posY + (double)(this.rand.nextInt(64) - 32);
-		double d2 = this.posZ + (this.rand.nextDouble() - 0.5D) * 64.0D;
-		return this.teleportTo(d0, d1, d2);
-	}
+		do {
+			newX = source.getX() + (rand.nextDouble() - .5) * ARENA_RANGE;
+			newY = source.getY();
+			newZ = source.getZ() + (rand.nextDouble() - .5) * ARENA_RANGE;
+			tries++;
+			//ensure it's inside the arena ring, and not just its bounding square
+		}
+		while(tries < 50 && vazkii.botania.common.core.helper.MathHelper.pointDistanceSpace(newX, newY, newZ, source.getX(), source.getY(), source.getZ()) > 12);
 
-	// [VanillaCopy] EntityEnderman.teleportTo, edits noted.
-	private boolean teleportTo(double x, double y, double z) {
-		/* Botania - no events
-		net.minecraftforge.event.entity.living.EnderTeleportEvent event = new net.minecraftforge.event.entity.living.EnderTeleportEvent(this, x, y, z, 0);
-		if (net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(event)) return false;
-		boolean flag = this.attemptTeleport(event.getTargetX(), event.getTargetY(), event.getTargetZ());
-		*/
-
-		boolean flag = this.attemptTeleport(x, y, z);
-
-		if (flag)
-		{
-			this.world.playSound((EntityPlayer)null, this.prevPosX, this.prevPosY, this.prevPosZ, SoundEvents.ENTITY_ENDERMEN_TELEPORT, this.getSoundCategory(), 1.0F, 1.0F);
-			this.playSound(SoundEvents.ENTITY_ENDERMEN_TELEPORT, 1.0F, 1.0F);
+		if(tries == 50) {
+			//failsafe: teleport to the beacon
+			newX = source.getX() + .5;
+			newY = source.getY() + 1.6;
+			newZ = source.getZ() + .5;
 		}
 
-		return flag;
-	}
+		//teleport there
+		setPositionAndUpdate(newX, newY, newZ);
 
-	// [VanillaCopy] of super, edits noted
-	@Override
-	public boolean attemptTeleport(double x, double y, double z) {
-		double d0 = this.posX;
-		double d1 = this.posY;
-		double d2 = this.posZ;
-		this.posX = x;
-		this.posY = y;
-		this.posZ = z;
-		boolean flag = false;
-		BlockPos blockpos = new BlockPos(this);
-		World world = this.world;
-		Random random = this.getRNG();
+		//play sound
+		world.playSound(null, oldX, oldY, oldZ, SoundEvents.ENTITY_ENDERMEN_TELEPORT, this.getSoundCategory(), 1.0F, 1.0F);
+		this.playSound(SoundEvents.ENTITY_ENDERMEN_TELEPORT, 1.0F, 1.0F);
 
-		if (world.isBlockLoaded(blockpos))
-		{
-			boolean flag1 = false;
+		Random random = getRNG();
 
-			while (!flag1 && blockpos.getY() > 0)
-			{
-				BlockPos blockpos1 = blockpos.down();
-				IBlockState iblockstate = world.getBlockState(blockpos1);
-
-				if (iblockstate.getMaterial().blocksMovement())
-				{
-					flag1 = true;
-				}
-				else
-				{
-					--this.posY;
-					blockpos = blockpos1;
-				}
-			}
-
-			if (flag1)
-			{
-				this.setPositionAndUpdate(this.posX, this.posY, this.posZ);
-
-				if (world.getCollisionBoxes(this, this.getEntityBoundingBox()).isEmpty() && !world.containsAnyLiquid(this.getEntityBoundingBox()))
-				{
-					flag = true;
-				}
-
-				// Botania - Prevent out of bounds teleporting
-				if(vazkii.botania.common.core.helper.MathHelper.pointDistanceSpace(posX, posY, posZ, source.getX(), source.getY(), source.getZ()) > 12)
-					flag = false;
-			}
+		//spawn particles along the path
+		int particleCount = 128;
+		for(int i = 0; i < particleCount; ++i) {
+			double progress = i / (double) (particleCount - 1);
+			float vx = (random.nextFloat() - 0.5F) * 0.2F;
+			float vy = (random.nextFloat() - 0.5F) * 0.2F;
+			float vz = (random.nextFloat() - 0.5F) * 0.2F;
+			double px = oldX + (newX - oldX) * progress + (random.nextDouble() - 0.5D) * width * 2.0D;
+			double py = oldY + (newY - oldY) * progress + random.nextDouble() * height;
+			double pz = oldZ + (newZ - oldZ) * progress + (random.nextDouble() - 0.5D) * width * 2.0D;
+			world.spawnParticle(EnumParticleTypes.PORTAL, px, py, pz, vx, vy, vz);
 		}
 
-		if (!flag)
-		{
-			this.setPositionAndUpdate(d0, d1, d2);
-			return false;
-		}
-		else
-		{
-			int i = 128;
+		Vec3d oldPosVec = new Vec3d(oldX, oldY + height / 2, oldZ);
+		Vec3d newPosVec = new Vec3d(newX, newY + height / 2, newZ);
 
-			for (int j = 0; j < 128; ++j)
-			{
-				double d6 = (double)j / 127.0D;
-				float f = (random.nextFloat() - 0.5F) * 0.2F;
-				float f1 = (random.nextFloat() - 0.5F) * 0.2F;
-				float f2 = (random.nextFloat() - 0.5F) * 0.2F;
-				double d3 = d0 + (this.posX - d0) * d6 + (random.nextDouble() - 0.5D) * (double)this.width * 2.0D;
-				double d4 = d1 + (this.posY - d1) * d6 + random.nextDouble() * (double)this.height;
-				double d5 = d2 + (this.posZ - d2) * d6 + (random.nextDouble() - 0.5D) * (double)this.width * 2.0D;
-				world.spawnParticle(EnumParticleTypes.PORTAL, d3, d4, d5, (double)f, (double)f1, (double)f2, new int[0]);
+		if(oldPosVec.squareDistanceTo(newPosVec) > 1) {
+			//damage players in the path of the teleport
+			for(EntityPlayer player : getPlayersAround()) {
+				RayTraceResult rtr = player.getEntityBoundingBox().grow(0.25).calculateIntercept(oldPosVec, newPosVec);
+				if(rtr != null)
+					player.attackEntityFrom(DamageSource.causeMobDamage(this), 6);
 			}
 
-			// Botania - invalid/unneeded check
-			/*if (this instanceof EntityCreature)
-			{
-				((EntityCreature)this).getNavigator().clearPathEntity();
-			}*/
+			//break blocks in the path of the teleport
+			int breakSteps = (int) oldPosVec.distanceTo(newPosVec);
+			if(breakSteps >= 2) {
+				for(int i = 0; i < breakSteps; i++) {
+					float progress = i / (float) (breakSteps - 1);
+					int breakX = (int) (oldX + (newX - oldX) * progress);
+					int breakY = (int) (oldY + (newY - oldY) * progress);
+					int breakZ = (int) (oldZ + (newZ - oldZ) * progress);
 
-			// Botania - damage any players in our way
-			Vec3d origPos = new Vec3d(d0, d1 + height / 2, d2);
-			Vec3d newPos = new Vec3d(posX, posY + height / 2, posZ);
-
-			if(origPos.squareDistanceTo(newPos) > 1) {
-				for(EntityPlayer player : getPlayersAround()) {
-					RayTraceResult rtr = player.getEntityBoundingBox().grow(0.25).calculateIntercept(origPos, newPos);
-					if(rtr != null)
-						player.attackEntityFrom(DamageSource.causeMobDamage(this), 6);
+					smashBlocksAround(breakX, breakY, breakZ, 1);
 				}
 			}
-
-			return true;
 		}
 	}
 
