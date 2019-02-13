@@ -737,8 +737,8 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 							int count = dying && hardMode ? 7 : 6;
 							for(int i = 0; i < count; i++) {
 								int x = source.getX() - 10 + rand.nextInt(20);
+								int y = source.getY();
 								int z = source.getZ() - 10 + rand.nextInt(20);
-								int y = world.getTopSolidOrLiquidBlock(new BlockPos(x, -1, z)).getY();
 
 								EntityMagicLandmine landmine = new EntityMagicLandmine(world);
 								landmine.setPosition(x + 0.5, y, z + 0.5);
