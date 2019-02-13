@@ -1118,7 +1118,7 @@ public final class LexiconData {
 				new PageCraftingRecipe("3", ModCraftingRecipes.recipeBlackHoleTalisman));
 
 		corporeaCrystalCube = new AlfheimLexiconEntry(LibLexicon.ENDER_CORPOREA_CRYSTAL_CUBE, categoryEnder);
-		corporeaCrystalCube.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("3"),
+		corporeaCrystalCube.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("3"), new PageText("4"),
 				new PageCraftingRecipe("2", ModCraftingRecipes.recipeCorporeaCrystalCube));
 
 		luminizerTransport = new AlfheimLexiconEntry(LibLexicon.ENDER_LUMINIZER_TRANSPORT, categoryEnder);

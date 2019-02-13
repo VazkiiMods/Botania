@@ -35,13 +35,13 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 
 	private static final String TAG_REQUEST_TARGET = "requestTarget";
 	private static final String TAG_ITEM_COUNT = "itemCount";
+	private static final String TAG_LOCK = "lock";
 
-	private static final double LOG_2 = Math.log(2);
-
-	ItemStack requestTarget = ItemStack.EMPTY;
-	int itemCount = 0;
-	int ticks = 0;
-	int compValue = 0;
+	private ItemStack requestTarget = ItemStack.EMPTY;
+	private int itemCount = 0;
+	private int ticks = 0;
+	private int compValue = 0;
+	public boolean locked = false;
 
 	private final IAnimationStateMachine asm;
 
@@ -61,7 +61,7 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 	}
 
 	public void setRequestTarget(ItemStack stack) {
-		if(!stack.isEmpty()) {
+		if(!stack.isEmpty() && !locked) {
 			ItemStack copy = stack.copy();
 			copy.setCount(1);
 			requestTarget = copy;
@@ -125,6 +125,7 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 			cmp = requestTarget.writeToNBT(cmp);
 		par1nbtTagCompound.setTag(TAG_REQUEST_TARGET, cmp);
 		par1nbtTagCompound.setInteger(TAG_ITEM_COUNT, itemCount);
+		par1nbtTagCompound.setBoolean(TAG_LOCK, locked);
 	}
 
 	@Override
@@ -133,6 +134,7 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 		NBTTagCompound cmp = par1nbtTagCompound.getCompoundTag(TAG_REQUEST_TARGET);
 		requestTarget = new ItemStack(cmp);
 		itemCount = par1nbtTagCompound.getInteger(TAG_ITEM_COUNT);
+		locked = par1nbtTagCompound.getBoolean(TAG_LOCK);
 	}
 
 	public int getComparatorValue() {
