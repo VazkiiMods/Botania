@@ -11,6 +11,7 @@
 package vazkii.botania.common.block;
 
 import net.minecraft.block.BlockDirt;
+import net.minecraft.block.BlockStem;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
@@ -19,8 +20,10 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemHoe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
@@ -80,7 +83,19 @@ public class BlockAltGrass extends BlockMod implements ILexiconable {
 		for(int i = 0; i < 6; i++)
 			list.add(new ItemStack(this, 1, i));
 	}
-
+	
+	@Override
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+		ItemStack held = player.getHeldItem(hand);
+		if(held.getItem() instanceof ItemHoe && world.isAirBlock(pos.up())) {
+			held.damageItem(1, player);
+			world.setBlockState(pos, Blocks.FARMLAND.getDefaultState(), 1 | 2);
+			return true;
+		}
+		
+		return false;
+	}
+	
 	@Override
 	public void updateTick(World world, BlockPos pos, IBlockState state, Random rand) {
 		if(!world.isRemote && state.getBlock() == this && world.getLight(pos.up()) >= 9) {
@@ -111,7 +126,7 @@ public class BlockAltGrass extends BlockMod implements ILexiconable {
 	@Override
 	public boolean canSustainPlant(@Nonnull IBlockState state, @Nonnull IBlockAccess world, BlockPos pos, @Nonnull EnumFacing direction, IPlantable plantable) {
 		EnumPlantType type = plantable.getPlantType(world, pos.down());
-		return type == EnumPlantType.Plains || type == EnumPlantType.Beach;
+		return type == EnumPlantType.Plains || type == EnumPlantType.Beach || plantable instanceof BlockStem;
 	}
 
 	@SideOnly(Side.CLIENT)
