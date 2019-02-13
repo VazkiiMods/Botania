@@ -141,16 +141,17 @@ public final class HUDHandler {
 						}
 					} else if(block != null && PlayerHelper.hasHeldItemClass(mc.player, ILexicon.class))
 						drawLexiconHUD(PlayerHelper.getFirstHeldItemClass(mc.player, ILexicon.class), state, pos, event.getResolution());
-					if(tile != null && tile instanceof TilePool && !mc.player.getHeldItemMainhand().isEmpty())
+					if(tile instanceof TilePool && !mc.player.getHeldItemMainhand().isEmpty())
 						renderPoolRecipeHUD(event.getResolution(), (TilePool) tile, mc.player.getHeldItemMainhand());
 				}
-				if(tile != null && tile instanceof TileAltar)
-					((TileAltar) tile).renderHUD(mc, event.getResolution());
-				else if(tile != null && tile instanceof TileRuneAltar)
-					((TileRuneAltar) tile).renderHUD(mc, event.getResolution());
-
-				if(tile != null && tile instanceof TileCorporeaCrystalCube)
-					renderCrystalCubeHUD(event.getResolution(), (TileCorporeaCrystalCube) tile);
+				if(!PlayerHelper.hasHeldItemClass(mc.player, ILexicon.class)) {
+					if(tile instanceof TileAltar)
+						((TileAltar) tile).renderHUD(mc, event.getResolution());
+					else if(tile instanceof TileRuneAltar)
+						((TileRuneAltar) tile).renderHUD(mc, event.getResolution());
+					else if(tile instanceof TileCorporeaCrystalCube)
+						renderCrystalCubeHUD(event.getResolution(), (TileCorporeaCrystalCube) tile);
+				}
 			}
 
 			TileCorporeaIndex.getInputHandler();
