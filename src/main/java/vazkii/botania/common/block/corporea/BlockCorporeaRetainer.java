@@ -34,7 +34,7 @@ import javax.annotation.Nonnull;
 
 public class BlockCorporeaRetainer extends BlockMod implements ILexiconable {
 
-	public BlockCorporeaRetainer(Block.Builder builder) {
+	public BlockCorporeaRetainer(Block.Properties builder) {
 		super(builder);
 		setDefaultState(stateContainer.getBaseState().with(BotaniaStateProps.POWERED, false));
 	}

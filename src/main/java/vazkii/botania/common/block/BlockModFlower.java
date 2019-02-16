@@ -46,7 +46,7 @@ import java.util.Random;
 
 public class BlockModFlower extends BlockFlower implements ILexiconable, IGrowable {
 	protected final EnumDyeColor color;
-	protected BlockModFlower(EnumDyeColor color, Builder builder) {
+	protected BlockModFlower(EnumDyeColor color, Properties builder) {
 		super(builder);
 		this.color = color;
 	}

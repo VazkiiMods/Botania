@@ -40,7 +40,7 @@ public class BlockIncensePlate extends BlockMod implements ILexiconable {
 	private static final VoxelShape X_SHAPE = makeCuboidShape(6, 0, 2, 10, 1, 14);
 	private static final VoxelShape Z_SHAPE = makeCuboidShape(2, 0, 6, 14, 1, 10);
 
-	protected BlockIncensePlate(Builder builder) {
+	protected BlockIncensePlate(Properties builder) {
 		super(builder);
 		setDefaultState(stateContainer.getBaseState().with(BotaniaStateProps.CARDINALS, EnumFacing.SOUTH));
 	}

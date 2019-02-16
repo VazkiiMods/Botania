@@ -42,7 +42,7 @@ public class BlockLightRelay extends BlockMod implements IWandable, ILexiconable
 	private static final VoxelShape SHAPE = makeCuboidShape(5, 5, 5, 11, 11, 11);
 	private final LuminizerVariant variant;
 
-	protected BlockLightRelay(LuminizerVariant variant, Builder builder) {
+	protected BlockLightRelay(LuminizerVariant variant, Properties builder) {
 		super(builder);
 		this.variant = variant;
 		setDefaultState(stateContainer.getBaseState().with(BotaniaStateProps.POWERED, false));

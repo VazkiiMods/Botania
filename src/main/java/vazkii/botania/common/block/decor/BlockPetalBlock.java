@@ -35,7 +35,7 @@ import javax.annotation.Nonnull;
 public class BlockPetalBlock extends BlockMod implements ILexiconable {
 
 	public final EnumDyeColor color;
-	public BlockPetalBlock(EnumDyeColor color, Builder builder) {
+	public BlockPetalBlock(EnumDyeColor color, Properties builder) {
 		super(builder);
 		this.color = color;
 	}

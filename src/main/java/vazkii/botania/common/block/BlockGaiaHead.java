@@ -41,7 +41,7 @@ import java.util.Random;
 public class BlockGaiaHead extends BlockAbstractSkull {
 	public static final BlockSkull.ISkullType GAIA_TYPE = new BlockSkull.ISkullType() {};
 
-	public BlockGaiaHead(Builder builder) {
+	public BlockGaiaHead(Properties builder) {
 		super(GAIA_TYPE, builder);
 	}
 

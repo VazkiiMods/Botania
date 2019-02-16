@@ -45,7 +45,7 @@ public class BlockGhostRail extends BlockRailBase implements ILexiconable, IMode
 
 	private static final String TAG_FLOAT_TICKS = "Botania_FloatTicks";
 
-	public BlockGhostRail(Builder builder) {
+	public BlockGhostRail(Properties builder) {
 		super(true, builder);
 		setDefaultState(stateContainer.getBaseState().with(BlockStateProperties.RAIL_SHAPE_STRAIGHT, RailShape.NORTH_SOUTH));
 	}

@@ -31,7 +31,7 @@ import javax.annotation.Nonnull;
 import java.util.Random;
 
 public class BlockBifrostPerm extends BlockMod implements ILexiconable {
-	public BlockBifrostPerm(Builder builder) {
+	public BlockBifrostPerm(Properties builder) {
 		super(builder);
 	}
 

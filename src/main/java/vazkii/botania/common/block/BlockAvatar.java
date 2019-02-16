@@ -52,7 +52,7 @@ public class BlockAvatar extends BlockMod implements ILexiconable {
 	private static final VoxelShape X_AABB = makeCuboidShape(5, 0, 3.5, 11, 17, 12.5);
 	private static final VoxelShape Z_AABB = makeCuboidShape(3.5, 0, 5, 12.5, 17, 11);
 
-	protected BlockAvatar(Builder builder) {
+	protected BlockAvatar(Properties builder) {
 		super(builder);
 		setDefaultState(stateContainer.getBaseState().with(BotaniaStateProps.CARDINALS, EnumFacing.NORTH));
 	}

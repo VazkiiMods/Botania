@@ -60,7 +60,7 @@ import java.util.Random;
 public class BlockModDoubleFlower extends BlockTallFlower implements ILexiconable, IShearable {
 	private final EnumDyeColor color;
 
-	public BlockModDoubleFlower(EnumDyeColor color, Builder builder) {
+	public BlockModDoubleFlower(EnumDyeColor color, Properties builder) {
 		super(builder);
 		this.color = color;
 	}

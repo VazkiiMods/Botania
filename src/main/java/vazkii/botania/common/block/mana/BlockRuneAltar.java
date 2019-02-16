@@ -40,7 +40,7 @@ public class BlockRuneAltar extends BlockMod implements IWandable, ILexiconable 
 
 	private static final VoxelShape SHAPE = Block.makeCuboidShape(0, 0, 0, 16, 12, 16);
 
-	public BlockRuneAltar(Builder builder) {
+	public BlockRuneAltar(Properties builder) {
 		super(builder);
 		BotaniaAPI.blacklistBlockFromMagnet(this, Short.MAX_VALUE);
 	}

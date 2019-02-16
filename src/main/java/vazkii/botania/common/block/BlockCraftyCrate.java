@@ -28,7 +28,7 @@ import javax.annotation.Nonnull;
 
 public class BlockCraftyCrate extends BlockOpenCrate implements IWandHUD {
 
-	public BlockCraftyCrate(Builder builder) {
+	public BlockCraftyCrate(Properties builder) {
 		super(builder);
 		setDefaultState(stateContainer.getBaseState().with(BotaniaStateProps.CRATE_PATTERN, CratePattern.NONE));
 	}

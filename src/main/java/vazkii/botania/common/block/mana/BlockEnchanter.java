@@ -49,7 +49,7 @@ import java.util.Random;
 
 public class BlockEnchanter extends BlockMod implements IWandable, ILexiconable, IWandHUD {
 
-	public BlockEnchanter(Builder builder) {
+	public BlockEnchanter(Properties builder) {
 		super(builder);
 		setDefaultState(stateContainer.getBaseState().with(BotaniaStateProps.ENCHANTER_DIRECTION, EnumFacing.Axis.X));
 	}

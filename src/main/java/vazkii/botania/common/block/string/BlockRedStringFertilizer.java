@@ -27,7 +27,7 @@ import java.util.Random;
 
 public class BlockRedStringFertilizer extends BlockRedString implements IGrowable {
 
-	public BlockRedStringFertilizer(Block.Builder builder) {
+	public BlockRedStringFertilizer(Block.Properties builder) {
 		super(builder);
 		setDefaultState(stateContainer.getBaseState().with(BotaniaStateProps.FACING, EnumFacing.DOWN));
 	}

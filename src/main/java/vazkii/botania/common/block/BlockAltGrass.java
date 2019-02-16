@@ -56,7 +56,7 @@ public class BlockAltGrass extends BlockMod implements ILexiconable {
 
 	private final Variant variant;
 
-	public BlockAltGrass(Variant v, Builder builder) {
+	public BlockAltGrass(Variant v, Properties builder) {
 		super(builder);
 		this.variant = v;
 	}

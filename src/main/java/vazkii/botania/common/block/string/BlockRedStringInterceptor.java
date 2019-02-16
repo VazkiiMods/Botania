@@ -33,7 +33,7 @@ import java.util.Random;
 @Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
 public class BlockRedStringInterceptor extends BlockRedString {
 
-	public BlockRedStringInterceptor(Block.Builder builder) {
+	public BlockRedStringInterceptor(Block.Properties builder) {
 		super(builder);
 		setDefaultState(stateContainer.getBaseState().with(BotaniaStateProps.FACING, EnumFacing.DOWN).with(BotaniaStateProps.POWERED, false));
 	}

@@ -38,7 +38,7 @@ public class BlockFakeAir extends BlockAir {
 
 	private static final AxisAlignedBB AABB = new AxisAlignedBB(0, 0, 0, 0, 0, 0);
 
-	public BlockFakeAir(Builder builder) {
+	public BlockFakeAir(Properties builder) {
 		super(builder);
 	}
 

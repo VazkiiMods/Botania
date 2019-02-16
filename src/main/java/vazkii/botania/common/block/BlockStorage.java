@@ -29,7 +29,7 @@ import java.util.Locale;
 
 public class BlockStorage extends BlockMod implements IElvenItem, ILexiconable {
 
-	public BlockStorage(Builder builder) {
+	public BlockStorage(Properties builder) {
 		super(builder);
 	}
 

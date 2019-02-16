@@ -36,7 +36,7 @@ public class BlockBuriedPetals extends BlockModFlower {
 
 	private static final VoxelShape SHAPE = makeCuboidShape(0, 0, 0, 16, 1.6, 16);
 
-	public BlockBuriedPetals(EnumDyeColor color, Builder builder) {
+	public BlockBuriedPetals(EnumDyeColor color, Properties builder) {
 		super(color, builder);
 	}
 

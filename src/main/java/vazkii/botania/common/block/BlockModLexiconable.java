@@ -10,7 +10,7 @@ import vazkii.botania.api.lexicon.LexiconEntry;
 public class BlockModLexiconable extends BlockMod implements ILexiconable {
     private final ILexiconable delegate;
 
-    public BlockModLexiconable(Builder builder, ILexiconable delegate) {
+    public BlockModLexiconable(Properties builder, ILexiconable delegate) {
         super(builder);
         this.delegate = delegate;
     }

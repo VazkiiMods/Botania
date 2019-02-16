@@ -26,7 +26,7 @@ import vazkii.botania.common.block.tile.TileCamo;
 
 public abstract class BlockCamo extends BlockMod {
 
-	protected BlockCamo(Builder builder) {
+	protected BlockCamo(Properties builder) {
 		super(builder);
 	}
 

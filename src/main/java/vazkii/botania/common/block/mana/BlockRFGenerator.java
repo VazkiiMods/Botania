@@ -30,7 +30,7 @@ import javax.annotation.Nonnull;
 
 public class BlockRFGenerator extends BlockMod implements ILexiconable {
 
-	public BlockRFGenerator(Builder builder) {
+	public BlockRFGenerator(Properties builder) {
 		super(builder);
 	}
 

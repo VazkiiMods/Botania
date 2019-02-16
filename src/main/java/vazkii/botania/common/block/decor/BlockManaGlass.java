@@ -32,7 +32,7 @@ import javax.annotation.Nonnull;
 
 public class BlockManaGlass extends BlockMod implements ILexiconable {
 
-	public BlockManaGlass(Builder builder) {
+	public BlockManaGlass(Properties builder) {
 		super(builder);
 	}
 

@@ -35,7 +35,7 @@ import java.util.Random;
 
 public class BlockCorporeaInterceptor extends BlockCorporeaBase implements ILexiconable {
 
-	public BlockCorporeaInterceptor(Block.Builder builder) {
+	public BlockCorporeaInterceptor(Block.Properties builder) {
 		super(builder);
 		setDefaultState(stateContainer.getBaseState().with(BotaniaStateProps.POWERED, false));
 	}

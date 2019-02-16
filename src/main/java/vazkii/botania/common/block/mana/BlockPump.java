@@ -44,7 +44,7 @@ public class BlockPump extends BlockMod implements ILexiconable {
 	private static final AxisAlignedBB X_AABB = new AxisAlignedBB(0, 0, 0.25, 1, 0.5, 0.75);
 	private static final AxisAlignedBB Z_AABB = new AxisAlignedBB(0.25, 0, 0, 0.75, 0.5, 1);
 
-	public BlockPump(Builder builder) {
+	public BlockPump(Properties builder) {
 		super(builder);
 		setDefaultState(blockState.getBaseState().with(Properties.StaticProperty, true).with(BotaniaStateProps.CARDINALS, EnumFacing.SOUTH));
 	}

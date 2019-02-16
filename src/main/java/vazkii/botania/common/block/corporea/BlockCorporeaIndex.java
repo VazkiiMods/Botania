@@ -46,7 +46,7 @@ import javax.annotation.Nonnull;
 
 public class BlockCorporeaIndex extends BlockCorporeaBase implements ILexiconable {
 
-	public BlockCorporeaIndex(Block.Builder builder) {
+	public BlockCorporeaIndex(Block.Properties builder) {
 		super(builder);
 	}
 

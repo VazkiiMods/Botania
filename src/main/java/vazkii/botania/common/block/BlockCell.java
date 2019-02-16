@@ -33,7 +33,7 @@ import java.util.Random;
 
 public class BlockCell extends BlockMod implements ILexiconable {
 
-	public BlockCell(Builder builder) {
+	public BlockCell(Properties builder) {
 		super(builder);
 	}
 

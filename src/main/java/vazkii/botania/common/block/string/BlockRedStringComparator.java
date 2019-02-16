@@ -25,7 +25,7 @@ import javax.annotation.Nonnull;
 
 public class BlockRedStringComparator extends BlockRedString {
 
-	public BlockRedStringComparator(Block.Builder builder) {
+	public BlockRedStringComparator(Block.Properties builder) {
 		super(builder);
 		setDefaultState(stateContainer.getBaseState().with(BotaniaStateProps.FACING, EnumFacing.DOWN));
 	}

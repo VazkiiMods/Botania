@@ -55,7 +55,7 @@ public class BlockHourglass extends BlockMod implements IManaTrigger, IWandable,
 
 	private static final VoxelShape SHAPE = makeCuboidShape(4, 0, 4, 12, 18.4, 12);
 
-	protected BlockHourglass(Builder builder) {
+	protected BlockHourglass(Properties builder) {
 		super(builder);
 		setDefaultState(stateContainer.getBaseState().with(BotaniaStateProps.POWERED, false));
 	}

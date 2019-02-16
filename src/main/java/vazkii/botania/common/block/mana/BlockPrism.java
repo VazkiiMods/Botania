@@ -46,7 +46,7 @@ import javax.annotation.Nonnull;
 public class BlockPrism extends BlockMod implements IManaTrigger, ILexiconable, IManaCollisionGhost {
 	private static final VoxelShape SHAPE = makeCuboidShape(4, 0, 4, 12, 16, 12);
 
-	public BlockPrism(Builder builder) {
+	public BlockPrism(Properties builder) {
 		super(builder);
 		setDefaultState(stateContainer.getBaseState()
 				.with(BotaniaStateProps.POWERED, false)

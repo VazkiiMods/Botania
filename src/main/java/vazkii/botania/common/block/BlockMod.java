@@ -26,7 +26,7 @@ import vazkii.botania.common.lib.LibMisc;
 
 public abstract class BlockMod extends Block {
 
-	public BlockMod(Block.Builder builder) {
+	public BlockMod(Block.Properties builder) {
 		super(builder);
 	}
 

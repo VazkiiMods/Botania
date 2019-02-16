@@ -37,7 +37,7 @@ public class BlockTinyPlanet extends BlockMod implements ILexiconable, IManaColl
 
 	private static final VoxelShape AABB = makeCuboidShape(3, 3, 3, 13, 13, 13);
 
-	protected BlockTinyPlanet(Builder builder) {
+	protected BlockTinyPlanet(Properties builder) {
 		super(builder);
 	}
 

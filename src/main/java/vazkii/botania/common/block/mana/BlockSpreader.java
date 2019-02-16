@@ -64,7 +64,7 @@ public class BlockSpreader extends BlockMod implements IWandable, IWandHUD, ILex
 	}
 
 	public final Variant variant;
-	public BlockSpreader(Variant v, Builder builder) {
+	public BlockSpreader(Variant v, Properties builder) {
 		super(builder);
 		this.variant = v;
 	}

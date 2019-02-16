@@ -67,7 +67,7 @@ public class BlockPool extends BlockMod implements IWandHUD, IWandable, ILexicon
 
 	public final Variant variant;
 
-	public BlockPool(Variant v, Builder builder) {
+	public BlockPool(Variant v, Properties builder) {
 		super(builder);
 		BotaniaAPI.blacklistBlockFromMagnet(this, Short.MAX_VALUE);
 		setDefaultState(stateContainer.getBaseState()

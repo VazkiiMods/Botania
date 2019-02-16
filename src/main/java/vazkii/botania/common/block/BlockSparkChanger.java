@@ -43,7 +43,7 @@ public class BlockSparkChanger extends BlockMod implements ILexiconable {
 
 	private static final VoxelShape SHAPE = makeCuboidShape(0, 0, 0, 16, 3, 16);
 
-	public BlockSparkChanger(Builder builder) {
+	public BlockSparkChanger(Properties builder) {
 		super(builder);
 		setDefaultState(stateContainer.getBaseState().with(BotaniaStateProps.POWERED, true));
 	}

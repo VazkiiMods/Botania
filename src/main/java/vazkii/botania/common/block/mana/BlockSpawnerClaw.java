@@ -38,7 +38,7 @@ public class BlockSpawnerClaw extends BlockMod implements ILexiconable {
 
 	private static final VoxelShape SHAPE = makeCuboidShape(2, 0, 2, 14, 2, 14);
 
-	public BlockSpawnerClaw(Builder builder) {
+	public BlockSpawnerClaw(Properties builder) {
 		super(builder);
 	}
 

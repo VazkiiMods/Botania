@@ -36,7 +36,7 @@ public class BlockStarfield extends BlockMod implements ILexiconable {
 
 	private static final VoxelShape SHAPE = makeCuboidShape(0, 0, 0, 16, 4, 16);
 
-	public BlockStarfield(Builder builder) {
+	public BlockStarfield(Properties builder) {
 		super(builder);
 	}
 

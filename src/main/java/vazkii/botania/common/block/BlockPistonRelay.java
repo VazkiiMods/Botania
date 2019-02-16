@@ -67,7 +67,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 	private final Set<DimWithPos> checkedCoords = new HashSet<>();
 	private final Map<DimWithPos, Integer> coordsToCheck = new HashMap<>();
 
-	public BlockPistonRelay(Builder builder) {
+	public BlockPistonRelay(Properties builder) {
 		super(builder);
 		MinecraftForge.EVENT_BUS.register(this);
 	}

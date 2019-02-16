@@ -30,7 +30,7 @@ import java.util.Random;
 
 public class BlockRoot extends BlockMod implements ILexiconable {
 
-	public BlockRoot(Builder builder) {
+	public BlockRoot(Properties builder) {
 		super(builder);
 	}
 

@@ -44,7 +44,7 @@ public class BlockAnimatedTorch extends BlockMod implements IWandable, IManaTrig
 
 	private static final VoxelShape SHAPE = makeCuboidShape(0, 0, 0, 16, 4, 16);
 
-	public BlockAnimatedTorch(Builder builder) {
+	public BlockAnimatedTorch(Properties builder) {
 		super(builder);
 	}
 

@@ -36,7 +36,7 @@ import javax.annotation.Nonnull;
 @Optional.Interface(modid = "thaumcraft", iface = "thaumcraft.api.crafting.IInfusionStabiliser", striprefs = true)
 public class BlockShinyFlower extends BlockModFlower implements IInfusionStabiliser, IHornHarvestable {
 
-	public BlockShinyFlower(EnumDyeColor color, Builder builder) {
+	public BlockShinyFlower(EnumDyeColor color, Properties builder) {
 		super(color, builder);
 	}
 

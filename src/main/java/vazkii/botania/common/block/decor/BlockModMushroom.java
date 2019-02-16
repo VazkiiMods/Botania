@@ -53,7 +53,7 @@ public class BlockModMushroom extends BlockMushroom implements IInfusionStabilis
 	private static final VoxelShape SHAPE = makeCuboidShape(4.8, 0, 4.8, 12.8, 16, 12.8);
 	private final EnumDyeColor color;
 
-	public BlockModMushroom(EnumDyeColor color, Builder builder) {
+	public BlockModMushroom(EnumDyeColor color, Properties builder) {
 		super(builder);
 		this.color = color;
 	}

@@ -47,7 +47,7 @@ public class BlockCorporeaCrystalCube extends BlockCorporeaBase implements ILexi
 
 	private static final AxisAlignedBB AABB = new AxisAlignedBB(3.0/16, 0, 3.0/16, 13.0/16, 1, 13.0/16);
 
-	public BlockCorporeaCrystalCube(Block.Builder builder) {
+	public BlockCorporeaCrystalCube(Block.Properties builder) {
 		super(builder);
 		setDefaultState(stateContainer.getBaseState().with(Properties.StaticProperty, true));
 	}

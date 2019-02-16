@@ -41,7 +41,7 @@ public class BlockManaFlame extends BlockMod implements ILexiconable {
 
 	private static final VoxelShape SHAPE = makeCuboidShape(4, 4, 4, 12, 12, 12);
 
-	public BlockManaFlame(Builder builder) {
+	public BlockManaFlame(Properties builder) {
 		super(builder);
 	}
 

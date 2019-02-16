@@ -66,7 +66,7 @@ public class BlockPlatform extends BlockCamo implements ILexiconable, IWandable,
 
 	public final Variant variant;
 
-	public BlockPlatform(Variant v, Builder builder) {
+	public BlockPlatform(Variant v, Properties builder) {
 		super(builder);
 		this.variant = v;
 	}

@@ -34,7 +34,7 @@ import java.util.List;
 
 public class BlockCacophonium extends BlockMod {
 
-	protected BlockCacophonium(Builder builder) {
+	protected BlockCacophonium(Properties builder) {
 		super(builder);
 		setDefaultState(stateContainer.getBaseState().with(BotaniaStateProps.POWERED, false));
 	}

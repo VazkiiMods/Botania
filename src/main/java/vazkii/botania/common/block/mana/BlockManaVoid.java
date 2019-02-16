@@ -34,7 +34,7 @@ import javax.annotation.Nonnull;
 
 public class BlockManaVoid extends BlockMod implements ILexiconable, IPoolOverlayProvider {
 
-	public BlockManaVoid(Builder builder) {
+	public BlockManaVoid(Properties builder) {
 		super(builder);
 	}
 

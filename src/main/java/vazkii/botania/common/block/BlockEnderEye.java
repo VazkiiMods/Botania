@@ -34,7 +34,7 @@ import javax.annotation.Nonnull;
 
 public class BlockEnderEye extends BlockMod implements ILexiconable {
 
-	protected BlockEnderEye(Builder builder) {
+	protected BlockEnderEye(Properties builder) {
 		super(builder);
 		setDefaultState(stateContainer.getBaseState().with(BotaniaStateProps.POWERED, false));
 	}

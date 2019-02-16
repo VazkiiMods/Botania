@@ -45,7 +45,7 @@ public class BlockTinyPotato extends BlockMod implements ILexiconable {
 
 	private static final VoxelShape SHAPE = makeCuboidShape(6, 0, 6, 10, 6, 10);
 
-	public BlockTinyPotato(Builder builder) {
+	public BlockTinyPotato(Properties builder) {
 		super(builder);
 		setDefaultState(stateContainer.getBaseState()
 				.with(BotaniaStateProps.CARDINALS, EnumFacing.SOUTH));

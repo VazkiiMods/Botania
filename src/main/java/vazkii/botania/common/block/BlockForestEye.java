@@ -31,7 +31,7 @@ public class BlockForestEye extends BlockMod implements ILexiconable {
 
 	private static final VoxelShape SHAPE = makeCuboidShape(4, 4, 4, 12, 12, 12);
 
-	public BlockForestEye(Builder builder) {
+	public BlockForestEye(Properties builder) {
 		super(builder);
 	}
 

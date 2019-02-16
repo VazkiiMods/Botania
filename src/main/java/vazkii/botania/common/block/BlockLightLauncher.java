@@ -41,7 +41,7 @@ public class BlockLightLauncher extends BlockMod implements ILexiconable {
 
 	private static final VoxelShape SHAPE = makeCuboidShape(0, 0, 0, 16, 4, 16);
 
-	public BlockLightLauncher(Builder builder) {
+	public BlockLightLauncher(Properties builder) {
 		super(builder);
 		setDefaultState(stateContainer.getBaseState().with(BotaniaStateProps.POWERED, false));
 	}

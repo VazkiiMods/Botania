@@ -33,7 +33,7 @@ import javax.annotation.Nonnull;
 
 public abstract class BlockRedString extends BlockMod implements ILexiconable {
 
-	public BlockRedString(Block.Builder builder) {
+	public BlockRedString(Block.Properties builder) {
 		super(builder);
 	}
 

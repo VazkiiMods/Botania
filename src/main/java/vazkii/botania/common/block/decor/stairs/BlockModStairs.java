@@ -22,7 +22,7 @@ import vazkii.botania.common.lib.LibMisc;
 
 public class BlockModStairs extends BlockStairs implements ILexiconable, IModelRegister {
 
-	public BlockModStairs(IBlockState state, Block.Builder builder) {
+	public BlockModStairs(IBlockState state, Block.Properties builder) {
 		super(state, builder);
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
 	}

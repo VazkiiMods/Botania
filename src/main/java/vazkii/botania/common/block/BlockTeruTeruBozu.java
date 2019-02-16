@@ -39,7 +39,7 @@ public class BlockTeruTeruBozu extends BlockMod implements ILexiconable {
 
 	private static final VoxelShape SHAPE = makeCuboidShape(4, 0.16, 4, 12, 15.84, 12);
 
-	public BlockTeruTeruBozu(Builder builder) {
+	public BlockTeruTeruBozu(Properties builder) {
 		super(builder);
 	}
 

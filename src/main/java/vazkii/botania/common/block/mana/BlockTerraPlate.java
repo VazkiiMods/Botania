@@ -41,7 +41,7 @@ public class BlockTerraPlate extends BlockMod implements ILexiconable {
 
 	private static final VoxelShape SHAPE = makeCuboidShape(0, 0, 0, 16, 3, 16);
 
-	public BlockTerraPlate(Builder builder) {
+	public BlockTerraPlate(Properties builder) {
 		super(builder);
 		BotaniaAPI.blacklistBlockFromMagnet(this, Short.MAX_VALUE);
 	}

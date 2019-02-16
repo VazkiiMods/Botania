@@ -29,7 +29,7 @@ import vazkii.botania.common.lib.LibBlockNames;
 
 public class BlockAlchemyCatalyst extends BlockMod implements ILexiconable, IPoolOverlayProvider {
 
-	public BlockAlchemyCatalyst(Builder builder) {
+	public BlockAlchemyCatalyst(Properties builder) {
 		super(builder);
 	}
 

@@ -35,7 +35,7 @@ public class BlockDistributor extends BlockMod implements ILexiconable {
 
 	private static final VoxelShape SHAPE = Block.makeCuboidShape(4, 0, 4, 12, 16, 12);
 
-	public BlockDistributor(Builder builder) {
+	public BlockDistributor(Properties builder) {
 		super(builder);
 	}
 	

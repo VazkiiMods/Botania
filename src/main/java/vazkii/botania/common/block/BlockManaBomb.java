@@ -27,7 +27,7 @@ import vazkii.botania.common.lib.LibBlockNames;
 
 public class BlockManaBomb extends BlockMod implements IManaTrigger, ILexiconable {
 
-	public BlockManaBomb(Builder builder) {
+	public BlockManaBomb(Properties builder) {
 		super(builder);
 	}
 

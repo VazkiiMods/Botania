@@ -34,7 +34,7 @@ import java.util.Random;
 
 public class BlockSolidVines extends BlockVine implements ILexiconable {
 
-	public BlockSolidVines(Builder builder) {
+	public BlockSolidVines(Properties builder) {
 		super(builder);
 	}
 

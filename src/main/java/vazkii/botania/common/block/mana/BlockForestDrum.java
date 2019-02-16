@@ -59,7 +59,7 @@ public class BlockForestDrum extends BlockMod implements IManaTrigger, ILexicona
 	private static final VoxelShape SHAPE = Block.makeCuboidShape(3, 1, 3, 13, 15, 13);
 	private final Variant variant;
 
-	public BlockForestDrum(Variant v, Builder builder) {
+	public BlockForestDrum(Variant v, Properties builder) {
 		super(builder);
 		this.variant = v;
 	}

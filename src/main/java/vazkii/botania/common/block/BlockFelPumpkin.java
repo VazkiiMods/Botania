@@ -48,7 +48,7 @@ public class BlockFelPumpkin extends BlockMod implements ILexiconable {
 	private static final ResourceLocation LOOT_TABLE = new ResourceLocation(LibMisc.MOD_ID, "fel_blaze");
 	private static final String TAG_FEL_SPAWNED = "Botania-FelSpawned";
 
-	public BlockFelPumpkin(Builder builder) {
+	public BlockFelPumpkin(Properties builder) {
 		super(builder);
 		setDefaultState(stateContainer.getBaseState().with(BlockStateProperties.HORIZONTAL_FACING, EnumFacing.SOUTH));
 	}

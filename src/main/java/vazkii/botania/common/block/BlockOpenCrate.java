@@ -33,7 +33,7 @@ import javax.annotation.Nonnull;
 
 public class BlockOpenCrate extends BlockMod implements ILexiconable, IWandable {
 
-	protected BlockOpenCrate(Builder builder) {
+	protected BlockOpenCrate(Properties builder) {
 		super(builder);
 	}
 

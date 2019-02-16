@@ -41,7 +41,7 @@ public class BlockCocoon extends BlockMod implements ILexiconable {
 
 	private static final VoxelShape SHAPE = makeCuboidShape(3, 0, 3, 13, 14, 13);;
 
-	protected BlockCocoon(Builder builder) {
+	protected BlockCocoon(Properties builder) {
 		super(builder);
 	}
 

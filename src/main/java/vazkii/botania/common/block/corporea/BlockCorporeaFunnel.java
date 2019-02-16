@@ -32,7 +32,7 @@ import javax.annotation.Nonnull;
 
 public class BlockCorporeaFunnel extends BlockCorporeaBase implements ILexiconable {
 
-	public BlockCorporeaFunnel(Builder builder) {
+	public BlockCorporeaFunnel(Properties builder) {
 		super(builder);
 		setDefaultState(stateContainer.getBaseState().with(BotaniaStateProps.POWERED, false));
 	}

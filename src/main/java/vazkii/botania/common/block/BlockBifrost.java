@@ -28,7 +28,7 @@ import java.util.Random;
 
 public class BlockBifrost extends BlockBifrostPerm implements ILexiconable {
 
-	public BlockBifrost(Builder builder) {
+	public BlockBifrost(Properties builder) {
 		super(builder);
 	}
 

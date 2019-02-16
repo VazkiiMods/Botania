@@ -35,7 +35,7 @@ import java.util.Random;
 
 public class BlockEnchantedSoil extends BlockMod implements ILexiconable {
 
-	public BlockEnchantedSoil(Builder builder) {
+	public BlockEnchantedSoil(Properties builder) {
 		super(builder);
 	}
 

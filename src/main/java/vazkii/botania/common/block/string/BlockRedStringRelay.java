@@ -24,7 +24,7 @@ import javax.annotation.Nonnull;
 
 public class BlockRedStringRelay extends BlockRedString {
 
-	public BlockRedStringRelay(Block.Builder builder) {
+	public BlockRedStringRelay(Block.Properties builder) {
 		super(builder);
 		setDefaultState(stateContainer.getBaseState().with(BotaniaStateProps.FACING, EnumFacing.DOWN));
 	}

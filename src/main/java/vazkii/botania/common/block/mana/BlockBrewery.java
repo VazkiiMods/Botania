@@ -51,7 +51,7 @@ public class BlockBrewery extends BlockMod implements ILexiconable, IWandHUD {
 
 	private static final VoxelShape SHAPE = makeCuboidShape(6, 0.8, 6, 10, 15.2, 10);
 
-	public BlockBrewery(Builder builder) {
+	public BlockBrewery(Properties builder) {
 		super(builder);
 		setDefaultState(stateContainer.getBaseState().with(BotaniaStateProps.POWERED, false));
 	}

@@ -22,7 +22,7 @@ import vazkii.botania.common.lib.LibBlockNames;
 
 public class BlockElfGlass extends BlockManaGlass implements IElvenItem, ILexiconable {
 
-	public BlockElfGlass(Builder builder) {
+	public BlockElfGlass(Properties builder) {
 		super(builder);
 	}
 

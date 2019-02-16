@@ -54,7 +54,7 @@ public class BlockPylon extends BlockMod implements ILexiconable, IInfusionStabi
 	}
 
 	public final Variant variant;
-	public BlockPylon(Variant v, Builder builder) {
+	public BlockPylon(Variant v, Properties builder) {
 		super(builder);
 		this.variant = v;
 	}

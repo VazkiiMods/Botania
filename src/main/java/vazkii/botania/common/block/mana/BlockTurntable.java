@@ -36,7 +36,7 @@ import javax.annotation.Nonnull;
 
 public class BlockTurntable extends BlockMod implements IWandable, IWandHUD, ILexiconable {
 
-	public BlockTurntable(Builder builder) {
+	public BlockTurntable(Properties builder) {
 		super(builder);
 	}
 

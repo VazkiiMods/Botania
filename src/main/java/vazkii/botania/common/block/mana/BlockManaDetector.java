@@ -39,7 +39,7 @@ import java.util.List;
 
 public class BlockManaDetector extends BlockMod implements ILexiconable, IManaCollisionGhost {
 
-	public BlockManaDetector(Builder builder) {
+	public BlockManaDetector(Properties builder) {
 		super(builder);
 		setDefaultState(stateContainer.getBaseState().with(BotaniaStateProps.POWERED, false));
 	}

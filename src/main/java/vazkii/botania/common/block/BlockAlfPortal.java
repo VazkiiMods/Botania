@@ -41,7 +41,7 @@ import javax.annotation.Nonnull;
 
 public class BlockAlfPortal extends BlockMod implements IWandable, ILexiconable {
 
-	public BlockAlfPortal(Builder builder) {
+	public BlockAlfPortal(Properties builder) {
 		super(builder);
 		setDefaultState(stateContainer.getBaseState().with(BotaniaStateProps.ALFPORTAL_STATE, AlfPortalState.OFF));
 	}

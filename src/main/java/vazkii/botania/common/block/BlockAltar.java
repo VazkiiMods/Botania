@@ -76,7 +76,7 @@ public class BlockAltar extends BlockMod implements ILexiconable {
 
 	public final Variant variant;
 
-	protected BlockAltar(Variant v, Block.Builder builder) {
+	protected BlockAltar(Variant v, Block.Properties builder) {
 		super(builder);
 		this.variant = v;
 	}

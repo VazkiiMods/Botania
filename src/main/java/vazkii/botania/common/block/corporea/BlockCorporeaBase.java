@@ -23,7 +23,7 @@ import javax.annotation.Nonnull;
 
 public abstract class BlockCorporeaBase extends BlockMod {
 
-	public BlockCorporeaBase(Block.Builder builder) {
+	public BlockCorporeaBase(Block.Properties builder) {
 		super(builder);
 	}
 
