@@ -18,7 +18,9 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.item.crafting.ShapedRecipe;
 import net.minecraft.item.crafting.ShapedRecipes;
+import net.minecraft.item.crafting.ShapelessRecipe;
 import net.minecraft.item.crafting.ShapelessRecipes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
@@ -49,7 +51,7 @@ public class PageCraftingRecipe extends PageRecipe {
 	int ticksElapsed = 0;
 	int recipeAt = 0;
 
-	boolean oreDictRecipe, shapelessRecipe;
+	boolean shapelessRecipe;
 
 	public PageCraftingRecipe(String unlocalizedName, List<ResourceLocation> recipes) {
 		super(unlocalizedName);
@@ -77,17 +79,17 @@ public class PageCraftingRecipe extends PageRecipe {
 	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void renderRecipe(IGuiLexiconEntry gui, int mx, int my) {
-		oreDictRecipe = shapelessRecipe = false;
+		shapelessRecipe = false;
 
 		IRecipe recipe = ForgeRegistries.RECIPES.getValue(recipes.get(recipeAt));
 		renderCraftingRecipe(gui, recipe);
 
-		TextureManager render = Minecraft.getMinecraft().renderEngine;
+		TextureManager render = Minecraft.getInstance().textureManager;
 		render.bindTexture(craftingOverlay);
 
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		GlStateManager.color(1F, 1F, 1F, 1F);
+		GlStateManager.color4f(1F, 1F, 1F, 1F);
 		((GuiScreen) gui).drawTexturedModalRect(gui.getLeft(), gui.getTop(), 0, 0, gui.getWidth(), gui.getHeight());
 
 		int iconX = gui.getLeft() + 115;
@@ -106,15 +108,6 @@ public class PageCraftingRecipe extends PageRecipe {
 		}
 
 		render.bindTexture(craftingOverlay);
-		GlStateManager.enableBlend();
-
-		if(oreDictRecipe) {
-			((GuiScreen) gui).drawTexturedModalRect(iconX, iconY, 240, 16, 16, 16);
-
-			if(mx >= iconX && my >= iconY && mx < iconX + 16 && my < iconY + 16)
-				RenderHelper.renderTooltip(mx, my, Collections.singletonList(I18n.format("botaniamisc.oredict")));
-		}
-		GlStateManager.disableBlend();
 	}
 
 	@Override
@@ -137,27 +130,21 @@ public class PageCraftingRecipe extends PageRecipe {
 		if(recipe == null)
 			return;
 
-		if(recipe instanceof ShapedRecipes || recipe instanceof ShapedOreRecipe) {
-			oreDictRecipe = recipe instanceof ShapedOreRecipe;
+		if(recipe instanceof ShapedRecipe) {
 
-			int width = oreDictRecipe
-					? ReflectionHelper.getPrivateValue(ShapedOreRecipe.class, (ShapedOreRecipe) recipe, "width")
-							: ((ShapedRecipes) recipe).getWidth();
-					int height = oreDictRecipe
-							? ReflectionHelper.getPrivateValue(ShapedOreRecipe.class, (ShapedOreRecipe) recipe, "height")
-									: ((ShapedRecipes) recipe).getHeight();
+			int width = ((ShapedRecipe) recipe).getWidth();
+			int height = ((ShapedRecipe) recipe).getHeight();
 
-							for(int y = 0; y < height; y++)
-								for(int x = 0; x < width; x++) {
-									Ingredient input = recipe.getIngredients().get(y * width + x);
-									ItemStack[] stacks = input.getMatchingStacks();
-									if(stacks.length > 0) {
-										renderItemAtGridPos(gui, 1 + x, 1 + y, stacks[(ticksElapsed / 40) % stacks.length], true);
-									}
-								}
-		} else if(recipe instanceof ShapelessRecipes || recipe instanceof ShapelessOreRecipe) {
+			for(int y = 0; y < height; y++)
+				for(int x = 0; x < width; x++) {
+					Ingredient input = recipe.getIngredients().get(y * width + x);
+					ItemStack[] stacks = input.getMatchingStacks();
+					if(stacks.length > 0) {
+						renderItemAtGridPos(gui, 1 + x, 1 + y, stacks[(ticksElapsed / 40) % stacks.length], true);
+					}
+				}
+		} else if(recipe instanceof ShapelessRecipe) {
 			shapelessRecipe = true;
-			oreDictRecipe = recipe instanceof ShapelessOreRecipe;
 
 			drawGrid : {
 				for(int y = 0; y < 3; y++)

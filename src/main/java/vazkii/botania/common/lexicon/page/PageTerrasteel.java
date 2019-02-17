@@ -45,39 +45,39 @@ public class PageTerrasteel extends PageRecipe {
 		Block block2 = Blocks.LAPIS_BLOCK;
 		Block block3 = ModBlocks.terraPlate;
 
-		GlStateManager.translate(0F, 0F, -10F);
+		GlStateManager.translatef(0F, 0F, -10F);
 		renderItem(gui, gui.getLeft() + gui.getWidth() / 2 - 8, gui.getTop() + 103, new ItemStack(block1), false);
 
-		GlStateManager.translate(0F, 0F, 5F);
+		GlStateManager.translatef(0F, 0F, 5F);
 		renderItem(gui, gui.getLeft() + gui.getWidth() / 2 - 8 + 7, gui.getTop() + 106, new ItemStack(block2), false);
 		renderItem(gui, gui.getLeft() + gui.getWidth() / 2 - 8 - 6, gui.getTop() + 106, new ItemStack(block2), false);
 
-		GlStateManager.translate(0F, 0F, 5F);
+		GlStateManager.translatef(0F, 0F, 5F);
 		renderItem(gui, gui.getLeft() + gui.getWidth() / 2 - 8, gui.getTop() + 110, new ItemStack(block1), false);
 		renderItem(gui, gui.getLeft() + gui.getWidth() / 2 - 8 + 14, gui.getTop() + 110, new ItemStack(block1), false);
 		renderItem(gui, gui.getLeft() + gui.getWidth() / 2 - 8 - 13, gui.getTop() + 110, new ItemStack(block1), false);
 
-		GlStateManager.translate(0F, 0F, 5F);
+		GlStateManager.translatef(0F, 0F, 5F);
 		renderItem(gui, gui.getLeft() + gui.getWidth() / 2 - 8 - 6, gui.getTop() + 114, new ItemStack(block2), false);
 		renderItem(gui, gui.getLeft() + gui.getWidth() / 2 - 8 + 7, gui.getTop() + 114, new ItemStack(block2), false);
 
-		GlStateManager.translate(0F, 0F, 5F);
+		GlStateManager.translatef(0F, 0F, 5F);
 		renderItem(gui, gui.getLeft() + gui.getWidth() / 2 - 8 + 1, gui.getTop() + 117, new ItemStack(block1), false);
 
-		GlStateManager.translate(0F, 0F, 5F);
+		GlStateManager.translatef(0F, 0F, 5F);
 		renderItem(gui, gui.getLeft() + gui.getWidth() / 2 - 8, gui.getTop() + 102, new ItemStack(block3), false);
-		GlStateManager.translate(0F, 0F, -10F);
+		GlStateManager.translatef(0F, 0F, -10F);
 
 		renderItem(gui, gui.getLeft() + gui.getWidth() / 2 - 8, gui.getTop() + 30, new ItemStack(ModItems.terrasteel), false);
 		renderItem(gui, gui.getLeft() + gui.getWidth() / 2 - 8, gui.getTop() + 80, new ItemStack(ModItems.manaSteel), false);
 		renderItem(gui, gui.getLeft() + gui.getWidth() / 2 - 8 - 20, gui.getTop() + 86, new ItemStack(ModItems.manaPearl), false);
 		renderItem(gui, gui.getLeft() + gui.getWidth() / 2 - 8 + 19, gui.getTop() + 86, new ItemStack(ModItems.manaDiamond), false);
 
-		Minecraft.getMinecraft().renderEngine.bindTexture(terrasteelOverlay);
+		Minecraft.getInstance().textureManager.bindTexture(terrasteelOverlay);
 
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		GlStateManager.color(1F, 1F, 1F, 1F);
+		GlStateManager.color4f(1F, 1F, 1F, 1F);
 		((GuiScreen) gui).drawTexturedModalRect(gui.getLeft(), gui.getTop(), 0, 0, gui.getWidth(), gui.getHeight());
 		GlStateManager.disableBlend();
 	}

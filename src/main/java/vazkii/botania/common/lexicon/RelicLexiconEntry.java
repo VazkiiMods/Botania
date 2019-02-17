@@ -33,8 +33,8 @@ public class RelicLexiconEntry extends BasicLexiconEntry {
 	@Override
 	@OnlyIn(Dist.CLIENT)
 	public boolean isVisible() {
-		EntityPlayerSP player = Minecraft.getMinecraft().player;
-		if(advancement == null || player.capabilities.isCreativeMode) {
+		EntityPlayerSP player = Minecraft.getInstance().player;
+		if(advancement == null || player.abilities.isCreativeMode) {
 			return true;
 		} else {
 			Advancement adv = player.connection.getAdvancementManager().getAdvancementList().getAdvancement(advancement);

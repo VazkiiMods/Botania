@@ -14,11 +14,13 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.RenderItem;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.client.event.RenderTooltipEvent;
@@ -39,6 +41,7 @@ import java.awt.font.FontRenderContext;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -70,7 +73,7 @@ public class PageRecipe extends LexiconPage {
 		PageText.renderText(x, y, width, height, getUnlocalizedName());
 
 		if(!tooltipStack.isEmpty()) {
-			List<String> tooltipData = tooltipStack.getTooltip(Minecraft.getMinecraft().player, ITooltipFlag.TooltipFlags.NORMAL);
+			List<ITextComponent> tooltipData = tooltipStack.getTooltip(Minecraft.getInstance().player, ITooltipFlag.TooltipFlags.NORMAL);
 			List<String> parsedTooltip = new ArrayList<>();
 			boolean first = true;
 
@@ -82,17 +85,17 @@ public class PageRecipe extends LexiconPage {
 				first = false;
 			}
 
-			FontRenderer font = Minecraft.getMinecraft().fontRenderer;
+			FontRenderer font = Minecraft.getInstance().fontRenderer;
 			int tooltipHeight = tooltipData.size() * 10 + 2;
-			int tooltipWidth = parsedTooltip.stream().map(font::getStringWidth).max((a, b) -> a - b).orElse(0);
+			int tooltipWidth = parsedTooltip.stream().map(font::getStringWidth).max(Comparator.comparingInt(a -> a)).orElse(0);
 			int rmx = mx + 12;
 			int rmy = my - 12;
 			
 			vazkii.botania.client.core.helper.RenderHelper.renderTooltip(mx, my, parsedTooltip);
-			GlStateManager.disableDepth();
+			GlStateManager.disableDepthTest();
 			MinecraftForge.EVENT_BUS.post(new RenderTooltipEvent.PostBackground(tooltipStack, parsedTooltip, rmx, rmy, font, tooltipWidth, tooltipHeight));
 			MinecraftForge.EVENT_BUS.post(new RenderTooltipEvent.PostText(tooltipStack, parsedTooltip, rmx, rmy, font, tooltipWidth, tooltipHeight));
-			GlStateManager.enableDepth();
+			GlStateManager.enableDepthTest();
 			
 			int tooltipY = 8 + tooltipData.size() * 11;
 
@@ -119,40 +122,28 @@ public class PageRecipe extends LexiconPage {
 		if(stack.isEmpty())
 			return;
 
-		ItemStack workStack = stack.copy();
-
-		if(workStack.getItemDamage() == Short.MAX_VALUE || workStack.getItemDamage() == -1)
-			workStack.setItemDamage(0);
-
 		angle -= 90;
 		int radius = 32;
 		double xPos = gui.getLeft() + Math.cos(angle * Math.PI / 180D) * radius + gui.getWidth() / 2 - 8;
 		double yPos = gui.getTop() + Math.sin(angle * Math.PI / 180D) * radius + 53;
 
-		renderItem(gui, xPos, yPos, workStack, false);
+		renderItem(gui, xPos, yPos, stack, false);
 	}
 
 	@OnlyIn(Dist.CLIENT)
 	public void renderItemAtGridPos(IGuiLexiconEntry gui, int x, int y, ItemStack stack, boolean accountForContainer) {
 		if(stack.isEmpty())
 			return;
-		stack = stack.copy();
-
-		if(stack.getItemDamage() == Short.MAX_VALUE)
-			stack.setItemDamage(0);
 
 		int xPos = gui.getLeft() + x * 29 + 7 + (y == 0  && x == 3 ? 10 : 0);
 		int yPos = gui.getTop() + y * 29 + 24 - (y == 0 ? 7 : 0);
-		ItemStack stack1 = stack.copy();
-		if(stack1.getItemDamage() == -1)
-			stack1.setItemDamage(0);
 
-		renderItem(gui, xPos, yPos, stack1, accountForContainer);
+		renderItem(gui, xPos, yPos, stack, accountForContainer);
 	}
 
 	@OnlyIn(Dist.CLIENT)
 	public void renderItem(IGuiLexiconEntry gui, double xPos, double yPos, ItemStack stack, boolean accountForContainer) {
-		RenderItem render = Minecraft.getMinecraft().getRenderItem();
+		ItemRenderer render = Minecraft.getInstance().getItemRenderer();
 		boolean mouseDown = Mouse.isButtonDown(0);
 
 		GlStateManager.pushMatrix();
@@ -160,11 +151,11 @@ public class PageRecipe extends LexiconPage {
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		RenderHelper.enableGUIStandardItemLighting();
 		GlStateManager.enableRescaleNormal();
-		GlStateManager.enableDepth();
+		GlStateManager.enableDepthTest();
 		GlStateManager.pushMatrix();
-		GlStateManager.translate(xPos, yPos, 0);
+		GlStateManager.translated(xPos, yPos, 0);
 		render.renderItemAndEffectIntoGUI(stack, 0, 0);
-		render.renderItemOverlays(Minecraft.getMinecraft().fontRenderer, stack, 0, 0);
+		render.renderItemOverlays(Minecraft.getInstance().fontRenderer, stack, 0, 0);
 		GlStateManager.popMatrix();
 		RenderHelper.disableStandardItemLighting();
 		GlStateManager.popMatrix();
@@ -175,7 +166,7 @@ public class PageRecipe extends LexiconPage {
 			tooltipStack = stack;
 
 			EntryData data = LexiconRecipeMappings.getDataForStack(tooltipStack);
-			ItemStack book = PlayerHelper.getFirstHeldItemClass(Minecraft.getMinecraft().player, ILexicon.class);
+			ItemStack book = PlayerHelper.getFirstHeldItemClass(Minecraft.getInstance().player, ILexicon.class);
 
 			if(data != null && (data.entry != gui.getEntry() || data.page != gui.getPageOn()) && book != null && ((ILexicon) book.getItem()).isKnowledgeUnlocked(book, data.entry.getKnowledgeType())) {
 				tooltipEntry = true;
@@ -183,7 +174,7 @@ public class PageRecipe extends LexiconPage {
 				if(!mouseDownLastTick && mouseDown && GuiScreen.isShiftKeyDown()) {
 					GuiLexiconEntry newGui = new GuiLexiconEntry(data.entry, (GuiScreen) gui);
 					newGui.page = data.page;
-					Minecraft.getMinecraft().displayGuiScreen(newGui);
+					Minecraft.getInstance().displayGuiScreen(newGui);
 				}
 			} else tooltipEntry = false;
 

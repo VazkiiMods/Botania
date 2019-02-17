@@ -49,10 +49,7 @@ public class PageText extends LexiconPage {
 		y += 10;
 		width -= 4;
 
-		FontRenderer font = Minecraft.getMinecraft().fontRenderer;
-		boolean unicode = font.getUnicodeFlag();
-		if(useUnicode)
-			font.setUnicodeFlag(true);
+		FontRenderer font = Minecraft.getInstance().fontRenderer;
 		String text = I18n.format(unlocalizedText).replaceAll("&", "\u00a7");
 		String[] textEntries = text.split("<br>");
 
@@ -114,8 +111,6 @@ public class PageText extends LexiconPage {
 			y += words.isEmpty() ? paragraphSize : 10;
 			i++;
 		}
-
-		font.setUnicodeFlag(unicode);
 	}
 
 	private static String getControlCodes(String s) {

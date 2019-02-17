@@ -72,8 +72,8 @@ public class PageManaInfusionRecipe extends PageRecipe {
 	@OnlyIn(Dist.CLIENT)
 	public void renderRecipe(IGuiLexiconEntry gui, int mx, int my) {
 		RecipeManaInfusion recipe = recipes.get(recipeAt);
-		TextureManager render = Minecraft.getMinecraft().renderEngine;
-		FontRenderer font = Minecraft.getMinecraft().fontRenderer;
+		TextureManager render = Minecraft.getInstance().textureManager;
+		FontRenderer font = Minecraft.getInstance().fontRenderer;
 
 		Object input = recipe.getInput();
 		if(input instanceof String)
@@ -87,8 +87,8 @@ public class PageManaInfusionRecipe extends PageRecipe {
 
 		if(recipe.getCatalyst() != null) {
 			Block block = recipe.getCatalyst().getBlock();
-			if (Item.getItemFromBlock(block) != Items.AIR) {
-				renderItemAtGridPos(gui, 1, 2, new ItemStack(block, 1, block.getMetaFromState(recipe.getCatalyst())), false);
+			if (block.asItem() != Items.AIR) {
+				renderItemAtGridPos(gui, 1, 2, new ItemStack(block), false);
 			}
 		}
 
@@ -111,8 +111,6 @@ public class PageManaInfusionRecipe extends PageRecipe {
 
 		boolean hoveringOverDrop = false;
 
-		boolean unicode = font.getUnicodeFlag();
-		font.setUnicodeFlag(true);
 		int dw = font.getStringWidth(dropString);
 		int dx = x + 35 - dw / 2;
 		int dy = gui.getTop() + 30;
@@ -122,7 +120,6 @@ public class PageManaInfusionRecipe extends PageRecipe {
 
 		font.drawString(dropString, dx, dy, 0x77000000);
 		font.drawString(ratioString, x + 50 - font.getStringWidth(ratioString) / 2, y + 5, 0x99000000);
-		font.setUnicodeFlag(unicode);
 
 		GlStateManager.disableBlend();
 
@@ -130,7 +127,7 @@ public class PageManaInfusionRecipe extends PageRecipe {
 
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		GlStateManager.color(1F, 1F, 1F, 1F);
+		GlStateManager.color4f(1F, 1F, 1F, 1F);
 		((GuiScreen) gui).drawTexturedModalRect(gui.getLeft(), gui.getTop(), 0, 0, gui.getWidth(), gui.getHeight());
 		GlStateManager.disableBlend();
 

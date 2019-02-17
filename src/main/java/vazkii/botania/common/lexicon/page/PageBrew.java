@@ -50,7 +50,7 @@ public class PageBrew extends PageRecipe implements ITwoNamedPage {
 		int y = gui.getTop() + 12;
 
 		Brew brew = recipe.getBrew();
-		FontRenderer renderer = Minecraft.getMinecraft().fontRenderer;
+		FontRenderer renderer = Minecraft.getInstance().fontRenderer;
 		boolean unicode = renderer.getUnicodeFlag();
 		renderer.setUnicodeFlag(true);
 		String s = TextFormatting.BOLD + I18n.format("botaniamisc.brewOf", I18n.format(brew.getUnlocalizedName()));
@@ -58,7 +58,7 @@ public class PageBrew extends PageRecipe implements ITwoNamedPage {
 		renderer.setUnicodeFlag(unicode);
 		PageText.renderText(x, y + 22, width, height, text);
 
-		ItemStack book = PlayerHelper.getFirstHeldItemClass(Minecraft.getMinecraft().player, ILexicon.class);
+		ItemStack book = PlayerHelper.getFirstHeldItemClass(Minecraft.getInstance().player, ILexicon.class);
 		if(book != null && ((ILexicon) book.getItem()).isKnowledgeUnlocked(book, BotaniaAPI.elvenKnowledge)) {
 			renderItemAtLinePos(gui, 20, 2, y + 12, recipe.getOutput(new ItemStack(ModItems.vial)));
 			renderItemAtLinePos(gui, 20, 3, y + 12, recipe.getOutput(new ItemStack(ModItems.flask)));
@@ -84,18 +84,10 @@ public class PageBrew extends PageRecipe implements ITwoNamedPage {
 	public void renderItemAtLinePos(IGuiLexiconEntry gui, int offset, int pos, int yPos, ItemStack stack) {
 		if(stack.isEmpty())
 			return;
-		stack = stack.copy();
-
-		if(stack.getItemDamage() == Short.MAX_VALUE)
-			stack.setItemDamage(0);
 
 		int xPos = gui.getLeft() + (pos == -1 ? gui.getWidth() / 2 - 8 : pos * 18) + offset;
 
-		ItemStack stack1 = stack.copy();
-		if(stack1.getItemDamage() == -1)
-			stack1.setItemDamage(0);
-
-		renderItem(gui, xPos, yPos, stack1, false);
+		renderItem(gui, xPos, yPos, stack, false);
 	}
 
 	@Override

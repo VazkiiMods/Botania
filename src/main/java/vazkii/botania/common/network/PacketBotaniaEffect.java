@@ -112,7 +112,7 @@ public class PacketBotaniaEffect {
 							double d1 = item.world.rand.nextGaussian() * m;
 							double d2 = item.world.rand.nextGaussian() * m;
 							double d3 = 10.0D;
-							item.world.spawnParticle(Particles.POOF,
+							item.world.addParticle(Particles.POOF,
 									message.x + item.world.rand.nextFloat() * item.width * 2.0F - item.width - d0 * d3, message.y + item.world.rand.nextFloat() * item.height - d1 * d3,
 									message.z + item.world.rand.nextFloat() * item.width * 2.0F - item.width - d2 * d3, d0, d1, d2);
 						}

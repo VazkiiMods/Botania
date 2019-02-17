@@ -27,9 +27,9 @@ public class PageElvenRecipe extends PageRecipe {
 
 	private static final ResourceLocation elvenTradeOverlay = new ResourceLocation(LibResources.GUI_ELVEN_TRADE_OVERLAY);
 
-	final List<RecipeElvenTrade> recipes;
-	int ticksElapsed = 0;
-	int recipeAt = 0;
+	private final List<RecipeElvenTrade> recipes;
+	private int ticksElapsed = 0;
+	private int recipeAt = 0;
 
 	public PageElvenRecipe(String unlocalizedName, List<RecipeElvenTrade> recipes) {
 		super(unlocalizedName);
@@ -51,11 +51,11 @@ public class PageElvenRecipe extends PageRecipe {
 	@OnlyIn(Dist.CLIENT)
 	public void renderRecipe(IGuiLexiconEntry gui, int mx, int my) {
 		RecipeElvenTrade recipe = recipes.get(recipeAt);
-		TextureManager render = Minecraft.getMinecraft().renderEngine;
+		TextureManager render = Minecraft.getInstance().textureManager;
 		render.bindTexture(elvenTradeOverlay);
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		GlStateManager.color(1F, 1F, 1F, 1F);
+		GlStateManager.color4f(1F, 1F, 1F, 1F);
 		((GuiScreen) gui).drawTexturedModalRect(gui.getLeft(), gui.getTop(), 0, 0, gui.getWidth(), gui.getHeight());
 		GlStateManager.disableBlend();
 
@@ -76,7 +76,7 @@ public class PageElvenRecipe extends PageRecipe {
 		}
 
 		TextureAtlasSprite portalIcon = MiscellaneousIcons.INSTANCE.alfPortalTex;
-		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+		Minecraft.getInstance().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 		((GuiScreen) gui).drawTexturedModalRect(gui.getLeft() + 22, gui.getTop() + 36, portalIcon, 48, 48);
 	}
 
@@ -84,38 +84,22 @@ public class PageElvenRecipe extends PageRecipe {
 	public void renderItemAtInputPos(IGuiLexiconEntry gui, int x, ItemStack stack) {
 		if(stack.isEmpty())
 			return;
-		stack = stack.copy();
-
-		if(stack.getItemDamage() == Short.MAX_VALUE)
-			stack.setItemDamage(0);
 
 		int xPos = gui.getLeft() + x * 20 + 45;
 		int yPos = gui.getTop() + 14;
-		ItemStack stack1 = stack.copy();
-		if(stack1.getItemDamage() == -1)
-			stack1.setItemDamage(0);
 
-		renderItem(gui, xPos, yPos, stack1, false);
+		renderItem(gui, xPos, yPos, stack, false);
 	}
 
 	@OnlyIn(Dist.CLIENT)
 	public void renderItemAtOutputPos(IGuiLexiconEntry gui, int x, int y, ItemStack stack) {
 		if(stack.isEmpty())
 			return;
-		stack = stack.copy();
-
-		if(stack.getItemDamage() == Short.MAX_VALUE)
-			stack.setItemDamage(0);
 
 		int xPos = gui.getLeft() + x * 20 + 94;
 		int yPos = gui.getTop() + y * 20 + 52;
 
-		ItemStack stack1 = stack.copy();
-		if (stack1.getItemDamage() == -1) {
-			stack1.setItemDamage(0);
-		}
-
-		renderItem(gui, xPos, yPos, stack1, false);
+		renderItem(gui, xPos, yPos, stack, false);
 	}
 
 

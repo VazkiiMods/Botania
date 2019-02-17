@@ -24,10 +24,12 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
+import net.minecraft.world.dimension.DimensionType;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.server.ServerLifecycleHooks;
 import net.minecraftforge.items.ItemHandlerHelper;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
@@ -52,20 +54,21 @@ public final class SkyblockWorldEvents {
 		if(event.getEntityLiving() instanceof EntityPlayer && !event.getEntityLiving().world.isRemote) {
 			EntityPlayer player = (EntityPlayer) event.getEntityLiving();
 			NBTTagCompound data = player.getEntityData();
-			if(!data.hasKey(EntityPlayer.PERSISTED_NBT_TAG))
-				data.setTag(EntityPlayer.PERSISTED_NBT_TAG, new NBTTagCompound());
+			if(!data.contains(EntityPlayer.PERSISTED_NBT_TAG))
+				data.put(EntityPlayer.PERSISTED_NBT_TAG, new NBTTagCompound());
 
-			NBTTagCompound persist = data.getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
+			NBTTagCompound persist = data.getCompound(EntityPlayer.PERSISTED_NBT_TAG);
 			if(player.ticksExisted > 3 && !persist.getBoolean(TAG_MADE_ISLAND)) {
+				World overworld = ServerLifecycleHooks.getCurrentServer().getWorld(DimensionType.OVERWORLD);
 				World world = player.world;
 				if(WorldTypeSkyblock.isWorldSkyblock(world)) {
 					BlockPos coords = world.getSpawnPoint();
-					if(world.getBlockState(coords.down(4)).getBlock() != Blocks.BEDROCK && world.provider.getDimension() == 0)
+					if(world.getBlockState(coords.down(4)).getBlock() != Blocks.BEDROCK && world == overworld)
 						spawnPlayer(player, coords, false);
 				}
 
 
-				persist.setBoolean(TAG_MADE_ISLAND, true);
+				persist.putBoolean(TAG_MADE_ISLAND, true);
 			}
 		}
 	}
@@ -131,9 +134,9 @@ public final class SkyblockWorldEvents {
 
 	public static void spawnPlayer(EntityPlayer player, BlockPos pos, boolean fabricated) {
 		NBTTagCompound data = player.getEntityData();
-		if(!data.hasKey(EntityPlayer.PERSISTED_NBT_TAG))
-			data.setTag(EntityPlayer.PERSISTED_NBT_TAG, new NBTTagCompound());
-		NBTTagCompound persist = data.getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
+		if(!data.contains(EntityPlayer.PERSISTED_NBT_TAG))
+			data.put(EntityPlayer.PERSISTED_NBT_TAG, new NBTTagCompound());
+		NBTTagCompound persist = data.getCompound(EntityPlayer.PERSISTED_NBT_TAG);
 
 		final boolean test = false;
 
@@ -148,10 +151,10 @@ public final class SkyblockWorldEvents {
 			}
 
 			if(fabricated) {
-				persist.setBoolean(TAG_HAS_OWN_ISLAND, true);
-				persist.setDouble(TAG_ISLAND_X, player.posX);
-				persist.setDouble(TAG_ISLAND_Y, player.posY);
-				persist.setDouble(TAG_ISLAND_Z, player.posZ);
+				persist.putBoolean(TAG_HAS_OWN_ISLAND, true);
+				persist.putDouble(TAG_ISLAND_X, player.posX);
+				persist.putDouble(TAG_ISLAND_Y, player.posY);
+				persist.putDouble(TAG_ISLAND_Z, player.posZ);
 			}
 		} else {
 			double posX = persist.getDouble(TAG_ISLAND_X);

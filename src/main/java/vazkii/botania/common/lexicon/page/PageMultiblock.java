@@ -40,10 +40,10 @@ public class PageMultiblock extends LexiconPage {
 
 	private static final ResourceLocation multiblockOverlay = new ResourceLocation(LibResources.GUI_MULTIBLOCK_OVERLAY);
 
-	GuiButton button;
-	final MultiblockSet set;
-	final Multiblock mb;
-	int ticksElapsed;
+	private GuiButton button;
+	private final MultiblockSet set;
+	private final Multiblock mb;
+	private int ticksElapsed;
 
 	public PageMultiblock(String unlocalizedName, MultiblockSet set) {
 		super(unlocalizedName);
@@ -54,52 +54,49 @@ public class PageMultiblock extends LexiconPage {
 	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void renderScreen(IGuiLexiconEntry gui, int mx, int my) {
-		TextureManager render = Minecraft.getMinecraft().renderEngine;
+		TextureManager render = Minecraft.getInstance().textureManager;
 		render.bindTexture(multiblockOverlay);
 
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		GlStateManager.disableAlpha();
-		GlStateManager.color(1F, 1F, 1F, 1F);
+		GlStateManager.disableAlphaTest();
+		GlStateManager.color4f(1F, 1F, 1F, 1F);
 		((GuiScreen) gui).drawTexturedModalRect(gui.getLeft(), gui.getTop(), 0, 0, gui.getWidth(), gui.getHeight());
 		GlStateManager.disableBlend();
-		GlStateManager.enableAlpha();
+		GlStateManager.enableAlphaTest();
 
 		final float maxX = 90, maxY = 60;
 		GlStateManager.pushMatrix();
-		GlStateManager.translate(gui.getLeft() + gui.getWidth() / 2, gui.getTop() + 90, gui.getZLevel() + 100F);
+		GlStateManager.translatef(gui.getLeft() + gui.getWidth() / 2, gui.getTop() + 90, gui.getZLevel() + 100F);
 
 		float diag = (float) Math.sqrt(mb.getXSize() * mb.getXSize() + mb.getZSize() * mb.getZSize());
 		float height = mb.getYSize();
 		float scaleX = maxX / diag;
 		float scaleY = maxY / height;
 		float scale = -Math.min(scaleY, scaleX);
-		GlStateManager.scale(scale, scale, scale);
+		GlStateManager.scalef(scale, scale, scale);
 
-		GlStateManager.rotate(-20F, 1, 0, 0);
-		GlStateManager.rotate(gui.getElapsedTicks(), 0, 1, 0);
+		GlStateManager.rotatef(-20F, 1, 0, 0);
+		GlStateManager.rotatef(gui.getElapsedTicks(), 0, 1, 0);
 
 		MultiblockRenderHandler.renderMultiblockOnPage(mb);
 
 		GlStateManager.popMatrix();
 
-		FontRenderer font = Minecraft.getMinecraft().fontRenderer;
-		boolean unicode = font.getUnicodeFlag();
+		FontRenderer font = Minecraft.getInstance().fontRenderer;
 		String s = TextFormatting.BOLD + I18n.format(getUnlocalizedName());
-		font.setUnicodeFlag(true);
 		font.drawString(s, gui.getLeft() + gui.getWidth() / 2 - font.getStringWidth(s) / 2, gui.getTop() + 16, 0x000000);
-		font.setUnicodeFlag(unicode);
 
 		GlStateManager.enableRescaleNormal();
 		RenderHelper.enableGUIStandardItemLighting();
 		int x = gui.getLeft() + 15;
 		int y = gui.getTop() + 25;
-		Minecraft.getMinecraft().getRenderItem().renderItemIntoGUI(new ItemStack(Blocks.STONEBRICK), x, y);
+		Minecraft.getInstance().getItemRenderer().renderItemIntoGUI(new ItemStack(Blocks.STONE_BRICKS), x, y);
 		RenderHelper.disableStandardItemLighting();
 		GlStateManager.disableRescaleNormal();
 
 		GlStateManager.pushMatrix();
-		GlStateManager.translate(0F, 0F, 200F);
+		GlStateManager.translatef(0F, 0F, 200F);
 		if(mx >= x && mx < x + 16 && my >= y && my < y + 16) {
 			List<String> mats = new ArrayList<>();
 			mats.add(I18n.format("botaniamisc.materialsRequired"));

@@ -13,15 +13,18 @@ package vazkii.botania.common.lexicon.page;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.RenderItem;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityList;
+import net.minecraft.entity.EntityType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -41,14 +44,14 @@ public class PageShedding extends PageEntity {
 
 	private static final ResourceLocation sheddingOverlay = new ResourceLocation(LibResources.GUI_SHEDDING_OVERLAY);
 
-	final ItemStack shedStack;
-	ItemStack tooltipStack;
-	boolean tooltipEntry;
+	private final ItemStack shedStack;
+	private ItemStack tooltipStack;
+	private boolean tooltipEntry;
 
-	static boolean mouseDownLastTick = false;
+	private static boolean mouseDownLastTick = false;
 
-	public PageShedding(String unlocalizedName, String entity, int size, ItemStack shedStack) {
-		super(unlocalizedName, entity, size);
+	public PageShedding(String unlocalizedName, EntityType<?> type, int size, ItemStack shedStack) {
+		super(unlocalizedName, type, size);
 		this.shedStack = shedStack;
 	}
 
@@ -68,16 +71,16 @@ public class PageShedding extends PageEntity {
 
 		renderItem(gui, stack_x, stack_y, shedStack);
 
-		TextureManager render = Minecraft.getMinecraft().renderEngine;
+		TextureManager render = Minecraft.getInstance().textureManager;
 		render.bindTexture(sheddingOverlay);
 
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		GlStateManager.color(1F, 1F, 1F, 1F);
+		GlStateManager.color4f(1F, 1F, 1F, 1F);
 		((GuiScreen) gui).drawTexturedModalRect(gui.getLeft(), gui.getTop(), 0, 0, gui.getWidth(), gui.getHeight());
 
 		if(!tooltipStack.isEmpty()) {
-			List<String> tooltipData = tooltipStack.getTooltip(Minecraft.getMinecraft().player, ITooltipFlag.TooltipFlags.NORMAL);
+			List<ITextComponent> tooltipData = tooltipStack.getTooltip(Minecraft.getInstance().player, ITooltipFlag.TooltipFlags.NORMAL);
 			List<String> parsedTooltip = new ArrayList<>();
 			boolean first = true;
 
@@ -111,7 +114,7 @@ public class PageShedding extends PageEntity {
 
 	@OnlyIn(Dist.CLIENT)
 	public void renderItem(IGuiLexiconEntry gui, int xPos, int yPos, ItemStack stack) {
-		RenderItem render = Minecraft.getMinecraft().getRenderItem();
+		ItemRenderer render = Minecraft.getInstance().getItemRenderer();
 		boolean mouseDown = Mouse.isButtonDown(0);
 
 		GlStateManager.pushMatrix();
@@ -119,9 +122,9 @@ public class PageShedding extends PageEntity {
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		RenderHelper.enableGUIStandardItemLighting();
 		GlStateManager.enableRescaleNormal();
-		GlStateManager.enableDepth();
+		GlStateManager.enableDepthTest();
 		render.renderItemAndEffectIntoGUI(stack, xPos, yPos);
-		render.renderItemOverlays(Minecraft.getMinecraft().fontRenderer, stack, xPos, yPos);
+		render.renderItemOverlays(Minecraft.getInstance().fontRenderer, stack, xPos, yPos);
 		RenderHelper.disableStandardItemLighting();
 		GlStateManager.popMatrix();
 
@@ -135,7 +138,7 @@ public class PageShedding extends PageEntity {
 				if(!mouseDownLastTick && mouseDown && GuiScreen.isShiftKeyDown()) {
 					GuiLexiconEntry newGui = new GuiLexiconEntry(data.entry, (GuiScreen) gui);
 					newGui.page = data.page;
-					Minecraft.getMinecraft().displayGuiScreen(newGui);
+					Minecraft.getInstance().displayGuiScreen(newGui);
 				}
 			}
 		}

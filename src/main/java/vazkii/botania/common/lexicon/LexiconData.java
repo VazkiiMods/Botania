@@ -337,7 +337,7 @@ public final class LexiconData {
 				new PageText("12"), new PageCraftingRecipe("11", ModCraftingRecipes.recipesPetalsDouble),
 				new PageCraftingRecipe("9", ModCraftingRecipes.recipesPetalBlocks),
 				new PageCraftingRecipe("13", ModCraftingRecipes.recipesReversePetalBlocks))
-		.setIcon(new ItemStack(ModBlocks.flower, 1, 6));
+		.setIcon(new ItemStack(ModBlocks.pinkFlower));
 
 		apothecary = new BasicLexiconEntry(LibLexicon.BASICS_APOTHECARY, categoryBasics);
 		apothecary.setPriority().setLexiconPages(new PageText("0"), new PageImage("1", LibResources.ENTRY_APOTHECARY),
@@ -543,7 +543,7 @@ public final class LexiconData {
 
 		flowerSpeed = new BasicLexiconEntry(LibLexicon.FFLOWER_SPEED, categoryFunctionalFlowers);
 		flowerSpeed.setPriority().setLexiconPages(new PageText("0"), new PageText("1"));
-		flowerSpeed.setIcon(new ItemStack(Blocks.DIRT, 1, 2));
+		flowerSpeed.setIcon(new ItemStack(Blocks.PODZOL));
 
 		jadedAmaranthus = new BasicLexiconEntry(LibLexicon.FFLOWER_JADED_AMARANTHUS, categoryFunctionalFlowers);
 		jadedAmaranthus.setLexiconPages(new PageText("0"),

@@ -41,9 +41,9 @@ public class PagePetalRecipe<T extends RecipePetals> extends PageRecipe {
 
 	private static final ResourceLocation petalOverlay = new ResourceLocation(LibResources.GUI_PETAL_OVERLAY);
 
-	final List<T> recipes;
-	int ticksElapsed = 0;
-	int recipeAt = 0;
+	private final List<T> recipes;
+	private int ticksElapsed = 0;
+	private int recipeAt = 0;
 
 	public PagePetalRecipe(String unlocalizedName, List<T> recipes) {
 		super(unlocalizedName);
@@ -64,7 +64,7 @@ public class PagePetalRecipe<T extends RecipePetals> extends PageRecipe {
 	@OnlyIn(Dist.CLIENT)
 	public void renderRecipe(IGuiLexiconEntry gui, int mx, int my) {
 		T recipe = recipes.get(recipeAt);
-		TextureManager render = Minecraft.getMinecraft().renderEngine;
+		TextureManager render = Minecraft.getInstance().textureManager;
 
 		renderItemAtGridPos(gui, 3, 0, recipe.getOutput(), false);
 		renderItemAtGridPos(gui, 2, 1, getMiddleStack(), false);
@@ -93,7 +93,7 @@ public class PagePetalRecipe<T extends RecipePetals> extends PageRecipe {
 
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		GlStateManager.color(1F, 1F, 1F, 1F);
+		GlStateManager.color4f(1F, 1F, 1F, 1F);
 		((GuiScreen) gui).drawTexturedModalRect(gui.getLeft(), gui.getTop(), 0, 0, gui.getWidth(), gui.getHeight());
 		GlStateManager.disableBlend();
 	}
@@ -104,18 +104,15 @@ public class PagePetalRecipe<T extends RecipePetals> extends PageRecipe {
 
 	@OnlyIn(Dist.CLIENT)
 	public void renderManaBar(IGuiLexiconEntry gui, T recipe, int mx, int my) {
-		FontRenderer font = Minecraft.getMinecraft().fontRenderer;
+		FontRenderer font = Minecraft.getInstance().fontRenderer;
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
 		int x = gui.getLeft() + gui.getWidth() / 2 - 50;
 		int y = gui.getTop() + 120;
 
-		boolean unicode = font.getUnicodeFlag();
-		font.setUnicodeFlag(true);
 		String stopStr = I18n.format("botaniamisc.shiftToStopSpin");
 		font.drawString(stopStr, x + 50 - font.getStringWidth(stopStr) / 2, y + 15, 0x99000000);
-		font.setUnicodeFlag(unicode);
 
 		GlStateManager.disableBlend();
 	}

@@ -29,7 +29,7 @@ public class WorldTypeSkyblock extends WorldType {
 	}
 
 	public static boolean isWorldSkyblock(World world) {
-		return world.getWorldInfo().getTerrainType() instanceof WorldTypeSkyblock;
+		return world.getWorldInfo().getGenerator() instanceof WorldTypeSkyblock;
 	}
 
 	@OnlyIn(Dist.CLIENT)
