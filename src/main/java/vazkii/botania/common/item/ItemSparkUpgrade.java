@@ -20,7 +20,7 @@ import java.util.Locale;
 public class ItemSparkUpgrade extends ItemMod {
 	public final SparkUpgradeType type;
 
-	public ItemSparkUpgrade(Item.Builder builder, SparkUpgradeType type) {
+	public ItemSparkUpgrade(Properties builder, SparkUpgradeType type) {
 		super(builder);
 		this.type = type;
 	}

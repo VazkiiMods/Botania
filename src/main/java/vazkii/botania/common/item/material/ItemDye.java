@@ -38,8 +38,8 @@ import javax.annotation.Nonnull;
 
 public class ItemDye extends Item16Colors {
 
-	public ItemDye(EnumDyeColor color) {
-		super(LibItemNames.DYE, color);
+	public ItemDye(EnumDyeColor color, Properties props) {
+		super(color, props);
 	}
 
 	@Nonnull
@@ -81,12 +81,6 @@ public class ItemDye extends Item16Colors {
 			return true;
 		}
 		return false;
-	}
-
-	@OnlyIn(Dist.CLIENT)
-	@Override
-	public void registerModels() {
-		ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(LibMisc.MOD_ID + ":" + LibItemNames.DYE, "inventory"));
 	}
 
 }

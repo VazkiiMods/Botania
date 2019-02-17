@@ -29,6 +29,7 @@ sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = co
 
 minecraft {
     mappings channel: 'snapshot', version: '20190214-1.13.1'
+    accessTransformer = file('src/main/resources/META-INF/botania_at.cfg')
     runs {
         client = {
             properties 'forge.logging.markers': 'SCAN,REGISTRIES,REGISTRYDUMP'

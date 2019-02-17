@@ -15,8 +15,8 @@ import net.minecraft.item.EnumDyeColor;
 public class Item16Colors extends ItemMod {
 	public final EnumDyeColor color;
 
-	public Item16Colors(String name, EnumDyeColor color) {
-		super(name + "_" + color.getName());
+	public Item16Colors(EnumDyeColor color, Properties props) {
+		super(props);
 		this.color = color;
 	}
 }

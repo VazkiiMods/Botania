@@ -25,7 +25,7 @@ import javax.annotation.Nonnull;
 
 public class ItemWaterBowl extends ItemMod  {
 
-	public ItemWaterBowl(Item.Builder builder) {
+	public ItemWaterBowl(Properties builder) {
 		super(builder);
 	}
 

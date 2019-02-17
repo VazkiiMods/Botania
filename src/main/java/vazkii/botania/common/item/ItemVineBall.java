@@ -26,7 +26,7 @@ import javax.annotation.Nonnull;
 
 public class ItemVineBall extends ItemMod {
 
-	public ItemVineBall(Item.Builder builder) {
+	public ItemVineBall(Properties builder) {
 		super(builder);
 	}
 

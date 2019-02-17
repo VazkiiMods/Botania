@@ -24,7 +24,7 @@ public class ItemCrystalBow extends ItemLivingwoodBow {
 
 	private final int ARROW_COST = 200;
 
-	public ItemCrystalBow(Item.Builder builder) {
+	public ItemCrystalBow(Properties builder) {
 		super(builder);
 	}
 

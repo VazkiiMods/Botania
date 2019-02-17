@@ -27,7 +27,7 @@ public interface IBlockProvider {
 	 * If you need to use calls to ManaItemHandler.requestMana[Exact], use
 	 * the requestor as the ItemStack passed in.
 	 */
-	public boolean provideBlock(EntityPlayer player, ItemStack requestor, ItemStack stack, Block block, int meta, boolean doit);
+	public boolean provideBlock(EntityPlayer player, ItemStack requestor, ItemStack stack, Block block, boolean doit);
 
 	/**
 	 * Gets the amount of blocks of the type passed stored in this item. You must
@@ -35,6 +35,6 @@ public interface IBlockProvider {
 	 * -1 states that the item can provide infinite of the item passed in (for example,
 	 * the Rod of the Lands would return -1 if the block is dirt).
 	 */
-	public int getBlockCount(EntityPlayer player, ItemStack requestor, ItemStack stack, Block block, int meta);
+	public int getBlockCount(EntityPlayer player, ItemStack requestor, ItemStack stack, Block block);
 
 }

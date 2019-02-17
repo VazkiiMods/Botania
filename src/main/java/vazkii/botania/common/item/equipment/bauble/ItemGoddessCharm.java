@@ -14,7 +14,7 @@ import baubles.api.BaubleType;
 import baubles.api.BaublesApi;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
+import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -22,8 +22,8 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.Explosion;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.world.ExplosionEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.item.IBaubleRender;
@@ -39,8 +39,8 @@ public class ItemGoddessCharm extends ItemBauble implements IManaUsingItem, IBau
 
 	public static final int COST = 1000;
 	
-	public ItemGoddessCharm() {
-		super(LibItemNames.GODDESS_CHARM);
+	public ItemGoddessCharm(Properties props) {
+		super(props);
 	}
 
 	@SubscribeEvent
@@ -71,9 +71,9 @@ public class ItemGoddessCharm extends ItemBauble implements IManaUsingItem, IBau
 			Helper.translateToHeadLevel(player);
 			Helper.translateToFace();
 			Helper.defaultTransforms();
-			GlStateManager.rotate(-90F, 0F, 1F, 0F);
-			GlStateManager.translate(0.5F, 0.2F, 0.45F);
-			Minecraft.getMinecraft().getRenderItem().renderItem(stack, ItemCameraTransforms.TransformType.NONE);
+			GlStateManager.rotatef(-90F, 0F, 1F, 0F);
+			GlStateManager.translatef(0.5F, 0.2F, 0.45F);
+			Minecraft.getInstance().getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.NONE);
 			GlStateManager.popMatrix();
 		}
 	}

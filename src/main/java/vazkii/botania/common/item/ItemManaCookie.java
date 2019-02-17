@@ -28,27 +28,12 @@ import vazkii.botania.common.lib.LibMisc;
 import javax.annotation.Nonnull;
 import java.util.Locale;
 
-public class ItemManaCookie extends ItemFood implements IModelRegister {
+public class ItemManaCookie extends ItemFood {
 
-	public ItemManaCookie() {
-		super(0, 0.1F, false);
+	public ItemManaCookie(Properties props) {
+		super(0, 0.1F, false, props);
 		setPotionEffect(new PotionEffect(MobEffects.SATURATION, 20, 0), 1F);
-		setCreativeTab(BotaniaCreativeTab.INSTANCE);
-		setRegistryName(new ResourceLocation(LibMisc.MOD_ID, LibItemNames.MANA_COOKIE));
-		setTranslationKey(LibItemNames.MANA_COOKIE);
 		addPropertyOverride(new ResourceLocation(LibMisc.MOD_ID, "totalbiscuit"),
-				(stack, worldIn, entityIn) -> stack.getDisplayName().toLowerCase(Locale.ROOT).contains("totalbiscuit") ? 1F : 0F);
-	}
-
-	@Nonnull
-	@Override
-	public String getUnlocalizedNameInefficiently(@Nonnull ItemStack par1ItemStack) {
-		return super.getUnlocalizedNameInefficiently(par1ItemStack).replaceAll("item.", "item." + LibResources.PREFIX_MOD);
-	}
-
-	@OnlyIn(Dist.CLIENT)
-	@Override
-	public void registerModels() {
-		ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getRegistryName(), "inventory"));
+				(stack, worldIn, entityIn) -> stack.getDisplayName().getString().toLowerCase(Locale.ROOT).contains("totalbiscuit") ? 1F : 0F);
 	}
 }

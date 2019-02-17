@@ -13,13 +13,14 @@ package vazkii.botania.common.item;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCommandBlock;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResult;
@@ -71,7 +72,7 @@ public class ItemTwigWand extends ItemMod implements ICoordBoundItem {
 	private static final String TAG_BIND_MODE = "bindMode";
 	private static final BlockPos UNBOUND_POS = new BlockPos(0, -1, 0);
 
-	public ItemTwigWand(Item.Builder builder) {
+	public ItemTwigWand(Item.Properties builder) {
 		super(builder);
 		addPropertyOverride(new ResourceLocation("botania", "bindmode"), (stack, worldIn, entityIn) -> getBindMode(stack) ? 1 : 0);
 	}
@@ -218,7 +219,7 @@ public class ItemTwigWand extends ItemMod implements ICoordBoundItem {
 	public void inventoryTick(ItemStack par1ItemStack, World world, Entity par3Entity, int par4, boolean par5) {
 		BlockPos coords = getBoundTile(par1ItemStack);
 		TileEntity tile = world.getTileEntity(coords);
-		if(tile == null || !(tile instanceof IWandBindable))
+		if(!(tile instanceof IWandBindable))
 			setBoundTile(par1ItemStack, UNBOUND_POS);
 	}
 
@@ -236,8 +237,8 @@ public class ItemTwigWand extends ItemMod implements ICoordBoundItem {
 	}
 
 	@Override
-	public void getSubItems(@Nonnull CreativeTabs tab, @Nonnull NonNullList<ItemStack> stacks) {
-		if(isInCreativeTab(tab)) {
+	public void fillItemGroup(@Nonnull ItemGroup group, @Nonnull NonNullList<ItemStack> stacks) {
+		if(isInGroup(group)) {
 			for(int i = 0; i < 16; i++)
 				stacks.add(forColors(i, i));
 		}
@@ -305,9 +306,8 @@ public class ItemTwigWand extends ItemMod implements ICoordBoundItem {
 		RayTraceResult pos = Minecraft.getInstance().objectMouseOver;
 		if(pos != null && pos.type == RayTraceResult.Type.BLOCK) {
 			TileEntity tile = Minecraft.getInstance().world.getTileEntity(pos.getBlockPos());
-			if(tile != null && tile instanceof ITileBound) {
-				BlockPos coords = ((ITileBound) tile).getBinding();
-				return coords;
+			if(tile instanceof ITileBound) {
+				return ((ITileBound) tile).getBinding();
 			}
 		}
 

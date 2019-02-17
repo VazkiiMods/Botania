@@ -910,4 +910,18 @@ public final class ModBlocks {
 				BotaniaAPI.registerMiniSubTile(new ResourceLocation(key.getNamespace(), key.getPath() + "Chibi"), innerClazz, key);
 	}
 
+	// This is a method returning fresh arrays to account for registry replacements
+	private static Block[] getOrderedFlowers() {
+		return new Block[] {
+				whiteFlower, orangeFlower, magentaFlower, lightBlueFlower,
+				yellowFlower, limeFlower, pinkFlower, grayFlower,
+				lightGrayFlower, cyanFlower, purpleFlower, blueFlower,
+				brownFlower, greenFlower, redFlower, blackFlower
+		};
+	}
+
+	public static Block getFlower(EnumDyeColor color) {
+		return getOrderedFlowers()[color.getId()];
+	}
+
 }

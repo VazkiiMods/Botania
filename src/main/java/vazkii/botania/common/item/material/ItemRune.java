@@ -18,7 +18,7 @@ import vazkii.botania.common.item.ItemMod;
 
 public class ItemRune extends ItemMod implements IFlowerComponent {
 
-	public ItemRune(Item.Builder builder) {
+	public ItemRune(Item.Properties builder) {
 		super(builder);
 	}
 

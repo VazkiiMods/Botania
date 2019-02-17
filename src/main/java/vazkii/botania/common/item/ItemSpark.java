@@ -30,7 +30,7 @@ import javax.annotation.Nonnull;
 
 public class ItemSpark extends ItemMod implements IManaGivingItem {
 
-	public ItemSpark(Item.Builder builder) {
+	public ItemSpark(Properties builder) {
 		super(builder);
 	}
 

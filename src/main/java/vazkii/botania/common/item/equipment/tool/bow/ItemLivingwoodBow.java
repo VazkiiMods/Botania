@@ -52,7 +52,7 @@ public class ItemLivingwoodBow extends ItemBow implements IManaUsingItem {
 	private static final Predicate<ItemStack> AMMO_FUNC = s -> !s.isEmpty() && s.getItem() instanceof ItemArrow;
 	public static final int MANA_PER_DAMAGE = 40;
 
-	public ItemLivingwoodBow(Item.Builder builder) {
+	public ItemLivingwoodBow(Properties builder) {
 		super(builder);
 		addPropertyOverride(new ResourceLocation("minecraft:pull"), (stack, worldIn, entityIn) -> {
 			if (entityIn == null)

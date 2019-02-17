@@ -16,6 +16,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUseContext;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
@@ -42,32 +43,29 @@ public class ItemDirtRod extends ItemMod implements IManaUsingItem, IBlockProvid
 
 	static final int COST = 75;
 
-	public ItemDirtRod() {
-		this(LibItemNames.DIRT_ROD);
-	}
-
-	public ItemDirtRod(String name) {
-		super(name);
-		setMaxStackSize(1);
+	public ItemDirtRod(Properties props) {
+		super(props);
 	}
 
 	@Nonnull
 	@Override
-	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
-		return place(player, world, pos, hand, side, par8, par9, par10, Blocks.DIRT, COST, 0.35F, 0.2F, 0.05F);
+	public EnumActionResult onItemUse(ItemUseContext ctx) {
+		return place(ctx, Blocks.DIRT, COST, 0.35F, 0.2F, 0.05F);
 	}
 
-	public static EnumActionResult place(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ, Block block, int cost, float r, float g, float b) {
-		ItemStack stack = player.getHeldItem(hand);
+	public static EnumActionResult place(ItemUseContext ctx, Block block, int cost, float r, float g, float b) {
+		EntityPlayer player = ctx.getPlayer();
+		ItemStack stack = ctx.getItem();
+		World world = ctx.getWorld();
+		EnumFacing side = ctx.getFace();
+		BlockPos pos = ctx.getPos();
+
 		if(ManaItemHandler.requestManaExactForTool(stack, player, cost, false)) {
 			int entities = world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(pos.offset(side), pos.offset(side).add(1, 1, 1))).size();
 
 			if(entities == 0) {
 				ItemStack stackToPlace = new ItemStack(block);
-
-				player.setHeldItem(hand, stackToPlace);
-				stackToPlace.onItemUse(player, world, pos, hand, side, hitX, hitY, hitZ);
-				player.setHeldItem(hand, stack);
+				stackToPlace.onItemUse(new ItemUseContext(player, stackToPlace, pos, side, ctx.getHitX(), ctx.getHitY(), ctx.getHitZ()));
 
 				if(stackToPlace.isEmpty()) {
 					ManaItemHandler.requestManaExactForTool(stack, player, cost, true);

@@ -28,8 +28,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.items.IItemHandler;
@@ -56,9 +56,8 @@ public abstract class ItemBauble extends ItemMod implements IBauble, ICosmeticAt
 	private static final String TAG_COSMETIC_ITEM = "cosmeticItem";
 	private static final String TAG_PHANTOM_INK = "phantomInk";
 
-	public ItemBauble(String name) {
-		super(name);
-		setMaxStackSize(1);
+	public ItemBauble(Properties props) {
+		super(props);
 	}
 
 	// Apparently baubles doesn't unequip on death, which causes attribute modifiers to get weird/desync on respawn

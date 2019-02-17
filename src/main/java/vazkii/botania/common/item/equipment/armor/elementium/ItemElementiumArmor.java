@@ -1,10 +1,12 @@
 package vazkii.botania.common.item.equipment.armor.elementium;
 
-import net.minecraft.client.model.ModelBiped;
+import net.minecraft.client.renderer.entity.model.ModelBiped;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.BotaniaAPI;
@@ -20,8 +22,8 @@ import java.util.List;
 
 public abstract class ItemElementiumArmor extends ItemManasteelArmor implements IPixieSpawner {
 
-	public ItemElementiumArmor(EntityEquipmentSlot type, String name) {
-		super(type, name, BotaniaAPI.elementiumArmorMaterial);
+	public ItemElementiumArmor(EntityEquipmentSlot type, Properties props) {
+		super(type, BotaniaAPI.elementiumArmorMaterial, props);
 	}
 
 	@Override
@@ -77,15 +79,15 @@ public abstract class ItemElementiumArmor extends ItemManasteelArmor implements 
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public String getArmorSetName() {
-		return I18n.format("botania.armorset.elementium.name");
+	public ITextComponent getArmorSetName() {
+		return new TextComponentTranslation("botania.armorset.elementium.name");
 	}
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void addArmorSetDescription(ItemStack stack, List<String> list) {
+	public void addArmorSetDescription(ItemStack stack, List<ITextComponent> list) {
 		super.addArmorSetDescription(stack, list);
-		addStringToTooltip(I18n.format("botania.armorset.elementium.desc"), list);
+		list.add(new TextComponentTranslation("botania.armorset.elementium.desc"));
 	}
 
 }

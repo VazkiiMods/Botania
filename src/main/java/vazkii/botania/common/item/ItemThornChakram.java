@@ -25,7 +25,7 @@ import javax.annotation.Nonnull;
 
 public class ItemThornChakram extends ItemMod {
 
-	public ItemThornChakram(Item.Builder builder) {
+	public ItemThornChakram(Properties builder) {
 		super(builder);
 	}
 

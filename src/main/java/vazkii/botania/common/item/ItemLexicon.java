@@ -69,9 +69,8 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 	private static final String TAG_QUEUE_TICKS = "queueTicks";
 	private boolean skipSound = false;
 
-	public ItemLexicon() {
-		super(LibItemNames.LEXICON);
-		setMaxStackSize(1);
+	public ItemLexicon(Properties props) {
+		super(props);
 	}
 
 	@Nonnull

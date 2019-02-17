@@ -48,7 +48,7 @@ public class ItemBrewBase extends ItemMod implements IBrewItem {
 	private final int drinkSpeed;
 	private final ItemStack baseItem;
 
-	public ItemBrewBase(Item.Builder builder, int swigs, int drinkSpeed, ItemStack baseItem) {
+	public ItemBrewBase(Properties builder, int swigs, int drinkSpeed, ItemStack baseItem) {
 		super(builder);
 		this.swigs = swigs;
 		this.drinkSpeed = drinkSpeed;

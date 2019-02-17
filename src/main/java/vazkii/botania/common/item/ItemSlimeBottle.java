@@ -29,7 +29,7 @@ import javax.annotation.Nullable;
 public class ItemSlimeBottle extends ItemMod {
 	private static final String TAG_ACTIVE = "active";
 
-	public ItemSlimeBottle(Item.Builder builder) {
+	public ItemSlimeBottle(Properties builder) {
 		super(builder);
 		addPropertyOverride(new ResourceLocation(LibMisc.MOD_ID, "active"), (stack, worldIn, entityIn) -> stack.hasTag() && stack.getTag().getBoolean(TAG_ACTIVE) ? 1.0F : 0.0F);
 	}

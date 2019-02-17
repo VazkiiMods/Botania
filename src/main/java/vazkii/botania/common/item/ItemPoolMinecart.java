@@ -28,7 +28,7 @@ import javax.annotation.Nonnull;
 
 public class ItemPoolMinecart extends ItemMod {
 
-	public ItemPoolMinecart(Item.Builder builder) {
+	public ItemPoolMinecart(Properties builder) {
 		super(builder);
 	}
 

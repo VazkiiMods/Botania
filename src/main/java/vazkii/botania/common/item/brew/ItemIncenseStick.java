@@ -39,7 +39,7 @@ public class ItemIncenseStick extends ItemMod implements IBrewItem, IBrewContain
 	private static final String TAG_BREW_KEY = "brewKey";
 	public static final int TIME_MULTIPLIER = 60;
 
-	public ItemIncenseStick(Item.Builder builder) {
+	public ItemIncenseStick(Properties builder) {
 		super(builder);
 	}
 

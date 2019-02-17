@@ -40,7 +40,7 @@ import java.util.List;
 
 public class ItemPinkinator extends ItemMod {
 
-	public ItemPinkinator(Item.Builder builder) {
+	public ItemPinkinator(Properties builder) {
 		super(builder);
 	}
 

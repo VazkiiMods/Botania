@@ -75,8 +75,6 @@ import vazkii.botania.common.item.material.ItemPestleAndMortar;
 import vazkii.botania.common.item.material.ItemPetal;
 import vazkii.botania.common.item.material.ItemRune;
 import vazkii.botania.common.item.record.ItemModRecord;
-import vazkii.botania.common.item.record.ItemRecordGaia1;
-import vazkii.botania.common.item.record.ItemRecordGaia2;
 import vazkii.botania.common.item.relic.ItemDice;
 import vazkii.botania.common.item.relic.ItemFlugelEye;
 import vazkii.botania.common.item.relic.ItemInfiniteFruit;
@@ -111,37 +109,37 @@ public final class ModItems {
 	public static final Map<EnumDyeColor, Item> dyes = new EnumMap<>(EnumDyeColor.class);
 	static {
 		for(EnumDyeColor color : EnumDyeColor.values()) {
-			petals.put(color, new ItemPetal(color));
-			dyes.put(color, new ItemDye(color));
+			petals.put(color, new ItemPetal(, color, defaultBuilder()));
+			dyes.put(color, new ItemDye(color, defaultBuilder()));
 		}
 	}
 
 	public static final Item pestleAndMortar = new ItemPestleAndMortar(unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.PESTLE_AND_MORTAR);
 	public static final Item twigWand = new ItemTwigWand(unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.TWIG_WAND);
 	
-	public static final Item manaSteel = new ItemManaResource(LibItemNames.MANA_RESOURCE_NAMES[0]);
-	public static final Item manaPearl = new ItemManaResource(LibItemNames.MANA_RESOURCE_NAMES[1]);
-	public static final Item manaDiamond = new ItemManaResource(LibItemNames.MANA_RESOURCE_NAMES[2]);
-	public static final Item livingwoodTwig = new ItemManaResource(LibItemNames.MANA_RESOURCE_NAMES[3]);
-	public static final Item terrasteel = new ItemManaResource(LibItemNames.MANA_RESOURCE_NAMES[4]);
-	public static final Item lifeEssence = new ItemManaResource(LibItemNames.MANA_RESOURCE_NAMES[5]);
-	public static final Item redstoneRoot = new ItemManaResource(LibItemNames.MANA_RESOURCE_NAMES[6]);
-	public static final Item elementium = new ItemManaResource(LibItemNames.MANA_RESOURCE_NAMES[7]);
-	public static final Item pixieDust = new ItemManaResource(LibItemNames.MANA_RESOURCE_NAMES[8]);
-	public static final Item dragonstone = new ItemManaResource(LibItemNames.MANA_RESOURCE_NAMES[9]);
-	public static final Item placeholder = new ItemManaResource(LibItemNames.MANA_RESOURCE_NAMES[11]);
-	public static final Item redString = new ItemManaResource(LibItemNames.MANA_RESOURCE_NAMES[12]);
-	public static final Item dreamwoodTwig = new ItemManaResource(LibItemNames.MANA_RESOURCE_NAMES[13]);
-	public static final Item gaiaIngot = new ItemManaResource(LibItemNames.MANA_RESOURCE_NAMES[14]);
-	public static final Item enderAirBottle = new ItemManaResource(LibItemNames.MANA_RESOURCE_NAMES[15]);
-	public static final Item manaString = new ItemManaResource(LibItemNames.MANA_RESOURCE_NAMES[16]);
-	public static final Item manasteelNugget = new ItemManaResource(LibItemNames.MANA_RESOURCE_NAMES[17]);
-	public static final Item terrasteelNugget = new ItemManaResource(LibItemNames.MANA_RESOURCE_NAMES[18]);
-	public static final Item elementiumNugget = new ItemManaResource(LibItemNames.MANA_RESOURCE_NAMES[19]);
-	public static final Item livingroot = new ItemManaResource(LibItemNames.MANA_RESOURCE_NAMES[20]);
-	public static final Item pebble = new ItemManaResource(LibItemNames.MANA_RESOURCE_NAMES[21]);
-	public static final Item manaweaveCloth = new ItemManaResource(LibItemNames.MANA_RESOURCE_NAMES[22]);
-	public static final Item manaPowder = new ItemManaResource(LibItemNames.MANA_RESOURCE_NAMES[23]);
+	public static final Item manaSteel = new ItemManaResource(defaultBuilder()).setRegistryName(LibMisc.MOD_ID, LibItemNames.MANA_RESOURCE_NAMES[0]);
+	public static final Item manaPearl = new ItemManaResource(defaultBuilder()).setRegistryName(LibMisc.MOD_ID, LibItemNames.MANA_RESOURCE_NAMES[1]);
+	public static final Item manaDiamond = new ItemManaResource(defaultBuilder()).setRegistryName(LibMisc.MOD_ID, LibItemNames.MANA_RESOURCE_NAMES[2]);
+	public static final Item livingwoodTwig = new ItemManaResource(defaultBuilder()).setRegistryName(LibMisc.MOD_ID, LibItemNames.MANA_RESOURCE_NAMES[3]);
+	public static final Item terrasteel = new ItemManaResource(defaultBuilder()).setRegistryName(LibMisc.MOD_ID, LibItemNames.MANA_RESOURCE_NAMES[4]);
+	public static final Item lifeEssence = new ItemManaResource(defaultBuilder()).setRegistryName(LibMisc.MOD_ID, LibItemNames.MANA_RESOURCE_NAMES[5]);
+	public static final Item redstoneRoot = new ItemManaResource(defaultBuilder()).setRegistryName(LibMisc.MOD_ID, LibItemNames.MANA_RESOURCE_NAMES[6]);
+	public static final Item elementium = new ItemManaResource(defaultBuilder()).setRegistryName(LibMisc.MOD_ID, LibItemNames.MANA_RESOURCE_NAMES[7]);
+	public static final Item pixieDust = new ItemManaResource(defaultBuilder()).setRegistryName(LibMisc.MOD_ID, LibItemNames.MANA_RESOURCE_NAMES[8]);
+	public static final Item dragonstone = new ItemManaResource(defaultBuilder()).setRegistryName(LibMisc.MOD_ID, LibItemNames.MANA_RESOURCE_NAMES[9]);
+	public static final Item placeholder = new ItemManaResource(defaultBuilder()).setRegistryName(LibMisc.MOD_ID, LibItemNames.MANA_RESOURCE_NAMES[11]);
+	public static final Item redString = new ItemManaResource(defaultBuilder()).setRegistryName(LibMisc.MOD_ID, LibItemNames.MANA_RESOURCE_NAMES[12]);
+	public static final Item dreamwoodTwig = new ItemManaResource(defaultBuilder()).setRegistryName(LibMisc.MOD_ID, LibItemNames.MANA_RESOURCE_NAMES[13]);
+	public static final Item gaiaIngot = new ItemManaResource(defaultBuilder()).setRegistryName(LibMisc.MOD_ID, LibItemNames.MANA_RESOURCE_NAMES[14]);
+	public static final Item enderAirBottle = new ItemManaResource(defaultBuilder()).setRegistryName(LibMisc.MOD_ID, LibItemNames.MANA_RESOURCE_NAMES[15]);
+	public static final Item manaString = new ItemManaResource(defaultBuilder()).setRegistryName(LibMisc.MOD_ID, LibItemNames.MANA_RESOURCE_NAMES[16]);
+	public static final Item manasteelNugget = new ItemManaResource(defaultBuilder()).setRegistryName(LibMisc.MOD_ID, LibItemNames.MANA_RESOURCE_NAMES[17]);
+	public static final Item terrasteelNugget = new ItemManaResource(defaultBuilder()).setRegistryName(LibMisc.MOD_ID, LibItemNames.MANA_RESOURCE_NAMES[18]);
+	public static final Item elementiumNugget = new ItemManaResource(defaultBuilder()).setRegistryName(LibMisc.MOD_ID, LibItemNames.MANA_RESOURCE_NAMES[19]);
+	public static final Item livingroot = new ItemManaResource(defaultBuilder()).setRegistryName(LibMisc.MOD_ID, LibItemNames.MANA_RESOURCE_NAMES[20]);
+	public static final Item pebble = new ItemManaResource(defaultBuilder()).setRegistryName(LibMisc.MOD_ID, LibItemNames.MANA_RESOURCE_NAMES[21]);
+	public static final Item manaweaveCloth = new ItemManaResource(defaultBuilder()).setRegistryName(LibMisc.MOD_ID, LibItemNames.MANA_RESOURCE_NAMES[22]);
+	public static final Item manaPowder = new ItemManaResource(defaultBuilder()).setRegistryName(LibMisc.MOD_ID, LibItemNames.MANA_RESOURCE_NAMES[23]);
 	
 	public static final Item lensNormal = new ItemLens(unstackable(), new Lens(), ItemLens.PROP_NONE).setRegistryName(LibMisc.MOD_ID, LibItemNames.LENS_NAMES[0]);
 	public static final Item lensSpeed = new ItemLens(unstackable(), new LensSpeed(), ItemLens.PROP_NONE).setRegistryName(LibMisc.MOD_ID, LibItemNames.LENS_NAMES[1]);
@@ -186,29 +184,29 @@ public final class ModItems {
 	public static final Item runeEnvy = new ItemRune(defaultBuilder()).setRegistryName(LibMisc.MOD_ID, LibItemNames.RUNE_NAMES[14]);
 	public static final Item runePride = new ItemRune(defaultBuilder()).setRegistryName(LibMisc.MOD_ID, LibItemNames.RUNE_NAMES[15]);
 
-	public static final Item manaTablet = new ItemManaTablet();
-	public static final Item manaGun = new ItemManaGun();
-	public static final Item manaCookie = new ItemManaCookie();
-	public static final Item fertilizer = new ItemFertilizer();
+	public static final Item manaTablet = new ItemManaTablet(unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.MANA_TABLET);
+	public static final Item manaGun = new ItemManaGun(unstackable().setNoRepair()).setRegistryName(LibMisc.MOD_ID, LibItemNames.MANA_GUN);
+	public static final Item manaCookie = new ItemManaCookie(defaultBuilder()).setRegistryName(LibMisc.MOD_ID, LibItemNames.MANA_COOKIE);
+	public static final Item fertilizer = new ItemFertilizer(defaultBuilder()).setRegistryName(LibMisc.MOD_ID, LibItemNames.FERTILIZER);
 
-	public static final Item grassSeeds = new ItemGrassSeeds(IFloatingFlower.IslandType.GRASS);
-	public static final Item podzolSeeds = new ItemGrassSeeds(IFloatingFlower.IslandType.PODZOL);
-	public static final Item mycelSeeds = new ItemGrassSeeds(IFloatingFlower.IslandType.MYCEL);
-	public static final Item drySeeds = new ItemGrassSeeds(IFloatingFlower.IslandType.DRY);
-	public static final Item goldenSeeds = new ItemGrassSeeds(IFloatingFlower.IslandType.GOLDEN);
-	public static final Item vividSeeds = new ItemGrassSeeds(IFloatingFlower.IslandType.VIVID);
-	public static final Item scorchedSeeds = new ItemGrassSeeds(IFloatingFlower.IslandType.SCORCHED);
-	public static final Item infusedSeeds = new ItemGrassSeeds(IFloatingFlower.IslandType.INFUSED);
-	public static final Item mutatedSeeds = new ItemGrassSeeds(IFloatingFlower.IslandType.MUTATED);
+	public static final Item grassSeeds = new ItemGrassSeeds(IFloatingFlower.IslandType.GRASS, defaultBuilder());
+	public static final Item podzolSeeds = new ItemGrassSeeds(IFloatingFlower.IslandType.PODZOL, defaultBuilder());
+	public static final Item mycelSeeds = new ItemGrassSeeds(IFloatingFlower.IslandType.MYCEL, defaultBuilder());
+	public static final Item drySeeds = new ItemGrassSeeds(IFloatingFlower.IslandType.DRY, defaultBuilder());
+	public static final Item goldenSeeds = new ItemGrassSeeds(IFloatingFlower.IslandType.GOLDEN, defaultBuilder());
+	public static final Item vividSeeds = new ItemGrassSeeds(IFloatingFlower.IslandType.VIVID, defaultBuilder());
+	public static final Item scorchedSeeds = new ItemGrassSeeds(IFloatingFlower.IslandType.SCORCHED, defaultBuilder());
+	public static final Item infusedSeeds = new ItemGrassSeeds(IFloatingFlower.IslandType.INFUSED, defaultBuilder());
+	public static final Item mutatedSeeds = new ItemGrassSeeds(IFloatingFlower.IslandType.MUTATED, defaultBuilder());
 
-	public static final Item dirtRod = new ItemDirtRod();
-	public static final Item terraformRod = new ItemTerraformRod();
-	public static final Item grassHorn = new ItemHorn(LibItemNames.GRASS_HORN);
-	public static final Item leavesHorn = new ItemHorn(LibItemNames.LEAVES_HORN);
-	public static final Item snowHorn = new ItemHorn(LibItemNames.SNOW_HORN);
-	public static final Item manaMirror = new ItemManaMirror();
-	public static final Item manasteelHelm = new ItemManasteelHelm();
-	public static final Item manasteelHelmRevealing = new ItemManasteelHelmRevealing();
+	public static final Item dirtRod = new ItemDirtRod(unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.DIRT_ROD);
+	public static final Item terraformRod = new ItemTerraformRod(unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.TERRAFORM_ROD);
+	public static final Item grassHorn = new ItemHorn(unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.GRASS_HORN);
+	public static final Item leavesHorn = new ItemHorn(unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.LEAVES_HORN);
+	public static final Item snowHorn = new ItemHorn(unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.SNOW_HORN);
+	public static final Item manaMirror = new ItemManaMirror(unstackable().defaultMaxDamage(1000).setNoRepair()).setRegistryName(LibMisc.MOD_ID, LibItemNames.MANA_MIRROR);
+	public static final Item manasteelHelm = new ItemManasteelHelm(unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.MANASTEEL_HELM);
+	public static final Item manasteelHelmRevealing = new ItemManasteelHelmRevealing(unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.MANASTEEL_HELM_R);
 	public static final Item manasteelChest = new ItemManasteelChest();
 	public static final Item manasteelLegs = new ItemManasteelLegs();
 	public static final Item manasteelBoots = new ItemManasteelBoots();
@@ -271,7 +269,7 @@ public final class ModItems {
 	public static final Item necroVirus = new ItemVirus(defaultBuilder()).setRegistryName(LibMisc.MOD_ID, LibItemNames.NECRO_VIRUS);
 	public static final Item nullVirus = new ItemVirus(defaultBuilder()).setRegistryName(LibMisc.MOD_ID, LibItemNames.NULL_VIRUS);
 	public static final Item reachRing = new ItemReachRing();
-	public static final Item skyDirtRod = new ItemSkyDirtRod();
+	public static final Item skyDirtRod = new ItemSkyDirtRod(unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.SKY_DIRT_ROD);
 	public static final Item itemFinder = new ItemItemFinder();
 	public static final Item superLavaPendant = new ItemSuperLavaPendant();
 	public static final Item enderHand = new ItemEnderHand();
@@ -354,7 +352,7 @@ public final class ModItems {
 	public static final Item cacophonium = new ItemCacophonium();
 	public static final Item slimeBottle = new ItemSlimeBottle(unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.SLIME_BOTTLE);
 	public static final Item starSword = new ItemStarSword();
-	public static final Item exchangeRod = new ItemExchangeRod();
+	public static final Item exchangeRod = new ItemExchangeRod(unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.EXCHANGE_ROD);
 	public static final Item magnetRingGreater = new ItemGreaterMagnetRing();
 	public static final Item thunderSword = new ItemThunderSword();
 	public static final Item manaweaveHelm = new ItemManaweaveHelm();
@@ -370,15 +368,15 @@ public final class ModItems {
 	public static final Item invisibilityCloak = new ItemInvisibilityCloak();
 	public static final Item cloudPendant = new ItemCloudPendant();
 	public static final Item superCloudPendant = new ItemSuperCloudPendant();
-	public static final Item thirdEye = new ItemThirdEye();
-	public static final Item astrolabe = new ItemAstrolabe();
-	public static final Item goddessCharm = new ItemGoddessCharm();
+	public static final Item thirdEye = new ItemThirdEye(unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.THIRD_EYE);
+	public static final Item astrolabe = new ItemAstrolabe(unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.ASTROLABE);
+	public static final Item goddessCharm = new ItemGoddessCharm(unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.GODDESS_CHARM);
 
-	private static Item.Builder defaultBuilder() {
-		return new Item.Builder().group(BotaniaCreativeTab.INSTANCE);
+	private static Item.Properties defaultBuilder() {
+		return new Item.Properties().group(BotaniaCreativeTab.INSTANCE);
 	}
 
-	private static Item.Builder unstackable() {
+	private static Item.Properties unstackable() {
 		return defaultBuilder().maxStackSize(1);
 	}
 

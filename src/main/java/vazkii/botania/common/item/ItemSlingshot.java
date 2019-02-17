@@ -32,7 +32,7 @@ public class ItemSlingshot extends ItemMod {
 
 	private static final Predicate<ItemStack> AMMO_FUNC = s -> s != null && s.getItem() == ModItems.vineBall;
 
-	public ItemSlingshot(Item.Builder builder) {
+	public ItemSlingshot(Properties builder) {
 		super(builder);
 	}
 

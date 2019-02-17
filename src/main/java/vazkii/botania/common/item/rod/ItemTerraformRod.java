@@ -22,10 +22,13 @@ import net.minecraft.init.SoundEvents;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.Tag;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -38,32 +41,22 @@ import vazkii.botania.api.subtile.ISpecialFlower;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.lib.LibItemNames;
+import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockProvider {
-
+	private static final Tag<Block> TERRAFORMABLE = new BlockTags.Wrapper(new ResourceLocation(LibMisc.MOD_ID, "terraformable"));
 	private static final int COST_PER = 55;
 
+	// todo 1.13 migrate rest of these
 	private static final List<String> validBlocks = ImmutableList.of(
-			"stone",
-			"dirt",
-			"grass",
-			"sand",
-			"gravel",
 			"hardenedClay",
 			"snowLayer",
 			"mycelium",
-			"podzol",
 			"sandstone",
-			"blockDiorite",
-			"stoneDiorite",
-			"blockGranite",
-			"stoneGranite",
-			"blockAndesite",
-			"stoneAndesite",
 
 			// Mod support
 			"marble",
@@ -72,25 +65,24 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockP
 			"blockLimestone"
 			);
 
-	public ItemTerraformRod() {
-		super(LibItemNames.TERRAFORM_ROD);
-		setMaxStackSize(1);
+	public ItemTerraformRod(Properties props) {
+		super(props);
 	}
 
 	@Nonnull
 	@Override
-	public EnumAction getItemUseAction(ItemStack par1ItemStack) {
+	public EnumAction getUseAction(ItemStack par1ItemStack) {
 		return EnumAction.BOW;
 	}
 
 	@Override
-	public int getMaxItemUseDuration(ItemStack par1ItemStack) {
+	public int getUseDuration(ItemStack par1ItemStack) {
 		return 72000;
 	}
 
 	@Override
 	public void onUsingTick(ItemStack stack, EntityLivingBase living, int count) {
-		if(count != getMaxItemUseDuration(stack) && count % 10 == 0 && living instanceof EntityPlayer)
+		if(count != getUseDuration(stack) && count % 10 == 0 && living instanceof EntityPlayer)
 			terraform(stack, living.world, (EntityPlayer) living);
 	}
 
@@ -113,33 +105,33 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockP
 
 		for(BlockPos pos : BlockPos.getAllInBoxMutable(startCenter.add(-range, -range, -range), startCenter.add(range, range, range))) {
 			IBlockState state = world.getBlockState(pos);
-			if(state.getBlock() == Blocks.AIR)
+			if(state.isAir(world, pos))
 				continue;
-			else if(Item.getItemFromBlock(state.getBlock()) == Items.AIR)
-				continue;
-			int[] ids = OreDictionary.getOreIDs(new ItemStack(state.getBlock(), 1, state.getBlock().getMetaFromState(state)));
-			for(int id : ids)
-				if(validBlocks.contains(OreDictionary.getOreName(id))) {
-					List<BlockPos> airBlocks = new ArrayList<>();
 
-					for(EnumFacing dir : EnumFacing.HORIZONTALS) {
-						BlockPos pos_ = pos.offset(dir);
-						Block block_ = world.getBlockState(pos_).getBlock();
-						if(block_.isAir(world.getBlockState(pos_), world, pos_) || block_.isReplaceable(world, pos_) || block_ instanceof BlockFlower && !(block_ instanceof ISpecialFlower) || block_ == Blocks.DOUBLE_PLANT) {
-							airBlocks.add(pos_);
-						}
-					}
+			if(TERRAFORMABLE.contains(state.getBlock())) {
+				List<BlockPos> airBlocks = new ArrayList<>();
 
-					if(!airBlocks.isEmpty()) {
-						if(pos.getY() > startCenter.getY())
-							blocks.add(new CoordsWithBlock(pos, Blocks.AIR));
-						else for(BlockPos coords : airBlocks) {
-							if(world.getBlockState(coords.down()).getBlock() != Blocks.AIR)
-								blocks.add(new CoordsWithBlock(coords, Blocks.DIRT));
-						}
+				for(EnumFacing dir : EnumFacing.BY_HORIZONTAL_INDEX) {
+					BlockPos pos_ = pos.offset(dir);
+					IBlockState state_ = world.getBlockState(pos_);
+					Block block_ = state_.getBlock();
+					if(state_.isAir(world, pos_) || block_.isReplaceable(state_, world, pos_)
+							|| block_ instanceof BlockFlower && !(block_ instanceof ISpecialFlower)
+							|| block_ == Blocks.DOUBLE_PLANT) {
+						airBlocks.add(pos_);
 					}
-					break;
 				}
+
+				if(!airBlocks.isEmpty()) {
+					if(pos.getY() > startCenter.getY())
+						blocks.add(new CoordsWithBlock(pos, Blocks.AIR));
+					else for(BlockPos coords : airBlocks) {
+						if(world.getBlockState(coords.down()).getBlock() != Blocks.AIR)
+							blocks.add(new CoordsWithBlock(coords, Blocks.DIRT));
+					}
+				}
+				break;
+			}
 		}
 
 		int cost = COST_PER * blocks.size();

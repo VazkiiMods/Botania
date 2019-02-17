@@ -20,12 +20,8 @@ import javax.annotation.Nullable;
 
 public class ItemManasteelHelm extends ItemManasteelArmor implements IManaDiscountArmor {
 
-	public ItemManasteelHelm() {
-		this(LibItemNames.MANASTEEL_HELM);
-	}
-
-	public ItemManasteelHelm(String name) {
-		super(EntityEquipmentSlot.HEAD, name);
+	public ItemManasteelHelm(Properties props) {
+		super(EntityEquipmentSlot.HEAD, props);
 	}
 
 	@Override

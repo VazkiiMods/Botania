@@ -26,8 +26,8 @@ import vazkii.botania.common.lib.LibItemNames;
 	@Optional.Interface(modid = "thaumcraft", iface = "thaumcraft.api.items.IRevealer", striprefs = true)})
 public class ItemManasteelHelmRevealing extends ItemManasteelHelm implements IGoggles, IRevealer {
 
-	public ItemManasteelHelmRevealing() {
-		super(LibItemNames.MANASTEEL_HELM_R);
+	public ItemManasteelHelmRevealing(Properties props) {
+		super(props);
 	}
 
 	@Override

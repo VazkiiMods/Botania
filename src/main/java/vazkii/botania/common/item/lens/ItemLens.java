@@ -58,7 +58,7 @@ public class ItemLens extends ItemMod implements ILensControl, ICompositableLens
 	private final Lens lens;
 	private final int props;
 
-	public ItemLens(Item.Builder builder, Lens lens, int props) {
+	public ItemLens(Item.Properties builder, Lens lens, int props) {
 		super(builder);
 		this.lens = lens;
 		this.props = props;

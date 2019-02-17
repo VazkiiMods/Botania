@@ -12,6 +12,7 @@ package vazkii.botania.common.item;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -28,13 +29,15 @@ import java.util.List;
 
 public class ItemFertilizer extends ItemMod {
 
-	public ItemFertilizer() {
-		super(LibItemNames.FERTILIZER);
+	public ItemFertilizer(Properties props) {
+		super(props);
 	}
 
 	@Nonnull
 	@Override
-	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
+	public EnumActionResult onItemUse(ItemUseContext ctx) {
+		World world = ctx.getWorld();
+		BlockPos pos = ctx.getPos();
 		final int range = 3;
 		if(!world.isRemote) {
 			List<BlockPos> validCoords = new ArrayList<>();
@@ -43,7 +46,8 @@ public class ItemFertilizer extends ItemMod {
 				for(int j = -range - 1; j < range; j++) {
 					for(int k = 2; k >= -2; k--) {
 						BlockPos pos_ = pos.add(i + 1, k + 1, j + 1);
-						if(world.isAirBlock(pos_) && (!world.provider.isNether() || pos_.getY() < 255) && ModBlocks.flower.canPlaceBlockAt(world, pos_))
+						if(world.isAirBlock(pos_) && (!world.getDimension().isNether() || pos_.getY() < 255)
+								&& ModBlocks.whiteFlower.isValidPosition(ModBlocks.whiteFlower.getDefaultState(), world, pos_))
 							validCoords.add(pos_);
 					}
 				}
@@ -52,9 +56,9 @@ public class ItemFertilizer extends ItemMod {
 			for(int i = 0; i < flowerCount; i++) {
 				BlockPos coords = validCoords.get(world.rand.nextInt(validCoords.size()));
 				validCoords.remove(coords);
-				world.setBlockState(coords, ModBlocks.flower.getDefaultState().with(BotaniaStateProps.COLOR, EnumDyeColor.byMetadata(world.rand.nextInt(16))), 1 | 2);
+				world.setBlockState(coords, ModBlocks.getFlower(EnumDyeColor.byId(world.rand.nextInt(16))).getDefaultState());
 			}
-			player.getHeldItem(hand).shrink(1);
+			ctx.getItem().shrink(1);
 		} else {
 			for(int i = 0; i < 15; i++) {
 				double x = pos.getX() - range + world.rand.nextInt(range * 2 + 1) + Math.random();

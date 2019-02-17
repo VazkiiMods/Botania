@@ -18,7 +18,7 @@ import javax.annotation.Nonnull;
 
 public class ItemSpellCloth extends ItemMod {
 
-	public ItemSpellCloth(Item.Builder builder) {
+	public ItemSpellCloth(Properties builder) {
 		super(builder);
 	}
 

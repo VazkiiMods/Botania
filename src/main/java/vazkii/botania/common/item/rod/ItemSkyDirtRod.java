@@ -14,6 +14,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
@@ -31,8 +32,8 @@ import javax.annotation.Nonnull;
 
 public class ItemSkyDirtRod extends ItemDirtRod {
 
-	public ItemSkyDirtRod() {
-		super(LibItemNames.SKY_DIRT_ROD);
+	public ItemSkyDirtRod(Properties props) {
+		super(props);
 	}
 
 	@Nonnull
@@ -53,7 +54,8 @@ public class ItemSkyDirtRod extends ItemDirtRod {
 			if(entities == 0) {
 				ItemStack stackToPlace = new ItemStack(Blocks.DIRT);
 				player.setHeldItem(hand, stackToPlace);
-				stackToPlace.onItemUse(player, world, new BlockPos(x, y, z), hand, EnumFacing.DOWN, 0F, 0F, 0F);
+				ItemUseContext ctx = new ItemUseContext(player, stackToPlace, new BlockPos(x, y, z), EnumFacing.DOWN, 0, 0, 0);
+				stackToPlace.onItemUse(ctx);
 				player.setHeldItem(hand, stack);
 
 				if(stackToPlace.isEmpty()) {

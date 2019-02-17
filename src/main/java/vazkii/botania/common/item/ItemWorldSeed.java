@@ -28,7 +28,7 @@ import javax.annotation.Nonnull;
 
 public class ItemWorldSeed extends ItemMod {
 
-	public ItemWorldSeed(Item.Builder builder) {
+	public ItemWorldSeed(Properties builder) {
 		super(builder);
 	}
 
@@ -43,7 +43,7 @@ public class ItemWorldSeed extends ItemMod {
 			player.rotationYaw = 0F;
 			player.setPositionAndUpdate(coords.getX() + 0.5, coords.getY() + 0.5, coords.getZ() + 0.5);
 
-			while(!world.getCollisionBoxes(player, player.getBoundingBox()).isEmpty())
+			while(!world.isCollisionBoxesEmpty(player, player.getBoundingBox()))
 				player.setPositionAndUpdate(player.posX, player.posY + 1, player.posZ);
 
 			world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.PLAYERS, 1F, 1F);

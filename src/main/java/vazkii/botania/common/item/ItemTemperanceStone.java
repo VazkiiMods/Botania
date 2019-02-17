@@ -38,7 +38,7 @@ import java.util.List;
 public class ItemTemperanceStone extends ItemMod {
 	public static final String TAG_ACTIVE = "active";
 
-	public ItemTemperanceStone(Item.Builder builder) {
+	public ItemTemperanceStone(Properties builder) {
 		super(builder);
 		addPropertyOverride(new ResourceLocation(LibMisc.MOD_ID, "active"),
 				(stack, worldIn, entityIn) -> ItemNBTHelper.getBoolean(stack, TAG_ACTIVE, false) ? 1 : 0);

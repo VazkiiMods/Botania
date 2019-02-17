@@ -28,6 +28,9 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
@@ -58,11 +61,8 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 	private static final int CLIP_SLOTS = 6;
 	private static final int COOLDOWN = 30;
 
-	public ItemManaGun() {
-		super(LibItemNames.MANA_GUN);
-		setMaxDamage(COOLDOWN);
-		setMaxStackSize(1);
-		setNoRepair();
+	public ItemManaGun(Properties props) {
+		super(props.defaultMaxDamage(COOLDOWN));
 	}
 
 	@Nonnull
@@ -81,9 +81,9 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 				player.swingArm(hand);
 			ItemStack lens = getLens(stack);
 			ItemsRemainingRenderHandler.set(lens, -2);
-			stack.setItemDamage(effCd);
+			stack.setDamage(effCd);
 			return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
-		} else if(stack.getItemDamage() == 0) {
+		} else if(stack.getDamage() == 0) {
 			EntityManaBurst burst = getBurst(player, stack, true, hand);
 			if(burst != null && ManaItemHandler.requestManaExact(stack, player, burst.getMana(), true)) {
 				if(!world.isRemote) {
@@ -96,7 +96,7 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 					player.motionY -= burst.motionY * 0.3;
 					player.motionZ -= burst.motionZ * 0.1;
 				}
-				stack.setItemDamage(effCd);
+				stack.setDamage(effCd);
 			} else if(!world.isRemote)
 				world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.BLOCK_LEVER_CLICK, SoundCategory.PLAYERS, 0.6F, (1.0F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F) * 0.7F);
 			return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
@@ -120,7 +120,7 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 	// ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN
 	// ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN
 	private boolean isSugoiKawaiiDesuNe(ItemStack stack) {
-		return stack.getDisplayName().equalsIgnoreCase("desu gun");
+		return stack.getDisplayName().getString().equalsIgnoreCase("desu gun");
 	}
 
 	@Override
@@ -171,44 +171,51 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void addInformation(ItemStack par1ItemStack, World world, List<String> stacks, ITooltipFlag flags) {
-		boolean clip = hasClip(par1ItemStack);
+	public void addInformation(ItemStack stack, World world, List<ITextComponent> stacks, ITooltipFlag flags) {
+		boolean clip = hasClip(stack);
 		if(clip && !GuiScreen.isShiftKeyDown()) {
-			addStringToTooltip(I18n.format("botaniamisc.shiftinfo"), stacks);
+			stacks.add(new TextComponentTranslation("botaniamisc.shiftinfo"));
 			return;
 		}
 
-		ItemStack lens = getLens(par1ItemStack);
+		ItemStack lens = getLens(stack);
 		if(!lens.isEmpty()) {
-			List<String> tooltip = lens.getTooltip(Minecraft.getMinecraft().player, ITooltipFlag.TooltipFlags.NORMAL);
+			List<ITextComponent> tooltip = lens.getTooltip(Minecraft.getInstance().player, ITooltipFlag.TooltipFlags.NORMAL);
 			if(tooltip.size() > 1)
 				stacks.addAll(tooltip.subList(1, tooltip.size()));
 		}
 
 		if(clip) {
-			int pos = getClipPos(par1ItemStack);
-			addStringToTooltip(I18n.format("botaniamisc.hasClip"), stacks);
+			int pos = getClipPos(stack);
+			stacks.add(new TextComponentTranslation("botaniamisc.hasClip"));
 			for(int i = 0; i < CLIP_SLOTS; i++) {
-				String name;
-				TextFormatting formatting = i == pos ? TextFormatting.GREEN : TextFormatting.GRAY;
-				ItemStack lensAt = getLensAtPos(par1ItemStack, i);
+				ItemStack lensAt = getLensAtPos(stack, i);
+
+				ITextComponent name;
 				if(lensAt.isEmpty())
-					name = I18n.format("botaniamisc.clipEmpty");
+					name = new TextComponentTranslation("botaniamisc.clipEmpty");
 				else name = lensAt.getDisplayName();
-				addStringToTooltip(formatting + " - " + name, stacks);
+
+				ITextComponent tip = new TextComponentString(" - ").appendSibling(name);
+				tip.getStyle().setColor(i == pos ? TextFormatting.GREEN : TextFormatting.GRAY);
+				stacks.add(tip);
 			}
 		}
 	}
 
-	private void addStringToTooltip(String s, List<String> tooltip) {
-		tooltip.add(s.replaceAll("&", "\u00a7"));
-	}
-
 	@Nonnull
 	@Override
-	public String getItemStackDisplayName(@Nonnull ItemStack par1ItemStack) {
-		ItemStack lens = getLens(par1ItemStack);
-		return super.getItemStackDisplayName(par1ItemStack) + (lens.isEmpty() ? "" : " (" + TextFormatting.GREEN + lens.getDisplayName() + TextFormatting.RESET + ")");
+	public ITextComponent getDisplayName(@Nonnull ItemStack stack) {
+		ItemStack lens = getLens(stack);
+		ITextComponent cmp = super.getDisplayName(stack);
+		if (!lens.isEmpty()) {
+			cmp.appendText(" (");
+			ITextComponent lensName = lens.getDisplayName();
+			lensName.getStyle().setColor(TextFormatting.GREEN);
+			cmp.appendSibling(lensName);
+			cmp.appendText(")");
+		}
+		return cmp;
 	}
 
 	public static boolean hasClip(ItemStack stack) {
@@ -250,7 +257,7 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 	public static ItemStack getLensAtPos(ItemStack stack, int pos) {
 		NBTTagCompound cmp = ItemNBTHelper.getCompound(stack, TAG_LENS + pos, true);
 		if(cmp != null) {
-			return new ItemStack(cmp);
+			return ItemStack.read(cmp);
 		}
 		return ItemStack.EMPTY;
 	}
@@ -258,7 +265,7 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 	public static void setLensAtPos(ItemStack stack, ItemStack lens, int pos) {
 		NBTTagCompound cmp = new NBTTagCompound();
 		if(lens != null)
-			cmp = lens.writeToNBT(cmp);
+			cmp = lens.write(cmp);
 		ItemNBTHelper.setCompound(stack, TAG_LENS + pos, cmp);
 	}
 
@@ -268,7 +275,7 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 
 		NBTTagCompound cmp = new NBTTagCompound();
 		if(!lens.isEmpty())
-			cmp = lens.writeToNBT(cmp);
+			cmp = lens.write(cmp);
 		ItemNBTHelper.setCompound(stack, TAG_LENS, cmp);
 	}
 
@@ -278,7 +285,7 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 
 		NBTTagCompound cmp = ItemNBTHelper.getCompound(stack, TAG_LENS, true);
 		if(cmp != null) {
-			return new ItemStack(cmp);
+			return ItemStack.read(cmp);
 		}
 		return ItemStack.EMPTY;
 	}
@@ -294,9 +301,9 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 	}
 
 	@Override
-	public void onUpdate(ItemStack par1ItemStack, World world, Entity par3Entity, int par4, boolean par5) {
-		if(par1ItemStack.isItemDamaged())
-			par1ItemStack.setItemDamage(par1ItemStack.getItemDamage() - 1);
+	public void inventoryTick(ItemStack par1ItemStack, World world, Entity par3Entity, int par4, boolean par5) {
+		if(par1ItemStack.isDamaged())
+			par1ItemStack.setDamage(par1ItemStack.getDamage() - 1);
 	}
 
 	@Override

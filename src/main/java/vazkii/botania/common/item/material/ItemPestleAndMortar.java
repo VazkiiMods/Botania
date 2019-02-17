@@ -17,7 +17,7 @@ import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemPestleAndMortar extends ItemMod {
 
-	public ItemPestleAndMortar(Item.Builder builder) {
+	public ItemPestleAndMortar(Item.Properties builder) {
 		super(builder);
 	}
 

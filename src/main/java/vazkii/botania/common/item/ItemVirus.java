@@ -38,7 +38,7 @@ import vazkii.botania.common.lib.LibMisc;
 
 @Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
 public class ItemVirus extends ItemMod {
-	public ItemVirus(Item.Builder builder) {
+	public ItemVirus(Properties builder) {
 		super(builder);
 	}
 

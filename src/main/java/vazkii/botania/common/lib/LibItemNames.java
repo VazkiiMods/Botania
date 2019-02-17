@@ -14,7 +14,9 @@ public final class LibItemNames {
 
 	public static final String LEXICON = "lexicon";
 	public static final String PETAL = "petal";
+	public static final String PETAL_SUFFIX = "_" + PETAL;
 	public static final String DYE = "dye";
+	public static final String DYE_SUFFIX = "_" + DYE;
 	public static final String PESTLE_AND_MORTAR = "pestleandmortar";
 	public static final String TWIG_WAND = "twigwand";
 	public static final String[] RUNE_NAMES = {

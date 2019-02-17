@@ -39,8 +39,8 @@ import javax.annotation.Nonnull;
 // todo 1.13 further break this up
 @Mod.EventBusSubscriber
 public class ItemManaResource extends ItemMod implements IFlowerComponent, IElvenItem {
-	public ItemManaResource(String registryName) {
-		super(registryName);
+	public ItemManaResource(Properties props) {
+		super(props);
 	}
 
 	@SubscribeEvent

@@ -17,19 +17,10 @@ import vazkii.botania.client.lib.LibResources;
 
 import javax.annotation.Nonnull;
 
+// todo 1.13 reevaluate if necessary
 public class ItemBlockMod extends ItemBlock {
 
-	public ItemBlockMod(Block block) {
-		super(block);
-	}
-
-	@Nonnull
-	@Override
-	public String getUnlocalizedNameInefficiently(@Nonnull ItemStack par1ItemStack) {
-		return getUnlocalizedNameInefficiently_(par1ItemStack).replaceAll("tile.", "tile." + LibResources.PREFIX_MOD);
-	}
-
-	public String getUnlocalizedNameInefficiently_(ItemStack stack) {
-		return super.getUnlocalizedNameInefficiently(stack);
+	public ItemBlockMod(Block block, Properties props) {
+		super(block, props);
 	}
 }

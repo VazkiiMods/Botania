@@ -41,8 +41,8 @@ public class ItemThirdEye extends ItemBauble implements IManaUsingItem, IBaubleR
 
 	private static final int COST = 2;
 	
-	public ItemThirdEye() {
-		super(LibItemNames.THIRD_EYE);
+	public ItemThirdEye(Properties props) {
+		super(props);
 	}
 	
 	@Override
@@ -79,13 +79,13 @@ public class ItemThirdEye extends ItemBauble implements IManaUsingItem, IBaubleR
 	@OnlyIn(Dist.CLIENT)
 	public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
 		if(type == RenderType.BODY) {
-			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+			Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 			Helper.rotateIfSneaking(player);
 			boolean armor = !player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).isEmpty();
 			double scale = 0.6;
-			GlStateManager.rotate(180, 0, 0, 1);
-			GlStateManager.translate(-0.3, -0.6, armor ? -0.18 : -0.12);
-			GlStateManager.scale(scale, scale, scale);
+			GlStateManager.rotatef(180, 0, 0, 1);
+			GlStateManager.translated(-0.3, -0.6, armor ? -0.18 : -0.12);
+			GlStateManager.scaled(scale, scale, scale);
 
 			for(int i = 0; i < 3; i++) {
 				GlStateManager.pushMatrix();
@@ -96,15 +96,15 @@ public class ItemThirdEye extends ItemBauble implements IManaUsingItem, IBaubleR
 					double scale1 = 0.75;
 					width /= 2F;
 					
-					GlStateManager.translate(0.15, 0.15, -0.05);
+					GlStateManager.translated(0.15, 0.15, -0.05);
 					double time = ClientTickHandler.total * 0.12;
 					double dist = 0.05;
-					GlStateManager.translate(Math.sin(time) * dist, Math.cos(time * 0.5) * dist, 0);
+					GlStateManager.translated(Math.sin(time) * dist, Math.cos(time * 0.5) * dist, 0);
 					
-					GlStateManager.scale(scale1, scale1, scale1);
+					GlStateManager.scaled(scale1, scale1, scale1);
 					break;
 				case 2:
-					GlStateManager.translate(0, 0, -0.05);
+					GlStateManager.translated(0, 0, -0.05);
 					break;
 				}
 				

@@ -50,7 +50,7 @@ public class ItemSextant extends ItemMod {
 	private static final String TAG_SOURCE_Y = "sourceY";
 	private static final String TAG_SOURCE_Z = "sourceZ";
 
-	public ItemSextant(Item.Builder builder) {
+	public ItemSextant(Properties builder) {
 		super(builder);
 	}
 

@@ -15,7 +15,7 @@ import net.minecraft.item.ItemRecord;
 import net.minecraft.util.SoundEvent;
 
 public class ItemModRecord extends ItemRecord {
-	public ItemModRecord(int comparator, SoundEvent sound, Item.Builder builder) {
+	public ItemModRecord(int comparator, SoundEvent sound, Properties builder) {
 		super(comparator, sound, builder);
 	}
 }

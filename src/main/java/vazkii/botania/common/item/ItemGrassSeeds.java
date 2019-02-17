@@ -11,14 +11,12 @@
 package vazkii.botania.common.item;
 
 import com.google.common.collect.ImmutableMap;
-import gnu.trove.map.hash.TIntObjectHashMap;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockDirt;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -26,8 +24,8 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
 import net.minecraftforge.api.distmarker.Dist;
@@ -42,6 +40,7 @@ import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -56,7 +55,7 @@ public class ItemGrassSeeds extends ItemMod implements IFloatingFlowerVariant {
 	 * Represents a map of dimension IDs to a set of all block swappers
 	 * active in that dimension.
 	 */
-	private static final TIntObjectHashMap<Set<BlockSwapper>> blockSwappers = new TIntObjectHashMap<>();
+	private static final Map<Integer, Set<BlockSwapper>> blockSwappers = new HashMap<>();
 	private static final Map<IslandType, float[]> COLORS = ImmutableMap.<IslandType, float[]>builder()
 			.put(IslandType.GRASS, new float[] {0F, 0.4F, 0F})
 			.put(IslandType.PODZOL, new float[] {0.5F, 0.37F, 0F})
@@ -71,18 +70,20 @@ public class ItemGrassSeeds extends ItemMod implements IFloatingFlowerVariant {
 
 	private final IslandType type;
 
-	public ItemGrassSeeds(IslandType type) {
-		super(LibItemNames.GRASS_SEEDS + "_" + type.toString().toLowerCase(Locale.ROOT));
+	public ItemGrassSeeds(IslandType type, Properties props) {
+		super(props);
 		this.type = type;
 	}
 
 	@Nonnull
 	@Override
-	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
+	public EnumActionResult onItemUse(ItemUseContext ctx) {
+		World world = ctx.getWorld();
+		BlockPos pos = ctx.getPos();
 		IBlockState state = world.getBlockState(pos);
-		ItemStack stack = player.getHeldItem(hand);
+		ItemStack stack = ctx.getItem();
 
-		if(state.getBlock() == Blocks.DIRT && state.get(BlockDirt.VARIANT) == BlockDirt.DirtType.DIRT || state.getBlock() == Blocks.GRASS && type != IslandType.GRASS) {
+		if(state.getBlock() == Blocks.DIRT || state.getBlock() == Blocks.GRASS && type != IslandType.GRASS) {
 			if(!world.isRemote) {
 				BlockSwapper swapper = addBlockSwapper(world, pos, type);
 				world.setBlockState(pos, swapper.stateToSet);
@@ -166,7 +167,7 @@ public class ItemGrassSeeds extends ItemMod implements IFloatingFlowerVariant {
 
 	private static IBlockState stateForType(IslandType type) {
 		if(type == IslandType.PODZOL)
-			return Blocks.DIRT.getDefaultState().with(BlockDirt.VARIANT, BlockDirt.DirtType.PODZOL);
+			return Blocks.PODZOL.getDefaultState();
 		else if(type == IslandType.MYCEL)
 			return Blocks.MYCELIUM.getDefaultState();
 		else if(type == IslandType.DRY)
@@ -287,8 +288,7 @@ public class ItemGrassSeeds extends ItemMod implements IFloatingFlowerVariant {
 			// levels by 2 or more blocks grass growth.
 
 			return (block == Blocks.DIRT || block == Blocks.GRASS)
-					&& (block != Blocks.DIRT || state.get(BlockDirt.VARIANT) == BlockDirt.DirtType.DIRT)
-					&& world.getBlockState(pos.up()).getLightOpacity(world, pos.up()) <= 1;
+					&& world.getBlockState(pos.up()).getOpacity(world, pos.up()) <= 1;
 		}
 	}
 

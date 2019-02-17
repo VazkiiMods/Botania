@@ -12,11 +12,13 @@ package vazkii.botania.common.item;
 
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -37,14 +39,13 @@ public class ItemManaTablet extends ItemMod implements IManaItem, ICreativeManaP
 	private static final String TAG_CREATIVE = "creative";
 	private static final String TAG_ONE_USE = "oneUse";
 
-	public ItemManaTablet() {
-		super(LibItemNames.MANA_TABLET);
-		setMaxStackSize(1);
+	public ItemManaTablet(Properties props) {
+		super(props);
 	}
 
 	@Override
-	public void getSubItems(@Nonnull CreativeTabs tab, @Nonnull NonNullList<ItemStack> stacks) {
-		if(isInCreativeTab(tab)) {
+	public void fillItemGroup(@Nonnull ItemGroup tab, @Nonnull NonNullList<ItemStack> stacks) {
+		if(isInGroup(tab)) {
 			stacks.add(new ItemStack(this));
 
 			ItemStack fullPower = new ItemStack(this);
@@ -58,21 +59,11 @@ public class ItemManaTablet extends ItemMod implements IManaItem, ICreativeManaP
 		}
 	}
 
-	@Override
-	public int getDamage(ItemStack stack) {
-		// Compatibility shim, so tablets from previous versions of botania
-		// stack right in barrels and so forth
-		if(super.getDamage(stack) != 0)
-			super.setDamage(stack, 0);
-
-		return 0;
-	}
-
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void addInformation(ItemStack par1ItemStack, World world, List<String> stacks, ITooltipFlag flags) {
+	public void addInformation(ItemStack par1ItemStack, World world, List<ITextComponent> stacks, ITooltipFlag flags) {
 		if(isStackCreative(par1ItemStack))
-			stacks.add(I18n.format("botaniamisc.creative"));
+			stacks.add(new TextComponentTranslation("botaniamisc.creative"));
 	}
 
 	@Override

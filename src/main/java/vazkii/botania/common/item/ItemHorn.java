@@ -13,7 +13,6 @@ package vazkii.botania.common.item;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -21,6 +20,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
@@ -47,21 +47,20 @@ import java.util.Locale;
 import java.util.Random;
 
 public class ItemHorn extends ItemMod {
-	public ItemHorn(String name) {
-		super(name);
-		setMaxStackSize(1);
+	public ItemHorn(Properties props) {
+		super(props);
 		addPropertyOverride(new ResourceLocation(LibMisc.MOD_ID, "vuvuzela"),
-				(stack, worldIn, entityIn) -> stack.getDisplayName().toLowerCase(Locale.ROOT).contains("vuvuzela") ? 1 : 0);
+				(stack, worldIn, entityIn) -> stack.getDisplayName().getString().toLowerCase(Locale.ROOT).contains("vuvuzela") ? 1 : 0);
 	}
 
 	@Nonnull
 	@Override
-	public EnumAction getItemUseAction(ItemStack par1ItemStack) {
+	public EnumAction getUseAction(ItemStack par1ItemStack) {
 		return EnumAction.BOW;
 	}
 
 	@Override
-	public int getMaxItemUseDuration(ItemStack par1ItemStack) {
+	public int getUseDuration(ItemStack par1ItemStack) {
 		return 72000;
 	}
 
@@ -75,9 +74,9 @@ public class ItemHorn extends ItemMod {
 	@Override
 	public void onUsingTick(ItemStack stack, EntityLivingBase player, int time) {
 		if(!player.world.isRemote) {
-			if(time != getMaxItemUseDuration(stack) && time % 5 == 0)
+			if(time != getUseDuration(stack) && time % 5 == 0)
 				breakGrass(player.world, stack, new BlockPos(player));
-			player.world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.BLOCK_NOTE_BASS, SoundCategory.BLOCKS, 1F, 0.001F);
+			player.world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.BLOCK_NOTE_BLOCK_BASS, SoundCategory.BLOCKS, 1F, 0.001F);
 		}
 	}
 
@@ -101,8 +100,8 @@ public class ItemHorn extends ItemMod {
 			if(block instanceof IHornHarvestable
 					? ((IHornHarvestable) block).canHornHarvest(world, pos, stack, type)
 							: type == EnumHornType.WILD && block instanceof BlockBush && !(block instanceof ISpecialFlower)
-							|| type == EnumHornType.CANOPY && block.isLeaves(world.getBlockState(pos), world, pos)
-							|| type == EnumHornType.COVERING && block == Blocks.SNOW_LAYER)
+							|| type == EnumHornType.CANOPY && BlockTags.LEAVES.contains(block)
+							|| type == EnumHornType.COVERING && block == Blocks.SNOW)
 				coords.add(pos);
 		}
 
@@ -117,10 +116,7 @@ public class ItemHorn extends ItemMod {
 			if(block instanceof IHornHarvestable && ((IHornHarvestable) block).hasSpecialHornHarvest(world, currCoords, stack, type))
 				((IHornHarvestable) block).harvestByHorn(world, currCoords, stack, type);
 			else {
-				block.dropBlockAsItem(world, currCoords, state, 0);
-				world.setBlockToAir(currCoords);
-				if(ConfigHandler.blockBreakParticles)
-					world.playEvent(2001, currCoords, Block.getStateId(state));
+				world.destroyBlock(currCoords, true);
 			}
 		}
 	}
