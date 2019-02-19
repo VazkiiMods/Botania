@@ -20,8 +20,6 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.MathHelper;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent.KeyInputEvent;
@@ -31,6 +29,7 @@ import net.minecraftforge.items.IItemHandler;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.Vector3;
+import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.network.PacketDodge;
@@ -55,13 +54,11 @@ public class ItemDodgeRing extends ItemBauble {
 		Minecraft mc = Minecraft.getMinecraft();
 
 		IItemHandler baublesInv = BaublesApi.getBaublesHandler(mc.player);
-		ItemStack ringStack = baublesInv.getStackInSlot(1);
-		if(ringStack.isEmpty() || !(ringStack.getItem() instanceof ItemDodgeRing)) {
-			ringStack = baublesInv.getStackInSlot(2);
-			if(ringStack.isEmpty() || !(ringStack.getItem() instanceof ItemDodgeRing))
+		int slot = BaublesApi.isBaubleEquipped(mc.player, ModItems.dodgeRing);
+		if(slot < 0) {
 				return;
 		}
-
+		ItemStack ringStack = baublesInv.getStackInSlot(slot);
 		if(ItemNBTHelper.getInt(ringStack, TAG_DODGE_COOLDOWN, 0) > 0)
 			return;
 

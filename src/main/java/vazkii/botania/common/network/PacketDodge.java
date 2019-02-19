@@ -15,7 +15,6 @@ import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
@@ -23,6 +22,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.items.IItemHandler;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
+import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.bauble.ItemDodgeRing;
 
 public class PacketDodge implements IMessage {
@@ -40,16 +40,13 @@ public class PacketDodge implements IMessage {
 			EntityPlayerMP player = ctx.getServerHandler().player;
 			player.server.addScheduledTask(() -> {
 				player.world.playSound(null, player.posX, player.posY, player.posZ, ModSounds.dash, SoundCategory.PLAYERS, 1F, 1F);
-
 				IItemHandler baublesInv = BaublesApi.getBaublesHandler(player);
-				ItemStack ringStack = baublesInv.getStackInSlot(1);
-				if(ringStack.isEmpty() || !(ringStack.getItem() instanceof ItemDodgeRing)) {
-					ringStack = baublesInv.getStackInSlot(2);
-					if(ringStack.isEmpty() || !(ringStack.getItem() instanceof ItemDodgeRing))
-						ctx.getServerHandler().disconnect(new TextComponentTranslation("botaniamisc.invalidDodge"));
+				int slot = BaublesApi.isBaubleEquipped(player, ModItems.dodgeRing);
+				if(slot < 0) {
+					ctx.getServerHandler().disconnect(new TextComponentTranslation("botaniamisc.invalidDodge"));
 					return;
 				}
-
+				ItemStack ringStack = baublesInv.getStackInSlot(slot);
 				player.addExhaustion(0.3F);
 				ItemNBTHelper.setInt(ringStack, ItemDodgeRing.TAG_DODGE_COOLDOWN, ItemDodgeRing.MAX_CD);
 			});
