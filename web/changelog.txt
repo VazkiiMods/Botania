@@ -1,3 +1,14 @@
+r1.10 360
+*Fixed a crash on moving floating flowers with the static model config with quark's pistons. (Hubry)
+*Fixed a dupe with shears.
+*Fixed cloaks blocking /kill damage
+*Fixed floating flowers with the static model config not showing special grass types. (Hubry)
+*Fixed hoes not being usable on special grasses. (quat)
+*Fixed hopperhocks pulling from the wrong sides. (quat)
+*Fixed mushrooms being usable to craft petal blocks. (quat)
+*Fixed pumpkins and melons not growing on special grasses. (quat)
+*Fixed vine balls placing invalid vines. (quat)
+*Made NBT matching faster and work better. (quat)
 r1.10 359
 *Fix Lexica rotating item config not swapping usable items in recipes (Hubry)
 *Fix mana prism automation changes not causing spreaders to recalculate
