@@ -64,7 +64,7 @@ public class ItemOdinRing extends ItemRelicBauble {
 	public static void onPlayerAttacked(LivingAttackEvent event) {
 		if(event.getEntityLiving() instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) event.getEntityLiving();
-			if(getOdinRing(player) != null && damageNegations.contains(event.getSource().damageType))
+			if(!getOdinRing(player).isEmpty() && damageNegations.contains(event.getSource().damageType))
 				event.setCanceled(true);
 		}
 	}
@@ -76,13 +76,11 @@ public class ItemOdinRing extends ItemRelicBauble {
 
 	public static ItemStack getOdinRing(EntityPlayer player) {
 		IItemHandler baubles = BaublesApi.getBaublesHandler(player);
-		ItemStack stack1 = baubles.getStackInSlot(1);
-		ItemStack stack2 = baubles.getStackInSlot(2);
-		return isOdinRing(stack1) ? stack1 : isOdinRing(stack2) ? stack2 : null;
-	}
-
-	private static boolean isOdinRing(ItemStack stack) {
-		return !stack.isEmpty() && stack.getItem() == ModItems.odinRing;
+		int slot = BaublesApi.isBaubleEquipped(player, ModItems.odinRing);
+		if (slot < 0) {
+			return ItemStack.EMPTY;
+		}
+		return baubles.getStackInSlot(slot);
 	}
 
 	@Override
