@@ -15,8 +15,8 @@ import net.minecraft.item.ItemStack;
 
 public abstract class CloudPendantShim extends ItemBauble {
 
-	public CloudPendantShim(String name) {
-		super(name);
+	public CloudPendantShim(Properties props) {
+		super(props);
 	}
 
 	@Override

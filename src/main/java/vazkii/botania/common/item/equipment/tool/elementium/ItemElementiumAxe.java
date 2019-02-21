@@ -13,29 +13,25 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelAxe;
-import vazkii.botania.common.lib.LibItemNames;
 
-import javax.annotation.Nonnull;
 import java.util.Random;
 
 public class ItemElementiumAxe extends ItemManasteelAxe {
 
-	public ItemElementiumAxe() {
-		super(BotaniaAPI.elementiumToolMaterial, LibItemNames.ELEMENTIUM_AXE);
-		MinecraftForge.EVENT_BUS.register(this);
+	public ItemElementiumAxe(Properties props) {
+		super(BotaniaAPI.ELEMENTIUM_ITEM_TIER, props);
+		MinecraftForge.EVENT_BUS.addListener(this::onEntityDrops);
 	}
 
 	// Thanks to SpitefulFox for the drop rates
 	// https://github.com/SpitefulFox/ForbiddenMagic/blob/master/src/com/spiteful/forbidden/FMEventHandler.java
 
-	@SubscribeEvent
-	public void onEntityDrops(LivingDropsEvent event) {
+    private void onEntityDrops(LivingDropsEvent event) {
 		if(event.isRecentlyHit() && event.getSource().getTrueSource() != null && event.getSource().getTrueSource() instanceof EntityPlayer) {
 			ItemStack weapon = ((EntityPlayer) event.getSource().getTrueSource()).getHeldItemMainhand();
 			if(!weapon.isEmpty() && weapon.getItem() == this) {
@@ -43,14 +39,14 @@ public class ItemElementiumAxe extends ItemManasteelAxe {
 				int looting = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, weapon);
 
 				if(event.getEntityLiving() instanceof AbstractSkeleton && rand.nextInt(26) <= 3 + looting)
-					addDrop(event, new ItemStack(Items.SKULL, 1, event.getEntityLiving() instanceof EntityWitherSkeleton ? 1 : 0));
+					addDrop(event, new ItemStack(event.getEntity() instanceof EntityWitherSkeleton ? Items.WITHER_SKELETON_SKULL : Items.SKELETON_SKULL));
 				else if(event.getEntityLiving() instanceof EntityZombie && !(event.getEntityLiving() instanceof EntityPigZombie) && rand.nextInt(26) <= 2 + 2 * looting)
-					addDrop(event, new ItemStack(Items.SKULL, 1, 2));
+					addDrop(event, new ItemStack(Items.ZOMBIE_HEAD));
 				else if(event.getEntityLiving() instanceof EntityCreeper && rand.nextInt(26) <= 2 + 2 * looting)
-					addDrop(event, new ItemStack(Items.SKULL, 1, 4));
+					addDrop(event, new ItemStack(Items.CREEPER_HEAD));
 				else if(event.getEntityLiving() instanceof EntityPlayer && rand.nextInt(11) <= 1 + looting) {
-					ItemStack stack = new ItemStack(Items.SKULL, 1, 3);
-					ItemNBTHelper.setString(stack, "SkullOwner", event.getEntityLiving().getName());
+					ItemStack stack = new ItemStack(Items.PLAYER_HEAD);
+					ItemNBTHelper.setString(stack, "SkullOwner", ((EntityPlayer) event.getEntityLiving()).getGameProfile().getName());
 					addDrop(event, stack);
 				} else if(event.getEntityLiving() instanceof EntityDoppleganger && rand.nextInt(13) < 1 + looting)
 					addDrop(event, new ItemStack(ModItems.gaiaHead));
@@ -62,11 +58,6 @@ public class ItemElementiumAxe extends ItemManasteelAxe {
 		EntityItem entityitem = new EntityItem(event.getEntityLiving().world, event.getEntityLiving().posX, event.getEntityLiving().posY, event.getEntityLiving().posZ, drop);
 		entityitem.setPickupDelay(10);
 		event.getDrops().add(entityitem);
-	}
-
-	@Override
-	public boolean getIsRepairable(ItemStack toRepair, @Nonnull ItemStack repairBy) {
-		return repairBy.getItem() == ModItems.elementium ? true : super.getIsRepairable(toRepair, repairBy);
 	}
 
 }

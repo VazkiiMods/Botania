@@ -33,8 +33,8 @@ import java.util.UUID;
 
 public class ItemTerrasteelArmor extends ItemManasteelArmor {
 
-	public ItemTerrasteelArmor(EntityEquipmentSlot type, String name) {
-		super(type, name, BotaniaAPI.terrasteelArmorMaterial);
+	public ItemTerrasteelArmor(EntityEquipmentSlot type, Properties props) {
+		super(type, props, BotaniaAPI.terrasteelArmorMaterial);
 	}
 
 	@Override

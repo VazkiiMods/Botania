@@ -10,19 +10,19 @@
  */
 package vazkii.botania.common.item.equipment.tool.terrasteel;
 
-import gnu.trove.map.hash.TIntObjectHashMap;
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Enchantments;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
 import vazkii.botania.api.BotaniaAPI;
@@ -36,9 +36,11 @@ import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.PriorityQueue;
 import java.util.Set;
@@ -73,10 +75,10 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 	 * Represents a map of dimension IDs to a set of all block swappers
 	 * active in that dimension.
 	 */
-	private static final TIntObjectHashMap<Set<BlockSwapper>> blockSwappers = new TIntObjectHashMap<>();
+	private static final Map<Integer, Set<BlockSwapper>> blockSwappers = new HashMap<>();
 
-	public ItemTerraAxe() {
-		super(BotaniaAPI.terrasteelToolMaterial, LibItemNames.TERRA_AXE);
+	public ItemTerraAxe(Properties props) {
+		super(BotaniaAPI.TERRASTEEL_ITEM_TIER, props);
 		MinecraftForge.EVENT_BUS.register(this);
 		attackSpeed = -3f;
 		addPropertyOverride(new ResourceLocation(LibMisc.MOD_ID, "terraaxe_on"), (stack, world, entity) -> {
@@ -304,8 +306,8 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 				for(BlockPos adj : adjacent(cand.coordinates)) {
 					Block block = world.getBlockState(adj).getBlock();
 
-					boolean isWood = block.isWood(world, adj);
-					boolean isLeaf = block.isLeaves(world.getBlockState(adj), world, adj);
+					boolean isWood = BlockTags.LOGS.contains(block);
+					boolean isLeaf = BlockTags.LEAVES.contains(block);
 
 					// If it's not wood or a leaf, we aren't interested.
 					if(!isWood && !isLeaf)

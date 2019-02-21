@@ -13,13 +13,14 @@ package vazkii.botania.common.item.equipment.tool.terrasteel;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Enchantments;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUseContext;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
@@ -31,6 +32,8 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3i;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
@@ -74,15 +77,15 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 			10000 - 1, 1000000 - 1, 10000000 - 1, 100000000 - 1, 1000000000 - 1, MAX_MANA - 1
 	};
 
-	public ItemTerraPick() {
-		super(BotaniaAPI.terrasteelToolMaterial, LibItemNames.TERRA_PICK);
+	public ItemTerraPick(Properties props) {
+		super(BotaniaAPI.TERRASTEEL_ITEM_TIER, props);
 		addPropertyOverride(new ResourceLocation("botania", "tipped"), (itemStack, world, entityLivingBase) -> isTipped(itemStack) ? 1 : 0);
 		addPropertyOverride(new ResourceLocation("botania", "enabled"), (itemStack, world, entityLivingBase) -> isEnabled(itemStack) ? 1 : 0);
 	}
 
 	@Override
-	public void getSubItems(@Nonnull CreativeTabs tab, @Nonnull NonNullList<ItemStack> list) {
-		if(isInCreativeTab(tab)) {
+	public void fillItemGroup(@Nonnull ItemGroup tab, @Nonnull NonNullList<ItemStack> list) {
+		if(isInGroup(tab)) {
 			for(int mana : CREATIVE_MANA) {
 				ItemStack stack = new ItemStack(this);
 				setMana(stack, mana);
@@ -93,12 +96,12 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void addInformation(ItemStack par1ItemStack, World world, List<String> stacks, ITooltipFlag flags) {
-		String rank = I18n.format("botania.rank" + getLevel(par1ItemStack));
-		String rankFormat = I18n.format("botaniamisc.toolRank", rank);
-		stacks.add(rankFormat.replaceAll("&", "\u00a7"));
+	public void addInformation(ItemStack par1ItemStack, World world, List<ITextComponent> stacks, ITooltipFlag flags) {
+		ITextComponent rank = new TextComponentTranslation("botania.rank" + getLevel(par1ItemStack));
+		ITextComponent rankFormat = new TextComponentTranslation("botaniamisc.toolRank", rank);
+		stacks.add(rankFormat);
 		if(getMana(par1ItemStack) == Integer.MAX_VALUE)
-			stacks.add(TextFormatting.RED + I18n.format("botaniamisc.getALife"));
+			stacks.add(new TextComponentTranslation("botaniamisc.getALife").applyTextStyle(TextFormatting.RED));
 	}
 
 	@Nonnull
@@ -120,14 +123,14 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 
 	@Nonnull
 	@Override
-	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float sx, float sy, float sz) {
-		return player.isSneaking() ? super.onItemUse(player, world, pos, hand, side, sx, sy, sz)
+	public EnumActionResult onItemUse(ItemUseContext ctx) {
+		return ctx.getPlayer() == null || ctx.getPlayer().isSneaking() ? super.onItemUse(ctx)
 				: EnumActionResult.PASS;
 	}
 
 	@Override
-	public void onUpdate(ItemStack par1ItemStack, World world, Entity par3Entity, int par4, boolean par5) {
-		super.onUpdate(par1ItemStack, world, par3Entity, par4, par5);
+	public void inventoryTick(ItemStack par1ItemStack, World world, Entity par3Entity, int par4, boolean par5) {
+		super.inventoryTick(par1ItemStack, world, par3Entity, par4, par5);
 		if(isEnabled(par1ItemStack)) {
 			int level = getLevel(par1ItemStack);
 
@@ -272,11 +275,6 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 	@Override
 	public boolean isNoExport(ItemStack stack) {
 		return true;
-	}
-
-	@Override
-	public boolean getIsRepairable(ItemStack pick, @Nonnull ItemStack material) {
-		return material.getItem() == ModItems.terrasteel || super.getIsRepairable(pick, material);
 	}
 
 	@Override

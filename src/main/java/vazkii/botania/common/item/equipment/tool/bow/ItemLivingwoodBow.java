@@ -10,7 +10,6 @@
  */
 package vazkii.botania.common.item.equipment.tool.bow;
 
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;

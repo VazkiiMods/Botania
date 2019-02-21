@@ -14,15 +14,15 @@ import baubles.api.BaubleType;
 import baubles.api.BaublesApi;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.entity.model.ModelBiped;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -50,13 +50,13 @@ public class ItemTravelBelt extends ItemBauble implements IBaubleRender, IManaUs
 	public final float jump;
 	public final float fallBuffer;
 
-	public ItemTravelBelt() {
-		this(LibItemNames.TRAVEL_BELT, 0.035F, 0.2F, 2F);
+	public ItemTravelBelt(Properties props) {
+		this(props, 0.035F, 0.2F, 2F);
 		MinecraftForge.EVENT_BUS.register(this);
 	}
 
-	public ItemTravelBelt(String name, float speed, float jump, float fallBuffer) {
-		super(name);
+	public ItemTravelBelt(Properties props, float speed, float jump, float fallBuffer) {
+		super(props);
 		this.speed = speed;
 		this.jump = jump;
 		this.fallBuffer = fallBuffer;
@@ -79,9 +79,9 @@ public class ItemTravelBelt extends ItemBauble implements IBaubleRender, IManaUs
 					ItemTravelBelt beltItem = (ItemTravelBelt) belt.getItem();
 
 					if(player.world.isRemote) {
-						if((player.onGround || player.capabilities.isFlying) && player.moveForward > 0F && !player.isInsideOfMaterial(Material.WATER)) {
+						if((player.onGround || player.abilities.isFlying) && player.moveForward > 0F && !player.isInWaterOrBubbleColumn()) {
 							float speed = beltItem.getSpeed(belt);
-							player.moveRelative(0F, 0F, 1F, player.capabilities.isFlying ? speed : speed);
+							player.moveRelative(0F, 0F, 1F, player.abilities.isFlying ? speed : speed);
 							beltItem.onMovedTick(belt, player);
 
 							if(player.ticksExisted % COST_INTERVAL == 0)
@@ -132,7 +132,7 @@ public class ItemTravelBelt extends ItemBauble implements IBaubleRender, IManaUs
 
 	@SubscribeEvent
 	public void playerLoggedOut(PlayerEvent.PlayerLoggedOutEvent event) {
-		String username = event.player.getGameProfile().getName();
+		String username = event.getPlayer().getGameProfile().getName();
 		playersWithStepup.remove(username + ":false");
 		playersWithStepup.remove(username + ":true");
 	}
@@ -150,13 +150,13 @@ public class ItemTravelBelt extends ItemBauble implements IBaubleRender, IManaUs
 	@OnlyIn(Dist.CLIENT)
 	public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
 		if(type == RenderType.BODY) {
-			Minecraft.getMinecraft().renderEngine.bindTexture(getRenderTexture());
+			Minecraft.getInstance().textureManager.bindTexture(getRenderTexture());
 			Helper.rotateIfSneaking(player);
 
-			GlStateManager.translate(0F, 0.2F, 0F);
+			GlStateManager.translatef(0F, 0.2F, 0F);
 
 			float s = 1.05F / 16F;
-			GlStateManager.scale(s, s, s);
+			GlStateManager.scalef(s, s, s);
 			if(model == null)
 				model = new ModelBiped();
 

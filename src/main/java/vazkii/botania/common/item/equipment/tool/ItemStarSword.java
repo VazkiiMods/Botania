@@ -32,13 +32,13 @@ public class ItemStarSword extends ItemManasteelSword {
 
 	private static final int MANA_PER_DAMAGE = 120;
 
-	public ItemStarSword() {
-		super(BotaniaAPI.terrasteelToolMaterial, LibItemNames.STAR_SWORD);
+	public ItemStarSword(Properties props) {
+		super(BotaniaAPI.TERRASTEEL_ITEM_TIER, props);
 	}
 
 	@Override
-	public void onUpdate(ItemStack par1ItemStack, World world, Entity par3Entity, int par4, boolean par5) {
-		super.onUpdate(par1ItemStack, world, par3Entity, par4, par5);
+	public void inventoryTick(ItemStack par1ItemStack, World world, Entity par3Entity, int par4, boolean par5) {
+		super.inventoryTick(par1ItemStack, world, par3Entity, par4, par5);
 		if(par3Entity instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) par3Entity;
 			PotionEffect haste = player.getActivePotionEffect(MobEffects.HASTE);
@@ -60,7 +60,7 @@ public class ItemStarSword extends ItemManasteelSword {
 					world.spawnEntity(star);
 
 					if (!world.isRaining()
-							&& Math.abs(world.getWorldTime() - 18000) < 1800
+							&& Math.abs(world.getDayTime() - 18000) < 1800
 							&& Math.random() < 0.125) {
 						EntityFallingStar bonusStar = new EntityFallingStar(player, world);
 						bonusStar.setPosition(posVec.x, posVec.y, posVec.z);
@@ -80,10 +80,5 @@ public class ItemStarSword extends ItemManasteelSword {
 	@Override
 	public int getManaPerDamage() {
 		return MANA_PER_DAMAGE;
-	}
-
-	@Override
-	public boolean getIsRepairable(ItemStack sword, @Nonnull ItemStack material) {
-		return material.getItem() == ModItems.terrasteel || super.getIsRepairable(sword, material);
 	}
 }

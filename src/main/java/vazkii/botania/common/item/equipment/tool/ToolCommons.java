@@ -19,6 +19,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Enchantments;
+import net.minecraft.item.IItemTier;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemTool;
@@ -116,13 +117,13 @@ public final class ToolCommons {
 			return 0;
 
 		ItemTool tool = (ItemTool) item;
-		ToolMaterial material = tool.toolMaterial;
+		IItemTier material = tool.getTier();
 		int materialLevel = 0;
-		if(material == BotaniaAPI.manasteelToolMaterial)
+		if(material == BotaniaAPI.MANASTEEL_ITEM_TIER)
 			materialLevel = 10;
-		if(material == BotaniaAPI.elementiumToolMaterial)
+		if(material == BotaniaAPI.ELEMENTIUM_ITEM_TIER)
 			materialLevel = 11;
-		if(material == BotaniaAPI.terrasteelToolMaterial)
+		if(material == BotaniaAPI.TERRASTEEL_ITEM_TIER)
 			materialLevel = 20;
 
 		int modifier = 0;

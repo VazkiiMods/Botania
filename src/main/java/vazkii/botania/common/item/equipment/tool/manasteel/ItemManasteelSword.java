@@ -11,10 +11,10 @@
 package vazkii.botania.common.item.equipment.tool.manasteel;
 
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.IItemTier;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
 import net.minecraft.util.ResourceLocation;
@@ -36,27 +36,18 @@ import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
-public class ItemManasteelSword extends ItemSword implements IManaUsingItem, IModelRegister {
+public class ItemManasteelSword extends ItemSword implements IManaUsingItem {
 
 	public static final int MANA_PER_DAMAGE = 60;
 
-	public ItemManasteelSword() {
-		this(BotaniaAPI.manasteelToolMaterial, LibItemNames.MANASTEEL_SWORD);
+	public ItemManasteelSword(Properties props) {
+		this(BotaniaAPI.MANASTEEL_ITEM_TIER, props);
 	}
 
-	public ItemManasteelSword(ToolMaterial mat, String name) {
-		super(mat);
-		setCreativeTab(BotaniaCreativeTab.INSTANCE);
-		setRegistryName(new ResourceLocation(LibMisc.MOD_ID, name));
-		setTranslationKey(name);
+	public ItemManasteelSword(IItemTier mat, Properties props) {
+		super(mat, 3, -2.4F, props);
 		addPropertyOverride(new ResourceLocation("botania", "elucidator"),
-				(stack, worldIn, entityIn) -> "the elucidator".equals(stack.getDisplayName().toLowerCase().trim()) ? 1 : 0);
-	}
-
-	@Nonnull
-	@Override
-	public String getUnlocalizedNameInefficiently(@Nonnull ItemStack par1ItemStack) {
-		return super.getUnlocalizedNameInefficiently(par1ItemStack).replaceAll("item.", "item." + LibResources.PREFIX_MOD);
+				(stack, worldIn, entityIn) -> "the elucidator".equals(stack.getDisplayName().getString().toLowerCase().trim()) ? 1 : 0);
 	}
 
 	@Override
@@ -75,7 +66,7 @@ public class ItemManasteelSword extends ItemSword implements IManaUsingItem, IMo
 	}
 
 	@Override
-	public void onUpdate(ItemStack stack, World world, Entity player, int par4, boolean par5) {
+	public void inventoryTick(ItemStack stack, World world, Entity player, int par4, boolean par5) {
 		if(!world.isRemote && player instanceof EntityPlayer && stack.getDamage() > 0 && ManaItemHandler.requestManaExactForTool(stack, (EntityPlayer) player, getManaPerDamage() * 2, true))
 			stack.setDamage(stack.getDamage() - 1);
 	}
@@ -85,18 +76,7 @@ public class ItemManasteelSword extends ItemSword implements IManaUsingItem, IMo
 	}
 
 	@Override
-	public boolean getIsRepairable(ItemStack sword, @Nonnull ItemStack material) {
-		return material.getItem() == ModItems.manaSteel || super.getIsRepairable(sword, material);
-	}
-
-	@Override
 	public boolean usesMana(ItemStack stack) {
 		return true;
-	}
-
-	@OnlyIn(Dist.CLIENT)
-	@Override
-	public void registerModels() {
-		ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getRegistryName(), "inventory"));
 	}
 }

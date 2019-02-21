@@ -23,10 +23,8 @@ import java.util.List;
 
 public class ItemElementiumShovel extends ItemManasteelShovel {
 
-	public static final List<Material> materialsShovel = Arrays.asList(Material.GRASS, Material.GROUND, Material.SAND, Material.SNOW, Material.CRAFTED_SNOW, Material.CLAY);
-
-	public ItemElementiumShovel() {
-		super(BotaniaAPI.elementiumToolMaterial, LibItemNames.ELEMENTIUM_SHOVEL);
+	public ItemElementiumShovel(Properties props) {
+		super(BotaniaAPI.ELEMENTIUM_ITEM_TIER, props);
 	}
 
 	@Override
@@ -47,11 +45,6 @@ public class ItemElementiumShovel extends ItemManasteelShovel {
 					false);
 
 		return false;
-	}
-
-	@Override
-	public boolean getIsRepairable(ItemStack toRepair, @Nonnull ItemStack repairBy) {
-		return repairBy.getItem() == ModItems.elementium ? true : super.getIsRepairable(toRepair, repairBy);
 	}
 
 }

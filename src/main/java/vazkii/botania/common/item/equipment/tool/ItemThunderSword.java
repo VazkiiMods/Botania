@@ -38,8 +38,8 @@ public class ItemThunderSword extends ItemManasteelSword {
 
 	private static final String TAG_LIGHTNING_SEED = "lightningSeed";
 
-	public ItemThunderSword() {
-		super(BotaniaAPI.terrasteelToolMaterial, LibItemNames.THUNDER_SWORD);
+	public ItemThunderSword(Properties props) {
+		super(BotaniaAPI.TERRASTEEL_ITEM_TIER, props);
 	}
 
 	@Override
@@ -82,8 +82,8 @@ public class ItemThunderSword extends ItemManasteelSword {
 
 	@Nonnull
 	@Override
-	public Multimap<String, AttributeModifier> getItemAttributeModifiers(EntityEquipmentSlot equipmentSlot) {
-		Multimap<String, AttributeModifier> multimap = super.getItemAttributeModifiers(equipmentSlot);
+	public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot equipmentSlot) {
+		Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(equipmentSlot);
 
 		if (equipmentSlot == EntityEquipmentSlot.MAINHAND) {
 			multimap.removeAll(SharedMonsterAttributes.ATTACK_SPEED.getName());

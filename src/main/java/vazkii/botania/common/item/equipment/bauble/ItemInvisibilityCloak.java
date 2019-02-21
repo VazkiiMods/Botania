@@ -22,8 +22,8 @@ import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemInvisibilityCloak extends ItemBauble implements IManaUsingItem {
 
-	public ItemInvisibilityCloak() {
-		super(LibItemNames.INVISIBILITY_CLOAK);
+	public ItemInvisibilityCloak(Properties props) {
+		super(props);
 	}
 
 	@Override

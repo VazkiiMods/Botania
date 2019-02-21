@@ -1,28 +1,27 @@
 package vazkii.botania.common.item.equipment.tool.elementium;
 
 import net.minecraft.block.Block;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.Tag;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.world.BlockEvent.HarvestDropsEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelPick;
 import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
-import vazkii.botania.common.lib.LibItemNames;
-
-import javax.annotation.Nonnull;
+import vazkii.botania.common.lib.LibMisc;
 
 public class ItemElementiumPick extends ItemManasteelPick {
 
-	public ItemElementiumPick() {
-		super(BotaniaAPI.elementiumToolMaterial, LibItemNames.ELEMENTIUM_PICK);
-		MinecraftForge.EVENT_BUS.register(this);
+	public ItemElementiumPick(Properties props) {
+		super(BotaniaAPI.ELEMENTIUM_ITEM_TIER, props);
+		MinecraftForge.EVENT_BUS.addListener(this::onHarvestDrops);
 	}
 
-	@SubscribeEvent
-	public void onHarvestDrops(HarvestDropsEvent event) {
+	private void onHarvestDrops(HarvestDropsEvent event) {
 		if(event.getHarvester() != null) {
 			ItemStack stack = event.getHarvester().getHeldItemMainhand();
 			if(!stack.isEmpty() && (stack.getItem() == this || stack.getItem() == ModItems.terraPick && ItemTerraPick.isTipped(stack))) {
@@ -32,33 +31,21 @@ public class ItemElementiumPick extends ItemManasteelPick {
 		}
 	}
 
+	private static final Tag<Item> DISPOSABLE = new ItemTags.Wrapper(new ResourceLocation(LibMisc.MOD_ID, "disposable"));
+	private static final Tag<Item> SEMI_DISPOSABLE = new ItemTags.Wrapper(new ResourceLocation(LibMisc.MOD_ID, "semi_disposable"));
+
 	public static boolean isDisposable(Block block) {
-		return isDisposable(new ItemStack(block));
+		return DISPOSABLE.contains(block.asItem());
 	}
 
 	private static boolean isDisposable(ItemStack stack) {
 		if(stack.isEmpty())
 			return false;
-		
-		for(int id : OreDictionary.getOreIDs(stack)) {
-			String name = OreDictionary.getOreName(id);
-			if(BotaniaAPI.disposableBlocks.contains(name))
-				return true;
-		}
-		return false;
+
+		return DISPOSABLE.contains(stack.getItem());
 	}
 
 	private static boolean isSemiDisposable(ItemStack stack) {
-		for(int id : OreDictionary.getOreIDs(stack)) {
-			String name = OreDictionary.getOreName(id);
-			if(BotaniaAPI.semiDisposableBlocks.contains(name))
-				return true;
-		}
-		return false;
-	}
-
-	@Override
-	public boolean getIsRepairable(ItemStack toRepair, @Nonnull ItemStack repairBy) {
-		return repairBy.getItem() == ModItems.elementium ? true : super.getIsRepairable(toRepair, repairBy);
+		return SEMI_DISPOSABLE.contains(stack.getItem());
 	}
 }

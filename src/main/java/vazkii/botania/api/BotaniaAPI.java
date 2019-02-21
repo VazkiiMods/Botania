@@ -25,11 +25,13 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.EnumRarity;
+import net.minecraft.item.IItemTier;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.state.EnumProperty;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.RegistryNamespaced;
@@ -58,7 +60,9 @@ import vazkii.botania.api.subtile.signature.SubTileSignature;
 import vazkii.botania.api.wiki.IWikiProvider;
 import vazkii.botania.api.wiki.SimpleWikiProvider;
 import vazkii.botania.api.wiki.WikiHooks;
+import vazkii.botania.common.item.ModItems;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -76,9 +80,6 @@ public final class BotaniaAPI {
 	public static final Map<String, KnowledgeType> knowledgeTypes = new HashMap<>();
 
 	public static final Map<String, Brew> brewMap = new LinkedHashMap<>();
-
-	public static final List<String> disposableBlocks = new ArrayList<>();
-	public static final List<String> semiDisposableBlocks = new ArrayList<>();
 
 	public static final List<RecipePetals> petalRecipes = new ArrayList<>();
 	public static final List<RecipePureDaisy> pureDaisyRecipes = new ArrayList<>();
@@ -102,18 +103,113 @@ public final class BotaniaAPI {
 	public static final Set<String> magnetBlacklist = new LinkedHashSet<>();
 	public static final Set<Class<? extends Entity>> gravityRodBlacklist = new LinkedHashSet<>();
 
-
+	// TODO 1.13 move these to eliminate dependence on botania proper in Ingredients
 	public static final ArmorMaterial manasteelArmorMaterial = EnumHelper.addArmorMaterial("MANASTEEL", "manasteel", 16,
 			new int[] { 2, 5, 6, 2 }, 18, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 0);
-	public static final ToolMaterial manasteelToolMaterial = EnumHelper.addToolMaterial("MANASTEEL", 3, 300, 6.2F, 2F, 20);
+	public static final IItemTier MANASTEEL_ITEM_TIER = new IItemTier() {
+		@Override
+		public int getMaxUses() {
+			return 300;
+		}
+
+		@Override
+		public float getEfficiency() {
+			return 6.2F;
+		}
+
+		@Override
+		public float getAttackDamage() {
+			return 2;
+		}
+
+		@Override
+		public int getHarvestLevel() {
+			return 3;
+		}
+
+		@Override
+		public int getEnchantability() {
+			return 20;
+		}
+
+		@Nonnull
+		@Override
+		public Ingredient getRepairMaterial() {
+			return Ingredient.fromItems(ModItems.manaSteel);
+		}
+	}
 
 	public static final ArmorMaterial elementiumArmorMaterial = EnumHelper.addArmorMaterial("B_ELEMENTIUM", "b_elementium", 18,
 			new int[] { 2, 5, 6, 2 }, 18, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 0);
 	public static final ToolMaterial elementiumToolMaterial = EnumHelper.addToolMaterial("B_ELEMENTIUM", 3, 720, 6.2F, 2F, 20);
 
+	public static final IItemTier ELEMENTIUM_ITEM_TIER = new IItemTier() {
+		@Override
+		public int getMaxUses() {
+			return 720;
+		}
+
+		@Override
+		public float getEfficiency() {
+			return 6.2F;
+		}
+
+		@Override
+		public float getAttackDamage() {
+			return 2;
+		}
+
+		@Override
+		public int getHarvestLevel() {
+			return 3;
+		}
+
+		@Override
+		public int getEnchantability() {
+			return 20;
+		}
+
+		@Nonnull
+		@Override
+		public Ingredient getRepairMaterial() {
+			return Ingredient.fromItems(ModItems.elementium);
+		}
+	}
+
 	public static final ArmorMaterial terrasteelArmorMaterial = EnumHelper.addArmorMaterial("TERRASTEEL", "terrasteel", 34,
 			new int[] { 3, 6, 8, 3 }, 26, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 3F);
-	public static final ToolMaterial terrasteelToolMaterial = EnumHelper.addToolMaterial("TERRASTEEL", 4, 2300, 9F, 3F, 26);
+	public static final IItemTier TERRASTEEL_ITEM_TIER = new IItemTier() {
+		@Override
+		public int getMaxUses() {
+			return 2300;
+		}
+
+		@Override
+		public float getEfficiency() {
+			return 9;
+		}
+
+		@Override
+		public float getAttackDamage() {
+			return 3;
+		}
+
+		@Override
+		public int getHarvestLevel() {
+			return 4;
+		}
+
+		@Override
+		public int getEnchantability() {
+			return 26;
+		}
+
+		@Nonnull
+		@Override
+		public Ingredient getRepairMaterial() {
+			return Ingredient.fromItems(ModItems.terrasteel);
+		}
+	}
 
 	public static final ArmorMaterial manaweaveArmorMaterial = EnumHelper.addArmorMaterial("MANAWEAVE", "manaweave", 5,
 			new int[] { 1, 2, 2, 1 }, 18, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0);
@@ -237,16 +333,6 @@ public final class BotaniaAPI {
 		registerPaintableBlock(Blocks.STAINED_HARDENED_CLAY, BlockColored.COLOR);
 		registerPaintableBlock(Blocks.WOOL, BlockColored.COLOR);
 		registerPaintableBlock(Blocks.CARPET, BlockCarpet.COLOR);
-
-		registerDisposableBlock("dirt"); // Vanilla
-		registerDisposableBlock("sand"); // Vanilla
-		registerDisposableBlock("gravel"); // Vanilla
-		registerDisposableBlock("cobblestone"); // Vanilla
-		registerDisposableBlock("netherrack"); // Vanilla
-		registerSemiDisposableBlock("stoneAndesite"); // Vanilla
-		registerSemiDisposableBlock("stoneBasalt"); // Vanilla
-		registerSemiDisposableBlock("stoneDiorite"); // Vanilla
-		registerSemiDisposableBlock("stoneGranite"); // Vanilla
 	}
 
 	/**
@@ -284,21 +370,6 @@ public final class BotaniaAPI {
 		if(brewMap.containsKey(key))
 			return brewMap.get(key);
 		return fallbackBrew;
-	}
-
-	/**
-	 * Registers a Block as disposable using its Ore Dictionary Name.
-	 */
-	public static void registerDisposableBlock(String oreDictName) {
-		disposableBlocks.add(oreDictName);
-	}
-
-	/**
-	 * Registers a Block as semi disposable using its Ore Dictionary Name.
-	 * This means it will not be trashed when sneaking.
-	 */
-	public static void registerSemiDisposableBlock(String oreDictName) {
-		semiDisposableBlocks.add(oreDictName);
 	}
 
 	/**

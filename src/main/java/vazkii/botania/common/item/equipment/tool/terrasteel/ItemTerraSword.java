@@ -22,8 +22,8 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.fml.common.FMLCommonHandler;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.server.ServerLifecycleHooks;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.BurstProperties;
@@ -47,21 +47,20 @@ public class ItemTerraSword extends ItemManasteelSword implements ILensEffect {
 
 	private static final int MANA_PER_DAMAGE = 100;
 
-	public ItemTerraSword() {
-		super(BotaniaAPI.terrasteelToolMaterial, LibItemNames.TERRA_SWORD);
-		MinecraftForge.EVENT_BUS.register(this);
+	public ItemTerraSword(Properties props) {
+		super(BotaniaAPI.TERRASTEEL_ITEM_TIER, props);
+		MinecraftForge.EVENT_BUS.addListener(this::leftClick);
+        MinecraftForge.EVENT_BUS.addListener(this::attackEntity);
 	}
 
-	@SubscribeEvent
-	public void leftClick(PlayerInteractEvent.LeftClickEmpty evt) {
+	private void leftClick(PlayerInteractEvent.LeftClickEmpty evt) {
 		if (!evt.getItemStack().isEmpty()
 				&& evt.getItemStack().getItem() == this) {
 			PacketHandler.sendToServer(new PacketLeftClick());
 		}
 	}
 
-	@SubscribeEvent
-	public void attackEntity(AttackEntityEvent evt) {
+	private void attackEntity(AttackEntityEvent evt) {
 		if (!evt.getEntityPlayer().world.isRemote) {
 			trySpawnBurst(evt.getEntityPlayer());
 		}
@@ -97,7 +96,7 @@ public class ItemTerraSword extends ItemManasteelSword implements ILensEffect {
 		burst.setMotion(burst.motionX * motionModifier, burst.motionY * motionModifier, burst.motionZ * motionModifier);
 
 		ItemStack lens = stack.copy();
-		ItemNBTHelper.setString(lens, TAG_ATTACKER_USERNAME, player.getName());
+		ItemNBTHelper.setString(lens, TAG_ATTACKER_USERNAME, player.getGameProfile().getName());
 		burst.setSourceLens(lens);
 		return burst;
 	}
@@ -118,7 +117,7 @@ public class ItemTerraSword extends ItemManasteelSword implements ILensEffect {
 		String attacker = ItemNBTHelper.getString(burst.getSourceLens(), TAG_ATTACKER_USERNAME, "");
 
 		for(EntityLivingBase living : entities) {
-			if(living instanceof EntityPlayer && (living.getName().equals(attacker) || FMLCommonHandler.instance().getMinecraftServerInstance() != null && !FMLCommonHandler.instance().getMinecraftServerInstance().isPVPEnabled()))
+			if(living instanceof EntityPlayer && (living.getName().getString().equals(attacker) || ServerLifecycleHooks.getCurrentServer() != null && !ServerLifecycleHooks.getCurrentServer().isPVPEnabled()))
 				continue;
 
 			if(living.hurtTime == 0) {
@@ -126,11 +125,11 @@ public class ItemTerraSword extends ItemManasteelSword implements ILensEffect {
 				int mana = burst.getMana();
 				if(mana >= cost) {
 					burst.setMana(mana - cost);
-					float damage = 4F + BotaniaAPI.terrasteelToolMaterial.getAttackDamage();
+					float damage = 4F + BotaniaAPI.TERRASTEEL_ITEM_TIER.getAttackDamage();
 					if(!burst.isFake() && !entity.world.isRemote) {
 						EntityPlayer player = living.world.getPlayerEntityByName(attacker);
 						living.attackEntityFrom(player == null ? DamageSource.MAGIC : DamageSource.causePlayerDamage(player), damage);
-						entity.setDead();
+						entity.remove();
 						break;
 					}
 				}
@@ -141,10 +140,5 @@ public class ItemTerraSword extends ItemManasteelSword implements ILensEffect {
 	@Override
 	public boolean doParticles(IManaBurst burst, ItemStack stack) {
 		return true;
-	}
-
-	@Override
-	public boolean getIsRepairable(ItemStack sword, @Nonnull ItemStack material) {
-		return material.getItem() == ModItems.terrasteel || super.getIsRepairable(sword, material);
 	}
 }

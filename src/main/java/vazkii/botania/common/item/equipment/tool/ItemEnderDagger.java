@@ -29,10 +29,8 @@ import javax.annotation.Nonnull;
 
 public class ItemEnderDagger extends ItemManasteelSword {
 
-	public ItemEnderDagger() {
-		super(BotaniaAPI.manasteelToolMaterial, LibItemNames.ENDER_DAGGER);
-		setMaxDamage(69); // What you looking at?
-		setNoRepair();
+	public ItemEnderDagger(Properties props) {
+		super(BotaniaAPI.MANASTEEL_ITEM_TIER, props);
 	}
 
 	@Override
@@ -48,7 +46,7 @@ public class ItemEnderDagger extends ItemManasteelSword {
 	}
 
 	@Override
-	public void onUpdate(ItemStack stack, World world, Entity player, int par4, boolean par5) {}
+	public void inventoryTick(ItemStack stack, World world, Entity player, int par4, boolean par5) {}
 
 	@Override
 	public boolean usesMana(ItemStack stack) {
@@ -57,8 +55,8 @@ public class ItemEnderDagger extends ItemManasteelSword {
 
 	@Nonnull
 	@Override
-	public Multimap<String, AttributeModifier> getItemAttributeModifiers(EntityEquipmentSlot equipmentSlot) {
-		Multimap<String, AttributeModifier> multimap = super.getItemAttributeModifiers(equipmentSlot);
+	public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot equipmentSlot) {
+		Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(equipmentSlot);
 
 		if (equipmentSlot == EntityEquipmentSlot.MAINHAND) {
 			multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", -1.25, 0));

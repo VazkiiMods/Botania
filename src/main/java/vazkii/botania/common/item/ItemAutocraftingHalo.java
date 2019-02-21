@@ -23,13 +23,13 @@ public class ItemAutocraftingHalo extends ItemCraftingHalo {
 
 	private static final ResourceLocation glowTexture = new ResourceLocation(LibResources.MISC_GLOW_CYAN);
 
-	public ItemAutocraftingHalo() {
-		super(LibItemNames.AUTOCRAFTING_HALO);
+	public ItemAutocraftingHalo(Properties props) {
+		super(props);
 	}
 
 	@Override
-	public void onUpdate(ItemStack stack, World world, Entity entity, int pos, boolean equipped) {
-		super.onUpdate(stack, world, entity, pos, equipped);
+	public void inventoryTick(ItemStack stack, World world, Entity entity, int pos, boolean equipped) {
+		super.inventoryTick(stack, world, entity, pos, equipped);
 
 		if(entity instanceof EntityPlayer && !equipped) {
 			EntityPlayer player = (EntityPlayer) entity;

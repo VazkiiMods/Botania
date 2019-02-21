@@ -26,8 +26,8 @@ public class ItemSpeedUpBelt extends ItemTravelBelt {
 	private static final String TAG_OLD_Y = "oldY";
 	private static final String TAG_OLD_Z = "oldZ";
 
-	public ItemSpeedUpBelt() {
-		super(LibItemNames.SPEED_UP_BELT, 0F, 0.2F, 2F);
+	public ItemSpeedUpBelt(Properties props) {
+		super(props, 0F, 0.2F, 2F);
 	}
 
 	@Override

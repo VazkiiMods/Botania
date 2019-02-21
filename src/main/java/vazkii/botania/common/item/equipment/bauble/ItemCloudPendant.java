@@ -37,12 +37,8 @@ public class ItemCloudPendant extends CloudPendantShim implements IBaubleRender 
 	private static int timesJumped;
 	private static boolean jumpDown;
 	
-	public ItemCloudPendant(String name) {
-		super(name);
-	}
-	
-	public ItemCloudPendant() {
-		this(LibItemNames.CLOUD_PENDANT);
+	public ItemCloudPendant(Properties props) {
+		super(props);
 	}
 
 	@Override
@@ -53,7 +49,7 @@ public class ItemCloudPendant extends CloudPendantShim implements IBaubleRender 
 	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void clientWornTick(ItemStack stack, EntityLivingBase player) {
-		if(player instanceof EntityPlayerSP && player == Minecraft.getMinecraft().player) {
+		if(player instanceof EntityPlayerSP && player == Minecraft.getInstance().player) {
 			EntityPlayerSP playerSp = (EntityPlayerSP) player;
 			UUID uuid = playerSp.getUniqueID();
 
@@ -76,19 +72,19 @@ public class ItemCloudPendant extends CloudPendantShim implements IBaubleRender 
 	@OnlyIn(Dist.CLIENT)
 	public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
 		if(type == RenderType.BODY) {
-			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+			Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 			Helper.rotateIfSneaking(player);
 			boolean armor = !player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).isEmpty();
-			GlStateManager.rotate(180F, 1F, 0F, 0F);
-			GlStateManager.translate(-0.2F, -0.3F, armor ? 0.2F : 0.15F);
-			GlStateManager.scale(0.5F, 0.5F, 0.5F);
+			GlStateManager.rotatef(180F, 1F, 0F, 0F);
+			GlStateManager.translatef(-0.2F, -0.3F, armor ? 0.2F : 0.15F);
+			GlStateManager.scalef(0.5F, 0.5F, 0.5F);
 
 			TextureAtlasSprite gemIcon = MiscellaneousIcons.INSTANCE.cirrusGem;
 			float f = gemIcon.getMinU();
 			float f1 = gemIcon.getMaxU();
 			float f2 = gemIcon.getMinV();
 			float f3 = gemIcon.getMaxV();
-			IconHelper.renderIconIn3D(Tessellator.getInstance(), f1, f2, f, f3, gemIcon.getIconWidth(), gemIcon.getIconHeight(), 1F / 32F);
+			IconHelper.renderIconIn3D(Tessellator.getInstance(), f1, f2, f, f3, gemIcon.getWidth(), gemIcon.getHeight(), 1F / 32F);
 		}
 	}
 	

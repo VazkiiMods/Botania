@@ -14,16 +14,14 @@ import baubles.api.BaubleType;
 import baubles.api.BaublesApi;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
-import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent.KeyInputEvent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -36,7 +34,7 @@ import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.network.PacketDodge;
 import vazkii.botania.common.network.PacketHandler;
 
-@Mod.EventBusSubscriber(value = Side.CLIENT, modid = LibMisc.MOD_ID)
+@Mod.EventBusSubscriber(value = Dist.CLIENT, modid = LibMisc.MOD_ID)
 public class ItemDodgeRing extends ItemBauble {
 
 	public static final String TAG_DODGE_COOLDOWN = "dodgeCooldown";
@@ -45,14 +43,14 @@ public class ItemDodgeRing extends ItemBauble {
 	private static boolean oldLeftDown, oldRightDown;
 	private static int leftDown, rightDown;
 
-	public ItemDodgeRing() {
-		super(LibItemNames.DODGE_RING);
+	public ItemDodgeRing(Properties props) {
+		super(props);
 	}
 
 	@SubscribeEvent
 	@OnlyIn(Dist.CLIENT)
 	public static void onKeyDown(KeyInputEvent event) {
-		Minecraft mc = Minecraft.getMinecraft();
+		Minecraft mc = Minecraft.getInstance();
 
 		IItemHandler baublesInv = BaublesApi.getBaublesHandler(mc.player);
 		ItemStack ringStack = baublesInv.getStackInSlot(1);
@@ -92,7 +90,7 @@ public class ItemDodgeRing extends ItemBauble {
 	}
 
 	private static void dodge(EntityPlayer player, boolean left) {
-		if(player.capabilities.isFlying || !player.onGround || player.moveForward > 0.2 || player.moveForward < -0.2)
+		if(player.abilities.isFlying || !player.onGround || player.moveForward > 0.2 || player.moveForward < -0.2)
 			return;
 
 		float yaw = player.rotationYaw;

@@ -11,7 +11,6 @@
 package vazkii.botania.common.item.equipment.tool.manasteel;
 
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -43,24 +42,12 @@ import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Random;
 
-public class ItemManasteelShears extends ItemShears implements IManaUsingItem, IModelRegister {
+public class ItemManasteelShears extends ItemShears implements IManaUsingItem {
 
 	public static final int MANA_PER_DAMAGE = 30;
 
-	public ItemManasteelShears() {
-		this(LibItemNames.MANASTEEL_SHEARS);
-	}
-
-	public ItemManasteelShears(String name) {
-		setCreativeTab(BotaniaCreativeTab.INSTANCE);
-		setRegistryName(new ResourceLocation(LibMisc.MOD_ID, name));
-		setTranslationKey(name);
-	}
-
-	@Nonnull
-	@Override
-	public String getUnlocalizedNameInefficiently(@Nonnull ItemStack par1ItemStack) {
-		return super.getUnlocalizedNameInefficiently(par1ItemStack).replaceAll("item.", "item." + LibResources.PREFIX_MOD);
+	public ItemManasteelShears(Properties props) {
+		super(props);
 	}
 
 	@Override
@@ -110,7 +97,7 @@ public class ItemManasteelShears extends ItemShears implements IManaUsingItem, I
 				}
 
 				ToolCommons.damageItem(itemstack, 1, player, MANA_PER_DAMAGE);
-				player.addStat(StatList.getBlockStats(block), 1);
+				player.addStat(StatList.BLOCK_MINED.get(block), 1);
 				return true;
 			}
 		}
@@ -119,9 +106,9 @@ public class ItemManasteelShears extends ItemShears implements IManaUsingItem, I
 	}
 
 	@Override
-	public void onUpdate(ItemStack stack, World world, Entity player, int par4, boolean par5) {
-		if(!world.isRemote && player instanceof EntityPlayer && stack.getItemDamage() > 0 && ManaItemHandler.requestManaExactForTool(stack, (EntityPlayer) player, MANA_PER_DAMAGE * 2, true))
-			stack.setItemDamage(stack.getItemDamage() - 1);
+	public void inventoryTick(ItemStack stack, World world, Entity player, int par4, boolean par5) {
+		if(!world.isRemote && player instanceof EntityPlayer && stack.getDamage() > 0 && ManaItemHandler.requestManaExactForTool(stack, (EntityPlayer) player, MANA_PER_DAMAGE * 2, true))
+			stack.setDamage(stack.getDamage() - 1);
 	}
 
 	@Override
@@ -132,11 +119,5 @@ public class ItemManasteelShears extends ItemShears implements IManaUsingItem, I
 	@Override
 	public boolean usesMana(ItemStack stack) {
 		return true;
-	}
-
-	@OnlyIn(Dist.CLIENT)
-	@Override
-	public void registerModels() {
-		ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getRegistryName(), "inventory"));
 	}
 }

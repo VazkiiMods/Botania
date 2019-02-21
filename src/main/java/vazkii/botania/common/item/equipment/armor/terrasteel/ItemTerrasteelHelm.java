@@ -49,8 +49,8 @@ public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDisc
 		this(LibItemNames.TERRASTEEL_HELM);
 	}
 
-	public ItemTerrasteelHelm(String name) {
-		super(EntityEquipmentSlot.HEAD, name);
+	public ItemTerrasteelHelm(Properties props) {
+		super(EntityEquipmentSlot.HEAD, props);
 		MinecraftForge.EVENT_BUS.register(this);
 	}
 

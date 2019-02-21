@@ -27,20 +27,20 @@ import java.util.List;
 
 public class ItemElementiumShears extends ItemManasteelShears {
 
-	public ItemElementiumShears() {
-		super(LibItemNames.ELEMENTIUM_SHEARS);
+	public ItemElementiumShears(Properties props) {
+		super(props);
 		addPropertyOverride(new ResourceLocation(LibMisc.MOD_ID, "reddit"),
-				(stack, worldIn, entityIn) -> stack.getDisplayName().equalsIgnoreCase("dammit reddit") ? 1F: 0F);
+				(stack, worldIn, entityIn) -> stack.getDisplayName().getString().equalsIgnoreCase("dammit reddit") ? 1F: 0F);
 	}
 
 	@Nonnull
 	@Override
-	public EnumAction getItemUseAction(ItemStack par1ItemStack) {
+	public EnumAction getUseAction(ItemStack par1ItemStack) {
 		return EnumAction.BOW;
 	}
 
 	@Override
-	public int getMaxItemUseDuration(ItemStack par1ItemStack) {
+	public int getUseDuration(ItemStack par1ItemStack) {
 		return 72000;
 	}
 
@@ -56,7 +56,7 @@ public class ItemElementiumShears extends ItemManasteelShears {
 		if(living.world.isRemote)
 			return;
 
-		if(count != getMaxItemUseDuration(stack) && count % 5 == 0) {
+		if(count != getUseDuration(stack) && count % 5 == 0) {
 			int range = 12;
 			List sheep = living.world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(living.posX - range, living.posY - range, living.posZ - range, living.posX + range, living.posY + range, living.posZ + range), Predicates.instanceOf(IShearable.class));
 			if(sheep.size() > 0) {
@@ -79,7 +79,7 @@ public class ItemElementiumShears extends ItemManasteelShears {
 
 	@Override
 	public boolean getIsRepairable(ItemStack toRepair, @Nonnull ItemStack repairBy) {
-		return repairBy.getItem() == ModItems.elementium ? true : super.getIsRepairable(toRepair, repairBy);
+		return repairBy.getItem() == ModItems.elementium || super.getIsRepairable(toRepair, repairBy);
 	}
 
 }

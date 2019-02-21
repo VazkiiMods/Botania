@@ -15,7 +15,7 @@ import baubles.api.cap.BaublesCapabilities;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTBase;
+import net.minecraft.nbt.INBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.ActionResult;
@@ -27,6 +27,7 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.common.util.Constants;
+import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
@@ -40,11 +41,8 @@ import javax.annotation.Nullable;
 
 public class ItemBaubleBox extends ItemMod {
 
-	private static final String TAG_ITEMS = "InvItems";
-
-	public ItemBaubleBox() {
-		super(LibItemNames.BAUBLE_BOX);
-		setMaxStackSize(1);
+	public ItemBaubleBox(Properties props) {
+		super(props);
 	}
 
 	@Nonnull
@@ -53,56 +51,36 @@ public class ItemBaubleBox extends ItemMod {
 		return new InvProvider();
 	}
 
-	private static class InvProvider implements ICapabilitySerializable<NBTBase> {
+	private static class InvProvider implements ICapabilitySerializable<INBTBase> {
 
 		private final IItemHandler inv = new ItemStackHandler(24) {
 			@Nonnull
 			@Override
 			public ItemStack insertItem(int slot, @Nonnull ItemStack toInsert, boolean simulate) {
 				if(!toInsert.isEmpty()) {
-					boolean isBauble = toInsert.hasCapability(BaublesCapabilities.CAPABILITY_ITEM_BAUBLE, null);
+					boolean isBauble = toInsert.getCapability(BaublesCapabilities.CAPABILITY_ITEM_BAUBLE).isPresent();
 					if(toInsert.getItem() instanceof IManaItem || isBauble)
 						return super.insertItem(slot, toInsert, simulate);
 				}
 				return toInsert;
 			}
 		};
+		private final LazyOptional<IItemHandler> opt = LazyOptional.of(() -> inv);
 
+		@Nonnull
 		@Override
-		public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {
-			return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY;
+		public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
+			return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.orEmpty(capability, opt);
 		}
 
 		@Override
-		public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
-			if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
-				return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(inv);
-			else return null;
-		}
-
-		@Override
-		public NBTBase serializeNBT() {
+		public INBTBase serializeNBT() {
 			return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.writeNBT(inv, null);
 		}
 
 		@Override
-		public void deserializeNBT(NBTBase nbt) {
+		public void deserializeNBT(INBTBase nbt) {
 			CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.readNBT(inv, null, nbt);
-		}
-	}
-
-	@Override
-	public void onUpdate(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
-		if(stack.getTagCompound() != null && stack.getTagCompound().hasKey(TAG_ITEMS)) {
-			NBTTagList oldData = stack.getTagCompound().getTagList(TAG_ITEMS, Constants.NBT.TAG_COMPOUND);
-			IItemHandler newInv = stack.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
-
-			CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.readNBT(newInv, null, oldData);
-
-			stack.getTagCompound().removeTag(TAG_ITEMS);
-
-			if(stack.getTagCompound().getSize() == 0)
-				stack.setTagCompound(null);
 		}
 	}
 

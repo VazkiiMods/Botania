@@ -11,18 +11,13 @@ import javax.annotation.Nonnull;
 
 public class ItemElementiumSword extends ItemManasteelSword implements IPixieSpawner {
 
-	public ItemElementiumSword() {
-		super(BotaniaAPI.elementiumToolMaterial, LibItemNames.ELEMENTIUM_SWORD);
+	public ItemElementiumSword(Properties props) {
+		super(BotaniaAPI.ELEMENTIUM_ITEM_TIER, props);
 	}
 
 	@Override
 	public float getPixieChance(ItemStack stack) {
 		return 0.05F;
-	}
-
-	@Override
-	public boolean getIsRepairable(ItemStack toRepair, @Nonnull ItemStack repairBy) {
-		return repairBy.getItem() == ModItems.elementium ? true : super.getIsRepairable(toRepair, repairBy);
 	}
 
 }
