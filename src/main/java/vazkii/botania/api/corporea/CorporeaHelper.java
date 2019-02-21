@@ -194,11 +194,11 @@ public final class CorporeaHelper {
 			}
 		}
 
-		lastRequestMatches = request.foundItems;
-		lastRequestExtractions = request.extractedItems;
-
 		for(ICorporeaInterceptor interceptor : interceptors.keySet())
 			interceptor.interceptRequestLast(matcher, itemCount, interceptors.get(interceptor), spark, stacks, inventories, doit);
+
+		lastRequestMatches = request.foundItems;
+		lastRequestExtractions = request.extractedItems;
 
 		return stacks;
 	}
