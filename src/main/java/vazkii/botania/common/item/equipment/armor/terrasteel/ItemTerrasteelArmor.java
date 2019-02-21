@@ -11,13 +11,15 @@
 package vazkii.botania.common.item.equipment.armor.terrasteel;
 
 import com.google.common.collect.Multimap;
-import net.minecraft.client.model.ModelBiped;
+import net.minecraft.client.renderer.entity.model.ModelBiped;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.BotaniaAPI;
@@ -34,7 +36,7 @@ import java.util.UUID;
 public class ItemTerrasteelArmor extends ItemManasteelArmor {
 
 	public ItemTerrasteelArmor(EntityEquipmentSlot type, Properties props) {
-		super(type, props, BotaniaAPI.terrasteelArmorMaterial);
+		super(type, BotaniaAPI.TERRASTEEL_ARMOR_MAT, props);
 	}
 
 	@Override
@@ -47,11 +49,6 @@ public class ItemTerrasteelArmor extends ItemManasteelArmor {
 	@Override
 	public String getArmorTextureAfterInk(ItemStack stack, EntityEquipmentSlot slot) {
 		return ConfigHandler.enableArmorModels ? LibResources.MODEL_TERRASTEEL_NEW : slot == EntityEquipmentSlot.CHEST ? LibResources.MODEL_TERRASTEEL_1 : LibResources.MODEL_TERRASTEEL_0;
-	}
-
-	@Override
-	public boolean getIsRepairable(ItemStack armor, @Nonnull ItemStack material) {
-		return material.getItem() == ModItems.terrasteel || super.getIsRepairable(armor, material);
 	}
 
 	@Nonnull
@@ -101,16 +98,16 @@ public class ItemTerrasteelArmor extends ItemManasteelArmor {
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public String getArmorSetName() {
-		return I18n.format("botania.armorset.terrasteel.name");
+	public ITextComponent getArmorSetName() {
+		return new TextComponentTranslation("botania.armorset.terrasteel.name");
 	}
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void addArmorSetDescription(ItemStack stack, List<String> list) {
-		addStringToTooltip(I18n.format("botania.armorset.terrasteel.desc0"), list);
-		addStringToTooltip(I18n.format("botania.armorset.terrasteel.desc1"), list);
-		addStringToTooltip(I18n.format("botania.armorset.terrasteel.desc2"), list);
+	public void addArmorSetDescription(ItemStack stack, List<ITextComponent> list) {
+		list.add(new TextComponentTranslation("botania.armorset.terrasteel.desc0"));
+		list.add(new TextComponentTranslation("botania.armorset.terrasteel.desc1"));
+		list.add(new TextComponentTranslation("botania.armorset.terrasteel.desc2"));
 	}
 
 }

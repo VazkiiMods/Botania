@@ -9,13 +9,8 @@ import vazkii.botania.common.lib.LibItemNames;
 import javax.annotation.Nullable;
 
 public class ItemElementiumHelm extends ItemElementiumArmor implements IManaDiscountArmor {
-
-	public ItemElementiumHelm() {
-		this(LibItemNames.ELEMENTIUM_HELM);
-	}
-
-	public ItemElementiumHelm(String name) {
-		super(EntityEquipmentSlot.HEAD, name);
+	public ItemElementiumHelm(Properties props) {
+		super(EntityEquipmentSlot.HEAD, props);
 	}
 
 	@Override

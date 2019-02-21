@@ -21,10 +21,11 @@ import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.item.IAncientWillContainer;
@@ -45,13 +46,9 @@ public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDisc
 
 	public static final String TAG_ANCIENT_WILL = "AncientWill";
 
-	public ItemTerrasteelHelm() {
-		this(LibItemNames.TERRASTEEL_HELM);
-	}
-
 	public ItemTerrasteelHelm(Properties props) {
 		super(EntityEquipmentSlot.HEAD, props);
-		MinecraftForge.EVENT_BUS.register(this);
+		MinecraftForge.EVENT_BUS.addListener(this::onEntityAttacked);
 	}
 
 	@Override
@@ -86,11 +83,11 @@ public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDisc
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public void addArmorSetDescription(ItemStack stack, List<String> list) {
+	public void addArmorSetDescription(ItemStack stack, List<ITextComponent> list) {
 		super.addArmorSetDescription(stack, list);
 		for(AncientWillType type : AncientWillType.values())
 			if(hasAncientWill(stack, type))
-				addStringToTooltip(I18n.format("botania.armorset.will_" + type.name().toLowerCase(Locale.ROOT) + ".desc"), list);
+				list.add(new TextComponentTranslation("botania.armorset.will_" + type.name().toLowerCase(Locale.ROOT) + ".desc"));
 	}
 
 	private static boolean hasAnyWill(ItemStack stack) {
@@ -110,23 +107,22 @@ public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDisc
 			float f2 = MiscellaneousIcons.INSTANCE.terrasteelHelmWillIcon.getMinV();
 			float f3 = MiscellaneousIcons.INSTANCE.terrasteelHelmWillIcon.getMaxV();
 			IBaubleRender.Helper.translateToHeadLevel(player);
-			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-			GlStateManager.rotate(90F, 0F, 1F, 0F);
-			GlStateManager.rotate(180F, 1F, 0F, 0F);
-			GlStateManager.translate(-0.26F, -1.45F, -0.39F);
-			GlStateManager.scale(0.5F, 0.5F, 0.5F);
-			IconHelper.renderIconIn3D(Tessellator.getInstance(), f1, f2, f, f3, MiscellaneousIcons.INSTANCE.terrasteelHelmWillIcon.getIconWidth(), MiscellaneousIcons.INSTANCE.terrasteelHelmWillIcon.getIconHeight(), 1F / 16F);
+			Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+			GlStateManager.rotatef(90F, 0F, 1F, 0F);
+			GlStateManager.rotatef(180F, 1F, 0F, 0F);
+			GlStateManager.translatef(-0.26F, -1.45F, -0.39F);
+			GlStateManager.scalef(0.5F, 0.5F, 0.5F);
+			IconHelper.renderIconIn3D(Tessellator.getInstance(), f1, f2, f, f3, MiscellaneousIcons.INSTANCE.terrasteelHelmWillIcon.getWidth(), MiscellaneousIcons.INSTANCE.terrasteelHelmWillIcon.getHeight(), 1F / 16F);
 			GlStateManager.popMatrix();
 		}
 	}
 
-	@SubscribeEvent
-	public void onEntityAttacked(LivingHurtEvent event) {
+	private void onEntityAttacked(LivingHurtEvent event) {
 		Entity attacker = event.getSource().getImmediateSource();
 		if(attacker instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) attacker;
 			if(hasArmorSet(player)) {
-				boolean crit = player.fallDistance > 0.0F && !player.onGround && !player.isOnLadder() && !player.isInWater() && !player.isPotionActive(MobEffects.BLINDNESS) && !player.isRiding();
+				boolean crit = player.fallDistance > 0.0F && !player.onGround && !player.isOnLadder() && !player.isInWater() && !player.isPotionActive(MobEffects.BLINDNESS) && !player.isPassenger();
 				ItemStack stack = player.getItemStackFromSlot(EntityEquipmentSlot.HEAD);
 				if(crit && !stack.isEmpty() && stack.getItem() instanceof ItemTerrasteelHelm) {
 					if(hasAncientWill(stack, AncientWillType.AHRIM))

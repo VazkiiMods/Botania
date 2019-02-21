@@ -23,7 +23,7 @@ import java.util.List;
 public abstract class ItemElementiumArmor extends ItemManasteelArmor implements IPixieSpawner {
 
 	public ItemElementiumArmor(EntityEquipmentSlot type, Properties props) {
-		super(type, BotaniaAPI.elementiumArmorMaterial, props);
+		super(type, BotaniaAPI.ELEMENTIUM_ARMOR_MAT, props);
 	}
 
 	@Override
@@ -36,11 +36,6 @@ public abstract class ItemElementiumArmor extends ItemManasteelArmor implements 
 	@Override
 	public String getArmorTextureAfterInk(ItemStack stack, EntityEquipmentSlot slot) {
 		return ConfigHandler.enableArmorModels ? LibResources.MODEL_ELEMENTIUM_NEW : slot == EntityEquipmentSlot.LEGS ? LibResources.MODEL_ELEMENTIUM_1 : LibResources.MODEL_ELEMENTIUM_0;
-	}
-
-	@Override
-	public boolean getIsRepairable(ItemStack armor, @Nonnull ItemStack material) {
-		return material.getItem() == ModItems.elementium ? true : super.getIsRepairable(armor, material);
 	}
 
 	static ItemStack[] armorset;

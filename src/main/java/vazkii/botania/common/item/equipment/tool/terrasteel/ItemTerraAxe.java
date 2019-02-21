@@ -80,7 +80,6 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 	public ItemTerraAxe(Properties props) {
 		super(BotaniaAPI.TERRASTEEL_ITEM_TIER, props);
 		MinecraftForge.EVENT_BUS.register(this);
-		attackSpeed = -3f;
 		addPropertyOverride(new ResourceLocation(LibMisc.MOD_ID, "terraaxe_on"), (stack, world, entity) -> {
 			if(entity instanceof EntityPlayer && !shouldBreak((EntityPlayer) entity))
 				return 0;

@@ -6,8 +6,8 @@ import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemElementiumChest extends ItemElementiumArmor {
 
-	public ItemElementiumChest() {
-		super(EntityEquipmentSlot.CHEST, LibItemNames.ELEMENTIUM_CHEST);
+	public ItemElementiumChest(Properties props) {
+		super(EntityEquipmentSlot.CHEST, props);
 	}
 
 	@Override

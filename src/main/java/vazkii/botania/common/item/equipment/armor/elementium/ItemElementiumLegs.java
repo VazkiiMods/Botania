@@ -6,8 +6,8 @@ import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemElementiumLegs extends ItemElementiumArmor {
 
-	public ItemElementiumLegs() {
-		super(EntityEquipmentSlot.LEGS, LibItemNames.ELEMENTIUM_LEGS);
+	public ItemElementiumLegs(Properties props) {
+		super(EntityEquipmentSlot.LEGS, props);
 	}
 
 	@Override

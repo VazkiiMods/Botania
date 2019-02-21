@@ -10,13 +10,15 @@
  */
 package vazkii.botania.common.item.equipment.armor.manaweave;
 
-import net.minecraft.client.model.ModelBiped;
-import net.minecraft.client.resources.I18n;
+import net.minecraft.client.renderer.entity.model.ModelBiped;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -33,8 +35,8 @@ import java.util.List;
 
 public class ItemManaweaveArmor extends ItemManasteelArmor {
 
-	public ItemManaweaveArmor(EntityEquipmentSlot type, String name) {
-		super(type, name, BotaniaAPI.manaweaveArmorMaterial);
+	public ItemManaweaveArmor(EntityEquipmentSlot type, Properties props) {
+		super(type, BotaniaAPI.MANAWEAVE_ARMOR_MAT, props);
 		addPropertyOverride(new ResourceLocation("botania", "holiday"), (stack, worldIn, entityIn) -> ClientProxy.jingleTheBells ? 1 : 0);
 	}
 
@@ -58,11 +60,6 @@ public class ItemManaweaveArmor extends ItemManasteelArmor {
 		if(ClientProxy.jingleTheBells)
 			name = name.replaceAll("manaweave", "santaweave");
 		return name;
-	}
-
-	@Override
-	public boolean getIsRepairable(ItemStack armor, @Nonnull ItemStack material) {
-		return material.getItem() == ModItems.manaweaveCloth || super.getIsRepairable(armor, material);
 	}
 
 	private static ItemStack[] armorset;
@@ -101,16 +98,16 @@ public class ItemManaweaveArmor extends ItemManasteelArmor {
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public String getArmorSetName() {
-		return I18n.format("botania.armorset.manaweave.name");
+	public ITextComponent getArmorSetName() {
+		return new TextComponentTranslation("botania.armorset.manaweave.name");
 	}
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void addInformationAfterShift(ItemStack stack, World world, List<String> list, ITooltipFlag flags) {
+	public void addInformationAfterShift(ItemStack stack, World world, List<ITextComponent> list, ITooltipFlag flags) {
 		if(ClientProxy.jingleTheBells) {
-			addStringToTooltip(I18n.format("botaniamisc.santaweaveInfo"), list);
-			addStringToTooltip("", list);
+			list.add(new TextComponentTranslation("botaniamisc.santaweaveInfo"));
+			list.add(new TextComponentString(""));
 		}
 
 		super.addInformationAfterShift(stack, world, list, flags);
@@ -118,8 +115,8 @@ public class ItemManaweaveArmor extends ItemManasteelArmor {
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void addArmorSetDescription(ItemStack stack, List<String> list) {
-		addStringToTooltip(I18n.format("botania.armorset.manaweave.desc0"), list);
-		addStringToTooltip(I18n.format("botania.armorset.manaweave.desc1"), list);
+	public void addArmorSetDescription(ItemStack stack, List<ITextComponent> list) {
+		list.add(new TextComponentTranslation("botania.armorset.manaweave.desc0"));
+		list.add(new TextComponentTranslation("botania.armorset.manaweave.desc1"));
 	}
 }

@@ -29,8 +29,8 @@ public class ItemManaweaveHelm extends ItemManaweaveArmor implements IManaDiscou
 
 	private static final int MANA_PER_DAMAGE = 30;
 
-	public ItemManaweaveHelm() {
-		super(EntityEquipmentSlot.HEAD, LibItemNames.MANAWEAVE_HELM);
+	public ItemManaweaveHelm(Properties props) {
+		super(EntityEquipmentSlot.HEAD, props);
 	}
 
 	@Override
@@ -45,8 +45,8 @@ public class ItemManaweaveHelm extends ItemManaweaveArmor implements IManaDiscou
 
 	@Override
 	public void onArmorTick(World world, EntityPlayer player, ItemStack stack) {
-		if(!world.isRemote && stack.getItemDamage() > 0 && ManaItemHandler.requestManaExact(stack, player, MANA_PER_DAMAGE * 2, true))
-			stack.setItemDamage(stack.getItemDamage() - 1);
+		if(!world.isRemote && stack.getDamage() > 0 && ManaItemHandler.requestManaExact(stack, player, MANA_PER_DAMAGE * 2, true))
+			stack.setDamage(stack.getDamage() - 1);
 	}
 
 	@Override

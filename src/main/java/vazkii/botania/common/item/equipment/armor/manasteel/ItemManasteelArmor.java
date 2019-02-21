@@ -64,7 +64,7 @@ public class ItemManasteelArmor extends ItemArmor implements IManaUsingItem, IPh
 	public final EntityEquipmentSlot type;
 
 	public ItemManasteelArmor(EntityEquipmentSlot type, Properties props) {
-		this(type, BotaniaAPI.manasteelArmorMaterial, props);
+		this(type, BotaniaAPI.MANASTEEL_ARMOR_MAT, props);
 	}
 
 	public ItemManasteelArmor(EntityEquipmentSlot type, IArmorMaterial mat, Properties props) {
@@ -128,11 +128,6 @@ public class ItemManasteelArmor extends ItemArmor implements IManaUsingItem, IPh
 	public ModelBiped provideArmorModelForSlot(ItemStack stack, EntityEquipmentSlot slot) {
 		models.put(slot, new ModelArmorManasteel(slot));
 		return models.get(slot);
-	}
-
-	@Override
-	public boolean getIsRepairable(ItemStack armor, @Nonnull ItemStack material) {
-		return material.getItem() == ModItems.manaSteel ? true : super.getIsRepairable(armor, material);
 	}
 
 	@Override

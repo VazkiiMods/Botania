@@ -26,8 +26,8 @@ import vazkii.botania.common.lib.LibItemNames;
 	@Optional.Interface(modid = "thaumcraft", iface = "thaumcraft.api.items.IRevealer", striprefs = true)})
 public class ItemTerrasteelHelmRevealing extends ItemTerrasteelHelm implements IGoggles, IRevealer {
 
-	public ItemTerrasteelHelmRevealing() {
-		super(LibItemNames.TERRASTEEL_HELM_R);
+	public ItemTerrasteelHelmRevealing(Properties props) {
+		super(props);
 	}
 
 	@Override

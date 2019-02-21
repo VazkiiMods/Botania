@@ -23,8 +23,10 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.EnumRarity;
+import net.minecraft.item.IArmorMaterial;
 import net.minecraft.item.IItemTier;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
@@ -34,6 +36,7 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.state.EnumProperty;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.registry.RegistryNamespaced;
 import net.minecraft.util.registry.RegistryNamespacedDefaultedByKey;
 import net.minecraft.util.text.TextFormatting;
@@ -104,8 +107,44 @@ public final class BotaniaAPI {
 	public static final Set<Class<? extends Entity>> gravityRodBlacklist = new LinkedHashSet<>();
 
 	// TODO 1.13 move these to eliminate dependence on botania proper in Ingredients
-	public static final ArmorMaterial manasteelArmorMaterial = EnumHelper.addArmorMaterial("MANASTEEL", "manasteel", 16,
-			new int[] { 2, 5, 6, 2 }, 18, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 0);
+	private static final int[] MAX_DAMAGE_ARRAY = new int[]{13, 15, 16, 11};
+	public static final IArmorMaterial MANASTEEL_ARMOR_MAT = new IArmorMaterial() {
+		private final int[] damageReduction = { 2, 5, 6, 2 };
+		@Override
+		public int getDurability(EntityEquipmentSlot slotIn) {
+			return 16 * MAX_DAMAGE_ARRAY[slotIn.getIndex()];
+		}
+
+		@Override
+		public int getDamageReductionAmount(EntityEquipmentSlot slotIn) {
+			return damageReduction[slotIn.getIndex()];
+		}
+
+		@Override
+		public int getEnchantability() {
+			return 18;
+		}
+
+		@Override
+		public SoundEvent getSoundEvent() {
+			return SoundEvents.ITEM_ARMOR_EQUIP_IRON;
+		}
+
+		@Override
+		public Ingredient getRepairMaterial() {
+			return Ingredient.fromItems(ModItems.manaSteel);
+		}
+
+		@Override
+		public String getName() {
+			return "manasteel";
+		}
+
+		@Override
+		public float getToughness() {
+			return 0;
+		}
+	};
 	public static final IItemTier MANASTEEL_ITEM_TIER = new IItemTier() {
 		@Override
 		public int getMaxUses() {
@@ -137,12 +176,45 @@ public final class BotaniaAPI {
 		public Ingredient getRepairMaterial() {
 			return Ingredient.fromItems(ModItems.manaSteel);
 		}
-	}
+	};
 
-	public static final ArmorMaterial elementiumArmorMaterial = EnumHelper.addArmorMaterial("B_ELEMENTIUM", "b_elementium", 18,
-			new int[] { 2, 5, 6, 2 }, 18, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 0);
-	public static final ToolMaterial elementiumToolMaterial = EnumHelper.addToolMaterial("B_ELEMENTIUM", 3, 720, 6.2F, 2F, 20);
+	public static final IArmorMaterial ELEMENTIUM_ARMOR_MAT = new IArmorMaterial() {
+		private final int[] damageReduction = { 2, 5, 6, 2 };
+		@Override
+		public int getDurability(EntityEquipmentSlot slotIn) {
+			return 18 * MAX_DAMAGE_ARRAY[slotIn.getIndex()];
+		}
 
+		@Override
+		public int getDamageReductionAmount(EntityEquipmentSlot slotIn) {
+			return damageReduction[slotIn.getIndex()];
+		}
+
+		@Override
+		public int getEnchantability() {
+			return 18;
+		}
+
+		@Override
+		public SoundEvent getSoundEvent() {
+			return SoundEvents.ITEM_ARMOR_EQUIP_IRON;
+		}
+
+		@Override
+		public Ingredient getRepairMaterial() {
+			return Ingredient.fromItems(ModItems.elementium);
+		}
+
+		@Override
+		public String getName() {
+			return "elementium";
+		}
+
+		@Override
+		public float getToughness() {
+			return 0;
+		}
+	};
 	public static final IItemTier ELEMENTIUM_ITEM_TIER = new IItemTier() {
 		@Override
 		public int getMaxUses() {
@@ -174,10 +246,45 @@ public final class BotaniaAPI {
 		public Ingredient getRepairMaterial() {
 			return Ingredient.fromItems(ModItems.elementium);
 		}
-	}
+	};
 
-	public static final ArmorMaterial terrasteelArmorMaterial = EnumHelper.addArmorMaterial("TERRASTEEL", "terrasteel", 34,
-			new int[] { 3, 6, 8, 3 }, 26, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 3F);
+	public static final IArmorMaterial TERRASTEEL_ARMOR_MAT = new IArmorMaterial() {
+		private final int[] damageReduction = { 3, 6, 8, 3 };
+		@Override
+		public int getDurability(EntityEquipmentSlot slotIn) {
+			return 34 * MAX_DAMAGE_ARRAY[slotIn.getIndex()];
+		}
+
+		@Override
+		public int getDamageReductionAmount(EntityEquipmentSlot slotIn) {
+			return damageReduction[slotIn.getIndex()];
+		}
+
+		@Override
+		public int getEnchantability() {
+			return 26;
+		}
+
+		@Override
+		public SoundEvent getSoundEvent() {
+			return SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND;
+		}
+
+		@Override
+		public Ingredient getRepairMaterial() {
+			return Ingredient.fromItems(ModItems.terrasteel);
+		}
+
+		@Override
+		public String getName() {
+			return "terrasteel";
+		}
+
+		@Override
+		public float getToughness() {
+			return 3;
+		}
+	};
 	public static final IItemTier TERRASTEEL_ITEM_TIER = new IItemTier() {
 		@Override
 		public int getMaxUses() {
@@ -209,10 +316,44 @@ public final class BotaniaAPI {
 		public Ingredient getRepairMaterial() {
 			return Ingredient.fromItems(ModItems.terrasteel);
 		}
-	}
+	};
+	public static final IArmorMaterial MANAWEAVE_ARMOR_MAT = new IArmorMaterial() {
+		private final int[] damageReduction = { 1, 2, 2, 1 };
+		@Override
+		public int getDurability(EntityEquipmentSlot slotIn) {
+			return 5 * MAX_DAMAGE_ARRAY[slotIn.getIndex()];
+		}
 
-	public static final ArmorMaterial manaweaveArmorMaterial = EnumHelper.addArmorMaterial("MANAWEAVE", "manaweave", 5,
-			new int[] { 1, 2, 2, 1 }, 18, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0);
+		@Override
+		public int getDamageReductionAmount(EntityEquipmentSlot slotIn) {
+			return damageReduction[slotIn.getIndex()];
+		}
+
+		@Override
+		public int getEnchantability() {
+			return 18;
+		}
+
+		@Override
+		public SoundEvent getSoundEvent() {
+			return SoundEvents.ITEM_ARMOR_EQUIP_LEATHER;
+		}
+
+		@Override
+		public Ingredient getRepairMaterial() {
+			return Ingredient.fromItems(ModItems.manaweaveCloth);
+		}
+
+		@Override
+		public String getName() {
+			return "manaweave";
+		}
+
+		@Override
+		public float getToughness() {
+			return 0;
+		}
+	};
 
 	public static final EnumRarity rarityRelic = EnumHelper.addRarity("RELIC", TextFormatting.GOLD, "Relic");
 
