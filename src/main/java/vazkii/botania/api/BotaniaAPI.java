@@ -29,7 +29,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.common.Loader;
@@ -56,8 +55,8 @@ import vazkii.botania.api.wiki.SimpleWikiProvider;
 import vazkii.botania.api.wiki.WikiHooks;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -97,8 +96,9 @@ public final class BotaniaAPI {
 	public static final Map<Block, PropertyEnum<EnumDyeColor>> paintableBlocks = new LinkedHashMap<>();
 	public static final Set<String> magnetBlacklist = new LinkedHashSet<>();
 	public static final Set<Class<? extends Entity>> gravityRodBlacklist = new LinkedHashSet<>();
-
-
+	
+	public static final Set<Block> gaiaBreakBlacklist = new HashSet<>();
+	
 	public static final ArmorMaterial manasteelArmorMaterial = EnumHelper.addArmorMaterial("MANASTEEL", "manasteel", 16,
 			new int[] { 2, 5, 6, 2 }, 18, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 0);
 	public static final ToolMaterial manasteelToolMaterial = EnumHelper.addToolMaterial("MANASTEEL", 3, 300, 6.2F, 2F, 20);
@@ -243,6 +243,8 @@ public final class BotaniaAPI {
 		registerSemiDisposableBlock("stoneBasalt"); // Vanilla
 		registerSemiDisposableBlock("stoneDiorite"); // Vanilla
 		registerSemiDisposableBlock("stoneGranite"); // Vanilla
+		
+		blacklistBlockFromGaiaGuardian(Blocks.BEACON);
 	}
 
 	/**
@@ -667,4 +669,7 @@ public final class BotaniaAPI {
 		return "bm_" + block.getTranslationKey() + "@" + meta;
 	}
 
+	public static void blacklistBlockFromGaiaGuardian(Block block) {
+		gaiaBreakBlacklist.add(block);
+	}
 }
