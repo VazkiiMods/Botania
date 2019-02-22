@@ -119,6 +119,7 @@ botaniamisc.inactive=&cInactive
 botaniamisc.advancements=Botania Advancements
 botaniamisc.dropIkea=&bDropping this item will break it down into its components
 botaniamisc.hourglassLock=This Hourglass is locked. Right click it with a Wand of the Forest to unlock it.
+botaniamisc.crystalCubeLocked=This Crystal Cube is locked. To change the displayed item, unlock it with a Wand of the Forest.
 botaniamisc.locked=Locked
 botaniamisc.stopped=Stopped
 botaniamisc.lockedStopped=Locked, Stopped
@@ -3292,6 +3293,7 @@ botania.tagline.corporeaCrystalCube=View and request items from a Corporea netwo
 botania.page.corporeaCrystalCube0=A seer usually looks through a crystal ball to see the future. Well, a corporea handler would look through a crystal cube to see the present. The &1Corporea Crystal Cube&0 acts as a visual medium to interact ith one's &4Corporea Network&0. Placing the block down and giving it a &1Corporea Spark&0 is the obvious first step to hooking it up to the network.
 botania.page.corporeaCrystalCube1=When the block is connected, right clicking it with any sort of item will have it monitor that item, allowing someone who's looking at it see how many exist in the network. The display updates about once every second.<br>While there's an item selected, left clicking the block will request one of that item from the network. Shift-left clicking requests a whole stack.
 botania.page.corporeaCrystalCube3=The &1Corporea Crystal Cube&0 can be used alongside a &1Redstone Comparator&0. This will output the amount of items of the type it's looking for in the system. The output value follows a logarithmic progression, or on layman's terms, every level requires twice as many of the item as the previous one, starting at 1. 0 items would be signal 0. 1 item for 1, 2 items for 2, 4 items for 3, 8 items for 4, 16 items for 5 and so on up to 15.
+botania.page.corporeaCrystalCube4=Right clicking on the block with a &1Wand of the Forest&0 while sneaking locks (and unlocks) it, similarly to the &1Hovering Hourglass&0. When locked, the monitored item can't be changed, just in case someone right clicks it on accident.
 botania.page.corporeaCrystalCube2=I can see forever
 
 # -- CORPOREA RETAINER
