@@ -25,8 +25,8 @@ import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemSwapRing extends ItemBauble {
 
-	public ItemSwapRing() {
-		super(LibItemNames.SWAP_RING);
+	public ItemSwapRing(Properties props) {
+		super(props);
 	}
 
 	@Override

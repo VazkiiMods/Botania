@@ -17,8 +17,8 @@ public class ItemGreaterManaRing extends ItemManaRing {
 
 	private static final int MAX_MANA = ItemManaRing.MAX_MANA * 4;
 
-	public ItemGreaterManaRing() {
-		super(LibItemNames.MANA_RING_GREATER);
+	public ItemGreaterManaRing(Properties props) {
+		super(props);
 	}
 
 	@Override

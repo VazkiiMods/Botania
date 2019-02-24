@@ -28,8 +28,8 @@ public class ItemBalanceCloak extends ItemHolyCloak {
 	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_BALANCE_CLOAK);
 	private static final ResourceLocation textureGlow = new ResourceLocation(LibResources.MODEL_BALANCE_CLOAK_GLOW);
 
-	public ItemBalanceCloak() {
-		super(LibItemNames.BALANCE_CLOAK);
+	public ItemBalanceCloak(Properties props) {
+		super(props);
 	}
 	
 	public boolean effectOnDamage(LivingHurtEvent event, EntityPlayer player, ItemStack stack) {

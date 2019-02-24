@@ -103,7 +103,6 @@ public final class BotaniaAPI {
 
 	public static final Set<Item> looniumBlacklist = new LinkedHashSet<>();
 	public static final Map<Block, EnumProperty<EnumDyeColor>> paintableBlocks = new LinkedHashMap<>();
-	public static final Set<String> magnetBlacklist = new LinkedHashSet<>();
 	public static final Set<Class<? extends Entity>> gravityRodBlacklist = new LinkedHashSet<>();
 
 	// TODO 1.13 move these to eliminate dependence on botania proper in Ingredients
@@ -539,65 +538,6 @@ public final class BotaniaAPI {
 	}
 
 	/**
-	 * Blacklists an item from being pulled by the Ring of Magnetization.
-	 * Short.MAX_VALUE can be used as the stack's damage for a wildcard.
-	 */
-	public static void blacklistItemFromMagnet(ItemStack stack) {
-		String key = getMagnetKey(stack);
-		magnetBlacklist.add(key);
-	}
-
-	/**
-	 * Blacklists a block from having items on top of it being pulled by the Ring of Magnetization.
-	 * Short.MAX_VALUE can be used as meta for a wildcard.
-	 */
-	public static void blacklistBlockFromMagnet(Block block, int meta) {
-		String key = getMagnetKey(block, meta);
-		magnetBlacklist.add(key);
-	}
-
-	public static boolean isItemBlacklistedFromMagnet(ItemStack stack) {
-		return isItemBlacklistedFromMagnet(stack, 0);
-	}
-
-	public static boolean isItemBlacklistedFromMagnet(ItemStack stack, int recursion) {
-		if(recursion > 5)
-			return false;
-
-		if(stack.getItemDamage() != Short.MAX_VALUE) {
-			ItemStack copy = new ItemStack(stack.getItem(), 0, Short.MAX_VALUE);
-			boolean general = isItemBlacklistedFromMagnet(copy, recursion + 1);
-			if(general)
-				return true;
-		}
-
-		String key = getMagnetKey(stack);
-		return magnetBlacklist.contains(key);
-	}
-
-	public static boolean isBlockBlacklistedFromMagnet(IBlockState state) {
-		return isBlockBlacklistedFromMagnet(state.getBlock(), state.getBlock().getMetaFromState(state));
-	}
-
-	public static boolean isBlockBlacklistedFromMagnet(Block block, int meta) {
-		return isBlockBlacklistedFromMagnet(block, meta, 0);
-	}
-
-	public static boolean isBlockBlacklistedFromMagnet(Block block, int meta, int recursion) {
-		if(recursion >= 5)
-			return false;
-
-		if(meta != Short.MAX_VALUE) {
-			boolean general = isBlockBlacklistedFromMagnet(block, Short.MAX_VALUE, recursion + 1);
-			if(general)
-				return true;
-		}
-
-		String key = getMagnetKey(block, meta);
-		return magnetBlacklist.contains(key);
-	}
-
-	/**
 	 * Registers a Petal Recipe.
 	 * @param output The ItemStack to craft.
 	 * @param inputs The objects for crafting. Can be ItemStack, MappableStackWrapper
@@ -866,17 +806,6 @@ public final class BotaniaAPI {
 
 	public static Set<ResourceLocation> getAllSubTiles() {
 		return subTiles.getKeys();
-	}
-
-	private static String getMagnetKey(ItemStack stack) {
-		if(stack.isEmpty())
-			return "";
-
-		return "i_" + stack.getItem().getTranslationKey() + "@" + stack.getItemDamage();
-	}
-
-	private static String getMagnetKey(Block block, int meta) {
-		return "bm_" + block.getTranslationKey() + "@" + meta;
 	}
 
 }

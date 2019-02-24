@@ -16,7 +16,7 @@ import com.google.common.base.Predicates;
 import com.google.common.util.concurrent.ListenableFutureTask;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
+import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
@@ -29,11 +29,9 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.fml.common.FMLCommonHandler;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.fml.server.ServerLifecycleHooks;
 import vazkii.botania.api.item.IBaubleRender;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
@@ -49,13 +47,12 @@ import java.util.List;
 
 public class ItemDivaCharm extends ItemBauble implements IManaUsingItem, IBaubleRender {
 
-	public ItemDivaCharm() {
-		super(LibItemNames.DIVA_CHARM);
-		MinecraftForge.EVENT_BUS.register(this);
+	public ItemDivaCharm(Properties props) {
+		super(props);
+		MinecraftForge.EVENT_BUS.addListener(this::onEntityDamaged);
 	}
 
-	@SubscribeEvent
-	public void onEntityDamaged(LivingHurtEvent event) {
+	private void onEntityDamaged(LivingHurtEvent event) {
 		if (event.getSource().getImmediateSource() instanceof EntityPlayer && event.getEntityLiving() instanceof EntityLiving && !event.getEntityLiving().world.isRemote && Math.random() < 0.6F) {
 			Runnable lambda = () -> {
 				EntityLiving target = (EntityLiving) event.getEntityLiving();
@@ -71,7 +68,7 @@ public class ItemDivaCharm extends ItemBauble implements IManaUsingItem, IBauble
 						if(mobs.size() > 1) {
 							if(SubTileHeiseiDream.brainwashEntity(target, (List<IMob>) mobs)) {
 								target.heal(target.getMaxHealth());
-								target.isDead = false;
+								target.removed = false;
 								if(target instanceof EntityCreeper)
 									((EntityCreeper) event.getEntityLiving()).timeSinceIgnited = 2;
 
@@ -86,7 +83,7 @@ public class ItemDivaCharm extends ItemBauble implements IManaUsingItem, IBauble
 
 			// Have to delay a tick because setAttackTarget(player) is called *after* the event fires, and we want to get rid of that
 			// addScheduledTask runs the lambda immediately if on the main thread, hence this trickery
-			MinecraftServer server = FMLCommonHandler.instance().getMinecraftServerInstance();
+			MinecraftServer server = ServerLifecycleHooks.getCurrentServer();
 			synchronized (server.futureTaskQueue) {
 				server.futureTaskQueue.add(ListenableFutureTask.create(lambda, null));
 			}
@@ -108,12 +105,12 @@ public class ItemDivaCharm extends ItemBauble implements IManaUsingItem, IBauble
 	public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
 		if(type == RenderType.HEAD) {
 			Helper.translateToHeadLevel(player);
-			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-			GlStateManager.scale(0.8, 0.8, 0.8);
-			GlStateManager.rotate(-90, 0, 1, 0);
-			GlStateManager.rotate(180, 1, 0, 0);
-			GlStateManager.translate(0.1625, -1.625, 0.40);
-			Minecraft.getMinecraft().getRenderItem().renderItem(new ItemStack(this, 1), ItemCameraTransforms.TransformType.GROUND);
+			Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+			GlStateManager.scaled(0.8, 0.8, 0.8);
+			GlStateManager.rotatef(-90, 0, 1, 0);
+			GlStateManager.rotatef(180, 1, 0, 0);
+			GlStateManager.translated(0.1625, -1.625, 0.40);
+			Minecraft.getInstance().getItemRenderer().renderItem(new ItemStack(this), ItemCameraTransforms.TransformType.GROUND);
 		}
 	}
 

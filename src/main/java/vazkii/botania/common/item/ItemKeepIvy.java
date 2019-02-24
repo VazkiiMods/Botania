@@ -16,14 +16,17 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerDropsEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerRespawnEvent;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lib.LibItemNames;
+import vazkii.botania.common.lib.LibMisc;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
 public class ItemKeepIvy extends ItemMod {
 
 	public static final String TAG_KEEP = "Botania_keepIvy";
@@ -32,9 +35,8 @@ public class ItemKeepIvy extends ItemMod {
 	private static final String TAG_DROP_COUNT = "dropCount";
 	private static final String TAG_DROP_PREFIX = "dropPrefix";
 
-	public ItemKeepIvy() {
-		super(LibItemNames.KEEP_IVY);
-		MinecraftForge.EVENT_BUS.register(ItemKeepIvy.class);
+	public ItemKeepIvy(Properties props) {
+		super(props);
 	}
 
 	@SubscribeEvent
@@ -42,7 +44,7 @@ public class ItemKeepIvy extends ItemMod {
 		List<EntityItem> keeps = new ArrayList<>();
 		for(EntityItem item : event.getDrops()) {
 			ItemStack stack = item.getItem();
-			if(!stack.isEmpty() && stack.hasTagCompound() && ItemNBTHelper.getBoolean(stack, TAG_KEEP, false))
+			if(!stack.isEmpty() && stack.hasTag() && ItemNBTHelper.getBoolean(stack, TAG_KEEP, false))
 				keeps.add(item);
 		}
 
@@ -50,44 +52,44 @@ public class ItemKeepIvy extends ItemMod {
 			event.getDrops().removeAll(keeps);
 
 			NBTTagCompound cmp = new NBTTagCompound();
-			cmp.setInteger(TAG_DROP_COUNT, keeps.size());
+			cmp.putInt(TAG_DROP_COUNT, keeps.size());
 
 			int i = 0;
 			for(EntityItem keep : keeps) {
 				ItemStack stack = keep.getItem();
-				NBTTagCompound cmp1 = stack.writeToNBT(new NBTTagCompound());
-				cmp.setTag(TAG_DROP_PREFIX + i, cmp1);
+				NBTTagCompound cmp1 = stack.write(new NBTTagCompound());
+				cmp.put(TAG_DROP_PREFIX + i, cmp1);
 				i++;
 			}
 
 			NBTTagCompound data = event.getEntityPlayer().getEntityData();
-			if(!data.hasKey(EntityPlayer.PERSISTED_NBT_TAG))
-				data.setTag(EntityPlayer.PERSISTED_NBT_TAG, new NBTTagCompound());
+			if(!data.contains(EntityPlayer.PERSISTED_NBT_TAG))
+				data.put(EntityPlayer.PERSISTED_NBT_TAG, new NBTTagCompound());
 
-			NBTTagCompound persist = data.getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
-			persist.setTag(TAG_PLAYER_KEPT_DROPS, cmp);
+			NBTTagCompound persist = data.getCompound(EntityPlayer.PERSISTED_NBT_TAG);
+			persist.put(TAG_PLAYER_KEPT_DROPS, cmp);
 		}
 	}
 
 	@SubscribeEvent
 	public static void onPlayerRespawn(PlayerRespawnEvent event) {
-		NBTTagCompound data = event.player.getEntityData();
-		if(data.hasKey(EntityPlayer.PERSISTED_NBT_TAG)) {
-			NBTTagCompound cmp = data.getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
-			NBTTagCompound cmp1 = cmp.getCompoundTag(TAG_PLAYER_KEPT_DROPS);
+		NBTTagCompound data = event.getPlayer().getEntityData();
+		if(data.contains(EntityPlayer.PERSISTED_NBT_TAG)) {
+			NBTTagCompound cmp = data.getCompound(EntityPlayer.PERSISTED_NBT_TAG);
+			NBTTagCompound cmp1 = cmp.getCompound(TAG_PLAYER_KEPT_DROPS);
 
-			int count = cmp1.getInteger(TAG_DROP_COUNT);
+			int count = cmp1.getInt(TAG_DROP_COUNT);
 			for(int i = 0; i < count; i++) {
-				NBTTagCompound cmp2 = cmp1.getCompoundTag(TAG_DROP_PREFIX + i);
-				ItemStack stack = new ItemStack(cmp2);
+				NBTTagCompound cmp2 = cmp1.getCompound(TAG_DROP_PREFIX + i);
+				ItemStack stack = ItemStack.read(cmp2);
 				if(!stack.isEmpty()) {
 					ItemStack copy = stack.copy();
 					ItemNBTHelper.setBoolean(copy, TAG_KEEP, false);
-					event.player.inventory.addItemStackToInventory(copy);
+					event.getPlayer().inventory.addItemStackToInventory(copy);
 				}
 			}
 
-			cmp.setTag(TAG_PLAYER_KEPT_DROPS, new NBTTagCompound());
+			cmp.put(TAG_PLAYER_KEPT_DROPS, new NBTTagCompound());
 		}
 	}
 

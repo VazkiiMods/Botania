@@ -16,6 +16,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -29,14 +30,14 @@ import java.util.UUID;
 
 public abstract class ItemRelicBauble extends ItemBauble implements IRelic {
 
-	private final ItemRelic dummy = new ItemRelic("dummy"); // Delegate for relic stuff
+	private final ItemRelic dummy = new ItemRelic(new Properties()); // Delegate for relic stuff
 
-	public ItemRelicBauble(String name) {
-		super(name);
+	public ItemRelicBauble(Properties props) {
+		super(props);
 	}
 
 	@Override
-	public void onUpdate(ItemStack stack, World world, Entity entity, int slot, boolean held) {
+	public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean held) {
 		if(entity instanceof EntityPlayer)
 			dummy.updateRelic(stack, (EntityPlayer) entity);
 	}
@@ -54,7 +55,7 @@ public abstract class ItemRelicBauble extends ItemBauble implements IRelic {
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void addHiddenTooltip(ItemStack par1ItemStack, World world, List<String> stacks, ITooltipFlag flags) {
+	public void addHiddenTooltip(ItemStack par1ItemStack, World world, List<ITextComponent> stacks, ITooltipFlag flags) {
 		super.addHiddenTooltip(par1ItemStack, world, stacks, flags);
 		dummy.addBindInfo(stacks, par1ItemStack);
 	}

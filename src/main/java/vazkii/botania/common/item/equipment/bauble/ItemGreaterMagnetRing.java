@@ -14,8 +14,8 @@ import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemGreaterMagnetRing extends ItemMagnetRing {
 
-	public ItemGreaterMagnetRing() {
-		super(LibItemNames.MAGNET_RING_GREATER, 16);
+	public ItemGreaterMagnetRing(Properties props) {
+		super(props, 16);
 	}
 
 }

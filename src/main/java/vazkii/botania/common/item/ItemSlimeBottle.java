@@ -16,6 +16,7 @@ import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import vazkii.botania.client.core.handler.ModelHandler;
@@ -37,9 +38,7 @@ public class ItemSlimeBottle extends ItemMod {
 	@Override
 	public void inventoryTick(ItemStack stack, World world, Entity entity, int something, boolean somethingelse) {
 		if(!world.isRemote) {
-			int x = MathHelper.floor(entity.posX);
-			int z = MathHelper.floor(entity.posZ);
-			boolean slime = SubTileNarslimmus.isSlimeChunk(world, x, z);
+			boolean slime = SubTileNarslimmus.isSlimeChunk(world, new BlockPos(entity));
 			ItemNBTHelper.setBoolean(stack, TAG_ACTIVE, slime);
 		}
 	}

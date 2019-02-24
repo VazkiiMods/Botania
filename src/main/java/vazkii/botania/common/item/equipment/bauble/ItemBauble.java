@@ -26,6 +26,8 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -131,29 +133,25 @@ public abstract class ItemBauble extends ItemMod implements IBauble, ICosmeticAt
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public void addInformation(ItemStack par1ItemStack, World world, List<String> stacks, ITooltipFlag flags) {
+	public void addInformation(ItemStack par1ItemStack, World world, List<ITextComponent> stacks, ITooltipFlag flags) {
 		if(GuiScreen.isShiftKeyDown())
 			addHiddenTooltip(par1ItemStack, world, stacks, flags);
-		else addStringToTooltip(I18n.format("botaniamisc.shiftinfo"), stacks);
+		else stacks.add(new TextComponentTranslation("botaniamisc.shiftinfo"));
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public void addHiddenTooltip(ItemStack par1ItemStack, World world, List<String> stacks, ITooltipFlag flags) {
+	public void addHiddenTooltip(ItemStack par1ItemStack, World world, List<ITextComponent> stacks, ITooltipFlag flags) {
 		String key = vazkii.botania.client.core.helper.RenderHelper.getKeyDisplayString("Baubles Inventory");
 
 		if(key != null)
-			addStringToTooltip(I18n.format("botania.baubletooltip", key), stacks);
+			stacks.add(new TextComponentTranslation("botania.baubletooltip", key));
 
 		ItemStack cosmetic = getCosmeticItem(par1ItemStack);
 		if(!cosmetic.isEmpty())
-			addStringToTooltip(I18n.format("botaniamisc.hasCosmetic", cosmetic.getDisplayName()), stacks);
+			stacks.add(new TextComponentTranslation("botaniamisc.hasCosmetic", cosmetic.getDisplayName()));
 
 		if(hasPhantomInk(par1ItemStack))
-			addStringToTooltip(I18n.format("botaniamisc.hasPhantomInk"), stacks);
-	}
-
-	void addStringToTooltip(String s, List<String> tooltip) {
-		tooltip.add(s.replaceAll("&", "\u00a7"));
+			stacks.add(new TextComponentTranslation("botaniamisc.hasPhantomInk"));
 	}
 
 	@Override
@@ -197,14 +195,14 @@ public abstract class ItemBauble extends ItemMod implements IBauble, ICosmeticAt
 		NBTTagCompound cmp = ItemNBTHelper.getCompound(stack, TAG_COSMETIC_ITEM, true);
 		if(cmp == null)
 			return ItemStack.EMPTY;
-		return new ItemStack(cmp);
+		return ItemStack.read(cmp);
 	}
 
 	@Override
 	public void setCosmeticItem(ItemStack stack, ItemStack cosmetic) {
 		NBTTagCompound cmp = new NBTTagCompound();
 		if(!cosmetic.isEmpty())
-			cmp = cosmetic.writeToNBT(cmp);
+			cmp = cosmetic.write(cmp);
 		ItemNBTHelper.setCompound(stack, TAG_COSMETIC_ITEM, cmp);
 	}
 

@@ -23,6 +23,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.item.IAvatarTile;
 import vazkii.botania.api.item.IAvatarWieldable;
@@ -44,9 +45,8 @@ public class ItemDiviningRod extends ItemMod implements IManaUsingItem, IAvatarW
 
 	static final int COST = 3000;
 
-	public ItemDiviningRod() {
-		super(LibItemNames.DIVINING_ROD);
-		setMaxStackSize(1);
+	public ItemDiviningRod(Properties props) {
+		super(props);
 	}
 
 	@Nonnull
@@ -66,20 +66,14 @@ public class ItemDiviningRod extends ItemMod implements IManaUsingItem, IAvatarW
 		return ActionResult.newResult(EnumActionResult.PASS, stack);
 	}
 
-	public void doHighlight(World world, BlockPos pos, int range, long seedxor) {
+	private void doHighlight(World world, BlockPos pos, int range, long seedxor) {
 		Botania.proxy.setWispFXDepthTest(false);
 		for(BlockPos pos_ : BlockPos.getAllInBox(pos.add(-range, -range, -range), pos.add(range, range, range))) {
 			IBlockState state = world.getBlockState(pos_);
-			if(Item.getItemFromBlock(state.getBlock()) == Items.AIR)
-				continue;
-			ItemStack orestack = new ItemStack(state.getBlock(), 1, state.getBlock().getMetaFromState(state));
-			for(int id : OreDictionary.getOreIDs(orestack)) {
-				String s = OreDictionary.getOreName(id);
-				if(s.matches("^ore[A-Z].+")) {
-					Random rand = new Random(s.hashCode() ^ seedxor);
-					Botania.proxy.wispFX(pos_.getX() + world.rand.nextFloat(), pos_.getY() + world.rand.nextFloat(), pos_.getZ() + world.rand.nextFloat(), rand.nextFloat(), rand.nextFloat(), rand.nextFloat(), 0.25F, 0F, 8);
-					break;
-				}
+
+			if(Tags.Blocks.ORES.contains(state.getBlock())) {
+				Random rand = new Random(state.hashCode() ^ seedxor);
+				Botania.proxy.wispFX(pos_.getX() + world.rand.nextFloat(), pos_.getY() + world.rand.nextFloat(), pos_.getZ() + world.rand.nextFloat(), rand.nextFloat(), rand.nextFloat(), rand.nextFloat(), 0.25F, 0F, 8);
 			}
 		}
 		Botania.proxy.setWispFXDepthTest(true);

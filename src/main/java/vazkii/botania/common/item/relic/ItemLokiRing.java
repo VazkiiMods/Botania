@@ -29,8 +29,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.items.IItemHandler;
@@ -62,8 +62,8 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 	private static final String TAG_Y_ORIGIN = "yOrigin";
 	private static final String TAG_Z_ORIGIN = "zOrigin";
 
-	public ItemLokiRing() {
-		super(LibItemNames.LOKI_RING);
+	public ItemLokiRing(Properties props) {
+		super(props);
 	}
 
 	@SubscribeEvent
@@ -171,7 +171,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 		if(getLokiRing(player) != stack)
 			return ImmutableList.of();
 
-		RayTraceResult lookPos = Minecraft.getMinecraft().objectMouseOver;
+		RayTraceResult lookPos = Minecraft.getInstance().objectMouseOver;
 
 		if(lookPos != null && lookPos.getBlockPos() != null && !player.world.isAirBlock(lookPos.getBlockPos()) && lookPos.entityHit == null) {
 			List<BlockPos> list = getCursorList(stack);
@@ -224,12 +224,12 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 		NBTTagCompound cmp = ItemNBTHelper.getCompound(stack, TAG_CURSOR_LIST, false);
 		List<BlockPos> cursors = new ArrayList<>();
 
-		int count = cmp.getInteger(TAG_CURSOR_COUNT);
+		int count = cmp.getInt(TAG_CURSOR_COUNT);
 		for(int i = 0; i < count; i++) {
-			NBTTagCompound cursorCmp = cmp.getCompoundTag(TAG_CURSOR_PREFIX + i);
-			int x = cursorCmp.getInteger(TAG_X_OFFSET);
-			int y = cursorCmp.getInteger(TAG_Y_OFFSET);
-			int z = cursorCmp.getInteger(TAG_Z_OFFSET);
+			NBTTagCompound cursorCmp = cmp.getCompound(TAG_CURSOR_PREFIX + i);
+			int x = cursorCmp.getInt(TAG_X_OFFSET);
+			int y = cursorCmp.getInt(TAG_Y_OFFSET);
+			int z = cursorCmp.getInt(TAG_Z_OFFSET);
 			cursors.add(new BlockPos(x, y, z));
 		}
 
@@ -245,10 +245,10 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 			int i = 0;
 			for(BlockPos cursor : cursors) {
 				NBTTagCompound cursorCmp = cursorToCmp(cursor);
-				cmp.setTag(TAG_CURSOR_PREFIX + i, cursorCmp);
+				cmp.put(TAG_CURSOR_PREFIX + i, cursorCmp);
 				i++;
 			}
-			cmp.setInteger(TAG_CURSOR_COUNT, i);
+			cmp.putInt(TAG_CURSOR_COUNT, i);
 		}
 
 		ItemNBTHelper.setCompound(stack, TAG_CURSOR_LIST, cmp);
@@ -256,17 +256,17 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 
 	private static NBTTagCompound cursorToCmp(BlockPos pos) {
 		NBTTagCompound cmp = new NBTTagCompound();
-		cmp.setInteger(TAG_X_OFFSET, pos.getX());
-		cmp.setInteger(TAG_Y_OFFSET, pos.getY());
-		cmp.setInteger(TAG_Z_OFFSET, pos.getZ());
+		cmp.putInt(TAG_X_OFFSET, pos.getX());
+		cmp.putInt(TAG_Y_OFFSET, pos.getY());
+		cmp.putInt(TAG_Z_OFFSET, pos.getZ());
 		return cmp;
 	}
 
 	private static void addCursor(ItemStack stack, BlockPos pos) {
 		NBTTagCompound cmp = ItemNBTHelper.getCompound(stack, TAG_CURSOR_LIST, false);
-		int count = cmp.getInteger(TAG_CURSOR_COUNT);
-		cmp.setTag(TAG_CURSOR_PREFIX + count, cursorToCmp(pos));
-		cmp.setInteger(TAG_CURSOR_COUNT, count + 1);
+		int count = cmp.getInt(TAG_CURSOR_COUNT);
+		cmp.put(TAG_CURSOR_PREFIX + count, cursorToCmp(pos));
+		cmp.putInt(TAG_CURSOR_COUNT, count + 1);
 		ItemNBTHelper.setCompound(stack, TAG_CURSOR_LIST, cmp);
 	}
 

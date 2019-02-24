@@ -39,8 +39,8 @@ public class ItemKingKey extends ItemRelic implements IManaUsingItem {
 
 	public static final int WEAPON_TYPES = 12;
 
-	public ItemKingKey() {
-		super(LibItemNames.KING_KEY);
+	public ItemKingKey(Properties props) {
+		super(props);
 	}
 
 	@Nonnull
@@ -65,7 +65,7 @@ public class ItemKingKey extends ItemRelic implements IManaUsingItem {
 	public void onUsingTick(ItemStack stack, EntityLivingBase living, int count) {
 		int spawned = getWeaponsSpawned(stack);
 
-		if(count != getMaxItemUseDuration(stack) && spawned < 20 && !living.world.isRemote && (!(living instanceof EntityPlayer) || ManaItemHandler.requestManaExact(stack, (EntityPlayer) living, 150, true))) {
+		if(count != getUseDuration(stack) && spawned < 20 && !living.world.isRemote && (!(living instanceof EntityPlayer) || ManaItemHandler.requestManaExact(stack, (EntityPlayer) living, 150, true))) {
 			Vector3 look = new Vector3(living.getLookVec()).multiply(1, 0, 1);
 			
 			double playerRot = Math.toRadians(living.rotationYaw + 90);
@@ -107,12 +107,12 @@ public class ItemKingKey extends ItemRelic implements IManaUsingItem {
 
 	@Nonnull
 	@Override
-	public EnumAction getItemUseAction(ItemStack par1ItemStack) {
+	public EnumAction getUseAction(ItemStack par1ItemStack) {
 		return EnumAction.BOW;
 	}
 
 	@Override
-	public int getMaxItemUseDuration(ItemStack par1ItemStack) {
+	public int getUseDuration(ItemStack par1ItemStack) {
 		return 72000;
 	}
 

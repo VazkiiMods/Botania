@@ -23,7 +23,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.item.IBaubleRender;
@@ -45,17 +44,12 @@ public class ItemHolyCloak extends ItemBauble implements IBaubleRender {
 	private static final String TAG_COOLDOWN = "cooldown";
 	private static final String TAG_IN_EFFECT = "inEffect";
 
-	public ItemHolyCloak() {
-		this(LibItemNames.HOLY_CLOAK);
-		MinecraftForge.EVENT_BUS.register(this);
+	public ItemHolyCloak(Properties props) {
+		super(props);
+		MinecraftForge.EVENT_BUS.addListener(this::onPlayerDamage);
 	}
 
-	public ItemHolyCloak(String name) {
-		super(name);
-	}
-
-	@SubscribeEvent
-	public void onPlayerDamage(LivingHurtEvent event) {
+	private void onPlayerDamage(LivingHurtEvent event) {
 		if(event.getEntityLiving() instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) event.getEntityLiving();
 			ItemStack belt = BaublesApi.getBaublesHandler(player).getStackInSlot(5);
@@ -137,24 +131,24 @@ public class ItemHolyCloak extends ItemBauble implements IBaubleRender {
 		if(type == RenderType.BODY) {
 			Helper.rotateIfSneaking(player);
 			boolean armor = !player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).isEmpty();
-			GlStateManager.translate(0F, armor ? -0.07F : -0.01F, 0F);
+			GlStateManager.translatef(0F, armor ? -0.07F : -0.01F, 0F);
 
 			float s = 1F / 16F;
-			GlStateManager.scale(s, s, s);
+			GlStateManager.scalef(s, s, s);
 			if(model == null)
 				model = new ModelCloak();
 
 			GlStateManager.enableLighting();
 			GlStateManager.enableRescaleNormal();
 
-			Minecraft.getMinecraft().renderEngine.bindTexture(getCloakTexture());
+			Minecraft.getInstance().textureManager.bindTexture(getCloakTexture());
 			model.render(1F);
 
 			int light = 15728880;
 			int lightmapX = light % 65536;
 			int lightmapY = light / 65536;
-			OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, lightmapX, lightmapY);
-			Minecraft.getMinecraft().renderEngine.bindTexture(getCloakGlowTexture());
+			OpenGlHelper.glMultiTexCoord2f(OpenGlHelper.GL_TEXTURE1, lightmapX, lightmapY);
+			Minecraft.getInstance().textureManager.bindTexture(getCloakGlowTexture());
 			model.render(1F);
 		}
 	}

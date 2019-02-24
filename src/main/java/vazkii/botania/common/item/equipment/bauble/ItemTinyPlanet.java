@@ -38,8 +38,8 @@ public class ItemTinyPlanet extends ItemBauble implements IBaubleRender {
 
 	public static final String TAG_ORBIT = "orbit";
 
-	public ItemTinyPlanet() {
-		super(LibItemNames.TINY_PLANET);
+	public ItemTinyPlanet(Properties props) {
+		super(props);
 	}
 
 	@Override
@@ -92,25 +92,25 @@ public class ItemTinyPlanet extends ItemBauble implements IBaubleRender {
 
 	public static int getEntityOrbitTime(Entity entity) {
 		NBTTagCompound cmp = entity.getEntityData();
-		if(cmp.hasKey(TAG_ORBIT))
-			return cmp.getInteger(TAG_ORBIT);
+		if(cmp.contains(TAG_ORBIT))
+			return cmp.getInt(TAG_ORBIT);
 		else return 0;
 	}
 
 	public static void incrementOrbitTime(Entity entity) {
 		NBTTagCompound cmp = entity.getEntityData();
 		int time = getEntityOrbitTime(entity);
-		cmp.setInteger(TAG_ORBIT, time + 1);
+		cmp.putInt(TAG_ORBIT, time + 1);
 	}
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
 		if(type == RenderType.HEAD) {
-			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-			GlStateManager.scale(0.5F, 0.5F, 0.5F);
-			GlStateManager.translate(0, -1.5F, 0.5F);
-			Minecraft.getMinecraft().getBlockRendererDispatcher().renderBlockBrightness(ModBlocks.tinyPlanet.getDefaultState(), 1.0F);
+			Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+			GlStateManager.scalef(0.5F, 0.5F, 0.5F);
+			GlStateManager.translatef(0, -1.5F, 0.5F);
+			Minecraft.getInstance().getBlockRendererDispatcher().renderBlockBrightness(ModBlocks.tinyPlanet.getDefaultState(), 1.0F);
 		}
 	}
 

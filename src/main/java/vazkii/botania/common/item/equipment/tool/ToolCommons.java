@@ -26,6 +26,7 @@ import net.minecraft.item.ItemTool;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.RayTraceFluidMode;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3i;
@@ -154,7 +155,7 @@ public final class ToolCommons {
 			d3 = ((net.minecraft.entity.player.EntityPlayerMP)playerIn).interactionManager.getBlockReachDistance();
 		}*/
 		Vec3d vec3d1 = vec3d.add((double)f6 * d3, (double)f5 * d3, (double)f7 * d3);
-		return worldIn.rayTraceBlocks(vec3d, vec3d1, useLiquids, !useLiquids, false);
+		return worldIn.rayTraceBlocks(vec3d, vec3d1, useLiquids ? RayTraceFluidMode.SOURCE_ONLY : RayTraceFluidMode.NEVER, false, false);
 	}
 
 }

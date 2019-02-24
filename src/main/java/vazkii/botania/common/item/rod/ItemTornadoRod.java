@@ -45,44 +45,43 @@ public class ItemTornadoRod extends ItemMod implements IManaUsingItem, IAvatarWi
 
 	private static final int FLY_TIME = 20;
 	private static final int FALL_MULTIPLIER = 3;
-	private static final int MAX_DAMAGE = FLY_TIME * FALL_MULTIPLIER;
+	private static final int MAX_COUNTER = FLY_TIME * FALL_MULTIPLIER;
 	private static final int COST = 350;
 
 	private static final String TAG_FLYING = "flying";
+	private static final String TAG_FLYCOUNTER = "flyCounter";
 
-	public ItemTornadoRod() {
-		super(LibItemNames.TORNADO_ROD);
-		setMaxDamage(MAX_DAMAGE);
-		setMaxStackSize(1);
+	public ItemTornadoRod(Properties props) {
+		super(props);
 		addPropertyOverride(new ResourceLocation("botania", "flying"), (stack, world, living) -> isFlying(stack) ? 1 : 0);
 	}
 
 	@Override
-	public void onUpdate(ItemStack par1ItemStack, World world, Entity par3Entity, int par4, boolean holding) {
-		if(par3Entity instanceof EntityPlayer) {
-			EntityPlayer player = (EntityPlayer) par3Entity;
-			boolean damaged = par1ItemStack.getItemDamage() > 0;
+	public void inventoryTick(ItemStack stack, World world, Entity ent, int par4, boolean holding) {
+		if(ent instanceof EntityPlayer) {
+			EntityPlayer player = (EntityPlayer) ent;
+			boolean damaged = stack.getOrCreateTag().getInt(TAG_FLYCOUNTER) > 0;
 
-			if(damaged && !isFlying(par1ItemStack))
-				par1ItemStack.setItemDamage(par1ItemStack.getItemDamage() - 1);
+			if(damaged && !isFlying(stack))
+				stack.getTag().putInt(TAG_FLYCOUNTER, stack.getTag().getInt(TAG_FLYCOUNTER) - 1);
 
 			int max = FALL_MULTIPLIER * FLY_TIME;
-			if(par1ItemStack.getItemDamage() >= max) {
-				setFlying(par1ItemStack, false);
+			if(stack.getTag().getInt(TAG_FLYCOUNTER) >= max) {
+				setFlying(stack, false);
 				player.resetActiveHand();
-			} else if(isFlying(par1ItemStack)) {
+			} else if(isFlying(stack)) {
 				if(holding) {
 					player.fallDistance = 0F;
-					player.motionY = IManaProficiencyArmor.Helper.hasProficiency(player, par1ItemStack) ? 1.6 : 1.25;
+					player.motionY = IManaProficiencyArmor.Helper.hasProficiency(player, stack) ? 1.6 : 1.25;
 
 					player.world.playSound(null, player.posX, player.posY, player.posZ, ModSounds.airRod, SoundCategory.PLAYERS, 0.1F, 0.25F);
 					for(int i = 0; i < 5; i++)
 						Botania.proxy.wispFX(player.posX, player.posY, player.posZ, 0.25F, 0.25F, 0.25F, 0.35F + (float) Math.random() * 0.1F, 0.2F * (float) (Math.random() - 0.5), -0.01F * (float) Math.random(), 0.2F * (float) (Math.random() - 0.5));
 				}
 
-				par1ItemStack.setItemDamage(Math.min(max, par1ItemStack.getItemDamage() + FALL_MULTIPLIER));
-				if(par1ItemStack.getItemDamage() == MAX_DAMAGE)
-					setFlying(par1ItemStack, false);
+				stack.getTag().putInt(TAG_FLYCOUNTER, Math.min(max, stack.getTag().getInt(TAG_FLYCOUNTER) + FALL_MULTIPLIER));
+				if(stack.getTag().getInt(TAG_FLYCOUNTER) == MAX_COUNTER)
+					setFlying(stack, false);
 			}
 
 			if(damaged)
@@ -94,10 +93,10 @@ public class ItemTornadoRod extends ItemMod implements IManaUsingItem, IAvatarWi
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
 		ItemStack stack = player.getHeldItem(hand);
-		int meta = stack.getItemDamage();
-		if(meta != 0 || ManaItemHandler.requestManaExactForTool(stack, player, COST, false)) {
+		int dmg = stack.getDamage();
+		if(dmg != 0 || ManaItemHandler.requestManaExactForTool(stack, player, COST, false)) {
 			player.setActiveHand(hand);
-			if(meta == 0) {
+			if(dmg == 0) {
 				ManaItemHandler.requestManaExactForTool(stack, player, COST, true);
 				setFlying(stack, true);
 			}
@@ -109,12 +108,12 @@ public class ItemTornadoRod extends ItemMod implements IManaUsingItem, IAvatarWi
 
 	@Nonnull
 	@Override
-	public EnumAction getItemUseAction(ItemStack par1ItemStack) {
+	public EnumAction getUseAction(ItemStack par1ItemStack) {
 		return EnumAction.BOW;
 	}
 
 	@Override
-	public int getMaxItemUseDuration(ItemStack par1ItemStack) {
+	public int getUseDuration(ItemStack par1ItemStack) {
 		return 720000;
 	}
 

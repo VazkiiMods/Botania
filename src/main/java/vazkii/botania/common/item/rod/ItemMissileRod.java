@@ -41,19 +41,18 @@ public class ItemMissileRod extends ItemMod implements IManaUsingItem, IAvatarWi
 	private static final int COST_PER = 120;
 	private static final int COST_AVATAR = 40;
 
-	public ItemMissileRod() {
-		super(LibItemNames.MISSILE_ROD);
-		setMaxStackSize(1);
+	public ItemMissileRod(Properties props) {
+		super(props);
 	}
 
 	@Nonnull
 	@Override
-	public EnumAction getItemUseAction(ItemStack par1ItemStack) {
+	public EnumAction getUseAction(ItemStack par1ItemStack) {
 		return EnumAction.BOW;
 	}
 
 	@Override
-	public int getMaxItemUseDuration(ItemStack par1ItemStack) {
+	public int getUseDuration(ItemStack par1ItemStack) {
 		return 72000;
 	}
 
@@ -62,7 +61,7 @@ public class ItemMissileRod extends ItemMod implements IManaUsingItem, IAvatarWi
 		if(!(living instanceof EntityPlayer)) return;
 		EntityPlayer player = (EntityPlayer) living;
 
-		if(count != getMaxItemUseDuration(stack) && count % (IManaProficiencyArmor.Helper.hasProficiency(player, stack) ? 1 : 2) == 0 && !player.world.isRemote && ManaItemHandler.requestManaExactForTool(stack, player, COST_PER, false)) {
+		if(count != getUseDuration(stack) && count % (IManaProficiencyArmor.Helper.hasProficiency(player, stack) ? 1 : 2) == 0 && !player.world.isRemote && ManaItemHandler.requestManaExactForTool(stack, player, COST_PER, false)) {
 			if(spawnMissile(player.world, player, player.posX + (Math.random() - 0.5 * 0.1), player.posY + 2.4 + (Math.random() - 0.5 * 0.1), player.posZ + (Math.random() - 0.5 * 0.1)))
 				ManaItemHandler.requestManaExactForTool(stack, player, COST_PER, true);
 

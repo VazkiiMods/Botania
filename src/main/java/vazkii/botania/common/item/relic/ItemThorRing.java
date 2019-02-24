@@ -22,8 +22,8 @@ import vazkii.botania.common.lib.LibMisc;
 
 public class ItemThorRing extends ItemRelicBauble {
 
-	public ItemThorRing() {
-		super(LibItemNames.THOR_RING);
+	public ItemThorRing(Properties props) {
+		super(props);
 	}
 
 	@Override

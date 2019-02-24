@@ -23,8 +23,8 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.items.IItemHandler;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ModItems;
@@ -39,8 +39,8 @@ public class ItemOdinRing extends ItemRelicBauble {
 
 	private static final List<String> damageNegations = new ArrayList<>();
 
-	public ItemOdinRing() {
-		super(LibItemNames.ODIN_RING);
+	public ItemOdinRing(Properties props) {
+		super(props);
 
 		damageNegations.add(DamageSource.DROWN.damageType);
 		damageNegations.add(DamageSource.FALL.damageType);

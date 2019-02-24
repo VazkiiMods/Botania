@@ -11,6 +11,7 @@
 package vazkii.botania.common.item;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemUseContext;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
@@ -27,21 +28,24 @@ import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.lib.LibItemNames;
 
 import javax.annotation.Nonnull;
+import java.util.function.BiFunction;
 
 public class ItemObedienceStick extends ItemMod {
 
-	public ItemObedienceStick() {
-		super(LibItemNames.OBEDIENCE_STICK);
-		setMaxStackSize(1);
+	public ItemObedienceStick(Properties props) {
+		super(props);
 	}
 
 	@Nonnull
 	@Override
-	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float xs, float ys, float zs) {
+	public EnumActionResult onItemUse(ItemUseContext ctx) {
+		World world = ctx.getWorld();
+		BlockPos pos = ctx.getPos();
+
 		TileEntity tileAt = world.getTileEntity(pos);
-		if(tileAt != null && (tileAt instanceof IManaPool || tileAt instanceof IManaCollector)) {
+		if(tileAt instanceof IManaPool || tileAt instanceof IManaCollector) {
 			boolean pool = tileAt instanceof IManaPool;
-			Actuator act = pool ? Actuator.functionalActuator : Actuator.generatingActuator;
+			BiFunction<SubTileEntity, TileEntity, Boolean> act = pool ? functionalActuator : generatingActuator;
 			int range = pool ? SubTileFunctional.LINK_RANGE : SubTileGenerating.LINK_RANGE;
 
 			for(BlockPos pos_ : BlockPos.getAllInBox(pos.add(-range, -range, -range), pos.add(range, range, range))) {
@@ -51,7 +55,7 @@ public class ItemObedienceStick extends ItemMod {
 				TileEntity tile = world.getTileEntity(pos_);
 				if(tile instanceof ISubTileContainer) {
 					SubTileEntity subtile = ((ISubTileContainer) tile).getSubTile();
-					if(act.actuate(subtile, tileAt)) {
+					if(act.apply(subtile, tileAt)) {
 						Vector3 orig = new Vector3(pos_.getX() + 0.5, pos_.getY() + 0.5, pos_.getZ() + 0.5);
 						Vector3 end = new Vector3(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
 						ItemTwigWand.doParticleBeam(world, orig, end);
@@ -59,43 +63,26 @@ public class ItemObedienceStick extends ItemMod {
 				}
 			}
 
-			if(player.world.isRemote)
-				player.swingArm(hand);
 			return EnumActionResult.SUCCESS;
 		}
 
 		return EnumActionResult.PASS;
 	}
 
-	public static abstract class Actuator {
-		public static final Actuator generatingActuator = new Actuator() {
+	private static final BiFunction<SubTileEntity, TileEntity, Boolean> generatingActuator = (flower, tile) -> {
+		if(flower instanceof SubTileGenerating) {
+			((SubTileGenerating) flower).linkToForcefully(tile);
+			return true;
+		}
+		return false;
+	};
 
-			@Override
-			public boolean actuate(SubTileEntity flower, TileEntity tile) {
-				if(flower instanceof SubTileGenerating) {
-					((SubTileGenerating) flower).linkToForcefully(tile);
-					return true;
-				}
-				return false;
-			}
-
-		};
-
-		public static final Actuator functionalActuator = new Actuator() {
-
-			@Override
-			public boolean actuate(SubTileEntity flower, TileEntity tile) {
-				if(flower instanceof SubTileFunctional) {
-					((SubTileFunctional) flower).linkToForcefully(tile);
-					return true;
-				}
-				return false;
-			}
-
-		};
-
-		public abstract boolean actuate(SubTileEntity flower, TileEntity tile);
-
-	}
+	private static final BiFunction<SubTileEntity, TileEntity, Boolean> functionalActuator = (flower, tile) -> {
+		if(flower instanceof SubTileFunctional) {
+			((SubTileFunctional) flower).linkToForcefully(tile);
+			return true;
+		}
+		return false;
+	};
 
 }

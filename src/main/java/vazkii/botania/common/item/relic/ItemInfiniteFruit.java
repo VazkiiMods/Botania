@@ -19,7 +19,6 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.lib.LibItemNames;
@@ -37,13 +36,13 @@ public class ItemInfiniteFruit extends ItemRelic implements IManaUsingItem {
 	}
 
 	@Override
-	public int getMaxItemUseDuration(ItemStack stack) {
+	public int getUseDuration(ItemStack stack) {
 		return 32;
 	}
 
 	@Nonnull
 	@Override
-	public EnumAction getItemUseAction(ItemStack stack) {
+	public EnumAction getUseAction(ItemStack stack) {
 		return isBoot(stack) ? EnumAction.DRINK : EnumAction.EAT;
 	}
 
@@ -75,7 +74,7 @@ public class ItemInfiniteFruit extends ItemRelic implements IManaUsingItem {
 	}
 
 	private static boolean isBoot(ItemStack par1ItemStack) {
-		String name = par1ItemStack.getDisplayName().toLowerCase(Locale.ROOT).trim();
+		String name = par1ItemStack.getDisplayName().getString().toLowerCase(Locale.ROOT).trim();
 		return name.equals("das boot");
 	}
 

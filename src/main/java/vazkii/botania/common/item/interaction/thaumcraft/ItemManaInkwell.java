@@ -10,14 +10,11 @@
  */
 package vazkii.botania.common.item.interaction.thaumcraft;
 
-import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.Optional;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import thaumcraft.api.items.IScribeTools;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
@@ -35,17 +32,14 @@ public class ItemManaInkwell extends ItemMod implements IManaItem, IScribeTools 
 
 	private static final String TAG_MANA = "mana";
 
-	public ItemManaInkwell() {
-		super(LibItemNames.MANA_INKWELL);
-		setMaxDamage(USES);
-		setMaxStackSize(1);
-		setNoRepair();
+	public ItemManaInkwell(Properties props) {
+		super(props.defaultMaxDamage(USES));
 	}
 
 	@Override
-	public void getSubItems(@Nonnull CreativeTabs tab, @Nonnull NonNullList<ItemStack> list) {
-		if(isInCreativeTab(tab)) {
-			list.add(new ItemStack(this, 1, USES));
+	public void fillItemGroup(@Nonnull ItemGroup tab, @Nonnull NonNullList<ItemStack> list) {
+		if(isInGroup(tab)) {
+			list.add(new ItemStack(this));
 			ItemStack full = new ItemStack(this);
 			setMana(full, MAX_MANA);
 			list.add(full);
@@ -60,7 +54,7 @@ public class ItemManaInkwell extends ItemMod implements IManaItem, IScribeTools 
 
 	@Override
 	public void setDamage(ItemStack stack, int damage) {
-		int currentDamage = stack.getItemDamage();
+		int currentDamage = stack.getDamage();
 		if(damage > currentDamage) {
 			int cost = (damage - currentDamage) * COST_PER_USE;
 			int mana = getMana(stack);
@@ -94,7 +88,7 @@ public class ItemManaInkwell extends ItemMod implements IManaItem, IScribeTools 
 	@Override
 	public void addMana(ItemStack stack, int mana) {
 		setMana(stack, Math.min(getMana(stack) + mana, getMaxMana(stack)));
-		stack.setItemDamage(getDamage(stack));
+		stack.setDamage(getDamage(stack));
 	}
 
 	@Override

@@ -35,9 +35,8 @@ public class ItemEnderHand extends ItemMod implements IManaUsingItem, IBlockProv
 	private static final int COST_SELF = 250;
 	private static final int COST_OTHER = 5000;
 
-	public ItemEnderHand() {
-		super(LibItemNames.ENDER_HAND);
-		setMaxStackSize(1);
+	public ItemEnderHand(Properties props) {
+		super(props);
 	}
 
 	@Nonnull
@@ -73,17 +72,17 @@ public class ItemEnderHand extends ItemMod implements IManaUsingItem, IBlockProv
 	}
 
 	@Override
-	public boolean provideBlock(EntityPlayer player, ItemStack requestor, ItemStack stack, Block block, int meta, boolean doit) {
-		if(requestor != null && requestor.getItem() == this)
+	public boolean provideBlock(EntityPlayer player, ItemStack requestor, ItemStack stack, Block block, boolean doit) {
+		if(!requestor.isEmpty() && requestor.getItem() == this)
 			return false;
 
-		ItemStack istack = ItemExchangeRod.removeFromInventory(player, new InvWrapper(player.getInventoryEnderChest()), stack, block, meta, false);
+		ItemStack istack = ItemExchangeRod.removeFromInventory(player, new InvWrapper(player.getInventoryEnderChest()), stack, block, false);
 		if(!istack.isEmpty()) {
 			boolean mana = ManaItemHandler.requestManaExact(stack, player, COST_PROVIDE, false);
 			if(mana) {
 				if(doit) {
 					ManaItemHandler.requestManaExact(stack, player, COST_PROVIDE, true);
-					ItemExchangeRod.removeFromInventory(player, new InvWrapper(player.getInventoryEnderChest()), stack, block, meta, true);
+					ItemExchangeRod.removeFromInventory(player, new InvWrapper(player.getInventoryEnderChest()), stack, block, true);
 				}
 
 				return true;
@@ -94,11 +93,11 @@ public class ItemEnderHand extends ItemMod implements IManaUsingItem, IBlockProv
 	}
 
 	@Override
-	public int getBlockCount(EntityPlayer player, ItemStack requestor,  ItemStack stack, Block block, int meta) {
-		if(requestor != null && requestor.getItem() == this)
+	public int getBlockCount(EntityPlayer player, ItemStack requestor, ItemStack stack, Block block) {
+		if(!requestor.isEmpty() && requestor.getItem() == this)
 			return 0;
 
-		return ItemExchangeRod.getInventoryItemCount(player, new InvWrapper(player.getInventoryEnderChest()), stack, block, meta);
+		return ItemExchangeRod.getInventoryItemCount(player, new InvWrapper(player.getInventoryEnderChest()), stack, block);
 	}
 
 }

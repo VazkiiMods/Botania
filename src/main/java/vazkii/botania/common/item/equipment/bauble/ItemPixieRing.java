@@ -17,8 +17,8 @@ import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemPixieRing extends ItemBauble implements IPixieSpawner {
 
-	public ItemPixieRing() {
-		super(LibItemNames.PIXIE_RING);
+	public ItemPixieRing(Properties props) {
+		super(props);
 	}
 
 	@Override

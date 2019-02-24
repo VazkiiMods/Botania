@@ -20,8 +20,13 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Particles;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUseContext;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTUtil;
+import net.minecraft.particles.BlockParticleData;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
@@ -32,6 +37,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.api.distmarker.Dist;
@@ -56,9 +63,7 @@ import java.util.List;
 
 public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanetExcempt {
 
-	private static final String TAG_BLOCK = "_block";
-	private static final String TAG_BLOCK_NAME = "_blockname";
-	private static final String TAG_META = "_meta";
+	private static final String TAG_STATE = "_state";
 	private static final String TAG_TILE = "_tile";
 	private static final String TAG_X = "_x";
 	private static final String TAG_Y = "_y";
@@ -69,49 +74,58 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 	private static final String TAG_ITERATION_I = "iterationI";
 	private static final String TAG_ITERATION_J = "iterationJ";
 	private static final String TAG_ITERATION_K = "iterationK";
+	private static final String TAG_LEVEL = "level";
 
 	private static final int BASE_RANGE = 14;
 	private static final int BASE_OFFSET = 42;
 
-	public ItemLaputaShard() {
-		super(LibItemNames.LAPUTA_SHARD);
-		setHasSubtypes(true);
+	public ItemLaputaShard(Properties props) {
+		super(props);
 	}
 
 	@Override
-	public void getSubItems(@Nonnull CreativeTabs tab, @Nonnull NonNullList<ItemStack> list) {
-		super.getSubItems(tab, list);
-		if(isInCreativeTab(tab)) {
-			for(int i = 0; i < 4; i++)
-				list.add(new ItemStack(this, 1, (i + 1) * 5 - 1));
+	public void fillItemGroup(@Nonnull ItemGroup tab, @Nonnull NonNullList<ItemStack> list) {
+		super.fillItemGroup(tab, list);
+		if(isInGroup(tab)) {
+			for(int i = 0; i < 4; i++) {
+				ItemStack s = new ItemStack(this);
+				s.getOrCreateTag().putInt(TAG_LEVEL, (i + 1) * 5 - 1);
+				list.add(s);
+			}
 		}
 	}
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void addInformation(ItemStack stack, World world, List<String> list, ITooltipFlag flags) {
-		list.add(I18n.format("botaniamisc.shardLevel", I18n.format("botania.roman" + (stack.getItemDamage() + 1))));
+	public void addInformation(ItemStack stack, World world, List<ITextComponent> list, ITooltipFlag flags) {
+		int level = stack.getOrCreateTag().getInt(TAG_LEVEL);
+		ITextComponent levelLoc = new TextComponentTranslation("botania.roman" + (level + 1));
+		list.add(new TextComponentTranslation("botaniamisc.shardLevel", levelLoc));
 	}
 
 	@Nonnull
 	@Override
-	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
-		if(!world.isRemote && pos.getY() < 160 && !world.provider.doesWaterVaporize()) {
+	public EnumActionResult onItemUse(ItemUseContext ctx) {
+		World world = ctx.getWorld();
+		BlockPos pos = ctx.getPos();
+		if(!world.isRemote && pos.getY() < 160 && !world.getDimension().isNether()) {
 			world.playSound(null, pos, ModSounds.laputaStart, SoundCategory.BLOCKS, 1.0F + world.rand.nextFloat(), world.rand.nextFloat() * 0.7F + 1.3F);
-			ItemStack stack = player.getHeldItem(hand);
+			ItemStack stack = ctx.getItem();
 			spawnBurstFirst(world, pos, stack);
-			UseItemSuccessTrigger.INSTANCE.trigger((EntityPlayerMP) player, stack, (WorldServer) world, pos.getX(), pos.getY(), pos.getZ());
+			if(ctx.getPlayer() != null) {
+				UseItemSuccessTrigger.INSTANCE.trigger((EntityPlayerMP) ctx.getPlayer(), stack, (WorldServer) world, pos.getX(), pos.getY(), pos.getZ());
+			}
 			stack.shrink(1);
 		}
 
 		return EnumActionResult.SUCCESS;
 	}
 
-	public void spawnBurstFirst(World world, BlockPos pos, ItemStack lens) {
-		int range = BASE_RANGE + lens.getItemDamage();
+	public void spawnBurstFirst(World world, BlockPos pos, ItemStack shard) {
+		int range = BASE_RANGE + shard.getOrCreateTag().getInt(TAG_LEVEL);
 		boolean pointy = world.rand.nextDouble() < 0.25;
 		double heightscale = (world.rand.nextDouble() + 0.5) * ((double)BASE_RANGE / (double)range);
-		spawnBurst(world, pos, lens, pointy, heightscale);
+		spawnBurst(world, pos, shard, pointy, heightscale);
 	}
 
 	public void spawnBurst(World world, BlockPos pos, ItemStack lens) {
@@ -121,12 +135,12 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 		spawnBurst(world, pos, lens, pointy, heightscale);
 	}
 
-	public void spawnBurst(World world, BlockPos pos, ItemStack lens, boolean pointy, double heightscale) {
-		int range = BASE_RANGE + lens.getItemDamage();
+	public void spawnBurst(World world, BlockPos pos, ItemStack shard, boolean pointy, double heightscale) {
+		int range = BASE_RANGE + shard.getOrCreateTag().getInt(TAG_LEVEL);
 
-		int i = ItemNBTHelper.getInt(lens, TAG_ITERATION_I, 0);
-		int j = ItemNBTHelper.getInt(lens, TAG_ITERATION_J, BASE_OFFSET - BASE_RANGE / 2);
-		int k = ItemNBTHelper.getInt(lens, TAG_ITERATION_K, 0);
+		int i = ItemNBTHelper.getInt(shard, TAG_ITERATION_I, 0);
+		int j = ItemNBTHelper.getInt(shard, TAG_ITERATION_J, BASE_OFFSET - BASE_RANGE / 2);
+		int k = ItemNBTHelper.getInt(shard, TAG_ITERATION_K, 0);
 
 		if(j <= -BASE_RANGE * 2)
 			j = BASE_OFFSET - BASE_RANGE / 2;
@@ -146,18 +160,18 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 								TileEntity tile = world.getTileEntity(pos_);
 
 								if(tile != null) {
-									TileEntity newTile = block.createTileEntity(world, state);
+									// Reset the TE so e.g. chests don't spawn their drops
+									TileEntity newTile = block.createTileEntity(state, world);
 									world.setTileEntity(pos_, newTile);
 								}
-								world.setBlockToAir(pos_);
-								world.playEvent(2001, pos_, Block.getStateId(state));
+								world.destroyBlock(pos_, false);
 
-								ItemStack copyLens = new ItemStack(this, 1, lens.getItemDamage());
-								ItemNBTHelper.setString(copyLens, TAG_BLOCK_NAME, Block.REGISTRY.getNameForObject(block).toString());
-								ItemNBTHelper.setInt(copyLens, TAG_META, block.getMetaFromState(state));
+								ItemStack copyLens = new ItemStack(this);
+								copyLens.getOrCreateTag().putInt(TAG_LEVEL, shard.getOrCreateTag().getInt(TAG_LEVEL));
+								copyLens.getTag().put(TAG_STATE, NBTUtil.writeBlockState(state));
 								NBTTagCompound cmp = new NBTTagCompound();
 								if(tile != null)
-									tile.writeToNBT(cmp);
+									cmp = tile.write(cmp);
 								ItemNBTHelper.setCompound(copyLens, TAG_TILE, cmp);
 								ItemNBTHelper.setInt(copyLens, TAG_X, pos.getX());
 								ItemNBTHelper.setInt(copyLens, TAG_Y, pos.getY());
@@ -245,31 +259,25 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 				BlockPos pos = new BlockPos(x, y, z);
 
 				if(entity.world.isAirBlock(pos)) {
-					Block block = Blocks.AIR;
-					if (lens.hasTagCompound()) {
-						if (lens.getTagCompound().hasKey(TAG_BLOCK_NAME)) {
-							block = Block.getBlockFromName(ItemNBTHelper.getString(lens, TAG_BLOCK_NAME, ""));
-						} else if (lens.getTagCompound().hasKey(TAG_BLOCK)) {
-							// Attempt to read legacy tag (integer ID) if string block ID is absent
-							block = Block.getBlockById(ItemNBTHelper.getInt(lens, TAG_BLOCK, 0));
-						}
+					IBlockState state = Blocks.AIR.getDefaultState();
+					if (lens.hasTag() && lens.getTag().contains(TAG_STATE)) {
+						state = NBTUtil.readBlockState(lens.getTag().getCompound(TAG_STATE));
 					}
-					int meta = ItemNBTHelper.getInt(lens, TAG_META, 0);
 
 					TileEntity tile = null;
 					NBTTagCompound tilecmp = ItemNBTHelper.getCompound(lens, TAG_TILE, false);
-					if(tilecmp.hasKey("id"))
-						tile = TileEntity.create(entity.world, tilecmp);
+					if(tilecmp.contains("id"))
+						tile = TileEntity.create(tilecmp);
 
-					entity.world.setBlockState(pos, block.getStateFromMeta(meta), 1 | 2);
-					entity.world.playEvent(2001, pos, Block.getStateId(block.getStateFromMeta(meta)));
+					entity.world.setBlockState(pos, state);
+					entity.world.playEvent(2001, pos, Block.getStateId(state));
 					if(tile != null) {
 						tile.setPos(pos);
 						entity.world.setTileEntity(pos, tile);
 					}
 				}
 
-				entity.setDead();
+				entity.remove();
 			}
 		}
 	}
@@ -278,10 +286,8 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 	public boolean doParticles(IManaBurst burst, ItemStack stack) {
 		EntityThrowable entity = (EntityThrowable) burst;
 		ItemStack lens = burst.getSourceLens();
-		String id = ItemNBTHelper.getString(lens, TAG_BLOCK_NAME, "minecraft:air");
-		Block b = Block.getBlockFromName(id);
-		int meta = ItemNBTHelper.getInt(lens, TAG_META, 0);
-		entity.world.spawnParticle(EnumParticleTypes.BLOCK_CRACK, entity.posX, entity.posY, entity.posZ, entity.motionX, entity.motionY, entity.motionZ, Block.getStateId(b.getStateFromMeta(meta)));
+		IBlockState state = NBTUtil.readBlockState(lens.getOrCreateTag().getCompound(TAG_STATE));
+		entity.world.addParticle(new BlockParticleData(Particles.BLOCK, state), entity.posX, entity.posY, entity.posZ, entity.motionX, entity.motionY, entity.motionZ);
 
 		return true;
 	}
@@ -289,12 +295,6 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 	@Override
 	public boolean shouldPull(ItemStack stack) {
 		return false;
-	}
-
-	@OnlyIn(Dist.CLIENT)
-	@Override
-	public void registerModels() {
-		ModelHandler.registerItemAllMeta(this, 20);
 	}
 
 }

@@ -20,12 +20,8 @@ import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemAuraRing extends ItemBauble implements IManaGivingItem {
 
-	public ItemAuraRing(String name) {
-		super(name);
-	}
-
-	public ItemAuraRing() {
-		this(LibItemNames.AURA_RING);
+	public ItemAuraRing(Properties props) {
+		super(props);
 	}
 
 	@Override

@@ -49,9 +49,8 @@ public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 	private static final String TAG_TARGET = "target";
 	private static final String TAG_DIST = "dist";
 
-	public ItemGravityRod() {
-		super(LibItemNames.GRAVITY_ROD);
-		setMaxStackSize(1);
+	public ItemGravityRod(Properties props) {
+		super(props);
 	}
 
 	@Override
@@ -60,8 +59,8 @@ public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 	}
 
 	@Override
-	public void onUpdate(ItemStack stack, World world, Entity par3Entity, int slot, boolean held) {
-		if(!(par3Entity instanceof EntityPlayer))
+	public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean held) {
+		if(!(entity instanceof EntityPlayer))
 			return;
 
 		int ticksTillExpire = ItemNBTHelper.getInt(stack, TAG_TICKS_TILL_EXPIRE, 0);
@@ -79,7 +78,7 @@ public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 		ItemNBTHelper.setInt(stack, TAG_TICKS_TILL_EXPIRE, ticksTillExpire);
 		ItemNBTHelper.setInt(stack, TAG_TICKS_COOLDOWN, ticksCooldown);
 
-		EntityPlayer player = (EntityPlayer) par3Entity;
+		EntityPlayer player = (EntityPlayer) entity;
 		PotionEffect haste = player.getActivePotionEffect(MobEffects.HASTE);
 		float check = haste == null ? 0.16666667F : haste.getAmplifier() == 1 ? 0.5F : 0.4F;
 		if(player.getHeldItemMainhand() == stack && player.swingProgress == check && !world.isRemote)
@@ -182,7 +181,7 @@ public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 		return true;
 	}
 
-	public static void leftClick(EntityPlayer player) {
+	private static void leftClick(EntityPlayer player) {
 		ItemStack stack = player.getHeldItemMainhand();
 		if(!stack.isEmpty() && stack.getItem() == ModItems.gravityRod) {
 			int targetID = ItemNBTHelper.getInt(stack, TAG_TARGET, -1);
@@ -205,7 +204,7 @@ public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 				}
 
 				if(found) {
-					item = player.world.getEntityByID(targetID);
+					item = taritem;
 					ItemNBTHelper.setInt(stack, TAG_TARGET, -1);
 					ItemNBTHelper.setDouble(stack, TAG_DIST, -1);
 					Vector3 moveVector = new Vector3(player.getLookVec().normalize());
@@ -219,7 +218,7 @@ public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 							EntityThrownItem thrown = new EntityThrownItem(item.world, item.posX, item.posY, item.posZ, (EntityItem) item);
 							item.world.spawnEntity(thrown);
 						}
-						item.setDead();
+						item.remove();
 					} else {
 						item.motionX = moveVector.x * 3.0F;
 						item.motionY = moveVector.y * 1.5F;

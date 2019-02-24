@@ -15,6 +15,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityList;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
@@ -28,10 +29,12 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.registries.ForgeRegistries;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.advancements.UseItemSuccessTrigger;
@@ -46,27 +49,26 @@ public class ItemSpawnerMover extends ItemMod {
 	private static final String TAG_SPAWN_DATA = "SpawnData";
 	private static final String TAG_ID = "id";
 
-	public ItemSpawnerMover() {
-		super(LibItemNames.SPAWNER_MOVER);
-		setMaxStackSize(1);
+	public ItemSpawnerMover(Properties props) {
+		super(props);
 		addPropertyOverride(new ResourceLocation("botania", "full"), (stack, worldIn, entityIn) -> hasData(stack) ? 1 : 0);
 	}
 
 	public static NBTTagCompound getSpawnerTag(ItemStack stack) {
-		NBTTagCompound tag = stack.getTagCompound();
-		if(tag != null && tag.hasKey(TAG_SPAWNER)) {
-			return tag.getCompoundTag(TAG_SPAWNER);
+		NBTTagCompound tag = stack.getTag();
+		if(tag != null && tag.contains(TAG_SPAWNER)) {
+			return tag.getCompound(TAG_SPAWNER);
 		}
 
 		return null;
 	}
 
-	private static String getEntityId(ItemStack stack) {
+	private static ResourceLocation getEntityId(ItemStack stack) {
 		NBTTagCompound tag = getSpawnerTag(stack);
-		if(tag != null && tag.hasKey(TAG_SPAWN_DATA)) {
-			tag = tag.getCompoundTag(TAG_SPAWN_DATA);
-			if(tag.hasKey(TAG_ID)) {
-				return EntityList.getTranslationName(new ResourceLocation(tag.getString(TAG_ID)));
+		if(tag != null && tag.contains(TAG_SPAWN_DATA)) {
+			tag = tag.getCompound(TAG_SPAWN_DATA);
+			if(tag.contains(TAG_ID)) {
+				return ResourceLocation.makeResourceLocation(tag.getString(TAG_ID));
 			}
 		}
 
@@ -79,10 +81,14 @@ public class ItemSpawnerMover extends ItemMod {
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void addInformation(ItemStack stack, World world, List<String> infoList, ITooltipFlag flags) {
-		String id = getEntityId(stack);
-		if (id != null)
-			infoList.add(I18n.format("entity." + id + ".name"));
+	public void addInformation(ItemStack stack, World world, List<ITextComponent> infoList, ITooltipFlag flags) {
+		ResourceLocation id = getEntityId(stack);
+		if (id != null) {
+			EntityType<?> type = ForgeRegistries.ENTITIES.getValue();
+			if (type != null) {
+				infoList.add(type.func_212546_e());
+			}
+		}
 	}
 
 	@Nonnull
@@ -90,15 +96,14 @@ public class ItemSpawnerMover extends ItemMod {
 	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float xOffset, float yOffset, float zOffset) {
 		ItemStack itemstack = player.getHeldItem(hand);
 		if(getEntityId(itemstack) == null) {
-			if(world.getBlockState(pos).getBlock() == Blocks.MOB_SPAWNER) {
+			if(world.getBlockState(pos).getBlock() == Blocks.SPAWNER) {
 				if(!world.isRemote) {
 					TileEntity te = world.getTileEntity(pos);
 					NBTTagCompound tag = new NBTTagCompound();
-					tag.setTag(TAG_SPAWNER, new NBTTagCompound());
-					te.writeToNBT(tag.getCompoundTag(TAG_SPAWNER));
+					tag.put(TAG_SPAWNER, te.write(new NBTTagCompound()));
 					player.getCooldownTracker().setCooldown(this, 20);
-					itemstack.setTagCompound(tag);
-					world.setBlockToAir(pos);
+					itemstack.setTag(tag);
+					world.destroyBlock(pos, false);
 					UseItemSuccessTrigger.INSTANCE.trigger((EntityPlayerMP) player, itemstack, (WorldServer) world, pos.getX(), pos.getY(), pos.getZ());
 					player.renderBrokenItemStack(itemstack);
 				} else {
@@ -153,15 +158,15 @@ public class ItemSpawnerMover extends ItemMod {
 			return false;
 
 		Block block = world.getBlockState(pos).getBlock();
-		if(block == Blocks.MOB_SPAWNER) {
+		if(block == Blocks.SPAWNER) {
 			TileEntity te = world.getTileEntity(pos);
-			NBTTagCompound tag = stack.getTagCompound();
-			if (te instanceof TileEntityMobSpawner && tag.hasKey(TAG_SPAWNER)) {
-				tag = tag.getCompoundTag(TAG_SPAWNER);
-				tag.setInteger("x", pos.getX());
-				tag.setInteger("y", pos.getY());
-				tag.setInteger("z", pos.getZ());
-				te.readFromNBT(tag);
+			NBTTagCompound tag = stack.getTag();
+			if (te instanceof TileEntityMobSpawner && tag.contains(TAG_SPAWNER)) {
+				tag = tag.getCompound(TAG_SPAWNER);
+				tag.putInt("x", pos.getX());
+				tag.putInt("y", pos.getY());
+				tag.putInt("z", pos.getZ());
+				te.read(tag);
 				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, pos);
 			}
 		}

@@ -49,9 +49,8 @@ public class ItemRainbowRod extends ItemMod implements IManaUsingItem, IAvatarWi
 	private static final int MANA_COST_AVATAR = 10;
 	private static final int TIME = 600;
 
-	public ItemRainbowRod() {
-		super(LibItemNames.RAINBOW_ROD);
-		setMaxStackSize(1);
+	public ItemRainbowRod(Properties props) {
+		super(props);
 	}
 
 	@Nonnull
@@ -117,10 +116,6 @@ public class ItemRainbowRod extends ItemMod implements IManaUsingItem, IAvatarWi
 				world.playSound(null, player.posX, player.posY, player.posZ, ModSounds.bifrostRod, SoundCategory.PLAYERS, 0.5F, 0.25F);
 				ManaItemHandler.requestManaExactForTool(stack, player, MANA_COST, false);
 				player.getCooldownTracker().setCooldown(this, TIME);
-
-				// Fix up rods from old versions which used meta instead of cooldown tracker
-				if (stack.getItemDamage() > 0)
-					stack.setItemDamage(0);
 			}
 		}
 
@@ -157,7 +152,7 @@ public class ItemRainbowRod extends ItemMod implements IManaUsingItem, IAvatarWi
 		int l = 20;
 
 		AxisAlignedBB axis = null;
-		switch(world.getBlockState(tePos).getValue(BotaniaStateProps.CARDINALS)) {
+		switch(world.getBlockState(tePos).get(BotaniaStateProps.CARDINALS)) {
 		case NORTH :
 			axis = new AxisAlignedBB(tePos.add(-w, -h, -l), tePos.add(w + 1, h, 0));
 			break;

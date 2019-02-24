@@ -26,7 +26,7 @@ public class ItemCraftPattern extends ItemMod {
 	public final CratePattern pattern;
 
 	public ItemCraftPattern(CratePattern pattern, Properties props) {
-		super(LibItemNames.CRAFT_PATTERN_PREFIX + "_" + pattern.name().toLowerCase(Locale.ROOT));
+		super(props);
 		this.pattern = pattern;
 	}
 

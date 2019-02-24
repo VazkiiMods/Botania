@@ -19,8 +19,8 @@ import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemReachRing extends ItemBaubleModifier {
 
-	public ItemReachRing() {
-		super(LibItemNames.REACH_RING);
+	public ItemReachRing(Properties props) {
+		super(props);
 	}
 
 	@Override

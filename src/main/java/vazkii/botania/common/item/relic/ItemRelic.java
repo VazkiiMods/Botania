@@ -20,6 +20,9 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
@@ -39,41 +42,40 @@ public class ItemRelic extends ItemMod implements IRelic {
 
 	private static final String TAG_SOULBIND_UUID = "soulbindUUID";
 
-	public ItemRelic(String name) {
-		super(name);
-		setMaxStackSize(1);
+	public ItemRelic(Properties props) {
+		super(props);
 	}
 
 	@Override
-	public void onUpdate(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
+	public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
 		if(!world.isRemote && entity instanceof EntityPlayer)
 			updateRelic(stack, (EntityPlayer) entity);
 	}
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void addInformation(ItemStack stack, World world, List<String> tooltip, ITooltipFlag flags) {
+	public void addInformation(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flags) {
 		addBindInfo(tooltip, stack);
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public void addBindInfo(List<String> list, ItemStack stack) {
+	public void addBindInfo(List<ITextComponent> list, ItemStack stack) {
 		if(GuiScreen.isShiftKeyDown()) {
 			if(!hasUUID(stack)) {
-				addStringToTooltip(I18n.format("botaniamisc.relicUnbound"), list);
+				list.add(new TextComponentTranslation("botaniamisc.relicUnbound"));
 			} else {
-				if(!getSoulbindUUID(stack).equals(Minecraft.getMinecraft().player.getUniqueID()))
-					addStringToTooltip(I18n.format("botaniamisc.notYourSagittarius"), list);
-				else addStringToTooltip(I18n.format("botaniamisc.relicSoulbound", Minecraft.getMinecraft().player.getName()), list);
+				if(!getSoulbindUUID(stack).equals(Minecraft.getInstance().player.getUniqueID()))
+					list.add(new TextComponentTranslation("botaniamisc.notYourSagittarius"));
+				else list.add(new TextComponentTranslation("botaniamisc.relicSoulbound", Minecraft.getInstance().player.getName()));
 			}
 
 			if(stack.getItem() == ModItems.dice) {
-				addStringToTooltip("", list);
+				list.add(new TextComponentString(""));
 				String name = stack.getTranslationKey() + ".poem";
 				for(int i = 0; i < 4; i++)
-					addStringToTooltip(TextFormatting.ITALIC + I18n.format(name + i), list);
+					list.add(new TextComponentTranslation(name + i).applyTextStyle(TextFormatting.ITALIC));
 			}
-		} else addStringToTooltip(I18n.format("botaniamisc.shiftinfo"), list);
+		} else list.add(new TextComponentTranslation("botaniamisc.shiftinfo"));
 	}
 
 	public boolean shouldDamageWrongPlayer() {
@@ -83,10 +85,6 @@ public class ItemRelic extends ItemMod implements IRelic {
 	@Override
 	public int getEntityLifespan(ItemStack itemStack, World world) {
 		return Integer.MAX_VALUE;
-	}
-
-	private static void addStringToTooltip(String s, List<String> tooltip) {
-		tooltip.add(s.replaceAll("&", "\u00a7"));
 	}
 
 	public void updateRelic(ItemStack stack, EntityPlayer player) {

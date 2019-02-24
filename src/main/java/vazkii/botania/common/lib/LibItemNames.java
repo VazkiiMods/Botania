@@ -134,12 +134,12 @@ public final class LibItemNames {
 	public static final String FLARE_CHAKRAM = "flare_chakram";
 	public static final String OVERGROWTH_SEED = "overgrowthseed";
 	public static final String CRAFT_PATTERN_PREFIX = "pattern_";
-	public static final String ANCIENT_WILL = "ancient_will";
+	public static final String ANCIENT_WILL_PREFIX = "ancient_will_";
 	public static final String CORPOREA_SPARK = "corporea_spark";
 	public static final String CORPOREA_SPARK_MASTER = "corporea_spark_master";
 	public static final String LIVINGWOOD_BOW = "livingwood_bow";
 	public static final String CRYSTAL_BOW = "crystal_bow";
-	public static final String COSMETIC = "cosmetic";
+	public static final String COSMETIC_PREFIX = "cosmetic_";
 	public static final String SWAP_RING = "swapring";
 	public static final String FLOWER_BAG = "flowerbag";
 	public static final String PHANTOM_INK = "phantomink";

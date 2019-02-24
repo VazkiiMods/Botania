@@ -15,6 +15,8 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.InventoryBasic;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
@@ -25,6 +27,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
+import net.minecraftforge.common.crafting.VanillaRecipeTypes;
 import vazkii.botania.api.item.IManaProficiencyArmor;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
@@ -45,19 +48,18 @@ public class ItemSmeltRod extends ItemMod implements IManaUsingItem {
 
 	public static final Map<EntityPlayer, SmeltData> playerData = new WeakHashMap<>();
 
-	public ItemSmeltRod() {
-		super(LibItemNames.SMELT_ROD);
-		setMaxStackSize(1);
+	public ItemSmeltRod(Properties props) {
+		super(props);
 	}
 
 	@Nonnull
 	@Override
-	public EnumAction getItemUseAction(ItemStack par1ItemStack) {
+	public EnumAction getUseAction(ItemStack par1ItemStack) {
 		return EnumAction.BOW;
 	}
 
 	@Override
-	public int getMaxItemUseDuration(ItemStack par1ItemStack) {
+	public int getUseDuration(ItemStack par1ItemStack) {
 		return 72000;
 	}
 
@@ -72,6 +74,7 @@ public class ItemSmeltRod extends ItemMod implements IManaUsingItem {
 	public void onUsingTick(ItemStack stack, EntityLivingBase living, int time) {
 		if(!(living instanceof EntityPlayer)) return;
 		EntityPlayer p = (EntityPlayer) living;
+		IInventory dummyInv = new InventoryBasic(null, 1);
 
 		if(!ManaItemHandler.requestManaExactForTool(stack, p, COST_PER_TICK, false))
 			return;
@@ -81,8 +84,8 @@ public class ItemSmeltRod extends ItemMod implements IManaUsingItem {
 		if(pos != null && pos.getBlockPos() != null) {
 			IBlockState state = p.world.getBlockState(pos.getBlockPos());
 
-			ItemStack blockStack = new ItemStack(state.getBlock(), 1, state.getBlock().getMetaFromState(state));
-			ItemStack result = FurnaceRecipes.instance().getSmeltingResult(blockStack);
+			dummyInv.setInventorySlotContents(0, new ItemStack(state.getBlock()));
+			ItemStack result = p.world.getRecipeManager().getResult(dummyInv, p.world, VanillaRecipeTypes.SMELTING);
 
 			if(!result.isEmpty() && result.getItem() instanceof ItemBlock) {
 				boolean decremented = false;
@@ -95,7 +98,7 @@ public class ItemSmeltRod extends ItemMod implements IManaUsingItem {
 						decremented = true;
 						if(data.progress <= 0) {
 							if(!p.world.isRemote) {
-								p.world.setBlockState(pos.getBlockPos(), Block.getBlockFromItem(result.getItem()).getStateFromMeta(result.getItemDamage()), 1 | 2);
+								p.world.setBlockState(pos.getBlockPos(), Block.getBlockFromItem(result.getItem()).getDefaultState());
 								p.world.playSound(null, p.posX, p.posY, p.posZ, SoundEvents.ITEM_FLINTANDSTEEL_USE, SoundCategory.PLAYERS, 0.6F, 1F);
 								p.world.playSound(null, p.posX, p.posY, p.posZ, SoundEvents.BLOCK_FIRE_AMBIENT, SoundCategory.PLAYERS, 1F, 1F);
 

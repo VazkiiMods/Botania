@@ -11,7 +11,7 @@
 package vazkii.botania.common.item.equipment.bauble;
 
 import baubles.api.BaubleType;
-import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.NonNullList;
@@ -32,12 +32,8 @@ public class ItemManaRing extends ItemBauble implements IManaItem, IManaTooltipD
 
 	private static final String TAG_MANA = "mana";
 
-	public ItemManaRing() {
-		this(LibItemNames.MANA_RING);
-	}
-
-	public ItemManaRing(String name) {
-		super(name);
+	public ItemManaRing(Properties props) {
+		super(props);
 	}
 
 	@Override
@@ -46,8 +42,8 @@ public class ItemManaRing extends ItemBauble implements IManaItem, IManaTooltipD
 	}
 
 	@Override
-	public void getSubItems(@Nonnull CreativeTabs tab, @Nonnull NonNullList<ItemStack> stacks) {
-		if(isInCreativeTab(tab)) {
+	public void fillItemGroup(@Nonnull ItemGroup tab, @Nonnull NonNullList<ItemStack> stacks) {
+		if(isInGroup(tab)) {
 			stacks.add(new ItemStack(this));
 
 			ItemStack full = new ItemStack(this);

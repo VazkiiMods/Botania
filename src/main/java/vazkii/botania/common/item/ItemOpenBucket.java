@@ -31,9 +31,8 @@ import javax.annotation.Nonnull;
 
 public class ItemOpenBucket extends ItemMod {
 
-	public ItemOpenBucket() {
-		super(LibItemNames.OPEN_BUCKET);
-		setMaxStackSize(1);
+	public ItemOpenBucket(Properties props) {
+		super(props);
 	}
 
 	@Nonnull

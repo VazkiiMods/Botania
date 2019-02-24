@@ -17,6 +17,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
@@ -40,8 +41,8 @@ import javax.annotation.Nonnull;
 
 public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUsingItem {
 
-	public ItemFlugelEye() {
-		super(LibItemNames.FLUGEL_EYE);
+	public ItemFlugelEye(Properties props) {
+		super(props);
 	}
 
 	private static final String TAG_X = "x";
@@ -51,10 +52,13 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 
 	@Nonnull
 	@Override
-	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
-		if(player.isSneaking()) {
+	public EnumActionResult onItemUse(ItemUseContext ctx) {
+		World world = ctx.getWorld();
+		BlockPos pos = ctx.getPos();
+		EntityPlayer player = ctx.getPlayer();
+
+		if(player != null && player.isSneaking()) {
 			if(world.isRemote) {
-				player.swingArm(hand);
 				for(int i = 0; i < 10; i++) {
 					float x1 = (float) (pos.getX() + Math.random());
 					float y1 = pos.getY() + 1;
@@ -62,12 +66,12 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 					Botania.proxy.wispFX(x1, y1, z1, (float) Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random() * 0.5F, -0.05F + (float) Math.random() * 0.05F);
 				}
 			} else {
-				ItemStack stack = player.getHeldItem(hand);
+				ItemStack stack = ctx.getItem();
 				ItemNBTHelper.setInt(stack, TAG_X, pos.getX());
 				ItemNBTHelper.setInt(stack, TAG_Y, pos.getY());
 				ItemNBTHelper.setInt(stack, TAG_Z, pos.getZ());
 				ItemNBTHelper.setInt(stack, TAG_DIMENSION, world.provider.getDimension());
-				world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_ENDERMEN_TELEPORT, SoundCategory.PLAYERS, 1F, 5F);
+				world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.PLAYERS, 1F, 5F);
 			}
 
 			return EnumActionResult.SUCCESS;
@@ -117,17 +121,17 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 
 	private static void moveParticlesAndSound(Entity entity) {
 		PacketHandler.sendToNearby(entity.world, entity, new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.FLUGEL_EFFECT, entity.posX, entity.posY, entity.posZ, entity.getEntityId()));
-		entity.world.playSound(null, entity.posX, entity.posY, entity.posZ, SoundEvents.ENTITY_ENDERMEN_TELEPORT, SoundCategory.PLAYERS, 1F, 1F);
+		entity.world.playSound(null, entity.posX, entity.posY, entity.posZ, SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.PLAYERS, 1F, 1F);
 	}
 
 	@Override
-	public int getMaxItemUseDuration(ItemStack par1ItemStack) {
+	public int getUseDuration(ItemStack par1ItemStack) {
 		return 40;
 	}
 
 	@Nonnull
 	@Override
-	public EnumAction getItemUseAction(ItemStack par1ItemStack) {
+	public EnumAction getUseAction(ItemStack par1ItemStack) {
 		return EnumAction.BOW;
 	}
 

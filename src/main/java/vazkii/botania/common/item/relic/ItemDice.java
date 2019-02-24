@@ -25,6 +25,7 @@ import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.server.ServerLifecycleHooks;
 import vazkii.botania.api.item.IRelic;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibItemNames;
@@ -36,8 +37,8 @@ import java.util.List;
 public class ItemDice extends ItemRelic {
 	public static ItemStack[] relicStacks;
 
-	public ItemDice() {
-		super(LibItemNames.DICE);
+	public ItemDice(Properties props) {
+		super(props);
 
 		relicStacks = new ItemStack[] {
 				new ItemStack(ModItems.infiniteFruit),
@@ -94,7 +95,7 @@ public class ItemDice extends ItemRelic {
 		ResourceLocation advId = ((IRelic) item).getAdvancement();
 
 		if(advId != null) {
-			Advancement adv = mpPlayer.getServerWorld().getAdvancementManager().getAdvancement(advId);
+			Advancement adv = ServerLifecycleHooks.getCurrentServer().getAdvancementManager().getAdvancement(advId);
 			return adv != null && mpPlayer.getAdvancements().getProgress(adv).isDone();
 		}
 

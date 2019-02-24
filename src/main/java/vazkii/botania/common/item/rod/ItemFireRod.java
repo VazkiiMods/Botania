@@ -13,6 +13,7 @@ package vazkii.botania.common.item.rod;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUseContext;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
@@ -40,28 +41,27 @@ public class ItemFireRod extends ItemMod implements IManaUsingItem, IAvatarWield
 	private static final int COST = 900;
 	private static final int COOLDOWN = 1200;
 
-	public ItemFireRod() {
-		super(LibItemNames.FIRE_ROD);
-		setMaxStackSize(1);
+	public ItemFireRod(Properties props) {
+		super(props);
 	}
 
 	@Nonnull
 	@Override
-	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
-		ItemStack stack = player.getHeldItem(hand);
-		if(!world.isRemote && ManaItemHandler.requestManaExactForTool(stack, player, COST, false)) {
-			EntityFlameRing entity = new EntityFlameRing(player.world);
+	public EnumActionResult onItemUse(ItemUseContext ctx) {
+		World world = ctx.getWorld();
+		EntityPlayer player = ctx.getPlayer();
+		ItemStack stack = ctx.getItem();
+		BlockPos pos = ctx.getPos();
+
+		if(!world.isRemote && player != null && ManaItemHandler.requestManaExactForTool(stack, player, COST, false)) {
+			EntityFlameRing entity = new EntityFlameRing(world);
 			entity.setPosition(pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5);
-			player.world.spawnEntity(entity);
+			world.spawnEntity(entity);
 
 			player.getCooldownTracker().setCooldown(this, IManaProficiencyArmor.Helper.hasProficiency(player, stack) ? COOLDOWN / 2 : COOLDOWN);
-
 			ManaItemHandler.requestManaExactForTool(stack, player, COST, true);
-			world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_BLAZE_AMBIENT, SoundCategory.PLAYERS, 1F, 1F);
 
-			// Fix up rods from old versions which used meta instead of cooldown tracker
-			if (stack.getItemDamage() > 0)
-				stack.setItemDamage(0);
+			ctx.getWorld().playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ENTITY_BLAZE_AMBIENT, player != null ? SoundCategory.PLAYERS : SoundCategory.BLOCKS, 1F, 1F);
 		}
 
 		return EnumActionResult.SUCCESS;

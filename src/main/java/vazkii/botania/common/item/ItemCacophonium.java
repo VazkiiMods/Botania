@@ -28,9 +28,13 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.ResourceLocationException;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.registry.IRegistry;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.api.distmarker.Dist;
@@ -53,9 +57,8 @@ public class ItemCacophonium extends ItemMod {
 	private static final String TAG_SOUND = "sound";
 	private static final String TAG_SOUND_NAME = "soundName";
 
-	public ItemCacophonium() {
-		super(LibItemNames.CACOPHONIUM);
-		setMaxStackSize(1);
+	public ItemCacophonium(Properties props) {
+		super(props);
 	}
 
 	@Override
@@ -114,21 +117,21 @@ public class ItemCacophonium extends ItemMod {
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void addInformation(ItemStack stack, World world, List<String> list, ITooltipFlag flags) {
+	public void addInformation(ItemStack stack, World world, List<ITextComponent> list, ITooltipFlag flags) {
 		if(isDOIT(stack))
-			list.add(I18n.format("botaniamisc.justDoIt"));
+			list.add(new TextComponentTranslation("botaniamisc.justDoIt"));
 		else if(getSound(stack) != null)
 			list.add(I18n.format(ItemNBTHelper.getString(stack, TAG_SOUND_NAME, "")));
 	}
 
 	@Nonnull
 	@Override
-	public EnumAction getItemUseAction(ItemStack par1ItemStack) {
+	public EnumAction getUseAction(ItemStack par1ItemStack) {
 		return EnumAction.BLOCK;
 	}
 
 	@Override
-	public int getMaxItemUseDuration(ItemStack par1ItemStack) {
+	public int getUseDuration(ItemStack par1ItemStack) {
 		return 72000;
 	}
 
@@ -161,10 +164,16 @@ public class ItemCacophonium extends ItemMod {
 	private static SoundEvent getSound(ItemStack stack) {
 		if(isDOIT(stack))
 			return ModSounds.doit;
-		else return SoundEvent.REGISTRY.getObject(new ResourceLocation(ItemNBTHelper.getString(stack, TAG_SOUND, "")));
+		else {
+			try {
+				return IRegistry.SOUND_EVENT.get(new ResourceLocation(ItemNBTHelper.getString(stack, TAG_SOUND, "")));
+			} catch (ResourceLocationException ex) {
+				return null;
+			}
+		}
 	}
 
 	private static boolean isDOIT(ItemStack stack) {
-		return !stack.isEmpty() && stack.getDisplayName().equalsIgnoreCase("shia labeouf");
+		return !stack.isEmpty() && stack.getDisplayName().getString().equalsIgnoreCase("shia labeouf");
 	}
 }

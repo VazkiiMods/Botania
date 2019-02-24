@@ -18,9 +18,8 @@ import net.minecraft.block.BlockRedstoneRepeater;
 import net.minecraft.block.BlockRedstoneWire;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
+import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -40,8 +39,8 @@ import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, ICosmeticBauble {
 
-	public ItemMonocle() {
-		super(LibItemNames.MONOCLE);
+	public ItemMonocle(Properties props) {
+		super(props);
 	}
 
 	@Override
@@ -54,15 +53,15 @@ public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, ICosm
 	public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
 		if(type == RenderType.HEAD) {
 			boolean armor = !player.getItemStackFromSlot(EntityEquipmentSlot.HEAD).isEmpty();
-			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+			Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 
 			Helper.translateToHeadLevel(player);
 			Helper.translateToFace();
 			Helper.defaultTransforms();
-			GlStateManager.rotate(180F, 0F, 1F, 0F);
-			GlStateManager.scale(0.5F, 0.5F, 0.5F);
-			GlStateManager.translate(0.5F, -0.2F, armor ? 0.12F : 0F);
-			Minecraft.getMinecraft().getRenderItem().renderItem(stack, ItemCameraTransforms.TransformType.NONE);
+			GlStateManager.rotatef(180F, 0F, 1F, 0F);
+			GlStateManager.scalef(0.5F, 0.5F, 0.5F);
+			GlStateManager.translatef(0.5F, -0.2F, armor ? 0.12F : 0F);
+			Minecraft.getInstance().getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.NONE);
 		}
 	}
 

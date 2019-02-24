@@ -14,6 +14,7 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -31,15 +32,14 @@ public class ItemCobbleRod extends ItemMod implements IManaUsingItem, IBlockProv
 
 	static final int COST = 150;
 
-	public ItemCobbleRod() {
-		super(LibItemNames.COBBLE_ROD);
-		setMaxStackSize(1);
+	public ItemCobbleRod(Properties props) {
+		super(props);
 	}
 
 	@Nonnull
 	@Override
-	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
-		return ItemDirtRod.place(player, world, pos, hand, side, par8, par9, par10, Blocks.COBBLESTONE, COST, 0.3F, 0.3F, 0.3F);
+	public EnumActionResult onItemUse(ItemUseContext ctx) {
+		return ItemDirtRod.place(ctx, Blocks.COBBLESTONE, COST, 0.3F, 0.3F, 0.3F);
 	}
 
 	@Override
@@ -48,15 +48,15 @@ public class ItemCobbleRod extends ItemMod implements IManaUsingItem, IBlockProv
 	}
 
 	@Override
-	public boolean provideBlock(EntityPlayer player, ItemStack requestor, ItemStack stack, Block block, int meta, boolean doit) {
-		if(block == Blocks.COBBLESTONE && meta == 0)
+	public boolean provideBlock(EntityPlayer player, ItemStack requestor, ItemStack stack, Block block, boolean doit) {
+		if(block == Blocks.COBBLESTONE)
 			return !doit || ManaItemHandler.requestManaExactForTool(requestor, player, COST, true);
 		return false;
 	}
 
 	@Override
-	public int getBlockCount(EntityPlayer player, ItemStack requestor, ItemStack stack, Block block, int meta) {
-		if(block == Blocks.COBBLESTONE && meta == 0)
+	public int getBlockCount(EntityPlayer player, ItemStack requestor, ItemStack stack, Block block) {
+		if(block == Blocks.COBBLESTONE)
 			return -1;
 		return 0;
 	}

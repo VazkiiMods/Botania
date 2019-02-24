@@ -13,6 +13,8 @@ package vazkii.botania.common.item;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -25,20 +27,15 @@ import java.util.Locale;
 public class ItemAncientWill extends ItemMod {
 	public final IAncientWillContainer.AncientWillType type;
 
-	public ItemAncientWill(IAncientWillContainer.AncientWillType variant) {
-		super(LibItemNames.ANCIENT_WILL + "_" + variant.name().toLowerCase(Locale.ROOT));
+	public ItemAncientWill(IAncientWillContainer.AncientWillType variant, Properties props) {
+		super(props);
 		this.type = variant;
-		setMaxStackSize(1);
 	}
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void addInformation(ItemStack stack, World world, List<String> list, ITooltipFlag flag) {
-		addStringToTooltip(I18n.format("botaniamisc.craftToAddWill"), list);
-		addStringToTooltip(I18n.format("botania.armorset.will_" + type.name().toLowerCase(Locale.ROOT) + ".shortDesc"), list);
-	}
-
-	public void addStringToTooltip(String s, List<String> tooltip) {
-		tooltip.add(s.replaceAll("&", "\u00a7"));
+	public void addInformation(ItemStack stack, World world, List<ITextComponent> list, ITooltipFlag flag) {
+		list.add(new TextComponentTranslation("botaniamisc.craftToAddWill"));
+		list.add(new TextComponentTranslation("botania.armorset.will_" + type.name().toLowerCase(Locale.ROOT) + ".shortDesc"));
 	}
 }

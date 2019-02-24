@@ -12,7 +12,7 @@ package vazkii.botania.common.item.equipment.bauble;
 
 import baubles.api.BaubleType;
 import baubles.api.BaublesApi;
-import gnu.trove.list.array.TIntArrayList;
+import it.unimi.dsi.fastutil.ints.IntArrayList;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
@@ -36,6 +36,7 @@ import net.minecraft.village.MerchantRecipe;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
@@ -54,10 +55,10 @@ import java.util.List;
 public class ItemItemFinder extends ItemBauble implements IBaubleRender {
 
 	private static final String TAG_ENTITY_POSITIONS = "highlightPositionsEnt";
-	private static final String TAG_BLOCK_POSITIONS = "highlightPositionsBlock1";
+	private static final String TAG_BLOCK_POSITIONS = "highlightPositionsBlock";
 
-	public ItemItemFinder() {
-		super(LibItemNames.ITEM_FINDER);
+	public ItemItemFinder(Properties props) {
+		super(props);
 	}
 
 	@Override
@@ -79,7 +80,7 @@ public class ItemItemFinder extends ItemBauble implements IBaubleRender {
 		NBTTagList blocks = ItemNBTHelper.getList(stack, TAG_BLOCK_POSITIONS, Constants.NBT.TAG_LONG, false);
 		Botania.proxy.setWispFXDepthTest(false);
 
-		for(int i = 0; i < blocks.tagCount(); i++) {
+		for(int i = 0; i < blocks.size(); i++) {
 			BlockPos pos = BlockPos.fromLong(((NBTTagLong) blocks.get(i)).getLong());
 			float m = 0.02F;
 			Botania.proxy.wispFX(pos.getX() + (float) Math.random(), pos.getY() + (float) Math.random(), pos.getZ() + (float) Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random(), 0.15F + 0.05F * (float) Math.random(), m * (float) (Math.random() - 0.5), m * (float) (Math.random() - 0.5), m * (float) (Math.random() - 0.5));
@@ -98,13 +99,13 @@ public class ItemItemFinder extends ItemBauble implements IBaubleRender {
 	}
 
 	protected void tickServer(ItemStack stack, EntityPlayer player) {
-		TIntArrayList entPosBuilder = new TIntArrayList();
+		IntArrayList entPosBuilder = new IntArrayList();
 		NBTTagList blockPosBuilder = new NBTTagList();
 
 		scanForStack(player.getHeldItemMainhand(), player, entPosBuilder, blockPosBuilder);
 		scanForStack(player.getHeldItemOffhand(), player, entPosBuilder, blockPosBuilder);
 
-		int[] currentEnts = entPosBuilder.toArray();
+		int[] currentEnts = entPosBuilder.elements();
 
 		boolean entsEqual = Arrays.equals(currentEnts, ItemNBTHelper.getIntArray(stack, TAG_ENTITY_POSITIONS));
 		boolean blocksEqual = blockPosBuilder.equals(ItemNBTHelper.getList(stack, TAG_BLOCK_POSITIONS, Constants.NBT.TAG_LONG, false));
@@ -117,7 +118,7 @@ public class ItemItemFinder extends ItemBauble implements IBaubleRender {
 			BotaniaAPI.internalHandler.sendBaubleUpdatePacket(player, 4);
 	}
 
-	private void scanForStack(ItemStack pstack, EntityPlayer player, TIntArrayList entIdBuilder, NBTTagList blockPosBuilder) {
+	private void scanForStack(ItemStack pstack, EntityPlayer player, IntArrayList entIdBuilder, NBTTagList blockPosBuilder) {
 		if(!pstack.isEmpty() || player.isSneaking()) {
 			int range = 24;
 
@@ -125,8 +126,8 @@ public class ItemItemFinder extends ItemBauble implements IBaubleRender {
 			for(Entity e : entities) {
 				if(e == player)
 					continue;
-				if(e.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null) && !(e instanceof EntityPlayer)) {
-					if(scanInventory(e.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null), pstack))
+				if(e.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).isPresent() && !(e instanceof EntityPlayer)) {
+					if(scanInventory(e.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY), pstack))
 						entIdBuilder.add(e.getEntityId());
 
 				} else if(e instanceof EntityItem) {
@@ -137,12 +138,12 @@ public class ItemItemFinder extends ItemBauble implements IBaubleRender {
 
 				} else if(e instanceof IInventory) {
 					IInventory inv = (IInventory) e;
-					if(scanInventory(new InvWrapper(inv), pstack))
+					if(scanInventory(LazyOptional.of(() -> new InvWrapper(inv)), pstack))
 						entIdBuilder.add(e.getEntityId());
 
 				} else if(e instanceof EntityPlayer) {
 					EntityPlayer player_ = (EntityPlayer) e;
-					IItemHandler playerInv = player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
+					LazyOptional<IItemHandler> playerInv = player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY);
 					IItemHandler binv = BaublesApi.getBaublesHandler(player);
 					if(scanInventory(binv, pstack) || scanInventory(playerInv, pstack))
 						entIdBuilder.add(player_.getEntityId());
@@ -167,18 +168,17 @@ public class ItemItemFinder extends ItemBauble implements IBaubleRender {
 					TileEntity tile = player.world.getTileEntity(pos_);
 					if(tile != null) {
 						boolean foundCap = false;
-						for(EnumFacing e : EnumFacing.VALUES) {
-							if(tile.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, e)
-									&& scanInventory(tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, e), pstack)) {
-								blockPosBuilder.appendTag(new NBTTagLong(pos_.toLong()));
+						for(EnumFacing e : EnumFacing.BY_INDEX) {
+							if(scanInventory(tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, e), pstack)) {
+								blockPosBuilder.add(new NBTTagLong(pos_.toLong()));
 								foundCap = true;
 								break;
 							}
 						}
 						if(!foundCap && tile instanceof IInventory) {
 							IInventory inv = (IInventory) tile;
-							if(scanInventory(new InvWrapper(inv), pstack))
-								blockPosBuilder.appendTag(new NBTTagLong(pos_.toLong()));
+							if(scanInventory(LazyOptional.of(() -> new InvWrapper(inv)), pstack))
+								blockPosBuilder.add(new NBTTagLong(pos_.toLong()));
 						}
 					}
 				}
@@ -190,17 +190,18 @@ public class ItemItemFinder extends ItemBauble implements IBaubleRender {
 		return stack1.isItemEqual(stack2) && ItemStack.areItemStackTagsEqual(stack1, stack2);
 	}
 
-	private boolean scanInventory(IItemHandler inv, ItemStack pstack) {
+	private boolean scanInventory(LazyOptional<IItemHandler> optInv, ItemStack pstack) {
 		if(pstack.isEmpty())
 			return false;
 
-		for(int l = 0; l < inv.getSlots(); l++) {
-			ItemStack istack = inv.getStackInSlot(l);
-			if(!istack.isEmpty() && equalStacks(istack, pstack))
-				return true;
-		}
-
-		return false;
+		return optInv.map(inv -> {
+			for(int l = 0; l < inv.getSlots(); l++) {
+				ItemStack istack = inv.getStackInSlot(l);
+				if(!istack.isEmpty() && equalStacks(istack, pstack))
+					return true;
+			}
+			return false;
+		}).orElse(false);
 	}
 
 	@Override
@@ -219,12 +220,12 @@ public class ItemItemFinder extends ItemBauble implements IBaubleRender {
 			float f3 = gemIcon.getMaxV();
 			boolean armor = !player.getItemStackFromSlot(EntityEquipmentSlot.HEAD).isEmpty();
 			Helper.translateToHeadLevel(player);
-			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-			GlStateManager.rotate(90F, 0F, 1F, 0F);
-			GlStateManager.rotate(180F, 1F, 0F, 0F);
-			GlStateManager.translate(-0.4F, -1.4F, armor ? -0.3F : -0.25F);
-			GlStateManager.scale(0.75F, 0.75F, 0.75F);
-			IconHelper.renderIconIn3D(Tessellator.getInstance(), f1, f2, f, f3, gemIcon.getIconWidth(), gemIcon.getIconHeight(), 1F / 16F);
+			Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+			GlStateManager.rotatef(90F, 0F, 1F, 0F);
+			GlStateManager.rotatef(180F, 1F, 0F, 0F);
+			GlStateManager.translatef(-0.4F, -1.4F, armor ? -0.3F : -0.25F);
+			GlStateManager.scalef(0.75F, 0.75F, 0.75F);
+			IconHelper.renderIconIn3D(Tessellator.getInstance(), f1, f2, f, f3, gemIcon.getWidth(), gemIcon.getHeight(), 1F / 16F);
 		}
 	}
 

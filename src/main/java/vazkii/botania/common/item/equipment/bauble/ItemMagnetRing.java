@@ -13,16 +13,19 @@ package vazkii.botania.common.item.equipment.bauble;
 import baubles.api.BaubleType;
 import baubles.api.BaublesApi;
 import com.google.common.collect.ImmutableList;
+import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.Tag;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.item.ItemTossEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.items.IItemHandler;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IRelic;
@@ -34,6 +37,7 @@ import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.lib.LibItemNames;
+import vazkii.botania.common.lib.LibMisc;
 
 import java.util.List;
 
@@ -41,23 +45,23 @@ public class ItemMagnetRing extends ItemBauble {
 
 	private static final String TAG_COOLDOWN = "cooldown";
 
-	private static final List<ResourceLocation> BLACKLIST = ImmutableList.of(new ResourceLocation("appliedenergistics2", "item.ItemCrystalSeed"));
+	private static final Tag<Item> BLACKLIST = new ItemTags.Wrapper(new ResourceLocation(LibMisc.MOD_ID, "magnet_ring_blacklist"));
+	private static final Tag<Block> BLOCK_BLACKLIST = new BlockTags.Wrapper(new ResourceLocation(LibMisc.MOD_ID, "magnet_ring_blacklist"));
 
 	private final int range;
 
-	public ItemMagnetRing() {
-		this(LibItemNames.MAGNET_RING, 6);
-		MinecraftForge.EVENT_BUS.register(this);
+	public ItemMagnetRing(Properties props) {
+		this(props, 6);
+		MinecraftForge.EVENT_BUS.addListener(this::onTossItem);
 	}
 
-	public ItemMagnetRing(String name, int range) {
-		super(name);
+	public ItemMagnetRing(Properties props, int range) {
+		super(props);
 		this.range = range;
 		addPropertyOverride(new ResourceLocation("botania", "on"), (stack, worldIn, entityIn) -> ItemMagnetRing.getCooldown(stack) <= 0 ? 1 : 0);
 	}
 
-	@SubscribeEvent
-	public void onTossItem(ItemTossEvent event) {
+	private void onTossItem(ItemTossEvent event) {
 		IItemHandler inv = BaublesApi.getBaublesHandler(event.getPlayer());
 		for(int i = 0; i < inv.getSlots(); i++) {
 			ItemStack stack = inv.getStackInSlot(i);
@@ -105,19 +109,19 @@ public class ItemMagnetRing extends ItemBauble {
 	}
 
 	private boolean canPullItem(EntityItem item) {
-		if(item.isDead || SubTileSolegnolia.hasSolegnoliaAround(item))
+		if(!item.isAlive() || SubTileSolegnolia.hasSolegnoliaAround(item))
 			return false;
 
 		ItemStack stack = item.getItem();
-		if(stack.isEmpty() || stack.getItem() instanceof IManaItem || stack.getItem() instanceof IRelic || BLACKLIST.contains(Item.REGISTRY.getNameForObject(stack.getItem())) || BotaniaAPI.isItemBlacklistedFromMagnet(stack))
+		if(stack.isEmpty() || stack.getItem() instanceof IManaItem || stack.getItem() instanceof IRelic || BLACKLIST.contains(stack.getItem()))
 			return false;
 
 		BlockPos pos = new BlockPos(item);
 
-		if(BotaniaAPI.isBlockBlacklistedFromMagnet(item.world.getBlockState(pos)))
+		if(BLOCK_BLACKLIST.contains(item.world.getBlockState(pos).getBlock()))
 			return false;
 
-		if(BotaniaAPI.isBlockBlacklistedFromMagnet(item.world.getBlockState(pos.down())))
+		if(BLOCK_BLACKLIST.contains(item.world.getBlockState(pos.down()).getBlock()))
 			return false;
 
 		return true;
@@ -129,10 +133,6 @@ public class ItemMagnetRing extends ItemBauble {
 
 	public static void setCooldown(ItemStack stack, int cooldown) {
 		ItemNBTHelper.setInt(stack, TAG_COOLDOWN, cooldown);
-	}
-
-	public static void addItemToBlackList(String item) {
-		BLACKLIST.add(new ResourceLocation(item));
 	}
 
 	@Override

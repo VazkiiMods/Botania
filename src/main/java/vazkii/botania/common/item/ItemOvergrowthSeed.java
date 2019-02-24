@@ -13,9 +13,11 @@ package vazkii.botania.common.item;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -29,27 +31,25 @@ import javax.annotation.Nonnull;
 
 public class ItemOvergrowthSeed extends ItemMod {
 
-	public ItemOvergrowthSeed() {
-		super(LibItemNames.OVERGROWTH_SEED);
+	public ItemOvergrowthSeed(Properties props) {
+		super(props);
 	}
 
 	@Nonnull
 	@Override
-	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float xs, float ys, float zs) {
+	public EnumActionResult onItemUse(ItemUseContext ctx) {
+		World world = ctx.getWorld();
+		BlockPos pos = ctx.getPos();
+
+		// todo 1.13 grass tag
 		IBlockState state = world.getBlockState(pos);
-		if(Item.getItemFromBlock(state.getBlock()) == Items.AIR)
-			return EnumActionResult.PASS;
-		ItemStack blockStack = new ItemStack(state.getBlock());
-		int[] ids = OreDictionary.getOreIDs(blockStack);
-		for(int i : ids) {
-			String name = OreDictionary.getOreName(i);
-			if(name.equals("grass")) {
+		if(state.getBlock() == Blocks.GRASS_BLOCK) {
+			if(!world.isRemote) {
 				world.playEvent(2001, pos, Block.getStateId(state));
 				world.setBlockState(pos, ModBlocks.enchantedSoil.getDefaultState());
-				player.getHeldItem(hand).shrink(1);
-
-				return EnumActionResult.SUCCESS;
+				ctx.getItem().shrink(1);
 			}
+			return EnumActionResult.SUCCESS;
 		}
 		return EnumActionResult.PASS;
 	}

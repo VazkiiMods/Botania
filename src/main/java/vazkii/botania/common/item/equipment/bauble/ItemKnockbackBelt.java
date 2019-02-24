@@ -13,8 +13,8 @@ package vazkii.botania.common.item.equipment.bauble;
 import baubles.api.BaubleType;
 import com.google.common.collect.Multimap;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.entity.model.ModelBiped;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
@@ -31,8 +31,8 @@ public class ItemKnockbackBelt extends ItemBaubleModifier implements IBaubleRend
 	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_KNOCKBACK_BELT);
 	private static ModelBiped model;
 
-	public ItemKnockbackBelt() {
-		super(LibItemNames.KNOCKBACK_BELT);
+	public ItemKnockbackBelt(Properties props) {
+		super(props);
 	}
 
 	@Override
@@ -52,13 +52,13 @@ public class ItemKnockbackBelt extends ItemBaubleModifier implements IBaubleRend
 	@OnlyIn(Dist.CLIENT)
 	public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
 		if(type == RenderType.BODY) {
-			Minecraft.getMinecraft().renderEngine.bindTexture(texture);
+			Minecraft.getInstance().textureManager.bindTexture(texture);
 			Helper.rotateIfSneaking(player);
 
-			GlStateManager.translate(0F, 0.2F, 0F);
+			GlStateManager.translatef(0F, 0.2F, 0F);
 
 			float s = 1.05F / 16F;
-			GlStateManager.scale(s, s, s);
+			GlStateManager.scalef(s, s, s);
 
 			if(model == null)
 				model = new ModelBiped();

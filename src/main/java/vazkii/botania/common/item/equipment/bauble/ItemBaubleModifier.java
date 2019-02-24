@@ -17,8 +17,8 @@ import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.item.ItemStack;
 
 public abstract class ItemBaubleModifier extends ItemBauble {
-	public ItemBaubleModifier(String name) {
-		super(name);
+	public ItemBaubleModifier(Properties props) {
+		super(props);
 	}
 
 	@Override

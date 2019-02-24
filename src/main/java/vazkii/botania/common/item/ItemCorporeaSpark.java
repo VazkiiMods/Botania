@@ -12,6 +12,7 @@ package vazkii.botania.common.item;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUseContext;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
@@ -26,18 +27,22 @@ import javax.annotation.Nonnull;
 
 public class ItemCorporeaSpark extends ItemMod {
 
-	public ItemCorporeaSpark(String name) {
-		super(name);
+	public ItemCorporeaSpark(Properties props) {
+		super(props);
 	}
 
 	@Nonnull
 	@Override
-	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float xv, float yv, float zv) {
+	public EnumActionResult onItemUse(ItemUseContext ctx) {
+		World world = ctx.getWorld();
+		BlockPos pos = ctx.getPos();
+
 		TileEntity tile = world.getTileEntity(pos);
-		if(tile != null && (tile.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.UP) || tile.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null))
+		if(tile != null
+				&& (tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.UP).isPresent()
+					|| tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).isPresent())
 				&& !CorporeaHelper.doesBlockHaveSpark(world, pos)) {
-			ItemStack stack = player.getHeldItem(hand);
-			stack.shrink(1);
+			ctx.getItem().shrink(1);
 			if(!world.isRemote) {
 				EntityCorporeaSpark spark = new EntityCorporeaSpark(world);
 				if(this == ModItems.corporeaSparkMaster)

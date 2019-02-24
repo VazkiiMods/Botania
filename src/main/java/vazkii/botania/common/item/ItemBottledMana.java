@@ -32,10 +32,12 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.fml.server.ServerLifecycleHooks;
 import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.entity.EntityPixie;
@@ -52,9 +54,8 @@ public class ItemBottledMana extends ItemMod {
 	public static final String TAG_SWIGS_LEFT = "swigsLeft";
 	private static final String TAG_SEED = "randomSeed";
 
-	public ItemBottledMana() {
-		super(LibItemNames.MANA_BOTTLE);
-		setMaxStackSize(1);
+	public ItemBottledMana(Properties props) {
+		super(props);
 		addPropertyOverride(new ResourceLocation(LibMisc.MOD_ID, "swigs_taken"), (stack, world, entity) -> SWIGS - getSwigsLeft(stack));
 	}
 
@@ -66,8 +67,8 @@ public class ItemBottledMana extends ItemMod {
 			break;
 		}
 		case 1 : { // Water
-			if(!living.world.isRemote && !living.world.provider.doesWaterVaporize())
-				living.world.setBlockState(new BlockPos(living), Blocks.FLOWING_WATER.getDefaultState());
+			if(!living.world.isRemote && !living.world.getDimension().doesWaterVaporize())
+				living.world.setBlockState(new BlockPos(living), Blocks.WATER.getDefaultState());
 			break;
 		}
 		case 2 : { // Set on Fire
@@ -81,7 +82,7 @@ public class ItemBottledMana extends ItemMod {
 			break;
 		}
 		case 4 : { // Mega Jump
-			if(!living.world.provider.doesWaterVaporize()) {
+			if(!living.world.getDimension().isNether()) {
 				if(!living.world.isRemote)
 					living.addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, 300, 5));
 				living.motionY = 6;
@@ -159,7 +160,7 @@ public class ItemBottledMana extends ItemMod {
 				int range = 5;
 				List<EntityLivingBase> entities = living.world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(living.posX - range, living.posY - range, living.posZ - range, living.posX + range, living.posY + range, living.posZ + range));
 				for(EntityLivingBase entity : entities)
-					if(entity != living && (!(entity instanceof EntityPlayer) || FMLCommonHandler.instance().getMinecraftServerInstance() == null || FMLCommonHandler.instance().getMinecraftServerInstance().isPVPEnabled()))
+					if(entity != living && (!(entity instanceof EntityPlayer) || ServerLifecycleHooks.getCurrentServer() == null || ServerLifecycleHooks.getCurrentServer().isPVPEnabled()))
 						entity.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 50, 5));
 			}
 
@@ -184,17 +185,14 @@ public class ItemBottledMana extends ItemMod {
 		case 15 : { // Drop own Head
 			if(!living.world.isRemote && living instanceof EntityPlayer) {
 				living.attackEntityFrom(DamageSource.MAGIC, living.getHealth() - 1);
-				ItemStack skull = new ItemStack(Items.SKULL, 1, 3);
-				ItemNBTHelper.setString(skull, "SkullOwner", living.getName());
+				ItemStack skull = new ItemStack(Items.PLAYER_HEAD);
+				ItemNBTHelper.setString(skull, "SkullOwner", ((EntityPlayer) living).getGameProfile().getName());
 				living.entityDropItem(skull, 0);
 			}
 			break;
 		}
 		}
 	}
-
-	@Override
-	public void onUpdate(ItemStack par1ItemStack, World world, Entity par3Entity, int par4, boolean par5) {}
 
 	private void randomEffect(EntityLivingBase player, ItemStack stack) {
 		effect(stack, player, new Random(getSeed(stack)).nextInt(16));
@@ -208,15 +206,15 @@ public class ItemBottledMana extends ItemMod {
 	}
 
 	private long randomSeed(ItemStack stack) {
-		long seed = Math.abs(itemRand.nextLong());
+		long seed = Math.abs(random.nextLong());
 		ItemNBTHelper.setLong(stack, TAG_SEED, seed);
 		return seed;
 	}
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void addInformation(ItemStack par1ItemStack, World world, List<String> stacks, ITooltipFlag flags) {
-		stacks.add(I18n.format("botaniamisc.bottleTooltip"));
+	public void addInformation(ItemStack par1ItemStack, World world, List<ITextComponent> stacks, ITooltipFlag flags) {
+		stacks.add(new TextComponentTranslation("botaniamisc.bottleTooltip"));
 	}
 
 	@Nonnull
@@ -241,13 +239,13 @@ public class ItemBottledMana extends ItemMod {
 	}
 
 	@Override
-	public int getMaxItemUseDuration(ItemStack par1ItemStack) {
+	public int getUseDuration(ItemStack par1ItemStack) {
 		return 20;
 	}
 
 	@Nonnull
 	@Override
-	public EnumAction getItemUseAction(ItemStack par1ItemStack) {
+	public EnumAction getUseAction(ItemStack par1ItemStack) {
 		return EnumAction.DRINK;
 	}
 

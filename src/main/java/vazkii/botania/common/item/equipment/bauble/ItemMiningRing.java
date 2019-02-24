@@ -22,8 +22,8 @@ import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemMiningRing extends ItemBauble implements IManaUsingItem {
 
-	public ItemMiningRing() {
-		super(LibItemNames.MINING_RING);
+	public ItemMiningRing(Properties props) {
+		super(props);
 	}
 
 	@Override

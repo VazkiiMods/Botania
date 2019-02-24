@@ -30,8 +30,8 @@ import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemSuperLavaPendant extends ItemBauble implements IBaubleRender {
 
-	public ItemSuperLavaPendant() {
-		super(LibItemNames.SUPER_LAVA_PENDANT);
+	public ItemSuperLavaPendant(Properties props) {
+		super(props);
 	}
 
 	@Override
@@ -53,19 +53,19 @@ public class ItemSuperLavaPendant extends ItemBauble implements IBaubleRender {
 	@OnlyIn(Dist.CLIENT)
 	public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
 		if(type == RenderType.BODY) {
-			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+			Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 			Helper.rotateIfSneaking(player);
 			boolean armor = !player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).isEmpty();
-			GlStateManager.scale(0.5, 0.5, 0.5);
-			GlStateManager.rotate(180, 0, 0, 1);
-			GlStateManager.translate(-0.5, -0.90, armor ? -0.4 : -0.25);
+			GlStateManager.scaled(0.5, 0.5, 0.5);
+			GlStateManager.rotatef(180, 0, 0, 1);
+			GlStateManager.translated(-0.5, -0.90, armor ? -0.4 : -0.25);
 
 			TextureAtlasSprite gemIcon = MiscellaneousIcons.INSTANCE.crimsonGem;
 			float f = gemIcon.getMinU();
 			float f1 = gemIcon.getMaxU();
 			float f2 = gemIcon.getMinV();
 			float f3 = gemIcon.getMaxV();
-			IconHelper.renderIconIn3D(Tessellator.getInstance(), f1, f2, f, f3, gemIcon.getIconWidth(), gemIcon.getIconHeight(), 1F / 32F);
+			IconHelper.renderIconIn3D(Tessellator.getInstance(), f1, f2, f, f3, gemIcon.getWidth(), gemIcon.getHeight(), 1F / 32F);
 		}
 	}
 }

@@ -27,15 +27,15 @@ public class ItemWaterRing extends ItemBauble implements IManaUsingItem {
 	private static final double SPEED_MULT = 1.2;
 	private static final double MAX_SPEED = 1.3;
 
-	public ItemWaterRing() {
-		super(LibItemNames.WATER_RING);
+	public ItemWaterRing(Properties props) {
+		super(props);
 	}
 
 	@Override
 	public void onWornTick(ItemStack stack, EntityLivingBase player) {
 		super.onWornTick(stack, player);
 
-		if(player.isInsideOfMaterial(Material.WATER)) {
+		if(player.isInWaterOrBubbleColumn()) {
 			if(player instanceof EntityPlayer) {
 				ItemStack firstRing = BaublesApi.getBaublesHandler((EntityPlayer) player).getStackInSlot(1);
 				if(!firstRing.isEmpty() && firstRing.getItem() instanceof ItemWaterRing && firstRing != stack) {
@@ -47,7 +47,7 @@ public class ItemWaterRing extends ItemBauble implements IManaUsingItem {
 			double motionY = player.motionY * SPEED_MULT;
 			double motionZ = player.motionZ * SPEED_MULT;
 
-			boolean flying = player instanceof EntityPlayer && ((EntityPlayer) player).capabilities.isFlying;
+			boolean flying = player instanceof EntityPlayer && ((EntityPlayer) player).abilities.isFlying;
 
 			if(Math.abs(motionX) < MAX_SPEED && !flying)
 				player.motionX = motionX;
