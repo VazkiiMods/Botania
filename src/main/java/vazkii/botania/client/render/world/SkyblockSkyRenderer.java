@@ -166,7 +166,7 @@ public class SkyblockSkyRenderer extends IRenderHandler {
 		GlStateManager.color(1F, 1F, 1F, a * 4 * (1F - insideVoid));
 		GlStateManager.rotate(90F, 0.5F, 0.5F, 0.0F);
 		for(int p = 0; p < planetTextures.length; p++) {
-			mc.renderEngine.bindTexture(planetTextures[p]);
+			mc.textureManager.bindTexture(planetTextures[p]);
 			tessellator.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
 			tessellator.getBuffer().pos(-f17, 100.0D, -f17).tex(0.0D, 0.0D).endVertex();
 			tessellator.getBuffer().pos(f17, 100.0D, -f17).tex(1.0D, 0.0D).endVertex();
@@ -200,7 +200,7 @@ public class SkyblockSkyRenderer extends IRenderHandler {
 		GlStateManager.popMatrix();
 
 		// === Rays
-		mc.renderEngine.bindTexture(textureSkybox);
+		mc.textureManager.bindTexture(textureSkybox);
 
 		f17 = 20F;
 		a = lowA;
@@ -265,7 +265,7 @@ public class SkyblockSkyRenderer extends IRenderHandler {
 		// === Rainbow
 		GlStateManager.pushMatrix();
 		GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
-		mc.renderEngine.bindTexture(textureRainbow);
+		mc.textureManager.bindTexture(textureRainbow);
 		f17 = 10F;
 		float effCelAng1 = celAng;
 		if(effCelAng1 > 0.25F)
@@ -311,7 +311,7 @@ public class SkyblockSkyRenderer extends IRenderHandler {
 
 		GlStateManager.rotate(world.getCelestialAngle(partialTicks) * 360.0F, 1.0F, 0.0F, 0.0F);
 		/*float*/ f17 = 60.0F; // Botania - 30 -> 60 and move declaration above "extra stuff"
-		mc.renderEngine.bindTexture(SUN_TEXTURES);
+		mc.textureManager.bindTexture(SUN_TEXTURES);
 		BufferBuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
 		BufferBuilder.pos(-f17, 100.0D, -f17).tex(0.0D, 0.0D).endVertex();
 		BufferBuilder.pos(f17, 100.0D, -f17).tex(1.0D, 0.0D).endVertex();
@@ -319,7 +319,7 @@ public class SkyblockSkyRenderer extends IRenderHandler {
 		BufferBuilder.pos(-f17, 100.0D, f17).tex(0.0D, 1.0D).endVertex();
 		tessellator.draw();
 		f17 = 60.0F; // Botania - 20 -> 60
-		mc.renderEngine.bindTexture(MOON_PHASES_TEXTURES);
+		mc.textureManager.bindTexture(MOON_PHASES_TEXTURES);
 		int i = world.getMoonPhase();
 		int k = i % 4;
 		int i1 = i / 4 % 2;

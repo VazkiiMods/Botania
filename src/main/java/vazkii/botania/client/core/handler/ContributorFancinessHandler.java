@@ -13,12 +13,13 @@ package vazkii.botania.client.core.handler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
+import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EnumPlayerModelParts;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import vazkii.botania.api.item.IBaubleRender.Helper;
@@ -89,7 +90,7 @@ public final class ContributorFancinessHandler implements LayerRenderer<EntityPl
 				int i = Integer.parseInt(value);
 				if(i < 0 || i >= 16)
 					throw new NumberFormatException();
-				flowerMap.put(key, new ItemStack(ModBlocks.flower, 1, i));
+				flowerMap.put(key, new ItemStack(ModBlocks.getFlower(EnumDyeColor.byId(i))));
 			} catch(NumberFormatException e) {
 				flowerMap.put(key, ItemBlockSpecialFlower.ofType(new ResourceLocation(LibMisc.MOD_ID, value)));
 			}

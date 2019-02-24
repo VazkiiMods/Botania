@@ -32,7 +32,7 @@ import javax.annotation.Nullable;
 
 public class RenderTileGaiaHead extends TileEntitySkullRenderer {
 	@Override
-	public void render(TileEntitySkull skull, double x, double y, double z, float partialTicks, int digProgress, float unused) {
+	public void render(TileEntitySkull skull, double x, double y, double z, float partialTicks, int digProgress) {
 		ShaderHelper.useShader(ShaderHelper.doppleganger, RenderDoppleganger.defaultCallback);
 
 		// Null-safe copy of super
@@ -52,7 +52,7 @@ public class RenderTileGaiaHead extends TileEntitySkullRenderer {
 
 	@Override
 	public void renderSkull(float x, float y, float z, @Nonnull EnumFacing facing, float rotation, int skullType, @Nullable GameProfile profile, int destroyStage, float animateTicks) {
-		Minecraft mc = Minecraft.getMinecraft();
+		Minecraft mc = Minecraft.getInstance();
 		Entity view = mc.getRenderViewEntity();
 
 		profile = null;

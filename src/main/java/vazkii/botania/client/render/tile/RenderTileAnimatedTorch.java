@@ -12,8 +12,8 @@ package vazkii.botania.client.render.tile;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.client.renderer.model.ItemCameraTransforms;
+import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.client.core.handler.ClientTickHandler;
@@ -21,13 +21,13 @@ import vazkii.botania.common.block.tile.TileAnimatedTorch;
 
 import java.util.Random;
 
-public class RenderTileAnimatedTorch extends TileEntitySpecialRenderer<TileAnimatedTorch> {
+public class RenderTileAnimatedTorch extends TileEntityRenderer<TileAnimatedTorch> {
 
 	@Override
-	public void render(TileAnimatedTorch te, double x, double y, double z, float partialTicks, int destroyStage, float unused) {
-		Minecraft mc = Minecraft.getMinecraft();
+	public void render(TileAnimatedTorch te, double x, double y, double z, float partialTicks, int destroyStage) {
+		Minecraft mc = Minecraft.getInstance();
 		GlStateManager.pushMatrix();
-		GlStateManager.translate(x, y, z);
+		GlStateManager.translated(x, y, z);
 
 		boolean hasWorld = te != null && te.getWorld() != null;
 		int wtime = !hasWorld ? 0 : ClientTickHandler.ticksInGame;
@@ -38,16 +38,16 @@ public class RenderTileAnimatedTorch extends TileEntitySpecialRenderer<TileAnima
 		float xt = 0.5F + (float) Math.cos(time * 0.05F) * 0.025F;
 		float yt = 0.1F + (float) (Math.sin(time * 0.04F) + 1F) * 0.05F;
 		float zt = 0.5F + (float) Math.sin(time * 0.05F) * 0.025F;
-		GlStateManager.translate(xt, yt, zt);
+		GlStateManager.translatef(xt, yt, zt);
 
-		GlStateManager.scale(2F, 2F, 2F);
-		GlStateManager.rotate(90F, 1F, 0F, 0F);
+		GlStateManager.scalef(2F, 2F, 2F);
+		GlStateManager.rotatef(90F, 1F, 0F, 0F);
 		float rotation = (float) te.rotation;
 		if(te.rotating)
 			rotation += te.anglePerTick * partialTicks;
 
-		GlStateManager.rotate(rotation, 0F, 0F, 1F);
-		mc.getRenderItem().renderItem(new ItemStack(Blocks.REDSTONE_TORCH), ItemCameraTransforms.TransformType.GROUND);
+		GlStateManager.rotatef(rotation, 0F, 0F, 1F);
+		mc.getItemRenderer().renderItem(new ItemStack(Blocks.REDSTONE_TORCH), ItemCameraTransforms.TransformType.GROUND);
 		GlStateManager.popMatrix();
 	}
 

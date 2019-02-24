@@ -37,7 +37,7 @@ public class CorporeaInputHandler {
 
 	@SubscribeEvent
 	public static void buttonPressed(KeyboardInputEvent.Post event) {
-		Minecraft mc = Minecraft.getMinecraft();
+		Minecraft mc = Minecraft.getInstance();
 		if(mc.world == null || !supportedGuiFilter.test(mc.currentScreen)
 				|| Keyboard.getEventKey() != ClientProxy.CORPOREA_REQUEST.getKeyCode()
 				|| !Keyboard.getEventKeyState()

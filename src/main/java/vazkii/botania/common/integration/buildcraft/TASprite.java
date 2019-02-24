@@ -17,7 +17,7 @@ public class TASprite implements ISprite {
 
 	@Override
 	public void bindTexture() {
-		Minecraft.getMinecraft().getTextureManager().bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+		Minecraft.getInstance().getTextureManager().bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 	}
 
 	@Override

@@ -43,7 +43,7 @@ public class GuiButtonCategory extends GuiButtonLexicon {
 	private final float time = 12F;
 
 	private final ShaderCallback shaderCallback = shader -> {
-		TextureManager r = Minecraft.getMinecraft().renderEngine;
+		TextureManager r = Minecraft.getInstance().textureManager;
 		int heightMatchUniform = ARBShaderObjects.glGetUniformLocationARB(shader, "heightMatch");
 		int imageUniform = ARBShaderObjects.glGetUniformLocationARB(shader, "image");
 		int maskUniform = ARBShaderObjects.glGetUniformLocationARB(shader, "mask");
@@ -96,10 +96,10 @@ public class GuiButtonCategory extends GuiButtonLexicon {
 		GlStateManager.color(1F, 1F, 1F, 1F);
 
 		if(!boundStencil) { // Allow for the texture manager to take care of the ResourceLocation before we use it directly with gl
-			mc.renderEngine.bindTexture(stencilResource);
+			mc.textureManager.bindTexture(stencilResource);
 			boundStencil = true;
 		}
-		mc.renderEngine.bindTexture(resource);
+		mc.textureManager.bindTexture(resource);
 
 		int texture = 0;
 		boolean shaders = ShaderHelper.useShaders();

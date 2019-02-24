@@ -16,8 +16,10 @@ import net.minecraft.client.gui.GuiChat;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.registry.IRegistry;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
@@ -45,16 +47,13 @@ public class CorporeaAutoCompleteHandler {
 
 	public static void updateItemList() {
 		itemNames.clear();
-		Iterator<Item> iterator = Item.REGISTRY.iterator();
 		NonNullList<ItemStack> curList = NonNullList.create();
 
-		while(iterator.hasNext()) {
-			Item item = iterator.next();
-
+		for (Item item : IRegistry.ITEM) {
 			if(item != null && item.getGroup() != null) {
 				curList.clear();
 				try {
-					item.getSubItems(null, curList);
+					item.fillItemGroup(ItemGroup.SEARCH, curList);
 					for(ItemStack stack : curList)
 						itemNames.add(CorporeaHelper.stripControlCodes(stack.getDisplayName().getString().trim()));
 				}
@@ -126,7 +125,7 @@ public class CorporeaAutoCompleteHandler {
 				stringbuilder.append(", ");
 		}
 
-		Minecraft.getMinecraft().ingameGUI.getChatGUI().printChatMessageWithOptionalDeletion(new TextComponentString(stringbuilder.toString()), 1);
+		Minecraft.getInstance().ingameGUI.getChatGUI().printChatMessageWithOptionalDeletion(new TextComponentString(stringbuilder.toString()), 1);
 		isAutoCompleted = true;
 		originalString = inputField.getText();
 	}

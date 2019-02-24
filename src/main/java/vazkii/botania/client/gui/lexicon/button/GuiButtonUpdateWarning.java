@@ -39,7 +39,7 @@ public class GuiButtonUpdateWarning extends GuiButtonLexicon {
 
 		boolean red = k == 2 || ClientTickHandler.ticksInGame % 10 < 5;
 
-		par1Minecraft.renderEngine.bindTexture(GuiLexicon.texture);
+		par1Minecraft.textureManager.bindTexture(GuiLexicon.texture);
 		GlStateManager.color(1F, 1F, 1F, 1F);
 		drawTexturedModalRect(x, y, red ? 153 : 142, 180, 11, 11);
 

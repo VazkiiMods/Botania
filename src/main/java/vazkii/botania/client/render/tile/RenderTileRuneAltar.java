@@ -12,9 +12,9 @@ package vazkii.botania.client.render.tile;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
+import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
@@ -23,15 +23,15 @@ import vazkii.botania.common.block.tile.TileRuneAltar;
 
 import javax.annotation.Nonnull;
 
-public class RenderTileRuneAltar extends TileEntitySpecialRenderer<TileRuneAltar> {
+public class RenderTileRuneAltar extends TileEntityRenderer<TileRuneAltar> {
 
-	final ModelSpinningCubes cubes = new ModelSpinningCubes();
+	private final ModelSpinningCubes cubes = new ModelSpinningCubes();
 
 	@Override
-	public void render(@Nonnull TileRuneAltar altar, double x, double y, double z, float partticks, int digProgress, float unused) {
+	public void render(@Nonnull TileRuneAltar altar, double x, double y, double z, float partticks, int digProgress) {
 		GlStateManager.pushMatrix();
-		GlStateManager.color(1F, 1F, 1F, 1F);
-		GlStateManager.translate(x, y, z);
+		GlStateManager.color4f(1F, 1F, 1F, 1F);
+		GlStateManager.translated(x, y, z);
 
 		int items = 0;
 		for(int i = 0; i < altar.getSizeInventory(); i++)
@@ -47,39 +47,39 @@ public class RenderTileRuneAltar extends TileEntitySpecialRenderer<TileRuneAltar
 
 		double time = ClientTickHandler.ticksInGame + partticks;
 
-		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+		Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 		for(int i = 0; i < altar.getSizeInventory(); i++) {
 			GlStateManager.pushMatrix();
-			GlStateManager.translate(0.5F, 1.25F, 0.5F);
-			GlStateManager.rotate(angles[i] + (float) time, 0F, 1F, 0F);
-			GlStateManager.translate(1.125F, 0F, 0.25F);
-			GlStateManager.rotate(90F, 0F, 1F, 0F);
-			GlStateManager.translate(0D, 0.075 * Math.sin((time + i * 10) / 5D), 0F);
+			GlStateManager.translatef(0.5F, 1.25F, 0.5F);
+			GlStateManager.rotatef(angles[i] + (float) time, 0F, 1F, 0F);
+			GlStateManager.translatef(1.125F, 0F, 0.25F);
+			GlStateManager.rotatef(90F, 0F, 1F, 0F);
+			GlStateManager.translated(0D, 0.075 * Math.sin((time + i * 10) / 5D), 0F);
 			ItemStack stack = altar.getItemHandler().getStackInSlot(i);
-			Minecraft mc = Minecraft.getMinecraft();
+			Minecraft mc = Minecraft.getInstance();
 			if(!stack.isEmpty()) {
-				mc.getRenderItem().renderItem(stack, ItemCameraTransforms.TransformType.GROUND);
+				mc.getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.GROUND);
 			}
 			GlStateManager.popMatrix();
 		}
 
-		GlStateManager.disableAlpha();
+		GlStateManager.disableAlphaTest();
 		GlStateManager.pushMatrix();
-		GlStateManager.translate(0.5F, 1.8F, 0.5F);
-		GlStateManager.rotate(180F, 1F, 0F, 1F);
+		GlStateManager.translatef(0.5F, 1.8F, 0.5F);
+		GlStateManager.rotatef(180F, 1F, 0F, 1F);
 		int repeat = 15;
 		cubes.renderSpinningCubes(2, repeat, repeat);
 		GlStateManager.popMatrix();
 
-		GlStateManager.translate(0F, 0.2F, 0F);
+		GlStateManager.translatef(0F, 0.2F, 0F);
 		float scale = altar.getTargetMana() == 0 ? 0 : (float) altar.getCurrentMana() / (float) altar.getTargetMana() / 75F;
 
 		if(scale != 0) {
 			int seed = altar.getPos().getX() ^ altar.getPos().getY() ^ altar.getPos().getZ();
-			GlStateManager.translate(0.5F, 0.7F, 0.5F);
+			GlStateManager.translatef(0.5F, 0.7F, 0.5F);
 			RenderHelper.renderStar(0x00E4D7, scale, scale, scale, seed);
 		}
-		GlStateManager.enableAlpha();
+		GlStateManager.enableAlphaTest();
 
 		GlStateManager.popMatrix();
 	}

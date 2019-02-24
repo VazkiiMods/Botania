@@ -15,13 +15,14 @@ import java.util.Random;
 
 import javax.annotation.Nonnull;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockCarpet;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
+import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
@@ -33,7 +34,7 @@ import vazkii.botania.client.model.ModelSpreader;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TileSpreader;
 
-public class RenderTileSpreader extends TileEntitySpecialRenderer<TileSpreader> {
+public class RenderTileSpreader extends TileEntityRenderer<TileSpreader> {
 
 	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_SPREADER);
 	private static final ResourceLocation textureRs = new ResourceLocation(LibResources.MODEL_SPREADER_REDSTONE);
@@ -48,92 +49,114 @@ public class RenderTileSpreader extends TileEntitySpecialRenderer<TileSpreader> 
 	private static final ModelSpreader model = new ModelSpreader();
 
 	@Override
-	public void render(@Nonnull TileSpreader spreader, double d0, double d1, double d2, float ticks, int digProgress, float unused) {
+	public void render(@Nonnull TileSpreader spreader, double d0, double d1, double d2, float ticks, int digProgress) {
 		GlStateManager.pushMatrix();
 		GlStateManager.enableRescaleNormal();
-		GlStateManager.color(1F, 1F, 1F, 1F);
-		GlStateManager.translate(d0, d1, d2);
+		GlStateManager.color4f(1F, 1F, 1F, 1F);
+		GlStateManager.translated(d0, d1, d2);
 
-		GlStateManager.translate(0.5F, 1.5F, 0.5F);
-		GlStateManager.rotate(spreader.rotationX + 90F, 0F, 1F, 0F);
-		GlStateManager.translate(0F, -1F, 0F);
-		GlStateManager.rotate(spreader.rotationY, 1F, 0F, 0F);
-		GlStateManager.translate(0F, 1F, 0F);
+		GlStateManager.translatef(0.5F, 1.5F, 0.5F);
+		GlStateManager.rotatef(spreader.rotationX + 90F, 0F, 1F, 0F);
+		GlStateManager.translatef(0F, -1F, 0F);
+		GlStateManager.rotatef(spreader.rotationY, 1F, 0F, 0F);
+		GlStateManager.translatef(0F, 1F, 0F);
 
 		ResourceLocation r = spreader.isRedstone() ? textureRs : spreader.isDreamwood() ? textureDw : spreader.isULTRA_SPREADER() ? textureG : texture;
 		if(ClientProxy.dootDoot)
 			r = spreader.isRedstone() ? textureRsHalloween : spreader.isDreamwood() ? textureDwHalloween : spreader.isULTRA_SPREADER() ? textureGHalloween : textureHalloween;
 
-		Minecraft.getMinecraft().renderEngine.bindTexture(r);
-		GlStateManager.scale(1F, -1F, -1F);
+		Minecraft.getInstance().textureManager.bindTexture(r);
+		GlStateManager.scalef(1F, -1F, -1F);
 
 		double time = ClientTickHandler.ticksInGame + ticks;
 
 		if(spreader.isULTRA_SPREADER()) {
 			Color color = Color.getHSBColor((float) ((time * 5 + new Random(spreader.getPos().hashCode()).nextInt(10000)) % 360) / 360F, 0.4F, 0.9F);
-			GlStateManager.color(color.getRed() / 255F, color.getGreen() / 255F, color.getBlue() / 255F);
+			GlStateManager.color3f(color.getRed() / 255F, color.getGreen() / 255F, color.getBlue() / 255F);
 		}
 		model.render();
-		GlStateManager.color(1F, 1F, 1F);
+		GlStateManager.color3f(1F, 1F, 1F);
 
 		GlStateManager.pushMatrix();
 		double worldTicks = spreader.getWorld() == null ? 0 : time;
-		GlStateManager.rotate((float) worldTicks % 360, 0F, 1F, 0F);
-		GlStateManager.translate(0F, (float) Math.sin(worldTicks / 20.0) * 0.05F, 0F);
+		GlStateManager.rotatef((float) worldTicks % 360, 0F, 1F, 0F);
+		GlStateManager.translatef(0F, (float) Math.sin(worldTicks / 20.0) * 0.05F, 0F);
 		model.renderCube();
 		GlStateManager.popMatrix();
-		GlStateManager.scale(1F, -1F, -1F);
+		GlStateManager.scalef(1F, -1F, -1F);
 		ItemStack stack = spreader.getItemHandler().getStackInSlot(0);
 
 		if(!stack.isEmpty()) {
-			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+			Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 			stack.getItem();
 			GlStateManager.pushMatrix();
-			GlStateManager.translate(0.0F, -1F, -0.4675F);
-			GlStateManager.rotate(180, 0, 0, 1);
-			GlStateManager.rotate(180, 1, 0, 0);
-			GlStateManager.scale(1.0F, 1.0F, 1.0F);
-			Minecraft.getMinecraft().getRenderItem().renderItem(stack, ItemCameraTransforms.TransformType.NONE);
+			GlStateManager.translatef(0.0F, -1F, -0.4675F);
+			GlStateManager.rotatef(180, 0, 0, 1);
+			GlStateManager.rotatef(180, 1, 0, 0);
+			GlStateManager.scalef(1.0F, 1.0F, 1.0F);
+			Minecraft.getInstance().getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.NONE);
 			GlStateManager.popMatrix();
 		}
 
 		if(spreader.paddingColor != -1) {
-			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+			Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 
-			IBlockState carpet = Blocks.CARPET.getDefaultState().with(BlockCarpet.COLOR, EnumDyeColor.byMetadata(spreader.paddingColor));
+			IBlockState carpet = carpetFor(spreader.paddingColor).getDefaultState();
 
-			GlStateManager.translate(-0.5F, -0.5F, 0.5F);
+			GlStateManager.translatef(-0.5F, -0.5F, 0.5F);
 			float f = 1 / 16F;
 
-			GlStateManager.translate(0, -f - 0.001, 0);
-			Minecraft.getMinecraft().getBlockRendererDispatcher().renderBlockBrightness(carpet, 1.0F);
-			GlStateManager.translate(0, f + 0.001, 0);
-			GlStateManager.rotate(-90, 0, 1, 0);
+			GlStateManager.translatef(0, -f - 0.001F, 0);
+			Minecraft.getInstance().getBlockRendererDispatcher().renderBlockBrightness(carpet, 1.0F);
+			GlStateManager.translatef(0, f + 0.001F, 0);
+			GlStateManager.rotatef(-90, 0, 1, 0);
 
-			GlStateManager.translate(-0.001, 0, 0);
-			GlStateManager.rotate(270, 0, 0, 1);
-			Minecraft.getMinecraft().getBlockRendererDispatcher().renderBlockBrightness(carpet, 1.0F);
-			GlStateManager.translate(0, 0.001, 0);
-			GlStateManager.rotate(-90, 0, 1, 0);
+			GlStateManager.translatef(-0.001F, 0, 0);
+			GlStateManager.rotatef(270, 0, 0, 1);
+			Minecraft.getInstance().getBlockRendererDispatcher().renderBlockBrightness(carpet, 1.0F);
+			GlStateManager.translatef(0, 0.001F, 0);
+			GlStateManager.rotatef(-90, 0, 1, 0);
 
-			GlStateManager.translate(0, 15 * f + 0.001, -0.001);
-			Minecraft.getMinecraft().getBlockRendererDispatcher().renderBlockBrightness(carpet, 1.0F);
-			GlStateManager.translate(0, -0.001, 0.001);
-			GlStateManager.rotate(-90, 0, 1, 0);
+			GlStateManager.translatef(0, 15 * f + 0.001F, -0.001F);
+			Minecraft.getInstance().getBlockRendererDispatcher().renderBlockBrightness(carpet, 1.0F);
+			GlStateManager.translatef(0, -0.001F, 0.001F);
+			GlStateManager.rotatef(-90, 0, 1, 0);
 
-			GlStateManager.translate(15 * f + 0.001, f, 0.001);
-			GlStateManager.rotate(270, 0, 0, 1);
-			Minecraft.getMinecraft().getBlockRendererDispatcher().renderBlockBrightness(carpet, 1.0F);
-			GlStateManager.translate(-0.001, 0, -0.001);
-			GlStateManager.rotate(-90, 0, 1, 0);
+			GlStateManager.translatef(15 * f + 0.001F, f, 0.001F);
+			GlStateManager.rotatef(270, 0, 0, 1);
+			Minecraft.getInstance().getBlockRendererDispatcher().renderBlockBrightness(carpet, 1.0F);
+			GlStateManager.translatef(-0.001F, 0, -0.001F);
+			GlStateManager.rotatef(-90, 0, 1, 0);
 
-			GlStateManager.translate(-0.001, -1 + f + 0.001, -f + 0.001);
-			GlStateManager.rotate(90, 1, 0, 0);
-			Minecraft.getMinecraft().getBlockRendererDispatcher().renderBlockBrightness(carpet, 1.0F);
+			GlStateManager.translatef(-0.001F, -1 + f + 0.001F, -f + 0.001F);
+			GlStateManager.rotatef(90, 1, 0, 0);
+			Minecraft.getInstance().getBlockRendererDispatcher().renderBlockBrightness(carpet, 1.0F);
 		}
 
 		GlStateManager.enableRescaleNormal();
 		GlStateManager.popMatrix();
+	}
+
+	private static Block carpetFor(int color) {
+		switch (EnumDyeColor.byId(color)) {
+			default:
+			case WHITE: return Blocks.WHITE_CARPET;
+			case ORANGE: return Blocks.ORANGE_CARPET;
+			case MAGENTA: return Blocks.ORANGE_CARPET;
+			case LIGHT_BLUE: return Blocks.ORANGE_CARPET;
+			case YELLOW: return Blocks.ORANGE_CARPET;
+			case LIME: return Blocks.ORANGE_CARPET;
+			case PINK: return Blocks.ORANGE_CARPET;
+			case GRAY: return Blocks.ORANGE_CARPET;
+			case LIGHT_GRAY: return Blocks.ORANGE_CARPET;
+			case CYAN: return Blocks.ORANGE_CARPET;
+			case PURPLE: return Blocks.ORANGE_CARPET;
+			case BLUE: return Blocks.ORANGE_CARPET;
+			case BROWN: return Blocks.ORANGE_CARPET;
+			case GREEN: return Blocks.ORANGE_CARPET;
+			case RED: return Blocks.ORANGE_CARPET;
+			case BLACK: return Blocks.ORANGE_CARPET;
+		}
 	}
 
 }

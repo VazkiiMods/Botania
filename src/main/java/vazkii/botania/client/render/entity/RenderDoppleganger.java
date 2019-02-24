@@ -75,7 +75,7 @@ public class RenderDoppleganger extends RenderBiped<EntityDoppleganger> {
 	@Nonnull
 	@Override
 	protected ResourceLocation getEntityTexture(@Nonnull EntityDoppleganger entity) {
-		Minecraft mc = Minecraft.getMinecraft();
+		Minecraft mc = Minecraft.getInstance();
 
 		if(!(mc.getRenderViewEntity() instanceof AbstractClientPlayer))
 			return DefaultPlayerSkin.getDefaultSkinLegacy();

@@ -61,7 +61,7 @@ public class GuiLexiconChallenge extends GuiLexicon implements IParented {
 
 		RenderHelper.enableGUIStandardItemLighting();
 		GlStateManager.enableRescaleNormal();
-		mc.getRenderItem().renderItemIntoGUI(challenge.icon, left + 18, top + 15);
+		mc.getItemRenderer().renderItemIntoGUI(challenge.icon, left + 18, top + 15);
 		RenderHelper.disableStandardItemLighting();
 		GlStateManager.enableBlend();
 

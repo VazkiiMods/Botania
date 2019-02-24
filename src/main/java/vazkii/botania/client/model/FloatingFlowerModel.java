@@ -123,10 +123,10 @@ public class FloatingFlowerModel implements IBakedModel {
 
 			if(identifier.getPath().startsWith(MUNDANE_PREFIX)) {
 				int meta = Integer.parseInt(identifier.getPath().substring(identifier.getPath().indexOf(MUNDANE_PREFIX) + MUNDANE_PREFIX.length()));
-				flowerModel = Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(new ItemStack(ModBlocks.shinyFlower, 1, meta));
+				flowerModel = Minecraft.getInstance().getItemRenderer().getItemModelMesher().getItemModel(new ItemStack(ModBlocks.shinyFlower, 1, meta));
 			} else {
 				ItemStack stack = ItemBlockSpecialFlower.ofType(identifier);
-				IBakedModel specialFlowerModel = Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(stack);
+				IBakedModel specialFlowerModel = Minecraft.getInstance().getItemRenderer().getItemModelMesher().getItemModel(stack);
 				flowerModel = specialFlowerModel.getOverrides().getModelWithOverrides(specialFlowerModel, stack, null, null);
 			}
 

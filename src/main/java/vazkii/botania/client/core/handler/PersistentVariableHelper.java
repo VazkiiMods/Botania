@@ -48,33 +48,33 @@ public final class PersistentVariableHelper {
 
 		List<GuiLexicon> bookmarks = GuiLexicon.bookmarks;
 		int count = bookmarks.size();
-		cmp.setInt(TAG_BOOKMARK_COUNT, count);
+		cmp.putInt(TAG_BOOKMARK_COUNT, count);
 		NBTTagCompound bookmarksCmp = new NBTTagCompound();
 		for(int i = 0; i < count; i++) {
 			GuiLexicon lex = bookmarks.get(i);
 			NBTTagCompound bookmarkCmp = new NBTTagCompound();
 			lex.serialize(bookmarkCmp);
-			bookmarksCmp.setTag(TAG_BOOKMARK_PREFIX + i, bookmarkCmp);
+			bookmarksCmp.put(TAG_BOOKMARK_PREFIX + i, bookmarkCmp);
 		}
-		cmp.setTag(TAG_BOOKMARKS, bookmarksCmp);
+		cmp.put(TAG_BOOKMARKS, bookmarksCmp);
 
 		NBTTagCompound challengesCmp = new NBTTagCompound();
 		for(Challenge c : ModChallenges.challengeLookup.values())
 			c.writeToNBT(challengesCmp);
-		cmp.setTag(TAG_CHALLENGES, challengesCmp);
+		cmp.put(TAG_CHALLENGES, challengesCmp);
 
 		NBTTagCompound notesCmp = new NBTTagCompound();
 		for(String s : GuiLexicon.notes.keySet()) {
 			String note = GuiLexicon.notes.get(s);
 			if(note != null && !note.trim().isEmpty())
-				notesCmp.setString(s, note);
+				notesCmp.putString(s, note);
 		}
-		cmp.setTag(TAG_LEXICON_NOTES, notesCmp);
+		cmp.put(TAG_LEXICON_NOTES, notesCmp);
 
-		cmp.setBoolean(TAG_FIRST_LOAD, firstLoad);
-		cmp.setBoolean(TAG_DOG, dog);
-		cmp.setString(TAG_LAST_BOTANIA_VERSION, lastBotaniaVersion);
-		cmp.setInt(TAG_LEXICON_GUI_SCALE, lexiconGuiScale);
+		cmp.putBoolean(TAG_FIRST_LOAD, firstLoad);
+		cmp.putBoolean(TAG_DOG, dog);
+		cmp.putString(TAG_LAST_BOTANIA_VERSION, lastBotaniaVersion);
+		cmp.putInt(TAG_LEXICON_GUI_SCALE, lexiconGuiScale);
 
 		injectNBTToFile(cmp, getCacheFile());
 	}
@@ -96,13 +96,13 @@ public final class PersistentVariableHelper {
 			}
 		}
 
-		if(cmp.hasKey(TAG_CHALLENGES)) {
+		if(cmp.contains(TAG_CHALLENGES)) {
 			NBTTagCompound challengesCmp = cmp.getCompound(TAG_CHALLENGES);
 			for(Challenge c : ModChallenges.challengeLookup.values())
 				c.readFromNBT(challengesCmp);
 		}
 
-		if(cmp.hasKey(TAG_LEXICON_NOTES)) {
+		if(cmp.contains(TAG_LEXICON_NOTES)) {
 			NBTTagCompound notesCmp = cmp.getCompound(TAG_LEXICON_NOTES);
 			Set<String> keys = notesCmp.keySet();
 			GuiLexicon.notes.clear();
@@ -110,9 +110,9 @@ public final class PersistentVariableHelper {
 				GuiLexicon.notes.put(key, notesCmp.getString(key));
 		}
 
-		lastBotaniaVersion = cmp.hasKey(TAG_LAST_BOTANIA_VERSION) ? cmp.getString(TAG_LAST_BOTANIA_VERSION) : "(N/A)";
+		lastBotaniaVersion = cmp.contains(TAG_LAST_BOTANIA_VERSION) ? cmp.getString(TAG_LAST_BOTANIA_VERSION) : "(N/A)";
 
-		firstLoad = cmp.hasKey(TAG_FIRST_LOAD) ? cmp.getBoolean(TAG_FIRST_LOAD) : firstLoad;
+		firstLoad = cmp.contains(TAG_FIRST_LOAD) ? cmp.getBoolean(TAG_FIRST_LOAD) : firstLoad;
 		if(firstLoad)
 			lastBotaniaVersion = LibMisc.VERSION;
 

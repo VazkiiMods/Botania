@@ -175,7 +175,7 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 
 		if(!searchField.getText().isEmpty()) {
 			drawBookmark(left + 138, top + guiHeight - 24, "  " + searchField.getText(), false);
-			mc.renderEngine.bindTexture(texture);
+			mc.textureManager.bindTexture(texture);
 			GlStateManager.color(1F, 1F, 1F, 1F);
 			drawTexturedModalRect(left + 134, top + guiHeight - 26, 86, 180, 12, 12);
 
@@ -238,15 +238,15 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 			GlStateManager.enableRescaleNormal();
 			ItemStack paper = new ItemStack(Items.PAPER, currentEntry.pages.size());
 
-			mc.getRenderItem().renderItemAndEffectIntoGUI(paper, 14, -28);
-			mc.getRenderItem().renderItemOverlays(mc.fontRenderer, paper, 14, -28);
+			mc.getItemRenderer().renderItemAndEffectIntoGUI(paper, 14, -28);
+			mc.getItemRenderer().renderItemOverlays(mc.fontRenderer, paper, 14, -28);
 			List<ItemStack> stacks = currentEntry.getDisplayedRecipes();
 
 			if(stacks.size() > 0) {
 				int spaceForEach = Math.min(18, (width - 30) / stacks.size());
 				for(int i = 0; i < stacks.size(); i++) {
 					ItemStack stack = stacks.get(i);
-					mc.getRenderItem().renderItemAndEffectIntoGUI(stack, 38 + spaceForEach * i, -28);
+					mc.getItemRenderer().renderItemAndEffectIntoGUI(stack, 38 + spaceForEach * i, -28);
 				}
 			}
 

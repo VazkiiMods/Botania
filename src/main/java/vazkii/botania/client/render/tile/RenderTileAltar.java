@@ -13,10 +13,10 @@ package vazkii.botania.client.render.tile;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
+import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -29,18 +29,18 @@ import vazkii.botania.common.block.tile.TileAltar;
 
 import javax.annotation.Nonnull;
 
-public class RenderTileAltar extends TileEntitySpecialRenderer<TileAltar> {
+public class RenderTileAltar extends TileEntityRenderer<TileAltar> {
 
 	@Override
-	public void render(@Nonnull TileAltar altar, double d0, double d1, double d2, float pticks, int digProgress, float unused) {
+	public void render(@Nonnull TileAltar altar, double d0, double d1, double d2, float pticks, int digProgress) {
 		if(!altar.getWorld().isBlockLoaded(altar.getPos(), false))
 			return;
 
 		GlStateManager.pushMatrix();
 		GlStateManager.enableRescaleNormal();
-		GlStateManager.color(1F, 1F, 1F, 1F);
+		GlStateManager.color4f(1F, 1F, 1F, 1F);
 
-		GlStateManager.translate(d0 + 0.5, d1 + 1.5, d2 + 0.5);
+		GlStateManager.translated(d0 + 0.5, d1 + 1.5, d2 + 0.5);
 		GlStateManager.enableRescaleNormal();
 
 		boolean water = altar.hasWater();
@@ -68,8 +68,8 @@ public class RenderTileAltar extends TileEntitySpecialRenderer<TileAltar> {
 					float offsetPerPetal = 360 / petals;
 
 					GlStateManager.pushMatrix();
-					GlStateManager.translate(-0.05F, -0.5F, 0F);
-					GlStateManager.scale(v, v, v);
+					GlStateManager.translatef(-0.05F, -0.5F, 0F);
+					GlStateManager.scalef(v, v, v);
 					for(int i = 0; i < petals; i++) {
 						float offset = offsetPerPetal * i;
 						float deg = (int) (ticks / rotationModifier % 360F + offset);
@@ -81,22 +81,22 @@ public class RenderTileAltar extends TileEntitySpecialRenderer<TileAltar> {
 						float y = (float) Math.cos((ticks + 50 * i) / 5F) / 10F;
 
 						GlStateManager.pushMatrix();
-						GlStateManager.translate(x, y, z);
+						GlStateManager.translatef(x, y, z);
 						float xRotate = (float) Math.sin(ticks * rotationModifier) / 2F;
 						float yRotate = (float) Math.max(0.6F, Math.sin(ticks * 0.1F) / 2F + 0.5F);
 						float zRotate = (float) Math.cos(ticks * rotationModifier) / 2F;
 
 						v /= 2F;
-						GlStateManager.translate(v, v, v);
-						GlStateManager.rotate(deg, xRotate, yRotate, zRotate);
-						GlStateManager.translate(-v, -v, -v);
+						GlStateManager.translatef(v, v, v);
+						GlStateManager.rotatef(deg, xRotate, yRotate, zRotate);
+						GlStateManager.translatef(-v, -v, -v);
 						v *= 2F;
 
-						GlStateManager.color(1F, 1F, 1F, 1F);
+						GlStateManager.color4f(1F, 1F, 1F, 1F);
 
 						ItemStack stack = altar.getItemHandler().getStackInSlot(i);
-						Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-						Minecraft.getMinecraft().getRenderItem().renderItem(stack, ItemCameraTransforms.TransformType.GROUND);
+						Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+						Minecraft.getInstance().getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.GROUND);
 						GlStateManager.popMatrix();
 					}
 
@@ -105,25 +105,25 @@ public class RenderTileAltar extends TileEntitySpecialRenderer<TileAltar> {
 			}
 
 
-			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+			Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 			Fluid fluid = lava ? FluidRegistry.LAVA : FluidRegistry.WATER;
 			int brightness = lava ? 240 : -1;
 			float alpha = lava ? 1F : 0.7F;
 
 			GlStateManager.enableBlend();
 			GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-			GlStateManager.disableAlpha();
+			GlStateManager.disableAlphaTest();
 			if(lava)
 				GlStateManager.disableLighting();
-			GlStateManager.color(1F, 1F, 1F, alpha);
-			GlStateManager.translate(w, -0.3F, w);
-			GlStateManager.rotate(90F, 1F, 0F, 0F);
-			GlStateManager.scale(s, s, s);
+			GlStateManager.color4f(1F, 1F, 1F, alpha);
+			GlStateManager.translatef(w, -0.3F, w);
+			GlStateManager.rotatef(90F, 1F, 0F, 0F);
+			GlStateManager.scalef(s, s, s);
 
 			renderIcon(0, 0, fluid.getStill(), 16, 16, brightness);
 			if(lava)
 				GlStateManager.enableLighting();
-			GlStateManager.enableAlpha();
+			GlStateManager.enableAlphaTest();
 			GlStateManager.disableBlend();
 			GlStateManager.popMatrix();
 		}
@@ -131,7 +131,7 @@ public class RenderTileAltar extends TileEntitySpecialRenderer<TileAltar> {
 	}
 
 	public void renderIcon(int par1, int par2, ResourceLocation loc, int par4, int par5, int brightness) {
-		TextureAtlasSprite par3Icon = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(loc.toString());
+		TextureAtlasSprite par3Icon = Minecraft.getInstance().getTextureMap().getAtlasSprite(loc.toString());
 		Tessellator tessellator = Tessellator.getInstance();
 		tessellator.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
 		//if(brightness != -1)

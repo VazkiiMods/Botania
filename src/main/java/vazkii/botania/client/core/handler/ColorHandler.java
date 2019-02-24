@@ -41,13 +41,21 @@ import vazkii.botania.common.item.lens.ItemLens;
 import vazkii.botania.common.lib.LibMisc;
 
 import java.awt.Color;
+import java.lang.reflect.Field;
 import java.util.Map;
 
 public final class ColorHandler {
 
 	public static void init() {
 		BlockColors blocks = Minecraft.getInstance().getBlockColors();
-		Map<IRegistryDelegate<Block>, IBlockColor> map = ReflectionHelper.getPrivateValue(BlockColors.class, blocks, "blockColorMap");
+		Map<IRegistryDelegate<Block>, IBlockColor> map;
+		try {
+			Field f = BlockColors.class.getField("colors");
+			f.setAccessible(true);
+			map = (Map<IRegistryDelegate<Block>, IBlockColor>) f.get(blocks);
+		} catch (ReflectiveOperationException ex) {
+			throw new RuntimeException(ex);
+		}
 
 		// Steal vine colorer
 		blocks.register(map.get(Blocks.VINE.delegate), ModBlocks.solidVines);
@@ -59,7 +67,7 @@ public final class ColorHandler {
 						float time = ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks;
 						return Color.HSBtoRGB(time * 0.005F, 0.6F, 1F);
 					} else {
-						return state.get(BotaniaStateProps.COLOR).getColorValue();
+						return state.get(BotaniaStateProps.COLOR).colorValue;
 					}
 				},
 				ModBlocks.manaPool, ModBlocks.creativePool, ModBlocks.dilutedPool, ModBlocks.fabulousPool
@@ -75,7 +83,7 @@ public final class ColorHandler {
 				);
 
 		// Petal Block
-		blocks.register((state, world, pos, tintIndex) -> ((BlockPetalBlock) state.getBlock()).color.getColorValue(),
+		blocks.register((state, world, pos, tintIndex) -> ((BlockPetalBlock) state.getBlock()).color.colorValue,
 				ModBlocks.petalBlockWhite, ModBlocks.petalBlockOrange, ModBlocks.petalBlockMagenta, ModBlocks.petalBlockLightBlue,
 				ModBlocks.petalBlockYellow, ModBlocks.petalBlockLime, ModBlocks.petalBlockPink, ModBlocks.petalBlockGray,
 				ModBlocks.petalBlockSilver, ModBlocks.petalBlockCyan, ModBlocks.petalBlockPurple, ModBlocks.petalBlockBlue,
@@ -105,8 +113,8 @@ public final class ColorHandler {
 						ModItems.lifeEssence, ModItems.gaiaIngot);
 
 		items.register((s, t) ->
-		t == 1 ? EnumDyeColor.byId(ItemTwigWand.getColor1(s)).getColorValue()
-				: t == 2 ? EnumDyeColor.byId(ItemTwigWand.getColor2(s)).getColorValue()
+		t == 1 ? EnumDyeColor.byId(ItemTwigWand.getColor1(s)).colorValue
+				: t == 2 ? EnumDyeColor.byId(ItemTwigWand.getColor2(s)).colorValue
 						: -1,
 						ModItems.twigWand);
 

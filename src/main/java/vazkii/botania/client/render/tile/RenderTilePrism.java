@@ -12,9 +12,9 @@ package vazkii.botania.client.render.tile;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
+import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.api.mana.ILens;
 import vazkii.botania.client.core.handler.ClientTickHandler;
@@ -22,25 +22,23 @@ import vazkii.botania.common.block.tile.mana.TilePrism;
 
 import javax.annotation.Nonnull;
 
-//import vazkii.botania.client.render.item.RenderLens;
-
-public class RenderTilePrism extends TileEntitySpecialRenderer<TilePrism> {
+public class RenderTilePrism extends TileEntityRenderer<TilePrism> {
 
 	@Override
-	public void render(@Nonnull TilePrism prism, double x, double y, double z, float partTicks, int digProgress, float unused) {
+	public void render(@Nonnull TilePrism prism, double x, double y, double z, float partTicks, int digProgress) {
 		GlStateManager.pushMatrix();
-		GlStateManager.translate(x, y, z);
+		GlStateManager.translated(x, y, z);
 		float pos = (float) Math.sin((ClientTickHandler.ticksInGame + partTicks) * 0.05F) * 0.5F * (1F - 1F / 16F) - 0.5F;
 
 		ItemStack stack = prism.getItemHandler().getStackInSlot(0);
 
 		if(!stack.isEmpty()) {
-			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+			Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 			if(stack.getItem() instanceof ILens) {
 				GlStateManager.pushMatrix();
-				GlStateManager.rotate(90F, 1F, 0F, 0F);
-				GlStateManager.translate(0.5F, 0.5F, pos);
-				Minecraft.getMinecraft().getRenderItem().renderItem(stack, ItemCameraTransforms.TransformType.NONE);
+				GlStateManager.rotatef(90F, 1F, 0F, 0F);
+				GlStateManager.translatef(0.5F, 0.5F, pos);
+				Minecraft.getInstance().getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.NONE);
 				GlStateManager.popMatrix();
 			}
 		}

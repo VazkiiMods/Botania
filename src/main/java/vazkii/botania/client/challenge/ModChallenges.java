@@ -33,7 +33,7 @@ public final class ModChallenges {
 		for(EnumChallengeLevel level : EnumChallengeLevel.class.getEnumConstants())
 			challenges.put(level, new ArrayList<>());
 
-		addChallenge(EnumChallengeLevel.EASY, "flowerFarm", new ItemStack(ModBlocks.flower, 1, 6));
+		addChallenge(EnumChallengeLevel.EASY, "flowerFarm", new ItemStack(ModBlocks.pinkFlower));
 		addChallenge(EnumChallengeLevel.EASY, "recordFarm", new ItemStack(Items.MUSIC_DISC_13));
 		addChallenge(EnumChallengeLevel.EASY, "reedFarm", new ItemStack(Blocks.SUGAR_CANE));
 		addChallenge(EnumChallengeLevel.EASY, "cobbleGen", new ItemStack(Blocks.COBBLESTONE));

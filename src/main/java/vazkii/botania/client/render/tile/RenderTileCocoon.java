@@ -13,18 +13,18 @@ package vazkii.botania.client.render.tile;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.block.model.IBakedModel;
+import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.common.block.tile.TileCocoon;
 
 import javax.annotation.Nonnull;
 
-public class RenderTileCocoon extends TileEntitySpecialRenderer<TileCocoon> {
+public class RenderTileCocoon extends TileEntityRenderer<TileCocoon> {
 
 	@Override
-	public void render(@Nonnull TileCocoon cocoon, double d0, double d1, double d2, float f, int digProgress, float unused) {
+	public void render(@Nonnull TileCocoon cocoon, double d0, double d1, double d2, float f, int digProgress) {
 		float rot = 0F;
 		float modval = 60F - (float) cocoon.timePassed / (float) TileCocoon.TOTAL_TIME * 30F;
 		if(cocoon.timePassed % modval < 10) {
@@ -37,16 +37,16 @@ public class RenderTileCocoon extends TileEntitySpecialRenderer<TileCocoon> {
 		GlStateManager.enableRescaleNormal();
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		GlStateManager.color(1F, 1F, 1F, 1F);
-		GlStateManager.translate(d0, d1, d2 + 1);
-		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-		GlStateManager.translate(0.5F, 0, 0F);
-		GlStateManager.rotate(rot, 1F, 0F, 0F);
-		GlStateManager.translate(-0.5F, 0, 0F);
+		GlStateManager.color4f(1F, 1F, 1F, 1F);
+		GlStateManager.translated(d0, d1, d2 + 1);
+		Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+		GlStateManager.translatef(0.5F, 0, 0F);
+		GlStateManager.rotatef(rot, 1F, 0F, 0F);
+		GlStateManager.translatef(-0.5F, 0, 0F);
 		IBlockState state = cocoon.getWorld().getBlockState(cocoon.getPos());
-		IBakedModel model = Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelForState(state);
-		Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelRenderer().renderModelBrightness(model, state, 1.0F, false);
-		GlStateManager.color(1F, 1F, 1F);
+		IBakedModel model = Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelShapes().getModel(state);
+		Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer().renderModelBrightness(model, state, 1.0F, false);
+		GlStateManager.color3f(1F, 1F, 1F);
 		GlStateManager.enableRescaleNormal();
 		GlStateManager.popMatrix();
 	}

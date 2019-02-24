@@ -102,7 +102,7 @@ public class TileTinyPotato extends TileSimpleInventory implements ITickable {
 	@Override
 	public void writePacketNBT(NBTTagCompound cmp) {
 		super.writePacketNBT(cmp);
-		cmp.setString(TAG_NAME, ITextComponent.Serializer.toJson(name));
+		cmp.putString(TAG_NAME, ITextComponent.Serializer.toJson(name));
 	}
 
 	@Override

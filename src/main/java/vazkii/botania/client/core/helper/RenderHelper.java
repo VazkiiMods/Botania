@@ -244,7 +244,7 @@ public final class RenderHelper {
 		KeyBinding[] keys = Minecraft.getInstance().gameSettings.keyBindings;
 		for(KeyBinding otherKey : keys)
 			if(otherKey.getKeyDescription().equals(keyName)) {
-				key = otherKey.getDisplayName();
+				key = otherKey.func_197978_k();
 				break;
 			}
 

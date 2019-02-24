@@ -174,7 +174,7 @@ public class SpecialFlowerModel implements IUnbakedModel {
 
 			IBakedModel model = bakedBlockModels.get(subtileId == null ? BotaniaAPI.DUMMY_SUBTILE_NAME : subtileId);
 			if(model == null)
-				model = Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelManager().getMissingModel();
+				model = Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelShapes().getModelManager().getMissingModel();
 
 			return model.getQuads(state, face, rand);
 		}
@@ -196,7 +196,7 @@ public class SpecialFlowerModel implements IUnbakedModel {
 				if(model == null)
 					model = bakedBlockModels.get(ItemBlockSpecialFlower.getType(stack));
 				if(model == null)
-					model = Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(roseFallback);
+					model = Minecraft.getInstance().getItemRenderer().getItemModelMesher().getItemModel(roseFallback);
 
 				return model;
 			}

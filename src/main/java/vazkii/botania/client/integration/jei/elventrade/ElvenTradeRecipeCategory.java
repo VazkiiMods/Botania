@@ -72,7 +72,7 @@ public class ElvenTradeRecipeCategory implements IRecipeCategory {
 		GlStateManager.disableBlend();
 		GlStateManager.disableAlpha();
 
-		minecraft.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+		minecraft.textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 		TextureAtlasSprite sprite = MiscellaneousIcons.INSTANCE.alfPortalTex;
 		Tessellator tess = Tessellator.getInstance();
 		BufferBuilder wr = tess.getBuffer();

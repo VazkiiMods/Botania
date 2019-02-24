@@ -264,11 +264,11 @@ public class GuiLexicon extends GuiScreen {
 		partialTicks = newPartialTicks;
 
 		GlStateManager.color(1F, 1F, 1F, 1F);
-		mc.renderEngine.bindTexture(texture);
+		mc.textureManager.bindTexture(texture);
 		drawNotes(newPartialTicks);
 
 		GlStateManager.color(1F, 1F, 1F, 1F);
-		mc.renderEngine.bindTexture(texture);
+		mc.textureManager.bindTexture(texture);
 		drawTexturedModalRect(left, top, 0, 0, guiWidth, guiHeight);
 
 		if(ClientProxy.jingleTheBells)
@@ -290,10 +290,10 @@ public class GuiLexicon extends GuiScreen {
 
 		if(mc.player.getName().equals("haighyorkie")) {
 			GlStateManager.color(1F, 1F, 1F, 1F);
-			mc.renderEngine.bindTexture(texture);
+			mc.textureManager.bindTexture(texture);
 			drawTexturedModalRect(left - 19, top + 42, 67, 180, 19, 26);
 			if(xCoord >= left - 19 && xCoord < left && yCoord >= top + 62 && yCoord < top + 88) {
-				mc.renderEngine.bindTexture(textureToff);
+				mc.textureManager.bindTexture(textureToff);
 				GlStateManager.pushMatrix();
 				GlStateManager.scale(0.5F, 0.5F, 0.5F);
 				GlStateManager.enableBlend();
@@ -316,7 +316,7 @@ public class GuiLexicon extends GuiScreen {
 		super.drawScreen(xCoord, yCoord, newPartialTicks);
 
 		if(hasTutorialArrow) {
-			mc.renderEngine.bindTexture(texture);
+			mc.textureManager.bindTexture(texture);
 			GlStateManager.enableBlend();
 			GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 			GlStateManager.color(1F, 1F, 1F, 0.7F + (float) (Math.sin((ClientTickHandler.ticksInGame + newPartialTicks) * 0.3F) + 1) * 0.15F);
@@ -363,7 +363,7 @@ public class GuiLexicon extends GuiScreen {
 
 	public void drawBookmark(int x, int y, String s, boolean drawLeft, int color, int v) {
 		// This function is called from the buttons so I can't use fontRenderer
-		FontRenderer font = Minecraft.getMinecraft().fontRenderer;
+		FontRenderer font = Minecraft.getInstance().fontRenderer;
 		boolean unicode = font.getUnicodeFlag();
 		font.setUnicodeFlag(true);
 		int l = font.getStringWidth(s);
@@ -374,7 +374,7 @@ public class GuiLexicon extends GuiScreen {
 			fontOff = 2;
 		}
 
-		Minecraft.getMinecraft().renderEngine.bindTexture(texture);
+		Minecraft.getInstance().textureManager.bindTexture(texture);
 
 		GlStateManager.color(1F, 1F, 1F, 1F);
 		drawTexturedModalRect(x + l / 2 + 3, y - 1, 54, v, 6, 11);
@@ -391,7 +391,7 @@ public class GuiLexicon extends GuiScreen {
 	void drawHeader() {
 		GlStateManager.pushMatrix();
 		GlStateManager.color(1F, 1F, 1F, 1F);
-		Minecraft.getMinecraft().renderEngine.bindTexture(texture);
+		Minecraft.getInstance().textureManager.bindTexture(texture);
 		drawTexturedModalRect(left - 8, top + 9, 0, 224, 140, 31);
 
 		int color = 0xffd200;
@@ -492,7 +492,7 @@ public class GuiLexicon extends GuiScreen {
 			} else {
 				GuiLexicon bookmark = bookmarks.get(i).copy();
 				if(!bookmark.getTitle().equals(getTitle())) {
-					Minecraft.getMinecraft().displayGuiScreen(bookmark);
+					Minecraft.getInstance().displayGuiScreen(bookmark);
 					if(bookmark instanceof IParented)
 						((IParented) bookmark).setParent(this);
 					ClientTickHandler.notifyPageChange();
@@ -512,7 +512,7 @@ public class GuiLexicon extends GuiScreen {
 
 	public int bookmarkWidth(String b) {
 		if(fontRenderer == null)
-			fontRenderer = Minecraft.getMinecraft().fontRenderer;
+			fontRenderer = Minecraft.getInstance().fontRenderer;
 
 		boolean unicode = fontRenderer.getUnicodeFlag();
 		fontRenderer.setUnicodeFlag(true);
@@ -546,7 +546,7 @@ public class GuiLexicon extends GuiScreen {
 	}
 	
 	public static int getMaxAllowedScale() {
-		Minecraft mc = Minecraft.getMinecraft();
+		Minecraft mc = Minecraft.getInstance();
 		int scale = mc.gameSettings.guiScale;
 		mc.gameSettings.guiScale = 0;
 		ScaledResolution res = new ScaledResolution(mc);

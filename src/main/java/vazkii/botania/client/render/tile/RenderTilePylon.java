@@ -22,7 +22,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.tileentity.TileEntityItemStackRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -43,7 +43,7 @@ import vazkii.botania.common.block.BlockPylon;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TilePylon;
 
-public class RenderTilePylon extends TileEntitySpecialRenderer<TilePylon> implements IMultiblockRenderHook {
+public class RenderTilePylon extends TileEntityRenderer<TilePylon> implements IMultiblockRenderHook {
 
 	private static final ResourceLocation MANA_TEXTURE = new ResourceLocation(LibResources.MODEL_PYLON_MANA);
 	private static final ResourceLocation NATURA_TEXTURE = new ResourceLocation(LibResources.MODEL_PYLON_NATURA);
@@ -57,33 +57,33 @@ public class RenderTilePylon extends TileEntitySpecialRenderer<TilePylon> implem
 	private static BlockPylon.Variant forceVariant = BlockPylon.Variant.MANA;
 
 	@Override
-	public void render(@Nonnull TilePylon pylon, double d0, double d1, double d2, float pticks, int digProgress, float unused) {
+	public void render(@Nonnull TilePylon pylon, double d0, double d1, double d2, float pticks, int digProgress) {
 		boolean renderingItem = pylon == ForwardingTEISR.DUMMY;
 
-		if(!renderingItem && (!pylon.getWorld().isBlockLoaded(pylon.getPos(), false) || !(pylon.getBlockType() instanceof BlockPylon)))
+		if(!renderingItem && (!pylon.getWorld().isBlockLoaded(pylon.getPos(), false) || !(pylon.getBlockState().getBlock() instanceof BlockPylon)))
 			return;
 
 		renderPylon(pylon, d0, d1, d2, pticks, renderingItem);
 	}
 	
 	private void renderPylon(@Nonnull TilePylon pylon, double d0, double d1, double d2, float pticks, boolean renderingItem) {
-		BlockPylon.Variant type = renderingItem ? forceVariant : ((BlockPylon) pylon.getBlockType()).variant;
+		BlockPylon.Variant type = renderingItem ? forceVariant : ((BlockPylon) pylon.getBlockState().getBlock()).variant;
 		IPylonModel model;
 		switch(type) {
 		default:
 		case MANA: {
 			model = manaModel;
-			Minecraft.getMinecraft().renderEngine.bindTexture(MANA_TEXTURE);
+			Minecraft.getInstance().textureManager.bindTexture(MANA_TEXTURE);
 			break;
 		}
 		case NATURA: {
 			model = naturaModel;
-			Minecraft.getMinecraft().renderEngine.bindTexture(NATURA_TEXTURE);
+			Minecraft.getInstance().textureManager.bindTexture(NATURA_TEXTURE);
 			break;
 		}
 		case GAIA: {
 			model = gaiaModel;
-			Minecraft.getMinecraft().renderEngine.bindTexture(GAIA_TEXTURE);
+			Minecraft.getInstance().textureManager.bindTexture(GAIA_TEXTURE);
 			break;
 		}
 		}
@@ -93,35 +93,35 @@ public class RenderTilePylon extends TileEntitySpecialRenderer<TilePylon> implem
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		float a = MultiblockRenderHandler.rendering ? 0.6F : 1F;
-		GlStateManager.color(1F, 1F, 1F, a);
+		GlStateManager.color4f(1F, 1F, 1F, a);
 
 		double worldTime = (double) (ClientTickHandler.ticksInGame + pticks);
 
 		worldTime += renderingItem ? 0 : new Random(pylon.getPos().hashCode()).nextInt(360);
 
-		GlStateManager.translate(d0, d1 + (renderingItem ? 1.35 : 1.5), d2);
-		GlStateManager.scale(1.0F, -1.0F, -1.0F);
+		GlStateManager.translated(d0, d1 + (renderingItem ? 1.35 : 1.5), d2);
+		GlStateManager.scalef(1.0F, -1.0F, -1.0F);
 
 		GlStateManager.pushMatrix();
-		GlStateManager.translate(0.5F, 0F, -0.5F);
+		GlStateManager.translatef(0.5F, 0F, -0.5F);
 		if(!renderingItem)
-			GlStateManager.rotate((float) worldTime * 1.5F, 0F, 1F, 0F);
+			GlStateManager.rotatef((float) worldTime * 1.5F, 0F, 1F, 0F);
 
 		model.renderRing(); 
 		if(!renderingItem)
-			GlStateManager.translate(0D, Math.sin(worldTime / 20D) / 20 - 0.025, 0D);
+			GlStateManager.translated(0D, Math.sin(worldTime / 20D) / 20 - 0.025, 0D);
 		GlStateManager.popMatrix();
 
 		GlStateManager.pushMatrix();
 		if(!renderingItem)
-			GlStateManager.translate(0D, Math.sin(worldTime / 20D) / 17.5, 0D);
+			GlStateManager.translated(0D, Math.sin(worldTime / 20D) / 17.5, 0D);
 
-		GlStateManager.translate(0.5F, 0F, -0.5F);
+		GlStateManager.translatef(0.5F, 0F, -0.5F);
 		if(!renderingItem) 
-			GlStateManager.rotate((float) -worldTime, 0F, 1F, 0F);
+			GlStateManager.rotatef((float) -worldTime, 0F, 1F, 0F);
 
 		GlStateManager.disableCull();
-		GlStateManager.disableAlpha();
+		GlStateManager.disableAlphaTest();
 
 		if(!renderingItem)
 			ShaderHelper.useShader(ShaderHelper.pylonGlow);
@@ -129,7 +129,7 @@ public class RenderTilePylon extends TileEntitySpecialRenderer<TilePylon> implem
 		if(!renderingItem)
 			ShaderHelper.releaseShader();
 
-		GlStateManager.enableAlpha();
+		GlStateManager.enableAlphaTest();
 		GlStateManager.enableCull();
 		GlStateManager.popMatrix();
 
@@ -149,12 +149,12 @@ public class RenderTilePylon extends TileEntitySpecialRenderer<TilePylon> implem
 		}
 
 		@Override
-		public void renderByItem(ItemStack stack, float partialTicks) {
+		public void renderByItem(ItemStack stack) {
 			if(Block.getBlockFromItem(stack.getItem()) instanceof BlockPylon) {
 				RenderTilePylon.forceVariant = ((BlockPylon) Block.getBlockFromItem(stack.getItem())).variant;
-				TileEntityRendererDispatcher.instance.render(DUMMY, 0, 0, 0, partialTicks);
+				TileEntityRendererDispatcher.instance.render(DUMMY, 0, 0, 0, 0);
 			} else {
-				compose.renderByItem(stack, partialTicks);
+				compose.renderByItem(stack);
 			}
 		}
 	}
@@ -162,7 +162,7 @@ public class RenderTilePylon extends TileEntitySpecialRenderer<TilePylon> implem
 	@Override
 	public void renderBlockForMultiblock(IBlockReader world, Multiblock mb, IBlockState state, MultiblockComponent comp) {
 		forceVariant = ((BlockPylon) state.getBlock()).variant;
-		GlStateManager.translate(-0.5, -0.25, -0.5);
+		GlStateManager.translatef(-0.5F, -0.25F, -0.5F);
 		renderPylon((TilePylon) comp.getTileEntity(), 0, 0, 0, 0, true);
 		forceVariant = BlockPylon.Variant.MANA;
 	}

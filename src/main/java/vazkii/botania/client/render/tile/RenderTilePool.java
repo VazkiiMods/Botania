@@ -15,10 +15,10 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.block.model.IBakedModel;
+import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.mana.IPoolOverlayProvider;
 import vazkii.botania.api.state.BotaniaStateProps;
@@ -32,19 +32,20 @@ import vazkii.botania.common.block.mana.BlockPool;
 import vazkii.botania.common.block.tile.mana.TilePool;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.awt.Color;
 import java.util.Random;
 
-public class RenderTilePool extends TileEntitySpecialRenderer<TilePool> {
+public class RenderTilePool extends TileEntityRenderer<TilePool> {
 
 	// Overrides for when we call this TESR without an actual pool
 	public static BlockPool.Variant forceVariant = BlockPool.Variant.DEFAULT;
 	public static int forceManaNumber = -1;
 
 	@Override
-	public void render(@Nonnull TilePool pool, double d0, double d1, double d2, float f, int digProgress, float unused) {
+	public void render(@Nullable TilePool pool, double d0, double d1, double d2, float f, int digProgress) {
 		if(pool != null && (!pool.getWorld().isBlockLoaded(pool.getPos(), false)
-				|| !(pool.getBlockType() instanceof BlockPool)))
+				|| !(pool.getBlockState().getBlock() instanceof BlockPool)))
 			return;
 
 		GlStateManager.pushMatrix();
@@ -53,16 +54,16 @@ public class RenderTilePool extends TileEntitySpecialRenderer<TilePool> {
 		GlStateManager.enableRescaleNormal();
 		float a = MultiblockRenderHandler.rendering ? 0.6F : 1F;
 
-		GlStateManager.color(1F, 1F, 1F, a);
+		GlStateManager.color4f(1F, 1F, 1F, a);
 		if (pool == null) { // A null pool means we are calling the TESR without a pool (on a minecart). Adjust accordingly
-			GlStateManager.translate(0, 0, -1);
+			GlStateManager.translatef(0, 0, -1);
 		} else {
-			GlStateManager.translate(d0, d1, d2);
+			GlStateManager.translated(d0, d1, d2);
 		}
 
-		boolean fab = pool == null ? forceVariant == BlockPool.Variant.FABULOUS : ((BlockPool) pool.getBlockType()).variant == BlockPool.Variant.FABULOUS;
+		boolean fab = pool == null ? forceVariant == BlockPool.Variant.FABULOUS : ((BlockPool) pool.getBlockState().getBlock()).variant == BlockPool.Variant.FABULOUS;
 
-		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+		Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 		int color = 0xFFFFFF;
 
 		if (fab) {
@@ -76,12 +77,12 @@ public class RenderTilePool extends TileEntitySpecialRenderer<TilePool> {
 			int red = (color & 0xFF0000) >> 16;
 			int green = (color & 0xFF00) >> 8;
 			int blue = color & 0xFF;
-			IBakedModel model = Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelForState(pool == null ? poolForVariant(forceVariant) : pool.getWorld().getBlockState(pool.getPos()));
-			Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelRenderer().renderModelBrightnessColor(model, 1.0F, red / 255F, green / 255F, blue / 255F);
+			IBakedModel model = Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelShapes().getModel(pool == null ? poolForVariant(forceVariant) : pool.getWorld().getBlockState(pool.getPos()));
+			Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer().renderModelBrightnessColor(model, 1.0F, red / 255F, green / 255F, blue / 255F);
 		}
 
-		GlStateManager.translate(0.5F, 1.5F, 0.5F);
-		GlStateManager.color(1, 1, 1, a);
+		GlStateManager.translatef(0.5F, 1.5F, 0.5F);
+		GlStateManager.color4f(1, 1, 1, a);
 		GlStateManager.enableRescaleNormal();
 
 		int mana = pool == null ? forceManaNumber : pool.getCurrentMana();
@@ -103,15 +104,15 @@ public class RenderTilePool extends TileEntitySpecialRenderer<TilePool> {
 					GlStateManager.pushMatrix();
 					GlStateManager.enableBlend();
 					GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-					GlStateManager.disableAlpha();
-					GlStateManager.color(1F, 1F, 1F, a * (float) ((Math.sin((ClientTickHandler.ticksInGame + f) / 20.0) + 1) * 0.3 + 0.2));
-					GlStateManager.translate(-0.5F, -1F - 0.43F, -0.5F);
-					GlStateManager.rotate(90F, 1F, 0F, 0F);
-					GlStateManager.scale(s, s, s);
+					GlStateManager.disableAlphaTest();
+					GlStateManager.color4f(1F, 1F, 1F, a * (float) ((Math.sin((ClientTickHandler.ticksInGame + f) / 20.0) + 1) * 0.3 + 0.2));
+					GlStateManager.translatef(-0.5F, -1F - 0.43F, -0.5F);
+					GlStateManager.rotatef(90F, 1F, 0F, 0F);
+					GlStateManager.scalef(s, s, s);
 
 					renderIcon(0, 0, overlay, 16, 16, 240);
 
-					GlStateManager.enableAlpha();
+					GlStateManager.enableAlphaTest();
 					GlStateManager.disableBlend();
 					GlStateManager.popMatrix();
 				}
@@ -123,17 +124,17 @@ public class RenderTilePool extends TileEntitySpecialRenderer<TilePool> {
 			GlStateManager.pushMatrix();
 			GlStateManager.enableBlend();
 			GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-			GlStateManager.disableAlpha();
-			GlStateManager.color(1F, 1F, 1F, a);
-			GlStateManager.translate(w, -1F - (0.43F - waterLevel), w);
-			GlStateManager.rotate(90F, 1F, 0F, 0F);
-			GlStateManager.scale(s, s, s);
+			GlStateManager.disableAlphaTest();
+			GlStateManager.color4f(1F, 1F, 1F, a);
+			GlStateManager.translatef(w, -1F - (0.43F - waterLevel), w);
+			GlStateManager.rotatef(90F, 1F, 0F, 0F);
+			GlStateManager.scalef(s, s, s);
 
 			ShaderHelper.useShader(ShaderHelper.manaPool);
 			renderIcon(0, 0, MiscellaneousIcons.INSTANCE.manaWater, 16, 16, 240);
 			ShaderHelper.releaseShader();
 
-			GlStateManager.enableAlpha();
+			GlStateManager.enableAlphaTest();
 			GlStateManager.disableBlend();
 			GlStateManager.popMatrix();
 		}

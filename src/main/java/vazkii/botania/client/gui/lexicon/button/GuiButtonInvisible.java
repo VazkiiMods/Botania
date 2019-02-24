@@ -54,7 +54,7 @@ public class GuiButtonInvisible extends GuiButtonLexicon {
 		if(enableDog) {
 			dogPos += ClientTickHandler.delta * 10;
 
-			par1Minecraft.renderEngine.bindTexture(dogResource);
+			par1Minecraft.textureManager.bindTexture(dogResource);
 			float f = 1F / 64F;
 			GlStateManager.translate(dogPos, 0, 0);
 			GlStateManager.color(1F, 1F, 1F, 1F);
@@ -108,7 +108,7 @@ public class GuiButtonInvisible extends GuiButtonLexicon {
 			GlStateManager.scale(0.5F, 0.5F, 0.5F);
 			RenderHelper.enableGUIStandardItemLighting();
 			GlStateManager.enableRescaleNormal();
-			par1Minecraft.getRenderItem().renderItemIntoGUI(displayStack, x * 2 - 6, y * 2 + 4);
+			par1Minecraft.getItemRenderer().renderItemIntoGUI(displayStack, x * 2 - 6, y * 2 + 4);
 			RenderHelper.disableStandardItemLighting();
 			GlStateManager.enableBlend();
 		}

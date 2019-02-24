@@ -32,7 +32,7 @@ public class GuiButtonBack extends GuiButtonLexicon {
 			hovered = par2 >= x && par3 >= y && par2 < x + width && par3 < y + height;
 			int k = getHoverState(hovered);
 
-			par1Minecraft.renderEngine.bindTexture(GuiLexicon.texture);
+			par1Minecraft.textureManager.bindTexture(GuiLexicon.texture);
 			GlStateManager.color(1F, 1F, 1F, 1F);
 			drawTexturedModalRect(x, y, 36, k == 2 ? 180 : 189, 18, 9);
 

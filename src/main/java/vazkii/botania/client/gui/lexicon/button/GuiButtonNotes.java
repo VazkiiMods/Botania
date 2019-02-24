@@ -35,7 +35,7 @@ public class GuiButtonNotes extends GuiButtonLexicon {
 		hovered = par2 >= x && par3 >= y && par2 < x + width && par3 < y + height;
 		int k = getHoverState(hovered);
 
-		par1Minecraft.renderEngine.bindTexture(GuiLexicon.texture);
+		par1Minecraft.textureManager.bindTexture(GuiLexicon.texture);
 		GlStateManager.color(1F, 1F, 1F, 1F);
 		drawTexturedModalRect(x, y, k == 2 ? 130 : 120, 191, 10, 11);
 
@@ -45,7 +45,7 @@ public class GuiButtonNotes extends GuiButtonLexicon {
 		else {
 			tooltip.add(TextFormatting.GREEN + I18n.format("botaniamisc.showNotes"));
 			if(parent.note != null && !parent.note.isEmpty())
-				Minecraft.getMinecraft().fontRenderer.drawStringWithShadow("!", x + 10, y, 0xFF0000);
+				Minecraft.getInstance().fontRenderer.drawStringWithShadow("!", x + 10, y, 0xFF0000);
 		}
 
 		int tooltipY = (tooltip.size() - 1) * 10;

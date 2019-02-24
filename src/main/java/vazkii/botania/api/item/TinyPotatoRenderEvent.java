@@ -11,7 +11,8 @@
 package vazkii.botania.api.item;
 
 import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.fml.common.eventhandler.Event;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraftforge.eventbus.api.Event;
 
 /**
  * Why would you ever want this ._.
@@ -19,12 +20,12 @@ import net.minecraftforge.fml.common.eventhandler.Event;
 public class TinyPotatoRenderEvent extends Event {
 
 	public final TileEntity tile;
-	public final String name;
+	public final ITextComponent name;
 	public final double x, y, z;
 	public final float partTicks;
 	public final int destroyStage;
 
-	public TinyPotatoRenderEvent(TileEntity tile, String name, double x, double y, double z, float partTicks, int destroyStage) {
+	public TinyPotatoRenderEvent(TileEntity tile, ITextComponent name, double x, double y, double z, float partTicks, int destroyStage) {
 		this.tile = tile;
 		this.name = name;
 		this.x = x;

@@ -52,7 +52,7 @@ public class RenderBabylonWeapon extends Render<EntityBabylonWeapon> {
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
-		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+		Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 		GlStateManager.pushMatrix();
 		float s = 1.5F;
 		GlStateManager.scale(s, s, s);
@@ -65,7 +65,7 @@ public class RenderBabylonWeapon extends Render<EntityBabylonWeapon> {
 		float f2 = icon.getMinV();
 		float f3 = icon.getMaxV();
 
-		OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240, 240);
+		OpenGlHelper.glMultiTexCoord2f(OpenGlHelper.GL_TEXTURE1, 240, 240);
 		GlStateManager.disableLighting();
 		IconHelper.renderIconIn3D(Tessellator.getInstance(), f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
 		GlStateManager.popMatrix();
@@ -74,7 +74,7 @@ public class RenderBabylonWeapon extends Render<EntityBabylonWeapon> {
 		GlStateManager.shadeModel(GL11.GL_SMOOTH);
 		GlStateManager.color(1F, 1F, 1F, chargeMul);
 
-		Minecraft.getMinecraft().renderEngine.bindTexture(babylon);
+		Minecraft.getInstance().textureManager.bindTexture(babylon);
 
 		Tessellator tes = Tessellator.getInstance();
 		ShaderHelper.useShader(ShaderHelper.halo);

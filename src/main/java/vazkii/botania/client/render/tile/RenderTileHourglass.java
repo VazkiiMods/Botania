@@ -12,7 +12,7 @@ package vazkii.botania.client.render.tile;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
@@ -24,19 +24,19 @@ import vazkii.botania.common.block.tile.TileHourglass;
 import javax.annotation.Nullable;
 import java.util.Random;
 
-public class RenderTileHourglass extends TileEntitySpecialRenderer<TileHourglass> {
+public class RenderTileHourglass extends TileEntityRenderer<TileHourglass> {
 
 	final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_HOURGLASS);
 	final ModelHourglass model = new ModelHourglass();
 
 	@Override
-	public void render(@Nullable TileHourglass hourglass, double d0, double d1, double d2, float ticks, int digProgress, float unused) {
+	public void render(@Nullable TileHourglass hourglass, double d0, double d1, double d2, float ticks, int digProgress) {
 		GlStateManager.pushMatrix();
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		GlStateManager.color(1F, 1F, 1F, 1F);
-		GlStateManager.translate(d0, d1, d2);
-		Minecraft.getMinecraft().renderEngine.bindTexture(texture);
+		GlStateManager.color4f(1F, 1F, 1F, 1F);
+		GlStateManager.translated(d0, d1, d2);
+		Minecraft.getInstance().textureManager.bindTexture(texture);
 		boolean hasWorld = hourglass != null && hourglass.getWorld() != null;
 		int wtime = !hasWorld ? 0 : ClientTickHandler.ticksInGame;
 		if(wtime != 0)
@@ -51,16 +51,16 @@ public class RenderTileHourglass extends TileEntitySpecialRenderer<TileHourglass
 		float activeFraction = stack.isEmpty() ? 0 : hourglass.lastFraction + (hourglass.timeFraction - hourglass.lastFraction) * ticks;
 		float fract1 = stack.isEmpty() ? 0 : activeFraction;
 		float fract2 = stack.isEmpty() ? 0 : 1F - activeFraction;
-		GlStateManager.translate(x, y, z);
+		GlStateManager.translatef(x, y, z);
 
 		float rot = hasWorld && hourglass.flip ? 180F : 1F;
 		if(hasWorld && hourglass.flipTicks > 0)
 			rot += (hourglass.flipTicks - ticks) * (180F / 4F);
-		GlStateManager.rotate(rot, 0F, 0F, 1F);
+		GlStateManager.rotatef(rot, 0F, 0F, 1F);
 
-		GlStateManager.scale(1F, -1F, -1F);
+		GlStateManager.scalef(1F, -1F, -1F);
 		model.render(fract1, fract2, hasWorld && hourglass.flip, hasWorld ? hourglass.getColor() : 0);
-		GlStateManager.scale(1F, -1F, -1F);
+		GlStateManager.scalef(1F, -1F, -1F);
 		GlStateManager.popMatrix();
 	}
 

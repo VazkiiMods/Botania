@@ -37,7 +37,7 @@ public class GuiButtonChallengeIcon extends GuiButtonLexicon {
 
 		RenderHelper.enableGUIStandardItemLighting();
 		GlStateManager.enableRescaleNormal();
-		par1Minecraft.getRenderItem().renderItemIntoGUI(challenge.icon, x, y);
+		par1Minecraft.getItemRenderer().renderItemIntoGUI(challenge.icon, x, y);
 		RenderHelper.disableStandardItemLighting();
 		GlStateManager.enableBlend();
 

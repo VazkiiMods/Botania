@@ -304,7 +304,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 		if(type == RenderType.BODY) {
 			if(meta > 0 && meta <= MiscellaneousIcons.INSTANCE.tiaraWingIcons.length) {
 				TextureAtlasSprite icon = MiscellaneousIcons.INSTANCE.tiaraWingIcons[meta - 1];
-				Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+				Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 
 				boolean flying = player.capabilities.isFlying;
 
@@ -348,7 +348,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 					h = 0.5F;
 					rx = 20F;
 					ry = -(float) ((Math.sin((double) (player.ticksExisted + partialTicks) * (flying ? 0.4F : 0.2F)) + 0.6F) * (flying ? 30F : 5F));
-					OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, lightmapX, lightmapY);
+					OpenGlHelper.glMultiTexCoord2f(OpenGlHelper.GL_TEXTURE1, lightmapX, lightmapY);
 					break;
 				}
 				case 5 : { // Kuroyukihime
@@ -364,7 +364,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 					break;
 				}
 				case 7 : { // Lyfa
-					OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, lightmapX, lightmapY);
+					OpenGlHelper.glMultiTexCoord2f(OpenGlHelper.GL_TEXTURE1, lightmapX, lightmapY);
 					h = -0.1F;
 					rz = 0F;
 					ry = -rx;
@@ -377,7 +377,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 					break;
 				}
 				case 9 : { // The One
-					OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, lightmapX, lightmapY);
+					OpenGlHelper.glMultiTexCoord2f(OpenGlHelper.GL_TEXTURE1, lightmapX, lightmapY);
 					rz = 180F;
 					rx = 0F;
 					h = 1.1F;
@@ -426,7 +426,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 				GlStateManager.color(1F, 1F, 1F);
 				GlStateManager.popMatrix();
 
-				OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, lbx, lby);
+				OpenGlHelper.glMultiTexCoord2f(OpenGlHelper.GL_TEXTURE1, lbx, lby);
 			}
 		} else if(meta == 1) // Jibril's Halo
 			renderHalo(player, partialTicks);
@@ -437,12 +437,12 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		GlStateManager.shadeModel(GL11.GL_SMOOTH);
-		OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240, 240);
+		OpenGlHelper.glMultiTexCoord2f(OpenGlHelper.GL_TEXTURE1, 240, 240);
 		GlStateManager.disableLighting();
 		GlStateManager.disableCull();
 		GlStateManager.color(1F, 1F, 1F, 1F);
 
-		Minecraft.getMinecraft().renderEngine.bindTexture(textureHalo);
+		Minecraft.getInstance().textureManager.bindTexture(textureHalo);
 
 		if(player != null)
 			Helper.translateToHeadLevel(player);

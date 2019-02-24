@@ -140,7 +140,7 @@ public class ClientProxy implements IProxy {
 
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
-		PersistentVariableHelper.setCacheFile(new File(Minecraft.getMinecraft().gameDir, "BotaniaVars.dat"));
+		PersistentVariableHelper.setCacheFile(new File(Minecraft.getInstance().gameDir, "BotaniaVars.dat"));
 		try {
 			PersistentVariableHelper.load();
 			PersistentVariableHelper.save();
@@ -226,10 +226,10 @@ public class ClientProxy implements IProxy {
 		RenderingRegistry.registerEntityRenderingHandler(EntityManaStorm.class, RenderManaStorm::new);
 		RenderingRegistry.registerEntityRenderingHandler(EntityBabylonWeapon.class, RenderBabylonWeapon::new);
 
-		RenderingRegistry.registerEntityRenderingHandler(EntityThornChakram.class, renderManager -> new RenderSnowballStack<>(renderManager, ModItems.thornChakram, Minecraft.getMinecraft().getRenderItem(),
+		RenderingRegistry.registerEntityRenderingHandler(EntityThornChakram.class, renderManager -> new RenderSnowballStack<>(renderManager, ModItems.thornChakram, Minecraft.getInstance().getItemRenderer(),
 				entity -> entity.isFire() ? new ItemStack(ModItems.flareChakram) : new ItemStack(ModItems.thornChakram)));
-		RenderingRegistry.registerEntityRenderingHandler(EntityVineBall.class, renderManager -> new RenderSnowball<>(renderManager, ModItems.vineBall, Minecraft.getMinecraft().getRenderItem()));
-		RenderingRegistry.registerEntityRenderingHandler(EntityEnderAirBottle.class, renderManager -> new RenderSnowball<>(renderManager, ModItems.enderAirBottle, Minecraft.getMinecraft().getRenderItem()));
+		RenderingRegistry.registerEntityRenderingHandler(EntityVineBall.class, renderManager -> new RenderSnowball<>(renderManager, ModItems.vineBall, Minecraft.getInstance().getItemRenderer()));
+		RenderingRegistry.registerEntityRenderingHandler(EntityEnderAirBottle.class, renderManager -> new RenderSnowball<>(renderManager, ModItems.enderAirBottle, Minecraft.getInstance().getItemRenderer()));
 
 		ShaderHelper.initShaders();
 
@@ -239,7 +239,7 @@ public class ClientProxy implements IProxy {
 	}
 
 	private void initAuxiliaryRender() {
-		Map<String, RenderPlayer> skinMap = Minecraft.getMinecraft().getRenderManager().getSkinMap();
+		Map<String, RenderPlayer> skinMap = Minecraft.getInstance().getRenderManager().getSkinMap();
 		RenderPlayer render;
 		render = skinMap.get("default");
 		render.addLayer(new ContributorFancinessHandler());
@@ -270,17 +270,17 @@ public class ClientProxy implements IProxy {
 
 	@Override
 	public boolean isTheClientPlayer(EntityLivingBase entity) {
-		return entity == Minecraft.getMinecraft().player;
+		return entity == Minecraft.getInstance().player;
 	}
 
 	@Override
 	public EntityPlayer getClientPlayer() {
-		return Minecraft.getMinecraft().player;
+		return Minecraft.getInstance().player;
 	}
 
 	@Override
 	public boolean isClientPlayerWearingMonocle() {
-		return ItemMonocle.hasMonocle(Minecraft.getMinecraft().player);
+		return ItemMonocle.hasMonocle(Minecraft.getInstance().player);
 	}
 
 	@Override
@@ -288,7 +288,7 @@ public class ClientProxy implements IProxy {
 		if(ConfigHandler.lexicaOfflineMode) 
 			return false;
 		IWikiProvider wiki = WikiHooks.getWikiFor(block);
-		String url = wiki.getWikiURL(world, pos, Minecraft.getMinecraft().player);
+		String url = wiki.getWikiURL(world, pos, Minecraft.getInstance().player);
 		if(url != null && !url.isEmpty()) {
 			try {
 				Desktop.getDesktop().browse(new URI(url));
@@ -365,14 +365,14 @@ public class ClientProxy implements IProxy {
 		if(!doParticle() && !fake)
 			return;
 
-		FXSparkle sparkle = new FXSparkle(Minecraft.getMinecraft().world, x, y, z, size, r, g, b, m);
+		FXSparkle sparkle = new FXSparkle(Minecraft.getInstance().world, x, y, z, size, r, g, b, m);
 		sparkle.fake = fake;
 		sparkle.setCanCollide(!fake);
 		if(noclipEnabled)
 			sparkle.setCanCollide(false);
 		if(corruptSparkle)
 			sparkle.corrupt = true;
-		Minecraft.getMinecraft().effectRenderer.addEffect(sparkle);
+		Minecraft.getInstance().effectRenderer.addEffect(sparkle);
 	}
 
 	private static boolean distanceLimit = true;
@@ -393,9 +393,9 @@ public class ClientProxy implements IProxy {
 		if(!doParticle())
 			return;
 
-		FXWisp wisp = new FXWisp(Minecraft.getMinecraft().world, x, y, z, size, r, g, b, distanceLimit, depthTest, maxAgeMul);
+		FXWisp wisp = new FXWisp(Minecraft.getInstance().world, x, y, z, size, r, g, b, distanceLimit, depthTest, maxAgeMul);
 		wisp.setSpeed(motionx, motiony, motionz);
-		Minecraft.getMinecraft().effectRenderer.addEffect(wisp);
+		Minecraft.getInstance().effectRenderer.addEffect(wisp);
 	}
 
 	private boolean doParticle() {
@@ -406,9 +406,9 @@ public class ClientProxy implements IProxy {
 			return true;
 
 		float chance = 1F;
-		if(Minecraft.getMinecraft().gameSettings.particleSetting == 1)
+		if(Minecraft.getInstance().gameSettings.particleSetting == 1)
 			chance = 0.6F;
-		else if(Minecraft.getMinecraft().gameSettings.particleSetting == 2)
+		else if(Minecraft.getInstance().gameSettings.particleSetting == 2)
 			chance = 0.2F;
 
 		return chance == 1F || Math.random() < chance;
@@ -416,7 +416,7 @@ public class ClientProxy implements IProxy {
 
 	@Override
 	public void lightningFX(Vector3 vectorStart, Vector3 vectorEnd, float ticksPerMeter, long seed, int colorOuter, int colorInner) {
-		Minecraft.getMinecraft().effectRenderer.addEffect(new FXLightning(Minecraft.getMinecraft().world, vectorStart, vectorEnd, ticksPerMeter, seed, colorOuter, colorInner));
+		Minecraft.getInstance().effectRenderer.addEffect(new FXLightning(Minecraft.getInstance().world, vectorStart, vectorEnd, ticksPerMeter, seed, colorOuter, colorInner));
 	}
 
 	@Override
@@ -431,7 +431,7 @@ public class ClientProxy implements IProxy {
 
 	@Override
 	public int getClientRenderDistance() {
-		return Minecraft.getMinecraft().gameSettings.renderDistanceChunks;
+		return Minecraft.getInstance().gameSettings.renderDistanceChunks;
 	}
 
 	@Override

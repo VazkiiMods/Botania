@@ -14,10 +14,10 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockRendererDispatcher;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.block.model.IBakedModel;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.renderer.model.IBakedModel;
+import net.minecraft.client.renderer.model.ModelResourceLocation;
 import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.tileentity.TileEntity;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.common.core.handler.ConfigHandler;
@@ -25,10 +25,10 @@ import vazkii.botania.common.core.handler.ConfigHandler;
 import javax.annotation.Nonnull;
 import java.util.Random;
 
-public class RenderTileFloatingFlower extends TileEntitySpecialRenderer {
+public class RenderTileFloatingFlower extends TileEntityRenderer {
 
 	@Override
-	public void render(@Nonnull TileEntity tile, double d0, double d1, double d2, float t, int digProgress, float unused) {
+	public void render(@Nonnull TileEntity tile, double d0, double d1, double d2, float t, int digProgress) {
 		if(ConfigHandler.staticFloaters)
 			return;
 
@@ -37,22 +37,22 @@ public class RenderTileFloatingFlower extends TileEntitySpecialRenderer {
 				return;
 
 
-		BlockRendererDispatcher brd = Minecraft.getMinecraft().getBlockRendererDispatcher();
+		BlockRendererDispatcher brd = Minecraft.getInstance().getBlockRendererDispatcher();
 		GlStateManager.pushMatrix();
-		GlStateManager.color(1F, 1F, 1F, 1F);
-		GlStateManager.translate(d0, d1, d2);
+		GlStateManager.color4f(1F, 1F, 1F, 1F);
+		GlStateManager.translated(d0, d1, d2);
 
 		double worldTime = ClientTickHandler.ticksInGame + t;
 		if(tile.getWorld() != null)
 			worldTime += new Random(tile.getPos().hashCode()).nextInt(1000);
 
-		GlStateManager.translate(0.5F, 0, 0.5F);
-		GlStateManager.rotate(-((float) worldTime * 0.5F), 0F, 1F, 0F);
-		GlStateManager.translate(-0.5, (float) Math.sin(worldTime * 0.05F) * 0.1F, 0.5);
+		GlStateManager.translatef(0.5F, 0, 0.5F);
+		GlStateManager.rotatef(-((float) worldTime * 0.5F), 0F, 1F, 0F);
+		GlStateManager.translated(-0.5, (float) Math.sin(worldTime * 0.05F) * 0.1F, 0.5);
 
-		GlStateManager.rotate(4F * (float) Math.sin(worldTime * 0.04F), 1F, 0F, 0F);
+		GlStateManager.rotatef(4F * (float) Math.sin(worldTime * 0.04F), 1F, 0F, 0F);
 
-		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+		Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 
 		IBlockState state = tile.getWorld().getBlockState(tile.getPos());
 		state = state.getBlock().getExtendedState(state, tile.getWorld(), tile.getPos());

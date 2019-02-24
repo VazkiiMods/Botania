@@ -12,7 +12,7 @@ package vazkii.botania.client.render.tile;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.util.ResourceLocation;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelBellows;
@@ -21,7 +21,7 @@ import vazkii.botania.common.block.tile.mana.TileBellows;
 
 import javax.annotation.Nullable;
 
-public class RenderTileBellows extends TileEntitySpecialRenderer<TileBellows> {
+public class RenderTileBellows extends TileEntityRenderer<TileBellows> {
 
 	private static final float[] ROTATIONS = new float[] {
 			180F, 0F, 90F, 270F
@@ -31,7 +31,7 @@ public class RenderTileBellows extends TileEntitySpecialRenderer<TileBellows> {
 	private static final ModelBellows model = new ModelBellows();
 
 	@Override
-	public void render(@Nullable TileBellows bellows, double d0, double d1, double d2, float f, int digProgress, float unused) {
+	public void render(@Nullable TileBellows bellows, double d0, double d1, double d2, float f, int digProgress) {
 		if (bellows != null)
 			if (!bellows.getWorld().isBlockLoaded(bellows.getPos(), false)
 					|| bellows.getWorld().getBlockState(bellows.getPos()).getBlock() != ModBlocks.bellows)
@@ -39,18 +39,18 @@ public class RenderTileBellows extends TileEntitySpecialRenderer<TileBellows> {
 
 		GlStateManager.pushMatrix();
 		GlStateManager.enableRescaleNormal();
-		GlStateManager.color(1F, 1F, 1F, 1F);
-		GlStateManager.translate(d0, d1, d2);
+		GlStateManager.color4f(1F, 1F, 1F, 1F);
+		GlStateManager.translated(d0, d1, d2);
 
-		Minecraft.getMinecraft().renderEngine.bindTexture(texture);
+		Minecraft.getInstance().textureManager.bindTexture(texture);
 		int meta = bellows != null && bellows.getWorld() != null ? bellows.getBlockMetadata() : 0;
 
-		GlStateManager.translate(0.5F, 1.5F, 0.5F);
-		GlStateManager.scale(1F, -1F, -1F);
-		GlStateManager.rotate(ROTATIONS[Math.max(Math.min(ROTATIONS.length, meta - 2), 0)], 0F, 1F, 0F);
+		GlStateManager.translatef(0.5F, 1.5F, 0.5F);
+		GlStateManager.scalef(1F, -1F, -1F);
+		GlStateManager.rotatef(ROTATIONS[Math.max(Math.min(ROTATIONS.length, meta - 2), 0)], 0F, 1F, 0F);
 		model.render(Math.max(0.1F, 1F - (bellows == null ? 0 : bellows.movePos + bellows.moving * f + 0.1F)));
-		GlStateManager.color(1F, 1F, 1F);
-		GlStateManager.scale(1F, -1F, -1F);
+		GlStateManager.color3f(1F, 1F, 1F);
+		GlStateManager.scalef(1F, -1F, -1F);
 		GlStateManager.enableRescaleNormal();
 		GlStateManager.popMatrix();
 	}

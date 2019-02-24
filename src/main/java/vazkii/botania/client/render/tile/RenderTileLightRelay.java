@@ -10,12 +10,13 @@
  */
 package vazkii.botania.client.render.tile;
 
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.LuminizerVariant;
@@ -23,23 +24,28 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.core.proxy.ClientProxy;
+import vazkii.botania.common.block.BlockLightRelay;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileLightRelay;
 
 import javax.annotation.Nonnull;
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.Map;
 
-public class RenderTileLightRelay extends TileEntitySpecialRenderer<TileLightRelay> {
+public class RenderTileLightRelay extends TileEntityRenderer<TileLightRelay> {
 
-	private static Map<LuminizerVariant, TextureAtlasSprite> sprites = new HashMap();
+	private static Map<LuminizerVariant, TextureAtlasSprite> sprites = new EnumMap<>(LuminizerVariant.class);
 
 	@Override
-	public void render(@Nonnull TileLightRelay tile, double x, double y, double z, float pticks, int digProgress, float unused) {
-		if(!tile.getWorld().isBlockLoaded(tile.getPos(), false) || tile.getWorld().getBlockState(tile.getPos()).getBlock() != ModBlocks.lightRelay)
+	public void render(@Nonnull TileLightRelay tile, double x, double y, double z, float pticks, int digProgress) {
+		if(!tile.getWorld().isBlockLoaded(tile.getPos(), false))
 			return;
 
-		Minecraft mc = Minecraft.getMinecraft();
+		IBlockState state = tile.getWorld().getBlockState(tile.getPos());
+		if(!(state.getBlock() instanceof BlockLightRelay))
+			return;
+
+		Minecraft mc = Minecraft.getInstance();
 		if(sprites.isEmpty()) {
 			sprites.put(LuminizerVariant.DEFAULT, MiscellaneousIcons.INSTANCE.lightRelayWorldIcon);
 			sprites.put(LuminizerVariant.DETECTOR, MiscellaneousIcons.INSTANCE.lightRelayWorldIconRed);
@@ -47,39 +53,39 @@ public class RenderTileLightRelay extends TileEntitySpecialRenderer<TileLightRel
 			sprites.put(LuminizerVariant.TOGGLE, MiscellaneousIcons.INSTANCE.lightRelayWorldIconPurple);
 		}
 
-		TextureAtlasSprite iicon = sprites.get(tile.getWorld().getBlockState(tile.getPos()).getValue(BotaniaStateProps.LUMINIZER_VARIANT));
+		TextureAtlasSprite iicon = sprites.get(((BlockLightRelay) state.getBlock()).variant);
 
 		GlStateManager.pushMatrix();
-		GlStateManager.translate(x + 0.5, y + 0.3, z + 0.5);
+		GlStateManager.translated(x + 0.5, y + 0.3, z + 0.5);
 		GlStateManager.enableRescaleNormal();
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		GlStateManager.alphaFunc(GL11.GL_GREATER, 0.05F);
 
 		double time = ClientTickHandler.ticksInGame + pticks;
-		GlStateManager.color(1F, 1F, 1F, 1F);
+		GlStateManager.color4f(1F, 1F, 1F, 1F);
 
 		float scale = 0.75F;
-		GlStateManager.scale(scale, scale, scale);
+		GlStateManager.scalef(scale, scale, scale);
 		Tessellator tessellator = Tessellator.getInstance();
 
 		GlStateManager.pushMatrix();
 		float r = 180.0F - mc.getRenderManager().playerViewY;
-		GlStateManager.rotate(r, 0F, 1F, 0F);
-		GlStateManager.rotate(-mc.getRenderManager().playerViewX, 1F, 0F, 0F);
+		GlStateManager.rotatef(r, 0F, 1F, 0F);
+		GlStateManager.rotatef(-mc.getRenderManager().playerViewX, 1F, 0F, 0F);
 
 		float off = 0.25F;
-		GlStateManager.translate(0F, off, 0F);
-		GlStateManager.rotate((float) time, 0F, 0F, 1F);
-		GlStateManager.translate(0F, -off, 0F);
+		GlStateManager.translatef(0F, off, 0F);
+		GlStateManager.rotatef((float) time, 0F, 0F, 1F);
+		GlStateManager.translatef(0F, -off, 0F);
 
-		mc.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+		mc.textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 		ShaderHelper.useShader(ShaderHelper.halo);
 		renderIcon(tessellator, iicon);
 		ShaderHelper.releaseShader();
 
 		GlStateManager.popMatrix();
-		GlStateManager.color(1F, 1F, 1F, 1F);
+		GlStateManager.color4f(1F, 1F, 1F, 1F);
 		GlStateManager.disableBlend();
 		GlStateManager.disableRescaleNormal();
 		GlStateManager.popMatrix();

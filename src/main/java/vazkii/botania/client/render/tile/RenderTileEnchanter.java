@@ -17,7 +17,7 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.entity.item.EntityItem;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.client.core.handler.ClientTickHandler;
@@ -28,12 +28,12 @@ import vazkii.botania.common.block.tile.TileEnchanter;
 
 import javax.annotation.Nonnull;
 
-public class RenderTileEnchanter extends TileEntitySpecialRenderer<TileEnchanter> {
+public class RenderTileEnchanter extends TileEntityRenderer<TileEnchanter> {
 
 	private EntityItem item;
 
 	@Override
-	public void render(@Nonnull TileEnchanter enchanter, double d0, double d1, double d2, float f, int digProgress, float unused) {
+	public void render(@Nonnull TileEnchanter enchanter, double d0, double d1, double d2, float f, int digProgress) {
 		float alphaMod = 0F;
 
 		if(enchanter.stage == TileEnchanter.State.GATHER_MANA)
@@ -50,36 +50,36 @@ public class RenderTileEnchanter extends TileEntitySpecialRenderer<TileEnchanter
 			item.age = ClientTickHandler.ticksInGame;
 			item.setItem(enchanter.itemToEnchant);
 
-			GlStateManager.color(1F, 1F, 1F, 1F);
-			GlStateManager.translate(0.5F, 1.25F, 0.5F);
-			((Render) Minecraft.getMinecraft().getRenderManager().entityRenderMap.get(EntityItem.class)).doRender(item, d0, d1, d2, 1F, f);
-			GlStateManager.translate(-0.5F, -1.25F, -0.5F);
+			GlStateManager.color4f(1F, 1F, 1F, 1F);
+			GlStateManager.translatef(0.5F, 1.25F, 0.5F);
+			((Render) Minecraft.getInstance().getRenderManager().entityRenderMap.get(EntityItem.class)).doRender(item, d0, d1, d2, 1F, f);
+			GlStateManager.translatef(-0.5F, -1.25F, -0.5F);
 		}
 
 		GlStateManager.pushMatrix();
-		GlStateManager.translate(d0, d1, d2);
+		GlStateManager.translated(d0, d1, d2);
 
-		GlStateManager.rotate(90F, 1F, 0F, 0F);
-		GlStateManager.translate(-2F, -2F, -0.001F);
+		GlStateManager.rotatef(90F, 1F, 0F, 0F);
+		GlStateManager.translatef(-2F, -2F, -0.001F);
 
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		GlStateManager.color(1F, 1F, 1F, 1F);
-		GlStateManager.disableAlpha();
+		GlStateManager.color4f(1F, 1F, 1F, 1F);
+		GlStateManager.disableAlphaTest();
 		float alpha = (float) ((Math.sin((ClientTickHandler.ticksInGame + f) / 8D) + 1D) / 5D + 0.4D) * alphaMod;
 
 		if(alpha > 0) {
 			if(ShaderHelper.useShaders())
-				GlStateManager.color(1F, 1F, 1F, alpha);
+				GlStateManager.color4f(1F, 1F, 1F, alpha);
 			else {
 				int light = 15728880;
 				int lightmapX = light % 65536;
 				int lightmapY = light / 65536;
-				OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, lightmapX, lightmapY);
-				GlStateManager.color(0.6F + (float) ((Math.cos((ClientTickHandler.ticksInGame + f) / 6D) + 1D) / 5D), 0.1F, 0.9F, alpha);
+				OpenGlHelper.glMultiTexCoord2f(OpenGlHelper.GL_TEXTURE1, lightmapX, lightmapY);
+				GlStateManager.color4f(0.6F + (float) ((Math.cos((ClientTickHandler.ticksInGame + f) / 6D) + 1D) / 5D), 0.1F, 0.9F, alpha);
 			}
 
-			Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+			Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 
 			if(enchanter.stage == TileEnchanter.State.DO_ENCHANT || enchanter.stage == TileEnchanter.State.RESET) {
 				int ticks = enchanter.stageTicks + enchanter.stage3EndTicks;
@@ -87,10 +87,10 @@ public class RenderTileEnchanter extends TileEntitySpecialRenderer<TileEnchanter
 				float yTranslation = Math.min(20, ticks) / 20F * 1.15F;
 				float scale = ticks < 10 ? 1F : 1F - Math.min(20, ticks - 10) / 20F * 0.75F;
 
-				GlStateManager.translate(2.5F, 2.5F, -yTranslation);
-				GlStateManager.scale(scale, scale, 1F);
-				GlStateManager.rotate(angle, 0F, 0F, 1F);
-				GlStateManager.translate(-2.5F, -2.5F, 0F);
+				GlStateManager.translatef(2.5F, 2.5F, -yTranslation);
+				GlStateManager.scalef(scale, scale, 1F);
+				GlStateManager.rotatef(angle, 0F, 0F, 1F);
+				GlStateManager.translatef(-2.5F, -2.5F, 0F);
 			}
 
 			ShaderHelper.useShader(ShaderHelper.enchanterRune);
@@ -98,9 +98,9 @@ public class RenderTileEnchanter extends TileEntitySpecialRenderer<TileEnchanter
 			ShaderHelper.releaseShader();
 		}
 
-		GlStateManager.enableAlpha();
+		GlStateManager.enableAlphaTest();
 		GlStateManager.disableBlend();
-		GlStateManager.color(1F, 1F, 1F, 1F);
+		GlStateManager.color4f(1F, 1F, 1F, 1F);
 		GlStateManager.popMatrix();
 	}
 

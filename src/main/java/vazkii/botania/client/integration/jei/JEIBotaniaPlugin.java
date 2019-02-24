@@ -168,7 +168,7 @@ public class JEIBotaniaPlugin implements IModPlugin {
 		CorporeaInputHandler.jeiPanelSupplier = () -> {
 			Object o = jeiRuntime.getIngredientListOverlay().getIngredientUnderMouse();
 
-			if(o == null && Minecraft.getMinecraft().currentScreen == jeiRuntime.getRecipesGui())
+			if(o == null && Minecraft.getInstance().currentScreen == jeiRuntime.getRecipesGui())
 				o = jeiRuntime.getRecipesGui().getIngredientUnderMouse();
 
 			if(o instanceof ItemStack)

@@ -160,7 +160,7 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 				ClientTickHandler.notifyPageChange();
 				break;
 			case 3 :
-				Minecraft mc = Minecraft.getMinecraft();
+				Minecraft mc = Minecraft.getInstance();
 				String cmd = "/botania-share " + entry.getUnlocalizedName();
 
 				mc.ingameGUI.getChatGUI().addToSentMessages(cmd);

@@ -10,17 +10,14 @@
  */
 package vazkii.botania.client.render.tile;
 
-import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraftforge.client.model.animation.FastTESR;
+import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import vazkii.botania.client.core.handler.RedStringRenderer;
 import vazkii.botania.common.block.tile.string.TileRedString;
 
-import javax.annotation.Nonnull;
-
-public class RenderTileRedString extends FastTESR<TileRedString> {
+public class RenderTileRedString extends TileEntityRenderer<TileRedString> {
 
 	@Override
-	public void renderTileEntityFast(@Nonnull TileRedString trs, double x, double y, double z, float partialTicks, int destroyStage, float unused, @Nonnull BufferBuilder worldRenderer) {
+	public void render(TileRedString trs, double x, double y, double z, float partialTicks, int destroyStage) {
 		RedStringRenderer.redStringTiles.add(trs);
 	}
 

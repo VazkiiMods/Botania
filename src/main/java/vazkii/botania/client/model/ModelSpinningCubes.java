@@ -19,7 +19,7 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 
 public class ModelSpinningCubes extends ModelBase {
 
-	final ModelRenderer spinningCube;
+	private final ModelRenderer spinningCube;
 
 	public ModelSpinningCubes() {
 		spinningCube = new ModelRenderer(this, 42, 0);
@@ -69,7 +69,7 @@ public class ModelSpinningCubes extends ModelBase {
 			int lightmapX = light % 65536;
 			int lightmapY = light / 65536;
 
-			OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, lightmapX, lightmapY);
+			OpenGlHelper.glMultiTexCoord2f(OpenGlHelper.GL_TEXTURE1, lightmapX, lightmapY);
 			spinningCube.render(1F / 16F);
 
 			if(repeat < origRepeat) {

@@ -24,8 +24,8 @@ public final class AdaptorNotifier {
 
 	@SubscribeEvent
 	public static void onTick(ClientTickEvent event) {
-		if(!triedToWarnPlayer && Minecraft.getMinecraft().player != null) {
-			EntityPlayer player = Minecraft.getMinecraft().player;
+		if(!triedToWarnPlayer && Minecraft.getInstance().player != null) {
+			EntityPlayer player = Minecraft.getInstance().player;
 			ConfigHandler.adaptor.tellChanges(player);
 
 			triedToWarnPlayer = true;

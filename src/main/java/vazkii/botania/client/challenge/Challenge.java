@@ -27,7 +27,7 @@ public class Challenge {
 	}
 
 	public void writeToNBT(NBTTagCompound cmp) {
-		cmp.setBoolean(unlocalizedName, complete);
+		cmp.putBoolean(unlocalizedName, complete);
 	}
 
 	public void readFromNBT(NBTTagCompound cmp) {

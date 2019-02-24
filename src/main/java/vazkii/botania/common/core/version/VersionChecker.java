@@ -45,9 +45,9 @@ public final class VersionChecker {
 
 	@SubscribeEvent
 	public static void onTick(ClientTickEvent event) {
-		if(event.phase == Phase.END && Minecraft.getMinecraft().player != null && !triedToWarnPlayer && doneChecking) {
+		if(event.phase == Phase.END && Minecraft.getInstance().player != null && !triedToWarnPlayer && doneChecking) {
 			if(!onlineVersion.isEmpty()) {
-				EntityPlayer player = Minecraft.getMinecraft().player;
+				EntityPlayer player = Minecraft.getInstance().player;
 				int onlineBuild = Integer.parseInt(onlineVersion.split("-")[1]);
 				int clientBuild = LibMisc.BUILD.contains("GRADLE") ? Integer.MAX_VALUE : Integer.parseInt(LibMisc.BUILD);
 				if(onlineBuild > clientBuild) {

@@ -111,7 +111,7 @@ public class SubTileSpectrolus extends SubTileGenerating {
 
 			mc.fontRenderer.drawStringWithShadow(stackName, x + 20, y + 5, color);
 			RenderHelper.enableGUIStandardItemLighting();
-			mc.getRenderItem().renderItemAndEffectIntoGUI(stack, x, y);
+			mc.getItemRenderer().renderItemAndEffectIntoGUI(stack, x, y);
 			RenderHelper.disableStandardItemLighting();
 		}
 

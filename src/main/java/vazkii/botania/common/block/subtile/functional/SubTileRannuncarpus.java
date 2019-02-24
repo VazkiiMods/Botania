@@ -177,7 +177,7 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 
 			mc.fontRenderer.drawStringWithShadow(stackName, x + 20, y + 5, color);
 			RenderHelper.enableGUIStandardItemLighting();
-			mc.getRenderItem().renderItemAndEffectIntoGUI(recieverStack, x, y);
+			mc.getItemRenderer().renderItemAndEffectIntoGUI(recieverStack, x, y);
 			RenderHelper.disableStandardItemLighting();
 		}
 
