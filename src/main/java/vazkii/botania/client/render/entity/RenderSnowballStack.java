@@ -8,9 +8,9 @@
  */
 package vazkii.botania.client.render.entity;
 
-import net.minecraft.client.renderer.RenderItem;
+import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.client.renderer.entity.RenderSnowball;
+import net.minecraft.client.renderer.entity.RenderSprite;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -19,11 +19,11 @@ import javax.annotation.Nonnull;
 import java.util.function.Function;
 
 // Same as RenderSnowball, but ItemStack sensitive
-public class RenderSnowballStack<T extends Entity> extends RenderSnowball<T> {
+public class RenderSnowballStack<T extends Entity> extends RenderSprite<T> {
 
 	private final Function<T, ItemStack> stackGetter;
 
-	public RenderSnowballStack(RenderManager renderManagerIn, Item item, RenderItem render, Function<T, ItemStack> stackGetter) {
+	public RenderSnowballStack(RenderManager renderManagerIn, Item item, ItemRenderer render, Function<T, ItemStack> stackGetter) {
 		super(renderManagerIn, item, render);
 		this.stackGetter = stackGetter;
 	}

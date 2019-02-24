@@ -35,11 +35,11 @@ public class RenderCorporeaSpark extends RenderSparkBase<EntityCorporeaSpark> {
 
 	@Override
 	public void colorSpinningIcon(EntityCorporeaSpark entity, float a) {
-		int hex = entity.getNetwork().getColorValue();
+		int hex = entity.getNetwork().colorValue;
 		int r = (hex & 0xFF0000) >> 16;
 		int g = (hex & 0xFF00) >> 8;
 		int b = hex & 0xFF;
-		GlStateManager.color(r / 255F, g / 255F, b / 255F, a);
+		GlStateManager.color4f(r / 255F, g / 255F, b / 255F, a);
 	}
 
 	@Override
@@ -60,13 +60,13 @@ public class RenderCorporeaSpark extends RenderSparkBase<EntityCorporeaSpark> {
 			return;
 
 		GlStateManager.pushMatrix();
-		GlStateManager.rotate(90F, 1F, 0F, 0F);
+		GlStateManager.rotatef(90F, 1F, 0F, 0F);
 		float scalef = 1F / 6F;
-		GlStateManager.scale(scalef, scalef, scalef);
+		GlStateManager.scalef(scalef, scalef, scalef);
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		GlStateManager.color(1F, 1F, 1F, absTime / 10);
-		GlStateManager.translate(0F, 0F, -2F + (time < 0 ? -absTime : absTime) / 6);
+		GlStateManager.color4f(1F, 1F, 1F, absTime / 10);
+		GlStateManager.translatef(0F, 0F, -2F + (time < 0 ? -absTime : absTime) / 6);
 
 		Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 		TextureAtlasSprite icon = Minecraft.getInstance().getItemRenderer().getItemModelWithOverrides(stack, entity.world, null).getParticleTexture();
@@ -84,15 +84,15 @@ public class RenderCorporeaSpark extends RenderSparkBase<EntityCorporeaSpark> {
 			int shift = pieces / 2;
 
 			float scale = 1F / pieces * 3F;
-			GlStateManager.scale(scale, scale, 1F);
+			GlStateManager.scalef(scale, scale, 1F);
 			for(int i = -shift; i < shift; i++) {
-				GlStateManager.translate(gap * i, 0F, 0F);
+				GlStateManager.translatef(gap * i, 0F, 0F);
 				for(int j = -shift; j < shift; j++) {
-					GlStateManager.translate(0F, gap * j, 0F);
-					IconHelper.renderIconIn3D(Tessellator.getInstance(), minU + stepU * (i + shift), minV + stepV * (j + shift + 1), minU + stepU * (i + shift + 1), minV + stepV * (j + shift), icon.getIconWidth() / pieces, icon.getIconHeight() / pieces, 1F / 8F);
-					GlStateManager.translate(0F, -gap * j, 0F);
+					GlStateManager.translatef(0F, gap * j, 0F);
+					IconHelper.renderIconIn3D(Tessellator.getInstance(), minU + stepU * (i + shift), minV + stepV * (j + shift + 1), minU + stepU * (i + shift + 1), minV + stepV * (j + shift), icon.getWidth() / pieces, icon.getHeight() / pieces, 1F / 8F);
+					GlStateManager.translatef(0F, -gap * j, 0F);
 				}
-				GlStateManager.translate(-gap * i, 0F, 0F);
+				GlStateManager.translatef(-gap * i, 0F, 0F);
 			}
 		}
 

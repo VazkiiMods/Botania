@@ -12,9 +12,9 @@ package vazkii.botania.client.render.entity;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.AbstractClientPlayer;
-import net.minecraft.client.model.ModelPlayer;
 import net.minecraft.client.renderer.entity.RenderBiped;
 import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.entity.model.ModelPlayer;
 import net.minecraft.client.resources.DefaultPlayerSkin;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.ARBShaderObjects;
@@ -26,11 +26,11 @@ import javax.annotation.Nonnull;
 
 public class RenderDoppleganger extends RenderBiped<EntityDoppleganger> {
 
-	public static final float DEFAULT_GRAIN_INTENSITY = 0.05F;
-	public static final float DEFAULT_DISFIGURATION = 0.025F;
+	private static final float DEFAULT_GRAIN_INTENSITY = 0.05F;
+	private static final float DEFAULT_DISFIGURATION = 0.025F;
 
-	public static float grainIntensity = DEFAULT_GRAIN_INTENSITY;
-	public static float disfiguration = DEFAULT_DISFIGURATION;
+	private static float grainIntensity = DEFAULT_GRAIN_INTENSITY;
+	private static float disfiguration = DEFAULT_DISFIGURATION;
 
 	public static final ShaderCallback callback = shader -> {
 		// Frag Uniforms
@@ -78,7 +78,7 @@ public class RenderDoppleganger extends RenderBiped<EntityDoppleganger> {
 		Minecraft mc = Minecraft.getInstance();
 
 		if(!(mc.getRenderViewEntity() instanceof AbstractClientPlayer))
-			return DefaultPlayerSkin.getDefaultSkinLegacy();
+			return DefaultPlayerSkin.getDefaultSkin(entity.getUniqueID());
 
 		return ((AbstractClientPlayer) mc.getRenderViewEntity()).getLocationSkin();
 	}

@@ -27,7 +27,7 @@ import javax.annotation.Nonnull;
 
 public class RenderPixie extends RenderLiving<EntityPixie> {
 
-	final ShaderCallback callback = shader -> {
+	private final ShaderCallback callback = shader -> {
 		// Frag Uniforms
 		int disfigurationUniform = ARBShaderObjects.glGetUniformLocationARB(shader, "disfiguration");
 		ARBShaderObjects.glUniform1fARB(disfigurationUniform, 0.025F);
@@ -51,10 +51,10 @@ public class RenderPixie extends RenderLiving<EntityPixie> {
 
 	@Override
 	public void doRender(@Nonnull EntityPixie pixie, double par2, double par4, double par6, float par8, float par9) {
-		if(pixie.getType() == 1)
+		if(pixie.getPixieType() == 1)
 			ShaderHelper.useShader(ShaderHelper.doppleganger, callback);
 		super.doRender(pixie, par2, par4, par6, par8, par9);
-		if(pixie.getType() == 1)
+		if(pixie.getPixieType() == 1)
 			ShaderHelper.releaseShader();
 	}
 
@@ -65,7 +65,7 @@ public class RenderPixie extends RenderLiving<EntityPixie> {
 			bindTexture(getEntityTexture(par1EntityPixie));
 			float f1 = 1.0F;
 			GlStateManager.enableBlend();
-			GlStateManager.disableAlpha();
+			GlStateManager.disableAlphaTest();
 			GlStateManager.blendFunc(GL11.GL_ONE, GL11.GL_ONE);
 
 			if (par1EntityPixie.isInvisible())
@@ -77,8 +77,8 @@ public class RenderPixie extends RenderLiving<EntityPixie> {
 			int j = c0 % 65536;
 			int k = c0 / 65536;
 			OpenGlHelper.glMultiTexCoord2f(OpenGlHelper.GL_TEXTURE1, j / 1.0F, k / 1.0F);
-			GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-			GlStateManager.color(1.0F, 1.0F, 1.0F, f1);
+			GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+			GlStateManager.color4f(1.0F, 1.0F, 1.0F, f1);
 			return 1;
 		}
 	}

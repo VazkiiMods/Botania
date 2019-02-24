@@ -29,7 +29,7 @@ public class RenderManaStorm extends Render<EntityManaStorm> {
 	@Override
 	public void doRender(@Nonnull EntityManaStorm storm, double x, double y, double z, float something, float pticks) {
 		GlStateManager.pushMatrix();
-		GlStateManager.translate(x, y, z);
+		GlStateManager.translated(x, y, z);
 		float maxScale = 1.95F;
 		float scale = 0.05F + ((float) storm.burstsFired / EntityManaStorm.TOTAL_BURSTS - (storm.deathTime == 0 ? 0 : storm.deathTime + pticks) / EntityManaStorm.DEATH_TIME) * maxScale;
 		RenderHelper.renderStar(0x00FF00, scale, scale, scale, storm.getUniqueID().getMostSignificantBits());

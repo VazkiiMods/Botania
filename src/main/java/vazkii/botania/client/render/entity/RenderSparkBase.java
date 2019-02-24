@@ -37,7 +37,7 @@ public abstract class RenderSparkBase<T extends Entity> extends Render<T> {
 		TextureAtlasSprite iicon = getBaseIcon(tEntity);
 
 		GlStateManager.pushMatrix();
-		GlStateManager.translate((float)par2, (float)par4, (float)par6);
+		GlStateManager.translated(par2, par4, par6);
 		GlStateManager.enableRescaleNormal();
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
@@ -48,28 +48,28 @@ public abstract class RenderSparkBase<T extends Entity> extends Render<T> {
 
 		float a = 0.1F + (tEntity.isInvisible() ? 0 : 1) * 0.8F;
 
-		GlStateManager.color(1F, 1F, 1F, (0.7F + 0.3F * (float) (Math.sin(time / 5.0) + 0.5) * 2) * a);
+		GlStateManager.color4f(1F, 1F, 1F, (0.7F + 0.3F * (float) (Math.sin(time / 5.0) + 0.5) * 2) * a);
 
 		float scale = 0.75F + 0.1F * (float) Math.sin(time / 10);
-		GlStateManager.scale(scale, scale, scale);
+		GlStateManager.scalef(scale, scale, scale);
 		bindEntityTexture(tEntity);
 		Tessellator tessellator = Tessellator.getInstance();
 
 		GlStateManager.pushMatrix();
 		float r = 180.0F - renderManager.playerViewY;
-		GlStateManager.rotate(r, 0.0F, 1.0F, 0.0F);
-		GlStateManager.rotate(-renderManager.playerViewX, 1F, 0F, 0F);
+		GlStateManager.rotatef(r, 0.0F, 1.0F, 0.0F);
+		GlStateManager.rotatef(-renderManager.playerViewX, 1F, 0F, 0F);
 		renderIcon(tessellator, iicon);
 
 		TextureAtlasSprite spinningIcon = getSpinningIcon(tEntity);
 		if(spinningIcon != null) {
-			GlStateManager.translate(-0.02F + (float) Math.sin(time / 20) * 0.2F, 0.24F + (float) Math.cos(time / 20) * 0.2F, 0.005F);
-			GlStateManager.scale(0.2F, 0.2F, 0.2F);
+			GlStateManager.translatef(-0.02F + (float) Math.sin(time / 20) * 0.2F, 0.24F + (float) Math.cos(time / 20) * 0.2F, 0.005F);
+			GlStateManager.scalef(0.2F, 0.2F, 0.2F);
 			colorSpinningIcon(tEntity, a);
 			renderIcon(tessellator, spinningIcon);
 		}
 		GlStateManager.popMatrix();
-		GlStateManager.color(1F, 1F, 1F, 1F);
+		GlStateManager.color4f(1F, 1F, 1F, 1F);
 		renderCallback(tEntity, par9);
 
 		GlStateManager.disableBlend();

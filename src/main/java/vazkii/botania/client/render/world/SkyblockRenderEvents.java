@@ -12,23 +12,24 @@ package vazkii.botania.client.render.world;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.World;
+import net.minecraft.world.dimension.DimensionType;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.api.distmarker.Dist;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.world.WorldTypeSkyblock;
 
-@Mod.EventBusSubscriber(value = Side.CLIENT, modid = LibMisc.MOD_ID)
+@Mod.EventBusSubscriber(value = Dist.CLIENT, modid = LibMisc.MOD_ID)
 public final class SkyblockRenderEvents {
 
 	@SubscribeEvent
 	public static void onRender(RenderWorldLastEvent event) {
 		World world = Minecraft.getInstance().world;
-		if(ConfigHandler.enableFancySkybox && world.provider.getDimension() == 0 && (ConfigHandler.enableFancySkyboxInNormalWorlds || WorldTypeSkyblock.isWorldSkyblock(Minecraft.getInstance().world))) {
-			if(!(world.provider.getSkyRenderer() instanceof SkyblockSkyRenderer))
-				world.provider.setSkyRenderer(new SkyblockSkyRenderer());
+		if(ConfigHandler.enableFancySkybox && world.getDimension().getType() == DimensionType.OVERWORLD && (ConfigHandler.enableFancySkyboxInNormalWorlds || WorldTypeSkyblock.isWorldSkyblock(Minecraft.getInstance().world))) {
+			if(!(world.getDimension().getSkyRenderer() instanceof SkyblockSkyRenderer))
+				world.getDimension().setSkyRenderer(new SkyblockSkyRenderer());
 		}
 	}
 

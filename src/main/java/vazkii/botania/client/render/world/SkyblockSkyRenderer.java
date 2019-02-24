@@ -28,7 +28,7 @@ import vazkii.botania.client.lib.LibResources;
 
 import java.util.Random;
 
-public class SkyblockSkyRenderer extends IRenderHandler {
+public class SkyblockSkyRenderer implements IRenderHandler {
 
 	private static final ResourceLocation textureSkybox = new ResourceLocation(LibResources.MISC_SKYBOX);
 	private static final ResourceLocation textureRainbow = new ResourceLocation(LibResources.MISC_RAINBOW);
