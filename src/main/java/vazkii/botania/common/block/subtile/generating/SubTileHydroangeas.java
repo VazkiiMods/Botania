@@ -11,19 +11,21 @@
 package vazkii.botania.common.block.subtile.generating;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockLiquid;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.fluid.Fluid;
+import net.minecraft.fluid.IFluidState;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tags.FluidTags;
+import net.minecraft.tags.Tag;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.BlockFluidBase;
+import net.minecraft.world.biome.Biome;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileGenerating;
@@ -62,19 +64,22 @@ public class SubTileHydroangeas extends SubTileGenerating {
 				for(BlockPos offset : offsets) {
 					BlockPos pos = supertile.getPos().add(offset);
 
-					Material search = getMaterialToSearchFor();
-					PropertyInteger prop = supertile.getWorld().getBlockState(pos).getBlock() instanceof BlockLiquid ? BlockLiquid.LEVEL : supertile.getWorld().getBlockState(pos).getBlock() instanceof BlockFluidBase ? BlockFluidBase.LEVEL : null;
-					if(supertile.getWorld().getBlockState(pos).getMaterial() == search && (getBlockToSearchBelow() == null || supertile.getWorld().getBlockState(pos.down()).getBlock() == getBlockToSearchBelow()) && (prop == null || supertile.getWorld().getBlockState(pos).getValue(prop) == 0)) {
-						if(search != Material.WATER)
-							supertile.getWorld().setBlockToAir(pos);
+					IFluidState fstate = supertile.getWorld().getFluidState(pos);
+					Tag<Fluid> search = getMaterialToSearchFor();
+					if(fstate.isTagged(search)
+							&& (getBlockToSearchBelow() == null
+								|| supertile.getWorld().getBlockState(pos.down()).getBlock() == getBlockToSearchBelow())
+							&& fstate.isSource()) {
+						if(search != FluidTags.WATER)
+							supertile.getWorld().setBlockState(pos, Blocks.AIR.getDefaultState());
 						else {
 							int waterAround = 0;
-							for(EnumFacing dir : EnumFacing.HORIZONTALS)
-								if(supertile.getWorld().getBlockState(pos.offset(dir)).getMaterial() == search)
+							for(EnumFacing dir : EnumFacing.BY_INDEX)
+								if(supertile.getWorld().getFluidState(pos.offset(dir)).isTagged(search))
 									waterAround++;
 
 							if(waterAround < 2)
-								supertile.getWorld().setBlockToAir(pos);
+								supertile.getWorld().setBlockState(pos, Blocks.AIR.getDefaultState());
 						}
 
 						if(cooldown == 0)
@@ -102,8 +107,8 @@ public class SubTileHydroangeas extends SubTileGenerating {
 		Botania.proxy.wispFX(supertile.getPos().getX() + 0.55 + Math.random() * 0.2 - 0.1, supertile.getPos().getY() + 0.55 + Math.random() * 0.2 - 0.1, supertile.getPos().getZ() + 0.5, 0.05F, 0.05F, 0.7F, (float) Math.random() / 6, (float) -Math.random() / 60);
 	}
 
-	public Material getMaterialToSearchFor() {
-		return Material.WATER;
+	public Tag<Fluid> getMaterialToSearchFor() {
+		return FluidTags.WATER;
 	}
 
 	public Block getBlockToSearchBelow() {
@@ -142,16 +147,16 @@ public class SubTileHydroangeas extends SubTileGenerating {
 	public void writeToPacketNBT(NBTTagCompound cmp) {
 		super.writeToPacketNBT(cmp);
 
-		cmp.setInteger(TAG_BURN_TIME, burnTime);
-		cmp.setInteger(TAG_COOLDOWN, cooldown);
+		cmp.putInt(TAG_BURN_TIME, burnTime);
+		cmp.putInt(TAG_COOLDOWN, cooldown);
 	}
 
 	@Override
 	public void readFromPacketNBT(NBTTagCompound cmp) {
 		super.readFromPacketNBT(cmp);
 
-		burnTime = cmp.getInteger(TAG_BURN_TIME);
-		cooldown = cmp.getInteger(TAG_COOLDOWN);
+		burnTime = cmp.getInt(TAG_BURN_TIME);
+		cooldown = cmp.getInt(TAG_COOLDOWN);
 	}
 
 	@Override
@@ -178,7 +183,7 @@ public class SubTileHydroangeas extends SubTileGenerating {
 
 	@Override
 	public int getDelayBetweenPassiveGeneration() {
-		boolean rain = supertile.getWorld().getBiome(supertile.getPos()).getRainfall() > 0 && (supertile.getWorld().isRaining() || supertile.getWorld().isThundering());
+		boolean rain = supertile.getWorld().getBiome(supertile.getPos()).getPrecipitation() == Biome.RainType.RAIN && (supertile.getWorld().isRaining() || supertile.getWorld().isThundering());
 		return rain ? 2 : 3;
 	}
 

@@ -14,11 +14,11 @@ import com.google.common.collect.Table;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.block.model.BakedQuad;
-import net.minecraft.client.renderer.block.model.IBakedModel;
-import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
-import net.minecraft.client.renderer.block.model.ItemOverrideList;
-import net.minecraft.client.renderer.block.model.ModelManager;
+import net.minecraft.client.renderer.model.BakedQuad;
+import net.minecraft.client.renderer.model.IBakedModel;
+import net.minecraft.client.renderer.model.ItemCameraTransforms;
+import net.minecraft.client.renderer.model.ItemOverrideList;
+import net.minecraft.client.renderer.model.ModelManager;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.renderer.vertex.VertexFormatElement;
@@ -56,7 +56,6 @@ import java.util.Random;
 
 public class FloatingFlowerModel implements IBakedModel {
 
-	private static final String MUNDANE_PREFIX = "shimmeringFlower_";
 	private final Table<IFloatingFlower.IslandType, ResourceLocation, CompositeBakedModel> CACHE = HashBasedTable.create();
 
 	protected static BakedQuad transform(BakedQuad quad, final TRSRTransformation transform) {
@@ -121,7 +120,7 @@ public class FloatingFlowerModel implements IBakedModel {
 
 			IBakedModel flowerModel;
 
-			if(identifier.getPath().startsWith(MUNDANE_PREFIX)) {
+			if(identifier.getPath().contains(MUNDANE_PREFIX)) {
 				int meta = Integer.parseInt(identifier.getPath().substring(identifier.getPath().indexOf(MUNDANE_PREFIX) + MUNDANE_PREFIX.length()));
 				flowerModel = Minecraft.getInstance().getItemRenderer().getItemModelMesher().getItemModel(new ItemStack(ModBlocks.shinyFlower, 1, meta));
 			} else {
@@ -226,7 +225,7 @@ public class FloatingFlowerModel implements IBakedModel {
 				identifier = ItemBlockSpecialFlower.getType(stack);
 			} else {
 				// Mundane flower
-				identifier = new ResourceLocation(LibMisc.MOD_ID, MUNDANE_PREFIX + stack.getItemDamage());
+				identifier = stack.getItem().getRegistryName();
 			}
 
 			return FloatingFlowerModel.this.getModel(islandType, identifier);

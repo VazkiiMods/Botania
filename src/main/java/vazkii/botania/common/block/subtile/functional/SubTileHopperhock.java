@@ -12,7 +12,6 @@ package vazkii.botania.common.block.subtile.functional;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.item.EntityItem;
@@ -207,7 +206,7 @@ public class SubTileHopperhock extends SubTileFunctional {
 	public void writeToPacketNBT(NBTTagCompound cmp) {
 		super.writeToPacketNBT(cmp);
 
-		cmp.setInt(TAG_FILTER_TYPE, filterType);
+		cmp.putInt(TAG_FILTER_TYPE, filterType);
 	}
 
 	@Override
@@ -219,15 +218,15 @@ public class SubTileHopperhock extends SubTileFunctional {
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void renderHUD(Minecraft mc, ScaledResolution res) {
-		super.renderHUD(mc, res);
+	public void renderHUD(Minecraft mc) {
+		super.renderHUD(mc);
 
 		int color = getColor();
 		String filter = I18n.format("botaniamisc.filter" + filterType);
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		int x = res.getScaledWidth() / 2 - mc.fontRenderer.getStringWidth(filter) / 2;
-		int y = res.getScaledHeight() / 2 + 30;
+		int x = mc.mainWindow.getScaledWidth() / 2 - mc.fontRenderer.getStringWidth(filter) / 2;
+		int y = mc.mainWindow.getScaledHeight() / 2 + 30;
 
 		mc.fontRenderer.drawStringWithShadow(filter, x, y, color);
 		GlStateManager.disableBlend();

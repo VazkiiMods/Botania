@@ -2,7 +2,7 @@ package vazkii.botania.api.recipe;
 
 import com.google.common.collect.ImmutableList;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.oredict.OreDictionary;
+import net.minecraft.item.crafting.Ingredient;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,23 +10,15 @@ import java.util.List;
 public class RecipeElvenTrade {
 
 	private final ImmutableList<ItemStack> outputs;
-	private final ImmutableList<Object> inputs;
+	private final ImmutableList<Ingredient> inputs;
 
-	public RecipeElvenTrade(ItemStack[] outputs, Object... inputs) {
+	public RecipeElvenTrade(ItemStack[] outputs, Ingredient... inputs) {
 		this.outputs = ImmutableList.copyOf(outputs);
-
-		ImmutableList.Builder<Object> inputsToSet = ImmutableList.builder();
-		for(Object obj : inputs) {
-			if(obj instanceof String || obj instanceof ItemStack)
-				inputsToSet.add(obj);
-			else throw new IllegalArgumentException("Invalid input");
-		}
-
-		this.inputs = inputsToSet.build();
+		this.inputs = ImmutableList.copyOf(inputs);
 	}
 
 	public boolean matches(List<ItemStack> stacks, boolean remove) {
-		List<Object> inputsMissing = new ArrayList<>(inputs);
+		List<Ingredient> inputsMissing = new ArrayList<>(inputs);
 		List<ItemStack> stacksToRemove = new ArrayList<>();
 
 		for(ItemStack stack : stacks) {
@@ -36,37 +28,20 @@ public class RecipeElvenTrade {
 			if(inputsMissing.isEmpty())
 				break;
 
-			int stackIndex = -1, oredictIndex = -1;
+			int stackIndex = -1;
 
-			for(int j = 0; j < inputsMissing.size(); j++) {
-				Object input = inputsMissing.get(j);
-				if(input instanceof String) {
-					List<ItemStack> validStacks = OreDictionary.getOres((String) input);
-					boolean found = false;
-					for(ItemStack ostack : validStacks) {
-						if(OreDictionary.itemMatches(ostack, stack, false)) {
-							if(!stacksToRemove.contains(stack))
-								stacksToRemove.add(stack);
-							oredictIndex = j;
-							found = true;
-							break;
-						}
-					}
-
-					if(found)
-						break;
-				} else if(input instanceof ItemStack && simpleAreStacksEqual((ItemStack) input, stack)) {
+			for (int i = 0; i < inputsMissing.size(); i++) {
+				Ingredient ingr = inputsMissing.get(i);
+				if (ingr.test(stack)) {
 					if(!stacksToRemove.contains(stack))
 						stacksToRemove.add(stack);
-					stackIndex = j;
+					stackIndex = i;
 					break;
 				}
 			}
 
 			if(stackIndex != -1)
 				inputsMissing.remove(stackIndex);
-			else if(oredictIndex != -1)
-				inputsMissing.remove(oredictIndex);
 		}
 
 		if(remove)
@@ -76,11 +51,7 @@ public class RecipeElvenTrade {
 		return inputsMissing.isEmpty();
 	}
 
-	private boolean simpleAreStacksEqual(ItemStack stack, ItemStack stack2) {
-		return stack.getItem() == stack2.getItem() && stack.getItemDamage() == stack2.getItemDamage();
-	}
-
-	public List<Object> getInputs() {
+	public List<Ingredient> getInputs() {
 		return inputs;
 	}
 

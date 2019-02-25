@@ -60,7 +60,7 @@ public class SubTileEntropinnyum extends SubTileGenerating {
 				for(int i = 0; i < 50; i++)
 					Botania.proxy.sparkleFX(e.posX + Math.random() * 4 - 2, e.posY + Math.random() * 4 - 2, e.posZ + Math.random() * 4 - 2, 1F, (float) Math.random() * 0.25F, (float) Math.random() * 0.25F, (float) (Math.random() * 0.65F + 1.25F), 12);
 
-				getWorld().spawnParticle(Particles.EXPLOSION_EMITTER, e.posX, e.posY, e.posZ, 1D, 0D, 0D);
+				getWorld().addParticle(Particles.EXPLOSION_EMITTER, e.posX, e.posY, e.posZ, 1D, 0D, 0D);
 			}
 			return true;
 		} else {

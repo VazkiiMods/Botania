@@ -11,6 +11,7 @@
 package vazkii.botania.api.subtile.signature;
 
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -40,6 +41,6 @@ public interface SubTileSignature {
 	 * Adds additional text to the tooltip. This text is added after getUnlocalizedLoreTextForStack.
 	 */
 	@OnlyIn(Dist.CLIENT)
-	default void addTooltip(ItemStack stack, World world, List<String> tooltip) {}
+	default void addTooltip(ItemStack stack, World world, List<ITextComponent> tooltip) {}
 
 }

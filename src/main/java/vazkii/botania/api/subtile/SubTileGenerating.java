@@ -13,7 +13,6 @@ package vazkii.botania.api.subtile;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -25,8 +24,8 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.registry.IRegistry;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.BotaniaAPI;
@@ -86,7 +85,7 @@ public class SubTileGenerating extends SubTileEntity {
 
 		if(acceptsRedstone()) {
 			redstoneSignal = 0;
-			for(EnumFacing dir : EnumFacing.VALUES) {
+			for(EnumFacing dir : EnumFacing.BY_INDEX) {
 				int redstoneSide = supertile.getWorld().getRedstonePower(supertile.getPos().offset(dir), dir);
 				redstoneSignal = Math.max(redstoneSignal, redstoneSide);
 			}
@@ -111,9 +110,9 @@ public class SubTileGenerating extends SubTileEntity {
 			if(passive && muhBalance > 0 && passiveDecayTicks > muhBalance) {
 				IBlockState state = supertile.getWorld().getBlockState(supertile.getPos());
 				supertile.getWorld().playEvent(2001, supertile.getPos(), Block.getStateId(state));
-				if(supertile.getWorld().getBlockState(supertile.getPos().down()).isSideSolid(supertile.getWorld(), supertile.getPos().down(), EnumFacing.UP))
-					supertile.getWorld().setBlockState(supertile.getPos(), Blocks.DEADBUSH.getDefaultState());
-				else supertile.getWorld().setBlockToAir(supertile.getPos());
+				if(Blocks.DEAD_BUSH.getDefaultState().isValidPosition(supertile.getWorld(), supertile.getPos()))
+					supertile.getWorld().setBlockState(supertile.getPos(), Blocks.DEAD_BUSH.getDefaultState());
+				else supertile.getWorld().removeBlock(supertile.getPos());
 			}
 		}
 
@@ -131,7 +130,7 @@ public class SubTileGenerating extends SubTileEntity {
 				if(supertile.getWorld().isBlockLoaded(cachedCollectorCoordinates)) {
 					needsNew = true;
 					TileEntity tileAt = supertile.getWorld().getTileEntity(cachedCollectorCoordinates);
-					if(tileAt != null && tileAt instanceof IManaCollector && !tileAt.isInvalid()) {
+					if(tileAt instanceof IManaCollector && !tileAt.isRemoved()) {
 						linkedCollector = tileAt;
 						needsNew = false;
 					}
@@ -140,7 +139,7 @@ public class SubTileGenerating extends SubTileEntity {
 			}
 		} else {
 			TileEntity tileAt = supertile.getWorld().getTileEntity(linkedCollector.getPos());
-			if(tileAt != null && tileAt instanceof IManaCollector)
+			if(tileAt instanceof IManaCollector)
 				linkedCollector = tileAt;
 		}
 
@@ -204,10 +203,7 @@ public class SubTileGenerating extends SubTileEntity {
 		if(isPassiveFlower() && ticksExisted > 0 && BotaniaAPI.internalHandler.getPassiveFlowerDecay() > 0) {
 			ItemStack drop = drops.get(0);
 			if(!drop.isEmpty()) {
-				if(!drop.hasTagCompound())
-					drop.setTagCompound(new NBTTagCompound());
-				NBTTagCompound cmp = drop.getTagCompound();
-				cmp.setInteger(TAG_PASSIVE_DECAY_TICKS, passiveDecayTicks);
+				drop.getOrCreateTag().putInt(TAG_PASSIVE_DECAY_TICKS, passiveDecayTicks);
 			}
 		}
 	}
@@ -216,8 +212,8 @@ public class SubTileGenerating extends SubTileEntity {
 	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase entity, ItemStack stack) {
 		super.onBlockPlacedBy(world, pos, state, entity, stack);
 		if(isPassiveFlower()) {
-			NBTTagCompound cmp = stack.getTagCompound();
-			passiveDecayTicks = cmp.getInteger(TAG_PASSIVE_DECAY_TICKS);
+			NBTTagCompound cmp = stack.getTag();
+			passiveDecayTicks = cmp.getInt(TAG_PASSIVE_DECAY_TICKS);
 		}
 	}
 
@@ -230,7 +226,7 @@ public class SubTileGenerating extends SubTileEntity {
 			sync();
 
 		knownMana = mana;
-		SoundEvent evt = ForgeRegistries.SOUND_EVENTS.getValue(DING_SOUND_EVENT);
+		SoundEvent evt = IRegistry.SOUND_EVENT.get(DING_SOUND_EVENT);
 		if(evt != null)
 			player.playSound(evt, 0.1F, 1F);
 
@@ -247,34 +243,34 @@ public class SubTileGenerating extends SubTileEntity {
 
 	@Override
 	public void readFromPacketNBT(NBTTagCompound cmp) {
-		mana = cmp.getInteger(TAG_MANA);
-		passiveDecayTicks = cmp.getInteger(TAG_PASSIVE_DECAY_TICKS);
+		mana = cmp.getInt(TAG_MANA);
+		passiveDecayTicks = cmp.getInt(TAG_PASSIVE_DECAY_TICKS);
 
-		int x = cmp.getInteger(TAG_COLLECTOR_X);
-		int y = cmp.getInteger(TAG_COLLECTOR_Y);
-		int z = cmp.getInteger(TAG_COLLECTOR_Z);
+		int x = cmp.getInt(TAG_COLLECTOR_X);
+		int y = cmp.getInt(TAG_COLLECTOR_Y);
+		int z = cmp.getInt(TAG_COLLECTOR_Z);
 
 		cachedCollectorCoordinates = y < 0 ? null : new BlockPos(x, y, z);
 	}
 
 	@Override
 	public void writeToPacketNBT(NBTTagCompound cmp) {
-		cmp.setInteger(TAG_MANA, mana);
-		cmp.setInteger(TAG_TICKS_EXISTED, ticksExisted);
-		cmp.setInteger(TAG_PASSIVE_DECAY_TICKS, passiveDecayTicks);
+		cmp.putInt(TAG_MANA, mana);
+		cmp.putInt(TAG_TICKS_EXISTED, ticksExisted);
+		cmp.putInt(TAG_PASSIVE_DECAY_TICKS, passiveDecayTicks);
 
 		if(cachedCollectorCoordinates != null) {
-			cmp.setInteger(TAG_COLLECTOR_X, cachedCollectorCoordinates.getX());
-			cmp.setInteger(TAG_COLLECTOR_Y, cachedCollectorCoordinates.getY());
-			cmp.setInteger(TAG_COLLECTOR_Z, cachedCollectorCoordinates.getZ());
+			cmp.putInt(TAG_COLLECTOR_X, cachedCollectorCoordinates.getX());
+			cmp.putInt(TAG_COLLECTOR_Y, cachedCollectorCoordinates.getY());
+			cmp.putInt(TAG_COLLECTOR_Z, cachedCollectorCoordinates.getZ());
 		} else {
 			int x = linkedCollector == null ? 0 : linkedCollector.getPos().getX();
 			int y = linkedCollector == null ? -1 : linkedCollector.getPos().getY();
 			int z = linkedCollector == null ? 0 : linkedCollector.getPos().getZ();
 
-			cmp.setInteger(TAG_COLLECTOR_X, x);
-			cmp.setInteger(TAG_COLLECTOR_Y, y);
-			cmp.setInteger(TAG_COLLECTOR_Z, z);
+			cmp.putInt(TAG_COLLECTOR_X, x);
+			cmp.putInt(TAG_COLLECTOR_Y, y);
+			cmp.putInt(TAG_COLLECTOR_Z, z);
 		}
 	}
 
@@ -309,15 +305,15 @@ public class SubTileGenerating extends SubTileEntity {
 
 
 	public boolean isValidBinding() {
-		return linkedCollector != null && !linkedCollector.isInvalid() && supertile.getWorld().getTileEntity(linkedCollector.getPos()) == linkedCollector;
+		return linkedCollector != null && !linkedCollector.isRemoved() && supertile.getWorld().getTileEntity(linkedCollector.getPos()) == linkedCollector;
 	}
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void renderHUD(Minecraft mc, ScaledResolution res) {
+	public void renderHUD(Minecraft mc) {
 		String name = I18n.format("tile.botania:flower." + getUnlocalizedName() + ".name");
 		int color = getColor();
-		BotaniaAPI.internalHandler.drawComplexManaHUD(color, knownMana, getMaxMana(), name, res, BotaniaAPI.internalHandler.getBindDisplayForFlowerType(this), isValidBinding());
+		BotaniaAPI.internalHandler.drawComplexManaHUD(color, knownMana, getMaxMana(), name, BotaniaAPI.internalHandler.getBindDisplayForFlowerType(this), isValidBinding());
 	}
 
 	@Override

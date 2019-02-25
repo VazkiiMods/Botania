@@ -18,7 +18,6 @@ import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.particles.ItemParticleData;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.Vec3d;
@@ -95,7 +94,7 @@ public class SubTileGourmaryllis extends SubTileGenerating {
 					cooldown = val * 10;
 					item.playSound(SoundEvents.ENTITY_GENERIC_EAT, 0.2F, 0.6F);
 					sync();
-					((WorldServer) supertile.getWorld()).spawnParticle(new ItemParticleData(Particles.ITEM, stack), false, item.posX, item.posY, item.posZ, 20, 0.1D, 0.1D, 0.1D, 0.05D);
+					((WorldServer) supertile.getWorld()).spawnParticle(new ItemParticleData(Particles.ITEM, stack), item.posX, item.posY, item.posZ, 20, 0.1D, 0.1D, 0.1D, 0.05D);
 				}
 
 				item.remove();
@@ -106,10 +105,10 @@ public class SubTileGourmaryllis extends SubTileGenerating {
 	@Override
 	public void writeToPacketNBT(NBTTagCompound cmp) {
 		super.writeToPacketNBT(cmp);
-		cmp.setInt(TAG_COOLDOWN, cooldown);
-		cmp.setInt(TAG_DIGESTING_MANA, digestingMana);
-		cmp.setTag(TAG_LAST_FOOD, lastFood.write(new NBTTagCompound()));
-		cmp.setInt(TAG_LAST_FOOD_COUNT, lastFoodCount);
+		cmp.putInt(TAG_COOLDOWN, cooldown);
+		cmp.putInt(TAG_DIGESTING_MANA, digestingMana);
+		cmp.put(TAG_LAST_FOOD, lastFood.write(new NBTTagCompound()));
+		cmp.putInt(TAG_LAST_FOOD_COUNT, lastFoodCount);
 	}
 
 	@Override

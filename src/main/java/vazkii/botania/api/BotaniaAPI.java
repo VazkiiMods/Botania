@@ -98,8 +98,8 @@ public final class BotaniaAPI {
 	public static final Set<ResourceLocation> subtilesForCreativeMenu = new LinkedHashSet<>();
 	public static final BiMap<ResourceLocation, ResourceLocation> miniFlowers = HashBiMap.create();
 
-	public static final Map<String, Integer> oreWeights = new HashMap<>();
-	public static final Map<String, Integer> oreWeightsNether = new HashMap<>();
+	public static final Map<ResourceLocation, Integer> oreWeights = new HashMap<>();
+	public static final Map<ResourceLocation, Integer> oreWeightsNether = new HashMap<>();
 
 	public static final Set<Item> looniumBlacklist = new LinkedHashSet<>();
 	public static final Map<Block, EnumProperty<EnumDyeColor>> paintableBlocks = new LinkedHashMap<>();
@@ -749,36 +749,33 @@ public final class BotaniaAPI {
 	}
 
 	/**
-	 * Maps an ore (ore dictionary key) to it's weight on the world generation. This
+	 * Maps a block tag to it's weight on the world generation. This
 	 * is used for the Orechid flower. Check the static block in the BotaniaAPI class
 	 * to get the weights for the vanilla blocks.<br>
 	 * Alternatively get the values with the OreDetector mod:<br>
 	 * https://gist.github.com/Vazkii/9493322
 	 */
-	public static void addOreWeight(String ore, int weight) {
-		oreWeights.put(ore, weight);
+	public static void addOreWeight(ResourceLocation tag, int weight) {
+		oreWeights.put(tag, weight);
 	}
 
 	/**
-	 * Maps an ore (ore dictionary key) to it's weight on the nether world generation. This
+	 * Maps a block tag to it's weight on the nether world generation. This
 	 * is used for the Orechid Ignem flower. Check the static block in the BotaniaAPI class
 	 * to get the weights for the vanilla blocks.<br>
 	 * Alternatively get the values with the OreDetector mod:<br>
 	 * https://gist.github.com/Vazkii/9493322
 	 */
-	public static void addOreWeightNether(String ore, int weight) {
-		if(ore.contains("Nether") && OreDictionary.getOres(ore.replace("Nether", "")).size() == 0)
-			return;
-
-		oreWeightsNether.put(ore, weight);
+	public static void addOreWeightNether(ResourceLocation tag, int weight) {
+		oreWeightsNether.put(tag, weight);
 	}
 
-	public static int getOreWeight(String ore) {
-		return oreWeights.get(ore);
+	public static int getOreWeight(ResourceLocation tag) {
+		return oreWeights.get(tag);
 	}
 
-	public static int getOreWeightNether(String ore) {
-		return oreWeightsNether.get(ore);
+	public static int getOreWeightNether(ResourceLocation tag) {
+		return oreWeightsNether.get(tag);
 	}
 
 	/**

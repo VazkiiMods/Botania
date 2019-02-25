@@ -74,7 +74,7 @@ public class SubTileSpectranthemum extends SubTileFunctional {
 					if(mana >= cost) {
 						spawnExplosionParticles(item, 10);
 						item.setPosition(bindPos.getX() + 0.5, bindPos.getY() + 1.5, bindPos.getZ() + 0.5);
-						item.getEntityData().setBoolean(TAG_TELEPORTED, true);
+						item.getEntityData().putBoolean(TAG_TELEPORTED, true);
 						item.motionX = item.motionY = item.motionZ = 0;
 						spawnExplosionParticles(item, 10);
 						mana -= cost;
@@ -100,9 +100,9 @@ public class SubTileSpectranthemum extends SubTileFunctional {
 	@Override
 	public void writeToPacketNBT(NBTTagCompound cmp) {
 		super.writeToPacketNBT(cmp);
-		cmp.setInt(TAG_BIND_X, bindPos.getX());
-		cmp.setInt(TAG_BIND_Y, bindPos.getY());
-		cmp.setInt(TAG_BIND_Z, bindPos.getZ());
+		cmp.putInt(TAG_BIND_X, bindPos.getX());
+		cmp.putInt(TAG_BIND_Y, bindPos.getY());
+		cmp.putInt(TAG_BIND_Z, bindPos.getZ());
 	}
 
 	@Override

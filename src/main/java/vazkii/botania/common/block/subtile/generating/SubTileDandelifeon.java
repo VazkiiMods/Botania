@@ -52,7 +52,7 @@ public class SubTileDandelifeon extends SubTileGenerating {
 			runSimulation();
 	}
 
-	void runSimulation() {
+	private void runSimulation() {
 		int[][] table = getCellTable();
 		List<int[]> changes = new ArrayList<>();
 		new ArrayList();
@@ -102,7 +102,7 @@ public class SubTileDandelifeon extends SubTileGenerating {
 		}
 	}
 
-	int[][] getCellTable() {
+	private int[][] getCellTable() {
 		int diam = RANGE * 2 + 1;
 		int[][] table = new int[diam][diam];
 
@@ -117,7 +117,7 @@ public class SubTileDandelifeon extends SubTileGenerating {
 		return table;
 	}
 
-	int getCellGeneration(BlockPos pos) {
+	private int getCellGeneration(BlockPos pos) {
 		TileEntity tile = supertile.getWorld().getTileEntity(pos);
 		if(tile instanceof TileCell)
 			return ((TileCell) tile).isSameFlower(supertile) ? ((TileCell) tile).getGeneration() : 0;
@@ -125,7 +125,7 @@ public class SubTileDandelifeon extends SubTileGenerating {
 			return -1;
 	}
 
-	int getAdjCells(int[][] table, int x, int z) {
+	private int getAdjCells(int[][] table, int x, int z) {
 		int count = 0;
 		for(int[] shift : ADJACENT_BLOCKS) {
 			int xp = x + shift[0];
@@ -140,7 +140,7 @@ public class SubTileDandelifeon extends SubTileGenerating {
 		return count;
 	}
 
-	int getSpawnCellGeneration(int[][] table, int x, int z) {
+	private int getSpawnCellGeneration(int[][] table, int x, int z) {
 		int max = -1;
 		for(int[] shift : ADJACENT_BLOCKS) {
 			int xp = x + shift[0];

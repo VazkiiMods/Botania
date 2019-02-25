@@ -164,9 +164,9 @@ public class SubTilePureDaisy extends SubTileEntity {
 
 	@Override
 	public void writeToPacketNBT(NBTTagCompound cmp) {
-		cmp.setInt(TAG_POSITION, positionAt);
+		cmp.putInt(TAG_POSITION, positionAt);
 		for(int i = 0; i < ticksRemaining.length; i++)
-			cmp.setInt(TAG_TICKS_REMAINING + i, ticksRemaining[i]);
+			cmp.putInt(TAG_TICKS_REMAINING + i, ticksRemaining[i]);
 	}
 
 	@Override

@@ -10,19 +10,20 @@
  */
 package vazkii.botania.common.block.subtile.generating;
 
+import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Particles;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.particles.ItemParticleData;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -30,6 +31,7 @@ import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileGenerating;
+import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.lexicon.LexiconData;
 
 import java.awt.Color;
@@ -41,7 +43,7 @@ public class SubTileSpectrolus extends SubTileGenerating {
 
 	private static final int RANGE = 1;
 
-	int nextColor;
+	private EnumDyeColor nextColor = EnumDyeColor.WHITE;
 
 	@Override
 	public void onUpdate() {
@@ -50,22 +52,21 @@ public class SubTileSpectrolus extends SubTileGenerating {
 		if (supertile.getWorld().isRemote)
 			return;
 
-		Item wool = Item.getItemFromBlock(Blocks.WOOL);
-
 		List<EntityItem> items = supertile.getWorld().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(supertile.getPos().add(-RANGE, -RANGE, -RANGE), supertile.getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
 		int slowdown = getSlowdownFactor();
 
 		for(EntityItem item : items) {
 			ItemStack stack = item.getItem();
 
-			if(!stack.isEmpty() && stack.getItem() == wool && !item.isDead && item.age >= slowdown) {
-				int meta = stack.getItemDamage();
-				if(meta == nextColor) {
+			if(!stack.isEmpty() && item.isAlive() && item.age >= slowdown) {
+				Block expected = ModBlocks.getWool(nextColor);
+
+				if(expected.asItem() == stack.getItem()) {
 					mana = Math.min(getMaxMana(), mana + 2400);
-					nextColor = nextColor == 15 ? 0 : nextColor + 1;
+					nextColor = nextColor == EnumDyeColor.BLACK ? EnumDyeColor.WHITE : EnumDyeColor.values()[nextColor.ordinal() + 1];
 					sync();
 
-					((WorldServer) supertile.getWorld()).spawnParticle(new ItemParticleData(Particles.ITEM, stack), false, item.posX, item.posY, item.posZ, 20, 0.1D, 0.1D, 0.1D, 0.05D);
+					((WorldServer) supertile.getWorld()).spawnParticle(new ItemParticleData(Particles.ITEM, stack), item.posX, item.posY, item.posZ, 20, 0.1D, 0.1D, 0.1D, 0.05D);
 				}
 
 				item.remove();
@@ -95,21 +96,21 @@ public class SubTileSpectrolus extends SubTileGenerating {
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void renderHUD(Minecraft mc, ScaledResolution res) {
-		super.renderHUD(mc, res);
+	public void renderHUD(Minecraft mc) {
+		super.renderHUD(mc);
 
-		ItemStack stack = new ItemStack(Blocks.WOOL, 1, nextColor);
+		ItemStack stack = new ItemStack(ModBlocks.getWool(nextColor));
 		int color = getColor();
 
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		if(!stack.isEmpty()) {
-			String stackName = stack.getDisplayName();
-			int width = 16 + mc.fontRenderer.getStringWidth(stackName) / 2;
-			int x = res.getScaledWidth() / 2 - width;
-			int y = res.getScaledHeight() / 2 + 30;
+			ITextComponent stackName = stack.getDisplayName();
+			int width = 16 + mc.fontRenderer.getStringWidth(stackName.getString()) / 2;
+			int x = mc.mainWindow.getScaledWidth() / 2 - width;
+			int y = mc.mainWindow.getScaledHeight() / 2 + 30;
 
-			mc.fontRenderer.drawStringWithShadow(stackName, x + 20, y + 5, color);
+			mc.fontRenderer.drawStringWithShadow(stackName.getFormattedText(), x + 20, y + 5, color);
 			RenderHelper.enableGUIStandardItemLighting();
 			mc.getItemRenderer().renderItemAndEffectIntoGUI(stack, x, y);
 			RenderHelper.disableStandardItemLighting();
@@ -122,13 +123,12 @@ public class SubTileSpectrolus extends SubTileGenerating {
 	@Override
 	public void writeToPacketNBT(NBTTagCompound cmp) {
 		super.writeToPacketNBT(cmp);
-		cmp.setInt(TAG_NEXT_COLOR, nextColor);
+		cmp.putInt(TAG_NEXT_COLOR, nextColor.ordinal());
 	}
 
 	@Override
 	public void readFromPacketNBT(NBTTagCompound cmp) {
 		super.readFromPacketNBT(cmp);
-		nextColor = cmp.getInt(TAG_NEXT_COLOR);
+		nextColor = EnumDyeColor.byId(cmp.getInt(TAG_NEXT_COLOR));
 	}
-
 }

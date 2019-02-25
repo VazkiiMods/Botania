@@ -111,8 +111,8 @@ public class SubTileMunchdew extends SubTileGenerating {
 	public void writeToPacketNBT(NBTTagCompound cmp) {
 		super.writeToPacketNBT(cmp);
 
-		cmp.setInt(TAG_COOLDOWN, cooldown);
-		cmp.setBoolean(TAG_ATE_ONCE, ateOnce);
+		cmp.putInt(TAG_COOLDOWN, cooldown);
+		cmp.putBoolean(TAG_ATE_ONCE, ateOnce);
 	}
 
 	@Override

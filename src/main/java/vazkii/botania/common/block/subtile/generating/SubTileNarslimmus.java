@@ -63,7 +63,7 @@ public class SubTileNarslimmus extends SubTileGenerating {
 						float f2 = MathHelper.sin(f) * size * 0.5F * f1;
 						float f3 = MathHelper.cos(f) * size * 0.5F * f1;
 						float f4 = slime.world.rand.nextFloat() * size * 0.5F * f1;
-						slime.world.spawnParticle(Particles.ITEM_SLIME, slime.posX + f2, slime.getBoundingBox().minY + f4, slime.posZ + f3, 0.0D, 0.0D, 0.0D);
+						slime.world.addParticle(Particles.ITEM_SLIME, slime.posX + f2, slime.getBoundingBox().minY + f4, slime.posZ + f3, 0.0D, 0.0D, 0.0D);
 					}
 					break;
 				}
@@ -93,8 +93,14 @@ public class SubTileNarslimmus extends SubTileGenerating {
 
 	@SubscribeEvent
 	public static void onSpawn(LivingSpawnEvent.CheckSpawn event) {
-		if(event.getEntityLiving() instanceof EntitySlime && event.getResult() != Event.Result.DENY && isSlimeChunk(event.getEntityLiving().world, MathHelper.floor(event.getX()), MathHelper.floor(event.getZ())))
-			event.getEntityLiving().getEntityData().setBoolean(TAG_WORLD_SPAWNED, true);
+		if(event.getEntityLiving() instanceof EntitySlime
+				&& event.getResult() != Event.Result.DENY
+				&& isSlimeChunk(event.getEntityLiving().world, event.getX(), event.getZ()))
+			event.getEntityLiving().getEntityData().putBoolean(TAG_WORLD_SPAWNED, true);
+	}
+
+	private static boolean isSlimeChunk(World world, double x, double z) {
+		return isSlimeChunk(world, new BlockPos(x, 0, z));
 	}
 
 	public static boolean isSlimeChunk(World world, BlockPos pos) {

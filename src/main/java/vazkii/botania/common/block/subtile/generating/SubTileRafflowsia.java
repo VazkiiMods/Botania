@@ -33,8 +33,8 @@ public class SubTileRafflowsia extends SubTileGenerating {
 	private static final String TAG_LAST_FLOWER = "lastFlower";
 	private static final String TAG_LAST_FLOWER_TIMES = "lastFlowerTimes";
 
-	String lastFlower;
-	int lastFlowerTimes;
+	private String lastFlower;
+	private int lastFlowerTimes;
 
 	private static final int RANGE = 5;
 
@@ -80,8 +80,8 @@ public class SubTileRafflowsia extends SubTileGenerating {
 	public void writeToPacketNBT(NBTTagCompound cmp) {
 		super.writeToPacketNBT(cmp);
 
-		cmp.setString(TAG_LAST_FLOWER, lastFlower);
-		cmp.setInt(TAG_LAST_FLOWER_TIMES, lastFlowerTimes);
+		cmp.putString(TAG_LAST_FLOWER, lastFlower);
+		cmp.putInt(TAG_LAST_FLOWER_TIMES, lastFlowerTimes);
 	}
 
 	@Override

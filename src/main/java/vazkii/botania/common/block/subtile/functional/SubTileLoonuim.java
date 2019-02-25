@@ -134,7 +134,7 @@ public class SubTileLoonuim extends SubTileFunctional {
 			entity.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, entity instanceof EntityCreeper ? 100 : Integer.MAX_VALUE, 0));
 
 			NBTTagCompound cmp = stack.write(new NBTTagCompound());
-			entity.getEntityData().setTag(TAG_ITEMSTACK_TO_DROP, cmp);
+			entity.getEntityData().put(TAG_ITEMSTACK_TO_DROP, cmp);
 
 			entity.onInitialSpawn(world.getDifficultyForLocation(pos), null, null);
 			world.spawnEntity(entity);
@@ -173,21 +173,21 @@ public class SubTileLoonuim extends SubTileFunctional {
 	@Override
 	public void readFromPacketNBT(NBTTagCompound cmp) {
 		super.readFromPacketNBT(cmp);
-		if (cmp.hasKey(TAG_LOOT_TABLE))
+		if (cmp.contains(TAG_LOOT_TABLE))
 			lootTable = new ResourceLocation(cmp.getString(TAG_LOOT_TABLE));
 	}
 
 	@Override
 	public void writeToPacketNBT(NBTTagCompound cmp) {
 		super.writeToPacketNBT(cmp);
-		cmp.setString(TAG_LOOT_TABLE, lootTable.toString());
+		cmp.putString(TAG_LOOT_TABLE, lootTable.toString());
 	}
 
 	@SubscribeEvent(priority = EventPriority.LOWEST)
 	public static void onDrops(LivingDropsEvent event) {
 		EntityLivingBase e = event.getEntityLiving();
-		if(e.getEntityData().hasKey(TAG_ITEMSTACK_TO_DROP)) {
-			NBTTagCompound cmp = e.getEntityData().getCompoundTag(TAG_ITEMSTACK_TO_DROP);
+		if(e.getEntityData().contains(TAG_ITEMSTACK_TO_DROP)) {
+			NBTTagCompound cmp = e.getEntityData().getCompound(TAG_ITEMSTACK_TO_DROP);
 			ItemStack stack = ItemStack.read(cmp);
 			event.getDrops().clear();
 			event.getDrops().add(new EntityItem(e.world, e.posX, e.posY, e.posZ, stack));

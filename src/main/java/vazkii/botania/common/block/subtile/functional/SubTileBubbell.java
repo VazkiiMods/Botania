@@ -78,7 +78,7 @@ public class SubTileBubbell extends SubTileFunctional {
 	@Override
 	public void writeToPacketNBT(NBTTagCompound cmp) {
 		super.writeToPacketNBT(cmp);
-		cmp.setInt(TAG_RANGE, range);
+		cmp.putInt(TAG_RANGE, range);
 	}
 
 	@Override

@@ -12,8 +12,7 @@ package vazkii.botania.api.subtile;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.renderer.model.ModelResourceLocation;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -71,13 +70,13 @@ public class SubTileEntity {
 	}
 
 	public final void writeToPacketNBTInternal(NBTTagCompound cmp) {
-		cmp.setInteger(TAG_TICKS_EXISTED, ticksExisted);
+		cmp.putInt(TAG_TICKS_EXISTED, ticksExisted);
 		writeToPacketNBT(cmp);
 	}
 
 	public final void readFromPacketNBTInternal(NBTTagCompound cmp) {
-		if(cmp.hasKey(TAG_TICKS_EXISTED))
-			ticksExisted = cmp.getInteger(TAG_TICKS_EXISTED);
+		if(cmp.contains(TAG_TICKS_EXISTED))
+			ticksExisted = cmp.getInt(TAG_TICKS_EXISTED);
 		readFromPacketNBT(cmp);
 	}
 
@@ -213,7 +212,7 @@ public class SubTileEntity {
 	 * Used to render a HUD portraying some data from this sub tile.
 	 */
 	@OnlyIn(Dist.CLIENT)
-	public void renderHUD(Minecraft mc, ScaledResolution res) {}
+	public void renderHUD(Minecraft mc) {}
 
 	/**
 	 * Gets the light value for this SubTileEntity, this is a int (-1 to default to the flower)

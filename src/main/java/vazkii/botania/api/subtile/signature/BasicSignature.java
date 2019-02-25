@@ -12,8 +12,9 @@ package vazkii.botania.api.subtile.signature;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -66,8 +67,8 @@ public class BasicSignature implements SubTileSignature {
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void addTooltip(ItemStack stack, World world, List<String> tooltip) {
-		tooltip.add(TextFormatting.BLUE + I18n.translateToLocal(getType()));
+	public void addTooltip(ItemStack stack, World world, List<ITextComponent> tooltip) {
+		tooltip.add(new TextComponentTranslation(getType()).applyTextStyle(TextFormatting.BLUE));
 	}
 
 	private String unlocalizedName(String end) {

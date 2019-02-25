@@ -11,7 +11,6 @@
 package vazkii.botania.api.subtile;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -20,7 +19,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
+import net.minecraft.util.registry.IRegistry;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.BotaniaAPI;
@@ -76,7 +75,7 @@ public class SubTileFunctional extends SubTileEntity {
 
 		if(acceptsRedstone()) {
 			redstoneSignal = 0;
-			for(EnumFacing dir : EnumFacing.VALUES) {
+			for(EnumFacing dir : EnumFacing.BY_INDEX) {
 				int redstoneSide = supertile.getWorld().getRedstonePower(supertile.getPos().offset(dir), dir);
 				redstoneSignal = Math.max(redstoneSignal, redstoneSide);
 			}
@@ -100,7 +99,7 @@ public class SubTileFunctional extends SubTileEntity {
 				if(supertile.getWorld().isBlockLoaded(cachedPoolCoordinates)) {
 					needsNew = true;
 					TileEntity tileAt = supertile.getWorld().getTileEntity(cachedPoolCoordinates);
-					if(tileAt != null && tileAt instanceof IManaPool && !tileAt.isInvalid()) {
+					if(tileAt != null && tileAt instanceof IManaPool && !tileAt.isRemoved()) {
 						linkedPool = tileAt;
 						needsNew = false;
 					}
@@ -137,7 +136,7 @@ public class SubTileFunctional extends SubTileEntity {
 			return false;
 
 		knownMana = mana;
-		SoundEvent evt = ForgeRegistries.SOUND_EVENTS.getValue(DING_SOUND_EVENT);
+		SoundEvent evt = IRegistry.SOUND_EVENT.get(DING_SOUND_EVENT);
 		if(evt != null)
 			player.playSound(evt, 0.1F, 1F);
 
@@ -154,31 +153,31 @@ public class SubTileFunctional extends SubTileEntity {
 
 	@Override
 	public void readFromPacketNBT(NBTTagCompound cmp) {
-		mana = cmp.getInteger(TAG_MANA);
+		mana = cmp.getInt(TAG_MANA);
 
-		int x = cmp.getInteger(TAG_POOL_X);
-		int y = cmp.getInteger(TAG_POOL_Y);
-		int z = cmp.getInteger(TAG_POOL_Z);
+		int x = cmp.getInt(TAG_POOL_X);
+		int y = cmp.getInt(TAG_POOL_Y);
+		int z = cmp.getInt(TAG_POOL_Z);
 
 		cachedPoolCoordinates = y < 0 ? null : new BlockPos(x, y, z);
 	}
 
 	@Override
 	public void writeToPacketNBT(NBTTagCompound cmp) {
-		cmp.setInteger(TAG_MANA, mana);
+		cmp.putInt(TAG_MANA, mana);
 
 		if(cachedPoolCoordinates != null) {
-			cmp.setInteger(TAG_POOL_X, cachedPoolCoordinates.getX());
-			cmp.setInteger(TAG_POOL_Y, cachedPoolCoordinates.getY());
-			cmp.setInteger(TAG_POOL_Z, cachedPoolCoordinates.getZ());
+			cmp.putInt(TAG_POOL_X, cachedPoolCoordinates.getX());
+			cmp.putInt(TAG_POOL_Y, cachedPoolCoordinates.getY());
+			cmp.putInt(TAG_POOL_Z, cachedPoolCoordinates.getZ());
 		} else {
 			int x = linkedPool == null ? 0 : linkedPool.getPos().getX();
 			int y = linkedPool == null ? -1 : linkedPool.getPos().getY();
 			int z = linkedPool == null ? 0 : linkedPool.getPos().getZ();
 
-			cmp.setInteger(TAG_POOL_X, x);
-			cmp.setInteger(TAG_POOL_Y, y);
-			cmp.setInteger(TAG_POOL_Z, z);
+			cmp.putInt(TAG_POOL_X, x);
+			cmp.putInt(TAG_POOL_Y, y);
+			cmp.putInt(TAG_POOL_Z, z);
 		}
 	}
 
@@ -212,15 +211,15 @@ public class SubTileFunctional extends SubTileEntity {
 	}
 
 	public boolean isValidBinding() {
-		return linkedPool != null && linkedPool.hasWorld() && !linkedPool.isInvalid() && supertile.getWorld().isBlockLoaded(linkedPool.getPos(), false) && supertile.getWorld().getTileEntity(linkedPool.getPos()) == linkedPool;
+		return linkedPool != null && linkedPool.hasWorld() && !linkedPool.isRemoved() && supertile.getWorld().isBlockLoaded(linkedPool.getPos(), false) && supertile.getWorld().getTileEntity(linkedPool.getPos()) == linkedPool;
 	}
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void renderHUD(Minecraft mc, ScaledResolution res) {
+	public void renderHUD(Minecraft mc) {
 		String name = I18n.format("tile.botania:flower." + getUnlocalizedName() + ".name");
 		int color = getColor();
-		BotaniaAPI.internalHandler.drawComplexManaHUD(color, knownMana, getMaxMana(), name, res, BotaniaAPI.internalHandler.getBindDisplayForFlowerType(this), isValidBinding());
+		BotaniaAPI.internalHandler.drawComplexManaHUD(color, knownMana, getMaxMana(), name, BotaniaAPI.internalHandler.getBindDisplayForFlowerType(this), isValidBinding());
 	}
 
 }

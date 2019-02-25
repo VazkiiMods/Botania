@@ -146,8 +146,8 @@ public class SubTileDaffomill extends SubTileFunctional {
 	public void writeToPacketNBT(NBTTagCompound cmp) {
 		super.writeToPacketNBT(cmp);
 
-		cmp.setInt(TAG_ORIENTATION, orientation.getIndex());
-		cmp.setInt(TAG_WIND_TICKS, windTicks);
+		cmp.putInt(TAG_ORIENTATION, orientation.getIndex());
+		cmp.putInt(TAG_WIND_TICKS, windTicks);
 	}
 
 	@Override

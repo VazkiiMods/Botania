@@ -21,18 +21,21 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.BotaniaAPI;
@@ -56,20 +59,23 @@ public class ItemBlockSpecialFlower extends ItemBlockMod implements IRecipeKeyPr
 
 	public ItemBlockSpecialFlower(Block block1) {
 		super(block1);
-		setHasSubtypes(true);
 	}
 
 	@Override
-	public boolean placeBlockAt(@Nonnull ItemStack stack, @Nonnull EntityPlayer player, World world, @Nonnull BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, @Nonnull IBlockState newState) {
-		boolean placed = super.placeBlockAt(stack, player, world, pos, side, hitX, hitY, hitZ, newState);
+	public boolean placeBlock(BlockItemUseContext ctx,  @Nonnull IBlockState newState) {
+		boolean placed = super.placeBlock(ctx, newState);
 		if(placed) {
-			ResourceLocation type = getType(stack);
+			World world = ctx.getWorld();
+			BlockPos pos = ctx.getPos();
+			ItemStack stack = ctx.getItem();
+
+			ResourceLocation type = getType(ctx.getItem());
 			TileEntity te = world.getTileEntity(pos);
 			if(te instanceof TileSpecialFlower) {
 				TileSpecialFlower tile = (TileSpecialFlower) te;
 				tile.setSubTile(type);
 				tile.onBlockAdded(world, pos, newState);
-				tile.onBlockPlacedBy(world, pos, newState, player, stack);
+				tile.onBlockPlacedBy(world, pos, newState, ctx.getPlayer(), stack);
 				if(!world.isRemote)
 					world.notifyBlockUpdate(pos, world.getBlockState(pos), world.getBlockState(pos), 8);
 			}
@@ -84,15 +90,9 @@ public class ItemBlockSpecialFlower extends ItemBlockMod implements IRecipeKeyPr
 		return BotaniaAPI.getSignatureForName(getType(stack)).getUnlocalizedNameForStack(stack);
 	}
 
-	@Nonnull
-	@Override
-	public String getUnlocalizedNameInefficiently(@Nonnull ItemStack par1ItemStack) {
-		return getUnlocalizedNameInefficiently_(par1ItemStack);
-	}
-
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void addInformation(@Nonnull ItemStack par1ItemStack, World world, @Nonnull List<String> stacks, @Nonnull ITooltipFlag flag) {
+	public void addInformation(@Nonnull ItemStack par1ItemStack, World world, @Nonnull List<ITextComponent> stacks, @Nonnull ITooltipFlag flag) {
 		ResourceLocation type = getType(par1ItemStack);
 		SubTileSignature sig = BotaniaAPI.getSignatureForName(type);
 
@@ -102,7 +102,7 @@ public class ItemBlockSpecialFlower extends ItemBlockMod implements IRecipeKeyPr
 			String refUnlocalized = sig.getUnlocalizedLoreTextForStack(par1ItemStack);
 			String refLocalized = I18n.format(refUnlocalized);
 			if(!refLocalized.equals(refUnlocalized))
-				stacks.add(TextFormatting.ITALIC + refLocalized);
+				stacks.add(new TextComponentTranslation(refLocalized).applyTextStyle(TextFormatting.ITALIC));
 		}
 	}
 
@@ -112,7 +112,7 @@ public class ItemBlockSpecialFlower extends ItemBlockMod implements IRecipeKeyPr
 	}
 
 	public static ResourceLocation getType(ItemStack stack) {
-		return stack.hasTagCompound() ? new ResourceLocation(ItemNBTHelper.getString(stack, SubTileEntity.TAG_TYPE, BotaniaAPI.DUMMY_SUBTILE_NAME.toString())) : BotaniaAPI.DUMMY_SUBTILE_NAME;
+		return stack.hasTag() ? new ResourceLocation(ItemNBTHelper.getString(stack, SubTileEntity.TAG_TYPE, BotaniaAPI.DUMMY_SUBTILE_NAME.toString())) : BotaniaAPI.DUMMY_SUBTILE_NAME;
 	}
 
 	public static ItemStack ofType(ResourceLocation type) {

@@ -10,8 +10,7 @@
  */
 package vazkii.botania.api.internal;
 
-import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.renderer.model.ModelResourceLocation;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -104,10 +103,10 @@ public interface IInternalMethodHandler {
 	public boolean hasSolegnoliaAround(Entity e);
 
 	@OnlyIn(Dist.CLIENT)
-	public void drawSimpleManaHUD(int color, int mana, int maxMana, String name, ScaledResolution res);
+	public void drawSimpleManaHUD(int color, int mana, int maxMana, String name);
 
 	@OnlyIn(Dist.CLIENT)
-	public void drawComplexManaHUD(int color, int mana, int maxMana, String name, ScaledResolution res, ItemStack bindDisplay, boolean properlyBound);
+	public void drawComplexManaHUD(int color, int mana, int maxMana, String name, ItemStack bindDisplay, boolean properlyBound);
 
 	public ItemStack getBindDisplayForFlowerType(SubTileEntity e);
 

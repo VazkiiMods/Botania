@@ -10,15 +10,15 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
-import com.google.common.base.Predicate;
-import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
+import net.minecraft.util.ResourceLocation;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.lexicon.LexiconData;
 
 import java.util.Map;
+import java.util.function.Predicate;
 
 public class SubTileOrechidIgnem extends SubTileOrechid {
 
@@ -30,7 +30,7 @@ public class SubTileOrechidIgnem extends SubTileOrechid {
 	}
 
 	@Override
-	public Map<String, Integer> getOreMap() {
+	public Map<ResourceLocation, Integer> getOreMap() {
 		return BotaniaAPI.oreWeightsNether;
 	}
 

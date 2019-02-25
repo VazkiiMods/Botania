@@ -10,15 +10,15 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
-import com.google.common.base.Predicate;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockStone;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.block.state.pattern.BlockStateMatcher;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.Tag;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.WeightedRandom;
 import net.minecraft.util.math.BlockPos;
@@ -35,6 +35,7 @@ import vazkii.botania.common.lexicon.LexiconData;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Predicate;
 
 public class SubTileOrechid extends SubTileFunctional {
 
@@ -44,6 +45,7 @@ public class SubTileOrechid extends SubTileFunctional {
 	private static final int DELAY_GOG = 2;
 	private static final int RANGE = 5;
 	private static final int RANGE_Y = 3;
+	private static final int TRIES = 20;
 
 	@Override
 	public void onUpdate() {
@@ -56,13 +58,11 @@ public class SubTileOrechid extends SubTileFunctional {
 		if(mana >= cost && ticksExisted % getDelay() == 0) {
 			BlockPos coords = getCoordsToPut();
 			if(coords != null) {
-				ItemStack stack = getOreToPut();
-				if(!stack.isEmpty()) {
-					Block block = Block.getBlockFromItem(stack.getItem());
-					int meta = stack.getItemDamage();
-					supertile.getWorld().setBlockState(coords, block.getStateFromMeta(meta), 1 | 2);
+				IBlockState state = getOreToPut();
+				if(state != null) {
+					supertile.getWorld().setBlockState(coords, state);
 					if(ConfigHandler.blockBreakParticles)
-						supertile.getWorld().playEvent(2001, coords, Block.getIdFromBlock(block) + (meta << 12));
+						supertile.getWorld().playEvent(2001, coords, Block.getStateId(state));
 					supertile.getWorld().playSound(null, supertile.getPos(), ModSounds.orechid, SoundCategory.BLOCKS, 2F, 1F);
 
 					mana -= cost;
@@ -72,36 +72,21 @@ public class SubTileOrechid extends SubTileFunctional {
 		}
 	}
 
-	public ItemStack getOreToPut() {
-		List<WeightedRandom.Item> values = new ArrayList<>();
-		Map<String, Integer> map = getOreMap();
-		for(String s : map.keySet())
-			values.add(new StringRandomItem(map.get(s), s));
+	private IBlockState getOreToPut() {
+		for (int i = 0; i < TRIES; i++) {
+			List<WeightedRandom.Item> values = new ArrayList<>();
+			Map<ResourceLocation, Integer> map = getOreMap();
+			for(ResourceLocation s : map.keySet())
+				values.add(new TagRandomItem(map.get(s), s));
 
-		String ore = ((StringRandomItem) WeightedRandom.getRandomItem(supertile.getWorld().rand, values)).s;
-
-		List<ItemStack> ores = OreDictionary.getOres(ore);
-
-		for(ItemStack stack : ores) {
-			Item item = stack.getItem();
-			String clname = item.getClass().getName();
-
-			// This poem is dedicated to Greg
-			//
-			// Greg.
-			// I get what you do when
-			// others say it's a grind.
-			// But take your TE ores
-			// and stick them in your behind.
-			if(clname.startsWith("gregtech") || clname.startsWith("gregapi"))
-				continue;
-			if(!(item instanceof ItemBlock))
-				continue;
-
-			return stack;
+			ResourceLocation ore = ((TagRandomItem) WeightedRandom.getRandomItem(supertile.getWorld().rand, values)).s;
+			Tag<Block> tag = BlockTags.getCollection().get(ore);
+			if(tag != null && !tag.getAllElements().isEmpty()) {
+				return tag.getRandomElement(getWorld().getRandom()).getDefaultState();
+			}
 		}
 
-		return getOreToPut();
+		return null;
 	}
 
 	private BlockPos getCoordsToPut() {
@@ -122,7 +107,7 @@ public class SubTileOrechid extends SubTileFunctional {
 		return true;
 	}
 
-	public Map<String, Integer> getOreMap() {
+	public Map<ResourceLocation, Integer> getOreMap() {
 		return BotaniaAPI.oreWeights;
 	}
 
@@ -163,12 +148,12 @@ public class SubTileOrechid extends SubTileFunctional {
 		return LexiconData.orechid;
 	}
 
-	private static class StringRandomItem extends WeightedRandom.Item {
+	private static class TagRandomItem extends WeightedRandom.Item {
 
-		public final String s;
+		public final ResourceLocation s;
 
-		public StringRandomItem(int par1, String s) {
-			super(par1);
+		public TagRandomItem(int weight, ResourceLocation s) {
+			super(weight);
 			this.s = s;
 		}
 

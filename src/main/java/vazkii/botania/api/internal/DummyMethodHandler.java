@@ -149,10 +149,10 @@ public class DummyMethodHandler implements IInternalMethodHandler {
 	}
 
 	@Override
-	public void drawSimpleManaHUD(int color, int mana, int maxMana, String name, ScaledResolution res) {}
+	public void drawSimpleManaHUD(int color, int mana, int maxMana, String name) {}
 
 	@Override
-	public void drawComplexManaHUD(int color, int mana, int maxMana, String name, ScaledResolution res, ItemStack bindDisplay, boolean properlyBound) {}
+	public void drawComplexManaHUD(int color, int mana, int maxMana, String name, ItemStack bindDisplay, boolean properlyBound) {}
 
 	@Override
 	public ItemStack getBindDisplayForFlowerType(SubTileEntity e) {

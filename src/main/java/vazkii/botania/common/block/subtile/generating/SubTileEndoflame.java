@@ -47,7 +47,7 @@ public class SubTileEndoflame extends SubTileGenerating {
 		if(getWorld().isRemote) {
 			if(burnTime > 0 && supertile.getWorld().rand.nextInt(10) == 0) {
 				Vec3d offset = getWorld().getBlockState(getPos()).getOffset(getWorld(), getPos()).add(0.4, 0.7, 0.4);
-				supertile.getWorld().spawnParticle(Particles.FLAME, supertile.getPos().getX() + offset.x + Math.random() * 0.2, supertile.getPos().getY() + offset.y, supertile.getPos().getZ() + offset.z + Math.random() * 0.2, 0.0D, 0.0D, 0.0D);
+				supertile.getWorld().addParticle(Particles.FLAME, supertile.getPos().getX() + offset.x + Math.random() * 0.2, supertile.getPos().getY() + offset.y, supertile.getPos().getZ() + offset.z + Math.random() * 0.2, 0.0D, 0.0D, 0.0D);
 			}
 			return;
 		}
@@ -86,8 +86,8 @@ public class SubTileEndoflame extends SubTileGenerating {
 		if(event == START_BURN_EVENT) {
 			Entity e = getWorld().getEntityByID(param);
 			if(e != null) {
-				e.world.spawnParticle(Particles.LARGE_SMOKE, e.posX, e.posY + 0.1, e.posZ, 0.0D, 0.0D, 0.0D);
-				e.world.spawnParticle(Particles.FLAME, e.posX, e.posY, e.posZ, 0.0D, 0.0D, 0.0D);
+				e.world.addParticle(Particles.LARGE_SMOKE, e.posX, e.posY + 0.1, e.posZ, 0.0D, 0.0D, 0.0D);
+				e.world.addParticle(Particles.FLAME, e.posX, e.posY, e.posZ, 0.0D, 0.0D, 0.0D);
 			}
 			return true;
 		} else {
@@ -124,7 +124,7 @@ public class SubTileEndoflame extends SubTileGenerating {
 	public void writeToPacketNBT(NBTTagCompound cmp) {
 		super.writeToPacketNBT(cmp);
 
-		cmp.setInt(TAG_BURN_TIME, burnTime);
+		cmp.putInt(TAG_BURN_TIME, burnTime);
 	}
 
 	@Override

@@ -28,6 +28,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -160,22 +161,22 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void renderHUD(Minecraft mc, ScaledResolution res) {
-		super.renderHUD(mc, res);
+	public void renderHUD(Minecraft mc) {
+		super.renderHUD(mc);
 
 		IBlockState filter = getUnderlyingBlock();
-		ItemStack recieverStack = new ItemStack(Item.getItemFromBlock(filter.getBlock()), 1, filter.getBlock().getMetaFromState(filter));
+		ItemStack recieverStack = new ItemStack(filter.getBlock());
 		int color = getColor();
 
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		if(!recieverStack.isEmpty()) {
-			String stackName = recieverStack.getDisplayName();
-			int width = 16 + mc.fontRenderer.getStringWidth(stackName) / 2;
-			int x = res.getScaledWidth() / 2 - width;
-			int y = res.getScaledHeight() / 2 + 30;
+			ITextComponent stackName = recieverStack.getDisplayName();
+			int width = 16 + mc.fontRenderer.getStringWidth(stackName.getString()) / 2;
+			int x = mc.mainWindow.getScaledWidth() / 2 - width;
+			int y = mc.mainWindow.getScaledHeight() / 2 + 30;
 
-			mc.fontRenderer.drawStringWithShadow(stackName, x + 20, y + 5, color);
+			mc.fontRenderer.drawStringWithShadow(stackName.getFormattedText(), x + 20, y + 5, color);
 			RenderHelper.enableGUIStandardItemLighting();
 			mc.getItemRenderer().renderItemAndEffectIntoGUI(recieverStack, x, y);
 			RenderHelper.disableStandardItemLighting();

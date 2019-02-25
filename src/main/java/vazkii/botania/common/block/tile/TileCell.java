@@ -54,15 +54,15 @@ public class TileCell extends TileMod {
 
 	@Override
 	public void writePacketNBT(NBTTagCompound cmp) {
-		cmp.setInt(TAG_GENERATION, generation);
-		cmp.setBoolean(TAG_TICKED, ticked);
+		cmp.putInt(TAG_GENERATION, generation);
+		cmp.putBoolean(TAG_TICKED, ticked);
 		if(ticked) {
-			cmp.setInt(TAG_FLOWER_X, flowerCoords.getX());
-			cmp.setInt(TAG_FLOWER_Y, flowerCoords.getY());
-			cmp.setInt(TAG_FLOWER_Z, flowerCoords.getZ());
-			cmp.setInt(TAG_VALID_X, validCoords.getX());
-			cmp.setInt(TAG_VALID_Y, validCoords.getY());
-			cmp.setInt(TAG_VALID_Z, validCoords.getZ());
+			cmp.putInt(TAG_FLOWER_X, flowerCoords.getX());
+			cmp.putInt(TAG_FLOWER_Y, flowerCoords.getY());
+			cmp.putInt(TAG_FLOWER_Z, flowerCoords.getZ());
+			cmp.putInt(TAG_VALID_X, validCoords.getX());
+			cmp.putInt(TAG_VALID_Y, validCoords.getY());
+			cmp.putInt(TAG_VALID_Z, validCoords.getZ());
 		}
 	}
 
