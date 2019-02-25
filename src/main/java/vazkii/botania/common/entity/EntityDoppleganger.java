@@ -656,7 +656,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 
 		bossInfo.setPercent(getHealth() / getMaxHealth());
 
-		if(!getPassengers().isEmpty())
+		if(isRiding())
 			dismountRidingEntity();
 
 		if(world.getDifficulty() == EnumDifficulty.PEACEFUL)
