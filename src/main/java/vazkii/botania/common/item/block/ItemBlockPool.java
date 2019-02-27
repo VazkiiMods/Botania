@@ -11,10 +11,11 @@
 package vazkii.botania.common.item.block;
 
 import net.minecraft.block.Block;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -26,20 +27,20 @@ import java.util.List;
 
 public class ItemBlockPool extends ItemBlockMod {
 
-	public ItemBlockPool(Block block) {
-		super(block);
+	public ItemBlockPool(Block block, Properties props) {
+		super(block, props);
 		addPropertyOverride(new ResourceLocation(LibMisc.MOD_ID, "full"), (stack, worldIn, entityIn) -> {
-			boolean renderFull = ((BlockPool) block).variant == BlockPool.Variant.CREATIVE || stack.hasTagCompound() && stack.getTagCompound().getBoolean("RenderFull");
+			boolean renderFull = ((BlockPool) block).variant == BlockPool.Variant.CREATIVE || stack.hasTag() && stack.getTag().getBoolean("RenderFull");
 			return renderFull ? 1F : 0F;
 		});
 	}
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void addInformation(@Nonnull ItemStack par1ItemStack, World world, @Nonnull List<String> stacks, @Nonnull ITooltipFlag flag) {
-		if(((BlockPool) block).variant == BlockPool.Variant.CREATIVE)
+	public void addInformation(@Nonnull ItemStack par1ItemStack, World world, @Nonnull List<ITextComponent> stacks, @Nonnull ITooltipFlag flag) {
+		if(((BlockPool) getBlock()).variant == BlockPool.Variant.CREATIVE)
 			for(int i = 0; i < 2; i++)
-				stacks.add(I18n.format("botaniamisc.creativePool" + i));
+				stacks.add(new TextComponentTranslation("botaniamisc.creativePool" + i));
 	}
 
 }

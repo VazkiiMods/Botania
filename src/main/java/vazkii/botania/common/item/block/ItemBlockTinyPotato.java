@@ -48,13 +48,13 @@ public class ItemBlockTinyPotato extends ItemBlockMod {
 
 	private static final String TAG_TICKS = "notMyNameTicks";
 
-	public ItemBlockTinyPotato(Block block) {
-		super(block);
+	public ItemBlockTinyPotato(Block block, Properties props) {
+		super(block, props);
 	}
 
 	@Override
-	public void onUpdate(ItemStack stack, World world, Entity e, int t, boolean idunno) {
-		if(!world.isRemote && e instanceof EntityPlayer && e.ticksExisted % 30 == 0 && TYPOS.contains(stack.getDisplayName().toLowerCase())) {
+	public void inventoryTick(ItemStack stack, World world, Entity e, int t, boolean idunno) {
+		if(!world.isRemote && e instanceof EntityPlayer && e.ticksExisted % 30 == 0 && TYPOS.contains(stack.getDisplayName().getString().toLowerCase())) {
 			EntityPlayer player = (EntityPlayer) e;
 			int ticks = ItemNBTHelper.getInt(stack, TAG_TICKS, 0);
 			if(ticks < NOT_MY_NAME.length) {

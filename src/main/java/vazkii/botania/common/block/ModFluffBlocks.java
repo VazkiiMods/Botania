@@ -34,7 +34,7 @@ import vazkii.botania.common.block.decor.stairs.BlockModStairs;
 import vazkii.botania.common.block.decor.stairs.BlockPavementStairs;
 import vazkii.botania.common.block.decor.walls.BlockBiomeStoneWall;
 import vazkii.botania.common.block.decor.walls.BlockModWall;
-import vazkii.botania.common.core.BotaniaCreativeTab;
+import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.block.ItemBlockMod;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -349,7 +349,7 @@ public final class ModFluffBlocks {
 	@SubscribeEvent
 	public static void registerItemBlocks(RegistryEvent.Register<Item> evt) {
 		IForgeRegistry<Item> r = evt.getRegistry();
-		Item.Properties props = new Item.Properties().group(BotaniaCreativeTab.INSTANCE);
+		Item.Properties props = ModItems.defaultBuilder();
 		
 		r.register(new ItemBlockMod(livingwoodStairs, props).setRegistryName(livingwoodStairs.getRegistryName()));
 		r.register(new ItemBlockMod(livingwoodSlab, props).setRegistryName(livingwoodSlab.getRegistryName()));

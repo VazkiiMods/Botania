@@ -377,7 +377,7 @@ public final class ModItems {
 	public static final Item astrolabe = new ItemAstrolabe(unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.ASTROLABE);
 	public static final Item goddessCharm = new ItemGoddessCharm(unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.GODDESS_CHARM);
 
-	private static Item.Properties defaultBuilder() {
+	public static Item.Properties defaultBuilder() {
 		return new Item.Properties().group(BotaniaCreativeTab.INSTANCE);
 	}
 

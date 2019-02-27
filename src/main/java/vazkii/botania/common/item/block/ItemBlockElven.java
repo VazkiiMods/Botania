@@ -16,13 +16,13 @@ import vazkii.botania.api.recipe.IElvenItem;
 
 public class ItemBlockElven extends ItemBlockMod implements IElvenItem {
 
-	public ItemBlockElven(Block block) {
-		super(block);
+	public ItemBlockElven(Block block, Properties props) {
+		super(block, props);
 	}
 
 	@Override
 	public boolean isElvenItem(ItemStack stack) {
-		return ((IElvenItem) block).isElvenItem(stack);
+		return ((IElvenItem) getBlock()).isElvenItem(stack);
 	}
 
 }

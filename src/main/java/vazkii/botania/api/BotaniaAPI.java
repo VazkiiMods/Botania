@@ -93,7 +93,7 @@ public final class BotaniaAPI {
 	public static final List<RecipeManaInfusion> miniFlowerRecipes = new ArrayList<>();
 
 	public static final ResourceLocation DUMMY_SUBTILE_NAME = new ResourceLocation("botania", "dummy");
-	private static final RegistryNamespacedDefaultedByKey<ResourceLocation, Class<? extends SubTileEntity>> subTiles = new RegistryNamespacedDefaultedByKey<>(DUMMY_SUBTILE_NAME);
+	private static final RegistryNamespacedDefaultedByKey<Class<? extends SubTileEntity>> subTiles = new RegistryNamespacedDefaultedByKey<>(DUMMY_SUBTILE_NAME);
 	private static final Map<Class<? extends SubTileEntity>, SubTileSignature> subTileSignatures = new HashMap<>();
 	public static final Set<ResourceLocation> subtilesForCreativeMenu = new LinkedHashSet<>();
 	public static final BiMap<ResourceLocation, ResourceLocation> miniFlowers = HashBiMap.create();
@@ -665,7 +665,7 @@ public final class BotaniaAPI {
 	 * Call this during {@code RegistryEvent.Register<Block>}, and don't forget to register a model in BotaniaAPIClient.
 	 */
 	public static void registerSubTile(ResourceLocation id, Class<? extends SubTileEntity> subtileClass) {
-		subTiles.putObject(id, subtileClass);
+		subTiles.put(id, subtileClass);
 	}
 
 	/**
@@ -696,7 +696,7 @@ public final class BotaniaAPI {
 	 */
 	public static SubTileSignature getSignatureForClass(Class<? extends SubTileEntity> subtileClass) {
 		if(!subTileSignatures.containsKey(subtileClass))
-			registerSubTileSignature(subtileClass, new BasicSignature(subTiles.getNameForObject(subtileClass)));
+			registerSubTileSignature(subtileClass, new BasicSignature(subTiles.getKey(subtileClass)));
 
 		return subTileSignatures.get(subtileClass);
 	}
@@ -706,7 +706,7 @@ public final class BotaniaAPI {
 	 * before the call.
 	 */
 	public static SubTileSignature getSignatureForName(ResourceLocation name) {
-		Class<? extends SubTileEntity> subtileClass = subTiles.getObject(name);
+		Class<? extends SubTileEntity> subtileClass = subTiles.get(name);
 		return getSignatureForClass(subtileClass);
 	}
 
@@ -794,15 +794,15 @@ public final class BotaniaAPI {
 	}
 
 	public static Class<? extends SubTileEntity> getSubTileMapping(ResourceLocation key) {
-		return subTiles.getObject(key);
+		return subTiles.get(key);
 	}
 
 	public static ResourceLocation getSubTileStringMapping(Class<? extends SubTileEntity> clazz) {
-		return subTiles.getNameForObject(clazz);
+		return subTiles.getKey(clazz);
 	}
 
 	public static Set<ResourceLocation> getAllSubTiles() {
-		return subTiles.getKeys();
+		return subTiles.keySet();
 	}
 
 }
