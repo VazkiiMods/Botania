@@ -8,7 +8,7 @@
  *
  * File Created @ [Jan 29, 2015, 6:54:20 PM (GMT)]
  */
-package vazkii.botania.common.block.decor.biomestone;
+package vazkii.botania.common.block.decor;
 
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -31,11 +31,8 @@ import javax.annotation.Nonnull;
 
 public class BlockBiomeStone extends BlockMod implements ILexiconable {
 
-	public BlockBiomeStone(String name) {
-		super(Material.ROCK, name);
-		setHardness(1.5F);
-		setResistance(10F);
-		setSoundType(SoundType.STONE);
+	public BlockBiomeStone(Properties props) {
+		super(props);
 	}
 
 	@Override

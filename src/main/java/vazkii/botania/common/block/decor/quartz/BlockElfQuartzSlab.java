@@ -6,29 +6,28 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  *
- * File Created @ [Jun 11, 2014, 1:12:50 AM (GMT)]
+ * File Created @ [Jun 11, 2014, 1:08:28 AM (GMT)]
  */
 package vazkii.botania.common.block.decor.quartz;
 
-import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.block.ModFluffBlocks;
-import vazkii.botania.common.block.decor.stairs.BlockModStairs;
+import vazkii.botania.common.block.decor.slabs.BlockModSlab;
 import vazkii.botania.common.lexicon.LexiconData;
 
-public class BlockSpecialQuartzStairs extends BlockModStairs {
+public class BlockElfQuartzSlab extends BlockModSlab {
 
-	public BlockSpecialQuartzStairs(Block source) {
-		super(source.getDefaultState(), "quartzStairs" + ((BlockSpecialQuartz) source).type);
+	public BlockElfQuartzSlab(Properties props) {
+		super(props);
 	}
 
 	@Override
 	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
-		return this == ModFluffBlocks.elfQuartzStairs ? LexiconData.elvenResources : super.getEntry(world, pos, player, lexicon);
+		return LexiconData.elvenResources;
 	}
 
 }

@@ -20,25 +20,10 @@ import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.lexicon.LexiconData;
 
-public class BlockBiomeStoneSlab extends BlockLivingSlab {
+public class BlockBiomeStoneSlab extends BlockModSlab {
 
-	final int index;
-
-	public BlockBiomeStoneSlab(boolean full, IBlockState state, int index) {
-		super(full, state);
-		this.index = index;
-		setHardness(1.5F);
-		setResistance(10F);
-	}
-
-	@Override
-	public BlockSlab getFullBlock() {
-		return (BlockSlab) ModFluffBlocks.biomeStoneFullSlabs[index];
-	}
-
-	@Override
-	public BlockSlab getSingleBlock() {
-		return (BlockSlab) ModFluffBlocks.biomeStoneSlabs[index];
+	public BlockBiomeStoneSlab(Properties props) {
+		super(props);
 	}
 
 	@Override

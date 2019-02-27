@@ -49,7 +49,7 @@ public final class BotaniaCreativeTab extends ItemGroup {
 	}
 
 	@Override
-	public void displayAllRelevantItems(@Nonnull NonNullList<ItemStack> list) {
+	public void fill(@Nonnull NonNullList<ItemStack> list) {
 		this.list = list;
 
 		addItem(ModItems.lexicon);

@@ -135,8 +135,9 @@ public final class LibBlockNames {
 	public static final String AVATAR = "avatar";
 	public static final String ALT_GRASS_SUFFIX = "_grass";
 	public static final String ANIMATED_TORCH = "animated_torch";
+	public static final String METAMORPHIC_PREFIX = "metamorphic_";
 	public static final String SLAB_SUFFIX = "_slab";
-    public static final String STAIR_SUFFIX = "_stair";
+    public static final String STAIR_SUFFIX = "_stairs";
 	public static final String WALL_SUFFIX = "_wall";
 
 	public static final ResourceLocation SUBTILE_PUREDAISY = prefix("puredaisy");
@@ -184,13 +185,13 @@ public final class LibBlockNames {
 	public static final ResourceLocation SUBTILE_SOLEGNOLIA = prefix("solegnolia");
 	public static final ResourceLocation SUBTILE_ORECHID_IGNEM = prefix("orechidIgnem");
 
-	public static final String QUARTZ_DARK = "Dark";
-	public static final String QUARTZ_MANA = "Mana";
-	public static final String QUARTZ_BLAZE = "Blaze";
-	public static final String QUARTZ_LAVENDER = "Lavender";
-	public static final String QUARTZ_RED = "Red";
-	public static final String QUARTZ_ELF = "Elf";
-	public static final String QUARTZ_SUNNY = "Sunny";
+	public static final String QUARTZ_DARK = "dark_quartz";
+	public static final String QUARTZ_MANA = "mana_quartz";
+	public static final String QUARTZ_BLAZE = "blaze_quartz";
+	public static final String QUARTZ_LAVENDER = "lavender_quartz";
+	public static final String QUARTZ_RED = "red_quartz";
+	public static final String QUARTZ_ELF = "elf_quartz";
+	public static final String QUARTZ_SUNNY = "sunny_quartz";
 	
 	private static ResourceLocation prefix(String name) {
 		return new ResourceLocation(LibMisc.MOD_ID, name);

@@ -24,10 +24,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import vazkii.botania.api.item.IFloatingFlower;
 import vazkii.botania.api.state.enums.AlfPortalState;
-import vazkii.botania.api.state.enums.BiomeBrickVariant;
-import vazkii.botania.api.state.enums.BiomeStoneVariant;
 import vazkii.botania.api.state.enums.CratePattern;
-import vazkii.botania.api.state.enums.LivingWoodVariant;
 import vazkii.botania.api.state.enums.LuminizerVariant;
 import vazkii.botania.api.state.enums.QuartzVariant;
 
@@ -80,23 +77,6 @@ public final class BotaniaStateProps {
 
 	// BlockAlfPortal
 	public static final EnumProperty<AlfPortalState> ALFPORTAL_STATE = EnumProperty.create("state", AlfPortalState.class);
-
-	// BlockBiomeStoneA
-	public static final EnumProperty<BiomeStoneVariant> BIOMESTONE_VARIANT = EnumProperty.create("variant", BiomeStoneVariant.class);
-
-	// BlockBiomeStoneB
-	public static final EnumProperty<BiomeBrickVariant> BIOMEBRICK_VARIANT = EnumProperty.create("variant", BiomeBrickVariant.class);
-
-	// BlockBiomeStoneWall
-	public static final EnumProperty<BiomeStoneVariant> BIOMESTONEWALL_VARIANT = EnumProperty.create("bswall_variant", BiomeStoneVariant.class, new Predicate<BiomeStoneVariant>() {
-		@Override
-		public boolean apply(BiomeStoneVariant input) {
-			return input.getName().contains("cobble");
-		}
-	});
-
-	// BlockDreamWood, BlockLivingWood
-	public static final EnumProperty<LivingWoodVariant> LIVINGWOOD_VARIANT = EnumProperty.create("variant", LivingWoodVariant.class);
 
 	// BlockEnchanter
 	public static final EnumProperty<EnumFacing.Axis> ENCHANTER_DIRECTION = EnumProperty.create("facing", EnumFacing.Axis.class, Predicates.not(Predicates.equalTo(EnumFacing.Axis.Y)));
