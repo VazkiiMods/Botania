@@ -761,7 +761,7 @@ public final class ModBlocks {
 		initOreDict();
 	}
 	
-	private static <V extends IForgeRegistryEntry<V>> void register(IForgeRegistry<V> reg, IForgeRegistryEntry<V> thing, String name) {
+	public static <V extends IForgeRegistryEntry<V>> void register(IForgeRegistry<V> reg, IForgeRegistryEntry<V> thing, String name) {
 		reg.register(thing.setRegistryName(new ResourceLocation(LibMisc.MOD_ID, name)));
 	}
 
@@ -952,6 +952,28 @@ public final class ModBlocks {
 			case GREEN: return Blocks.ORANGE_WOOL;
 			case RED: return Blocks.ORANGE_WOOL;
 			case BLACK: return Blocks.ORANGE_WOOL;
+		}
+	}
+
+	public static Block getBuriedPetal(EnumDyeColor color) {
+		switch (color) {
+			default:
+			case WHITE: return whiteBuriedPetals;
+			case ORANGE: return orangeBuriedPetals;
+			case MAGENTA: return magentaBuriedPetals;
+			case LIGHT_BLUE: return lightBlueBuriedPetals;
+			case YELLOW: return yellowBuriedPetals;
+			case LIME: return limeBuriedPetals;
+			case PINK: return pinkBuriedPetals;
+			case GRAY: return grayBuriedPetals;
+			case LIGHT_GRAY: return lightGrayBuriedPetals;
+			case CYAN: return cyanBuriedPetals;
+			case PURPLE: return purpleBuriedPetals;
+			case BLUE: return blueBuriedPetals;
+			case BROWN: return brownBuriedPetals;
+			case GREEN: return greenBuriedPetals;
+			case RED: return redBuriedPetals;
+			case BLACK: return blackBuriedPetals;
 		}
 	}
 

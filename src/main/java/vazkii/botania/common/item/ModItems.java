@@ -26,6 +26,7 @@ import vazkii.botania.api.item.IFloatingFlower;
 import vazkii.botania.api.mana.spark.SparkUpgradeType;
 import vazkii.botania.api.item.IAncientWillContainer;
 import vazkii.botania.api.state.enums.CratePattern;
+import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.item.brew.*;
@@ -113,7 +114,7 @@ public final class ModItems {
 	public static final Map<EnumDyeColor, Item> dyes = new EnumMap<>(EnumDyeColor.class);
 	static {
 		for(EnumDyeColor color : EnumDyeColor.values()) {
-			petals.put(color, new ItemPetal(, color, defaultBuilder()));
+			petals.put(color, new ItemPetal(ModBlocks.getBuriedPetal(color), color, defaultBuilder()));
 			dyes.put(color, new ItemDye(color, defaultBuilder()));
 		}
 	}

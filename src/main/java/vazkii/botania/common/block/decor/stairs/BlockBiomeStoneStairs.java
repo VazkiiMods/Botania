@@ -18,10 +18,10 @@ import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.lexicon.LexiconData;
 
-public class BlockBiomeStoneStairs extends BlockLivingStairs {
+public class BlockBiomeStoneStairs extends BlockModStairs {
 
-	public BlockBiomeStoneStairs(IBlockState state) {
-		super(state);
+	public BlockBiomeStoneStairs(IBlockState state, Properties props) {
+		super(state, props);
 	}
 
 	@Override

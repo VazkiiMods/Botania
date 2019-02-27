@@ -24,7 +24,7 @@ import vazkii.botania.client.render.IModelRegister;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.lib.LibMisc;
 
-public abstract class BlockMod extends Block {
+public class BlockMod extends Block {
 
 	public BlockMod(Block.Properties builder) {
 		super(builder);

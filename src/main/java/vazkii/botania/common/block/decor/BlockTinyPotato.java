@@ -17,6 +17,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.fluid.IFluidState;
 import net.minecraft.init.Particles;
+import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
@@ -77,17 +78,20 @@ public class BlockTinyPotato extends BlockMod implements ILexiconable {
 		if(tile instanceof TileTinyPotato) {
 			((TileTinyPotato) tile).interact(player, hand, player.getHeldItem(hand), par6);
 			AxisAlignedBB box = SHAPE.getBoundingBox();
-			world.spawnParticle(Particles.HEART, pos.getX() + box.minX + Math.random() * (box.maxX - box.minX), pos.getY() + box.maxY, pos.getZ() + box.minZ + Math.random() * (box.maxZ - box.minZ), 0, 0 ,0);
+			world.addParticle(Particles.HEART, pos.getX() + box.minX + Math.random() * (box.maxX - box.minX), pos.getY() + box.maxY, pos.getZ() + box.minZ + Math.random() * (box.maxZ - box.minZ), 0, 0 ,0);
 		}
 		return true;
 	}
 
 	@Override
-	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase par5EntityLiving, ItemStack par6ItemStack) {
-		// todo 1.13 move to getstateforplacement
-		world.setBlockState(pos, state.with(BotaniaStateProps.CARDINALS, par5EntityLiving.getHorizontalFacing().getOpposite()));
-		if (par6ItemStack.hasDisplayName())
-			((TileTinyPotato) world.getTileEntity(pos)).name = par6ItemStack.getDisplayName();
+	public IBlockState getStateForPlacement(BlockItemUseContext ctx) {
+		return getDefaultState().with(BotaniaStateProps.CARDINALS, ctx.getNearestLookingDirection().getOpposite());
+	}
+
+	@Override
+	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase par5EntityLiving, ItemStack stack) {
+		if (stack.hasDisplayName())
+			((TileTinyPotato) world.getTileEntity(pos)).name = stack.getDisplayName();
 	}
 
 	@Override

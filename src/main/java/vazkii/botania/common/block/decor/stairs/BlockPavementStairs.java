@@ -10,6 +10,7 @@
  */
 package vazkii.botania.common.block.decor.stairs;
 
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
@@ -20,10 +21,10 @@ import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.lexicon.LexiconData;
 
-public class BlockPavementStairs extends BlockLivingStairs {
+public class BlockPavementStairs extends BlockModStairs {
 
-	public BlockPavementStairs(EnumDyeColor color) {
-		super(ModFluffBlocks.pavement.getDefaultState().with(BotaniaStateProps.PAVEMENT_COLOR, color));
+	public BlockPavementStairs(IBlockState state, Properties props) {
+		super(state, props);
 	}
 
 	@Override

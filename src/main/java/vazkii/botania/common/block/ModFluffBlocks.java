@@ -12,53 +12,34 @@ package vazkii.botania.common.block;
 
 import com.google.common.collect.ImmutableList;
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
+import net.minecraft.block.material.Material;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.IForgeRegistry;
+import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.BiomeBrickVariant;
 import vazkii.botania.api.state.enums.BiomeStoneVariant;
-import vazkii.botania.common.block.decor.BlockPavement;
 import vazkii.botania.common.block.decor.biomestone.BlockBiomeStoneA;
 import vazkii.botania.common.block.decor.biomestone.BlockBiomeStoneB;
-import vazkii.botania.common.block.decor.panes.BlockAlfglassPane;
-import vazkii.botania.common.block.decor.panes.BlockBifrostPane;
-import vazkii.botania.common.block.decor.panes.BlockManaglassPane;
+import vazkii.botania.common.block.decor.panes.BlockModPane;
 import vazkii.botania.common.block.decor.quartz.BlockSpecialQuartz;
 import vazkii.botania.common.block.decor.quartz.BlockSpecialQuartzSlab;
 import vazkii.botania.common.block.decor.quartz.BlockSpecialQuartzStairs;
 import vazkii.botania.common.block.decor.slabs.BlockBiomeStoneSlab;
+import vazkii.botania.common.block.decor.slabs.BlockModSlab;
 import vazkii.botania.common.block.decor.slabs.BlockPavementSlab;
-import vazkii.botania.common.block.decor.slabs.living.BlockDreamwoodPlankSlab;
-import vazkii.botania.common.block.decor.slabs.living.BlockDreamwoodSlab;
-import vazkii.botania.common.block.decor.slabs.living.BlockLivingrockBrickSlab;
-import vazkii.botania.common.block.decor.slabs.living.BlockLivingrockSlab;
-import vazkii.botania.common.block.decor.slabs.living.BlockLivingwoodPlankSlab;
-import vazkii.botania.common.block.decor.slabs.living.BlockLivingwoodSlab;
-import vazkii.botania.common.block.decor.slabs.living.BlockShimmerrockSlab;
-import vazkii.botania.common.block.decor.slabs.living.BlockShimmerwoodPlankSlab;
 import vazkii.botania.common.block.decor.stairs.BlockBiomeStoneStairs;
 import vazkii.botania.common.block.decor.stairs.BlockModStairs;
 import vazkii.botania.common.block.decor.stairs.BlockPavementStairs;
-import vazkii.botania.common.block.decor.stairs.living.BlockDreamwoodPlankStairs;
-import vazkii.botania.common.block.decor.stairs.living.BlockDreamwoodStairs;
-import vazkii.botania.common.block.decor.stairs.living.BlockLivingrockBrickStairs;
-import vazkii.botania.common.block.decor.stairs.living.BlockLivingrockStairs;
-import vazkii.botania.common.block.decor.stairs.living.BlockLivingwoodPlankStairs;
-import vazkii.botania.common.block.decor.stairs.living.BlockLivingwoodStairs;
-import vazkii.botania.common.block.decor.stairs.living.BlockShimmerrockStairs;
-import vazkii.botania.common.block.decor.stairs.living.BlockShimmerwoodPlankStairs;
 import vazkii.botania.common.block.decor.walls.BlockBiomeStoneWall;
-import vazkii.botania.common.block.decor.walls.living.BlockDreamwoodWall;
-import vazkii.botania.common.block.decor.walls.living.BlockLivingrockWall;
-import vazkii.botania.common.block.decor.walls.living.BlockLivingwoodWall;
-import vazkii.botania.common.core.handler.ConfigHandler;
+import vazkii.botania.common.block.decor.walls.BlockModWall;
 import vazkii.botania.common.item.block.ItemBlockMod;
-import vazkii.botania.common.item.block.ItemBlockMod;
-import vazkii.botania.common.item.block.ItemBlockSpecialQuartz;
 import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
@@ -67,27 +48,29 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import static vazkii.botania.common.block.ModBlocks.register;
+import static vazkii.botania.common.lib.LibBlockNames.STAIR_SUFFIX;
+import static vazkii.botania.common.lib.LibBlockNames.SLAB_SUFFIX;
+import static vazkii.botania.common.lib.LibBlockNames.WALL_SUFFIX;
+
 @Mod.EventBusSubscriber(modid = LibMisc.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public final class ModFluffBlocks {
 
-	public static List<Block> slabsToRegister = new ArrayList<>();
-
-	public static final Block livingwoodStairs = new BlockModStairs(ModBlocks.livingwood.getDefaultState(), Block.Builder.from(ModBlocks.livingwood));
-	public static final Block livingwoodSlab = new BlockLivingwoodSlab(false);
-	public static final Block livingwoodWall = new BlockLivingwoodWall();
-	public static final Block livingwoodPlankStairs = new BlockLivingwoodPlankStairs();
-	public static final Block livingwoodPlankSlab = new BlockLivingwoodPlankSlab(false);
-	public static final Block livingrockStairs = new BlockLivingrockStairs();
-	public static final Block livingrockSlab = new BlockLivingrockSlab(false);
-	public static final Block livingrockSlabFull = new BlockLivingrockSlab(true);
-	public static final Block livingrockWall = new BlockLivingrockWall();
-	public static final Block livingrockBrickStairs = new BlockLivingrockBrickStairs();
-	public static final Block livingrockBrickSlab = new BlockLivingrockBrickSlab(false);
-	public static final Block dreamwoodStairs = new BlockDreamwoodStairs();
-	public static final Block dreamwoodSlab = new BlockDreamwoodSlab(false);
-	public static final Block dreamwoodWall = new BlockDreamwoodWall();
-	public static final Block dreamwoodPlankStairs = new BlockDreamwoodPlankStairs();
-	public static final Block dreamwoodPlankSlab = new BlockDreamwoodPlankSlab(false);
+	@ObjectHolder(LibBlockNames.LIVING_WOOD + STAIR_SUFFIX) public static Block livingwoodStairs;
+	@ObjectHolder(LibBlockNames.LIVING_WOOD + SLAB_SUFFIX) public static Block livingwoodSlab;
+	@ObjectHolder(LibBlockNames.LIVING_WOOD + WALL_SUFFIX) public static Block livingwoodWall;
+	@ObjectHolder(LibBlockNames.LIVING_WOOD_PLANKS + STAIR_SUFFIX) public static Block livingwoodPlankStairs;
+	@ObjectHolder(LibBlockNames.LIVING_WOOD_PLANKS + SLAB_SUFFIX) public static Block livingwoodPlankSlab;
+	@ObjectHolder(LibBlockNames.LIVING_ROCK + STAIR_SUFFIX) public static Block livingrockStairs;
+	@ObjectHolder(LibBlockNames.LIVING_ROCK + SLAB_SUFFIX) public static Block livingrockSlab;
+	@ObjectHolder(LibBlockNames.LIVING_ROCK + WALL_SUFFIX) public static Block livingrockWall;
+	@ObjectHolder(LibBlockNames.LIVING_ROCK_BRICK + STAIR_SUFFIX) public static Block livingrockBrickStairs;
+	@ObjectHolder(LibBlockNames.LIVING_ROCK_BRICK + SLAB_SUFFIX) public static Block livingrockBrickSlab;
+	@ObjectHolder(LibBlockNames.DREAM_WOOD + STAIR_SUFFIX) public static Block dreamwoodStairs;
+	@ObjectHolder(LibBlockNames.DREAM_WOOD + SLAB_SUFFIX) public static Block dreamwoodSlab;
+	@ObjectHolder(LibBlockNames.DREAM_WOOD + WALL_SUFFIX) public static Block dreamwoodWall;
+	@ObjectHolder(LibBlockNames.DREAM_WOOD_PLANKS + STAIR_SUFFIX) public static Block dreamwoodPlankStairs;
+	@ObjectHolder(LibBlockNames.DREAM_WOOD_PLANKS + SLAB_SUFFIX) public static Block dreamwoodPlankSlab;
 
 	public static final Block darkQuartz = new BlockSpecialQuartz(LibBlockNames.QUARTZ_DARK);
 	public static final Block darkQuartzSlab = new BlockSpecialQuartzSlab(darkQuartz, false);
@@ -113,48 +96,70 @@ public final class ModFluffBlocks {
 
 	public static final Block biomeStoneA = new BlockBiomeStoneA();
 	public static final Block biomeStoneB = new BlockBiomeStoneB();
-	public static final Block pavement = new BlockPavement();
+	@ObjectHolder("white" + LibBlockNames.PAVEMENT_SUFFIX) public static Block whitePavement;
+	@ObjectHolder("black" + LibBlockNames.PAVEMENT_SUFFIX) public static Block blackPavement;
+	@ObjectHolder("blue" + LibBlockNames.PAVEMENT_SUFFIX) public static Block bluePavement;
+	@ObjectHolder("yellow" + LibBlockNames.PAVEMENT_SUFFIX) public static Block yellowPavement;
+	@ObjectHolder("red" + LibBlockNames.PAVEMENT_SUFFIX) public static Block redPavement;
+	@ObjectHolder("green" + LibBlockNames.PAVEMENT_SUFFIX) public static Block greenPavement;
+
+	@ObjectHolder("white" + LibBlockNames.PAVEMENT_SUFFIX + SLAB_SUFFIX) public static Block whitePavementSlab;
+	@ObjectHolder("black" + LibBlockNames.PAVEMENT_SUFFIX + SLAB_SUFFIX) public static Block blackPavementSlab;
+	@ObjectHolder("blue" + LibBlockNames.PAVEMENT_SUFFIX + SLAB_SUFFIX) public static Block bluePavementSlab;
+	@ObjectHolder("yellow" + LibBlockNames.PAVEMENT_SUFFIX + SLAB_SUFFIX) public static Block yellowPavementSlab;
+	@ObjectHolder("red" + LibBlockNames.PAVEMENT_SUFFIX + SLAB_SUFFIX) public static Block redPavementSlab;
+	@ObjectHolder("green" + LibBlockNames.PAVEMENT_SUFFIX + SLAB_SUFFIX) public static Block greenPavementSlab;
+
+	@ObjectHolder("white" + LibBlockNames.PAVEMENT_SUFFIX + STAIR_SUFFIX) public static Block whitePavementStair;
+	@ObjectHolder("black" + LibBlockNames.PAVEMENT_SUFFIX + STAIR_SUFFIX) public static Block blackPavementStair;
+	@ObjectHolder("blue" + LibBlockNames.PAVEMENT_SUFFIX + STAIR_SUFFIX) public static Block bluePavementStair;
+	@ObjectHolder("yellow" + LibBlockNames.PAVEMENT_SUFFIX + STAIR_SUFFIX) public static Block yellowPavementStair;
+	@ObjectHolder("red" + LibBlockNames.PAVEMENT_SUFFIX + STAIR_SUFFIX) public static Block redPavementStair;
+	@ObjectHolder("green" + LibBlockNames.PAVEMENT_SUFFIX + STAIR_SUFFIX) public static Block greenPavementStair;
 
 	public static final Block[] biomeStoneStairs = new Block[24];
 	public static final Block[] biomeStoneSlabs = new Block[24];
 	public static final Block biomeStoneWall = new BlockBiomeStoneWall();
 
-	public static final Block[] pavementStairs = new Block[BlockPavement.TYPES];
-	public static final Block[] pavementSlabs = new Block[BlockPavement.TYPES];
+	@ObjectHolder(LibBlockNames.SHIMMERROCK + SLAB_SUFFIX) public static Block shimmerrockSlab;
+	@ObjectHolder(LibBlockNames.SHIMMERROCK + STAIR_SUFFIX) public static Block shimmerrockStairs;
+	@ObjectHolder(LibBlockNames.SHIMMERWOOD_PLANKS + SLAB_SUFFIX) public static Block shimmerwoodPlankSlab;
+	@ObjectHolder(LibBlockNames.SHIMMERWOOD_PLANKS + STAIR_SUFFIX) public static Block shimmerwoodPlankStairs;
 
-	public static final Block shimmerrockSlab = new BlockShimmerrockSlab(false);
-	public static final Block shimmerrockStairs = new BlockShimmerrockStairs();
-	public static final Block shimmerwoodPlankSlab = new BlockShimmerwoodPlankSlab(false);
-	public static final Block shimmerwoodPlankStairs = new BlockShimmerwoodPlankStairs();
-
-	public static final Block managlassPane = new BlockManaglassPane();
-	public static final Block alfglassPane = new BlockAlfglassPane();
-	public static final Block bifrostPane = new BlockBifrostPane();
+	@ObjectHolder(LibBlockNames.MANA_GLASS + "_pane") public static Block managlassPane;
+	@ObjectHolder(LibBlockNames.ELF_GLASS + "_pane") public static Block alfglassPane;
+	@ObjectHolder(LibBlockNames.BIFROST + "_pane") public static Block bifrostPane;
 
 	@SubscribeEvent
-	public static void register(RegistryEvent.Register<Block> evt) {
+	public static void registerBlocks(RegistryEvent.Register<Block> evt) {
 		IForgeRegistry<Block> r = evt.getRegistry();
-		r.register(livingwoodStairs);
-		r.register(livingwoodSlab);
-		r.register(livingwoodWall);
-		
-		r.register(livingwoodPlankStairs);
-		r.register(livingwoodPlankSlab);
 
-		r.register(livingrockStairs);
-		r.register(livingrockSlab);
-		r.register(livingrockSlabFull);
-		r.register(livingrockWall);
-		
-		r.register(livingrockBrickStairs);
-		r.register(livingrockBrickSlab);
+		Block livingwood = r.getValue(new ResourceLocation(LibMisc.MOD_ID, LibBlockNames.LIVING_WOOD));
+		register(r, new BlockModStairs(livingwood.getDefaultState(), Block.Properties.from(livingwood)), LibBlockNames.LIVING_WOOD + STAIR_SUFFIX);
+		register(r, new BlockModSlab(Block.Properties.from(livingwood)), LibBlockNames.LIVING_WOOD + SLAB_SUFFIX);
+		register(r, new BlockModWall(Block.Properties.from(livingwood)), LibBlockNames.LIVING_WOOD + WALL_SUFFIX);
 
-		r.register(dreamwoodStairs);
-		r.register(dreamwoodSlab);
-		r.register(dreamwoodWall);
+		Block livingwoodPlank = r.getValue(new ResourceLocation(LibMisc.MOD_ID, LibBlockNames.LIVING_WOOD_PLANKS));
+		register(r, new BlockModStairs(livingwoodPlank.getDefaultState(), Block.Properties.from(livingwoodPlank)), LibBlockNames.LIVING_WOOD_PLANKS + STAIR_SUFFIX);
+		register(r, new BlockModSlab(Block.Properties.from(livingwoodPlank)), LibBlockNames.LIVING_WOOD_PLANKS + SLAB_SUFFIX);
+
+		Block livingrock = r.getValue(new ResourceLocation(LibMisc.MOD_ID, LibBlockNames.LIVING_ROCK));
+		register(r, new BlockModStairs(livingrock.getDefaultState(), Block.Properties.from(livingrock)), LibBlockNames.LIVING_ROCK + STAIR_SUFFIX);
+		register(r, new BlockModSlab(Block.Properties.from(livingrock)), LibBlockNames.LIVING_ROCK + SLAB_SUFFIX);
+		register(r, new BlockModWall(Block.Properties.from(livingrock)), LibBlockNames.LIVING_ROCK + WALL_SUFFIX);
 		
-		r.register(dreamwoodPlankStairs);
-		r.register(dreamwoodPlankSlab);
+		Block livingrockBrick = r.getValue(new ResourceLocation(LibMisc.MOD_ID, LibBlockNames.LIVING_ROCK_BRICK));
+		register(r, new BlockModStairs(livingrockBrick.getDefaultState(), Block.Properties.from(livingrockBrick)), LibBlockNames.LIVING_ROCK_BRICK + STAIR_SUFFIX);
+		register(r, new BlockModSlab(Block.Properties.from(livingrockBrick)), LibBlockNames.LIVING_ROCK_BRICK + SLAB_SUFFIX);
+
+		Block dreamwood = r.getValue(new ResourceLocation(LibMisc.MOD_ID, LibBlockNames.DREAM_WOOD));
+		register(r, new BlockModStairs(dreamwood.getDefaultState(), Block.Properties.from(dreamwood)), LibBlockNames.DREAM_WOOD + STAIR_SUFFIX);
+		register(r, new BlockModSlab(Block.Properties.from(dreamwood)), LibBlockNames.DREAM_WOOD + SLAB_SUFFIX);
+		register(r, new BlockModWall(Block.Properties.from(dreamwood)), LibBlockNames.DREAM_WOOD + WALL_SUFFIX);
+
+		Block dreamwoodPlank = r.getValue(new ResourceLocation(LibMisc.MOD_ID, LibBlockNames.DREAM_WOOD_PLANKS));
+		register(r, new BlockModStairs(dreamwoodPlank.getDefaultState(), Block.Properties.from(dreamwoodPlank)), LibBlockNames.DREAM_WOOD_PLANKS + STAIR_SUFFIX);
+		register(r, new BlockModSlab(Block.Properties.from(dreamwoodPlank)), LibBlockNames.DREAM_WOOD_PLANKS + SLAB_SUFFIX);
 
 		r.register(darkQuartz);
 		r.register(darkQuartzSlab);
@@ -186,7 +191,38 @@ public final class ModFluffBlocks {
 
 		r.register(biomeStoneA);
 		r.register(biomeStoneB);
-		r.register(pavement);
+
+		Block.Properties props = Block.Properties.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE);
+		
+		Block block = new BlockMod(props);
+		register(r, block, "white" + LibBlockNames.PAVEMENT_SUFFIX);
+		register(r, new BlockPavementStairs(block.getDefaultState(), props), "white" + LibBlockNames.PAVEMENT_SUFFIX + STAIR_SUFFIX);
+        register(r, new BlockPavementSlab(props), "white" + LibBlockNames.PAVEMENT_SUFFIX + SLAB_SUFFIX);
+		
+		block = new BlockMod(props);
+		register(r, block, "black" + LibBlockNames.PAVEMENT_SUFFIX);
+		register(r, new BlockPavementStairs(block.getDefaultState(), props), "black" + LibBlockNames.PAVEMENT_SUFFIX + STAIR_SUFFIX);
+		register(r, new BlockPavementSlab(props), "black" + LibBlockNames.PAVEMENT_SUFFIX + SLAB_SUFFIX);
+
+		block = new BlockMod(props);
+		register(r, block, "blue" + LibBlockNames.PAVEMENT_SUFFIX);
+		register(r, new BlockPavementStairs(block.getDefaultState(), props), "blue" + LibBlockNames.PAVEMENT_SUFFIX + STAIR_SUFFIX);
+		register(r, new BlockPavementSlab(props), "blue" + LibBlockNames.PAVEMENT_SUFFIX + SLAB_SUFFIX);
+
+		block = new BlockMod(props);
+		register(r, block, "red" + LibBlockNames.PAVEMENT_SUFFIX);
+		register(r, new BlockPavementStairs(block.getDefaultState(), props), "red" + LibBlockNames.PAVEMENT_SUFFIX + STAIR_SUFFIX);
+		register(r, new BlockPavementSlab(props), "red" + LibBlockNames.PAVEMENT_SUFFIX + SLAB_SUFFIX);
+
+		block = new BlockMod(props);
+		register(r, block, "yellow" + LibBlockNames.PAVEMENT_SUFFIX);
+		register(r, new BlockPavementStairs(block.getDefaultState(), props), "yellow" + LibBlockNames.PAVEMENT_SUFFIX + STAIR_SUFFIX);
+		register(r, new BlockPavementSlab(props), "yellow" + LibBlockNames.PAVEMENT_SUFFIX + SLAB_SUFFIX);
+
+		block = new BlockMod(props);
+		register(r, block, "green" + LibBlockNames.PAVEMENT_SUFFIX);
+		register(r, new BlockPavementStairs(block.getDefaultState(), props), "green" + LibBlockNames.PAVEMENT_SUFFIX + STAIR_SUFFIX);
+		register(r, new BlockPavementSlab(props), "green" + LibBlockNames.PAVEMENT_SUFFIX + SLAB_SUFFIX);
 		
 		int count = 0;
 		for (BiomeStoneVariant variant : BiomeStoneVariant.values()) {
@@ -211,25 +247,22 @@ public final class ModFluffBlocks {
 		
 		r.register(biomeStoneWall);
 
-		count = 0;
-		for (EnumDyeColor color : ImmutableList.of(EnumDyeColor.WHITE, EnumDyeColor.BLACK, EnumDyeColor.BLUE,
-				EnumDyeColor.RED, EnumDyeColor.YELLOW, EnumDyeColor.GREEN)) {
-			pavementStairs[count] = new BlockPavementStairs(color);
-			pavementSlabs[count] = new BlockPavementSlab(false, color, count);
-			r.register(pavementStairs[count]);
-			r.register(pavementSlabs[count]);
-			count++;
-		}
+		Block shimmerrock = r.getValue(new ResourceLocation(LibMisc.MOD_ID, LibBlockNames.SHIMMERROCK));
+		register(r, new BlockModSlab(Block.Properties.from(shimmerrock)), LibBlockNames.SHIMMERROCK + SLAB_SUFFIX);
+		register(r, new BlockModStairs(shimmerrock.getDefaultState(), Block.Properties.from(shimmerrock)), LibBlockNames.SHIMMERROCK + STAIR_SUFFIX);
 
-		r.register(shimmerrockSlab);
-		r.register(shimmerrockStairs);
-		
-		r.register(shimmerwoodPlankSlab);
-		r.register(shimmerwoodPlankStairs);
+		Block shimmerwood = r.getValue(new ResourceLocation(LibMisc.MOD_ID, LibBlockNames.SHIMMERWOOD_PLANKS));
+		register(r, new BlockModSlab(Block.Properties.from(shimmerwood)), LibBlockNames.SHIMMERWOOD_PLANKS + SLAB_SUFFIX);
+		register(r, new BlockModStairs(shimmerwood.getDefaultState(), Block.Properties.from(shimmerwood)), LibBlockNames.SHIMMERWOOD_PLANKS + STAIR_SUFFIX);
 
-		r.register(managlassPane);
-		r.register(alfglassPane);
-		r.register(bifrostPane);
+		Block manaGlass = r.getValue(new ResourceLocation(LibMisc.MOD_ID, LibBlockNames.MANA_GLASS));
+		register(r, new BlockModPane(Block.Properties.from(manaGlass)), LibBlockNames.MANA_GLASS + "_pane");
+
+		Block elfGlass = r.getValue(new ResourceLocation(LibMisc.MOD_ID, LibBlockNames.ELF_GLASS));
+		register(r, new BlockModPane(Block.Properties.from(elfGlass)), LibBlockNames.ELF_GLASS + "_pane");
+
+		Block bifrost = r.getValue(new ResourceLocation(LibMisc.MOD_ID, LibBlockNames.BIFROST));
+		register(r, new BlockModPane(Block.Properties.from(bifrost)), LibBlockNames.BIFROST + "_pane");
 	}
 	
 	@SubscribeEvent

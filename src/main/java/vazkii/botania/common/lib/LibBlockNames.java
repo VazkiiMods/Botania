@@ -125,7 +125,7 @@ public final class LibBlockNames {
 	public static final String CACOPHONIUM = "cacophonium_block";
 	public static final String BELLOWS = "bellows";
 	public static final String BIFROST_PERM = "bifrost_perm";
-	public static final String PAVEMENT = "pavement";
+	public static final String PAVEMENT_SUFFIX = "_pavement";
 	public static final String CELL_BLOCK = "cell_block";
 	public static final String GAIA_HEAD = "gaia_head";
 	public static final String CORPOREA_RETAINER = "corporea_retainer";
@@ -135,6 +135,9 @@ public final class LibBlockNames {
 	public static final String AVATAR = "avatar";
 	public static final String ALT_GRASS_SUFFIX = "_grass";
 	public static final String ANIMATED_TORCH = "animated_torch";
+	public static final String SLAB_SUFFIX = "_slab";
+    public static final String STAIR_SUFFIX = "_stair";
+	public static final String WALL_SUFFIX = "_wall";
 
 	public static final ResourceLocation SUBTILE_PUREDAISY = prefix("puredaisy");
 	public static final ResourceLocation SUBTILE_MANASTAR = prefix("manastar");

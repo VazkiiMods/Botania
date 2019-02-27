@@ -21,31 +21,15 @@ import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.lexicon.LexiconData;
 
-public class BlockPavementSlab extends BlockLivingSlab {
+public class BlockPavementSlab extends BlockModSlab {
 
-	final int index;
-
-	public BlockPavementSlab(boolean full, EnumDyeColor color, int index) {
-		super(full, ModFluffBlocks.pavement.getDefaultState().with(BotaniaStateProps.PAVEMENT_COLOR, color));
-		this.index = index;
-		setHardness(2F);
-		setResistance(10F);
-	}
-
-	@Override
-	public BlockSlab getFullBlock() {
-		return (BlockSlab) ModFluffBlocks.pavementFullSlabs[index];
-	}
-
-	@Override
-	public BlockSlab getSingleBlock() {
-		return (BlockSlab) ModFluffBlocks.pavementSlabs[index];
+	public BlockPavementSlab(Properties props) {
+		super(props);
 	}
 
 	@Override
 	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.pavement;
 	}
-
 
 }

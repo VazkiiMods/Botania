@@ -14,10 +14,14 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockPane;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.client.render.IModelRegister;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.BotaniaCreativeTab;
@@ -25,32 +29,23 @@ import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
-public class BlockModPane extends BlockPane implements IModelRegister {
+public class BlockModPane extends BlockPane {
 
-	public BlockModPane(Block source) {
-		super(Material.GLASS, false);
-		// Backward compat don't kill me
-		String name = source.getTranslationKey().replaceAll("tile.", "") + "Pane";
-		setRegistryName(new ResourceLocation(LibMisc.MOD_ID, name));
-		setTranslationKey(name);
-		setCreativeTab(BotaniaCreativeTab.INSTANCE);
-		setHardness(0.3F);
-		setSoundType(SoundType.GLASS);
-		setLightLevel(1.0F);
-		useNeighborBrightness = true;
-	}
-
-	/*@Override
-	public boolean shouldSideBeRendered(IBlockState state, IBlockReader iblockaccess, BlockPos pos, EnumFacing side) {
-		return false;
-	}*/
-
-	@Override
-	public boolean canPaneConnectTo(IBlockReader world, BlockPos pos, @Nonnull EnumFacing dir) {
-		Block block = world.getBlockState(pos).getBlock();
-		return block == ModBlocks.elfGlass || block == ModBlocks.manaGlass || block == ModBlocks.bifrostPerm || super.canPaneConnectTo(world, pos, dir);
+	public BlockModPane(Properties props) {
+		super(props);
 	}
 
 	@Override
-	public void registerModels() {}
+	public boolean canBeConnectedTo(IBlockState state, IBlockReader world, BlockPos pos, EnumFacing facing) {
+		Block block = world.getBlockState(pos.offset(facing)).getBlock();
+		return block == ModBlocks.elfGlass || block == ModBlocks.manaGlass || block == ModBlocks.bifrostPerm
+				|| super.canBeConnectedTo(state, world, pos, facing);
+	}
+
+	@OnlyIn(Dist.CLIENT)
+	@Nonnull
+	@Override
+	public BlockRenderLayer getRenderLayer() {
+		return BlockRenderLayer.TRANSLUCENT;
+	}
 }

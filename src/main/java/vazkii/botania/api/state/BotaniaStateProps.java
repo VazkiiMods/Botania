@@ -120,16 +120,6 @@ public final class BotaniaStateProps {
 	// BlockCraftyCrate
 	public static final EnumProperty<CratePattern> CRATE_PATTERN = EnumProperty.create("pattern", CratePattern.class);
 
-	// BlockPavement
-	public static final EnumProperty<EnumDyeColor> PAVEMENT_COLOR = EnumProperty.create("color", EnumDyeColor.class, new Predicate<EnumDyeColor>() {
-		@Override
-		public boolean apply(EnumDyeColor color) {
-			return color == EnumDyeColor.WHITE || color == EnumDyeColor.BLACK
-					|| color == EnumDyeColor.BLUE || color == EnumDyeColor.RED
-					|| color == EnumDyeColor.YELLOW || color == EnumDyeColor.GREEN;
-		}
-	});
-
 	// BlockPrism
 	public static final BooleanProperty HAS_LENS = BooleanProperty.create("has_lens");
 
