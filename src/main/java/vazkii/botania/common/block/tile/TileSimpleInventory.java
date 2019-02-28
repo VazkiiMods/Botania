@@ -12,6 +12,7 @@ package vazkii.botania.common.block.tile;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
@@ -26,6 +27,10 @@ public abstract class TileSimpleInventory extends TileMod {
 
 	protected SimpleItemStackHandler itemHandler = createItemHandler();
 	private final LazyOptional<IItemHandler> automationItemHandler = LazyOptional.of(() -> itemHandler);
+
+	public TileSimpleInventory(TileEntityType<?> type) {
+		super(type);
+	}
 
 	@Override
 	public void readPacketNBT(NBTTagCompound par1NBTTagCompound) {

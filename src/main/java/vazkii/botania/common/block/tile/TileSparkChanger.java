@@ -12,13 +12,17 @@ package vazkii.botania.common.block.tile;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.EnumFacing;
+import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.spark.ISparkAttachable;
 import vazkii.botania.api.mana.spark.ISparkEntity;
 import vazkii.botania.api.mana.spark.SparkUpgradeType;
 import vazkii.botania.common.item.ItemSparkUpgrade;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.lib.LibBlockNames;
+import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -26,6 +30,12 @@ import java.util.Collection;
 import java.util.List;
 
 public class TileSparkChanger extends TileSimpleInventory {
+	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.SPARK_CHANGER)
+	public static TileEntityType<TileSparkChanger> TYPE;
+
+	public TileSparkChanger() {
+		super(TYPE);
+	}
 
 	public void doSwap() {
 		if(world.isRemote)

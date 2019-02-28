@@ -18,20 +18,30 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
+import net.minecraftforge.common.crafting.VanillaRecipeTypes;
+import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.state.enums.CratePattern;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.lib.LibBlockNames;
+import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 import java.util.List;
 
 public class TileCraftCrate extends TileOpenCrate {
-	public static final String TAG_PATTERN = "pattern";
+	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.CRAFT_CRATE)
+	public static TileEntityType<TileCraftCrate> TYPE;
+	private static final String TAG_PATTERN = "pattern";
 
 	public CratePattern pattern = CratePattern.NONE;
 	private int signal = 0;
+
+	public TileCraftCrate() {
+		super(TYPE);
+	}
 
 	@Override
 	public int getSizeInventory() {
@@ -98,7 +108,7 @@ public class TileCraftCrate extends TileOpenCrate {
 			craft.setInventorySlotContents(i, stack);
 		}
 
-		for(IRecipe recipe : ForgeRegistries.RECIPES)
+		for(IRecipe recipe : world.getRecipeManager().getRecipes(VanillaRecipeTypes.CRAFTING))
 			if(recipe.matches(craft, world)) {
 				itemHandler.setStackInSlot(9, recipe.getCraftingResult(craft));
 
@@ -133,7 +143,7 @@ public class TileCraftCrate extends TileOpenCrate {
 	@Override
 	public void writePacketNBT(NBTTagCompound par1nbtTagCompound) {
 		super.writePacketNBT(par1nbtTagCompound);
-		par1nbtTagCompound.setInt(TAG_PATTERN, pattern.ordinal());
+		par1nbtTagCompound.putInt(TAG_PATTERN, pattern.ordinal());
 	}
 
 	@Override

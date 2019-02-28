@@ -16,22 +16,31 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.registries.ObjectHolder;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.block.tile.TileMod;
+import vazkii.botania.common.lib.LibBlockNames;
+import vazkii.botania.common.lib.LibMisc;
 
 public class TileTurntable extends TileMod implements ITickable {
-
+	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.TURNTABLE)
+	public static TileEntityType<TileTurntable> TYPE;
 	private static final String TAG_SPEED = "speed";
 	private static final String TAG_BACKWARDS = "backwards";
 
-	int speed = 1;
-	boolean backwards = false;
+	private int speed = 1;
+	private boolean backwards = false;
+
+	public TileTurntable() {
+		super(TYPE);
+	}
 
 	@Override
 	public void tick() {
@@ -58,8 +67,8 @@ public class TileTurntable extends TileMod implements ITickable {
 
 	@Override
 	public void writePacketNBT(NBTTagCompound cmp) {
-		cmp.setInt(TAG_SPEED, speed);
-		cmp.setBoolean(TAG_BACKWARDS, backwards);
+		cmp.putInt(TAG_SPEED, speed);
+		cmp.putBoolean(TAG_BACKWARDS, backwards);
 	}
 
 	@Override

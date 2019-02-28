@@ -26,6 +26,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.SoundCategory;
@@ -34,6 +35,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.registries.ObjectHolder;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
@@ -60,6 +62,8 @@ import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ItemManaTablet;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.lib.LibBlockNames;
+import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 import java.awt.Color;
@@ -67,10 +71,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAttachable, IThrottledPacket, ITickable {
-
+	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.POOL)
+	public static TileEntityType<TilePool> TYPE;
 	public static final Color PARTICLE_COLOR = new Color(0x00C6FF);
 	public static final int MAX_MANA = 1000000;
-	public static final int MAX_MANA_DILLUTED = 10000;
+	private static final int MAX_MANA_DILLUTED = 10000;
 
 	private static final String TAG_MANA = "mana";
 	private static final String TAG_KNOWN_MANA = "knownMana";
@@ -105,13 +110,8 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 	private int ticks = 0;
 	private boolean sendPacket = false;
 
-	@Override
-	public boolean shouldRefresh(World world, BlockPos pos, @Nonnull IBlockState oldState, @Nonnull IBlockState newState) {
-		if(oldState.getBlock() != newState.getBlock())
-			return true;
-		if(!(oldState.getBlock() instanceof BlockPool) || !(newState.getBlock() instanceof BlockPool))
-			return true;
-		return false;
+	public TilePool() {
+		super(TYPE);
 	}
 
 	@Override
@@ -131,14 +131,14 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 	}
 
 	@Override
-	public void invalidate() {
-		super.invalidate();
+	public void remove() {
+		super.remove();
 		ManaNetworkEvent.removePool(this);
 	}
 
 	@Override
-	public void onChunkUnload() {
-		super.onChunkUnload();
+	public void onChunkUnloaded() {
+		super.onChunkUnloaded();
 		ManaNetworkEvent.removePool(this);
 	}
 
@@ -169,7 +169,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 	}
 
 	public boolean collideEntityItem(EntityItem item) {
-		if(world.isRemote || item.isDead || item.getItem().isEmpty())
+		if(world.isRemote || !item.isAlive() || item.getItem().isEmpty())
 			return false;
 
 		ItemStack stack = item.getItem();
@@ -209,7 +209,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 			soundTicks = 6;
 		}
 
-		world.addBlockEvent(getPos(), getBlockType(), CRAFT_EFFECT_EVENT, 0);
+		world.addBlockEvent(getPos(), getBlockState().getBlock(), CRAFT_EFFECT_EVENT, 0);
 	}
 
 	@Override
@@ -245,11 +245,11 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 	}
 
 	@Override
-	public void update() {
+	public void tick() {
 		if(manaCap == -1)
-			manaCap = ((BlockPool) getBlockType()).variant == BlockPool.Variant.DILUTED ? MAX_MANA_DILLUTED : MAX_MANA;
+			manaCap = ((BlockPool) getBlockState().getBlock()).variant == BlockPool.Variant.DILUTED ? MAX_MANA_DILLUTED : MAX_MANA;
 
-		if(!ManaNetworkHandler.instance.isPoolIn(this) && !isInvalid())
+		if(!ManaNetworkHandler.instance.isPoolIn(this) && !isRemoved())
 			ManaNetworkEvent.addPool(this);
 
 		if(world.isRemote) {
@@ -273,7 +273,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 
 		List<EntityItem> items = world.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(pos, pos.add(1, 1, 1)));
 		for(EntityItem item : items) {
-			if(item.isDead)
+			if(!item.isAlive())
 				continue;
 
 			ItemStack stack = item.getItem();
@@ -284,9 +284,9 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 
 					int bellowCount = 0;
 					if(outputting)
-						for(EnumFacing dir : EnumFacing.HORIZONTALS) {
+						for(EnumFacing dir : EnumFacing.BY_HORIZONTAL_INDEX) {
 							TileEntity tile = world.getTileEntity(pos.offset(dir));
-							if(tile != null && tile instanceof TileBellows && ((TileBellows) tile).getLinkedTile() == this)
+							if(tile instanceof TileBellows && ((TileBellows) tile).getLinkedTile() == this)
 								bellowCount++;
 						}
 					int transfRate = 1000 * (bellowCount + 1);
@@ -313,7 +313,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 
 					if(didSomething) {
 						if(ConfigHandler.chargingAnimationEnabled && world.rand.nextInt(20) == 0) {
-							world.addBlockEvent(getPos(), getBlockType(), CHARGE_EFFECT_EVENT, outputting ? 1 : 0);
+							world.addBlockEvent(getPos(), getBlockState().getBlock(), CHARGE_EFFECT_EVENT, outputting ? 1 : 0);
 						}
 						isDoingTransfer = outputting;
 					}
@@ -334,17 +334,17 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 
 	@Override
 	public void writePacketNBT(NBTTagCompound cmp) {
-		cmp.setInt(TAG_MANA, mana);
-		cmp.setBoolean(TAG_OUTPUTTING, outputting);
-		cmp.setInt(TAG_COLOR, color.getId());
+		cmp.putInt(TAG_MANA, mana);
+		cmp.putBoolean(TAG_OUTPUTTING, outputting);
+		cmp.putInt(TAG_COLOR, color.getId());
 
-		cmp.setInt(TAG_MANA_CAP, manaCap);
-		cmp.setBoolean(TAG_CAN_ACCEPT, canAccept);
-		cmp.setBoolean(TAG_CAN_SPARE, canSpare);
-		cmp.setBoolean(TAG_FRAGILE, fragile);
+		cmp.putInt(TAG_MANA_CAP, manaCap);
+		cmp.putBoolean(TAG_CAN_ACCEPT, canAccept);
+		cmp.putBoolean(TAG_CAN_SPARE, canSpare);
+		cmp.putBoolean(TAG_FRAGILE, fragile);
 
-		cmp.setString(TAG_INPUT_KEY, inputKey);
-		cmp.setString(TAG_OUTPUT_KEY, outputKey);
+		cmp.putString(TAG_INPUT_KEY, inputKey);
+		cmp.putString(TAG_OUTPUT_KEY, outputKey);
 	}
 
 	@Override
@@ -353,20 +353,20 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 		outputting = cmp.getBoolean(TAG_OUTPUTTING);
 		color = EnumDyeColor.byId(cmp.getInt(TAG_COLOR));
 
-		if(cmp.hasKey(TAG_MANA_CAP))
+		if(cmp.contains(TAG_MANA_CAP))
 			manaCap = cmp.getInt(TAG_MANA_CAP);
-		if(cmp.hasKey(TAG_CAN_ACCEPT))
+		if(cmp.contains(TAG_CAN_ACCEPT))
 			canAccept = cmp.getBoolean(TAG_CAN_ACCEPT);
-		if(cmp.hasKey(TAG_CAN_SPARE))
+		if(cmp.contains(TAG_CAN_SPARE))
 			canSpare = cmp.getBoolean(TAG_CAN_SPARE);
 		fragile = cmp.getBoolean(TAG_FRAGILE);
 
-		if(cmp.hasKey(TAG_INPUT_KEY))
+		if(cmp.contains(TAG_INPUT_KEY))
 			inputKey = cmp.getString(TAG_INPUT_KEY);
-		if(cmp.hasKey(TAG_OUTPUT_KEY))
+		if(cmp.contains(TAG_OUTPUT_KEY))
 			inputKey = cmp.getString(TAG_OUTPUT_KEY);
 
-		if(cmp.hasKey(TAG_KNOWN_MANA))
+		if(cmp.contains(TAG_KNOWN_MANA))
 			knownMana = cmp.getInt(TAG_KNOWN_MANA);
 	}
 
@@ -382,7 +382,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 		if(!world.isRemote) {
 			NBTTagCompound nbttagcompound = new NBTTagCompound();
 			writePacketNBT(nbttagcompound);
-			nbttagcompound.setInt(TAG_KNOWN_MANA, getCurrentMana());
+			nbttagcompound.putInt(TAG_KNOWN_MANA, getCurrentMana());
 			if(player instanceof EntityPlayerMP)
 				((EntityPlayerMP) player).connection.sendPacket(new SPacketUpdateTileEntity(pos, -999, nbttagcompound));
 		}
@@ -434,8 +434,8 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 
 	@Override
 	public int getCurrentMana() {
-		if (getBlockType() instanceof BlockPool) {
-			return ((BlockPool) getBlockType()).variant == BlockPool.Variant.CREATIVE ? MAX_MANA : mana;
+		if (getBlockState().getBlock() instanceof BlockPool) {
+			return ((BlockPool) getBlockState().getBlock()).variant == BlockPool.Variant.CREATIVE ? MAX_MANA : mana;
 		}
 		return 0;
 	}

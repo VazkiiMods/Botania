@@ -18,20 +18,29 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.MobSpawnerBaseLogic;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityMobSpawner;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.WeightedSpawnerEntity;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.storage.AnvilChunkLoader;
+import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.lib.LibBlockNames;
+import vazkii.botania.common.lib.LibMisc;
 
 public class TileSpawnerClaw extends TileMod implements IManaReceiver, ITickable {
-
+	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.SPAWNER_CLAW)
+	public static TileEntityType<TileSpawnerClaw> TYPE;
 	private static final String TAG_MANA = "mana";
 
-	int mana = 0;
+	private int mana = 0;
+
+	public TileSpawnerClaw() {
+		super(TYPE);
+	}
 
 	@Override
 	public void tick() {

@@ -11,23 +11,37 @@
 package vazkii.botania.common.block.tile.string;
 
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.registries.ObjectHolder;
+import vazkii.botania.common.lib.LibBlockNames;
+import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 import java.util.Arrays;
 
 public class TileRedStringContainer extends TileRedString {
+	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.RED_STRING_CONTAINER)
+	public static TileEntityType<TileRedStringContainer> TYPE;
+
+	public TileRedStringContainer() {
+		this(TYPE);
+	}
+
+	public TileRedStringContainer(TileEntityType<?> type) {
+		super(type);
+	}
 
 	@Override
 	public boolean acceptBlock(BlockPos pos) {
 		TileEntity tile = world.getTileEntity(pos);
 		return tile != null
 				&& Arrays.stream(EnumFacing.BY_INDEX)
-				.anyMatch(e -> tile.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, e));
+				.anyMatch(e -> tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, e).isPresent());
 	}
 
 	@Nonnull

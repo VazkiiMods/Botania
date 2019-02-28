@@ -12,10 +12,16 @@ package vazkii.botania.common.block.tile;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.registries.ObjectHolder;
+import vazkii.botania.common.lib.LibBlockNames;
+import vazkii.botania.common.lib.LibMisc;
 
 public class TileCell extends TileMod {
 
+	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.CELL_BLOCK)
+	public static TileEntityType<TileCell> TYPE;
 	private static final String TAG_GENERATION = "generation";
 	private static final String TAG_TICKED = "ticked";
 	private static final String TAG_FLOWER_X = "flowerX";
@@ -29,6 +35,10 @@ public class TileCell extends TileMod {
 	private boolean ticked;
 	private BlockPos flowerCoords = new BlockPos(0, -1, 0);
 	private BlockPos validCoords = new BlockPos(0, -1, 0);
+
+	public TileCell() {
+		super(TYPE);
+	}
 
 	public void setGeneration(TileEntity flower, int gen) {
 		generation = gen;

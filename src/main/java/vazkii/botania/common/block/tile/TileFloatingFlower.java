@@ -13,15 +13,26 @@ package vazkii.botania.common.block.tile;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntityType;
+import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.item.IFloatingFlower;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.lib.LibBlockNames;
+import vazkii.botania.common.lib.LibMisc;
 
 public class TileFloatingFlower extends TileMod implements IFloatingFlower {
 
-	public static final String TAG_ISLAND_TYPE = "islandType";
+	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.MINI_ISLAND)
+	public static TileEntityType<TileFloatingFlower> TYPE;
+	private static final String TAG_ISLAND_TYPE = "islandType";
 	public static ItemStack forcedStack = ItemStack.EMPTY;
+
 	IslandType type = IslandType.GRASS;
+
+	public TileFloatingFlower() {
+		super(TYPE);
+	}
 
 	@Override
 	public ItemStack getDisplayStack() {
@@ -30,9 +41,7 @@ public class TileFloatingFlower extends TileMod implements IFloatingFlower {
 			forcedStack = ItemStack.EMPTY;
 			return retStack;
 		}
-		EnumDyeColor color = world.getBlockState(getPos()).getBlock() != ModBlocks.floatingFlower ? EnumDyeColor.WHITE
-				: world.getBlockState(getPos()).getValue(BotaniaStateProps.COLOR);
-		return new ItemStack(ModBlocks.shinyFlower, 1, color.getMetadata());
+		return new ItemStack(getBlockState().getBlock());
 	}
 
 	@Override
@@ -47,7 +56,7 @@ public class TileFloatingFlower extends TileMod implements IFloatingFlower {
 
 	@Override
 	public void writePacketNBT(NBTTagCompound cmp) {
-		cmp.setString(TAG_ISLAND_TYPE, type.toString());
+		cmp.putString(TAG_ISLAND_TYPE, type.toString());
 	}
 
 	@Override

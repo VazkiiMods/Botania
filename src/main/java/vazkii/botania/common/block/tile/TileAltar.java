@@ -12,7 +12,6 @@ package vazkii.botania.common.block.tile;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.item.EntityItem;
@@ -26,7 +25,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -38,6 +37,7 @@ import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.items.IItemHandlerModifiable;
+import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.item.IPetalApothecary;
@@ -48,6 +48,8 @@ import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ModSounds;
+import vazkii.botania.common.lib.LibBlockNames;
+import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 import java.awt.Color;
@@ -57,20 +59,26 @@ import java.util.regex.Pattern;
 
 public class TileAltar extends TileSimpleInventory implements IPetalApothecary, ITickable {
 
+	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.ALTAR)
+	public static TileEntityType<TileAltar> TYPE;
 	private static final Pattern SEED_PATTERN = Pattern.compile("(?:(?:(?:[A-Z-_.:]|^)seed)|(?:(?:[a-z-_.:]|^)Seed))(?:[sA-Z-_.:]|$)");
 	private static final int SET_KEEP_TICKS_EVENT = 0;
 	private static final int CRAFT_EFFECT_EVENT = 1;
 
-	public static final String TAG_HAS_WATER = "hasWater";
-	public static final String TAG_HAS_LAVA = "hasLava";
+	private static final String TAG_HAS_WATER = "hasWater";
+	private static final String TAG_HAS_LAVA = "hasLava";
 
 	private static final String ITEM_TAG_APOTHECARY_SPAWNED = "ApothecarySpawned";
 
 	public boolean hasWater = false;
 	public boolean hasLava = false;
 
-	List<ItemStack> lastRecipe = null;
-	int recipeKeepTicks = 0;
+	private List<ItemStack> lastRecipe = null;
+	private int recipeKeepTicks = 0;
+
+	public TileAltar() {
+		super(TYPE);
+	}
 
 	public boolean collideEntityItem(EntityItem item) {
 		ItemStack stack = item.getItem();
@@ -250,9 +258,9 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 			}
 
 			if(hasLava()) {
-				world.spawnParticle(Particles.SMOKE, pos.getX() + 0.5 + Math.random() * 0.4 - 0.2, pos.getY() + 1, pos.getZ() + 0.5 + Math.random() * 0.4 - 0.2, 0, 0.05, 0);
+				world.addParticle(Particles.SMOKE, pos.getX() + 0.5 + Math.random() * 0.4 - 0.2, pos.getY() + 1, pos.getZ() + 0.5 + Math.random() * 0.4 - 0.2, 0, 0.05, 0);
 				if(Math.random() > 0.9)
-					world.spawnParticle(Particles.LAVA, pos.getX() + 0.5 + Math.random() * 0.4 - 0.2, pos.getY() + 1, pos.getZ() + 0.5 + Math.random() * 0.4 - 0.2, 0, 0.01, 0);
+					world.addParticle(Particles.LAVA, pos.getX() + 0.5 + Math.random() * 0.4 - 0.2, pos.getY() + 1, pos.getZ() + 0.5 + Math.random() * 0.4 - 0.2, 0, 0.01, 0);
 			}
 		}
 
@@ -265,8 +273,8 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 	public void writePacketNBT(NBTTagCompound cmp) {
 		super.writePacketNBT(cmp);
 
-		cmp.setBoolean(TAG_HAS_WATER, hasWater());
-		cmp.setBoolean(TAG_HAS_LAVA, hasLava());
+		cmp.putBoolean(TAG_HAS_WATER, hasWater());
+		cmp.putBoolean(TAG_HAS_LAVA, hasLava());
 	}
 
 	@Override

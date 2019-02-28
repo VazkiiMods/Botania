@@ -19,11 +19,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.OreDictionary;
+import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.ILexicon;
 import vazkii.botania.api.lexicon.multiblock.Multiblock;
@@ -41,6 +43,8 @@ import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ItemLexicon;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lexicon.LexiconData;
+import vazkii.botania.common.lib.LibBlockNames;
+import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -49,6 +53,9 @@ import java.util.List;
 import java.util.function.Function;
 
 public class TileAlfPortal extends TileMod implements ITickable {
+
+	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.ALF_PORTAL)
+	public static TileEntityType<TileAlfPortal> TYPE;
 
 	private static final BlockPos[] LIVINGWOOD_POSITIONS = {
 			new BlockPos(-1, 0, 0), new BlockPos(1, 0, 0), new BlockPos(-2, 1, 0),
@@ -101,6 +108,10 @@ public class TileAlfPortal extends TileMod implements ITickable {
 		mb.setRenderOffset(new BlockPos(0, -1, 0));
 
 		return mb.makeSet();
+	}
+
+	public TileAlfPortal() {
+		super(TYPE);
 	}
 
 	@Override

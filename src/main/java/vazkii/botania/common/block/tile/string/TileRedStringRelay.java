@@ -15,10 +15,20 @@ import net.minecraft.block.BlockDoublePlant;
 import net.minecraft.block.BlockFlower;
 import net.minecraft.block.BlockMushroom;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.subtile.ISubTileContainer;
+import vazkii.botania.common.lib.LibBlockNames;
+import vazkii.botania.common.lib.LibMisc;
 
 public class TileRedStringRelay extends TileRedString {
+	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.RED_STRING_RELAY)
+	public static TileEntityType<TileRedStringRelay> TYPE;
+
+	public TileRedStringRelay() {
+		super(TYPE);
+	}
 
 	@Override
 	public boolean acceptBlock(BlockPos pos) {

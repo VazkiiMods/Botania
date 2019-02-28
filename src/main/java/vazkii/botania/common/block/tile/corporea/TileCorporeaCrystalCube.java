@@ -14,6 +14,7 @@ import com.google.common.collect.ImmutableMap;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.ResourceLocation;
@@ -24,30 +25,35 @@ import net.minecraftforge.common.model.animation.CapabilityAnimation;
 import net.minecraftforge.common.model.animation.IAnimationStateMachine;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fml.loading.FMLEnvironment;
+import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.corporea.ICorporeaRequestor;
 import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
+import vazkii.botania.common.lib.LibBlockNames;
+import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 import java.util.List;
 
 public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorporeaRequestor, ITickable {
-
+	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.CORPOREA_CRYSTAL_CUBE)
+	public static TileEntityType<TileCorporeaCrystalCube> TYPE;
 	private static final String TAG_REQUEST_TARGET = "requestTarget";
 	private static final String TAG_ITEM_COUNT = "itemCount";
 
 	private static final double LOG_2 = Math.log(2);
 
-	ItemStack requestTarget = ItemStack.EMPTY;
-	int itemCount = 0;
-	int ticks = 0;
-	int compValue = 0;
+	private ItemStack requestTarget = ItemStack.EMPTY;
+	private int itemCount = 0;
+	private int ticks = 0;
+	private int compValue = 0;
 
 	private final IAnimationStateMachine asm;
 	private final LazyOptional<IAnimationStateMachine> asmCap;
 
 	public TileCorporeaCrystalCube() {
+		super(TYPE);
 		if (FMLEnvironment.dist == Dist.CLIENT) {
 			asm = ModelLoaderRegistry.loadASM(new ResourceLocation("botania", "asms/block/corporeacrystalcube.json"), ImmutableMap.of());
 			asmCap = LazyOptional.of(() -> asm);
@@ -127,8 +133,8 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 		NBTTagCompound cmp = new NBTTagCompound();
 		if(!requestTarget.isEmpty())
 			cmp = requestTarget.write(cmp);
-		par1nbtTagCompound.setTag(TAG_REQUEST_TARGET, cmp);
-		par1nbtTagCompound.setInt(TAG_ITEM_COUNT, itemCount);
+		par1nbtTagCompound.put(TAG_REQUEST_TARGET, cmp);
+		par1nbtTagCompound.putInt(TAG_ITEM_COUNT, itemCount);
 	}
 
 	@Override
@@ -166,6 +172,7 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 	}
 
 	@Override
+	@Nonnull
 	public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, EnumFacing side) {
 		if(cap == CapabilityAnimation.ANIMATION_CAPABILITY) {
 			return asmCap.cast();

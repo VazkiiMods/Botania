@@ -12,15 +12,20 @@ package vazkii.botania.common.block.tile.corporea;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.corporea.ICorporeaRequestor;
 import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.api.corporea.InvWithLocation;
 import vazkii.botania.common.block.tile.TileMod;
+import vazkii.botania.common.lib.LibBlockNames;
+import vazkii.botania.common.lib.LibMisc;
 
 public class TileCorporeaRetainer extends TileMod {
-
+	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.CORPOREA_RETAINER)
+	public static TileEntityType<TileCorporeaRetainer> TYPE;
 	private static final String TAG_PENDING_REQUEST = "pendingRequest";
 	private static final String TAG_REQUEST_X = "requestX";
 	private static final String TAG_REQUEST_Y = "requestY";
@@ -34,11 +39,15 @@ public class TileCorporeaRetainer extends TileMod {
 	private static final int REQUEST_ITEMSTACK = 1;
 	private static final int REQUEST_STRING = 2;
 
-	boolean pendingRequest = false;
-	BlockPos requestPos = BlockPos.ORIGIN;
-	Object request;
-	int requestCount;
-	int compValue;
+	private boolean pendingRequest = false;
+	private BlockPos requestPos = BlockPos.ORIGIN;
+	private Object request;
+	private int requestCount;
+	private int compValue;
+
+	public TileCorporeaRetainer() {
+		super(TYPE);
+	}
 
 	public void setPendingRequest(BlockPos pos, Object request, int requestCount) {
 		if(pendingRequest)
@@ -81,27 +90,27 @@ public class TileCorporeaRetainer extends TileMod {
 	public void writePacketNBT(NBTTagCompound cmp) {
 		super.writePacketNBT(cmp);
 
-		cmp.setBoolean(TAG_PENDING_REQUEST, pendingRequest);
-		cmp.setInt(TAG_REQUEST_X, requestPos.getX());
-		cmp.setInt(TAG_REQUEST_Y, requestPos.getY());
-		cmp.setInt(TAG_REQUEST_Z, requestPos.getZ());
+		cmp.putBoolean(TAG_PENDING_REQUEST, pendingRequest);
+		cmp.putInt(TAG_REQUEST_X, requestPos.getX());
+		cmp.putInt(TAG_REQUEST_Y, requestPos.getY());
+		cmp.putInt(TAG_REQUEST_Z, requestPos.getZ());
 
 		int reqType = REQUEST_NULL;
 		if(request != null)
 			reqType = request instanceof String ? REQUEST_STRING : REQUEST_ITEMSTACK;
-		cmp.setInt(TAG_REQUEST_TYPE, reqType);
+		cmp.putInt(TAG_REQUEST_TYPE, reqType);
 
 		switch (reqType) {
 		case REQUEST_STRING:
-			cmp.setString(TAG_REQUEST_CONTENTS, (String) request);
+			cmp.putString(TAG_REQUEST_CONTENTS, (String) request);
 			break;
 		case REQUEST_ITEMSTACK:
 			NBTTagCompound cmp1 = ((ItemStack) request).write(new NBTTagCompound());
-			cmp.setTag(TAG_REQUEST_STACK, cmp1);
+			cmp.put(TAG_REQUEST_STACK, cmp1);
 			break;
 		default: break;
 		}
-		cmp.setInt(TAG_REQUEST_COUNT, requestCount);
+		cmp.putInt(TAG_REQUEST_COUNT, requestCount);
 	}
 
 	@Override

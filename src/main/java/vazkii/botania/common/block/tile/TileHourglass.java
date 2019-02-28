@@ -12,7 +12,6 @@ package vazkii.botania.common.block.tile;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.resources.I18n;
@@ -20,21 +19,26 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.StringUtils;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.item.IHourglassTrigger;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.lib.LibBlockNames;
+import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
 public class TileHourglass extends TileSimpleInventory implements ITickable {
-
+	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.HOURGLASS)
+	public static TileEntityType<TileHourglass> TYPE;
 	private static final String TAG_TIME = "time";
 	private static final String TAG_TIME_FRACTION = "timeFraction";
 	private static final String TAG_FLIP = "flip";
@@ -49,6 +53,10 @@ public class TileHourglass extends TileSimpleInventory implements ITickable {
 	public int flipTicks = 0;
 	public boolean lock = false;
 	public boolean move = true;
+
+	public TileHourglass() {
+		super(TYPE);
+	}
 
 	private boolean isDust() {
 		ItemStack stack = itemHandler.getStackInSlot(0);
@@ -113,9 +121,11 @@ public class TileHourglass extends TileSimpleInventory implements ITickable {
 	public static int getStackItemTime(ItemStack stack) {
 		if(stack.isEmpty())
 			return 0;
-		if(stack.getItem() == Item.getItemFromBlock(Blocks.SAND))
-			return stack.getItemDamage() == 1 ? 200 : 20;
-		if(stack.getItem() == Item.getItemFromBlock(Blocks.SOUL_SAND))
+		if(stack.getItem() == Blocks.SAND.asItem())
+			return 20;
+		if(stack.getItem() == Blocks.RED_SAND.asItem())
+			return 200;
+		if(stack.getItem() == Blocks.SOUL_SAND.asItem())
 			return 1200;
 		if(stack.getItem() == ModItems.manaPowder)
 			return 1;
@@ -126,9 +136,11 @@ public class TileHourglass extends TileSimpleInventory implements ITickable {
 		ItemStack stack = itemHandler.getStackInSlot(0);
 		if(stack.isEmpty())
 			return 0;
-		if(stack.getItem() == Item.getItemFromBlock(Blocks.SAND))
-			return stack.getItemDamage() == 1 ? 0xE95800 : 0xFFEC49;
-		if(stack.getItem() == Item.getItemFromBlock(Blocks.SOUL_SAND))
+		if(stack.getItem() == Blocks.SAND.asItem())
+			return 0xFFEC49;
+		if(stack.getItem() == Blocks.RED_SAND.asItem())
+			return 0xE95800;
+		if(stack.getItem() == Blocks.SOUL_SAND.asItem())
 			return 0x5A412f;
 		if(stack.getItem() == ModItems.manaPowder)
 			return 0x03abff;
@@ -142,7 +154,10 @@ public class TileHourglass extends TileSimpleInventory implements ITickable {
 			@Nonnull
 			@Override
 			public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
-				if(!stack.isEmpty() && (stack.getItem() == Item.getItemFromBlock(Blocks.SAND) || stack.getItem() == Item.getItemFromBlock(Blocks.SOUL_SAND)) || stack.getItem() == ModItems.manaPowder)
+				if(!stack.isEmpty() && (stack.getItem() == Blocks.SAND.asItem()
+						|| stack.getItem() == Blocks.RED_SAND.asItem()
+						|| stack.getItem() == Blocks.SOUL_SAND.asItem()
+						|| stack.getItem() == ModItems.manaPowder))
 					return super.insertItem(slot, stack, simulate);
 				else return stack;
 			}
@@ -162,12 +177,12 @@ public class TileHourglass extends TileSimpleInventory implements ITickable {
 	@Override
 	public void writePacketNBT(NBTTagCompound par1nbtTagCompound) {
 		super.writePacketNBT(par1nbtTagCompound);
-		par1nbtTagCompound.setInt(TAG_TIME, time);
-		par1nbtTagCompound.setFloat(TAG_TIME_FRACTION, timeFraction);
-		par1nbtTagCompound.setBoolean(TAG_FLIP, flip);
-		par1nbtTagCompound.setInt(TAG_FLIP_TICKS, flipTicks);
-		par1nbtTagCompound.setBoolean(TAG_MOVE, move);
-		par1nbtTagCompound.setBoolean(TAG_LOCK, lock);
+		par1nbtTagCompound.putInt(TAG_TIME, time);
+		par1nbtTagCompound.putFloat(TAG_TIME_FRACTION, timeFraction);
+		par1nbtTagCompound.putBoolean(TAG_FLIP, flip);
+		par1nbtTagCompound.putInt(TAG_FLIP_TICKS, flipTicks);
+		par1nbtTagCompound.putBoolean(TAG_MOVE, move);
+		par1nbtTagCompound.putBoolean(TAG_LOCK, lock);
 	}
 
 	@Override

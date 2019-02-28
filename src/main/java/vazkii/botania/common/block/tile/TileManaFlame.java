@@ -11,15 +11,24 @@
 package vazkii.botania.common.block.tile;
 
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ITickable;
+import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.lib.LibBlockNames;
+import vazkii.botania.common.lib.LibMisc;
 
 public class TileManaFlame extends TileMod implements ITickable {
-
+	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.MANA_FLAME)
+	public static TileEntityType<TileManaFlame> TYPE;
 	private static final String TAG_COLOR = "color";
 
 	private int color = 0x20FF20;
 	private int lightColor = -1;
+
+	public TileManaFlame() {
+		super(TYPE);
+	}
 
 	public void setColor(int color) {
 		this.color = color;
@@ -71,7 +80,7 @@ public class TileManaFlame extends TileMod implements ITickable {
 
 	@Override
 	public void writePacketNBT(NBTTagCompound cmp) {
-		cmp.setInt(TAG_COLOR, color);
+		cmp.putInt(TAG_COLOR, color);
 	}
 
 	@Override

@@ -15,17 +15,27 @@ import net.minecraft.init.Blocks;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.particles.RedstoneParticleData;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.WorldServer;
+import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
+import vazkii.botania.common.lib.LibBlockNames;
+import vazkii.botania.common.lib.LibMisc;
 
 import java.util.List;
 
 public class TileEnderEye extends TileMod implements ITickable {
+	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.ENDER_EYE_BLOCK)
+	public static TileEntityType<TileEnderEye> TYPE;
+
+	public TileEnderEye() {
+		super(TYPE);
+	}
 
 	@Override
 	public void tick() {
@@ -57,7 +67,7 @@ public class TileEnderEye extends TileMod implements ITickable {
 			double y = getPos().getY() - 0.1 + Math.random() * 1.2;
 			double z = getPos().getZ() - 0.1 + Math.random() * 1.2;
 
-			((WorldServer) world).spawnParticle(EnumParticleTypes.REDSTONE, false, x, y, z, 0, 1.0D, 0.0D, 0.0D, 1.0D);
+			((WorldServer) world).spawnParticle(RedstoneParticleData.REDSTONE_DUST, x, y, z, 0, 1.0D, 0.0D, 0.0D, 1.0D);
 		}
 	}
 

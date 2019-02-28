@@ -14,19 +14,29 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.item.EntityItemFrame;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
+import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.corporea.ICorporeaRequestor;
 import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.common.core.helper.InventoryHelper;
+import vazkii.botania.common.lib.LibBlockNames;
+import vazkii.botania.common.lib.LibMisc;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class TileCorporeaFunnel extends TileCorporeaBase implements ICorporeaRequestor {
+	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.CORPOREA_FUNNEL)
+	public static TileEntityType<TileCorporeaFunnel> TYPE;
+
+	public TileCorporeaFunnel() {
+		super(TYPE);
+	}
 
 	public void doRequest() {
 		ICorporeaSpark spark = getSpark();

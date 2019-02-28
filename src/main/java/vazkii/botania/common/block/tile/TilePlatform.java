@@ -12,10 +12,20 @@ package vazkii.botania.common.block.tile;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.registries.ObjectHolder;
+import vazkii.botania.common.lib.LibBlockNames;
+import vazkii.botania.common.lib.LibMisc;
 
 public class TilePlatform extends TileCamo {
+	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.PLATFORM)
+	public static TileEntityType<TilePlatform> TYPE;
+
+	public TilePlatform() {
+		super(TYPE);
+	}
 
 	public boolean onWanded(EntityPlayer player) {
 		if(player != null) {
@@ -28,24 +38,24 @@ public class TilePlatform extends TileCamo {
 		return false;
 	}
 
-	void swapSelfAndPass(TilePlatform tile, boolean empty) {
+	private void swapSelfAndPass(TilePlatform tile, boolean empty) {
 		swap(tile, empty);
 		swapSurroudings(tile, empty);
 	}
 
-	void swapSurroudings(TilePlatform tile, boolean empty) {
+	private void swapSurroudings(TilePlatform tile, boolean empty) {
 		for(EnumFacing dir : EnumFacing.BY_INDEX) {
 			BlockPos pos = tile.getPos().offset(dir);
 			TileEntity tileAt = world.getTileEntity(pos);
-			if(tileAt != null && tileAt instanceof TilePlatform) {
+			if(tileAt instanceof TilePlatform) {
 				TilePlatform platform = (TilePlatform) tileAt;
-				if(empty ? platform.camoState != null : platform.camoState == null)
+				if(empty == (platform.camoState != null))
 					swapSelfAndPass(platform, empty);
 			}
 		}
 	}
 
-	void swap(TilePlatform tile, boolean empty) {
+	private void swap(TilePlatform tile, boolean empty) {
 		tile.camoState = empty ? null : camoState;
 		world.notifyBlockUpdate(tile.getPos(), world.getBlockState(tile.getPos()), world.getBlockState(tile.getPos()), 8);
 	}

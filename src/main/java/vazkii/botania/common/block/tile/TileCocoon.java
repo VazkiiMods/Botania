@@ -26,10 +26,17 @@ import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ITickable;
 import net.minecraftforge.fml.common.registry.VillagerRegistry;
+import net.minecraftforge.registries.ObjectHolder;
+import vazkii.botania.common.lib.LibBlockNames;
+import vazkii.botania.common.lib.LibMisc;
 
 public class TileCocoon extends TileMod implements ITickable{
+
+	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.COCOON)
+	public static TileEntityType<TileCocoon> TYPE;
 
 	private static final String TAG_TIME_PASSED = "timePassed";
 	private static final String TAG_EMERALDS_GIVEN = "emeraldsGiven";
@@ -42,6 +49,10 @@ public class TileCocoon extends TileMod implements ITickable{
 	public int timePassed;
 	public int emeraldsGiven;
 	public int chorusFruitGiven;
+
+	public TileCocoon() {
+		super(TYPE);
+	}
 
 	@Override
 	public void tick() {
@@ -123,9 +134,9 @@ public class TileCocoon extends TileMod implements ITickable{
 
 	@Override
 	public void writePacketNBT(NBTTagCompound cmp) {
-		cmp.setInt(TAG_TIME_PASSED, timePassed);
-		cmp.setInt(TAG_EMERALDS_GIVEN, emeraldsGiven);
-		cmp.setInt(TAG_CHORUS_FRUIT_GIVEN, chorusFruitGiven);
+		cmp.putInt(TAG_TIME_PASSED, timePassed);
+		cmp.putInt(TAG_EMERALDS_GIVEN, emeraldsGiven);
+		cmp.putInt(TAG_CHORUS_FRUIT_GIVEN, chorusFruitGiven);
 	}
 
 	@Override

@@ -11,16 +11,26 @@
 package vazkii.botania.common.block.tile;
 
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ITickable;
+import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.lib.LibBlockNames;
+import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
 public class TileBifrost extends TileMod implements ITickable {
 
+	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.BIFROST)
+	public static TileEntityType<TileBifrost> TYPE;
 	private static final String TAG_TICKS = "ticks";
 
 	public int ticks = 0;
+
+	public TileBifrost() {
+		super(TYPE);
+	}
 
 	@Override
 	public void tick() {
@@ -35,7 +45,7 @@ public class TileBifrost extends TileMod implements ITickable {
 	@Override
 	public NBTTagCompound write(NBTTagCompound par1nbtTagCompound) {
 		NBTTagCompound ret = super.write(par1nbtTagCompound);
-		ret.setInt(TAG_TICKS, ticks);
+		ret.putInt(TAG_TICKS, ticks);
 		return ret;
 	}
 

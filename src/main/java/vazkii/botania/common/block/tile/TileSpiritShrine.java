@@ -15,7 +15,11 @@ import vazkii.botania.common.Botania;
 
 public class TileSpiritShrine extends TileMod implements ITickable {
 
-	int ticks;
+	private int ticks;
+
+	public TileSpiritShrine() {
+		super(null);
+	}
 
 	@Override
 	public void tick() {

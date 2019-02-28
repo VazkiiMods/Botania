@@ -116,9 +116,9 @@ public class TileSpecialFlower extends TileMod implements IWandBindable, ISubTil
 	public void writePacketNBT(NBTTagCompound cmp) {
 		super.writePacketNBT(cmp);
 
-		cmp.setString(TAG_SUBTILE_NAME, subTileName.toString());
+		cmp.putString(TAG_SUBTILE_NAME, subTileName.toString());
 		NBTTagCompound subCmp = new NBTTagCompound();
-		cmp.setTag(TAG_SUBTILE_CMP, subCmp);
+		cmp.put(TAG_SUBTILE_CMP, subCmp);
 
 		if(subTile != null)
 			subTile.writeToPacketNBTInternal(subCmp);
@@ -180,9 +180,9 @@ public class TileSpecialFlower extends TileMod implements IWandBindable, ISubTil
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public void renderHUD(Minecraft mc, ScaledResolution res) {
+	public void renderHUD(Minecraft mc) {
 		if(subTile != null)
-			subTile.renderHUD(mc, res);
+			subTile.renderHUD(mc);
 	}
 
 	@Override

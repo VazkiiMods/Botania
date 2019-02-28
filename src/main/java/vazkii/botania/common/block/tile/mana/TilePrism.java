@@ -12,6 +12,8 @@ package vazkii.botania.common.block.tile.mana;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntityType;
+import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.BurstProperties;
@@ -19,14 +21,22 @@ import vazkii.botania.api.mana.ILens;
 import vazkii.botania.api.mana.ITinyPlanetExcempt;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
+import vazkii.botania.common.lib.LibBlockNames;
+import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
 public class TilePrism extends TileSimpleInventory {
+	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.PRISM)
+	public static TileEntityType<TilePrism> TYPE;
+
+	public TilePrism() {
+		super(TYPE);
+	}
 
 	public void onBurstCollision(IManaBurst burst) {
 		ItemStack lens = itemHandler.getStackInSlot(0);
-		boolean active = !world.getBlockState(getPos()).getValue(BotaniaStateProps.POWERED);
+		boolean active = !world.getBlockState(getPos()).get(BotaniaStateProps.POWERED);
 		boolean valid = !lens.isEmpty() && lens.getItem() instanceof ILens && (!(lens.getItem() instanceof ITinyPlanetExcempt) || ((ITinyPlanetExcempt) lens.getItem()).shouldPull(lens));
 
 		if(active) {

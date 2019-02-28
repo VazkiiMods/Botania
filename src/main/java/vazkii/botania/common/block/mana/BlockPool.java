@@ -77,6 +77,7 @@ public class BlockPool extends BlockMod implements IWandHUD, IWandable, ILexicon
 
 	@Override
 	protected void fillStateContainer(StateContainer.Builder<Block, IBlockState> builder) {
+		// todo 1.13 move to extended state replacement
 		builder.add(BotaniaStateProps.COLOR);
 	}
 

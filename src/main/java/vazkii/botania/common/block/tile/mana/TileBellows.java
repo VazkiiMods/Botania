@@ -12,26 +12,36 @@ package vazkii.botania.common.block.tile.mana;
 
 import net.minecraft.block.BlockFurnace;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Particles;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityFurnace;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.SoundCategory;
+import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.subtile.functional.SubTileExoflame;
 import vazkii.botania.common.block.tile.TileMod;
 import vazkii.botania.common.core.handler.ModSounds;
+import vazkii.botania.common.lib.LibBlockNames;
+import vazkii.botania.common.lib.LibMisc;
 
 public class TileBellows extends TileMod implements ITickable {
-
+	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.BELLOWS)
+	public static TileEntityType<TileBellows> TYPE;
 	private static final String TAG_ACTIVE = "active";
 
 	public float movePos;
 	public boolean active = false;
 	public float moving = 0F;
+
+	public TileBellows() {
+		super(TYPE);
+	}
 
 	public void interact() {
 		if(moving == 0F)
@@ -46,7 +56,7 @@ public class TileBellows extends TileMod implements ITickable {
 			TilePool pool = (TilePool) tile;
 			boolean transfer = pool.isDoingTransfer;
 			if(transfer) {
-				if(!active && pool.ticksDoingTransfer >= getBlockMetadata() * 2 - 2)
+				if(pool.ticksDoingTransfer >= getBlockMetadata() * 2 - 2)
 					setActive(true);
 				disable = false;
 			}
@@ -68,34 +78,21 @@ public class TileBellows extends TileMod implements ITickable {
 					furnace.setField(0, Math.max(0, furnace.getField(0) - 10)); // burnTime
 				}
 
-				if(furnace.hasWorld() && furnace.getBlockType() == Blocks.LIT_FURNACE) {
-					// Copypasta from BlockFurnace
-					EnumFacing enumfacing = world.getBlockState(furnace.getPos()).getValue(BlockFurnace.FACING);
-					double d0 = pos.getX() + 0.5D;
-					double d1 = pos.getY() + world.rand.nextDouble() * 6.0D / 16.0D;
-					double d2 = pos.getZ() + 0.5D;
+				if(furnace.hasWorld() && furnace.getBlockState().get(BlockFurnace.LIT)) {
+					// [VanillaCopy] BlockFurnace
+					double d0 = (double)pos.getX() + 0.5D;
+					double d1 = (double)pos.getY();
+					double d2 = (double)pos.getZ() + 0.5D;
+
+					EnumFacing enumfacing = furnace.getBlockState().get(BlockFurnace.FACING);
+					EnumFacing.Axis enumfacing$axis = enumfacing.getAxis();
 					double d3 = 0.52D;
 					double d4 = world.rand.nextDouble() * 0.6D - 0.3D;
-
-					switch (enumfacing)
-					{
-					case WEST:
-						world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0 - d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D);
-						world.spawnParticle(EnumParticleTypes.FLAME, d0 - d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D);
-						break;
-					case EAST:
-						world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0 + d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D);
-						world.spawnParticle(EnumParticleTypes.FLAME, d0 + d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D);
-						break;
-					case NORTH:
-						world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0 + d4, d1, d2 - d3, 0.0D, 0.0D, 0.0D);
-						world.spawnParticle(EnumParticleTypes.FLAME, d0 + d4, d1, d2 - d3, 0.0D, 0.0D, 0.0D);
-						break;
-					case SOUTH:
-						world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0 + d4, d1, d2 + d3, 0.0D, 0.0D, 0.0D);
-						world.spawnParticle(EnumParticleTypes.FLAME, d0 + d4, d1, d2 + d3, 0.0D, 0.0D, 0.0D);
-					default: break;
-					}
+					double d5 = enumfacing$axis == EnumFacing.Axis.X ? (double)enumfacing.getXOffset() * 0.52D : d4;
+					double d6 = world.rand.nextDouble() * 6.0D / 16.0D;
+					double d7 = enumfacing$axis == EnumFacing.Axis.Z ? (double)enumfacing.getZOffset() * 0.52D : d4;
+					world.addParticle(Particles.SMOKE, d0 + d5, d1 + d6, d2 + d7, 0.0D, 0.0D, 0.0D);
+					world.addParticle(Particles.FLAME, d0 + d5, d1 + d6, d2 + d7, 0.0D, 0.0D, 0.0D);
 				}
 			}
 
@@ -125,7 +122,7 @@ public class TileBellows extends TileMod implements ITickable {
 
 	@Override
 	public void writePacketNBT(NBTTagCompound cmp) {
-		cmp.setBoolean(TAG_ACTIVE, active);
+		cmp.putBoolean(TAG_ACTIVE, active);
 	}
 
 	@Override

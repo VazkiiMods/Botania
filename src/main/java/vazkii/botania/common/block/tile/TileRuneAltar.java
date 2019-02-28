@@ -11,7 +11,6 @@
 package vazkii.botania.common.block.tile;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.item.EntityItem;
@@ -19,10 +18,12 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraftforge.registries.ObjectHolder;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
@@ -36,6 +37,8 @@ import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.material.ItemRune;
+import vazkii.botania.common.lib.LibBlockNames;
+import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.network.PacketBotaniaEffect;
 import vazkii.botania.common.network.PacketHandler;
 
@@ -45,30 +48,35 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver, ITickable {
-
+	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.RUNE_ALTAR)
+	public static TileEntityType<TileRuneAltar> TYPE;
 	private static final String TAG_MANA = "mana";
 	private static final String TAG_MANA_TO_GET = "manaToGet";
 	private static final int SET_KEEP_TICKS_EVENT = 0;
 	private static final int SET_COOLDOWN_EVENT = 1;
 	private static final int CRAFT_EFFECT_EVENT = 2;
 
-	RecipeRuneAltar currentRecipe;
+	private RecipeRuneAltar currentRecipe;
 
 	public int manaToGet = 0;
-	int mana = 0;
-	int cooldown = 0;
+	private int mana = 0;
+	private int cooldown = 0;
 	public int signal = 0;
 
-	List<ItemStack> lastRecipe = null;
-	int recipeKeepTicks = 0;
+	private List<ItemStack> lastRecipe = null;
+	private int recipeKeepTicks = 0;
+
+	public TileRuneAltar() {
+		super(TYPE);
+	}
 
 	public boolean addItem(@Nullable EntityPlayer player, ItemStack stack, @Nullable EnumHand hand) {
 		if(cooldown > 0 || stack.getItem() == ModItems.twigWand || stack.getItem() == ModItems.lexicon)
 			return false;
 
-		if(stack.getItem() == Item.getItemFromBlock(ModBlocks.livingrock) && stack.getItemDamage() == 0) {
+		if(stack.getItem() == ModBlocks.livingrock.asItem()) {
 			if(!world.isRemote) {
-				ItemStack toSpawn = player != null && player.abilities.isCreativeMode ? stack.copy().splitStack(1) : stack.splitStack(1);
+				ItemStack toSpawn = player != null && player.abilities.isCreativeMode ? stack.copy().split(1) : stack.split(1);
 				EntityItem item = new EntityItem(world, getPos().getX() + 0.5, getPos().getY() + 1, getPos().getZ() + 0.5, toSpawn);
 				item.setPickupDelay(40);
 				item.motionX = item.motionY = item.motionZ = 0;
@@ -173,7 +181,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 		else lastRecipe = null;
 	}
 
-	public void updateRecipe() {
+	private void updateRecipe() {
 		int manaToGet = this.manaToGet;
 
 		getMana : {
@@ -195,7 +203,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 		}
 	}
 
-	public void saveLastRecipe() {
+	private void saveLastRecipe() {
 		lastRecipe = new ArrayList<>();
 		for(int i = 0; i < getSizeInventory(); i++) {
 			ItemStack stack = itemHandler.getStackInSlot(i);
@@ -240,7 +248,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 			List<EntityItem> items = world.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(pos, pos.add(1, 1, 1)));
 			EntityItem livingrock = null;
 			for(EntityItem item : items)
-				if(item.isAlive() && !item.getItem().isEmpty() && item.getItem().getItem() == Item.getItemFromBlock(ModBlocks.livingrock)) {
+				if(item.isAlive() && !item.getItem().isEmpty() && item.getItem().getItem() == ModBlocks.livingrock.asItem()) {
 					livingrock = item;
 					break;
 				}
@@ -259,7 +267,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 				for(int i = 0; i < getSizeInventory(); i++) {
 					ItemStack stack = itemHandler.getStackInSlot(i);
 					if(!stack.isEmpty()) {
-						if(stack.getItem() instanceof ItemRune && (player == null || !player.capabilities.isCreativeMode)) {
+						if(stack.getItem() instanceof ItemRune && (player == null || !player.abilities.isCreativeMode)) {
 							EntityItem outputRune = new EntityItem(world, getPos().getX() + 0.5, getPos().getY() + 1.5, getPos().getZ() + 0.5, stack.copy());
 							world.spawnEntity(outputRune);
 						}
@@ -285,8 +293,8 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 	public void writePacketNBT(NBTTagCompound par1nbtTagCompound) {
 		super.writePacketNBT(par1nbtTagCompound);
 
-		par1nbtTagCompound.setInt(TAG_MANA, mana);
-		par1nbtTagCompound.setInt(TAG_MANA_TO_GET, manaToGet);
+		par1nbtTagCompound.putInt(TAG_MANA, mana);
+		par1nbtTagCompound.putInt(TAG_MANA_TO_GET, manaToGet);
 	}
 
 	@Override
@@ -363,15 +371,15 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 					float progress = (float) mana / (float) manaToGet;
 
 					mc.textureManager.bindTexture(HUDHandler.manaBar);
-					GlStateManager.color(1F, 1F, 1F, 1F);
+					GlStateManager.color4f(1F, 1F, 1F, 1F);
 					RenderHelper.drawTexturedModalRect(xc + radius + 9, yc - 8, 0, progress == 1F ? 0 : 22, 8, 22, 15);
 
 					net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
 					if(progress == 1F) {
 						mc.getItemRenderer().renderItemIntoGUI(new ItemStack(ModBlocks.livingrock), xc + radius + 16, yc + 8);
-						GlStateManager.translate(0F, 0F, 100F);
+						GlStateManager.translatef(0F, 0F, 100F);
 						mc.getItemRenderer().renderItemIntoGUI(new ItemStack(ModItems.twigWand), xc + radius + 24, yc + 8);
-						GlStateManager.translate(0F, 0F, -100F);
+						GlStateManager.translatef(0F, 0F, -100F);
 					}
 
 					RenderHelper.renderProgressPie(xc + radius + 32, yc - 8, progress, recipe.getOutput());
@@ -385,9 +393,9 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 			for(int i = 0; i < amt; i++) {
 				double xPos = xc + Math.cos(angle * Math.PI / 180D) * radius - 8;
 				double yPos = yc + Math.sin(angle * Math.PI / 180D) * radius - 8;
-				GlStateManager.translate(xPos, yPos, 0);
+				GlStateManager.translated(xPos, yPos, 0);
 				mc.getItemRenderer().renderItemIntoGUI(itemHandler.getStackInSlot(i), 0, 0);
-				GlStateManager.translate(-xPos, -yPos, 0);
+				GlStateManager.translated(-xPos, -yPos, 0);
 
 				angle += anglePer;
 			}

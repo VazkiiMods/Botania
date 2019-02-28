@@ -12,8 +12,10 @@ package vazkii.botania.common.block.tile;
 
 import net.minecraft.block.Block;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.AlfPortalState;
 import vazkii.botania.common.Botania;
@@ -22,14 +24,21 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.mana.BlockPool;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.Vector3;
+import vazkii.botania.common.lib.LibBlockNames;
+import vazkii.botania.common.lib.LibMisc;
 
 import java.util.Random;
 
 public class TilePylon extends TileEntity implements ITickable {
-
+	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.PYLON)
+	public static TileEntityType<TilePylon> TYPE;
 	boolean activated = false;
 	BlockPos centerPos;
-	int ticks = 0;
+	private int ticks = 0;
+
+	public TilePylon() {
+		super(TYPE);
+	}
 
 	@Override
 	public void tick() {

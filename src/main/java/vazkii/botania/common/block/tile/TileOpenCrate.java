@@ -15,24 +15,31 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.lib.LibBlockNames;
+import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
 public class TileOpenCrate extends TileSimpleInventory implements ITickable {
 
-	@Override
-	public boolean shouldRefresh(World world, BlockPos pos, @Nonnull IBlockState oldState, @Nonnull IBlockState newState) {
-		if(oldState.getBlock() != newState.getBlock())
-			return true;
-		if(oldState.getBlock() != ModBlocks.openCrate || newState.getBlock() != ModBlocks.openCrate)
-			return true;
-		return false;
+	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.OPEN_CRATE)
+	public static TileEntityType<?> TYPE;
+
+	public TileOpenCrate() {
+		this(TYPE);
+	}
+
+	public TileOpenCrate(TileEntityType<?> type) {
+		super(type);
 	}
 
 	@Override
@@ -62,9 +69,7 @@ public class TileOpenCrate extends TileSimpleInventory implements ITickable {
 	}
 
 	public boolean canEject() {
-		IBlockState stateBelow = world.getBlockState(pos.down());
-		Block blockBelow = stateBelow.getBlock();
-		return blockBelow.isAir(stateBelow, world, pos.down()) || stateBelow.getCollisionBoundingBox(world, pos.down()) == null;
+		return world.isCollisionBoxesEmpty(null, new AxisAlignedBB(pos.down()));
 	}
 
 	public void eject(ItemStack stack, boolean redstone) {

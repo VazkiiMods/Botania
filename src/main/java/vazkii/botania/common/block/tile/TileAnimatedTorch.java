@@ -11,30 +11,36 @@
 package vazkii.botania.common.block.tile;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.particles.RedstoneParticleData;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ITickable;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.lib.LibBlockNames;
+import vazkii.botania.common.lib.LibMisc;
 
 import java.util.Arrays;
 
 public class TileAnimatedTorch extends TileMod implements ITickable {
 
-	public static final String TAG_SIDE = "side";
-	public static final String TAG_ROTATING = "rotating";
-	public static final String TAG_ROTATION_TICKS = "rotationTicks";
-	public static final String TAG_ANGLE_PER_TICK = "anglePerTick";
-	public static final String TAG_TORCH_MODE = "torchMode";
-	public static final String TAG_NEXT_RANDOM_ROTATION = "nextRandomRotation";
+	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.ANIMATED_TORCH)
+	public static TileEntityType<TileAnimatedTorch> TYPE;
+
+	private static final String TAG_SIDE = "side";
+	private static final String TAG_ROTATING = "rotating";
+	private static final String TAG_ROTATION_TICKS = "rotationTicks";
+	private static final String TAG_ANGLE_PER_TICK = "anglePerTick";
+	private static final String TAG_TORCH_MODE = "torchMode";
+	private static final String TAG_NEXT_RANDOM_ROTATION = "nextRandomRotation";
 
 	public static final EnumFacing[] SIDES = new EnumFacing[] {
 			EnumFacing.NORTH,
@@ -54,6 +60,10 @@ public class TileAnimatedTorch extends TileMod implements ITickable {
 	public double anglePerTick;
 
 	private TorchMode torchMode = TorchMode.TOGGLE;
+
+	public TileAnimatedTorch() {
+		super(TYPE);
+	}
 
 	@Override
 	public void onLoad() {
@@ -116,7 +126,7 @@ public class TileAnimatedTorch extends TileMod implements ITickable {
 
 		// tell neighbors that signal is off because we are rotating
 		world.notifyNeighborsOfStateChange(getPos(), getBlockState().getBlock());
-		for(EnumFacing e : EnumFacing.VALUES) {
+		for(EnumFacing e : EnumFacing.BY_INDEX) {
 			world.notifyNeighborsOfStateChange(getPos().offset(e), getBlockState().getBlock());
 		}
 	}
@@ -127,7 +137,7 @@ public class TileAnimatedTorch extends TileMod implements ITickable {
 		int y = mc.mainWindow.getScaledHeight() / 2 - 8;
 
 		mc.getItemRenderer().renderItemAndEffectIntoGUI(new ItemStack(Blocks.REDSTONE_TORCH), x, y);
-		mc.fontRenderer.drawStringWithShadow(I18n.translateToLocal("botania.animatedTorch." + torchMode.name().toLowerCase()), x + 18, y + 6, 0xFF4444);
+		mc.fontRenderer.drawStringWithShadow(I18n.format("botania.animatedTorch." + torchMode.name().toLowerCase()), x + 18, y + 6, 0xFF4444);
 	}
 
 	@Override
@@ -155,18 +165,18 @@ public class TileAnimatedTorch extends TileMod implements ITickable {
 			double z = getPos().getZ() + 0.5 + Math.sin((rotation + 90) / 180.0 * Math.PI) * 0.35;
 
 			for(int i = 0; i < amt; i++)
-				world.spawnParticle(EnumParticleTypes.REDSTONE, x, y, z, 0.0D, 0.0D, 0.0D);
+				world.addParticle(RedstoneParticleData.REDSTONE_DUST, x, y, z, 0.0D, 0.0D, 0.0D);
 		}
 	}
 
 	@Override
 	public void writePacketNBT(NBTTagCompound cmp) {
-		cmp.setInt(TAG_SIDE, side);
-		cmp.setBoolean(TAG_ROTATING, rotating);
-		cmp.setInt(TAG_ROTATION_TICKS, rotationTicks);
-		cmp.setDouble(TAG_ANGLE_PER_TICK, anglePerTick);
-		cmp.setInt(TAG_TORCH_MODE, torchMode.ordinal());
-		cmp.setInt(TAG_NEXT_RANDOM_ROTATION, nextRandomRotation);
+		cmp.putInt(TAG_SIDE, side);
+		cmp.putBoolean(TAG_ROTATING, rotating);
+		cmp.putInt(TAG_ROTATION_TICKS, rotationTicks);
+		cmp.putDouble(TAG_ANGLE_PER_TICK, anglePerTick);
+		cmp.putInt(TAG_TORCH_MODE, torchMode.ordinal());
+		cmp.putInt(TAG_NEXT_RANDOM_ROTATION, nextRandomRotation);
 	}
 
 	@Override

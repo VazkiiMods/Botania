@@ -14,6 +14,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -26,6 +27,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.ServerChatEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.registries.ObjectHolder;
 import org.apache.commons.lang3.text.WordUtils;
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.corporea.CorporeaIndexRequestEvent;
@@ -35,6 +37,7 @@ import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.common.advancements.CorporeaRequestTrigger;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.core.helper.PlayerHelper;
+import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
 import java.util.Collections;
@@ -48,7 +51,8 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequestor, ITickable {
-
+	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.CORPOREA_INDEX)
+	public static TileEntityType<TileCorporeaIndex> TYPE;
 	public static final double RADIUS = 2.5;
 
 	private static InputHandler input;
@@ -166,6 +170,10 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 	public float closeby = 0F;
 	public boolean hasCloseby;
 
+	public TileCorporeaIndex() {
+		super(TYPE);
+	}
+
 	@Override
 	public void tick() {
 		double x = pos.getX() + 0.5;
@@ -220,7 +228,7 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 	}
 
 	public static boolean isInRangeOfIndex(EntityPlayer player, TileCorporeaIndex index) {
-		return player.dimension == index.world.getDimension().getId() && MathHelper.pointDistancePlane(index.getPos().getX() + 0.5, index.getPos().getZ() + 0.5, player.posX, player.posZ) < RADIUS && Math.abs(index.getPos().getY() + 0.5 - player.posY + (player.world.isRemote ? 0 : 1.6)) < 5;
+		return player.dimension == index.world.getDimension().getType() && MathHelper.pointDistancePlane(index.getPos().getX() + 0.5, index.getPos().getZ() + 0.5, player.posX, player.posZ) < RADIUS && Math.abs(index.getPos().getY() + 0.5 - player.posY + (player.world.isRemote ? 0 : 1.6)) < 5;
 	}
 
 	public static void addPattern(String pattern, IRegexStacker stacker) {
@@ -281,7 +289,7 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 						if(name.equals("this")) {
 							ItemStack stack = event.getPlayer().getHeldItemMainhand();
 							if(!stack.isEmpty())
-								name = stack.getDisplayName().toLowerCase().trim();
+								name = stack.getDisplayName().getString().toLowerCase().trim();
 						}
 						
 						CorporeaIndexRequestEvent indexReqEvent = new CorporeaIndexRequestEvent(event.getPlayer(), name, count, spark);

@@ -27,14 +27,19 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.ResourceLocationException;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.registry.IRegistry;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.lexicon.multiblock.Multiblock;
@@ -49,6 +54,8 @@ import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ModSounds;
+import vazkii.botania.common.lib.LibBlockNames;
+import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.network.PacketBotaniaEffect;
 import vazkii.botania.common.network.PacketHandler;
 
@@ -61,6 +68,8 @@ import java.util.stream.Collectors;
 
 public class TileEnchanter extends TileMod implements ISparkAttachable, ITickable {
 
+	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.ENCHANTER)
+	public static TileEntityType<TileEnchanter> TYPE;
 	private static final String TAG_STAGE = "stage";
 	private static final String TAG_STAGE_TICKS = "stageTicks";
 	private static final String TAG_STAGE_3_END_TICKS = "stage3EndTicks";
@@ -116,6 +125,10 @@ public class TileEnchanter extends TileMod implements ISparkAttachable, ITickabl
 		mb.addComponent(BlockPos.ORIGIN.up(), Blocks.LAPIS_BLOCK.getDefaultState());
 
 		return mb.makeSet();
+	}
+
+	public TileEnchanter() {
+		super(TYPE);
 	}
 
 	public void onWanded(EntityPlayer player, ItemStack wand) {
@@ -341,21 +354,21 @@ public class TileEnchanter extends TileMod implements ISparkAttachable, ITickabl
 
 	@Override
 	public void writePacketNBT(NBTTagCompound cmp) {
-		cmp.setInt(TAG_MANA, mana);
-		cmp.setInt(TAG_MANA_REQUIRED, manaRequired);
-		cmp.setInt(TAG_STAGE, stage.ordinal());
-		cmp.setInt(TAG_STAGE_TICKS, stageTicks);
-		cmp.setInt(TAG_STAGE_3_END_TICKS, stage3EndTicks);
+		cmp.putInt(TAG_MANA, mana);
+		cmp.putInt(TAG_MANA_REQUIRED, manaRequired);
+		cmp.putInt(TAG_STAGE, stage.ordinal());
+		cmp.putInt(TAG_STAGE_TICKS, stageTicks);
+		cmp.putInt(TAG_STAGE_3_END_TICKS, stage3EndTicks);
 
 		NBTTagCompound itemCmp = new NBTTagCompound();
 		if(!itemToEnchant.isEmpty())
 			itemCmp = itemToEnchant.write(itemCmp);
-		cmp.setTag(TAG_ITEM, itemCmp);
+		cmp.put(TAG_ITEM, itemCmp);
 
 		String enchStr = enchants.stream()
-				.map(e -> Enchantment.REGISTRY.getNameForObject(e.enchantment) + "=" + e.enchantmentLevel)
+				.map(e -> IRegistry.ENCHANTMENT.getKey(e.enchantment) + "=" + e.enchantmentLevel)
 				.collect(Collectors.joining(","));
-		cmp.setString(TAG_ENCHANTS, enchStr);
+		cmp.putString(TAG_ENCHANTS, enchStr);
 	}
 
 	@Override
@@ -374,10 +387,12 @@ public class TileEnchanter extends TileMod implements ISparkAttachable, ITickabl
 		if(!enchStr.isEmpty()) {
 			String[] enchTokens = enchStr.split(",");
 			for(String token : enchTokens) {
-				String[] entryTokens = token.split("=");
-				Enchantment ench = Enchantment.getEnchantmentByLocation(entryTokens[0]);
-				int lvl = Integer.parseInt(entryTokens[1]);
-				enchants.add(new EnchantmentData(ench, lvl));
+				try {
+					String[] entryTokens = token.split("=");
+					Enchantment ench = IRegistry.ENCHANTMENT.get(new ResourceLocation(entryTokens[0]));
+					int lvl = Integer.parseInt(entryTokens[1]);
+					enchants.add(new EnchantmentData(ench, lvl));
+				} catch (ResourceLocationException ignored) {}
 			}
 		}
 	}

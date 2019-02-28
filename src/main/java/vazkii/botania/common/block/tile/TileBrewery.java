@@ -11,15 +11,16 @@
 package vazkii.botania.common.block.tile;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.IBrewContainer;
 import vazkii.botania.api.brew.IBrewItem;
@@ -31,6 +32,8 @@ import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ModSounds;
+import vazkii.botania.common.lib.LibBlockNames;
+import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.network.PacketBotaniaEffect;
 import vazkii.botania.common.network.PacketHandler;
 
@@ -41,13 +44,19 @@ import java.util.List;
 
 public class TileBrewery extends TileSimpleInventory implements IManaReceiver, ITickable {
 
+	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.BREWERY)
+	public static TileEntityType<TileBrewery> TYPE;
 	private static final String TAG_MANA = "mana";
 	private static final int CRAFT_EFFECT_EVENT = 0;
 
 	public RecipeBrew recipe;
-	int mana = 0;
-	int manaLastTick = 0;
+	private int mana = 0;
+	private int manaLastTick = 0;
 	public int signal = 0;
+
+	public TileBrewery() {
+		super(TYPE);
+	}
 
 	public boolean addItem(@Nullable EntityPlayer player, ItemStack stack, @Nullable EnumHand hand) {
 		if(recipe != null || stack.isEmpty() || stack.getItem() instanceof IBrewItem && ((IBrewItem) stack.getItem()).getBrew(stack) != null && ((IBrewItem) stack.getItem()).getBrew(stack) != BotaniaAPI.fallbackBrew || itemHandler.getStackInSlot(0).isEmpty() != stack.getItem() instanceof IBrewContainer)
@@ -187,7 +196,7 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver, I
 	public void writePacketNBT(NBTTagCompound par1nbtTagCompound) {
 		super.writePacketNBT(par1nbtTagCompound);
 
-		par1nbtTagCompound.setInt(TAG_MANA, mana);
+		par1nbtTagCompound.putInt(TAG_MANA, mana);
 	}
 
 	@Override

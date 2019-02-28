@@ -11,11 +11,20 @@
 package vazkii.botania.common.block.tile.string;
 
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.registries.ObjectHolder;
+import vazkii.botania.common.lib.LibBlockNames;
+import vazkii.botania.common.lib.LibMisc;
 
 public class TileRedStringComparator extends TileRedString {
-
+	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.RED_STRING_COMPARATOR)
+	public static TileEntityType<TileRedStringComparator> TYPE;
 	private int comparatorValue = 0;
+
+	public TileRedStringComparator() {
+		super(TYPE);
+	}
 
 	@Override
 	public void tick() {

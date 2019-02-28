@@ -13,11 +13,15 @@ package vazkii.botania.common.block.tile.string;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.common.lib.LibBlockNames;
+import vazkii.botania.common.lib.LibMisc;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -25,8 +29,13 @@ import java.util.List;
 import java.util.Set;
 
 public class TileRedStringInterceptor extends TileRedString {
-
+	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.RED_STRING_INTERCEPTOR)
+	public static TileEntityType<TileRedStringInterceptor> TYPE;
 	private static final Set<TileRedStringInterceptor> interceptors = new HashSet<>();
+
+	public TileRedStringInterceptor() {
+		super(TYPE);
+	}
 
 	@Override
 	public void tick() {
@@ -62,7 +71,7 @@ public class TileRedStringInterceptor extends TileRedString {
 				BlockPos coords = inter.getBinding();
 				if(coords != null && coords.equals(pos)) {
 					Block block = inter.getBlockState().getBlock();
-					world.setBlockState(inter.getPos(), world.getBlockState(inter.getPos()).with(BotaniaStateProps.POWERED, true), 1 | 2);
+					world.setBlockState(inter.getPos(), world.getBlockState(inter.getPos()).with(BotaniaStateProps.POWERED, true));
 					world.getPendingBlockTicks().scheduleTick(inter.getPos(), block, block.tickRate(world));
 					did = true;
 				}

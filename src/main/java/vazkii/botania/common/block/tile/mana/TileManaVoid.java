@@ -10,11 +10,21 @@
  */
 package vazkii.botania.common.block.tile.mana;
 
+import net.minecraft.tileentity.TileEntityType;
+import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.mana.IClientManaHandler;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.tile.TileMod;
+import vazkii.botania.common.lib.LibBlockNames;
+import vazkii.botania.common.lib.LibMisc;
 
 public class TileManaVoid extends TileMod implements IClientManaHandler {
+	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.MANA_VOID)
+	public static TileEntityType<TileManaVoid> TYPE;
+
+	public TileManaVoid() {
+		super(TYPE);
+	}
 
 	@Override
 	public int getCurrentMana() {

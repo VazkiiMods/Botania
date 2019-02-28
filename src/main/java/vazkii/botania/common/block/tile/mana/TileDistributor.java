@@ -11,31 +11,40 @@
 package vazkii.botania.common.block.tile.mana;
 
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.common.block.tile.TileMod;
+import vazkii.botania.common.lib.LibBlockNames;
+import vazkii.botania.common.lib.LibMisc;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class TileDistributor extends TileMod implements IManaReceiver, ITickable {
-
+	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.DISTRIBUTOR)
+	public static TileEntityType<TileDistributor> TYPE;
 	private final List<IManaReceiver> validPools = new ArrayList<>();
 
+	public TileDistributor() {
+		super(TYPE);
+	}
+
 	@Override
-	public void update() {
+	public void tick() {
 		if (world.isRemote)
 			return;
 		validPools.clear();
-		for(EnumFacing dir : EnumFacing.HORIZONTALS) {
+		for(EnumFacing dir : EnumFacing.BY_HORIZONTAL_INDEX) {
 			BlockPos pos = this.pos.offset(dir);
 			if(world.isBlockLoaded(pos)) {
 				TileEntity tileAt = world.getTileEntity(pos);
-				if(tileAt instanceof IManaPool && !tileAt.isInvalid()) {
+				if(tileAt instanceof IManaPool && !tileAt.isRemoved()) {
 					IManaReceiver receiver = (IManaReceiver) tileAt;
 					if(!receiver.isFull())
 						validPools.add(receiver);

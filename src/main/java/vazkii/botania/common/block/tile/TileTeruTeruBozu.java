@@ -10,12 +10,21 @@
  */
 package vazkii.botania.common.block.tile;
 
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ITickable;
 import net.minecraft.world.World;
+import net.minecraftforge.registries.ObjectHolder;
+import vazkii.botania.common.lib.LibBlockNames;
+import vazkii.botania.common.lib.LibMisc;
 
 public class TileTeruTeruBozu extends TileMod implements ITickable {
+	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.TERU_TERU_BOZU)
+	public static TileEntityType<TileTeruTeruBozu> TYPE;
+	private boolean wasRaining = false;
 
-	public boolean wasRaining = false;
+	public TileTeruTeruBozu() {
+		super(TYPE);
+	}
 
 	@Override
 	public void tick() {

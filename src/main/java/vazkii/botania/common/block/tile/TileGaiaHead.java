@@ -11,9 +11,21 @@
 package vazkii.botania.common.block.tile;
 
 import net.minecraft.tileentity.TileEntitySkull;
+import net.minecraft.tileentity.TileEntityType;
+import net.minecraftforge.registries.ObjectHolder;
+import vazkii.botania.common.lib.LibBlockNames;
+import vazkii.botania.common.lib.LibMisc;
+
+import javax.annotation.Nonnull;
 
 public class TileGaiaHead extends TileEntitySkull {
-	public TileGaiaHead() {
-		setType(3);
+	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.GAIA_HEAD)
+	public static TileEntityType<TileGaiaHead> TYPE;
+
+	@Nonnull
+	@Override
+	public TileEntityType<TileGaiaHead> getType() {
+		return TYPE;
 	}
+
 }

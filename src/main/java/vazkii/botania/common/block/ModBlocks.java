@@ -822,15 +822,6 @@ public final class ModBlocks {
 		}
 
 		OreDictionary.registerOre(LibOreDict.BLAZE_BLOCK, blazeBlock);
-
-		// Vanilla OreDict entries
-		OreDictionary.registerOre("hardenedClay", new ItemStack(Blocks.HARDENED_CLAY, 1, OreDictionary.WILDCARD_VALUE));
-		OreDictionary.registerOre("snowLayer", Blocks.SNOW_LAYER);
-		OreDictionary.registerOre("mycelium", Blocks.MYCELIUM);
-		OreDictionary.registerOre("podzol", new ItemStack(Blocks.DIRT, 1, 2));
-		OreDictionary.registerOre("soulSand", Blocks.SOUL_SAND);
-		OreDictionary.registerOre("ice", Blocks.ICE);
-		OreDictionary.registerOre("slabCobblestone", new ItemStack(Blocks.STONE_SLAB, 1, 3));
 	}
 
 	@SubscribeEvent

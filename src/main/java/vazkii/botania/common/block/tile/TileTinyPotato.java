@@ -15,6 +15,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ITickable;
@@ -23,19 +24,26 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.items.ItemHandlerHelper;
+import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.PlayerHelper;
+import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
 public class TileTinyPotato extends TileSimpleInventory implements ITickable {
-
+	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.TINY_POTATO)
+	public static TileEntityType<TileTinyPotato> TYPE;
 	private static final String TAG_NAME = "name";
 
 	public int jumpTicks = 0;
 	public ITextComponent name = new TextComponentString("");
-	public int nextDoIt = 0;
+	private int nextDoIt = 0;
+
+	public TileTinyPotato() {
+		super(TYPE);
+	}
 
 	public void interact(EntityPlayer player, EnumHand hand, ItemStack stack, EnumFacing side) {
 		int index = side.getIndex();
@@ -67,7 +75,7 @@ public class TileTinyPotato extends TileSimpleInventory implements ITickable {
 
 			for(int i = 0; i < getSizeInventory(); i++) {
 				ItemStack stackAt = getItemHandler().getStackInSlot(i);
-				if(!stackAt.isEmpty() && stackAt.getItem() == Item.getItemFromBlock(ModBlocks.tinyPotato)) {
+				if(!stackAt.isEmpty() && stackAt.getItem() == ModBlocks.tinyPotato.asItem()) {
 					player.sendMessage(new TextComponentString("Don't talk to me or my son ever again."));
 					return;
 				}
@@ -77,7 +85,7 @@ public class TileTinyPotato extends TileSimpleInventory implements ITickable {
 		}
 	}
 
-	public void jump() {
+	private void jump() {
 		if(jumpTicks == 0)
 			jumpTicks = 20;
 	}

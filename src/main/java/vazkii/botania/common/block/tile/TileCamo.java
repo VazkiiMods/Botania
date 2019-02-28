@@ -10,13 +10,12 @@
  */
 package vazkii.botania.common.block.tile;
 
-
-import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTUtil;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
+import net.minecraft.tileentity.TileEntityType;
 
 public class TileCamo extends TileMod {
 
@@ -24,10 +23,14 @@ public class TileCamo extends TileMod {
 
 	public IBlockState camoState;
 
+	public TileCamo(TileEntityType<?> type) {
+		super(type);
+	}
+
 	@Override
 	public void writePacketNBT(NBTTagCompound cmp) {
 		if(camoState != null) {
-			cmp.setTag(TAG_CAMO, NBTUtil.writeBlockState(camoState));
+			cmp.put(TAG_CAMO, NBTUtil.writeBlockState(camoState));
 		}
 	}
 

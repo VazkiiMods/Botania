@@ -16,33 +16,41 @@ import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.brew.ItemIncenseStick;
+import vazkii.botania.common.lib.LibBlockNames;
+import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 import java.awt.Color;
 import java.util.List;
 
 public class TileIncensePlate extends TileSimpleInventory implements ITickable {
-
+	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.INCENSE_PLATE)
+	public static TileEntityType<TileIncensePlate> TYPE;
 	private static final String TAG_TIME_LEFT = "timeLeft";
 	private static final String TAG_BURNING = "burning";
 	private static final int RANGE = 32;
 
-	public int timeLeft = 0;
+	private int timeLeft = 0;
 	public boolean burning = false;
-
 	public int comparatorOutput = 0;
 
+	public TileIncensePlate() {
+		super(TYPE);
+	}
+
 	@Override
-	public void update() {
+	public void tick() {
 		ItemStack stack = itemHandler.getStackInSlot(0);
 		if(!stack.isEmpty() && burning) {
 			Brew brew = ((ItemIncenseStick) ModItems.incenseStick).getBrew(stack);
@@ -109,14 +117,14 @@ public class TileIncensePlate extends TileSimpleInventory implements ITickable {
 	@Override
 	public void writePacketNBT(NBTTagCompound par1nbtTagCompound) {
 		super.writePacketNBT(par1nbtTagCompound);
-		par1nbtTagCompound.setInteger(TAG_TIME_LEFT, timeLeft);
-		par1nbtTagCompound.setBoolean(TAG_BURNING, burning);
+		par1nbtTagCompound.putInt(TAG_TIME_LEFT, timeLeft);
+		par1nbtTagCompound.putBoolean(TAG_BURNING, burning);
 	}
 
 	@Override
 	public void readPacketNBT(NBTTagCompound par1nbtTagCompound) {
 		super.readPacketNBT(par1nbtTagCompound);
-		timeLeft = par1nbtTagCompound.getInteger(TAG_TIME_LEFT);
+		timeLeft = par1nbtTagCompound.getInt(TAG_TIME_LEFT);
 		burning = par1nbtTagCompound.getBoolean(TAG_BURNING);
 	}
 

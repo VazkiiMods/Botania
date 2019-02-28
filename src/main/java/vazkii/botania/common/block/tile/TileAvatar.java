@@ -12,16 +12,23 @@ package vazkii.botania.common.block.tile;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.item.IAvatarTile;
 import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.common.lib.LibBlockNames;
+import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
 public class TileAvatar extends TileSimpleInventory implements IAvatarTile, ITickable {
+
+	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.AVATAR)
+	public static TileEntityType<TileAvatar> TYPE;
 
 	private static final int MAX_MANA = 6400;
 
@@ -29,9 +36,13 @@ public class TileAvatar extends TileSimpleInventory implements IAvatarTile, ITic
 	private static final String TAG_TICKS_ELAPSED = "ticksElapsed";
 	private static final String TAG_MANA = "ticksElapsed";
 
-	boolean enabled;
-	int ticksElapsed;
-	int mana;
+	private boolean enabled;
+	private int ticksElapsed;
+	private int mana;
+
+	public TileAvatar() {
+		super(TYPE);
+	}
 
 	@Override
 	public void tick() {
@@ -57,9 +68,9 @@ public class TileAvatar extends TileSimpleInventory implements IAvatarTile, ITic
 	@Override
 	public void writePacketNBT(NBTTagCompound par1nbtTagCompound) {
 		super.writePacketNBT(par1nbtTagCompound);
-		par1nbtTagCompound.setBoolean(TAG_ENABLED, enabled);
-		par1nbtTagCompound.setInt(TAG_TICKS_ELAPSED, ticksElapsed);
-		par1nbtTagCompound.setInt(TAG_MANA, mana);
+		par1nbtTagCompound.putBoolean(TAG_ENABLED, enabled);
+		par1nbtTagCompound.putInt(TAG_TICKS_ELAPSED, ticksElapsed);
+		par1nbtTagCompound.putInt(TAG_MANA, mana);
 	}
 
 	@Override

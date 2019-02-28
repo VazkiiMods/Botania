@@ -17,10 +17,12 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.lexicon.multiblock.Multiblock;
 import vazkii.botania.api.lexicon.multiblock.MultiblockSet;
@@ -32,13 +34,16 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.lib.LibBlockNames;
+import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.network.PacketBotaniaEffect;
 import vazkii.botania.common.network.PacketHandler;
 
 import java.util.List;
 
 public class TileTerraPlate extends TileMod implements ISparkAttachable, ITickable {
-
+	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.TERRA_PLATE)
+	public static TileEntityType<TileTerraPlate> TYPE;
 	public static final int MAX_MANA = TilePool.MAX_MANA / 2;
 
 	private static final BlockPos[] LAPIS_BLOCKS = {
@@ -54,7 +59,7 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable, ITickab
 
 	private static final String TAG_MANA = "mana";
 
-	int mana;
+	private int mana;
 
 	public static MultiblockSet makeMultiblockSet() {
 		Multiblock mb = new Multiblock();
@@ -68,6 +73,10 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable, ITickab
 		mb.setRenderOffset(new BlockPos(0, 1, 0));
 
 		return mb.makeSet();
+	}
+
+	public TileTerraPlate() {
+		super(TYPE);
 	}
 
 	@Override
@@ -120,7 +129,7 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable, ITickab
 		return world.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(pos, pos.add(1, 1, 1)));
 	}
 
-	boolean areItemsValid(List<EntityItem> items) {
+	private boolean areItemsValid(List<EntityItem> items) {
 		if(items.size() != 3)
 			return false;
 
@@ -144,11 +153,11 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable, ITickab
 		return !ingot.isEmpty() && !pearl.isEmpty() && !diamond.isEmpty();
 	}
 
-	boolean hasValidPlatform() {
+	private boolean hasValidPlatform() {
 		return checkAll(LAPIS_BLOCKS, Blocks.LAPIS_BLOCK) && checkAll(LIVINGROCK_BLOCKS, ModBlocks.livingrock);
 	}
 
-	boolean checkAll(BlockPos[] relPositions, Block block) {
+	private boolean checkAll(BlockPos[] relPositions, Block block) {
 		for (BlockPos position : relPositions) {
 			if(!checkPlatform(position.getX(), position.getZ(), block))
 				return false;
@@ -157,13 +166,13 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable, ITickab
 		return true;
 	}
 
-	boolean checkPlatform(int xOff, int zOff, Block block) {
+	private boolean checkPlatform(int xOff, int zOff, Block block) {
 		return world.getBlockState(pos.add(xOff, -1, zOff)).getBlock() == block;
 	}
 
 	@Override
 	public void writePacketNBT(NBTTagCompound cmp) {
-		cmp.setInt(TAG_MANA, mana);
+		cmp.putInt(TAG_MANA, mana);
 	}
 
 	@Override

@@ -13,18 +13,28 @@ package vazkii.botania.common.block.tile.corporea;
 import net.minecraft.entity.item.EntityItemFrame;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.corporea.ICorporeaInterceptor;
 import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.api.corporea.InvWithLocation;
 import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.common.lib.LibBlockNames;
+import vazkii.botania.common.lib.LibMisc;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class TileCorporeaInterceptor extends TileCorporeaBase implements ICorporeaInterceptor {
+	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.CORPOREA_INTERCEPTOR)
+	public static TileEntityType<TileCorporeaInterceptor> TYPE;
+
+	public TileCorporeaInterceptor() {
+		super(TYPE);
+	}
 
 	@Override
 	public void interceptRequest(Object request, int count, ICorporeaSpark spark, ICorporeaSpark source, List<ItemStack> stacks, List<InvWithLocation> inventories, boolean doit) {}

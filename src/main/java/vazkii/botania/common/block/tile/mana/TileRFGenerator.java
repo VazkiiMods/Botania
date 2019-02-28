@@ -12,25 +12,31 @@ package vazkii.botania.common.block.tile.mana;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
+import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.common.block.tile.TileMod;
+import vazkii.botania.common.lib.LibBlockNames;
+import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class TileRFGenerator extends TileMod implements IManaReceiver, ITickable {
-
+	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.RF_GENERATOR)
+	public static TileEntityType<TileRFGenerator> TYPE;
 	private static final int MANA_TO_FE = 10;
 	private static final int MAX_ENERGY = 1280 * MANA_TO_FE;
 
 	private static final String TAG_MANA = "mana";
-	int energy = 0;
+	private int energy = 0;
 
 	private final IEnergyStorage energyHandler = new IEnergyStorage() {
 		@Override
@@ -50,22 +56,22 @@ public class TileRFGenerator extends TileMod implements IManaReceiver, ITickable
 		@Override public int receiveEnergy(int maxReceive, boolean simulate) { return 0; }
 		@Override public boolean canReceive() { return false; }
 	};
+	private final LazyOptional<IEnergyStorage> energyCap = LazyOptional.of(() -> energyHandler);
 
-	@Override
-	public boolean hasCapability(@Nonnull Capability<?> cap, @Nullable EnumFacing side) {
-		return cap == CapabilityEnergy.ENERGY || super.hasCapability(cap, side);
+	public TileRFGenerator() {
+		super(TYPE);
 	}
 
 	@Override
-	@Nullable
-	public <T> T getCapability(@Nonnull Capability<T> cap, @Nullable EnumFacing side) {
+	@Nonnull
+	public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable EnumFacing side) {
 		if(cap == CapabilityEnergy.ENERGY) {
-			return CapabilityEnergy.ENERGY.cast(energyHandler);
+			return energyCap.cast();
 		} else return super.getCapability(cap, side);
 	}
 
 	@Override
-	public void update() {
+	public void tick() {
 		if(!world.isRemote) {
 			int transfer = Math.min(energy, 160 * MANA_TO_FE);
 			energy -= transfer;
@@ -74,7 +80,7 @@ public class TileRFGenerator extends TileMod implements IManaReceiver, ITickable
 	}
 
 	private int transmitEnergy(int energy) {
-		for(EnumFacing e : EnumFacing.VALUES) {
+		for(EnumFacing e : EnumFacing.BY_INDEX) {
 			BlockPos neighbor = getPos().offset(e);
 			if(!world.isBlockLoaded(neighbor))
 				continue;
@@ -83,16 +89,17 @@ public class TileRFGenerator extends TileMod implements IManaReceiver, ITickable
 			if(te == null)
 				continue;
 
-			IEnergyStorage storage = null;
+			LazyOptional<IEnergyStorage> storage = LazyOptional.empty();
 
-			if(te.hasCapability(CapabilityEnergy.ENERGY, e.getOpposite())) {
+			if(te.getCapability(CapabilityEnergy.ENERGY, e.getOpposite()).isPresent()) {
 				storage = te.getCapability(CapabilityEnergy.ENERGY, e.getOpposite());
-			} else if(te.hasCapability(CapabilityEnergy.ENERGY, null)) {
+			} else if(te.getCapability(CapabilityEnergy.ENERGY, null).isPresent()) {
 				storage = te.getCapability(CapabilityEnergy.ENERGY, null);
 			}
 
-			if(storage != null) {
-				energy -= storage.receiveEnergy(energy, false);
+
+			if(storage.isPresent()) {
+				energy -= storage.orElseThrow(NullPointerException::new).receiveEnergy(energy, false);
 
 				if (energy <= 0)
 					return 0;
@@ -124,12 +131,12 @@ public class TileRFGenerator extends TileMod implements IManaReceiver, ITickable
 
 	@Override
 	public void writePacketNBT(NBTTagCompound cmp) {
-		cmp.setInteger(TAG_MANA, energy);
+		cmp.putInt(TAG_MANA, energy);
 	}
 
 	@Override
 	public void readPacketNBT(NBTTagCompound cmp) {
-		energy = cmp.getInteger(TAG_MANA);
+		energy = cmp.getInt(TAG_MANA);
 	}
 
 }
