@@ -15,6 +15,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.registries.ObjectHolder;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import vazkii.botania.api.item.IFloatingFlower;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.ModBlocks;
@@ -28,7 +30,7 @@ public class TileFloatingFlower extends TileMod implements IFloatingFlower {
 	private static final String TAG_ISLAND_TYPE = "islandType";
 	public static ItemStack forcedStack = ItemStack.EMPTY;
 
-	IslandType type = IslandType.GRASS;
+	private IslandType type = IslandType.GRASS;
 
 	public TileFloatingFlower() {
 		super(TYPE);
@@ -42,6 +44,15 @@ public class TileFloatingFlower extends TileMod implements IFloatingFlower {
 			return retStack;
 		}
 		return new ItemStack(getBlockState().getBlock());
+	}
+
+	@Override
+	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
+		IslandType oldType = getIslandType();
+		super.onDataPacket(net, packet);
+		if(oldType != getIslandType()) {
+			world.markBlockRangeForRenderUpdate(pos, pos);
+		}
 	}
 
 	@Override

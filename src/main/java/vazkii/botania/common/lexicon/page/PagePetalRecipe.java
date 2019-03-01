@@ -72,14 +72,14 @@ public class PagePetalRecipe<T extends RecipePetals> extends PageRecipe {
 		List<Object> inputs = recipe.getInputs();
 		int degreePerInput = (int) (360F / inputs.size());
 		float currentDegree = ConfigHandler.lexiconRotatingItems ? GuiScreen.isShiftKeyDown() ? ticksElapsed : ticksElapsed + ClientTickHandler.partialTicks : 0;
-		float baseDegree = currentDegree;
-		
+		int inputIndex = ticksElapsed / 40;
+
 		for(Object obj : inputs) {
 			Object input = obj;
 			if(input instanceof String) {
 				NonNullList<ItemStack> list = OreDictionary.getOres((String) input); 
 				int size = list.size();
-				input = list.get(size - (int) (baseDegree / 40) % size - 1);
+				input = list.get(size - inputIndex % size - 1);
 			}
 
 			renderItemAtAngle(gui, currentDegree, (ItemStack) input);

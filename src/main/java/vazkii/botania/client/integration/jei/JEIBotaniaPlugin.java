@@ -11,10 +11,12 @@ package vazkii.botania.client.integration.jei;
 import mezz.jei.api.IJeiRuntime;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.IModRegistry;
+import mezz.jei.api.IRecipeRegistry;
 import mezz.jei.api.IRecipesGui;
 import mezz.jei.api.ISubtypeRegistry;
 import mezz.jei.api.JEIPlugin;
 import mezz.jei.api.recipe.IRecipeCategoryRegistration;
+import mezz.jei.api.recipe.IRecipeWrapper;
 import mezz.jei.api.recipe.VanillaRecipeCategoryUid;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -33,7 +35,10 @@ import vazkii.botania.client.core.handler.CorporeaInputHandler;
 import vazkii.botania.client.gui.crafting.ContainerCraftingHalo;
 import vazkii.botania.client.integration.jei.brewery.BreweryRecipeCategory;
 import vazkii.botania.client.integration.jei.brewery.BreweryRecipeWrapper;
+import vazkii.botania.client.integration.jei.crafting.AncientWillRecipeWrapper;
+import vazkii.botania.client.integration.jei.crafting.CompositeLensRecipeWrapper;
 import vazkii.botania.client.integration.jei.crafting.SpecialFloatingFlowerWrapper;
+import vazkii.botania.client.integration.jei.crafting.TerraPickTippingRecipeWrapper;
 import vazkii.botania.client.integration.jei.elventrade.ElvenTradeRecipeCategory;
 import vazkii.botania.client.integration.jei.elventrade.ElvenTradeRecipeWrapper;
 import vazkii.botania.client.integration.jei.manapool.ManaPoolRecipeCategory;
@@ -49,13 +54,17 @@ import vazkii.botania.client.integration.jei.puredaisy.PureDaisyRecipeWrapper;
 import vazkii.botania.client.integration.jei.runicaltar.RunicAltarRecipeCategory;
 import vazkii.botania.client.integration.jei.runicaltar.RunicAltarRecipeWrapper;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.crafting.recipe.AncientWillRecipe;
+import vazkii.botania.common.crafting.recipe.CompositeLensRecipe;
 import vazkii.botania.common.crafting.recipe.SpecialFloatingFlowerRecipe;
+import vazkii.botania.common.crafting.recipe.TerraPickTippingRecipe;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.item.brew.ItemBrewBase;
 
 import javax.annotation.Nonnull;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import static vazkii.botania.common.lib.LibBlockNames.SUBTILE_ORECHID;
@@ -103,8 +112,12 @@ public class JEIBotaniaPlugin implements IModPlugin {
 		registry.handleRecipes(RecipePetals.class, PetalApothecaryRecipeWrapper::new, PetalApothecaryRecipeCategory.UID);
 		registry.handleRecipes(RecipeElvenTrade.class, ElvenTradeRecipeWrapper::new, ElvenTradeRecipeCategory.UID);
 		registry.handleRecipes(RecipeManaInfusion.class, ManaPoolRecipeWrapper::new, ManaPoolRecipeCategory.UID);
+		
 		registry.handleRecipes(SpecialFloatingFlowerRecipe.class, SpecialFloatingFlowerWrapper::new, VanillaRecipeCategoryUid.CRAFTING);
-
+		registry.handleRecipes(AncientWillRecipe.class, AncientWillRecipeWrapper::new, VanillaRecipeCategoryUid.CRAFTING);
+		registry.handleRecipes(TerraPickTippingRecipe.class, TerraPickTippingRecipeWrapper::new, VanillaRecipeCategoryUid.CRAFTING);
+		registry.handleRecipes(CompositeLensRecipe.class, r -> new CompositeLensRecipeWrapper(), VanillaRecipeCategoryUid.CRAFTING);
+		
 		registry.addRecipes(BotaniaAPI.brewRecipes, BreweryRecipeCategory.UID);
 		registry.addRecipes(BotaniaAPI.pureDaisyRecipes, PureDaisyRecipeCategory.UID);
 		registry.addRecipes(BotaniaAPI.petalRecipes, PetalApothecaryRecipeCategory.UID);
@@ -165,6 +178,19 @@ public class JEIBotaniaPlugin implements IModPlugin {
 
 	@Override
 	public void onRuntimeAvailable(IJeiRuntime jeiRuntime) {
+		IRecipeRegistry recipeRegistry = jeiRuntime.getRecipeRegistry();
+		for(RecipeElvenTrade recipe : BotaniaAPI.elvenTradeRecipes) {
+			List<Object> inputs = recipe.getInputs();
+			List<ItemStack> outputs = recipe.getOutputs();
+			if(inputs.size() == 1 && outputs.size() == 1 && inputs.get(0) instanceof ItemStack
+					&& ItemStack.areItemStacksEqual((ItemStack) inputs.get(0), outputs.get(0))) {
+				IRecipeWrapper wrapper = recipeRegistry.getRecipeWrapper(recipe, ElvenTradeRecipeCategory.UID);
+				if(wrapper != null) {
+					recipeRegistry.hideRecipe(wrapper, ElvenTradeRecipeCategory.UID);
+				}
+			}
+		}
+		
 		CorporeaInputHandler.jeiPanelSupplier = () -> {
 			Object o = jeiRuntime.getIngredientListOverlay().getIngredientUnderMouse();
 

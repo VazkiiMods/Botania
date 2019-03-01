@@ -114,7 +114,9 @@ public class TileCraftCrate extends TileOpenCrate {
 
 				List<ItemStack> remainders = recipe.getRemainingItems(craft);
 				for(int i = 0; i < craft.getSizeInventory(); i++) {
-					itemHandler.setStackInSlot(i, remainders.get(i));
+					ItemStack s = remainders.get(i);
+					if(!s.isEmpty())
+						itemHandler.setStackInSlot(i, s);
 				}
 				return true;
 			}

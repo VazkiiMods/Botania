@@ -23,6 +23,7 @@ Thumbs.db
 /*.ipr
 /*.iws
 /*.iml
+/classes
 
 ## Private Stuffs
 /private.properties

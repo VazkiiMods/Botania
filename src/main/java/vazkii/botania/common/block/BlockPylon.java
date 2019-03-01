@@ -26,9 +26,8 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import thaumcraft.api.crafting.IInfusionStabiliser;
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.core.handler.ModelHandler;
@@ -54,6 +53,7 @@ public class BlockPylon extends BlockMod implements ILexiconable, IInfusionStabi
 	public BlockPylon(Variant v, Properties builder) {
 		super(builder);
 		this.variant = v;
+		BotaniaAPI.blacklistBlockFromGaiaGuardian(this);
 	}
 
 	@Nonnull

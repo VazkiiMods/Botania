@@ -12,7 +12,6 @@ package vazkii.botania.common.item.equipment.bauble;
 
 import baubles.api.BaubleType;
 import baubles.api.BaublesApi;
-import com.google.common.collect.ImmutableList;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
@@ -109,7 +108,7 @@ public class ItemMagnetRing extends ItemBauble {
 	}
 
 	private boolean canPullItem(EntityItem item) {
-		if(!item.isAlive() || SubTileSolegnolia.hasSolegnoliaAround(item))
+		if(!item.isAlive() || item.pickupDelay >= 40 || SubTileSolegnolia.hasSolegnoliaAround(item))
 			return false;
 
 		ItemStack stack = item.getItem();

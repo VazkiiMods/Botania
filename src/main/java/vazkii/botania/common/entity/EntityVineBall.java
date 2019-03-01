@@ -31,6 +31,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.registries.ObjectHolder;
+import vazkii.botania.common.block.BlockSolidVines;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibMisc;
@@ -79,11 +80,16 @@ public class EntityVineBall extends EntityThrowable {
 
 				if(dir != null && dir.getAxis() != EnumFacing.Axis.Y) {
 					BlockPos pos = var1.getBlockPos().offset(dir);
+					boolean first = true;
 					while(pos.getY() > 0) {
 						IBlockState state = world.getBlockState(pos);
 						Block block = state.getBlock();
 						if(block.isAir(state, world, pos)) {
 							IBlockState stateSet = ModBlocks.solidVines.getDefaultState().with(propMap.get(dir.getOpposite()), true);
+							
+							if(first && !ModBlocks.solidVines.getDefaultState().isValidPosition(world, pos)) break;
+							first = false;
+							
 							world.setBlockState(pos, stateSet, 1 | 2);
 							world.playEvent(2001, pos, Block.getStateId(stateSet));
 							pos = pos.down();

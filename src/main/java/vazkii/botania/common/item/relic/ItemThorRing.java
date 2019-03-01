@@ -38,13 +38,10 @@ public class ItemThorRing extends ItemRelicBauble {
 
 	public static ItemStack getThorRing(EntityPlayer player) {
 		IItemHandler baubles = BaublesApi.getBaublesHandler(player);
-		ItemStack stack1 = baubles.getStackInSlot(1);
-		ItemStack stack2 = baubles.getStackInSlot(2);
-		return isThorRing(stack1) ? stack1 : isThorRing(stack2) ? stack2 : null;
+		int slot = BaublesApi.isBaubleEquipped(player, ModItems.thorRing);
+		if (slot < 0) {
+			return ItemStack.EMPTY;
+		}
+		return baubles.getStackInSlot(slot);
 	}
-
-	private static boolean isThorRing(ItemStack stack) {
-		return !stack.isEmpty() && stack.getItem() == ModItems.thorRing;
-	}
-
 }

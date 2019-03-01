@@ -130,7 +130,7 @@ public final class HUDHandler {
 
 				if(PlayerHelper.hasAnyHeldItem(mc.player)) {
 					if(pos != null && PlayerHelper.hasHeldItem(mc.player, ModItems.twigWand)) {
-						renderWandModeDisplay(PlayerHelper.getFirstHeldItem(mc.player, ModItems.twigWand), event.getResolution());
+						renderWandModeDisplay(PlayerHelper.getFirstHeldItem(mc.player, ModItems.twigWand));
 
 						if(block instanceof IWandHUD) {
 							profiler.startSection("wandItem");
@@ -138,17 +138,18 @@ public final class HUDHandler {
 							profiler.endSection();
 						}
 					} else if(block != null && PlayerHelper.hasHeldItemClass(mc.player, ILexicon.class))
-						drawLexiconHUD(PlayerHelper.getFirstHeldItemClass(mc.player, ILexicon.class), state, pos, event.getResolution());
-					if(tile != null && tile instanceof TilePool && !mc.player.getHeldItemMainhand().isEmpty())
+						drawLexiconHUD(PlayerHelper.getFirstHeldItemClass(mc.player, ILexicon.class), state, pos);
+					if(tile instanceof TilePool && !mc.player.getHeldItemMainhand().isEmpty())
 						renderPoolRecipeHUD((TilePool) tile, mc.player.getHeldItemMainhand());
 				}
-				if(tile != null && tile instanceof TileAltar)
-					((TileAltar) tile).renderHUD(mc);
-				else if(tile != null && tile instanceof TileRuneAltar)
-					((TileRuneAltar) tile).renderHUD(mc);
-
-				if(tile != null && tile instanceof TileCorporeaCrystalCube)
-					renderCrystalCubeHUD((TileCorporeaCrystalCube) tile);
+				if(!PlayerHelper.hasHeldItemClass(mc.player, ILexicon.class)) {
+					if(tile instanceof TileAltar)
+						((TileAltar) tile).renderHUD(mc);
+					else if(tile instanceof TileRuneAltar)
+						((TileRuneAltar) tile).renderHUD(mc);
+					else if(tile instanceof TileCorporeaCrystalCube)
+						renderCrystalCubeHUD((TileCorporeaCrystalCube) tile);
+				}
 			}
 
 			TileCorporeaIndex.getInputHandler();
@@ -354,11 +355,14 @@ public final class HUDHandler {
 			int strlen = Math.max(mc.fontRenderer.getStringWidth(s1), mc.fontRenderer.getStringWidth(s2));
 			int w = mc.mainWindow.getScaledWidth();
 			int h = mc.mainWindow.getScaledHeight();
-			Gui.drawRect(w / 2 + 8, h / 2 - 12, w / 2 + strlen + 32, h / 2 + 10, 0x44000000);
-			Gui.drawRect(w / 2 + 6, h / 2 - 14, w / 2 + strlen + 34, h / 2 + 12, 0x44000000);
+			int boxH = h / 2 + (tile.locked ? 20 : 10);
+			Gui.drawRect(w / 2 + 8, h / 2 - 12, w / 2 + strlen + 32, boxH, 0x44000000);
+			Gui.drawRect(w / 2 + 6, h / 2 - 14, w / 2 + strlen + 34, boxH + 2, 0x44000000);
 
 			mc.fontRenderer.drawStringWithShadow(s1, w / 2 + 30, h / 2 - 10, 0x6666FF);
 			mc.fontRenderer.drawStringWithShadow(tile.getItemCount() + "x", w / 2 + 30, h / 2, 0xFFFFFF);
+			if(tile.locked)
+				mc.fontRenderer.drawStringWithShadow(I18n.format("botaniamisc.locked"), w / 2 + 30, h / 2 + 10, 0xFFAA00);
 			net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
 			GlStateManager.enableRescaleNormal();
 			mc.getItemRenderer().renderItemAndEffectIntoGUI(target, w / 2 + 10, h / 2 - 10);

@@ -67,8 +67,8 @@ import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -104,6 +104,7 @@ public final class BotaniaAPI {
 	public static final Set<Item> looniumBlacklist = new LinkedHashSet<>();
 	public static final Map<Block, EnumProperty<EnumDyeColor>> paintableBlocks = new LinkedHashMap<>();
 	public static final Set<Class<? extends Entity>> gravityRodBlacklist = new LinkedHashSet<>();
+	public static final Set<Block> gaiaBreakBlacklist = new HashSet<>();
 
 	// TODO 1.13 move these to eliminate dependence on botania proper in Ingredients
 	private static final int[] MAX_DAMAGE_ARRAY = new int[]{13, 15, 16, 11};
@@ -473,6 +474,7 @@ public final class BotaniaAPI {
 		registerPaintableBlock(Blocks.STAINED_HARDENED_CLAY, BlockColored.COLOR);
 		registerPaintableBlock(Blocks.WOOL, BlockColored.COLOR);
 		registerPaintableBlock(Blocks.CARPET, BlockCarpet.COLOR);
+		blacklistBlockFromGaiaGuardian(Blocks.BEACON);
 	}
 
 	/**
@@ -805,4 +807,7 @@ public final class BotaniaAPI {
 		return subTiles.keySet();
 	}
 
+	public static void blacklistBlockFromGaiaGuardian(Block block) {
+		gaiaBreakBlacklist.add(block);
+	}
 }

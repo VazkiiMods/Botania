@@ -156,8 +156,6 @@ public class ItemTwigWand extends ItemMod implements ICoordBoundItem {
 
 				return EnumActionResult.SUCCESS;
 			}
-
-			return EnumActionResult.PASS;
 		}
 
 		if(block instanceof IWandable) {
