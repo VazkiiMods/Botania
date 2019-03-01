@@ -188,12 +188,12 @@ public class EntityBabylonWeapon extends EntityThrowableCopy implements ILightPr
 	@Override
 	public void writeAdditional(@Nonnull NBTTagCompound cmp) {
 		super.writeAdditional(cmp);
-		cmp.setBoolean(TAG_CHARGING, isCharging());
-		cmp.setInt(TAG_VARIETY, getVariety());
-		cmp.setInt(TAG_CHARGE_TICKS, getChargeTicks());
-		cmp.setInt(TAG_LIVE_TICKS, getLiveTicks());
-		cmp.setInt(TAG_DELAY, getDelay());
-		cmp.setFloat(TAG_ROTATION, getRotation());
+		cmp.putBoolean(TAG_CHARGING, isCharging());
+		cmp.putInt(TAG_VARIETY, getVariety());
+		cmp.putInt(TAG_CHARGE_TICKS, getChargeTicks());
+		cmp.putInt(TAG_LIVE_TICKS, getLiveTicks());
+		cmp.putInt(TAG_DELAY, getDelay());
+		cmp.putFloat(TAG_ROTATION, getRotation());
 	}
 
 	@Override

@@ -80,8 +80,8 @@ public class EntitySignalFlare extends Entity {
 
 	@Override
 	protected void writeAdditional(@Nonnull NBTTagCompound nbttagcompound) {
-		nbttagcompound.setInt(COLOR_TAG, getColor());
-		nbttagcompound.setInt(FIRED_Y_TAG, getFiredAt());
+		nbttagcompound.putInt(COLOR_TAG, getColor());
+		nbttagcompound.putInt(FIRED_Y_TAG, getFiredAt());
 	}
 
 	public void setColor(int color) {

@@ -28,7 +28,7 @@ public class LensFire extends Lens {
 	public boolean collideBurst(IManaBurst burst, EntityThrowable entity, RayTraceResult rtr, boolean isManaBlock, boolean dead, ItemStack stack) {
 		BlockPos coords = burst.getBurstSourceBlockPos();
 		BlockPos pos = rtr.getBlockPos();
-		if(!entity.world.isRemote && pos != null && !coords.equals(pos) && !burst.isFake() && !isManaBlock) {
+		if(!entity.world.isRemote && !coords.equals(pos) && !burst.isFake() && !isManaBlock) {
 			EnumFacing dir = rtr.sideHit;
 
 			BlockPos offPos = pos.offset(dir);

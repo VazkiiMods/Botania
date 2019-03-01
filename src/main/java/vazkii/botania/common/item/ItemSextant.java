@@ -124,7 +124,7 @@ public class ItemSextant extends ItemMod {
 		return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
 	}
 
-	public static double calculateRadius(ItemStack stack, EntityPlayer player) {
+	private static double calculateRadius(ItemStack stack, EntityPlayer player) {
 		int x = ItemNBTHelper.getInt(stack, TAG_SOURCE_X, 0);
 		int y = ItemNBTHelper.getInt(stack, TAG_SOURCE_Y, -1);
 		int z = ItemNBTHelper.getInt(stack, TAG_SOURCE_Z, 0);

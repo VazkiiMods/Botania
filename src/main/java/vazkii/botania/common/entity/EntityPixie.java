@@ -104,7 +104,7 @@ public class EntityPixie extends EntityFlying implements ILightProvider {
 				} else target.attackEntityFrom(DamageSource.causeMobDamage(this), damage);
 				if(effect != null && !(target instanceof EntityPlayer))
 					target.addPotionEffect(effect);
-				setDead();
+				remove();
 			}
 		}
 
@@ -124,7 +124,7 @@ public class EntityPixie extends EntityFlying implements ILightProvider {
 
 		if(!world.isRemote
 				&& (getAttackTarget() == null || ticksExisted > 200))
-			setDead();
+			remove();
 
 		boolean dark = getPixieType() == 1;
 		if(world.isRemote)
@@ -141,7 +141,7 @@ public class EntityPixie extends EntityFlying implements ILightProvider {
 	}
 
 	@Override
-	protected boolean canDespawn() {
+	public boolean canDespawn() {
 		return false;
 	}
 

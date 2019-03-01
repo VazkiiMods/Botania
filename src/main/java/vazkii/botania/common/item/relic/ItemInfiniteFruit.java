@@ -30,8 +30,8 @@ import java.util.Locale;
 
 public class ItemInfiniteFruit extends ItemRelic implements IManaUsingItem {
 
-	public ItemInfiniteFruit() {
-		super(LibItemNames.INFINITE_FRUIT);
+	public ItemInfiniteFruit(Properties props) {
+		super(props);
 		addPropertyOverride(new ResourceLocation(LibMisc.MOD_ID, "boot"), (stack, worldIn, entityIn) -> ItemInfiniteFruit.isBoot(stack) ? 1F : 0F);
 	}
 

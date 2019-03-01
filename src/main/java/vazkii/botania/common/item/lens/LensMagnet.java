@@ -28,7 +28,7 @@ public class LensMagnet extends Lens {
 	@Override
 	public void updateBurst(IManaBurst burst, EntityThrowable entity, ItemStack stack) {
 		BlockPos basePos = new BlockPos(entity);
-		boolean magnetized = entity.getData().hasKey(TAG_MAGNETIZED);
+		boolean magnetized = entity.getEntityData().contains(TAG_MAGNETIZED);
 		int range = 3;
 
 		magnetize : {
@@ -37,9 +37,9 @@ public class LensMagnet extends Lens {
 					TileEntity tile = entity.world.getTileEntity(pos);
 
 					if(magnetized) {
-						int magX = entity.getEntityData().getInteger(TAG_MAGNETIZED_X);
-						int magY = entity.getEntityData().getInteger(TAG_MAGNETIZED_Y);
-						int magZ = entity.getEntityData().getInteger(TAG_MAGNETIZED_Z);
+						int magX = entity.getEntityData().getInt(TAG_MAGNETIZED_X);
+						int magY = entity.getEntityData().getInt(TAG_MAGNETIZED_Y);
+						int magZ = entity.getEntityData().getInt(TAG_MAGNETIZED_Z);
 						if(tile.getPos().getX() != magX || tile.getPos().getY() != magY || tile.getPos().getZ() != magZ)
 							continue;
 					}
@@ -60,10 +60,10 @@ public class LensMagnet extends Lens {
 						Vector3 finalMotionVec = motionVec.subtract(differenceVec);
 						if(!magnetized) {
 							finalMotionVec = finalMotionVec.multiply(0.75);
-							entity.getEntityData().setBoolean(TAG_MAGNETIZED, true);
-							entity.getEntityData().setInteger(TAG_MAGNETIZED_X, tile.getPos().getX());
-							entity.getEntityData().setInteger(TAG_MAGNETIZED_Y, tile.getPos().getY());
-							entity.getEntityData().setInteger(TAG_MAGNETIZED_Z, tile.getPos().getZ());
+							entity.getEntityData().putBoolean(TAG_MAGNETIZED, true);
+							entity.getEntityData().putInt(TAG_MAGNETIZED_X, tile.getPos().getX());
+							entity.getEntityData().putInt(TAG_MAGNETIZED_Y, tile.getPos().getY());
+							entity.getEntityData().putInt(TAG_MAGNETIZED_Z, tile.getPos().getZ());
 						}
 
 						burst.setMotion(finalMotionVec.x, finalMotionVec.y, finalMotionVec.z);

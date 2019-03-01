@@ -15,7 +15,6 @@ import baubles.api.BaublesApi;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
-import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
@@ -24,18 +23,21 @@ import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -68,13 +70,14 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 	private static final ResourceLocation textureHud = new ResourceLocation(LibResources.GUI_HUD_ICONS);
 	private static final ResourceLocation textureHalo = new ResourceLocation(LibResources.MISC_HALO);
 
+	private static final String TAG_VARIANT = "variant";
 	private static final String TAG_FLYING = "flying";
 	private static final String TAG_TIME_LEFT = "timeLeft";
 	private static final String TAG_INFINITE_FLIGHT = "infiniteFlight";
 	private static final String TAG_DASH_COOLDOWN = "dashCooldown";
 	private static final String TAG_IS_SPRINTING = "isSprinting";
 
-	public static final List<String> playersWithFlight = new ArrayList();
+	private static final List<String> playersWithFlight = new ArrayList<>();
 	private static final int COST = 35;
 	private static final int COST_OVERKILL = COST * 3;
 	private static final int MAX_FLY_TIME = 1200;
@@ -82,12 +85,11 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 	private static final int SUBTYPES = 8;
 	public static final int WING_TYPES = 9;
 
-	public static final String SUPER_AWESOME_HASH = "4D0F274C5E3001C95640B5E88A821422C8B1E132264492C043A3D746B705C025";
+	private static final String SUPER_AWESOME_HASH = "4D0F274C5E3001C95640B5E88A821422C8B1E132264492C043A3D746B705C025";
 
-	public ItemFlightTiara() {
-		super(LibItemNames.FLIGHT_TIARA);
+	public ItemFlightTiara(Properties props) {
+		super(props);
 		MinecraftForge.EVENT_BUS.register(this);
-		setHasSubtypes(true);
 	}
 
 	@Override
@@ -96,26 +98,29 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 	}
 
 	@Override
-	public void getSubItems(@Nonnull CreativeTabs tab, @Nonnull NonNullList<ItemStack> list) {
-		if(isInCreativeTab(tab)) {
-			for(int i = 0; i < SUBTYPES + 1; i++)
-				list.add(new ItemStack(this, 1, i));
+	public void fillItemGroup(@Nonnull ItemGroup tab, @Nonnull NonNullList<ItemStack> list) {
+		if(isInGroup(tab)) {
+			for(int i = 0; i < SUBTYPES + 1; i++) {
+				ItemStack stack = new ItemStack(this);
+				ItemNBTHelper.setInt(stack, TAG_VARIANT, i);
+			}
 		}
 	}
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void addHiddenTooltip(ItemStack par1ItemStack, World world, List<String> stacks, ITooltipFlag flags) {
-		super.addHiddenTooltip(par1ItemStack, world, stacks, flags);
-		stacks.add(I18n.format("botania.wings" + par1ItemStack.getItemDamage()));
+	public void addHiddenTooltip(ItemStack stack, World world, List<ITextComponent> stacks, ITooltipFlag flags) {
+		super.addHiddenTooltip(stack, world, stacks, flags);
+		stacks.add(new TextComponentTranslation("botania.wings" + ItemNBTHelper.getInt(stack, TAG_VARIANT, 0)));
 	}
 
 	@Override
 	public void onEquipped(ItemStack stack, EntityLivingBase player) {
 		super.onEquipped(stack, player);
-		if(stack.getItemDamage() != WING_TYPES && StringObfuscator.matchesHash(stack.getDisplayName(), SUPER_AWESOME_HASH)) {
-			stack.setItemDamage(WING_TYPES);
-			stack.getTagCompound().removeTag("display");
+		int variant = ItemNBTHelper.getInt(stack, TAG_VARIANT, 0);
+		if(variant != WING_TYPES && StringObfuscator.matchesHash(stack.getDisplayName().getString(), SUPER_AWESOME_HASH)) {
+			ItemNBTHelper.setInt(stack, TAG_VARIANT, WING_TYPES);
+			stack.clearCustomName();
 		}
 	}
 
@@ -126,7 +131,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 
 		if(player instanceof EntityPlayer) {
 			EntityPlayer p = (EntityPlayer) player;
-			boolean flying = p.capabilities.isFlying;
+			boolean flying = p.abilities.isFlying;
 
 			boolean wasSprting = ItemNBTHelper.getBoolean(stack, TAG_IS_SPRINTING, false);
 			boolean isSprinting = p.isSprinting();
@@ -185,8 +190,8 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 
 			if(playersWithFlight.contains(playerStr(player))) {
 				if(shouldPlayerHaveFlight(player)) {
-					player.capabilities.allowFlying = true;
-					if(player.capabilities.isFlying) {
+					player.abilities.allowFlying = true;
+					if(player.abilities.isFlying) {
 						if(!player.world.isRemote)
 							ManaItemHandler.requestManaExact(tiara, player, getCost(tiara, left), true);
 						else if(Math.abs(player.motionX) > 0.1 || Math.abs(player.motionZ) > 0.1) {
@@ -199,7 +204,8 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 							float g = 1F;
 							float b = 1F;
 
-							switch(tiara.getItemDamage()) {
+							int variant = ItemNBTHelper.getInt(tiara, TAG_VARIANT, 0);
+							switch(variant) {
 							case 2 : {
 								r = 0.1F;
 								g = 0.1F;
@@ -252,23 +258,23 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 						}
 					}
 				} else {
-					if(!player.isSpectator() && !player.capabilities.isCreativeMode) {
-						player.capabilities.allowFlying = false;
-						player.capabilities.isFlying = false;
-						player.capabilities.disableDamage = false;
+					if(!player.isSpectator() && !player.abilities.isCreativeMode) {
+						player.abilities.allowFlying = false;
+						player.abilities.isFlying = false;
+						player.abilities.disableDamage = false;
 					}
 					playersWithFlight.remove(playerStr(player));
 				}
 			} else if(shouldPlayerHaveFlight(player)) {
 				playersWithFlight.add(playerStr(player));
-				player.capabilities.allowFlying = true;
+				player.abilities.allowFlying = true;
 			}
 		}
 	}
 
 	@SubscribeEvent
 	public void playerLoggedOut(PlayerEvent.PlayerLoggedOutEvent event) {
-		String username = event.player.getGameProfile().getName();
+		String username = event.getPlayer().getGameProfile().getName();
 		playersWithFlight.remove(username + ":false");
 		playersWithFlight.remove(username + ":true");
 	}
@@ -300,13 +306,13 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
-		int meta = stack.getItemDamage();
+		int meta = ItemNBTHelper.getInt(stack, TAG_VARIANT, 0);
 		if(type == RenderType.BODY) {
 			if(meta > 0 && meta <= MiscellaneousIcons.INSTANCE.tiaraWingIcons.length) {
 				TextureAtlasSprite icon = MiscellaneousIcons.INSTANCE.tiaraWingIcons[meta - 1];
 				Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 
-				boolean flying = player.capabilities.isFlying;
+				boolean flying = player.abilities.isFlying;
 
 				float rz = 120F;
 				float rx = 20F + (float) ((Math.sin((double) (player.ticksExisted + partialTicks) * (flying ? 0.4F : 0.2F)) + 0.5F) * (flying ? 30F : 5F));
@@ -318,7 +324,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 				GlStateManager.pushMatrix();
 				GlStateManager.enableBlend();
 				GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-				GlStateManager.color(1F, 1F, 1F, 1F);
+				GlStateManager.color4f(1F, 1F, 1F, 1F);
 
 				int light = 15728880;
 				int lightmapX = light % 65536;
@@ -369,7 +375,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 					rz = 0F;
 					ry = -rx;
 					rx = 0F;
-					GlStateManager.color(1F, 1F, 1F, 0.5F + (float) Math.cos((double) (player.ticksExisted + partialTicks) * 0.3F) * 0.2F);
+					GlStateManager.color4f(1F, 1F, 1F, 0.5F + (float) Math.cos((double) (player.ticksExisted + partialTicks) * 0.3F) * 0.2F);
 					break;
 				}
 				case 8 : { // Mega Ultra Chicken
@@ -382,7 +388,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 					rx = 0F;
 					h = 1.1F;
 					ry = -(float) ((Math.sin((double) (player.ticksExisted + partialTicks) * 0.2F) + 0.6F) * (flying ? 12F : 5F));
-					GlStateManager.color(1F, 1F, 1F, 0.5F + (flying ? (float) Math.cos((double) (player.ticksExisted + partialTicks) * 0.3F) * 0.25F + 0.25F : 0F));
+					GlStateManager.color4f(1F, 1F, 1F, 0.5F + (flying ? (float) Math.cos((double) (player.ticksExisted + partialTicks) * 0.3F) * 0.25F + 0.25F : 0F));
 				}
 				}
 
@@ -398,32 +404,32 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 
 				Helper.rotateIfSneaking(player);
 
-				GlStateManager.translate(0F, h, i);
+				GlStateManager.translatef(0F, h, i);
 
-				GlStateManager.rotate(rz, 0F, 0F, 1F);
-				GlStateManager.rotate(rx, 1F, 0F, 0F);
-				GlStateManager.rotate(ry, 0F, 1F, 0F);
-				GlStateManager.scale(s, s, s);
-				IconHelper.renderIconIn3D(Tessellator.getInstance(), f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 32F);
-				GlStateManager.scale(sr, sr, sr);
-				GlStateManager.rotate(-ry, 0F, 1F, 0F);
-				GlStateManager.rotate(-rx, 1F, 0F, 0F);
-				GlStateManager.rotate(-rz, 0F, 0F, 1F);
+				GlStateManager.rotatef(rz, 0F, 0F, 1F);
+				GlStateManager.rotatef(rx, 1F, 0F, 0F);
+				GlStateManager.rotatef(ry, 0F, 1F, 0F);
+				GlStateManager.scalef(s, s, s);
+				IconHelper.renderIconIn3D(Tessellator.getInstance(), f1, f2, f, f3, icon.getWidth(), icon.getHeight(), 1F / 32F);
+				GlStateManager.scalef(sr, sr, sr);
+				GlStateManager.rotatef(-ry, 0F, 1F, 0F);
+				GlStateManager.rotatef(-rx, 1F, 0F, 0F);
+				GlStateManager.rotatef(-rz, 0F, 0F, 1F);
 
 				if(meta != 2) { // Sephiroth
-					GlStateManager.scale(-1F, 1F, 1F);
-					GlStateManager.rotate(rz, 0F, 0F, 1F);
-					GlStateManager.rotate(rx, 1F, 0F, 0F);
-					GlStateManager.rotate(ry, 0F, 1F, 0F);
-					GlStateManager.scale(s, s, s);
-					IconHelper.renderIconIn3D(Tessellator.getInstance(), f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 32F);
-					GlStateManager.scale(sr, sr, sr);
-					GlStateManager.rotate(-ry, 1F, 0F, 0F);
-					GlStateManager.rotate(-rx, 1F, 0F, 0F);
-					GlStateManager.rotate(-rz, 0F, 0F, 1F);
+					GlStateManager.scalef(-1F, 1F, 1F);
+					GlStateManager.rotatef(rz, 0F, 0F, 1F);
+					GlStateManager.rotatef(rx, 1F, 0F, 0F);
+					GlStateManager.rotatef(ry, 0F, 1F, 0F);
+					GlStateManager.scalef(s, s, s);
+					IconHelper.renderIconIn3D(Tessellator.getInstance(), f1, f2, f, f3, icon.getWidth(), icon.getHeight(), 1F / 32F);
+					GlStateManager.scalef(sr, sr, sr);
+					GlStateManager.rotatef(-ry, 1F, 0F, 0F);
+					GlStateManager.rotatef(-rx, 1F, 0F, 0F);
+					GlStateManager.rotatef(-rz, 0F, 0F, 1F);
 				}
 
-				GlStateManager.color(1F, 1F, 1F);
+				GlStateManager.color3f(1F, 1F, 1F);
 				GlStateManager.popMatrix();
 
 				OpenGlHelper.glMultiTexCoord2f(OpenGlHelper.GL_TEXTURE1, lbx, lby);
@@ -440,18 +446,18 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 		OpenGlHelper.glMultiTexCoord2f(OpenGlHelper.GL_TEXTURE1, 240, 240);
 		GlStateManager.disableLighting();
 		GlStateManager.disableCull();
-		GlStateManager.color(1F, 1F, 1F, 1F);
+		GlStateManager.color4f(1F, 1F, 1F, 1F);
 
 		Minecraft.getInstance().textureManager.bindTexture(textureHalo);
 
 		if(player != null)
 			Helper.translateToHeadLevel(player);
-		GlStateManager.translate(0, 1.5F, 0);
-		GlStateManager.rotate(30, 1, 0, -1);
-		GlStateManager.translate(-0.1F, -0.5F, -0.1F);
+		GlStateManager.translatef(0, 1.5F, 0);
+		GlStateManager.rotatef(30, 1, 0, -1);
+		GlStateManager.translatef(-0.1F, -0.5F, -0.1F);
 		if(player != null)
-			GlStateManager.rotate(player.ticksExisted + partialTicks, 0, 1, 0);
-		else GlStateManager.rotate(Botania.proxy.getWorldElapsedTicks(), 0, 1, 0);
+			GlStateManager.rotatef(player.ticksExisted + partialTicks, 0, 1, 0);
+		else GlStateManager.rotatef(Botania.proxy.getWorldElapsedTicks(), 0, 1, 0);
 
 		Tessellator tes = Tessellator.getInstance();
 		ShaderHelper.useShader(ShaderHelper.halo);
@@ -470,7 +476,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 
 	@OnlyIn(Dist.CLIENT)
 	public static void renderHUD(EntityPlayer player, ItemStack stack) {
-		int u = Math.max(1, stack.getItemDamage()) * 9 - 9;
+		int u = Math.max(1, ItemNBTHelper.getInt(stack, TAG_VARIANT, 0)) * 9 - 9;
 		int v = 0;
 
 		Minecraft mc = Minecraft.getInstance();
@@ -478,7 +484,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 		int xo = mc.mainWindow.getScaledWidth() / 2 + 10;
 		int x = xo;
 		int y = mc.mainWindow.getScaledHeight() - ConfigHandler.flightBarHeight;
-		if(player.isInsideOfMaterial(Material.WATER))
+		if(player.areEyesInFluid(FluidTags.WATER))
 			y = mc.mainWindow.getScaledHeight() - ConfigHandler.flightBarBreathHeight;
 
 		int left = ItemNBTHelper.getInt(stack, TAG_TIME_LEFT, MAX_FLY_TIME);

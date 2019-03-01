@@ -54,7 +54,7 @@ public class EntityPinkWither extends EntityWither {
 				double d10 = getHeadX(j);
 				double d2 = getHeadY(j);
 				double d4 = getHeadZ(j);
-				world.spawnParticle(Particles.HEART, d10 + rand.nextGaussian() * 0.30000001192092896D, d2 + rand.nextGaussian() * 0.30000001192092896D, d4 + rand.nextGaussian() * 0.30000001192092896D, 0.0D, 0.0D, 0.0D);
+				world.addParticle(Particles.HEART, d10 + rand.nextGaussian() * 0.30000001192092896D, d2 + rand.nextGaussian() * 0.30000001192092896D, d4 + rand.nextGaussian() * 0.30000001192092896D, 0.0D, 0.0D, 0.0D);
 			}
 	}
 

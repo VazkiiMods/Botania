@@ -28,7 +28,6 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.Vector3;
@@ -156,7 +155,7 @@ public class EntityMagicMissile extends EntityThrowable {
 	@Override
 	public void writeAdditional(NBTTagCompound cmp) {
 		super.writeAdditional(cmp);
-		cmp.setInt(TAG_TIME, time);
+		cmp.putInt(TAG_TIME, time);
 	}
 
 	@Override

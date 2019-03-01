@@ -113,7 +113,7 @@ public class ItemThirdEye extends ItemBauble implements IManaUsingItem, IBaubleR
 				float f1 = gemIcon.getMaxU();
 				float f2 = gemIcon.getMinV();
 				float f3 = gemIcon.getMaxV();
-				IconHelper.renderIconIn3D(Tessellator.getInstance(), f1, f2, f, f3, gemIcon.getIconWidth(), gemIcon.getIconHeight(), width);
+				IconHelper.renderIconIn3D(Tessellator.getInstance(), f1, f2, f, f3, gemIcon.getWidth(), gemIcon.getHeight(), width);
 				GlStateManager.popMatrix();
 			}
 		}

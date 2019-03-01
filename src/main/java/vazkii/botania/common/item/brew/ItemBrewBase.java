@@ -21,14 +21,20 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.potion.PotionUtil;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.brew.IBrewItem;
@@ -119,17 +125,27 @@ public class ItemBrewBase extends ItemMod implements IBrewItem {
 
 	@Nonnull
 	@Override
-	public String getItemStackDisplayName(@Nonnull ItemStack stack) {
-		return String.format(net.minecraft.util.text.translation.I18n.translateToLocal(getUnlocalizedNameInefficiently(stack) + ".name"), net.minecraft.util.text.translation.I18n.translateToLocal(getBrew(stack).getUnlocalizedName(stack)), TextFormatting.BOLD + "" + getSwigsLeft(stack) + TextFormatting.RESET);
+	public ITextComponent getDisplayName(@Nonnull ItemStack stack) {
+		ITextComponent cmp = new TextComponentTranslation(getTranslationKey(), new TextComponentTranslation(getBrew(stack).getUnlocalizedName(stack)));
+		cmp.appendSibling(new TextComponentString(Integer.toString(getSwigsLeft(stack))).applyTextStyle(TextFormatting.BOLD));
+		return cmp;
 	}
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void addInformation(ItemStack stack, World world, List<String> list, ITooltipFlag flags) {
+	public void addInformation(ItemStack stack, World world, List<ITextComponent> list, ITooltipFlag flags) {
 		Brew brew = getBrew(stack);
 		for(PotionEffect effect : brew.getPotionEffects(stack)) {
 			TextFormatting format = effect.getPotion().isBadEffect() ? TextFormatting.RED : TextFormatting.GRAY;
-			list.add(format + I18n.format(effect.getEffectName()) + (effect.getAmplifier() == 0 ? "" : " " + I18n.format("botania.roman" + (effect.getAmplifier() + 1))) + TextFormatting.GRAY + (effect.getPotion().isInstant() ? "" : " (" + Potion.getPotionDurationString(effect, 1F) + ")"));
+			ITextComponent cmp = new TextComponentTranslation(effect.getEffectName());
+			if(effect.getAmplifier() > 0) {
+				cmp.appendText(" ");
+				cmp.appendSibling(new TextComponentTranslation("botania.roman" + (effect.getAmplifier() + 1)));
+			}
+			if(!effect.getPotion().isInstant()) {
+				cmp.appendText(" (" + PotionUtil.getPotionDurationString(effect, 1) + ")").applyTextStyle(TextFormatting.GRAY);
+			}
+			list.add(cmp.applyTextStyle(format));
 		}
 	}
 

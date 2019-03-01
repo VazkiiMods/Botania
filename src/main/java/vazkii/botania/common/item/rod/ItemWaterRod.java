@@ -1,10 +1,21 @@
 package vazkii.botania.common.item.rod;
 
+import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.block.IBucketPickupHandler;
+import net.minecraft.block.ILiquidContainer;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.fluid.Fluid;
+import net.minecraft.init.Fluids;
 import net.minecraft.init.Items;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemBucket;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
+import net.minecraft.stats.StatList;
+import net.minecraft.tags.FluidTags;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -18,6 +29,7 @@ import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.lib.LibItemNames;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 public class ItemWaterRod extends ItemMod implements IManaUsingItem {
 
@@ -27,33 +39,48 @@ public class ItemWaterRod extends ItemMod implements IManaUsingItem {
 		super(props);
 	}
 
+	// [VanillaCopy] From ItemBucket
 	@Nonnull
 	@Override
-	public EnumActionResult onItemUse(ItemUseContext ctx) {
-		ItemStack stack = player.getHeldItem(hand);
-		if(ManaItemHandler.requestManaExactForTool(stack, player, COST, false) && !world.provider.doesWaterVaporize()) {
-			// Adapted from bucket code
-			RayTraceResult mop = rayTrace(world, player, false);
+	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, @Nonnull EnumHand handIn) {
+		ItemStack itemstack = playerIn.getHeldItem(handIn);
+		RayTraceResult raytraceresult = this.rayTrace(worldIn, playerIn, false);
 
-			if (mop != null && mop.type == RayTraceResult.Type.BLOCK) {
-				BlockPos hitPos = mop.getBlockPos();
-				if(!world.isBlockModifiable(player, hitPos))
-					return EnumActionResult.FAIL;
-				BlockPos placePos = hitPos.offset(mop.sideHit);
-				if(player.canPlayerEdit(placePos, mop.sideHit, stack)) {
-					if (ManaItemHandler.requestManaExactForTool(stack, player, COST, true)
-							&& ((ItemBucket) Items.WATER_BUCKET).tryPlaceContainedLiquid(player, world, placePos, mop)) {
-						for(int i = 0; i < 6; i++)
-							Botania.proxy.sparkleFX(pos.getX() + side.getXOffset() + Math.random(), pos.getY() + side.getYOffset() + Math.random(), pos.getZ() + side.getZOffset() + Math.random(), 0.2F, 0.2F, 1F, 1F, 5);
-						return EnumActionResult.SUCCESS;
+		ActionResult<ItemStack> ret = net.minecraftforge.event.ForgeEventFactory.onBucketUse(playerIn, worldIn, itemstack, raytraceresult);
+		if (ret != null) return ret;
+
+		if (raytraceresult == null) {
+			return new ActionResult<>(EnumActionResult.PASS, itemstack);
+		} else if (raytraceresult.type == RayTraceResult.Type.BLOCK) {
+			BlockPos blockpos = raytraceresult.getBlockPos();
+			if (worldIn.isBlockModifiable(playerIn, blockpos) && playerIn.canPlayerEdit(blockpos, raytraceresult.sideHit, itemstack)) {
+				IBlockState iblockstate = worldIn.getBlockState(blockpos);
+				BlockPos blockpos1 = this.getPlacementPosition(iblockstate, blockpos, raytraceresult);
+
+				if (ManaItemHandler.requestManaExactForTool(itemstack, playerIn, COST, true)
+						&& ((ItemBucket) Items.WATER_BUCKET).tryPlaceContainedLiquid(playerIn, worldIn, blockpos1, raytraceresult)) {
+					if (playerIn instanceof EntityPlayerMP) {
+						CriteriaTriggers.PLACED_BLOCK.trigger((EntityPlayerMP)playerIn, blockpos1, itemstack);
 					}
+
+					playerIn.addStat(StatList.ITEM_USED.get(this));
+					for(int i = 0; i < 6; i++)
+						Botania.proxy.sparkleFX(blockpos1.getX() + Math.random(), blockpos1.getY() + Math.random(), blockpos1.getZ() + Math.random(), 0.2F, 0.2F, 1F, 1F, 5);
+					return new ActionResult<>(EnumActionResult.SUCCESS, itemstack);
+				} else {
+					return new ActionResult<>(EnumActionResult.FAIL, itemstack);
 				}
-
+			} else {
+				return new ActionResult<>(EnumActionResult.FAIL, itemstack);
 			}
-			return EnumActionResult.FAIL;
+		} else {
+			return new ActionResult<>(EnumActionResult.PASS, itemstack);
 		}
+	}
 
-		return EnumActionResult.PASS;
+	// [VanillaCopy] ItemBucket
+	private BlockPos getPlacementPosition(IBlockState p_210768_1_, BlockPos p_210768_2_, RayTraceResult p_210768_3_) {
+		return p_210768_1_.getBlock() instanceof ILiquidContainer ? p_210768_2_ : p_210768_3_.getBlockPos().offset(p_210768_3_.sideHit);
 	}
 
 	@Override

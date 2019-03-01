@@ -94,9 +94,9 @@ public class EntityManaStorm extends Entity {
 
 	@Override
 	protected void writeAdditional(@Nonnull NBTTagCompound cmp) {
-		cmp.setInt(TAG_TIME, liveTime);
-		cmp.setInt(TAG_BURSTS_FIRED, burstsFired);
-		cmp.setInt(TAG_DEATH_TIME, deathTime);
+		cmp.putInt(TAG_TIME, liveTime);
+		cmp.putInt(TAG_BURSTS_FIRED, burstsFired);
+		cmp.putInt(TAG_DEATH_TIME, deathTime);
 	}
 
 }

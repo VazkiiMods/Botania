@@ -10,11 +10,9 @@
  */
 package vazkii.botania.api.internal;
 
-import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.renderer.model.ModelResourceLocation;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -120,7 +118,7 @@ public class DummyMethodHandler implements IInternalMethodHandler {
 
 	@Override
 	public ItemStack getSubTileAsStack(ResourceLocation subTile) {
-		return new ItemStack(Blocks.STONE, 0, 0);
+		return ItemStack.EMPTY;
 	}
 
 	@Override
@@ -156,7 +154,7 @@ public class DummyMethodHandler implements IInternalMethodHandler {
 
 	@Override
 	public ItemStack getBindDisplayForFlowerType(SubTileEntity e) {
-		return new ItemStack(Blocks.STONE, 0, 0);
+		return ItemStack.EMPTY;
 	}
 
 	@Override

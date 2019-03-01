@@ -10,22 +10,23 @@
  */
 package vazkii.botania.common.item;
 
-import net.minecraft.block.BlockLiquid;
+import net.minecraft.block.IBucketPickupHandler;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.fluid.Fluid;
+import net.minecraft.init.Fluids;
+import net.minecraft.init.Particles;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
+import net.minecraft.stats.StatList;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.IFluidBlock;
-import vazkii.botania.common.lib.LibItemNames;
 
 import javax.annotation.Nonnull;
 
@@ -35,42 +36,45 @@ public class ItemOpenBucket extends ItemMod {
 		super(props);
 	}
 
+	// [VanillaCopy] ItemBucket, only the empty cases
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
-		RayTraceResult rtr = rayTrace(world, player, true);
-		ItemStack stack = player.getHeldItem(hand);
+	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, @Nonnull EnumHand handIn) {
+		ItemStack itemstack = playerIn.getHeldItem(handIn);
+		RayTraceResult raytraceresult = this.rayTrace(worldIn, playerIn, true);
 
-		if(rtr == null)
-			return ActionResult.newResult(EnumActionResult.PASS, stack);
-		else {
-			if(rtr.typeOfHit == net.minecraft.util.math.RayTraceResult.Type.BLOCK) {
-				BlockPos pos = rtr.getBlockPos();
+		ActionResult<ItemStack> ret = net.minecraftforge.event.ForgeEventFactory.onBucketUse(playerIn, worldIn, itemstack, raytraceresult);
+		if (ret != null) return ret;
 
-				if(!world.isBlockModifiable(player, pos))
-					return ActionResult.newResult(EnumActionResult.PASS, stack);
+		if (raytraceresult == null) {
+			return new ActionResult<>(EnumActionResult.PASS, itemstack);
+		} else if (raytraceresult.type == RayTraceResult.Type.BLOCK) {
+			BlockPos blockpos = raytraceresult.getBlockPos();
+			if (worldIn.isBlockModifiable(playerIn, blockpos) && playerIn.canPlayerEdit(blockpos, raytraceresult.sideHit, itemstack)) {
+				IBlockState iblockstate1 = worldIn.getBlockState(blockpos);
+				if (iblockstate1.getBlock() instanceof IBucketPickupHandler) {
+					Fluid fluid = ((IBucketPickupHandler)iblockstate1.getBlock()).pickupFluid(worldIn, blockpos, iblockstate1);
+					if (fluid != Fluids.EMPTY) {
+						playerIn.addStat(StatList.ITEM_USED.get(this));
+						playerIn.playSound(fluid.isIn(FluidTags.LAVA) ? SoundEvents.ITEM_BUCKET_FILL_LAVA : SoundEvents.ITEM_BUCKET_FILL, 1.0F, 1.0F);
 
-				if(!player.canPlayerEdit(pos, rtr.sideHit, stack))
-					return ActionResult.newResult(EnumActionResult.PASS, stack);
+						// Botania: some particles
+						for(int x = 0; x < 5; x++)
+							worldIn.addParticle(Particles.POOF, blockpos.getX() + Math.random(), blockpos.getY() + Math.random(), blockpos.getZ() + Math.random(), 0, 0, 0);
 
-				IBlockState state = world.getBlockState(pos);
-				Fluid fluid = FluidRegistry.lookupFluidForBlock(state.getBlock());
-				boolean isFull = state.getBlock() instanceof BlockLiquid && state.get(BlockLiquid.LEVEL) == 0
-						|| state.getBlock() instanceof IFluidBlock && Math.abs(((IFluidBlock) state.getBlock()).getFilledPercentage(world, pos)) >= 1;
-
-				if(fluid != null && isFull) {
-					player.playSound(fluid.getFillSound(world, pos), 1.0f, 1.0f);
-					world.setBlockToAir(pos);
-
-					for(int x = 0; x < 5; x++)
-						world.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, pos.getX() + Math.random(), pos.getY() + Math.random(), pos.getZ() + Math.random(), 0, 0, 0);
-
-					return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
+						return new ActionResult<>(EnumActionResult.SUCCESS, itemstack);
+					}
 				}
-			}
 
-			return ActionResult.newResult(EnumActionResult.PASS, stack);
+				return new ActionResult<>(EnumActionResult.FAIL, itemstack);
+			} else {
+				return new ActionResult<>(EnumActionResult.FAIL, itemstack);
+			}
+		} else {
+			return new ActionResult<>(EnumActionResult.PASS, itemstack);
 		}
 	}
+
+
 
 }

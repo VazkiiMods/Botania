@@ -27,6 +27,8 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
@@ -69,19 +71,24 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void addHiddenTooltip(ItemStack stack, World world, List<String> list, ITooltipFlag adv) {
+	public void addHiddenTooltip(ItemStack stack, World world, List<ITextComponent> list, ITooltipFlag adv) {
 		super.addHiddenTooltip(stack, world, list, adv);
 
 		Brew brew = getBrew(stack);
 		if(brew == BotaniaAPI.fallbackBrew) {
-			addStringToTooltip(TextFormatting.LIGHT_PURPLE + I18n.format("botaniamisc.notInfused"), list);
+			list.add(new TextComponentTranslation("botaniamisc.notInfused").applyTextStyle(TextFormatting.LIGHT_PURPLE));
 			return;
 		}
 
-		addStringToTooltip(TextFormatting.LIGHT_PURPLE + I18n.format("botaniamisc.brewOf", I18n.format(brew.getUnlocalizedName(stack))), list);
+		list.add(new TextComponentTranslation("botaniamisc.brewOf", I18n.format(brew.getUnlocalizedName(stack))).applyTextStyle(TextFormatting.LIGHT_PURPLE));
 		for(PotionEffect effect : brew.getPotionEffects(stack)) {
 			TextFormatting format = effect.getPotion().isBadEffect() ? TextFormatting.RED : TextFormatting.GRAY;
-			addStringToTooltip(" " + format + I18n.format(effect.getEffectName()) + (effect.getAmplifier() == 0 ? "" : " " + I18n.format("botania.roman" + (effect.getAmplifier() + 1))), list);
+			ITextComponent cmp = new TextComponentTranslation(effect.getEffectName());
+			if(effect.getAmplifier() > 0) {
+				cmp.appendText(" ");
+				cmp.appendSibling(new TextComponentTranslation("botania.roman" + (effect.getAmplifier() + 1)));
+			}
+			list.add(cmp.applyTextStyle(format));
 		}
 	}
 

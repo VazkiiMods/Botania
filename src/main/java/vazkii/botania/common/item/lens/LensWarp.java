@@ -25,18 +25,18 @@ public class LensWarp extends Lens {
 	
 	@Override
 	public boolean collideBurst(IManaBurst burst, EntityThrowable entity, RayTraceResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
-		if(burst.isFake() || pos.getBlockPos() == null)
+		if(burst.isFake() || pos.type != RayTraceResult.Type.BLOCK)
 			return dead;
 		
 		Block block = entity.world.getBlockState(pos.getBlockPos()).getBlock();
 		if(block == ModBlocks.pistonRelay) {
-			BlockPistonRelay.DimWithPos key = ((BlockPistonRelay) ModBlocks.pistonRelay).mappedPositions.get(new BlockPistonRelay.DimWithPos(entity.world.provider.getDimension(), pos.getBlockPos()));
+			BlockPistonRelay.DimWithPos key = ((BlockPistonRelay) ModBlocks.pistonRelay).mappedPositions.get(new BlockPistonRelay.DimWithPos(entity.world.getDimension().getType(), pos.getBlockPos()));
 			if(key != null) {
-				if(key.dim == entity.world.getDimension().getId()) {
+				if(key.dim == entity.world.getDimension().getType()) {
 					entity.setPosition(key.blockPos.getX() + 0.5, key.blockPos.getY() + 0.5, key.blockPos.getZ() + 0.5);
 					burst.setCollidedAt(key.blockPos);
 					
-					entity.getEntityData().setBoolean(TAG_WARPED, true);
+					entity.getEntityData().putBoolean(TAG_WARPED, true);
 					
 					return false;
 				}

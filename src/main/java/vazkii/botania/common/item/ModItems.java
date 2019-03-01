@@ -240,7 +240,7 @@ public final class ModItems {
 	public static final Item miningRing = new ItemMiningRing(unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.MINING_RING);
 	public static final Item terraPick = new ItemTerraPick(unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.TERRA_PICK);
 	public static final Item divaCharm = new ItemDivaCharm(unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.DIVA_CHARM);
-	public static final Item flightTiara = new ItemFlightTiara();
+	public static final Item flightTiara = new ItemFlightTiara(unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.FLIGHT_TIARA);
 	public static final Item enderDagger = new ItemEnderDagger(unstackable().defaultMaxDamage(69).setNoRepair()); // What you looking at?
 	public static final Item darkQuartz = new ItemMod(defaultBuilder()).setRegistryName(LibMisc.MOD_ID, LibItemNames.QUARTZ_NAMES[0]);
 	public static final Item manaQuartz = new ItemMod(defaultBuilder()).setRegistryName(LibMisc.MOD_ID, LibItemNames.QUARTZ_NAMES[1]);

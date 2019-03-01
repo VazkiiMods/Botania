@@ -33,7 +33,7 @@ public class LensMine extends Lens {
 		World world = entity.world;
 
 		BlockPos collidePos = rtr.getBlockPos();
-		if (world.isRemote || collidePos == null)
+		if (world.isRemote)
 			return false;
 
 		IBlockState state = world.getBlockState(collidePos);

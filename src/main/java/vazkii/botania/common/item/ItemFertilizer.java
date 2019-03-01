@@ -47,7 +47,7 @@ public class ItemFertilizer extends ItemMod {
 					for(int k = 2; k >= -2; k--) {
 						BlockPos pos_ = pos.add(i + 1, k + 1, j + 1);
 						if(world.isAirBlock(pos_) && (!world.getDimension().isNether() || pos_.getY() < 255)
-								&& ModBlocks.whiteFlower.isValidPosition(ModBlocks.whiteFlower.getDefaultState(), world, pos_))
+								&& ModBlocks.whiteFlower.getDefaultState().isValidPosition(world, pos_))
 							validCoords.add(pos_);
 					}
 				}

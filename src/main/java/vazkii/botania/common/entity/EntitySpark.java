@@ -290,8 +290,8 @@ public class EntitySpark extends Entity implements ISparkEntity {
 
 	@Override
 	protected void writeAdditional(@Nonnull NBTTagCompound cmp) {
-		cmp.setInt(TAG_UPGRADE, getUpgrade().ordinal());
-		cmp.setInt(TAG_INVIS, isInvisible() ? 1 : 0);
+		cmp.putInt(TAG_UPGRADE, getUpgrade().ordinal());
+		cmp.putInt(TAG_INVIS, isInvisible() ? 1 : 0);
 	}
 
 	@Override

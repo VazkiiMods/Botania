@@ -21,6 +21,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Enchantments;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUseContext;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
@@ -89,7 +90,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 		List<BlockPos> cursors = getCursorList(lokiRing);
 		int cost = Math.min(cursors.size(), (int) Math.pow(Math.E, cursors.size() * 0.25));
 
-		if(lookPos == null || lookPos.getBlockPos() == null)
+		if(lookPos == null)
 			return;
 
 		if(heldItemStack.isEmpty()) {
@@ -126,10 +127,9 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 		} else {
 			for(BlockPos cursor : cursors) {
 				BlockPos pos = lookPos.getBlockPos().add(cursor);
-				Item item = heldItemStack.getItem();
 				if(player.world.isAirBlock(pos) && ManaItemHandler.requestManaExact(lokiRing, player, cost, true)) {
 					ItemStack saveHeld = heldItemStack.copy();
-					item.onItemUse(player, player.world, pos, event.getHand(), lookPos.sideHit, (float) lookPos.hitVec.x - pos.getX(), (float) lookPos.hitVec.y - pos.getY(), (float) lookPos.hitVec.z - pos.getZ());
+					heldItemStack.onItemUse(new ItemUseContext(player, heldItemStack, pos, lookPos.sideHit, (float) lookPos.hitVec.x - pos.getX(), (float) lookPos.hitVec.y - pos.getY(), (float) lookPos.hitVec.z - pos.getZ()));
 					if (player.isCreative())
 						player.setHeldItem(event.getHand(), saveHeld);
 				}
@@ -173,7 +173,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 
 		RayTraceResult lookPos = Minecraft.getInstance().objectMouseOver;
 
-		if(lookPos != null && lookPos.getBlockPos() != null && !player.world.isAirBlock(lookPos.getBlockPos()) && lookPos.entityHit == null) {
+		if(lookPos != null && !player.world.isAirBlock(lookPos.getBlockPos()) && lookPos.entity == null) {
 			List<BlockPos> list = getCursorList(stack);
 			BlockPos origin = getOriginPos(stack);
 

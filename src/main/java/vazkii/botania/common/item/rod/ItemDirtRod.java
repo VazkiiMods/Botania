@@ -87,15 +87,15 @@ public class ItemDirtRod extends ItemMod implements IManaUsingItem, IBlockProvid
 	}
 
 	@Override
-	public boolean provideBlock(EntityPlayer player, ItemStack requestor, ItemStack stack, Block block, int meta, boolean doit) {
-		if(block == Blocks.DIRT && meta == 0)
+	public boolean provideBlock(EntityPlayer player, ItemStack requestor, ItemStack stack, Block block, boolean doit) {
+		if(block == Blocks.DIRT)
 			return !doit || ManaItemHandler.requestManaExactForTool(requestor, player, COST, true);
 		return false;
 	}
 
 	@Override
-	public int getBlockCount(EntityPlayer player, ItemStack requestor, ItemStack stack, Block block, int meta) {
-		if(block == Blocks.DIRT && meta == 0)
+	public int getBlockCount(EntityPlayer player, ItemStack requestor, ItemStack stack, Block block) {
+		if(block == Blocks.DIRT)
 			return -1;
 		return 0;
 	}

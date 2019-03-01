@@ -47,7 +47,7 @@ public class ItemEnderHand extends ItemMod implements IManaUsingItem, IBlockProv
 			if(!player.world.isRemote)
 				player.displayGUIChest(player.getInventoryEnderChest());
 			ManaItemHandler.requestManaExact(stack, player, COST_SELF, true);
-			player.playSound(SoundEvents.ENTITY_ENDERMEN_TELEPORT, 1F, 1F);
+			player.playSound(SoundEvents.BLOCK_ENDER_CHEST_OPEN, 1F, 1F);
 			return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
 		}
 		return ActionResult.newResult(EnumActionResult.PASS, stack);
@@ -59,7 +59,7 @@ public class ItemEnderHand extends ItemMod implements IManaUsingItem, IBlockProv
 			if(!player.world.isRemote)
 				player.displayGUIChest(((EntityPlayer) entity).getInventoryEnderChest());
 			ManaItemHandler.requestManaExact(stack, player, COST_OTHER, true);
-			player.playSound(SoundEvents.ENTITY_ENDERMEN_TELEPORT, 1F, 1F);
+			player.playSound(SoundEvents.BLOCK_ENDER_CHEST_OPEN, 1F, 1F);
 			return true;
 		}
 

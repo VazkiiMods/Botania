@@ -30,7 +30,7 @@ import java.util.Map;
 public class LensWeight extends Lens {
 	@Override
 	public boolean collideBurst(IManaBurst burst, EntityThrowable entity, RayTraceResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
-		if(!entity.world.isRemote && !burst.isFake() && pos.getBlockPos() != null) {
+		if(!entity.world.isRemote && !burst.isFake() && pos.type == RayTraceResult.Type.BLOCK) {
 			int harvestLevel = ConfigHandler.harvestLevelWeight;
 
 			BlockPos bPos = pos.getBlockPos();

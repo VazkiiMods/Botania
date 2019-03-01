@@ -231,7 +231,7 @@ public abstract class EntityThrowableCopy extends Entity implements IProjectile 
 		if (this.isInWater()) {
 			for(int j = 0; j < 4; ++j) {
 				float f3 = 0.25F;
-				this.world.spawnParticle(Particles.BUBBLE, this.posX - this.motionX * 0.25D, this.posY - this.motionY * 0.25D, this.posZ - this.motionZ * 0.25D, this.motionX, this.motionY, this.motionZ);
+				this.world.addParticle(Particles.BUBBLE, this.posX - this.motionX * 0.25D, this.posY - this.motionY * 0.25D, this.posZ - this.motionZ * 0.25D, this.motionX, this.motionY, this.motionZ);
 			}
 
 			f1 = 0.8F;
@@ -264,13 +264,13 @@ public abstract class EntityThrowableCopy extends Entity implements IProjectile 
 	 * use {@link #writeUnlessPassenger} or {@link #writeWithoutTypeId} instead.
 	 */
 	public void writeAdditional(NBTTagCompound compound) {
-		compound.setInt("xTile", this.xTile);
-		compound.setInt("yTile", this.yTile);
-		compound.setInt("zTile", this.zTile);
-		compound.setByte("shake", (byte)this.throwableShake);
-		compound.setByte("inGround", (byte)(this.inGround ? 1 : 0));
+		compound.putInt("xTile", this.xTile);
+		compound.putInt("yTile", this.yTile);
+		compound.putInt("zTile", this.zTile);
+		compound.putByte("shake", (byte)this.throwableShake);
+		compound.putByte("inGround", (byte)(this.inGround ? 1 : 0));
 		if (this.field_200218_h != null) {
-			compound.setTag("owner", NBTUtil.writeUniqueId(this.field_200218_h));
+			compound.put("owner", NBTUtil.writeUniqueId(this.field_200218_h));
 		}
 
 	}

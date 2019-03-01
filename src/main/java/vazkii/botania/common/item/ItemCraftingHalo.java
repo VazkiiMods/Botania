@@ -585,6 +585,6 @@ public class ItemCraftingHalo extends ItemMod {
 			yoff += 12;
 		}
 
-		mc.fontRenderer.drawStringWithShadow(label, mc.mainWindow.getScaledWidth() / 2 - mc.fontRenderer.getStringWidth(label) / 2, mc.mainWindow.getScaledHeight() / 2 - yoff, 0xFFFFFF);
+		mc.fontRenderer.drawStringWithShadow(label, mc.mainWindow.getScaledWidth() / 2 - mc.fontRenderer.getStringWidth(label.getString()) / 2, mc.mainWindow.getScaledHeight() / 2 - yoff, 0xFFFFFF);
 	}
 }

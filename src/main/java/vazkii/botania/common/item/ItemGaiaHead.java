@@ -13,13 +13,14 @@ package vazkii.botania.common.item;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSkull;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.model.ModelBiped;
+import net.minecraft.client.renderer.entity.model.ModelBiped;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemWallOrFloor;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntitySkull;
 import net.minecraft.util.EnumActionResult;
@@ -38,15 +39,15 @@ import vazkii.botania.common.lib.LibItemNames;
 
 import javax.annotation.Nonnull;
 
-public class ItemGaiaHead extends ItemMod {
+public class ItemGaiaHead extends ItemWallOrFloor {
 
-	public ItemGaiaHead() {
-		super(LibItemNames.GAIA_HEAD);
+	public ItemGaiaHead(Block floor, Block wall, Properties props) {
+		super(floor, wall, props);
 	}
 
 	@Override
-	public boolean isValidArmor(ItemStack stack, EntityEquipmentSlot armorType, Entity entity) {
-		return armorType == EntityEquipmentSlot.HEAD;
+	public EntityEquipmentSlot getEquipmentSlot(ItemStack stack) {
+		return EntityEquipmentSlot.HEAD;
 	}
 
 	@OnlyIn(Dist.CLIENT)
@@ -61,82 +62,5 @@ public class ItemGaiaHead extends ItemMod {
 	public void registerModels() {
 		super.registerModels();
 		ForgeHooksClient.registerTESRItemStack(this, 0, TileGaiaHead.class);
-	}
-
-	// Copied from vanila skull itemBlock. Relevant edits are indicated.
-	@Nonnull
-	@Override
-	public EnumActionResult onItemUse(EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-		if (facing == EnumFacing.DOWN) {
-			return EnumActionResult.FAIL;
-		} else {
-			if (worldIn.getBlockState(pos).getBlock().isReplaceable(worldIn, pos)) {
-				facing = EnumFacing.UP;
-				pos = pos.down();
-			}
-			IBlockState iblockstate = worldIn.getBlockState(pos);
-			Block block = iblockstate.getBlock();
-			boolean flag = block.isReplaceable(worldIn, pos);
-
-			if (!flag) {
-				if (!worldIn.getBlockState(pos).getMaterial().isSolid() && !worldIn.isSideSolid(pos, facing, true)) {
-					return EnumActionResult.FAIL;
-				}
-
-				pos = pos.offset(facing);
-			}
-
-			ItemStack itemstack = playerIn.getHeldItem(hand);
-
-			if (playerIn.canPlayerEdit(pos, facing, itemstack) && Blocks.SKULL.canPlaceBlockAt(worldIn, pos)) {
-				if (worldIn.isRemote) {
-					return EnumActionResult.SUCCESS;
-				} else {
-					worldIn.setBlockState(pos, ModBlocks.gaiaHead.getDefaultState().with(BlockSkull.FACING, facing), 11); // Botania - skull -> gaia head
-					int i = 0;
-
-					if (facing == EnumFacing.UP) {
-						i = MathHelper.floor(playerIn.rotationYaw * 16.0F / 360.0F + 0.5D) & 15;
-					}
-
-					TileEntity tileentity = worldIn.getTileEntity(pos);
-
-					if (tileentity instanceof TileEntitySkull) {
-						TileEntitySkull tileentityskull = (TileEntitySkull) tileentity;
-
-						if (itemstack.getMetadata() == 3) // Botania - do not retrieve skins
-						{
-							/*GameProfile gameprofile = null;
-
-							if (stack.hasTagCompound())
-							{
-								NBTTagCompound nbttagcompound = stack.getTagCompound();
-
-								if (nbttagcompound.hasKey("SkullOwner", 10))
-								{
-									gameprofile = NBTUtil.readGameProfileFromNBT(nbttagcompound.getCompoundTag("SkullOwner"));
-								}
-								else if (nbttagcompound.hasKey("SkullOwner", 8) && !nbttagcompound.getString("SkullOwner").isEmpty())
-								{
-									gameprofile = new GameProfile((UUID)null, nbttagcompound.getString("SkullOwner"));
-								}
-							}
-
-							tileentityskull.setPlayerProfile(gameprofile);*/
-						} else {
-							tileentityskull.setType(3); // Botania - Force type to 3 (humanoid)
-						}
-
-						tileentityskull.setSkullRotation(i);
-						Blocks.SKULL.checkWitherSpawn(worldIn, pos, tileentityskull);
-					}
-
-					itemstack.shrink(1);
-					return EnumActionResult.SUCCESS;
-				}
-			} else {
-				return EnumActionResult.FAIL;
-			}
-		}
 	}
 }

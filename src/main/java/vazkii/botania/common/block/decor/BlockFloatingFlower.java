@@ -165,7 +165,7 @@ public class BlockFloatingFlower extends BlockMod implements ILexiconable, IInfu
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+	public boolean onBlockActivated(IBlockState state, World world, BlockPos pos, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
 		ItemStack stack = player.getHeldItem(hand);
 		if(!stack.isEmpty()) {
 			IFloatingFlower flower = (IFloatingFlower) world.getTileEntity(pos);
@@ -184,7 +184,7 @@ public class BlockFloatingFlower extends BlockMod implements ILexiconable, IInfu
 					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, pos);
 				}
 
-				if(!player.capabilities.isCreativeMode)
+				if(!player.abilities.isCreativeMode)
 					stack.shrink(1);
 				return true;
 			}

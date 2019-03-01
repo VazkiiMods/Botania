@@ -57,8 +57,8 @@ import java.util.List;
 @Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
 public class ItemBlockSpecialFlower extends ItemBlockMod implements IRecipeKeyProvider {
 
-	public ItemBlockSpecialFlower(Block block1) {
-		super(block1);
+	public ItemBlockSpecialFlower(Block block1, Properties props) {
+		super(block1, props);
 	}
 
 	@Override

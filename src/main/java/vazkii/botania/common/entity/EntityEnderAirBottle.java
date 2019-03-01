@@ -43,7 +43,7 @@ public class EntityEnderAirBottle extends EntityThrowable {
 
 	@Override
 	protected void onImpact(@Nonnull RayTraceResult pos) {
-		if(pos.getBlockPos() != null && !world.isRemote) {
+		if(pos.type == RayTraceResult.Type.BLOCK && !world.isRemote) {
 			List<BlockPos> coordsList = getCoordsToPut(pos.getBlockPos());
 			world.playEvent(2002, new BlockPos(this), 8);
 

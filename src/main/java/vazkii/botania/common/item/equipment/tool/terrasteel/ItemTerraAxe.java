@@ -21,6 +21,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
+import net.minecraft.world.dimension.DimensionType;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
@@ -75,7 +76,7 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 	 * Represents a map of dimension IDs to a set of all block swappers
 	 * active in that dimension.
 	 */
-	private static final Map<Integer, Set<BlockSwapper>> blockSwappers = new HashMap<>();
+	private static final Map<DimensionType, Set<BlockSwapper>> blockSwappers = new HashMap<>();
 
 	public ItemTerraAxe(Properties props) {
 		super(BotaniaAPI.TERRASTEEL_ITEM_TIER, props);
@@ -126,20 +127,13 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 			return;
 
 		if(event.phase == Phase.END) {
-			int dim = event.world.provider.getDimension();
+			DimensionType dim = event.world.getDimension().getType();
 			if(blockSwappers.containsKey(dim)) {
 				Set<BlockSwapper> swappers = blockSwappers.get(dim);
 
 				// Iterate through all of our swappers, removing any
 				// which no longer need to tick.
-				Iterator<BlockSwapper> swapper = swappers.iterator();
-				while(swapper.hasNext()) {
-					BlockSwapper next = swapper.next();
-
-					// If a null sneaks in or the swapper is done, remove it
-					if(next == null || !next.tick())
-						swapper.remove();
-				}
+				swappers.removeIf(next -> next == null || !next.tick());
 			}
 		}
 	}
@@ -165,13 +159,8 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 		if(world.isRemote)
 			return;
 
-		// If the mapping for this dimension doesn't exist, create it.
-		int dim = world.provider.getDimension();
-		if(!blockSwappers.containsKey(dim))
-			blockSwappers.put(dim, new HashSet<>());
-
-		// Add the swapper
-		blockSwappers.get(dim).add(swapper);
+		DimensionType dim = world.getDimension().getType();
+		blockSwappers.computeIfAbsent(dim, d -> new HashSet<>()).add(swapper);
 	}
 
 	/**

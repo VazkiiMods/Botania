@@ -12,6 +12,7 @@ package vazkii.botania.common.item.rod;
 
 import com.google.common.collect.ImmutableList;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockDoublePlant;
 import net.minecraft.block.BlockFlower;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
@@ -117,7 +118,7 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockP
 					Block block_ = state_.getBlock();
 					if(state_.isAir(world, pos_) || block_.isReplaceable(state_, world, pos_)
 							|| block_ instanceof BlockFlower && !(block_ instanceof ISpecialFlower)
-							|| block_ == Blocks.DOUBLE_PLANT) {
+							|| block_ instanceof BlockDoublePlant) {
 						airBlocks.add(pos_);
 					}
 				}
@@ -167,15 +168,15 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockP
 	}
 
 	@Override
-	public boolean provideBlock(EntityPlayer player, ItemStack requestor, ItemStack stack, Block block, int meta, boolean doit) {
-		if(block == Blocks.DIRT && meta == 0)
+	public boolean provideBlock(EntityPlayer player, ItemStack requestor, ItemStack stack, Block block, boolean doit) {
+		if(block == Blocks.DIRT)
 			return !doit || ManaItemHandler.requestManaExactForTool(requestor, player, ItemDirtRod.COST, true);
 		return false;
 	}
 
 	@Override
-	public int getBlockCount(EntityPlayer player, ItemStack requestor, ItemStack stack, Block block, int meta) {
-		if(block == Blocks.DIRT && meta == 0)
+	public int getBlockCount(EntityPlayer player, ItemStack requestor, ItemStack stack, Block block) {
+		if(block == Blocks.DIRT)
 			return -1;
 		return 0;
 	}

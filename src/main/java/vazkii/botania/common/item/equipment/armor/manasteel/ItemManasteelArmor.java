@@ -75,11 +75,11 @@ public class ItemManasteelArmor extends ItemArmor implements IManaUsingItem, IPh
 	@Override
 	public void inventoryTick(ItemStack stack, World world, Entity player, int par4, boolean par5) {
 		if(player instanceof EntityPlayer)
-			onArmorTick(world, (EntityPlayer) player, stack);
+			onArmorTick(stack, world, (EntityPlayer) player);
 	}
 
 	@Override
-	public void onArmorTick(World world, EntityPlayer player, ItemStack stack) {
+	public void onArmorTick(ItemStack stack, World world, EntityPlayer player) {
 		if(!world.isRemote && stack.getDamage() > 0 && ManaItemHandler.requestManaExact(stack, player, MANA_PER_DAMAGE * 2, true))
 			stack.setDamage(stack.getDamage() - 1);
 	}

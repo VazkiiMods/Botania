@@ -105,7 +105,7 @@ public class EntityThornChakram extends EntityThrowable {
 			double r = 0.1;
 			double m = 0.1;
 			for(int i = 0; i < 3; i++)
-				world.spawnParticle(Particles.FLAME, posX + r * (Math.random() - 0.5), posY + r * (Math.random() - 0.5), posZ + r * (Math.random() - 0.5), m * (Math.random() - 0.5), m * (Math.random() - 0.5), m * (Math.random() - 0.5));
+				world.addParticle(Particles.FLAME, posX + r * (Math.random() - 0.5), posY + r * (Math.random() - 0.5), posZ + r * (Math.random() - 0.5), m * (Math.random() - 0.5), m * (Math.random() - 0.5), m * (Math.random() - 0.5));
 		}
 
 		// Server state control
@@ -216,15 +216,15 @@ public class EntityThornChakram extends EntityThrowable {
 	public void writeAdditional(NBTTagCompound compound) {
 		super.writeAdditional(compound);
 		if(!stack.isEmpty()) {
-			compound.setTag("fly_stack", stack.write(new NBTTagCompound()));
+			compound.put("fly_stack", stack.write(new NBTTagCompound()));
 		}
-		compound.setBoolean("flare", isFire());
+		compound.putBoolean("flare", isFire());
 	}
 
 	@Override
 	public void readAdditional(NBTTagCompound compound) {
 		super.readAdditional(compound);
-		if(compound.hasKey("fly_stack")) {
+		if(compound.contains("fly_stack")) {
 			stack = ItemStack.read(compound.getCompound("fly_stack"));
 		}
 		setFire(compound.getBoolean("flare"));

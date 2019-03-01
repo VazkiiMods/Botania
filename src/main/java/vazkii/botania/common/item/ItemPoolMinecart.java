@@ -11,11 +11,14 @@
 package vazkii.botania.common.item;
 
 import net.minecraft.block.BlockRailBase;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
+import net.minecraft.state.properties.RailShape;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -32,28 +35,35 @@ public class ItemPoolMinecart extends ItemMod {
 		super(builder);
 	}
 
+	// [VanillaCopy] ItemMinecart
 	@Nonnull
 	@Override
-	public EnumActionResult onItemUse(ItemUseContext ctx) {
-		World world = ctx.getWorld();
-		BlockPos pos = ctx.getPos();
-		ItemStack stack = ctx.getItem();
+	public EnumActionResult onItemUse(ItemUseContext context) {
+		World world = context.getWorld();
+		BlockPos blockpos = context.getPos();
+		IBlockState iblockstate = world.getBlockState(blockpos);
+		if (!iblockstate.isIn(BlockTags.RAILS)) {
+			return EnumActionResult.FAIL;
+		} else {
+			ItemStack itemstack = context.getItem();
+			if (!world.isRemote) {
+				RailShape railshape = iblockstate.getBlock() instanceof BlockRailBase ? ((BlockRailBase)iblockstate.getBlock()).getRailDirection(iblockstate, world, blockpos, null) : RailShape.NORTH_SOUTH;
+				double d0 = 0.0D;
+				if (railshape.isAscending()) {
+					d0 = 0.5D;
+				}
 
-		if(BlockRailBase.isRail(world.getBlockState(pos))) {
-			if(!world.isRemote) {
-				EntityMinecart entityminecart = new EntityPoolMinecart(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
-
-				if(stack.hasDisplayName())
-					entityminecart.setCustomName(stack.getDisplayName());
+				EntityMinecart entityminecart = new EntityPoolMinecart(world, blockpos.getX() + 0.5D, blockpos.getY() + 0.0625D + d0, blockpos.getZ() + 0.5D);
+				if (itemstack.hasDisplayName()) {
+					entityminecart.setCustomName(itemstack.getDisplayName());
+				}
 
 				world.spawnEntity(entityminecart);
 			}
 
-			stack.shrink(1);
+			itemstack.shrink(1);
 			return EnumActionResult.SUCCESS;
 		}
-
-		return EnumActionResult.PASS;
 	}
 
 }

@@ -53,7 +53,7 @@ public class ItemLavaPendant extends ItemBauble implements IBaubleRender {
 			boolean armor = !player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).isEmpty();
 			GlStateManager.scalef(0.5F, 0.5F, 0.5F);
 			GlStateManager.rotatef(180, 0, 0, 1);
-			GlStateManager.translatef(-0.5, -0.90, armor ? -0.4 : -0.25);
+			GlStateManager.translated(-0.5, -0.90, armor ? -0.4 : -0.25);
 
 			TextureAtlasSprite gemIcon = MiscellaneousIcons.INSTANCE.pyroclastGem;
 			float f = gemIcon.getMinU();

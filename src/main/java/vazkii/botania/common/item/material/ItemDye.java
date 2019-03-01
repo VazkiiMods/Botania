@@ -11,28 +11,21 @@
 package vazkii.botania.common.item.material;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockCarpet;
-import net.minecraft.block.BlockColored;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUseContext;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.mana.IManaPool;
+import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.Item16Colors;
-import vazkii.botania.common.lib.LibItemNames;
-import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
@@ -44,13 +37,14 @@ public class ItemDye extends Item16Colors {
 
 	@Nonnull
 	@Override
-	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
-		ItemStack stack = player.getHeldItem(hand);
+	public EnumActionResult onItemUse(ItemUseContext ctx) {
+		ItemStack stack = ctx.getItem();
+		World world = ctx.getWorld();
+		BlockPos pos = ctx.getPos();
 		Block block = world.getBlockState(pos).getBlock();
 
-		if(block == Blocks.WOOL && color != world.getBlockState(pos).getValue(BlockColored.COLOR)
-				|| block == Blocks.CARPET && color != world.getBlockState(pos).getValue(BlockCarpet.COLOR)) {
-			world.setBlockState(pos, world.getBlockState(pos).with(block == Blocks.WOOL ? BlockColored.COLOR : BlockCarpet.COLOR, color), 1 | 2);
+		if(shouldRecolor(block)) {
+			world.setBlockState(pos, recolor(block, color));
 			stack.shrink(1);
 			return EnumActionResult.SUCCESS;
 		}
@@ -81,6 +75,25 @@ public class ItemDye extends Item16Colors {
 			return true;
 		}
 		return false;
+	}
+
+	// todo 1.13 yikes is there a better way?
+	private boolean shouldRecolor(Block block) {
+		if (block.getRegistryName().getNamespace().equals("minecraft")
+			&& (block.getRegistryName().getPath().contains("_carpet")
+				|| block.getRegistryName().getPath().contains("_wool"))) {
+			String blockColor = block.getRegistryName().getPath().split("_")[0];
+			return !blockColor.equals(this.color.getName());
+		}
+		return false;
+	}
+
+	private IBlockState recolor(Block original, EnumDyeColor color) {
+		if (original.getRegistryName().getPath().contains("_carpet")) {
+			return ModBlocks.getCarpet(color).getDefaultState();
+		} else {
+			return ModBlocks.getWool(color).getDefaultState();
+		}
 	}
 
 }

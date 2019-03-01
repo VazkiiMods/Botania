@@ -50,8 +50,8 @@ import java.util.List;
 import java.util.Random;
 
 public class ItemBottledMana extends ItemMod {
-	public static final int SWIGS = 6;
-	public static final String TAG_SWIGS_LEFT = "swigsLeft";
+	private static final int SWIGS = 6;
+	private static final String TAG_SWIGS_LEFT = "swigsLeft";
 	private static final String TAG_SEED = "randomSeed";
 
 	public ItemBottledMana(Properties props) {
@@ -123,14 +123,13 @@ public class ItemBottledMana extends ItemMod {
 		}
 		case 9 : { // Highest Possible
 			int x = MathHelper.floor(living.posX);
-			MathHelper.floor(living.posY);
 			int z = MathHelper.floor(living.posZ);
 			for(int i = 256; i > 0; i--) {
 				Block block = living.world.getBlockState(new BlockPos(x, i, z)).getBlock();
 				if(!block.isAir(living.world.getBlockState(new BlockPos(x, i, z)), living.world, new BlockPos(x, i, z))) {
 					if(living instanceof EntityPlayerMP) {
 						EntityPlayerMP mp = (EntityPlayerMP) living;
-						mp.connection.setPlayerLocation(living.posX, i + 1.6, living.posZ, living.rotationYaw, living.rotationPitch);
+						mp.connection.setPlayerLocation(living.posX, i, living.posZ, living.rotationYaw, living.rotationPitch);
 					}
 					break;
 				}

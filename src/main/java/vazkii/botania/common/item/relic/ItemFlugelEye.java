@@ -26,6 +26,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.dimension.DimensionType;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.api.wand.ICoordBoundItem;
@@ -70,7 +71,7 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 				ItemNBTHelper.setInt(stack, TAG_X, pos.getX());
 				ItemNBTHelper.setInt(stack, TAG_Y, pos.getY());
 				ItemNBTHelper.setInt(stack, TAG_Z, pos.getZ());
-				ItemNBTHelper.setInt(stack, TAG_DIMENSION, world.provider.getDimension());
+				ItemNBTHelper.setString(stack, TAG_DIMENSION, world.getDimension().getType().toString());
 				world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.PLAYERS, 1F, 5F);
 			}
 
@@ -105,11 +106,11 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 		int x = ItemNBTHelper.getInt(stack, TAG_X, 0);
 		int y = ItemNBTHelper.getInt(stack, TAG_Y, -1);
 		int z = ItemNBTHelper.getInt(stack, TAG_Z, 0);
-		int dim = ItemNBTHelper.getInt(stack, TAG_DIMENSION, 0);
+		DimensionType dim = DimensionType.byName(new ResourceLocation(ItemNBTHelper.getString(stack, TAG_DIMENSION, "minecraft:overworld")));
 
 		int cost = (int) (MathHelper.pointDistanceSpace(x + 0.5, y + 0.5, z + 0.5, player.posX, player.posY, player.posZ) * 10);
 
-		if(y > -1 && dim == world.provider.getDimension() && ManaItemHandler.requestManaExact(stack, player, cost, true)) {
+		if(y > -1 && dim == world.getDimension().getType() && ManaItemHandler.requestManaExact(stack, player, cost, true)) {
 			moveParticlesAndSound(player);
 			if(player instanceof EntityPlayerMP)
 				((EntityPlayerMP) player).connection.setPlayerLocation(x + 0.5, y + 1.6, z + 0.5, player.rotationYaw, player.rotationPitch);

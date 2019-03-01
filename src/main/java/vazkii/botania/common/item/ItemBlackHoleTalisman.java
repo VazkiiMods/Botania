@@ -53,7 +53,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class ItemBlackHoleTalisman extends ItemMod implements IBlockProvider {
-	public static final String TAG_ACTIVE = "active";
+	private static final String TAG_ACTIVE = "active";
 	private static final String TAG_BLOCK_NAME = "blockName";
 	private static final String TAG_BLOCK_COUNT = "blockCount";
 

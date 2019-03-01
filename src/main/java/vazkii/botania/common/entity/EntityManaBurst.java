@@ -110,8 +110,8 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst, ILig
 	}
 
 	@Override
-	protected void entityInit() {
-		super.entityInit();
+	protected void registerData() {
+		super.registerData();
 		dataManager.register(COLOR, 0);
 		dataManager.register(MANA, 0);
 		dataManager.register(START_MANA, 0);
@@ -171,7 +171,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst, ILig
 				setFlag(6, isGlowing());
 			}
 
-			onEntityUpdate();
+			baseTick();
 		}
 
 		if (throwableShake > 0)
@@ -211,7 +211,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst, ILig
 					}
 					else
 					{
-						AxisAlignedBB axisalignedbb = entity1.getEntityBoundingBox().grow(0.30000001192092896D);
+						AxisAlignedBB axisalignedbb = entity1.getBoundingBox().grow(0.30000001192092896D);
 						RayTraceResult raytraceresult1 = axisalignedbb.calculateIntercept(vec3d, vec3d1);
 
 						if (raytraceresult1 != null)
@@ -248,7 +248,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst, ILig
 
 		if (raytraceresult != null)
 		{
-			if (raytraceresult.typeOfHit == RayTraceResult.Type.BLOCK && world.getBlockState(raytraceresult.getBlockPos()).getBlock() == Blocks.PORTAL)
+			if (raytraceresult.type == RayTraceResult.Type.BLOCK && world.getBlockState(raytraceresult.getBlockPos()).getBlock() == Blocks.NETHER_PORTAL)
 			{
 				setPortal(raytraceresult.getBlockPos());
 			}
@@ -308,11 +308,11 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst, ILig
 	}
 
 	@Override
-	public void onUpdate() {
+	public void tick() {
 		setTicksExisted(getTicksExisted() + 1);
 		superUpdate();
 
-		if(!fake && !isDead && !scanBeam)
+		if(!fake && isAlive() && !scanBeam)
 			ping();
 
 		ILensEffect lens = getLensInstance();
@@ -373,8 +373,8 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst, ILig
 		this.noParticles = noParticles;
 
 		int iterations = 0;
-		while(!isDead && iterations < ConfigHandler.spreaderTraceTime) {
-			onUpdate();
+		while(isAlive() && iterations < ConfigHandler.spreaderTraceTime) {
+			tick();
 			iterations++;
 		}
 
@@ -385,73 +385,73 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst, ILig
 	}
 
 	@Override
-	public void writeEntityToNBT(NBTTagCompound par1nbtTagCompound) {
-		super.writeEntityToNBT(par1nbtTagCompound);
-		par1nbtTagCompound.setInteger(TAG_TICKS_EXISTED, getTicksExisted());
-		par1nbtTagCompound.setInteger(TAG_COLOR, getColor());
-		par1nbtTagCompound.setInteger(TAG_MANA, getMana());
-		par1nbtTagCompound.setInteger(TAG_STARTING_MANA, getStartingMana());
-		par1nbtTagCompound.setInteger(TAG_MIN_MANA_LOSS, getMinManaLoss());
-		par1nbtTagCompound.setFloat(TAG_TICK_MANA_LOSS, getManaLossPerTick());
-		par1nbtTagCompound.setFloat(TAG_GRAVITY, getGravity());
+	public void writeAdditional(NBTTagCompound par1nbtTagCompound) {
+		super.writeAdditional(par1nbtTagCompound);
+		par1nbtTagCompound.putInt(TAG_TICKS_EXISTED, getTicksExisted());
+		par1nbtTagCompound.putInt(TAG_COLOR, getColor());
+		par1nbtTagCompound.putInt(TAG_MANA, getMana());
+		par1nbtTagCompound.putInt(TAG_STARTING_MANA, getStartingMana());
+		par1nbtTagCompound.putInt(TAG_MIN_MANA_LOSS, getMinManaLoss());
+		par1nbtTagCompound.putFloat(TAG_TICK_MANA_LOSS, getManaLossPerTick());
+		par1nbtTagCompound.putFloat(TAG_GRAVITY, getGravity());
 
 		ItemStack stack = getSourceLens();
 		NBTTagCompound lensCmp = new NBTTagCompound();
 		if(!stack.isEmpty())
-			lensCmp = stack.writeToNBT(lensCmp);
-		par1nbtTagCompound.setTag(TAG_LENS_STACK, lensCmp);
+			lensCmp = stack.write(lensCmp);
+		par1nbtTagCompound.put(TAG_LENS_STACK, lensCmp);
 
 		BlockPos coords = getBurstSourceBlockPos();
-		par1nbtTagCompound.setInteger(TAG_SPREADER_X, coords.getX());
-		par1nbtTagCompound.setInteger(TAG_SPREADER_Y, coords.getY());
-		par1nbtTagCompound.setInteger(TAG_SPREADER_Z, coords.getZ());
+		par1nbtTagCompound.putInt(TAG_SPREADER_X, coords.getX());
+		par1nbtTagCompound.putInt(TAG_SPREADER_Y, coords.getY());
+		par1nbtTagCompound.putInt(TAG_SPREADER_Z, coords.getZ());
 
-		par1nbtTagCompound.setDouble(TAG_LAST_MOTION_X, motionX);
-		par1nbtTagCompound.setDouble(TAG_LAST_MOTION_Y, motionY);
-		par1nbtTagCompound.setDouble(TAG_LAST_MOTION_Z, motionZ);
+		par1nbtTagCompound.putDouble(TAG_LAST_MOTION_X, motionX);
+		par1nbtTagCompound.putDouble(TAG_LAST_MOTION_Y, motionY);
+		par1nbtTagCompound.putDouble(TAG_LAST_MOTION_Z, motionZ);
 
 		UUID identity = getShooterUUID();
 		boolean hasShooter = identity != null;
-		par1nbtTagCompound.setBoolean(TAG_HAS_SHOOTER, hasShooter);
+		par1nbtTagCompound.putBoolean(TAG_HAS_SHOOTER, hasShooter);
 		if(hasShooter) {
-			par1nbtTagCompound.setLong(TAG_SHOOTER_UUID_MOST, identity.getMostSignificantBits());
-			par1nbtTagCompound.setLong(TAG_SHOOTER_UUID_LEAST, identity.getLeastSignificantBits());
+			par1nbtTagCompound.putLong(TAG_SHOOTER_UUID_MOST, identity.getMostSignificantBits());
+			par1nbtTagCompound.putLong(TAG_SHOOTER_UUID_LEAST, identity.getLeastSignificantBits());
 		}
 	}
 
 	@Override
-	public void readEntityFromNBT(NBTTagCompound par1nbtTagCompound) {
-		super.readEntityFromNBT(par1nbtTagCompound);
-		setTicksExisted(par1nbtTagCompound.getInteger(TAG_TICKS_EXISTED));
-		setColor(par1nbtTagCompound.getInteger(TAG_COLOR));
-		setMana(par1nbtTagCompound.getInteger(TAG_MANA));
-		setStartingMana(par1nbtTagCompound.getInteger(TAG_STARTING_MANA));
-		setMinManaLoss(par1nbtTagCompound.getInteger(TAG_MIN_MANA_LOSS));
-		setManaLossPerTick(par1nbtTagCompound.getFloat(TAG_TICK_MANA_LOSS));
-		setGravity(par1nbtTagCompound.getFloat(TAG_GRAVITY));
+	public void readAdditional(NBTTagCompound cmp) {
+		super.readAdditional(cmp);
+		setTicksExisted(cmp.getInt(TAG_TICKS_EXISTED));
+		setColor(cmp.getInt(TAG_COLOR));
+		setMana(cmp.getInt(TAG_MANA));
+		setStartingMana(cmp.getInt(TAG_STARTING_MANA));
+		setMinManaLoss(cmp.getInt(TAG_MIN_MANA_LOSS));
+		setManaLossPerTick(cmp.getFloat(TAG_TICK_MANA_LOSS));
+		setGravity(cmp.getFloat(TAG_GRAVITY));
 
-		NBTTagCompound lensCmp = par1nbtTagCompound.getCompoundTag(TAG_LENS_STACK);
-		ItemStack stack = new ItemStack(lensCmp);
+		NBTTagCompound lensCmp = cmp.getCompound(TAG_LENS_STACK);
+		ItemStack stack = ItemStack.read(lensCmp);
 		if(!stack.isEmpty())
 			setSourceLens(stack);
 		else setSourceLens(ItemStack.EMPTY);
 
-		int x = par1nbtTagCompound.getInteger(TAG_SPREADER_X);
-		int y = par1nbtTagCompound.getInteger(TAG_SPREADER_Y);
-		int z = par1nbtTagCompound.getInteger(TAG_SPREADER_Z);
+		int x = cmp.getInt(TAG_SPREADER_X);
+		int y = cmp.getInt(TAG_SPREADER_Y);
+		int z = cmp.getInt(TAG_SPREADER_Z);
 
 		setBurstSourceCoords(new BlockPos(x, y, z));
 
-		double lastMotionX = par1nbtTagCompound.getDouble(TAG_LAST_MOTION_X);
-		double lastMotionY = par1nbtTagCompound.getDouble(TAG_LAST_MOTION_Y);
-		double lastMotionZ = par1nbtTagCompound.getDouble(TAG_LAST_MOTION_Z);
+		double lastMotionX = cmp.getDouble(TAG_LAST_MOTION_X);
+		double lastMotionY = cmp.getDouble(TAG_LAST_MOTION_Y);
+		double lastMotionZ = cmp.getDouble(TAG_LAST_MOTION_Z);
 
 		setMotion(lastMotionX, lastMotionY, lastMotionZ);
 
-		boolean hasShooter = par1nbtTagCompound.getBoolean(TAG_HAS_SHOOTER);
+		boolean hasShooter = cmp.getBoolean(TAG_HAS_SHOOTER);
 		if(hasShooter) {
-			long most = par1nbtTagCompound.getLong(TAG_SHOOTER_UUID_MOST);
-			long least = par1nbtTagCompound.getLong(TAG_SHOOTER_UUID_LEAST);
+			long most = cmp.getLong(TAG_SHOOTER_UUID_MOST);
+			long least = cmp.getLong(TAG_SHOOTER_UUID_LEAST);
 			UUID identity = getShooterUUID();
 			if(identity == null || most != identity.getMostSignificantBits() || least != identity.getLeastSignificantBits())
 				shooterIdentity = new UUID(most, least);
@@ -459,7 +459,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst, ILig
 	}
 
 	public void particles() {
-		if(isDead || !world.isRemote)
+		if(!isAlive() || !world.isRemote)
 			return;
 
 		ILensEffect lens = getLensInstance();
@@ -521,7 +521,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst, ILig
 
 					currentPos = Vector3.fromEntity(this);
 					diffVec = oldPos.subtract(currentPos);
-					if(getEntityData().hasKey(ItemTinyPlanet.TAG_ORBIT))
+					if(getEntityData().contains(ItemTinyPlanet.TAG_ORBIT))
 						break;
 				} while(Math.abs(diffVec.mag()) > distance);
 
@@ -546,7 +546,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst, ILig
 		boolean collided = false;
 		boolean dead = false;
 
-		if(rtr.entityHit == null) {
+		if(rtr.entity == null) {
 			TileEntity tile = world.getTileEntity(rtr.getBlockPos());
 			IBlockState state = world.getBlockState(rtr.getBlockPos());
 			Block block = state.getBlock();
@@ -584,7 +584,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst, ILig
 		if(collided && !hasAlreadyCollidedAt(rtr.getBlockPos()))
 			alreadyCollidedAt.add(rtr.getBlockPos());
 
-		if(dead && !isDead) {
+		if(dead && isAlive()) {
 			if(!fake) {
 				Color color = new Color(getColor());
 				float r = color.getRed() / 255F;
@@ -625,12 +625,12 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst, ILig
 	}
 
 	@Override
-	public void setDead() {
-		super.setDead();
+	public void remove() {
+		super.remove();
 
 		if(!fake) {
 			TileEntity tile = getShooter();
-			if(tile != null && tile instanceof IManaSpreader)
+			if(tile instanceof IManaSpreader)
 				((IManaSpreader) tile).setCanShoot(true);
 		} else setDeathTicksForFakeParticle();
 	}
@@ -795,15 +795,14 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst, ILig
 			return true;
 
 		TileEntity tile = getShooter();
-		return tile != null
-				&& tile instanceof IManaSpreader
+		return tile instanceof IManaSpreader
 				&& (getMana() != getStartingMana() && fullManaLastTick
 				|| Math.abs(((IManaSpreader) tile).getBurstParticleTick() - getTicksExisted()) < 4);
 	}
 
 	private void incrementFakeParticleTick() {
 		TileEntity tile = getShooter();
-		if(tile != null && tile instanceof IManaSpreader) {
+		if(tile instanceof IManaSpreader) {
 			IManaSpreader spreader = (IManaSpreader) tile;
 			spreader.setBurstParticleTick(spreader.getBurstParticleTick()+2);
 			if(spreader.getLastBurstDeathTick() != -1 && spreader.getBurstParticleTick() > spreader.getLastBurstDeathTick())

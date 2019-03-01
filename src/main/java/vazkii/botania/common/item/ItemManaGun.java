@@ -12,21 +12,22 @@ package vazkii.botania.common.item;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.renderer.block.model.ModelBakery;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
@@ -47,8 +48,10 @@ import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.entity.EntityManaBurst;
 import vazkii.botania.common.lib.LibItemNames;
+import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,6 +66,8 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 
 	public ItemManaGun(Properties props) {
 		super(props.defaultMaxDamage(COOLDOWN));
+		addPropertyOverride(new ResourceLocation(LibMisc.MOD_ID, "clip"), (stack, world, entity) -> hasClip(stack) ? 1 : 0);
+		addPropertyOverride(new ResourceLocation(LibMisc.MOD_ID, "desu"), (stack, world, entity) -> isSugoiKawaiiDesuNe(stack) ? 1 : 0);
 	}
 
 	@Nonnull
@@ -150,7 +155,7 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 		return props;
 	}
 
-	public EntityManaBurst getBurst(EntityPlayer player, ItemStack stack, boolean request, EnumHand hand) {
+	private EntityManaBurst getBurst(EntityPlayer player, ItemStack stack, boolean request, EnumHand hand) {
 		EntityManaBurst burst = new EntityManaBurst(player, hand);
 		BurstProperties props = getBurstProps(player, stack, request, hand);
 
@@ -210,9 +215,7 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 		ITextComponent cmp = super.getDisplayName(stack);
 		if (!lens.isEmpty()) {
 			cmp.appendText(" (");
-			ITextComponent lensName = lens.getDisplayName();
-			lensName.getStyle().setColor(TextFormatting.GREEN);
-			cmp.appendSibling(lensName);
+			cmp.appendSibling(lens.getDisplayName().applyTextStyle(TextFormatting.GREEN));
 			cmp.appendText(")");
 		}
 		return cmp;
@@ -309,24 +312,5 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 	@Override
 	public boolean usesMana(ItemStack stack) {
 		return true;
-	}
-
-	@OnlyIn(Dist.CLIENT)
-	@Override
-	public void registerModels() {
-		ModelBakery.registerItemVariants(this,
-				new ModelResourceLocation("botania:desuGunClip", "inventory"),
-				new ModelResourceLocation("botania:desuGun", "inventory"),
-				new ModelResourceLocation("botania:manaGunClip", "inventory"),
-				new ModelResourceLocation("botania:manaGun", "inventory"));
-		ModelLoader.setCustomMeshDefinition(this, stack -> {
-			if (hasClip(stack) && isSugoiKawaiiDesuNe(stack))
-				return new ModelResourceLocation("botania:desuGunClip", "inventory");
-			else if (isSugoiKawaiiDesuNe(stack))
-				return new ModelResourceLocation("botania:desuGun", "inventory");
-			else if(hasClip(stack))
-				return new ModelResourceLocation("botania:manaGunClip", "inventory");
-			else return new ModelResourceLocation("botania:manaGun", "inventory");
-		});
 	}
 }

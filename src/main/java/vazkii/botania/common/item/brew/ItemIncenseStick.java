@@ -17,8 +17,11 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.potion.PotionUtil;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
@@ -60,20 +63,24 @@ public class ItemIncenseStick extends ItemMod implements IBrewItem, IBrewContain
 	public void addInformation(ItemStack stack, World world, List<ITextComponent> list, ITooltipFlag flags) {
 		Brew brew = getBrew(stack);
 		if(brew == BotaniaAPI.fallbackBrew) {
-			addStringToTooltip(TextFormatting.LIGHT_PURPLE + I18n.format("botaniamisc.notInfused"), list);
+			list.add(new TextComponentTranslation("botaniamisc.notInfused").applyTextStyle(TextFormatting.LIGHT_PURPLE));
 			return;
 		}
 
-		addStringToTooltip(TextFormatting.LIGHT_PURPLE + I18n.format("botaniamisc.brewOf", I18n.format(brew.getUnlocalizedName(stack))), list);
+		list.add(new TextComponentTranslation("botaniamisc.brewOf", new TextComponentTranslation(brew.getUnlocalizedName(stack))).applyTextStyle(TextFormatting.LIGHT_PURPLE));
 		for(PotionEffect effect : brew.getPotionEffects(stack)) {
 			TextFormatting format = effect.getPotion().isBadEffect() ? TextFormatting.RED : TextFormatting.GRAY;
 			PotionEffect longEffect = new PotionEffect(effect.getPotion(), effect.getDuration() * TIME_MULTIPLIER, effect.getAmplifier(), false, true);
-			addStringToTooltip(" " + format + I18n.format(effect.getEffectName()) + (effect.getAmplifier() == 0 ? "" : " " + I18n.format("botania.roman" + (effect.getAmplifier() + 1))) + TextFormatting.GRAY + (effect.getPotion().isInstant() ? "" : " (" + Potion.getPotionDurationString(longEffect, 1F) + ")"), list);
+			ITextComponent cmp = new TextComponentTranslation(effect.getEffectName());
+			if(effect.getAmplifier() > 0) {
+				cmp.appendText(" ");
+				cmp.appendSibling(new TextComponentTranslation("botania.roman" + (effect.getAmplifier() + 1)));
+			}
+			if(!effect.getPotion().isInstant()) {
+				cmp.appendSibling(new TextComponentString(" (" + PotionUtil.getPotionDurationString(longEffect, 1) + ")").applyTextStyle(TextFormatting.GRAY));
+			}
+			list.add(cmp.applyTextStyle(format));
 		}
-	}
-
-	void addStringToTooltip(String s, List<String> tooltip) {
-		tooltip.add(s.replaceAll("&", "\u00a7"));
 	}
 
 	@Override

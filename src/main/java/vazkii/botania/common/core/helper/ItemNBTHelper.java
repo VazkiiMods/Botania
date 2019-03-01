@@ -24,58 +24,58 @@ public final class ItemNBTHelper {
 	// SETTERS ///////////////////////////////////////////////////////////////////
 
 	public static void setBoolean(ItemStack stack, String tag, boolean b) {
-		stack.getOrCreateTag().setBoolean(tag, b);
+		stack.getOrCreateTag().putBoolean(tag, b);
 	}
 
 	public static void setByte(ItemStack stack, String tag, byte b) {
-		stack.getOrCreateTag().setByte(tag, b);
+		stack.getOrCreateTag().putByte(tag, b);
 	}
 
 	public static void setShort(ItemStack stack, String tag, short s) {
-		stack.getOrCreateTag().setShort(tag, s);
+		stack.getOrCreateTag().putShort(tag, s);
 	}
 
 	public static void setInt(ItemStack stack, String tag, int i) {
-		stack.getOrCreateTag().setInt(tag, i);
+		stack.getOrCreateTag().putInt(tag, i);
 	}
 
 	public static void setIntArray(ItemStack stack, String tag, int[] val) {
-		stack.getOrCreateTag().setIntArray(tag, val);
+		stack.getOrCreateTag().putIntArray(tag, val);
 	}
 
 	public static void setLong(ItemStack stack, String tag, long l) {
-		stack.getOrCreateTag().setLong(tag, l);
+		stack.getOrCreateTag().putLong(tag, l);
 	}
 
 	public static void setFloat(ItemStack stack, String tag, float f) {
-		stack.getOrCreateTag().setFloat(tag, f);
+		stack.getOrCreateTag().putFloat(tag, f);
 	}
 
 	public static void setDouble(ItemStack stack, String tag, double d) {
-		stack.getOrCreateTag().setDouble(tag, d);
+		stack.getOrCreateTag().putDouble(tag, d);
 	}
 
 	public static void setCompound(ItemStack stack, String tag, NBTTagCompound cmp) {
 		if(!tag.equalsIgnoreCase("ench")) // not override the enchantments
-			stack.getOrCreateTag().setTag(tag, cmp);
+			stack.getOrCreateTag().put(tag, cmp);
 	}
 
 	public static void setString(ItemStack stack, String tag, String s) {
-		stack.getOrCreateTag().setString(tag, s);
+		stack.getOrCreateTag().putString(tag, s);
 	}
 
 	public static void setList(ItemStack stack, String tag, NBTTagList list) {
-		stack.getOrCreateTag().setTag(tag, list);
+		stack.getOrCreateTag().put(tag, list);
 	}
 
 	public static void removeEntry(ItemStack stack, String tag) {
-		stack.getOrCreateTag().removeTag(tag);
+		stack.getOrCreateTag().remove(tag);
 	}
 
 	// GETTERS ///////////////////////////////////////////////////////////////////
 
 	public static boolean verifyExistance(ItemStack stack, String tag) {
-		return !stack.isEmpty() && stack.getOrCreateTag().hasKey(tag);
+		return !stack.isEmpty() && stack.getOrCreateTag().contains(tag);
 	}
 
 	public static boolean getBoolean(ItemStack stack, String tag, boolean defaultExpected) {

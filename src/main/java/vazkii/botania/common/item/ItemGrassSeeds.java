@@ -23,8 +23,10 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.dimension.DimensionType;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
@@ -55,7 +57,7 @@ public class ItemGrassSeeds extends ItemMod implements IFloatingFlowerVariant {
 	 * Represents a map of dimension IDs to a set of all block swappers
 	 * active in that dimension.
 	 */
-	private static final Map<Integer, Set<BlockSwapper>> blockSwappers = new HashMap<>();
+	private static final Map<DimensionType, Set<BlockSwapper>> blockSwappers = new HashMap<>();
 	private static final Map<IslandType, float[]> COLORS = ImmutableMap.<IslandType, float[]>builder()
 			.put(IslandType.GRASS, new float[] {0F, 0.4F, 0F})
 			.put(IslandType.PODZOL, new float[] {0.5F, 0.37F, 0F})
@@ -118,22 +120,10 @@ public class ItemGrassSeeds extends ItemMod implements IFloatingFlowerVariant {
 
 	@SubscribeEvent
 	public static void onTickEnd(TickEvent.WorldTickEvent event) {
-		// Block swapper updates should only occur on the server
-		if(event.world.isRemote)
-			return;
-
-		if(event.phase == Phase.END) {
-			int dim = event.world.provider.getDimension();
+		if(event.side == LogicalSide.SERVER && event.phase == Phase.END) {
+			DimensionType dim = event.world.getDimension().getType();
 			if(blockSwappers.containsKey(dim)) {
-				Set<BlockSwapper> swappers = blockSwappers.get(dim);
-
-				Iterator<BlockSwapper> iter = swappers.iterator();
-
-				while(iter.hasNext()) {
-					BlockSwapper next = iter.next();
-					if(next == null || !next.tick())
-						iter.remove();
-				}
+				blockSwappers.get(dim).removeIf(next -> next == null || !next.tick());
 			}
 		}
 	}
@@ -154,13 +144,8 @@ public class ItemGrassSeeds extends ItemMod implements IFloatingFlowerVariant {
 	private static BlockSwapper addBlockSwapper(World world, BlockPos pos, IslandType type) {
 		BlockSwapper swapper = new BlockSwapper(world, pos, stateForType(type));
 
-		// If a set for the dimension doesn't exist, create it.
-		int dim = world.provider.getDimension();
-		if(!blockSwappers.containsKey(dim))
-			blockSwappers.put(dim, new HashSet<>());
-
-		// Add the block swapper
-		blockSwappers.get(dim).add(swapper);
+		DimensionType dim = world.getDimension().getType();
+		blockSwappers.computeIfAbsent(dim, d -> new HashSet<>()).add(swapper);
 
 		return swapper;
 	}

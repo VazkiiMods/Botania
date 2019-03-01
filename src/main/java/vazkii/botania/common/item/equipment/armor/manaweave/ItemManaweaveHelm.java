@@ -44,7 +44,7 @@ public class ItemManaweaveHelm extends ItemManaweaveArmor implements IManaDiscou
 	}
 
 	@Override
-	public void onArmorTick(World world, EntityPlayer player, ItemStack stack) {
+	public void onArmorTick(ItemStack stack, World world, EntityPlayer player) {
 		if(!world.isRemote && stack.getDamage() > 0 && ManaItemHandler.requestManaExact(stack, player, MANA_PER_DAMAGE * 2, true))
 			stack.setDamage(stack.getDamage() - 1);
 	}

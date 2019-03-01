@@ -46,7 +46,7 @@ public class ItemStarSword extends ItemManasteelSword {
 
 			if(player.getHeldItemMainhand() == par1ItemStack && player.swingProgress == check && !world.isRemote) {
 				RayTraceResult pos = ToolCommons.raytraceFromEntity(world, par3Entity, true, 48);
-				if(pos != null && pos.getBlockPos() != null) {
+				if(pos != null && pos.type == RayTraceResult.Type.BLOCK) {
 					Vector3 posVec = Vector3.fromBlockPos(pos.getBlockPos());
 					Vector3 motVec = new Vector3((0.5 * Math.random() - 0.25) * 18, 24, (0.5 * Math.random() - 0.25) * 18);
 					posVec = posVec.add(motVec);

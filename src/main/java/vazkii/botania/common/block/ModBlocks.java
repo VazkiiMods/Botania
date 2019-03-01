@@ -619,7 +619,7 @@ public final class ModBlocks {
 		r.register(new ItemBlockMod(livingwoodFramed, props).setRegistryName(livingwoodFramed.getRegistryName()));
 		r.register(new ItemBlockMod(livingwoodPatternFramed, props).setRegistryName(livingwoodPatternFramed.getRegistryName()));
 		r.register(new ItemBlockMod(livingwoodGlimmering, props).setRegistryName(livingwoodGlimmering.getRegistryName()));
-		r.register(new ItemBlockSpecialFlower(specialFlower).setRegistryName(specialFlower.getRegistryName()));
+		r.register(new ItemBlockSpecialFlower(specialFlower, props).setRegistryName(specialFlower.getRegistryName()));
 		r.register(new ItemBlockMod(manaSpreader, props).setRegistryName(manaSpreader.getRegistryName()));
 		r.register(new ItemBlockMod(redstoneSpreader, props).setRegistryName(redstoneSpreader.getRegistryName()));
 		r.register(new ItemBlockMod(elvenSpreader, props).setRegistryName(elvenSpreader.getRegistryName()));
@@ -976,6 +976,28 @@ public final class ModBlocks {
 			case GREEN: return Blocks.ORANGE_WOOL;
 			case RED: return Blocks.ORANGE_WOOL;
 			case BLACK: return Blocks.ORANGE_WOOL;
+		}
+	}
+
+	public static Block getCarpet(EnumDyeColor color) {
+		switch (color) {
+			default:
+			case WHITE: return Blocks.WHITE_CARPET;
+			case ORANGE: return Blocks.ORANGE_CARPET;
+			case MAGENTA: return Blocks.ORANGE_CARPET;
+			case LIGHT_BLUE: return Blocks.ORANGE_CARPET;
+			case YELLOW: return Blocks.ORANGE_CARPET;
+			case LIME: return Blocks.ORANGE_CARPET;
+			case PINK: return Blocks.ORANGE_CARPET;
+			case GRAY: return Blocks.ORANGE_CARPET;
+			case LIGHT_GRAY: return Blocks.ORANGE_CARPET;
+			case CYAN: return Blocks.ORANGE_CARPET;
+			case PURPLE: return Blocks.ORANGE_CARPET;
+			case BLUE: return Blocks.ORANGE_CARPET;
+			case BROWN: return Blocks.ORANGE_CARPET;
+			case GREEN: return Blocks.ORANGE_CARPET;
+			case RED: return Blocks.ORANGE_CARPET;
+			case BLACK: return Blocks.ORANGE_CARPET;
 		}
 	}
 

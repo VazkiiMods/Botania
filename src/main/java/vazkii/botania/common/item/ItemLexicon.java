@@ -12,17 +12,16 @@ package vazkii.botania.common.item;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.renderer.block.model.ModelBakery;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
@@ -33,7 +32,9 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.Style;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
@@ -75,25 +76,29 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 
 	@Nonnull
 	@Override
-	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float par8, float par9, float par10) {
+	public EnumActionResult onItemUse(ItemUseContext ctx) {
+		EntityPlayer player = ctx.getPlayer();
+		if(player == null)
+			return EnumActionResult.PASS;
+
+		World world = ctx.getWorld();
+		BlockPos pos = ctx.getPos();
 		if(player.isSneaking()) {
 			Block block = world.getBlockState(pos).getBlock();
 
-			if(block != null) {
-				if(block instanceof ILexiconable) {
-					ItemStack stack = player.getHeldItem(hand);
-					LexiconEntry entry = ((ILexiconable) block).getEntry(world, pos, player, stack);
-					if(entry != null && isKnowledgeUnlocked(stack, entry.getKnowledgeType())) {
-						Botania.proxy.setEntryToOpen(entry);
-						Botania.proxy.setLexiconStack(stack);
+			if(block instanceof ILexiconable) {
+				ItemStack stack = ctx.getItem();
+				LexiconEntry entry = ((ILexiconable) block).getEntry(world, pos, player, stack);
+				if(entry != null && isKnowledgeUnlocked(stack, entry.getKnowledgeType())) {
+					Botania.proxy.setEntryToOpen(entry);
+					Botania.proxy.setLexiconStack(stack);
 
-						openBook(player, stack, world, false);
-						return EnumActionResult.SUCCESS;
-					}
-				} else if(world.isRemote) {
-					RayTraceResult mop = new RayTraceResult(new Vec3d(par8, par9, par10), side, pos);
-					return Botania.proxy.openWikiPage(world, block, mop) ? EnumActionResult.SUCCESS : EnumActionResult.FAIL;
+					openBook(player, stack, world, false);
+					return EnumActionResult.SUCCESS;
 				}
+			} else if(world.isRemote) {
+				RayTraceResult mop = new RayTraceResult(new Vec3d(ctx.getHitX(), ctx.getHitY(), ctx.getHitZ()), ctx.getFace(), pos);
+				return Botania.proxy.openWikiPage(world, block, mop) ? EnumActionResult.SUCCESS : EnumActionResult.FAIL;
 			}
 		}
 
@@ -101,8 +106,8 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 	}
 
 	@Override
-	public void getSubItems(@Nonnull CreativeTabs tab, @Nonnull NonNullList<ItemStack> list) {
-		if(isInCreativeTab(tab)) {
+	public void fillItemGroup(@Nonnull ItemGroup tab, @Nonnull NonNullList<ItemStack> list) {
+		if(isInGroup(tab)) {
 			list.add(new ItemStack(this));
 			ItemStack creative = new ItemStack(this);
 			for(String s : BotaniaAPI.knowledgeTypes.keySet()) {
@@ -115,10 +120,10 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void addInformation(ItemStack par1ItemStack, World world, List<String> stacks, ITooltipFlag flags) {
+	public void addInformation(ItemStack par1ItemStack, World world, List<ITextComponent> stacks, ITooltipFlag flags) {
 		if(GuiScreen.isShiftKeyDown()) {
-			String edition = TextFormatting.GOLD + I18n.format("botaniamisc.edition", getEdition());
-			if(!edition.isEmpty())
+			ITextComponent edition = new TextComponentTranslation("botaniamisc.edition", getEdition()).applyTextStyle(TextFormatting.GOLD);
+			if(!edition.getString().isEmpty())
 				stacks.add(edition);
 
 			List<KnowledgeType> typesKnown = new ArrayList<>();
@@ -129,16 +134,12 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 			}
 
 			String format = typesKnown.size() == 1 ? "botaniamisc.knowledgeTypesSingular" : "botaniamisc.knowledgeTypesPlural";
-			addStringToTooltip(I18n.format(format, typesKnown.size()), stacks);
+			stacks.add(new TextComponentTranslation(format, typesKnown.size()));
 
 			for(KnowledgeType type : typesKnown)
-				addStringToTooltip(" \u2022 " + I18n.format(type.getUnlocalizedName()), stacks);
+				stacks.add(new TextComponentString(" \u2022 ").appendSibling(new TextComponentTranslation(type.getUnlocalizedName())));
 
-		} else addStringToTooltip(I18n.format("botaniamisc.shiftinfo"), stacks);
-	}
-
-	private void addStringToTooltip(String s, List<String> tooltip) {
-		tooltip.add(s.replaceAll("&", "\u00a7"));
+		} else stacks.add(new TextComponentTranslation("botaniamisc.shiftinfo"));
 	}
 
 	@OnlyIn(Dist.CLIENT)
@@ -191,7 +192,7 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 	}
 
 	@Override
-	public void onUpdate(ItemStack stack, World world, Entity entity, int idk, boolean something) {
+	public void inventoryTick(ItemStack stack, World world, Entity entity, int idk, boolean something) {
 		int ticks = getQueueTicks(stack);
 		if(ticks > 0 && entity instanceof EntityPlayer) {
 			skipSound = ticks < 5;
@@ -231,7 +232,7 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 
 		for(LexiconEntry entry : BotaniaAPI.getAllEntries())
 			if(entry.getUnlocalizedName().equals(force))
-				if(entry != null && ((ItemLexicon) stack.getItem()).isKnowledgeUnlocked(stack, entry.getKnowledgeType()))
+				if(((ItemLexicon) stack.getItem()).isKnowledgeUnlocked(stack, entry.getKnowledgeType()))
 					return entry;
 
 		return null;
@@ -246,9 +247,9 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 	}
 
 	public static String getTitle(ItemStack stack) {
-		String title = ModItems.lexicon.getItemStackDisplayName(ItemStack.EMPTY);
+		String title = ModItems.lexicon.getDisplayName(ItemStack.EMPTY).getString();
 		if(!stack.isEmpty())
-			title = stack.getDisplayName();
+			title = stack.getDisplayName().getString();
 		
 		String akashicTomeNBT = "akashictome:displayName";
 		title = ItemNBTHelper.getString(stack, akashicTomeNBT, title);

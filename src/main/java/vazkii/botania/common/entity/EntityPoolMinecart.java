@@ -140,7 +140,7 @@ public class EntityPoolMinecart extends EntityMinecart {
 				TileEntity tile_ = world.getTileEntity(posP);
 				TilePump pump = (TilePump) tile_;
 
-				if(tile != null && tile instanceof IManaPool) {
+				if(tile instanceof IManaPool) {
 					IManaPool pool = (IManaPool) tile;
 					EnumFacing pumpDir = world.getBlockState(posP).get(BotaniaStateProps.CARDINALS);
 					boolean did = false;
@@ -194,7 +194,7 @@ public class EntityPoolMinecart extends EntityMinecart {
 	@Override
 	protected void writeAdditional(@Nonnull NBTTagCompound cmp) {
 		super.writeAdditional(cmp);
-		cmp.setInt(TAG_MANA, getMana());
+		cmp.putInt(TAG_MANA, getMana());
 	}
 
 	@Override

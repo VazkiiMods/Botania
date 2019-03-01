@@ -34,7 +34,7 @@ public class LensPaint extends Lens {
 	public boolean collideBurst(IManaBurst burst, EntityThrowable entity, RayTraceResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
 		int storedColor = ItemLens.getStoredColor(stack);
 		if(!entity.world.isRemote && !burst.isFake() && storedColor > -1 && storedColor < 17) {
-			if(pos.entity != null && pos.entity instanceof EntitySheep) {
+			if(pos.entity instanceof EntitySheep) {
 				int r = 20;
 				EnumDyeColor sheepColor = ((EntitySheep) pos.entity).getFleeceColor();
 				List<EntitySheep> sheepList = entity.world.getEntitiesWithinAABB(EntitySheep.class, new AxisAlignedBB(pos.entity.posX - r, pos.entity.posY - r, pos.entity.posZ - r, pos.entity.posX + r, pos.entity.posY + r, pos.entity.posZ + r));
@@ -43,7 +43,7 @@ public class LensPaint extends Lens {
 						sheep.setFleeceColor(EnumDyeColor.byId(storedColor == 16 ? sheep.world.rand.nextInt(16) : storedColor));
 				}
 				dead = true;
-			} else if (pos.getBlockPos() != null) {
+			} else {
 				Block block = entity.world.getBlockState(pos.getBlockPos()).getBlock();
 				if(BotaniaAPI.paintableBlocks.containsKey(block)) {
 					IBlockState state = entity.world.getBlockState(pos.getBlockPos());

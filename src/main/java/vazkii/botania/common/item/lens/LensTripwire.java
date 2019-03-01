@@ -41,7 +41,7 @@ public class LensTripwire extends Lens {
 			List<EntityLivingBase> entities = entity.world.getEntitiesWithinAABB(EntityLivingBase.class, axis);
 			if(!entities.isEmpty()) {
 				Entity e = (Entity) burst;
-				e.getEntityData().setBoolean(TAG_TRIPPED, true);
+				e.getEntityData().putBoolean(TAG_TRIPPED, true);
 			}
 		}
 

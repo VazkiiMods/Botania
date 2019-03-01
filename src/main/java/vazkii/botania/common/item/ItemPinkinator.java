@@ -51,7 +51,7 @@ public class ItemPinkinator extends ItemMod {
 		int range = 16;
 		List<EntityWither> withers = world.getEntitiesWithinAABB(EntityWither.class, new AxisAlignedBB(player.posX - range, player.posY - range, player.posZ - range, player.posX + range, player.posY + range, player.posZ + range));
 		for(EntityWither wither : withers)
-			if(!world.isRemote && !wither.removed && !(wither instanceof EntityPinkWither)) {
+			if(!world.isRemote && wither.isAlive() && !(wither instanceof EntityPinkWither)) {
 				wither.remove();
 				EntityPinkWither pink = new EntityPinkWither(world);
 				pink.setLocationAndAngles(wither.posX, wither.posY, wither.posZ, wither.rotationYaw, wither.rotationPitch);
