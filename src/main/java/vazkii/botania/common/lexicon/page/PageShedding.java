@@ -15,11 +15,9 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.RenderItem;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -28,7 +26,7 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import org.lwjgl.input.Mouse;
+import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.internal.IGuiLexiconEntry;
 import vazkii.botania.api.lexicon.LexiconRecipeMappings;
@@ -84,10 +82,10 @@ public class PageShedding extends PageEntity {
 			List<String> parsedTooltip = new ArrayList<>();
 			boolean first = true;
 
-			for(String s : tooltipData) {
-				String s_ = s;
+			for(ITextComponent s : tooltipData) {
+				String s_ = s.getFormattedText();
 				if(!first)
-					s_ = TextFormatting.GRAY + s;
+					s_ = TextFormatting.GRAY + s.getFormattedText();
 				parsedTooltip.add(s_);
 				first = false;
 			}
@@ -102,20 +100,20 @@ public class PageShedding extends PageEntity {
 		}
 		else if(tooltipEntity) {
 			List<String> parsedTooltip = new ArrayList<>();
-			parsedTooltip.add(EntityList.getEntityString(dummyEntity));
+			parsedTooltip.add(I18n.format(dummyEntity.getType().getTranslationKey()));
 			vazkii.botania.client.core.helper.RenderHelper.renderTooltip(mx, my, parsedTooltip);
 		}
 
 		tooltipStack = null;
 		tooltipEntry = tooltipEntity = false;
 		GlStateManager.disableBlend();
-		mouseDownLastTick = Mouse.isButtonDown(0);
+		mouseDownLastTick = GLFW.glfwGetMouseButton(Minecraft.getInstance().mainWindow.getHandle(), GLFW.GLFW_MOUSE_BUTTON_LEFT) == GLFW.GLFW_PRESS;
 	}
 
 	@OnlyIn(Dist.CLIENT)
 	public void renderItem(IGuiLexiconEntry gui, int xPos, int yPos, ItemStack stack) {
 		ItemRenderer render = Minecraft.getInstance().getItemRenderer();
-		boolean mouseDown = Mouse.isButtonDown(0);
+		boolean mouseDown = GLFW.glfwGetMouseButton(Minecraft.getInstance().mainWindow.getHandle(), GLFW.GLFW_MOUSE_BUTTON_LEFT) == GLFW.GLFW_PRESS;
 
 		GlStateManager.pushMatrix();
 		GlStateManager.enableBlend();

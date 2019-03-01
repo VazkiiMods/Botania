@@ -75,6 +75,7 @@ import vazkii.botania.common.item.interaction.thaumcraft.ItemManasteelHelmReveal
 import vazkii.botania.common.item.interaction.thaumcraft.ItemTerrasteelHelmRevealing;
 import vazkii.botania.common.item.lens.*;
 import vazkii.botania.common.item.material.ItemDye;
+import vazkii.botania.common.item.material.ItemEnderAir;
 import vazkii.botania.common.item.material.ItemManaResource;
 import vazkii.botania.common.item.material.ItemPestleAndMortar;
 import vazkii.botania.common.item.material.ItemPetal;
@@ -136,7 +137,7 @@ public final class ModItems {
 	public static final Item redString = new ItemManaResource(defaultBuilder()).setRegistryName(LibMisc.MOD_ID, LibItemNames.MANA_RESOURCE_NAMES[12]);
 	public static final Item dreamwoodTwig = new ItemManaResource(defaultBuilder()).setRegistryName(LibMisc.MOD_ID, LibItemNames.MANA_RESOURCE_NAMES[13]);
 	public static final Item gaiaIngot = new ItemManaResource(defaultBuilder()).setRegistryName(LibMisc.MOD_ID, LibItemNames.MANA_RESOURCE_NAMES[14]);
-	public static final Item enderAirBottle = new ItemManaResource(defaultBuilder()).setRegistryName(LibMisc.MOD_ID, LibItemNames.MANA_RESOURCE_NAMES[15]);
+	public static final Item enderAirBottle = new ItemEnderAir(defaultBuilder()).setRegistryName(LibMisc.MOD_ID, LibItemNames.MANA_RESOURCE_NAMES[15]);
 	public static final Item manaString = new ItemManaResource(defaultBuilder()).setRegistryName(LibMisc.MOD_ID, LibItemNames.MANA_RESOURCE_NAMES[16]);
 	public static final Item manasteelNugget = new ItemManaResource(defaultBuilder()).setRegistryName(LibMisc.MOD_ID, LibItemNames.MANA_RESOURCE_NAMES[17]);
 	public static final Item terrasteelNugget = new ItemManaResource(defaultBuilder()).setRegistryName(LibMisc.MOD_ID, LibItemNames.MANA_RESOURCE_NAMES[18]);

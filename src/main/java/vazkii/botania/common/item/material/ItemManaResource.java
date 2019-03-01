@@ -21,10 +21,8 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldProviderEnd;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.items.ItemHandlerHelper;
 import vazkii.botania.api.item.IPetalApothecary;
 import vazkii.botania.api.recipe.IElvenItem;
@@ -37,34 +35,9 @@ import vazkii.botania.common.item.ModItems;
 import javax.annotation.Nonnull;
 
 // todo 1.13 further break this up
-@Mod.EventBusSubscriber
 public class ItemManaResource extends ItemMod implements IFlowerComponent, IElvenItem {
 	public ItemManaResource(Properties props) {
 		super(props);
-	}
-
-	@SubscribeEvent
-	public static void onPlayerInteract(PlayerInteractEvent.RightClickBlock event) {
-		ItemStack stack = event.getItemStack();
-		boolean correctStack = !stack.isEmpty() && stack.getItem() == Items.GLASS_BOTTLE;
-		boolean ender = event.getWorld().provider instanceof WorldProviderEnd;
-
-		if(correctStack && ender) {
-			if (event.getWorld().isRemote) {
-				event.getEntityPlayer().swingArm(event.getHand());
-			} else {
-				ItemStack stack1 = new ItemStack(ModItems.enderAirBottle);
-
-				ItemHandlerHelper.giveItemToPlayer(event.getEntityPlayer(), stack1);
-
-				stack.shrink(1);
-
-				event.getWorld().playSound(null, event.getPos(), SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.PLAYERS, 0.5F, 1F);
-			}
-
-			event.setCanceled(true);
-			event.setCancellationResult(EnumActionResult.SUCCESS);
-		}
 	}
 
 	@Nonnull
@@ -82,28 +55,6 @@ public class ItemManaResource extends ItemMod implements IFlowerComponent, IElve
 		}
 
 		return super.onItemUse(player, world, pos, hand, side, par8, par9, par10);
-	}
-
-	@Nonnull
-	@Override
-	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
-		ItemStack stack = player.getHeldItem(hand);
-		if(this == ModItems.enderAirBottle) {
-			if(!player.capabilities.isCreativeMode)
-				stack.shrink(1);
-
-			world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
-
-			if(!world.isRemote) {
-				EntityEnderAirBottle b = new EntityEnderAirBottle(player, world);
-				b.shoot(player, player.rotationPitch, player.rotationYaw, 0F, 1.5F, 1F);
-				world.spawnEntity(b);
-			}
-			else player.swingArm(hand);
-			return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
-		}
-
-		return ActionResult.newResult(EnumActionResult.PASS, stack);
 	}
 
 	@Override
