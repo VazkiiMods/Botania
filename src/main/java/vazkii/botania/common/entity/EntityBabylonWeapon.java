@@ -24,7 +24,6 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.ModSounds;
@@ -36,14 +35,11 @@ import vazkii.botania.common.item.relic.ItemKingKey;
 
 import javax.annotation.Nonnull;
 
-import elucent.albedo.lighting.ILightProvider;
-import elucent.albedo.lighting.Light;
 import vazkii.botania.common.lib.LibMisc;
 
 import java.util.List;
 
-@Optional.Interface(iface="elucent.albedo.lighting.ILightProvider", modid="albedo")
-public class EntityBabylonWeapon extends EntityThrowableCopy implements ILightProvider {
+public class EntityBabylonWeapon extends EntityThrowableCopy {
 	@ObjectHolder(LibMisc.MOD_ID + ":babylon_weapon")
 	public static EntityType<?> TYPE;
 
@@ -205,12 +201,6 @@ public class EntityBabylonWeapon extends EntityThrowableCopy implements ILightPr
 		setLiveTicks(cmp.getInt(TAG_LIVE_TICKS));
 		setDelay(cmp.getInt(TAG_DELAY));
 		setRotation(cmp.getFloat(TAG_ROTATION));
-	}
-
-	@Override
-	@Optional.Method(modid="albedo")
-	public Light provideLight() {
-		return Light.builder().pos(this).color(1F, 1F, 0F).radius(8).build();
 	}
 	
 	public boolean isCharging() {

@@ -21,8 +21,6 @@ import java.util.UUID;
 
 import javax.annotation.Nonnull;
 
-import elucent.albedo.lighting.ILightProvider;
-import elucent.albedo.lighting.Light;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.BlockLeaves;
@@ -63,8 +61,7 @@ import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.equipment.bauble.ItemTinyPlanet;
 
-@Optional.Interface(iface="elucent.albedo.lighting.ILightProvider", modid="albedo")
-public class EntityManaBurst extends EntityThrowable implements IManaBurst, ILightProvider {
+public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 	
 	private static final String TAG_TICKS_EXISTED = "ticksExisted";
 	private static final String TAG_COLOR = "color";
@@ -813,13 +810,6 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst, ILig
 		TileEntity tile = world.getTileEntity(coords);
 		if(tile != null && tile instanceof IManaSpreader)
 			((IManaSpreader) tile).setLastBurstDeathTick(getTicksExisted());
-	}
-	
-	@Override
-	@Optional.Method(modid="albedo")
-	public Light provideLight() {
-		int color = getColor();
-		return Light.builder().pos(new Vec3d(posX - motionX, posY - motionY, posZ - motionZ)).color(color, false).radius(getParticleSize() * 8).build();
 	}
 
 	public static class PositionProperties {
