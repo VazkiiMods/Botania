@@ -1,3 +1,4 @@
+/*
 package vazkii.botania.common.integration.buildcraft;
 
 import buildcraft.api.core.render.ISprite;
@@ -5,9 +6,11 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 
+*/
 /**
  * Adapts Minecraft TAS to buildcraft ISprite
- */
+ *//*
+
 public class TASprite implements ISprite {
 	private final TextureAtlasSprite sprite;
 
@@ -30,3 +33,4 @@ public class TASprite implements ISprite {
 		return sprite.getInterpolatedV(v * 16);
 	}
 }
+*/

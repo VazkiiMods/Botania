@@ -10,11 +10,19 @@
  */
 package vazkii.botania.common.world;
 
+import net.minecraft.init.Biomes;
+import net.minecraft.init.Blocks;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.WorldType;
+import net.minecraft.world.biome.provider.BiomeProvider;
+import net.minecraft.world.biome.provider.BiomeProviderType;
+import net.minecraft.world.biome.provider.SingleBiomeProviderSettings;
 import net.minecraft.world.gen.ChunkGeneratorFlat;
+import net.minecraft.world.gen.ChunkGeneratorType;
+import net.minecraft.world.gen.FlatGenSettings;
+import net.minecraft.world.gen.FlatLayerInfo;
 import net.minecraft.world.gen.IChunkGenerator;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -39,26 +47,23 @@ public class WorldTypeSkyblock extends WorldType {
 	}
 
 	@Override
-	public int getMinimumSpawnHeight(@Nonnull World world) {
-		return 86;
-	}
-
-	@Override
-	public int getSpawnFuzz(@Nonnull WorldServer world, MinecraftServer server) {
-		return 0;
-	}
-
-	@Override
 	public float getCloudHeight() {
 		return 260f;
 	}
 
 	@Nonnull
 	@Override
-	public IChunkGenerator getChunkGenerator(@Nonnull World world, String generatorOptions) {
-		ChunkGeneratorFlat flat = new ChunkGeneratorFlat(world, world.getSeed(), false, "3;minecraft:air;");
+	public IChunkGenerator<?> createChunkGenerator(@Nonnull World world) {
 		world.setSeaLevel(64);
-		return flat;
+
+		FlatGenSettings settings = new FlatGenSettings();
+		settings.setBiome(Biomes.PLAINS);
+		settings.getFlatLayers().add(new FlatLayerInfo(1, Blocks.AIR));
+		settings.updateLayers();
+
+		BiomeProvider biomeProvider = BiomeProviderType.FIXED.create(BiomeProviderType.FIXED.createSettings().setBiome(settings.getBiome()));
+
+		return ChunkGeneratorType.FLAT.create(world, biomeProvider, settings);
 	}
 
 	/* In skyblock worlds, do not darken the sky until player hits y=0 */

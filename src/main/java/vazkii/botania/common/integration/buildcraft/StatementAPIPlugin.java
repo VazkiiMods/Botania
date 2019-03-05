@@ -1,3 +1,4 @@
+/*
 package vazkii.botania.common.integration.buildcraft;
 
 import java.util.Collection;
@@ -55,3 +56,4 @@ public class StatementAPIPlugin implements ITriggerProvider {
 			triggers.add(triggerRuneAltarCanCraft);
 	}
 }
+*/

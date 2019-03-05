@@ -77,7 +77,7 @@ public final class ModRuneRecipes {
 		recipeEnvyRune = BotaniaAPI.registerRuneAltarRecipe(new ItemStack(ModItems.runeEnvy), costTier3, LibOreDict.MANA_DIAMOND, LibOreDict.MANA_DIAMOND, LibOreDict.RUNE[7], LibOreDict.RUNE[0]);
 		recipePrideRune = BotaniaAPI.registerRuneAltarRecipe(new ItemStack(ModItems.runePride), costTier3, LibOreDict.MANA_DIAMOND, LibOreDict.MANA_DIAMOND, LibOreDict.RUNE[5], LibOreDict.RUNE[1]);
 
-		recipeHead = new HeadRecipe(new ItemStack(Items.PLAYER_HEAD), 22500, new ItemStack(Items.SKULL), LibOreDict.PIXIE_DUST, "gemPrismarine", new ItemStack(Items.NAME_TAG), new ItemStack(Items.GOLDEN_APPLE));
+		recipeHead = new HeadRecipe(new ItemStack(Items.PLAYER_HEAD), 22500, new ItemStack(Items.SKELETON_SKULL), LibOreDict.PIXIE_DUST, "gemPrismarine", new ItemStack(Items.NAME_TAG), new ItemStack(Items.GOLDEN_APPLE));
 		BotaniaAPI.runeAltarRecipes.add(recipeHead);
 	}
 }

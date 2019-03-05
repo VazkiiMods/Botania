@@ -74,7 +74,7 @@ public class PacketBotaniaEffect {
 					switch (message.type) {
 					case PAINT_LENS: {
 						EnumDyeColor placeColor = EnumDyeColor.byId(message.args[0]);
-						int hex = placeColor.getColorValue();
+						int hex = placeColor.colorValue;
 						int r = (hex & 0xFF0000) >> 16;
 						int g = (hex & 0xFF00) >> 8;
 		int b = hex & 0xFF;
@@ -103,7 +103,7 @@ public class PacketBotaniaEffect {
 					case ITEM_SMOKE: {
 						Entity item = world.getEntityByID(message.args[0]);
 						if (item == null) return;
-						
+
 						int p = message.args[1];
 
 						for(int i = 0; i < p; i++) {

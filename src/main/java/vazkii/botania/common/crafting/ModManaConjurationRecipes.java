@@ -41,15 +41,17 @@ public class ModManaConjurationRecipes {
 		snowballRecipe = BotaniaAPI.registerManaConjurationRecipe(new ItemStack(Items.SNOWBALL, 2), new ItemStack(Items.SNOWBALL), 200);
 		netherrackRecipe = BotaniaAPI.registerManaConjurationRecipe(new ItemStack(Blocks.NETHERRACK, 2), new ItemStack(Blocks.NETHERRACK), 200);
 		soulSandRecipe = BotaniaAPI.registerManaConjurationRecipe(new ItemStack(Blocks.SOUL_SAND, 2), new ItemStack(Blocks.SOUL_SAND), 1500);
-		gravelRecipe = BotaniaAPI.registerManaConjurationRecipe(new ItemStack(Block.getBlockFromName("gravel"), 2), new ItemStack(Block.getBlockFromName("gravel")), 720);
+		gravelRecipe = BotaniaAPI.registerManaConjurationRecipe(new ItemStack(Blocks.GRAVEL, 2), new ItemStack(Blocks.GRAVEL), 720);
 
 		leavesRecipes = new ArrayList<>();
-		for(int i = 0; i < 4; i++)
-			leavesRecipes.add(BotaniaAPI.registerManaConjurationRecipe(new ItemStack(Blocks.LEAVES, 2, i), new ItemStack(Blocks.LEAVES, 1, i), 2000));
-		for(int i = 0; i < 2; i++)
-			leavesRecipes.add(BotaniaAPI.registerManaConjurationRecipe(new ItemStack(Blocks.LEAVES2, 2, i), new ItemStack(Blocks.LEAVES2, 1, i), 2000));
+		leavesRecipes.add(BotaniaAPI.registerManaConjurationRecipe(new ItemStack(Blocks.OAK_LEAVES, 2), new ItemStack(Blocks.OAK_LEAVES), 2000));
+		leavesRecipes.add(BotaniaAPI.registerManaConjurationRecipe(new ItemStack(Blocks.BIRCH_LEAVES, 2), new ItemStack(Blocks.BIRCH_LEAVES), 2000));
+		leavesRecipes.add(BotaniaAPI.registerManaConjurationRecipe(new ItemStack(Blocks.SPRUCE_LEAVES, 2), new ItemStack(Blocks.SPRUCE_LEAVES), 2000));
+		leavesRecipes.add(BotaniaAPI.registerManaConjurationRecipe(new ItemStack(Blocks.JUNGLE_LEAVES, 2), new ItemStack(Blocks.JUNGLE_LEAVES), 2000));
+		leavesRecipes.add(BotaniaAPI.registerManaConjurationRecipe(new ItemStack(Blocks.ACACIA_LEAVES, 2), new ItemStack(Blocks.ACACIA_LEAVES), 2000));
+		leavesRecipes.add(BotaniaAPI.registerManaConjurationRecipe(new ItemStack(Blocks.DARK_OAK_LEAVES, 2), new ItemStack(Blocks.DARK_OAK_LEAVES), 2000));
 
-		grassRecipe = BotaniaAPI.registerManaConjurationRecipe(new ItemStack(Blocks.TALLGRASS, 2, 1), new ItemStack(Blocks.TALLGRASS, 1, 1), 800);
+		grassRecipe = BotaniaAPI.registerManaConjurationRecipe(new ItemStack(Blocks.GRASS), new ItemStack(Blocks.GRASS), 800);
 	}
 
 }

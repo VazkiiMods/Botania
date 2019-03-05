@@ -1,3 +1,4 @@
+/*
 package vazkii.botania.common.integration.buildcraft;
 
 import buildcraft.api.core.render.ISprite;
@@ -40,3 +41,4 @@ public class TriggerRuneAltarCanCraft extends StatementBase implements ITriggerE
 	}
 
 }
+*/

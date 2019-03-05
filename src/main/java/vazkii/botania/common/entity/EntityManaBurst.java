@@ -26,9 +26,11 @@ import net.minecraft.block.BlockBush;
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Particles;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
@@ -44,6 +46,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
@@ -60,9 +63,11 @@ import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.equipment.bauble.ItemTinyPlanet;
+import vazkii.botania.common.lib.LibMisc;
 
 public class EntityManaBurst extends EntityThrowable implements IManaBurst {
-	
+	@ObjectHolder(LibMisc.MOD_ID + ":mana_burst")
+	public static EntityType<EntityManaBurst> TYPE;
 	private static final String TAG_TICKS_EXISTED = "ticksExisted";
 	private static final String TAG_COLOR = "color";
 	private static final String TAG_MANA = "mana";
@@ -100,7 +105,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 	public final List<PositionProperties> propsList = new ArrayList<>();
 
 	public EntityManaBurst(World world) {
-		super(world);
+		super(TYPE, world);
 		setSize(0F, 0F);
 	}
 
@@ -154,67 +159,59 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		setMotion(mx, my, mz);
 	}
 
-	// Copy of EntityThrowable.onUpdate. Relevant edits indicated.
 	private void superUpdate() {
-		lastTickPosX = posX;
-		lastTickPosY = posY;
-		lastTickPosZ = posZ;
-		// super.onUpdate(); Botania - inline supersuperclass's onUpdate
+		this.lastTickPosX = this.posX;
+		this.lastTickPosY = this.posY;
+		this.lastTickPosZ = this.posZ;
+		// Botania - inline supersuperclass.tick()
 		{
-			if (!world.isRemote)
-			{
-				setFlag(6, isGlowing());
+			if (!this.world.isRemote) {
+				this.setFlag(6, this.isGlowing());
 			}
 
-			baseTick();
+			this.baseTick();
+		}
+		if (this.throwableShake > 0) {
+			--this.throwableShake;
 		}
 
-		if (throwableShake > 0)
-		{
-			--throwableShake;
+		if (this.inGround) {
+			this.inGround = false;
+			this.motionX *= (double)(this.rand.nextFloat() * 0.2F);
+			this.motionY *= (double)(this.rand.nextFloat() * 0.2F);
+			this.motionZ *= (double)(this.rand.nextFloat() * 0.2F);
 		}
 
-		// Botania - remove inGround check and its else branch. Bursts are never inGround.
-
-		Vec3d vec3d = new Vec3d(posX, posY, posZ);
-		Vec3d vec3d1 = new Vec3d(posX + motionX, posY + motionY, posZ + motionZ);
-		RayTraceResult raytraceresult = world.rayTraceBlocks(vec3d, vec3d1);
-		vec3d = new Vec3d(posX, posY, posZ);
-		vec3d1 = new Vec3d(posX + motionX, posY + motionY, posZ + motionZ);
-
-		if (raytraceresult != null)
-		{
+		Vec3d vec3d = new Vec3d(this.posX, this.posY, this.posZ);
+		Vec3d vec3d1 = new Vec3d(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
+		RayTraceResult raytraceresult = this.world.rayTraceBlocks(vec3d, vec3d1);
+		vec3d = new Vec3d(this.posX, this.posY, this.posZ);
+		vec3d1 = new Vec3d(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
+		if (raytraceresult != null) {
 			vec3d1 = new Vec3d(raytraceresult.hitVec.x, raytraceresult.hitVec.y, raytraceresult.hitVec.z);
 		}
 
-		if(!scanBeam && !world.isRemote) { // Botania - only do entity colliding on server and while not scanning
+		if (!scanBeam && !world.isRemote) { // Botania - collide only on server and non-scanbeam
 			Entity entity = null;
-			List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox().offset(motionX, motionY, motionZ).grow(1.0D));
+			List<Entity> list = this.world.getEntitiesWithinAABBExcludingEntity(this, this.getBoundingBox().expand(this.motionX, this.motionY, this.motionZ).grow(1.0D));
 			double d0 = 0.0D;
-			for (int i = 0; i < list.size(); ++i)
-			{
+			boolean flag = false;
+
+			for (int i = 0; i < list.size(); ++i) {
 				Entity entity1 = list.get(i);
-
-				if (entity1.canBeCollidedWith())
-				{
-					if (entity1 == ignoreEntity)
-					{
-					}
-					else if (ticksExisted < 2 && ignoreEntity == null)
-					{
-						ignoreEntity = entity1;
-					}
-					else
-					{
-						AxisAlignedBB axisalignedbb = entity1.getBoundingBox().grow(0.30000001192092896D);
+				if (entity1.canBeCollidedWith()) {
+					if (entity1 == this.ignoreEntity) {
+						flag = true;
+					} else if (this.thrower != null && this.ticksExisted < 2 && this.ignoreEntity == null) {
+						this.ignoreEntity = entity1;
+						flag = true;
+					} else {
+						flag = false;
+						AxisAlignedBB axisalignedbb = entity1.getBoundingBox().grow((double) 0.3F);
 						RayTraceResult raytraceresult1 = axisalignedbb.calculateIntercept(vec3d, vec3d1);
-
-						if (raytraceresult1 != null)
-						{
+						if (raytraceresult1 != null) {
 							double d1 = vec3d.squareDistanceTo(raytraceresult1.hitVec);
-
-							if (d1 < d0 || d0 == 0.0D)
-							{
+							if (d1 < d0 || d0 == 0.0D) {
 								entity = entity1;
 								d0 = d1;
 							}
@@ -223,83 +220,74 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 				}
 			}
 
-			if (ignoreEntity != null)
-			{
-				/*if (flag)
-				{
-					this.ignoreTime = 2;
-				}
-				else if (this.ignoreTime-- <= 0)
-				{
-					this.ignoreEntity = null;
-				}*/
+			if (this.ignoreEntity != null) {
+			/*
+			if (flag) {
+				this.ignoreTime = 2;
+			} else if (this.ignoreTime-- <= 0) {
+				this.ignoreEntity = null;
+			}
+			*/
 			}
 
-			if (entity != null)
-			{
+			if (entity != null) {
 				raytraceresult = new RayTraceResult(entity);
-			}
-		} // End wrap - only do entity colliding on server
-
-		if (raytraceresult != null)
-		{
-			if (raytraceresult.type == RayTraceResult.Type.BLOCK && world.getBlockState(raytraceresult.getBlockPos()).getBlock() == Blocks.NETHER_PORTAL)
-			{
-				setPortal(raytraceresult.getBlockPos());
-			}
-			else
-			{
-				onImpact(raytraceresult);
 			}
 		}
 
-		posX += motionX;
-		posY += motionY;
-		posZ += motionZ;
-		float f = MathHelper.sqrt(motionX * motionX + motionZ * motionZ);
-		rotationYaw = (float)(MathHelper.atan2(motionX, motionZ) * (180D / Math.PI));
+		if (raytraceresult != null) {
+			if (raytraceresult.type == RayTraceResult.Type.BLOCK && this.world.getBlockState(raytraceresult.getBlockPos()).getBlock() == Blocks.NETHER_PORTAL) {
+				this.setPortal(raytraceresult.getBlockPos());
+			} else if (!net.minecraftforge.event.ForgeEventFactory.onProjectileImpact(this, raytraceresult)){
+				this.onImpact(raytraceresult);
+			}
+		}
 
-		for (rotationPitch = (float)(MathHelper.atan2(motionY, f) * (180D / Math.PI)); rotationPitch - prevRotationPitch < -180.0F; prevRotationPitch -= 360.0F)
-		{
+		this.posX += this.motionX;
+		this.posY += this.motionY;
+		this.posZ += this.motionZ;
+		float f = MathHelper.sqrt(this.motionX * this.motionX + this.motionZ * this.motionZ);
+		this.rotationYaw = (float)(MathHelper.atan2(this.motionX, this.motionZ) * (double)(180F / (float)Math.PI));
+
+		for(this.rotationPitch = (float)(MathHelper.atan2(this.motionY, (double)f) * (double)(180F / (float)Math.PI)); this.rotationPitch - this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F) {
 			;
 		}
 
-		while (rotationPitch - prevRotationPitch >= 180.0F)
-		{
-			prevRotationPitch += 360.0F;
+		while(this.rotationPitch - this.prevRotationPitch >= 180.0F) {
+			this.prevRotationPitch += 360.0F;
 		}
 
-		while (rotationYaw - prevRotationYaw < -180.0F)
-		{
-			prevRotationYaw -= 360.0F;
+		while(this.rotationYaw - this.prevRotationYaw < -180.0F) {
+			this.prevRotationYaw -= 360.0F;
 		}
 
-		while (rotationYaw - prevRotationYaw >= 180.0F)
-		{
-			prevRotationYaw += 360.0F;
+		while(this.rotationYaw - this.prevRotationYaw >= 180.0F) {
+			this.prevRotationYaw += 360.0F;
 		}
 
-		rotationPitch = prevRotationPitch + (rotationPitch - prevRotationPitch) * 0.2F;
-		rotationYaw = prevRotationYaw + (rotationYaw - prevRotationYaw) * 0.2F;
-		float f2 = getGravityVelocity();
-
-		// Botania - don't do water particles, bursts are never inWater
-		/*
-		if (isInWater())
-		{
-			for (int j = 0; j < 4; ++j)
-			{
+		this.rotationPitch = this.prevRotationPitch + (this.rotationPitch - this.prevRotationPitch) * 0.2F;
+		this.rotationYaw = this.prevRotationYaw + (this.rotationYaw - this.prevRotationYaw) * 0.2F;
+		float f1 = 0.99F;
+		float f2 = this.getGravityVelocity();
+		if (this.isInWater()) {
+			for(int j = 0; j < 4; ++j) {
 				float f3 = 0.25F;
-				world.spawnParticle(EnumParticleTypes.WATER_BUBBLE, posX - motionX * f3, posY - motionY * f3, posZ - motionZ * f3, motionX, motionY, motionZ, new int[0]);
+				this.world.addParticle(Particles.BUBBLE, this.posX - this.motionX * 0.25D, this.posY - this.motionY * 0.25D, this.posZ - this.motionZ * 0.25D, this.motionX, this.motionY, this.motionZ);
 			}
-		}*/
 
-		// Botania - don't apply drag
-		// this.motionX *= (double)f1;
-		// this.motionY *= (double)f1;
-		// this.motionZ *= (double)f1;
-		motionY -= f2;
-		setPosition(posX, posY, posZ);
+			f1 = 0.8F;
+		}
+
+		/* Botania - no drag
+		this.motionX *= (double)f1;
+		this.motionY *= (double)f1;
+		this.motionZ *= (double)f1;
+		*/
+		if (!this.hasNoGravity()) {
+			this.motionY -= (double)f2;
+		}
+
+		this.setPosition(this.posX, this.posY, this.posZ);
 	}
 
 	@Override
@@ -322,7 +310,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 			accumulatedManaLoss -= loss;
 
 			if(getMana() <= 0)
-				setDead();
+				remove();
 		}
 
 		particles();
@@ -596,7 +584,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 				Botania.proxy.sparkleFX((float) posX, (float) posY, (float) posZ, r, g, b, 4, 2);
 			}
 
-			setDead();
+			remove();
 		}
 	}
 

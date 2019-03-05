@@ -312,9 +312,9 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 
 	@Override
 	protected void writeAdditional(@Nonnull NBTTagCompound cmp) {
-		cmp.setBoolean(TAG_MASTER, isMaster());
-		cmp.setInt(TAG_NETWORK, getNetwork().getId());
-		cmp.setInt(TAG_INVIS, isInvisible() ? 1 : 0);
+		cmp.putBoolean(TAG_MASTER, isMaster());
+		cmp.putInt(TAG_NETWORK, getNetwork().getId());
+		cmp.putInt(TAG_INVIS, isInvisible() ? 1 : 0);
 	}
 
 }

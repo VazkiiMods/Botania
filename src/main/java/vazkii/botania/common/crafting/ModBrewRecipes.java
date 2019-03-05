@@ -15,6 +15,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.registry.IRegistry;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.recipe.RecipeBrew;
 import vazkii.botania.common.brew.ModBrews;
@@ -72,9 +73,9 @@ public class ModBrewRecipes {
 	}
 
 	public static void initTC() {
-		Item salisMundus = Item.REGISTRY.get(new ResourceLocation("thaumcraft", "salis_mundus"));
-		Item bathSalts = Item.REGISTRY.get(new ResourceLocation("thaumcraft", "bath_salts"));
-		Item amber = Item.REGISTRY.get(new ResourceLocation("thaumcraft", "amber"));
+		Item salisMundus = IRegistry.ITEM.get(new ResourceLocation("thaumcraft", "salis_mundus"));
+		Item bathSalts = IRegistry.ITEM.get(new ResourceLocation("thaumcraft", "bath_salts"));
+		Item amber = IRegistry.ITEM.get(new ResourceLocation("thaumcraft", "amber"));
 
 		warpWardBrew = BotaniaAPI.registerBrewRecipe(ModBrews.warpWard, new ItemStack(Items.NETHER_WART), new ItemStack(salisMundus), new ItemStack(bathSalts), new ItemStack(amber));
 	}

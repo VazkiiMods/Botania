@@ -1,3 +1,4 @@
+/*
 package vazkii.botania.common.integration.buildcraft;
 
 import buildcraft.api.core.render.ISprite;
@@ -51,3 +52,4 @@ public class TriggerManaDetector extends StatementBase implements ITriggerIntern
 	}
 
 }
+*/

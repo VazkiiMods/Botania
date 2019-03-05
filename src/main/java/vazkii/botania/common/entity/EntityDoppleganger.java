@@ -15,7 +15,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.MovingSound;
-import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.*;
@@ -41,7 +40,6 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.tileentity.TileEntityBeacon;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -149,7 +147,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 	private boolean hardMode = false;
 	private BlockPos source = BlockPos.ORIGIN;
 	private final List<UUID> playersWhoAttacked = new ArrayList<>();
-	private final BossInfoServer bossInfo = (BossInfoServer) new BossInfoServer(new TextComponentTranslation("entity." + LibEntityNames.DOPPLEGANGER_REGISTRY + ".name"), BossInfo.Color.PINK, BossInfo.Overlay.PROGRESS).setCreateFog(true);;
+	private final BossInfoServer bossInfo = (BossInfoServer) new BossInfoServer(TYPE.func_212546_e(), BossInfo.Color.PINK, BossInfo.Overlay.PROGRESS).setCreateFog(true);;
 	private UUID bossInfoUUID = bossInfo.getUniqueId();
 	public EntityPlayer trueKiller = null;
 
@@ -268,7 +266,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 					pos = beaconPos.add(x, y, z);
 
 					boolean expectedBlockHere = y == -1; //the floor
-					boolean isBlockHere = world.getBlockState(pos).getCollisionBoundingBox(world, pos) != null;
+					boolean isBlockHere = !world.getBlockState(pos).getCollisionShape(world, pos).isEmpty();
 
 					if(expectedBlockHere != isBlockHere) {
 						trippedPositions.add(pos);
@@ -286,8 +284,8 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 	}
 
 	@Override
-	protected void entityInit() {
-		super.entityInit();
+	protected void registerData() {
+		super.registerData();
 		dataManager.register(INVUL_TIME, 0);
 	}
 
@@ -416,7 +414,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 		}
 
 		playSound(SoundEvents.ENTITY_GENERIC_EXPLODE, 20F, (1F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F) * 0.7F);
-		world.spawnParticle(Particles.EXPLOSION_EMITTER, posX, posY, posZ, 1D, 0D, 0D);
+		world.addParticle(Particles.EXPLOSION_EMITTER, posX, posY, posZ, 1D, 0D, 0D);
 	}
 
 	@Override
@@ -428,7 +426,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 	}
 
 	@Override
-	protected boolean canDespawn() {
+	public boolean canDespawn() {
 		return false;
 	}
 
@@ -840,8 +838,8 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 		setPositionAndUpdate(newX, newY, newZ);
 
 		//play sound
-		world.playSound(null, oldX, oldY, oldZ, SoundEvents.ENTITY_ENDERMEN_TELEPORT, this.getSoundCategory(), 1.0F, 1.0F);
-		this.playSound(SoundEvents.ENTITY_ENDERMEN_TELEPORT, 1.0F, 1.0F);
+		world.playSound(null, oldX, oldY, oldZ, SoundEvents.ENTITY_ENDERMAN_TELEPORT, this.getSoundCategory(), 1.0F, 1.0F);
+		this.playSound(SoundEvents.ENTITY_ENDERMAN_TELEPORT, 1.0F, 1.0F);
 
 		Random random = getRNG();
 
@@ -855,7 +853,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 			double px = oldX + (newX - oldX) * progress + (random.nextDouble() - 0.5D) * width * 2.0D;
 			double py = oldY + (newY - oldY) * progress + random.nextDouble() * height;
 			double pz = oldZ + (newZ - oldZ) * progress + (random.nextDouble() - 0.5D) * width * 2.0D;
-			world.spawnParticle(EnumParticleTypes.PORTAL, px, py, pz, vx, vy, vz);
+			world.addParticle(Particles.PORTAL, px, py, pz, vx, vy, vz);
 		}
 
 		Vec3d oldPosVec = new Vec3d(oldX, oldY + height / 2, oldZ);
@@ -864,7 +862,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 		if(oldPosVec.squareDistanceTo(newPosVec) > 1) {
 			//damage players in the path of the teleport
 			for(EntityPlayer player : getPlayersAround()) {
-				RayTraceResult rtr = player.getEntityBoundingBox().grow(0.25).calculateIntercept(oldPosVec, newPosVec);
+				RayTraceResult rtr = player.getBoundingBox().grow(0.25).calculateIntercept(oldPosVec, newPosVec);
 				if(rtr != null)
 					player.attackEntityFrom(DamageSource.causeMobDamage(this), 6);
 			}
@@ -926,10 +924,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 		mc.getItemRenderer().renderItemIntoGUI(stack, px, py);
 		net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
 
-		boolean unicode = mc.fontRenderer.getUnicodeFlag();
-		mc.fontRenderer.setUnicodeFlag(true);
 		mc.fontRenderer.drawStringWithShadow("" + playerCount, px + 15, py + 4, 0xFFFFFF);
-		mc.fontRenderer.setUnicodeFlag(unicode);
 		GlStateManager.popMatrix();
 
 		return 5;
@@ -968,7 +963,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 	}
 
 	@Override
-	public void writeSpawnData(ByteBuf buffer) {
+	public void writeSpawnData(PacketBuffer buffer) {
 		buffer.writeInt(playerCount);
 		buffer.writeBoolean(hardMode);
 		buffer.writeLong(source.toLong());
@@ -1017,7 +1012,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 
 		@Override
 		public boolean matches(World world, BlockPos pos) {
-			return world.getBlockState(pos).getBlock().isBeaconBase(world, pos, pos.add(new BlockPos(-relPos.getX(), -relPos.getY(), -relPos.getZ())));
+			return world.getBlockState(pos).isBeaconBase(world, pos, pos.add(new BlockPos(-relPos.getX(), -relPos.getY(), -relPos.getZ())));
 		}
 
 	}

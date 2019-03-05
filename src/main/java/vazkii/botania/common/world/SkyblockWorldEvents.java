@@ -146,7 +146,7 @@ public final class SkyblockWorldEvents {
 			if(player instanceof EntityPlayerMP) {
 				EntityPlayerMP pmp = (EntityPlayerMP) player;
 				pmp.setPositionAndUpdate(pos.getX() + 0.5, pos.getY() + 1.6, pos.getZ() + 0.5);
-				pmp.setSpawnPoint(pos, true, player.world.getDimension().getId());
+				pmp.setSpawnPoint(pos, true, player.world.getDimension().getType());
 				player.inventory.addItemStackToInventory(new ItemStack(ModItems.lexicon));
 			}
 

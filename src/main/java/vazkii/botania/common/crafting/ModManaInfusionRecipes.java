@@ -15,6 +15,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.registry.IRegistry;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.recipe.RecipeManaInfusion;
 import vazkii.botania.common.Botania;
@@ -64,8 +65,8 @@ public final class ModManaInfusionRecipes {
 
 		pistonRelayRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModBlocks.pistonRelay), new ItemStack(Blocks.PISTON), 15000);
 		manaCookieRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaCookie), new ItemStack(Items.COOKIE), 20000);
-		grassSeedsRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.grassSeeds), new ItemStack(Blocks.TALLGRASS, 1, 1), 2500);
-		podzolSeedsRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.podzolSeeds), new ItemStack(Blocks.DEADBUSH), 2500);
+		grassSeedsRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.grassSeeds), new ItemStack(Blocks.GRASS), 2500);
+		podzolSeedsRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.podzolSeeds), new ItemStack(Blocks.DEAD_BUSH), 2500);
 
 		mycelSeedsRecipes = new ArrayList<>();
 		mycelSeedsRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.mycelSeeds), new ItemStack(Blocks.RED_MUSHROOM), 6500));
@@ -75,8 +76,8 @@ public final class ModManaInfusionRecipes {
 		tinyPotatoRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModBlocks.tinyPotato), new ItemStack(Items.POTATO), 1337);
 
 		if(Botania.thaumcraftLoaded) {
-			Item inkwell = Item.REGISTRY.getObject(new ResourceLocation("thaumcraft", "scribing_tools"));
-			manaInkwellRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaInkwell, 1, ModItems.manaInkwell.getMaxDamage()), new ItemStack(inkwell), 35000);
+			Item inkwell = IRegistry.ITEM.get(new ResourceLocation("thaumcraft", "scribing_tools"));
+			manaInkwellRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaInkwell), new ItemStack(inkwell), 35000);
 		}
 
 		managlassRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModBlocks.manaGlass), new ItemStack(Blocks.GLASS), 150);

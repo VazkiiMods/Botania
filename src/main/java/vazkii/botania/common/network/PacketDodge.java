@@ -42,7 +42,7 @@ public class PacketDodge {
 			IItemHandler baublesInv = BaublesApi.getBaublesHandler(player);
 			int slot = BaublesApi.isBaubleEquipped(player, ModItems.dodgeRing);
 			if(slot < 0) {
-				ctx.get().getSender().connection.disconnect(new TextComponentTranslation("botaniamisc.invalidDodge"));
+				player.connection.disconnect(new TextComponentTranslation("botaniamisc.invalidDodge"));
 				return;
 			}
 			ItemStack ringStack = baublesInv.getStackInSlot(slot);
