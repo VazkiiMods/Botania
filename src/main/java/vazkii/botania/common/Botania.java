@@ -101,7 +101,6 @@ public class Botania {
 	public static boolean bcApiLoaded = false;
 	public static boolean bloodMagicLoaded = false;
 	public static boolean coloredLightsLoaded = false;
-	public static boolean etFuturumLoaded = false;
 
 	public static Botania instance;
 	public static IProxy proxy;
@@ -121,7 +120,6 @@ public class Botania {
 		bcApiLoaded = ModList.get().isLoaded("buildcraftlib");
 		bloodMagicLoaded = ModList.get().isLoaded("bloodmagic"); // Psh, noob
 		coloredLightsLoaded = ModList.get().isLoaded("easycoloredlights");
-		etFuturumLoaded = ModList.get().isLoaded("etfuturum");
 
 		BotaniaAPI.internalHandler = new InternalMethodHandler();
 
@@ -130,13 +128,31 @@ public class Botania {
 		PacketHandler.init();
 		ModBrews.init();
 		ModMultiblocks.init();
-
-		if(Botania.gardenOfGlassLoaded)
-			new WorldTypeSkyblock();
+		ModBanners.init();
+		ModPetalRecipes.init();
+		ModPureDaisyRecipes.init();
+		ModRuneRecipes.init();
+		ModManaAlchemyRecipes.init();
+		ModManaConjurationRecipes.init();
+		ModManaInfusionRecipes.init();
+		ModElvenTradeRecipes.init();
+		ModBrewRecipes.init();
+		ModCraftingRecipes.init();
+		LexiconData.init();
 
 		proxy.preInit(event);
 
+		MinecraftForge.EVENT_BUS.register(ManaNetworkHandler.instance);
+		MinecraftForge.EVENT_BUS.register(TileCorporeaIndex.getInputHandler());
+		MinecraftForge.EVENT_BUS.register(new LootHandler());
+
+		if(Botania.gardenOfGlassLoaded)
+			MinecraftForge.EVENT_BUS.register(SkyblockWorldEvents.class);
+
 		DeferredWorkQueue.runLater(() -> {
+			if(Botania.gardenOfGlassLoaded)
+				new WorldTypeSkyblock();
+
 			CriteriaTriggers.register(AlfPortalTrigger.INSTANCE);
 			CriteriaTriggers.register(CorporeaRequestTrigger.INSTANCE);
 			CriteriaTriggers.register(DopplegangerNoArmorTrigger.INSTANCE);
@@ -162,27 +178,11 @@ public class Botania {
 
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
-		ModBanners.init();
-		ModPetalRecipes.init();
-		ModPureDaisyRecipes.init();
-		ModRuneRecipes.init();
-		ModManaAlchemyRecipes.init();
-		ModManaConjurationRecipes.init();
-		ModManaInfusionRecipes.init();
-		ModElvenTradeRecipes.init();
-		ModBrewRecipes.init();
-		ModCraftingRecipes.init();
-		LexiconData.init();
+
 
 		NetworkRegistry.INSTANCE.registerGuiHandler(Botania.instance, new GuiHandler());
 
 		MinecraftForge.TERRAIN_GEN_BUS.register(BiomeDecorationHandler.class);
-		MinecraftForge.EVENT_BUS.register(ManaNetworkHandler.instance);
-		MinecraftForge.EVENT_BUS.register(TileCorporeaIndex.getInputHandler());
-		MinecraftForge.EVENT_BUS.register(new LootHandler());
-
-		if(Botania.gardenOfGlassLoaded)
-			MinecraftForge.EVENT_BUS.register(SkyblockWorldEvents.class);
 
 		FMLInterModComms.sendMessage("projecte", "interdictionblacklist", EntityManaBurst.class.getCanonicalName());
 

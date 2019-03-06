@@ -14,6 +14,7 @@ import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.client.renderer.entity.RenderSnowball;
+import net.minecraft.client.renderer.entity.RenderSprite;
 import net.minecraft.client.renderer.entity.model.ModelBiped;
 import net.minecraft.client.renderer.tileentity.TileEntityItemStackRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
@@ -36,6 +37,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.fml.common.thread.SidedThreadGroups;
 import org.lwjgl.input.Keyboard;
 import vazkii.botania.api.boss.IBotaniaBoss;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -149,7 +151,6 @@ public class ClientProxy implements IProxy {
 		}
 
 		MinecraftForge.EVENT_BUS.register(MiscellaneousIcons.INSTANCE);
-		initRenderers();
 	}
 
 	@Override
@@ -183,59 +184,6 @@ public class ClientProxy implements IProxy {
 	@Override
 	public void postInit(FMLPostInitializationEvent event) {
 		CorporeaAutoCompleteHandler.updateItemList();
-	}
-
-	private void initRenderers() {
-		RenderTileFloatingFlower renderTileFloatingFlower = new RenderTileFloatingFlower();
-		RenderTilePylon renderTilePylon = new RenderTilePylon();
-		ClientRegistry.bindTileEntitySpecialRenderer(TileAltar.class, new RenderTileAltar());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileSpreader.class, new RenderTileSpreader());
-		ClientRegistry.bindTileEntitySpecialRenderer(TilePool.class, new RenderTilePool());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileRuneAltar.class, new RenderTileRuneAltar());
-		ClientRegistry.bindTileEntitySpecialRenderer(TilePylon.class, renderTilePylon);
-		ClientRegistry.bindTileEntitySpecialRenderer(TileEnchanter.class, new RenderTileEnchanter());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileAlfPortal.class, new RenderTileAlfPortal());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileFloatingFlower.class, renderTileFloatingFlower);
-		ClientRegistry.bindTileEntitySpecialRenderer(TileFloatingSpecialFlower.class, renderTileFloatingFlower);
-		ClientRegistry.bindTileEntitySpecialRenderer(TileTinyPotato.class, new RenderTileTinyPotato());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileStarfield.class, new RenderTileStarfield());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileBrewery.class, new RenderTileBrewery());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileTerraPlate.class, new RenderTileTerraPlate());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileRedString.class, new RenderTileRedString());
-		ClientRegistry.bindTileEntitySpecialRenderer(TilePrism.class, new RenderTilePrism());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileCorporeaIndex.class, new RenderTileCorporeaIndex());
-		ClientRegistry.bindTileEntitySpecialRenderer(TilePump.class, new AnimationTESR<>());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileCorporeaCrystalCube.class, new RenderTileCorporeaCrystalCube());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileIncensePlate.class, new RenderTileIncensePlate());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileHourglass.class, new RenderTileHourglass());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileSparkChanger.class, new RenderTileSparkChanger());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileCocoon.class, new RenderTileCocoon());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileLightRelay.class, new RenderTileLightRelay());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileBellows.class, new RenderTileBellows());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileGaiaHead.class, new RenderTileGaiaHead());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileTeruTeruBozu.class, new RenderTileTeruTeruBozu());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileAvatar.class, new RenderTileAvatar());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileAnimatedTorch.class, new RenderTileAnimatedTorch());
-
-		RenderingRegistry.registerEntityRenderingHandler(EntityPixie.class, RenderPixie::new);
-		RenderingRegistry.registerEntityRenderingHandler(EntityDoppleganger.class, RenderDoppleganger::new);
-		RenderingRegistry.registerEntityRenderingHandler(EntitySpark.class, RenderSpark::new);
-		RenderingRegistry.registerEntityRenderingHandler(EntityCorporeaSpark.class, RenderCorporeaSpark::new);
-		RenderingRegistry.registerEntityRenderingHandler(EntityPoolMinecart.class, RenderPoolMinecart::new);
-		RenderingRegistry.registerEntityRenderingHandler(EntityPinkWither.class, RenderPinkWither::new);
-		RenderingRegistry.registerEntityRenderingHandler(EntityManaStorm.class, RenderManaStorm::new);
-		RenderingRegistry.registerEntityRenderingHandler(EntityBabylonWeapon.class, RenderBabylonWeapon::new);
-
-		RenderingRegistry.registerEntityRenderingHandler(EntityThornChakram.class, renderManager -> new RenderSnowballStack<>(renderManager, ModItems.thornChakram, Minecraft.getInstance().getItemRenderer(),
-				entity -> entity.isFire() ? new ItemStack(ModItems.flareChakram) : new ItemStack(ModItems.thornChakram)));
-		RenderingRegistry.registerEntityRenderingHandler(EntityVineBall.class, renderManager -> new RenderSnowball<>(renderManager, ModItems.vineBall, Minecraft.getInstance().getItemRenderer()));
-		RenderingRegistry.registerEntityRenderingHandler(EntityEnderAirBottle.class, renderManager -> new RenderSnowball<>(renderManager, ModItems.enderAirBottle, Minecraft.getInstance().getItemRenderer()));
-
-		ShaderHelper.initShaders();
-
-		IMultiblockRenderHook.renderHooks.put(ModBlocks.manaPylon, renderTilePylon);
-		IMultiblockRenderHook.renderHooks.put(ModBlocks.naturaPylon, renderTilePylon);
-		IMultiblockRenderHook.renderHooks.put(ModBlocks.gaiaPylon, renderTilePylon);
 	}
 
 	private void initAuxiliaryRender() {
@@ -372,7 +320,7 @@ public class ClientProxy implements IProxy {
 			sparkle.setCanCollide(false);
 		if(corruptSparkle)
 			sparkle.corrupt = true;
-		Minecraft.getInstance().effectRenderer.addEffect(sparkle);
+		Minecraft.getInstance().particles.addEffect(sparkle);
 	}
 
 	private static boolean distanceLimit = true;
@@ -395,11 +343,11 @@ public class ClientProxy implements IProxy {
 
 		FXWisp wisp = new FXWisp(Minecraft.getInstance().world, x, y, z, size, r, g, b, distanceLimit, depthTest, maxAgeMul);
 		wisp.setSpeed(motionx, motiony, motionz);
-		Minecraft.getInstance().effectRenderer.addEffect(wisp);
+		Minecraft.getInstance().particles.addEffect(wisp);
 	}
 
 	private boolean doParticle() {
-		if(FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER)
+		if(Thread.currentThread().getThreadGroup() == SidedThreadGroups.SERVER)
 			return false;
 
 		if(!ConfigHandler.useVanillaParticleLimiter)
@@ -416,7 +364,7 @@ public class ClientProxy implements IProxy {
 
 	@Override
 	public void lightningFX(Vector3 vectorStart, Vector3 vectorEnd, float ticksPerMeter, long seed, int colorOuter, int colorInner) {
-		Minecraft.getInstance().effectRenderer.addEffect(new FXLightning(Minecraft.getInstance().world, vectorStart, vectorEnd, ticksPerMeter, seed, colorOuter, colorInner));
+		Minecraft.getInstance().particles.addEffect(new FXLightning(Minecraft.getInstance().world, vectorStart, vectorEnd, ticksPerMeter, seed, colorOuter, colorInner));
 	}
 
 	@Override
