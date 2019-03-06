@@ -10,6 +10,7 @@
  */
 package vazkii.botania.api.lexicon;
 
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
 import javax.annotation.Nonnull;
@@ -73,5 +74,15 @@ public class LexiconCategory implements Comparable<LexiconCategory> {
 	@Override
 	public int compareTo(@Nonnull LexiconCategory category) {
 		return priority == category.priority ? sortingId - category.sortingId : category.priority - priority;
+	}
+
+	/**
+	 * Determines if the category shows up in the lexicon category index. 
+	 * Contained entries will still appear in the lexicon index 
+	 * and must be hidden separately if desired.
+	 * @param stack The lexicon stack used by the player
+	 */
+	public boolean isVisible(ItemStack stack) {
+		return true;
 	}
 }
