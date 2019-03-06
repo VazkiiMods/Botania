@@ -19,27 +19,14 @@ import net.minecraft.entity.boss.EntityWither;
 import net.minecraft.entity.item.EntityEnderCrystal;
 import net.minecraft.entity.item.EntityItemFrame;
 import net.minecraft.entity.item.EntityPainting;
-import net.minecraft.util.text.translation.I18n;
+import net.minecraft.item.crafting.RecipeSerializers;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModList;
-import net.minecraftforge.fml.common.FMLCommonHandler;
-import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.Mod.EventHandler;
-import net.minecraftforge.fml.common.Mod.Instance;
-import net.minecraftforge.fml.common.ModAPIManager;
-import net.minecraftforge.fml.common.SidedProxy;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLInterModComms;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLServerAboutToStartEvent;
-import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
-import net.minecraftforge.fml.common.event.FMLServerStoppingEvent;
-import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.javafmlmod.FMLModLoadingContext;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import vazkii.botania.api.BotaniaAPI;
@@ -74,6 +61,20 @@ import vazkii.botania.common.crafting.ModManaInfusionRecipes;
 import vazkii.botania.common.crafting.ModPetalRecipes;
 import vazkii.botania.common.crafting.ModPureDaisyRecipes;
 import vazkii.botania.common.crafting.ModRuneRecipes;
+import vazkii.botania.common.crafting.recipe.AncientWillRecipe;
+import vazkii.botania.common.crafting.recipe.BlackHoleTalismanExtractRecipe;
+import vazkii.botania.common.crafting.recipe.CompositeLensRecipe;
+import vazkii.botania.common.crafting.recipe.CosmeticAttachRecipe;
+import vazkii.botania.common.crafting.recipe.CosmeticRemoveRecipe;
+import vazkii.botania.common.crafting.recipe.HelmRevealingRecipe;
+import vazkii.botania.common.crafting.recipe.KeepIvyRecipe;
+import vazkii.botania.common.crafting.recipe.LensDyeingRecipe;
+import vazkii.botania.common.crafting.recipe.ManaGunClipRecipe;
+import vazkii.botania.common.crafting.recipe.ManaGunLensRecipe;
+import vazkii.botania.common.crafting.recipe.ManaGunRemoveLensRecipe;
+import vazkii.botania.common.crafting.recipe.PhantomInkRecipe;
+import vazkii.botania.common.crafting.recipe.SpellClothRecipe;
+import vazkii.botania.common.crafting.recipe.TerraPickTippingRecipe;
 import vazkii.botania.common.entity.EntityCorporeaSpark;
 import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.entity.EntityFlameRing;
@@ -84,8 +85,6 @@ import vazkii.botania.common.entity.EntityPinkWither;
 import vazkii.botania.common.entity.EntitySignalFlare;
 import vazkii.botania.common.entity.EntitySpark;
 import vazkii.botania.common.entity.ModEntities;
-import vazkii.botania.common.integration.buildcraft.StatementAPIPlugin;
-import vazkii.botania.common.integration.thaumcraft.TCAspects;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.network.GuiHandler;
@@ -112,7 +111,7 @@ public class Botania {
 	public Botania() {
 		instance = this;
 		proxy = DistExecutor.runForDist(() -> ClientProxy::new, () -> ServerProxy::new);
-		FMLModLoadingContext.get().getModEventBus().addListener(this::commonSetup);
+		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::commonSetup);
 	}
 
 	private void commonSetup(FMLCommonSetupEvent event) {
@@ -135,13 +134,30 @@ public class Botania {
 		if(Botania.gardenOfGlassLoaded)
 			new WorldTypeSkyblock();
 
-		CriteriaTriggers.register(AlfPortalTrigger.INSTANCE);
-		CriteriaTriggers.register(CorporeaRequestTrigger.INSTANCE);
-		CriteriaTriggers.register(DopplegangerNoArmorTrigger.INSTANCE);
-		CriteriaTriggers.register(RelicBindTrigger.INSTANCE);
-		CriteriaTriggers.register(UseItemSuccessTrigger.INSTANCE);
-
 		proxy.preInit(event);
+
+		DeferredWorkQueue.runLater(() -> {
+			CriteriaTriggers.register(AlfPortalTrigger.INSTANCE);
+			CriteriaTriggers.register(CorporeaRequestTrigger.INSTANCE);
+			CriteriaTriggers.register(DopplegangerNoArmorTrigger.INSTANCE);
+			CriteriaTriggers.register(RelicBindTrigger.INSTANCE);
+			CriteriaTriggers.register(UseItemSuccessTrigger.INSTANCE);
+
+			RecipeSerializers.register(AncientWillRecipe.SERIALIZER);
+			RecipeSerializers.register(BlackHoleTalismanExtractRecipe.SERIALIZER);
+			RecipeSerializers.register(CompositeLensRecipe.SERIALIZER);
+			RecipeSerializers.register(CosmeticAttachRecipe.SERIALIZER);
+			RecipeSerializers.register(CosmeticRemoveRecipe.SERIALIZER);
+			RecipeSerializers.register(HelmRevealingRecipe.SERIALIZER);
+			RecipeSerializers.register(KeepIvyRecipe.SERIALIZER);
+			RecipeSerializers.register(LensDyeingRecipe.SERIALIZER);
+			RecipeSerializers.register(ManaGunClipRecipe.SERIALIZER);
+			RecipeSerializers.register(ManaGunLensRecipe.SERIALIZER);
+			RecipeSerializers.register(ManaGunRemoveLensRecipe.SERIALIZER);
+			RecipeSerializers.register(PhantomInkRecipe.SERIALIZER);
+			RecipeSerializers.register(SpellClothRecipe.SERIALIZER);
+			RecipeSerializers.register(TerraPickTippingRecipe.SERIALIZER);
+		});
 	}
 
 	@EventHandler

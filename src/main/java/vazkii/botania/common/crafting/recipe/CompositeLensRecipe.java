@@ -11,32 +11,39 @@
 package vazkii.botania.common.crafting.recipe;
 
 import net.minecraft.init.Items;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.IRecipeHidden;
+import net.minecraft.item.crafting.IRecipeSerializer;
+import net.minecraft.item.crafting.RecipeSerializers;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import vazkii.botania.api.mana.ICompositableLens;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.lens.ItemLens;
+import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
-public class CompositeLensRecipe extends IForgeRegistryEntry.Impl<IRecipe> implements IRecipe {
+public class CompositeLensRecipe extends IRecipeHidden {
+	private static final ResourceLocation TYPE_ID = new ResourceLocation(LibMisc.MOD_ID, "composite_lens");
+	public static final IRecipeSerializer<CompositeLensRecipe> SERIALIZER = new RecipeSerializers.SimpleSerializer<>(TYPE_ID.toString(), CompositeLensRecipe::new);
 
-	@Override
-	public boolean isDynamic() {
-		return true;
+	public CompositeLensRecipe(ResourceLocation id) {
+		super(id);
 	}
 
 	@Override
-	public boolean matches(@Nonnull InventoryCrafting var1, @Nonnull World var2) {
+	public boolean matches(@Nonnull IInventory inv, @Nonnull World world) {
 		boolean foundLens = false;
 		boolean foundSecondLens = false;
 		boolean foundSlimeball = false;
 
-		for(int i = 0; i < var1.getSizeInventory(); i++) {
-			ItemStack stack = var1.getStackInSlot(i);
+		for(int i = 0; i < inv.getSizeInventory(); i++) {
+			ItemStack stack = inv.getStackInSlot(i);
 			if(!stack.isEmpty()) {
 				if(stack.getItem() instanceof ICompositableLens && !foundSecondLens) {
 					if(foundLens)
@@ -53,12 +60,12 @@ public class CompositeLensRecipe extends IForgeRegistryEntry.Impl<IRecipe> imple
 
 	@Nonnull
 	@Override
-	public ItemStack getCraftingResult(@Nonnull InventoryCrafting var1) {
+	public ItemStack getCraftingResult(@Nonnull IInventory inv) {
 		ItemStack lens = ItemStack.EMPTY;
 		ItemStack secondLens = ItemStack.EMPTY;
 
-		for(int i = 0; i < var1.getSizeInventory(); i++) {
-			ItemStack stack = var1.getStackInSlot(i);
+		for(int i = 0; i < inv.getSizeInventory(); i++) {
+			ItemStack stack = inv.getStackInSlot(i);
 			if(!stack.isEmpty()) {
 				if(stack.getItem() instanceof ICompositableLens)
 					if(lens.isEmpty())
@@ -88,7 +95,7 @@ public class CompositeLensRecipe extends IForgeRegistryEntry.Impl<IRecipe> imple
 
 	@Nonnull
 	@Override
-	public ItemStack getRecipeOutput() {
-		return ItemStack.EMPTY;
+	public IRecipeSerializer<?> getSerializer() {
+		return SERIALIZER;
 	}
 }

@@ -14,7 +14,7 @@
 package vazkii.botania.common.core.helper;
 
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTBase;
+import net.minecraft.nbt.INBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 
@@ -138,15 +138,15 @@ public final class ItemNBTHelper {
 		//an empty set is a superset of only another empty set (which was already checked above)
 		if(superset == null || superset.isEmpty()) return false;
 		//a subset can't be bigger than its superset
-		if(subset.getKeySet().size() > superset.getKeySet().size()) return false;
+		if(subset.keySet().size() > superset.keySet().size()) return false;
 		
 		//it's not an easy case, so we actually have to check the contents of each tag
-		for(String key : superset.getKeySet()) {
+		for(String key : superset.keySet()) {
 			//it's ok if the subset is missing a key from the superset
-			if(!subset.hasKey(key)) continue;
+			if(!subset.contains(key)) continue;
 			
-			NBTBase supersetEntry = superset.getTag(key);
-			NBTBase subsetEntry = subset.getTag(key);
+			INBTBase supersetEntry = superset.get(key);
+			INBTBase subsetEntry = subset.get(key);
 			
 			//if a value is present on both tags, but they do not match, fail
 			if(supersetEntry instanceof NBTTagCompound && subsetEntry instanceof NBTTagCompound) {

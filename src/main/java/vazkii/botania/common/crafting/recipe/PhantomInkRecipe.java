@@ -10,25 +10,32 @@
  */
 package vazkii.botania.common.crafting.recipe;
 
+import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.IRecipeHidden;
+import net.minecraft.item.crafting.IRecipeSerializer;
+import net.minecraft.item.crafting.RecipeSerializers;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import vazkii.botania.api.item.IPhantomInkable;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
-public class PhantomInkRecipe extends IForgeRegistryEntry.Impl<IRecipe> implements IRecipe {
+public class PhantomInkRecipe extends IRecipeHidden {
+	private static final ResourceLocation TYPE_ID = new ResourceLocation(LibMisc.MOD_ID, "phantom_ink_apply");
+	public static final IRecipeSerializer<PhantomInkRecipe> SERIALIZER = new RecipeSerializers.SimpleSerializer<>(TYPE_ID.toString(), PhantomInkRecipe::new);
 
-	@Override
-	public boolean isDynamic() {
-		return true;
+	public PhantomInkRecipe(ResourceLocation id) {
+		super(id);
 	}
 
 	@Override
-	public boolean matches(@Nonnull InventoryCrafting var1, @Nonnull World var2) {
+	public boolean matches(@Nonnull IInventory var1, @Nonnull World var2) {
 		boolean foundInk = false;
 		boolean foundItem = false;
 
@@ -50,7 +57,7 @@ public class PhantomInkRecipe extends IForgeRegistryEntry.Impl<IRecipe> implemen
 
 	@Nonnull
 	@Override
-	public ItemStack getCraftingResult(@Nonnull InventoryCrafting var1) {
+	public ItemStack getCraftingResult(@Nonnull IInventory var1) {
 		ItemStack item = ItemStack.EMPTY;
 
 		for(int i = 0; i < var1.getSizeInventory(); i++) {
@@ -72,7 +79,7 @@ public class PhantomInkRecipe extends IForgeRegistryEntry.Impl<IRecipe> implemen
 
 	@Nonnull
 	@Override
-	public ItemStack getRecipeOutput() {
-		return ItemStack.EMPTY;
+	public IRecipeSerializer<?> getSerializer() {
+		return SERIALIZER;
 	}
 }

@@ -10,32 +10,39 @@
  */
 package vazkii.botania.common.crafting.recipe;
 
+import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.IRecipeHidden;
+import net.minecraft.item.crafting.IRecipeSerializer;
+import net.minecraft.item.crafting.RecipeSerializers;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
-public class SpellClothRecipe extends IForgeRegistryEntry.Impl<IRecipe> implements IRecipe {
+public class SpellClothRecipe extends IRecipeHidden {
+	private static final ResourceLocation TYPE_ID = new ResourceLocation(LibMisc.MOD_ID, "spell_cloth_apply");
+	public static final IRecipeSerializer<SpellClothRecipe> SERIALIZER = new RecipeSerializers.SimpleSerializer<>(TYPE_ID.toString(), SpellClothRecipe::new);
 
-	@Override
-	public boolean isDynamic() {
-		return true;
+	public SpellClothRecipe(ResourceLocation id) {
+		super(id);
 	}
 
 	@Override
-	public boolean matches(@Nonnull InventoryCrafting var1, @Nonnull World var2) {
+	public boolean matches(@Nonnull IInventory inv, @Nonnull World world) {
 		boolean foundCloth = false;
 		boolean foundEnchanted = false;
 
-		for(int i = 0; i < var1.getSizeInventory(); i++) {
-			ItemStack stack = var1.getStackInSlot(i);
+		for(int i = 0; i < inv.getSizeInventory(); i++) {
+			ItemStack stack = inv.getStackInSlot(i);
 			if(!stack.isEmpty()) {
-				if(stack.isItemEnchanted() && !foundEnchanted && stack.getItem() != ModItems.spellCloth)
+				if(stack.isEnchanted() && !foundEnchanted && stack.getItem() != ModItems.spellCloth)
 					foundEnchanted = true;
 
 				else if(stack.getItem() == ModItems.spellCloth && !foundCloth)
@@ -50,11 +57,11 @@ public class SpellClothRecipe extends IForgeRegistryEntry.Impl<IRecipe> implemen
 
 	@Nonnull
 	@Override
-	public ItemStack getCraftingResult(@Nonnull InventoryCrafting var1) {
+	public ItemStack getCraftingResult(@Nonnull IInventory inv) {
 		ItemStack stackToDisenchant = ItemStack.EMPTY;
-		for(int i = 0; i < var1.getSizeInventory(); i++) {
-			ItemStack stack = var1.getStackInSlot(i);
-			if(!stack.isEmpty() && stack.isItemEnchanted() && stack.getItem() != ModItems.spellCloth) {
+		for(int i = 0; i < inv.getSizeInventory(); i++) {
+			ItemStack stack = inv.getStackInSlot(i);
+			if(!stack.isEmpty() && stack.isEnchanted() && stack.getItem() != ModItems.spellCloth) {
 				stackToDisenchant = stack.copy();
 				stackToDisenchant.setCount(1);
 				break;
@@ -64,7 +71,7 @@ public class SpellClothRecipe extends IForgeRegistryEntry.Impl<IRecipe> implemen
 		if(stackToDisenchant.isEmpty())
 			return ItemStack.EMPTY;
 
-		stackToDisenchant.getTagCompound().removeTag("ench"); // Remove enchantments
+		stackToDisenchant.getTag().remove("ench"); // Remove enchantments
 		return stackToDisenchant;
 	}
 
@@ -75,7 +82,7 @@ public class SpellClothRecipe extends IForgeRegistryEntry.Impl<IRecipe> implemen
 
 	@Nonnull
 	@Override
-	public ItemStack getRecipeOutput() {
-		return ItemStack.EMPTY;
+	public IRecipeSerializer<?> getSerializer() {
+		return SERIALIZER;
 	}
 }

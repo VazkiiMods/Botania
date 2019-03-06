@@ -327,28 +327,6 @@ public final class ModCraftingRecipes {
 	public static void registerRecipes(RegistryEvent.Register<IRecipe> evt) {
 		IForgeRegistry<IRecipe> r = evt.getRegistry();
 
-		r.register(new AncientWillRecipe().setRegistryName(new ResourceLocation(LibMisc.MOD_ID, "ancient_will_attach")));
-		r.register(new BlackHoleTalismanExtractRecipe().setRegistryName(new ResourceLocation(LibMisc.MOD_ID, "black_hole_talisman_extract")));
-		r.register(new SpellClothRecipe().setRegistryName(new ResourceLocation(LibMisc.MOD_ID, "cleanse_enchants")));
-		r.register(new CompositeLensRecipe().setRegistryName(new ResourceLocation(LibMisc.MOD_ID, "composite_lens")));
-		r.register(new CosmeticAttachRecipe().setRegistryName(new ResourceLocation(LibMisc.MOD_ID, "cosmetic_attach")));
-		r.register(new CosmeticRemoveRecipe().setRegistryName(new ResourceLocation(LibMisc.MOD_ID, "cosmetic_remove")));
-		if(Botania.thaumcraftLoaded) {
-			r.register(new HelmRevealingRecipe(ModItems.terrasteelHelmRevealing, ModItems.terrasteelHelm)
-					.setRegistryName(LibMisc.MOD_ID, LibItemNames.TERRASTEEL_HELM_R + "_from_goggles"));
-			r.register(new HelmRevealingRecipe(ModItems.manasteelHelmRevealing, ModItems.manasteelHelm)
-					.setRegistryName(LibMisc.MOD_ID, LibItemNames.MANASTEEL_HELM_R + "_from_goggles"));
-			r.register(new HelmRevealingRecipe(ModItems.elementiumHelmRevealing, ModItems.elementiumHelm)
-					.setRegistryName(LibMisc.MOD_ID, LibItemNames.ELEMENTIUM_HELM_R + "_from_goggles"));
-		}
-		r.register(new KeepIvyRecipe().setRegistryName(new ResourceLocation(LibMisc.MOD_ID, "keep_ivy_attach")));
-		r.register(new LensDyeingRecipe().setRegistryName(new ResourceLocation(LibMisc.MOD_ID, "lens_dye")));
-		r.register(new ManaGunLensRecipe().setRegistryName(new ResourceLocation(LibMisc.MOD_ID, "mana_gun_add_lens")));
-		r.register(new ManaGunRemoveLensRecipe().setRegistryName(new ResourceLocation(LibMisc.MOD_ID, "mana_gun_remove_lens")));
-		r.register(new ManaGunClipRecipe().setRegistryName(new ResourceLocation(LibMisc.MOD_ID, "mana_gun_add_clip")));
-		r.register(new PhantomInkRecipe().setRegistryName(new ResourceLocation(LibMisc.MOD_ID, "phantom_ink")));
-		r.register(new TerraPickTippingRecipe().setRegistryName(new ResourceLocation(LibMisc.MOD_ID, "terra_pick_tipping")));
-
 		for (ResourceLocation s : BotaniaAPI.getAllSubTiles()) {
 			r.register(new SpecialFloatingFlowerRecipe(s).setRegistryName(new ResourceLocation(LibMisc.MOD_ID, "floating_" + s.toString().replaceAll(":", "_"))));
 		}

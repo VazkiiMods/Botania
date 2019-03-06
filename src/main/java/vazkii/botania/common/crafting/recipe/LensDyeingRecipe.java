@@ -10,36 +10,57 @@
  */
 package vazkii.botania.common.crafting.recipe;
 
-import net.minecraft.inventory.InventoryCrafting;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.IRecipeHidden;
+import net.minecraft.item.crafting.IRecipeSerializer;
+import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.item.crafting.RecipeSerializers;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-import net.minecraftforge.oredict.OreDictionary;
-import net.minecraftforge.registries.IForgeRegistryEntry;
+import net.minecraftforge.common.Tags;
 import vazkii.botania.api.mana.ILens;
+import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.lens.ItemLens;
-import vazkii.botania.common.lib.LibOreDict;
+import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 import java.util.Arrays;
 import java.util.List;
 
-public class LensDyeingRecipe extends IForgeRegistryEntry.Impl<IRecipe> implements IRecipe {
+public class LensDyeingRecipe extends IRecipeHidden {
+	private static final ResourceLocation TYPE_ID = new ResourceLocation(LibMisc.MOD_ID, "lens_dye");
+	public static final IRecipeSerializer<LensDyeingRecipe> SERIALIZER = new RecipeSerializers.SimpleSerializer<>(TYPE_ID.toString(), LensDyeingRecipe::new);
 
-	private static final List<String> DYES = Arrays.asList("dyeWhite", "dyeOrange", "dyeMagenta", "dyeLightBlue", "dyeYellow", "dyeLime", "dyePink", "dyeGray", "dyeLightGray", "dyeCyan", "dyePurple", "dyeBlue", "dyeBrown", "dyeGreen", "dyeRed", "dyeBlack", LibOreDict.MANA_PEARL);
+	private final List<Ingredient> dyes = Arrays.asList(
+			Ingredient.fromTag(Tags.Items.DYES_WHITE), Ingredient.fromTag(Tags.Items.DYES_ORANGE),
+			Ingredient.fromTag(Tags.Items.DYES_MAGENTA), Ingredient.fromTag(Tags.Items.DYES_LIGHT_BLUE),
+			Ingredient.fromTag(Tags.Items.DYES_YELLOW), Ingredient.fromTag(Tags.Items.DYES_LIME),
+			Ingredient.fromTag(Tags.Items.DYES_PINK), Ingredient.fromTag(Tags.Items.DYES_GRAY),
+			Ingredient.fromTag(Tags.Items.DYES_LIGHT_GRAY), Ingredient.fromTag(Tags.Items.DYES_CYAN),
+			Ingredient.fromTag(Tags.Items.DYES_PURPLE), Ingredient.fromTag(Tags.Items.DYES_BLUE),
+			Ingredient.fromTag(Tags.Items.DYES_BROWN), Ingredient.fromTag(Tags.Items.DYES_RED),
+			Ingredient.fromTag(Tags.Items.DYES_GREEN), Ingredient.fromTag(Tags.Items.DYES_BLACK),
+			Ingredient.fromItems(ModItems.manaPearl) // todo 1.13 tag for mana pearl?
+	);
 
+	public LensDyeingRecipe(ResourceLocation id) {
+		super(id);
+	}
+
+	@Nonnull
 	@Override
-	public boolean isDynamic() {
-		return true;
+	public IRecipeSerializer<?> getSerializer() {
+		return SERIALIZER;
 	}
 
 	@Override
-	public boolean matches(@Nonnull InventoryCrafting var1, @Nonnull World var2) {
+	public boolean matches(@Nonnull IInventory inv, @Nonnull World world) {
 		boolean foundLens = false;
 		boolean foundDye = false;
 
-		for(int i = 0; i < var1.getSizeInventory(); i++) {
-			ItemStack stack = var1.getStackInSlot(i);
+		for(int i = 0; i < inv.getSizeInventory(); i++) {
+			ItemStack stack = inv.getStackInSlot(i);
 			if(!stack.isEmpty()) {
 				if(stack.getItem() instanceof ILens && !foundLens)
 					foundLens = true;
@@ -58,12 +79,12 @@ public class LensDyeingRecipe extends IForgeRegistryEntry.Impl<IRecipe> implemen
 
 	@Nonnull
 	@Override
-	public ItemStack getCraftingResult(@Nonnull InventoryCrafting var1) {
+	public ItemStack getCraftingResult(@Nonnull IInventory inv) {
 		ItemStack lens = ItemStack.EMPTY;
 		int color = -1;
 
-		for(int i = 0; i < var1.getSizeInventory(); i++) {
-			ItemStack stack = var1.getStackInSlot(i);
+		for(int i = 0; i < inv.getSizeInventory(); i++) {
+			ItemStack stack = inv.getStackInSlot(i);
 			if(!stack.isEmpty()) {
 				if(stack.getItem() instanceof ILens && lens.isEmpty())
 					lens = stack;
@@ -72,7 +93,6 @@ public class LensDyeingRecipe extends IForgeRegistryEntry.Impl<IRecipe> implemen
 		}
 
 		if(lens.getItem() instanceof ILens) {
-			lens.getItem();
 			ItemStack lensCopy = lens.copy();
 			ItemLens.setLensColor(lensCopy, color);
 
@@ -87,18 +107,11 @@ public class LensDyeingRecipe extends IForgeRegistryEntry.Impl<IRecipe> implemen
 		return width * height >= 2;
 	}
 
-	@Nonnull
-	@Override
-	public ItemStack getRecipeOutput() {
-		return ItemStack.EMPTY;
-	}
-
-	int getStackColor(ItemStack stack) {
-		int[] ids = OreDictionary.getOreIDs(stack);
-		for(int i : ids) {
-			int index = DYES.indexOf(OreDictionary.getOreName(i));
-			if(index >= 0)
-				return index;
+	private int getStackColor(ItemStack stack) {
+		for (int i = 0; i < dyes.size(); i++) {
+			if(dyes.get(i).test(stack)) {
+				return i;
+			}
 		}
 
 		return -1;

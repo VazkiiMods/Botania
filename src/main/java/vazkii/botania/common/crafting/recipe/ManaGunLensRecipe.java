@@ -10,31 +10,38 @@
  */
 package vazkii.botania.common.crafting.recipe;
 
+import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.IRecipeHidden;
+import net.minecraft.item.crafting.IRecipeSerializer;
+import net.minecraft.item.crafting.RecipeSerializers;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import vazkii.botania.api.mana.ILens;
 import vazkii.botania.api.mana.ILensControl;
 import vazkii.botania.common.item.ItemManaGun;
+import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
-public class ManaGunLensRecipe extends IForgeRegistryEntry.Impl<IRecipe> implements IRecipe {
+public class ManaGunLensRecipe extends IRecipeHidden {
+	private static final ResourceLocation TYPE_ID = new ResourceLocation(LibMisc.MOD_ID, "mana_gun_add_lens");
+	public static final IRecipeSerializer<ManaGunLensRecipe> SERIALIZER = new RecipeSerializers.SimpleSerializer<>(TYPE_ID.toString(), ManaGunLensRecipe::new);
 
-	@Override
-	public boolean isDynamic() {
-		return true;
+	public ManaGunLensRecipe(ResourceLocation id) {
+		super(id);
 	}
 
 	@Override
-	public boolean matches(@Nonnull InventoryCrafting var1, @Nonnull World var2) {
+	public boolean matches(@Nonnull IInventory inv, @Nonnull World world) {
 		boolean foundLens = false;
 		boolean foundGun = false;
 
-		for(int i = 0; i < var1.getSizeInventory(); i++) {
-			ItemStack stack = var1.getStackInSlot(i);
+		for(int i = 0; i < inv.getSizeInventory(); i++) {
+			ItemStack stack = inv.getStackInSlot(i);
 			if(!stack.isEmpty()) {
 				if(stack.getItem() instanceof ItemManaGun && ItemManaGun.getLens(stack).isEmpty())
 					foundGun = true;
@@ -54,12 +61,12 @@ public class ManaGunLensRecipe extends IForgeRegistryEntry.Impl<IRecipe> impleme
 
 	@Nonnull
 	@Override
-	public ItemStack getCraftingResult(@Nonnull InventoryCrafting var1) {
+	public ItemStack getCraftingResult(@Nonnull IInventory inv) {
 		ItemStack lens = ItemStack.EMPTY;
 		ItemStack gun = ItemStack.EMPTY;
 
-		for(int i = 0; i < var1.getSizeInventory(); i++) {
-			ItemStack stack = var1.getStackInSlot(i);
+		for(int i = 0; i < inv.getSizeInventory(); i++) {
+			ItemStack stack = inv.getStackInSlot(i);
 			if(!stack.isEmpty()) {
 				if(stack.getItem() instanceof ItemManaGun)
 					gun = stack;
@@ -84,7 +91,7 @@ public class ManaGunLensRecipe extends IForgeRegistryEntry.Impl<IRecipe> impleme
 
 	@Nonnull
 	@Override
-	public ItemStack getRecipeOutput() {
-		return ItemStack.EMPTY;
+	public IRecipeSerializer<?> getSerializer() {
+		return SERIALIZER;
 	}
 }

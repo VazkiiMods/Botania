@@ -10,42 +10,46 @@
  */
 package vazkii.botania.common.crafting.recipe;
 
+import com.google.gson.JsonObject;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.IRecipeHidden;
+import net.minecraft.item.crafting.IRecipeSerializer;
+import net.minecraft.network.PacketBuffer;
+import net.minecraft.util.JsonUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
+import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
-public class SpecialFloatingFlowerRecipe extends IForgeRegistryEntry.Impl<IRecipe> implements IRecipe {
-	public final ResourceLocation type;
+public class SpecialFloatingFlowerRecipe extends IRecipeHidden {
+	private static final ResourceLocation TYPE_ID = new ResourceLocation(LibMisc.MOD_ID, "special_floating_flower");
+	public final ResourceLocation flowerType;
 
-	public SpecialFloatingFlowerRecipe(ResourceLocation type) {
-		this.type = type;
+	public SpecialFloatingFlowerRecipe(ResourceLocation id, ResourceLocation flowerType) {
+		super(id);
+		this.flowerType = flowerType;
 	}
 
 	@Override
-	public boolean isDynamic() {
-		return true;
-	}
-
-	@Override
-	public boolean matches(@Nonnull InventoryCrafting var1, @Nonnull World var2) {
+	public boolean matches(@Nonnull IInventory inv, @Nonnull World world) {
 		boolean foundFloatingFlower = false;
 		boolean foundSpecialFlower = false;
 
-		for(int i = 0; i < var1.getSizeInventory(); i++) {
-			ItemStack stack = var1.getStackInSlot(i);
+		for(int i = 0; i < inv.getSizeInventory(); i++) {
+			ItemStack stack = inv.getStackInSlot(i);
 			if(!stack.isEmpty()) {
-				if(stack.getItem() == Item.getItemFromBlock(ModBlocks.floatingFlower))
+				if(stack.getItem() == ModBlocks.floatingFlower.asItem())
 					foundFloatingFlower = true;
 
-				else if(stack.getItem() == Item.getItemFromBlock(ModBlocks.specialFlower) && ItemBlockSpecialFlower.getType(stack).equals(type))
+				else if(stack.getItem() == ModBlocks.specialFlower.asItem() && ItemBlockSpecialFlower.getType(stack).equals(flowerType))
 					foundSpecialFlower = true;
 
 				else return false; // Found an invalid item, breaking the recipe
@@ -57,19 +61,19 @@ public class SpecialFloatingFlowerRecipe extends IForgeRegistryEntry.Impl<IRecip
 
 	@Nonnull
 	@Override
-	public ItemStack getCraftingResult(@Nonnull InventoryCrafting var1) {
+	public ItemStack getCraftingResult(@Nonnull IInventory inv) {
 		ItemStack specialFlower = ItemStack.EMPTY;
 
-		for(int i = 0; i < var1.getSizeInventory(); i++) {
-			ItemStack stack = var1.getStackInSlot(i);
-			if(!stack.isEmpty() && stack.getItem() == Item.getItemFromBlock(ModBlocks.specialFlower) && ItemBlockSpecialFlower.getType(stack).equals(type))
+		for(int i = 0; i < inv.getSizeInventory(); i++) {
+			ItemStack stack = inv.getStackInSlot(i);
+			if(!stack.isEmpty() && stack.getItem() == ModBlocks.specialFlower.asItem() && ItemBlockSpecialFlower.getType(stack).equals(flowerType))
 				specialFlower = stack;
 		}
 
 		if(specialFlower.isEmpty())
 			return ItemStack.EMPTY;
 
-		return ItemBlockSpecialFlower.ofType(new ItemStack(ModBlocks.floatingSpecialFlower), type);
+		return ItemBlockSpecialFlower.ofType(new ItemStack(ModBlocks.floatingSpecialFlower), flowerType);
 	}
 
 	@Override
@@ -79,7 +83,34 @@ public class SpecialFloatingFlowerRecipe extends IForgeRegistryEntry.Impl<IRecip
 
 	@Nonnull
 	@Override
-	public ItemStack getRecipeOutput() {
-		return ItemStack.EMPTY;
+	public IRecipeSerializer<?> getSerializer() {
+		return SERIALIZER;
 	}
+
+	public static final IRecipeSerializer<SpecialFloatingFlowerRecipe> SERIALIZER = new IRecipeSerializer<SpecialFloatingFlowerRecipe>() {
+		@Nonnull
+		@Override
+		public SpecialFloatingFlowerRecipe read(@Nonnull ResourceLocation recipeId, @Nonnull JsonObject json) {
+			ResourceLocation flowerType = new ResourceLocation(JsonUtils.getString(json, "type"));
+			return new SpecialFloatingFlowerRecipe(recipeId, flowerType);
+		}
+
+		@Nonnull
+		@Override
+		public SpecialFloatingFlowerRecipe read(@Nonnull ResourceLocation recipeId, @Nonnull PacketBuffer buffer) {
+			ResourceLocation flowerType = buffer.readResourceLocation();
+			return new SpecialFloatingFlowerRecipe(recipeId, flowerType);
+		}
+
+		@Override
+		public void write(@Nonnull PacketBuffer buffer, @Nonnull SpecialFloatingFlowerRecipe recipe) {
+			buffer.writeResourceLocation(recipe.flowerType);
+		}
+
+		@Nonnull
+		@Override
+		public ResourceLocation getName() {
+			return TYPE_ID;
+		}
+	};
 }

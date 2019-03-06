@@ -10,31 +10,38 @@
  */
 package vazkii.botania.common.crafting.recipe;
 
+import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.IRecipeHidden;
+import net.minecraft.item.crafting.IRecipeSerializer;
+import net.minecraft.item.crafting.RecipeSerializers;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import vazkii.botania.api.item.IAncientWillContainer;
 import vazkii.botania.common.item.ItemAncientWill;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
-public class AncientWillRecipe extends IForgeRegistryEntry.Impl<IRecipe> implements IRecipe {
+public class AncientWillRecipe extends IRecipeHidden {
+	private static final ResourceLocation TYPE_ID = new ResourceLocation(LibMisc.MOD_ID, "ancient_will_attach");
+	public static final IRecipeSerializer<AncientWillRecipe> SERIALIZER = new RecipeSerializers.SimpleSerializer<>(TYPE_ID.toString(), AncientWillRecipe::new);
 
-	@Override
-	public boolean isDynamic() {
-		return true;
+	public AncientWillRecipe(ResourceLocation id) {
+		super(id);
 	}
 
 	@Override
-	public boolean matches(@Nonnull InventoryCrafting var1, @Nonnull World var2) {
+	public boolean matches(@Nonnull IInventory inv, @Nonnull World world) {
 		boolean foundWill = false;
 		boolean foundItem = false;
 
-		for(int i = 0; i < var1.getSizeInventory(); i++) {
-			ItemStack stack = var1.getStackInSlot(i);
+		for(int i = 0; i < inv.getSizeInventory(); i++) {
+			ItemStack stack = inv.getStackInSlot(i);
 			if(!stack.isEmpty()) {
 				if(stack.getItem() instanceof ItemAncientWill && !foundWill)
 					foundWill = true;
@@ -51,12 +58,12 @@ public class AncientWillRecipe extends IForgeRegistryEntry.Impl<IRecipe> impleme
 
 	@Nonnull
 	@Override
-	public ItemStack getCraftingResult(@Nonnull InventoryCrafting var1) {
+	public ItemStack getCraftingResult(@Nonnull IInventory inv) {
 		ItemStack item = ItemStack.EMPTY;
 		IAncientWillContainer.AncientWillType will = null;
 
-		for(int i = 0; i < var1.getSizeInventory(); i++) {
-			ItemStack stack = var1.getStackInSlot(i);
+		for(int i = 0; i < inv.getSizeInventory(); i++) {
+			ItemStack stack = inv.getStackInSlot(i);
 			if(!stack.isEmpty()) {
 				if(stack.getItem() instanceof IAncientWillContainer && item.isEmpty())
 					item = stack;
@@ -80,7 +87,7 @@ public class AncientWillRecipe extends IForgeRegistryEntry.Impl<IRecipe> impleme
 
 	@Nonnull
 	@Override
-	public ItemStack getRecipeOutput() {
-		return ItemStack.EMPTY;
+	public IRecipeSerializer<?> getSerializer() {
+		return SERIALIZER;
 	}
 }

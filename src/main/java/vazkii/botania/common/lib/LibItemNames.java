@@ -33,7 +33,7 @@ public final class LibItemNames {
 	public static final String DIRT_ROD = "dirtrod";
 	public static final String TERRAFORM_ROD = "terraformrod";
 	public static final String MANA_MIRROR = "manamirror";
-	public static final String MANASTEEL_HELM = "manasteelhelm";
+	public static final String MANASTEEL_HELM = "manasteel_helmet";
 	public static final String MANASTEEL_CHEST = "manasteelchest";
 	public static final String MANASTEEL_LEGS = "manasteellegs";
 	public static final String MANASTEEL_BOOTS = "manasteelboots";
@@ -45,7 +45,7 @@ public final class LibItemNames {
 	public static final String GRASS_HORN = "horn_grass";
 	public static final String LEAVES_HORN = "horn_leaves";
 	public static final String SNOW_HORN = "horn_snow";
-	public static final String TERRASTEEL_HELM = "terrasteelhelm";
+	public static final String TERRASTEEL_HELM = "terrasteel_helmet";
 	public static final String TERRASTEEL_CHEST = "terrasteelchest";
 	public static final String TERRASTEEL_LEGS = "terrasteellegs";
 	public static final String TERRASTEEL_BOOTS = "terrasteelboots";
@@ -76,7 +76,7 @@ public final class LibItemNames {
 			"quartz_sunny"
 	};
 	public static final String WATER_ROD = "waterrod";
-	public static final String ELEMENTIUM_HELM = "elementiumhelm";
+	public static final String ELEMENTIUM_HELM = "elementium_helmet";
 	public static final String ELEMENTIUM_CHEST = "elementiumchest";
 	public static final String ELEMENTIUM_LEGS = "elementiumlegs";
 	public static final String ELEMENTIUM_BOOTS = "elementiumboots";
@@ -100,9 +100,9 @@ public final class LibItemNames {
 	public static final String NULL_VIRUS = "virus_nullodermal";
 	public static final String REACH_RING = "reachring";
 	public static final String SKY_DIRT_ROD = "skydirtrod";
-	public static final String MANASTEEL_HELM_R = "manasteelhelmreveal";
-	public static final String TERRASTEEL_HELM_R = "terrasteelhelmreveal";
-	public static final String ELEMENTIUM_HELM_R = "elementiumhelmreveal";
+	public static final String MANASTEEL_HELM_R = "manasteel_helmet_revealing";
+	public static final String TERRASTEEL_HELM_R = "terrasteel_helmet_revealing";
+	public static final String ELEMENTIUM_HELM_R = "elementium_helmet_revealing";
 	public static final String ITEM_FINDER = "itemfinder";
 	public static final String SUPER_LAVA_PENDANT = "superlavapendant";
 	public static final String ENDER_HAND = "enderhand";

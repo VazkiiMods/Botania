@@ -31,7 +31,7 @@ public class PacketJump {
 		return new PacketJump();
 	}
 
-	public static void handle(PacketJump msg, Supplier<NetworkEvent.Context> ctx) {
+	public void handle(Supplier<NetworkEvent.Context> ctx) {
 		ctx.get().enqueueWork(() -> {
 			EntityPlayerMP player = ctx.get().getSender();
 			IItemHandler baublesInv = BaublesApi.getBaublesHandler(player);

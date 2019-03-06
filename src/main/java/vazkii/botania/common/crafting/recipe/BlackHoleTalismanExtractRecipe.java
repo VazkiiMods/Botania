@@ -11,29 +11,36 @@
 package vazkii.botania.common.crafting.recipe;
 
 import net.minecraft.block.Block;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.IRecipeHidden;
+import net.minecraft.item.crafting.IRecipeSerializer;
+import net.minecraft.item.crafting.RecipeSerializers;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import vazkii.botania.common.item.ItemBlackHoleTalisman;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
-public class BlackHoleTalismanExtractRecipe extends IForgeRegistryEntry.Impl<IRecipe> implements IRecipe {
+public class BlackHoleTalismanExtractRecipe extends IRecipeHidden {
+	private static final ResourceLocation TYPE_ID = new ResourceLocation(LibMisc.MOD_ID, "black_hole_talisman_extract");
+	public static final IRecipeSerializer<BlackHoleTalismanExtractRecipe> SERIALIZER = new RecipeSerializers.SimpleSerializer<>(TYPE_ID.toString(), BlackHoleTalismanExtractRecipe::new);
 
-	@Override
-	public boolean isDynamic() {
-		return true;
+	public BlackHoleTalismanExtractRecipe(ResourceLocation id) {
+		super(id);
 	}
 
 	@Override
-	public boolean matches(@Nonnull InventoryCrafting var1, @Nonnull World var2) {
+	public boolean matches(@Nonnull IInventory inv, @Nonnull World world) {
 		boolean foundTalisman = false;
 
-		for(int i = 0; i < var1.getSizeInventory(); i++) {
-			ItemStack stack = var1.getStackInSlot(i);
+		for(int i = 0; i < inv.getSizeInventory(); i++) {
+			ItemStack stack = inv.getStackInSlot(i);
 			if(!stack.isEmpty()) {
 				if(stack.getItem() == ModItems.blackHoleTalisman && !foundTalisman)
 					foundTalisman = true;
@@ -46,11 +53,11 @@ public class BlackHoleTalismanExtractRecipe extends IForgeRegistryEntry.Impl<IRe
 
 	@Nonnull
 	@Override
-	public ItemStack getCraftingResult(@Nonnull InventoryCrafting var1) {
+	public ItemStack getCraftingResult(@Nonnull IInventory inv) {
 		ItemStack talisman = ItemStack.EMPTY;
 
-		for(int i = 0; i < var1.getSizeInventory(); i++) {
-			ItemStack stack = var1.getStackInSlot(i);
+		for(int i = 0; i < inv.getSizeInventory(); i++) {
+			ItemStack stack = inv.getStackInSlot(i);
 			if(!stack.isEmpty())
 				talisman = stack;
 		}
@@ -59,8 +66,7 @@ public class BlackHoleTalismanExtractRecipe extends IForgeRegistryEntry.Impl<IRe
 		if(count > 0) {
 			Block block = ItemBlackHoleTalisman.getBlock(talisman);
 			if(block != null) {
-				int meta = ItemBlackHoleTalisman.getBlockMeta(talisman);
-				return new ItemStack(block, Math.min(64, count), meta);
+				return new ItemStack(block, Math.min(64, count));
 			}
 		}
 
@@ -74,7 +80,7 @@ public class BlackHoleTalismanExtractRecipe extends IForgeRegistryEntry.Impl<IRe
 
 	@Nonnull
 	@Override
-	public ItemStack getRecipeOutput() {
-		return ItemStack.EMPTY;
+	public IRecipeSerializer<?> getSerializer() {
+		return SERIALIZER;
 	}
 }

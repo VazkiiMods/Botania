@@ -10,75 +10,99 @@
  */
 package vazkii.botania.common.crafting.recipe;
 
+import com.google.gson.JsonObject;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.item.crafting.ShapelessRecipes;
+import net.minecraft.item.crafting.RecipeSerializers;
+import net.minecraft.item.crafting.ShapelessRecipe;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
-public class HelmRevealingRecipe extends ShapelessRecipes {
-	@GameRegistry.ObjectHolder("thaumcraft:goggles")
-	private static Item goggles = null;
+public class HelmRevealingRecipe implements IRecipe {
+	private static final ResourceLocation TYPE_ID = new ResourceLocation(LibMisc.MOD_ID, "helm_revealing");
 
-	private final Item botaniaHelm;
+	private final ShapelessRecipe compose;
 
-	public HelmRevealingRecipe(Item output, Item botaniaHelm) {
-		super("botania:helm_revealing", new ItemStack(output),
-				NonNullList.from(Ingredient.EMPTY, Ingredient.fromItem(botaniaHelm), Ingredient.fromItem(goggles)));
-		this.botaniaHelm = botaniaHelm;
+	public HelmRevealingRecipe(ShapelessRecipe compose) {
+		this.compose = compose;
+	}
+
+	@Override
+	public boolean matches(@Nonnull IInventory inv, @Nonnull World world) {
+		return compose.matches(inv, world);
 	}
 
 	@Nonnull
 	@Override
-	public ItemStack getCraftingResult(@Nonnull InventoryCrafting var1) {
+	public ItemStack getCraftingResult(@Nonnull IInventory inv) {
 		ItemStack helm = ItemStack.EMPTY;
 
-		for(int i = 0; i < var1.getSizeInventory(); i++) {
-			ItemStack stack = var1.getStackInSlot(i);
-			if(!stack.isEmpty() && stack.getItem() == botaniaHelm)
+		for(int i = 0; i < inv.getSizeInventory(); i++) {
+			ItemStack stack = inv.getStackInSlot(i);
+			if(!stack.isEmpty() && stack.getItem().getRegistryName().getNamespace().equals(LibMisc.MOD_ID))
 				helm = stack;
 		}
 
 		if(helm.isEmpty())
 			return ItemStack.EMPTY;
 
-		ItemStack helmCopy = helm.copy();
-		Item helmItem = helmCopy.getItem();
-
-		ItemStack newHelm;
-
-		if(helmItem == ModItems.manasteelHelm)
-			newHelm = new ItemStack(ModItems.manasteelHelmRevealing);
-		else if(helmItem == ModItems.terrasteelHelm)
-			newHelm = new ItemStack(ModItems.terrasteelHelmRevealing);
-		else if(helmItem == ModItems.elementiumHelm)
-			newHelm = new ItemStack(ModItems.elementiumHelmRevealing);
-		else return ItemStack.EMPTY;
+		ItemStack newHelm = compose.getCraftingResult(inv);
 
 		//Copy Ancient Wills
 		for(int i = 0; i < 6; i++)
-			if(ItemNBTHelper.getBoolean(helmCopy, "AncientWill" + i, false))
+			if(ItemNBTHelper.getBoolean(helm, "AncientWill" + i, false))
 				ItemNBTHelper.setBoolean(newHelm, "AncientWill" + i, true);
 
 		//Copy Enchantments
-		NBTTagList enchList = ItemNBTHelper.getList(helmCopy, "ench", 10, true);
+		NBTTagList enchList = ItemNBTHelper.getList(helm, "ench", 10, true);
 		if(enchList != null)
 			ItemNBTHelper.setList(newHelm, "ench", enchList);
-		copyTCData(helmCopy, newHelm);
+		copyTCData(helm, newHelm);
 
 		return newHelm;
 	}
 
 	@Override
+	public boolean canFit(int width, int height) {
+		return compose.canFit(width, height);
+	}
+
+	@Nonnull
+	@Override
+	public ItemStack getRecipeOutput() {
+		return compose.getRecipeOutput();
+	}
+
+	@Override
 	public boolean isDynamic() {
 		return true;
+	}
+
+	@Nonnull
+	@Override
+	public ResourceLocation getId() {
+		return compose.getId();
+	}
+
+	@Nonnull
+	@Override
+	public IRecipeSerializer<?> getSerializer() {
+		return SERIALIZER;
 	}
 
 	private static final String TAG_RUNIC = "TC.RUNIC";
@@ -102,4 +126,28 @@ public class HelmRevealingRecipe extends ShapelessRecipes {
 		if(infEnchList != null)
 			ItemNBTHelper.setList(destination, TAG_INFUSION_ENCH, infEnchList);
 	}
+
+	public static final IRecipeSerializer<HelmRevealingRecipe> SERIALIZER = new IRecipeSerializer<HelmRevealingRecipe>() {
+		@Nonnull
+		@Override
+		public HelmRevealingRecipe read(@Nonnull ResourceLocation recipeId, @Nonnull JsonObject json) {
+			return new HelmRevealingRecipe(RecipeSerializers.CRAFTING_SHAPELESS.read(recipeId, json));
+		}
+
+		@Override
+		public HelmRevealingRecipe read(@Nonnull ResourceLocation recipeId, @Nonnull PacketBuffer buffer) {
+			return new HelmRevealingRecipe(RecipeSerializers.CRAFTING_SHAPELESS.read(recipeId, buffer));
+		}
+
+		@Override
+		public void write(@Nonnull PacketBuffer buffer, @Nonnull HelmRevealingRecipe recipe) {
+			RecipeSerializers.CRAFTING_SHAPELESS.write(buffer, recipe.compose);
+		}
+
+		@Nonnull
+		@Override
+		public ResourceLocation getName() {
+			return TYPE_ID;
+		}
+	};
 }
