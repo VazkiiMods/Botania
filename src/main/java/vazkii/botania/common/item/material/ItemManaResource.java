@@ -11,31 +11,22 @@
 package vazkii.botania.common.item.material;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
-import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.items.ItemHandlerHelper;
-import vazkii.botania.api.item.IPetalApothecary;
 import vazkii.botania.api.recipe.IElvenItem;
-import vazkii.botania.api.recipe.IFlowerComponent;
+import vazkii.botania.api.recipe.ICustomApothecaryColor;
 import vazkii.botania.common.entity.EntityDoppleganger;
-import vazkii.botania.common.entity.EntityEnderAirBottle;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
 
 // todo 1.13 further break this up
-public class ItemManaResource extends ItemMod implements IFlowerComponent, IElvenItem {
+public class ItemManaResource extends ItemMod implements ICustomApothecaryColor, IElvenItem {
 	public ItemManaResource(Properties props) {
 		super(props);
 	}

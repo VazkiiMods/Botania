@@ -15,16 +15,8 @@ import vazkii.botania.api.item.IPetalApothecary;
 
 /**
  * An Item or Block that implements this interface can have a special particle color in the Petal Apothecary.
- * TODO (breaking change): Rename to something more like "ISpecialApothecary", since now all items can go in the Apothecary
  */
-public interface IFlowerComponent {
-
-	//TODO remove 1.13, unused, all items can go in the Petal Apothecary
-	@Deprecated
-	public default boolean canFit(ItemStack stack, IPetalApothecary apothecary) {
-		return true;
-	}
-	
+public interface ICustomApothecaryColor {
 	public int getParticleColor(ItemStack stack);
 
 }

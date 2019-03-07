@@ -258,7 +258,7 @@ public final class CorporeaHelper {
 		}
 
 
-		String name = stripControlCodes(stack.getDisplayName().toLowerCase().trim());
+		String name = stripControlCodes(stack.getDisplayName().getString().toLowerCase().trim());
 		return equalOrContain(name, s, contains) || equalOrContain(name + "s", s, contains) || equalOrContain(name + "es", s, contains) || name.endsWith("y") && equalOrContain(name.substring(0, name.length() - 1) + "ies", s, contains);
 	}
 

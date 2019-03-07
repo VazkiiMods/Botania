@@ -14,6 +14,7 @@ import com.google.common.base.Preconditions;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tags.Tag;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
@@ -40,8 +41,9 @@ public class RecipePureDaisy {
 		this.input = input;
 		outputState = state;
 		this.time = time;
-		if(input != null && !(input instanceof String || input instanceof Block || input instanceof IBlockState))
-			throw new IllegalArgumentException("input must be an oredict String, Block, or IBlockState");
+		if(input != null && !(input instanceof Tag || input instanceof Block || input instanceof IBlockState))
+			throw new IllegalArgumentException("input must be a Tag<Block>, Block, or IBlockState");
+		// todo 1.13 find way to throw or enforce Tag<Block>
 	}
 
 	/**
@@ -54,22 +56,7 @@ public class RecipePureDaisy {
 		if(input instanceof IBlockState)
 			return state == input;
 
-		ItemStack stack = new ItemStack(state.getBlock(), 1, state.getBlock().damageDropped(state));
-		String oredict = (String) input;
-		return isOreDict(stack, oredict);
-	}
-
-	private boolean isOreDict(ItemStack stack, String entry) {
-		if(stack.isEmpty())
-			return false;
-
-		for(ItemStack ostack : OreDictionary.getOres(entry, false)) {
-			if(OreDictionary.itemMatches(ostack, stack, false)) {
-				return true;
-			}
-		}
-
-		return false;
+		return ((Tag<Block>) input).contains(state.getBlock());
 	}
 
 	/**

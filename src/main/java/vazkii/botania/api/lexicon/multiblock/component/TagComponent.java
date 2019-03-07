@@ -11,39 +11,40 @@
 package vazkii.botania.api.lexicon.multiblock.component;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.tags.Tag;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
 
-/**
- * A multiblock component that switches through the 16 colors of the
- * minecraft spectrum. This can be used for flowers, for example.
- */
-public class ColorSwitchingComponent extends MultiblockComponent {
+public class TagComponent extends MultiblockComponent {
 
-	private final PropertyEnum<EnumDyeColor> colorProp;
+	private final Tag<Block> tag;
 
-	public ColorSwitchingComponent(BlockPos relPos, Block block, PropertyEnum<EnumDyeColor> colorProp) {
+	public TagComponent(BlockPos relPos, Block block, Tag<Block> tag) {
 		super(relPos, block.getDefaultState());
-		this.colorProp = colorProp;
+		this.tag = tag;
 	}
 
 	@Override
 	public IBlockState getBlockState() {
-		return state.with(colorProp, EnumDyeColor.byMetadata((int) (BotaniaAPI.internalHandler.getWorldElapsedTicks() / 20) % 16));
+		if (tag.getAllElements().isEmpty()) {
+			return super.getBlockState();
+		} else {
+			Block[] arr = tag.getAllElements().toArray(new Block[0]);
+			int idx = (int) (BotaniaAPI.internalHandler.getWorldElapsedTicks() / 20) % arr.length;
+			return arr[idx].getDefaultState();
+		}
 	}
 
 	@Override
 	public boolean matches(World world, BlockPos pos) {
-		return world.getBlockState(pos).getBlock() == getBlockState().getBlock();
+		return world.getBlockState(pos).getBlock().isIn(tag);
 	}
 
 	@Override
 	public MultiblockComponent copy() {
-		return new ColorSwitchingComponent(getRelativePosition(), getBlockState().getBlock(), colorProp);
+		return new TagComponent(getRelativePosition(), getBlockState().getBlock(), tag);
 	}
 
 }

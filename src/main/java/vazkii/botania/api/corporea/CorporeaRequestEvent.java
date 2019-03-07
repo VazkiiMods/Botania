@@ -10,8 +10,8 @@
  */
 package vazkii.botania.api.corporea;
 
-import net.minecraftforge.fml.common.eventhandler.Cancelable;
-import net.minecraftforge.fml.common.eventhandler.Event;
+import net.minecraftforge.eventbus.api.Cancelable;
+import net.minecraftforge.eventbus.api.Event;
 
 /**
  * Fired when a corporea request is initiated. Can be cancelled.

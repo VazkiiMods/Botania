@@ -11,18 +11,21 @@
 package vazkii.botania.api.lexicon.multiblock.component;
 
 import net.minecraft.block.Block;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.common.lib.LibMisc;
 
 /**
  * A multiblock component that matches any botania flower.
  */
-public class FlowerComponent extends ColorSwitchingComponent {
+public class FlowerComponent extends TagComponent {
 
 	public FlowerComponent(BlockPos relPos, Block block) {
-		super(relPos, block, BotaniaStateProps.COLOR);
+		super(relPos, block, new BlockTags.Wrapper(new ResourceLocation(LibMisc.MOD_ID, "mystical_flowers")));
 	}
 
 	@Override

@@ -12,7 +12,7 @@ package vazkii.botania.api.mana;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.common.eventhandler.Event;
+import net.minecraftforge.eventbus.api.Event;
 
 public class ManaDiscountEvent extends Event {
 

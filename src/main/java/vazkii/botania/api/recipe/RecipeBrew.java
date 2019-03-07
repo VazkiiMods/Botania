@@ -13,6 +13,7 @@ package vazkii.botania.api.recipe;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.brew.Brew;
@@ -24,23 +25,15 @@ import java.util.List;
 public class RecipeBrew {
 
 	private final Brew brew;
-	private final ImmutableList<Object> inputs;
+	private final ImmutableList<Ingredient> inputs;
 
-	public RecipeBrew(Brew brew, Object... inputs) {
+	public RecipeBrew(Brew brew, Ingredient... inputs) {
 		this.brew = brew;
-
-		ImmutableList.Builder<Object> inputsToSet = ImmutableList.builder();
-		for(Object obj : inputs) {
-			if(obj instanceof String || obj instanceof ItemStack)
-				inputsToSet.add(obj);
-			else throw new IllegalArgumentException("Invalid input");
-		}
-
-		this.inputs = inputsToSet.build();
+		this.inputs = ImmutableList.copyOf(inputs);
 	}
 
 	public boolean matches(IItemHandler inv) {
-		List<Object> inputsMissing = new ArrayList<>(inputs);
+		List<Ingredient> inputsMissing = new ArrayList<>(inputs);
 
 		for(int i = 0; i < inv.getSlots(); i++) {
 			ItemStack stack = inv.getStackInSlot(i);
@@ -50,24 +43,11 @@ public class RecipeBrew {
 			if(stack.getItem() instanceof IBrewContainer)
 				continue;
 
-			int stackIndex = -1, oredictIndex = -1;
+			int stackIndex = -1;
 
 			for(int j = 0; j < inputsMissing.size(); j++) {
-				Object input = inputsMissing.get(j);
-				if(input instanceof String) {
-					boolean found = false;
-					for(ItemStack ostack : OreDictionary.getOres((String) input, false)) {
-						if(OreDictionary.itemMatches(ostack, stack, false)) {
-							oredictIndex = j;
-							found = true;
-							break;
-						}
-					}
-
-
-					if(found)
-						break;
-				} else if(input instanceof ItemStack && simpleAreStacksEqual((ItemStack) input, stack)) {
+				Ingredient input = inputsMissing.get(j);
+				if(input.test(stack)) {
 					stackIndex = j;
 					break;
 				}
@@ -75,16 +55,10 @@ public class RecipeBrew {
 
 			if(stackIndex != -1)
 				inputsMissing.remove(stackIndex);
-			else if(oredictIndex != -1)
-				inputsMissing.remove(oredictIndex);
 			else return false;
 		}
 
 		return inputsMissing.isEmpty();
-	}
-
-	private boolean simpleAreStacksEqual(ItemStack stack, ItemStack stack2) {
-		return stack.getItem() == stack2.getItem() && stack.getItemDamage() == stack2.getItemDamage();
 	}
 
 	public List<Object> getInputs() {

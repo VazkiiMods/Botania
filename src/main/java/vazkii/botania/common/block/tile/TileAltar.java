@@ -10,7 +10,6 @@
  */
 package vazkii.botania.common.block.tile;
 
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
@@ -41,7 +40,7 @@ import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.item.IPetalApothecary;
-import vazkii.botania.api.recipe.IFlowerComponent;
+import vazkii.botania.api.recipe.ICustomApothecaryColor;
 import vazkii.botania.api.recipe.RecipePetals;
 import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
@@ -164,12 +163,12 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 		return false;
 	}
 	
-	private IFlowerComponent getFlowerComponent(ItemStack stack) {
-		IFlowerComponent c = null;
-		if(stack.getItem() instanceof IFlowerComponent)
-			c = (IFlowerComponent) stack.getItem();
-		else if(stack.getItem() instanceof ItemBlock && ((ItemBlock) stack.getItem()).getBlock() instanceof IFlowerComponent)
-			c = (IFlowerComponent) ((ItemBlock) stack.getItem()).getBlock();
+	private ICustomApothecaryColor getFlowerComponent(ItemStack stack) {
+		ICustomApothecaryColor c = null;
+		if(stack.getItem() instanceof ICustomApothecaryColor)
+			c = (ICustomApothecaryColor) stack.getItem();
+		else if(stack.getItem() instanceof ItemBlock && ((ItemBlock) stack.getItem()).getBlock() instanceof ICustomApothecaryColor)
+			c = (ICustomApothecaryColor) ((ItemBlock) stack.getItem()).getBlock();
 		
 		return c;
 	}
@@ -246,7 +245,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 					break;
 
 				if(Math.random() >= 0.97) {
-					IFlowerComponent comp = getFlowerComponent(stackAt);
+					ICustomApothecaryColor comp = getFlowerComponent(stackAt);
 					Color color = new Color(comp == null ? 0x888888 : comp.getParticleColor(stackAt));
 					float red = color.getRed() / 255F;
 					float green = color.getGreen() / 255F;

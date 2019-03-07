@@ -23,15 +23,12 @@ public class WikiHooks {
 	private static final Map<String, IWikiProvider> modWikis = new HashMap<>();
 
 	public static IWikiProvider getWikiFor(Block block) {
-		ResourceLocation mod = Block.REGISTRY.getNameForObject(block);
+		ResourceLocation mod = block.getRegistryName();
 		return getWikiFor(mod == null ? "" : mod.getNamespace().toLowerCase());
 	}
 
 	public static IWikiProvider getWikiFor(String mod) {
-		if(!modWikis.containsKey(mod))
-			modWikis.put(mod, FALLBACK_PROVIDER);
-
-		return modWikis.get(mod);
+		return modWikis.getOrDefault(mod, FALLBACK_PROVIDER);
 	}
 
 	public static void registerModWiki(String mod, IWikiProvider provider) {

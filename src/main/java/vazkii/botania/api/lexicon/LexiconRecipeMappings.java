@@ -11,8 +11,6 @@
 package vazkii.botania.api.lexicon;
 
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.oredict.OreDictionary;
-import vazkii.botania.api.mana.IManaItem;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -48,28 +46,20 @@ public final class LexiconRecipeMappings {
 	}
 
 	public static EntryData getDataForStack(ItemStack stack) {
-		String wildKey = stackToString(stack, true);
+		String wildKey = stackToString(stack);
 		if (mappings.containsKey(wildKey))
 			return mappings.get(wildKey);
 		return mappings.get(stackToString(stack));
 	}
 
-	public static String stackToString(ItemStack stack) {
-		return stackToString(stack, false);
-	}
-
-	public static String stackToString(ItemStack stack, boolean forceIgnore) {
+	private static String stackToString(ItemStack stack) {
 		if(stack.isEmpty())
 			return "NULL";
 
-		if(stack.hasTagCompound() && stack.getItem() instanceof IRecipeKeyProvider)
+		if(stack.hasTag() && stack.getItem() instanceof IRecipeKeyProvider)
 			return ((IRecipeKeyProvider) stack.getItem()).getKey(stack);
 
-		return stack.getTranslationKey() + (forceIgnore || ignoreMeta(stack) ? "" : "~" + stack.getItemDamage());
-	}
-
-	public static boolean ignoreMeta(ItemStack stack) {
-		return stack.isItemStackDamageable() || stack.getItem() instanceof IManaItem || stack.getItemDamage() == OreDictionary.WILDCARD_VALUE;
+		return stack.getTranslationKey();
 	}
 
 	public static class EntryData {
@@ -77,7 +67,7 @@ public final class LexiconRecipeMappings {
 		public final LexiconEntry entry;
 		public final int page;
 
-		public EntryData(LexiconEntry entry, int page) {
+		EntryData(LexiconEntry entry, int page) {
 			this.entry = entry;
 			this.page = page;
 		}

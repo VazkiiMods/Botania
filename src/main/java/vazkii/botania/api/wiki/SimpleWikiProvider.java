@@ -15,6 +15,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 import org.apache.commons.lang3.text.WordUtils;
 
@@ -53,16 +54,12 @@ public class SimpleWikiProvider implements IWikiProvider {
 		ItemStack stack = state.getBlock().getPickBlock(state, pos, world, bPos, player);
 
 		if(stack.isEmpty())
-			stack = new ItemStack(state.getBlock(), 1, state.getBlock().damageDropped(state));
+			stack = new ItemStack(state.getBlock());
 
 		if(stack.isEmpty())
 			return null;
 
-		String name = stack.getDisplayName();
-		if(name == null || name.isEmpty())
-			return null;
-
-		return name;
+		return stack.getDisplayName().getString();
 	}
 
 	@Override

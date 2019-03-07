@@ -26,7 +26,7 @@ public class AnyComponent extends MultiblockComponent {
 	@Override
 	public boolean matches(World world, BlockPos pos) {
 		IBlockState state = world.getBlockState(pos);
-		return !state.getBlock().isAir(state, world, pos) && state.getCollisionBoundingBox(world, pos) != null;
+		return !state.getBlock().isAir(state, world, pos) && !state.getCollisionShape(world, pos).isEmpty();
 	}
 
 }

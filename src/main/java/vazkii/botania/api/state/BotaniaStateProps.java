@@ -10,14 +10,10 @@ package vazkii.botania.api.state;
 
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
-import net.minecraft.block.BlockRailBase;
-import net.minecraft.block.BlockRailPowered;
-import net.minecraft.block.BlockRotatedPillar;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.EnumProperty;
-import net.minecraft.state.properties.RailShape;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
@@ -25,8 +21,6 @@ import net.minecraft.world.IBlockReader;
 import vazkii.botania.api.item.IFloatingFlower;
 import vazkii.botania.api.state.enums.AlfPortalState;
 import vazkii.botania.api.state.enums.CratePattern;
-import vazkii.botania.api.state.enums.LuminizerVariant;
-import vazkii.botania.api.state.enums.QuartzVariant;
 
 /**
  * Holds all Botania block state properties. Use these to set botania blockstates
@@ -64,14 +58,6 @@ public final class BotaniaStateProps {
 	// Redstone power - boolean
 	// Also for any other simple boolean "on/off" state
 	public static final BooleanProperty POWERED = BooleanProperty.create("powered");
-
-	/** Properties for certain kinds of blocks **/
-
-	// The axis directions (think quartz pillars and wood logs)
-	public static final EnumProperty<EnumFacing.Axis> AXIS_FACING = BlockRotatedPillar.AXIS;
-
-	// Extra Quartz Blocks
-	public static final EnumProperty<QuartzVariant> QUARTZ_VARIANT = EnumProperty.create("variant", QuartzVariant.class);
 
 	/** Properties for individual blocks **/
 

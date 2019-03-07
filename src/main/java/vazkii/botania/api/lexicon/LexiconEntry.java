@@ -11,7 +11,6 @@
 package vazkii.botania.api.lexicon;
 
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.BotaniaAPI;
@@ -123,7 +122,8 @@ public class LexiconEntry implements Comparable<LexiconEntry> {
 	}
 
 	public final String getNameForSorting() {
-		return (priority ? 0 : 1) + I18n.translateToLocal(getUnlocalizedName());
+		// todo used to be localized
+		return (priority ? 0 : 1) + getUnlocalizedName();
 	}
 
 	public List<ItemStack> getDisplayedRecipes() {

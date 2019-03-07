@@ -12,11 +12,10 @@ package vazkii.botania.common.item.material;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import vazkii.botania.api.item.IPetalApothecary;
-import vazkii.botania.api.recipe.IFlowerComponent;
+import vazkii.botania.api.recipe.ICustomApothecaryColor;
 import vazkii.botania.common.item.ItemMod;
 
-public class ItemRune extends ItemMod implements IFlowerComponent {
+public class ItemRune extends ItemMod implements ICustomApothecaryColor {
 
 	public ItemRune(Item.Properties builder) {
 		super(builder);
