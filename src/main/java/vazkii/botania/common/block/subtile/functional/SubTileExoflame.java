@@ -24,11 +24,17 @@ import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.lexicon.LexiconData;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class SubTileExoflame extends SubTileFunctional {
 
 	private static final int RANGE = 5;
 	private static final int RANGE_Y = 2;
 	private static final int COST = 300;
+
+	private final List<BlockPos> smelterPosCache = new ArrayList<>();
+	private BlockPos lastTickPos = null;
 
 	@Override
 	public void onUpdate() {
@@ -37,9 +43,10 @@ public class SubTileExoflame extends SubTileFunctional {
 		if(supertile.getWorld().isRemote)
 			return;
 
-		boolean did = false;
+		if(ticksExisted % 100 == 0 || !getPos().equals(lastTickPos))
+			scanForSmelters();
 
-		for(BlockPos pos : BlockPos.getAllInBox(getPos().add(-RANGE, -RANGE_Y, -RANGE), getPos().add(RANGE, RANGE_Y, RANGE))) {
+		for(BlockPos pos : smelterPosCache) {
 			TileEntity tile = supertile.getWorld().getTileEntity(pos);
 			Block block = supertile.getWorld().getBlockState(pos).getBlock();
 			if(tile != null) {
@@ -55,8 +62,6 @@ public class SubTileExoflame extends SubTileFunctional {
 						}
 						if(ticksExisted % 2 == 0)
 							furnace.setField(2, Math.min(199, furnace.getField(2) + 1)); // Field 2 -> cook time
-
-						did = true;
 
 						if(mana <= 0)
 							break;
@@ -79,12 +84,19 @@ public class SubTileExoflame extends SubTileFunctional {
 				}
 			}
 		}
-
-		if(did)
-			sync();
 	}
 
-	public static boolean canFurnaceSmelt(TileEntityFurnace furnace){
+	private void scanForSmelters() {
+		lastTickPos = getPos();
+		smelterPosCache.clear();
+		for(BlockPos pos : BlockPos.getAllInBox(getPos().add(-RANGE, -RANGE_Y, -RANGE), getPos().add(RANGE, RANGE_Y, RANGE))) {
+			TileEntity tile = supertile.getWorld().getTileEntity(pos);
+			if(tile instanceof TileEntityFurnace || tile instanceof IExoflameHeatable)
+				smelterPosCache.add(pos);
+		}
+	}
+
+	public static boolean canFurnaceSmelt(TileEntityFurnace furnace) {
 		if(furnace.getStackInSlot(0).isEmpty())
 			return false;
 		else {

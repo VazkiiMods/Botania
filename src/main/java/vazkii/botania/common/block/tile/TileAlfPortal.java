@@ -73,11 +73,13 @@ public class TileAlfPortal extends TileMod implements ITickable {
 	private static final String TAG_PORTAL_FLAG = "_elvenPortal";
 
 	private final List<ItemStack> stacksIn = new ArrayList<>();
+	private final List<BlockPos> pylonPosCache = new ArrayList<>();
 
 	public int ticksOpen = 0;
 	private int ticksSinceLastItem = 0;
 	private boolean closeNow = false;
 	private boolean explode = false;
+	private BlockPos lastTickPos = null;
 
 	private static final Function<BlockPos, BlockPos> CONVERTER_X_Z = input -> new BlockPos(input.getZ(), input.getY(), input.getX());
 
@@ -345,21 +347,34 @@ public class TileAlfPortal extends TileMod implements ITickable {
 	}
 
 	public List<BlockPos> locatePylons() {
-		List<BlockPos> list = new ArrayList();
-		int range = 5;
-
 		IBlockState pylonState = ModBlocks.pylon.getDefaultState().withProperty(BotaniaStateProps.PYLON_VARIANT, PylonVariant.NATURA);
 		IBlockState poolState = ModBlocks.pool.getDefaultState();
 
+		if(ticksOpen % 160 != 0 && pylonPosCache.size() >= 2 && pos.equals(lastTickPos)) {
+			boolean isPylonCacheValid = true;
+
+			for(BlockPos pos : pylonPosCache)
+				if(!checkPosition(pos, pylonState, false) || !checkPosition(pos.down(), poolState, true)) {
+					isPylonCacheValid = false;
+					break;
+				}
+
+			if(isPylonCacheValid)
+				return pylonPosCache;
+		}
+		lastTickPos = pos;
+		pylonPosCache.clear();
+		int range = 5;
+		
 		for(int i = -range; i < range + 1; i++)
 			for(int j = -range; j < range + 1; j++)
 				for(int k = -range; k < range + 1; k++) {
 					BlockPos pos = new BlockPos(i, j, k);
 					if(checkPosition(pos, pylonState, false) && checkPosition(pos.down(), poolState, true))
-						list.add(pos);
+						pylonPosCache.add(pos);
 				}
 
-		return list;
+		return pylonPosCache;
 	}
 
 	public void lightPylons() {
@@ -381,7 +396,7 @@ public class TileAlfPortal extends TileMod implements ITickable {
 	}
 
 	public boolean consumeMana(@Nullable List<BlockPos> pylons, int totalCost, boolean close) {
-		List<TilePool> consumePools = new ArrayList();
+		List<TilePool> consumePools = new ArrayList<>();
 		int consumed = 0;
 
 		if(pylons == null)
