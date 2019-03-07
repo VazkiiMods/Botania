@@ -11,7 +11,11 @@
 package vazkii.botania.client.render.tile;
 
 import com.mojang.authlib.GameProfile;
+import net.minecraft.block.BlockAbstractSkull;
+import net.minecraft.block.BlockSkull;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.tileentity.TileEntityItemStackRenderer;
+import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.client.renderer.tileentity.TileEntitySkullRenderer;
 import net.minecraft.entity.Entity;
@@ -22,26 +26,28 @@ import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.monster.EntityWitherSkeleton;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntitySkull;
 import net.minecraft.util.EnumFacing;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.render.entity.RenderDoppleganger;
+import vazkii.botania.common.block.BlockGaiaHead;
+import vazkii.botania.common.block.tile.TileGaiaHead;
+import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class RenderTileGaiaHead extends TileEntitySkullRenderer {
-	@Override
-	public void render(TileEntitySkull skull, double x, double y, double z, float partialTicks, int digProgress) {
-		ShaderHelper.useShader(ShaderHelper.doppleganger, RenderDoppleganger.defaultCallback);
-
-		// Null-safe copy of super
-		renderSkull((float)x, (float)y, (float)z,
-				skull == null ? EnumFacing.NORTH : EnumFacing.byIndex(skull.getBlockMetadata() & 7),
-						skull == null ? 0 : skull.getSkullRotation() * 360 / 16.0F,
-								3, null, digProgress, partialTicks);
-
-		ShaderHelper.releaseShader();
+	public static class TEISR extends TileEntityItemStackRenderer {
+		@Override
+		public void renderByItem(ItemStack stack) {
+			if(stack.getItem() == ModItems.gaiaHead) {
+				TileEntityRenderer<?> ter = TileEntityRendererDispatcher.instance.getRenderer(TileGaiaHead.class);
+				((RenderTileGaiaHead) ter).render(0.0F, 0.0F, 0.0F, null, 180.0F, BlockGaiaHead.GAIA_TYPE, null, -1, 0.0F);
+			}
+		}
 	}
 
 	@Override
@@ -51,28 +57,30 @@ public class RenderTileGaiaHead extends TileEntitySkullRenderer {
 	}
 
 	@Override
-	public void renderSkull(float x, float y, float z, @Nonnull EnumFacing facing, float rotation, int skullType, @Nullable GameProfile profile, int destroyStage, float animateTicks) {
+	public void render(float x, float y, float z, @Nullable EnumFacing facing, float rotationIn, BlockSkull.ISkullType type, @Nullable GameProfile profile, int destroyStage, float animationProgress) {
 		Minecraft mc = Minecraft.getInstance();
 		Entity view = mc.getRenderViewEntity();
 
 		profile = null;
 
+		type = BlockSkull.Types.PLAYER;
 		if(view instanceof EntityPlayer) {
-			skullType = 3;
 			profile = ((EntityPlayer) mc.getRenderViewEntity()).getGameProfile();
 		} else if (view instanceof EntitySkeleton)
-			skullType = 0;
+			type = BlockSkull.Types.SKELETON;
 		else if(view instanceof EntityWitherSkeleton)
-			skullType = 1;
+			type = BlockSkull.Types.WITHER_SKELETON;
 		else if(view instanceof EntityWither)
-			skullType = 1;
+			type = BlockSkull.Types.WITHER_SKELETON;
 		else if(view instanceof EntityZombie)
-			skullType = 2;
+			type = BlockSkull.Types.ZOMBIE;
 		else if(view instanceof EntityCreeper)
-			skullType = 4;
+			type = BlockSkull.Types.CREEPER;
 		else if(view instanceof EntityDragon)
-			skullType = 5;
+			type = BlockSkull.Types.DRAGON;
 
-		super.renderSkull(x, y, z, facing, rotation, skullType, profile, destroyStage, animateTicks);
+		ShaderHelper.useShader(ShaderHelper.doppleganger, RenderDoppleganger.defaultCallback);
+		super.render(x, y, z, facing, rotationIn, type, profile, destroyStage, animationProgress);
+		ShaderHelper.releaseShader();
 	}
 }

@@ -128,6 +128,7 @@ public final class LibBlockNames {
 	public static final String PAVEMENT_SUFFIX = "_pavement";
 	public static final String CELL_BLOCK = "cell_block";
 	public static final String GAIA_HEAD = "gaia_head";
+	public static final String GAIA_WALL_HEAD = "gaia_wall_head";
 	public static final String CORPOREA_RETAINER = "corporea_retainer";
 	public static final String TERU_TERU_BOZU = "teru_teru_bozu";
 	public static final String SHIMMERROCK = "shimmerrock";

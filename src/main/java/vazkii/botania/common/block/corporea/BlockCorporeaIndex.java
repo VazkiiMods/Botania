@@ -22,7 +22,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particles.BlockParticleData;
 import net.minecraft.util.EnumBlockRenderType;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.IBlockReader;
@@ -98,7 +97,7 @@ public class BlockCorporeaIndex extends BlockCorporeaBase implements ILexiconabl
 						double d0 = pos.getX() + (j + 0.5D) / i;
 						double d1 = pos.getY() + (k + 0.5D) / i;
 						double d2 = pos.getZ() + (l + 0.5D) / i;
-						effectRenderer.addEffect(factory.makeParticle(new BlockParticleData(Particles.BLOCK, ModBlocks.elementiumBlock), world, d0, d1, d2, d0 - pos.getX() - 0.5D, d1 - pos.getY() - 0.5D, d2 - pos.getZ() - 0.5D));
+						effectRenderer.addEffect(factory.makeParticle(new BlockParticleData(Particles.BLOCK, ModBlocks.elementiumBlock.getDefaultState()), world, d0, d1, d2, d0 - pos.getX() - 0.5D, d1 - pos.getY() - 0.5D, d2 - pos.getZ() - 0.5D));
 					}
 				}
 			}
@@ -106,13 +105,6 @@ public class BlockCorporeaIndex extends BlockCorporeaBase implements ILexiconabl
 		} else {
 			return false;
 		}
-	}
-
-	@OnlyIn(Dist.CLIENT)
-	@Override
-	public void registerModels() {
-		ModelHandler.registerCustomItemblock(this, "corporea_index");
-		ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(this), 0, TileCorporeaIndex.class);
 	}
 
 }

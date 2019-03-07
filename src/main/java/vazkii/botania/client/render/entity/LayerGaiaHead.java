@@ -11,6 +11,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.render.tile.RenderTileGaiaHead;
+import vazkii.botania.common.block.BlockGaiaHead;
 import vazkii.botania.common.block.tile.TileGaiaHead;
 import vazkii.botania.common.item.ModItems;
 
@@ -88,7 +89,7 @@ public class LayerGaiaHead implements LayerRenderer<EntityPlayer> {
 			// Botania - use gaia TESR
 			ShaderHelper.useShader(ShaderHelper.doppleganger, RenderDoppleganger.defaultCallback);
 			((RenderTileGaiaHead) (TileEntityRenderer) TileEntityRendererDispatcher.instance.getRenderer(TileGaiaHead.class))
-			.renderSkull(-0.5F, 0.0F, -0.5F, EnumFacing.UP, 180.0F, 0, null, -1, limbSwing);
+			.render(-0.5F, 0.0F, -0.5F, EnumFacing.UP, 180.0F, BlockGaiaHead.GAIA_TYPE, null, -1, limbSwing);
 			ShaderHelper.releaseShader();
 
 			GlStateManager.popMatrix();

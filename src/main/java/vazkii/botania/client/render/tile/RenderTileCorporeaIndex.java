@@ -13,15 +13,28 @@ package vazkii.botania.client.render.tile;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.model.ModelEnderCrystal;
+import net.minecraft.client.renderer.tileentity.TileEntityItemStackRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
+import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
 
 import javax.annotation.Nullable;
 
 public class RenderTileCorporeaIndex extends TileEntityRenderer<TileCorporeaIndex> {
+	public static class TEISR extends TileEntityItemStackRenderer {
+		@Override
+		public void renderByItem(ItemStack stack) {
+			if(stack.getItem() == ModBlocks.corporeaIndex.asItem()) {
+				TileEntityRendererDispatcher.instance.getRenderer(TileCorporeaIndex.class)
+						.render(null, 0, 0, 0, 0, -1);
+			}
+		}
+	}
 
 	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_CORPOREA_INDEX);
 	private final ModelEnderCrystal crystal = new ModelEnderCrystal(0F, false);

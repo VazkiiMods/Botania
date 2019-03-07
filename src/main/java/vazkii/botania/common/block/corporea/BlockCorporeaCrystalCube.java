@@ -14,9 +14,7 @@ import net.minecraft.block.Block;
 import javax.annotation.Nonnull;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockFaceShape;
-import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -30,7 +28,6 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraftforge.client.ForgeHooksClient;
-import net.minecraftforge.common.property.ExtendedBlockState;
 import net.minecraftforge.common.property.IUnlistedProperty;
 import net.minecraftforge.common.property.Properties;
 import net.minecraftforge.api.distmarker.Dist;
@@ -52,19 +49,6 @@ public class BlockCorporeaCrystalCube extends BlockCorporeaBase implements ILexi
 
 	public BlockCorporeaCrystalCube(Block.Properties builder) {
 		super(builder);
-		setDefaultState(stateContainer.getBaseState().with(Properties.StaticProperty, true));
-	}
-
-	@Nonnull
-	@Override
-	public void createBlockState() {
-		return new ExtendedBlockState(this, new IProperty[] { Properties.StaticProperty }, new IUnlistedProperty[] { Properties.AnimationProperty } );
-	}
-
-	@Nonnull
-	@Override
-	public IBlockState getActualState(@Nonnull IBlockState state, IBlockReader world, BlockPos pos) {
-		return state.with(Properties.StaticProperty, true);
 	}
 
 	@Override
@@ -140,12 +124,5 @@ public class BlockCorporeaCrystalCube extends BlockCorporeaBase implements ILexi
 	@Override
 	public BlockFaceShape getBlockFaceShape(IBlockReader world, IBlockState state, BlockPos pos, EnumFacing side) {
 		return BlockFaceShape.UNDEFINED;
-	}
-
-	@OnlyIn(Dist.CLIENT)
-	@Override
-	public void registerModels() {
-		ModelHandler.registerInventoryVariant(this);
-		ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(this), 0, TileCorporeaCrystalCube.class);
 	}
 }

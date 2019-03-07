@@ -20,7 +20,9 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.entity.RenderEntityItem;
 import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.client.renderer.tileentity.TileEntityItemStackRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
+import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.Blocks;
@@ -38,17 +40,29 @@ import net.minecraftforge.common.property.Properties;
 import org.apache.commons.lang3.tuple.Pair;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.client.core.handler.ClientTickHandler;
+import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaCrystalCube;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
+// TODO 1.13 move this back to a normal tesr. Byebye animation API
 public class RenderTileCorporeaCrystalCube extends TileEntityRenderer<TileCorporeaCrystalCube> {
+	public static class TEISR extends TileEntityItemStackRenderer {
+		@Override
+		public void renderByItem(ItemStack stack) {
+			if(stack.getItem() == ModBlocks.corporeaCrystalCube.asItem()) {
+				TileEntityRendererDispatcher.instance.getRenderer(TileCorporeaCrystalCube.class)
+						.render(null, 0, 0, 0, 0, -1);
+			}
+		}
+	}
 
 	private EntityItem entity = null;
 	private RenderEntityItem itemRenderer = null;
 
 	@Override
-	public void render(@Nonnull TileCorporeaCrystalCube cube, double d0, double d1, double d2, float f, int digProgress) {
+	public void render(@Nullable TileCorporeaCrystalCube cube, double d0, double d1, double d2, float f, int digProgress) {
 		ItemStack stack = ItemStack.EMPTY;
 		if (cube != null) {
 			if(entity == null)

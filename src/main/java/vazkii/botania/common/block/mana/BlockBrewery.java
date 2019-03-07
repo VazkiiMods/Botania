@@ -137,14 +137,6 @@ public class BlockBrewery extends BlockMod implements ILexiconable, IWandHUD {
 		((TileBrewery) world.getTileEntity(pos)).renderHUD(mc);
 	}
 
-	@OnlyIn(Dist.CLIENT)
-	@Override
-	public void registerModels() {
-		ModelLoader.setCustomStateMapper(this, new StateMap.Builder().ignore(BotaniaStateProps.POWERED).build());
-		ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(this), 0, TileBrewery.class);
-		ModelHandler.registerCustomItemblock(this, "brewery");
-	}
-
 	@Nonnull
 	@Override
 	public BlockFaceShape getBlockFaceShape(IBlockReader world, IBlockState state, BlockPos pos, EnumFacing side) {

@@ -56,11 +56,4 @@ public class ItemGaiaHead extends ItemWallOrFloor {
 	public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped _default) {
 		return (ModelBiped) Botania.proxy.getEmptyModelBiped();
 	}
-
-	@OnlyIn(Dist.CLIENT)
-	@Override
-	public void registerModels() {
-		super.registerModels();
-		ForgeHooksClient.registerTESRItemStack(this, 0, TileGaiaHead.class);
-	}
 }

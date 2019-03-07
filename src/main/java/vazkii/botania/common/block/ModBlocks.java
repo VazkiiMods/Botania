@@ -32,6 +32,9 @@ import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.recipe.RecipeManaInfusion;
 import vazkii.botania.api.state.enums.LuminizerVariant;
 import vazkii.botania.api.subtile.SubTileEntity;
+import vazkii.botania.client.render.tile.RenderTileBrewery;
+import vazkii.botania.client.render.tile.RenderTileCorporeaCrystalCube;
+import vazkii.botania.client.render.tile.RenderTileCorporeaIndex;
 import vazkii.botania.common.block.corporea.BlockCorporeaCrystalCube;
 import vazkii.botania.common.block.corporea.BlockCorporeaFunnel;
 import vazkii.botania.common.block.corporea.BlockCorporeaIndex;
@@ -352,6 +355,7 @@ public final class ModBlocks {
 	@ObjectHolder(LibBlockNames.CELL_BLOCK) public static Block cellBlock;
 	@ObjectHolder(LibBlockNames.RED_STRING_INTERCEPTOR) public static Block redStringInterceptor;
 	@ObjectHolder(LibBlockNames.GAIA_HEAD) public static Block gaiaHead;
+	@ObjectHolder(LibBlockNames.GAIA_WALL_HEAD) public static Block gaiaHeadWall;
 	@ObjectHolder(LibBlockNames.CORPOREA_RETAINER) public static Block corporeaRetainer;
 	@ObjectHolder(LibBlockNames.TERU_TERU_BOZU) public static Block teruTeruBozu;
 	@ObjectHolder(LibBlockNames.SHIMMERROCK) public static Block shimmerrock;
@@ -558,6 +562,7 @@ public final class ModBlocks {
 		register(r, new BlockBellows(Block.Properties.create(Material.WOOD).hardnessAndResistance(2).sound(SoundType.WOOD)), LibBlockNames.BELLOWS);
 		register(r, new BlockBifrostPerm(Block.Properties.create(Material.GLASS).hardnessAndResistance(0.3F).lightValue(15).sound(SoundType.GLASS)), LibBlockNames.BIFROST_PERM);
 		register(r, new BlockCell(Block.Properties.create(Material.GOURD).sound(SoundType.CLOTH)), LibBlockNames.CELL_BLOCK);
+		register(r, new BlockGaiaHeadWall(Block.Properties.create(Material.CIRCUITS).hardnessAndResistance(1)), LibBlockNames.GAIA_WALL_HEAD);
 		register(r, new BlockGaiaHead(Block.Properties.create(Material.CIRCUITS).hardnessAndResistance(1)), LibBlockNames.GAIA_HEAD);
 		register(r, new BlockCorporeaRetainer(Block.Properties.create(Material.IRON).hardnessAndResistance(5.5F).sound(SoundType.METAL)), LibBlockNames.CORPOREA_RETAINER);
 		register(r, new BlockTeruTeruBozu(Block.Properties.create(Material.CLOTH)), LibBlockNames.TERU_TERU_BOZU);
@@ -697,7 +702,7 @@ public final class ModBlocks {
 		r.register(new ItemBlockMod(starfield, props).setRegistryName(starfield.getRegistryName()));
 		r.register(new ItemBlockMod(rfGenerator, props).setRegistryName(rfGenerator.getRegistryName()));
 		r.register(new ItemBlockElven(elfGlass, props).setRegistryName(elfGlass.getRegistryName()));
-		r.register(new ItemBlockMod(brewery, props).setRegistryName(brewery.getRegistryName()));
+		r.register(new ItemBlockMod(brewery, ModItems.defaultBuilder().setTEISR(() -> RenderTileBrewery.TEISR::new)).setRegistryName(brewery.getRegistryName()));
 		r.register(new ItemBlockMod(manaGlass, props).setRegistryName(manaGlass.getRegistryName()));
 		r.register(new ItemBlockMod(terraPlate, props).setRegistryName(terraPlate.getRegistryName()));
 		r.register(new ItemBlockMod(redStringContainer, props).setRegistryName(redStringContainer.getRegistryName()));
@@ -724,7 +729,7 @@ public final class ModBlocks {
 		r.register(new ItemBlockMod(petalBlockGreen, props).setRegistryName(petalBlockGreen.getRegistryName()));
 		r.register(new ItemBlockMod(petalBlockRed, props).setRegistryName(petalBlockRed.getRegistryName()));
 		r.register(new ItemBlockMod(petalBlockBlack, props).setRegistryName(petalBlockBlack.getRegistryName()));
-		r.register(new ItemBlockMod(corporeaIndex, props).setRegistryName(corporeaIndex.getRegistryName()));
+		r.register(new ItemBlockMod(corporeaIndex, ModItems.defaultBuilder().setTEISR(() -> RenderTileCorporeaIndex.TEISR::new)).setRegistryName(corporeaIndex.getRegistryName()));
 		r.register(new ItemBlockMod(corporeaFunnel, props).setRegistryName(corporeaFunnel.getRegistryName()));
 		r.register(new ItemBlockMod(mushroomWhite, props).setRegistryName(mushroomWhite.getRegistryName()));
 		r.register(new ItemBlockMod(mushroomOrange, props).setRegistryName(mushroomOrange.getRegistryName()));
@@ -761,7 +766,7 @@ public final class ModBlocks {
 		r.register(new ItemBlockMod(doubleFlowerBlack, props).setRegistryName(doubleFlowerBlack.getRegistryName()));
 		r.register(new ItemBlockBlaze(blazeBlock).setRegistryName(blazeBlock.getRegistryName()));
 		r.register(new ItemBlockMod(corporeaInterceptor, props).setRegistryName(corporeaInterceptor.getRegistryName()));
-		r.register(new ItemBlockMod(corporeaCrystalCube, props).setRegistryName(corporeaCrystalCube.getRegistryName()));
+		r.register(new ItemBlockMod(corporeaCrystalCube, ModItems.defaultBuilder().setTEISR(() -> RenderTileCorporeaCrystalCube.TEISR::new)).setRegistryName(corporeaCrystalCube.getRegistryName()));
 		r.register(new ItemBlockMod(incensePlate, props).setRegistryName(incensePlate.getRegistryName()));
 		r.register(new ItemBlockMod(hourglass, props).setRegistryName(hourglass.getRegistryName()));
 		r.register(new ItemBlockMod(ghostRail, props).setRegistryName(ghostRail.getRegistryName()));

@@ -14,17 +14,29 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.client.renderer.tileentity.TileEntityItemStackRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
+import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelBrewery;
+import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileBrewery;
 
 import javax.annotation.Nullable;
 
 public class RenderTileBrewery extends TileEntityRenderer<TileBrewery> {
+	public static class TEISR extends TileEntityItemStackRenderer {
+		@Override
+		public void renderByItem(ItemStack stack) {
+			if(stack.getItem() == ModBlocks.brewery.asItem()) {
+				TileEntityRendererDispatcher.instance.getRenderer(TileBrewery.class)
+						.render(null, 0, 0, 0, 0, -1);
+			}
+		}
+	}
 
 	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_BREWERY);
 	final ModelBrewery model = new ModelBrewery();
