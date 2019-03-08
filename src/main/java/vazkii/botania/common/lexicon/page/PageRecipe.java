@@ -16,7 +16,6 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.RenderItem;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.ItemStack;
@@ -27,7 +26,7 @@ import net.minecraftforge.client.event.RenderTooltipEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import org.lwjgl.input.Mouse;
+import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.internal.IGuiLexiconEntry;
 import vazkii.botania.api.lexicon.ILexicon;
@@ -77,10 +76,11 @@ public class PageRecipe extends LexiconPage {
 			List<String> parsedTooltip = new ArrayList<>();
 			boolean first = true;
 
-			for(String s : tooltipData) {
-				String s_ = s;
-				if(!first)
-					s_ = TextFormatting.GRAY + s;
+			for(ITextComponent s : tooltipData) {
+				String s_ = s.getFormattedText();
+				if(!first) {
+					s_ = s.applyTextStyle(TextFormatting.GRAY).getFormattedText();
+				}
 				parsedTooltip.add(s_);
 				first = false;
 			}
@@ -105,13 +105,13 @@ public class PageRecipe extends LexiconPage {
 			}
 
 			if(!tooltipContainerStack.isEmpty())
-				vazkii.botania.client.core.helper.RenderHelper.renderTooltipGreen(mx, my + tooltipY, Arrays.asList(TextFormatting.AQUA + I18n.format("botaniamisc.craftingContainer"), tooltipContainerStack.getDisplayName()));
+				vazkii.botania.client.core.helper.RenderHelper.renderTooltipGreen(mx, my + tooltipY, Arrays.asList(TextFormatting.AQUA + I18n.format("botaniamisc.craftingContainer"), tooltipContainerStack.getDisplayName().getFormattedText()));
 		}
 
 		tooltipStack = tooltipContainerStack = ItemStack.EMPTY;
 		tooltipEntry = false;
 		GlStateManager.disableBlend();
-		mouseDownLastTick = Mouse.isButtonDown(0);
+		mouseDownLastTick = GLFW.glfwGetMouseButton(Minecraft.getInstance().mainWindow.getHandle(), GLFW.GLFW_MOUSE_BUTTON_LEFT) == GLFW.GLFW_PRESS;
 	}
 
 	@OnlyIn(Dist.CLIENT)
@@ -144,7 +144,7 @@ public class PageRecipe extends LexiconPage {
 	@OnlyIn(Dist.CLIENT)
 	public void renderItem(IGuiLexiconEntry gui, double xPos, double yPos, ItemStack stack, boolean accountForContainer) {
 		ItemRenderer render = Minecraft.getInstance().getItemRenderer();
-		boolean mouseDown = Mouse.isButtonDown(0);
+		boolean mouseDown = GLFW.glfwGetMouseButton(Minecraft.getInstance().mainWindow.getHandle(), GLFW.GLFW_MOUSE_BUTTON_LEFT) == GLFW.GLFW_PRESS;
 
 		GlStateManager.pushMatrix();
 		GlStateManager.enableBlend();

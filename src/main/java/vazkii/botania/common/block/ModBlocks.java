@@ -166,7 +166,7 @@ public final class ModBlocks {
 	@ObjectHolder(LibBlockNames.LIVING_WOOD_PATTERN_FRAMED) public static Block livingwoodPatternFramed;
 	@ObjectHolder(LibBlockNames.LIVING_WOOD_GLIMMERING) public static Block livingwoodGlimmering;
 
-	public static final Block specialFlower = new BlockSpecialFlower();
+	@ObjectHolder(LibBlockNames.SPECIAL_FLOWER) public static Block specialFlower;
 	@ObjectHolder(LibBlockNames.SPREADER) public static Block manaSpreader;
 	@ObjectHolder(LibBlockNames.SPREADER_REDSTONE) public static Block redstoneSpreader;
 	@ObjectHolder(LibBlockNames.SPREADER_ELVEN) public static Block elvenSpreader;
@@ -401,8 +401,7 @@ public final class ModBlocks {
 		register(r, new BlockModLexiconable(builder, decorative), LibBlockNames.LIVING_WOOD_FRAMED);
 		register(r, new BlockModLexiconable(builder, decorative), LibBlockNames.LIVING_WOOD_PATTERN_FRAMED);
 		register(r, new BlockModLexiconable(builder.lightValue(12), decorative), LibBlockNames.LIVING_WOOD_GLIMMERING);
-
-		r.register(specialFlower);
+		register(r, new BlockSpecialFlower(Block.Properties.from(Blocks.POPPY)), LibBlockNames.SPECIAL_FLOWER);
 
 		builder = Block.Properties.create(Material.WOOD).hardnessAndResistance(2).sound(SoundType.WOOD);
 		register(r, new BlockSpreader(BlockSpreader.Variant.MANA, builder), LibBlockNames.SPREADER);

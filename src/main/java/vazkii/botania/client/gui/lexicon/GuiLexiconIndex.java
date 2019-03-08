@@ -19,7 +19,6 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.text.TextFormatting;
-import org.lwjgl.input.Mouse;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.ILexicon;
 import vazkii.botania.api.lexicon.LexiconCategory;
@@ -97,9 +96,9 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 			return;
 		}
 
-		buttonList.add(backButton = new GuiButtonBack(12, left + guiWidth / 2 - 8, top + guiHeight + 2));
-		buttonList.add(leftButton = new GuiButtonPage(13, left, top + guiHeight - 10, false));
-		buttonList.add(rightButton = new GuiButtonPage(14, left + guiWidth - 18, top + guiHeight - 10, true));
+		buttons.add(backButton = new GuiButtonBack(12, left + guiWidth / 2 - 8, top + guiHeight + 2));
+		buttons.add(leftButton = new GuiButtonPage(13, left, top + guiHeight - 10, false));
+		buttons.add(rightButton = new GuiButtonPage(14, left + guiWidth - 18, top + guiHeight - 10, true));
 
 		searchField = new GuiTextField(15, fontRenderer, left + guiWidth / 2 + 28, top + guiHeight + 6, 200, 10);
 		searchField.setCanLoseFocus(false);
@@ -145,10 +144,10 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 
 	@Override
 	void populateIndex() {
-		LexiconEntry tutEntry = tutorial != null && !tutorial.isEmpty() ? tutorial.peek() : null;
+		LexiconEntry tutEntry = !tutorial.isEmpty() ? tutorial.peek() : null;
 
 		for(int i = page * 12; i < (page + 1) * 12; i++) {
-			GuiButtonInvisible button = (GuiButtonInvisible) buttonList.get(i - page * 12);
+			GuiButtonInvisible button = (GuiButtonInvisible) buttons.get(i - page * 12);
 			LexiconEntry entry = i >= entriesToDisplay.size() ? null : entriesToDisplay.get(i);
 			if(entry != null) {
 				button.displayString = entry.getKnowledgeType().color + "" + (entry.isPriority() ? TextFormatting.ITALIC : "") + I18n.format(entry.getUnlocalizedName());
@@ -176,7 +175,7 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 		if(!searchField.getText().isEmpty()) {
 			drawBookmark(left + 138, top + guiHeight - 24, "  " + searchField.getText(), false);
 			mc.textureManager.bindTexture(texture);
-			GlStateManager.color(1F, 1F, 1F, 1F);
+			GlStateManager.color4f(1F, 1F, 1F, 1F);
 			drawTexturedModalRect(left + 134, top + guiHeight - 26, 86, 180, 12, 12);
 
 			if(entriesToDisplay.size() == 1) {
@@ -209,9 +208,9 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 				y = currentButton.y;
 
 				mc.fontRenderer.drawStringWithShadow("?", x, y, 0xFFFFFF);
-				GlStateManager.scale(0.5F, 0.5F, 1F);
+				GlStateManager.scalef(0.5F, 0.5F, 1F);
 				mc.fontRenderer.drawStringWithShadow(TextFormatting.BOLD + "Shift", x * 2 - 6, y * 2 + 20, 0xFFFFFF);
-				GlStateManager.scale(2F, 2F, 1F);
+				GlStateManager.scalef(2F, 2F, 1F);
 			}
 		}
 
@@ -226,8 +225,8 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 			int width = mc.fontRenderer.getStringWidth(s);
 
 			GlStateManager.pushMatrix();
-			GlStateManager.translate(x, y, 0);
-			GlStateManager.scale(fract, 1F, 1F);
+			GlStateManager.translatef(x, y, 0);
+			GlStateManager.scalef(fract, 1F, 1F);
 			Gui.drawRect(12, -30, width + 20, -2, 0x44000000);
 			Gui.drawRect(10, -32, width + 22, -2, 0x44000000);
 

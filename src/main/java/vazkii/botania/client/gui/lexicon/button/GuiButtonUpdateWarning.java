@@ -30,17 +30,17 @@ public class GuiButtonUpdateWarning extends GuiButtonLexicon {
 	}
 
 	@Override
-	public void drawButton(@Nonnull Minecraft par1Minecraft, int par2, int par3, float partialTicks) {
+	public void render(int mouseX, int mouseY, float partialTicks) {
 		if(!visible || !enabled)
 			return;
 
-		hovered = par2 >= x && par3 >= y && par2 < x + width && par3 < y + height;
+		hovered = mouseX >= x && mouseY >= y && mouseX < x + width && mouseY < y + height;
 		int k = getHoverState(hovered);
 
 		boolean red = k == 2 || ClientTickHandler.ticksInGame % 10 < 5;
 
-		par1Minecraft.textureManager.bindTexture(GuiLexicon.texture);
-		GlStateManager.color(1F, 1F, 1F, 1F);
+		Minecraft.getInstance().textureManager.bindTexture(GuiLexicon.texture);
+		GlStateManager.color4f(1F, 1F, 1F, 1F);
 		drawTexturedModalRect(x, y, red ? 153 : 142, 180, 11, 11);
 
 		List<String> tooltip = new ArrayList<>();
@@ -53,7 +53,7 @@ public class GuiButtonUpdateWarning extends GuiButtonLexicon {
 
 		int tooltipY = (tooltip.size() - 1) * 10 - 25;
 		if(k == 2)
-			RenderHelper.renderTooltip(par2 - 125, par3 + tooltipY, tooltip);
+			RenderHelper.renderTooltip(mouseX - 125, mouseY + tooltipY, tooltip);
 	}
 
 }

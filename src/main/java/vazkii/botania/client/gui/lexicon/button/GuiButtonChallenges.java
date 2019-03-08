@@ -28,20 +28,20 @@ public class GuiButtonChallenges extends GuiButtonLexicon {
 	}
 
 	@Override
-	public void drawButton(@Nonnull Minecraft par1Minecraft, int par2, int par3, float partialTicks) {
-		hovered = par2 >= x && par3 >= y && par2 < x + width && par3 < y + height;
+	public void render(int mouseX, int mouseY, float partialTicks) {
+		hovered = mouseX >= x && mouseY >= y && mouseX < x + width && mouseY < y + height;
 		int k = getHoverState(hovered);
 
-		par1Minecraft.textureManager.bindTexture(GuiLexicon.texture);
-		GlStateManager.color(1F, 1F, 1F, 1F);
+		Minecraft.getInstance().textureManager.bindTexture(GuiLexicon.texture);
+		GlStateManager.color4f(1F, 1F, 1F, 1F);
 		drawTexturedModalRect(x, y, k == 2 ? 131 : 120, 180, 11, 11);
 
-		List<String> tooltip = new ArrayList();
+		List<String> tooltip = new ArrayList<>();
 		tooltip.add(TextFormatting.GREEN + I18n.format("botaniamisc.challenges"));
 
 		int tooltipY = (tooltip.size() - 1) * 10;
 		if(k == 2)
-			RenderHelper.renderTooltip(par2, par3 + tooltipY, tooltip);
+			RenderHelper.renderTooltip(mouseX, mouseY + tooltipY, tooltip);
 	}
 
 }

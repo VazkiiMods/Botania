@@ -49,11 +49,11 @@ public class GuiButtonCategory extends GuiButtonLexicon {
 		int maskUniform = ARBShaderObjects.glGetUniformLocationARB(shader, "mask");
 
 		float heightMatch = ticksHovered / time;
-		OpenGlHelper.setActiveTexture(ARBMultitexture.GL_TEXTURE0_ARB);
+		OpenGlHelper.glActiveTexture(ARBMultitexture.GL_TEXTURE0_ARB);
 		GL11.glBindTexture(GL11.GL_TEXTURE_2D, r.getTexture(resource).getGlTextureId());
 		ARBShaderObjects.glUniform1iARB(imageUniform, 0);
 
-		OpenGlHelper.setActiveTexture(ARBMultitexture.GL_TEXTURE0_ARB + ConfigHandler.glSecondaryTextureUnit);
+		OpenGlHelper.glActiveTexture(ARBMultitexture.GL_TEXTURE0_ARB + ConfigHandler.glSecondaryTextureUnit);
 
 		GlStateManager.enableTexture2D();
 		GL11.glGetInteger(GL11.GL_TEXTURE_BINDING_2D);
@@ -73,7 +73,7 @@ public class GuiButtonCategory extends GuiButtonLexicon {
 	}
 
 	@Override
-	public void drawButton(@Nonnull Minecraft mc, int mx, int my, float partialTicks) {
+	public void render(int mx, int my, float partialTicks) {
 		boolean inside = mx >= x && my >= y && mx < x + width && my < y + height;
 		if(inside)
 			ticksHovered = Math.min(time, ticksHovered + gui.timeDelta);
@@ -92,20 +92,20 @@ public class GuiButtonCategory extends GuiButtonLexicon {
 		GlStateManager.pushMatrix();
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		GlStateManager.scale(0.5F, 0.5F, 0.5F);
-		GlStateManager.color(1F, 1F, 1F, 1F);
+		GlStateManager.scalef(0.5F, 0.5F, 0.5F);
+		GlStateManager.color4f(1F, 1F, 1F, 1F);
 
 		if(!boundStencil) { // Allow for the texture manager to take care of the ResourceLocation before we use it directly with gl
-			mc.textureManager.bindTexture(stencilResource);
+			Minecraft.getInstance().textureManager.bindTexture(stencilResource);
 			boundStencil = true;
 		}
-		mc.textureManager.bindTexture(resource);
+		Minecraft.getInstance().textureManager.bindTexture(resource);
 
 		int texture = 0;
 		boolean shaders = ShaderHelper.useShaders();
 
 		if(shaders) {
-			OpenGlHelper.setActiveTexture(ARBMultitexture.GL_TEXTURE0_ARB + ConfigHandler.glSecondaryTextureUnit);
+			OpenGlHelper.glActiveTexture(ARBMultitexture.GL_TEXTURE0_ARB + ConfigHandler.glSecondaryTextureUnit);
 			texture = GL11.glGetInteger(GL11.GL_TEXTURE_BINDING_2D);
 		}
 
@@ -114,9 +114,9 @@ public class GuiButtonCategory extends GuiButtonLexicon {
 		ShaderHelper.releaseShader();
 
 		if(shaders) {
-			OpenGlHelper.setActiveTexture(ARBMultitexture.GL_TEXTURE0_ARB + ConfigHandler.glSecondaryTextureUnit);
+			OpenGlHelper.glActiveTexture(ARBMultitexture.GL_TEXTURE0_ARB + ConfigHandler.glSecondaryTextureUnit);
 			GL11.glBindTexture(GL11.GL_TEXTURE_2D, texture);
-			OpenGlHelper.setActiveTexture(ARBMultitexture.GL_TEXTURE0_ARB);
+			OpenGlHelper.glActiveTexture(ARBMultitexture.GL_TEXTURE0_ARB);
 		}
 
 		GlStateManager.popMatrix();

@@ -23,7 +23,7 @@ import java.util.List;
 
 public class GuiButtonNotes extends GuiButtonLexicon {
 
-	final GuiLexicon parent;
+	private final GuiLexicon parent;
 
 	public GuiButtonNotes(GuiLexicon parent, int id, int x, int y) {
 		super(id, x, y, 11, 11, "");
@@ -31,12 +31,12 @@ public class GuiButtonNotes extends GuiButtonLexicon {
 	}
 
 	@Override
-	public void drawButton(@Nonnull Minecraft par1Minecraft, int par2, int par3, float partialTicks) {
-		hovered = par2 >= x && par3 >= y && par2 < x + width && par3 < y + height;
+	public void render(int x, int y, float partialTicks) {
+		hovered = x >= this.x && y >= this.y && x < this.x + width && y < this.y + height;
 		int k = getHoverState(hovered);
 
-		par1Minecraft.textureManager.bindTexture(GuiLexicon.texture);
-		GlStateManager.color(1F, 1F, 1F, 1F);
+		Minecraft.getInstance().textureManager.bindTexture(GuiLexicon.texture);
+		GlStateManager.color4f(1F, 1F, 1F, 1F);
 		drawTexturedModalRect(x, y, k == 2 ? 130 : 120, 191, 10, 11);
 
 		List<String> tooltip = new ArrayList<>();
@@ -50,7 +50,7 @@ public class GuiButtonNotes extends GuiButtonLexicon {
 
 		int tooltipY = (tooltip.size() - 1) * 10;
 		if(k == 2)
-			RenderHelper.renderTooltip(par2, par3 + tooltipY, tooltip);
+			RenderHelper.renderTooltip(x, y + tooltipY, tooltip);
 	}
 
 }

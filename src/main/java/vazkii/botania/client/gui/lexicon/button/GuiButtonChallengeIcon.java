@@ -31,21 +31,21 @@ public class GuiButtonChallengeIcon extends GuiButtonLexicon {
 	}
 
 	@Override
-	public void drawButton(@Nonnull Minecraft par1Minecraft, int par2, int par3, float partialTicks) {
-		hovered = par2 >= x && par3 >= y && par2 < x + width && par3 < y + height;
+	public void render(int mouseX, int mouseY, float partialTicks) {
+		hovered = mouseX >= x && mouseY >= y && mouseX < x + width && mouseY < y + height;
 		int k = getHoverState(hovered);
 
 		RenderHelper.enableGUIStandardItemLighting();
 		GlStateManager.enableRescaleNormal();
-		par1Minecraft.getItemRenderer().renderItemIntoGUI(challenge.icon, x, y);
+		Minecraft.getInstance().getItemRenderer().renderItemIntoGUI(challenge.icon, x, y);
 		RenderHelper.disableStandardItemLighting();
 		GlStateManager.enableBlend();
 
 		if(challenge.complete) {
-			GlStateManager.disableDepth();
-			par1Minecraft.fontRenderer.drawStringWithShadow("\u2714", x + 10, y + 9, 0x004C00);
-			par1Minecraft.fontRenderer.drawStringWithShadow("\u2714", x + 10, y + 8, 0x0BD20D);
-			GlStateManager.enableDepth();
+			GlStateManager.disableDepthTest();
+			Minecraft.getInstance().fontRenderer.drawStringWithShadow("\u2714", x + 10, y + 9, 0x004C00);
+			Minecraft.getInstance().fontRenderer.drawStringWithShadow("\u2714", x + 10, y + 8, 0x0BD20D);
+			GlStateManager.enableDepthTest();
 		}
 
 
@@ -54,7 +54,7 @@ public class GuiButtonChallengeIcon extends GuiButtonLexicon {
 
 		int tooltipY = (tooltip.size() - 1) * 10;
 		if(k == 2)
-			vazkii.botania.client.core.helper.RenderHelper.renderTooltip(par2, par3 + tooltipY, tooltip);
+			vazkii.botania.client.core.helper.RenderHelper.renderTooltip(mouseX, mouseY + tooltipY, tooltip);
 	}
 
 }

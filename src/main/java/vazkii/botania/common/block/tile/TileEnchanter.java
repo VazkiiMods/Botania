@@ -13,7 +13,6 @@ package vazkii.botania.common.block.tile;
 import com.google.common.base.Predicates;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentData;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -117,10 +116,10 @@ public class TileEnchanter extends TileMod implements ISparkAttachable, ITickabl
 			mb.addComponent(o.up(), Blocks.OBSIDIAN.getDefaultState());
 		for(BlockPos p : PYLON_LOCATIONS.get(EnumFacing.Axis.X)) {
 			mb.addComponent(p.up(), ModBlocks.manaPylon.getDefaultState());
-			mb.addComponent(new FlowerComponent(p, ModBlocks.flower));
+			mb.addComponent(new FlowerComponent(p, ModBlocks.whiteFlower));
 		}
 		for(BlockPos f : FLOWER_LOCATIONS)
-			mb.addComponent(new FlowerComponent(f.up(), ModBlocks.flower));
+			mb.addComponent(new FlowerComponent(f.up(), ModBlocks.whiteFlower));
 
 		mb.addComponent(BlockPos.ORIGIN.up(), Blocks.LAPIS_BLOCK.getDefaultState());
 

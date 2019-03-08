@@ -50,8 +50,8 @@ public class GuiLexiconChallenge extends GuiLexicon implements IParented {
 		super.onInitGui();
 		setTitle();
 
-		buttonList.add(backButton = new GuiButtonBack(12, left + guiWidth / 2 - 8, top + guiHeight + 2));
-		buttonList.add(completeButton = new GuiButton(13, left + 20, top + guiHeight - 35, guiWidth - 40, 20, ""));
+		buttons.add(backButton = new GuiButtonBack(12, left + guiWidth / 2 - 8, top + guiHeight + 2));
+		buttons.add(completeButton = new GuiButton(13, left + 20, top + guiHeight - 35, guiWidth - 40, 20, ""));
 		setCompleteButtonTitle();
 	}
 
@@ -65,8 +65,6 @@ public class GuiLexiconChallenge extends GuiLexicon implements IParented {
 		RenderHelper.disableStandardItemLighting();
 		GlStateManager.enableBlend();
 
-		boolean unicode = fontRenderer.getUnicodeFlag();
-		fontRenderer.setUnicodeFlag(true);
 		fontRenderer.drawString(TextFormatting.BOLD + I18n.format(challenge.unlocalizedName), left + 38, top + 13, 0);
 		fontRenderer.drawString(I18n.format(challenge.level.getName()) + ((challenge.icon.getItem() instanceof ItemRune) ? "+" : "") + " / " + (challenge.complete ? TextFormatting.DARK_GREEN : TextFormatting.DARK_RED) + I18n.format(challenge.complete ? "botaniamisc.completed" : "botaniamisc.notCompleted"), left + 38, top + 23, 0);
 
@@ -75,7 +73,6 @@ public class GuiLexiconChallenge extends GuiLexicon implements IParented {
 		int y = top + 28;
 
 		PageText.renderText(x, y, width, guiHeight, challenge.unlocalizedName + ".desc");
-		fontRenderer.setUnicodeFlag(unicode);
 	}
 
 	@Override
@@ -91,11 +88,12 @@ public class GuiLexiconChallenge extends GuiLexicon implements IParented {
 	}
 
 	@Override
-	protected void mouseClicked(int par1, int par2, int par3) throws IOException {
-		super.mouseClicked(par1, par2, par3);
-
-		if(par3 == 1)
+	public boolean mouseClicked(double mouseX, double mouseY, int button) {
+		if(button == 1) {
 			back();
+			return false;
+		}
+		return super.mouseClicked(mouseX, mouseY, button);
 	}
 
 	@Override
@@ -157,7 +155,7 @@ public class GuiLexiconChallenge extends GuiLexicon implements IParented {
 	@Override
 	public void serialize(NBTTagCompound cmp) {
 		super.serialize(cmp);
-		cmp.setString(TAG_CHALLENGE, challenge.unlocalizedName);
+		cmp.putString(TAG_CHALLENGE, challenge.unlocalizedName);
 	}
 
 	@Override

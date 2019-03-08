@@ -21,7 +21,7 @@ import java.util.Collections;
 
 public class GuiButtonPage extends GuiButtonLexicon {
 
-	final boolean right;
+	private final boolean right;
 
 	public GuiButtonPage(int par1, int par2, int par3, boolean right) {
 		super(par1, par2, par3, 18, 10, "");
@@ -29,17 +29,17 @@ public class GuiButtonPage extends GuiButtonLexicon {
 	}
 
 	@Override
-	public void drawButton(@Nonnull Minecraft par1Minecraft, int par2, int par3, float partialTicks) {
+	public void render(int mouseX, int mouseY, float partialTicks) {
 		if(enabled) {
-			hovered = par2 >= x && par3 >= y && par2 < x + width && par3 < y + height;
+			hovered = mouseX >= x && mouseY >= y && mouseX < x + width && mouseY < y + height;
 			int k = getHoverState(hovered);
 
-			par1Minecraft.textureManager.bindTexture(GuiLexicon.texture);
-			GlStateManager.color(1F, 1F, 1F, 1F);
+			Minecraft.getInstance().textureManager.bindTexture(GuiLexicon.texture);
+			GlStateManager.color4f(1F, 1F, 1F, 1F);
 			drawTexturedModalRect(x, y, k == 2 ? 18 : 0, right ? 180 : 190, 18, 10);
 
 			if(k == 2)
-				RenderHelper.renderTooltip(par2, par3, Collections.singletonList(I18n.format(right ? "botaniamisc.nextPage" : "botaniamisc.prevPage")));
+				RenderHelper.renderTooltip(mouseX, mouseY, Collections.singletonList(I18n.format(right ? "botaniamisc.nextPage" : "botaniamisc.prevPage")));
 		}
 	}
 

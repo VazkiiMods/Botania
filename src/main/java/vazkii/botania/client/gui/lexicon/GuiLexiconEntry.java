@@ -18,7 +18,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
-import org.lwjgl.input.Mouse;
+import org.lwjgl.glfw.GLFW;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.IGuiLexiconEntry;
 import vazkii.botania.api.lexicon.IAddonEntry;
@@ -76,12 +76,12 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 	public void onInitGui() {
 		super.onInitGui();
 
-		buttonList.add(backButton = new GuiButtonBackWithShift(0, left + guiWidth / 2 - 8, top + guiHeight + 2));
-		buttonList.add(leftButton = new GuiButtonPage(1, left, top + guiHeight - 10, false));
-		buttonList.add(rightButton = new GuiButtonPage(2, left + guiWidth - 18, top + guiHeight - 10, true));
-		buttonList.add(new GuiButtonShare(3, left + guiWidth - 6, top - 2));
+		buttons.add(backButton = new GuiButtonBackWithShift(0, left + guiWidth / 2 - 8, top + guiHeight + 2));
+		buttons.add(leftButton = new GuiButtonPage(1, left, top + guiHeight - 10, false));
+		buttons.add(rightButton = new GuiButtonPage(2, left + guiWidth - 18, top + guiHeight - 10, true));
+		buttons.add(new GuiButtonShare(3, left + guiWidth - 6, top - 2));
 		if(entry.getWebLink() != null)
-			buttonList.add(new GuiButtonViewOnline(4, left - 8, top + 12));
+			buttons.add(new GuiButtonViewOnline(4, left - 8, top + 12));
 
 		if(!GuiLexicon.isValidLexiconGui(this))	{
 			currentOpenLexicon = new GuiLexicon();
@@ -200,8 +200,8 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 	}
 
 	@Override
-	public void updateScreen() {
-		super.updateScreen();
+	public void tick() {
+		super.tick();
 
 		LexiconPage page = entry.pages.get(this.page);
 		page.updateScreen(this);
@@ -261,53 +261,51 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 		parent = gui;
 	}
 
-	private int fx = 0;
 	private boolean swiped = false;
 
 	@Override
-	protected void mouseClickMove(int x, int y, int button, long time) {
-		if(button == 0 && Math.abs(x - fx) > 100 && mc.gameSettings.touchscreen && !swiped) {
-			double swipe = (x - fx) / Math.max(1, (double) time);
-			if(swipe < 0.5) {
+	public boolean mouseDragged(double mouseX, double mouseY, int button, double dragX, double dragY) {
+		if(button == GLFW.GLFW_MOUSE_BUTTON_LEFT && dragX > 100 && mc.gameSettings.touchscreen && !swiped) {
+			// todo 1.13 correct these constants
+			if(dragX < 0.5) {
 				nextPage();
 				swiped = true;
-			} else if(swipe > 0.5) {
+			} else if(dragX > 0.5) {
 				prevPage();
 				swiped = true;
 			}
+			return true;
 		}
+		return false;
 	}
 
 	@Override
-	protected void mouseClicked(int par1, int par2, int par3) throws IOException {
-		super.mouseClicked(par1, par2, par3);
+	public boolean mouseClicked(double mouseX, double mouseY, int button) {
+		if(button == GLFW.GLFW_MOUSE_BUTTON_LEFT) {
+			swiped = false;
+		}
 
-		fx = par1;
-		switch(par3) {
+		switch(button) {
 		case 1:
 			back();
-			break;
+			return true;
 		case 3:
 			nextPage();
-			break;
+			return true;
 		case 4:
 			prevPage();
-			break;
+			return true;
+		default: return super.mouseClicked(mouseX, mouseY, button);
 		}
 	}
 
 	@Override
-	public void handleMouseInput() throws IOException {
-		super.handleMouseInput();
-
-		if(Mouse.getEventButton() == 0)
-			swiped = false;
-
-		int w = Mouse.getEventDWheel();
+	public boolean mouseScrolled(double w) {
 		if(w < 0)
 			nextPage();
 		else if(w > 0)
 			prevPage();
+		return true;
 	}
 
 	@Override
@@ -319,7 +317,7 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 
 		if(par2 == 1) {
 			mc.displayGuiScreen(null);
-			mc.setIngameFocus();
+			mc.mouseHelper.grabMouse();
 		} else if(par2 == 203 || par2 == 200 || par2 == 201) // Left, Up, Page Up
 			prevPage();
 		else if(par2 == 205 || par2 == 208 || par2 == 209) // Right, Down Page Down
@@ -362,7 +360,7 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 
 	@Override
 	public List<GuiButton> getButtonList() {
-		return buttonList;
+		return buttons;
 	}
 
 	@Override
@@ -383,8 +381,8 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 	@Override
 	public void serialize(NBTTagCompound cmp) {
 		super.serialize(cmp);
-		cmp.setString(TAG_ENTRY, entry.getUnlocalizedName());
-		cmp.setInteger(TAG_PAGE, page);
+		cmp.putString(TAG_ENTRY, entry.getUnlocalizedName());
+		cmp.putInt(TAG_PAGE, page);
 	}
 
 	@Override
@@ -398,7 +396,7 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 				break;
 			}
 
-		page = cmp.getInteger(TAG_PAGE);
+		page = cmp.getInt(TAG_PAGE);
 
 		setTitle();
 	}
