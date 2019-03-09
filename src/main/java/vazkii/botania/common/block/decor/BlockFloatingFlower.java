@@ -42,7 +42,6 @@ import net.minecraftforge.common.property.IUnlistedProperty;
 import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import thaumcraft.api.crafting.IInfusionStabiliser;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.item.IFloatingFlower;
 import vazkii.botania.api.item.IFloatingFlower.IslandType;
@@ -62,8 +61,7 @@ import vazkii.botania.common.lib.LibBlockNames;
 import javax.annotation.Nonnull;
 import java.util.Random;
 
-@Optional.Interface(modid = "thaumcraft", iface = "thaumcraft.api.crafting.IInfusionStabiliser", striprefs = true)
-public class BlockFloatingFlower extends BlockMod implements ILexiconable, IInfusionStabiliser {
+public class BlockFloatingFlower extends BlockMod implements ILexiconable {
 
 	private static final AxisAlignedBB AABB = new AxisAlignedBB(0.1, 0.1, 0.1, 0.9, 0.9, 0.9);
 
@@ -206,11 +204,6 @@ public class BlockFloatingFlower extends BlockMod implements ILexiconable, IInfu
 	@Override
 	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.shinyFlowers;
-	}
-
-	@Override
-	public boolean canStabaliseInfusion(World world, BlockPos pos) {
-		return ConfigHandler.enableThaumcraftStablizers;
 	}
 
 	@OnlyIn(Dist.CLIENT)

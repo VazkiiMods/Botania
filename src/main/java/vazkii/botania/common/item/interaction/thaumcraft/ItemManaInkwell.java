@@ -15,7 +15,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
-import thaumcraft.api.items.IScribeTools;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ItemMod;
@@ -23,8 +22,7 @@ import vazkii.botania.common.lib.LibItemNames;
 
 import javax.annotation.Nonnull;
 
-@Optional.Interface(modid = "thaumcraft", iface = "thaumcraft.api.items.IScribeTools")
-public class ItemManaInkwell extends ItemMod implements IManaItem, IScribeTools {
+public class ItemManaInkwell extends ItemMod implements IManaItem {
 
 	private static final int COST_PER_USE = 50;
 	private static final int USES = 150;

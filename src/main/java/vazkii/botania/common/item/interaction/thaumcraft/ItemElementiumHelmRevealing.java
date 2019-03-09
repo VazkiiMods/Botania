@@ -14,30 +14,15 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.Optional;
-import thaumcraft.api.items.IGoggles;
-import thaumcraft.api.items.IRevealer;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.equipment.armor.elementium.ItemElementiumHelm;
 import vazkii.botania.common.lib.LibItemNames;
 
-@Optional.InterfaceList({
-	@Optional.Interface(modid = "thaumcraft", iface = "thaumcraft.api.items.IGoggles", striprefs = true),
-	@Optional.Interface(modid = "thaumcraft", iface = "thaumcraft.api.items.IRevealer", striprefs = true)})
-public class ItemElementiumHelmRevealing extends ItemElementiumHelm implements IGoggles, IRevealer {
+public class ItemElementiumHelmRevealing extends ItemElementiumHelm {
 
 	public ItemElementiumHelmRevealing(Properties props) {
 		super(props);
-	}
-
-	@Override
-	public boolean showNodes(ItemStack itemstack, EntityLivingBase player) {
-		return true;
-	}
-
-	@Override
-	public boolean showIngamePopups(ItemStack itemstack, EntityLivingBase player) {
-		return true;
 	}
 
 	@Override

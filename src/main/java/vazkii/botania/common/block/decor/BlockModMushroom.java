@@ -24,7 +24,6 @@ import net.minecraft.world.IWorldReaderBase;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import thaumcraft.api.crafting.IInfusionStabiliser;
 import vazkii.botania.api.item.IHornHarvestable;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -37,8 +36,7 @@ import vazkii.botania.common.lexicon.LexiconData;
 import javax.annotation.Nonnull;
 import java.util.Random;
 
-@Optional.Interface(modid = "thaumcraft", iface = "thaumcraft.api.crafting.IInfusionStabiliser", striprefs = true)
-public class BlockModMushroom extends BlockMushroom implements IInfusionStabiliser, IHornHarvestable, ILexiconable, ICustomApothecaryColor {
+public class BlockModMushroom extends BlockMushroom implements IHornHarvestable, ILexiconable, ICustomApothecaryColor {
 
 	private static final VoxelShape SHAPE = makeCuboidShape(4.8, 0, 4.8, 12.8, 16, 12.8);
 	private final EnumDyeColor color;
@@ -80,11 +78,6 @@ public class BlockModMushroom extends BlockMushroom implements IInfusionStabilis
 
 		if(rand.nextDouble() < ConfigHandler.flowerParticleFrequency * 0.25F)
 			Botania.proxy.sparkleFX(pos.getX() + 0.3 + rand.nextFloat() * 0.5, pos.getY() + 0.5 + rand.nextFloat() * 0.5, pos.getZ() + 0.3 + rand.nextFloat() * 0.5, r / 255F, g / 255F, b / 255F, rand.nextFloat(), 5);
-	}
-
-	@Override
-	public boolean canStabaliseInfusion(World world, BlockPos pos) {
-		return ConfigHandler.enableThaumcraftStablizers;
 	}
 
 	@Override

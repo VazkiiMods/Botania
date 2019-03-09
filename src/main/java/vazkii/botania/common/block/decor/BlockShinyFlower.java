@@ -22,7 +22,6 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import thaumcraft.api.crafting.IInfusionStabiliser;
 import vazkii.botania.api.item.IHornHarvestable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.client.core.handler.ModelHandler;
@@ -33,8 +32,7 @@ import vazkii.botania.common.lib.LibBlockNames;
 
 import javax.annotation.Nonnull;
 
-@Optional.Interface(modid = "thaumcraft", iface = "thaumcraft.api.crafting.IInfusionStabiliser", striprefs = true)
-public class BlockShinyFlower extends BlockModFlower implements IInfusionStabiliser, IHornHarvestable {
+public class BlockShinyFlower extends BlockModFlower implements IHornHarvestable {
 
 	public BlockShinyFlower(EnumDyeColor color, Properties builder) {
 		super(color, builder);
@@ -48,11 +46,6 @@ public class BlockShinyFlower extends BlockModFlower implements IInfusionStabili
 	@Override
 	public boolean canGrow(@Nonnull IBlockReader world, @Nonnull BlockPos pos, @Nonnull IBlockState state, boolean fuckifiknow) {
 		return false;
-	}
-
-	@Override
-	public boolean canStabaliseInfusion(World world, BlockPos pos) {
-		return ConfigHandler.enableThaumcraftStablizers;
 	}
 
 	@Override
