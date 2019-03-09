@@ -31,7 +31,7 @@ public class GuiButtonOptions extends GuiButtonLexicon {
 	@Override
 	public void onClick(double mouseX, double mouseY) {
 		super.onClick(mouseX, mouseY);
-		Minecraft.getInstance().displayGuiScreen(new GuiBotaniaConfig(lexicon));
+		// todo 1.13 Minecraft.getInstance().displayGuiScreen(new GuiBotaniaConfig(lexicon));
 	}
 
 	@Override

@@ -96,10 +96,4 @@ public class BlockGhostRail extends BlockRailBase implements ILexiconable, IMode
 	public IProperty<RailShape> getShapeProperty() {
 		return BlockStateProperties.RAIL_SHAPE_STRAIGHT;
 	}
-
-	@OnlyIn(Dist.CLIENT)
-	@Override
-	public void registerModels() {
-		ModelHandler.registerCustomItemblock(this, "ghost_rail");
-	}
 }

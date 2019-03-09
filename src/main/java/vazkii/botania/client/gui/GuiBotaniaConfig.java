@@ -11,16 +11,14 @@
 package vazkii.botania.client.gui;
 
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraftforge.common.config.ConfigElement;
-import net.minecraftforge.common.config.Configuration;
-import net.minecraftforge.fml.client.config.GuiConfig;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.lib.LibMisc;
 
-public class GuiBotaniaConfig extends GuiConfig {
+// todo 1.13
+public class GuiBotaniaConfig extends /*GuiConfig*/ GuiScreen {
 
 	public GuiBotaniaConfig(GuiScreen parentScreen) {
-		super(parentScreen, new ConfigElement(ConfigHandler.config.getCategory(Configuration.CATEGORY_GENERAL)).getChildElements(), LibMisc.MOD_ID, false, false, GuiConfig.getAbridgedConfigPath(ConfigHandler.config.toString()));
+		// super(parentScreen, new ConfigElement(ConfigHandler.config.getCategory(Configuration.CATEGORY_GENERAL)).getChildElements(), LibMisc.MOD_ID, false, false, GuiConfig.getAbridgedConfigPath(ConfigHandler.config.toString()));
 	}
 
 }

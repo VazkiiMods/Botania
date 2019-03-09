@@ -104,9 +104,9 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 
 		GlStateManager.translatef(0.5F, 1.5F, 0.5F);
 		GlStateManager.scalef(1F, -1F, -1F);
-		int meta = potato.getWorld() == null ? 3 : potato.getBlockMetadata();
+		int meta = potato.getBlockState().get(BotaniaStateProps.CARDINALS).getHorizontalIndex();
 		float rotY = meta * 90F - 180F;
-		GlStateManager.rotatef(rotY, 0F, 1F, 0F);
+		GlStateManager.rotatef(rotY, 0F, 1F, 0F); // todo 1.13 recheck
 
 		float jump = potato.jumpTicks;
 		if (jump > 0)

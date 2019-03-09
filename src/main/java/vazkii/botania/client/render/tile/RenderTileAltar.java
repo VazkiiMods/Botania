@@ -18,6 +18,7 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.Fluid;
@@ -106,7 +107,6 @@ public class RenderTileAltar extends TileEntityRenderer<TileAltar> {
 
 
 			Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-			Fluid fluid = lava ? FluidRegistry.LAVA : FluidRegistry.WATER;
 			int brightness = lava ? 240 : -1;
 			float alpha = lava ? 1F : 0.7F;
 
@@ -120,7 +120,9 @@ public class RenderTileAltar extends TileEntityRenderer<TileAltar> {
 			GlStateManager.rotatef(90F, 1F, 0F, 0F);
 			GlStateManager.scalef(s, s, s);
 
-			renderIcon(0, 0, fluid.getStill(), 16, 16, brightness);
+			TextureAtlasSprite sprite = lava ? Minecraft.getInstance().getModelManager().getBlockModelShapes().getModel(Blocks.LAVA.getDefaultState()).getParticleTexture()
+					: Minecraft.getInstance().getModelManager().getBlockModelShapes().getModel(Blocks.WATER.getDefaultState()).getParticleTexture();
+			renderIcon(0, 0, sprite, 16, 16, brightness);
 			if(lava)
 				GlStateManager.enableLighting();
 			GlStateManager.enableAlphaTest();
@@ -130,16 +132,15 @@ public class RenderTileAltar extends TileEntityRenderer<TileAltar> {
 		GlStateManager.popMatrix();
 	}
 
-	public void renderIcon(int par1, int par2, ResourceLocation loc, int par4, int par5, int brightness) {
-		TextureAtlasSprite par3Icon = Minecraft.getInstance().getTextureMap().getAtlasSprite(loc.toString());
+	private void renderIcon(int x, int y, TextureAtlasSprite sprite, int width, int height, int brightness) {
 		Tessellator tessellator = Tessellator.getInstance();
 		tessellator.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
 		//if(brightness != -1)
 		//tessellator.getBuffer().putBrightness4(brightness, brightness, brightness, brightness);
-		tessellator.getBuffer().pos(par1 + 0, par2 + par5, 0).tex(par3Icon.getMinU(), par3Icon.getMaxV()).endVertex();
-		tessellator.getBuffer().pos(par1 + par4, par2 + par5, 0).tex(par3Icon.getMaxU(), par3Icon.getMaxV()).endVertex();
-		tessellator.getBuffer().pos(par1 + par4, par2 + 0, 0).tex(par3Icon.getMaxU(), par3Icon.getMinV()).endVertex();
-		tessellator.getBuffer().pos(par1 + 0, par2 + 0, 0).tex(par3Icon.getMinU(), par3Icon.getMinV()).endVertex();
+		tessellator.getBuffer().pos(x + 0, y + height, 0).tex(sprite.getMinU(), sprite.getMaxV()).endVertex();
+		tessellator.getBuffer().pos(x + width, y + height, 0).tex(sprite.getMaxU(), sprite.getMaxV()).endVertex();
+		tessellator.getBuffer().pos(x + width, y + 0, 0).tex(sprite.getMaxU(), sprite.getMinV()).endVertex();
+		tessellator.getBuffer().pos(x + 0, y + 0, 0).tex(sprite.getMinU(), sprite.getMinV()).endVertex();
 		tessellator.draw();
 	}
 

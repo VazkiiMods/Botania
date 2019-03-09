@@ -47,8 +47,8 @@ public class SkyblockSkyRenderer implements IRenderHandler {
 	@Override
 	public void render(float partialTicks, WorldClient world, Minecraft mc) {
 		// Environment setup
-		int glSkyList = mc.renderGlobal.glSkyList;
-		net.minecraft.client.renderer.vertex.VertexBuffer skyVBO = mc.renderGlobal.skyVBO;
+		int glSkyList = mc.worldRenderer.glSkyList;
+		net.minecraft.client.renderer.vertex.VertexBuffer skyVBO = mc.worldRenderer.skyVBO;
 
 		// Begin
 		GlStateManager.disableTexture2D();

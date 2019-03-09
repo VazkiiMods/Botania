@@ -120,8 +120,8 @@ public class GuiLexiconChallenge extends GuiLexicon implements IParented {
 
 	private void back() {
 		if(backButton.enabled) {
-			actionPerformed(backButton);
 			backButton.playPressSound(mc.getSoundHandler());
+			backButton.onClick(backButton.x, backButton.y);
 		}
 	}
 

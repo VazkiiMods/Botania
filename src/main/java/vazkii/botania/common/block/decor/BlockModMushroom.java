@@ -38,7 +38,7 @@ import javax.annotation.Nonnull;
 import java.util.Random;
 
 @Optional.Interface(modid = "thaumcraft", iface = "thaumcraft.api.crafting.IInfusionStabiliser", striprefs = true)
-public class BlockModMushroom extends BlockMushroom implements IInfusionStabiliser, IHornHarvestable, ILexiconable, IModelRegister, ICustomApothecaryColor {
+public class BlockModMushroom extends BlockMushroom implements IInfusionStabiliser, IHornHarvestable, ILexiconable, ICustomApothecaryColor {
 
 	private static final VoxelShape SHAPE = makeCuboidShape(4.8, 0, 4.8, 12.8, 16, 12.8);
 	private final EnumDyeColor color;
@@ -73,7 +73,7 @@ public class BlockModMushroom extends BlockMushroom implements IInfusionStabilis
 	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void animateTick(IBlockState state, World world, BlockPos pos, Random rand) {
-		int hex = color.getColorValue();
+		int hex = color.colorValue;
 		int r = (hex & 0xFF0000) >> 16;
 		int g = (hex & 0xFF00) >> 8;
 		int b = hex & 0xFF;

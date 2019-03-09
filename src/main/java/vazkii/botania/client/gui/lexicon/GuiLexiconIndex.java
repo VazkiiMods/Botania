@@ -343,6 +343,7 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 		if(button == GLFW.GLFW_MOUSE_BUTTON_LEFT)
 			swiped = false;
 
+		// todo 1.13 might not be needed with focus changes in super?
 		if (searchField.mouseClicked(mouseX, mouseY, button))
 			return true;
 
