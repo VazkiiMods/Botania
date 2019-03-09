@@ -16,6 +16,7 @@ import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.text.TextFormatting;
+import org.lwjgl.glfw.GLFW;
 import vazkii.botania.client.challenge.Challenge;
 import vazkii.botania.client.challenge.ModChallenges;
 import vazkii.botania.client.core.handler.ClientTickHandler;
@@ -50,8 +51,23 @@ public class GuiLexiconChallenge extends GuiLexicon implements IParented {
 		super.onInitGui();
 		setTitle();
 
-		buttons.add(backButton = new GuiButtonBack(12, left + guiWidth / 2 - 8, top + guiHeight + 2));
-		buttons.add(completeButton = new GuiButton(13, left + 20, top + guiHeight - 35, guiWidth - 40, 20, ""));
+		buttons.add(backButton = new GuiButtonBack(12, left + guiWidth / 2 - 8, top + guiHeight + 2) {
+			@Override
+			public void onClick(double mouseX, double mouseY) {
+				super.onClick(mouseX, mouseY);
+				mc.displayGuiScreen(parent);
+				ClientTickHandler.notifyPageChange();
+			}
+		});
+		buttons.add(completeButton = new GuiButton(13, left + 20, top + guiHeight - 35, guiWidth - 40, 20, "") {
+			@Override
+			public void onClick(double mouseX, double mouseY) {
+				super.onClick(mouseX, mouseY);
+				challenge.complete = !challenge.complete;
+				setCompleteButtonTitle();
+				PersistentVariableHelper.saveSafe();
+			}
+		});
 		setCompleteButtonTitle();
 	}
 
@@ -76,15 +92,17 @@ public class GuiLexiconChallenge extends GuiLexicon implements IParented {
 	}
 
 	@Override
-	protected void keyTyped(char par1, int par2) throws IOException {
-		if(par2 == 14 && !notesEnabled) // Backspace
+	public boolean keyPressed(int keyCode, int scanCode, int mods) {
+		if(keyCode == GLFW.GLFW_KEY_BACKSPACE && !notesEnabled) {
 			back();
-		else if(par2 == 199) { // Home
+			return true;
+		} else if(keyCode == GLFW.GLFW_KEY_HOME) {
 			mc.displayGuiScreen(new GuiLexicon());
 			ClientTickHandler.notifyPageChange();
+			return true;
 		}
 
-		super.keyTyped(par1, par2);
+		return super.keyPressed(keyCode, scanCode, mods);
 	}
 
 	@Override
@@ -94,21 +112,6 @@ public class GuiLexiconChallenge extends GuiLexicon implements IParented {
 			return false;
 		}
 		return super.mouseClicked(mouseX, mouseY, button);
-	}
-
-	@Override
-	protected void actionPerformed(GuiButton par1GuiButton) {
-		if(par1GuiButton.id >= BOOKMARK_START)
-			super.actionPerformed(par1GuiButton);
-		else if(par1GuiButton.id == 12) {
-			mc.displayGuiScreen(parent);
-			ClientTickHandler.notifyPageChange();
-		} else if(par1GuiButton.id == 13) {
-			challenge.complete = !challenge.complete;
-			setCompleteButtonTitle();
-			PersistentVariableHelper.saveSafe();
-		} else if(par1GuiButton.id == NOTES_BUTTON_ID)
-			notesEnabled = !notesEnabled;
 	}
 
 	private void setCompleteButtonTitle() {
@@ -133,7 +136,7 @@ public class GuiLexiconChallenge extends GuiLexicon implements IParented {
 	}
 
 	@Override
-	String getTitle() {
+	public String getTitle() {
 		return title;
 	}
 

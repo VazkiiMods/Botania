@@ -16,6 +16,7 @@ import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.items.SlotItemHandler;
@@ -33,9 +34,9 @@ public class GuiFlowerBag extends GuiContainer {
 	}
 
 	@Override
-	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+	public void render(int mouseX, int mouseY, float partialTicks) {
 		this.drawDefaultBackground();
-		super.drawScreen(mouseX, mouseY, partialTicks);
+		super.render(mouseX, mouseY, partialTicks);
 		this.renderHoveredToolTip(mouseX, mouseY);
 	}
 
@@ -48,7 +49,7 @@ public class GuiFlowerBag extends GuiContainer {
 
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
-		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+		GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
 		mc.getTextureManager().bindTexture(texture);
 		int k = (width - xSize) / 2;
 		int l = (height - ySize) / 2;
@@ -59,7 +60,8 @@ public class GuiFlowerBag extends GuiContainer {
 			if(slot instanceof SlotItemHandler) {
 				SlotItemHandler slotf = (SlotItemHandler) slot;
 				if(!slotf.getHasStack()) {
-					ItemStack stack = new ItemStack(ModBlocks.flower, 1, slotf.getSlotIndex()); // index matches colors
+					EnumDyeColor color = EnumDyeColor.byId(slotf.getSlotIndex());
+					ItemStack stack = new ItemStack(ModBlocks.getFlower(color));
 					int x = guiLeft + slotf.xPos;
 					int y = guiTop + slotf.yPos;
 					RenderHelper.enableGUIStandardItemLighting();

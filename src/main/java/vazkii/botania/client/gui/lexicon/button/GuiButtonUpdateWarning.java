@@ -11,6 +11,7 @@
 package vazkii.botania.client.gui.lexicon.button;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.text.TextFormatting;
@@ -18,8 +19,11 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.PersistentVariableHelper;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.gui.lexicon.GuiLexicon;
+import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
+import java.awt.*;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +31,24 @@ public class GuiButtonUpdateWarning extends GuiButtonLexicon {
 
 	public GuiButtonUpdateWarning(int id, int x, int y) {
 		super(id, x, y, 11, 11, "");
+	}
+
+	@Override
+	public void onClick(double mouseX, double mouseY) {
+		super.onClick(mouseX, mouseY);
+		if(GuiScreen.isShiftKeyDown()) {
+			try {
+				if(Desktop.isDesktopSupported())
+					Desktop.getDesktop().browse(new URI("http://botaniamod.net/changelog.php#" + PersistentVariableHelper.lastBotaniaVersion.replaceAll("\\.|\\s", "-")));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else {
+			PersistentVariableHelper.lastBotaniaVersion = LibMisc.VERSION;
+			PersistentVariableHelper.saveSafe();
+			this.visible = false;
+			this.enabled = false;
+		}
 	}
 
 	@Override

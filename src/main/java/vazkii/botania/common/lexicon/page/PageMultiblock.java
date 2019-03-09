@@ -114,7 +114,16 @@ public class PageMultiblock extends LexiconPage {
 
 	@Override
 	public void onOpened(IGuiLexiconEntry gui) {
-		button = new GuiButton(101, gui.getLeft() + 30, gui.getTop() + gui.getHeight() - 50, gui.getWidth() - 60, 20, getButtonStr());
+		button = new GuiButton(101, gui.getLeft() + 30, gui.getTop() + gui.getHeight() - 50, gui.getWidth() - 60, 20, getButtonStr()) {
+			@Override
+			public void onClick(double mouseX, double mouseY) {
+				super.onClick(mouseX, mouseY);
+				if(MultiblockRenderHandler.currentMultiblock == set)
+					MultiblockRenderHandler.setMultiblock(null);
+				else MultiblockRenderHandler.setMultiblock(set);
+				button.displayString = getButtonStr();
+			}
+		};
 		gui.getButtonList().add(button);
 	}
 
@@ -126,17 +135,6 @@ public class PageMultiblock extends LexiconPage {
 	@Override
 	public void onClosed(IGuiLexiconEntry gui) {
 		gui.getButtonList().remove(button);
-	}
-
-	@Override
-	@OnlyIn(Dist.CLIENT)
-	public void onActionPerformed(IGuiLexiconEntry gui, GuiButton button) {
-		if(button == this.button) {
-			if(MultiblockRenderHandler.currentMultiblock == set)
-				MultiblockRenderHandler.setMultiblock(null);
-			else MultiblockRenderHandler.setMultiblock(set);
-			button.displayString = getButtonStr();
-		}
 	}
 
 	@Override

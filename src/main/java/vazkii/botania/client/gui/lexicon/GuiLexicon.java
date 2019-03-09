@@ -11,25 +11,20 @@
 package vazkii.botania.client.gui.lexicon;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.audio.SimpleSound;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.client.gui.advancements.GuiScreenAdvancements;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.InputMappings;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ChatAllowedCharacters;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SharedConstants;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.common.MinecraftForge;
 import org.lwjgl.glfw.GLFW;
-import org.lwjgl.input.Keyboard;
-import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.BotaniaTutorialStartEvent;
@@ -39,7 +34,6 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.PersistentVariableHelper;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.core.proxy.ClientProxy;
-import vazkii.botania.client.gui.GuiBotaniaConfig;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonAchievement;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonBookmark;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonCategory;
@@ -60,9 +54,6 @@ import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lexicon.page.PageText;
 import vazkii.botania.common.lib.LibMisc;
 
-import java.awt.Desktop;
-import java.io.IOException;
-import java.net.URI;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayDeque;
@@ -83,14 +74,17 @@ public class GuiLexicon extends GuiScreen {
 
 	private static final String TAG_TYPE = "type";
 
-	private static final int[] KONAMI_CODE = { 200, 200, 208, 208, 203, 205, 203, 205, 48, 30 };
+	private static final int[] KONAMI_CODE = {
+			GLFW.GLFW_KEY_UP, GLFW.GLFW_KEY_UP, GLFW.GLFW_KEY_DOWN, GLFW.GLFW_KEY_DOWN,
+			GLFW.GLFW_KEY_LEFT, GLFW.GLFW_KEY_RIGHT, GLFW.GLFW_KEY_LEFT, GLFW.GLFW_KEY_RIGHT,
+			GLFW.GLFW_KEY_B, GLFW.GLFW_KEY_A
+	};
 
 	public static final int BOOKMARK_START = 1337;
-	public static final int NOTES_BUTTON_ID = 1336; // random button tho
 	public static final int MAX_BOOKMARK_COUNT = 8;
 	public static final List<GuiLexicon> bookmarks = new ArrayList<>();
 	public static final List<String> bookmarkKeys = new ArrayList<>();
-	private boolean bookmarksNeedPopulation = false;
+	public boolean bookmarksNeedPopulation = false;
 
 	public static final Queue<LexiconEntry> tutorial = new ArrayDeque<>();
 
@@ -104,17 +98,15 @@ public class GuiLexicon extends GuiScreen {
 	private static final int TUTORIAL_ARROW_WIDTH = 10;
 	private static final int TUTORIAL_ARROW_HEIGHT = 12;
 	boolean hasTutorialArrow;
-	int tutorialArrowX, tutorialArrowY;
-	int konamiIndex;
-	int konamiTime;
+	private int tutorialArrowX, tutorialArrowY;
+	private int konamiIndex;
+	private int konamiTime;
 
 	private static final int NOTE_TWEEN_TIME = 5;
 	public static boolean notesEnabled;
-	static int notesMoveTime;
+	private static int notesMoveTime;
 	public String note = "";
 	public String categoryHighlight = "";
-
-	List<LexiconCategory> allCategories;
 
 	String title;
 	final int guiWidth = 146;
@@ -152,7 +144,7 @@ public class GuiLexicon extends GuiScreen {
 			mc.mainWindow.updateSize();
 		}
 
-		allCategories = new ArrayList<>(BotaniaAPI.getAllCategories());
+		List<LexiconCategory> allCategories = new ArrayList<>(BotaniaAPI.getAllCategories());
 		Collections.sort(allCategories);
 
 		lastTime = ClientTickHandler.ticksInGame;
@@ -206,7 +198,7 @@ public class GuiLexicon extends GuiScreen {
 				buttons.add(new GuiButtonDoot(-99, left + 100, top + 12));
 		}
 
-		buttons.add(new GuiButtonNotes(this, NOTES_BUTTON_ID, left - 4, top - 4));
+		buttons.add(new GuiButtonNotes(this, 1336, left - 4, top - 4));
 	}
 
 	@Override
@@ -405,98 +397,6 @@ public class GuiLexicon extends GuiScreen {
 	}
 
 	@Override
-	protected void actionPerformed(GuiButton par1GuiButton) {
-		if(par1GuiButton.id >= BOOKMARK_START) {
-			if(par1GuiButton.id >= BOOKMARK_START + MAX_BOOKMARK_COUNT) {
-				if(par1GuiButton instanceof GuiButtonChallengeInfo)
-					mc.displayGuiScreen(new GuiLexiconEntry(LexiconData.challenges, this));
-				else mc.displayGuiScreen(new GuiLexiconHistory());
-				ClientTickHandler.notifyPageChange();
-			} else handleBookmark(par1GuiButton);
-		} else if(par1GuiButton instanceof GuiButtonCategory) {
-			LexiconCategory category = ((GuiButtonCategory) par1GuiButton).getCategory();
-
-			mc.displayGuiScreen(new GuiLexiconIndex(category));
-			ClientTickHandler.notifyPageChange();
-		} else switch(par1GuiButton.id) {
-		case -1 :
-			mc.displayGuiScreen(new GuiBotaniaConfig(this));
-			break;
-		case -2 :
-			if(mc.player != null) {
-				GuiScreenAdvancements gui = new GuiScreenAdvancements(this.mc.player.connection.getAdvancementManager());
-				this.mc.displayGuiScreen(gui);
-				ResourceLocation tab = new ResourceLocation(LibMisc.MOD_ID, "main/root");
-				gui.setSelectedTab(mc.player.connection.getAdvancementManager().getAdvancementList().getAdvancement(tab));
-			}
-			break;
-		case -3 :
-			mc.displayGuiScreen(new GuiLexiconChallengesList());
-			break;
-		case -4:
-			int maxAllowed = getMaxAllowedScale();
-			if(PersistentVariableHelper.lexiconGuiScale >= maxAllowed)
-				PersistentVariableHelper.lexiconGuiScale = 2;
-			else PersistentVariableHelper.lexiconGuiScale++;
-
-			PersistentVariableHelper.saveSafe();
-			mc.displayGuiScreen(new GuiLexicon());
-			break;
-		case -98 :
-			if(isShiftKeyDown()) {
-				try {
-					if(Desktop.isDesktopSupported())
-						Desktop.getDesktop().browse(new URI("http://botaniamod.net/changelog.php#" + PersistentVariableHelper.lastBotaniaVersion.replaceAll("\\.|\\s", "-")));
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			} else {
-				PersistentVariableHelper.lastBotaniaVersion = LibMisc.VERSION;
-				PersistentVariableHelper.saveSafe();
-				par1GuiButton.visible = false;
-				par1GuiButton.enabled = false;
-			}
-
-			break;
-		case NOTES_BUTTON_ID :
-			notesEnabled = !notesEnabled;
-			break;
-		}
-	}
-
-	public void handleBookmark(GuiButton par1GuiButton) {
-		boolean modified = false;
-		int i = par1GuiButton.id - BOOKMARK_START;
-		String key = getNotesKey();
-		if(i == bookmarks.size()) {
-			if(!bookmarkKeys.contains(key)) {
-				bookmarks.add(copy());
-				bookmarkKeys.add(key);
-				modified = true;
-			}
-		} else {
-			if(isShiftKeyDown()) {
-				bookmarks.remove(i);
-				bookmarkKeys.remove(i);
-
-				modified = true;
-			} else {
-				GuiLexicon bookmark = bookmarks.get(i).copy();
-				if(!bookmark.getTitle().equals(getTitle())) {
-					Minecraft.getInstance().displayGuiScreen(bookmark);
-					if(bookmark instanceof IParented)
-						((IParented) bookmark).setParent(this);
-					ClientTickHandler.notifyPageChange();
-				}
-			}
-		}
-
-		bookmarksNeedPopulation = true;
-		if(modified)
-			PersistentVariableHelper.saveSafe();
-	}
-
-	@Override
 	public boolean doesGuiPauseGame() {
 		return false;
 	}
@@ -508,7 +408,7 @@ public class GuiLexicon extends GuiScreen {
 		return fontRenderer.getStringWidth(b) + 15;
 	}
 
-	String getTitle() {
+	public String getTitle() {
 		return title;
 	}
 
@@ -532,7 +432,7 @@ public class GuiLexicon extends GuiScreen {
 		return true;
 	}
 	
-	private static int getMaxAllowedScale() {
+	public static int getMaxAllowedScale() {
 		Minecraft mc = Minecraft.getInstance();
 		return mc.mainWindow.getScaleFactor(0);
 	}
@@ -626,32 +526,37 @@ public class GuiLexicon extends GuiScreen {
 	}
 
 	@Override
-	protected void keyPressed(int keyCode, int scanCode, int mods) {
-		handleNoteKey(par1, par2);
+	public boolean charTyped(char codePoint, int mods) {
+		return handleNoteChar(codePoint) || super.charTyped(codePoint, mods);
+	}
 
+	@Override
+	public boolean keyPressed(int keyCode, int scanCode, int mods) {
 		if(!notesEnabled && closeScreenOnInvKey() && mc.gameSettings.keyBindInventory.isActiveAndMatches(InputMappings.getInputByCode(keyCode, scanCode))) {
 			mc.displayGuiScreen(null);
 			mc.mouseHelper.grabMouse();
+			return true;
 		}
 
-		if(konamiTime == 0 && par2 == KONAMI_CODE[konamiIndex]) {
+		if(konamiTime == 0 && keyCode == KONAMI_CODE[konamiIndex]) {
 			konamiIndex++;
 			if(konamiIndex >= KONAMI_CODE.length) {
 				mc.getSoundHandler().play(SimpleSound.master(ModSounds.way, 1.0F));
 				konamiIndex = 0;
 				konamiTime = 240;
 			}
+			return true;
 		} else konamiIndex = 0;
 
-		super.keyTyped(par1, par2);
+		return super.keyPressed(keyCode, scanCode, mods);
 	}
 
-	public void handleNoteKey(char par1, int par2) {
+	private boolean handleNoteChar(char codePoint) {
 		if(notesEnabled) {
-			Keyboard.enableRepeatEvents(true);
+			mc.keyboardListener.enableRepeatEvents(true);
 			boolean changed = false;
 
-			if(par2 == 14 && note.length() > 0) {
+			if(codePoint == 8 && note.length() > 0) { // backspace
 				if(isCtrlKeyDown())
 					note = "";
 				else {
@@ -662,16 +567,18 @@ public class GuiLexicon extends GuiScreen {
 				changed = true;
 			}
 
-			if((ChatAllowedCharacters.isAllowedCharacter(par1) || par2 == 28) && note.length() < 250) {
-				note += par2 == 28 ? "<br>" : par1;
+			if((SharedConstants.isAllowedCharacter(codePoint) || codePoint == 0xA) && note.length() < 250) {
+				note += codePoint == 0xA ? "<br>" : codePoint;
 				changed = true;
 			}
 
 			if(changed) {
 				notes.put(getNotesKey(), note);
 				PersistentVariableHelper.saveSafe();
+				return true;
 			}
-		} else Keyboard.enableRepeatEvents(false);
+		} else mc.keyboardListener.enableRepeatEvents(false);
+		return false;
 	}
 
 	public static GuiLexicon create(NBTTagCompound cmp) {

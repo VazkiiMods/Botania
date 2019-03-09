@@ -16,6 +16,8 @@ import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.text.TextFormatting;
 import vazkii.botania.client.challenge.Challenge;
+import vazkii.botania.client.gui.lexicon.GuiLexicon;
+import vazkii.botania.client.gui.lexicon.GuiLexiconChallenge;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -24,10 +26,18 @@ import java.util.List;
 public class GuiButtonChallengeIcon extends GuiButtonLexicon {
 
 	public final Challenge challenge;
+	private final GuiLexicon owner;
 
-	public GuiButtonChallengeIcon(int id, int x, int y, Challenge challenge) {
+	public GuiButtonChallengeIcon(int id, int x, int y, Challenge challenge, GuiLexicon owner) {
 		super(id, x, y, 16, 16, "");
 		this.challenge = challenge;
+		this.owner = owner;
+	}
+
+	@Override
+	public void onClick(double mouseX, double mouseY) {
+		super.onClick(mouseX, mouseY);
+		Minecraft.getInstance().displayGuiScreen(new GuiLexiconChallenge(owner, challenge));
 	}
 
 	@Override

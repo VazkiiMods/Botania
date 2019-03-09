@@ -21,9 +21,11 @@ import org.lwjgl.opengl.ARBShaderObjects;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.internal.ShaderCallback;
 import vazkii.botania.api.lexicon.LexiconCategory;
+import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.gui.lexicon.GuiLexicon;
+import vazkii.botania.client.gui.lexicon.GuiLexiconIndex;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.handler.ConfigHandler;
 
@@ -73,8 +75,15 @@ public class GuiButtonCategory extends GuiButtonLexicon {
 	}
 
 	@Override
+	public void onClick(double mouseX, double mouseY) {
+		super.onClick(mouseX, mouseY);
+		Minecraft.getInstance().displayGuiScreen(new GuiLexiconIndex(category));
+		ClientTickHandler.notifyPageChange();
+	}
+
+	@Override
 	public void render(int mx, int my, float partialTicks) {
-		boolean inside = mx >= x && my >= y && mx < x + width && my < y + height;
+		boolean inside = isPressable(mx, my);
 		if(inside)
 			ticksHovered = Math.min(time, ticksHovered + gui.timeDelta);
 		else ticksHovered = Math.max(0F, ticksHovered - gui.timeDelta);

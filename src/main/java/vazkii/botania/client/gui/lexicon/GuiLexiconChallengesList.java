@@ -13,6 +13,7 @@ package vazkii.botania.client.gui.lexicon;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.text.TextFormatting;
+import org.lwjgl.glfw.GLFW;
 import vazkii.botania.client.challenge.Challenge;
 import vazkii.botania.client.challenge.EnumChallengeLevel;
 import vazkii.botania.client.challenge.ModChallenges;
@@ -38,7 +39,14 @@ public class GuiLexiconChallengesList extends GuiLexicon implements IParented {
 		super.onInitGui();
 		title = I18n.format("botaniamisc.challenges");
 
-		buttonList.add(backButton = new GuiButtonBack(12, left + guiWidth / 2 - 8, top + guiHeight + 2));
+		buttons.add(backButton = new GuiButtonBack(12, left + guiWidth / 2 - 8, top + guiHeight + 2) {
+			@Override
+			public void onClick(double mouseX, double mouseY) {
+				super.onClick(mouseX, mouseY);
+				mc.displayGuiScreen(parent);
+				ClientTickHandler.notifyPageChange();
+			}
+		});
 
 		int perline = 6;
 		int i = 13;
@@ -46,7 +54,7 @@ public class GuiLexiconChallengesList extends GuiLexicon implements IParented {
 		for(EnumChallengeLevel level : EnumChallengeLevel.class.getEnumConstants()) {
 			int j = 0;
 			for(Challenge c : ModChallenges.challenges.get(level)) {
-				buttonList.add(new GuiButtonChallengeIcon(i, left + 20 + j % perline * 18, y + j / perline * 17, c));
+				buttons.add(new GuiButtonChallengeIcon(i, left + 20 + j % perline * 18, y + j / perline * 17, c, this));
 				i++;
 				j++;
 			}
@@ -58,8 +66,6 @@ public class GuiLexiconChallengesList extends GuiLexicon implements IParented {
 	public void drawScreenAfterScale(int xCoord, int yCoord, float newPartialTicks) {
 		super.drawScreenAfterScale(xCoord, yCoord, newPartialTicks);
 
-		boolean unicode = fontRenderer.getUnicodeFlag();
-		fontRenderer.setUnicodeFlag(true);
 		for(EnumChallengeLevel level : EnumChallengeLevel.class.getEnumConstants()) {
 			List<Challenge> list = ModChallenges.challenges.get(level);
 			int complete = 0;
@@ -69,47 +75,35 @@ public class GuiLexiconChallengesList extends GuiLexicon implements IParented {
 
 			fontRenderer.drawString(TextFormatting.BOLD + I18n.format(level.getName()) + TextFormatting.RESET + " (" + complete + "/" + list.size() + ")", left + 20, top + 11 + level.ordinal() * 44, 0);
 		}
-		fontRenderer.setUnicodeFlag(unicode);
 	}
 
 	@Override
-	protected void keyTyped(char par1, int par2) throws IOException {
-		if(par2 == 14 && !notesEnabled) // Backspace
+	public boolean keyPressed(int keyCode, int scanCode, int mods) {
+		if(keyCode == GLFW.GLFW_KEY_BACKSPACE && !notesEnabled) {
 			back();
-		else if(par2 == 199) { // Home
+			return true;
+		} else if(keyCode == GLFW.GLFW_KEY_HOME) {
 			mc.displayGuiScreen(new GuiLexicon());
 			ClientTickHandler.notifyPageChange();
+			return true;
 		}
 
-		super.keyTyped(par1, par2);
+		return super.keyPressed(keyCode, scanCode, mods);
 	}
 
 	@Override
-	protected void mouseClicked(int par1, int par2, int par3) throws IOException {
-		super.mouseClicked(par1, par2, par3);
-
-		if(par3 == 1)
+	public boolean mouseClicked(double mouseX, double mouseY, int mods) {
+		if(mods == GLFW.GLFW_MOUSE_BUTTON_RIGHT) {
 			back();
-	}
-
-	@Override
-	protected void actionPerformed(GuiButton par1GuiButton) {
-		if(par1GuiButton.id >= BOOKMARK_START)
-			super.actionPerformed(par1GuiButton);
-		else if(par1GuiButton.id == 12) {
-			mc.displayGuiScreen(parent);
-			ClientTickHandler.notifyPageChange();
-		} else if(par1GuiButton instanceof GuiButtonChallengeIcon) {
-			GuiButtonChallengeIcon cbutton = (GuiButtonChallengeIcon) par1GuiButton;
-			mc.displayGuiScreen(new GuiLexiconChallenge(this, cbutton.challenge));
-		} else if(par1GuiButton.id == NOTES_BUTTON_ID)
-			notesEnabled = !notesEnabled;
+			return true;
+		}
+		return super.mouseClicked(mouseX, mouseY, mods);
 	}
 
 	private void back() {
 		if(backButton.enabled) {
-			actionPerformed(backButton);
 			backButton.playPressSound(mc.getSoundHandler());
+			backButton.onClick(backButton.x, backButton.y);
 		}
 	}
 
@@ -124,7 +118,7 @@ public class GuiLexiconChallengesList extends GuiLexicon implements IParented {
 	}
 
 	@Override
-	String getTitle() {
+	public String getTitle() {
 		return title;
 	}
 

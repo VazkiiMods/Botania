@@ -31,7 +31,6 @@ import vazkii.botania.client.gui.lexicon.button.GuiButtonShare;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonViewOnline;
 
 import java.awt.Desktop;
-import java.io.IOException;
 import java.net.URI;
 import java.util.List;
 
@@ -76,12 +75,63 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 	public void onInitGui() {
 		super.onInitGui();
 
-		buttons.add(backButton = new GuiButtonBackWithShift(0, left + guiWidth / 2 - 8, top + guiHeight + 2));
-		buttons.add(leftButton = new GuiButtonPage(1, left, top + guiHeight - 10, false));
-		buttons.add(rightButton = new GuiButtonPage(2, left + guiWidth - 18, top + guiHeight - 10, true));
-		buttons.add(new GuiButtonShare(3, left + guiWidth - 6, top - 2));
+		buttons.add(backButton = new GuiButtonBackWithShift(0, left + guiWidth / 2 - 8, top + guiHeight + 2) {
+			@Override
+			public void onClick(double mouseX, double mouseY) {
+				super.onClick(mouseX, mouseY);
+				entry.pages.get(page).onClosed(GuiLexiconEntry.this);
+				mc.displayGuiScreen(GuiScreen.isShiftKeyDown() ? new GuiLexicon() : parent);
+				ClientTickHandler.notifyPageChange();
+			}
+		});
+		buttons.add(leftButton = new GuiButtonPage(1, left, top + guiHeight - 10, false) {
+			@Override
+			public void onClick(double mouseX, double mouseY) {
+				super.onClick(mouseX, mouseY);
+				entry.pages.get(page).onClosed(GuiLexiconEntry.this);
+				page--;
+				entry.pages.get(page).onOpened(GuiLexiconEntry.this);
+
+				ClientTickHandler.notifyPageChange();
+				updatePageButtons();
+			}
+		});
+		buttons.add(rightButton = new GuiButtonPage(2, left + guiWidth - 18, top + guiHeight - 10, true) {
+			@Override
+			public void onClick(double mouseX, double mouseY) {
+				super.onClick(mouseX, mouseY);
+				entry.pages.get(page).onClosed(GuiLexiconEntry.this);
+				page++;
+				entry.pages.get(page).onOpened(GuiLexiconEntry.this);
+
+				ClientTickHandler.notifyPageChange();
+				updatePageButtons();
+			}
+		});
+		buttons.add(new GuiButtonShare(3, left + guiWidth - 6, top - 2) {
+			@Override
+			public void onClick(double mouseX, double mouseY) {
+				super.onClick(mouseX, mouseY);
+				Minecraft mc = Minecraft.getInstance();
+				String cmd = "/botania-share " + entry.getUnlocalizedName();
+
+				mc.ingameGUI.getChatGUI().addToSentMessages(cmd);
+				mc.player.sendChatMessage(cmd);
+			}
+		});
 		if(entry.getWebLink() != null)
-			buttons.add(new GuiButtonViewOnline(4, left - 8, top + 12));
+			buttons.add(new GuiButtonViewOnline(4, left - 8, top + 12) {
+				@Override
+				public void onClick(double mouseX, double mouseY) {
+					super.onClick(mouseX, mouseY);
+					try {
+						if(Desktop.isDesktopSupported())
+							Desktop.getDesktop().browse(new URI(entry.getWebLink()));
+					} catch(Exception e) {
+						e.printStackTrace();
+					}
+				}
+			});
 
 		if(!GuiLexicon.isValidLexiconGui(this))	{
 			currentOpenLexicon = new GuiLexicon();
@@ -113,7 +163,7 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 	}
 
 	@Override
-	String getTitle() {
+	public String getTitle() {
 		return String.format("%s " + TextFormatting.ITALIC + "(%s/%s)", title, page + 1, entry.pages.size());
 	}
 
@@ -127,64 +177,12 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 		return false;
 	}
 
-	@Override
-	protected void actionPerformed(GuiButton par1GuiButton) {
-		LexiconPage currentPage = entry.pages.get(page);
-		LexiconPage newPage;
-
-		if(par1GuiButton.id >= BOOKMARK_START)
-			handleBookmark(par1GuiButton);
-		else if(par1GuiButton.id == NOTES_BUTTON_ID)
-			notesEnabled = !notesEnabled;
-		else
-			switch(par1GuiButton.id) {
-			case 0 :
-				currentPage.onClosed(this);
-				mc.displayGuiScreen(GuiScreen.isShiftKeyDown() ? new GuiLexicon() : parent);
-				ClientTickHandler.notifyPageChange();
-				break;
-			case 1 :
-				currentPage.onClosed(this);
-				page--;
-				newPage = entry.pages.get(page);
-				newPage.onOpened(this);
-
-				ClientTickHandler.notifyPageChange();
-				break;
-			case 2 :
-				currentPage.onClosed(this);
-				page++;
-				newPage = entry.pages.get(page);
-				newPage.onOpened(this);
-
-				ClientTickHandler.notifyPageChange();
-				break;
-			case 3 :
-				Minecraft mc = Minecraft.getInstance();
-				String cmd = "/botania-share " + entry.getUnlocalizedName();
-
-				mc.ingameGUI.getChatGUI().addToSentMessages(cmd);
-				mc.player.sendChatMessage(cmd);
-				break;
-			case 4 :
-				try {
-					if(Desktop.isDesktopSupported())
-						Desktop.getDesktop().browse(new URI(entry.getWebLink()));
-				} catch(Exception e) {
-					e.printStackTrace();
-				}
-			}
-
-		updatePageButtons();
-		currentPage.onActionPerformed(this, par1GuiButton);
-	}
-
 	public GuiLexiconEntry setFirstEntry() {
 		firstEntry = true;
 		return this;
 	}
 
-	public void updatePageButtons() {
+	private void updatePageButtons() {
 		leftButton.enabled = page != 0;
 		rightButton.enabled = page + 1 < entry.pages.size();
 		if(firstEntry)
@@ -309,46 +307,48 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 	}
 
 	@Override
-	protected void keyTyped(char par1, int par2) {
-		handleNoteKey(par1, par2);
-
+	public boolean keyPressed(int keyCode, int scanCode, int mods) {
 		LexiconPage page = entry.pages.get(this.page);
-		page.onKeyPressed(par1, par2);
+		if (page.keyPressed(keyCode, scanCode, mods)) {
+			return true;
+		}
 
-		if(par2 == 1) {
+		if(keyCode == GLFW.GLFW_KEY_ESCAPE) {
 			mc.displayGuiScreen(null);
 			mc.mouseHelper.grabMouse();
-		} else if(par2 == 203 || par2 == 200 || par2 == 201) // Left, Up, Page Up
+		} else if(keyCode == GLFW.GLFW_KEY_LEFT || keyCode == GLFW.GLFW_KEY_UP || keyCode == GLFW.GLFW_KEY_PAGE_UP)
 			prevPage();
-		else if(par2 == 205 || par2 == 208 || par2 == 209) // Right, Down Page Down
+		else if(keyCode == GLFW.GLFW_KEY_RIGHT || keyCode == GLFW.GLFW_KEY_DOWN || keyCode == GLFW.GLFW_KEY_PAGE_DOWN)
 			nextPage();
-		if(par2 == 14 && !notesEnabled) // Backspace
+		if(keyCode == GLFW.GLFW_KEY_BACKSPACE && !notesEnabled)
 			back();
-		else if(par2 == 199) { // Home
+		else if(keyCode == GLFW.GLFW_KEY_HOME) { // Home
 			mc.displayGuiScreen(new GuiLexicon());
 			ClientTickHandler.notifyPageChange();
 		}
+
+		return super.keyPressed(keyCode, scanCode, mods);
 	}
 
 	private void back() {
 		if(backButton.enabled) {
-			actionPerformed(backButton);
 			backButton.playPressSound(mc.getSoundHandler());
+			backButton.onClick(backButton.x, backButton.y);
 		}
 	}
 
 	private void nextPage() {
 		if(rightButton.enabled) {
-			actionPerformed(rightButton);
 			rightButton.playPressSound(mc.getSoundHandler());
+			rightButton.onClick(rightButton.x, rightButton.y);
 			updateNote();
 		}
 	}
 
 	private void prevPage() {
 		if(leftButton.enabled) {
-			actionPerformed(leftButton);
 			leftButton.playPressSound(mc.getSoundHandler());
+			leftButton.onClick(leftButton.x, leftButton.y);
 			updateNote();
 		}
 	}

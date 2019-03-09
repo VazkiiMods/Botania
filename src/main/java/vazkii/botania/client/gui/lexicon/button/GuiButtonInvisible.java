@@ -43,10 +43,18 @@ public class GuiButtonInvisible extends GuiButtonLexicon {
 		this.gui = gui;
 	}
 
-	public void click() {
-		enableDog = true;
-		PersistentVariableHelper.dog = true;
-		PersistentVariableHelper.saveSafe();
+	@Override
+	public void onClick(double mouseX, double mouseY) {
+		super.onClick(mouseX, mouseY);
+		if (dog) {
+			enableDog = true;
+			PersistentVariableHelper.dog = true;
+			PersistentVariableHelper.saveSafe();
+		} else {
+			// todo 1.13 is this the right place? moved from GuiLexiconIndex.actionPerformed
+			int index = id + gui.page * 12;
+			gui.openEntry(index);
+		}
 	}
 
 	@Override

@@ -12,12 +12,10 @@ package vazkii.botania.common.lexicon.page;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.translation.I18n;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.internal.IGuiLexiconEntry;
 import vazkii.botania.client.gui.lexicon.GuiLexicon;
 
@@ -29,7 +27,7 @@ public class PageTutorial extends PageText {
 	// Turn this on once we have an up to date video
 	private static final boolean VIDEO_ENABLED = true;
 
-	GuiButton buttonText, buttonVideo;
+	private GuiButton buttonText, buttonVideo;
 
 	public PageTutorial(String unlocalizedName) {
 		super(unlocalizedName);
@@ -37,9 +35,29 @@ public class PageTutorial extends PageText {
 
 	@Override
 	public void onOpened(IGuiLexiconEntry gui) {
-		buttonText = new GuiButton(101, gui.getLeft() + 20, gui.getTop() + gui.getHeight() - 40, 50, 20, I18n.translateToLocal("botaniamisc.tutorialText"));
+		buttonText = new GuiButton(101, gui.getLeft() + 20, gui.getTop() + gui.getHeight() - 40, 50, 20, I18n.format("botaniamisc.tutorialText")) {
+			@Override
+			public void onClick(double mouseX, double mouseY) {
+				super.onClick(mouseX, mouseY);
+				GuiLexicon.startTutorial();
+				Minecraft.getInstance().displayGuiScreen(new GuiLexicon());
+				Minecraft.getInstance().player.sendMessage(new TextComponentTranslation("botaniamisc.tutorialStarted").setStyle(new Style().setColor(TextFormatting.GREEN)));
+			}
+		};
 		if(VIDEO_ENABLED)
-			buttonVideo = new GuiButton(101, gui.getLeft() + 75, gui.getTop() + gui.getHeight() - 40, 50, 20, I18n.translateToLocal("botaniamisc.tutorialVideo"));
+			buttonVideo = new GuiButton(101, gui.getLeft() + 75, gui.getTop() + gui.getHeight() - 40, 50, 20, I18n.format("botaniamisc.tutorialVideo")) {
+				@Override
+				public void onClick(double mouseX, double mouseY) {
+					super.onClick(mouseX, mouseY);
+					if(Desktop.isDesktopSupported()) {
+						try {
+							Desktop.getDesktop().browse(new URI("https://www.youtube.com/watch?v=D75Aad-5QgQ"));
+						} catch(Exception e) {
+							e.printStackTrace();
+						}
+					}
+				}
+			};
 
 		gui.getButtonList().add(buttonText);
 		if(VIDEO_ENABLED)
@@ -60,21 +78,4 @@ public class PageTutorial extends PageText {
 		if(!VIDEO_ENABLED)
 			PageText.renderText(buttonText.x + buttonText.width + 4, buttonText.y - 14, 65, 100, "botaniamisc.noVideo");
 	}
-
-	@Override
-	@OnlyIn(Dist.CLIENT)
-	public void onActionPerformed(IGuiLexiconEntry gui, GuiButton button) {
-		if(button == buttonText) {
-			GuiLexicon.startTutorial();
-			Minecraft.getInstance().displayGuiScreen(new GuiLexicon());
-			Minecraft.getInstance().player.sendMessage(new TextComponentTranslation("botaniamisc.tutorialStarted").setStyle(new Style().setColor(TextFormatting.GREEN)));
-		} else if(button == buttonVideo && Desktop.isDesktopSupported()) {
-			try {
-				Desktop.getDesktop().browse(new URI("https://www.youtube.com/watch?v=D75Aad-5QgQ"));
-			} catch(Exception e) {
-				e.printStackTrace();
-			}
-		}
-	}
-
 }

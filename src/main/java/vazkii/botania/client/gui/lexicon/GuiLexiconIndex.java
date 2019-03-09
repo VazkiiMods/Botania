@@ -19,6 +19,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.text.TextFormatting;
+import org.lwjgl.glfw.GLFW;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.ILexicon;
 import vazkii.botania.api.lexicon.LexiconCategory;
@@ -29,7 +30,6 @@ import vazkii.botania.client.gui.lexicon.button.GuiButtonInvisible;
 import vazkii.botania.client.gui.lexicon.button.GuiButtonPage;
 import vazkii.botania.common.lexicon.DogLexiconEntry;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -41,7 +41,7 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 
 	LexiconCategory category;
 	String title;
-	private int page = 0;
+	public int page = 0;
 
 	private int tutPage = -1;
 
@@ -71,7 +71,7 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 	}
 
 	@Override
-	String getTitle() {
+	public String getTitle() {
 		return title;
 	}
 
@@ -96,9 +96,34 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 			return;
 		}
 
-		buttons.add(backButton = new GuiButtonBack(12, left + guiWidth / 2 - 8, top + guiHeight + 2));
-		buttons.add(leftButton = new GuiButtonPage(13, left, top + guiHeight - 10, false));
-		buttons.add(rightButton = new GuiButtonPage(14, left + guiWidth - 18, top + guiHeight - 10, true));
+		buttons.add(backButton = new GuiButtonBack(12, left + guiWidth / 2 - 8, top + guiHeight + 2) {
+			@Override
+			public void onClick(double mouseX, double mouseY) {
+				super.onClick(mouseX, mouseY);
+				mc.displayGuiScreen(parent);
+				ClientTickHandler.notifyPageChange();
+			}
+		});
+		buttons.add(leftButton = new GuiButtonPage(13, left, top + guiHeight - 10, false) {
+			@Override
+			public void onClick(double mouseX, double mouseY) {
+				super.onClick(mouseX, mouseY);
+				page--;
+				updatePageButtons();
+				populateIndex();
+				ClientTickHandler.notifyPageChange();
+			}
+		});
+		buttons.add(rightButton = new GuiButtonPage(14, left + guiWidth - 18, top + guiHeight - 10, true) {
+			@Override
+			public void onClick(double mouseX, double mouseY) {
+				super.onClick(mouseX, mouseY);
+				page++;
+				updatePageButtons();
+				populateIndex();
+				ClientTickHandler.notifyPageChange();
+			}
+		});
 
 		searchField = new GuiTextField(15, fontRenderer, left + guiWidth / 2 + 28, top + guiHeight + 6, 200, 10);
 		searchField.setCanLoseFocus(false);
@@ -134,7 +159,7 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 			return true;
 
 		for(ItemStack stack : e.getDisplayedRecipes()) {
-			String stackName = stack.getDisplayName().toLowerCase().trim();
+			String stackName = stack.getDisplayName().getString().trim();
 			if(stackName.contains(search))
 				return true;
 		}
@@ -179,18 +204,12 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 			drawTexturedModalRect(left + 134, top + guiHeight - 26, 86, 180, 12, 12);
 
 			if(entriesToDisplay.size() == 1) {
-				boolean unicode = mc.fontRenderer.getUnicodeFlag();
-				mc.fontRenderer.setUnicodeFlag(true);
 				String s = I18n.format("botaniamisc.enterToView");
 				mc.fontRenderer.drawString(s, left + guiWidth / 2 - mc.fontRenderer.getStringWidth(s) / 2, top + 30, 0x666666);
-				mc.fontRenderer.setUnicodeFlag(unicode);
 			}
 		} else {
-			boolean unicode = mc.fontRenderer.getUnicodeFlag();
-			mc.fontRenderer.setUnicodeFlag(true);
 			String s = I18n.format("botaniamisc.typeToSearch");
 			mc.fontRenderer.drawString(s, left + 120 - mc.fontRenderer.getStringWidth(s), top + guiHeight - 18, 0x666666);
-			mc.fontRenderer.setUnicodeFlag(unicode);
 		}
 
 		float animationTime = 4F;
@@ -220,8 +239,6 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 			int x = currentButton.x;
 			int y = currentButton.y;
 			String s = I18n.format(currentEntry.getTagline());
-			boolean unicode = mc.fontRenderer.getUnicodeFlag();
-			mc.fontRenderer.setUnicodeFlag(true);
 			int width = mc.fontRenderer.getStringWidth(s);
 
 			GlStateManager.pushMatrix();
@@ -231,7 +248,6 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 			Gui.drawRect(10, -32, width + 22, -2, 0x44000000);
 
 			drawBookmark(width / 2 + 16, -8, s, true, 0xFFFFFF, 180);
-			mc.fontRenderer.setUnicodeFlag(unicode);
 
 			net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
 			GlStateManager.enableRescaleNormal();
@@ -271,7 +287,6 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 			return;
 		}
 
-		List<GuiButton> buttons = buttonList;
 		for(GuiButton button : buttons) {
 			int id = button.id;
 			int index = id + page * 12;
@@ -285,41 +300,7 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 		}
 	}
 
-	@Override
-	protected void actionPerformed(GuiButton par1GuiButton) {
-		if(par1GuiButton.id >= BOOKMARK_START)
-			handleBookmark(par1GuiButton);
-		else if(par1GuiButton.id == NOTES_BUTTON_ID)
-			notesEnabled = !notesEnabled;
-		else
-			switch(par1GuiButton.id) {
-			case 12 :
-				mc.displayGuiScreen(parent);
-				ClientTickHandler.notifyPageChange();
-				break;
-			case 13 :
-				page--;
-				updatePageButtons();
-				populateIndex();
-				ClientTickHandler.notifyPageChange();
-				break;
-			case 14 :
-				page++;
-				updatePageButtons();
-				populateIndex();
-				ClientTickHandler.notifyPageChange();
-				break;
-			default :
-				if(par1GuiButton instanceof GuiButtonInvisible && ((GuiButtonInvisible) par1GuiButton).dog)
-					((GuiButtonInvisible) par1GuiButton).click();
-				else {
-					int index = par1GuiButton.id + page * 12;
-					openEntry(index);
-				}
-			}
-	}
-
-	private void openEntry(int index) {
+	public void openEntry(int index) {
 		if(index >= entriesToDisplay.size())
 			return;
 
@@ -339,54 +320,54 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 		parent = gui;
 	}
 
-	private int fx = 0;
 	private boolean swiped = false;
 
 	@Override
-	protected void mouseClickMove(int x, int y, int button, long time) {
-		if(button == 0 && Math.abs(x - fx) > 100 && mc.gameSettings.touchscreen && !swiped) {
-			double swipe = (x - fx) / Math.max(1, (double) time);
-			if(swipe < 0.5) {
+	public boolean mouseDragged(double mouseX, double mouseY, int button, double dragX, double dragY) {
+		if(button == GLFW.GLFW_MOUSE_BUTTON_LEFT && dragX > 100 && mc.gameSettings.touchscreen && !swiped) {
+			// todo 1.13 correct these constants
+			if(dragX < 0.5) {
 				nextPage();
 				swiped = true;
-			} else if(swipe > 0.5) {
+			} else if(dragY > 0.5) {
 				prevPage();
 				swiped = true;
 			}
+			return true;
 		}
+		return false;
 	}
 
 	@Override
-	protected void mouseClicked(int par1, int par2, int par3) throws IOException {
-		super.mouseClicked(par1, par2, par3);
-
-		searchField.mouseClicked(par1, par2, par3);
-		fx = par1;
-		switch(par3) {
-		case 1:
-			back();
-			break;
-		case 3:
-			nextPage();
-			break;
-		case 4:
-			prevPage();
-			break;
-		}
-	}
-
-	@Override
-	public void handleMouseInput() throws IOException {
-		super.handleMouseInput();
-
-		if(Mouse.getEventButton() == 0)
+	public boolean mouseClicked(double mouseX, double mouseY, int button) {
+		if(button == GLFW.GLFW_MOUSE_BUTTON_LEFT)
 			swiped = false;
 
-		int w = Mouse.getEventDWheel();
+		if (searchField.mouseClicked(mouseX, mouseY, button))
+			return true;
+
+		switch(button) {
+		case 1:
+			back();
+			return true;
+		case 3:
+			nextPage();
+			return true;
+		case 4:
+			prevPage();
+			return true;
+		}
+
+		return super.mouseClicked(mouseX, mouseY, button);
+	}
+
+	@Override
+	public boolean mouseScrolled(double w) {
 		if(w < 0)
 			nextPage();
 		else if(w > 0)
 			prevPage();
+		return true;
 	}
 
 	@Override
@@ -395,55 +376,67 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 	}
 
 	@Override
-	protected void keyTyped(char par1, int par2) throws IOException {
-		if(par2 == 203 || par2 == 200 || par2 == 201) // Left, Up, Page Up
-			prevPage();
-		else if(par2 == 205 || par2 == 208 || par2 == 209) // Right, Down Page Down
-			nextPage();
-		else if(par2 == 14 && !notesEnabled && searchField.getText().isEmpty()) // Backspace
-			back();
-		else if(par2 == 199) { // Home
-			mc.displayGuiScreen(new GuiLexicon());
-			ClientTickHandler.notifyPageChange();
-		} else if(par2 == 28 && entriesToDisplay.size() == 1) // Enter
-			openEntry(0);
-
+	public boolean charTyped(char codePoint, int mods) {
 		if(!notesEnabled) {
+			// todo 1.13 use focus system?
 			String search = searchField.getText();
-			searchField.textboxKeyTyped(par1, par2);
+			searchField.charTyped(codePoint, mods);
 			if(!searchField.getText().equalsIgnoreCase(search))
 				updateAll();
+			return true;
 		}
+		return super.charTyped(codePoint, mods);
+	}
 
-		super.keyTyped(par1, par2);
+	@Override
+	public boolean keyPressed(int keyCode, int scanCode, int mods) {
+		if(keyCode == GLFW.GLFW_KEY_LEFT || keyCode == GLFW.GLFW_KEY_UP || keyCode == GLFW.GLFW_KEY_PAGE_UP) {
+			prevPage();
+			return true;
+		} else if(keyCode == GLFW.GLFW_KEY_RIGHT || keyCode == GLFW.GLFW_KEY_DOWN || keyCode == GLFW.GLFW_KEY_PAGE_DOWN) {
+			nextPage();
+			return true;
+		} else if(keyCode == GLFW.GLFW_KEY_BACKSPACE && !notesEnabled && searchField.getText().isEmpty()) {
+			back();
+			return true;
+		} else if(keyCode == GLFW.GLFW_KEY_HOME) {
+			mc.displayGuiScreen(new GuiLexicon());
+			ClientTickHandler.notifyPageChange();
+			return true;
+		} else if(keyCode == GLFW.GLFW_KEY_ENTER && entriesToDisplay.size() == 1) {
+			openEntry(0);
+			return true;
+		} else {
+			return super.keyPressed(keyCode, scanCode, mods);
+		}
 	}
 
 	private void back() {
 		if(backButton.enabled) {
-			actionPerformed(backButton);
 			backButton.playPressSound(mc.getSoundHandler());
+			backButton.onClick(backButton.x, backButton.y);
 		}
 	}
 
 	private void nextPage() {
 		if(rightButton.enabled) {
-			actionPerformed(rightButton);
 			rightButton.playPressSound(mc.getSoundHandler());
+			rightButton.onClick(rightButton.x, rightButton.y);
 		}
 	}
 
 	private void prevPage() {
 		if(leftButton.enabled) {
-			actionPerformed(leftButton);
 			leftButton.playPressSound(mc.getSoundHandler());
+			leftButton.onClick(leftButton.x, leftButton.y);
 		}
 	}
 
 	@Override
 	public void serialize(NBTTagCompound cmp) {
 		super.serialize(cmp);
-		cmp.setString(TAG_CATEGORY, category == null ? "" : category.getUnlocalizedName());
-		cmp.setInteger(TAG_PAGE, page);
+		cmp.putString(TAG_CATEGORY, category == null ? "" : category.getUnlocalizedName());
+		cmp.putInt(TAG_PAGE, page);
 	}
 
 	@Override
@@ -457,7 +450,7 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 				category = cat;
 				break;
 			}
-		page = cmp.getInteger(TAG_PAGE);
+		page = cmp.getInt(TAG_PAGE);
 		setTitle();
 	}
 

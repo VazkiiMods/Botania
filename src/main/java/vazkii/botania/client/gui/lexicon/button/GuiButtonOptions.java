@@ -15,6 +15,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.text.TextFormatting;
 import vazkii.botania.client.core.helper.RenderHelper;
+import vazkii.botania.client.gui.GuiBotaniaConfig;
 import vazkii.botania.client.gui.lexicon.GuiLexicon;
 
 import javax.annotation.Nonnull;
@@ -25,6 +26,12 @@ public class GuiButtonOptions extends GuiButtonLexicon {
 
 	public GuiButtonOptions(int id, int x, int y) {
 		super(id, x, y, 11, 11, "");
+	}
+
+	@Override
+	public void onClick(double mouseX, double mouseY) {
+		super.onClick(mouseX, mouseY);
+		Minecraft.getInstance().displayGuiScreen(new GuiBotaniaConfig(lexicon));
 	}
 
 	@Override

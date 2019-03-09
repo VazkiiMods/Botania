@@ -1,10 +1,14 @@
 package vazkii.botania.client.gui.lexicon.button;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.text.TextFormatting;
+import vazkii.botania.client.core.handler.ClientTickHandler;
+import vazkii.botania.client.core.handler.PersistentVariableHelper;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.gui.lexicon.GuiLexicon;
+import vazkii.botania.client.gui.lexicon.IParented;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -17,6 +21,39 @@ public class GuiButtonBookmark extends GuiButtonLexicon {
 	public GuiButtonBookmark(int par1, int par2, int par3, GuiLexicon gui, String str) {
 		super(par1, par2, par3, gui.bookmarkWidth(str) + 5, 11, str);
 		this.gui = gui;
+	}
+
+	@Override
+	public void onClick(double mouseX, double mouseY) {
+		boolean modified = false;
+		int i = id - GuiLexicon.BOOKMARK_START;
+		String key = gui.getNotesKey();
+		if(i == GuiLexicon.bookmarks.size()) {
+			if(!GuiLexicon.bookmarkKeys.contains(key)) {
+				GuiLexicon.bookmarks.add(gui.copy());
+				GuiLexicon.bookmarkKeys.add(key);
+				modified = true;
+			}
+		} else {
+			if(GuiScreen.isShiftKeyDown()) {
+				GuiLexicon.bookmarks.remove(i);
+				GuiLexicon.bookmarkKeys.remove(i);
+
+				modified = true;
+			} else {
+				GuiLexicon bookmark = GuiLexicon.bookmarks.get(i).copy();
+				if(!bookmark.getTitle().equals(gui.getTitle())) {
+					Minecraft.getInstance().displayGuiScreen(bookmark);
+					if(bookmark instanceof IParented)
+						((IParented) bookmark).setParent(gui);
+					ClientTickHandler.notifyPageChange();
+				}
+			}
+		}
+
+		gui.bookmarksNeedPopulation = true;
+		if(modified)
+			PersistentVariableHelper.saveSafe();
 	}
 
 	@Override

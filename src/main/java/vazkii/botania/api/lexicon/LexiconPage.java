@@ -67,16 +67,12 @@ public abstract class LexiconPage {
 	public void onClosed(IGuiLexiconEntry gui) {}
 
 	/**
-	 * Called when a button is pressed, equivalent to GuiScreen.actionPerformed.
-	 */
-	@OnlyIn(Dist.CLIENT)
-	public void onActionPerformed(IGuiLexiconEntry gui, GuiButton button) {}
-
-	/**
 	 * Called when a key is pressed.
 	 */
 	@OnlyIn(Dist.CLIENT)
-	public void onKeyPressed(char c, int key) {}
+	public boolean keyPressed(int keyCode, int scanCode, int mods) {
+		return false;
+	}
 
 	/**
 	 * Called when {@link LexiconEntry#setLexiconPages(LexiconPage...)} is called.

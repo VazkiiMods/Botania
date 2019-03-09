@@ -14,6 +14,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.text.TextFormatting;
+import vazkii.botania.client.core.handler.PersistentVariableHelper;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.gui.lexicon.GuiLexicon;
 
@@ -25,6 +26,18 @@ public class GuiButtonScaleChange extends GuiButtonLexicon {
 
 	public GuiButtonScaleChange(int id, int x, int y) {
 		super(id, x, y, 11, 11, "");
+	}
+
+	@Override
+	public void onClick(double mouseX, double mouseY) {
+		super.onClick(mouseX, mouseY);
+		int maxAllowed = GuiLexicon.getMaxAllowedScale();
+		if(PersistentVariableHelper.lexiconGuiScale >= maxAllowed)
+			PersistentVariableHelper.lexiconGuiScale = 2;
+		else PersistentVariableHelper.lexiconGuiScale++;
+
+		PersistentVariableHelper.saveSafe();
+		Minecraft.getInstance().displayGuiScreen(new GuiLexicon());
 	}
 
 	@Override

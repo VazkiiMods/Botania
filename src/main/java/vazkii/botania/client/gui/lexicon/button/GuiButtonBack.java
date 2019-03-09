@@ -22,8 +22,8 @@ import java.util.List;
 
 public class GuiButtonBack extends GuiButtonLexicon {
 
-	public GuiButtonBack(int par1, int par2, int par3) {
-		super(par1, par2, par3, 18, 9, "");
+	public GuiButtonBack(int id, int x, int y) {
+		super(id, x, y, 18, 9, "");
 	}
 
 	@Override

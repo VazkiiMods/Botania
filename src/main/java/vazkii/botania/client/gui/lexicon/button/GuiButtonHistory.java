@@ -13,8 +13,10 @@ package vazkii.botania.client.gui.lexicon.button;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.text.TextFormatting;
+import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.gui.lexicon.GuiLexicon;
+import vazkii.botania.client.gui.lexicon.GuiLexiconHistory;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -27,6 +29,13 @@ public class GuiButtonHistory extends GuiButtonLexicon {
 	public GuiButtonHistory(int par1, int par2, int par3, String str, GuiLexicon gui) {
 		super(par1, par2, par3, gui.bookmarkWidth(str) + 5, 11, str);
 		this.gui = gui;
+	}
+
+	@Override
+	public void onClick(double mouseX, double mouseY) {
+		super.onClick(mouseX, mouseY);
+		Minecraft.getInstance().displayGuiScreen(new GuiLexiconHistory());
+		ClientTickHandler.notifyPageChange();
 	}
 
 	@Override

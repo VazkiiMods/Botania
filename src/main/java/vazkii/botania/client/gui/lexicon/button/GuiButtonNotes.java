@@ -31,6 +31,12 @@ public class GuiButtonNotes extends GuiButtonLexicon {
 	}
 
 	@Override
+	public void onClick(double mouseX, double mouseY) {
+		super.onClick(mouseX, mouseY);
+		GuiLexicon.notesEnabled = !GuiLexicon.notesEnabled;
+	}
+
+	@Override
 	public void render(int x, int y, float partialTicks) {
 		hovered = x >= this.x && y >= this.y && x < this.x + width && y < this.y + height;
 		int k = getHoverState(hovered);

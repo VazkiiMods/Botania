@@ -11,11 +11,14 @@
 package vazkii.botania.client.gui.lexicon.button;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.advancements.GuiScreenAdvancements;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.gui.lexicon.GuiLexicon;
+import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -27,7 +30,18 @@ public class GuiButtonAchievement extends GuiButtonLexicon {
 		super(id, x, y, 11, 11, "");
 	}
 
-	@Override
+    @Override
+    public void onClick(double mouseX, double mouseY) {
+        super.onClick(mouseX, mouseY);
+        if(Minecraft.getInstance().player != null) {
+            GuiScreenAdvancements gui = new GuiScreenAdvancements(Minecraft.getInstance().player.connection.getAdvancementManager());
+            Minecraft.getInstance().displayGuiScreen(gui);
+            ResourceLocation tab = new ResourceLocation(LibMisc.MOD_ID, "main/root");
+            gui.setSelectedTab(Minecraft.getInstance().player.connection.getAdvancementManager().getAdvancementList().getAdvancement(tab));
+        }
+    }
+
+    @Override
 	public void render(int mouseX, int mouseY, float partialTicks) {
 		hovered = mouseX >= x && mouseY >= y && mouseX < x + width && mouseY < y + height;
 		int k = getHoverState(hovered);
