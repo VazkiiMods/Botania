@@ -28,7 +28,6 @@ import vazkii.botania.api.item.IHornHarvestable;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.recipe.ICustomApothecaryColor;
-import vazkii.botania.client.render.IModelRegister;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.lexicon.LexiconData;

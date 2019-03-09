@@ -26,12 +26,6 @@ public class ManaDiscountEvent extends Event {
 		this.tool = tool;
 	}
 
-	@Deprecated
-	public ManaDiscountEvent(EntityPlayer entityPlayer, float discount) {
-		this(entityPlayer, discount, ItemStack.EMPTY);
-	}
-	
-
 	public ItemStack getTool() {
 		return tool;
 	}

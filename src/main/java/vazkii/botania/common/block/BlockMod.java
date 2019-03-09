@@ -20,7 +20,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import vazkii.botania.client.core.handler.ModelHandler;
-import vazkii.botania.client.render.IModelRegister;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.lib.LibMisc;
 

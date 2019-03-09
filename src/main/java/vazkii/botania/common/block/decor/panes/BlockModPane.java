@@ -22,7 +22,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import vazkii.botania.client.render.IModelRegister;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.lib.LibMisc;

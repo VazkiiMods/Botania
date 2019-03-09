@@ -19,7 +19,6 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.client.lib.LibResources;
-import vazkii.botania.client.render.IModelRegister;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibMisc;

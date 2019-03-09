@@ -41,7 +41,6 @@ import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.armor.ModelArmorManasteel;
-import vazkii.botania.client.render.IModelRegister;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;

@@ -49,7 +49,6 @@ import vazkii.botania.api.subtile.SubTileEntity;
 import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.client.core.handler.ModelHandler;
-import vazkii.botania.client.render.IModelRegister;
 import vazkii.botania.common.block.tile.TileSpecialFlower;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.item.ModItems;

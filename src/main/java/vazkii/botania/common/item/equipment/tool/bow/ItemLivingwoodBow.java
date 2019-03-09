@@ -35,7 +35,6 @@ import net.minecraftforge.event.ForgeEventFactory;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.lib.LibResources;
-import vazkii.botania.client.render.IModelRegister;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.item.ModItems;

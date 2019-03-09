@@ -25,22 +25,12 @@ import vazkii.botania.api.mana.ManaProficiencyEvent;
  * armor set, where only one piece implements it.
  */
 public interface IManaProficiencyArmor {
-
-	@Deprecated
-	default boolean shouldGiveProficiency(ItemStack armorStack, EntityEquipmentSlot slot, EntityPlayer player) {
-		return false;
-	}
 	
 	default boolean shouldGiveProficiency(ItemStack armorStack, EntityEquipmentSlot slot, EntityPlayer player, ItemStack rod) {
-		return shouldGiveProficiency(armorStack, slot, player);
+		return false;
 	}
 
 	public final static class Helper {
-
-		@Deprecated
-		public static boolean hasProficiency(EntityPlayer player) {
-			return hasProficiency(player, ItemStack.EMPTY);
-		}
 		
 		public static boolean hasProficiency(EntityPlayer player, ItemStack rod) {
 			boolean proficient = false;

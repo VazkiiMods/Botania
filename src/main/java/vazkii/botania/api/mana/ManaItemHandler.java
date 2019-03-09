@@ -316,11 +316,6 @@ public final class ManaItemHandler {
 		int cost = (int) (manaToGet * multiplier);
 		return requestManaExact(stack, player, cost, remove);
 	}
-
-	@Deprecated
-	public static float getFullDiscountForTools(EntityPlayer player) {
-		return getFullDiscountForTools(player, null);
-	}
 	
 	/**
 	 * Gets the sum of all the discounts on IManaDiscountArmor items equipped

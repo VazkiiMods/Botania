@@ -39,7 +39,7 @@ public class ItemManaweaveHelm extends ItemManaweaveArmor implements IManaDiscou
 	}
 
 	@Override
-	public boolean shouldGiveProficiency(ItemStack stack, EntityEquipmentSlot slot, EntityPlayer player) {
+	public boolean shouldGiveProficiency(ItemStack stack, EntityEquipmentSlot slot, EntityPlayer player, ItemStack rod) {
 		return hasArmorSet(player);
 	}
 

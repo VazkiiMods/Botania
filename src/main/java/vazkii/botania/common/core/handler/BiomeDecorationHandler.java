@@ -10,6 +10,8 @@
  */
 package vazkii.botania.common.core.handler;
 
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockDoublePlant;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
@@ -57,8 +59,12 @@ public final class BiomeDecorationHandler {
 						BlockPos pos2 = new BlockPos(x1, y1, z1);
 						if(event.getWorld().isAirBlock(pos2) && (!event.getWorld().provider.isNether() || y1 < 127) && ModBlocks.flower.canPlaceBlockAt(event.getWorld(), pos2)) {
 							event.getWorld().setBlockState(pos2, ModBlocks.flower.getDefaultState().with(BotaniaStateProps.COLOR, color), 2);
-							if(event.getRand().nextDouble() < ConfigHandler.flowerTallChance && ((BlockModFlower) ModBlocks.flower).canGrow(event.getWorld(), pos2, event.getWorld().getBlockState(pos2), false))
-								BlockModFlower.placeDoubleFlower(event.getWorld(), pos2, color, 0);
+							if(event.getRand().nextDouble() < ConfigHandler.flowerTallChance && ((BlockModFlower) ModBlocks.flower).canGrow(event.getWorld(), pos2, event.getWorld().getBlockState(pos2), false)) {
+								Block block = ModBlocks.getDoubleFlower(color);
+								if(block instanceof BlockDoublePlant) {
+									((BlockDoublePlant) block).placeAt(event.getWorld(), pos2, 3);
+								}
+							}
 						}
 					}
 				}

@@ -32,7 +32,6 @@ import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.client.core.handler.ModelHandler;
-import vazkii.botania.client.render.IModelRegister;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -41,7 +40,7 @@ import vazkii.botania.common.lib.LibMisc;
 import javax.annotation.Nonnull;
 
 @Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
-public class BlockGhostRail extends BlockRailBase implements ILexiconable, IModelRegister {
+public class BlockGhostRail extends BlockRailBase implements ILexiconable {
 
 	private static final String TAG_FLOAT_TICKS = "Botania_FloatTicks";
 

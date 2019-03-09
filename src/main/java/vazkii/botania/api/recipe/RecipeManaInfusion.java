@@ -13,10 +13,8 @@ package vazkii.botania.api.recipe;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraftforge.oredict.OreDictionary;
 
 import javax.annotation.Nullable;
-import java.util.List;
 
 public class RecipeManaInfusion {
 
@@ -56,38 +54,6 @@ public class RecipeManaInfusion {
 
 	public int getManaToConsume() {
 		return mana;
-	}
-
-	/**
-	 * @deprecated Use {@link RecipeManaInfusion#setCatalyst(IBlockState)} instead
-	 */
-	@Deprecated
-	public void setAlchemy(boolean alchemy) {
-		catalystState = alchemy ? alchemyState : null;
-	}
-
-	/**
-	 * @deprecated Use {@link RecipeManaInfusion#getCatalyst()} instead
-	 */
-	@Deprecated
-	public boolean isAlchemy() {
-		return catalystState == alchemyState;
-	}
-
-	/**
-	 * @deprecated Use {@link RecipeManaInfusion#setCatalyst(IBlockState)} instead
-	 */
-	@Deprecated
-	public void setConjuration(boolean conjuration) {
-		catalystState = conjuration ? conjurationState : null;
-	}
-
-	/**
-	 * @deprecated Use {@link RecipeManaInfusion#getCatalyst()} instead
-	 */
-	@Deprecated
-	public boolean isConjuration() {
-		return catalystState == conjurationState;
 	}
 }
 

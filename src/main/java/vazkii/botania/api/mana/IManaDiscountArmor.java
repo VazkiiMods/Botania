@@ -22,11 +22,6 @@ import javax.annotation.Nullable;
  */
 public interface IManaDiscountArmor {
 
-	@Deprecated
-	default float getDiscount(ItemStack stack, int slot, EntityPlayer player) {
-		return 0;
-	}
-
 	/**
 	 * Gets the mana discount that this piece of armor provides for the specified
 	 * tool. This is added together to create the full discount.
@@ -34,6 +29,6 @@ public interface IManaDiscountArmor {
 	 * You can also return negative values to make tools cost more.
 	 */
 	default float getDiscount(ItemStack stack, int slot, EntityPlayer player, @Nullable ItemStack tool) {
-		return getDiscount(stack, slot, player);
+		return 0;
 	}
 }

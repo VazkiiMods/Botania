@@ -14,7 +14,6 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.client.render.IModelRegister;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibMisc;

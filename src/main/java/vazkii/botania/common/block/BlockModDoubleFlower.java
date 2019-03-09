@@ -44,7 +44,6 @@ import net.minecraftforge.common.IShearable;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.state.BotaniaStateProps;
-import vazkii.botania.client.render.IModelRegister;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.core.handler.ConfigHandler;
@@ -108,7 +107,7 @@ public class BlockModDoubleFlower extends BlockTallFlower implements ILexiconabl
 	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void animateTick(IBlockState state, World world, BlockPos pos, Random rand) {
-		int hex = color.getColorValue();
+		int hex = color.colorValue;
 		int r = (hex & 0xFF0000) >> 16;
 		int g = (hex & 0xFF00) >> 8;
 		int b = hex & 0xFF;

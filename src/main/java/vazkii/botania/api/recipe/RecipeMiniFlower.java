@@ -11,13 +11,14 @@
 package vazkii.botania.api.recipe;
 
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
 import vazkii.botania.api.BotaniaAPI;
 
 public class RecipeMiniFlower extends RecipeManaInfusion {
 
 	public RecipeMiniFlower(ResourceLocation flower, ResourceLocation mini, int mana) {
-		super(BotaniaAPI.internalHandler.getSubTileAsStack(flower), BotaniaAPI.internalHandler.getSubTileAsStack(mini), mana);
+		super(BotaniaAPI.internalHandler.getSubTileAsStack(flower), Ingredient.fromStacks(BotaniaAPI.internalHandler.getSubTileAsStack(mini)), mana);
 		setCatalyst(RecipeManaInfusion.alchemyState);
 	}
 

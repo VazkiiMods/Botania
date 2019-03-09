@@ -33,7 +33,6 @@ import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.client.core.handler.ModelHandler;
-import vazkii.botania.client.render.IModelRegister;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.core.handler.ConfigHandler;
@@ -84,12 +83,9 @@ public class BlockModFlower extends BlockFlower implements ILexiconable, IGrowab
 
 	@Override
 	public void grow(@Nonnull World world, @Nonnull Random rand, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
-		placeDoubleFlower(world, pos, color, 1 | 2);
-	}
-
-	public static void placeDoubleFlower(World world, BlockPos pos, EnumDyeColor color, int flags) {
-		Block flower = color.getMetadata() >= 8 ? ModBlocks.doubleFlower2 : ModBlocks.doubleFlower1;
-		world.setBlockState(pos, flower.getDefaultState().with(color.getMetadata() >= 8 ? BotaniaStateProps.DOUBLEFLOWER_VARIANT_2 : BotaniaStateProps.DOUBLEFLOWER_VARIANT_1, color).with(BlockDoublePlant.HALF, BlockDoublePlant.EnumBlockHalf.LOWER), flags);
-		world.setBlockState(pos.up(), flower.getDefaultState().with(color.getMetadata() >= 8 ? BotaniaStateProps.DOUBLEFLOWER_VARIANT_2 : BotaniaStateProps.DOUBLEFLOWER_VARIANT_1, color).with(BlockDoublePlant.HALF, BlockDoublePlant.EnumBlockHalf.UPPER), flags);
+		Block block = ModBlocks.getDoubleFlower(color);
+		if(block instanceof BlockDoublePlant) {
+			((BlockDoublePlant) block).placeAt(world, pos, 3);
+		}
 	}
 }

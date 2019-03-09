@@ -324,7 +324,7 @@ public final class ModBlocks {
 	@ObjectHolder("lime" + LibBlockNames.DOUBLE_FLOWER_SUFFIX) public static Block doubleFlowerLime;
 	@ObjectHolder("pink" + LibBlockNames.DOUBLE_FLOWER_SUFFIX) public static Block doubleFlowerPink;
 	@ObjectHolder("gray" + LibBlockNames.DOUBLE_FLOWER_SUFFIX) public static Block doubleFlowerGray;
-	@ObjectHolder("light_gray" + LibBlockNames.DOUBLE_FLOWER_SUFFIX) public static Block doubleFlowerSilver;
+	@ObjectHolder("light_gray" + LibBlockNames.DOUBLE_FLOWER_SUFFIX) public static Block doubleFlowerLightGray;
 	@ObjectHolder("cyan" + LibBlockNames.DOUBLE_FLOWER_SUFFIX) public static Block doubleFlowerCyan;
 	@ObjectHolder("purple" + LibBlockNames.DOUBLE_FLOWER_SUFFIX) public static Block doubleFlowerPurple;
 	@ObjectHolder("blue" + LibBlockNames.DOUBLE_FLOWER_SUFFIX) public static Block doubleFlowerBlue;
@@ -755,7 +755,7 @@ public final class ModBlocks {
 		r.register(new ItemBlockMod(doubleFlowerLime, props).setRegistryName(doubleFlowerLime.getRegistryName()));
 		r.register(new ItemBlockMod(doubleFlowerPink, props).setRegistryName(doubleFlowerPink.getRegistryName()));
 		r.register(new ItemBlockMod(doubleFlowerGray, props).setRegistryName(doubleFlowerGray.getRegistryName()));
-		r.register(new ItemBlockMod(doubleFlowerSilver, props).setRegistryName(doubleFlowerSilver.getRegistryName()));
+		r.register(new ItemBlockMod(doubleFlowerLightGray, props).setRegistryName(doubleFlowerLightGray.getRegistryName()));
 		r.register(new ItemBlockMod(doubleFlowerCyan, props).setRegistryName(doubleFlowerCyan.getRegistryName()));
 		r.register(new ItemBlockMod(doubleFlowerPurple, props).setRegistryName(doubleFlowerPurple.getRegistryName()));
 		r.register(new ItemBlockMod(doubleFlowerBlue, props).setRegistryName(doubleFlowerBlue.getRegistryName()));
@@ -1024,6 +1024,28 @@ public final class ModBlocks {
 			case GREEN: return greenBuriedPetals;
 			case RED: return redBuriedPetals;
 			case BLACK: return blackBuriedPetals;
+		}
+	}
+
+	public static Block getDoubleFlower(EnumDyeColor color) {
+		switch (color) {
+			default:
+			case WHITE: return doubleFlowerWhite;
+			case ORANGE: return doubleFlowerOrange;
+			case MAGENTA: return doubleFlowerMagenta;
+			case LIGHT_BLUE: return doubleFlowerLightBlue;
+			case YELLOW: return doubleFlowerYellow;
+			case LIME: return doubleFlowerLime;
+			case PINK: return doubleFlowerPink;
+			case GRAY: return doubleFlowerGray;
+			case LIGHT_GRAY: return doubleFlowerLightGray;
+			case CYAN: return doubleFlowerCyan;
+			case PURPLE: return doubleFlowerPurple;
+			case BLUE: return doubleFlowerBlue;
+			case BROWN: return doubleFlowerBrown;
+			case GREEN: return doubleFlowerGreen;
+			case RED: return doubleFlowerRed;
+			case BLACK: return doubleFlowerBlack;
 		}
 	}
 

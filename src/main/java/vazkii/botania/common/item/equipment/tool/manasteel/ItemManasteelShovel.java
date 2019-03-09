@@ -38,7 +38,6 @@ import vazkii.botania.api.item.ISortableTool;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.lib.LibResources;
-import vazkii.botania.client.render.IModelRegister;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
