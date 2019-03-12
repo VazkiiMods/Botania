@@ -10,7 +10,6 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
-import baubles.api.BaubleType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
@@ -39,10 +38,12 @@ public class ItemLavaPendant extends ItemBauble implements IBaubleRender {
 			player.extinguish();
 	}
 
+	/* todo 1.13
 	@Override
 	public BaubleType getBaubleType(ItemStack itemstack) {
 		return BaubleType.AMULET;
 	}
+	*/
 
 	@Override
 	@OnlyIn(Dist.CLIENT)

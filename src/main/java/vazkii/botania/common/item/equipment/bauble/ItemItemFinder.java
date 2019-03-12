@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
-import baubles.api.BaubleType;
-import baubles.api.BaublesApi;
 import it.unimi.dsi.fastutil.ints.IntArrayList;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
@@ -144,7 +142,7 @@ public class ItemItemFinder extends ItemBauble implements IBaubleRender {
 				} else if(e instanceof EntityPlayer) {
 					EntityPlayer player_ = (EntityPlayer) e;
 					LazyOptional<IItemHandler> playerInv = player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY);
-					IItemHandler binv = BaublesApi.getBaublesHandler(player);
+					LazyOptional<IItemHandler> binv = LazyOptional.empty(); // todo 1.13 BaublesApi.getBaublesHandler(player);
 					if(scanInventory(binv, pstack) || scanInventory(playerInv, pstack))
 						entIdBuilder.add(player_.getEntityId());
 
@@ -204,10 +202,12 @@ public class ItemItemFinder extends ItemBauble implements IBaubleRender {
 		}).orElse(false);
 	}
 
+	/* todo 1.13
 	@Override
 	public BaubleType getBaubleType(ItemStack arg0) {
 		return BaubleType.HEAD;
 	}
+	*/
 
 	@Override
 	@OnlyIn(Dist.CLIENT)

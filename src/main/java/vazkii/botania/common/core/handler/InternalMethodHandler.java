@@ -10,9 +10,6 @@
  */
 package vazkii.botania.common.core.handler;
 
-import baubles.api.BaublesApi;
-import baubles.common.network.PacketHandler;
-import baubles.common.network.PacketSync;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.model.ModelResourceLocation;
 import net.minecraft.entity.Entity;
@@ -179,13 +176,8 @@ public class InternalMethodHandler extends DummyMethodHandler {
 	}
 
 	@Override
-	public IInventory getBaublesInventory(EntityPlayer player) {
-		return BaublesApi.getBaubles(player);
-	}
-
-	@Override
 	public IItemHandlerModifiable getBaublesInventoryWrapped(EntityPlayer player) {
-		return BaublesApi.getBaublesHandler(player);
+		return null; // todo 1.13 BaublesApi.getBaublesHandler(player);
 	}
 
 	@Override
@@ -229,7 +221,6 @@ public class InternalMethodHandler extends DummyMethodHandler {
 	}
 
 	@Override
-	@Optional.Method(modid = "BuildCraft|Transport")
 	public boolean isBuildcraftPipe(TileEntity tile) {
 		return false; // tile instanceof IPipeTile; todo buildcraft
 	}
@@ -255,12 +246,10 @@ public class InternalMethodHandler extends DummyMethodHandler {
 		return block instanceof BlockModFlower || block instanceof BlockFloatingFlower || block instanceof ISpecialFlower;
 	}
 
-	// todo use our own sync packet or use the autosync system
+	// todo 1.13
 	@Override
 	public void sendBaubleUpdatePacket(EntityPlayer player, int slot) {
-		if(player instanceof EntityPlayerMP) {
-			PacketHandler.INSTANCE.sendTo(new PacketSync(player, slot, BaublesApi.getBaublesHandler(player).getStackInSlot(slot)), (EntityPlayerMP) player);
-		}
+
 	}
 	
 	@Override

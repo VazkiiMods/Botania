@@ -10,7 +10,6 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
-import baubles.api.BaubleType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
@@ -84,9 +83,11 @@ public class ItemSwapRing extends ItemBauble {
 		}
 	}
 
+	/* todo 1.13
 	@Override
 	public BaubleType getBaubleType(ItemStack arg0) {
 		return BaubleType.RING;
 	}
+	*/
 
 }

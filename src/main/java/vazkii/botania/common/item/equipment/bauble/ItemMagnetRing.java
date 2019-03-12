@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
-import baubles.api.BaubleType;
-import baubles.api.BaublesApi;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
@@ -61,6 +59,7 @@ public class ItemMagnetRing extends ItemBauble {
 	}
 
 	private void onTossItem(ItemTossEvent event) {
+		/* todo 1.13
 		IItemHandler inv = BaublesApi.getBaublesHandler(event.getPlayer());
 		for(int i = 0; i < inv.getSlots(); i++) {
 			ItemStack stack = inv.getStackInSlot(i);
@@ -69,6 +68,7 @@ public class ItemMagnetRing extends ItemBauble {
 				BotaniaAPI.internalHandler.sendBaubleUpdatePacket(event.getPlayer(), i);
 			}
 		}
+		*/
 	}
 
 	@Override
@@ -134,10 +134,12 @@ public class ItemMagnetRing extends ItemBauble {
 		ItemNBTHelper.setInt(stack, TAG_COOLDOWN, cooldown);
 	}
 
+	/* todo 1.13
 	@Override
 	public BaubleType getBaubleType(ItemStack arg0) {
 		return BaubleType.RING;
 	}
+	*/
 
 
 }

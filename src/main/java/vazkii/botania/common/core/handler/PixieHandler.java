@@ -1,6 +1,5 @@
 package vazkii.botania.common.core.handler;
 
-import baubles.api.BaublesApi;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
@@ -41,6 +40,8 @@ public final class PixieHandler {
 			for (ItemStack element : player.inventory.armorInventory)
 				chance += getChance(element);
 
+			// todo 1.13
+			/*
 			IItemHandler baubles = BaublesApi.getBaublesHandler(player);
 			for(int i = 0; i < baubles.getSlots(); i++)
 				chance += getChance(baubles.getStackInSlot(i));
@@ -61,6 +62,7 @@ public final class PixieHandler {
 				pixie.onInitialSpawn(player.world.getDifficultyForLocation(new BlockPos(pixie)), null, null);
 				player.world.spawnEntity(pixie);
 			}
+			*/
 		}
 	}
 

@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
-import baubles.api.BaubleType;
-import baubles.api.BaublesApi;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -37,7 +35,7 @@ public class ItemWaterRing extends ItemBauble implements IManaUsingItem {
 
 		if(player.isInWaterOrBubbleColumn()) {
 			if(player instanceof EntityPlayer) {
-				ItemStack firstRing = BaublesApi.getBaublesHandler((EntityPlayer) player).getStackInSlot(1);
+				ItemStack firstRing = ItemStack.EMPTY; // todo 1.13 BaublesApi.getBaublesHandler((EntityPlayer) player).getStackInSlot(1);
 				if(!firstRing.isEmpty() && firstRing.getItem() instanceof ItemWaterRing && firstRing != stack) {
 					return;
 				}
@@ -77,10 +75,12 @@ public class ItemWaterRing extends ItemBauble implements IManaUsingItem {
 			player.removePotionEffect(MobEffects.NIGHT_VISION);
 	}
 
+	/* todo 1.13
 	@Override
 	public BaubleType getBaubleType(ItemStack arg0) {
 		return BaubleType.RING;
 	}
+	*/
 
 	@Override
 	public boolean usesMana(ItemStack stack) {

@@ -10,7 +10,6 @@
  */
 package vazkii.botania.client.core.handler;
 
-import baubles.api.BaublesApi;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -80,6 +79,7 @@ public final class HUDHandler {
 
 	public static final ResourceLocation manaBar = new ResourceLocation(LibResources.GUI_MANA_HUD);
 
+	/* todo 1.13
 	@SubscribeEvent(priority = EventPriority.HIGHEST)
 	public static void onDrawScreenPre(RenderGameOverlayEvent.Pre event) {
 		Minecraft mc = Minecraft.getInstance();
@@ -111,6 +111,7 @@ public final class HUDHandler {
 			profiler.endSection();
 		}
 	}
+	*/
 
 	@SubscribeEvent
 	public static void onDrawScreenPost(RenderGameOverlayEvent.Post event) {
@@ -203,8 +204,8 @@ public final class HUDHandler {
 				boolean anyRequest = false;
 				boolean creative = false;
 
-				IItemHandler mainInv = player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
-				IItemHandler baublesInv = BaublesApi.getBaublesHandler(player);
+				IItemHandler mainInv = player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).orElseThrow(NullPointerException::new);
+				IItemHandler baublesInv = null; // todo 1.13
 
 				int invSize = mainInv.getSlots();
 				int size = invSize;

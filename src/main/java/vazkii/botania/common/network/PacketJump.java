@@ -10,7 +10,6 @@
  */
 package vazkii.botania.common.network;
 
-import baubles.api.BaublesApi;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
@@ -34,6 +33,7 @@ public class PacketJump {
 	public void handle(Supplier<NetworkEvent.Context> ctx) {
 		ctx.get().enqueueWork(() -> {
 			EntityPlayerMP player = ctx.get().getSender();
+			/* todo 1.13
 			IItemHandler baublesInv = BaublesApi.getBaublesHandler(player);
 			ItemStack amuletStack = baublesInv.getStackInSlot(0);
 
@@ -46,6 +46,7 @@ public class PacketJump {
 				if(!belt.isEmpty() && belt.getItem() instanceof ItemTravelBelt)
 					player.fallDistance = -((ItemTravelBelt) belt.getItem()).fallBuffer * ((CloudPendantShim) amuletStack.getItem()).getMaxAllowedJumps();
 			}
+			*/
 		});
 		ctx.get().setPacketHandled(true);
 	}

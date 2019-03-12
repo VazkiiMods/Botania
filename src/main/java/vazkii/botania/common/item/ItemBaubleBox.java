@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.item;
 
-import baubles.api.IBauble;
-import baubles.api.cap.BaublesCapabilities;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -57,11 +55,13 @@ public class ItemBaubleBox extends ItemMod {
 			@Nonnull
 			@Override
 			public ItemStack insertItem(int slot, @Nonnull ItemStack toInsert, boolean simulate) {
+				/* todo 1.13
 				if(!toInsert.isEmpty()) {
 					boolean isBauble = toInsert.getCapability(BaublesCapabilities.CAPABILITY_ITEM_BAUBLE).isPresent();
 					if(toInsert.getItem() instanceof IManaItem || isBauble)
 						return super.insertItem(slot, toInsert, simulate);
 				}
+				*/
 				return toInsert;
 			}
 		};
@@ -87,7 +87,7 @@ public class ItemBaubleBox extends ItemMod {
 	@Nonnull
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
-		player.openGui(Botania.instance, LibGuiIDs.BAUBLE_BOX, world, hand == EnumHand.OFF_HAND ? 1 : 0, 0, 0);
+		// todo 1.13 player.openGui(Botania.instance, LibGuiIDs.BAUBLE_BOX, world, hand == EnumHand.OFF_HAND ? 1 : 0, 0, 0);
 		return ActionResult.newResult(EnumActionResult.SUCCESS, player.getHeldItem(hand));
 	}
 

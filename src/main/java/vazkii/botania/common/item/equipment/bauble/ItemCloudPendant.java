@@ -10,7 +10,6 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
-import baubles.api.BaubleType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.renderer.GlStateManager;
@@ -41,10 +40,12 @@ public class ItemCloudPendant extends CloudPendantShim implements IBaubleRender 
 		super(props);
 	}
 
+	/* todo 1.13
 	@Override
 	public BaubleType getBaubleType(ItemStack arg0) {
 		return BaubleType.AMULET;
 	}
+	*/
 
 	@Override
 	@OnlyIn(Dist.CLIENT)

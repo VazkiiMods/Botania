@@ -10,7 +10,6 @@
  */
 package vazkii.botania.client.core.handler;
 
-import baubles.api.BaublesApi;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
@@ -42,7 +41,10 @@ public final class BaubleRenderHandler implements LayerRenderer<EntityPlayer> {
 		if(!ConfigHandler.renderBaubles || player.getActivePotionEffect(MobEffects.INVISIBILITY) != null)
 			return;
 
-		IItemHandler inv = BaublesApi.getBaublesHandler(player);
+		// todo 1.13
+		if (1 == 1)
+			return;
+		IItemHandler inv = null;
 
 		dispatchRenders(inv, player, RenderType.BODY, partialTicks);
 		if(!inv.getStackInSlot(3).isEmpty())

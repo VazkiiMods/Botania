@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
-import baubles.api.BaubleType;
-import baubles.api.BaublesApi;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.GlStateManager;
@@ -52,8 +50,8 @@ public class ItemDodgeRing extends ItemBauble {
 	public static void onKeyDown(KeyInputEvent event) {
 		Minecraft mc = Minecraft.getInstance();
 
-		IItemHandler baublesInv = BaublesApi.getBaublesHandler(mc.player);
-		int slot = BaublesApi.isBaubleEquipped(mc.player, ModItems.dodgeRing);
+		IItemHandler baublesInv = null; // BaublesApi.getBaublesHandler(mc.player);
+		int slot = -1; // todo 1.13 BaublesApi.isBaubleEquipped(mc.player, ModItems.dodgeRing);
 		if(slot < 0) {
 				return;
 		}
@@ -123,9 +121,11 @@ public class ItemDodgeRing extends ItemBauble {
 		GlStateManager.color4f(1F, 1F, 1F, 1F);
 	}
 
+	/* todo 1.13
 	@Override
 	public BaubleType getBaubleType(ItemStack arg0) {
 		return BaubleType.RING;
 	}
+	*/
 
 }

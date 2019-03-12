@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
-import baubles.api.BaubleType;
-import baubles.api.BaublesApi;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
@@ -50,18 +48,22 @@ public class ItemGoddessCharm extends ItemBauble implements IManaUsingItem, IBau
 		List<EntityPlayer> players = event.getWorld().getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(vec.x, vec.y, vec.z, vec.x, vec.y, vec.z).grow(8));
 		
 		for(EntityPlayer player : players) {
+			/* todo 1.13
 			ItemStack charm = BaublesApi.getBaublesHandler(player).getStackInSlot(6);
 			if(!charm.isEmpty() && charm.getItem() instanceof ItemGoddessCharm && ManaItemHandler.requestManaExact(charm, player, COST, true)) {
 				event.getAffectedBlocks().clear();
 				return;
 			}
+			*/
 		}
 	}
 	
+	/*
 	@Override
 	public BaubleType getBaubleType(ItemStack arg0) {
 		return BaubleType.CHARM;
 	}
+	*/
 
 	@Override
 	@OnlyIn(Dist.CLIENT)

@@ -15,8 +15,6 @@ import java.util.List;
 
 import com.google.common.collect.ImmutableList;
 
-import baubles.api.BaubleType;
-import baubles.api.BaublesApi;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLivingBase;
@@ -72,7 +70,8 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 			return;
 
 		int slot = -1;
-		IItemHandler inv = BaublesApi.getBaublesHandler(player);
+		if (1==1) return; // todo 1.13
+		IItemHandler inv = null; // BaublesApi.getBaublesHandler(player);
 		for(int i = 0; i < inv.getSlots(); i++) {
 			ItemStack stack = inv.getStackInSlot(i);
 			if(stack == lokiRing) {
@@ -152,10 +151,12 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 		}
 	}
 
+	/* todo 1.13
 	@Override
 	public BaubleType getBaubleType(ItemStack arg0) {
 		return BaubleType.RING;
 	}
+	*/
 
 	@Override
 	public void onUnequipped(ItemStack stack, EntityLivingBase player) {
@@ -194,8 +195,8 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 	}
 
 	private static ItemStack getLokiRing(EntityPlayer player) {
-		IItemHandler baubles = BaublesApi.getBaublesHandler(player);
-		int slot = BaublesApi.isBaubleEquipped(player, ModItems.lokiRing);
+		IItemHandler baubles = null; // BaublesApi.getBaublesHandler(player);
+		int slot = -1; // todo 1.13 BaublesApi.isBaubleEquipped(player, ModItems.lokiRing);
 		if (slot < 0) {
 			return ItemStack.EMPTY;
 		}

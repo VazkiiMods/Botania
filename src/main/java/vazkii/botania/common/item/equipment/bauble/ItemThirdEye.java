@@ -10,7 +10,6 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
-import baubles.api.BaubleType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
@@ -65,10 +64,12 @@ public class ItemThirdEye extends ItemBauble implements IManaUsingItem, IBaubleR
 			}
 	}
 	
+	/* todo 1.13
 	@Override
 	public BaubleType getBaubleType(ItemStack arg0) {
 		return BaubleType.BODY;
 	}
+	*/
 
 	@Override
 	public boolean usesMana(ItemStack stack) {

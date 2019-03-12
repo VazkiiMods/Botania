@@ -10,10 +10,6 @@
  */
 package vazkii.botania.client.gui.box;
 
-import baubles.api.BaublesApi;
-import baubles.api.IBauble;
-import baubles.api.cap.IBaublesItemHandler;
-import baubles.common.container.SlotBauble;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
@@ -21,6 +17,7 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.SlotItemHandler;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.client.gui.SlotLocked;
@@ -31,7 +28,7 @@ import java.util.List;
 public class ContainerBaubleBox extends Container {
 
 	private final InventoryBaubleBox baubleBoxInv;
-    public IBaublesItemHandler baubles;
+	public IItemHandlerModifiable baubles;
 
 	public ContainerBaubleBox(EntityPlayer player, InventoryBaubleBox boxInv) {
 		int i;
@@ -40,6 +37,7 @@ public class ContainerBaubleBox extends Container {
 		IInventory playerInv = player.inventory;
 		baubleBoxInv = boxInv;
 
+        /* todo 1.13
         baubles = BaublesApi.getBaublesHandler(player);
 
 		addSlotToContainer(new SlotBauble(player, baubles, 0, 8, 8 + 0 * 18));
@@ -66,6 +64,7 @@ public class ContainerBaubleBox extends Container {
 				addSlotToContainer(new SlotLocked(playerInv, i, 8 + i * 18, 142));
 			else addSlotToContainer(new Slot(playerInv, i, 8 + i * 18, 142));
 		}
+		*/
 
 	}
 
@@ -78,7 +77,7 @@ public class ContainerBaubleBox extends Container {
 	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void setAll(List<ItemStack> l) {
-    	baubles.setEventBlock(true);
+		// todo 1.13 baubles.setEventBlock(true);
 		super.setAll(l);
 	}
 
@@ -100,7 +99,7 @@ public class ContainerBaubleBox extends Container {
 				if(!mergeItemStack(itemstack1, boxEnd, invEnd, true))
 					return ItemStack.EMPTY;
 			} else {
-				if(!itemstack1.isEmpty() && (itemstack1.getItem() instanceof IBauble || itemstack1.getItem() instanceof IManaItem) && !mergeItemStack(itemstack1, boxStart, boxEnd, false))
+				// todo 1.13 if(!itemstack1.isEmpty() && (itemstack1.getItem() instanceof IBauble || itemstack1.getItem() instanceof IManaItem) && !mergeItemStack(itemstack1, boxStart, boxEnd, false))
 					return ItemStack.EMPTY;
 			}
 

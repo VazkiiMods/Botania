@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
-import baubles.api.BaubleType;
-import baubles.api.BaublesApi;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
@@ -52,7 +50,7 @@ public class ItemHolyCloak extends ItemBauble implements IBaubleRender {
 	private void onPlayerDamage(LivingHurtEvent event) {
 		if(event.getEntityLiving() instanceof EntityPlayer && !event.getSource().canHarmInCreative()) {
 			EntityPlayer player = (EntityPlayer) event.getEntityLiving();
-			ItemStack belt = BaublesApi.getBaublesHandler(player).getStackInSlot(5);
+			ItemStack belt = ItemStack.EMPTY; // todo 1.13 BaublesApi.getBaublesHandler(player).getStackInSlot(5);
 			if(!belt.isEmpty() && belt.getItem() instanceof ItemHolyCloak && !isInEffect(belt)) {
 				ItemHolyCloak cloak = (ItemHolyCloak) belt.getItem();
 				int cooldown = getCooldown(belt);
@@ -94,10 +92,12 @@ public class ItemHolyCloak extends ItemBauble implements IBaubleRender {
 		return 200;
 	}
 
+	/* todo 1.13
 	@Override
 	public BaubleType getBaubleType(ItemStack arg0) {
 		return BaubleType.BODY;
 	}
+	*/
 
 	public static int getCooldown(ItemStack stack) {
 		return ItemNBTHelper.getInt(stack, TAG_COOLDOWN, 0);

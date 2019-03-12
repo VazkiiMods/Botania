@@ -10,7 +10,6 @@
  */
 package vazkii.botania.common.network;
 
-import baubles.api.BaublesApi;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
@@ -39,8 +38,9 @@ public class PacketDodge {
 			EntityPlayerMP player = ctx.get().getSender();
 			player.world.playSound(null, player.posX, player.posY, player.posZ, ModSounds.dash, SoundCategory.PLAYERS, 1F, 1F);
 
-			IItemHandler baublesInv = BaublesApi.getBaublesHandler(player);
-			int slot = BaublesApi.isBaubleEquipped(player, ModItems.dodgeRing);
+			// todo 1.13
+			IItemHandler baublesInv = null; // BaublesApi.getBaublesHandler(player);
+			int slot = -1; // BaublesApi.isBaubleEquipped(player, ModItems.dodgeRing);
 			if(slot < 0) {
 				player.connection.disconnect(new TextComponentTranslation("botaniamisc.invalidDodge"));
 				return;

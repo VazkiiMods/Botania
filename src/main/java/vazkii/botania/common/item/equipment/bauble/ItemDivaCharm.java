@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
-import baubles.api.BaubleType;
-import baubles.api.BaublesApi;
 import com.google.common.base.Predicates;
 import com.google.common.util.concurrent.ListenableFutureTask;
 import net.minecraft.client.Minecraft;
@@ -57,7 +55,7 @@ public class ItemDivaCharm extends ItemBauble implements IManaUsingItem, IBauble
 			Runnable lambda = () -> {
 				EntityLiving target = (EntityLiving) event.getEntityLiving();
 				EntityPlayer player = (EntityPlayer) event.getSource().getImmediateSource();
-				ItemStack amulet = BaublesApi.getBaublesHandler(player).getStackInSlot(6);
+				ItemStack amulet = ItemStack.EMPTY; // todo 1.13 BaublesApi.getBaublesHandler(player).getStackInSlot(6);
 
 				if(!amulet.isEmpty() && amulet.getItem() == this) {
 					final int cost = 250;
@@ -90,10 +88,12 @@ public class ItemDivaCharm extends ItemBauble implements IManaUsingItem, IBauble
 		}
 	}
 
+	/* todo 1.13
 	@Override
 	public BaubleType getBaubleType(ItemStack arg0) {
 		return BaubleType.CHARM;
 	}
+	*/
 
 	@Override
 	public boolean usesMana(ItemStack stack) {

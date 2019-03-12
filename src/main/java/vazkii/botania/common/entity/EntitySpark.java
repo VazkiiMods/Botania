@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.entity;
 
-import baubles.api.BaublesApi;
-import gnu.trove.map.hash.TObjectIntHashMap;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.EntityPlayer;
@@ -113,9 +111,11 @@ public class EntitySpark extends Entity implements ISparkEntity {
 				stacks.addAll(player.inventory.mainInventory);
 				stacks.addAll(player.inventory.armorInventory);
 				
+				/* todo 1.13
 				IItemHandler baubles = BaublesApi.getBaublesHandler(player);
 				for (int i = 0; i < baubles.getSlots(); i++)
 					stacks.add(baubles.getStackInSlot(i));
+				*/
 
 				for(ItemStack stack : stacks) {
 					if(stack.isEmpty() || !(stack.getItem() instanceof IManaItem))

@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.item.relic;
 
-import baubles.api.BaubleType;
-import baubles.api.BaublesApi;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import net.minecraft.entity.EntityLivingBase;
@@ -69,14 +67,16 @@ public class ItemOdinRing extends ItemRelicBauble {
 		}
 	}
 
+	/* todo 1.13
 	@Override
 	public BaubleType getBaubleType(ItemStack arg0) {
 		return BaubleType.RING;
 	}
+	*/
 
 	public static ItemStack getOdinRing(EntityPlayer player) {
-		IItemHandler baubles = BaublesApi.getBaublesHandler(player);
-		int slot = BaublesApi.isBaubleEquipped(player, ModItems.odinRing);
+		IItemHandler baubles = null; // BaublesApi.getBaublesHandler(player);
+		int slot = -1; // todo 1.13 BaublesApi.isBaubleEquipped(player, ModItems.odinRing);
 		if (slot < 0) {
 			return ItemStack.EMPTY;
 		}

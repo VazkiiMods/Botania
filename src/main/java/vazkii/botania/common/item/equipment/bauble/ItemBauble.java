@@ -10,9 +10,6 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
-import baubles.api.BaublesApi;
-import baubles.api.IBauble;
-import baubles.api.cap.IBaublesItemHandler;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
@@ -50,7 +47,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
-public abstract class ItemBauble extends ItemMod implements IBauble, ICosmeticAttachable, IPhantomInkable {
+public abstract class ItemBauble extends ItemMod implements ICosmeticAttachable, IPhantomInkable {
 
 	private static final String TAG_HASHCODE = "playerHashcode";
 	private static final String TAG_BAUBLE_UUID_MOST = "baubleUUIDMost";
@@ -68,6 +65,7 @@ public abstract class ItemBauble extends ItemMod implements IBauble, ICosmeticAt
 	// TODO there is still some weirdness going on when dying/returning in the End, figure that out
 	@SubscribeEvent
 	public static void onDeath(LivingDeathEvent evt) {
+		/* todo 1.13
 		if(!evt.getEntityLiving().world.isRemote
 				&& evt.getEntityLiving() instanceof EntityPlayer
 				&& !evt.getEntityLiving().world.getGameRules().getBoolean("keepInventory")
@@ -80,6 +78,7 @@ public abstract class ItemBauble extends ItemMod implements IBauble, ICosmeticAt
 				}
 			}
 		}
+		*/
 	}
 
 	@Nonnull
@@ -89,6 +88,7 @@ public abstract class ItemBauble extends ItemMod implements IBauble, ICosmeticAt
 		if(!EntityDoppleganger.isTruePlayer(player))
 			return ActionResult.newResult(EnumActionResult.FAIL, stack);
 
+		/* todo 1.13
 		ItemStack toEquip = stack.copy();
 		toEquip.setCount(1);
 
@@ -127,6 +127,7 @@ public abstract class ItemBauble extends ItemMod implements IBauble, ICosmeticAt
 				}
 			}
 		}
+		*/
 
 		return ActionResult.newResult(EnumActionResult.PASS, stack);
 	}
@@ -154,17 +155,14 @@ public abstract class ItemBauble extends ItemMod implements IBauble, ICosmeticAt
 			stacks.add(new TextComponentTranslation("botaniamisc.hasPhantomInk"));
 	}
 
-	@Override
 	public boolean canEquip(ItemStack stack, EntityLivingBase player) {
 		return true;
 	}
 
-	@Override
 	public boolean canUnequip(ItemStack stack, EntityLivingBase player) {
 		return true;
 	}
 
-	@Override
 	public void onWornTick(ItemStack stack, EntityLivingBase player) {
 		if(getLastPlayerHashcode(stack) != player.hashCode()) {
 			onEquippedOrLoadedIntoWorld(stack, player);
@@ -172,7 +170,6 @@ public abstract class ItemBauble extends ItemMod implements IBauble, ICosmeticAt
 		}
 	}
 
-	@Override
 	public void onEquipped(ItemStack stack, EntityLivingBase player) {
 		if(player != null) {
 			if(!player.world.isRemote) {
@@ -187,7 +184,6 @@ public abstract class ItemBauble extends ItemMod implements IBauble, ICosmeticAt
 
 	public void onEquippedOrLoadedIntoWorld(ItemStack stack, EntityLivingBase player) {}
 
-	@Override
 	public void onUnequipped(ItemStack stack, EntityLivingBase player) { }
 
 	@Override

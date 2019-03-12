@@ -94,8 +94,6 @@ public interface IInternalMethodHandler {
 
 	public int getPassiveFlowerDecay();
 
-	public IInventory getBaublesInventory(EntityPlayer player);
-
 	public IItemHandlerModifiable getBaublesInventoryWrapped(EntityPlayer player);
 
 	public void breakOnAllCursors(EntityPlayer player, Item item, ItemStack stack, BlockPos pos, EnumFacing side);

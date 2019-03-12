@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.item.relic;
 
-import baubles.api.BaubleType;
-import baubles.api.BaublesApi;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -26,10 +24,12 @@ public class ItemThorRing extends ItemRelicBauble {
 		super(props);
 	}
 
+	/* todo 1.13
 	@Override
 	public BaubleType getBaubleType(ItemStack arg0) {
 		return BaubleType.RING;
 	}
+	*/
 
 	@Override
 	public ResourceLocation getAdvancement() {
@@ -37,8 +37,8 @@ public class ItemThorRing extends ItemRelicBauble {
 	}
 
 	public static ItemStack getThorRing(EntityPlayer player) {
-		IItemHandler baubles = BaublesApi.getBaublesHandler(player);
-		int slot = BaublesApi.isBaubleEquipped(player, ModItems.thorRing);
+		IItemHandler baubles = null; // BaublesApi.getBaublesHandler(player);
+		int slot = -1; // todo 1.13 BaublesApi.isBaubleEquipped(player, ModItems.thorRing);
 		if (slot < 0) {
 			return ItemStack.EMPTY;
 		}

@@ -10,7 +10,6 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
-import baubles.api.BaubleType;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
@@ -26,10 +25,12 @@ public class ItemInvisibilityCloak extends ItemBauble implements IManaUsingItem 
 		super(props);
 	}
 
+	/* todo 1.13
 	@Override
 	public BaubleType getBaubleType(ItemStack arg0) {
 		return BaubleType.BODY;
 	}
+	*/
 
 	@Override
 	public void onUnequipped(ItemStack stack, EntityLivingBase player) {

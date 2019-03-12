@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
-import baubles.api.BaubleType;
-import baubles.api.BaublesApi;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRedstoneComparator;
 import net.minecraft.block.BlockRedstoneRepeater;
@@ -43,10 +41,12 @@ public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, ICosm
 		super(props);
 	}
 
+	/* todo 1.13
 	@Override
 	public BaubleType getBaubleType(ItemStack arg0) {
 		return BaubleType.CHARM;
 	}
+	*/
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
@@ -104,7 +104,7 @@ public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, ICosm
 
 	public static boolean hasMonocle(EntityPlayer player) {
 		for(int i = 0; i < 7; i++) {
-			ItemStack stack = BaublesApi.getBaublesHandler(player).getStackInSlot(i);
+			ItemStack stack = ItemStack.EMPTY; // todo 1.13 BaublesApi.getBaublesHandler(player).getStackInSlot(i);
 			if(!stack.isEmpty()) {
 				Item item = stack.getItem();
 				if(item instanceof IBurstViewerBauble)

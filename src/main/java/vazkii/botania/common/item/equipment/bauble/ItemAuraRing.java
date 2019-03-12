@@ -10,7 +10,6 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
-import baubles.api.BaubleType;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -35,9 +34,11 @@ public class ItemAuraRing extends ItemBauble implements IManaGivingItem {
 		return 10;
 	}
 
+	/* todo 1.13
 	@Override
 	public BaubleType getBaubleType(ItemStack itemstack) {
 		return BaubleType.RING;
 	}
+	*/
 
 }

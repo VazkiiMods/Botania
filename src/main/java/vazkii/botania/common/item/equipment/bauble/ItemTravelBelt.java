@@ -10,8 +10,6 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
-import baubles.api.BaubleType;
-import baubles.api.BaublesApi;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
@@ -62,10 +60,12 @@ public class ItemTravelBelt extends ItemBauble implements IBaubleRender, IManaUs
 		this.fallBuffer = fallBuffer;
 	}
 
+	/* todo 1.13
 	@Override
 	public BaubleType getBaubleType(ItemStack itemstack) {
 		return BaubleType.BELT;
 	}
+	*/
 
 	@SubscribeEvent
 	public void updatePlayerStepStatus(LivingUpdateEvent event) {
@@ -73,7 +73,7 @@ public class ItemTravelBelt extends ItemBauble implements IBaubleRender, IManaUs
 			EntityPlayer player = (EntityPlayer) event.getEntityLiving();
 			String s = playerStr(player);
 
-			ItemStack belt = BaublesApi.getBaublesHandler(player).getStackInSlot(3);
+			ItemStack belt = ItemStack.EMPTY; // todo 1.13 BaublesApi.getBaublesHandler(player).getStackInSlot(3);
 			if(playersWithStepup.contains(s)) {
 				if(shouldPlayerHaveStepup(player)) {
 					ItemTravelBelt beltItem = (ItemTravelBelt) belt.getItem();
@@ -116,7 +116,7 @@ public class ItemTravelBelt extends ItemBauble implements IBaubleRender, IManaUs
 	public void onPlayerJump(LivingJumpEvent event) {
 		if(event.getEntityLiving() instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) event.getEntityLiving();
-			ItemStack belt = BaublesApi.getBaublesHandler(player).getStackInSlot(3);
+			ItemStack belt = ItemStack.EMPTY; // todo 1.13 BaublesApi.getBaublesHandler(player).getStackInSlot(3);
 
 			if(!belt.isEmpty() && belt.getItem() instanceof ItemTravelBelt && ManaItemHandler.requestManaExact(belt, player, COST, false)) {
 				player.motionY += ((ItemTravelBelt) belt.getItem()).jump;
@@ -126,7 +126,7 @@ public class ItemTravelBelt extends ItemBauble implements IBaubleRender, IManaUs
 	}
 
 	private boolean shouldPlayerHaveStepup(EntityPlayer player) {
-		ItemStack armor = BaublesApi.getBaublesHandler(player).getStackInSlot(3);
+		ItemStack armor = ItemStack.EMPTY; // todo 1.13 BaublesApi.getBaublesHandler(player).getStackInSlot(3);
 		return !armor.isEmpty() && armor.getItem() instanceof ItemTravelBelt && ManaItemHandler.requestManaExact(armor, player, COST, false);
 	}
 
