@@ -10,7 +10,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.ChunkCache;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
@@ -38,6 +37,7 @@ public class BlockCraftyCrate extends BlockOpenCrate implements IWandHUD {
 		builder.add(BotaniaStateProps.CRATE_PATTERN);
 	}
 
+	/* todo 1.13
 	@Nonnull
 	@Override
 	public IBlockState getActualState(@Nonnull IBlockState state, IBlockReader world, BlockPos pos) {
@@ -48,7 +48,7 @@ public class BlockCraftyCrate extends BlockOpenCrate implements IWandHUD {
 		}
 
 		return state;
-	}
+	}*/
 
 	@Nonnull
 	@Override

@@ -11,16 +11,15 @@
 package vazkii.botania.common.block.tile;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockDirt;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ITickable;
@@ -29,6 +28,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.ISubTileSlowableContainer;
@@ -36,16 +36,24 @@ import vazkii.botania.api.subtile.SubTileEntity;
 import vazkii.botania.api.wand.IWandBindable;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.string.TileRedStringRelay;
+import vazkii.botania.common.lib.LibBlockNames;
+import vazkii.botania.common.lib.LibMisc;
 
 import java.util.List;
 
 public class TileSpecialFlower extends TileMod implements IWandBindable, ISubTileSlowableContainer, ITickable {
+	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.SPECIAL_FLOWER)
+	public static TileEntityType<TileSpecialFlower> TYPE;
 
 	private static final String TAG_SUBTILE_NAME = "subTileName";
 	private static final String TAG_SUBTILE_CMP = "subTileCmp";
 
 	public ResourceLocation subTileName = BotaniaAPI.DUMMY_SUBTILE_NAME;
 	private SubTileEntity subTile;
+
+	public TileSpecialFlower() {
+		super(TYPE);
+	}
 
 	@Override
 	public SubTileEntity getSubTile() {

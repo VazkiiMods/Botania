@@ -2,6 +2,9 @@
   "__comment": "Items inside or resting on top of these blocks are not pulled by the ring of magnetization",
   "replace": false,
   "values": [
-
+    "botania:mana_pool",
+    "botania:creative_pool",
+    "botania:diluted_pool",
+    "botania:fabulous_pool"
   ]
 }

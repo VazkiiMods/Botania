@@ -10,13 +10,13 @@
  */
 package vazkii.botania.common.block.mana;
 
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
+import net.minecraft.block.Block;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
+import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -24,56 +24,44 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
-import net.minecraftforge.common.property.IUnlistedProperty;
-import net.minecraftforge.common.property.Properties;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.state.BotaniaStateProps;
-import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.mana.TilePump;
 import vazkii.botania.common.lexicon.LexiconData;
-import vazkii.botania.common.lib.LibBlockNames;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 public class BlockPump extends BlockMod implements ILexiconable {
 
-	private static final AxisAlignedBB X_AABB = new AxisAlignedBB(0, 0, 0.25, 1, 0.5, 0.75);
-	private static final AxisAlignedBB Z_AABB = new AxisAlignedBB(0.25, 0, 0, 0.75, 0.5, 1);
+	private static final VoxelShape X_SHAPE = makeCuboidShape(0, 0, 4, 16, 8, 12);
+	private static final VoxelShape Z_SHAPE = makeCuboidShape(4, 0, 0, 12, 8, 16);
 
 	public BlockPump(Properties builder) {
 		super(builder);
-		setDefaultState(blockState.getBaseState().with(Properties.StaticProperty, true).with(BotaniaStateProps.CARDINALS, EnumFacing.SOUTH));
-	}
-
-	@Nonnull
-	@Override
-	public BlockStateContainer createBlockState() {
-		return new ExtendedBlockState(this, new IProperty[] { BotaniaStateProps.CARDINALS, Properties.StaticProperty }, new IUnlistedProperty[] { Properties.AnimationProperty });
-	}
-
-	@Nonnull
-	@Override
-	public IBlockState getActualState(@Nonnull IBlockState state, IBlockReader world, BlockPos pos) {
-		return state.with(Properties.StaticProperty, true);
+		setDefaultState(getStateContainer().getBaseState().with(BotaniaStateProps.CARDINALS, EnumFacing.SOUTH));
 	}
 
 	@Override
-	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
-		// todo getplacementstate
-		world.setBlockState(pos, state.with(BotaniaStateProps.CARDINALS, placer.getHorizontalFacing().getOpposite()), 2);
+	protected void fillStateContainer(StateContainer.Builder<Block, IBlockState> builder) {
+		builder.add(BotaniaStateProps.CARDINALS);
+	}
+
+	@Nullable
+	@Override
+	public IBlockState getStateForPlacement(BlockItemUseContext context) {
+		return getDefaultState().with(BotaniaStateProps.CARDINALS, context.getNearestLookingDirection().getOpposite());
 	}
 
 	@Nonnull
 	@Override
 	public VoxelShape getShape(IBlockState state, IBlockReader world, BlockPos pos) {
 		if(state.get(BotaniaStateProps.CARDINALS).getAxis() == EnumFacing.Axis.X) {
-			return X_AABB;
+			return X_SHAPE;
 		} else {
-			return Z_AABB;
+			return Z_SHAPE;
 		}
 	}
 

@@ -36,20 +36,11 @@ import vazkii.botania.common.item.equipment.armor.elementium.ItemElementiumChest
 import vazkii.botania.common.item.equipment.armor.elementium.ItemElementiumHelm;
 import vazkii.botania.common.item.equipment.armor.elementium.ItemElementiumLegs;
 import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelArmor;
-import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelBoots;
-import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelChest;
 import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelHelm;
-import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelLegs;
 import vazkii.botania.common.item.equipment.armor.manaweave.ItemManaweaveArmor;
-import vazkii.botania.common.item.equipment.armor.manaweave.ItemManaweaveBoots;
-import vazkii.botania.common.item.equipment.armor.manaweave.ItemManaweaveChest;
 import vazkii.botania.common.item.equipment.armor.manaweave.ItemManaweaveHelm;
-import vazkii.botania.common.item.equipment.armor.manaweave.ItemManaweaveLegs;
 import vazkii.botania.common.item.equipment.armor.terrasteel.ItemTerrasteelArmor;
-import vazkii.botania.common.item.equipment.armor.terrasteel.ItemTerrasteelBoots;
-import vazkii.botania.common.item.equipment.armor.terrasteel.ItemTerrasteelChest;
 import vazkii.botania.common.item.equipment.armor.terrasteel.ItemTerrasteelHelm;
-import vazkii.botania.common.item.equipment.armor.terrasteel.ItemTerrasteelLegs;
 import vazkii.botania.common.item.equipment.bauble.*;
 import vazkii.botania.common.item.equipment.tool.ItemEnderDagger;
 import vazkii.botania.common.item.equipment.tool.ItemGlassPick;
@@ -645,6 +636,7 @@ public final class ModItems {
 	}
 	
 	private static void registerOreDictionary() {
+		/* todo 1.13
 		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
 		for(EnumDyeColor color : EnumDyeColor.values()) {
 			OreDictionary.registerOre(LibOreDict.PETAL[color.getMetadata()], new ItemStack(petals.get(color)));
@@ -717,5 +709,6 @@ public final class ModItems {
 
 		OreDictionary.registerOre("rodBlaze", Items.BLAZE_ROD);
 		OreDictionary.registerOre("powderBlaze", Items.BLAZE_POWDER);
+		*/
 	}
 }

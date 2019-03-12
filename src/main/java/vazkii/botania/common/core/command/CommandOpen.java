@@ -10,54 +10,39 @@
  */
 package vazkii.botania.common.core.command;
 
-import net.minecraft.command.CommandBase;
-import net.minecraft.command.ICommandSender;
-import net.minecraft.entity.player.EntityPlayer;
+import com.mojang.brigadier.CommandDispatcher;
+import com.mojang.brigadier.arguments.StringArgumentType;
+import com.mojang.brigadier.context.CommandContext;
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import net.minecraft.command.CommandSource;
+import net.minecraft.command.Commands;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextComponentTranslation;
-import net.minecraft.util.text.TextFormatting;
 import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.item.ItemLexicon;
 
-import javax.annotation.Nonnull;
+public class CommandOpen {
 
-public class CommandOpen extends CommandBase {
-
-	@Nonnull
-	@Override
-	public String getName() {
-		return "botania-open";
+	public static void register(CommandDispatcher<CommandSource> dispatcher) {
+		dispatcher.register(
+			Commands.literal("botania-open")
+					.then(Commands.argument("entry", StringArgumentType.string())
+							.executes(CommandOpen::run))
+		);
 	}
 
-	@Nonnull
-	@Override
-	public String getUsage(@Nonnull ICommandSender sender) {
-		return "<entry>";
-	}
-
-	@Override
-	public void execute(@Nonnull MinecraftServer server, @Nonnull ICommandSender sender, @Nonnull String[] args) {
-		if(sender instanceof EntityPlayer) {
-			EntityPlayer player = (EntityPlayer) sender;
-			ItemStack stack = PlayerHelper.getFirstHeldItemClass(player, ItemLexicon.class);
-			if(!stack.isEmpty()) {
-				ItemLexicon.setForcedPage(stack, args[0]);
-				ItemLexicon.setQueueTicks(stack, 5);
-			} else sender.sendMessage(new TextComponentTranslation("botaniamisc.noLexicon").setStyle(new Style().setColor(TextFormatting.RED)));
+	private static int run(CommandContext<CommandSource> ctx) throws CommandSyntaxException {
+		EntityPlayerMP player = ctx.getSource().asPlayer();
+		ItemStack stack = PlayerHelper.getFirstHeldItemClass(player, ItemLexicon.class);
+		if(!stack.isEmpty()) {
+			ItemLexicon.setForcedPage(stack, StringArgumentType.getString(ctx, "entry"));
+			ItemLexicon.setQueueTicks(stack, 5);
+			return 1;
+		} else {
+			ctx.getSource().sendErrorMessage(new TextComponentTranslation("botaniamisc.noLexicon"));
+			return 0;
 		}
-	}
-
-
-	@Override
-	public int getRequiredPermissionLevel() {
-		return 0;
-	}
-
-	@Override
-	public boolean checkPermission(MinecraftServer server, ICommandSender sender) {
-		return sender instanceof EntityPlayer;
 	}
 
 }

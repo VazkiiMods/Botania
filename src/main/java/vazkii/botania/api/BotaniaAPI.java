@@ -15,10 +15,8 @@ import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCarpet;
-import net.minecraft.block.BlockColored;
 import net.minecraft.block.BlockStainedGlass;
 import net.minecraft.block.BlockStainedGlassPane;
-import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
@@ -29,8 +27,6 @@ import net.minecraft.item.EnumRarity;
 import net.minecraft.item.IArmorMaterial;
 import net.minecraft.item.IItemTier;
 import net.minecraft.item.Item;
-import net.minecraft.item.Item.ToolMaterial;
-import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.Ingredient;
@@ -40,8 +36,6 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.registry.RegistryNamespaced;
 import net.minecraft.util.registry.RegistryNamespacedDefaultedByKey;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraftforge.common.util.EnumHelper;
-import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.internal.DummyMethodHandler;
@@ -384,6 +378,7 @@ public final class BotaniaAPI {
 		elvenKnowledge = registerKnowledgeType("alfheim", TextFormatting.DARK_GREEN, false);
 		relicKnowledge = registerKnowledgeType("relic", TextFormatting.DARK_PURPLE, false);
 
+		/* todo 1.13
 		addOreWeight("oreAluminum", 3940); // Tinkers' Construct
 		addOreWeight("oreAmber", 2075); // Thaumcraft
 		addOreWeight("oreApatite", 1595); // Forestry
@@ -454,6 +449,7 @@ public final class BotaniaAPI {
 		addOreWeightNether("oreArgonite", 1000); // Netherrocks
 		addOreWeightNether("oreOnyx", 500); // SimpleOres 2
 		addOreWeightNether("oreHaditeCoal", 500); // Hadite
+		*/
 
 		registerModWiki("minecraft", new SimpleWikiProvider("Minecraft Wiki", "https://minecraft.gamepedia.com/%s"));
 
@@ -599,7 +595,7 @@ public final class BotaniaAPI {
 	 * @param mana The amount of mana required. Don't go over 100000!
 	 * @return The recipe created.
 	 */
-	public static RecipeManaInfusion registerManaInfusionRecipe(ItemStack output, Object input, int mana) {
+	public static RecipeManaInfusion registerManaInfusionRecipe(ItemStack output, Ingredient input, int mana) {
 		Preconditions.checkArgument(mana <= 1000000);
 		RecipeManaInfusion recipe = new RecipeManaInfusion(output, input, mana);
 		manaInfusionRecipes.add(recipe);
@@ -622,7 +618,7 @@ public final class BotaniaAPI {
 	 * Conjuration Catalyst below the pool).
 	 * @see BotaniaAPI#registerManaInfusionRecipe
 	 */
-	public static RecipeManaInfusion registerManaConjurationRecipe(ItemStack output, Object input, int mana) {
+	public static RecipeManaInfusion registerManaConjurationRecipe(ItemStack output, Ingredient input, int mana) {
 		RecipeManaInfusion recipe = registerManaInfusionRecipe(output, input, mana);
 		recipe.setCatalyst(RecipeManaInfusion.conjurationState);
 		return recipe;
@@ -655,7 +651,7 @@ public final class BotaniaAPI {
 	 * @param brew The brew in to be set in this recipe.
 	 * @param inputs The items used in the recipe, no more than 6.
 	 */
-	public static RecipeBrew registerBrewRecipe(Brew brew, Object... inputs) {
+	public static RecipeBrew registerBrewRecipe(Brew brew, Ingredient... inputs) {
 		Preconditions.checkArgument(inputs.length <= 6);
 		RecipeBrew recipe = new RecipeBrew(brew, inputs);
 		brewRecipes.add(recipe);

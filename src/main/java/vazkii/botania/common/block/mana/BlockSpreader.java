@@ -10,14 +10,12 @@
  */
 package vazkii.botania.common.block.mana;
 
+import com.google.common.collect.ImmutableList;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockFaceShape;
-import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -52,6 +50,7 @@ import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
 import javax.annotation.Nonnull;
+import java.util.List;
 import java.util.Locale;
 
 public class BlockSpreader extends BlockMod implements IWandable, IWandHUD, ILexiconable, IWireframeAABBProvider {
@@ -70,10 +69,9 @@ public class BlockSpreader extends BlockMod implements IWandable, IWandHUD, ILex
 	}
 
 	@Override
-	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase par5EntityLivingBase, ItemStack par6ItemStack) {
-		EnumFacing orientation = EnumFacing.getDirectionFromEntityLiving(pos, par5EntityLivingBase);
+	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack par6ItemStack) {
+		EnumFacing orientation = EnumFacing.getFacingDirections(placer)[0];
 		TileSpreader spreader = (TileSpreader) world.getTileEntity(pos);
-		world.setBlockState(pos, getStateFromMeta(par6ItemStack.getItemDamage()), 1 | 2);
 
 		switch(orientation) {
 		case DOWN:
@@ -196,8 +194,8 @@ public class BlockSpreader extends BlockMod implements IWandable, IWandHUD, ILex
 	}
 
 	@Override
-	public AxisAlignedBB getWireframeAABB(World world, BlockPos pos) {
-		return FULL_BLOCK_AABB.offset(pos).shrink(1.0/16.0);
+	public List<AxisAlignedBB> getWireframeAABB(World world, BlockPos pos) {
+		return ImmutableList.of(new AxisAlignedBB(pos).shrink(1.0/16.0));
 	}
 
 	@Nonnull

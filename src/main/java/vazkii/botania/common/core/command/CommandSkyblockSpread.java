@@ -10,64 +10,41 @@
  */
 package vazkii.botania.common.core.command;
 
-import net.minecraft.command.CommandBase;
-import net.minecraft.command.CommandException;
-import net.minecraft.command.ICommandSender;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.server.MinecraftServer;
+import com.mojang.brigadier.CommandDispatcher;
+import com.mojang.brigadier.arguments.IntegerArgumentType;
+import net.minecraft.command.CommandSource;
+import net.minecraft.command.Commands;
+import net.minecraft.command.arguments.EntityArgument;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.translation.I18n;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.world.SkyblockWorldEvents;
 
-import javax.annotation.Nonnull;
+public class CommandSkyblockSpread {
+	private static final int DEFAULT_RANGE = 200000;
 
-public class CommandSkyblockSpread extends CommandBase {
-
-	@Nonnull
-	@Override
-	public String getName() {
-		return "botania-skyblock-spread";
+	public static void register(CommandDispatcher<CommandSource> dispatcher) {
+		dispatcher.register(
+				Commands.literal("botania-skyblock-spread")
+						.requires(s -> s.hasPermissionLevel(2))
+						.then(Commands.argument("player", EntityArgument.player())
+							.then(Commands.argument("range", IntegerArgumentType.integer(250, 1000000))
+								.executes(ctx -> run(ctx.getSource().asPlayer(), IntegerArgumentType.getInteger(ctx, "range"))))
+							.executes(ctx -> run(ctx.getSource().asPlayer(), DEFAULT_RANGE)))
+		);
 	}
 
-	@Nonnull
-	@Override
-	public String getUsage(@Nonnull ICommandSender sender) {
-		return "<player> [<range>]";
-	}
-
-	@Override
-	public int getRequiredPermissionLevel() {
-		return 2;
-	}
-
-	@Override
-	public void execute(@Nonnull MinecraftServer server, @Nonnull ICommandSender sender, @Nonnull String[] args) throws CommandException {
-		int maxAllowed = 1000000;
-		int minAllowed = 250;
+	private static int run(EntityPlayerMP player, int range) {
 		int minDist = 100;
+		BlockPos spawn = player.world.getSpawnPoint();
+		int x, z;
 
-		int maxrange = 200000;
-		if(args.length == 2)
-			maxrange = parseInt(args[1]);
+		do {
+			x = player.world.rand.nextInt(range) - range / 2 + spawn.getX();
+			z = player.world.rand.nextInt(range) - range / 2 + spawn.getZ();
+		} while(MathHelper.pointDistancePlane(x, z, spawn.getX(), spawn.getZ()) < minDist);
 
-		if(maxrange > maxAllowed)
-			throw new CommandException("botaniamisc.skyblockRangeTooHigh");
-		if(maxrange < minAllowed)
-			throw new CommandException(I18n.translateToLocal("botaniamisc.skyblockRangeTooLow"));
-
-		EntityPlayer player = getPlayer(server, sender, args[0]);
-		if(player != null) {
-			BlockPos spawn = player.world.getSpawnPoint();
-			int x, z;
-
-			do {
-				x = player.world.rand.nextInt(maxrange) - maxrange / 2 + spawn.getX();
-				z = player.world.rand.nextInt(maxrange) - maxrange / 2 + spawn.getZ();
-			} while(MathHelper.pointDistancePlane(x, z, spawn.getX(), spawn.getZ()) < minDist);
-
-			SkyblockWorldEvents.spawnPlayer(player, new BlockPos(x, spawn.getY(), z), true);
-		}
+		SkyblockWorldEvents.spawnPlayer(player, new BlockPos(x, spawn.getY(), z), true);
+		return 1;
 	}
-
 }

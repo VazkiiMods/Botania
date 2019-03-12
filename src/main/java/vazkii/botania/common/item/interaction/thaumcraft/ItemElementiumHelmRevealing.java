@@ -13,7 +13,6 @@ package vazkii.botania.common.item.interaction.thaumcraft;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.common.Optional;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.equipment.armor.elementium.ItemElementiumHelm;

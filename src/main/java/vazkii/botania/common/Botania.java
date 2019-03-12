@@ -26,6 +26,9 @@ import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.event.server.FMLServerAboutToStartEvent;
+import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
+import net.minecraftforge.fml.event.server.FMLServerStoppingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -111,6 +114,9 @@ public class Botania {
 		instance = this;
 		proxy = DistExecutor.runForDist(() -> ClientProxy::new, () -> ServerProxy::new);
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::commonSetup);
+		MinecraftForge.EVENT_BUS.addListener(this::serverAboutToStart);
+		MinecraftForge.EVENT_BUS.addListener(this::serverStarting);
+		MinecraftForge.EVENT_BUS.addListener(this::serverStopping);
 	}
 
 	private void commonSetup(FMLCommonSetupEvent event) {
@@ -231,8 +237,7 @@ public class Botania {
 
 	// Overriding the internal method handler will break everything as it changes regularly.
 	// So just don't be a moron and don't override it. Thanks.
-	@EventHandler
-	public void serverStarting(FMLServerAboutToStartEvent event) {
+	public void serverAboutToStart(FMLServerAboutToStartEvent event) {
 		String clname = BotaniaAPI.internalHandler.getClass().getName();
 		String expect = "vazkii.botania.common.core.handler.InternalMethodHandler";
 		if(!clname.equals(expect)) {
@@ -244,17 +249,14 @@ public class Botania {
 		}
 	}
 
-	@EventHandler
-	public void serverStarting(FMLServerStartingEvent event) {
-//		event.registerServerCommand(new CommandDownloadLatest());
-		event.registerServerCommand(new CommandShare());
-		event.registerServerCommand(new CommandOpen());
+	private void serverStarting(FMLServerStartingEvent event) {
+		CommandShare.register(event.getCommandDispatcher());
+		CommandOpen.register(event.getCommandDispatcher());
 		if(Botania.gardenOfGlassLoaded)
-			event.registerServerCommand(new CommandSkyblockSpread());
+			CommandSkyblockSpread.register(event.getCommandDispatcher());
 	}
 
-	@EventHandler
-	public void serverStopping(FMLServerStoppingEvent event) {
+	private void serverStopping(FMLServerStoppingEvent event) {
 		ManaNetworkHandler.instance.clear();
 	}
 

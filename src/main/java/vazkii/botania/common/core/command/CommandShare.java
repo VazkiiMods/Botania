@@ -10,48 +10,33 @@
  */
 package vazkii.botania.common.core.command;
 
-import net.minecraft.command.CommandBase;
-import net.minecraft.command.ICommandSender;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.translation.I18n;
+import com.mojang.brigadier.CommandDispatcher;
+import com.mojang.brigadier.arguments.StringArgumentType;
+import com.mojang.brigadier.context.CommandContext;
+import net.minecraft.command.CommandSource;
+import net.minecraft.command.Commands;
 
-import javax.annotation.Nonnull;
+public class CommandShare {
 
-public class CommandShare extends CommandBase {
-
-	@Nonnull
-	@Override
-	public String getName() {
-		return "botania-share";
+	public static void register(CommandDispatcher<CommandSource> dispatcher) {
+		dispatcher.register(
+				Commands.literal("botania-share")
+						.then(Commands.argument("entry", StringArgumentType.string())
+								.executes(CommandShare::run))
+		);
 	}
 
-	@Nonnull
-	@Override
-	public String getUsage(@Nonnull ICommandSender sender) {
-		return "<entry>";
-	}
-
-	@Override
-	public void execute(@Nonnull MinecraftServer server, @Nonnull ICommandSender sender, @Nonnull String[] args) {
+	private static int run(CommandContext<CommandSource> ctx) {
+		// todo 1.13
+		/*
 		String json = I18n.translateToLocal("botaniamisc.shareMsg");
 		json = json.replaceAll("%name%", sender.getName());
 		json = json.replaceAll("%entry%", args[0]);
-		json = json.replaceAll("%entryname%", I18n.translateToLocal(args[0]));
+		json = json.replaceAll("%entryname%", I18n.translateToLocal(StringArgumentType.getString(ctx, "entry")));
 
 		ITextComponent component = ITextComponent.Serializer.jsonToComponent(json);
-		server.getPlayerList().sendMessage(component);
-	}
-
-
-	@Override
-	public int getRequiredPermissionLevel() {
-		return 0;
-	}
-
-	@Override
-	public boolean checkPermission(MinecraftServer server, ICommandSender sender) {
-		return sender instanceof EntityPlayer;
+		ctx.getSource().getServer().getPlayerList().sendMessage(component);
+		*/
+		return 1;
 	}
 }
