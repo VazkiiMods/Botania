@@ -114,7 +114,6 @@ import vazkii.botania.common.item.block.ItemBlockMod;
 import vazkii.botania.common.item.block.ItemBlockPool;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 import vazkii.botania.common.item.block.ItemBlockTinyPotato;
-import vazkii.botania.common.item.block.ItemBlockWithMetadataAndName;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
@@ -246,7 +245,22 @@ public final class ModBlocks {
 	@ObjectHolder("green" + LibBlockNames.BURIED_PETALS_SUFFIX) public static Block greenBuriedPetals;
 	@ObjectHolder("red" + LibBlockNames.BURIED_PETALS_SUFFIX) public static Block redBuriedPetals;
 	@ObjectHolder("black" + LibBlockNames.BURIED_PETALS_SUFFIX) public static Block blackBuriedPetals;
-	public static final Block floatingFlower = new BlockFloatingFlower();
+	@ObjectHolder("white" + LibBlockNames.FLOATING_FLOWER_SUFFIX) public static Block whiteFloatingFlower;
+	@ObjectHolder("orange" + LibBlockNames.FLOATING_FLOWER_SUFFIX) public static Block orangeFloatingFlower;
+	@ObjectHolder("magenta" + LibBlockNames.FLOATING_FLOWER_SUFFIX) public static Block magentaFloatingFlower;
+	@ObjectHolder("light_blue" + LibBlockNames.FLOATING_FLOWER_SUFFIX) public static Block lightBlueFloatingFlower;
+	@ObjectHolder("yellow" + LibBlockNames.FLOATING_FLOWER_SUFFIX) public static Block yellowFloatingFlower;
+	@ObjectHolder("lime" + LibBlockNames.FLOATING_FLOWER_SUFFIX) public static Block limeFloatingFlower;
+	@ObjectHolder("pink" + LibBlockNames.FLOATING_FLOWER_SUFFIX) public static Block pinkFloatingFlower;
+	@ObjectHolder("gray" + LibBlockNames.FLOATING_FLOWER_SUFFIX) public static Block grayFloatingFlower;
+	@ObjectHolder("light_gray" + LibBlockNames.FLOATING_FLOWER_SUFFIX) public static Block lightGrayFloatingFlower;
+	@ObjectHolder("cyan" + LibBlockNames.FLOATING_FLOWER_SUFFIX) public static Block cyanFloatingFlower;
+	@ObjectHolder("purple" + LibBlockNames.FLOATING_FLOWER_SUFFIX) public static Block purpleFloatingFlower;
+	@ObjectHolder("blue" + LibBlockNames.FLOATING_FLOWER_SUFFIX) public static Block blueFloatingFlower;
+	@ObjectHolder("brown" + LibBlockNames.FLOATING_FLOWER_SUFFIX) public static Block brownFloatingFlower;
+	@ObjectHolder("green" + LibBlockNames.FLOATING_FLOWER_SUFFIX) public static Block greenFloatingFlower;
+	@ObjectHolder("red" + LibBlockNames.FLOATING_FLOWER_SUFFIX) public static Block redFloatingFlower;
+	@ObjectHolder("black" + LibBlockNames.FLOATING_FLOWER_SUFFIX) public static Block blackFloatingFlower;
 	@ObjectHolder(LibBlockNames.TINY_POTATO) public static Block tinyPotato;
 	@ObjectHolder(LibBlockNames.SPAWNER_CLAW) public static Block spawnerClaw;
 	@ObjectHolder(LibBlockNames.AZULEJO_PREFIX + 0) public static Block azulejo0;
@@ -277,7 +291,7 @@ public final class ModBlocks {
 	@ObjectHolder(LibBlockNames.RED_STRING_FERTILIZER) public static Block redStringFertilizer;
 	@ObjectHolder(LibBlockNames.RED_STRING_COMPARATOR) public static Block redStringComparator;
 	@ObjectHolder(LibBlockNames.RED_STRING_RELAY) public static Block redStringRelay;
-	public static final Block floatingSpecialFlower = new BlockFloatingSpecialFlower();
+	@ObjectHolder(LibBlockNames.FLOATING_SPECIAL_FLOWER) public static Block floatingSpecialFlower;
 	@ObjectHolder(LibBlockNames.MANA_FLAME) public static Block manaFlame;
 	@ObjectHolder(LibBlockNames.PRISM) public static Block prism;
 	@ObjectHolder(LibBlockNames.ENCHANTED_SOIL) public static Block enchantedSoil;
@@ -486,8 +500,13 @@ public final class ModBlocks {
 		for(EnumDyeColor color : EnumDyeColor.values()) {
 			register(r, new BlockBuriedPetals(color, builder), color.getName() + LibBlockNames.BURIED_PETALS_SUFFIX);
 		}
-		
-		r.register(floatingFlower);
+
+		builder = Block.Properties.create(Material.GROUND).hardnessAndResistance(0.5F).sound(SoundType.GROUND).lightValue(15);
+		register(r, new BlockFloatingSpecialFlower(builder), LibBlockNames.FLOATING_SPECIAL_FLOWER);
+		for(EnumDyeColor color : EnumDyeColor.values()) {
+			register(r, new BlockFloatingFlower(color, builder), color.getName() + LibBlockNames.FLOATING_FLOWER_SUFFIX);
+		}
+
 		register(r, new BlockTinyPotato(Block.Properties.create(Material.CLOTH).hardnessAndResistance(0.25F)), LibBlockNames.TINY_POTATO);
 		register(r, new BlockSpawnerClaw(Block.Properties.create(Material.IRON).hardnessAndResistance(3)), LibBlockNames.SPAWNER_CLAW);
 
@@ -511,8 +530,7 @@ public final class ModBlocks {
 		register(r, new BlockRedStringFertilizer(builder), LibBlockNames.RED_STRING_FERTILIZER);
 		register(r, new BlockRedStringComparator(builder), LibBlockNames.RED_STRING_COMPARATOR);
 		register(r, new BlockRedStringRelay(builder), LibBlockNames.RED_STRING_RELAY);
-        register(r, new BlockRedStringInterceptor(builder), LibBlockNames.RED_STRING_INTERCEPTOR);
-		r.register(floatingSpecialFlower);
+		register(r, new BlockRedStringInterceptor(builder), LibBlockNames.RED_STRING_INTERCEPTOR);
 		register(r, new BlockManaFlame(Block.Properties.create(Material.CLOTH).sound(SoundType.CLOTH).lightValue(15).doesNotBlockMovement()), LibBlockNames.MANA_FLAME);
 		register(r, new BlockPrism(Block.Properties.create(Material.GLASS).hardnessAndResistance(0.3F).sound(SoundType.GLASS).lightValue(15).doesNotBlockMovement()), LibBlockNames.PRISM);
 		register(r, new BlockEnchantedSoil(Block.Properties.create(Material.GRASS).hardnessAndResistance(0.6F).sound(SoundType.PLANT)), LibBlockNames.ENCHANTED_SOIL);
@@ -678,7 +696,22 @@ public final class ModBlocks {
 		r.register(new ItemBlockDreamwood(dreamwood, props).setRegistryName(dreamwood.getRegistryName()));
 		r.register(new ItemBlockMod(conjurationCatalyst, props).setRegistryName(conjurationCatalyst.getRegistryName()));
 		r.register(new ItemBlockMod(bifrost, props).setRegistryName(bifrost.getRegistryName()));
-		r.register(new ItemBlockWithMetadataAndName(floatingFlower).setRegistryName(floatingFlower.getRegistryName()));
+		r.register(new ItemBlockMod(whiteFloatingFlower, props).setRegistryName(whiteFloatingFlower.getRegistryName()));
+		r.register(new ItemBlockMod(orangeFloatingFlower, props).setRegistryName(orangeFloatingFlower.getRegistryName()));
+		r.register(new ItemBlockMod(magentaFloatingFlower, props).setRegistryName(magentaFloatingFlower.getRegistryName()));
+		r.register(new ItemBlockMod(lightBlueFloatingFlower, props).setRegistryName(lightBlueFloatingFlower.getRegistryName()));
+		r.register(new ItemBlockMod(yellowFloatingFlower, props).setRegistryName(yellowFloatingFlower.getRegistryName()));
+		r.register(new ItemBlockMod(limeFloatingFlower, props).setRegistryName(limeFloatingFlower.getRegistryName()));
+		r.register(new ItemBlockMod(pinkFloatingFlower, props).setRegistryName(pinkFloatingFlower.getRegistryName()));
+		r.register(new ItemBlockMod(grayFloatingFlower, props).setRegistryName(grayFloatingFlower.getRegistryName()));
+		r.register(new ItemBlockMod(lightGrayFloatingFlower, props).setRegistryName(lightGrayFloatingFlower.getRegistryName()));
+		r.register(new ItemBlockMod(cyanFloatingFlower, props).setRegistryName(cyanFloatingFlower.getRegistryName()));
+		r.register(new ItemBlockMod(purpleFloatingFlower, props).setRegistryName(purpleFloatingFlower.getRegistryName()));
+		r.register(new ItemBlockMod(blueFloatingFlower, props).setRegistryName(blueFloatingFlower.getRegistryName()));
+		r.register(new ItemBlockMod(brownFloatingFlower, props).setRegistryName(brownFloatingFlower.getRegistryName()));
+		r.register(new ItemBlockMod(greenFloatingFlower, props).setRegistryName(greenFloatingFlower.getRegistryName()));
+		r.register(new ItemBlockMod(redFloatingFlower, props).setRegistryName(redFloatingFlower.getRegistryName()));
+		r.register(new ItemBlockMod(blackFloatingFlower, props).setRegistryName(blackFloatingFlower.getRegistryName()));
 		r.register(new ItemBlockTinyPotato(tinyPotato, props).setRegistryName(tinyPotato.getRegistryName()));
 		r.register(new ItemBlockMod(spawnerClaw, props).setRegistryName(spawnerClaw.getRegistryName()));
 		r.register(new ItemBlockMod(azulejo0, props).setRegistryName(azulejo0.getRegistryName()));

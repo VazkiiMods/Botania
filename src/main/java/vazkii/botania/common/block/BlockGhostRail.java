@@ -54,6 +54,7 @@ public class BlockGhostRail extends BlockRailBase implements ILexiconable {
 		builder.add(BlockStateProperties.RAIL_SHAPE_STRAIGHT);
 	}
 
+	/* todo 1.13
 	@SubscribeEvent
 	public static void onMinecartUpdate(MinecartUpdateEvent event) {
 		BlockPos entPos = new BlockPos(event.getEntity());
@@ -84,6 +85,7 @@ public class BlockGhostRail extends BlockRailBase implements ILexiconable {
 			event.getEntity().world.playEvent(2000, entPos, 0);
 		} else event.getEntity().noClip = false;
 	}
+	*/
 
 	@Override
 	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {

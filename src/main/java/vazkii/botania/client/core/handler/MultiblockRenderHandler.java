@@ -14,7 +14,6 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockRendererDispatcher;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -26,6 +25,7 @@ import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+import net.minecraft.world.dimension.DimensionType;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -47,7 +47,7 @@ public final class MultiblockRenderHandler {
 	private MultiblockRenderHandler() {}
 
 	private static final MultiblockBlockAccess blockAccess = new MultiblockBlockAccess();
-	private static int dimension;
+	private static DimensionType dimension;
 
 	public static boolean rendering = false;
 	public static MultiblockSet currentMultiblock;
@@ -61,7 +61,7 @@ public final class MultiblockRenderHandler {
 
 		Minecraft mc = Minecraft.getInstance();
 		if(mc.world != null)
-			dimension = mc.world.getDimension().getId();
+			dimension = mc.world.getDimension().getType();
 	}
 
 	@SubscribeEvent
@@ -83,7 +83,7 @@ public final class MultiblockRenderHandler {
 	}
 
 	private static void renderPlayerLook(EntityPlayer player, RayTraceResult src) {
-		if(currentMultiblock != null && dimension == player.world.getDimension().getId()) {
+		if(currentMultiblock != null && dimension == player.world.getDimension().getType()) {
 			BlockPos anchorPos = anchor != null ? anchor : src.getBlockPos();
 
 			GlStateManager.pushMatrix();

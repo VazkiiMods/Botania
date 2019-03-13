@@ -13,7 +13,6 @@ package vazkii.botania.common.block;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.BannerPattern;
-import net.minecraftforge.common.util.EnumHelper;
 import vazkii.botania.common.item.ModItems;
 
 public final class ModBanners {
@@ -31,7 +30,7 @@ public final class ModBanners {
 		addPattern(clazz, "spark_recessive", "src", new ItemStack(ModItems.sparkUpgradeRecessive));
 		addPattern(clazz, "spark_isolated", "sis", new ItemStack(ModItems.sparkUpgradeIsolated));
 
-		addPattern(clazz, "fish", "fis", new ItemStack(Items.FISH));
+		addPattern(clazz, "fish", "fis", new ItemStack(Items.COD));
 		addPattern(clazz, "axe", "axe", new ItemStack(Items.IRON_AXE));
 		addPattern(clazz, "hoe", "hoe", new ItemStack(Items.IRON_HOE));
 		addPattern(clazz, "pickaxe", "pik", new ItemStack(Items.IRON_PICKAXE));

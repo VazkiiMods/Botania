@@ -6,19 +6,12 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import vazkii.botania.api.boss.IBotaniaBoss;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.core.helper.Vector3;
 
 public interface IProxy {
-	void preInit(FMLPreInitializationEvent event);
-
-	void init(FMLInitializationEvent event);
-
-	void postInit(FMLPostInitializationEvent event);
+	default void registerHandlers() {}
 
 	void setEntryToOpen(LexiconEntry entry);
 

@@ -27,6 +27,7 @@ import vazkii.botania.common.network.PacketHandler;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 
 public class LensPaint extends Lens {
 
@@ -44,14 +45,12 @@ public class LensPaint extends Lens {
 				}
 				dead = true;
 			} else {
-				Block block = entity.world.getBlockState(pos.getBlockPos()).getBlock();
+				IBlockState state = entity.world.getBlockState(pos.getBlockPos());
+				Block block = state.getBlock();
 				if(BotaniaAPI.paintableBlocks.containsKey(block)) {
-					IBlockState state = entity.world.getBlockState(pos.getBlockPos());
 					List<BlockPos> coordsToPaint = new ArrayList<>();
 					List<BlockPos> coordsFound = new ArrayList<>();
-
-					BlockPos theseCoords = pos.getBlockPos();
-					coordsFound.add(theseCoords);
+					coordsFound.add(pos.getBlockPos());
 
 					do {
 						List<BlockPos> iterCoords = new ArrayList<>(coordsFound);
@@ -72,9 +71,10 @@ public class LensPaint extends Lens {
 						EnumDyeColor placeColor = EnumDyeColor.byId(storedColor == 16 ? entity.world.rand.nextInt(16) : storedColor);
 						IBlockState stateThere = entity.world.getBlockState(coords);
 
-						if(stateThere.get(BotaniaAPI.paintableBlocks.get(block)) != placeColor
-								&& BotaniaAPI.paintableBlocks.get(block).getAllowedValues().contains(placeColor)) {
-							entity.world.setBlockState(coords, stateThere.with(BotaniaAPI.paintableBlocks.get(block), placeColor), 2);
+						Function<EnumDyeColor, Block> f = BotaniaAPI.paintableBlocks.get(block);
+						Block newBlock = f.apply(placeColor);
+						if(newBlock != stateThere.getBlock()) {
+							entity.world.setBlockState(coords, newBlock.getDefaultState());
 							PacketHandler.sendToNearby(entity.world, coords,
 									new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.PAINT_LENS, coords.getX(), coords.getY(), coords.getZ(), placeColor.getId()));
 						}

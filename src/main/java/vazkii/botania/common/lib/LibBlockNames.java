@@ -78,6 +78,7 @@ public final class LibBlockNames {
 	public static final String BURIED_PETALS_SUFFIX = "_buried_petals";
 	public static final String PRISMARINE = "prismarine";
 	public static final String MINI_ISLAND = "mini_island";
+	public static final String FLOATING_FLOWER_SUFFIX = "_floating_flower";
 	public static final String TINY_POTATO = "tiny_potato";
 	public static final String SPAWNER_CLAW = "spawner_claw";
 	public static final String AZULEJO_PREFIX = "azulejo_";

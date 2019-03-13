@@ -16,25 +16,14 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.FMLCommonHandler;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraft.world.dimension.DimensionType;
+import net.minecraftforge.fml.server.ServerLifecycleHooks;
 import vazkii.botania.api.boss.IBotaniaBoss;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.lib.LibMisc;
 
 public class ServerProxy implements IProxy {
-
-	@Override
-	public void preInit(FMLPreInitializationEvent event) {}
-
-	@Override
-	public void init(FMLInitializationEvent event) {}
-
-	@Override
-	public void postInit(FMLPostInitializationEvent event) {}
 
 	@Override
 	public void setEntryToOpen(LexiconEntry entry) {}
@@ -78,7 +67,7 @@ public class ServerProxy implements IProxy {
 
 	@Override
 	public long getWorldElapsedTicks() {
-		return FMLCommonHandler.instance().getMinecraftServerInstance().worlds[0].getTotalWorldTime();
+		return ServerLifecycleHooks.getCurrentServer().getWorld(DimensionType.OVERWORLD).getGameTime();
 	}
 
 	@Override

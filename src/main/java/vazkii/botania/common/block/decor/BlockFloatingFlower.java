@@ -12,34 +12,25 @@ package vazkii.botania.common.block.decor;
 
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockFaceShape;
-import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.block.statemap.StateMap;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.EnumDyeColor;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.ChunkCache;
+import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
-import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.common.property.ExtendedBlockState;
 import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.common.property.IUnlistedProperty;
-import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
@@ -48,7 +39,6 @@ import vazkii.botania.api.item.IFloatingFlower.IslandType;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.state.BotaniaStateProps;
-import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.TileFloatingFlower;
@@ -63,24 +53,18 @@ import java.util.Random;
 
 public class BlockFloatingFlower extends BlockMod implements ILexiconable {
 
-	private static final AxisAlignedBB AABB = new AxisAlignedBB(0.1, 0.1, 0.1, 0.9, 0.9, 0.9);
+	private static final VoxelShape SHAPE = makeCuboidShape(1.6, 1.6, 1.6, 14.4, 14.4, 14.4);
+	public final EnumDyeColor color;
 
-	public BlockFloatingFlower() {
-		this(LibBlockNames.MINI_ISLAND);
-	}
-
-	public BlockFloatingFlower(String name) {
-		super(Material.GROUND, name);
-		setHardness(0.5F);
-		setSoundType(SoundType.GROUND);
-		setLightLevel(1F);
-		setDefaultState(blockState.getBaseState().with(BotaniaStateProps.COLOR, EnumDyeColor.WHITE));
+	public BlockFloatingFlower(EnumDyeColor color, Properties props) {
+		super(props);
+		this.color = color;
 	}
 
 	@Nonnull
 	@Override
-	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockReader world, BlockPos pos) {
-		return AABB;
+	public VoxelShape getShape(IBlockState state, IBlockReader world, BlockPos pos) {
+		return SHAPE;
 	}
 
 	@Nonnull
@@ -102,20 +86,6 @@ public class BlockFloatingFlower extends BlockMod implements ILexiconable {
 		return new ExtendedBlockState(this, new IProperty[] { BotaniaStateProps.COLOR }, new IUnlistedProperty[] { BotaniaStateProps.ISLAND_TYPE });
 	}
 
-	@Override
-	public int getMetaFromState(IBlockState state) {
-		return state.get(BotaniaStateProps.COLOR).getMetadata();
-	}
-
-	@Nonnull
-	@Override
-	public IBlockState getStateFromMeta(int meta) {
-		if (meta >= EnumDyeColor.values().length) {
-			meta = 0;
-		}
-		return getDefaultState().with(BotaniaStateProps.COLOR, EnumDyeColor.byMetadata(meta));
-	}
-
 	@Nonnull
 	@Override
 	public IBlockState getExtendedState(@Nonnull IBlockState state, IBlockReader world, BlockPos pos) {
@@ -131,30 +101,14 @@ public class BlockFloatingFlower extends BlockMod implements ILexiconable {
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void randomDisplayTick(IBlockState state, World world, BlockPos pos, Random rand) {
-		int hex = state.get(BotaniaStateProps.COLOR).getColorValue();
+	public void animateTick(IBlockState state, World world, BlockPos pos, Random rand) {
+		int hex = state.get(BotaniaStateProps.COLOR).colorValue;
 		int r = (hex & 0xFF0000) >> 16;
 		int g = (hex & 0xFF00) >> 8;
 		int b = hex & 0xFF;
 
 		if(rand.nextDouble() < ConfigHandler.flowerParticleFrequency)
 			Botania.proxy.sparkleFX(pos.getX() + 0.3 + rand.nextFloat() * 0.5, pos.getY() + 0.5 + rand.nextFloat() * 0.5, pos.getZ() + 0.3 + rand.nextFloat() * 0.5, r / 255F, g / 255F, b / 255F, rand.nextFloat(), 5);
-	}
-
-	@Override
-	public void getSubBlocks(CreativeTabs par2, NonNullList<ItemStack> par3) {
-		for(int i = 0; i < 16; i++)
-			par3.add(new ItemStack(this, 1, i));
-	}
-
-	@Override
-	public int damageDropped(IBlockState state) {
-		return getMetaFromState(state);
-	}
-
-	@Override
-	public boolean isOpaqueCube(IBlockState state) {
-		return false;
 	}
 
 	@Override
@@ -197,21 +151,13 @@ public class BlockFloatingFlower extends BlockMod implements ILexiconable {
 
 	@Nonnull
 	@Override
-	public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
+	public TileEntity createTileEntity(@Nonnull IBlockState state, @Nonnull IBlockReader world) {
 		return new TileFloatingFlower();
 	}
 
 	@Override
 	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
 		return LexiconData.shinyFlowers;
-	}
-
-	@OnlyIn(Dist.CLIENT)
-	@Override
-	public void registerModels() {
-		ModelLoader.setCustomStateMapper(this, new StateMap.Builder().ignore(BotaniaStateProps.COLOR).build());
-		// All to variant inventory so smartmodel can work
-		ModelHandler.registerItemAllMeta(Item.getItemFromBlock(this), EnumDyeColor.values().length);
 	}
 
 	@Nonnull

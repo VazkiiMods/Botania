@@ -68,6 +68,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Function;
 
 public final class BotaniaAPI {
 
@@ -95,7 +96,7 @@ public final class BotaniaAPI {
 	public static final Map<ResourceLocation, Integer> oreWeights = new HashMap<>();
 	public static final Map<ResourceLocation, Integer> oreWeightsNether = new HashMap<>();
 
-	public static final Map<Block, EnumProperty<EnumDyeColor>> paintableBlocks = new LinkedHashMap<>();
+	public static final Map<Block, Function<EnumDyeColor, Block>> paintableBlocks = new LinkedHashMap<>();
 	public static final Set<Class<? extends Entity>> gravityRodBlacklist = new LinkedHashSet<>();
 	public static final Set<Block> gaiaBreakBlacklist = new HashSet<>();
 
@@ -464,11 +465,21 @@ public final class BotaniaAPI {
 		registerModWiki("appliedenergistics2", new SimpleWikiProvider("AE2 Wiki", "http://ae-mod.info/%s"));
 		registerModWiki("bigreactors", technicWiki);
 
-		registerPaintableBlock(Blocks.STAINED_GLASS, BlockStainedGlass.COLOR);
-		registerPaintableBlock(Blocks.STAINED_GLASS_PANE, BlockStainedGlassPane.COLOR);
-		registerPaintableBlock(Blocks.STAINED_HARDENED_CLAY, BlockColored.COLOR);
-		registerPaintableBlock(Blocks.WOOL, BlockColored.COLOR);
-		registerPaintableBlock(Blocks.CARPET, BlockCarpet.COLOR);
+		registerPaintableBlock(ColorHelper.STAINED_GLASS, Blocks.WHITE_STAINED_GLASS, Blocks.ORANGE_STAINED_GLASS, Blocks.MAGENTA_STAINED_GLASS, Blocks.LIGHT_BLUE_STAINED_GLASS,
+				Blocks.YELLOW_STAINED_GLASS, Blocks.LIME_STAINED_GLASS, Blocks.PINK_STAINED_GLASS, Blocks.GRAY_STAINED_GLASS, Blocks.LIGHT_GRAY_STAINED_GLASS,
+				Blocks.CYAN_STAINED_GLASS, Blocks.PURPLE_STAINED_GLASS, Blocks.BLUE_STAINED_GLASS, Blocks.BROWN_STAINED_GLASS, Blocks.GREEN_STAINED_GLASS, Blocks.RED_STAINED_GLASS, Blocks.BLACK_STAINED_GLASS);
+		registerPaintableBlock(ColorHelper.STAINED_GLASS_PANE, Blocks.WHITE_STAINED_GLASS_PANE, Blocks.ORANGE_STAINED_GLASS_PANE, Blocks.MAGENTA_STAINED_GLASS_PANE, Blocks.LIGHT_BLUE_STAINED_GLASS_PANE,
+				Blocks.YELLOW_STAINED_GLASS_PANE, Blocks.LIME_STAINED_GLASS_PANE, Blocks.PINK_STAINED_GLASS_PANE, Blocks.GRAY_STAINED_GLASS_PANE, Blocks.LIGHT_GRAY_STAINED_GLASS_PANE,
+				Blocks.CYAN_STAINED_GLASS_PANE, Blocks.PURPLE_STAINED_GLASS_PANE, Blocks.BLUE_STAINED_GLASS_PANE, Blocks.BROWN_STAINED_GLASS_PANE, Blocks.GREEN_STAINED_GLASS_PANE, Blocks.RED_STAINED_GLASS_PANE, Blocks.BLACK_STAINED_GLASS_PANE);
+		registerPaintableBlock(ColorHelper.TERRACOTTA, Blocks.WHITE_TERRACOTTA, Blocks.ORANGE_TERRACOTTA, Blocks.MAGENTA_TERRACOTTA, Blocks.LIGHT_BLUE_TERRACOTTA,
+				Blocks.YELLOW_TERRACOTTA, Blocks.LIME_TERRACOTTA, Blocks.PINK_TERRACOTTA, Blocks.GRAY_TERRACOTTA, Blocks.LIGHT_GRAY_TERRACOTTA,
+				Blocks.CYAN_TERRACOTTA, Blocks.PURPLE_TERRACOTTA, Blocks.BLUE_TERRACOTTA, Blocks.BROWN_TERRACOTTA, Blocks.GREEN_TERRACOTTA, Blocks.RED_TERRACOTTA, Blocks.BLACK_TERRACOTTA);
+		registerPaintableBlock(ColorHelper.WOOL, Blocks.WHITE_WOOL, Blocks.ORANGE_WOOL, Blocks.MAGENTA_WOOL, Blocks.LIGHT_BLUE_WOOL,
+				Blocks.YELLOW_WOOL, Blocks.LIME_WOOL, Blocks.PINK_WOOL, Blocks.GRAY_WOOL, Blocks.LIGHT_GRAY_WOOL,
+				Blocks.CYAN_WOOL, Blocks.PURPLE_WOOL, Blocks.BLUE_WOOL, Blocks.BROWN_WOOL, Blocks.GREEN_WOOL, Blocks.RED_WOOL, Blocks.BLACK_WOOL);
+		registerPaintableBlock(ColorHelper.CARPET, Blocks.WHITE_CARPET, Blocks.ORANGE_CARPET, Blocks.MAGENTA_CARPET, Blocks.LIGHT_BLUE_CARPET,
+				Blocks.YELLOW_CARPET, Blocks.LIME_CARPET, Blocks.PINK_CARPET, Blocks.GRAY_CARPET, Blocks.LIGHT_GRAY_CARPET,
+				Blocks.CYAN_CARPET, Blocks.PURPLE_CARPET, Blocks.BLUE_CARPET, Blocks.BROWN_CARPET, Blocks.GREEN_CARPET, Blocks.RED_CARPET, Blocks.BLACK_CARPET);
 		blacklistBlockFromGaiaGuardian(Blocks.BEACON);
 	}
 
@@ -510,12 +521,12 @@ public final class BotaniaAPI {
 	}
 
 	/**
-	 * Registers a paintableBlock and returns it.
-	 * You must also provide the PropertyEnum that this block uses to express its color
+	 * Registers a block as paintable under the paint lens
 	 */
-	public static Block registerPaintableBlock(Block paintable, PropertyEnum<EnumDyeColor> colorProp){
-		paintableBlocks.put(paintable, colorProp);
-		return paintable;
+	public static void registerPaintableBlock(Function<EnumDyeColor, Block> transformer, Block... paintables) {
+		for(Block b : paintables) {
+			paintableBlocks.put(b, transformer);
+		}
 	}
 
 	/**
@@ -629,7 +640,7 @@ public final class BotaniaAPI {
 	 * @param inputs The items required, can be ItemStack or ore dictionary entry string.
 	 * @return The recipe created.
 	 */
-	public static RecipeElvenTrade registerElvenTradeRecipe(ItemStack[] outputs, Object... inputs) {
+	public static RecipeElvenTrade registerElvenTradeRecipe(ItemStack[] outputs, Ingredient... inputs) {
 		RecipeElvenTrade recipe = new RecipeElvenTrade(outputs, inputs);
 		elvenTradeRecipes.add(recipe);
 		return recipe;
@@ -641,7 +652,7 @@ public final class BotaniaAPI {
 	 * @param inputs The items required, can be an ItemStack or an Ore Dictionary entry string.
 	 * @return The recipe created.
 	 */
-	public static RecipeElvenTrade registerElvenTradeRecipe(ItemStack output, Object... inputs) {
+	public static RecipeElvenTrade registerElvenTradeRecipe(ItemStack output, Ingredient... inputs) {
 		return registerElvenTradeRecipe(new ItemStack[]{ output }, inputs);
 	}
 

@@ -113,6 +113,7 @@ public class Botania {
 	public Botania() {
 		instance = this;
 		proxy = DistExecutor.runForDist(() -> ClientProxy::new, () -> ServerProxy::new);
+		proxy.registerHandlers();
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::commonSetup);
 		MinecraftForge.EVENT_BUS.addListener(this::serverAboutToStart);
 		MinecraftForge.EVENT_BUS.addListener(this::serverStarting);
@@ -145,8 +146,6 @@ public class Botania {
 		ModBrewRecipes.init();
 		ModCraftingRecipes.init();
 		LexiconData.init();
-
-		proxy.preInit(event);
 
 		MinecraftForge.EVENT_BUS.register(ManaNetworkHandler.instance);
 		MinecraftForge.EVENT_BUS.register(TileCorporeaIndex.getInputHandler());
@@ -182,7 +181,6 @@ public class Botania {
 		});
 	}
 
-	@EventHandler
 	public void init(FMLInitializationEvent event) {
 
 
@@ -205,10 +203,8 @@ public class Botania {
 
 		if(Botania.bcApiLoaded)
 			new StatementAPIPlugin();
-		proxy.init(event);
 	}
 
-	@EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
 		if(Botania.thaumcraftLoaded) {
 			try {
@@ -232,7 +228,6 @@ public class Botania {
 		Botania.LOGGER.info("The Lexica Botania has {} words.", words);
 
 		registerDefaultEntityBlacklist();
-		proxy.postInit(event);
 	}
 
 	// Overriding the internal method handler will break everything as it changes regularly.

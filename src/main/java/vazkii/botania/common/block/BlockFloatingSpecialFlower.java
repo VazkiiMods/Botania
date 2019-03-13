@@ -10,15 +10,14 @@
  */
 package vazkii.botania.common.block;
 
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockFaceShape;
-import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.fluid.IFluidState;
+import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
@@ -27,11 +26,10 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.world.ChunkCache;
 import net.minecraft.world.IBlockReader;
+import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
-import net.minecraftforge.common.property.ExtendedBlockState;
 import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.common.property.IUnlistedProperty;
 import net.minecraftforge.api.distmarker.Dist;
@@ -56,8 +54,8 @@ import java.util.Random;
 
 public class BlockFloatingSpecialFlower extends BlockFloatingFlower implements ISpecialFlower, IWandable, ILexiconable, IWandHUD {
 
-	public BlockFloatingSpecialFlower() {
-		super(LibBlockNames.FLOATING_SPECIAL_FLOWER);
+	public BlockFloatingSpecialFlower(Properties props) {
+		super(EnumDyeColor.WHITE, props);
 	}
 
 	@Nonnull
@@ -78,7 +76,7 @@ public class BlockFloatingSpecialFlower extends BlockFloatingFlower implements I
 	}
 
 	@Override
-	public int getLightValue(@Nonnull IBlockState state, IBlockReader world, @Nonnull BlockPos pos) {
+	public int getLightValue(@Nonnull IBlockState state, IWorldReader world, @Nonnull BlockPos pos) {
 		if(world.getBlockState(pos).getBlock() != this)
 			return world.getBlockState(pos).getLightValue(world, pos);
 
@@ -113,10 +111,10 @@ public class BlockFloatingSpecialFlower extends BlockFloatingFlower implements I
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void randomDisplayTick(IBlockState state, World world, BlockPos pos, Random rand) {}
+	public void animateTick(IBlockState state, World world, BlockPos pos, Random rand) {}
 
 	@Override
-	public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> stacks) {
+	public void fillItemGroup(ItemGroup tab, NonNullList<ItemStack> stacks) {
 		for(ResourceLocation s : BotaniaAPI.subtilesForCreativeMenu) {
 			stacks.add(ItemBlockSpecialFlower.ofType(new ItemStack(this), s));
 			if(BotaniaAPI.miniFlowers.containsKey(s))
@@ -126,7 +124,7 @@ public class BlockFloatingSpecialFlower extends BlockFloatingFlower implements I
 
 	@Nonnull
 	@Override
-	public ItemStack getPickBlock(@Nonnull IBlockState state, RayTraceResult target, @Nonnull World world, @Nonnull BlockPos pos, EntityPlayer player) {
+	public ItemStack getPickBlock(@Nonnull IBlockState state, RayTraceResult target, @Nonnull IBlockReader world, @Nonnull BlockPos pos, EntityPlayer player) {
 		ResourceLocation name = ((TileSpecialFlower) world.getTileEntity(pos)).subTileName;
 		return ItemBlockSpecialFlower.ofType(new ItemStack(state.getBlock()), name);
 	}
@@ -137,14 +135,14 @@ public class BlockFloatingSpecialFlower extends BlockFloatingFlower implements I
 	}
 
 	@Override
-	public boolean removedByPlayer(@Nonnull IBlockState state, World world, @Nonnull BlockPos pos, @Nonnull EntityPlayer player, boolean willHarvest) {
+	public boolean removedByPlayer(@Nonnull IBlockState state, World world, @Nonnull BlockPos pos, @Nonnull EntityPlayer player, boolean willHarvest, IFluidState fluid) {
 		if (willHarvest) {
 			// Copy of super.removedByPlayer but don't set to air yet
 			// This is so getDrops below will have a TE to work with
 			onBlockHarvested(world, pos, state, player);
 			return true;
 		} else {
-			return super.removedByPlayer(state, world, pos, player, willHarvest);
+			return super.removedByPlayer(state, world, pos, player, willHarvest, fluid);
 		}
 	}
 
@@ -152,11 +150,11 @@ public class BlockFloatingSpecialFlower extends BlockFloatingFlower implements I
 	public void harvestBlock(@Nonnull World world, EntityPlayer player, @Nonnull BlockPos pos, @Nonnull IBlockState state, TileEntity te, ItemStack stack) {
 		super.harvestBlock(world, player, pos, state, te, stack);
 		// Now delete the block and TE
-		world.setBlockToAir(pos);
+		world.removeBlock(pos);
 	}
 
 	@Override
-	public void getDrops(NonNullList<ItemStack> list, IBlockReader world, BlockPos pos, @Nonnull IBlockState state, int fortune) {
+	public void getDrops(@Nonnull IBlockState state, NonNullList<ItemStack> list, World world, BlockPos pos, int fortune) {
 		TileEntity tile = world.getTileEntity(pos);
 
 		if(tile != null) {
@@ -177,24 +175,24 @@ public class BlockFloatingSpecialFlower extends BlockFloatingFlower implements I
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
-		return ((TileSpecialFlower) world.getTileEntity(pos)).onBlockActivated(world, pos, state, player, hand, side, hitX, hitY, hitZ) || super.onBlockActivated(world, pos, state, player, hand, side, hitX, hitY, hitZ);
+	public boolean onBlockActivated(IBlockState state, World world, BlockPos pos, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+		return ((TileSpecialFlower) world.getTileEntity(pos)).onBlockActivated(world, pos, state, player, hand, side, hitX, hitY, hitZ) || super.onBlockActivated(state, world, pos, player, hand, side, hitX, hitY, hitZ);
 	}
 
 	@Override
-	public void onBlockAdded(World world, BlockPos pos, IBlockState state) {
+	public void onBlockAdded(IBlockState state, World world, BlockPos pos, IBlockState oldState) {
 		((TileSpecialFlower) world.getTileEntity(pos)).onBlockAdded(world, pos, state);
 	}
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void renderHUD(Minecraft mc, ScaledResolution res, World world, BlockPos pos) {
-		((TileSpecialFlower) world.getTileEntity(pos)).renderHUD(mc, res);
+	public void renderHUD(Minecraft mc, World world, BlockPos pos) {
+		((TileSpecialFlower) world.getTileEntity(pos)).renderHUD(mc);
 	}
 
 	@Nonnull
 	@Override
-	public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
+	public TileEntity createTileEntity(@Nonnull IBlockState state, @Nonnull IBlockReader world) {
 		return new TileFloatingSpecialFlower();
 	}
 

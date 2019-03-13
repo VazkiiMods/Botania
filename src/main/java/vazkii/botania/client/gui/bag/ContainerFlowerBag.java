@@ -33,17 +33,17 @@ public class ContainerFlowerBag extends Container {
 		for(i = 0; i < 2; ++i)
 			for(j = 0; j < 8; ++j) {
 				int k = j + i * 8;
-				addSlotToContainer(new SlotItemHandler(flowerBagInv, k, 17 + j * 18, 26 + i * 18));
+				addSlot(new SlotItemHandler(flowerBagInv, k, 17 + j * 18, 26 + i * 18));
 			}
 
 		for(i = 0; i < 3; ++i)
 			for(j = 0; j < 9; ++j)
-				addSlotToContainer(new Slot(playerInv, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
+				addSlot(new Slot(playerInv, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
 
 		for(i = 0; i < 9; ++i) {
 			if(playerInv.getStackInSlot(i) == flowerBagInv.bag)
-				addSlotToContainer(new SlotLocked(playerInv, i, 8 + i * 18, 142));
-			else addSlotToContainer(new Slot(playerInv, i, 8 + i * 18, 142));
+				addSlot(new SlotLocked(playerInv, i, 8 + i * 18, 142));
+			else addSlot(new Slot(playerInv, i, 8 + i * 18, 142));
 		}
 
 	}

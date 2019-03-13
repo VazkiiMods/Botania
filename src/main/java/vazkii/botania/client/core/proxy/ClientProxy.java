@@ -13,13 +13,12 @@ package vazkii.botania.client.core.proxy;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderPlayer;
-import net.minecraft.client.renderer.entity.RenderSnowball;
-import net.minecraft.client.renderer.entity.RenderSprite;
 import net.minecraft.client.renderer.entity.model.ModelBiped;
 import net.minecraft.client.renderer.tileentity.TileEntityItemStackRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.client.settings.KeyBinding;
+import net.minecraft.client.util.InputMappings;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -27,18 +26,17 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
-import net.minecraftforge.client.model.animation.AnimationTESR;
 import net.minecraftforge.client.settings.KeyConflictContext;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
-import net.minecraftforge.fml.common.FMLCommonHandler;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.common.thread.SidedThreadGroups;
-import org.lwjgl.input.Keyboard;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import org.lwjgl.glfw.GLFW;
 import vazkii.botania.api.boss.IBotaniaBoss;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.lexicon.multiblock.IMultiblockRenderHook;
@@ -138,10 +136,15 @@ public class ClientProxy implements IProxy {
 		EMPTY_MODEL.setVisible(false);
 	}
 
-	public static final KeyBinding CORPOREA_REQUEST = new KeyBinding("nei.options.keys.gui.botania_corporea_request", KeyConflictContext.GUI, Keyboard.KEY_C, LibMisc.MOD_NAME);
+	public static KeyBinding CORPOREA_REQUEST;
 
 	@Override
-	public void preInit(FMLPreInitializationEvent event) {
+	public void registerHandlers() {
+		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetup);
+		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::loadComplete);
+	}
+
+	private void clientSetup(FMLClientSetupEvent event) {
 		PersistentVariableHelper.setCacheFile(new File(Minecraft.getInstance().gameDir, "BotaniaVars.dat"));
 		try {
 			PersistentVariableHelper.load();
@@ -151,10 +154,7 @@ public class ClientProxy implements IProxy {
 		}
 
 		MinecraftForge.EVENT_BUS.register(MiscellaneousIcons.INSTANCE);
-	}
 
-	@Override
-	public void init(FMLInitializationEvent event) {
 		ColorHandler.init();
 		initAuxiliaryRender();
 
@@ -165,8 +165,6 @@ public class ClientProxy implements IProxy {
 
 		if(ConfigHandler.useAdaptativeConfig)
 			MinecraftForge.EVENT_BUS.register(AdaptorNotifier.class);
-//		if(ConfigHandler.versionCheckEnabled)
-//			VersionChecker.init();
 
 		if(ConfigHandler.enableSeasonalFeatures) {
 			LocalDateTime now = LocalDateTime.now();
@@ -178,11 +176,13 @@ public class ClientProxy implements IProxy {
 
 		TileEntityItemStackRenderer.instance = new RenderTilePylon.ForwardingTEISR(TileEntityItemStackRenderer.instance);
 
-		ClientRegistry.registerKeyBinding(ClientProxy.CORPOREA_REQUEST);
+		DeferredWorkQueue.runLater(() -> {
+			CORPOREA_REQUEST = new KeyBinding("nei.options.keys.gui.botania_corporea_request", KeyConflictContext.GUI, InputMappings.getInputByCode(GLFW.GLFW_KEY_C, 0), LibMisc.MOD_NAME);
+			ClientRegistry.registerKeyBinding(ClientProxy.CORPOREA_REQUEST);
+		});
 	}
 
-	@Override
-	public void postInit(FMLPostInitializationEvent event) {
+	private void loadComplete(FMLLoadCompleteEvent event) {
 		CorporeaAutoCompleteHandler.updateItemList();
 	}
 

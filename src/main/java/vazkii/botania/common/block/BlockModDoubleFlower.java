@@ -15,17 +15,14 @@ import net.minecraft.block.BlockDoublePlant;
 import net.minecraft.block.BlockTallFlower;
 import net.minecraft.block.IGrowable;
 import net.minecraft.block.SoundType;
-import net.minecraft.block.properties.PropertyEnum;
-import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.block.statemap.StateMap;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.state.properties.DoubleBlockHalf;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.NonNullList;
@@ -75,12 +72,6 @@ public class BlockModDoubleFlower extends BlockTallFlower implements ILexiconabl
 		return false;
 	}
 
-	// todo 1.13 re-evaluate shearability of these
-	@Override
-	public boolean canHarvestBlock(IBlockReader world, @Nonnull BlockPos pos, @Nonnull EntityPlayer player) {
-		return false;
-	}
-
 	@Override
 	public boolean isShearable(@Nonnull ItemStack item, IWorldReader world, BlockPos pos) {
 		return true;
@@ -89,18 +80,11 @@ public class BlockModDoubleFlower extends BlockTallFlower implements ILexiconabl
 	@Nonnull
 	@Override
 	public List<ItemStack> onSheared(@Nonnull ItemStack item, IWorld world, @Nonnull BlockPos pos, int fortune) {
-		ArrayList<ItemStack> ret = new ArrayList<>();
-		IBlockState state = world.getBlockState(pos);
-		IBlockState stateBelow = world.getBlockState(pos.down());
-
-		if (stateBelow.getBlock() == this && stateBelow.getValue(HALF) == EnumBlockHalf.LOWER && state.get(HALF) == EnumBlockHalf.UPPER) {
-			ret.add(new ItemStack(this, 1, getMetaFromState(world.getBlockState(pos.down()))));
-		}
-
-		if (state.get(HALF) == EnumBlockHalf.LOWER) {
-			ret.add(new ItemStack(this, 1, getMetaFromState(state)));
-		}
-
+		List<ItemStack> ret = new ArrayList<>();
+		ret.add(new ItemStack(this));
+		BlockPos other = world.getBlockState(pos).get(HALF) == DoubleBlockHalf.UPPER ? pos.down() : pos.up();
+		world.removeBlock(pos);
+		world.destroyBlock(other, false);
 		return ret;
 	}
 

@@ -3,8 +3,8 @@ package vazkii.botania.common.core.handler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerSleepInBedEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.lib.LibMisc;
 
@@ -12,7 +12,7 @@ import vazkii.botania.common.lib.LibMisc;
 public final class SleepingHandler {
 	
 	private SleepingHandler() {}
-	
+
 	@SubscribeEvent
 	public static void trySleep(PlayerSleepInBedEvent event) {
 		World world = event.getEntityPlayer().world;
