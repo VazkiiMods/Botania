@@ -99,8 +99,6 @@ public final class LibBlockNames {
 	public static final String MANA_FLAME = "mana_flame";
 	public static final String PRISM = "prism";
 	public static final String ENCHANTED_SOIL = "enchanted_soil";
-	public static final String BIOME_STONE_A = "biomeStoneA";
-	public static final String BIOME_STONE_B = "biomeStoneB";
 	public static final String PETAL_BLOCK_SUFFIX = "_petal_block";
 	public static final String CORPOREA_INDEX = "corporea_index";
 	public static final String CORPOREA_FUNNEL = "corporea_funnel";
