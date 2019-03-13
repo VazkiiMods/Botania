@@ -15,8 +15,6 @@ public final class LibOreDict {
 	public static final String LEXICON = "lexicaBotania";
 	public static final String PESTLE_AND_MORTAR = "pestleAndMortar";
 	public static final String TWIG_WAND = "twigWand";
-	public static final String LIVING_WOOD = "livingwood";
-	public static final String LIVING_ROCK = "livingrock";
 	public static final String MANA_STEEL = "ingotManasteel";
 	public static final String MANA_PEARL = "manaPearl";
 	public static final String MANA_DIAMOND = "manaDiamond";
@@ -24,7 +22,6 @@ public final class LibOreDict {
 	public static final String TERRA_STEEL = "ingotTerrasteel";
 	public static final String LIFE_ESSENCE = "eternalLifeEssence";
 	public static final String REDSTONE_ROOT = "redstoneRoot";
-	public static final String DREAM_WOOD = "dreamwood";
 	public static final String ELEMENTIUM = "ingotElvenElementium";
 	public static final String PIXIE_DUST = "elvenPixieDust";
 	public static final String DRAGONSTONE = "elvenDragonstone";
@@ -45,10 +42,7 @@ public final class LibOreDict {
 	public static final String VIAL = "bVial";
 	public static final String FLASK = "bFlask";
 
-	public static final String PRISMARINE_BLOCK = "blockPrismarine";
 	public static final String BLAZE_BLOCK = "blockBlaze";
-
-	public static final String DYE_WILDCARD = "dye";
 
 	public static final String[] FLOWER = new String[] {
 			"mysticFlowerWhite", "mysticFlowerOrange", "mysticFlowerMagenta", "mysticFlowerLightBlue",
@@ -57,25 +51,11 @@ public final class LibOreDict {
 			"mysticFlowerBrown", "mysticFlowerGreen", "mysticFlowerRed", "mysticFlowerBlack"
 	};
 
-	public static final String[] DOUBLE_FLOWER = new String[] {
-			"mysticFlowerWhiteDouble", "mysticFlowerOrangeDouble", "mysticFlowerMagentaDouble", "mysticFlowerLightBlueDouble",
-			"mysticFlowerYellowDouble", "mysticFlowerLimeDouble", "mysticFlowerPinkDouble", "mysticFlowerGrayDouble",
-			"mysticFlowerLightGrayDouble", "mysticFlowerCyanDouble", "mysticFlowerPurpleDouble", "mysticFlowerBlueDouble",
-			"mysticFlowerBrownDouble", "mysticFlowerGreenDouble", "mysticFlowerRedDouble", "mysticFlowerBlackDouble"
-	};
-
 	public static final String[] PETAL = new String[] {
 			"petalWhite", "petalOrange", "petalMagenta", "petalLightBlue",
 			"petalYellow", "petalLime", "petalPink", "petalGray",
 			"petalLightGray", "petalCyan", "petalPurple", "petalBlue",
 			"petalBrown", "petalGreen", "petalRed", "petalBlack"
-	};
-
-	public static final String[] DYE = new String[] {
-			"dyeWhite", "dyeOrange", "dyeMagenta", "dyeLightBlue",
-			"dyeYellow", "dyeLime", "dyePink", "dyeGray",
-			"dyeLightGray", "dyeCyan", "dyePurple", "dyeBlue",
-			"dyeBrown", "dyeGreen", "dyeRed", "dyeBlack"
 	};
 
 	public static final String[] RUNE = new String[] {

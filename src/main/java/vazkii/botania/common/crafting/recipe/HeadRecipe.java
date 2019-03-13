@@ -12,14 +12,14 @@ package vazkii.botania.common.crafting.recipe;
 
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.text.translation.I18n;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.items.IItemHandler;
 import vazkii.botania.api.recipe.RecipeRuneAltar;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 
 public class HeadRecipe extends RecipeRuneAltar {
 
-	String name = "";
+	private String name = "";
 
 	public HeadRecipe(ItemStack output, int mana, Object... inputs) {
 		super(output, mana, inputs);
@@ -36,8 +36,9 @@ public class HeadRecipe extends RecipeRuneAltar {
 					break;
 
 				if(stack.getItem() == Items.NAME_TAG) {
-					name = stack.getDisplayName();
-					if(name.equals(I18n.translateToLocal("item.nameTag.name")))
+					String defaultName = new TextComponentTranslation(Items.NAME_TAG.getTranslationKey()).getString();
+					name = stack.getDisplayName().getString();
+					if(name.equals(defaultName))
 						return false;
 				}
 			}
@@ -48,7 +49,7 @@ public class HeadRecipe extends RecipeRuneAltar {
 
 	@Override
 	public ItemStack getOutput() {
-		ItemStack stack = new ItemStack(Items.SKULL, 1, 3);
+		ItemStack stack = new ItemStack(Items.PLAYER_HEAD);
 		if(!name.isEmpty())
 			ItemNBTHelper.setString(stack, "SkullOwner", name);
 		return stack;

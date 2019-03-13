@@ -95,7 +95,6 @@ public final class BotaniaAPI {
 	public static final Map<ResourceLocation, Integer> oreWeights = new HashMap<>();
 	public static final Map<ResourceLocation, Integer> oreWeightsNether = new HashMap<>();
 
-	public static final Set<Item> looniumBlacklist = new LinkedHashSet<>();
 	public static final Map<Block, EnumProperty<EnumDyeColor>> paintableBlocks = new LinkedHashMap<>();
 	public static final Set<Class<? extends Entity>> gravityRodBlacklist = new LinkedHashSet<>();
 	public static final Set<Block> gaiaBreakBlacklist = new HashSet<>();
@@ -774,13 +773,6 @@ public final class BotaniaAPI {
 
 	public static int getOreWeightNether(ResourceLocation tag) {
 		return oreWeightsNether.get(tag);
-	}
-
-	/**
-	 * Blacklists an item from the Loonium drop table.
-	 */
-	public static void blackListItemFromLoonium(Item item) {
-		looniumBlacklist.add(item);
 	}
 
 	/**

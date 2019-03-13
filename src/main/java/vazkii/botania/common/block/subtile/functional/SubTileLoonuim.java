@@ -26,9 +26,12 @@ import net.minecraft.entity.monster.EntitySpider;
 import net.minecraft.entity.monster.EntityStray;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.init.MobEffects;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.Tag;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -39,7 +42,6 @@ import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
@@ -57,6 +59,7 @@ public class SubTileLoonuim extends SubTileFunctional {
 	private static final int RANGE = 5;
 	private static final String TAG_LOOT_TABLE = "lootTable";
 	private static final String TAG_ITEMSTACK_TO_DROP = "botania:looniumItemStackToDrop";
+	private static final Tag<Item> BLACKLIST = new ItemTags.Wrapper(new ResourceLocation(LibMisc.MOD_ID, "loonium_blacklist"));
 
 	private ResourceLocation lootTable = new ResourceLocation("minecraft", "chests/simple_dungeon");
 
@@ -77,7 +80,7 @@ public class SubTileLoonuim extends SubTileFunctional {
 					Collections.shuffle(stacks);
 					stack = stacks.get(0);
 				}
-			} while(stack.isEmpty() || BotaniaAPI.looniumBlacklist.contains(stack.getItem()));
+			} while(stack.isEmpty() || BLACKLIST.contains(stack.getItem()));
 
 			int bound = RANGE * 2 + 1;
 			int xp = supertile.getPos().getX() - RANGE + rand.nextInt(bound);

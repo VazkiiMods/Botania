@@ -636,30 +636,7 @@ public final class ModItems {
 	}
 	
 	private static void registerOreDictionary() {
-		/* todo 1.13
 		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
-		for(EnumDyeColor color : EnumDyeColor.values()) {
-			OreDictionary.registerOre(LibOreDict.PETAL[color.getMetadata()], new ItemStack(petals.get(color)));
-			OreDictionary.registerOre(LibOreDict.DYE[color.getMetadata()], new ItemStack(dyes.get(color)));
-			OreDictionary.registerOre(LibOreDict.DYE_WILDCARD, new ItemStack(dyes.get(color)));
-		}
-
-		OreDictionary.registerOre(LibOreDict.RUNE[0], new ItemStack(runeWater));
-		OreDictionary.registerOre(LibOreDict.RUNE[1], new ItemStack(runeFire));
-		OreDictionary.registerOre(LibOreDict.RUNE[2], new ItemStack(runeEarth));
-		OreDictionary.registerOre(LibOreDict.RUNE[3], new ItemStack(runeAir));
-		OreDictionary.registerOre(LibOreDict.RUNE[4], new ItemStack(runeSpring));
-		OreDictionary.registerOre(LibOreDict.RUNE[5], new ItemStack(runeSummer));
-		OreDictionary.registerOre(LibOreDict.RUNE[6], new ItemStack(runeAutumn));
-		OreDictionary.registerOre(LibOreDict.RUNE[7], new ItemStack(runeWinter));
-		OreDictionary.registerOre(LibOreDict.RUNE[8], new ItemStack(runeMana));
-		OreDictionary.registerOre(LibOreDict.RUNE[9], new ItemStack(runeLust));
-		OreDictionary.registerOre(LibOreDict.RUNE[10], new ItemStack(runeGluttony));
-		OreDictionary.registerOre(LibOreDict.RUNE[11], new ItemStack(runeGreed));
-		OreDictionary.registerOre(LibOreDict.RUNE[12], new ItemStack(runeSloth));
-		OreDictionary.registerOre(LibOreDict.RUNE[13], new ItemStack(runeWrath));
-		OreDictionary.registerOre(LibOreDict.RUNE[14], new ItemStack(runeEnvy));
-		OreDictionary.registerOre(LibOreDict.RUNE[15], new ItemStack(runePride));
 
 		OreDictionary.registerOre(LibOreDict.QUARTZ[0], new ItemStack(darkQuartz));
 		OreDictionary.registerOre(LibOreDict.QUARTZ[1], new ItemStack(manaQuartz));
@@ -697,18 +674,7 @@ public final class ModItems {
 		OreDictionary.registerOre(LibOreDict.VIAL, new ItemStack(vial));
 		OreDictionary.registerOre(LibOreDict.FLASK, new ItemStack(flask));
 
-		BotaniaAPI.blackListItemFromLoonium(lexicon);
-		BotaniaAPI.blackListItemFromLoonium(overgrowthSeed);
-		BotaniaAPI.blackListItemFromLoonium(blackLotus);
-		BotaniaAPI.blackListItemFromLoonium(blackerLotus);
-		for(Item i : Item.REGISTRY) {
-			if("minecraft".equals(i.getRegistryName().getNamespace()) & i instanceof ItemRecord) {
-				BotaniaAPI.blackListItemFromLoonium(i);
-			}
-		}
-
 		OreDictionary.registerOre("rodBlaze", Items.BLAZE_ROD);
 		OreDictionary.registerOre("powderBlaze", Items.BLAZE_POWDER);
-		*/
 	}
 }
