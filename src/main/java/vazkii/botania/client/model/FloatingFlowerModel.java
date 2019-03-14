@@ -40,6 +40,7 @@ import vazkii.botania.api.item.IFloatingFlower;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.decor.BlockFloatingFlower;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 import vazkii.botania.common.lib.LibMisc;
 
@@ -87,7 +88,7 @@ public class FloatingFlowerModel implements IBakedModel {
 	@Nonnull
 	@Override
 	public List<BakedQuad> getQuads(IBlockState state, EnumFacing face, @Nonnull Random rand) {
-		if(state.getBlock() != ModBlocks.floatingSpecialFlower && state.getBlock() != ModBlocks.floatingFlower)
+		if(state.getBlock() != ModBlocks.floatingSpecialFlower && !(state.getBlock() instanceof BlockFloatingFlower))
 			return Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelShapes().getModelManager().getMissingModel().getQuads(state, face, rand);
 		IExtendedBlockState realState = (IExtendedBlockState) state;
 		IFloatingFlower.IslandType islandType = realState.getValue(BotaniaStateProps.ISLAND_TYPE);
@@ -98,7 +99,7 @@ public class FloatingFlowerModel implements IBakedModel {
 			identifier = realState.getValue(BotaniaStateProps.SUBTILE_ID);
 		} else {
 			// Mundane flower
-			identifier = new ResourceLocation(LibMisc.MOD_ID, MUNDANE_PREFIX + state.get(BotaniaStateProps.COLOR));
+			identifier = state.getBlock().getRegistryName();
 		}
 
 		return getModel(islandType, identifier).getQuads(state, face, rand);
@@ -111,7 +112,7 @@ public class FloatingFlowerModel implements IBakedModel {
 		if(islandType == null) // This and the next one can be null if obtained from a non-extended state
 			islandType = IFloatingFlower.IslandType.GRASS;
 		if(identifier == null)
-			identifier = "";
+			identifier = ModBlocks.whiteFloatingFlower.getRegistryName();
 
 		if(CACHE.contains(islandType, identifier)) {
 			return CACHE.get(islandType, identifier);

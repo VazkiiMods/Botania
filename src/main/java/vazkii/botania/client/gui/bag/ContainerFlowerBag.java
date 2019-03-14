@@ -10,6 +10,7 @@
  */
 package vazkii.botania.client.gui.bag;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -17,6 +18,7 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.SlotItemHandler;
 import vazkii.botania.client.gui.SlotLocked;
+import vazkii.botania.common.block.BlockModFlower;
 
 import javax.annotation.Nonnull;
 
@@ -68,7 +70,8 @@ public class ContainerFlowerBag extends Container {
 				if(!mergeItemStack(itemstack1, 16, 52, true))
 					return ItemStack.EMPTY;
 			} else {
-				int i = itemstack.getItemDamage();
+				Block b = Block.getBlockFromItem(itemstack.getItem());
+				int i = b instanceof BlockModFlower ? ((BlockModFlower) b).color.getId() : -1;
 				if(i < 16) {
 					Slot slot1 = inventorySlots.get(i);
 					if(slot1.isItemValid(itemstack) && !mergeItemStack(itemstack1, i, i + 1, true))

@@ -14,8 +14,8 @@ import net.minecraft.item.ItemStack;
 import vazkii.botania.api.recipe.IElvenItem;
 
 public class ItemElven extends ItemMod implements IElvenItem {
-	public ItemElven(String name) {
-		super(name);
+	public ItemElven(Properties props) {
+		super(props);
 	}
 
 	@Override

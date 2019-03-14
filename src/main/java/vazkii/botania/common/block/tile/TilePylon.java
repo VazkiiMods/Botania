@@ -19,6 +19,7 @@ import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.AlfPortalState;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.block.BlockModFlower;
 import vazkii.botania.common.block.BlockPylon;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.mana.BlockPool;
@@ -81,8 +82,8 @@ public class TilePylon extends TileEntity implements ITickable {
 				Vector3 movementVector = centerBlock.subtract(ourCoords).normalize().multiply(0.2);
 
 				Block block = world.getBlockState(pos.down()).getBlock();
-				if(block == ModBlocks.flower || block == ModBlocks.shinyFlower) {
-					int hex = world.getBlockState(pos.down()).get(BotaniaStateProps.COLOR).colorValue;
+				if(block instanceof BlockModFlower) {
+					int hex = ((BlockModFlower) block).color.colorValue;
 					int r = (hex & 0xFF0000) >> 16;
 					int g = (hex & 0xFF00) >> 8;
 					int b = hex & 0xFF;

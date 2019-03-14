@@ -14,9 +14,12 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.Entity;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.registry.IRegistry;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+import net.minecraft.world.dimension.DimensionType;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.common.property.IUnlistedProperty;
@@ -24,6 +27,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.api.distmarker.Dist;
 import org.lwjgl.opengl.ARBFragmentShader;
+import org.lwjgl.opengl.ARBVertexShader;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
@@ -57,11 +61,13 @@ public final class DebugHandler {
 			event.getLeft().add(PREFIX + "(CLIENT) netColl: " + ManaNetworkHandler.instance.getAllCollectorsInWorld(world).size() + ", netPool: " + ManaNetworkHandler.instance.getAllPoolsInWorld(world).size() + ", rv: " + version);
 
 			if (Minecraft.getInstance().isSingleplayer()) {
+				DimensionType dim = Minecraft.getInstance().world.getDimension().getType();
+				ResourceLocation dimName = IRegistry.DIMENSION_TYPE.getKey(dim);
 				UUID id = Minecraft.getInstance().player.getUniqueID();
-				Entity ent = Minecraft.getInstance().getIntegratedServer().getEntityFromUuid(id);
+				Entity ent = Minecraft.getInstance().getIntegratedServer().getWorld(dim).getEntityFromUuid(id);
 				if (ent != null) {
 					World serverWorld = ent.world;
-					event.getLeft().add(PREFIX + String.format("(INTEGRATED SERVER DIM %d) netColl : %d, netPool: %d", serverWorld.provider.getDimension(), ManaNetworkHandler.instance.getAllCollectorsInWorld(serverWorld).size(), ManaNetworkHandler.instance.getAllPoolsInWorld(serverWorld).size()));
+					event.getLeft().add(PREFIX + String.format("(INTEGRATED SERVER DIM %d) netColl : %d, netPool: %d", dimName, ManaNetworkHandler.instance.getAllCollectorsInWorld(serverWorld).size(), ManaNetworkHandler.instance.getAllPoolsInWorld(serverWorld).size()));
 				}
 			}
 
@@ -75,7 +81,7 @@ public final class DebugHandler {
 				event.getLeft().add("  GL_VERSION: " + GL11.glGetString(GL11.GL_VERSION));
 				event.getLeft().add("  GL_RENDERER: " + GL11.glGetString(GL11.GL_RENDERER));
 				event.getLeft().add("  GL_SHADING_LANGUAGE_VERSION: " + GL11.glGetString(GL20.GL_SHADING_LANGUAGE_VERSION));
-				event.getLeft().add("  GL_MAX_TEXTURE_IMAGE_UNITS_ARB: " + GL11.glGetInteger(GL20.GL_MAX_TEXTURE_IMAGE_UNITS_ARB));
+				event.getLeft().add("  GL_MAX_TEXTURE_IMAGE_UNITS_ARB: " + GL11.glGetInteger(ARBVertexShader.GL_MAX_TEXTURE_IMAGE_UNITS_ARB));
 				event.getLeft().add("  GL_ARB_multitexture: " + caps.GL_ARB_multitexture);
 				event.getLeft().add("  GL_ARB_texture_non_power_of_two: " + caps.GL_ARB_texture_non_power_of_two);
 				event.getLeft().add("  OpenGL13: " + caps.OpenGL13);

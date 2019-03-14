@@ -11,6 +11,7 @@
 package vazkii.botania.common.crafting.recipe;
 
 import com.google.gson.JsonObject;
+import net.minecraft.block.Block;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.Item;
@@ -24,6 +25,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.decor.BlockFloatingFlower;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 import vazkii.botania.common.lib.LibMisc;
 
@@ -46,7 +48,7 @@ public class SpecialFloatingFlowerRecipe extends IRecipeHidden {
 		for(int i = 0; i < inv.getSizeInventory(); i++) {
 			ItemStack stack = inv.getStackInSlot(i);
 			if(!stack.isEmpty()) {
-				if(stack.getItem() == ModBlocks.floatingFlower.asItem())
+				if(Block.getBlockFromItem(stack.getItem()) instanceof BlockFloatingFlower)
 					foundFloatingFlower = true;
 
 				else if(stack.getItem() == ModBlocks.specialFlower.asItem() && ItemBlockSpecialFlower.getType(stack).equals(flowerType))

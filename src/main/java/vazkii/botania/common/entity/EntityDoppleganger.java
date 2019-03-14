@@ -147,7 +147,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 	private boolean hardMode = false;
 	private BlockPos source = BlockPos.ORIGIN;
 	private final List<UUID> playersWhoAttacked = new ArrayList<>();
-	private final BossInfoServer bossInfo = (BossInfoServer) new BossInfoServer(TYPE.func_212546_e(), BossInfo.Color.PINK, BossInfo.Overlay.PROGRESS).setCreateFog(true);;
+	private final BossInfoServer bossInfo = (BossInfoServer) new BossInfoServer(TYPE.getName(), BossInfo.Color.PINK, BossInfo.Overlay.PROGRESS).setCreateFog(true);;
 	private UUID bossInfoUUID = bossInfo.getUniqueId();
 	public EntityPlayer trueKiller = null;
 

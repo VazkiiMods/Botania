@@ -13,19 +13,19 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.block.model.BakedQuad;
-import net.minecraft.client.renderer.block.model.IBakedModel;
-import net.minecraft.client.renderer.block.model.IUnbakedModel;
-import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
-import net.minecraft.client.renderer.block.model.ItemOverrideList;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.renderer.model.BakedQuad;
+import net.minecraft.client.renderer.model.IBakedModel;
+import net.minecraft.client.renderer.model.IUnbakedModel;
+import net.minecraft.client.renderer.model.ItemCameraTransforms;
+import net.minecraft.client.renderer.model.ItemOverrideList;
+import net.minecraft.client.renderer.model.ModelResourceLocation;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.renderer.vertex.VertexFormat;
-import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
+import net.minecraft.resources.IResourceManager;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
@@ -49,6 +49,8 @@ import javax.vecmath.Matrix4f;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
+import java.util.Set;
 import java.util.function.Function;
 
 public class SpecialFlowerModel implements IUnbakedModel {
@@ -80,30 +82,30 @@ public class SpecialFlowerModel implements IUnbakedModel {
 	}
 
 	@Override
-	public Collection<ResourceLocation> getTextures() {
+	public Collection<ResourceLocation> getTextures(Function<ResourceLocation, IUnbakedModel> modelGetter, Set<String> errors) {
 		return ImmutableList.of();
 	}
 
 	@Override
-	public IBakedModel bake(IModelState state, VertexFormat format, Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
+	public IBakedModel bake(Function<ResourceLocation, IUnbakedModel> modelGetter, Function<ResourceLocation, TextureAtlasSprite> spriteGetter, IModelState state, boolean uvlock, VertexFormat format) {
 		ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> transforms = PerspectiveMapWrapper.getTransforms(state);
 		IModelState transformState = new SimpleModelState(transforms);
 
 		IBakedModel baseModelBaked = ModelLoaderRegistry.getModelOrMissing(baseModel)
-				.bake(transformState, DefaultVertexFormats.ITEM, ModelLoader.defaultTextureGetter());
+				.bake(modelGetter, spriteGetter, state, uvlock, format);
 
 		ImmutableMap.Builder<ResourceLocation, IBakedModel> bakedBlockBuilder = ImmutableMap.builder();
 		for(Map.Entry<ResourceLocation, ModelResourceLocation> e : blockModels.entrySet()) {
 			IModel model = ModelLoaderRegistry.getModelOrMissing(e.getValue());
 			if(model != ModelLoaderRegistry.getMissingModel())
-				bakedBlockBuilder.put(e.getKey(), model.bake(transformState, DefaultVertexFormats.ITEM, ModelLoader.defaultTextureGetter()));
+				bakedBlockBuilder.put(e.getKey(), model.bake(modelGetter, spriteGetter, state, uvlock, format));
 		}
 
 		ImmutableMap.Builder<ResourceLocation, IBakedModel> bakedItemBuilder = ImmutableMap.builder();
 		for(Map.Entry<ResourceLocation, ModelResourceLocation> e : itemModels.entrySet()) {
 			IModel model = ModelLoaderRegistry.getModelOrMissing(e.getValue());
 			if(model != ModelLoaderRegistry.getMissingModel())
-				bakedItemBuilder.put(e.getKey(), model.bake(transformState, DefaultVertexFormats.ITEM, ModelLoader.defaultTextureGetter()));
+				bakedItemBuilder.put(e.getKey(), model.bake(modelGetter, spriteGetter, state, uvlock, format));
 		}
 
 		return new SpecialFlowerBakedModel(baseModelBaked, bakedBlockBuilder.build(), bakedItemBuilder.build(), transforms);
@@ -115,7 +117,7 @@ public class SpecialFlowerModel implements IUnbakedModel {
 	}
 
 	@Override
-	public IModel process(ImmutableMap<String, String> customData) {
+	public IUnbakedModel process(ImmutableMap<String, String> customData) {
 		// Load the base variant from blockstate json, and also add all the model paths we received from external API
 
 		ModelResourceLocation base = baseModel;
@@ -143,7 +145,7 @@ public class SpecialFlowerModel implements IUnbakedModel {
 			}
 
 			@Override
-			public IModel loadModel(ResourceLocation modelLocation) {
+			public IUnbakedModel loadModel(ResourceLocation modelLocation) {
 				// Load a dummy model for now, all actual blockModels added in process().
 				return new SpecialFlowerModel(new ModelResourceLocation("builtin/missing", "missing"), ImmutableMap.of(), ImmutableMap.of());
 			}
@@ -168,7 +170,7 @@ public class SpecialFlowerModel implements IUnbakedModel {
 
 		@Nonnull
 		@Override
-		public List<BakedQuad> getQuads(IBlockState state, EnumFacing face, long rand) {
+		public List<BakedQuad> getQuads(IBlockState state, EnumFacing face, Random rand) {
 			IExtendedBlockState extendedState = (IExtendedBlockState) state;
 			ResourceLocation subtileId = extendedState.getValue(BotaniaStateProps.SUBTILE_ID);
 
@@ -185,12 +187,12 @@ public class SpecialFlowerModel implements IUnbakedModel {
 			return itemHandler;
 		}
 
-		private final ItemStack roseFallback = new ItemStack(Blocks.RED_FLOWER);
+		private final ItemStack roseFallback = new ItemStack(Blocks.POPPY);
 
-		private final ItemOverrideList itemHandler = new ItemOverrideList(ImmutableList.of()) {
+		private final ItemOverrideList itemHandler = new ItemOverrideList() {
 			@Nonnull
 			@Override
-			public IBakedModel handleItemState(@Nonnull IBakedModel original, ItemStack stack, World world, EntityLivingBase living) {
+			public IBakedModel getModelWithOverrides(@Nonnull IBakedModel original, ItemStack stack, World world, EntityLivingBase living) {
 				IBakedModel model = bakedItemModels.get(ItemBlockSpecialFlower.getType(stack));
 
 				if(model == null)

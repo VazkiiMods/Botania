@@ -28,7 +28,7 @@ archivesBaseName = config.mod_name
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
 
 minecraft {
-    mappings channel: 'snapshot', version: '20190214-1.13.1'
+    mappings channel: 'snapshot', version: '20190313-1.13.2'
     accessTransformer = file('src/main/resources/META-INF/botania_at.cfg')
     runs {
         client = {

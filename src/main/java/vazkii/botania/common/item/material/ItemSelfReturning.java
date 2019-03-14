@@ -15,9 +15,9 @@ import net.minecraft.item.ItemStack;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.lib.LibItemNames;
 
-public class ItemPestleAndMortar extends ItemMod {
+public class ItemSelfReturning extends ItemMod {
 
-	public ItemPestleAndMortar(Item.Properties builder) {
+	public ItemSelfReturning(Item.Properties builder) {
 		super(builder);
 	}
 

@@ -555,7 +555,7 @@ public final class ModBlocks {
 			register(r, new BlockModDoubleFlower(color, builder), color.getName() + LibBlockNames.DOUBLE_FLOWER_SUFFIX);
 		}
 
-		register(r, new BlockFakeAir(Block.Properties.create(Material.STRUCTURE_VOID).needsRandomTick()), LibBlockNames.FAKE_AIR);
+		register(r, new BlockFakeAir(Block.Properties.create(Material.STRUCTURE_VOID).tickRandomly()), LibBlockNames.FAKE_AIR);
 		register(r, new BlockModLexiconable(Block.Properties.create(Material.IRON).hardnessAndResistance(3, 10).sound(SoundType.METAL).lightValue(15), (w, po, pl, st) -> LexiconData.blazeBlock), LibBlockNames.BLAZE_BLOCK);
 		register(r, new BlockCorporeaInterceptor(Block.Properties.create(Material.IRON).hardnessAndResistance(5.5F).sound(SoundType.METAL)), LibBlockNames.CORPOREA_INTERCEPTOR);
 		register(r, new BlockCorporeaCrystalCube(Block.Properties.create(Material.IRON).hardnessAndResistance(5.5F).sound(SoundType.METAL)), LibBlockNames.CORPOREA_CRYSTAL_CUBE);
@@ -588,7 +588,7 @@ public final class ModBlocks {
 		register(r, new BlockModLexiconable(Block.Properties.create(Material.WOOD).hardnessAndResistance(2).sound(SoundType.WOOD), rainbowRod), LibBlockNames.SHIMMERWOOD_PLANKS);
 		register(r, new BlockAvatar(Block.Properties.create(Material.WOOD).hardnessAndResistance(2).sound(SoundType.WOOD)), LibBlockNames.AVATAR);
 
-		builder = Block.Properties.create(Material.GRASS).hardnessAndResistance(0.6F).needsRandomTick().sound(SoundType.PLANT);
+		builder = Block.Properties.create(Material.GRASS).hardnessAndResistance(0.6F).tickRandomly().sound(SoundType.PLANT);
 		for(BlockAltGrass.Variant v : BlockAltGrass.Variant.values()) {
 			register(r, new BlockAltGrass(v, builder), v.name().toLowerCase(Locale.ROOT) + LibBlockNames.ALT_GRASS_SUFFIX);
 		}

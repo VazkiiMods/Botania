@@ -329,10 +329,6 @@ public final class ModCraftingRecipes {
 			r.register(new SpecialFloatingFlowerRecipe(s).setRegistryName(new ResourceLocation(LibMisc.MOD_ID, "floating_" + s.toString().replaceAll(":", "_"))));
 		}
 
-		for(int i = 0; i < 8; i++) {
-			GameRegistry.addSmelting(new ItemStack(ModFluffBlocks.biomeStoneA, 1, i + 8), new ItemStack(ModFluffBlocks.biomeStoneA, 1, i), 0.1F);
-		}
-
 		// Terrasteel Armor Recipes
 		r.register(new ArmorUpgradeRecipe(new ItemStack(ModItems.terrasteelHelmRevealing),
 				"TRT", "SAS", " S ",
