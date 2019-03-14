@@ -26,7 +26,6 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModMultiblocks;
 import vazkii.botania.common.brew.ModBrews;
 import vazkii.botania.common.core.handler.ConfigHandler;
-import vazkii.botania.common.core.handler.SheddingHandler;
 import vazkii.botania.common.crafting.ModBrewRecipes;
 import vazkii.botania.common.crafting.ModCraftingRecipes;
 import vazkii.botania.common.crafting.ModElvenTradeRecipes;
@@ -280,7 +279,6 @@ public final class LexiconData {
 	public static LexiconEntry decorativeBlocks;
 	public static LexiconEntry dispenserTweaks;
 	public static LexiconEntry shinyFlowers;
-	public static LexiconEntry shedding;
 	public static LexiconEntry tinyPotato;
 	public static LexiconEntry headCreating;
 	public static LexiconEntry azulejo;
@@ -1406,12 +1404,6 @@ public final class LexiconData {
 	}
 
 	public static void postInit() {
-		if (SheddingHandler.hasShedding()) {
-			shedding = new BasicLexiconEntry(LibLexicon.MISC_SHEDDING, BotaniaAPI.categoryMisc);
-			shedding.setLexiconPages(new PageText("0")).setPriority().setIcon(new ItemStack(Items.FEATHER));
-			SheddingHandler.addToLexicon();
-		}
-
 		if (Botania.thaumcraftLoaded) {
 			tcIntegration = new CompatLexiconEntry(LibLexicon.MISC_TC_INTEGRATION, BotaniaAPI.categoryMisc, "Thaumcraft");
 
