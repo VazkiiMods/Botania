@@ -29,7 +29,7 @@ public class RenderTileFloatingFlower extends TileEntityRenderer {
 
 	@Override
 	public void render(@Nonnull TileEntity tile, double d0, double d1, double d2, float t, int digProgress) {
-		if(ConfigHandler.staticFloaters)
+		if(ConfigHandler.CLIENT.staticFloaters.get())
 			return;
 
 		if (tile != null)

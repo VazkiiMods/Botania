@@ -45,7 +45,7 @@ public class LensMine extends Lens {
 		if(warp && (block == ModBlocks.pistonRelay || block == Blocks.PISTON || block == Blocks.MOVING_PISTON || block == Blocks.PISTON_HEAD))
 			return false;
 
-		int harvestLevel = ConfigHandler.harvestLevelBore;
+		int harvestLevel = ConfigHandler.COMMON.harvestLevelBore.get();
 
 		TileEntity tile = world.getTileEntity(collidePos);
 
@@ -62,7 +62,7 @@ public class LensMine extends Lens {
 					float chance = net.minecraftforge.event.ForgeEventFactory.fireBlockHarvesting(items, world, collidePos, state, 0, 1.0f, false, null);
 
 					world.removeBlock(collidePos);
-					if(ConfigHandler.blockBreakParticles)
+					if(ConfigHandler.COMMON.blockBreakParticles.get())
 						world.playEvent(2001, collidePos, Block.getStateId(state));
 
 					boolean offBounds = source.getY() < 0;

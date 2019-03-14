@@ -126,7 +126,7 @@ public class ItemTwigWand extends ItemMod implements ICoordBoundItem {
 			}
 		}
 
-		if(block == Blocks.LAPIS_BLOCK && ConfigHandler.enchanterEnabled) {
+		if(block == Blocks.LAPIS_BLOCK && ConfigHandler.COMMON.enchanterEnabled.get()) {
 			EnumFacing.Axis axis = null;
 			if(TileEnchanter.canEnchanterExist(world, pos, EnumFacing.Axis.X))
 				axis = EnumFacing.Axis.X;

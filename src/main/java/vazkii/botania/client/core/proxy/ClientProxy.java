@@ -160,13 +160,10 @@ public class ClientProxy implements IProxy {
 
 		ModChallenges.init();
 
-		if(ConfigHandler.boundBlockWireframe)
+		if(ConfigHandler.CLIENT.boundBlockWireframe.get())
 			MinecraftForge.EVENT_BUS.register(BoundTileRenderer.class);
 
-		if(ConfigHandler.useAdaptativeConfig)
-			MinecraftForge.EVENT_BUS.register(AdaptorNotifier.class);
-
-		if(ConfigHandler.enableSeasonalFeatures) {
+		if(ConfigHandler.CLIENT.enableSeasonalFeatures.get()) {
 			LocalDateTime now = LocalDateTime.now();
 			if (now.getMonth() == Month.DECEMBER && now.getDayOfMonth() >= 16 || now.getMonth() == Month.JANUARY && now.getDayOfMonth() <= 2)
 				jingleTheBells = true;
@@ -350,7 +347,7 @@ public class ClientProxy implements IProxy {
 		if(Thread.currentThread().getThreadGroup() == SidedThreadGroups.SERVER)
 			return false;
 
-		if(!ConfigHandler.useVanillaParticleLimiter)
+		if(!ConfigHandler.CLIENT.useVanillaParticleLimiter.get())
 			return true;
 
 		float chance = 1F;

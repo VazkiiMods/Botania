@@ -43,7 +43,7 @@ public class ItemOdinRing extends ItemRelicBauble {
 		damageNegations.add(DamageSource.DROWN.damageType);
 		damageNegations.add(DamageSource.FALL.damageType);
 		damageNegations.add(DamageSource.LAVA.damageType);
-		if(ConfigHandler.ringOfOdinFireResist) {
+		if(ConfigHandler.COMMON.ringOfOdinFireResist.get()) {
 			damageNegations.add(DamageSource.IN_FIRE.damageType);
 			damageNegations.add(DamageSource.ON_FIRE.damageType);
 		}
@@ -54,7 +54,7 @@ public class ItemOdinRing extends ItemRelicBauble {
 
 	@Override
 	public void onValidPlayerWornTick(ItemStack stack, EntityPlayer player) {
-		if(player.isBurning() && ConfigHandler.ringOfOdinFireResist)
+		if(player.isBurning() && ConfigHandler.COMMON.ringOfOdinFireResist.get())
 			player.extinguish();
 	}
 

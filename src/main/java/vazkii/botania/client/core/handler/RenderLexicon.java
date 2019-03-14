@@ -42,12 +42,12 @@ public class RenderLexicon {
 			"\"Vazkii did a thing.\" - cpw"
 	};
 
-	static int quote = -1;
+	private static int quote = -1;
 
 	@SubscribeEvent
 	public static void renderItem(RenderSpecificHandEvent evt) {
 		Minecraft mc = Minecraft.getInstance();
-		if(!ConfigHandler.lexicon3dModel
+		if(!ConfigHandler.CLIENT.lexicon3dModel.get()
 				|| mc.gameSettings.thirdPersonView != 0
 				|| mc.player.getHeldItem(evt.getHand()).isEmpty()
 				|| mc.player.getHeldItem(evt.getHand()).getItem() != ModItems.lexicon)

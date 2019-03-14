@@ -62,7 +62,7 @@ public class BlockModFlower extends BlockFlower implements ILexiconable, IGrowab
 		double y = pos.getY() + offset.y;
 		double z = pos.getZ() + offset.z;
 
-		if(rand.nextDouble() < ConfigHandler.flowerParticleFrequency)
+		if(rand.nextDouble() < ConfigHandler.CLIENT.flowerParticleFrequency.get())
 			Botania.proxy.sparkleFX(x + 0.3 + rand.nextFloat() * 0.5, y + 0.5 + rand.nextFloat() * 0.5, z + 0.3 + rand.nextFloat() * 0.5, r / 255F, g / 255F, b / 255F, rand.nextFloat(), 5);
 	}
 

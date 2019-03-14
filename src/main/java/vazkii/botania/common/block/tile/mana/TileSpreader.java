@@ -446,7 +446,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 						burst.setShooterUUID(getIdentifier());
 						world.spawnEntity(burst);
 						burst.ping();
-						if(!ConfigHandler.silentSpreaders)
+						if(!ConfigHandler.COMMON.silentSpreaders.get())
 							world.playSound(null, pos, ModSounds.spreaderFire, SoundCategory.BLOCKS, 0.05F * (paddingColor != -1 ? 0.2F : 1F), 0.7F + 0.3F * (float) Math.random());
 					}
 				}

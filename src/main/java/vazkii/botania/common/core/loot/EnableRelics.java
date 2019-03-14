@@ -16,7 +16,7 @@ public class EnableRelics implements LootCondition {
 
 	@Override
 	public boolean testCondition(@Nonnull Random rand, @Nonnull LootContext context) {
-		return ConfigHandler.relicsEnabled;
+		return ConfigHandler.COMMON.relicsEnabled.get();
 	}
 
 	public static class Serializer extends LootCondition.Serializer<EnableRelics> {

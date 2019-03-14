@@ -212,7 +212,7 @@ public class InternalMethodHandler extends DummyMethodHandler {
 
 	@Override
 	public boolean shouldForceCheck() {
-		return ConfigHandler.flowerForceCheck;
+		return ConfigHandler.COMMON.flowerForceCheck.get();
 	}
 
 	@Override

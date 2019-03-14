@@ -98,7 +98,7 @@ public class ItemBlockSpecialFlower extends ItemBlockMod implements IRecipeKeyPr
 
 		sig.addTooltip(par1ItemStack, world, stacks);
 
-		if(ConfigHandler.referencesEnabled) {
+		if(ConfigHandler.CLIENT.referencesEnabled.get()) {
 			String refUnlocalized = sig.getUnlocalizedLoreTextForStack(par1ItemStack);
 			String refLocalized = I18n.format(refUnlocalized);
 			if(!refLocalized.equals(refUnlocalized))

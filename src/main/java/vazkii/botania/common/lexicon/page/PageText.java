@@ -87,7 +87,7 @@ public class PageText extends LexiconPage {
 			int spacing = 4;
 			int wcount = words.size();
 			int compensationSpaces = 0;
-			boolean justify = ConfigHandler.lexiconJustifiedText && wcount > 0 && lines.size() > i && !lines.get(i + 1).isEmpty();
+			boolean justify = ConfigHandler.CLIENT.lexiconJustifiedText.get() && wcount > 0 && lines.size() > i && !lines.get(i + 1).isEmpty();
 
 			if(justify) {
 				String s = Joiner.on("").join(words);

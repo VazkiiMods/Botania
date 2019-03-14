@@ -38,7 +38,7 @@ public final class BaubleRenderHandler implements LayerRenderer<EntityPlayer> {
 
 	@Override
 	public void render(@Nonnull EntityPlayer player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-		if(!ConfigHandler.renderBaubles || player.getActivePotionEffect(MobEffects.INVISIBILITY) != null)
+		if(!ConfigHandler.CLIENT.renderBaubles.get() || player.getActivePotionEffect(MobEffects.INVISIBILITY) != null)
 			return;
 
 		// todo 1.13

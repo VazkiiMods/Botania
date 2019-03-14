@@ -47,7 +47,7 @@ public final class DebugHandler {
 	@SubscribeEvent
 	public static void onDrawDebugText(RenderGameOverlayEvent.Text event) {
 		World world = Minecraft.getInstance().world;
-		if(ConfigHandler.debugInfo && Minecraft.getInstance().gameSettings.showDebugInfo) {
+		if(ConfigHandler.CLIENT.debugInfo.get() && Minecraft.getInstance().gameSettings.showDebugInfo) {
 			event.getLeft().add("");
 			String version = LibMisc.VERSION;
 			if(version.contains("GRADLE"))
@@ -67,15 +67,15 @@ public final class DebugHandler {
 
 			if(GuiScreen.isCtrlKeyDown() && GuiScreen.isShiftKeyDown()) {
 				event.getLeft().add(PREFIX + "Config Context");
-				event.getLeft().add("  shaders.enabled: " + ConfigHandler.useShaders);
-				event.getLeft().add("  shaders.secondaryUnit: " + ConfigHandler.glSecondaryTextureUnit);
+				event.getLeft().add("  shaders.enabled: " + ConfigHandler.CLIENT.useShaders.get());
+				event.getLeft().add("  shaders.secondaryUnit: " + ConfigHandler.CLIENT.glSecondaryTextureUnit.get());
 
 				GLCapabilities caps = GL.getCapabilities();
 				event.getLeft().add(PREFIX + "OpenGL Context");
 				event.getLeft().add("  GL_VERSION: " + GL11.glGetString(GL11.GL_VERSION));
 				event.getLeft().add("  GL_RENDERER: " + GL11.glGetString(GL11.GL_RENDERER));
 				event.getLeft().add("  GL_SHADING_LANGUAGE_VERSION: " + GL11.glGetString(GL20.GL_SHADING_LANGUAGE_VERSION));
-				event.getLeft().add("  GL_MAX_TEXTURE_IMAGE_UNITS_ARB: " + GL11.glGetInteger(ARBFragmentShader.GL_MAX_TEXTURE_IMAGE_UNITS_ARB));
+				event.getLeft().add("  GL_MAX_TEXTURE_IMAGE_UNITS_ARB: " + GL11.glGetInteger(GL20.GL_MAX_TEXTURE_IMAGE_UNITS_ARB));
 				event.getLeft().add("  GL_ARB_multitexture: " + caps.GL_ARB_multitexture);
 				event.getLeft().add("  GL_ARB_texture_non_power_of_two: " + caps.GL_ARB_texture_non_power_of_two);
 				event.getLeft().add("  OpenGL13: " + caps.OpenGL13);

@@ -84,7 +84,7 @@ public final class TooltipAdditionDisplayHandler {
 				Gui.drawRect(x - 4, tooltipY - 4, x + 20, tooltipY + 26, 0x44000000);
 				Gui.drawRect(x - 6, tooltipY - 6, x + 22, tooltipY + 28, 0x44000000);
 
-				if(ConfigHandler.useShiftForQuickLookup ? GuiScreen.isShiftKeyDown() : GuiScreen.isCtrlKeyDown()) {
+				if(ConfigHandler.CLIENT.useShiftForQuickLookup.get() ? GuiScreen.isShiftKeyDown() : GuiScreen.isCtrlKeyDown()) {
 					lexiconLookupTime += ClientTickHandler.delta;
 
 					int cx = x + 8;
@@ -134,7 +134,7 @@ public final class TooltipAdditionDisplayHandler {
 				GlStateManager.scalef(0.5F, 0.5F, 1F);
 				boolean mac = Minecraft.IS_RUNNING_ON_MAC;
 
-				mc.fontRenderer.drawStringWithShadow(TextFormatting.BOLD + (ConfigHandler.useShiftForQuickLookup ? "Shift" : mac ? "Cmd" : "Ctrl"), (x + 10) * 2 - 16, (tooltipY + 8) * 2 + 20, 0xFFFFFFFF);
+				mc.fontRenderer.drawStringWithShadow(TextFormatting.BOLD + (ConfigHandler.CLIENT.useShiftForQuickLookup.get() ? "Shift" : mac ? "Cmd" : "Ctrl"), (x + 10) * 2 - 16, (tooltipY + 8) * 2 + 20, 0xFFFFFFFF);
 				GlStateManager.scalef(2F, 2F, 1F);
 
 

@@ -59,7 +59,7 @@ public class TilePylon extends TileEntity implements ITickable {
 			Vector3 centerBlock = new Vector3(centerPos.getX() + 0.5, centerPos.getY() + 0.75 + (Math.random() - 0.5 * 0.25), centerPos.getZ() + 0.5);
 
 			if(variant == BlockPylon.Variant.NATURA) {
-				if(ConfigHandler.elfPortalParticlesEnabled) {
+				if(ConfigHandler.CLIENT.elfPortalParticlesEnabled.get()) {
 					double worldTime = ticks;
 					worldTime += new Random(pos.hashCode()).nextInt(1000);
 					worldTime /= 5;

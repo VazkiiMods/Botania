@@ -55,7 +55,7 @@ public class ItemEnderHand extends ItemMod implements IManaUsingItem, IBlockProv
 
 	@Override
 	public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer player, EntityLivingBase entity, EnumHand hand) {
-		if(ConfigHandler.enderPickpocketEnabled && entity instanceof EntityPlayer && ManaItemHandler.requestManaExact(stack, player, COST_OTHER, false)) {
+		if(ConfigHandler.COMMON.enderPickpocketEnabled.get() && entity instanceof EntityPlayer && ManaItemHandler.requestManaExact(stack, player, COST_OTHER, false)) {
 			if(!player.world.isRemote)
 				player.displayGUIChest(((EntityPlayer) entity).getInventoryEnderChest());
 			ManaItemHandler.requestManaExact(stack, player, COST_OTHER, true);

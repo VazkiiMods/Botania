@@ -61,7 +61,7 @@ public class SubTileOrechid extends SubTileFunctional {
 				IBlockState state = getOreToPut();
 				if(state != null) {
 					supertile.getWorld().setBlockState(coords, state);
-					if(ConfigHandler.blockBreakParticles)
+					if(ConfigHandler.COMMON.blockBreakParticles.get())
 						supertile.getWorld().playEvent(2001, coords, Block.getStateId(state));
 					supertile.getWorld().playSound(null, supertile.getPos(), ModSounds.orechid, SoundCategory.BLOCKS, 2F, 1F);
 

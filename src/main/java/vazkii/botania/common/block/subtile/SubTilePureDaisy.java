@@ -91,7 +91,7 @@ public class SubTilePureDaisy extends SubTileEntity {
 
 					if(recipe.set(world,coords, this)) {
 						world.addBlockEvent(getPos(), supertile.getBlockState().getBlock(), RECIPE_COMPLETE_EVENT, positionAt);
-						if(ConfigHandler.blockBreakParticles)
+						if(ConfigHandler.COMMON.blockBreakParticles.get())
 							supertile.getWorld().playEvent(2001, coords, Block.getStateId(recipe.getOutputState()));
 					}
 				}

@@ -30,7 +30,7 @@ public class LexiconModel implements IBakedModel {
 	public Pair<? extends IBakedModel, Matrix4f> handlePerspective(ItemCameraTransforms.TransformType cameraTransformType) {
 		if((cameraTransformType == ItemCameraTransforms.TransformType.FIRST_PERSON_RIGHT_HAND
 				|| cameraTransformType == ItemCameraTransforms.TransformType.FIRST_PERSON_LEFT_HAND)
-				&& ConfigHandler.lexicon3dModel)
+				&& ConfigHandler.CLIENT.lexicon3dModel.get())
 			return Pair.of(this, null);
 		IBakedModel original = Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelShapes().getModelManager().getModel(path2D);
 		return original.handlePerspective(cameraTransformType);

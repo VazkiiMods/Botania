@@ -75,11 +75,8 @@ public class PageManaInfusionRecipe extends PageRecipe {
 		TextureManager render = Minecraft.getInstance().textureManager;
 		FontRenderer font = Minecraft.getInstance().fontRenderer;
 
-		Object input = recipe.getInput();
-		if(input instanceof String)
-			input = OreDictionary.getOres((String) input).get(0);
-
-		renderItemAtGridPos(gui, 1, 1, (ItemStack) input, false);
+		if(recipe.getInput().getMatchingStacks().length > 0)
+			renderItemAtGridPos(gui, 1, 1, recipe.getInput().getMatchingStacks()[0], false);
 
 		renderItemAtGridPos(gui, 2, 1, renderStack, false);
 

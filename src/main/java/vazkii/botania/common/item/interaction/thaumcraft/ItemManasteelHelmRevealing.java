@@ -26,7 +26,7 @@ public class ItemManasteelHelmRevealing extends ItemManasteelHelm {
 
 	@Override
 	public String getArmorTextureAfterInk(ItemStack stack, EntityEquipmentSlot slot) {
-		return ConfigHandler.enableArmorModels ? LibResources.MODEL_MANASTEEL_NEW : LibResources.MODEL_MANASTEEL_2;
+		return ConfigHandler.CLIENT.enableArmorModels.get() ? LibResources.MODEL_MANASTEEL_NEW : LibResources.MODEL_MANASTEEL_2;
 	}
 
 }

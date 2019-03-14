@@ -43,7 +43,7 @@ public class SubTileClayconia extends SubTileFunctional {
 				BlockPos coords = getCoordsToPut();
 				if(coords != null) {
 					supertile.getWorld().removeBlock(coords);
-					if(ConfigHandler.blockBreakParticles)
+					if(ConfigHandler.COMMON.blockBreakParticles.get())
 						supertile.getWorld().playEvent(2001, coords, Block.getStateId(Blocks.SAND.getDefaultState()));
 					EntityItem item = new EntityItem(supertile.getWorld(), coords.getX() + 0.5, coords.getY() + 0.5, coords.getZ() + 0.5, new ItemStack(Items.CLAY_BALL));
 					supertile.getWorld().spawnEntity(item);

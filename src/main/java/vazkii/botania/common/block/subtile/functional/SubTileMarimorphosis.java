@@ -61,7 +61,7 @@ public class SubTileMarimorphosis extends SubTileFunctional {
 				IBlockState state = getStoneToPut(coords);
 				if(state != null) {
 					supertile.getWorld().setBlockState(coords, state);
-					if(ConfigHandler.blockBreakParticles)
+					if(ConfigHandler.COMMON.blockBreakParticles.get())
 						supertile.getWorld().playEvent(2001, coords, Block.getStateId(state));
 
 					mana -= COST;

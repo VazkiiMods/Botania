@@ -483,9 +483,9 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 		mc.textureManager.bindTexture(textureHud);
 		int xo = mc.mainWindow.getScaledWidth() / 2 + 10;
 		int x = xo;
-		int y = mc.mainWindow.getScaledHeight() - ConfigHandler.flightBarHeight;
+		int y = mc.mainWindow.getScaledHeight() - ConfigHandler.CLIENT.flightBarHeight.get();
 		if(player.areEyesInFluid(FluidTags.WATER))
-			y = mc.mainWindow.getScaledHeight() - ConfigHandler.flightBarBreathHeight;
+			y = mc.mainWindow.getScaledHeight() - ConfigHandler.CLIENT.flightBarBreathHeight.get();
 
 		int left = ItemNBTHelper.getInt(stack, TAG_TIME_LEFT, MAX_FLY_TIME);
 

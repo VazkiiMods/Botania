@@ -44,7 +44,7 @@ public class RecipeManaInfusion {
 		catalystState = catalyst;
 	}
 
-	public Object getInput() {
+	public Ingredient getInput() {
 		return input;
 	}
 

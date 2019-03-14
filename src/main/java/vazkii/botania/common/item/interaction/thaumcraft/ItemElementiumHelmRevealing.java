@@ -26,7 +26,7 @@ public class ItemElementiumHelmRevealing extends ItemElementiumHelm {
 
 	@Override
 	public String getArmorTextureAfterInk(ItemStack stack, EntityEquipmentSlot slot) {
-		return ConfigHandler.enableArmorModels ? LibResources.MODEL_ELEMENTIUM_NEW : LibResources.MODEL_ELEMENTIUM_2;
+		return ConfigHandler.CLIENT.enableArmorModels.get() ? LibResources.MODEL_ELEMENTIUM_NEW : LibResources.MODEL_ELEMENTIUM_2;
 	}
 
 }

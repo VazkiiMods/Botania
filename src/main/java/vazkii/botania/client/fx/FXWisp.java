@@ -78,7 +78,7 @@ public class FXWisp extends Particle {
 		ParticleRenderDispatcher.depthIgnoringWispFxCount = 0;
 
 		GlStateManager.color4f(1.0F, 1.0F, 1.0F, 0.75F);
-		Minecraft.getInstance().textureManager.bindTexture(ConfigHandler.matrixMode ? vanillaParticles : particles);
+		Minecraft.getInstance().textureManager.bindTexture(ConfigHandler.CLIENT.matrixMode.get() ? vanillaParticles : particles);
 
 		if(!queuedRenders.isEmpty()) {
 			tessellator.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_LMAP_COLOR);

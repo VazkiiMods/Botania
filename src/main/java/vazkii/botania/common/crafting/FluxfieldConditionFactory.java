@@ -21,6 +21,6 @@ public class FluxfieldConditionFactory implements IConditionSerializer {
 	@Override
 	public BooleanSupplier parse(@Nonnull JsonObject json) {
 		boolean value = JsonUtils.getBoolean(json , "value", true);
-		return () -> ConfigHandler.fluxfieldEnabled == value;
+		return () -> ConfigHandler.COMMON.fluxfieldEnabled.get() == value;
 	}
 }

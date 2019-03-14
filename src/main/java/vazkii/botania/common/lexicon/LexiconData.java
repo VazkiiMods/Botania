@@ -443,7 +443,7 @@ public final class LexiconData {
 		sparkUpgrades.setLexiconPages(new PageText("0"), new PageText("1"), new PageText("2"), new PageText("3"),
 				new PageText("4"), new PageCraftingRecipe("5", ModCraftingRecipes.recipesSparkUpgrades));
 
-		if (ConfigHandler.fluxfieldEnabled) {
+		if (ConfigHandler.COMMON.fluxfieldEnabled.get()) {
 			rfGenerator = new BasicLexiconEntry(LibLexicon.MANA_RF_GENERATOR, categoryMana);
 			rfGenerator.setLexiconPages(new PageText("0"),
 					new PageCraftingRecipe("1", ModCraftingRecipes.recipeRFGenerator));
@@ -568,7 +568,7 @@ public final class LexiconData {
 		orechidIgnem = new AlfheimLexiconEntry(LibLexicon.FFLOWER_ORECHID_IGNEM, categoryFunctionalFlowers);
 		orechidIgnem.setLexiconPages(new PageText("0"), new PagePetalRecipe<>("1", ModPetalRecipes.orechidIgnemRecipe));
 
-		if (ConfigHandler.fallenKanadeEnabled) {
+		if (ConfigHandler.COMMON.fallenKanadeEnabled.get()) {
 			fallenKanade = new BasicLexiconEntry(LibLexicon.FFLOWER_FALLEN_KANADE, categoryFunctionalFlowers);
 			fallenKanade.setLexiconPages(new PageText(Botania.bloodMagicLoaded ? "0a" : "0"),
 					new PagePetalRecipe<>("1", ModPetalRecipes.fallenKanadeRecipe));
@@ -689,7 +689,7 @@ public final class LexiconData {
 		pylon = new BasicLexiconEntry(LibLexicon.DEVICE_PYLON, categoryDevices);
 		pylon.setLexiconPages(new PageText("0"), new PageCraftingRecipe("1", ModCraftingRecipes.recipePylon));
 
-		if (ConfigHandler.enchanterEnabled) {
+		if (ConfigHandler.COMMON.enchanterEnabled.get()) {
 			manaEnchanting = new BasicLexiconEntry(LibLexicon.DEVICE_MANA_ENCHANTING, categoryDevices);
 			manaEnchanting
 			.setLexiconPages(new PageText("0"), new PageText("1"),
@@ -1057,8 +1057,8 @@ public final class LexiconData {
 				new PageManaInfusionRecipe("2", ModManaInfusionRecipes.pistonRelayRecipe));
 
 		enderHand = new BasicLexiconEntry(LibLexicon.ENDER_ENDER_HAND, categoryEnder);
-		enderHand.setLexiconPages(new PageText(ConfigHandler.enderPickpocketEnabled ? "0" : "0a"), new PageText("2"),
-				new PageCraftingRecipe(ConfigHandler.enderPickpocketEnabled ? "1" : "1a",
+		enderHand.setLexiconPages(new PageText(ConfigHandler.COMMON.enderPickpocketEnabled.get() ? "0" : "0a"), new PageText("2"),
+				new PageCraftingRecipe(ConfigHandler.COMMON.enderPickpocketEnabled.get() ? "1" : "1a",
 						ModCraftingRecipes.recipeEnderHand));
 
 		enderDagger = new BasicLexiconEntry(LibLexicon.ENDER_ENDER_DAGGER, categoryEnder);
@@ -1299,7 +1299,7 @@ public final class LexiconData {
 				new PageLoreText("4"), new PageLoreText("5"), new PageLoreText("6"), new PageLoreText("7"))
 		.setIcon(new ItemStack(Items.WRITABLE_BOOK));
 
-		if (ConfigHandler.relicsEnabled) {
+		if (ConfigHandler.COMMON.relicsEnabled.get()) {
 			relics = new AlfheimLexiconEntry(LibLexicon.ALF_RELICS, categoryAlfhomancy);
 			relics.setLexiconPages(new PageText("0")).setIcon(new ItemStack(ModItems.dice));
 
@@ -1407,7 +1407,7 @@ public final class LexiconData {
 		if (Botania.thaumcraftLoaded) {
 			tcIntegration = new CompatLexiconEntry(LibLexicon.MISC_TC_INTEGRATION, BotaniaAPI.categoryMisc, "Thaumcraft");
 
-			if (ConfigHandler.enableThaumcraftStablizers)
+			if (ConfigHandler.COMMON.enableThaumcraftStablizers.get())
 				tcIntegration.setLexiconPages(new PageText("0"), new PageText("1"),
 						new PageCraftingRecipe("2", ModCraftingRecipes.recipeHelmetOfRevealing), new PageText("3"),
 						new PageManaInfusionRecipe("4", ModManaInfusionRecipes.manaInkwellRecipe), new PageText("5"),

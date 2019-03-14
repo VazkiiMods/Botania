@@ -24,7 +24,9 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModList;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.server.FMLServerAboutToStartEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
@@ -115,6 +117,8 @@ public class Botania {
 		proxy = DistExecutor.runForDist(() -> ClientProxy::new, () -> ServerProxy::new);
 		proxy.registerHandlers();
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::commonSetup);
+		ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ConfigHandler.CLIENT_SPEC);
+		ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, ConfigHandler.COMMON_SPEC);
 		MinecraftForge.EVENT_BUS.addListener(this::serverAboutToStart);
 		MinecraftForge.EVENT_BUS.addListener(this::serverStarting);
 		MinecraftForge.EVENT_BUS.addListener(this::serverStopping);
@@ -129,8 +133,6 @@ public class Botania {
 		coloredLightsLoaded = ModList.get().isLoaded("easycoloredlights");
 
 		BotaniaAPI.internalHandler = new InternalMethodHandler();
-
-		ConfigHandler.loadConfig(event.getSuggestedConfigurationFile());
 
 		PacketHandler.init();
 		ModBrews.init();
@@ -194,15 +196,17 @@ public class Botania {
 			FMLInterModComms.sendMessage("chiselsandbits", "ignoreblocklogic", b.getRegistryName().toString());
 		
 		if(Botania.thaumcraftLoaded) {
-			if(ConfigHandler.enableThaumcraftAspects) {
-				MinecraftForge.EVENT_BUS.register(TCAspects.class);
+			if(ConfigHandler.COMMON.enableThaumcraftAspects.get()) {
+				// todo 1.13 MinecraftForge.EVENT_BUS.register(TCAspects.class);
 			}
 			ModBrews.initTC();
 			ModBrewRecipes.initTC();
 		}
 
+		/* todo 1.13
 		if(Botania.bcApiLoaded)
 			new StatementAPIPlugin();
+		*/
 	}
 
 	public void postInit(FMLPostInitializationEvent event) {
@@ -215,7 +219,6 @@ public class Botania {
 		}
 
 		ModBlocks.addDispenserBehaviours();
-		ConfigHandler.loadPostInit();
 		LexiconData.postInit();
 
 		int words = 0;

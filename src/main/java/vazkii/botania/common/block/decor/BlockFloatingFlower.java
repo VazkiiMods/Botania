@@ -70,7 +70,7 @@ public class BlockFloatingFlower extends BlockMod implements ILexiconable {
 	@Nonnull
 	@Override
 	public EnumBlockRenderType getRenderType(IBlockState state) {
-		return ConfigHandler.staticFloaters ? EnumBlockRenderType.MODEL : EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
+		return ConfigHandler.CLIENT.staticFloaters.get() ? EnumBlockRenderType.MODEL : EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
 	}
 
 	@Nonnull
@@ -107,7 +107,7 @@ public class BlockFloatingFlower extends BlockMod implements ILexiconable {
 		int g = (hex & 0xFF00) >> 8;
 		int b = hex & 0xFF;
 
-		if(rand.nextDouble() < ConfigHandler.flowerParticleFrequency)
+		if(rand.nextDouble() < ConfigHandler.CLIENT.flowerParticleFrequency.get())
 			Botania.proxy.sparkleFX(pos.getX() + 0.3 + rand.nextFloat() * 0.5, pos.getY() + 0.5 + rand.nextFloat() * 0.5, pos.getZ() + 0.3 + rand.nextFloat() * 0.5, r / 255F, g / 255F, b / 255F, rand.nextFloat(), 5);
 	}
 

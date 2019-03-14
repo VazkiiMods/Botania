@@ -287,7 +287,7 @@ public final class HUDHandler {
 		Minecraft mc = Minecraft.getInstance();
 		int width = 182;
 		int x = mc.mainWindow.getScaledWidth() / 2 - width / 2;
-		int y = mc.mainWindow.getScaledHeight() - ConfigHandler.manaBarHeight;
+		int y = mc.mainWindow.getScaledHeight() - ConfigHandler.CLIENT.manaBarHeight.get();
 
 		if(!hasCreative) {
 			if(totalMaxMana == 0)
@@ -401,7 +401,7 @@ public final class HUDHandler {
 			}
 		}
 
-		if(!ConfigHandler.lexicaOfflineMode && !draw && pos.entity == null) {
+		if(!ConfigHandler.CLIENT.lexicaOfflineMode.get() && !draw && pos.entity == null) {
 			profiler.startSection("wikiLookup");
 			if(!block.isAir(state, mc.world, pos.getBlockPos()) && !(block instanceof BlockLiquid)) {
 				IWikiProvider provider = WikiHooks.getWikiFor(block);

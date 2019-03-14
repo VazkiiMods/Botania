@@ -107,7 +107,7 @@ public final class ModPetalRecipes {
 		else orechidRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_ORECHID), gray, gray, yellow, green, red, runePride, runeGreed, redstoneRoot, pixieDust);
 
 		orechidIgnemRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_ORECHID_IGNEM), red, red, white, white, pink, runePride, runeGreed, redstoneRoot, pixieDust);
-		if(ConfigHandler.fallenKanadeEnabled)
+		if(ConfigHandler.COMMON.fallenKanadeEnabled.get())
 			fallenKanadeRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_FALLEN_KANADE), white, white, yellow, yellow, orange, runeSpring);
 		exoflameRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_EXOFLAME), red, red, gray, lightGray, runeFire, runeSummer);
 		agricarnationRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_AGRICARNATION), lime, lime, green, yellow, runeSpring, redstoneRoot);

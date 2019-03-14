@@ -87,7 +87,7 @@ public class SubTileMunchdew extends SubTileGenerating {
 				supertile.getWorld().removeBlock(breakCoords);
 				ticksWithoutEating = 0;
 				ateOnce = true;
-				if(ConfigHandler.blockBreakParticles)
+				if(ConfigHandler.COMMON.blockBreakParticles.get())
 					supertile.getWorld().playEvent(2001, breakCoords, Block.getStateId(state));
 				mana += manaPerLeaf;
 			}

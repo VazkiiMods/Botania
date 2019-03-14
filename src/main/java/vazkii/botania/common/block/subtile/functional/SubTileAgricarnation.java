@@ -58,7 +58,7 @@ public class SubTileAgricarnation extends SubTileFunctional {
 					Block block = supertile.getWorld().getBlockState(pos).getBlock();
 					mana -= 5;
 					supertile.getWorld().getPendingBlockTicks().scheduleTick(pos, block, 1);
-					if(ConfigHandler.blockBreakParticles)
+					if(ConfigHandler.COMMON.blockBreakParticles.get())
 						supertile.getWorld().playEvent(2005, pos, 6 + supertile.getWorld().rand.nextInt(4));
 					supertile.getWorld().playSound(null, x, y, z, ModSounds.agricarnation, SoundCategory.BLOCKS, 0.01F, 0.5F + (float) Math.random() * 0.5F);
 

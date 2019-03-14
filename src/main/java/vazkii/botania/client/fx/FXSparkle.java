@@ -68,7 +68,7 @@ public class FXSparkle extends Particle {
 		ParticleRenderDispatcher.fakeSparkleFxCount = 0;
 
 		GlStateManager.color4f(1.0F, 1.0F, 1.0F, 0.75F);
-		Minecraft.getInstance().textureManager.bindTexture(ConfigHandler.matrixMode ? vanillaParticles : particles);
+		Minecraft.getInstance().textureManager.bindTexture(ConfigHandler.CLIENT.matrixMode.get() ? vanillaParticles : particles);
 
 		tessellator.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_COLOR);
 		for(FXSparkle sparkle : queuedRenders)

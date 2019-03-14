@@ -133,7 +133,7 @@ public class TileAlfPortal extends TileMod implements ITickable {
 
 		if(ticksOpen > 60) {
 			ticksSinceLastItem++;
-			if(ConfigHandler.elfPortalParticlesEnabled)
+			if(world.isRemote && ConfigHandler.CLIENT.elfPortalParticlesEnabled.get())
 				blockParticle(state);
 
 			List<EntityItem> items = world.getEntitiesWithinAABB(EntityItem.class, aabb);

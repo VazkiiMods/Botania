@@ -104,7 +104,7 @@ public final class ToolCommons {
 				damageItem(stack, 1, player, 80);
 			} else world.removeBlock(pos);
 
-			if(particles && ConfigHandler.blockBreakParticles && ConfigHandler.blockBreakParticlesTool)
+			if(particles && ConfigHandler.COMMON.blockBreakParticles.get() && ConfigHandler.COMMON.blockBreakParticlesTool.get())
 				world.playEvent(2001, pos, Block.getStateId(state));
 		}
 	}

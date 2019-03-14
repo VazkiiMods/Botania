@@ -26,7 +26,7 @@ public class ItemTerrasteelHelmRevealing extends ItemTerrasteelHelm {
 
 	@Override
 	public String getArmorTextureAfterInk(ItemStack stack, EntityEquipmentSlot slot) {
-		return ConfigHandler.enableArmorModels ?  LibResources.MODEL_TERRASTEEL_NEW : LibResources.MODEL_TERRASTEEL_2;
+		return ConfigHandler.CLIENT.enableArmorModels.get() ?  LibResources.MODEL_TERRASTEEL_NEW : LibResources.MODEL_TERRASTEEL_2;
 	}
 
 }

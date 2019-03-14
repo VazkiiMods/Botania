@@ -356,7 +356,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		this.noParticles = noParticles;
 
 		int iterations = 0;
-		while(isAlive() && iterations < ConfigHandler.spreaderTraceTime) {
+		while(isAlive() && iterations < ConfigHandler.COMMON.spreaderTraceTime.get()) {
 			tick();
 			iterations++;
 		}
@@ -469,7 +469,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 			if(monocle)
 				Botania.proxy.setWispFXDepthTest(false);
 
-			if(ConfigHandler.subtlePowerSystem)
+			if(ConfigHandler.CLIENT.subtlePowerSystem.get())
 				Botania.proxy.wispFX(posX, posY, posZ, r, g, b, 0.1F * size, (float) (Math.random() - 0.5F) * 0.02F, (float) (Math.random() - 0.5F) * 0.02F, (float) (Math.random() - 0.5F) * 0.01F);
 			else {
 				float or = r;
@@ -568,7 +568,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 			alreadyCollidedAt.add(rtr.getBlockPos());
 
 		if(dead && isAlive()) {
-			if(!fake) {
+			if(!fake && world.isRemote) {
 				Color color = new Color(getColor());
 				float r = color.getRed() / 255F;
 				float g = color.getGreen() / 255F;
@@ -578,7 +578,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 				int maxMana = getStartingMana();
 				float size = (float) mana / (float) maxMana;
 
-				if(!ConfigHandler.subtlePowerSystem)
+				if(!ConfigHandler.CLIENT.subtlePowerSystem.get())
 					for(int i = 0; i < 4; i++)
 						Botania.proxy.wispFX(posX, posY, posZ, r, g, b, 0.15F * size, (float) (Math.random() - 0.5F) * 0.04F, (float) (Math.random() - 0.5F) * 0.04F, (float) (Math.random() - 0.5F) * 0.04F);
 				Botania.proxy.sparkleFX((float) posX, (float) posY, (float) posZ, r, g, b, 4, 2);
@@ -774,7 +774,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 	}
 
 	protected boolean shouldDoFakeParticles() {
-		if (ConfigHandler.staticWandBeam)
+		if (ConfigHandler.CLIENT.staticWandBeam.get())
 			return true;
 
 		TileEntity tile = getShooter();

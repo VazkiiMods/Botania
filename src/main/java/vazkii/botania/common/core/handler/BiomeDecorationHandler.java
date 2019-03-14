@@ -43,23 +43,23 @@ public final class BiomeDecorationHandler {
 			if(!flowers)
 				return;
 
-			int dist = Math.min(8, Math.max(1, ConfigHandler.flowerPatchSize));
-			for(int i = 0; i < ConfigHandler.flowerQuantity; i++) {
-				if(event.getRand().nextInt(ConfigHandler.flowerPatchChance) == 0) {
+			int dist = Math.min(8, Math.max(1, ConfigHandler.COMMON.flowerPatchSize.get()));
+			for(int i = 0; i < ConfigHandler.COMMON.flowerQuantity.get(); i++) {
+				if(event.getRand().nextInt(ConfigHandler.COMMON.flowerPatchChance.get()) == 0) {
 					int x = pos.getX() + event.getRand().nextInt(16) + 8;
 					int z = pos.getZ() + event.getRand().nextInt(16) + 8;
 					int y = event.getWorld().getTopSolidOrLiquidBlock(pos).getY();
 
 					EnumDyeColor color = EnumDyeColor.byMetadata(event.getRand().nextInt(16));
 
-					for(int j = 0; j < ConfigHandler.flowerDensity * ConfigHandler.flowerPatchChance; j++) {
+					for(int j = 0; j < ConfigHandler.COMMON.flowerDensity.get() * ConfigHandler.COMMON.flowerPatchChance.get(); j++) {
 						int x1 = x + event.getRand().nextInt(dist * 2) - dist;
 						int y1 = y + event.getRand().nextInt(4) - event.getRand().nextInt(4);
 						int z1 = z + event.getRand().nextInt(dist * 2) - dist;
 						BlockPos pos2 = new BlockPos(x1, y1, z1);
 						if(event.getWorld().isAirBlock(pos2) && (!event.getWorld().provider.isNether() || y1 < 127) && ModBlocks.flower.canPlaceBlockAt(event.getWorld(), pos2)) {
 							event.getWorld().setBlockState(pos2, ModBlocks.flower.getDefaultState().with(BotaniaStateProps.COLOR, color), 2);
-							if(event.getRand().nextDouble() < ConfigHandler.flowerTallChance && ((BlockModFlower) ModBlocks.flower).canGrow(event.getWorld(), pos2, event.getWorld().getBlockState(pos2), false)) {
+							if(event.getRand().nextDouble() < ConfigHandler.COMMON.flowerTallChance.get() && ((BlockModFlower) ModBlocks.flower).canGrow(event.getWorld(), pos2, event.getWorld().getBlockState(pos2), false)) {
 								Block block = ModBlocks.getDoubleFlower(color);
 								if(block instanceof BlockDoublePlant) {
 									((BlockDoublePlant) block).placeAt(event.getWorld(), pos2, 3);
@@ -70,7 +70,7 @@ public final class BiomeDecorationHandler {
 				}
 			}
 
-			for(int i = 0; i < ConfigHandler.mushroomQuantity; i++) {
+			for(int i = 0; i < ConfigHandler.COMMON.mushroomQuantity.get(); i++) {
 				int x = pos.getX() + event.getRand().nextInt(16) + 8;
 				int z = pos.getZ() + event.getRand().nextInt(16) + 8;
 				int y = event.getRand().nextInt(26) + 4;
