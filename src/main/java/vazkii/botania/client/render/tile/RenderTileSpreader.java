@@ -27,6 +27,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import vazkii.botania.api.ColorHelper;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.client.lib.LibResources;
@@ -98,10 +99,10 @@ public class RenderTileSpreader extends TileEntityRenderer<TileSpreader> {
 			GlStateManager.popMatrix();
 		}
 
-		if(spreader.paddingColor != -1) {
+		if(spreader.paddingColor != null) {
 			Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 
-			IBlockState carpet = carpetFor(spreader.paddingColor).getDefaultState();
+			IBlockState carpet = ColorHelper.CARPET_MAP.get(spreader.paddingColor).getDefaultState();
 
 			GlStateManager.translatef(-0.5F, -0.5F, 0.5F);
 			float f = 1 / 16F;
@@ -136,27 +137,4 @@ public class RenderTileSpreader extends TileEntityRenderer<TileSpreader> {
 		GlStateManager.enableRescaleNormal();
 		GlStateManager.popMatrix();
 	}
-
-	private static Block carpetFor(int color) {
-		switch (EnumDyeColor.byId(color)) {
-			default:
-			case WHITE: return Blocks.WHITE_CARPET;
-			case ORANGE: return Blocks.ORANGE_CARPET;
-			case MAGENTA: return Blocks.ORANGE_CARPET;
-			case LIGHT_BLUE: return Blocks.ORANGE_CARPET;
-			case YELLOW: return Blocks.ORANGE_CARPET;
-			case LIME: return Blocks.ORANGE_CARPET;
-			case PINK: return Blocks.ORANGE_CARPET;
-			case GRAY: return Blocks.ORANGE_CARPET;
-			case LIGHT_GRAY: return Blocks.ORANGE_CARPET;
-			case CYAN: return Blocks.ORANGE_CARPET;
-			case PURPLE: return Blocks.ORANGE_CARPET;
-			case BLUE: return Blocks.ORANGE_CARPET;
-			case BROWN: return Blocks.ORANGE_CARPET;
-			case GREEN: return Blocks.ORANGE_CARPET;
-			case RED: return Blocks.ORANGE_CARPET;
-			case BLACK: return Blocks.ORANGE_CARPET;
-		}
-	}
-
 }

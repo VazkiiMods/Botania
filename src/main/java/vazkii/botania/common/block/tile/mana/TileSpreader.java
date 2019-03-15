@@ -20,6 +20,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.projectile.EntityThrowable;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
@@ -138,7 +139,9 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	int mana;
 	private int knownMana = -1;
 	public float rotationX, rotationY;
-	public int paddingColor = -1;
+
+	@Nullable
+	public EnumDyeColor paddingColor = null;
 
 	private boolean requestsClientUpdate = false;
 	private boolean hasReceivedInitialPacket = false;
@@ -286,7 +289,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 		cmp.putFloat(TAG_ROTATION_X, rotationX);
 		cmp.putFloat(TAG_ROTATION_Y, rotationY);
 		cmp.putBoolean(TAG_REQUEST_UPDATE, requestsClientUpdate);
-		cmp.putInt(TAG_PADDING_COLOR, paddingColor);
+		cmp.putInt(TAG_PADDING_COLOR, paddingColor == null ? -1 : paddingColor.getId());
 		cmp.putBoolean(TAG_CAN_SHOOT_BURST, canShootBurst);
 
 		cmp.putInt(TAG_PINGBACK_TICKS, pingbackTicks);
@@ -345,7 +348,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 		if(cmp.contains(TAG_KNOWN_MANA))
 			knownMana = cmp.getInt(TAG_KNOWN_MANA);
 		if(cmp.contains(TAG_PADDING_COLOR))
-			paddingColor = cmp.getInt(TAG_PADDING_COLOR);
+			paddingColor = cmp.getInt(TAG_PADDING_COLOR) == -1 ? null : EnumDyeColor.byId(cmp.getInt(TAG_PADDING_COLOR));
 		if(cmp.contains(TAG_CAN_SHOOT_BURST))
 			canShootBurst = cmp.getBoolean(TAG_CAN_SHOOT_BURST);
 
@@ -447,7 +450,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 						world.spawnEntity(burst);
 						burst.ping();
 						if(!ConfigHandler.COMMON.silentSpreaders.get())
-							world.playSound(null, pos, ModSounds.spreaderFire, SoundCategory.BLOCKS, 0.05F * (paddingColor != -1 ? 0.2F : 1F), 0.7F + 0.3F * (float) Math.random());
+							world.playSound(null, pos, ModSounds.spreaderFire, SoundCategory.BLOCKS, 0.05F * (paddingColor != null ? 0.2F : 1F), 0.7F + 0.3F * (float) Math.random());
 					}
 				}
 			}

@@ -11,12 +11,14 @@
 package vazkii.botania.common.block.mana;
 
 import com.google.common.collect.ImmutableList;
+import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
@@ -34,6 +36,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.items.ItemHandlerHelper;
+import vazkii.botania.api.ColorHelper;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.mana.ILens;
@@ -115,7 +118,7 @@ public class BlockSpreader extends BlockMod implements IWandable, IWandHUD, ILex
 		ItemStack lens = spreader.getItemHandler().getStackInSlot(0);
 		ItemStack heldItem = player.getHeldItem(hand);
 		boolean isHeldItemLens = !heldItem.isEmpty() && heldItem.getItem() instanceof ILens;
-		boolean wool = !heldItem.isEmpty() && heldItem.getItem() == Item.getItemFromBlock(Blocks.WOOL);
+		boolean wool = !heldItem.isEmpty() && ColorHelper.WOOL_MAP.values().contains(Block.getBlockFromItem(heldItem.getItem()));
 
 		if(!heldItem.isEmpty())
 			if(heldItem.getItem() == ModItems.twigWand)
@@ -133,15 +136,16 @@ public class BlockSpreader extends BlockMod implements IWandable, IWandHUD, ILex
 			spreader.markDirty();
 		}
 
-		if(wool && spreader.paddingColor == -1) {
-			spreader.paddingColor = heldItem.getItemDamage();
+		if(wool && spreader.paddingColor == null) {
+			Block block = Block.getBlockFromItem(heldItem.getItem());
+			spreader.paddingColor = ColorHelper.WOOL_MAP.inverse().get(block);
 			heldItem.shrink(1);
 			if(heldItem.isEmpty())
 				player.setHeldItem(hand, ItemStack.EMPTY);
-		} else if(heldItem.isEmpty() && spreader.paddingColor != -1 && lens.isEmpty()) {
-			ItemStack pad = new ItemStack(Blocks.WOOL, 1, spreader.paddingColor);
+		} else if(heldItem.isEmpty() && spreader.paddingColor != null && lens.isEmpty()) {
+			ItemStack pad = new ItemStack(ColorHelper.WOOL_MAP.get(spreader.paddingColor));
 			ItemHandlerHelper.giveItemToPlayer(player, pad);
-			spreader.paddingColor = -1;
+			spreader.paddingColor = null;
 			spreader.markDirty();
 		}
 
@@ -156,8 +160,9 @@ public class BlockSpreader extends BlockMod implements IWandable, IWandHUD, ILex
 
 		TileSpreader inv = (TileSpreader) tile;
 
-		if(inv.paddingColor != -1) {
-			net.minecraft.inventory.InventoryHelper.spawnItemStack(world, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(Blocks.WOOL, 1, inv.paddingColor));
+		if(inv.paddingColor != null) {
+			ItemStack padding = new ItemStack(ColorHelper.WOOL_MAP.get(inv.paddingColor));
+			world.spawnEntity(new EntityItem(world, pos.getX(), pos.getY(), pos.getZ(), padding));
 		}
 
 		InventoryHelper.dropInventory(inv, world, state, pos);

@@ -1,121 +1,116 @@
 package vazkii.botania.api;
 
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.EnumDyeColor;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLModIdMappingEvent;
 
 import java.util.function.Function;
 
+@Mod.EventBusSubscriber(modid = "botania")
 public final class ColorHelper {
-    public static final Function<EnumDyeColor, Block> STAINED_GLASS = e -> {
-        switch (e) {
-            default:
-            case WHITE: return Blocks.WHITE_STAINED_GLASS;
-            case ORANGE: return Blocks.ORANGE_STAINED_GLASS;
-            case MAGENTA: return Blocks.MAGENTA_STAINED_GLASS;
-            case LIGHT_BLUE: return Blocks.LIGHT_BLUE_STAINED_GLASS;
-            case YELLOW: return Blocks.YELLOW_STAINED_GLASS;
-            case LIME: return Blocks.LIME_STAINED_GLASS;
-            case PINK: return Blocks.PINK_STAINED_GLASS;
-            case GRAY: return Blocks.GRAY_STAINED_GLASS;
-            case LIGHT_GRAY: return Blocks.LIGHT_GRAY_STAINED_GLASS;
-            case CYAN: return Blocks.CYAN_STAINED_GLASS;
-            case PURPLE: return Blocks.PURPLE_STAINED_GLASS;
-            case BLUE: return Blocks.BLUE_STAINED_GLASS;
-            case BROWN: return Blocks.BROWN_STAINED_GLASS;
-            case GREEN: return Blocks.GREEN_STAINED_GLASS;
-            case RED: return Blocks.RED_STAINED_GLASS;
-            case BLACK: return Blocks.BLACK_STAINED_GLASS;
-        }
-    };
-
-    public static final Function<EnumDyeColor, Block> STAINED_GLASS_PANE = e -> {
-        switch (e) {
-            default:
-            case WHITE: return Blocks.WHITE_STAINED_GLASS_PANE;
-            case ORANGE: return Blocks.ORANGE_STAINED_GLASS_PANE;
-            case MAGENTA: return Blocks.MAGENTA_STAINED_GLASS_PANE;
-            case LIGHT_BLUE: return Blocks.LIGHT_BLUE_STAINED_GLASS_PANE;
-            case YELLOW: return Blocks.YELLOW_STAINED_GLASS_PANE;
-            case LIME: return Blocks.LIME_STAINED_GLASS_PANE;
-            case PINK: return Blocks.PINK_STAINED_GLASS_PANE;
-            case GRAY: return Blocks.GRAY_STAINED_GLASS_PANE;
-            case LIGHT_GRAY: return Blocks.LIGHT_GRAY_STAINED_GLASS_PANE;
-            case CYAN: return Blocks.CYAN_STAINED_GLASS_PANE;
-            case PURPLE: return Blocks.PURPLE_STAINED_GLASS_PANE;
-            case BLUE: return Blocks.BLUE_STAINED_GLASS_PANE;
-            case BROWN: return Blocks.BROWN_STAINED_GLASS_PANE;
-            case GREEN: return Blocks.GREEN_STAINED_GLASS_PANE;
-            case RED: return Blocks.RED_STAINED_GLASS_PANE;
-            case BLACK: return Blocks.BLACK_STAINED_GLASS_PANE;
-        }
-    };
-
-    public static final Function<EnumDyeColor, Block> TERRACOTTA = e -> {
-        switch (e) {
-            default:
-            case WHITE: return Blocks.WHITE_TERRACOTTA;
-            case ORANGE: return Blocks.ORANGE_TERRACOTTA;
-            case MAGENTA: return Blocks.MAGENTA_TERRACOTTA;
-            case LIGHT_BLUE: return Blocks.LIGHT_BLUE_TERRACOTTA;
-            case YELLOW: return Blocks.YELLOW_TERRACOTTA;
-            case LIME: return Blocks.LIME_TERRACOTTA;
-            case PINK: return Blocks.PINK_TERRACOTTA;
-            case GRAY: return Blocks.GRAY_TERRACOTTA;
-            case LIGHT_GRAY: return Blocks.LIGHT_GRAY_TERRACOTTA;
-            case CYAN: return Blocks.CYAN_TERRACOTTA;
-            case PURPLE: return Blocks.PURPLE_TERRACOTTA;
-            case BLUE: return Blocks.BLUE_TERRACOTTA;
-            case BROWN: return Blocks.BROWN_TERRACOTTA;
-            case GREEN: return Blocks.GREEN_TERRACOTTA;
-            case RED: return Blocks.RED_TERRACOTTA;
-            case BLACK: return Blocks.BLACK_TERRACOTTA;
-        }
-    };
-
-    public static final Function<EnumDyeColor, Block> WOOL = e -> {
-        switch (e) {
-            default:
-            case WHITE: return Blocks.WHITE_WOOL;
-            case ORANGE: return Blocks.ORANGE_WOOL;
-            case MAGENTA: return Blocks.MAGENTA_WOOL;
-            case LIGHT_BLUE: return Blocks.LIGHT_BLUE_WOOL;
-            case YELLOW: return Blocks.YELLOW_WOOL;
-            case LIME: return Blocks.LIME_WOOL;
-            case PINK: return Blocks.PINK_WOOL;
-            case GRAY: return Blocks.GRAY_WOOL;
-            case LIGHT_GRAY: return Blocks.LIGHT_GRAY_WOOL;
-            case CYAN: return Blocks.CYAN_WOOL;
-            case PURPLE: return Blocks.PURPLE_WOOL;
-            case BLUE: return Blocks.BLUE_WOOL;
-            case BROWN: return Blocks.BROWN_WOOL;
-            case GREEN: return Blocks.GREEN_WOOL;
-            case RED: return Blocks.RED_WOOL;
-            case BLACK: return Blocks.BLACK_WOOL;
-        }
-    };
-
-    public static final Function<EnumDyeColor, Block> CARPET = e -> {
-        switch (e) {
-            default:
-            case WHITE: return Blocks.WHITE_CARPET;
-            case ORANGE: return Blocks.ORANGE_CARPET;
-            case MAGENTA: return Blocks.MAGENTA_CARPET;
-            case LIGHT_BLUE: return Blocks.LIGHT_BLUE_CARPET;
-            case YELLOW: return Blocks.YELLOW_CARPET;
-            case LIME: return Blocks.LIME_CARPET;
-            case PINK: return Blocks.PINK_CARPET;
-            case GRAY: return Blocks.GRAY_CARPET;
-            case LIGHT_GRAY: return Blocks.LIGHT_GRAY_CARPET;
-            case CYAN: return Blocks.CYAN_CARPET;
-            case PURPLE: return Blocks.PURPLE_CARPET;
-            case BLUE: return Blocks.BLUE_CARPET;
-            case BROWN: return Blocks.BROWN_CARPET;
-            case GREEN: return Blocks.GREEN_CARPET;
-            case RED: return Blocks.RED_CARPET;
-            case BLACK: return Blocks.BLACK_CARPET;
-        }
-    };
+    public static final BiMap<EnumDyeColor, Block> STAINED_GLASS_MAP = HashBiMap.create();
+    public static final BiMap<EnumDyeColor, Block> STAINED_GLASS_PANE_MAP = HashBiMap.create();
+    public static final BiMap<EnumDyeColor, Block> TERRACOTTA_MAP = HashBiMap.create();
+    public static final BiMap<EnumDyeColor, Block> WOOL_MAP = HashBiMap.create();
+    public static final BiMap<EnumDyeColor, Block> CARPET_MAP = HashBiMap.create();
     
+    @SubscribeEvent
+    public static void idShift(FMLModIdMappingEvent evt) {
+        STAINED_GLASS_MAP.clear();
+        STAINED_GLASS_MAP.put(EnumDyeColor.WHITE, Blocks.WHITE_STAINED_GLASS);
+        STAINED_GLASS_MAP.put(EnumDyeColor.ORANGE, Blocks.ORANGE_STAINED_GLASS);
+        STAINED_GLASS_MAP.put(EnumDyeColor.MAGENTA, Blocks.MAGENTA_STAINED_GLASS);
+        STAINED_GLASS_MAP.put(EnumDyeColor.LIGHT_BLUE, Blocks.LIGHT_BLUE_STAINED_GLASS);
+        STAINED_GLASS_MAP.put(EnumDyeColor.YELLOW, Blocks.YELLOW_STAINED_GLASS);
+        STAINED_GLASS_MAP.put(EnumDyeColor.LIME, Blocks.LIME_STAINED_GLASS);
+        STAINED_GLASS_MAP.put(EnumDyeColor.PINK, Blocks.PINK_STAINED_GLASS);
+        STAINED_GLASS_MAP.put(EnumDyeColor.GRAY, Blocks.GRAY_STAINED_GLASS);
+        STAINED_GLASS_MAP.put(EnumDyeColor.LIGHT_GRAY, Blocks.LIGHT_GRAY_STAINED_GLASS);
+        STAINED_GLASS_MAP.put(EnumDyeColor.CYAN, Blocks.CYAN_STAINED_GLASS);
+        STAINED_GLASS_MAP.put(EnumDyeColor.PURPLE, Blocks.PURPLE_STAINED_GLASS);
+        STAINED_GLASS_MAP.put(EnumDyeColor.BLUE, Blocks.BLUE_STAINED_GLASS);
+        STAINED_GLASS_MAP.put(EnumDyeColor.BROWN, Blocks.BROWN_STAINED_GLASS);
+        STAINED_GLASS_MAP.put(EnumDyeColor.GREEN, Blocks.GREEN_STAINED_GLASS);
+        STAINED_GLASS_MAP.put(EnumDyeColor.RED, Blocks.RED_STAINED_GLASS);
+        STAINED_GLASS_MAP.put(EnumDyeColor.BLACK, Blocks.BLACK_STAINED_GLASS);
+        
+        STAINED_GLASS_PANE_MAP.clear();
+        STAINED_GLASS_PANE_MAP.put(EnumDyeColor.WHITE, Blocks.WHITE_STAINED_GLASS_PANE);
+        STAINED_GLASS_PANE_MAP.put(EnumDyeColor.ORANGE, Blocks.ORANGE_STAINED_GLASS_PANE);
+        STAINED_GLASS_PANE_MAP.put(EnumDyeColor.MAGENTA, Blocks.MAGENTA_STAINED_GLASS_PANE);
+        STAINED_GLASS_PANE_MAP.put(EnumDyeColor.LIGHT_BLUE, Blocks.LIGHT_BLUE_STAINED_GLASS_PANE);
+        STAINED_GLASS_PANE_MAP.put(EnumDyeColor.YELLOW, Blocks.YELLOW_STAINED_GLASS_PANE);
+        STAINED_GLASS_PANE_MAP.put(EnumDyeColor.LIME, Blocks.LIME_STAINED_GLASS_PANE);
+        STAINED_GLASS_PANE_MAP.put(EnumDyeColor.PINK, Blocks.PINK_STAINED_GLASS_PANE);
+        STAINED_GLASS_PANE_MAP.put(EnumDyeColor.GRAY, Blocks.GRAY_STAINED_GLASS_PANE);
+        STAINED_GLASS_PANE_MAP.put(EnumDyeColor.LIGHT_GRAY, Blocks.LIGHT_GRAY_STAINED_GLASS_PANE);
+        STAINED_GLASS_PANE_MAP.put(EnumDyeColor.CYAN, Blocks.CYAN_STAINED_GLASS_PANE);
+        STAINED_GLASS_PANE_MAP.put(EnumDyeColor.PURPLE, Blocks.PURPLE_STAINED_GLASS_PANE);
+        STAINED_GLASS_PANE_MAP.put(EnumDyeColor.BLUE, Blocks.BLUE_STAINED_GLASS_PANE);
+        STAINED_GLASS_PANE_MAP.put(EnumDyeColor.BROWN, Blocks.BROWN_STAINED_GLASS_PANE);
+        STAINED_GLASS_PANE_MAP.put(EnumDyeColor.GREEN, Blocks.GREEN_STAINED_GLASS_PANE);
+        STAINED_GLASS_PANE_MAP.put(EnumDyeColor.RED, Blocks.RED_STAINED_GLASS_PANE);
+        STAINED_GLASS_PANE_MAP.put(EnumDyeColor.BLACK, Blocks.BLACK_STAINED_GLASS_PANE);
+        
+        TERRACOTTA_MAP.clear();
+        TERRACOTTA_MAP.put(EnumDyeColor.WHITE, Blocks.WHITE_TERRACOTTA);
+        TERRACOTTA_MAP.put(EnumDyeColor.ORANGE, Blocks.ORANGE_TERRACOTTA);
+        TERRACOTTA_MAP.put(EnumDyeColor.MAGENTA, Blocks.MAGENTA_TERRACOTTA);
+        TERRACOTTA_MAP.put(EnumDyeColor.LIGHT_BLUE, Blocks.LIGHT_BLUE_TERRACOTTA);
+        TERRACOTTA_MAP.put(EnumDyeColor.YELLOW, Blocks.YELLOW_TERRACOTTA);
+        TERRACOTTA_MAP.put(EnumDyeColor.LIME, Blocks.LIME_TERRACOTTA);
+        TERRACOTTA_MAP.put(EnumDyeColor.PINK, Blocks.PINK_TERRACOTTA);
+        TERRACOTTA_MAP.put(EnumDyeColor.GRAY, Blocks.GRAY_TERRACOTTA);
+        TERRACOTTA_MAP.put(EnumDyeColor.LIGHT_GRAY, Blocks.LIGHT_GRAY_TERRACOTTA);
+        TERRACOTTA_MAP.put(EnumDyeColor.CYAN, Blocks.CYAN_TERRACOTTA);
+        TERRACOTTA_MAP.put(EnumDyeColor.PURPLE, Blocks.PURPLE_TERRACOTTA);
+        TERRACOTTA_MAP.put(EnumDyeColor.BLUE, Blocks.BLUE_TERRACOTTA);
+        TERRACOTTA_MAP.put(EnumDyeColor.BROWN, Blocks.BROWN_TERRACOTTA);
+        TERRACOTTA_MAP.put(EnumDyeColor.GREEN, Blocks.GREEN_TERRACOTTA);
+        TERRACOTTA_MAP.put(EnumDyeColor.RED, Blocks.RED_TERRACOTTA);
+        TERRACOTTA_MAP.put(EnumDyeColor.BLACK, Blocks.BLACK_TERRACOTTA);
+        
+        WOOL_MAP.clear();
+        WOOL_MAP.put(EnumDyeColor.WHITE, Blocks.WHITE_WOOL);
+        WOOL_MAP.put(EnumDyeColor.ORANGE, Blocks.ORANGE_WOOL);
+        WOOL_MAP.put(EnumDyeColor.MAGENTA, Blocks.MAGENTA_WOOL);
+        WOOL_MAP.put(EnumDyeColor.LIGHT_BLUE, Blocks.LIGHT_BLUE_WOOL);
+        WOOL_MAP.put(EnumDyeColor.YELLOW, Blocks.YELLOW_WOOL);
+        WOOL_MAP.put(EnumDyeColor.LIME, Blocks.LIME_WOOL);
+        WOOL_MAP.put(EnumDyeColor.PINK, Blocks.PINK_WOOL);
+        WOOL_MAP.put(EnumDyeColor.GRAY, Blocks.GRAY_WOOL);
+        WOOL_MAP.put(EnumDyeColor.LIGHT_GRAY, Blocks.LIGHT_GRAY_WOOL);
+        WOOL_MAP.put(EnumDyeColor.CYAN, Blocks.CYAN_WOOL);
+        WOOL_MAP.put(EnumDyeColor.PURPLE, Blocks.PURPLE_WOOL);
+        WOOL_MAP.put(EnumDyeColor.BLUE, Blocks.BLUE_WOOL);
+        WOOL_MAP.put(EnumDyeColor.BROWN, Blocks.BROWN_WOOL);
+        WOOL_MAP.put(EnumDyeColor.GREEN, Blocks.GREEN_WOOL);
+        WOOL_MAP.put(EnumDyeColor.RED, Blocks.RED_WOOL);
+        WOOL_MAP.put(EnumDyeColor.BLACK, Blocks.BLACK_WOOL);
+        
+        CARPET_MAP.clear();
+        CARPET_MAP.put(EnumDyeColor.WHITE, Blocks.WHITE_CARPET);
+        CARPET_MAP.put(EnumDyeColor.ORANGE, Blocks.ORANGE_CARPET);
+        CARPET_MAP.put(EnumDyeColor.MAGENTA, Blocks.MAGENTA_CARPET);
+        CARPET_MAP.put(EnumDyeColor.LIGHT_BLUE, Blocks.LIGHT_BLUE_CARPET);
+        CARPET_MAP.put(EnumDyeColor.YELLOW, Blocks.YELLOW_CARPET);
+        CARPET_MAP.put(EnumDyeColor.LIME, Blocks.LIME_CARPET);
+        CARPET_MAP.put(EnumDyeColor.PINK, Blocks.PINK_CARPET);
+        CARPET_MAP.put(EnumDyeColor.GRAY, Blocks.GRAY_CARPET);
+        CARPET_MAP.put(EnumDyeColor.LIGHT_GRAY, Blocks.LIGHT_GRAY_CARPET);
+        CARPET_MAP.put(EnumDyeColor.CYAN, Blocks.CYAN_CARPET);
+        CARPET_MAP.put(EnumDyeColor.PURPLE, Blocks.PURPLE_CARPET);
+        CARPET_MAP.put(EnumDyeColor.BLUE, Blocks.BLUE_CARPET);
+        CARPET_MAP.put(EnumDyeColor.BROWN, Blocks.BROWN_CARPET);
+        CARPET_MAP.put(EnumDyeColor.GREEN, Blocks.GREEN_CARPET);
+        CARPET_MAP.put(EnumDyeColor.RED, Blocks.RED_CARPET);
+        CARPET_MAP.put(EnumDyeColor.BLACK, Blocks.BLACK_CARPET);
+    }
+
     private ColorHelper() {}
 }
