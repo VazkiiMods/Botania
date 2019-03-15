@@ -10,15 +10,15 @@
  */
 package vazkii.botania.api.item;
 
-import net.minecraft.world.World;
+import net.minecraft.world.IWorld;
 
 /**
- * A WorldProvider that implements this will not have Botania flowers generated.
+ * A {@link net.minecraft.world.dimension.Dimension} that implements this will not have Botania flowers generated.
  */
 public interface IFlowerlessWorld {
 
 	/**
 	 * @return Should this world be allowed to generate flowers?
 	 */
-	public boolean generateFlowers(World world);
+	public boolean generateFlowers(IWorld world);
 }
