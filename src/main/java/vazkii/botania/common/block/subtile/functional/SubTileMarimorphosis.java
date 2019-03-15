@@ -74,19 +74,32 @@ public class SubTileMarimorphosis extends SubTileFunctional {
 	public IBlockState getStoneToPut(BlockPos coords) {
 		Set<Type> types = BiomeDictionary.getTypes(supertile.getWorld().getBiome(coords));
 
-		List<Integer> values = new ArrayList<>();
-		for(int i = 0; i < TYPES.length; i++) {
+		List<Block> values = new ArrayList<>();
+		for (Type type : TYPES) {
 			int times = 1;
-			if(types.contains(TYPES[i]))
+			if (types.contains(type))
 				times = 12;
 
-			for(int j = 0; j < times; j++)
-				values.add(i);
+			Block block = biomeTypeToBlock(type);
+			for (int j = 0; j < times; j++)
+				values.add(block);
 		}
 
-		int meta = values.get(supertile.getWorld().rand.nextInt(values.size()));
-		BiomeStoneVariant variant = BiomeStoneVariant.values()[meta];
-		return ModFluffBlocks.biomeStoneA.getDefaultState().with(BotaniaStateProps.BIOMESTONE_VARIANT, variant);
+		return values.get(supertile.getWorld().rand.nextInt(values.size())).getDefaultState();
+	}
+
+	private Block biomeTypeToBlock(Type biomeType) {
+		switch(biomeType.getName()) {
+			default: throw new IllegalArgumentException("Should have verified type is suitable already: " + biomeType);
+			case "FOREST": return ModFluffBlocks.biomeStoneForest;
+			case "PLAINS": return ModFluffBlocks.biomeStonePlains;
+			case "MOUNTAIN": return ModFluffBlocks.biomeStoneMountain;
+			case "MUSHROOM": return ModFluffBlocks.biomeStoneFungal;
+			case "SWAMP": return ModFluffBlocks.biomeStoneSwamp;
+			case "SANDY": return ModFluffBlocks.biomeStoneDesert;
+			case "COLD": return ModFluffBlocks.biomeStoneTaiga;
+			case "MESA": return ModFluffBlocks.biomeStoneMesa;
+		}
 	}
 
 	private BlockPos getCoordsToPut() {

@@ -53,8 +53,9 @@ public final class VersionChecker {
 					player.sendMessage(new TextComponentTranslation("botania.versioning.flavour" + player.world.rand.nextInt(FLAVOUR_MESSAGES)).setStyle(new Style().setColor(TextFormatting.LIGHT_PURPLE)));
 					player.sendMessage(new TextComponentTranslation("botania.versioning.outdated", clientBuild, onlineBuild));
 
-					ITextComponent component = new TextComponentTranslation("botania.versioning.updateMessage").replaceAll("%version%", onlineVersion);
-					player.sendMessage(component);
+					// todo 1.13
+					// ITextComponent component = new TextComponentTranslation("botania.versioning.updateMessage").replaceAll("%version%", onlineVersion);
+					// player.sendMessage(component);
 				}
 			}
 

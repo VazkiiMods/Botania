@@ -17,6 +17,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.pathfinding.PathType;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -43,7 +44,6 @@ public class BlockTerraPlate extends BlockMod implements ILexiconable {
 
 	public BlockTerraPlate(Properties builder) {
 		super(builder);
-		BotaniaAPI.blacklistBlockFromMagnet(this, Short.MAX_VALUE);
 	}
 
 	@Nonnull
@@ -77,7 +77,7 @@ public class BlockTerraPlate extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public boolean isPassable(IBlockReader world, BlockPos pos) {
+	public boolean allowsMovement(@Nonnull IBlockState state, @Nonnull IBlockReader world, @Nonnull BlockPos pos, PathType type) {
 		return false;
 	}
 

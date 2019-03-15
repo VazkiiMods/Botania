@@ -3,6 +3,7 @@ package vazkii.botania.common.crafting;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.Ingredient;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.recipe.RecipeElvenTrade;
 import vazkii.botania.common.block.ModBlocks;
@@ -36,11 +37,11 @@ public class ModElvenTradeRecipes {
 		elvenQuartzRecipe = BotaniaAPI.registerElvenTradeRecipe(new ItemStack(ModItems.elfQuartz), new ItemStack(Items.QUARTZ));
 		alfglassRecipe = BotaniaAPI.registerElvenTradeRecipe(new ItemStack(ModBlocks.elfGlass), new ItemStack(ModBlocks.manaGlass));
 
-		BotaniaAPI.registerElvenTradeRecipe(new ItemStack(Items.IRON_INGOT), new ItemStack(Items.IRON_INGOT));
-		BotaniaAPI.registerElvenTradeRecipe(new ItemStack(Blocks.IRON_BLOCK), new ItemStack(Blocks.IRON_BLOCK));
-		BotaniaAPI.registerElvenTradeRecipe(new ItemStack(Items.ENDER_PEARL), new ItemStack(Items.ENDER_PEARL));
-		BotaniaAPI.registerElvenTradeRecipe(new ItemStack(Items.DIAMOND), new ItemStack(Items.DIAMOND));
-		BotaniaAPI.registerElvenTradeRecipe(new ItemStack(Blocks.DIAMOND_BLOCK), new ItemStack(Blocks.DIAMOND_BLOCK));
+		BotaniaAPI.registerElvenTradeRecipe(new ItemStack(Items.IRON_INGOT), Ingredient.fromItems(Items.IRON_INGOT));
+		BotaniaAPI.registerElvenTradeRecipe(new ItemStack(Blocks.IRON_BLOCK), Ingredient.fromItems(Blocks.IRON_BLOCK));
+		BotaniaAPI.registerElvenTradeRecipe(new ItemStack(Items.ENDER_PEARL), Ingredient.fromItems(Items.ENDER_PEARL));
+		BotaniaAPI.registerElvenTradeRecipe(new ItemStack(Items.DIAMOND), Ingredient.fromItems(Items.DIAMOND));
+		BotaniaAPI.registerElvenTradeRecipe(new ItemStack(Blocks.DIAMOND_BLOCK), Ingredient.fromItems(Blocks.DIAMOND_BLOCK));
 	}
 
 }

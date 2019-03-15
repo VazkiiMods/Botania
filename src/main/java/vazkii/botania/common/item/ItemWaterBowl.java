@@ -29,6 +29,7 @@ public class ItemWaterBowl extends ItemMod  {
 		super(builder);
 	}
 
+	/* todo 1.13
 	@Nonnull
 	@Override
 	public ICapabilityProvider initCapabilities(ItemStack stack, NBTTagCompound nbt) {
@@ -52,5 +53,6 @@ public class ItemWaterBowl extends ItemMod  {
 			return fluid.getFluid() == FluidRegistry.WATER;
 		}
 	}
+	*/
 
 }
