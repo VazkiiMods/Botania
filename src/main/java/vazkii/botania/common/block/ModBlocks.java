@@ -17,7 +17,6 @@ import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
@@ -313,22 +312,22 @@ public final class ModBlocks {
 	@ObjectHolder("black" + LibBlockNames.PETAL_BLOCK_SUFFIX) public static Block petalBlockBlack;
 	@ObjectHolder(LibBlockNames.CORPOREA_INDEX) public static Block corporeaIndex;
 	@ObjectHolder(LibBlockNames.CORPOREA_FUNNEL) public static Block corporeaFunnel;
-	@ObjectHolder("white" + LibBlockNames.MUSHROOM_SUFFIX) public static Block mushroomWhite;
-	@ObjectHolder("orange" + LibBlockNames.MUSHROOM_SUFFIX) public static Block mushroomOrange;
-	@ObjectHolder("magenta" + LibBlockNames.MUSHROOM_SUFFIX) public static Block mushroomMagenta;
-	@ObjectHolder("light_blue" + LibBlockNames.MUSHROOM_SUFFIX) public static Block mushroomLightBlue;
-	@ObjectHolder("yellow" + LibBlockNames.MUSHROOM_SUFFIX) public static Block mushroomYellow;
-	@ObjectHolder("lime" + LibBlockNames.MUSHROOM_SUFFIX) public static Block mushroomLime;
-	@ObjectHolder("pink" + LibBlockNames.MUSHROOM_SUFFIX) public static Block mushroomPink;
-	@ObjectHolder("gray" + LibBlockNames.MUSHROOM_SUFFIX) public static Block mushroomGray;
-	@ObjectHolder("light_gray" + LibBlockNames.MUSHROOM_SUFFIX) public static Block mushroomSilver;
-	@ObjectHolder("cyan" + LibBlockNames.MUSHROOM_SUFFIX) public static Block mushroomCyan;
-	@ObjectHolder("purple" + LibBlockNames.MUSHROOM_SUFFIX) public static Block mushroomPurple;
-	@ObjectHolder("blue" + LibBlockNames.MUSHROOM_SUFFIX) public static Block mushroomBlue;
-	@ObjectHolder("brown" + LibBlockNames.MUSHROOM_SUFFIX) public static Block mushroomBrown;
-	@ObjectHolder("green" + LibBlockNames.MUSHROOM_SUFFIX) public static Block mushroomGreen;
-	@ObjectHolder("red" + LibBlockNames.MUSHROOM_SUFFIX) public static Block mushroomRed;
-	@ObjectHolder("black" + LibBlockNames.MUSHROOM_SUFFIX) public static Block mushroomBlack;
+	@ObjectHolder("white" + LibBlockNames.MUSHROOM_SUFFIX) public static Block whiteMushroom;
+	@ObjectHolder("orange" + LibBlockNames.MUSHROOM_SUFFIX) public static Block orangeMushroom;
+	@ObjectHolder("magenta" + LibBlockNames.MUSHROOM_SUFFIX) public static Block magentaMushroom;
+	@ObjectHolder("light_blue" + LibBlockNames.MUSHROOM_SUFFIX) public static Block lightBlueMushroom;
+	@ObjectHolder("yellow" + LibBlockNames.MUSHROOM_SUFFIX) public static Block yellowMushroom;
+	@ObjectHolder("lime" + LibBlockNames.MUSHROOM_SUFFIX) public static Block limeMushroom;
+	@ObjectHolder("pink" + LibBlockNames.MUSHROOM_SUFFIX) public static Block pinkMushroom;
+	@ObjectHolder("gray" + LibBlockNames.MUSHROOM_SUFFIX) public static Block grayMushroom;
+	@ObjectHolder("light_gray" + LibBlockNames.MUSHROOM_SUFFIX) public static Block lightGrayMushroom;
+	@ObjectHolder("cyan" + LibBlockNames.MUSHROOM_SUFFIX) public static Block cyanMushroom;
+	@ObjectHolder("purple" + LibBlockNames.MUSHROOM_SUFFIX) public static Block purpleMushroom;
+	@ObjectHolder("blue" + LibBlockNames.MUSHROOM_SUFFIX) public static Block blueMushroom;
+	@ObjectHolder("brown" + LibBlockNames.MUSHROOM_SUFFIX) public static Block brownMushroom;
+	@ObjectHolder("green" + LibBlockNames.MUSHROOM_SUFFIX) public static Block greenMushroom;
+	@ObjectHolder("red" + LibBlockNames.MUSHROOM_SUFFIX) public static Block redMushroom;
+	@ObjectHolder("black" + LibBlockNames.MUSHROOM_SUFFIX) public static Block blackMushroom;
 	@ObjectHolder(LibBlockNames.PUMP) public static Block pump;
 	@ObjectHolder("white" + LibBlockNames.MUSHROOM_SUFFIX) public static Block doubleFlowerWhite;
 	@ObjectHolder("orange" + LibBlockNames.DOUBLE_FLOWER_SUFFIX) public static Block doubleFlowerOrange;
@@ -763,22 +762,22 @@ public final class ModBlocks {
 		r.register(new ItemBlockMod(petalBlockBlack, props).setRegistryName(petalBlockBlack.getRegistryName()));
 		r.register(new ItemBlockMod(corporeaIndex, ModItems.defaultBuilder().setTEISR(() -> RenderTileCorporeaIndex.TEISR::new)).setRegistryName(corporeaIndex.getRegistryName()));
 		r.register(new ItemBlockMod(corporeaFunnel, props).setRegistryName(corporeaFunnel.getRegistryName()));
-		r.register(new ItemBlockMod(mushroomWhite, props).setRegistryName(mushroomWhite.getRegistryName()));
-		r.register(new ItemBlockMod(mushroomOrange, props).setRegistryName(mushroomOrange.getRegistryName()));
-		r.register(new ItemBlockMod(mushroomMagenta, props).setRegistryName(mushroomMagenta.getRegistryName()));
-		r.register(new ItemBlockMod(mushroomLightBlue, props).setRegistryName(mushroomLightBlue.getRegistryName()));
-		r.register(new ItemBlockMod(mushroomYellow, props).setRegistryName(mushroomYellow.getRegistryName()));
-		r.register(new ItemBlockMod(mushroomLime, props).setRegistryName(mushroomLime.getRegistryName()));
-		r.register(new ItemBlockMod(mushroomPink, props).setRegistryName(mushroomPink.getRegistryName()));
-		r.register(new ItemBlockMod(mushroomGray, props).setRegistryName(mushroomGray.getRegistryName()));
-		r.register(new ItemBlockMod(mushroomSilver, props).setRegistryName(mushroomSilver.getRegistryName()));
-		r.register(new ItemBlockMod(mushroomCyan, props).setRegistryName(mushroomCyan.getRegistryName()));
-		r.register(new ItemBlockMod(mushroomPurple, props).setRegistryName(mushroomPurple.getRegistryName()));
-		r.register(new ItemBlockMod(mushroomBlue, props).setRegistryName(mushroomBlue.getRegistryName()));
-		r.register(new ItemBlockMod(mushroomBrown, props).setRegistryName(mushroomBrown.getRegistryName()));
-		r.register(new ItemBlockMod(mushroomGreen, props).setRegistryName(mushroomGreen.getRegistryName()));
-		r.register(new ItemBlockMod(mushroomRed, props).setRegistryName(mushroomRed.getRegistryName()));
-		r.register(new ItemBlockMod(mushroomBlack, props).setRegistryName(mushroomBlack.getRegistryName()));
+		r.register(new ItemBlockMod(whiteMushroom, props).setRegistryName(whiteMushroom.getRegistryName()));
+		r.register(new ItemBlockMod(orangeMushroom, props).setRegistryName(orangeMushroom.getRegistryName()));
+		r.register(new ItemBlockMod(magentaMushroom, props).setRegistryName(magentaMushroom.getRegistryName()));
+		r.register(new ItemBlockMod(lightBlueMushroom, props).setRegistryName(lightBlueMushroom.getRegistryName()));
+		r.register(new ItemBlockMod(yellowMushroom, props).setRegistryName(yellowMushroom.getRegistryName()));
+		r.register(new ItemBlockMod(limeMushroom, props).setRegistryName(limeMushroom.getRegistryName()));
+		r.register(new ItemBlockMod(pinkMushroom, props).setRegistryName(pinkMushroom.getRegistryName()));
+		r.register(new ItemBlockMod(grayMushroom, props).setRegistryName(grayMushroom.getRegistryName()));
+		r.register(new ItemBlockMod(lightGrayMushroom, props).setRegistryName(lightGrayMushroom.getRegistryName()));
+		r.register(new ItemBlockMod(cyanMushroom, props).setRegistryName(cyanMushroom.getRegistryName()));
+		r.register(new ItemBlockMod(purpleMushroom, props).setRegistryName(purpleMushroom.getRegistryName()));
+		r.register(new ItemBlockMod(blueMushroom, props).setRegistryName(blueMushroom.getRegistryName()));
+		r.register(new ItemBlockMod(brownMushroom, props).setRegistryName(brownMushroom.getRegistryName()));
+		r.register(new ItemBlockMod(greenMushroom, props).setRegistryName(greenMushroom.getRegistryName()));
+		r.register(new ItemBlockMod(redMushroom, props).setRegistryName(redMushroom.getRegistryName()));
+		r.register(new ItemBlockMod(blackMushroom, props).setRegistryName(blackMushroom.getRegistryName()));
 		r.register(new ItemBlockMod(pump, props).setRegistryName(pump.getRegistryName()));
 		r.register(new ItemBlockMod(doubleFlowerWhite, props).setRegistryName(doubleFlowerWhite.getRegistryName()));
 		r.register(new ItemBlockMod(doubleFlowerOrange, props).setRegistryName(doubleFlowerOrange.getRegistryName()));
@@ -977,6 +976,28 @@ public final class ModBlocks {
 			case GREEN: return greenFlower;
 			case RED: return redFlower;
 			case BLACK: return blackFlower;
+		}
+	}
+	
+	public static Block getMushroom(EnumDyeColor color) {
+		switch (color) {
+			default:
+			case WHITE: return whiteMushroom;
+			case ORANGE: return orangeMushroom;
+			case MAGENTA: return magentaMushroom;
+			case LIGHT_BLUE: return lightBlueMushroom;
+			case YELLOW: return yellowMushroom;
+			case LIME: return limeMushroom;
+			case PINK: return pinkMushroom;
+			case GRAY: return grayMushroom;
+			case LIGHT_GRAY: return lightGrayMushroom;
+			case CYAN: return cyanMushroom;
+			case PURPLE: return purpleMushroom;
+			case BLUE: return blueMushroom;
+			case BROWN: return brownMushroom;
+			case GREEN: return greenMushroom;
+			case RED: return redMushroom;
+			case BLACK: return blackMushroom;
 		}
 	}
 

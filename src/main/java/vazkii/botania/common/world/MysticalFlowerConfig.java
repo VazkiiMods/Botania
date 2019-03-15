@@ -24,4 +24,7 @@ public class MysticalFlowerConfig implements IFeatureConfig {
         return ConfigHandler.COMMON.flowerTallChance.get();
     }
 
+    public int getMushroomPatchSize() {
+        return ConfigHandler.COMMON.mushroomQuantity.get();
+    }
 }

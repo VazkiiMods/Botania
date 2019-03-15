@@ -12,10 +12,8 @@ import net.minecraft.world.gen.IChunkGenerator;
 import net.minecraft.world.gen.feature.Feature;
 import vazkii.botania.api.item.IFlowerlessBiome;
 import vazkii.botania.api.item.IFlowerlessWorld;
-import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.BlockModFlower;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.core.handler.ConfigHandler;
 
 import javax.annotation.Nonnull;
 import java.util.Random;
@@ -60,14 +58,15 @@ public class MysticalFlowerFeature extends Feature<MysticalFlowerConfig> {
             }
         }
 
-        for(int i = 0; i < ConfigHandler.COMMON.mushroomQuantity.get(); i++) {
+        for(int i = 0; i < config.getMushroomPatchSize(); i++) {
             int x = pos.getX() + rand.nextInt(16) + 8;
             int z = pos.getZ() + rand.nextInt(16) + 8;
             int y = rand.nextInt(26) + 4;
             BlockPos pos3 = new BlockPos(x, y, z);
-            EnumDyeColor color = EnumDyeColor.byMetadata(rand.nextInt(16));
-            if(world.isAirBlock(pos3) && ModBlocks.mushroom.canPlaceBlockAt(world, pos3))
-                world.setBlockState(pos3, ModBlocks.mushroom.getDefaultState().with(BotaniaStateProps.COLOR, color), 2);
+            EnumDyeColor color = EnumDyeColor.byId(rand.nextInt(16));
+            IBlockState mushroom = ModBlocks.getMushroom(color).getDefaultState();
+            if(world.isAirBlock(pos3) && mushroom.isValidPosition(world, pos3))
+                world.setBlockState(pos3, mushroom, 2);
         }
         return false;
     }
