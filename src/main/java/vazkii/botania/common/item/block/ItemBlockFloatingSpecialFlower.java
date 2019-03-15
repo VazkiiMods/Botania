@@ -19,15 +19,15 @@ import javax.annotation.Nonnull;
 
 public class ItemBlockFloatingSpecialFlower extends ItemBlockSpecialFlower {
 
-	public ItemBlockFloatingSpecialFlower(Block block1) {
-		super(block1);
+	public ItemBlockFloatingSpecialFlower(Block block, Properties props) {
+		super(block, props);
 	}
 
 	@Nonnull
 	@Override
 	public ITextComponent getDisplayName(@Nonnull ItemStack stack) {
-		String flowerName = getTranslationKey(stack);
-		return new TextComponentTranslation("botaniamisc.floatingPrefix").appendSibling(new TextComponentTranslation(flowerName));
+		ITextComponent flowerName = stack.getDisplayName();
+		return new TextComponentTranslation("botaniamisc.floatingPrefix").appendSibling(flowerName);
 	}
 
 }

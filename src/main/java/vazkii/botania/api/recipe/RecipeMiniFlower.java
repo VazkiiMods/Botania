@@ -17,7 +17,7 @@ import vazkii.botania.api.BotaniaAPI;
 
 public class RecipeMiniFlower extends RecipeManaInfusion {
 
-	public RecipeMiniFlower(ResourceLocation flower, ResourceLocation mini, int mana) {
+	public RecipeMiniFlower(ResourceLocation mini, ResourceLocation flower, int mana) {
 		super(BotaniaAPI.internalHandler.getSubTileAsStack(flower), Ingredient.fromStacks(BotaniaAPI.internalHandler.getSubTileAsStack(mini)), mana);
 		setCatalyst(RecipeManaInfusion.alchemyState);
 	}
@@ -25,7 +25,7 @@ public class RecipeMiniFlower extends RecipeManaInfusion {
 	@Override
 	public boolean matches(ItemStack stack) {
 		ResourceLocation key = BotaniaAPI.internalHandler.getStackSubTileKey(stack);
-		ResourceLocation input = getInput() instanceof ResourceLocation ? (ResourceLocation) getInput() : BotaniaAPI.internalHandler.getStackSubTileKey((ItemStack) getInput());
+		ResourceLocation input = BotaniaAPI.internalHandler.getStackSubTileKey(getInput().getMatchingStacks()[0]);
 		return key != null && key.equals(input);
 	}
 

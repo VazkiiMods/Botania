@@ -13,23 +13,20 @@ package vazkii.botania.common.block.subtile.functional;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemBlockSpecial;
-import net.minecraft.item.ItemPiston;
-import net.minecraft.item.ItemRedstone;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUseContext;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.lwjgl.opengl.GL11;
@@ -68,18 +65,10 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 			return;
 
 		if(ticksExisted % 10 == 0) {
-			IBlockState filter = getUnderlyingBlock();
-
-			boolean scanned = false;
-			List<BlockPos> validPositions = new ArrayList<>();
-
-			int rangePlace = getRange();
-			int rangePlaceY = getRangeY();
-
-			BlockPos pos = supertile.getPos();
-
 			List<EntityItem> items = supertile.getWorld().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(supertile.getPos().add(-RANGE, -RANGE_Y, -RANGE), supertile.getPos().add(RANGE + 1, RANGE_Y + 1, RANGE + 1)));
+			List<BlockPos> validPositions = getCandidatePositions();
 			int slowdown = getSlowdownFactor();
+
 			for(EntityItem item : items) {
 				if(item.age < 60 + slowdown || !item.isAlive() || item.getItem().isEmpty())
 					continue;
@@ -87,62 +76,27 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 				ItemStack stack = item.getItem();
 				Item stackItem = stack.getItem();
 				if(stackItem instanceof ItemBlock || stackItem instanceof IFlowerPlaceable) {
-					if(!scanned) {
-						for(BlockPos pos_ : BlockPos.getAllInBox(pos.add(-rangePlace, -rangePlaceY, -rangePlace), pos.add(rangePlace, rangePlaceY, rangePlace))) {
-							IBlockState stateAbove = supertile.getWorld().getBlockState(pos_.up());
-							Block blockAbove = stateAbove.getBlock();
-							BlockPos up = pos_.up();
-							if(filter == supertile.getWorld().getBlockState(pos_)
-									&& (blockAbove.isAir(stateAbove, supertile.getWorld(), up)
-											|| blockAbove.isReplaceable(supertile.getWorld(), up)))
-								validPositions.add(up);
-						}
-
-						scanned = true;
-					}
-
-
 					if(!validPositions.isEmpty()) {
 						BlockPos coords = validPositions.get(supertile.getWorld().rand.nextInt(validPositions.size()));
+						ItemUseContext ctx = new ItemUseContext(supertile.getWorld(), null, stack, coords, EnumFacing.UP, 0, 0, 0);
 
-						IBlockState stateToPlace = null;
-						if(stackItem instanceof IFlowerPlaceable)
-							stateToPlace = ((IFlowerPlaceable) stackItem).getBlockToPlaceByFlower(stack, this, coords);
-						if(stackItem instanceof ItemBlock) {
-							int blockMeta = stackItem.getMetadata(stack.getItemDamage());
-
-							if(stackItem instanceof ItemPiston) // Workaround because the blockMeta ItemPiston gives crashes getStateFromMeta
-								blockMeta = 0;
-
-							stateToPlace = ((ItemBlock) stackItem).getBlock().getStateFromMeta(blockMeta);
+						boolean success = false;
+						if(stackItem instanceof IFlowerPlaceable) {
+							success = ((IFlowerPlaceable) stackItem).tryPlace(this, ctx);
+						} if(stackItem instanceof ItemBlock) {
+							success = stack.onItemUse(ctx) == EnumActionResult.SUCCESS;
 						}
 
-						if(stateToPlace != null) {
-							if(stateToPlace.getBlock().canPlaceBlockAt(supertile.getWorld(), coords)) {
-								supertile.getWorld().setBlockState(coords, stateToPlace, 1 | 2);
-								if(ConfigHandler.COMMON.blockBreakParticles.get())
-									supertile.getWorld().playEvent(2001, coords, Block.getStateId(stateToPlace));
-								validPositions.remove(coords);
-								ItemBlock.setTileEntityNBT(supertile.getWorld(), null, coords, stack);
-
-								TileEntity tile = supertile.getWorld().getTileEntity(coords);
-								if(tile != null && tile instanceof ISubTileContainer) {
-									ISubTileContainer container = (ISubTileContainer) tile;
-									ResourceLocation subtileName = ItemBlockSpecialFlower.getType(stack);
-									container.setSubTile(subtileName);
-									SubTileEntity subtile = container.getSubTile();
-									subtile.onBlockPlacedBy(supertile.getWorld(), coords, supertile.getWorld().getBlockState(coords), null, stack);
-								}
-
-								if(stackItem instanceof IFlowerPlaceable)
-									((IFlowerPlaceable) stackItem).onBlockPlacedByFlower(stack, this, coords);
-
-								stack.shrink(1);
-
-								if(mana > 1)
-									mana--;
-								return;
+						if(success) {
+							/* todo 1.13 no easy way to find out where it eventually got placed
+							if(ConfigHandler.COMMON.blockBreakParticles.get()) {
+								supertile.getWorld().playEvent(2001, coords, Block.getStateId(stateToPlace));
 							}
+							*/
+							validPositions.remove(coords);
+							if(mana > 1)
+								mana--;
+							return;
 						}
 					}
 				}
@@ -152,6 +106,20 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 
 	public IBlockState getUnderlyingBlock() {
 		return supertile.getWorld().getBlockState(supertile.getPos().down(supertile instanceof  IFloatingFlower ? 1 : 2));
+	}
+
+	private List<BlockPos> getCandidatePositions() {
+		int rangePlace = getRange();
+		int rangePlaceY = getRangeY();
+		BlockPos pos = supertile.getPos();
+		IBlockState filter = getUnderlyingBlock();
+		List<BlockPos> ret = new ArrayList<>();
+
+		for (BlockPos pos_ : BlockPos.getAllInBox(pos.add(-rangePlace, -rangePlaceY, -rangePlace), pos.add(rangePlace, rangePlaceY, rangePlace))) {
+			if (filter == supertile.getWorld().getBlockState(pos_))
+				ret.add(pos_);
+		}
+		return ret;
 	}
 
 	@Override

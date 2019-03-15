@@ -11,6 +11,7 @@
 package vazkii.botania.api.item;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.math.BlockPos;
 import vazkii.botania.api.subtile.SubTileEntity;
 
@@ -20,15 +21,8 @@ import vazkii.botania.api.subtile.SubTileEntity;
 public interface IFlowerPlaceable {
 
 	/**
-	 * Gets the state to be placed, return null to not place anything.
+     * @param ctx The placement context, aiming downwards towards the downward neighbor position
+	 * @return Whether the block was placed successfully
 	 */
-	public IBlockState getBlockToPlaceByFlower(ItemStack stack, SubTileEntity flower, BlockPos pos);
-
-	/**
-	 * Called after the block is placed.
-	 * @param stack The stack that was placed.
-	 * @param flower The flower doing the placing.
-	 * @param pos The position that was placed at.
-	 */
-	public void onBlockPlacedByFlower(ItemStack stack, SubTileEntity flower, BlockPos pos);
+	boolean tryPlace(SubTileEntity flower, ItemUseContext ctx);
 }

@@ -12,11 +12,7 @@ package vazkii.botania.common.block;
 
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.block.statemap.StateMap;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -26,7 +22,6 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.ChunkCache;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IBlockReader;
@@ -34,7 +29,6 @@ import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.common.property.ExtendedBlockState;
 import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.common.property.IUnlistedProperty;
 import net.minecraftforge.api.distmarker.Dist;
@@ -71,6 +65,7 @@ public class BlockPlatform extends BlockCamo implements ILexiconable, IWandable,
 		this.variant = v;
 	}
 
+	/* todo 1.13
 	@Nonnull
 	@Override
 	public BlockStateContainer createBlockState() {
@@ -94,31 +89,22 @@ public class BlockPlatform extends BlockCamo implements ILexiconable, IWandable,
 	}
 
 	@Override
+	public void addCollisionBoxToList(IBlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull AxisAlignedBB par5AxisAlignedBB, @Nonnull List<AxisAlignedBB> stacks, Entity par7Entity, boolean isActualState) {
+		if(variant == Variant.INFRANGIBLE || variant == Variant.ABSTRUSE && par7Entity != null && par7Entity.posY > pos.getY() + 0.9 && (!(par7Entity instanceof EntityPlayer) || !par7Entity.isSneaking()))
+			super.addCollisionBoxToList(state, world, pos, par5AxisAlignedBB, stacks, par7Entity, isActualState);
+	}
+	*/
+
+	@Override
 	public boolean canRenderInLayer(IBlockState state, @Nonnull BlockRenderLayer layer) {
 		return true;
 	}
 
 	@Override
-	public void addCollisionBoxToList(IBlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull AxisAlignedBB par5AxisAlignedBB, @Nonnull List<AxisAlignedBB> stacks, Entity par7Entity, boolean isActualState) {
-		if(variant == Variant.INFRANGIBLE || variant == Variant.ABSTRUSE && par7Entity != null && par7Entity.posY > pos.getY() + 0.9 && (!(par7Entity instanceof EntityPlayer) || !par7Entity.isSneaking()))
-			super.addCollisionBoxToList(state, world, pos, par5AxisAlignedBB, stacks, par7Entity, isActualState);
-	}
-
-	@Override
-	public float getBlockHardness(IBlockState state, World world, BlockPos pos) {
-		return variant == Variant.INFRANGIBLE ? -1F : super.getBlockHardness(state, world, pos);
-	}
-	
-	@Override
 	public boolean canEntityDestroy(IBlockState state, IBlockReader world, BlockPos pos, Entity entity) {
 		return variant != Variant.INFRANGIBLE;
 	}
 
-	@Override
-	public float getExplosionResistance(IBlockState state, IWorldReader world, BlockPos pos, @Nullable Entity exploder, Explosion explosion) {
-		return variant != Variant.INFRANGIBLE ? super.getExplosionResistance(state, world, pos, exploder, explosion) : Float.MAX_VALUE;
-	}
-	
 	@Nonnull
 	@Override
 	public TileEntity createTileEntity(@Nonnull IBlockState state, @Nonnull IBlockReader world) {

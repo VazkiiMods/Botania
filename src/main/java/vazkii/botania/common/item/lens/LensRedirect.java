@@ -16,6 +16,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.shapes.VoxelShape;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.IDirectioned;
 import vazkii.botania.api.mana.IThrottledPacket;
@@ -34,9 +35,12 @@ public class LensRedirect extends Lens {
 					Vector3 tileVec = Vector3.fromTileEntityCenter(tile);
 					Vector3 sourceVec = new Vector3(coords.getX() + 0.5, coords.getY() + 0.5, coords.getZ() + 0.5);
 
-					AxisAlignedBB axis = entity.world.getBlockState(coords).getCollisionBoundingBox(entity.world, coords).offset(coords);
-					if(axis == null)
+
+					AxisAlignedBB axis;
+					VoxelShape collideShape = entity.world.getBlockState(coords).getCollisionShape(entity.world, coords);
+					if(collideShape.isEmpty())
 						axis = new AxisAlignedBB(coords, coords.add(1, 1, 1));
+					else axis = collideShape.getBoundingBox(); // todo 1.13 more granular collisions?
 
 					if(!sourceVec.isInside(axis))
 						sourceVec = new Vector3(axis.minX + (axis.maxX - axis.minX) / 2, axis.minY + (axis.maxY - axis.minY) / 2, axis.minZ + (axis.maxZ - axis.minZ) / 2);

@@ -519,11 +519,4 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 		GlStateManager.color4f(1F, 1F, 1F, 1F);
 		mc.textureManager.bindTexture(Gui.ICONS);
 	}
-
-	@OnlyIn(Dist.CLIENT)
-	@Override
-	public void registerModels() {
-		ModelHandler.registerItemAllMeta(this, WING_TYPES + 1);
-	}
-
 }

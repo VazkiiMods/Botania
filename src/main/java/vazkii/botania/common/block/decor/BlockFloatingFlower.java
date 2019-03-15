@@ -80,6 +80,7 @@ public class BlockFloatingFlower extends BlockMod implements ILexiconable {
 		return BlockRenderLayer.CUTOUT;
 	}
 
+	/* todo 1.13
 	@Nonnull
 	@Override
 	public BlockStateContainer createBlockState() {
@@ -98,6 +99,7 @@ public class BlockFloatingFlower extends BlockMod implements ILexiconable {
 		}
 		return state;
 	}
+	*/
 
 	@OnlyIn(Dist.CLIENT)
 	@Override

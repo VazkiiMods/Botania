@@ -28,6 +28,7 @@ import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.event.server.FMLServerAboutToStartEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.event.server.FMLServerStoppingEvent;
@@ -49,7 +50,6 @@ import vazkii.botania.common.brew.ModBrews;
 import vazkii.botania.common.core.command.CommandOpen;
 import vazkii.botania.common.core.command.CommandShare;
 import vazkii.botania.common.core.command.CommandSkyblockSpread;
-import vazkii.botania.common.core.handler.BiomeDecorationHandler;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.IMCHandler;
 import vazkii.botania.common.core.handler.InternalMethodHandler;
@@ -89,7 +89,6 @@ import vazkii.botania.common.entity.EntityManaBurst;
 import vazkii.botania.common.entity.EntityPinkWither;
 import vazkii.botania.common.entity.EntitySignalFlare;
 import vazkii.botania.common.entity.EntitySpark;
-import vazkii.botania.common.entity.ModEntities;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.network.GuiHandler;
@@ -126,7 +125,6 @@ public class Botania {
 
 	private void commonSetup(FMLCommonSetupEvent event) {
 		gardenOfGlassLoaded = ModList.get().isLoaded("gardenofglass");
-
 		thaumcraftLoaded = ModList.get().isLoaded("thaumcraft");
 		bcApiLoaded = ModList.get().isLoaded("buildcraftlib");
 		bloodMagicLoaded = ModList.get().isLoaded("bloodmagic"); // Psh, noob
@@ -148,6 +146,14 @@ public class Botania {
 		ModBrewRecipes.init();
 		ModCraftingRecipes.init();
 		LexiconData.init();
+
+		if(Botania.thaumcraftLoaded) {
+			if(ConfigHandler.COMMON.enableThaumcraftAspects.get()) {
+				// todo 1.13 MinecraftForge.EVENT_BUS.register(TCAspects.class);
+			}
+			ModBrews.initTC();
+			ModBrewRecipes.initTC();
+		}
 
 		MinecraftForge.EVENT_BUS.register(ManaNetworkHandler.instance);
 		MinecraftForge.EVENT_BUS.register(TileCorporeaIndex.getInputHandler());
@@ -180,36 +186,29 @@ public class Botania {
 			RecipeSerializers.register(PhantomInkRecipe.SERIALIZER);
 			RecipeSerializers.register(SpellClothRecipe.SERIALIZER);
 			RecipeSerializers.register(TerraPickTippingRecipe.SERIALIZER);
+
+			ModBlocks.addDispenserBehaviours();
 		});
 	}
 
+	/* todo 1.13
 	public void init(FMLInitializationEvent event) {
-
-
 		NetworkRegistry.INSTANCE.registerGuiHandler(Botania.instance, new GuiHandler());
-
-		MinecraftForge.TERRAIN_GEN_BUS.register(BiomeDecorationHandler.class);
 
 		FMLInterModComms.sendMessage("projecte", "interdictionblacklist", EntityManaBurst.class.getCanonicalName());
 
 		for(Block b : new Block[]{ ModBlocks.manaGlass, ModBlocks.elfGlass, ModBlocks.bifrostPerm })
 			FMLInterModComms.sendMessage("chiselsandbits", "ignoreblocklogic", b.getRegistryName().toString());
-		
-		if(Botania.thaumcraftLoaded) {
-			if(ConfigHandler.COMMON.enableThaumcraftAspects.get()) {
-				// todo 1.13 MinecraftForge.EVENT_BUS.register(TCAspects.class);
-			}
-			ModBrews.initTC();
-			ModBrewRecipes.initTC();
-		}
 
-		/* todo 1.13
+
+
 		if(Botania.bcApiLoaded)
 			new StatementAPIPlugin();
-		*/
 	}
+	*/
 
-	public void postInit(FMLPostInitializationEvent event) {
+	// todo 1.13 move everything here to where it belongs
+	private void loadComplete(FMLLoadCompleteEvent event) {
 		if(Botania.thaumcraftLoaded) {
 			try {
 				@SuppressWarnings("unchecked")
@@ -218,7 +217,6 @@ public class Botania {
 			} catch (ClassNotFoundException ignored) {}
 		}
 
-		ModBlocks.addDispenserBehaviours();
 		LexiconData.postInit();
 
 		int words = 0;
@@ -235,15 +233,14 @@ public class Botania {
 
 	// Overriding the internal method handler will break everything as it changes regularly.
 	// So just don't be a moron and don't override it. Thanks.
-	public void serverAboutToStart(FMLServerAboutToStartEvent event) {
+	private void serverAboutToStart(FMLServerAboutToStartEvent event) {
 		String clname = BotaniaAPI.internalHandler.getClass().getName();
 		String expect = "vazkii.botania.common.core.handler.InternalMethodHandler";
 		if(!clname.equals(expect)) {
-			new IllegalAccessError("The Botania API internal method handler has been overriden. "
+			throw new IllegalAccessError("The Botania API internal method handler has been overriden. "
 					+ "This will cause crashes and compatibility issues, and that's why it's marked as"
 					+ " \"Do not Override\". Whoever had the brilliant idea of overriding it needs to go"
-					+ " back to elementary school and learn to read. (Expected classname: " + expect + ", Actual classname: " + clname + ")").printStackTrace();
-			FMLCommonHandler.instance().exitJava(1, true);
+					+ " back to elementary school and learn to read. (Expected classname: " + expect + ", Actual classname: " + clname + ")");
 		}
 	}
 
@@ -258,14 +255,12 @@ public class Botania {
 		ManaNetworkHandler.instance.clear();
 	}
 
-	@EventHandler
-	public void handleIMC(FMLInterModComms.IMCEvent event) {
-		IMCHandler.processMessages(event.getMessages());
-	}
-
 	private int countWords(String s) {
+		/* todo 1.13
 		String s1 = I18n.translateToLocal(s);
 		return s1.split("\\s+").length;
+		*/
+		return 0;
 	}
 
 	private void registerDefaultEntityBlacklist() {

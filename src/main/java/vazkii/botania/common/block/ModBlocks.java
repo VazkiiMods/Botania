@@ -479,7 +479,7 @@ public final class ModBlocks {
 		builder = Block.Properties.create(Material.WOOD).hardnessAndResistance(2, 5).sound(SoundType.WOOD);
 		register(r, new BlockPlatform(BlockPlatform.Variant.ABSTRUSE, builder), LibBlockNames.PLATFORM_ABSTRUSE);
 		register(r, new BlockPlatform(BlockPlatform.Variant.SPECTRAL, builder), LibBlockNames.PLATFORM_SPECTRAL);
-		register(r, new BlockPlatform(BlockPlatform.Variant.INFRANGIBLE, builder), LibBlockNames.PLATFORM_INFRANGIBLE);
+		register(r, new BlockPlatform(BlockPlatform.Variant.INFRANGIBLE, Block.Properties.create(Material.WOOD).hardnessAndResistance(-1, Float.MAX_VALUE).sound(SoundType.WOOD)), LibBlockNames.PLATFORM_INFRANGIBLE);
 		register(r, new BlockAlfPortal(Block.Properties.create(Material.WOOD).hardnessAndResistance(10).sound(SoundType.WOOD)), LibBlockNames.ALF_PORTAL);
 
 		builder = Block.Properties.create(Material.WOOD).hardnessAndResistance(2).sound(SoundType.WOOD);
@@ -741,7 +741,7 @@ public final class ModBlocks {
 		r.register(new ItemBlockMod(redStringFertilizer, props).setRegistryName(redStringFertilizer.getRegistryName()));
 		r.register(new ItemBlockMod(redStringComparator, props).setRegistryName(redStringComparator.getRegistryName()));
 		r.register(new ItemBlockMod(redStringRelay, props).setRegistryName(redStringRelay.getRegistryName()));
-		r.register(new ItemBlockFloatingSpecialFlower(floatingSpecialFlower).setRegistryName(floatingSpecialFlower.getRegistryName()));
+		r.register(new ItemBlockFloatingSpecialFlower(floatingSpecialFlower, props).setRegistryName(floatingSpecialFlower.getRegistryName()));
 		r.register(new ItemBlockMod(prism, props).setRegistryName(prism.getRegistryName()));
 		r.register(new ItemBlockMod(enchantedSoil, props).setRegistryName(enchantedSoil.getRegistryName()));
 		r.register(new ItemBlockMod(petalBlockWhite, props).setRegistryName(petalBlockWhite.getRegistryName()));

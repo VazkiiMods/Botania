@@ -58,6 +58,7 @@ public class BlockFloatingSpecialFlower extends BlockFloatingFlower implements I
 		super(EnumDyeColor.WHITE, props);
 	}
 
+	/* todo 1.13
 	@Nonnull
 	@Override
 	public BlockStateContainer createBlockState() {
@@ -74,6 +75,7 @@ public class BlockFloatingSpecialFlower extends BlockFloatingFlower implements I
 		}
 		return state;
 	}
+	*/
 
 	@Override
 	public int getLightValue(@Nonnull IBlockState state, IWorldReader world, @Nonnull BlockPos pos) {

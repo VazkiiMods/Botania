@@ -14,6 +14,7 @@ import net.minecraft.init.MobEffects;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.registries.ForgeRegistries;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.common.lib.LibBrewNames;
 
@@ -68,7 +69,7 @@ public class ModBrews {
 	}
 
 	public static void initTC() {
-		Potion warpWardPotion = Potion.REGISTRY.getObject(new ResourceLocation("thaumcraft:warpward"));
+		Potion warpWardPotion = ForgeRegistries.POTIONS.getValue(new ResourceLocation("thaumcraft:warpward"));
 
 		if(warpWardPotion != null)
 			warpWard = new BrewMod(LibBrewNames.WARP_WARD, 0xFBBDFF, 25000, new PotionEffect(warpWardPotion, 12000, 0)).setNotBloodPendantInfusable();
