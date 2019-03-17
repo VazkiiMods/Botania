@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import net.minecraft.item.crafting.Ingredient;
 import org.lwjgl.opengl.GL11;
 
 import net.minecraft.client.Minecraft;
@@ -69,20 +70,18 @@ public class PagePetalRecipe<T extends RecipePetals> extends PageRecipe {
 		renderItemAtGridPos(gui, 3, 0, recipe.getOutput(), false);
 		renderItemAtGridPos(gui, 2, 1, getMiddleStack(), false);
 
-		List<Object> inputs = recipe.getInputs();
+		List<Ingredient> inputs = recipe.getInputs();
 		int degreePerInput = (int) (360F / inputs.size());
 		float currentDegree = ConfigHandler.CLIENT.lexiconRotatingItems.get() ? GuiScreen.isShiftKeyDown() ? ticksElapsed : ticksElapsed + ClientTickHandler.partialTicks : 0;
 		int inputIndex = ticksElapsed / 40;
 
-		for(Object obj : inputs) {
-			Object input = obj;
-			if(input instanceof String) {
-				NonNullList<ItemStack> list = OreDictionary.getOres((String) input); 
-				int size = list.size();
-				input = list.get(size - inputIndex % size - 1);
-			}
+		for(Ingredient input : inputs) {
+		    ItemStack[] stacks = input.getMatchingStacks();
+			int size = stacks.length;
+			ItemStack stack = stacks[size - inputIndex % size - 1];
+			// todo 1.13 can't we just use inputIndex % size?
 
-			renderItemAtAngle(gui, currentDegree, (ItemStack) input);
+			renderItemAtAngle(gui, currentDegree, stack);
 
 			currentDegree += degreePerInput;
 		}

@@ -93,7 +93,7 @@ public class SpecialFloatingFlowerRecipe extends IRecipeHidden {
 		@Nonnull
 		@Override
 		public SpecialFloatingFlowerRecipe read(@Nonnull ResourceLocation recipeId, @Nonnull JsonObject json) {
-			ResourceLocation flowerType = new ResourceLocation(JsonUtils.getString(json, "type"));
+			ResourceLocation flowerType = new ResourceLocation(JsonUtils.getString(json, "flower_type"));
 			return new SpecialFloatingFlowerRecipe(recipeId, flowerType);
 		}
 

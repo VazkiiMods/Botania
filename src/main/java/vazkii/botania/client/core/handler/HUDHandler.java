@@ -11,6 +11,7 @@
 package vazkii.botania.client.core.handler;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockFlowingFluid;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -393,7 +394,7 @@ public final class HUDHandler {
 			LexiconEntry entry = ((ILexiconable) block).getEntry(mc.world, pos.getBlockPos(), mc.player, stack);
 			if(entry != null) {
 				if(!((ILexicon) stack.getItem()).isKnowledgeUnlocked(stack, entry.getKnowledgeType()))
-					font = mc.standardGalacticFontRenderer;
+					font = mc.getFontResourceManager().getFontRenderer(Minecraft.standardGalacticFontRenderer);
 
 				drawStr = I18n.format(entry.getUnlocalizedName());
 				secondLine = TextFormatting.ITALIC + I18n.format(entry.getTagline());
@@ -403,7 +404,7 @@ public final class HUDHandler {
 
 		if(!ConfigHandler.CLIENT.lexicaOfflineMode.get() && !draw && pos.entity == null) {
 			profiler.startSection("wikiLookup");
-			if(!block.isAir(state, mc.world, pos.getBlockPos()) && !(block instanceof BlockLiquid)) {
+			if(!block.isAir(state, mc.world, pos.getBlockPos()) && !(block instanceof BlockFlowingFluid)) {
 				IWikiProvider provider = WikiHooks.getWikiFor(block);
 				String url = provider.getWikiURL(mc.world, pos, mc.player);
 				if(url != null && !url.isEmpty()) {
@@ -430,7 +431,7 @@ public final class HUDHandler {
 
 			if(!mc.player.isSneaking()) {
 				GlStateManager.scalef(0.5F, 0.5F, 1F);
-				mc.fontRenderer.drawStringWithShadow(TextFormatting.BOLD + mc.gameSettings.keyBindSneak.getDisplayName(), (sx + 10) * 2 - 16, (sy + 8) * 2 + 20, 0xFFFFFFFF);
+				mc.fontRenderer.drawStringWithShadow(TextFormatting.BOLD + mc.gameSettings.keyBindSneak.func_197978_k(), (sx + 10) * 2 - 16, (sy + 8) * 2 + 20, 0xFFFFFFFF);
 				GlStateManager.scalef(2F, 2F, 1F);
 			}
 		}

@@ -92,10 +92,11 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 			return true;
 		}
 
-		boolean hasFluidCapability = stack.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
+		boolean hasFluidCapability = stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY).isPresent();
 		
 		if(!hasWater() && !hasLava()) {
 			if(hasFluidCapability) {
+				/* todo 1.13
 				IFluidHandlerItem fluidHandler = stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
 
 				FluidStack drainWater = fluidHandler.drain(new FluidStack(FluidRegistry.WATER, Fluid.BUCKET_VOLUME), false);
@@ -114,6 +115,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 					item.setItem(fluidHandler.getContainer());
 					return true;
 				}
+				*/
 			}
 
 			return false;

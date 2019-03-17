@@ -11,6 +11,6 @@
 package vazkii.botania.common.lib;
 
 public final class LibObfuscation {
-	// Entityliving
-	public static final String[] GET_LIVING_SOUND = { "getAmbientSound", "func_184639_G", "G" };
+	// EntityLiving
+	public static final String GET_LIVING_SOUND = "func_184639_G";
 }

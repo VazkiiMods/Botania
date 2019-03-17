@@ -83,7 +83,7 @@ public class ItemManasteelArmor extends ItemArmor implements IManaUsingItem, IPh
 			stack.setDamage(stack.getDamage() - 1);
 	}
 
-	@Override
+	// todo 1.13
 	public void damageArmor(EntityLivingBase entity, @Nonnull ItemStack stack, DamageSource source, int damage, int slot) {
 		ToolCommons.damageItem(stack, damage, entity, MANA_PER_DAMAGE);
 	}

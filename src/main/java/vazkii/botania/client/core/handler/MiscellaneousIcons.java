@@ -96,10 +96,12 @@ public class MiscellaneousIcons {
 		evt.getModelRegistry().put(infrangibleName, new PlatformModel(infrangible));
 
 		// Lexicon
-		evt.getModelRegistry().put(new ModelResourceLocation("botania:lexicon_3d_default", "inventory"),
-				new LexiconModel(new ModelResourceLocation("botania:lexicon_default", "inventory")));
-		evt.getModelRegistry().put(new ModelResourceLocation("botania:lexicon_3d_elven", "inventory"),
-				new LexiconModel(new ModelResourceLocation("botania:lexicon_elven", "inventory")));
+		IBakedModel original = evt.getModelRegistry().get(new ModelResourceLocation("botania:lexicon", "inventory"));
+		evt.getModelRegistry().put(new ModelResourceLocation("botania:lexicon", "inventory"),
+				new LexiconModel(original));
+		original = evt.getModelRegistry().get(new ModelResourceLocation("botania:lexicon_elven", "inventory"));
+		evt.getModelRegistry().put(new ModelResourceLocation("botania:lexicon_elven", "inventory"),
+				new LexiconModel(original));
 
 		// Mana Blaster
 		ModelResourceLocation key = new ModelResourceLocation("botania:managun", "inventory");

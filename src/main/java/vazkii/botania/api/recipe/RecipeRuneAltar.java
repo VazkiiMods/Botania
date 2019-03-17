@@ -11,12 +11,13 @@
 package vazkii.botania.api.recipe;
 
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.Ingredient;
 
 public class RecipeRuneAltar extends RecipePetals {
 
 	private final int mana;
 
-	public RecipeRuneAltar(ItemStack output, int mana, Object... inputs) {
+	public RecipeRuneAltar(ItemStack output, int mana, Ingredient... inputs) {
 		super(output, inputs);
 		this.mana = mana;
 	}

@@ -14,6 +14,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -51,11 +52,8 @@ public class PageBrew extends PageRecipe implements ITwoNamedPage {
 
 		Brew brew = recipe.getBrew();
 		FontRenderer renderer = Minecraft.getInstance().fontRenderer;
-		boolean unicode = renderer.getUnicodeFlag();
-		renderer.setUnicodeFlag(true);
 		String s = TextFormatting.BOLD + I18n.format("botaniamisc.brewOf", I18n.format(brew.getUnlocalizedName()));
 		renderer.drawString(s, gui.getLeft() + gui.getWidth() / 2 - renderer.getStringWidth(s) / 2, y, 0x222222);
-		renderer.setUnicodeFlag(unicode);
 		PageText.renderText(x, y + 22, width, height, text);
 
 		ItemStack book = PlayerHelper.getFirstHeldItemClass(Minecraft.getInstance().player, ILexicon.class);
@@ -66,14 +64,11 @@ public class PageBrew extends PageRecipe implements ITwoNamedPage {
 
 		int i = 0;
 		y = gui.getTop() + gui.getHeight() - 54;
-		List<Object> inputs = new ArrayList<>(recipe.getInputs());
+		List<Ingredient> inputs = new ArrayList<>(recipe.getInputs());
 
 		int offset = gui.getWidth() / 2 - inputs.size() * 9;
-		for(Object input : inputs) {
-			if(input instanceof String)
-				input = OreDictionary.getOres((String) input).get(0);
-
-			renderItemAtLinePos(gui, offset, i, y, (ItemStack) input);
+		for(Ingredient input : inputs) {
+			renderItemAtLinePos(gui, offset, i, y, input.getMatchingStacks()[0]);
 			i++;
 		}
 

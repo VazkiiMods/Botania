@@ -127,6 +127,7 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 		return SHAPE.withOffset(shift.x, shift.y, shift.z);
 	}
 
+	/* todo 1.13
 	@Nonnull
 	@Override
 	public IExtendedBlockState getExtendedState(@Nonnull IBlockState state, IBlockReader world, BlockPos pos) {
@@ -139,6 +140,7 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 			return (IExtendedBlockState) state;
 		}
 	}
+	*/
 
 	@Override
 	public int getLightValue(@Nonnull IBlockState state, IWorldReader world, @Nonnull BlockPos pos) {

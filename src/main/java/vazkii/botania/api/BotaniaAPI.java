@@ -37,6 +37,7 @@ import net.minecraft.util.registry.RegistryNamespaced;
 import net.minecraft.util.registry.RegistryNamespacedDefaultedByKey;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.oredict.OreDictionary;
+import net.minecraftforge.registries.ForgeRegistries;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.internal.DummyMethodHandler;
 import vazkii.botania.api.internal.DummySubTile;
@@ -100,7 +101,6 @@ public final class BotaniaAPI {
 	public static final Set<Class<? extends Entity>> gravityRodBlacklist = new LinkedHashSet<>();
 	public static final Set<Block> gaiaBreakBlacklist = new HashSet<>();
 
-	// TODO 1.13 move these to eliminate dependence on botania proper in Ingredients
 	private static final int[] MAX_DAMAGE_ARRAY = new int[]{13, 15, 16, 11};
 	public static final IArmorMaterial MANASTEEL_ARMOR_MAT = new IArmorMaterial() {
 		private final int[] damageReduction = { 2, 5, 6, 2 };
@@ -126,7 +126,8 @@ public final class BotaniaAPI {
 
 		@Override
 		public Ingredient getRepairMaterial() {
-			return Ingredient.fromItems(ModItems.manaSteel);
+			Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation("botania", "manasteel_ingot"));
+			return Ingredient.fromItems(item);
 		}
 
 		@Override
@@ -168,7 +169,8 @@ public final class BotaniaAPI {
 		@Nonnull
 		@Override
 		public Ingredient getRepairMaterial() {
-			return Ingredient.fromItems(ModItems.manaSteel);
+			Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation("botania", "manasteel_ingot"));
+			return Ingredient.fromItems(item);
 		}
 	};
 
@@ -196,7 +198,8 @@ public final class BotaniaAPI {
 
 		@Override
 		public Ingredient getRepairMaterial() {
-			return Ingredient.fromItems(ModItems.elementium);
+			Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation("botania", "manasteel_ingot"));
+			return Ingredient.fromItems(item);
 		}
 
 		@Override
@@ -238,7 +241,8 @@ public final class BotaniaAPI {
 		@Nonnull
 		@Override
 		public Ingredient getRepairMaterial() {
-			return Ingredient.fromItems(ModItems.elementium);
+			Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation("botania", "manasteel_ingot"));
+			return Ingredient.fromItems(item);
 		}
 	};
 
@@ -266,7 +270,8 @@ public final class BotaniaAPI {
 
 		@Override
 		public Ingredient getRepairMaterial() {
-			return Ingredient.fromItems(ModItems.terrasteel);
+			Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation("botania", "terrasteel_ingot"));
+			return Ingredient.fromItems(item);
 		}
 
 		@Override
@@ -308,7 +313,8 @@ public final class BotaniaAPI {
 		@Nonnull
 		@Override
 		public Ingredient getRepairMaterial() {
-			return Ingredient.fromItems(ModItems.terrasteel);
+			Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation("botania", "terrasteel_ingot"));
+			return Ingredient.fromItems(item);
 		}
 	};
 	public static final IArmorMaterial MANAWEAVE_ARMOR_MAT = new IArmorMaterial() {
@@ -335,7 +341,8 @@ public final class BotaniaAPI {
 
 		@Override
 		public Ingredient getRepairMaterial() {
-			return Ingredient.fromItems(ModItems.manaweaveCloth);
+			Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation("botania", "manaweave_cloth"));
+			return Ingredient.fromItems(item);
 		}
 
 		@Override
@@ -552,7 +559,7 @@ public final class BotaniaAPI {
 	 * or String (case for Ore Dictionary). The array can't be larger than 16.
 	 * @return The recipe created.
 	 */
-	public static RecipePetals registerPetalRecipe(ItemStack output, Object... inputs) {
+	public static RecipePetals registerPetalRecipe(ItemStack output, Ingredient... inputs) {
 		Preconditions.checkArgument(inputs.length <= 16);
 		RecipePetals recipe = new RecipePetals(output, inputs);
 		petalRecipes.add(recipe);
@@ -617,7 +624,7 @@ public final class BotaniaAPI {
 	 * Alchemy Catalyst below the pool).
 	 * @see BotaniaAPI#registerManaInfusionRecipe
 	 */
-	public static RecipeManaInfusion registerManaAlchemyRecipe(ItemStack output, Object input, int mana) {
+	public static RecipeManaInfusion registerManaAlchemyRecipe(ItemStack output, Ingredient input, int mana) {
 		RecipeManaInfusion recipe = registerManaInfusionRecipe(output, input, mana);
 		recipe.setCatalyst(RecipeManaInfusion.alchemyState);
 		return recipe;

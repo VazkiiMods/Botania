@@ -114,7 +114,7 @@ public class GuiButtonCategory extends GuiButtonLexicon {
 		boolean shaders = ShaderHelper.useShaders();
 
 		if(shaders) {
-			OpenGlHelper.glActiveTexture(ARBMultitexture.GL_TEXTURE0_ARB + ConfigHandler.glSecondaryTextureUnit);
+			OpenGlHelper.glActiveTexture(ARBMultitexture.GL_TEXTURE0_ARB + ConfigHandler.CLIENT.glSecondaryTextureUnit.get());
 			texture = GL11.glGetInteger(GL11.GL_TEXTURE_BINDING_2D);
 		}
 
@@ -123,7 +123,7 @@ public class GuiButtonCategory extends GuiButtonLexicon {
 		ShaderHelper.releaseShader();
 
 		if(shaders) {
-			OpenGlHelper.glActiveTexture(ARBMultitexture.GL_TEXTURE0_ARB + ConfigHandler.glSecondaryTextureUnit);
+			OpenGlHelper.glActiveTexture(ARBMultitexture.GL_TEXTURE0_ARB + ConfigHandler.CLIENT.glSecondaryTextureUnit.get());
 			GL11.glBindTexture(GL11.GL_TEXTURE_2D, texture);
 			OpenGlHelper.glActiveTexture(ARBMultitexture.GL_TEXTURE0_ARB);
 		}

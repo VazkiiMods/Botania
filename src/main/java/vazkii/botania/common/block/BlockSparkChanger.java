@@ -116,9 +116,9 @@ public class BlockSparkChanger extends BlockMod implements ILexiconable {
 	public int getComparatorInputOverride(IBlockState state, World world, BlockPos pos) {
 		TileSparkChanger changer = (TileSparkChanger) world.getTileEntity(pos);
 		ItemStack stack = changer.getItemHandler().getStackInSlot(0);
-		if(stack.isEmpty())
-			return 0;
-		return stack.getItemDamage() + 1;
+		if(!stack.isEmpty() && stack.getItem() instanceof ItemSparkUpgrade)
+			return ((ItemSparkUpgrade) stack.getItem()).type.ordinal() + 1;
+		return 0;
 	}
 
 	@Override

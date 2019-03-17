@@ -35,6 +35,7 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -238,6 +239,11 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 		return !getState(stack).isAir();
 	}
 
+
+	public static ItemStack removeFromInventory(EntityPlayer player, LazyOptional<IItemHandler> inv, ItemStack stack, Block block, boolean doit) {
+		return inv.map(handler -> removeFromInventory(player, handler, stack, block, doit)).orElse(ItemStack.EMPTY);
+	}
+
 	public static ItemStack removeFromInventory(EntityPlayer player, IItemHandler inv, ItemStack stack, Block block, boolean doit) {
 		List<ItemStack> providers = new ArrayList<>();
 		for(int i = inv.getSlots() - 1; i >= 0; i--) {
@@ -284,6 +290,10 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 		if (count == -1) return -1;
 
 		return count+baubleCount;
+	}
+
+	public static int getInventoryItemCount(EntityPlayer player, LazyOptional<IItemHandler> inv, ItemStack stack, Block block) {
+		return inv.map(handler -> getInventoryItemCount(player, handler, stack, block)).orElse(0);
 	}
 
 	public static int getInventoryItemCount(EntityPlayer player, IItemHandler inv, ItemStack stack, Block block) {

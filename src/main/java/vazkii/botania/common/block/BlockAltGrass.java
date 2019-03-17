@@ -70,7 +70,7 @@ public class BlockAltGrass extends BlockMod implements ILexiconable {
 	}
 	
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+	public boolean onBlockActivated(IBlockState state, World world, BlockPos pos, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		ItemStack held = player.getHeldItem(hand);
 		if(held.getItem() instanceof ItemHoe && world.isAirBlock(pos.up())) {
 			held.damageItem(1, player);
@@ -86,11 +86,10 @@ public class BlockAltGrass extends BlockMod implements ILexiconable {
 		if(!world.isRemote && state.getBlock() == this && world.getLight(pos.up()) >= 9) {
 			for(int l = 0; l < 4; ++l) {
 				BlockPos pos1 = pos.add(rand.nextInt(3) - 1, rand.nextInt(5) - 3, rand.nextInt(3) - 1);
+				BlockPos pos1up = pos1.up();
 
-				world.getBlockState(pos1.up()).getBlock();
-
-				if(world.getBlockState(pos1).getBlock() == Blocks.DIRT && world.getLight(pos1.up()) >= 4 && world.getBlockLightOpacity(pos1.up()) <= 2)
-					world.setBlockState(pos1, getDefaultState(), 1 | 2);
+				if(world.getBlockState(pos1).getBlock() == Blocks.DIRT && world.getLight(pos1up) >= 4 && world.getBlockState(pos1up).getOpacity(world, pos1up) <= 2)
+					world.setBlockState(pos1, getDefaultState());
 			}
 		}
 	}
@@ -119,7 +118,7 @@ public class BlockAltGrass extends BlockMod implements ILexiconable {
 			break;
 		case SCORCHED:
 			if(r.nextInt(80) == 0)
-				world.spawnParticle(Particles.FLAME, pos.getX() + r.nextFloat(), pos.getY() + 1.1, pos.getZ() + r.nextFloat(), 0, 0, 0);
+				world.addParticle(Particles.FLAME, pos.getX() + r.nextFloat(), pos.getY() + 1.1, pos.getZ() + r.nextFloat(), 0, 0, 0);
 			break;
 		case INFUSED:
 			if(r.nextInt(100) == 0)

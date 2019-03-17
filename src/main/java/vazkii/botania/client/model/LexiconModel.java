@@ -2,12 +2,10 @@ package vazkii.botania.client.model;
 
 import com.google.common.collect.ImmutableList;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.model.BakedQuad;
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.model.ItemOverrideList;
-import net.minecraft.client.renderer.model.ModelResourceLocation;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.EnumFacing;
 import org.apache.commons.lang3.tuple.Pair;
@@ -19,10 +17,10 @@ import java.util.List;
 import java.util.Random;
 
 public class LexiconModel implements IBakedModel {
-	private final ModelResourceLocation path2D;
+	private final IBakedModel original;
 
-	public LexiconModel(ModelResourceLocation path) {
-		this.path2D = path;
+	public LexiconModel(IBakedModel original) {
+		this.original = original;
 	}
 
 	@Nonnull
@@ -32,7 +30,6 @@ public class LexiconModel implements IBakedModel {
 				|| cameraTransformType == ItemCameraTransforms.TransformType.FIRST_PERSON_LEFT_HAND)
 				&& ConfigHandler.CLIENT.lexicon3dModel.get())
 			return Pair.of(this, null);
-		IBakedModel original = Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelShapes().getModelManager().getModel(path2D);
 		return original.handlePerspective(cameraTransformType);
 	}
 
@@ -40,7 +37,7 @@ public class LexiconModel implements IBakedModel {
 	@Override public boolean isAmbientOcclusion() { return false; }
 	@Override public boolean isGui3d() { return false; }
 	@Override public boolean isBuiltInRenderer() { return false; }
-	@Nonnull @Override public TextureAtlasSprite getParticleTexture() { return Minecraft.getInstance().getTextureMap().getAtlasSprite("botania:items/lexicon"); }
+	@Nonnull @Override public TextureAtlasSprite getParticleTexture() { return original.getParticleTexture(); }
 	@SuppressWarnings("deprecation") @Nonnull @Override public ItemCameraTransforms getItemCameraTransforms() { return ItemCameraTransforms.DEFAULT; }
 	@Nonnull @Override public ItemOverrideList getOverrides() { return ItemOverrideList.EMPTY; }
 }

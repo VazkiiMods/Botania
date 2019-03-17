@@ -61,7 +61,7 @@ public class RecipeBrew {
 		return inputsMissing.isEmpty();
 	}
 
-	public List<Object> getInputs() {
+	public List<Ingredient> getInputs() {
 		return new ArrayList<>(inputs);
 	}
 

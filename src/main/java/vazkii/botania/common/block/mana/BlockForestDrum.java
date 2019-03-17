@@ -80,7 +80,7 @@ public class BlockForestDrum extends BlockMod implements IManaTrigger, ILexicona
 		if(burst.isFake())
 			return;
 		if(world.isRemote) {
-			world.spawnParticle(Particles.NOTE, pos.getX() + 0.5, pos.getY() + 1.2, pos.getZ() + 0.5D, 1.0 / 24.0, 0, 0);
+			world.addParticle(Particles.NOTE, pos.getX() + 0.5, pos.getY() + 1.2, pos.getZ() + 0.5D, 1.0 / 24.0, 0, 0);
 			return;
 		}
 		if(variant == Variant.WILD)

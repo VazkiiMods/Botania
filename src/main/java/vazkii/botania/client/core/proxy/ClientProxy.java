@@ -229,7 +229,7 @@ public class ClientProxy implements IProxy {
 
 	@Override
 	public boolean openWikiPage(World world, Block block, RayTraceResult pos) {
-		if(ConfigHandler.lexicaOfflineMode) 
+		if(ConfigHandler.CLIENT.lexicaOfflineMode.get())
 			return false;
 		IWikiProvider wiki = WikiHooks.getWikiFor(block);
 		String url = wiki.getWikiURL(world, pos, Minecraft.getInstance().player);

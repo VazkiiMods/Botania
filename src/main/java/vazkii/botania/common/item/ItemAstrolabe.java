@@ -191,8 +191,7 @@ public class ItemAstrolabe extends ItemMod {
 		if(rtr != null) {
 			BlockPos pos = rtr.getBlockPos();
 			IBlockState state = player.world.getBlockState(pos);
-			Block block = state.getBlock();
-			if(block.isReplaceable(player.world, pos))
+			if(state.getMaterial().isReplaceable())
 				pos = pos.down();
 
 			int range = (getSize(stack) ^ 1) / 2;

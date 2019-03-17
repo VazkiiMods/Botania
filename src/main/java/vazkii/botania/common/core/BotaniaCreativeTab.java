@@ -525,11 +525,11 @@ public final class BotaniaCreativeTab extends ItemGroup {
 	}
 
 	private void addItem(Item item) {
-		item.getSubItems(this, list);
+		item.fillItemGroup(this, list);
 	}
 
 	private void addBlock(Block block) {
-		block.getSubBlocks(this, list);
+		block.fillItemGroup(this, list);
 	}
 
 }

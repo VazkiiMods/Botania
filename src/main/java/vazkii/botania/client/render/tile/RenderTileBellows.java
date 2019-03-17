@@ -43,7 +43,7 @@ public class RenderTileBellows extends TileEntityRenderer<TileBellows> {
 		GlStateManager.translated(d0, d1, d2);
 
 		Minecraft.getInstance().textureManager.bindTexture(texture);
-		int meta = bellows != null && bellows.getWorld() != null ? bellows.getBlockMetadata() : 0;
+		int meta = 0; // todo 1.13 bellows != null && bellows.getWorld() != null ? bellows.getBlockMetadata() : 0;
 
 		GlStateManager.translatef(0.5F, 1.5F, 0.5F);
 		GlStateManager.scalef(1F, -1F, -1F);

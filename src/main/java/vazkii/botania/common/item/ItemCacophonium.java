@@ -39,6 +39,7 @@ import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileCacophonium;
@@ -73,7 +74,7 @@ public class ItemCacophonium extends ItemMod {
 				sound = ((EntitySlime) living).isSmallSlime() ? SoundEvents.ENTITY_SLIME_SQUISH_SMALL : SoundEvents.ENTITY_SLIME_SQUISH;
 			else {
 				try {
-					sound = (SoundEvent) ReflectionHelper.findMethod(EntityLiving.class, LibObfuscation.GET_LIVING_SOUND[0], LibObfuscation.GET_LIVING_SOUND[1]).invoke(living);
+					sound = (SoundEvent) ObfuscationReflectionHelper.findMethod(EntityLiving.class, LibObfuscation.GET_LIVING_SOUND).invoke(living);
 				} catch (InvocationTargetException | IllegalAccessException ignored) {
 					Botania.LOGGER.debug("Couldn't get living sound");
 				}

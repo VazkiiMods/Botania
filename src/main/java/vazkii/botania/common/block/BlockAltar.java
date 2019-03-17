@@ -31,6 +31,7 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
@@ -139,7 +140,7 @@ public class BlockAltar extends BlockMod implements ILexiconable {
 					if(stack.getItem() == ModItems.waterRod)
 						ManaItemHandler.requestManaExact(stack, player, ItemWaterRod.COST, true);
 					else if(!player.abilities.isCreativeMode)
-						player.setHeldItem(hand, drain(FluidRegistry.WATER, stack));
+						player.setHeldItem(hand, new ItemStack(Items.BUCKET) /* todo 1.13 drain(FluidRegistry.WATER, stack) */);
 
 					tile.setWater(true);
 					world.updateComparatorOutputLevel(pos, this);
@@ -149,7 +150,7 @@ public class BlockAltar extends BlockMod implements ILexiconable {
 				return true;
 			} else if(!stack.isEmpty() && stack.getItem() == Items.LAVA_BUCKET) {
 				if(!player.abilities.isCreativeMode)
-					player.setHeldItem(hand, drain(FluidRegistry.LAVA, stack));
+					player.setHeldItem(hand, new ItemStack(Items.BUCKET) /* todo 1.13 drain(FluidRegistry.LAVA, stack) */);
 
 				tile.setLava(true);
 				tile.setWater(false);
@@ -196,25 +197,26 @@ public class BlockAltar extends BlockMod implements ILexiconable {
 		if(stack.isEmpty() || stack.getCount() != 1)
 			return false;
 
-		if(stack.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null)) {
-			IFluidHandler handler = stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
+		LazyOptional<IFluidHandlerItem> cap = stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY);
+		if(cap.isPresent()) {
+			IFluidHandler handler = cap.orElseThrow(IllegalStateException::new);
+			/* todo 1.13
 			FluidStack simulate = handler.drain(new FluidStack(FluidRegistry.WATER, Fluid.BUCKET_VOLUME), false);
 			if(simulate != null && simulate.getFluid() == FluidRegistry.WATER && simulate.amount == Fluid.BUCKET_VOLUME)
 				return true;
+			*/
 		}
 
 		return false;
 	}
 
 	private ItemStack drain(Fluid fluid, ItemStack stack) {
-		IFluidHandlerItem handler = stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
-		handler.drain(new FluidStack(fluid, Fluid.BUCKET_VOLUME), true);
-		return handler.getContainer();
-	}
-
-	@Override
-	public boolean isOpaqueCube(IBlockState state) {
-		return false;
+		return stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY)
+				.map(handler -> {
+					handler.drain(new FluidStack(fluid, Fluid.BUCKET_VOLUME), true);
+					return handler.getContainer();
+				})
+				.orElse(stack);
 	}
 
 	@Override
@@ -229,7 +231,7 @@ public class BlockAltar extends BlockMod implements ILexiconable {
 
 	@Nonnull
 	@Override
-	public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
+	public TileEntity createTileEntity(@Nonnull IBlockState state, @Nonnull IBlockReader world) {
 		return new TileAltar();
 	}
 

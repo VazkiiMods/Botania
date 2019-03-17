@@ -30,7 +30,7 @@ public class SeedBehaviours {
 		BlockDispenser.registerDispenseBehavior(Items.BEETROOT_SEEDS, new BehaviourSeeds(Blocks.BEETROOTS));
 		BlockDispenser.registerDispenseBehavior(Blocks.CHORUS_FLOWER, new BehaviourSeeds(Blocks.CHORUS_FLOWER));
 
-		BlockDispenser.registerDispenseBehavior(Items.COCOA_BEANS, new BehaviourCocoaBeans(BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.getObject(Items.DYE)));
+		BlockDispenser.registerDispenseBehavior(Items.COCOA_BEANS, new BehaviourCocoaBeans());
 	}
 
 }

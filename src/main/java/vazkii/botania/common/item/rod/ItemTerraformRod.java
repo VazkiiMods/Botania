@@ -116,7 +116,7 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockP
 					BlockPos pos_ = pos.offset(dir);
 					IBlockState state_ = world.getBlockState(pos_);
 					Block block_ = state_.getBlock();
-					if(state_.isAir(world, pos_) || block_.isReplaceable(state_, world, pos_)
+					if(state_.isAir(world, pos_) || state_.getMaterial().isReplaceable()
 							|| block_ instanceof BlockFlower && !(block_ instanceof ISpecialFlower)
 							|| block_ instanceof BlockDoublePlant) {
 						airBlocks.add(pos_);
@@ -127,7 +127,7 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockP
 					if(pos.getY() > startCenter.getY())
 						blocks.add(new CoordsWithBlock(pos, Blocks.AIR));
 					else for(BlockPos coords : airBlocks) {
-						if(world.getBlockState(coords.down()).getBlock() != Blocks.AIR)
+						if(!world.isAirBlock(coords.down()))
 							blocks.add(new CoordsWithBlock(coords, Blocks.DIRT));
 					}
 				}

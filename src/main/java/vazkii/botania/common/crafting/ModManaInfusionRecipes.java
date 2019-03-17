@@ -14,8 +14,11 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.IRegistry;
+import net.minecraftforge.common.Tags;
+import net.minecraftforge.registries.ForgeRegistries;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.recipe.RecipeManaInfusion;
 import vazkii.botania.common.Botania;
@@ -46,47 +49,47 @@ public final class ModManaInfusionRecipes {
 
 	public static void init() {
 		manasteelRecipes = new ArrayList<>();
-		manasteelRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaSteel), "ingotIron", 3000));
-		manasteelRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModBlocks.manasteelBlock), new ItemStack(Blocks.IRON_BLOCK), 27000));
+		manasteelRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaSteel), Ingredient.fromTag(Tags.Items.INGOTS_IRON), 3000));
+		manasteelRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModBlocks.manasteelBlock), Ingredient.fromItems(Blocks.IRON_BLOCK), 27000));
 
-		manaPearlRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaPearl), new ItemStack(Items.ENDER_PEARL), 6000);
+		manaPearlRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaPearl), Ingredient.fromItems(Items.ENDER_PEARL), 6000);
 
 		manaDiamondRecipes = new ArrayList<>();
-		manaDiamondRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaDiamond), "gemDiamond", 10000));
-		manaDiamondRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModBlocks.manaDiamondBlock), new ItemStack(Blocks.DIAMOND_BLOCK), 90000));
+		manaDiamondRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaDiamond), Ingredient.fromTag(Tags.Items.GEMS_DIAMOND), 10000));
+		manaDiamondRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModBlocks.manaDiamondBlock), Ingredient.fromItems(Blocks.DIAMOND_BLOCK), 90000));
 
 		manaPowderRecipes = new ArrayList<>();
-		manaPowderRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaPowder), new ItemStack(Items.GUNPOWDER), 500));
-		manaPowderRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaPowder), new ItemStack(Items.REDSTONE), 500));
-		manaPowderRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaPowder), new ItemStack(Items.GLOWSTONE_DUST), 500));
-		manaPowderRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaPowder), new ItemStack(Items.SUGAR), 500));
+		manaPowderRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaPowder), Ingredient.fromItems(Items.GUNPOWDER), 500));
+		manaPowderRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaPowder), Ingredient.fromItems(Items.REDSTONE), 500));
+		manaPowderRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaPowder), Ingredient.fromItems(Items.GLOWSTONE_DUST), 500));
+		manaPowderRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaPowder), Ingredient.fromItems(Items.SUGAR), 500));
 		for(Item dye : ModItems.dyes.values())
-			manaPowderRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaPowder), new ItemStack(dye), 400));
+			manaPowderRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaPowder), Ingredient.fromItems(dye), 400));
 
-		pistonRelayRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModBlocks.pistonRelay), new ItemStack(Blocks.PISTON), 15000);
-		manaCookieRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaCookie), new ItemStack(Items.COOKIE), 20000);
-		grassSeedsRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.grassSeeds), new ItemStack(Blocks.GRASS), 2500);
-		podzolSeedsRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.podzolSeeds), new ItemStack(Blocks.DEAD_BUSH), 2500);
+		pistonRelayRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModBlocks.pistonRelay), Ingredient.fromItems(Blocks.PISTON), 15000);
+		manaCookieRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaCookie), Ingredient.fromItems(Items.COOKIE), 20000);
+		grassSeedsRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.grassSeeds), Ingredient.fromItems(Blocks.GRASS), 2500);
+		podzolSeedsRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.podzolSeeds), Ingredient.fromItems(Blocks.DEAD_BUSH), 2500);
 
 		mycelSeedsRecipes = new ArrayList<>();
-		mycelSeedsRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.mycelSeeds), new ItemStack(Blocks.RED_MUSHROOM), 6500));
-		mycelSeedsRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.mycelSeeds), new ItemStack(Blocks.BROWN_MUSHROOM), 6500));
+		mycelSeedsRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.mycelSeeds), Ingredient.fromItems(Blocks.RED_MUSHROOM), 6500));
+		mycelSeedsRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.mycelSeeds), Ingredient.fromItems(Blocks.BROWN_MUSHROOM), 6500));
 
-		manaQuartzRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaQuartz), new ItemStack(Items.QUARTZ), 250);
-		tinyPotatoRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModBlocks.tinyPotato), new ItemStack(Items.POTATO), 1337);
+		manaQuartzRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaQuartz), Ingredient.fromItems(Items.QUARTZ), 250);
+		tinyPotatoRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModBlocks.tinyPotato), Ingredient.fromItems(Items.POTATO), 1337);
 
 		if(Botania.thaumcraftLoaded) {
-			Item inkwell = IRegistry.ITEM.get(new ResourceLocation("thaumcraft", "scribing_tools"));
-			manaInkwellRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaInkwell), new ItemStack(inkwell), 35000);
+			Item inkwell = ForgeRegistries.ITEMS.getValue(new ResourceLocation("thaumcraft", "scribing_tools"));
+			manaInkwellRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaInkwell), Ingredient.fromItems(inkwell), 35000);
 		}
 
-		managlassRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModBlocks.manaGlass), new ItemStack(Blocks.GLASS), 150);
-		manaStringRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaString), new ItemStack(Items.STRING), 5000);
+		managlassRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModBlocks.manaGlass), Ingredient.fromItems(Blocks.GLASS), 150);
+		manaStringRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaString), Ingredient.fromItems(Items.STRING), 5000);
 
 		if(Botania.gardenOfGlassLoaded)
-			sugarCaneRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(Blocks.SUGAR_CANE), new ItemStack(Blocks.HAY_BLOCK), 2000);
+			sugarCaneRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(Blocks.SUGAR_CANE), Ingredient.fromItems(Blocks.HAY_BLOCK), 2000);
 
-		BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaBottle), new ItemStack(Items.GLASS_BOTTLE), 5000);
+		BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaBottle), Ingredient.fromItems(Items.GLASS_BOTTLE), 5000);
 	}
 
 }

@@ -42,7 +42,6 @@ public class BlockRuneAltar extends BlockMod implements IWandable, ILexiconable 
 
 	public BlockRuneAltar(Properties builder) {
 		super(builder);
-		BotaniaAPI.blacklistBlockFromMagnet(this, Short.MAX_VALUE);
 	}
 
 	@Nonnull

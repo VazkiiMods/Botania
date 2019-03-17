@@ -13,6 +13,7 @@ package vazkii.botania.common.block.tile;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.IEntityLivingData;
+import net.minecraft.init.Particles;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.MobSpawnerBaseLogic;
@@ -49,29 +50,29 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver, ITickable
 			TileEntityMobSpawner spawner = (TileEntityMobSpawner) tileBelow;
 			MobSpawnerBaseLogic logic = spawner.getSpawnerBaseLogic();
 
-			BlockPos blockpos = logic.getSpawnerPosition();
-
-			// Directly drawn from MobSpawnerBaseLogic, with inverted isActivated check and mana consumption
-			if(!logic.isActivated()) {
-				if(!world.isRemote)
-					mana -= 6;
-
-				if(logic.getWorld().isRemote) {
-					if(logic.spawnDelay > 0) {
-						--logic.spawnDelay;
-					}
-
+			// [VanillaCopy] MobSpawnBaseLogic.tick, edits noted
+			if (!logic.isActivated()) { // Botania - invert activated check
+				BlockPos blockpos = logic.getSpawnerPosition();
+				if (this.getWorld().isRemote) {
+					// Botania - use own particles
 					if(Math.random() > 0.5)
 						Botania.proxy.wispFX(getPos().getX() + 0.3 + Math.random() * 0.5, getPos().getY() - 0.3 + Math.random() * 0.25, getPos().getZ() + Math.random(), 0.6F - (float) Math.random() * 0.3F, 0.1F, 0.6F - (float) Math.random() * 0.3F, (float) Math.random() / 3F, -0.025F - 0.005F * (float) Math.random(), 2F);
 
+					if (logic.spawnDelay > 0) {
+						--logic.spawnDelay;
+					}
+
 					logic.prevMobRotation = logic.mobRotation;
-					logic.mobRotation = (logic.mobRotation + (double) (1000.0F / ((float) logic.spawnDelay + 200.0F))) % 360.0D;
+					logic.mobRotation = (logic.mobRotation + (double)(1000.0F / ((float)logic.spawnDelay + 200.0F))) % 360.0D;
 				} else {
-					if(logic.spawnDelay == -1) {
+					// Botania - consume mana
+					this.mana -= 6;
+
+					if (logic.spawnDelay == -1) {
 						logic.resetTimer();
 					}
 
-					if(logic.spawnDelay > 0) {
+					if (logic.spawnDelay > 0) {
 						--logic.spawnDelay;
 						return;
 					}
@@ -80,38 +81,35 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver, ITickable
 
 					for(int i = 0; i < logic.spawnCount; ++i) {
 						NBTTagCompound nbttagcompound = logic.spawnData.getNbt();
-						NBTTagList nbttaglist = nbttagcompound.getTagList("Pos", 6);
-						World world = logic.getSpawnerWorld();
-						int j = nbttaglist.tagCount();
-						double d0 = j >= 1 ? nbttaglist.getDoubleAt(0) : (double) blockpos.getX() + (world.rand.nextDouble() - world.rand.nextDouble()) * (double) logic.spawnRange + 0.5D;
-						double d1 = j >= 2 ? nbttaglist.getDoubleAt(1) : (double) (blockpos.getY() + world.rand.nextInt(3) - 1);
-						double d2 = j >= 3 ? nbttaglist.getDoubleAt(2) : (double) blockpos.getZ() + (world.rand.nextDouble() - world.rand.nextDouble()) * (double) logic.spawnRange + 0.5D;
+						NBTTagList nbttaglist = nbttagcompound.getList("Pos", 6);
+						World world = logic.getWorld();
+						int j = nbttaglist.size();
+						double d0 = j >= 1 ? nbttaglist.getDouble(0) : (double)blockpos.getX() + (world.rand.nextDouble() - world.rand.nextDouble()) * (double)logic.spawnRange + 0.5D;
+						double d1 = j >= 2 ? nbttaglist.getDouble(1) : (double)(blockpos.getY() + world.rand.nextInt(3) - 1);
+						double d2 = j >= 3 ? nbttaglist.getDouble(2) : (double)blockpos.getZ() + (world.rand.nextDouble() - world.rand.nextDouble()) * (double)logic.spawnRange + 0.5D;
 						Entity entity = AnvilChunkLoader.readWorldEntityPos(nbttagcompound, world, d0, d1, d2, false);
-
-						if(entity == null) {
-							return;
-						}
-
-						int k = world.getEntitiesWithinAABB(entity.getClass(), (new AxisAlignedBB((double) blockpos.getX(), (double) blockpos.getY(), (double) blockpos.getZ(), (double) (blockpos.getX() + 1), (double) (blockpos.getY() + 1), (double) (blockpos.getZ() + 1))).grow((double) logic.spawnRange)).size();
-
-						if(k >= logic.maxNearbyEntities) {
+						if (entity == null) {
 							logic.resetTimer();
 							return;
 						}
 
-						EntityLiving entityliving = entity instanceof EntityLiving ? (EntityLiving) entity : null;
-						entity.setLocationAndAngles(entity.posX, entity.posY, entity.posZ, world.rand.nextFloat() * 360.0F, 0.0F);
+						int k = world.getEntitiesWithinAABB(entity.getClass(), (new AxisAlignedBB((double)blockpos.getX(), (double)blockpos.getY(), (double)blockpos.getZ(), (double)(blockpos.getX() + 1), (double)(blockpos.getY() + 1), (double)(blockpos.getZ() + 1))).grow((double)logic.spawnRange)).size();
+						if (k >= logic.maxNearbyEntities) {
+							logic.resetTimer();
+							return;
+						}
 
-						if(entityliving == null || net.minecraftforge.event.ForgeEventFactory.canEntitySpawnSpawner(entityliving, world, (float) entity.posX, (float) entity.posY, (float) entity.posZ)) {
-							if(logic.spawnData.getNbt().getSize() == 1 && logic.spawnData.getNbt().hasKey("id", 8) && entity instanceof EntityLiving) {
-								if(!net.minecraftforge.event.ForgeEventFactory.doSpecialSpawn(entityliving, logic.getSpawnerWorld(), (float) entity.posX, (float) entity.posY, (float) entity.posZ))
-									((EntityLiving) entity).onInitialSpawn(world.getDifficultyForLocation(new BlockPos(entity)), (IEntityLivingData) null);
+						EntityLiving entityliving = entity instanceof EntityLiving ? (EntityLiving)entity : null;
+						entity.setLocationAndAngles(entity.posX, entity.posY, entity.posZ, world.rand.nextFloat() * 360.0F, 0.0F);
+						if (entityliving == null || net.minecraftforge.event.ForgeEventFactory.canEntitySpawnSpawner(entityliving, getWorld(), (float)entity.posX, (float)entity.posY, (float)entity.posZ, logic)) {
+							if (logic.spawnData.getNbt().size() == 1 && logic.spawnData.getNbt().contains("id", 8) && entity instanceof EntityLiving) {
+								if (!net.minecraftforge.event.ForgeEventFactory.doSpecialSpawn(entityliving, logic.getWorld(), (float)entity.posX, (float)entity.posY, (float)entity.posZ, logic))
+									((EntityLiving)entity).onInitialSpawn(world.getDifficultyForLocation(new BlockPos(entity)), (IEntityLivingData)null, (NBTTagCompound)null);
 							}
 
 							AnvilChunkLoader.spawnEntity(entity, world);
 							world.playEvent(2004, blockpos, 0);
-
-							if(entityliving != null) {
+							if (entityliving != null) {
 								entityliving.spawnExplosionParticle();
 							}
 
@@ -119,7 +117,7 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver, ITickable
 						}
 					}
 
-					if(flag) {
+					if (flag) {
 						logic.resetTimer();
 					}
 				}
@@ -129,7 +127,7 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver, ITickable
 
 	@Override
 	public void writePacketNBT(NBTTagCompound cmp) {
-		cmp.setInt(TAG_MANA, mana);
+		cmp.putInt(TAG_MANA, mana);
 	}
 
 	@Override

@@ -12,6 +12,7 @@ package vazkii.botania.api.recipe;
 
 import com.google.common.collect.ImmutableList;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.oredict.OreDictionary;
@@ -23,67 +24,40 @@ import java.util.List;
 public class RecipePetals {
 
 	private final ItemStack output;
-	private final ImmutableList<Object> inputs;
+	private final ImmutableList<Ingredient> inputs;
 
-	public RecipePetals(ItemStack output, Object... inputs) {
+	public RecipePetals(ItemStack output, Ingredient... inputs) {
 		this.output = output;
-
-		ImmutableList.Builder<Object> inputsToSet = ImmutableList.builder();
-		for(Object obj : inputs) {
-			if(obj instanceof String || obj instanceof ItemStack)
-				inputsToSet.add(obj);
-			else throw new IllegalArgumentException("Invalid input");
-		}
-
-		this.inputs = inputsToSet.build();
+		this.inputs = ImmutableList.copyOf(inputs);
 	}
 
 	public boolean matches(IItemHandler inv) {
-		List<Object> inputsMissing = new ArrayList<>(inputs);
+		List<Ingredient> ingredientsMissing = new ArrayList<>(inputs);
 
 		for(int i = 0; i < inv.getSlots(); i++) {
-			ItemStack stack = inv.getStackInSlot(i);
-			if(stack.isEmpty())
+			ItemStack input = inv.getStackInSlot(i);
+			if(input.isEmpty())
 				break;
 
-			int stackIndex = -1, oredictIndex = -1;
+			int stackIndex = -1;
 
-			for(int j = 0; j < inputsMissing.size(); j++) {
-				Object input = inputsMissing.get(j);
-				if(input instanceof String) {
-					boolean found = false;
-					for(ItemStack ostack : OreDictionary.getOres((String) input, false)) {
-						if(OreDictionary.itemMatches(ostack, stack, false)) {
-							oredictIndex = j;
-							found = true;
-							break;
-						}
-					}
-
-
-					if(found)
-						break;
-				} else if(input instanceof ItemStack && compareStacks((ItemStack) input, stack)) {
+			for(int j = 0; j < ingredientsMissing.size(); j++) {
+				Ingredient ingr = ingredientsMissing.get(j);
+				if(ingr.test(input)) {
 					stackIndex = j;
 					break;
 				}
 			}
 
 			if(stackIndex != -1)
-				inputsMissing.remove(stackIndex);
-			else if(oredictIndex != -1)
-				inputsMissing.remove(oredictIndex);
+				ingredientsMissing.remove(stackIndex);
 			else return false;
 		}
 
-		return inputsMissing.isEmpty();
+		return ingredientsMissing.isEmpty();
 	}
 
-	private boolean compareStacks(ItemStack recipe, ItemStack supplied) {
-		return recipe.getItem() == supplied.getItem() && recipe.getItemDamage() == supplied.getItemDamage() && ItemNBTHelper.isTagSubset(recipe.getTagCompound(), supplied.getTagCompound());
-	}
-
-	public List<Object> getInputs() {
+	public List<Ingredient> getInputs() {
 		return inputs;
 	}
 

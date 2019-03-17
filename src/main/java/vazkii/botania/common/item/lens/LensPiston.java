@@ -28,7 +28,7 @@ public class LensPiston extends Lens {
 		if(!entity.world.isRemote && pos.getBlockPos() != null && !coords.equals(pos.getBlockPos()) && !burst.isFake() && !isManaBlock) {
 			BlockPos pos_ = pos.getBlockPos().offset(pos.sideHit.getOpposite());
 
-			if(entity.world.isAirBlock(pos_) || entity.world.getBlockState(pos_).getBlock().isReplaceable(entity.world, pos_)) {
+			if(entity.world.isAirBlock(pos_) || entity.world.getBlockState(pos_).getMaterial().isReplaceable()) {
 				IBlockState state = entity.world.getBlockState(pos.getBlockPos());
 				TileEntity tile = entity.world.getTileEntity(pos.getBlockPos());
 

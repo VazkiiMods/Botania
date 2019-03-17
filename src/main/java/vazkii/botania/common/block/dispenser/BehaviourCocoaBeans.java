@@ -33,7 +33,7 @@ public class BehaviourCocoaBeans extends BehaviorDefaultDispenseItem {
 		BlockPos pos = source.getBlockPos().offset(facing);
 		World world = source.getWorld();
 
-		IBlockState cocoa = block.getStateForPlacement(new BlockItemUseContext(world, null, ItemStack.EMPTY, pos, facing.getOpposite(), 0, 0, 0));
+		IBlockState cocoa = block.getStateForPlacement(new BlockItemUseContext(world, null, stack, pos, facing.getOpposite(), 0, 0, 0));
 		if(cocoa != null && world.isAirBlock(pos)) {
 			world.setBlockState(pos, cocoa);
 			stack.shrink(1);

@@ -19,6 +19,7 @@ import javax.annotation.Nonnull;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.item.EntityEnderPearl;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -49,6 +50,7 @@ import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.lib.LibBlockNames;
+import vazkii.botania.common.lib.LibEntityNames;
 import vazkii.botania.common.lib.LibMisc;
 
 public class TileLightRelay extends TileMod implements ITickable, IWandBindable {
@@ -243,7 +245,8 @@ public class TileLightRelay extends TileMod implements ITickable, IWandBindable 
 	}
 
 	public static class EntityPlayerMover extends Entity {
-
+		@ObjectHolder(LibMisc.MOD_ID + ":player_mover")
+		public static EntityType<EntityPlayerMover> TYPE;
 		private static final String TAG_EXIT_X = "exitX";
 		private static final String TAG_EXIT_Y = "exitY";
 		private static final String TAG_EXIT_Z = "exitZ";
@@ -251,7 +254,7 @@ public class TileLightRelay extends TileMod implements ITickable, IWandBindable 
 
 
 		public EntityPlayerMover(World world) {
-			super(world);
+			super(TYPE, world);
 			setSize(0F, 0F);
 			noClip = true;
 		}

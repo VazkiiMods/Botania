@@ -72,7 +72,7 @@ public class ItemSpawnerMover extends ItemMod {
 		if(tag != null && tag.contains(TAG_SPAWN_DATA)) {
 			tag = tag.getCompound(TAG_SPAWN_DATA);
 			if(tag.contains(TAG_ID)) {
-				return ResourceLocation.makeResourceLocation(tag.getString(TAG_ID));
+				return ResourceLocation.tryCreate(tag.getString(TAG_ID));
 			}
 		}
 
@@ -90,7 +90,7 @@ public class ItemSpawnerMover extends ItemMod {
 		if (id != null) {
 			EntityType<?> type = ForgeRegistries.ENTITIES.getValue(id);
 			if (type != null) {
-				infoList.add(type.func_212546_e());
+				infoList.add(type.getName());
 			}
 		}
 	}

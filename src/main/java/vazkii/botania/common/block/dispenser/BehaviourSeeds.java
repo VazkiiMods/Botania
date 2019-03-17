@@ -30,18 +30,18 @@ public class BehaviourSeeds extends BehaviorDefaultDispenseItem {
 
 	@Nonnull
 	@Override
-	public ItemStack dispenseStack(IBlockSource par1IBlockSource, ItemStack par2ItemStack) {
-		EnumFacing facing = par1IBlockSource.getBlockState().get(BlockDispenser.FACING);
-		BlockPos pos = par1IBlockSource.getBlockPos().offset(facing);
-		World world = par1IBlockSource.getWorld();
+	public ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
+		EnumFacing facing = source.getBlockState().get(BlockDispenser.FACING);
+		BlockPos pos = source.getBlockPos().offset(facing);
+		World world = source.getWorld();
 
-		if(world.isAirBlock(pos) && block.canPlaceBlockAt(world, pos)) {
+		if(world.isAirBlock(pos) && block.getDefaultState().isValidPosition(world, pos)) {
 			world.setBlockState(pos, block.getDefaultState());
-			par2ItemStack.shrink(1);
-			return par2ItemStack;
+			stack.shrink(1);
+			return stack;
 		}
 
-		return super.dispenseStack(par1IBlockSource, par2ItemStack);
+		return super.dispenseStack(source, stack);
 	}
 
 }

@@ -56,7 +56,7 @@ public class TileBellows extends TileMod implements ITickable {
 			TilePool pool = (TilePool) tile;
 			boolean transfer = pool.isDoingTransfer;
 			if(transfer) {
-				if(pool.ticksDoingTransfer >= getBlockMetadata() * 2 - 2)
+				if(pool.ticksDoingTransfer > 0)
 					setActive(true);
 				disable = false;
 			}
