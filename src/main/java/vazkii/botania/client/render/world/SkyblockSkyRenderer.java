@@ -43,7 +43,7 @@ public class SkyblockSkyRenderer implements IRenderHandler {
 			new ResourceLocation(LibResources.MISC_PLANET + "5.png")
 	};
 
-	// Copy of overworld section of RenderGlobal.renderSky(), heavily modified
+	// [VanillaCopy] WorldRenderer.renderSky, overworld section, edits noted
 	@Override
 	public void render(float partialTicks, WorldClient world, Minecraft mc) {
 		// Environment setup
@@ -66,74 +66,48 @@ public class SkyblockSkyRenderer implements IRenderHandler {
 		f1 = Math.max(0F, f1 - insideVoid);
 		f2 = Math.max(0F, f2 - insideVoid);
 
-		/*if (pass != 2) Botania - no anaglyph stuff
-		{
-			float f3 = (f * 30.0F + f1 * 59.0F + f2 * 11.0F) / 100.0F;
-			float f4 = (f * 30.0F + f1 * 70.0F) / 100.0F;
-			float f5 = (f * 30.0F + f2 * 70.0F) / 100.0F;
-			f = f3;
-			f1 = f4;
-			f2 = f5;
-		}*/
-
-		GlStateManager.color(f, f1, f2);
+		GlStateManager.color3f(f, f1, f2);
 		Tessellator tessellator = Tessellator.getInstance();
-		BufferBuilder BufferBuilder = tessellator.getBuffer();
+		BufferBuilder bufferbuilder = tessellator.getBuffer();
 		GlStateManager.depthMask(false);
 		GlStateManager.enableFog();
-		GlStateManager.color(f, f1, f2);
-
-		if (OpenGlHelper.useVbo())
-		{
+		GlStateManager.color3f(f, f1, f2);
+		if (OpenGlHelper.useVbo()) {
 			skyVBO.bindBuffer();
-			GlStateManager.glEnableClientState(32884);
-			GlStateManager.glVertexPointer(3, 5126, 12, 0);
+			GlStateManager.enableClientState(32884);
+			GlStateManager.vertexPointer(3, 5126, 12, 0);
 			skyVBO.drawArrays(7);
 			skyVBO.unbindBuffer();
-			GlStateManager.glDisableClientState(32884);
-		}
-		else
-		{
+			GlStateManager.disableClientState(32884);
+		} else {
 			GlStateManager.callList(glSkyList);
 		}
 
 		GlStateManager.disableFog();
-		GlStateManager.disableAlpha();
+		GlStateManager.disableAlphaTest();
 		GlStateManager.enableBlend();
-		GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+		GlStateManager.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
 		RenderHelper.disableStandardItemLighting();
-		float[] afloat = world.provider.calcSunriseSunsetColors(world.getCelestialAngle(partialTicks), partialTicks);
-
-		if (afloat != null)
-		{
+		float[] afloat = world.dimension.calcSunriseSunsetColors(world.getCelestialAngle(partialTicks), partialTicks);
+		if (afloat != null) {
 			GlStateManager.disableTexture2D();
 			GlStateManager.shadeModel(7425);
 			GlStateManager.pushMatrix();
-			GlStateManager.rotate(90.0F, 1.0F, 0.0F, 0.0F);
-			GlStateManager.rotate(MathHelper.sin(world.getCelestialAngleRadians(partialTicks)) < 0.0F ? 180.0F : 0.0F, 0.0F, 0.0F, 1.0F);
-			GlStateManager.rotate(90.0F, 0.0F, 0.0F, 1.0F);
-			float f6 = afloat[0];
-			float f7 = afloat[1];
-			float f8 = afloat[2];
+			GlStateManager.rotatef(90.0F, 1.0F, 0.0F, 0.0F);
+			GlStateManager.rotatef(MathHelper.sin(world.getCelestialAngleRadians(partialTicks)) < 0.0F ? 180.0F : 0.0F, 0.0F, 0.0F, 1.0F);
+			GlStateManager.rotatef(90.0F, 0.0F, 0.0F, 1.0F);
+			float f3 = afloat[0];
+			float f4 = afloat[1];
+			float f5 = afloat[2];
+			bufferbuilder.begin(6, DefaultVertexFormats.POSITION_COLOR);
+			bufferbuilder.pos(0.0D, 100.0D, 0.0D).color(f3, f4, f5, afloat[3]).endVertex();
+			int i = 16;
 
-			/*if (pass != 2) Botania - no anaglyph stuff
-			{
-				float f9 = (f6 * 30.0F + f7 * 59.0F + f8 * 11.0F) / 100.0F;
-				float f10 = (f6 * 30.0F + f7 * 70.0F) / 100.0F;
-				float f11 = (f6 * 30.0F + f8 * 70.0F) / 100.0F;
-				f6 = f9;
-				f7 = f10;
-				f8 = f11;
-			}*/
-
-			BufferBuilder.begin(6, DefaultVertexFormats.POSITION_COLOR);
-			BufferBuilder.pos(0.0D, 100.0D, 0.0D).color(f6, f7, f8, afloat[3] * (1F - insideVoid)).endVertex(); // Botania - darken in void
-			for (int l = 0; l <= 16; ++l)
-			{
-				float f21 = l * ((float)Math.PI * 2F) / 16.0F;
-				float f12 = MathHelper.sin(f21);
-				float f13 = MathHelper.cos(f21);
-				BufferBuilder.pos(f12 * 120.0F, f13 * 120.0F, -f13 * 40.0F * afloat[3]).color(afloat[0], afloat[1], afloat[2], 0.0F).endVertex();
+			for(int j = 0; j <= 16; ++j) {
+				float f6 = (float)j * ((float)Math.PI * 2F) / 16.0F;
+				float f7 = MathHelper.sin(f6);
+				float f8 = MathHelper.cos(f6);
+				bufferbuilder.pos((double)(f7 * 120.0F), (double)(f8 * 120.0F), (double)(-f8 * 40.0F * afloat[3])).color(afloat[0], afloat[1], afloat[2], 0.0F).endVertex();
 			}
 
 			tessellator.draw();
@@ -142,73 +116,168 @@ public class SkyblockSkyRenderer implements IRenderHandler {
 		}
 
 		GlStateManager.enableTexture2D();
-		GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+		GlStateManager.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
 		GlStateManager.pushMatrix();
-		float f16 = 1.0F - world.getRainStrength(partialTicks);
-		GlStateManager.color(1.0F, 1.0F, 1.0F, f16);
-		GlStateManager.rotate(-90.0F, 0.0F, 1.0F, 0.0F);
+		float f11 = 1.0F - world.getRainStrength(partialTicks);
+		GlStateManager.color4f(1.0F, 1.0F, 1.0F, f11);
+		GlStateManager.rotatef(-90.0F, 0.0F, 1.0F, 0.0F);
+		// Botania - extras
+		renderExtra(world, partialTicks, insideVoid);
+		GlStateManager.rotatef(world.getCelestialAngle(partialTicks) * 360.0F, 1.0F, 0.0F, 0.0F);
+		float f12 = 60.0F; // Botania: 30 -> 60
+		mc.textureManager.bindTexture(SUN_TEXTURES);
+		bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
+		bufferbuilder.pos((double)(-f12), 100.0D, (double)(-f12)).tex(0.0D, 0.0D).endVertex();
+		bufferbuilder.pos((double)f12, 100.0D, (double)(-f12)).tex(1.0D, 0.0D).endVertex();
+		bufferbuilder.pos((double)f12, 100.0D, (double)f12).tex(1.0D, 1.0D).endVertex();
+		bufferbuilder.pos((double)(-f12), 100.0D, (double)f12).tex(0.0D, 1.0D).endVertex();
+		tessellator.draw();
+		f12 = 60.0F; // Botania: 20 -> 60
+		mc.textureManager.bindTexture(MOON_PHASES_TEXTURES);
+		int k = world.getMoonPhase();
+		int l = k % 4;
+		int i1 = k / 4 % 2;
+		float f13 = (float)(l + 0) / 4.0F;
+		float f14 = (float)(i1 + 0) / 2.0F;
+		float f15 = (float)(l + 1) / 4.0F;
+		float f9 = (float)(i1 + 1) / 2.0F;
+		bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
+		bufferbuilder.pos((double)(-f12), -100.0D, (double)f12).tex((double)f15, (double)f9).endVertex();
+		bufferbuilder.pos((double)f12, -100.0D, (double)f12).tex((double)f13, (double)f9).endVertex();
+		bufferbuilder.pos((double)f12, -100.0D, (double)(-f12)).tex((double)f13, (double)f14).endVertex();
+		bufferbuilder.pos((double)(-f12), -100.0D, (double)(-f12)).tex((double)f15, (double)f14).endVertex();
+		tessellator.draw();
+		GlStateManager.disableTexture2D();
+		// Botania: custom stars
+		{
+			float celAng = world.getCelestialAngle(partialTicks);
+			float effCelAng = celAng;
+			if(celAng > 0.5)
+				effCelAng = 0.5F - (celAng - 0.5F);
+			float starAlpha = f11 * Math.max(0.1F, effCelAng * 2);
+			renderStars(mc, starAlpha, partialTicks);
+		}
+		/*
+		float f10 = world.getStarBrightness(partialTicks) * f11;
+		if (f10 > 0.0F) {
+			GlStateManager.color4f(f10, f10, f10, f10);
+			if (this.vboEnabled) {
+				starVBO.bindBuffer();
+				GlStateManager.enableClientState(32884);
+				GlStateManager.vertexPointer(3, 5126, 12, 0);
+				starVBO.drawArrays(7);
+				starVBO.unbindBuffer();
+				GlStateManager.disableClientState(32884);
+			} else {
+				GlStateManager.callList(this.starGLCallList);
+			}
+		}
+		*/
 
-		float f17; // Botania - move declaration up from below "extra stuff"
+		GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+		GlStateManager.disableBlend();
+		GlStateManager.enableAlphaTest();
+		GlStateManager.enableFog();
+		GlStateManager.popMatrix();
+		// Botania: no horizon
+		/*
+		GlStateManager.disableTexture2D();
+		GlStateManager.color3f(0.0F, 0.0F, 0.0F);
+		double d0 = this.mc.player.getEyePosition(partialTicks).y - this.world.getHorizon();
+		if (d0 < 0.0D) {
+			GlStateManager.pushMatrix();
+			GlStateManager.translatef(0.0F, 12.0F, 0.0F);
+			if (this.vboEnabled) {
+				this.sky2VBO.bindBuffer();
+				GlStateManager.enableClientState(32884);
+				GlStateManager.vertexPointer(3, 5126, 12, 0);
+				this.sky2VBO.drawArrays(7);
+				this.sky2VBO.unbindBuffer();
+				GlStateManager.disableClientState(32884);
+			} else {
+				GlStateManager.callList(this.glSkyList2);
+			}
 
+			GlStateManager.popMatrix();
+		}
+
+		if (this.world.dimension.isSkyColored()) {
+			GlStateManager.color3f(f * 0.2F + 0.04F, f1 * 0.2F + 0.04F, f2 * 0.6F + 0.1F);
+		} else {
+			GlStateManager.color3f(f, f1, f2);
+		}
+
+		GlStateManager.pushMatrix();
+		GlStateManager.translatef(0.0F, -((float)(d0 - 16.0D)), 0.0F);
+		GlStateManager.callList(this.glSkyList2);
+		GlStateManager.popMatrix();
+		*/
+		GlStateManager.enableTexture2D();
+		GlStateManager.depthMask(true);
+	}
+
+	private void renderExtra(WorldClient world, float partialTicks, float insideVoid) {
 		// Botania - Begin extra stuff
+		Tessellator tessellator = Tessellator.getInstance();
+		float rain = 1.0F - world.getRainStrength(partialTicks);
 		float celAng = world.getCelestialAngle(partialTicks);
 		float effCelAng = celAng;
 		if(celAng > 0.5)
 			effCelAng = 0.5F - (celAng - 0.5F);
 
 		// === Planets
-		f17 = 20F;
-		float lowA = Math.max(0F, effCelAng - 0.3F) * f16;
+		float scale = 20F;
+		float lowA = Math.max(0F, effCelAng - 0.3F) * rain;
 		float a = Math.max(0.1F, lowA);
 
-		GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
+		GlStateManager.blendFuncSeparate(770, 771, 1, 0);
 		GlStateManager.pushMatrix();
-		GlStateManager.color(1F, 1F, 1F, a * 4 * (1F - insideVoid));
-		GlStateManager.rotate(90F, 0.5F, 0.5F, 0.0F);
+		GlStateManager.color4f(1F, 1F, 1F, a * 4 * (1F - insideVoid));
+		GlStateManager.rotatef(90F, 0.5F, 0.5F, 0.0F);
 		for(int p = 0; p < planetTextures.length; p++) {
-			mc.textureManager.bindTexture(planetTextures[p]);
+			Minecraft.getInstance().textureManager.bindTexture(planetTextures[p]);
 			tessellator.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
-			tessellator.getBuffer().pos(-f17, 100.0D, -f17).tex(0.0D, 0.0D).endVertex();
-			tessellator.getBuffer().pos(f17, 100.0D, -f17).tex(1.0D, 0.0D).endVertex();
-			tessellator.getBuffer().pos(f17, 100.0D, f17).tex(1.0D, 1.0D).endVertex();
-			tessellator.getBuffer().pos(-f17, 100.0D, f17).tex(0.0D, 1.0D).endVertex();
+			tessellator.getBuffer().pos(-scale, 100.0D, -scale).tex(0.0D, 0.0D).endVertex();
+			tessellator.getBuffer().pos(scale, 100.0D, -scale).tex(1.0D, 0.0D).endVertex();
+			tessellator.getBuffer().pos(scale, 100.0D, scale).tex(1.0D, 1.0D).endVertex();
+			tessellator.getBuffer().pos(-scale, 100.0D, scale).tex(0.0D, 1.0D).endVertex();
 			tessellator.draw();
 
 			switch(p) {
-			case 0:
-				GlStateManager.rotate(70F, 1F, 0F, 0F);
-				f17 = 12F;
-				break;
-			case 1:
-				GlStateManager.rotate(120F, 0F, 0F, 1F);
-				f17 = 15F;
-				break;
-			case 2:
-				GlStateManager.rotate(80F, 1F, 0F, 1F);
-				f17 = 25F;
-				break;
-			case 3:
-				GlStateManager.rotate(100F, 0F, 0F, 1F);
-				f17 = 10F;
-				break;
-			case 4:
-				GlStateManager.rotate(-60F, 1F, 0F, 0.5F);
-				f17 = 40F;
+				case 0:
+					GlStateManager.rotatef(70F, 1F, 0F, 0F);
+					scale = 12F;
+					break;
+				case 1:
+					GlStateManager.rotatef(120F, 0F, 0F, 1F);
+					scale = 15F;
+					break;
+				case 2:
+					GlStateManager.rotatef(80F, 1F, 0F, 1F);
+					scale = 25F;
+					break;
+				case 3:
+					GlStateManager.rotatef(100F, 0F, 0F, 1F);
+					scale = 10F;
+					break;
+				case 4:
+					GlStateManager.rotatef(-60F, 1F, 0F, 0.5F);
+					scale = 40F;
 			}
 		}
-		GlStateManager.color(1F, 1F, 1F, 1F);
+		GlStateManager.color4f(1F, 1F, 1F, 1F);
 		GlStateManager.popMatrix();
 
 		// === Rays
-		mc.textureManager.bindTexture(textureSkybox);
+		Minecraft.getInstance().textureManager.bindTexture(textureSkybox);
 
-		f17 = 20F;
+		scale = 20F;
 		a = lowA;
 		GlStateManager.pushMatrix();
-		GlStateManager.tryBlendFuncSeparate(770, 1, 1, 0);
-		GlStateManager.translate(0F, -1F, 0F);
-		GlStateManager.rotate(220F, 1F, 0F, 0F);
-		GlStateManager.color(1F, 1F, 1F, a);
+		GlStateManager.blendFuncSeparate(770, 1, 1, 0);
+		GlStateManager.translatef(0F, -1F, 0F);
+		GlStateManager.rotatef(220F, 1F, 0F, 0F);
+		GlStateManager.color4f(1F, 1F, 1F, a);
 		int angles = 90;
 		float y = 2F;
 		float y0 = 0F;
@@ -220,7 +289,7 @@ public class SkyblockSkyRenderer implements IRenderHandler {
 
 		for(int p = 0; p < 3; p++) {
 			float baseAngle = rotSpeed * rotSpeedMod * (ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks);
-			GlStateManager.rotate((ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks) * 0.25F * rotSpeed * rotSpeedMod, 0F, 1F, 0F);
+			GlStateManager.rotatef((ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks) * 0.25F * rotSpeed * rotSpeedMod, 0F, 1F, 0F);
 
 			tessellator.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
 			for(int i = 0; i < angles; i++) {
@@ -229,8 +298,8 @@ public class SkyblockSkyRenderer implements IRenderHandler {
 					j--;
 
 				float ang = j * anglePer + baseAngle;
-				double xp = Math.cos(ang * Math.PI / 180F) * f17;
-				double zp = Math.sin(ang * Math.PI / 180F) * f17;
+				double xp = Math.cos(ang * Math.PI / 180F) * scale;
+				double zp = Math.sin(ang * Math.PI / 180F) * scale;
 				double yo = Math.sin(fuzzPer * j) * 1;
 
 				float ut = ang * uPer;
@@ -246,40 +315,40 @@ public class SkyblockSkyRenderer implements IRenderHandler {
 			tessellator.draw();
 
 			switch(p) {
-			case 0:
-				GlStateManager.rotate(20F, 1F, 0F, 0F);
-				GlStateManager.color(1F, 0.4F, 0.4F, a);
-				fuzzPer = Math.PI * 14 / angles;
-				rotSpeed = 0.2F;
-				break;
-			case 1:
-				GlStateManager.rotate(50F, 1F, 0F, 0F);
-				GlStateManager.color(0.4F, 1F, 0.7F, a);
-				fuzzPer = Math.PI * 6 / angles;
-				rotSpeed = 2F;
-				break;
+				case 0:
+					GlStateManager.rotatef(20F, 1F, 0F, 0F);
+					GlStateManager.color4f(1F, 0.4F, 0.4F, a);
+					fuzzPer = Math.PI * 14 / angles;
+					rotSpeed = 0.2F;
+					break;
+				case 1:
+					GlStateManager.rotatef(50F, 1F, 0F, 0F);
+					GlStateManager.color4f(0.4F, 1F, 0.7F, a);
+					fuzzPer = Math.PI * 6 / angles;
+					rotSpeed = 2F;
+					break;
 			}
 		}
 		GlStateManager.popMatrix();
 
 		// === Rainbow
 		GlStateManager.pushMatrix();
-		GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
-		mc.textureManager.bindTexture(textureRainbow);
-		f17 = 10F;
+		GlStateManager.blendFuncSeparate(770, 771, 1, 0);
+		Minecraft.getInstance().textureManager.bindTexture(textureRainbow);
+		scale = 10F;
 		float effCelAng1 = celAng;
 		if(effCelAng1 > 0.25F)
 			effCelAng1 = 1F - effCelAng1;
 		effCelAng1 = 0.25F - Math.min(0.25F, effCelAng1);
 
-		long time = world.getWorldTime() + 1000;
+		long time = world.getDayTime() + 1000;
 		int day = (int) (time / 24000L);
 		Random rand = new Random(day * 0xFF);
 		float angle1 = rand.nextFloat() * 360F;
 		float angle2 = rand.nextFloat() * 360F;
-		GlStateManager.color(1F, 1F, 1F, effCelAng1 * (1F - insideVoid));
-		GlStateManager.rotate(angle1, 0F, 1F, 0F);
-		GlStateManager.rotate(angle2, 0F, 0F, 1F);
+		GlStateManager.color4f(1F, 1F, 1F, effCelAng1 * (1F - insideVoid));
+		GlStateManager.rotatef(angle1, 0F, 1F, 0F);
+		GlStateManager.rotatef(angle2, 0F, 0F, 1F);
 
 		tessellator.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
 		for(int i = 0; i < angles; i++) {
@@ -288,8 +357,8 @@ public class SkyblockSkyRenderer implements IRenderHandler {
 				j--;
 
 			float ang = j * anglePer;
-			double xp = Math.cos(ang * Math.PI / 180F) * f17;
-			double zp = Math.sin(ang * Math.PI / 180F) * f17;
+			double xp = Math.cos(ang * Math.PI / 180F) * scale;
+			double zp = Math.sin(ang * Math.PI / 180F) * scale;
 			double yo = 0;
 
 			float ut = ang * uPer;
@@ -304,195 +373,66 @@ public class SkyblockSkyRenderer implements IRenderHandler {
 		}
 		tessellator.draw();
 		GlStateManager.popMatrix();
-		GlStateManager.color(1F, 1F, 1F, 1F - insideVoid);
-		GlStateManager.tryBlendFuncSeparate(770, 1, 1, 0);
-		// Botania - End extra stuff
-
-
-		GlStateManager.rotate(world.getCelestialAngle(partialTicks) * 360.0F, 1.0F, 0.0F, 0.0F);
-		/*float*/ f17 = 60.0F; // Botania - 30 -> 60 and move declaration above "extra stuff"
-		mc.textureManager.bindTexture(SUN_TEXTURES);
-		BufferBuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
-		BufferBuilder.pos(-f17, 100.0D, -f17).tex(0.0D, 0.0D).endVertex();
-		BufferBuilder.pos(f17, 100.0D, -f17).tex(1.0D, 0.0D).endVertex();
-		BufferBuilder.pos(f17, 100.0D, f17).tex(1.0D, 1.0D).endVertex();
-		BufferBuilder.pos(-f17, 100.0D, f17).tex(0.0D, 1.0D).endVertex();
-		tessellator.draw();
-		f17 = 60.0F; // Botania - 20 -> 60
-		mc.textureManager.bindTexture(MOON_PHASES_TEXTURES);
-		int i = world.getMoonPhase();
-		int k = i % 4;
-		int i1 = i / 4 % 2;
-		float f22 = (k + 0) / 4.0F;
-		float f23 = (i1 + 0) / 2.0F;
-		float f24 = (k + 1) / 4.0F;
-		float f14 = (i1 + 1) / 2.0F;
-		BufferBuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
-		BufferBuilder.pos(-f17, -100.0D, f17).tex(f24, f14).endVertex();
-		BufferBuilder.pos(f17, -100.0D, f17).tex(f22, f14).endVertex();
-		BufferBuilder.pos(f17, -100.0D, -f17).tex(f22, f23).endVertex();
-		BufferBuilder.pos(-f17, -100.0D, -f17).tex(f24, f23).endVertex();
-		tessellator.draw();
-		GlStateManager.disableTexture2D();
-		// Botania - Custom star rendering
-		{
-			f16 *= Math.max(0.1F, effCelAng * 2);
-			renderStars(mc, f16, partialTicks);
-		}
-		/*float f15 = this.world.getStarBrightness(partialTicks) * f16;
-
-		if (f15 > 0.0F)
-		{
-			GlStateManager.color(f15, f15, f15, f15);
-
-			if (this.vboEnabled)
-			{
-				this.starVBO.bindBuffer();
-				GlStateManager.glEnableClientState(32884);
-				GlStateManager.glVertexPointer(3, 5126, 12, 0);
-				this.starVBO.drawArrays(7);
-				this.starVBO.unbindBuffer();
-				GlStateManager.glDisableClientState(32884);
-			}
-			else
-			{
-				GlStateManager.callList(this.starGLCallList);
-			}
-		}*/
-
-		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-		GlStateManager.disableBlend();
-		GlStateManager.enableAlpha();
-		GlStateManager.enableFog();
-		GlStateManager.popMatrix();
-		// Botania - no horizon rendering
-		/* GlStateManager.disableTexture2D();
-		GlStateManager.color(0.0F, 0.0F, 0.0F);
-		double d0 = this.mc.player.getPositionEyes(partialTicks).y - this.world.getHorizon();
-
-		if (d0 < 0.0D)
-		{
-			GlStateManager.pushMatrix();
-			GlStateManager.translate(0.0F, 12.0F, 0.0F);
-
-			if (this.vboEnabled)
-			{
-				this.sky2VBO.bindBuffer();
-				GlStateManager.glEnableClientState(32884);
-				GlStateManager.glVertexPointer(3, 5126, 12, 0);
-				this.sky2VBO.drawArrays(7);
-				this.sky2VBO.unbindBuffer();
-				GlStateManager.glDisableClientState(32884);
-			}
-			else
-			{
-				GlStateManager.callList(this.glSkyList2);
-			}
-
-			GlStateManager.popMatrix();
-			float f18 = 1.0F;
-			float f19 = -((float)(d0 + 65.0D));
-			float f20 = -1.0F;
-			BufferBuilder.begin(7, DefaultVertexFormats.POSITION_COLOR);
-			BufferBuilder.pos(-1.0D, (double)f19, 1.0D).color(0, 0, 0, 255).endVertex();
-			BufferBuilder.pos(1.0D, (double)f19, 1.0D).color(0, 0, 0, 255).endVertex();
-			BufferBuilder.pos(1.0D, -1.0D, 1.0D).color(0, 0, 0, 255).endVertex();
-			BufferBuilder.pos(-1.0D, -1.0D, 1.0D).color(0, 0, 0, 255).endVertex();
-			BufferBuilder.pos(-1.0D, -1.0D, -1.0D).color(0, 0, 0, 255).endVertex();
-			BufferBuilder.pos(1.0D, -1.0D, -1.0D).color(0, 0, 0, 255).endVertex();
-			BufferBuilder.pos(1.0D, (double)f19, -1.0D).color(0, 0, 0, 255).endVertex();
-			BufferBuilder.pos(-1.0D, (double)f19, -1.0D).color(0, 0, 0, 255).endVertex();
-			BufferBuilder.pos(1.0D, -1.0D, -1.0D).color(0, 0, 0, 255).endVertex();
-			BufferBuilder.pos(1.0D, -1.0D, 1.0D).color(0, 0, 0, 255).endVertex();
-			BufferBuilder.pos(1.0D, (double)f19, 1.0D).color(0, 0, 0, 255).endVertex();
-			BufferBuilder.pos(1.0D, (double)f19, -1.0D).color(0, 0, 0, 255).endVertex();
-			BufferBuilder.pos(-1.0D, (double)f19, -1.0D).color(0, 0, 0, 255).endVertex();
-			BufferBuilder.pos(-1.0D, (double)f19, 1.0D).color(0, 0, 0, 255).endVertex();
-			BufferBuilder.pos(-1.0D, -1.0D, 1.0D).color(0, 0, 0, 255).endVertex();
-			BufferBuilder.pos(-1.0D, -1.0D, -1.0D).color(0, 0, 0, 255).endVertex();
-			BufferBuilder.pos(-1.0D, -1.0D, -1.0D).color(0, 0, 0, 255).endVertex();
-			BufferBuilder.pos(-1.0D, -1.0D, 1.0D).color(0, 0, 0, 255).endVertex();
-			BufferBuilder.pos(1.0D, -1.0D, 1.0D).color(0, 0, 0, 255).endVertex();
-			BufferBuilder.pos(1.0D, -1.0D, -1.0D).color(0, 0, 0, 255).endVertex();
-			tessellator.draw();
-		}
-
-		if (this.world.provider.isSkyColored())
-		{
-			GlStateManager.color(f * 0.2F + 0.04F, f1 * 0.2F + 0.04F, f2 * 0.6F + 0.1F);
-		}
-		else
-		{
-			GlStateManager.color(f, f1, f2);
-		}
-
-		GlStateManager.pushMatrix();
-		GlStateManager.translate(0.0F, -((float)(d0 - 16.0D)), 0.0F);
-		GlStateManager.callList(this.glSkyList2);
-		GlStateManager.popMatrix();*/
-		GlStateManager.enableTexture2D();
-		GlStateManager.depthMask(true);
+		GlStateManager.color4f(1F, 1F, 1F, 1F - insideVoid);
+		GlStateManager.blendFuncSeparate(770, 1, 1, 0);
 	}
 
 	private void renderStars(Minecraft mc, float alpha, float partialTicks) {
-		int starGLCallList = mc.renderGlobal.starGLCallList;
-		net.minecraft.client.renderer.vertex.VertexBuffer starVBO = mc.renderGlobal.starVBO;
+		int starGLCallList = mc.worldRenderer.starGLCallList;
+		net.minecraft.client.renderer.vertex.VertexBuffer starVBO = mc.worldRenderer.starVBO;
 
 		float t = (ClientTickHandler.ticksInGame + partialTicks + 2000) * 0.005F;
 		GlStateManager.pushMatrix();
 
 		GlStateManager.pushMatrix();
-		GlStateManager.rotate(t * 3, 0F, 1F, 0F);
-		GlStateManager.color(1F, 1F, 1F, alpha);
+		GlStateManager.rotatef(t * 3, 0F, 1F, 0F);
+		GlStateManager.color4f(1F, 1F, 1F, alpha);
 		drawVboOrList(starVBO, starGLCallList);
 		GlStateManager.popMatrix();
 
 		GlStateManager.pushMatrix();
-		GlStateManager.rotate(t, 0F, 1F, 0F);
-		GlStateManager.color(0.5F, 1F, 1F, alpha);
+		GlStateManager.rotatef(t, 0F, 1F, 0F);
+		GlStateManager.color4f(0.5F, 1F, 1F, alpha);
 		drawVboOrList(starVBO, starGLCallList);
 		GlStateManager.popMatrix();
 
 		GlStateManager.pushMatrix();
-		GlStateManager.rotate(t * 2, 0F, 1F, 0F);
-		GlStateManager.color(1F, 0.75F, 0.75F, alpha);
+		GlStateManager.rotatef(t * 2, 0F, 1F, 0F);
+		GlStateManager.color4f(1F, 0.75F, 0.75F, alpha);
 		drawVboOrList(starVBO, starGLCallList);
 		GlStateManager.popMatrix();
 
 		GlStateManager.pushMatrix();
-		GlStateManager.rotate(t * 3, 0F, 0F, 1F);
-		GlStateManager.color(1F, 1F, 1F, 0.25F * alpha);
+		GlStateManager.rotatef(t * 3, 0F, 0F, 1F);
+		GlStateManager.color4f(1F, 1F, 1F, 0.25F * alpha);
 		drawVboOrList(starVBO, starGLCallList);
 		GlStateManager.popMatrix();
 
 		GlStateManager.pushMatrix();
-		GlStateManager.rotate(t, 0F, 0F, 1F);
-		GlStateManager.color(0.5F, 1F, 1F, 0.25F * alpha);
+		GlStateManager.rotatef(t, 0F, 0F, 1F);
+		GlStateManager.color4f(0.5F, 1F, 1F, 0.25F * alpha);
 		drawVboOrList(starVBO, starGLCallList);
 		GlStateManager.popMatrix();
 
 		GlStateManager.pushMatrix();
-		GlStateManager.rotate(t * 2, 0F, 0F, 1F);
-		GlStateManager.color(1F, 0.75F, 0.75F, 0.25F * alpha);
+		GlStateManager.rotatef(t * 2, 0F, 0F, 1F);
+		GlStateManager.color4f(1F, 0.75F, 0.75F, 0.25F * alpha);
 		drawVboOrList(starVBO, starGLCallList);
 		GlStateManager.popMatrix();
 
 		GlStateManager.popMatrix();
 	}
 
-	// Excised from many occurences in RenderGlobal
+	// Excised from many occurences in WorldRenderer
 	private void drawVboOrList(net.minecraft.client.renderer.vertex.VertexBuffer vbo, int displayList) {
-		if (OpenGlHelper.useVbo())
-		{
+		if (OpenGlHelper.useVbo()) {
 			vbo.bindBuffer();
-			GlStateManager.glEnableClientState(GL11.GL_VERTEX_ARRAY);
-			GlStateManager.glVertexPointer(3, GL11.GL_FLOAT, 12, 0);
+			GlStateManager.enableClientState(GL11.GL_VERTEX_ARRAY);
+			GlStateManager.vertexPointer(3, GL11.GL_FLOAT, 12, 0);
 			vbo.drawArrays(GL11.GL_QUADS);
 			vbo.unbindBuffer();
-			GlStateManager.glDisableClientState(GL11.GL_VERTEX_ARRAY);
-		}
-		else
-		{
+			GlStateManager.disableClientState(GL11.GL_VERTEX_ARRAY);
+		} else {
 			GlStateManager.callList(displayList);
 		}
 	}
