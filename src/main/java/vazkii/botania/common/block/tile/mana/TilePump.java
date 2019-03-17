@@ -74,7 +74,7 @@ public class TilePump extends TileMod implements ITickable {
 	@Override
 	public void tick() {
 		hasRedstone = false;
-		for(EnumFacing dir : EnumFacing.BY_INDEX) {
+		for(EnumFacing dir : EnumFacing.values()) {
 			int redstoneSide = world.getRedstonePower(pos.offset(dir), dir);
 			if(redstoneSide > 0) {
 				hasRedstone = true;

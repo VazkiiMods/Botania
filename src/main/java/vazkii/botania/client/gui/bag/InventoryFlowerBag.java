@@ -58,4 +58,9 @@ public class InventoryFlowerBag implements IItemHandlerModifiable {
 	public int getSlotLimit(int slot) {
 		return bagInv.getSlotLimit(slot);
 	}
+
+	@Override
+	public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
+		return bagInv.isItemValid(slot, stack);
+	}
 }

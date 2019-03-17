@@ -81,7 +81,7 @@ public class TileHourglass extends TileSimpleInventory implements ITickable {
 					world.getPendingBlockTicks().scheduleTick(pos, getBlockState().getBlock(), getBlockState().getBlock().tickRate(world));
 				}
 
-				for(EnumFacing facing : EnumFacing.BY_INDEX) {
+				for(EnumFacing facing : EnumFacing.values()) {
 					BlockPos pos = getPos().offset(facing);
 					IBlockState state = world.getBlockState(pos);
 					if(state.getBlock() instanceof IHourglassTrigger)

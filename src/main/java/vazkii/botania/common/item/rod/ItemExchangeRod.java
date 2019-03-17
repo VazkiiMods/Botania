@@ -189,7 +189,7 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 						continue;
 
 					// Check to see if the block is visible on any side:
-					for(EnumFacing dir : EnumFacing.BY_INDEX) {
+					for(EnumFacing dir : EnumFacing.values()) {
 						BlockPos adjPos = pos_.offset(dir);
 						IBlockState adjState = world.getBlockState(adjPos);
 

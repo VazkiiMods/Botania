@@ -58,7 +58,7 @@ public class LensPaint extends Lens {
 							coordsFound.remove(coords);
 							coordsToPaint.add(coords);
 
-							for(EnumFacing dir : EnumFacing.BY_INDEX) {
+							for(EnumFacing dir : EnumFacing.values()) {
 								IBlockState state_ = entity.world.getBlockState(coords.offset(dir));
 								BlockPos coords_ = new BlockPos(coords.offset(dir));
 								if(state_ == state && !coordsFound.contains(coords_) && !coordsToPaint.contains(coords_))

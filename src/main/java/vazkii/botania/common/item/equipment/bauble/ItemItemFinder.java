@@ -166,7 +166,7 @@ public class ItemItemFinder extends ItemBauble implements IBaubleRender {
 					TileEntity tile = player.world.getTileEntity(pos_);
 					if(tile != null) {
 						boolean foundCap = false;
-						for(EnumFacing e : EnumFacing.BY_INDEX) {
+						for(EnumFacing e : EnumFacing.values()) {
 							if(scanInventory(tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, e), pstack)) {
 								blockPosBuilder.add(new NBTTagLong(pos_.toLong()));
 								foundCap = true;

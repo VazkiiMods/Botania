@@ -31,17 +31,25 @@ minecraft {
     mappings channel: 'snapshot', version: '20190313-1.13.2'
     accessTransformer = file('src/main/resources/META-INF/botania_at.cfg')
     runs {
-        client = {
+        client {
             properties 'forge.logging.markers': 'SCAN,REGISTRIES,REGISTRYDUMP'
             properties 'forge.logging.console.level': 'debug'
-            workingDirectory project.file('run').canonicalPath
-            source sourceSets.main
+            workingDirectory project.file('run')
+            mods {
+                botania {
+                    source sourceSets.main
+                }
+            }
         }
-        server = {
+        server {
             properties 'forge.logging.markers': 'SCAN,REGISTRIES,REGISTRYDUMP'
             properties 'forge.logging.console.level': 'debug'
-            workingDirectory project.file('run').canonicalPath
-            source sourceSets.main
+            workingDirectory project.file('run')
+            mods {
+                botania {
+                    source sourceSets.main
+                }
+            }
         }
     }
     // replace 'GRADLE:BUILD', config.build_number
@@ -51,7 +59,7 @@ minecraft {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.13.2-25.0.10'
+    minecraft 'net.minecraftforge:forge:1.13.2-25.0.85'
 }
 
 repositories {
@@ -88,7 +96,7 @@ jar {
     manifest {
         attributes(["Specification-Title": "botania",
                     "Specification-Vendor": "botania",
-                    "Specification-Version": "24.0",
+                    "Specification-Version": "1",
                     "Implementation-Title": project.name,
                     "Implementation-Version": "${version}",
                     "Implementation-Vendor": "botania",
@@ -150,8 +158,6 @@ task incrementBuildNumber {
         configFile.withWriter {
             config.toProperties().store(it, "")
         }
-
-        // todo make this flexibile - collection of supported mc versions
 
         file('web/versions.ini').append("\n${version}=${minecraft.version}")
         file("${config.dir_repo}/version/${minecraft.version}.txt").write("${version}")

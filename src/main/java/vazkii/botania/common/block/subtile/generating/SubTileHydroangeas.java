@@ -74,7 +74,7 @@ public class SubTileHydroangeas extends SubTileGenerating {
 							supertile.getWorld().setBlockState(pos, Blocks.AIR.getDefaultState());
 						else {
 							int waterAround = 0;
-							for(EnumFacing dir : EnumFacing.BY_INDEX)
+							for(EnumFacing dir : EnumFacing.values())
 								if(supertile.getWorld().getFluidState(pos.offset(dir)).isTagged(search))
 									waterAround++;
 

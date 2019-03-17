@@ -76,7 +76,7 @@ public class BlockLightLauncher extends BlockMod implements ILexiconable {
 
 	private void pickUpEntities(World world, BlockPos pos) {
 		List<TileLightRelay> relays = new ArrayList<>();
-		for(EnumFacing dir : EnumFacing.BY_INDEX) {
+		for(EnumFacing dir : EnumFacing.values()) {
 			TileEntity tile = world.getTileEntity(pos.offset(dir));
 			if(tile instanceof TileLightRelay) {
 				TileLightRelay relay = (TileLightRelay) tile;

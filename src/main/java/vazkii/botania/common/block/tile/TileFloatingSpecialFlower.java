@@ -45,7 +45,7 @@ public class TileFloatingSpecialFlower extends TileSpecialFlower implements IFlo
 	@Override
 	public void writePacketNBT(NBTTagCompound cmp) {
 		super.writePacketNBT(cmp);
-		cmp.setString(TAG_ISLAND_TYPE, type.toString());
+		cmp.putString(TAG_ISLAND_TYPE, type.toString());
 	}
 
 	@Override
