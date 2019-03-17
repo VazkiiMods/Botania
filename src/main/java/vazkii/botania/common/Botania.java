@@ -69,6 +69,7 @@ import vazkii.botania.common.crafting.ModPetalRecipes;
 import vazkii.botania.common.crafting.ModPureDaisyRecipes;
 import vazkii.botania.common.crafting.ModRuneRecipes;
 import vazkii.botania.common.crafting.recipe.AncientWillRecipe;
+import vazkii.botania.common.crafting.recipe.ArmorUpgradeRecipe;
 import vazkii.botania.common.crafting.recipe.BlackHoleTalismanExtractRecipe;
 import vazkii.botania.common.crafting.recipe.CompositeLensRecipe;
 import vazkii.botania.common.crafting.recipe.CosmeticAttachRecipe;
@@ -79,6 +80,7 @@ import vazkii.botania.common.crafting.recipe.LensDyeingRecipe;
 import vazkii.botania.common.crafting.recipe.ManaGunClipRecipe;
 import vazkii.botania.common.crafting.recipe.ManaGunLensRecipe;
 import vazkii.botania.common.crafting.recipe.ManaGunRemoveLensRecipe;
+import vazkii.botania.common.crafting.recipe.ManaUpgradeRecipe;
 import vazkii.botania.common.crafting.recipe.PhantomInkRecipe;
 import vazkii.botania.common.crafting.recipe.SpellClothRecipe;
 import vazkii.botania.common.crafting.recipe.TerraPickTippingRecipe;
@@ -181,6 +183,7 @@ public class Botania {
 			CriteriaTriggers.register(UseItemSuccessTrigger.INSTANCE);
 
 			RecipeSerializers.register(AncientWillRecipe.SERIALIZER);
+			RecipeSerializers.register(ArmorUpgradeRecipe.SERIALIZER);
 			RecipeSerializers.register(BlackHoleTalismanExtractRecipe.SERIALIZER);
 			RecipeSerializers.register(CompositeLensRecipe.SERIALIZER);
 			RecipeSerializers.register(CosmeticAttachRecipe.SERIALIZER);
@@ -191,6 +194,7 @@ public class Botania {
 			RecipeSerializers.register(ManaGunClipRecipe.SERIALIZER);
 			RecipeSerializers.register(ManaGunLensRecipe.SERIALIZER);
 			RecipeSerializers.register(ManaGunRemoveLensRecipe.SERIALIZER);
+			RecipeSerializers.register(ManaUpgradeRecipe.SERIALIZER);
 			RecipeSerializers.register(PhantomInkRecipe.SERIALIZER);
 			RecipeSerializers.register(SpellClothRecipe.SERIALIZER);
 			RecipeSerializers.register(TerraPickTippingRecipe.SERIALIZER);

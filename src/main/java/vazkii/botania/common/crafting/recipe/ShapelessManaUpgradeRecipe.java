@@ -25,7 +25,7 @@ import vazkii.botania.common.lib.LibMisc;
 import javax.annotation.Nonnull;
 
 public class ShapelessManaUpgradeRecipe implements IRecipe {
-	private static final ResourceLocation TYPE_ID = new ResourceLocation(LibMisc.MOD_ID, "shapeless_mana_upgrade");
+	private static final ResourceLocation TYPE_ID = new ResourceLocation(LibMisc.MOD_ID, "mana_upgrade_shapeless");
 
 	private final ShapelessRecipe compose;
 	public ShapelessManaUpgradeRecipe(ShapelessRecipe compose) {

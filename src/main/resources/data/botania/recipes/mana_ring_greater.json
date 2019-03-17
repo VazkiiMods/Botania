@@ -1,0 +1,15 @@
+{
+  "type": "botania:mana_upgrade_shapeless",
+  "result": {
+    "item": "botania:mana_ring_greater"
+  },
+  "ingredients": [
+    {
+      "todo": "TODO tags",
+      "item": "botania:terrasteel_ingot"
+    },
+    {
+      "item": "botania:mana_ring"
+    }
+  ]
+}

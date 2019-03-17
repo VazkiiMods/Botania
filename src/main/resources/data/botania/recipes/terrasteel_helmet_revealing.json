@@ -1,0 +1,26 @@
+{
+  "type": "botania:armor_upgrade",
+  "result": {
+    "item": "botania:terrasteel_helmet_revealing"
+  },
+  "pattern": [
+    "TRT",
+    "SAS",
+    " S "
+  ],
+  "key": {
+    "__comment": "todo tags",
+    "T": {
+      "item": "botania:livingwood_twig"
+    },
+    "S": {
+      "item": "botania:terrasteel_ingot"
+    },
+    "R": {
+      "tag": "botania:runes/spring"
+    },
+    "A": {
+      "item": "botania:manasteel_helmet_revealing"
+    }
+  }
+}

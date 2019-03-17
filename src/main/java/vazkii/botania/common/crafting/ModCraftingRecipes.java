@@ -13,10 +13,15 @@ package vazkii.botania.common.crafting;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.crafting.VanillaRecipeTypes;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
+import net.minecraftforge.fml.server.ServerLifecycleHooks;
 import net.minecraftforge.registries.IForgeRegistry;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.Botania;
@@ -46,6 +51,7 @@ import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.lib.LibOreDict;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -322,63 +328,14 @@ public final class ModCraftingRecipes {
 	public static ResourceLocation recipeEndPortal;
 
 	@SubscribeEvent
-	public static void registerRecipes(RegistryEvent.Register<IRecipe> evt) {
-		IForgeRegistry<IRecipe> r = evt.getRegistry();
-
-		for (ResourceLocation s : BotaniaAPI.getAllSubTiles()) {
-			r.register(new SpecialFloatingFlowerRecipe(s).setRegistryName(new ResourceLocation(LibMisc.MOD_ID, "floating_" + s.toString().replaceAll(":", "_"))));
-		}
-
-		// Terrasteel Armor Recipes
-		r.register(new ArmorUpgradeRecipe(new ItemStack(ModItems.terrasteelHelmRevealing),
-				"TRT", "SAS", " S ",
-				'T', LibOreDict.LIVINGWOOD_TWIG,
-				'S', LibOreDict.TERRA_STEEL,
-				'R', LibOreDict.RUNE[4],
-				'A', new ItemStack(ModItems.manasteelHelmRevealing)).setRegistryName(ModItems.terrasteelHelmRevealing.getRegistryName()));
-
-		r.register(new ArmorUpgradeRecipe(new ItemStack(ModItems.terrasteelHelm),
-				"TRT", "SAS", " S ",
-				'T', LibOreDict.LIVINGWOOD_TWIG,
-				'S', LibOreDict.TERRA_STEEL,
-				'R', LibOreDict.RUNE[4],
-				'A', new ItemStack(ModItems.manasteelHelm)).setRegistryName(ModItems.terrasteelHelm.getRegistryName()));
-
-		r.register(new ArmorUpgradeRecipe(new ItemStack(ModItems.terrasteelChest),
-				"TRT", "SAS", " S ",
-				'T', LibOreDict.LIVINGWOOD_TWIG,
-				'S', LibOreDict.TERRA_STEEL,
-				'R', LibOreDict.RUNE[5],
-				'A', new ItemStack(ModItems.manasteelChest)).setRegistryName(ModItems.terrasteelChest.getRegistryName()));
-
-		r.register(new ArmorUpgradeRecipe(new ItemStack(ModItems.terrasteelLegs),
-				"TRT", "SAS", " S ",
-				'T', LibOreDict.LIVINGWOOD_TWIG,
-				'S', LibOreDict.TERRA_STEEL,
-				'R', LibOreDict.RUNE[6],
-				'A', new ItemStack(ModItems.manasteelLegs)).setRegistryName(ModItems.terrasteelLegs.getRegistryName()));
-
-		r.register(new ArmorUpgradeRecipe(new ItemStack(ModItems.terrasteelBoots),
-				"TRT", "SAS", " S ",
-				'T', LibOreDict.LIVINGWOOD_TWIG,
-				'S', LibOreDict.TERRA_STEEL,
-				'R', LibOreDict.RUNE[7],
-				'A', new ItemStack(ModItems.manasteelBoots)).setRegistryName(ModItems.terrasteelBoots.getRegistryName()));
-
-		r.register(new ManaUpgradeRecipe(new ItemStack(ModItems.manaRing),
-				"TI ", "I I", " I ",
-				'T', new ItemStack(ModItems.manaTablet, 1, Short.MAX_VALUE),
-				'I', LibOreDict.MANA_STEEL).setRegistryName(ModItems.manaRing.getRegistryName()));
-
-		r.register(new ShapelessManaUpgradeRecipe(new ItemStack(ModItems.manaRingGreater), LibOreDict.TERRA_STEEL, new ItemStack(ModItems.manaRing, 1, Short.MAX_VALUE)).setRegistryName(ModItems.manaRingGreater.getRegistryName()));
-
-		// Terra Shatterer Recipe
-		r.register(new ManaUpgradeRecipe(new ItemStack(ModItems.terraPick),
-				"ITI", "ILI", " L ",
-				'T', new ItemStack(ModItems.manaTablet, 1, Short.MAX_VALUE),
-				'I', LibOreDict.TERRA_STEEL,
-				'L', LibOreDict.LIVINGWOOD_TWIG).setRegistryName(ModItems.terraPick.getRegistryName()));
-
+	public static void registerRecipes(FMLServerStartingEvent evt) {
+		evt.getServer().getResourceManager().addReloadListener(manager -> {
+			// todo 1.13 have each subtile responsible for itself
+			for (ResourceLocation s : BotaniaAPI.getAllSubTiles()) {
+				ResourceLocation id = new ResourceLocation(LibMisc.MOD_ID, "floating_" + s.toString().replaceAll(":", "_"));
+				evt.getServer().getRecipeManager().addRecipe(new SpecialFloatingFlowerRecipe(id, s));
+			}
+		});
 	}
 
 	public static void init() {
@@ -646,16 +603,16 @@ public final class ModCraftingRecipes {
 		recipeLavenderQuartz = ModItems.lavenderQuartz.getRegistryName();
 		recipeRedQuartz = ModItems.redQuartz.getRegistryName();
 		recipeSunnyQuartz = ModItems.sunnyQuartz.getRegistryName();
-		recipesShinyFlowers = allOfGroup(ModBlocks.shinyFlower.getRegistryName());
-		recipesMiniIsland = allOfGroup(ModBlocks.floatingFlower.getRegistryName());
+		recipesShinyFlowers = allOfGroup("shiny_flower");
+		recipesMiniIsland = allOfGroup("mini_island");
 		recipeAzulejo = ModBlocks.azulejo0.getRegistryName();
 		recipesAzulejoCycling = allOfGroup("azulejo_cycling");
 		recipeStarfield = ModBlocks.starfield.getRegistryName();
-		recipesMushrooms = allOfGroup(ModBlocks.mushroom.getRegistryName());
+		recipesMushrooms = allOfGroup("mushroom");
 		recipePhantomInk = ModItems.phantomInk.getRegistryName();
 		recipeBlazeBlock = gogPath("blazeblock");
 		recipeCacophonium = ModItems.cacophonium.getRegistryName();
-		recipesPavement = allOfGroup(ModFluffBlocks.pavement.getRegistryName());
+		recipesPavement = allOfGroup("pavement");
 		recipeCellBlock = ModBlocks.cellBlock.getRegistryName();
 
 	}
@@ -677,11 +634,15 @@ public final class ModCraftingRecipes {
 	}
 
 	private static List<ResourceLocation> allOfGroup(ResourceLocation group) {
+		MinecraftServer server = ServerLifecycleHooks.getCurrentServer();
+		if(server == null)
+			return Collections.emptyList();
 		String jsonGroup = group.toString();
 
-		return ForgeRegistries.RECIPES.getEntries().stream()
-				.filter(e -> jsonGroup.equals(e.getValue().getGroup()))
-				.map(Map.Entry::getKey)
+		return server.getRecipeManager().getRecipes(VanillaRecipeTypes.CRAFTING)
+				.stream()
+				.filter(r -> jsonGroup.equals(r.getGroup()))
+				.map(IRecipe::getId)
 				.collect(Collectors.toList());
 	}
 }
