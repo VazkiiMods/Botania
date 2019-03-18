@@ -174,19 +174,19 @@ public class FloatingFlowerModel implements IBakedModel {
 			ImmutableList.Builder<BakedQuad> genBuilder = ImmutableList.builder();
 			final TRSRTransformation transform = TRSRTransformation.blockCenterToCorner(new TRSRTransformation(new Vector3f(0F, 0.2F, 0F), null, new Vector3f(0.5F, 0.5F, 0.5F), null));
 
-			for(EnumFacing e : EnumFacing.BY_INDEX)
+			for(EnumFacing e : EnumFacing.values())
 				faceQuads.put(e, new ArrayList<>());
 
 			// Add flower quads, scaled and translated
 			flower.getQuads(null, null, new Random(0)).stream().map(q -> transform(q, transform)).forEach(genBuilder::add);
-			for(EnumFacing e : EnumFacing.BY_INDEX) {
+			for(EnumFacing e : EnumFacing.values()) {
 				List<BakedQuad> faceQ = faceQuads.get(e);
 				flower.getQuads(null, e, new Random(0)).stream().map(input -> transform(input, transform)).forEach(faceQ::add);
 			}
 
 			// Add island quads
 			genBuilder.addAll(island.getQuads(null, null, new Random(0)));
-			for(EnumFacing e : EnumFacing.BY_INDEX) {
+			for(EnumFacing e : EnumFacing.values()) {
 				faceQuads.get(e).addAll(island.getQuads(null, e, new Random(0)));
 			}
 

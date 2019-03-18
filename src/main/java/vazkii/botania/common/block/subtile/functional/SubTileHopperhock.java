@@ -35,6 +35,7 @@ import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.common.core.helper.InventoryHelper;
+import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.lexicon.LexiconData;
 
 import java.util.ArrayList;
@@ -75,7 +76,7 @@ public class SubTileHopperhock extends SubTileFunctional {
 			boolean priorityInv = false;
 			int amountToPutIn = 0;
 
-			for(EnumFacing dir : EnumFacing.BY_INDEX) {
+			for(EnumFacing dir : EnumFacing.values()) {
 				BlockPos pos_ = pos.offset(dir);
 
 				InvWithLocation inv = InventoryHelper.getInventoryWithLocation(supertile.getWorld(), pos_, dir.getOpposite());
@@ -155,15 +156,15 @@ public class SubTileHopperhock extends SubTileFunctional {
 			Block chest = supertile.getWorld().getBlockState(pos).getBlock();
 
 			if(tileEntity instanceof TileEntityChest)
-				for(EnumFacing dir : EnumFacing.BY_HORIZONTAL_INDEX)
+				for(EnumFacing dir : MathHelper.HORIZONTALS)
 					if(supertile.getWorld().getBlockState(pos.offset(dir)).getBlock() == chest) {
 						filter.addAll(getFilterForInventory(pos.offset(dir), false));
 						break;
 					}
 		}
 
-		for(EnumFacing dir : EnumFacing.BY_HORIZONTAL_INDEX) {
-			AxisAlignedBB aabb = new AxisAlignedBB(pos.offset(dir), pos.offset(dir).add(1, 1, 1));
+		for(EnumFacing dir : MathHelper.HORIZONTALS) {
+			AxisAlignedBB aabb = new AxisAlignedBB(pos.offset(dir));
 			List<EntityItemFrame> frames = supertile.getWorld().getEntitiesWithinAABB(EntityItemFrame.class, aabb);
 			for(EntityItemFrame frame : frames) {
 				if(frame.facingDirection == dir)

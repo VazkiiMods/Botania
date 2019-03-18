@@ -131,7 +131,7 @@ public class EntityPoolMinecart extends EntityMinecart {
 	public void moveMinecartOnRail(BlockPos pos) {
 		super.moveMinecartOnRail(pos);
 
-		for(EnumFacing dir : EnumFacing.BY_HORIZONTAL_INDEX) {
+		for(EnumFacing dir : vazkii.botania.common.core.helper.MathHelper.HORIZONTALS) {
 			BlockPos posP = pos.offset(dir);
 			Block block = world.getBlockState(posP).getBlock();
 			if(block == ModBlocks.pump) {

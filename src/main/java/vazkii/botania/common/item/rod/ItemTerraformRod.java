@@ -33,13 +33,13 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.item.IBlockProvider;
 import vazkii.botania.api.item.IManaProficiencyArmor;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.api.subtile.ISpecialFlower;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibMisc;
@@ -112,7 +112,7 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockP
 			if(TERRAFORMABLE.contains(state.getBlock())) {
 				List<BlockPos> airBlocks = new ArrayList<>();
 
-				for(EnumFacing dir : EnumFacing.BY_HORIZONTAL_INDEX) {
+				for(EnumFacing dir : MathHelper.HORIZONTALS) {
 					BlockPos pos_ = pos.offset(dir);
 					IBlockState state_ = world.getBlockState(pos_);
 					Block block_ = state_.getBlock();

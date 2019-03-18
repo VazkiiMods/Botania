@@ -11,17 +11,16 @@
 package vazkii.botania.common.item;
 
 import net.minecraft.block.Block;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.nbt.INBTBase;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.play.server.SPacketCollectItem;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResult;
@@ -30,25 +29,26 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentString;
+import net.minecraft.world.IInteractionObject;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
-import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
+import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
-import vazkii.botania.common.Botania;
+import vazkii.botania.client.gui.bag.ContainerFlowerBag;
+import vazkii.botania.client.gui.bag.InventoryFlowerBag;
 import vazkii.botania.common.block.BlockModFlower;
-import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.lib.LibGuiIDs;
-import vazkii.botania.common.lib.LibItemNames;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -68,15 +68,12 @@ public class ItemFlowerBag extends ItemMod {
 	private static class InvProvider implements ICapabilitySerializable<INBTBase> {
 
 		private final IItemHandler inv = new ItemStackHandler(16) {
-			@Nonnull
 			@Override
-			public ItemStack insertItem(int slot, @Nonnull ItemStack toInsert, boolean simulate) {
-				Block blk = Block.getBlockFromItem(toInsert.getItem());
-				if(!toInsert.isEmpty()
+			public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
+				Block blk = Block.getBlockFromItem(stack.getItem());
+				return !stack.isEmpty()
 						&& blk instanceof BlockModFlower
-						&& slot == ((BlockModFlower) blk).color.getId())
-					return super.insertItem(slot, toInsert, simulate);
-				else return toInsert;
+						&& slot == ((BlockModFlower) blk).color.getId();
 			}
 		};
 		private final LazyOptional<IItemHandler> opt = LazyOptional.of(() -> inv);
@@ -136,7 +133,11 @@ public class ItemFlowerBag extends ItemMod {
 	@Nonnull
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
-		player.openGui(Botania.instance, LibGuiIDs.FLOWER_BAG, world, hand == EnumHand.OFF_HAND ? 1 : 0, 0, 0);
+		if(!world.isRemote) {
+			NetworkHooks.openGui((EntityPlayerMP) player, new ContainerProvider(player.getHeldItem(hand)), buf -> {
+				buf.writeBoolean(hand == EnumHand.OFF_HAND);
+			});
+		}
 		return ActionResult.newResult(EnumActionResult.SUCCESS, player.getHeldItem(hand));
 	}
 
@@ -169,6 +170,43 @@ public class ItemFlowerBag extends ItemMod {
 			return EnumActionResult.SUCCESS;
 		}
 		return EnumActionResult.PASS;
+	}
+
+	private static class ContainerProvider implements IInteractionObject {
+		private final ItemStack stack;
+
+		private ContainerProvider(ItemStack stack) {
+			this.stack = stack;
+		}
+
+		@Nonnull
+		@Override
+		public Container createContainer(@Nonnull InventoryPlayer playerInventory, @Nonnull EntityPlayer player) {
+			return new ContainerFlowerBag(playerInventory, new InventoryFlowerBag(stack));
+		}
+
+		@Nonnull
+		@Override
+		public String getGuiID() {
+			return "botania:flower_bag";
+		}
+
+		@Nonnull
+		@Override
+		public ITextComponent getName() {
+			return new TextComponentString(getGuiID());
+		}
+
+		@Override
+		public boolean hasCustomName() {
+			return false;
+		}
+
+		@Nullable
+		@Override
+		public ITextComponent getCustomName() {
+			return null;
+		}
 	}
 
 }

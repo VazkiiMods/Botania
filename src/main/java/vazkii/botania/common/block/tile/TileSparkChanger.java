@@ -19,6 +19,7 @@ import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.spark.ISparkAttachable;
 import vazkii.botania.api.mana.spark.ISparkEntity;
 import vazkii.botania.api.mana.spark.SparkUpgradeType;
+import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.item.ItemSparkUpgrade;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -43,9 +44,9 @@ public class TileSparkChanger extends TileSimpleInventory {
 
 		ItemStack changeStack = itemHandler.getStackInSlot(0);
 		List<ISparkAttachable> attachables = new ArrayList<>();
-		for(EnumFacing dir : EnumFacing.BY_HORIZONTAL_INDEX) {
+		for(EnumFacing dir : MathHelper.HORIZONTALS) {
 			TileEntity tile = world.getTileEntity(pos.offset(dir));
-			if(tile != null && tile instanceof ISparkAttachable) {
+			if(tile instanceof ISparkAttachable) {
 				ISparkAttachable attach = (ISparkAttachable) tile;
 				ISparkEntity spark = attach.getAttachedSpark();
 				if(spark != null) {

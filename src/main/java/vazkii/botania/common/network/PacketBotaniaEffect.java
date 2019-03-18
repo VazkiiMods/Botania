@@ -79,7 +79,7 @@ public class PacketBotaniaEffect {
 						int g = (hex & 0xFF00) >> 8;
 		int b = hex & 0xFF;
 		for(int i = 0; i < 10; i++) {
-			BlockPos pos = new BlockPos(message.x, message.y, message.z).offset(EnumFacing.BY_INDEX[world.rand.nextInt(6)]);
+			BlockPos pos = new BlockPos(message.x, message.y, message.z).offset(EnumFacing.random(world.rand));
 			Botania.proxy.sparkleFX(
 					pos.getX() + (float) Math.random(), pos.getY() + (float) Math.random(), pos.getZ() + (float) Math.random(),
 					r / 255F, g / 255F, b / 255F, 0.6F + (float) Math.random() * 0.5F, 5);

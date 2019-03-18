@@ -85,7 +85,7 @@ public class SubTileGenerating extends SubTileEntity {
 
 		if(acceptsRedstone()) {
 			redstoneSignal = 0;
-			for(EnumFacing dir : EnumFacing.BY_INDEX) {
+			for(EnumFacing dir : EnumFacing.values()) {
 				int redstoneSide = supertile.getWorld().getRedstonePower(supertile.getPos().offset(dir), dir);
 				redstoneSignal = Math.max(redstoneSignal, redstoneSide);
 			}

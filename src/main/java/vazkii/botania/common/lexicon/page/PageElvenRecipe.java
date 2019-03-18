@@ -7,10 +7,10 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.oredict.OreDictionary;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.internal.IGuiLexiconEntry;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -64,14 +64,10 @@ public class PageElvenRecipe extends PageRecipe {
 			renderItemAtOutputPos(gui, i % 2, i / 2, outputs.get(i));
 		}
 
-		List<Object> inputs = recipe.getInputs();
+		List<Ingredient> inputs = recipe.getInputs();
 		int i = 0;
-		for(Object obj : inputs) {
-			Object input = obj;
-			if(input instanceof String)
-				input = OreDictionary.getOres((String) input).get(0);
-
-			renderItemAtInputPos(gui, i, (ItemStack) input);
+		for(Ingredient input : inputs) {
+			renderItemAtInputPos(gui, i, input.getMatchingStacks()[0]);
 			i++;
 		}
 

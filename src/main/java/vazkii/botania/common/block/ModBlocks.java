@@ -22,7 +22,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import net.minecraftforge.registries.ObjectHolder;
@@ -51,6 +50,7 @@ import vazkii.botania.common.block.mana.BlockConjurationCatalyst;
 import vazkii.botania.common.block.mana.BlockDistributor;
 import vazkii.botania.common.block.mana.BlockEnchanter;
 import vazkii.botania.common.block.mana.BlockForestDrum;
+import vazkii.botania.common.block.mana.BlockManaDetector;
 import vazkii.botania.common.block.mana.BlockManaVoid;
 import vazkii.botania.common.block.mana.BlockPool;
 import vazkii.botania.common.block.mana.BlockPrism;
@@ -446,7 +446,7 @@ public final class ModBlocks {
 		register(r, new BlockManaVoid(builder), LibBlockNames.MANA_VOID);
 
 		builder = Block.Properties.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE);
-		register(r, new BlockDistributor(builder), LibBlockNames.MANA_DETECTOR);
+		register(r, new BlockManaDetector(builder), LibBlockNames.MANA_DETECTOR);
 
 		register(r, new BlockEnchanter(Block.Properties.create(Material.ROCK).hardnessAndResistance(3, 5).lightValue(15).sound(SoundType.STONE)), LibBlockNames.ENCHANTER);
 		register(r, new BlockTurntable(Block.Properties.create(Material.WOOD).hardnessAndResistance(2).sound(SoundType.WOOD)), LibBlockNames.TURNTABLE);
@@ -795,7 +795,7 @@ public final class ModBlocks {
 		r.register(new ItemBlockMod(doubleFlowerGreen, props).setRegistryName(doubleFlowerGreen.getRegistryName()));
 		r.register(new ItemBlockMod(doubleFlowerRed, props).setRegistryName(doubleFlowerRed.getRegistryName()));
 		r.register(new ItemBlockMod(doubleFlowerBlack, props).setRegistryName(doubleFlowerBlack.getRegistryName()));
-		r.register(new ItemBlockBlaze(blazeBlock).setRegistryName(blazeBlock.getRegistryName()));
+		r.register(new ItemBlockBlaze(blazeBlock, props).setRegistryName(blazeBlock.getRegistryName()));
 		r.register(new ItemBlockMod(corporeaInterceptor, props).setRegistryName(corporeaInterceptor.getRegistryName()));
 		r.register(new ItemBlockMod(corporeaCrystalCube, ModItems.defaultBuilder().setTEISR(() -> RenderTileCorporeaCrystalCube.TEISR::new)).setRegistryName(corporeaCrystalCube.getRegistryName()));
 		r.register(new ItemBlockMod(incensePlate, props).setRegistryName(incensePlate.getRegistryName()));
@@ -1066,7 +1066,51 @@ public final class ModBlocks {
 			case BLACK: return blackBuriedPetals;
 		}
 	}
+	
+	public static Block getShinyFlower(EnumDyeColor color) {
+		switch (color) {
+			default:
+			case WHITE: return whiteShinyFlower;
+			case ORANGE: return orangeShinyFlower;
+			case MAGENTA: return magentaShinyFlower;
+			case LIGHT_BLUE: return lightBlueShinyFlower;
+			case YELLOW: return yellowShinyFlower;
+			case LIME: return limeShinyFlower;
+			case PINK: return pinkShinyFlower;
+			case GRAY: return grayShinyFlower;
+			case LIGHT_GRAY: return lightGrayShinyFlower;
+			case CYAN: return cyanShinyFlower;
+			case PURPLE: return purpleShinyFlower;
+			case BLUE: return blueShinyFlower;
+			case BROWN: return brownShinyFlower;
+			case GREEN: return greenShinyFlower;
+			case RED: return redShinyFlower;
+			case BLACK: return blackShinyFlower;
+		}
+	}
 
+	public static Block getFloatingFlower(EnumDyeColor color) {
+		switch (color) {
+			default:
+			case WHITE: return whiteFloatingFlower;
+			case ORANGE: return orangeFloatingFlower;
+			case MAGENTA: return magentaFloatingFlower;
+			case LIGHT_BLUE: return lightBlueFloatingFlower;
+			case YELLOW: return yellowFloatingFlower;
+			case LIME: return limeFloatingFlower;
+			case PINK: return pinkFloatingFlower;
+			case GRAY: return grayFloatingFlower;
+			case LIGHT_GRAY: return lightGrayFloatingFlower;
+			case CYAN: return cyanFloatingFlower;
+			case PURPLE: return purpleFloatingFlower;
+			case BLUE: return blueFloatingFlower;
+			case BROWN: return brownFloatingFlower;
+			case GREEN: return greenFloatingFlower;
+			case RED: return redFloatingFlower;
+			case BLACK: return blackFloatingFlower;
+		}
+	}
+	
 	public static Block getDoubleFlower(EnumDyeColor color) {
 		switch (color) {
 			default:

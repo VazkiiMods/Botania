@@ -53,7 +53,7 @@ public class TileOpenCrate extends TileSimpleInventory implements ITickable {
 			return;
 
 		boolean redstone = false;
-		for(EnumFacing dir : EnumFacing.BY_INDEX) {
+		for(EnumFacing dir : EnumFacing.values()) {
 			int redstoneSide = world.getRedstonePower(pos.offset(dir), dir);
 			if(redstoneSide > 0) {
 				redstone = true;

@@ -21,14 +21,6 @@ import vazkii.botania.client.lib.LibResources;
 
 public final class IconHelper {
 
-	public static TextureAtlasSprite forName(TextureMap ir, String name) {
-		return ir.registerSprite(new ResourceLocation(LibResources.PREFIX_MOD + name));
-	}
-
-	public static TextureAtlasSprite forName(TextureMap ir, String name, String dir) {
-		return ir.registerSprite(new ResourceLocation(LibResources.PREFIX_MOD + dir + "/" + name));
-	}
-
 	/**
 	 * Renders a sprite from the spritesheet with depth, like a "builtin/generated" item model.
 	 * Adapted from ItemRenderer.renderItemIn2D, 1.7.10

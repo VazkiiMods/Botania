@@ -11,8 +11,6 @@
 package vazkii.botania.common.lib;
 
 public final class LibOreDict {
-
-	public static final String LEXICON = "lexicaBotania";
 	public static final String PESTLE_AND_MORTAR = "pestleAndMortar";
 	public static final String TWIG_WAND = "twigWand";
 	public static final String MANA_STEEL = "ingotManasteel";
@@ -39,34 +37,12 @@ public final class LibOreDict {
 	public static final String MANAWEAVE_CLOTH = "clothManaweave";
 	public static final String MANA_POWDER = "powderMana";
 
-	public static final String VIAL = "bVial";
-	public static final String FLASK = "bFlask";
-
 	public static final String BLAZE_BLOCK = "blockBlaze";
-
-	public static final String[] FLOWER = new String[] {
-			"mysticFlowerWhite", "mysticFlowerOrange", "mysticFlowerMagenta", "mysticFlowerLightBlue",
-			"mysticFlowerYellow", "mysticFlowerLime", "mysticFlowerPink", "mysticFlowerGray",
-			"mysticFlowerLightGray", "mysticFlowerCyan", "mysticFlowerPurple", "mysticFlowerBlue",
-			"mysticFlowerBrown", "mysticFlowerGreen", "mysticFlowerRed", "mysticFlowerBlack"
-	};
-
-	public static final String[] PETAL = new String[] {
-			"petalWhite", "petalOrange", "petalMagenta", "petalLightBlue",
-			"petalYellow", "petalLime", "petalPink", "petalGray",
-			"petalLightGray", "petalCyan", "petalPurple", "petalBlue",
-			"petalBrown", "petalGreen", "petalRed", "petalBlack"
-	};
 
 	public static final String[] RUNE = new String[] {
 			"runeWaterB", "runeFireB", "runeEarthB", "runeAirB",
 			"runeSpringB", "runeSummerB", "runeAutumnB", "runeWinterB",
 			"runeManaB", "runeLustB", "runeGluttonyB", "runeGreedB",
 			"runeSlothB", "runeWrathB", "runeEnvyB", "runePrideB"
-	};
-
-	public static final String[] QUARTZ = new String[] {
-			"quartzDark", "quartzMana", "quartzBlaze",
-			"quartzLavender", "quartzRed", "quartzElven", "quartzSunny"
 	};
 }

@@ -59,4 +59,9 @@ public class InventoryBaubleBox implements IItemHandlerModifiable {
 		return boxInv.getSlotLimit(slot);
 	}
 
+	@Override
+	public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
+		return boxInv.isItemValid(slot, stack);
+	}
+
 }

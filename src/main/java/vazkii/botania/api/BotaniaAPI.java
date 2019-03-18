@@ -36,7 +36,6 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.registry.RegistryNamespaced;
 import net.minecraft.util.registry.RegistryNamespacedDefaultedByKey;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.registries.ForgeRegistries;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.internal.DummyMethodHandler;
@@ -356,7 +355,7 @@ public final class BotaniaAPI {
 		}
 	};
 
-	public static final EnumRarity rarityRelic = EnumHelper.addRarity("RELIC", TextFormatting.GOLD, "Relic");
+	public static final EnumRarity rarityRelic = EnumRarity.EPIC; // todo 1.13 EnumHelper.addRarity("RELIC", TextFormatting.GOLD, "Relic");
 
 	public static final KnowledgeType basicKnowledge;
 	public static final KnowledgeType elvenKnowledge;
@@ -598,7 +597,7 @@ public final class BotaniaAPI {
 	 * or String (case for Ore Dictionary). The array can't be larger than 16.
 	 * @return The recipe created.
 	 */
-	public static RecipeRuneAltar registerRuneAltarRecipe(ItemStack output, int mana, Object... inputs) {
+	public static RecipeRuneAltar registerRuneAltarRecipe(ItemStack output, int mana, Ingredient... inputs) {
 		Preconditions.checkArgument(inputs.length <= 16);
 		RecipeRuneAltar recipe = new RecipeRuneAltar(output, mana, inputs);
 		runeAltarRecipes.add(recipe);

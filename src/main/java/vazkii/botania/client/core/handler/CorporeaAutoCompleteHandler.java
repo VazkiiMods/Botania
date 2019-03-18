@@ -24,6 +24,7 @@ import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
+import org.lwjgl.glfw.GLFW;
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.common.lib.LibObfuscation;
 
@@ -77,7 +78,7 @@ public class CorporeaAutoCompleteHandler {
 			if(!valid)
 				isAutoCompleted = false;
 		}
-		if(Keyboard.isKeyDown(15)) {
+		if(GLFW.glfwGetKey(Minecraft.getInstance().mainWindow.getHandle(), GLFW.GLFW_KEY_TAB) == GLFW.GLFW_PRESS) {
 			if(tabLastTick)
 				return;
 			tabLastTick = true;

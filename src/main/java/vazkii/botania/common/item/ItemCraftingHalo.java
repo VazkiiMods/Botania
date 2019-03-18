@@ -22,7 +22,10 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ContainerWorkbench;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
@@ -36,16 +39,20 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.world.IInteractionObject;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.crafting.VanillaRecipeTypes;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
@@ -62,6 +69,7 @@ import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.lib.LibGuiIDs;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Arrays;
 
 public class ItemCraftingHalo extends ItemMod {
@@ -79,7 +87,10 @@ public class ItemCraftingHalo extends ItemMod {
 
 	public ItemCraftingHalo(Properties props) {
 		super(props);
-		MinecraftForge.EVENT_BUS.register(this);
+		MinecraftForge.EVENT_BUS.addListener(this::onItemCrafted);
+		DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> {
+			MinecraftForge.EVENT_BUS.addListener(this::onRenderWorldLast);
+		});
 	}
 
 	@Nonnull
@@ -89,13 +100,18 @@ public class ItemCraftingHalo extends ItemMod {
 		int segment = getSegmentLookedAt(stack, player);
 		ItemStack itemForPos = getItemForSlot(stack, segment);
 
-		if(segment == 0)
-			player.openGui(Botania.instance, LibGuiIDs.CRAFTING_HALO, world, hand == EnumHand.OFF_HAND ? 1 : 0, 0, 0);
-		else {
-			if(itemForPos.isEmpty())
-				assignRecipe(stack, itemForPos, segment);
-			else tryCraft(player, stack, segment, true, getFakeInv(player), true);
+		if(!world.isRemote) {
+			if(segment == 0) {
+				NetworkHooks.openGui((EntityPlayerMP) player, new ContainerProvider(world), buf -> {
+					buf.writeBoolean(hand == EnumHand.OFF_HAND);
+				});
+			} else {
+				if(itemForPos.isEmpty())
+					assignRecipe(stack, itemForPos, segment);
+				else tryCraft(player, stack, segment, true, getFakeInv(player), true);
+			}
 		}
+
 
 		return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
 	}
@@ -126,7 +142,7 @@ public class ItemCraftingHalo extends ItemMod {
 		if(!equipped) {
 			int angles = 360;
 			int segAngles = angles / SEGMENTS;
-			float shift = segAngles / 2;
+			float shift = segAngles / 2.0F;
 			setRotationBase(stack, getCheckingAngle((EntityLivingBase) entity) - shift);
 		}
 	}
@@ -242,7 +258,6 @@ public class ItemCraftingHalo extends ItemMod {
 	}
 
 	private static int getSegmentLookedAt(ItemStack stack, EntityLivingBase player) {
-		getRotationBase(stack);
 		float yaw = getCheckingAngle(player, getRotationBase(stack));
 
 		int angles = 360;
@@ -278,7 +293,7 @@ public class ItemCraftingHalo extends ItemMod {
 		return angle;
 	}
 
-	public static ItemStack getItemForSlot(ItemStack stack, int slot) {
+	private static ItemStack getItemForSlot(ItemStack stack, int slot) {
 		if(slot == 0)
 			return craftingTable;
 		else if(slot >= SEGMENTS)
@@ -287,21 +302,19 @@ public class ItemCraftingHalo extends ItemMod {
 			NBTTagCompound cmp = getStoredRecipeCompound(stack, slot);
 
 			if(cmp != null) {
-				ItemStack cmpStack = getLastCraftingItem(cmp, 9);
-				return cmpStack;
+				return getLastCraftingItem(cmp, 9);
 			} else return ItemStack.EMPTY;
 		}
 	}
 
-	public static void assignRecipe(ItemStack stack, ItemStack itemForPos, int pos) {
+	private static void assignRecipe(ItemStack stack, ItemStack itemForPos, int pos) {
 		if(!itemForPos.isEmpty())
 			ItemNBTHelper.setCompound(stack, TAG_STORED_RECIPE_PREFIX + pos, new NBTTagCompound());
 		else
 			ItemNBTHelper.setCompound(stack, TAG_STORED_RECIPE_PREFIX + pos, getLastCraftingCompound(stack, false));
 	}
 
-	@SubscribeEvent
-	public void onItemCrafted(ItemCraftedEvent event) {
+	private void onItemCrafted(ItemCraftedEvent event) {
 		if(!(event.getPlayer().openContainer instanceof ContainerCraftingHalo) || !(event.getInventory() instanceof InventoryCrafting))
 			return;
 
@@ -314,34 +327,28 @@ public class ItemCraftingHalo extends ItemMod {
 
 	private void saveRecipeToStack(ItemCraftedEvent event, ItemStack stack) {
 		NBTTagCompound cmp = new NBTTagCompound();
-		NBTTagCompound cmp1 = new NBTTagCompound();
 
 		ItemStack result = event.getPlayer().world.getRecipeManager().getResult(event.getInventory(), event.getPlayer().world, VanillaRecipeTypes.CRAFTING);
 		if(!result.isEmpty()) {
-			cmp1 = result.write(cmp1);
-			cmp.put(TAG_ITEM_PREFIX + 9, cmp1);
+			cmp.put(TAG_ITEM_PREFIX + 9, result.write(new NBTTagCompound()));
 
 			for(int i = 0; i < 9; i++) {
-				cmp1 = new NBTTagCompound();
+				NBTTagCompound ingr = new NBTTagCompound();
 				ItemStack stackSlot = event.getInventory().getStackInSlot(i);
 
 				if(!stackSlot.isEmpty()) {
 					ItemStack writeStack = stackSlot.copy();
 					writeStack.setCount(1);
-					cmp1 = writeStack.write(cmp1);
+					ingr = writeStack.write(new NBTTagCompound());
 				}
-				cmp.put(TAG_ITEM_PREFIX + i, cmp1);
+				cmp.put(TAG_ITEM_PREFIX + i, ingr);
 			}
 		}
 
 		ItemNBTHelper.setCompound(stack, TAG_LAST_CRAFTING, cmp);
 	}
 
-	public static ItemStack[] getLastCraftingItems(ItemStack stack) {
-		return getCraftingItems(stack, SEGMENTS);
-	}
-
-	public static ItemStack[] getCraftingItems(ItemStack stack, int slot) {
+	private static ItemStack[] getCraftingItems(ItemStack stack, int slot) {
 		ItemStack[] stackArray = new ItemStack[10];
 		Arrays.fill(stackArray, ItemStack.EMPTY);
 
@@ -353,48 +360,39 @@ public class ItemCraftingHalo extends ItemMod {
 		return stackArray;
 	}
 
-	public static NBTTagCompound getLastCraftingCompound(ItemStack stack, boolean nullify) {
+	private static NBTTagCompound getLastCraftingCompound(ItemStack stack, boolean nullify) {
 		return ItemNBTHelper.getCompound(stack, TAG_LAST_CRAFTING, nullify);
 	}
 
-	public static NBTTagCompound getStoredRecipeCompound(ItemStack stack, int slot) {
+	private static NBTTagCompound getStoredRecipeCompound(ItemStack stack, int slot) {
 		return slot == SEGMENTS ? getLastCraftingCompound(stack, true) : ItemNBTHelper.getCompound(stack, TAG_STORED_RECIPE_PREFIX + slot, true);
 	}
 
-	public static ItemStack getLastCraftingItem(ItemStack stack, int pos) {
-		return getLastCraftingItem(getLastCraftingCompound(stack, true), pos);
-	}
-
-	public static ItemStack getLastCraftingItem(NBTTagCompound cmp, int pos) {
+	private static ItemStack getLastCraftingItem(NBTTagCompound cmp, int pos) {
 		if(cmp == null)
 			return ItemStack.EMPTY;
 
-		NBTTagCompound cmp1 = cmp.getCompound(TAG_ITEM_PREFIX + pos);
-		if(cmp1 == null)
-			return ItemStack.EMPTY;
-
-		return ItemStack.read(cmp1);
+		return ItemStack.read(cmp.getCompound(TAG_ITEM_PREFIX + pos));
 	}
 
-	public static boolean wasEquipped(ItemStack stack) {
+	private static boolean wasEquipped(ItemStack stack) {
 		return ItemNBTHelper.getBoolean(stack, TAG_EQUIPPED, false);
 	}
 
-	public static void setEquipped(ItemStack stack, boolean equipped) {
+	private static void setEquipped(ItemStack stack, boolean equipped) {
 		ItemNBTHelper.setBoolean(stack, TAG_EQUIPPED, equipped);
 	}
 
-	public static float getRotationBase(ItemStack stack) {
+	private static float getRotationBase(ItemStack stack) {
 		return ItemNBTHelper.getFloat(stack, TAG_ROTATION_BASE, 0F);
 	}
 
-	public static void setRotationBase(ItemStack stack, float rotation) {
+	private static void setRotationBase(ItemStack stack, float rotation) {
 		ItemNBTHelper.setFloat(stack, TAG_ROTATION_BASE, rotation);
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	@SubscribeEvent
-	public void onRenderWorldLast(RenderWorldLastEvent event) {
+	private void onRenderWorldLast(RenderWorldLastEvent event) {
 		EntityPlayer player = Minecraft.getInstance().player;
 		ItemStack stack = PlayerHelper.getFirstHeldItemClass(player, ItemCraftingHalo.class);
 		if(!stack.isEmpty())
@@ -425,7 +423,7 @@ public class ItemCraftingHalo extends ItemMod {
 		float base = getRotationBase(stack);
 		int angles = 360;
 		int segAngles = angles / SEGMENTS;
-		float shift = base - segAngles / 2;
+		float shift = base - segAngles / 2.0F;
 
 		float u = 1F;
 		float v = 0.25F;
@@ -546,7 +544,7 @@ public class ItemCraftingHalo extends ItemMod {
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public static void renderRecipe(ITextComponent label, ItemStack[] recipe, EntityPlayer player, boolean setRecipe) {
+	private static void renderRecipe(ITextComponent label, ItemStack[] recipe, EntityPlayer player, boolean setRecipe) {
 		Minecraft mc = Minecraft.getInstance();
 
 		if(!recipe[9].isEmpty()) {
@@ -581,10 +579,47 @@ public class ItemCraftingHalo extends ItemMod {
 		int yoff = 110;
 		if(setRecipe && !canCraft(recipe, getFakeInv(player))) {
 			String warning = TextFormatting.RED + I18n.format("botaniamisc.cantCraft");
-			mc.fontRenderer.drawStringWithShadow(warning, mc.mainWindow.getScaledWidth() / 2 - mc.fontRenderer.getStringWidth(warning) / 2, mc.mainWindow.getScaledHeight() / 2 - yoff, 0xFFFFFF);
+			mc.fontRenderer.drawStringWithShadow(warning, mc.mainWindow.getScaledWidth() / 2.0F - mc.fontRenderer.getStringWidth(warning) / 2.0F, mc.mainWindow.getScaledHeight() / 2.0F - yoff, 0xFFFFFF);
 			yoff += 12;
 		}
 
-		mc.fontRenderer.drawStringWithShadow(label.getFormattedText(), mc.mainWindow.getScaledWidth() / 2 - mc.fontRenderer.getStringWidth(label.getString()) / 2, mc.mainWindow.getScaledHeight() / 2 - yoff, 0xFFFFFF);
+		mc.fontRenderer.drawStringWithShadow(label.getFormattedText(), mc.mainWindow.getScaledWidth() / 2.0F - mc.fontRenderer.getStringWidth(label.getString()) / 2.0F, mc.mainWindow.getScaledHeight() / 2.0F - yoff, 0xFFFFFF);
+	}
+
+	public static class ContainerProvider implements IInteractionObject {
+		private final World world;
+
+		public ContainerProvider(World world) {
+			this.world = world;
+		}
+
+		@Nonnull
+		@Override
+		public Container createContainer(@Nonnull InventoryPlayer inv, @Nonnull EntityPlayer player) {
+			return new ContainerCraftingHalo(inv, world);
+		}
+
+		@Nonnull
+		@Override
+		public String getGuiID() {
+			return "botania:crafting_halo";
+		}
+
+		@Nonnull
+		@Override
+		public ITextComponent getName() {
+			return new TextComponentString(getGuiID());
+		}
+
+		@Override
+		public boolean hasCustomName() {
+			return false;
+		}
+
+		@Nullable
+		@Override
+		public ITextComponent getCustomName() {
+			return null;
+		}
 	}
 }

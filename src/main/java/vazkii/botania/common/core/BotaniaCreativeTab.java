@@ -11,9 +11,11 @@
 package vazkii.botania.common.core;
 
 import net.minecraft.block.Block;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.IItemProvider;
 import net.minecraft.util.NonNullList;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.Botania;
@@ -21,7 +23,6 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.item.material.ItemManaResource;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
@@ -54,8 +55,9 @@ public final class BotaniaCreativeTab extends ItemGroup {
 
 		addItem(ModItems.lexicon);
 
-		addBlock(ModBlocks.flower);
-		addBlock(ModBlocks.specialFlower);
+		for(EnumDyeColor color : EnumDyeColor.values())
+			addItem(ModBlocks.getFlower(color));
+		addItem(ModBlocks.specialFlower);
 		ModItems.petals.values().forEach(this::addItem);
 		addItem(ModItems.pestleAndMortar);
 		ModItems.dyes.values().forEach(this::addItem);
@@ -88,11 +90,11 @@ public final class BotaniaCreativeTab extends ItemGroup {
 		addItem(ModItems.pebble);
 		addItem(ModItems.manaweaveCloth);
 		addItem(ModItems.manaPowder);
-		addBlock(ModBlocks.manasteelBlock);
-		addBlock(ModBlocks.terrasteelBlock);
-		addBlock(ModBlocks.elementiumBlock);
-		addBlock(ModBlocks.manaDiamondBlock);
-		addBlock(ModBlocks.dragonstoneBlock);
+		addItem(ModBlocks.manasteelBlock);
+		addItem(ModBlocks.terrasteelBlock);
+		addItem(ModBlocks.elementiumBlock);
+		addItem(ModBlocks.manaDiamondBlock);
+		addItem(ModBlocks.dragonstoneBlock);
 		addItem(ModItems.manaCookie);
 		addItem(ModItems.runeWater);
 		addItem(ModItems.runeFire);
@@ -110,7 +112,7 @@ public final class BotaniaCreativeTab extends ItemGroup {
 		addItem(ModItems.runeWrath);
 		addItem(ModItems.runeEnvy);
 		addItem(ModItems.runePride);
-		addBlock(ModBlocks.avatar);
+		addItem(ModBlocks.avatar);
 		addItem(ModItems.dirtRod);
 		addItem(ModItems.skyDirtRod);
 		addItem(ModItems.cobbleRod);
@@ -122,10 +124,10 @@ public final class BotaniaCreativeTab extends ItemGroup {
 		addItem(ModItems.waterRod);
 		addItem(ModItems.openBucket);
 		addItem(ModItems.rainbowRod);
-		addBlock(ModBlocks.bifrostPerm);
-		addBlock(ModFluffBlocks.bifrostPane);
-		addBlock(ModBlocks.shimmerrock);
-		addBlock(ModBlocks.shimmerwoodPlanks);
+		addItem(ModBlocks.bifrostPerm);
+		addItem(ModFluffBlocks.bifrostPane);
+		addItem(ModBlocks.shimmerrock);
+		addItem(ModBlocks.shimmerwoodPlanks);
 		addItem(ModItems.tornadoRod);
 		addItem(ModItems.fireRod);
 		addItem(ModItems.smeltRod);
@@ -140,7 +142,7 @@ public final class BotaniaCreativeTab extends ItemGroup {
 		addItem(ModItems.keepIvy);
 		addItem(ModItems.worldSeed);
 		addItem(ModItems.overgrowthSeed);
-		addBlock(ModBlocks.enchantedSoil);
+		addItem(ModBlocks.enchantedSoil);
 		addItem(ModItems.grassSeeds);
 		addItem(ModItems.podzolSeeds);
 		addItem(ModItems.mycelSeeds);
@@ -150,42 +152,42 @@ public final class BotaniaCreativeTab extends ItemGroup {
 		addItem(ModItems.scorchedSeeds);
 		addItem(ModItems.infusedSeeds);
 		addItem(ModItems.mutatedSeeds);
-		addBlock(ModBlocks.dryGrass);
-		addBlock(ModBlocks.goldenGrass);
-		addBlock(ModBlocks.vividGrass);
-		addBlock(ModBlocks.scorchedGrass);
-		addBlock(ModBlocks.infusedGrass);
-		addBlock(ModBlocks.mutatedGrass);
+		addItem(ModBlocks.dryGrass);
+		addItem(ModBlocks.goldenGrass);
+		addItem(ModBlocks.vividGrass);
+		addItem(ModBlocks.scorchedGrass);
+		addItem(ModBlocks.infusedGrass);
+		addItem(ModBlocks.mutatedGrass);
 		if(Botania.thaumcraftLoaded)
 			addItem(ModItems.manaInkwell);
-		addBlock(ModBlocks.wildDrum);
-		addBlock(ModBlocks.gatheringDrum);
-		addBlock(ModBlocks.canopyDrum);
-		addBlock(ModBlocks.forestEye);
-		addBlock(ModBlocks.enderEye);
+		addItem(ModBlocks.wildDrum);
+		addItem(ModBlocks.gatheringDrum);
+		addItem(ModBlocks.canopyDrum);
+		addItem(ModBlocks.forestEye);
+		addItem(ModBlocks.enderEye);
 		addItem(ModItems.enderHand);
 		addItem(ModItems.spellCloth);
 		addItem(ModItems.craftingHalo);
 		addItem(ModItems.autocraftingHalo);
 		addItem(ModItems.spawnerMover);
-		addBlock(ModBlocks.spawnerClaw);
-		addBlock(ModBlocks.cocoon);
-		addBlock(ModBlocks.teruTeruBozu);
+		addItem(ModBlocks.spawnerClaw);
+		addItem(ModBlocks.cocoon);
+		addItem(ModBlocks.teruTeruBozu);
 		addItem(ModItems.slimeBottle);
 		addItem(ModItems.sextant);
 		addItem(ModItems.astrolabe);
 		addItem(ModItems.blackHoleTalisman);
 
 		if(Botania.gardenOfGlassLoaded) {
-			addBlock(ModBlocks.root);
+			addItem(ModBlocks.root);
 			addItem(ModItems.waterBowl);
 		}
 
-		addBlock(ModBlocks.livingrock);
-		addBlock(ModBlocks.livingwood);
+		addItem(ModBlocks.livingrock);
+		addItem(ModBlocks.livingwood);
 
-		addBlock(ModBlocks.openCrate);
-		addBlock(ModBlocks.craftCrate);
+		addItem(ModBlocks.openCrate);
+		addItem(ModBlocks.craftCrate);
 		addItem(ModItems.craftPattern1_1);
 		addItem(ModItems.craftPattern2_2);
 		addItem(ModItems.craftPattern1_2);
@@ -196,53 +198,53 @@ public final class BotaniaCreativeTab extends ItemGroup {
 		addItem(ModItems.craftPattern3_2);
 		addItem(ModItems.craftPatternDonut);
 
-		addBlock(ModBlocks.abstrusePlatform);
-		addBlock(ModBlocks.spectralPlatform);
-		addBlock(ModBlocks.infrangiblePlatform);
-		addBlock(ModBlocks.alfPortal);
-		addBlock(ModBlocks.defaultAltar);
-		addBlock(ModBlocks.forestAltar);
-		addBlock(ModBlocks.plainsAltar);
-		addBlock(ModBlocks.mountainAltar);
-		addBlock(ModBlocks.fungalAltar);
-		addBlock(ModBlocks.swampAltar);
-		addBlock(ModBlocks.desertAltar);
-		addBlock(ModBlocks.taigaAltar);
-		addBlock(ModBlocks.mesaAltar);
-		addBlock(ModBlocks.mossyAltar);
-		addBlock(ModBlocks.runeAltar);
-		addBlock(ModBlocks.terraPlate);
-		addBlock(ModBlocks.brewery);
+		addItem(ModBlocks.abstrusePlatform);
+		addItem(ModBlocks.spectralPlatform);
+		addItem(ModBlocks.infrangiblePlatform);
+		addItem(ModBlocks.alfPortal);
+		addItem(ModBlocks.defaultAltar);
+		addItem(ModBlocks.forestAltar);
+		addItem(ModBlocks.plainsAltar);
+		addItem(ModBlocks.mountainAltar);
+		addItem(ModBlocks.fungalAltar);
+		addItem(ModBlocks.swampAltar);
+		addItem(ModBlocks.desertAltar);
+		addItem(ModBlocks.taigaAltar);
+		addItem(ModBlocks.mesaAltar);
+		addItem(ModBlocks.mossyAltar);
+		addItem(ModBlocks.runeAltar);
+		addItem(ModBlocks.terraPlate);
+		addItem(ModBlocks.brewery);
 		addItem(ModItems.vial);
 		addItem(ModItems.flask);
 		addItem(ModItems.brewVial);
 		addItem(ModItems.brewFlask);
-		addBlock(ModBlocks.incensePlate);
+		addItem(ModBlocks.incensePlate);
 		addItem(ModItems.incenseStick);
 		addItem(ModItems.bloodPendant);
-		addBlock(ModBlocks.felPumpkin);
-		addBlock(ModBlocks.manaPylon);
-		addBlock(ModBlocks.naturaPylon);
-		addBlock(ModBlocks.gaiaPylon);
-		addBlock(ModBlocks.pistonRelay);
-		addBlock(ModBlocks.hourglass);
-		addBlock(ModBlocks.animatedTorch);
+		addItem(ModBlocks.felPumpkin);
+		addItem(ModBlocks.manaPylon);
+		addItem(ModBlocks.naturaPylon);
+		addItem(ModBlocks.gaiaPylon);
+		addItem(ModBlocks.pistonRelay);
+		addItem(ModBlocks.hourglass);
+		addItem(ModBlocks.animatedTorch);
 
-		addBlock(ModBlocks.redStringContainer);
-		addBlock(ModBlocks.redStringDispenser);
-		addBlock(ModBlocks.redStringFertilizer);
-		addBlock(ModBlocks.redStringComparator);
-		addBlock(ModBlocks.redStringRelay);
-		addBlock(ModBlocks.redStringInterceptor);
+		addItem(ModBlocks.redStringContainer);
+		addItem(ModBlocks.redStringDispenser);
+		addItem(ModBlocks.redStringFertilizer);
+		addItem(ModBlocks.redStringComparator);
+		addItem(ModBlocks.redStringRelay);
+		addItem(ModBlocks.redStringInterceptor);
 
-		addBlock(ModBlocks.tinyPotato);
-		addBlock(ModBlocks.starfield);
+		addItem(ModBlocks.tinyPotato);
+		addItem(ModBlocks.starfield);
 
-		addBlock(ModBlocks.dreamwood);
-		addBlock(ModBlocks.manaGlass);
-		addBlock(ModFluffBlocks.managlassPane);
-		addBlock(ModBlocks.elfGlass);
-		addBlock(ModFluffBlocks.alfglassPane);
+		addItem(ModBlocks.dreamwood);
+		addItem(ModBlocks.manaGlass);
+		addItem(ModFluffBlocks.managlassPane);
+		addItem(ModBlocks.elfGlass);
+		addItem(ModFluffBlocks.alfglassPane);
 
 		addItem(ModItems.glassPick);
 		addItem(ModItems.manasteelPick);
@@ -312,7 +314,7 @@ public final class BotaniaCreativeTab extends ItemGroup {
 
 		addItem(ModItems.baubleBox);
 		addItem(ModItems.tinyPlanet);
-		addBlock(ModBlocks.tinyPlanet);
+		addItem(ModBlocks.tinyPlanet);
 		addItem(ModItems.manaRing);
 		addItem(ModItems.auraRing);
 		addItem(ModItems.manaRingGreater);
@@ -348,27 +350,27 @@ public final class BotaniaCreativeTab extends ItemGroup {
 		addItem(ModItems.manaTablet);
 		addItem(ModItems.manaMirror);
 		addItem(ModItems.manaBottle);
-		addBlock(ModBlocks.manaPool);
-		addBlock(ModBlocks.creativePool);
-		addBlock(ModBlocks.dilutedPool);
-		addBlock(ModBlocks.fabulousPool);
-		addBlock(ModBlocks.alchemyCatalyst);
-		addBlock(ModBlocks.conjurationCatalyst);
-		addBlock(ModBlocks.distributor);
-		addBlock(ModBlocks.manaVoid);
-		addBlock(ModBlocks.bellows);
-		addBlock(ModBlocks.manaDetector);
-		addBlock(ModBlocks.manaBomb);
-		addBlock(ModBlocks.ghostRail);
+		addItem(ModBlocks.manaPool);
+		addItem(ModBlocks.creativePool);
+		addItem(ModBlocks.dilutedPool);
+		addItem(ModBlocks.fabulousPool);
+		addItem(ModBlocks.alchemyCatalyst);
+		addItem(ModBlocks.conjurationCatalyst);
+		addItem(ModBlocks.distributor);
+		addItem(ModBlocks.manaVoid);
+		addItem(ModBlocks.bellows);
+		addItem(ModBlocks.manaDetector);
+		addItem(ModBlocks.manaBomb);
+		addItem(ModBlocks.ghostRail);
 		addItem(ModItems.poolMinecart);
-		addBlock(ModBlocks.pump);
-		addBlock(ModBlocks.rfGenerator);
-		addBlock(ModBlocks.manaSpreader);
-		addBlock(ModBlocks.redstoneSpreader);
-		addBlock(ModBlocks.elvenSpreader);
-		addBlock(ModBlocks.gaiaSpreader);
-		addBlock(ModBlocks.turntable);
-		addBlock(ModBlocks.prism);
+		addItem(ModBlocks.pump);
+		addItem(ModBlocks.rfGenerator);
+		addItem(ModBlocks.manaSpreader);
+		addItem(ModBlocks.redstoneSpreader);
+		addItem(ModBlocks.elvenSpreader);
+		addItem(ModBlocks.gaiaSpreader);
+		addItem(ModBlocks.turntable);
+		addItem(ModBlocks.prism);
 		addItem(ModItems.lensNormal);
 		addItem(ModItems.lensSpeed);
 		addItem(ModItems.lensPower);
@@ -400,81 +402,87 @@ public final class BotaniaCreativeTab extends ItemGroup {
 		addItem(ModItems.sparkUpgradeDominant);
 		addItem(ModItems.sparkUpgradeRecessive);
 		addItem(ModItems.sparkUpgradeIsolated);
-		addBlock(ModBlocks.sparkChanger);
+		addItem(ModBlocks.sparkChanger);
 		addItem(ModItems.corporeaSpark);
 		addItem(ModItems.corporeaSparkMaster);
-		addBlock(ModBlocks.corporeaIndex);
-		addBlock(ModBlocks.corporeaFunnel);
-		addBlock(ModBlocks.corporeaInterceptor);
-		addBlock(ModBlocks.corporeaRetainer);
-		addBlock(ModBlocks.corporeaCrystalCube);
-		addBlock(ModBlocks.lightRelay);
-		addBlock(ModBlocks.lightLauncher);
-		addBlock(ModBlocks.cellBlock);
+		addItem(ModBlocks.corporeaIndex);
+		addItem(ModBlocks.corporeaFunnel);
+		addItem(ModBlocks.corporeaInterceptor);
+		addItem(ModBlocks.corporeaRetainer);
+		addItem(ModBlocks.corporeaCrystalCube);
+		addItem(ModBlocks.lightRelayDefault);
+		addItem(ModBlocks.lightRelayDetector);
+		addItem(ModBlocks.lightRelayFork);
+		addItem(ModBlocks.lightRelayToggle);
+		addItem(ModBlocks.lightLauncher);
+		addItem(ModBlocks.cellBlock);
 
 		// FLUFF
 
-		addBlock(ModBlocks.doubleFlower1);
-		addBlock(ModBlocks.doubleFlower2);
-		addBlock(ModBlocks.shinyFlower);
-		addBlock(ModBlocks.floatingFlower);
-		addBlock(ModBlocks.floatingSpecialFlower);
-		addBlock(ModBlocks.petalBlockWhite);
-		addBlock(ModBlocks.petalBlockOrange);
-		addBlock(ModBlocks.petalBlockMagenta);
-		addBlock(ModBlocks.petalBlockLightBlue);
-		addBlock(ModBlocks.petalBlockYellow);
-		addBlock(ModBlocks.petalBlockLime);
-		addBlock(ModBlocks.petalBlockPink);
-		addBlock(ModBlocks.petalBlockGray);
-		addBlock(ModBlocks.petalBlockSilver);
-		addBlock(ModBlocks.petalBlockCyan);
-		addBlock(ModBlocks.petalBlockPurple);
-		addBlock(ModBlocks.petalBlockBlue);
-		addBlock(ModBlocks.petalBlockBrown);
-		addBlock(ModBlocks.petalBlockGreen);
-		addBlock(ModBlocks.petalBlockRed);
-		addBlock(ModBlocks.petalBlockBlack);
-		addBlock(ModBlocks.mushroom);
+		for(EnumDyeColor color : EnumDyeColor.values())
+			addItem(ModBlocks.getDoubleFlower(color));
+		for(EnumDyeColor color : EnumDyeColor.values())
+			addItem(ModBlocks.getShinyFlower(color));
+		for(EnumDyeColor color : EnumDyeColor.values())
+			addItem(ModBlocks.getFloatingFlower(color));
+		addItem(ModBlocks.floatingSpecialFlower);
+		addItem(ModBlocks.petalBlockWhite);
+		addItem(ModBlocks.petalBlockOrange);
+		addItem(ModBlocks.petalBlockMagenta);
+		addItem(ModBlocks.petalBlockLightBlue);
+		addItem(ModBlocks.petalBlockYellow);
+		addItem(ModBlocks.petalBlockLime);
+		addItem(ModBlocks.petalBlockPink);
+		addItem(ModBlocks.petalBlockGray);
+		addItem(ModBlocks.petalBlockSilver);
+		addItem(ModBlocks.petalBlockCyan);
+		addItem(ModBlocks.petalBlockPurple);
+		addItem(ModBlocks.petalBlockBlue);
+		addItem(ModBlocks.petalBlockBrown);
+		addItem(ModBlocks.petalBlockGreen);
+		addItem(ModBlocks.petalBlockRed);
+		addItem(ModBlocks.petalBlockBlack);
+		for(EnumDyeColor color : EnumDyeColor.values())
+			addItem(ModBlocks.getMushroom(color));
 
-		addBlock(ModBlocks.blazeBlock);
+		addItem(ModBlocks.blazeBlock);
 
-		addBlock(ModBlocks.azulejo0);
-		addBlock(ModBlocks.azulejo1);
-		addBlock(ModBlocks.azulejo2);
-		addBlock(ModBlocks.azulejo3);
-		addBlock(ModBlocks.azulejo4);
-		addBlock(ModBlocks.azulejo5);
-		addBlock(ModBlocks.azulejo6);
-		addBlock(ModBlocks.azulejo7);
-		addBlock(ModBlocks.azulejo8);
-		addBlock(ModBlocks.azulejo9);
-		addBlock(ModBlocks.azulejo10);
-		addBlock(ModBlocks.azulejo11);
-		addBlock(ModBlocks.azulejo12);
-		addBlock(ModBlocks.azulejo13);
-		addBlock(ModBlocks.azulejo14);
-		addBlock(ModBlocks.azulejo15);
+		addItem(ModBlocks.azulejo0);
+		addItem(ModBlocks.azulejo1);
+		addItem(ModBlocks.azulejo2);
+		addItem(ModBlocks.azulejo3);
+		addItem(ModBlocks.azulejo4);
+		addItem(ModBlocks.azulejo5);
+		addItem(ModBlocks.azulejo6);
+		addItem(ModBlocks.azulejo7);
+		addItem(ModBlocks.azulejo8);
+		addItem(ModBlocks.azulejo9);
+		addItem(ModBlocks.azulejo10);
+		addItem(ModBlocks.azulejo11);
+		addItem(ModBlocks.azulejo12);
+		addItem(ModBlocks.azulejo13);
+		addItem(ModBlocks.azulejo14);
+		addItem(ModBlocks.azulejo15);
 
-		addBlock(ModFluffBlocks.livingwoodStairs);
-		addBlock(ModFluffBlocks.livingwoodSlab);
-		addBlock(ModFluffBlocks.livingwoodWall);
-		addBlock(ModFluffBlocks.livingwoodPlankStairs);
-		addBlock(ModFluffBlocks.livingwoodPlankSlab);
-		addBlock(ModFluffBlocks.livingrockStairs);
-		addBlock(ModFluffBlocks.livingrockSlab);
-		addBlock(ModFluffBlocks.livingrockWall);
-		addBlock(ModFluffBlocks.livingrockBrickStairs);
-		addBlock(ModFluffBlocks.livingrockBrickSlab);
-		addBlock(ModFluffBlocks.dreamwoodStairs);
-		addBlock(ModFluffBlocks.dreamwoodSlab);
-		addBlock(ModFluffBlocks.dreamwoodWall);
-		addBlock(ModFluffBlocks.dreamwoodPlankStairs);
-		addBlock(ModFluffBlocks.dreamwoodPlankSlab);
-		addBlock(ModFluffBlocks.shimmerwoodPlankStairs);
-		addBlock(ModFluffBlocks.shimmerwoodPlankSlab);
-		addBlock(ModFluffBlocks.shimmerrockStairs);
-		addBlock(ModFluffBlocks.shimmerrockSlab);
+		addItem(ModFluffBlocks.livingwoodStairs);
+		addItem(ModFluffBlocks.livingwoodSlab);
+		addItem(ModFluffBlocks.livingwoodWall);
+		addItem(ModFluffBlocks.livingwoodPlankStairs);
+		addItem(ModFluffBlocks.livingwoodPlankSlab);
+		addItem(ModFluffBlocks.livingrockStairs);
+		addItem(ModFluffBlocks.livingrockSlab);
+		addItem(ModFluffBlocks.livingrockWall);
+		addItem(ModFluffBlocks.livingrockBrickStairs);
+		addItem(ModFluffBlocks.livingrockBrickSlab);
+		addItem(ModFluffBlocks.dreamwoodStairs);
+		addItem(ModFluffBlocks.dreamwoodSlab);
+		addItem(ModFluffBlocks.dreamwoodWall);
+		addItem(ModFluffBlocks.dreamwoodPlankStairs);
+		addItem(ModFluffBlocks.dreamwoodPlankSlab);
+		addItem(ModFluffBlocks.shimmerwoodPlankStairs);
+		addItem(ModFluffBlocks.shimmerwoodPlankSlab);
+		addItem(ModFluffBlocks.shimmerrockStairs);
+		addItem(ModFluffBlocks.shimmerrockSlab);
 
 		addItem(ModItems.darkQuartz);
 		addItem(ModItems.manaQuartz);
@@ -484,52 +492,59 @@ public final class BotaniaCreativeTab extends ItemGroup {
 		addItem(ModItems.elfQuartz);
 		addItem(ModItems.sunnyQuartz);
 
-		addBlock(ModFluffBlocks.darkQuartz);
-		addBlock(ModFluffBlocks.darkQuartzSlab);
-		addBlock(ModFluffBlocks.darkQuartzStairs);
+		addItem(ModFluffBlocks.darkQuartz);
+		addItem(ModFluffBlocks.darkQuartzSlab);
+		addItem(ModFluffBlocks.darkQuartzStairs);
 
-		addBlock(ModFluffBlocks.manaQuartz);
-		addBlock(ModFluffBlocks.manaQuartzSlab);
-		addBlock(ModFluffBlocks.manaQuartzStairs);
-		addBlock(ModFluffBlocks.blazeQuartz);
-		addBlock(ModFluffBlocks.blazeQuartzSlab);
-		addBlock(ModFluffBlocks.blazeQuartzStairs);
-		addBlock(ModFluffBlocks.lavenderQuartz);
-		addBlock(ModFluffBlocks.lavenderQuartzSlab);
-		addBlock(ModFluffBlocks.lavenderQuartzStairs);
-		addBlock(ModFluffBlocks.redQuartz);
-		addBlock(ModFluffBlocks.redQuartzSlab);
-		addBlock(ModFluffBlocks.redQuartzStairs);
-		addBlock(ModFluffBlocks.elfQuartz);
-		addBlock(ModFluffBlocks.elfQuartzSlab);
-		addBlock(ModFluffBlocks.elfQuartzStairs);
-		addBlock(ModFluffBlocks.sunnyQuartz);
-		addBlock(ModFluffBlocks.sunnyQuartzSlab);
-		addBlock(ModFluffBlocks.sunnyQuartzStairs);
+		addItem(ModFluffBlocks.manaQuartz);
+		addItem(ModFluffBlocks.manaQuartzSlab);
+		addItem(ModFluffBlocks.manaQuartzStairs);
+		addItem(ModFluffBlocks.blazeQuartz);
+		addItem(ModFluffBlocks.blazeQuartzSlab);
+		addItem(ModFluffBlocks.blazeQuartzStairs);
+		addItem(ModFluffBlocks.lavenderQuartz);
+		addItem(ModFluffBlocks.lavenderQuartzSlab);
+		addItem(ModFluffBlocks.lavenderQuartzStairs);
+		addItem(ModFluffBlocks.redQuartz);
+		addItem(ModFluffBlocks.redQuartzSlab);
+		addItem(ModFluffBlocks.redQuartzStairs);
+		addItem(ModFluffBlocks.elfQuartz);
+		addItem(ModFluffBlocks.elfQuartzSlab);
+		addItem(ModFluffBlocks.elfQuartzStairs);
+		addItem(ModFluffBlocks.sunnyQuartz);
+		addItem(ModFluffBlocks.sunnyQuartzSlab);
+		addItem(ModFluffBlocks.sunnyQuartzStairs);
 
-		addBlock(ModFluffBlocks.biomeStoneA);
-		addBlock(ModFluffBlocks.biomeStoneB);
+		/* todo 1.13 cba to type this all out rn
+		addItem(ModFluffBlocks.biomeStoneA);
+		addItem(ModFluffBlocks.biomeStoneB);
 		for(int i = 0; i < 24; i++)
-			addBlock(ModFluffBlocks.biomeStoneStairs[i]);
+			addItem(ModFluffBlocks.biomeStoneStairs[i]);
 		for(int i = 0; i < 24; i++)
-			addBlock(ModFluffBlocks.biomeStoneSlabs[i]);
-		addBlock(ModFluffBlocks.biomeStoneWall);
+			addItem(ModFluffBlocks.biomeStoneSlabs[i]);
+		addItem(ModFluffBlocks.biomeStoneWall);
+		*/
 
-		addBlock(ModFluffBlocks.pavement);
-		for (Block pavementStair : ModFluffBlocks.pavementStairs)
-			addBlock(pavementStair);
-		for (Block pavementSlab : ModFluffBlocks.pavementSlabs)
-			addBlock(pavementSlab);
+		addItem(ModFluffBlocks.whitePavement);
+		addItem(ModFluffBlocks.blackPavement);
+		addItem(ModFluffBlocks.bluePavement);
+		addItem(ModFluffBlocks.yellowPavement);
+		addItem(ModFluffBlocks.redPavement);
+		addItem(ModFluffBlocks.whitePavementStair);
+		addItem(ModFluffBlocks.blackPavementStair);
+		addItem(ModFluffBlocks.bluePavementStair);
+		addItem(ModFluffBlocks.yellowPavementStair);
+		addItem(ModFluffBlocks.redPavementStair);
+		addItem(ModFluffBlocks.whitePavementSlab);
+		addItem(ModFluffBlocks.blackPavementSlab);
+		addItem(ModFluffBlocks.bluePavementSlab);
+		addItem(ModFluffBlocks.yellowPavementSlab);
+		addItem(ModFluffBlocks.redPavementSlab);
 
 		ModItems.cosmetics.values().forEach(this::addItem);
 	}
 
-	private void addItem(Item item) {
-		item.fillItemGroup(this, list);
+	private void addItem(IItemProvider item) {
+		item.asItem().fillItemGroup(this, list);
 	}
-
-	private void addBlock(Block block) {
-		block.fillItemGroup(this, list);
-	}
-
 }

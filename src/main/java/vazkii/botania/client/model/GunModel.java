@@ -118,7 +118,7 @@ public class GunModel implements IBakedModel {
 			ImmutableList.Builder<BakedQuad> genBuilder = ImmutableList.builder();
 			final TRSRTransformation transform = TRSRTransformation.blockCenterToCorner(new TRSRTransformation(new Vector3f(-0.4F, 0.25F, 0), null, new Vector3f(0.625F, 0.625F, 0.625F), TRSRTransformation.quatFromXYZ(0, (float) Math.PI / 2, 0)));
 
-			for(EnumFacing e : EnumFacing.BY_INDEX)
+			for(EnumFacing e : EnumFacing.values())
 				faceQuads.put(e, new ArrayList<>());
 
 			// Add lens quads, scaled and translated
@@ -126,13 +126,13 @@ public class GunModel implements IBakedModel {
 				genBuilder.add(transform(quad, transform));
 			}
 
-			for(EnumFacing e : EnumFacing.BY_INDEX) {
+			for(EnumFacing e : EnumFacing.values()) {
 				faceQuads.get(e).addAll(lens.getQuads(null, e, new Random(0)).stream().map(input -> transform(input, transform)).collect(Collectors.toList()));
 			}
 
 			// Add gun quads
 			genBuilder.addAll(gun.getQuads(null, null, new Random(0)));
-			for(EnumFacing e : EnumFacing.BY_INDEX) {
+			for(EnumFacing e : EnumFacing.values()) {
 				faceQuads.get(e).addAll(gun.getQuads(null, e, new Random(0)));
 			}
 

@@ -11,6 +11,8 @@ package vazkii.botania.client.core.handler;
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.model.ModelResourceLocation;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -22,6 +24,7 @@ import vazkii.botania.client.model.LexiconModel;
 import vazkii.botania.client.model.PlatformModel;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
 import vazkii.botania.common.item.relic.ItemKingKey;
+import vazkii.botania.common.lib.LibMisc;
 
 import java.util.EnumMap;
 import java.util.Map;
@@ -50,11 +53,11 @@ public class MiscellaneousIcons {
 	runeAltarTriggerIcon,
 	terrasteelHelmWillIcon;
 
-	public TextureAtlasSprite[] sparkUpgradeIcons;
-	public TextureAtlasSprite[] kingKeyWeaponIcons;
+	public final TextureAtlasSprite[] sparkUpgradeIcons = new TextureAtlasSprite[4];
+	public final TextureAtlasSprite[] kingKeyWeaponIcons = new TextureAtlasSprite[ItemKingKey.WEAPON_TYPES];
 	// public final Map<TriggerManaLevel.State, TextureAtlasSprite> manaLevelTriggerIcons = new EnumMap<>(TriggerManaLevel.State.class);
-	public TextureAtlasSprite[] tiaraWingIcons;
-	public TextureAtlasSprite[] thirdEyeLayers;
+	public final TextureAtlasSprite[] tiaraWingIcons = new TextureAtlasSprite[ItemFlightTiara.WING_TYPES];
+	public final TextureAtlasSprite[] thirdEyeLayers = new TextureAtlasSprite[3];
 
 	// begin dank_memes
 	public TextureAtlasSprite tailIcon = null;
@@ -112,67 +115,130 @@ public class MiscellaneousIcons {
 		originalModel = evt.getModelRegistry().get(key);
 		evt.getModelRegistry().put(key, new GunModel(originalModel));
 	}
-
+	
 	@SubscribeEvent
-	public void onTextureStitch(TextureStitchEvent.Pre evt) {
-		alfPortalTex = IconHelper.forName(evt.getMap(), "alfheim_portal_swirl", "blocks");
-		lightRelayWorldIcon = IconHelper.forName(evt.getMap(), "luminizer", "blocks");
-		lightRelayWorldIconRed = IconHelper.forName(evt.getMap(), "luminizer_detector", "blocks");
-		lightRelayWorldIconGreen = IconHelper.forName(evt.getMap(), "luminizer_fork", "blocks");
-		lightRelayWorldIconPurple = IconHelper.forName(evt.getMap(), "luminizer_toggle", "blocks");
-		alchemyCatalystOverlay = IconHelper.forName(evt.getMap(), "catalyst_alchemy_overlay", "blocks");
-		conjurationCatalystOverlay = IconHelper.forName(evt.getMap(), "catalyst_conjuration_overlay", "blocks");
-		enchanterOverlay = IconHelper.forName(evt.getMap(), "enchanter_overlay", "blocks");
-		manaVoidOverlay = IconHelper.forName(evt.getMap(), "mana_void_overlay", "blocks");
-		manaWater = IconHelper.forName(evt.getMap(), "mana_water", "blocks");
-		terraPlateOverlay = IconHelper.forName(evt.getMap(), "terra_plate_overlay", "blocks");
-		corporeaWorldIcon = IconHelper.forName(evt.getMap(), "spark_corporea", "items");
-		corporeaWorldIconMaster = IconHelper.forName(evt.getMap(), "spark_corporea_master", "items");
-		corporeaIconStar = IconHelper.forName(evt.getMap(), "spark_corporea_star", "items");
-		sparkWorldIcon = IconHelper.forName(evt.getMap(), "spark", "items");
+	public void onTextureStitchPre(TextureStitchEvent.Pre evt) {
+		register(evt.getMap(), "blocks/alfheim_portal_swirl");
+		register(evt.getMap(), "blocks/alfheim_portal_swirl");
+		register(evt.getMap(), "blocks/luminizer");
+		register(evt.getMap(), "blocks/luminizer_detector");
+		register(evt.getMap(), "blocks/luminizer_fork");
+		register(evt.getMap(), "blocks/luminizer_toggle");
+		register(evt.getMap(), "blocks/catalyst_alchemy_overlay");
+		register(evt.getMap(), "blocks/catalyst_conjuration_overlay");
+		register(evt.getMap(), "blocks/enchanter_overlay");
+		register(evt.getMap(), "blocks/mana_void_overlay");
+		register(evt.getMap(), "blocks/mana_water");
+		register(evt.getMap(), "blocks/terra_plate_overlay");
+		register(evt.getMap(), "items/spark_corporea");
+		register(evt.getMap(), "items/spark_corporea_master");
+		register(evt.getMap(), "items/spark_corporea_star");
+		register(evt.getMap(), "items/spark");
 
-		sparkUpgradeIcons = new TextureAtlasSprite[4];
 		for(int i = 0; i < 4; i++) {
-			sparkUpgradeIcons[i] = IconHelper.forName(evt.getMap(), "spark_upgrade_rune_" + i, "items");
+			register(evt.getMap(), "items/spark_upgrade_rune_" + i);
 		}
 
-		tailIcon = IconHelper.forName(evt.getMap(), "special_tail", "items");
-		phiFlowerIcon = IconHelper.forName(evt.getMap(), "special_phiflower", "items");
-		goldfishIcon = IconHelper.forName(evt.getMap(), "special_goldfish", "items");
-		nerfBatIcon = IconHelper.forName(evt.getMap(), "special_nerfbat", "items");
+		register(evt.getMap(), "items/special_tail");
+		register(evt.getMap(), "items/special_phiflower");
+		register(evt.getMap(), "items/special_goldfish");
+		register(evt.getMap(), "items/special_nerfbat");
 
-		kingKeyWeaponIcons = new TextureAtlasSprite[ItemKingKey.WEAPON_TYPES];
 		for(int i = 0; i < ItemKingKey.WEAPON_TYPES; i++)
-			kingKeyWeaponIcons[i] = IconHelper.forName(evt.getMap(), "gate_weapon_" + i, "items");
-		
-		thirdEyeLayers = new TextureAtlasSprite[3];
-		for(int i = 0; i < 3; i++)
-			thirdEyeLayers[i] = IconHelper.forName(evt.getMap(), "third_eye_" + i, "items");
+			register(evt.getMap(), "items/gate_weapon_" + i);
 
-		manaDetectorIcon = IconHelper.forName(evt.getMap(), "triggers/manaDetector", "items");
-		runeAltarTriggerIcon = IconHelper.forName(evt.getMap(), "triggers/runeAltarCanCraft", "items");
+		for(int i = 0; i < 3; i++)
+			register(evt.getMap(), "items/third_eye_" + i);
+
+		register(evt.getMap(), "items/triggers/manaDetector");
+		register(evt.getMap(), "items/triggers/runeAltarCanCraft");
 
 		/*
 		for (TriggerManaLevel.State s : TriggerManaLevel.State.values()) {
-			manaLevelTriggerIcons.put(s, IconHelper.forName(evt.getMap(), "triggers/mana" + WordUtils.capitalizeFully(s.name()), "items"));
+			register(evt.getMap(), "items/triggers/mana" + WordUtils.capitalizeFully(s.name()));
 		}
 		*/
 
-		tiaraWingIcons = new TextureAtlasSprite[ItemFlightTiara.WING_TYPES];
 		for (int i = 0; i < tiaraWingIcons.length; i++) {
-			tiaraWingIcons[i] = IconHelper.forName(evt.getMap(), "headpiece_tiara_wing_" + (i + 1), "items");
+			register(evt.getMap(), "items/headpiece_tiara_wing_" + (i + 1));
 		}
 
-		terrasteelHelmWillIcon = IconHelper.forName(evt.getMap(), "willFlame", "items");
+		register(evt.getMap(), "items/willFlame");
 
-		bloodPendantChain = IconHelper.forName(evt.getMap(), "pendant_blood_chain", "items");
-		bloodPendantGem = IconHelper.forName(evt.getMap(), "pendant_blood_gem", "items");
-		snowflakePendantGem = IconHelper.forName(evt.getMap(), "pendant_ice_gem", "items");
-		itemFinderGem = IconHelper.forName(evt.getMap(), "headpiece_item_finder_gem", "items");
-		pyroclastGem = IconHelper.forName(evt.getMap(), "pendant_lava_gem", "items");
-		crimsonGem = IconHelper.forName(evt.getMap(), "pendant_lava_super_gem", "items");
-		cirrusGem = IconHelper.forName(evt.getMap(), "pendant_cloud_gem", "items");
-		nimbusGem = IconHelper.forName(evt.getMap(), "pendant_cloud_super_gem", "items");
+		register(evt.getMap(), "items/pendant_blood_chain");
+		register(evt.getMap(), "items/pendant_blood_gem");
+		register(evt.getMap(), "items/pendant_ice_gem");
+		register(evt.getMap(), "items/headpiece_item_finder_gem");
+		register(evt.getMap(), "items/pendant_lava_gem");
+		register(evt.getMap(), "items/pendant_lava_super_gem");
+		register(evt.getMap(), "items/pendant_cloud_gem");
+		register(evt.getMap(), "items/pendant_cloud_super_gem");
+	}
+
+	@SubscribeEvent
+	public void onTextureStitchPost(TextureStitchEvent.Post evt) {
+		alfPortalTex = get(evt.getMap(), "blocks/alfheim_portal_swirl");
+		lightRelayWorldIcon = get(evt.getMap(), "blocks/luminizer");
+		lightRelayWorldIconRed = get(evt.getMap(), "blocks/luminizer_detector");
+		lightRelayWorldIconGreen = get(evt.getMap(), "blocks/luminizer_fork");
+		lightRelayWorldIconPurple = get(evt.getMap(), "blocks/luminizer_toggle");
+		alchemyCatalystOverlay = get(evt.getMap(), "blocks/catalyst_alchemy_overlay");
+		conjurationCatalystOverlay = get(evt.getMap(), "blocks/catalyst_conjuration_overlay");
+		enchanterOverlay = get(evt.getMap(), "blocks/enchanter_overlay");
+		manaVoidOverlay = get(evt.getMap(), "blocks/mana_void_overlay");
+		manaWater = get(evt.getMap(), "blocks/mana_water");
+		terraPlateOverlay = get(evt.getMap(), "blocks/terra_plate_overlay");
+		corporeaWorldIcon = get(evt.getMap(), "items/spark_corporea");
+		corporeaWorldIconMaster = get(evt.getMap(), "items/spark_corporea_master");
+		corporeaIconStar = get(evt.getMap(), "items/spark_corporea_star");
+		sparkWorldIcon = get(evt.getMap(), "items/spark");
+
+		for(int i = 0; i < 4; i++) {
+			sparkUpgradeIcons[i] = get(evt.getMap(), "items/spark_upgrade_rune_" + i);
+		}
+
+		tailIcon = get(evt.getMap(), "items/special_tail");
+		phiFlowerIcon = get(evt.getMap(), "items/special_phiflower");
+		goldfishIcon = get(evt.getMap(), "items/special_goldfish");
+		nerfBatIcon = get(evt.getMap(), "items/special_nerfbat");
+
+		for(int i = 0; i < ItemKingKey.WEAPON_TYPES; i++)
+			kingKeyWeaponIcons[i] = get(evt.getMap(), "items/gate_weapon_" + i);
+		
+		for(int i = 0; i < 3; i++)
+			thirdEyeLayers[i] = get(evt.getMap(), "items/third_eye_" + i);
+
+		manaDetectorIcon = get(evt.getMap(), "items/triggers/manaDetector");
+		runeAltarTriggerIcon = get(evt.getMap(), "items/triggers/runeAltarCanCraft");
+
+		/*
+		for (TriggerManaLevel.State s : TriggerManaLevel.State.values()) {
+			manaLevelTriggerIcons.put(s, get(evt.getMap(), "items/triggers/mana" + WordUtils.capitalizeFully(s.name())));
+		}
+		*/
+
+		for (int i = 0; i < tiaraWingIcons.length; i++) {
+			tiaraWingIcons[i] = get(evt.getMap(), "items/headpiece_tiara_wing_" + (i + 1));
+		}
+
+		terrasteelHelmWillIcon = get(evt.getMap(), "items/willFlame");
+
+		bloodPendantChain = get(evt.getMap(), "items/pendant_blood_chain");
+		bloodPendantGem = get(evt.getMap(), "items/pendant_blood_gem");
+		snowflakePendantGem = get(evt.getMap(), "items/pendant_ice_gem");
+		itemFinderGem = get(evt.getMap(), "items/headpiece_item_finder_gem");
+		pyroclastGem = get(evt.getMap(), "items/pendant_lava_gem");
+		crimsonGem = get(evt.getMap(), "items/pendant_lava_super_gem");
+		cirrusGem = get(evt.getMap(), "items/pendant_cloud_gem");
+		nimbusGem = get(evt.getMap(), "items/pendant_cloud_super_gem");
+	}
+	
+	private void register(TextureMap map, String name) {
+		map.registerSprite(null, new ResourceLocation(LibMisc.MOD_ID, name));
+	}
+	
+	private TextureAtlasSprite get(TextureMap map, String name) {
+		return map.getSprite(new ResourceLocation(LibMisc.MOD_ID, name));
 	}
 
 	private MiscellaneousIcons() {}

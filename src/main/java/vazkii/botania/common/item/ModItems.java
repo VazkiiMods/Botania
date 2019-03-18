@@ -18,7 +18,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.registries.IForgeRegistry;
 import vazkii.botania.api.item.IFloatingFlower;
 import vazkii.botania.api.mana.spark.SparkUpgradeType;
@@ -633,16 +632,6 @@ public final class ModItems {
 	}
 	
 	private static void registerOreDictionary() {
-		OreDictionary.registerOre(LibOreDict.LEXICON, lexicon);
-
-		OreDictionary.registerOre(LibOreDict.QUARTZ[0], new ItemStack(darkQuartz));
-		OreDictionary.registerOre(LibOreDict.QUARTZ[1], new ItemStack(manaQuartz));
-		OreDictionary.registerOre(LibOreDict.QUARTZ[2], new ItemStack(blazeQuartz));
-		OreDictionary.registerOre(LibOreDict.QUARTZ[3], new ItemStack(lavenderQuartz));
-		OreDictionary.registerOre(LibOreDict.QUARTZ[4], new ItemStack(redQuartz));
-		OreDictionary.registerOre(LibOreDict.QUARTZ[5], new ItemStack(elfQuartz));
-		OreDictionary.registerOre(LibOreDict.QUARTZ[6], new ItemStack(sunnyQuartz));
-
 		OreDictionary.registerOre(LibOreDict.PESTLE_AND_MORTAR, pestleAndMortar);
 		OreDictionary.registerOre(LibOreDict.MANA_STEEL, new ItemStack(manaSteel));
 		OreDictionary.registerOre(LibOreDict.MANA_PEARL, new ItemStack(manaPearl));
@@ -667,9 +656,6 @@ public final class ModItems {
 		OreDictionary.registerOre(LibOreDict.PEBBLE, new ItemStack(pebble));
 		OreDictionary.registerOre(LibOreDict.MANAWEAVE_CLOTH, new ItemStack(manaweaveCloth));
 		OreDictionary.registerOre(LibOreDict.MANA_POWDER, new ItemStack(manaPowder));
-
-		OreDictionary.registerOre(LibOreDict.VIAL, new ItemStack(vial));
-		OreDictionary.registerOre(LibOreDict.FLASK, new ItemStack(flask));
 
 		OreDictionary.registerOre("rodBlaze", Items.BLAZE_ROD);
 		OreDictionary.registerOre("powderBlaze", Items.BLAZE_POWDER);

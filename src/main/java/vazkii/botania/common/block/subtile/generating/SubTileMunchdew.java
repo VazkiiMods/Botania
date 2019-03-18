@@ -16,6 +16,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -38,9 +39,9 @@ public class SubTileMunchdew extends SubTileGenerating {
 	private static final int RANGE = 8;
 	private static final int RANGE_Y = 16;
 
-	boolean ateOnce = false;
-	int ticksWithoutEating = -1;
-	int cooldown = 0;
+	private boolean ateOnce = false;
+	private int ticksWithoutEating = -1;
+	private int cooldown = 0;
 
 	@Override
 	public void onUpdate() {
@@ -62,19 +63,15 @@ public class SubTileMunchdew extends SubTileGenerating {
 				List<BlockPos> coords = new ArrayList<>();
 				BlockPos pos = supertile.getPos();
 
+				nextCoord:
 				for(BlockPos pos_ : BlockPos.getAllInBox(pos.add(-RANGE, 0, -RANGE), pos.add(RANGE, RANGE_Y, RANGE))) {
-					if(supertile.getWorld().getBlockState(pos_).getMaterial() == Material.LEAVES) {
-						boolean exposed = false;
-						for(EnumFacing dir : EnumFacing.BY_INDEX) {
-							IBlockState offState = supertile.getWorld().getBlockState(pos_.offset(dir));
-							if(offState.getBlock().isAir(offState, supertile.getWorld(), pos_.offset(dir))) {
-								exposed = true;
-								break;
+					if(supertile.getWorld().getBlockState(pos_).getBlock().isIn(BlockTags.LEAVES)) {
+						for(EnumFacing dir : EnumFacing.values()) {
+							if(supertile.getWorld().isAirBlock(pos_.offset(dir))) {
+								coords.add(pos_);
+								break nextCoord;
 							}
 						}
-
-						if(exposed)
-							coords.add(pos_);
 					}
 				}
 

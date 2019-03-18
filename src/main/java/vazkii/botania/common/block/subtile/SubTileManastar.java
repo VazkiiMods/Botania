@@ -17,6 +17,7 @@ import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.subtile.SubTileEntity;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.lexicon.LexiconData;
 
 public class SubTileManastar extends SubTileEntity {
@@ -35,7 +36,7 @@ public class SubTileManastar extends SubTileEntity {
 				Botania.proxy.wispFX(supertile.getPos().getX() + 0.55 + Math.random() * 0.2 - 0.1, supertile.getPos().getY() + 0.75 + Math.random() * 0.2 - 0.1, supertile.getPos().getZ() + 0.5, state == INCREASING ? 0.05F : 1F, 0.05F, state == INCREASING ? 1F : 0.05F, (float) Math.random() / 7, (float) -Math.random() / 50);
 		} else {
 			int mana = 0;
-			for(EnumFacing dir : EnumFacing.BY_HORIZONTAL_INDEX) {
+			for(EnumFacing dir : MathHelper.HORIZONTALS) {
 				BlockPos pos = supertile.getPos().offset(dir);
 				if(getWorld().isBlockLoaded(pos)) {
 					TileEntity tile = supertile.getWorld().getTileEntity(pos);

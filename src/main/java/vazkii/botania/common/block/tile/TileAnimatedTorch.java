@@ -126,7 +126,7 @@ public class TileAnimatedTorch extends TileMod implements ITickable {
 
 		// tell neighbors that signal is off because we are rotating
 		world.notifyNeighborsOfStateChange(getPos(), getBlockState().getBlock());
-		for(EnumFacing e : EnumFacing.BY_INDEX) {
+		for(EnumFacing e : EnumFacing.values()) {
 			world.notifyNeighborsOfStateChange(getPos().offset(e), getBlockState().getBlock());
 		}
 	}
@@ -151,7 +151,7 @@ public class TileAnimatedTorch extends TileMod implements ITickable {
 				rotating = false;
 				// done rotating, tell neighbors
 				world.notifyNeighborsOfStateChange(getPos(), getBlockState().getBlock());
-				for(EnumFacing e : EnumFacing.BY_INDEX) {
+				for(EnumFacing e : EnumFacing.values()) {
 					world.notifyNeighborsOfStateChange(getPos().offset(e), getBlockState().getBlock());
 				}
 			}

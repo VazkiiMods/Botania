@@ -53,7 +53,7 @@ public class TileCorporeaInterceptor extends TileCorporeaBase implements ICorpor
 					world.getPendingBlockTicks().scheduleTick(getPos(), getBlockState().getBlock(), 2);
 
 					TileEntity requestor = source.getSparkInventory().world.getTileEntity(source.getSparkInventory().pos);
-					for(EnumFacing dir : EnumFacing.BY_INDEX) {
+					for(EnumFacing dir : EnumFacing.values()) {
 						TileEntity tile = world.getTileEntity(pos.offset(dir));
 						if(tile instanceof TileCorporeaRetainer)
 							((TileCorporeaRetainer) tile).setPendingRequest(requestor.getPos(), request, count);
@@ -81,7 +81,7 @@ public class TileCorporeaInterceptor extends TileCorporeaBase implements ICorpor
 	public List<ItemStack> getFilter() {
 		List<ItemStack> filter = new ArrayList<>();
 
-		for(EnumFacing dir : EnumFacing.BY_INDEX) {
+		for(EnumFacing dir : EnumFacing.values()) {
 			List<EntityItemFrame> frames = world.getEntitiesWithinAABB(EntityItemFrame.class, new AxisAlignedBB(pos.offset(dir), pos.offset(dir).add(1, 1, 1)));
 			for(EntityItemFrame frame : frames) {
 				EnumFacing orientation = frame.facingDirection;

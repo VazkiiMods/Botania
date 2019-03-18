@@ -12,6 +12,9 @@ package vazkii.botania.common.crafting;
 
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.util.ResourceLocation;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.recipe.RecipePetals;
 import vazkii.botania.common.Botania;
@@ -19,14 +22,13 @@ import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 import vazkii.botania.common.lib.LibBlockNames;
+import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.lib.LibOreDict;
 
 import java.util.Arrays;
 
 public final class ModPetalRecipes {
 
-	public static final String white = LibOreDict.PETAL[0], orange = LibOreDict.PETAL[1], magenta = LibOreDict.PETAL[2], lightBlue = LibOreDict.PETAL[3], yellow = LibOreDict.PETAL[4], lime = LibOreDict.PETAL[5], pink = LibOreDict.PETAL[6], gray = LibOreDict.PETAL[7], lightGray = LibOreDict.PETAL[8], cyan = LibOreDict.PETAL[9], purple = LibOreDict.PETAL[10], blue = LibOreDict.PETAL[11], brown = LibOreDict.PETAL[12], green = LibOreDict.PETAL[13], red = LibOreDict.PETAL[14], black = LibOreDict.PETAL[15];
-	public static final String runeWater = LibOreDict.RUNE[0], runeFire = LibOreDict.RUNE[1], runeEarth = LibOreDict.RUNE[2], runeAir = LibOreDict.RUNE[3], runeSpring = LibOreDict.RUNE[4], runeSummer = LibOreDict.RUNE[5], runeAutumn = LibOreDict.RUNE[6], runeWinter = LibOreDict.RUNE[7], runeMana = LibOreDict.RUNE[8], runeLust = LibOreDict.RUNE[9], runeGluttony = LibOreDict.RUNE[10], runeGreed = LibOreDict.RUNE[11], runeSloth = LibOreDict.RUNE[12], runeWrath = LibOreDict.RUNE[13], runeEnvy = LibOreDict.RUNE[14], runePride = LibOreDict.RUNE[15];
 	public static final String redstoneRoot = LibOreDict.REDSTONE_ROOT;
 	public static final String pixieDust = LibOreDict.PIXIE_DUST;
 	public static final String gaiaSpirit = LibOreDict.LIFE_ESSENCE;
@@ -35,8 +37,6 @@ public final class ModPetalRecipes {
 	public static RecipePetals pureDaisyRecipe;
 	public static RecipePetals manastarRecipe;
 
-	public static RecipePetals daybloomRecipe;
-	public static RecipePetals nightshadeRecipe;
 	public static RecipePetals endoflameRecipe;
 	public static RecipePetals hydroangeasRecipe;
 	public static RecipePetals thermalilyRecipe;
@@ -79,6 +79,39 @@ public final class ModPetalRecipes {
 	public static RecipePetals bergamuteRecipe;
 
 	public static void init() {
+		Ingredient white = tagIngr("petals/white");
+		Ingredient orange = tagIngr("petals/orange");
+		Ingredient magenta = tagIngr("petals/magenta");
+		Ingredient lightBlue = tagIngr("petals/light_blue");
+		Ingredient yellow = tagIngr("petals/yellow");
+		Ingredient lime = tagIngr("petals/lime");
+		Ingredient pink = tagIngr("petals/pink");
+		Ingredient gray = tagIngr("petals/gray");
+		Ingredient lightGray = tagIngr("petals/light_gray");
+		Ingredient cyan = tagIngr("petals/cyan");
+		Ingredient purple = tagIngr("petals/purple");
+		Ingredient blue = tagIngr("petals/blue");
+		Ingredient brown = tagIngr("petals/brown");
+		Ingredient green = tagIngr("petals/green");
+		Ingredient red = tagIngr("petals/red");
+		Ingredient black = tagIngr("petals/black");
+		Ingredient runeWater = tagIngr("runes/water");
+		Ingredient runeFire = tagIngr("runes/fire");
+		Ingredient runeEarth = tagIngr("runes/earth");
+		Ingredient runeAir = tagIngr("runes/air");
+		Ingredient runeSpring = tagIngr("runes/spring");
+		Ingredient runeSummer = tagIngr("runes/summer");
+		Ingredient runeAutumn = tagIngr("runes/autumn");
+		Ingredient runeWinter = tagIngr("runes/winter");
+		Ingredient runeMana = tagIngr("runes/mana");
+		Ingredient runeLust = tagIngr("runes/lust");
+		Ingredient runeGluttony = tagIngr("runes/gluttony");
+		Ingredient runeGreed = tagIngr("runes/greed");
+		Ingredient runeSloth = tagIngr("runes/sloth");
+		Ingredient runeWrath = tagIngr("runes/wrath");
+		Ingredient runeEnvy = tagIngr("runes/envy");
+		Ingredient runePride = tagIngr("runes/pride");
+
 		pureDaisyRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_PUREDAISY), white, white, white, white);
 		manastarRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_MANASTAR), lightBlue, green, red, cyan);
 
@@ -130,8 +163,12 @@ public final class ModPetalRecipes {
 
 		ItemStack stack = new ItemStack(Items.PLAYER_HEAD);
 		ItemNBTHelper.setString(stack, "SkullOwner", "Vazkii");
-		Object[] inputs = new Object[16];
+		Ingredient[] inputs = new Ingredient[16];
 		Arrays.fill(inputs, pink);
 		BotaniaAPI.registerPetalRecipe(stack, inputs);
+	}
+
+	private static Ingredient tagIngr(String tag) {
+		return Ingredient.fromTag(new ItemTags.Wrapper(new ResourceLocation(LibMisc.MOD_ID, tag)));
 	}
 }

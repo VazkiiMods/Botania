@@ -80,7 +80,7 @@ public class TileRFGenerator extends TileMod implements IManaReceiver, ITickable
 	}
 
 	private int transmitEnergy(int energy) {
-		for(EnumFacing e : EnumFacing.BY_INDEX) {
+		for(EnumFacing e : EnumFacing.values()) {
 			BlockPos neighbor = getPos().offset(e);
 			if(!world.isBlockLoaded(neighbor))
 				continue;

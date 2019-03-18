@@ -145,7 +145,6 @@ public class Botania {
 		PacketHandler.init();
 		ModBrews.init();
 		ModMultiblocks.init();
-		ModBanners.init();
 		ModPetalRecipes.init();
 		ModPureDaisyRecipes.init();
 		ModRuneRecipes.init();
@@ -175,6 +174,8 @@ public class Botania {
 		DeferredWorkQueue.runLater(() -> {
 			if(Botania.gardenOfGlassLoaded)
 				new WorldTypeSkyblock();
+
+			ModBanners.init();
 
 			CriteriaTriggers.register(AlfPortalTrigger.INSTANCE);
 			CriteriaTriggers.register(CorporeaRequestTrigger.INSTANCE);
