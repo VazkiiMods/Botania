@@ -1,0 +1,25 @@
+{
+  "result": {
+    "item": "botania:twigwand",
+    "data": 0,
+    "nbt": "{color1:3,color2:9}"
+  },
+  "pattern": [
+    " AS",
+    " SB",
+    "S  "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "A": {
+      "tag": "botania:petals/lightblue"
+    },
+    "B": {
+      "tag": "botania:petals/cyan"
+    },
+    "S": {
+      "item": "botania:livingwood_twig"
+    }
+  },
+  "group": "botania:twigwand"
+}
