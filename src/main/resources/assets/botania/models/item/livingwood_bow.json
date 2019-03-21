@@ -30,21 +30,21 @@
       "predicate": {
         "minecraft:pulling": 1
       },
-      "model": "botania:item/livingwoodbow_pulling_1"
+      "model": "botania:item/livingwood_bow_pulling_1"
     },
     {
       "predicate": {
         "minecraft:pulling": 1,
         "minecraft:pull": 0.65
       },
-      "model": "botania:item/livingwoodbow_pulling_2"
+      "model": "botania:item/livingwood_bow_pulling_2"
     },
     {
       "predicate": {
         "minecraft:pulling": 1,
         "minecraft:pull": 0.9
       },
-      "model": "botania:item/livingwoodbow_pulling_3"
+      "model": "botania:item/livingwood_bow_pulling_3"
     }
   ]
 }

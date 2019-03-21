@@ -8,31 +8,31 @@
       "predicate": {
         "botania:swigs_taken": 1
       },
-      "model": "botania:item/manabottle1"
+      "model": "botania:item/mana_bottle_1"
     },
     {
       "predicate": {
         "botania:swigs_taken": 2
       },
-      "model": "botania:item/manabottle2"
+      "model": "botania:item/mana_bottle_2"
     },
     {
       "predicate": {
         "botania:swigs_taken": 3
       },
-      "model": "botania:item/manabottle3"
+      "model": "botania:item/mana_bottle_3"
     },
     {
       "predicate": {
         "botania:swigs_taken": 4
       },
-      "model": "botania:item/manabottle4"
+      "model": "botania:item/mana_bottle_4"
     },
     {
       "predicate": {
         "botania:swigs_taken": 5
       },
-      "model": "botania:item/manabottle5"
+      "model": "botania:item/mana_bottle_5"
     }
   ]
 }

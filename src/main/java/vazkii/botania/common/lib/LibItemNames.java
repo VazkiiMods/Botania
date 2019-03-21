@@ -29,7 +29,7 @@ public final class LibItemNames {
 	public static final String MANA_GUN = "mana_gun";
 	public static final String MANA_COOKIE = "mana_cookie";
 	public static final String FERTILIZER = "fertilizer";
-	public static final String GRASS_SEEDS = "seeds";
+	public static final String GRASS_SEEDS = "grass_seeds";
 	public static final String PODZOL_SEEDS = "podzol_seeds";
 	public static final String MYCEL_SEEDS = "mycelium_seeds";
 	public static final String DRY_SEEDS = "dry_seeds";

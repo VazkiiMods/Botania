@@ -1,14 +1,14 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "botania:items/bottle_slime"
+    "layer0": "botania:items/talisman_black_hole"
   },
   "overrides": [
     {
       "predicate": {
         "botania:active": 1
       },
-      "model": "botania:item/slimebottle_activated"
+      "model": "botania:item/black_hole_talisman_active"
     }
   ]
 }

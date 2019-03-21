@@ -7,6 +7,6 @@
     "predicate": {
       "botania:full": 1
     },
-    "model": "botania:item/spawnermoverfull"
+    "model": "botania:item/spawner_mover_full"
   }]
 }

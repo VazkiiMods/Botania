@@ -92,6 +92,7 @@ public final class ContributorFancinessHandler implements LayerRenderer<EntityPl
 					throw new NumberFormatException();
 				flowerMap.put(key, new ItemStack(ModBlocks.getFlower(EnumDyeColor.byId(i))));
 			} catch(NumberFormatException e) {
+				// todo 1.13 backward compat for camelCase names
 				flowerMap.put(key, ItemBlockSpecialFlower.ofType(new ResourceLocation(LibMisc.MOD_ID, value)));
 			}
 		}

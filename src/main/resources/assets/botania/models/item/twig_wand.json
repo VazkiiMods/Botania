@@ -9,6 +9,6 @@
     "predicate": {
       "botania:bindmode": 1
     },
-    "model": "botania:item/twigwand_bind"
+    "model": "botania:item/twig_wand_bind"
   }]
 }

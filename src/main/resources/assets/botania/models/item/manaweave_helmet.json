@@ -1,12 +1,12 @@
 {
     "parent": "minecraft:item/generated",
     "textures": {
-        "layer0": "botania:items/manaweave_leggings"
+        "layer0": "botania:items/manaweave_helmet"
     },
     "overrides": [{
         "predicate": {
             "botania:holiday": 1
         },
-        "model": "botania:item/manaweavelegsholiday"
+        "model": "botania:item/manaweave_helmet_holiday"
     }]
 }

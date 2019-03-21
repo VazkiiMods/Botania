@@ -1,14 +1,14 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "botania:items/talisman_black_hole"
+    "layer0": "botania:items/stone_temperance"
   },
   "overrides": [
     {
       "predicate": {
         "botania:active": 1
       },
-      "model": "botania:item/blackholetalisman_active"
+      "model": "botania:item/temperance_stone_active"
     }
   ]
 }
