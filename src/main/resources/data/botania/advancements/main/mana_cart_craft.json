@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "botania:poolminecart"
+      "item": "botania:pool_minecart"
     },
     "title": {
       "translate": "advancement.botania:manaCartCraft"
@@ -17,7 +17,7 @@
       "conditions": {
         "items": [
           {
-            "item": "botania:poolminecart"
+            "item": "botania:pool_minecart"
           }
         ]
       }

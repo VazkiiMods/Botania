@@ -17,7 +17,7 @@
       "conditions": {
         "items": [
           {
-            "item": "botania:manaweavehelm"
+            "item": "botania:manaweave_helmet"
           }
         ]
       }
@@ -27,7 +27,7 @@
       "conditions": {
         "items": [
           {
-            "item": "botania:manaweavechest"
+            "item": "botania:manaweave_chestplate"
           }
         ]
       }
@@ -37,7 +37,7 @@
       "conditions": {
         "items": [
           {
-            "item": "botania:manaweavelegs"
+            "item": "botania:manaweave_leggings"
           }
         ]
       }
@@ -47,7 +47,7 @@
       "conditions": {
         "items": [
           {
-            "item": "botania:manaweaveboots"
+            "item": "botania:manaweave_boots"
           }
         ]
       }

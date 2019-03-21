@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "botania:corporeaindex"
+      "item": "botania:corporea_index"
     },
     "title": {
       "translate": "advancement.botania:superCorporeaRequest"

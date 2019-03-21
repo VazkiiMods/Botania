@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "botania:lightrelay"
+      "item": "botania:light_relay"
     },
     "title": {
       "translate": "advancement.botania:luminizerRide"

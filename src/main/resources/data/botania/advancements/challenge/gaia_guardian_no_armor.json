@@ -1,8 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "minecraft:skull",
-      "data": 3
+      "item": "minecraft:player_head"
     },
     "title": {
       "translate": "advancement.botania:gaiaGuardianNoArmor"

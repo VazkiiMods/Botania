@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "botania:odinring"
+      "item": "botania:odin_ring"
     },
     "title": {
       "translate": "advancement.botania:odinRing"
@@ -17,7 +17,7 @@
       "trigger": "botania:relic_bind",
       "conditions": {
         "relic": {
-          "item": "botania:odinring"
+          "item": "botania:odin_ring"
         }
       }
     }

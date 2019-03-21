@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "botania:corporeacrystalcube"
+      "item": "botania:corporea_crystal_cube"
     },
     "title": {
       "translate": "advancement.botania:corporeaCraft"
@@ -17,7 +17,7 @@
       "conditions": {
         "items": [
           {
-            "item": "botania:corporeacrystalcube"
+            "item": "botania:corporea_crystal_cube"
           }
         ]
       }
@@ -27,7 +27,7 @@
       "conditions": {
         "items": [
           {
-            "item": "botania:corporeafunnel"
+            "item": "botania:corporea_funnel"
           }
         ]
       }
@@ -37,7 +37,7 @@
       "conditions": {
         "items": [
           {
-            "item": "botania:corporeaindex"
+            "item": "botania:corporea_index"
           }
         ]
       }
@@ -47,7 +47,7 @@
       "conditions": {
         "items": [
           {
-            "item": "botania:corporeainterceptor"
+            "item": "botania:corporea_interceptor"
           }
         ]
       }
@@ -57,7 +57,7 @@
       "conditions": {
         "items": [
           {
-            "item": "botania:corporearetainer"
+            "item": "botania:corporea_retainer"
           }
         ]
       }

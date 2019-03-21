@@ -1,8 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "botania:flower",
-      "data": 6
+      "item": "botania:pink_mystical_flower"
     },
     "title": {
       "translate": "advancement.botania:flowerPickup"

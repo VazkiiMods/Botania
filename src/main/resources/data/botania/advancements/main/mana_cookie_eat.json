@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "botania:manacookie"
+      "item": "botania:mana_cookie"
     },
     "title": {
       "translate": "advancement.botania:manaCookieEat"
@@ -16,7 +16,7 @@
       "trigger": "minecraft:consume_item",
       "conditions": {
         "item": {
-          "item": "botania:manacookie"
+          "item": "botania:mana_cookie"
         }
       }
     }

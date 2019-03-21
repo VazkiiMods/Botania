@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "botania:thorring"
+      "item": "botania:thor_ring"
     },
     "title": {
       "translate": "advancement.botania:thorRing"
@@ -17,7 +17,7 @@
       "trigger": "botania:relic_bind",
       "conditions": {
         "relic": {
-          "item": "botania:thorring"
+          "item": "botania:thor_ring"
         }
       }
     }

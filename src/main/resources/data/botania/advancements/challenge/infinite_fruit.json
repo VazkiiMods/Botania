@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "botania:infinitefruit"
+      "item": "botania:infinite_fruit"
     },
     "title": {
       "translate": "advancement.botania:infiniteFruit"
@@ -17,7 +17,7 @@
       "trigger": "botania:relic_bind",
       "conditions": {
         "relic": {
-          "item": "botania:infinitefruit"
+          "item": "botania:infinite_fruit"
         }
       }
     }

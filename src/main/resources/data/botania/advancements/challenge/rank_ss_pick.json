@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "botania:terrapick"
+      "item": "botania:terra_pick"
     },
     "title": {
       "translate": "advancement.botania:rankSSPick"

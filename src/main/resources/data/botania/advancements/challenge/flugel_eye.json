@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "botania:flugeleye"
+      "item": "botania:flugel_eye"
     },
     "title": {
       "translate": "advancement.botania:flugelEye"
@@ -17,7 +17,7 @@
       "trigger": "botania:relic_bind",
       "conditions": {
         "relic": {
-          "item": "botania:flugeleye"
+          "item": "botania:flugel_eye"
         }
       }
     }

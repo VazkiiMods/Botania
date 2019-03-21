@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "botania:laputashard"
+      "item": "botania:laputa_shard"
     },
     "title": {
       "translate": "advancement.botania:l20ShardUse"
@@ -17,8 +17,8 @@
       "trigger": "botania:use_item_success",
       "conditions": {
         "item": {
-          "item": "botania:laputashard",
-          "data": 19
+          "item": "botania:laputa_shard",
+          "nbt": "{\"level\": 19}"
         }
       }
     }

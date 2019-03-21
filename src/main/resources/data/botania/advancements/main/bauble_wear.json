@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "botania:manaring"
+      "item": "botania:mana_ring"
     },
     "title": {
       "translate": "advancement.botania:baubleWear"

@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "botania:managun"
+      "item": "botania:mana_gun"
     },
     "title": {
       "translate": "advancement.botania:manaBlasterShoot"
@@ -16,7 +16,7 @@
       "trigger": "botania:use_item_success",
       "conditions": {
         "item": {
-          "item": "botania:managun"
+          "item": "botania:mana_gun"
         }
       }
     }

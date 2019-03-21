@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "botania:gaiahead"
+      "item": "botania:gaia_head"
     },
     "title": {
       "translate": "advancement.botania:gaiaGuardianKill"

@@ -17,7 +17,7 @@
       "conditions": {
         "items": [
           {
-            "item": "botania:brewflask"
+            "item": "botania:brew_flask"
           }
         ]
       }
@@ -27,7 +27,7 @@
       "conditions": {
         "items": [
           {
-            "item": "botania:brewvial"
+            "item": "botania:brew_vial"
           }
         ]
       }

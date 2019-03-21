@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "botania:dirtrod"
+      "item": "botania:dirt_rod"
     },
     "title": {
       "translate": "advancement.botania:dirtRodCraft"
@@ -17,7 +17,7 @@
       "conditions": {
         "items": [
           {
-            "item": "botania:dirtrod"
+            "item": "botania:dirt_rod"
           }
         ]
       }

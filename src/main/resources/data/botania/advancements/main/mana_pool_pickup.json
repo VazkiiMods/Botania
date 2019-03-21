@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "botania:pool_default"
+      "item": "botania:mana_pool"
     },
     "title": {
       "translate": "advancement.botania:manaPoolPickup"
@@ -17,7 +17,7 @@
       "conditions": {
         "items": [
           {
-            "item": "botania:pool_default"
+            "item": "botania:mana_pool"
           }
         ]
       }
@@ -27,7 +27,7 @@
       "conditions": {
         "items": [
           {
-            "item": "botania:pool_creative"
+            "item": "botania:creative_pool"
           }
         ]
       }
@@ -37,7 +37,7 @@
       "conditions": {
         "items": [
           {
-            "item": "botania:pool_diluted"
+            "item": "botania:diluted_pool"
           }
         ]
       }
@@ -47,7 +47,7 @@
       "conditions": {
         "items": [
           {
-            "item": "botania:pool_fabulous"
+            "item": "botania:fabulous_pool"
           }
         ]
       }
