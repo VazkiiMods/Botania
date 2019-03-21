@@ -1,7 +1,6 @@
 {
   "result": {
-    "item": "botania:cosmetic",
-    "data": 32
+    "item": "botania:cosmetic_thinking_hand"
   },
   "pattern": [
     "PPP",
@@ -11,7 +10,7 @@
   "type": "minecraft:crafting_shaped",
   "key": {
     "P": {
-      "item": "botania:tinypotato"
+      "item": "botania:tiny_potato"
     },
     "S": {
       "item": "botania:mana_string"

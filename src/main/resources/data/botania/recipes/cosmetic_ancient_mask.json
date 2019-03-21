@@ -10,7 +10,7 @@
   "type": "minecraft:crafting_shaped",
   "key": {
     "P": {
-      "item": "botania:dye_pink"
+      "item": "botania:pink_dye"
     },
     "S": {
       "item": "botania:mana_string"

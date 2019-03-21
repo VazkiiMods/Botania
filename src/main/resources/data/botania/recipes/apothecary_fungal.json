@@ -14,8 +14,7 @@
       "item": "botania:apothecary_default"
     },
     "S": {
-      "item": "botania:biomestonea",
-      "data": 11
+      "item": "botania:metamorphic_fungal_cobblestone"
     }
   }
 }

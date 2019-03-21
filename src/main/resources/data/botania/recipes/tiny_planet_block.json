@@ -1,17 +1,16 @@
 {
   "result": {
-    "item": "botania:temperancestone",
-    "data": 0
+    "item": "botania:tiny_planet_block"
   },
   "pattern": [
-    " S ",
-    "SRS",
-    " S "
+    "SSS",
+    "SPS",
+    "SSS"
   ],
   "type": "minecraft:crafting_shaped",
   "key": {
-    "R": {
-      "tag": "botania:runes/earth"
+    "P": {
+      "item": "botania:tiny_planet"
     },
     "S": {
       "tag": "forge:stone"

@@ -1,6 +1,6 @@
 {
   "result": {
-    "item": "botania:terraformrod"
+    "item": "botania:terraform_rod"
   },
   "pattern": [
     " WT",
@@ -13,7 +13,7 @@
       "tag": "botania:runes/autumn"
     },
     "R": {
-      "item": "botania:dirtrod"
+      "item": "botania:dirt_rod"
     },
     "S": {
       "tag": "botania:runes/spring"

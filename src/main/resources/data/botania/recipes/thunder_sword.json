@@ -1,6 +1,6 @@
 {
   "result": {
-    "item": "botania:thundersword"
+    "item": "botania:thunder_sword"
   },
   "pattern": [
     "  I",
@@ -16,7 +16,7 @@
       "tag": "forge:gems/mana_diamond"
     },
     "T": {
-      "item": "botania:terrasword"
+      "item": "botania:terra_sword"
     },
     "I": {
       "tag": "forge:ingots/elementium"

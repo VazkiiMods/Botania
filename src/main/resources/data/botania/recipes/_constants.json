@@ -1,22 +1,22 @@
 [
   {
     "ingredient": [
-      { "item": "botania:dye_white" },
-      { "item": "botania:dye_orange" },
-      { "item": "botania:dye_magenta" },
-      { "item": "botania:dye_light_blue" },
-      { "item": "botania:dye_yellow" },
-      { "item": "botania:dye_lime" },
-      { "item": "botania:dye_pink" },
-      { "item": "botania:dye_gray" },
-      { "item": "botania:dye_silver" },
-      { "item": "botania:dye_cyan" },
-      { "item": "botania:dye_purple" },
-      { "item": "botania:dye_blue" },
-      { "item": "botania:dye_brown" },
-      { "item": "botania:dye_green" },
-      { "item": "botania:dye_red" },
-      { "item": "botania:dye_black" }
+      { "item": "botania:white_dye" },
+      { "item": "botania:orange_dye" },
+      { "item": "botania:magenta_dye" },
+      { "item": "botania:light_blue_dye" },
+      { "item": "botania:yellow_dye" },
+      { "item": "botania:lime_dye" },
+      { "item": "botania:pink_dye" },
+      { "item": "botania:gray_dye" },
+      { "item": "botania:silver_dye" },
+      { "item": "botania:cyan_dye" },
+      { "item": "botania:purple_dye" },
+      { "item": "botania:blue_dye" },
+      { "item": "botania:brown_dye" },
+      { "item": "botania:green_dye" },
+      { "item": "botania:red_dye" },
+      { "item": "botania:black_dye" }
     ],
     "name": "all_dyes"
   },

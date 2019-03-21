@@ -1,10 +1,10 @@
 {
   "result": {
-    "item": "botania:autocraftinghalo"
+    "item": "botania:auto_crafting_halo"
   },
   "ingredients": [
     {
-      "item": "botania:craftinghalo"
+      "item": "botania:crafting_halo"
     },
     {
       "tag": "forge:gems/mana_diamond"

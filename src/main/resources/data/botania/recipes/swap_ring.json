@@ -1,18 +1,18 @@
 {
   "result": {
-    "item": "botania:auraring"
+    "item": "botania:swap_ring"
   },
   "pattern": [
-    "RI ",
-    "I I",
-    " I "
+    "CM ",
+    "M M",
+    " M "
   ],
   "type": "minecraft:crafting_shaped",
   "key": {
-    "R": {
-      "tag": "botania:runes/mana"
+    "C": {
+      "item": "minecraft:clay"
     },
-    "I": {
+    "M": {
       "tag": "forge:ingots/manasteel"
     }
   }
