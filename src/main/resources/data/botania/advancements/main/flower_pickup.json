@@ -18,7 +18,7 @@
       "conditions": {
         "items": [
           {
-            "item": "botania:flower"
+            "tag": "botania:flowers"
           }
         ]
       }

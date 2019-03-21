@@ -67,7 +67,7 @@ public final class DebugHandler {
 				Entity ent = Minecraft.getInstance().getIntegratedServer().getWorld(dim).getEntityFromUuid(id);
 				if (ent != null) {
 					World serverWorld = ent.world;
-					event.getLeft().add(PREFIX + String.format("(INTEGRATED SERVER DIM %d) netColl : %d, netPool: %d", dimName, ManaNetworkHandler.instance.getAllCollectorsInWorld(serverWorld).size(), ManaNetworkHandler.instance.getAllPoolsInWorld(serverWorld).size()));
+					event.getLeft().add(PREFIX + String.format("(INTEGRATED SERVER DIM %s) netColl : %d, netPool: %d", dimName, ManaNetworkHandler.instance.getAllCollectorsInWorld(serverWorld).size(), ManaNetworkHandler.instance.getAllPoolsInWorld(serverWorld).size()));
 				}
 			}
 

@@ -64,7 +64,7 @@ public final class BoundTileRenderer {
 				renderBlockOutlineAt(coords, color);
 		}
 
-		IItemHandlerModifiable mainInv = (IItemHandlerModifiable) player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.UP);
+		IItemHandlerModifiable mainInv = (IItemHandlerModifiable) player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.UP).orElseThrow(IllegalStateException::new);
 		IItemHandlerModifiable baublesInv = BotaniaAPI.internalHandler.getBaublesInventoryWrapped(player);
 		IItemHandler joined = baublesInv != null ? new CombinedInvWrapper(mainInv, baublesInv) : mainInv;
 

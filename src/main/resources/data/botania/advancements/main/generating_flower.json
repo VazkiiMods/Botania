@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "botania:specialFlower",
+      "item": "botania:special_flower",
       "nbt": "{\"type\": \"endoflame\"}"
     },
     "title": {

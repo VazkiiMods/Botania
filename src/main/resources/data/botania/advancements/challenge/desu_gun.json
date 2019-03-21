@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "botania:manaGun",
+      "item": "botania:mana_gun",
       "nbt": "{\"display\": { \"Name\": \"desu gun\" }}"
     },
     "title": {
@@ -18,7 +18,7 @@
       "trigger": "botania:use_item_success",
       "conditions": {
         "item": {
-          "item": "botania:manaGun",
+          "item": "botania:mana_gun",
           "nbt": "{\"display\": { \"Name\": \"desu gun\" }}"
         }
       }
