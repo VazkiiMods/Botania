@@ -8,7 +8,7 @@
     "ESE",
     " E "
   ],
-  "type": "forge:ore_shaped",
+  "type": "minecraft:crafting_shaped",
   "key": {
     "S": {
       "item": "minecraft:slime_ball"

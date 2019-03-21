@@ -23,5 +23,5 @@
       "item": "botania:living_root"
     }
   ],
-  "type": "forge:ore_shapeless"
+  "type": "minecraft:crafting_shapeless"
 }

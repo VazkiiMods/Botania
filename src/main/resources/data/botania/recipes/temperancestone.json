@@ -8,7 +8,7 @@
     "SRS",
     " S "
   ],
-  "type": "forge:ore_shaped",
+  "type": "minecraft:crafting_shaped",
   "key": {
     "R": {
       "tag": "botania:runes/earth"

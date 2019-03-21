@@ -8,7 +8,7 @@
     "WWW"
   ],
   "group": "botania:spreader",
-  "type": "forge:ore_shaped",
+  "type": "minecraft:crafting_shaped",
   "key": {
     "P": [
       {
@@ -36,7 +36,7 @@
         "tag": "botania:petals/gray"
       },
       {
-        "tag": "botania:petals/lightgray"
+        "tag": "botania:petals/light_gray"
       },
       {
         "tag": "botania:petals/cyan"

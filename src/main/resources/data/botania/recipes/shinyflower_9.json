@@ -15,5 +15,5 @@
       "tag": "botania:flowers/cyan"
     }
   ],
-  "type": "forge:ore_shapeless"
+  "type": "minecraft:crafting_shapeless"
 }

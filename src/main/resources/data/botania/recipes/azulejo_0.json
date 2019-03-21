@@ -10,5 +10,5 @@
       "tag": "forge:storage_blocks/quartz"
     }
   ],
-  "type": "forge:ore_shapeless"
+  "type": "minecraft:crafting_shapeless"
 }

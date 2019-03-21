@@ -7,7 +7,7 @@
     " EP",
     "E  "
   ],
-  "type": "forge:ore_shaped",
+  "type": "minecraft:crafting_shaped",
   "key": {
     "P": {
       "item": "botania:pixie_dust"

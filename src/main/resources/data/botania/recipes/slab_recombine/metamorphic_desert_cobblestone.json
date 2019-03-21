@@ -1,0 +1,15 @@
+{
+  "result": {
+    "item": "botania:metamorphic_desert_cobblestone"
+  },
+  "pattern": [
+    "Q",
+    "Q"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "Q": {
+      "item": "botania:metamorphic_desert_cobblestone_slab"
+    }
+  }
+}

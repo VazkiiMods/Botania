@@ -7,7 +7,7 @@
     "SES",
     "MSM"
   ],
-  "type": "forge:ore_shaped",
+  "type": "minecraft:crafting_shaped",
   "key": {
     "S": {
       "tag": "botania:livingrock"

@@ -9,8 +9,7 @@
   "type": "minecraft:crafting_shaped",
   "key": {
     "Q": {
-      "item": "botania:shimmerrock0slab",
-      "data": 0
+      "item": "botania:shimmerrock_slab"
     }
   }
 }

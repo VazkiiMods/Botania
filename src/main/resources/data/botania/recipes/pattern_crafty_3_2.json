@@ -7,7 +7,7 @@
     "RRR",
     "PPP"
   ],
-  "type": "forge:ore_shaped",
+  "type": "minecraft:crafting_shaped",
   "group": "botania:craft_pattern",
   "key": {
     "P": {

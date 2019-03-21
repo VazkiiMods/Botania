@@ -1,6 +1,6 @@
 {
   "result": {
-    "item": "botania:petal_orange",
+    "item": "botania:orange_petal",
     "count": 4
   },
   "group": "botania:petal_double",
@@ -9,5 +9,5 @@
       "tag": "botania:double_flowers/orange"
     }
   ],
-  "type": "forge:ore_shapeless"
+  "type": "minecraft:crafting_shapeless"
 }

@@ -8,7 +8,7 @@
     "ILI",
     "FEF"
   ],
-  "type": "forge:ore_shaped",
+  "type": "minecraft:crafting_shaped",
   "key": {
     "E": {
       "item": "botania:ender_air_bottle"

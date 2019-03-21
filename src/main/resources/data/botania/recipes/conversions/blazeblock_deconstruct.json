@@ -17,5 +17,5 @@
       "item": "botania:blaze_block"
     }
   ],
-  "type": "forge:ore_shapeless"
+  "type": "minecraft:crafting_shapeless"
 }

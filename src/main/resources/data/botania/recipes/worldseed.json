@@ -8,7 +8,7 @@
     "S",
     "D"
   ],
-  "type": "forge:ore_shaped",
+  "type": "minecraft:crafting_shaped",
   "key": {
     "S": {
       "item": "minecraft:wheat_seeds"

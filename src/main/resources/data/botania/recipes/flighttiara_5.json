@@ -13,5 +13,5 @@
       "item": "botania:quartz_lavender"
     }
   ],
-  "type": "forge:ore_shapeless"
+  "type": "minecraft:crafting_shapeless"
 }

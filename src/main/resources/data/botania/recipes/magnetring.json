@@ -7,7 +7,7 @@
     "M M",
     " M "
   ],
-  "type": "forge:ore_shaped",
+  "type": "minecraft:crafting_shaped",
   "key": {
     "L": {
       "item": "botania:lens_magnet"

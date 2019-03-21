@@ -7,7 +7,7 @@
     "PPP",
     "PPP"
   ],
-  "type": "forge:ore_shaped",
+  "type": "minecraft:crafting_shaped",
   "group": "botania:petal_block",
   "key": {
     "P": {

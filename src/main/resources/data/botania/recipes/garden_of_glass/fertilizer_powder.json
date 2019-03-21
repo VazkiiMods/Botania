@@ -14,16 +14,16 @@
       "item": "minecraft:bone_meal"
     },
     {
-      "item": "#all_dyes"
+      "constant": "botania:all_dyes"
     },
     {
-      "item": "#all_dyes"
+      "constant": "botania:all_dyes"
     },
     {
-      "item": "#all_dyes"
+      "constant": "botania:all_dyes"
     },
     {
-      "item": "#all_dyes"
+      "constant": "botania:all_dyes"
     }
   ],
   "type": "minecraft:crafting_shapeless"

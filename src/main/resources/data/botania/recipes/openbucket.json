@@ -6,7 +6,7 @@
     "E E",
     " E "
   ],
-  "type": "forge:ore_shaped",
+  "type": "minecraft:crafting_shaped",
   "key": {
     "E": {
       "tag": "forge:ingots/elementium"

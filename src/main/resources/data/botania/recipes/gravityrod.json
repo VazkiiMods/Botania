@@ -7,7 +7,7 @@
     " WT",
     "T  "
   ],
-  "type": "forge:ore_shaped",
+  "type": "minecraft:crafting_shaped",
   "key": {
     "T": {
       "item": "botania:dreamwood_twig"

@@ -13,5 +13,5 @@
       "item": "botania:pestle_and_mortar"
     }
   ],
-  "type": "forge:ore_shapeless"
+  "type": "minecraft:crafting_shapeless"
 }

@@ -7,7 +7,7 @@
     "0M1",
     "283"
   ],
-  "type": "forge:ore_shaped",
+  "type": "minecraft:crafting_shaped",
   "key": {
     "0": {
       "tag": "botania:runes/water"

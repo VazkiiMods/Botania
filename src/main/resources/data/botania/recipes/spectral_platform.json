@@ -7,7 +7,7 @@
     "343",
     "0D0"
   ],
-  "type": "forge:ore_shaped",
+  "type": "minecraft:crafting_shaped",
   "key": {
     "0": {
       "item": "botania:dreamwood",

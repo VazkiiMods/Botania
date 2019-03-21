@@ -1,13 +1,13 @@
 {
   "result": {
-    "item": "botania:petal_silver",
+    "item": "botania:silver_petal",
     "count": 4
   },
   "group": "botania:petal_double",
   "ingredients": [
     {
-      "tag": "botania:double_flowers/lightgray"
+      "tag": "botania:double_flowers/light_gray"
     }
   ],
-  "type": "forge:ore_shapeless"
+  "type": "minecraft:crafting_shapeless"
 }

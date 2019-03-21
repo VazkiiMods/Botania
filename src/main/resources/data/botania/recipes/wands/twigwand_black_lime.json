@@ -1,6 +1,6 @@
 {
   "result": {
-    "item": "botania:twigwand",
+    "item": "botania:twig_wand",
     "data": 0,
     "nbt": "{color1:15,color2:5}"
   },
@@ -9,7 +9,7 @@
     " SB",
     "S  "
   ],
-  "type": "forge:ore_shaped",
+  "type": "minecraft:crafting_shaped",
   "key": {
     "A": {
       "tag": "botania:petals/black"
@@ -21,5 +21,5 @@
       "item": "botania:livingwood_twig"
     }
   },
-  "group": "botania:twigwand"
+  "group": "botania:twig_wand"
 }

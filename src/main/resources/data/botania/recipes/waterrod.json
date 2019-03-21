@@ -7,7 +7,7 @@
     " T ",
     "R  "
   ],
-  "type": "forge:ore_shaped",
+  "type": "minecraft:crafting_shaped",
   "key": {
     "B": {
       "type": "minecraft:item_nbt",

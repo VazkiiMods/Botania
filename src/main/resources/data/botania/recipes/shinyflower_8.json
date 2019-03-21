@@ -12,8 +12,8 @@
       "tag": "forge:dusts/glowstone"
     },
     {
-      "tag": "botania:flowers/lightgray"
+      "tag": "botania:flowers/light_gray"
     }
   ],
-  "type": "forge:ore_shapeless"
+  "type": "minecraft:crafting_shapeless"
 }

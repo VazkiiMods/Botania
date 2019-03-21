@@ -16,5 +16,5 @@
       "item": "botania:ender_air_bottle"
     }
   ],
-  "type": "forge:ore_shapeless"
+  "type": "minecraft:crafting_shapeless"
 }

@@ -1,0 +1,15 @@
+{
+  "result": {
+    "item": "botania:yellow_pavement"
+  },
+  "pattern": [
+    "Q",
+    "Q"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "Q": {
+      "item": "botania:yellow_pavement_slab"
+    }
+  }
+}

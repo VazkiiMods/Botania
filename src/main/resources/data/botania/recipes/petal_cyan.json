@@ -1,6 +1,6 @@
 {
   "result": {
-    "item": "botania:petal_cyan",
+    "item": "botania:cyan_petal",
     "count": 2
   },
   "group": "botania:petal",
@@ -9,5 +9,5 @@
       "tag": "botania:flowers/cyan"
     }
   ],
-  "type": "forge:ore_shapeless"
+  "type": "minecraft:crafting_shapeless"
 }

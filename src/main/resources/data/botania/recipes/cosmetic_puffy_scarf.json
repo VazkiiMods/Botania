@@ -7,10 +7,10 @@
     "PSP",
     "PPP"
   ],
-  "type": "forge:ore_shaped",
+  "type": "minecraft:crafting_shaped",
   "key": {
     "P": {
-      "item": "botania:petal_light_blue"
+      "item": "botania:light_blue_petal"
     },
     "S": {
       "item": "botania:mana_string"

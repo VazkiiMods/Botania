@@ -6,7 +6,7 @@
     "W",
     "W"
   ],
-  "type": "forge:ore_shaped",
+  "type": "minecraft:crafting_shaped",
   "key": {
     "W": {
       "item": "botania:dreamwood"

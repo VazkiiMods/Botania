@@ -11,7 +11,7 @@
       "tag": "forge:dyes"
     },
     {
-      "item": "#glass"
+      "constants": "botania:glass"
     },
     {
       "item": "minecraft:glass_bottle"
@@ -26,5 +26,5 @@
       "item": "minecraft:glass_bottle"
     }
   ],
-  "type": "forge:ore_shapeless"
+  "type": "minecraft:crafting_shapeless"
 }

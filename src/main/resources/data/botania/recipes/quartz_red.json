@@ -8,7 +8,7 @@
     "QCQ",
     "QQQ"
   ],
-  "type": "forge:ore_shaped",
+  "type": "minecraft:crafting_shaped",
   "key": {
     "Q": {
       "tag": "forge:gems/quartz"

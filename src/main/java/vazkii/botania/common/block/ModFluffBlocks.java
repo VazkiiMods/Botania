@@ -318,7 +318,10 @@ public final class ModFluffBlocks {
 			register(r, new BlockBiomeStoneStairs(base.getDefaultState(), props), base.getRegistryName().getPath() + STAIR_SUFFIX);
 			register(r, new BlockBiomeStoneSlab(props), base.getRegistryName().getPath() + SLAB_SUFFIX);
 
-			register(r, new BlockModLexiconable(props, marimorph), LibBlockNames.METAMORPHIC_PREFIX + variant + "_cobblestone");
+			base = new BlockModLexiconable(props, marimorph);
+			register(r, base, LibBlockNames.METAMORPHIC_PREFIX + variant + "_cobblestone");
+			register(r, new BlockBiomeStoneStairs(base.getDefaultState(), props), base.getRegistryName().getPath() + STAIR_SUFFIX);
+			register(r, new BlockBiomeStoneSlab(props), base.getRegistryName().getPath() + SLAB_SUFFIX);
 			register(r, new BlockBiomeStoneWall(props), LibBlockNames.METAMORPHIC_PREFIX + variant + "_cobblestone" + WALL_SUFFIX);
 
 			base = new BlockModLexiconable(props, marimorph);

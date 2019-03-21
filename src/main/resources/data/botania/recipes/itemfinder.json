@@ -7,7 +7,7 @@
     "IYI",
     "IEI"
   ],
-  "type": "forge:ore_shaped",
+  "type": "minecraft:crafting_shaped",
   "key": {
     "E": {
       "tag": "forge:gems/emerald"

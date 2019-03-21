@@ -16,5 +16,5 @@
       "item": "minecraft:gravel"
     }
   ],
-  "type": "forge:ore_shapeless"
+  "type": "minecraft:crafting_shapeless"
 }

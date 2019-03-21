@@ -19,5 +19,5 @@
       "item": "minecraft:slime_ball"
     }
   ],
-  "type": "forge:ore_shapeless"
+  "type": "minecraft:crafting_shapeless"
 }

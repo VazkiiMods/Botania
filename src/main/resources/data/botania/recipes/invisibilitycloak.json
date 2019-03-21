@@ -7,7 +7,7 @@
     "GWG",
     "GPG"
   ],
-  "type": "forge:ore_shaped",
+  "type": "minecraft:crafting_shaped",
   "key": {
     "P": {
       "item": "botania:mana_pearl"

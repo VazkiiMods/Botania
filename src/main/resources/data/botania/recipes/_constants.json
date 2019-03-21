@@ -20,7 +20,7 @@
     ],
     "name": "all_dyes"
   },
-{
+  {
     "ingredient": [
       { "item": "minecraft:glass" },
       { "item": "minecraft:white_stained_glass" },

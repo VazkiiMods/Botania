@@ -7,7 +7,7 @@
     "OSO",
     "DOD"
   ],
-  "type": "forge:ore_shaped",
+  "type": "minecraft:crafting_shaped",
   "key": {
     "A": {
       "item": "botania:ender_air_bottle"

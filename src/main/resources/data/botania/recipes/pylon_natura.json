@@ -7,7 +7,7 @@
     "TPT",
     " E "
   ],
-  "type": "forge:ore_shaped",
+  "type": "minecraft:crafting_shaped",
   "key": {
     "P": {
       "item": "botania:pylon_mana"
