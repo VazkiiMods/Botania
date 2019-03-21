@@ -1,5 +1,5 @@
 {
   "variants": {
-    "normal": { "model": "botania:manasteel_block" }
+    "": { "model": "botania:block/manasteel_block" }
   }
 }

@@ -1,5 +1,5 @@
 {
   "variants": {
-    "normal": { "model": "botania:turntable" }
+    "": { "model": "botania:block/turntable" }
   }
 }

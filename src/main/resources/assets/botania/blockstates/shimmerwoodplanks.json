@@ -1,5 +1,5 @@
 {
   "variants": {
-    "normal": { "model": "botania:shimmerwood_planks" }
+    "": { "model": "botania:block/shimmerwood_planks" }
   }
 }

@@ -1,8 +1,8 @@
 {
   "variants": {
-    "facing=north": { "model": "botania:incense_plate", "y": 180 },
-    "facing=south": { "model": "botania:incense_plate" },
-    "facing=west": { "model": "botania:incense_plate", "y": 90 },
-    "facing=east": { "model": "botania:incense_plate", "y": 270 }
+    "facing=north": { "model": "botania:block/incense_plate", "y": 180 },
+    "facing=south": { "model": "botania:block/incense_plate" },
+    "facing=west": { "model": "botania:block/incense_plate", "y": 90 },
+    "facing=east": { "model": "botania:block/incense_plate", "y": 270 }
   }
 }

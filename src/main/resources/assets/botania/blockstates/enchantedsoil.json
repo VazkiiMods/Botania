@@ -1,5 +1,5 @@
 {
   "variants": {
-    "normal": { "model": "botania:enchanted_soil" }
+    "": { "model": "botania:block/enchanted_soil" }
   }
 }

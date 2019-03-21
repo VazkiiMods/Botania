@@ -1,5 +1,5 @@
 {
   "variants": {
-    "normal": { "model": "botania:mana_diamond_block" }
+    "": { "model": "botania:block/mana_diamond_block" }
   }
 }

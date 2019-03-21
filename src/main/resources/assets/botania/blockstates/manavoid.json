@@ -1,5 +1,5 @@
 {
   "variants": {
-    "normal": { "model": "botania:mana_void" }
+    "": { "model": "botania:block/mana_void" }
   }
 }

@@ -6,7 +6,7 @@
     "custom": { "base": "botania:specialflower#basemodel" }
   },
   "variants": {
-    "normal": [{}],
+    "": [{}],
     "basemodel": [{
       "model": "minecraft:cross",
       "textures": {

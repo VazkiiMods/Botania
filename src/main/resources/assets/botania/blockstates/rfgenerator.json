@@ -1,5 +1,5 @@
 {
   "variants": {
-    "normal": { "model": "botania:mana_fluxfield" }
+    "": { "model": "botania:block/mana_fluxfield" }
   }
 }

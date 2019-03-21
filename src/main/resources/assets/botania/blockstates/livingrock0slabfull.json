@@ -1,5 +1,5 @@
 {
   "variants": {
-    "normal": { "model": "botania:livingrock" }
+    "": { "model": "botania:block/livingrock" }
   }
 }

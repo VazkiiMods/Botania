@@ -1,5 +1,5 @@
 {
   "variants": {
-    "normal": { "model": "botania:spreader_mana" }
+    "": { "model": "botania:block/spreader_mana" }
   }
 }

@@ -5,7 +5,7 @@
     "transform": "forge:default-block"
   },
   "variants": {
-    "normal": [
+    "": [
       { "textures": { "all": "botania:blocks/elfglass0" } },
       { "textures": { "all": "botania:blocks/elfglass1" } },
       { "textures": { "all": "botania:blocks/elfglass2" } },

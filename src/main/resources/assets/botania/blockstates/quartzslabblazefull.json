@@ -1,5 +1,5 @@
 {
   "variants": {
-    "normal": { "model": "botania:quartz/blaze_quartz" }
+    "": { "model": "botania:block/quartz/blaze_quartz" }
   }
 }

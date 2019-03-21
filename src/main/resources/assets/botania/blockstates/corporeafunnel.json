@@ -1,6 +1,6 @@
 {
   "variants": {
-    "powered=false": { "model": "botania:corporea_funnel" },
-    "powered=true": { "model": "botania:corporea_funnel" }
+    "powered=false": { "model": "botania:block/corporea_funnel" },
+    "powered=true": { "model": "botania:block/corporea_funnel" }
   }
 }

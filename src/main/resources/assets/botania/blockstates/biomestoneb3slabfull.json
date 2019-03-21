@@ -1,5 +1,5 @@
 {
   "variants": {
-    "normal": { "model": "botania:metamorphic/fungal_brick" }
+    "": { "model": "botania:block/metamorphic/fungal_brick" }
   }
 }

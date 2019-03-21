@@ -1,5 +1,5 @@
 {
   "variants": {
-    "normal": { "model": "botania:cell_block" }
+    "": { "model": "botania:block/cell_block" }
   }
 }

@@ -1,5 +1,5 @@
 {
   "variants": {
-    "normal": { "model": "botania:mana_glass" }
+    "": { "model": "botania:block/mana_glass" }
   }
 }

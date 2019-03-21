@@ -1,5 +1,5 @@
 {
   "variants": {
-    "normal": { "model": "botania:drum_wild" }
+    "": { "model": "botania:block/drum_wild" }
   }
 }

@@ -63,6 +63,7 @@ public class TileCocoon extends TileMod implements ITickable{
 
 	private void hatch() {
 		if(!world.isRemote) {
+			timePassed = 0;
 			world.destroyBlock(pos, false);
 
 			EntityLiving entity = null;

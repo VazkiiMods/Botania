@@ -1,5 +1,5 @@
 {
   "variants": {
-    "normal": { "model": "botania:tiny_planet_block" }
+    "": { "model": "botania:block/tiny_planet_block" }
   }
 }

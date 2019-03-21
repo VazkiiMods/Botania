@@ -1,5 +1,5 @@
 {
   "variants": {
-    "normal": { "model": "botania:dragonstone_block" }
+    "": { "model": "botania:block/dragonstone_block" }
   }
 }

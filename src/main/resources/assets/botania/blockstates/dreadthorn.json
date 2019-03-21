@@ -1,8 +1,8 @@
 {
   "forge_marker": 1,
   "variants": {
-    "normal": [{
-      "model": "botania:shapes/cross_tinted",
+    "": [{
+      "model": "botania:block/shapes/cross_tinted",
       "textures": {
         "cross": "botania:blocks/flower_func_dreadthorne"
       }

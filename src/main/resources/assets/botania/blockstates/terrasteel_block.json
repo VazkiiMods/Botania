@@ -1,5 +1,5 @@
 {
   "variants": {
-    "normal": { "model": "botania:terrasteel_block" }
+    "": { "model": "botania:block/terrasteel_block" }
   }
 }

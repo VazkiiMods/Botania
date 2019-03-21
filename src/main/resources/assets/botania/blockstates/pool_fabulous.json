@@ -1,5 +1,5 @@
 {
   "variants": {
-    "normal": { "model": "botania:pool_fabulous" }
+    "": { "model": "botania:block/pool_fabulous" }
   }
 }

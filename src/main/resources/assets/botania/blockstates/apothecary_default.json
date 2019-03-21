@@ -1,5 +1,5 @@
 {
   "variants": {
-    "normal": { "model": "botania:apothecary_default" }
+    "": { "model": "botania:block/apothecary_default" }
   }
 }

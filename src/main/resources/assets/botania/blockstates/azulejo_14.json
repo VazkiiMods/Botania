@@ -1,5 +1,5 @@
 {
   "variants": {
-    "normal": { "model": "botania:bricks/azulejo_14" }
+    "": { "model": "botania:block/bricks/azulejo_14" }
   }
 }

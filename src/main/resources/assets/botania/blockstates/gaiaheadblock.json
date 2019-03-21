@@ -1,12 +1,12 @@
 {
   "forge_marker": 1,
   "defaults": {
-    "model": "botania:dummy",
+    "model": "botania:block/dummy",
     "textures": {
       "particle": "minecraft:blocks/soul_sand"
     }
   },
   "variants": {
-    "normal": [{}]
+    "": [{}]
   }
 }

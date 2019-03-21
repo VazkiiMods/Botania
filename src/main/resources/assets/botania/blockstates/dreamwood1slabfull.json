@@ -1,5 +1,5 @@
 {
   "variants": {
-    "normal": { "model": "botania:dreamwood_planks" }
+    "": { "model": "botania:block/dreamwood_planks" }
   }
 }

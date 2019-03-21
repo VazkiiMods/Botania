@@ -1,6 +1,6 @@
 {
   "variants": {
-    "powered=false": { "model": "botania:cacophonium_block" },
-    "powered=true": { "model": "botania:cacophonium_block" }
+    "powered=false": { "model": "botania:block/cacophonium_block" },
+    "powered=true": { "model": "botania:block/cacophonium_block" }
   }
 }

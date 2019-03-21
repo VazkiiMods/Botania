@@ -11,18 +11,18 @@
 	"variants": {
 		"static": {
 			"true": {
-				"model": "botania:corporea_crystal_cube_base"
+				"model": "botania:block/corporea_crystal_cube_base"
 			},
 			"false": {
-				"model": "botania:corporea_crystal_cube_glass"
+				"model": "botania:block/corporea_crystal_cube_glass"
 			}
 		},
 		"inventory": [{
-			"model": "botania:corporea_crystal_cube_base",
+			"model": "botania:block/corporea_crystal_cube_base",
 			"transform": "forge:default-block",
 			"submodel": {
 				"cube": {
-					"model": "botania:corporea_crystal_cube_glass",
+					"model": "botania:block/corporea_crystal_cube_glass",
 					"transform": {
 						"translation": [ 0, 0.5, 0 ]
 					}

@@ -56,7 +56,7 @@ public class RenderTileFloatingFlower extends TileEntityRenderer {
 
 		IBlockState state = tile.getWorld().getBlockState(tile.getPos());
 		state = state.getBlock().getExtendedState(state, tile.getWorld(), tile.getPos());
-		IBakedModel model = brd.getBlockModelShapes().getModelManager().getModel(new ModelResourceLocation("botania:floatingSpecialFlower", "inventory"));
+		IBakedModel model = brd.getBlockModelShapes().getModelManager().getModel(new ModelResourceLocation("botania:floating_special_flower", "inventory"));
 		brd.getBlockModelRenderer().renderModelBrightness(model, state, 1.0F, true);
 
 		GlStateManager.popMatrix();

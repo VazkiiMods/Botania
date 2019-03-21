@@ -1,5 +1,5 @@
 {
   "variants": {
-    "normal": { "model": "botania:elementium_block" }
+    "": { "model": "botania:block/elementium_block" }
   }
 }

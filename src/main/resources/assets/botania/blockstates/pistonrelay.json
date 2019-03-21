@@ -1,5 +1,5 @@
 {
   "variants": {
-    "normal": { "model": "botania:force_relay" }
+    "": { "model": "botania:block/force_relay" }
   }
 }

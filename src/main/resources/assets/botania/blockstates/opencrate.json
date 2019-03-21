@@ -1,10 +1,10 @@
 {
   "forge_marker": 1,
   "defaults": {
-    "model": "botania:crate",
+    "model": "botania:block/crate",
     "textures": { "bottom": "botania:blocks/crate_open_bottom", "side": "botania:blocks/crate_open", "particle": "botania:blocks/crate_open" }
   },
   "variants": {
-    "normal": [{}]
+    "": [{}]
   }
 }

@@ -1,5 +1,5 @@
 {
   "variants": {
-    "normal": { "model": "botania:abstruse_platform" }
+    "": { "model": "botania:block/abstruse_platform" }
   }
 }

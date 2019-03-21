@@ -1,5 +1,5 @@
 {
   "variants": {
-    "normal": { "model": "botania:metamorphic/swamp_cobble_stone" }
+    "": { "model": "botania:block/metamorphic/swamp_cobble_stone" }
   }
 }

@@ -1,5 +1,5 @@
 {
   "variants": {
-    "normal": { "model": "botania:infrangible_platform" }
+    "": { "model": "botania:block/infrangible_platform" }
   }
 }

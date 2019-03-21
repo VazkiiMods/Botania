@@ -1,5 +1,5 @@
 {
   "variants": {
-    "normal": { "model": "botania:spreader_gaia" }
+    "": { "model": "botania:block/spreader_gaia" }
   }
 }
