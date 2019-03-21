@@ -630,34 +630,28 @@ public final class ModItems {
 
 		registerOreDictionary();
 	}
-	
+
+
 	private static void registerOreDictionary() {
+	    /* TODO 1.13 reevaluate these
 		OreDictionary.registerOre(LibOreDict.PESTLE_AND_MORTAR, pestleAndMortar);
-		OreDictionary.registerOre(LibOreDict.MANA_STEEL, new ItemStack(manaSteel));
 		OreDictionary.registerOre(LibOreDict.MANA_PEARL, new ItemStack(manaPearl));
-		OreDictionary.registerOre(LibOreDict.MANA_DIAMOND, new ItemStack(manaDiamond));
 		OreDictionary.registerOre(LibOreDict.LIVINGWOOD_TWIG, new ItemStack(livingwoodTwig));
-		OreDictionary.registerOre(LibOreDict.TERRA_STEEL, new ItemStack(terrasteel));
 		OreDictionary.registerOre(LibOreDict.LIFE_ESSENCE, new ItemStack(lifeEssence));
 		OreDictionary.registerOre(LibOreDict.REDSTONE_ROOT, new ItemStack(redstoneRoot));
-		OreDictionary.registerOre(LibOreDict.ELEMENTIUM, new ItemStack(elementium));
 		OreDictionary.registerOre(LibOreDict.PIXIE_DUST, new ItemStack(pixieDust));
-		OreDictionary.registerOre(LibOreDict.DRAGONSTONE, new ItemStack(dragonstone));
 		OreDictionary.registerOre(LibOreDict.PLACEHOLDER, new ItemStack(placeholder));
 		OreDictionary.registerOre(LibOreDict.RED_STRING, new ItemStack(redString));
 		OreDictionary.registerOre(LibOreDict.DREAMWOOD_TWIG, new ItemStack(dreamwoodTwig));
 		OreDictionary.registerOre(LibOreDict.GAIA_INGOT, new ItemStack(gaiaIngot));
 		OreDictionary.registerOre(LibOreDict.ENDER_AIR_BOTTLE, new ItemStack(enderAirBottle));
 		OreDictionary.registerOre(LibOreDict.MANA_STRING, new ItemStack(manaString));
-		OreDictionary.registerOre(LibOreDict.MANASTEEL_NUGGET, new ItemStack(manasteelNugget));
-		OreDictionary.registerOre(LibOreDict.TERRASTEEL_NUGGET, new ItemStack(terrasteelNugget));
-		OreDictionary.registerOre(LibOreDict.ELEMENTIUM_NUGGET, new ItemStack(elementiumNugget));
 		OreDictionary.registerOre(LibOreDict.ROOT, new ItemStack(livingroot));
 		OreDictionary.registerOre(LibOreDict.PEBBLE, new ItemStack(pebble));
 		OreDictionary.registerOre(LibOreDict.MANAWEAVE_CLOTH, new ItemStack(manaweaveCloth));
-		OreDictionary.registerOre(LibOreDict.MANA_POWDER, new ItemStack(manaPowder));
 
-		OreDictionary.registerOre("rodBlaze", Items.BLAZE_ROD);
 		OreDictionary.registerOre("powderBlaze", Items.BLAZE_POWDER);
+		OreDictionary.registerOre(LibOreDict.BLAZE_BLOCK, blazeBlock);
+		*/
 	}
 }

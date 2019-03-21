@@ -20,20 +20,14 @@ import vazkii.botania.api.recipe.RecipePetals;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
+import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
-import vazkii.botania.common.lib.LibOreDict;
 
 import java.util.Arrays;
 
 public final class ModPetalRecipes {
-
-	public static final String redstoneRoot = LibOreDict.REDSTONE_ROOT;
-	public static final String pixieDust = LibOreDict.PIXIE_DUST;
-	public static final String gaiaSpirit = LibOreDict.LIFE_ESSENCE;
-	public static final String manaPowder = LibOreDict.MANA_POWDER;
-
 	public static RecipePetals pureDaisyRecipe;
 	public static RecipePetals manastarRecipe;
 
@@ -111,6 +105,10 @@ public final class ModPetalRecipes {
 		Ingredient runeWrath = tagIngr("runes/wrath");
 		Ingredient runeEnvy = tagIngr("runes/envy");
 		Ingredient runePride = tagIngr("runes/pride");
+
+		Ingredient redstoneRoot = Ingredient.fromItems(ModItems.redstoneRoot);
+		Ingredient pixieDust = Ingredient.fromItems(ModItems.pixieDust);
+		Ingredient gaiaSpirit = Ingredient.fromItems(ModItems.lifeEssence);
 
 		pureDaisyRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_PUREDAISY), white, white, white, white);
 		manastarRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_MANASTAR), lightBlue, green, red, cyan);

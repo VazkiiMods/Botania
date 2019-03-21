@@ -217,9 +217,8 @@ public class ItemAstrolabe extends ItemMod {
 
 						BlockPos newPos = new BlockPos(xp, yp, zp);
 						IBlockState state1 = player.world.getBlockState(newPos);
-						Block block1 = state1.getBlock();
 						if(player.world.getWorldBorder().contains(newPos)
-								&& (block1.isAir(state1, player.world, newPos) || block1.isReplaceable(player.world, newPos)))
+								&& (state1.isAir(player.world, newPos) || state1.getMaterial().isReplaceable()))
 							coords.add(newPos);
 					}
 				}

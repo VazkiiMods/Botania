@@ -827,7 +827,6 @@ public final class ModBlocks {
 		r.register(new ItemBlockMod(infusedGrass, props).setRegistryName(infusedGrass.getRegistryName()));
 		r.register(new ItemBlockMod(mutatedGrass, props).setRegistryName(mutatedGrass.getRegistryName()));
 		r.register(new ItemBlockMod(animatedTorch, props).setRegistryName(animatedTorch.getRegistryName()));
-		initOreDict();
 	}
 	
 	public static <V extends IForgeRegistryEntry<V>> void register(IForgeRegistry<V> reg, IForgeRegistryEntry<V> thing, String name) {
@@ -842,10 +841,6 @@ public final class ModBlocks {
 		SeedBehaviours.init();
 	}
 	
-	private static void initOreDict() {
-		OreDictionary.registerOre(LibOreDict.BLAZE_BLOCK, blazeBlock);
-	}
-
 	@SubscribeEvent
 	public static void initTileEntities(RegistryEvent.Register<TileEntityType<?>> evt) {
 		IForgeRegistry<TileEntityType<?>> r = evt.getRegistry();

@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "#forge:nuggets/manasteel",
+    "#forge:nuggets/terrasteel",
+    "#forge:nuggets/elementium"
+  ]
+}

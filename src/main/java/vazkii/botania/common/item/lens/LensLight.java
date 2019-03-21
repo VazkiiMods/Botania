@@ -11,6 +11,7 @@
 package vazkii.botania.common.item.lens;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -26,17 +27,17 @@ public class LensLight extends Lens {
 	@Override
 	public boolean collideBurst(IManaBurst burst, EntityThrowable entity, RayTraceResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
 		BlockPos coords = burst.getBurstSourceBlockPos();
-		if(!entity.world.isRemote && pos.getBlockPos() != null && !coords.equals(pos.getBlockPos()) && !burst.isFake() && !isManaBlock) {
-			BlockPos pos_ = pos.getBlockPos().offset(pos.sideHit);
+		if(!entity.world.isRemote && pos.type == RayTraceResult.Type.BLOCK && !coords.equals(pos.getBlockPos()) && !burst.isFake() && !isManaBlock) {
+			BlockPos neighborPos = pos.getBlockPos().offset(pos.sideHit);
 
 			Block blockAt = entity.world.getBlockState(pos.getBlockPos()).getBlock();
-			Block blockAt_ = entity.world.getBlockState(pos_).getBlock();
+			IBlockState neighbor = entity.world.getBlockState(neighborPos);
 
 			if(blockAt == ModBlocks.manaFlame)
 				entity.world.setBlockState(pos.getBlockPos(), Blocks.AIR.getDefaultState());
-			else if(blockAt_.isAir(entity.world.getBlockState(pos_), entity.world, pos_) || blockAt_.isReplaceable(entity.world, pos_)) {
-				entity.world.setBlockState(pos_, ModBlocks.manaFlame.getDefaultState());
-				TileEntity tile = entity.world.getTileEntity(pos_);
+			else if(neighbor.isAir(entity.world, neighborPos) || neighbor.getMaterial().isReplaceable()) {
+				entity.world.setBlockState(neighborPos, ModBlocks.manaFlame.getDefaultState());
+				TileEntity tile = entity.world.getTileEntity(neighborPos);
 
 				if(tile instanceof TileManaFlame)
 					((TileManaFlame) tile).setColor(burst.getColor());

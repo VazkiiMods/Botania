@@ -62,12 +62,14 @@ public class PageCraftingRecipe extends PageRecipe {
 
 	@Override
 	public void onPageAdded(LexiconEntry entry, int index) {
+		/* todo 1.13
 		for(ResourceLocation name : recipes) {
 			IRecipe recipe = ForgeRegistries.RECIPES.getValue(name);
 			if(recipe != null && !recipe.getRecipeOutput().isEmpty()) {
 				LexiconRecipeMappings.map(recipe.getRecipeOutput(), entry, index);
 			}
 		}
+		*/
 	}
 
 	@Override
@@ -75,7 +77,7 @@ public class PageCraftingRecipe extends PageRecipe {
 	public void renderRecipe(IGuiLexiconEntry gui, int mx, int my) {
 		shapelessRecipe = false;
 
-		IRecipe recipe = ForgeRegistries.RECIPES.getValue(recipes.get(recipeAt));
+		IRecipe recipe = Minecraft.getInstance().world.getRecipeManager().getRecipe(recipes.get(recipeAt));
 		renderCraftingRecipe(gui, recipe);
 
 		TextureManager render = Minecraft.getInstance().textureManager;
@@ -162,11 +164,14 @@ public class PageCraftingRecipe extends PageRecipe {
 
 	@Override
 	public List<ItemStack> getDisplayedRecipes() {
+		/* todo 1.13
 		return recipes.stream()
 				.map(ForgeRegistries.RECIPES::getValue)
 				.filter(Objects::nonNull)
 				.map(IRecipe::getRecipeOutput)
 				.filter(s -> !s.isEmpty())
 				.collect(Collectors.toList());
+		*/
+		return Collections.emptyList();
 	}
 }
