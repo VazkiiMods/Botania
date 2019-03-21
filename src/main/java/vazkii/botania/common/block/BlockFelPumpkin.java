@@ -76,7 +76,7 @@ public class BlockFelPumpkin extends BlockMod implements ILexiconable {
 
 	@Override
 	public IBlockState getStateForPlacement(BlockItemUseContext context) {
-		return getDefaultState().with(BlockStateProperties.HORIZONTAL_FACING, context.getNearestLookingDirection().getOpposite());
+		return getDefaultState().with(BlockStateProperties.HORIZONTAL_FACING, context.getPlacementHorizontalFacing().getOpposite());
 	}
 
 	@Override

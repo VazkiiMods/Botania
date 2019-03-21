@@ -17,7 +17,7 @@
       },
       {
         "type": "item",
-        "name": "botania:manaBottle",
+        "name": "botania:mana_bottle",
         "weight": 10
       },
       {
@@ -27,7 +27,7 @@
       },
       {
         "type": "item",
-        "name": "botania:overgrowthSeed",
+        "name": "botania:overgrowth_seed",
         "weight": 2
       },
       {

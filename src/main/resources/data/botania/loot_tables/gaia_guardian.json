@@ -24,7 +24,7 @@
         { "condition": "random_chance", "chance": 0.2 }
       ],
       "rolls": 1,
-      "entries": [{ "type": "item", "name": "botania:recordGaia1" }]
+      "entries": [{ "type": "item", "name": "botania:record_gaia_1" }]
     }
   ]
 }
