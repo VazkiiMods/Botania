@@ -17,10 +17,10 @@
       "item": "minecraft:blaze_rod"
     },
     "S": {
-      "item": "#INGOTELVENELEMENTIUM"
+      "tag": "forge:ingots/elementium"
     },
     "E": {
-      "item": "#BENDERAIRBOTTLE"
+      "item": "botania:ender_air_bottle"
     },
     "M": {
       "item": "botania:manasteel_block"

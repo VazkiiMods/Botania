@@ -7,7 +7,7 @@
       "item": "botania:lens_normal"
     },
     {
-      "item": "#RUNEENVYB"
+      "tag": "botania:runes/envy"
     }
   ],
   "type": "forge:ore_shapeless"

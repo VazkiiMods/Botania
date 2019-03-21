@@ -10,21 +10,25 @@
  */
 package vazkii.botania.api.recipe;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraftforge.registries.ObjectHolder;
 
 import javax.annotation.Nullable;
 
 public class RecipeManaInfusion {
+	@ObjectHolder("botania:alchemy_catalyst")
+	public static Block alchemy;
+
+	@ObjectHolder("botania:conjuration_catalyst")
+	public static Block conjuration;
 
 	private final ItemStack output;
 	private final Ingredient input;
 	private final int mana;
 	private @Nullable IBlockState catalystState;
-
-	public static IBlockState alchemyState;
-	public static IBlockState conjurationState;
 
 	public RecipeManaInfusion(ItemStack output, Ingredient input, int mana) {
 		this.output = output;

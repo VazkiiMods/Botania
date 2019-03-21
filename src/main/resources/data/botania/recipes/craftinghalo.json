@@ -10,13 +10,13 @@
   "type": "forge:ore_shaped",
   "key": {
     "P": {
-      "item": "#MANAPEARL"
+      "item": "botania:mana_pearl"
     },
     "C": {
-      "item": "#WORKBENCH"
+      "item": "minecraft:crafting_table"
     },
     "I": {
-      "item": "#INGOTMANASTEEL"
+      "tag": "forge:ingots/manasteel"
     }
   }
 }

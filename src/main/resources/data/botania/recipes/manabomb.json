@@ -13,10 +13,10 @@
       "item": "minecraft:tnt"
     },
     "G": {
-      "item": "#ETERNALLIFEESSENCE"
+      "item": "botania:life_essence"
     },
     "L": {
-      "item": "#LIVINGWOOD"
+      "tag": "botania:livingwood"
     }
   }
 }

@@ -9,7 +9,7 @@
   "type": "forge:ore_shaped",
   "key": {
     "S": {
-      "item": "#INGOTMANASTEEL"
+      "tag": "forge:ingots/manasteel"
     }
   }
 }

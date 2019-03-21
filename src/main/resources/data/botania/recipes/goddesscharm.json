@@ -10,16 +10,16 @@
   "type": "forge:ore_shaped",
   "key": {
     "P": {
-      "item": "#PETALPINK"
+      "tag": "botania:petals/pink"
     },
     "A": {
-      "item": "#RUNEWATERB"
+      "tag": "botania:runes/water"
     },
     "S": {
-      "item": "#RUNESPRINGB"
+      "tag": "botania:runes/spring"
     },
     "D": {
-      "item": "#MANADIAMOND"
+      "tag": "forge:gems/mana_diamond"
     }
   }
 }

@@ -15,6 +15,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.Util;
+import net.minecraft.world.FoliageColors;
+import net.minecraft.world.biome.BiomeColors;
 import net.minecraftforge.registries.IRegistryDelegate;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
@@ -48,17 +50,10 @@ public final class ColorHandler {
 
 	public static void init() {
 		BlockColors blocks = Minecraft.getInstance().getBlockColors();
-		Map<IRegistryDelegate<Block>, IBlockColor> map;
-		try {
-			Field f = BlockColors.class.getField("colors");
-			f.setAccessible(true);
-			map = (Map<IRegistryDelegate<Block>, IBlockColor>) f.get(blocks);
-		} catch (ReflectiveOperationException ex) {
-			throw new RuntimeException(ex);
-		}
 
-		// Steal vine colorer
-		blocks.register(map.get(Blocks.VINE.delegate), ModBlocks.solidVines);
+		// [VanillaCopy] BlockColors for vine
+		IBlockColor vineColor = (state, world, pos, tint) -> world != null && pos != null ? BiomeColors.getFoliageColor(world, pos) : FoliageColors.getDefault();
+		blocks.register(vineColor, ModBlocks.solidVines);
 
 		// Pool
 		blocks.register(
@@ -119,10 +114,10 @@ public final class ColorHandler {
 						ModItems.twigWand);
 
 		IItemColor handler = (s, t) -> ((Item16Colors) s.getItem()).color.colorValue;
-		Item[] dyes = ModItems.dyes.values().toArray(new Item[0]);
-		Item[] petals = ModItems.petals.values().toArray(new Item[0]);
-		items.register(handler, dyes);
-		items.register(handler, petals);
+		for(EnumDyeColor color : EnumDyeColor.values()) {
+			items.register(handler, ModItems.getPetal(color));
+			items.register(handler, ModItems.getDye(color));
+		}
 
 		items.register((s, t) -> Minecraft.getInstance().getBlockColors().getColor(((ItemBlock)s.getItem()).getBlock().getDefaultState(), null, null, t),
 				ModBlocks.petalBlockWhite, ModBlocks.petalBlockOrange, ModBlocks.petalBlockMagenta, ModBlocks.petalBlockLightBlue,

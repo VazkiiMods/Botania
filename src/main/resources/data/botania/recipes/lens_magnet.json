@@ -7,10 +7,10 @@
       "item": "botania:lens_normal"
     },
     {
-      "item": "#INGOTIRON"
+      "tag": "forge:ingots/iron"
     },
     {
-      "item": "#INGOTGOLD"
+      "tag": "forge:ingots/gold"
     }
   ],
   "type": "forge:ore_shapeless"

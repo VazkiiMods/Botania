@@ -10,13 +10,13 @@
   "type": "forge:ore_shaped",
   "key": {
     "R": {
-      "item": "#RUNEAIRB"
+      "tag": "botania:runes/air"
     },
     "E": {
-      "item": "#GEMEMERALD"
+      "tag": "forge:gems/emerald"
     },
     "M": {
-      "item": "#INGOTMANASTEEL"
+      "tag": "forge:ingots/manasteel"
     }
   }
 }

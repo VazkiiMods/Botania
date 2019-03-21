@@ -10,11 +10,11 @@
         "data": 5
       },
       {
-        "item": "#PETALORANGE"
+        "tag": "botania:petals/orange"
       }
     ],
     {
-      "item": "#PESTLEANDMORTAR"
+      "item": "botania:pestle_and_mortar"
     }
   ],
   "type": "forge:ore_shapeless"

@@ -5,7 +5,7 @@
   },
   "ingredients": [
     {
-      "item": "#INGOTTERRASTEEL"
+      "tag": "forge:ingots/terrasteel"
     }
   ],
   "type": "forge:ore_shapeless"

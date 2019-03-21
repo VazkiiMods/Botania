@@ -11,7 +11,7 @@
   "type": "forge:ore_shaped",
   "key": {
     "Q": {
-      "item": "#GEMQUARTZ"
+      "tag": "forge:gems/quartz"
     },
     "C": [
       {

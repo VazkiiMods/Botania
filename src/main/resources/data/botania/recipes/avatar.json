@@ -10,10 +10,10 @@
   "type": "forge:ore_shaped",
   "key": {
     "D": {
-      "item": "#MANADIAMOND"
+      "tag": "forge:gems/mana_diamond"
     },
     "W": {
-      "item": "#LIVINGWOOD"
+      "tag": "botania:livingwood"
     }
   }
 }

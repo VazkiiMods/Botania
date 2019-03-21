@@ -11,10 +11,10 @@
   "type": "forge:ore_shaped",
   "key": {
     "R": {
-      "item": "#RUNEEARTHB"
+      "tag": "botania:runes/earth"
     },
     "S": {
-      "item": "#STONE"
+      "tag": "forge:stone"
     }
   }
 }

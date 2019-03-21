@@ -7,10 +7,10 @@
       "item": "botania:lens_normal"
     },
     {
-      "item": "#LIVINGWOOD"
+      "tag": "botania:livingwood"
     },
     {
-      "item": "#INGOTELVENELEMENTIUM"
+      "tag": "forge:ingots/elementium"
     }
   ],
   "type": "forge:ore_shapeless"

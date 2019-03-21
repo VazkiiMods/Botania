@@ -10,7 +10,7 @@
   "type": "forge:ore_shaped",
   "key": {
     "E": {
-      "item": "#INGOTELVENELEMENTIUM"
+      "tag": "forge:ingots/elementium"
     },
     "W": {
       "item": "minecraft:wool",

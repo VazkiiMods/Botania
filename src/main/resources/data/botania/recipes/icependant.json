@@ -10,16 +10,16 @@
   "type": "forge:ore_shaped",
   "key": {
     "R": {
-      "item": "#RUNEWATERB"
+      "tag": "botania:runes/water"
     },
     "S": {
-      "item": "#MANASTRING"
+      "item": "botania:mana_string"
     },
     "W": {
-      "item": "#RUNEWINTERB"
+      "tag": "botania:runes/winter"
     },
     "M": {
-      "item": "#INGOTMANASTEEL"
+      "tag": "forge:ingots/manasteel"
     }
   }
 }

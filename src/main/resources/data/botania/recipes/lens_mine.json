@@ -13,10 +13,10 @@
       "item": "minecraft:piston"
     },
     "A": {
-      "item": "#GEMLAPIS"
+      "tag": "forge:gems/lapis"
     },
     "R": {
-      "item": "#DUSTREDSTONE"
+      "tag": "forge:dusts/redstone"
     },
     "L": {
       "item": "botania:lens_normal"

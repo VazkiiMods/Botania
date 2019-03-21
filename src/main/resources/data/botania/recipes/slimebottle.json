@@ -11,10 +11,10 @@
   "type": "forge:ore_shaped",
   "key": {
     "S": {
-      "item": "#SLIMEBALL"
+      "item": "minecraft:slime_ball"
     },
     "E": {
-      "item": "#INGOTELVENELEMENTIUM"
+      "tag": "forge:ingots/elementium"
     },
     "G": {
       "item": "botania:elfglass"

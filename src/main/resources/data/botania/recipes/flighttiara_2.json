@@ -10,7 +10,7 @@
       "data": 32767
     },
     {
-      "item": "#QUARTZDARK"
+      "item": "botania:quartz_dark"
     }
   ],
   "type": "forge:ore_shapeless"

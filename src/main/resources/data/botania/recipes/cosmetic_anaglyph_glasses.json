@@ -13,7 +13,7 @@
       "item": "botania:dye_cyan"
     },
     "S": {
-      "item": "#MANASTRING"
+      "item": "botania:mana_string"
     }
   }
 }

@@ -7,7 +7,7 @@
       "item": "botania:horn_grass"
     },
     {
-      "item": "#TREELEAVES"
+      "tag": "minecraft:leaves"
     }
   ],
   "type": "forge:ore_shapeless"

@@ -10,10 +10,10 @@
   "type": "forge:ore_shaped",
   "key": {
     "R": {
-      "item": "#RUNEPRIDEB"
+      "tag": "botania:runes/pride"
     },
     "E": {
-      "item": "#INGOTELVENELEMENTIUM"
+      "tag": "forge:ingots/elementium"
     }
   }
 }

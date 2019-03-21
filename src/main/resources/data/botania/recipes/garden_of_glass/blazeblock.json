@@ -16,7 +16,7 @@
   "type": "forge:ore_shaped",
   "key": {
     "B": {
-      "item": "#POWDERBLAZE"
+      "item": "minecraft:blaze_powder"
     }
   }
 }

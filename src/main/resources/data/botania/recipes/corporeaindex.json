@@ -10,16 +10,16 @@
   "type": "forge:ore_shaped",
   "key": {
     "A": {
-      "item": "#BENDERAIRBOTTLE"
+      "item": "botania:ender_air_bottle"
     },
     "S": {
       "item": "botania:corporea_spark"
     },
     "D": {
-      "item": "#ELVENDRAGONSTONE"
+      "tag": "forge:gems/dragonstone"
     },
     "O": {
-      "item": "#OBSIDIAN"
+      "item": "minecraft:obsidian"
     }
   }
 }

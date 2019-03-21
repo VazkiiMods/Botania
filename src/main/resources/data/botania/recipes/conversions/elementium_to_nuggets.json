@@ -5,7 +5,7 @@
   },
   "ingredients": [
     {
-      "item": "#INGOTELVENELEMENTIUM"
+      "tag": "forge:ingots/elementium"
     }
   ],
   "type": "forge:ore_shapeless"

@@ -10,7 +10,7 @@
   "type": "forge:ore_shaped",
   "key": {
     "C": {
-      "item": "#WORKBENCH"
+      "item": "minecraft:crafting_table"
     },
     "W": {
       "item": "botania:dreamwood",

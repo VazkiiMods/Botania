@@ -7,7 +7,7 @@
       "item": "botania:craftinghalo"
     },
     {
-      "item": "#MANADIAMOND"
+      "tag": "forge:gems/mana_diamond"
     }
   ],
   "type": "forge:ore_shapeless"

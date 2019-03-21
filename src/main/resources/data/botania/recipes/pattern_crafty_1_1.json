@@ -11,10 +11,10 @@
   "group": "botania:craft_pattern",
   "key": {
     "P": {
-      "item": "#BPLACEHOLDER"
+      "item": "botania:placeholder"
     },
     "R": {
-      "item": "#DUSTREDSTONE"
+      "tag": "forge:dusts/redstone"
     }
   }
 }

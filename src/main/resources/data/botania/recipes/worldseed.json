@@ -14,7 +14,7 @@
       "item": "minecraft:wheat_seeds"
     },
     "D": {
-      "item": "#ELVENDRAGONSTONE"
+      "tag": "forge:gems/dragonstone"
     },
     "G": {
       "item": "minecraft:grass"

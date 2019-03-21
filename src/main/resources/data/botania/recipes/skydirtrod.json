@@ -7,10 +7,10 @@
       "item": "botania:dirtrod"
     },
     {
-      "item": "#ELVENPIXIEDUST"
+      "item": "botania:pixie_dust"
     },
     {
-      "item": "#RUNEAIRB"
+      "tag": "botania:runes/air"
     }
   ],
   "type": "forge:ore_shapeless"

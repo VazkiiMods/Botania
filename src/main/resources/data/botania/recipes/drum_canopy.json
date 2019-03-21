@@ -10,13 +10,13 @@
   "type": "forge:ore_shaped",
   "key": {
     "W": {
-      "item": "#LIVINGWOOD"
+      "tag": "botania:livingwood"
     },
     "H": {
       "item": "botania:horn_leaves"
     },
     "L": {
-      "item": "#LEATHER"
+      "item": "minecraft:leather"
     }
   }
 }

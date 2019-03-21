@@ -9,7 +9,7 @@
   "type": "forge:ore_shaped",
   "key": {
     "S": {
-      "item": "#CLOTHMANAWEAVE"
+      "item": "botania:manaweave_cloth"
     }
   }
 }

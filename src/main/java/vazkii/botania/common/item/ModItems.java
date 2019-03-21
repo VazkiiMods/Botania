@@ -19,6 +19,7 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.IForgeRegistry;
+import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.item.IFloatingFlower;
 import vazkii.botania.api.mana.spark.SparkUpgradeType;
 import vazkii.botania.api.item.IAncientWillContainer;
@@ -90,23 +91,52 @@ import vazkii.botania.common.item.rod.ItemSmeltRod;
 import vazkii.botania.common.item.rod.ItemTerraformRod;
 import vazkii.botania.common.item.rod.ItemTornadoRod;
 import vazkii.botania.common.item.rod.ItemWaterRod;
+import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.lib.LibOreDict;
 
 import java.util.*;
 
+import static vazkii.botania.common.block.ModBlocks.register;
+
+// todo 1.13 objectholder ify everything
 @Mod.EventBusSubscriber(modid = LibMisc.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public final class ModItems {
-	public static final Item lexicon = new ItemLexicon(unstackable());
-	public static final Map<EnumDyeColor, Item> petals = new EnumMap<>(EnumDyeColor.class);
-	public static final Map<EnumDyeColor, Item> dyes = new EnumMap<>(EnumDyeColor.class);
-	static {
-		for(EnumDyeColor color : EnumDyeColor.values()) {
-			petals.put(color, new ItemPetal(ModBlocks.getBuriedPetal(color), color, defaultBuilder()));
-			dyes.put(color, new ItemDye(color, defaultBuilder()));
-		}
-	}
+	@ObjectHolder("botania:" + LibItemNames.LEXICON) public static Item lexicon;
+	@ObjectHolder("botania:" + "white" + LibItemNames.PETAL_SUFFIX) public static Item whitePetal;
+	@ObjectHolder("botania:" + "orange" + LibItemNames.PETAL_SUFFIX) public static Item orangePetal;
+	@ObjectHolder("botania:" + "magenta" + LibItemNames.PETAL_SUFFIX) public static Item magentaPetal;
+	@ObjectHolder("botania:" + "light_blue" + LibItemNames.PETAL_SUFFIX) public static Item lightBluePetal;
+	@ObjectHolder("botania:" + "yellow" + LibItemNames.PETAL_SUFFIX) public static Item yellowPetal;
+	@ObjectHolder("botania:" + "lime" + LibItemNames.PETAL_SUFFIX) public static Item limePetal;
+	@ObjectHolder("botania:" + "pink" + LibItemNames.PETAL_SUFFIX) public static Item pinkPetal;
+	@ObjectHolder("botania:" + "gray" + LibItemNames.PETAL_SUFFIX) public static Item grayPetal;
+	@ObjectHolder("botania:" + "light_gray" + LibItemNames.PETAL_SUFFIX) public static Item lightGrayPetal;
+	@ObjectHolder("botania:" + "cyan" + LibItemNames.PETAL_SUFFIX) public static Item cyanPetal;
+	@ObjectHolder("botania:" + "purple" + LibItemNames.PETAL_SUFFIX) public static Item purplePetal;
+	@ObjectHolder("botania:" + "blue" + LibItemNames.PETAL_SUFFIX) public static Item bluePetal;
+	@ObjectHolder("botania:" + "brown" + LibItemNames.PETAL_SUFFIX) public static Item brownPetal;
+	@ObjectHolder("botania:" + "green" + LibItemNames.PETAL_SUFFIX) public static Item greenPetal;
+	@ObjectHolder("botania:" + "red" + LibItemNames.PETAL_SUFFIX) public static Item redPetal;
+	@ObjectHolder("botania:" + "black" + LibItemNames.PETAL_SUFFIX) public static Item blackPetal;
+
+	@ObjectHolder("botania:" + "white" + LibItemNames.DYE_SUFFIX) public static Item whiteDye;
+	@ObjectHolder("botania:" + "orange" + LibItemNames.DYE_SUFFIX) public static Item orangeDye;
+	@ObjectHolder("botania:" + "magenta" + LibItemNames.DYE_SUFFIX) public static Item magentaDye;
+	@ObjectHolder("botania:" + "light_blue" + LibItemNames.DYE_SUFFIX) public static Item lightBlueDye;
+	@ObjectHolder("botania:" + "yellow" + LibItemNames.DYE_SUFFIX) public static Item yellowDye;
+	@ObjectHolder("botania:" + "lime" + LibItemNames.DYE_SUFFIX) public static Item limeDye;
+	@ObjectHolder("botania:" + "pink" + LibItemNames.DYE_SUFFIX) public static Item pinkDye;
+	@ObjectHolder("botania:" + "gray" + LibItemNames.DYE_SUFFIX) public static Item grayDye;
+	@ObjectHolder("botania:" + "light_gray" + LibItemNames.DYE_SUFFIX) public static Item lightGrayDye;
+	@ObjectHolder("botania:" + "cyan" + LibItemNames.DYE_SUFFIX) public static Item cyanDye;
+	@ObjectHolder("botania:" + "purple" + LibItemNames.DYE_SUFFIX) public static Item purpleDye;
+	@ObjectHolder("botania:" + "blue" + LibItemNames.DYE_SUFFIX) public static Item blueDye;
+	@ObjectHolder("botania:" + "brown" + LibItemNames.DYE_SUFFIX) public static Item brownDye;
+	@ObjectHolder("botania:" + "green" + LibItemNames.DYE_SUFFIX) public static Item greenDye;
+	@ObjectHolder("botania:" + "red" + LibItemNames.DYE_SUFFIX) public static Item redDye;
+	@ObjectHolder("botania:" + "black" + LibItemNames.DYE_SUFFIX) public static Item blackDye;
 
 	public static final Item pestleAndMortar = new ItemSelfReturning(unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.PESTLE_AND_MORTAR);
 	public static final Item twigWand = new ItemTwigWand(unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.TWIG_WAND);
@@ -183,15 +213,15 @@ public final class ModItems {
 	public static final Item manaCookie = new ItemManaCookie(defaultBuilder()).setRegistryName(LibMisc.MOD_ID, LibItemNames.MANA_COOKIE);
 	public static final Item fertilizer = new ItemFertilizer(defaultBuilder()).setRegistryName(LibMisc.MOD_ID, LibItemNames.FERTILIZER);
 
-	public static final Item grassSeeds = new ItemGrassSeeds(IFloatingFlower.IslandType.GRASS, defaultBuilder());
-	public static final Item podzolSeeds = new ItemGrassSeeds(IFloatingFlower.IslandType.PODZOL, defaultBuilder());
-	public static final Item mycelSeeds = new ItemGrassSeeds(IFloatingFlower.IslandType.MYCEL, defaultBuilder());
-	public static final Item drySeeds = new ItemGrassSeeds(IFloatingFlower.IslandType.DRY, defaultBuilder());
-	public static final Item goldenSeeds = new ItemGrassSeeds(IFloatingFlower.IslandType.GOLDEN, defaultBuilder());
-	public static final Item vividSeeds = new ItemGrassSeeds(IFloatingFlower.IslandType.VIVID, defaultBuilder());
-	public static final Item scorchedSeeds = new ItemGrassSeeds(IFloatingFlower.IslandType.SCORCHED, defaultBuilder());
-	public static final Item infusedSeeds = new ItemGrassSeeds(IFloatingFlower.IslandType.INFUSED, defaultBuilder());
-	public static final Item mutatedSeeds = new ItemGrassSeeds(IFloatingFlower.IslandType.MUTATED, defaultBuilder());
+	public static final Item grassSeeds = new ItemGrassSeeds(IFloatingFlower.IslandType.GRASS, defaultBuilder()).setRegistryName(LibMisc.MOD_ID, LibItemNames.GRASS_SEEDS);
+	public static final Item podzolSeeds = new ItemGrassSeeds(IFloatingFlower.IslandType.PODZOL, defaultBuilder()).setRegistryName(LibMisc.MOD_ID, LibItemNames.PODZOL_SEEDS);
+	public static final Item mycelSeeds = new ItemGrassSeeds(IFloatingFlower.IslandType.MYCEL, defaultBuilder()).setRegistryName(LibMisc.MOD_ID, LibItemNames.MYCEL_SEEDS);
+	public static final Item drySeeds = new ItemGrassSeeds(IFloatingFlower.IslandType.DRY, defaultBuilder()).setRegistryName(LibMisc.MOD_ID, LibItemNames.DRY_SEEDS);
+	public static final Item goldenSeeds = new ItemGrassSeeds(IFloatingFlower.IslandType.GOLDEN, defaultBuilder()).setRegistryName(LibMisc.MOD_ID, LibItemNames.GOLDEN_SEEDS);
+	public static final Item vividSeeds = new ItemGrassSeeds(IFloatingFlower.IslandType.VIVID, defaultBuilder()).setRegistryName(LibMisc.MOD_ID, LibItemNames.VIVID_SEEDS);
+	public static final Item scorchedSeeds = new ItemGrassSeeds(IFloatingFlower.IslandType.SCORCHED, defaultBuilder()).setRegistryName(LibMisc.MOD_ID, LibItemNames.SCORCHED_SEEDS);
+	public static final Item infusedSeeds = new ItemGrassSeeds(IFloatingFlower.IslandType.INFUSED, defaultBuilder()).setRegistryName(LibMisc.MOD_ID, LibItemNames.INFUSED_SEEDS);
+	public static final Item mutatedSeeds = new ItemGrassSeeds(IFloatingFlower.IslandType.MUTATED, defaultBuilder()).setRegistryName(LibMisc.MOD_ID, LibItemNames.MUTATED_SEEDS);
 
 	public static final Item dirtRod = new ItemDirtRod(unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.DIRT_ROD);
 	public static final Item terraformRod = new ItemTerraformRod(unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.TERRAFORM_ROD);
@@ -230,7 +260,7 @@ public final class ModItems {
 	public static final Item terraPick = new ItemTerraPick(unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.TERRA_PICK);
 	public static final Item divaCharm = new ItemDivaCharm(unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.DIVA_CHARM);
 	public static final Item flightTiara = new ItemFlightTiara(unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.FLIGHT_TIARA);
-	public static final Item enderDagger = new ItemEnderDagger(unstackable().defaultMaxDamage(69).setNoRepair()); // What you looking at?
+	public static final Item enderDagger = new ItemEnderDagger(unstackable().defaultMaxDamage(69).setNoRepair()).setRegistryName(LibMisc.MOD_ID, LibItemNames.ENDER_DAGGER); // What you looking at?
 	public static final Item darkQuartz = new ItemMod(defaultBuilder()).setRegistryName(LibMisc.MOD_ID, LibItemNames.QUARTZ_NAMES[0]);
 	public static final Item manaQuartz = new ItemMod(defaultBuilder()).setRegistryName(LibMisc.MOD_ID, LibItemNames.QUARTZ_NAMES[1]);
 	public static final Item blazeQuartz = new ItemMod(defaultBuilder()).setRegistryName(LibMisc.MOD_ID, LibItemNames.QUARTZ_NAMES[2]);
@@ -354,7 +384,7 @@ public final class ModItems {
 	public static final Item manaweaveLegs = new ItemManaweaveArmor(EntityEquipmentSlot.LEGS, unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.MANAWEAVE_LEGS);
 	public static final Item manaweaveBoots = new ItemManaweaveArmor(EntityEquipmentSlot.FEET, unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.MANAWEAVE_BOOTS);
 	public static final Item autocraftingHalo = new ItemAutocraftingHalo(unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.AUTOCRAFTING_HALO);
-	public static final Item gaiaHead = new ItemGaiaHead(ModBlocks.gaiaHead, ModBlocks.gaiaHeadWall, defaultBuilder().setTEISR(() -> RenderTileGaiaHead.TEISR::new));
+	@ObjectHolder("botania:" + LibBlockNames.GAIA_HEAD) public static Item gaiaHead;
 	public static final Item sextant = new ItemSextant(unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.SEXTANT);
 	public static final Item speedUpBelt = new ItemSpeedUpBelt(unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.SPEED_UP_BELT);
 	public static final Item baubleBox = new ItemBaubleBox(unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.BAUBLE_BOX);
@@ -363,8 +393,8 @@ public final class ModItems {
 	public static final Item cloudPendant = new ItemCloudPendant(unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.CLOUD_PENDANT);
 	public static final Item superCloudPendant = new ItemSuperCloudPendant(unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.SUPER_CLOUD_PENDANT);
 	public static final Item thirdEye = new ItemThirdEye(unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.THIRD_EYE);
-	public static final Item astrolabe = new ItemAstrolabe(unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.ASTROLABE);
-	public static final Item goddessCharm = new ItemGoddessCharm(unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.GODDESS_CHARM);
+	@ObjectHolder("botania:" + LibItemNames.ASTROLABE) public static Item astrolabe;
+	@ObjectHolder("botania:" + LibItemNames.GODDESS_CHARM) public static Item goddessCharm;
 
 	public static Item.Properties defaultBuilder() {
 		return new Item.Properties().group(BotaniaCreativeTab.INSTANCE);
@@ -378,9 +408,11 @@ public final class ModItems {
 	public static void registerItems(RegistryEvent.Register<Item> evt) {
 		IForgeRegistry<Item> r = evt.getRegistry();
 
-		r.register(lexicon);
-		petals.values().forEach(r::register);
-		dyes.values().forEach(r::register);
+		register(r, new ItemLexicon(unstackable()), LibItemNames.LEXICON);
+		for(EnumDyeColor color : EnumDyeColor.values()) {
+			register(r, new ItemPetal(ModBlocks.getBuriedPetal(color), color, defaultBuilder()), color.getName() + LibItemNames.PETAL_SUFFIX);
+			register(r, new ItemDye(color, defaultBuilder()), color.getName() + LibItemNames.DYE_SUFFIX);
+		}
 		r.register(pestleAndMortar);
 		r.register(twigWand);
 		r.register(manaSteel);
@@ -616,7 +648,8 @@ public final class ModItems {
 		r.register(manaweaveLegs);
 		r.register(manaweaveBoots);
 		r.register(autocraftingHalo);
-		r.register(gaiaHead);
+		Item head = new ItemGaiaHead(ModBlocks.gaiaHead, ModBlocks.gaiaHeadWall, defaultBuilder().setTEISR(() -> RenderTileGaiaHead.TEISR::new));
+		r.register(head.setRegistryName(ModBlocks.gaiaHead.getRegistryName()));
 		r.register(sextant);
 		r.register(speedUpBelt);
 		r.register(baubleBox);
@@ -625,8 +658,8 @@ public final class ModItems {
 		r.register(cloudPendant);
 		r.register(superCloudPendant);
 		r.register(thirdEye);
-		r.register(astrolabe);
-		r.register(goddessCharm);
+		register(r, new ItemAstrolabe(unstackable()), LibItemNames.ASTROLABE);
+		register(r, new ItemGoddessCharm(unstackable()), LibItemNames.GODDESS_CHARM);
 
 		registerOreDictionary();
 	}
@@ -653,5 +686,49 @@ public final class ModItems {
 		OreDictionary.registerOre("powderBlaze", Items.BLAZE_POWDER);
 		OreDictionary.registerOre(LibOreDict.BLAZE_BLOCK, blazeBlock);
 		*/
+	}
+	
+	public static Item getPetal(EnumDyeColor color) {
+		switch (color) {
+			default:
+			case WHITE: return whitePetal;
+			case ORANGE: return orangePetal;
+			case MAGENTA: return magentaPetal;
+			case LIGHT_BLUE: return lightBluePetal;
+			case YELLOW: return yellowPetal;
+			case LIME: return limePetal;
+			case PINK: return pinkPetal;
+			case GRAY: return grayPetal;
+			case LIGHT_GRAY: return lightGrayPetal;
+			case CYAN: return cyanPetal;
+			case PURPLE: return purplePetal;
+			case BLUE: return bluePetal;
+			case BROWN: return brownPetal;
+			case GREEN: return greenPetal;
+			case RED: return redPetal;
+			case BLACK: return blackPetal;
+		}
+	}
+	
+	public static Item getDye(EnumDyeColor color) {
+		switch (color) {
+			default:
+			case WHITE: return whiteDye;
+			case ORANGE: return orangeDye;
+			case MAGENTA: return magentaDye;
+			case LIGHT_BLUE: return lightBlueDye;
+			case YELLOW: return yellowDye;
+			case LIME: return limeDye;
+			case PINK: return pinkDye;
+			case GRAY: return grayDye;
+			case LIGHT_GRAY: return lightGrayDye;
+			case CYAN: return cyanDye;
+			case PURPLE: return purpleDye;
+			case BLUE: return blueDye;
+			case BROWN: return brownDye;
+			case GREEN: return greenDye;
+			case RED: return redDye;
+			case BLACK: return blackDye;
+		}
 	}
 }

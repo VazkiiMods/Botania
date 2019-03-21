@@ -5,10 +5,10 @@
   "group": "botania:dye",
   "ingredients": [
     {
-      "item": "#PETALGREEN"
+      "tag": "botania:petals/green"
     },
     {
-      "item": "#PESTLEANDMORTAR"
+      "item": "botania:pestle_and_mortar"
     }
   ],
   "type": "forge:ore_shapeless"

@@ -4,7 +4,7 @@
   },
   "ingredients": [
     {
-      "item": "#LIVINGROCK"
+      "tag": "botania:livingrock"
     },
     {
       "item": "botania:bifrostperm"

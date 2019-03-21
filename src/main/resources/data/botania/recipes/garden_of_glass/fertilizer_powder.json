@@ -11,20 +11,19 @@
   },
   "ingredients": [
     {
-      "item": "minecraft:dye",
-      "data": 15
+      "item": "minecraft:bone_meal"
     },
     {
-      "item": "#ALL_DYES"
+      "item": "#all_dyes"
     },
     {
-      "item": "#ALL_DYES"
+      "item": "#all_dyes"
     },
     {
-      "item": "#ALL_DYES"
+      "item": "#all_dyes"
     },
     {
-      "item": "#ALL_DYES"
+      "item": "#all_dyes"
     }
   ],
   "type": "minecraft:crafting_shapeless"

@@ -10,10 +10,10 @@
   "type": "forge:ore_shaped",
   "key": {
     "R": {
-      "item": "#DUSTREDSTONE"
+      "tag": "forge:dusts/redstone"
     },
     "S": {
-      "item": "#ETERNALLIFEESSENCE"
+      "item": "botania:life_essence"
     },
     "W": {
       "item": "minecraft:wool",

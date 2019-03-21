@@ -10,13 +10,13 @@
   "type": "forge:ore_shaped",
   "key": {
     "S": {
-      "item": "#MANASTRING"
+      "item": "botania:mana_string"
     },
     "T": {
-      "item": "#LIVINGWOODTWIG"
+      "item": "botania:livingwood_twig"
     },
     "D": {
-      "item": "#ELVENDRAGONSTONE"
+      "tag": "forge:gems/dragonstone"
     }
   }
 }

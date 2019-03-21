@@ -5,10 +5,10 @@
   },
   "ingredients": [
     {
-      "item": "#LIVINGWOOD"
+      "tag": "botania:livingwood"
     },
     {
-      "item": "#DUSTGLOWSTONE"
+      "tag": "forge:dusts/glowstone"
     }
   ],
   "type": "forge:ore_shapeless"

@@ -13,10 +13,10 @@
       "item": "minecraft:golden_pickaxe"
     },
     "E": {
-      "item": "#RUNEEARTHB"
+      "tag": "botania:runes/earth"
     },
     "M": {
-      "item": "#INGOTMANASTEEL"
+      "tag": "forge:ingots/manasteel"
     }
   }
 }

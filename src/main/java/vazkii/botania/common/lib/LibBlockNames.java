@@ -146,7 +146,6 @@ public final class LibBlockNames {
 	public static final ResourceLocation SUBTILE_ENDOFLAME = prefix("endoflame");
 	public static final ResourceLocation SUBTILE_HYDROANGEAS = prefix("hydroangeas");
 	public static final ResourceLocation SUBTILE_THERMALILY = prefix("thermalily");
-	public static final ResourceLocation SUBTILE_NIGHTSHADE_PRIME = prefix("nightshadePrime");
 	public static final ResourceLocation SUBTILE_ARCANE_ROSE = prefix("arcanerose");
 	public static final ResourceLocation SUBTILE_MUNCHDEW = prefix("munchdew");
 	public static final ResourceLocation SUBTILE_ENTROPINNYUM = prefix("entropinnyum");
@@ -161,11 +160,11 @@ public final class LibBlockNames {
 	public static final ResourceLocation SUBTILE_BELLETHORN = prefix("bellethorn");
 	public static final ResourceLocation SUBTILE_BERGAMUTE = prefix("bergamute");
 	public static final ResourceLocation SUBTILE_DREADTHORN = prefix("dreadthorn");
-	public static final ResourceLocation SUBTILE_HEISEI_DREAM = prefix("heiseiDream");
+	public static final ResourceLocation SUBTILE_HEISEI_DREAM = prefix("heisei_dream");
 	public static final ResourceLocation SUBTILE_TIGERSEYE = prefix("tigerseye");
-	public static final ResourceLocation SUBTILE_JADED_AMARANTHUS = prefix("jadedAmaranthus");
+	public static final ResourceLocation SUBTILE_JADED_AMARANTHUS = prefix("jaded_amaranthus");
 	public static final ResourceLocation SUBTILE_ORECHID = prefix("orechid");
-	public static final ResourceLocation SUBTILE_FALLEN_KANADE = prefix("fallenKanade");
+	public static final ResourceLocation SUBTILE_FALLEN_KANADE = prefix("fallen_kanade");
 	public static final ResourceLocation SUBTILE_EXOFLAME = prefix("exoflame");
 	public static final ResourceLocation SUBTILE_AGRICARNATION = prefix("agricarnation");
 	public static final ResourceLocation SUBTILE_HOPPERHOCK = prefix("hopperhock");
@@ -183,7 +182,7 @@ public final class LibBlockNames {
 	public static final ResourceLocation SUBTILE_MARIMORPHOSIS = prefix("marimorphosis");
 	public static final ResourceLocation SUBTILE_BUBBELL = prefix("bubbell");
 	public static final ResourceLocation SUBTILE_SOLEGNOLIA = prefix("solegnolia");
-	public static final ResourceLocation SUBTILE_ORECHID_IGNEM = prefix("orechidIgnem");
+	public static final ResourceLocation SUBTILE_ORECHID_IGNEM = prefix("orechid_ignem");
 
 	public static final String QUARTZ_DARK = "dark_quartz";
 	public static final String QUARTZ_MANA = "mana_quartz";

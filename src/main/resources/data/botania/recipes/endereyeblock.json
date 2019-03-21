@@ -10,13 +10,13 @@
   "type": "forge:ore_shaped",
   "key": {
     "R": {
-      "item": "#DUSTREDSTONE"
+      "tag": "forge:dusts/redstone"
     },
     "E": {
       "item": "minecraft:ender_eye"
     },
     "O": {
-      "item": "#OBSIDIAN"
+      "item": "minecraft:obsidian"
     }
   }
 }

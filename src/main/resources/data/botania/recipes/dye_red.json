@@ -14,11 +14,11 @@
         "data": 4
       },
       {
-        "item": "#PETALRED"
+        "tag": "botania:petals/red"
       }
     ],
     {
-      "item": "#PESTLEANDMORTAR"
+      "item": "botania:pestle_and_mortar"
     }
   ],
   "type": "forge:ore_shapeless"

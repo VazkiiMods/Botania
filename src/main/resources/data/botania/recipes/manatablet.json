@@ -11,14 +11,14 @@
   "key": {
     "P": [
       {
-        "item": "#MANADIAMOND"
+        "tag": "forge:gems/mana_diamond"
       },
       {
-        "item": "#MANAPEARL"
+        "item": "botania:mana_pearl"
       }
     ],
     "S": {
-      "item": "#LIVINGROCK"
+      "tag": "botania:livingrock"
     }
   }
 }

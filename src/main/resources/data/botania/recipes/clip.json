@@ -10,7 +10,7 @@
   "type": "forge:ore_shaped",
   "key": {
     "D": {
-      "item": "#DREAMWOOD"
+      "item": "botania:dreamwood"
     }
   }
 }

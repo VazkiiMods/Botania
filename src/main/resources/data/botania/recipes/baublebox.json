@@ -10,13 +10,13 @@
   "type": "forge:ore_shaped",
   "key": {
     "C": {
-      "item": "#CHESTWOOD"
+      "tag": "forge:chests/wooden"
     },
     "G": {
-      "item": "#INGOTGOLD"
+      "tag": "forge:ingots/gold"
     },
     "M": {
-      "item": "#INGOTMANASTEEL"
+      "tag": "forge:ingots/manasteel"
     }
   }
 }

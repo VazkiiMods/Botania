@@ -10,13 +10,13 @@
   "type": "forge:ore_shaped",
   "key": {
     "T": {
-      "item": "#LIVINGWOODTWIG"
+      "item": "botania:livingwood_twig"
     },
     "G": {
-      "item": "#BLOCKGLASSCOLORLESS"
+      "item": "minecraft:glass"
     },
     "I": {
-      "item": "#INGOTMANASTEEL"
+      "tag": "forge:ingots/manasteel"
     }
   }
 }

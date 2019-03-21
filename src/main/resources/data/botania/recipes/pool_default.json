@@ -9,7 +9,7 @@
   "type": "forge:ore_shaped",
   "key": {
     "R": {
-      "item": "#LIVINGROCK"
+      "tag": "botania:livingrock"
     }
   }
 }

@@ -143,16 +143,16 @@ public final class ModelHandler {
 	}
 
 	private static void registerSubtiles() {
-		BotaniaAPIClient.registerIslandTypeModel(IFloatingFlower.IslandType.GRASS, new ModelResourceLocation("botania:miniIsland", "variant=grass"));
-		BotaniaAPIClient.registerIslandTypeModel(IFloatingFlower.IslandType.PODZOL, new ModelResourceLocation("botania:miniIsland", "variant=podzol"));
-		BotaniaAPIClient.registerIslandTypeModel(IFloatingFlower.IslandType.MYCEL, new ModelResourceLocation("botania:miniIsland", "variant=mycel"));
-		BotaniaAPIClient.registerIslandTypeModel(IFloatingFlower.IslandType.SNOW, new ModelResourceLocation("botania:miniIsland", "variant=snow"));
-		BotaniaAPIClient.registerIslandTypeModel(IFloatingFlower.IslandType.DRY, new ModelResourceLocation("botania:miniIsland", "variant=dry"));
-		BotaniaAPIClient.registerIslandTypeModel(IFloatingFlower.IslandType.GOLDEN, new ModelResourceLocation("botania:miniIsland", "variant=golden"));
-		BotaniaAPIClient.registerIslandTypeModel(IFloatingFlower.IslandType.VIVID, new ModelResourceLocation("botania:miniIsland", "variant=vivid"));
-		BotaniaAPIClient.registerIslandTypeModel(IFloatingFlower.IslandType.SCORCHED, new ModelResourceLocation("botania:miniIsland", "variant=scorched"));
-		BotaniaAPIClient.registerIslandTypeModel(IFloatingFlower.IslandType.INFUSED, new ModelResourceLocation("botania:miniIsland", "variant=infused"));
-		BotaniaAPIClient.registerIslandTypeModel(IFloatingFlower.IslandType.MUTATED, new ModelResourceLocation("botania:miniIsland", "variant=mutated"));
+		BotaniaAPIClient.registerIslandTypeModel(IFloatingFlower.IslandType.GRASS, new ModelResourceLocation("botania:mini_island", "variant=grass"));
+		BotaniaAPIClient.registerIslandTypeModel(IFloatingFlower.IslandType.PODZOL, new ModelResourceLocation("botania:mini_island", "variant=podzol"));
+		BotaniaAPIClient.registerIslandTypeModel(IFloatingFlower.IslandType.MYCEL, new ModelResourceLocation("botania:mini_island", "variant=mycel"));
+		BotaniaAPIClient.registerIslandTypeModel(IFloatingFlower.IslandType.SNOW, new ModelResourceLocation("botania:mini_island", "variant=snow"));
+		BotaniaAPIClient.registerIslandTypeModel(IFloatingFlower.IslandType.DRY, new ModelResourceLocation("botania:mini_island", "variant=dry"));
+		BotaniaAPIClient.registerIslandTypeModel(IFloatingFlower.IslandType.GOLDEN, new ModelResourceLocation("botania:mini_island", "variant=golden"));
+		BotaniaAPIClient.registerIslandTypeModel(IFloatingFlower.IslandType.VIVID, new ModelResourceLocation("botania:mini_island", "variant=vivid"));
+		BotaniaAPIClient.registerIslandTypeModel(IFloatingFlower.IslandType.SCORCHED, new ModelResourceLocation("botania:mini_island", "variant=scorched"));
+		BotaniaAPIClient.registerIslandTypeModel(IFloatingFlower.IslandType.INFUSED, new ModelResourceLocation("botania:mini_island", "variant=infused"));
+		BotaniaAPIClient.registerIslandTypeModel(IFloatingFlower.IslandType.MUTATED, new ModelResourceLocation("botania:mini_island", "variant=mutated"));
 
 		BotaniaAPIClient.registerSubtileModel(SubTileManastar.class, new ModelResourceLocation(LibBlockNames.SUBTILE_MANASTAR.toString()));
 		BotaniaAPIClient.registerSubtileModel(SubTilePureDaisy.class, new ModelResourceLocation(LibBlockNames.SUBTILE_PUREDAISY.toString()));
@@ -172,7 +172,7 @@ public final class ModelHandler {
 		BotaniaAPIClient.registerSubtileModel(SubTileShulkMeNot.class, new ModelResourceLocation(LibBlockNames.SUBTILE_SHULK_ME_NOT.toString()));
 
 		BotaniaAPIClient.registerSubtileModel(SubTileBellethorn.class, new ModelResourceLocation(LibBlockNames.SUBTILE_BELLETHORN.toString()));
-		BotaniaAPIClient.registerSubtileModel(SubTileBellethorn.Mini.class, new ModelResourceLocation(LibBlockNames.SUBTILE_BELLETHORN + "Chibi"));
+		BotaniaAPIClient.registerSubtileModel(SubTileBellethorn.Mini.class, new ModelResourceLocation(LibBlockNames.SUBTILE_BELLETHORN + "_chibi"));
 		BotaniaAPIClient.registerSubtileModel(SubTileDreadthorn.class, new ModelResourceLocation(LibBlockNames.SUBTILE_DREADTHORN.toString()));
 		BotaniaAPIClient.registerSubtileModel(SubTileHeiseiDream.class, new ModelResourceLocation(LibBlockNames.SUBTILE_HEISEI_DREAM.toString()));
 		BotaniaAPIClient.registerSubtileModel(SubTileTigerseye.class, new ModelResourceLocation(LibBlockNames.SUBTILE_TIGERSEYE.toString()));
@@ -182,28 +182,28 @@ public final class ModelHandler {
 		BotaniaAPIClient.registerSubtileModel(SubTileFallenKanade.class, new ModelResourceLocation(LibBlockNames.SUBTILE_FALLEN_KANADE.toString()));
 		BotaniaAPIClient.registerSubtileModel(SubTileExoflame.class, new ModelResourceLocation(LibBlockNames.SUBTILE_EXOFLAME.toString()));
 		BotaniaAPIClient.registerSubtileModel(SubTileAgricarnation.class, new ModelResourceLocation(LibBlockNames.SUBTILE_AGRICARNATION.toString()));
-		BotaniaAPIClient.registerSubtileModel(SubTileAgricarnation.Mini.class, new ModelResourceLocation(LibBlockNames.SUBTILE_AGRICARNATION + "Chibi"));
+		BotaniaAPIClient.registerSubtileModel(SubTileAgricarnation.Mini.class, new ModelResourceLocation(LibBlockNames.SUBTILE_AGRICARNATION + "_chibi"));
 		BotaniaAPIClient.registerSubtileModel(SubTileHopperhock.class, new ModelResourceLocation(LibBlockNames.SUBTILE_HOPPERHOCK.toString()));
-		BotaniaAPIClient.registerSubtileModel(SubTileHopperhock.Mini.class, new ModelResourceLocation(LibBlockNames.SUBTILE_HOPPERHOCK + "Chibi"));
+		BotaniaAPIClient.registerSubtileModel(SubTileHopperhock.Mini.class, new ModelResourceLocation(LibBlockNames.SUBTILE_HOPPERHOCK + "_chibi"));
 		BotaniaAPIClient.registerSubtileModel(SubTileTangleberrie.class, new ModelResourceLocation(LibBlockNames.SUBTILE_TANGLEBERRIE.toString()));
 		BotaniaAPIClient.registerSubtileModel(SubTileJiyuulia.class, new ModelResourceLocation(LibBlockNames.SUBTILE_JIYUULIA.toString()));
 		BotaniaAPIClient.registerSubtileModel(SubTileRannuncarpus.class, new ModelResourceLocation(LibBlockNames.SUBTILE_RANNUNCARPUS.toString()));
-		BotaniaAPIClient.registerSubtileModel(SubTileRannuncarpus.Mini.class, new ModelResourceLocation(LibBlockNames.SUBTILE_RANNUNCARPUS + "Chibi"));
+		BotaniaAPIClient.registerSubtileModel(SubTileRannuncarpus.Mini.class, new ModelResourceLocation(LibBlockNames.SUBTILE_RANNUNCARPUS + "_chibi"));
 		BotaniaAPIClient.registerSubtileModel(SubTileHyacidus.class, new ModelResourceLocation(LibBlockNames.SUBTILE_HYACIDUS.toString()));
 		BotaniaAPIClient.registerSubtileModel(SubTilePollidisiac.class, new ModelResourceLocation(LibBlockNames.SUBTILE_POLLIDISIAC.toString()));
 		BotaniaAPIClient.registerSubtileModel(SubTileClayconia.class, new ModelResourceLocation(LibBlockNames.SUBTILE_CLAYCONIA.toString()));
-		BotaniaAPIClient.registerSubtileModel(SubTileClayconia.Mini.class, new ModelResourceLocation(LibBlockNames.SUBTILE_CLAYCONIA + "Chibi"));
+		BotaniaAPIClient.registerSubtileModel(SubTileClayconia.Mini.class, new ModelResourceLocation(LibBlockNames.SUBTILE_CLAYCONIA + "_chibi"));
 		BotaniaAPIClient.registerSubtileModel(SubTileLoonuim.class, new ModelResourceLocation(LibBlockNames.SUBTILE_LOONIUM.toString()));
 		BotaniaAPIClient.registerSubtileModel(SubTileDaffomill.class, new ModelResourceLocation(LibBlockNames.SUBTILE_DAFFOMILL.toString()));
 		BotaniaAPIClient.registerSubtileModel(SubTileVinculotus.class, new ModelResourceLocation(LibBlockNames.SUBTILE_VINCULOTUS.toString()));
 		BotaniaAPIClient.registerSubtileModel(SubTileSpectranthemum.class, new ModelResourceLocation(LibBlockNames.SUBTILE_SPECTRANTHEMUM.toString()));
 		BotaniaAPIClient.registerSubtileModel(SubTileMedumone.class, new ModelResourceLocation(LibBlockNames.SUBTILE_MEDUMONE.toString()));
 		BotaniaAPIClient.registerSubtileModel(SubTileMarimorphosis.class, new ModelResourceLocation(LibBlockNames.SUBTILE_MARIMORPHOSIS.toString()));
-		BotaniaAPIClient.registerSubtileModel(SubTileMarimorphosis.Mini.class, new ModelResourceLocation(LibBlockNames.SUBTILE_MARIMORPHOSIS + "Chibi"));
+		BotaniaAPIClient.registerSubtileModel(SubTileMarimorphosis.Mini.class, new ModelResourceLocation(LibBlockNames.SUBTILE_MARIMORPHOSIS + "_chibi"));
 		BotaniaAPIClient.registerSubtileModel(SubTileBubbell.class, new ModelResourceLocation(LibBlockNames.SUBTILE_BUBBELL.toString()));
-		BotaniaAPIClient.registerSubtileModel(SubTileBubbell.Mini.class, new ModelResourceLocation(LibBlockNames.SUBTILE_BUBBELL + "Chibi"));
+		BotaniaAPIClient.registerSubtileModel(SubTileBubbell.Mini.class, new ModelResourceLocation(LibBlockNames.SUBTILE_BUBBELL + "_chibi"));
 		BotaniaAPIClient.registerSubtileModel(SubTileSolegnolia.class, new ModelResourceLocation(LibBlockNames.SUBTILE_SOLEGNOLIA.toString()));
-		BotaniaAPIClient.registerSubtileModel(SubTileSolegnolia.Mini.class, new ModelResourceLocation(LibBlockNames.SUBTILE_SOLEGNOLIA + "Chibi"));
+		BotaniaAPIClient.registerSubtileModel(SubTileSolegnolia.Mini.class, new ModelResourceLocation(LibBlockNames.SUBTILE_SOLEGNOLIA + "_chibi"));
 		BotaniaAPIClient.registerSubtileModel(SubTileBergamute.class, new ModelResourceLocation(LibBlockNames.SUBTILE_BERGAMUTE.toString()));
 	}
 

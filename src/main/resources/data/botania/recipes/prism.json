@@ -10,13 +10,13 @@
   "type": "forge:ore_shaped",
   "key": {
     "P": {
-      "item": "#GEMPRISMARINE"
+      "tag": "forge:gems/prismarine"
     },
     "S": {
       "item": "botania:spectral_platform"
     },
     "G": {
-      "item": "#BLOCKGLASSCOLORLESS"
+      "item": "minecraft:glass"
     }
   }
 }

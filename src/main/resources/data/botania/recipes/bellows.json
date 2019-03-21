@@ -10,14 +10,14 @@
   "type": "forge:ore_shaped",
   "key": {
     "R": {
-      "item": "#RUNEAIRB"
+      "tag": "botania:runes/air"
     },
     "S": {
       "item": "botania:livingwood0slab",
       "data": 0
     },
     "L": {
-      "item": "#LEATHER"
+      "item": "minecraft:leather"
     }
   }
 }

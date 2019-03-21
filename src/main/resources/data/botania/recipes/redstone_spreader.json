@@ -8,7 +8,7 @@
       "item": "botania:mana_spreader"
     },
     {
-      "item": "#DUSTREDSTONE"
+      "tag": "forge:dusts/redstone"
     }
   ],
   "type": "forge:ore_shapeless"

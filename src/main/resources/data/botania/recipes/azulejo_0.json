@@ -4,10 +4,10 @@
   },
   "ingredients": [
     {
-      "item": "#GEMLAPIS"
+      "tag": "forge:gems/lapis"
     },
     {
-      "item": "#BLOCKQUARTZ"
+      "tag": "forge:storage_blocks/quartz"
     }
   ],
   "type": "forge:ore_shapeless"

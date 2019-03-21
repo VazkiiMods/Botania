@@ -12,6 +12,7 @@ package vazkii.botania.common.crafting;
 
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
@@ -26,7 +27,9 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.ModItems;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public final class ModManaInfusionRecipes {
 
@@ -63,8 +66,9 @@ public final class ModManaInfusionRecipes {
 		manaPowderRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaPowder), Ingredient.fromItems(Items.REDSTONE), 500));
 		manaPowderRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaPowder), Ingredient.fromItems(Items.GLOWSTONE_DUST), 500));
 		manaPowderRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaPowder), Ingredient.fromItems(Items.SUGAR), 500));
-		for(Item dye : ModItems.dyes.values())
-			manaPowderRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaPowder), Ingredient.fromItems(dye), 400));
+		List<Item> dyes = Arrays.stream(EnumDyeColor.values()).map(ModItems::getDye).collect(Collectors.toList());
+		Ingredient dyeIngredient = Ingredient.fromItems(dyes.toArray(new Item[0]));
+		manaPowderRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaPowder), dyeIngredient, 400));
 
 		pistonRelayRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModBlocks.pistonRelay), Ingredient.fromItems(Blocks.PISTON), 15000);
 		manaCookieRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaCookie), Ingredient.fromItems(Items.COOKIE), 20000);

@@ -14,10 +14,10 @@
   "type": "forge:ore_shaped",
   "key": {
     "G": {
-      "item": "#ETERNALLIFEESSENCE"
+      "item": "botania:life_essence"
     },
     "O": {
-      "item": "#OBSIDIAN"
+      "item": "minecraft:obsidian"
     }
   }
 }

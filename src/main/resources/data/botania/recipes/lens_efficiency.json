@@ -7,7 +7,7 @@
       "item": "botania:lens_normal"
     },
     {
-      "item": "#RUNEWATERB"
+      "tag": "botania:runes/water"
     }
   ],
   "type": "forge:ore_shapeless"

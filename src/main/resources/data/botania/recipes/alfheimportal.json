@@ -10,10 +10,10 @@
   "type": "forge:ore_shaped",
   "key": {
     "T": {
-      "item": "#NUGGETTERRASTEEL"
+      "tag": "forge:nuggets/terrasteel"
     },
     "W": {
-      "item": "#LIVINGWOOD"
+      "tag": "botania:livingwood"
     }
   }
 }

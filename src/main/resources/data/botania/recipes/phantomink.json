@@ -5,13 +5,13 @@
   },
   "ingredients": [
     {
-      "item": "#MANAPEARL"
+      "item": "botania:mana_pearl"
     },
     {
-      "item": "#DYE"
+      "tag": "forge:dyes"
     },
     {
-      "item": "#BLOCKGLASS"
+      "item": "#glass"
     },
     {
       "item": "minecraft:glass_bottle"

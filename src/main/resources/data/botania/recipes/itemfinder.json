@@ -10,10 +10,10 @@
   "type": "forge:ore_shaped",
   "key": {
     "E": {
-      "item": "#GEMEMERALD"
+      "tag": "forge:gems/emerald"
     },
     "I": {
-      "item": "#INGOTIRON"
+      "tag": "forge:ingots/iron"
     },
     "Y": {
       "item": "minecraft:ender_eye"

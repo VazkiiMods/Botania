@@ -13,7 +13,7 @@
       "item": "minecraft:fire_charge"
     },
     "G": {
-      "item": "#GLOWSTONE"
+      "item": "minecraft:glowstone"
     },
     "L": {
       "item": "botania:lens_normal"

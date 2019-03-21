@@ -81,10 +81,10 @@ public class MiscellaneousIcons {
 	public void onModelBake(ModelBakeEvent evt) {
 		// Floating flowers
 		FloatingFlowerModel model = new FloatingFlowerModel();
-		evt.getModelRegistry().put(new ModelResourceLocation("botania:miniIsland", "normal"), model);
-		evt.getModelRegistry().put(new ModelResourceLocation("botania:miniIsland", "inventory"), model);
-		evt.getModelRegistry().put(new ModelResourceLocation("botania:floatingSpecialFlower", "normal"), model);
-		evt.getModelRegistry().put(new ModelResourceLocation("botania:floatingSpecialFlower", "inventory"), model);
+		evt.getModelRegistry().put(new ModelResourceLocation("botania:mini_island", "normal"), model);
+		evt.getModelRegistry().put(new ModelResourceLocation("botania:mini_island", "inventory"), model);
+		evt.getModelRegistry().put(new ModelResourceLocation("botania:floating_special_flower", "normal"), model);
+		evt.getModelRegistry().put(new ModelResourceLocation("botania:floating_special_flower", "inventory"), model);
 
 		// Platforms
 		ModelResourceLocation abstruseName = new ModelResourceLocation("botania:abstruse_platform", "normal");
@@ -102,18 +102,22 @@ public class MiscellaneousIcons {
 		IBakedModel original = evt.getModelRegistry().get(new ModelResourceLocation("botania:lexicon", "inventory"));
 		evt.getModelRegistry().put(new ModelResourceLocation("botania:lexicon", "inventory"),
 				new LexiconModel(original));
+		/* todo 1.13 models referenced using overrides aren't put in the model registry?
 		original = evt.getModelRegistry().get(new ModelResourceLocation("botania:lexicon_elven", "inventory"));
 		evt.getModelRegistry().put(new ModelResourceLocation("botania:lexicon_elven", "inventory"),
 				new LexiconModel(original));
+		*/
 
 		// Mana Blaster
-		ModelResourceLocation key = new ModelResourceLocation("botania:managun", "inventory");
+		ModelResourceLocation key = new ModelResourceLocation("botania:mana_gun", "inventory");
 		IBakedModel originalModel = evt.getModelRegistry().get(key);
 		evt.getModelRegistry().put(key, new GunModel(originalModel));
 
-		key = new ModelResourceLocation("botania:managunclip", "inventory");
+		/* todo 1.13 models referenced using overrides aren't put in the model registry?
+		key = new ModelResourceLocation("botania:mana_gun_clip", "inventory");
 		originalModel = evt.getModelRegistry().get(key);
 		evt.getModelRegistry().put(key, new GunModel(originalModel));
+		*/
 	}
 	
 	@SubscribeEvent
@@ -150,8 +154,8 @@ public class MiscellaneousIcons {
 		for(int i = 0; i < 3; i++)
 			register(evt.getMap(), "items/third_eye_" + i);
 
-		register(evt.getMap(), "items/triggers/manaDetector");
-		register(evt.getMap(), "items/triggers/runeAltarCanCraft");
+		register(evt.getMap(), "items/triggers/mana_detector");
+		register(evt.getMap(), "items/triggers/rune_altar_can_craft");
 
 		/*
 		for (TriggerManaLevel.State s : TriggerManaLevel.State.values()) {
@@ -163,7 +167,7 @@ public class MiscellaneousIcons {
 			register(evt.getMap(), "items/headpiece_tiara_wing_" + (i + 1));
 		}
 
-		register(evt.getMap(), "items/willFlame");
+		register(evt.getMap(), "items/will_flame");
 
 		register(evt.getMap(), "items/pendant_blood_chain");
 		register(evt.getMap(), "items/pendant_blood_gem");
@@ -208,8 +212,8 @@ public class MiscellaneousIcons {
 		for(int i = 0; i < 3; i++)
 			thirdEyeLayers[i] = get(evt.getMap(), "items/third_eye_" + i);
 
-		manaDetectorIcon = get(evt.getMap(), "items/triggers/manaDetector");
-		runeAltarTriggerIcon = get(evt.getMap(), "items/triggers/runeAltarCanCraft");
+		manaDetectorIcon = get(evt.getMap(), "items/triggers/mana_detector");
+		runeAltarTriggerIcon = get(evt.getMap(), "items/triggers/rune_altar_can_craft");
 
 		/*
 		for (TriggerManaLevel.State s : TriggerManaLevel.State.values()) {
@@ -221,7 +225,7 @@ public class MiscellaneousIcons {
 			tiaraWingIcons[i] = get(evt.getMap(), "items/headpiece_tiara_wing_" + (i + 1));
 		}
 
-		terrasteelHelmWillIcon = get(evt.getMap(), "items/willFlame");
+		terrasteelHelmWillIcon = get(evt.getMap(), "items/will_flame");
 
 		bloodPendantChain = get(evt.getMap(), "items/pendant_blood_chain");
 		bloodPendantGem = get(evt.getMap(), "items/pendant_blood_gem");

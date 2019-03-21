@@ -10,13 +10,13 @@
   "type": "forge:ore_shaped",
   "key": {
     "D": {
-      "item": "#ELVENDRAGONSTONE"
+      "tag": "forge:gems/dragonstone"
     },
     "T": {
-      "item": "#DREAMWOODTWIG"
+      "item": "botania:dreamwood_twig"
     },
     "G": {
-      "item": "#ETERNALLIFEESSENCE"
+      "item": "botania:life_essence"
     }
   }
 }

@@ -7,7 +7,7 @@
       "item": "botania:lens_normal"
     },
     {
-      "item": "#ELVENPIXIEDUST"
+      "item": "botania:pixie_dust"
     }
   ],
   "type": "forge:ore_shapeless"

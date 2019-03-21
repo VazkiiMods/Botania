@@ -10,10 +10,10 @@
   "type": "forge:ore_shaped",
   "key": {
     "T": {
-      "item": "#LIVINGWOODTWIG"
+      "item": "botania:livingwood_twig"
     },
     "M": {
-      "item": "#INGOTMANASTEEL"
+      "tag": "forge:ingots/manasteel"
     }
   }
 }

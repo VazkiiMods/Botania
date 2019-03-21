@@ -13,10 +13,10 @@
       "item": "minecraft:bowl"
     },
     "S": {
-      "item": "#STICKWOOD"
+      "tag": "forge:rods/wooden"
     },
     "W": {
-      "item": "#PLANKWOOD"
+      "tag": "minecraft:planks"
     }
   }
 }

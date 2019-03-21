@@ -7,10 +7,10 @@
       "item": "botania:spark"
     },
     {
-      "item": "#ELVENPIXIEDUST"
+      "item": "botania:pixie_dust"
     },
     {
-      "item": "#BENDERAIRBOTTLE"
+      "item": "botania:ender_air_bottle"
     }
   ],
   "type": "forge:ore_shapeless"

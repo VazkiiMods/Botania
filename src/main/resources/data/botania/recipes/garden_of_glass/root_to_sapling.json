@@ -11,16 +11,16 @@
   },
   "ingredients": [
     {
-      "item": "#LIVINGROOT"
+      "item": "botania:living_root"
     },
     {
-      "item": "#LIVINGROOT"
+      "item": "botania:living_root"
     },
     {
-      "item": "#LIVINGROOT"
+      "item": "botania:living_root"
     },
     {
-      "item": "#LIVINGROOT"
+      "item": "botania:living_root"
     }
   ],
   "type": "forge:ore_shapeless"

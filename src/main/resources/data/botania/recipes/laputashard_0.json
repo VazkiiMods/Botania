@@ -11,19 +11,19 @@
   "type": "forge:ore_shaped",
   "key": {
     "P": {
-      "item": "#GEMPRISMARINE"
+      "tag": "forge:gems/prismarine"
     },
     "A": {
-      "item": "#RUNEAIRB"
+      "tag": "botania:runes/air"
     },
     "S": {
-      "item": "#ETERNALLIFEESSENCE"
+      "item": "botania:life_essence"
     },
     "D": {
-      "item": "#ELVENDRAGONSTONE"
+      "tag": "forge:gems/dragonstone"
     },
     "E": {
-      "item": "#RUNEEARTHB"
+      "tag": "botania:runes/earth"
     },
     "F": [
       {

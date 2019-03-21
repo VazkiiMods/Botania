@@ -10,7 +10,7 @@
   "type": "forge:ore_shaped",
   "key": {
     "C": {
-      "item": "#CLOTHMANAWEAVE"
+      "item": "botania:manaweave_cloth"
     },
     "S": {
       "item": "minecraft:double_plant",

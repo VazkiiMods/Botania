@@ -6,7 +6,7 @@
   "group": "botania:petal",
   "ingredients": [
     {
-      "item": "#MYSTICFLOWERGRAY"
+      "tag": "botania:flowers/gray"
     }
   ],
   "type": "forge:ore_shapeless"

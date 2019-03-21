@@ -10,13 +10,13 @@
   "type": "forge:ore_shaped",
   "key": {
     "R": {
-      "item": "#DUSTREDSTONE"
+      "tag": "forge:dusts/redstone"
     },
     "C": {
       "item": "minecraft:comparator"
     },
     "S": {
-      "item": "#LIVINGROCK"
+      "tag": "botania:livingrock"
     }
   }
 }

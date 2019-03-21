@@ -12,10 +12,10 @@
       "item": "botania:elven_spreader"
     },
     "D": {
-      "item": "#ELVENDRAGONSTONE"
+      "tag": "forge:gems/dragonstone"
     },
     "E": {
-      "item": "#ETERNALLIFEESSENCE"
+      "item": "botania:life_essence"
     }
   }
 }

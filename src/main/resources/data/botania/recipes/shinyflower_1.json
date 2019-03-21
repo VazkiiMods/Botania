@@ -6,13 +6,13 @@
   "group": "botania:shinyflower",
   "ingredients": [
     {
-      "item": "#DUSTGLOWSTONE"
+      "tag": "forge:dusts/glowstone"
     },
     {
-      "item": "#DUSTGLOWSTONE"
+      "tag": "forge:dusts/glowstone"
     },
     {
-      "item": "#MYSTICFLOWERORANGE"
+      "tag": "botania:flowers/orange"
     }
   ],
   "type": "forge:ore_shapeless"

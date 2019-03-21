@@ -10,16 +10,16 @@
   "type": "forge:ore_shaped",
   "key": {
     "A": {
-      "item": "#RUNEAIRB"
+      "tag": "botania:runes/air"
     },
     "S": {
-      "item": "#INGOTMANASTEEL"
+      "tag": "forge:ingots/manasteel"
     },
     "E": {
-      "item": "#RUNEEARTHB"
+      "tag": "botania:runes/earth"
     },
     "L": {
-      "item": "#LEATHER"
+      "item": "minecraft:leather"
     }
   }
 }

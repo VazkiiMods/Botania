@@ -10,13 +10,13 @@
   "type": "forge:ore_shaped",
   "key": {
     "D": {
-      "item": "#DREAMWOOD"
+      "item": "botania:dreamwood"
     },
     "E": {
-      "item": "#INGOTELVENELEMENTIUM"
+      "tag": "forge:ingots/elementium"
     },
     "G": {
-      "item": "#ETERNALLIFEESSENCE"
+      "item": "botania:life_essence"
     }
   }
 }

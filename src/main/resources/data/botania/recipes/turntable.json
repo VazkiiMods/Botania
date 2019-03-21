@@ -13,7 +13,7 @@
       "item": "minecraft:sticky_piston"
     },
     "W": {
-      "item": "#LIVINGWOOD"
+      "tag": "botania:livingwood"
     }
   }
 }

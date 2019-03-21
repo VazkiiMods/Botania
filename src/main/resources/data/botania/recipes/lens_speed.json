@@ -7,7 +7,7 @@
       "item": "botania:lens_normal"
     },
     {
-      "item": "#RUNEAIRB"
+      "tag": "botania:runes/air"
     }
   ],
   "type": "forge:ore_shapeless"

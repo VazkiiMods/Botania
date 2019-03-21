@@ -13,13 +13,13 @@
       "item": "botania:tinyplanet"
     },
     "G": {
-      "item": "#INGOTGOLD"
+      "tag": "forge:ingots/gold"
     },
     "H": {
-      "item": "#RUNEPRIDEB"
+      "tag": "botania:runes/pride"
     },
     "L": {
-      "item": "#ETERNALLIFEESSENCE"
+      "item": "botania:life_essence"
     }
   }
 }

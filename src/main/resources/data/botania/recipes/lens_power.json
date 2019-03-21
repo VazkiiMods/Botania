@@ -7,7 +7,7 @@
       "item": "botania:lens_normal"
     },
     {
-      "item": "#RUNEFIREB"
+      "tag": "botania:runes/fire"
     }
   ],
   "type": "forge:ore_shapeless"

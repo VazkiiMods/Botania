@@ -10,25 +10,25 @@
   "type": "forge:ore_shaped",
   "key": {
     "A": {
-      "item": "#RUNEAUTUMNB"
+      "tag": "botania:runes/autumn"
     },
     "R": {
       "item": "botania:dirtrod"
     },
     "S": {
-      "item": "#RUNESPRINGB"
+      "tag": "botania:runes/spring"
     },
     "T": {
-      "item": "#INGOTTERRASTEEL"
+      "tag": "forge:ingots/terrasteel"
     },
     "G": {
       "item": "botania:seeds_grass"
     },
     "W": {
-      "item": "#RUNEWINTERB"
+      "tag": "botania:runes/winter"
     },
     "M": {
-      "item": "#RUNESUMMERB"
+      "tag": "botania:runes/summer"
     }
   }
 }

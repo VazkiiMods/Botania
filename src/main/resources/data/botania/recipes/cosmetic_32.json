@@ -14,7 +14,7 @@
       "item": "botania:tinypotato"
     },
     "S": {
-      "item": "#MANASTRING"
+      "item": "botania:mana_string"
     }
   }
 }

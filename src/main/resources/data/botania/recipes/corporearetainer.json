@@ -4,7 +4,7 @@
   },
   "ingredients": [
     {
-      "item": "#CHESTWOOD"
+      "tag": "forge:chests/wooden"
     },
     {
       "item": "botania:corporea_spark"

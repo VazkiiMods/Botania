@@ -329,7 +329,7 @@ public final class ModBlocks {
 	@ObjectHolder("red" + LibBlockNames.MUSHROOM_SUFFIX) public static Block redMushroom;
 	@ObjectHolder("black" + LibBlockNames.MUSHROOM_SUFFIX) public static Block blackMushroom;
 	@ObjectHolder(LibBlockNames.PUMP) public static Block pump;
-	@ObjectHolder("white" + LibBlockNames.MUSHROOM_SUFFIX) public static Block doubleFlowerWhite;
+	@ObjectHolder("white" + LibBlockNames.DOUBLE_FLOWER_SUFFIX) public static Block doubleFlowerWhite;
 	@ObjectHolder("orange" + LibBlockNames.DOUBLE_FLOWER_SUFFIX) public static Block doubleFlowerOrange;
 	@ObjectHolder("magenta" + LibBlockNames.DOUBLE_FLOWER_SUFFIX) public static Block doubleFlowerMagenta;
 	@ObjectHolder("light_blue" + LibBlockNames.DOUBLE_FLOWER_SUFFIX) public static Block doubleFlowerLightBlue;
@@ -511,7 +511,7 @@ public final class ModBlocks {
 
 		builder = Block.Properties.create(Material.ROCK).hardnessAndResistance(2, 5).sound(SoundType.STONE);
 		ILexiconable azulejo = (w, po ,pl, st) -> LexiconData.azulejo;
-		for (int i = 0; i < 15; i++) {
+		for (int i = 0; i < 16; i++) {
 			register(r, new BlockModLexiconable(builder, azulejo), LibBlockNames.AZULEJO_PREFIX + i);
 		}
 
@@ -593,9 +593,6 @@ public final class ModBlocks {
 		}
 
 		register(r, new BlockAnimatedTorch(Block.Properties.create(Material.CIRCUITS).lightValue(7)), LibBlockNames.ANIMATED_TORCH);
-
-		RecipeManaInfusion.alchemyState = alchemyCatalyst.getDefaultState();
-		RecipeManaInfusion.conjurationState = conjurationCatalyst.getDefaultState();
 	}
 
 	@SubscribeEvent
@@ -949,7 +946,7 @@ public final class ModBlocks {
 
 		for(Class innerClazz : clazz.getDeclaredClasses())
 			if(innerClazz.getSimpleName().equals("Mini"))
-				BotaniaAPI.registerMiniSubTile(new ResourceLocation(key.getNamespace(), key.getPath() + "Chibi"), innerClazz, key);
+				BotaniaAPI.registerMiniSubTile(new ResourceLocation(key.getNamespace(), key.getPath() + "_chibi"), innerClazz, key);
 	}
 
 	public static Block getFlower(EnumDyeColor color) {

@@ -10,22 +10,22 @@
   "type": "forge:ore_shaped",
   "key": {
     "0": {
-      "item": "#RUNEWATERB"
+      "tag": "botania:runes/water"
     },
     "1": {
-      "item": "#RUNEFIREB"
+      "tag": "botania:runes/fire"
     },
     "2": {
-      "item": "#RUNEEARTHB"
+      "tag": "botania:runes/earth"
     },
     "3": {
-      "item": "#RUNEAIRB"
+      "tag": "botania:runes/air"
     },
     "8": {
-      "item": "#RUNEMANAB"
+      "tag": "botania:runes/mana"
     },
     "L": {
-      "item": "#BLOCKLAPIS"
+      "tag": "forge:storage_blocks/lapis"
     },
     "M": {
       "item": "botania:manasteel_block"

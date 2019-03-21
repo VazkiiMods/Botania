@@ -18,11 +18,11 @@
         "data": 8
       },
       {
-        "item": "#PETALLIGHTGRAY"
+        "tag": "botania:petals/lightgray"
       }
     ],
     {
-      "item": "#PESTLEANDMORTAR"
+      "item": "botania:pestle_and_mortar"
     }
   ],
   "type": "forge:ore_shapeless"

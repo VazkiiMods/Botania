@@ -10,13 +10,13 @@
   "type": "forge:ore_shaped",
   "key": {
     "E": {
-      "item": "#INGOTELVENELEMENTIUM"
+      "tag": "forge:ingots/elementium"
     },
     "W": {
-      "item": "#DREAMWOOD"
+      "item": "botania:dreamwood"
     },
     "L": {
-      "item": "#LEATHER"
+      "item": "minecraft:leather"
     }
   }
 }

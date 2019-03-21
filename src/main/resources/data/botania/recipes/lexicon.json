@@ -4,7 +4,7 @@
   },
   "ingredients": [
     {
-      "item": "#TREESAPLING"
+      "tag": "minecraft:saplings"
     },
     {
       "item": "minecraft:book"

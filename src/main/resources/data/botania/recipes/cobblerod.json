@@ -10,16 +10,16 @@
   "type": "forge:ore_shaped",
   "key": {
     "C": {
-      "item": "#COBBLESTONE"
+      "tag": "forge:cobblestone"
     },
     "T": {
-      "item": "#LIVINGWOODTWIG"
+      "item": "botania:livingwood_twig"
     },
     "F": {
-      "item": "#RUNEFIREB"
+      "tag": "botania:runes/fire"
     },
     "W": {
-      "item": "#RUNEWATERB"
+      "tag": "botania:runes/water"
     }
   }
 }

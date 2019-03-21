@@ -17,10 +17,10 @@
       "item": "minecraft:golden_carrot"
     },
     "S": {
-      "item": "#RUNEEARTHB"
+      "tag": "botania:runes/earth"
     },
     "D": {
-      "item": "#MANADIAMOND"
+      "tag": "forge:gems/mana_diamond"
     },
     "E": {
       "item": "minecraft:ender_eye"

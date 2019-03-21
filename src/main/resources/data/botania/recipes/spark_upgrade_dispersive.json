@@ -5,13 +5,13 @@
   "group": "botania:spark_upgrade",
   "ingredients": [
     {
-      "item": "#ELVENPIXIEDUST"
+      "item": "botania:pixie_dust"
     },
     {
-      "item": "#INGOTMANASTEEL"
+      "tag": "forge:ingots/manasteel"
     },
     {
-      "item": "#RUNEWATERB"
+      "tag": "botania:runes/water"
     }
   ],
   "type": "forge:ore_shapeless"

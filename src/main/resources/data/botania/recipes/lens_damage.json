@@ -7,7 +7,7 @@
       "item": "botania:lens_normal"
     },
     {
-      "item": "#RUNEWRATHB"
+      "tag": "botania:runes/wrath"
     }
   ],
   "type": "forge:ore_shapeless"

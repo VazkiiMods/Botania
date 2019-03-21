@@ -58,9 +58,11 @@ public final class BotaniaCreativeTab extends ItemGroup {
 		for(EnumDyeColor color : EnumDyeColor.values())
 			addItem(ModBlocks.getFlower(color));
 		addItem(ModBlocks.specialFlower);
-		ModItems.petals.values().forEach(this::addItem);
+		for(EnumDyeColor color : EnumDyeColor.values())
+			this.addItem(ModItems.getPetal(color));
 		addItem(ModItems.pestleAndMortar);
-		ModItems.dyes.values().forEach(this::addItem);
+		for(EnumDyeColor color : EnumDyeColor.values())
+			this.addItem(ModItems.getDye(color));
 		addItem(ModItems.fertilizer);
 		addItem(ModItems.flowerBag);
 		addItem(ModItems.blackLotus);

@@ -10,13 +10,13 @@
   "type": "forge:ore_shaped",
   "key": {
     "R": {
-      "item": "#LIVINGROCK"
+      "tag": "botania:livingrock"
     },
     "B": {
       "item": "botania:fertilizer"
     },
     "S": {
-      "item": "#BREDSTRING"
+      "item": "botania:red_string"
     }
   }
 }

@@ -13,7 +13,7 @@
       "item": "minecraft:string"
     },
     "M": {
-      "item": "#MANASTRING"
+      "item": "botania:mana_string"
     }
   }
 }

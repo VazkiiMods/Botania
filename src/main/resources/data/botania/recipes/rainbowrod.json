@@ -10,13 +10,13 @@
   "type": "forge:ore_shaped",
   "key": {
     "P": {
-      "item": "#ELVENPIXIEDUST"
+      "item": "botania:pixie_dust"
     },
     "D": {
-      "item": "#ELVENDRAGONSTONE"
+      "tag": "forge:gems/dragonstone"
     },
     "E": {
-      "item": "#INGOTELVENELEMENTIUM"
+      "tag": "forge:ingots/elementium"
     }
   }
 }

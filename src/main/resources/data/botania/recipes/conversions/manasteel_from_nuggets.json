@@ -10,7 +10,7 @@
   "type": "forge:ore_shaped",
   "key": {
     "I": {
-      "item": "#NUGGETMANASTEEL"
+      "tag": "forge:nuggets/manasteel"
     }
   }
 }

@@ -10,7 +10,7 @@
       "data": 1
     },
     {
-      "item": "#COBBLESTONE"
+      "tag": "forge:cobblestone"
     }
   ],
   "type": "forge:ore_shapeless"

@@ -9,7 +9,7 @@
   "type": "forge:ore_shaped",
   "key": {
     "S": {
-      "item": "#MANASTRING"
+      "item": "botania:mana_string"
     }
   }
 }

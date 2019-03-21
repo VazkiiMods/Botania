@@ -10,10 +10,10 @@
   "type": "forge:ore_shaped",
   "key": {
     "R": {
-      "item": "#RUNEFIREB"
+      "tag": "botania:runes/fire"
     },
     "T": {
-      "item": "#LIVINGWOODTWIG"
+      "item": "botania:livingwood_twig"
     },
     "F": {
       "item": "minecraft:blaze_powder"

@@ -13,10 +13,10 @@
       "item": "botania:pylon_mana"
     },
     "D": {
-      "item": "#ELVENPIXIEDUST"
+      "item": "botania:pixie_dust"
     },
     "E": {
-      "item": "#INGOTELVENELEMENTIUM"
+      "tag": "forge:ingots/elementium"
     }
   }
 }

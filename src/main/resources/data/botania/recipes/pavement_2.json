@@ -7,13 +7,13 @@
   "group": "botania:pavement",
   "ingredients": [
     {
-      "item": "#LIVINGROCK"
+      "tag": "botania:livingrock"
     },
     {
-      "item": "#COBBLESTONE"
+      "tag": "forge:cobblestone"
     },
     {
-      "item": "#GRAVEL"
+      "item": "minecraft:gravel"
     },
     {
       "item": "minecraft:dye",

@@ -10,10 +10,10 @@
   "type": "forge:ore_shaped",
   "key": {
     "S": {
-      "item": "#LIVINGROCK"
+      "tag": "botania:livingrock"
     },
     "O": {
-      "item": "#OBSIDIAN"
+      "item": "minecraft:obsidian"
     }
   }
 }

@@ -7,7 +7,7 @@
       "item": "botania:lens_normal"
     },
     {
-      "item": "#RUNEWINTERB"
+      "tag": "botania:runes/winter"
     }
   ],
   "type": "forge:ore_shapeless"

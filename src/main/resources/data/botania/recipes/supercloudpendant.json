@@ -16,10 +16,10 @@
       "item": "minecraft:ghast_tear"
     },
     "E": {
-      "item": "#INGOTELVENELEMENTIUM"
+      "tag": "forge:ingots/elementium"
     },
     "G": {
-      "item": "#ETERNALLIFEESSENCE"
+      "item": "botania:life_essence"
     },
     "N": {
       "item": "minecraft:wool",

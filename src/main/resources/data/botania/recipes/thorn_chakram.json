@@ -11,10 +11,10 @@
   "type": "forge:ore_shaped",
   "key": {
     "T": {
-      "item": "#INGOTTERRASTEEL"
+      "tag": "forge:ingots/terrasteel"
     },
     "V": {
-      "item": "#VINE"
+      "item": "minecraft:vine"
     }
   }
 }

@@ -13,10 +13,10 @@
       "item": "minecraft:bucket"
     },
     "S": {
-      "item": "#LIVINGROCK"
+      "tag": "botania:livingrock"
     },
     "I": {
-      "item": "#INGOTMANASTEEL"
+      "tag": "forge:ingots/manasteel"
     }
   }
 }

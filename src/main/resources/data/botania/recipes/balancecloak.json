@@ -10,10 +10,10 @@
   "type": "forge:ore_shaped",
   "key": {
     "R": {
-      "item": "#GEMEMERALD"
+      "tag": "forge:gems/emerald"
     },
     "S": {
-      "item": "#ETERNALLIFEESSENCE"
+      "item": "botania:life_essence"
     },
     "W": {
       "item": "minecraft:wool",

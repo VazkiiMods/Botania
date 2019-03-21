@@ -10,13 +10,13 @@
   "type": "forge:ore_shaped",
   "key": {
     "S": {
-      "item": "#LIVINGROCK"
+      "tag": "botania:livingrock"
     },
     "E": {
       "item": "minecraft:ender_eye"
     },
     "M": {
-      "item": "#INGOTMANASTEEL"
+      "tag": "forge:ingots/manasteel"
     }
   }
 }

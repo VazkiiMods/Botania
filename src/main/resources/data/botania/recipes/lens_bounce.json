@@ -7,7 +7,7 @@
       "item": "botania:lens_normal"
     },
     {
-      "item": "#RUNESUMMERB"
+      "tag": "botania:runes/summer"
     }
   ],
   "type": "forge:ore_shapeless"

@@ -10,7 +10,7 @@
       "data": 32767
     },
     {
-      "item": "#QUARTZLAVENDER"
+      "item": "botania:quartz_lavender"
     }
   ],
   "type": "forge:ore_shapeless"

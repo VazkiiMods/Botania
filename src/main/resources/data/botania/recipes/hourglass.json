@@ -10,13 +10,13 @@
   "type": "forge:ore_shaped",
   "key": {
     "R": {
-      "item": "#DUSTREDSTONE"
+      "tag": "forge:dusts/redstone"
     },
     "S": {
-      "item": "#INGOTMANASTEEL"
+      "tag": "forge:ingots/manasteel"
     },
     "G": {
-      "item": "#INGOTGOLD"
+      "tag": "forge:ingots/gold"
     },
     "M": {
       "item": "botania:managlass"

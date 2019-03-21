@@ -13,13 +13,13 @@
       "item": "botania:alchemycatalyst"
     },
     "B": {
-      "item": "#ELVENPIXIEDUST"
+      "item": "botania:pixie_dust"
     },
     "S": {
-      "item": "#LIVINGROCK"
+      "tag": "botania:livingrock"
     },
     "G": {
-      "item": "#INGOTELVENELEMENTIUM"
+      "tag": "forge:ingots/elementium"
     }
   }
 }

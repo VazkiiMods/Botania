@@ -10,7 +10,7 @@
       "data": 32767
     },
     {
-      "item": "#QUARTZRED"
+      "item": "botania:quartz_red"
     }
   ],
   "type": "forge:ore_shapeless"

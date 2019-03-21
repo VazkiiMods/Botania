@@ -10,7 +10,7 @@
       "data": 32767
     },
     {
-      "item": "#QUARTZMANA"
+      "item": "botania:quartz_mana"
     }
   ],
   "type": "forge:ore_shapeless"

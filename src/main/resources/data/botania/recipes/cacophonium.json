@@ -11,10 +11,10 @@
   "key": {
     "G": [
       {
-        "item": "#INGOTGOLD"
+        "tag": "forge:ingots/gold"
       },
       {
-        "item": "#INGOTBRASS"
+        "tag": "forge:ingots/brass"
       }
     ],
     "N": {

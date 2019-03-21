@@ -10,10 +10,10 @@
   "type": "forge:ore_shaped",
   "key": {
     "S": {
-      "item": "#ETERNALLIFEESSENCE"
+      "item": "botania:life_essence"
     },
     "I": {
-      "item": "#INGOTTERRASTEEL"
+      "tag": "forge:ingots/terrasteel"
     }
   }
 }

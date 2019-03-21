@@ -5,16 +5,16 @@
   },
   "ingredients": [
     {
-      "item": "#BREDSTRING"
+      "item": "botania:red_string"
     },
     {
-      "item": "#ELVENDRAGONSTONE"
+      "tag": "forge:gems/dragonstone"
     },
     {
-      "item": "#DUSTGLOWSTONE"
+      "tag": "forge:dusts/glowstone"
     },
     {
-      "item": "#DUSTGLOWSTONE"
+      "tag": "forge:dusts/glowstone"
     }
   ],
   "type": "forge:ore_shapeless"

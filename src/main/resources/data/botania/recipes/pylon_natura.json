@@ -13,7 +13,7 @@
       "item": "botania:pylon_mana"
     },
     "T": {
-      "item": "#NUGGETTERRASTEEL"
+      "tag": "forge:nuggets/terrasteel"
     },
     "E": {
       "item": "minecraft:ender_eye"

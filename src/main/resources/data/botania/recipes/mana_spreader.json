@@ -21,59 +21,59 @@
   "key": {
     "P": [
       {
-        "item": "#PETALWHITE"
+        "tag": "botania:petals/white"
       },
       {
-        "item": "#PETALORANGE"
+        "tag": "botania:petals/orange"
       },
       {
-        "item": "#PETALMAGENTA"
+        "tag": "botania:petals/magenta"
       },
       {
-        "item": "#PETALLIGHTBLUE"
+        "tag": "botania:petals/lightblue"
       },
       {
-        "item": "#PETALYELLOW"
+        "tag": "botania:petals/yellow"
       },
       {
-        "item": "#PETALLIME"
+        "tag": "botania:petals/lime"
       },
       {
-        "item": "#PETALPINK"
+        "tag": "botania:petals/pink"
       },
       {
-        "item": "#PETALGRAY"
+        "tag": "botania:petals/gray"
       },
       {
-        "item": "#PETALLIGHTGRAY"
+        "tag": "botania:petals/lightgray"
       },
       {
-        "item": "#PETALCYAN"
+        "tag": "botania:petals/cyan"
       },
       {
-        "item": "#PETALPURPLE"
+        "tag": "botania:petals/purple"
       },
       {
-        "item": "#PETALBLUE"
+        "tag": "botania:petals/blue"
       },
       {
-        "item": "#PETALBROWN"
+        "tag": "botania:petals/brown"
       },
       {
-        "item": "#PETALGREEN"
+        "tag": "botania:petals/green"
       },
       {
-        "item": "#PETALRED"
+        "tag": "botania:petals/red"
       },
       {
-        "item": "#PETALBLACK"
+        "tag": "botania:petals/black"
       }
     ],
     "W": {
-      "item": "#LIVINGWOOD"
+      "tag": "botania:livingwood"
     },
     "G": {
-      "item": "#INGOTGOLD"
+      "tag": "forge:ingots/gold"
     }
   }
 }

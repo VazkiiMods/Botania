@@ -10,13 +10,13 @@
   "type": "forge:ore_shaped",
   "key": {
     "P": {
-      "item": "#MANAPEARL"
+      "item": "botania:mana_pearl"
     },
     "S": {
-      "item": "#STONE"
+      "tag": "forge:stone"
     },
     "L": {
-      "item": "#LIVINGROCK"
+      "tag": "botania:livingrock"
     }
   }
 }

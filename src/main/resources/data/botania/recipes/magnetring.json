@@ -13,7 +13,7 @@
       "item": "botania:lens_magnet"
     },
     "M": {
-      "item": "#INGOTMANASTEEL"
+      "tag": "forge:ingots/manasteel"
     }
   }
 }

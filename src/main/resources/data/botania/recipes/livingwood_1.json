@@ -6,7 +6,7 @@
   },
   "ingredients": [
     {
-      "item": "#LIVINGWOOD"
+      "tag": "botania:livingwood"
     }
   ],
   "type": "forge:ore_shapeless"

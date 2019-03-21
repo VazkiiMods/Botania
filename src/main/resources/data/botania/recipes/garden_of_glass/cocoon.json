@@ -22,7 +22,7 @@
       "item": "botania:felpumpkin"
     },
     "I": {
-      "item": "#INGOTMANASTEEL"
+      "tag": "forge:ingots/manasteel"
     }
   }
 }

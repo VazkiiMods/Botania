@@ -30,12 +30,15 @@ import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibMisc;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
 public class ItemOdinRing extends ItemRelicBauble {
 
-	private static final List<String> damageNegations = new ArrayList<>();
+	private static final Set<String> damageNegations = new HashSet<>();
+	private static final Set<String> fireNegations = new HashSet<>();
 
 	public ItemOdinRing(Properties props) {
 		super(props);
@@ -43,13 +46,10 @@ public class ItemOdinRing extends ItemRelicBauble {
 		damageNegations.add(DamageSource.DROWN.damageType);
 		damageNegations.add(DamageSource.FALL.damageType);
 		damageNegations.add(DamageSource.LAVA.damageType);
-		if(ConfigHandler.COMMON.ringOfOdinFireResist.get()) {
-			damageNegations.add(DamageSource.IN_FIRE.damageType);
-			damageNegations.add(DamageSource.ON_FIRE.damageType);
-		}
-
 		damageNegations.add(DamageSource.IN_WALL.damageType);
 		damageNegations.add(DamageSource.STARVE.damageType);
+		fireNegations.add(DamageSource.IN_FIRE.damageType);
+		fireNegations.add(DamageSource.ON_FIRE.damageType);
 	}
 
 	@Override
@@ -62,7 +62,9 @@ public class ItemOdinRing extends ItemRelicBauble {
 	public static void onPlayerAttacked(LivingAttackEvent event) {
 		if(event.getEntityLiving() instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) event.getEntityLiving();
-			if(!getOdinRing(player).isEmpty() && damageNegations.contains(event.getSource().damageType))
+			boolean negate = damageNegations.contains(event.getSource().damageType)
+					|| (ConfigHandler.COMMON.ringOfOdinFireResist.get() && fireNegations.contains(event.getSource().damageType));
+			if(!getOdinRing(player).isEmpty() && negate)
 				event.setCanceled(true);
 		}
 	}

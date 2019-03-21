@@ -495,7 +495,7 @@ public final class BotaniaAPI {
 	 * The fact I have to write that means some moron already tried, don't be that moron.
 	 * @see IInternalMethodHandler
 	 */
-	public static IInternalMethodHandler internalHandler = new DummyMethodHandler();
+	public static volatile IInternalMethodHandler internalHandler = new DummyMethodHandler();
 
 	/**
 	 * Registers a new Knowledge Type.
@@ -625,7 +625,7 @@ public final class BotaniaAPI {
 	 */
 	public static RecipeManaInfusion registerManaAlchemyRecipe(ItemStack output, Ingredient input, int mana) {
 		RecipeManaInfusion recipe = registerManaInfusionRecipe(output, input, mana);
-		recipe.setCatalyst(RecipeManaInfusion.alchemyState);
+		recipe.setCatalyst(RecipeManaInfusion.alchemy.getDefaultState());
 		return recipe;
 	}
 
@@ -636,7 +636,7 @@ public final class BotaniaAPI {
 	 */
 	public static RecipeManaInfusion registerManaConjurationRecipe(ItemStack output, Ingredient input, int mana) {
 		RecipeManaInfusion recipe = registerManaInfusionRecipe(output, input, mana);
-		recipe.setCatalyst(RecipeManaInfusion.conjurationState);
+		recipe.setCatalyst(RecipeManaInfusion.conjuration.getDefaultState());
 		return recipe;
 	}
 

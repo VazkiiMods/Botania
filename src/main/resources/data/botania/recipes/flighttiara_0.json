@@ -11,16 +11,16 @@
   "type": "forge:ore_shaped",
   "key": {
     "E": {
-      "item": "#BENDERAIRBOTTLE"
+      "item": "botania:ender_air_bottle"
     },
     "F": {
-      "item": "#FEATHER"
+      "item": "minecraft:feather"
     },
     "I": {
-      "item": "#INGOTELVENELEMENTIUM"
+      "tag": "forge:ingots/elementium"
     },
     "L": {
-      "item": "#ETERNALLIFEESSENCE"
+      "item": "botania:life_essence"
     }
   }
 }

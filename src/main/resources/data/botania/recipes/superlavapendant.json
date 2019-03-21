@@ -16,7 +16,7 @@
       "item": "minecraft:blaze_rod"
     },
     "G": {
-      "item": "#ETERNALLIFEESSENCE"
+      "item": "botania:life_essence"
     },
     "N": {
       "item": "minecraft:nether_brick"

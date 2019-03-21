@@ -9,7 +9,7 @@
   "type": "forge:ore_shaped",
   "key": {
     "D": {
-      "item": "#POWDERMANA"
+      "tag": "forge:dusts/mana"
     },
     "T": {
       "item": "minecraft:redstone_torch"

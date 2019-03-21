@@ -10,10 +10,10 @@
   "type": "forge:ore_shaped",
   "key": {
     "P": {
-      "item": "#GEMPRISMARINE"
+      "tag": "forge:gems/prismarine"
     },
     "R": {
-      "item": "#RUNEWATERB"
+      "tag": "botania:runes/water"
     },
     "L": {
       "item": "botania:lens_normal"

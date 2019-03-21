@@ -10,10 +10,10 @@
   "type": "forge:ore_shaped",
   "key": {
     "R": {
-      "item": "#RUNEMANAB"
+      "tag": "botania:runes/mana"
     },
     "I": {
-      "item": "#INGOTMANASTEEL"
+      "tag": "forge:ingots/manasteel"
     }
   }
 }

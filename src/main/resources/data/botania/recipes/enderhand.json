@@ -10,16 +10,16 @@
   "type": "forge:ore_shaped",
   "key": {
     "P": {
-      "item": "#MANAPEARL"
+      "item": "botania:mana_pearl"
     },
     "E": {
       "item": "minecraft:ender_chest"
     },
     "L": {
-      "item": "#LEATHER"
+      "item": "minecraft:leather"
     },
     "O": {
-      "item": "#OBSIDIAN"
+      "item": "minecraft:obsidian"
     }
   }
 }

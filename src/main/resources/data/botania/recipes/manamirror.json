@@ -11,19 +11,19 @@
   "type": "forge:ore_shaped",
   "key": {
     "P": {
-      "item": "#MANAPEARL"
+      "item": "botania:mana_pearl"
     },
     "R": {
-      "item": "#LIVINGROCK"
+      "tag": "botania:livingrock"
     },
     "S": {
-      "item": "#LIVINGWOODTWIG"
+      "item": "botania:livingwood_twig"
     },
     "T": {
       "item": "botania:manatablet"
     },
     "I": {
-      "item": "#INGOTTERRASTEEL"
+      "tag": "forge:ingots/terrasteel"
     }
   }
 }

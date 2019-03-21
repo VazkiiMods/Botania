@@ -13,7 +13,7 @@
       "item": "minecraft:blaze_powder"
     },
     "T": {
-      "item": "#LIVINGWOODTWIG"
+      "item": "botania:livingwood_twig"
     },
     "G": {
       "item": "minecraft:ghast_tear"

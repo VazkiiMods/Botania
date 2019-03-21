@@ -10,13 +10,13 @@
   "type": "forge:ore_shaped",
   "key": {
     "S": {
-      "item": "#LIVINGWOODTWIG"
+      "item": "botania:livingwood_twig"
     },
     "T": {
-      "item": "#INGOTTERRASTEEL"
+      "tag": "forge:ingots/terrasteel"
     },
     "G": {
-      "item": "#GLOWSTONE"
+      "item": "minecraft:glowstone"
     }
   }
 }

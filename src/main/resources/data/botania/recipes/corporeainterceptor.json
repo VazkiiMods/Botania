@@ -4,7 +4,7 @@
   },
   "ingredients": [
     {
-      "item": "#BLOCKREDSTONE"
+      "tag": "forge:storage_blocks/redstone"
     },
     {
       "item": "botania:corporea_spark"

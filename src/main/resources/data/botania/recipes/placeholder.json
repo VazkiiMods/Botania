@@ -5,10 +5,10 @@
   },
   "ingredients": [
     {
-      "item": "#WORKBENCH"
+      "item": "minecraft:crafting_table"
     },
     {
-      "item": "#LIVINGROCK"
+      "tag": "botania:livingrock"
     }
   ],
   "type": "forge:ore_shapeless"

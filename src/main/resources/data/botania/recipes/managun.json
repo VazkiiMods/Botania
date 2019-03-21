@@ -13,16 +13,16 @@
       "item": "botania:redstone_spreader"
     },
     "D": {
-      "item": "#MANADIAMOND"
+      "tag": "forge:gems/mana_diamond"
     },
     "T": {
       "item": "minecraft:tnt"
     },
     "W": {
-      "item": "#LIVINGWOOD"
+      "tag": "botania:livingwood"
     },
     "M": {
-      "item": "#RUNEMANAB"
+      "tag": "botania:runes/mana"
     }
   }
 }

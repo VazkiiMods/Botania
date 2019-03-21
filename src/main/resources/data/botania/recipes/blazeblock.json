@@ -19,7 +19,7 @@
   "type": "forge:ore_shaped",
   "key": {
     "B": {
-      "item": "#RODBLAZE"
+      "tag": "forge:rods/blaze"
     }
   }
 }

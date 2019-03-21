@@ -13,7 +13,7 @@
       "item": "botania:seeds_grass"
     },
     "W": {
-      "item": "#LIVINGWOOD"
+      "tag": "botania:livingwood"
     }
   }
 }

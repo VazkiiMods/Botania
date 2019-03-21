@@ -1,5 +1,0 @@
-{
-  "conditions": {
-    "fluxfield_enabled": "vazkii.botania.common.crafting.FluxfieldConditionFactory"
-  }
-}

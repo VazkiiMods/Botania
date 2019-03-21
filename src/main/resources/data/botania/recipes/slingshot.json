@@ -10,10 +10,10 @@
   "type": "forge:ore_shaped",
   "key": {
     "A": {
-      "item": "#RUNEAIRB"
+      "tag": "botania:runes/air"
     },
     "T": {
-      "item": "#LIVINGWOODTWIG"
+      "item": "botania:livingwood_twig"
     }
   }
 }

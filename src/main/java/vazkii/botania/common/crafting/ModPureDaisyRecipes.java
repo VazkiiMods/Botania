@@ -11,6 +11,8 @@
 package vazkii.botania.common.crafting;
 
 import net.minecraft.init.Blocks;
+import net.minecraft.tags.BlockTags;
+import net.minecraftforge.common.Tags;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.lib.LibOreDict;
@@ -18,13 +20,14 @@ import vazkii.botania.common.lib.LibOreDict;
 public final class ModPureDaisyRecipes {
 
 	public static void init() {
-		BotaniaAPI.registerPureDaisyRecipe("stone", ModBlocks.livingrock.getDefaultState());
-		BotaniaAPI.registerPureDaisyRecipe("logWood", ModBlocks.livingwood.getDefaultState());
+		BotaniaAPI.registerPureDaisyRecipe(Tags.Blocks.STONE, ModBlocks.livingrock.getDefaultState());
+		BotaniaAPI.registerPureDaisyRecipe(BlockTags.LOGS, ModBlocks.livingwood.getDefaultState());
 
-		BotaniaAPI.registerPureDaisyRecipe("netherrack", Blocks.COBBLESTONE.getDefaultState());
-		BotaniaAPI.registerPureDaisyRecipe("soulSand", Blocks.SAND.getDefaultState());
-		BotaniaAPI.registerPureDaisyRecipe("ice", Blocks.PACKED_ICE.getDefaultState());
-		BotaniaAPI.registerPureDaisyRecipe(LibOreDict.BLAZE_BLOCK, Blocks.OBSIDIAN.getDefaultState());
+		BotaniaAPI.registerPureDaisyRecipe(Blocks.NETHERRACK, Blocks.COBBLESTONE.getDefaultState());
+		BotaniaAPI.registerPureDaisyRecipe(Blocks.SOUL_SAND, Blocks.SAND.getDefaultState());
+		BotaniaAPI.registerPureDaisyRecipe(Blocks.ICE, Blocks.PACKED_ICE.getDefaultState());
+		BotaniaAPI.registerPureDaisyRecipe(Blocks.PACKED_ICE, Blocks.BLUE_ICE.getDefaultState());
+		BotaniaAPI.registerPureDaisyRecipe(ModBlocks.blazeBlock, Blocks.OBSIDIAN.getDefaultState());
 		BotaniaAPI.registerPureDaisyRecipe(Blocks.WATER, Blocks.SNOW.getDefaultState());
 	}
 

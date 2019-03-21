@@ -154,9 +154,6 @@ public class ClientProxy implements IProxy {
 
 		MinecraftForge.EVENT_BUS.register(MiscellaneousIcons.INSTANCE);
 
-		ColorHandler.init();
-		initAuxiliaryRender();
-
 		ModChallenges.init();
 
 		if(ConfigHandler.CLIENT.boundBlockWireframe.get())
@@ -179,6 +176,10 @@ public class ClientProxy implements IProxy {
 	}
 
 	private void loadComplete(FMLLoadCompleteEvent event) {
+	    DeferredWorkQueue.runLater(() -> {
+			initAuxiliaryRender();
+			ColorHandler.init();
+		});
 		CorporeaAutoCompleteHandler.updateItemList();
 	}
 

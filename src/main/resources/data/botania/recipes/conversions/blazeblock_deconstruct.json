@@ -14,7 +14,7 @@
   },
   "ingredients": [
     {
-      "item": "#BLOCKBLAZE"
+      "item": "botania:blaze_block"
     }
   ],
   "type": "forge:ore_shapeless"

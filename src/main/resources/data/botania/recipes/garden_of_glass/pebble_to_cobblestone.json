@@ -10,16 +10,16 @@
   },
   "ingredients": [
     {
-      "item": "#PEBBLE"
+      "item": "botania:pebble"
     },
     {
-      "item": "#PEBBLE"
+      "item": "botania:pebble"
     },
     {
-      "item": "#PEBBLE"
+      "item": "botania:pebble"
     },
     {
-      "item": "#PEBBLE"
+      "item": "botania:pebble"
     }
   ],
   "type": "forge:ore_shapeless"

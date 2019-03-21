@@ -4,7 +4,7 @@
   },
   "ingredients": [
     {
-      "item": "#ELVENPIXIEDUST"
+      "item": "botania:pixie_dust"
     },
     {
       "item": "botania:vineball"

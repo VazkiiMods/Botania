@@ -10,7 +10,7 @@
       "data": 32767
     },
     {
-      "item": "#QUARTZELVEN"
+      "item": "botania:quartz_elven"
     }
   ],
   "type": "forge:ore_shapeless"

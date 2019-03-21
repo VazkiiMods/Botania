@@ -10,16 +10,16 @@
   "type": "forge:ore_shaped",
   "key": {
     "A": {
-      "item": "#BENDERAIRBOTTLE"
+      "item": "botania:ender_air_bottle"
     },
     "D": {
-      "item": "#ELVENDRAGONSTONE"
+      "tag": "forge:gems/dragonstone"
     },
     "E": {
-      "item": "#ETERNALLIFEESSENCE"
+      "item": "botania:life_essence"
     },
     "I": {
-      "item": "#INGOTELVENELEMENTIUM"
+      "tag": "forge:ingots/elementium"
     }
   }
 }

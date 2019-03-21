@@ -10,7 +10,7 @@
       "data": 32767
     },
     {
-      "item": "#GEMQUARTZ"
+      "tag": "forge:gems/quartz"
     }
   ],
   "type": "forge:ore_shapeless"

@@ -10,10 +10,10 @@
   "type": "forge:ore_shaped",
   "key": {
     "S": {
-      "item": "#INGOTMANASTEEL"
+      "tag": "forge:ingots/manasteel"
     },
     "G": {
-      "item": "#BLOCKGLASSCOLORLESS"
+      "item": "minecraft:glass"
     }
   }
 }

@@ -10,13 +10,13 @@
   "type": "forge:ore_shaped",
   "key": {
     "R": {
-      "item": "#LIVINGROCK"
+      "tag": "botania:livingrock"
     },
     "S": {
-      "item": "#BREDSTRING"
+      "item": "botania:red_string"
     },
     "C": {
-      "item": "#CHESTWOOD"
+      "tag": "forge:chests/wooden"
     }
   }
 }

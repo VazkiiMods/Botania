@@ -22,13 +22,13 @@
       "item": "minecraft:string"
     },
     "C": {
-      "item": "#CLOTHMANAWEAVE"
+      "item": "botania:manaweave_cloth"
     },
     "P": {
       "item": "botania:felpumpkin"
     },
     "D": {
-      "item": "#ELVENPIXIEDUST"
+      "item": "botania:pixie_dust"
     }
   }
 }

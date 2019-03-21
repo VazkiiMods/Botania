@@ -4,13 +4,13 @@
   },
   "ingredients": [
     {
-      "item": "#ELVENPIXIEDUST"
+      "item": "botania:pixie_dust"
     },
     {
-      "item": "#VINE"
+      "item": "minecraft:vine"
     },
     {
-      "item": "#BENDERAIRBOTTLE"
+      "item": "botania:ender_air_bottle"
     }
   ],
   "type": "forge:ore_shapeless"

@@ -10,7 +10,7 @@
   "type": "forge:ore_shaped",
   "key": {
     "Q": {
-      "item": "#QUARTZDARK"
+      "item": "botania:quartz_dark"
     }
   }
 }

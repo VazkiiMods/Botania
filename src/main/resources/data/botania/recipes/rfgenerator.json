@@ -16,13 +16,13 @@
   "type": "forge:ore_shaped",
   "key": {
     "R": {
-      "item": "#BLOCKREDSTONE"
+      "tag": "forge:storage_blocks/redstone"
     },
     "S": {
-      "item": "#LIVINGROCK"
+      "tag": "botania:livingrock"
     },
     "M": {
-      "item": "#INGOTMANASTEEL"
+      "tag": "forge:ingots/manasteel"
     }
   }
 }

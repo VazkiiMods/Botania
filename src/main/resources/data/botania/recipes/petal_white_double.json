@@ -6,7 +6,7 @@
   "group": "botania:petal_double",
   "ingredients": [
     {
-      "item": "#MYSTICFLOWERWHITEDOUBLE"
+      "tag": "botania:double_flowers/white"
     }
   ],
   "type": "forge:ore_shapeless"

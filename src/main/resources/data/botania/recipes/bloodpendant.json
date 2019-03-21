@@ -10,10 +10,10 @@
   "type": "forge:ore_shaped",
   "key": {
     "P": {
-      "item": "#GEMPRISMARINE"
+      "tag": "forge:gems/prismarine"
     },
     "D": {
-      "item": "#MANADIAMOND"
+      "tag": "forge:gems/mana_diamond"
     },
     "G": {
       "item": "minecraft:ghast_tear"

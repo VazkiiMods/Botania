@@ -18,10 +18,10 @@
       "data": 1
     },
     "W": {
-      "item": "#RUNEWATERB"
+      "tag": "botania:runes/water"
     },
     "M": {
-      "item": "#INGOTMANASTEEL"
+      "tag": "forge:ingots/manasteel"
     }
   }
 }

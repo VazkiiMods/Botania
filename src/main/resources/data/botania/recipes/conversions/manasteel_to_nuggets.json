@@ -5,7 +5,7 @@
   },
   "ingredients": [
     {
-      "item": "#INGOTMANASTEEL"
+      "tag": "forge:ingots/manasteel"
     }
   ],
   "type": "forge:ore_shapeless"

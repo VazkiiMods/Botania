@@ -10,13 +10,13 @@
   "type": "forge:ore_shaped",
   "key": {
     "T": {
-      "item": "#DREAMWOODTWIG"
+      "item": "botania:dreamwood_twig"
     },
     "D": {
-      "item": "#ELVENDRAGONSTONE"
+      "tag": "forge:gems/dragonstone"
     },
     "W": {
-      "item": "#CROPWHEAT"
+      "item": "minecraft:wheat"
     }
   }
 }

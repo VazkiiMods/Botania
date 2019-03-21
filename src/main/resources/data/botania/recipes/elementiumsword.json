@@ -10,10 +10,10 @@
   "type": "forge:ore_shaped",
   "key": {
     "S": {
-      "item": "#INGOTELVENELEMENTIUM"
+      "tag": "forge:ingots/elementium"
     },
     "T": {
-      "item": "#DREAMWOODTWIG"
+      "item": "botania:dreamwood_twig"
     }
   }
 }

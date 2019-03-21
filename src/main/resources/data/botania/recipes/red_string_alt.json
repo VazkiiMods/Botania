@@ -7,13 +7,13 @@
       "item": "minecraft:string"
     },
     {
-      "item": "#BLOCKREDSTONE"
+      "tag": "forge:storage_blocks/redstone"
     },
     {
-      "item": "#ELVENPIXIEDUST"
+      "item": "botania:pixie_dust"
     },
     {
-      "item": "#BENDERAIRBOTTLE"
+      "item": "botania:ender_air_bottle"
     },
     {
       "item": "minecraft:pumpkin"

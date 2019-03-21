@@ -12,13 +12,13 @@
   "type": "forge:ore_shaped",
   "key": {
     "A": {
-      "item": "#PETALPURPLE"
+      "tag": "botania:petals/purple"
     },
     "B": {
-      "item": "#PETALPINK"
+      "tag": "botania:petals/pink"
     },
     "S": {
-      "item": "#LIVINGWOODTWIG"
+      "item": "botania:livingwood_twig"
     }
   },
   "group": "botania:twigwand"

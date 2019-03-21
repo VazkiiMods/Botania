@@ -7,7 +7,7 @@
       "item": "botania:corporea_spark"
     },
     {
-      "item": "#ELVENDRAGONSTONE"
+      "tag": "forge:gems/dragonstone"
     }
   ],
   "type": "forge:ore_shapeless"

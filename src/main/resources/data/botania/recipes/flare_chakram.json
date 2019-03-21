@@ -11,7 +11,7 @@
   "type": "forge:ore_shaped",
   "key": {
     "P": {
-      "item": "#ELVENPIXIEDUST"
+      "item": "botania:pixie_dust"
     },
     "B": {
       "item": "minecraft:blaze_powder"

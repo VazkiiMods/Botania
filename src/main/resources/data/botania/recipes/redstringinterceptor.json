@@ -10,10 +10,10 @@
   "type": "forge:ore_shaped",
   "key": {
     "R": {
-      "item": "#LIVINGROCK"
+      "tag": "botania:livingrock"
     },
     "S": {
-      "item": "#BREDSTRING"
+      "item": "botania:red_string"
     },
     "M": {
       "item": "minecraft:stone_button"

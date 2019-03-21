@@ -154,7 +154,7 @@ public class Botania {
 		ModElvenTradeRecipes.init();
 		ModBrewRecipes.init();
 		ModCraftingRecipes.init();
-		LexiconData.init();
+		// todo 1.13 LexiconData.init();
 
 		if(Botania.thaumcraftLoaded) {
 			if(ConfigHandler.COMMON.enableThaumcraftAspects.get()) {

@@ -10,16 +10,16 @@
   "type": "forge:ore_shaped",
   "key": {
     "A": {
-      "item": "#BENDERAIRBOTTLE"
+      "item": "botania:ender_air_bottle"
     },
     "D": {
-      "item": "#MANADIAMOND"
+      "tag": "forge:gems/mana_diamond"
     },
     "T": {
       "item": "botania:terrasword"
     },
     "I": {
-      "item": "#INGOTELVENELEMENTIUM"
+      "tag": "forge:ingots/elementium"
     }
   }
 }

@@ -17,10 +17,10 @@
       }
     },
     "R": {
-      "item": "#RUNEWATERB"
+      "tag": "botania:runes/water"
     },
     "T": {
-      "item": "#LIVINGWOODTWIG"
+      "item": "botania:livingwood_twig"
     }
   }
 }

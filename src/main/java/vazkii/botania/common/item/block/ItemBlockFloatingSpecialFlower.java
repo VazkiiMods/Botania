@@ -26,7 +26,7 @@ public class ItemBlockFloatingSpecialFlower extends ItemBlockSpecialFlower {
 	@Nonnull
 	@Override
 	public ITextComponent getDisplayName(@Nonnull ItemStack stack) {
-		ITextComponent flowerName = stack.getDisplayName();
+		ITextComponent flowerName = super.getDisplayName(stack);
 		return new TextComponentTranslation("botaniamisc.floatingPrefix").appendSibling(flowerName);
 	}
 

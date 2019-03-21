@@ -10,10 +10,10 @@
   "type": "forge:ore_shaped",
   "key": {
     "A": {
-      "item": "#RUNEMANAB"
+      "tag": "botania:runes/mana"
     },
     "R": {
-      "item": "#LIVINGROCK"
+      "tag": "botania:livingrock"
     },
     "S": {
       "item": "minecraft:brewing_stand"

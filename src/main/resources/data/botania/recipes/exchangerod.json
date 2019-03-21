@@ -10,13 +10,13 @@
   "type": "forge:ore_shaped",
   "key": {
     "R": {
-      "item": "#RUNESLOTHB"
+      "tag": "botania:runes/sloth"
     },
     "S": {
-      "item": "#STONE"
+      "tag": "forge:stone"
     },
     "T": {
-      "item": "#LIVINGWOODTWIG"
+      "item": "botania:livingwood_twig"
     }
   }
 }

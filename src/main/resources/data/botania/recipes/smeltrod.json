@@ -13,10 +13,10 @@
       "item": "minecraft:blaze_rod"
     },
     "T": {
-      "item": "#LIVINGWOODTWIG"
+      "item": "botania:livingwood_twig"
     },
     "F": {
-      "item": "#RUNEFIREB"
+      "tag": "botania:runes/fire"
     }
   }
 }

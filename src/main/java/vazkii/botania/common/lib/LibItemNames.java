@@ -30,6 +30,14 @@ public final class LibItemNames {
 	public static final String MANA_COOKIE = "mana_cookie";
 	public static final String FERTILIZER = "fertilizer";
 	public static final String GRASS_SEEDS = "seeds";
+	public static final String PODZOL_SEEDS = "podzol_seeds";
+	public static final String MYCEL_SEEDS = "mycelium_seeds";
+	public static final String DRY_SEEDS = "dry_seeds";
+	public static final String GOLDEN_SEEDS = "golden_seeds";
+	public static final String VIVID_SEEDS = "vivid_seeds";
+	public static final String SCORCHED_SEEDS = "scorched_seeds";
+	public static final String INFUSED_SEEDS = "infused_seeds";
+	public static final String MUTATED_SEEDS = "mutated_seeds";
 	public static final String DIRT_ROD = "dirt_rod";
 	public static final String TERRAFORM_ROD = "terraform_rod";
 	public static final String MANA_MIRROR = "mana_mirror";
