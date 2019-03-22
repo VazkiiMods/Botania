@@ -25,7 +25,9 @@ import vazkii.botania.api.mana.spark.SparkUpgradeType;
 import vazkii.botania.api.item.IAncientWillContainer;
 import vazkii.botania.api.state.enums.CratePattern;
 import vazkii.botania.client.render.tile.RenderTileGaiaHead;
+import vazkii.botania.client.render.tile.TEISR;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.tile.TileGaiaHead;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.item.brew.*;
@@ -384,7 +386,6 @@ public final class ModItems {
 	public static final Item manaweaveLegs = new ItemManaweaveArmor(EntityEquipmentSlot.LEGS, unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.MANAWEAVE_LEGS);
 	public static final Item manaweaveBoots = new ItemManaweaveArmor(EntityEquipmentSlot.FEET, unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.MANAWEAVE_BOOTS);
 	public static final Item autocraftingHalo = new ItemAutocraftingHalo(unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.AUTOCRAFTING_HALO);
-	@ObjectHolder("botania:" + LibBlockNames.GAIA_HEAD) public static Item gaiaHead;
 	public static final Item sextant = new ItemSextant(unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.SEXTANT);
 	public static final Item speedUpBelt = new ItemSpeedUpBelt(unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.SPEED_UP_BELT);
 	public static final Item baubleBox = new ItemBaubleBox(unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.BAUBLE_BOX);

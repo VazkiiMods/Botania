@@ -25,7 +25,12 @@ public class RecipeMiniFlower extends RecipeManaInfusion {
 	@Override
 	public boolean matches(ItemStack stack) {
 		ResourceLocation key = BotaniaAPI.internalHandler.getStackSubTileKey(stack);
-		ResourceLocation input = BotaniaAPI.internalHandler.getStackSubTileKey(getInput().getMatchingStacks()[0]);
+		ItemStack[] matching = getInput().getMatchingStacks();
+		if(matching.length == 0)
+			return false;
+
+
+		ResourceLocation input = BotaniaAPI.internalHandler.getStackSubTileKey(matching[0]);
 		return key != null && key.equals(input);
 	}
 

@@ -14,7 +14,6 @@ import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.client.renderer.entity.model.ModelBiped;
-import net.minecraft.client.renderer.tileentity.TileEntityItemStackRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.client.settings.KeyBinding;
@@ -166,8 +165,6 @@ public class ClientProxy implements IProxy {
 			if(now.getMonth() == Month.OCTOBER)
 				dootDoot = true;
 		}
-
-		TileEntityItemStackRenderer.instance = new RenderTilePylon.ForwardingTEISR(TileEntityItemStackRenderer.instance);
 
 		DeferredWorkQueue.runLater(() -> {
 			CORPOREA_REQUEST = new KeyBinding("nei.options.keys.gui.botania_corporea_request", KeyConflictContext.GUI, InputMappings.getInputByCode(GLFW.GLFW_KEY_C, 0), LibMisc.MOD_NAME);

@@ -33,8 +33,8 @@ import net.minecraft.util.EnumFacing;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.render.entity.RenderDoppleganger;
 import vazkii.botania.common.block.BlockGaiaHead;
+import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileGaiaHead;
-import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -43,13 +43,12 @@ public class RenderTileGaiaHead extends TileEntitySkullRenderer {
 	public static class TEISR extends TileEntityItemStackRenderer {
 		@Override
 		public void renderByItem(ItemStack stack) {
-			if(stack.getItem() == ModItems.gaiaHead) {
-				TileEntityRenderer<?> ter = TileEntityRendererDispatcher.instance.getRenderer(TileGaiaHead.class);
-				((RenderTileGaiaHead) ter).render(0.0F, 0.0F, 0.0F, null, 180.0F, BlockGaiaHead.GAIA_TYPE, null, -1, 0.0F);
+		    if(stack.getItem() == ModBlocks.gaiaHead.asItem()) {
+		    	TileEntityRenderer r = TileEntityRendererDispatcher.instance.getRenderer(TileGaiaHead.class);
+				((RenderTileGaiaHead) r).render(0, 0, 0, null, 180, BlockGaiaHead.GAIA_TYPE, null, -1, 0);
 			}
 		}
 	}
-
 	@Override
 	public void setRendererDispatcher(@Nonnull TileEntityRendererDispatcher dispatcher) {
 		rendererDispatcher = dispatcher;

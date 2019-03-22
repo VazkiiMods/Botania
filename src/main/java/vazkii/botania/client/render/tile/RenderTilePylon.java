@@ -13,6 +13,7 @@ package vazkii.botania.client.render.tile;
 import java.util.Random;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import net.minecraft.block.Block;
 import org.lwjgl.opengl.GL11;
@@ -58,16 +59,14 @@ public class RenderTilePylon extends TileEntityRenderer<TilePylon> implements IM
 
 	@Override
 	public void render(@Nonnull TilePylon pylon, double d0, double d1, double d2, float pticks, int digProgress) {
-		boolean renderingItem = pylon == ForwardingTEISR.DUMMY;
-
-		if(!renderingItem && (!pylon.getWorld().isBlockLoaded(pylon.getPos(), false) || !(pylon.getBlockState().getBlock() instanceof BlockPylon)))
+		if(!pylon.getWorld().isBlockLoaded(pylon.getPos(), false) || !(pylon.getBlockState().getBlock() instanceof BlockPylon))
 			return;
 
-		renderPylon(pylon, d0, d1, d2, pticks, renderingItem);
+		renderPylon(pylon, d0, d1, d2, pticks);
 	}
 	
-	private void renderPylon(@Nonnull TilePylon pylon, double d0, double d1, double d2, float pticks, boolean renderingItem) {
-		BlockPylon.Variant type = renderingItem ? forceVariant : ((BlockPylon) pylon.getBlockState().getBlock()).variant;
+	private void renderPylon(@Nullable TilePylon pylon, double d0, double d1, double d2, float pticks) {
+		BlockPylon.Variant type = pylon == null ? forceVariant : ((BlockPylon) pylon.getBlockState().getBlock()).variant;
 		IPylonModel model;
 		switch(type) {
 		default:
@@ -97,36 +96,36 @@ public class RenderTilePylon extends TileEntityRenderer<TilePylon> implements IM
 
 		double worldTime = (double) (ClientTickHandler.ticksInGame + pticks);
 
-		worldTime += renderingItem ? 0 : new Random(pylon.getPos().hashCode()).nextInt(360);
+		worldTime += pylon == null ? 0 : new Random(pylon.getPos().hashCode()).nextInt(360);
 
-		GlStateManager.translated(d0, d1 + (renderingItem ? 1.35 : 1.5), d2);
+		GlStateManager.translated(d0, d1 + (pylon == null ? 1.35 : 1.5), d2);
 		GlStateManager.scalef(1.0F, -1.0F, -1.0F);
 
 		GlStateManager.pushMatrix();
 		GlStateManager.translatef(0.5F, 0F, -0.5F);
-		if(!renderingItem)
+		if(pylon != null)
 			GlStateManager.rotatef((float) worldTime * 1.5F, 0F, 1F, 0F);
 
 		model.renderRing(); 
-		if(!renderingItem)
+		if(pylon != null)
 			GlStateManager.translated(0D, Math.sin(worldTime / 20D) / 20 - 0.025, 0D);
 		GlStateManager.popMatrix();
 
 		GlStateManager.pushMatrix();
-		if(!renderingItem)
+		if(pylon != null)
 			GlStateManager.translated(0D, Math.sin(worldTime / 20D) / 17.5, 0D);
 
 		GlStateManager.translatef(0.5F, 0F, -0.5F);
-		if(!renderingItem) 
+		if(pylon != null)
 			GlStateManager.rotatef((float) -worldTime, 0F, 1F, 0F);
 
 		GlStateManager.disableCull();
 		GlStateManager.disableAlphaTest();
 
-		if(!renderingItem)
+		if(pylon != null)
 			ShaderHelper.useShader(ShaderHelper.pylonGlow);
 		model.renderCrystal();
-		if(!renderingItem)
+		if(pylon != null)
 			ShaderHelper.releaseShader();
 
 		GlStateManager.enableAlphaTest();
@@ -138,23 +137,13 @@ public class RenderTilePylon extends TileEntityRenderer<TilePylon> implements IM
 		GlStateManager.popMatrix();
 	}
 
-	// Dirty hack to make the TESR know which variant of pylon it's rendering
-	public static class ForwardingTEISR extends TileEntityItemStackRenderer {
-		private static final TilePylon DUMMY = new TilePylon();
-
-		private final TileEntityItemStackRenderer compose;
-
-		public ForwardingTEISR(TileEntityItemStackRenderer compose) {
-			this.compose = compose;
-		}
-
+	public static class TEISR extends TileEntityItemStackRenderer {
 		@Override
 		public void renderByItem(ItemStack stack) {
 			if(Block.getBlockFromItem(stack.getItem()) instanceof BlockPylon) {
 				RenderTilePylon.forceVariant = ((BlockPylon) Block.getBlockFromItem(stack.getItem())).variant;
-				TileEntityRendererDispatcher.instance.render(DUMMY, 0, 0, 0, 0);
-			} else {
-				compose.renderByItem(stack);
+				TileEntityRenderer r = TileEntityRendererDispatcher.instance.getRenderer(TilePylon.class);
+				((RenderTilePylon) r).renderPylon(null, 0, 0, 0, 0);
 			}
 		}
 	}
@@ -163,7 +152,7 @@ public class RenderTilePylon extends TileEntityRenderer<TilePylon> implements IM
 	public void renderBlockForMultiblock(IBlockReader world, Multiblock mb, IBlockState state, MultiblockComponent comp) {
 		forceVariant = ((BlockPylon) state.getBlock()).variant;
 		GlStateManager.translatef(-0.5F, -0.25F, -0.5F);
-		renderPylon((TilePylon) comp.getTileEntity(), 0, 0, 0, 0, true);
+		renderPylon(null, 0, 0, 0, 0);
 		forceVariant = BlockPylon.Variant.MANA;
 	}
 

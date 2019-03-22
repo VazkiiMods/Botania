@@ -28,16 +28,6 @@ import vazkii.botania.common.block.tile.TileBrewery;
 import javax.annotation.Nullable;
 
 public class RenderTileBrewery extends TileEntityRenderer<TileBrewery> {
-	public static class TEISR extends TileEntityItemStackRenderer {
-		@Override
-		public void renderByItem(ItemStack stack) {
-			if(stack.getItem() == ModBlocks.brewery.asItem()) {
-				TileEntityRendererDispatcher.instance.getRenderer(TileBrewery.class)
-						.render(null, 0, 0, 0, 0, -1);
-			}
-		}
-	}
-
 	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_BREWERY);
 	final ModelBrewery model = new ModelBrewery();
 	public TileBrewery brewery;

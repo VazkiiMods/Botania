@@ -14,6 +14,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.item.ModItems;
@@ -49,7 +50,7 @@ public class ItemElementiumAxe extends ItemManasteelAxe {
 					ItemNBTHelper.setString(stack, "SkullOwner", ((EntityPlayer) event.getEntityLiving()).getGameProfile().getName());
 					addDrop(event, stack);
 				} else if(event.getEntityLiving() instanceof EntityDoppleganger && rand.nextInt(13) < 1 + looting)
-					addDrop(event, new ItemStack(ModItems.gaiaHead));
+					addDrop(event, new ItemStack(ModBlocks.gaiaHead));
 			}
 		}
 	}

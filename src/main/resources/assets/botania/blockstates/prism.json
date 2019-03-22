@@ -1,8 +1,5 @@
 {
   "variants": {
-    "has_lens=false,powered=false": { "model": "botania:block/prism" },
-    "has_lens=true,powered=false": { "model": "botania:block/prism" },
-    "has_lens=false,powered=true": { "model": "botania:block/prism" },
-    "has_lens=true,powered=true": { "model": "botania:block/prism" }
+    "": { "model": "botania:block/prism" }
   }
 }

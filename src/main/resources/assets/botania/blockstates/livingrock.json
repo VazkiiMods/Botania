@@ -1,9 +1,5 @@
 {
   "variants": {
-    "variant=default": { "model": "botania:block/livingrock" },
-    "variant=brick": { "model": "botania:block/livingrock_brick" },
-    "variant=mossy_brick": { "model": "botania:block/livingrock_mossy_brick" },
-    "variant=cracked_brick": { "model": "botania:block/livingrock_cracked_brick" },
-    "variant=chiseled_brick": { "model": "botania:block/livingrock_chiseled_brick" }
+    "": { "model": "botania:block/livingrock" }
   }
 }

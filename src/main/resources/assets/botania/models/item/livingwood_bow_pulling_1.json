@@ -1,5 +1,5 @@
 {
-  "parent": "botania:item/livingwoodbow",
+  "parent": "botania:item/livingwood_bow",
   "textures": {
     "layer0": "botania:items/bow_livingwood_pulling_1"
   }

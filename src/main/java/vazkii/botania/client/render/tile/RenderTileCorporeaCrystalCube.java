@@ -47,16 +47,6 @@ import javax.annotation.Nullable;
 
 // TODO 1.13 move this back to a normal tesr. Byebye animation API
 public class RenderTileCorporeaCrystalCube extends TileEntityRenderer<TileCorporeaCrystalCube> {
-	public static class TEISR extends TileEntityItemStackRenderer {
-		@Override
-		public void renderByItem(ItemStack stack) {
-			if(stack.getItem() == ModBlocks.corporeaCrystalCube.asItem()) {
-				TileEntityRendererDispatcher.instance.getRenderer(TileCorporeaCrystalCube.class)
-						.render(null, 0, 0, 0, 0, -1);
-			}
-		}
-	}
-
 	private EntityItem entity = null;
 	private RenderEntityItem itemRenderer = null;
 
