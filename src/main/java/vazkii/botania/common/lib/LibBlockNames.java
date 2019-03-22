@@ -19,10 +19,10 @@ public final class LibBlockNames {
 	public static final String APOTHECARY_PREFIX = "apothecary_";
 	public static final String SPECIAL_FLOWER = "special_flower";
 	public static final String LIVING_ROCK = "livingrock";
-	public static final String LIVING_ROCK_BRICK = "livingrock_brick";
-	public static final String LIVING_ROCK_BRICK_MOSSY = "mossy_livingrock_brick";
-	public static final String LIVING_ROCK_BRICK_CRACKED = "cracked_livingrock_brick";
-	public static final String LIVING_ROCK_BRICK_CHISELED = "chiseled_livingrock_brick";
+	public static final String LIVING_ROCK_BRICK = "livingrock_bricks";
+	public static final String LIVING_ROCK_BRICK_MOSSY = "mossy_livingrock_bricks";
+	public static final String LIVING_ROCK_BRICK_CRACKED = "cracked_livingrock_bricks";
+	public static final String LIVING_ROCK_BRICK_CHISELED = "chiseled_livingrock_bricks";
 	public static final String LIVING_WOOD = "livingwood";
 	public static final String LIVING_WOOD_PLANKS = "livingwood_planks";
 	public static final String LIVING_WOOD_PLANKS_MOSSY = "mossy_livingwood_planks";

@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "type=bottom": { "model": "botania:block/slabs/metamorphic_taiga_cobblestone" },
+    "type=top": { "model": "botania:block/slabs/metamorphic_taiga_cobblestone", "x": 180, "uvlock": true },
+    "type=double": { "model": "botania:block/metamorphic/taiga_cobblestone" }
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "type=bottom": { "model": "botania:block/slabs/metamorphic_desert_bricks" },
+    "type=top": { "model": "botania:block/slabs/metamorphic_desert_bricks", "x": 180, "uvlock": true },
+    "type=double": { "model": "botania:block/metamorphic/desert_bricks" }
+  }
+}

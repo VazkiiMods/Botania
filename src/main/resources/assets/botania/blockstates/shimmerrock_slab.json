@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "type=bottom": { "model": "botania:block/slabs/shimmerrock" },
+    "type=top": { "model": "botania:block/slabs/shimmerrock", "x": 180, "uvlock": true },
+    "type=double": { "model": "botania:block/shimmerrock" }
+  }
+}

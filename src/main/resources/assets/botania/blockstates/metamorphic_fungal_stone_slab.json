@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "type=bottom": { "model": "botania:block/slabs/metamorphic_fungal_stone" },
+    "type=top": { "model": "botania:block/slabs/metamorphic_fungal_stone", "x": 180, "uvlock": true },
+    "type=double": { "model": "botania:block/metamorphic/fungal_stone" }
+  }
+}

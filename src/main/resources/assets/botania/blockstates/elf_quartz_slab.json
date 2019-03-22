@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "type=bottom": { "model": "botania:block/slabs/elf_quartz" },
+    "type=top": { "model": "botania:block/slabs/elf_quartz", "x": 180, "uvlock": true },
+    "type=double": { "model": "botania:block/quartz/elf_quartz" }
+  }
+}
