@@ -27,7 +27,9 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.shapes.IBooleanFunction;
 import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
@@ -60,7 +62,11 @@ import java.util.Random;
 
 public class BlockAltar extends BlockMod implements ILexiconable {
 
-	private static final VoxelShape AABB = Block.makeCuboidShape(2, 2, 2, 14, 20, 14);
+	private static final VoxelShape BASE = Block.makeCuboidShape(0, 0, 0, 16, 2, 16);
+	private static final VoxelShape MIDDLE = Block.makeCuboidShape(2, 2, 2, 14, 12, 14);
+	private static final VoxelShape TOP = Block.makeCuboidShape(2, 12, 2, 14, 20, 14);
+	private static final VoxelShape TOP_CUTOUT = Block.makeCuboidShape(3, 14, 3, 13, 20, 13);
+	private static final VoxelShape SHAPE = VoxelShapes.or(VoxelShapes.or(BASE, MIDDLE), VoxelShapes.combineAndSimplify(TOP, TOP_CUTOUT, IBooleanFunction.ONLY_FIRST));
 
 	public enum Variant {
 		DEFAULT,
@@ -85,7 +91,7 @@ public class BlockAltar extends BlockMod implements ILexiconable {
 	@Nonnull
 	@Override
 	public VoxelShape getShape(IBlockState state, IBlockReader world, BlockPos pos) {
-		return AABB;
+		return SHAPE;
 	}
 
 	@OnlyIn(Dist.CLIENT)
