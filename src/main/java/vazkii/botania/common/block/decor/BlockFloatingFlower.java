@@ -104,7 +104,7 @@ public class BlockFloatingFlower extends BlockMod implements ILexiconable {
 	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void animateTick(IBlockState state, World world, BlockPos pos, Random rand) {
-		int hex = state.get(BotaniaStateProps.COLOR).colorValue;
+		int hex = color.colorValue;
 		int r = (hex & 0xFF0000) >> 16;
 		int g = (hex & 0xFF00) >> 8;
 		int b = hex & 0xFF;

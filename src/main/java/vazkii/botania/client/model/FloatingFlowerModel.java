@@ -93,6 +93,8 @@ public class FloatingFlowerModel implements IBakedModel {
 	public List<BakedQuad> getQuads(IBlockState state, EnumFacing face, @Nonnull Random rand) {
 		if(state.getBlock() != ModBlocks.floatingSpecialFlower && !(state.getBlock() instanceof BlockFloatingFlower))
 			return Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelShapes().getModelManager().getMissingModel().getQuads(state, face, rand);
+		if(true) // todo 1.13
+			return ImmutableList.of();
 		IExtendedBlockState realState = (IExtendedBlockState) state;
 		IFloatingFlower.IslandType islandType = realState.getValue(BotaniaStateProps.ISLAND_TYPE);
 		ResourceLocation identifier;
