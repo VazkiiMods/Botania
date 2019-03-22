@@ -1,5 +1,5 @@
 {
-  "parent": "minecraft:block/wall_side",
+  "parent": "minecraft:block/template_wall_side",
   "textures": {
     "wall": "botania:blocks/livingrock0"
   }

@@ -27,7 +27,9 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.shapes.IBooleanFunction;
 import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
@@ -46,7 +48,9 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class BlockPool extends BlockMod implements IWandHUD, IWandable, ILexiconable {
-	private static final VoxelShape SHAPE = makeCuboidShape(0, 0, 0, 16, 8, 16);
+	private static final VoxelShape SLAB = makeCuboidShape(0, 0, 0, 16, 8, 16);
+	private static final VoxelShape CUTOUT = makeCuboidShape(1, 1, 1, 15, 8, 15);
+	private static final VoxelShape REAL_SHAPE = VoxelShapes.combineAndSimplify(SLAB, CUTOUT, IBooleanFunction.ONLY_FIRST);
 
 	public enum Variant {
 		DEFAULT,
@@ -73,7 +77,7 @@ public class BlockPool extends BlockMod implements IWandHUD, IWandable, ILexicon
 	@Nonnull
 	@Override
 	public VoxelShape getShape(IBlockState state, IBlockReader world, BlockPos pos) {
-		return SHAPE;
+		return REAL_SHAPE;
 	}
 
 	// If harvesting, delay setting block to air so getDrops can read the TE
@@ -118,24 +122,6 @@ public class BlockPool extends BlockMod implements IWandHUD, IWandable, ILexicon
 				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, pos);
 		}
 	}
-
-	private static final AxisAlignedBB BOTTOM_AABB = new AxisAlignedBB(0, 0, 0, 1, 1/16.0, 1);
-	private static final AxisAlignedBB NORTH_AABB = new AxisAlignedBB(0, 0, 15/16.0, 1, 0.5, 1);
-	private static final AxisAlignedBB SOUTH_AABB = new AxisAlignedBB(0, 0, 0, 1, 0.5, 1/16.0);
-	private static final AxisAlignedBB WEST_AABB = new AxisAlignedBB(0, 0, 0, 1/16.0, 0.5, 1);
-	private static final AxisAlignedBB EAST_AABB = new AxisAlignedBB(15/16.0, 0, 0, 1, 0.5, 1);
-
-
-	/* todo 1.13
-	@Override
-	public void addCollisionBoxToList(IBlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull AxisAlignedBB entityBox, @Nonnull List<AxisAlignedBB> boxes, Entity entity, boolean isActualState) {
-		addCollisionBoxToList(pos, entityBox, boxes, BOTTOM_AABB);
-		addCollisionBoxToList(pos, entityBox, boxes, NORTH_AABB);
-		addCollisionBoxToList(pos, entityBox, boxes, SOUTH_AABB);
-		addCollisionBoxToList(pos, entityBox, boxes, WEST_AABB);
-		addCollisionBoxToList(pos, entityBox, boxes, EAST_AABB);
-	}
-	*/
 
 	@Override
 	public boolean isFullCube(IBlockState state) {
