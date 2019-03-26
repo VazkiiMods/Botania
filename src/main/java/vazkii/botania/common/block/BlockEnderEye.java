@@ -17,6 +17,7 @@ import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.particles.RedstoneParticleData;
 import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
@@ -31,6 +32,7 @@ import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
 import javax.annotation.Nonnull;
+import java.util.Random;
 
 public class BlockEnderEye extends BlockMod implements ILexiconable {
 
@@ -76,4 +78,16 @@ public class BlockEnderEye extends BlockMod implements ILexiconable {
 		return BlockFaceShape.UNDEFINED;
 	}
 
+	@Override
+	public void animateTick(IBlockState state, World world, BlockPos pos, Random rand) {
+		if(state.get(BotaniaStateProps.POWERED)) {
+			for(int i = 0; i < 20; i++) {
+				double x = pos.getX() - 0.1 + Math.random() * 1.2;
+				double y = pos.getY() - 0.1 + Math.random() * 1.2;
+				double z = pos.getZ() - 0.1 + Math.random() * 1.2;
+
+				world.addParticle(RedstoneParticleData.REDSTONE_DUST, x, y, z, 0, 0, 0);
+			}
+		}
+	}
 }

@@ -59,16 +59,8 @@ public class TileEnderEye extends TileMod implements ITickable {
 			}
 		}
 
-		if(looking != wasLooking && !world.isRemote)
+		if(looking != wasLooking)
 			world.setBlockState(getPos(), world.getBlockState(getPos()).with(BotaniaStateProps.POWERED, looking), 1 | 2);
-
-		if(looking) {
-			double x = getPos().getX() - 0.1 + Math.random() * 1.2;
-			double y = getPos().getY() - 0.1 + Math.random() * 1.2;
-			double z = getPos().getZ() - 0.1 + Math.random() * 1.2;
-
-			((WorldServer) world).spawnParticle(RedstoneParticleData.REDSTONE_DUST, x, y, z, 0, 1.0D, 0.0D, 0.0D, 1.0D);
-		}
 	}
 
 }
