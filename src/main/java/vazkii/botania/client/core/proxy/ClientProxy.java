@@ -174,6 +174,7 @@ public class ClientProxy implements IProxy {
 
 	private void loadComplete(FMLLoadCompleteEvent event) {
 	    DeferredWorkQueue.runLater(() -> {
+			ShaderHelper.initShaders();
 			initAuxiliaryRender();
 			ColorHandler.init();
 		});

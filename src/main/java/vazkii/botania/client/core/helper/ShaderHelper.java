@@ -14,7 +14,9 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 
+import net.minecraft.resources.IResourceManager;
 import net.minecraft.resources.SimpleReloadableResourceManager;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.ModList;
 import org.lwjgl.opengl.ARBFragmentShader;
 import org.lwjgl.opengl.ARBShaderObjects;
@@ -25,6 +27,7 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.ConfigHandler;
+import vazkii.botania.common.lib.LibMisc;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -73,26 +76,26 @@ public final class ShaderHelper {
 				deleteShader(categoryButton); categoryButton = 0;
 				deleteShader(alpha); alpha = 0;
 
-				loadShaders();
+				loadShaders(manager);
 			});
 		}
 	}
 
-	private static void loadShaders() {
+	private static void loadShaders(IResourceManager manager) {
 		if(!useShaders())
 			return;
 
-		pylonGlow = createProgram(null, LibResources.SHADER_PYLON_GLOW_FRAG);
-		enchanterRune = createProgram(null, LibResources.SHADER_ENCHANTER_RUNE_FRAG);
-		manaPool = createProgram(null, LibResources.SHADER_MANA_POOL_FRAG);
-		doppleganger = createProgram(LibResources.SHADER_DOPLLEGANGER_VERT, LibResources.SHADER_DOPLLEGANGER_FRAG);
-		halo = createProgram(null, LibResources.SHADER_HALO_FRAG);
-		dopplegangerBar = createProgram(null, LibResources.SHADER_DOPLLEGANGER_BAR_FRAG);
-		terraPlateRune = createProgram(null, LibResources.SHADER_TERRA_PLATE_RUNE_FRAG);
-		filmGrain = createProgram(null, LibResources.SHADER_FILM_GRAIN_FRAG);
-		gold = createProgram(null, LibResources.SHADER_GOLD_FRAG);
-		categoryButton = createProgram(null, LibResources.SHADER_CATEGORY_BUTTON_FRAG);
-		alpha = createProgram(LibResources.SHADER_ALPHA_VERT, LibResources.SHADER_ALPHA_FRAG);
+		pylonGlow = createProgram(manager, null, LibResources.SHADER_PYLON_GLOW_FRAG);
+		enchanterRune = createProgram(manager, null, LibResources.SHADER_ENCHANTER_RUNE_FRAG);
+		manaPool = createProgram(manager, null, LibResources.SHADER_MANA_POOL_FRAG);
+		doppleganger = createProgram(manager, LibResources.SHADER_DOPLLEGANGER_VERT, LibResources.SHADER_DOPLLEGANGER_FRAG);
+		halo = createProgram(manager, null, LibResources.SHADER_HALO_FRAG);
+		dopplegangerBar = createProgram(manager, null, LibResources.SHADER_DOPLLEGANGER_BAR_FRAG);
+		terraPlateRune = createProgram(manager, null, LibResources.SHADER_TERRA_PLATE_RUNE_FRAG);
+		filmGrain = createProgram(manager, null, LibResources.SHADER_FILM_GRAIN_FRAG);
+		gold = createProgram(manager, null, LibResources.SHADER_GOLD_FRAG);
+		categoryButton = createProgram(manager, null, LibResources.SHADER_CATEGORY_BUTTON_FRAG);
+		alpha = createProgram(manager, LibResources.SHADER_ALPHA_VERT, LibResources.SHADER_ALPHA_FRAG);
 	}
 
 	public static void useShader(int shader, ShaderCallback callback) {
@@ -139,12 +142,12 @@ public final class ShaderHelper {
 	// Most of the code taken from the LWJGL wiki
 	// http://lwjgl.org/wiki/index.php?title=GLSL_Shaders_with_LWJGL
 
-	private static int createProgram(String vert, String frag) {
+	private static int createProgram(IResourceManager manager, String vert, String frag) {
 		int vertId = 0, fragId = 0, program;
 		if(vert != null)
-			vertId = createShader(vert, VERT);
+			vertId = createShader(manager, vert, VERT);
 		if(frag != null)
-			fragId = createShader(frag, FRAG);
+			fragId = createShader(manager, frag, FRAG);
 
 		program = ARBShaderObjects.glCreateProgramObjectARB();
 		if(program == 0)
@@ -170,7 +173,7 @@ public final class ShaderHelper {
 		return program;
 	}
 
-	private static int createShader(String filename, int shaderType){
+	private static int createShader(IResourceManager manager, String filename, int shaderType){
 		int shader = 0;
 		try {
 			shader = ARBShaderObjects.glCreateShaderObjectARB(shaderType);
@@ -178,7 +181,7 @@ public final class ShaderHelper {
 			if(shader == 0)
 				return 0;
 
-			ARBShaderObjects.glShaderSourceARB(shader, readFileAsString(filename));
+			ARBShaderObjects.glShaderSourceARB(shader, readFileAsString(manager, filename));
 			ARBShaderObjects.glCompileShaderARB(shader);
 
 			if (ARBShaderObjects.glGetObjectParameteriARB(shader, ARBShaderObjects.GL_OBJECT_COMPILE_STATUS_ARB) == GL11.GL_FALSE)
@@ -197,11 +200,8 @@ public final class ShaderHelper {
 		return ARBShaderObjects.glGetInfoLogARB(obj, ARBShaderObjects.glGetObjectParameteriARB(obj, ARBShaderObjects.GL_OBJECT_INFO_LOG_LENGTH_ARB));
 	}
 
-	private static String readFileAsString(String filename) throws Exception {
-		InputStream in = ShaderHelper.class.getResourceAsStream(filename);
-
-		if(in == null)
-			return "";
+	private static String readFileAsString(IResourceManager manager, String filename) throws Exception {
+		InputStream in = manager.getResource(new ResourceLocation(LibMisc.MOD_ID, filename)).getInputStream();
 
 		try (BufferedReader reader = new BufferedReader(new InputStreamReader(in, "UTF-8"))) {
 			return reader.lines().collect(Collectors.joining("\n"));

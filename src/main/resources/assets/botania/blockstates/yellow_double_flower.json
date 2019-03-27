@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "half=lower": { "model": "botania:block/plants/yellow_double_flower" },
+    "half=upper": { "model": "botania:block/plants/yellow_double_flower_top" }
+  }
+}

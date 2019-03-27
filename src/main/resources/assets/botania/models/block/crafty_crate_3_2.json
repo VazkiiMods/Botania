@@ -1,0 +1,7 @@
+{
+  "parent": "botania:block/shapes/crate",
+  "textures": {
+    "bottom": "botania:blocks/crate_crafty_bottom",
+    "side": "botania:blocks/crate_crafty_pattern_7"
+  }
+}

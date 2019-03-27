@@ -135,8 +135,6 @@ public final class ModelHandler {
 		RenderingRegistry.registerEntityRenderingHandler(EntityVineBall.class, renderManager -> new RenderSprite<>(renderManager, ModItems.vineBall, Minecraft.getInstance().getItemRenderer()));
 		RenderingRegistry.registerEntityRenderingHandler(EntityEnderAirBottle.class, renderManager -> new RenderSprite<>(renderManager, ModItems.enderAirBottle, Minecraft.getInstance().getItemRenderer()));
 
-		ShaderHelper.initShaders();
-
 		IMultiblockRenderHook.renderHooks.put(ModBlocks.manaPylon, renderTilePylon);
 		IMultiblockRenderHook.renderHooks.put(ModBlocks.naturaPylon, renderTilePylon);
 		IMultiblockRenderHook.renderHooks.put(ModBlocks.gaiaPylon, renderTilePylon);

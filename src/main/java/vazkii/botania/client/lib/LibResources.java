@@ -17,7 +17,7 @@ public final class LibResources {
 	public static final String PREFIX_MOD = LibMisc.MOD_ID + ":";
 
 	public static final String PREFIX_LANG = "/assets/botania/lang/";
-	public static final String PREFIX_SHADER = "/assets/botania/shader/";
+	public static final String PREFIX_SHADER = "shader/";
 
 	public static final String PREFIX_GUI = PREFIX_MOD + "textures/gui/";
 	public static final String PREFIX_ENTRIES = PREFIX_GUI + "entries/";
