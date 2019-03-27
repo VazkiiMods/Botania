@@ -1,18 +1,10 @@
 {
-  "forge_marker": 1,
-  "defaults": {
-    "textures": {
-      "rail": "botania:blocks/rail_ghost"
-    }
-  },
   "variants": {
-    "shape": {
-      "north_south":  { "model": "minecraft:rail_flat" },
-      "east_west":  { "model": "minecraft:rail_flat", "y": 90 },
-      "ascending_east": { "model": "minecraft:rail_raised_ne", "y": 90 },
-      "ascending_west": { "model": "minecraft:rail_raised_sw", "y": 90 },
-      "ascending_north": { "model": "minecraft:rail_raised_ne" },
-      "ascending_south": { "model": "minecraft:rail_raised_sw" }
-    }
+    "shape=north_south":  { "model": "botania:block/ghost_rail" },
+    "shape=east_west":  { "model": "botania:block/ghost_rail", "y": 90 },
+    "shape=ascending_east": { "model": "botania:block/ghost_rail_raised_ne", "y": 90 },
+    "shape=ascending_west": { "model": "botania:block/ghost_rail_raised_sw", "y": 90 },
+    "shape=ascending_north": { "model": "botania:block/ghost_rail_raised_ne" },
+    "shape=ascending_south": { "model": "botania:block/ghost_rail_raised_sw" }
   }
 }

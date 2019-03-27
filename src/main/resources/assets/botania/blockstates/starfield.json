@@ -1,6 +1,5 @@
 {
   "variants": {
-    "powered=true":  { "model": "botania:block/starfield_creator" },
-    "powered=false": { "model": "botania:block/starfield_creator" }
+    "": { "model": "botania:block/starfield_creator" }
   }
 }
