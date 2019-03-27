@@ -1,0 +1,8 @@
+{
+  "parent": "block/stairs",
+  "textures": {
+      "bottom": "botania:blocks/biomestoneNUM",
+      "top": "botania:blocks/biomestoneNUM",
+      "side": "botania:blocks/biomestoneNUM"
+  }
+}

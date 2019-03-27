@@ -1,0 +1,8 @@
+{
+  "parent": "block/inner_stairs",
+  "textures": {
+      "bottom": "botania:blocks/biomestone14",
+      "top": "botania:blocks/biomestone14",
+      "side": "botania:blocks/biomestone14"
+  }
+}
