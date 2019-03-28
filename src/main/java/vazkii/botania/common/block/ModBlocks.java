@@ -808,6 +808,7 @@ public final class ModBlocks {
 		r.register(new ItemBlockMod(lightRelayDefault, props).setRegistryName(lightRelayDefault.getRegistryName()));
 		r.register(new ItemBlockMod(lightRelayDetector, props).setRegistryName(lightRelayDetector.getRegistryName()));
 		r.register(new ItemBlockMod(lightRelayFork, props).setRegistryName(lightRelayFork.getRegistryName()));
+		r.register(new ItemBlockMod(lightRelayToggle, props).setRegistryName(lightRelayToggle.getRegistryName()));
 		r.register(new ItemBlockMod(lightLauncher, props).setRegistryName(lightLauncher.getRegistryName()));
 		r.register(new ItemBlockMod(manaBomb, props).setRegistryName(manaBomb.getRegistryName()));
 		r.register(new ItemBlockMod(cacophonium, props).setRegistryName(cacophonium.getRegistryName()));
