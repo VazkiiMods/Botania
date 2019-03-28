@@ -24,6 +24,7 @@ import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.lwjgl.glfw.GLFW;
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.common.lib.LibObfuscation;
@@ -50,7 +51,7 @@ public class CorporeaAutoCompleteHandler {
 		itemNames.clear();
 		NonNullList<ItemStack> curList = NonNullList.create();
 
-		for (Item item : IRegistry.ITEM) {
+		for (Item item : ForgeRegistries.ITEMS) {
 			if(item != null && item.getGroup() != null) {
 				curList.clear();
 				try {
