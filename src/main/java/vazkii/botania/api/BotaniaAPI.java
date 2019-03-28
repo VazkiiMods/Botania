@@ -351,7 +351,7 @@ public final class BotaniaAPI {
 			return false;
 
 		if(stack.getItemDamage() != Short.MAX_VALUE) {
-			ItemStack copy = new ItemStack(stack.getItem(), 0, Short.MAX_VALUE);
+			ItemStack copy = new ItemStack(stack.getItem(), 1, Short.MAX_VALUE);
 			boolean general = isItemBlacklistedFromMagnet(copy, recursion + 1);
 			if(general)
 				return true;
