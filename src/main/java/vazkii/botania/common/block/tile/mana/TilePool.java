@@ -107,6 +107,8 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 	private int ticks = 0;
 	private boolean sendPacket = false;
 
+	private int itemsAroundPool = ConfigHandler.itemLimitManaPool + 1; //initialize with higher value to force the first check
+
 	@Override
 	public boolean shouldRefresh(World world, BlockPos pos, @Nonnull IBlockState oldState, @Nonnull IBlockState newState) {
 		if(oldState.getBlock() != newState.getBlock())
@@ -189,7 +191,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 			int mana = recipe.getManaToConsume();
 
 			if(getCurrentMana() >= mana) {
-				if(recipe.getOutput().getCount() > 1 && !canSpawnAdditionalItems())
+				if(recipe.getOutput().getCount() > 1 && !canSpawnAdditionalItems(recipe.getOutput().getCount() - 1))
 					return false;
 
 				recieveMana(-mana);
@@ -209,12 +211,18 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 		return false;
 	}
 
-	private boolean canSpawnAdditionalItems(){
+	private boolean canSpawnAdditionalItems(int spawnItems){
 		if(ConfigHandler.itemLimitManaPool == 0)
 			return true;
 
-		AxisAlignedBB area = new AxisAlignedBB(-2, -2, -2, 2, 2, 2).offset(getPos());
-		return world.getEntitiesWithinAABB(EntityItem.class, area).size() < ConfigHandler.itemLimitManaPool;
+		itemsAroundPool+=spawnItems;
+
+		if(itemsAroundPool > ConfigHandler.itemLimitManaPool){
+			AxisAlignedBB area = new AxisAlignedBB(-2, -2, -2, 2, 2, 2).offset(getPos());
+			itemsAroundPool = world.getEntitiesWithinAABB(EntityItem.class, area).size();
+		}
+
+		return itemsAroundPool < ConfigHandler.itemLimitManaPool;
 	}
 
 	private void craftingFanciness() {
