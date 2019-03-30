@@ -187,6 +187,10 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 
 		if(recipe != null) {
 			int mana = recipe.getManaToConsume();
+
+			if(recipe.getOutput().getCount() > 1 && !canSpawnAdditionalItems())
+				return false;
+
 			if(getCurrentMana() >= mana) {
 				recieveMana(-mana);
 
@@ -203,6 +207,14 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 		}
 
 		return false;
+	}
+
+	private boolean canSpawnAdditionalItems(){
+		if(ConfigHandler.itemLimitManaPool == 0)
+			return true;
+
+		AxisAlignedBB area = new AxisAlignedBB(-2, -2, -2, 2, 2, 2).offset(getPos());
+		return world.getEntitiesWithinAABB(EntityItem.class, area).size() < ConfigHandler.itemLimitManaPool;
 	}
 
 	private void craftingFanciness() {

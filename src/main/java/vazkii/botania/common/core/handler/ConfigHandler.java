@@ -97,6 +97,8 @@ public final class ConfigHandler {
 	public static double flowerTallChance = 0.05;
 	public static int mushroomQuantity = 40;
 
+	public static int itemLimitManaPool = 64;
+
 	public static void loadConfig(File configFile) {
 		config = new Configuration(configFile);
 
@@ -209,6 +211,9 @@ public final class ConfigHandler {
 
 		desc = "Turn this off ONLY IF you're on an extremely large world with an exaggerated count of Mana Spreaders/Mana Pools and are experiencing TPS lag. This toggles whether flowers are strict with their checking for connecting to pools/spreaders or just check whenever possible.";
 		flowerForceCheck = loadPropBool("flower.forceCheck", desc, flowerForceCheck);
+
+		desc = "The quantity of Items allowed around a mana pool when crafting a recipe which has a larger output than input (e.g. Coal => 2x Coal), set to 0 to disable";
+		itemLimitManaPool = loadPropInt("manapool.itemlimit", desc, itemLimitManaPool);
 
 		desc = "Set to false to disable the ability for the Hand of Ender to pickpocket other players' ender chests.";
 		enderPickpocketEnabled = loadPropBool("enderPickpocket.enabled", desc, enderPickpocketEnabled);
