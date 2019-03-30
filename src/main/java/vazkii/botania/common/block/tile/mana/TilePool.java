@@ -186,12 +186,12 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 		RecipeManaInfusion recipe = getMatchingRecipe(stack, world.getBlockState(pos.down()));
 
 		if(recipe != null) {
-			if(recipe.getOutput().getCount() > 1 && !canSpawnAdditionalItems())
-				return false;
-
 			int mana = recipe.getManaToConsume();
 
 			if(getCurrentMana() >= mana) {
+				if(recipe.getOutput().getCount() > 1 && !canSpawnAdditionalItems())
+					return false;
+
 				recieveMana(-mana);
 
 				stack.shrink(1);
