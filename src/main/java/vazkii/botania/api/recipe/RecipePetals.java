@@ -12,7 +12,6 @@ package vazkii.botania.api.recipe;
 
 import com.google.common.collect.ImmutableList;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
@@ -80,7 +79,7 @@ public class RecipePetals {
 	}
 
 	private boolean compareStacks(ItemStack recipe, ItemStack supplied) {
-		return recipe.getItem() == supplied.getItem() && recipe.getItemDamage() == supplied.getItemDamage() && ItemNBTHelper.isTagSubset(recipe.getTagCompound(), supplied.getTagCompound());
+		return recipe.getItem() == supplied.getItem() && recipe.getItemDamage() == supplied.getItemDamage() && ItemNBTHelper.matchTag(recipe.getTagCompound(), supplied.getTagCompound());
 	}
 
 	public List<Object> getInputs() {
