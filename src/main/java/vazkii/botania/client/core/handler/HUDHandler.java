@@ -133,7 +133,7 @@ public final class HUDHandler {
 
 				if(PlayerHelper.hasAnyHeldItem(mc.player)) {
 					if(pos != null && PlayerHelper.hasHeldItem(mc.player, ModItems.twigWand)) {
-						renderWandModeDisplay(PlayerHelper.getFirstHeldItem(mc.player, ModItems.twigWand));
+						// todo 1.13 weird AT crash renderWandModeDisplay(PlayerHelper.getFirstHeldItem(mc.player, ModItems.twigWand));
 
 						if(block instanceof IWandHUD) {
 							profiler.startSection("wandItem");

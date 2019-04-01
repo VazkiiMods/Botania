@@ -11,9 +11,7 @@
 package vazkii.botania.common.block;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockPistonExtension;
 import net.minecraft.block.BlockPistonMoving;
-import net.minecraft.block.SoundType;
 import net.minecraft.block.material.EnumPushReaction;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -46,9 +44,9 @@ import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.lexicon.LexiconData;
-import vazkii.botania.common.lib.LibBlockNames;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -81,7 +79,6 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 
 	@Override
 	public void onReplaced(@Nonnull IBlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState newState, boolean isMoving) {
-		// todo 1.13 utilize isMoving?
 		if(!world.isRemote)
 			mapCoords(world.getDimension().getType(), pos, 2);
 	}
@@ -159,8 +156,11 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 				INBTBase tag = nbttagcompound.get(key);
 				if(tag instanceof NBTTagString) {
 					String value = tag.getString();
+					DimWithPos from = DimWithPos.fromString(key);
+					DimWithPos to = DimWithPos.fromString(value);
 
-					((BlockPistonRelay) ModBlocks.pistonRelay).mappedPositions.put(DimWithPos.fromString(key), DimWithPos.fromString(value));
+					if(from != null && to != null)
+						((BlockPistonRelay) ModBlocks.pistonRelay).mappedPositions.put(from, to);
 				}
 			}
 		}
@@ -174,9 +174,6 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 		}
 
 		public static WorldData get(World world) {
-			if(world.getSavedDataStorage() == null)
-				return null;
-
 			WorldData data = world.getSavedData(DimensionType.OVERWORLD, WorldData::new, ID);
 
 			if (data == null) {
@@ -207,6 +204,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 					if(server != null && getTimeInCoords(s) == 0) {
 						DimWithPos newPos;
 
+						// Put the relay back, or drop it
 						{
 							int x = s.blockPos.getX(), y = s.blockPos.getY(), z = s.blockPos.getZ();
 							BlockPos pos = s.blockPos;
@@ -221,27 +219,27 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 							newPos = new DimWithPos(world.getDimension().getType(), pos.offset(dir));
 						}
 
+						// Move the linked block and update the mapping
 						if(mappedPositions.containsKey(s)) {
-							DimWithPos pos = mappedPositions.get(s);
-							BlockPos pos2 = pos.blockPos;
-							World world = server.getWorld(pos.dim);
+							DimWithPos dest = mappedPositions.get(s);
+							BlockPos destPos = dest.blockPos;
+							World world = server.getWorld(dest.dim);
 
-							IBlockState srcState = world.getBlockState(pos2);
-							TileEntity tile = world.getTileEntity(pos2);
-							Material mat = srcState.getMaterial();
+							IBlockState srcState = world.getBlockState(destPos);
+							TileEntity tile = world.getTileEntity(destPos);
 
-							if(!sticky && tile == null && mat.getPushReaction() == EnumPushReaction.NORMAL && srcState.getBlockHardness(world, pos2) != -1 && !srcState.getBlock().isAir(srcState, world, pos2)) {
-								Material destMat = world.getBlockState(pos2.offset(dir)).getMaterial();
-								if(world.isAirBlock(pos2.offset(dir)) || destMat.isReplaceable()) {
-									world.setBlockState(pos2, Blocks.AIR.getDefaultState());
-									world.setBlockState(pos2.offset(dir), srcState, 1 | 2);
-									mappedPositions.put(s, new DimWithPos(world.getDimension().getType(), pos2.offset(dir)));
+							if(!sticky && tile == null && srcState.getPushReaction() == EnumPushReaction.NORMAL && srcState.getBlockHardness(world, destPos) != -1 && !srcState.isAir(world, destPos)) {
+								Material destMat = world.getBlockState(destPos.offset(dir)).getMaterial();
+								if(world.isAirBlock(destPos.offset(dir)) || destMat.isReplaceable()) {
+									world.setBlockState(destPos, Blocks.AIR.getDefaultState());
+									world.setBlockState(destPos.offset(dir), srcState, 1 | 2);
+									mappedPositions.put(s, new DimWithPos(world.getDimension().getType(), destPos.offset(dir)));
 								}
 							}
 
-							pos = mappedPositions.get(s);
+							dest  = mappedPositions.get(s);
 							mappedPositions.remove(s);
-							mappedPositions.put(newPos, pos);
+							mappedPositions.put(newPos, dest);
 							save(world);
 						}
 					}
@@ -256,7 +254,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 		removeQueue.clear();
 	}
 
-	public void save(World world) {
+	private void save(World world) {
 		WorldData data = WorldData.get(world);
 		if(data != null)
 			data.markDirty();
@@ -293,10 +291,17 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 			return dim.toString() + "|" + blockPos.getX() + "|" + blockPos.getY() + "|" + blockPos.getZ();
 		}
 
+		@Nullable
 		public static DimWithPos fromString(String s) {
 			String[] split = s.split("\\|");
-			DimensionType type = DimensionType.byName(new ResourceLocation(split[0]));
-			return new DimWithPos(type, new BlockPos(Integer.parseInt(split[1]), Integer.parseInt(split[2]), Integer.parseInt(split[3])));
+			ResourceLocation id = ResourceLocation.tryCreate(split[0]);
+			if(id != null) {
+				DimensionType type = DimensionType.byName(id);
+				if(type != null) {
+					return new DimWithPos(type, new BlockPos(Integer.parseInt(split[1]), Integer.parseInt(split[2]), Integer.parseInt(split[3])));
+				}
+			}
+			return null;
 		}
 
 	}
