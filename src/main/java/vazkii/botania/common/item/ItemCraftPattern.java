@@ -10,12 +10,15 @@
  */
 package vazkii.botania.common.item;
 
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.CratePattern;
+import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileCraftCrate;
 import vazkii.botania.common.lib.LibItemNames;
 
@@ -35,14 +38,15 @@ public class ItemCraftPattern extends ItemMod {
 	public EnumActionResult onItemUse(ItemUseContext ctx) {
 		World world = ctx.getWorld();
 		BlockPos pos = ctx.getPos();
+		IBlockState state = world.getBlockState(pos);
 
-		TileEntity tile = world.getTileEntity(pos);
-		if(tile instanceof TileCraftCrate) {
-			TileCraftCrate crate = (TileCraftCrate) tile;
-			crate.pattern = this.pattern;
-			world.notifyBlockUpdate(pos, world.getBlockState(pos), world.getBlockState(pos), 8);
-			return EnumActionResult.SUCCESS;
+		if(state.getBlock() == ModBlocks.craftCrate) {
+			if(pattern != state.get(BotaniaStateProps.CRATE_PATTERN)) {
+				world.setBlockState(pos, state.with(BotaniaStateProps.CRATE_PATTERN, this.pattern));
+				return EnumActionResult.SUCCESS;
+			}
 		}
+
 		return EnumActionResult.PASS;
 	}
 }

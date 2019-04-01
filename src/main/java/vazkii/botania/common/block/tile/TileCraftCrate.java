@@ -10,6 +10,7 @@
  */
 package vazkii.botania.common.block.tile;
 
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.InventoryCrafting;
@@ -23,7 +24,9 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.crafting.VanillaRecipeTypes;
 import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
+import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.CratePattern;
+import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
@@ -36,7 +39,6 @@ public class TileCraftCrate extends TileOpenCrate {
 	public static TileEntityType<TileCraftCrate> TYPE;
 	private static final String TAG_PATTERN = "pattern";
 
-	public CratePattern pattern = CratePattern.NONE;
 	private int signal = 0;
 
 	public TileCraftCrate() {
@@ -66,8 +68,15 @@ public class TileCraftCrate extends TileOpenCrate {
 		};
 	}
 
+	public CratePattern getPattern() {
+		IBlockState state = getBlockState();
+		if(state.getBlock() != ModBlocks.craftCrate)
+			return CratePattern.NONE;
+		return state.get(BotaniaStateProps.CRATE_PATTERN);
+	}
+
 	private boolean isLocked(int slot) {
-		return !pattern.openSlots.get(slot);
+		return !getPattern().openSlots.get(slot);
 	}
 
 	@Override
@@ -143,18 +152,6 @@ public class TileCraftCrate extends TileOpenCrate {
 	}
 
 	@Override
-	public void writePacketNBT(NBTTagCompound par1nbtTagCompound) {
-		super.writePacketNBT(par1nbtTagCompound);
-		par1nbtTagCompound.putInt(TAG_PATTERN, pattern.ordinal());
-	}
-
-	@Override
-	public void readPacketNBT(NBTTagCompound par1nbtTagCompound) {
-		super.readPacketNBT(par1nbtTagCompound);
-		pattern = CratePattern.values()[par1nbtTagCompound.getInt(TAG_PATTERN)];
-	}
-
-	@Override
 	public boolean onWanded(World world, EntityPlayer player, ItemStack stack) {
 		if(!world.isRemote && canEject()) {
 			craft(false);
@@ -172,14 +169,6 @@ public class TileCraftCrate extends TileOpenCrate {
 	@Override
 	public int getSignal() {
 		return signal;
-	}
-
-	@Override
-	public void onDataPacket(NetworkManager manager, SPacketUpdateTileEntity packet) {
-		CratePattern lastPattern = pattern;
-		super.onDataPacket(manager, packet);
-		if(pattern != lastPattern)
-			world.markBlockRangeForRenderUpdate(pos, pos);
 	}
 
 }

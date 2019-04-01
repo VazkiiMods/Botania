@@ -50,12 +50,11 @@ public class BlockOpenCrate extends BlockMod implements ILexiconable, IWandable 
 
 	@Override
 	public void onReplaced(@Nonnull IBlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState newState, boolean isMoving) {
-		if (!world.isRemote) {
+		if(newState.getBlock() != state.getBlock()) {
 			TileSimpleInventory inv = (TileSimpleInventory) world.getTileEntity(pos);
 			InventoryHelper.dropInventory(inv, world, state, pos);
+			super.onReplaced(state, world, pos, newState, isMoving);
 		}
-
-		super.onReplaced(state, world, pos, newState, isMoving);
 	}
 
 	@Override

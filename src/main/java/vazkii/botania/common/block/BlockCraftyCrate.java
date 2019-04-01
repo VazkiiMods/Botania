@@ -37,19 +37,6 @@ public class BlockCraftyCrate extends BlockOpenCrate implements IWandHUD {
 		builder.add(BotaniaStateProps.CRATE_PATTERN);
 	}
 
-	/* todo 1.13
-	@Nonnull
-	@Override
-	public IBlockState getActualState(@Nonnull IBlockState state, IBlockReader world, BlockPos pos) {
-		TileEntity te = world instanceof ChunkCache ? ((ChunkCache)world).getTileEntity(pos, Chunk.EnumCreateEntityType.CHECK) : world.getTileEntity(pos);
-		if(te instanceof TileCraftCrate) {
-			TileCraftCrate tile = (TileCraftCrate) te;
-			state = state.with(BotaniaStateProps.CRATE_PATTERN, tile.pattern);
-		}
-
-		return state;
-	}*/
-
 	@Nonnull
 	@Override
 	public TileEntity createTileEntity(@Nonnull IBlockState state, @Nonnull IBlockReader world) {
@@ -83,8 +70,8 @@ public class BlockCraftyCrate extends BlockOpenCrate implements IWandHUD {
 					int yp = yc + i * 18;
 
 					boolean enabled = true;
-					if(craft.pattern != CratePattern.NONE)
-						enabled = craft.pattern.openSlots.get(index);
+					if(craft.getPattern() != CratePattern.NONE)
+						enabled = craft.getPattern().openSlots.get(index);
 
 					Gui.drawRect(xp, yp, xp + 16, yp + 16, enabled ? 0x22FFFFFF : 0x22FF0000);
 
