@@ -27,12 +27,8 @@ import net.minecraftforge.registries.IForgeRegistryEntry;
 import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.ILexiconable;
-import vazkii.botania.api.recipe.RecipeManaInfusion;
 import vazkii.botania.api.state.enums.LuminizerVariant;
 import vazkii.botania.api.subtile.SubTileEntity;
-import vazkii.botania.client.render.tile.RenderTileBrewery;
-import vazkii.botania.client.render.tile.RenderTileCorporeaCrystalCube;
-import vazkii.botania.client.render.tile.RenderTileCorporeaIndex;
 import vazkii.botania.client.render.tile.RenderTilePylon;
 import vazkii.botania.client.render.tile.TEISR;
 import vazkii.botania.common.block.corporea.BlockCorporeaCrystalCube;
@@ -118,7 +114,6 @@ import vazkii.botania.common.item.block.ItemBlockTinyPotato;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
-import vazkii.botania.common.lib.LibOreDict;
 
 import java.util.Locale;
 
@@ -282,7 +277,7 @@ public final class ModBlocks {
 	@ObjectHolder(LibBlockNames.AZULEJO_PREFIX + 15) public static Block azulejo15;
 	@ObjectHolder(LibBlockNames.ENDER_EYE_BLOCK) public static Block enderEye;
 	@ObjectHolder(LibBlockNames.STARFIELD) public static Block starfield;
-	@ObjectHolder(LibBlockNames.RF_GENERATOR) public static Block rfGenerator;
+	@ObjectHolder(LibBlockNames.FLUXFIELD) public static Block rfGenerator;
 	@ObjectHolder(LibBlockNames.ELF_GLASS) public static Block elfGlass;
 	@ObjectHolder(LibBlockNames.BREWERY) public static Block brewery;
 	@ObjectHolder(LibBlockNames.MANA_GLASS) public static Block manaGlass;
@@ -519,7 +514,7 @@ public final class ModBlocks {
 
 		register(r, new BlockEnderEye(Block.Properties.create(Material.IRON).hardnessAndResistance(3, 10).sound(SoundType.METAL)), LibBlockNames.ENDER_EYE_BLOCK);
 		register(r, new BlockStarfield(Block.Properties.create(Material.IRON).hardnessAndResistance(5, 2000).sound(SoundType.METAL)), LibBlockNames.STARFIELD);
-		register(r, new BlockRFGenerator(Block.Properties.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE)), LibBlockNames.RF_GENERATOR);
+		register(r, new BlockRFGenerator(Block.Properties.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE)), LibBlockNames.FLUXFIELD);
 		register(r, new BlockElfGlass(Block.Properties.create(Material.GLASS).hardnessAndResistance(0.3F).sound(SoundType.GLASS).lightValue(15)), LibBlockNames.ELF_GLASS);
 		register(r, new BlockBrewery(Block.Properties.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE)), LibBlockNames.BREWERY);
 		register(r, new BlockManaGlass(Block.Properties.create(Material.GLASS).hardnessAndResistance(0.3F).sound(SoundType.GLASS).lightValue(15)), LibBlockNames.MANA_GLASS);
@@ -868,7 +863,7 @@ public final class ModBlocks {
 		r.register(TileEntityType.Builder.create(TileSpawnerClaw::new).build(null).setRegistryName(LibMisc.MOD_ID, LibBlockNames.SPAWNER_CLAW));
 		r.register(TileEntityType.Builder.create(TileEnderEye::new).build(null).setRegistryName(LibMisc.MOD_ID, LibBlockNames.ENDER_EYE_BLOCK));
 		r.register(TileEntityType.Builder.create(TileStarfield::new).build(null).setRegistryName(LibMisc.MOD_ID, LibBlockNames.STARFIELD));
-		r.register(TileEntityType.Builder.create(TileRFGenerator::new).build(null).setRegistryName(LibMisc.MOD_ID, LibBlockNames.RF_GENERATOR));
+		r.register(TileEntityType.Builder.create(TileRFGenerator::new).build(null).setRegistryName(LibMisc.MOD_ID, LibBlockNames.FLUXFIELD));
 		r.register(TileEntityType.Builder.create(TileBrewery::new).build(null).setRegistryName(LibMisc.MOD_ID, LibBlockNames.BREWERY));
 		r.register(TileEntityType.Builder.create(TileTerraPlate::new).build(null).setRegistryName(LibMisc.MOD_ID, LibBlockNames.TERRA_PLATE));
 		r.register(TileEntityType.Builder.create(TileRedStringContainer::new).build(null).setRegistryName(LibMisc.MOD_ID, LibBlockNames.RED_STRING_CONTAINER));

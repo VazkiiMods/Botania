@@ -1,5 +1,5 @@
 {
   "variants": {
-    "": { "model": "botania:block/spreader_redstone" }
+    "": { "model": "botania:block/redstone_spreader" }
   }
 }

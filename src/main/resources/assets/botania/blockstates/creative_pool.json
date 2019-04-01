@@ -1,5 +1,5 @@
 {
   "variants": {
-    "": { "model": "botania:block/pool_creative" }
+    "": { "model": "botania:block/creative_pool" }
   }
 }

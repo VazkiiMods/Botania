@@ -1,5 +1,5 @@
 {
   "variants": {
-    "": { "model": "botania:block/force_relay" }
+    "": { "model": "botania:block/piston_relay" }
   }
 }

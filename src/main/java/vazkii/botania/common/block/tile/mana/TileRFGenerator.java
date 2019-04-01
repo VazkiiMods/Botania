@@ -30,7 +30,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class TileRFGenerator extends TileMod implements IManaReceiver, ITickable {
-	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.RF_GENERATOR)
+	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.FLUXFIELD)
 	public static TileEntityType<TileRFGenerator> TYPE;
 	private static final int MANA_TO_FE = 10;
 	private static final int MAX_ENERGY = 1280 * MANA_TO_FE;

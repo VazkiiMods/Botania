@@ -29,7 +29,7 @@ public final class LibBlockNames {
 	public static final String LIVING_WOOD_FRAMED = "framed_livingwood";
 	public static final String LIVING_WOOD_PATTERN_FRAMED = "pattern_framed_livingwood";
 	public static final String LIVING_WOOD_GLIMMERING = "glimmering_livingwood";
-	public static final String SPREADER = "spreader";
+	public static final String SPREADER = "mana_spreader";
 	public static final String SPREADER_REDSTONE = "redstone_spreader";
 	public static final String SPREADER_ELVEN = "elven_spreader";
 	public static final String SPREADER_GAIA = "gaia_spreader";
@@ -42,7 +42,7 @@ public final class LibBlockNames {
 	public static final String PYLON_NATURA = "natura_pylon";
 	public static final String PYLON_GAIA = "gaia_pylon";
 	public static final String PISTON_RELAY = "piston_relay";
-	public static final String DISTRIBUTOR = "distributor";
+	public static final String DISTRIBUTOR = "mana_distributor";
 	public static final String MANA_VOID = "mana_void";
 	public static final String MANA_DETECTOR = "mana_detector";
 	public static final String ENCHANTER = "enchanter";
@@ -84,7 +84,7 @@ public final class LibBlockNames {
 	public static final String AZULEJO_PREFIX = "azulejo_";
 	public static final String ENDER_EYE_BLOCK = "ender_eye_block";
 	public static final String STARFIELD = "starfield";
-	public static final String RF_GENERATOR = "rf_generator";
+	public static final String FLUXFIELD = "mana_fluxfield";
 	public static final String ELF_GLASS = "elf_glass";
 	public static final String BREWERY = "brewery";
 	public static final String MANA_GLASS = "mana_glass";

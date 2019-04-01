@@ -2,6 +2,6 @@
   "variants": {
     "type=bottom": { "model": "botania:block/slabs/yellow_pavement" },
     "type=top": { "model": "botania:block/slabs/yellow_pavement", "x": 180, "uvlock": true },
-    "type=double": { "model": "botania:block/pavement/yellow_pavement" }
+    "type=double": { "model": "botania:block/yellow_pavement" }
   }
 }

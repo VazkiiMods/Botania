@@ -40,6 +40,7 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.bauble.ItemBloodPendant;
 import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
 import vazkii.botania.common.item.lens.ItemLens;
+import vazkii.botania.common.item.material.ItemPetal;
 import vazkii.botania.common.lib.LibMisc;
 
 import java.awt.Color;
@@ -113,10 +114,11 @@ public final class ColorHandler {
 						: -1,
 						ModItems.twigWand);
 
-		IItemColor handler = (s, t) -> ((Item16Colors) s.getItem()).color.colorValue;
+		IItemColor petalHandler = (s, t) -> ((ItemPetal) s.getItem()).color.colorValue;
+		IItemColor dyeHandler = (s, t) -> ((Item16Colors) s.getItem()).color.colorValue;
 		for(EnumDyeColor color : EnumDyeColor.values()) {
-			items.register(handler, ModItems.getPetal(color));
-			items.register(handler, ModItems.getDye(color));
+			items.register(petalHandler, ModItems.getPetal(color));
+			items.register(dyeHandler, ModItems.getDye(color));
 		}
 
 		items.register((s, t) -> Minecraft.getInstance().getBlockColors().getColor(((ItemBlock)s.getItem()).getBlock().getDefaultState(), null, null, t),
@@ -171,8 +173,8 @@ public final class ColorHandler {
 
 		items.register((s, t) -> t == 1 && ItemTerraPick.isEnabled(s) ? Color.HSBtoRGB(0.375F, (float) Math.min(1F, Math.sin(Util.milliTime() / 200D) * 0.5 + 1F), 1F) : -1, ModItems.terraPick);
 
-		handler = (s, t) -> t == 0 ? ((ItemLens) s.getItem()).getLensColor(s) : -1;
-		items.register(handler, ModItems.lensNormal, ModItems.lensSpeed, ModItems.lensPower, ModItems.lensTime, ModItems.lensEfficiency, ModItems.lensBounce,
+		dyeHandler = (s, t) -> t == 0 ? ((ItemLens) s.getItem()).getLensColor(s) : -1;
+		items.register(dyeHandler, ModItems.lensNormal, ModItems.lensSpeed, ModItems.lensPower, ModItems.lensTime, ModItems.lensEfficiency, ModItems.lensBounce,
 				ModItems.lensGravity, ModItems.lensMine, ModItems.lensDamage, ModItems.lensPhantom, ModItems.lensMagnet,
 				ModItems.lensExplosive, ModItems.lensWeight, ModItems.lensPaint, ModItems.lensFire, ModItems.lensPiston,
 				ModItems.lensLight, ModItems.lensWarp, ModItems.lensRedirect, ModItems.lensFirework, ModItems.lensFlare,

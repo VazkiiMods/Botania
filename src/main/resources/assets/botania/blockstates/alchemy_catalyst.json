@@ -1,5 +1,5 @@
 {
   "variants": {
-    "": { "model": "botania:block/catalyst_alchemy" }
+    "": { "model": "botania:block/alchemy_catalyst" }
   }
 }

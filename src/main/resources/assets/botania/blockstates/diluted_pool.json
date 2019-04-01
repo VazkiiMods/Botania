@@ -1,5 +1,5 @@
 {
   "variants": {
-    "": { "model": "botania:block/pool_diluted" }
+    "": { "model": "botania:block/diluted_pool" }
   }
 }

@@ -1,5 +1,5 @@
 {
   "variants": {
-    "": { "model": "botania:block/manastorm_charge" }
+    "": { "model": "botania:block/mana_bomb" }
   }
 }

@@ -1,6 +1,5 @@
 {
   "variants": {
-    "powered=true":  { "model": "botania:block/spark_tinkerer" },
-    "powered=false": { "model": "botania:block/spark_tinkerer" }
+    "":  { "model": "botania:block/spark_tinkerer" }
   }
 }

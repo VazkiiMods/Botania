@@ -1,5 +1,5 @@
 {
   "variants": {
-    "": { "model": "botania:block/pool_default" }
+    "": { "model": "botania:block/mana_pool" }
   }
 }

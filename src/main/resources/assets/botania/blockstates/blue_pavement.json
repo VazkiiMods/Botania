@@ -1,5 +1,5 @@
 {
   "variants": {
-    "": { "model": "botania:block/pavement/blue_pavement" }
+    "": { "model": "botania:block/blue_pavement" }
   }
 }
