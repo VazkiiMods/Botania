@@ -23,6 +23,7 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import vazkii.botania.api.ColorHelper;
 import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.Item16Colors;
@@ -77,19 +78,20 @@ public class ItemDye extends Item16Colors {
 		return false;
 	}
 
-	// todo 1.13 yikes is there a better way?
 	private boolean shouldRecolor(Block block) {
-		if (block.getRegistryName().getNamespace().equals("minecraft")
-			&& (block.getRegistryName().getPath().contains("_carpet")
-				|| block.getRegistryName().getPath().contains("_wool"))) {
-			String blockColor = block.getRegistryName().getPath().split("_")[0];
-			return !blockColor.equals(this.color.getName());
-		}
+		EnumDyeColor woolColor = ColorHelper.WOOL_MAP.inverse().get(block);
+		if(woolColor != null)
+			return woolColor != this.color;
+
+		EnumDyeColor carpetColor = ColorHelper.CARPET_MAP.inverse().get(block);
+		if(carpetColor != null)
+			return carpetColor != this.color;
+
 		return false;
 	}
 
 	private IBlockState recolor(Block original, EnumDyeColor color) {
-		if (original.getRegistryName().getPath().contains("_carpet")) {
+		if (ColorHelper.CARPET_MAP.values().contains(original)) {
 			return ModBlocks.getCarpet(color).getDefaultState();
 		} else {
 			return ModBlocks.getWool(color).getDefaultState();

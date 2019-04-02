@@ -139,9 +139,6 @@ public class Botania {
 
 		BotaniaAPI.internalHandler = new InternalMethodHandler();
 
-		// todo 1.13 remove when event is fired
-		ColorHelper.idShift(new FMLModIdMappingEvent(Collections.emptyMap(), false));
-
 		PacketHandler.init();
 		ModBrews.init();
 		ModMultiblocks.init();

@@ -16,6 +16,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
@@ -27,6 +29,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.lwjgl.opengl.GL11;
@@ -42,7 +45,11 @@ import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibObfuscation;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class SubTileRannuncarpus extends SubTileFunctional {
@@ -78,21 +85,20 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 				if(stackItem instanceof ItemBlock || stackItem instanceof IFlowerPlaceable) {
 					if(!validPositions.isEmpty()) {
 						BlockPos coords = validPositions.get(supertile.getWorld().rand.nextInt(validPositions.size()));
-						ItemUseContext ctx = new ItemUseContext(supertile.getWorld(), null, stack, coords, EnumFacing.UP, 0, 0, 0);
+						BlockItemUseContext ctx = new RannuncarpusPlaceContext(supertile.getWorld(), stack, coords, EnumFacing.UP, 0, 0, 0);
 
 						boolean success = false;
 						if(stackItem instanceof IFlowerPlaceable) {
 							success = ((IFlowerPlaceable) stackItem).tryPlace(this, ctx);
 						} if(stackItem instanceof ItemBlock) {
-							success = stack.onItemUse(ctx) == EnumActionResult.SUCCESS;
+							success = ((ItemBlock) stackItem).tryPlace(ctx) == EnumActionResult.SUCCESS;
 						}
 
 						if(success) {
-							/* todo 1.13 no easy way to find out where it eventually got placed
 							if(ConfigHandler.COMMON.blockBreakParticles.get()) {
-								supertile.getWorld().playEvent(2001, coords, Block.getStateId(stateToPlace));
+								IBlockState state = supertile.getWorld().getBlockState(ctx.getPos());
+								supertile.getWorld().playEvent(2001, coords, Block.getStateId(state));
 							}
-							*/
 							validPositions.remove(coords);
 							if(mana > 1)
 								mana--;
@@ -185,6 +191,30 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 	public static class Mini extends SubTileRannuncarpus {
 		@Override public int getRange() { return mana > 0 ? RANGE_PLACE_MANA_MINI : RANGE_PLACE_MINI; }
 		@Override public int getRangeY() { return RANGE_PLACE_Y_MINI; }
+	}
+
+	// BlockItemUseContext uses a nullable player field without checking it -.-
+	private static class RannuncarpusPlaceContext extends BlockItemUseContext {
+		private final EnumFacing[] lookDirs;
+
+		public RannuncarpusPlaceContext(World world, ItemStack stack, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
+			super(world, null, stack, pos, side, hitX, hitY, hitZ);
+			List<EnumFacing> tmp = Arrays.asList(EnumFacing.values());
+			Collections.shuffle(tmp);
+			lookDirs = tmp.toArray(new EnumFacing[6]);
+		}
+
+		@Nonnull
+		@Override
+		public EnumFacing getNearestLookingDirection() {
+			return getNearestLookingDirections()[0];
+		}
+
+		@Nonnull
+		@Override
+		public EnumFacing[] getNearestLookingDirections() {
+		    return lookDirs;
+		}
 	}
 
 }

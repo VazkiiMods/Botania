@@ -492,7 +492,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 	@Override
 	public void setColor(EnumDyeColor color) {
 		this.color = color;
-		world.notifyBlockUpdate(pos, world.getBlockState(pos), world.getBlockState(pos), 0b1011);
+		world.notifyBlockUpdate(pos, getBlockState(), getBlockState(), 3);
 	}
 
 	@Override

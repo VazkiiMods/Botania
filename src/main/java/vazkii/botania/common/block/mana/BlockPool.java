@@ -63,15 +63,7 @@ public class BlockPool extends BlockMod implements IWandHUD, IWandable, ILexicon
 
 	public BlockPool(Variant v, Properties builder) {
 		super(builder);
-		setDefaultState(stateContainer.getBaseState()
-				.with(BotaniaStateProps.COLOR, EnumDyeColor.WHITE));
 		this.variant = v;
-	}
-
-	@Override
-	protected void fillStateContainer(StateContainer.Builder<Block, IBlockState> builder) {
-		// todo 1.13 move to extended state replacement
-		builder.add(BotaniaStateProps.COLOR);
 	}
 
 	@Nonnull

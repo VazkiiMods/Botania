@@ -9,10 +9,7 @@
  * File Created @ [17/11/2015, 20:10:53 (GMT)]
  */
 package vazkii.botania.api.item;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUseContext;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.item.BlockItemUseContext;
 import vazkii.botania.api.subtile.SubTileEntity;
 
 /**
@@ -24,5 +21,5 @@ public interface IFlowerPlaceable {
      * @param ctx The placement context, aiming downwards towards the downward neighbor position
 	 * @return Whether the block was placed successfully
 	 */
-	boolean tryPlace(SubTileEntity flower, ItemUseContext ctx);
+	boolean tryPlace(SubTileEntity flower, BlockItemUseContext ctx);
 }

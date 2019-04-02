@@ -63,7 +63,13 @@ public final class ColorHandler {
 						float time = ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks;
 						return Color.HSBtoRGB(time * 0.005F, 0.6F, 1F);
 					} else {
-						return state.get(BotaniaStateProps.COLOR).colorValue;
+						if(world != null && pos != null) {
+							TileEntity te = world.getTileEntity(pos);
+							if(te instanceof TilePool) {
+								return ((TilePool) te).color.colorValue;
+							}
+						}
+						return EnumDyeColor.WHITE.colorValue;
 					}
 				},
 				ModBlocks.manaPool, ModBlocks.creativePool, ModBlocks.dilutedPool, ModBlocks.fabulousPool
