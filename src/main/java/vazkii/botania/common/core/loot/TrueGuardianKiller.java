@@ -21,7 +21,7 @@ public class TrueGuardianKiller implements LootCondition {
 	}
 
 	public static class Serializer extends LootCondition.Serializer<TrueGuardianKiller> {
-		protected Serializer() {
+		public Serializer() {
 			super(new ResourceLocation(LibMisc.MOD_ID, "true_guardian_killer"), TrueGuardianKiller.class);
 		}
 

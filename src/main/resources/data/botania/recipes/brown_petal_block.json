@@ -11,8 +11,7 @@
   "group": "botania:petal_block",
   "key": {
     "P": {
-      "item": "botania:petal",
-      "data": 12
+      "item": "botania:brown_petal"
     }
   }
 }

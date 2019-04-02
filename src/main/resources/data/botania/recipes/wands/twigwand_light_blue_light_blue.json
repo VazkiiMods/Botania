@@ -1,7 +1,6 @@
 {
   "result": {
     "item": "botania:twig_wand",
-    "data": 0,
     "nbt": "{color1:3,color2:3}"
   },
   "pattern": [
@@ -12,10 +11,10 @@
   "type": "minecraft:crafting_shaped",
   "key": {
     "A": {
-      "tag": "botania:petals/lightblue"
+      "tag": "botania:petals/light_blue"
     },
     "B": {
-      "tag": "botania:petals/lightblue"
+      "tag": "botania:petals/light_blue"
     },
     "S": {
       "item": "botania:livingwood_twig"

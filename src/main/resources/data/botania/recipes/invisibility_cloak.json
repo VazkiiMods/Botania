@@ -1,6 +1,6 @@
 {
   "result": {
-    "item": "botania:invisibilitycloak"
+    "item": "botania:invisibility_cloak"
   },
   "pattern": [
     "CWC",
@@ -16,11 +16,10 @@
       "item": "minecraft:prismarine_crystals"
     },
     "W": {
-      "item": "minecraft:wool",
-      "data": 0
+      "item": "minecraft:white_wool"
     },
     "G": {
-      "item": "botania:managlass"
+      "item": "botania:mana_glass"
     }
   }
 }

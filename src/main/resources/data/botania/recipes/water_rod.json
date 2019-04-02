@@ -10,7 +10,7 @@
   "type": "minecraft:crafting_shaped",
   "key": {
     "B": {
-      "type": "minecraft:item_nbt",
+      "type": "forge:nbt",
       "item": "minecraft:potion",
       "nbt": {
         "Potion": "minecraft:water"

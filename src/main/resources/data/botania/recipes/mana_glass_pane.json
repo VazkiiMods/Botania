@@ -1,6 +1,6 @@
 {
   "result": {
-    "item": "botania:managlasspane",
+    "item": "botania:mana_glass_pane",
     "count": 16
   },
   "pattern": [
@@ -10,7 +10,7 @@
   "type": "minecraft:crafting_shaped",
   "key": {
     "B": {
-      "item": "botania:managlass"
+      "item": "botania:mana_glass"
     }
   }
 }

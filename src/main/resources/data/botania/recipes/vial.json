@@ -10,7 +10,7 @@
   "type": "minecraft:crafting_shaped",
   "key": {
     "G": {
-      "item": "botania:managlass"
+      "item": "botania:mana_glass"
     }
   }
 }

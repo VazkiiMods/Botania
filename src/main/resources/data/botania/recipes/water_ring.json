@@ -10,12 +10,10 @@
   "type": "minecraft:crafting_shaped",
   "key": {
     "P": {
-      "item": "minecraft:fish",
-      "data": 3
+      "item": "minecraft:pufferfish"
     },
     "S": {
-      "item": "minecraft:fish",
-      "data": 1
+      "item": "minecraft:salmon"
     },
     "W": {
       "tag": "botania:runes/water"

@@ -20,6 +20,8 @@ import net.minecraft.entity.item.EntityEnderCrystal;
 import net.minecraft.entity.item.EntityItemFrame;
 import net.minecraft.entity.item.EntityPainting;
 import net.minecraft.item.crafting.RecipeSerializers;
+import net.minecraft.world.storage.loot.conditions.LootConditionManager;
+import net.minecraft.world.storage.loot.functions.LootFunctionManager;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.DistExecutor;
@@ -56,7 +58,10 @@ import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.IMCHandler;
 import vazkii.botania.common.core.handler.InternalMethodHandler;
 import vazkii.botania.common.core.handler.ManaNetworkHandler;
+import vazkii.botania.common.core.loot.BindUuid;
+import vazkii.botania.common.core.loot.EnableRelics;
 import vazkii.botania.common.core.loot.LootHandler;
+import vazkii.botania.common.core.loot.TrueGuardianKiller;
 import vazkii.botania.common.core.proxy.IProxy;
 import vazkii.botania.common.core.proxy.ServerProxy;
 import vazkii.botania.common.crafting.ModBrewRecipes;
@@ -173,6 +178,10 @@ public class Botania {
 				new WorldTypeSkyblock();
 
 			ModBanners.init();
+
+			LootConditionManager.registerCondition(new TrueGuardianKiller.Serializer());
+			LootConditionManager.registerCondition(new EnableRelics.Serializer());
+			LootFunctionManager.registerFunction(new BindUuid.Serializer());
 
 			CriteriaTriggers.register(AlfPortalTrigger.INSTANCE);
 			CriteriaTriggers.register(CorporeaRequestTrigger.INSTANCE);

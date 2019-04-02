@@ -32,7 +32,7 @@ public class BindUuid extends LootFunction {
 	}
 
 	public static class Serializer extends LootFunction.Serializer<BindUuid> {
-		protected Serializer() {
+		public Serializer() {
 			super(new ResourceLocation(LibMisc.MOD_ID, "bind_uuid"), BindUuid.class);
 		}
 

@@ -1,7 +1,6 @@
 {
   "result": {
     "item": "botania:twig_wand",
-    "data": 0,
     "nbt": "{color1:12,color2:3}"
   },
   "pattern": [
@@ -15,7 +14,7 @@
       "tag": "botania:petals/brown"
     },
     "B": {
-      "tag": "botania:petals/lightblue"
+      "tag": "botania:petals/light_blue"
     },
     "S": {
       "item": "botania:livingwood_twig"

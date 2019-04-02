@@ -20,7 +20,7 @@ public class EnableRelics implements LootCondition {
 	}
 
 	public static class Serializer extends LootCondition.Serializer<EnableRelics> {
-		protected Serializer() {
+		public Serializer() {
 			super(new ResourceLocation(LibMisc.MOD_ID, "enable_relics"), EnableRelics.class);
 		}
 
