@@ -110,8 +110,7 @@ public class ItemBlackHoleTalisman extends ItemMod implements IBlockProvider {
 			} else {
 				if(player == null || player.abilities.isCreativeMode || getBlockCount(stack) > 0) {
 					ItemStack toUse = new ItemStack(bBlock);
-					// todo 1.13 need the protected constructor probably
-					ItemUseContext newCtx = new ItemUseContext(ctx.getPlayer(), stack, pos, side, ctx.getHitX(), ctx.getHitY(), ctx.getHitZ());
+					ItemUseContext newCtx = new ItemUseContext(world, ctx.getPlayer(), stack, pos, side, ctx.getHitX(), ctx.getHitY(), ctx.getHitZ());
 					EnumActionResult result = toUse.getItem().onItemUse(newCtx);
 
 					if (result == EnumActionResult.SUCCESS) {
@@ -261,11 +260,11 @@ public class ItemBlackHoleTalisman extends ItemMod implements IBlockProvider {
 
 	@Nullable
 	public static Block getBlock(ItemStack stack) {
-		try {
-			return IRegistry.BLOCK.get(new ResourceLocation(getBlockName(stack)));
-		} catch (ResourceLocationException ex) {
-			return null;
+		ResourceLocation id = ResourceLocation.tryCreate(getBlockName(stack));
+		if(id != null) {
+			return ForgeRegistries.BLOCKS.getValue(id);
 		}
+		return null;
 	}
 
 	public static int getBlockCount(ItemStack stack) {

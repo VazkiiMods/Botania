@@ -40,6 +40,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
+import net.minecraftforge.registries.ForgeRegistries;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileCacophonium;
@@ -166,7 +167,7 @@ public class ItemCacophonium extends ItemMod {
 			return ModSounds.doit;
 		else {
 			try {
-				return IRegistry.SOUND_EVENT.get(new ResourceLocation(ItemNBTHelper.getString(stack, TAG_SOUND, "")));
+				return ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation(ItemNBTHelper.getString(stack, TAG_SOUND, "")));
 			} catch (ResourceLocationException ex) {
 				return null;
 			}

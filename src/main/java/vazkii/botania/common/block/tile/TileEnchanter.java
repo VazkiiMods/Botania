@@ -38,6 +38,7 @@ import net.minecraft.util.registry.IRegistry;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
@@ -365,7 +366,7 @@ public class TileEnchanter extends TileMod implements ISparkAttachable, ITickabl
 		cmp.put(TAG_ITEM, itemCmp);
 
 		String enchStr = enchants.stream()
-				.map(e -> IRegistry.ENCHANTMENT.getKey(e.enchantment) + "=" + e.enchantmentLevel)
+				.map(e -> ForgeRegistries.ENCHANTMENTS.getKey(e.enchantment) + "=" + e.enchantmentLevel)
 				.collect(Collectors.joining(","));
 		cmp.putString(TAG_ENCHANTS, enchStr);
 	}
@@ -388,7 +389,7 @@ public class TileEnchanter extends TileMod implements ISparkAttachable, ITickabl
 			for(String token : enchTokens) {
 				try {
 					String[] entryTokens = token.split("=");
-					Enchantment ench = IRegistry.ENCHANTMENT.get(new ResourceLocation(entryTokens[0]));
+					Enchantment ench = ForgeRegistries.ENCHANTMENTS.getValue(new ResourceLocation(entryTokens[0]));
 					int lvl = Integer.parseInt(entryTokens[1]);
 					enchants.add(new EnchantmentData(ench, lvl));
 				} catch (ResourceLocationException ignored) {}
