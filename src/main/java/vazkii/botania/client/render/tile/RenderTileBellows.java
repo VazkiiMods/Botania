@@ -14,6 +14,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.util.ResourceLocation;
+import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelBellows;
 import vazkii.botania.common.block.ModBlocks;
@@ -22,11 +23,6 @@ import vazkii.botania.common.block.tile.mana.TileBellows;
 import javax.annotation.Nullable;
 
 public class RenderTileBellows extends TileEntityRenderer<TileBellows> {
-
-	private static final float[] ROTATIONS = new float[] {
-			180F, 0F, 90F, 270F
-	};
-
 	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_BELLOWS);
 	private static final ModelBellows model = new ModelBellows();
 
@@ -43,11 +39,19 @@ public class RenderTileBellows extends TileEntityRenderer<TileBellows> {
 		GlStateManager.translated(d0, d1, d2);
 
 		Minecraft.getInstance().textureManager.bindTexture(texture);
-		int meta = 0; // todo 1.13 bellows != null && bellows.getWorld() != null ? bellows.getBlockMetadata() : 0;
 
 		GlStateManager.translatef(0.5F, 1.5F, 0.5F);
 		GlStateManager.scalef(1F, -1F, -1F);
-		GlStateManager.rotatef(ROTATIONS[Math.max(Math.min(ROTATIONS.length, meta - 2), 0)], 0F, 1F, 0F);
+		float angle = 0;
+		if(bellows != null) {
+			switch(bellows.getBlockState().get(BotaniaStateProps.CARDINALS)) {
+				case SOUTH: break;
+				case NORTH: angle = 180F; break;
+				case EAST: angle = 270F; break;
+				case WEST: angle = 90F; break;
+			}
+		}
+		GlStateManager.rotatef(angle, 0F, 1F, 0F);
 		model.render(Math.max(0.1F, 1F - (bellows == null ? 0 : bellows.movePos + bellows.moving * f + 0.1F)));
 		GlStateManager.color3f(1F, 1F, 1F);
 		GlStateManager.scalef(1F, -1F, -1F);

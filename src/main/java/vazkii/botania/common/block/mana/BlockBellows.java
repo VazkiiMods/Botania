@@ -59,7 +59,7 @@ public class BlockBellows extends BlockMod implements ILexiconable {
 
 	@Override
 	public IBlockState getStateForPlacement(BlockItemUseContext context) {
-		return getDefaultState().with(BotaniaStateProps.CARDINALS, context.getNearestLookingDirection().getOpposite());
+		return getDefaultState().with(BotaniaStateProps.CARDINALS, context.getPlacementHorizontalFacing());
 	}
 
 	@Override

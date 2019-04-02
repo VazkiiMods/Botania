@@ -85,7 +85,7 @@ public class BlockTinyPotato extends BlockMod implements ILexiconable {
 
 	@Override
 	public IBlockState getStateForPlacement(BlockItemUseContext ctx) {
-		return getDefaultState().with(BotaniaStateProps.CARDINALS, ctx.getNearestLookingDirection().getOpposite());
+		return getDefaultState().with(BotaniaStateProps.CARDINALS, ctx.getPlacementHorizontalFacing().getOpposite());
 	}
 
 	@Override
