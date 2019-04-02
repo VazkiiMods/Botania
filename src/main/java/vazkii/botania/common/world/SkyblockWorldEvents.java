@@ -12,14 +12,19 @@ package vazkii.botania.common.world;
 
 import com.google.common.collect.ImmutableSet;
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.Tag;
 import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
@@ -36,6 +41,7 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileManaFlame;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
+import vazkii.botania.common.lib.LibMisc;
 
 import java.awt.Color;
 
@@ -48,6 +54,7 @@ public final class SkyblockWorldEvents {
 	private static final String TAG_ISLAND_X = "Botania-IslandX";
 	private static final String TAG_ISLAND_Y = "Botania-IslandY";
 	private static final String TAG_ISLAND_Z = "Botania-IslandZ";
+	private static final Tag<Block> PEBBLE_SOURCES = new BlockTags.Wrapper(new ResourceLocation(LibMisc.MOD_ID, "pebble_sources"));
 
 	@SubscribeEvent
 	public static void onPlayerUpdate(LivingUpdateEvent event) {
@@ -78,17 +85,18 @@ public final class SkyblockWorldEvents {
 		if(Botania.gardenOfGlassLoaded) {
 			ItemStack equipped = event.getItemStack();
 			if(equipped.isEmpty() && event.getEntityPlayer().isSneaking()) {
-				Block block = event.getWorld().getBlockState(event.getPos()).getBlock();
-				// FIXME 1.13 use a tag and readd the alt grasses
-				if(ImmutableSet.of(Blocks.GRASS, Blocks.GRASS_PATH, Blocks.FARMLAND, Blocks.DIRT/*, ModBlocks.altGrass*/).contains(block)) {
-					if(event.getWorld().isRemote)
-						event.getEntityPlayer().swingArm(event.getHand());
-					else {
-						event.getWorld().playSound(null, event.getPos(), block.getSoundType().getBreakSound(), SoundCategory.BLOCKS, block.getSoundType().getVolume() * 0.4F, block.getSoundType().getPitch() + (float) (Math.random() * 0.2 - 0.1));
+				IBlockState state = event.getWorld().getBlockState(event.getPos());
+				Block block = state.getBlock();
+				EntityPlayer player = event.getEntityPlayer();
 
-						if(Math.random() < 0.8)
-							event.getEntityPlayer().dropItem(new ItemStack(ModItems.pebble), false);
-					}
+				if(PEBBLE_SOURCES.contains(block)) {
+					SoundType st = state.getSoundType(event.getWorld(), event.getPos(), player);
+					player.playSound(st.getBreakSound(), st.getVolume() * 0.4F, st.getPitch() + (float) (Math.random() * 0.2 - 0.1));
+
+					if(event.getWorld().isRemote)
+						player.swingArm(event.getHand());
+					else if(Math.random() < 0.8)
+						event.getEntityPlayer().dropItem(new ItemStack(ModItems.pebble), false);
 
 					event.setCanceled(true);
 					event.setCancellationResult(EnumActionResult.SUCCESS);
