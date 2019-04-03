@@ -19,8 +19,7 @@
       "item": "minecraft:ender_eye"
     },
     {
-      "item": "minecraft:skull",
-      "data": 2
+      "item": "minecraft:zombie_head"
     }
   ],
   "type": "minecraft:crafting_shapeless"

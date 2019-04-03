@@ -1,0 +1,18 @@
+{
+  "result": {
+    "item": "botania:orange_shiny_flower"
+  },
+  "group": "botania:shinyflower",
+  "ingredients": [
+    {
+      "tag": "forge:dusts/glowstone"
+    },
+    {
+      "tag": "forge:dusts/glowstone"
+    },
+    {
+      "tag": "botania:flowers/orange"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}

@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "botania:mana_pylon"
+  },
+  "pattern": [
+    " G ",
+    "MDM",
+    " G "
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "D": {
+      "tag": "forge:gems/mana_diamond"
+    },
+    "G": {
+      "tag": "forge:ingots/gold"
+    },
+    "M": {
+      "tag": "forge:ingots/manasteel"
+    }
+  }
+}

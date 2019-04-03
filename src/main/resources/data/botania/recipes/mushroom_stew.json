@@ -4,12 +4,10 @@
   },
   "ingredients": [
     {
-      "item": "botania:mushroom",
-      "data": 32767
+      "constant": "botania:all_mushrooms"
     },
     {
-      "item": "botania:mushroom",
-      "data": 32767
+      "constant": "botania:all_mushrooms"
     },
     {
       "item": "minecraft:bowl"

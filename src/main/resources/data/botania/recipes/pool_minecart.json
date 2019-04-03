@@ -1,0 +1,14 @@
+{
+  "result": {
+    "item": "botania:pool_minecart"
+  },
+  "ingredients": [
+    {
+      "item": "minecraft:minecart"
+    },
+    {
+      "item": "botania:mana_pool"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}

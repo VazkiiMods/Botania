@@ -1,0 +1,15 @@
+{
+  "result": {
+    "item": "botania:fabulous_pool"
+  },
+  "pattern": [
+    "R R",
+    "RRR"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "R": {
+      "item": "botania:shimmerrock"
+    }
+  }
+}

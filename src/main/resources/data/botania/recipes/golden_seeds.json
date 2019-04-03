@@ -1,0 +1,15 @@
+{
+  "result": {
+    "item": "botania:golden_seeds"
+  },
+  "group": "botania:seeds",
+  "ingredients": [
+    {
+      "item": "botania:grass_seeds"
+    },
+    {
+      "item": "minecraft:wheat"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}

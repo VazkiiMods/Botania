@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "botania:natura_pylon"
+  },
+  "pattern": [
+    " T ",
+    "TPT",
+    " E "
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "P": {
+      "item": "botania:pylon_mana"
+    },
+    "T": {
+      "tag": "forge:nuggets/terrasteel"
+    },
+    "E": {
+      "item": "minecraft:ender_eye"
+    }
+  }
+}

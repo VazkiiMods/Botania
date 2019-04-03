@@ -1,0 +1,19 @@
+{
+  "result": {
+    "item": "botania:pixie_ring"
+  },
+  "pattern": [
+    "DE ",
+    "E E",
+    " E "
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "D": {
+      "item": "botania:pixie_dust"
+    },
+    "E": {
+      "tag": "forge:ingots/elementium"
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "result": {
+    "item": "botania:shimmerwood_planks"
+  },
+  "ingredients": [
+    {
+      "item": "botania:dreamwood_planks"
+    },
+    {
+      "item": "botania:bifrost_perm"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}

@@ -1,0 +1,25 @@
+{
+  "result": {
+    "item": "botania:super_lava_pendant"
+  },
+  "pattern": [
+    "BBB",
+    "BPB",
+    "NGN"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "P": {
+      "item": "botania:lava_pendant"
+    },
+    "B": {
+      "item": "minecraft:blaze_rod"
+    },
+    "G": {
+      "item": "botania:life_essence"
+    },
+    "N": {
+      "item": "minecraft:nether_brick"
+    }
+  }
+}

@@ -22,6 +22,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.lexicon.ILexiconable;
+import vazkii.botania.common.block.decor.BlockBiomeStone;
 import vazkii.botania.common.block.decor.panes.BlockModPane;
 import vazkii.botania.common.block.decor.quartz.BlockSpecialQuartzPillar;
 import vazkii.botania.common.block.decor.quartz.BlockElfQuartzSlab;
@@ -111,6 +112,8 @@ public final class ModFluffBlocks {
 	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "forest_stone" + SLAB_SUFFIX) public static Block biomeStoneForestSlab;
 	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "forest_stone" + STAIR_SUFFIX) public static Block biomeStoneForestStairs;
 	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "forest_cobblestone") public static Block biomeCobblestoneForest;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "forest_cobblestone" + SLAB_SUFFIX) public static Block biomeCobblestoneForestSlab;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "forest_cobblestone" + STAIR_SUFFIX) public static Block biomeCobblestoneForestStairs;
 	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "forest_cobblestone" + WALL_SUFFIX) public static Block biomeWallForest;
 	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "forest_bricks") public static Block biomeBrickForest;
 	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "forest_bricks" + SLAB_SUFFIX) public static Block biomeBrickForestSlab;
@@ -121,6 +124,8 @@ public final class ModFluffBlocks {
 	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "plains_stone" + SLAB_SUFFIX) public static Block biomeStonePlainsSlab;
 	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "plains_stone" + STAIR_SUFFIX) public static Block biomeStonePlainsStairs;
 	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "plains_cobblestone") public static Block biomeCobblestonePlains;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "plains_cobblestone" + SLAB_SUFFIX) public static Block biomeCobblestonePlainsSlab;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "plains_cobblestone" + STAIR_SUFFIX) public static Block biomeCobblestonePlainsStairs;
 	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "plains_cobblestone" + WALL_SUFFIX) public static Block biomeWallPlains;
 	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "plains_bricks") public static Block biomeBrickPlains;
 	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "plains_bricks" + SLAB_SUFFIX) public static Block biomeBrickPlainsSlab;
@@ -131,6 +136,8 @@ public final class ModFluffBlocks {
 	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "mountain_stone" + SLAB_SUFFIX) public static Block biomeStoneMountainSlab;
 	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "mountain_stone" + STAIR_SUFFIX) public static Block biomeStoneMountainStairs;
 	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "mountain_cobblestone") public static Block biomeCobblestoneMountain;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "mountain_cobblestone" + SLAB_SUFFIX) public static Block biomeCobblestoneMountainSlab;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "mountain_cobblestone" + STAIR_SUFFIX) public static Block biomeCobblestoneMountainStairs;
 	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "mountain_cobblestone" + WALL_SUFFIX) public static Block biomeWallMountain;
 	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "mountain_bricks") public static Block biomeBrickMountain;
 	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "mountain_bricks" + SLAB_SUFFIX) public static Block biomeBrickMountainSlab;
@@ -141,6 +148,8 @@ public final class ModFluffBlocks {
 	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "fungal_stone" + SLAB_SUFFIX) public static Block biomeStoneFungalSlab;
 	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "fungal_stone" + STAIR_SUFFIX) public static Block biomeStoneFungalStairs;
 	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "fungal_cobblestone") public static Block biomeCobblestoneFungal;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "fungal_cobblestone" + SLAB_SUFFIX) public static Block biomeCobblestoneFungalSlab;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "fungal_cobblestone" + STAIR_SUFFIX) public static Block biomeCobblestoneFungalStairs;
 	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "fungal_cobblestone" + WALL_SUFFIX) public static Block biomeWallFungal;
 	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "fungal_bricks") public static Block biomeBrickFungal;
 	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "fungal_bricks" + SLAB_SUFFIX) public static Block biomeBrickFungalSlab;
@@ -151,6 +160,8 @@ public final class ModFluffBlocks {
 	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "swamp_stone" + SLAB_SUFFIX) public static Block biomeStoneSwampSlab;
 	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "swamp_stone" + STAIR_SUFFIX) public static Block biomeStoneSwampStairs;
 	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "swamp_cobblestone") public static Block biomeCobblestoneSwamp;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "swamp_cobblestone" + SLAB_SUFFIX) public static Block biomeCobblestoneSwampSlab;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "swamp_cobblestone" + STAIR_SUFFIX) public static Block biomeCobblestoneSwampStairs;
 	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "swamp_cobblestone" + WALL_SUFFIX) public static Block biomeWallSwamp;
 	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "swamp_bricks") public static Block biomeBrickSwamp;
 	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "swamp_bricks" + SLAB_SUFFIX) public static Block biomeBrickSwampSlab;
@@ -161,6 +172,8 @@ public final class ModFluffBlocks {
 	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "desert_stone" + SLAB_SUFFIX) public static Block biomeStoneDesertSlab;
 	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "desert_stone" + STAIR_SUFFIX) public static Block biomeStoneDesertStairs;
 	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "desert_cobblestone") public static Block biomeCobblestoneDesert;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "desert_cobblestone" + SLAB_SUFFIX) public static Block biomeCobblestoneDesertSlab;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "desert_cobblestone" + STAIR_SUFFIX) public static Block biomeCobblestoneDesertStairs;
 	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "desert_cobblestone" + WALL_SUFFIX) public static Block biomeWallDesert;
 	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "desert_bricks") public static Block biomeBrickDesert;
 	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "desert_bricks" + SLAB_SUFFIX) public static Block biomeBrickDesertSlab;
@@ -171,6 +184,8 @@ public final class ModFluffBlocks {
 	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "taiga_stone" + SLAB_SUFFIX) public static Block biomeStoneTaigaSlab;
 	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "taiga_stone" + STAIR_SUFFIX) public static Block biomeStoneTaigaStairs;
 	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "taiga_cobblestone") public static Block biomeCobblestoneTaiga;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "taiga_cobblestone" + SLAB_SUFFIX) public static Block biomeCobblestoneTaigaSlab;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "taiga_cobblestone" + STAIR_SUFFIX) public static Block biomeCobblestoneTaigaStairs;
 	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "taiga_cobblestone" + WALL_SUFFIX) public static Block biomeWallTaiga;
 	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "taiga_bricks") public static Block biomeBrickTaiga;
 	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "taiga_bricks" + SLAB_SUFFIX) public static Block biomeBrickTaigaSlab;
@@ -181,6 +196,8 @@ public final class ModFluffBlocks {
 	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "mesa_stone" + SLAB_SUFFIX) public static Block biomeStoneMesaSlab;
 	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "mesa_stone" + STAIR_SUFFIX) public static Block biomeStoneMesaStairs;
 	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "mesa_cobblestone") public static Block biomeCobblestoneMesa;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "mesa_cobblestone" + SLAB_SUFFIX) public static Block biomeCobblestoneMesaSlab;
+	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "mesa_cobblestone" + STAIR_SUFFIX) public static Block biomeCobblestoneMesaStairs;
 	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "mesa_cobblestone" + WALL_SUFFIX) public static Block biomeWallMesa;
 	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "mesa_bricks") public static Block biomeBrickMesa;
 	@ObjectHolder(LibBlockNames.METAMORPHIC_PREFIX + "mesa_bricks" + SLAB_SUFFIX) public static Block biomeBrickMesaSlab;
@@ -313,7 +330,7 @@ public final class ModFluffBlocks {
 				"swamp", "desert", "taiga", "mesa"
 		};
 		for (String variant : variants) {
-			base = new BlockModLexiconable(props, marimorph);
+			base = new BlockBiomeStone(props);
 			register(r, base, LibBlockNames.METAMORPHIC_PREFIX + variant + "_stone");
 			register(r, new BlockBiomeStoneStairs(base.getDefaultState(), props), base.getRegistryName().getPath() + STAIR_SUFFIX);
 			register(r, new BlockBiomeStoneSlab(props), base.getRegistryName().getPath() + SLAB_SUFFIX);
@@ -424,6 +441,8 @@ public final class ModFluffBlocks {
 		r.register(new ItemBlockMod(biomeBrickForestSlab, props).setRegistryName(biomeBrickForestSlab.getRegistryName()));
 		r.register(new ItemBlockMod(biomeBrickForestStairs, props).setRegistryName(biomeBrickForestStairs.getRegistryName()));
 		r.register(new ItemBlockMod(biomeCobblestoneForest, props).setRegistryName(biomeCobblestoneForest.getRegistryName()));
+		r.register(new ItemBlockMod(biomeCobblestoneForestSlab, props).setRegistryName(biomeCobblestoneForestSlab.getRegistryName()));
+		r.register(new ItemBlockMod(biomeCobblestoneForestStairs, props).setRegistryName(biomeCobblestoneForestStairs.getRegistryName()));
 		r.register(new ItemBlockMod(biomeWallForest, props).setRegistryName(biomeWallForest.getRegistryName()));
 		r.register(new ItemBlockMod(biomeChiseledBrickForest, props).setRegistryName(biomeChiseledBrickForest.getRegistryName()));
 
@@ -434,6 +453,8 @@ public final class ModFluffBlocks {
 		r.register(new ItemBlockMod(biomeBrickPlainsSlab, props).setRegistryName(biomeBrickPlainsSlab.getRegistryName()));
 		r.register(new ItemBlockMod(biomeBrickPlainsStairs, props).setRegistryName(biomeBrickPlainsStairs.getRegistryName()));
 		r.register(new ItemBlockMod(biomeCobblestonePlains, props).setRegistryName(biomeCobblestonePlains.getRegistryName()));
+		r.register(new ItemBlockMod(biomeCobblestonePlainsSlab, props).setRegistryName(biomeCobblestonePlainsSlab.getRegistryName()));
+		r.register(new ItemBlockMod(biomeCobblestonePlainsStairs, props).setRegistryName(biomeCobblestonePlainsStairs.getRegistryName()));
 		r.register(new ItemBlockMod(biomeWallPlains, props).setRegistryName(biomeWallPlains.getRegistryName()));
 		r.register(new ItemBlockMod(biomeChiseledBrickPlains, props).setRegistryName(biomeChiseledBrickPlains.getRegistryName()));
 
@@ -444,6 +465,8 @@ public final class ModFluffBlocks {
 		r.register(new ItemBlockMod(biomeBrickMountainSlab, props).setRegistryName(biomeBrickMountainSlab.getRegistryName()));
 		r.register(new ItemBlockMod(biomeBrickMountainStairs, props).setRegistryName(biomeBrickMountainStairs.getRegistryName()));
 		r.register(new ItemBlockMod(biomeCobblestoneMountain, props).setRegistryName(biomeCobblestoneMountain.getRegistryName()));
+		r.register(new ItemBlockMod(biomeCobblestoneMountainSlab, props).setRegistryName(biomeCobblestoneMountainSlab.getRegistryName()));
+		r.register(new ItemBlockMod(biomeCobblestoneMountainStairs, props).setRegistryName(biomeCobblestoneMountainStairs.getRegistryName()));
 		r.register(new ItemBlockMod(biomeWallMountain, props).setRegistryName(biomeWallMountain.getRegistryName()));
 		r.register(new ItemBlockMod(biomeChiseledBrickMountain, props).setRegistryName(biomeChiseledBrickMountain.getRegistryName()));
 
@@ -454,6 +477,8 @@ public final class ModFluffBlocks {
 		r.register(new ItemBlockMod(biomeBrickFungalSlab, props).setRegistryName(biomeBrickFungalSlab.getRegistryName()));
 		r.register(new ItemBlockMod(biomeBrickFungalStairs, props).setRegistryName(biomeBrickFungalStairs.getRegistryName()));
 		r.register(new ItemBlockMod(biomeCobblestoneFungal, props).setRegistryName(biomeCobblestoneFungal.getRegistryName()));
+		r.register(new ItemBlockMod(biomeCobblestoneFungalSlab, props).setRegistryName(biomeCobblestoneFungalSlab.getRegistryName()));
+		r.register(new ItemBlockMod(biomeCobblestoneFungalStairs, props).setRegistryName(biomeCobblestoneFungalStairs.getRegistryName()));
 		r.register(new ItemBlockMod(biomeWallFungal, props).setRegistryName(biomeWallFungal.getRegistryName()));
 		r.register(new ItemBlockMod(biomeChiseledBrickFungal, props).setRegistryName(biomeChiseledBrickFungal.getRegistryName()));
 
@@ -464,6 +489,8 @@ public final class ModFluffBlocks {
 		r.register(new ItemBlockMod(biomeBrickSwampSlab, props).setRegistryName(biomeBrickSwampSlab.getRegistryName()));
 		r.register(new ItemBlockMod(biomeBrickSwampStairs, props).setRegistryName(biomeBrickSwampStairs.getRegistryName()));
 		r.register(new ItemBlockMod(biomeCobblestoneSwamp, props).setRegistryName(biomeCobblestoneSwamp.getRegistryName()));
+		r.register(new ItemBlockMod(biomeCobblestoneSwampSlab, props).setRegistryName(biomeCobblestoneSwampSlab.getRegistryName()));
+		r.register(new ItemBlockMod(biomeCobblestoneSwampStairs, props).setRegistryName(biomeCobblestoneSwampStairs.getRegistryName()));
 		r.register(new ItemBlockMod(biomeWallSwamp, props).setRegistryName(biomeWallSwamp.getRegistryName()));
 		r.register(new ItemBlockMod(biomeChiseledBrickSwamp, props).setRegistryName(biomeChiseledBrickSwamp.getRegistryName()));
 
@@ -474,6 +501,8 @@ public final class ModFluffBlocks {
 		r.register(new ItemBlockMod(biomeBrickDesertSlab, props).setRegistryName(biomeBrickDesertSlab.getRegistryName()));
 		r.register(new ItemBlockMod(biomeBrickDesertStairs, props).setRegistryName(biomeBrickDesertStairs.getRegistryName()));
 		r.register(new ItemBlockMod(biomeCobblestoneDesert, props).setRegistryName(biomeCobblestoneDesert.getRegistryName()));
+		r.register(new ItemBlockMod(biomeCobblestoneDesertSlab, props).setRegistryName(biomeCobblestoneDesertSlab.getRegistryName()));
+		r.register(new ItemBlockMod(biomeCobblestoneDesertStairs, props).setRegistryName(biomeCobblestoneDesertStairs.getRegistryName()));
 		r.register(new ItemBlockMod(biomeWallDesert, props).setRegistryName(biomeWallDesert.getRegistryName()));
 		r.register(new ItemBlockMod(biomeChiseledBrickDesert, props).setRegistryName(biomeChiseledBrickDesert.getRegistryName()));
 
@@ -484,6 +513,8 @@ public final class ModFluffBlocks {
 		r.register(new ItemBlockMod(biomeBrickTaigaSlab, props).setRegistryName(biomeBrickTaigaSlab.getRegistryName()));
 		r.register(new ItemBlockMod(biomeBrickTaigaStairs, props).setRegistryName(biomeBrickTaigaStairs.getRegistryName()));
 		r.register(new ItemBlockMod(biomeCobblestoneTaiga, props).setRegistryName(biomeCobblestoneTaiga.getRegistryName()));
+		r.register(new ItemBlockMod(biomeCobblestoneTaigaSlab, props).setRegistryName(biomeCobblestoneTaigaSlab.getRegistryName()));
+		r.register(new ItemBlockMod(biomeCobblestoneTaigaStairs, props).setRegistryName(biomeCobblestoneTaigaStairs.getRegistryName()));
 		r.register(new ItemBlockMod(biomeWallTaiga, props).setRegistryName(biomeWallTaiga.getRegistryName()));
 		r.register(new ItemBlockMod(biomeChiseledBrickTaiga, props).setRegistryName(biomeChiseledBrickTaiga.getRegistryName()));
 
@@ -494,6 +525,8 @@ public final class ModFluffBlocks {
 		r.register(new ItemBlockMod(biomeBrickMesaSlab, props).setRegistryName(biomeBrickMesaSlab.getRegistryName()));
 		r.register(new ItemBlockMod(biomeBrickMesaStairs, props).setRegistryName(biomeBrickMesaStairs.getRegistryName()));
 		r.register(new ItemBlockMod(biomeCobblestoneMesa, props).setRegistryName(biomeCobblestoneMesa.getRegistryName()));
+		r.register(new ItemBlockMod(biomeCobblestoneMesaSlab, props).setRegistryName(biomeCobblestoneMesaSlab.getRegistryName()));
+		r.register(new ItemBlockMod(biomeCobblestoneMesaStairs, props).setRegistryName(biomeCobblestoneMesaStairs.getRegistryName()));
 		r.register(new ItemBlockMod(biomeWallMesa, props).setRegistryName(biomeWallMesa.getRegistryName()));
 		r.register(new ItemBlockMod(biomeChiseledBrickMesa, props).setRegistryName(biomeChiseledBrickMesa.getRegistryName()));
 		

@@ -15,9 +15,11 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeSerializer;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.item.crafting.RecipeSerializers;
 import net.minecraft.item.crafting.ShapelessRecipe;
 import net.minecraft.network.PacketBuffer;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import vazkii.botania.common.lib.LibMisc;
@@ -52,6 +54,12 @@ public class ShapelessManaUpgradeRecipe implements IRecipe {
 	@Override
 	public ItemStack getRecipeOutput() {
 		return compose.getRecipeOutput();
+	}
+
+	@Nonnull
+	@Override
+	public NonNullList<Ingredient> getIngredients() {
+		return compose.getIngredients();
 	}
 
 	@Nonnull

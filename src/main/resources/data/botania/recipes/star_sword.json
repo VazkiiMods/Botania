@@ -1,0 +1,25 @@
+{
+  "result": {
+    "item": "botania:star_sword"
+  },
+  "pattern": [
+    "  I",
+    "AD ",
+    "TA "
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "A": {
+      "item": "botania:ender_air_bottle"
+    },
+    "D": {
+      "tag": "forge:gems/dragonstone"
+    },
+    "T": {
+      "item": "botania:terra_sword"
+    },
+    "I": {
+      "tag": "forge:ingots/elementium"
+    }
+  }
+}

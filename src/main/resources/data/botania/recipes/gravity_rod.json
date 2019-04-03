@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "botania:gravity_rod"
+  },
+  "pattern": [
+    " TD",
+    " WT",
+    "T  "
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "T": {
+      "item": "botania:dreamwood_twig"
+    },
+    "D": {
+      "tag": "forge:gems/dragonstone"
+    },
+    "W": {
+      "item": "minecraft:wheat"
+    }
+  }
+}

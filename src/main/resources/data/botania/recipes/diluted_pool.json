@@ -1,0 +1,15 @@
+{
+  "result": {
+    "item": "botania:diluted_pool"
+  },
+  "pattern": [
+    "R R",
+    "RRR"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "R": {
+      "item": "botania:livingrock_slab"
+    }
+  }
+}

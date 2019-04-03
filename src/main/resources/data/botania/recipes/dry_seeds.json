@@ -1,0 +1,15 @@
+{
+  "result": {
+    "item": "botania:dry_seeds"
+  },
+  "group": "botania:seeds",
+  "ingredients": [
+    {
+      "item": "botania:grass_seeds"
+    },
+    {
+      "item": "minecraft:dead_bush"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}

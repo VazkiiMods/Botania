@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "botania:slime_bottle"
+  },
+  "pattern": [
+    "EGE",
+    "ESE",
+    " E "
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "S": {
+      "item": "minecraft:slime_ball"
+    },
+    "E": {
+      "tag": "forge:ingots/elementium"
+    },
+    "G": {
+      "item": "botania:elf_glass"
+    }
+  }
+}

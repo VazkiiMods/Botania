@@ -9,7 +9,7 @@
       { "item": "botania:lime_dye" },
       { "item": "botania:pink_dye" },
       { "item": "botania:gray_dye" },
-      { "item": "botania:silver_dye" },
+      { "item": "botania:light_gray_dye" },
       { "item": "botania:cyan_dye" },
       { "item": "botania:purple_dye" },
       { "item": "botania:blue_dye" },
@@ -22,6 +22,27 @@
   },
   {
     "items": [
+      { "item": "botania:white_mushroom" },
+      { "item": "botania:orange_mushroom" },
+      { "item": "botania:magenta_mushroom" },
+      { "item": "botania:light_blue_mushroom" },
+      { "item": "botania:yellow_mushroom" },
+      { "item": "botania:lime_mushroom" },
+      { "item": "botania:pink_mushroom" },
+      { "item": "botania:gray_mushroom" },
+      { "item": "botania:light_gray_mushroom" },
+      { "item": "botania:cyan_mushroom" },
+      { "item": "botania:purple_mushroom" },
+      { "item": "botania:blue_mushroom" },
+      { "item": "botania:brown_mushroom" },
+      { "item": "botania:green_mushroom" },
+      { "item": "botania:red_mushroom" },
+      { "item": "botania:black_mushroom" }
+    ],
+    "name": "all_mushrooms"
+  },
+  {
+    "items": [
       { "item": "minecraft:glass" },
       { "item": "minecraft:white_stained_glass" },
       { "item": "minecraft:orange_stained_glass" },
@@ -31,7 +52,7 @@
       { "item": "minecraft:lime_stained_glass" },
       { "item": "minecraft:pink_stained_glass" },
       { "item": "minecraft:gray_stained_glass" },
-      { "item": "minecraft:silver_stained_glass" },
+      { "item": "minecraft:light_gray_stained_glass" },
       { "item": "minecraft:cyan_stained_glass" },
       { "item": "minecraft:purple_stained_glass" },
       { "item": "minecraft:blue_stained_glass" },

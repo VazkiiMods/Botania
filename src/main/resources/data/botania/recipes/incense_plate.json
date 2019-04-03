@@ -1,0 +1,17 @@
+{
+  "result": {
+    "item": "botania:incense_plate"
+  },
+  "pattern": [
+    "WSS"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "S": {
+      "item": "botania:livingwood_slab"
+    },
+    "W": {
+      "tag": "botania:livingwood"
+    }
+  }
+}

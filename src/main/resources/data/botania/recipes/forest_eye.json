@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "botania:forest_eye"
+  },
+  "pattern": [
+    "MSM",
+    "SES",
+    "MSM"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "S": {
+      "tag": "botania:livingrock"
+    },
+    "E": {
+      "item": "minecraft:ender_eye"
+    },
+    "M": {
+      "tag": "forge:ingots/manasteel"
+    }
+  }
+}

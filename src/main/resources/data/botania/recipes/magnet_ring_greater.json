@@ -1,0 +1,14 @@
+{
+  "result": {
+    "item": "botania:magnet_ring_greater"
+  },
+  "ingredients": [
+    {
+      "tag": "forge:ingots/terrasteel"
+    },
+    {
+      "item": "botania:magnetring"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}

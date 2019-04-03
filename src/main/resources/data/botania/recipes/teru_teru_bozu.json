@@ -13,8 +13,7 @@
       "item": "botania:manaweave_cloth"
     },
     "S": {
-      "item": "minecraft:double_plant",
-      "data": 0
+      "item": "minecraft:sunflower"
     }
   }
 }

@@ -10,7 +10,7 @@
   "type": "minecraft:crafting_shaped",
   "key": {
     "S": {
-      "item": "botania:seeds_grass"
+      "item": "botania:grass_seeds"
     },
     "W": {
       "tag": "botania:livingwood"

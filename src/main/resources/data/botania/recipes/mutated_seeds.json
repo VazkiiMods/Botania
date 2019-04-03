@@ -1,0 +1,15 @@
+{
+  "result": {
+    "item": "botania:mutated_seeds"
+  },
+  "group": "botania:seeds",
+  "ingredients": [
+    {
+      "item": "botania:grass_seeds"
+    },
+    {
+      "item": "minecraft:spider_eye"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}

@@ -1,0 +1,25 @@
+{
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:mod_loaded",
+        "modid": "gardenofglass"
+      }
+    }
+  ],
+  "result": {
+    "item": "botania:blaze_block"
+  },
+  "pattern": [
+    "BBB",
+    "BBB",
+    "BBB"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "B": {
+      "tag": "forge:rods/blaze"
+    }
+  }
+}

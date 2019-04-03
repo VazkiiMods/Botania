@@ -16,9 +16,11 @@ import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeSerializer;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.item.crafting.RecipeSerializers;
 import net.minecraft.item.crafting.ShapedRecipe;
 import net.minecraft.network.PacketBuffer;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import vazkii.botania.api.mana.IManaItem;
@@ -60,6 +62,12 @@ public class ManaUpgradeRecipe implements IRecipe {
 	@Override
 	public ItemStack getCraftingResult(@Nonnull IInventory inv) {
 		return output(compose.getCraftingResult(inv), inv);
+	}
+
+	@Nonnull
+	@Override
+	public NonNullList<Ingredient> getIngredients() {
+		return compose.getIngredients();
 	}
 
 	@Override

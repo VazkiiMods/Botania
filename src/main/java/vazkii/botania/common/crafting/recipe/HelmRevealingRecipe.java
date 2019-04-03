@@ -88,6 +88,12 @@ public class HelmRevealingRecipe implements IRecipe {
 		return compose.getRecipeOutput();
 	}
 
+	@Nonnull
+	@Override
+	public NonNullList<Ingredient> getIngredients() {
+		return compose.getIngredients();
+	}
+
 	@Override
 	public boolean isDynamic() {
 		return true;

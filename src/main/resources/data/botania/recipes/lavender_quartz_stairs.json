@@ -1,0 +1,16 @@
+{
+  "result": {
+    "item": "botania:lavender_quartz_stairs"
+  },
+  "pattern": [
+    "  Q",
+    " QQ",
+    "QQQ"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "Q": {
+      "item": "botania:lavender_quartz"
+    }
+  }
+}

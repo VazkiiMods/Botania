@@ -517,15 +517,89 @@ public final class BotaniaCreativeTab extends ItemGroup {
 		addItem(ModFluffBlocks.sunnyQuartzSlab);
 		addItem(ModFluffBlocks.sunnyQuartzStairs);
 
-		/* todo 1.13 cba to type this all out rn
-		addItem(ModFluffBlocks.biomeStoneA);
-		addItem(ModFluffBlocks.biomeStoneB);
-		for(int i = 0; i < 24; i++)
-			addItem(ModFluffBlocks.biomeStoneStairs[i]);
-		for(int i = 0; i < 24; i++)
-			addItem(ModFluffBlocks.biomeStoneSlabs[i]);
-		addItem(ModFluffBlocks.biomeStoneWall);
-		*/
+		addItem(ModFluffBlocks.biomeStoneForest);
+		addItem(ModFluffBlocks.biomeStonePlains);
+		addItem(ModFluffBlocks.biomeStoneMountain);
+		addItem(ModFluffBlocks.biomeStoneFungal);
+		addItem(ModFluffBlocks.biomeStoneSwamp);
+		addItem(ModFluffBlocks.biomeStoneDesert);
+		addItem(ModFluffBlocks.biomeStoneTaiga);
+		addItem(ModFluffBlocks.biomeStoneMesa);
+		addItem(ModFluffBlocks.biomeCobblestoneForest);
+		addItem(ModFluffBlocks.biomeCobblestonePlains);
+		addItem(ModFluffBlocks.biomeCobblestoneMountain);
+		addItem(ModFluffBlocks.biomeCobblestoneFungal);
+		addItem(ModFluffBlocks.biomeCobblestoneSwamp);
+		addItem(ModFluffBlocks.biomeCobblestoneDesert);
+		addItem(ModFluffBlocks.biomeCobblestoneTaiga);
+		addItem(ModFluffBlocks.biomeCobblestoneMesa);
+		addItem(ModFluffBlocks.biomeBrickForest);
+		addItem(ModFluffBlocks.biomeBrickPlains);
+		addItem(ModFluffBlocks.biomeBrickMountain);
+		addItem(ModFluffBlocks.biomeBrickFungal);
+		addItem(ModFluffBlocks.biomeBrickSwamp);
+		addItem(ModFluffBlocks.biomeBrickDesert);
+		addItem(ModFluffBlocks.biomeBrickTaiga);
+		addItem(ModFluffBlocks.biomeBrickMesa);
+
+		addItem(ModFluffBlocks.biomeStoneForestStairs);
+		addItem(ModFluffBlocks.biomeStonePlainsStairs);
+		addItem(ModFluffBlocks.biomeStoneMountainStairs);
+		addItem(ModFluffBlocks.biomeStoneFungalStairs);
+		addItem(ModFluffBlocks.biomeStoneSwampStairs);
+		addItem(ModFluffBlocks.biomeStoneDesertStairs);
+		addItem(ModFluffBlocks.biomeStoneTaigaStairs);
+		addItem(ModFluffBlocks.biomeStoneMesaStairs);
+		addItem(ModFluffBlocks.biomeCobblestoneForestStairs);
+		addItem(ModFluffBlocks.biomeCobblestonePlainsStairs);
+		addItem(ModFluffBlocks.biomeCobblestoneMountainStairs);
+		addItem(ModFluffBlocks.biomeCobblestoneFungalStairs);
+		addItem(ModFluffBlocks.biomeCobblestoneSwampStairs);
+		addItem(ModFluffBlocks.biomeCobblestoneDesertStairs);
+		addItem(ModFluffBlocks.biomeCobblestoneTaigaStairs);
+		addItem(ModFluffBlocks.biomeCobblestoneMesaStairs);
+		addItem(ModFluffBlocks.biomeBrickForestStairs);
+		addItem(ModFluffBlocks.biomeBrickPlainsStairs);
+		addItem(ModFluffBlocks.biomeBrickMountainStairs);
+		addItem(ModFluffBlocks.biomeBrickFungalStairs);
+		addItem(ModFluffBlocks.biomeBrickSwampStairs);
+		addItem(ModFluffBlocks.biomeBrickDesertStairs);
+		addItem(ModFluffBlocks.biomeBrickTaigaStairs);
+		addItem(ModFluffBlocks.biomeBrickMesaStairs);
+		
+		addItem(ModFluffBlocks.biomeStoneForestSlab);
+		addItem(ModFluffBlocks.biomeStonePlainsSlab);
+		addItem(ModFluffBlocks.biomeStoneMountainSlab);
+		addItem(ModFluffBlocks.biomeStoneFungalSlab);
+		addItem(ModFluffBlocks.biomeStoneSwampSlab);
+		addItem(ModFluffBlocks.biomeStoneDesertSlab);
+		addItem(ModFluffBlocks.biomeStoneTaigaSlab);
+		addItem(ModFluffBlocks.biomeStoneMesaSlab);
+		addItem(ModFluffBlocks.biomeCobblestoneForestSlab);
+		addItem(ModFluffBlocks.biomeCobblestonePlainsSlab);
+		addItem(ModFluffBlocks.biomeCobblestoneMountainSlab);
+		addItem(ModFluffBlocks.biomeCobblestoneFungalSlab);
+		addItem(ModFluffBlocks.biomeCobblestoneSwampSlab);
+		addItem(ModFluffBlocks.biomeCobblestoneDesertSlab);
+		addItem(ModFluffBlocks.biomeCobblestoneTaigaSlab);
+		addItem(ModFluffBlocks.biomeCobblestoneMesaSlab);
+		addItem(ModFluffBlocks.biomeBrickForestSlab);
+		addItem(ModFluffBlocks.biomeBrickPlainsSlab);
+		addItem(ModFluffBlocks.biomeBrickMountainSlab);
+		addItem(ModFluffBlocks.biomeBrickFungalSlab);
+		addItem(ModFluffBlocks.biomeBrickSwampSlab);
+		addItem(ModFluffBlocks.biomeBrickDesertSlab);
+		addItem(ModFluffBlocks.biomeBrickTaigaSlab);
+		addItem(ModFluffBlocks.biomeBrickMesaSlab);
+			
+		addItem(ModFluffBlocks.biomeWallForest);
+		addItem(ModFluffBlocks.biomeWallPlains);
+		addItem(ModFluffBlocks.biomeWallMountain);
+		addItem(ModFluffBlocks.biomeWallFungal);
+		addItem(ModFluffBlocks.biomeWallSwamp);
+		addItem(ModFluffBlocks.biomeWallDesert);
+		addItem(ModFluffBlocks.biomeWallTaiga);
+		addItem(ModFluffBlocks.biomeWallMesa);
 
 		addItem(ModFluffBlocks.whitePavement);
 		addItem(ModFluffBlocks.blackPavement);
