@@ -7,6 +7,6 @@
     "predicate": {
       "botania:flying": 1
     },
-    "model": "botania:item/tornadorod_flying"
+    "model": "botania:item/tornado_rod_flying"
   }]
 }

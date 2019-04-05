@@ -85,6 +85,7 @@ public class GunModel implements IBakedModel {
 		return cache.computeIfAbsent(lens, l -> new CompositeBakedModel(l, originalModel));
 	}
 
+	// todo 1.13 rework to just hold lens IModel and rebake
 	protected static BakedQuad transform(BakedQuad quad, final TRSRTransformation transform) {
 		UnpackedBakedQuad.Builder builder = new UnpackedBakedQuad.Builder(DefaultVertexFormats.ITEM);
 		final IVertexConsumer consumer = new VertexTransformer(builder) {

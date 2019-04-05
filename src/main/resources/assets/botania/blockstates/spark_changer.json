@@ -1,5 +1,5 @@
 {
   "variants": {
-    "":  { "model": "botania:block/spark_tinkerer" }
+    "":  { "model": "botania:block/spark_changer" }
   }
 }
