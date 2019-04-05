@@ -47,12 +47,16 @@ public class GunModel implements IBakedModel {
 		@Nonnull
 		@Override
 		public IBakedModel getModelWithOverrides(IBakedModel model, ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
-			// First, let json overrides on original model apply
-			IBakedModel origOverride = originalModel.getOverrides().getModelWithOverrides(originalModel, stack, worldIn, entityIn);
-			if (origOverride != null && origOverride != originalModel)
-				return origOverride;
+			// TODO 1.13 this faffing around with double overrides is dumb. Move back from json overrides once a "load this model please" PR gets merged?
 
-			// Otherwise, look up our composite models
+			// First, let json overrides on original model apply. This gets us to the clip GunModel instance
+			IBakedModel jsonOverride = originalModel.getOverrides().getModelWithOverrides(originalModel, stack, worldIn, entityIn);
+			if (jsonOverride != null && jsonOverride != originalModel) {
+				// Now, apply overrides again. This will add lenses.
+				return jsonOverride.getOverrides().getModelWithOverrides(jsonOverride, stack, worldIn, entityIn);
+			}
+
+			// Done doing override stuff, look up our composite models
 			ItemStack lens = ItemManaGun.getLens(stack);
 			if(!lens.isEmpty()) {
 				IBakedModel lensModel = Minecraft.getInstance().getItemRenderer().getItemModelMesher().getItemModel(lens);
@@ -78,12 +82,7 @@ public class GunModel implements IBakedModel {
 	private final IdentityHashMap<IBakedModel, CompositeBakedModel> cache = new IdentityHashMap<>();
 
 	private CompositeBakedModel getModel(IBakedModel lens) {
-		CompositeBakedModel model = cache.get(lens);
-		if(model == null) {
-			model = new CompositeBakedModel(lens, originalModel);
-			cache.put(lens, model);
-		}
-		return model;
+		return cache.computeIfAbsent(lens, l -> new CompositeBakedModel(l, originalModel));
 	}
 
 	protected static BakedQuad transform(BakedQuad quad, final TRSRTransformation transform) {
@@ -122,7 +121,7 @@ public class GunModel implements IBakedModel {
 			this.gun = gun;
 
 			ImmutableList.Builder<BakedQuad> genBuilder = ImmutableList.builder();
-			final TRSRTransformation transform = TRSRTransformation.blockCenterToCorner(new TRSRTransformation(new Vector3f(-0.4F, 0.25F, 0), null, new Vector3f(0.625F, 0.625F, 0.625F), TRSRTransformation.quatFromXYZ(0, (float) Math.PI / 2, 0)));
+			final TRSRTransformation transform = TRSRTransformation.blockCenterToCorner(new TRSRTransformation(new Vector3f(-0.4F, 500, 0), null, new Vector3f(0.625F, 0.625F, 0.625F), TRSRTransformation.quatFromXYZ(0, (float) Math.PI / 2, 0)));
 
 			for(EnumFacing e : EnumFacing.values())
 				faceQuads.put(e, new ArrayList<>());

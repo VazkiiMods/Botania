@@ -22,6 +22,7 @@ import vazkii.botania.client.model.FloatingFlowerModel;
 import vazkii.botania.client.model.GunModel;
 import vazkii.botania.client.model.LexiconModel;
 import vazkii.botania.client.model.PlatformModel;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
 import vazkii.botania.common.item.relic.ItemKingKey;
 import vazkii.botania.common.lib.LibMisc;
@@ -115,6 +116,7 @@ public class MiscellaneousIcons {
 
 		// same as lexicon, reach into all json overrides and wrap them
 		for (int i = 0; i < originalModel.getOverrides().overrideBakedModels.size(); i++) {
+			Botania.LOGGER.info("wrapping {}", i);
 			originalModel.getOverrides().overrideBakedModels.set(i, new GunModel(originalModel.getOverrides().overrideBakedModels.get(i)));
 		}
 	}

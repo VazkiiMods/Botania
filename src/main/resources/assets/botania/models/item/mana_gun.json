@@ -188,13 +188,6 @@
   "overrides": [
     {
       "predicate": {
-        "botania:desu": 1,
-        "botania:clip": 1
-      },
-      "model": "botania:item/desu_gun_clip"
-    },
-    {
-      "predicate": {
         "botania:desu": 1
       },
       "model": "botania:item/desu_gun"
@@ -204,6 +197,13 @@
         "botania:clip": 1
       },
       "model": "botania:item/mana_gun_clip"
+    },
+    {
+      "predicate": {
+        "botania:desu": 1,
+        "botania:clip": 1
+      },
+      "model": "botania:item/desu_gun_clip"
     }
   ]
 }
