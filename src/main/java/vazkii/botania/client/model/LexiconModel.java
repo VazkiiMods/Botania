@@ -39,5 +39,5 @@ public class LexiconModel implements IBakedModel {
 	@Override public boolean isBuiltInRenderer() { return false; }
 	@Nonnull @Override public TextureAtlasSprite getParticleTexture() { return original.getParticleTexture(); }
 	@SuppressWarnings("deprecation") @Nonnull @Override public ItemCameraTransforms getItemCameraTransforms() { return ItemCameraTransforms.DEFAULT; }
-	@Nonnull @Override public ItemOverrideList getOverrides() { return ItemOverrideList.EMPTY; }
+	@Nonnull @Override public ItemOverrideList getOverrides() { return original.getOverrides(); }
 }

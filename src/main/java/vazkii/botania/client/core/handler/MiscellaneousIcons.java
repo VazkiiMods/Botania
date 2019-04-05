@@ -102,22 +102,21 @@ public class MiscellaneousIcons {
 		IBakedModel original = evt.getModelRegistry().get(new ModelResourceLocation("botania:lexicon", "inventory"));
 		evt.getModelRegistry().put(new ModelResourceLocation("botania:lexicon", "inventory"),
 				new LexiconModel(original));
-		/* todo 1.13 models referenced using overrides aren't put in the model registry?
-		original = evt.getModelRegistry().get(new ModelResourceLocation("botania:lexicon_elven", "inventory"));
-		evt.getModelRegistry().put(new ModelResourceLocation("botania:lexicon_elven", "inventory"),
-				new LexiconModel(original));
-		*/
+
+		// models referenced using json overrides aren't put in the model registry, so just go through all override models and wrap them there
+		for (int i = 0; i < original.getOverrides().overrideBakedModels.size(); i++) {
+			original.getOverrides().overrideBakedModels.set(i, new LexiconModel(original.getOverrides().overrideBakedModels.get(i)));
+		}
 
 		// Mana Blaster
 		ModelResourceLocation key = new ModelResourceLocation("botania:mana_gun", "inventory");
 		IBakedModel originalModel = evt.getModelRegistry().get(key);
 		evt.getModelRegistry().put(key, new GunModel(originalModel));
 
-		/* todo 1.13 models referenced using overrides aren't put in the model registry?
-		key = new ModelResourceLocation("botania:mana_gun_clip", "inventory");
-		originalModel = evt.getModelRegistry().get(key);
-		evt.getModelRegistry().put(key, new GunModel(originalModel));
-		*/
+		// same as lexicon, reach into all json overrides and wrap them
+		for (int i = 0; i < originalModel.getOverrides().overrideBakedModels.size(); i++) {
+			originalModel.getOverrides().overrideBakedModels.set(i, new GunModel(originalModel.getOverrides().overrideBakedModels.get(i)));
+		}
 	}
 	
 	@SubscribeEvent

@@ -47,6 +47,12 @@ public class GunModel implements IBakedModel {
 		@Nonnull
 		@Override
 		public IBakedModel getModelWithOverrides(IBakedModel model, ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
+			// First, let json overrides on original model apply
+			IBakedModel origOverride = originalModel.getOverrides().getModelWithOverrides(originalModel, stack, worldIn, entityIn);
+			if (origOverride != null && origOverride != originalModel)
+				return origOverride;
+
+			// Otherwise, look up our composite models
 			ItemStack lens = ItemManaGun.getLens(stack);
 			if(!lens.isEmpty()) {
 				IBakedModel lensModel = Minecraft.getInstance().getItemRenderer().getItemModelMesher().getItemModel(lens);
@@ -121,23 +127,26 @@ public class GunModel implements IBakedModel {
 			for(EnumFacing e : EnumFacing.values())
 				faceQuads.put(e, new ArrayList<>());
 
+			Random rand = new Random(0);
 			// Add lens quads, scaled and translated
-			for(BakedQuad quad : lens.getQuads(null, null, new Random(0))) {
+			for(BakedQuad quad : lens.getQuads(null, null, rand)) {
 				genBuilder.add(transform(quad, transform));
 			}
 
 			for(EnumFacing e : EnumFacing.values()) {
-				faceQuads.get(e).addAll(lens.getQuads(null, e, new Random(0)).stream().map(input -> transform(input, transform)).collect(Collectors.toList()));
+				rand.setSeed(0);
+				faceQuads.get(e).addAll(lens.getQuads(null, e, rand).stream().map(input -> transform(input, transform)).collect(Collectors.toList()));
 			}
 
 			// Add gun quads
-			genBuilder.addAll(gun.getQuads(null, null, new Random(0)));
+			rand.setSeed(0);
+			genBuilder.addAll(gun.getQuads(null, null, rand));
 			for(EnumFacing e : EnumFacing.values()) {
-				faceQuads.get(e).addAll(gun.getQuads(null, e, new Random(0)));
+				rand.setSeed(0);
+				faceQuads.get(e).addAll(gun.getQuads(null, e, rand));
 			}
 
 			genQuads = genBuilder.build();
-
 		}
 
 		@Nonnull @Override public List<BakedQuad> getQuads(IBlockState state, EnumFacing face, @Nonnull Random rand) { return face == null ? genQuads : faceQuads.get(face); }
