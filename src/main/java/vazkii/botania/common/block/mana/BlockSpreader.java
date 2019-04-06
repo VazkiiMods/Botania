@@ -30,6 +30,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
@@ -57,7 +58,7 @@ import java.util.List;
 import java.util.Locale;
 
 public class BlockSpreader extends BlockMod implements IWandable, IWandHUD, ILexiconable, IWireframeAABBProvider {
-
+	private static final VoxelShape RENDER_SHAPE = makeCuboidShape(1, 1, 1, 15, 15, 15);
 	public enum Variant {
 		MANA,
 		REDSTONE,
@@ -71,9 +72,15 @@ public class BlockSpreader extends BlockMod implements IWandable, IWandHUD, ILex
 		this.variant = v;
 	}
 
+	@Nonnull
 	@Override
-	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack par6ItemStack) {
-		EnumFacing orientation = EnumFacing.getFacingDirections(placer)[0];
+	public VoxelShape getRenderShape(IBlockState state, @Nonnull IBlockReader world, @Nonnull BlockPos pos) {
+		return RENDER_SHAPE;
+	}
+
+	@Override
+	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
+		EnumFacing orientation = EnumFacing.getFacingDirections(placer)[0].getOpposite();
 		TileSpreader spreader = (TileSpreader) world.getTileEntity(pos);
 
 		switch(orientation) {
