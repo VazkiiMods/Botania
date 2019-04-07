@@ -1,0 +1,10 @@
+{
+  "__comment": "Blocks in this tag will not be broken by the Gaia Guardian",
+  "replace": false,
+  "values": [
+    "minecraft:beacon",
+    "botania:mana_pylon",
+    "botania:natura_pylon",
+    "botania:gaia_pylon"
+  ]
+}

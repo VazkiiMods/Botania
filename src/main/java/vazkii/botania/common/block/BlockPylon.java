@@ -51,7 +51,6 @@ public class BlockPylon extends BlockMod implements ILexiconable {
 	public BlockPylon(Variant v, Properties builder) {
 		super(builder);
 		this.variant = v;
-		BotaniaAPI.blacklistBlockFromGaiaGuardian(this);
 	}
 
 	@Nonnull

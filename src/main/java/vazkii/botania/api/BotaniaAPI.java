@@ -37,6 +37,7 @@ import net.minecraft.util.registry.RegistryNamespaced;
 import net.minecraft.util.registry.RegistryNamespacedDefaultedByKey;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.IRegistryDelegate;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.internal.DummyMethodHandler;
 import vazkii.botania.api.internal.DummySubTile;
@@ -60,6 +61,7 @@ import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
@@ -88,12 +90,11 @@ public final class BotaniaAPI {
 
 	public static final ResourceLocation DUMMY_SUBTILE_NAME = new ResourceLocation("botania", "dummy");
 
-	public static final Map<ResourceLocation, Integer> oreWeights = new HashMap<>();
-	public static final Map<ResourceLocation, Integer> oreWeightsNether = new HashMap<>();
+	public static volatile Map<ResourceLocation, Integer> oreWeights = Collections.emptyMap();
+	public static volatile Map<ResourceLocation, Integer> oreWeightsNether = Collections.emptyMap();
 
-	public static final Map<Block, Function<EnumDyeColor, Block>> paintableBlocks = new LinkedHashMap<>();
+	public static volatile Map<IRegistryDelegate<Block>, Function<EnumDyeColor, Block>> paintableBlocks = Collections.emptyMap();
 	public static final Set<Class<? extends Entity>> gravityRodBlacklist = new LinkedHashSet<>();
-	public static final Set<Block> gaiaBreakBlacklist = new HashSet<>();
 
 	private static final int[] MAX_DAMAGE_ARRAY = new int[]{13, 15, 16, 11};
 	public static final IArmorMaterial MANASTEEL_ARMOR_MAT = new IArmorMaterial() {
@@ -376,110 +377,6 @@ public final class BotaniaAPI {
 		basicKnowledge = registerKnowledgeType("minecraft", TextFormatting.RESET, true);
 		elvenKnowledge = registerKnowledgeType("alfheim", TextFormatting.DARK_GREEN, false);
 		relicKnowledge = registerKnowledgeType("relic", TextFormatting.DARK_PURPLE, false);
-
-		/* todo 1.13
-		addOreWeight("oreAluminum", 3940); // Tinkers' Construct
-		addOreWeight("oreAmber", 2075); // Thaumcraft
-		addOreWeight("oreApatite", 1595); // Forestry
-		addOreWeight("oreBlueTopaz", 3195); // Ars Magica
-		addOreWeight("oreCertusQuartz", 3975); // Applied Energistics
-		addOreWeight("oreChimerite", 3970); // Ars Magica
-		addOreWeight("oreCinnabar",  2585); // Thaumcraft
-		addOreWeight("oreCoal", 46525); // Vanilla
-		addOreWeight("oreCopper", 8325); // IC2, Thermal Expansion, Tinkers' Construct, etc.
-		addOreWeight("oreDark", 1350); // EvilCraft
-		addOreWeight("oreDarkIron", 1700); // Factorization (older versions)
-		addOreWeight("oreFzDarkIron", 1700); // Factorization (newer versions)
-		addOreWeight("oreDiamond", 1265); // Vanilla
-		addOreWeight("oreEmerald", 780); // Vanilla
-		addOreWeight("oreGalena", 1000); // Factorization
-		addOreWeight("oreGold", 2970); // Vanilla
-		addOreWeight("oreInfusedAir", 925); // Thaumcraft
-		addOreWeight("oreInfusedEarth", 925); // Thaumcraft
-		addOreWeight("oreInfusedEntropy", 925); // Thaumcraft
-		addOreWeight("oreInfusedFire", 925); // Thaumcraft
-		addOreWeight("oreInfusedOrder", 925); // Thaumcraft
-		addOreWeight("oreInfusedWater", 925); // Thaumcraft
-		addOreWeight("oreIron", 20665); // Vanilla
-		addOreWeight("oreLapis", 1285); // Vanilla
-		addOreWeight("oreLead", 7985); // IC2, Thermal Expansion, Factorization, etc.
-		addOreWeight("oreMCropsEssence", 3085); // Magical Crops
-		addOreWeight("oreMithril", 8); // Thermal Expansion
-		addOreWeight("oreNickel", 2275); // Thermal Expansion
-		addOreWeight("oreOlivine", 1100); // Project RED
-		addOreWeight("orePlatinum", 365); // Thermal Expansion
-		addOreWeight("oreRedstone", 6885); // Vanilla
-		addOreWeight("oreRuby", 1100); // Project RED
-		addOreWeight("oreSapphire", 1100); // Project RED
-		addOreWeight("oreSilver", 6300); // Thermal Expansion, Factorization, etc.
-		addOreWeight("oreSulfur", 1105); // Railcraft
-		addOreWeight("oreTin", 9450); // IC2, Thermal Expansion, etc.
-		addOreWeight("oreUranium", 1337); // IC2
-		addOreWeight("oreVinteum", 5925); // Ars Magica
-		addOreWeight("oreYellorite", 3520); // Big Reactors
-		addOreWeight("oreZinc", 6485); // Flaxbeard's Steam Power
-		addOreWeight("oreMythril", 6485); // Simple Ores2
-		addOreWeight("oreAdamantium", 2275); // Simple Ores2
-		addOreWeight("oreTungsten", 3520); // Simple Tungsten
-		addOreWeight("oreOsmium", 6915); // Mekanism
-		addOreWeight("oreQuartzBlack", 5535); // Actually Additions
-
-		addOreWeightNether("oreQuartz", 19600); // Vanilla
-		addOreWeightNether("oreCobalt", 500); // Tinker's Construct
-		addOreWeightNether("oreArdite", 500); // Tinker's Construct
-		addOreWeightNether("oreFirestone", 5); // Railcraft
-		addOreWeightNether("oreNetherCoal", 17000); // Nether Ores
-		addOreWeightNether("oreNetherCopper", 4700); // Nether Ores
-		addOreWeightNether("oreNetherDiamond", 175); // Nether Ores
-		addOreWeightNether("oreNetherEssence", 2460); // Magical Crops
-		addOreWeightNether("oreNetherGold", 3635); // Nether Ores
-		addOreWeightNether("oreNetherIron", 5790); // Nether Ores
-		addOreWeightNether("oreNetherLapis", 3250); // Nether Ores
-		addOreWeightNether("oreNetherLead", 2790); // Nether Ores
-		addOreWeightNether("oreNetherNickel", 1790); // Nether Ores
-		addOreWeightNether("oreNetherPlatinum", 170); // Nether Ores
-		addOreWeightNether("oreNetherRedstone", 5600); // Nether Ores
-		addOreWeightNether("oreNetherSilver", 1550); // Nether Ores
-		addOreWeightNether("oreNetherSteel", 1690); // Nether Ores
-		addOreWeightNether("oreNetherTin", 3750); // Nether Ores
-		addOreWeightNether("oreFyrite", 1000); // Netherrocks
-		addOreWeightNether("oreAshstone", 1000); // Netherrocks
-		addOreWeightNether("oreDragonstone", 175); // Netherrocks
-		addOreWeightNether("oreArgonite", 1000); // Netherrocks
-		addOreWeightNether("oreOnyx", 500); // SimpleOres 2
-		addOreWeightNether("oreHaditeCoal", 500); // Hadite
-		*/
-
-		registerModWiki("minecraft", new SimpleWikiProvider("Minecraft Wiki", "https://minecraft.gamepedia.com/%s"));
-
-		IWikiProvider technicWiki = new SimpleWikiProvider("Technic Wiki", "http://wiki.technicpack.net/%s");
-		IWikiProvider mekanismWiki = new SimpleWikiProvider("Mekanism Wiki", "http://wiki.aidancbrady.com/wiki/%s");
-
-		registerModWiki("mekanism", mekanismWiki);
-		registerModWiki("mekanismgenerators", mekanismWiki);
-		registerModWiki("mekanismtools", mekanismWiki);
-		registerModWiki("enderio", new SimpleWikiProvider("EnderIO Wiki", "http://wiki.enderio.com/%s"));
-		registerModWiki("tropicraft", new SimpleWikiProvider("Tropicraft Wiki", "http://wiki.tropicraft.net/wiki/%s"));
-		registerModWiki("randomthings", new SimpleWikiProvider("Random Things Wiki", "https://lumien.net/rtwiki/blocks/%s/", "-", true));
-		registerModWiki("appliedenergistics2", new SimpleWikiProvider("AE2 Wiki", "http://ae-mod.info/%s"));
-		registerModWiki("bigreactors", technicWiki);
-
-		registerPaintableBlock(ColorHelper.STAINED_GLASS_MAP::get, Blocks.WHITE_STAINED_GLASS, Blocks.ORANGE_STAINED_GLASS, Blocks.MAGENTA_STAINED_GLASS, Blocks.LIGHT_BLUE_STAINED_GLASS,
-				Blocks.YELLOW_STAINED_GLASS, Blocks.LIME_STAINED_GLASS, Blocks.PINK_STAINED_GLASS, Blocks.GRAY_STAINED_GLASS, Blocks.LIGHT_GRAY_STAINED_GLASS,
-				Blocks.CYAN_STAINED_GLASS, Blocks.PURPLE_STAINED_GLASS, Blocks.BLUE_STAINED_GLASS, Blocks.BROWN_STAINED_GLASS, Blocks.GREEN_STAINED_GLASS, Blocks.RED_STAINED_GLASS, Blocks.BLACK_STAINED_GLASS);
-		registerPaintableBlock(ColorHelper.STAINED_GLASS_PANE_MAP::get, Blocks.WHITE_STAINED_GLASS_PANE, Blocks.ORANGE_STAINED_GLASS_PANE, Blocks.MAGENTA_STAINED_GLASS_PANE, Blocks.LIGHT_BLUE_STAINED_GLASS_PANE,
-				Blocks.YELLOW_STAINED_GLASS_PANE, Blocks.LIME_STAINED_GLASS_PANE, Blocks.PINK_STAINED_GLASS_PANE, Blocks.GRAY_STAINED_GLASS_PANE, Blocks.LIGHT_GRAY_STAINED_GLASS_PANE,
-				Blocks.CYAN_STAINED_GLASS_PANE, Blocks.PURPLE_STAINED_GLASS_PANE, Blocks.BLUE_STAINED_GLASS_PANE, Blocks.BROWN_STAINED_GLASS_PANE, Blocks.GREEN_STAINED_GLASS_PANE, Blocks.RED_STAINED_GLASS_PANE, Blocks.BLACK_STAINED_GLASS_PANE);
-		registerPaintableBlock(ColorHelper.TERRACOTTA_MAP::get, Blocks.WHITE_TERRACOTTA, Blocks.ORANGE_TERRACOTTA, Blocks.MAGENTA_TERRACOTTA, Blocks.LIGHT_BLUE_TERRACOTTA,
-				Blocks.YELLOW_TERRACOTTA, Blocks.LIME_TERRACOTTA, Blocks.PINK_TERRACOTTA, Blocks.GRAY_TERRACOTTA, Blocks.LIGHT_GRAY_TERRACOTTA,
-				Blocks.CYAN_TERRACOTTA, Blocks.PURPLE_TERRACOTTA, Blocks.BLUE_TERRACOTTA, Blocks.BROWN_TERRACOTTA, Blocks.GREEN_TERRACOTTA, Blocks.RED_TERRACOTTA, Blocks.BLACK_TERRACOTTA);
-		registerPaintableBlock(ColorHelper.WOOL_MAP::get, Blocks.WHITE_WOOL, Blocks.ORANGE_WOOL, Blocks.MAGENTA_WOOL, Blocks.LIGHT_BLUE_WOOL,
-				Blocks.YELLOW_WOOL, Blocks.LIME_WOOL, Blocks.PINK_WOOL, Blocks.GRAY_WOOL, Blocks.LIGHT_GRAY_WOOL,
-				Blocks.CYAN_WOOL, Blocks.PURPLE_WOOL, Blocks.BLUE_WOOL, Blocks.BROWN_WOOL, Blocks.GREEN_WOOL, Blocks.RED_WOOL, Blocks.BLACK_WOOL);
-		registerPaintableBlock(ColorHelper.CARPET_MAP::get, Blocks.WHITE_CARPET, Blocks.ORANGE_CARPET, Blocks.MAGENTA_CARPET, Blocks.LIGHT_BLUE_CARPET,
-				Blocks.YELLOW_CARPET, Blocks.LIME_CARPET, Blocks.PINK_CARPET, Blocks.GRAY_CARPET, Blocks.LIGHT_GRAY_CARPET,
-				Blocks.CYAN_CARPET, Blocks.PURPLE_CARPET, Blocks.BLUE_CARPET, Blocks.BROWN_CARPET, Blocks.GREEN_CARPET, Blocks.RED_CARPET, Blocks.BLACK_CARPET);
-		blacklistBlockFromGaiaGuardian(Blocks.BEACON);
 	}
 
 	/**
@@ -517,15 +414,6 @@ public final class BotaniaAPI {
 		if(brewMap.containsKey(key))
 			return brewMap.get(key);
 		return fallbackBrew;
-	}
-
-	/**
-	 * Registers a block as paintable under the paint lens
-	 */
-	public static void registerPaintableBlock(Function<EnumDyeColor, Block> transformer, Block... paintables) {
-		for(Block b : paintables) {
-			paintableBlocks.put(b, transformer);
-		}
 	}
 
 	/**
@@ -709,45 +597,11 @@ public final class BotaniaAPI {
 		category.entries.add(entry);
 	}
 
-	/**
-	 * Maps a block tag to it's weight on the world generation. This
-	 * is used for the Orechid flower. Check the static block in the BotaniaAPI class
-	 * to get the weights for the vanilla blocks.<br>
-	 * Alternatively get the values with the OreDetector mod:<br>
-	 * https://gist.github.com/Vazkii/9493322
-	 */
-	public static void addOreWeight(ResourceLocation tag, int weight) {
-		oreWeights.put(tag, weight);
-	}
-
-	/**
-	 * Maps a block tag to it's weight on the nether world generation. This
-	 * is used for the Orechid Ignem flower. Check the static block in the BotaniaAPI class
-	 * to get the weights for the vanilla blocks.<br>
-	 * Alternatively get the values with the OreDetector mod:<br>
-	 * https://gist.github.com/Vazkii/9493322
-	 */
-	public static void addOreWeightNether(ResourceLocation tag, int weight) {
-		oreWeightsNether.put(tag, weight);
-	}
-
 	public static int getOreWeight(ResourceLocation tag) {
 		return oreWeights.get(tag);
 	}
 
 	public static int getOreWeightNether(ResourceLocation tag) {
 		return oreWeightsNether.get(tag);
-	}
-
-	/**
-	 * Registers a Wiki provider for a mod so it uses that instead of the fallback
-	 * FTB wiki.
-	 */
-	public static void registerModWiki(String mod, IWikiProvider provider) {
-		WikiHooks.registerModWiki(mod, provider);
-	}
-
-	public static void blacklistBlockFromGaiaGuardian(Block block) {
-		gaiaBreakBlacklist.add(block);
 	}
 }

@@ -47,7 +47,7 @@ public class LensPaint extends Lens {
 			} else {
 				IBlockState state = entity.world.getBlockState(pos.getBlockPos());
 				Block block = state.getBlock();
-				if(BotaniaAPI.paintableBlocks.containsKey(block)) {
+				if(BotaniaAPI.paintableBlocks.containsKey(block.delegate)) {
 					List<BlockPos> coordsToPaint = new ArrayList<>();
 					List<BlockPos> coordsFound = new ArrayList<>();
 					coordsFound.add(pos.getBlockPos());
@@ -71,7 +71,7 @@ public class LensPaint extends Lens {
 						EnumDyeColor placeColor = EnumDyeColor.byId(storedColor == 16 ? entity.world.rand.nextInt(16) : storedColor);
 						IBlockState stateThere = entity.world.getBlockState(coords);
 
-						Function<EnumDyeColor, Block> f = BotaniaAPI.paintableBlocks.get(block);
+						Function<EnumDyeColor, Block> f = BotaniaAPI.paintableBlocks.get(block.delegate);
 						Block newBlock = f.apply(placeColor);
 						if(newBlock != stateThere.getBlock()) {
 							entity.world.setBlockState(coords, newBlock.getDefaultState());

@@ -37,6 +37,8 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.network.play.server.SPacketRemoveEntityEffect;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.Tag;
 import net.minecraft.tileentity.TileEntityBeacon;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumFacing;
@@ -122,6 +124,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 	private static final String TAG_MOB_SPAWN_TICKS = "mobSpawnTicks";
 	private static final String TAG_HARD_MODE = "hardMode";
 	private static final String TAG_PLAYER_COUNT = "playerCount";
+	private static final Tag<Block> BLACKLIST = new BlockTags.Wrapper(new ResourceLocation(LibMisc.MOD_ID, "gaia_break_blacklist"));
 
 	private static final DataParameter<Integer> INVUL_TIME = EntityDataManager.createKey(EntityDoppleganger.class, DataSerializers.VARINT);
 
@@ -551,7 +554,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 						world.destroyBlock(pos, true);
 					} else {
 						//don't break blacklisted blocks
-						if(BotaniaAPI.gaiaBreakBlacklist.contains(block)) continue;
+						if(BLACKLIST.contains(block)) continue;
 						//don't break the floor
 						if(y == source.getY() - 1) continue;
 						//don't break blocks in pylon columns

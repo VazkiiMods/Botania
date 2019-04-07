@@ -13,6 +13,7 @@ package vazkii.botania.api.wiki;
 import net.minecraft.block.Block;
 import net.minecraft.util.ResourceLocation;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,7 +21,7 @@ public class WikiHooks {
 
 	private static final IWikiProvider FALLBACK_PROVIDER = new SimpleWikiProvider("FTB Wiki", "https://ftb.gamepedia.com/%s");
 
-	private static final Map<String, IWikiProvider> modWikis = new HashMap<>();
+	public static Map<String, IWikiProvider> modWikis = Collections.emptyMap();
 
 	public static IWikiProvider getWikiFor(Block block) {
 		ResourceLocation mod = block.getRegistryName();
@@ -29,10 +30,6 @@ public class WikiHooks {
 
 	public static IWikiProvider getWikiFor(String mod) {
 		return modWikis.getOrDefault(mod, FALLBACK_PROVIDER);
-	}
-
-	public static void registerModWiki(String mod, IWikiProvider provider) {
-		modWikis.put(mod.toLowerCase(), provider);
 	}
 
 }
