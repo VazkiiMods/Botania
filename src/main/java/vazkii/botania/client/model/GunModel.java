@@ -6,8 +6,10 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.model.BakedQuad;
 import net.minecraft.client.renderer.model.IBakedModel;
+import net.minecraft.client.renderer.model.IUnbakedModel;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.model.ItemOverrideList;
+import net.minecraft.client.renderer.model.ModelResourceLocation;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.renderer.vertex.VertexFormatElement;
@@ -15,6 +17,8 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
+import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.client.model.pipeline.IVertexConsumer;
 import net.minecraftforge.client.model.pipeline.UnpackedBakedQuad;
 import net.minecraftforge.client.model.pipeline.VertexTransformer;
@@ -59,8 +63,9 @@ public class GunModel implements IBakedModel {
 			// Done doing override stuff, look up our composite models
 			ItemStack lens = ItemManaGun.getLens(stack);
 			if(!lens.isEmpty()) {
-				IBakedModel lensModel = Minecraft.getInstance().getItemRenderer().getItemModelMesher().getItemModel(lens);
-				return GunModel.this.getModel(lensModel);
+				ModelResourceLocation mrl = new ModelResourceLocation(lens.getItem().getRegistryName(), "inventory");
+				IUnbakedModel unbaked = ModelLoaderRegistry.getModelOrMissing(mrl);
+				return GunModel.this.getModel(unbaked);
 			}
 			else return GunModel.this;
 		}
@@ -79,74 +84,42 @@ public class GunModel implements IBakedModel {
 	@Nonnull @Override public TextureAtlasSprite getParticleTexture() { return originalModel.getParticleTexture(); }
 	@Nonnull @Override public ItemCameraTransforms getItemCameraTransforms() { return originalModel.getItemCameraTransforms(); }
 
-	private final IdentityHashMap<IBakedModel, CompositeBakedModel> cache = new IdentityHashMap<>();
+	private final IdentityHashMap<IUnbakedModel, CompositeBakedModel> cache = new IdentityHashMap<>();
 
-	private CompositeBakedModel getModel(IBakedModel lens) {
+	private CompositeBakedModel getModel(IUnbakedModel lens) {
 		return cache.computeIfAbsent(lens, l -> new CompositeBakedModel(l, originalModel));
-	}
-
-	// todo 1.13 rework to just hold lens IModel and rebake
-	protected static BakedQuad transform(BakedQuad quad, final TRSRTransformation transform) {
-		UnpackedBakedQuad.Builder builder = new UnpackedBakedQuad.Builder(DefaultVertexFormats.ITEM);
-		final IVertexConsumer consumer = new VertexTransformer(builder) {
-			@Override
-			public void put(int element, float... data) {
-				VertexFormatElement formatElement = DefaultVertexFormats.ITEM.getElement(element);
-				switch(formatElement.getUsage()) {
-				case POSITION: {
-					float[] newData = new float[4];
-					Vector4f vec = new Vector4f(data);
-					transform.getMatrixVec().transform(vec);
-					vec.get(newData);
-					parent.put(element, newData);
-					break;
-				}
-				default: {
-					parent.put(element, data);
-					break;
-				}
-				}
-			}
-		};
-		quad.pipe(consumer);
-		return builder.build();
 	}
 
 	private static class CompositeBakedModel implements IBakedModel {
 
 		private final IBakedModel gun;
-		private final List<BakedQuad> genQuads;
+		private final List<BakedQuad> genQuads = new ArrayList<>();
 		private final Map<EnumFacing, List<BakedQuad>> faceQuads = new EnumMap<>(EnumFacing.class);
 
-		CompositeBakedModel(IBakedModel lens, IBakedModel gun) {
+		CompositeBakedModel(IUnbakedModel lensUnbaked, IBakedModel gun) {
 			this.gun = gun;
 
-			ImmutableList.Builder<BakedQuad> genBuilder = ImmutableList.builder();
-			final TRSRTransformation transform = TRSRTransformation.blockCenterToCorner(new TRSRTransformation(new Vector3f(-0.4F, 500, 0), null, new Vector3f(0.625F, 0.625F, 0.625F), TRSRTransformation.quatFromXYZ(0, (float) Math.PI / 2, 0)));
+			final TRSRTransformation transform = new TRSRTransformation(new Vector3f(-0.2F, 0.4F, 0.8F), TRSRTransformation.quatFromXYZ(0, (float) Math.PI / 2, 0), new Vector3f(0.625F, 0.625F, 0.625F), null);
+			IBakedModel lens = lensUnbaked.bake(ModelLoader.defaultModelGetter(), ModelLoader.defaultTextureGetter(), transform, false, DefaultVertexFormats.ITEM);
 
 			for(EnumFacing e : EnumFacing.values())
 				faceQuads.put(e, new ArrayList<>());
 
 			Random rand = new Random(0);
-			// Add lens quads, scaled and translated
-			for(BakedQuad quad : lens.getQuads(null, null, rand)) {
-				genBuilder.add(transform(quad, transform));
-			}
+			genQuads.addAll(lens.getQuads(null, null, rand));
 
 			for(EnumFacing e : EnumFacing.values()) {
 				rand.setSeed(0);
-				faceQuads.get(e).addAll(lens.getQuads(null, e, rand).stream().map(input -> transform(input, transform)).collect(Collectors.toList()));
+				faceQuads.get(e).addAll(lens.getQuads(null, e, rand));
 			}
 
 			// Add gun quads
 			rand.setSeed(0);
-			genBuilder.addAll(gun.getQuads(null, null, rand));
+			genQuads.addAll(gun.getQuads(null, null, rand));
 			for(EnumFacing e : EnumFacing.values()) {
 				rand.setSeed(0);
 				faceQuads.get(e).addAll(gun.getQuads(null, e, rand));
 			}
-
-			genQuads = genBuilder.build();
 		}
 
 		@Nonnull @Override public List<BakedQuad> getQuads(IBlockState state, EnumFacing face, @Nonnull Random rand) { return face == null ? genQuads : faceQuads.get(face); }
