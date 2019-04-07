@@ -90,7 +90,6 @@ public class ItemHorn extends ItemMod {
 			type = EnumHornType.COVERING;
 		}
 
-		Random rand = new Random(srcPos.hashCode());
 		int range = 12 - type.ordinal() * 3;
 		int rangeY = 3 + type.ordinal() * 4;
 		List<BlockPos> coords = new ArrayList<>();
@@ -105,7 +104,7 @@ public class ItemHorn extends ItemMod {
 				coords.add(pos);
 		}
 
-		Collections.shuffle(coords, rand);
+		Collections.shuffle(coords, world.rand);
 
 		int count = Math.min(coords.size(), 32 + type.ordinal() * 16);
 		for(int i = 0; i < count; i++) {

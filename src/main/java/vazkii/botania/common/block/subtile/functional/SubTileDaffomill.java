@@ -14,18 +14,23 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.api.subtile.SubTileType;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.lexicon.LexiconData;
+import vazkii.botania.common.network.PacketHandler;
+import vazkii.botania.common.network.PacketItemAge;
 
 import java.util.List;
 
@@ -163,4 +168,13 @@ public class SubTileDaffomill extends SubTileFunctional {
 		windTicks = cmp.getInt(TAG_WIND_TICKS);
 	}
 
+	// Send item age to client to prevent client desync when an item is e.g. dropped by a powered open crate
+	@SubscribeEvent
+	public static void onItemTrack(PlayerEvent.StartTracking evt) {
+		if(evt.getTarget() instanceof EntityItem) {
+			int entityId = evt.getTarget().getEntityId();
+			int age = ((EntityItem) evt.getTarget()).age;
+			PacketHandler.sendTo((EntityPlayerMP) evt.getEntityPlayer(), new PacketItemAge(entityId, age));
+		}
+	}
 }
