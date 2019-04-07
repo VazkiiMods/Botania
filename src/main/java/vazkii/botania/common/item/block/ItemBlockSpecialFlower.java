@@ -100,7 +100,7 @@ public class ItemBlockSpecialFlower extends ItemBlockMod implements IRecipeKeyPr
 		if(ConfigHandler.CLIENT.referencesEnabled.get()) {
 			ITextComponent lore = type.getLore(par1ItemStack);
 			if(lore != null)
-				stacks.add(lore.applyTextStyle(TextFormatting.ITALIC));
+				stacks.add(lore.applyTextStyles(TextFormatting.ITALIC, TextFormatting.GRAY));
 		}
 	}
 

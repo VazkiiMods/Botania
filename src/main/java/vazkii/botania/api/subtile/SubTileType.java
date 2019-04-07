@@ -44,7 +44,8 @@ public class SubTileType extends ForgeRegistryEntry<SubTileType> {
     }
 
     public String getTranslationKey(ItemStack stack) {
-        return "tile.botania:" + SPECIAL_FLOWER_PREFIX + getRegistryName();
+        String id = getRegistryName().toString().replaceAll(":", ".");
+        return "block." + SPECIAL_FLOWER_PREFIX + id;
     }
 
     /**
@@ -52,7 +53,8 @@ public class SubTileType extends ForgeRegistryEntry<SubTileType> {
      */
     @Nullable
     public ITextComponent getLore(ItemStack stack) {
-        return new TextComponentTranslation("tile.botania:" + SPECIAL_FLOWER_PREFIX + getRegistryName() + ".reference");
+        String id = getRegistryName().toString().replaceAll(":", ".");
+        return new TextComponentTranslation("block." + SPECIAL_FLOWER_PREFIX + id + ".reference");
     }
 
     public SubTileEntity create() {
