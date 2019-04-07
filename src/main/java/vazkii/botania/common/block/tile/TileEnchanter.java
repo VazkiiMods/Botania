@@ -143,11 +143,10 @@ public class TileEnchanter extends TileMod implements ISparkAttachable, ITickabl
 			for(EntityItem entity : items) {
 				ItemStack item = entity.getItem();
 				if(item.getItem() == Items.ENCHANTED_BOOK) {
-					NBTTagList enchants = ItemEnchantedBook.getEnchantments(item);
+					Map<Enchantment, Integer> enchants = EnchantmentHelper.getEnchantments(item);
 					if(enchants.size() > 0) {
-						NBTTagCompound enchant = enchants.getCompound(0); // todo 1.13 update
-						short id = enchant.getShort("id");
-						if(isEnchantmentValid(Enchantment.getEnchantmentByID(id))) {
+						Enchantment enchant = enchants.keySet().iterator().next();
+						if(isEnchantmentValid(enchant)) {
 							advanceStage();
 							return;
 						}
@@ -165,12 +164,11 @@ public class TileEnchanter extends TileMod implements ISparkAttachable, ITickabl
 			for(EntityItem entity : items) {
 				ItemStack item = entity.getItem();
 				if(item.getItem() == Items.ENCHANTED_BOOK) {
-					NBTTagList enchants = ItemEnchantedBook.getEnchantments(item);
+					Map<Enchantment, Integer> enchants = EnchantmentHelper.getEnchantments(item);
 					if(enchants.size() > 0) {
-						NBTTagCompound enchant = enchants.getCompound(0);
-						short enchantId = enchant.getShort("id");
-						short enchantLvl = enchant.getShort("lvl");
-						Enchantment ench = Enchantment.getEnchantmentByID(enchantId);
+						Map.Entry<Enchantment, Integer> e = enchants.entrySet().iterator().next();
+						Enchantment ench = e.getKey();
+						int enchantLvl = e.getValue();
 						if(!hasEnchantAlready(ench) && isEnchantmentValid(ench)) {
 							this.enchants.add(new EnchantmentData(ench, enchantLvl));
 							world.playSound(null, pos, ModSounds.ding, SoundCategory.BLOCKS, 1F, 1F);

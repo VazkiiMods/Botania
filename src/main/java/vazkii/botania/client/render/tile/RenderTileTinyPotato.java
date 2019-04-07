@@ -66,8 +66,7 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 
 	@Override
 	public void render(@Nonnull TileTinyPotato potato, double x, double y, double z, float partialTicks, int destroyStage) {
-		if(!potato.getWorld().isBlockLoaded(potato.getPos(), false)
-				|| potato.getWorld().getBlockState(potato.getPos()).getBlock() != ModBlocks.tinyPotato)
+		if(potato.getBlockState().getBlock() != ModBlocks.tinyPotato)
 			return;
 
 		GlStateManager.pushMatrix();
@@ -104,9 +103,16 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 
 		GlStateManager.translatef(0.5F, 1.5F, 0.5F);
 		GlStateManager.scalef(1F, -1F, -1F);
-		int meta = potato.getBlockState().get(BotaniaStateProps.CARDINALS).getHorizontalIndex();
-		float rotY = meta * 90F - 180F;
-		GlStateManager.rotatef(rotY, 0F, 1F, 0F); // todo 1.13 recheck
+		EnumFacing potatoFacing = potato.getBlockState().get(BotaniaStateProps.CARDINALS);
+		float rotY = 0;
+		switch(potatoFacing) {
+			default:
+			case SOUTH: break;
+			case NORTH: rotY = 180F; break;
+			case EAST: rotY = 270F; break;
+			case WEST: rotY = 90F; break;
+		}
+		GlStateManager.rotatef(rotY, 0F, 1F, 0F);
 
 		float jump = potato.jumpTicks;
 		if (jump > 0)
@@ -158,8 +164,6 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 		GlStateManager.translatef(0F, -1F, 0F);
 		float s = 1F / 3.5F;
 		GlStateManager.scalef(s, s, s);
-
-		EnumFacing potatoFacing = potato.getWorld().getBlockState(potato.getPos()).get(BotaniaStateProps.CARDINALS);
 
 		for(int i = 0; i < potato.getSizeInventory(); i++) {
 			ItemStack stack = potato.getItemHandler().getStackInSlot(i);

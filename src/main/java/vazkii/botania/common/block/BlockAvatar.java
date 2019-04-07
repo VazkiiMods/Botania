@@ -17,6 +17,7 @@ import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateContainer;
@@ -24,6 +25,8 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.Mirror;
+import net.minecraft.util.Rotation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.VoxelShape;
@@ -46,6 +49,7 @@ import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 public class BlockAvatar extends BlockMod implements ILexiconable {
 
@@ -89,17 +93,17 @@ public class BlockAvatar extends BlockMod implements ILexiconable {
 
 	@Override
 	public void onReplaced(@Nonnull IBlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState newstate, boolean isMoving) {
-		TileSimpleInventory inv = (TileSimpleInventory) world.getTileEntity(pos);
-
-		InventoryHelper.dropInventory(inv, world, state, pos);
-
-		super.onReplaced(state, world, pos, newstate, isMoving);
+		if(state.getBlock() != newstate.getBlock()) {
+			TileSimpleInventory inv = (TileSimpleInventory) world.getTileEntity(pos);
+			InventoryHelper.dropInventory(inv, world, state, pos);
+			super.onReplaced(state, world, pos, newstate, isMoving);
+		}
 	}
 
+	@Nullable
 	@Override
-	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
-		// todo 1.13 getstateforplacement
-		world.setBlockState(pos, state.with(BotaniaStateProps.CARDINALS, placer.getHorizontalFacing().getOpposite()));
+	public IBlockState getStateForPlacement(BlockItemUseContext context) {
+		return getDefaultState().with(BotaniaStateProps.CARDINALS, context.getPlacementHorizontalFacing().getOpposite());
 	}
 
 	@Override
@@ -135,4 +139,15 @@ public class BlockAvatar extends BlockMod implements ILexiconable {
 		return LexiconData.avatar;
 	}
 
+	@Nonnull
+	@Override
+	public IBlockState mirror(@Nonnull IBlockState state, Mirror mirror) {
+		return state.with(BotaniaStateProps.CARDINALS, mirror.mirror(state.get(BotaniaStateProps.CARDINALS)));
+	}
+
+	@Nonnull
+	@Override
+	public IBlockState rotate(@Nonnull IBlockState state, Rotation rot) {
+		return state.with(BotaniaStateProps.CARDINALS, rot.rotate(state.get(BotaniaStateProps.CARDINALS)));
+	}
 }
