@@ -19,6 +19,7 @@ import net.minecraft.util.math.BlockPos;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
+import vazkii.botania.api.subtile.SubTileType;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.lexicon.LexiconData;
 
@@ -33,6 +34,10 @@ public class SubTileClayconia extends SubTileFunctional {
 
 	private static final int RANGE_MINI = 2;
 	private static final int RANGE_Y_MINI = 1;
+
+	public SubTileClayconia(SubTileType type) {
+		super(type);
+	}
 
 	@Override
 	public void onUpdate() {
@@ -102,6 +107,10 @@ public class SubTileClayconia extends SubTileFunctional {
 	}
 
 	public static class Mini extends SubTileClayconia {
+		public Mini(SubTileType type) {
+			super(type);
+		}
+
 		@Override public int getRange() { return RANGE_MINI; }
 		@Override public int getRangeY() { return RANGE_Y_MINI; }
 	}

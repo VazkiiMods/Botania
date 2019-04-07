@@ -133,6 +133,7 @@ public class Botania {
 		MinecraftForge.EVENT_BUS.addListener(this::serverAboutToStart);
 		MinecraftForge.EVENT_BUS.addListener(this::serverStarting);
 		MinecraftForge.EVENT_BUS.addListener(this::serverStopping);
+		BotaniaRegistries.init();
 	}
 
 	private void commonSetup(FMLCommonSetupEvent event) {

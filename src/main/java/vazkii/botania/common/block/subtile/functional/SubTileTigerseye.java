@@ -22,6 +22,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
+import vazkii.botania.api.subtile.SubTileType;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibObfuscation;
 
@@ -32,6 +33,10 @@ public class SubTileTigerseye extends SubTileFunctional {
 
 	private static final int RANGE = 10;
 	private static final int RANGE_Y = 4;
+
+	public SubTileTigerseye(SubTileType type) {
+		super(type);
+	}
 
 	@Override
 	public void onUpdate() {

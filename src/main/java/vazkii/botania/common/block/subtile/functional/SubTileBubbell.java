@@ -20,6 +20,7 @@ import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.ISubTileContainer;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
+import vazkii.botania.api.subtile.SubTileType;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileFakeAir;
 import vazkii.botania.common.lexicon.LexiconData;
@@ -32,6 +33,10 @@ public class SubTileBubbell extends SubTileFunctional {
 	private static final String TAG_RANGE = "range";
 
 	int range = 2;
+
+	public SubTileBubbell(SubTileType type) {
+		super(type);
+	}
 
 	@Override
 	public void onUpdate() {
@@ -112,6 +117,10 @@ public class SubTileBubbell extends SubTileFunctional {
 	}
 
 	public static class Mini extends SubTileBubbell {
+		public Mini(SubTileType type) {
+			super(type);
+		}
+
 		@Override public int getRange() { return RANGE_MINI; }
 	}
 

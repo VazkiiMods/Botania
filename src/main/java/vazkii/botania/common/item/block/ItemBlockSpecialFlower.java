@@ -43,7 +43,8 @@ import vazkii.botania.api.lexicon.IRecipeKeyProvider;
 import vazkii.botania.api.subtile.SubTileEntity;
 import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.api.subtile.SubTileGenerating;
-import vazkii.botania.api.subtile.signature.SubTileSignature;
+import vazkii.botania.api.subtile.SubTileType;
+import vazkii.botania.common.BotaniaRegistries;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileSpecialFlower;
 import vazkii.botania.common.core.handler.ConfigHandler;
@@ -69,7 +70,7 @@ public class ItemBlockSpecialFlower extends ItemBlockMod implements IRecipeKeyPr
 			BlockPos pos = ctx.getPos();
 			ItemStack stack = ctx.getItem();
 
-			ResourceLocation type = getType(ctx.getItem());
+			SubTileType type = getType(ctx.getItem());
 			TileEntity te = world.getTileEntity(pos);
 			if(te instanceof TileSpecialFlower) {
 				TileSpecialFlower tile = (TileSpecialFlower) te;
@@ -87,40 +88,45 @@ public class ItemBlockSpecialFlower extends ItemBlockMod implements IRecipeKeyPr
 	@Nonnull
 	@Override
 	public String getTranslationKey(ItemStack stack) {
-		return BotaniaAPI.getSignatureForName(getType(stack)).getUnlocalizedNameForStack(stack);
+		return getType(stack).getTranslationKey(stack);
 	}
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void addInformation(@Nonnull ItemStack par1ItemStack, World world, @Nonnull List<ITextComponent> stacks, @Nonnull ITooltipFlag flag) {
-		ResourceLocation type = getType(par1ItemStack);
-		SubTileSignature sig = BotaniaAPI.getSignatureForName(type);
-
-		sig.addTooltip(par1ItemStack, world, stacks);
+		SubTileType type = getType(par1ItemStack);
+		type.addTooltip(par1ItemStack, world, stacks);
 
 		if(ConfigHandler.CLIENT.referencesEnabled.get()) {
-			String refUnlocalized = sig.getUnlocalizedLoreTextForStack(par1ItemStack);
-			String refLocalized = I18n.format(refUnlocalized);
-			if(!refLocalized.equals(refUnlocalized))
-				stacks.add(new TextComponentTranslation(refLocalized).applyTextStyle(TextFormatting.ITALIC));
+			ITextComponent lore = type.getLore(par1ItemStack);
+			if(lore != null)
+				stacks.add(lore.applyTextStyle(TextFormatting.ITALIC));
 		}
 	}
 
 	@Override
 	public String getCreatorModId(ItemStack itemStack) {
-	    return getType(itemStack).getNamespace();
+		return getType(itemStack).getRegistryName().getNamespace();
 	}
 
-	public static ResourceLocation getType(ItemStack stack) {
-		return stack.hasTag() ? new ResourceLocation(ItemNBTHelper.getString(stack, SubTileEntity.TAG_TYPE, BotaniaAPI.DUMMY_SUBTILE_NAME.toString())) : BotaniaAPI.DUMMY_SUBTILE_NAME;
+	public static SubTileType getType(ItemStack stack) {
+		ResourceLocation id = BotaniaAPI.DUMMY_SUBTILE_NAME;
+		if(stack.hasTag()) {
+			id = new ResourceLocation(ItemNBTHelper.getString(stack, SubTileEntity.TAG_TYPE, BotaniaAPI.DUMMY_SUBTILE_NAME.toString()));
+		}
+		return BotaniaRegistries.SUBTILES.getValue(id);
 	}
 
 	public static ItemStack ofType(ResourceLocation type) {
+		return ofType(BotaniaRegistries.SUBTILES.getValue(type));
+	}
+
+	public static ItemStack ofType(SubTileType type) {
 		return ofType(new ItemStack(ModBlocks.specialFlower), type);
 	}
 
-	public static ItemStack ofType(ItemStack stack, ResourceLocation type) {
-		ItemNBTHelper.setString(stack, SubTileEntity.TAG_TYPE, type.toString());
+	public static ItemStack ofType(ItemStack stack, SubTileType type) {
+		ItemNBTHelper.setString(stack, SubTileEntity.TAG_TYPE, type.getRegistryName().toString());
 		return stack;
 	}
 
@@ -132,9 +138,10 @@ public class ItemBlockSpecialFlower extends ItemBlockMod implements IRecipeKeyPr
 	@SubscribeEvent
 	public static void onItemPickup(EntityItemPickupEvent evt) {
 		if(evt.getItem().getItem().getItem() == Item.getItemFromBlock(ModBlocks.specialFlower)) {
-			ResourceLocation type = getType(evt.getItem().getItem());
-			Class subtile = BotaniaAPI.getSubTileMapping(type);
+			SubTileType type = getType(evt.getItem().getItem());
 
+			/* todo 1.13 use tags after flattening
+			Class subtile = BotaniaAPI.getSubTileMapping(type);
 			if(SubTileGenerating.class.isAssignableFrom(subtile)) {
 				PlayerHelper.grantCriterion((EntityPlayerMP) evt.getEntityPlayer(), new ResourceLocation(LibMisc.MOD_ID, "main/generating_flower"), "code_triggered");
 			}
@@ -142,8 +149,9 @@ public class ItemBlockSpecialFlower extends ItemBlockMod implements IRecipeKeyPr
 			if(SubTileFunctional.class.isAssignableFrom(subtile)) {
 				PlayerHelper.grantCriterion((EntityPlayerMP) evt.getEntityPlayer(), new ResourceLocation(LibMisc.MOD_ID, "main/functional_flower"), "code_triggered");
 			}
+			*/
 
-			if(BotaniaAPI.DUMMY_SUBTILE_NAME.equals(type)) {
+			if(BotaniaAPI.DUMMY_SUBTILE_NAME.equals(type.getRegistryName())) {
 				PlayerHelper.grantCriterion((EntityPlayerMP) evt.getEntityPlayer(), new ResourceLocation(LibMisc.MOD_ID, "challenge/null_flower"), "code_triggered");
 			}
 		}

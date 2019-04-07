@@ -26,9 +26,11 @@ import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.internal.DummySubTile;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.state.enums.LuminizerVariant;
 import vazkii.botania.api.subtile.SubTileEntity;
+import vazkii.botania.api.subtile.SubTileType;
 import vazkii.botania.client.render.tile.RenderTilePylon;
 import vazkii.botania.client.render.tile.TEISR;
 import vazkii.botania.common.block.corporea.BlockCorporeaCrystalCube;
@@ -894,58 +896,64 @@ public final class ModBlocks {
 		r.register(TileEntityType.Builder.create(TileTeruTeruBozu::new).build(null).setRegistryName(LibMisc.MOD_ID, LibBlockNames.TERU_TERU_BOZU));
 		r.register(TileEntityType.Builder.create(TileAvatar::new).build(null).setRegistryName(LibMisc.MOD_ID, LibBlockNames.AVATAR));
 		r.register(TileEntityType.Builder.create(TileAnimatedTorch::new).build(null).setRegistryName(LibMisc.MOD_ID, LibBlockNames.ANIMATED_TORCH));
-
-		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_PUREDAISY, SubTilePureDaisy.class);
-		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_MANASTAR, SubTileManastar.class);
-
-		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_HYDROANGEAS, SubTileHydroangeas.class);
-		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_ENDOFLAME, SubTileEndoflame.class);
-		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_THERMALILY, SubTileThermalily.class);
-		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_ARCANE_ROSE, SubTileArcaneRose.class);
-		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_MUNCHDEW, SubTileMunchdew.class);
-		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_ENTROPINNYUM, SubTileEntropinnyum.class);
-		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_KEKIMURUS, SubTileKekimurus.class);
-		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_GOURMARYLLIS, SubTileGourmaryllis.class);
-		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_NARSLIMMUS, SubTileNarslimmus.class);
-		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_SPECTROLUS, SubTileSpectrolus.class);
-		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_DANDELIFEON, SubTileDandelifeon.class);
-		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_RAFFLOWSIA, SubTileRafflowsia.class);
-		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_SHULK_ME_NOT, SubTileShulkMeNot.class);
-
-		registerSubTileWithMini(LibBlockNames.SUBTILE_BELLETHORN, SubTileBellethorn.class);
-		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_DREADTHORN, SubTileDreadthorn.class);
-		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_HEISEI_DREAM, SubTileHeiseiDream.class);
-		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_TIGERSEYE, SubTileTigerseye.class);
-		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_JADED_AMARANTHUS, SubTileJadedAmaranthus.class);
-		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_ORECHID, SubTileOrechid.class);
-		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_ORECHID_IGNEM, SubTileOrechidIgnem.class);
-		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_FALLEN_KANADE, SubTileFallenKanade.class);
-		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_EXOFLAME, SubTileExoflame.class);
-		registerSubTileWithMini(LibBlockNames.SUBTILE_AGRICARNATION, SubTileAgricarnation.class);
-		registerSubTileWithMini(LibBlockNames.SUBTILE_HOPPERHOCK, SubTileHopperhock.class);
-		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_TANGLEBERRIE, SubTileTangleberrie.class);
-		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_JIYUULIA, SubTileJiyuulia.class);
-		registerSubTileWithMini(LibBlockNames.SUBTILE_RANNUNCARPUS, SubTileRannuncarpus.class);
-		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_HYACIDUS, SubTileHyacidus.class);
-		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_POLLIDISIAC, SubTilePollidisiac.class);
-		registerSubTileWithMini(LibBlockNames.SUBTILE_CLAYCONIA, SubTileClayconia.class);
-		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_LOONIUM, SubTileLoonuim.class);
-		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_DAFFOMILL, SubTileDaffomill.class);
-		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_VINCULOTUS, SubTileVinculotus.class);
-		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_SPECTRANTHEMUM, SubTileSpectranthemum.class);
-		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_MEDUMONE, SubTileMedumone.class);
-		registerSubTileWithMini(LibBlockNames.SUBTILE_MARIMORPHOSIS, SubTileMarimorphosis.class);
-		registerSubTileWithMini(LibBlockNames.SUBTILE_BUBBELL, SubTileBubbell.class);
-		registerSubTileWithMini(LibBlockNames.SUBTILE_SOLEGNOLIA, SubTileSolegnolia.class);
-		BotaniaAPI.registerSubTile(LibBlockNames.SUBTILE_BERGAMUTE, SubTileBergamute.class);
 	}
 
-	private static void registerSubTileWithMini(ResourceLocation key, Class<? extends SubTileEntity> clazz) {
-		BotaniaAPI.registerSubTile(key, clazz);
+	@SubscribeEvent
+	public static void initSubtiles(RegistryEvent.Register<SubTileType> evt) {
+		IForgeRegistry<SubTileType> r = evt.getRegistry();
+		r.register(new SubTileType(SubTileType.MISC_TYPE, DummySubTile::new).setRegistryName(BotaniaAPI.DUMMY_SUBTILE_NAME));
+		r.register(new SubTileType(SubTileType.MISC_TYPE, SubTilePureDaisy::new).setRegistryName(LibBlockNames.SUBTILE_PUREDAISY));
+		r.register(new SubTileType(SubTileType.MISC_TYPE, SubTileManastar::new).setRegistryName(LibBlockNames.SUBTILE_MANASTAR));
 
-		for(Class innerClazz : clazz.getDeclaredClasses())
-			if(innerClazz.getSimpleName().equals("Mini"))
-				BotaniaAPI.registerMiniSubTile(new ResourceLocation(key.getNamespace(), key.getPath() + "_chibi"), innerClazz, key);
+		r.register(new SubTileType(SubTileType.GENERATING_TYPE, SubTileHydroangeas::new).setRegistryName(LibBlockNames.SUBTILE_HYDROANGEAS));
+		r.register(new SubTileType(SubTileType.GENERATING_TYPE, SubTileEndoflame::new).setRegistryName(LibBlockNames.SUBTILE_ENDOFLAME));
+		r.register(new SubTileType(SubTileType.GENERATING_TYPE, SubTileThermalily::new).setRegistryName(LibBlockNames.SUBTILE_THERMALILY));
+		r.register(new SubTileType(SubTileType.GENERATING_TYPE, SubTileArcaneRose::new).setRegistryName(LibBlockNames.SUBTILE_ARCANE_ROSE));
+		r.register(new SubTileType(SubTileType.GENERATING_TYPE, SubTileMunchdew::new).setRegistryName(LibBlockNames.SUBTILE_MUNCHDEW));
+		r.register(new SubTileType(SubTileType.GENERATING_TYPE, SubTileEntropinnyum::new).setRegistryName(LibBlockNames.SUBTILE_ENTROPINNYUM));
+		r.register(new SubTileType(SubTileType.GENERATING_TYPE, SubTileKekimurus::new).setRegistryName(LibBlockNames.SUBTILE_KEKIMURUS));
+		r.register(new SubTileType(SubTileType.GENERATING_TYPE, SubTileGourmaryllis::new).setRegistryName(LibBlockNames.SUBTILE_GOURMARYLLIS));
+		r.register(new SubTileType(SubTileType.GENERATING_TYPE, SubTileNarslimmus::new).setRegistryName(LibBlockNames.SUBTILE_NARSLIMMUS));
+		r.register(new SubTileType(SubTileType.GENERATING_TYPE, SubTileSpectrolus::new).setRegistryName(LibBlockNames.SUBTILE_SPECTROLUS));
+		r.register(new SubTileType(SubTileType.GENERATING_TYPE, SubTileDandelifeon::new).setRegistryName(LibBlockNames.SUBTILE_DANDELIFEON));
+		r.register(new SubTileType(SubTileType.GENERATING_TYPE, SubTileRafflowsia::new).setRegistryName(LibBlockNames.SUBTILE_RAFFLOWSIA));
+		r.register(new SubTileType(SubTileType.GENERATING_TYPE, SubTileShulkMeNot::new).setRegistryName(LibBlockNames.SUBTILE_SHULK_ME_NOT));
+
+		// todo 1.13 register recipes for chibis: BotaniaAPI.registerMiniSubTile(new ResourceLocation(key.getNamespace(), key.getPath() + "_chibi"), innerClazz, key);
+		r.register(new SubTileType(SubTileType.FUNCTIONAL_TYPE, SubTileBellethorn::new).setRegistryName(LibBlockNames.SUBTILE_BELLETHORN));
+		r.register(new SubTileType(SubTileType.FUNCTIONAL_TYPE, SubTileBellethorn.Mini::new).setRegistryName(LibMisc.MOD_ID, LibBlockNames.SUBTILE_BELLETHORN.getPath() + "_chibi"));
+		r.register(new SubTileType(SubTileType.FUNCTIONAL_TYPE, SubTileDreadthorn::new).setRegistryName(LibBlockNames.SUBTILE_DREADTHORN));
+		r.register(new SubTileType(SubTileType.FUNCTIONAL_TYPE, SubTileHeiseiDream::new).setRegistryName(LibBlockNames.SUBTILE_HEISEI_DREAM));
+		r.register(new SubTileType(SubTileType.FUNCTIONAL_TYPE, SubTileTigerseye::new).setRegistryName(LibBlockNames.SUBTILE_TIGERSEYE));
+		r.register(new SubTileType(SubTileType.FUNCTIONAL_TYPE, SubTileJadedAmaranthus::new).setRegistryName(LibBlockNames.SUBTILE_JADED_AMARANTHUS));
+		r.register(new SubTileType(SubTileType.FUNCTIONAL_TYPE, SubTileOrechid::new).setRegistryName(LibBlockNames.SUBTILE_ORECHID));
+		r.register(new SubTileType(SubTileType.FUNCTIONAL_TYPE, SubTileOrechidIgnem::new).setRegistryName(LibBlockNames.SUBTILE_ORECHID_IGNEM));
+		r.register(new SubTileType(SubTileType.FUNCTIONAL_TYPE, SubTileFallenKanade::new).setRegistryName(LibBlockNames.SUBTILE_FALLEN_KANADE));
+		r.register(new SubTileType(SubTileType.FUNCTIONAL_TYPE, SubTileExoflame::new).setRegistryName(LibBlockNames.SUBTILE_EXOFLAME));
+		r.register(new SubTileType(SubTileType.FUNCTIONAL_TYPE, SubTileAgricarnation::new).setRegistryName(LibBlockNames.SUBTILE_AGRICARNATION));
+		r.register(new SubTileType(SubTileType.FUNCTIONAL_TYPE, SubTileAgricarnation.Mini::new).setRegistryName(LibMisc.MOD_ID, LibBlockNames.SUBTILE_AGRICARNATION.getPath() + "_chibi"));
+		r.register(new SubTileType(SubTileType.FUNCTIONAL_TYPE, SubTileHopperhock::new).setRegistryName(LibBlockNames.SUBTILE_HOPPERHOCK));
+		r.register(new SubTileType(SubTileType.FUNCTIONAL_TYPE, SubTileHopperhock.Mini::new).setRegistryName(LibMisc.MOD_ID, LibBlockNames.SUBTILE_HOPPERHOCK.getPath() + "_chibi"));
+		r.register(new SubTileType(SubTileType.FUNCTIONAL_TYPE, SubTileTangleberrie::new).setRegistryName(LibBlockNames.SUBTILE_TANGLEBERRIE));
+		r.register(new SubTileType(SubTileType.FUNCTIONAL_TYPE, SubTileJiyuulia::new).setRegistryName(LibBlockNames.SUBTILE_JIYUULIA));
+		r.register(new SubTileType(SubTileType.FUNCTIONAL_TYPE, SubTileRannuncarpus::new).setRegistryName(LibBlockNames.SUBTILE_RANNUNCARPUS));
+		r.register(new SubTileType(SubTileType.FUNCTIONAL_TYPE, SubTileRannuncarpus.Mini::new).setRegistryName(LibMisc.MOD_ID, LibBlockNames.SUBTILE_RANNUNCARPUS.getPath() + "_chibi"));
+		r.register(new SubTileType(SubTileType.FUNCTIONAL_TYPE, SubTileHyacidus::new).setRegistryName(LibBlockNames.SUBTILE_HYACIDUS));
+		r.register(new SubTileType(SubTileType.FUNCTIONAL_TYPE, SubTilePollidisiac::new).setRegistryName(LibBlockNames.SUBTILE_POLLIDISIAC));
+		r.register(new SubTileType(SubTileType.FUNCTIONAL_TYPE, SubTileClayconia::new).setRegistryName(LibBlockNames.SUBTILE_CLAYCONIA));
+		r.register(new SubTileType(SubTileType.FUNCTIONAL_TYPE, SubTileClayconia.Mini::new).setRegistryName(LibMisc.MOD_ID, LibBlockNames.SUBTILE_CLAYCONIA.getPath() + "_chibi"));
+		r.register(new SubTileType(SubTileType.FUNCTIONAL_TYPE, SubTileLoonuim::new).setRegistryName(LibBlockNames.SUBTILE_LOONIUM));
+		r.register(new SubTileType(SubTileType.FUNCTIONAL_TYPE, SubTileDaffomill::new).setRegistryName(LibBlockNames.SUBTILE_DAFFOMILL));
+		r.register(new SubTileType(SubTileType.FUNCTIONAL_TYPE, SubTileVinculotus::new).setRegistryName(LibBlockNames.SUBTILE_VINCULOTUS));
+		r.register(new SubTileType(SubTileType.FUNCTIONAL_TYPE, SubTileSpectranthemum::new).setRegistryName(LibBlockNames.SUBTILE_SPECTRANTHEMUM));
+		r.register(new SubTileType(SubTileType.FUNCTIONAL_TYPE, SubTileMedumone::new).setRegistryName(LibBlockNames.SUBTILE_MEDUMONE));
+		r.register(new SubTileType(SubTileType.FUNCTIONAL_TYPE, SubTileMarimorphosis::new).setRegistryName(LibBlockNames.SUBTILE_MARIMORPHOSIS));
+		r.register(new SubTileType(SubTileType.FUNCTIONAL_TYPE, SubTileMarimorphosis.Mini::new).setRegistryName(LibMisc.MOD_ID, LibBlockNames.SUBTILE_MARIMORPHOSIS.getPath() + "_chibi"));
+		r.register(new SubTileType(SubTileType.FUNCTIONAL_TYPE, SubTileBubbell::new).setRegistryName(LibBlockNames.SUBTILE_BUBBELL));
+		r.register(new SubTileType(SubTileType.FUNCTIONAL_TYPE, SubTileBubbell.Mini::new).setRegistryName(LibMisc.MOD_ID, LibBlockNames.SUBTILE_BUBBELL.getPath() + "_chibi"));
+		r.register(new SubTileType(SubTileType.FUNCTIONAL_TYPE, SubTileSolegnolia::new).setRegistryName(LibBlockNames.SUBTILE_SOLEGNOLIA));
+		r.register(new SubTileType(SubTileType.FUNCTIONAL_TYPE, SubTileSolegnolia.Mini::new).setRegistryName(LibMisc.MOD_ID, LibBlockNames.SUBTILE_SOLEGNOLIA.getPath() + "_chibi"));
+		r.register(new SubTileType(SubTileType.FUNCTIONAL_TYPE, SubTileBergamute::new).setRegistryName(LibBlockNames.SUBTILE_BERGAMUTE));
 	}
 
 	public static Block getFlower(EnumDyeColor color) {

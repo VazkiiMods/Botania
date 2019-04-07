@@ -23,9 +23,11 @@ import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import vazkii.botania.api.item.IBaubleRender.Helper;
+import vazkii.botania.api.subtile.SubTileType;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.BotaniaRegistries;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.version.VersionChecker;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
@@ -93,7 +95,8 @@ public final class ContributorFancinessHandler implements LayerRenderer<EntityPl
 				flowerMap.put(key, new ItemStack(ModBlocks.getFlower(EnumDyeColor.byId(i))));
 			} catch(NumberFormatException e) {
 				// todo 1.13 backward compat for camelCase names
-				flowerMap.put(key, ItemBlockSpecialFlower.ofType(new ResourceLocation(LibMisc.MOD_ID, value)));
+				SubTileType type = BotaniaRegistries.SUBTILES.getValue(new ResourceLocation(LibMisc.MOD_ID, value));
+				flowerMap.put(key, ItemBlockSpecialFlower.ofType(type));
 			}
 		}
 	}

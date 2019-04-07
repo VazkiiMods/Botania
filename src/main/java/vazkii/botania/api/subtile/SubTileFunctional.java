@@ -19,7 +19,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.registry.IRegistry;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -51,6 +50,10 @@ public class SubTileFunctional extends SubTileEntity {
 	public int knownMana = -1;
 
 	BlockPos cachedPoolCoordinates = null;
+
+	public SubTileFunctional(SubTileType type) {
+		super(type);
+	}
 
 	/**
 	 * If set to true, redstoneSignal will be updated every tick.

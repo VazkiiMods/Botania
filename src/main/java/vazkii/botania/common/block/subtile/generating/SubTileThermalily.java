@@ -16,11 +16,16 @@ import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.Tag;
 import net.minecraft.util.SoundCategory;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.subtile.SubTileType;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.lexicon.LexiconData;
 
 public class SubTileThermalily extends SubTileHydroangeas {
+
+	public SubTileThermalily(SubTileType type) {
+		super(type);
+	}
 
 	@Override
 	public int getColor(){

@@ -20,6 +20,7 @@ import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.recipe.RecipePureDaisy;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileEntity;
+import vazkii.botania.api.subtile.SubTileType;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.lexicon.LexiconData;
@@ -50,7 +51,8 @@ public class SubTilePureDaisy extends SubTileEntity {
 	// Bitfield of active positions, used clientside for particles
 	private int activePositions = 0;
 
-	public SubTilePureDaisy() {
+	public SubTilePureDaisy(SubTileType type) {
+		super(type);
 		Arrays.fill(ticksRemaining, -1);
 	}
 

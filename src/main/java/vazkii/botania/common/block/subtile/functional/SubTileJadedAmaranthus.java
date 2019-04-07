@@ -19,6 +19,7 @@ import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
+import vazkii.botania.api.subtile.SubTileType;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.lexicon.LexiconData;
@@ -27,6 +28,10 @@ public class SubTileJadedAmaranthus extends SubTileFunctional {
 
 	private static final int COST = 100;
 	final int RANGE = 4;
+
+	public SubTileJadedAmaranthus(SubTileType type) {
+		super(type);
+	}
 
 	@Override
 	public void onUpdate() {

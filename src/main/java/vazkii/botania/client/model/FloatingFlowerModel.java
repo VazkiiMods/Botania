@@ -41,6 +41,7 @@ import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.item.IFloatingFlower;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.BotaniaRegistries;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.decor.BlockFloatingFlower;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
@@ -137,7 +138,7 @@ public class FloatingFlowerModel implements IBakedModel {
 				Item shinyFlower = ForgeRegistries.ITEMS.getValue(shinyId);
 				flowerModel = Minecraft.getInstance().getItemRenderer().getItemModelMesher().getItemModel(new ItemStack(shinyFlower));
 			} else {
-				ItemStack stack = ItemBlockSpecialFlower.ofType(identifier);
+				ItemStack stack = ItemBlockSpecialFlower.ofType(BotaniaRegistries.SUBTILES.getValue(identifier));
 				IBakedModel specialFlowerModel = Minecraft.getInstance().getItemRenderer().getItemModelMesher().getItemModel(stack);
 				flowerModel = specialFlowerModel.getOverrides().getModelWithOverrides(specialFlowerModel, stack, null, null);
 			}
@@ -235,7 +236,7 @@ public class FloatingFlowerModel implements IBakedModel {
 
 			if(Block.getBlockFromItem(stack.getItem()) == ModBlocks.floatingSpecialFlower) {
 				// Magic flower
-				identifier = ItemBlockSpecialFlower.getType(stack);
+				identifier = ItemBlockSpecialFlower.getType(stack).getRegistryName();
 			} else {
 				// Mundane flower
 				identifier = stack.getItem().getRegistryName();

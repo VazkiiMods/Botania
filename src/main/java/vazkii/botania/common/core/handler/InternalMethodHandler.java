@@ -42,6 +42,7 @@ import vazkii.botania.api.subtile.ISpecialFlower;
 import vazkii.botania.api.subtile.SubTileEntity;
 import vazkii.botania.api.subtile.SubTileFunctional;
 import vazkii.botania.api.subtile.SubTileGenerating;
+import vazkii.botania.api.subtile.SubTileType;
 import vazkii.botania.client.core.handler.BossBarHandler;
 import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.common.Botania;
@@ -156,17 +157,17 @@ public class InternalMethodHandler extends DummyMethodHandler {
 	}
 
 	@Override
-	public ItemStack getSubTileAsStack(ResourceLocation subTile) {
+	public ItemStack getSubTileAsStack(SubTileType subTile) {
 		return ItemBlockSpecialFlower.ofType(subTile);
 	}
 
 	@Override
-	public ItemStack getSubTileAsFloatingFlowerStack(ResourceLocation subTile) {
+	public ItemStack getSubTileAsFloatingFlowerStack(SubTileType subTile) {
 		return ItemBlockSpecialFlower.ofType(new ItemStack(ModBlocks.floatingSpecialFlower), subTile);
 	}
 
 	@Override
-	public ResourceLocation getStackSubTileKey(ItemStack stack) {
+	public SubTileType getStackSubTileKey(ItemStack stack) {
 		return ItemBlockSpecialFlower.getType(stack);
 	}
 

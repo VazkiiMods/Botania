@@ -24,6 +24,7 @@ import net.minecraft.util.math.BlockPos;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
+import vazkii.botania.api.subtile.SubTileType;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.lexicon.LexiconData;
@@ -32,6 +33,10 @@ public class SubTileAgricarnation extends SubTileFunctional {
 
 	private static final int RANGE = 5;
 	private static final int RANGE_MINI = 2;
+
+	public SubTileAgricarnation(SubTileType type) {
+		super(type);
+	}
 
 	@Override
 	public void onUpdate() {
@@ -108,6 +113,10 @@ public class SubTileAgricarnation extends SubTileFunctional {
 	}
 
 	public static class Mini extends SubTileAgricarnation {
+		public Mini(SubTileType type) {
+			super(type);
+		}
+
 		@Override public int getRange() { return RANGE_MINI; }
 	}
 

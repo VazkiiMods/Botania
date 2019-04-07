@@ -26,6 +26,7 @@ import net.minecraftforge.items.ItemHandlerHelper;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileGenerating;
+import vazkii.botania.api.subtile.SubTileType;
 import vazkii.botania.common.lexicon.LexiconData;
 
 import java.util.List;
@@ -42,6 +43,10 @@ public class SubTileGourmaryllis extends SubTileGenerating {
 	private int digestingMana = 0;
 	private ItemStack lastFood = ItemStack.EMPTY;
 	private int lastFoodCount = 0;
+
+	public SubTileGourmaryllis(SubTileType type) {
+		super(type);
+	}
 
 	@Override
 	public void onUpdate() {

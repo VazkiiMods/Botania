@@ -18,6 +18,7 @@ import net.minecraft.world.dimension.EndDimension;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
+import vazkii.botania.api.subtile.SubTileType;
 import vazkii.botania.common.lexicon.LexiconData;
 
 import java.util.List;
@@ -26,6 +27,10 @@ public class SubTileFallenKanade extends SubTileFunctional {
 
 	private static final int RANGE = 2;
 	private static final int COST = 120;
+
+	public SubTileFallenKanade(SubTileType type) {
+		super(type);
+	}
 
 	@Override
 	public void onUpdate() {

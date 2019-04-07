@@ -23,6 +23,7 @@ import vazkii.botania.api.item.IExoflameHeatable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
+import vazkii.botania.api.subtile.SubTileType;
 import vazkii.botania.common.lexicon.LexiconData;
 
 public class SubTileExoflame extends SubTileFunctional {
@@ -30,6 +31,10 @@ public class SubTileExoflame extends SubTileFunctional {
 	private static final int RANGE = 5;
 	private static final int RANGE_Y = 2;
 	private static final int COST = 300;
+
+	public SubTileExoflame(SubTileType type) {
+		super(type);
+	}
 
 	@Override
 	public void onUpdate() {

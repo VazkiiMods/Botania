@@ -33,7 +33,9 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.ISubTileSlowableContainer;
 import vazkii.botania.api.subtile.SubTileEntity;
+import vazkii.botania.api.subtile.SubTileType;
 import vazkii.botania.api.wand.IWandBindable;
+import vazkii.botania.common.BotaniaRegistries;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.string.TileRedStringRelay;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -48,7 +50,6 @@ public class TileSpecialFlower extends TileMod implements IWandBindable, ISubTil
 	private static final String TAG_SUBTILE_NAME = "subTileName";
 	private static final String TAG_SUBTILE_CMP = "subTileCmp";
 
-	public ResourceLocation subTileName = BotaniaAPI.DUMMY_SUBTILE_NAME;
 	private SubTileEntity subTile;
 
 	public TileSpecialFlower() {
@@ -61,32 +62,19 @@ public class TileSpecialFlower extends TileMod implements IWandBindable, ISubTil
 	}
 
 	@Override
-	public void setSubTile(ResourceLocation name) {
-		subTileName = name;
-		provideSubTile(subTileName);
+	public void setSubTile(SubTileType type) {
+		setSubTile(type.create());
 	}
 
-	public void setSubTile(SubTileEntity tile) {
+	private void setSubTile(SubTileEntity tile) {
 		subTile = tile;
 		subTile.setSupertile(this);
-	}
-
-	private void provideSubTile(ResourceLocation name) {
-		subTileName = name;
-
-		Class<? extends SubTileEntity> tileClass = BotaniaAPI.getSubTileMapping(name);
-		try {
-			SubTileEntity tile = tileClass.newInstance();
-			setSubTile(tile);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 
 	@Override
 	public void tick() {
 		if(subTile != null) {
-			world.profiler.startSection(() -> subTileName.toString());
+			world.profiler.startSection(() -> subTile.getType().getRegistryName().toString());
 			TileEntity tileBelow = world.getTileEntity(pos.down());
 			if(tileBelow instanceof TileRedStringRelay) {
 				BlockPos coords = ((TileRedStringRelay) tileBelow).getBinding();
@@ -124,26 +112,24 @@ public class TileSpecialFlower extends TileMod implements IWandBindable, ISubTil
 	public void writePacketNBT(NBTTagCompound cmp) {
 		super.writePacketNBT(cmp);
 
-		cmp.putString(TAG_SUBTILE_NAME, subTileName.toString());
-		NBTTagCompound subCmp = new NBTTagCompound();
-		cmp.put(TAG_SUBTILE_CMP, subCmp);
-
-		if(subTile != null)
+		if(subTile != null) {
+			cmp.putString(TAG_SUBTILE_NAME, subTile.getType().getRegistryName().toString());
+			NBTTagCompound subCmp = new NBTTagCompound();
+			cmp.put(TAG_SUBTILE_CMP, subCmp);
 			subTile.writeToPacketNBTInternal(subCmp);
+		}
 	}
 
 	@Override
 	public void readPacketNBT(NBTTagCompound cmp) {
 		super.readPacketNBT(cmp);
 
-		subTileName = new ResourceLocation(cmp.getString(TAG_SUBTILE_NAME));
-		NBTTagCompound subCmp = cmp.getCompound(TAG_SUBTILE_CMP);
-
-		if(subTile == null || !BotaniaAPI.getSubTileStringMapping(subTile.getClass()).equals(subTileName))
-			provideSubTile(subTileName);
-
-		if(subTile != null)
-			subTile.readFromPacketNBTInternal(subCmp);
+		if(cmp.contains(TAG_SUBTILE_NAME)) {
+			ResourceLocation id = new ResourceLocation(cmp.getString(TAG_SUBTILE_NAME));
+			if(subTile == null || !id.equals(subTile.getType().getRegistryName()))
+				setSubTile(BotaniaRegistries.SUBTILES.getValue(id));
+			subTile.readFromPacketNBTInternal(cmp.getCompound(TAG_SUBTILE_CMP));
+		}
 	}
 
 	public LexiconEntry getEntry() {

@@ -15,6 +15,7 @@ import net.minecraft.entity.Entity;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
+import vazkii.botania.api.subtile.SubTileType;
 import vazkii.botania.common.lexicon.LexiconData;
 
 import java.util.Collections;
@@ -26,6 +27,10 @@ public class SubTileSolegnolia extends SubTileFunctional {
 	private static final double RANGE_MINI = 1;
 
 	private static final Set<SubTileSolegnolia> existingFlowers = Collections.newSetFromMap(new MapMaker().concurrencyLevel(2).weakKeys().makeMap());
+
+	public SubTileSolegnolia(SubTileType type) {
+		super(type);
+	}
 
 	@Override
 	public void onUpdate() {
@@ -75,6 +80,10 @@ public class SubTileSolegnolia extends SubTileFunctional {
 	}
 
 	public static class Mini extends SubTileSolegnolia {
+		public Mini(SubTileType type) {
+			super(type);
+		}
+
 		@Override public double getRange() { return RANGE_MINI; }
 	}
 

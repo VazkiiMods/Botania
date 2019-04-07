@@ -32,6 +32,7 @@ import vazkii.botania.api.recipe.RecipeManaInfusion;
 import vazkii.botania.api.recipe.RecipePetals;
 import vazkii.botania.api.recipe.RecipeRuneAltar;
 import vazkii.botania.api.subtile.SubTileEntity;
+import vazkii.botania.api.subtile.SubTileType;
 
 import java.util.List;
 
@@ -117,17 +118,17 @@ public class DummyMethodHandler implements IInternalMethodHandler {
 	}
 
 	@Override
-	public ItemStack getSubTileAsStack(ResourceLocation subTile) {
+	public ItemStack getSubTileAsStack(SubTileType subTile) {
 		return ItemStack.EMPTY;
 	}
 
 	@Override
-	public ItemStack getSubTileAsFloatingFlowerStack(ResourceLocation subTile) {
+	public ItemStack getSubTileAsFloatingFlowerStack(SubTileType subTile) {
 		return getSubTileAsStack(subTile);
 	}
 
 	@Override
-	public ResourceLocation getStackSubTileKey(ItemStack stack) {
+	public SubTileType getStackSubTileKey(ItemStack stack) {
 		return null;
 	}
 

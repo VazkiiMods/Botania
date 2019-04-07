@@ -24,6 +24,8 @@ import net.minecraft.util.JsonUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.IForgeRegistryEntry;
+import vazkii.botania.api.subtile.SubTileType;
+import vazkii.botania.common.BotaniaRegistries;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.decor.BlockFloatingFlower;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
@@ -75,7 +77,8 @@ public class SpecialFloatingFlowerRecipe extends IRecipeHidden {
 		if(specialFlower.isEmpty())
 			return ItemStack.EMPTY;
 
-		return ItemBlockSpecialFlower.ofType(new ItemStack(ModBlocks.floatingSpecialFlower), flowerType);
+		SubTileType type = BotaniaRegistries.SUBTILES.getValue(flowerType);
+		return ItemBlockSpecialFlower.ofType(new ItemStack(ModBlocks.floatingSpecialFlower), type);
 	}
 
 	@Override

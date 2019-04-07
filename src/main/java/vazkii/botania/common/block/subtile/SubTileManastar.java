@@ -16,6 +16,7 @@ import net.minecraft.util.math.BlockPos;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.subtile.SubTileEntity;
+import vazkii.botania.api.subtile.SubTileType;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.lexicon.LexiconData;
@@ -26,6 +27,10 @@ public class SubTileManastar extends SubTileEntity {
 
 	private int lastMana = 0;
 	private int state = NONE;
+
+	public SubTileManastar(SubTileType type) {
+		super(type);
+	}
 
 	@Override
 	public void onUpdate() {

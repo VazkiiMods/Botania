@@ -31,6 +31,7 @@ import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileGenerating;
+import vazkii.botania.api.subtile.SubTileType;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.lexicon.LexiconData;
 
@@ -44,6 +45,10 @@ public class SubTileSpectrolus extends SubTileGenerating {
 	private static final int RANGE = 1;
 
 	private EnumDyeColor nextColor = EnumDyeColor.WHITE;
+
+	public SubTileSpectrolus(SubTileType type) {
+		super(type);
+	}
 
 	@Override
 	public void onUpdate() {

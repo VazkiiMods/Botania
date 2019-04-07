@@ -16,6 +16,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
+import vazkii.botania.api.subtile.SubTileType;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.core.helper.Vector3;
@@ -24,6 +25,10 @@ import vazkii.botania.common.lexicon.LexiconData;
 import java.util.List;
 
 public class SubTileTangleberrie extends SubTileFunctional {
+
+	public SubTileTangleberrie(SubTileType type) {
+		super(type);
+	}
 
 	@Override
 	public void onUpdate() {

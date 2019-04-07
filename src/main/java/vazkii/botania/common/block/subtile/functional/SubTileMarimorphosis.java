@@ -21,6 +21,7 @@ import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
+import vazkii.botania.api.subtile.SubTileType;
 import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.lexicon.LexiconData;
@@ -48,6 +49,10 @@ public class SubTileMarimorphosis extends SubTileFunctional {
 			Type.COLD,
 			Type.MESA
 	};
+
+	public SubTileMarimorphosis(SubTileType type) {
+		super(type);
+	}
 
 	@Override
 	public void onUpdate() {
@@ -154,6 +159,10 @@ public class SubTileMarimorphosis extends SubTileFunctional {
 	}
 
 	public static class Mini extends SubTileMarimorphosis {
+		public Mini(SubTileType type) {
+			super(type);
+		}
+
 		@Override public int getRange() { return RANGE_MINI; }
 		@Override public int getRangeY() { return RANGE_Y_MINI; }
 	}

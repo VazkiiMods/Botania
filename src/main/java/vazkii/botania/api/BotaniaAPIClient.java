@@ -60,15 +60,6 @@ public final class BotaniaAPIClient {
 		registerSubtileModel(subTileName, model, new ModelResourceLocation(model.getNamespace() + ":" + model.getPath(), "inventory"));
 	}
 
-	// Convenience overloads for the above two calls
-	public static void registerSubtileModel(Class<? extends SubTileEntity> clazz, ModelResourceLocation model) {
-		registerSubtileModel(BotaniaAPI.getSubTileStringMapping(clazz), model);
-	}
-
-	public static void registerSubtileModel(Class<? extends SubTileEntity> clazz, ModelResourceLocation model, ModelResourceLocation itemModel) {
-		registerSubtileModel(BotaniaAPI.getSubTileStringMapping(clazz), model, itemModel);
-	}
-
 	/**
 	 * @return An immutable and live view of the registered subtile block model map
 	 */

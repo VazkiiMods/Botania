@@ -19,6 +19,7 @@ import net.minecraft.util.math.BlockPos;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileGenerating;
+import vazkii.botania.api.subtile.SubTileType;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.network.PacketBotaniaEffect;
@@ -30,6 +31,10 @@ public class SubTileEntropinnyum extends SubTileGenerating {
 
 	private static final int RANGE = 12;
 	private static final int EXPLODE_EFFECT_EVENT = 0;
+
+	public SubTileEntropinnyum(SubTileType type) {
+		super(type);
+	}
 
 	@Override
 	public void onUpdate() {

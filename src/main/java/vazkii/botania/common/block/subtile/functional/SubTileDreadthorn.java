@@ -13,11 +13,16 @@ package vazkii.botania.common.block.subtile.functional;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.EntityAnimal;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.subtile.SubTileType;
 import vazkii.botania.common.lexicon.LexiconData;
 
 import java.util.function.Predicate;
 
 public class SubTileDreadthorn extends SubTileBellethorn {
+
+	public SubTileDreadthorn(SubTileType type) {
+		super(type);
+	}
 
 	@Override
 	public int getColor() {

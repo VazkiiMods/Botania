@@ -16,6 +16,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileGenerating;
+import vazkii.botania.api.subtile.SubTileType;
 import vazkii.botania.common.core.helper.ExperienceHelper;
 import vazkii.botania.common.lexicon.LexiconData;
 
@@ -24,6 +25,10 @@ import java.util.List;
 public class SubTileArcaneRose extends SubTileGenerating {
 
 	private static final int RANGE = 1;
+
+	public SubTileArcaneRose(SubTileType type) {
+		super(type);
+	}
 
 	@Override
 	public void onUpdate() {

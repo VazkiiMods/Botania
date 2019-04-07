@@ -19,11 +19,16 @@ import net.minecraft.util.math.BlockPos;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileGenerating;
+import vazkii.botania.api.subtile.SubTileType;
 import vazkii.botania.common.lexicon.LexiconData;
 
 public class SubTileKekimurus extends SubTileGenerating {
 
 	private static final int RANGE = 5;
+
+	public SubTileKekimurus(SubTileType type) {
+		super(type);
+	}
 
 	@Override
 	public void onUpdate() {

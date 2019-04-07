@@ -3,6 +3,7 @@ package vazkii.botania.common.block.subtile.functional;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
+import vazkii.botania.api.subtile.SubTileType;
 import vazkii.botania.common.lexicon.LexiconData;
 
 import java.util.Collections;
@@ -12,6 +13,10 @@ import java.util.WeakHashMap;
 public class SubTileBergamute extends SubTileFunctional {
 	private static final int RANGE = 4;
 	private static final Set<SubTileBergamute> existingFlowers = Collections.newSetFromMap(new WeakHashMap<>());
+
+	public SubTileBergamute(SubTileType type) {
+		super(type);
+	}
 
 	@Override
 	public void onUpdate() {

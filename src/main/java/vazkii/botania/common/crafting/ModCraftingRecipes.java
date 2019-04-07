@@ -25,6 +25,7 @@ import net.minecraftforge.fml.server.ServerLifecycleHooks;
 import net.minecraftforge.registries.IForgeRegistry;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.BotaniaRegistries;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.crafting.recipe.AncientWillRecipe;
@@ -331,7 +332,7 @@ public final class ModCraftingRecipes {
 	public static void registerRecipes(FMLServerStartingEvent evt) {
 		evt.getServer().getResourceManager().addReloadListener(manager -> {
 			// todo 1.13 have each subtile responsible for itself
-			for (ResourceLocation s : BotaniaAPI.getAllSubTiles()) {
+			for (ResourceLocation s : BotaniaRegistries.SUBTILES.getKeys()) {
 				ResourceLocation id = new ResourceLocation(LibMisc.MOD_ID, "floating_" + s.toString().replaceAll(":", "_"));
 				evt.getServer().getRecipeManager().addRecipe(new SpecialFloatingFlowerRecipe(id, s));
 			}

@@ -46,9 +46,11 @@ import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.subtile.ISpecialFlower;
 import vazkii.botania.api.subtile.SubTileEntity;
+import vazkii.botania.api.subtile.SubTileType;
 import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.client.core.handler.ModelHandler;
+import vazkii.botania.common.BotaniaRegistries;
 import vazkii.botania.common.block.tile.TileSpecialFlower;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.item.ModItems;
@@ -63,57 +65,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, IWandable, ILexiconable, IWandHUD {
-
-	static {
-		BotaniaAPI.subtilesForCreativeMenu.addAll(Arrays.asList(
-				// Misc
-				LibBlockNames.SUBTILE_PUREDAISY,
-				LibBlockNames.SUBTILE_MANASTAR,
-
-				// Generating
-				LibBlockNames.SUBTILE_ENDOFLAME,
-				LibBlockNames.SUBTILE_HYDROANGEAS,
-				LibBlockNames.SUBTILE_THERMALILY,
-				LibBlockNames.SUBTILE_ARCANE_ROSE,
-				LibBlockNames.SUBTILE_MUNCHDEW,
-				LibBlockNames.SUBTILE_ENTROPINNYUM,
-				LibBlockNames.SUBTILE_KEKIMURUS,
-				LibBlockNames.SUBTILE_GOURMARYLLIS,
-				LibBlockNames.SUBTILE_NARSLIMMUS,
-				LibBlockNames.SUBTILE_SPECTROLUS,
-				LibBlockNames.SUBTILE_RAFFLOWSIA,
-				LibBlockNames.SUBTILE_SHULK_ME_NOT,
-				LibBlockNames.SUBTILE_DANDELIFEON,
-
-				// Functional
-				LibBlockNames.SUBTILE_JADED_AMARANTHUS,
-				LibBlockNames.SUBTILE_BELLETHORN,
-				LibBlockNames.SUBTILE_DREADTHORN,
-				LibBlockNames.SUBTILE_HEISEI_DREAM,
-				LibBlockNames.SUBTILE_TIGERSEYE,
-				LibBlockNames.SUBTILE_MARIMORPHOSIS,
-				LibBlockNames.SUBTILE_ORECHID,
-				LibBlockNames.SUBTILE_ORECHID_IGNEM,
-				LibBlockNames.SUBTILE_FALLEN_KANADE,
-				LibBlockNames.SUBTILE_EXOFLAME,
-				LibBlockNames.SUBTILE_AGRICARNATION,
-				LibBlockNames.SUBTILE_HOPPERHOCK,
-				LibBlockNames.SUBTILE_RANNUNCARPUS,
-				LibBlockNames.SUBTILE_TANGLEBERRIE,
-				LibBlockNames.SUBTILE_JIYUULIA,
-				LibBlockNames.SUBTILE_HYACIDUS,
-				LibBlockNames.SUBTILE_MEDUMONE,
-				LibBlockNames.SUBTILE_POLLIDISIAC,
-				LibBlockNames.SUBTILE_CLAYCONIA,
-				LibBlockNames.SUBTILE_LOONIUM,
-				LibBlockNames.SUBTILE_DAFFOMILL,
-				LibBlockNames.SUBTILE_VINCULOTUS,
-				LibBlockNames.SUBTILE_SPECTRANTHEMUM,
-				LibBlockNames.SUBTILE_BUBBELL,
-				LibBlockNames.SUBTILE_SOLEGNOLIA,
-				LibBlockNames.SUBTILE_BERGAMUTE));
-	}
-
 	private static final VoxelShape SHAPE = makeCuboidShape(4.8, 0, 4.8, 12.8, 16, 12.8);
 
 	protected BlockSpecialFlower(Properties props) {
@@ -177,18 +128,18 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 
 	@Override
 	public void fillItemGroup(ItemGroup tab, @Nonnull NonNullList<ItemStack> stacks) {
-		for(ResourceLocation s : BotaniaAPI.subtilesForCreativeMenu) {
-			stacks.add(ItemBlockSpecialFlower.ofType(s));
-			if(BotaniaAPI.miniFlowers.containsKey(s))
-				stacks.add(ItemBlockSpecialFlower.ofType(BotaniaAPI.miniFlowers.get(s)));
+		for(SubTileType type : BotaniaRegistries.SUBTILES) {
+			if(type.shouldShowInCreative()) {
+				stacks.add(ItemBlockSpecialFlower.ofType(type));
+			}
 		}
 	}
 
 	@Nonnull
 	@Override
 	public ItemStack getPickBlock(@Nonnull IBlockState state, RayTraceResult target, @Nonnull IBlockReader world, @Nonnull BlockPos pos, EntityPlayer player) {
-		ResourceLocation name = ((TileSpecialFlower) world.getTileEntity(pos)).subTileName;
-		return ItemBlockSpecialFlower.ofType(name);
+		SubTileType type = ((TileSpecialFlower) world.getTileEntity(pos)).getSubTile().getType();
+		return ItemBlockSpecialFlower.ofType(type);
 	}
 
 	@Override
@@ -227,8 +178,8 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 		TileEntity tile = world.getTileEntity(pos);
 
 		if(tile != null) {
-			ResourceLocation name = ((TileSpecialFlower) tile).subTileName;
-			list.add(ItemBlockSpecialFlower.ofType(name));
+			SubTileType type = ((TileSpecialFlower) tile).getSubTile().getType();
+			list.add(ItemBlockSpecialFlower.ofType(type));
 			((TileSpecialFlower) tile).getDrops(list);
 		}
 	}

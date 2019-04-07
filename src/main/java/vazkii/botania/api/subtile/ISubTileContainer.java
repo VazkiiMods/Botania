@@ -26,6 +26,6 @@ public interface ISubTileContainer {
 	/**
 	 * Sets the SubTile on this block from it's name.
 	 */
-	public void setSubTile(ResourceLocation name);
+	public void setSubTile(SubTileType type);
 
 }

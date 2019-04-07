@@ -29,6 +29,7 @@ import net.minecraft.world.biome.Biome;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileGenerating;
+import vazkii.botania.api.subtile.SubTileType;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lexicon.LexiconData;
@@ -45,6 +46,10 @@ public class SubTileHydroangeas extends SubTileGenerating {
 	private static final BlockPos[] OFFSETS = { new BlockPos(0, 0, 1), new BlockPos(0, 0, -1), new BlockPos(1, 0, 0), new BlockPos(-1, 0, 0), new BlockPos(-1, 0, 1), new BlockPos(-1, 0, -1), new BlockPos(1, 0, 1), new BlockPos(1, 0, -1) };
 
 	int burnTime, cooldown;
+
+	public SubTileHydroangeas(SubTileType type) {
+		super(type);
+	}
 
 	@Override
 	public void onUpdate() {

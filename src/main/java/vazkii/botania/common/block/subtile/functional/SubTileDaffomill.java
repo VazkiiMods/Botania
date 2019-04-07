@@ -23,6 +23,7 @@ import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
+import vazkii.botania.api.subtile.SubTileType;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.lexicon.LexiconData;
 
@@ -35,6 +36,10 @@ public class SubTileDaffomill extends SubTileFunctional {
 
 	private int windTicks = 0;
 	private EnumFacing orientation = EnumFacing.NORTH;
+
+	public SubTileDaffomill(SubTileType type) {
+		super(type);
+	}
 
 	@Override
 	public void onUpdate() {

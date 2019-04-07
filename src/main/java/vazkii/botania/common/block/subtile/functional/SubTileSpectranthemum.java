@@ -28,6 +28,7 @@ import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
+import vazkii.botania.api.subtile.SubTileType;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.network.PacketBotaniaEffect;
 import vazkii.botania.common.network.PacketHandler;
@@ -47,6 +48,10 @@ public class SubTileSpectranthemum extends SubTileFunctional {
 	private static final String TAG_TELEPORTED = "Botania_TPd";
 
 	private BlockPos bindPos = new BlockPos(0, -1, 0);
+
+	public SubTileSpectranthemum(SubTileType type) {
+		super(type);
+	}
 
 	@Override
 	public void onUpdate() {

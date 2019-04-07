@@ -24,7 +24,6 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.registry.IRegistry;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -60,6 +59,10 @@ public class SubTileGenerating extends SubTileEntity {
 	public int passiveDecayTicks;
 
 	BlockPos cachedCollectorCoordinates = null;
+
+	public SubTileGenerating(SubTileType type) {
+		super(type);
+	}
 
 	/**
 	 * If set to true, redstoneSignal will be updated every tick.

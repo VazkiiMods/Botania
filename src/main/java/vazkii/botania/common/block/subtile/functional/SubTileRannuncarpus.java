@@ -40,6 +40,7 @@ import vazkii.botania.api.subtile.ISubTileContainer;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileEntity;
 import vazkii.botania.api.subtile.SubTileFunctional;
+import vazkii.botania.api.subtile.SubTileType;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 import vazkii.botania.common.lexicon.LexiconData;
@@ -63,6 +64,10 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 	private static final int RANGE_PLACE_MANA_MINI = 3;
 	private static final int RANGE_PLACE_MINI = 2;
 	private static final int RANGE_PLACE_Y_MINI = 2;
+
+	public SubTileRannuncarpus(SubTileType type) {
+		super(type);
+	}
 
 	@Override
 	public void onUpdate() {
@@ -189,6 +194,10 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 	}
 
 	public static class Mini extends SubTileRannuncarpus {
+		public Mini(SubTileType type) {
+			super(type);
+		}
+
 		@Override public int getRange() { return mana > 0 ? RANGE_PLACE_MANA_MINI : RANGE_PLACE_MINI; }
 		@Override public int getRangeY() { return RANGE_PLACE_Y_MINI; }
 	}

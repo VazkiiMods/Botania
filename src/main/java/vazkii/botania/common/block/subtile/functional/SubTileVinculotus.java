@@ -21,6 +21,7 @@ import org.apache.commons.lang3.tuple.Pair;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
+import vazkii.botania.api.subtile.SubTileType;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibMisc;
@@ -39,6 +40,10 @@ public class SubTileVinculotus extends SubTileFunctional {
 	// But our main logic runs outside, in the event handler
 	public static final Map<SubTileVinculotus, BlockPos> existingFlowers = new WeakHashMap<>();
 	private static final int RANGE = 64;
+
+	public SubTileVinculotus(SubTileType type) {
+		super(type);
+	}
 
 	@Override
 	public void onUpdate() {

@@ -45,6 +45,7 @@ import net.minecraftforge.fml.common.Mod;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
+import vazkii.botania.api.subtile.SubTileType;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibMisc;
 
@@ -62,6 +63,10 @@ public class SubTileLoonuim extends SubTileFunctional {
 	private static final Tag<Item> BLACKLIST = new ItemTags.Wrapper(new ResourceLocation(LibMisc.MOD_ID, "loonium_blacklist"));
 
 	private ResourceLocation lootTable = new ResourceLocation("minecraft", "chests/simple_dungeon");
+
+	public SubTileLoonuim(SubTileType type) {
+		super(type);
+	}
 
 	@Override
 	public void onUpdate() {

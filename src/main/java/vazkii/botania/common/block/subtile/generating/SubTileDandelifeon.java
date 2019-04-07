@@ -18,6 +18,7 @@ import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileGenerating;
+import vazkii.botania.api.subtile.SubTileType;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileCell;
 import vazkii.botania.common.lexicon.LexiconData;
@@ -43,6 +44,10 @@ public class SubTileDandelifeon extends SubTileGenerating {
 		{ +1, -1 },
 		{ +0, -1 }
 	};
+
+	public SubTileDandelifeon(SubTileType type) {
+		super(type);
+	}
 
 	@Override
 	public void onUpdate() {

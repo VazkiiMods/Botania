@@ -152,6 +152,7 @@ public final class ModelHandler {
 		BotaniaAPIClient.registerIslandTypeModel(IFloatingFlower.IslandType.INFUSED, new ModelResourceLocation("botania:mini_island", "variant=infused"));
 		BotaniaAPIClient.registerIslandTypeModel(IFloatingFlower.IslandType.MUTATED, new ModelResourceLocation("botania:mini_island", "variant=mutated"));
 
+		/* todo 1.13
 		BotaniaAPIClient.registerSubtileModel(SubTileManastar.class, new ModelResourceLocation(LibBlockNames.SUBTILE_MANASTAR.toString()));
 		BotaniaAPIClient.registerSubtileModel(SubTilePureDaisy.class, new ModelResourceLocation(LibBlockNames.SUBTILE_PUREDAISY.toString()));
 
@@ -203,6 +204,7 @@ public final class ModelHandler {
 		BotaniaAPIClient.registerSubtileModel(SubTileSolegnolia.class, new ModelResourceLocation(LibBlockNames.SUBTILE_SOLEGNOLIA.toString()));
 		BotaniaAPIClient.registerSubtileModel(SubTileSolegnolia.Mini.class, new ModelResourceLocation(LibBlockNames.SUBTILE_SOLEGNOLIA + "_chibi"));
 		BotaniaAPIClient.registerSubtileModel(SubTileBergamute.class, new ModelResourceLocation(LibBlockNames.SUBTILE_BERGAMUTE.toString()));
+		*/
 	}
 
 	private ModelHandler() {}

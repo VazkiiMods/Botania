@@ -14,23 +14,24 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.subtile.SubTileType;
 
 public class RecipeMiniFlower extends RecipeManaInfusion {
 
-	public RecipeMiniFlower(ResourceLocation mini, ResourceLocation flower, int mana) {
+	public RecipeMiniFlower(SubTileType mini, SubTileType flower, int mana) {
 		super(BotaniaAPI.internalHandler.getSubTileAsStack(flower), Ingredient.fromStacks(BotaniaAPI.internalHandler.getSubTileAsStack(mini)), mana);
 		setCatalyst(RecipeManaInfusion.alchemy.getDefaultState());
 	}
 
 	@Override
 	public boolean matches(ItemStack stack) {
-		ResourceLocation key = BotaniaAPI.internalHandler.getStackSubTileKey(stack);
+		ResourceLocation key = BotaniaAPI.internalHandler.getStackSubTileKey(stack).getRegistryName();
 		ItemStack[] matching = getInput().getMatchingStacks();
 		if(matching.length == 0)
 			return false;
 
 
-		ResourceLocation input = BotaniaAPI.internalHandler.getStackSubTileKey(matching[0]);
+		ResourceLocation input = BotaniaAPI.internalHandler.getStackSubTileKey(matching[0]).getRegistryName();
 		return key != null && key.equals(input);
 	}
 

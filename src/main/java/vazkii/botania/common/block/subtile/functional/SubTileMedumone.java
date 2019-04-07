@@ -18,6 +18,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
+import vazkii.botania.api.subtile.SubTileType;
 import vazkii.botania.common.lexicon.LexiconData;
 
 import java.util.List;
@@ -25,6 +26,10 @@ import java.util.List;
 public class SubTileMedumone extends SubTileFunctional {
 
 	private static final int RANGE = 6;
+
+	public SubTileMedumone(SubTileType type) {
+		super(type);
+	}
 
 	@Override
 	public void onUpdate() {

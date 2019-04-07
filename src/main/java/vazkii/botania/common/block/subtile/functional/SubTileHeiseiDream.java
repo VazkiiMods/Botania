@@ -24,6 +24,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
+import vazkii.botania.api.subtile.SubTileType;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibObfuscation;
 
@@ -33,6 +34,10 @@ import java.util.List;
 public class SubTileHeiseiDream extends SubTileFunctional {
 
 	private static final int RANGE = 5;
+
+	public SubTileHeiseiDream(SubTileType type) {
+		super(type);
+	}
 
 	@Override
 	public void onUpdate() {

@@ -44,6 +44,8 @@ public class SubTileEntity {
 
 	public int ticksExisted = 0;
 
+	private final SubTileType type;
+
 	/** true if this flower is working on Enchanted Soil **/
 	public boolean overgrowth = false;
 	/** true if this flower is working on Enchanted Soil and this is the second tick **/
@@ -52,6 +54,14 @@ public class SubTileEntity {
 	/** The Tag items should use to store which sub tile they are. **/
 	public static final String TAG_TYPE = "type";
 	public static final String TAG_TICKS_EXISTED = "ticksExisted";
+
+	public SubTileEntity(SubTileType type) {
+		this.type = type;
+	}
+
+	public final SubTileType getType() {
+		return type;
+	}
 
 	public final BlockPos getPos() {
 		return supertile.getPos();
@@ -99,7 +109,7 @@ public class SubTileEntity {
 	}
 
 	public String getUnlocalizedName() {
-		return BotaniaAPI.getSubTileStringMapping(getClass()).toString();
+		return getType().getRegistryName().toString();
 	}
 
 	/**

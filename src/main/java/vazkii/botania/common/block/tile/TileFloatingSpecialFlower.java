@@ -29,7 +29,7 @@ public class TileFloatingSpecialFlower extends TileSpecialFlower implements IFlo
 
 	@Override
 	public ItemStack getDisplayStack() {
-		return ItemBlockSpecialFlower.ofType(subTileName);
+		return ItemBlockSpecialFlower.ofType(getSubTile().getType());
 	}
 
 	@Override

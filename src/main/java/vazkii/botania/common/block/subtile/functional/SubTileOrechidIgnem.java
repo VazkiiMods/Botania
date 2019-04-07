@@ -15,6 +15,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.ResourceLocation;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.subtile.SubTileType;
 import vazkii.botania.common.lexicon.LexiconData;
 
 import java.util.Map;
@@ -23,6 +24,10 @@ import java.util.function.Predicate;
 public class SubTileOrechidIgnem extends SubTileOrechid {
 
 	private static final int COST = 20000;
+
+	public SubTileOrechidIgnem(SubTileType type) {
+		super(type);
+	}
 
 	@Override
 	public boolean canOperate() {

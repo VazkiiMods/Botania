@@ -11,7 +11,11 @@
 package vazkii.botania.api.internal;
 
 import vazkii.botania.api.subtile.SubTileEntity;
+import vazkii.botania.api.subtile.SubTileType;
 
 public class DummySubTile extends SubTileEntity {
 
+    public DummySubTile(SubTileType type) {
+        super(type);
+    }
 }

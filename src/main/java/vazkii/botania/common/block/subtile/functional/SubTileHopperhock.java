@@ -34,6 +34,7 @@ import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
+import vazkii.botania.api.subtile.SubTileType;
 import vazkii.botania.common.core.helper.InventoryHelper;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.lexicon.LexiconData;
@@ -51,6 +52,10 @@ public class SubTileHopperhock extends SubTileFunctional {
 	private static final int RANGE_MINI = 1;
 
 	private int filterType = 0;
+
+	public SubTileHopperhock(SubTileType type) {
+		super(type);
+	}
 
 	@Override
 	public void onUpdate() {
@@ -249,6 +254,10 @@ public class SubTileHopperhock extends SubTileFunctional {
 	}
 
 	public static class Mini extends SubTileHopperhock {
+		public Mini(SubTileType type) {
+			super(type);
+		}
+
 		@Override public int getRange() { return mana > 0 ? RANGE_MANA_MINI : RANGE_MINI; }
 	}
 }

@@ -17,12 +17,17 @@ import net.minecraft.world.WorldServer;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileGenerating;
+import vazkii.botania.api.subtile.SubTileType;
 import vazkii.botania.common.lexicon.LexiconData;
 
 public class SubTileShulkMeNot extends SubTileGenerating {
 
 	private static final int RADIUS = 8;
-	
+
+	public SubTileShulkMeNot(SubTileType type) {
+		super(type);
+	}
+
 	@Override
 	public void onUpdate() {
 		super.onUpdate();

@@ -39,8 +39,10 @@ import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.subtile.ISpecialFlower;
+import vazkii.botania.api.subtile.SubTileType;
 import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.api.wand.IWandable;
+import vazkii.botania.common.BotaniaRegistries;
 import vazkii.botania.common.block.decor.BlockFloatingFlower;
 import vazkii.botania.common.block.tile.TileFloatingSpecialFlower;
 import vazkii.botania.common.block.tile.TileSpecialFlower;
@@ -117,18 +119,18 @@ public class BlockFloatingSpecialFlower extends BlockFloatingFlower implements I
 
 	@Override
 	public void fillItemGroup(ItemGroup tab, NonNullList<ItemStack> stacks) {
-		for(ResourceLocation s : BotaniaAPI.subtilesForCreativeMenu) {
-			stacks.add(ItemBlockSpecialFlower.ofType(new ItemStack(this), s));
-			if(BotaniaAPI.miniFlowers.containsKey(s))
-				stacks.add(ItemBlockSpecialFlower.ofType(new ItemStack(this), BotaniaAPI.miniFlowers.get(s)));
+		for(SubTileType type : BotaniaRegistries.SUBTILES) {
+			if(type.shouldShowInCreative()) {
+				stacks.add(ItemBlockSpecialFlower.ofType(new ItemStack(this), type));
+			}
 		}
 	}
 
 	@Nonnull
 	@Override
 	public ItemStack getPickBlock(@Nonnull IBlockState state, RayTraceResult target, @Nonnull IBlockReader world, @Nonnull BlockPos pos, EntityPlayer player) {
-		ResourceLocation name = ((TileSpecialFlower) world.getTileEntity(pos)).subTileName;
-		return ItemBlockSpecialFlower.ofType(new ItemStack(state.getBlock()), name);
+		SubTileType type = ((TileSpecialFlower) world.getTileEntity(pos)).getSubTile().getType();
+		return ItemBlockSpecialFlower.ofType(new ItemStack(state.getBlock()), type);
 	}
 
 	@Override
@@ -160,8 +162,8 @@ public class BlockFloatingSpecialFlower extends BlockFloatingFlower implements I
 		TileEntity tile = world.getTileEntity(pos);
 
 		if(tile != null) {
-			ResourceLocation name = ((TileSpecialFlower) tile).subTileName;
-			list.add(ItemBlockSpecialFlower.ofType(new ItemStack(state.getBlock()), name));
+			SubTileType type = ((TileSpecialFlower) tile).getSubTile().getType();
+			list.add(ItemBlockSpecialFlower.ofType(new ItemStack(state.getBlock()), type));
 			((TileSpecialFlower) tile).getDrops(list);
 		}
 	}

@@ -24,6 +24,7 @@ import net.minecraft.util.math.Vec3d;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileGenerating;
+import vazkii.botania.api.subtile.SubTileType;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.mana.BlockSpreader;
 import vazkii.botania.common.core.handler.ModSounds;
@@ -36,6 +37,10 @@ public class SubTileEndoflame extends SubTileGenerating {
 	private static final int START_BURN_EVENT = 0;
 
 	private int burnTime = 0;
+
+	public SubTileEndoflame(SubTileType type) {
+		super(type);
+	}
 
 	@Override
 	public void onUpdate() {

@@ -52,8 +52,7 @@ import vazkii.botania.api.recipe.RecipePetals;
 import vazkii.botania.api.recipe.RecipePureDaisy;
 import vazkii.botania.api.recipe.RecipeRuneAltar;
 import vazkii.botania.api.subtile.SubTileEntity;
-import vazkii.botania.api.subtile.signature.BasicSignature;
-import vazkii.botania.api.subtile.signature.SubTileSignature;
+import vazkii.botania.api.subtile.SubTileType;
 import vazkii.botania.api.wiki.IWikiProvider;
 import vazkii.botania.api.wiki.SimpleWikiProvider;
 import vazkii.botania.api.wiki.WikiHooks;
@@ -88,10 +87,6 @@ public final class BotaniaAPI {
 	public static final List<RecipeManaInfusion> miniFlowerRecipes = new ArrayList<>();
 
 	public static final ResourceLocation DUMMY_SUBTILE_NAME = new ResourceLocation("botania", "dummy");
-	private static final RegistryNamespacedDefaultedByKey<Class<? extends SubTileEntity>> subTiles = new RegistryNamespacedDefaultedByKey<>(DUMMY_SUBTILE_NAME);
-	private static final Map<Class<? extends SubTileEntity>, SubTileSignature> subTileSignatures = new HashMap<>();
-	public static final Set<ResourceLocation> subtilesForCreativeMenu = new LinkedHashSet<>();
-	public static final BiMap<ResourceLocation, ResourceLocation> miniFlowers = HashBiMap.create();
 
 	public static final Map<ResourceLocation, Integer> oreWeights = new HashMap<>();
 	public static final Map<ResourceLocation, Integer> oreWeightsNether = new HashMap<>();
@@ -378,8 +373,6 @@ public final class BotaniaAPI {
 	public static final Brew fallbackBrew = new Brew("fallback", "botania.brew.fallback", 0, 0);
 
 	static {
-		subTiles.register(0, DUMMY_SUBTILE_NAME, DummySubTile.class); // int id irrelevant, this is just to set the default value
-
 		basicKnowledge = registerKnowledgeType("minecraft", TextFormatting.RESET, true);
 		elvenKnowledge = registerKnowledgeType("alfheim", TextFormatting.DARK_GREEN, false);
 		relicKnowledge = registerKnowledgeType("relic", TextFormatting.DARK_PURPLE, false);
@@ -675,62 +668,16 @@ public final class BotaniaAPI {
 	}
 
 	/**
-	 * Registers a SubTileEntity, a new special flower. Look in the subtile package of the API.
-	 * Call this during {@code RegistryEvent.Register<Block>}, and don't forget to register a model in BotaniaAPIClient.
-	 */
-	public static void registerSubTile(ResourceLocation id, Class<? extends SubTileEntity> subtileClass) {
-		subTiles.put(id, subtileClass);
-	}
-
-	/**
 	 * Register a SubTileEntity and makes it a mini flower. Also adds the recipe and returns it.
-	 * @see BotaniaAPI#registerSubTile
 	 */
 	public static RecipeManaInfusion registerMiniSubTile(ResourceLocation id, Class<? extends SubTileEntity> subtileClass, ResourceLocation original) {
-		registerSubTile(id, subtileClass);
-		miniFlowers.put(original, id);
-
+		/* todo 1.13
 		RecipeMiniFlower recipe = new RecipeMiniFlower(id, original, 2500);
 		manaInfusionRecipes.add(recipe);
 		miniFlowerRecipes.add(recipe);
 		return recipe;
-	}
-
-	/**
-	 * Registers a SubTileEntity's signature.
-	 * @see SubTileSignature
-	 */
-	public static void registerSubTileSignature(Class<? extends SubTileEntity> subtileClass, SubTileSignature signature) {
-		subTileSignatures.put(subtileClass, signature);
-	}
-
-	/**
-	 * Gets the singleton signature for a SubTileEntity class. Registers a fallback if one wasn't registered
-	 * before the call.
-	 */
-	public static SubTileSignature getSignatureForClass(Class<? extends SubTileEntity> subtileClass) {
-		if(!subTileSignatures.containsKey(subtileClass))
-			registerSubTileSignature(subtileClass, new BasicSignature(subTiles.getKey(subtileClass)));
-
-		return subTileSignatures.get(subtileClass);
-	}
-
-	/**
-	 * Gets the singleton signature for a SubTileEntity's name. Registers a fallback if one wasn't registered
-	 * before the call.
-	 */
-	public static SubTileSignature getSignatureForName(ResourceLocation name) {
-		Class<? extends SubTileEntity> subtileClass = subTiles.get(name);
-		return getSignatureForClass(subtileClass);
-	}
-
-	/**
-	 * Adds the key for a SubTileEntity into the creative menu. This goes into the
-	 * subtilesForCreativeMenu Set. This does not need to be called for mini flowers,
-	 * those will just use the mini flower map to add themselves next to the source.
-	 */
-	public static void addSubTileToCreativeMenu(ResourceLocation key) {
-		subtilesForCreativeMenu.add(key);
+		*/
+		return null;
 	}
 
 	/**
@@ -798,18 +745,6 @@ public final class BotaniaAPI {
 	 */
 	public static void registerModWiki(String mod, IWikiProvider provider) {
 		WikiHooks.registerModWiki(mod, provider);
-	}
-
-	public static Class<? extends SubTileEntity> getSubTileMapping(ResourceLocation key) {
-		return subTiles.get(key);
-	}
-
-	public static ResourceLocation getSubTileStringMapping(Class<? extends SubTileEntity> clazz) {
-		return subTiles.getKey(clazz);
-	}
-
-	public static Set<ResourceLocation> getAllSubTiles() {
-		return subTiles.keySet();
 	}
 
 	public static void blacklistBlockFromGaiaGuardian(Block block) {

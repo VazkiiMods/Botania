@@ -11,9 +11,14 @@
 package vazkii.botania.common.block.subtile.functional;
 
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.subtile.SubTileType;
 import vazkii.botania.common.lexicon.LexiconData;
 
 public class SubTileJiyuulia extends SubTileTangleberrie {
+
+	public SubTileJiyuulia(SubTileType type) {
+		super(type);
+	}
 
 	@Override
 	double getMaxDistance() {

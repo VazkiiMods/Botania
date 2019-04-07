@@ -27,6 +27,7 @@ import net.minecraftforge.fml.common.Mod;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileGenerating;
+import vazkii.botania.api.subtile.SubTileType;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibMisc;
 
@@ -38,6 +39,10 @@ public class SubTileNarslimmus extends SubTileGenerating {
 	public static final String TAG_WORLD_SPAWNED = "Botania:WorldSpawned";
 
 	private static final int RANGE = 2;
+
+	public SubTileNarslimmus(SubTileType type) {
+		super(type);
+	}
 
 	@Override
 	public void onUpdate() {

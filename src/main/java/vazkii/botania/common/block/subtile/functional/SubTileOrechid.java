@@ -26,6 +26,7 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileFunctional;
+import vazkii.botania.api.subtile.SubTileType;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.ModSounds;
@@ -45,6 +46,10 @@ public class SubTileOrechid extends SubTileFunctional {
 	private static final int RANGE = 5;
 	private static final int RANGE_Y = 3;
 	private static final int TRIES = 20;
+
+	public SubTileOrechid(SubTileType type) {
+		super(type);
+	}
 
 	@Override
 	public void onUpdate() {

@@ -23,6 +23,7 @@ import vazkii.botania.api.subtile.ISubTileContainer;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.SubTileEntity;
 import vazkii.botania.api.subtile.SubTileGenerating;
+import vazkii.botania.api.subtile.SubTileType;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lexicon.LexiconData;
 
@@ -37,6 +38,10 @@ public class SubTileRafflowsia extends SubTileGenerating {
 	private int lastFlowerTimes;
 
 	private static final int RANGE = 5;
+
+	public SubTileRafflowsia(SubTileType type) {
+		super(type);
+	}
 
 	@Override
 	public void onUpdate() {

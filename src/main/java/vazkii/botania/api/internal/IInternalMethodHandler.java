@@ -34,6 +34,7 @@ import vazkii.botania.api.recipe.RecipeManaInfusion;
 import vazkii.botania.api.recipe.RecipePetals;
 import vazkii.botania.api.recipe.RecipeRuneAltar;
 import vazkii.botania.api.subtile.SubTileEntity;
+import vazkii.botania.api.subtile.SubTileType;
 
 import java.util.List;
 
@@ -78,11 +79,11 @@ public interface IInternalMethodHandler {
 
 	public IManaNetwork getManaNetworkInstance();
 
-	public ItemStack getSubTileAsStack(ResourceLocation subTile);
+	public ItemStack getSubTileAsStack(SubTileType subTile);
 
-	public ItemStack getSubTileAsFloatingFlowerStack(ResourceLocation subTile);
+	public ItemStack getSubTileAsFloatingFlowerStack(SubTileType subTile);
 
-	public ResourceLocation getStackSubTileKey(ItemStack stack);
+	public SubTileType getStackSubTileKey(ItemStack stack);
 
 	@OnlyIn(Dist.CLIENT)
 	public ModelResourceLocation getSubTileBlockModelForName(String name);
