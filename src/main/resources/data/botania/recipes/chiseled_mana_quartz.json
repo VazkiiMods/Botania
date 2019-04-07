@@ -1,0 +1,15 @@
+{
+  "result": {
+    "item": "botania:chiseled_mana_quartz"
+  },
+  "pattern": [
+    "Q",
+    "Q"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "Q": {
+      "item": "botania:mana_quartz_slab"
+    }
+  }
+}

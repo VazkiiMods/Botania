@@ -15,20 +15,16 @@
     },
     "C": [
       {
-        "item": "minecraft:red_flower",
-        "data": 2
+        "item": "minecraft:allium"
       },
       {
-        "item": "minecraft:red_flower",
-        "data": 7
+        "item": "minecraft:pink_tulip"
       },
       {
-        "item": "minecraft:double_plant",
-        "data": 1
+        "item": "minecraft:lilac"
       },
       {
-        "item": "minecraft:double_plant",
-        "data": 5
+        "item": "minecraft:peony"
       }
     ]
   }

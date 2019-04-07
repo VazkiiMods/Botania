@@ -1,0 +1,14 @@
+{
+  "result": {
+    "item": "botania:fork_light_relay"
+  },
+  "ingredients": [
+    {
+      "item": "botania:light_relay"
+    },
+    {
+      "item": "minecraft:redstone_torch"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}

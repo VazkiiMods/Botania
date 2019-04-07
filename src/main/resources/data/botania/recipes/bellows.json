@@ -13,8 +13,7 @@
       "tag": "botania:runes/air"
     },
     "S": {
-      "item": "botania:livingwood0slab",
-      "data": 0
+      "item": "botania:livingwood_slab"
     },
     "L": {
       "item": "minecraft:leather"

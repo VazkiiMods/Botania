@@ -1,21 +1,18 @@
 {
   "result": {
-    "item": "botania:silver_dye"
+    "item": "botania:light_gray_dye"
   },
   "group": "botania:dye",
   "ingredients": [
     [
       {
-        "item": "minecraft:red_flower",
-        "data": 3
+        "item": "minecraft:azure_bluet"
       },
       {
-        "item": "minecraft:red_flower",
-        "data": 6
+        "item": "minecraft:white_tulip"
       },
       {
-        "item": "minecraft:red_flower",
-        "data": 8
+        "item": "minecraft:oxeye_daisy"
       },
       {
         "tag": "botania:petals/light_gray"

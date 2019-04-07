@@ -6,8 +6,7 @@
   "ingredients": [
     [
       {
-        "item": "minecraft:red_flower",
-        "data": 1
+        "item": "minecraft:blue_orchid"
       },
       {
         "tag": "botania:petals/light_blue"

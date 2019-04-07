@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "botania:yellow_pavement",
+    "count": 3
+  },
+  "group": "botania:pavement",
+  "ingredients": [
+    {
+      "tag": "botania:livingrock"
+    },
+    {
+      "tag": "forge:cobblestone"
+    },
+    {
+      "item": "minecraft:gravel"
+    },
+    {
+      "item": "minecraft:wheat"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}

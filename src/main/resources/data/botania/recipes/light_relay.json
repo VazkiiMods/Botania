@@ -1,0 +1,20 @@
+{
+  "result": {
+    "item": "botania:light_relay"
+  },
+  "ingredients": [
+    {
+      "item": "botania:red_string"
+    },
+    {
+      "tag": "forge:gems/dragonstone"
+    },
+    {
+      "tag": "forge:dusts/glowstone"
+    },
+    {
+      "tag": "forge:dusts/glowstone"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}

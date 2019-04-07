@@ -4,24 +4,19 @@
   },
   "ingredients": [
     {
-      "item": "minecraft:dye",
-      "data": 15
+      "item": "minecraft:bone_meal"
     },
     {
-      "item": "minecraft:dye",
-      "data": 11
+      "item": "minecraft:dandelion_yellow"
     },
     {
-      "item": "minecraft:dye",
-      "data": 11
+      "item": "minecraft:dandelion_yellow"
     },
     {
-      "item": "minecraft:dye",
-      "data": 1
+      "item": "minecraft:rose_red"
     },
     {
-      "item": "minecraft:dye",
-      "data": 1
+      "item": "minecraft:rose_red"
     }
   ],
   "type": "minecraft:crafting_shapeless"

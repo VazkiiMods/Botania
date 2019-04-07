@@ -6,8 +6,7 @@
   "ingredients": [
     [
       {
-        "item": "minecraft:yellow_flower",
-        "data": 0
+        "item": "minecraft:dandelion"
       },
       {
         "tag": "botania:petals/yellow"

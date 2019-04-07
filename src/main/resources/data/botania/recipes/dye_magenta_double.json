@@ -6,8 +6,7 @@
   "group": "botania:dye_double",
   "ingredients": [
     {
-      "item": "minecraft:double_plant",
-      "data": 1
+      "item": "minecraft:lilac"
     },
     {
       "item": "botania:pestle_and_mortar"

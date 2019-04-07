@@ -10,19 +10,16 @@
   "type": "minecraft:crafting_shaped",
   "key": {
     "0": {
-      "item": "botania:livingwood",
-      "data": 0
+      "item": "botania:livingwood"
     },
     "P": {
       "item": "botania:mana_pearl"
     },
     "3": {
-      "item": "botania:livingwood",
-      "data": 3
+      "item": "botania:framed_livingwood"
     },
     "4": {
-      "item": "botania:livingwood",
-      "data": 4
+      "item": "botania:pattern_framed_livingwood"
     }
   }
 }

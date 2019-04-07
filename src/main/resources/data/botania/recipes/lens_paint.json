@@ -13,8 +13,7 @@
       "tag": "forge:ingots/elementium"
     },
     "W": {
-      "item": "minecraft:wool",
-      "data": 32767
+      "tag": "minecraft:wool"
     },
     "L": {
       "item": "botania:lens_normal"

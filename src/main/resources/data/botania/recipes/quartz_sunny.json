@@ -14,8 +14,7 @@
       "tag": "forge:gems/quartz"
     },
     "C": {
-      "item": "minecraft:double_plant",
-      "data": 0
+      "item": "minecraft:sunflower"
     }
   }
 }
