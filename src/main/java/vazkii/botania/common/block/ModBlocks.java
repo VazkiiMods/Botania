@@ -690,6 +690,11 @@ public final class ModBlocks {
 		r.register(new ItemBlockMod(infrangiblePlatform, props).setRegistryName(infrangiblePlatform.getRegistryName()));
 		r.register(new ItemBlockMod(alfPortal, props).setRegistryName(alfPortal.getRegistryName()));
 		r.register(new ItemBlockDreamwood(dreamwood, props).setRegistryName(dreamwood.getRegistryName()));
+		r.register(new ItemBlockDreamwood(dreamwoodPlanks, props).setRegistryName(dreamwoodPlanks.getRegistryName()));
+		r.register(new ItemBlockDreamwood(dreamwoodPlanksMossy, props).setRegistryName(dreamwoodPlanksMossy.getRegistryName()));
+		r.register(new ItemBlockDreamwood(dreamwoodFramed, props).setRegistryName(dreamwoodFramed.getRegistryName()));
+		r.register(new ItemBlockDreamwood(dreamwoodPatternFramed, props).setRegistryName(dreamwoodPatternFramed.getRegistryName()));
+		r.register(new ItemBlockDreamwood(dreamwoodGlimmering, props).setRegistryName(dreamwoodGlimmering.getRegistryName()));
 		r.register(new ItemBlockMod(conjurationCatalyst, props).setRegistryName(conjurationCatalyst.getRegistryName()));
 		r.register(new ItemBlockMod(bifrost, props).setRegistryName(bifrost.getRegistryName()));
 		r.register(new ItemBlockMod(whiteFloatingFlower, props).setRegistryName(whiteFloatingFlower.getRegistryName()));

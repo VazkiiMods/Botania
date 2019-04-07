@@ -10,9 +10,7 @@
  */
 package vazkii.botania.common.core;
 
-import net.minecraft.block.Block;
 import net.minecraft.item.EnumDyeColor;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IItemProvider;
@@ -243,6 +241,11 @@ public final class BotaniaCreativeTab extends ItemGroup {
 		addItem(ModBlocks.starfield);
 
 		addItem(ModBlocks.dreamwood);
+		addItem(ModBlocks.dreamwoodPlanks);
+		addItem(ModBlocks.dreamwoodPlanksMossy);
+		addItem(ModBlocks.dreamwoodFramed);
+		addItem(ModBlocks.dreamwoodPatternFramed);
+		addItem(ModBlocks.dreamwoodGlimmering);
 		addItem(ModBlocks.manaGlass);
 		addItem(ModFluffBlocks.managlassPane);
 		addItem(ModBlocks.elfGlass);
