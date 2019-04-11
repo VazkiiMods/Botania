@@ -1,3 +1,14 @@
+r1.10 361
+*Corporea cubes can now be locked (similar to the Hovering Hourglass) to prevent accidental changing of the item. (Hubry)
+*Fixed Daffomill desyncing clientside when items are dropped by powered open crates.
+*Fixed Drum of the Wild always choosing the same positions to harvest.
+*Fixed magnet ring blacklist not working quite right.
+*Fixed placeholders being consumed by crafty crates.
+*Fixed server crashing if a Mana Enchanter picks up modded enchantments that have been removed from the save.
+*Fixed triggering a corporea funnel with a corporea interceptor overwriting request counts. (Hubry)
+*Fixed wrong Baubles API method being used. (zabi94)
+*Update ru_ru lang file. (iPopstop)
+*Various Gaia Guardian anti-cheese measures. (quat)
 r1.10 360
 *Fixed a crash on moving floating flowers with the static model config with quark's pistons. (Hubry)
 *Fixed a dupe with shears.
