@@ -13,6 +13,7 @@ package vazkii.botania.common.crafting;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.tags.ItemTags;
@@ -94,7 +95,12 @@ public final class ModManaAlchemyRecipes {
 		swampFolliageRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Blocks.VINE), Ingredient.fromItems(Blocks.LILY_PAD), 320));
 
 		fishRecipes = new ArrayList<>();
-		// todo 1.13 fishRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Items.FISH, 1, i == 3 ? 0 : i + 1), Ingredient.fromTag(ItemTags.FISHES), 200));
+		Item[] fishes = { Items.COD, Items.SALMON, Items.TROPICAL_FISH, Items.PUFFERFISH };
+		for(int i = 0; i < fishes.length; i++) {
+			Ingredient in = Ingredient.fromItems(fishes[i]);
+			ItemStack out = new ItemStack(i == fishes.length - 1 ? fishes[0] : fishes[i + 1]);
+			fishRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(out, in, 200));
+		}
 
 		cropRecipes = new ArrayList<>();
 		cropRecipes.add(BotaniaAPI.registerManaAlchemyRecipe(new ItemStack(Items.WHEAT_SEEDS), Ingredient.fromItems(Items.COCOA_BEANS), 6000));

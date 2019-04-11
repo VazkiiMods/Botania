@@ -24,6 +24,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.SoundCategory;
@@ -85,9 +86,21 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 			return false;
 
 		if(getBlockState().getBlock() == ModBlocks.defaultAltar && stack.getItem() == Item.getItemFromBlock(Blocks.VINE)) {
-			// todo 1.13 this resets the tile entity/drops all contents
-			world.setBlockState(getPos(), ModBlocks.mossyAltar.getDefaultState());
+			ItemStack[] tmp = new ItemStack[getSizeInventory()];
+			for(int i = 0; i < getSizeInventory(); i++) {
+				tmp[i] = itemHandler.getStackInSlot(i);
+				itemHandler.setStackInSlot(i, ItemStack.EMPTY);
+			}
+
 			stack.shrink(1);
+			world.setBlockState(getPos(), ModBlocks.mossyAltar.getDefaultState());
+
+			TileEntity newAltar = world.getTileEntity(getPos());
+			if(newAltar instanceof TileAltar) {
+				for(int i = 0; i < getSizeInventory(); i++) {
+					((TileAltar) newAltar).getItemHandler().setStackInSlot(i, tmp[i]);
+				}
+			}
 
 			return true;
 		}

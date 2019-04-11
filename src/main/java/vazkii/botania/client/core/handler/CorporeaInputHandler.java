@@ -13,8 +13,10 @@ package vazkii.botania.client.core.handler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.util.InputMappings;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.api.distmarker.Dist;
@@ -35,14 +37,11 @@ public class CorporeaInputHandler {
 	/** Filter for usable guis to handle requests. Added to in JEIBotaniaPlugin */
 	public static Predicate<GuiScreen> supportedGuiFilter = gui -> gui instanceof GuiContainer;
 
-	/* todo 1.13
 	@SubscribeEvent
-	public static void buttonPressed(KeyboardInputEvent.Post event) {
+	public static void buttonPressed(GuiScreenEvent.KeyboardKeyPressedEvent event) {
 		Minecraft mc = Minecraft.getInstance();
 		if(mc.world == null || !supportedGuiFilter.test(mc.currentScreen)
-				|| Keyboard.getEventKey() != ClientProxy.CORPOREA_REQUEST.getKeyCode()
-				|| !Keyboard.getEventKeyState()
-				|| Keyboard.isRepeatEvent()
+				|| ClientProxy.CORPOREA_REQUEST.isActiveAndMatches(InputMappings.getInputByCode(event.getKeyCode(), event.getScanCode()))
 				|| TileCorporeaIndex.InputHandler.getNearbyIndexes(mc.player).isEmpty())
 			return;
 
@@ -59,8 +58,7 @@ public class CorporeaInputHandler {
 				count = max / 2;
 
 			if(count > 0) {
-				String name = CorporeaHelper.stripControlCodes(stack.getDisplayName());
-				String full = count + " " + name;
+				String full = count + " " + stack.getDisplayName().getString();
 
 				mc.ingameGUI.getChatGUI().addToSentMessages(full);
 				mc.player.sendChatMessage(full);
@@ -68,7 +66,6 @@ public class CorporeaInputHandler {
 			}
 		}
 	}
-	*/
 
 	private static ItemStack getStackUnderMouse() {
 		GuiScreen screen = Minecraft.getInstance().currentScreen;
