@@ -1,0 +1,17 @@
+{
+  "result": {
+    "item": "botania:metamorphic_desert_cobblestone_stairs",
+    "count": 4
+  },
+  "pattern": [
+    "  S"
+    " SS"
+    "SSS"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "S": {
+      "item": "botania:metamorphic_desert_cobblestone"
+    }
+  }
+}

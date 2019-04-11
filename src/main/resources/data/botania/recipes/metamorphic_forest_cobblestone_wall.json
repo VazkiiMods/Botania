@@ -1,0 +1,16 @@
+{
+  "result": {
+    "item": "botania:metamorphic_forest_cobblestone_wall",
+    "count": 6
+  },
+  "pattern": [
+    "SSS",
+    "SSS"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "S": {
+      "item": "botania:metamorphic_forest_cobblestone"
+    }
+  }
+}

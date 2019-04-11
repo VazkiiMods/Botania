@@ -1,0 +1,15 @@
+{
+  "result": {
+    "item": "botania:metamorphic_mountain_bricks_slab",
+    "count": 6
+  },
+  "pattern": [
+    "SSS"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "S": {
+      "item": "botania:metamorphic_mountain_bricks"
+    }
+  }
+}

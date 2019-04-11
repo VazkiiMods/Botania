@@ -1,0 +1,16 @@
+{
+  "result": {
+    "item": "botania:metamorphic_forest_bricks",
+    "count": 4
+  },
+  "pattern": [
+    "SS",
+    "SS"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "S": {
+      "item": "botania:metamorphic_forest_stone"
+    }
+  }
+}
