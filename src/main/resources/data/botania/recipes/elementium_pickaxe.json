@@ -1,0 +1,19 @@
+{
+  "result": {
+    "item": "botania:elementium_pickaxe"
+  },
+  "pattern": [
+    "SSS",
+    " T ",
+    " T "
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "S": {
+      "tag": "forge:ingots/elementium"
+    },
+    "T": {
+      "item": "botania:dreamwood_twig"
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "result": {
+    "item": "botania:glimmering_livingwood"
+  },
+  "ingredients": [
+    {
+      "tag": "botania:livingwood"
+    },
+    {
+      "tag": "forge:dusts/glowstone"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}

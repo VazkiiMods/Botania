@@ -1,0 +1,19 @@
+{
+  "result": {
+    "item": "botania:manasteel_pickaxe"
+  },
+  "pattern": [
+    "SSS",
+    " T ",
+    " T "
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "S": {
+      "tag": "forge:ingots/manasteel"
+    },
+    "T": {
+      "item": "botania:livingwood_twig"
+    }
+  }
+}

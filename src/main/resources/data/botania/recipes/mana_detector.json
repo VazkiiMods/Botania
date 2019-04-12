@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "botania:mana_detector"
+  },
+  "pattern": [
+    "RSR",
+    "SCS",
+    "RSR"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "R": {
+      "tag": "forge:dusts/redstone"
+    },
+    "C": {
+      "item": "minecraft:comparator"
+    },
+    "S": {
+      "tag": "botania:livingrock"
+    }
+  }
+}

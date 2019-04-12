@@ -1,0 +1,14 @@
+{
+  "result": {
+    "item": "botania:corporea_interceptor"
+  },
+  "ingredients": [
+    {
+      "tag": "forge:storage_blocks/redstone"
+    },
+    {
+      "item": "botania:corporea_spark"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}

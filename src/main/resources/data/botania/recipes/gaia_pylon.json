@@ -10,7 +10,7 @@
   "type": "minecraft:crafting_shaped",
   "key": {
     "P": {
-      "item": "botania:pylon_mana"
+      "item": "botania:mana_pylon"
     },
     "D": {
       "item": "botania:pixie_dust"

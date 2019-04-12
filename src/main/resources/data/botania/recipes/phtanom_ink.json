@@ -1,0 +1,30 @@
+{
+  "result": {
+    "item": "botania:phantom_ink",
+    "count": 4
+  },
+  "ingredients": [
+    {
+      "item": "botania:mana_pearl"
+    },
+    {
+      "tag": "forge:dyes"
+    },
+    {
+      "constant": "botania:glass"
+    },
+    {
+      "item": "minecraft:glass_bottle"
+    },
+    {
+      "item": "minecraft:glass_bottle"
+    },
+    {
+      "item": "minecraft:glass_bottle"
+    },
+    {
+      "item": "minecraft:glass_bottle"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}

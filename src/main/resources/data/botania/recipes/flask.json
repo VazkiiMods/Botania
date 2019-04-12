@@ -10,7 +10,7 @@
   "type": "minecraft:crafting_shaped",
   "key": {
     "G": {
-      "item": "botania:elfglass"
+      "item": "botania:elf_glass"
     }
   }
 }

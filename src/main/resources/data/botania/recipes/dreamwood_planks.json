@@ -1,0 +1,12 @@
+{
+  "result": {
+    "item": "botania:dreamwood_planks",
+    "count": 4
+  },
+  "ingredients": [
+    {
+      "item": "botania:dreamwood"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}

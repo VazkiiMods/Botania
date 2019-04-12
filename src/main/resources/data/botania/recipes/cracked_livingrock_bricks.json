@@ -1,0 +1,15 @@
+{
+  "result": {
+    "item": "botania:cracked_livingrock_bricks",
+    "count": 2
+  },
+  "ingredients": [
+    {
+      "item": "botania:livingrock_bricks"
+    },
+    {
+      "tag": "forge:cobblestone"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}

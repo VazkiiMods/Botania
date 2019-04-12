@@ -1,0 +1,19 @@
+{
+  "result": {
+    "item": "botania:obedience_stick"
+  },
+  "pattern": [
+    "  M",
+    " T ",
+    "T  "
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "T": {
+      "item": "botania:livingwood_twig"
+    },
+    "M": {
+      "tag": "forge:ingots/manasteel"
+    }
+  }
+}

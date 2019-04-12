@@ -1,0 +1,25 @@
+{
+  "result": {
+    "item": "botania:diva_charm"
+  },
+  "pattern": [
+    "LGP",
+    " HG",
+    " GL"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "P": {
+      "item": "botania:tiny_planet"
+    },
+    "G": {
+      "tag": "forge:ingots/gold"
+    },
+    "H": {
+      "tag": "botania:runes/pride"
+    },
+    "L": {
+      "item": "botania:life_essence"
+    }
+  }
+}

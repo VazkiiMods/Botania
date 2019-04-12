@@ -1,0 +1,16 @@
+{
+  "result": {
+    "item": "botania:manaweave_leggings"
+  },
+  "pattern": [
+    "SSS",
+    "S S",
+    "S S"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "S": {
+      "item": "botania:manaweave_cloth"
+    }
+  }
+}

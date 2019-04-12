@@ -1,0 +1,16 @@
+{
+  "result": {
+    "item": "botania:manasteel_chestplate"
+  },
+  "pattern": [
+    "S S",
+    "SSS",
+    "SSS"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "S": {
+      "tag": "forge:ingots/manasteel"
+    }
+  }
+}

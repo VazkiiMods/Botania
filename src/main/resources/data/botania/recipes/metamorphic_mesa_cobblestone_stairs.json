@@ -4,8 +4,8 @@
     "count": 4
   },
   "pattern": [
-    "  S"
-    " SS"
+    "  S",
+    " SS",
     "SSS"
   ],
   "type": "minecraft:crafting_shaped",

@@ -1,0 +1,14 @@
+{
+  "result": {
+    "item": "botania:mossy_dreamwood_planks"
+  },
+  "ingredients": [
+    {
+      "item": "botania:dreamwood_planks"
+    },
+    {
+      "item": "minecraft:wheat_seeds"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}

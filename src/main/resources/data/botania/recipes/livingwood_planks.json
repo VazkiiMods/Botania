@@ -1,0 +1,12 @@
+{
+  "result": {
+    "item": "botania:livingwood_planks",
+    "count": 4
+  },
+  "ingredients": [
+    {
+      "tag": "botania:livingwood"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}

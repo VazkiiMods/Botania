@@ -1,0 +1,25 @@
+{
+  "result": {
+    "item": "botania:conjuration_catalyst"
+  },
+  "pattern": [
+    "SBS",
+    "GPG",
+    "SGS"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "P": {
+      "item": "botania:alchemy_catalyst"
+    },
+    "B": {
+      "item": "botania:pixie_dust"
+    },
+    "S": {
+      "tag": "botania:livingrock"
+    },
+    "G": {
+      "tag": "forge:ingots/elementium"
+    }
+  }
+}

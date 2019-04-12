@@ -1,0 +1,19 @@
+{
+  "result": {
+    "item": "botania:mana_distributor"
+  },
+  "pattern": [
+    "RRR",
+    "S S",
+    "RRR"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "R": {
+      "tag": "botania:livingrock"
+    },
+    "S": {
+      "tag": "forge:ingots/manasteel"
+    }
+  }
+}

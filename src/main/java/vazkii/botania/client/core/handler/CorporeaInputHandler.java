@@ -38,7 +38,7 @@ public class CorporeaInputHandler {
 	public static Predicate<GuiScreen> supportedGuiFilter = gui -> gui instanceof GuiContainer;
 
 	@SubscribeEvent
-	public static void buttonPressed(GuiScreenEvent.KeyboardKeyPressedEvent event) {
+	public static void buttonPressed(GuiScreenEvent.KeyboardKeyPressedEvent.Pre event) {
 		Minecraft mc = Minecraft.getInstance();
 		if(mc.world == null || !supportedGuiFilter.test(mc.currentScreen)
 				|| ClientProxy.CORPOREA_REQUEST.isActiveAndMatches(InputMappings.getInputByCode(event.getKeyCode(), event.getScanCode()))

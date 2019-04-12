@@ -1,0 +1,15 @@
+{
+  "result": {
+    "item": "botania:elementium_helmet"
+  },
+  "pattern": [
+    "SSS",
+    "S S"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "S": {
+      "tag": "forge:ingots/elementium"
+    }
+  }
+}
