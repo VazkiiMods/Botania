@@ -105,7 +105,7 @@ public class ItemMagnetRing extends ItemBauble {
 	}
 
 	private boolean canPullItem(EntityItem item) {
-		if(item.isDead || item.pickupDelay >= 40 || SubTileSolegnolia.hasSolegnoliaAround(item))
+		if(item.isDead || item.pickupDelay >= 40 || SubTileSolegnolia.hasSolegnoliaAround(item) || item.getEntityData().getBoolean("PreventRemoteMovement"))
 			return false;
 
 		ItemStack stack = item.getItem();
