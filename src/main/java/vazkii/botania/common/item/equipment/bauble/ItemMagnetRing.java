@@ -15,6 +15,7 @@ import baubles.api.BaublesApi;
 import com.google.common.collect.Lists;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -69,24 +70,27 @@ public class ItemMagnetRing extends ItemBauble {
 	}
 
 	@Override
-	public void onWornTick(ItemStack stack, EntityLivingBase player) {
-		super.onWornTick(stack, player);
+	public void onWornTick(ItemStack stack, EntityLivingBase living) {
+		super.onWornTick(stack, living);
+
+		if(living instanceof EntityPlayer && ((EntityPlayer) living).isSpectator())
+			return;
 
 		int cooldown = getCooldown(stack);
 
-		if(SubTileSolegnolia.hasSolegnoliaAround(player)) {
+		if(SubTileSolegnolia.hasSolegnoliaAround(living)) {
 			if(cooldown < 0)
 				setCooldown(stack, 2);
 			return;
 		}
 
 		if(cooldown <= 0) {
-			if(player.isSneaking() == ConfigHandler.invertMagnetRing) {
-				double x = player.posX;
-				double y = player.posY + 0.75;
-				double z = player.posZ;
+			if(living.isSneaking() == ConfigHandler.invertMagnetRing) {
+				double x = living.posX;
+				double y = living.posY + 0.75;
+				double z = living.posZ;
 
-				List<EntityItem> items = player.world.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(x - range, y - range, z - range, x + range, y + range, z + range));
+				List<EntityItem> items = living.world.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(x - range, y - range, z - range, x + range, y + range, z + range));
 				int pulled = 0;
 				for(EntityItem item : items)
 					if(canPullItem(item)) {
@@ -94,8 +98,8 @@ public class ItemMagnetRing extends ItemBauble {
 							break;
 
 						MathHelper.setEntityMotionFromVector(item, new Vector3(x, y, z), 0.45F);
-						if(player.world.isRemote) {
-							boolean red = player.world.rand.nextBoolean();
+						if(living.world.isRemote) {
+							boolean red = living.world.rand.nextBoolean();
 							Botania.proxy.sparkleFX(item.posX, item.posY, item.posZ, red ? 1F : 0F, 0F, red ? 0F : 1F, 1F, 3);
 						}
 						pulled++;
