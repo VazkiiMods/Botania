@@ -44,7 +44,7 @@ public class RunicAltarRecipeCategory implements IRecipeCategory<RecipeRuneAltar
 	public RunicAltarRecipeCategory(IGuiHelper guiHelper) {
 		background = guiHelper.createBlankDrawable(150, 110);
 		localizedName = I18n.format("botania.nei.runicAltar");
-		overlay = guiHelper.createDrawable(new ResourceLocation("botania", "textures/gui/petalOverlay.png"),
+		overlay = guiHelper.createDrawable(new ResourceLocation("botania", "textures/gui/petal_overlay.png"),
 				0, 0, 150, 110);
 		icon = guiHelper.createDrawableIngredient(new ItemStack(ModBlocks.runeAltar));
 	}
@@ -85,6 +85,7 @@ public class RunicAltarRecipeCategory implements IRecipeCategory<RecipeRuneAltar
 		for(Ingredient ingr : recipe.getInputs()) {
 			list.add(Arrays.asList(ingr.getMatchingStacks()));
 		}
+		System.out.println(list);
 		iIngredients.setInputLists(VanillaTypes.ITEM, list);
 		iIngredients.setOutput(VanillaTypes.ITEM, recipe.getOutput());
 	}

@@ -47,7 +47,7 @@ public class ElvenTradeRecipeCategory implements IRecipeCategory<RecipeElvenTrad
 	public ElvenTradeRecipeCategory(IGuiHelper guiHelper) {
 		localizedName = I18n.format("botania.nei.elvenTrade");
 		background = guiHelper.createBlankDrawable(145, 95);
-		overlay = guiHelper.createDrawable(new ResourceLocation("botania", "textures/gui/elvenTradeOverlay.png"), 0, 15, 140, 90);
+		overlay = guiHelper.createDrawable(new ResourceLocation("botania", "textures/gui/elven_trade_overlay.png"), 0, 15, 140, 90);
 		icon = guiHelper.createDrawableIngredient(new ItemStack(ModBlocks.alfPortal));
 	}
 

@@ -48,7 +48,7 @@ public class OrechidRecipeCategory implements IRecipeCategory<OrechidRecipeWrapp
 	public OrechidRecipeCategory(IGuiHelper guiHelper) {
 		background = guiHelper.createBlankDrawable(168, 64);
 		localizedName = I18n.format("botania.nei.orechid");
-		overlay = guiHelper.createDrawable(new ResourceLocation("botania", "textures/gui/pureDaisyOverlay.png"),
+		overlay = guiHelper.createDrawable(new ResourceLocation("botania", "textures/gui/pure_daisy_overlay.png"),
 				0, 0, 64, 46);
 		icon = guiHelper.createDrawableIngredient(ItemBlockSpecialFlower.ofType(ModSubtiles.orechid));
 	}

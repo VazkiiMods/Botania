@@ -18,6 +18,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tags.Tag;
 import net.minecraft.util.ResourceLocation;
@@ -44,7 +45,7 @@ public class PureDaisyRecipeCategory implements IRecipeCategory<RecipePureDaisy>
 	public PureDaisyRecipeCategory(IGuiHelper guiHelper) {
 		background = guiHelper.createBlankDrawable(168, 64);
 		localizedName = I18n.format("botania.nei.pureDaisy");
-		overlay = guiHelper.createDrawable(new ResourceLocation("botania", "textures/gui/pureDaisyOverlay.png"),
+		overlay = guiHelper.createDrawable(new ResourceLocation("botania", "textures/gui/pure_daisy_overlay.png"),
 				0, 0, 64, 46);
 		icon = guiHelper.createDrawableIngredient(ItemBlockSpecialFlower.ofType(ModSubtiles.pureDaisy));
 	}
@@ -92,6 +93,7 @@ public class PureDaisyRecipeCategory implements IRecipeCategory<RecipePureDaisy>
 			//if(FluidRegistry.lookupFluidForBlock(b) != null) {
 			//	iIngredients.setInput(VanillaTypes.FLUID, new FluidStack(FluidRegistry.lookupFluidForBlock(b), 1000));
 			//} else {
+				if(b.asItem() != Items.AIR)
 				iIngredients.setInput(VanillaTypes.ITEM, new ItemStack(b));
 			//}
 		}
@@ -101,6 +103,7 @@ public class PureDaisyRecipeCategory implements IRecipeCategory<RecipePureDaisy>
 		//if(FluidRegistry.lookupFluidForBlock(outBlock) != null) {
 		//	iIngredients.setOutput(VanillaTypes.FLUID, new FluidStack(FluidRegistry.lookupFluidForBlock(outBlock), 1000));
 		//} else {
+			if(outBlock.asItem() != Items.AIR)
 			iIngredients.setOutput(VanillaTypes.ITEM, new ItemStack(outBlock));
 		//}
 	}

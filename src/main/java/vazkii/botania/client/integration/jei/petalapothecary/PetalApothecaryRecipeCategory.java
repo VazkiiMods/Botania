@@ -42,7 +42,7 @@ public class PetalApothecaryRecipeCategory implements IRecipeCategory<RecipePeta
 	public PetalApothecaryRecipeCategory(IGuiHelper guiHelper) {
 		background = guiHelper.createBlankDrawable(150, 110);
 		localizedName = I18n.format("botania.nei.petalApothecary");
-		overlay = guiHelper.createDrawable(new ResourceLocation("botania", "textures/gui/petalOverlay.png"),
+		overlay = guiHelper.createDrawable(new ResourceLocation("botania", "textures/gui/petal_overlay.png"),
 				0, 0, 150, 110);
 		icon = guiHelper.createDrawableIngredient(new ItemStack(ModBlocks.defaultAltar));
 	}
