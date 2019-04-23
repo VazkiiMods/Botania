@@ -12,6 +12,8 @@ package vazkii.botania.common.lib;
 
 import net.minecraft.util.ResourceLocation;
 
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+
 public final class LibBlockNames {
 
 	public static final String MYSTICAL_FLOWER_SUFFIX = "_mystical_flower";
@@ -191,9 +193,5 @@ public final class LibBlockNames {
 	public static final String QUARTZ_RED = "red_quartz";
 	public static final String QUARTZ_ELF = "elf_quartz";
 	public static final String QUARTZ_SUNNY = "sunny_quartz";
-	
-	private static ResourceLocation prefix(String name) {
-		return new ResourceLocation(LibMisc.MOD_ID, name);
-	}
 
 }
