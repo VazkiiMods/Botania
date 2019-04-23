@@ -6,44 +6,57 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.integration.jei.runicaltar;
+package vazkii.botania.client.integration.jei.petalapothecary;
 
-import mezz.jei.api.IGuiHelper;
-import mezz.jei.api.gui.IDrawable;
+import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
+import mezz.jei.api.gui.drawable.IDrawable;
+import mezz.jei.api.gui.drawable.IDrawableStatic;
+import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredients;
-import mezz.jei.api.ingredients.VanillaTypes;
-import mezz.jei.api.recipe.IRecipeCategory;
+import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
+import vazkii.botania.api.recipe.RecipePetals;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 import java.awt.Point;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-public class RunicAltarRecipeCategory implements IRecipeCategory<RunicAltarRecipeWrapper> {
+public class PetalApothecaryRecipeCategory implements IRecipeCategory<RecipePetals> {
 
-	public static final String UID = "botania.runicAltar";
-	private final IDrawable background;
+	public static final ResourceLocation UID = new ResourceLocation(LibMisc.MOD_ID, "petals");
+	private final IDrawableStatic background;
 	private final String localizedName;
-	private final IDrawable overlay;
+	private final IDrawableStatic overlay;
+	private final IDrawable icon;
 
-	public RunicAltarRecipeCategory(IGuiHelper guiHelper) {
+	public PetalApothecaryRecipeCategory(IGuiHelper guiHelper) {
 		background = guiHelper.createBlankDrawable(150, 110);
-		localizedName = I18n.format("botania.nei.runicAltar");
+		localizedName = I18n.format("botania.nei.petalApothecary");
 		overlay = guiHelper.createDrawable(new ResourceLocation("botania", "textures/gui/petalOverlay.png"),
 				0, 0, 150, 110);
+		icon = guiHelper.createDrawableIngredient(new ItemStack(ModBlocks.defaultAltar));
 	}
 
 	@Nonnull
 	@Override
-	public String getUid() {
+	public ResourceLocation getUid() {
 		return UID;
+	}
+
+	@Nonnull
+	@Override
+	public Class<? extends RecipePetals> getRecipeClass() {
+		return RecipePetals.class;
 	}
 
 	@Nonnull
@@ -58,19 +71,35 @@ public class RunicAltarRecipeCategory implements IRecipeCategory<RunicAltarRecip
 		return background;
 	}
 
+	@Nonnull
 	@Override
-	public void drawExtras(@Nonnull Minecraft minecraft) {
-		GlStateManager.enableAlpha();
-		GlStateManager.enableBlend();
-		overlay.draw(minecraft);
-		GlStateManager.disableBlend();
-		GlStateManager.disableAlpha();
+	public IDrawable getIcon() {
+		return icon;
 	}
 
 	@Override
-	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull RunicAltarRecipeWrapper recipeWrapper, @Nonnull IIngredients ingredients) {
+	public void setIngredients(RecipePetals recipe, IIngredients iIngredients) {
+		List<List<ItemStack>> list = new ArrayList<>();
+		for(Ingredient ingr : recipe.getInputs()) {
+			list.add(Arrays.asList(ingr.getMatchingStacks()));
+		}
+		iIngredients.setInputLists(VanillaTypes.ITEM, list);
+		iIngredients.setOutput(VanillaTypes.ITEM, recipe.getOutput());
+	}
+
+	@Override
+	public void draw(RecipePetals recipe, double mouseX, double mouseY) {
+		GlStateManager.enableAlphaTest();
+		GlStateManager.enableBlend();
+		overlay.draw();
+		GlStateManager.disableBlend();
+		GlStateManager.disableAlphaTest();
+	}
+
+	@Override
+	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull RecipePetals recipe, @Nonnull IIngredients ingredients) {
 		recipeLayout.getItemStacks().init(0, true, 64, 52);
-		recipeLayout.getItemStacks().set(0, new ItemStack(ModBlocks.runeAltar));
+		recipeLayout.getItemStacks().set(0, new ItemStack(ModBlocks.defaultAltar));
 
 		int index = 1;
 		double angleBetweenEach = 360.0 / ingredients.getInputs(VanillaTypes.ITEM).size();
@@ -85,7 +114,6 @@ public class RunicAltarRecipeCategory implements IRecipeCategory<RunicAltarRecip
 
 		recipeLayout.getItemStacks().init(index, false, 103, 17);
 		recipeLayout.getItemStacks().set(index, ingredients.getOutputs(VanillaTypes.ITEM).get(0));
-
 	}
 
 	private Point rotatePointAbout(Point in, Point about, double degrees) {
@@ -94,11 +122,4 @@ public class RunicAltarRecipeCategory implements IRecipeCategory<RunicAltarRecip
 		double newY = Math.sin(rad) * (in.x - about.x) + Math.cos(rad) * (in.y - about.y) + about.y;
 		return new Point((int) newX, (int) newY);
 	}
-
-	@Nonnull
-	@Override
-	public String getModName() {
-		return LibMisc.MOD_NAME;
-	}
-
 }

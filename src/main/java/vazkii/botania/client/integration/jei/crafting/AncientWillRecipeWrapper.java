@@ -1,53 +1,53 @@
 package vazkii.botania.client.integration.jei.crafting;
 
 import com.google.common.collect.ImmutableList;
-import mezz.jei.api.gui.IGuiItemStackGroup;
+import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
+import mezz.jei.api.gui.ingredient.IGuiItemStackGroup;
 import mezz.jei.api.ingredients.IIngredients;
-import mezz.jei.api.ingredients.VanillaTypes;
 import mezz.jei.api.recipe.IFocus;
-import mezz.jei.api.recipe.wrapper.ICustomCraftingRecipeWrapper;
+import mezz.jei.api.recipe.category.extensions.vanilla.crafting.ICustomCraftingCategoryExtension;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import vazkii.botania.api.item.IAncientWillContainer;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.crafting.recipe.AncientWillRecipe;
+import vazkii.botania.common.item.ItemAncientWill;
 import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class AncientWillRecipeWrapper implements ICustomCraftingRecipeWrapper {
+public class AncientWillRecipeWrapper implements ICustomCraftingCategoryExtension  {
 	private final ResourceLocation name;
-	private final List<List<ItemStack>> inputs;
-	private final List<ItemStack> output;
 
 	public AncientWillRecipeWrapper(AncientWillRecipe recipe) {
-		this.name = recipe.getRegistryName();
+		this.name = recipe.getId();
+	}
 
-		ImmutableList.Builder<List<ItemStack>> builder = ImmutableList.builder();
+	@Override
+	public void setIngredients(@Nonnull IIngredients ingredients) {
+	    ImmutableList.Builder<List<ItemStack>> builder = ImmutableList.builder();
 		ImmutableList.Builder<ItemStack> helmets = ImmutableList.builder();
 		ImmutableList.Builder<ItemStack> wills = ImmutableList.builder();
 		helmets.add(new ItemStack(ModItems.terrasteelHelm));
 		if(Botania.thaumcraftLoaded) {
 			helmets.add(new ItemStack(ModItems.terrasteelHelmRevealing));
 		}
-		for(int i = 0; i < 6; i++) {
-			wills.add(new ItemStack(ModItems.ancientWill, 1, i));
-		}
+		wills.add(new ItemStack(ModItems.ancientWillAhrim));
+		wills.add(new ItemStack(ModItems.ancientWillDharok));
+		wills.add(new ItemStack(ModItems.ancientWillGuthan));
+		wills.add(new ItemStack(ModItems.ancientWillTorag));
+		wills.add(new ItemStack(ModItems.ancientWillVerac));
+		wills.add(new ItemStack(ModItems.ancientWillKaril));
 
-		output = helmets.build();
-		builder.add(output);
+		builder.add(helmets.build());
 		builder.add(wills.build());
-		inputs = builder.build();
-	}
 
-	@Override
-	public void getIngredients(@Nonnull IIngredients ingredients) {
-		ingredients.setInputLists(VanillaTypes.ITEM, inputs);
-		ingredients.setOutputLists(VanillaTypes.ITEM, ImmutableList.of(output));
+		ingredients.setInputLists(VanillaTypes.ITEM, builder.build());
+		ingredients.setOutputLists(VanillaTypes.ITEM, ImmutableList.of(helmets.build()));
 	}
 
 	@Nullable
@@ -65,9 +65,11 @@ public class AncientWillRecipeWrapper implements ICustomCraftingRecipeWrapper {
 		if(focus != null) {
 			ItemStack focused = (ItemStack) focus.getValue();
 
-			if(focus.getMode() == IFocus.Mode.INPUT && focused.getItem() == ModItems.ancientWill) {
-				group.set(2, new ItemStack(ModItems.ancientWill, 1, focused.getMetadata()));
-				group.set(0, getHelmetsWithWill(focused.getMetadata()));
+			if(focus.getMode() == IFocus.Mode.INPUT && focused.getItem() instanceof ItemAncientWill) {
+				ItemStack copy = focused.copy();
+				copy.setCount(1);
+				group.set(2, copy);
+				group.set(0, getHelmetsWithWill(((ItemAncientWill) focused.getItem()).type, ingredients));
 			} else if(focused.getItem() instanceof IAncientWillContainer) { //helmet
 				group.set(1, new ItemStack(focused.getItem()));
 				group.set(0, getWillsOnHelmet(focused.getItem()));
@@ -75,11 +77,11 @@ public class AncientWillRecipeWrapper implements ICustomCraftingRecipeWrapper {
 		}
 	}
 
-	private List<ItemStack> getHelmetsWithWill(int meta) {
+	private List<ItemStack> getHelmetsWithWill(IAncientWillContainer.AncientWillType type, IIngredients ingredients) {
 		ImmutableList.Builder<ItemStack> builder = ImmutableList.builder();
-		for(ItemStack itemStack : output) {
+		for(ItemStack itemStack : ingredients.getOutputs(VanillaTypes.ITEM).get(0)) {
 			ItemStack toAdd = itemStack.copy();
-			((IAncientWillContainer) toAdd.getItem()).addAncientWill(toAdd, meta);
+			((IAncientWillContainer) toAdd.getItem()).addAncientWill(toAdd, type);
 			builder.add(toAdd);
 		}
 		return builder.build();
@@ -88,9 +90,9 @@ public class AncientWillRecipeWrapper implements ICustomCraftingRecipeWrapper {
 	private List<ItemStack> getWillsOnHelmet(Item item) {
 		if(item instanceof IAncientWillContainer) {
 			ImmutableList.Builder<ItemStack> builder = ImmutableList.builder();
-			for(int i = 0; i < 6; i++) {
+			for(IAncientWillContainer.AncientWillType type : IAncientWillContainer.AncientWillType.values()) {
 				ItemStack stack = new ItemStack(item);
-				((IAncientWillContainer) item).addAncientWill(stack, i);
+				((IAncientWillContainer) item).addAncientWill(stack, type);
 				builder.add(stack);
 			}
 			return builder.build();

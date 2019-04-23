@@ -114,7 +114,8 @@ jar {
 dependencies {
     //deobfCompile "com.mod-buildcraft:buildcraft-api:7.99.17"
     //deobfCompile "com.azanor.baubles:Baubles:1.12-1.5.2"
-    //deobfCompile "mezz.jei:jei_1.12.2:4.13.1.220"
+    compileOnly fg.deobf("mezz.jei:jei-1.13.2:5.0.0.20:api")
+    runtimeOnly fg.deobf("mezz.jei:jei-1.13.2:5.0.0.20")
     //deobfCompile "thaumcraft:Thaumcraft:1.12.2:6.1.BETA26"
 
     //and a bit more for SCP

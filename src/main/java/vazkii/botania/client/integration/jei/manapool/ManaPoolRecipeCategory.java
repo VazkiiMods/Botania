@@ -8,32 +8,41 @@
  */
 package vazkii.botania.client.integration.jei.manapool;
 
-import mezz.jei.api.IGuiHelper;
-import mezz.jei.api.gui.IDrawable;
+import com.google.common.collect.ImmutableList;
+import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
+import mezz.jei.api.gui.drawable.IDrawable;
+import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredients;
-import mezz.jei.api.ingredients.VanillaTypes;
-import mezz.jei.api.recipe.IRecipeCategory;
+import mezz.jei.api.recipe.category.IRecipeCategory;
+import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import vazkii.botania.api.recipe.RecipeManaInfusion;
+import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
-public class ManaPoolRecipeCategory implements IRecipeCategory<ManaPoolRecipeWrapper> {
+public class ManaPoolRecipeCategory implements IRecipeCategory<RecipeManaInfusion> {
 
-	public static final String UID = "botania.manaPool";
+	public static final ResourceLocation UID = new ResourceLocation(LibMisc.MOD_ID, "mana_pool");
 	private final IDrawable background;
 	private final String localizedName;
 	private final IDrawable overlay;
+	private final IDrawable icon;
 	private final ItemStack renderStack = new ItemStack(ModBlocks.manaPool);
 
 	public ManaPoolRecipeCategory(IGuiHelper guiHelper) {
@@ -41,13 +50,20 @@ public class ManaPoolRecipeCategory implements IRecipeCategory<ManaPoolRecipeWra
 		localizedName = I18n.format("botania.nei.manaPool");
 		overlay = guiHelper.createDrawable(new ResourceLocation("botania", "textures/gui/pureDaisyOverlay.png"),
 				0, 0, 64, 46);
+		icon = guiHelper.createDrawableIngredient(renderStack.copy());
 		ItemNBTHelper.setBoolean(renderStack, "RenderFull", true);
 	}
 
 	@Nonnull
 	@Override
-	public String getUid() {
+	public ResourceLocation getUid() {
 		return UID;
+	}
+
+	@Nonnull
+	@Override
+	public Class<? extends RecipeManaInfusion> getRecipeClass() {
+		return RecipeManaInfusion.class;
 	}
 
 	@Nonnull
@@ -62,23 +78,41 @@ public class ManaPoolRecipeCategory implements IRecipeCategory<ManaPoolRecipeWra
 		return background;
 	}
 
-	@Nullable
+	@Nonnull
 	@Override
 	public IDrawable getIcon() {
-		return null;
+		return icon;
 	}
 
 	@Override
-	public void drawExtras(@Nonnull Minecraft minecraft) {
-		GlStateManager.enableAlpha();
+	public void setIngredients(RecipeManaInfusion recipe, IIngredients iIngredients) {
+		ImmutableList.Builder<List<ItemStack>> builder = ImmutableList.builder();
+
+		builder.add(Arrays.asList(recipe.getInput().getMatchingStacks()));
+
+		if(recipe.getCatalyst() != null) {
+			Block block = recipe.getCatalyst().getBlock();
+			if (block.asItem() != Items.AIR) {
+				builder.add(ImmutableList.of(new ItemStack(block)));
+			}
+		}
+
+		iIngredients.setInputLists(VanillaTypes.ITEM, builder.build());
+		iIngredients.setOutput(VanillaTypes.ITEM, recipe.getOutput());
+	}
+
+	@Override
+	public void draw(RecipeManaInfusion recipe, double mouseX, double mouseY) {
+		GlStateManager.enableAlphaTest();
 		GlStateManager.enableBlend();
-		overlay.draw(minecraft, 48, 0);
+		overlay.draw(48, 0);
+		HUDHandler.renderManaBar(28, 50, 0x0000FF, 0.75F, recipe.getManaToConsume(), TilePool.MAX_MANA / 10);
 		GlStateManager.disableBlend();
-		GlStateManager.disableAlpha();
+		GlStateManager.disableAlphaTest();
 	}
 
 	@Override
-	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull ManaPoolRecipeWrapper recipeWrapper, @Nonnull IIngredients ingredients) {
+	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull RecipeManaInfusion recipe, @Nonnull IIngredients ingredients) {
 		int index = 0;
 
 		recipeLayout.getItemStacks().init(index, true, 40, 12);
@@ -100,17 +134,4 @@ public class ManaPoolRecipeCategory implements IRecipeCategory<ManaPoolRecipeWra
 		recipeLayout.getItemStacks().init(index, false, 99, 12);
 		recipeLayout.getItemStacks().set(index, ingredients.getOutputs(VanillaTypes.ITEM).get(0));
 	}
-
-	@Nonnull
-	@Override
-	public List<String> getTooltipStrings(int mouseX, int mouseY) {
-		return new ArrayList<>();
-	}
-
-	@Nonnull
-	@Override
-	public String getModName() {
-		return LibMisc.MOD_NAME;
-	}
-
 }

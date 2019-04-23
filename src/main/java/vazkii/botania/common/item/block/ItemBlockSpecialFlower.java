@@ -125,6 +125,10 @@ public class ItemBlockSpecialFlower extends ItemBlockMod implements IRecipeKeyPr
 		return ofType(new ItemStack(ModBlocks.specialFlower), type);
 	}
 
+	public static ItemStack ofType(ItemStack stack, ResourceLocation type) {
+		return ofType(stack, BotaniaRegistries.SUBTILES.getValue(type));
+	}
+
 	public static ItemStack ofType(ItemStack stack, SubTileType type) {
 		ItemNBTHelper.setString(stack, SubTileEntity.TAG_TYPE, type.getRegistryName().toString());
 		return stack;

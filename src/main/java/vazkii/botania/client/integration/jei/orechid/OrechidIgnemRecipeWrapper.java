@@ -8,25 +8,14 @@
  */
 package vazkii.botania.client.integration.jei.orechid;
 
-import net.minecraft.init.Blocks;
-import net.minecraft.item.ItemStack;
-import vazkii.botania.api.BotaniaAPI;
+import net.minecraft.util.ResourceLocation;
 
 import java.util.Map;
 
 public class OrechidIgnemRecipeWrapper extends OrechidRecipeWrapper {
 
-	public OrechidIgnemRecipeWrapper(Map.Entry<String, Integer> entry) {
+	public OrechidIgnemRecipeWrapper(Map.Entry<ResourceLocation, Integer> entry) {
 		super(entry);
-	}
-
-	@Override
-	protected ItemStack getInputStack() {
-		return new ItemStack(Blocks.NETHERRACK, 64);
-	}
-
-	public Map<String, Integer> getOreWeights() {
-		return BotaniaAPI.oreWeightsNether;
 	}
 
 }

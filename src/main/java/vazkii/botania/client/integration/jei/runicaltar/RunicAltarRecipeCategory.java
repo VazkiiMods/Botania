@@ -6,48 +6,59 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.integration.jei.petalapothecary;
+package vazkii.botania.client.integration.jei.runicaltar;
 
-import mezz.jei.api.IGuiHelper;
-import mezz.jei.api.gui.IDrawable;
-import mezz.jei.api.gui.IDrawableStatic;
+import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
+import mezz.jei.api.gui.drawable.IDrawable;
+import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredients;
-import mezz.jei.api.ingredients.VanillaTypes;
-import mezz.jei.api.recipe.IRecipeCategory;
-import mezz.jei.api.recipe.IRecipeWrapper;
+import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
+import vazkii.botania.api.recipe.RecipeRuneAltar;
+import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
-public class PetalApothecaryRecipeCategory implements IRecipeCategory<PetalApothecaryRecipeWrapper> {
+public class RunicAltarRecipeCategory implements IRecipeCategory<RecipeRuneAltar> {
 
-	public static final String UID = "botania.petals";
-	private final IDrawableStatic background;
+	public static final ResourceLocation UID = new ResourceLocation(LibMisc.MOD_ID, "runic_altar");
+	private final IDrawable background;
 	private final String localizedName;
-	private final IDrawableStatic overlay;
+	private final IDrawable overlay;
+	private final IDrawable icon;
 
-	public PetalApothecaryRecipeCategory(IGuiHelper guiHelper) {
+	public RunicAltarRecipeCategory(IGuiHelper guiHelper) {
 		background = guiHelper.createBlankDrawable(150, 110);
-		localizedName = I18n.format("botania.nei.petalApothecary");
+		localizedName = I18n.format("botania.nei.runicAltar");
 		overlay = guiHelper.createDrawable(new ResourceLocation("botania", "textures/gui/petalOverlay.png"),
 				0, 0, 150, 110);
+		icon = guiHelper.createDrawableIngredient(new ItemStack(ModBlocks.runeAltar));
 	}
 
 	@Nonnull
 	@Override
-	public String getUid() {
+	public ResourceLocation getUid() {
 		return UID;
+	}
+
+	@Nonnull
+	@Override
+	public Class<? extends RecipeRuneAltar> getRecipeClass() {
+		return RecipeRuneAltar.class;
 	}
 
 	@Nonnull
@@ -62,19 +73,36 @@ public class PetalApothecaryRecipeCategory implements IRecipeCategory<PetalApoth
 		return background;
 	}
 
+	@Nonnull
 	@Override
-	public void drawExtras(@Nonnull Minecraft minecraft) {
-		GlStateManager.enableAlpha();
-		GlStateManager.enableBlend();
-		overlay.draw(minecraft);
-		GlStateManager.disableBlend();
-		GlStateManager.disableAlpha();
+	public IDrawable getIcon() {
+		return icon;
 	}
 
 	@Override
-	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull PetalApothecaryRecipeWrapper recipeWrapper, @Nonnull IIngredients ingredients) {
+	public void setIngredients(RecipeRuneAltar recipe, IIngredients iIngredients) {
+		List<List<ItemStack>> list = new ArrayList<>();
+		for(Ingredient ingr : recipe.getInputs()) {
+			list.add(Arrays.asList(ingr.getMatchingStacks()));
+		}
+		iIngredients.setInputLists(VanillaTypes.ITEM, list);
+		iIngredients.setOutput(VanillaTypes.ITEM, recipe.getOutput());
+	}
+
+	@Override
+	public void draw(RecipeRuneAltar recipe, double mouseX, double mouseY) {
+		GlStateManager.enableAlphaTest();
+		GlStateManager.enableBlend();
+		overlay.draw();
+		HUDHandler.renderManaBar(28, 113, 0x0000FF, 0.75F, recipe.getManaUsage(), TilePool.MAX_MANA / 10);
+		GlStateManager.disableBlend();
+		GlStateManager.disableAlphaTest();
+	}
+
+	@Override
+	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull RecipeRuneAltar recipe, @Nonnull IIngredients ingredients) {
 		recipeLayout.getItemStacks().init(0, true, 64, 52);
-		recipeLayout.getItemStacks().set(0, new ItemStack(ModBlocks.defaultAltar));
+		recipeLayout.getItemStacks().set(0, new ItemStack(ModBlocks.runeAltar));
 
 		int index = 1;
 		double angleBetweenEach = 360.0 / ingredients.getInputs(VanillaTypes.ITEM).size();
@@ -89,6 +117,7 @@ public class PetalApothecaryRecipeCategory implements IRecipeCategory<PetalApoth
 
 		recipeLayout.getItemStacks().init(index, false, 103, 17);
 		recipeLayout.getItemStacks().set(index, ingredients.getOutputs(VanillaTypes.ITEM).get(0));
+
 	}
 
 	private Point rotatePointAbout(Point in, Point about, double degrees) {
@@ -98,10 +127,4 @@ public class PetalApothecaryRecipeCategory implements IRecipeCategory<PetalApoth
 		return new Point((int) newX, (int) newY);
 	}
 
-	@Nonnull
-	@Override
-	public String getModName() {
-		return LibMisc.MOD_NAME;
-	}
-	
 }

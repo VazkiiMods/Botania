@@ -1,9 +1,9 @@
 package vazkii.botania.client.integration.jei.crafting;
 
 import com.google.common.collect.ImmutableList;
+import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.ingredients.IIngredients;
-import mezz.jei.api.ingredients.VanillaTypes;
-import mezz.jei.api.recipe.wrapper.ICraftingRecipeWrapper;
+import mezz.jei.api.recipe.category.extensions.vanilla.crafting.ICraftingCategoryExtension;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import vazkii.botania.common.crafting.recipe.TerraPickTippingRecipe;
@@ -14,7 +14,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class TerraPickTippingRecipeWrapper implements ICraftingRecipeWrapper {
+public class TerraPickTippingRecipeWrapper implements ICraftingCategoryExtension {
 	private final List<List<ItemStack>> inputs;
 	private final ItemStack output;
 	private final ResourceLocation name;
@@ -24,11 +24,11 @@ public class TerraPickTippingRecipeWrapper implements ICraftingRecipeWrapper {
 		output = new ItemStack(ModItems.terraPick);
 		ItemTerraPick.setTipped(output);
 		
-		this.name = recipe.getRegistryName();
+		this.name = recipe.getId();
 	}
 	
 	@Override
-	public void getIngredients(@Nonnull IIngredients ingredients) {
+	public void setIngredients(@Nonnull IIngredients ingredients) {
 		ingredients.setInputLists(VanillaTypes.ITEM, inputs);
 		ingredients.setOutput(VanillaTypes.ITEM, output);
 	}

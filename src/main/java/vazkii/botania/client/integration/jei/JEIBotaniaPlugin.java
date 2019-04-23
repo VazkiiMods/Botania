@@ -8,60 +8,53 @@
  */
 package vazkii.botania.client.integration.jei;
 
-import mezz.jei.api.IJeiRuntime;
 import mezz.jei.api.IModPlugin;
-import mezz.jei.api.IModRegistry;
-import mezz.jei.api.IRecipeRegistry;
-import mezz.jei.api.IRecipesGui;
-import mezz.jei.api.ISubtypeRegistry;
-import mezz.jei.api.JEIPlugin;
-import mezz.jei.api.recipe.IRecipeCategoryRegistration;
-import mezz.jei.api.recipe.IRecipeWrapper;
-import mezz.jei.api.recipe.VanillaRecipeCategoryUid;
+import mezz.jei.api.JeiPlugin;
+import mezz.jei.api.constants.VanillaRecipeCategoryUid;
+import mezz.jei.api.recipe.IRecipeManager;
+import mezz.jei.api.registration.IRecipeCatalystRegistration;
+import mezz.jei.api.registration.IRecipeCategoryRegistration;
+import mezz.jei.api.registration.IRecipeRegistration;
+import mezz.jei.api.registration.IRecipeTransferRegistration;
+import mezz.jei.api.registration.ISubtypeRegistration;
+import mezz.jei.api.registration.IVanillaCategoryExtensionRegistration;
+import mezz.jei.api.runtime.IJeiRuntime;
+import mezz.jei.api.runtime.IRecipesGui;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.oredict.OreDictionary;
+import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.util.ResourceLocation;
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.recipe.RecipeBrew;
 import vazkii.botania.api.recipe.RecipeElvenTrade;
-import vazkii.botania.api.recipe.RecipeManaInfusion;
-import vazkii.botania.api.recipe.RecipePetals;
-import vazkii.botania.api.recipe.RecipePureDaisy;
-import vazkii.botania.api.recipe.RecipeRuneAltar;
 import vazkii.botania.client.core.handler.CorporeaInputHandler;
 import vazkii.botania.client.gui.crafting.ContainerCraftingHalo;
 import vazkii.botania.client.integration.jei.brewery.BreweryRecipeCategory;
-import vazkii.botania.client.integration.jei.brewery.BreweryRecipeWrapper;
 import vazkii.botania.client.integration.jei.crafting.AncientWillRecipeWrapper;
 import vazkii.botania.client.integration.jei.crafting.CompositeLensRecipeWrapper;
 import vazkii.botania.client.integration.jei.crafting.SpecialFloatingFlowerWrapper;
 import vazkii.botania.client.integration.jei.crafting.TerraPickTippingRecipeWrapper;
 import vazkii.botania.client.integration.jei.elventrade.ElvenTradeRecipeCategory;
-import vazkii.botania.client.integration.jei.elventrade.ElvenTradeRecipeWrapper;
 import vazkii.botania.client.integration.jei.manapool.ManaPoolRecipeCategory;
-import vazkii.botania.client.integration.jei.manapool.ManaPoolRecipeWrapper;
 import vazkii.botania.client.integration.jei.orechid.OrechidIgnemRecipeCategory;
 import vazkii.botania.client.integration.jei.orechid.OrechidIgnemRecipeWrapper;
 import vazkii.botania.client.integration.jei.orechid.OrechidRecipeCategory;
 import vazkii.botania.client.integration.jei.orechid.OrechidRecipeWrapper;
 import vazkii.botania.client.integration.jei.petalapothecary.PetalApothecaryRecipeCategory;
-import vazkii.botania.client.integration.jei.petalapothecary.PetalApothecaryRecipeWrapper;
 import vazkii.botania.client.integration.jei.puredaisy.PureDaisyRecipeCategory;
-import vazkii.botania.client.integration.jei.puredaisy.PureDaisyRecipeWrapper;
 import vazkii.botania.client.integration.jei.runicaltar.RunicAltarRecipeCategory;
-import vazkii.botania.client.integration.jei.runicaltar.RunicAltarRecipeWrapper;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.crafting.recipe.AncientWillRecipe;
 import vazkii.botania.common.crafting.recipe.CompositeLensRecipe;
 import vazkii.botania.common.crafting.recipe.SpecialFloatingFlowerRecipe;
 import vazkii.botania.common.crafting.recipe.TerraPickTippingRecipe;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
-import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.item.brew.ItemBrewBase;
+import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 import java.util.List;
@@ -71,13 +64,14 @@ import static vazkii.botania.common.lib.LibBlockNames.SUBTILE_ORECHID;
 import static vazkii.botania.common.lib.LibBlockNames.SUBTILE_ORECHID_IGNEM;
 import static vazkii.botania.common.lib.LibBlockNames.SUBTILE_PUREDAISY;
 
-@JEIPlugin
+@JeiPlugin
 public class JEIBotaniaPlugin implements IModPlugin {
+	private static final ResourceLocation ID = new ResourceLocation(LibMisc.MOD_ID, "main");
 
 	@Override
-	public void registerItemSubtypes(@Nonnull ISubtypeRegistry subtypeRegistry) {
-		subtypeRegistry.registerSubtypeInterpreter(Item.getItemFromBlock(ModBlocks.specialFlower), stack -> ItemBlockSpecialFlower.getType(stack).toString());
-		subtypeRegistry.registerSubtypeInterpreter(Item.getItemFromBlock(ModBlocks.floatingSpecialFlower), stack -> ItemBlockSpecialFlower.getType(stack).toString());
+	public void registerItemSubtypes(@Nonnull ISubtypeRegistration subtypeRegistry) {
+		subtypeRegistry.registerSubtypeInterpreter(ModBlocks.specialFlower.asItem(), stack -> ItemBlockSpecialFlower.getType(stack).toString());
+		subtypeRegistry.registerSubtypeInterpreter(ModBlocks.floatingSpecialFlower.asItem(), stack -> ItemBlockSpecialFlower.getType(stack).toString());
 		subtypeRegistry.registerSubtypeInterpreter(ModItems.brewVial, ItemBrewBase::getSubtype);
 		subtypeRegistry.registerSubtypeInterpreter(ModItems.brewFlask, ItemBrewBase::getSubtype);
 		subtypeRegistry.registerSubtypeInterpreter(ModItems.incenseStick, ItemBrewBase::getSubtype);
@@ -98,32 +92,26 @@ public class JEIBotaniaPlugin implements IModPlugin {
 		);
 	}
 
-	public static boolean doesOreExist(String key) {
-		return OreDictionary.doesOreNameExist(key)
-				&& OreDictionary.getOres(key).stream()
-				.anyMatch(s -> s.getItem() instanceof ItemBlock);
+	public static boolean doesOreExist(ResourceLocation tagId) {
+		return !BlockTags.getCollection().getOrCreate(tagId).getAllElements().isEmpty();
 	}
 
 	@Override
-	public void register(@Nonnull IModRegistry registry) {
-		registry.handleRecipes(RecipeBrew.class, BreweryRecipeWrapper::new, BreweryRecipeCategory.UID);
-		registry.handleRecipes(RecipePureDaisy.class, PureDaisyRecipeWrapper::new, PureDaisyRecipeCategory.UID);
-		registry.handleRecipes(RecipeRuneAltar.class, RunicAltarRecipeWrapper::new, RunicAltarRecipeCategory.UID); // Runic must come before petals. See williewillus/Botania#172
-		registry.handleRecipes(RecipePetals.class, PetalApothecaryRecipeWrapper::new, PetalApothecaryRecipeCategory.UID);
-		registry.handleRecipes(RecipeElvenTrade.class, ElvenTradeRecipeWrapper::new, ElvenTradeRecipeCategory.UID);
-		registry.handleRecipes(RecipeManaInfusion.class, ManaPoolRecipeWrapper::new, ManaPoolRecipeCategory.UID);
-		
-		registry.handleRecipes(SpecialFloatingFlowerRecipe.class, SpecialFloatingFlowerWrapper::new, VanillaRecipeCategoryUid.CRAFTING);
-		registry.handleRecipes(AncientWillRecipe.class, AncientWillRecipeWrapper::new, VanillaRecipeCategoryUid.CRAFTING);
-		registry.handleRecipes(TerraPickTippingRecipe.class, TerraPickTippingRecipeWrapper::new, VanillaRecipeCategoryUid.CRAFTING);
-		registry.handleRecipes(CompositeLensRecipe.class, r -> new CompositeLensRecipeWrapper(), VanillaRecipeCategoryUid.CRAFTING);
-		
+	public void registerVanillaCategoryExtensions(IVanillaCategoryExtensionRegistration registration) {
+		registration.getCraftingCategory().addCategoryExtension(SpecialFloatingFlowerRecipe.class, SpecialFloatingFlowerWrapper::new);
+		registration.getCraftingCategory().addCategoryExtension(AncientWillRecipe.class, AncientWillRecipeWrapper::new);
+		registration.getCraftingCategory().addCategoryExtension(TerraPickTippingRecipe.class, TerraPickTippingRecipeWrapper::new);
+		registration.getCraftingCategory().addCategoryExtension(CompositeLensRecipe.class, CompositeLensRecipeWrapper::new);
+	}
+
+	@Override
+	public void registerRecipes(@Nonnull IRecipeRegistration registry) {
 		registry.addRecipes(BotaniaAPI.brewRecipes, BreweryRecipeCategory.UID);
 		registry.addRecipes(BotaniaAPI.pureDaisyRecipes, PureDaisyRecipeCategory.UID);
 		registry.addRecipes(BotaniaAPI.petalRecipes, PetalApothecaryRecipeCategory.UID);
 		registry.addRecipes(BotaniaAPI.elvenTradeRecipes, ElvenTradeRecipeCategory.UID);
 		registry.addRecipes(BotaniaAPI.runeAltarRecipes, RunicAltarRecipeCategory.UID);
-		registry.addRecipes(BotaniaAPI.manaInfusionRecipes, ManaPoolRecipeCategory.UID);
+		registry.addRecipes(BotaniaAPI.manaInfusionRecipes.values(), ManaPoolRecipeCategory.UID);
 
 		registry.addRecipes(
 				BotaniaAPI.oreWeights.entrySet().stream()
@@ -141,7 +129,15 @@ public class JEIBotaniaPlugin implements IModPlugin {
 						.collect(Collectors.toList()),
 				OrechidIgnemRecipeCategory.UID);
 
+	}
 
+	@Override
+	public void registerRecipeTransferHandlers(IRecipeTransferRegistration registry) {
+		registry.addRecipeTransferHandler(ContainerCraftingHalo.class, VanillaRecipeCategoryUid.CRAFTING, 1, 9, 10, 36);
+	}
+
+	@Override
+	public void registerRecipeCatalysts(IRecipeCatalystRegistration registry) {
 		registry.addRecipeCatalyst(new ItemStack(ModBlocks.brewery), BreweryRecipeCategory.UID);
 		registry.addRecipeCatalyst(new ItemStack(ModBlocks.alfPortal), ElvenTradeRecipeCategory.UID);
 
@@ -162,32 +158,26 @@ public class JEIBotaniaPlugin implements IModPlugin {
 		registry.addRecipeCatalyst(new ItemStack(ModBlocks.mossyAltar), PetalApothecaryRecipeCategory.UID);
 
 		registry.addRecipeCatalyst(ItemBlockSpecialFlower.ofType(SUBTILE_ORECHID), OrechidRecipeCategory.UID);
-		registry.addRecipeCatalyst(ItemBlockSpecialFlower.ofType(new ItemStack(ModBlocks.floatingSpecialFlower), SUBTILE_ORECHID), OrechidRecipeCategory.UID);
+		registry.addRecipeCatalyst(ItemBlockSpecialFlower.ofType(new ItemStack(ModBlocks.floatingSpecialFlower), ModSubtiles.orechid), OrechidRecipeCategory.UID);
 		registry.addRecipeCatalyst(ItemBlockSpecialFlower.ofType(SUBTILE_ORECHID_IGNEM), OrechidIgnemRecipeCategory.UID);
-		registry.addRecipeCatalyst(ItemBlockSpecialFlower.ofType(new ItemStack(ModBlocks.floatingSpecialFlower), SUBTILE_ORECHID_IGNEM), OrechidIgnemRecipeCategory.UID);
+		registry.addRecipeCatalyst(ItemBlockSpecialFlower.ofType(new ItemStack(ModBlocks.floatingSpecialFlower), ModSubtiles.orechidIgnem), OrechidIgnemRecipeCategory.UID);
 		registry.addRecipeCatalyst(ItemBlockSpecialFlower.ofType(SUBTILE_PUREDAISY), PureDaisyRecipeCategory.UID);
-		registry.addRecipeCatalyst(ItemBlockSpecialFlower.ofType(new ItemStack(ModBlocks.floatingSpecialFlower), SUBTILE_PUREDAISY), PureDaisyRecipeCategory.UID);
+		registry.addRecipeCatalyst(ItemBlockSpecialFlower.ofType(new ItemStack(ModBlocks.floatingSpecialFlower), ModSubtiles.pureDaisy), PureDaisyRecipeCategory.UID);
 
 
 		registry.addRecipeCatalyst(new ItemStack(ModBlocks.runeAltar), RunicAltarRecipeCategory.UID);
 		registry.addRecipeCatalyst(new ItemStack(ModItems.autocraftingHalo), VanillaRecipeCategoryUid.CRAFTING);
 		registry.addRecipeCatalyst(new ItemStack(ModItems.craftingHalo), VanillaRecipeCategoryUid.CRAFTING);
-
-		registry.getRecipeTransferRegistry().addRecipeTransferHandler(ContainerCraftingHalo.class, VanillaRecipeCategoryUid.CRAFTING, 1, 9, 10, 36);
 	}
 
 	@Override
 	public void onRuntimeAvailable(IJeiRuntime jeiRuntime) {
-		IRecipeRegistry recipeRegistry = jeiRuntime.getRecipeRegistry();
+		IRecipeManager recipeRegistry = jeiRuntime.getRecipeManager();
 		for(RecipeElvenTrade recipe : BotaniaAPI.elvenTradeRecipes) {
-			List<Object> inputs = recipe.getInputs();
+			List<Ingredient> inputs = recipe.getInputs();
 			List<ItemStack> outputs = recipe.getOutputs();
-			if(inputs.size() == 1 && outputs.size() == 1 && inputs.get(0) instanceof ItemStack
-					&& ItemStack.areItemStacksEqual((ItemStack) inputs.get(0), outputs.get(0))) {
-				IRecipeWrapper wrapper = recipeRegistry.getRecipeWrapper(recipe, ElvenTradeRecipeCategory.UID);
-				if(wrapper != null) {
-					recipeRegistry.hideRecipe(wrapper, ElvenTradeRecipeCategory.UID);
-				}
+			if(inputs.size() == 1 && outputs.size() == 1 && inputs.get(0).test(outputs.get(0))) {
+				recipeRegistry.hideRecipe(recipe, ElvenTradeRecipeCategory.UID);
 			}
 		}
 		
@@ -205,4 +195,9 @@ public class JEIBotaniaPlugin implements IModPlugin {
 		CorporeaInputHandler.supportedGuiFilter = gui -> gui instanceof GuiContainer || gui instanceof IRecipesGui;
 	}
 
+	@Nonnull
+	@Override
+	public ResourceLocation getPluginUid() {
+		return ID;
+	}
 }

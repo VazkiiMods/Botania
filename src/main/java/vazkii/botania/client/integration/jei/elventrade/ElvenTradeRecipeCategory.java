@@ -8,12 +8,13 @@
  */
 package vazkii.botania.client.integration.jei.elventrade;
 
-import mezz.jei.api.IGuiHelper;
-import mezz.jei.api.gui.IDrawable;
+import com.google.common.collect.ImmutableList;
+import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
+import mezz.jei.api.gui.drawable.IDrawable;
+import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredients;
-import mezz.jei.api.ingredients.VanillaTypes;
-import mezz.jei.api.recipe.IRecipeCategory;
+import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
@@ -23,31 +24,43 @@ import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
+import vazkii.botania.api.recipe.RecipeElvenTrade;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
+import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
+import java.util.Arrays;
 import java.util.List;
 
-public class ElvenTradeRecipeCategory implements IRecipeCategory<ElvenTradeRecipeWrapper> {
+public class ElvenTradeRecipeCategory implements IRecipeCategory<RecipeElvenTrade> {
 
-	public static final String UID = "botania.elvenTrade";
+	public static final ResourceLocation UID = new ResourceLocation(LibMisc.MOD_ID, "elven_trade");
 	private final String localizedName;
 	private final IDrawable background;
 	private final IDrawable overlay;
+	private final IDrawable icon;
 
 	public ElvenTradeRecipeCategory(IGuiHelper guiHelper) {
 		localizedName = I18n.format("botania.nei.elvenTrade");
 		background = guiHelper.createBlankDrawable(145, 95);
 		overlay = guiHelper.createDrawable(new ResourceLocation("botania", "textures/gui/elvenTradeOverlay.png"), 0, 15, 140, 90);
+		icon = guiHelper.createDrawableIngredient(new ItemStack(ModBlocks.alfPortal));
 	}
 
 	@Nonnull
 	@Override
-	public String getUid() {
+	public ResourceLocation getUid() {
 		return UID;
+	}
+
+	@Nonnull
+	@Override
+	public Class<? extends RecipeElvenTrade> getRecipeClass() {
+		return RecipeElvenTrade.class;
 	}
 
 	@Nonnull
@@ -62,15 +75,31 @@ public class ElvenTradeRecipeCategory implements IRecipeCategory<ElvenTradeRecip
 		return background;
 	}
 
+	@Nonnull
 	@Override
-	public void drawExtras(@Nonnull Minecraft minecraft) {
-		GlStateManager.enableAlpha();
-		GlStateManager.enableBlend();
-		overlay.draw(minecraft, 0, 4);
-		GlStateManager.disableBlend();
-		GlStateManager.disableAlpha();
+	public IDrawable getIcon() {
+		return icon;
+	}
 
-		minecraft.textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+	@Override
+	public void setIngredients(RecipeElvenTrade recipe, IIngredients iIngredients) {
+		ImmutableList.Builder<List<ItemStack>> builder = ImmutableList.builder();
+		for(Ingredient i : recipe.getInputs()) {
+		    builder.add(Arrays.asList(i.getMatchingStacks()));
+		}
+		iIngredients.setInputLists(VanillaTypes.ITEM, builder.build());
+		iIngredients.setOutputs(VanillaTypes.ITEM, ImmutableList.copyOf(recipe.getOutputs()));
+	}
+
+	@Override
+	public void draw(RecipeElvenTrade recipe, double mouseX, double mouseY) {
+		GlStateManager.enableAlphaTest();
+		GlStateManager.enableBlend();
+		overlay.draw(0, 4);
+		GlStateManager.disableBlend();
+		GlStateManager.disableAlphaTest();
+
+		Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 		TextureAtlasSprite sprite = MiscellaneousIcons.INSTANCE.alfPortalTex;
 		Tessellator tess = Tessellator.getInstance();
 		BufferBuilder wr = tess.getBuffer();
@@ -87,7 +116,7 @@ public class ElvenTradeRecipeCategory implements IRecipeCategory<ElvenTradeRecip
 	}
 
 	@Override
-	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull ElvenTradeRecipeWrapper recipeWrapper, @Nonnull IIngredients ingredients) {
+	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull RecipeElvenTrade recipe, @Nonnull IIngredients ingredients) {
 		int index = 0, posX = 42;
 		for(List<ItemStack> o : ingredients.getInputs(VanillaTypes.ITEM)) {
 			recipeLayout.getItemStacks().init(index, true, posX, 0);
@@ -102,11 +131,4 @@ public class ElvenTradeRecipeCategory implements IRecipeCategory<ElvenTradeRecip
 			recipeLayout.getItemStacks().set(index + i, stacks);
 		}
 	}
-
-	@Nonnull
-	@Override
-	public String getModName() {
-		return LibMisc.MOD_NAME;
-	}
-
 }

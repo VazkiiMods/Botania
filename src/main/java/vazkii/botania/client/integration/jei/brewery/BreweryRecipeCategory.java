@@ -8,39 +8,53 @@
  */
 package vazkii.botania.client.integration.jei.brewery;
 
-import mezz.jei.api.IGuiHelper;
-import mezz.jei.api.gui.IDrawable;
-import mezz.jei.api.gui.IDrawableStatic;
+import com.google.common.collect.ImmutableList;
+import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
+import mezz.jei.api.gui.drawable.IDrawable;
+import mezz.jei.api.gui.drawable.IDrawableStatic;
+import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredients;
-import mezz.jei.api.ingredients.VanillaTypes;
 import mezz.jei.api.recipe.IFocus;
-import mezz.jei.api.recipe.IRecipeCategory;
+import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
+import vazkii.botania.api.recipe.RecipeBrew;
+import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class BreweryRecipeCategory implements IRecipeCategory<BreweryRecipeWrapper> {
+public class BreweryRecipeCategory implements IRecipeCategory<RecipeBrew> {
 
-	public static final String UID = "botania.brewery";
+	public static final ResourceLocation UID = new ResourceLocation(LibMisc.MOD_ID, "brewery");
 	private final IDrawableStatic background;
+	private final IDrawable icon;
 	private final String localizedName;
 
 	public BreweryRecipeCategory(IGuiHelper guiHelper) {
 		ResourceLocation location = new ResourceLocation("botania", "textures/gui/neiBrewery.png");
 		background = guiHelper.createDrawable(location, 0, 0, 166, 65);
 		localizedName = I18n.format("botania.nei.brewery");
+		icon = guiHelper.createDrawableIngredient(new ItemStack(ModBlocks.brewery));
 	}
 
 	@Nonnull
 	@Override
-	public String getUid() {
+	public ResourceLocation getUid() {
 		return UID;
+	}
+
+	@Nonnull
+	@Override
+	public Class<? extends RecipeBrew> getRecipeClass() {
+		return RecipeBrew.class;
 	}
 
 	@Nonnull
@@ -51,18 +65,43 @@ public class BreweryRecipeCategory implements IRecipeCategory<BreweryRecipeWrapp
 
 	@Nonnull
 	@Override
-	public String getModName() {
-		return LibMisc.MOD_NAME;
-	}
-
-	@Nonnull
-	@Override
 	public IDrawable getBackground() {
 		return background;
 	}
 
+	@Nonnull
 	@Override
-	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull BreweryRecipeWrapper recipeWrapper, @Nonnull IIngredients ingredients) {
+	public IDrawable getIcon() {
+		return icon;
+	}
+
+	@Override
+	public void setIngredients(RecipeBrew recipe, IIngredients iIngredients) {
+		ImmutableList.Builder<List<ItemStack>> inputBuilder = ImmutableList.builder();
+		ImmutableList.Builder<ItemStack> outputBuilder = ImmutableList.builder();
+		ImmutableList.Builder<ItemStack> containers = ImmutableList.builder();
+
+		final List<ItemStack> inputs = Arrays.asList(new ItemStack(ModItems.vial),
+				new ItemStack(ModItems.flask), new ItemStack(ModItems.incenseStick), new ItemStack(ModItems.bloodPendant));
+		for(ItemStack stack : inputs) {
+			ItemStack brewed = recipe.getOutput(stack);
+			if(!brewed.isEmpty()) {
+				containers.add(stack);
+				outputBuilder.add(brewed);
+			}
+		}
+		inputBuilder.add(containers.build());
+
+		for(Ingredient i : recipe.getInputs()) {
+			inputBuilder.add(Arrays.asList(i.getMatchingStacks()));
+		}
+
+		iIngredients.setInputLists(VanillaTypes.ITEM, inputBuilder.build());
+		iIngredients.setOutputLists(VanillaTypes.ITEM, ImmutableList.of(outputBuilder.build()));
+	}
+
+	@Override
+	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull RecipeBrew recipe, @Nonnull IIngredients ingredients) {
 
 		List<List<ItemStack>> inputs = ingredients.getInputs(VanillaTypes.ITEM);
 		List<List<ItemStack>> outputs = ingredients.getOutputs(VanillaTypes.ITEM);
