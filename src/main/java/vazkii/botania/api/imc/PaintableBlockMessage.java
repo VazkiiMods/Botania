@@ -12,6 +12,10 @@ public class PaintableBlockMessage {
     private final IRegistryDelegate<Block> block;
     private final Function<EnumDyeColor, Block> transformer;
 
+    /**
+     * @param transformer Lookup function from color to destination block
+     * @param block The block being converted
+     */
     public PaintableBlockMessage(Function<EnumDyeColor, Block> transformer, Block block) {
         this.block = block.delegate;
         this.transformer = transformer;

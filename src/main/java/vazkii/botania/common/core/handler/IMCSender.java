@@ -10,6 +10,8 @@ import vazkii.botania.api.imc.ModWikiMessage;
 import vazkii.botania.api.imc.PaintableBlockMessage;
 import vazkii.botania.api.wiki.IWikiProvider;
 import vazkii.botania.api.wiki.SimpleWikiProvider;
+import vazkii.botania.common.crafting.ModManaAlchemyRecipes;
+import vazkii.botania.common.crafting.ModManaConjurationRecipes;
 import vazkii.botania.common.lib.LibMisc;
 
 public class IMCSender {
@@ -129,9 +131,12 @@ public class IMCSender {
 				Blocks.CYAN_CARPET, Blocks.PURPLE_CARPET, Blocks.BLUE_CARPET, Blocks.BROWN_CARPET, Blocks.GREEN_CARPET, Blocks.RED_CARPET, Blocks.BLACK_CARPET };
 		for(Block b : carpets)
 			send(IMC.REGISTER_PAINTABLE_BLOCK, new PaintableBlockMessage(ColorHelper.CARPET_MAP::get, b));
+
+		ModManaAlchemyRecipes.send();
+		ModManaConjurationRecipes.send();
 	}
 
-	private static void send(String method, Object thing) {
+	public static void send(String method, Object thing) {
 		InterModComms.sendTo(LibMisc.MOD_ID, method, () -> thing);
 	}
 }

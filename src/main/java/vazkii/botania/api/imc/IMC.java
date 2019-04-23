@@ -42,4 +42,10 @@ public class IMC {
      * The argument should be a {@link PaintableBlockMessage}, any other types are ignored.
      */
     public static final String REGISTER_PAINTABLE_BLOCK = "register_paintable_block";
+
+    /**
+     * Registers a mana infusion recipe at the mana pool.<br />
+     * The argument should be a {@link vazkii.botania.api.recipe.RecipeManaInfusion}, any other types are ignored.
+     */
+    public static final String REGISTER_MANA_INFUSION = "register_mana_infusion";
 }

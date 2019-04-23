@@ -19,7 +19,7 @@ import vazkii.botania.api.subtile.SubTileType;
 public class RecipeMiniFlower extends RecipeManaInfusion {
 
 	public RecipeMiniFlower(SubTileType mini, SubTileType flower, int mana) {
-		super(BotaniaAPI.internalHandler.getSubTileAsStack(flower), Ingredient.fromStacks(BotaniaAPI.internalHandler.getSubTileAsStack(mini)), mana);
+		super(mini.getRegistryName(), BotaniaAPI.internalHandler.getSubTileAsStack(mini), Ingredient.fromStacks(BotaniaAPI.internalHandler.getSubTileAsStack(flower)), mana);
 		setCatalyst(RecipeManaInfusion.alchemy.getDefaultState());
 	}
 

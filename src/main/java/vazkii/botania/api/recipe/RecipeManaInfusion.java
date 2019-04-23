@@ -10,10 +10,12 @@
  */
 package vazkii.botania.api.recipe;
 
+import com.google.common.base.Preconditions;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.registries.ObjectHolder;
 
 import javax.annotation.Nullable;
@@ -25,21 +27,42 @@ public class RecipeManaInfusion {
 	@ObjectHolder("botania:conjuration_catalyst")
 	public static Block conjuration;
 
+	private final ResourceLocation id;
 	private final ItemStack output;
 	private final Ingredient input;
 	private final int mana;
-	private @Nullable IBlockState catalystState;
+	@Nullable
+	private IBlockState catalystState;
 
-	public RecipeManaInfusion(ItemStack output, Ingredient input, int mana) {
+	public static RecipeManaInfusion conjuration(ResourceLocation id, ItemStack output, Ingredient input, int mana) {
+		RecipeManaInfusion ret = new RecipeManaInfusion(id, output, input, mana);
+		ret.setCatalyst(conjuration.getDefaultState());
+		return ret;
+	}
+
+	public static RecipeManaInfusion alchemy(ResourceLocation id, ItemStack output, Ingredient input, int mana) {
+		RecipeManaInfusion ret = new RecipeManaInfusion(id, output, input, mana);
+		ret.setCatalyst(alchemy.getDefaultState());
+		return ret;
+	}
+
+	public RecipeManaInfusion(ResourceLocation id, ItemStack output, Ingredient input, int mana) {
+		this.id = id;
 		this.output = output;
 		this.input = input;
 		this.mana = mana;
+		Preconditions.checkArgument(mana < 100000);
+	}
+
+	public final ResourceLocation getId() {
+		return id;
 	}
 
 	public boolean matches(ItemStack stack) {
 		return input.test(stack);
 	}
 
+	@Nullable
 	public IBlockState getCatalyst() {
 		return catalystState;
 	}

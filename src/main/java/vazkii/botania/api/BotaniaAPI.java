@@ -82,7 +82,7 @@ public final class BotaniaAPI {
 
 	public static final List<RecipePetals> petalRecipes = new ArrayList<>();
 	public static final List<RecipePureDaisy> pureDaisyRecipes = new ArrayList<>();
-	public static final List<RecipeManaInfusion> manaInfusionRecipes = new ArrayList<>();
+	public static Map<ResourceLocation, RecipeManaInfusion> manaInfusionRecipes = Collections.emptyMap();
 	public static final List<RecipeRuneAltar> runeAltarRecipes = new ArrayList<>();
 	public static final List<RecipeElvenTrade> elvenTradeRecipes = new ArrayList<>();
 	public static final List<RecipeBrew> brewRecipes = new ArrayList<>();
@@ -90,10 +90,10 @@ public final class BotaniaAPI {
 
 	public static final ResourceLocation DUMMY_SUBTILE_NAME = new ResourceLocation("botania", "dummy");
 
-	public static volatile Map<ResourceLocation, Integer> oreWeights = Collections.emptyMap();
-	public static volatile Map<ResourceLocation, Integer> oreWeightsNether = Collections.emptyMap();
+	public static Map<ResourceLocation, Integer> oreWeights = Collections.emptyMap();
+	public static Map<ResourceLocation, Integer> oreWeightsNether = Collections.emptyMap();
 
-	public static volatile Map<IRegistryDelegate<Block>, Function<EnumDyeColor, Block>> paintableBlocks = Collections.emptyMap();
+	public static Map<IRegistryDelegate<Block>, Function<EnumDyeColor, Block>> paintableBlocks = Collections.emptyMap();
 	public static final Set<Class<? extends Entity>> gravityRodBlacklist = new LinkedHashSet<>();
 
 	private static final int[] MAX_DAMAGE_ARRAY = new int[]{13, 15, 16, 11};
@@ -493,32 +493,7 @@ public final class BotaniaAPI {
 	 * @return The recipe created.
 	 */
 	public static RecipeManaInfusion registerManaInfusionRecipe(ItemStack output, Ingredient input, int mana) {
-		Preconditions.checkArgument(mana <= 1000000);
-		RecipeManaInfusion recipe = new RecipeManaInfusion(output, input, mana);
-		manaInfusionRecipes.add(recipe);
-		return recipe;
-	}
-
-	/**
-	 * Register a Mana Infusion Recipe and flags it as an Alchemy recipe (requires an
-	 * Alchemy Catalyst below the pool).
-	 * @see BotaniaAPI#registerManaInfusionRecipe
-	 */
-	public static RecipeManaInfusion registerManaAlchemyRecipe(ItemStack output, Ingredient input, int mana) {
-		RecipeManaInfusion recipe = registerManaInfusionRecipe(output, input, mana);
-		recipe.setCatalyst(RecipeManaInfusion.alchemy.getDefaultState());
-		return recipe;
-	}
-
-	/**
-	 * Register a Mana Infusion Recipe and flags it as an Conjuration recipe (requires a
-	 * Conjuration Catalyst below the pool).
-	 * @see BotaniaAPI#registerManaInfusionRecipe
-	 */
-	public static RecipeManaInfusion registerManaConjurationRecipe(ItemStack output, Ingredient input, int mana) {
-		RecipeManaInfusion recipe = registerManaInfusionRecipe(output, input, mana);
-		recipe.setCatalyst(RecipeManaInfusion.conjuration.getDefaultState());
-		return recipe;
+		return new RecipeManaInfusion(new ResourceLocation("put", "idhere"), output, input, mana);
 	}
 
 	/**
@@ -553,19 +528,6 @@ public final class BotaniaAPI {
 		RecipeBrew recipe = new RecipeBrew(brew, inputs);
 		brewRecipes.add(recipe);
 		return recipe;
-	}
-
-	/**
-	 * Register a SubTileEntity and makes it a mini flower. Also adds the recipe and returns it.
-	 */
-	public static RecipeManaInfusion registerMiniSubTile(ResourceLocation id, Class<? extends SubTileEntity> subtileClass, ResourceLocation original) {
-		/* todo 1.13
-		RecipeMiniFlower recipe = new RecipeMiniFlower(id, original, 2500);
-		manaInfusionRecipes.add(recipe);
-		miniFlowerRecipes.add(recipe);
-		return recipe;
-		*/
-		return null;
 	}
 
 	/**

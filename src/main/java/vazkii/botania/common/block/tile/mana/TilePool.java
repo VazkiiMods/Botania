@@ -153,7 +153,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 		List<RecipeManaInfusion> matchingNonCatRecipes = new ArrayList<>();
 		List<RecipeManaInfusion> matchingCatRecipes = new ArrayList<>();
 
-		for (RecipeManaInfusion recipe : BotaniaAPI.manaInfusionRecipes) {
+		for (RecipeManaInfusion recipe : BotaniaAPI.manaInfusionRecipes.values()) {
 			if (recipe.matches(stack)) {
 				if(recipe.getCatalyst() == null)
 					matchingNonCatRecipes.add(recipe);

@@ -140,13 +140,13 @@ public final class LibBlockNames {
     public static final String STAIR_SUFFIX = "_stairs";
 	public static final String WALL_SUFFIX = "_wall";
 
-	public static final ResourceLocation SUBTILE_PUREDAISY = prefix("puredaisy");
+	public static final ResourceLocation SUBTILE_PUREDAISY = prefix("pure_daisy");
 	public static final ResourceLocation SUBTILE_MANASTAR = prefix("manastar");
 
 	public static final ResourceLocation SUBTILE_ENDOFLAME = prefix("endoflame");
 	public static final ResourceLocation SUBTILE_HYDROANGEAS = prefix("hydroangeas");
 	public static final ResourceLocation SUBTILE_THERMALILY = prefix("thermalily");
-	public static final ResourceLocation SUBTILE_ARCANE_ROSE = prefix("arcanerose");
+	public static final ResourceLocation SUBTILE_ARCANE_ROSE = prefix("rosa_arcana");
 	public static final ResourceLocation SUBTILE_MUNCHDEW = prefix("munchdew");
 	public static final ResourceLocation SUBTILE_ENTROPINNYUM = prefix("entropinnyum");
 	public static final ResourceLocation SUBTILE_KEKIMURUS = prefix("kekimurus");

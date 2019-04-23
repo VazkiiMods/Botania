@@ -153,8 +153,6 @@ public class Botania {
 		ModPetalRecipes.init();
 		ModPureDaisyRecipes.init();
 		ModRuneRecipes.init();
-		ModManaAlchemyRecipes.init();
-		ModManaConjurationRecipes.init();
 		ModManaInfusionRecipes.init();
 		ModElvenTradeRecipes.init();
 		ModBrewRecipes.init();
