@@ -88,16 +88,7 @@ public class ItemManasteelArmor extends ItemArmor implements ISpecialArmor, IMan
 
 	@Override
 	public int getArmorDisplay(EntityPlayer player, @Nonnull ItemStack armor, int slot) {
-		return damageReduceAmount;
-	}
-
-	@Override
-	public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack) {
-		Multimap<String, AttributeModifier> attrib = super.getAttributeModifiers(slot, stack);
-		// Remove these or else vanilla will double count it and ISpecialArmor
-		attrib.removeAll(SharedMonsterAttributes.ARMOR.getName());
-		attrib.removeAll(SharedMonsterAttributes.ARMOR_TOUGHNESS.getName());
-		return attrib;
+		return 0;
 	}
 
 	@Override
