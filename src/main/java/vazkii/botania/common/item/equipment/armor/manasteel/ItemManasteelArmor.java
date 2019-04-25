@@ -10,7 +10,6 @@
  */
 package vazkii.botania.common.item.equipment.armor.manasteel;
 
-import com.google.common.collect.Multimap;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.model.ModelBiped;
@@ -19,8 +18,6 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemArmor;
@@ -88,16 +85,7 @@ public class ItemManasteelArmor extends ItemArmor implements ISpecialArmor, IMan
 
 	@Override
 	public int getArmorDisplay(EntityPlayer player, @Nonnull ItemStack armor, int slot) {
-		return damageReduceAmount;
-	}
-
-	@Override
-	public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack) {
-		Multimap<String, AttributeModifier> attrib = super.getAttributeModifiers(slot, stack);
-		// Remove these or else vanilla will double count it and ISpecialArmor
-		attrib.removeAll(SharedMonsterAttributes.ARMOR.getName());
-		attrib.removeAll(SharedMonsterAttributes.ARMOR_TOUGHNESS.getName());
-		return attrib;
+		return 0;
 	}
 
 	@Override
