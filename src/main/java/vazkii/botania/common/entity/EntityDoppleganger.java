@@ -10,6 +10,7 @@
  */
 package vazkii.botania.common.entity;
 
+import com.google.common.collect.ImmutableList;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -126,12 +127,12 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 
 	private static final DataParameter<Integer> INVUL_TIME = EntityDataManager.createKey(EntityDoppleganger.class, DataSerializers.VARINT);
 
-	private static final BlockPos[] PYLON_LOCATIONS = {
+	private static final List<BlockPos> PYLON_LOCATIONS = ImmutableList.of(
 			new BlockPos(4, 1, 4),
 			new BlockPos(4, 1, -4),
 			new BlockPos(-4, 1, 4),
 			new BlockPos(-4, 1, -4)
-	};
+	);
 
 	private static final List<ResourceLocation> CHEATY_BLOCKS = Arrays.asList(
 		new ResourceLocation("openblocks", "beartrap"),
@@ -195,25 +196,22 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 		}
 
 		//check pylons
-		for(BlockPos coords : PYLON_LOCATIONS) {
-			BlockPos pos_ = pos.add(coords);
-
-			IBlockState state = world.getBlockState(pos_);
-			if(state.getBlock() != ModBlocks.pylon || state.getValue(BotaniaStateProps.PYLON_VARIANT) != PylonVariant.GAIA) {
-				if(!world.isRemote)
-					player.sendMessage(new TextComponentTranslation("botaniamisc.needsCatalysts").setStyle(new Style().setColor(TextFormatting.RED)));
-				return false;
+		List<BlockPos> invalidPylonBlocks = checkPylons(world, pos);
+		if(!invalidPylonBlocks.isEmpty()) {
+			if(world.isRemote) {
+				warnInvalidBlocks(invalidPylonBlocks);
+			} else {
+				player.sendMessage(new TextComponentTranslation("botaniamisc.needsCatalysts").setStyle(new Style().setColor(TextFormatting.RED)));
 			}
+
+			return false;
 		}
 
 		//check arena shape
 		List<BlockPos> invalidArenaBlocks = checkArena(world, pos);
 		if(!invalidArenaBlocks.isEmpty()) {
 			if(world.isRemote) {
-				Botania.proxy.setWispFXDepthTest(false);
-				for(BlockPos pos_ : invalidArenaBlocks)
-					Botania.proxy.wispFX(pos_.getX() + 0.5, pos_.getY() + 0.5, pos_.getZ() + 0.5, 1F, 0.2F, 0.2F, 0.5F, 0F, 8);
-				Botania.proxy.setWispFXDepthTest(true);
+				warnInvalidBlocks(invalidArenaBlocks);
 			} else {
 				PacketHandler.sendTo((EntityPlayerMP) player,
 					new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.ARENA_INDICATOR, pos.getX(), pos.getY(), pos.getZ()));
@@ -250,6 +248,21 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 		return true;
 	}
 
+	private static List<BlockPos> checkPylons(World world, BlockPos beaconPos) {
+		List<BlockPos> invalidPylonBlocks = new ArrayList<>();
+
+		for(BlockPos coords : PYLON_LOCATIONS) {
+			BlockPos pos_ = beaconPos.add(coords);
+			
+			IBlockState state = world.getBlockState(pos_);
+			if(state.getBlock() != ModBlocks.pylon || state.getValue(BotaniaStateProps.PYLON_VARIANT) != PylonVariant.GAIA) {
+				invalidPylonBlocks.add(pos_);
+			}
+		}
+
+		return invalidPylonBlocks;
+	}
+
 	private static List<BlockPos> checkArena(World world, BlockPos beaconPos) {
 		List<BlockPos> trippedPositions = new ArrayList<>();
 		int range = (int) Math.ceil(ARENA_RANGE);
@@ -260,22 +273,37 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 				if(Math.abs(x) == 4 && Math.abs(z) == 4 || vazkii.botania.common.core.helper.MathHelper.pointDistancePlane(x, z, 0, 0) > ARENA_RANGE)
 					continue; // Ignore pylons and out of circle
 
-				for(int y = -1; y <= ARENA_HEIGHT; y++) {
+				boolean hasFloor = false;
+
+				for(int y = -2; y <= ARENA_HEIGHT; y++) {
 					if(x == 0 && y == 0 && z == 0)
-						continue; //this is the beacon
+						continue; //the beacon
 
 					pos = beaconPos.add(x, y, z);
 
-					boolean expectedBlockHere = y == -1; //the floor
+					boolean allowBlockHere = y < 0;
 					boolean isBlockHere = world.getBlockState(pos).getCollisionBoundingBox(world, pos) != null;
 
-					if(expectedBlockHere != isBlockHere) {
+					if(allowBlockHere && isBlockHere) //floor is here! good
+						hasFloor = true;
+
+					if(y == 0 && !hasFloor) //column is entirely missing floor
+						trippedPositions.add(pos.down());
+
+					if(!allowBlockHere && isBlockHere) //ceiling is obstructed in this column
 						trippedPositions.add(pos);
-					}
 				}
 			}
 
 		return trippedPositions;
+	}
+
+	private static void warnInvalidBlocks(Iterable<BlockPos> invalidPositions) {
+		Botania.proxy.setWispFXDepthTest(false);
+		for(BlockPos pos_ : invalidPositions) {
+			Botania.proxy.wispFX(pos_.getX() + 0.5, pos_.getY() + 0.5, pos_.getZ() + 0.5, 1F, 0.2F, 0.2F, 0.5F, 0F, 8);
+		}
+		Botania.proxy.setWispFXDepthTest(true);
 	}
 
 	@Override
@@ -554,7 +582,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 						//don't break blacklisted blocks
 						if(BotaniaAPI.gaiaBreakBlacklist.contains(block)) continue;
 						//don't break the floor
-						if(y == source.getY() - 1) continue;
+						if(y < source.getY()) continue;
 						//don't break blocks in pylon columns
 						if(Math.abs(source.getX() - x) == 4 && Math.abs(source.getZ() - z) == 4) continue;
 						
@@ -816,12 +844,11 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 	private void teleportRandomly() {
 		//choose a location to teleport to
 		double oldX = posX, oldY = posY, oldZ = posZ;
-		double newX, newY, newZ;
+		double newX, newY = source.getY(), newZ;
 		int tries = 0;
 
 		do {
 			newX = source.getX() + (rand.nextDouble() - .5) * ARENA_RANGE;
-			newY = source.getY();
 			newZ = source.getZ() + (rand.nextDouble() - .5) * ARENA_RANGE;
 			tries++;
 			//ensure it's inside the arena ring, and not just its bounding square
@@ -833,6 +860,12 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 			newX = source.getX() + .5;
 			newY = source.getY() + 1.6;
 			newZ = source.getZ() + .5;
+		}
+		
+		//for low-floor arenas, ensure landing on the ground
+		BlockPos tentativeFloorPos = new BlockPos(newX, newY - 1, newZ);
+		if(world.getBlockState(tentativeFloorPos).getCollisionBoundingBox(world, tentativeFloorPos) == null) {
+			newY--;
 		}
 
 		//teleport there
