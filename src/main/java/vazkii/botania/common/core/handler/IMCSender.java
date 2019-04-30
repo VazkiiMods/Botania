@@ -12,6 +12,7 @@ import vazkii.botania.api.wiki.IWikiProvider;
 import vazkii.botania.api.wiki.SimpleWikiProvider;
 import vazkii.botania.common.crafting.ModManaAlchemyRecipes;
 import vazkii.botania.common.crafting.ModManaConjurationRecipes;
+import vazkii.botania.common.crafting.ModManaInfusionRecipes;
 import vazkii.botania.common.lib.LibMisc;
 
 public class IMCSender {
@@ -132,6 +133,7 @@ public class IMCSender {
 		for(Block b : carpets)
 			send(IMC.REGISTER_PAINTABLE_BLOCK, new PaintableBlockMessage(ColorHelper.CARPET_MAP::get, b));
 
+		ModManaInfusionRecipes.send();
 		ModManaAlchemyRecipes.send();
 		ModManaConjurationRecipes.send();
 	}

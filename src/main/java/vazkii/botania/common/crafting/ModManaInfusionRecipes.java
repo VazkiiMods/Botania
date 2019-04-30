@@ -17,19 +17,20 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.registry.IRegistry;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.registries.ForgeRegistries;
-import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.imc.IMC;
 import vazkii.botania.api.recipe.RecipeManaInfusion;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.core.handler.IMCSender;
 import vazkii.botania.common.item.ModItems;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
+
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public final class ModManaInfusionRecipes {
 
@@ -50,50 +51,42 @@ public final class ModManaInfusionRecipes {
 
 	public static RecipeManaInfusion sugarCaneRecipe;
 
-	public static void init() {
-		manasteelRecipes = new ArrayList<>();
-		manasteelRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaSteel), Ingredient.fromTag(Tags.Items.INGOTS_IRON), 3000));
-		manasteelRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModBlocks.manasteelBlock), Ingredient.fromItems(Blocks.IRON_BLOCK), 27000));
+	public static void send() {
+		IMCSender.send(IMC.REGISTER_MANA_INFUSION, new RecipeManaInfusion(prefix("manasteel"), new ItemStack(ModItems.manaSteel), Ingredient.fromTag(Tags.Items.INGOTS_IRON), 3000));
+		IMCSender.send(IMC.REGISTER_MANA_INFUSION, new RecipeManaInfusion(prefix("manasteel_block"), new ItemStack(ModBlocks.manasteelBlock), Ingredient.fromItems(Blocks.IRON_BLOCK), 27000));
 
-		manaPearlRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaPearl), Ingredient.fromItems(Items.ENDER_PEARL), 6000);
+		IMCSender.send(IMC.REGISTER_MANA_INFUSION, new RecipeManaInfusion(prefix("mana_pearl"), new ItemStack(ModItems.manaPearl), Ingredient.fromItems(Items.ENDER_PEARL), 6000));
 
-		manaDiamondRecipes = new ArrayList<>();
-		manaDiamondRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaDiamond), Ingredient.fromTag(Tags.Items.GEMS_DIAMOND), 10000));
-		manaDiamondRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModBlocks.manaDiamondBlock), Ingredient.fromItems(Blocks.DIAMOND_BLOCK), 90000));
+		IMCSender.send(IMC.REGISTER_MANA_INFUSION, new RecipeManaInfusion(prefix("mana_diamond"), new ItemStack(ModItems.manaDiamond), Ingredient.fromTag(Tags.Items.GEMS_DIAMOND), 10000));
+		IMCSender.send(IMC.REGISTER_MANA_INFUSION, new RecipeManaInfusion(prefix("mana_diamond_block"), new ItemStack(ModBlocks.manaDiamondBlock), Ingredient.fromItems(Blocks.DIAMOND_BLOCK), 90000));
 
-		manaPowderRecipes = new ArrayList<>();
-		manaPowderRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaPowder), Ingredient.fromItems(Items.GUNPOWDER), 500));
-		manaPowderRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaPowder), Ingredient.fromItems(Items.REDSTONE), 500));
-		manaPowderRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaPowder), Ingredient.fromItems(Items.GLOWSTONE_DUST), 500));
-		manaPowderRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaPowder), Ingredient.fromItems(Items.SUGAR), 500));
-		List<Item> dyes = Arrays.stream(EnumDyeColor.values()).map(ModItems::getDye).collect(Collectors.toList());
-		Ingredient dyeIngredient = Ingredient.fromItems(dyes.toArray(new Item[0]));
-		manaPowderRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaPowder), dyeIngredient, 400));
+		Ingredient dust = Ingredient.fromItems(Items.GUNPOWDER, Items.REDSTONE, Items.GLOWSTONE_DUST, Items.SUGAR);
+		IMCSender.send(IMC.REGISTER_MANA_INFUSION, new RecipeManaInfusion(prefix("mana_powder_dust"), new ItemStack(ModItems.manaPowder), dust, 500));
+		Ingredient dyeIngredient = Ingredient.fromItems(Arrays.stream(EnumDyeColor.values()).map(ModItems::getDye).toArray(Item[]::new));
+		IMCSender.send(IMC.REGISTER_MANA_INFUSION, new RecipeManaInfusion(prefix("mana_powder_dye"), new ItemStack(ModItems.manaPowder), dyeIngredient, 400));
 
-		pistonRelayRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModBlocks.pistonRelay), Ingredient.fromItems(Blocks.PISTON), 15000);
-		manaCookieRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaCookie), Ingredient.fromItems(Items.COOKIE), 20000);
-		grassSeedsRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.grassSeeds), Ingredient.fromItems(Blocks.GRASS), 2500);
-		podzolSeedsRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.podzolSeeds), Ingredient.fromItems(Blocks.DEAD_BUSH), 2500);
+		IMCSender.send(IMC.REGISTER_MANA_INFUSION, new RecipeManaInfusion(prefix("piston_relay"), new ItemStack(ModBlocks.pistonRelay), Ingredient.fromItems(Blocks.PISTON), 15000));
+		IMCSender.send(IMC.REGISTER_MANA_INFUSION, new RecipeManaInfusion(prefix("mana_cookie"), new ItemStack(ModItems.manaCookie), Ingredient.fromItems(Items.COOKIE), 20000));
+		IMCSender.send(IMC.REGISTER_MANA_INFUSION, new RecipeManaInfusion(prefix("grass_seeds"), new ItemStack(ModItems.grassSeeds), Ingredient.fromItems(Blocks.GRASS), 2500));
+		IMCSender.send(IMC.REGISTER_MANA_INFUSION, new RecipeManaInfusion(prefix("podzol_seeds"), new ItemStack(ModItems.podzolSeeds), Ingredient.fromItems(Blocks.DEAD_BUSH), 2500));
 
-		mycelSeedsRecipes = new ArrayList<>();
-		mycelSeedsRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.mycelSeeds), Ingredient.fromItems(Blocks.RED_MUSHROOM), 6500));
-		mycelSeedsRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.mycelSeeds), Ingredient.fromItems(Blocks.BROWN_MUSHROOM), 6500));
+		IMCSender.send(IMC.REGISTER_MANA_INFUSION, new RecipeManaInfusion(prefix("mycel_seeds"), new ItemStack(ModItems.mycelSeeds), Ingredient.fromItems(Blocks.RED_MUSHROOM, Blocks.BROWN_MUSHROOM), 6500));
 
-		manaQuartzRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaQuartz), Ingredient.fromItems(Items.QUARTZ), 250);
-		tinyPotatoRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModBlocks.tinyPotato), Ingredient.fromItems(Items.POTATO), 1337);
+		IMCSender.send(IMC.REGISTER_MANA_INFUSION, new RecipeManaInfusion(prefix("mana_quartz"), new ItemStack(ModItems.manaQuartz), Ingredient.fromItems(Items.QUARTZ), 250));
+		IMCSender.send(IMC.REGISTER_MANA_INFUSION, new RecipeManaInfusion(prefix("tiny_potato"), new ItemStack(ModBlocks.tinyPotato), Ingredient.fromItems(Items.POTATO), 1337));
 
 		if(Botania.thaumcraftLoaded) {
 			Item inkwell = ForgeRegistries.ITEMS.getValue(new ResourceLocation("thaumcraft", "scribing_tools"));
-			manaInkwellRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaInkwell), Ingredient.fromItems(inkwell), 35000);
+			IMCSender.send(IMC.REGISTER_MANA_INFUSION, new RecipeManaInfusion(prefix("mana_inkwell"), new ItemStack(ModItems.manaInkwell), Ingredient.fromItems(inkwell), 35000));
 		}
 
-		managlassRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModBlocks.manaGlass), Ingredient.fromItems(Blocks.GLASS), 150);
-		manaStringRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaString), Ingredient.fromItems(Items.STRING), 5000);
+		IMCSender.send(IMC.REGISTER_MANA_INFUSION, new RecipeManaInfusion(prefix("mana_glass"), new ItemStack(ModBlocks.manaGlass), Ingredient.fromItems(Blocks.GLASS), 150));
+		IMCSender.send(IMC.REGISTER_MANA_INFUSION, new RecipeManaInfusion(prefix("mana_string"), new ItemStack(ModItems.manaString), Ingredient.fromItems(Items.STRING), 5000));
 
 		if(Botania.gardenOfGlassLoaded)
-			sugarCaneRecipe = BotaniaAPI.registerManaInfusionRecipe(new ItemStack(Blocks.SUGAR_CANE), Ingredient.fromItems(Blocks.HAY_BLOCK), 2000);
+			IMCSender.send(IMC.REGISTER_MANA_INFUSION, new RecipeManaInfusion(prefix("sugar_cane"), new ItemStack(Blocks.SUGAR_CANE), Ingredient.fromItems(Blocks.HAY_BLOCK), 2000));
 
-		BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaBottle), Ingredient.fromItems(Items.GLASS_BOTTLE), 5000);
+		IMCSender.send(IMC.REGISTER_MANA_INFUSION, new RecipeManaInfusion(prefix("mana_bottle"), new ItemStack(ModItems.manaBottle), Ingredient.fromItems(Items.GLASS_BOTTLE), 5000));
 	}
 
 }

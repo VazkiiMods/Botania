@@ -486,17 +486,6 @@ public final class BotaniaAPI {
 	}
 
 	/**
-	 * Registers a Mana Infusion Recipe (throw an item in a mana pool)
-	 * @param output The ItemStack to craft
-	 * @param input The input item, be it an ItemStack or an ore dictionary entry String.
-	 * @param mana The amount of mana required. Don't go over 100000!
-	 * @return The recipe created.
-	 */
-	public static RecipeManaInfusion registerManaInfusionRecipe(ItemStack output, Ingredient input, int mana) {
-		return new RecipeManaInfusion(new ResourceLocation("put", "idhere"), output, input, mana);
-	}
-
-	/**
 	 * Registers a Elven Trade recipe (throw an item in an Alfheim Portal).
 	 * @param outputs The ItemStacks to return.
 	 * @param inputs The items required, can be ItemStack or ore dictionary entry string.
