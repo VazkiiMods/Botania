@@ -12,29 +12,38 @@ package vazkii.botania.common.block.subtile.functional;
 
 import com.google.common.collect.MapMaker;
 import net.minecraft.entity.Entity;
+import net.minecraft.tileentity.TileEntityType;
+import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
-import vazkii.botania.api.subtile.SubTileFunctional;
-import vazkii.botania.api.subtile.SubTileType;
+import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
+import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.lexicon.LexiconData;
+import vazkii.botania.common.lib.LibMisc;
 
 import java.util.Collections;
 import java.util.Set;
 
-public class SubTileSolegnolia extends SubTileFunctional {
+public class SubTileSolegnolia extends TileEntityFunctionalFlower {
+	@ObjectHolder(LibMisc.MOD_ID + ":solegnolia")
+	public static TileEntityType<SubTileSolegnolia> TYPE;
 
 	private static final double RANGE = 5;
 	private static final double RANGE_MINI = 1;
 
 	private static final Set<SubTileSolegnolia> existingFlowers = Collections.newSetFromMap(new MapMaker().concurrencyLevel(2).weakKeys().makeMap());
 
-	public SubTileSolegnolia(SubTileType type) {
+	public SubTileSolegnolia(TileEntityType<?> type) {
 		super(type);
 	}
 
+	public SubTileSolegnolia() {
+		this(TYPE);
+	}
+
 	@Override
-	public void onUpdate() {
-		super.onUpdate();
+	public void tickFlower() {
+		super.tickFlower();
 
 		if(!existingFlowers.contains(this)) {
 			existingFlowers.add(this);
@@ -49,9 +58,9 @@ public class SubTileSolegnolia extends SubTileFunctional {
 	public static boolean hasSolegnoliaAround(Entity e) {
 		return existingFlowers.stream()
 				.filter(f -> f.redstoneSignal == 0)
-				.filter(f -> f.supertile.getWorld() == e.world)
-				.filter(f -> f.supertile.getWorld().getTileEntity(f.supertile.getPos()) == f.supertile)
-				.filter(f -> f.supertile.getDistanceSq(e.posX, e.posY, e.posZ) <= f.getRange() * f.getRange())
+				.filter(f -> f.getWorld() == e.world)
+				.filter(f -> f.getWorld().getTileEntity(f.getPos()) == f)
+				.filter(f -> f.getDistanceSq(e.posX, e.posY, e.posZ) <= f.getRange() * f.getRange())
 				.findAny().isPresent();
 	}
 
@@ -80,8 +89,11 @@ public class SubTileSolegnolia extends SubTileFunctional {
 	}
 
 	public static class Mini extends SubTileSolegnolia {
-		public Mini(SubTileType type) {
-			super(type);
+		@ObjectHolder(LibMisc.MOD_ID + ":solegnolia_chibi")
+		public static TileEntityType<SubTileSolegnolia.Mini> TYPE;
+
+		public Mini() {
+			super(TYPE);
 		}
 
 		@Override public double getRange() { return RANGE_MINI; }

@@ -14,17 +14,22 @@ import net.minecraft.block.material.Material;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.Tag;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.SoundCategory;
+import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.api.subtile.SubTileType;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.lexicon.LexiconData;
+import vazkii.botania.common.lib.LibMisc;
 
 public class SubTileThermalily extends SubTileHydroangeas {
+	@ObjectHolder(LibMisc.MOD_ID + ":thermalily")
+	public static TileEntityType<SubTileThermalily> TYPE;
 
-	public SubTileThermalily(SubTileType type) {
-		super(type);
+	public SubTileThermalily() {
+		super(TYPE);
 	}
 
 	@Override
@@ -39,7 +44,7 @@ public class SubTileThermalily extends SubTileHydroangeas {
 
 	@Override
 	public void doBurnParticles() {
-		Botania.proxy.wispFX(supertile.getPos().getX() + 0.55 + Math.random() * 0.2 - 0.1, supertile.getPos().getY() + 0.9 + Math.random() * 0.2 - 0.1, supertile.getPos().getZ() + 0.5, 0.7F, 0.05F, 0.05F, (float) Math.random() / 6, (float) -Math.random() / 60);
+		Botania.proxy.wispFX(getPos().getX() + 0.55 + Math.random() * 0.2 - 0.1, getPos().getY() + 0.9 + Math.random() * 0.2 - 0.1, getPos().getZ() + 0.5, 0.7F, 0.05F, 0.05F, (float) Math.random() / 6, (float) -Math.random() / 60);
 	}
 
 	@Override
@@ -49,7 +54,7 @@ public class SubTileThermalily extends SubTileHydroangeas {
 
 	@Override
 	public void playSound() {
-		supertile.getWorld().playSound(null, supertile.getPos(), ModSounds.thermalily, SoundCategory.BLOCKS, 0.2F, 1F);
+		getWorld().playSound(null, getPos(), ModSounds.thermalily, SoundCategory.BLOCKS, 0.2F, 1F);
 	}
 
 	@Override

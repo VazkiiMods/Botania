@@ -14,42 +14,45 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityTNTPrimed;
 import net.minecraft.init.Particles;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
-import vazkii.botania.api.subtile.SubTileGenerating;
-import vazkii.botania.api.subtile.SubTileType;
+import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.lexicon.LexiconData;
-import vazkii.botania.common.network.PacketBotaniaEffect;
-import vazkii.botania.common.network.PacketHandler;
+import vazkii.botania.common.lib.LibMisc;
 
 import java.util.List;
 
-public class SubTileEntropinnyum extends SubTileGenerating {
+public class SubTileEntropinnyum extends TileEntityGeneratingFlower {
+	@ObjectHolder(LibMisc.MOD_ID + ":entropinnyum")
+	public static TileEntityType<SubTileEntropinnyum> TYPE;
 
 	private static final int RANGE = 12;
 	private static final int EXPLODE_EFFECT_EVENT = 0;
 
-	public SubTileEntropinnyum(SubTileType type) {
-		super(type);
+	public SubTileEntropinnyum() {
+		super(TYPE);
 	}
 
 	@Override
-	public void onUpdate() {
-		super.onUpdate();
+	public void tickFlower() {
+		super.tickFlower();
 
-		if(!supertile.getWorld().isRemote && mana == 0) {
-			List<EntityTNTPrimed> tnts = supertile.getWorld().getEntitiesWithinAABB(EntityTNTPrimed.class, new AxisAlignedBB(supertile.getPos().add(-RANGE, -RANGE, -RANGE), supertile.getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
+		if(!getWorld().isRemote && mana == 0) {
+			List<EntityTNTPrimed> tnts = getWorld().getEntitiesWithinAABB(EntityTNTPrimed.class, new AxisAlignedBB(getPos().add(-RANGE, -RANGE, -RANGE), getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
 			for(EntityTNTPrimed tnt : tnts) {
-				if(tnt.getFuse() == 1 && !tnt.removed && !supertile.getWorld().getBlockState(new BlockPos(tnt)).getMaterial().isLiquid()) {
-					tnt.playSound(SoundEvents.ENTITY_GENERIC_EXPLODE, 0.2F, (1F + (supertile.getWorld().rand.nextFloat() - supertile.getWorld().rand.nextFloat()) * 0.2F) * 0.7F);
+				if(tnt.getFuse() == 1 && !tnt.removed && !getWorld().getBlockState(new BlockPos(tnt)).getMaterial().isLiquid()) {
+					tnt.playSound(SoundEvents.ENTITY_GENERIC_EXPLODE, 0.2F, (1F + (getWorld().rand.nextFloat() - getWorld().rand.nextFloat()) * 0.2F) * 0.7F);
 					tnt.remove();
 					mana += getMaxMana();
 					sync();
 
-					getWorld().addBlockEvent(getPos(), supertile.getBlockState().getBlock(), EXPLODE_EFFECT_EVENT, tnt.getEntityId());
+					getWorld().addBlockEvent(getPos(), getBlockState().getBlock(), EXPLODE_EFFECT_EVENT, tnt.getEntityId());
 					break;
 				}
 			}

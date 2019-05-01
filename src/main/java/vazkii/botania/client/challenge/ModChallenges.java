@@ -14,6 +14,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -37,7 +38,7 @@ public final class ModChallenges {
 		addChallenge(EnumChallengeLevel.EASY, "recordFarm", new ItemStack(Items.MUSIC_DISC_13));
 		addChallenge(EnumChallengeLevel.EASY, "reedFarm", new ItemStack(Blocks.SUGAR_CANE));
 		addChallenge(EnumChallengeLevel.EASY, "cobbleGen", new ItemStack(Blocks.COBBLESTONE));
-		addChallenge(EnumChallengeLevel.EASY, "pureDaisy", ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_PUREDAISY));
+		addChallenge(EnumChallengeLevel.EASY, "pureDaisy", new ItemStack(ModSubtiles.pureDaisy));
 		addChallenge(EnumChallengeLevel.EASY, "battery", new ItemStack(ModBlocks.manaPool));
 
 		addChallenge(EnumChallengeLevel.NORMAL, "apothecaryRefill", new ItemStack(ModBlocks.defaultAltar));
@@ -45,15 +46,15 @@ public final class ModChallenges {
 		addChallenge(EnumChallengeLevel.NORMAL, "fullCropFarm", new ItemStack(Items.WHEAT_SEEDS));
 		addChallenge(EnumChallengeLevel.NORMAL, "animalFarm", new ItemStack(Items.LEATHER));
 		addChallenge(EnumChallengeLevel.NORMAL, "boneMealFarm", new ItemStack(Items.BONE_MEAL));
-		addChallenge(EnumChallengeLevel.NORMAL, "orechid", ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_ORECHID));
+		addChallenge(EnumChallengeLevel.NORMAL, "orechid", new ItemStack(ModSubtiles.orechid));
 
 		addChallenge(EnumChallengeLevel.HARD, "mobTower", new ItemStack(Items.BONE));
-		addChallenge(EnumChallengeLevel.HARD, "entropinnyumSetup", ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_ENTROPINNYUM));
-		addChallenge(EnumChallengeLevel.HARD, "spectrolusSetup", ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_SPECTROLUS));
-		addChallenge(EnumChallengeLevel.HARD, "shulkMeNotSetup", ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_SHULK_ME_NOT));
+		addChallenge(EnumChallengeLevel.HARD, "entropinnyumSetup", new ItemStack(ModSubtiles.entropinnyum));
+		addChallenge(EnumChallengeLevel.HARD, "spectrolusSetup", new ItemStack(ModSubtiles.spectrolus));
+		addChallenge(EnumChallengeLevel.HARD, "shulkMeNotSetup", new ItemStack(ModSubtiles.shulkMeNot));
 		addChallenge(EnumChallengeLevel.HARD, "potionBrewer", new ItemStack(ModBlocks.brewery));
 
-		addChallenge(EnumChallengeLevel.LUNATIC, "kekimurusSetup", ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_KEKIMURUS));
+		addChallenge(EnumChallengeLevel.LUNATIC, "kekimurusSetup", new ItemStack(ModSubtiles.kekimurus));
 		addChallenge(EnumChallengeLevel.LUNATIC, "autoQuarry", new ItemStack(Items.DIAMOND_PICKAXE));
 		addChallenge(EnumChallengeLevel.LUNATIC, "runeCrafter", new ItemStack(ModItems.runeWater));
 	}

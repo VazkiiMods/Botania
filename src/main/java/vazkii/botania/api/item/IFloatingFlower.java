@@ -11,19 +11,51 @@
 package vazkii.botania.api.item;
 
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.INBTBase;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumFacing;
+import net.minecraftforge.common.capabilities.Capability;
 
+import javax.annotation.Nullable;
 import java.util.HashMap;
+import java.util.Map;
 
+/**
+ * A capability interface marking a TE as a floating flower
+ */
 public interface IFloatingFlower {
 
-	public ItemStack getDisplayStack();
+	/**
+	 * @return The itemstack to display on top of the island
+	 */
+	ItemStack getDisplayStack();
 
-	public IslandType getIslandType();
+	IslandType getIslandType();
 
-	public void setIslandType(IslandType type);
+	void setIslandType(IslandType type);
 
-	public class IslandType {
-		private static final HashMap<String, IslandType> registry = new HashMap<>();
+	class Storage implements Capability.IStorage<IFloatingFlower> {
+		@Nullable
+		@Override
+		public INBTBase writeNBT(Capability<IFloatingFlower> capability, IFloatingFlower instance, EnumFacing side) {
+			NBTTagCompound ret = new NBTTagCompound();
+			ret.putString("islandType", instance.getIslandType().typeName);
+			return ret;
+		}
+
+		@Override
+		public void readNBT(Capability<IFloatingFlower> capability, IFloatingFlower instance, EnumFacing side, INBTBase nbt) {
+			if(nbt instanceof NBTTagCompound) {
+				IslandType t = IslandType.ofType(((NBTTagCompound) nbt).getString("islandType"));
+				if(t != null) {
+					instance.setIslandType(t);
+				}
+			}
+		}
+	}
+
+	class IslandType {
+		private static final Map<String, IslandType> registry = new HashMap<>();
 
 		public static final IslandType GRASS = new IslandType("GRASS");
 		public static final IslandType PODZOL = new IslandType("PODZOL");
@@ -44,14 +76,18 @@ public interface IFloatingFlower {
 		 * @param name The name of this floating flower island type
 		 */
 		public IslandType(String name) {
-			if (registry.containsKey(name)) throw new IllegalArgumentException(name+" already registered!");
 			typeName = name;
-			registry.put(name, this);
+			synchronized (registry) {
+				if (registry.containsKey(name)) throw new IllegalArgumentException(name+" already registered!");
+				registry.put(name, this);
+			}
 		}
 
 		public static IslandType ofType(String typeStr) {
-			IslandType type = registry.get(typeStr);
-			return type == null ? GRASS : type;
+			synchronized (registry) {
+				IslandType type = registry.get(typeStr);
+				return type == null ? GRASS : type;
+			}
 		}
 
 		@Override

@@ -1,8 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "botania:special_flower",
-      "nbt": "{\"type\": \"bubbell\"}"
+      "item": "botania:bubbell"
     },
     "title": {
       "translate": "advancement.botania:bubbellPickup"
@@ -18,8 +17,7 @@
       "conditions": {
         "items": [
           {
-            "item": "botania:special_flower",
-            "nbt": "{\"type\": \"bubbell\"}"
+            "item": "botania:bubbell"
           }
         ]
       }

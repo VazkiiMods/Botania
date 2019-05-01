@@ -32,20 +32,21 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.Tag;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.storage.loot.LootContext;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
-import vazkii.botania.api.subtile.SubTileFunctional;
-import vazkii.botania.api.subtile.SubTileType;
+import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
+import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibMisc;
 
@@ -54,7 +55,9 @@ import java.util.List;
 import java.util.Random;
 
 @Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
-public class SubTileLoonuim extends SubTileFunctional {
+public class SubTileLoonuim extends TileEntityFunctionalFlower {
+	@ObjectHolder(LibMisc.MOD_ID + ":loonium")
+	public static TileEntityType<SubTileLoonuim> TYPE;
 
 	private static final int COST = 35000;
 	private static final int RANGE = 5;
@@ -64,15 +67,15 @@ public class SubTileLoonuim extends SubTileFunctional {
 
 	private ResourceLocation lootTable = new ResourceLocation("minecraft", "chests/simple_dungeon");
 
-	public SubTileLoonuim(SubTileType type) {
-		super(type);
+	public SubTileLoonuim() {
+		super(TYPE);
 	}
 
 	@Override
-	public void onUpdate() {
-		super.onUpdate();
+	public void tickFlower() {
+		super.tickFlower();
 
-		World world = supertile.getWorld();
+		World world = getWorld();
 		if(!world.isRemote && redstoneSignal == 0 && ticksExisted % 100 == 0 && mana >= COST) {
 			Random rand = world.rand;
 
@@ -88,9 +91,9 @@ public class SubTileLoonuim extends SubTileFunctional {
 			} while(stack.isEmpty() || BLACKLIST.contains(stack.getItem()));
 
 			int bound = RANGE * 2 + 1;
-			int xp = supertile.getPos().getX() - RANGE + rand.nextInt(bound);
-			int yp = supertile.getPos().getY();
-			int zp = supertile.getPos().getZ() - RANGE + rand.nextInt(bound);
+			int xp = getPos().getX() - RANGE + rand.nextInt(bound);
+			int yp = getPos().getY();
+			int zp = getPos().getZ() - RANGE + rand.nextInt(bound);
 			
 			BlockPos pos = new BlockPos(xp, yp - 1, zp);
 			do {

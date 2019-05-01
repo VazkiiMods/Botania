@@ -23,6 +23,7 @@ import net.minecraft.item.crafting.RecipeSerializers;
 import net.minecraft.world.storage.loot.conditions.LootConditionManager;
 import net.minecraft.world.storage.loot.functions.LootFunctionManager;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModList;
@@ -40,6 +41,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.ColorHelper;
+import vazkii.botania.api.capability.FloatingFlowerImpl;
+import vazkii.botania.api.item.IFloatingFlower;
 import vazkii.botania.api.lexicon.ITwoNamedPage;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.lexicon.LexiconPage;
@@ -135,10 +138,10 @@ public class Botania {
 		MinecraftForge.EVENT_BUS.addListener(this::serverAboutToStart);
 		MinecraftForge.EVENT_BUS.addListener(this::serverStarting);
 		MinecraftForge.EVENT_BUS.addListener(this::serverStopping);
-		BotaniaRegistries.init();
 	}
 
 	private void commonSetup(FMLCommonSetupEvent event) {
+		CapabilityManager.INSTANCE.register(IFloatingFlower.class, new IFloatingFlower.Storage(), FloatingFlowerImpl::new);
 		gardenOfGlassLoaded = ModList.get().isLoaded("gardenofglass");
 		thaumcraftLoaded = ModList.get().isLoaded("thaumcraft");
 		bcApiLoaded = ModList.get().isLoaded("buildcraftlib");

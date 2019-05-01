@@ -1,28 +1,34 @@
 package vazkii.botania.common.block.subtile.functional;
 
+import net.minecraft.tileentity.TileEntityType;
+import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
-import vazkii.botania.api.subtile.SubTileFunctional;
-import vazkii.botania.api.subtile.SubTileType;
+import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
+import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.lexicon.LexiconData;
+import vazkii.botania.common.lib.LibMisc;
 
 import java.util.Collections;
 import java.util.Set;
 import java.util.WeakHashMap;
 
-public class SubTileBergamute extends SubTileFunctional {
+public class SubTileBergamute extends TileEntityFunctionalFlower {
+	@ObjectHolder(LibMisc.MOD_ID + ":bergamute")
+	public static TileEntityType<SubTileBergamute> TYPE;
+
 	private static final int RANGE = 4;
 	private static final Set<SubTileBergamute> existingFlowers = Collections.newSetFromMap(new WeakHashMap<>());
 
-	public SubTileBergamute(SubTileType type) {
-		super(type);
+	public SubTileBergamute() {
+		super(TYPE);
 	}
 
 	@Override
-	public void onUpdate() {
-		super.onUpdate();
+	public void tickFlower() {
+		super.tickFlower();
 
-		if (supertile.getWorld().isRemote) {
+		if (getWorld().isRemote) {
 			if(!existingFlowers.contains(this)) {
 				existingFlowers.add(this);
 			}
@@ -33,8 +39,8 @@ public class SubTileBergamute extends SubTileFunctional {
 	protected static SubTileBergamute getBergamuteNearby(float x, float y, float z) {
 		return existingFlowers.stream()
 				.filter(f -> f.redstoneSignal == 0)
-				.filter(f -> f.supertile.getWorld().getTileEntity(f.supertile.getPos()) == f.supertile)
-				.filter(f -> f.supertile.getDistanceSq(x, y, z) <= RANGE * RANGE)
+				.filter(f -> f.getWorld().getTileEntity(f.getPos()) == f)
+				.filter(f -> f.getDistanceSq(x, y, z) <= RANGE * RANGE)
 				.findAny().orElse(null);
 	}
 

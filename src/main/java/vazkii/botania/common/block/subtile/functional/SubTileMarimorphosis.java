@@ -14,23 +14,27 @@ import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.block.state.pattern.BlockStateMatcher;
 import net.minecraft.init.Blocks;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
+import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.subtile.RadiusDescriptor;
-import vazkii.botania.api.subtile.SubTileFunctional;
-import vazkii.botania.api.subtile.SubTileType;
+import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.block.ModFluffBlocks;
+import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.lexicon.LexiconData;
+import vazkii.botania.common.lib.LibMisc;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-public class SubTileMarimorphosis extends SubTileFunctional {
+public class SubTileMarimorphosis extends TileEntityFunctionalFlower {
+	@ObjectHolder(LibMisc.MOD_ID + ":marimorphosis")
+	public static TileEntityType<SubTileMarimorphosis> TYPE;
 
 	private static final int COST = 12;
 	private static final int RANGE = 8;
@@ -50,14 +54,18 @@ public class SubTileMarimorphosis extends SubTileFunctional {
 			Type.MESA
 	};
 
-	public SubTileMarimorphosis(SubTileType type) {
+	public SubTileMarimorphosis(TileEntityType<?> type) {
 		super(type);
 	}
 
+	public SubTileMarimorphosis() {
+		this(TYPE);
+	}
+
 	@Override
-	public void onUpdate() {
-		super.onUpdate();
-		if(supertile.getWorld().isRemote || redstoneSignal > 0)
+	public void tickFlower() {
+		super.tickFlower();
+		if(getWorld().isRemote || redstoneSignal > 0)
 			return;
 
 		if(mana >= COST && ticksExisted % 2 == 0) {
@@ -65,9 +73,9 @@ public class SubTileMarimorphosis extends SubTileFunctional {
 			if(coords != null) {
 				IBlockState state = getStoneToPut(coords);
 				if(state != null) {
-					supertile.getWorld().setBlockState(coords, state);
+					getWorld().setBlockState(coords, state);
 					if(ConfigHandler.COMMON.blockBreakParticles.get())
-						supertile.getWorld().playEvent(2001, coords, Block.getStateId(state));
+						getWorld().playEvent(2001, coords, Block.getStateId(state));
 
 					mana -= COST;
 					sync();
@@ -77,7 +85,7 @@ public class SubTileMarimorphosis extends SubTileFunctional {
 	}
 
 	public IBlockState getStoneToPut(BlockPos coords) {
-		Set<Type> types = BiomeDictionary.getTypes(supertile.getWorld().getBiome(coords));
+		Set<Type> types = BiomeDictionary.getTypes(getWorld().getBiome(coords));
 
 		List<Block> values = new ArrayList<>();
 		for (Type type : TYPES) {
@@ -90,7 +98,7 @@ public class SubTileMarimorphosis extends SubTileFunctional {
 				values.add(block);
 		}
 
-		return values.get(supertile.getWorld().rand.nextInt(values.size())).getDefaultState();
+		return values.get(getWorld().rand.nextInt(values.size())).getDefaultState();
 	}
 
 	private Block biomeTypeToBlock(Type biomeType) {
@@ -115,14 +123,14 @@ public class SubTileMarimorphosis extends SubTileFunctional {
 
 		BlockStateMatcher matcher = BlockStateMatcher.forBlock(Blocks.STONE);
 		for(BlockPos pos : BlockPos.getAllInBox(getPos().add(-range, -rangeY, -range), getPos().add(range, rangeY, range))) {
-			IBlockState state = supertile.getWorld().getBlockState(pos);
-			if(state.getBlock().isReplaceableOreGen(state, supertile.getWorld(), pos, matcher))
+			IBlockState state = getWorld().getBlockState(pos);
+			if(state.getBlock().isReplaceableOreGen(state, getWorld(), pos, matcher))
 				possibleCoords.add(pos);
 		}
 
 		if(possibleCoords.isEmpty())
 			return null;
-		return possibleCoords.get(supertile.getWorld().rand.nextInt(possibleCoords.size()));
+		return possibleCoords.get(getWorld().rand.nextInt(possibleCoords.size()));
 	}
 
 	@Override
@@ -159,8 +167,11 @@ public class SubTileMarimorphosis extends SubTileFunctional {
 	}
 
 	public static class Mini extends SubTileMarimorphosis {
-		public Mini(SubTileType type) {
-			super(type);
+		@ObjectHolder(LibMisc.MOD_ID + ":marimorphosis_chibi")
+		public static TileEntityType<SubTileMarimorphosis.Mini> TYPE;
+
+		public Mini() {
+			super(TYPE);
 		}
 
 		@Override public int getRange() { return RANGE_MINI; }

@@ -16,44 +16,40 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUseContext;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.registries.ObjectHolder;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.item.IFloatingFlower;
 import vazkii.botania.api.item.IFlowerPlaceable;
 import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.api.subtile.ISubTileContainer;
 import vazkii.botania.api.subtile.RadiusDescriptor;
-import vazkii.botania.api.subtile.SubTileEntity;
-import vazkii.botania.api.subtile.SubTileFunctional;
-import vazkii.botania.api.subtile.SubTileType;
+import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
+import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.core.handler.ConfigHandler;
-import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 import vazkii.botania.common.lexicon.LexiconData;
-import vazkii.botania.common.lib.LibObfuscation;
+import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class SubTileRannuncarpus extends SubTileFunctional {
+public class SubTileRannuncarpus extends TileEntityFunctionalFlower {
+	@ObjectHolder(LibMisc.MOD_ID + ":rannuncarpus")
+	public static TileEntityType<SubTileRannuncarpus> TYPE;
 
 	private static final int RANGE = 2;
 	private static final int RANGE_Y = 3;
@@ -65,19 +61,23 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 	private static final int RANGE_PLACE_MINI = 2;
 	private static final int RANGE_PLACE_Y_MINI = 2;
 
-	public SubTileRannuncarpus(SubTileType type) {
+	public SubTileRannuncarpus(TileEntityType<?> type) {
 		super(type);
 	}
 
-	@Override
-	public void onUpdate() {
-		super.onUpdate();
+	public SubTileRannuncarpus() {
+		this(TYPE);
+	}
 
-		if(supertile.getWorld().isRemote || redstoneSignal > 0)
+	@Override
+	public void tickFlower() {
+		super.tickFlower();
+
+		if(getWorld().isRemote || redstoneSignal > 0)
 			return;
 
 		if(ticksExisted % 10 == 0) {
-			List<EntityItem> items = supertile.getWorld().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(supertile.getPos().add(-RANGE, -RANGE_Y, -RANGE), supertile.getPos().add(RANGE + 1, RANGE_Y + 1, RANGE + 1)));
+			List<EntityItem> items = getWorld().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(getPos().add(-RANGE, -RANGE_Y, -RANGE), getPos().add(RANGE + 1, RANGE_Y + 1, RANGE + 1)));
 			List<BlockPos> validPositions = getCandidatePositions();
 			int slowdown = getSlowdownFactor();
 
@@ -89,8 +89,8 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 				Item stackItem = stack.getItem();
 				if(stackItem instanceof ItemBlock || stackItem instanceof IFlowerPlaceable) {
 					if(!validPositions.isEmpty()) {
-						BlockPos coords = validPositions.get(supertile.getWorld().rand.nextInt(validPositions.size()));
-						BlockItemUseContext ctx = new RannuncarpusPlaceContext(supertile.getWorld(), stack, coords, EnumFacing.UP, 0, 0, 0);
+						BlockPos coords = validPositions.get(getWorld().rand.nextInt(validPositions.size()));
+						BlockItemUseContext ctx = new RannuncarpusPlaceContext(getWorld(), stack, coords, EnumFacing.UP, 0, 0, 0);
 
 						boolean success = false;
 						if(stackItem instanceof IFlowerPlaceable) {
@@ -101,8 +101,8 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 
 						if(success) {
 							if(ConfigHandler.COMMON.blockBreakParticles.get()) {
-								IBlockState state = supertile.getWorld().getBlockState(ctx.getPos());
-								supertile.getWorld().playEvent(2001, coords, Block.getStateId(state));
+								IBlockState state = getWorld().getBlockState(ctx.getPos());
+								getWorld().playEvent(2001, coords, Block.getStateId(state));
 							}
 							validPositions.remove(coords);
 							if(mana > 1)
@@ -116,18 +116,18 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 	}
 
 	public IBlockState getUnderlyingBlock() {
-		return supertile.getWorld().getBlockState(supertile.getPos().down(supertile instanceof  IFloatingFlower ? 1 : 2));
+		return getWorld().getBlockState(getPos().down(isFloating() ? 1 : 2));
 	}
 
 	private List<BlockPos> getCandidatePositions() {
 		int rangePlace = getRange();
 		int rangePlaceY = getRangeY();
-		BlockPos pos = supertile.getPos();
+		BlockPos pos = getPos();
 		IBlockState filter = getUnderlyingBlock();
 		List<BlockPos> ret = new ArrayList<>();
 
 		for (BlockPos pos_ : BlockPos.getAllInBox(pos.add(-rangePlace, -rangePlaceY, -rangePlace), pos.add(rangePlace, rangePlaceY, rangePlace))) {
-			if (filter == supertile.getWorld().getBlockState(pos_))
+			if (filter == getWorld().getBlockState(pos_))
 				ret.add(pos_);
 		}
 		return ret;
@@ -194,8 +194,11 @@ public class SubTileRannuncarpus extends SubTileFunctional {
 	}
 
 	public static class Mini extends SubTileRannuncarpus {
-		public Mini(SubTileType type) {
-			super(type);
+		@ObjectHolder(LibMisc.MOD_ID + ":rannuncarpus_chibi")
+		public static TileEntityType<SubTileRannuncarpus.Mini> TYPE;
+
+		public Mini() {
+			super(TYPE);
 		}
 
 		@Override public int getRange() { return mana > 0 ? RANGE_PLACE_MANA_MINI : RANGE_PLACE_MINI; }

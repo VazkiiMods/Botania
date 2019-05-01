@@ -18,6 +18,7 @@ import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
@@ -39,7 +40,7 @@ public class OrechidIgnemRecipeCategory implements IRecipeCategory<OrechidIgnemR
 		localizedName = I18n.format("botania.nei.orechidIgnem");
 		overlay = guiHelper.createDrawable(new ResourceLocation("botania", "textures/gui/pure_daisy_overlay.png"),
 				0, 0, 64, 46);
-		icon = guiHelper.createDrawableIngredient(ItemBlockSpecialFlower.ofType(ModSubtiles.orechidIgnem));
+		icon = guiHelper.createDrawableIngredient(new ItemStack(ModSubtiles.orechidIgnem));
 	}
 
 	@Nonnull
@@ -86,7 +87,7 @@ public class OrechidIgnemRecipeCategory implements IRecipeCategory<OrechidIgnemR
 		itemStacks.set(0, ingredients.getInputs(VanillaTypes.ITEM).get(0));
 
 		itemStacks.init(1, true, 70, 12);
-		itemStacks.set(1, ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_ORECHID_IGNEM));
+		itemStacks.set(1, new ItemStack(ModSubtiles.orechidIgnem));
 
 		itemStacks.init(2, true, 99, 12);
 		itemStacks.set(2, ingredients.getOutputs(VanillaTypes.ITEM).get(0));

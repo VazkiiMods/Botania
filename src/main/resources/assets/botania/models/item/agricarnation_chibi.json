@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "botania:blocks/flower_func_agricarnation_chibi"
+  }
+}

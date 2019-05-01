@@ -15,67 +15,72 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.Tag;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.api.subtile.ISubTileContainer;
 import vazkii.botania.api.subtile.RadiusDescriptor;
-import vazkii.botania.api.subtile.SubTileEntity;
-import vazkii.botania.api.subtile.SubTileGenerating;
-import vazkii.botania.api.subtile.SubTileType;
+import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
+import vazkii.botania.api.subtile.TileEntitySpecialFlower;
+import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lexicon.LexiconData;
+import vazkii.botania.common.lib.LibMisc;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
-public class SubTileRafflowsia extends SubTileGenerating {
+public class SubTileRafflowsia extends TileEntityGeneratingFlower {
+	@ObjectHolder(LibMisc.MOD_ID + ":rafflowsia")
+	public static TileEntityType<SubTileRafflowsia> TYPE;
 
 	private static final String TAG_LAST_FLOWER = "lastFlower";
 	private static final String TAG_LAST_FLOWER_TIMES = "lastFlowerTimes";
+	private static final Tag<Block> SPECIAL_FLOWERS = new BlockTags.Wrapper(new ResourceLocation(LibMisc.MOD_ID, "special_flowers"));
 
-	private String lastFlower;
+	@Nullable
+	private Block lastFlower;
 	private int lastFlowerTimes;
 
 	private static final int RANGE = 5;
 
-	public SubTileRafflowsia(SubTileType type) {
-		super(type);
+	public SubTileRafflowsia() {
+		super(TYPE);
 	}
 
 	@Override
-	public void onUpdate() {
-		super.onUpdate();
+	public void tickFlower() {
+		super.tickFlower();
 
 		int mana = 2100;
 
-		if(getMaxMana() - this.mana >= mana && !supertile.getWorld().isRemote && ticksExisted % 40 == 0) {
+		if(getMaxMana() - this.mana >= mana && !getWorld().isRemote && ticksExisted % 40 == 0) {
 			for(int i = 0; i < RANGE * 2 + 1; i++)
 				for(int j = 0; j < RANGE * 2 + 1; j++)
 					for(int k = 0; k < RANGE * 2 + 1; k++) {
-						BlockPos pos = supertile.getPos().add(i - RANGE, j - RANGE, k - RANGE);
+						BlockPos pos = getPos().add(i - RANGE, j - RANGE, k - RANGE);
 
-						TileEntity tile = supertile.getWorld().getTileEntity(pos);
-						if(tile instanceof ISubTileContainer) {
-							SubTileEntity stile = ((ISubTileContainer) tile).getSubTile();
-							String name = stile.getUnlocalizedName();
-
-							if(!(stile instanceof SubTileRafflowsia)) {
-								boolean last = name.equals(lastFlower);
-								if(last)
-									lastFlowerTimes++;
-								else {
-									lastFlower = name;
-									lastFlowerTimes = 1;
-								}
-
-								float mod = 1F / lastFlowerTimes;
-
-								getWorld().destroyBlock(pos, false);
-								this.mana += mana * mod;
-								sync();
-								return;
+						IBlockState state = getWorld().getBlockState(pos);
+						if(state.isIn(SPECIAL_FLOWERS) && state.getBlock() != ModSubtiles.rafflowsia) {
+							if(state.getBlock() == lastFlower)
+								lastFlowerTimes++;
+							else {
+								lastFlower = state.getBlock();
+								lastFlowerTimes = 1;
 							}
+
+							float mod = 1F / lastFlowerTimes;
+
+							getWorld().destroyBlock(pos, false);
+							this.mana += mana * mod;
+							sync();
+							return;
 						}
 					}
 		}
@@ -85,7 +90,8 @@ public class SubTileRafflowsia extends SubTileGenerating {
 	public void writeToPacketNBT(NBTTagCompound cmp) {
 		super.writeToPacketNBT(cmp);
 
-		cmp.putString(TAG_LAST_FLOWER, lastFlower);
+		if(lastFlower != null)
+			cmp.putString(TAG_LAST_FLOWER, lastFlower.getRegistryName().toString());
 		cmp.putInt(TAG_LAST_FLOWER_TIMES, lastFlowerTimes);
 	}
 
@@ -93,7 +99,9 @@ public class SubTileRafflowsia extends SubTileGenerating {
 	public void readFromPacketNBT(NBTTagCompound cmp) {
 		super.readFromPacketNBT(cmp);
 
-		lastFlower = cmp.getString(TAG_LAST_FLOWER);
+		ResourceLocation id = ResourceLocation.tryCreate(cmp.getString(TAG_LAST_FLOWER));
+		if(id != null)
+			lastFlower = ForgeRegistries.BLOCKS.getValue(id);
 		lastFlowerTimes = cmp.getInt(TAG_LAST_FLOWER_TIMES);
 	}
 
@@ -102,7 +110,8 @@ public class SubTileRafflowsia extends SubTileGenerating {
 		super.populateDropStackNBTs(drops);
 
 		ItemStack stack = drops.get(0);
-		ItemNBTHelper.setString(stack, TAG_LAST_FLOWER, lastFlower);
+		if(lastFlower != null)
+		    ItemNBTHelper.setString(stack, TAG_LAST_FLOWER, lastFlower.getRegistryName().toString());
 		ItemNBTHelper.setInt(stack, TAG_LAST_FLOWER_TIMES, lastFlowerTimes);
 	}
 
@@ -110,7 +119,9 @@ public class SubTileRafflowsia extends SubTileGenerating {
 	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase entity, ItemStack stack) {
 		super.onBlockPlacedBy(world, pos, state, entity, stack);
 
-		lastFlower = ItemNBTHelper.getString(stack, TAG_LAST_FLOWER, "");
+		ResourceLocation id = ResourceLocation.tryCreate(ItemNBTHelper.getString(stack, TAG_LAST_FLOWER, ""));
+		if(id != null)
+			lastFlower = ForgeRegistries.BLOCKS.getValue(id);
 		lastFlowerTimes = ItemNBTHelper.getInt(stack, TAG_LAST_FLOWER_TIMES, 0);
 	}
 

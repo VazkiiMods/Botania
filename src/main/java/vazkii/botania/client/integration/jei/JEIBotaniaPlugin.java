@@ -22,7 +22,6 @@ import mezz.jei.api.runtime.IJeiRuntime;
 import mezz.jei.api.runtime.IRecipesGui;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.tags.BlockTags;
@@ -34,7 +33,6 @@ import vazkii.botania.client.gui.crafting.ContainerCraftingHalo;
 import vazkii.botania.client.integration.jei.brewery.BreweryRecipeCategory;
 import vazkii.botania.client.integration.jei.crafting.AncientWillRecipeWrapper;
 import vazkii.botania.client.integration.jei.crafting.CompositeLensRecipeWrapper;
-import vazkii.botania.client.integration.jei.crafting.SpecialFloatingFlowerWrapper;
 import vazkii.botania.client.integration.jei.crafting.TerraPickTippingRecipeWrapper;
 import vazkii.botania.client.integration.jei.elventrade.ElvenTradeRecipeCategory;
 import vazkii.botania.client.integration.jei.manapool.ManaPoolRecipeCategory;
@@ -49,7 +47,6 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.crafting.recipe.AncientWillRecipe;
 import vazkii.botania.common.crafting.recipe.CompositeLensRecipe;
-import vazkii.botania.common.crafting.recipe.SpecialFloatingFlowerRecipe;
 import vazkii.botania.common.crafting.recipe.TerraPickTippingRecipe;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
@@ -70,8 +67,6 @@ public class JEIBotaniaPlugin implements IModPlugin {
 
 	@Override
 	public void registerItemSubtypes(@Nonnull ISubtypeRegistration subtypeRegistry) {
-		subtypeRegistry.registerSubtypeInterpreter(ModBlocks.specialFlower.asItem(), stack -> ItemBlockSpecialFlower.getType(stack).toString());
-		subtypeRegistry.registerSubtypeInterpreter(ModBlocks.floatingSpecialFlower.asItem(), stack -> ItemBlockSpecialFlower.getType(stack).toString());
 		subtypeRegistry.registerSubtypeInterpreter(ModItems.brewVial, ItemBrewBase::getSubtype);
 		subtypeRegistry.registerSubtypeInterpreter(ModItems.brewFlask, ItemBrewBase::getSubtype);
 		subtypeRegistry.registerSubtypeInterpreter(ModItems.incenseStick, ItemBrewBase::getSubtype);
@@ -98,7 +93,6 @@ public class JEIBotaniaPlugin implements IModPlugin {
 
 	@Override
 	public void registerVanillaCategoryExtensions(IVanillaCategoryExtensionRegistration registration) {
-		registration.getCraftingCategory().addCategoryExtension(SpecialFloatingFlowerRecipe.class, SpecialFloatingFlowerWrapper::new);
 		registration.getCraftingCategory().addCategoryExtension(AncientWillRecipe.class, AncientWillRecipeWrapper::new);
 		registration.getCraftingCategory().addCategoryExtension(TerraPickTippingRecipe.class, TerraPickTippingRecipeWrapper::new);
 		registration.getCraftingCategory().addCategoryExtension(CompositeLensRecipe.class, CompositeLensRecipeWrapper::new);
@@ -157,12 +151,12 @@ public class JEIBotaniaPlugin implements IModPlugin {
 		registry.addRecipeCatalyst(new ItemStack(ModBlocks.mesaAltar), PetalApothecaryRecipeCategory.UID);
 		registry.addRecipeCatalyst(new ItemStack(ModBlocks.mossyAltar), PetalApothecaryRecipeCategory.UID);
 
-		registry.addRecipeCatalyst(ItemBlockSpecialFlower.ofType(SUBTILE_ORECHID), OrechidRecipeCategory.UID);
-		registry.addRecipeCatalyst(ItemBlockSpecialFlower.ofType(new ItemStack(ModBlocks.floatingSpecialFlower), ModSubtiles.orechid), OrechidRecipeCategory.UID);
-		registry.addRecipeCatalyst(ItemBlockSpecialFlower.ofType(SUBTILE_ORECHID_IGNEM), OrechidIgnemRecipeCategory.UID);
-		registry.addRecipeCatalyst(ItemBlockSpecialFlower.ofType(new ItemStack(ModBlocks.floatingSpecialFlower), ModSubtiles.orechidIgnem), OrechidIgnemRecipeCategory.UID);
-		registry.addRecipeCatalyst(ItemBlockSpecialFlower.ofType(SUBTILE_PUREDAISY), PureDaisyRecipeCategory.UID);
-		registry.addRecipeCatalyst(ItemBlockSpecialFlower.ofType(new ItemStack(ModBlocks.floatingSpecialFlower), ModSubtiles.pureDaisy), PureDaisyRecipeCategory.UID);
+		registry.addRecipeCatalyst(ModSubtiles.orechid, OrechidRecipeCategory.UID);
+		registry.addRecipeCatalyst(ModSubtiles.orechidFloating, OrechidRecipeCategory.UID);
+		registry.addRecipeCatalyst(ModSubtiles.orechidIgnem, OrechidIgnemRecipeCategory.UID);
+		registry.addRecipeCatalyst(ModSubtiles.orechidIgnemFloating, OrechidIgnemRecipeCategory.UID);
+		registry.addRecipeCatalyst(ModSubtiles.pureDaisy, PureDaisyRecipeCategory.UID);
+		registry.addRecipeCatalyst(ModSubtiles.pureDaisyFloating, PureDaisyRecipeCategory.UID);
 
 
 		registry.addRecipeCatalyst(new ItemStack(ModBlocks.runeAltar), RunicAltarRecipeCategory.UID);

@@ -50,7 +50,7 @@ public class OrechidRecipeCategory implements IRecipeCategory<OrechidRecipeWrapp
 		localizedName = I18n.format("botania.nei.orechid");
 		overlay = guiHelper.createDrawable(new ResourceLocation("botania", "textures/gui/pure_daisy_overlay.png"),
 				0, 0, 64, 46);
-		icon = guiHelper.createDrawableIngredient(ItemBlockSpecialFlower.ofType(ModSubtiles.orechid));
+		icon = guiHelper.createDrawableIngredient(new ItemStack(ModSubtiles.orechid));
 	}
 
 	@Nonnull
@@ -118,7 +118,7 @@ public class OrechidRecipeCategory implements IRecipeCategory<OrechidRecipeWrapp
 		itemStacks.set(0, ingredients.getInputs(VanillaTypes.ITEM).get(0));
 
 		itemStacks.init(1, true, 70, 12);
-		itemStacks.set(1, ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_ORECHID));
+		itemStacks.set(1, new ItemStack(ModSubtiles.orechid));
 
 		itemStacks.init(2, true, 99, 12);
 		itemStacks.set(2, ingredients.getOutputs(VanillaTypes.ITEM).get(0));

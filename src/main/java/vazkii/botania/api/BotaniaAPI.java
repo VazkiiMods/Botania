@@ -11,15 +11,9 @@
 package vazkii.botania.api;
 
 import com.google.common.base.Preconditions;
-import com.google.common.collect.BiMap;
-import com.google.common.collect.HashBiMap;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockCarpet;
-import net.minecraft.block.BlockStainedGlass;
-import net.minecraft.block.BlockStainedGlassPane;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.EnumDyeColor;
@@ -28,42 +22,32 @@ import net.minecraft.item.IArmorMaterial;
 import net.minecraft.item.IItemTier;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.state.EnumProperty;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
-import net.minecraft.util.registry.RegistryNamespaced;
-import net.minecraft.util.registry.RegistryNamespacedDefaultedByKey;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.IRegistryDelegate;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.internal.DummyMethodHandler;
-import vazkii.botania.api.internal.DummySubTile;
 import vazkii.botania.api.internal.IInternalMethodHandler;
+import vazkii.botania.api.item.IFloatingFlower;
 import vazkii.botania.api.lexicon.KnowledgeType;
 import vazkii.botania.api.lexicon.LexiconCategory;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.recipe.RecipeBrew;
 import vazkii.botania.api.recipe.RecipeElvenTrade;
 import vazkii.botania.api.recipe.RecipeManaInfusion;
-import vazkii.botania.api.recipe.RecipeMiniFlower;
 import vazkii.botania.api.recipe.RecipePetals;
 import vazkii.botania.api.recipe.RecipePureDaisy;
 import vazkii.botania.api.recipe.RecipeRuneAltar;
-import vazkii.botania.api.subtile.SubTileEntity;
-import vazkii.botania.api.subtile.SubTileType;
-import vazkii.botania.api.wiki.IWikiProvider;
-import vazkii.botania.api.wiki.SimpleWikiProvider;
-import vazkii.botania.api.wiki.WikiHooks;
-import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -72,6 +56,8 @@ import java.util.Set;
 import java.util.function.Function;
 
 public final class BotaniaAPI {
+	@CapabilityInject(IFloatingFlower.class)
+	public static Capability<IFloatingFlower> FLOATING_FLOWER_CAP;
 
 	private static final List<LexiconCategory> categories = new ArrayList<>();
 	private static final List<LexiconEntry> allEntries = new ArrayList<>();
@@ -87,8 +73,6 @@ public final class BotaniaAPI {
 	public static final List<RecipeElvenTrade> elvenTradeRecipes = new ArrayList<>();
 	public static final List<RecipeBrew> brewRecipes = new ArrayList<>();
 	public static final List<RecipeManaInfusion> miniFlowerRecipes = new ArrayList<>();
-
-	public static final ResourceLocation DUMMY_SUBTILE_NAME = new ResourceLocation("botania", "dummy");
 
 	public static Map<ResourceLocation, Integer> oreWeights = Collections.emptyMap();
 	public static Map<ResourceLocation, Integer> oreWeightsNether = Collections.emptyMap();

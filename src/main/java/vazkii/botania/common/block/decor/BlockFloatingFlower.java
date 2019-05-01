@@ -42,7 +42,6 @@ import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.TileFloatingFlower;
-import vazkii.botania.common.block.tile.TileFloatingSpecialFlower;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.IFloatingFlowerVariant;
 import vazkii.botania.common.lexicon.LexiconData;
@@ -79,27 +78,6 @@ public class BlockFloatingFlower extends BlockMod implements ILexiconable {
 	public BlockRenderLayer getRenderLayer() {
 		return BlockRenderLayer.CUTOUT;
 	}
-
-	/* todo 1.13
-	@Nonnull
-	@Override
-	public BlockStateContainer createBlockState() {
-		return new ExtendedBlockState(this, new IProperty[] { BotaniaStateProps.COLOR }, new IUnlistedProperty[] { BotaniaStateProps.ISLAND_TYPE });
-	}
-
-	@Nonnull
-	@Override
-	public IBlockState getExtendedState(@Nonnull IBlockState state, IBlockReader world, BlockPos pos) {
-		state = getActualState(state, world, pos);
-		TileEntity te = world instanceof ChunkCache ? ((ChunkCache)world).getTileEntity(pos, Chunk.EnumCreateEntityType.CHECK) : world.getTileEntity(pos);
-		if (te instanceof TileFloatingFlower) {
-			state = ((IExtendedBlockState) state).with(BotaniaStateProps.ISLAND_TYPE, ((TileFloatingFlower) te).getIslandType());
-		} else if (te instanceof TileFloatingSpecialFlower) {
-			state = ((IExtendedBlockState) state).with(BotaniaStateProps.ISLAND_TYPE, ((TileFloatingSpecialFlower) te).getIslandType());
-		}
-		return state;
-	}
-	*/
 
 	@OnlyIn(Dist.CLIENT)
 	@Override

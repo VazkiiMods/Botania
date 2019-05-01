@@ -13,15 +13,10 @@ package vazkii.botania.api.recipe;
 import com.google.common.base.Preconditions;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.item.ItemStack;
 import net.minecraft.tags.Tag;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import vazkii.botania.api.subtile.SubTileEntity;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import vazkii.botania.api.subtile.TileEntitySpecialFlower;
 
 public class RecipePureDaisy {
 
@@ -48,7 +43,7 @@ public class RecipePureDaisy {
 	/**
 	 * This gets called every tick, please be careful with your checks.
 	 */
-	public boolean matches(World world, BlockPos pos, SubTileEntity pureDaisy, IBlockState state) {
+	public boolean matches(World world, BlockPos pos, TileEntitySpecialFlower pureDaisy, IBlockState state) {
 		if(input instanceof Block)
 			return state.getBlock() == input;
 
@@ -63,7 +58,7 @@ public class RecipePureDaisy {
 	 * Should only place the block if !world.isRemote, but should return true if it would've placed
 	 * it otherwise. You may return false to cancel the normal particles and do your own.
 	 */
-	public boolean set(World world, BlockPos pos, SubTileEntity pureDaisy) {
+	public boolean set(World world, BlockPos pos, TileEntitySpecialFlower pureDaisy) {
 		if(!world.isRemote)
 			world.setBlockState(pos, outputState);
 		return true;

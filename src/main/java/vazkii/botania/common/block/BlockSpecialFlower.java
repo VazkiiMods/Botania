@@ -11,7 +11,6 @@
 package vazkii.botania.common.block;
 
 import net.minecraft.block.BlockFlower;
-import net.minecraft.block.SoundType;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLivingBase;
@@ -25,8 +24,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
@@ -34,41 +31,27 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
-import net.minecraft.world.chunk.Chunk;
-import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.common.property.IExtendedBlockState;
-import net.minecraftforge.common.property.IUnlistedProperty;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.subtile.ISpecialFlower;
-import vazkii.botania.api.subtile.SubTileEntity;
-import vazkii.botania.api.subtile.SubTileType;
+import vazkii.botania.api.subtile.TileEntitySpecialFlower;
 import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.api.wand.IWandable;
-import vazkii.botania.client.core.handler.ModelHandler;
-import vazkii.botania.common.BotaniaRegistries;
-import vazkii.botania.common.block.tile.TileSpecialFlower;
-import vazkii.botania.common.core.BotaniaCreativeTab;
-import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 import vazkii.botania.common.item.material.ItemDye;
-import vazkii.botania.common.lib.LibBlockNames;
-import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.function.Supplier;
 
 public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, IWandable, ILexiconable, IWandHUD {
 	private static final VoxelShape SHAPE = makeCuboidShape(4.8, 0, 4.8, 12.8, 16, 12.8);
+	private final Supplier<? extends TileEntitySpecialFlower> teProvider;
 
-	protected BlockSpecialFlower(Properties props) {
+	protected BlockSpecialFlower(Properties props, Supplier<? extends TileEntitySpecialFlower> teProvider) {
 		super(props);
+		this.teProvider = teProvider;
 	}
 
 	@Nonnull
@@ -78,27 +61,12 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 		return SHAPE.withOffset(shift.x, shift.y, shift.z);
 	}
 
-	/* todo 1.13
-	@Nonnull
-	@Override
-	public IExtendedBlockState getExtendedState(@Nonnull IBlockState state, IBlockReader world, BlockPos pos) {
-		TileEntity te = world instanceof ChunkCache ? ((ChunkCache)world).getTileEntity(pos, Chunk.EnumCreateEntityType.CHECK) : world.getTileEntity(pos);
-		if (te instanceof TileSpecialFlower && ((TileSpecialFlower) te).getSubTile() != null) {
-			Class<? extends SubTileEntity> clazz = ((TileSpecialFlower) te).getSubTile().getClass();
-			ResourceLocation id = BotaniaAPI.getSubTileStringMapping(clazz);
-			return ((IExtendedBlockState) state).with(BotaniaStateProps.SUBTILE_ID, id);
-		} else {
-			return (IExtendedBlockState) state;
-		}
-	}
-	*/
-
 	@Override
 	public int getLightValue(@Nonnull IBlockState state, IWorldReader world, @Nonnull BlockPos pos) {
 		if(world.getBlockState(pos).getBlock() != this)
 			return world.getBlockState(pos).getLightValue(world, pos);
 
-		return world.getTileEntity(pos) == null ? 0 : ((TileSpecialFlower) world.getTileEntity(pos)).getLightValue();
+		return world.getTileEntity(pos) == null ? 0 : ((TileEntitySpecialFlower) world.getTileEntity(pos)).getLightValue();
 	}
 
 	@Override
@@ -108,12 +76,12 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 
 	@Override
 	public int getComparatorInputOverride(IBlockState state, World world, BlockPos pos) {
-		return ((TileSpecialFlower) world.getTileEntity(pos)).getComparatorInputOverride();
+		return ((TileEntitySpecialFlower) world.getTileEntity(pos)).getComparatorInputOverride();
 	}
 
 	@Override
 	public int getWeakPower(IBlockState state, IBlockReader world, BlockPos pos, EnumFacing side) {
-		return ((TileSpecialFlower) world.getTileEntity(pos)).getPowerLevel(side);
+		return ((TileEntitySpecialFlower) world.getTileEntity(pos)).getPowerLevel(side);
 	}
 
 	@Override
@@ -127,22 +95,6 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 	}
 
 	@Override
-	public void fillItemGroup(ItemGroup tab, @Nonnull NonNullList<ItemStack> stacks) {
-		for(SubTileType type : BotaniaRegistries.SUBTILES) {
-			if(type.shouldShowInCreative()) {
-				stacks.add(ItemBlockSpecialFlower.ofType(type));
-			}
-		}
-	}
-
-	@Nonnull
-	@Override
-	public ItemStack getPickBlock(@Nonnull IBlockState state, RayTraceResult target, @Nonnull IBlockReader world, @Nonnull BlockPos pos, EntityPlayer player) {
-		SubTileType type = ((TileSpecialFlower) world.getTileEntity(pos)).getSubTile().getType();
-		return ItemBlockSpecialFlower.ofType(type);
-	}
-
-	@Override
 	protected boolean isValidGround(IBlockState state, IBlockReader worldIn, BlockPos pos) {
 		return state.getBlock() == ModBlocks.redStringRelay
 				|| state.getBlock() == Blocks.MYCELIUM
@@ -151,7 +103,8 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 
 	@Override
 	public void onBlockHarvested(World world, BlockPos pos, IBlockState state, EntityPlayer player) {
-		((TileSpecialFlower) world.getTileEntity(pos)).onBlockHarvested(world, pos, state, player);
+		super.onBlockHarvested(world, pos, state, player);
+		((TileEntitySpecialFlower) world.getTileEntity(pos)).onBlockHarvested(world, pos, state, player);
 	}
 
 	@Override
@@ -175,12 +128,11 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 
 	@Override
 	public void getDrops(@Nonnull IBlockState state, NonNullList<ItemStack> list, World world, BlockPos pos, int fortune) {
+		super.getDrops(state, list, world, pos, fortune);
 		TileEntity tile = world.getTileEntity(pos);
 
-		if(tile != null) {
-			SubTileType type = ((TileSpecialFlower) tile).getSubTile().getType();
-			list.add(ItemBlockSpecialFlower.ofType(type));
-			((TileSpecialFlower) tile).getDrops(list);
+		if(tile instanceof TileEntitySpecialFlower) {
+			((TileEntitySpecialFlower) tile).getDrops(list);
 		}
 	}
 
@@ -188,7 +140,7 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 	public boolean eventReceived(IBlockState state, World world, BlockPos pos, int par5, int par6) {
 		super.eventReceived(state, world, pos, par5, par6);
 		TileEntity tileentity = world.getTileEntity(pos);
-		return tileentity != null ? tileentity.receiveClientEvent(par5, par6) : false;
+		return tileentity != null && tileentity.receiveClientEvent(par5, par6);
 	}
 
 	@Override
@@ -199,27 +151,27 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 	@Nonnull
 	@Override
 	public TileEntity createTileEntity(@Nonnull IBlockState state, @Nonnull IBlockReader world) {
-		return new TileSpecialFlower();
+		return teProvider.get();
 	}
 
 	@Override
 	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
-		return ((TileSpecialFlower) world.getTileEntity(pos)).getEntry();
+		return ((TileEntitySpecialFlower) world.getTileEntity(pos)).getEntry();
 	}
 
 	@Override
 	public boolean onUsedByWand(EntityPlayer player, ItemStack stack, World world, BlockPos pos, EnumFacing side) {
-		return ((TileSpecialFlower) world.getTileEntity(pos)).onWanded(stack, player);
+		return ((TileEntitySpecialFlower) world.getTileEntity(pos)).onWanded(player, stack);
 	}
 
 	@Override
 	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase entity, ItemStack stack) {
-		((TileSpecialFlower) world.getTileEntity(pos)).onBlockPlacedBy(world, pos, state, entity, stack);
+		((TileEntitySpecialFlower) world.getTileEntity(pos)).onBlockPlacedBy(world, pos, state, entity, stack);
 	}
 
 	@Override
 	public void onBlockAdded(IBlockState state, World world, BlockPos pos, IBlockState oldState) {
-		((TileSpecialFlower) world.getTileEntity(pos)).onBlockAdded(world, pos, state);
+		((TileEntitySpecialFlower) world.getTileEntity(pos)).onBlockAdded(world, pos, state);
 	}
 
 	@Override
@@ -233,12 +185,12 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 			return true;
 		}
 
-		return ((TileSpecialFlower) world.getTileEntity(pos)).onBlockActivated(world, pos, state, player, hand, side, hitX, hitY, hitZ);
+		return ((TileEntitySpecialFlower) world.getTileEntity(pos)).onBlockActivated(world, pos, state, player, hand, side, hitX, hitY, hitZ);
 	}
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void renderHUD(Minecraft mc, World world, BlockPos pos) {
-		((TileSpecialFlower) world.getTileEntity(pos)).renderHUD(mc);
+		((TileEntitySpecialFlower) world.getTileEntity(pos)).renderHUD(mc);
 	}
 }

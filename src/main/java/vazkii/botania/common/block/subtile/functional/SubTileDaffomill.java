@@ -17,24 +17,29 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
-import vazkii.botania.api.subtile.SubTileFunctional;
-import vazkii.botania.api.subtile.SubTileType;
+import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.lexicon.LexiconData;
+import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.network.PacketHandler;
 import vazkii.botania.common.network.PacketItemAge;
 
 import java.util.List;
 
-public class SubTileDaffomill extends SubTileFunctional {
+public class SubTileDaffomill extends TileEntityFunctionalFlower {
+	@ObjectHolder(LibMisc.MOD_ID + ":daffomill")
+	public static TileEntityType<SubTileDaffomill> TYPE;
 
 	private static final String TAG_ORIENTATION = "orientation";
 	private static final String TAG_WIND_TICKS = "windTicks";
@@ -42,16 +47,16 @@ public class SubTileDaffomill extends SubTileFunctional {
 	private int windTicks = 0;
 	private EnumFacing orientation = EnumFacing.NORTH;
 
-	public SubTileDaffomill(SubTileType type) {
-		super(type);
+	public SubTileDaffomill() {
+		super(TYPE);
 	}
 
 	@Override
-	public void onUpdate() {
-		super.onUpdate();
+	public void tickFlower() {
+		super.tickFlower();
 
-		if(supertile.getWorld().rand.nextInt(4) == 0)
-			Botania.proxy.wispFX(supertile.getPos().getX() + Math.random(), supertile.getPos().getY() + Math.random(), supertile.getPos().getZ() + Math.random(), 0.05F, 0.05F, 0.05F, 0.25F + (float) Math.random() * 0.15F, orientation.getXOffset() * 0.1F, orientation.getYOffset() * 0.1F, orientation.getZOffset() * 0.1F);
+		if(getWorld().rand.nextInt(4) == 0)
+			Botania.proxy.wispFX(getPos().getX() + Math.random(), getPos().getY() + Math.random(), getPos().getZ() + Math.random(), 0.05F, 0.05F, 0.05F, 0.25F + (float) Math.random() * 0.15F, orientation.getXOffset() * 0.1F, orientation.getYOffset() * 0.1F, orientation.getZOffset() * 0.1F);
 
 		if(windTicks == 0 && mana > 0) {
 			windTicks = 20;
@@ -62,7 +67,7 @@ public class SubTileDaffomill extends SubTileFunctional {
 			AxisAlignedBB axis = aabbForOrientation();
 
 			if(axis != null) {
-				List<EntityItem> items = supertile.getWorld().getEntitiesWithinAABB(EntityItem.class, axis);
+				List<EntityItem> items = getWorld().getEntitiesWithinAABB(EntityItem.class, axis);
 				int slowdown = getSlowdownFactor();
 				for(EntityItem item : items) {
 					if(item.isAlive() && item.age >= slowdown) {
@@ -78,9 +83,9 @@ public class SubTileDaffomill extends SubTileFunctional {
 	}
 
 	private AxisAlignedBB aabbForOrientation() {
-		int x = supertile.getPos().getX();
-		int y = supertile.getPos().getY();
-		int z = supertile.getPos().getZ();
+		int x = getPos().getX();
+		int y = getPos().getY();
+		int z = getPos().getZ();
 		int w = 2;
 		int h = 3;
 		int l = 16;
@@ -133,7 +138,7 @@ public class SubTileDaffomill extends SubTileFunctional {
 	@Override
 	public RadiusDescriptor getRadius() {
 		AxisAlignedBB aabb = aabbForOrientation();
-		aabb = new AxisAlignedBB(aabb.minX, supertile.getPos().getY(), aabb.minZ, aabb.maxX, aabb.maxY, aabb.maxZ);
+		aabb = new AxisAlignedBB(aabb.minX, getPos().getY(), aabb.minZ, aabb.maxX, aabb.maxY, aabb.maxZ);
 		return new RadiusDescriptor.Rectangle(toBlockPos(), aabb);
 	}
 

@@ -13,31 +13,33 @@ package vazkii.botania.common.block.subtile.functional;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.Tag;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.WeightedRandom;
 import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
-import vazkii.botania.api.subtile.SubTileFunctional;
-import vazkii.botania.api.subtile.SubTileType;
+import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.lexicon.LexiconData;
+import vazkii.botania.common.lib.LibMisc;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
 
-public class SubTileOrechid extends SubTileFunctional {
+public class SubTileOrechid extends TileEntityFunctionalFlower {
+	@ObjectHolder(LibMisc.MOD_ID + ":orechid")
+	public static TileEntityType<SubTileOrechid> TYPE;
 
 	private static final int COST = 17500;
 	private static final int COST_GOG = 700;
@@ -47,15 +49,19 @@ public class SubTileOrechid extends SubTileFunctional {
 	private static final int RANGE_Y = 3;
 	private static final int TRIES = 20;
 
-	public SubTileOrechid(SubTileType type) {
+	public SubTileOrechid(TileEntityType<?> type) {
 		super(type);
 	}
 
-	@Override
-	public void onUpdate() {
-		super.onUpdate();
+	public SubTileOrechid() {
+		this(TYPE);
+	}
 
-		if(supertile.getWorld().isRemote || redstoneSignal > 0 || !canOperate())
+	@Override
+	public void tickFlower() {
+		super.tickFlower();
+
+		if(getWorld().isRemote || redstoneSignal > 0 || !canOperate())
 			return;
 
 		int cost = getCost();
@@ -64,10 +70,10 @@ public class SubTileOrechid extends SubTileFunctional {
 			if(coords != null) {
 				IBlockState state = getOreToPut();
 				if(state != null) {
-					supertile.getWorld().setBlockState(coords, state);
+					getWorld().setBlockState(coords, state);
 					if(ConfigHandler.COMMON.blockBreakParticles.get())
-						supertile.getWorld().playEvent(2001, coords, Block.getStateId(state));
-					supertile.getWorld().playSound(null, supertile.getPos(), ModSounds.orechid, SoundCategory.BLOCKS, 2F, 1F);
+						getWorld().playEvent(2001, coords, Block.getStateId(state));
+					getWorld().playSound(null, getPos(), ModSounds.orechid, SoundCategory.BLOCKS, 2F, 1F);
 
 					mana -= cost;
 					sync();
@@ -83,7 +89,7 @@ public class SubTileOrechid extends SubTileFunctional {
 			for(ResourceLocation s : map.keySet())
 				values.add(new TagRandomItem(map.get(s), s));
 
-			ResourceLocation ore = ((TagRandomItem) WeightedRandom.getRandomItem(supertile.getWorld().rand, values)).s;
+			ResourceLocation ore = ((TagRandomItem) WeightedRandom.getRandomItem(getWorld().rand, values)).s;
 			Tag<Block> tag = BlockTags.getCollection().get(ore);
 			if(tag != null && !tag.getAllElements().isEmpty()) {
 				return tag.getRandomElement(getWorld().getRandom()).getDefaultState();
@@ -97,14 +103,14 @@ public class SubTileOrechid extends SubTileFunctional {
 		List<BlockPos> possibleCoords = new ArrayList<>();
 
 		for(BlockPos pos : BlockPos.getAllInBox(getPos().add(-RANGE, -RANGE_Y, -RANGE), getPos().add(RANGE, RANGE_Y, RANGE))) {
-			IBlockState state = supertile.getWorld().getBlockState(pos);
-			if(state.getBlock().isReplaceableOreGen(state, supertile.getWorld(), pos, getReplaceMatcher()))
+			IBlockState state = getWorld().getBlockState(pos);
+			if(state.getBlock().isReplaceableOreGen(state, getWorld(), pos, getReplaceMatcher()))
 				possibleCoords.add(pos);
 		}
 
 		if(possibleCoords.isEmpty())
 			return null;
-		return possibleCoords.get(supertile.getWorld().rand.nextInt(possibleCoords.size()));
+		return possibleCoords.get(getWorld().rand.nextInt(possibleCoords.size()));
 	}
 
 	public boolean canOperate() {

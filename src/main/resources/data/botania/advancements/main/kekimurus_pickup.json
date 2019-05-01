@@ -1,8 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "botania:special_flower",
-      "nbt": "{\"type\": \"kekimurus\"}"
+      "item": "botania:kekimurus"
     },
     "title": {
       "translate": "advancement.botania:kekimurusPickup"
@@ -18,8 +17,7 @@
       "conditions": {
         "items": [
           {
-            "item": "botania:special_flower",
-            "nbt": "{\"type\": \"kekimurus\"}"
+            "item": "botania:kekimurus"
           }
         ]
       }

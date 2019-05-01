@@ -13,25 +13,29 @@ package vazkii.botania.common.block.subtile.generating;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.Particles;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.particles.ItemParticleData;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.items.ItemHandlerHelper;
+import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
-import vazkii.botania.api.subtile.SubTileGenerating;
-import vazkii.botania.api.subtile.SubTileType;
+import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
+import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.lexicon.LexiconData;
+import vazkii.botania.common.lib.LibMisc;
 
 import java.util.List;
 
-public class SubTileGourmaryllis extends SubTileGenerating {
+public class SubTileGourmaryllis extends TileEntityGeneratingFlower {
+	@ObjectHolder(LibMisc.MOD_ID + ":gourmaryllis")
+	public static TileEntityType<SubTileGourmaryllis> TYPE;
 
 	private static final String TAG_COOLDOWN = "cooldown";
 	private static final String TAG_DIGESTING_MANA = "digestingMana";
@@ -44,15 +48,15 @@ public class SubTileGourmaryllis extends SubTileGenerating {
 	private ItemStack lastFood = ItemStack.EMPTY;
 	private int lastFoodCount = 0;
 
-	public SubTileGourmaryllis(SubTileType type) {
-		super(type);
+	public SubTileGourmaryllis() {
+		super(TYPE);
 	}
 
 	@Override
-	public void onUpdate() {
-		super.onUpdate();
+	public void tickFlower() {
+		super.tickFlower();
 
-		if (supertile.getWorld().isRemote)
+		if (getWorld().isRemote)
 			return;
 		
 		if(cooldown > -1)
@@ -65,20 +69,20 @@ public class SubTileGourmaryllis extends SubTileGenerating {
 				digestingMana = 0;
 				
 				float burpPitch = 1 - (lastFoodCount - 1) * 0.05F;
-				getWorld().playSound(null, supertile.getPos(), SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.BLOCKS, 1, burpPitch);
+				getWorld().playSound(null, getPos(), SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.BLOCKS, 1, burpPitch);
 				sync();
 			} else if(cooldown % munchInterval == 0) {
-				getWorld().playSound(null, supertile.getPos(), SoundEvents.ENTITY_GENERIC_EAT, SoundCategory.BLOCKS, 0.5f, 1);
+				getWorld().playSound(null, getPos(), SoundEvents.ENTITY_GENERIC_EAT, SoundCategory.BLOCKS, 0.5f, 1);
 				
 				Vec3d offset = getWorld().getBlockState(getPos()).getOffset(getWorld(), getPos()).add(0.4, 0.6, 0.4);
 				
-				((WorldServer) supertile.getWorld()).spawnParticle(new ItemParticleData(Particles.ITEM, lastFood), supertile.getPos().getX()+offset.x, supertile.getPos().getY()+offset.y, supertile.getPos().getZ()+offset.z, 10, 0.1D, 0.1D, 0.1D, 0.03D);
+				((WorldServer) getWorld()).spawnParticle(new ItemParticleData(Particles.ITEM, lastFood), getPos().getX()+offset.x, getPos().getY()+offset.y, getPos().getZ()+offset.z, 10, 0.1D, 0.1D, 0.1D, 0.03D);
 			}
 		}
 
 		int slowdown = getSlowdownFactor();
 
-		List<EntityItem> items = supertile.getWorld().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(supertile.getPos().add(-RANGE, -RANGE, -RANGE), supertile.getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
+		List<EntityItem> items = getWorld().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(getPos().add(-RANGE, -RANGE, -RANGE), getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
 
 		for(EntityItem item : items) {
 			ItemStack stack = item.getItem();
@@ -99,7 +103,7 @@ public class SubTileGourmaryllis extends SubTileGenerating {
 					cooldown = val * 10;
 					item.playSound(SoundEvents.ENTITY_GENERIC_EAT, 0.2F, 0.6F);
 					sync();
-					((WorldServer) supertile.getWorld()).spawnParticle(new ItemParticleData(Particles.ITEM, stack), item.posX, item.posY, item.posZ, 20, 0.1D, 0.1D, 0.1D, 0.05D);
+					((WorldServer) getWorld()).spawnParticle(new ItemParticleData(Particles.ITEM, stack), item.posX, item.posY, item.posZ, 20, 0.1D, 0.1D, 0.1D, 0.05D);
 				}
 
 				item.remove();

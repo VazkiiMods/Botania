@@ -14,18 +14,23 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.api.subtile.ISubTileContainer;
 import vazkii.botania.api.subtile.RadiusDescriptor;
-import vazkii.botania.api.subtile.SubTileFunctional;
-import vazkii.botania.api.subtile.SubTileType;
+import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.block.tile.TileFakeAir;
 import vazkii.botania.common.lexicon.LexiconData;
+import vazkii.botania.common.lib.LibMisc;
 
-public class SubTileBubbell extends SubTileFunctional {
+public class SubTileBubbell extends TileEntityFunctionalFlower {
+	@ObjectHolder(LibMisc.MOD_ID + ":bubbell")
+	public static TileEntityType<SubTileBubbell> TYPE;
+
 
 	private static final int RANGE = 12;
 	private static final int RANGE_MINI = 6;
@@ -34,15 +39,19 @@ public class SubTileBubbell extends SubTileFunctional {
 
 	int range = 2;
 
-	public SubTileBubbell(SubTileType type) {
+	public SubTileBubbell(TileEntityType<?> type) {
 		super(type);
 	}
 
-	@Override
-	public void onUpdate() {
-		super.onUpdate();
+	public SubTileBubbell() {
+		this(TYPE);
+	}
 
-		if(supertile.getWorld().isRemote)
+	@Override
+	public void tickFlower() {
+		super.tickFlower();
+
+		if(getWorld().isRemote)
 			return;
 
 		if(ticksExisted % 200 == 0)
@@ -56,11 +65,11 @@ public class SubTileBubbell extends SubTileFunctional {
 
 			for(BlockPos pos : BlockPos.getAllInBoxMutable(getPos().add(-range, -range, -range), getPos().add(range, range, range))) {
 				if(getPos().distanceSq(pos) < range * range) {
-					IBlockState state = supertile.getWorld().getBlockState(pos);
+					IBlockState state = getWorld().getBlockState(pos);
 					if(state.getMaterial() == Material.WATER) {
-						supertile.getWorld().setBlockState(pos, ModBlocks.fakeAir.getDefaultState(), 2);
-						TileFakeAir air = (TileFakeAir) supertile.getWorld().getTileEntity(pos);
-						air.setFlower(supertile);
+						getWorld().setBlockState(pos, ModBlocks.fakeAir.getDefaultState(), 2);
+						TileFakeAir air = (TileFakeAir) getWorld().getTileEntity(pos);
+						air.setFlower(this);
 					}
 				}
 			}
@@ -69,12 +78,8 @@ public class SubTileBubbell extends SubTileFunctional {
 
 	public static boolean isValidBubbell(World world, BlockPos pos) {
 		TileEntity tile = world.getTileEntity(pos);
-		if(tile != null && tile instanceof ISubTileContainer) {
-			ISubTileContainer container = (ISubTileContainer) tile;
-			if(container.getSubTile() != null && container.getSubTile() instanceof SubTileBubbell) {
-				SubTileBubbell bubbell = (SubTileBubbell) container.getSubTile();
-				return bubbell.mana > COST_PER_TICK;
-			}
+		if(tile instanceof SubTileBubbell) {
+			return ((SubTileBubbell) tile).mana > COST_PER_TICK;
 		}
 
 		return false;
@@ -117,8 +122,11 @@ public class SubTileBubbell extends SubTileFunctional {
 	}
 
 	public static class Mini extends SubTileBubbell {
-		public Mini(SubTileType type) {
-			super(type);
+		@ObjectHolder(LibMisc.MOD_ID + ":bubbell_chibi")
+		public static TileEntityType<SubTileBubbell.Mini> TYPE;
+
+		public Mini() {
+			super(TYPE);
 		}
 
 		@Override public int getRange() { return RANGE_MINI; }

@@ -19,6 +19,9 @@ import net.minecraft.client.renderer.model.ModelResourceLocation;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.common.util.LazyOptional;
+import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.item.IFloatingFlower;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.common.core.handler.ConfigHandler;
 
@@ -29,14 +32,11 @@ public class RenderTileFloatingFlower extends TileEntityRenderer {
 
 	@Override
 	public void render(@Nonnull TileEntity tile, double d0, double d1, double d2, float t, int digProgress) {
-		if(ConfigHandler.CLIENT.staticFloaters.get())
+		LazyOptional<IFloatingFlower> floatingOpt = tile.getCapability(BotaniaAPI.FLOATING_FLOWER_CAP);
+		if(!floatingOpt.isPresent())
 			return;
 
-		if (tile != null)
-			if (!tile.getWorld().isBlockLoaded(tile.getPos(), false))
-				return;
-
-
+		IFloatingFlower floatingData = floatingOpt.orElseThrow(NullPointerException::new);
 		BlockRendererDispatcher brd = Minecraft.getInstance().getBlockRendererDispatcher();
 		GlStateManager.pushMatrix();
 		GlStateManager.color4f(1F, 1F, 1F, 1F);
@@ -54,10 +54,12 @@ public class RenderTileFloatingFlower extends TileEntityRenderer {
 
 		Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 
+		/* todo 1.13
 		IBlockState state = tile.getWorld().getBlockState(tile.getPos());
 		state = state.getBlock().getExtendedState(state, tile.getWorld(), tile.getPos());
 		IBakedModel model = brd.getBlockModelShapes().getModelManager().getModel(new ModelResourceLocation("botania:floating_special_flower", "inventory"));
 		brd.getBlockModelRenderer().renderModelBrightness(model, state, 1.0F, true);
+		*/
 
 		GlStateManager.popMatrix();
 

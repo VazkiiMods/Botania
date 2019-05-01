@@ -14,46 +14,51 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockCake;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
-import vazkii.botania.api.subtile.SubTileGenerating;
-import vazkii.botania.api.subtile.SubTileType;
+import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
+import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.lexicon.LexiconData;
+import vazkii.botania.common.lib.LibMisc;
 
-public class SubTileKekimurus extends SubTileGenerating {
+public class SubTileKekimurus extends TileEntityGeneratingFlower {
+	@ObjectHolder(LibMisc.MOD_ID + ":kekimurus")
+	public static TileEntityType<SubTileKekimurus> TYPE;
 
 	private static final int RANGE = 5;
 
-	public SubTileKekimurus(SubTileType type) {
-		super(type);
+	public SubTileKekimurus() {
+		super(TYPE);
 	}
 
 	@Override
-	public void onUpdate() {
-		super.onUpdate();
+	public void tickFlower() {
+		super.tickFlower();
 
-		if (supertile.getWorld().isRemote)
+		if (getWorld().isRemote)
 			return;
 
 		int mana = 1800;
 
-		if(getMaxMana() - this.mana >= mana && !supertile.getWorld().isRemote && ticksExisted % 80 == 0) {
+		if(getMaxMana() - this.mana >= mana && !getWorld().isRemote && ticksExisted % 80 == 0) {
 			for(int i = 0; i < RANGE * 2 + 1; i++)
 				for(int j = 0; j < RANGE * 2 + 1; j++)
 					for(int k = 0; k < RANGE * 2 + 1; k++) {
-						BlockPos pos = supertile.getPos().add(i - RANGE, j - RANGE, k - RANGE);
-						IBlockState state = supertile.getWorld().getBlockState(pos);
+						BlockPos pos = getPos().add(i - RANGE, j - RANGE, k - RANGE);
+						IBlockState state = getWorld().getBlockState(pos);
 						Block block = state.getBlock();
 						if(block instanceof BlockCake) {
 							int nextSlicesEaten = state.get(BlockCake.BITES) + 1;
 							if(nextSlicesEaten > 6)
-								supertile.getWorld().removeBlock(pos);
-							else supertile.getWorld().setBlockState(pos, state.with(BlockCake.BITES, nextSlicesEaten), 1 | 2);
+								getWorld().removeBlock(pos);
+							else getWorld().setBlockState(pos, state.with(BlockCake.BITES, nextSlicesEaten), 1 | 2);
 
-							supertile.getWorld().playEvent(2001, pos, Block.getStateId(state));
-							supertile.getWorld().playSound(null, supertile.getPos(), SoundEvents.ENTITY_GENERIC_EAT, SoundCategory.BLOCKS, 1F, 0.5F + (float) Math.random() * 0.5F);
+							getWorld().playEvent(2001, pos, Block.getStateId(state));
+							getWorld().playSound(null, getPos(), SoundEvents.ENTITY_GENERIC_EAT, SoundCategory.BLOCKS, 1F, 0.5F + (float) Math.random() * 0.5F);
 							this.mana += mana;
 							sync();
 							return;

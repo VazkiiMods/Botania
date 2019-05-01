@@ -17,37 +17,42 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityFurnace;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.crafting.VanillaRecipeTypes;
+import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.item.IExoflameHeatable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
-import vazkii.botania.api.subtile.SubTileFunctional;
-import vazkii.botania.api.subtile.SubTileType;
+import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
+import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.lexicon.LexiconData;
+import vazkii.botania.common.lib.LibMisc;
 
-public class SubTileExoflame extends SubTileFunctional {
+public class SubTileExoflame extends TileEntityFunctionalFlower {
+	@ObjectHolder(LibMisc.MOD_ID + ":exoflame")
+	public static TileEntityType<SubTileExoflame> TYPE;
 
 	private static final int RANGE = 5;
 	private static final int RANGE_Y = 2;
 	private static final int COST = 300;
 
-	public SubTileExoflame(SubTileType type) {
-		super(type);
+	public SubTileExoflame() {
+		super(TYPE);
 	}
 
 	@Override
-	public void onUpdate() {
-		super.onUpdate();
+	public void tickFlower() {
+		super.tickFlower();
 
-		if(supertile.getWorld().isRemote)
+		if(getWorld().isRemote)
 			return;
 
 		boolean did = false;
 
 		for(BlockPos pos : BlockPos.getAllInBox(getPos().add(-RANGE, -RANGE_Y, -RANGE), getPos().add(RANGE, RANGE_Y, RANGE))) {
-			TileEntity tile = supertile.getWorld().getTileEntity(pos);
-			IBlockState state = supertile.getWorld().getBlockState(pos);
+			TileEntity tile = getWorld().getTileEntity(pos);
+			IBlockState state = getWorld().getBlockState(pos);
 			Block block = state.getBlock();
 			if(tile != null) {
 				if(tile instanceof TileEntityFurnace && block == Blocks.FURNACE) {
@@ -56,7 +61,7 @@ public class SubTileExoflame extends SubTileFunctional {
 					if(canSmelt && mana > 2) {
 						if(furnace.getField(0) < 2) { // Field 0 -> Burn time
 							if(furnace.getField(0) == 0)
-								supertile.getWorld().setBlockState(pos, state.with(BlockStateProperties.LIT, true));
+								getWorld().setBlockState(pos, state.with(BlockStateProperties.LIT, true));
 							furnace.setField(0, 200);
 							mana = Math.max(0, mana - COST);
 						}

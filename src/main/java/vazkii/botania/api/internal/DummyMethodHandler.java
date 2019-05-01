@@ -13,7 +13,6 @@ package vazkii.botania.api.internal;
 import net.minecraft.client.renderer.model.ModelResourceLocation;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -31,8 +30,7 @@ import vazkii.botania.api.recipe.RecipeElvenTrade;
 import vazkii.botania.api.recipe.RecipeManaInfusion;
 import vazkii.botania.api.recipe.RecipePetals;
 import vazkii.botania.api.recipe.RecipeRuneAltar;
-import vazkii.botania.api.subtile.SubTileEntity;
-import vazkii.botania.api.subtile.SubTileType;
+import vazkii.botania.api.subtile.TileEntitySpecialFlower;
 
 import java.util.List;
 
@@ -118,31 +116,6 @@ public class DummyMethodHandler implements IInternalMethodHandler {
 	}
 
 	@Override
-	public ItemStack getSubTileAsStack(SubTileType subTile) {
-		return ItemStack.EMPTY;
-	}
-
-	@Override
-	public ItemStack getSubTileAsFloatingFlowerStack(SubTileType subTile) {
-		return getSubTileAsStack(subTile);
-	}
-
-	@Override
-	public SubTileType getStackSubTileKey(ItemStack stack) {
-		return null;
-	}
-
-	@Override
-	public ModelResourceLocation getSubTileBlockModelForName(String name) {
-		return new ModelResourceLocation("builtin/missing", "missing");
-	}
-
-	@Override
-	public ModelResourceLocation getSubTileItemModelForName(String name) {
-		return new ModelResourceLocation("builtin/missing", "missing");
-	}
-
-	@Override
 	public IManaNetwork getManaNetworkInstance() {
 		return DummyManaNetwork.instance;
 	}
@@ -154,7 +127,7 @@ public class DummyMethodHandler implements IInternalMethodHandler {
 	public void drawComplexManaHUD(int color, int mana, int maxMana, String name, ItemStack bindDisplay, boolean properlyBound) {}
 
 	@Override
-	public ItemStack getBindDisplayForFlowerType(SubTileEntity e) {
+	public ItemStack getBindDisplayForFlowerType(TileEntitySpecialFlower e) {
 		return ItemStack.EMPTY;
 	}
 

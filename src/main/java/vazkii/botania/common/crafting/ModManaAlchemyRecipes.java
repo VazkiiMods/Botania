@@ -16,10 +16,10 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
 import vazkii.botania.api.imc.IMC;
 import vazkii.botania.api.recipe.RecipeManaInfusion;
-import vazkii.botania.api.subtile.SubTileType;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.block.ModSubtiles;
@@ -178,7 +178,7 @@ public final class ModManaAlchemyRecipes {
 		IMCSender.send(IMC.REGISTER_MANA_INFUSION, mini(ModSubtiles.solegnoliaChibi, ModSubtiles.solegnolia));
 	}
 	
-	private static RecipeManaInfusion mini(SubTileType mini, SubTileType full) {
-		return RecipeManaInfusion.alchemy(mini.getRegistryName(), ItemBlockSpecialFlower.ofType(mini), new IngredientNBTSubset(ItemBlockSpecialFlower.ofType(full)), 2500);
+	private static RecipeManaInfusion mini(IItemProvider mini, IItemProvider full) {
+		return RecipeManaInfusion.alchemy(mini.asItem().getRegistryName(), new ItemStack(mini), Ingredient.fromItems(full), 2500);
 	}
 }

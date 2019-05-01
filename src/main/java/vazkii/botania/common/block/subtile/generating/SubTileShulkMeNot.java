@@ -9,28 +9,33 @@ import net.minecraft.entity.monster.IMob;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.Particles;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
+import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
-import vazkii.botania.api.subtile.SubTileGenerating;
-import vazkii.botania.api.subtile.SubTileType;
+import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
+import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.lexicon.LexiconData;
+import vazkii.botania.common.lib.LibMisc;
 
-public class SubTileShulkMeNot extends SubTileGenerating {
+public class SubTileShulkMeNot extends TileEntityGeneratingFlower {
+	@ObjectHolder(LibMisc.MOD_ID + ":shulk_me_not")
+	public static TileEntityType<SubTileShulkMeNot> TYPE;
 
 	private static final int RADIUS = 8;
 
-	public SubTileShulkMeNot(SubTileType type) {
-		super(type);
+	public SubTileShulkMeNot() {
+		super(TYPE);
 	}
 
 	@Override
-	public void onUpdate() {
-		super.onUpdate();
+	public void tickFlower() {
+		super.tickFlower();
 		
 		int generate = getMaxMana();
 		

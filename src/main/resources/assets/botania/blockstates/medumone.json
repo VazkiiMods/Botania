@@ -1,18 +1,5 @@
 {
-  "forge_marker": 1,
   "variants": {
-    "": [{
-      "model": "botania:block/shapes/cross_tinted",
-      "textures": {
-        "cross": "botania:blocks/flower_func_medumone"
-      }
-    }],
-    "inventory": [{
-      "model": "builtin/generated",
-      "transform": "forge:default-item",
-      "textures": {
-        "layer0": "botania:blocks/flower_func_medumone"
-      }
-    }]
+    "": { "model": "botania:block/medumone" }
   }
 }

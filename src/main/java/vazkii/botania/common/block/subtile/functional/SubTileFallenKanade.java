@@ -13,32 +13,37 @@ package vazkii.botania.common.block.subtile.functional;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.dimension.EndDimension;
+import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
-import vazkii.botania.api.subtile.SubTileFunctional;
-import vazkii.botania.api.subtile.SubTileType;
+import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
+import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.lexicon.LexiconData;
+import vazkii.botania.common.lib.LibMisc;
 
 import java.util.List;
 
-public class SubTileFallenKanade extends SubTileFunctional {
+public class SubTileFallenKanade extends TileEntityFunctionalFlower {
+	@ObjectHolder(LibMisc.MOD_ID + ":fallen_kanade")
+	public static TileEntityType<SubTileFallenKanade> TYPE;
 
 	private static final int RANGE = 2;
 	private static final int COST = 120;
 
-	public SubTileFallenKanade(SubTileType type) {
-		super(type);
+	public SubTileFallenKanade() {
+		super(TYPE);
 	}
 
 	@Override
-	public void onUpdate() {
-		super.onUpdate();
+	public void tickFlower() {
+		super.tickFlower();
 
-		if(!supertile.getWorld().isRemote && !(supertile.getWorld().getDimension() instanceof EndDimension)) {
+		if(!getWorld().isRemote && !(getWorld().getDimension() instanceof EndDimension)) {
 			boolean did = false;
-			List<EntityPlayer> players = supertile.getWorld().getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(supertile.getPos().add(-RANGE, -RANGE, -RANGE), supertile.getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
+			List<EntityPlayer> players = getWorld().getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(getPos().add(-RANGE, -RANGE, -RANGE), getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
 			for(EntityPlayer player : players) {
 				if(player.getActivePotionEffect(MobEffects.REGENERATION) == null && mana >= COST) {
 					player.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 59, 2, true, true));

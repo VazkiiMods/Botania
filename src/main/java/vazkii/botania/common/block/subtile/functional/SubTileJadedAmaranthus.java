@@ -14,50 +14,54 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.EnumDyeColor;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.subtile.RadiusDescriptor;
-import vazkii.botania.api.subtile.SubTileFunctional;
-import vazkii.botania.api.subtile.SubTileType;
+import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.lexicon.LexiconData;
+import vazkii.botania.common.lib.LibMisc;
 
-public class SubTileJadedAmaranthus extends SubTileFunctional {
+public class SubTileJadedAmaranthus extends TileEntityFunctionalFlower {
+	@ObjectHolder(LibMisc.MOD_ID + ":jaded_amaranthus")
+	public static TileEntityType<SubTileJadedAmaranthus> TYPE;
 
 	private static final int COST = 100;
 	final int RANGE = 4;
 
-	public SubTileJadedAmaranthus(SubTileType type) {
-		super(type);
+	public SubTileJadedAmaranthus() {
+		super(TYPE);
 	}
 
 	@Override
-	public void onUpdate() {
-		super.onUpdate();
+	public void tickFlower() {
+		super.tickFlower();
 
-		if(supertile.getWorld().isRemote || redstoneSignal > 0)
+		if(getWorld().isRemote || redstoneSignal > 0)
 			return;
 
 		if(ticksExisted % 30 == 0 && mana >= COST) {
 			BlockPos pos = new BlockPos(
-					supertile.getPos().getX() - RANGE + supertile.getWorld().rand.nextInt(RANGE * 2 + 1),
-					supertile.getPos().getY() + RANGE,
-					supertile.getPos().getZ() - RANGE + supertile.getWorld().rand.nextInt(RANGE * 2 + 1)
+					getPos().getX() - RANGE + getWorld().rand.nextInt(RANGE * 2 + 1),
+					getPos().getY() + RANGE,
+					getPos().getZ() - RANGE + getWorld().rand.nextInt(RANGE * 2 + 1)
 					);
 
 			BlockPos up = pos.up();
 
 			for(int i = 0; i < RANGE * 2; i++) {
-				IBlockState stateAbove = supertile.getWorld().getBlockState(up);
-				EnumDyeColor color = EnumDyeColor.byId(supertile.getWorld().rand.nextInt(16));
+				IBlockState stateAbove = getWorld().getBlockState(up);
+				EnumDyeColor color = EnumDyeColor.byId(getWorld().rand.nextInt(16));
 				IBlockState flower = ModBlocks.getFlower(color).getDefaultState();
 
-				if((supertile.getWorld().isAirBlock(up) || stateAbove.getMaterial() != Material.WATER && flower.isValidPosition(supertile.getWorld(), up))) {
+				if((getWorld().isAirBlock(up) || stateAbove.getMaterial() != Material.WATER && flower.isValidPosition(getWorld(), up))) {
 					if(ConfigHandler.COMMON.blockBreakParticles.get())
-						supertile.getWorld().playEvent(2001, up, Block.getStateId(flower));
-					supertile.getWorld().setBlockState(up, flower);
+						getWorld().playEvent(2001, up, Block.getStateId(flower));
+					getWorld().setBlockState(up, flower);
 					mana -= COST;
 					sync();
 

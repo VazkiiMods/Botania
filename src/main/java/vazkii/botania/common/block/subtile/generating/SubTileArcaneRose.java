@@ -12,32 +12,37 @@ package vazkii.botania.common.block.subtile.generating;
 
 import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
-import vazkii.botania.api.subtile.SubTileGenerating;
-import vazkii.botania.api.subtile.SubTileType;
+import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
+import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.core.helper.ExperienceHelper;
 import vazkii.botania.common.lexicon.LexiconData;
+import vazkii.botania.common.lib.LibMisc;
 
 import java.util.List;
 
-public class SubTileArcaneRose extends SubTileGenerating {
+public class SubTileArcaneRose extends TileEntityGeneratingFlower {
+	@ObjectHolder(LibMisc.MOD_ID + ":rosa_arcana")
+	public static TileEntityType<SubTileArcaneRose> TYPE;
 
 	private static final int RANGE = 1;
 
-	public SubTileArcaneRose(SubTileType type) {
-		super(type);
+	public SubTileArcaneRose() {
+		super(TYPE);
 	}
 
 	@Override
-	public void onUpdate() {
-		super.onUpdate();
+	public void tickFlower() {
+		super.tickFlower();
 
 		if(mana >= getMaxMana())
 			return;
 
-		List<EntityPlayer> players = supertile.getWorld().getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(supertile.getPos().add(-RANGE, -RANGE, -RANGE), supertile.getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
+		List<EntityPlayer> players = getWorld().getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(getPos().add(-RANGE, -RANGE, -RANGE), getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
 		for(EntityPlayer player : players)
 			if(ExperienceHelper.getPlayerXP(player) >= 1 && player.onGround) {
 				ExperienceHelper.drainPlayerXP(player, 1);
@@ -45,7 +50,7 @@ public class SubTileArcaneRose extends SubTileGenerating {
 				return;
 			}
 
-		List<EntityXPOrb> orbs = supertile.getWorld().getEntitiesWithinAABB(EntityXPOrb.class, new AxisAlignedBB(supertile.getPos().add(-RANGE, -RANGE, -RANGE), supertile.getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
+		List<EntityXPOrb> orbs = getWorld().getEntitiesWithinAABB(EntityXPOrb.class, new AxisAlignedBB(getPos().add(-RANGE, -RANGE, -RANGE), getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
 		for(EntityXPOrb orb : orbs) {
 			mana += orb.getXpValue() * 35;
 			orb.remove();

@@ -12,26 +12,31 @@ package vazkii.botania.common.block.subtile.functional;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.api.subtile.SubTileType;
+import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.lexicon.LexiconData;
+import vazkii.botania.common.lib.LibMisc;
 
 import java.util.Map;
 import java.util.function.Predicate;
 
 public class SubTileOrechidIgnem extends SubTileOrechid {
+	@ObjectHolder(LibMisc.MOD_ID + ":orechid_ignem")
+	public static TileEntityType<SubTileOrechidIgnem> TYPE;
 
 	private static final int COST = 20000;
 
-	public SubTileOrechidIgnem(SubTileType type) {
-		super(type);
+	public SubTileOrechidIgnem() {
+		super(TYPE);
 	}
 
 	@Override
 	public boolean canOperate() {
-		return supertile.getWorld().getDimension().isNether();
+		return getWorld().getDimension().isNether();
 	}
 
 	@Override

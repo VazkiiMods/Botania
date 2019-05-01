@@ -15,30 +15,33 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.Particles;
 import net.minecraft.item.EnumDyeColor;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.particles.ItemParticleData;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.registries.ObjectHolder;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
-import vazkii.botania.api.subtile.SubTileGenerating;
-import vazkii.botania.api.subtile.SubTileType;
+import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.lexicon.LexiconData;
+import vazkii.botania.common.lib.LibMisc;
 
 import java.awt.Color;
 import java.util.List;
 
-public class SubTileSpectrolus extends SubTileGenerating {
+public class SubTileSpectrolus extends TileEntityGeneratingFlower {
+	@ObjectHolder(LibMisc.MOD_ID + ":spectrolus")
+	public static TileEntityType<SubTileSpectrolus> TYPE;
 
 	private static final String TAG_NEXT_COLOR = "nextColor";
 
@@ -46,18 +49,18 @@ public class SubTileSpectrolus extends SubTileGenerating {
 
 	private EnumDyeColor nextColor = EnumDyeColor.WHITE;
 
-	public SubTileSpectrolus(SubTileType type) {
-		super(type);
+	public SubTileSpectrolus() {
+		super(TYPE);
 	}
 
 	@Override
-	public void onUpdate() {
-		super.onUpdate();
+	public void tickFlower() {
+		super.tickFlower();
 
-		if (supertile.getWorld().isRemote)
+		if (getWorld().isRemote)
 			return;
 
-		List<EntityItem> items = supertile.getWorld().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(supertile.getPos().add(-RANGE, -RANGE, -RANGE), supertile.getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
+		List<EntityItem> items = getWorld().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(getPos().add(-RANGE, -RANGE, -RANGE), getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
 		int slowdown = getSlowdownFactor();
 
 		for(EntityItem item : items) {
@@ -71,7 +74,7 @@ public class SubTileSpectrolus extends SubTileGenerating {
 					nextColor = nextColor == EnumDyeColor.BLACK ? EnumDyeColor.WHITE : EnumDyeColor.values()[nextColor.ordinal() + 1];
 					sync();
 
-					((WorldServer) supertile.getWorld()).spawnParticle(new ItemParticleData(Particles.ITEM, stack), item.posX, item.posY, item.posZ, 20, 0.1D, 0.1D, 0.1D, 0.05D);
+					((WorldServer) getWorld()).spawnParticle(new ItemParticleData(Particles.ITEM, stack), item.posX, item.posY, item.posZ, 20, 0.1D, 0.1D, 0.1D, 0.05D);
 				}
 
 				item.remove();

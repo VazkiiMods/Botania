@@ -13,33 +13,37 @@ package vazkii.botania.common.block.subtile.functional;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
-import vazkii.botania.api.subtile.SubTileFunctional;
-import vazkii.botania.api.subtile.SubTileType;
+import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
+import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.lexicon.LexiconData;
-import vazkii.botania.common.lib.LibObfuscation;
+import vazkii.botania.common.lib.LibMisc;
 
 import java.util.List;
 
-public class SubTilePollidisiac extends SubTileFunctional {
+public class SubTilePollidisiac extends TileEntityFunctionalFlower {
+	@ObjectHolder(LibMisc.MOD_ID + ":pollidisiac")
+	public static TileEntityType<SubTilePollidisiac> TYPE;
 
 	private static final int RANGE = 6;
 
-	public SubTilePollidisiac(SubTileType type) {
-		super(type);
+	public SubTilePollidisiac() {
+		super(TYPE);
 	}
 
 	@Override
-	public void onUpdate() {
-		super.onUpdate();
+	public void tickFlower() {
+		super.tickFlower();
 
-		if(!supertile.getWorld().isRemote) {
+		if(!getWorld().isRemote) {
 			int manaCost = 12;
 
-			List<EntityItem> items = supertile.getWorld().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(supertile.getPos().add(-RANGE, -RANGE, -RANGE), supertile.getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
-			List<EntityAnimal> animals = supertile.getWorld().getEntitiesWithinAABB(EntityAnimal.class, new AxisAlignedBB(supertile.getPos().add(-RANGE, -RANGE, -RANGE), supertile.getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
+			List<EntityItem> items = getWorld().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(getPos().add(-RANGE, -RANGE, -RANGE), getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
+			List<EntityAnimal> animals = getWorld().getEntitiesWithinAABB(EntityAnimal.class, new AxisAlignedBB(getPos().add(-RANGE, -RANGE, -RANGE), getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
 			int slowdown = getSlowdownFactor();
 
 			for(EntityAnimal animal : animals) {
@@ -58,7 +62,7 @@ public class SubTilePollidisiac extends SubTileFunctional {
 							mana -= manaCost;
 
 							animal.inLove = 1200;
-							supertile.getWorld().setEntityState(animal, (byte)18);
+							getWorld().setEntityState(animal, (byte)18);
 						}
 					}
 				}

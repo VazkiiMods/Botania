@@ -13,20 +13,25 @@ package vazkii.botania.common.block.subtile.generating;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
-import vazkii.botania.api.subtile.SubTileGenerating;
-import vazkii.botania.api.subtile.SubTileType;
+import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.block.tile.TileCell;
 import vazkii.botania.common.lexicon.LexiconData;
+import vazkii.botania.common.lib.LibMisc;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SubTileDandelifeon extends SubTileGenerating {
+public class SubTileDandelifeon extends TileEntityGeneratingFlower {
+	@ObjectHolder(LibMisc.MOD_ID + ":dandelifeon")
+	public static TileEntityType<SubTileDandelifeon> TYPE;
 
 	private static final int RANGE = 12;
 	private static final int SPEED = 10;
@@ -45,15 +50,15 @@ public class SubTileDandelifeon extends SubTileGenerating {
 		{ +0, -1 }
 	};
 
-	public SubTileDandelifeon(SubTileType type) {
-		super(type);
+	public SubTileDandelifeon() {
+		super(TYPE);
 	}
 
 	@Override
-	public void onUpdate() {
-		super.onUpdate();
+	public void tickFlower() {
+		super.tickFlower();
 
-		if(!supertile.getWorld().isRemote && redstoneSignal > 0 && ticksExisted % SPEED == 0)
+		if(!getWorld().isRemote && redstoneSignal > 0 && ticksExisted % SPEED == 0)
 			runSimulation();
 	}
 
@@ -93,7 +98,7 @@ public class SubTileDandelifeon extends SubTileGenerating {
 				}
 			}
 
-		BlockPos pos = supertile.getPos();
+		BlockPos pos = getPos();
 
 		for(int[] change : changes) {
 			BlockPos pos_ = pos.add(-RANGE + change[0], 0, -RANGE + change[1]);
@@ -111,7 +116,7 @@ public class SubTileDandelifeon extends SubTileGenerating {
 		int diam = RANGE * 2 + 1;
 		int[][] table = new int[diam][diam];
 
-		BlockPos pos = supertile.getPos();
+		BlockPos pos = getPos();
 
 		for(int i = 0; i < diam; i++)
 			for(int j = 0; j < diam; j++) {
@@ -123,9 +128,9 @@ public class SubTileDandelifeon extends SubTileGenerating {
 	}
 
 	private int getCellGeneration(BlockPos pos) {
-		TileEntity tile = supertile.getWorld().getTileEntity(pos);
+		TileEntity tile = getWorld().getTileEntity(pos);
 		if(tile instanceof TileCell)
-			return ((TileCell) tile).isSameFlower(supertile) ? ((TileCell) tile).getGeneration() : 0;
+			return ((TileCell) tile).isSameFlower(this) ? ((TileCell) tile).getGeneration() : 0;
 
 			return -1;
 	}
@@ -165,7 +170,7 @@ public class SubTileDandelifeon extends SubTileGenerating {
 	}
 
 	void setBlockForGeneration(BlockPos pos, int gen, int prevGen) {
-		World world = supertile.getWorld();
+		World world = getWorld();
 		IBlockState stateAt = world.getBlockState(pos);
 		Block blockAt = stateAt.getBlock();
 		TileEntity tile = world.getTileEntity(pos);
@@ -176,11 +181,11 @@ public class SubTileDandelifeon extends SubTileGenerating {
 		} else if(blockAt == ModBlocks.cellBlock) {
 			if(gen < 0)
 				world.removeBlock(pos);
-			else ((TileCell) tile).setGeneration(supertile, gen);
-		} else if(gen >= 0 && blockAt.isAir(stateAt, supertile.getWorld(), pos)) {
+			else ((TileCell) tile).setGeneration(this, gen);
+		} else if(gen >= 0 && blockAt.isAir(stateAt, getWorld(), pos)) {
 			world.setBlockState(pos, ModBlocks.cellBlock.getDefaultState());
 			tile = world.getTileEntity(pos);
-			((TileCell) tile).setGeneration(supertile, gen);
+			((TileCell) tile).setGeneration(this, gen);
 		}
 	}
 

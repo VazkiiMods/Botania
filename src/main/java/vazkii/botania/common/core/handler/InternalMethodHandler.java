@@ -14,8 +14,6 @@ import net.minecraft.block.Block;
 import net.minecraft.client.renderer.model.ModelResourceLocation;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -39,10 +37,9 @@ import vazkii.botania.api.recipe.RecipeManaInfusion;
 import vazkii.botania.api.recipe.RecipePetals;
 import vazkii.botania.api.recipe.RecipeRuneAltar;
 import vazkii.botania.api.subtile.ISpecialFlower;
-import vazkii.botania.api.subtile.SubTileEntity;
-import vazkii.botania.api.subtile.SubTileFunctional;
-import vazkii.botania.api.subtile.SubTileGenerating;
-import vazkii.botania.api.subtile.SubTileType;
+import vazkii.botania.api.subtile.TileEntitySpecialFlower;
+import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
+import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.client.core.handler.BossBarHandler;
 import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.common.Botania;
@@ -97,16 +94,6 @@ public class InternalMethodHandler extends DummyMethodHandler {
 	}
 
 	@Override
-	public ModelResourceLocation getSubTileBlockModelForName(String name) {
-		return BotaniaAPIClient.getRegisteredSubtileBlockModels().get(name);
-	}
-
-	@Override
-	public ModelResourceLocation getSubTileItemModelForName(String name) {
-		return BotaniaAPIClient.getRegisteredSubtileItemModels().get(name);
-	}
-
-	@Override
 	public LexiconPage petalRecipesPage(String key, List<RecipePetals> recipes) {
 		return new PagePetalRecipe<>(key, recipes);
 	}
@@ -157,21 +144,6 @@ public class InternalMethodHandler extends DummyMethodHandler {
 	}
 
 	@Override
-	public ItemStack getSubTileAsStack(SubTileType subTile) {
-		return ItemBlockSpecialFlower.ofType(subTile);
-	}
-
-	@Override
-	public ItemStack getSubTileAsFloatingFlowerStack(SubTileType subTile) {
-		return ItemBlockSpecialFlower.ofType(new ItemStack(ModBlocks.floatingSpecialFlower), subTile);
-	}
-
-	@Override
-	public SubTileType getStackSubTileKey(ItemStack stack) {
-		return ItemBlockSpecialFlower.getType(stack);
-	}
-
-	@Override
 	public IManaNetwork getManaNetworkInstance() {
 		return ManaNetworkHandler.instance;
 	}
@@ -192,8 +164,8 @@ public class InternalMethodHandler extends DummyMethodHandler {
 	}
 
 	@Override
-	public ItemStack getBindDisplayForFlowerType(SubTileEntity e) {
-		return e instanceof SubTileGenerating ? new ItemStack(ModBlocks.manaSpreader) : e instanceof SubTileFunctional ? new ItemStack(ModBlocks.manaPool) : new ItemStack(ModItems.twigWand);
+	public ItemStack getBindDisplayForFlowerType(TileEntitySpecialFlower e) {
+		return e instanceof TileEntityGeneratingFlower ? new ItemStack(ModBlocks.manaSpreader) : e instanceof TileEntityFunctionalFlower ? new ItemStack(ModBlocks.manaPool) : new ItemStack(ModItems.twigWand);
 	}
 
 	@Override

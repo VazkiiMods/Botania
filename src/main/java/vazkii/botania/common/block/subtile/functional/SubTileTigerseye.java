@@ -18,38 +18,42 @@ import net.minecraft.entity.item.EntityEnderCrystal;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.passive.EntityOcelot;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
-import vazkii.botania.api.subtile.SubTileFunctional;
-import vazkii.botania.api.subtile.SubTileType;
+import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
+import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.lexicon.LexiconData;
-import vazkii.botania.common.lib.LibObfuscation;
+import vazkii.botania.common.lib.LibMisc;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SubTileTigerseye extends SubTileFunctional {
+public class SubTileTigerseye extends TileEntityFunctionalFlower {
+	@ObjectHolder(LibMisc.MOD_ID + ":tigerseye")
+	public static TileEntityType<SubTileTigerseye> TYPE;
 
 	private static final int RANGE = 10;
 	private static final int RANGE_Y = 4;
 
-	public SubTileTigerseye(SubTileType type) {
-		super(type);
+	public SubTileTigerseye() {
+		super(TYPE);
 	}
 
 	@Override
-	public void onUpdate() {
-		super.onUpdate();
+	public void tickFlower() {
+		super.tickFlower();
 
-		if(supertile.getWorld().isRemote)
+		if(getWorld().isRemote)
 			return;
 
 		final int cost = 70;
 
 		boolean shouldAfffect = mana >= cost;
 
-		List<EntityLiving> entities = supertile.getWorld().getEntitiesWithinAABB(EntityLiving.class, new AxisAlignedBB(supertile.getPos().add(-RANGE, -RANGE_Y, -RANGE), supertile.getPos().add(RANGE + 1, RANGE_Y + 1, RANGE + 1)));
+		List<EntityLiving> entities = getWorld().getEntitiesWithinAABB(EntityLiving.class, new AxisAlignedBB(getPos().add(-RANGE, -RANGE_Y, -RANGE), getPos().add(RANGE + 1, RANGE_Y + 1, RANGE + 1)));
 
 		for(EntityLiving entity : entities) {
 			List<EntityAITaskEntry> entries = new ArrayList<>(entity.tasks.taskEntries);

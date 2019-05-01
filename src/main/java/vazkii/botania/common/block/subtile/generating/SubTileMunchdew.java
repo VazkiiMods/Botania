@@ -11,28 +11,32 @@
 package vazkii.botania.common.block.subtile.generating;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
-import vazkii.botania.api.subtile.SubTileGenerating;
-import vazkii.botania.api.subtile.SubTileType;
+import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
+import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lexicon.LexiconData;
+import vazkii.botania.common.lib.LibMisc;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class SubTileMunchdew extends SubTileGenerating {
+public class SubTileMunchdew extends TileEntityGeneratingFlower {
+	@ObjectHolder(LibMisc.MOD_ID + ":munchdew")
+	public static TileEntityType<SubTileMunchdew> TYPE;
 
 	private static final String TAG_COOLDOWN = "cooldown";
 	private static final String TAG_ATE_ONCE = "ateOnce";
@@ -44,13 +48,13 @@ public class SubTileMunchdew extends SubTileGenerating {
 	private int ticksWithoutEating = -1;
 	private int cooldown = 0;
 
-	public SubTileMunchdew(SubTileType type) {
-		super(type);
+	public SubTileMunchdew() {
+		super(TYPE);
 	}
 
 	@Override
-	public void onUpdate() {
-		super.onUpdate();
+	public void tickFlower() {
+		super.tickFlower();
 
 		if(getWorld().isRemote)
 			return;
@@ -66,13 +70,13 @@ public class SubTileMunchdew extends SubTileGenerating {
 		eatLeaves : {
 			if(getMaxMana() - mana >= manaPerLeaf && ticksExisted % 4 == 0) {
 				List<BlockPos> coords = new ArrayList<>();
-				BlockPos pos = supertile.getPos();
+				BlockPos pos = getPos();
 
 				nextCoord:
 				for(BlockPos pos_ : BlockPos.getAllInBox(pos.add(-RANGE, 0, -RANGE), pos.add(RANGE, RANGE_Y, RANGE))) {
-					if(supertile.getWorld().getBlockState(pos_).getBlock().isIn(BlockTags.LEAVES)) {
+					if(getWorld().getBlockState(pos_).getBlock().isIn(BlockTags.LEAVES)) {
 						for(EnumFacing dir : EnumFacing.values()) {
-							if(supertile.getWorld().isAirBlock(pos_.offset(dir))) {
+							if(getWorld().isAirBlock(pos_.offset(dir))) {
 								coords.add(pos_);
 								break nextCoord;
 							}
@@ -85,12 +89,12 @@ public class SubTileMunchdew extends SubTileGenerating {
 
 				Collections.shuffle(coords);
 				BlockPos breakCoords = coords.get(0);
-				IBlockState state = supertile.getWorld().getBlockState(breakCoords);
-				supertile.getWorld().removeBlock(breakCoords);
+				IBlockState state = getWorld().getBlockState(breakCoords);
+				getWorld().removeBlock(breakCoords);
 				ticksWithoutEating = 0;
 				ateOnce = true;
 				if(ConfigHandler.COMMON.blockBreakParticles.get())
-					supertile.getWorld().playEvent(2001, breakCoords, Block.getStateId(state));
+					getWorld().playEvent(2001, breakCoords, Block.getStateId(state));
 				mana += manaPerLeaf;
 			}
 		}

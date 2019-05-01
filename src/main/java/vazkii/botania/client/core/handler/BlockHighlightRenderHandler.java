@@ -25,9 +25,8 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.api.distmarker.Dist;
 import org.lwjgl.opengl.GL11;
-import vazkii.botania.api.subtile.ISubTileContainer;
 import vazkii.botania.api.subtile.RadiusDescriptor;
-import vazkii.botania.api.subtile.SubTileEntity;
+import vazkii.botania.api.subtile.TileEntitySpecialFlower;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.entity.EntityMagicLandmine;
@@ -66,10 +65,9 @@ public final class BlockHighlightRenderHandler {
 				}
 
 				TileEntity tile = mc.world.getTileEntity(bPos);
-				if(tile == null || !(tile instanceof ISubTileContainer))
+				if(tile == null || !(tile instanceof TileEntitySpecialFlower))
 					break boundTile;
-				ISubTileContainer container = (ISubTileContainer) tile;
-				SubTileEntity subtile = container.getSubTile();
+				TileEntitySpecialFlower subtile = (TileEntitySpecialFlower) tile;
 				if(subtile == null)
 					break boundTile;
 				RadiusDescriptor descriptor = subtile.getRadius();

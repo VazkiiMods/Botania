@@ -1,18 +1,5 @@
 {
-  "forge_marker": 1,
   "variants": {
-    "": [{
-      "model": "botania:block/shapes/cross_tinted",
-      "textures": {
-        "cross": "botania:blocks/flower_misc_manastar"
-      }
-    }],
-    "inventory": [{
-      "model": "builtin/generated",
-      "transform": "forge:default-item",
-      "textures": {
-        "layer0": "botania:blocks/flower_misc_manastar"
-      }
-    }]
+    "": { "model": "botania:block/manastar" }
   }
 }

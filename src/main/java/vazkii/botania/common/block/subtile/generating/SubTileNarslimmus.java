@@ -13,43 +13,46 @@ package vazkii.botania.common.block.subtile.generating;
 import net.minecraft.entity.monster.EntitySlime;
 import net.minecraft.init.Particles;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.SharedSeedRandom;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
-import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
-import vazkii.botania.api.subtile.SubTileGenerating;
-import vazkii.botania.api.subtile.SubTileType;
+import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
+import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibMisc;
 
 import java.util.List;
 
 @Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
-public class SubTileNarslimmus extends SubTileGenerating {
+public class SubTileNarslimmus extends TileEntityGeneratingFlower {
+	@ObjectHolder(LibMisc.MOD_ID + ":narslimmus")
+	public static TileEntityType<SubTileNarslimmus> TYPE;
 
 	public static final String TAG_WORLD_SPAWNED = "Botania:WorldSpawned";
 
 	private static final int RANGE = 2;
 
-	public SubTileNarslimmus(SubTileType type) {
-		super(type);
+	public SubTileNarslimmus() {
+		super(TYPE);
 	}
 
 	@Override
-	public void onUpdate() {
-		super.onUpdate();
+	public void tickFlower() {
+		super.tickFlower();
 
 		if(ticksExisted % 5 == 0) {
-			List<EntitySlime> slimes = supertile.getWorld().getEntitiesWithinAABB(EntitySlime.class, new AxisAlignedBB(supertile.getPos().add(-RANGE, -RANGE, -RANGE), supertile.getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
+			List<EntitySlime> slimes = getWorld().getEntitiesWithinAABB(EntitySlime.class, new AxisAlignedBB(getPos().add(-RANGE, -RANGE, -RANGE), getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
 			for(EntitySlime slime : slimes) {
 				if(slime.getEntityData().getBoolean(TAG_WORLD_SPAWNED) && slime.isAlive()) {
 					int size = slime.getSlimeSize();
