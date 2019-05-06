@@ -281,8 +281,10 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 
 					pos = beaconPos.add(x, y, z);
 
+					IBlockState state = world.getBlockState(pos);
+
 					boolean allowBlockHere = y < 0;
-					boolean isBlockHere = world.getBlockState(pos).getCollisionBoundingBox(world, pos) != null;
+					boolean isBlockHere = state.getCollisionBoundingBox(world, pos) != null;
 
 					if(allowBlockHere && isBlockHere) //floor is here! good
 						hasFloor = true;
@@ -290,7 +292,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 					if(y == 0 && !hasFloor) //column is entirely missing floor
 						trippedPositions.add(pos.down());
 
-					if(!allowBlockHere && isBlockHere) //ceiling is obstructed in this column
+					if(!allowBlockHere && isBlockHere && !BotaniaAPI.gaiaBreakBlacklist.contains(state.getBlock())) //ceiling is obstructed in this column
 						trippedPositions.add(pos);
 				}
 			}
