@@ -13,21 +13,26 @@ package vazkii.botania.common.block.subtile;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.recipe.RecipePureDaisy;
 import vazkii.botania.api.subtile.RadiusDescriptor;
-import vazkii.botania.api.subtile.SubTileEntity;
-import vazkii.botania.api.subtile.SubTileType;
+import vazkii.botania.api.subtile.TileEntitySpecialFlower;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.lexicon.LexiconData;
+import vazkii.botania.common.lib.LibMisc;
 
 import java.util.Arrays;
 
-public class SubTilePureDaisy extends SubTileEntity {
+public class SubTilePureDaisy extends TileEntitySpecialFlower {
+	@ObjectHolder(LibMisc.MOD_ID + ":pure_daisy")
+	public static TileEntityType<SubTilePureDaisy> TYPE;
 
 	private static final String TAG_POSITION = "position";
 	private static final String TAG_TICKS_REMAINING = "ticksRemaining";
@@ -51,14 +56,14 @@ public class SubTilePureDaisy extends SubTileEntity {
 	// Bitfield of active positions, used clientside for particles
 	private int activePositions = 0;
 
-	public SubTilePureDaisy(SubTileType type) {
-		super(type);
+	public SubTilePureDaisy() {
+		super(TYPE);
 		Arrays.fill(ticksRemaining, -1);
 	}
 
 	@Override
-	public void onUpdate() {
-		super.onUpdate();
+	public void tickFlower() {
+		super.tickFlower();
 
 		if(getWorld().isRemote) {
 			for (int i = 0; i < POSITIONS.length; i++) {
@@ -76,8 +81,8 @@ public class SubTilePureDaisy extends SubTileEntity {
 			positionAt = 0;
 
 		BlockPos acoords = POSITIONS[positionAt];
-		BlockPos coords = supertile.getPos().add(acoords);
-		World world = supertile.getWorld();
+		BlockPos coords = getPos().add(acoords);
+		World world = getWorld();
 		if(!world.isAirBlock(coords)) {
 			world.profiler.startSection("findRecipe");
 			RecipePureDaisy recipe = findRecipe(coords);
@@ -92,9 +97,9 @@ public class SubTilePureDaisy extends SubTileEntity {
 					ticksRemaining[positionAt] = -1;
 
 					if(recipe.set(world,coords, this)) {
-						world.addBlockEvent(getPos(), supertile.getBlockState().getBlock(), RECIPE_COMPLETE_EVENT, positionAt);
+						world.addBlockEvent(getPos(), getBlockState().getBlock(), RECIPE_COMPLETE_EVENT, positionAt);
 						if(ConfigHandler.COMMON.blockBreakParticles.get())
-							supertile.getWorld().playEvent(2001, coords, Block.getStateId(recipe.getOutputState()));
+							getWorld().playEvent(2001, coords, Block.getStateId(recipe.getOutputState()));
 					}
 				}
 			} else ticksRemaining[positionAt] = -1;
@@ -112,7 +117,7 @@ public class SubTilePureDaisy extends SubTileEntity {
 		}
 
 		if (newActivePositions != activePositions) {
-			getWorld().addBlockEvent(getPos(), supertile.getBlockState().getBlock(), UPDATE_ACTIVE_EVENT, newActivePositions);
+			getWorld().addBlockEvent(getPos(), getBlockState().getBlock(), UPDATE_ACTIVE_EVENT, newActivePositions);
 		}
 	}
 
@@ -159,7 +164,7 @@ public class SubTilePureDaisy extends SubTileEntity {
 	public void readFromPacketNBT(NBTTagCompound cmp) {
 		positionAt = cmp.getInt(TAG_POSITION);
 
-		if(supertile.getWorld() != null && !supertile.getWorld().isRemote)
+		if(getWorld() != null && !getWorld().isRemote)
 			for(int i = 0; i < ticksRemaining.length; i++)
 				ticksRemaining[i] = cmp.getInt(TAG_TICKS_REMAINING + i);
 	}

@@ -12,16 +12,21 @@ package vazkii.botania.common.block.subtile.functional;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.EntityAnimal;
+import net.minecraft.tileentity.TileEntityType;
+import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.api.subtile.SubTileType;
+import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.lexicon.LexiconData;
+import vazkii.botania.common.lib.LibMisc;
 
 import java.util.function.Predicate;
 
 public class SubTileDreadthorn extends SubTileBellethorn {
+	@ObjectHolder(LibMisc.MOD_ID + ":dreadthorn")
+	public static TileEntityType<SubTileDreadthorn> TYPE;
 
-	public SubTileDreadthorn(SubTileType type) {
-		super(type);
+	public SubTileDreadthorn() {
+		super(TYPE);
 	}
 
 	@Override

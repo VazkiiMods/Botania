@@ -1,8 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "botania:special_flower",
-      "nbt": "{\"type\": \"heiseiDream\"}"
+      "item": "botania:heisei_dream"
     },
     "title": {
       "translate": "advancement.botania:heiseiDreamPickup"
@@ -18,8 +17,7 @@
       "conditions": {
         "items": [
           {
-            "item": "botania:special_flower",
-            "nbt": "{\"type\": \"heiseiDream\"}"
+            "item": "botania:heisei_dream"
           }
         ]
       }

@@ -18,7 +18,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.registries.ObjectHolder;
-import vazkii.botania.api.subtile.ISubTileContainer;
+import vazkii.botania.api.subtile.TileEntitySpecialFlower;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
@@ -37,7 +37,7 @@ public class TileRedStringRelay extends TileRedString {
 
 		Block block = world.getBlockState(pos).getBlock();
 		TileEntity tile = world.getTileEntity(pos);
-		return (block instanceof BlockFlower || block instanceof BlockMushroom || block instanceof BlockDoublePlant) && (tile == null || !(tile instanceof ISubTileContainer));
+		return (block instanceof BlockFlower || block instanceof BlockMushroom || block instanceof BlockDoublePlant) && (tile == null || !(tile instanceof TileEntitySpecialFlower));
 	}
 
 }

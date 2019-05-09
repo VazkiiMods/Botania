@@ -10,14 +10,19 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
+import net.minecraft.tileentity.TileEntityType;
+import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.api.subtile.SubTileType;
+import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.lexicon.LexiconData;
+import vazkii.botania.common.lib.LibMisc;
 
 public class SubTileJiyuulia extends SubTileTangleberrie {
+	@ObjectHolder(LibMisc.MOD_ID + ":jiyuulia")
+	public static TileEntityType<SubTileJiyuulia> TYPE;
 
-	public SubTileJiyuulia(SubTileType type) {
-		super(type);
+	public SubTileJiyuulia() {
+		super(TYPE);
 	}
 
 	@Override

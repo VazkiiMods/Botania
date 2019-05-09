@@ -21,6 +21,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityChest;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -28,21 +29,25 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
+import net.minecraftforge.registries.ObjectHolder;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.corporea.InvWithLocation;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.subtile.RadiusDescriptor;
-import vazkii.botania.api.subtile.SubTileFunctional;
-import vazkii.botania.api.subtile.SubTileType;
+import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
+import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.core.helper.InventoryHelper;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.lexicon.LexiconData;
+import vazkii.botania.common.lib.LibMisc;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SubTileHopperhock extends SubTileFunctional {
+public class SubTileHopperhock extends TileEntityFunctionalFlower {
+	@ObjectHolder(LibMisc.MOD_ID + ":hopperhock")
+	public static TileEntityType<SubTileHopperhock> TYPE;
 
 	private static final String TAG_FILTER_TYPE = "filterType";
 	private static final int RANGE_MANA = 10;
@@ -53,23 +58,27 @@ public class SubTileHopperhock extends SubTileFunctional {
 
 	private int filterType = 0;
 
-	public SubTileHopperhock(SubTileType type) {
+	public SubTileHopperhock(TileEntityType<?> type) {
 		super(type);
 	}
 
-	@Override
-	public void onUpdate() {
-		super.onUpdate();
+	public SubTileHopperhock() {
+		this(TYPE);
+	}
 
-		if(supertile.getWorld().isRemote || redstoneSignal > 0)
+	@Override
+	public void tickFlower() {
+		super.tickFlower();
+
+		if(getWorld().isRemote || redstoneSignal > 0)
 			return;
 
 		boolean pulledAny = false;
 		int range = getRange();
 
-		BlockPos pos = supertile.getPos();
+		BlockPos pos = getPos();
 
-		List<EntityItem> items = supertile.getWorld().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(pos.add(-range, -range, -range), pos.add(range + 1, range + 1, range + 1)));
+		List<EntityItem> items = getWorld().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(pos.add(-range, -range, -range), pos.add(range + 1, range + 1, range + 1)));
 		int slowdown = getSlowdownFactor();
 
 		for(EntityItem item : items) {
@@ -84,7 +93,7 @@ public class SubTileHopperhock extends SubTileFunctional {
 			for(EnumFacing dir : EnumFacing.values()) {
 				BlockPos pos_ = pos.offset(dir);
 
-				InvWithLocation inv = InventoryHelper.getInventoryWithLocation(supertile.getWorld(), pos_, dir.getOpposite());
+				InvWithLocation inv = InventoryHelper.getInventoryWithLocation(getWorld(), pos_, dir.getOpposite());
 				if(inv != null) {
 					List<ItemStack> filter = getFilterForInventory(pos_, true);
 					boolean canAccept = canAcceptItem(stack, filter, filterType);
@@ -157,12 +166,12 @@ public class SubTileHopperhock extends SubTileFunctional {
 		List<ItemStack> filter = new ArrayList<>();
 
 		if(recursiveForDoubleChests) {
-			TileEntity tileEntity = supertile.getWorld().getTileEntity(pos);
-			Block chest = supertile.getWorld().getBlockState(pos).getBlock();
+			TileEntity tileEntity = getWorld().getTileEntity(pos);
+			Block chest = getWorld().getBlockState(pos).getBlock();
 
 			if(tileEntity instanceof TileEntityChest)
 				for(EnumFacing dir : MathHelper.HORIZONTALS)
-					if(supertile.getWorld().getBlockState(pos.offset(dir)).getBlock() == chest) {
+					if(getWorld().getBlockState(pos.offset(dir)).getBlock() == chest) {
 						filter.addAll(getFilterForInventory(pos.offset(dir), false));
 						break;
 					}
@@ -170,7 +179,7 @@ public class SubTileHopperhock extends SubTileFunctional {
 
 		for(EnumFacing dir : MathHelper.HORIZONTALS) {
 			AxisAlignedBB aabb = new AxisAlignedBB(pos.offset(dir));
-			List<EntityItemFrame> frames = supertile.getWorld().getEntitiesWithinAABB(EntityItemFrame.class, aabb);
+			List<EntityItemFrame> frames = getWorld().getEntitiesWithinAABB(EntityItemFrame.class, aabb);
 			for(EntityItemFrame frame : frames) {
 				if(frame.facingDirection == dir)
 					filter.add(frame.getDisplayedItem());
@@ -254,8 +263,11 @@ public class SubTileHopperhock extends SubTileFunctional {
 	}
 
 	public static class Mini extends SubTileHopperhock {
-		public Mini(SubTileType type) {
-			super(type);
+		@ObjectHolder(LibMisc.MOD_ID + ":hopperhock_chibi")
+		public static TileEntityType<SubTileBellethorn> TYPE;
+
+		public Mini() {
+			super(TYPE);
 		}
 
 		@Override public int getRange() { return mana > 0 ? RANGE_MANA_MINI : RANGE_MINI; }

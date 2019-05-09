@@ -10,22 +10,17 @@
  */
 package vazkii.botania.common.item;
 
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import vazkii.botania.api.mana.IManaCollector;
 import vazkii.botania.api.mana.IManaPool;
-import vazkii.botania.api.subtile.ISubTileContainer;
-import vazkii.botania.api.subtile.SubTileEntity;
-import vazkii.botania.api.subtile.SubTileFunctional;
-import vazkii.botania.api.subtile.SubTileGenerating;
+import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
+import vazkii.botania.api.subtile.TileEntitySpecialFlower;
+import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.core.helper.Vector3;
-import vazkii.botania.common.lib.LibItemNames;
 
 import javax.annotation.Nonnull;
 import java.util.function.BiFunction;
@@ -45,16 +40,16 @@ public class ItemObedienceStick extends ItemMod {
 		TileEntity tileAt = world.getTileEntity(pos);
 		if(tileAt instanceof IManaPool || tileAt instanceof IManaCollector) {
 			boolean pool = tileAt instanceof IManaPool;
-			BiFunction<SubTileEntity, TileEntity, Boolean> act = pool ? functionalActuator : generatingActuator;
-			int range = pool ? SubTileFunctional.LINK_RANGE : SubTileGenerating.LINK_RANGE;
+			BiFunction<TileEntitySpecialFlower, TileEntity, Boolean> act = pool ? functionalActuator : generatingActuator;
+			int range = pool ? TileEntityFunctionalFlower.LINK_RANGE : TileEntityGeneratingFlower.LINK_RANGE;
 
 			for(BlockPos pos_ : BlockPos.getAllInBox(pos.add(-range, -range, -range), pos.add(range, range, range))) {
 				if(pos_.distanceSq(pos) > range * range)
 					continue;
 
 				TileEntity tile = world.getTileEntity(pos_);
-				if(tile instanceof ISubTileContainer) {
-					SubTileEntity subtile = ((ISubTileContainer) tile).getSubTile();
+				if(tile instanceof TileEntitySpecialFlower) {
+					TileEntitySpecialFlower subtile = ((TileEntitySpecialFlower) tile);
 					if(act.apply(subtile, tileAt)) {
 						Vector3 orig = new Vector3(pos_.getX() + 0.5, pos_.getY() + 0.5, pos_.getZ() + 0.5);
 						Vector3 end = new Vector3(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
@@ -69,17 +64,17 @@ public class ItemObedienceStick extends ItemMod {
 		return EnumActionResult.PASS;
 	}
 
-	private static final BiFunction<SubTileEntity, TileEntity, Boolean> generatingActuator = (flower, tile) -> {
-		if(flower instanceof SubTileGenerating) {
-			((SubTileGenerating) flower).linkToForcefully(tile);
+	private static final BiFunction<TileEntitySpecialFlower, TileEntity, Boolean> generatingActuator = (flower, tile) -> {
+		if(flower instanceof TileEntityGeneratingFlower) {
+			((TileEntityGeneratingFlower) flower).linkToForcefully(tile);
 			return true;
 		}
 		return false;
 	};
 
-	private static final BiFunction<SubTileEntity, TileEntity, Boolean> functionalActuator = (flower, tile) -> {
-		if(flower instanceof SubTileFunctional) {
-			((SubTileFunctional) flower).linkToForcefully(tile);
+	private static final BiFunction<TileEntitySpecialFlower, TileEntity, Boolean> functionalActuator = (flower, tile) -> {
+		if(flower instanceof TileEntityFunctionalFlower) {
+			((TileEntityFunctionalFlower) flower).linkToForcefully(tile);
 			return true;
 		}
 		return false;

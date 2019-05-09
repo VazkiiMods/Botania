@@ -14,24 +14,33 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityWitch;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
-import vazkii.botania.api.subtile.SubTileFunctional;
-import vazkii.botania.api.subtile.SubTileType;
+import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
+import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.lexicon.LexiconData;
+import vazkii.botania.common.lib.LibMisc;
 
 import java.util.List;
 import java.util.function.Predicate;
 
-public class SubTileBellethorn extends SubTileFunctional {
+public class SubTileBellethorn extends TileEntityFunctionalFlower {
+	@ObjectHolder(LibMisc.MOD_ID + ":bellethorn")
+	public static TileEntityType<SubTileBellethorn> TYPE;
 
 	public static final int RANGE = 6;
 	public static final int RANGE_MINI = 1;
 
-	public SubTileBellethorn(SubTileType type) {
+	public SubTileBellethorn(TileEntityType<?> type) {
 		super(type);
+	}
+
+	public SubTileBellethorn() {
+		this(TYPE);
 	}
 
 	@Override
@@ -45,10 +54,10 @@ public class SubTileBellethorn extends SubTileFunctional {
 	}
 
 	@Override
-	public void onUpdate() {
-		super.onUpdate();
+	public void tickFlower() {
+		super.tickFlower();
 
-		if(supertile.getWorld().isRemote || redstoneSignal > 0)
+		if(getWorld().isRemote || redstoneSignal > 0)
 			return;
 
 		if(ticksExisted % 200 == 0)
@@ -58,7 +67,7 @@ public class SubTileBellethorn extends SubTileFunctional {
 
 		if(ticksExisted % 5 == 0) {
 			int range = getRange();
-			List<EntityLivingBase> entities = supertile.getWorld().getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(supertile.getPos().add(-range, -range, -range), supertile.getPos().add(range + 1, range + 1, range + 1)), getSelector()::test);
+			List<EntityLivingBase> entities = getWorld().getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(getPos().add(-range, -range, -range), getPos().add(range + 1, range + 1, range + 1)), getSelector()::test);
 
 			for(EntityLivingBase entity : entities) {
 				if(entity.hurtTime == 0 && mana >= manaToUse) {
@@ -102,8 +111,11 @@ public class SubTileBellethorn extends SubTileFunctional {
 	}
 
 	public static class Mini extends SubTileBellethorn {
-		public Mini(SubTileType type) {
-			super(type);
+		@ObjectHolder(LibMisc.MOD_ID + ":bellethorn_chibi")
+		public static TileEntityType<SubTileBellethorn.Mini> TYPE;
+
+		public Mini() {
+			super(TYPE);
 		}
 
 		@Override public int getRange() { return RANGE_MINI; }

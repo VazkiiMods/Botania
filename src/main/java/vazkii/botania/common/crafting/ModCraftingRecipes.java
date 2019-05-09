@@ -11,54 +11,23 @@
 package vazkii.botania.common.crafting;
 
 import com.google.common.collect.ImmutableList;
-import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.crafting.VanillaRecipeTypes;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.server.ServerLifecycleHooks;
-import net.minecraftforge.registries.IForgeRegistry;
-import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.Botania;
-import vazkii.botania.common.BotaniaRegistries;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.block.ModFluffBlocks;
-import vazkii.botania.common.crafting.recipe.AncientWillRecipe;
-import vazkii.botania.common.crafting.recipe.ArmorUpgradeRecipe;
-import vazkii.botania.common.crafting.recipe.BlackHoleTalismanExtractRecipe;
-import vazkii.botania.common.crafting.recipe.CompositeLensRecipe;
-import vazkii.botania.common.crafting.recipe.CosmeticAttachRecipe;
-import vazkii.botania.common.crafting.recipe.CosmeticRemoveRecipe;
-import vazkii.botania.common.crafting.recipe.HelmRevealingRecipe;
-import vazkii.botania.common.crafting.recipe.KeepIvyRecipe;
-import vazkii.botania.common.crafting.recipe.LensDyeingRecipe;
-import vazkii.botania.common.crafting.recipe.ManaGunClipRecipe;
-import vazkii.botania.common.crafting.recipe.ManaGunLensRecipe;
-import vazkii.botania.common.crafting.recipe.ManaGunRemoveLensRecipe;
-import vazkii.botania.common.crafting.recipe.ManaUpgradeRecipe;
-import vazkii.botania.common.crafting.recipe.PhantomInkRecipe;
-import vazkii.botania.common.crafting.recipe.ShapelessManaUpgradeRecipe;
-import vazkii.botania.common.crafting.recipe.SpecialFloatingFlowerRecipe;
-import vazkii.botania.common.crafting.recipe.SpellClothRecipe;
-import vazkii.botania.common.crafting.recipe.TerraPickTippingRecipe;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.bauble.ItemBaubleCosmetic;
 import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibMisc;
-import vazkii.botania.common.lib.LibOreDict;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-@Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
 public final class ModCraftingRecipes {
 
 	public static ResourceLocation recipeLexicon;
@@ -327,17 +296,6 @@ public final class ModCraftingRecipes {
 	public static ResourceLocation recipeMagmaToSlimeball;
 	public static ResourceLocation recipeFelPumpkin;
 	public static ResourceLocation recipeEndPortal;
-
-	@SubscribeEvent
-	public static void registerRecipes(FMLServerStartingEvent evt) {
-		evt.getServer().getResourceManager().addReloadListener(manager -> {
-			// todo 1.13 have each subtile responsible for itself
-			for (ResourceLocation s : BotaniaRegistries.SUBTILES.getKeys()) {
-				ResourceLocation id = new ResourceLocation(LibMisc.MOD_ID, "floating_" + s.toString().replaceAll(":", "_"));
-				evt.getServer().getRecipeManager().addRecipe(new SpecialFloatingFlowerRecipe(id, s));
-			}
-		});
-	}
 
 	public static void init() {
 		// Can't do this in RegistryEvent.Register event handler since it seems JSON recipes aren't loaded yet

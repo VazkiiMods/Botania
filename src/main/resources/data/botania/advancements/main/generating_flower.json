@@ -1,8 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "botania:special_flower",
-      "nbt": "{\"type\": \"endoflame\"}"
+      "item": "botania:endoflame"
     },
     "title": {
       "translate": "advancement.botania:generatingFlower"
@@ -12,10 +11,16 @@
     }
   },
   "parent": "botania:main/lexicon_use",
-  "__comment": "This is triggered by code in Botania. In the future, it may become data-driven",
   "criteria": {
-    "code_triggered": {
-      "trigger": "minecraft:impossible"
+    "flower": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "botania:generating_special_flowers"
+          }
+        ]
+      }
     }
   }
 }

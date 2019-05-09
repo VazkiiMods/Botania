@@ -11,45 +11,46 @@
 package vazkii.botania.common.block.subtile.functional;
 
 import net.minecraft.entity.monster.EntityEnderman;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.EnderTeleportEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.registries.ObjectHolder;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
-import vazkii.botania.api.subtile.SubTileFunctional;
-import vazkii.botania.api.subtile.SubTileType;
+import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
+import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibMisc;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.WeakHashMap;
 
 @Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
-public class SubTileVinculotus extends SubTileFunctional {
+public class SubTileVinculotus extends TileEntityFunctionalFlower {
+	@ObjectHolder(LibMisc.MOD_ID + ":vinculotus")
+	public static TileEntityType<SubTileVinculotus> TYPE;
 
-	// Must store position since red string spoofers are only active during onUpdate
+	// Must store position since red string spoofers are only active during tick
 	// But our main logic runs outside, in the event handler
 	public static final Map<SubTileVinculotus, BlockPos> existingFlowers = new WeakHashMap<>();
 	private static final int RANGE = 64;
 
-	public SubTileVinculotus(SubTileType type) {
-		super(type);
+	public SubTileVinculotus() {
+		super(TYPE);
 	}
 
 	@Override
-	public void onUpdate() {
-		super.onUpdate();
+	public void tickFlower() {
+		super.tickFlower();
 
-		if(!supertile.getWorld().isRemote) {
+		if(!getWorld().isRemote) {
 		    BlockPos pos = existingFlowers.get(this);
 		    if (pos == null || !pos.equals(getPos()))
 			    existingFlowers.put(this, getPos());
@@ -91,7 +92,7 @@ public class SubTileVinculotus extends SubTileFunctional {
 				SubTileVinculotus flower = e.getKey();
 				BlockPos activePos = e.getValue();
 
-				if(flower == null || flower.redstoneSignal > 0 || flower.mana <= cost || flower.supertile.getWorld() != event.getEntityLiving().world || flower.supertile.getWorld().getTileEntity(flower.supertile.getPos()) != flower.supertile)
+				if(flower == null || flower.redstoneSignal > 0 || flower.mana <= cost || flower.getWorld() != event.getEntityLiving().world || flower.getWorld().getTileEntity(flower.getPos()) != flower)
 					continue;
 
 				double x = activePos.getX() + 0.5;

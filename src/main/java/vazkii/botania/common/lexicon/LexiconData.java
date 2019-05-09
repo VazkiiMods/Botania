@@ -24,6 +24,7 @@ import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModMultiblocks;
+import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.brew.ModBrews;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.crafting.ModBrewRecipes;
@@ -355,7 +356,7 @@ public final class LexiconData {
 		.setLexiconPages(new PageText("0"), new PageImage("1", LibResources.ENTRY_PURE_DAISY),
 				new PageCraftingRecipe("2", ModCraftingRecipes.recipeLivingwoodTwig), new PageText("4"),
 				new PagePetalRecipe<>("3", ModPetalRecipes.pureDaisyRecipe))
-		.setIcon(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_PUREDAISY));
+		.setIcon(new ItemStack(ModSubtiles.pureDaisy));
 		pureDaisy.addExtraDisplayedRecipe(new ItemStack(ModBlocks.livingwood));
 		pureDaisy.addExtraDisplayedRecipe(new ItemStack(ModBlocks.livingrock));
 		LexiconRecipeMappings.map(new ItemStack(ModBlocks.livingwood), pureDaisy, 1);
@@ -537,7 +538,7 @@ public final class LexiconData {
 		flowerShrinking = new BasicLexiconEntry(LibLexicon.FFLOWER_SHRINKING, categoryFunctionalFlowers);
 		flowerShrinking.setPriority()
 		.setLexiconPages(new PageText("0"), new PageManaInfusionRecipe("1", BotaniaAPI.miniFlowerRecipes))
-		.setIcon(ItemBlockSpecialFlower.ofType(new ResourceLocation(LibBlockNames.SUBTILE_BELLETHORN.getNamespace(), LibBlockNames.SUBTILE_BELLETHORN.getPath() + "_chibi")));
+		.setIcon(new ItemStack(ModSubtiles.bellethornChibi));
 
 		flowerSpeed = new BasicLexiconEntry(LibLexicon.FFLOWER_SPEED, categoryFunctionalFlowers);
 		flowerSpeed.setPriority().setLexiconPages(new PageText("0"), new PageText("1"));

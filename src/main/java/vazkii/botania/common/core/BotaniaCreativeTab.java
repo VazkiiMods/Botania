@@ -13,8 +13,11 @@ package vazkii.botania.common.core;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.registries.ForgeRegistryEntry;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
@@ -24,6 +27,7 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
+import java.util.Comparator;
 
 public final class BotaniaCreativeTab extends ItemGroup {
 
@@ -55,7 +59,7 @@ public final class BotaniaCreativeTab extends ItemGroup {
 
 		for(EnumDyeColor color : EnumDyeColor.values())
 			addItem(ModBlocks.getFlower(color));
-		addItem(ModBlocks.specialFlower);
+		addTag(new ResourceLocation(LibMisc.MOD_ID, "special_flowers"));
 		for(EnumDyeColor color : EnumDyeColor.values())
 			this.addItem(ModItems.getPetal(color));
 		addItem(ModItems.pestleAndMortar);
@@ -430,7 +434,7 @@ public final class BotaniaCreativeTab extends ItemGroup {
 			addItem(ModBlocks.getShinyFlower(color));
 		for(EnumDyeColor color : EnumDyeColor.values())
 			addItem(ModBlocks.getFloatingFlower(color));
-		addItem(ModBlocks.floatingSpecialFlower);
+		addTag(new ResourceLocation(LibMisc.MOD_ID, "special_floating_flowers"));
 		addItem(ModBlocks.petalBlockWhite);
 		addItem(ModBlocks.petalBlockOrange);
 		addItem(ModBlocks.petalBlockMagenta);
@@ -621,6 +625,12 @@ public final class BotaniaCreativeTab extends ItemGroup {
 		addItem(ModFluffBlocks.redPavementSlab);
 
 		ModItems.cosmetics.values().forEach(this::addItem);
+	}
+
+	private void addTag(ResourceLocation tagId) {
+		ItemTags.getCollection().getOrCreate(tagId).getAllElements().stream()
+				.sorted(Comparator.comparing(ForgeRegistryEntry::getRegistryName))
+				.forEach(this::addItem);
 	}
 
 	private void addItem(IItemProvider item) {

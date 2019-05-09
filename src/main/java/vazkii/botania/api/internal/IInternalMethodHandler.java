@@ -13,7 +13,6 @@ package vazkii.botania.api.internal;
 import net.minecraft.client.renderer.model.ModelResourceLocation;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -33,8 +32,7 @@ import vazkii.botania.api.recipe.RecipeElvenTrade;
 import vazkii.botania.api.recipe.RecipeManaInfusion;
 import vazkii.botania.api.recipe.RecipePetals;
 import vazkii.botania.api.recipe.RecipeRuneAltar;
-import vazkii.botania.api.subtile.SubTileEntity;
-import vazkii.botania.api.subtile.SubTileType;
+import vazkii.botania.api.subtile.TileEntitySpecialFlower;
 
 import java.util.List;
 
@@ -79,18 +77,6 @@ public interface IInternalMethodHandler {
 
 	public IManaNetwork getManaNetworkInstance();
 
-	public ItemStack getSubTileAsStack(SubTileType subTile);
-
-	public ItemStack getSubTileAsFloatingFlowerStack(SubTileType subTile);
-
-	public SubTileType getStackSubTileKey(ItemStack stack);
-
-	@OnlyIn(Dist.CLIENT)
-	public ModelResourceLocation getSubTileBlockModelForName(String name);
-
-	@OnlyIn(Dist.CLIENT)
-	public ModelResourceLocation getSubTileItemModelForName(String name);
-
 	public boolean shouldForceCheck();
 
 	public int getPassiveFlowerDecay();
@@ -107,7 +93,7 @@ public interface IInternalMethodHandler {
 	@OnlyIn(Dist.CLIENT)
 	public void drawComplexManaHUD(int color, int mana, int maxMana, String name, ItemStack bindDisplay, boolean properlyBound);
 
-	public ItemStack getBindDisplayForFlowerType(SubTileEntity e);
+	public ItemStack getBindDisplayForFlowerType(TileEntitySpecialFlower e);
 
 	public void renderLexiconText(int x, int y, int width, int height, String unlocalizedText);
 

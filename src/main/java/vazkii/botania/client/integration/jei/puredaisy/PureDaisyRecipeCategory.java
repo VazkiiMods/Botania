@@ -47,7 +47,7 @@ public class PureDaisyRecipeCategory implements IRecipeCategory<RecipePureDaisy>
 		localizedName = I18n.format("botania.nei.pureDaisy");
 		overlay = guiHelper.createDrawable(new ResourceLocation("botania", "textures/gui/pure_daisy_overlay.png"),
 				0, 0, 64, 46);
-		icon = guiHelper.createDrawableIngredient(ItemBlockSpecialFlower.ofType(ModSubtiles.pureDaisy));
+		icon = guiHelper.createDrawableIngredient(new ItemStack(ModSubtiles.pureDaisy));
 	}
 
 	@Nonnull
@@ -131,7 +131,7 @@ public class PureDaisyRecipeCategory implements IRecipeCategory<RecipePureDaisy>
 		}
 
 		recipeLayout.getItemStacks().init(1, true, 70, 12);
-		recipeLayout.getItemStacks().set(1, ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_PUREDAISY));
+		recipeLayout.getItemStacks().set(1, new ItemStack(ModSubtiles.pureDaisy));
 
 		if(outputFluid) {
 			recipeLayout.getFluidStacks().init(2, false, 99, 12, 16, 16, 1000, false, null);

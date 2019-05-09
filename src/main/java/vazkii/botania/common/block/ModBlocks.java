@@ -25,12 +25,8 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import net.minecraftforge.registries.ObjectHolder;
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.internal.DummySubTile;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.state.enums.LuminizerVariant;
-import vazkii.botania.api.subtile.SubTileEntity;
-import vazkii.botania.api.subtile.SubTileType;
 import vazkii.botania.client.render.tile.RenderTilePylon;
 import vazkii.botania.client.render.tile.TEISR;
 import vazkii.botania.common.block.corporea.BlockCorporeaCrystalCube;
@@ -67,22 +63,6 @@ import vazkii.botania.common.block.string.BlockRedStringDispenser;
 import vazkii.botania.common.block.string.BlockRedStringFertilizer;
 import vazkii.botania.common.block.string.BlockRedStringInterceptor;
 import vazkii.botania.common.block.string.BlockRedStringRelay;
-import vazkii.botania.common.block.subtile.SubTileManastar;
-import vazkii.botania.common.block.subtile.SubTilePureDaisy;
-import vazkii.botania.common.block.subtile.functional.*;
-import vazkii.botania.common.block.subtile.generating.SubTileArcaneRose;
-import vazkii.botania.common.block.subtile.generating.SubTileDandelifeon;
-import vazkii.botania.common.block.subtile.generating.SubTileEndoflame;
-import vazkii.botania.common.block.subtile.generating.SubTileEntropinnyum;
-import vazkii.botania.common.block.subtile.generating.SubTileGourmaryllis;
-import vazkii.botania.common.block.subtile.generating.SubTileHydroangeas;
-import vazkii.botania.common.block.subtile.generating.SubTileKekimurus;
-import vazkii.botania.common.block.subtile.generating.SubTileMunchdew;
-import vazkii.botania.common.block.subtile.generating.SubTileNarslimmus;
-import vazkii.botania.common.block.subtile.generating.SubTileRafflowsia;
-import vazkii.botania.common.block.subtile.generating.SubTileShulkMeNot;
-import vazkii.botania.common.block.subtile.generating.SubTileSpectrolus;
-import vazkii.botania.common.block.subtile.generating.SubTileThermalily;
 import vazkii.botania.common.block.tile.*;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaCrystalCube;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaFunnel;
@@ -108,10 +88,8 @@ import vazkii.botania.common.block.tile.string.TileRedStringRelay;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.block.ItemBlockDreamwood;
 import vazkii.botania.common.item.block.ItemBlockElven;
-import vazkii.botania.common.item.block.ItemBlockFloatingSpecialFlower;
 import vazkii.botania.common.item.block.ItemBlockMod;
 import vazkii.botania.common.item.block.ItemBlockPool;
-import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 import vazkii.botania.common.item.block.ItemBlockTinyPotato;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -163,7 +141,6 @@ public final class ModBlocks {
 	@ObjectHolder(LibBlockNames.LIVING_WOOD_PATTERN_FRAMED) public static Block livingwoodPatternFramed;
 	@ObjectHolder(LibBlockNames.LIVING_WOOD_GLIMMERING) public static Block livingwoodGlimmering;
 
-	@ObjectHolder(LibBlockNames.SPECIAL_FLOWER) public static Block specialFlower;
 	@ObjectHolder(LibBlockNames.SPREADER) public static Block manaSpreader;
 	@ObjectHolder(LibBlockNames.SPREADER_REDSTONE) public static Block redstoneSpreader;
 	@ObjectHolder(LibBlockNames.SPREADER_ELVEN) public static Block elvenSpreader;
@@ -289,7 +266,6 @@ public final class ModBlocks {
 	@ObjectHolder(LibBlockNames.RED_STRING_FERTILIZER) public static Block redStringFertilizer;
 	@ObjectHolder(LibBlockNames.RED_STRING_COMPARATOR) public static Block redStringComparator;
 	@ObjectHolder(LibBlockNames.RED_STRING_RELAY) public static Block redStringRelay;
-	@ObjectHolder(LibBlockNames.FLOATING_SPECIAL_FLOWER) public static Block floatingSpecialFlower;
 	@ObjectHolder(LibBlockNames.MANA_FLAME) public static Block manaFlame;
 	@ObjectHolder(LibBlockNames.PRISM) public static Block prism;
 	@ObjectHolder(LibBlockNames.ENCHANTED_SOIL) public static Block enchantedSoil;
@@ -413,7 +389,6 @@ public final class ModBlocks {
 		register(r, new BlockModLexiconable(builder, decorative), LibBlockNames.LIVING_WOOD_FRAMED);
 		register(r, new BlockModLexiconable(builder, decorative), LibBlockNames.LIVING_WOOD_PATTERN_FRAMED);
 		register(r, new BlockModLexiconable(builder.lightValue(12), decorative), LibBlockNames.LIVING_WOOD_GLIMMERING);
-		register(r, new BlockSpecialFlower(Block.Properties.from(Blocks.POPPY)), LibBlockNames.SPECIAL_FLOWER);
 
 		builder = Block.Properties.create(Material.WOOD).hardnessAndResistance(2).sound(SoundType.WOOD);
 		register(r, new BlockSpreader(BlockSpreader.Variant.MANA, builder), LibBlockNames.SPREADER);
@@ -500,7 +475,6 @@ public final class ModBlocks {
 		}
 
 		builder = Block.Properties.create(Material.GROUND).hardnessAndResistance(0.5F).sound(SoundType.GROUND).lightValue(15);
-		register(r, new BlockFloatingSpecialFlower(builder), LibBlockNames.FLOATING_SPECIAL_FLOWER);
 		for(EnumDyeColor color : EnumDyeColor.values()) {
 			register(r, new BlockFloatingFlower(color, builder), color.getName() + LibBlockNames.FLOATING_FLOWER_SUFFIX);
 		}
@@ -636,7 +610,6 @@ public final class ModBlocks {
 		r.register(new ItemBlockMod(livingwoodFramed, props).setRegistryName(livingwoodFramed.getRegistryName()));
 		r.register(new ItemBlockMod(livingwoodPatternFramed, props).setRegistryName(livingwoodPatternFramed.getRegistryName()));
 		r.register(new ItemBlockMod(livingwoodGlimmering, props).setRegistryName(livingwoodGlimmering.getRegistryName()));
-		r.register(new ItemBlockSpecialFlower(specialFlower, props).setRegistryName(specialFlower.getRegistryName()));
 		r.register(new ItemBlockMod(manaSpreader, props).setRegistryName(manaSpreader.getRegistryName()));
 		r.register(new ItemBlockMod(redstoneSpreader, props).setRegistryName(redstoneSpreader.getRegistryName()));
 		r.register(new ItemBlockMod(elvenSpreader, props).setRegistryName(elvenSpreader.getRegistryName()));
@@ -743,7 +716,6 @@ public final class ModBlocks {
 		r.register(new ItemBlockMod(redStringFertilizer, props).setRegistryName(redStringFertilizer.getRegistryName()));
 		r.register(new ItemBlockMod(redStringComparator, props).setRegistryName(redStringComparator.getRegistryName()));
 		r.register(new ItemBlockMod(redStringRelay, props).setRegistryName(redStringRelay.getRegistryName()));
-		r.register(new ItemBlockFloatingSpecialFlower(floatingSpecialFlower, props).setRegistryName(floatingSpecialFlower.getRegistryName()));
 		r.register(new ItemBlockMod(prism, props).setRegistryName(prism.getRegistryName()));
 		r.register(new ItemBlockMod(enchantedSoil, props).setRegistryName(enchantedSoil.getRegistryName()));
 		r.register(new ItemBlockMod(petalBlockWhite, props).setRegistryName(petalBlockWhite.getRegistryName()));
@@ -831,9 +803,13 @@ public final class ModBlocks {
 		r.register(new ItemBlockMod(mutatedGrass, props).setRegistryName(mutatedGrass.getRegistryName()));
 		r.register(new ItemBlockMod(animatedTorch, props).setRegistryName(animatedTorch.getRegistryName()));
 	}
+
+	public static <V extends IForgeRegistryEntry<V>> void register(IForgeRegistry<V> reg, IForgeRegistryEntry<V> thing, ResourceLocation name) {
+		reg.register(thing.setRegistryName(name));
+	}
 	
 	public static <V extends IForgeRegistryEntry<V>> void register(IForgeRegistry<V> reg, IForgeRegistryEntry<V> thing, String name) {
-		reg.register(thing.setRegistryName(new ResourceLocation(LibMisc.MOD_ID, name)));
+		register(reg, thing, new ResourceLocation(LibMisc.MOD_ID, name));
 	}
 
 	public static void addDispenserBehaviours() {
@@ -848,7 +824,6 @@ public final class ModBlocks {
 	public static void initTileEntities(RegistryEvent.Register<TileEntityType<?>> evt) {
 		IForgeRegistry<TileEntityType<?>> r = evt.getRegistry();
 		r.register(TileEntityType.Builder.create(TileAltar::new).build(null).setRegistryName(LibMisc.MOD_ID, LibBlockNames.ALTAR));
-		r.register(TileEntityType.Builder.create(TileSpecialFlower::new).build(null).setRegistryName(LibMisc.MOD_ID, LibBlockNames.SPECIAL_FLOWER));
 		r.register(TileEntityType.Builder.create(TileSpreader::new).build(null).setRegistryName(LibMisc.MOD_ID, LibBlockNames.SPREADER));
 		r.register(TileEntityType.Builder.create(TilePool::new).build(null).setRegistryName(LibMisc.MOD_ID, LibBlockNames.POOL));
 		r.register(TileEntityType.Builder.create(TileRuneAltar::new).build(null).setRegistryName(LibMisc.MOD_ID, LibBlockNames.RUNE_ALTAR));
@@ -878,7 +853,6 @@ public final class ModBlocks {
 		r.register(TileEntityType.Builder.create(TileRedStringFertilizer::new).build(null).setRegistryName(LibMisc.MOD_ID, LibBlockNames.RED_STRING_FERTILIZER));
 		r.register(TileEntityType.Builder.create(TileRedStringComparator::new).build(null).setRegistryName(LibMisc.MOD_ID, LibBlockNames.RED_STRING_COMPARATOR));
 		r.register(TileEntityType.Builder.create(TileRedStringRelay::new).build(null).setRegistryName(LibMisc.MOD_ID, LibBlockNames.RED_STRING_RELAY));
-		r.register(TileEntityType.Builder.create(TileFloatingSpecialFlower::new).build(null).setRegistryName(LibMisc.MOD_ID, LibBlockNames.FLOATING_SPECIAL_FLOWER));
 		r.register(TileEntityType.Builder.create(TileManaFlame::new).build(null).setRegistryName(LibMisc.MOD_ID, LibBlockNames.MANA_FLAME));
 		r.register(TileEntityType.Builder.create(TilePrism::new).build(null).setRegistryName(LibMisc.MOD_ID, LibBlockNames.PRISM));
 		r.register(TileEntityType.Builder.create(TileCorporeaIndex::new).build(null).setRegistryName(LibMisc.MOD_ID, LibBlockNames.CORPOREA_INDEX));

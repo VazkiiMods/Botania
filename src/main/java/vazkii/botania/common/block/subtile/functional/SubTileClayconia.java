@@ -15,18 +15,23 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
-import vazkii.botania.api.subtile.SubTileFunctional;
-import vazkii.botania.api.subtile.SubTileType;
+import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
+import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.lexicon.LexiconData;
+import vazkii.botania.common.lib.LibMisc;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SubTileClayconia extends SubTileFunctional {
+public class SubTileClayconia extends TileEntityFunctionalFlower {
+	@ObjectHolder(LibMisc.MOD_ID + ":clayconia")
+	public static TileEntityType<SubTileClayconia> TYPE;
 
 	private static final int COST = 80;
 	private static final int RANGE = 5;
@@ -35,23 +40,27 @@ public class SubTileClayconia extends SubTileFunctional {
 	private static final int RANGE_MINI = 2;
 	private static final int RANGE_Y_MINI = 1;
 
-	public SubTileClayconia(SubTileType type) {
+	public SubTileClayconia(TileEntityType<?> type) {
 		super(type);
 	}
 
-	@Override
-	public void onUpdate() {
-		super.onUpdate();
+	public SubTileClayconia() {
+		this(TYPE);
+	}
 
-		if(!supertile.getWorld().isRemote && ticksExisted % 5 == 0) {
+	@Override
+	public void tickFlower() {
+		super.tickFlower();
+
+		if(!getWorld().isRemote && ticksExisted % 5 == 0) {
 			if(mana >= COST) {
 				BlockPos coords = getCoordsToPut();
 				if(coords != null) {
-					supertile.getWorld().removeBlock(coords);
+					getWorld().removeBlock(coords);
 					if(ConfigHandler.COMMON.blockBreakParticles.get())
-						supertile.getWorld().playEvent(2001, coords, Block.getStateId(Blocks.SAND.getDefaultState()));
-					EntityItem item = new EntityItem(supertile.getWorld(), coords.getX() + 0.5, coords.getY() + 0.5, coords.getZ() + 0.5, new ItemStack(Items.CLAY_BALL));
-					supertile.getWorld().spawnEntity(item);
+						getWorld().playEvent(2001, coords, Block.getStateId(Blocks.SAND.getDefaultState()));
+					EntityItem item = new EntityItem(getWorld(), coords.getX() + 0.5, coords.getY() + 0.5, coords.getZ() + 0.5, new ItemStack(Items.CLAY_BALL));
+					getWorld().spawnEntity(item);
 					mana -= COST;
 				}
 			}
@@ -67,15 +76,15 @@ public class SubTileClayconia extends SubTileFunctional {
 		for(int i = -range; i < range + 1; i++)
 			for(int j = -rangeY; j < rangeY + 1; j++)
 				for(int k = -range; k < range + 1; k++) {
-					BlockPos pos = supertile.getPos().add(i, j, k);
-					Block block = supertile.getWorld().getBlockState(pos).getBlock();
+					BlockPos pos = getPos().add(i, j, k);
+					Block block = getWorld().getBlockState(pos).getBlock();
 					if(block == Blocks.SAND)
 						possibleCoords.add(pos);
 				}
 
 		if(possibleCoords.isEmpty())
 			return null;
-		return possibleCoords.get(supertile.getWorld().rand.nextInt(possibleCoords.size()));
+		return possibleCoords.get(getWorld().rand.nextInt(possibleCoords.size()));
 	}
 
 	@Override
@@ -107,8 +116,11 @@ public class SubTileClayconia extends SubTileFunctional {
 	}
 
 	public static class Mini extends SubTileClayconia {
-		public Mini(SubTileType type) {
-			super(type);
+		@ObjectHolder(LibMisc.MOD_ID + ":bellethorn_chibi")
+		public static TileEntityType<SubTileBellethorn.Mini> TYPE;
+
+		public Mini() {
+			super(TYPE);
 		}
 
 		@Override public int getRange() { return RANGE_MINI; }

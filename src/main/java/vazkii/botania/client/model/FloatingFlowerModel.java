@@ -41,7 +41,6 @@ import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.item.IFloatingFlower;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.Botania;
-import vazkii.botania.common.BotaniaRegistries;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.decor.BlockFloatingFlower;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
@@ -92,23 +91,13 @@ public class FloatingFlowerModel implements IBakedModel {
 	@Nonnull
 	@Override
 	public List<BakedQuad> getQuads(IBlockState state, EnumFacing face, @Nonnull Random rand) {
-		if(state.getBlock() != ModBlocks.floatingSpecialFlower && !(state.getBlock() instanceof BlockFloatingFlower))
+		if(!(state.getBlock() instanceof BlockFloatingFlower))
 			return Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelShapes().getModelManager().getMissingModel().getQuads(state, face, rand);
 		if(true) // todo 1.13
 			return ImmutableList.of();
 		IExtendedBlockState realState = (IExtendedBlockState) state;
 		IFloatingFlower.IslandType islandType = realState.getValue(BotaniaStateProps.ISLAND_TYPE);
-		ResourceLocation identifier;
-
-		if(state.getBlock() == ModBlocks.floatingSpecialFlower) {
-			// Magic flower
-			identifier = realState.getValue(BotaniaStateProps.SUBTILE_ID);
-		} else {
-			// Mundane flower
-			identifier = state.getBlock().getRegistryName();
-		}
-
-		return getModel(islandType, identifier).getQuads(state, face, rand);
+		return getModel(islandType, state.getBlock().getRegistryName()).getQuads(state, face, rand);
 	}
 
 	// Get the model for this islandtype + flower type combination. If it's not cached already, generate it.
@@ -131,17 +120,15 @@ public class FloatingFlowerModel implements IBakedModel {
 				islandModel = modelManager.getMissingModel();
 			}
 
-			IBakedModel flowerModel;
+			Item item;
 
 			if(identifier.getPath().endsWith(LibBlockNames.FLOATING_FLOWER_SUFFIX)) {
 				ResourceLocation shinyId = new ResourceLocation(identifier.getNamespace(), identifier.getPath().replaceAll(LibBlockNames.FLOATING_FLOWER_SUFFIX, LibBlockNames.SHINY_FLOWER_SUFFIX));
-				Item shinyFlower = ForgeRegistries.ITEMS.getValue(shinyId);
-				flowerModel = Minecraft.getInstance().getItemRenderer().getItemModelMesher().getItemModel(new ItemStack(shinyFlower));
+				item = ForgeRegistries.ITEMS.getValue(shinyId);
 			} else {
-				ItemStack stack = ItemBlockSpecialFlower.ofType(BotaniaRegistries.SUBTILES.getValue(identifier));
-				IBakedModel specialFlowerModel = Minecraft.getInstance().getItemRenderer().getItemModelMesher().getItemModel(stack);
-				flowerModel = specialFlowerModel.getOverrides().getModelWithOverrides(specialFlowerModel, stack, null, null);
+				item = ForgeRegistries.ITEMS.getValue(identifier);
 			}
+			IBakedModel flowerModel = Minecraft.getInstance().getItemRenderer().getItemModelMesher().getItemModel(new ItemStack(item));
 
 			// Enhance!
 			CompositeBakedModel model = new CompositeBakedModel(flowerModel, islandModel);
@@ -232,17 +219,7 @@ public class FloatingFlowerModel implements IBakedModel {
 		public IBakedModel getModelWithOverrides(IBakedModel model, ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
 			// Items always have GRASS island
 			IFloatingFlower.IslandType islandType = IFloatingFlower.IslandType.GRASS;
-			ResourceLocation identifier;
-
-			if(Block.getBlockFromItem(stack.getItem()) == ModBlocks.floatingSpecialFlower) {
-				// Magic flower
-				identifier = ItemBlockSpecialFlower.getType(stack).getRegistryName();
-			} else {
-				// Mundane flower
-				identifier = stack.getItem().getRegistryName();
-			}
-
-			return FloatingFlowerModel.this.getModel(islandType, identifier);
+			return FloatingFlowerModel.this.getModel(islandType, stack.getItem().getRegistryName());
 		}
 	};
 }

@@ -17,25 +17,28 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.subtile.RadiusDescriptor;
-import vazkii.botania.api.subtile.SubTileFunctional;
-import vazkii.botania.api.subtile.SubTileType;
+import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
+import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.lexicon.LexiconData;
+import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.network.PacketBotaniaEffect;
 import vazkii.botania.common.network.PacketHandler;
 
 import java.util.List;
 
-public class SubTileSpectranthemum extends SubTileFunctional {
+public class SubTileSpectranthemum extends TileEntityFunctionalFlower {
+	@ObjectHolder(LibMisc.MOD_ID + ":spectranthemum")
+	public static TileEntityType<SubTileSpectranthemum> TYPE;
 
 	private static final String TAG_BIND_X = "bindX";
 	private static final String TAG_BIND_Y = "bindY";
@@ -49,20 +52,20 @@ public class SubTileSpectranthemum extends SubTileFunctional {
 
 	private BlockPos bindPos = new BlockPos(0, -1, 0);
 
-	public SubTileSpectranthemum(SubTileType type) {
-		super(type);
+	public SubTileSpectranthemum() {
+		super(TYPE);
 	}
 
 	@Override
-	public void onUpdate() {
-		super.onUpdate();
+	public void tickFlower() {
+		super.tickFlower();
 
-		if(!supertile.getWorld().isRemote && redstoneSignal == 0 && supertile.getWorld().isBlockLoaded(bindPos)) {
-			BlockPos pos = supertile.getPos();
+		if(!getWorld().isRemote && redstoneSignal == 0 && getWorld().isBlockLoaded(bindPos)) {
+			BlockPos pos = getPos();
 
 			boolean did = false;
 
-			List<EntityItem> items = supertile.getWorld().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(pos.add(-RANGE, -RANGE, -RANGE), pos.add(RANGE + 1, RANGE + 1, RANGE + 1)));
+			List<EntityItem> items = getWorld().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(pos.add(-RANGE, -RANGE, -RANGE), pos.add(RANGE + 1, RANGE + 1, RANGE + 1)));
 			int slowdown = getSlowdownFactor();
 
 			for(EntityItem item : items) {
@@ -139,7 +142,7 @@ public class SubTileSpectranthemum extends SubTileFunctional {
 	public boolean bindTo(EntityPlayer player, ItemStack wand, BlockPos pos, EnumFacing side) {
 		boolean bound = super.bindTo(player, wand, pos, side);
 
-		if(!bound && !pos.equals(bindPos) && pos.distanceSq(supertile.getPos()) <= BIND_RANGE * BIND_RANGE && !pos.equals(supertile.getPos())) {
+		if(!bound && !pos.equals(bindPos) && pos.distanceSq(getPos()) <= BIND_RANGE * BIND_RANGE && !pos.equals(getPos())) {
 			bindPos = pos;
 			sync();
 

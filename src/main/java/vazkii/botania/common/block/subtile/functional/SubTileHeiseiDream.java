@@ -14,42 +14,42 @@ import com.google.common.base.Predicates;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.ai.EntityAIAttackMelee;
-import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
-import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
 import net.minecraft.entity.monster.IMob;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
-import vazkii.botania.api.subtile.SubTileFunctional;
-import vazkii.botania.api.subtile.SubTileType;
+import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
+import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.lexicon.LexiconData;
-import vazkii.botania.common.lib.LibObfuscation;
+import vazkii.botania.common.lib.LibMisc;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class SubTileHeiseiDream extends SubTileFunctional {
+public class SubTileHeiseiDream extends TileEntityFunctionalFlower {
+	@ObjectHolder(LibMisc.MOD_ID + ":heisei_dream")
+	public static TileEntityType<SubTileHeiseiDream> TYPE;
 
 	private static final int RANGE = 5;
 
-	public SubTileHeiseiDream(SubTileType type) {
-		super(type);
+	public SubTileHeiseiDream() {
+		super(TYPE);
 	}
 
 	@Override
-	public void onUpdate() {
-		super.onUpdate();
+	public void tickFlower() {
+		super.tickFlower();
 
-		if(supertile.getWorld().isRemote)
+		if(getWorld().isRemote)
 			return;
 
 		final int cost = 100;
 
 		@SuppressWarnings("unchecked")
-		List<IMob> mobs = (List) supertile.getWorld().getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(supertile.getPos().add(-RANGE, -RANGE, -RANGE), supertile.getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)), Predicates.instanceOf(IMob.class));
+		List<IMob> mobs = (List) getWorld().getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(getPos().add(-RANGE, -RANGE, -RANGE), getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)), Predicates.instanceOf(IMob.class));
 
 		if(mobs.size() > 1 && mana >= cost)
 			for(IMob mob : mobs) {

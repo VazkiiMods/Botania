@@ -14,23 +14,27 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.Particles;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntityFurnace;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.Vec3d;
+import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
-import vazkii.botania.api.subtile.SubTileGenerating;
-import vazkii.botania.api.subtile.SubTileType;
-import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
+import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.block.mana.BlockSpreader;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.lexicon.LexiconData;
+import vazkii.botania.common.lib.LibMisc;
 
-public class SubTileEndoflame extends SubTileGenerating {
+public class SubTileEndoflame extends TileEntityGeneratingFlower {
+	@ObjectHolder(LibMisc.MOD_ID + ":endoflame")
+	public static TileEntityType<SubTileEndoflame> TYPE;
+
 	private static final String TAG_BURN_TIME = "burnTime";
 	private static final int FUEL_CAP = 32000;
 	private static final int RANGE = 3;
@@ -38,21 +42,21 @@ public class SubTileEndoflame extends SubTileGenerating {
 
 	private int burnTime = 0;
 
-	public SubTileEndoflame(SubTileType type) {
-		super(type);
+	public SubTileEndoflame() {
+		super(TYPE);
 	}
 
 	@Override
-	public void onUpdate() {
-		super.onUpdate();
+	public void tickFlower() {
+		super.tickFlower();
 
 		if(burnTime > 0)
 			burnTime--;
 
 		if(getWorld().isRemote) {
-			if(burnTime > 0 && supertile.getWorld().rand.nextInt(10) == 0) {
+			if(burnTime > 0 && getWorld().rand.nextInt(10) == 0) {
 				Vec3d offset = getWorld().getBlockState(getPos()).getOffset(getWorld(), getPos()).add(0.4, 0.7, 0.4);
-				supertile.getWorld().addParticle(Particles.FLAME, supertile.getPos().getX() + offset.x + Math.random() * 0.2, supertile.getPos().getY() + offset.y, supertile.getPos().getZ() + offset.z + Math.random() * 0.2, 0.0D, 0.0D, 0.0D);
+				getWorld().addParticle(Particles.FLAME, getPos().getX() + offset.x + Math.random() * 0.2, getPos().getY() + offset.y, getPos().getZ() + offset.z + Math.random() * 0.2, 0.0D, 0.0D, 0.0D);
 			}
 			return;
 		}
@@ -62,7 +66,7 @@ public class SubTileEndoflame extends SubTileGenerating {
 				if(mana < getMaxMana()) {
 					int slowdown = getSlowdownFactor();
 
-					for(EntityItem item : supertile.getWorld().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(supertile.getPos().add(-RANGE, -RANGE, -RANGE), supertile.getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)))) {
+					for(EntityItem item : getWorld().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(getPos().add(-RANGE, -RANGE, -RANGE), getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)))) {
 						if(item.age >= 59 + slowdown && !item.removed) {
 							ItemStack stack = item.getItem();
 							if(stack.isEmpty() || stack.getItem().hasContainerItem(stack))
@@ -73,7 +77,7 @@ public class SubTileEndoflame extends SubTileGenerating {
 								this.burnTime = Math.min(FUEL_CAP, burnTime) / 2;
 
 								stack.shrink(1);
-								supertile.getWorld().playSound(null, supertile.getPos(), ModSounds.endoflame, SoundCategory.BLOCKS, 0.2F, 1F);
+								getWorld().playSound(null, getPos(), ModSounds.endoflame, SoundCategory.BLOCKS, 0.2F, 1F);
 								getWorld().addBlockEvent(getPos(), getWorld().getBlockState(getPos()).getBlock(), START_BURN_EVENT, item.getEntityId());
 								sync();
 

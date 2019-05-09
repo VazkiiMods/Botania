@@ -14,7 +14,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.item.IFloatingFlower;
-import vazkii.botania.api.subtile.SubTileEntity;
 
 import java.util.Collections;
 import java.util.Map;
@@ -25,53 +24,9 @@ import java.util.Map;
 @OnlyIn(Dist.CLIENT)
 public final class BotaniaAPIClient {
 
-	private static final Map<ResourceLocation, ModelResourceLocation> subtileBlockModels = Maps.newHashMap();
-	private static final Map<ResourceLocation, ModelResourceLocation> subtileItemModels = Maps.newHashMap();
 	private static final Map<IFloatingFlower.IslandType, ModelResourceLocation> islandTypeModels = Maps.newHashMap();
 
 	private BotaniaAPIClient() {
-	}
-
-	/**
-	 * Register your model for the given subtile class here.
-	 * Call this during {@code ModelRegistryEvent}. Calling it anytime after blockModels have already baked does not guarantee that your model will work.
-	 * Your model json must specify key "tintindex" in all the faces it wants tint applied.
-	 * Tint is applied whenever a player recolors the flower using floral dye
-	 *
-	 * @param subTileName The String ID of the subtile
-	 * @param model       A path to a blockstate json and variant to be used for this subtile
-	 * @param itemModel   A path to a blockstate json and variant to be used for this subtile's item form
-	 */
-	public static void registerSubtileModel(ResourceLocation subTileName, ModelResourceLocation model, ModelResourceLocation itemModel) {
-		subtileBlockModels.put(subTileName, model);
-		subtileItemModels.put(subTileName, itemModel);
-	}
-
-	/**
-	 * Register your model for the given subtile class here.
-	 * Call this DURING PREINIT.
-	 * Your model json must specify key "tintindex" in all the faces it wants tint applied.
-	 * Tint is applied whenever a player recolors the flower using floral dye
-	 *
-	 * @param subTileName The String ID of the subtile
-	 * @param model       A path to a blockstate json and variant to be used the block. The item model will be drawn from the same blockstate json, from variant "inventory"
-	 */
-	public static void registerSubtileModel(ResourceLocation subTileName, ModelResourceLocation model) {
-		registerSubtileModel(subTileName, model, new ModelResourceLocation(model.getNamespace() + ":" + model.getPath(), "inventory"));
-	}
-
-	/**
-	 * @return An immutable and live view of the registered subtile block model map
-	 */
-	public static Map<ResourceLocation, ModelResourceLocation> getRegisteredSubtileBlockModels() {
-		return Collections.unmodifiableMap(subtileBlockModels);
-	}
-
-	/**
-	 * @return An immutable and live view of the registered subtile item model map
-	 */
-	public static Map<ResourceLocation, ModelResourceLocation> getRegisteredSubtileItemModels() {
-		return Collections.unmodifiableMap(subtileItemModels);
 	}
 
 	/**
