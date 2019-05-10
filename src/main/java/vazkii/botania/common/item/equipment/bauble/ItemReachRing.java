@@ -10,28 +10,31 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
+import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import vazkii.botania.common.integration.curios.BaseCurio;
 import vazkii.botania.common.lib.LibItemNames;
 
-public class ItemReachRing extends ItemBaubleModifier {
+public class ItemReachRing extends ItemBauble {
 
 	public ItemReachRing(Properties props) {
 		super(props);
 	}
 
-	@Override
-	void fillModifiers(Multimap<String, AttributeModifier> attributes, ItemStack stack) {
-		attributes.put(EntityPlayer.REACH_DISTANCE.getName(), new AttributeModifier(getBaubleUUID(stack), "Reach Ring", 3.5, 0).setSaved(false));
-	}
+	public static class Curio extends BaseCurio {
+		public Curio(ItemStack stack) {
+			super(stack);
+		}
 
-	/* todo 1.13
-	@Override
-	public BaubleType getBaubleType(ItemStack arg0) {
-		return BaubleType.RING;
+		@Override
+		public Multimap<String, AttributeModifier> getAttributeModifiers(String identifier) {
+			Multimap<String, AttributeModifier> attributes = HashMultimap.create();
+			attributes.put(EntityPlayer.REACH_DISTANCE.getName(), new AttributeModifier(getBaubleUUID(stack), "Reach Ring", 3.5, 0).setSaved(false));
+			return attributes;
+		}
 	}
-	*/
 
 }

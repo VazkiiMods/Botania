@@ -36,21 +36,14 @@ public abstract class ItemRelicBauble extends ItemBauble implements IRelic {
 		super(props);
 	}
 
+	public ItemRelic getDummy() {
+		return dummy;
+	}
+
 	@Override
 	public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean held) {
 		if(entity instanceof EntityPlayer)
 			dummy.updateRelic(stack, (EntityPlayer) entity);
-	}
-
-	@Override
-	public void onWornTick(ItemStack stack, EntityLivingBase player) {
-		super.onWornTick(stack, player);
-		if(player instanceof EntityPlayer) {
-			EntityPlayer ePlayer = (EntityPlayer) player;
-			dummy.updateRelic(stack, ePlayer);
-			if(dummy.isRightPlayer(ePlayer, stack))
-				onValidPlayerWornTick(stack, ePlayer);
-		}
 	}
 
 	@OnlyIn(Dist.CLIENT)
@@ -58,13 +51,6 @@ public abstract class ItemRelicBauble extends ItemBauble implements IRelic {
 	public void addHiddenTooltip(ItemStack par1ItemStack, World world, List<ITextComponent> stacks, ITooltipFlag flags) {
 		super.addHiddenTooltip(par1ItemStack, world, stacks, flags);
 		dummy.addBindInfo(stacks, par1ItemStack);
-	}
-
-	public void onValidPlayerWornTick(ItemStack stack, EntityPlayer player) {}
-
-	@Override
-	public boolean canEquip(ItemStack stack, EntityLivingBase player) {
-		return player instanceof EntityPlayer && dummy.isRightPlayer((EntityPlayer) player, stack);
 	}
 
 	@Override

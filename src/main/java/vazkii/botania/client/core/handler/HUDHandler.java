@@ -206,7 +206,7 @@ public final class HUDHandler {
 				boolean anyRequest = false;
 				boolean creative = false;
 
-				IItemHandler mainInv = player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).orElseThrow(NullPointerException::new);
+				IItemHandler mainInv = new net.minecraftforge.items.ItemStackHandler(1); // player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).orElseThrow(NullPointerException::new);
 				IItemHandler baublesInv = null; // todo 1.13
 
 				int invSize = mainInv.getSlots();

@@ -11,7 +11,6 @@
 package vazkii.botania.common;
 
 import net.minecraft.advancements.CriteriaTriggers;
-import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.MultiPartEntityPart;
 import net.minecraft.entity.boss.EntityDragon;
@@ -19,6 +18,7 @@ import net.minecraft.entity.boss.EntityWither;
 import net.minecraft.entity.item.EntityEnderCrystal;
 import net.minecraft.entity.item.EntityItemFrame;
 import net.minecraft.entity.item.EntityPainting;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.RecipeSerializers;
 import net.minecraft.world.storage.loot.conditions.LootConditionManager;
 import net.minecraft.world.storage.loot.functions.LootFunctionManager;
@@ -32,7 +32,6 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLModIdMappingEvent;
 import net.minecraftforge.fml.event.server.FMLServerAboutToStartEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.event.server.FMLServerStoppingEvent;
@@ -40,7 +39,6 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.ColorHelper;
 import vazkii.botania.api.capability.FloatingFlowerImpl;
 import vazkii.botania.api.item.IFloatingFlower;
 import vazkii.botania.api.lexicon.ITwoNamedPage;
@@ -71,9 +69,6 @@ import vazkii.botania.common.core.proxy.ServerProxy;
 import vazkii.botania.common.crafting.ModBrewRecipes;
 import vazkii.botania.common.crafting.ModCraftingRecipes;
 import vazkii.botania.common.crafting.ModElvenTradeRecipes;
-import vazkii.botania.common.crafting.ModManaAlchemyRecipes;
-import vazkii.botania.common.crafting.ModManaConjurationRecipes;
-import vazkii.botania.common.crafting.ModManaInfusionRecipes;
 import vazkii.botania.common.crafting.ModPetalRecipes;
 import vazkii.botania.common.crafting.ModPureDaisyRecipes;
 import vazkii.botania.common.crafting.ModRuneRecipes;
@@ -102,14 +97,12 @@ import vazkii.botania.common.entity.EntityManaBurst;
 import vazkii.botania.common.entity.EntityPinkWither;
 import vazkii.botania.common.entity.EntitySignalFlare;
 import vazkii.botania.common.entity.EntitySpark;
+import vazkii.botania.common.integration.curios.CurioIntegration;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibMisc;
-import vazkii.botania.common.network.GuiHandler;
 import vazkii.botania.common.network.PacketHandler;
 import vazkii.botania.common.world.SkyblockWorldEvents;
 import vazkii.botania.common.world.WorldTypeSkyblock;
-
-import java.util.Collections;
 
 @Mod(LibMisc.MOD_ID)
 public class Botania {
@@ -172,6 +165,11 @@ public class Botania {
 		MinecraftForge.EVENT_BUS.register(ManaNetworkHandler.instance);
 		MinecraftForge.EVENT_BUS.register(TileCorporeaIndex.getInputHandler());
 		MinecraftForge.EVENT_BUS.register(new LootHandler());
+
+		if(ModList.get().isLoaded("curios")) {
+			FMLJavaModLoadingContext.get().getModEventBus().addListener(CurioIntegration::sendImc);
+			MinecraftForge.EVENT_BUS.addGenericListener(ItemStack.class, CurioIntegration::attachCaps);
+		}
 
 		if(Botania.gardenOfGlassLoaded)
 			MinecraftForge.EVENT_BUS.register(SkyblockWorldEvents.class);

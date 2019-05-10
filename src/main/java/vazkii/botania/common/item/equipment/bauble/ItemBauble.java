@@ -59,79 +59,6 @@ public abstract class ItemBauble extends ItemMod implements ICosmeticAttachable,
 		super(props);
 	}
 
-	// Apparently baubles doesn't unequip on death, which causes attribute modifiers to get weird/desync on respawn
-	// See Baubles#236
-	// Do it for our baubles if they're going to drop
-	// TODO there is still some weirdness going on when dying/returning in the End, figure that out
-	@SubscribeEvent
-	public static void onDeath(LivingDeathEvent evt) {
-		/* todo 1.13
-		if(!evt.getEntityLiving().world.isRemote
-				&& evt.getEntityLiving() instanceof EntityPlayer
-				&& !evt.getEntityLiving().world.getGameRules().getBoolean("keepInventory")
-				&& !((EntityPlayer) evt.getEntityLiving()).isSpectator()) {
-			IItemHandler inv = BaublesApi.getBaublesHandler((EntityPlayer) evt.getEntityLiving());
-			for(int i = 0; i < inv.getSlots(); i++) {
-				ItemStack stack = inv.getStackInSlot(i);
-				if (!stack.isEmpty() && stack.getItem().getRegistryName().getNamespace().equals(LibMisc.MOD_ID)) {
-					((ItemBauble) stack.getItem()).onUnequipped(stack, evt.getEntityLiving());
-				}
-			}
-		}
-		*/
-	}
-
-	@Nonnull
-	@Override
-	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
-		ItemStack stack = player.getHeldItem(hand);
-		if(!EntityDoppleganger.isTruePlayer(player))
-			return ActionResult.newResult(EnumActionResult.FAIL, stack);
-
-		/* todo 1.13
-		ItemStack toEquip = stack.copy();
-		toEquip.setCount(1);
-
-		if(canEquip(toEquip, player)) {
-			if(world.isRemote)
-				return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
-
-			IBaublesItemHandler baubles = BaublesApi.getBaublesHandler(player);
-			for(int i = 0; i < baubles.getSlots(); i++) {
-				if(baubles.isItemValidForSlot(i, toEquip, player)) {
-					ItemStack stackInSlot = baubles.getStackInSlot(i);
-					if(stackInSlot.isEmpty() || ((IBauble) stackInSlot.getItem()).canUnequip(stackInSlot, player)) {
-						// If toEquip and stackInSlot are stacks with equal value but not identity, ItemStackHandler.setStackInSlot actually does nothing >.>
-						// Prevent it from trying to be overly smart by going through empty first
-						baubles.setStackInSlot(i, ItemStack.EMPTY);
-
-						baubles.setStackInSlot(i, toEquip);
-						((IBauble) toEquip.getItem()).onEquipped(toEquip, player);
-
-						stack.shrink(1);
-
-						PlayerHelper.grantCriterion((EntityPlayerMP) player, new ResourceLocation(LibMisc.MOD_ID, "main/bauble_wear"), "code_triggered");
-
-						if(!stackInSlot.isEmpty()) {
-							((IBauble) stackInSlot.getItem()).onUnequipped(stackInSlot, player);
-
-							if(stack.isEmpty()) {
-								return ActionResult.newResult(EnumActionResult.SUCCESS, stackInSlot);
-							} else {
-								ItemHandlerHelper.giveItemToPlayer(player, stackInSlot);
-							}
-						}
-
-						return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
-					}
-				}
-			}
-		}
-		*/
-
-		return ActionResult.newResult(EnumActionResult.PASS, stack);
-	}
-
 	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void addInformation(ItemStack par1ItemStack, World world, List<ITextComponent> stacks, ITooltipFlag flags) {
@@ -142,7 +69,7 @@ public abstract class ItemBauble extends ItemMod implements ICosmeticAttachable,
 
 	@OnlyIn(Dist.CLIENT)
 	public void addHiddenTooltip(ItemStack par1ItemStack, World world, List<ITextComponent> stacks, ITooltipFlag flags) {
-		String key = vazkii.botania.client.core.helper.RenderHelper.getKeyDisplayString("Baubles Inventory");
+		String key = vazkii.botania.client.core.helper.RenderHelper.getKeyDisplayString("key.curios.open.desc");
 
 		if(key != null)
 			stacks.add(new TextComponentTranslation("botania.baubletooltip", key));
@@ -155,34 +82,17 @@ public abstract class ItemBauble extends ItemMod implements ICosmeticAttachable,
 			stacks.add(new TextComponentTranslation("botaniamisc.hasPhantomInk"));
 	}
 
-	public boolean canEquip(ItemStack stack, EntityLivingBase player) {
-		return true;
-	}
-
-	public boolean canUnequip(ItemStack stack, EntityLivingBase player) {
-		return true;
-	}
-
 	public void onWornTick(ItemStack stack, EntityLivingBase player) {
 		if(getLastPlayerHashcode(stack) != player.hashCode()) {
-			onEquippedOrLoadedIntoWorld(stack, player);
 			setLastPlayerHashcode(stack, player.hashCode());
 		}
 	}
 
 	public void onEquipped(ItemStack stack, EntityLivingBase player) {
 		if(player != null) {
-			if(!player.world.isRemote) {
-				player.world.playSound(null, player.posX, player.posY, player.posZ, ModSounds.equipBauble, SoundCategory.PLAYERS, 0.1F, 1.3F);
-				PlayerHelper.grantCriterion((EntityPlayerMP) player, new ResourceLocation(LibMisc.MOD_ID, "main/bauble_wear"), "code_triggered");
-			}
-
-			onEquippedOrLoadedIntoWorld(stack, player);
 			setLastPlayerHashcode(stack, player.hashCode());
 		}
 	}
-
-	public void onEquippedOrLoadedIntoWorld(ItemStack stack, EntityLivingBase player) {}
 
 	public void onUnequipped(ItemStack stack, EntityLivingBase player) { }
 

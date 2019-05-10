@@ -17,47 +17,43 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.enchantment.EnchantmentFrostWalker;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import vazkii.botania.api.item.IBaubleRender;
+
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.core.helper.IconHelper;
-import vazkii.botania.common.lib.LibItemNames;
+import vazkii.botania.common.integration.curios.BaseCurio;
 
-public class ItemIcePendant extends ItemBauble implements IBaubleRender {
+public class ItemIcePendant extends ItemBauble {
 
 	public ItemIcePendant(Properties props) {
 		super(props);
 	}
 
-	/* todo 1.13
-	@Override
-	public BaubleType getBaubleType(ItemStack itemstack) {
-		return BaubleType.AMULET;
-	}
-	*/
-
-	@Override
-	public void onWornTick(ItemStack stack, EntityLivingBase entity) {
-		super.onWornTick(stack, entity);
-		if(!entity.world.isRemote) {
-			boolean lastOnGround = entity.onGround;
-			entity.onGround = true;
-			EnchantmentFrostWalker.freezeNearby(entity, entity.world, new BlockPos(entity), 8);
-			entity.onGround = lastOnGround;
+	public static class Curio extends BaseCurio {
+		public Curio(ItemStack stack) {
+			super(stack);
 		}
-	}
 
-	@Override
-	@OnlyIn(Dist.CLIENT)
-	public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
-		if(type == RenderType.BODY) {
+		@Override
+		public void onCurioTick(String type, EntityLivingBase entity) {
+			if(!entity.world.isRemote) {
+				boolean lastOnGround = entity.onGround;
+				entity.onGround = true;
+				EnchantmentFrostWalker.freezeNearby(entity, entity.world, new BlockPos(entity), 8);
+				entity.onGround = lastOnGround;
+			}
+		}
+
+		@Override
+		public boolean hasRender(String identifier, EntityLivingBase entityLivingBase) {
+			return true;
+		}
+
+		@Override
+		public void doRender(String identifier, EntityLivingBase player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 			Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-			Helper.rotateIfSneaking(player);
 			boolean armor = !player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).isEmpty();
 			GlStateManager.rotatef(180F, 1F, 0F, 0F);
 			GlStateManager.translatef(-0.36F, -0.3F, armor ? 0.2F : 0.15F);
