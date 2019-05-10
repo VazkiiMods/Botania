@@ -10,15 +10,16 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
-import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
+import top.theillusivec4.curios.api.CuriosAPI;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
-import vazkii.botania.common.lib.LibItemNames;
+import vazkii.botania.common.integration.curios.BaseCurio;
+import vazkii.botania.common.item.ModItems;
 
 public class ItemWaterRing extends ItemBauble implements IManaUsingItem {
 
@@ -29,58 +30,55 @@ public class ItemWaterRing extends ItemBauble implements IManaUsingItem {
 		super(props);
 	}
 
-	@Override
-	public void onWornTick(ItemStack stack, EntityLivingBase player) {
-		super.onWornTick(stack, player);
+	public static class Curio extends BaseCurio {
+		public Curio(ItemStack stack) {
+			super(stack);
+		}
 
-		if(player.isInWaterOrBubbleColumn()) {
-			if(player instanceof EntityPlayer) {
-				ItemStack firstRing = ItemStack.EMPTY; // todo 1.13 BaublesApi.getBaublesHandler((EntityPlayer) player).getStackInSlot(1);
-				if(!firstRing.isEmpty() && firstRing.getItem() instanceof ItemWaterRing && firstRing != stack) {
-					return;
+		@Override
+		public void onCurioTick(String identifier, EntityLivingBase living) {
+			if(living.isInWaterOrBubbleColumn()) {
+				if(living instanceof EntityPlayer) {
+				    // only activate for one ring at a time
+					CuriosAPI.FinderData result = CuriosAPI.getCurioEquipped(ModItems.waterRing, living);
+					if(result == null || result.getStack() != stack)
+						return;
 				}
-			}
 
-			double motionX = player.motionX * SPEED_MULT;
-			double motionY = player.motionY * SPEED_MULT;
-			double motionZ = player.motionZ * SPEED_MULT;
+				double motionX = living.motionX * SPEED_MULT;
+				double motionY = living.motionY * SPEED_MULT;
+				double motionZ = living.motionZ * SPEED_MULT;
 
-			boolean flying = player instanceof EntityPlayer && ((EntityPlayer) player).abilities.isFlying;
+				boolean flying = living instanceof EntityPlayer && ((EntityPlayer) living).abilities.isFlying;
 
-			if(Math.abs(motionX) < MAX_SPEED && !flying)
-				player.motionX = motionX;
-			if(Math.abs(motionY) < MAX_SPEED && !flying)
-				player.motionY = motionY;
-			if(Math.abs(motionZ) < MAX_SPEED && !flying)
-				player.motionZ = motionZ;
+				if(Math.abs(motionX) < MAX_SPEED && !flying)
+					living.motionX = motionX;
+				if(Math.abs(motionY) < MAX_SPEED && !flying)
+					living.motionY = motionY;
+				if(Math.abs(motionZ) < MAX_SPEED && !flying)
+					living.motionZ = motionZ;
 
-			PotionEffect effect = player.getActivePotionEffect(MobEffects.NIGHT_VISION);
-			if(effect == null) {
-				PotionEffect neweffect = new PotionEffect(MobEffects.NIGHT_VISION, Integer.MAX_VALUE, -42, true, true);
-				player.addPotionEffect(neweffect);
-			}
+				PotionEffect effect = living.getActivePotionEffect(MobEffects.NIGHT_VISION);
+				if(effect == null) {
+					PotionEffect neweffect = new PotionEffect(MobEffects.NIGHT_VISION, Integer.MAX_VALUE, -42, true, true);
+					living.addPotionEffect(neweffect);
+				}
 
-			if(player.getAir() <= 1 && player instanceof EntityPlayer) {
-				int mana = ManaItemHandler.requestMana(stack, (EntityPlayer) player, 300, true);
-				if (mana > 0)
-					player.setAir(mana);
-			}
-		} else onUnequipped(stack, player);
+				if(living.getAir() <= 1 && living instanceof EntityPlayer) {
+					int mana = ManaItemHandler.requestMana(stack, (EntityPlayer) living, 300, true);
+					if(mana > 0)
+						living.setAir(mana);
+				}
+			} else onUnequipped(identifier, living);
+		}
+
+		@Override
+		public void onUnequipped(String identifier, EntityLivingBase living) {
+			PotionEffect effect = living.getActivePotionEffect(MobEffects.NIGHT_VISION);
+			if(effect != null && effect.getAmplifier() == -42)
+				living.removePotionEffect(MobEffects.NIGHT_VISION);
+		}
 	}
-
-	@Override
-	public void onUnequipped(ItemStack stack, EntityLivingBase player) {
-		PotionEffect effect = player.getActivePotionEffect(MobEffects.NIGHT_VISION);
-		if(effect != null && effect.getAmplifier() == -42)
-			player.removePotionEffect(MobEffects.NIGHT_VISION);
-	}
-
-	/* todo 1.13
-	@Override
-	public BaubleType getBaubleType(ItemStack arg0) {
-		return BaubleType.RING;
-	}
-	*/
 
 	@Override
 	public boolean usesMana(ItemStack stack) {

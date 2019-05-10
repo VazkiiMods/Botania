@@ -10,10 +10,12 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
+import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.model.ModelBiped;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
@@ -23,9 +25,10 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.item.IBaubleRender;
 import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.common.integration.curios.BaseCurio;
 import vazkii.botania.common.lib.LibItemNames;
 
-public class ItemKnockbackBelt extends ItemBaubleModifier implements IBaubleRender {
+public class ItemKnockbackBelt extends ItemBauble {
 
 	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_KNOCKBACK_BELT);
 	private static ModelBiped model;
@@ -34,27 +37,26 @@ public class ItemKnockbackBelt extends ItemBaubleModifier implements IBaubleRend
 		super(props);
 	}
 
-	/* todo 1.13
-	@Override
-	public BaubleType getBaubleType(ItemStack itemstack) {
-		return BaubleType.BELT;
-	}
-	*/
+	public static class Curio extends BaseCurio {
+		public Curio(ItemStack stack) {
+			super(stack);
+		}
 
-	@Override
-	void fillModifiers(Multimap<String, AttributeModifier> attributes, ItemStack stack) {
-		if(stack.isEmpty()) // workaround for Azanor/Baubles#156
-			return;
-		
-		attributes.put(SharedMonsterAttributes.KNOCKBACK_RESISTANCE.getName(), new AttributeModifier(getBaubleUUID(stack), "Knockback Belt", 1, 0).setSaved(false));
-	}
+		@Override
+		public Multimap<String, AttributeModifier> getAttributeModifiers(String identifier) {
+		    Multimap<String, AttributeModifier> attributes = HashMultimap.create();
+			attributes.put(SharedMonsterAttributes.KNOCKBACK_RESISTANCE.getName(), new AttributeModifier(getBaubleUUID(stack),  "Knockback Belt", 1, 0).setSaved(false));
+			return attributes;
+		}
 
-	@Override
-	@OnlyIn(Dist.CLIENT)
-	public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
-		if(type == RenderType.BODY) {
+		@Override
+		public boolean hasRender(String identifier, EntityLivingBase living) {
+			return true;
+		}
+
+		@Override
+		public void doRender(String identifier, EntityLivingBase living, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 			Minecraft.getInstance().textureManager.bindTexture(texture);
-			Helper.rotateIfSneaking(player);
 
 			GlStateManager.translatef(0F, 0.2F, 0F);
 
@@ -67,5 +69,4 @@ public class ItemKnockbackBelt extends ItemBaubleModifier implements IBaubleRend
 			model.bipedBody.render(1F);
 		}
 	}
-
 }

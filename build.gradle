@@ -78,6 +78,10 @@ repositories {
     maven {
         url = "http://minecraft.curseforge.com/api/maven/"
     }
+    maven {
+        name = "curios"
+        url = "https://maven.theillusivec4.top/"
+    }
 }
 
 if (System.getenv().BUILD_NUMBER != null) { 
@@ -116,6 +120,9 @@ dependencies {
     //deobfCompile "com.azanor.baubles:Baubles:1.12-1.5.2"
     compileOnly fg.deobf("mezz.jei:jei-1.13.2:5.0.0.20:api")
     runtimeOnly fg.deobf("mezz.jei:jei-1.13.2:5.0.0.20")
+    
+    compileOnly fg.deobf("top.theillusivec4.curios:curios:1.13.2-0.11:api")
+    runtimeOnly fg.deobf("top.theillusivec4.curios:curios:1.13.2-0.11")
     //deobfCompile "thaumcraft:Thaumcraft:1.12.2:6.1.BETA26"
 
     //and a bit more for SCP

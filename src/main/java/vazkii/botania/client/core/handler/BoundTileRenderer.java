@@ -23,6 +23,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
+import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
@@ -64,24 +65,27 @@ public final class BoundTileRenderer {
 				renderBlockOutlineAt(coords, color);
 		}
 
-		IItemHandlerModifiable mainInv = (IItemHandlerModifiable) player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.UP).orElseThrow(IllegalStateException::new);
-		IItemHandlerModifiable baublesInv = BotaniaAPI.internalHandler.getBaublesInventoryWrapped(player);
-		IItemHandler joined = baublesInv != null ? new CombinedInvWrapper(mainInv, baublesInv) : mainInv;
+		LazyOptional<IItemHandler> mainInvCap = player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.UP);
+		mainInvCap.ifPresent(mainInv -> {
+			IItemHandlerModifiable baublesInv = BotaniaAPI.internalHandler.getBaublesInventoryWrapped(player);
+			IItemHandler joined = baublesInv != null ? new CombinedInvWrapper((IItemHandlerModifiable) mainInv, baublesInv) : mainInv;
 
-		for(int i = 0; i < joined.getSlots(); i++) {
-			ItemStack stackInSlot = joined.getStackInSlot(i);
+			for (int i = 0; i < joined.getSlots(); i++) {
+				ItemStack stackInSlot = joined.getStackInSlot(i);
 
-			if(!stackInSlot.isEmpty() && stackInSlot.getItem() instanceof IWireframeCoordinateListProvider) {
-				IWireframeCoordinateListProvider provider = (IWireframeCoordinateListProvider) stackInSlot.getItem();
-				List<BlockPos> coordsList = provider.getWireframesToDraw(player, stackInSlot);
-				for(BlockPos coords : coordsList)
-					renderBlockOutlineAt(coords, color);
+				if (!stackInSlot.isEmpty() && stackInSlot.getItem() instanceof IWireframeCoordinateListProvider) {
+					IWireframeCoordinateListProvider provider = (IWireframeCoordinateListProvider) stackInSlot.getItem();
+					List<BlockPos> coordsList = provider.getWireframesToDraw(player, stackInSlot);
+					for (BlockPos coords : coordsList)
+						renderBlockOutlineAt(coords, color);
 
-				BlockPos coords = provider.getSourceWireframe(player, stackInSlot);
-				if(coords != null && coords.getY() > -1)
-					renderBlockOutlineAt(coords, color, 5F);
+					BlockPos coords = provider.getSourceWireframe(player, stackInSlot);
+					if (coords != null && coords.getY() > -1)
+						renderBlockOutlineAt(coords, color, 5F);
+				}
 			}
-		}
+		});
+
 
 		GlStateManager.enableDepthTest();
 		GlStateManager.enableTexture2D();

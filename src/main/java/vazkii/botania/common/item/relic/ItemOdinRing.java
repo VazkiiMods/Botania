@@ -24,7 +24,9 @@ import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.items.IItemHandler;
+import top.theillusivec4.curios.api.CuriosAPI;
 import vazkii.botania.common.core.handler.ConfigHandler;
+import vazkii.botania.common.integration.curios.RelicCurio;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibMisc;
@@ -52,10 +54,23 @@ public class ItemOdinRing extends ItemRelicBauble {
 		fireNegations.add(DamageSource.ON_FIRE.damageType);
 	}
 
-	@Override
-	public void onValidPlayerWornTick(ItemStack stack, EntityPlayer player) {
-		if(player.isBurning() && ConfigHandler.COMMON.ringOfOdinFireResist.get())
-			player.extinguish();
+	public static class Curio extends RelicCurio {
+		public Curio(ItemStack stack, ItemRelic relicDelegate) {
+			super(stack, relicDelegate);
+		}
+
+		@Override
+		public void onValidPlayerWornTick(EntityPlayer player) {
+			if(player.isBurning() && ConfigHandler.COMMON.ringOfOdinFireResist.get())
+				player.extinguish();
+		}
+
+		@Override
+		public Multimap<String, AttributeModifier> getAttributeModifiers(String identifier) {
+			Multimap<String, AttributeModifier> attributes = HashMultimap.create();
+			attributes.put(SharedMonsterAttributes.MAX_HEALTH.getName(), new AttributeModifier(getBaubleUUID(stack), "Odin Ring", 20, 0).setSaved(false));
+			return attributes;
+		}
 	}
 
 	@SubscribeEvent
@@ -64,50 +79,10 @@ public class ItemOdinRing extends ItemRelicBauble {
 			EntityPlayer player = (EntityPlayer) event.getEntityLiving();
 			boolean negate = damageNegations.contains(event.getSource().damageType)
 					|| (ConfigHandler.COMMON.ringOfOdinFireResist.get() && fireNegations.contains(event.getSource().damageType));
-			if(!getOdinRing(player).isEmpty() && negate)
+			CuriosAPI.FinderData result = CuriosAPI.getCurioEquipped(ModItems.odinRing, player);
+			if(result != null && negate)
 				event.setCanceled(true);
 		}
-	}
-
-	/* todo 1.13
-	@Override
-	public BaubleType getBaubleType(ItemStack arg0) {
-		return BaubleType.RING;
-	}
-	*/
-
-	public static ItemStack getOdinRing(EntityPlayer player) {
-		IItemHandler baubles = null; // BaublesApi.getBaublesHandler(player);
-		int slot = -1; // todo 1.13 BaublesApi.isBaubleEquipped(player, ModItems.odinRing);
-		if (slot < 0) {
-			return ItemStack.EMPTY;
-		}
-		return baubles.getStackInSlot(slot);
-	}
-
-	@Override
-	public void onEquippedOrLoadedIntoWorld(ItemStack stack, EntityLivingBase player) {
-		if(!player.world.isRemote) {
-			Multimap<String, AttributeModifier> attributes = HashMultimap.create();
-			fillModifiers(attributes, stack);
-			player.getAttributeMap().applyAttributeModifiers(attributes);
-		}
-	}
-
-	@Override
-	public void onUnequipped(ItemStack stack, EntityLivingBase player) {
-		if(!player.world.isRemote) {
-			Multimap<String, AttributeModifier> attributes = HashMultimap.create();
-			fillModifiers(attributes, stack);
-			player.getAttributeMap().removeAttributeModifiers(attributes);
-		}
-	}
-
-	private void fillModifiers(Multimap<String, AttributeModifier> attributes, ItemStack stack) {
-		if(stack.isEmpty()) // workaround for Azanor/Baubles#156
-			return;
-		
-		attributes.put(SharedMonsterAttributes.MAX_HEALTH.getName(), new AttributeModifier(getBaubleUUID(stack), "Odin Ring", 20, 0).setSaved(false));
 	}
 
 	@Override
