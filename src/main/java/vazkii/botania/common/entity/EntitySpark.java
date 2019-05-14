@@ -33,6 +33,8 @@ import vazkii.botania.api.mana.spark.ISparkAttachable;
 import vazkii.botania.api.mana.spark.ISparkEntity;
 import vazkii.botania.api.mana.spark.SparkHelper;
 import vazkii.botania.api.mana.spark.SparkUpgradeType;
+import vazkii.botania.common.Botania;
+import vazkii.botania.common.integration.curios.CurioIntegration;
 import vazkii.botania.common.item.ItemSparkUpgrade;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibMisc;
@@ -110,12 +112,13 @@ public class EntitySpark extends Entity implements ISparkEntity {
 				List<ItemStack> stacks = new ArrayList<>();
 				stacks.addAll(player.inventory.mainInventory);
 				stacks.addAll(player.inventory.armorInventory);
-				
-				/* todo 1.13
-				IItemHandler baubles = BaublesApi.getBaublesHandler(player);
-				for (int i = 0; i < baubles.getSlots(); i++)
-					stacks.add(baubles.getStackInSlot(i));
-				*/
+
+				if(Botania.curiosLoaded) {
+					CurioIntegration.getAllCurios(player).ifPresent(inv -> {
+						for (int i = 0; i < inv.getSlots(); i++)
+							stacks.add(inv.getStackInSlot(i));
+					});
+				}
 
 				for(ItemStack stack : stacks) {
 					if(stack.isEmpty() || !(stack.getItem() instanceof IManaItem))

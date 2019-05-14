@@ -18,8 +18,10 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.fml.network.NetworkEvent;
 import net.minecraftforge.items.IItemHandler;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
+import vazkii.botania.common.integration.curios.CurioIntegration;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.bauble.ItemDodgeRing;
 import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraSword;
@@ -38,14 +40,16 @@ public class PacketDodge {
 			EntityPlayerMP player = ctx.get().getSender();
 			player.world.playSound(null, player.posX, player.posY, player.posZ, ModSounds.dash, SoundCategory.PLAYERS, 1F, 1F);
 
-			// todo 1.13
-			IItemHandler baublesInv = null; // BaublesApi.getBaublesHandler(player);
-			int slot = -1; // BaublesApi.isBaubleEquipped(player, ModItems.dodgeRing);
-			if(slot < 0) {
+			ItemStack ringStack = ItemStack.EMPTY;
+			if(Botania.curiosLoaded) {
+				ringStack = CurioIntegration.findOrEmpty(ModItems.dodgeRing, player);
+			}
+
+			if(ringStack.isEmpty()) {
 				player.connection.disconnect(new TextComponentTranslation("botaniamisc.invalidDodge"));
 				return;
 			}
-			ItemStack ringStack = baublesInv.getStackInSlot(slot);
+
 			player.addExhaustion(0.3F);
 			ItemNBTHelper.setInt(ringStack, ItemDodgeRing.TAG_DODGE_COOLDOWN, ItemDodgeRing.MAX_CD);
 		});

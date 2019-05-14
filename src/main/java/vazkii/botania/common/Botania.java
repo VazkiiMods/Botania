@@ -113,6 +113,7 @@ public class Botania {
 	public static boolean bcApiLoaded = false;
 	public static boolean bloodMagicLoaded = false;
 	public static boolean coloredLightsLoaded = false;
+	public static boolean curiosLoaded = false;
 
 	public static Botania instance;
 	public static IProxy proxy;
@@ -140,6 +141,7 @@ public class Botania {
 		bcApiLoaded = ModList.get().isLoaded("buildcraftlib");
 		bloodMagicLoaded = ModList.get().isLoaded("bloodmagic"); // Psh, noob
 		coloredLightsLoaded = ModList.get().isLoaded("easycoloredlights");
+		curiosLoaded = ModList.get().isLoaded("curios");
 
 		BotaniaAPI.internalHandler = new InternalMethodHandler();
 
@@ -166,7 +168,7 @@ public class Botania {
 		MinecraftForge.EVENT_BUS.register(TileCorporeaIndex.getInputHandler());
 		MinecraftForge.EVENT_BUS.register(new LootHandler());
 
-		if(ModList.get().isLoaded("curios")) {
+		if(curiosLoaded) {
 			CurioIntegration.init();
 			FMLJavaModLoadingContext.get().getModEventBus().register(CurioIntegration.class);
 			MinecraftForge.EVENT_BUS.register(CurioIntegration.class);

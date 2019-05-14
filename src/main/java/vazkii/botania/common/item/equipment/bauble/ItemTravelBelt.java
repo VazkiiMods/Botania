@@ -14,6 +14,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.model.ModelBiped;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -24,16 +25,18 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import top.theillusivec4.curios.api.CuriosAPI;
 import vazkii.botania.api.item.IBaubleRender;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.common.integration.curios.BaseCurio;
 import vazkii.botania.common.lib.LibItemNames;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ItemTravelBelt extends ItemBauble implements IBaubleRender, IManaUsingItem {
+public class ItemTravelBelt extends ItemBauble implements IManaUsingItem {
 
 	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_TRAVEL_BELT);
 	@OnlyIn(Dist.CLIENT)
@@ -60,20 +63,14 @@ public class ItemTravelBelt extends ItemBauble implements IBaubleRender, IManaUs
 		this.fallBuffer = fallBuffer;
 	}
 
-	/* todo 1.13
-	@Override
-	public BaubleType getBaubleType(ItemStack itemstack) {
-		return BaubleType.BELT;
-	}
-	*/
-
 	@SubscribeEvent
 	public void updatePlayerStepStatus(LivingUpdateEvent event) {
 		if(event.getEntityLiving() instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) event.getEntityLiving();
+			CuriosAPI.FinderData result = CuriosAPI.getCurioEquipped(s -> s.getItem() instanceof ItemTravelBelt, player);
 			String s = playerStr(player);
 
-			ItemStack belt = ItemStack.EMPTY; // todo 1.13 BaublesApi.getBaublesHandler(player).getStackInSlot(3);
+			ItemStack belt = result == null ? ItemStack.EMPTY : result.getStack();
 			if(playersWithStepup.contains(s)) {
 				if(shouldPlayerHaveStepup(player)) {
 					ItemTravelBelt beltItem = (ItemTravelBelt) belt.getItem();
@@ -116,18 +113,18 @@ public class ItemTravelBelt extends ItemBauble implements IBaubleRender, IManaUs
 	public void onPlayerJump(LivingJumpEvent event) {
 		if(event.getEntityLiving() instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) event.getEntityLiving();
-			ItemStack belt = ItemStack.EMPTY; // todo 1.13 BaublesApi.getBaublesHandler(player).getStackInSlot(3);
+			CuriosAPI.FinderData result = CuriosAPI.getCurioEquipped(s -> s.getItem() instanceof ItemTravelBelt, player);
 
-			if(!belt.isEmpty() && belt.getItem() instanceof ItemTravelBelt && ManaItemHandler.requestManaExact(belt, player, COST, false)) {
-				player.motionY += ((ItemTravelBelt) belt.getItem()).jump;
-				player.fallDistance = -((ItemTravelBelt) belt.getItem()).fallBuffer;
+			if(result != null && ManaItemHandler.requestManaExact(result.getStack(), player, COST, false)) {
+				player.motionY += ((ItemTravelBelt) result.getStack().getItem()).jump;
+				player.fallDistance = -((ItemTravelBelt) result.getStack().getItem()).fallBuffer;
 			}
 		}
 	}
 
 	private boolean shouldPlayerHaveStepup(EntityPlayer player) {
-		ItemStack armor = ItemStack.EMPTY; // todo 1.13 BaublesApi.getBaublesHandler(player).getStackInSlot(3);
-		return !armor.isEmpty() && armor.getItem() instanceof ItemTravelBelt && ManaItemHandler.requestManaExact(armor, player, COST, false);
+		CuriosAPI.FinderData result = CuriosAPI.getCurioEquipped(s -> s.getItem() instanceof ItemTravelBelt, player);
+		return result != null && ManaItemHandler.requestManaExact(result.getStack(), player, COST, false);
 	}
 
 	@SubscribeEvent
@@ -146,12 +143,20 @@ public class ItemTravelBelt extends ItemBauble implements IBaubleRender, IManaUs
 		return texture;
 	}
 
-	@Override
-	@OnlyIn(Dist.CLIENT)
-	public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
-		if(type == RenderType.BODY) {
-			Minecraft.getInstance().textureManager.bindTexture(getRenderTexture());
-			Helper.rotateIfSneaking(player);
+	public static class Curio extends BaseCurio {
+		public Curio(ItemStack stack) {
+			super(stack);
+		}
+
+		@Override
+		public boolean hasRender(String identifier, EntityLivingBase living) {
+			return true;
+		}
+
+		@Override
+		public void doRender(String identifier, EntityLivingBase player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+			Minecraft.getInstance().textureManager.bindTexture(((ItemTravelBelt) stack.getItem()).getRenderTexture());
+			IBaubleRender.Helper.rotateIfSneaking(player);
 
 			GlStateManager.translatef(0F, 0.2F, 0F);
 

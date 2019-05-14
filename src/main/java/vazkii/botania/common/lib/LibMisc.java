@@ -18,18 +18,6 @@ public final class LibMisc {
 	public static final String BUILD = "GRADLE:BUILD";
 	public static final String VERSION = "GRADLE:VERSION-" + BUILD;
 	public static final String MC_VERSION = "1.13.2";
-	public static final String DEPENDENCIES = "required-after:baubles@[1.5.2,);after:thaumcraft@[6.1.BETA21,);after:jei@[1.12.2-4.13.1.220,)";
-
-	// Network Contants
-	public static final String NETWORK_CHANNEL = MOD_ID;
-
-	// Proxy Constants
-	public static final String PROXY_SERVER = "vazkii.botania.common.core.proxy.ServerProxy";
-	public static final String PROXY_CLIENT = "vazkii.botania.client.core.proxy.ClientProxy";
-	public static final String GUI_FACTORY = "vazkii.botania.client.core.proxy.GuiFactory";
-
-	// IMC Keys
-	public static final String BLACKLIST_ITEM = "blackListItem";
 
 	public static final int[] CONTROL_CODE_COLORS = new int[] {
 			0x000000, 0x0000AA, 0x00AA00, 0x00AAAA,
