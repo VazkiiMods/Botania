@@ -12,6 +12,7 @@ package vazkii.botania.common.brew.potion;
 
 import javafx.geometry.Side;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
@@ -36,13 +37,13 @@ public class PotionMod extends Potion {
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public void renderInventoryEffect(int x, int y, PotionEffect effect, Minecraft mc) {
+	public void renderInventoryEffect(PotionEffect effect, Gui gui, int x, int y, float z) {
 		render(x + 6, y + 7, 1);
 	}
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public void renderHUDEffect(int x, int y, PotionEffect effect, Minecraft mc, float alpha) {
+	public void renderHUDEffect(PotionEffect effect, Gui gui, int x, int y, float z, float alpha) {
 		render(x + 3, y + 3, alpha);
 	}
 

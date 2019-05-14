@@ -16,6 +16,11 @@ import net.minecraft.nbt.NBTUtil;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntityType;
+import net.minecraftforge.client.model.data.IModelData;
+import net.minecraftforge.client.model.data.ModelDataMap;
+import vazkii.botania.api.state.BotaniaStateProps;
+
+import javax.annotation.Nonnull;
 
 public class TileCamo extends TileMod {
 
@@ -45,6 +50,16 @@ public class TileCamo extends TileMod {
 	@Override
 	public void onDataPacket(NetworkManager manager, SPacketUpdateTileEntity packet) {
 		super.onDataPacket(manager, packet);
+		requestModelDataUpdate();
 		world.markBlockRangeForRenderUpdate(pos, pos);
+	}
+
+	@Nonnull
+	@Override
+	public IModelData getModelData() {
+		return new ModelDataMap.Builder()
+				.withInitial(BotaniaStateProps.HELD_POS, getPos())
+				.withInitial(BotaniaStateProps.HELD_STATE, camoState)
+				.build();
 	}
 }

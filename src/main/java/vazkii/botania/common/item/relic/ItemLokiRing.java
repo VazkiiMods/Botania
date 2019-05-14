@@ -34,12 +34,14 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.items.IItemHandler;
+import top.theillusivec4.curios.api.CuriosAPI;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.ISequentialBreaker;
 import vazkii.botania.api.item.IWireframeCoordinateListProvider;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
+import vazkii.botania.common.integration.curios.RelicCurio;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.lib.LibItemNames;
@@ -69,17 +71,6 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 		if(lokiRing.isEmpty() || !player.isSneaking())
 			return;
 
-		int slot = -1;
-		if (1==1) return; // todo 1.13
-		IItemHandler inv = null; // BaublesApi.getBaublesHandler(player);
-		for(int i = 0; i < inv.getSlots(); i++) {
-			ItemStack stack = inv.getStackInSlot(i);
-			if(stack == lokiRing) {
-				slot = i;
-				break;
-			}
-		}
-
 		ItemStack heldItemStack = event.getItemStack();
 		BlockPos originCoords = getOriginPos(lokiRing);
 		RayTraceResult lookPos = ToolCommons.raytraceFromEntity(player.world, player, true, 10F);
@@ -94,11 +85,9 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 				if(originCoords.getY() == -1) {
 					setOriginPos(lokiRing, lookPos.getBlockPos());
 					setCursorList(lokiRing, null);
-					BotaniaAPI.internalHandler.sendBaubleUpdatePacket(player, slot);
 				} else {
 					if(originCoords.equals(lookPos.getBlockPos())) {
 						setOriginPos(lokiRing, new BlockPos(0, -1, 0));
-						BotaniaAPI.internalHandler.sendBaubleUpdatePacket(player, slot);
 					} else {
 						addCursor : {
 							BlockPos relPos = lookPos.getBlockPos().add(new BlockPos(-originCoords.getX(), -originCoords.getY(), -originCoords.getZ()));
@@ -107,12 +96,10 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 								if(cursor.equals(relPos)) {
 									cursors.remove(cursor);
 									setCursorList(lokiRing, cursors);
-									BotaniaAPI.internalHandler.sendBaubleUpdatePacket(player, slot);
 									break addCursor;
 								}
 
 							addCursor(lokiRing, relPos);
-							BotaniaAPI.internalHandler.sendBaubleUpdatePacket(player, slot);
 						}
 					}
 				}
@@ -151,16 +138,20 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 		}
 	}
 
-	/* todo 1.13
-	@Override
-	public BaubleType getBaubleType(ItemStack arg0) {
-		return BaubleType.RING;
-	}
-	*/
+	public static class Curio extends RelicCurio {
+		public Curio(ItemStack stack, ItemRelic relicDelegate) {
+			super(stack, relicDelegate);
+		}
 
-	@Override
-	public void onUnequipped(ItemStack stack, EntityLivingBase player) {
-		setCursorList(stack, null);
+		@Override
+		public boolean shouldSyncToTracking(String identifier, EntityLivingBase living) {
+			return true;
+		}
+
+		@Override
+		public void onUnequipped(String identifier, EntityLivingBase living) {
+			setCursorList(stack, null);
+		}
 	}
 
 	@Override
@@ -195,12 +186,10 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 	}
 
 	private static ItemStack getLokiRing(EntityPlayer player) {
-		IItemHandler baubles = null; // BaublesApi.getBaublesHandler(player);
-		int slot = -1; // todo 1.13 BaublesApi.isBaubleEquipped(player, ModItems.lokiRing);
-		if (slot < 0) {
-			return ItemStack.EMPTY;
-		}
-		return baubles.getStackInSlot(slot);
+		CuriosAPI.FinderData result = CuriosAPI.getCurioEquipped(ModItems.lokiRing, player);
+		if(result != null)
+			return result.getStack();
+		return ItemStack.EMPTY;
 	}
 
 

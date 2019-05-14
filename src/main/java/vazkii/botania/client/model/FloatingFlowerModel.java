@@ -11,7 +11,6 @@ package vazkii.botania.client.model;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Table;
-import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.model.BakedQuad;
@@ -30,11 +29,12 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
+import net.minecraftforge.client.model.data.IDynamicBakedModel;
+import net.minecraftforge.client.model.data.IModelData;
 import net.minecraftforge.client.model.pipeline.IVertexConsumer;
 import net.minecraftforge.client.model.pipeline.UnpackedBakedQuad;
 import net.minecraftforge.client.model.pipeline.VertexTransformer;
 import net.minecraftforge.common.model.TRSRTransformation;
-import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.commons.lang3.tuple.Pair;
 import vazkii.botania.api.BotaniaAPIClient;
@@ -43,9 +43,7 @@ import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.decor.BlockFloatingFlower;
-import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 import vazkii.botania.common.lib.LibBlockNames;
-import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -58,7 +56,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-public class FloatingFlowerModel implements IBakedModel {
+public class FloatingFlowerModel implements IDynamicBakedModel {
 
 	private final Table<IFloatingFlower.IslandType, ResourceLocation, CompositeBakedModel> CACHE = HashBasedTable.create();
 
@@ -90,27 +88,22 @@ public class FloatingFlowerModel implements IBakedModel {
 
 	@Nonnull
 	@Override
-	public List<BakedQuad> getQuads(IBlockState state, EnumFacing face, @Nonnull Random rand) {
-		if(!(state.getBlock() instanceof BlockFloatingFlower))
-			return Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelShapes().getModelManager().getMissingModel().getQuads(state, face, rand);
-		if(true) // todo 1.13
-			return ImmutableList.of();
-		IExtendedBlockState realState = (IExtendedBlockState) state;
-		IFloatingFlower.IslandType islandType = realState.getValue(BotaniaStateProps.ISLAND_TYPE);
-		return getModel(islandType, state.getBlock().getRegistryName()).getQuads(state, face, rand);
+	public List<BakedQuad> getQuads(IBlockState state, EnumFacing face, @Nonnull Random rand, @Nonnull IModelData data) {
+		if(!data.hasProperty(BotaniaStateProps.FLOATING_DATA))
+			return Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelShapes().getModelManager().getMissingModel().getQuads(state, face, rand, data);
+		IFloatingFlower floatingData = data.getData(BotaniaStateProps.FLOATING_DATA);
+		return getModel(floatingData.getIslandType(), floatingData.getDisplayStack()).getQuads(state, face, rand);
 	}
 
 	// Get the model for this islandtype + flower type combination. If it's not cached already, generate it.
-	private CompositeBakedModel getModel(IFloatingFlower.IslandType islandType, ResourceLocation identifier) {
+	private CompositeBakedModel getModel(IFloatingFlower.IslandType islandType, ItemStack flower) {
 		ModelManager modelManager = Minecraft.getInstance().getItemRenderer().getItemModelMesher().getModelManager();
 
 		if(islandType == null) // This and the next one can be null if obtained from a non-extended state
 			islandType = IFloatingFlower.IslandType.GRASS;
-		if(identifier == null)
-			identifier = ModBlocks.whiteFloatingFlower.getRegistryName();
 
-		if(CACHE.contains(islandType, identifier)) {
-			return CACHE.get(islandType, identifier);
+		if(CACHE.contains(islandType, flower.getItem().getRegistryName())) {
+			return CACHE.get(islandType, flower.getItem().getRegistryName());
 		} else {
 			IBakedModel islandModel;
 			try {
@@ -120,20 +113,12 @@ public class FloatingFlowerModel implements IBakedModel {
 				islandModel = modelManager.getMissingModel();
 			}
 
-			Item item;
-
-			if(identifier.getPath().endsWith(LibBlockNames.FLOATING_FLOWER_SUFFIX)) {
-				ResourceLocation shinyId = new ResourceLocation(identifier.getNamespace(), identifier.getPath().replaceAll(LibBlockNames.FLOATING_FLOWER_SUFFIX, LibBlockNames.SHINY_FLOWER_SUFFIX));
-				item = ForgeRegistries.ITEMS.getValue(shinyId);
-			} else {
-				item = ForgeRegistries.ITEMS.getValue(identifier);
-			}
-			IBakedModel flowerModel = Minecraft.getInstance().getItemRenderer().getItemModelMesher().getItemModel(new ItemStack(item));
+			IBakedModel flowerModel = Minecraft.getInstance().getItemRenderer().getItemModelMesher().getItemModel(flower);
 
 			// Enhance!
 			CompositeBakedModel model = new CompositeBakedModel(flowerModel, islandModel);
-			Botania.LOGGER.debug("Cached floating flower model for islandtype {} and flowertype {}", islandType, identifier);
-			CACHE.put(islandType, identifier, model);
+			Botania.LOGGER.debug("Cached floating flower model for islandtype {} and flowertype {}", islandType, flower.getItem().getRegistryName());
+			CACHE.put(islandType, flower.getItem().getRegistryName(), model);
 			return model;
 		}
 	}
@@ -218,8 +203,7 @@ public class FloatingFlowerModel implements IBakedModel {
 		@Override
 		public IBakedModel getModelWithOverrides(IBakedModel model, ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
 			// Items always have GRASS island
-			IFloatingFlower.IslandType islandType = IFloatingFlower.IslandType.GRASS;
-			return FloatingFlowerModel.this.getModel(islandType, stack.getItem().getRegistryName());
+			return FloatingFlowerModel.this.getModel(IFloatingFlower.IslandType.GRASS, stack);
 		}
 	};
 }

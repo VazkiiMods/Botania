@@ -15,6 +15,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.EnumFacing;
+import net.minecraftforge.client.model.data.IModelData;
+import net.minecraftforge.client.model.data.ModelDataMap;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.registries.ObjectHolder;
@@ -23,6 +25,7 @@ import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.capability.FloatingFlowerImpl;
 import vazkii.botania.api.item.IFloatingFlower;
+import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.decor.BlockFloatingFlower;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -88,4 +91,11 @@ public class TileFloatingFlower extends TileMod {
 		BotaniaAPI.FLOATING_FLOWER_CAP.readNBT(floatingData, null, cmp.getCompound(TAG_FLOATING_DATA));
 	}
 
+	@Nonnull
+	@Override
+	public IModelData getModelData() {
+		return new ModelDataMap.Builder()
+				.withInitial(BotaniaStateProps.FLOATING_DATA, floatingData)
+				.build();
+	}
 }

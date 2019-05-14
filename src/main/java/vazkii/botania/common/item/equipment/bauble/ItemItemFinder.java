@@ -38,19 +38,22 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
+import top.theillusivec4.curios.api.CuriosAPI;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IBaubleRender;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
+import vazkii.botania.common.integration.curios.BaseCurio;
+import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibItemNames;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
-public class ItemItemFinder extends ItemBauble implements IBaubleRender {
+public class ItemItemFinder extends ItemBauble {
 
 	private static final String TAG_ENTITY_POSITIONS = "highlightPositionsEnt";
 	private static final String TAG_BLOCK_POSITIONS = "highlightPositionsBlock";
@@ -59,16 +62,47 @@ public class ItemItemFinder extends ItemBauble implements IBaubleRender {
 		super(props);
 	}
 
-	@Override
-	public void onWornTick(ItemStack stack, EntityLivingBase player) {
-		super.onWornTick(stack, player);
+	public static class Curio extends BaseCurio {
+		public Curio(ItemStack stack) {
+			super(stack);
+		}
 
-		if(!(player instanceof EntityPlayer))
-			return;
+		@Override
+		public void onCurioTick(String identifier, EntityLivingBase player) {
+			if(!(player instanceof EntityPlayer))
+				return;
 
-		if(player.world.isRemote)
-			tickClient(stack, (EntityPlayer) player);
-		else tickServer(stack, (EntityPlayer) player);
+			if(player.world.isRemote)
+				((ItemItemFinder) ModItems.itemFinder).tickClient(stack, (EntityPlayer) player);
+			else ((ItemItemFinder) ModItems.itemFinder).tickServer(stack, (EntityPlayer) player);
+		}
+
+		@Override
+		public boolean shouldSyncToTracking(String identifier, EntityLivingBase living) {
+			return true;
+		}
+
+		@Override
+		public boolean hasRender(String identifier, EntityLivingBase entityLivingBase) {
+			return true;
+		}
+
+		@Override
+		public void doRender(String identifier, EntityLivingBase living, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+			TextureAtlasSprite gemIcon = MiscellaneousIcons.INSTANCE.itemFinderGem;
+			float f = gemIcon.getMinU();
+			float f1 = gemIcon.getMaxU();
+			float f2 = gemIcon.getMinV();
+			float f3 = gemIcon.getMaxV();
+			boolean armor = !living.getItemStackFromSlot(EntityEquipmentSlot.HEAD).isEmpty();
+			IBaubleRender.Helper.translateToHeadLevel(living);
+			Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+			GlStateManager.rotatef(90F, 0F, 1F, 0F);
+			GlStateManager.rotatef(180F, 1F, 0F, 0F);
+			GlStateManager.translatef(-0.4F, -1.4F, armor ? -0.3F : -0.25F);
+			GlStateManager.scalef(0.75F, 0.75F, 0.75F);
+			IconHelper.renderIconIn3D(Tessellator.getInstance(), f1, f2, f, f3, gemIcon.getWidth(), gemIcon.getHeight(), 1F / 16F);
+		}
 	}
 
 	protected void tickClient(ItemStack stack, EntityPlayer player) {
@@ -105,15 +139,8 @@ public class ItemItemFinder extends ItemBauble implements IBaubleRender {
 
 		int[] currentEnts = entPosBuilder.elements();
 
-		boolean entsEqual = Arrays.equals(currentEnts, ItemNBTHelper.getIntArray(stack, TAG_ENTITY_POSITIONS));
-		boolean blocksEqual = blockPosBuilder.equals(ItemNBTHelper.getList(stack, TAG_BLOCK_POSITIONS, Constants.NBT.TAG_LONG, false));
-
-		if(!entsEqual)
-			ItemNBTHelper.setIntArray(stack, TAG_ENTITY_POSITIONS, currentEnts);
-		if(!blocksEqual)
-			ItemNBTHelper.setList(stack, TAG_BLOCK_POSITIONS, blockPosBuilder);
-		if(!entsEqual || !blocksEqual)
-			BotaniaAPI.internalHandler.sendBaubleUpdatePacket(player, 4);
+		ItemNBTHelper.setIntArray(stack, TAG_ENTITY_POSITIONS, currentEnts);
+		ItemNBTHelper.setList(stack, TAG_BLOCK_POSITIONS, blockPosBuilder);
 	}
 
 	private void scanForStack(ItemStack pstack, EntityPlayer player, IntArrayList entIdBuilder, NBTTagList blockPosBuilder) {
@@ -142,8 +169,8 @@ public class ItemItemFinder extends ItemBauble implements IBaubleRender {
 				} else if(e instanceof EntityPlayer) {
 					EntityPlayer player_ = (EntityPlayer) e;
 					LazyOptional<IItemHandler> playerInv = player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY);
-					LazyOptional<IItemHandler> binv = LazyOptional.empty(); // todo 1.13 BaublesApi.getBaublesHandler(player);
-					if(scanInventory(binv, pstack) || scanInventory(playerInv, pstack))
+					LazyOptional<Collection<? extends IItemHandler>> binv = CuriosAPI.getCuriosHandler(player_).map(h -> h.getCurioMap().values());
+					if(scanInventory(playerInv, pstack) || scanInventories(binv, pstack))
 						entIdBuilder.add(player_.getEntityId());
 
 				} else if(e instanceof EntityVillager) {
@@ -188,45 +215,29 @@ public class ItemItemFinder extends ItemBauble implements IBaubleRender {
 		return stack1.isItemEqual(stack2) && ItemStack.areItemStackTagsEqual(stack1, stack2);
 	}
 
-	private boolean scanInventory(LazyOptional<IItemHandler> optInv, ItemStack pstack) {
-		if(pstack.isEmpty())
-			return false;
-
-		return optInv.map(inv -> {
-			for(int l = 0; l < inv.getSlots(); l++) {
-				ItemStack istack = inv.getStackInSlot(l);
-				if(!istack.isEmpty() && equalStacks(istack, pstack))
+	private boolean scanInventories(LazyOptional<Collection<? extends IItemHandler>> invs, ItemStack pstack) {
+		return invs.map(coll -> {
+			for(IItemHandler inv : coll)
+				if(scanInventory(inv, pstack))
 					return true;
-			}
 			return false;
 		}).orElse(false);
 	}
 
-	/* todo 1.13
-	@Override
-	public BaubleType getBaubleType(ItemStack arg0) {
-		return BaubleType.HEAD;
+	private boolean scanInventory(LazyOptional<IItemHandler> optInv, ItemStack pstack) {
+		return optInv.map(inv -> scanInventory(inv, pstack)).orElse(false);
 	}
-	*/
 
-	@Override
-	@OnlyIn(Dist.CLIENT)
-	public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
-		TextureAtlasSprite gemIcon = MiscellaneousIcons.INSTANCE.itemFinderGem;
-		if(type == RenderType.HEAD) {
-			float f = gemIcon.getMinU();
-			float f1 = gemIcon.getMaxU();
-			float f2 = gemIcon.getMinV();
-			float f3 = gemIcon.getMaxV();
-			boolean armor = !player.getItemStackFromSlot(EntityEquipmentSlot.HEAD).isEmpty();
-			Helper.translateToHeadLevel(player);
-			Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-			GlStateManager.rotatef(90F, 0F, 1F, 0F);
-			GlStateManager.rotatef(180F, 1F, 0F, 0F);
-			GlStateManager.translatef(-0.4F, -1.4F, armor ? -0.3F : -0.25F);
-			GlStateManager.scalef(0.75F, 0.75F, 0.75F);
-			IconHelper.renderIconIn3D(Tessellator.getInstance(), f1, f2, f, f3, gemIcon.getWidth(), gemIcon.getHeight(), 1F / 16F);
+	private boolean scanInventory(IItemHandler inv, ItemStack pstack) {
+		if(pstack.isEmpty())
+			return false;
+
+		for(int l = 0; l < inv.getSlots(); l++) {
+			ItemStack istack = inv.getStackInSlot(l);
+			if(!istack.isEmpty() && equalStacks(istack, pstack))
+				return true;
 		}
+		return false;
 	}
 
 }

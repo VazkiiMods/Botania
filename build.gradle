@@ -7,7 +7,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.0.+'
         // classpath 'com.matthewprenger:CurseGradle:1.0-SNAPSHOT'
     }
 }
@@ -59,7 +59,7 @@ minecraft {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.13.2-25.0.110'
+    minecraft 'net.minecraftforge:forge:1.13.2-25.0.209'
 }
 
 repositories {

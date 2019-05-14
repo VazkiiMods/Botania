@@ -18,6 +18,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
+import net.minecraftforge.client.model.data.ModelProperty;
 import vazkii.botania.api.item.IFloatingFlower;
 import vazkii.botania.api.state.enums.AlfPortalState;
 import vazkii.botania.api.state.enums.CratePattern;
@@ -29,20 +30,14 @@ public final class BotaniaStateProps {
 
 	/** Unlisted properties **/
 
-	// The property for specialFlower subtile id
-	public static final PropertyObject<ResourceLocation> SUBTILE_ID = new PropertyObject<>("subtile_id", ResourceLocation.class);
-
 	// The property for floating flower island type
-	public static final PropertyObject<IFloatingFlower.IslandType> ISLAND_TYPE = new PropertyObject<>("islandtype", IFloatingFlower.IslandType.class);
+	public static final ModelProperty<IFloatingFlower> FLOATING_DATA = new ModelProperty<>();
 
-	// The property for platform held blockstate id
-	public static final PropertyObject<IBlockState> HELD_STATE = new PropertyObject<>("held_state", IBlockState.class);
+	// The property for platform held blockstate
+	public static final ModelProperty<IBlockState> HELD_STATE = new ModelProperty<>();
 
-	// The property for platform world object
-	public static final PropertyObject<IBlockReader> HELD_WORLD = new PropertyObject<>("held_world", IBlockReader.class);
-
-	// The proeprty for platform world pos
-	public static final PropertyObject<BlockPos> HELD_POS = new PropertyObject<>("held_pos", BlockPos.class);
+	// The property for platform world pos
+	public static final ModelProperty<BlockPos> HELD_POS = new ModelProperty<>();
 
 	/** Common properties to all blocks to use **/
 
@@ -66,22 +61,6 @@ public final class BotaniaStateProps {
 
 	// BlockEnchanter
 	public static final EnumProperty<EnumFacing.Axis> ENCHANTER_DIRECTION = EnumProperty.create("facing", EnumFacing.Axis.class, Predicates.not(Predicates.equalTo(EnumFacing.Axis.Y)));
-
-	// BlockModDoubleFlower (white to gray)
-	public static final EnumProperty<EnumDyeColor> DOUBLEFLOWER_VARIANT_1 = EnumProperty.create("df_variant", EnumDyeColor.class, new Predicate<EnumDyeColor>() {
-		@Override
-		public boolean apply(EnumDyeColor input) {
-			return input.ordinal() >= 0 && input.ordinal() <= 7;
-		}
-	});
-
-	// (silver to black)
-	public static final EnumProperty<EnumDyeColor> DOUBLEFLOWER_VARIANT_2 = EnumProperty.create("df_variant", EnumDyeColor.class, new Predicate<EnumDyeColor>() {
-		@Override
-		public boolean apply(EnumDyeColor input) {
-			return input.ordinal() >= 8 && input.ordinal() <= 15;
-		}
-	});
 
 	// BlockCraftyCrate
 	public static final EnumProperty<CratePattern> CRATE_PATTERN = EnumProperty.create("pattern", CratePattern.class);

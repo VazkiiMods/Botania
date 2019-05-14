@@ -88,11 +88,11 @@ public class MiscellaneousIcons {
 		evt.getModelRegistry().put(new ModelResourceLocation("botania:floating_special_flower", "inventory"), model);
 
 		// Platforms
-		ModelResourceLocation abstruseName = new ModelResourceLocation("botania:abstruse_platform", "normal");
+		ModelResourceLocation abstruseName = new ModelResourceLocation("botania:abstruse_platform", "");
 		IBakedModel abstruse = evt.getModelRegistry().get(abstruseName);
-		ModelResourceLocation spectralName = new ModelResourceLocation("botania:spectral_platform", "normal");
+		ModelResourceLocation spectralName = new ModelResourceLocation("botania:spectral_platform", "");
 		IBakedModel spectral = evt.getModelRegistry().get(spectralName);
-		ModelResourceLocation infrangibleName = new ModelResourceLocation("botania:infrangible_platform", "normal");
+		ModelResourceLocation infrangibleName = new ModelResourceLocation("botania:infrangible_platform", "");
 		IBakedModel infrangible = evt.getModelRegistry().get(infrangibleName);
 
 		evt.getModelRegistry().put(abstruseName, new PlatformModel(abstruse));

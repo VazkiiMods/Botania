@@ -3,6 +3,10 @@
   "values": [
     "botania:water_ring",
     "botania:odin_ring",
-    "botania:reach_ring"
+    "botania:loki_ring",
+    "botania:reach_ring",
+    "botania:aura_ring",
+    "botania:aura_ring_greater",
+    "botania:mining_ring"
   ]
 }

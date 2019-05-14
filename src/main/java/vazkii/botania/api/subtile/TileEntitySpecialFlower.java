@@ -34,6 +34,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.model.data.EmptyModelData;
+import net.minecraftforge.client.model.data.IModelData;
+import net.minecraftforge.client.model.data.ModelDataMap;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -42,6 +45,7 @@ import vazkii.botania.api.capability.FloatingFlowerImpl;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.item.IFloatingFlower;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.wand.IWandBindable;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.string.TileRedStringRelay;
@@ -130,7 +134,7 @@ public class TileEntitySpecialFlower extends TileEntity implements ITickable, IW
 		return getCapability(BotaniaAPI.FLOATING_FLOWER_CAP).isPresent();
 	}
 
-	public boolean isOnSpecialSoil() {
+	private boolean isOnSpecialSoil() {
 		if(isFloating()) {
 			return false;
 		} else {
@@ -350,5 +354,14 @@ public class TileEntitySpecialFlower extends TileEntity implements ITickable, IW
 		return 0;
 	}
 
-
+	@Nonnull
+	@Override
+	public IModelData getModelData() {
+		if(isFloating()) {
+			return new ModelDataMap.Builder()
+					.withInitial(BotaniaStateProps.FLOATING_DATA, floatingData)
+					.build();
+		}
+		return EmptyModelData.INSTANCE;
+	}
 }

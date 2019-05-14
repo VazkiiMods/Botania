@@ -21,8 +21,6 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
-import net.minecraftforge.common.property.IExtendedBlockState;
-import net.minecraftforge.common.property.IUnlistedProperty;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.api.distmarker.Dist;
@@ -86,22 +84,6 @@ public final class DebugHandler {
 				event.getLeft().add("  GL_ARB_multitexture: " + caps.GL_ARB_multitexture);
 				event.getLeft().add("  GL_ARB_texture_non_power_of_two: " + caps.GL_ARB_texture_non_power_of_two);
 				event.getLeft().add("  OpenGL13: " + caps.OpenGL13);
-
-				if (Minecraft.getInstance().objectMouseOver != null
-						&& Minecraft.getInstance().objectMouseOver.getBlockPos() != null) {
-					BlockPos pos = Minecraft.getInstance().objectMouseOver.getBlockPos();
-					IBlockState state = world.getBlockState(pos);
-					state = state.getBlock().getExtendedState(state, world, pos);
-					if (state instanceof IExtendedBlockState) {
-						try {
-							for (Map.Entry<IUnlistedProperty<?>, Optional<?>> e : ((IExtendedBlockState) state).getUnlistedProperties().entrySet()) {
-								event.getRight().add(TextFormatting.LIGHT_PURPLE + e.getKey().getName() + ": " + TextFormatting.RESET + e.getValue().orElse(null));
-							}
-						} catch (Throwable t) {
-							event.getRight().add("Error getting extended state");
-						}
-					}
-				}
 			} else if(Minecraft.IS_RUNNING_ON_MAC)
 				event.getLeft().add(PREFIX + "SHIFT+CMD for context");
 			else event.getLeft().add(PREFIX + "SHIFT+CTRL for context");
