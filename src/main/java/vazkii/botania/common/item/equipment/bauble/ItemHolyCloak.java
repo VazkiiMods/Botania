@@ -24,14 +24,13 @@ import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import top.theillusivec4.curios.api.CuriosAPI;
-import vazkii.botania.api.item.IBaubleRender;
+import vazkii.botania.api.item.AccessoryRenderHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelCloak;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
-import vazkii.botania.common.integration.curios.BaseCurio;
-import vazkii.botania.common.lib.LibItemNames;
+import vazkii.botania.common.integration.curios.RenderableCurio;
 
 public class ItemHolyCloak extends ItemBauble {
 
@@ -68,7 +67,7 @@ public class ItemHolyCloak extends ItemBauble {
 		}
 	}
 
-	public static class Curio extends BaseCurio {
+	public static class Curio extends RenderableCurio {
 		public Curio(ItemStack stack) {
 			super(stack);
 		}
@@ -81,15 +80,10 @@ public class ItemHolyCloak extends ItemBauble {
 		}
 
 		@Override
-		public boolean hasRender(String identifier, EntityLivingBase living) {
-			return true;
-		}
-
-		@Override
 		@OnlyIn(Dist.CLIENT)
 		public void doRender(String identifier, EntityLivingBase player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 			ItemHolyCloak item = ((ItemHolyCloak) stack.getItem());
-			IBaubleRender.Helper.rotateIfSneaking(player);
+			AccessoryRenderHelper.rotateIfSneaking(player);
 			boolean armor = !player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).isEmpty();
 			GlStateManager.translatef(0F, armor ? -0.07F : -0.01F, 0F);
 

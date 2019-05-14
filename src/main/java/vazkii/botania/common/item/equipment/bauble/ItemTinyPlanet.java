@@ -16,7 +16,6 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -25,12 +24,10 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.internal.IManaBurst;
-import vazkii.botania.api.item.IBaubleRender;
 import vazkii.botania.api.mana.ITinyPlanetExcempt;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.helper.Vector3;
-import vazkii.botania.common.integration.curios.BaseCurio;
-import vazkii.botania.common.lib.LibItemNames;
+import vazkii.botania.common.integration.curios.RenderableCurio;
 
 import java.util.List;
 
@@ -42,7 +39,7 @@ public class ItemTinyPlanet extends ItemBauble {
 		super(props);
 	}
 
-	public static class Curio extends BaseCurio {
+	public static class Curio extends RenderableCurio {
 		public Curio(ItemStack stack) {
 			super(stack);
 		}
@@ -54,11 +51,6 @@ public class ItemTinyPlanet extends ItemBauble {
 			double z = player.posZ;
 
 			applyEffect(player.world, x, y, z);
-		}
-
-		@Override
-		public boolean hasRender(String identifier, EntityLivingBase living) {
-			return true;
 		}
 
 		@Override

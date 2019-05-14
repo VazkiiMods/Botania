@@ -10,7 +10,6 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
-import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.model.ModelBiped;
@@ -26,12 +25,11 @@ import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import top.theillusivec4.curios.api.CuriosAPI;
-import vazkii.botania.api.item.IBaubleRender;
+import vazkii.botania.api.item.AccessoryRenderHelper;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.lib.LibResources;
-import vazkii.botania.common.integration.curios.BaseCurio;
-import vazkii.botania.common.lib.LibItemNames;
+import vazkii.botania.common.integration.curios.RenderableCurio;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -143,20 +141,16 @@ public class ItemTravelBelt extends ItemBauble implements IManaUsingItem {
 		return texture;
 	}
 
-	public static class Curio extends BaseCurio {
+	public static class Curio extends RenderableCurio {
 		public Curio(ItemStack stack) {
 			super(stack);
 		}
 
 		@Override
-		public boolean hasRender(String identifier, EntityLivingBase living) {
-			return true;
-		}
-
-		@Override
+        @OnlyIn(Dist.CLIENT)
 		public void doRender(String identifier, EntityLivingBase player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 			Minecraft.getInstance().textureManager.bindTexture(((ItemTravelBelt) stack.getItem()).getRenderTexture());
-			IBaubleRender.Helper.rotateIfSneaking(player);
+			AccessoryRenderHelper.rotateIfSneaking(player);
 
 			GlStateManager.translatef(0F, 0.2F, 0F);
 

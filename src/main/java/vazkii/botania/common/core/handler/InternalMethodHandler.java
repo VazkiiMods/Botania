@@ -11,7 +11,6 @@
 package vazkii.botania.common.core.handler;
 
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.model.ModelResourceLocation;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -24,7 +23,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.wrapper.EmptyHandler;
-import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.api.corporea.IWrappedInventory;
@@ -52,7 +50,6 @@ import vazkii.botania.common.block.subtile.functional.SubTileSolegnolia;
 import vazkii.botania.common.integration.corporea.WrappedIInventory;
 import vazkii.botania.common.integration.curios.CurioIntegration;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 import vazkii.botania.common.item.relic.ItemLokiRing;
 import vazkii.botania.common.lexicon.page.PageBrew;
 import vazkii.botania.common.lexicon.page.PageCraftingRecipe;
@@ -226,12 +223,6 @@ public class InternalMethodHandler extends DummyMethodHandler {
 		return block instanceof BlockModFlower || block instanceof BlockFloatingFlower || block instanceof ISpecialFlower;
 	}
 
-	// todo 1.13
-	@Override
-	public void sendBaubleUpdatePacket(EntityPlayer player, int slot) {
-
-	}
-	
 	@Override
 	public List<IWrappedInventory> wrapInventory(List<InvWithLocation> inventories) {
 		List<IWrappedInventory> arrayList = new ArrayList<IWrappedInventory>();

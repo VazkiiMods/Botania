@@ -21,9 +21,12 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.integration.curios.BaseCurio;
+import vazkii.botania.common.integration.curios.RenderableCurio;
 
 public class ItemIcePendant extends ItemBauble {
 
@@ -31,7 +34,7 @@ public class ItemIcePendant extends ItemBauble {
 		super(props);
 	}
 
-	public static class Curio extends BaseCurio {
+	public static class Curio extends RenderableCurio {
 		public Curio(ItemStack stack) {
 			super(stack);
 		}
@@ -47,11 +50,7 @@ public class ItemIcePendant extends ItemBauble {
 		}
 
 		@Override
-		public boolean hasRender(String identifier, EntityLivingBase entityLivingBase) {
-			return true;
-		}
-
-		@Override
+        @OnlyIn(Dist.CLIENT)
 		public void doRender(String identifier, EntityLivingBase player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 			Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 			boolean armor = !player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).isEmpty();

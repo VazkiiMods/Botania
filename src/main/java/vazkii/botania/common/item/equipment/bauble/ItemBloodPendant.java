@@ -32,19 +32,17 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.brew.IBrewContainer;
 import vazkii.botania.api.brew.IBrewItem;
-import vazkii.botania.api.item.IBaubleRender;
+import vazkii.botania.api.item.AccessoryRenderHelper;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
-import vazkii.botania.common.integration.curios.BaseCurio;
-import vazkii.botania.common.lib.LibItemNames;
+import vazkii.botania.common.integration.curios.RenderableCurio;
 
 import java.awt.Color;
 import java.util.List;
@@ -92,7 +90,7 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 		}
 	}
 
-	public static class Curio extends BaseCurio {
+	public static class Curio extends RenderableCurio {
 		public Curio(ItemStack stack) {
 			super(stack);
 		}
@@ -120,14 +118,10 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 		}
 
 		@Override
-		public boolean hasRender(String identifier, EntityLivingBase entityLivingBase) {
-			return true;
-		}
-
-		@Override
+        @OnlyIn(Dist.CLIENT)
 		public void doRender(String identifier, EntityLivingBase player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 			Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-			IBaubleRender.Helper.rotateIfSneaking(player);
+			AccessoryRenderHelper.rotateIfSneaking(player);
 			boolean armor = !player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).isEmpty();
 			GlStateManager.rotatef(180F, 1F, 0F, 0F);
 			GlStateManager.translatef(-0.26F, -0.4F, armor ? 0.2F : 0.15F);
@@ -141,13 +135,13 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 				IconHelper.renderIconIn3D(Tessellator.getInstance(), f1, f2, f, f3, icon.getWidth(), icon.getHeight(), 1F / 32F);
 
 				Color color = new Color(Minecraft.getInstance().getItemColors().getColor(stack, 1));
-				GL11.glColor3ub((byte) color.getRed(), (byte) color.getGreen(), (byte) color.getBlue());
+				GlStateManager.color3f(color.getRed() / 255F, color.getGreen() / 255F, color.getBlue() / 255F);
 				int light = 15728880;
 				int lightmapX = light % 65536;
 				int lightmapY = light / 65536;
 				OpenGlHelper.glMultiTexCoord2f(OpenGlHelper.GL_TEXTURE1, lightmapX, lightmapY);
 			}
-			GL11.glColor3ub((byte) 255, (byte) 255, (byte) 255);
+			GlStateManager.color3f(1, 1, 1);
 		}
 	}
 

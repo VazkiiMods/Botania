@@ -24,13 +24,11 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.registries.ForgeRegistries;
-import vazkii.botania.api.item.IBaubleRender.Helper;
+import vazkii.botania.api.item.AccessoryRenderHelper;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.core.version.VersionChecker;
-import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
@@ -108,7 +106,7 @@ public final class ContributorFancinessHandler implements LayerRenderer<EntityPl
 		float f1 = icon.getMaxU();
 		float f2 = icon.getMinV();
 		float f3 = icon.getMaxV();
-		Helper.rotateIfSneaking(player);
+		AccessoryRenderHelper.rotateIfSneaking(player);
 		GlStateManager.rotatef(180F, 0F, 0F, 1F);
 		GlStateManager.rotatef(90F, 0F, 1F, 0F);
 		GlStateManager.scalef(0.4F, 0.4F, 0.4F);
@@ -121,7 +119,7 @@ public final class ContributorFancinessHandler implements LayerRenderer<EntityPl
 	@SuppressWarnings("deprecation")
 	private static void renderFlower(EntityPlayer player, ItemStack flower) {
 		GlStateManager.pushMatrix();
-		Helper.translateToHeadLevel(player);
+		AccessoryRenderHelper.translateToHeadLevel(player);
 		Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 		GlStateManager.rotatef(180, 0, 0, 1);
 		GlStateManager.translated(0, -0.85, 0);

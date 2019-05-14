@@ -10,7 +10,6 @@
  */
 package vazkii.botania.api.internal;
 
-import net.minecraft.client.renderer.model.ModelResourceLocation;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -180,10 +179,7 @@ public class DummyMethodHandler implements IInternalMethodHandler {
 		return false;
 	}
 
-	@Override
-	public void sendBaubleUpdatePacket(EntityPlayer player, int slot) {}
-
-	@Override
+    @Override
 	public List<IWrappedInventory> wrapInventory(List<InvWithLocation> inventories) {
 		return null;
 	}

@@ -32,16 +32,13 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.server.ServerLifecycleHooks;
 import top.theillusivec4.curios.api.CuriosAPI;
-import vazkii.botania.api.item.IBaubleRender;
+import vazkii.botania.api.item.AccessoryRenderHelper;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.subtile.functional.SubTileHeiseiDream;
 import vazkii.botania.common.core.handler.ModSounds;
-import vazkii.botania.common.integration.curios.BaseCurio;
+import vazkii.botania.common.integration.curios.RenderableCurio;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.lib.LibItemNames;
-import vazkii.botania.common.lib.LibObfuscation;
 import vazkii.botania.common.network.PacketBotaniaEffect;
 import vazkii.botania.common.network.PacketHandler;
 
@@ -98,20 +95,15 @@ public class ItemDivaCharm extends ItemBauble implements IManaUsingItem {
 		return true;
 	}
 
-	public static class Curio extends BaseCurio {
+	public static class Curio extends RenderableCurio {
 		public Curio(ItemStack stack) {
 			super(stack);
 		}
 
 		@Override
-		public boolean hasRender(String identifier, EntityLivingBase living) {
-			return true;
-		}
-
-		@Override
 		@OnlyIn(Dist.CLIENT)
 		public void doRender(String identifier, EntityLivingBase player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-			IBaubleRender.Helper.translateToHeadLevel(player);
+			AccessoryRenderHelper.translateToHeadLevel(player);
 			Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 			GlStateManager.scaled(0.8, 0.8, 0.8);
 			GlStateManager.rotatef(-90, 0, 1, 0);

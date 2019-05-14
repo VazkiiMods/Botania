@@ -16,16 +16,14 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import vazkii.botania.api.item.IBaubleRender;
+import vazkii.botania.api.item.AccessoryRenderHelper;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.core.helper.IconHelper;
-import vazkii.botania.common.integration.curios.BaseCurio;
-import vazkii.botania.common.lib.LibItemNames;
+import vazkii.botania.common.integration.curios.RenderableCurio;
 
 public class ItemLavaPendant extends ItemBauble {
 
@@ -33,26 +31,22 @@ public class ItemLavaPendant extends ItemBauble {
 		super(props);
 	}
 
-	@Override
-	public void onWornTick(ItemStack stack, EntityLivingBase player) {
-		if(player.isBurning())
-			player.extinguish();
-	}
-
-	public static class Curio extends BaseCurio {
+	public static class Curio extends RenderableCurio {
 		public Curio(ItemStack stack) {
 			super(stack);
 		}
 
 		@Override
-		public boolean hasRender(String identifier, EntityLivingBase living) {
-			return true;
+		public void onCurioTick(String identifier, EntityLivingBase player) {
+			if(player.isBurning())
+				player.extinguish();
 		}
 
 		@Override
+        @OnlyIn(Dist.CLIENT)
 		public void doRender(String identifier, EntityLivingBase player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 			Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-			IBaubleRender.Helper.rotateIfSneaking(player);
+			AccessoryRenderHelper.rotateIfSneaking(player);
 			boolean armor = !player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).isEmpty();
 			GlStateManager.scalef(0.5F, 0.5F, 0.5F);
 			GlStateManager.rotatef(180, 0, 0, 1);

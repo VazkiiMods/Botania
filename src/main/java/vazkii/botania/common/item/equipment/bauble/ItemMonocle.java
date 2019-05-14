@@ -32,13 +32,12 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import top.theillusivec4.curios.api.CuriosAPI;
-import vazkii.botania.api.item.IBaubleRender;
+import vazkii.botania.api.item.AccessoryRenderHelper;
 import vazkii.botania.api.item.IBurstViewerBauble;
 import vazkii.botania.api.item.ICosmeticAttachable;
 import vazkii.botania.api.item.ICosmeticBauble;
-import vazkii.botania.common.integration.curios.BaseCurio;
+import vazkii.botania.common.integration.curios.RenderableCurio;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, ICosmeticBauble {
 
@@ -46,24 +45,20 @@ public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, ICosm
 		super(props);
 	}
 
-	public static class Curio extends BaseCurio {
+	public static class Curio extends RenderableCurio {
 		public Curio(ItemStack stack) {
 			super(stack);
 		}
 
 		@Override
-		public boolean hasRender(String identifier, EntityLivingBase living) {
-			return true;
-		}
-
-		@Override
+        @OnlyIn(Dist.CLIENT)
 		public void doRender(String identifier, EntityLivingBase player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 			boolean armor = !player.getItemStackFromSlot(EntityEquipmentSlot.HEAD).isEmpty();
 			Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 
-			IBaubleRender.Helper.translateToHeadLevel(player);
-			IBaubleRender.Helper.translateToFace();
-			IBaubleRender.Helper.defaultTransforms();
+			AccessoryRenderHelper.translateToHeadLevel(player);
+			AccessoryRenderHelper.translateToFace();
+			AccessoryRenderHelper.defaultTransforms();
 			GlStateManager.rotatef(180F, 0F, 1F, 0F);
 			GlStateManager.scalef(0.5F, 0.5F, 0.5F);
 			GlStateManager.translatef(0.5F, -0.2F, armor ? 0.12F : 0F);
