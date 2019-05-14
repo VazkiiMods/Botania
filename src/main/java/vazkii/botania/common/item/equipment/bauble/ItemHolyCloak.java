@@ -30,6 +30,7 @@ import vazkii.botania.client.model.ModelCloak;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
+import vazkii.botania.common.integration.curios.CurioIntegration;
 import vazkii.botania.common.integration.curios.RenderableCurio;
 
 public class ItemHolyCloak extends ItemBauble {
@@ -51,18 +52,17 @@ public class ItemHolyCloak extends ItemBauble {
 	private void onPlayerDamage(LivingHurtEvent event) {
 		if(event.getEntityLiving() instanceof EntityPlayer && !event.getSource().canHarmInCreative()) {
 			EntityPlayer player = (EntityPlayer) event.getEntityLiving();
-			CuriosAPI.FinderData result = CuriosAPI.getCurioEquipped(s -> s.getItem() instanceof ItemHolyCloak, player);
+			ItemStack stack = Botania.curiosLoaded ? CurioIntegration.findOrEmpty(s -> s.getItem() instanceof ItemHolyCloak, player) : ItemStack.EMPTY;
 
-			if(result != null && !isInEffect(result.getStack())) {
-				ItemStack belt = result.getStack();
-				ItemHolyCloak cloak = (ItemHolyCloak) belt.getItem();
-				int cooldown = getCooldown(belt);
+			if(!stack.isEmpty() && !isInEffect(stack)) {
+				ItemHolyCloak cloak = (ItemHolyCloak) stack.getItem();
+				int cooldown = getCooldown(stack);
 
 				// Used to prevent StackOverflows with mobs that deal damage when damaged
-				setInEffect(belt, true);
-				if(cooldown == 0 && cloak.effectOnDamage(event, player, belt))
-					setCooldown(belt, cloak.getCooldownTime(belt));
-				setInEffect(belt, false);
+				setInEffect(stack, true);
+				if(cooldown == 0 && cloak.effectOnDamage(event, player, stack))
+					setCooldown(stack, cloak.getCooldownTime(stack));
+				setInEffect(stack, false);
 			}
 		}
 	}

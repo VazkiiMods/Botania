@@ -36,6 +36,8 @@ import vazkii.botania.api.item.AccessoryRenderHelper;
 import vazkii.botania.api.item.IBurstViewerBauble;
 import vazkii.botania.api.item.ICosmeticAttachable;
 import vazkii.botania.api.item.ICosmeticBauble;
+import vazkii.botania.common.Botania;
+import vazkii.botania.common.integration.curios.CurioIntegration;
 import vazkii.botania.common.integration.curios.RenderableCurio;
 import vazkii.botania.common.item.ModItems;
 
@@ -104,20 +106,17 @@ public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, ICosm
 	}
 
 	public static boolean hasMonocle(EntityPlayer player) {
-		CuriosAPI.FinderData result = CuriosAPI.getCurioEquipped(ModItems.monocle, player);
-		if(result != null) {
-			ItemStack stack = result.getStack();
-			if(!stack.isEmpty()) {
-				Item item = stack.getItem();
-				if(item instanceof IBurstViewerBauble)
-					return true;
+		ItemStack stack = Botania.curiosLoaded ? CurioIntegration.findOrEmpty(ModItems.monocle, player) : ItemStack.EMPTY;
+		if(!stack.isEmpty()) {
+			Item item = stack.getItem();
+			if(item instanceof IBurstViewerBauble)
+				return true;
 
-				if(item instanceof ICosmeticAttachable) {
-					ICosmeticAttachable attach = (ICosmeticAttachable) item;
-					ItemStack cosmetic = attach.getCosmeticItem(stack);
-					if(cosmetic != null && cosmetic.getItem() instanceof IBurstViewerBauble)
-						return true;
-				}
+			if(item instanceof ICosmeticAttachable) {
+				ICosmeticAttachable attach = (ICosmeticAttachable) item;
+				ItemStack cosmetic = attach.getCosmeticItem(stack);
+				if(cosmetic != null && cosmetic.getItem() instanceof IBurstViewerBauble)
+					return true;
 			}
 		}
 

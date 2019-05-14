@@ -25,9 +25,11 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.items.IItemHandler;
 import top.theillusivec4.curios.api.CuriosAPI;
 import vazkii.botania.client.core.handler.ClientTickHandler;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.integration.curios.BaseCurio;
+import vazkii.botania.common.integration.curios.CurioIntegration;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibMisc;
@@ -52,12 +54,8 @@ public class ItemDodgeRing extends ItemBauble {
 	public static void onKeyDown(InputEvent.KeyInputEvent event) {
 		Minecraft mc = Minecraft.getInstance();
 
-		CuriosAPI.FinderData result = CuriosAPI.getCurioEquipped(ModItems.dodgeRing, mc.player);
-		if(result == null) {
-				return;
-		}
-		ItemStack ringStack = result.getStack();
-		if(ItemNBTHelper.getInt(ringStack, TAG_DODGE_COOLDOWN, 0) > 0)
+		ItemStack ringStack = Botania.curiosLoaded ? CurioIntegration.findOrEmpty(ModItems.dodgeRing, mc.player) : ItemStack.EMPTY;
+		if(ringStack.isEmpty() || ItemNBTHelper.getInt(ringStack, TAG_DODGE_COOLDOWN, 0) > 0)
 			return;
 
 		int threshold = 4;

@@ -35,8 +35,10 @@ import top.theillusivec4.curios.api.CuriosAPI;
 import vazkii.botania.api.item.AccessoryRenderHelper;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.subtile.functional.SubTileHeiseiDream;
 import vazkii.botania.common.core.handler.ModSounds;
+import vazkii.botania.common.integration.curios.CurioIntegration;
 import vazkii.botania.common.integration.curios.RenderableCurio;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.network.PacketBotaniaEffect;
@@ -56,10 +58,9 @@ public class ItemDivaCharm extends ItemBauble implements IManaUsingItem {
 			Runnable lambda = () -> {
 				EntityLiving target = (EntityLiving) event.getEntityLiving();
 				EntityPlayer player = (EntityPlayer) event.getSource().getImmediateSource();
-				CuriosAPI.FinderData result = CuriosAPI.getCurioEquipped(ModItems.divaCharm, player);
+				ItemStack amulet = Botania.curiosLoaded ? CurioIntegration.findOrEmpty(ModItems.divaCharm, player) : ItemStack.EMPTY;
 
-				if(result != null) {
-					ItemStack amulet = result.getStack();
+				if(!amulet.isEmpty()) {
 					final int cost = 250;
 					if(ManaItemHandler.requestManaExact(amulet, player, cost, false)) {
 						final int range = 20;

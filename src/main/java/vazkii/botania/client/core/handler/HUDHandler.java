@@ -90,17 +90,17 @@ public final class HUDHandler {
 		if(event.getType() == ElementType.HEALTH && Botania.curiosLoaded) {
 			profiler.startSection("botania-hud");
 
-			CuriosAPI.FinderData result = CuriosAPI.getCurioEquipped(ModItems.flightTiara, mc.player);
-			if(result != null) {
+			ItemStack tiara = CurioIntegration.findOrEmpty(ModItems.flightTiara, mc.player);
+			if(!tiara.isEmpty())
 				profiler.startSection("flugelTiara");
-				ItemFlightTiara.renderHUD(mc.player, result.getStack());
+				ItemFlightTiara.renderHUD(mc.player, tiara);
 				profiler.endSection();
 			}
 
-			result = CuriosAPI.getCurioEquipped(ModItems.dodgeRing, mc.player);
-			if(result != null) {
+			ItemStack dodgeRing = CurioIntegration.findOrEmpty(ModItems.dodgeRing, mc.player);
+			if(!dodgeRing.isEmpty()) {
 				profiler.startSection("dodgeRing");
-				ItemDodgeRing.renderHUD(mc.player, result.getStack(), event.getPartialTicks());
+				ItemDodgeRing.renderHUD(mc.player, dodgeRing, event.getPartialTicks());
 				profiler.endSection();
 			}
 

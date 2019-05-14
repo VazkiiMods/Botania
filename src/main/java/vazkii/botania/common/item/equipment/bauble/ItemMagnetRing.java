@@ -35,6 +35,7 @@ import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.integration.curios.BaseCurio;
+import vazkii.botania.common.integration.curios.CurioIntegration;
 import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibMisc;
 
@@ -61,9 +62,9 @@ public class ItemMagnetRing extends ItemBauble {
 	}
 
 	private void onTossItem(ItemTossEvent event) {
-		CuriosAPI.FinderData result = CuriosAPI.getCurioEquipped(this, event.getPlayer());
-		if(result != null) {
-			setCooldown(result.getStack(), 100);
+		ItemStack ring = Botania.curiosLoaded ? CurioIntegration.findOrEmpty(this, event.getPlayer()) : ItemStack.EMPTY;
+		if(!ring.isEmpty()) {
+			setCooldown(ring, 100);
 		}
 	}
 

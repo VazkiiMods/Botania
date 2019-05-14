@@ -18,7 +18,9 @@ import net.minecraft.potion.PotionEffect;
 import top.theillusivec4.curios.api.CuriosAPI;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.integration.curios.BaseCurio;
+import vazkii.botania.common.integration.curios.CurioIntegration;
 import vazkii.botania.common.item.ModItems;
 
 public class ItemWaterRing extends ItemBauble implements IManaUsingItem {
@@ -40,8 +42,8 @@ public class ItemWaterRing extends ItemBauble implements IManaUsingItem {
 			if(living.isInWaterOrBubbleColumn()) {
 				if(living instanceof EntityPlayer) {
 				    // only activate for one ring at a time
-					CuriosAPI.FinderData result = CuriosAPI.getCurioEquipped(ModItems.waterRing, living);
-					if(result == null || result.getStack() != stack)
+					ItemStack result = CurioIntegration.findOrEmpty(ModItems.waterRing, living);
+					if(result != stack)
 						return;
 				}
 
