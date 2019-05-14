@@ -10,16 +10,28 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
-import vazkii.botania.common.lib.LibItemNames;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import vazkii.botania.api.mana.IManaGivingItem;
+import vazkii.botania.api.mana.ManaItemHandler;
+import vazkii.botania.common.integration.curios.BaseCurio;
 
-public class ItemGreaterAuraRing extends ItemAuraRing {
+public class ItemGreaterAuraRing extends ItemBauble implements IManaGivingItem {
 
 	public ItemGreaterAuraRing(Properties props) {
 		super(props);
 	}
 
-	@Override
-	int getDelay() {
-		return 2;
+	public static class Curio extends BaseCurio {
+		public Curio(ItemStack stack) {
+			super(stack);
+		}
+
+		@Override
+		public void onCurioTick(String identifier, EntityLivingBase player) {
+			if(player instanceof EntityPlayer && player.ticksExisted % 2 == 0)
+				ManaItemHandler.dispatchManaExact(stack, (EntityPlayer) player, 1, true);
+		}
 	}
 }

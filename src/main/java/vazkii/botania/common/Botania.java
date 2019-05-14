@@ -167,8 +167,8 @@ public class Botania {
 		MinecraftForge.EVENT_BUS.register(new LootHandler());
 
 		if(ModList.get().isLoaded("curios")) {
-			FMLJavaModLoadingContext.get().getModEventBus().addListener(CurioIntegration::sendImc);
-			MinecraftForge.EVENT_BUS.addGenericListener(ItemStack.class, CurioIntegration::attachCaps);
+			FMLJavaModLoadingContext.get().getModEventBus().register(CurioIntegration.class);
+			MinecraftForge.EVENT_BUS.register(CurioIntegration.class);
 		}
 
 		if(Botania.gardenOfGlassLoaded)

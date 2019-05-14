@@ -17,9 +17,9 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.MathHelper;
+import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.gameevent.InputEvent.KeyInputEvent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.items.IItemHandler;
@@ -47,7 +47,7 @@ public class ItemDodgeRing extends ItemBauble {
 
 	@SubscribeEvent
 	@OnlyIn(Dist.CLIENT)
-	public static void onKeyDown(KeyInputEvent event) {
+	public static void onKeyDown(InputEvent.KeyInputEvent event) {
 		Minecraft mc = Minecraft.getInstance();
 
 		IItemHandler baublesInv = null; // BaublesApi.getBaublesHandler(mc.player);

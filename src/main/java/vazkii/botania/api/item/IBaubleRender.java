@@ -11,6 +11,7 @@
 package vazkii.botania.api.item;
 
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.MathHelper;
@@ -59,8 +60,8 @@ public interface IBaubleRender {
 		 * Shifts the render for a bauble correctly to the head, including sneaking rotation.
 		 * Use for renders under {@link RenderType#HEAD}.
 		 */
-		public static void translateToHeadLevel(EntityPlayer player) {
-			GlStateManager.translatef(0, -player.getDefaultEyeHeight(), 0);
+		public static void translateToHeadLevel(EntityLivingBase player) {
+			GlStateManager.translatef(0, -player.getEyeHeight(), 0);
 			if (player.isSneaking())
 				GlStateManager.translatef(0.25F * MathHelper.sin(player.rotationPitch * (float) Math.PI / 180), 0.25F * MathHelper.cos(player.rotationPitch * (float) Math.PI / 180), 0F);
 		}

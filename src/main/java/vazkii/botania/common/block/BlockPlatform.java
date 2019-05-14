@@ -29,8 +29,6 @@ import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.common.property.IExtendedBlockState;
-import net.minecraftforge.common.property.IUnlistedProperty;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.lexicon.ILexiconable;
@@ -66,28 +64,6 @@ public class BlockPlatform extends BlockCamo implements ILexiconable, IWandable,
 	}
 
 	/* todo 1.13
-	@Nonnull
-	@Override
-	public BlockStateContainer createBlockState() {
-		return new ExtendedBlockState(this, new IProperty[0],
-				new IUnlistedProperty[] { BotaniaStateProps.HELD_STATE, BotaniaStateProps.HELD_WORLD, BotaniaStateProps.HELD_POS });
-	}
-
-	@Nonnull
-	@Override
-	public IBlockState getExtendedState(@Nonnull IBlockState state, IBlockReader world, BlockPos pos) {
-		state = ((IExtendedBlockState) state).with(BotaniaStateProps.HELD_WORLD, world)
-				.with(BotaniaStateProps.HELD_POS, pos);
-
-		TileEntity te = world instanceof ChunkCache ? ((ChunkCache)world).getTileEntity(pos, Chunk.EnumCreateEntityType.CHECK) : world.getTileEntity(pos);
-		if (te instanceof TileCamo) {
-			TileCamo tile = (TileCamo) te;
-			return ((IExtendedBlockState) state).with(BotaniaStateProps.HELD_STATE, tile.camoState);
-		} else {
-			return state;
-		}
-	}
-
 	@Override
 	public void addCollisionBoxToList(IBlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull AxisAlignedBB par5AxisAlignedBB, @Nonnull List<AxisAlignedBB> stacks, Entity par7Entity, boolean isActualState) {
 		if(variant == Variant.INFRANGIBLE || variant == Variant.ABSTRUSE && par7Entity != null && par7Entity.posY > pos.getY() + 0.9 && (!(par7Entity instanceof EntityPlayer) || !par7Entity.isSneaking()))

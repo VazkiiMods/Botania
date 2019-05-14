@@ -32,61 +32,53 @@ import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.core.helper.IconHelper;
+import vazkii.botania.common.integration.curios.BaseCurio;
 import vazkii.botania.common.lib.LibItemNames;
 
 import java.util.List;
 
-public class ItemThirdEye extends ItemBauble implements IManaUsingItem, IBaubleRender {
+public class ItemThirdEye extends ItemBauble implements IManaUsingItem {
 
 	private static final int COST = 2;
 	
 	public ItemThirdEye(Properties props) {
 		super(props);
 	}
-	
-	@Override
-	public void onWornTick(ItemStack stack, EntityLivingBase player) {
-		super.onWornTick(stack, player);
-		
-		if(!(player instanceof EntityPlayer))
-			return;
-		EntityPlayer eplayer = (EntityPlayer) player;
-		
-		double range = 24;
-		AxisAlignedBB aabb = new AxisAlignedBB(player.posX, player.posY, player.posZ, player.posX, player.posY, player.posZ).grow(range);
-		List<EntityLivingBase> mobs = player.world.getEntitiesWithinAABB(EntityLivingBase.class, aabb, (Entity e) -> e instanceof IMob);
-		
-		if(!mobs.isEmpty())
+
+	public static class Curio extends BaseCurio {
+		public Curio(ItemStack stack) {
+			super(stack);
+		}
+
+		@Override
+		public void onCurioTick(String identifier, EntityLivingBase living) {
+			if(!(living instanceof EntityPlayer))
+				return;
+			EntityPlayer eplayer = (EntityPlayer) living;
+
+			double range = 24;
+			AxisAlignedBB aabb = new AxisAlignedBB(living.posX, living.posY, living.posZ, living.posX, living.posY, living.posZ).grow(range);
+			List<EntityLivingBase> mobs = living.world.getEntitiesWithinAABB(EntityLivingBase.class, aabb, (Entity e) -> e instanceof IMob);
+
 			for(EntityLivingBase e : mobs) {
 				PotionEffect potion = e.getActivePotionEffect(MobEffects.GLOWING);
 				if((potion == null || potion.getDuration() <= 2) && ManaItemHandler.requestManaExact(stack, eplayer, COST, true))
 					e.addPotionEffect(new PotionEffect(MobEffects.GLOWING, 12, 0));
 			}
-	}
-	
-	/* todo 1.13
-	@Override
-	public BaubleType getBaubleType(ItemStack arg0) {
-		return BaubleType.BODY;
-	}
-	*/
+		}
 
-	@Override
-	public boolean usesMana(ItemStack stack) {
-		return true;
-	}
+		@Override
+		public boolean hasRender(String identifier, EntityLivingBase living) {
+			return true;
+		}
 
-	@Override
-	@OnlyIn(Dist.CLIENT)
-	public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
-		if(type == RenderType.BODY) {
+		@Override
+		public void doRender(String identifier, EntityLivingBase living, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 			Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-			Helper.rotateIfSneaking(player);
-			boolean armor = !player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).isEmpty();
-			double scale = 0.6;
+			boolean armor = !living.getItemStackFromSlot(EntityEquipmentSlot.CHEST).isEmpty();
 			GlStateManager.rotatef(180, 0, 0, 1);
 			GlStateManager.translated(-0.3, -0.6, armor ? -0.18 : -0.12);
-			GlStateManager.scaled(scale, scale, scale);
+			GlStateManager.scaled(0.6, 0.6, 0.6);
 
 			for(int i = 0; i < 3; i++) {
 				GlStateManager.pushMatrix();
@@ -96,19 +88,19 @@ public class ItemThirdEye extends ItemBauble implements IManaUsingItem, IBaubleR
 				case 1:
 					double scale1 = 0.75;
 					width /= 2F;
-					
+
 					GlStateManager.translated(0.15, 0.15, -0.05);
 					double time = ClientTickHandler.total * 0.12;
 					double dist = 0.05;
 					GlStateManager.translated(Math.sin(time) * dist, Math.cos(time * 0.5) * dist, 0);
-					
+
 					GlStateManager.scaled(scale1, scale1, scale1);
 					break;
 				case 2:
 					GlStateManager.translated(0, 0, -0.05);
 					break;
 				}
-				
+
 				TextureAtlasSprite gemIcon = MiscellaneousIcons.INSTANCE.thirdEyeLayers[i];
 				float f = gemIcon.getMinU();
 				float f1 = gemIcon.getMaxU();
@@ -118,6 +110,11 @@ public class ItemThirdEye extends ItemBauble implements IManaUsingItem, IBaubleR
 				GlStateManager.popMatrix();
 			}
 		}
+	}
+	
+	@Override
+	public boolean usesMana(ItemStack stack) {
+		return true;
 	}
 
 }

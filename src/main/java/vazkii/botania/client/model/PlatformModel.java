@@ -26,7 +26,10 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.client.MinecraftForgeClient;
-import net.minecraftforge.common.property.IExtendedBlockState;
+import net.minecraftforge.client.model.ModelDataManager;
+import net.minecraftforge.client.model.data.EmptyModelData;
+import net.minecraftforge.client.model.data.IDynamicBakedModel;
+import net.minecraftforge.client.model.data.IModelData;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.BlockCamo;
 import vazkii.botania.common.block.BlockPlatform;
@@ -37,7 +40,7 @@ import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Random;
 
-public class PlatformModel implements IBakedModel {
+public class PlatformModel implements IDynamicBakedModel {
 	private final IBakedModel original;
 
 	public PlatformModel(IBakedModel original) {
@@ -46,7 +49,7 @@ public class PlatformModel implements IBakedModel {
 
 	@Nonnull
 	@Override
-	public List<BakedQuad> getQuads(IBlockState state, EnumFacing side, Random rand) {
+	public List<BakedQuad> getQuads(IBlockState state, EnumFacing side, @Nonnull Random rand, @Nonnull IModelData data) {
 		if(state == null)
 			return ImmutableList.of();
 
@@ -58,18 +61,17 @@ public class PlatformModel implements IBakedModel {
 			layer = BlockRenderLayer.SOLID; // workaround for when this isn't set (digging, etc.)
 		}
 
-		IBlockState heldState = ((IExtendedBlockState) state).getValue(BotaniaStateProps.HELD_STATE);
-		IBlockReader heldWorld = ((IExtendedBlockState) state).getValue(BotaniaStateProps.HELD_WORLD);
-		BlockPos heldPos = ((IExtendedBlockState) state).getValue(BotaniaStateProps.HELD_POS);
+		IBlockState heldState = data.getData(BotaniaStateProps.HELD_STATE);
+		BlockPos heldPos = data.getData(BotaniaStateProps.HELD_POS);
 
-		if (heldWorld == null || heldPos == null) {
+		if (heldPos == null) {
 			return ImmutableList.of();
 		}
 
 		Minecraft mc = Minecraft.getInstance();
 		if(heldState == null && layer == BlockRenderLayer.SOLID) {
 			// No camo
-			return original.getQuads(state, side, rand);
+			return original.getQuads(state, side, rand, data);
 		} else if(heldState != null) {
 
 			// Some people used this to get an invisible block in the past, accommodate that.
@@ -80,9 +82,8 @@ public class PlatformModel implements IBakedModel {
 				// Steal camo's model
 				IBakedModel model = mc.getBlockRendererDispatcher().getBlockModelShapes().getModel(heldState);
 
-				// Their model can be smart too
-				IBlockState extended = heldState.getBlock().getExtendedState(heldState, new FakeBlockAccess(heldWorld), heldPos);
-				return model.getQuads(extended, side, rand);
+				// todo possible to reimplement calling camo's smart model stuff too?
+				return model.getQuads(heldState, side, rand, EmptyModelData.INSTANCE);
 			}
 		}
 
@@ -104,36 +105,6 @@ public class PlatformModel implements IBakedModel {
 	}
 	@Nonnull @Override public ItemOverrideList getOverrides() {
 		return original.getOverrides();
-	}
-
-	private static class FakeBlockAccess implements IBlockReader {
-
-		private final IBlockReader compose;
-
-		private FakeBlockAccess(IBlockReader compose) {
-			this.compose = compose;
-		}
-
-		@Override
-		public TileEntity getTileEntity(@Nonnull BlockPos pos) {
-			return compose.getTileEntity(pos);
-		}
-
-		@Nonnull
-		@Override
-		public IBlockState getBlockState(@Nonnull BlockPos pos) {
-			IBlockState state = compose.getBlockState(pos);
-			if(state.getBlock() instanceof BlockCamo) {
-				state = ((TileCamo) compose.getTileEntity(pos)).camoState;
-			}
-			return state == null ? Blocks.AIR.getDefaultState() : state;
-		}
-
-		@Nonnull
-		@Override
-		public IFluidState getFluidState(@Nonnull BlockPos pos) {
-			return compose.getFluidState(pos);
-		}
 	}
 
 }
