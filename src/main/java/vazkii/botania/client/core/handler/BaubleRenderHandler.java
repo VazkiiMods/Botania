@@ -17,90 +17,71 @@ import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.items.IItemHandler;
-import org.lwjgl.opengl.GL11;
-import vazkii.botania.api.item.IBaubleRender;
-import vazkii.botania.api.item.IBaubleRender.Helper;
-import vazkii.botania.api.item.IBaubleRender.RenderType;
+import top.theillusivec4.curios.api.CuriosAPI;
+import top.theillusivec4.curios.api.capability.CuriosCapability;
+import top.theillusivec4.curios.api.inventory.CurioStackHandler;
+import vazkii.botania.api.item.AccessoryRenderHelper;
 import vazkii.botania.api.item.ICosmeticAttachable;
 import vazkii.botania.api.item.IPhantomInkable;
-import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.item.equipment.armor.terrasteel.ItemTerrasteelHelm;
 
 import javax.annotation.Nonnull;
+import java.util.Map;
 
 public final class BaubleRenderHandler implements LayerRenderer<EntityPlayer> {
 
 	@Override
 	public void render(@Nonnull EntityPlayer player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-		if(!ConfigHandler.CLIENT.renderBaubles.get() || player.getActivePotionEffect(MobEffects.INVISIBILITY) != null)
-			return;
+		dispatchRenders(player, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch, scale);
 
-		// todo 1.13
-		if (1 == 1)
-			return;
-		IItemHandler inv = null;
-
-		dispatchRenders(inv, player, RenderType.BODY, partialTicks);
-		if(!inv.getStackInSlot(3).isEmpty())
+		// todo 1.13 recheck what this was checking for (make sure to account for config+invis)
+		/*
+		if(!h.getStackInSlot(3).isEmpty())
 			renderManaTablet(player);
-
-		float yaw = player.prevRotationYawHead + (player.rotationYawHead - player.prevRotationYawHead) * partialTicks;
-		float yawOffset = player.prevRenderYawOffset + (player.renderYawOffset - player.prevRenderYawOffset) * partialTicks;
-		float pitch = player.prevRotationPitch + (player.rotationPitch - player.prevRotationPitch) * partialTicks;
-
-		GlStateManager.pushMatrix();
-		GlStateManager.rotatef(yawOffset, 0, -1, 0);
-		GlStateManager.rotatef(yaw - 270, 0, 1, 0);
-		GlStateManager.rotatef(pitch, 0, 0, 1);
-		dispatchRenders(inv, player, RenderType.HEAD, partialTicks);
-
-		ItemStack helm = player.inventory.armorItemInSlot(3);
-		if(!helm.isEmpty() && helm.getItem() instanceof ItemTerrasteelHelm)
-			ItemTerrasteelHelm.renderOnPlayer(helm, player);
-
-		GlStateManager.popMatrix();
+		*/
 	}
 
-	private void dispatchRenders(IItemHandler inv, EntityPlayer player, RenderType type, float partialTicks) {
-		for(int i = 0; i < inv.getSlots(); i++) {
-			ItemStack stack = inv.getStackInSlot(i);
-			if(!stack.isEmpty()) {
-				Item item = stack.getItem();
+	// Like LayerCurios, but with Botania-specific logic
+	private void dispatchRenders(EntityPlayer player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+	    GlStateManager.pushMatrix();
+		CuriosAPI.getCuriosHandler(player).ifPresent(handler -> {
+			Map<String, CurioStackHandler> curios = handler.getCurioMap();
+			if(player.isSneaking()) {
+				GlStateManager.translatef(0, 0.2F, 0);
+			}
 
-				if(item instanceof IPhantomInkable) {
-					IPhantomInkable inkable = (IPhantomInkable) item;
-					if(inkable.hasPhantomInk(stack))
-						continue;
-				}
+			for(Map.Entry<String, CurioStackHandler> e : curios.entrySet()) {
+			    for(int i = 0; i < e.getValue().getSlots(); i++) {
+					ItemStack stack = e.getValue().getStackInSlot(i);
+					if(!stack.isEmpty()) {
+						Item item = stack.getItem();
 
-				if(item instanceof ICosmeticAttachable) {
-					ICosmeticAttachable attachable = (ICosmeticAttachable) item;
-					ItemStack cosmetic = attachable.getCosmeticItem(stack);
-					if(!cosmetic.isEmpty()) {
-						GlStateManager.pushMatrix();
-						GL11.glColor3ub((byte) 255, (byte) 255, (byte) 255); // Some of the baubles use this so we must restore it manually as well
-						GlStateManager.color4f(1F, 1F, 1F, 1F);
-						((IBaubleRender) cosmetic.getItem()).onPlayerBaubleRender(cosmetic, player, type, partialTicks);
-						GlStateManager.popMatrix();
-						continue;
+						if(item instanceof IPhantomInkable) {
+							IPhantomInkable inkable = (IPhantomInkable) item;
+							if(inkable.hasPhantomInk(stack))
+								continue;
+						}
+
+						if(item instanceof ICosmeticAttachable) {
+							ICosmeticAttachable attachable = (ICosmeticAttachable) item;
+							ItemStack cosmetic = attachable.getCosmeticItem(stack);
+							cosmetic.getCapability(CuriosCapability.ITEM).ifPresent(c -> {
+								if(c.hasRender(e.getKey(), player)) {
+								    GlStateManager.pushMatrix();
+									GlStateManager.color4f(1F, 1F, 1F, 1F);
+									c.doRender(e.getKey(), player, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch, scale);
+									GlStateManager.popMatrix();
+								}
+							});
+						}
 					}
 				}
-
-				if(item instanceof IBaubleRender) {
-					GlStateManager.pushMatrix();
-					GL11.glColor3ub((byte) 255, (byte) 255, (byte) 255); // Some of the baubles use this so we must restore it manually as well
-					GlStateManager.color4f(1F, 1F, 1F, 1F);
-					((IBaubleRender) stack.getItem()).onPlayerBaubleRender(stack, player, type, partialTicks);
-					GlStateManager.popMatrix();
-				}
 			}
-		}
+		});
+
 	}
 
 	@SuppressWarnings("deprecation")
@@ -111,7 +92,7 @@ public final class BaubleRenderHandler implements LayerRenderer<EntityPlayer> {
 			if(!stack.isEmpty() && stack.getItem() == ModItems.manaTablet) {
 				GlStateManager.pushMatrix();
 				Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-				Helper.rotateIfSneaking(player);
+				AccessoryRenderHelper.rotateIfSneaking(player);
 				boolean armor = !player.getItemStackFromSlot(EntityEquipmentSlot.LEGS).isEmpty();
 				GlStateManager.rotatef(90, 0, 1, 0);
 				GlStateManager.rotatef(180, 0, 0, 1);

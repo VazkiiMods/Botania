@@ -69,7 +69,7 @@ public class ModelHourglass extends ModelBase {
 		top.render(f);
 		bottom.render(f);
 		Color c = new Color(color);
-		GL11.glColor3ub((byte) c.getRed(), (byte) c.getGreen(), (byte) c.getBlue());
+		GlStateManager.color3f(c.getRed() / 255F, c.getGreen() / 255F, c.getBlue() / 255F);
 
 		GL11.glPushAttrib(GL11.GL_TRANSFORM_BIT);
 		GlStateManager.disableRescaleNormal();
@@ -103,7 +103,7 @@ public class ModelHourglass extends ModelBase {
 
 		GL11.glPopAttrib();
 
-		GL11.glColor3ub((byte) 255, (byte) 255, (byte) 255);
+		GlStateManager.color3f(1, 1, 1);
 		glassT.render(f);
 		glassB.render(f);
 	}

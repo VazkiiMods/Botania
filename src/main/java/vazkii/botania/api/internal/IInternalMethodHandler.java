@@ -107,8 +107,6 @@ public interface IInternalMethodHandler {
 
 	public boolean isBotaniaFlower(World world, BlockPos pos);
 
-	public void sendBaubleUpdatePacket(EntityPlayer player, int slot);
-
 	/**
 	 * Wrap inventories in the network into wrappers providing compatibility for storage mods.
 	 */

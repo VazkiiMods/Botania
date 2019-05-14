@@ -10,7 +10,6 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
-import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.GlStateManager;
@@ -19,11 +18,9 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tags.FluidTags;
@@ -41,12 +38,10 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.lwjgl.opengl.GL11;
 import top.theillusivec4.curios.api.CuriosAPI;
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.item.IBaubleRender;
+import vazkii.botania.api.item.AccessoryRenderHelper;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
-import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.core.helper.ShaderHelper;
@@ -57,12 +52,12 @@ import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.StringObfuscator;
 import vazkii.botania.common.core.helper.Vector3;
-import vazkii.botania.common.integration.curios.BaseCurio;
+import vazkii.botania.common.integration.curios.RenderableCurio;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.lib.LibItemNames;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
@@ -77,7 +72,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 	private static final String TAG_DASH_COOLDOWN = "dashCooldown";
 	private static final String TAG_IS_SPRINTING = "isSprinting";
 
-	private static final List<String> playersWithFlight = new ArrayList<>();
+	private static final List<String> playersWithFlight = Collections.synchronizedList(new ArrayList<>());
 	private static final int COST = 35;
 	private static final int COST_OVERKILL = COST * 3;
 	private static final int MAX_FLY_TIME = 1200;
@@ -107,73 +102,6 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 	public void addHiddenTooltip(ItemStack stack, World world, List<ITextComponent> stacks, ITooltipFlag flags) {
 		super.addHiddenTooltip(stack, world, stacks, flags);
 		stacks.add(new TextComponentTranslation("botania.wings" + ItemNBTHelper.getInt(stack, TAG_VARIANT, 0)));
-	}
-
-	@Override
-	public void onEquipped(ItemStack stack, EntityLivingBase player) {
-		super.onEquipped(stack, player);
-		int variant = ItemNBTHelper.getInt(stack, TAG_VARIANT, 0);
-		if(variant != WING_TYPES && StringObfuscator.matchesHash(stack.getDisplayName().getString(), SUPER_AWESOME_HASH)) {
-			ItemNBTHelper.setInt(stack, TAG_VARIANT, WING_TYPES);
-			stack.clearCustomName();
-		}
-	}
-
-
-	@Override
-	public void onWornTick(ItemStack stack, EntityLivingBase player) {
-		super.onWornTick(stack, player);
-
-		if(player instanceof EntityPlayer) {
-			EntityPlayer p = (EntityPlayer) player;
-			boolean flying = p.abilities.isFlying;
-
-			boolean wasSprting = ItemNBTHelper.getBoolean(stack, TAG_IS_SPRINTING, false);
-			boolean isSprinting = p.isSprinting();
-			if(isSprinting != wasSprting)
-				ItemNBTHelper.setBoolean(stack, TAG_IS_SPRINTING, isSprinting);
-
-			int time = ItemNBTHelper.getInt(stack, TAG_TIME_LEFT, MAX_FLY_TIME);
-			int newTime = time;
-			Vector3 look = new Vector3(p.getLookVec()).multiply(1, 0, 1).normalize();
-
-			if(flying) {
-				if(time > 0 && !ItemNBTHelper.getBoolean(stack, TAG_INFINITE_FLIGHT, false))
-					newTime--;
-				final int maxCd = 80;
-				int cooldown = ItemNBTHelper.getInt(stack, TAG_DASH_COOLDOWN, 0);
-				if(!wasSprting && isSprinting && cooldown == 0) {
-					p.motionX += look.x;
-					p.motionZ += look.z;
-					p.world.playSound(null, p.posX, p.posY, p.posZ, ModSounds.dash, SoundCategory.PLAYERS, 1F, 1F);
-					ItemNBTHelper.setInt(stack, TAG_DASH_COOLDOWN, maxCd);
-				} else if(cooldown > 0) {
-					if(maxCd - cooldown < 2)
-						player.moveRelative(0F, 0F, 1F, 5F);
-					else if(maxCd - cooldown < 10)
-						player.setSprinting(false);
-					ItemNBTHelper.setInt(stack, TAG_DASH_COOLDOWN, cooldown - 2);
-					if(player instanceof EntityPlayerMP)
-						BotaniaAPI.internalHandler.sendBaubleUpdatePacket((EntityPlayerMP) player, 4);
-				}
-			} else if(!flying) {
-				boolean doGlide = player.isSneaking() && !player.onGround && player.fallDistance >= 2F;
-				if(time < MAX_FLY_TIME && player.ticksExisted % (doGlide ? 6 : 2) == 0)
-					newTime++;
-
-				if(doGlide) {
-					player.motionY = Math.max(-0.15F, player.motionY);
-					float mul = 0.6F;
-					player.motionX = look.x * mul;
-					player.motionZ = look.z * mul;
-					player.fallDistance = 2F;
-				}
-			}
-
-			ItemNBTHelper.setBoolean(stack, TAG_FLYING, flying);
-			if(newTime != time)
-				ItemNBTHelper.setInt(stack, TAG_TIME_LEFT, newTime);
-		}
 	}
 
 	@SubscribeEvent
@@ -275,7 +203,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 		playersWithFlight.remove(username + ":true");
 	}
 
-	public static String playerStr(EntityPlayer player) {
+	private static String playerStr(EntityPlayer player) {
 		return player.getGameProfile().getName() + ":" + player.world.isRemote;
 	}
 
@@ -300,9 +228,71 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 		return true;
 	}
 
-	public static class Curio extends BaseCurio {
+	public static class Curio extends RenderableCurio {
 		public Curio(ItemStack stack) {
 			super(stack);
+		}
+
+		@Override
+		public void onEquipped(String identifier, EntityLivingBase living) {
+			super.onEquipped(identifier, living);
+			int variant = ItemNBTHelper.getInt(stack, TAG_VARIANT, 0);
+			if(variant != WING_TYPES && StringObfuscator.matchesHash(stack.getDisplayName().getString(), SUPER_AWESOME_HASH)) {
+				ItemNBTHelper.setInt(stack, TAG_VARIANT, WING_TYPES);
+				stack.clearCustomName();
+			}
+		}
+
+		@Override
+		public void onCurioTick(String identifier, EntityLivingBase player) {
+			if(player instanceof EntityPlayer) {
+				EntityPlayer p = (EntityPlayer) player;
+				boolean flying = p.abilities.isFlying;
+
+				boolean wasSprting = ItemNBTHelper.getBoolean(stack, TAG_IS_SPRINTING, false);
+				boolean isSprinting = p.isSprinting();
+				if(isSprinting != wasSprting)
+					ItemNBTHelper.setBoolean(stack, TAG_IS_SPRINTING, isSprinting);
+
+				int time = ItemNBTHelper.getInt(stack, TAG_TIME_LEFT, MAX_FLY_TIME);
+				int newTime = time;
+				Vector3 look = new Vector3(p.getLookVec()).multiply(1, 0, 1).normalize();
+
+				if(flying) {
+					if(time > 0 && !ItemNBTHelper.getBoolean(stack, TAG_INFINITE_FLIGHT, false))
+						newTime--;
+					final int maxCd = 80;
+					int cooldown = ItemNBTHelper.getInt(stack, TAG_DASH_COOLDOWN, 0);
+					if(!wasSprting && isSprinting && cooldown == 0) {
+						p.motionX += look.x;
+						p.motionZ += look.z;
+						p.world.playSound(null, p.posX, p.posY, p.posZ, ModSounds.dash, SoundCategory.PLAYERS, 1F, 1F);
+						ItemNBTHelper.setInt(stack, TAG_DASH_COOLDOWN, maxCd);
+					} else if(cooldown > 0) {
+						if(maxCd - cooldown < 2)
+							player.moveRelative(0F, 0F, 1F, 5F);
+						else if(maxCd - cooldown < 10)
+							player.setSprinting(false);
+						ItemNBTHelper.setInt(stack, TAG_DASH_COOLDOWN, cooldown - 2);
+					}
+				} else if(!flying) {
+					boolean doGlide = player.isSneaking() && !player.onGround && player.fallDistance >= 2F;
+					if(time < MAX_FLY_TIME && player.ticksExisted % (doGlide ? 6 : 2) == 0)
+						newTime++;
+
+					if(doGlide) {
+						player.motionY = Math.max(-0.15F, player.motionY);
+						float mul = 0.6F;
+						player.motionX = look.x * mul;
+						player.motionZ = look.z * mul;
+						player.fallDistance = 2F;
+					}
+				}
+
+				ItemNBTHelper.setBoolean(stack, TAG_FLYING, flying);
+				if(newTime != time)
+					ItemNBTHelper.setInt(stack, TAG_TIME_LEFT, newTime);
+			}
 		}
 
 		@Override
@@ -312,10 +302,11 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 
 		@Override
 		public boolean hasRender(String identifier, EntityLivingBase living) {
-			return living instanceof EntityPlayer;
+			return super.hasRender(identifier, living) && living instanceof EntityPlayer;
 		}
 
 		@Override
+		@OnlyIn(Dist.CLIENT)
 		public void doRender(String identifier, EntityLivingBase player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 			int meta = ItemNBTHelper.getInt(stack, TAG_VARIANT, 0);
 			if(meta > 0 && meta <= MiscellaneousIcons.INSTANCE.tiaraWingIcons.length) {
@@ -412,7 +403,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 				float f3 = icon.getMaxV();
 				float sr = 1F / s;
 
-				IBaubleRender.Helper.rotateIfSneaking(player);
+				AccessoryRenderHelper.rotateIfSneaking(player);
 
 				GlStateManager.translatef(0F, h, i);
 
@@ -463,7 +454,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 		Minecraft.getInstance().textureManager.bindTexture(textureHalo);
 
 		if(player != null)
-			IBaubleRender.Helper.translateToHeadLevel(player);
+			AccessoryRenderHelper.translateToHeadLevel(player);
 		GlStateManager.translatef(0, 1.5F, 0);
 		GlStateManager.rotatef(30, 1, 0, -1);
 		GlStateManager.translatef(-0.1F, -0.5F, -0.1F);

@@ -27,7 +27,7 @@ public final class ConfigHandler {
 		public final ForgeConfigSpec.DoubleValue flowerParticleFrequency;
 		public final ForgeConfigSpec.BooleanValue elfPortalParticlesEnabled;
 		public final ForgeConfigSpec.BooleanValue useVanillaParticleLimiter;
-		public final ForgeConfigSpec.BooleanValue renderBaubles;
+		public final ForgeConfigSpec.BooleanValue renderAccessories;
 		public final ForgeConfigSpec.BooleanValue enableSeasonalFeatures;
 		public final ForgeConfigSpec.BooleanValue useShiftForQuickLookup;
 		public final ForgeConfigSpec.BooleanValue lexicaOfflineMode;
@@ -79,7 +79,7 @@ public final class ConfigHandler {
 			useVanillaParticleLimiter = builder
 					.comment("Set this to false to always display all particles regardless of the \"Particles\" setting in the Vanilla options menu.")
 					.define("particles.use_vanilla", true);
-			renderBaubles = builder
+			renderAccessories = builder
 					.comment("Set this to false to disable rendering of baubles in the player.")
 					.define("render_baubles", true);
 			enableSeasonalFeatures = builder

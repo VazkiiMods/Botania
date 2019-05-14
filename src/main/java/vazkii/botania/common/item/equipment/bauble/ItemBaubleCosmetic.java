@@ -18,31 +18,22 @@ import net.minecraft.client.renderer.model.BakedQuad;
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.client.renderer.texture.TextureUtil;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.lwjgl.opengl.GL11;
-import vazkii.botania.api.item.IBaubleRender;
+import vazkii.botania.api.item.AccessoryRenderHelper;
 import vazkii.botania.api.item.ICosmeticBauble;
-import vazkii.botania.client.core.handler.ModelHandler;
-import vazkii.botania.common.integration.curios.BaseCurio;
-import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.lib.LibItemNames;
+import vazkii.botania.common.integration.curios.RenderableCurio;
 
-import javax.annotation.Nonnull;
 import java.util.List;
-import java.util.Locale;
 
 public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 
@@ -77,24 +68,20 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 		super.addHiddenTooltip(stack, world, stacks, flags);
 	}
 
-	public static class Curio extends BaseCurio {
+	public static class Curio extends RenderableCurio {
 		public Curio(ItemStack stack) {
 			super(stack);
 		}
 
 		@Override
-		public boolean hasRender(String identifier, EntityLivingBase living) {
-			return true;
-		}
-
-		@Override
+		@OnlyIn(Dist.CLIENT)
 		public void doRender(String identifier, EntityLivingBase player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 			Variant variant = ((ItemBaubleCosmetic) stack.getItem()).variant;
 			Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 			GlStateManager.pushMatrix();
-			IBaubleRender.Helper.translateToHeadLevel(player);
-			IBaubleRender.Helper.translateToFace();
-			IBaubleRender.Helper.defaultTransforms();
+			AccessoryRenderHelper.translateToHeadLevel(player);
+			AccessoryRenderHelper.translateToFace();
+			AccessoryRenderHelper.defaultTransforms();
 			switch (variant) {
 			case RED_GLASSES:
 				scale(1.25F);
@@ -237,9 +224,9 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 			default: {
 				// body cosmetics
 				GlStateManager.popMatrix();
-				IBaubleRender.Helper.rotateIfSneaking(player);
-				IBaubleRender.Helper.translateToChest();
-				IBaubleRender.Helper.defaultTransforms();
+				AccessoryRenderHelper.rotateIfSneaking(player);
+				AccessoryRenderHelper.translateToChest();
+				AccessoryRenderHelper.defaultTransforms();
 				switch (variant) {
 				case BLACK_BOWTIE:
 					GlStateManager.translatef(0F, 0.15F, 0F);

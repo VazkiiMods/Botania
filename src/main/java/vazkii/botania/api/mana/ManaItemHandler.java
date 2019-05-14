@@ -124,8 +124,6 @@ public final class ManaItemHandler {
 				if(remove)
 					manaItem.addMana(stackInSlot, -mana);
 
-				BotaniaAPI.internalHandler.sendBaubleUpdatePacket(player, entry.getKey());
-
 				return mana;
 			}
 		}
@@ -172,7 +170,6 @@ public final class ManaItemHandler {
 
 				if(remove)
 					manaItemSlot.addMana(stackInSlot, -manaToGet);
-				BotaniaAPI.internalHandler.sendBaubleUpdatePacket(player, entry.getKey());
 
 				return true;
 			}
@@ -232,7 +229,6 @@ public final class ManaItemHandler {
 
 				if(add)
 					manaItemSlot.addMana(stackInSlot, manaToSend);
-				BotaniaAPI.internalHandler.sendBaubleUpdatePacket(player, entry.getKey());
 
 				return received;
 			}
@@ -280,7 +276,6 @@ public final class ManaItemHandler {
 
 				if(add)
 					manaItemSlot.addMana(stackInSlot, manaToSend);
-				BotaniaAPI.internalHandler.sendBaubleUpdatePacket(player, entry.getKey());
 
 				return true;
 			}

@@ -52,6 +52,7 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.ColorHandler;
 import vazkii.botania.client.core.handler.ContributorFancinessHandler;
 import vazkii.botania.client.core.handler.CorporeaAutoCompleteHandler;
+import vazkii.botania.client.core.handler.LayerTerraHelmet;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.core.handler.MultiblockRenderHandler;
 import vazkii.botania.client.core.handler.PersistentVariableHelper;
@@ -186,12 +187,16 @@ public class ClientProxy implements IProxy {
 		RenderPlayer render;
 		render = skinMap.get("default");
 		render.addLayer(new ContributorFancinessHandler());
-		render.addLayer(new BaubleRenderHandler());
+		if(Botania.curiosLoaded)
+			render.addLayer(new BaubleRenderHandler());
+		render.addLayer(new LayerTerraHelmet());
 		render.addLayer(new LayerGaiaHead(render.getMainModel().bipedHead));
 
 		render = skinMap.get("slim");
 		render.addLayer(new ContributorFancinessHandler());
-		render.addLayer(new BaubleRenderHandler());
+		if(Botania.curiosLoaded)
+			render.addLayer(new BaubleRenderHandler());
+		render.addLayer(new LayerTerraHelmet());
 		render.addLayer(new LayerGaiaHead(render.getMainModel().bipedHead));
 	}
 

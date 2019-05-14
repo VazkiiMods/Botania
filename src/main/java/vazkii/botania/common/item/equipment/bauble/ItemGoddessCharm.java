@@ -19,19 +19,17 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.Explosion;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.world.ExplosionEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import top.theillusivec4.curios.api.CuriosAPI;
-import vazkii.botania.api.item.IBaubleRender;
+import vazkii.botania.api.item.AccessoryRenderHelper;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
-import vazkii.botania.common.integration.curios.BaseCurio;
+import vazkii.botania.common.integration.curios.RenderableCurio;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibMisc;
 
 import java.util.List;
@@ -60,23 +58,18 @@ public class ItemGoddessCharm extends ItemBauble implements IManaUsingItem {
 		}
 	}
 	
-	public static class Curio extends BaseCurio {
+	public static class Curio extends RenderableCurio {
 		public Curio(ItemStack stack) {
 			super(stack);
-		}
-
-		@Override
-		public boolean hasRender(String identifier, EntityLivingBase living) {
-			return true;
 		}
 
 		@Override
         @OnlyIn(Dist.CLIENT)
 		public void doRender(String identifier, EntityLivingBase player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 			GlStateManager.pushMatrix();
-			IBaubleRender.Helper.translateToHeadLevel(player);
-			IBaubleRender.Helper.translateToFace();
-			IBaubleRender.Helper.defaultTransforms();
+			AccessoryRenderHelper.translateToHeadLevel(player);
+			AccessoryRenderHelper.translateToFace();
+			AccessoryRenderHelper.defaultTransforms();
 			GlStateManager.rotatef(-90F, 0F, 1F, 0F);
 			GlStateManager.translatef(0.5F, 0.2F, 0.45F);
 			Minecraft.getInstance().getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.NONE);

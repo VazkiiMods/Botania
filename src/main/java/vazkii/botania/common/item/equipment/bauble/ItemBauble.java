@@ -49,7 +49,6 @@ import java.util.UUID;
 @Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
 public abstract class ItemBauble extends ItemMod implements ICosmeticAttachable, IPhantomInkable {
 
-	private static final String TAG_HASHCODE = "playerHashcode";
 	private static final String TAG_BAUBLE_UUID_MOST = "baubleUUIDMost";
 	private static final String TAG_BAUBLE_UUID_LEAST = "baubleUUIDLeast";
 	private static final String TAG_COSMETIC_ITEM = "cosmeticItem";
@@ -81,20 +80,6 @@ public abstract class ItemBauble extends ItemMod implements ICosmeticAttachable,
 		if(hasPhantomInk(par1ItemStack))
 			stacks.add(new TextComponentTranslation("botaniamisc.hasPhantomInk"));
 	}
-
-	public void onWornTick(ItemStack stack, EntityLivingBase player) {
-		if(getLastPlayerHashcode(stack) != player.hashCode()) {
-			setLastPlayerHashcode(stack, player.hashCode());
-		}
-	}
-
-	public void onEquipped(ItemStack stack, EntityLivingBase player) {
-		if(player != null) {
-			setLastPlayerHashcode(stack, player.hashCode());
-		}
-	}
-
-	public void onUnequipped(ItemStack stack, EntityLivingBase player) { }
 
 	@Override
 	public ItemStack getCosmeticItem(ItemStack stack) {
@@ -134,14 +119,6 @@ public abstract class ItemBauble extends ItemMod implements ICosmeticAttachable,
 
 		long least = ItemNBTHelper.getLong(stack, TAG_BAUBLE_UUID_LEAST, 0);
 		return new UUID(most, least);
-	}
-
-	public static int getLastPlayerHashcode(ItemStack stack) {
-		return ItemNBTHelper.getInt(stack, TAG_HASHCODE, 0);
-	}
-
-	public static void setLastPlayerHashcode(ItemStack stack, int hash) {
-		ItemNBTHelper.setInt(stack, TAG_HASHCODE, hash);
 	}
 
 	@Override

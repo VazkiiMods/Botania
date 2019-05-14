@@ -39,15 +39,13 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
 import top.theillusivec4.curios.api.CuriosAPI;
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.item.IBaubleRender;
+import vazkii.botania.api.item.AccessoryRenderHelper;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
-import vazkii.botania.common.integration.curios.BaseCurio;
+import vazkii.botania.common.integration.curios.RenderableCurio;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.lib.LibItemNames;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -62,7 +60,7 @@ public class ItemItemFinder extends ItemBauble {
 		super(props);
 	}
 
-	public static class Curio extends BaseCurio {
+	public static class Curio extends RenderableCurio {
 		public Curio(ItemStack stack) {
 			super(stack);
 		}
@@ -83,11 +81,7 @@ public class ItemItemFinder extends ItemBauble {
 		}
 
 		@Override
-		public boolean hasRender(String identifier, EntityLivingBase entityLivingBase) {
-			return true;
-		}
-
-		@Override
+        @OnlyIn(Dist.CLIENT)
 		public void doRender(String identifier, EntityLivingBase living, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 			TextureAtlasSprite gemIcon = MiscellaneousIcons.INSTANCE.itemFinderGem;
 			float f = gemIcon.getMinU();
@@ -95,7 +89,7 @@ public class ItemItemFinder extends ItemBauble {
 			float f2 = gemIcon.getMinV();
 			float f3 = gemIcon.getMaxV();
 			boolean armor = !living.getItemStackFromSlot(EntityEquipmentSlot.HEAD).isEmpty();
-			IBaubleRender.Helper.translateToHeadLevel(living);
+			AccessoryRenderHelper.translateToHeadLevel(living);
 			Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 			GlStateManager.rotatef(90F, 0F, 1F, 0F);
 			GlStateManager.rotatef(180F, 1F, 0F, 0F);
