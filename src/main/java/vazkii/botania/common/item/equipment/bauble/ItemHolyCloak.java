@@ -23,15 +23,17 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import top.theillusivec4.curios.api.CuriosAPI;
 import vazkii.botania.api.item.IBaubleRender;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelCloak;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
+import vazkii.botania.common.integration.curios.BaseCurio;
 import vazkii.botania.common.lib.LibItemNames;
 
-public class ItemHolyCloak extends ItemBauble implements IBaubleRender {
+public class ItemHolyCloak extends ItemBauble {
 
 	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_HOLY_CLOAK);
 	private static final ResourceLocation textureGlow = new ResourceLocation(LibResources.MODEL_HOLY_CLOAK_GLOW);
@@ -50,8 +52,10 @@ public class ItemHolyCloak extends ItemBauble implements IBaubleRender {
 	private void onPlayerDamage(LivingHurtEvent event) {
 		if(event.getEntityLiving() instanceof EntityPlayer && !event.getSource().canHarmInCreative()) {
 			EntityPlayer player = (EntityPlayer) event.getEntityLiving();
-			ItemStack belt = ItemStack.EMPTY; // todo 1.13 BaublesApi.getBaublesHandler(player).getStackInSlot(5);
-			if(!belt.isEmpty() && belt.getItem() instanceof ItemHolyCloak && !isInEffect(belt)) {
+			CuriosAPI.FinderData result = CuriosAPI.getCurioEquipped(s -> s.getItem() instanceof ItemHolyCloak, player);
+
+			if(result != null && !isInEffect(result.getStack())) {
+				ItemStack belt = result.getStack();
 				ItemHolyCloak cloak = (ItemHolyCloak) belt.getItem();
 				int cooldown = getCooldown(belt);
 
@@ -64,11 +68,49 @@ public class ItemHolyCloak extends ItemBauble implements IBaubleRender {
 		}
 	}
 
-	@Override
-	public void onWornTick(ItemStack stack, EntityLivingBase player) {
-		int cooldown = getCooldown(stack);
-		if(cooldown > 0)
-			setCooldown(stack, cooldown - 1);
+	public static class Curio extends BaseCurio {
+		public Curio(ItemStack stack) {
+			super(stack);
+		}
+
+		@Override
+		public void onCurioTick(String identifier, EntityLivingBase living) {
+			int cooldown = getCooldown(stack);
+			if(cooldown > 0)
+				setCooldown(stack, cooldown - 1);
+		}
+
+		@Override
+		public boolean hasRender(String identifier, EntityLivingBase living) {
+			return true;
+		}
+
+		@Override
+		@OnlyIn(Dist.CLIENT)
+		public void doRender(String identifier, EntityLivingBase player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+			ItemHolyCloak item = ((ItemHolyCloak) stack.getItem());
+			IBaubleRender.Helper.rotateIfSneaking(player);
+			boolean armor = !player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).isEmpty();
+			GlStateManager.translatef(0F, armor ? -0.07F : -0.01F, 0F);
+
+			float s = 1F / 16F;
+			GlStateManager.scalef(s, s, s);
+			if(model == null)
+				model = new ModelCloak();
+
+			GlStateManager.enableLighting();
+			GlStateManager.enableRescaleNormal();
+
+			Minecraft.getInstance().textureManager.bindTexture(item.getCloakTexture());
+			model.render(1F);
+
+			int light = 15728880;
+			int lightmapX = light % 65536;
+			int lightmapY = light / 65536;
+			OpenGlHelper.glMultiTexCoord2f(OpenGlHelper.GL_TEXTURE1, lightmapX, lightmapY);
+			Minecraft.getInstance().textureManager.bindTexture(item.getCloakGlowTexture());
+			model.render(1F);
+		}
 	}
 
 	public boolean effectOnDamage(LivingHurtEvent event, EntityPlayer player, ItemStack stack) {
@@ -91,13 +133,6 @@ public class ItemHolyCloak extends ItemBauble implements IBaubleRender {
 	public int getCooldownTime(ItemStack stack) {
 		return 200;
 	}
-
-	/* todo 1.13
-	@Override
-	public BaubleType getBaubleType(ItemStack arg0) {
-		return BaubleType.BODY;
-	}
-	*/
 
 	public static int getCooldown(ItemStack stack) {
 		return ItemNBTHelper.getInt(stack, TAG_COOLDOWN, 0);
@@ -124,34 +159,5 @@ public class ItemHolyCloak extends ItemBauble implements IBaubleRender {
 	ResourceLocation getCloakGlowTexture() {
 		return textureGlow;
 	}
-
-	@Override
-	@OnlyIn(Dist.CLIENT)
-	public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
-		if(type == RenderType.BODY) {
-			Helper.rotateIfSneaking(player);
-			boolean armor = !player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).isEmpty();
-			GlStateManager.translatef(0F, armor ? -0.07F : -0.01F, 0F);
-
-			float s = 1F / 16F;
-			GlStateManager.scalef(s, s, s);
-			if(model == null)
-				model = new ModelCloak();
-
-			GlStateManager.enableLighting();
-			GlStateManager.enableRescaleNormal();
-
-			Minecraft.getInstance().textureManager.bindTexture(getCloakTexture());
-			model.render(1F);
-
-			int light = 15728880;
-			int lightmapX = light % 65536;
-			int lightmapY = light / 65536;
-			OpenGlHelper.glMultiTexCoord2f(OpenGlHelper.GL_TEXTURE1, lightmapX, lightmapY);
-			Minecraft.getInstance().textureManager.bindTexture(getCloakGlowTexture());
-			model.render(1F);
-		}
-	}
-
 }
 

@@ -19,6 +19,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -30,9 +31,13 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import top.theillusivec4.curios.api.CuriosAPI;
+import vazkii.botania.api.item.IBaubleRender;
 import vazkii.botania.api.item.IBurstViewerBauble;
 import vazkii.botania.api.item.ICosmeticAttachable;
 import vazkii.botania.api.item.ICosmeticBauble;
+import vazkii.botania.common.integration.curios.BaseCurio;
+import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, ICosmeticBauble {
@@ -41,23 +46,24 @@ public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, ICosm
 		super(props);
 	}
 
-	/* todo 1.13
-	@Override
-	public BaubleType getBaubleType(ItemStack arg0) {
-		return BaubleType.CHARM;
-	}
-	*/
+	public static class Curio extends BaseCurio {
+		public Curio(ItemStack stack) {
+			super(stack);
+		}
 
-	@Override
-	@OnlyIn(Dist.CLIENT)
-	public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
-		if(type == RenderType.HEAD) {
+		@Override
+		public boolean hasRender(String identifier, EntityLivingBase living) {
+			return true;
+		}
+
+		@Override
+		public void doRender(String identifier, EntityLivingBase player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 			boolean armor = !player.getItemStackFromSlot(EntityEquipmentSlot.HEAD).isEmpty();
 			Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 
-			Helper.translateToHeadLevel(player);
-			Helper.translateToFace();
-			Helper.defaultTransforms();
+			IBaubleRender.Helper.translateToHeadLevel(player);
+			IBaubleRender.Helper.translateToFace();
+			IBaubleRender.Helper.defaultTransforms();
 			GlStateManager.rotatef(180F, 0F, 1F, 0F);
 			GlStateManager.scalef(0.5F, 0.5F, 0.5F);
 			GlStateManager.translatef(0.5F, -0.2F, armor ? 0.12F : 0F);
@@ -103,8 +109,9 @@ public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, ICosm
 	}
 
 	public static boolean hasMonocle(EntityPlayer player) {
-		for(int i = 0; i < 7; i++) {
-			ItemStack stack = ItemStack.EMPTY; // todo 1.13 BaublesApi.getBaublesHandler(player).getStackInSlot(i);
+		CuriosAPI.FinderData result = CuriosAPI.getCurioEquipped(ModItems.monocle, player);
+		if(result != null) {
+			ItemStack stack = result.getStack();
 			if(!stack.isEmpty()) {
 				Item item = stack.getItem();
 				if(item instanceof IBurstViewerBauble)

@@ -13,6 +13,7 @@ package vazkii.botania.common.item.equipment.bauble;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -24,16 +25,19 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import top.theillusivec4.curios.api.CuriosAPI;
 import vazkii.botania.api.item.IBaubleRender;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
+import vazkii.botania.common.integration.curios.BaseCurio;
+import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibMisc;
 
 import java.util.List;
 
 @Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
-public class ItemGoddessCharm extends ItemBauble implements IManaUsingItem, IBaubleRender {
+public class ItemGoddessCharm extends ItemBauble implements IManaUsingItem {
 
 	public static final int COST = 1000;
 	
@@ -48,31 +52,31 @@ public class ItemGoddessCharm extends ItemBauble implements IManaUsingItem, IBau
 		List<EntityPlayer> players = event.getWorld().getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(vec.x, vec.y, vec.z, vec.x, vec.y, vec.z).grow(8));
 		
 		for(EntityPlayer player : players) {
-			/* todo 1.13
-			ItemStack charm = BaublesApi.getBaublesHandler(player).getStackInSlot(6);
-			if(!charm.isEmpty() && charm.getItem() instanceof ItemGoddessCharm && ManaItemHandler.requestManaExact(charm, player, COST, true)) {
+			CuriosAPI.FinderData result = CuriosAPI.getCurioEquipped(ModItems.goddessCharm, player);
+			if(result != null && ManaItemHandler.requestManaExact(result.getStack(), player, COST, true))  {
 				event.getAffectedBlocks().clear();
 				return;
 			}
-			*/
 		}
 	}
 	
-	/*
-	@Override
-	public BaubleType getBaubleType(ItemStack arg0) {
-		return BaubleType.CHARM;
-	}
-	*/
+	public static class Curio extends BaseCurio {
+		public Curio(ItemStack stack) {
+			super(stack);
+		}
 
-	@Override
-	@OnlyIn(Dist.CLIENT)
-	public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
-		if (type == RenderType.HEAD) {
+		@Override
+		public boolean hasRender(String identifier, EntityLivingBase living) {
+			return true;
+		}
+
+		@Override
+        @OnlyIn(Dist.CLIENT)
+		public void doRender(String identifier, EntityLivingBase player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 			GlStateManager.pushMatrix();
-			Helper.translateToHeadLevel(player);
-			Helper.translateToFace();
-			Helper.defaultTransforms();
+			IBaubleRender.Helper.translateToHeadLevel(player);
+			IBaubleRender.Helper.translateToFace();
+			IBaubleRender.Helper.defaultTransforms();
 			GlStateManager.rotatef(-90F, 0F, 1F, 0F);
 			GlStateManager.translatef(0.5F, 0.2F, 0.45F);
 			Minecraft.getInstance().getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.NONE);

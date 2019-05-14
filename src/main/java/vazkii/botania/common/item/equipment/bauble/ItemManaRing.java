@@ -35,13 +35,6 @@ public class ItemManaRing extends ItemBauble implements IManaItem, IManaTooltipD
 		super(props);
 	}
 
-	/* todo 1.13
-	@Override
-	public BaubleType getBaubleType(ItemStack itemstack) {
-		return BaubleType.RING;
-	}
-	*/
-
 	@Override
 	public void fillItemGroup(@Nonnull ItemGroup tab, @Nonnull NonNullList<ItemStack> stacks) {
 		if(isInGroup(tab)) {

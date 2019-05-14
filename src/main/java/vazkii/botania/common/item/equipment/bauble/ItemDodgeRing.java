@@ -23,9 +23,11 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.items.IItemHandler;
+import top.theillusivec4.curios.api.CuriosAPI;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.Vector3;
+import vazkii.botania.common.integration.curios.BaseCurio;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibMisc;
@@ -50,12 +52,11 @@ public class ItemDodgeRing extends ItemBauble {
 	public static void onKeyDown(InputEvent.KeyInputEvent event) {
 		Minecraft mc = Minecraft.getInstance();
 
-		IItemHandler baublesInv = null; // BaublesApi.getBaublesHandler(mc.player);
-		int slot = -1; // todo 1.13 BaublesApi.isBaubleEquipped(mc.player, ModItems.dodgeRing);
-		if(slot < 0) {
+		CuriosAPI.FinderData result = CuriosAPI.getCurioEquipped(ModItems.dodgeRing, mc.player);
+		if(result == null) {
 				return;
 		}
-		ItemStack ringStack = baublesInv.getStackInSlot(slot);
+		ItemStack ringStack = result.getStack();
 		if(ItemNBTHelper.getInt(ringStack, TAG_DODGE_COOLDOWN, 0) > 0)
 			return;
 
@@ -78,11 +79,17 @@ public class ItemDodgeRing extends ItemBauble {
 		oldRightDown = mc.gameSettings.keyBindRight.isKeyDown();
 	}
 
-	@Override
-	public void onWornTick(ItemStack stack, EntityLivingBase player) {
-		int cd = ItemNBTHelper.getInt(stack, TAG_DODGE_COOLDOWN, 0);
-		if(cd > 0)
-			ItemNBTHelper.setInt(stack, TAG_DODGE_COOLDOWN, cd - 1);
+	public static class Curio extends BaseCurio {
+		public Curio(ItemStack stack) {
+			super(stack);
+		}
+
+		@Override
+		public void onCurioTick(String identifier, EntityLivingBase player) {
+			int cd = ItemNBTHelper.getInt(stack, TAG_DODGE_COOLDOWN, 0);
+			if(cd > 0)
+				ItemNBTHelper.setInt(stack, TAG_DODGE_COOLDOWN, cd - 1);
+		}
 	}
 
 	private static void dodge(EntityPlayer player, boolean left) {
@@ -120,12 +127,4 @@ public class ItemDodgeRing extends ItemBauble {
 		GlStateManager.enableAlphaTest();
 		GlStateManager.color4f(1F, 1F, 1F, 1F);
 	}
-
-	/* todo 1.13
-	@Override
-	public BaubleType getBaubleType(ItemStack arg0) {
-		return BaubleType.RING;
-	}
-	*/
-
 }

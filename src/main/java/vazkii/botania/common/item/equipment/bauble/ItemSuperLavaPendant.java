@@ -25,37 +25,40 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.item.IBaubleRender;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.core.helper.IconHelper;
+import vazkii.botania.common.integration.curios.BaseCurio;
 import vazkii.botania.common.lib.LibItemNames;
 
-public class ItemSuperLavaPendant extends ItemBauble implements IBaubleRender {
+public class ItemSuperLavaPendant extends ItemBauble {
 
 	public ItemSuperLavaPendant(Properties props) {
 		super(props);
 	}
 
-	@Override
-	public void onWornTick(ItemStack stack, EntityLivingBase living) {
-		living.isImmuneToFire = true;
-	}
+	public static class Curio extends BaseCurio {
+		public Curio(ItemStack stack) {
+			super(stack);
+		}
 
-	@Override
-	public void onUnequipped(ItemStack stack, EntityLivingBase living) {
-		living.isImmuneToFire = false;
-	}
+		@Override
+		public void onCurioTick(String identifier, EntityLivingBase living) {
+			living.isImmuneToFire = true;
+		}
 
-	/* todo 1.13
-	@Override
-	public BaubleType getBaubleType(ItemStack itemstack) {
-		return BaubleType.AMULET;
-	}
-	*/
+		@Override
+		public void onUnequipped(String identifier, EntityLivingBase living) {
+			living.isImmuneToFire = false;
+		}
 
-	@Override
-	@OnlyIn(Dist.CLIENT)
-	public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
-		if(type == RenderType.BODY) {
+		@Override
+		public boolean hasRender(String identifier, EntityLivingBase entityLivingBase) {
+			return true;
+		}
+
+		@Override
+		@OnlyIn(Dist.CLIENT)
+		public void doRender(String identifier, EntityLivingBase player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 			Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-			Helper.rotateIfSneaking(player);
+			IBaubleRender.Helper.rotateIfSneaking(player);
 			boolean armor = !player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).isEmpty();
 			GlStateManager.scaled(0.5, 0.5, 0.5);
 			GlStateManager.rotatef(180, 0, 0, 1);

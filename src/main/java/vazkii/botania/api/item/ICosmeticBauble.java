@@ -15,6 +15,6 @@ package vazkii.botania.api.item;
  * other baubles to add the render to them. Other cosmetic baubles
  * can't be stacked on this.
  */
-public interface ICosmeticBauble extends IBaubleRender {
+public interface ICosmeticBauble {
 
 }

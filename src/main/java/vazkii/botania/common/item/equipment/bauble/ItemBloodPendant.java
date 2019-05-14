@@ -43,12 +43,13 @@ import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
+import vazkii.botania.common.integration.curios.BaseCurio;
 import vazkii.botania.common.lib.LibItemNames;
 
 import java.awt.Color;
 import java.util.List;
 
-public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBrewItem, IManaUsingItem, IBaubleRender {
+public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBrewItem, IManaUsingItem {
 
 	private static final String TAG_BREW_KEY = "brewKey";
 
@@ -91,32 +92,62 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 		}
 	}
 
-	/* todo 1.13
-	@Override
-	public BaubleType getBaubleType(ItemStack arg0) {
-		return BaubleType.AMULET;
-	}
-	*/
+	public static class Curio extends BaseCurio {
+		public Curio(ItemStack stack) {
+			super(stack);
+		}
 
-	@Override
-	public void onWornTick(ItemStack stack, EntityLivingBase player) {
-		Brew brew = getBrew(stack);
-		if(brew != BotaniaAPI.fallbackBrew && player instanceof EntityPlayer && !player.world.isRemote) {
-			EntityPlayer eplayer = (EntityPlayer) player;
-			PotionEffect effect = brew.getPotionEffects(stack).get(0);
-			float cost = (float) brew.getManaCost(stack) / effect.getDuration() / (1 + effect.getAmplifier()) * 2.5F;
-			boolean doRand = cost < 1;
-			if(ManaItemHandler.requestManaExact(stack, eplayer, (int) Math.ceil(cost), false)) {
-				PotionEffect currentEffect = player.getActivePotionEffect(effect.getPotion());
-				boolean nightVision = effect.getPotion() == MobEffects.NIGHT_VISION;
-				if(currentEffect == null || currentEffect.getDuration() < (nightVision ? 305 : 3)) {
-					PotionEffect applyEffect = new PotionEffect(effect.getPotion(), nightVision ? 385 : 80, effect.getAmplifier(), true, true);
-					player.addPotionEffect(applyEffect);
+		@Override
+		public void onCurioTick(String identifier, EntityLivingBase player) {
+			Brew brew = ((IBrewItem) stack.getItem()).getBrew(stack);
+			if(brew != BotaniaAPI.fallbackBrew && player instanceof EntityPlayer && !player.world.isRemote) {
+				EntityPlayer eplayer = (EntityPlayer) player;
+				PotionEffect effect = brew.getPotionEffects(stack).get(0);
+				float cost = (float) brew.getManaCost(stack) / effect.getDuration() / (1 + effect.getAmplifier()) * 2.5F;
+				boolean doRand = cost < 1;
+				if(ManaItemHandler.requestManaExact(stack, eplayer, (int) Math.ceil(cost), false)) {
+					PotionEffect currentEffect = player.getActivePotionEffect(effect.getPotion());
+					boolean nightVision = effect.getPotion() == MobEffects.NIGHT_VISION;
+					if(currentEffect == null || currentEffect.getDuration() < (nightVision ? 305 : 3)) {
+						PotionEffect applyEffect = new PotionEffect(effect.getPotion(), nightVision ? 385 : 80, effect.getAmplifier(), true, true);
+						player.addPotionEffect(applyEffect);
+					}
+
+					if(!doRand || Math.random() < cost)
+						ManaItemHandler.requestManaExact(stack, eplayer, (int) Math.ceil(cost), true);
 				}
-
-				if(!doRand || Math.random() < cost)
-					ManaItemHandler.requestManaExact(stack, eplayer, (int) Math.ceil(cost), true);
 			}
+		}
+
+		@Override
+		public boolean hasRender(String identifier, EntityLivingBase entityLivingBase) {
+			return true;
+		}
+
+		@Override
+		public void doRender(String identifier, EntityLivingBase player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+			Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+			IBaubleRender.Helper.rotateIfSneaking(player);
+			boolean armor = !player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).isEmpty();
+			GlStateManager.rotatef(180F, 1F, 0F, 0F);
+			GlStateManager.translatef(-0.26F, -0.4F, armor ? 0.2F : 0.15F);
+			GlStateManager.scalef(0.5F, 0.5F, 0.5F);
+
+			for(TextureAtlasSprite icon : new TextureAtlasSprite[] { MiscellaneousIcons.INSTANCE.bloodPendantChain, MiscellaneousIcons.INSTANCE.bloodPendantGem }) {
+				float f = icon.getMinU();
+				float f1 = icon.getMaxU();
+				float f2 = icon.getMinV();
+				float f3 = icon.getMaxV();
+				IconHelper.renderIconIn3D(Tessellator.getInstance(), f1, f2, f, f3, icon.getWidth(), icon.getHeight(), 1F / 32F);
+
+				Color color = new Color(Minecraft.getInstance().getItemColors().getColor(stack, 1));
+				GL11.glColor3ub((byte) color.getRed(), (byte) color.getGreen(), (byte) color.getBlue());
+				int light = 15728880;
+				int lightmapX = light % 65536;
+				int lightmapY = light / 65536;
+				OpenGlHelper.glMultiTexCoord2f(OpenGlHelper.GL_TEXTURE1, lightmapX, lightmapY);
+			}
+			GL11.glColor3ub((byte) 255, (byte) 255, (byte) 255);
 		}
 	}
 
@@ -152,35 +183,6 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 	@Override
 	public boolean usesMana(ItemStack stack) {
 		return getBrew(stack) != BotaniaAPI.fallbackBrew;
-	}
-
-	@Override
-	@OnlyIn(Dist.CLIENT)
-	public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
-		if(type == RenderType.BODY) {
-			Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-			Helper.rotateIfSneaking(player);
-			boolean armor = !player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).isEmpty();
-			GlStateManager.rotatef(180F, 1F, 0F, 0F);
-			GlStateManager.translatef(-0.26F, -0.4F, armor ? 0.2F : 0.15F);
-			GlStateManager.scalef(0.5F, 0.5F, 0.5F);
-
-			for(TextureAtlasSprite icon : new TextureAtlasSprite[] { MiscellaneousIcons.INSTANCE.bloodPendantChain, MiscellaneousIcons.INSTANCE.bloodPendantGem }) {
-				float f = icon.getMinU();
-				float f1 = icon.getMaxU();
-				float f2 = icon.getMinV();
-				float f3 = icon.getMaxV();
-				IconHelper.renderIconIn3D(Tessellator.getInstance(), f1, f2, f, f3, icon.getWidth(), icon.getHeight(), 1F / 32F);
-
-				Color color = new Color(Minecraft.getInstance().getItemColors().getColor(stack, 1));
-				GL11.glColor3ub((byte) color.getRed(), (byte) color.getGreen(), (byte) color.getBlue());
-				int light = 15728880;
-				int lightmapX = light % 65536;
-				int lightmapY = light / 65536;
-				OpenGlHelper.glMultiTexCoord2f(OpenGlHelper.GL_TEXTURE1, lightmapX, lightmapY);
-			}
-			GL11.glColor3ub((byte) 255, (byte) 255, (byte) 255);
-		}
 	}
 
 }

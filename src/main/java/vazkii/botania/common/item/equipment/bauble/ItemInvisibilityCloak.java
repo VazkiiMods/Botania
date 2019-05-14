@@ -17,6 +17,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
+import vazkii.botania.common.integration.curios.BaseCurio;
 import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemInvisibilityCloak extends ItemBauble implements IManaUsingItem {
@@ -25,36 +26,32 @@ public class ItemInvisibilityCloak extends ItemBauble implements IManaUsingItem 
 		super(props);
 	}
 
-	/* todo 1.13
-	@Override
-	public BaubleType getBaubleType(ItemStack arg0) {
-		return BaubleType.BODY;
-	}
-	*/
+	public static class Curio extends BaseCurio {
+		public Curio(ItemStack stack) {
+			super(stack);
+		}
 
-	@Override
-	public void onUnequipped(ItemStack stack, EntityLivingBase player) {
-		PotionEffect effect = player.getActivePotionEffect(MobEffects.INVISIBILITY);
-		if(effect != null && player instanceof EntityPlayer && effect.getAmplifier() == -42)
-			player.removePotionEffect(MobEffects.INVISIBILITY);
-	}
+		@Override
+		public void onUnequipped(String identifier, EntityLivingBase player) {
+			PotionEffect effect = player.getActivePotionEffect(MobEffects.INVISIBILITY);
+			if(effect != null && player instanceof EntityPlayer && effect.getAmplifier() == -42)
+				player.removePotionEffect(MobEffects.INVISIBILITY);
+		}
 
-	@Override
-	public void onWornTick(ItemStack stack, EntityLivingBase player) {
-		super.onWornTick(stack, player);
+		@Override
+		public void onCurioTick(String identifier, EntityLivingBase player) {
+			if(player instanceof EntityPlayer && !player.world.isRemote) {
+				int manaCost = 2;
+				boolean hasMana = ManaItemHandler.requestManaExact(stack, (EntityPlayer) player, manaCost, false);
+				if(!hasMana)
+					onUnequipped(identifier, player);
+				else {
+					if(player.getActivePotionEffect(MobEffects.INVISIBILITY) != null)
+						player.removePotionEffect(MobEffects.INVISIBILITY);
 
-		if(player instanceof EntityPlayer && !player.world.isRemote) {
-			int manaCost = 2;
-			boolean hasMana = ManaItemHandler.requestManaExact(stack, (EntityPlayer) player, manaCost, false);
-			if(!hasMana)
-				onUnequipped(stack, player);
-			else {
-				if(player.getActivePotionEffect(MobEffects.INVISIBILITY) != null)
-					player.removePotionEffect(MobEffects.INVISIBILITY);
-
-				player.addPotionEffect(new PotionEffect(MobEffects.INVISIBILITY, Integer.MAX_VALUE, -42, true, true));
+					player.addPotionEffect(new PotionEffect(MobEffects.INVISIBILITY, Integer.MAX_VALUE, -42, true, true));
+				}
 			}
-
 		}
 	}
 
@@ -62,5 +59,4 @@ public class ItemInvisibilityCloak extends ItemBauble implements IManaUsingItem 
 	public boolean usesMana(ItemStack stack) {
 		return true;
 	}
-
 }
