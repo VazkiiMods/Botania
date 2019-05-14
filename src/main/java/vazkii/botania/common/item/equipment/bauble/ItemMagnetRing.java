@@ -24,6 +24,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.item.ItemTossEvent;
 import net.minecraftforge.items.IItemHandler;
+import top.theillusivec4.curios.api.CuriosAPI;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IRelic;
 import vazkii.botania.api.mana.IManaItem;
@@ -33,6 +34,7 @@ import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.core.helper.Vector3;
+import vazkii.botania.common.integration.curios.BaseCurio;
 import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibMisc;
 
@@ -59,52 +61,51 @@ public class ItemMagnetRing extends ItemBauble {
 	}
 
 	private void onTossItem(ItemTossEvent event) {
-		/* todo 1.13
-		IItemHandler inv = BaublesApi.getBaublesHandler(event.getPlayer());
-		for(int i = 0; i < inv.getSlots(); i++) {
-			ItemStack stack = inv.getStackInSlot(i);
-			if(!stack.isEmpty() && stack.getItem() instanceof ItemMagnetRing) {
-				setCooldown(stack, 100);
-				BotaniaAPI.internalHandler.sendBaubleUpdatePacket(event.getPlayer(), i);
-			}
+		CuriosAPI.FinderData result = CuriosAPI.getCurioEquipped(this, event.getPlayer());
+		if(result != null) {
+			setCooldown(result.getStack(), 100);
 		}
-		*/
 	}
 
-	@Override
-	public void onWornTick(ItemStack stack, EntityLivingBase player) {
-		super.onWornTick(stack, player);
-
-		int cooldown = getCooldown(stack);
-
-		if(SubTileSolegnolia.hasSolegnoliaAround(player)) {
-			if(cooldown < 0)
-				setCooldown(stack, 2);
-			return;
+	public static class Curio extends BaseCurio {
+		public Curio(ItemStack stack) {
+			super(stack);
 		}
 
-		if(cooldown <= 0) {
-			if(player.isSneaking() == ConfigHandler.COMMON.invertMagnetRing.get()) {
-				double x = player.posX;
-				double y = player.posY + 0.75;
-				double z = player.posZ;
+		@Override
+		public void onCurioTick(String identifier, EntityLivingBase player) {
+			int cooldown = getCooldown(stack);
 
-				List<EntityItem> items = player.world.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(x - range, y - range, z - range, x + range, y + range, z + range));
-				int pulled = 0;
-				for(EntityItem item : items)
-					if(canPullItem(item)) {
-						if(pulled > 200)
-							break;
-
-						MathHelper.setEntityMotionFromVector(item, new Vector3(x, y, z), 0.45F);
-						if(player.world.isRemote) {
-							boolean red = player.world.rand.nextBoolean();
-							Botania.proxy.sparkleFX(item.posX, item.posY, item.posZ, red ? 1F : 0F, 0F, red ? 0F : 1F, 1F, 3);
-						}
-						pulled++;
-					}
+			if(SubTileSolegnolia.hasSolegnoliaAround(player)) {
+				if(cooldown < 0)
+					setCooldown(stack, 2);
+				return;
 			}
-		} else setCooldown(stack, cooldown - 1);
+
+			if(cooldown <= 0) {
+				if(player.isSneaking() == ConfigHandler.COMMON.invertMagnetRing.get()) {
+					double x = player.posX;
+					double y = player.posY + 0.75;
+					double z = player.posZ;
+
+					int range = ((ItemMagnetRing) stack.getItem()).range;
+					List<EntityItem> items = player.world.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(x - range, y - range, z - range, x + range, y + range, z + range));
+					int pulled = 0;
+					for(EntityItem item : items)
+						if(((ItemMagnetRing) stack.getItem()).canPullItem(item)) {
+							if(pulled > 200)
+								break;
+
+							MathHelper.setEntityMotionFromVector(item, new Vector3(x, y, z), 0.45F);
+							if(player.world.isRemote) {
+								boolean red = player.world.rand.nextBoolean();
+								Botania.proxy.sparkleFX(item.posX, item.posY, item.posZ, red ? 1F : 0F, 0F, red ? 0F : 1F, 1F, 3);
+							}
+							pulled++;
+						}
+				}
+			} else setCooldown(stack, cooldown - 1);
+		}
 	}
 
 	private boolean canPullItem(EntityItem item) {
@@ -133,13 +134,4 @@ public class ItemMagnetRing extends ItemBauble {
 	public static void setCooldown(ItemStack stack, int cooldown) {
 		ItemNBTHelper.setInt(stack, TAG_COOLDOWN, cooldown);
 	}
-
-	/* todo 1.13
-	@Override
-	public BaubleType getBaubleType(ItemStack arg0) {
-		return BaubleType.RING;
-	}
-	*/
-
-
 }

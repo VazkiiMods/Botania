@@ -24,9 +24,10 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.item.IBaubleRender;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.core.helper.IconHelper;
+import vazkii.botania.common.integration.curios.BaseCurio;
 import vazkii.botania.common.lib.LibItemNames;
 
-public class ItemLavaPendant extends ItemBauble implements IBaubleRender {
+public class ItemLavaPendant extends ItemBauble {
 
 	public ItemLavaPendant(Properties props) {
 		super(props);
@@ -38,19 +39,20 @@ public class ItemLavaPendant extends ItemBauble implements IBaubleRender {
 			player.extinguish();
 	}
 
-	/* todo 1.13
-	@Override
-	public BaubleType getBaubleType(ItemStack itemstack) {
-		return BaubleType.AMULET;
-	}
-	*/
+	public static class Curio extends BaseCurio {
+		public Curio(ItemStack stack) {
+			super(stack);
+		}
 
-	@Override
-	@OnlyIn(Dist.CLIENT)
-	public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
-		if(type == RenderType.BODY) {
+		@Override
+		public boolean hasRender(String identifier, EntityLivingBase living) {
+			return true;
+		}
+
+		@Override
+		public void doRender(String identifier, EntityLivingBase player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 			Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-			Helper.rotateIfSneaking(player);
+			IBaubleRender.Helper.rotateIfSneaking(player);
 			boolean armor = !player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).isEmpty();
 			GlStateManager.scalef(0.5F, 0.5F, 0.5F);
 			GlStateManager.rotatef(180, 0, 0, 1);
@@ -64,5 +66,4 @@ public class ItemLavaPendant extends ItemBauble implements IBaubleRender {
 			IconHelper.renderIconIn3D(Tessellator.getInstance(), f1, f2, f, f3, gemIcon.getWidth(), gemIcon.getHeight(), 1F / 32F);
 		}
 	}
-
 }

@@ -1,5 +1,6 @@
 package vazkii.botania.common.integration.curios;
 
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
@@ -10,26 +11,22 @@ import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
+import net.minecraftforge.registries.IRegistryDelegate;
 import top.theillusivec4.curios.api.CuriosAPI;
 import top.theillusivec4.curios.api.capability.CuriosCapability;
 import top.theillusivec4.curios.api.capability.ICurio;
 import top.theillusivec4.curios.api.imc.CurioIMCMessage;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.item.equipment.bauble.ItemAuraRing;
-import vazkii.botania.common.item.equipment.bauble.ItemGreaterAuraRing;
-import vazkii.botania.common.item.equipment.bauble.ItemIcePendant;
-import vazkii.botania.common.item.equipment.bauble.ItemItemFinder;
-import vazkii.botania.common.item.equipment.bauble.ItemKnockbackBelt;
-import vazkii.botania.common.item.equipment.bauble.ItemMiningRing;
-import vazkii.botania.common.item.equipment.bauble.ItemReachRing;
-import vazkii.botania.common.item.equipment.bauble.ItemThirdEye;
-import vazkii.botania.common.item.equipment.bauble.ItemWaterRing;
+import vazkii.botania.common.item.equipment.bauble.*;
 import vazkii.botania.common.item.relic.ItemLokiRing;
 import vazkii.botania.common.item.relic.ItemOdinRing;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Function;
 
 // Classloading-safe way to attach curio behaviour to our items
 public class CurioIntegration {
@@ -60,32 +57,45 @@ public class CurioIntegration {
         InterModComms.sendTo("curios", CuriosAPI.IMC.REGISTER_TYPE, () -> new CurioIMCMessage("head"));
     }
 
+    public static void init() {
+        FACTORIES.put(ModItems.auraRing.delegate, ItemAuraRing.Curio::new);
+        FACTORIES.put(ModItems.auraRingGreater.delegate, ItemGreaterAuraRing.Curio::new);
+        FACTORIES.put(ModItems.balanceCloak.delegate, ItemHolyCloak.Curio::new);
+        FACTORIES.put(ModItems.bloodPendant.delegate, ItemBloodPendant.Curio::new);
+        FACTORIES.put(ModItems.divaCharm.delegate, ItemDivaCharm.Curio::new);
+        FACTORIES.put(ModItems.dodgeRing.delegate, ItemDodgeRing.Curio::new);
+        FACTORIES.put(ModItems.goddessCharm.delegate, ItemGoddessCharm.Curio::new);
+        FACTORIES.put(ModItems.holyCloak.delegate, ItemHolyCloak.Curio::new);
+        FACTORIES.put(ModItems.icePendant.delegate, ItemIcePendant.Curio::new);
+        FACTORIES.put(ModItems.invisibilityCloak.delegate, ItemInvisibilityCloak.Curio::new);
+        FACTORIES.put(ModItems.itemFinder.delegate, ItemItemFinder.Curio::new);
+        FACTORIES.put(ModItems.knockbackBelt.delegate, ItemKnockbackBelt.Curio::new);
+        FACTORIES.put(ModItems.lavaPendant.delegate, ItemLavaPendant.Curio::new);
+        FACTORIES.put(ModItems.lokiRing.delegate, s -> new ItemLokiRing.Curio(s, ((ItemLokiRing) ModItems.lokiRing).getDummy()));
+        FACTORIES.put(ModItems.magnetRing.delegate, ItemMagnetRing.Curio::new);
+        FACTORIES.put(ModItems.magnetRingGreater.delegate, ItemMagnetRing.Curio::new);
+        FACTORIES.put(ModItems.manaRing.delegate, BaseCurio::new);
+        FACTORIES.put(ModItems.manaRingGreater.delegate, BaseCurio::new);
+        FACTORIES.put(ModItems.miningRing.delegate, ItemMiningRing.Curio::new);
+        FACTORIES.put(ModItems.odinRing.delegate, s -> new ItemOdinRing.Curio(s, ((ItemOdinRing) ModItems.odinRing).getDummy()));
+        FACTORIES.put(ModItems.pixieRing.delegate, BaseCurio::new);
+        FACTORIES.put(ModItems.reachRing.delegate, ItemReachRing.Curio::new);
+        FACTORIES.put(ModItems.superLavaPendant.delegate, ItemSuperLavaPendant.Curio::new);
+        FACTORIES.put(ModItems.swapRing.delegate, ItemSwapRing.Curio::new);
+        FACTORIES.put(ModItems.thirdEye.delegate, ItemThirdEye.Curio::new);
+        FACTORIES.put(ModItems.tinyPlanet.delegate, ItemTinyPlanet.Curio::new);
+        FACTORIES.put(ModItems.unholyCloak.delegate, ItemHolyCloak.Curio::new);
+        FACTORIES.put(ModItems.waterRing.delegate, ItemWaterRing.Curio::new);
+    }
+
+    private static final Map<IRegistryDelegate<Item>, Function<ItemStack, ICurio>> FACTORIES = new HashMap<>();
+
     @SubscribeEvent
     public static void attachCaps(AttachCapabilitiesEvent<ItemStack> evt) {
         ItemStack stack = evt.getObject();
-
-        if(stack.getItem() == ModItems.icePendant) {
-            evt.addCapability(KEY, new Provider(new ItemIcePendant.Curio(stack)));
-        } else if (stack.getItem() == ModItems.waterRing) {
-            evt.addCapability(KEY, new Provider(new ItemWaterRing.Curio(stack)));
-        } else if (stack.getItem() == ModItems.knockbackBelt) {
-            evt.addCapability(KEY, new Provider(new ItemKnockbackBelt.Curio(stack)));
-        } else if (stack.getItem() == ModItems.odinRing) {
-            evt.addCapability(KEY, new Provider(new ItemOdinRing.Curio(stack, ((ItemOdinRing) ModItems.odinRing).getDummy())));
-        } else if (stack.getItem() == ModItems.lokiRing) {
-            evt.addCapability(KEY, new Provider(new ItemLokiRing.Curio(stack, ((ItemLokiRing) ModItems.lokiRing).getDummy())));
-        } else if (stack.getItem() == ModItems.reachRing) {
-            evt.addCapability(KEY, new Provider(new ItemReachRing.Curio(stack)));
-        } else if (stack.getItem() == ModItems.thirdEye) {
-            evt.addCapability(KEY, new Provider(new ItemThirdEye.Curio(stack)));
-        } else if (stack.getItem() == ModItems.itemFinder) {
-            evt.addCapability(KEY, new Provider(new ItemItemFinder.Curio(stack)));
-        } else if (stack.getItem() == ModItems.auraRing) {
-            evt.addCapability(KEY, new Provider(new ItemAuraRing.Curio(stack)));
-        } else if (stack.getItem() == ModItems.auraRingGreater) {
-            evt.addCapability(KEY, new Provider(new ItemGreaterAuraRing.Curio(stack)));
-        } else if (stack.getItem() == ModItems.miningRing) {
-            evt.addCapability(KEY, new Provider(new ItemMiningRing.Curio(stack)));
+        Function<ItemStack, ICurio> factory = FACTORIES.get(stack.getItem().delegate);
+        if (factory != null) {
+            evt.addCapability(KEY, new Provider(factory.apply(stack)));
         }
     }
 }

@@ -42,7 +42,7 @@ public interface IBaubleRender {
 		 * Rotates the render for a bauble correctly if the player is sneaking.
 		 * Use for renders under {@link RenderType#BODY}.
 		 */
-		public static void rotateIfSneaking(EntityPlayer player) {
+		public static void rotateIfSneaking(EntityLivingBase player) {
 			if(player.isSneaking())
 				applySneakingRotation();
 		}

@@ -20,13 +20,6 @@ public class ItemPixieRing extends ItemBauble implements IPixieSpawner {
 		super(props);
 	}
 
-	/* todo 1.13
-	@Override
-	public BaubleType getBaubleType(ItemStack arg0) {
-		return BaubleType.RING;
-	}
-	*/
-
 	@Override
 	public float getPixieChance(ItemStack stack) {
 		return 0.25F;

@@ -167,6 +167,7 @@ public class Botania {
 		MinecraftForge.EVENT_BUS.register(new LootHandler());
 
 		if(ModList.get().isLoaded("curios")) {
+			CurioIntegration.init();
 			FMLJavaModLoadingContext.get().getModEventBus().register(CurioIntegration.class);
 			MinecraftForge.EVENT_BUS.register(CurioIntegration.class);
 		}
