@@ -28,6 +28,8 @@ import top.theillusivec4.curios.api.CuriosAPI;
 import vazkii.botania.api.item.AccessoryRenderHelper;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
+import vazkii.botania.common.Botania;
+import vazkii.botania.common.integration.curios.CurioIntegration;
 import vazkii.botania.common.integration.curios.RenderableCurio;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibMisc;
@@ -50,8 +52,8 @@ public class ItemGoddessCharm extends ItemBauble implements IManaUsingItem {
 		List<EntityPlayer> players = event.getWorld().getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(vec.x, vec.y, vec.z, vec.x, vec.y, vec.z).grow(8));
 		
 		for(EntityPlayer player : players) {
-			CuriosAPI.FinderData result = CuriosAPI.getCurioEquipped(ModItems.goddessCharm, player);
-			if(result != null && ManaItemHandler.requestManaExact(result.getStack(), player, COST, true))  {
+			ItemStack charm = Botania.curiosLoaded ? CurioIntegration.findOrEmpty(ModItems.goddessCharm, player) : ItemStack.EMPTY;
+			if(!charm.isEmpty() && ManaItemHandler.requestManaExact(charm, player, COST, true))  {
 				event.getAffectedBlocks().clear();
 				return;
 			}

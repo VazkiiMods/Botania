@@ -81,7 +81,7 @@ public final class BaubleRenderHandler implements LayerRenderer<EntityPlayer> {
 				}
 			}
 		});
-
+		GlStateManager.popMatrix();
 	}
 
 	@SuppressWarnings("deprecation")

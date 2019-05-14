@@ -29,6 +29,8 @@ import vazkii.botania.api.item.AccessoryRenderHelper;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.common.Botania;
+import vazkii.botania.common.integration.curios.CurioIntegration;
 import vazkii.botania.common.integration.curios.RenderableCurio;
 
 import java.util.ArrayList;
@@ -65,10 +67,9 @@ public class ItemTravelBelt extends ItemBauble implements IManaUsingItem {
 	public void updatePlayerStepStatus(LivingUpdateEvent event) {
 		if(event.getEntityLiving() instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) event.getEntityLiving();
-			CuriosAPI.FinderData result = CuriosAPI.getCurioEquipped(s -> s.getItem() instanceof ItemTravelBelt, player);
+			ItemStack belt = Botania.curiosLoaded ? CurioIntegration.findOrEmpty(s -> s.getItem() instanceof ItemTravelBelt, player) : ItemStack.EMPTY;
 			String s = playerStr(player);
 
-			ItemStack belt = result == null ? ItemStack.EMPTY : result.getStack();
 			if(playersWithStepup.contains(s)) {
 				if(shouldPlayerHaveStepup(player)) {
 					ItemTravelBelt beltItem = (ItemTravelBelt) belt.getItem();
@@ -111,18 +112,18 @@ public class ItemTravelBelt extends ItemBauble implements IManaUsingItem {
 	public void onPlayerJump(LivingJumpEvent event) {
 		if(event.getEntityLiving() instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) event.getEntityLiving();
-			CuriosAPI.FinderData result = CuriosAPI.getCurioEquipped(s -> s.getItem() instanceof ItemTravelBelt, player);
+			ItemStack belt = CurioIntegration.findOrEmpty(s -> s.getItem() instanceof ItemTravelBelt, player);
 
-			if(result != null && ManaItemHandler.requestManaExact(result.getStack(), player, COST, false)) {
-				player.motionY += ((ItemTravelBelt) result.getStack().getItem()).jump;
-				player.fallDistance = -((ItemTravelBelt) result.getStack().getItem()).fallBuffer;
+			if(!belt.isEmpty() && ManaItemHandler.requestManaExact(belt, player, COST, false)) {
+				player.motionY += ((ItemTravelBelt) belt.getItem()).jump;
+				player.fallDistance = -((ItemTravelBelt) belt.getItem()).fallBuffer;
 			}
 		}
 	}
 
 	private boolean shouldPlayerHaveStepup(EntityPlayer player) {
-		CuriosAPI.FinderData result = CuriosAPI.getCurioEquipped(s -> s.getItem() instanceof ItemTravelBelt, player);
-		return result != null && ManaItemHandler.requestManaExact(result.getStack(), player, COST, false);
+		ItemStack result = Botania.curiosLoaded ? CurioIntegration.findOrEmpty(s -> s.getItem() instanceof ItemTravelBelt, player) : ItemStack.EMPTY;
+		return !result.isEmpty() && ManaItemHandler.requestManaExact(result, player, COST, false);
 	}
 
 	@SubscribeEvent

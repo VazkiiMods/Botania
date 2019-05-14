@@ -25,7 +25,9 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.items.IItemHandler;
 import top.theillusivec4.curios.api.CuriosAPI;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.ConfigHandler;
+import vazkii.botania.common.integration.curios.CurioIntegration;
 import vazkii.botania.common.integration.curios.RelicCurio;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibItemNames;
@@ -75,12 +77,12 @@ public class ItemOdinRing extends ItemRelicBauble {
 
 	@SubscribeEvent
 	public static void onPlayerAttacked(LivingAttackEvent event) {
-		if(event.getEntityLiving() instanceof EntityPlayer) {
+		if(Botania.curiosLoaded && event.getEntityLiving() instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) event.getEntityLiving();
 			boolean negate = damageNegations.contains(event.getSource().damageType)
 					|| (ConfigHandler.COMMON.ringOfOdinFireResist.get() && fireNegations.contains(event.getSource().damageType));
-			CuriosAPI.FinderData result = CuriosAPI.getCurioEquipped(ModItems.odinRing, player);
-			if(result != null && negate)
+			boolean hasRing = !CurioIntegration.findOrEmpty(ModItems.odinRing, player).isEmpty();
+			if(hasRing && negate)
 				event.setCanceled(true);
 		}
 	}

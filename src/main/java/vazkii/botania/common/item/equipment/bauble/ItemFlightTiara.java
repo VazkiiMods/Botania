@@ -52,6 +52,7 @@ import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.StringObfuscator;
 import vazkii.botania.common.core.helper.Vector3;
+import vazkii.botania.common.integration.curios.CurioIntegration;
 import vazkii.botania.common.integration.curios.RenderableCurio;
 import vazkii.botania.common.item.ModItems;
 
@@ -108,8 +109,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 	public void updatePlayerFlyStatus(LivingUpdateEvent event) {
 		if(event.getEntityLiving() instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) event.getEntityLiving();
-			CuriosAPI.FinderData result = CuriosAPI.getCurioEquipped(ModItems.flightTiara, player);
-			ItemStack tiara = result == null ? ItemStack.EMPTY : result.getStack();
+			ItemStack tiara = Botania.curiosLoaded ? CurioIntegration.findOrEmpty(ModItems.flightTiara, player) : ItemStack.EMPTY;
 			int left = ItemNBTHelper.getInt(tiara, TAG_TIME_LEFT, MAX_FLY_TIME);
 
 			if(playersWithFlight.contains(playerStr(player))) {
@@ -208,9 +208,8 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 	}
 
 	private boolean shouldPlayerHaveFlight(EntityPlayer player) {
-		CuriosAPI.FinderData result = CuriosAPI.getCurioEquipped(ModItems.flightTiara, player);
-		if(result != null) {
-			ItemStack armor = result.getStack();
+	    ItemStack armor = Botania.curiosLoaded ? CurioIntegration.findOrEmpty(ModItems.flightTiara, player) : ItemStack.EMPTY;
+		if(!armor.isEmpty()) {
 			int left = ItemNBTHelper.getInt(armor, TAG_TIME_LEFT, MAX_FLY_TIME);
 			boolean flying = ItemNBTHelper.getBoolean(armor, TAG_FLYING, false);
 			return (left > (flying ? 0 : MAX_FLY_TIME / 10) || player.inventory.hasItemStack(new ItemStack(ModItems.flugelEye))) && ManaItemHandler.requestManaExact(armor, player, getCost(armor, left), false);
