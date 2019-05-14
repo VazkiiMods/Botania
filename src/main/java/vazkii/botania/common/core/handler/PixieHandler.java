@@ -7,13 +7,17 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.IItemHandlerModifiable;
 import vazkii.botania.api.item.IPixieSpawner;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.entity.EntityPixie;
+import vazkii.botania.common.integration.curios.CurioIntegration;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.armor.elementium.ItemElementiumHelm;
 import vazkii.botania.common.lib.LibMisc;
@@ -40,11 +44,14 @@ public final class PixieHandler {
 			for (ItemStack element : player.inventory.armorInventory)
 				chance += getChance(element);
 
-			// todo 1.13
-			/*
-			IItemHandler baubles = BaublesApi.getBaublesHandler(player);
-			for(int i = 0; i < baubles.getSlots(); i++)
-				chance += getChance(baubles.getStackInSlot(i));
+			if(Botania.curiosLoaded) {
+				LazyOptional<IItemHandlerModifiable> cap = CurioIntegration.getAllCurios(player);
+				if(cap.isPresent()) {
+					IItemHandlerModifiable handler = cap.orElseThrow(NullPointerException::new);
+					for(int i = 0; i < handler.getSlots(); i++)
+						chance += getChance(handler.getStackInSlot(i));
+				}
+			}
 
 			if(Math.random() < chance) {
 				EntityPixie pixie = new EntityPixie(player.world);
@@ -62,7 +69,6 @@ public final class PixieHandler {
 				pixie.onInitialSpawn(player.world.getDifficultyForLocation(new BlockPos(pixie)), null, null);
 				player.world.spawnEntity(pixie);
 			}
-			*/
 		}
 	}
 

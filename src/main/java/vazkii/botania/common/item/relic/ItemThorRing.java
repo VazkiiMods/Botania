@@ -14,6 +14,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.items.IItemHandler;
+import vazkii.botania.common.Botania;
+import vazkii.botania.common.integration.curios.CurioIntegration;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibMisc;
@@ -24,24 +26,15 @@ public class ItemThorRing extends ItemRelicBauble {
 		super(props);
 	}
 
-	/* todo 1.13
-	@Override
-	public BaubleType getBaubleType(ItemStack arg0) {
-		return BaubleType.RING;
-	}
-	*/
-
 	@Override
 	public ResourceLocation getAdvancement() {
 		return new ResourceLocation(LibMisc.MOD_ID, "challenge/thor_ring");
 	}
 
 	public static ItemStack getThorRing(EntityPlayer player) {
-		IItemHandler baubles = null; // BaublesApi.getBaublesHandler(player);
-		int slot = -1; // todo 1.13 BaublesApi.isBaubleEquipped(player, ModItems.thorRing);
-		if (slot < 0) {
-			return ItemStack.EMPTY;
+		if(Botania.curiosLoaded) {
+			return CurioIntegration.findOrEmpty(ModItems.thorRing, player);
 		}
-		return baubles.getStackInSlot(slot);
+		return ItemStack.EMPTY;
 	}
 }

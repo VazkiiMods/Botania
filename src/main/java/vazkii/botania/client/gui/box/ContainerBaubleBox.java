@@ -54,17 +54,17 @@ public class ContainerBaubleBox extends Container {
 				int k = j + i * 6;
 				addSlotToContainer(new SlotItemHandler(baubleBoxInv, k, 62 + j * 18, 8 + i * 18));
 			}
+		*/
 
 		for(i = 0; i < 3; ++i)
 			for(j = 0; j < 9; ++j)
-				addSlotToContainer(new Slot(playerInv, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
+				addSlot(new Slot(playerInv, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
 
 		for(i = 0; i < 9; ++i) {
 			if(playerInv.getStackInSlot(i) == baubleBoxInv.box)
-				addSlotToContainer(new SlotLocked(playerInv, i, 8 + i * 18, 142));
-			else addSlotToContainer(new Slot(playerInv, i, 8 + i * 18, 142));
+				addSlot(new SlotLocked(playerInv, i, 8 + i * 18, 142));
+			else addSlot(new Slot(playerInv, i, 8 + i * 18, 142));
 		}
-		*/
 
 	}
 

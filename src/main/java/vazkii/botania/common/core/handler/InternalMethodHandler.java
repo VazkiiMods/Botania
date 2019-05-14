@@ -21,7 +21,9 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandlerModifiable;
+import net.minecraftforge.items.wrapper.EmptyHandler;
 import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.corporea.ICorporeaSpark;
@@ -48,6 +50,7 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.decor.BlockFloatingFlower;
 import vazkii.botania.common.block.subtile.functional.SubTileSolegnolia;
 import vazkii.botania.common.integration.corporea.WrappedIInventory;
+import vazkii.botania.common.integration.curios.CurioIntegration;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 import vazkii.botania.common.item.relic.ItemLokiRing;
@@ -149,8 +152,12 @@ public class InternalMethodHandler extends DummyMethodHandler {
 	}
 
 	@Override
-	public IItemHandlerModifiable getBaublesInventoryWrapped(EntityPlayer player) {
-		return null; // todo 1.13 BaublesApi.getBaublesHandler(player);
+	public IItemHandlerModifiable getAccessoriesInventory(EntityPlayer player) {
+		if(Botania.curiosLoaded) {
+			LazyOptional<IItemHandlerModifiable> cap = CurioIntegration.getAllCurios(player);
+			return cap.orElseGet(EmptyHandler::new);
+		}
+		return new EmptyHandler();
 	}
 
 	@Override

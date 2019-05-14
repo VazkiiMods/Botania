@@ -54,23 +54,23 @@ public final class ManaItemHandler {
 	}
 
 	/**
-	 * Gets a list containing all mana-holding items in a player's baubles inventory.
+	 * Gets a list containing all mana-holding items in a player's accessories inventory.
 	 * @return The list of items
 	 */
-	public static Map<Integer, ItemStack> getManaBaubles(EntityPlayer player) {
+	public static Map<Integer, ItemStack> getManaAccesories(EntityPlayer player) {
 		if (player == null)
 			return new HashMap<Integer, ItemStack>();
 
-		IItemHandler baublesInv = BotaniaAPI.internalHandler.getBaublesInventoryWrapped(player);
-		if (baublesInv == null)
+		IItemHandler acc = BotaniaAPI.internalHandler.getAccessoriesInventory(player);
+		if (acc == null)
 			return new HashMap<Integer, ItemStack>();
 
 
 		Map<Integer, ItemStack> toReturn = new HashMap<Integer, ItemStack>();
-		int size = baublesInv.getSlots();
+		int size = acc.getSlots();
 
 		for(int slot = 0; slot < size; slot++) {
-			ItemStack stackInSlot = baublesInv.getStackInSlot(slot);
+			ItemStack stackInSlot = acc.getStackInSlot(slot);
 
 			if(!stackInSlot.isEmpty() && stackInSlot.getItem() instanceof IManaItem) {
 				toReturn.put(slot, stackInSlot);
@@ -109,8 +109,8 @@ public final class ManaItemHandler {
 			}
 		}
 
-		Map<Integer, ItemStack> baubles = getManaBaubles(player);
-		for (Entry<Integer, ItemStack> entry : baubles.entrySet()) {
+		Map<Integer, ItemStack> acc = getManaAccesories(player);
+		for (Entry<Integer, ItemStack> entry : acc.entrySet()) {
 			ItemStack stackInSlot = entry.getValue();
 			if(stackInSlot == stack)
 				continue;
@@ -160,8 +160,8 @@ public final class ManaItemHandler {
 			}
 		}
 
-		Map<Integer, ItemStack> baubles = getManaBaubles(player);
-		for (Entry<Integer, ItemStack> entry : baubles.entrySet()) {
+		Map<Integer, ItemStack> acc = getManaAccesories(player);
+		for (Entry<Integer, ItemStack> entry : acc.entrySet()) {
 			ItemStack stackInSlot = entry.getValue();
 			if(stackInSlot == stack)
 				continue;
@@ -214,8 +214,8 @@ public final class ManaItemHandler {
 			}
 		}
 
-		Map<Integer, ItemStack> baubles = getManaBaubles(player);
-		for (Entry<Integer, ItemStack> entry : baubles.entrySet()) {
+		Map<Integer, ItemStack> acc = getManaAccesories(player);
+		for (Entry<Integer, ItemStack> entry : acc.entrySet()) {
 			ItemStack stackInSlot = entry.getValue();
 			if(stackInSlot == stack)
 				continue;
@@ -268,8 +268,8 @@ public final class ManaItemHandler {
 			}
 		}
 
-		Map<Integer, ItemStack> baubles = getManaBaubles(player);
-		for (Entry<Integer, ItemStack> entry : baubles.entrySet()) {
+		Map<Integer, ItemStack> acc = getManaAccesories(player);
+		for (Entry<Integer, ItemStack> entry : acc.entrySet()) {
 			ItemStack stackInSlot = entry.getValue();
 			if(stackInSlot == stack)
 				continue;

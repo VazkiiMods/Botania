@@ -40,6 +40,7 @@ import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.lwjgl.opengl.GL11;
+import top.theillusivec4.curios.api.CuriosAPI;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IBaubleRender;
 import vazkii.botania.api.mana.IManaUsingItem;
@@ -56,6 +57,7 @@ import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.StringObfuscator;
 import vazkii.botania.common.core.helper.Vector3;
+import vazkii.botania.common.integration.curios.BaseCurio;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibItemNames;
 
@@ -63,7 +65,7 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaubleRender {
+public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 
 	private static final ResourceLocation textureHud = new ResourceLocation(LibResources.GUI_HUD_ICONS);
 	private static final ResourceLocation textureHalo = new ResourceLocation(LibResources.MISC_HALO);
@@ -89,13 +91,6 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 		super(props);
 		MinecraftForge.EVENT_BUS.register(this);
 	}
-
-	/* todo 1.13
-	@Override
-	public BaubleType getBaubleType(ItemStack arg0) {
-		return BaubleType.HEAD;
-	}
-	*/
 
 	@Override
 	public void fillItemGroup(@Nonnull ItemGroup tab, @Nonnull NonNullList<ItemStack> list) {
@@ -185,7 +180,8 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 	public void updatePlayerFlyStatus(LivingUpdateEvent event) {
 		if(event.getEntityLiving() instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) event.getEntityLiving();
-			ItemStack tiara = ItemStack.EMPTY; // todo 1.13 BaublesApi.getBaublesHandler(player).getStackInSlot(4);
+			CuriosAPI.FinderData result = CuriosAPI.getCurioEquipped(ModItems.flightTiara, player);
+			ItemStack tiara = result == null ? ItemStack.EMPTY : result.getStack();
 			int left = ItemNBTHelper.getInt(tiara, TAG_TIME_LEFT, MAX_FLY_TIME);
 
 			if(playersWithFlight.contains(playerStr(player))) {
@@ -284,8 +280,9 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 	}
 
 	private boolean shouldPlayerHaveFlight(EntityPlayer player) {
-		ItemStack armor = ItemStack.EMPTY; // todo 1.13 BaublesApi.getBaublesHandler(player).getStackInSlot(4);
-		if(!armor.isEmpty() && armor.getItem() == this) {
+		CuriosAPI.FinderData result = CuriosAPI.getCurioEquipped(ModItems.flightTiara, player);
+		if(result != null) {
+			ItemStack armor = result.getStack();
 			int left = ItemNBTHelper.getInt(armor, TAG_TIME_LEFT, MAX_FLY_TIME);
 			boolean flying = ItemNBTHelper.getBoolean(armor, TAG_FLYING, false);
 			return (left > (flying ? 0 : MAX_FLY_TIME / 10) || player.inventory.hasItemStack(new ItemStack(ModItems.flugelEye))) && ManaItemHandler.requestManaExact(armor, player, getCost(armor, left), false);
@@ -303,16 +300,29 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 		return true;
 	}
 
-	@Override
-	@OnlyIn(Dist.CLIENT)
-	public void onPlayerBaubleRender(ItemStack stack, EntityPlayer player, RenderType type, float partialTicks) {
-		int meta = ItemNBTHelper.getInt(stack, TAG_VARIANT, 0);
-		if(type == RenderType.BODY) {
+	public static class Curio extends BaseCurio {
+		public Curio(ItemStack stack) {
+			super(stack);
+		}
+
+		@Override
+		public boolean shouldSyncToTracking(String identifier, EntityLivingBase living) {
+			return true;
+		}
+
+		@Override
+		public boolean hasRender(String identifier, EntityLivingBase living) {
+			return living instanceof EntityPlayer;
+		}
+
+		@Override
+		public void doRender(String identifier, EntityLivingBase player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+			int meta = ItemNBTHelper.getInt(stack, TAG_VARIANT, 0);
 			if(meta > 0 && meta <= MiscellaneousIcons.INSTANCE.tiaraWingIcons.length) {
 				TextureAtlasSprite icon = MiscellaneousIcons.INSTANCE.tiaraWingIcons[meta - 1];
 				Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 
-				boolean flying = player.abilities.isFlying;
+				boolean flying = ((EntityPlayer) player).abilities.isFlying;
 
 				float rz = 120F;
 				float rx = 20F + (float) ((Math.sin((double) (player.ticksExisted + partialTicks) * (flying ? 0.4F : 0.2F)) + 0.5F) * (flying ? 30F : 5F));
@@ -402,7 +412,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 				float f3 = icon.getMaxV();
 				float sr = 1F / s;
 
-				Helper.rotateIfSneaking(player);
+				IBaubleRender.Helper.rotateIfSneaking(player);
 
 				GlStateManager.translatef(0F, h, i);
 
@@ -433,13 +443,15 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 				GlStateManager.popMatrix();
 
 				OpenGlHelper.glMultiTexCoord2f(OpenGlHelper.GL_TEXTURE1, lbx, lby);
+
+				if(meta == 1)
+					renderHalo(player, partialTicks);
 			}
-		} else if(meta == 1) // Jibril's Halo
-			renderHalo(player, partialTicks);
+		}
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public static void renderHalo(EntityPlayer player, float partialTicks) {
+	public static void renderHalo(EntityLivingBase player, float partialTicks) {
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		GlStateManager.shadeModel(GL11.GL_SMOOTH);
@@ -451,7 +463,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem, IBaub
 		Minecraft.getInstance().textureManager.bindTexture(textureHalo);
 
 		if(player != null)
-			Helper.translateToHeadLevel(player);
+			IBaubleRender.Helper.translateToHeadLevel(player);
 		GlStateManager.translatef(0, 1.5F, 0);
 		GlStateManager.rotatef(30, 1, 0, -1);
 		GlStateManager.translatef(-0.1F, -0.5F, -0.1F);

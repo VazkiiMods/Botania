@@ -40,7 +40,9 @@ import vazkii.botania.api.item.ISequentialBreaker;
 import vazkii.botania.api.item.IWireframeCoordinateListProvider;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
+import vazkii.botania.common.integration.curios.CurioIntegration;
 import vazkii.botania.common.integration.curios.RelicCurio;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
@@ -186,9 +188,9 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 	}
 
 	private static ItemStack getLokiRing(EntityPlayer player) {
-		CuriosAPI.FinderData result = CuriosAPI.getCurioEquipped(ModItems.lokiRing, player);
-		if(result != null)
-			return result.getStack();
+		if(Botania.curiosLoaded) {
+			return CurioIntegration.findOrEmpty(ModItems.lokiRing, player);
+		}
 		return ItemStack.EMPTY;
 	}
 

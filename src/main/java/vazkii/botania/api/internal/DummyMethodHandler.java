@@ -138,7 +138,7 @@ public class DummyMethodHandler implements IInternalMethodHandler {
 	public void sparkleFX(World world, double x, double y, double z, float r, float g, float b, float size, int m) {}
 
 	@Override
-	public IItemHandlerModifiable getBaublesInventoryWrapped(EntityPlayer player) {
+	public IItemHandlerModifiable getAccessoriesInventory(EntityPlayer player) {
 		return null;
 	}
 

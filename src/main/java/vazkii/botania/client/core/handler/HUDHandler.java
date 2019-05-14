@@ -34,9 +34,9 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import org.lwjgl.opengl.GL11;
+import top.theillusivec4.curios.api.CuriosAPI;
 import vazkii.botania.api.lexicon.ILexicon;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -60,6 +60,7 @@ import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex.InputHandler;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.PlayerHelper;
+import vazkii.botania.common.integration.curios.CurioIntegration;
 import vazkii.botania.common.item.ItemCraftingHalo;
 import vazkii.botania.common.item.ItemSextant;
 import vazkii.botania.common.item.ItemTwigWand;
@@ -81,39 +82,31 @@ public final class HUDHandler {
 
 	public static final ResourceLocation manaBar = new ResourceLocation(LibResources.GUI_MANA_HUD);
 
-	/* todo 1.13
 	@SubscribeEvent(priority = EventPriority.HIGHEST)
 	public static void onDrawScreenPre(RenderGameOverlayEvent.Pre event) {
 		Minecraft mc = Minecraft.getInstance();
 		Profiler profiler = mc.profiler;
 
-		if(event.getType() == ElementType.HEALTH) {
+		if(event.getType() == ElementType.HEALTH && Botania.curiosLoaded) {
 			profiler.startSection("botania-hud");
-			IItemHandler baublesInv = BaublesApi.getBaublesHandler(mc.player);
-			ItemStack headpiece = baublesInv.getStackInSlot(4);
-			if(!headpiece.isEmpty() && headpiece.getItem() == ModItems.flightTiara) {
+
+			CuriosAPI.FinderData result = CuriosAPI.getCurioEquipped(ModItems.flightTiara, mc.player);
+			if(result != null) {
 				profiler.startSection("flugelTiara");
-				ItemFlightTiara.renderHUD(mc.player, headpiece);
+				ItemFlightTiara.renderHUD(mc.player, result.getStack());
 				profiler.endSection();
 			}
 
-			dodgeRing: {
-				ItemStack ring = baublesInv.getStackInSlot(1);
-				if(ring.isEmpty() || !(ring.getItem() instanceof ItemDodgeRing)) {
-					ring = baublesInv.getStackInSlot(2);
-					if(ring.isEmpty() || !(ring.getItem() instanceof ItemDodgeRing))
-						break dodgeRing;
-				}
-
+			result = CuriosAPI.getCurioEquipped(ModItems.dodgeRing, mc.player);
+			if(result != null) {
 				profiler.startSection("dodgeRing");
-				ItemDodgeRing.renderHUD(mc.player, ring, event.getPartialTicks());
+				ItemDodgeRing.renderHUD(mc.player, result.getStack(), event.getPartialTicks());
 				profiler.endSection();
 			}
 
 			profiler.endSection();
 		}
 	}
-	*/
 
 	@SubscribeEvent
 	public static void onDrawScreenPost(RenderGameOverlayEvent.Post event) {
@@ -207,17 +200,17 @@ public final class HUDHandler {
 				boolean creative = false;
 
 				IItemHandler mainInv = new net.minecraftforge.items.ItemStackHandler(1); // player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).orElseThrow(NullPointerException::new);
-				IItemHandler baublesInv = null; // todo 1.13
+				IItemHandler accInv = Botania.curiosLoaded ? CurioIntegration.getAllCurios(player).orElse(null) : null;
 
 				int invSize = mainInv.getSlots();
 				int size = invSize;
-				if(baublesInv != null)
-					size += baublesInv.getSlots();
+				if(accInv != null)
+					size += accInv.getSlots();
 
 				for(int i = 0; i < size; i++) {
-					boolean useBaubles = i >= invSize;
-					IItemHandler inv = useBaubles ? baublesInv : mainInv;
-					ItemStack stack = inv.getStackInSlot(i - (useBaubles ? invSize : 0));
+					boolean useAccessories = i >= invSize;
+					IItemHandler inv = useAccessories ? accInv : mainInv;
+					ItemStack stack = inv.getStackInSlot(i - (useAccessories ? invSize : 0));
 
 					if(!stack.isEmpty()) {
 						Item item = stack.getItem();
@@ -237,8 +230,8 @@ public final class HUDHandler {
 						creative = true;
 				}
 
-				Map<Integer, ItemStack> baubles = ManaItemHandler.getManaBaubles(player);
-				for (Entry<Integer, ItemStack> entry : baubles.entrySet()) {
+				Map<Integer, ItemStack> acc = ManaItemHandler.getManaAccesories(player);
+				for (Entry<Integer, ItemStack> entry : acc.entrySet()) {
 					ItemStack stack = entry.getValue();
 					Item item = stack.getItem();
 					if(!((IManaItem) item).isNoExport(stack)) {
