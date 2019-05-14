@@ -91,7 +91,7 @@ public final class HUDHandler {
 			profiler.startSection("botania-hud");
 
 			ItemStack tiara = CurioIntegration.findOrEmpty(ModItems.flightTiara, mc.player);
-			if(!tiara.isEmpty())
+			if(!tiara.isEmpty()) {
 				profiler.startSection("flugelTiara");
 				ItemFlightTiara.renderHUD(mc.player, tiara);
 				profiler.endSection();
