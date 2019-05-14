@@ -2,7 +2,7 @@ modLoader="javafml" #mandatory
 loaderVersion="[25,)"
 issueTrackerURL="https://github.com/Vazkii/Botania/issues" #optional
 displayURL="https://botaniamod.net" #optional
-logoFile="assets/botania/textures/logo.png" #optional
+logoFile="logo.png" #optional
 credits="Azanor, Flaxbeard, Futureazoo, Rorax, Lorc, Adubbz, WTFG33ks, Auric245524, MegaManki, Kain Vinosec, Kihira, mDiyo, Mikeemoo, ChickenBones, PowerCrystals, cpw" #optional
 authors="Vazkii, wiiv, williewillus, dylan4ever" #optional
 

@@ -53,6 +53,8 @@ public class ItemDodgeRing extends ItemBauble {
 	@OnlyIn(Dist.CLIENT)
 	public static void onKeyDown(InputEvent.KeyInputEvent event) {
 		Minecraft mc = Minecraft.getInstance();
+		if(mc.player == null)
+			return;
 
 		ItemStack ringStack = Botania.curiosLoaded ? CurioIntegration.findOrEmpty(ModItems.dodgeRing, mc.player) : ItemStack.EMPTY;
 		if(ringStack.isEmpty() || ItemNBTHelper.getInt(ringStack, TAG_DODGE_COOLDOWN, 0) > 0)
