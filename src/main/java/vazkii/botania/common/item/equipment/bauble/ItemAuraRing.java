@@ -15,8 +15,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.api.mana.IManaGivingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
-import vazkii.botania.common.integration.curios.BaseCurio;
-import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemAuraRing extends ItemBauble implements IManaGivingItem {
 
@@ -24,16 +22,9 @@ public class ItemAuraRing extends ItemBauble implements IManaGivingItem {
 		super(props);
 	}
 
-	public static class Curio extends BaseCurio {
-		public Curio(ItemStack stack) {
-			super(stack);
-		}
-
-		@Override
-		public void onCurioTick(String identifier, EntityLivingBase player) {
-			if(player instanceof EntityPlayer && player.ticksExisted % 10 == 0)
-				ManaItemHandler.dispatchManaExact(stack, (EntityPlayer) player, 1, true);
-		}
+	@Override
+	public void onWornTick(ItemStack stack, EntityLivingBase player) {
+		if (player instanceof EntityPlayer && player.ticksExisted % 10 == 0)
+			ManaItemHandler.dispatchManaExact(stack, (EntityPlayer) player, 1, true);
 	}
-
 }

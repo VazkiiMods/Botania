@@ -17,21 +17,16 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.MathHelper;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.items.IItemHandler;
-import top.theillusivec4.curios.api.CuriosAPI;
 import vazkii.botania.client.core.handler.ClientTickHandler;
-import vazkii.botania.common.Botania;
+import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.Vector3;
-import vazkii.botania.common.integration.curios.BaseCurio;
-import vazkii.botania.common.integration.curios.CurioIntegration;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.network.PacketDodge;
 import vazkii.botania.common.network.PacketHandler;
@@ -56,7 +51,7 @@ public class ItemDodgeRing extends ItemBauble {
 		if(mc.player == null)
 			return;
 
-		ItemStack ringStack = Botania.curiosLoaded ? CurioIntegration.findOrEmpty(ModItems.dodgeRing, mc.player) : ItemStack.EMPTY;
+		ItemStack ringStack = EquipmentHandler.findOrEmpty(ModItems.dodgeRing, mc.player);
 		if(ringStack.isEmpty() || ItemNBTHelper.getInt(ringStack, TAG_DODGE_COOLDOWN, 0) > 0)
 			return;
 
@@ -79,17 +74,12 @@ public class ItemDodgeRing extends ItemBauble {
 		oldRightDown = mc.gameSettings.keyBindRight.isKeyDown();
 	}
 
-	public static class Curio extends BaseCurio {
-		public Curio(ItemStack stack) {
-			super(stack);
-		}
 
-		@Override
-		public void onCurioTick(String identifier, EntityLivingBase player) {
-			int cd = ItemNBTHelper.getInt(stack, TAG_DODGE_COOLDOWN, 0);
-			if(cd > 0)
-				ItemNBTHelper.setInt(stack, TAG_DODGE_COOLDOWN, cd - 1);
-		}
+	@Override
+	public void onWornTick(ItemStack stack, EntityLivingBase player) {
+		int cd = ItemNBTHelper.getInt(stack, TAG_DODGE_COOLDOWN, 0);
+		if(cd > 0)
+			ItemNBTHelper.setInt(stack, TAG_DODGE_COOLDOWN, cd - 1);
 	}
 
 	private static void dodge(EntityPlayer player, boolean left) {

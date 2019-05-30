@@ -31,14 +31,11 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import top.theillusivec4.curios.api.CuriosAPI;
 import vazkii.botania.api.item.AccessoryRenderHelper;
 import vazkii.botania.api.item.IBurstViewerBauble;
 import vazkii.botania.api.item.ICosmeticAttachable;
 import vazkii.botania.api.item.ICosmeticBauble;
-import vazkii.botania.common.Botania;
-import vazkii.botania.common.integration.curios.CurioIntegration;
-import vazkii.botania.common.integration.curios.RenderableCurio;
+import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.item.ModItems;
 
 public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, ICosmeticBauble {
@@ -47,25 +44,19 @@ public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, ICosm
 		super(props);
 	}
 
-	public static class Curio extends RenderableCurio {
-		public Curio(ItemStack stack) {
-			super(stack);
-		}
+	@Override
+	@OnlyIn(Dist.CLIENT)
+	public void doRender(ItemStack stack, EntityLivingBase player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+		boolean armor = !player.getItemStackFromSlot(EntityEquipmentSlot.HEAD).isEmpty();
+		Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 
-		@Override
-        @OnlyIn(Dist.CLIENT)
-		public void doRender(String identifier, EntityLivingBase player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-			boolean armor = !player.getItemStackFromSlot(EntityEquipmentSlot.HEAD).isEmpty();
-			Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-
-			AccessoryRenderHelper.translateToHeadLevel(player);
-			AccessoryRenderHelper.translateToFace();
-			AccessoryRenderHelper.defaultTransforms();
-			GlStateManager.rotatef(180F, 0F, 1F, 0F);
-			GlStateManager.scalef(0.5F, 0.5F, 0.5F);
-			GlStateManager.translatef(0.5F, -0.2F, armor ? 0.12F : 0F);
-			Minecraft.getInstance().getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.NONE);
-		}
+		AccessoryRenderHelper.translateToHeadLevel(player);
+		AccessoryRenderHelper.translateToFace();
+		AccessoryRenderHelper.defaultTransforms();
+		GlStateManager.rotatef(180F, 0F, 1F, 0F);
+		GlStateManager.scalef(0.5F, 0.5F, 0.5F);
+		GlStateManager.translatef(0.5F, -0.2F, armor ? 0.12F : 0F);
+		Minecraft.getInstance().getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.NONE);
 	}
 
 	@OnlyIn(Dist.CLIENT)
@@ -106,7 +97,7 @@ public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, ICosm
 	}
 
 	public static boolean hasMonocle(EntityPlayer player) {
-		ItemStack stack = Botania.curiosLoaded ? CurioIntegration.findOrEmpty(ModItems.monocle, player) : ItemStack.EMPTY;
+		ItemStack stack = EquipmentHandler.findOrEmpty(ModItems.monocle, player);
 		if(!stack.isEmpty()) {
 			Item item = stack.getItem();
 			if(item instanceof IBurstViewerBauble)

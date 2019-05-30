@@ -17,21 +17,18 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import top.theillusivec4.curios.api.CuriosAPI;
 import vazkii.botania.api.item.AccessoryRenderHelper;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.lib.LibResources;
-import vazkii.botania.common.Botania;
-import vazkii.botania.common.integration.curios.CurioIntegration;
-import vazkii.botania.common.integration.curios.RenderableCurio;
+import vazkii.botania.common.core.handler.EquipmentHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,7 +64,7 @@ public class ItemTravelBelt extends ItemBauble implements IManaUsingItem {
 	public void updatePlayerStepStatus(LivingUpdateEvent event) {
 		if(event.getEntityLiving() instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) event.getEntityLiving();
-			ItemStack belt = Botania.curiosLoaded ? CurioIntegration.findOrEmpty(s -> s.getItem() instanceof ItemTravelBelt, player) : ItemStack.EMPTY;
+			ItemStack belt = EquipmentHandler.findOrEmpty(s -> s.getItem() instanceof ItemTravelBelt, player);
 			String s = playerStr(player);
 
 			if(playersWithStepup.contains(s)) {
@@ -87,7 +84,7 @@ public class ItemTravelBelt extends ItemBauble implements IManaUsingItem {
 
 					if(player.isSneaking())
 						player.stepHeight = 0.60001F; // Not 0.6F because that is the default
-						else player.stepHeight = 1.25F;
+					else player.stepHeight = 1.25F;
 
 				} else {
 					player.stepHeight = 0.6F;
@@ -112,7 +109,7 @@ public class ItemTravelBelt extends ItemBauble implements IManaUsingItem {
 	public void onPlayerJump(LivingJumpEvent event) {
 		if(event.getEntityLiving() instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) event.getEntityLiving();
-			ItemStack belt = CurioIntegration.findOrEmpty(s -> s.getItem() instanceof ItemTravelBelt, player);
+			ItemStack belt = EquipmentHandler.findOrEmpty(s -> s.getItem() instanceof ItemTravelBelt, player);
 
 			if(!belt.isEmpty() && ManaItemHandler.requestManaExact(belt, player, COST, false)) {
 				player.motionY += ((ItemTravelBelt) belt.getItem()).jump;
@@ -122,7 +119,7 @@ public class ItemTravelBelt extends ItemBauble implements IManaUsingItem {
 	}
 
 	private boolean shouldPlayerHaveStepup(EntityPlayer player) {
-		ItemStack result = Botania.curiosLoaded ? CurioIntegration.findOrEmpty(s -> s.getItem() instanceof ItemTravelBelt, player) : ItemStack.EMPTY;
+		ItemStack result = EquipmentHandler.findOrEmpty(s -> s.getItem() instanceof ItemTravelBelt, player);
 		return !result.isEmpty() && ManaItemHandler.requestManaExact(result, player, COST, false);
 	}
 
@@ -142,26 +139,21 @@ public class ItemTravelBelt extends ItemBauble implements IManaUsingItem {
 		return texture;
 	}
 
-	public static class Curio extends RenderableCurio {
-		public Curio(ItemStack stack) {
-			super(stack);
-		}
 
-		@Override
-        @OnlyIn(Dist.CLIENT)
-		public void doRender(String identifier, EntityLivingBase player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-			Minecraft.getInstance().textureManager.bindTexture(((ItemTravelBelt) stack.getItem()).getRenderTexture());
-			AccessoryRenderHelper.rotateIfSneaking(player);
+	@Override
+	@OnlyIn(Dist.CLIENT)
+	public void doRender(ItemStack stack, EntityLivingBase player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+		Minecraft.getInstance().textureManager.bindTexture(((ItemTravelBelt) stack.getItem()).getRenderTexture());
+		AccessoryRenderHelper.rotateIfSneaking(player);
 
-			GlStateManager.translatef(0F, 0.2F, 0F);
+		GlStateManager.translatef(0F, 0.2F, 0F);
 
-			float s = 1.05F / 16F;
-			GlStateManager.scalef(s, s, s);
-			if(model == null)
-				model = new ModelBiped();
+		float s = 1.05F / 16F;
+		GlStateManager.scalef(s, s, s);
+		if(model == null)
+			model = new ModelBiped();
 
-			model.bipedBody.render(1F);
-		}
+		model.bipedBody.render(1F);
 	}
 
 	@Override

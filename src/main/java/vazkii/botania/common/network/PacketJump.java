@@ -14,8 +14,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fml.network.NetworkEvent;
-import vazkii.botania.common.Botania;
-import vazkii.botania.common.integration.curios.CurioIntegration;
+import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.item.equipment.bauble.ItemCloudPendant;
 import vazkii.botania.common.item.equipment.bauble.ItemTravelBelt;
 
@@ -32,16 +31,14 @@ public class PacketJump {
 		ctx.get().enqueueWork(() -> {
 			EntityPlayerMP player = ctx.get().getSender();
 
-			if(Botania.curiosLoaded) {
-				ItemStack amuletStack = CurioIntegration.findOrEmpty(s -> s.getItem() instanceof ItemCloudPendant, player);
-				if(!amuletStack.isEmpty()) {
-					player.addExhaustion(0.3F);
-					player.fallDistance = 0;
+			ItemStack amuletStack = EquipmentHandler.findOrEmpty(s -> s.getItem() instanceof ItemCloudPendant, player);
+			if(!amuletStack.isEmpty()) {
+				player.addExhaustion(0.3F);
+				player.fallDistance = 0;
 
-					ItemStack belt = CurioIntegration.findOrEmpty(s -> s.getItem() instanceof ItemTravelBelt, player);
-					if(!belt.isEmpty())
-						player.fallDistance = -((ItemTravelBelt) belt.getItem()).fallBuffer * ((ItemCloudPendant) amuletStack.getItem()).getMaxAllowedJumps();
-				}
+				ItemStack belt = EquipmentHandler.findOrEmpty(s -> s.getItem() instanceof ItemTravelBelt, player);
+				if(!belt.isEmpty())
+					player.fallDistance = -((ItemTravelBelt) belt.getItem()).fallBuffer * ((ItemCloudPendant) amuletStack.getItem()).getMaxAllowedJumps();
 			}
 		});
 		ctx.get().setPacketHandled(true);

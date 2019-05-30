@@ -27,21 +27,19 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.registries.ObjectHolder;
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.mana.spark.ISparkAttachable;
 import vazkii.botania.api.mana.spark.ISparkEntity;
 import vazkii.botania.api.mana.spark.SparkHelper;
 import vazkii.botania.api.mana.spark.SparkUpgradeType;
-import vazkii.botania.common.Botania;
-import vazkii.botania.common.integration.curios.CurioIntegration;
 import vazkii.botania.common.item.ItemSparkUpgrade;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.network.PacketBotaniaEffect;
 import vazkii.botania.common.network.PacketHandler;
 
-import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -51,6 +49,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.WeakHashMap;
+import javax.annotation.Nonnull;
 
 public class EntitySpark extends Entity implements ISparkEntity {
 	@ObjectHolder(LibMisc.MOD_ID + ":spark")
@@ -113,12 +112,9 @@ public class EntitySpark extends Entity implements ISparkEntity {
 				stacks.addAll(player.inventory.mainInventory);
 				stacks.addAll(player.inventory.armorInventory);
 
-				if(Botania.curiosLoaded) {
-					CurioIntegration.getAllCurios(player).ifPresent(inv -> {
-						for (int i = 0; i < inv.getSlots(); i++)
-							stacks.add(inv.getStackInSlot(i));
-					});
-				}
+				IItemHandler inv = BotaniaAPI.internalHandler.getAccessoriesInventory(player);
+				for(int i = 0; i < inv.getSlots(); i++)
+					stacks.add(inv.getStackInSlot(i));
 
 				for(ItemStack stack : stacks) {
 					if(stack.isEmpty() || !(stack.getItem() instanceof IManaItem))

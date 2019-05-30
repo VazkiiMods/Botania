@@ -15,26 +15,17 @@ import com.google.common.collect.Multimap;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import vazkii.botania.common.integration.curios.BaseCurio;
-import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemReachRing extends ItemBauble {
 
 	public ItemReachRing(Properties props) {
 		super(props);
 	}
-
-	public static class Curio extends BaseCurio {
-		public Curio(ItemStack stack) {
-			super(stack);
-		}
-
-		@Override
-		public Multimap<String, AttributeModifier> getAttributeModifiers(String identifier) {
-			Multimap<String, AttributeModifier> attributes = HashMultimap.create();
-			attributes.put(EntityPlayer.REACH_DISTANCE.getName(), new AttributeModifier(getBaubleUUID(stack), "Reach Ring", 3.5, 0).setSaved(false));
-			return attributes;
-		}
+	
+	@Override
+	public Multimap<String, AttributeModifier> getEquippedAttributeModifiers(ItemStack stack) {
+		Multimap<String, AttributeModifier> attributes = HashMultimap.create();
+		attributes.put(EntityPlayer.REACH_DISTANCE.getName(), new AttributeModifier(getBaubleUUID(stack), "Reach Ring", 3.5, 0).setSaved(false));
+		return attributes;
 	}
-
 }
