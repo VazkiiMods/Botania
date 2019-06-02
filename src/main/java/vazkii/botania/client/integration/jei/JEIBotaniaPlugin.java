@@ -49,17 +49,12 @@ import vazkii.botania.common.crafting.recipe.AncientWillRecipe;
 import vazkii.botania.common.crafting.recipe.CompositeLensRecipe;
 import vazkii.botania.common.crafting.recipe.TerraPickTippingRecipe;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 import vazkii.botania.common.item.brew.ItemBrewBase;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static vazkii.botania.common.lib.LibBlockNames.SUBTILE_ORECHID;
-import static vazkii.botania.common.lib.LibBlockNames.SUBTILE_ORECHID_IGNEM;
-import static vazkii.botania.common.lib.LibBlockNames.SUBTILE_PUREDAISY;
 
 @JeiPlugin
 public class JEIBotaniaPlugin implements IModPlugin {
@@ -151,12 +146,12 @@ public class JEIBotaniaPlugin implements IModPlugin {
 		registry.addRecipeCatalyst(new ItemStack(ModBlocks.mesaAltar), PetalApothecaryRecipeCategory.UID);
 		registry.addRecipeCatalyst(new ItemStack(ModBlocks.mossyAltar), PetalApothecaryRecipeCategory.UID);
 
-		registry.addRecipeCatalyst(ModSubtiles.orechid, OrechidRecipeCategory.UID);
-		registry.addRecipeCatalyst(ModSubtiles.orechidFloating, OrechidRecipeCategory.UID);
-		registry.addRecipeCatalyst(ModSubtiles.orechidIgnem, OrechidIgnemRecipeCategory.UID);
-		registry.addRecipeCatalyst(ModSubtiles.orechidIgnemFloating, OrechidIgnemRecipeCategory.UID);
-		registry.addRecipeCatalyst(ModSubtiles.pureDaisy, PureDaisyRecipeCategory.UID);
-		registry.addRecipeCatalyst(ModSubtiles.pureDaisyFloating, PureDaisyRecipeCategory.UID);
+		registry.addRecipeCatalyst(new ItemStack(ModSubtiles.orechid), OrechidRecipeCategory.UID);
+		registry.addRecipeCatalyst(new ItemStack(ModSubtiles.orechidFloating), OrechidRecipeCategory.UID);
+		registry.addRecipeCatalyst(new ItemStack(ModSubtiles.orechidIgnem), OrechidIgnemRecipeCategory.UID);
+		registry.addRecipeCatalyst(new ItemStack(ModSubtiles.orechidIgnemFloating), OrechidIgnemRecipeCategory.UID);
+		registry.addRecipeCatalyst(new ItemStack(ModSubtiles.pureDaisy), PureDaisyRecipeCategory.UID);
+		registry.addRecipeCatalyst(new ItemStack(ModSubtiles.pureDaisyFloating), PureDaisyRecipeCategory.UID);
 
 
 		registry.addRecipeCatalyst(new ItemStack(ModBlocks.runeAltar), RunicAltarRecipeCategory.UID);
@@ -180,6 +175,9 @@ public class JEIBotaniaPlugin implements IModPlugin {
 
 			if(o == null && Minecraft.getInstance().currentScreen == jeiRuntime.getRecipesGui())
 				o = jeiRuntime.getRecipesGui().getIngredientUnderMouse();
+
+			if(o == null)
+				o = jeiRuntime.getBookmarkOverlay().getIngredientUnderMouse();
 
 			if(o instanceof ItemStack)
 				return (ItemStack) o;

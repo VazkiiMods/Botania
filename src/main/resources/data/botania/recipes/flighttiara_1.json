@@ -1,13 +1,12 @@
 {
   "result": {
-    "item": "botania:flighttiara",
-    "data": 1
+    "item": "botania:flight_tiara",
+    "nbt": "{variant:1}"
   },
-  "group": "botania:flighttiara_wings",
+  "group": "botania:flight_tiara_wings",
   "ingredients": [
     {
-      "item": "botania:flighttiara",
-      "data": 32767
+      "item": "botania:flight_tiara"
     },
     {
       "tag": "forge:gems/quartz"

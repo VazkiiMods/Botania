@@ -1,0 +1,17 @@
+{
+  "result": {
+    "item": "botania:laputa_shard",
+    "nbt": "{level:3}"
+  },
+  "group": "botania:laputa_shard_upgrade",
+  "ingredients": [
+    {
+      "item": "botania:life_essence"
+    },
+    {
+      "item": "botania:laputa_shard",
+    "nbt": "{level:2}"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless"
+}

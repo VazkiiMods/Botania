@@ -6,8 +6,7 @@
   "group": "botania:dye_double",
   "ingredients": [
     {
-      "item": "minecraft:rose_bush",
-      "data": 4
+      "item": "minecraft:rose_bush"
     },
     {
       "item": "botania:pestle_and_mortar"

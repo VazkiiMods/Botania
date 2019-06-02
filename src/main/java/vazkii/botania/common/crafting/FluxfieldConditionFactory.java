@@ -10,13 +10,17 @@ package vazkii.botania.common.crafting;
 
 import com.google.gson.JsonObject;
 import net.minecraft.util.JsonUtils;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.crafting.IConditionSerializer;
 import vazkii.botania.common.core.handler.ConfigHandler;
+import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 import java.util.function.BooleanSupplier;
 
 public class FluxfieldConditionFactory implements IConditionSerializer {
+	public static final ResourceLocation KEY = new ResourceLocation(LibMisc.MOD_ID, "fluxfield_enabled");
+
 	@Nonnull
 	@Override
 	public BooleanSupplier parse(@Nonnull JsonObject json) {
