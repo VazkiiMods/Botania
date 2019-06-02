@@ -111,8 +111,6 @@ public class GuiLexicon extends GuiScreen {
 	public String note = "";
 	public String categoryHighlight = "";
 
-	List<LexiconCategory> allCategories;
-
 	String title;
 	final int guiWidth = 146;
 	final int guiHeight = 180;
@@ -148,9 +146,6 @@ public class GuiLexicon extends GuiScreen {
 			mc.gameSettings.guiScale = guiScale;
 		}
 
-		allCategories = new ArrayList<>(BotaniaAPI.getAllCategories());
-		Collections.sort(allCategories);
-
 		lastTime = ClientTickHandler.ticksInGame;
 
 		title = ItemLexicon.getTitle(stackUsed);
@@ -168,6 +163,10 @@ public class GuiLexicon extends GuiScreen {
 			}
 			populateIndex();
 		} else if(isCategoryIndex()) {
+			List<LexiconCategory> allCategories = new ArrayList<>(BotaniaAPI.getAllCategories());
+			allCategories.removeIf(cat -> !cat.isVisible(stackUsed));
+			Collections.sort(allCategories);
+
 			int categories = allCategories.size();
 			for(int i = 0; i < categories + 1; i++) {
 				LexiconCategory category;
