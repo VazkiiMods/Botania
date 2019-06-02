@@ -7,7 +7,7 @@
       "tag": "forge:ingots/terrasteel"
     },
     {
-      "item": "botania:magnetring"
+      "item": "botania:magnet_ring"
     }
   ],
   "type": "minecraft:crafting_shapeless"

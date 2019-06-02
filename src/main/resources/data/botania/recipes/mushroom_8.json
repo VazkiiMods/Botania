@@ -1,7 +1,6 @@
 {
   "result": {
-    "item": "botania:mushroom",
-    "data": 8
+    "item": "botania:light_gray_mushroom"
   },
   "group": "botania:mushroom",
   "ingredients": [
@@ -14,7 +13,7 @@
       }
     ],
     {
-      "item": "botania:silver_dye"
+      "item": "botania:light_gray_dye"
     }
   ],
   "type": "minecraft:crafting_shapeless"

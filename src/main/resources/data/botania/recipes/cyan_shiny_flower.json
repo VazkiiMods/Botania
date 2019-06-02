@@ -2,7 +2,7 @@
   "result": {
     "item": "botania:cyan_shiny_flower"
   },
-  "group": "botania:shinyflower",
+  "group": "botania:shiny_flower",
   "ingredients": [
     {
       "tag": "forge:dusts/glowstone"

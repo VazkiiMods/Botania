@@ -7,7 +7,7 @@
       "tag": "forge:ingots/terrasteel"
     },
     {
-      "item": "botania:auraring"
+      "item": "botania:aura_ring"
     }
   ],
   "type": "minecraft:crafting_shapeless"

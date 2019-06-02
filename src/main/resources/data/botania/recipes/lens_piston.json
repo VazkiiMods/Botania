@@ -7,7 +7,7 @@
       "item": "botania:lens_normal"
     },
     {
-      "item": "botania:pistonrelay"
+      "item": "botania:piston_relay"
     }
   ],
   "type": "minecraft:crafting_shapeless"

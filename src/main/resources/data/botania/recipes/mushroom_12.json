@@ -1,7 +1,6 @@
 {
   "result": {
-    "item": "botania:mushroom",
-    "data": 12
+    "item": "botania:brown_mushroom"
   },
   "group": "botania:mushroom",
   "ingredients": [
