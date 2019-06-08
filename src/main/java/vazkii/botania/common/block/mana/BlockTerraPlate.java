@@ -13,7 +13,6 @@ package vazkii.botania.common.block.mana;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.item.ItemEntity;
@@ -115,12 +114,6 @@ public class BlockTerraPlate extends BlockMod implements ILexiconable {
 			val = Math.max(val, 1);
 
 		return val;
-	}
-
-	@Nonnull
-	@Override
-	public BlockFaceShape getBlockFaceShape(IBlockReader world, BlockState state, BlockPos pos, Direction side) {
-		return side == Direction.DOWN ? BlockFaceShape.SOLID : BlockFaceShape.UNDEFINED;
 	}
 
 }

@@ -13,7 +13,6 @@ package vazkii.botania.common.block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -73,11 +72,5 @@ public class BlockTinyPlanet extends BlockMod implements ILexiconable, IManaColl
 	@Override
 	public boolean isGhost(BlockState state, World world, BlockPos pos) {
 		return true;
-	}
-
-	@Nonnull
-	@Override
-	public BlockFaceShape getBlockFaceShape(IBlockReader world, BlockState state, BlockPos pos, Direction side) {
-		return BlockFaceShape.UNDEFINED;
 	}
 }

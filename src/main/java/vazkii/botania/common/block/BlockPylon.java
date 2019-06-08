@@ -12,7 +12,6 @@ package vazkii.botania.common.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -85,11 +84,5 @@ public class BlockPylon extends BlockMod implements ILexiconable {
 	@Override
 	public LexiconEntry getEntry(World world, BlockPos pos, PlayerEntity player, ItemStack lexicon) {
 		return variant == Variant.MANA ? LexiconData.pylon : variant == Variant.NATURA ? LexiconData.alfhomancyIntro : LexiconData.gaiaRitual;
-	}
-
-	@Nonnull
-	@Override
-	public BlockFaceShape getBlockFaceShape(IBlockReader world, BlockState state, BlockPos pos, Direction side) {
-		return BlockFaceShape.UNDEFINED;
 	}
 }

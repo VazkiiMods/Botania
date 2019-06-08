@@ -14,7 +14,6 @@ import net.minecraft.block.Block;
 import javax.annotation.Nonnull;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -112,11 +111,5 @@ public class BlockCorporeaCrystalCube extends BlockCorporeaBase implements ILexi
 	@Override
 	public int getComparatorInputOverride(BlockState state, World world, BlockPos pos) {
 		return ((TileCorporeaCrystalCube) world.getTileEntity(pos)).getComparatorValue();
-	}
-
-	@Nonnull
-	@Override
-	public BlockFaceShape getBlockFaceShape(IBlockReader world, BlockState state, BlockPos pos, Direction side) {
-		return BlockFaceShape.UNDEFINED;
 	}
 }

@@ -10,7 +10,6 @@
  */
 package vazkii.botania.common.block.mana;
 
-import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.block.Blocks;
@@ -70,12 +69,6 @@ public class BlockSpawnerClaw extends BlockMod implements ILexiconable {
 	@Override
 	public LexiconEntry getEntry(World world, BlockPos pos, PlayerEntity player, ItemStack lexicon) {
 		return LexiconData.spawnerClaw;
-	}
-
-	@Nonnull
-	@Override
-	public BlockFaceShape getBlockFaceShape(IBlockReader world, BlockState state, BlockPos pos, Direction side) {
-		return BlockFaceShape.UNDEFINED;
 	}
 
 }

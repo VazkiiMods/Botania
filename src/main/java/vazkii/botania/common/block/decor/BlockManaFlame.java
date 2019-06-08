@@ -11,7 +11,6 @@
 package vazkii.botania.common.block.decor;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -101,11 +100,5 @@ public class BlockManaFlame extends BlockMod implements ILexiconable {
 	@Override
 	public LexiconEntry getEntry(World world, BlockPos pos, PlayerEntity player, ItemStack lexicon) {
 		return LexiconData.lenses;
-	}
-
-	@Nonnull
-	@Override
-	public BlockFaceShape getBlockFaceShape(IBlockReader world, BlockState state, BlockPos pos, Direction side) {
-		return BlockFaceShape.UNDEFINED;
 	}
 }

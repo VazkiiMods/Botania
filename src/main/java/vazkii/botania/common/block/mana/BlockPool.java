@@ -12,7 +12,6 @@ package vazkii.botania.common.block.mana;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
@@ -157,11 +156,5 @@ public class BlockPool extends BlockMod implements IWandHUD, IWandable, ILexicon
 	@Override
 	public LexiconEntry getEntry(World world, BlockPos pos, PlayerEntity player, ItemStack lexicon) {
 		return variant == Variant.FABULOUS ? LexiconData.rainbowRod : LexiconData.pool;
-	}
-
-	@Nonnull
-	@Override
-	public BlockFaceShape getBlockFaceShape(IBlockReader world, BlockState state, BlockPos pos, Direction side) {
-		return side == Direction.DOWN ? BlockFaceShape.SOLID : BlockFaceShape.UNDEFINED;
 	}
 }

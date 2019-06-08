@@ -13,7 +13,6 @@ package vazkii.botania.common.item.rod;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;

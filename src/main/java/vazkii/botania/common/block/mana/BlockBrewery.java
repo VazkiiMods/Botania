@@ -13,7 +13,6 @@ package vazkii.botania.common.block.mana;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -127,12 +126,6 @@ public class BlockBrewery extends BlockMod implements ILexiconable, IWandHUD {
 	@Override
 	public void renderHUD(Minecraft mc, World world, BlockPos pos) {
 		((TileBrewery) world.getTileEntity(pos)).renderHUD(mc);
-	}
-
-	@Nonnull
-	@Override
-	public BlockFaceShape getBlockFaceShape(IBlockReader world, BlockState state, BlockPos pos, Direction side) {
-		return BlockFaceShape.UNDEFINED;
 	}
 
 }

@@ -12,7 +12,6 @@ package vazkii.botania.common.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -103,12 +102,6 @@ public class BlockLightLauncher extends BlockMod implements ILexiconable {
 	@Override
 	public LexiconEntry getEntry(World world, BlockPos pos, PlayerEntity player, ItemStack lexicon) {
 		return LexiconData.luminizerTransport;
-	}
-
-	@Nonnull
-	@Override
-	public BlockFaceShape getBlockFaceShape(IBlockReader world, BlockState state, BlockPos pos, Direction side) {
-		return side == Direction.DOWN ? BlockFaceShape.SOLID : BlockFaceShape.UNDEFINED;
 	}
 
 }

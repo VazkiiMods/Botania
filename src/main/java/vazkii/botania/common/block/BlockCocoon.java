@@ -12,7 +12,6 @@ package vazkii.botania.common.block;
 
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.ItemEntity;
@@ -138,11 +137,4 @@ public class BlockCocoon extends BlockMod implements ILexiconable {
 	public LexiconEntry getEntry(World world, BlockPos pos, PlayerEntity player, ItemStack lexicon) {
 		return LexiconData.cocoon;
 	}
-
-	@Nonnull
-	@Override
-	public BlockFaceShape getBlockFaceShape(IBlockReader world, BlockState state, BlockPos pos, Direction side) {
-		return side.getAxis() == Direction.Axis.Y ? BlockFaceShape.CENTER_BIG : BlockFaceShape.MIDDLE_POLE_THICK;
-	}
-
 }

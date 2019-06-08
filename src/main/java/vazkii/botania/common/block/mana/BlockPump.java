@@ -11,7 +11,6 @@
 package vazkii.botania.common.block.mana;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -97,11 +96,5 @@ public class BlockPump extends BlockMod implements ILexiconable {
 	@Override
 	public TileEntity createTileEntity(@Nonnull BlockState state, @Nonnull IBlockReader world) {
 		return new TilePump();
-	}
-
-	@Nonnull
-	@Override
-	public BlockFaceShape getBlockFaceShape(IBlockReader world, BlockState state, BlockPos pos, Direction side) {
-		return BlockFaceShape.UNDEFINED;
 	}
 }

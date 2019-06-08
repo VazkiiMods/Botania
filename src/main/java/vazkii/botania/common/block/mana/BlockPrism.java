@@ -11,7 +11,6 @@
 package vazkii.botania.common.block.mana;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -151,11 +150,5 @@ public class BlockPrism extends BlockMod implements IManaTrigger, ILexiconable, 
 	@Override
 	public boolean isGhost(BlockState state, World world, BlockPos pos) {
 		return true;
-	}
-
-	@Nonnull
-	@Override
-	public BlockFaceShape getBlockFaceShape(IBlockReader world, BlockState state, BlockPos pos, Direction side) {
-		return side.getAxis() == Direction.Axis.Y ? BlockFaceShape.CENTER_BIG : BlockFaceShape.MIDDLE_POLE_THICK;
 	}
 }

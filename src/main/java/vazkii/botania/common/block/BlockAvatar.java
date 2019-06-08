@@ -13,7 +13,6 @@ package vazkii.botania.common.block;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
@@ -115,12 +114,6 @@ public class BlockAvatar extends BlockMod implements ILexiconable {
 	@Override
 	public TileEntity createTileEntity(@Nonnull BlockState state, @Nonnull IBlockReader world) {
 		return new TileAvatar();
-	}
-
-	@Nonnull
-	@Override
-	public BlockFaceShape getBlockFaceShape(IBlockReader world, BlockState state, BlockPos pos, Direction side) {
-		return BlockFaceShape.UNDEFINED;
 	}
 
 	@Override

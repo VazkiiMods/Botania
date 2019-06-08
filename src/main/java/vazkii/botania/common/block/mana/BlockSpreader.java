@@ -16,7 +16,6 @@ import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.LivingEntity;
@@ -215,11 +214,5 @@ public class BlockSpreader extends BlockMod implements IWandable, IWandHUD, ILex
 	@Override
 	public List<AxisAlignedBB> getWireframeAABB(World world, BlockPos pos) {
 		return ImmutableList.of(new AxisAlignedBB(pos).shrink(1.0/16.0));
-	}
-
-	@Nonnull
-	@Override
-	public BlockFaceShape getBlockFaceShape(IBlockReader world, BlockState state, BlockPos pos, Direction side) {
-		return BlockFaceShape.UNDEFINED;
 	}
 }

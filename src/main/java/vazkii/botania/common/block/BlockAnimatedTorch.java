@@ -11,7 +11,6 @@
 package vazkii.botania.common.block;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.LivingEntity;
@@ -137,12 +136,6 @@ public class BlockAnimatedTorch extends BlockMod implements IWandable, IManaTrig
 	@Override
 	public boolean hasTileEntity(BlockState state) {
 		return true;
-	}
-
-	@Nonnull
-	@Override
-	public BlockFaceShape getBlockFaceShape(IBlockReader world, BlockState state, BlockPos pos, Direction side) {
-		return BlockFaceShape.UNDEFINED;
 	}
 
 	@Override

@@ -13,7 +13,6 @@ package vazkii.botania.common.block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.ItemEntity;
@@ -139,12 +138,6 @@ public class BlockTeruTeruBozu extends BlockMod implements ILexiconable {
 	@Override
 	public LexiconEntry getEntry(World world, BlockPos pos, PlayerEntity player, ItemStack lexicon) {
 		return LexiconData.teruTeruBozu;
-	}
-
-	@Nonnull
-	@Override
-	public BlockFaceShape getBlockFaceShape(IBlockReader world, BlockState state, BlockPos pos, Direction side) {
-		return BlockFaceShape.UNDEFINED;
 	}
 
 }

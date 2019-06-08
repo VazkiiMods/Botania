@@ -12,7 +12,6 @@ package vazkii.botania.common.block.decor;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.Item;
@@ -44,8 +43,8 @@ public class BlockBuriedPetals extends BlockModFlower {
 	@Nonnull
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public Block.EnumOffsetType getOffsetType() {
-		return Block.EnumOffsetType.NONE;
+	public Block.OffsetType getOffsetType() {
+		return Block.OffsetType.NONE;
 	}
 
 	@Nonnull
@@ -78,12 +77,6 @@ public class BlockBuriedPetals extends BlockModFlower {
 	@Override
 	public BlockRenderType getRenderType(BlockState state) {
 		return BlockRenderType.INVISIBLE;
-	}
-
-	@Nonnull
-	@Override
-	public BlockFaceShape getBlockFaceShape(IBlockReader world, BlockState state, BlockPos pos, Direction side) {
-		return BlockFaceShape.UNDEFINED;
 	}
 
 }

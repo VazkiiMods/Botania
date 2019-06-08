@@ -12,7 +12,6 @@ package vazkii.botania.common.block.mana;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.passive.CowEntity;
@@ -144,12 +143,6 @@ public class BlockForestDrum extends BlockMod implements IManaTrigger, ILexicona
 		default:
 			return LexiconData.forestDrum;
 		}
-	}
-
-	@Nonnull
-	@Override
-	public BlockFaceShape getBlockFaceShape(IBlockReader world, BlockState state, BlockPos pos, Direction side) {
-		return BlockFaceShape.UNDEFINED;
 	}
 
 }
