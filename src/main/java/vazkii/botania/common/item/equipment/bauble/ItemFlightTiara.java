@@ -14,7 +14,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.client.gui.AbstractGui;
 import com.mojang.blaze3d.platform.GlStateManager;
-import net.minecraft.client.renderer.OpenGlHelper;
+import com.mojang.blaze3d.platform.GLX;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.AtlasTexture;
@@ -334,8 +334,8 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 				int lightmapX = light % 65536;
 				int lightmapY = light / 65536;
 
-				float lbx = OpenGlHelper.lastBrightnessX;
-				float lby = OpenGlHelper.lastBrightnessY;
+				float lbx = GLX.lastBrightnessX;
+				float lby = GLX.lastBrightnessY;
 
 				switch(meta) {
 				case 1 : { // Jibril
@@ -358,7 +358,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 					h = 0.5F;
 					rx = 20F;
 					ry = -(float) ((Math.sin((double) (player.ticksExisted + partialTicks) * (flying ? 0.4F : 0.2F)) + 0.6F) * (flying ? 30F : 5F));
-					OpenGlHelper.glMultiTexCoord2f(OpenGlHelper.GL_TEXTURE1, lightmapX, lightmapY);
+					GLX.glMultiTexCoord2f(GLX.GL_TEXTURE1, lightmapX, lightmapY);
 					break;
 				}
 				case 5 : { // Kuroyukihime
@@ -374,7 +374,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 					break;
 				}
 				case 7 : { // Lyfa
-					OpenGlHelper.glMultiTexCoord2f(OpenGlHelper.GL_TEXTURE1, lightmapX, lightmapY);
+					GLX.glMultiTexCoord2f(GLX.GL_TEXTURE1, lightmapX, lightmapY);
 					h = -0.1F;
 					rz = 0F;
 					ry = -rx;
@@ -387,7 +387,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 					break;
 				}
 				case 9 : { // The One
-					OpenGlHelper.glMultiTexCoord2f(OpenGlHelper.GL_TEXTURE1, lightmapX, lightmapY);
+					GLX.glMultiTexCoord2f(GLX.GL_TEXTURE1, lightmapX, lightmapY);
 					rz = 180F;
 					rx = 0F;
 					h = 1.1F;
@@ -436,7 +436,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 				GlStateManager.color3f(1F, 1F, 1F);
 				GlStateManager.popMatrix();
 
-				OpenGlHelper.glMultiTexCoord2f(OpenGlHelper.GL_TEXTURE1, lbx, lby);
+				GLX.glMultiTexCoord2f(GLX.GL_TEXTURE1, lbx, lby);
 
 				if(meta == 1)
 					renderHalo(player, partialTicks);
@@ -449,7 +449,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		GlStateManager.shadeModel(GL11.GL_SMOOTH);
-		OpenGlHelper.glMultiTexCoord2f(OpenGlHelper.GL_TEXTURE1, 240, 240);
+		GLX.glMultiTexCoord2f(GLX.GL_TEXTURE1, 240, 240);
 		GlStateManager.disableLighting();
 		GlStateManager.disableCull();
 		GlStateManager.color4f(1F, 1F, 1F, 1F);

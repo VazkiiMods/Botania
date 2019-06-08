@@ -12,7 +12,7 @@ package vazkii.botania.common.item.equipment.bauble;
 
 import net.minecraft.client.Minecraft;
 import com.mojang.blaze3d.platform.GlStateManager;
-import net.minecraft.client.renderer.OpenGlHelper;
+import com.mojang.blaze3d.platform.GLX;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -102,7 +102,7 @@ public class ItemHolyCloak extends ItemBauble {
 			int light = 15728880;
 			int lightmapX = light % 65536;
 			int lightmapY = light / 65536;
-			OpenGlHelper.glMultiTexCoord2f(OpenGlHelper.GL_TEXTURE1, lightmapX, lightmapY);
+			GLX.glMultiTexCoord2f(GLX.GL_TEXTURE1, lightmapX, lightmapY);
 			Minecraft.getInstance().textureManager.bindTexture(item.getCloakGlowTexture());
 			model.render(1F);
 		}

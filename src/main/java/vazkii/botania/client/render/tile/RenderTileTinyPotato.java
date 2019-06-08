@@ -14,7 +14,7 @@ import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
 import com.mojang.blaze3d.platform.GlStateManager;
-import net.minecraft.client.renderer.OpenGlHelper;
+import com.mojang.blaze3d.platform.GLX;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.AtlasTexture;
@@ -329,7 +329,7 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 			GlStateManager.translatef(0.0F, 0F / f1, 0.0F);
 			GlStateManager.depthMask(false);
 			GlStateManager.enableBlend();
-			OpenGlHelper.glBlendFuncSeparate(770, 771, 1, 0);
+			GLX.glBlendFuncSeparate(770, 771, 1, 0);
 			Tessellator tessellator = Tessellator.getInstance();
 			BufferBuilder worldrenderer = tessellator.getBuffer();
 			GlStateManager.disableTexture();
@@ -348,7 +348,7 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 				String str = name.equals("pahimar") ? "[WIP]" : "(soon)";
 				GlStateManager.depthMask(false);
 				GlStateManager.enableBlend();
-				OpenGlHelper.glBlendFuncSeparate(770, 771, 1, 0);
+				GLX.glBlendFuncSeparate(770, 771, 1, 0);
 				GlStateManager.disableTexture();
 				worldrenderer.begin(7, DefaultVertexFormats.POSITION_COLOR);
 				i = mc.fontRenderer.getStringWidth(str) / 2;

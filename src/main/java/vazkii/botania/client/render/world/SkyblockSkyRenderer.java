@@ -14,7 +14,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.client.renderer.BufferBuilder;
 import com.mojang.blaze3d.platform.GlStateManager;
-import net.minecraft.client.renderer.OpenGlHelper;
+import com.mojang.blaze3d.platform.GLX;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
@@ -72,7 +72,7 @@ public class SkyblockSkyRenderer implements IRenderHandler {
 		GlStateManager.depthMask(false);
 		GlStateManager.enableFog();
 		GlStateManager.color3f(f, f1, f2);
-		if (OpenGlHelper.useVbo()) {
+		if (GLX.useVbo()) {
 			skyVBO.bindBuffer();
 			GlStateManager.enableClientState(32884);
 			GlStateManager.vertexPointer(3, 5126, 12, 0);
@@ -425,7 +425,7 @@ public class SkyblockSkyRenderer implements IRenderHandler {
 
 	// Excised from many occurences in WorldRenderer
 	private void drawVboOrList(net.minecraft.client.renderer.vertex.VertexBuffer vbo, int displayList) {
-		if (OpenGlHelper.useVbo()) {
+		if (GLX.useVbo()) {
 			vbo.bindBuffer();
 			GlStateManager.enableClientState(GL11.GL_VERTEX_ARRAY);
 			GlStateManager.vertexPointer(3, GL11.GL_FLOAT, 12, 0);

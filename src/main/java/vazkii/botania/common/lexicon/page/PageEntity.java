@@ -12,7 +12,7 @@ package vazkii.botania.common.lexicon.page;
 
 import net.minecraft.client.Minecraft;
 import com.mojang.blaze3d.platform.GlStateManager;
-import net.minecraft.client.renderer.OpenGlHelper;
+import com.mojang.blaze3d.platform.GLX;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -88,9 +88,9 @@ public class PageEntity extends LexiconPage{
 		GlStateManager.popMatrix();
 		RenderHelper.disableStandardItemLighting();
 		GlStateManager.disableRescaleNormal();
-		OpenGlHelper.glActiveTexture(OpenGlHelper.GL_TEXTURE1);
+		GLX.glActiveTexture(GLX.GL_TEXTURE1);
 		GlStateManager.disableTexture();
-		OpenGlHelper.glActiveTexture(OpenGlHelper.GL_TEXTURE0);
+		GLX.glActiveTexture(GLX.GL_TEXTURE0);
 
 		if(relativeMouseX >= x - dummyEntity.width * scale / 2 - 10  && relativeMouseY >= y - dummyEntity.height * scale - 20 && relativeMouseX <= x + dummyEntity.width * scale / 2 + 10 && relativeMouseY <= y + 20)
 			tooltipEntity = true;

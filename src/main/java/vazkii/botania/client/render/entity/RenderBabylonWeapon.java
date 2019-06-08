@@ -12,7 +12,7 @@ package vazkii.botania.client.render.entity;
 
 import net.minecraft.client.Minecraft;
 import com.mojang.blaze3d.platform.GlStateManager;
-import net.minecraft.client.renderer.OpenGlHelper;
+import com.mojang.blaze3d.platform.GLX;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
@@ -66,7 +66,7 @@ public class RenderBabylonWeapon extends EntityRenderer<EntityBabylonWeapon> {
 		float f2 = icon.getMinV();
 		float f3 = icon.getMaxV();
 
-		OpenGlHelper.glMultiTexCoord2f(OpenGlHelper.GL_TEXTURE1, 240, 240);
+		GLX.glMultiTexCoord2f(GLX.GL_TEXTURE1, 240, 240);
 		GlStateManager.disableLighting();
 		IconHelper.renderIconIn3D(Tessellator.getInstance(), f1, f2, f, f3, icon.getWidth(), icon.getHeight(), 1F / 16F);
 		GlStateManager.popMatrix();

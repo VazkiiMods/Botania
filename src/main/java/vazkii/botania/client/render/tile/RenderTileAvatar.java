@@ -12,7 +12,7 @@ package vazkii.botania.client.render.tile;
 
 import net.minecraft.client.Minecraft;
 import com.mojang.blaze3d.platform.GlStateManager;
-import net.minecraft.client.renderer.OpenGlHelper;
+import com.mojang.blaze3d.platform.GLX;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.texture.AtlasTexture;
@@ -96,7 +96,7 @@ public class RenderTileAvatar extends TileEntityRenderer<TileAvatar> {
 					int light = 15728880;
 					int lightmapX = light % 65536;
 					int lightmapY = light / 65536;
-					OpenGlHelper.glMultiTexCoord2f(OpenGlHelper.GL_TEXTURE1, lightmapX, lightmapY);
+					GLX.glMultiTexCoord2f(GLX.GL_TEXTURE1, lightmapX, lightmapY);
 					float alpha = (float) Math.sin(ClientTickHandler.ticksInGame / 20D) / 2F + 0.5F;
 					GlStateManager.color4f(1F, 1F, 1F, alpha + 0.183F);
 					model.render();

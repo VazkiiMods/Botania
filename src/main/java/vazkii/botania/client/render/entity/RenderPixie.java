@@ -11,7 +11,7 @@
 package vazkii.botania.client.render.entity;
 
 import com.mojang.blaze3d.platform.GlStateManager;
-import net.minecraft.client.renderer.OpenGlHelper;
+import com.mojang.blaze3d.platform.GLX;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
@@ -77,7 +77,7 @@ public class RenderPixie extends MobRenderer<EntityPixie> {
 			char c0 = 61680;
 			int j = c0 % 65536;
 			int k = c0 / 65536;
-			OpenGlHelper.glMultiTexCoord2f(OpenGlHelper.GL_TEXTURE1, j / 1.0F, k / 1.0F);
+			GLX.glMultiTexCoord2f(GLX.GL_TEXTURE1, j / 1.0F, k / 1.0F);
 			GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
 			GlStateManager.color4f(1.0F, 1.0F, 1.0F, f1);
 			return 1;

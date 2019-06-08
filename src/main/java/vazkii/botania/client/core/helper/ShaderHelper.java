@@ -12,7 +12,7 @@ package vazkii.botania.client.core.helper;
 
 import net.minecraft.client.Minecraft;
 import com.mojang.blaze3d.platform.GlStateManager;
-import net.minecraft.client.renderer.OpenGlHelper;
+import com.mojang.blaze3d.platform.GLX;
 
 import net.minecraft.resources.IResourceManager;
 import net.minecraft.resources.SimpleReloadableResourceManager;
@@ -127,7 +127,7 @@ public final class ShaderHelper {
 	}
 
 	public static boolean useShaders() {
-		return ConfigHandler.CLIENT.useShaders.get() && OpenGlHelper.shadersSupported && checkIncompatibleMods();
+		return ConfigHandler.CLIENT.useShaders.get() && GLX.shadersSupported && checkIncompatibleMods();
 	}
 	
 	private static boolean checkIncompatibleMods() {

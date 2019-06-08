@@ -11,7 +11,7 @@
 package vazkii.botania.client.model;
 
 import com.mojang.blaze3d.platform.GlStateManager;
-import net.minecraft.client.renderer.OpenGlHelper;
+import com.mojang.blaze3d.platform.GLX;
 import net.minecraft.client.renderer.entity.model.RendererModel;
 import net.minecraft.client.renderer.model.Model;
 import net.minecraft.client.renderer.entity.model.RendererModel;
@@ -70,7 +70,7 @@ public class ModelSpinningCubes extends Model {
 			int lightmapX = light % 65536;
 			int lightmapY = light / 65536;
 
-			OpenGlHelper.glMultiTexCoord2f(OpenGlHelper.GL_TEXTURE1, lightmapX, lightmapY);
+			GLX.glMultiTexCoord2f(GLX.GL_TEXTURE1, lightmapX, lightmapY);
 			spinningCube.render(1F / 16F);
 
 			if(repeat < origRepeat) {
