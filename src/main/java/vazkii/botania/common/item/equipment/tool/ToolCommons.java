@@ -11,18 +11,22 @@
 package vazkii.botania.common.item.equipment.tool;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.init.Enchantments;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.enchantment.Enchantments;
 import net.minecraft.item.IItemTier;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemTool;
+import net.minecraft.item.ToolItem;
+import net.minecraft.item.ToolItem;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -49,17 +53,17 @@ public final class ToolCommons {
 	public static final List<Material> materialsShovel = Arrays.asList(Material.GRASS, Material.GROUND, Material.SAND, Material.SNOW, Material.CRAFTED_SNOW, Material.CLAY);
 	public static final List<Material> materialsAxe = Arrays.asList(Material.CORAL, Material.LEAVES, Material.PLANTS, Material.WOOD, Material.GOURD);
 
-	public static void damageItem(ItemStack stack, int dmg, EntityLivingBase entity, int manaPerDamage) {
+	public static void damageItem(ItemStack stack, int dmg, LivingEntity entity, int manaPerDamage) {
 		int manaToRequest = dmg * manaPerDamage;
-		boolean manaRequested = entity instanceof EntityPlayer && ManaItemHandler.requestManaExactForTool(stack, (EntityPlayer) entity, manaToRequest, true);
+		boolean manaRequested = entity instanceof PlayerEntity && ManaItemHandler.requestManaExactForTool(stack, (PlayerEntity) entity, manaToRequest, true);
 
 		if(!manaRequested)
 			stack.damageItem(dmg, entity);
 	}
 
-	public static void removeBlocksInIteration(EntityPlayer player, ItemStack stack, World world, BlockPos centerPos,
-											   Vec3i startDelta, Vec3i endDelta, Predicate<IBlockState> filter,
-											   boolean dispose) {
+	public static void removeBlocksInIteration(PlayerEntity player, ItemStack stack, World world, BlockPos centerPos,
+                                               Vec3i startDelta, Vec3i endDelta, Predicate<BlockState> filter,
+                                               boolean dispose) {
 		for (BlockPos iterPos : BlockPos.getAllInBox(centerPos.add(startDelta), centerPos.add(endDelta))) {
 			if (iterPos.equals(centerPos)) // skip original block space to avoid crash, vanilla code in the tool class will handle it
 				continue;
@@ -67,25 +71,25 @@ public final class ToolCommons {
 		}
 	}
 
-	public static void removeBlockWithDrops(EntityPlayer player, ItemStack stack, World world, BlockPos pos,
-											Predicate<IBlockState> filter,
-											boolean dispose) {
+	public static void removeBlockWithDrops(PlayerEntity player, ItemStack stack, World world, BlockPos pos,
+                                            Predicate<BlockState> filter,
+                                            boolean dispose) {
 		removeBlockWithDrops(player, stack, world, pos, filter, dispose, true);
 	}
 
-	public static void removeBlockWithDrops(EntityPlayer player, ItemStack stack, World world, BlockPos pos,
-											Predicate<IBlockState> filter,
-											boolean dispose, boolean particles) {
+	public static void removeBlockWithDrops(PlayerEntity player, ItemStack stack, World world, BlockPos pos,
+                                            Predicate<BlockState> filter,
+                                            boolean dispose, boolean particles) {
 		if(!world.isBlockLoaded(pos))
 			return;
 
-		IBlockState state = world.getBlockState(pos);
+		BlockState state = world.getBlockState(pos);
 		Block block = state.getBlock();
 
 		if(!world.isRemote && filter.test(state)
 				&& !block.isAir(state, world, pos) && state.getPlayerRelativeBlockHardness(player, world, pos) > 0
 				&& state.canHarvestBlock(player.world, pos, player)) {
-			int exp = ForgeHooks.onBlockBreakEvent(world, ((EntityPlayerMP) player).interactionManager.getGameType(), (EntityPlayerMP) player, pos);
+			int exp = ForgeHooks.onBlockBreakEvent(world, ((ServerPlayerEntity) player).interactionManager.getGameType(), (ServerPlayerEntity) player, pos);
 			if(exp == -1)
 				return;
 
@@ -114,10 +118,10 @@ public final class ToolCommons {
 			return 0;
 
 		Item item = stack.getItem();
-		if(!(item instanceof ItemTool))
+		if(!(item instanceof ToolItem))
 			return 0;
 
-		ItemTool tool = (ItemTool) item;
+		ToolItem tool = (ToolItem) item;
 		IItemTier material = tool.getTier();
 		int materialLevel = 0;
 		if(material == BotaniaAPI.MANASTEEL_ITEM_TIER)

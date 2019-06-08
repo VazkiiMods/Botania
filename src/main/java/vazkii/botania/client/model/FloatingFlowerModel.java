@@ -11,7 +11,8 @@ package vazkii.botania.client.model;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Table;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.model.BakedQuad;
 import net.minecraft.client.renderer.model.IBakedModel;
@@ -21,10 +22,12 @@ import net.minecraft.client.renderer.model.ModelManager;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.renderer.vertex.VertexFormatElement;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
@@ -88,7 +91,7 @@ public class FloatingFlowerModel implements IDynamicBakedModel {
 
 	@Nonnull
 	@Override
-	public List<BakedQuad> getQuads(IBlockState state, EnumFacing face, @Nonnull Random rand, @Nonnull IModelData data) {
+	public List<BakedQuad> getQuads(BlockState state, Direction face, @Nonnull Random rand, @Nonnull IModelData data) {
 		if(!data.hasProperty(BotaniaStateProps.FLOATING_DATA))
 			return Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelShapes().getModelManager().getMissingModel().getQuads(state, face, rand, data);
 		IFloatingFlower floatingData = data.getData(BotaniaStateProps.FLOATING_DATA);
@@ -140,7 +143,7 @@ public class FloatingFlowerModel implements IDynamicBakedModel {
 		private final IBakedModel flower;
 		private final IBakedModel island;
 		private final List<BakedQuad> genQuads;
-		private final Map<EnumFacing, List<BakedQuad>> faceQuads = new EnumMap<>(EnumFacing.class);
+		private final Map<Direction, List<BakedQuad>> faceQuads = new EnumMap<>(Direction.class);
 
 		public CompositeBakedModel(IBakedModel flower, IBakedModel island) {
 			this.flower = flower;
@@ -149,19 +152,19 @@ public class FloatingFlowerModel implements IDynamicBakedModel {
 			ImmutableList.Builder<BakedQuad> genBuilder = ImmutableList.builder();
 			final TRSRTransformation transform = TRSRTransformation.blockCenterToCorner(new TRSRTransformation(new Vector3f(0F, 0.2F, 0F), null, new Vector3f(0.5F, 0.5F, 0.5F), null));
 
-			for(EnumFacing e : EnumFacing.values())
+			for(Direction e : Direction.values())
 				faceQuads.put(e, new ArrayList<>());
 
 			// Add flower quads, scaled and translated
 			flower.getQuads(null, null, new Random(0)).stream().map(q -> transform(q, transform)).forEach(genBuilder::add);
-			for(EnumFacing e : EnumFacing.values()) {
+			for(Direction e : Direction.values()) {
 				List<BakedQuad> faceQ = faceQuads.get(e);
 				flower.getQuads(null, e, new Random(0)).stream().map(input -> transform(input, transform)).forEach(faceQ::add);
 			}
 
 			// Add island quads
 			genBuilder.addAll(island.getQuads(null, null, new Random(0)));
-			for(EnumFacing e : EnumFacing.values()) {
+			for(Direction e : Direction.values()) {
 				faceQuads.get(e).addAll(island.getQuads(null, e, new Random(0)));
 			}
 
@@ -169,7 +172,7 @@ public class FloatingFlowerModel implements IDynamicBakedModel {
 		}
 
 		// Forward all to flower model
-		@Nonnull @Override public List<BakedQuad> getQuads(IBlockState state, EnumFacing face, @Nonnull Random rand) {
+		@Nonnull @Override public List<BakedQuad> getQuads(BlockState state, Direction face, @Nonnull Random rand) {
 			return face == null ? genQuads : faceQuads.get(face);
 		}
 		@Override public boolean isAmbientOcclusion() {
@@ -201,7 +204,7 @@ public class FloatingFlowerModel implements IDynamicBakedModel {
 	private final ItemOverrideList itemHandler = new ItemOverrideList() {
 		@Nonnull
 		@Override
-		public IBakedModel getModelWithOverrides(IBakedModel model, ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
+		public IBakedModel getModelWithOverrides(IBakedModel model, ItemStack stack, @Nullable World worldIn, @Nullable LivingEntity entityIn) {
 			// Items always have GRASS island
 			return FloatingFlowerModel.this.getModel(IFloatingFlower.IslandType.GRASS, stack);
 		}

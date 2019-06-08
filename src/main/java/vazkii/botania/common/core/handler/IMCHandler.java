@@ -2,7 +2,8 @@ package vazkii.botania.common.core.handler;
 
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.block.Block;
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.DyeColor;
+import net.minecraft.item.DyeColor;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
@@ -46,8 +47,8 @@ public final class IMCHandler {
 		return ImmutableMap.copyOf(map);
 	}
 
-	private static Map<IRegistryDelegate<Block>, Function<EnumDyeColor, Block>> handlePaintable(Stream<InterModComms.IMCMessage> msgs) {
-		Map<IRegistryDelegate<Block>, Function<EnumDyeColor, Block>> map = msgs
+	private static Map<IRegistryDelegate<Block>, Function<DyeColor, Block>> handlePaintable(Stream<InterModComms.IMCMessage> msgs) {
+		Map<IRegistryDelegate<Block>, Function<DyeColor, Block>> map = msgs
 				.filter(msg -> msg.getMessageSupplier().get() instanceof PaintableBlockMessage)
 				.map(msg -> (PaintableBlockMessage) msg.getMessageSupplier().get())
 				.collect(Collectors.toMap(PaintableBlockMessage::getBlock, PaintableBlockMessage::getTransformer));

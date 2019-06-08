@@ -1,13 +1,14 @@
 package vazkii.botania.client.render.tile;
 
 import com.google.common.base.Preconditions;
-import net.minecraft.client.renderer.tileentity.TileEntityItemStackRenderer;
+import net.minecraft.client.renderer.tileentity.ItemStackTileEntityRenderer;
+import net.minecraft.client.renderer.tileentity.ItemStackTileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IItemProvider;
 
-public class TEISR extends TileEntityItemStackRenderer {
+public class TEISR extends ItemStackTileEntityRenderer {
     private final IItemProvider item;
     private final Class<? extends TileEntity> clazz;
 

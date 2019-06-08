@@ -1,11 +1,12 @@
 package vazkii.botania.common.lexicon.page;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.screen.Screen;
+import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureManager;
-import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
@@ -56,7 +57,7 @@ public class PageElvenRecipe extends PageRecipe {
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		GlStateManager.color4f(1F, 1F, 1F, 1F);
-		((GuiScreen) gui).drawTexturedModalRect(gui.getLeft(), gui.getTop(), 0, 0, gui.getWidth(), gui.getHeight());
+		((Screen) gui).drawTexturedModalRect(gui.getLeft(), gui.getTop(), 0, 0, gui.getWidth(), gui.getHeight());
 		GlStateManager.disableBlend();
 
 		List<ItemStack> outputs = recipe.getOutputs();
@@ -72,8 +73,8 @@ public class PageElvenRecipe extends PageRecipe {
 		}
 
 		TextureAtlasSprite portalIcon = MiscellaneousIcons.INSTANCE.alfPortalTex;
-		Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-		((GuiScreen) gui).drawTexturedModalRect(gui.getLeft() + 22, gui.getTop() + 36, portalIcon, 48, 48);
+		Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
+		((Screen) gui).drawTexturedModalRect(gui.getLeft() + 22, gui.getTop() + 36, portalIcon, 48, 48);
 	}
 
 	@OnlyIn(Dist.CLIENT)
@@ -102,7 +103,7 @@ public class PageElvenRecipe extends PageRecipe {
 	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void updateScreen() {
-		if(GuiScreen.isShiftKeyDown())
+		if(Screen.isShiftKeyDown())
 			return;
 
 		if(ticksElapsed % 20 == 0) {

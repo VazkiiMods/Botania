@@ -14,7 +14,8 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -35,7 +36,7 @@ public class ItemAncientWill extends ItemMod {
 	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void addInformation(ItemStack stack, World world, List<ITextComponent> list, ITooltipFlag flag) {
-		list.add(new TextComponentTranslation("botaniamisc.craftToAddWill"));
-		list.add(new TextComponentTranslation("botania.armorset.will_" + type.name().toLowerCase(Locale.ROOT) + ".shortDesc"));
+		list.add(new TranslationTextComponent("botaniamisc.craftToAddWill"));
+		list.add(new TranslationTextComponent("botania.armorset.will_" + type.name().toLowerCase(Locale.ROOT) + ".shortDesc"));
 	}
 }

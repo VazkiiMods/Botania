@@ -11,8 +11,8 @@
 package vazkii.botania.common.block.subtile;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.block.BlockState;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -122,7 +122,7 @@ public class SubTilePureDaisy extends TileEntitySpecialFlower {
 	}
 
 	private RecipePureDaisy findRecipe(BlockPos coords) {
-		IBlockState state = getWorld().getBlockState(coords);
+		BlockState state = getWorld().getBlockState(coords);
 
 		for(RecipePureDaisy recipe : BotaniaAPI.pureDaisyRecipes) {
 			if(recipe.matches(getWorld(), coords, this, state)) {
@@ -161,7 +161,7 @@ public class SubTilePureDaisy extends TileEntitySpecialFlower {
 	}
 
 	@Override
-	public void readFromPacketNBT(NBTTagCompound cmp) {
+	public void readFromPacketNBT(CompoundNBT cmp) {
 		positionAt = cmp.getInt(TAG_POSITION);
 
 		if(getWorld() != null && !getWorld().isRemote)
@@ -170,7 +170,7 @@ public class SubTilePureDaisy extends TileEntitySpecialFlower {
 	}
 
 	@Override
-	public void writeToPacketNBT(NBTTagCompound cmp) {
+	public void writeToPacketNBT(CompoundNBT cmp) {
 		cmp.putInt(TAG_POSITION, positionAt);
 		for(int i = 0; i < ticksRemaining.length; i++)
 			cmp.putInt(TAG_TICKS_REMAINING + i, ticksRemaining[i]);

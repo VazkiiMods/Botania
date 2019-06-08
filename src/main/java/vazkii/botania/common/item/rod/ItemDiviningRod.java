@@ -10,15 +10,16 @@
  */
 package vazkii.botania.common.item.rod;
 
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Hand;
+import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
@@ -50,7 +51,7 @@ public class ItemDiviningRod extends ItemMod implements IManaUsingItem, IAvatarW
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer p, @Nonnull EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity p, @Nonnull Hand hand) {
 		ItemStack stack = p.getHeldItem(hand);
 		if(ManaItemHandler.requestManaExactForTool(stack, p, COST, true)) {
 			if(world.isRemote) {
@@ -59,16 +60,16 @@ public class ItemDiviningRod extends ItemMod implements IManaUsingItem, IAvatarW
 				doHighlight(world, new BlockPos(p), range, seedxor);
 				p.swingArm(hand);
 			} else world.playSound(null, p.posX, p.posY, p.posZ, ModSounds.divinationRod, SoundCategory.PLAYERS, 1F, 1F);
-			return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
+			return ActionResult.newResult(ActionResultType.SUCCESS, stack);
 		}
 
-		return ActionResult.newResult(EnumActionResult.PASS, stack);
+		return ActionResult.newResult(ActionResultType.PASS, stack);
 	}
 
 	private void doHighlight(World world, BlockPos pos, int range, long seedxor) {
 		Botania.proxy.setWispFXDepthTest(false);
 		for(BlockPos pos_ : BlockPos.getAllInBox(pos.add(-range, -range, -range), pos.add(range, range, range))) {
-			IBlockState state = world.getBlockState(pos_);
+			BlockState state = world.getBlockState(pos_);
 
 			if(Tags.Blocks.ORES.contains(state.getBlock())) {
 				Random rand = new Random(state.hashCode() ^ seedxor);

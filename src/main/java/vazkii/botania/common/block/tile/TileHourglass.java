@@ -10,18 +10,21 @@
  */
 package vazkii.botania.common.block.tile;
 
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GlStateManager;
+import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.init.Blocks;
+import net.minecraft.block.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.ITickable;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Direction;
+import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.StringUtils;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.api.distmarker.Dist;
@@ -36,7 +39,7 @@ import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
-public class TileHourglass extends TileSimpleInventory implements ITickable {
+public class TileHourglass extends TileSimpleInventory implements ITickableTileEntity {
 	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.HOURGLASS)
 	public static TileEntityType<TileHourglass> TYPE;
 	private static final String TAG_TIME = "time";
@@ -81,9 +84,9 @@ public class TileHourglass extends TileSimpleInventory implements ITickable {
 					world.getPendingBlockTicks().scheduleTick(pos, getBlockState().getBlock(), getBlockState().getBlock().tickRate(world));
 				}
 
-				for(EnumFacing facing : EnumFacing.values()) {
+				for(Direction facing : Direction.values()) {
 					BlockPos pos = getPos().offset(facing);
-					IBlockState state = world.getBlockState(pos);
+					BlockState state = world.getBlockState(pos);
 					if(state.getBlock() instanceof IHourglassTrigger)
 						((IHourglassTrigger) state.getBlock()).onTriggeredByHourglass(world, pos, this);
 				}
@@ -175,7 +178,7 @@ public class TileHourglass extends TileSimpleInventory implements ITickable {
 	}
 
 	@Override
-	public void writePacketNBT(NBTTagCompound par1nbtTagCompound) {
+	public void writePacketNBT(CompoundNBT par1nbtTagCompound) {
 		super.writePacketNBT(par1nbtTagCompound);
 		par1nbtTagCompound.putInt(TAG_TIME, time);
 		par1nbtTagCompound.putFloat(TAG_TIME_FRACTION, timeFraction);
@@ -186,7 +189,7 @@ public class TileHourglass extends TileSimpleInventory implements ITickable {
 	}
 
 	@Override
-	public void readPacketNBT(NBTTagCompound par1nbtTagCompound) {
+	public void readPacketNBT(CompoundNBT par1nbtTagCompound) {
 		super.readPacketNBT(par1nbtTagCompound);
 		time = par1nbtTagCompound.getInt(TAG_TIME);
 		timeFraction = par1nbtTagCompound.getFloat(TAG_TIME_FRACTION);

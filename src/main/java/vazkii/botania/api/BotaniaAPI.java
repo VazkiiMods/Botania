@@ -12,12 +12,15 @@ package vazkii.botania.api;
 
 import com.google.common.base.Preconditions;
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
-import net.minecraft.init.SoundEvents;
-import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.EnumDyeColor;
-import net.minecraft.item.EnumRarity;
+import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.item.DyeColor;
+import net.minecraft.item.Rarity;
+import net.minecraft.util.SoundEvents;
+import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.item.DyeColor;
+import net.minecraft.item.Rarity;
 import net.minecraft.item.IArmorMaterial;
 import net.minecraft.item.IItemTier;
 import net.minecraft.item.Item;
@@ -25,6 +28,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
@@ -77,19 +81,19 @@ public final class BotaniaAPI {
 	public static Map<ResourceLocation, Integer> oreWeights = Collections.emptyMap();
 	public static Map<ResourceLocation, Integer> oreWeightsNether = Collections.emptyMap();
 
-	public static Map<IRegistryDelegate<Block>, Function<EnumDyeColor, Block>> paintableBlocks = Collections.emptyMap();
+	public static Map<IRegistryDelegate<Block>, Function<DyeColor, Block>> paintableBlocks = Collections.emptyMap();
 	public static final Set<Class<? extends Entity>> gravityRodBlacklist = new LinkedHashSet<>();
 
 	private static final int[] MAX_DAMAGE_ARRAY = new int[]{13, 15, 16, 11};
 	public static final IArmorMaterial MANASTEEL_ARMOR_MAT = new IArmorMaterial() {
 		private final int[] damageReduction = { 2, 5, 6, 2 };
 		@Override
-		public int getDurability(EntityEquipmentSlot slotIn) {
+		public int getDurability(EquipmentSlotType slotIn) {
 			return 16 * MAX_DAMAGE_ARRAY[slotIn.getIndex()];
 		}
 
 		@Override
-		public int getDamageReductionAmount(EntityEquipmentSlot slotIn) {
+		public int getDamageReductionAmount(EquipmentSlotType slotIn) {
 			return damageReduction[slotIn.getIndex()];
 		}
 
@@ -156,12 +160,12 @@ public final class BotaniaAPI {
 	public static final IArmorMaterial ELEMENTIUM_ARMOR_MAT = new IArmorMaterial() {
 		private final int[] damageReduction = { 2, 5, 6, 2 };
 		@Override
-		public int getDurability(EntityEquipmentSlot slotIn) {
+		public int getDurability(EquipmentSlotType slotIn) {
 			return 18 * MAX_DAMAGE_ARRAY[slotIn.getIndex()];
 		}
 
 		@Override
-		public int getDamageReductionAmount(EntityEquipmentSlot slotIn) {
+		public int getDamageReductionAmount(EquipmentSlotType slotIn) {
 			return damageReduction[slotIn.getIndex()];
 		}
 
@@ -228,12 +232,12 @@ public final class BotaniaAPI {
 	public static final IArmorMaterial TERRASTEEL_ARMOR_MAT = new IArmorMaterial() {
 		private final int[] damageReduction = { 3, 6, 8, 3 };
 		@Override
-		public int getDurability(EntityEquipmentSlot slotIn) {
+		public int getDurability(EquipmentSlotType slotIn) {
 			return 34 * MAX_DAMAGE_ARRAY[slotIn.getIndex()];
 		}
 
 		@Override
-		public int getDamageReductionAmount(EntityEquipmentSlot slotIn) {
+		public int getDamageReductionAmount(EquipmentSlotType slotIn) {
 			return damageReduction[slotIn.getIndex()];
 		}
 
@@ -299,12 +303,12 @@ public final class BotaniaAPI {
 	public static final IArmorMaterial MANAWEAVE_ARMOR_MAT = new IArmorMaterial() {
 		private final int[] damageReduction = { 1, 2, 2, 1 };
 		@Override
-		public int getDurability(EntityEquipmentSlot slotIn) {
+		public int getDurability(EquipmentSlotType slotIn) {
 			return 5 * MAX_DAMAGE_ARRAY[slotIn.getIndex()];
 		}
 
 		@Override
-		public int getDamageReductionAmount(EntityEquipmentSlot slotIn) {
+		public int getDamageReductionAmount(EquipmentSlotType slotIn) {
 			return damageReduction[slotIn.getIndex()];
 		}
 
@@ -335,7 +339,7 @@ public final class BotaniaAPI {
 		}
 	};
 
-	public static final EnumRarity rarityRelic = EnumRarity.EPIC; // todo 1.13 EnumHelper.addRarity("RELIC", TextFormatting.GOLD, "Relic");
+	public static final Rarity rarityRelic = Rarity.EPIC; // todo 1.13 EnumHelper.addRarity("RELIC", TextFormatting.GOLD, "Relic");
 
 	public static final KnowledgeType basicKnowledge;
 	public static final KnowledgeType elvenKnowledge;
@@ -436,7 +440,7 @@ public final class BotaniaAPI {
 	 * @param outputState The blockstate to be placed upon recipe completion.
 	 * @return The recipe created.
 	 */
-	public static RecipePureDaisy registerPureDaisyRecipe(Object input, IBlockState outputState) {
+	public static RecipePureDaisy registerPureDaisyRecipe(Object input, BlockState outputState) {
 		return registerPureDaisyRecipe(input, outputState, RecipePureDaisy.DEFAULT_TIME);
 	}
 
@@ -448,7 +452,7 @@ public final class BotaniaAPI {
 	 *             The Pure Daisy only ticks one block at a time in a round robin fashion.
 	 * @return The recipe created.
 	 */
-	public static RecipePureDaisy registerPureDaisyRecipe(Object input, IBlockState outputState, int time) {
+	public static RecipePureDaisy registerPureDaisyRecipe(Object input, BlockState outputState, int time) {
 		RecipePureDaisy recipe = new RecipePureDaisy(input, outputState, time);
 		pureDaisyRecipes.add(recipe);
 		return recipe;

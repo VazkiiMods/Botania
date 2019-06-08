@@ -11,11 +11,12 @@
 package vazkii.botania.common.core.helper;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Direction;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 
 public final class MathHelper {
-	public static final EnumFacing[] HORIZONTALS = { EnumFacing.SOUTH, EnumFacing.WEST, EnumFacing.NORTH, EnumFacing.EAST };
+	public static final Direction[] HORIZONTALS = { Direction.SOUTH, Direction.WEST, Direction.NORTH, Direction.EAST };
 	public static float pointDistanceSpace(double x1, double y1, double z1, double x2, double y2, double z2) {
 		return (float) Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2) + (z1 - z2) * (z1 - z2));
 	}

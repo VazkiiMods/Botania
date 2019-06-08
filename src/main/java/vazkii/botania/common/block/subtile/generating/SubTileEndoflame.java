@@ -12,11 +12,13 @@ package vazkii.botania.common.block.subtile.generating;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.init.Particles;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntityFurnace;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.tileentity.FurnaceTileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -66,13 +68,13 @@ public class SubTileEndoflame extends TileEntityGeneratingFlower {
 				if(mana < getMaxMana()) {
 					int slowdown = getSlowdownFactor();
 
-					for(EntityItem item : getWorld().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(getPos().add(-RANGE, -RANGE, -RANGE), getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)))) {
+					for(ItemEntity item : getWorld().getEntitiesWithinAABB(ItemEntity.class, new AxisAlignedBB(getPos().add(-RANGE, -RANGE, -RANGE), getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)))) {
 						if(item.age >= 59 + slowdown && !item.removed) {
 							ItemStack stack = item.getItem();
 							if(stack.isEmpty() || stack.getItem().hasContainerItem(stack))
 								continue;
 
-							int burnTime = Block.getBlockFromItem(stack.getItem()) instanceof BlockSpreader ? 0 : TileEntityFurnace.getItemBurnTime(stack);
+							int burnTime = Block.getBlockFromItem(stack.getItem()) instanceof BlockSpreader ? 0 : FurnaceTileEntity.getItemBurnTime(stack);
 							if(burnTime > 0 && stack.getCount() > 0) {
 								this.burnTime = Math.min(FUEL_CAP, burnTime) / 2;
 
@@ -130,14 +132,14 @@ public class SubTileEndoflame extends TileEntityGeneratingFlower {
 	}
 
 	@Override
-	public void writeToPacketNBT(NBTTagCompound cmp) {
+	public void writeToPacketNBT(CompoundNBT cmp) {
 		super.writeToPacketNBT(cmp);
 
 		cmp.putInt(TAG_BURN_TIME, burnTime);
 	}
 
 	@Override
-	public void readFromPacketNBT(NBTTagCompound cmp) {
+	public void readFromPacketNBT(CompoundNBT cmp) {
 		super.readFromPacketNBT(cmp);
 
 		burnTime = cmp.getInt(TAG_BURN_TIME);

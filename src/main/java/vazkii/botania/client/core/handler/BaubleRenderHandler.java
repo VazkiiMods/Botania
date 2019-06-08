@@ -11,13 +11,14 @@
 package vazkii.botania.client.core.handler;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GlStateManager;
+import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
-import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.client.renderer.texture.AtlasTexture;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import top.theillusivec4.curios.api.CuriosAPI;
@@ -31,10 +32,10 @@ import vazkii.botania.common.item.ModItems;
 import javax.annotation.Nonnull;
 import java.util.Map;
 
-public final class BaubleRenderHandler implements LayerRenderer<EntityPlayer> {
+public final class BaubleRenderHandler implements LayerRenderer<PlayerEntity> {
 
 	@Override
-	public void render(@Nonnull EntityPlayer player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+	public void render(@Nonnull PlayerEntity player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 		dispatchRenders(player, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch, scale);
 
 		// todo 1.13 recheck what this was checking for (make sure to account for config+invis)
@@ -45,7 +46,7 @@ public final class BaubleRenderHandler implements LayerRenderer<EntityPlayer> {
 	}
 
 	// Like LayerCurios, but with Botania-specific logic
-	private void dispatchRenders(EntityPlayer player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+	private void dispatchRenders(PlayerEntity player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 	    GlStateManager.pushMatrix();
 		CuriosAPI.getCuriosHandler(player).ifPresent(handler -> {
 			Map<String, CurioStackHandler> curios = handler.getCurioMap();
@@ -85,15 +86,15 @@ public final class BaubleRenderHandler implements LayerRenderer<EntityPlayer> {
 	}
 
 	@SuppressWarnings("deprecation")
-	private void renderManaTablet(EntityPlayer player) {
+	private void renderManaTablet(PlayerEntity player) {
 		boolean renderedOne = false;
 		for(int i = 0; i < player.inventory.getSizeInventory(); i++) {
 			ItemStack stack = player.inventory.getStackInSlot(i);
 			if(!stack.isEmpty() && stack.getItem() == ModItems.manaTablet) {
 				GlStateManager.pushMatrix();
-				Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+				Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
 				AccessoryRenderHelper.rotateIfSneaking(player);
-				boolean armor = !player.getItemStackFromSlot(EntityEquipmentSlot.LEGS).isEmpty();
+				boolean armor = !player.getItemStackFromSlot(EquipmentSlotType.LEGS).isEmpty();
 				GlStateManager.rotatef(90, 0, 1, 0);
 				GlStateManager.rotatef(180, 0, 0, 1);
 				GlStateManager.translated(0, -0.6, 0);

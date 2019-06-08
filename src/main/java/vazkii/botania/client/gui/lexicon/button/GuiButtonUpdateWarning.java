@@ -11,8 +11,9 @@
 package vazkii.botania.client.gui.lexicon.button;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.screen.Screen;
+import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.text.TextFormatting;
 import vazkii.botania.client.core.handler.ClientTickHandler;
@@ -36,7 +37,7 @@ public class GuiButtonUpdateWarning extends GuiButtonLexicon {
 	@Override
 	public void onClick(double mouseX, double mouseY) {
 		super.onClick(mouseX, mouseY);
-		if(GuiScreen.isShiftKeyDown()) {
+		if(Screen.isShiftKeyDown()) {
 			try {
 				if(Desktop.isDesktopSupported())
 					Desktop.getDesktop().browse(new URI("http://botaniamod.net/changelog.php#" + PersistentVariableHelper.lastBotaniaVersion.replaceAll("\\.|\\s", "-")));

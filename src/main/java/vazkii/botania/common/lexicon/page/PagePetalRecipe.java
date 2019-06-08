@@ -14,13 +14,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.item.crafting.Ingredient;
 import org.lwjgl.opengl.GL11;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.gui.screen.Screen;
+import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
@@ -71,7 +72,7 @@ public class PagePetalRecipe<T extends RecipePetals> extends PageRecipe {
 
 		List<Ingredient> inputs = recipe.getInputs();
 		int degreePerInput = (int) (360F / inputs.size());
-		float currentDegree = ConfigHandler.CLIENT.lexiconRotatingItems.get() ? GuiScreen.isShiftKeyDown() ? ticksElapsed : ticksElapsed + ClientTickHandler.partialTicks : 0;
+		float currentDegree = ConfigHandler.CLIENT.lexiconRotatingItems.get() ? Screen.isShiftKeyDown() ? ticksElapsed : ticksElapsed + ClientTickHandler.partialTicks : 0;
 		int inputIndex = ticksElapsed / 40;
 
 		for(Ingredient input : inputs) {
@@ -92,7 +93,7 @@ public class PagePetalRecipe<T extends RecipePetals> extends PageRecipe {
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		GlStateManager.color4f(1F, 1F, 1F, 1F);
-		((GuiScreen) gui).drawTexturedModalRect(gui.getLeft(), gui.getTop(), 0, 0, gui.getWidth(), gui.getHeight());
+		((Screen) gui).drawTexturedModalRect(gui.getLeft(), gui.getTop(), 0, 0, gui.getWidth(), gui.getHeight());
 		GlStateManager.disableBlend();
 	}
 
@@ -118,7 +119,7 @@ public class PagePetalRecipe<T extends RecipePetals> extends PageRecipe {
 	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void updateScreen() {
-		if(GuiScreen.isShiftKeyDown())
+		if(Screen.isShiftKeyDown())
 			return;
 
 		if(ticksElapsed % 20 == 0) {

@@ -12,12 +12,15 @@ package vazkii.botania.common.item.equipment.tool;
 
 import com.google.common.collect.Multimap;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.entity.monster.EntityEnderman;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.entity.monster.EndermanEntity;
+import net.minecraft.entity.monster.EndermanEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
@@ -34,11 +37,11 @@ public class ItemEnderDagger extends ItemManasteelSword {
 	}
 
 	@Override
-	public boolean hitEntity(ItemStack stack, EntityLivingBase target, @Nonnull EntityLivingBase attacker) {
+	public boolean hitEntity(ItemStack stack, LivingEntity target, @Nonnull LivingEntity attacker) {
 		if(!target.world.isRemote
-				&& target instanceof EntityEnderman
-				&& attacker instanceof EntityPlayer) {
-			target.attackEntityFrom(DamageSource.causePlayerDamage((EntityPlayer) attacker), 20);
+				&& target instanceof EndermanEntity
+				&& attacker instanceof PlayerEntity) {
+			target.attackEntityFrom(DamageSource.causePlayerDamage((PlayerEntity) attacker), 20);
 		}
 
 		stack.damageItem(1, attacker);
@@ -55,10 +58,10 @@ public class ItemEnderDagger extends ItemManasteelSword {
 
 	@Nonnull
 	@Override
-	public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot equipmentSlot) {
+	public Multimap<String, AttributeModifier> getAttributeModifiers(EquipmentSlotType equipmentSlot) {
 		Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(equipmentSlot);
 
-		if (equipmentSlot == EntityEquipmentSlot.MAINHAND) {
+		if (equipmentSlot == EquipmentSlotType.MAINHAND) {
 			multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", -1.25, 0));
 		}
 

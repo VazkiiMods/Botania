@@ -10,13 +10,15 @@
  */
 package vazkii.botania.common.item;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -33,13 +35,13 @@ public class ItemCorporeaSpark extends ItemMod {
 
 	@Nonnull
 	@Override
-	public EnumActionResult onItemUse(ItemUseContext ctx) {
+	public ActionResultType onItemUse(ItemUseContext ctx) {
 		World world = ctx.getWorld();
 		BlockPos pos = ctx.getPos();
 
 		TileEntity tile = world.getTileEntity(pos);
 		if(tile != null
-				&& (tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.UP).isPresent()
+				&& (tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, Direction.UP).isPresent()
 					|| tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).isPresent())
 				&& !CorporeaHelper.doesBlockHaveSpark(world, pos)) {
 			ctx.getItem().shrink(1);
@@ -50,8 +52,8 @@ public class ItemCorporeaSpark extends ItemMod {
 				spark.setPosition(pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5);
 				world.spawnEntity(spark);
 			}
-			return EnumActionResult.SUCCESS;
+			return ActionResultType.SUCCESS;
 		}
-		return EnumActionResult.PASS;
+		return ActionResultType.PASS;
 	}
 }

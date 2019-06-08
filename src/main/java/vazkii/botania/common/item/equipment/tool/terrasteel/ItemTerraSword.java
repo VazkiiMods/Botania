@@ -10,12 +10,14 @@
  */
 package vazkii.botania.common.item.equipment.tool.terrasteel;
 
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.projectile.EntityThrowable;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.RayTraceResult;
@@ -66,7 +68,7 @@ public class ItemTerraSword extends ItemManasteelSword implements ILensEffect {
 		}
 	}
 
-	public void trySpawnBurst(EntityPlayer player) {
+	public void trySpawnBurst(PlayerEntity player) {
 		if (!player.getHeldItemMainhand().isEmpty()
 				&& player.getHeldItemMainhand().getItem() == this
 				&& player.getCooledAttackStrength(0) == 1) {
@@ -82,8 +84,8 @@ public class ItemTerraSword extends ItemManasteelSword implements ILensEffect {
 		return MANA_PER_DAMAGE;
 	}
 
-	public EntityManaBurst getBurst(EntityPlayer player, ItemStack stack) {
-		EntityManaBurst burst = new EntityManaBurst(player, EnumHand.MAIN_HAND);
+	public EntityManaBurst getBurst(PlayerEntity player, ItemStack stack) {
+		EntityManaBurst burst = new EntityManaBurst(player, Hand.MAIN_HAND);
 
 		float motionModifier = 7F;
 
@@ -111,13 +113,13 @@ public class ItemTerraSword extends ItemManasteelSword implements ILensEffect {
 
 	@Override
 	public void updateBurst(IManaBurst burst, ItemStack stack) {
-		EntityThrowable entity = (EntityThrowable) burst;
+		ThrowableEntity entity = (ThrowableEntity) burst;
 		AxisAlignedBB axis = new AxisAlignedBB(entity.posX, entity.posY, entity.posZ, entity.lastTickPosX, entity.lastTickPosY, entity.lastTickPosZ).grow(1);
-		List<EntityLivingBase> entities = entity.world.getEntitiesWithinAABB(EntityLivingBase.class, axis);
+		List<LivingEntity> entities = entity.world.getEntitiesWithinAABB(LivingEntity.class, axis);
 		String attacker = ItemNBTHelper.getString(burst.getSourceLens(), TAG_ATTACKER_USERNAME, "");
 
-		for(EntityLivingBase living : entities) {
-			if(living instanceof EntityPlayer && (living.getName().getString().equals(attacker) || ServerLifecycleHooks.getCurrentServer() != null && !ServerLifecycleHooks.getCurrentServer().isPVPEnabled()))
+		for(LivingEntity living : entities) {
+			if(living instanceof PlayerEntity && (living.getName().getString().equals(attacker) || ServerLifecycleHooks.getCurrentServer() != null && !ServerLifecycleHooks.getCurrentServer().isPVPEnabled()))
 				continue;
 
 			if(living.hurtTime == 0) {
@@ -127,7 +129,7 @@ public class ItemTerraSword extends ItemManasteelSword implements ILensEffect {
 					burst.setMana(mana - cost);
 					float damage = 4F + BotaniaAPI.TERRASTEEL_ITEM_TIER.getAttackDamage();
 					if(!burst.isFake() && !entity.world.isRemote) {
-						EntityPlayer player = living.world.getPlayerEntityByName(attacker);
+						PlayerEntity player = living.world.getPlayerEntityByName(attacker);
 						living.attackEntityFrom(player == null ? DamageSource.MAGIC : DamageSource.causePlayerDamage(player), damage);
 						entity.remove();
 						break;

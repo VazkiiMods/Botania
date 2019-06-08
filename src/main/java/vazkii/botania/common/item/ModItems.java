@@ -10,9 +10,11 @@
  */
 package vazkii.botania.common.item;
 
-import net.minecraft.init.Items;
-import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.item.DyeColor;
+import net.minecraft.item.Items;
+import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.RegistryEvent;
@@ -233,9 +235,9 @@ public final class ModItems {
 	public static final Item manaMirror = new ItemManaMirror(unstackable().defaultMaxDamage(1000).setNoRepair()).setRegistryName(LibMisc.MOD_ID, LibItemNames.MANA_MIRROR);
 	public static final Item manasteelHelm = new ItemManasteelHelm(unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.MANASTEEL_HELM);
 	public static final Item manasteelHelmRevealing = new ItemManasteelHelmRevealing(unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.MANASTEEL_HELM_R);
-	public static final Item manasteelChest = new ItemManasteelArmor(EntityEquipmentSlot.CHEST, unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.MANASTEEL_CHEST);
-	public static final Item manasteelLegs = new ItemManasteelArmor(EntityEquipmentSlot.LEGS, unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.MANASTEEL_LEGS);
-	public static final Item manasteelBoots = new ItemManasteelArmor(EntityEquipmentSlot.FEET, unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.MANASTEEL_BOOTS);
+	public static final Item manasteelChest = new ItemManasteelArmor(EquipmentSlotType.CHEST, unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.MANASTEEL_CHEST);
+	public static final Item manasteelLegs = new ItemManasteelArmor(EquipmentSlotType.LEGS, unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.MANASTEEL_LEGS);
+	public static final Item manasteelBoots = new ItemManasteelArmor(EquipmentSlotType.FEET, unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.MANASTEEL_BOOTS);
 	public static final Item manasteelPick = new ItemManasteelPick(unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.MANASTEEL_PICK);
 	public static final Item manasteelShovel = new ItemManasteelShovel(unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.MANASTEEL_SHOVEL);
 	public static final Item manasteelAxe = new ItemManasteelAxe(unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.MANASTEEL_AXE);
@@ -243,9 +245,9 @@ public final class ModItems {
 	public static final Item manasteelShears = new ItemManasteelShears(unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.MANASTEEL_SHEARS);
 	public static final Item terrasteelHelm = new ItemTerrasteelHelm(unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.TERRASTEEL_HELM);
 	public static final Item terrasteelHelmRevealing = new ItemTerrasteelHelmRevealing(unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.TERRASTEEL_HELM_R);
-	public static final Item terrasteelChest = new ItemTerrasteelArmor(EntityEquipmentSlot.CHEST, unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.TERRASTEEL_CHEST);
-	public static final Item terrasteelLegs = new ItemTerrasteelArmor(EntityEquipmentSlot.LEGS, unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.TERRASTEEL_LEGS);
-	public static final Item terrasteelBoots = new ItemTerrasteelArmor(EntityEquipmentSlot.FEET, unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.TERRASTEEL_BOOTS);
+	public static final Item terrasteelChest = new ItemTerrasteelArmor(EquipmentSlotType.CHEST, unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.TERRASTEEL_CHEST);
+	public static final Item terrasteelLegs = new ItemTerrasteelArmor(EquipmentSlotType.LEGS, unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.TERRASTEEL_LEGS);
+	public static final Item terrasteelBoots = new ItemTerrasteelArmor(EquipmentSlotType.FEET, unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.TERRASTEEL_BOOTS);
 	public static final Item terraSword = new ItemTerraSword(unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.TERRA_SWORD);
 	public static final Item tinyPlanet = new ItemTinyPlanet(unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.TINY_PLANET);
 	public static final Item manaRing = new ItemManaRing(unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.MANA_RING);
@@ -382,9 +384,9 @@ public final class ModItems {
 	public static final Item magnetRingGreater = new ItemGreaterMagnetRing(unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.MAGNET_RING_GREATER);
 	public static final Item thunderSword = new ItemThunderSword(unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.THUNDER_SWORD);
 	public static final Item manaweaveHelm = new ItemManaweaveHelm(unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.MANAWEAVE_HELM);
-	public static final Item manaweaveChest = new ItemManaweaveArmor(EntityEquipmentSlot.CHEST, unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.MANAWEAVE_CHEST);
-	public static final Item manaweaveLegs = new ItemManaweaveArmor(EntityEquipmentSlot.LEGS, unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.MANAWEAVE_LEGS);
-	public static final Item manaweaveBoots = new ItemManaweaveArmor(EntityEquipmentSlot.FEET, unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.MANAWEAVE_BOOTS);
+	public static final Item manaweaveChest = new ItemManaweaveArmor(EquipmentSlotType.CHEST, unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.MANAWEAVE_CHEST);
+	public static final Item manaweaveLegs = new ItemManaweaveArmor(EquipmentSlotType.LEGS, unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.MANAWEAVE_LEGS);
+	public static final Item manaweaveBoots = new ItemManaweaveArmor(EquipmentSlotType.FEET, unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.MANAWEAVE_BOOTS);
 	public static final Item autocraftingHalo = new ItemAutocraftingHalo(unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.AUTOCRAFTING_HALO);
 	public static final Item sextant = new ItemSextant(unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.SEXTANT);
 	public static final Item speedUpBelt = new ItemSpeedUpBelt(unstackable()).setRegistryName(LibMisc.MOD_ID, LibItemNames.SPEED_UP_BELT);
@@ -410,7 +412,7 @@ public final class ModItems {
 		IForgeRegistry<Item> r = evt.getRegistry();
 
 		register(r, new ItemLexicon(unstackable()), LibItemNames.LEXICON);
-		for(EnumDyeColor color : EnumDyeColor.values()) {
+		for(DyeColor color : DyeColor.values()) {
 			register(r, new ItemPetal(ModBlocks.getBuriedPetal(color), color, defaultBuilder()), color.getName() + LibItemNames.PETAL_SUFFIX);
 			register(r, new ItemDye(color, defaultBuilder()), color.getName() + LibItemNames.DYE_SUFFIX);
 		}
@@ -689,7 +691,7 @@ public final class ModItems {
 		*/
 	}
 	
-	public static Item getPetal(EnumDyeColor color) {
+	public static Item getPetal(DyeColor color) {
 		switch (color) {
 			default:
 			case WHITE: return whitePetal;
@@ -711,7 +713,7 @@ public final class ModItems {
 		}
 	}
 	
-	public static Item getDye(EnumDyeColor color) {
+	public static Item getDye(DyeColor color) {
 		switch (color) {
 			default:
 			case WHITE: return whiteDye;

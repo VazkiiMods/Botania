@@ -11,12 +11,14 @@
 package vazkii.botania.common.entity;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.block.state.pattern.BlockStateMatcher;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.pattern.BlockStateMatcher;
+import net.minecraft.block.pattern.BlockStateMatcher;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.projectile.EntityThrowable;
-import net.minecraft.init.Blocks;
+import net.minecraft.entity.projectile.ThrowableEntity;
+import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
@@ -29,7 +31,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class EntityEnderAirBottle extends EntityThrowable {
+public class EntityEnderAirBottle extends ThrowableEntity {
 	@ObjectHolder(LibMisc.MOD_ID + ":ender_air_bottle")
 	public static EntityType<?> TYPE;
 
@@ -37,7 +39,7 @@ public class EntityEnderAirBottle extends EntityThrowable {
 		super(TYPE, world);
 	}
 
-	public EntityEnderAirBottle(EntityLivingBase entity, World world) {
+	public EntityEnderAirBottle(LivingEntity entity, World world) {
 		super(TYPE, entity, world);
 	}
 
@@ -62,7 +64,7 @@ public class EntityEnderAirBottle extends EntityThrowable {
 		int rangeY = 4;
 
 		for (BlockPos bPos : BlockPos.getAllInBox(pos.add(-range, -rangeY, -range), pos.add(range, rangeY, range))) {
-			IBlockState state = world.getBlockState(bPos);
+			BlockState state = world.getBlockState(bPos);
 			Block block = state.getBlock();
 			if(block.isReplaceableOreGen(state, world, bPos, BlockStateMatcher.forBlock(Blocks.STONE)))
 				possibleCoords.add(bPos);

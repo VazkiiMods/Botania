@@ -10,11 +10,13 @@
  */
 package vazkii.botania.common.network;
 
-import net.minecraft.client.gui.inventory.GuiCrafting;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.ContainerWorkbench;
+import net.minecraft.client.gui.screen.inventory.CraftingScreen;
+import net.minecraft.client.gui.screen.inventory.CraftingScreen;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.container.WorkbenchContainer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.Hand;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
@@ -32,8 +34,8 @@ import vazkii.botania.common.lib.LibGuiIDs;
 public class GuiHandler implements IGuiHandler {
 
 	@Override
-	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int handId, int unused1, int unused2) {
-		EnumHand hand = handId == 1 ? EnumHand.OFF_HAND : EnumHand.MAIN_HAND;
+	public Object getServerGuiElement(int ID, PlayerEntity player, World world, int handId, int unused1, int unused2) {
+		Hand hand = handId == 1 ? Hand.OFF_HAND : Hand.MAIN_HAND;
 		ItemStack stack = player.getHeldItem(hand);
 
 		switch(ID) {
@@ -51,15 +53,15 @@ public class GuiHandler implements IGuiHandler {
 	}
 
 	@Override
-	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int handId, int unused1, int unused2) {
-		EnumHand hand = handId == 1 ? EnumHand.OFF_HAND : EnumHand.MAIN_HAND;
+	public Object getClientGuiElement(int ID, PlayerEntity player, World world, int handId, int unused1, int unused2) {
+		Hand hand = handId == 1 ? Hand.OFF_HAND : Hand.MAIN_HAND;
 		ItemStack stack = player.getHeldItem(hand);
 
 		switch(ID) {
 		case LibGuiIDs.LEXICON :
 			return GuiLexicon.currentOpenLexicon;
 		case LibGuiIDs.CRAFTING_HALO :
-			return new GuiCrafting(player.inventory, world);
+			return new CraftingScreen(player.inventory, world);
 		case LibGuiIDs.FLOWER_BAG :
 			if(stack.getItem() == ModItems.flowerBag)
 				return new GuiFlowerBag(player.inventory, new InventoryFlowerBag(stack));

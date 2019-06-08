@@ -1,19 +1,22 @@
 package vazkii.botania.client.core.handler;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.color.BlockColors;
 import net.minecraft.client.renderer.color.IBlockColor;
 import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.client.renderer.color.ItemColors;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.block.Blocks;
+import net.minecraft.item.DyeColor;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.Hand;
+import net.minecraft.util.Hand;
 import net.minecraft.util.Util;
 import net.minecraft.world.FoliageColors;
 import net.minecraft.world.biome.BiomeColors;
@@ -69,7 +72,7 @@ public final class ColorHandler {
 								return ((TilePool) te).color.colorValue;
 							}
 						}
-						return EnumDyeColor.WHITE.colorValue;
+						return DyeColor.WHITE.colorValue;
 					}
 				},
 				ModBlocks.manaPool, ModBlocks.creativePool, ModBlocks.dilutedPool, ModBlocks.fabulousPool
@@ -99,7 +102,7 @@ public final class ColorHandler {
 						TileEntity tile = world.getTileEntity(pos);
 						if(tile instanceof TileCamo) {
 							TileCamo camo = (TileCamo) tile;
-							IBlockState camoState = camo.camoState;
+							BlockState camoState = camo.camoState;
 							if(camoState != null)
 								return camoState.getBlock() instanceof BlockCamo
 										? 0xFFFFFF
@@ -115,19 +118,19 @@ public final class ColorHandler {
 						ModItems.lifeEssence, ModItems.gaiaIngot);
 
 		items.register((s, t) ->
-		t == 1 ? EnumDyeColor.byId(ItemTwigWand.getColor1(s)).colorValue
-				: t == 2 ? EnumDyeColor.byId(ItemTwigWand.getColor2(s)).colorValue
+		t == 1 ? DyeColor.byId(ItemTwigWand.getColor1(s)).colorValue
+				: t == 2 ? DyeColor.byId(ItemTwigWand.getColor2(s)).colorValue
 						: -1,
 						ModItems.twigWand);
 
 		IItemColor petalHandler = (s, t) -> ((ItemPetal) s.getItem()).color.colorValue;
 		IItemColor dyeHandler = (s, t) -> ((Item16Colors) s.getItem()).color.colorValue;
-		for(EnumDyeColor color : EnumDyeColor.values()) {
+		for(DyeColor color : DyeColor.values()) {
 			items.register(petalHandler, ModItems.getPetal(color));
 			items.register(dyeHandler, ModItems.getDye(color));
 		}
 
-		items.register((s, t) -> Minecraft.getInstance().getBlockColors().getColor(((ItemBlock)s.getItem()).getBlock().getDefaultState(), null, null, t),
+		items.register((s, t) -> Minecraft.getInstance().getBlockColors().getColor(((BlockItem)s.getItem()).getBlock().getDefaultState(), null, null, t),
 				ModBlocks.petalBlockWhite, ModBlocks.petalBlockOrange, ModBlocks.petalBlockMagenta, ModBlocks.petalBlockLightBlue,
 				ModBlocks.petalBlockYellow, ModBlocks.petalBlockLime, ModBlocks.petalBlockPink, ModBlocks.petalBlockGray,
 				ModBlocks.petalBlockSilver, ModBlocks.petalBlockCyan, ModBlocks.petalBlockPurple, ModBlocks.petalBlockBlue,
@@ -165,7 +168,7 @@ public final class ColorHandler {
 				return Minecraft.getInstance().getItemColors().getColor(lens, t);
 
 			if(t == 2) {
-				BurstProperties props = ((ItemManaGun) s.getItem()).getBurstProps(Minecraft.getInstance().player, s, false, EnumHand.MAIN_HAND);
+				BurstProperties props = ((ItemManaGun) s.getItem()).getBurstProps(Minecraft.getInstance().player, s, false, Hand.MAIN_HAND);
 				Color color = new Color(props.color);
 
 				float mul = (float) (Math.sin((double) ClientTickHandler.ticksInGame / 5) * 0.15F);

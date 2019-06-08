@@ -10,7 +10,8 @@
  */
 package vazkii.botania.api.item;
 
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Direction;
 import net.minecraftforge.items.IItemHandler;
 import vazkii.botania.api.mana.IManaReceiver;
 
@@ -28,7 +29,7 @@ public interface IAvatarTile extends IManaReceiver {
 	/**
 	 * Gets the avatar's facing.
 	 */
-	public EnumFacing getAvatarFacing();
+	public Direction getAvatarFacing();
 
 	/**
 	 * Gets the amount of ticks that have elapsed on this avatar while it's functional

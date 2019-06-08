@@ -10,9 +10,10 @@
  */
 package vazkii.botania.api.lexicon.multiblock;
 
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import vazkii.botania.api.lexicon.multiblock.component.MultiblockComponent;
 
@@ -55,7 +56,7 @@ public class Multiblock {
 	 * Constructs and adds a multiblock component to this multiblock. The x y z
 	 * coords should be pivoted to the center of the structure.
 	 */
-	public void addComponent(BlockPos pos, IBlockState state) {
+	public void addComponent(BlockPos pos, BlockState state) {
 		addComponent(new MultiblockComponent(pos, state));
 	}
 
@@ -127,19 +128,19 @@ public class Multiblock {
 	 * to render this multiblock in the world relevant to the 4 cardinal
 	 * orientations.
 	 */
-	public Map<EnumFacing, Multiblock> createRotations() {
-		Map<EnumFacing, Multiblock> ret = new EnumMap<>(EnumFacing.class);
+	public Map<Direction, Multiblock> createRotations() {
+		Map<Direction, Multiblock> ret = new EnumMap<>(Direction.class);
 
-		ret.put(EnumFacing.SOUTH, this);
+		ret.put(Direction.SOUTH, this);
 
-		ret.put(EnumFacing.WEST, ret.get(EnumFacing.SOUTH).copy());
-		ret.get(EnumFacing.WEST).rotate(Math.PI / 2);
+		ret.put(Direction.WEST, ret.get(Direction.SOUTH).copy());
+		ret.get(Direction.WEST).rotate(Math.PI / 2);
 
-		ret.put(EnumFacing.NORTH, ret.get(EnumFacing.WEST).copy());
-		ret.get(EnumFacing.NORTH).rotate(Math.PI / 2);
+		ret.put(Direction.NORTH, ret.get(Direction.WEST).copy());
+		ret.get(Direction.NORTH).rotate(Math.PI / 2);
 
-		ret.put(EnumFacing.EAST, ret.get(EnumFacing.NORTH).copy());
-		ret.get(EnumFacing.EAST).rotate(Math.PI / 2);
+		ret.put(Direction.EAST, ret.get(Direction.NORTH).copy());
+		ret.get(Direction.EAST).rotate(Math.PI / 2);
 
 		return ret;
 	}

@@ -1,11 +1,12 @@
 package vazkii.botania.common.item.equipment.tool.elementium;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockFalling;
+import net.minecraft.block.FallingBlock;
+import net.minecraft.block.FallingBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Enchantments;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.enchantment.Enchantments;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
@@ -28,7 +29,7 @@ public class ItemElementiumShovel extends ItemManasteelShovel {
 	}
 
 	@Override
-	public boolean onBlockStartBreak(ItemStack stack, BlockPos pos, EntityPlayer player) {
+	public boolean onBlockStartBreak(ItemStack stack, BlockPos pos, PlayerEntity player) {
 		World world = player.world;
 		Material mat = world.getBlockState(pos).getMaterial();
 		if (!ToolCommons.materialsShovel.contains(mat))
@@ -39,7 +40,7 @@ public class ItemElementiumShovel extends ItemManasteelShovel {
 			return false;
 
 		Block blk = world.getBlockState(pos).getBlock();
-		if(blk instanceof BlockFalling)
+		if(blk instanceof FallingBlock)
 			ToolCommons.removeBlocksInIteration(player, stack, world, pos, new Vec3i(0, -12, 0), new Vec3i(1, 12, 1),
 					state -> state.getBlock() == blk,
 					false);

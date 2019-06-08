@@ -11,30 +11,36 @@
 package vazkii.botania.common.item;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.init.MobEffects;
-import net.minecraft.init.SoundEvents;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.potion.Effects;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Hand;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.potion.PotionEffect;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextComponentString;
-import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.ServerWorld;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldServer;
+import net.minecraft.world.ServerWorld;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -72,10 +78,10 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
 		ItemStack stack = player.getHeldItem(hand);
 		int effCd = COOLDOWN;
-		PotionEffect effect = player.getActivePotionEffect(MobEffects.HASTE);
+		EffectInstance effect = player.getActivePotionEffect(Effects.HASTE);
 		if(effect != null)
 			effCd -= (effect.getAmplifier() + 1) * 8;
 
@@ -87,14 +93,14 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 			ItemStack lens = getLens(stack);
 			ItemsRemainingRenderHandler.set(lens, -2);
 			stack.setDamage(effCd);
-			return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
+			return ActionResult.newResult(ActionResultType.SUCCESS, stack);
 		} else if(stack.getDamage() == 0) {
 			EntityManaBurst burst = getBurst(player, stack, true, hand);
 			if(burst != null && ManaItemHandler.requestManaExact(stack, player, burst.getMana(), true)) {
 				if(!world.isRemote) {
 					world.playSound(null, player.posX, player.posY, player.posZ, ModSounds.manaBlaster, SoundCategory.PLAYERS, 0.6F, 1);
 					world.spawnEntity(burst);
-					UseItemSuccessTrigger.INSTANCE.trigger((EntityPlayerMP) player, stack, (WorldServer) world, player.posX, player.posY, player.posZ);
+					UseItemSuccessTrigger.INSTANCE.trigger((ServerPlayerEntity) player, stack, (ServerWorld) world, player.posX, player.posY, player.posZ);
 				} else {
 					player.swingArm(hand);
 					player.motionX -= burst.motionX * 0.1;
@@ -104,10 +110,10 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 				stack.setDamage(effCd);
 			} else if(!world.isRemote)
 				world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.BLOCK_LEVER_CLICK, SoundCategory.PLAYERS, 0.6F, (1.0F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F) * 0.7F);
-			return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
+			return ActionResult.newResult(ActionResultType.SUCCESS, stack);
 		}
 
-		return ActionResult.newResult(EnumActionResult.PASS, stack);
+		return ActionResult.newResult(ActionResultType.PASS, stack);
 	}
 
 	// ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN
@@ -140,7 +146,7 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 	}
 
 	@Nonnull
-	public BurstProperties getBurstProps(EntityPlayer player, ItemStack stack, boolean request, EnumHand hand) {
+	public BurstProperties getBurstProps(PlayerEntity player, ItemStack stack, boolean request, Hand hand) {
 		int maxMana = 120;
 		int color = 0x20FF20;
 		int ticksBeforeManaLoss = 60;
@@ -155,7 +161,7 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 		return props;
 	}
 
-	private EntityManaBurst getBurst(EntityPlayer player, ItemStack stack, boolean request, EnumHand hand) {
+	private EntityManaBurst getBurst(PlayerEntity player, ItemStack stack, boolean request, Hand hand) {
 		EntityManaBurst burst = new EntityManaBurst(player, hand);
 		BurstProperties props = getBurstProps(player, stack, request, hand);
 
@@ -178,8 +184,8 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 	@Override
 	public void addInformation(ItemStack stack, World world, List<ITextComponent> stacks, ITooltipFlag flags) {
 		boolean clip = hasClip(stack);
-		if(clip && !GuiScreen.isShiftKeyDown()) {
-			stacks.add(new TextComponentTranslation("botaniamisc.shiftinfo"));
+		if(clip && !Screen.isShiftKeyDown()) {
+			stacks.add(new TranslationTextComponent("botaniamisc.shiftinfo"));
 			return;
 		}
 
@@ -192,16 +198,16 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 
 		if(clip) {
 			int pos = getClipPos(stack);
-			stacks.add(new TextComponentTranslation("botaniamisc.hasClip"));
+			stacks.add(new TranslationTextComponent("botaniamisc.hasClip"));
 			for(int i = 0; i < CLIP_SLOTS; i++) {
 				ItemStack lensAt = getLensAtPos(stack, i);
 
 				ITextComponent name;
 				if(lensAt.isEmpty())
-					name = new TextComponentTranslation("botaniamisc.clipEmpty");
+					name = new TranslationTextComponent("botaniamisc.clipEmpty");
 				else name = lensAt.getDisplayName();
 
-				ITextComponent tip = new TextComponentString(" - ").appendSibling(name);
+				ITextComponent tip = new StringTextComponent(" - ").appendSibling(name);
 				tip.getStyle().setColor(i == pos ? TextFormatting.GREEN : TextFormatting.GRAY);
 				stacks.add(tip);
 			}
@@ -258,7 +264,7 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 	}
 
 	public static ItemStack getLensAtPos(ItemStack stack, int pos) {
-		NBTTagCompound cmp = ItemNBTHelper.getCompound(stack, TAG_LENS + pos, true);
+		CompoundNBT cmp = ItemNBTHelper.getCompound(stack, TAG_LENS + pos, true);
 		if(cmp != null) {
 			return ItemStack.read(cmp);
 		}
@@ -266,7 +272,7 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 	}
 
 	public static void setLensAtPos(ItemStack stack, ItemStack lens, int pos) {
-		NBTTagCompound cmp = new NBTTagCompound();
+		CompoundNBT cmp = new CompoundNBT();
 		if(lens != null)
 			cmp = lens.write(cmp);
 		ItemNBTHelper.setCompound(stack, TAG_LENS + pos, cmp);
@@ -276,7 +282,7 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 		if(hasClip(stack))
 			setLensAtPos(stack, lens, getClipPos(stack));
 
-		NBTTagCompound cmp = new NBTTagCompound();
+		CompoundNBT cmp = new CompoundNBT();
 		if(!lens.isEmpty())
 			cmp = lens.write(cmp);
 		ItemNBTHelper.setCompound(stack, TAG_LENS, cmp);
@@ -286,7 +292,7 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 		if(hasClip(stack))
 			return getLensAtPos(stack, getClipPos(stack));
 
-		NBTTagCompound cmp = ItemNBTHelper.getCompound(stack, TAG_LENS, true);
+		CompoundNBT cmp = ItemNBTHelper.getCompound(stack, TAG_LENS, true);
 		if(cmp != null) {
 			return ItemStack.read(cmp);
 		}

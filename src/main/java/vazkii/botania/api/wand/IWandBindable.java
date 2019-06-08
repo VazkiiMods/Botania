@@ -10,9 +10,11 @@
  */
 package vazkii.botania.api.wand;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 
 /**
@@ -25,12 +27,12 @@ public interface IWandBindable extends ITileBound {
 	/**
 	 * Return true if the Wand can select this tile.
 	 */
-	public boolean canSelect(EntityPlayer player, ItemStack wand, BlockPos pos, EnumFacing side);
+	public boolean canSelect(PlayerEntity player, ItemStack wand, BlockPos pos, Direction side);
 
 	/**
 	 * Call to bind the TileEntity to where the player clicked. Return true to deselect
 	 * the TileEntity for another bind or false case the TileEntity should stay selected.
 	 */
-	public boolean bindTo(EntityPlayer player, ItemStack wand, BlockPos pos, EnumFacing side);
+	public boolean bindTo(PlayerEntity player, ItemStack wand, BlockPos pos, Direction side);
 
 }

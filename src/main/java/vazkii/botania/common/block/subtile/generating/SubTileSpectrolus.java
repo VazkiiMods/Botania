@@ -12,18 +12,20 @@ package vazkii.botania.common.block.subtile.generating;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GlStateManager;
+import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.init.Particles;
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.DyeColor;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.particles.ItemParticleData;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.world.WorldServer;
+import net.minecraft.world.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.registries.ObjectHolder;
@@ -47,7 +49,7 @@ public class SubTileSpectrolus extends TileEntityGeneratingFlower {
 
 	private static final int RANGE = 1;
 
-	private EnumDyeColor nextColor = EnumDyeColor.WHITE;
+	private DyeColor nextColor = DyeColor.WHITE;
 
 	public SubTileSpectrolus() {
 		super(TYPE);
@@ -60,10 +62,10 @@ public class SubTileSpectrolus extends TileEntityGeneratingFlower {
 		if (getWorld().isRemote)
 			return;
 
-		List<EntityItem> items = getWorld().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(getPos().add(-RANGE, -RANGE, -RANGE), getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
+		List<ItemEntity> items = getWorld().getEntitiesWithinAABB(ItemEntity.class, new AxisAlignedBB(getPos().add(-RANGE, -RANGE, -RANGE), getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
 		int slowdown = getSlowdownFactor();
 
-		for(EntityItem item : items) {
+		for(ItemEntity item : items) {
 			ItemStack stack = item.getItem();
 
 			if(!stack.isEmpty() && item.isAlive() && item.age >= slowdown) {
@@ -71,10 +73,10 @@ public class SubTileSpectrolus extends TileEntityGeneratingFlower {
 
 				if(expected.asItem() == stack.getItem()) {
 					mana = Math.min(getMaxMana(), mana + 2400);
-					nextColor = nextColor == EnumDyeColor.BLACK ? EnumDyeColor.WHITE : EnumDyeColor.values()[nextColor.ordinal() + 1];
+					nextColor = nextColor == DyeColor.BLACK ? DyeColor.WHITE : DyeColor.values()[nextColor.ordinal() + 1];
 					sync();
 
-					((WorldServer) getWorld()).spawnParticle(new ItemParticleData(Particles.ITEM, stack), item.posX, item.posY, item.posZ, 20, 0.1D, 0.1D, 0.1D, 0.05D);
+					((ServerWorld) getWorld()).spawnParticle(new ItemParticleData(Particles.ITEM, stack), item.posX, item.posY, item.posZ, 20, 0.1D, 0.1D, 0.1D, 0.05D);
 				}
 
 				item.remove();
@@ -129,14 +131,14 @@ public class SubTileSpectrolus extends TileEntityGeneratingFlower {
 	}
 
 	@Override
-	public void writeToPacketNBT(NBTTagCompound cmp) {
+	public void writeToPacketNBT(CompoundNBT cmp) {
 		super.writeToPacketNBT(cmp);
 		cmp.putInt(TAG_NEXT_COLOR, nextColor.ordinal());
 	}
 
 	@Override
-	public void readFromPacketNBT(NBTTagCompound cmp) {
+	public void readFromPacketNBT(CompoundNBT cmp) {
 		super.readFromPacketNBT(cmp);
-		nextColor = EnumDyeColor.byId(cmp.getInt(TAG_NEXT_COLOR));
+		nextColor = DyeColor.byId(cmp.getInt(TAG_NEXT_COLOR));
 	}
 }

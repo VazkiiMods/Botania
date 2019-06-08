@@ -12,9 +12,10 @@ package vazkii.botania.common.item.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
@@ -54,11 +55,11 @@ public class ItemBlockTinyPotato extends ItemBlockMod {
 
 	@Override
 	public void inventoryTick(ItemStack stack, World world, Entity e, int t, boolean idunno) {
-		if(!world.isRemote && e instanceof EntityPlayer && e.ticksExisted % 30 == 0 && TYPOS.contains(stack.getDisplayName().getString().toLowerCase())) {
-			EntityPlayer player = (EntityPlayer) e;
+		if(!world.isRemote && e instanceof PlayerEntity && e.ticksExisted % 30 == 0 && TYPOS.contains(stack.getDisplayName().getString().toLowerCase())) {
+			PlayerEntity player = (PlayerEntity) e;
 			int ticks = ItemNBTHelper.getInt(stack, TAG_TICKS, 0);
 			if(ticks < NOT_MY_NAME.length) {
-				player.sendMessage(new TextComponentString(TextFormatting.RED + NOT_MY_NAME[ticks]));
+				player.sendMessage(new StringTextComponent(TextFormatting.RED + NOT_MY_NAME[ticks]));
 				ItemNBTHelper.setInt(stack, TAG_TICKS, ticks + 1);
 			}
 		}

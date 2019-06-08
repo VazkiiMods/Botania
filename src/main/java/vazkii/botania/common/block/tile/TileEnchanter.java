@@ -11,30 +11,27 @@
 package vazkii.botania.common.block.tile;
 
 import com.google.common.base.Predicates;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentData;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemEnchantedBook;
+import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.ITickable;
+import net.minecraft.util.Direction;
+import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.ResourceLocationException;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.registry.IRegistry;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -67,7 +64,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class TileEnchanter extends TileMod implements ISparkAttachable, ITickable {
+public class TileEnchanter extends TileMod implements ISparkAttachable, ITickableTileEntity {
 
 	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.ENCHANTER)
 	public static TileEntityType<TileEnchanter> TYPE;
@@ -100,11 +97,11 @@ public class TileEnchanter extends TileMod implements ISparkAttachable, ITickabl
 			new BlockPos(-2, -1, 0), new BlockPos(-2, -1, 1), new BlockPos(-2, -1, -1)
 	};
 
-	private static final Map<EnumFacing.Axis, BlockPos[]> PYLON_LOCATIONS = new EnumMap<>(EnumFacing.Axis.class);
+	private static final Map<Direction.Axis, BlockPos[]> PYLON_LOCATIONS = new EnumMap<>(Direction.Axis.class);
 
 	static {
-		PYLON_LOCATIONS.put(EnumFacing.Axis.X, new BlockPos[] { new BlockPos(-5, 1, 0), new BlockPos(5, 1, 0), new BlockPos(-4, 1, 3), new BlockPos(4, 1, 3), new BlockPos(-4, 1, -3 ), new BlockPos(4, 1, -3) });
-		PYLON_LOCATIONS.put(EnumFacing.Axis.Z, new BlockPos[] { new BlockPos(0, 1, -5), new BlockPos(0, 1, 5), new BlockPos(3, 1, -4), new BlockPos(3, 1, 4), new BlockPos(-3, 1, -4 ), new BlockPos(-3, 1, 4) });
+		PYLON_LOCATIONS.put(Direction.Axis.X, new BlockPos[] { new BlockPos(-5, 1, 0), new BlockPos(5, 1, 0), new BlockPos(-4, 1, 3), new BlockPos(4, 1, 3), new BlockPos(-4, 1, -3 ), new BlockPos(4, 1, -3) });
+		PYLON_LOCATIONS.put(Direction.Axis.Z, new BlockPos[] { new BlockPos(0, 1, -5), new BlockPos(0, 1, 5), new BlockPos(3, 1, -4), new BlockPos(3, 1, 4), new BlockPos(-3, 1, -4 ), new BlockPos(-3, 1, 4) });
 	}
 
 	private static final BlockPos[] FLOWER_LOCATIONS = {
@@ -116,7 +113,7 @@ public class TileEnchanter extends TileMod implements ISparkAttachable, ITickabl
 
 		for(BlockPos o : OBSIDIAN_LOCATIONS)
 			mb.addComponent(o.up(), Blocks.OBSIDIAN.getDefaultState());
-		for(BlockPos p : PYLON_LOCATIONS.get(EnumFacing.Axis.X)) {
+		for(BlockPos p : PYLON_LOCATIONS.get(Direction.Axis.X)) {
 			mb.addComponent(p.up(), ModBlocks.manaPylon.getDefaultState());
 			mb.addComponent(new FlowerComponent(p, ModBlocks.whiteFlower));
 		}
@@ -132,15 +129,15 @@ public class TileEnchanter extends TileMod implements ISparkAttachable, ITickabl
 		super(TYPE);
 	}
 
-	public void onWanded(EntityPlayer player, ItemStack wand) {
+	public void onWanded(PlayerEntity player, ItemStack wand) {
 		if(stage != State.IDLE || itemToEnchant.isEmpty() || !itemToEnchant.isEnchantable())
 			return;
 
-		List<EntityItem> items = world.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(pos.getX() - 2, pos.getY(), pos.getZ() - 2, pos.getX() + 3, pos.getY() + 1, pos.getZ() + 3));
+		List<ItemEntity> items = world.getEntitiesWithinAABB(ItemEntity.class, new AxisAlignedBB(pos.getX() - 2, pos.getY(), pos.getZ() - 2, pos.getX() + 3, pos.getY() + 1, pos.getZ() + 3));
 		int count = items.size();
 
 		if(count > 0 && !world.isRemote) {
-			for(EntityItem entity : items) {
+			for(ItemEntity entity : items) {
 				ItemStack item = entity.getItem();
 				if(item.getItem() == Items.ENCHANTED_BOOK) {
 					Map<Enchantment, Integer> enchants = EnchantmentHelper.getEnchantments(item);
@@ -158,10 +155,10 @@ public class TileEnchanter extends TileMod implements ISparkAttachable, ITickabl
 
 	private void gatherEnchants() {
 		if(!world.isRemote && stageTicks % 20 == 0) {
-			List<EntityItem> items = world.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(pos.getX() - 2, pos.getY(), pos.getZ() - 2, pos.getX() + 3, pos.getY() + 1, pos.getZ() + 3));
+			List<ItemEntity> items = world.getEntitiesWithinAABB(ItemEntity.class, new AxisAlignedBB(pos.getX() - 2, pos.getY(), pos.getZ() - 2, pos.getX() + 3, pos.getY() + 1, pos.getZ() + 3));
 			boolean addedEnch = false;
 
-			for(EntityItem entity : items) {
+			for(ItemEntity entity : items) {
 				ItemStack item = entity.getItem();
 				if(item.getItem() == Items.ENCHANTED_BOOK) {
 					Map<Enchantment, Integer> enchants = EnchantmentHelper.getEnchantments(item);
@@ -187,7 +184,7 @@ public class TileEnchanter extends TileMod implements ISparkAttachable, ITickabl
 		}
 	}
 
-	private void gatherMana(EnumFacing.Axis axis) {
+	private void gatherMana(Direction.Axis axis) {
 		if(manaRequired == -1) {
 			manaRequired = 0;
 			for(EnchantmentData data : enchants) {
@@ -227,8 +224,8 @@ public class TileEnchanter extends TileMod implements ISparkAttachable, ITickabl
 
 	@Override
 	public void tick() {
-		IBlockState state = world.getBlockState(getPos());
-		EnumFacing.Axis axis = state.get(BotaniaStateProps.ENCHANTER_DIRECTION);
+		BlockState state = world.getBlockState(getPos());
+		Direction.Axis axis = state.get(BotaniaStateProps.ENCHANTER_DIRECTION);
 
 		for(BlockPos pylon : PYLON_LOCATIONS.get(axis)) {
 			TileEntity tile = world.getTileEntity(pos.add(pylon));
@@ -353,14 +350,14 @@ public class TileEnchanter extends TileMod implements ISparkAttachable, ITickabl
 	}
 
 	@Override
-	public void writePacketNBT(NBTTagCompound cmp) {
+	public void writePacketNBT(CompoundNBT cmp) {
 		cmp.putInt(TAG_MANA, mana);
 		cmp.putInt(TAG_MANA_REQUIRED, manaRequired);
 		cmp.putInt(TAG_STAGE, stage.ordinal());
 		cmp.putInt(TAG_STAGE_TICKS, stageTicks);
 		cmp.putInt(TAG_STAGE_3_END_TICKS, stage3EndTicks);
 
-		NBTTagCompound itemCmp = new NBTTagCompound();
+		CompoundNBT itemCmp = new CompoundNBT();
 		if(!itemToEnchant.isEmpty())
 			cmp.put(TAG_ITEM, itemToEnchant.write(itemCmp));
 
@@ -371,14 +368,14 @@ public class TileEnchanter extends TileMod implements ISparkAttachable, ITickabl
 	}
 
 	@Override
-	public void readPacketNBT(NBTTagCompound cmp) {
+	public void readPacketNBT(CompoundNBT cmp) {
 		mana = cmp.getInt(TAG_MANA);
 		manaRequired = cmp.getInt(TAG_MANA_REQUIRED);
 		stage = State.values()[cmp.getInt(TAG_STAGE)];
 		stageTicks = cmp.getInt(TAG_STAGE_TICKS);
 		stage3EndTicks = cmp.getInt(TAG_STAGE_3_END_TICKS);
 
-		NBTTagCompound itemCmp = cmp.getCompound(TAG_ITEM);
+		CompoundNBT itemCmp = cmp.getCompound(TAG_ITEM);
 		itemToEnchant = ItemStack.read(itemCmp);
 
 		enchants.clear();
@@ -418,7 +415,7 @@ public class TileEnchanter extends TileMod implements ISparkAttachable, ITickabl
 		return true;
 	}
 
-	public static boolean canEnchanterExist(World world, BlockPos pos, EnumFacing.Axis axis) {
+	public static boolean canEnchanterExist(World world, BlockPos pos, Direction.Axis axis) {
 		for(BlockPos obsidian : OBSIDIAN_LOCATIONS)
 			if(world.getBlockState(pos.add(obsidian)).getBlock() != Blocks.OBSIDIAN)
 				return false;

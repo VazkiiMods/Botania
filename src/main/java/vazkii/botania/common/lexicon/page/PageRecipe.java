@@ -12,8 +12,9 @@ package vazkii.botania.common.lexicon.page;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.screen.Screen;
+import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.resources.I18n;
@@ -171,8 +172,8 @@ public class PageRecipe extends LexiconPage {
 			if(data != null && (data.entry != gui.getEntry() || data.page != gui.getPageOn()) && book != null && ((ILexicon) book.getItem()).isKnowledgeUnlocked(book, data.entry.getKnowledgeType())) {
 				tooltipEntry = true;
 
-				if(!mouseDownLastTick && mouseDown && GuiScreen.isShiftKeyDown()) {
-					GuiLexiconEntry newGui = new GuiLexiconEntry(data.entry, (GuiScreen) gui);
+				if(!mouseDownLastTick && mouseDown && Screen.isShiftKeyDown()) {
+					GuiLexiconEntry newGui = new GuiLexiconEntry(data.entry, (Screen) gui);
 					newGui.page = data.page;
 					Minecraft.getInstance().displayGuiScreen(newGui);
 				}

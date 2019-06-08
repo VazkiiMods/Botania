@@ -11,7 +11,8 @@
 package vazkii.botania.common.block.tile;
 
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.SoundCategory;
 import net.minecraftforge.registries.ObjectHolder;
@@ -36,20 +37,20 @@ public class TileCacophonium extends TileMod {
 	}
 
 	@Override
-	public void writePacketNBT(NBTTagCompound cmp) {
+	public void writePacketNBT(CompoundNBT cmp) {
 		super.writePacketNBT(cmp);
 
-		NBTTagCompound cmp1 = new NBTTagCompound();
+		CompoundNBT cmp1 = new CompoundNBT();
 		if(!stack.isEmpty())
 			cmp1 = stack.write(cmp1);
 		cmp.put(TAG_STACK, cmp1);
 	}
 
 	@Override
-	public void readPacketNBT(NBTTagCompound cmp) {
+	public void readPacketNBT(CompoundNBT cmp) {
 		super.readPacketNBT(cmp);
 
-		NBTTagCompound cmp1 = cmp.getCompound(TAG_STACK);
+		CompoundNBT cmp1 = cmp.getCompound(TAG_STACK);
 		stack = ItemStack.read(cmp1);
 	}
 

@@ -10,14 +10,17 @@
  */
 package vazkii.botania.client.gui.lexicon;
 
-import net.minecraft.client.gui.Gui;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiTextField;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.gui.AbstractGui;
+import net.minecraft.client.gui.widget.TextFieldWidget;
+import net.minecraft.client.gui.widget.button.Button;
+import net.minecraft.client.gui.widget.TextFieldWidget;
+import net.minecraft.client.gui.widget.button.Button;
+import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.init.Items;
+import net.minecraft.item.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.text.TextFormatting;
 import org.lwjgl.glfw.GLFW;
 import vazkii.botania.api.BotaniaAPI;
@@ -45,11 +48,11 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 
 	private int tutPage = -1;
 
-	private GuiButton leftButton, rightButton, backButton;
+	private Button leftButton, rightButton, backButton;
 	private GuiLexicon parent;
-	GuiTextField searchField;
+	TextFieldWidget searchField;
 
-	private GuiButton currentButton;
+	private Button currentButton;
 	private LexiconEntry currentEntry;
 	private float infoTime;
 
@@ -125,7 +128,7 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 			}
 		});
 
-		searchField = new GuiTextField(15, fontRenderer, left + guiWidth / 2 + 28, top + guiHeight + 6, 200, 10);
+		searchField = new TextFieldWidget(15, fontRenderer, left + guiWidth / 2 + 28, top + guiHeight + 6, 200, 10);
 		searchField.setCanLoseFocus(false);
 		searchField.setFocused(true);
 		searchField.setEnableBackgroundDrawing(false);
@@ -244,8 +247,8 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 			GlStateManager.pushMatrix();
 			GlStateManager.translatef(x, y, 0);
 			GlStateManager.scalef(fract, 1F, 1F);
-			Gui.drawRect(12, -30, width + 20, -2, 0x44000000);
-			Gui.drawRect(10, -32, width + 22, -2, 0x44000000);
+			AbstractGui.drawRect(12, -30, width + 20, -2, 0x44000000);
+			AbstractGui.drawRect(10, -32, width + 22, -2, 0x44000000);
 
 			drawBookmark(width / 2 + 16, -8, s, true, 0xFFFFFF, 180);
 
@@ -287,7 +290,7 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 			return;
 		}
 
-		for(GuiButton button : buttons) {
+		for(Button button : buttons) {
 			int id = button.id;
 			int index = id + page * 12;
 			if(index >= entriesToDisplay.size())
@@ -434,14 +437,14 @@ public class GuiLexiconIndex extends GuiLexicon implements IParented {
 	}
 
 	@Override
-	public void serialize(NBTTagCompound cmp) {
+	public void serialize(CompoundNBT cmp) {
 		super.serialize(cmp);
 		cmp.putString(TAG_CATEGORY, category == null ? "" : category.getUnlocalizedName());
 		cmp.putInt(TAG_PAGE, page);
 	}
 
 	@Override
-	public void load(NBTTagCompound cmp) {
+	public void load(CompoundNBT cmp) {
 		super.load(cmp);
 		String categoryStr = cmp.getString(TAG_CATEGORY);
 		if(categoryStr.isEmpty())

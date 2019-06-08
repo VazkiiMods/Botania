@@ -11,11 +11,13 @@
 package vazkii.botania.common.core.version;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.Style;
-import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -46,12 +48,12 @@ public final class VersionChecker {
 	public static void onTick(ClientTickEvent event) {
 		if(event.phase == Phase.END && Minecraft.getInstance().player != null && !triedToWarnPlayer && doneChecking) {
 			if(!onlineVersion.isEmpty()) {
-				EntityPlayer player = Minecraft.getInstance().player;
+				PlayerEntity player = Minecraft.getInstance().player;
 				int onlineBuild = Integer.parseInt(onlineVersion.split("-")[1]);
 				int clientBuild = LibMisc.BUILD.contains("GRADLE") ? Integer.MAX_VALUE : Integer.parseInt(LibMisc.BUILD);
 				if(onlineBuild > clientBuild) {
-					player.sendMessage(new TextComponentTranslation("botania.versioning.flavour" + player.world.rand.nextInt(FLAVOUR_MESSAGES)).setStyle(new Style().setColor(TextFormatting.LIGHT_PURPLE)));
-					player.sendMessage(new TextComponentTranslation("botania.versioning.outdated", clientBuild, onlineBuild));
+					player.sendMessage(new TranslationTextComponent("botania.versioning.flavour" + player.world.rand.nextInt(FLAVOUR_MESSAGES)).setStyle(new Style().setColor(TextFormatting.LIGHT_PURPLE)));
+					player.sendMessage(new TranslationTextComponent("botania.versioning.outdated", clientBuild, onlineBuild));
 
 					// todo 1.13
 					// ITextComponent component = new TextComponentTranslation("botania.versioning.updateMessage").replaceAll("%version%", onlineVersion);

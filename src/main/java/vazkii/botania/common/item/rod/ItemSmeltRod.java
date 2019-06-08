@@ -11,19 +11,25 @@
 package vazkii.botania.common.item.rod;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.SoundEvents;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.Inventory;
+import net.minecraft.item.BlockItem;
+import net.minecraft.util.Hand;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.InventoryBasic;
-import net.minecraft.item.EnumAction;
-import net.minecraft.item.ItemBlock;
+import net.minecraft.inventory.Inventory;
+import net.minecraft.item.UseAction;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.common.crafting.VanillaRecipeTypes;
@@ -45,7 +51,7 @@ public class ItemSmeltRod extends ItemMod implements IManaUsingItem {
 	private static final int COST = 300;
 	private static final int COST_PER_TICK = COST / TIME;
 
-	public static final Map<EntityPlayer, SmeltData> playerData = new WeakHashMap<>();
+	public static final Map<PlayerEntity, SmeltData> playerData = new WeakHashMap<>();
 
 	public ItemSmeltRod(Properties props) {
 		super(props);
@@ -53,8 +59,8 @@ public class ItemSmeltRod extends ItemMod implements IManaUsingItem {
 
 	@Nonnull
 	@Override
-	public EnumAction getUseAction(ItemStack par1ItemStack) {
-		return EnumAction.BOW;
+	public UseAction getUseAction(ItemStack par1ItemStack) {
+		return UseAction.BOW;
 	}
 
 	@Override
@@ -64,16 +70,16 @@ public class ItemSmeltRod extends ItemMod implements IManaUsingItem {
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
 		player.setActiveHand(hand);
-		return ActionResult.newResult(EnumActionResult.SUCCESS, player.getHeldItem(hand));
+		return ActionResult.newResult(ActionResultType.SUCCESS, player.getHeldItem(hand));
 	}
 
 	@Override
-	public void onUsingTick(ItemStack stack, EntityLivingBase living, int time) {
-		if(!(living instanceof EntityPlayer)) return;
-		EntityPlayer p = (EntityPlayer) living;
-		IInventory dummyInv = new InventoryBasic(null, 1);
+	public void onUsingTick(ItemStack stack, LivingEntity living, int time) {
+		if(!(living instanceof PlayerEntity)) return;
+		PlayerEntity p = (PlayerEntity) living;
+		IInventory dummyInv = new Inventory(null, 1);
 
 		if(!ManaItemHandler.requestManaExactForTool(stack, p, COST_PER_TICK, false))
 			return;
@@ -81,12 +87,12 @@ public class ItemSmeltRod extends ItemMod implements IManaUsingItem {
 		RayTraceResult pos = ToolCommons.raytraceFromEntity(p.world, p, false, 32);
 
 		if(pos != null && pos.getBlockPos() != null) {
-			IBlockState state = p.world.getBlockState(pos.getBlockPos());
+			BlockState state = p.world.getBlockState(pos.getBlockPos());
 
 			dummyInv.setInventorySlotContents(0, new ItemStack(state.getBlock()));
 			ItemStack result = p.world.getRecipeManager().getResult(dummyInv, p.world, VanillaRecipeTypes.SMELTING);
 
-			if(!result.isEmpty() && result.getItem() instanceof ItemBlock) {
+			if(!result.isEmpty() && result.getItem() instanceof BlockItem) {
 				boolean decremented = false;
 
 				if(playerData.containsKey(p)) {

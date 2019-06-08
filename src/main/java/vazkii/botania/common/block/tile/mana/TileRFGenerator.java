@@ -10,11 +10,13 @@
  */
 package vazkii.botania.common.block.tile.mana;
 
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.ITickable;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Direction;
+import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
@@ -29,7 +31,7 @@ import vazkii.botania.common.lib.LibMisc;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class TileRFGenerator extends TileMod implements IManaReceiver, ITickable {
+public class TileRFGenerator extends TileMod implements IManaReceiver, ITickableTileEntity {
 	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.FLUXFIELD)
 	public static TileEntityType<TileRFGenerator> TYPE;
 	private static final int MANA_TO_FE = 10;
@@ -64,7 +66,7 @@ public class TileRFGenerator extends TileMod implements IManaReceiver, ITickable
 
 	@Override
 	@Nonnull
-	public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable EnumFacing side) {
+	public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
 		if(cap == CapabilityEnergy.ENERGY) {
 			return energyCap.cast();
 		} else return super.getCapability(cap, side);
@@ -80,7 +82,7 @@ public class TileRFGenerator extends TileMod implements IManaReceiver, ITickable
 	}
 
 	private int transmitEnergy(int energy) {
-		for(EnumFacing e : EnumFacing.values()) {
+		for(Direction e : Direction.values()) {
 			BlockPos neighbor = getPos().offset(e);
 			if(!world.isBlockLoaded(neighbor))
 				continue;
@@ -130,12 +132,12 @@ public class TileRFGenerator extends TileMod implements IManaReceiver, ITickable
 	}
 
 	@Override
-	public void writePacketNBT(NBTTagCompound cmp) {
+	public void writePacketNBT(CompoundNBT cmp) {
 		cmp.putInt(TAG_MANA, energy);
 	}
 
 	@Override
-	public void readPacketNBT(NBTTagCompound cmp) {
+	public void readPacketNBT(CompoundNBT cmp) {
 		energy = cmp.getInt(TAG_MANA);
 	}
 

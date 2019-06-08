@@ -10,7 +10,8 @@
  */
 package vazkii.botania.common.item.lens;
 
-import net.minecraft.entity.projectile.EntityThrowable;
+import net.minecraft.entity.projectile.ThrowableEntity;
+import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
@@ -26,7 +27,7 @@ public class LensMagnet extends Lens {
 	private static final String TAG_MAGNETIZED_Z = "Botania:MagnetizedZ";
 
 	@Override
-	public void updateBurst(IManaBurst burst, EntityThrowable entity, ItemStack stack) {
+	public void updateBurst(IManaBurst burst, ThrowableEntity entity, ItemStack stack) {
 		BlockPos basePos = new BlockPos(entity);
 		boolean magnetized = entity.getEntityData().contains(TAG_MAGNETIZED);
 		int range = 3;

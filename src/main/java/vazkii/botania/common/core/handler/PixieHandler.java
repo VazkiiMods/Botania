@@ -1,11 +1,15 @@
 package vazkii.botania.common.core.handler;
 
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.MobEffects;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Effects;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
+import net.minecraft.potion.Effects;
+import net.minecraft.potion.Effect;
+import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
@@ -27,17 +31,17 @@ public final class PixieHandler {
 
 	private PixieHandler() {}
 
-	private static final Potion[] potions = {
-			MobEffects.BLINDNESS,
-			MobEffects.WITHER,
-			MobEffects.SLOWNESS,
-			MobEffects.WEAKNESS
+	private static final Effect[] potions = {
+			Effects.BLINDNESS,
+			Effects.WITHER,
+			Effects.SLOWNESS,
+			Effects.WEAKNESS
 	};
 
 	@SubscribeEvent
 	public static void onDamageTaken(LivingHurtEvent event) {
-		if(!event.getEntityLiving().world.isRemote && event.getEntityLiving() instanceof EntityPlayer && event.getSource().getTrueSource() instanceof EntityLivingBase) {
-			EntityPlayer player = (EntityPlayer) event.getEntityLiving();
+		if(!event.getEntityLiving().world.isRemote && event.getEntityLiving() instanceof PlayerEntity && event.getSource().getTrueSource() instanceof LivingEntity) {
+			PlayerEntity player = (PlayerEntity) event.getEntityLiving();
 			ItemStack stack = PlayerHelper.getFirstHeldItemClass(player, IPixieSpawner.class);
 
 			float chance = getChance(stack);
@@ -58,14 +62,14 @@ public final class PixieHandler {
 				pixie.setPosition(player.posX, player.posY + 2, player.posZ);
 
 				if(((ItemElementiumHelm) ModItems.elementiumHelm).hasArmorSet(player)) {
-					pixie.setApplyPotionEffect(new PotionEffect(potions[event.getEntityLiving().world.rand.nextInt(potions.length)], 40, 0));
+					pixie.setApplyPotionEffect(new EffectInstance(potions[event.getEntityLiving().world.rand.nextInt(potions.length)], 40, 0));
 				}
 
 				float dmg = 4;
 				if(!stack.isEmpty() && stack.getItem() == ModItems.elementiumSword)
 					dmg += 2;
 
-				pixie.setProps((EntityLivingBase) event.getSource().getTrueSource(), player, 0, dmg);
+				pixie.setProps((LivingEntity) event.getSource().getTrueSource(), player, 0, dmg);
 				pixie.onInitialSpawn(player.world.getDifficultyForLocation(new BlockPos(pixie)), null, null);
 				player.world.spawnEntity(pixie);
 			}

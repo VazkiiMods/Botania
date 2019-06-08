@@ -11,13 +11,15 @@
 package vazkii.botania.client.core.handler;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockRendererDispatcher;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
+import com.mojang.blaze3d.platform.GlStateManager;
+import net.minecraft.client.renderer.texture.AtlasTexture;
+import net.minecraft.client.renderer.texture.AtlasTexture;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.block.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -39,8 +41,8 @@ public final class AstrolabePreviewHandler {
 	@SubscribeEvent
 	public static void onWorldRenderLast(RenderWorldLastEvent event) {
 		World world = Minecraft.getInstance().world;
-		List<EntityPlayer> playerEntities = world.playerEntities;
-		for (EntityPlayer player : playerEntities) {
+		List<PlayerEntity> playerEntities = world.playerEntities;
+		for (PlayerEntity player : playerEntities) {
 			ItemStack currentStack = player.getHeldItemMainhand();
 			if(currentStack.isEmpty() || !(currentStack.getItem() instanceof ItemAstrolabe))
 				currentStack = player.getHeldItemOffhand();
@@ -53,10 +55,10 @@ public final class AstrolabePreviewHandler {
 		}
 	}
 
-	private static void renderPlayerLook(EntityPlayer player, ItemStack stack) {
+	private static void renderPlayerLook(PlayerEntity player, ItemStack stack) {
 		List<BlockPos> coords = ItemAstrolabe.getBlocksToPlace(stack, player);
 		if (ItemAstrolabe.hasBlocks(stack, player, coords)) {
-			IBlockState state = ItemAstrolabe.getBlockState(stack);
+			BlockState state = ItemAstrolabe.getBlockState(stack);
 
 			GL11.glPushMatrix();
 			GL11.glEnable(GL11.GL_BLEND);
@@ -75,7 +77,7 @@ public final class AstrolabePreviewHandler {
 		}
 	}
 
-	private static void renderBlockAt(IBlockState state, BlockPos pos) {
+	private static void renderBlockAt(BlockState state, BlockPos pos) {
 		double renderPosX = Minecraft.getInstance().getRenderManager().renderPosX;
 		double renderPosY = Minecraft.getInstance().getRenderManager().renderPosY;
 		double renderPosZ = Minecraft.getInstance().getRenderManager().renderPosZ;
@@ -88,7 +90,7 @@ public final class AstrolabePreviewHandler {
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
-		Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+		Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
 		BlockRendererDispatcher brd = Minecraft.getInstance().getBlockRendererDispatcher();
 		GlStateManager.translatef(pos.getX(), pos.getY(), pos.getZ() + 1);
 		GlStateManager.color4f(1, 1, 1, 1);

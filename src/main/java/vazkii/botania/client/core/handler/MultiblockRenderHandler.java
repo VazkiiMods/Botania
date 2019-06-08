@@ -10,20 +10,24 @@
  */
 package vazkii.botania.client.core.handler;
 
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockRendererDispatcher;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.entity.player.EntityPlayer;
+import com.mojang.blaze3d.platform.GlStateManager;
+import net.minecraft.client.renderer.texture.AtlasTexture;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.Style;
-import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
@@ -52,12 +56,12 @@ public final class MultiblockRenderHandler {
 	public static boolean rendering = false;
 	public static MultiblockSet currentMultiblock;
 	public static BlockPos anchor;
-	public static EnumFacing angle;
+	public static Direction angle;
 
 	public static void setMultiblock(MultiblockSet set) {
 		currentMultiblock = set;
 		anchor = null;
-		angle = EnumFacing.SOUTH;
+		angle = Direction.SOUTH;
 
 		Minecraft mc = Minecraft.getInstance();
 		if(mc.world != null)
@@ -78,11 +82,11 @@ public final class MultiblockRenderHandler {
 			anchor = event.getPos();
 			angle = event.getEntityPlayer().getHorizontalFacing();
 			event.setCanceled(true);
-			event.setCancellationResult(EnumActionResult.SUCCESS);
+			event.setCancellationResult(ActionResultType.SUCCESS);
 		}
 	}
 
-	private static void renderPlayerLook(EntityPlayer player, RayTraceResult src) {
+	private static void renderPlayerLook(PlayerEntity player, RayTraceResult src) {
 		if(currentMultiblock != null && dimension == player.world.getDimension().getType()) {
 			BlockPos anchorPos = anchor != null ? anchor : src.getBlockPos();
 
@@ -115,7 +119,7 @@ public final class MultiblockRenderHandler {
 
 			if(!didAny) {
 				setMultiblock(null);
-				player.sendMessage(new TextComponentTranslation("botaniamisc.structureComplete").setStyle(new Style().setColor(TextFormatting.GREEN)));
+				player.sendMessage(new TranslationTextComponent("botaniamisc.structureComplete").setStyle(new Style().setColor(TextFormatting.GREEN)));
 			}
 		}
 	}
@@ -151,8 +155,8 @@ public final class MultiblockRenderHandler {
 		GlStateManager.pushMatrix();
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		IBlockState state = comp.getBlockState();
-		Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+		BlockState state = comp.getBlockState();
+		Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
 		if(state == null)
 			return;
 		if(IMultiblockRenderHook.renderHooks.containsKey(state.getBlock())) {

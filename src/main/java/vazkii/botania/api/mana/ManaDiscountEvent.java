@@ -10,17 +10,18 @@
  */
 package vazkii.botania.api.mana;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.eventbus.api.Event;
 
 public class ManaDiscountEvent extends Event {
 
-	private final EntityPlayer entityPlayer;
+	private final PlayerEntity entityPlayer;
 	private float discount;
 	private ItemStack tool;
 	
-	public ManaDiscountEvent(EntityPlayer entityPlayer, float discount, ItemStack tool) {
+	public ManaDiscountEvent(PlayerEntity entityPlayer, float discount, ItemStack tool) {
 		this.entityPlayer = entityPlayer;
 		this.discount = discount;
 		this.tool = tool;
@@ -30,7 +31,7 @@ public class ManaDiscountEvent extends Event {
 		return tool;
 	}
 
-	public EntityPlayer getEntityPlayer() {
+	public PlayerEntity getEntityPlayer() {
 		return entityPlayer;
 	}
 

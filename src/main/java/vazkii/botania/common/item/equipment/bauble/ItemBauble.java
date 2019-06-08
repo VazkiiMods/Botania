@@ -10,21 +10,24 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
-import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -61,9 +64,9 @@ public abstract class ItemBauble extends ItemMod implements ICosmeticAttachable,
 	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void addInformation(ItemStack par1ItemStack, World world, List<ITextComponent> stacks, ITooltipFlag flags) {
-		if(GuiScreen.isShiftKeyDown())
+		if(Screen.isShiftKeyDown())
 			addHiddenTooltip(par1ItemStack, world, stacks, flags);
-		else stacks.add(new TextComponentTranslation("botaniamisc.shiftinfo"));
+		else stacks.add(new TranslationTextComponent("botaniamisc.shiftinfo"));
 	}
 
 	@OnlyIn(Dist.CLIENT)
@@ -71,19 +74,19 @@ public abstract class ItemBauble extends ItemMod implements ICosmeticAttachable,
 		String key = vazkii.botania.client.core.helper.RenderHelper.getKeyDisplayString("key.curios.open.desc");
 
 		if(key != null)
-			stacks.add(new TextComponentTranslation("botania.baubletooltip", key));
+			stacks.add(new TranslationTextComponent("botania.baubletooltip", key));
 
 		ItemStack cosmetic = getCosmeticItem(par1ItemStack);
 		if(!cosmetic.isEmpty())
-			stacks.add(new TextComponentTranslation("botaniamisc.hasCosmetic", cosmetic.getDisplayName()));
+			stacks.add(new TranslationTextComponent("botaniamisc.hasCosmetic", cosmetic.getDisplayName()));
 
 		if(hasPhantomInk(par1ItemStack))
-			stacks.add(new TextComponentTranslation("botaniamisc.hasPhantomInk"));
+			stacks.add(new TranslationTextComponent("botaniamisc.hasPhantomInk"));
 	}
 
 	@Override
 	public ItemStack getCosmeticItem(ItemStack stack) {
-		NBTTagCompound cmp = ItemNBTHelper.getCompound(stack, TAG_COSMETIC_ITEM, true);
+		CompoundNBT cmp = ItemNBTHelper.getCompound(stack, TAG_COSMETIC_ITEM, true);
 		if(cmp == null)
 			return ItemStack.EMPTY;
 		return ItemStack.read(cmp);
@@ -91,7 +94,7 @@ public abstract class ItemBauble extends ItemMod implements ICosmeticAttachable,
 
 	@Override
 	public void setCosmeticItem(ItemStack stack, ItemStack cosmetic) {
-		NBTTagCompound cmp = new NBTTagCompound();
+		CompoundNBT cmp = new CompoundNBT();
 		if(!cosmetic.isEmpty())
 			cmp = cosmetic.write(cmp);
 		ItemNBTHelper.setCompound(stack, TAG_COSMETIC_ITEM, cmp);

@@ -28,7 +28,7 @@ archivesBaseName = config.mod_name
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
 
 minecraft {
-    mappings channel: 'snapshot', version: '20190313-1.13.2'
+    mappings channel: 'snapshot', version: '20190607-1.14.2'
     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
     runs {
         client {
@@ -58,10 +58,6 @@ minecraft {
     // replaceIn 'LibMisc.java' //I may have missed another file, though I can only find it in here.
 }
 
-dependencies {
-    minecraft 'net.minecraftforge:forge:1.13.2-25.0.209'
-}
-
 repositories {
     mavenCentral()
     maven {
@@ -84,17 +80,32 @@ repositories {
     }
 }
 
-if (System.getenv().BUILD_NUMBER != null) { 
-    //adds the build number to the end of the version string if on a build server
-    version += ".${System.getenv().BUILD_NUMBER}"
-}
-
 //This here is for SCP
 configurations {
     sshAntTask
 }
-
 //End of the SCP config
+
+dependencies {
+    minecraft 'net.minecraftforge:forge:1.14.2-26.0.5'
+
+    //deobfCompile "com.mod-buildcraft:buildcraft-api:7.99.17"
+    //deobfCompile "com.azanor.baubles:Baubles:1.12-1.5.2"
+    //compileOnly fg.deobf("mezz.jei:jei-1.13.2:5.0.0.20:api")
+    // runtimeOnly fg.deobf("mezz.jei:jei-1.13.2:5.0.0.20")
+    
+    //compileOnly fg.deobf("top.theillusivec4.curios:curios:1.13.2-0.11:api")
+    //runtimeOnly fg.deobf("top.theillusivec4.curios:curios:1.13.2-0.11")
+    //deobfCompile "thaumcraft:Thaumcraft:1.12.2:6.1.BETA26"
+
+    //and a bit more for SCP
+    sshAntTask "org.apache.ant:ant-jsch:1.7.1", "jsch:jsch:0.1.29"
+}
+
+if (System.getenv().BUILD_NUMBER != null) { 
+    //adds the build number to the end of the version string if on a build server
+    version += ".${System.getenv().BUILD_NUMBER}"
+}
 
 jar {
     manifest {
@@ -113,20 +124,6 @@ jar {
     exclude "**/*.bat"
     exclude "**/*.psd"
     exclude "**/*.exe"
-}
-
-dependencies {
-    //deobfCompile "com.mod-buildcraft:buildcraft-api:7.99.17"
-    //deobfCompile "com.azanor.baubles:Baubles:1.12-1.5.2"
-    compileOnly fg.deobf("mezz.jei:jei-1.13.2:5.0.0.20:api")
-    runtimeOnly fg.deobf("mezz.jei:jei-1.13.2:5.0.0.20")
-    
-    compileOnly fg.deobf("top.theillusivec4.curios:curios:1.13.2-0.11:api")
-    runtimeOnly fg.deobf("top.theillusivec4.curios:curios:1.13.2-0.11")
-    //deobfCompile "thaumcraft:Thaumcraft:1.12.2:6.1.BETA26"
-
-    //and a bit more for SCP
-    sshAntTask "org.apache.ant:ant-jsch:1.7.1", "jsch:jsch:0.1.29"
 }
 
 task deobfJar(type: Jar) {

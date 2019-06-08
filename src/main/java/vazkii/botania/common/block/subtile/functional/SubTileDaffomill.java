@@ -10,15 +10,21 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -45,7 +51,7 @@ public class SubTileDaffomill extends TileEntityFunctionalFlower {
 	private static final String TAG_WIND_TICKS = "windTicks";
 
 	private int windTicks = 0;
-	private EnumFacing orientation = EnumFacing.NORTH;
+	private Direction orientation = Direction.NORTH;
 
 	public SubTileDaffomill() {
 		super(TYPE);
@@ -67,9 +73,9 @@ public class SubTileDaffomill extends TileEntityFunctionalFlower {
 			AxisAlignedBB axis = aabbForOrientation();
 
 			if(axis != null) {
-				List<EntityItem> items = getWorld().getEntitiesWithinAABB(EntityItem.class, axis);
+				List<ItemEntity> items = getWorld().getEntitiesWithinAABB(ItemEntity.class, axis);
 				int slowdown = getSlowdownFactor();
-				for(EntityItem item : items) {
+				for(ItemEntity item : items) {
 					if(item.isAlive() && item.age >= slowdown) {
 						item.motionX += orientation.getXOffset() * 0.05;
 						item.motionY += orientation.getYOffset() * 0.05;
@@ -114,7 +120,7 @@ public class SubTileDaffomill extends TileEntityFunctionalFlower {
 	}
 
 	@Override
-	public boolean onWanded(EntityPlayer player, ItemStack wand) {
+	public boolean onWanded(PlayerEntity player, ItemStack wand) {
 		if(player == null)
 			return false;
 
@@ -129,7 +135,7 @@ public class SubTileDaffomill extends TileEntityFunctionalFlower {
 	}
 	
 	@Override
-	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase entity, ItemStack stack) {
+	public void onBlockPlacedBy(World world, BlockPos pos, BlockState state, LivingEntity entity, ItemStack stack) {
 		if(entity != null)
 			orientation = entity.getHorizontalFacing();
 		super.onBlockPlacedBy(world, pos, state, entity, stack);
@@ -158,7 +164,7 @@ public class SubTileDaffomill extends TileEntityFunctionalFlower {
 	}
 
 	@Override
-	public void writeToPacketNBT(NBTTagCompound cmp) {
+	public void writeToPacketNBT(CompoundNBT cmp) {
 		super.writeToPacketNBT(cmp);
 
 		cmp.putInt(TAG_ORIENTATION, orientation.getIndex());
@@ -166,20 +172,20 @@ public class SubTileDaffomill extends TileEntityFunctionalFlower {
 	}
 
 	@Override
-	public void readFromPacketNBT(NBTTagCompound cmp) {
+	public void readFromPacketNBT(CompoundNBT cmp) {
 		super.readFromPacketNBT(cmp);
 
-		orientation = EnumFacing.byIndex(cmp.getInt(TAG_ORIENTATION));
+		orientation = Direction.byIndex(cmp.getInt(TAG_ORIENTATION));
 		windTicks = cmp.getInt(TAG_WIND_TICKS);
 	}
 
 	// Send item age to client to prevent client desync when an item is e.g. dropped by a powered open crate
 	@SubscribeEvent
 	public static void onItemTrack(PlayerEvent.StartTracking evt) {
-		if(evt.getTarget() instanceof EntityItem) {
+		if(evt.getTarget() instanceof ItemEntity) {
 			int entityId = evt.getTarget().getEntityId();
-			int age = ((EntityItem) evt.getTarget()).age;
-			PacketHandler.sendTo((EntityPlayerMP) evt.getEntityPlayer(), new PacketItemAge(entityId, age));
+			int age = ((ItemEntity) evt.getTarget()).age;
+			PacketHandler.sendTo((ServerPlayerEntity) evt.getEntityPlayer(), new PacketItemAge(entityId, age));
 		}
 	}
 }

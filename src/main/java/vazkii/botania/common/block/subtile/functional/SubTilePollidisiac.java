@@ -10,8 +10,10 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.passive.EntityAnimal;
+import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.passive.AnimalEntity;
+import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -42,16 +44,16 @@ public class SubTilePollidisiac extends TileEntityFunctionalFlower {
 		if(!getWorld().isRemote) {
 			int manaCost = 12;
 
-			List<EntityItem> items = getWorld().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(getPos().add(-RANGE, -RANGE, -RANGE), getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
-			List<EntityAnimal> animals = getWorld().getEntitiesWithinAABB(EntityAnimal.class, new AxisAlignedBB(getPos().add(-RANGE, -RANGE, -RANGE), getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
+			List<ItemEntity> items = getWorld().getEntitiesWithinAABB(ItemEntity.class, new AxisAlignedBB(getPos().add(-RANGE, -RANGE, -RANGE), getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
+			List<AnimalEntity> animals = getWorld().getEntitiesWithinAABB(AnimalEntity.class, new AxisAlignedBB(getPos().add(-RANGE, -RANGE, -RANGE), getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
 			int slowdown = getSlowdownFactor();
 
-			for(EntityAnimal animal : animals) {
+			for(AnimalEntity animal : animals) {
 				if(mana < manaCost)
 					break;
 
 				if(animal.getGrowingAge() == 0 && !animal.isInLove()) {
-					for(EntityItem item : items) {
+					for(ItemEntity item : items) {
 						if(item.age < 60 + slowdown || !item.isAlive())
 							continue;
 

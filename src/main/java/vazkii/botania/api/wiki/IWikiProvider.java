@@ -10,7 +10,8 @@
  */
 package vazkii.botania.api.wiki;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
@@ -24,16 +25,16 @@ public interface IWikiProvider {
 	/**
 	 * Gets the name of the block being looked at for display.
 	 */
-	public String getBlockName(World world, RayTraceResult pos, EntityPlayer player);
+	public String getBlockName(World world, RayTraceResult pos, PlayerEntity player);
 
 	/**
 	 * Gets the URL to open when the block is clicked.
 	 */
-	public String getWikiURL(World world, RayTraceResult pos, EntityPlayer player);
+	public String getWikiURL(World world, RayTraceResult pos, PlayerEntity player);
 
 	/**
 	 * Gets the name of the wiki for display.
 	 */
-	public String getWikiName(World world, RayTraceResult pos, EntityPlayer player);
+	public String getWikiName(World world, RayTraceResult pos, PlayerEntity player);
 
 }

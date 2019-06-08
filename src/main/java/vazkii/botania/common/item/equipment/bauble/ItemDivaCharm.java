@@ -13,15 +13,19 @@ package vazkii.botania.common.item.equipment.bauble;
 import com.google.common.base.Predicates;
 import com.google.common.util.concurrent.ListenableFutureTask;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GlStateManager;
+import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
-import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.client.renderer.texture.AtlasTexture;
+import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.monster.EntityCreeper;
+import net.minecraft.entity.MobEntity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.MobEntity;
+import net.minecraft.entity.monster.CreeperEntity;
+import net.minecraft.entity.monster.CreeperEntity;
 import net.minecraft.entity.monster.IMob;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.SoundCategory;
@@ -54,10 +58,10 @@ public class ItemDivaCharm extends ItemBauble implements IManaUsingItem {
 	}
 
 	private void onEntityDamaged(LivingHurtEvent event) {
-		if (event.getSource().getImmediateSource() instanceof EntityPlayer && event.getEntityLiving() instanceof EntityLiving && !event.getEntityLiving().world.isRemote && Math.random() < 0.6F) {
+		if (event.getSource().getImmediateSource() instanceof PlayerEntity && event.getEntityLiving() instanceof MobEntity && !event.getEntityLiving().world.isRemote && Math.random() < 0.6F) {
 			Runnable lambda = () -> {
-				EntityLiving target = (EntityLiving) event.getEntityLiving();
-				EntityPlayer player = (EntityPlayer) event.getSource().getImmediateSource();
+				MobEntity target = (MobEntity) event.getEntityLiving();
+				PlayerEntity player = (PlayerEntity) event.getSource().getImmediateSource();
 				ItemStack amulet = Botania.curiosLoaded ? CurioIntegration.findOrEmpty(ModItems.divaCharm, player) : ItemStack.EMPTY;
 
 				if(!amulet.isEmpty()) {
@@ -70,8 +74,8 @@ public class ItemDivaCharm extends ItemBauble implements IManaUsingItem {
 							if(SubTileHeiseiDream.brainwashEntity(target, (List<IMob>) mobs)) {
 								target.heal(target.getMaxHealth());
 								target.revive();
-								if(target instanceof EntityCreeper)
-									((EntityCreeper) event.getEntityLiving()).timeSinceIgnited = 2;
+								if(target instanceof CreeperEntity)
+									((CreeperEntity) event.getEntityLiving()).timeSinceIgnited = 2;
 
 								ManaItemHandler.requestManaExact(amulet, player, cost, true);
 								player.world.playSound(null, player.posX, player.posY, player.posZ, ModSounds.divaCharm, SoundCategory.PLAYERS, 1F, 1F);
@@ -103,9 +107,9 @@ public class ItemDivaCharm extends ItemBauble implements IManaUsingItem {
 
 		@Override
 		@OnlyIn(Dist.CLIENT)
-		public void doRender(String identifier, EntityLivingBase player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+		public void doRender(String identifier, LivingEntity player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 			AccessoryRenderHelper.translateToHeadLevel(player);
-			Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+			Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
 			GlStateManager.scaled(0.8, 0.8, 0.8);
 			GlStateManager.rotatef(-90, 0, 1, 0);
 			GlStateManager.rotatef(180, 1, 0, 0);

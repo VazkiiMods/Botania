@@ -10,7 +10,8 @@
  */
 package vazkii.botania.api.mana;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.eventbus.api.Event;
 
@@ -18,15 +19,15 @@ import java.util.List;
 
 public class ManaItemsEvent extends Event {
 
-	private final EntityPlayer entityPlayer;
+	private final PlayerEntity entityPlayer;
 	private List<ItemStack> items;
 
-	public ManaItemsEvent(EntityPlayer entityPlayer, List<ItemStack> items) {
+	public ManaItemsEvent(PlayerEntity entityPlayer, List<ItemStack> items) {
 		this.entityPlayer = entityPlayer;
 		this.items = items;
 	}
 
-	public EntityPlayer getEntityPlayer() {
+	public PlayerEntity getEntityPlayer() {
 		return entityPlayer;
 	}
 

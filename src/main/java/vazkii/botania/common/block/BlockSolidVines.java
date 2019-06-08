@@ -10,11 +10,14 @@
  */
 package vazkii.botania.common.block;
 
-import net.minecraft.block.BlockVine;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.VineBlock;
 import net.minecraft.block.SoundType;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.block.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -32,14 +35,14 @@ import vazkii.botania.common.lib.LibMisc;
 import javax.annotation.Nonnull;
 import java.util.Random;
 
-public class BlockSolidVines extends BlockVine implements ILexiconable {
+public class BlockSolidVines extends VineBlock implements ILexiconable {
 
 	public BlockSolidVines(Properties builder) {
 		super(builder);
 	}
 
 	@Override
-	public void tick(@Nonnull IBlockState state, World world, @Nonnull BlockPos pos, @Nonnull Random rand) {}
+	public void tick(@Nonnull BlockState state, World world, @Nonnull BlockPos pos, @Nonnull Random rand) {}
 
 	@Override
 	public boolean isShearable(ItemStack item, IWorldReader world, BlockPos pos) {
@@ -48,12 +51,12 @@ public class BlockSolidVines extends BlockVine implements ILexiconable {
 
 	@Nonnull
 	@Override
-	public ItemStack getPickBlock(@Nonnull IBlockState state, RayTraceResult target, @Nonnull IBlockReader world, @Nonnull BlockPos pos, EntityPlayer player) {
+	public ItemStack getPickBlock(@Nonnull BlockState state, RayTraceResult target, @Nonnull IBlockReader world, @Nonnull BlockPos pos, PlayerEntity player) {
 		return new ItemStack(Blocks.VINE);
 	}
 
 	@Override
-	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
+	public LexiconEntry getEntry(World world, BlockPos pos, PlayerEntity player, ItemStack lexicon) {
 		return LexiconData.vineBall;
 	}
 }

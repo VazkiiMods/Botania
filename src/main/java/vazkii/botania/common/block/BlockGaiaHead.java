@@ -10,15 +10,16 @@
  */
 package vazkii.botania.common.block;
 
-import net.minecraft.block.BlockSkull;
+import net.minecraft.block.SkullBlock;
+import net.minecraft.block.SkullBlock;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockReader;
 import vazkii.botania.common.block.tile.TileGaiaHead;
 
 import javax.annotation.Nonnull;
 
-public class BlockGaiaHead extends BlockSkull {
-	public static final BlockSkull.ISkullType GAIA_TYPE = new BlockSkull.ISkullType() {};
+public class BlockGaiaHead extends SkullBlock {
+	public static final SkullBlock.ISkullType GAIA_TYPE = new SkullBlock.ISkullType() {};
 
 	public BlockGaiaHead(Properties builder) {
 		super(GAIA_TYPE, builder);

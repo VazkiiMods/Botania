@@ -10,7 +10,8 @@
  */
 package vazkii.botania.common.brew.potion;
 
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.LivingEntity;
 
 import javax.annotation.Nonnull;
 
@@ -27,7 +28,7 @@ public class PotionFeatherfeet extends PotionMod {
 	}
 
 	@Override
-	public void performEffect(@Nonnull EntityLivingBase living, int amplified) {
+	public void performEffect(@Nonnull LivingEntity living, int amplified) {
 		if(living.fallDistance > 2.5F)
 			living.fallDistance = 2.5F;
 	}

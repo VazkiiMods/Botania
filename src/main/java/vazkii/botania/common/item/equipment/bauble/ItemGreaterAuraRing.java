@@ -10,8 +10,8 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.api.mana.IManaGivingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
@@ -29,9 +29,9 @@ public class ItemGreaterAuraRing extends ItemBauble implements IManaGivingItem {
 		}
 
 		@Override
-		public void onCurioTick(String identifier, EntityLivingBase player) {
-			if(player instanceof EntityPlayer && player.ticksExisted % 2 == 0)
-				ManaItemHandler.dispatchManaExact(stack, (EntityPlayer) player, 1, true);
+		public void onCurioTick(String identifier, LivingEntity player) {
+			if(player instanceof PlayerEntity && player.ticksExisted % 2 == 0)
+				ManaItemHandler.dispatchManaExact(stack, (PlayerEntity) player, 1, true);
 		}
 	}
 }

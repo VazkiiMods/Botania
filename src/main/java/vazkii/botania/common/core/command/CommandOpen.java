@@ -16,9 +16,10 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
-import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.TranslationTextComponent;
 import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.item.ItemLexicon;
 
@@ -33,14 +34,14 @@ public class CommandOpen {
 	}
 
 	private static int run(CommandContext<CommandSource> ctx) throws CommandSyntaxException {
-		EntityPlayerMP player = ctx.getSource().asPlayer();
+		ServerPlayerEntity player = ctx.getSource().asPlayer();
 		ItemStack stack = PlayerHelper.getFirstHeldItemClass(player, ItemLexicon.class);
 		if(!stack.isEmpty()) {
 			ItemLexicon.setForcedPage(stack, StringArgumentType.getString(ctx, "entry"));
 			ItemLexicon.setQueueTicks(stack, 5);
 			return 1;
 		} else {
-			ctx.getSource().sendErrorMessage(new TextComponentTranslation("botaniamisc.noLexicon"));
+			ctx.getSource().sendErrorMessage(new TranslationTextComponent("botaniamisc.noLexicon"));
 			return 0;
 		}
 	}

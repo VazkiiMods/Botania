@@ -10,9 +10,10 @@
  */
 package vazkii.botania.client.render.entity;
 
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.client.renderer.entity.RenderMinecart;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.BlockState;
+import net.minecraft.client.renderer.entity.EntityRendererManager;
+import net.minecraft.client.renderer.entity.MinecartRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.render.tile.RenderTilePool;
@@ -22,14 +23,14 @@ import vazkii.botania.common.entity.EntityPoolMinecart;
 
 import javax.annotation.Nonnull;
 
-public class RenderPoolMinecart extends RenderMinecart<EntityPoolMinecart> {
+public class RenderPoolMinecart extends MinecartRenderer<EntityPoolMinecart> {
 
-	public RenderPoolMinecart(RenderManager manager) {
+	public RenderPoolMinecart(EntityRendererManager manager) {
 		super(manager);
 	}
 
 	@Override
-	protected void renderCartContents(EntityPoolMinecart poolCart, float partialTicks, @Nonnull IBlockState state) {
+	protected void renderCartContents(EntityPoolMinecart poolCart, float partialTicks, @Nonnull BlockState state) {
 		RenderTilePool.forceVariant = BlockPool.Variant.DEFAULT;
 		RenderTilePool.forceManaNumber = poolCart.getMana();
 		TileEntityRendererDispatcher.instance.getRenderer(TilePool.class).render(null, poolCart.posX, poolCart.posY, poolCart.posZ, ClientTickHandler.partialTicks, -1);

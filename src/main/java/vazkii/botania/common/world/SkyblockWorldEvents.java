@@ -12,18 +12,24 @@ package vazkii.botania.common.world;
 
 import com.google.common.collect.ImmutableSet;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.block.Blocks;
+import net.minecraft.item.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.item.Items;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.Tag;
-import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
@@ -58,13 +64,13 @@ public final class SkyblockWorldEvents {
 
 	@SubscribeEvent
 	public static void onPlayerUpdate(LivingUpdateEvent event) {
-		if(event.getEntityLiving() instanceof EntityPlayer && !event.getEntityLiving().world.isRemote) {
-			EntityPlayer player = (EntityPlayer) event.getEntityLiving();
-			NBTTagCompound data = player.getEntityData();
-			if(!data.contains(EntityPlayer.PERSISTED_NBT_TAG))
-				data.put(EntityPlayer.PERSISTED_NBT_TAG, new NBTTagCompound());
+		if(event.getEntityLiving() instanceof PlayerEntity && !event.getEntityLiving().world.isRemote) {
+			PlayerEntity player = (PlayerEntity) event.getEntityLiving();
+			CompoundNBT data = player.getEntityData();
+			if(!data.contains(PlayerEntity.PERSISTED_NBT_TAG))
+				data.put(PlayerEntity.PERSISTED_NBT_TAG, new CompoundNBT());
 
-			NBTTagCompound persist = data.getCompound(EntityPlayer.PERSISTED_NBT_TAG);
+			CompoundNBT persist = data.getCompound(PlayerEntity.PERSISTED_NBT_TAG);
 			if(player.ticksExisted > 3 && !persist.getBoolean(TAG_MADE_ISLAND)) {
 				World overworld = ServerLifecycleHooks.getCurrentServer().getWorld(DimensionType.OVERWORLD);
 				World world = player.world;
@@ -85,9 +91,9 @@ public final class SkyblockWorldEvents {
 		if(Botania.gardenOfGlassLoaded) {
 			ItemStack equipped = event.getItemStack();
 			if(equipped.isEmpty() && event.getEntityPlayer().isSneaking()) {
-				IBlockState state = event.getWorld().getBlockState(event.getPos());
+				BlockState state = event.getWorld().getBlockState(event.getPos());
 				Block block = state.getBlock();
-				EntityPlayer player = event.getEntityPlayer();
+				PlayerEntity player = event.getEntityPlayer();
 
 				if(PEBBLE_SOURCES.contains(block)) {
 					SoundType st = state.getSoundType(event.getWorld(), event.getPos(), player);
@@ -99,12 +105,12 @@ public final class SkyblockWorldEvents {
 						event.getEntityPlayer().dropItem(new ItemStack(ModItems.pebble), false);
 
 					event.setCanceled(true);
-					event.setCancellationResult(EnumActionResult.SUCCESS);
+					event.setCancellationResult(ActionResultType.SUCCESS);
 				}
 			} else if(!equipped.isEmpty() && equipped.getItem() == Items.BOWL) {
 				RayTraceResult rtr = ToolCommons.raytraceFromEntity(event.getWorld(), event.getEntityPlayer(), true, 4.5F);
 				if(rtr != null) {
-					if (rtr.type == net.minecraft.util.math.RayTraceResult.Type.BLOCK) {
+					if (rtr.type == RayTraceResult.Type.BLOCK) {
 						if(event.getWorld().getBlockState(rtr.getBlockPos()).getMaterial() == Material.WATER) {
 							if(!event.getWorld().isRemote) {
 								equipped.shrink(1);
@@ -115,7 +121,7 @@ public final class SkyblockWorldEvents {
 							}
 
 							event.setCanceled(true);
-							event.setCancellationResult(EnumActionResult.SUCCESS);
+							event.setCancellationResult(ActionResultType.SUCCESS);
 						}
 					}
 				}
@@ -140,19 +146,19 @@ public final class SkyblockWorldEvents {
 		}
 	}
 
-	public static void spawnPlayer(EntityPlayer player, BlockPos pos, boolean fabricated) {
-		NBTTagCompound data = player.getEntityData();
-		if(!data.contains(EntityPlayer.PERSISTED_NBT_TAG))
-			data.put(EntityPlayer.PERSISTED_NBT_TAG, new NBTTagCompound());
-		NBTTagCompound persist = data.getCompound(EntityPlayer.PERSISTED_NBT_TAG);
+	public static void spawnPlayer(PlayerEntity player, BlockPos pos, boolean fabricated) {
+		CompoundNBT data = player.getEntityData();
+		if(!data.contains(PlayerEntity.PERSISTED_NBT_TAG))
+			data.put(PlayerEntity.PERSISTED_NBT_TAG, new CompoundNBT());
+		CompoundNBT persist = data.getCompound(PlayerEntity.PERSISTED_NBT_TAG);
 
 		final boolean test = false;
 
 		if(test || !persist.getBoolean(TAG_HAS_OWN_ISLAND)) {
 			createSkyblock(player.world, pos);
 
-			if(player instanceof EntityPlayerMP) {
-				EntityPlayerMP pmp = (EntityPlayerMP) player;
+			if(player instanceof ServerPlayerEntity) {
+				ServerPlayerEntity pmp = (ServerPlayerEntity) player;
 				pmp.setPositionAndUpdate(pos.getX() + 0.5, pos.getY() + 1.6, pos.getZ() + 0.5);
 				pmp.setSpawnPoint(pos, true, player.world.getDimension().getType());
 				player.inventory.addItemStackToInventory(new ItemStack(ModItems.lexicon));
@@ -169,8 +175,8 @@ public final class SkyblockWorldEvents {
 			double posY = persist.getDouble(TAG_ISLAND_Y);
 			double posZ = persist.getDouble(TAG_ISLAND_Z);
 
-			if(player instanceof EntityPlayerMP) {
-				EntityPlayerMP pmp = (EntityPlayerMP) player;
+			if(player instanceof ServerPlayerEntity) {
+				ServerPlayerEntity pmp = (ServerPlayerEntity) player;
 				pmp.setPositionAndUpdate(posX, posY, posZ);
 			}
 		}

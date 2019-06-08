@@ -11,14 +11,15 @@
 package vazkii.botania.client.render.tile;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GlStateManager;
+import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.entity.Render;
+import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
-import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.item.ItemEntity;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
@@ -30,7 +31,7 @@ import javax.annotation.Nonnull;
 
 public class RenderTileEnchanter extends TileEntityRenderer<TileEnchanter> {
 
-	private EntityItem item;
+	private ItemEntity item;
 
 	@Override
 	public void render(@Nonnull TileEnchanter enchanter, double d0, double d1, double d2, float f, int digProgress) {
@@ -45,14 +46,14 @@ public class RenderTileEnchanter extends TileEntityRenderer<TileEnchanter> {
 
 		if(!enchanter.itemToEnchant.isEmpty()) {
 			if(item == null)
-				item = new EntityItem(enchanter.getWorld(), enchanter.getPos().getX(), enchanter.getPos().getY() + 1, enchanter.getPos().getZ(), enchanter.itemToEnchant);
+				item = new ItemEntity(enchanter.getWorld(), enchanter.getPos().getX(), enchanter.getPos().getY() + 1, enchanter.getPos().getZ(), enchanter.itemToEnchant);
 
 			item.age = ClientTickHandler.ticksInGame;
 			item.setItem(enchanter.itemToEnchant);
 
 			GlStateManager.color4f(1F, 1F, 1F, 1F);
 			GlStateManager.translatef(0.5F, 1.25F, 0.5F);
-			((Render) Minecraft.getInstance().getRenderManager().entityRenderMap.get(EntityItem.class)).doRender(item, d0, d1, d2, 1F, f);
+			((EntityRenderer) Minecraft.getInstance().getRenderManager().entityRenderMap.get(ItemEntity.class)).doRender(item, d0, d1, d2, 1F, f);
 			GlStateManager.translatef(-0.5F, -1.25F, -0.5F);
 		}
 
@@ -79,7 +80,7 @@ public class RenderTileEnchanter extends TileEntityRenderer<TileEnchanter> {
 				GlStateManager.color4f(0.6F + (float) ((Math.cos((ClientTickHandler.ticksInGame + f) / 6D) + 1D) / 5D), 0.1F, 0.9F, alpha);
 			}
 
-			Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+			Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
 
 			if(enchanter.stage == TileEnchanter.State.DO_ENCHANT || enchanter.stage == TileEnchanter.State.RESET) {
 				int ticks = enchanter.stageTicks + enchanter.stage3EndTicks;

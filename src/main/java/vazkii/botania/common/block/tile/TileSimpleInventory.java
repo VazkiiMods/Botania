@@ -11,9 +11,10 @@
 package vazkii.botania.common.block.tile;
 
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Direction;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -33,13 +34,13 @@ public abstract class TileSimpleInventory extends TileMod {
 	}
 
 	@Override
-	public void readPacketNBT(NBTTagCompound par1NBTTagCompound) {
+	public void readPacketNBT(CompoundNBT par1NBTTagCompound) {
 		itemHandler = createItemHandler();
 		itemHandler.deserializeNBT(par1NBTTagCompound);
 	}
 
 	@Override
-	public void writePacketNBT(NBTTagCompound par1NBTTagCompound) {
+	public void writePacketNBT(CompoundNBT par1NBTTagCompound) {
 		par1NBTTagCompound.merge(itemHandler.serializeNBT());
 	}
 
@@ -55,7 +56,7 @@ public abstract class TileSimpleInventory extends TileMod {
 
 	@Nonnull
 	@Override
-	public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, EnumFacing side) {
+	public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, Direction side) {
 		return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.orEmpty(cap, automationItemHandler);
 	}
 

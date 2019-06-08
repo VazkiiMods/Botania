@@ -12,7 +12,7 @@ package vazkii.botania.common.crafting.recipe;
 
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeHidden;
+import net.minecraft.item.crafting.SpecialRecipe;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.item.crafting.RecipeSerializers;
@@ -28,7 +28,7 @@ import javax.annotation.Nonnull;
 import java.util.Arrays;
 import java.util.List;
 
-public class LensDyeingRecipe extends IRecipeHidden {
+public class LensDyeingRecipe extends SpecialRecipe {
 	private static final ResourceLocation TYPE_ID = new ResourceLocation(LibMisc.MOD_ID, "lens_dye");
 	public static final IRecipeSerializer<LensDyeingRecipe> SERIALIZER = new RecipeSerializers.SimpleSerializer<>(TYPE_ID.toString(), LensDyeingRecipe::new);
 

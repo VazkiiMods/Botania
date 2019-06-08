@@ -1,7 +1,9 @@
 package vazkii.botania.common.integration.curios;
 
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.common.item.relic.ItemRelic;
 
@@ -13,9 +15,9 @@ public class RelicCurio extends BaseCurio{
     }
 
     @Override
-    public void onCurioTick(String identifier, EntityLivingBase living) {
-        if(living instanceof EntityPlayer) {
-            EntityPlayer ePlayer = (EntityPlayer) living;
+    public void onCurioTick(String identifier, LivingEntity living) {
+        if(living instanceof PlayerEntity) {
+            PlayerEntity ePlayer = (PlayerEntity) living;
             relicDelegate.updateRelic(stack, ePlayer);
             if(relicDelegate.isRightPlayer(ePlayer, stack))
                 onValidPlayerWornTick(ePlayer);
@@ -23,9 +25,9 @@ public class RelicCurio extends BaseCurio{
     }
 
     @Override
-    public boolean canEquip(String identifier, EntityLivingBase living) {
-        return living instanceof EntityPlayer && relicDelegate.isRightPlayer((EntityPlayer) living, stack);
+    public boolean canEquip(String identifier, LivingEntity living) {
+        return living instanceof PlayerEntity && relicDelegate.isRightPlayer((PlayerEntity) living, stack);
     }
 
-    public void onValidPlayerWornTick(EntityPlayer player) {}
+    public void onValidPlayerWornTick(PlayerEntity player) {}
 }

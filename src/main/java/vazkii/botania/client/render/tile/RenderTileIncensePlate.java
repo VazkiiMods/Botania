@@ -12,12 +12,13 @@ package vazkii.botania.client.render.tile;
 
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GlStateManager;
+import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
-import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Direction;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileIncensePlate;
@@ -27,7 +28,7 @@ import java.util.Map;
 
 public class RenderTileIncensePlate extends TileEntityRenderer<TileIncensePlate> {
 
-	private static final Map<EnumFacing, Integer> ROTATIONS = ImmutableMap.of(EnumFacing.NORTH, 180, EnumFacing.SOUTH, 0, EnumFacing.WEST, 270, EnumFacing.EAST, 90);
+	private static final Map<Direction, Integer> ROTATIONS = ImmutableMap.of(Direction.NORTH, 180, Direction.SOUTH, 0, Direction.WEST, 270, Direction.EAST, 90);
 
 	@SuppressWarnings("deprecation")
 	@Override
@@ -40,14 +41,14 @@ public class RenderTileIncensePlate extends TileEntityRenderer<TileIncensePlate>
 		if(stack.isEmpty())
 			return;
 
-		EnumFacing facing = plate.getWorld().getBlockState(plate.getPos()).get(BotaniaStateProps.CARDINALS);
+		Direction facing = plate.getWorld().getBlockState(plate.getPos()).get(BotaniaStateProps.CARDINALS);
 
 		GlStateManager.pushMatrix();
 		GlStateManager.enableRescaleNormal();
 		GlStateManager.translated(d0, d1, d2);
 		GlStateManager.translatef(0.5F, 1.5F, 0.5F);
 		GlStateManager.rotatef(ROTATIONS.get(facing), 0F, 1F, 0F);
-		Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+		Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
 		float s = 0.6F;
 		GlStateManager.translatef(-0.11F, -1.35F, 0F);
 		GlStateManager.scalef(s, s, s);

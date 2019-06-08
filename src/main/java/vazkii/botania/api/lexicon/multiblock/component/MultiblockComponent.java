@@ -10,7 +10,7 @@
  */
 package vazkii.botania.api.lexicon.multiblock.component;
 
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
@@ -25,23 +25,23 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class MultiblockComponent {
 
 	protected BlockPos relPos;
-	protected final IBlockState state;
+	protected final BlockState state;
 	protected final TileEntity tileEntity;
 	private final boolean doFancyRender;
 
-	public MultiblockComponent(BlockPos relPos, IBlockState state) {
+	public MultiblockComponent(BlockPos relPos, BlockState state) {
 		this(relPos, state, null);
 	}
 
-	public MultiblockComponent(BlockPos relPos, IBlockState state, boolean doFancyRender) {
+	public MultiblockComponent(BlockPos relPos, BlockState state, boolean doFancyRender) {
 		this(relPos, state, doFancyRender, null);
 	}
 
-	public MultiblockComponent(BlockPos relPos, IBlockState state, TileEntity tileEntity) {
+	public MultiblockComponent(BlockPos relPos, BlockState state, TileEntity tileEntity) {
 		this(relPos, state, state.getBlock().hasTileEntity(state) == (tileEntity != null), tileEntity);
 	}
 
-	public MultiblockComponent(BlockPos relPos, IBlockState state, boolean doFancyRender, TileEntity tileEntity) {
+	public MultiblockComponent(BlockPos relPos, BlockState state, boolean doFancyRender, TileEntity tileEntity) {
 		this.relPos = relPos;
 		this.state = state;
 		this.tileEntity = tileEntity;
@@ -52,7 +52,7 @@ public class MultiblockComponent {
 		return relPos;
 	}
 
-	public IBlockState getBlockState() {
+	public BlockState getBlockState() {
 		return state;
 	}
 

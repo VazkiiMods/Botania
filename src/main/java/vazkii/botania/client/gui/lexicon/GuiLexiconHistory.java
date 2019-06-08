@@ -11,7 +11,7 @@
 package vazkii.botania.client.gui.lexicon;
 
 import net.minecraft.client.resources.I18n;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import vazkii.botania.api.lexicon.ILexicon;
 import vazkii.botania.api.lexicon.LexiconEntry;
 
@@ -49,7 +49,7 @@ public class GuiLexiconHistory extends GuiLexiconIndex {
 	}
 
 	@Override
-	public void load(NBTTagCompound cmp) {}
+	public void load(CompoundNBT cmp) {}
 
 	@Override
 	public String getNotesKey() {

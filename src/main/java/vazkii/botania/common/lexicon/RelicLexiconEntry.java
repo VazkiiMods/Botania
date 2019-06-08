@@ -13,7 +13,7 @@ package vazkii.botania.common.lexicon;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementProgress;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
@@ -33,7 +33,7 @@ public class RelicLexiconEntry extends BasicLexiconEntry {
 	@Override
 	@OnlyIn(Dist.CLIENT)
 	public boolean isVisible() {
-		EntityPlayerSP player = Minecraft.getInstance().player;
+		ClientPlayerEntity player = Minecraft.getInstance().player;
 		if(advancement == null || player.abilities.isCreativeMode) {
 			return true;
 		} else {

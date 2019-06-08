@@ -11,8 +11,8 @@
 package vazkii.botania.common.item.lens;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.projectile.EntityThrowable;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.AxisAlignedBB;
 import vazkii.botania.api.internal.IManaBurst;
@@ -32,13 +32,13 @@ public class LensTripwire extends Lens {
 	}
 
 	@Override
-	public void updateBurst(IManaBurst burst, EntityThrowable entity, ItemStack stack) {
+	public void updateBurst(IManaBurst burst, ThrowableEntity entity, ItemStack stack) {
 		if(burst.isFake()) {
 			if(entity.world.isRemote)
 				return;
 
 			AxisAlignedBB axis = new AxisAlignedBB(entity.posX, entity.posY, entity.posZ, entity.lastTickPosX, entity.lastTickPosY, entity.lastTickPosZ).grow(0.25);
-			List<EntityLivingBase> entities = entity.world.getEntitiesWithinAABB(EntityLivingBase.class, axis);
+			List<LivingEntity> entities = entity.world.getEntitiesWithinAABB(LivingEntity.class, axis);
 			if(!entities.isEmpty()) {
 				Entity e = (Entity) burst;
 				e.getEntityData().putBoolean(TAG_TRIPPED, true);

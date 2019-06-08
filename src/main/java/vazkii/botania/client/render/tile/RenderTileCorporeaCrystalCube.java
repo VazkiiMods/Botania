@@ -10,22 +10,25 @@
  */
 package vazkii.botania.client.render.tile;
 
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockRendererDispatcher;
 import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.GlStateManager;
+import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.entity.RenderEntityItem;
-import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.client.renderer.tileentity.TileEntityItemStackRenderer;
+import net.minecraft.client.renderer.entity.ItemRenderer;
+import net.minecraft.client.renderer.entity.ItemRenderer;
+import net.minecraft.client.renderer.texture.AtlasTexture;
+import net.minecraft.client.renderer.tileentity.ItemStackTileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.ItemBlock;
+import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.block.Blocks;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
@@ -46,18 +49,18 @@ import javax.annotation.Nullable;
 
 // TODO 1.13 move this back to a normal tesr. Byebye animation API
 public class RenderTileCorporeaCrystalCube extends TileEntityRenderer<TileCorporeaCrystalCube> {
-	private EntityItem entity = null;
-	private RenderEntityItem itemRenderer = null;
+	private ItemEntity entity = null;
+	private ItemRenderer itemRenderer = null;
 
 	@Override
 	public void render(@Nullable TileCorporeaCrystalCube cube, double d0, double d1, double d2, float f, int digProgress) {
 		ItemStack stack = ItemStack.EMPTY;
 		if (cube != null) {
 			if(entity == null)
-				entity = new EntityItem(cube.getWorld(), cube.getPos().getX(), cube.getPos().getY(), cube.getPos().getZ(), new ItemStack(Blocks.STONE));
+				entity = new ItemEntity(cube.getWorld(), cube.getPos().getX(), cube.getPos().getY(), cube.getPos().getZ(), new ItemStack(Blocks.STONE));
 
 			if(itemRenderer == null)
-				itemRenderer = new RenderEntityItem(Minecraft.getInstance().getRenderManager(), Minecraft.getInstance().getItemRenderer()) {
+				itemRenderer = new ItemRenderer(Minecraft.getInstance().getRenderManager(), Minecraft.getInstance().getItemRenderer()) {
 				@Override
 				public boolean shouldBob() {
 					return false;
@@ -84,7 +87,7 @@ public class RenderTileCorporeaCrystalCube extends TileEntityRenderer<TileCorpor
 		GlStateManager.translatef(0F, (float) Math.sin(worldTicks / 20.0 * 1.55) * 0.025F, 0F);
 		if(!stack.isEmpty()) {
 			GlStateManager.pushMatrix();
-			float s = stack.getItem() instanceof ItemBlock ? 0.7F : 0.5F;
+			float s = stack.getItem() instanceof BlockItem ? 0.7F : 0.5F;
 			GlStateManager.translatef(0F, 0.8F, 0F);
 			GlStateManager.scalef(s, s, s);
 			GlStateManager.rotatef(180F, 0F, 0F, 1F);

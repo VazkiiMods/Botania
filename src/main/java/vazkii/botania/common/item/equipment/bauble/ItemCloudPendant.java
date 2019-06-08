@@ -11,13 +11,16 @@
 package vazkii.botania.common.item.equipment.bauble;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityPlayerSP;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.entity.player.ClientPlayerEntity;
+import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.client.renderer.texture.AtlasTexture;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -45,10 +48,10 @@ public class ItemCloudPendant extends ItemBauble {
 		}
 
 		@Override
-		public void onCurioTick(String identifier, EntityLivingBase player) {
+		public void onCurioTick(String identifier, LivingEntity player) {
 			DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> {
-				if(player instanceof EntityPlayerSP && player == Minecraft.getInstance().player) {
-					EntityPlayerSP playerSp = (EntityPlayerSP) player;
+				if(player instanceof ClientPlayerEntity && player == Minecraft.getInstance().player) {
+					ClientPlayerEntity playerSp = (ClientPlayerEntity) player;
 
 					if(playerSp.onGround)
 						timesJumped = 0;
@@ -68,10 +71,10 @@ public class ItemCloudPendant extends ItemBauble {
 
 		@Override
         @OnlyIn(Dist.CLIENT)
-		public void doRender(String identifier, EntityLivingBase player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-			Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+		public void doRender(String identifier, LivingEntity player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+			Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
 			AccessoryRenderHelper.rotateIfSneaking(player);
-			boolean armor = !player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).isEmpty();
+			boolean armor = !player.getItemStackFromSlot(EquipmentSlotType.CHEST).isEmpty();
 			GlStateManager.rotatef(180F, 1F, 0F, 0F);
 			GlStateManager.translatef(-0.2F, -0.3F, armor ? 0.2F : 0.15F);
 			GlStateManager.scalef(0.5F, 0.5F, 0.5F);

@@ -10,14 +10,18 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.ai.EntityAIAvoidEntity;
-import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
-import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
-import net.minecraft.entity.item.EntityEnderCrystal;
-import net.minecraft.entity.monster.EntityCreeper;
-import net.minecraft.entity.passive.EntityOcelot;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.MobEntity;
+import net.minecraft.entity.MobEntity;
+import net.minecraft.entity.ai.goal.AvoidEntityGoal;
+import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
+import net.minecraft.entity.ai.goal.GoalSelector.EntityAITaskEntry;
+import net.minecraft.entity.ai.goal.AvoidEntityGoal;
+import net.minecraft.entity.item.EnderCrystalEntity;
+import net.minecraft.entity.item.EnderCrystalEntity;
+import net.minecraft.entity.monster.CreeperEntity;
+import net.minecraft.entity.passive.OcelotEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.registries.ObjectHolder;
@@ -53,24 +57,24 @@ public class SubTileTigerseye extends TileEntityFunctionalFlower {
 
 		boolean shouldAfffect = mana >= cost;
 
-		List<EntityLiving> entities = getWorld().getEntitiesWithinAABB(EntityLiving.class, new AxisAlignedBB(getPos().add(-RANGE, -RANGE_Y, -RANGE), getPos().add(RANGE + 1, RANGE_Y + 1, RANGE + 1)));
+		List<MobEntity> entities = getWorld().getEntitiesWithinAABB(MobEntity.class, new AxisAlignedBB(getPos().add(-RANGE, -RANGE_Y, -RANGE), getPos().add(RANGE + 1, RANGE_Y + 1, RANGE + 1)));
 
-		for(EntityLiving entity : entities) {
+		for(MobEntity entity : entities) {
 			List<EntityAITaskEntry> entries = new ArrayList<>(entity.tasks.taskEntries);
 			entries.addAll(entity.targetTasks.taskEntries);
 
 			boolean avoidsOcelots = false;
 			if(shouldAfffect)
 				for(EntityAITaskEntry entry : entries) {
-					if(entry.action instanceof EntityAIAvoidEntity)
-						avoidsOcelots = messWithRunAwayAI((EntityAIAvoidEntity) entry.action) || avoidsOcelots;
+					if(entry.action instanceof AvoidEntityGoal)
+						avoidsOcelots = messWithRunAwayAI((AvoidEntityGoal) entry.action) || avoidsOcelots;
 
-					if(entry.action instanceof EntityAINearestAttackableTarget)
-						messWithGetTargetAI((EntityAINearestAttackableTarget) entry.action);
+					if(entry.action instanceof NearestAttackableTargetGoal)
+						messWithGetTargetAI((NearestAttackableTargetGoal) entry.action);
 				}
 
-			if(entity instanceof EntityCreeper) {
-				((EntityCreeper) entity).timeSinceIgnited = 2;
+			if(entity instanceof CreeperEntity) {
+				((CreeperEntity) entity).timeSinceIgnited = 2;
 				entity.setAttackTarget(null);
 			}
 
@@ -82,17 +86,17 @@ public class SubTileTigerseye extends TileEntityFunctionalFlower {
 		}
 	}
 
-	private boolean messWithRunAwayAI(EntityAIAvoidEntity aiEntry) {
-		if(aiEntry.classToAvoid == EntityOcelot.class) {
-			aiEntry.classToAvoid = EntityPlayer.class;
+	private boolean messWithRunAwayAI(AvoidEntityGoal aiEntry) {
+		if(aiEntry.classToAvoid == OcelotEntity.class) {
+			aiEntry.classToAvoid = PlayerEntity.class;
 			return true;
 		}
 		return false;
 	}
 
-	private void messWithGetTargetAI(EntityAINearestAttackableTarget aiEntry) {
-		if(aiEntry.targetClass == EntityPlayer.class)
-			aiEntry.targetClass = EntityEnderCrystal.class; // Something random that won't be around
+	private void messWithGetTargetAI(NearestAttackableTargetGoal aiEntry) {
+		if(aiEntry.targetClass == PlayerEntity.class)
+			aiEntry.targetClass = EnderCrystalEntity.class; // Something random that won't be around
 	}
 
 	@Override

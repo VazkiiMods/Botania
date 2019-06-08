@@ -10,23 +10,24 @@
  */
 package vazkii.botania.api.mana;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.eventbus.api.Event;
 
 public class ManaProficiencyEvent extends Event {
 
-	private final EntityPlayer entityPlayer;
+	private final PlayerEntity entityPlayer;
 	private ItemStack rod;
 	private boolean proficient;
 
-	public ManaProficiencyEvent(EntityPlayer entityPlayer, ItemStack rod, boolean proficient) {
+	public ManaProficiencyEvent(PlayerEntity entityPlayer, ItemStack rod, boolean proficient) {
 		this.entityPlayer = entityPlayer;
 		this.rod = rod;
 		this.proficient = proficient;
 	}
 	
-	public EntityPlayer getEntityPlayer() {
+	public PlayerEntity getEntityPlayer() {
 		return entityPlayer;
 	}
 	

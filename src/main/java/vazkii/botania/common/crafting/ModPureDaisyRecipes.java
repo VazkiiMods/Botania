@@ -10,7 +10,8 @@
  */
 package vazkii.botania.common.crafting;
 
-import net.minecraft.init.Blocks;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.Blocks;
 import net.minecraft.tags.BlockTags;
 import net.minecraftforge.common.Tags;
 import vazkii.botania.api.BotaniaAPI;

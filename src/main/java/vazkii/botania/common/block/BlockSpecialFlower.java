@@ -10,19 +10,25 @@
  */
 package vazkii.botania.common.block;
 
-import net.minecraft.block.BlockFlower;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.FlowerBlock;
+import net.minecraft.block.FlowerBlock;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.IFluidState;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.block.Blocks;
+import net.minecraft.item.DyeColor;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
@@ -45,7 +51,7 @@ import vazkii.botania.common.item.material.ItemDye;
 import javax.annotation.Nonnull;
 import java.util.function.Supplier;
 
-public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, IWandable, ILexiconable, IWandHUD {
+public class BlockSpecialFlower extends FlowerBlock implements ISpecialFlower, IWandable, ILexiconable, IWandHUD {
 	private static final VoxelShape SHAPE = makeCuboidShape(4.8, 0, 4.8, 12.8, 16, 12.8);
 	private final Supplier<? extends TileEntitySpecialFlower> teProvider;
 
@@ -56,13 +62,13 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 
 	@Nonnull
 	@Override
-	public VoxelShape getShape(IBlockState state, @Nonnull IBlockReader world, @Nonnull BlockPos pos) {
+	public VoxelShape getShape(BlockState state, @Nonnull IBlockReader world, @Nonnull BlockPos pos) {
 		Vec3d shift = state.getOffset(world, pos);
 		return SHAPE.withOffset(shift.x, shift.y, shift.z);
 	}
 
 	@Override
-	public int getLightValue(@Nonnull IBlockState state, IWorldReader world, @Nonnull BlockPos pos) {
+	public int getLightValue(@Nonnull BlockState state, IWorldReader world, @Nonnull BlockPos pos) {
 		if(world.getBlockState(pos).getBlock() != this)
 			return world.getBlockState(pos).getLightValue(world, pos);
 
@@ -70,45 +76,45 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 	}
 
 	@Override
-	public boolean hasComparatorInputOverride(IBlockState state) {
+	public boolean hasComparatorInputOverride(BlockState state) {
 		return true;
 	}
 
 	@Override
-	public int getComparatorInputOverride(IBlockState state, World world, BlockPos pos) {
+	public int getComparatorInputOverride(BlockState state, World world, BlockPos pos) {
 		return ((TileEntitySpecialFlower) world.getTileEntity(pos)).getComparatorInputOverride();
 	}
 
 	@Override
-	public int getWeakPower(IBlockState state, IBlockReader world, BlockPos pos, EnumFacing side) {
+	public int getWeakPower(BlockState state, IBlockReader world, BlockPos pos, Direction side) {
 		return ((TileEntitySpecialFlower) world.getTileEntity(pos)).getPowerLevel(side);
 	}
 
 	@Override
-	public int getStrongPower(IBlockState state, IBlockReader world, BlockPos pos, EnumFacing side) {
+	public int getStrongPower(BlockState state, IBlockReader world, BlockPos pos, Direction side) {
 		return getWeakPower(state, world, pos, side);
 	}
 
 	@Override
-	public boolean canProvidePower(IBlockState state) {
+	public boolean canProvidePower(BlockState state) {
 		return true;
 	}
 
 	@Override
-	protected boolean isValidGround(IBlockState state, IBlockReader worldIn, BlockPos pos) {
+	protected boolean isValidGround(BlockState state, IBlockReader worldIn, BlockPos pos) {
 		return state.getBlock() == ModBlocks.redStringRelay
 				|| state.getBlock() == Blocks.MYCELIUM
 				|| super.isValidGround(state, worldIn, pos);
 	}
 
 	@Override
-	public void onBlockHarvested(World world, BlockPos pos, IBlockState state, EntityPlayer player) {
+	public void onBlockHarvested(World world, BlockPos pos, BlockState state, PlayerEntity player) {
 		super.onBlockHarvested(world, pos, state, player);
 		((TileEntitySpecialFlower) world.getTileEntity(pos)).onBlockHarvested(world, pos, state, player);
 	}
 
 	@Override
-	public boolean removedByPlayer(@Nonnull IBlockState state, World world, @Nonnull BlockPos pos, @Nonnull EntityPlayer player, boolean willHarvest, IFluidState fluidState) {
+	public boolean removedByPlayer(@Nonnull BlockState state, World world, @Nonnull BlockPos pos, @Nonnull PlayerEntity player, boolean willHarvest, IFluidState fluidState) {
 		if (willHarvest) {
 			// Copy of super.removedByPlayer but don't set to air yet
 			// This is so getDrops below will have a TE to work with
@@ -120,14 +126,14 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 	}
 
 	@Override
-	public void harvestBlock(@Nonnull World world, EntityPlayer player, @Nonnull BlockPos pos, @Nonnull IBlockState state, TileEntity te, ItemStack stack) {
+	public void harvestBlock(@Nonnull World world, PlayerEntity player, @Nonnull BlockPos pos, @Nonnull BlockState state, TileEntity te, ItemStack stack) {
 		super.harvestBlock(world, player, pos, state, te, stack);
 		// Now delete the block and TE
 		world.removeBlock(pos);
 	}
 
 	@Override
-	public void getDrops(@Nonnull IBlockState state, NonNullList<ItemStack> list, World world, BlockPos pos, int fortune) {
+	public void getDrops(@Nonnull BlockState state, NonNullList<ItemStack> list, World world, BlockPos pos, int fortune) {
 		super.getDrops(state, list, world, pos, fortune);
 		TileEntity tile = world.getTileEntity(pos);
 
@@ -137,49 +143,49 @@ public class BlockSpecialFlower extends BlockFlower implements ISpecialFlower, I
 	}
 
 	@Override
-	public boolean eventReceived(IBlockState state, World world, BlockPos pos, int par5, int par6) {
+	public boolean eventReceived(BlockState state, World world, BlockPos pos, int par5, int par6) {
 		super.eventReceived(state, world, pos, par5, par6);
 		TileEntity tileentity = world.getTileEntity(pos);
 		return tileentity != null && tileentity.receiveClientEvent(par5, par6);
 	}
 
 	@Override
-	public boolean hasTileEntity(IBlockState state) {
+	public boolean hasTileEntity(BlockState state) {
 		return true;
 	}
 
 	@Nonnull
 	@Override
-	public TileEntity createTileEntity(@Nonnull IBlockState state, @Nonnull IBlockReader world) {
+	public TileEntity createTileEntity(@Nonnull BlockState state, @Nonnull IBlockReader world) {
 		return teProvider.get();
 	}
 
 	@Override
-	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
+	public LexiconEntry getEntry(World world, BlockPos pos, PlayerEntity player, ItemStack lexicon) {
 		return ((TileEntitySpecialFlower) world.getTileEntity(pos)).getEntry();
 	}
 
 	@Override
-	public boolean onUsedByWand(EntityPlayer player, ItemStack stack, World world, BlockPos pos, EnumFacing side) {
+	public boolean onUsedByWand(PlayerEntity player, ItemStack stack, World world, BlockPos pos, Direction side) {
 		return ((TileEntitySpecialFlower) world.getTileEntity(pos)).onWanded(player, stack);
 	}
 
 	@Override
-	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase entity, ItemStack stack) {
+	public void onBlockPlacedBy(World world, BlockPos pos, BlockState state, LivingEntity entity, ItemStack stack) {
 		((TileEntitySpecialFlower) world.getTileEntity(pos)).onBlockPlacedBy(world, pos, state, entity, stack);
 	}
 
 	@Override
-	public void onBlockAdded(IBlockState state, World world, BlockPos pos, IBlockState oldState) {
+	public void onBlockAdded(BlockState state, World world, BlockPos pos, BlockState oldState) {
 		((TileEntitySpecialFlower) world.getTileEntity(pos)).onBlockAdded(world, pos, state);
 	}
 
 	@Override
-	public boolean onBlockActivated(IBlockState state, World world, BlockPos pos, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+	public boolean onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, Direction side, float hitX, float hitY, float hitZ) {
 		ItemStack stack = player.getHeldItem(hand);
 		if(!stack.isEmpty() && stack.getItem() instanceof ItemDye) {
-			EnumDyeColor newColor = ((ItemDye) stack.getItem()).color;
-			EnumDyeColor oldColor = state.get(BotaniaStateProps.COLOR);
+			DyeColor newColor = ((ItemDye) stack.getItem()).color;
+			DyeColor oldColor = state.get(BotaniaStateProps.COLOR);
 			if(newColor != oldColor)
 				world.setBlockState(pos, state.with(BotaniaStateProps.COLOR, newColor), 1 | 2);
 			return true;

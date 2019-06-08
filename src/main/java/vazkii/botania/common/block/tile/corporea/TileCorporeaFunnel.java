@@ -10,12 +10,15 @@
  */
 package vazkii.botania.common.block.tile.corporea;
 
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.item.EntityItemFrame;
+import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.item.ItemFrameEntity;
+import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.item.ItemFrameEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
@@ -59,10 +62,10 @@ public class TileCorporeaFunnel extends TileCorporeaBase implements ICorporeaReq
 				1, 2, 4, 8, 16, 32, 48, 64
 		};
 
-		for(EnumFacing dir : MathHelper.HORIZONTALS) {
-			List<EntityItemFrame> frames = world.getEntitiesWithinAABB(EntityItemFrame.class, new AxisAlignedBB(pos.offset(dir), pos.offset(dir).add(1, 1, 1)));
-			for(EntityItemFrame frame : frames) {
-				EnumFacing orientation = frame.facingDirection;
+		for(Direction dir : MathHelper.HORIZONTALS) {
+			List<ItemFrameEntity> frames = world.getEntitiesWithinAABB(ItemFrameEntity.class, new AxisAlignedBB(pos.offset(dir), pos.offset(dir).add(1, 1, 1)));
+			for(ItemFrameEntity frame : frames) {
+				Direction orientation = frame.facingDirection;
 				if(orientation == dir) {
 					ItemStack stack = frame.getDisplayedItem();
 					if(!stack.isEmpty()) {
@@ -90,7 +93,7 @@ public class TileCorporeaFunnel extends TileCorporeaBase implements ICorporeaReq
 			if(inv != null && ItemHandlerHelper.insertItemStacked(inv, reqStack, true).isEmpty())
 				ItemHandlerHelper.insertItemStacked(inv, reqStack, false);
 			else {
-				EntityItem item = new EntityItem(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, reqStack);
+				ItemEntity item = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, reqStack);
 				world.spawnEntity(item);
 			}
 		}
@@ -98,14 +101,14 @@ public class TileCorporeaFunnel extends TileCorporeaBase implements ICorporeaReq
 
 	private IItemHandler getInv() {
 		TileEntity te = world.getTileEntity(pos.down());
-		IItemHandler ret = InventoryHelper.getInventory(world, pos.down(), EnumFacing.UP);
+		IItemHandler ret = InventoryHelper.getInventory(world, pos.down(), Direction.UP);
 		if(ret == null)
 			ret = InventoryHelper.getInventory(world, pos.down(), null);
 		if(ret != null && !(te instanceof TileCorporeaFunnel))
 			return ret;
 
 		te = world.getTileEntity(pos.down(2));
-		ret = InventoryHelper.getInventory(world, pos.down(2), EnumFacing.UP);
+		ret = InventoryHelper.getInventory(world, pos.down(2), Direction.UP);
 		if(ret == null)
 			ret = InventoryHelper.getInventory(world, pos.down(2), null);
 		if(ret != null && !(te instanceof TileCorporeaFunnel))

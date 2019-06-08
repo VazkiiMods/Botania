@@ -2,7 +2,8 @@ package vazkii.botania.common.network;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fml.network.NetworkEvent;
 
@@ -29,8 +30,8 @@ public class PacketItemAge {
 	public static void handle(PacketItemAge message, Supplier<NetworkEvent.Context> ctx) {
 		ctx.get().enqueueWork(() -> {
 			Entity e = Minecraft.getInstance().world.getEntityByID(message.entityId);
-			if(e instanceof EntityItem) {
-				((EntityItem) e).age = message.age;
+			if(e instanceof ItemEntity) {
+				((ItemEntity) e).age = message.age;
 			}
 		});
 		ctx.get().setPacketHandled(true);

@@ -10,13 +10,11 @@
  */
 package vazkii.botania.common.item.interaction.thaumcraft;
 
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.equipment.armor.terrasteel.ItemTerrasteelHelm;
-import vazkii.botania.common.lib.LibItemNames;
 
 public class ItemTerrasteelHelmRevealing extends ItemTerrasteelHelm {
 
@@ -25,7 +23,7 @@ public class ItemTerrasteelHelmRevealing extends ItemTerrasteelHelm {
 	}
 
 	@Override
-	public String getArmorTextureAfterInk(ItemStack stack, EntityEquipmentSlot slot) {
+	public String getArmorTextureAfterInk(ItemStack stack, EquipmentSlotType slot) {
 		return ConfigHandler.CLIENT.enableArmorModels.get() ?  LibResources.MODEL_TERRASTEEL_NEW : LibResources.MODEL_TERRASTEEL_2;
 	}
 

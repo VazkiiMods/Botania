@@ -10,11 +10,12 @@
  */
 package vazkii.botania.common.block.tile;
 
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.BlockState;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.NBTUtil;
 import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.SPacketUpdateTileEntity;
+import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.client.model.data.IModelData;
 import net.minecraftforge.client.model.data.ModelDataMap;
@@ -26,21 +27,21 @@ public class TileCamo extends TileMod {
 
 	private static final String TAG_CAMO = "camo";
 
-	public IBlockState camoState;
+	public BlockState camoState;
 
 	public TileCamo(TileEntityType<?> type) {
 		super(type);
 	}
 
 	@Override
-	public void writePacketNBT(NBTTagCompound cmp) {
+	public void writePacketNBT(CompoundNBT cmp) {
 		if(camoState != null) {
 			cmp.put(TAG_CAMO, NBTUtil.writeBlockState(camoState));
 		}
 	}
 
 	@Override
-	public void readPacketNBT(NBTTagCompound cmp) {
+	public void readPacketNBT(CompoundNBT cmp) {
 		camoState = NBTUtil.readBlockState(cmp.getCompound(TAG_CAMO));
 		if(camoState.isAir()) {
 			camoState = null;
@@ -48,7 +49,7 @@ public class TileCamo extends TileMod {
 	}
 
 	@Override
-	public void onDataPacket(NetworkManager manager, SPacketUpdateTileEntity packet) {
+	public void onDataPacket(NetworkManager manager, SUpdateTileEntityPacket packet) {
 		super.onDataPacket(manager, packet);
 		requestModelDataUpdate();
 		world.markBlockRangeForRenderUpdate(pos, pos);

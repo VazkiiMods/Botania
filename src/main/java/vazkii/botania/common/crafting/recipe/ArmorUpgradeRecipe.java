@@ -13,8 +13,8 @@ package vazkii.botania.common.crafting.recipe;
 import com.google.gson.JsonObject;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.InventoryCrafting;
-import net.minecraft.item.ItemArmor;
+import net.minecraft.inventory.CraftingInventory;
+import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeSerializer;
@@ -49,7 +49,7 @@ public class ArmorUpgradeRecipe implements IRecipe {
 		ItemStack out = compose.getCraftingResult(inv);
 		for (int i = 0; i < inv.getSizeInventory(); i++) {
 			ItemStack stack = inv.getStackInSlot(i);
-			if (!stack.isEmpty() && stack.getItem() instanceof ItemArmor && stack.hasTag()) {
+			if (!stack.isEmpty() && stack.getItem() instanceof ArmorItem && stack.hasTag()) {
 				EnchantmentHelper.setEnchantments(EnchantmentHelper.getEnchantments(stack), out);
 				if(Botania.thaumcraftLoaded)
 					HelmRevealingRecipe.copyTCData(stack, out);

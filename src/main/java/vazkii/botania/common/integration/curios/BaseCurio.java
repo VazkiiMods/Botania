@@ -1,7 +1,8 @@
 package vazkii.botania.common.integration.curios;
 
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import top.theillusivec4.curios.api.capability.ICurio;
@@ -22,14 +23,14 @@ public class BaseCurio implements ICurio {
     }
 
     @Override
-    public void onEquipped(String identifier, EntityLivingBase living) {
-        if(!living.world.isRemote && living instanceof EntityPlayerMP) {
-            PlayerHelper.grantCriterion((EntityPlayerMP) living, new ResourceLocation(LibMisc.MOD_ID, "main/bauble_wear"), "code_triggered");
+    public void onEquipped(String identifier, LivingEntity living) {
+        if(!living.world.isRemote && living instanceof ServerPlayerEntity) {
+            PlayerHelper.grantCriterion((ServerPlayerEntity) living, new ResourceLocation(LibMisc.MOD_ID, "main/bauble_wear"), "code_triggered");
         }
     }
 
     @Override
-    public void playEquipSound(EntityLivingBase living) {
+    public void playEquipSound(LivingEntity living) {
         living.world.playSound(null, living.posX, living.posY, living.posZ, ModSounds.equipBauble, living.getSoundCategory(), 0.1F, 1.3F);
     }
 }

@@ -15,16 +15,16 @@ import java.util.List;
 
 import com.google.common.collect.ImmutableList;
 
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
@@ -33,9 +33,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.items.IItemHandler;
 import top.theillusivec4.curios.api.CuriosAPI;
-import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.ISequentialBreaker;
 import vazkii.botania.api.item.IWireframeCoordinateListProvider;
 import vazkii.botania.api.mana.IManaUsingItem;
@@ -46,7 +44,6 @@ import vazkii.botania.common.integration.curios.CurioIntegration;
 import vazkii.botania.common.integration.curios.RelicCurio;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
-import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibMisc;
 
 @Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
@@ -68,7 +65,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 
 	@SubscribeEvent
 	public static void onPlayerInteract(PlayerInteractEvent.RightClickBlock event) {
-		EntityPlayer player = event.getEntityPlayer();
+		PlayerEntity player = event.getEntityPlayer();
 		ItemStack lokiRing = getLokiRing(player);
 		if(lokiRing.isEmpty() || !player.isSneaking())
 			return;
@@ -108,7 +105,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 			}
 
 			event.setCanceled(true);
-			event.setCancellationResult(EnumActionResult.SUCCESS);
+			event.setCancellationResult(ActionResultType.SUCCESS);
 		} else {
 			for(BlockPos cursor : cursors) {
 				BlockPos pos = lookPos.getBlockPos().add(cursor);
@@ -122,7 +119,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 		}
 	}
 
-	public static void breakOnAllCursors(EntityPlayer player, Item item, ItemStack stack, BlockPos pos, EnumFacing side) {
+	public static void breakOnAllCursors(PlayerEntity player, Item item, ItemStack stack, BlockPos pos, Direction side) {
 		ItemStack lokiRing = getLokiRing(player);
 		if(lokiRing.isEmpty() || player.world.isRemote || !(item instanceof ISequentialBreaker))
 			return;
@@ -133,7 +130,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 
 		for (BlockPos offset : cursors) {
 			BlockPos coords = pos.add(offset);
-			IBlockState state = player.world.getBlockState(coords);
+			BlockState state = player.world.getBlockState(coords);
 			breaker.breakOtherBlock(player, stack, coords, pos, side);
 			ToolCommons.removeBlockWithDrops(player, stack, player.world, coords,
 					s -> s.getBlock() == state.getBlock() && s.getMaterial() == state.getMaterial(), dispose);
@@ -146,19 +143,19 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 		}
 
 		@Override
-		public boolean shouldSyncToTracking(String identifier, EntityLivingBase living) {
+		public boolean shouldSyncToTracking(String identifier, LivingEntity living) {
 			return true;
 		}
 
 		@Override
-		public void onUnequipped(String identifier, EntityLivingBase living) {
+		public void onUnequipped(String identifier, LivingEntity living) {
 			setCursorList(stack, null);
 		}
 	}
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public List<BlockPos> getWireframesToDraw(EntityPlayer player, ItemStack stack) {
+	public List<BlockPos> getWireframesToDraw(PlayerEntity player, ItemStack stack) {
 		if(getLokiRing(player) != stack)
 			return ImmutableList.of();
 
@@ -183,11 +180,11 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 	}
 
 	@Override
-	public BlockPos getSourceWireframe(EntityPlayer player, ItemStack stack) {
+	public BlockPos getSourceWireframe(PlayerEntity player, ItemStack stack) {
 		return getLokiRing(player) == stack ? getOriginPos(stack) : null;
 	}
 
-	private static ItemStack getLokiRing(EntityPlayer player) {
+	private static ItemStack getLokiRing(PlayerEntity player) {
 		if(Botania.curiosLoaded) {
 			return CurioIntegration.findOrEmpty(ModItems.lokiRing, player);
 		}
@@ -209,12 +206,12 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 	}
 
 	private static List<BlockPos> getCursorList(ItemStack stack) {
-		NBTTagCompound cmp = ItemNBTHelper.getCompound(stack, TAG_CURSOR_LIST, false);
+		CompoundNBT cmp = ItemNBTHelper.getCompound(stack, TAG_CURSOR_LIST, false);
 		List<BlockPos> cursors = new ArrayList<>();
 
 		int count = cmp.getInt(TAG_CURSOR_COUNT);
 		for(int i = 0; i < count; i++) {
-			NBTTagCompound cursorCmp = cmp.getCompound(TAG_CURSOR_PREFIX + i);
+			CompoundNBT cursorCmp = cmp.getCompound(TAG_CURSOR_PREFIX + i);
 			int x = cursorCmp.getInt(TAG_X_OFFSET);
 			int y = cursorCmp.getInt(TAG_Y_OFFSET);
 			int z = cursorCmp.getInt(TAG_Z_OFFSET);
@@ -228,11 +225,11 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 		if(stack == null)
 			return;
 		
-		NBTTagCompound cmp = new NBTTagCompound();
+		CompoundNBT cmp = new CompoundNBT();
 		if(cursors != null) {
 			int i = 0;
 			for(BlockPos cursor : cursors) {
-				NBTTagCompound cursorCmp = cursorToCmp(cursor);
+				CompoundNBT cursorCmp = cursorToCmp(cursor);
 				cmp.put(TAG_CURSOR_PREFIX + i, cursorCmp);
 				i++;
 			}
@@ -242,8 +239,8 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 		ItemNBTHelper.setCompound(stack, TAG_CURSOR_LIST, cmp);
 	}
 
-	private static NBTTagCompound cursorToCmp(BlockPos pos) {
-		NBTTagCompound cmp = new NBTTagCompound();
+	private static CompoundNBT cursorToCmp(BlockPos pos) {
+		CompoundNBT cmp = new CompoundNBT();
 		cmp.putInt(TAG_X_OFFSET, pos.getX());
 		cmp.putInt(TAG_Y_OFFSET, pos.getY());
 		cmp.putInt(TAG_Z_OFFSET, pos.getZ());
@@ -251,7 +248,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 	}
 
 	private static void addCursor(ItemStack stack, BlockPos pos) {
-		NBTTagCompound cmp = ItemNBTHelper.getCompound(stack, TAG_CURSOR_LIST, false);
+		CompoundNBT cmp = ItemNBTHelper.getCompound(stack, TAG_CURSOR_LIST, false);
 		int count = cmp.getInt(TAG_CURSOR_COUNT);
 		cmp.put(TAG_CURSOR_PREFIX + count, cursorToCmp(pos));
 		cmp.putInt(TAG_CURSOR_COUNT, count + 1);

@@ -1,6 +1,6 @@
 package vazkii.botania.common.block;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -16,7 +16,7 @@ public class BlockModLexiconable extends BlockMod implements ILexiconable {
     }
 
     @Override
-    public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
+    public LexiconEntry getEntry(World world, BlockPos pos, PlayerEntity player, ItemStack lexicon) {
         return delegate.getEntry(world, pos, player, lexicon);
     }
 }

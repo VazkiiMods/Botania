@@ -11,13 +11,17 @@
 package vazkii.botania.common.block;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockDoublePlant;
-import net.minecraft.block.BlockFlower;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.DoublePlantBlock;
+import net.minecraft.block.FlowerBlock;
+import net.minecraft.block.DoublePlantBlock;
 import net.minecraft.block.IGrowable;
 import net.minecraft.block.SoundType;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.DyeColor;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
@@ -43,16 +47,16 @@ import vazkii.botania.common.lib.LibMisc;
 import javax.annotation.Nonnull;
 import java.util.Random;
 
-public class BlockModFlower extends BlockFlower implements ILexiconable, IGrowable {
-	public final EnumDyeColor color;
-	protected BlockModFlower(EnumDyeColor color, Properties builder) {
+public class BlockModFlower extends FlowerBlock implements ILexiconable, IGrowable {
+	public final DyeColor color;
+	protected BlockModFlower(DyeColor color, Properties builder) {
 		super(builder);
 		this.color = color;
 	}
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void animateTick(IBlockState state, World world, BlockPos pos, Random rand) {
+	public void animateTick(BlockState state, World world, BlockPos pos, Random rand) {
 		int hex = this.color.colorValue;
 		int r = (hex & 0xFF0000) >> 16;
 		int g = (hex & 0xFF00) >> 8;
@@ -67,25 +71,25 @@ public class BlockModFlower extends BlockFlower implements ILexiconable, IGrowab
 	}
 
 	@Override
-	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
+	public LexiconEntry getEntry(World world, BlockPos pos, PlayerEntity player, ItemStack lexicon) {
 		return LexiconData.flowers;
 	}
 
 	@Override
-	public boolean canGrow(@Nonnull IBlockReader world, @Nonnull BlockPos pos, @Nonnull IBlockState state, boolean fuckifiknow) {
+	public boolean canGrow(@Nonnull IBlockReader world, @Nonnull BlockPos pos, @Nonnull BlockState state, boolean fuckifiknow) {
 		return world.getBlockState(pos.up()).isAir(world, pos);
 	}
 
 	@Override
-	public boolean canUseBonemeal(@Nonnull World world, @Nonnull Random rand, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
+	public boolean canUseBonemeal(@Nonnull World world, @Nonnull Random rand, @Nonnull BlockPos pos, @Nonnull BlockState state) {
 		return canGrow(world, pos, state, false);
 	}
 
 	@Override
-	public void grow(@Nonnull World world, @Nonnull Random rand, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
+	public void grow(@Nonnull World world, @Nonnull Random rand, @Nonnull BlockPos pos, @Nonnull BlockState state) {
 		Block block = ModBlocks.getDoubleFlower(color);
-		if(block instanceof BlockDoublePlant) {
-			((BlockDoublePlant) block).placeAt(world, pos, 3);
+		if(block instanceof DoublePlantBlock) {
+			((DoublePlantBlock) block).placeAt(world, pos, 3);
 		}
 	}
 }

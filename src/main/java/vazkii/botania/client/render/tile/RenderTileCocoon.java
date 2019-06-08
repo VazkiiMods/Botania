@@ -10,11 +10,13 @@
  */
 package vazkii.botania.client.render.tile;
 
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GlStateManager;
+import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.renderer.model.IBakedModel;
-import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.client.renderer.texture.AtlasTexture;
+import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.common.block.tile.TileCocoon;
@@ -39,11 +41,11 @@ public class RenderTileCocoon extends TileEntityRenderer<TileCocoon> {
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		GlStateManager.color4f(1F, 1F, 1F, 1F);
 		GlStateManager.translated(d0, d1, d2 + 1);
-		Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+		Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
 		GlStateManager.translatef(0.5F, 0, 0F);
 		GlStateManager.rotatef(rot, 1F, 0F, 0F);
 		GlStateManager.translatef(-0.5F, 0, 0F);
-		IBlockState state = cocoon.getWorld().getBlockState(cocoon.getPos());
+		BlockState state = cocoon.getWorld().getBlockState(cocoon.getPos());
 		IBakedModel model = Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelShapes().getModel(state);
 		Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer().renderModelBrightness(model, state, 1.0F, false);
 		GlStateManager.color3f(1F, 1F, 1F);

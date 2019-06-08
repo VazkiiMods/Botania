@@ -10,10 +10,11 @@
  */
 package vazkii.botania.common.item.material;
 
-import net.minecraft.init.Items;
+import net.minecraft.item.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
-import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.ActionResultType;
 import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.item.ItemMod;
 import vazkii.botania.common.item.ModItems;
@@ -27,11 +28,11 @@ public class ItemManaResource extends ItemMod {
 
 	@Nonnull
 	@Override
-	public EnumActionResult onItemUse(ItemUseContext ctx) {
+	public ActionResultType onItemUse(ItemUseContext ctx) {
 		ItemStack stack = ctx.getItem();
 
 		if(this == ModItems.terrasteel || this == ModItems.gaiaIngot)
-			return EntityDoppleganger.spawn(ctx.getPlayer(), stack, ctx.getWorld(), ctx.getPos(), this == ModItems.gaiaIngot) ? EnumActionResult.SUCCESS : EnumActionResult.FAIL;
+			return EntityDoppleganger.spawn(ctx.getPlayer(), stack, ctx.getWorld(), ctx.getPos(), this == ModItems.gaiaIngot) ? ActionResultType.SUCCESS : ActionResultType.FAIL;
 		else if(this == ModItems.livingroot) {
 			return Items.BONE_MEAL.onItemUse(ctx);
 		}

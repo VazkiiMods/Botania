@@ -1,9 +1,10 @@
 package vazkii.botania.common.integration.curios;
 
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
@@ -48,7 +49,7 @@ public class CurioIntegration {
 
         @Nonnull
         @Override
-        public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable EnumFacing side) {
+        public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
             return CuriosCapability.ITEM.orEmpty(cap, curioCap);
         }
     }
@@ -63,7 +64,7 @@ public class CurioIntegration {
         InterModComms.sendTo("curios", CuriosAPI.IMC.REGISTER_TYPE, () -> new CurioIMCMessage("trinket"));
     }
 
-    public static LazyOptional<IItemHandlerModifiable> getAllCurios(EntityLivingBase living) {
+    public static LazyOptional<IItemHandlerModifiable> getAllCurios(LivingEntity living) {
         return CuriosAPI.getCuriosHandler(living).map(h -> {
             IItemHandlerModifiable[] invs = h.getCurioMap().values().toArray(new IItemHandlerModifiable[0]);
             return new CombinedInvWrapper(invs);
@@ -71,12 +72,12 @@ public class CurioIntegration {
     }
 
     // Convenience methods, also avoids referencing FinderData class in common code
-    public static ItemStack findOrEmpty(Item item, EntityLivingBase living) {
+    public static ItemStack findOrEmpty(Item item, LivingEntity living) {
         CuriosAPI.FinderData result = CuriosAPI.getCurioEquipped(item, living);
         return result == null ? ItemStack.EMPTY : result.getStack();
     }
 
-    public static ItemStack findOrEmpty(Predicate<ItemStack> pred, EntityLivingBase living) {
+    public static ItemStack findOrEmpty(Predicate<ItemStack> pred, LivingEntity living) {
         CuriosAPI.FinderData result = CuriosAPI.getCurioEquipped(pred, living);
         return result == null ? ItemStack.EMPTY : result.getStack();
     }

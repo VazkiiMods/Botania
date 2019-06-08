@@ -13,9 +13,9 @@ package vazkii.botania.common.item.equipment.bauble;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.entity.model.ModelBiped;
-import net.minecraft.entity.EntityLivingBase;
+import com.mojang.blaze3d.platform.GlStateManager;
+import net.minecraft.client.renderer.entity.model.BipedModel;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.item.ItemStack;
@@ -28,7 +28,7 @@ import vazkii.botania.common.integration.curios.RenderableCurio;
 public class ItemKnockbackBelt extends ItemBauble {
 
 	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_KNOCKBACK_BELT);
-	private static ModelBiped model;
+	private static BipedModel model;
 
 	public ItemKnockbackBelt(Properties props) {
 		super(props);
@@ -48,7 +48,7 @@ public class ItemKnockbackBelt extends ItemBauble {
 
 		@Override
         @OnlyIn(Dist.CLIENT)
-		public void doRender(String identifier, EntityLivingBase living, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+		public void doRender(String identifier, LivingEntity living, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 			Minecraft.getInstance().textureManager.bindTexture(texture);
 
 			GlStateManager.translatef(0F, 0.2F, 0F);
@@ -57,7 +57,7 @@ public class ItemKnockbackBelt extends ItemBauble {
 			GlStateManager.scalef(s, s, s);
 
 			if(model == null)
-				model = new ModelBiped();
+				model = new BipedModel();
 
 			model.bipedBody.render(1F);
 		}

@@ -11,23 +11,28 @@
 package vazkii.botania.common.block.tile.mana;
 
 import com.google.common.base.Predicates;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GlStateManager;
+import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.entity.projectile.EntityThrowable;
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.entity.projectile.ThrowableEntity;
+import net.minecraft.entity.projectile.ThrowableEntity;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.play.server.SPacketUpdateTileEntity;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.play.server.SUpdateTileEntityPacket;
+import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.ITickable;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Direction;
+import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.Mirror;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.SoundCategory;
@@ -77,7 +82,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.UUID;
 
-public class TileSpreader extends TileSimpleInventory implements IManaCollector, IWandBindable, IKeyLocked, IThrottledPacket, IManaSpreader, IDirectioned, ITickable {
+public class TileSpreader extends TileSimpleInventory implements IManaCollector, IWandBindable, IKeyLocked, IThrottledPacket, IManaSpreader, IDirectioned, ITickableTileEntity {
 	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.SPREADER)
 	public static TileEntityType<TileSpreader> TYPE;
 	private static final int MAX_MANA = 1000;
@@ -141,7 +146,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	public float rotationX, rotationY;
 
 	@Nullable
-	public EnumDyeColor paddingColor = null;
+	public DyeColor paddingColor = null;
 
 	private boolean requestsClientUpdate = false;
 	private boolean hasReceivedInitialPacket = false;
@@ -198,7 +203,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 
 		boolean redstone = false;
 
-		for(EnumFacing dir : EnumFacing.values()) {
+		for(Direction dir : Direction.values()) {
 			TileEntity tileAt = world.getTileEntity(pos.offset(dir));
 			if(world.isBlockLoaded(pos.offset(dir), false) && tileAt instanceof IManaPool) {
 				IManaPool pool = (IManaPool) tileAt;
@@ -230,7 +235,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 				double y = lastPingbackY;
 				double z = lastPingbackZ;
 				AxisAlignedBB aabb = new AxisAlignedBB(x, y, z, x, y, z).grow(PINGBACK_EXPIRED_SEARCH_DISTANCE, PINGBACK_EXPIRED_SEARCH_DISTANCE, PINGBACK_EXPIRED_SEARCH_DISTANCE);
-				List bursts = world.getEntitiesWithinAABB(EntityThrowable.class, aabb, Predicates.instanceOf(IManaBurst.class));
+				List bursts = world.getEntitiesWithinAABB(ThrowableEntity.class, aabb, Predicates.instanceOf(IManaBurst.class));
 				IManaBurst found = null;
 				UUID identity = getIdentifier();
 				for(IManaBurst burst : (List<IManaBurst>) bursts)
@@ -277,7 +282,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	}
 
 	@Override
-	public void writePacketNBT(NBTTagCompound cmp) {
+	public void writePacketNBT(CompoundNBT cmp) {
 		super.writePacketNBT(cmp);
 
 		UUID identity = getIdentifier();
@@ -316,7 +321,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	}
 
 	@Override
-	public void readPacketNBT(NBTTagCompound cmp) {
+	public void readPacketNBT(CompoundNBT cmp) {
 		super.readPacketNBT(cmp);
 
 		if(cmp.getBoolean(TAG_HAS_IDENTITY)) {
@@ -348,7 +353,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 		if(cmp.contains(TAG_KNOWN_MANA))
 			knownMana = cmp.getInt(TAG_KNOWN_MANA);
 		if(cmp.contains(TAG_PADDING_COLOR))
-			paddingColor = cmp.getInt(TAG_PADDING_COLOR) == -1 ? null : EnumDyeColor.byId(cmp.getInt(TAG_PADDING_COLOR));
+			paddingColor = cmp.getInt(TAG_PADDING_COLOR) == -1 ? null : DyeColor.byId(cmp.getInt(TAG_PADDING_COLOR));
 		if(cmp.contains(TAG_CAN_SHOOT_BURST))
 			canShootBurst = cmp.getBoolean(TAG_CAN_SHOOT_BURST);
 
@@ -383,17 +388,17 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 		return mana;
 	}
 
-	public void onWanded(EntityPlayer player, ItemStack wand) {
+	public void onWanded(PlayerEntity player, ItemStack wand) {
 		if(player == null)
 			return;
 
 		if(!player.isSneaking()) {
 			if(!world.isRemote) {
-				NBTTagCompound nbttagcompound = new NBTTagCompound();
+				CompoundNBT nbttagcompound = new CompoundNBT();
 				writePacketNBT(nbttagcompound);
 				nbttagcompound.putInt(TAG_KNOWN_MANA, mana);
-				if(player instanceof EntityPlayerMP)
-					((EntityPlayerMP) player).connection.sendPacket(new SPacketUpdateTileEntity(pos, -999, nbttagcompound));
+				if(player instanceof ServerPlayerEntity)
+					((ServerPlayerEntity) player).connection.sendPacket(new SUpdateTileEntityPacket(pos, -999, nbttagcompound));
 			}
 			world.playSound(null, player.posX, player.posY, player.posZ, ModSounds.ding, SoundCategory.PLAYERS, 0.1F, 1);
 		} else {
@@ -403,7 +408,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 				double y = pos.hitVec.y - getPos().getY() - 0.5;
 				double z = pos.hitVec.z - getPos().getZ() - 0.5;
 
-				if(pos.sideHit != EnumFacing.DOWN && pos.sideHit != EnumFacing.UP) {
+				if(pos.sideHit != Direction.DOWN && pos.sideHit != Direction.UP) {
 					Vector3 clickVector = new Vector3(x, 0, z);
 					Vector3 relative = new Vector3(-0.5, 0, 0);
 					double angle = Math.acos(clickVector.dotProduct(relative) / (relative.mag() * clickVector.mag())) * 180D / Math.PI;
@@ -552,7 +557,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 
 	// [VanillaCopy] Item.rayTrace
 	@Nullable
-	protected static RayTraceResult rayTraceFromEntity(World worldIn, EntityPlayer playerIn, boolean useLiquids) {
+	protected static RayTraceResult rayTraceFromEntity(World worldIn, PlayerEntity playerIn, boolean useLiquids) {
 		float f = playerIn.rotationPitch;
 		float f1 = playerIn.rotationYaw;
 		double d0 = playerIn.posX;
@@ -565,7 +570,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 		float f5 = MathHelper.sin(-f * ((float)Math.PI / 180F));
 		float f6 = f3 * f4;
 		float f7 = f2 * f4;
-		double d3 = playerIn.getAttribute(EntityPlayer.REACH_DISTANCE).getValue();
+		double d3 = playerIn.getAttribute(PlayerEntity.REACH_DISTANCE).getValue();
 		Vec3d vec3d1 = vec3d.add((double)f6 * d3, (double)f5 * d3, (double)f7 * d3);
 		return worldIn.rayTraceBlocks(vec3d, vec3d1, useLiquids ? RayTraceFluidMode.SOURCE_ONLY : RayTraceFluidMode.NEVER, false, false);
 	}
@@ -684,12 +689,12 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	}
 
 	@Override
-	public boolean canSelect(EntityPlayer player, ItemStack wand, BlockPos pos, EnumFacing side) {
+	public boolean canSelect(PlayerEntity player, ItemStack wand, BlockPos pos, Direction side) {
 		return true;
 	}
 
 	@Override
-	public boolean bindTo(EntityPlayer player, ItemStack wand, BlockPos pos, EnumFacing side) {
+	public boolean bindTo(PlayerEntity player, ItemStack wand, BlockPos pos, Direction side) {
 		Vector3 thisVec = Vector3.fromTileEntityCenter(this);
 		Vector3 blockVec = new Vector3(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
 

@@ -10,15 +10,19 @@
  */
 package vazkii.botania.common.item;
 
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.SoundEvents;
-import net.minecraft.item.EnumAction;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.UseAction;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Hand;
+import net.minecraft.util.SoundEvents;
+import net.minecraft.item.UseAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
 import vazkii.botania.common.core.helper.PlayerHelper;
@@ -37,18 +41,18 @@ public class ItemSlingshot extends ItemMod {
 	}
 
 	@Override
-	public void onPlayerStoppedUsing(ItemStack par1ItemStack, World world, EntityLivingBase living, int par4) {
+	public void onPlayerStoppedUsing(ItemStack par1ItemStack, World world, LivingEntity living, int par4) {
 		int j = getUseDuration(par1ItemStack) - par4;
 
-		if(!world.isRemote && (!(living instanceof EntityPlayer) || ((EntityPlayer) living).abilities.isCreativeMode || PlayerHelper.hasAmmo((EntityPlayer) living, AMMO_FUNC))) {
+		if(!world.isRemote && (!(living instanceof PlayerEntity) || ((PlayerEntity) living).abilities.isCreativeMode || PlayerHelper.hasAmmo((PlayerEntity) living, AMMO_FUNC))) {
 			float f = j / 20.0F;
 			f = (f * f + f * 2.0F) / 3.0F;
 
 			if(f < 1F)
 				return;
 
-			if(living instanceof EntityPlayer && !((EntityPlayer) living).abilities.isCreativeMode)
-				PlayerHelper.consumeAmmo((EntityPlayer) living, AMMO_FUNC);
+			if(living instanceof PlayerEntity && !((PlayerEntity) living).abilities.isCreativeMode)
+				PlayerHelper.consumeAmmo((PlayerEntity) living, AMMO_FUNC);
 
 			EntityVineBall ball = new EntityVineBall(living, false);
 			ball.shoot(living, living.rotationPitch, living.rotationYaw, 0F, 1.5F, 1F);
@@ -67,20 +71,20 @@ public class ItemSlingshot extends ItemMod {
 
 	@Nonnull
 	@Override
-	public EnumAction getUseAction(ItemStack par1ItemStack) {
-		return EnumAction.BOW;
+	public UseAction getUseAction(ItemStack par1ItemStack) {
+		return UseAction.BOW;
 	}
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
 		ItemStack stack = player.getHeldItem(hand);
 		if(player.abilities.isCreativeMode || PlayerHelper.hasAmmo(player, AMMO_FUNC)) {
 			player.setActiveHand(hand);
-			return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
+			return ActionResult.newResult(ActionResultType.SUCCESS, stack);
 		}
 
-		return ActionResult.newResult(EnumActionResult.PASS, stack);
+		return ActionResult.newResult(ActionResultType.PASS, stack);
 	}
 
 }

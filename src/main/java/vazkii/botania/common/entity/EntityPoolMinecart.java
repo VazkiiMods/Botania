@@ -11,18 +11,21 @@
 package vazkii.botania.common.entity;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.item.EntityMinecart;
+import net.minecraft.entity.item.minecart.AbstractMinecartEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
@@ -41,7 +44,7 @@ import vazkii.botania.common.lib.LibMisc;
 import javax.annotation.Nonnull;
 import java.awt.Color;
 
-public class EntityPoolMinecart extends EntityMinecart {
+public class EntityPoolMinecart extends AbstractMinecartEntity {
 	@ObjectHolder(LibMisc.MOD_ID + ":pool_minecart")
 	public static EntityType<?> TYPE;
 	private static final int TRANSFER_RATE = 10000;
@@ -64,7 +67,7 @@ public class EntityPoolMinecart extends EntityMinecart {
 
 	@Nonnull
 	@Override
-	public IBlockState getDisplayTile() {
+	public BlockState getDisplayTile() {
 		return ModBlocks.manaPool.getDefaultState();
 	}
 
@@ -76,7 +79,7 @@ public class EntityPoolMinecart extends EntityMinecart {
 
 	@Nonnull
 	@Override
-	public EntityMinecart.Type getMinecartType() {
+	public AbstractMinecartEntity.Type getMinecartType() {
 		return Type.RIDEABLE;
 	}
 
@@ -131,7 +134,7 @@ public class EntityPoolMinecart extends EntityMinecart {
 	public void moveMinecartOnRail(BlockPos pos) {
 		super.moveMinecartOnRail(pos);
 
-		for(EnumFacing dir : vazkii.botania.common.core.helper.MathHelper.HORIZONTALS) {
+		for(Direction dir : vazkii.botania.common.core.helper.MathHelper.HORIZONTALS) {
 			BlockPos posP = pos.offset(dir);
 			Block block = world.getBlockState(posP).getBlock();
 			if(block == ModBlocks.pump) {
@@ -142,7 +145,7 @@ public class EntityPoolMinecart extends EntityMinecart {
 
 				if(tile instanceof IManaPool) {
 					IManaPool pool = (IManaPool) tile;
-					EnumFacing pumpDir = world.getBlockState(posP).get(BotaniaStateProps.CARDINALS);
+					Direction pumpDir = world.getBlockState(posP).get(BotaniaStateProps.CARDINALS);
 					boolean did = false;
 					boolean can = false;
 
@@ -192,13 +195,13 @@ public class EntityPoolMinecart extends EntityMinecart {
 	}
 
 	@Override
-	protected void writeAdditional(@Nonnull NBTTagCompound cmp) {
+	protected void writeAdditional(@Nonnull CompoundNBT cmp) {
 		super.writeAdditional(cmp);
 		cmp.putInt(TAG_MANA, getMana());
 	}
 
 	@Override
-	protected void readAdditional(NBTTagCompound cmp) {
+	protected void readAdditional(CompoundNBT cmp) {
 		super.readAdditional(cmp);
 		setMana(cmp.getInt(TAG_MANA));
 	}

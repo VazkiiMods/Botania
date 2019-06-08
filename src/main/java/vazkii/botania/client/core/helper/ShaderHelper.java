@@ -11,7 +11,7 @@
 package vazkii.botania.client.core.helper;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GlStateManager;
+import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 
 import net.minecraft.resources.IResourceManager;

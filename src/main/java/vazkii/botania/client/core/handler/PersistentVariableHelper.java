@@ -10,8 +10,9 @@
  */
 package vazkii.botania.client.core.handler;
 
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.CompressedStreamTools;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import vazkii.botania.client.challenge.Challenge;
 import vazkii.botania.client.challenge.ModChallenges;
 import vazkii.botania.client.gui.lexicon.GuiLexicon;
@@ -44,26 +45,26 @@ public final class PersistentVariableHelper {
 	public static int lexiconGuiScale = 0;
 
 	public static void save() throws IOException {
-		NBTTagCompound cmp = new NBTTagCompound();
+		CompoundNBT cmp = new CompoundNBT();
 
 		List<GuiLexicon> bookmarks = GuiLexicon.bookmarks;
 		int count = bookmarks.size();
 		cmp.putInt(TAG_BOOKMARK_COUNT, count);
-		NBTTagCompound bookmarksCmp = new NBTTagCompound();
+		CompoundNBT bookmarksCmp = new CompoundNBT();
 		for(int i = 0; i < count; i++) {
 			GuiLexicon lex = bookmarks.get(i);
-			NBTTagCompound bookmarkCmp = new NBTTagCompound();
+			CompoundNBT bookmarkCmp = new CompoundNBT();
 			lex.serialize(bookmarkCmp);
 			bookmarksCmp.put(TAG_BOOKMARK_PREFIX + i, bookmarkCmp);
 		}
 		cmp.put(TAG_BOOKMARKS, bookmarksCmp);
 
-		NBTTagCompound challengesCmp = new NBTTagCompound();
+		CompoundNBT challengesCmp = new CompoundNBT();
 		for(Challenge c : ModChallenges.challengeLookup.values())
 			c.writeToNBT(challengesCmp);
 		cmp.put(TAG_CHALLENGES, challengesCmp);
 
-		NBTTagCompound notesCmp = new NBTTagCompound();
+		CompoundNBT notesCmp = new CompoundNBT();
 		for(String s : GuiLexicon.notes.keySet()) {
 			String note = GuiLexicon.notes.get(s);
 			if(note != null && !note.trim().isEmpty())
@@ -80,14 +81,14 @@ public final class PersistentVariableHelper {
 	}
 
 	public static void load() throws IOException {
-		NBTTagCompound cmp = getCacheCompound();
+		CompoundNBT cmp = getCacheCompound();
 
 		int count = cmp.getInt(TAG_BOOKMARK_COUNT);
 		GuiLexicon.bookmarks.clear();
 		if(count > 0) {
-			NBTTagCompound bookmarksCmp = cmp.getCompound(TAG_BOOKMARKS);
+			CompoundNBT bookmarksCmp = cmp.getCompound(TAG_BOOKMARKS);
 			for(int i = 0; i < count; i++) {
-				NBTTagCompound bookmarkCmp = bookmarksCmp.getCompound(TAG_BOOKMARK_PREFIX + i);
+				CompoundNBT bookmarkCmp = bookmarksCmp.getCompound(TAG_BOOKMARK_PREFIX + i);
 				GuiLexicon gui = GuiLexicon.create(bookmarkCmp);
 				if(gui != null) {
 					GuiLexicon.bookmarks.add(gui);
@@ -97,13 +98,13 @@ public final class PersistentVariableHelper {
 		}
 
 		if(cmp.contains(TAG_CHALLENGES)) {
-			NBTTagCompound challengesCmp = cmp.getCompound(TAG_CHALLENGES);
+			CompoundNBT challengesCmp = cmp.getCompound(TAG_CHALLENGES);
 			for(Challenge c : ModChallenges.challengeLookup.values())
 				c.readFromNBT(challengesCmp);
 		}
 
 		if(cmp.contains(TAG_LEXICON_NOTES)) {
-			NBTTagCompound notesCmp = cmp.getCompound(TAG_LEXICON_NOTES);
+			CompoundNBT notesCmp = cmp.getCompound(TAG_LEXICON_NOTES);
 			Set<String> keys = notesCmp.keySet();
 			GuiLexicon.notes.clear();
 			for(String key : keys)
@@ -139,24 +140,24 @@ public final class PersistentVariableHelper {
 		return cacheFile;
 	}
 
-	private static NBTTagCompound getCacheCompound() throws IOException {
+	private static CompoundNBT getCacheCompound() throws IOException {
 		return getCacheCompound(getCacheFile());
 	}
 
-	private static NBTTagCompound getCacheCompound(File cache) throws IOException {
+	private static CompoundNBT getCacheCompound(File cache) throws IOException {
 		if(cache == null)
 			throw new RuntimeException("No cache file!");
 
 		try {
 			return CompressedStreamTools.readCompressed(new FileInputStream(cache));
 		} catch(IOException e) {
-			NBTTagCompound cmp = new NBTTagCompound();
+			CompoundNBT cmp = new CompoundNBT();
 			CompressedStreamTools.writeCompressed(cmp, new FileOutputStream(cache));
 			return getCacheCompound(cache);
 		}
 	}
 
-	private static void injectNBTToFile(NBTTagCompound cmp, File f) {
+	private static void injectNBTToFile(CompoundNBT cmp, File f) {
 		try {
 			CompressedStreamTools.writeCompressed(cmp, new FileOutputStream(f));
 		} catch(IOException e) {

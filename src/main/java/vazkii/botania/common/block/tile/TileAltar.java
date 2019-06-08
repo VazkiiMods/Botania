@@ -11,22 +11,28 @@
 package vazkii.botania.common.block.tile;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GlStateManager;
+import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
+import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.block.Blocks;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.Items;
 import net.minecraft.init.Particles;
-import net.minecraft.init.SoundEvents;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.item.Items;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.ITickable;
+import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.fluids.Fluid;
@@ -57,7 +63,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
-public class TileAltar extends TileSimpleInventory implements IPetalApothecary, ITickable {
+public class TileAltar extends TileSimpleInventory implements IPetalApothecary, ITickableTileEntity {
 
 	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.ALTAR)
 	public static TileEntityType<TileAltar> TYPE;
@@ -80,7 +86,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 		super(TYPE);
 	}
 
-	public boolean collideEntityItem(EntityItem item) {
+	public boolean collideEntityItem(ItemEntity item) {
 		ItemStack stack = item.getItem();
 		if(world.isRemote || stack.isEmpty() || !item.isAlive())
 			return false;
@@ -150,7 +156,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 					stack.shrink(1);
 					
 					ItemStack output = recipe.getOutput().copy();
-					EntityItem outputItem = new EntityItem(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, output);
+					ItemEntity outputItem = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, output);
 					outputItem.addTag(ITEM_TAG_APOTHECARY_SPAWNED);
 					world.spawnEntity(outputItem);
 					
@@ -182,8 +188,8 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 		ICustomApothecaryColor c = null;
 		if(stack.getItem() instanceof ICustomApothecaryColor)
 			c = (ICustomApothecaryColor) stack.getItem();
-		else if(stack.getItem() instanceof ItemBlock && ((ItemBlock) stack.getItem()).getBlock() instanceof ICustomApothecaryColor)
-			c = (ICustomApothecaryColor) ((ItemBlock) stack.getItem()).getBlock();
+		else if(stack.getItem() instanceof BlockItem && ((BlockItem) stack.getItem()).getBlock() instanceof ICustomApothecaryColor)
+			c = (ICustomApothecaryColor) ((BlockItem) stack.getItem()).getBlock();
 		
 		return c;
 	}
@@ -200,13 +206,13 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 		world.addBlockEvent(getPos(), getBlockState().getBlock(), SET_KEEP_TICKS_EVENT, 400);
 	}
 
-	public void trySetLastRecipe(EntityPlayer player) {
+	public void trySetLastRecipe(PlayerEntity player) {
 		tryToSetLastRecipe(player, itemHandler, lastRecipe);
 		if(!isEmpty())
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, pos);
 	}
 
-	public static void tryToSetLastRecipe(EntityPlayer player, IItemHandlerModifiable inv, List<ItemStack> lastRecipe) {
+	public static void tryToSetLastRecipe(PlayerEntity player, IItemHandlerModifiable inv, List<ItemStack> lastRecipe) {
 		if(lastRecipe == null || lastRecipe.isEmpty() || player.world.isRemote)
 			return;
 
@@ -229,7 +235,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 
 		if(didAny) {
 			player.world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_GENERIC_SPLASH, SoundCategory.BLOCKS, 0.1F, 10F);
-			EntityPlayerMP mp = (EntityPlayerMP) player;
+			ServerPlayerEntity mp = (ServerPlayerEntity) player;
 			mp.inventoryContainer.detectAndSendChanges();
 		}
 	}
@@ -245,10 +251,10 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 	@Override
 	public void tick() {
 		if(!world.isRemote) {
-			List<EntityItem> items = world.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(pos.add(0, 1D / 16D * 20D, 0), pos.add(1, 1D / 16D * 32D, 1)));
+			List<ItemEntity> items = world.getEntitiesWithinAABB(ItemEntity.class, new AxisAlignedBB(pos.add(0, 1D / 16D * 20D, 0), pos.add(1, 1D / 16D * 32D, 1)));
 
 			boolean didChange = false;
-			for(EntityItem item : items)
+			for(ItemEntity item : items)
 				didChange = collideEntityItem(item) || didChange;
 
 			if(didChange)
@@ -284,7 +290,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 	}
 
 	@Override
-	public void writePacketNBT(NBTTagCompound cmp) {
+	public void writePacketNBT(CompoundNBT cmp) {
 		super.writePacketNBT(cmp);
 
 		cmp.putBoolean(TAG_HAS_WATER, hasWater());
@@ -292,7 +298,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 	}
 
 	@Override
-	public void readPacketNBT(NBTTagCompound cmp) {
+	public void readPacketNBT(CompoundNBT cmp) {
 		super.readPacketNBT(cmp);
 
 		hasWater = cmp.getBoolean(TAG_HAS_WATER);

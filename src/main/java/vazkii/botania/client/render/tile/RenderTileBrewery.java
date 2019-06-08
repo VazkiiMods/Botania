@@ -11,10 +11,10 @@
 package vazkii.botania.client.render.tile;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GlStateManager;
+import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
-import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.client.renderer.tileentity.TileEntityItemStackRenderer;
+import net.minecraft.client.renderer.texture.AtlasTexture;
+import net.minecraft.client.renderer.tileentity.ItemStackTileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.item.ItemStack;
@@ -55,7 +55,7 @@ public class RenderTileBrewery extends TileEntityRenderer<TileBrewery> {
 		if(!stack.isEmpty()) {
 			Minecraft mc = Minecraft.getInstance();
 			GlStateManager.pushMatrix();
-			mc.textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+			mc.textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
 
 			float s = 0.25F;
 			GlStateManager.scalef(s, s, s);

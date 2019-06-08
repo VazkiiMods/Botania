@@ -10,7 +10,7 @@
  */
 package vazkii.botania.client.gui.lexicon;
 
-import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.text.TextFormatting;
 import org.lwjgl.glfw.GLFW;
@@ -27,7 +27,7 @@ import java.util.List;
 public class GuiLexiconChallengesList extends GuiLexicon implements IParented {
 
 	private GuiLexicon parent;
-	private GuiButton backButton;
+	private Button backButton;
 
 	public GuiLexiconChallengesList() {
 		parent = new GuiLexicon();

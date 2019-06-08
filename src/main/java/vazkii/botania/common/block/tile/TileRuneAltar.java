@@ -11,16 +11,20 @@
 package vazkii.botania.common.block.tile;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GlStateManager;
+import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.ITickable;
+import net.minecraft.util.Hand;
+import net.minecraft.util.Hand;
+import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.registries.ObjectHolder;
@@ -47,7 +51,7 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver, ITickable {
+public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver, ITickableTileEntity {
 	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.RUNE_ALTAR)
 	public static TileEntityType<TileRuneAltar> TYPE;
 	private static final String TAG_MANA = "mana";
@@ -70,14 +74,14 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 		super(TYPE);
 	}
 
-	public boolean addItem(@Nullable EntityPlayer player, ItemStack stack, @Nullable EnumHand hand) {
+	public boolean addItem(@Nullable PlayerEntity player, ItemStack stack, @Nullable Hand hand) {
 		if(cooldown > 0 || stack.getItem() == ModItems.twigWand || stack.getItem() == ModItems.lexicon)
 			return false;
 
 		if(stack.getItem() == ModBlocks.livingrock.asItem()) {
 			if(!world.isRemote) {
 				ItemStack toSpawn = player != null && player.abilities.isCreativeMode ? stack.copy().split(1) : stack.split(1);
-				EntityItem item = new EntityItem(world, getPos().getX() + 0.5, getPos().getY() + 1, getPos().getZ() + 0.5, toSpawn);
+				ItemEntity item = new ItemEntity(world, getPos().getX() + 0.5, getPos().getY() + 1, getPos().getZ() + 0.5, toSpawn);
 				item.setPickupDelay(40);
 				item.motionX = item.motionY = item.motionZ = 0;
 				world.spawnEntity(item);
@@ -140,8 +144,8 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 
 		if(!world.isRemote) {
 			if(manaToGet == 0) {
-				List<EntityItem> items = world.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(pos, pos.add(1, 1, 1)));
-				for(EntityItem item : items)
+				List<ItemEntity> items = world.getEntitiesWithinAABB(ItemEntity.class, new AxisAlignedBB(pos, pos.add(1, 1, 1)));
+				for(ItemEntity item : items)
 					if(item.isAlive() && !item.getItem().isEmpty() && item.getItem().getItem() != Item.getItemFromBlock(ModBlocks.livingrock)) {
 						ItemStack stack = item.getItem();
 						addItem(null, stack, null);
@@ -215,7 +219,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 		world.addBlockEvent(getPos(), ModBlocks.runeAltar, SET_KEEP_TICKS_EVENT, 400);
 	}
 
-	public void trySetLastRecipe(EntityPlayer player) {
+	public void trySetLastRecipe(PlayerEntity player) {
 		TileAltar.tryToSetLastRecipe(player, itemHandler, lastRecipe);
 		if(!isEmpty())
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, pos);
@@ -229,7 +233,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 		return false;
 	}
 
-	public void onWanded(EntityPlayer player, ItemStack wand) {
+	public void onWanded(PlayerEntity player, ItemStack wand) {
 		if (world.isRemote)
 			return;
 
@@ -245,9 +249,9 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 		}
 
 		if(manaToGet > 0 && mana >= manaToGet) {
-			List<EntityItem> items = world.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(pos, pos.add(1, 1, 1)));
-			EntityItem livingrock = null;
-			for(EntityItem item : items)
+			List<ItemEntity> items = world.getEntitiesWithinAABB(ItemEntity.class, new AxisAlignedBB(pos, pos.add(1, 1, 1)));
+			ItemEntity livingrock = null;
+			for(ItemEntity item : items)
 				if(item.isAlive() && !item.getItem().isEmpty() && item.getItem().getItem() == ModBlocks.livingrock.asItem()) {
 					livingrock = item;
 					break;
@@ -257,7 +261,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 				int mana = recipe.getManaUsage();
 				recieveMana(-mana);
 				ItemStack output = recipe.getOutput().copy();
-				EntityItem outputItem = new EntityItem(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, output);
+				ItemEntity outputItem = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, output);
 				world.spawnEntity(outputItem);
 				currentRecipe = null;
 				world.addBlockEvent(getPos(), ModBlocks.runeAltar, SET_COOLDOWN_EVENT, 60);
@@ -268,7 +272,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 					ItemStack stack = itemHandler.getStackInSlot(i);
 					if(!stack.isEmpty()) {
 						if(stack.getItem() instanceof ItemRune && (player == null || !player.abilities.isCreativeMode)) {
-							EntityItem outputRune = new EntityItem(world, getPos().getX() + 0.5, getPos().getY() + 1.5, getPos().getZ() + 0.5, stack.copy());
+							ItemEntity outputRune = new ItemEntity(world, getPos().getX() + 0.5, getPos().getY() + 1.5, getPos().getZ() + 0.5, stack.copy());
 							world.spawnEntity(outputRune);
 						}
 
@@ -290,7 +294,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 	}
 
 	@Override
-	public void writePacketNBT(NBTTagCompound par1nbtTagCompound) {
+	public void writePacketNBT(CompoundNBT par1nbtTagCompound) {
 		super.writePacketNBT(par1nbtTagCompound);
 
 		par1nbtTagCompound.putInt(TAG_MANA, mana);
@@ -298,7 +302,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 	}
 
 	@Override
-	public void readPacketNBT(NBTTagCompound par1nbtTagCompound) {
+	public void readPacketNBT(CompoundNBT par1nbtTagCompound) {
 		super.readPacketNBT(par1nbtTagCompound);
 
 		mana = par1nbtTagCompound.getInt(TAG_MANA);

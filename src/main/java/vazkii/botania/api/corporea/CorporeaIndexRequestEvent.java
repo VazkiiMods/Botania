@@ -9,7 +9,7 @@
  */
 package vazkii.botania.api.corporea;
 
-import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraftforge.eventbus.api.Cancelable;
 import net.minecraftforge.eventbus.api.Event;
 
@@ -19,12 +19,12 @@ import net.minecraftforge.eventbus.api.Event;
  * */
 @Cancelable
 public class CorporeaIndexRequestEvent extends Event {
-	public final EntityPlayerMP requester;
+	public final ServerPlayerEntity requester;
 	public String request;
 	public int requestCount;
 	public ICorporeaSpark indexSpark;
 	
-	public CorporeaIndexRequestEvent(EntityPlayerMP requester, String request, int requestCount, ICorporeaSpark indexSpark) {
+	public CorporeaIndexRequestEvent(ServerPlayerEntity requester, String request, int requestCount, ICorporeaSpark indexSpark) {
 		this.requester = requester;
 		this.request = request;
 		this.requestCount = requestCount;

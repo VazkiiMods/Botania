@@ -13,17 +13,20 @@ package vazkii.botania.common.block.corporea;
 import net.minecraft.block.Block;
 import javax.annotation.Nonnull;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.block.state.BlockFaceShape;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
-import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.lexicon.ILexiconable;
@@ -43,7 +46,7 @@ public class BlockCorporeaCrystalCube extends BlockCorporeaBase implements ILexi
 	}
 
 	@Override
-	public void onBlockClicked(IBlockState state, World world, BlockPos pos, EntityPlayer player) {
+	public void onBlockClicked(BlockState state, World world, BlockPos pos, PlayerEntity player) {
 		if(!world.isRemote) {
 			TileCorporeaCrystalCube cube = (TileCorporeaCrystalCube) world.getTileEntity(pos);
 			cube.doRequest(player.isSneaking());
@@ -52,12 +55,12 @@ public class BlockCorporeaCrystalCube extends BlockCorporeaBase implements ILexi
 
 	@Nonnull
 	@Override
-	public VoxelShape getShape(IBlockState state, IBlockReader world, BlockPos pos) {
+	public VoxelShape getShape(BlockState state, IBlockReader world, BlockPos pos) {
 		return SHAPE;
 	}
 
 	@Override
-	public boolean onBlockActivated(IBlockState state, World world, BlockPos pos, EntityPlayer player, EnumHand hand, EnumFacing s, float xs, float ys, float zs) {
+	public boolean onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, Direction s, float xs, float ys, float zs) {
 		ItemStack stack = player.getHeldItem(hand);
 		if(!stack.isEmpty()) {
 			if(stack.getItem() == ModItems.twigWand && player.isSneaking())
@@ -65,7 +68,7 @@ public class BlockCorporeaCrystalCube extends BlockCorporeaBase implements ILexi
 			TileCorporeaCrystalCube cube = (TileCorporeaCrystalCube) world.getTileEntity(pos);
 			if(cube.locked) {
 				if(!world.isRemote)
-					player.sendStatusMessage(new TextComponentTranslation("botaniamisc.crystalCubeLocked"), false);
+					player.sendStatusMessage(new TranslationTextComponent("botaniamisc.crystalCubeLocked"), false);
 			} else
 				cube.setRequestTarget(stack);
 			return true;
@@ -74,7 +77,7 @@ public class BlockCorporeaCrystalCube extends BlockCorporeaBase implements ILexi
 	}
 
 	@Override
-	public boolean onUsedByWand(EntityPlayer player, ItemStack stack, World world, BlockPos pos, EnumFacing side) {
+	public boolean onUsedByWand(PlayerEntity player, ItemStack stack, World world, BlockPos pos, Direction side) {
 		if(player == null || player.isSneaking()) {
 			TileCorporeaCrystalCube cube = (TileCorporeaCrystalCube) world.getTileEntity(pos);
 			cube.locked = !cube.locked;
@@ -86,34 +89,34 @@ public class BlockCorporeaCrystalCube extends BlockCorporeaBase implements ILexi
 	}
 
 	@Override
-	public boolean isFullCube(IBlockState state) {
+	public boolean isFullCube(BlockState state) {
 		return false;
 	}
 
 	@Nonnull
 	@Override
-	public TileCorporeaBase createTileEntity(@Nonnull IBlockState state, @Nonnull IBlockReader world) {
+	public TileCorporeaBase createTileEntity(@Nonnull BlockState state, @Nonnull IBlockReader world) {
 		return new TileCorporeaCrystalCube();
 	}
 
 	@Override
-	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
+	public LexiconEntry getEntry(World world, BlockPos pos, PlayerEntity player, ItemStack lexicon) {
 		return LexiconData.corporeaCrystalCube;
 	}
 
 	@Override
-	public boolean hasComparatorInputOverride(IBlockState state) {
+	public boolean hasComparatorInputOverride(BlockState state) {
 		return true;
 	}
 
 	@Override
-	public int getComparatorInputOverride(IBlockState state, World world, BlockPos pos) {
+	public int getComparatorInputOverride(BlockState state, World world, BlockPos pos) {
 		return ((TileCorporeaCrystalCube) world.getTileEntity(pos)).getComparatorValue();
 	}
 
 	@Nonnull
 	@Override
-	public BlockFaceShape getBlockFaceShape(IBlockReader world, IBlockState state, BlockPos pos, EnumFacing side) {
+	public BlockFaceShape getBlockFaceShape(IBlockReader world, BlockState state, BlockPos pos, Direction side) {
 		return BlockFaceShape.UNDEFINED;
 	}
 }

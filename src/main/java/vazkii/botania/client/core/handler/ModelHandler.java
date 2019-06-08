@@ -9,7 +9,8 @@
 package vazkii.botania.client.core.handler;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.entity.RenderSprite;
+import net.minecraft.client.renderer.entity.SpriteRenderer;
+import net.minecraft.client.renderer.entity.SpriteRenderer;
 import net.minecraft.client.renderer.model.ModelResourceLocation;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.event.ModelRegistryEvent;
@@ -103,8 +104,8 @@ public final class ModelHandler {
 
 		RenderingRegistry.registerEntityRenderingHandler(EntityThornChakram.class, renderManager -> new RenderSnowballStack<>(renderManager, ModItems.thornChakram, Minecraft.getInstance().getItemRenderer(),
 				entity -> entity.isFire() ? new ItemStack(ModItems.flareChakram) : new ItemStack(ModItems.thornChakram)));
-		RenderingRegistry.registerEntityRenderingHandler(EntityVineBall.class, renderManager -> new RenderSprite<>(renderManager, ModItems.vineBall, Minecraft.getInstance().getItemRenderer()));
-		RenderingRegistry.registerEntityRenderingHandler(EntityEnderAirBottle.class, renderManager -> new RenderSprite<>(renderManager, ModItems.enderAirBottle, Minecraft.getInstance().getItemRenderer()));
+		RenderingRegistry.registerEntityRenderingHandler(EntityVineBall.class, renderManager -> new SpriteRenderer<>(renderManager, ModItems.vineBall, Minecraft.getInstance().getItemRenderer()));
+		RenderingRegistry.registerEntityRenderingHandler(EntityEnderAirBottle.class, renderManager -> new SpriteRenderer<>(renderManager, ModItems.enderAirBottle, Minecraft.getInstance().getItemRenderer()));
 
 		IMultiblockRenderHook.renderHooks.put(ModBlocks.manaPylon, renderTilePylon);
 		IMultiblockRenderHook.renderHooks.put(ModBlocks.naturaPylon, renderTilePylon);

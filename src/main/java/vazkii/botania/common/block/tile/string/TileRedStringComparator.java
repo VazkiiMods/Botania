@@ -10,7 +10,8 @@
  */
 package vazkii.botania.common.block.tile.string;
 
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.registries.ObjectHolder;
@@ -30,7 +31,7 @@ public class TileRedStringComparator extends TileRedString {
 	public void tick() {
 		super.tick();
 		BlockPos binding = getBinding();
-		IBlockState state = getStateAtBinding();
+		BlockState state = getStateAtBinding();
 		int origVal = comparatorValue;
 
 		if(state.hasComparatorInputOverride()) {

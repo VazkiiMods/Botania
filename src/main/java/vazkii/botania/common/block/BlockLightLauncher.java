@@ -11,16 +11,17 @@
 package vazkii.botania.common.block;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.state.BlockFaceShape;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.VoxelShape;
@@ -48,22 +49,22 @@ public class BlockLightLauncher extends BlockMod implements ILexiconable {
 
 	@Nonnull
 	@Override
-	public VoxelShape getShape(IBlockState state, IBlockReader world, BlockPos pos) {
+	public VoxelShape getShape(BlockState state, IBlockReader world, BlockPos pos) {
 		return SHAPE;
 	}
 
 	@Override
-	protected void fillStateContainer(StateContainer.Builder<Block, IBlockState> builder) {
+	protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
 		builder.add(BotaniaStateProps.POWERED);
 	}
 
 	@Override
-	public boolean isFullCube(IBlockState state) {
+	public boolean isFullCube(BlockState state) {
 		return false;
 	}
 
 	@Override
-	public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block, BlockPos fromPos) {
+	public void neighborChanged(BlockState state, World world, BlockPos pos, Block block, BlockPos fromPos) {
 		boolean power = world.getRedstonePowerFromNeighbors(pos) > 0|| world.getRedstonePowerFromNeighbors(pos.up()) > 0;
 		boolean powered = state.get(BotaniaStateProps.POWERED);
 
@@ -76,7 +77,7 @@ public class BlockLightLauncher extends BlockMod implements ILexiconable {
 
 	private void pickUpEntities(World world, BlockPos pos) {
 		List<TileLightRelay> relays = new ArrayList<>();
-		for(EnumFacing dir : EnumFacing.values()) {
+		for(Direction dir : Direction.values()) {
 			TileEntity tile = world.getTileEntity(pos.offset(dir));
 			if(tile instanceof TileLightRelay) {
 				TileLightRelay relay = (TileLightRelay) tile;
@@ -87,8 +88,8 @@ public class BlockLightLauncher extends BlockMod implements ILexiconable {
 
 		if(!relays.isEmpty()) {
 			AxisAlignedBB aabb = new AxisAlignedBB(pos, pos.add(1, 1, 1));
-			List<Entity> entities = world.getEntitiesWithinAABB(EntityLivingBase.class, aabb);
-			entities.addAll(world.getEntitiesWithinAABB(EntityItem.class, aabb));
+			List<Entity> entities = world.getEntitiesWithinAABB(LivingEntity.class, aabb);
+			entities.addAll(world.getEntitiesWithinAABB(ItemEntity.class, aabb));
 
 			if(!entities.isEmpty()) {
 				for(Entity entity : entities) {
@@ -100,14 +101,14 @@ public class BlockLightLauncher extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
+	public LexiconEntry getEntry(World world, BlockPos pos, PlayerEntity player, ItemStack lexicon) {
 		return LexiconData.luminizerTransport;
 	}
 
 	@Nonnull
 	@Override
-	public BlockFaceShape getBlockFaceShape(IBlockReader world, IBlockState state, BlockPos pos, EnumFacing side) {
-		return side == EnumFacing.DOWN ? BlockFaceShape.SOLID : BlockFaceShape.UNDEFINED;
+	public BlockFaceShape getBlockFaceShape(IBlockReader world, BlockState state, BlockPos pos, Direction side) {
+		return side == Direction.DOWN ? BlockFaceShape.SOLID : BlockFaceShape.UNDEFINED;
 	}
 
 }

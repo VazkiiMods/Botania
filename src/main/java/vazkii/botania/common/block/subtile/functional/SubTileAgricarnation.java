@@ -11,13 +11,16 @@
 package vazkii.botania.common.block.subtile.functional;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockBush;
-import net.minecraft.block.BlockCrops;
-import net.minecraft.block.BlockSapling;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.BushBlock;
+import net.minecraft.block.CropsBlock;
+import net.minecraft.block.SaplingBlock;
+import net.minecraft.block.CropsBlock;
 import net.minecraft.block.IGrowable;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Blocks;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.SoundCategory;
@@ -88,9 +91,9 @@ public class SubTileAgricarnation extends TileEntityFunctionalFlower {
 	}
 
 	private boolean isPlant(BlockPos pos) {
-		IBlockState state = getWorld().getBlockState(pos);
+		BlockState state = getWorld().getBlockState(pos);
 		Block block = state.getBlock();
-		if(block == Blocks.GRASS || BlockTags.LEAVES.contains(block) || block instanceof BlockBush && !(block instanceof BlockCrops) && !(block instanceof BlockSapling))
+		if(block == Blocks.GRASS || BlockTags.LEAVES.contains(block) || block instanceof BushBlock && !(block instanceof CropsBlock) && !(block instanceof SaplingBlock))
 			return false;
 
 		Material mat = state.getMaterial();

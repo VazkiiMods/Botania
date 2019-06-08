@@ -10,10 +10,11 @@
  */
 package vazkii.botania.common.item;
 
-import net.minecraft.init.MobEffects;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Effects;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.PotionEffect;
+import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.api.distmarker.Dist;
@@ -30,7 +31,7 @@ public class ItemManaCookie extends ItemFood {
 
 	public ItemManaCookie(Properties props) {
 		super(0, 0.1F, false, props);
-		setPotionEffect(new PotionEffect(MobEffects.SATURATION, 20, 0), 1F);
+		setPotionEffect(new EffectInstance(Effects.SATURATION, 20, 0), 1F);
 		addPropertyOverride(new ResourceLocation(LibMisc.MOD_ID, "totalbiscuit"),
 				(stack, worldIn, entityIn) -> stack.getDisplayName().getString().toLowerCase(Locale.ROOT).contains("totalbiscuit") ? 1F : 0F);
 	}

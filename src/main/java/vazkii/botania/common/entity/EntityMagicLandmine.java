@@ -12,10 +12,12 @@ package vazkii.botania.common.entity;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.MobEffects;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.potion.PotionEffect;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.potion.Effects;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -67,11 +69,11 @@ public class EntityMagicLandmine extends Entity {
 				Botania.proxy.wispFX(posX, posY + 1, posZ, r, g, b, 0.5F, (float) (Math.random() - 0.5F) * m, (float) (Math.random() - 0.5F) * m, (float) (Math.random() - 0.5F) * m);
 
 			if(!world.isRemote) {
-				List<EntityPlayer> players = world.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(posX - range, posY - range, posZ - range, posX + range, posY + range, posZ + range));
-				for(EntityPlayer player : players) {
+				List<PlayerEntity> players = world.getEntitiesWithinAABB(PlayerEntity.class, new AxisAlignedBB(posX - range, posY - range, posZ - range, posX + range, posY + range, posZ + range));
+				for(PlayerEntity player : players) {
 					player.attackEntityFrom(DamageSource.causeIndirectMagicDamage(this, summoner), 10);
-					player.addPotionEffect(new PotionEffect(MobEffects.BLINDNESS, 25, 0));
-					PotionEffect wither = new PotionEffect(MobEffects.WITHER, 120, 2);
+					player.addPotionEffect(new EffectInstance(Effects.BLINDNESS, 25, 0));
+					EffectInstance wither = new EffectInstance(Effects.WITHER, 120, 2);
 					wither.getCurativeItems().clear();
 					player.addPotionEffect(wither);
 				}
@@ -86,10 +88,10 @@ public class EntityMagicLandmine extends Entity {
 	}
 
 	@Override
-	protected void readAdditional(@Nonnull NBTTagCompound var1) {
+	protected void readAdditional(@Nonnull CompoundNBT var1) {
 	}
 
 	@Override
-	protected void writeAdditional(@Nonnull NBTTagCompound var1) {
+	protected void writeAdditional(@Nonnull CompoundNBT var1) {
 	}
 }

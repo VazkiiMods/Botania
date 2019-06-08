@@ -11,7 +11,7 @@
 package vazkii.botania.api.lexicon;
 
 import com.google.common.collect.ImmutableList;
-import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;

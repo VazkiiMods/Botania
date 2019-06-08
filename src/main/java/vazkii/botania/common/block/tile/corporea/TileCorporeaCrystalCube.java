@@ -11,12 +11,14 @@
 package vazkii.botania.common.block.tile.corporea;
 
 import com.google.common.collect.ImmutableMap;
-import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.ITickable;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Direction;
+import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
@@ -36,7 +38,7 @@ import vazkii.botania.common.lib.LibMisc;
 import javax.annotation.Nonnull;
 import java.util.List;
 
-public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorporeaRequestor, ITickable {
+public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorporeaRequestor, ITickableTileEntity {
 	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.CORPOREA_CRYSTAL_CUBE)
 	public static TileEntityType<TileCorporeaCrystalCube> TYPE;
 	private static final String TAG_REQUEST_TARGET = "requestTarget";
@@ -128,9 +130,9 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 	}
 
 	@Override
-	public void writePacketNBT(NBTTagCompound par1nbtTagCompound) {
+	public void writePacketNBT(CompoundNBT par1nbtTagCompound) {
 		super.writePacketNBT(par1nbtTagCompound);
-		NBTTagCompound cmp = new NBTTagCompound();
+		CompoundNBT cmp = new CompoundNBT();
 		if(!requestTarget.isEmpty())
 			cmp = requestTarget.write(cmp);
 		par1nbtTagCompound.put(TAG_REQUEST_TARGET, cmp);
@@ -139,9 +141,9 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 	}
 
 	@Override
-	public void readPacketNBT(NBTTagCompound par1nbtTagCompound) {
+	public void readPacketNBT(CompoundNBT par1nbtTagCompound) {
 		super.readPacketNBT(par1nbtTagCompound);
-		NBTTagCompound cmp = par1nbtTagCompound.getCompound(TAG_REQUEST_TARGET);
+		CompoundNBT cmp = par1nbtTagCompound.getCompound(TAG_REQUEST_TARGET);
 		requestTarget = ItemStack.read(cmp);
 		itemCount = par1nbtTagCompound.getInt(TAG_ITEM_COUNT);
 		locked = par1nbtTagCompound.getBoolean(TAG_LOCK);
@@ -161,7 +163,7 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 		boolean did = false;
 		for(ItemStack reqStack : stacks)
 			if(requestTarget != null) {
-				EntityItem item = new EntityItem(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, reqStack);
+				ItemEntity item = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, reqStack);
 				world.spawnEntity(item);
 				itemCount -= reqStack.getCount();
 				did = true;
@@ -175,7 +177,7 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 
 	@Override
 	@Nonnull
-	public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, EnumFacing side) {
+	public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, Direction side) {
 		if(cap == CapabilityAnimation.ANIMATION_CAPABILITY) {
 			return asmCap.cast();
 		} else return super.getCapability(cap, side);

@@ -10,15 +10,17 @@
  */
 package vazkii.botania.common.item.rod;
 
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.block.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -38,7 +40,7 @@ public class ItemSkyDirtRod extends ItemDirtRod {
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
 		ItemStack stack = player.getHeldItem(hand);
 		if(!world.isRemote && ManaItemHandler.requestManaExactForTool(stack, player, COST * 2, false)) {
 			Vector3 playerVec = Vector3.fromEntityCenter(player);
@@ -49,11 +51,11 @@ public class ItemSkyDirtRod extends ItemDirtRod {
 			int y = MathHelper.floor(placeVec.y) + 1;
 			int z = MathHelper.floor(placeVec.z);
 
-			int entities = world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(x, y, z, x + 1, y + 1, z + 1)).size();
+			int entities = world.getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(x, y, z, x + 1, y + 1, z + 1)).size();
 
 			if(entities == 0) {
 				ItemStack stackToPlace = new ItemStack(Blocks.DIRT);
-				ItemUseContext ctx = new ItemUseContext(player, stackToPlace, new BlockPos(x, y, z), EnumFacing.DOWN, 0, 0, 0);
+				ItemUseContext ctx = new ItemUseContext(player, stackToPlace, new BlockPos(x, y, z), Direction.DOWN, 0, 0, 0);
 				stackToPlace.onItemUse(ctx);
 
 				if(stackToPlace.isEmpty()) {
@@ -66,7 +68,7 @@ public class ItemSkyDirtRod extends ItemDirtRod {
 		if(world.isRemote)
 			player.swingArm(hand);
 
-		return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
+		return ActionResult.newResult(ActionResultType.SUCCESS, stack);
 	}
 
 }

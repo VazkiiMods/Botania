@@ -18,10 +18,10 @@ import javax.annotation.Nullable;
 import net.minecraft.block.Block;
 import org.lwjgl.opengl.GL11;
 
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.tileentity.TileEntityItemStackRenderer;
+import com.mojang.blaze3d.platform.GlStateManager;
+import net.minecraft.client.renderer.tileentity.ItemStackTileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.item.Item;
@@ -137,7 +137,7 @@ public class RenderTilePylon extends TileEntityRenderer<TilePylon> implements IM
 		GlStateManager.popMatrix();
 	}
 
-	public static class TEISR extends TileEntityItemStackRenderer {
+	public static class TEISR extends ItemStackTileEntityRenderer {
 		@Override
 		public void renderByItem(ItemStack stack) {
 			if(Block.getBlockFromItem(stack.getItem()) instanceof BlockPylon) {
@@ -149,7 +149,7 @@ public class RenderTilePylon extends TileEntityRenderer<TilePylon> implements IM
 	}
 
 	@Override
-	public void renderBlockForMultiblock(IBlockReader world, Multiblock mb, IBlockState state, MultiblockComponent comp) {
+	public void renderBlockForMultiblock(IBlockReader world, Multiblock mb, BlockState state, MultiblockComponent comp) {
 		forceVariant = ((BlockPylon) state.getBlock()).variant;
 		GlStateManager.translatef(-0.5F, -0.25F, -0.5F);
 		renderPylon(null, 0, 0, 0, 0);
@@ -157,7 +157,7 @@ public class RenderTilePylon extends TileEntityRenderer<TilePylon> implements IM
 	}
 
 	@Override
-	public boolean needsTranslate(IBlockState state) {
+	public boolean needsTranslate(BlockState state) {
 		return true;
 	}
 }

@@ -13,12 +13,13 @@ package vazkii.botania.common.block.tile;
 import com.google.common.base.Predicates;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.init.Blocks;
+import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.block.Blocks;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.ITickable;
+import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -41,7 +42,7 @@ import vazkii.botania.common.network.PacketHandler;
 
 import java.util.List;
 
-public class TileTerraPlate extends TileMod implements ISparkAttachable, ITickable {
+public class TileTerraPlate extends TileMod implements ISparkAttachable, ITickableTileEntity {
 	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.TERRA_PLATE)
 	public static TileEntityType<TileTerraPlate> TYPE;
 	public static final int MAX_MANA = TilePool.MAX_MANA / 2;
@@ -87,7 +88,7 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable, ITickab
 		boolean removeMana = true;
 
 		if(hasValidPlatform()) {
-			List<EntityItem> items = getItems();
+			List<ItemEntity> items = getItems();
 			if(areItemsValid(items)) {
 				removeMana = false;
 				ISparkEntity spark = getAttachedSpark();
@@ -108,8 +109,8 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable, ITickab
 				}
 
 				if(mana >= MAX_MANA) {
-					EntityItem item = items.get(0);
-					for(EntityItem otherItem : items)
+					ItemEntity item = items.get(0);
+					for(ItemEntity otherItem : items)
 						if(otherItem != item)
 							otherItem.remove();
 						else item.setItem(new ItemStack(ModItems.terrasteel));
@@ -125,18 +126,18 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable, ITickab
 			recieveMana(-1000);
 	}
 
-	List<EntityItem> getItems() {
-		return world.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(pos, pos.add(1, 1, 1)));
+	List<ItemEntity> getItems() {
+		return world.getEntitiesWithinAABB(ItemEntity.class, new AxisAlignedBB(pos, pos.add(1, 1, 1)));
 	}
 
-	private boolean areItemsValid(List<EntityItem> items) {
+	private boolean areItemsValid(List<ItemEntity> items) {
 		if(items.size() != 3)
 			return false;
 
 		ItemStack ingot = ItemStack.EMPTY;
 		ItemStack pearl = ItemStack.EMPTY;
 		ItemStack diamond = ItemStack.EMPTY;
-		for(EntityItem item : items) {
+		for(ItemEntity item : items) {
 			ItemStack stack = item.getItem();
 			if(stack.getCount() != 1)
 				return false;
@@ -171,12 +172,12 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable, ITickab
 	}
 
 	@Override
-	public void writePacketNBT(NBTTagCompound cmp) {
+	public void writePacketNBT(CompoundNBT cmp) {
 		cmp.putInt(TAG_MANA, mana);
 	}
 
 	@Override
-	public void readPacketNBT(NBTTagCompound cmp) {
+	public void readPacketNBT(CompoundNBT cmp) {
 		mana = cmp.getInt(TAG_MANA);
 	}
 

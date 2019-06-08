@@ -10,7 +10,7 @@
  */
 package vazkii.botania.common.brew;
 
-import net.minecraft.potion.PotionEffect;
+import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.PotionUtils;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
@@ -19,12 +19,12 @@ import java.util.Arrays;
 
 public class BrewMod extends Brew {
 
-	public BrewMod(String key, int color, int cost, PotionEffect... effects) {
+	public BrewMod(String key, int color, int cost, EffectInstance... effects) {
 		super(key, key, color, cost, effects);
 		BotaniaAPI.registerBrew(this);
 	}
 
-	public BrewMod(String key, int cost, PotionEffect... effects) {
+	public BrewMod(String key, int cost, EffectInstance... effects) {
 		this(key, PotionUtils.getPotionColorFromEffectList(Arrays.asList(effects)), cost, effects);
 	}
 

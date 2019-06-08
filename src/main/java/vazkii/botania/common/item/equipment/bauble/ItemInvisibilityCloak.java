@@ -10,11 +10,14 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.MobEffects;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.potion.Effects;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.PotionEffect;
+import net.minecraft.potion.Effects;
+import net.minecraft.potion.EffectInstance;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.integration.curios.BaseCurio;
@@ -32,24 +35,24 @@ public class ItemInvisibilityCloak extends ItemBauble implements IManaUsingItem 
 		}
 
 		@Override
-		public void onUnequipped(String identifier, EntityLivingBase player) {
-			PotionEffect effect = player.getActivePotionEffect(MobEffects.INVISIBILITY);
-			if(effect != null && player instanceof EntityPlayer && effect.getAmplifier() == -42)
-				player.removePotionEffect(MobEffects.INVISIBILITY);
+		public void onUnequipped(String identifier, LivingEntity player) {
+			EffectInstance effect = player.getActivePotionEffect(Effects.INVISIBILITY);
+			if(effect != null && player instanceof PlayerEntity && effect.getAmplifier() == -42)
+				player.removePotionEffect(Effects.INVISIBILITY);
 		}
 
 		@Override
-		public void onCurioTick(String identifier, EntityLivingBase player) {
-			if(player instanceof EntityPlayer && !player.world.isRemote) {
+		public void onCurioTick(String identifier, LivingEntity player) {
+			if(player instanceof PlayerEntity && !player.world.isRemote) {
 				int manaCost = 2;
-				boolean hasMana = ManaItemHandler.requestManaExact(stack, (EntityPlayer) player, manaCost, false);
+				boolean hasMana = ManaItemHandler.requestManaExact(stack, (PlayerEntity) player, manaCost, false);
 				if(!hasMana)
 					onUnequipped(identifier, player);
 				else {
-					if(player.getActivePotionEffect(MobEffects.INVISIBILITY) != null)
-						player.removePotionEffect(MobEffects.INVISIBILITY);
+					if(player.getActivePotionEffect(Effects.INVISIBILITY) != null)
+						player.removePotionEffect(Effects.INVISIBILITY);
 
-					player.addPotionEffect(new PotionEffect(MobEffects.INVISIBILITY, Integer.MAX_VALUE, -42, true, true));
+					player.addPotionEffect(new EffectInstance(Effects.INVISIBILITY, Integer.MAX_VALUE, -42, true, true));
 				}
 			}
 		}

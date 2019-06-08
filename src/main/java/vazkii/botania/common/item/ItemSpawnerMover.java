@@ -11,28 +11,35 @@
 package vazkii.botania.common.item;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.init.Blocks;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.block.Blocks;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.tileentity.MobSpawnerTileEntity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityMobSpawner;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.tileentity.MobSpawnerTileEntity;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.world.ServerWorld;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldServer;
+import net.minecraft.world.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -57,8 +64,8 @@ public class ItemSpawnerMover extends ItemMod {
 	}
 
 	@Nullable
-	private static NBTTagCompound getSpawnerTag(ItemStack stack) {
-		NBTTagCompound tag = stack.getTag();
+	private static CompoundNBT getSpawnerTag(ItemStack stack) {
+		CompoundNBT tag = stack.getTag();
 		if(tag != null && tag.contains(TAG_SPAWNER)) {
 			return tag.getCompound(TAG_SPAWNER);
 		}
@@ -68,7 +75,7 @@ public class ItemSpawnerMover extends ItemMod {
 
 	@Nullable
 	private static ResourceLocation getEntityId(ItemStack stack) {
-		NBTTagCompound tag = getSpawnerTag(stack);
+		CompoundNBT tag = getSpawnerTag(stack);
 		if(tag != null && tag.contains(TAG_SPAWN_DATA)) {
 			tag = tag.getCompound(TAG_SPAWN_DATA);
 			if(tag.contains(TAG_ID)) {
@@ -97,28 +104,28 @@ public class ItemSpawnerMover extends ItemMod {
 
 	@Nonnull
 	@Override
-	public EnumActionResult onItemUse(ItemUseContext ctx) {
+	public ActionResultType onItemUse(ItemUseContext ctx) {
 		if(getEntityId(ctx.getItem()) == null) {
-			return captureSpawner(ctx) ? EnumActionResult.SUCCESS : EnumActionResult.PASS;
+			return captureSpawner(ctx) ? ActionResultType.SUCCESS : ActionResultType.PASS;
 		} else {
 			return placeSpawner(ctx);
 		}
 	}
 
-	private EnumActionResult placeSpawner(ItemUseContext ctx) {
+	private ActionResultType placeSpawner(ItemUseContext ctx) {
 		ItemStack spawner = new ItemStack(Blocks.SPAWNER);
 		ItemUseContext placeCtx = new BlockItemUseContext(ctx.getWorld(), ctx.getPlayer(), spawner, ctx.getPos(), ctx.getFace(), ctx.getHitX(), ctx.getHitY(), ctx.getHitZ());
-		EnumActionResult res = spawner.onItemUse(placeCtx);
+		ActionResultType res = spawner.onItemUse(placeCtx);
 
-		if(res == EnumActionResult.SUCCESS) {
+		if(res == ActionResultType.SUCCESS) {
 			World world = ctx.getWorld();
 			BlockPos pos = ctx.getPos();
 			ItemStack mover = ctx.getItem();
 
 			if(!world.isRemote) {
 				TileEntity te = world.getTileEntity(pos);
-				NBTTagCompound tag = mover.getTag();
-				if (te instanceof TileEntityMobSpawner && tag.contains(TAG_SPAWNER)) {
+				CompoundNBT tag = mover.getTag();
+				if (te instanceof MobSpawnerTileEntity && tag.contains(TAG_SPAWNER)) {
 					tag = tag.getCompound(TAG_SPAWNER);
 					tag.putInt("x", pos.getX());
 					tag.putInt("y", pos.getY());
@@ -143,18 +150,18 @@ public class ItemSpawnerMover extends ItemMod {
 		World world = ctx.getWorld();
 		BlockPos pos = ctx.getPos();
 		ItemStack stack = ctx.getItem();
-		EntityPlayer player = ctx.getPlayer();
+		PlayerEntity player = ctx.getPlayer();
 
 		if(world.getBlockState(pos).getBlock() == Blocks.SPAWNER) {
 			if(!world.isRemote) {
 				TileEntity te = world.getTileEntity(pos);
-				NBTTagCompound tag = new NBTTagCompound();
-				tag.put(TAG_SPAWNER, te.write(new NBTTagCompound()));
+				CompoundNBT tag = new CompoundNBT();
+				tag.put(TAG_SPAWNER, te.write(new CompoundNBT()));
 				stack.setTag(tag);
 				world.destroyBlock(pos, false);
 				if(player != null) {
 					player.getCooldownTracker().setCooldown(this, 20);
-					UseItemSuccessTrigger.INSTANCE.trigger((EntityPlayerMP) player, stack, (WorldServer) world, pos.getX(), pos.getY(), pos.getZ());
+					UseItemSuccessTrigger.INSTANCE.trigger((ServerPlayerEntity) player, stack, (ServerWorld) world, pos.getX(), pos.getY(), pos.getZ());
 					player.renderBrokenItemStack(stack);
 				}
 			} else {

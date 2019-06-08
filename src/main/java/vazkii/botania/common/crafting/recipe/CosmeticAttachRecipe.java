@@ -11,12 +11,13 @@
 package vazkii.botania.common.crafting.recipe;
 
 import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.InventoryCrafting;
+import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.item.crafting.IRecipeHidden;
+import net.minecraft.item.crafting.SpecialRecipe;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.RecipeSerializers;
+import net.minecraft.item.crafting.SpecialRecipe;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.IForgeRegistryEntry;
@@ -26,7 +27,7 @@ import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
-public class CosmeticAttachRecipe extends IRecipeHidden {
+public class CosmeticAttachRecipe extends SpecialRecipe {
 	private static final ResourceLocation TYPE_ID = new ResourceLocation(LibMisc.MOD_ID, "cosmetic_attach");
 	public static final IRecipeSerializer<CosmeticAttachRecipe> SERIALIZER = new RecipeSerializers.SimpleSerializer<>(TYPE_ID.toString(), CosmeticAttachRecipe::new);
 

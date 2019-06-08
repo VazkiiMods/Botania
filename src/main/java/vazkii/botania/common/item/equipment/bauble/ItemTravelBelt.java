@@ -11,10 +11,10 @@
 package vazkii.botania.common.item.equipment.bauble;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.entity.model.ModelBiped;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import com.mojang.blaze3d.platform.GlStateManager;
+import net.minecraft.client.renderer.entity.model.BipedModel;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
@@ -40,7 +40,7 @@ public class ItemTravelBelt extends ItemBauble implements IManaUsingItem {
 
 	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_TRAVEL_BELT);
 	@OnlyIn(Dist.CLIENT)
-	private static ModelBiped model;
+	private static BipedModel model;
 
 	private static final int COST = 1;
 	private static final int COST_INTERVAL = 10;
@@ -65,8 +65,8 @@ public class ItemTravelBelt extends ItemBauble implements IManaUsingItem {
 
 	@SubscribeEvent
 	public void updatePlayerStepStatus(LivingUpdateEvent event) {
-		if(event.getEntityLiving() instanceof EntityPlayer) {
-			EntityPlayer player = (EntityPlayer) event.getEntityLiving();
+		if(event.getEntityLiving() instanceof PlayerEntity) {
+			PlayerEntity player = (PlayerEntity) event.getEntityLiving();
 			ItemStack belt = Botania.curiosLoaded ? CurioIntegration.findOrEmpty(s -> s.getItem() instanceof ItemTravelBelt, player) : ItemStack.EMPTY;
 			String s = playerStr(player);
 
@@ -104,14 +104,14 @@ public class ItemTravelBelt extends ItemBauble implements IManaUsingItem {
 		return speed;
 	}
 
-	public void onMovedTick(ItemStack stack, EntityPlayer player) {}
+	public void onMovedTick(ItemStack stack, PlayerEntity player) {}
 
-	public void onNotMovingTick(ItemStack stack, EntityPlayer player) {}
+	public void onNotMovingTick(ItemStack stack, PlayerEntity player) {}
 
 	@SubscribeEvent
 	public void onPlayerJump(LivingJumpEvent event) {
-		if(event.getEntityLiving() instanceof EntityPlayer) {
-			EntityPlayer player = (EntityPlayer) event.getEntityLiving();
+		if(event.getEntityLiving() instanceof PlayerEntity) {
+			PlayerEntity player = (PlayerEntity) event.getEntityLiving();
 			ItemStack belt = CurioIntegration.findOrEmpty(s -> s.getItem() instanceof ItemTravelBelt, player);
 
 			if(!belt.isEmpty() && ManaItemHandler.requestManaExact(belt, player, COST, false)) {
@@ -121,7 +121,7 @@ public class ItemTravelBelt extends ItemBauble implements IManaUsingItem {
 		}
 	}
 
-	private boolean shouldPlayerHaveStepup(EntityPlayer player) {
+	private boolean shouldPlayerHaveStepup(PlayerEntity player) {
 		ItemStack result = Botania.curiosLoaded ? CurioIntegration.findOrEmpty(s -> s.getItem() instanceof ItemTravelBelt, player) : ItemStack.EMPTY;
 		return !result.isEmpty() && ManaItemHandler.requestManaExact(result, player, COST, false);
 	}
@@ -133,7 +133,7 @@ public class ItemTravelBelt extends ItemBauble implements IManaUsingItem {
 		playersWithStepup.remove(username + ":true");
 	}
 
-	public static String playerStr(EntityPlayer player) {
+	public static String playerStr(PlayerEntity player) {
 		return player.getGameProfile().getName() + ":" + player.world.isRemote;
 	}
 
@@ -149,7 +149,7 @@ public class ItemTravelBelt extends ItemBauble implements IManaUsingItem {
 
 		@Override
         @OnlyIn(Dist.CLIENT)
-		public void doRender(String identifier, EntityLivingBase player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+		public void doRender(String identifier, LivingEntity player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 			Minecraft.getInstance().textureManager.bindTexture(((ItemTravelBelt) stack.getItem()).getRenderTexture());
 			AccessoryRenderHelper.rotateIfSneaking(player);
 
@@ -158,7 +158,7 @@ public class ItemTravelBelt extends ItemBauble implements IManaUsingItem {
 			float s = 1.05F / 16F;
 			GlStateManager.scalef(s, s, s);
 			if(model == null)
-				model = new ModelBiped();
+				model = new BipedModel();
 
 			model.bipedBody.render(1F);
 		}

@@ -10,10 +10,13 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.MobEffects;
-import net.minecraft.potion.PotionEffect;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Effects;
+import net.minecraft.potion.EffectInstance;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.registries.ObjectHolder;
@@ -41,11 +44,11 @@ public class SubTileMedumone extends TileEntityFunctionalFlower {
 		super.tickFlower();
 
 		if(!getWorld().isRemote && mana > 0) {
-			List<EntityLivingBase> entities = getWorld().getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(getPos().add(-RANGE, -RANGE, -RANGE), getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
+			List<LivingEntity> entities = getWorld().getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(getPos().add(-RANGE, -RANGE, -RANGE), getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
 
-			for(EntityLivingBase entity : entities)
-				if(!(entity instanceof EntityPlayer)) {
-					entity.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 2, 100));
+			for(LivingEntity entity : entities)
+				if(!(entity instanceof PlayerEntity)) {
+					entity.addPotionEffect(new EffectInstance(Effects.SLOWNESS, 2, 100));
 					mana--;
 					if(mana == 0)
 						return;

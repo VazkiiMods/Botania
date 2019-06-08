@@ -10,8 +10,10 @@
  */
 package vazkii.botania.api.wiki;
 
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
@@ -47,9 +49,9 @@ public class SimpleWikiProvider implements IWikiProvider {
 	}
 
 	@Override
-	public String getBlockName(World world, RayTraceResult pos, EntityPlayer player) {
+	public String getBlockName(World world, RayTraceResult pos, PlayerEntity player) {
 		BlockPos bPos = pos.getBlockPos();
-		IBlockState state = world.getBlockState(bPos);
+		BlockState state = world.getBlockState(bPos);
 
 		ItemStack stack = state.getBlock().getPickBlock(state, pos, world, bPos, player);
 
@@ -63,7 +65,7 @@ public class SimpleWikiProvider implements IWikiProvider {
 	}
 
 	@Override
-	public String getWikiURL(World world, RayTraceResult pos, EntityPlayer player) {
+	public String getWikiURL(World world, RayTraceResult pos, PlayerEntity player) {
 		String name = getBlockName(world, pos, player);
 		if(name == null)
 			return null;
@@ -76,7 +78,7 @@ public class SimpleWikiProvider implements IWikiProvider {
 	}
 
 	@Override
-	public String getWikiName(World world, RayTraceResult pos, EntityPlayer player) {
+	public String getWikiName(World world, RayTraceResult pos, PlayerEntity player) {
 		return name;
 	}
 

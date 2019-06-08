@@ -7,10 +7,10 @@ import net.minecraft.advancements.ICriterionTrigger;
 import net.minecraft.advancements.PlayerAdvancements;
 import net.minecraft.advancements.criterion.LocationPredicate;
 import net.minecraft.advancements.criterion.MinMaxBounds;
-import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.WorldServer;
+import net.minecraft.world.ServerWorld;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
@@ -66,7 +66,7 @@ public class CorporeaRequestTrigger implements ICriterionTrigger<CorporeaRequest
             this.playerAdvancements = playerAdvancementsIn;
         }
 
-        public void trigger(WorldServer world, BlockPos pos, int count) {
+        public void trigger(ServerWorld world, BlockPos pos, int count) {
             List<Listener<Instance>> list = new ArrayList<>();
 
             for(Listener<CorporeaRequestTrigger.Instance> listener : this.listeners) {
@@ -81,7 +81,7 @@ public class CorporeaRequestTrigger implements ICriterionTrigger<CorporeaRequest
         }
     }
 
-    public void trigger(EntityPlayerMP player, WorldServer world, BlockPos pos, int count) {
+    public void trigger(ServerPlayerEntity player, ServerWorld world, BlockPos pos, int count) {
         PlayerTracker tracker = playerTrackers.get(player.getAdvancements());
         if(tracker != null) {
             tracker.trigger(world, pos, count);
@@ -103,7 +103,7 @@ public class CorporeaRequestTrigger implements ICriterionTrigger<CorporeaRequest
             return ID;
         }
 
-        boolean test(WorldServer world, BlockPos pos, int count) {
+        boolean test(ServerWorld world, BlockPos pos, int count) {
             return this.count.test(count) && this.indexPos.test(world, pos.getX(), pos.getY(), pos.getZ());
         }
     }

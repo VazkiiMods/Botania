@@ -12,11 +12,13 @@ package vazkii.botania.common.core.handler;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -149,7 +151,7 @@ public class InternalMethodHandler extends DummyMethodHandler {
 	}
 
 	@Override
-	public IItemHandlerModifiable getAccessoriesInventory(EntityPlayer player) {
+	public IItemHandlerModifiable getAccessoriesInventory(PlayerEntity player) {
 		if(Botania.curiosLoaded) {
 			LazyOptional<IItemHandlerModifiable> cap = CurioIntegration.getAllCurios(player);
 			return cap.orElseGet(EmptyHandler::new);
@@ -203,7 +205,7 @@ public class InternalMethodHandler extends DummyMethodHandler {
 	}
 
 	@Override
-	public void breakOnAllCursors(EntityPlayer player, Item item, ItemStack stack, BlockPos pos, EnumFacing side) {
+	public void breakOnAllCursors(PlayerEntity player, Item item, ItemStack stack, BlockPos pos, Direction side) {
 		ItemLokiRing.breakOnAllCursors(player, item, stack, pos, side);
 	}
 

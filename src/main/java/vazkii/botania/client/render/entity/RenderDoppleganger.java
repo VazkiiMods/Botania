@@ -11,10 +11,12 @@
 package vazkii.botania.client.render.entity;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.AbstractClientPlayer;
-import net.minecraft.client.renderer.entity.RenderBiped;
-import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.client.renderer.entity.model.ModelPlayer;
+import net.minecraft.client.entity.player.AbstractClientPlayerEntity;
+import net.minecraft.client.entity.player.AbstractClientPlayerEntity;
+import net.minecraft.client.renderer.entity.BipedRenderer;
+import net.minecraft.client.renderer.entity.BipedRenderer;
+import net.minecraft.client.renderer.entity.EntityRendererManager;
+import net.minecraft.client.renderer.entity.model.PlayerModel;
 import net.minecraft.client.resources.DefaultPlayerSkin;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.ARBShaderObjects;
@@ -24,7 +26,7 @@ import vazkii.botania.common.entity.EntityDoppleganger;
 
 import javax.annotation.Nonnull;
 
-public class RenderDoppleganger extends RenderBiped<EntityDoppleganger> {
+public class RenderDoppleganger extends BipedRenderer<EntityDoppleganger> {
 
 	private static final float DEFAULT_GRAIN_INTENSITY = 0.05F;
 	private static final float DEFAULT_DISFIGURATION = 0.025F;
@@ -52,8 +54,8 @@ public class RenderDoppleganger extends RenderBiped<EntityDoppleganger> {
 		ARBShaderObjects.glUniform1fARB(grainIntensityUniform, DEFAULT_GRAIN_INTENSITY);
 	};
 
-	public RenderDoppleganger(RenderManager renderManager) {
-		super(renderManager, new ModelPlayer(0.0F, false), 0F);
+	public RenderDoppleganger(EntityRendererManager renderManager) {
+		super(renderManager, new PlayerModel(0.0F, false), 0F);
 	}
 
 	@Override
@@ -77,10 +79,10 @@ public class RenderDoppleganger extends RenderBiped<EntityDoppleganger> {
 	protected ResourceLocation getEntityTexture(@Nonnull EntityDoppleganger entity) {
 		Minecraft mc = Minecraft.getInstance();
 
-		if(!(mc.getRenderViewEntity() instanceof AbstractClientPlayer))
+		if(!(mc.getRenderViewEntity() instanceof AbstractClientPlayerEntity))
 			return DefaultPlayerSkin.getDefaultSkin(entity.getUniqueID());
 
-		return ((AbstractClientPlayer) mc.getRenderViewEntity()).getLocationSkin();
+		return ((AbstractClientPlayerEntity) mc.getRenderViewEntity()).getLocationSkin();
 	}
 
 }

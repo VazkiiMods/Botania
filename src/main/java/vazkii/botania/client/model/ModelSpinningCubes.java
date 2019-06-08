@@ -10,26 +10,27 @@
  */
 package vazkii.botania.client.model;
 
-import net.minecraft.client.renderer.GlStateManager;
+import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
-import net.minecraft.client.renderer.entity.model.ModelBase;
-import net.minecraft.client.renderer.entity.model.ModelRenderer;
+import net.minecraft.client.renderer.entity.model.RendererModel;
+import net.minecraft.client.renderer.model.Model;
+import net.minecraft.client.renderer.entity.model.RendererModel;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 
-public class ModelSpinningCubes extends ModelBase {
+public class ModelSpinningCubes extends Model {
 
-	private final ModelRenderer spinningCube;
+	private final RendererModel spinningCube;
 
 	public ModelSpinningCubes() {
-		spinningCube = new ModelRenderer(this, 42, 0);
+		spinningCube = new RendererModel(this, 42, 0);
 		spinningCube.addBox(0F, 0F, 0F, 1, 1, 1);
 		spinningCube.setRotationPoint(0F, 0F, 0F);
 		spinningCube.setTextureSize(64, 64);
 	}
 
 	public void renderSpinningCubes(int cubes, int repeat, int origRepeat) {
-		GlStateManager.disableTexture2D();
+		GlStateManager.disableTexture();
 
 		final float modifier = 6F;
 		final float rotationModifier = 0.2F;
@@ -80,7 +81,7 @@ public class ModelSpinningCubes extends ModelBase {
 			GlStateManager.popMatrix();
 		}
 		GlStateManager.popMatrix();
-		GlStateManager.enableTexture2D();
+		GlStateManager.enableTexture();
 
 		if(repeat != 0)
 			renderSpinningCubes(cubes, repeat - 1, origRepeat);

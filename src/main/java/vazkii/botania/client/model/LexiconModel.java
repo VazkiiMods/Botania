@@ -1,13 +1,15 @@
 package vazkii.botania.client.model;
 
 import com.google.common.collect.ImmutableList;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.renderer.model.BakedQuad;
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.model.ItemOverrideList;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Direction;
 import org.apache.commons.lang3.tuple.Pair;
 import vazkii.botania.common.core.handler.ConfigHandler;
 
@@ -33,7 +35,7 @@ public class LexiconModel implements IBakedModel {
 		return original.handlePerspective(cameraTransformType);
 	}
 
-	@Nonnull @Override public List<BakedQuad> getQuads(IBlockState state, EnumFacing side, @Nonnull Random rand) { return ImmutableList.of(); }
+	@Nonnull @Override public List<BakedQuad> getQuads(BlockState state, Direction side, @Nonnull Random rand) { return ImmutableList.of(); }
 	@Override public boolean isAmbientOcclusion() { return false; }
 	@Override public boolean isGui3d() { return false; }
 	@Override public boolean isBuiltInRenderer() { return false; }

@@ -11,23 +11,19 @@
 package vazkii.botania.client.render.tile;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.entity.model.ModelEnderCrystal;
-import net.minecraft.client.renderer.tileentity.TileEntityItemStackRenderer;
+import com.mojang.blaze3d.platform.GlStateManager;
+import net.minecraft.client.renderer.entity.model.EnderCrystalModel;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
-import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.lib.LibResources;
-import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
 
 import javax.annotation.Nullable;
 
 public class RenderTileCorporeaIndex extends TileEntityRenderer<TileCorporeaIndex> {
 	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_CORPOREA_INDEX);
-	private final ModelEnderCrystal crystal = new ModelEnderCrystal(0F, false);
+	private final EnderCrystalModel crystal = new EnderCrystalModel(0F, false);
 	public static boolean move = true;
 
 	@Override

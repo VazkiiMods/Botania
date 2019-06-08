@@ -11,7 +11,7 @@
 package vazkii.botania.client.core.handler;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GlStateManager;
+import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
@@ -47,7 +47,7 @@ public final class BlockHighlightRenderHandler {
 		RayTraceResult pos = mc.objectMouseOver;
 
 		GlStateManager.pushMatrix();
-		GlStateManager.disableTexture2D();
+		GlStateManager.disableTexture();
 		GL11.glPushAttrib(GL11.GL_LIGHTING_BIT);
 		GlStateManager.disableLighting();
 		GlStateManager.enableBlend();
@@ -102,7 +102,7 @@ public final class BlockHighlightRenderHandler {
 				offY += 0.001;
 			}
 
-		GlStateManager.enableTexture2D();
+		GlStateManager.enableTexture();
 		GlStateManager.disableBlend();
 		GL11.glPopAttrib();
 		GlStateManager.popMatrix();

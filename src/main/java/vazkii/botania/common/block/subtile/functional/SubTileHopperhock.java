@@ -12,17 +12,23 @@ package vazkii.botania.common.block.subtile.functional;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GlStateManager;
+import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.item.EntityItemFrame;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.item.ItemFrameEntity;
+import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.item.ItemFrameEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.tileentity.ChestTileEntity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityChest;
+import net.minecraft.tileentity.ChestTileEntity;
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.api.distmarker.Dist;
@@ -78,10 +84,10 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower {
 
 		BlockPos pos = getPos();
 
-		List<EntityItem> items = getWorld().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(pos.add(-range, -range, -range), pos.add(range + 1, range + 1, range + 1)));
+		List<ItemEntity> items = getWorld().getEntitiesWithinAABB(ItemEntity.class, new AxisAlignedBB(pos.add(-range, -range, -range), pos.add(range + 1, range + 1, range + 1)));
 		int slowdown = getSlowdownFactor();
 
-		for(EntityItem item : items) {
+		for(ItemEntity item : items) {
 			if(item.age < 60 + slowdown || item.age >= 105 && item.age < 110 || !item.isAlive() || item.getItem().isEmpty())
 				continue;
 
@@ -90,7 +96,7 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower {
 			boolean priorityInv = false;
 			int amountToPutIn = 0;
 
-			for(EnumFacing dir : EnumFacing.values()) {
+			for(Direction dir : Direction.values()) {
 				BlockPos pos_ = pos.offset(dir);
 
 				InvWithLocation inv = InventoryHelper.getInventoryWithLocation(getWorld(), pos_, dir.getOpposite());
@@ -169,18 +175,18 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower {
 			TileEntity tileEntity = getWorld().getTileEntity(pos);
 			Block chest = getWorld().getBlockState(pos).getBlock();
 
-			if(tileEntity instanceof TileEntityChest)
-				for(EnumFacing dir : MathHelper.HORIZONTALS)
+			if(tileEntity instanceof ChestTileEntity)
+				for(Direction dir : MathHelper.HORIZONTALS)
 					if(getWorld().getBlockState(pos.offset(dir)).getBlock() == chest) {
 						filter.addAll(getFilterForInventory(pos.offset(dir), false));
 						break;
 					}
 		}
 
-		for(EnumFacing dir : MathHelper.HORIZONTALS) {
+		for(Direction dir : MathHelper.HORIZONTALS) {
 			AxisAlignedBB aabb = new AxisAlignedBB(pos.offset(dir));
-			List<EntityItemFrame> frames = getWorld().getEntitiesWithinAABB(EntityItemFrame.class, aabb);
-			for(EntityItemFrame frame : frames) {
+			List<ItemFrameEntity> frames = getWorld().getEntitiesWithinAABB(ItemFrameEntity.class, aabb);
+			for(ItemFrameEntity frame : frames) {
 				if(frame.facingDirection == dir)
 					filter.add(frame.getDisplayedItem());
 			}
@@ -195,7 +201,7 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower {
 	}
 
 	@Override
-	public boolean onWanded(EntityPlayer player, ItemStack wand) {
+	public boolean onWanded(PlayerEntity player, ItemStack wand) {
 		if(player == null)
 			return false;
 
@@ -218,14 +224,14 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower {
 	}
 
 	@Override
-	public void writeToPacketNBT(NBTTagCompound cmp) {
+	public void writeToPacketNBT(CompoundNBT cmp) {
 		super.writeToPacketNBT(cmp);
 
 		cmp.putInt(TAG_FILTER_TYPE, filterType);
 	}
 
 	@Override
-	public void readFromPacketNBT(NBTTagCompound cmp) {
+	public void readFromPacketNBT(CompoundNBT cmp) {
 		super.readFromPacketNBT(cmp);
 
 		filterType = cmp.getInt(TAG_FILTER_TYPE);

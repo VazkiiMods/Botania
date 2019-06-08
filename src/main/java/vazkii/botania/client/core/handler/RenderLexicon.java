@@ -1,14 +1,18 @@
 package vazkii.botania.client.core.handler;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.AbstractClientPlayer;
+import net.minecraft.client.entity.player.AbstractClientPlayerEntity;
+import net.minecraft.client.entity.player.AbstractClientPlayerEntity;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.entity.model.ModelBook;
+import com.mojang.blaze3d.platform.GlStateManager;
+import net.minecraft.client.renderer.entity.model.BookModel;
+import net.minecraft.client.renderer.entity.model.BookModel;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.EnumHandSide;
+import net.minecraft.util.Hand;
+import net.minecraft.util.HandSide;
+import net.minecraft.util.Hand;
+import net.minecraft.util.HandSide;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextFormatting;
@@ -28,7 +32,7 @@ import vazkii.botania.common.lib.LibMisc;
 // Hacky way to render 3D lexicon, will be reevaluated in the future.
 @Mod.EventBusSubscriber(value = Dist.CLIENT, modid = LibMisc.MOD_ID)
 public class RenderLexicon {
-	private static final ModelBook model = new ModelBook();
+	private static final BookModel model = new BookModel();
 	// todo 1.12 improve
 	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_LEXICA_DEFAULT);
 	private static final ResourceLocation elvenTexture = new ResourceLocation(LibResources.MODEL_LEXICA_ELVEN);
@@ -60,12 +64,12 @@ public class RenderLexicon {
 		}
 	}
 
-	private static void renderItemInFirstPerson(AbstractClientPlayer player, float partialTicks, float interpPitch, EnumHand hand, float swingProgress, ItemStack stack, float equipProgress) throws Throwable {
+	private static void renderItemInFirstPerson(AbstractClientPlayerEntity player, float partialTicks, float interpPitch, Hand hand, float swingProgress, ItemStack stack, float equipProgress) throws Throwable {
 		// Cherry picked from ItemRenderer.renderItemInFirstPerson
-		boolean flag = hand == EnumHand.MAIN_HAND;
-		EnumHandSide enumhandside = flag ? player.getPrimaryHand() : player.getPrimaryHand().opposite();
+		boolean flag = hand == Hand.MAIN_HAND;
+		HandSide enumhandside = flag ? player.getPrimaryHand() : player.getPrimaryHand().opposite();
 		GlStateManager.pushMatrix();
-		boolean flag1 = enumhandside == EnumHandSide.RIGHT;
+		boolean flag1 = enumhandside == HandSide.RIGHT;
 		float f = -0.4F * MathHelper.sin(MathHelper.sqrt(swingProgress) * (float)Math.PI);
 		float f1 = 0.2F * MathHelper.sin(MathHelper.sqrt(swingProgress) * ((float)Math.PI * 2F));
 		float f2 = -0.2F * MathHelper.sin(swingProgress * (float)Math.PI);
@@ -77,7 +81,7 @@ public class RenderLexicon {
 		GlStateManager.popMatrix();
 	}
 
-	private static void doRender(EnumHandSide side, float partialTicks, ItemStack stack) {
+	private static void doRender(HandSide side, float partialTicks, ItemStack stack) {
 		Minecraft mc = Minecraft.getInstance();
 
 		GlStateManager.pushMatrix();
@@ -93,8 +97,8 @@ public class RenderLexicon {
 			else ticks -= partialTicks;
 		}
 
-		GlStateManager.translated(0.3F + 0.02F * ticks, 0.475F + 0.01F * ticks, -0.2F - (side == EnumHandSide.RIGHT ? 0.035F : 0.01F) * ticks);
-		GlStateManager.rotatef(87.5F + ticks * (side == EnumHandSide.RIGHT ? 8 : 12), 0F, 1F, 0F);
+		GlStateManager.translated(0.3F + 0.02F * ticks, 0.475F + 0.01F * ticks, -0.2F - (side == HandSide.RIGHT ? 0.035F : 0.01F) * ticks);
+		GlStateManager.rotatef(87.5F + ticks * (side == HandSide.RIGHT ? 8 : 12), 0F, 1F, 0F);
 		GlStateManager.rotatef(ticks * 2.85F, 0F, 0F, 1F);
 		opening = ticks / 12F;
 
@@ -147,20 +151,20 @@ public class RenderLexicon {
 
 	// Copy - ItemRenderer.transformSideFirstPerson
 	// Arg - Side, EquipProgress
-	private static void transformSideFirstPerson(EnumHandSide p_187459_1_, float p_187459_2_)
+	private static void transformSideFirstPerson(HandSide p_187459_1_, float p_187459_2_)
 	{
-		int i = p_187459_1_ == EnumHandSide.RIGHT ? 1 : -1;
+		int i = p_187459_1_ == HandSide.RIGHT ? 1 : -1;
 		GlStateManager.translatef(i * 0.56F, -0.44F + p_187459_2_ * -0.8F, -0.72F);
 	}
 
 	// Copy with modification - ItemRenderer.transformFirstPerson
 	// Arg - Side, SwingProgress
-	private static void transformFirstPerson(EnumHandSide p_187453_1_, float p_187453_2_)
+	private static void transformFirstPerson(HandSide p_187453_1_, float p_187453_2_)
 	{
-		int i = p_187453_1_ == EnumHandSide.RIGHT ? 1 : -1;
+		int i = p_187453_1_ == HandSide.RIGHT ? 1 : -1;
 		// Botania - added
-		GlStateManager.translatef(p_187453_1_ == EnumHandSide.RIGHT ? 0.2F : 0.52F, -0.125F, p_187453_1_ == EnumHandSide.RIGHT ? 0.6F : 0.25F);
-		GlStateManager.rotatef(p_187453_1_ == EnumHandSide.RIGHT ? 60F : 120F, 0F, 1F, 0F);
+		GlStateManager.translatef(p_187453_1_ == HandSide.RIGHT ? 0.2F : 0.52F, -0.125F, p_187453_1_ == HandSide.RIGHT ? 0.6F : 0.25F);
+		GlStateManager.rotatef(p_187453_1_ == HandSide.RIGHT ? 60F : 120F, 0F, 1F, 0F);
 		GlStateManager.rotatef(30F, 0F, 0F, -1F);
 		// End add
 		float f = MathHelper.sin(p_187453_2_ * p_187453_2_ * (float)Math.PI);

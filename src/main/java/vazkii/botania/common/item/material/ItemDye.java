@@ -11,16 +11,19 @@
 package vazkii.botania.common.item.material;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.passive.EntitySheep;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.passive.SheepEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Hand;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import vazkii.botania.api.ColorHelper;
@@ -32,13 +35,13 @@ import javax.annotation.Nonnull;
 
 public class ItemDye extends Item16Colors {
 
-	public ItemDye(EnumDyeColor color, Properties props) {
+	public ItemDye(DyeColor color, Properties props) {
 		super(color, props);
 	}
 
 	@Nonnull
 	@Override
-	public EnumActionResult onItemUse(ItemUseContext ctx) {
+	public ActionResultType onItemUse(ItemUseContext ctx) {
 		ItemStack stack = ctx.getItem();
 		World world = ctx.getWorld();
 		BlockPos pos = ctx.getPos();
@@ -47,7 +50,7 @@ public class ItemDye extends Item16Colors {
 		if(shouldRecolor(block)) {
 			world.setBlockState(pos, recolor(block, color));
 			stack.shrink(1);
-			return EnumActionResult.SUCCESS;
+			return ActionResultType.SUCCESS;
 		}
 
 		TileEntity tile = world.getTileEntity(pos);
@@ -56,17 +59,17 @@ public class ItemDye extends Item16Colors {
 			if(color != pool.getColor()) {
 				pool.setColor(color);
 				stack.shrink(1);
-				return EnumActionResult.SUCCESS;
+				return ActionResultType.SUCCESS;
 			}
 		}
 
-		return EnumActionResult.PASS;
+		return ActionResultType.PASS;
 	}
 
 	@Override
-	public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer player, EntityLivingBase target, EnumHand hand) {
-		if(target instanceof EntitySheep) {
-			EntitySheep entitysheep = (EntitySheep)target;
+	public boolean itemInteractionForEntity(ItemStack stack, PlayerEntity player, LivingEntity target, Hand hand) {
+		if(target instanceof SheepEntity) {
+			SheepEntity entitysheep = (SheepEntity)target;
 
 			if(!entitysheep.getSheared() && entitysheep.getFleeceColor() != color) {
 				entitysheep.setFleeceColor(color);
@@ -79,18 +82,18 @@ public class ItemDye extends Item16Colors {
 	}
 
 	private boolean shouldRecolor(Block block) {
-		EnumDyeColor woolColor = ColorHelper.WOOL_MAP.inverse().get(block);
+		DyeColor woolColor = ColorHelper.WOOL_MAP.inverse().get(block);
 		if(woolColor != null)
 			return woolColor != this.color;
 
-		EnumDyeColor carpetColor = ColorHelper.CARPET_MAP.inverse().get(block);
+		DyeColor carpetColor = ColorHelper.CARPET_MAP.inverse().get(block);
 		if(carpetColor != null)
 			return carpetColor != this.color;
 
 		return false;
 	}
 
-	private IBlockState recolor(Block original, EnumDyeColor color) {
+	private BlockState recolor(Block original, DyeColor color) {
 		if (ColorHelper.CARPET_MAP.values().contains(original)) {
 			return ModBlocks.getCarpet(color).getDefaultState();
 		} else {

@@ -6,7 +6,8 @@ import net.minecraft.advancements.ICriterionInstance;
 import net.minecraft.advancements.ICriterionTrigger;
 import net.minecraft.advancements.PlayerAdvancements;
 import net.minecraft.advancements.criterion.ItemPredicate;
-import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import vazkii.botania.common.lib.LibMisc;
@@ -84,7 +85,7 @@ public class RelicBindTrigger implements ICriterionTrigger<RelicBindTrigger.Inst
 		}
 	}
 
-	public void trigger(EntityPlayerMP player, ItemStack relic) {
+	public void trigger(ServerPlayerEntity player, ItemStack relic) {
 		PlayerTracker tracker = playerTrackers.get(player.getAdvancements());
 		if(tracker != null) {
 			tracker.trigger(relic);

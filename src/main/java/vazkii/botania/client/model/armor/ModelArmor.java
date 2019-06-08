@@ -1,15 +1,18 @@
 package vazkii.botania.client.model.armor;
 
-import net.minecraft.client.renderer.entity.model.ModelBiped;
-import net.minecraft.client.renderer.entity.model.ModelRenderer;
+import net.minecraft.client.renderer.entity.model.BipedModel;
+import net.minecraft.client.renderer.entity.model.BipedModel;
+import net.minecraft.client.renderer.entity.model.RendererModel;
+import net.minecraft.client.renderer.entity.model.RendererModel;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.item.EntityArmorStand;
-import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.entity.item.ArmorStandEntity;
+import net.minecraft.entity.item.ArmorStandEntity;
+import net.minecraft.inventory.EquipmentSlotType;
 
-public class ModelArmor extends ModelBiped {
-	protected final EntityEquipmentSlot slot;
+public class ModelArmor extends BipedModel {
+	protected final EquipmentSlotType slot;
 
-	public ModelArmor(EntityEquipmentSlot slot) {
+	public ModelArmor(EquipmentSlotType slot) {
 		this.slot = slot;
 	}
 
@@ -18,9 +21,9 @@ public class ModelArmor extends ModelBiped {
 	@Override
 	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn)
 	{
-		if (entityIn instanceof EntityArmorStand)
+		if (entityIn instanceof ArmorStandEntity)
 		{
-			EntityArmorStand entityarmorstand = (EntityArmorStand)entityIn;
+			ArmorStandEntity entityarmorstand = (ArmorStandEntity)entityIn;
 			this.bipedHead.rotateAngleX = 0.017453292F * entityarmorstand.getHeadRotation().getX();
 			this.bipedHead.rotateAngleY = 0.017453292F * entityarmorstand.getHeadRotation().getY();
 			this.bipedHead.rotateAngleZ = 0.017453292F * entityarmorstand.getHeadRotation().getZ();
@@ -47,7 +50,7 @@ public class ModelArmor extends ModelBiped {
 		// Botania - defer to super if not an armor stand
 	}
 
-	protected void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z) {
+	protected void setRotateAngle(RendererModel modelRenderer, float x, float y, float z) {
 		modelRenderer.rotateAngleX = x;
 		modelRenderer.rotateAngleY = y;
 		modelRenderer.rotateAngleZ = z;

@@ -2,7 +2,8 @@ package vazkii.botania.client.model;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.model.BakedQuad;
 import net.minecraft.client.renderer.model.IBakedModel;
@@ -13,9 +14,11 @@ import net.minecraft.client.renderer.model.ModelResourceLocation;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.renderer.vertex.VertexFormatElement;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Direction;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
@@ -50,7 +53,7 @@ public class GunModel implements IBakedModel {
 	private final ItemOverrideList itemHandler = new ItemOverrideList() {
 		@Nonnull
 		@Override
-		public IBakedModel getModelWithOverrides(IBakedModel model, ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
+		public IBakedModel getModelWithOverrides(IBakedModel model, ItemStack stack, @Nullable World worldIn, @Nullable LivingEntity entityIn) {
 			// TODO 1.13 this faffing around with double overrides is dumb. Move back from json overrides once a "load this model please" PR gets merged?
 
 			// First, let json overrides on original model apply. This gets us to the clip GunModel instance
@@ -77,7 +80,7 @@ public class GunModel implements IBakedModel {
 		return itemHandler;
 	}
 
-	@Nonnull @Override public List<BakedQuad> getQuads(@Nullable IBlockState state, @Nullable EnumFacing side, @Nonnull Random rand) { return originalModel.getQuads(state, side, rand); }
+	@Nonnull @Override public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, @Nonnull Random rand) { return originalModel.getQuads(state, side, rand); }
 	@Override public boolean isAmbientOcclusion() { return originalModel.isAmbientOcclusion(); }
 	@Override public boolean isGui3d() { return originalModel.isGui3d(); }
 	@Override public boolean isBuiltInRenderer() { return originalModel.isBuiltInRenderer(); }
@@ -94,7 +97,7 @@ public class GunModel implements IBakedModel {
 
 		private final IBakedModel gun;
 		private final List<BakedQuad> genQuads = new ArrayList<>();
-		private final Map<EnumFacing, List<BakedQuad>> faceQuads = new EnumMap<>(EnumFacing.class);
+		private final Map<Direction, List<BakedQuad>> faceQuads = new EnumMap<>(Direction.class);
 
 		CompositeBakedModel(IUnbakedModel lensUnbaked, IBakedModel gun) {
 			this.gun = gun;
@@ -102,13 +105,13 @@ public class GunModel implements IBakedModel {
 			final TRSRTransformation transform = new TRSRTransformation(new Vector3f(-0.2F, 0.4F, 0.8F), TRSRTransformation.quatFromXYZ(0, (float) Math.PI / 2, 0), new Vector3f(0.625F, 0.625F, 0.625F), null);
 			IBakedModel lens = lensUnbaked.bake(ModelLoader.defaultModelGetter(), ModelLoader.defaultTextureGetter(), transform, false, DefaultVertexFormats.ITEM);
 
-			for(EnumFacing e : EnumFacing.values())
+			for(Direction e : Direction.values())
 				faceQuads.put(e, new ArrayList<>());
 
 			Random rand = new Random(0);
 			genQuads.addAll(lens.getQuads(null, null, rand));
 
-			for(EnumFacing e : EnumFacing.values()) {
+			for(Direction e : Direction.values()) {
 				rand.setSeed(0);
 				faceQuads.get(e).addAll(lens.getQuads(null, e, rand));
 			}
@@ -116,13 +119,13 @@ public class GunModel implements IBakedModel {
 			// Add gun quads
 			rand.setSeed(0);
 			genQuads.addAll(gun.getQuads(null, null, rand));
-			for(EnumFacing e : EnumFacing.values()) {
+			for(Direction e : Direction.values()) {
 				rand.setSeed(0);
 				faceQuads.get(e).addAll(gun.getQuads(null, e, rand));
 			}
 		}
 
-		@Nonnull @Override public List<BakedQuad> getQuads(IBlockState state, EnumFacing face, @Nonnull Random rand) { return face == null ? genQuads : faceQuads.get(face); }
+		@Nonnull @Override public List<BakedQuad> getQuads(BlockState state, Direction face, @Nonnull Random rand) { return face == null ? genQuads : faceQuads.get(face); }
 
 		// Forward all to gun model
 		@Override public boolean isAmbientOcclusion() { return gun.isAmbientOcclusion(); }

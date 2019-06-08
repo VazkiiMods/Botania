@@ -11,16 +11,19 @@
 package vazkii.botania.common.item.equipment.bauble;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Gui;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.gui.AbstractGui;
+import net.minecraft.client.gui.AbstractGui;
+import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tags.FluidTags;
@@ -28,7 +31,8 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
@@ -102,13 +106,13 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 	@Override
 	public void addHiddenTooltip(ItemStack stack, World world, List<ITextComponent> stacks, ITooltipFlag flags) {
 		super.addHiddenTooltip(stack, world, stacks, flags);
-		stacks.add(new TextComponentTranslation("botania.wings" + ItemNBTHelper.getInt(stack, TAG_VARIANT, 0)));
+		stacks.add(new TranslationTextComponent("botania.wings" + ItemNBTHelper.getInt(stack, TAG_VARIANT, 0)));
 	}
 
 	@SubscribeEvent
 	public void updatePlayerFlyStatus(LivingUpdateEvent event) {
-		if(event.getEntityLiving() instanceof EntityPlayer) {
-			EntityPlayer player = (EntityPlayer) event.getEntityLiving();
+		if(event.getEntityLiving() instanceof PlayerEntity) {
+			PlayerEntity player = (PlayerEntity) event.getEntityLiving();
 			ItemStack tiara = Botania.curiosLoaded ? CurioIntegration.findOrEmpty(ModItems.flightTiara, player) : ItemStack.EMPTY;
 			int left = ItemNBTHelper.getInt(tiara, TAG_TIME_LEFT, MAX_FLY_TIME);
 
@@ -203,11 +207,11 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 		playersWithFlight.remove(username + ":true");
 	}
 
-	private static String playerStr(EntityPlayer player) {
+	private static String playerStr(PlayerEntity player) {
 		return player.getGameProfile().getName() + ":" + player.world.isRemote;
 	}
 
-	private boolean shouldPlayerHaveFlight(EntityPlayer player) {
+	private boolean shouldPlayerHaveFlight(PlayerEntity player) {
 	    ItemStack armor = Botania.curiosLoaded ? CurioIntegration.findOrEmpty(ModItems.flightTiara, player) : ItemStack.EMPTY;
 		if(!armor.isEmpty()) {
 			int left = ItemNBTHelper.getInt(armor, TAG_TIME_LEFT, MAX_FLY_TIME);
@@ -233,7 +237,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 		}
 
 		@Override
-		public void onEquipped(String identifier, EntityLivingBase living) {
+		public void onEquipped(String identifier, LivingEntity living) {
 			super.onEquipped(identifier, living);
 			int variant = ItemNBTHelper.getInt(stack, TAG_VARIANT, 0);
 			if(variant != WING_TYPES && StringObfuscator.matchesHash(stack.getDisplayName().getString(), SUPER_AWESOME_HASH)) {
@@ -243,9 +247,9 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 		}
 
 		@Override
-		public void onCurioTick(String identifier, EntityLivingBase player) {
-			if(player instanceof EntityPlayer) {
-				EntityPlayer p = (EntityPlayer) player;
+		public void onCurioTick(String identifier, LivingEntity player) {
+			if(player instanceof PlayerEntity) {
+				PlayerEntity p = (PlayerEntity) player;
 				boolean flying = p.abilities.isFlying;
 
 				boolean wasSprting = ItemNBTHelper.getBoolean(stack, TAG_IS_SPRINTING, false);
@@ -295,24 +299,24 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 		}
 
 		@Override
-		public boolean shouldSyncToTracking(String identifier, EntityLivingBase living) {
+		public boolean shouldSyncToTracking(String identifier, LivingEntity living) {
 			return true;
 		}
 
 		@Override
-		public boolean hasRender(String identifier, EntityLivingBase living) {
-			return super.hasRender(identifier, living) && living instanceof EntityPlayer;
+		public boolean hasRender(String identifier, LivingEntity living) {
+			return super.hasRender(identifier, living) && living instanceof PlayerEntity;
 		}
 
 		@Override
 		@OnlyIn(Dist.CLIENT)
-		public void doRender(String identifier, EntityLivingBase player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+		public void doRender(String identifier, LivingEntity player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 			int meta = ItemNBTHelper.getInt(stack, TAG_VARIANT, 0);
 			if(meta > 0 && meta <= MiscellaneousIcons.INSTANCE.tiaraWingIcons.length) {
 				TextureAtlasSprite icon = MiscellaneousIcons.INSTANCE.tiaraWingIcons[meta - 1];
-				Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+				Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
 
-				boolean flying = ((EntityPlayer) player).abilities.isFlying;
+				boolean flying = ((PlayerEntity) player).abilities.isFlying;
 
 				float rz = 120F;
 				float rx = 20F + (float) ((Math.sin((double) (player.ticksExisted + partialTicks) * (flying ? 0.4F : 0.2F)) + 0.5F) * (flying ? 30F : 5F));
@@ -441,7 +445,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public static void renderHalo(EntityLivingBase player, float partialTicks) {
+	public static void renderHalo(LivingEntity player, float partialTicks) {
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		GlStateManager.shadeModel(GL11.GL_SMOOTH);
@@ -477,7 +481,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public static void renderHUD(EntityPlayer player, ItemStack stack) {
+	public static void renderHUD(PlayerEntity player, ItemStack stack) {
 		int u = Math.max(1, ItemNBTHelper.getInt(stack, TAG_VARIANT, 0)) * 9 - 9;
 		int v = 0;
 
@@ -513,12 +517,12 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 			int width = ItemNBTHelper.getInt(stack, TAG_DASH_COOLDOWN, 0);
 			GlStateManager.color4f(1F, 1F, 1F, 1F);
 			if(width > 0)
-				Gui.drawRect(xo, y - 2, xo + 80, y - 1, 0x88000000);
-			Gui.drawRect(xo, y - 2, xo + width, y - 1, 0xFFFFFFFF);
+				AbstractGui.drawRect(xo, y - 2, xo + 80, y - 1, 0x88000000);
+			AbstractGui.drawRect(xo, y - 2, xo + width, y - 1, 0xFFFFFFFF);
 		}
 
 		GlStateManager.enableAlphaTest();
 		GlStateManager.color4f(1F, 1F, 1F, 1F);
-		mc.textureManager.bindTexture(Gui.ICONS);
+		mc.textureManager.bindTexture(AbstractGui.ICONS);
 	}
 }

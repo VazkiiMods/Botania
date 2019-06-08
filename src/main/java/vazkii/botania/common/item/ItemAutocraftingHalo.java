@@ -11,7 +11,7 @@
 package vazkii.botania.common.item;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
@@ -31,8 +31,8 @@ public class ItemAutocraftingHalo extends ItemCraftingHalo {
 	public void inventoryTick(ItemStack stack, World world, Entity entity, int pos, boolean equipped) {
 		super.inventoryTick(stack, world, entity, pos, equipped);
 
-		if(entity instanceof EntityPlayer && !equipped) {
-			EntityPlayer player = (EntityPlayer) entity;
+		if(entity instanceof PlayerEntity && !equipped) {
+			PlayerEntity player = (PlayerEntity) entity;
 			IItemHandler inv = getFakeInv(player);
 
 			for(int i = 1; i < SEGMENTS; i++)

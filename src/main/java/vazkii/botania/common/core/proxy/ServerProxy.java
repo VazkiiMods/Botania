@@ -11,8 +11,8 @@
 package vazkii.botania.common.core.proxy;
 
 import net.minecraft.block.Block;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
@@ -35,12 +35,12 @@ public class ServerProxy implements IProxy {
 	public void setLexiconStack(ItemStack stack) {}
 
 	@Override
-	public boolean isTheClientPlayer(EntityLivingBase entity) {
+	public boolean isTheClientPlayer(LivingEntity entity) {
 		return false;
 	}
 
 	@Override
-	public EntityPlayer getClientPlayer() {
+	public PlayerEntity getClientPlayer() {
 		return null;
 	}
 

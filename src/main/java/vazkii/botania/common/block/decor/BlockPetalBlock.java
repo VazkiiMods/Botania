@@ -12,9 +12,11 @@ package vazkii.botania.common.block.decor;
 
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.DyeColor;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
@@ -34,14 +36,14 @@ import javax.annotation.Nonnull;
 
 public class BlockPetalBlock extends BlockMod implements ILexiconable {
 
-	public final EnumDyeColor color;
-	public BlockPetalBlock(EnumDyeColor color, Properties builder) {
+	public final DyeColor color;
+	public BlockPetalBlock(DyeColor color, Properties builder) {
 		super(builder);
 		this.color = color;
 	}
 
 	@Override
-	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
+	public LexiconEntry getEntry(World world, BlockPos pos, PlayerEntity player, ItemStack lexicon) {
 		return LexiconData.flowers;
 	}
 }

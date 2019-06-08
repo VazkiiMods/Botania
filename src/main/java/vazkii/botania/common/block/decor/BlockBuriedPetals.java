@@ -11,12 +11,13 @@
 package vazkii.botania.common.block.decor;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.state.BlockFaceShape;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.block.BlockState;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.Item;
-import net.minecraft.util.EnumBlockRenderType;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.block.BlockRenderType;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.VoxelShape;
@@ -36,7 +37,7 @@ public class BlockBuriedPetals extends BlockModFlower {
 
 	private static final VoxelShape SHAPE = makeCuboidShape(0, 0, 0, 16, 1.6, 16);
 
-	public BlockBuriedPetals(EnumDyeColor color, Properties builder) {
+	public BlockBuriedPetals(DyeColor color, Properties builder) {
 		super(color, builder);
 	}
 
@@ -49,13 +50,13 @@ public class BlockBuriedPetals extends BlockModFlower {
 
 	@Nonnull
 	@Override
-	public VoxelShape getShape(IBlockState state, @Nonnull IBlockReader world, @Nonnull BlockPos pos) {
+	public VoxelShape getShape(BlockState state, @Nonnull IBlockReader world, @Nonnull BlockPos pos) {
 		return SHAPE;
 	}
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void animateTick(IBlockState state, World world, BlockPos pos, Random rand) {
+	public void animateTick(BlockState state, World world, BlockPos pos, Random rand) {
 		int hex = color.colorValue;
 		int r = (hex & 0xFF0000) >> 16;
 		int g = (hex & 0xFF00) >> 8;
@@ -69,19 +70,19 @@ public class BlockBuriedPetals extends BlockModFlower {
 
 	@Nonnull
 	@Override
-	public Item getItemDropped(IBlockState state, World world, BlockPos pos, int fortune) {
+	public Item getItemDropped(BlockState state, World world, BlockPos pos, int fortune) {
 		return ModItems.getPetal(color);
 	}
 
 	@Nonnull
 	@Override
-	public EnumBlockRenderType getRenderType(IBlockState state) {
-		return EnumBlockRenderType.INVISIBLE;
+	public BlockRenderType getRenderType(BlockState state) {
+		return BlockRenderType.INVISIBLE;
 	}
 
 	@Nonnull
 	@Override
-	public BlockFaceShape getBlockFaceShape(IBlockReader world, IBlockState state, BlockPos pos, EnumFacing side) {
+	public BlockFaceShape getBlockFaceShape(IBlockReader world, BlockState state, BlockPos pos, Direction side) {
 		return BlockFaceShape.UNDEFINED;
 	}
 

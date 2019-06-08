@@ -11,24 +11,25 @@
 package vazkii.botania.common.block.dispenser;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockDispenser;
-import net.minecraft.dispenser.BehaviorDefaultDispenseItem;
+import net.minecraft.block.DispenserBlock;
+import net.minecraft.block.DispenserBlock;
+import net.minecraft.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.dispenser.IBlockSource;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import vazkii.botania.api.wand.IWandable;
 
 import javax.annotation.Nonnull;
 
-public class BehaviourWand extends BehaviorDefaultDispenseItem {
+public class BehaviourWand extends DefaultDispenseItemBehavior {
 
 	@Nonnull
 	@Override
 	protected ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
 		World world = source.getWorld();
-		EnumFacing facing = world.getBlockState(source.getBlockPos()).get(BlockDispenser.FACING);
+		Direction facing = world.getBlockState(source.getBlockPos()).get(DispenserBlock.FACING);
 		BlockPos pos = source.getBlockPos().offset(facing);
 		Block block = world.getBlockState(pos).getBlock();
 		if(block instanceof IWandable) {

@@ -11,11 +11,13 @@
 package vazkii.botania.common.network;
 
 import io.netty.buffer.ByteBuf;
-import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.fml.network.NetworkEvent;
 import net.minecraftforge.items.IItemHandler;
 import vazkii.botania.common.Botania;
@@ -37,7 +39,7 @@ public class PacketDodge {
 
 	public static void handle(PacketDodge msg, Supplier<NetworkEvent.Context> ctx) {
 		ctx.get().enqueueWork(() -> {
-			EntityPlayerMP player = ctx.get().getSender();
+			ServerPlayerEntity player = ctx.get().getSender();
 			player.world.playSound(null, player.posX, player.posY, player.posZ, ModSounds.dash, SoundCategory.PLAYERS, 1F, 1F);
 
 			ItemStack ringStack = ItemStack.EMPTY;
@@ -46,7 +48,7 @@ public class PacketDodge {
 			}
 
 			if(ringStack.isEmpty()) {
-				player.connection.disconnect(new TextComponentTranslation("botaniamisc.invalidDodge"));
+				player.connection.disconnect(new TranslationTextComponent("botaniamisc.invalidDodge"));
 				return;
 			}
 

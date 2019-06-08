@@ -11,10 +11,12 @@
 package vazkii.botania.client.core.handler;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.screen.inventory.ContainerScreen;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.InputMappings;
-import net.minecraft.inventory.Slot;
+import net.minecraft.inventory.container.Slot;
+import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -35,7 +37,7 @@ public class CorporeaInputHandler {
 	public static Supplier<ItemStack> jeiPanelSupplier = () -> ItemStack.EMPTY;
 
 	/** Filter for usable guis to handle requests. Added to in JEIBotaniaPlugin */
-	public static Predicate<GuiScreen> supportedGuiFilter = gui -> gui instanceof GuiContainer;
+	public static Predicate<Screen> supportedGuiFilter = gui -> gui instanceof ContainerScreen;
 
 	@SubscribeEvent
 	public static void buttonPressed(GuiScreenEvent.KeyboardKeyPressedEvent.Pre event) {
@@ -50,11 +52,11 @@ public class CorporeaInputHandler {
 			int count = 1;
 			int max = stack.getMaxStackSize();
 
-			if(GuiScreen.isShiftKeyDown()) {
+			if(Screen.isShiftKeyDown()) {
 				count = max;
-				if(GuiScreen.isCtrlKeyDown())
+				if(Screen.isCtrlKeyDown())
 					count /= 4;
-			} else if(GuiScreen.isCtrlKeyDown())
+			} else if(Screen.isCtrlKeyDown())
 				count = max / 2;
 
 			if(count > 0) {
@@ -68,9 +70,9 @@ public class CorporeaInputHandler {
 	}
 
 	private static ItemStack getStackUnderMouse() {
-		GuiScreen screen = Minecraft.getInstance().currentScreen;
-		if(screen instanceof GuiContainer) {
-			Slot slotUnderMouse = ((GuiContainer) screen).getSlotUnderMouse();
+		Screen screen = Minecraft.getInstance().currentScreen;
+		if(screen instanceof ContainerScreen) {
+			Slot slotUnderMouse = ((ContainerScreen) screen).getSlotUnderMouse();
 			if(slotUnderMouse != null)
 				return slotUnderMouse.getStack();
 		}

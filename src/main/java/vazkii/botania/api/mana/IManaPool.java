@@ -10,7 +10,8 @@
  */
 package vazkii.botania.api.mana;
 
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.DyeColor;
+import net.minecraft.item.DyeColor;
 
 /**
  * Any TileEntity that implements this is considered a Mana Pool,
@@ -32,12 +33,12 @@ public interface IManaPool extends IManaReceiver {
 	/**
 	 * @return The color of this pool.
 	 */
-	public EnumDyeColor getColor();
+	public DyeColor getColor();
 
 	/**
 	 * Sets the color of this pool.
 	 * @param color The color to set.
 	 */
-	public void setColor(EnumDyeColor color);
+	public void setColor(DyeColor color);
 
 }

@@ -12,11 +12,15 @@ package vazkii.botania.common.item.lens;
 
 import com.google.common.base.Predicates;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.item.EntityFallingBlock;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.item.EntityXPOrb;
-import net.minecraft.entity.projectile.EntityArrow;
-import net.minecraft.entity.projectile.EntityThrowable;
+import net.minecraft.entity.item.FallingBlockEntity;
+import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.item.ExperienceOrbEntity;
+import net.minecraft.entity.item.FallingBlockEntity;
+import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.projectile.AbstractArrowEntity;
+import net.minecraft.entity.projectile.AbstractArrowEntity;
+import net.minecraft.entity.projectile.ThrowableEntity;
+import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.AxisAlignedBB;
 import vazkii.botania.api.internal.IManaBurst;
@@ -27,15 +31,15 @@ import java.util.List;
 public class LensInfluence extends Lens {
 
 	@Override
-	public void updateBurst(IManaBurst burst, EntityThrowable entity, ItemStack stack) {
+	public void updateBurst(IManaBurst burst, ThrowableEntity entity, ItemStack stack) {
 		if(!burst.isFake()) {
 			double range = 3.5;
 			AxisAlignedBB bounds = new AxisAlignedBB(entity.posX - range, entity.posY - range, entity.posZ - range, entity.posX + range, entity.posY + range, entity.posZ + range);
-			List<Entity> movables = entity.world.getEntitiesWithinAABB(EntityItem.class, bounds);
-			movables.addAll(entity.world.getEntitiesWithinAABB(EntityXPOrb.class, bounds));
-			movables.addAll(entity.world.getEntitiesWithinAABB(EntityArrow.class, bounds));
-			movables.addAll(entity.world.getEntitiesWithinAABB(EntityFallingBlock.class, bounds));
-			movables.addAll(entity.world.getEntitiesWithinAABB(EntityThrowable.class, bounds, Predicates.instanceOf(IManaBurst.class)));
+			List<Entity> movables = entity.world.getEntitiesWithinAABB(ItemEntity.class, bounds);
+			movables.addAll(entity.world.getEntitiesWithinAABB(ExperienceOrbEntity.class, bounds));
+			movables.addAll(entity.world.getEntitiesWithinAABB(AbstractArrowEntity.class, bounds));
+			movables.addAll(entity.world.getEntitiesWithinAABB(FallingBlockEntity.class, bounds));
+			movables.addAll(entity.world.getEntitiesWithinAABB(ThrowableEntity.class, bounds, Predicates.instanceOf(IManaBurst.class)));
 
 			for(Entity movable : movables) {
 				if(movable == burst)

@@ -10,7 +10,8 @@
  */
 package vazkii.botania.common.item.lens;
 
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.DyeColor;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.MathHelper;
@@ -54,7 +55,7 @@ public class LensFlare extends Lens {
 		if(storedColor == 16) {
 			hex = Color.HSBtoRGB(tile.getWorld().getGameTime() * 2 % 360 / 360F, 1F, 1F);
 		} else if(storedColor >= 0) {
-			hex = EnumDyeColor.byId(storedColor).colorValue;
+			hex = DyeColor.byId(storedColor).colorValue;
 		}
 
 		float r = ((hex & 0xFF0000) >> 16) / 255F;

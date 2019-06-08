@@ -11,9 +11,12 @@
 package vazkii.botania.common.block.subtile.functional;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.monster.EntityWitch;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.monster.WitchEntity;
+import net.minecraft.entity.monster.WitchEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -67,12 +70,12 @@ public class SubTileBellethorn extends TileEntityFunctionalFlower {
 
 		if(ticksExisted % 5 == 0) {
 			int range = getRange();
-			List<EntityLivingBase> entities = getWorld().getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(getPos().add(-range, -range, -range), getPos().add(range + 1, range + 1, range + 1)), getSelector()::test);
+			List<LivingEntity> entities = getWorld().getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(getPos().add(-range, -range, -range), getPos().add(range + 1, range + 1, range + 1)), getSelector()::test);
 
-			for(EntityLivingBase entity : entities) {
+			for(LivingEntity entity : entities) {
 				if(entity.hurtTime == 0 && mana >= manaToUse) {
 					int dmg = 4;
-					if(entity instanceof EntityWitch)
+					if(entity instanceof WitchEntity)
 						dmg = 20;
 
 					entity.attackEntityFrom(DamageSource.MAGIC, dmg);
@@ -97,7 +100,7 @@ public class SubTileBellethorn extends TileEntityFunctionalFlower {
 	}
 
 	public Predicate<Entity> getSelector() {
-		return entity -> !(entity instanceof EntityPlayer);
+		return entity -> !(entity instanceof PlayerEntity);
 	}
 
 	@Override

@@ -11,8 +11,10 @@
 package vazkii.botania.common.item.equipment.bauble;
 
 import net.minecraft.block.Block;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tags.BlockTags;
@@ -74,7 +76,7 @@ public class ItemMagnetRing extends ItemBauble {
 		}
 
 		@Override
-		public void onCurioTick(String identifier, EntityLivingBase player) {
+		public void onCurioTick(String identifier, LivingEntity player) {
 			int cooldown = getCooldown(stack);
 
 			if(SubTileSolegnolia.hasSolegnoliaAround(player)) {
@@ -90,9 +92,9 @@ public class ItemMagnetRing extends ItemBauble {
 					double z = player.posZ;
 
 					int range = ((ItemMagnetRing) stack.getItem()).range;
-					List<EntityItem> items = player.world.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(x - range, y - range, z - range, x + range, y + range, z + range));
+					List<ItemEntity> items = player.world.getEntitiesWithinAABB(ItemEntity.class, new AxisAlignedBB(x - range, y - range, z - range, x + range, y + range, z + range));
 					int pulled = 0;
-					for(EntityItem item : items)
+					for(ItemEntity item : items)
 						if(((ItemMagnetRing) stack.getItem()).canPullItem(item)) {
 							if(pulled > 200)
 								break;
@@ -109,7 +111,7 @@ public class ItemMagnetRing extends ItemBauble {
 		}
 	}
 
-	private boolean canPullItem(EntityItem item) {
+	private boolean canPullItem(ItemEntity item) {
 		if(!item.isAlive() || item.pickupDelay >= 40 || SubTileSolegnolia.hasSolegnoliaAround(item))
 			return false;
 

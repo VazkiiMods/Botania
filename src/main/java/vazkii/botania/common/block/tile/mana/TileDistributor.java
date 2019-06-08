@@ -12,8 +12,9 @@ package vazkii.botania.common.block.tile.mana;
 
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.ITickable;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Direction;
+import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
@@ -27,7 +28,7 @@ import vazkii.botania.common.lib.LibMisc;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TileDistributor extends TileMod implements IManaReceiver, ITickable {
+public class TileDistributor extends TileMod implements IManaReceiver, ITickableTileEntity {
 	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.DISTRIBUTOR)
 	public static TileEntityType<TileDistributor> TYPE;
 	private final List<IManaReceiver> validPools = new ArrayList<>();
@@ -41,7 +42,7 @@ public class TileDistributor extends TileMod implements IManaReceiver, ITickable
 		if (world.isRemote)
 			return;
 		validPools.clear();
-		for(EnumFacing dir : MathHelper.HORIZONTALS) {
+		for(Direction dir : MathHelper.HORIZONTALS) {
 			BlockPos pos = this.pos.offset(dir);
 			if(world.isBlockLoaded(pos)) {
 				TileEntity tileAt = world.getTileEntity(pos);

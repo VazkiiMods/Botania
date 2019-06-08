@@ -1,12 +1,14 @@
 package vazkii.botania.common.network;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.ServerWorld;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldServer;
+import net.minecraft.world.ServerWorld;
 import net.minecraftforge.fml.network.NetworkDirection;
 import net.minecraftforge.fml.network.NetworkRegistry;
 import net.minecraftforge.fml.network.simple.SimpleChannel;
@@ -34,11 +36,11 @@ public final class PacketHandler {
 	 * Send message to all within 64 blocks that have this chunk loaded
 	 */
 	public static void sendToNearby(World world, BlockPos pos, Object toSend) {
-		if(world instanceof WorldServer) {
-			WorldServer ws = (WorldServer) world;
+		if(world instanceof ServerWorld) {
+			ServerWorld ws = (ServerWorld) world;
 
-			for (EntityPlayer player : ws.playerEntities) {
-				EntityPlayerMP playerMP = (EntityPlayerMP) player;
+			for (PlayerEntity player : ws.playerEntities) {
+				ServerPlayerEntity playerMP = (ServerPlayerEntity) player;
 
 				if (playerMP.getDistanceSq(pos) < 64 * 64
 						&& ws.getPlayerChunkMap().isPlayerWatchingChunk(playerMP, pos.getX() >> 4, pos.getZ() >> 4)) {
@@ -53,7 +55,7 @@ public final class PacketHandler {
 		sendToNearby(world, new BlockPos(e), toSend);
 	}
 
-	public static void sendTo(EntityPlayerMP playerMP, Object toSend) {
+	public static void sendTo(ServerPlayerEntity playerMP, Object toSend) {
 		HANDLER.sendTo(toSend, playerMP.connection.getNetworkManager(), NetworkDirection.PLAY_TO_CLIENT);
 	}
 

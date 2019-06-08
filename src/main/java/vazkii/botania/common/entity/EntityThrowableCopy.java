@@ -3,20 +3,24 @@ package vazkii.botania.common.entity;
 import java.util.List;
 import java.util.UUID;
 import javax.annotation.Nullable;
+
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.IProjectile;
-import net.minecraft.init.Blocks;
+import net.minecraft.block.Blocks;
 import net.minecraft.init.Particles;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.NBTUtil;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.ServerWorld;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldServer;
+import net.minecraft.world.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -27,7 +31,7 @@ public abstract class EntityThrowableCopy extends Entity implements IProjectile 
 	protected boolean inGround;
 	public int throwableShake;
 	/** The entity that threw this throwable item. */
-	protected EntityLivingBase thrower;
+	protected LivingEntity thrower;
 	private UUID field_200218_h;
 	public Entity ignoreEntity;
 	private int ignoreTime;
@@ -45,7 +49,7 @@ public abstract class EntityThrowableCopy extends Entity implements IProjectile 
 		this.setPosition(p_i48541_2_, p_i48541_4_, p_i48541_6_);
 	}
 
-	protected EntityThrowableCopy(EntityType<?> type, EntityLivingBase p_i48542_2_, World p_i48542_3_) {
+	protected EntityThrowableCopy(EntityType<?> type, LivingEntity p_i48542_2_, World p_i48542_3_) {
 		this(type, p_i48542_2_.posX, p_i48542_2_.posY + (double)p_i48542_2_.getEyeHeight() - (double)0.1F, p_i48542_2_.posZ, p_i48542_3_);
 		this.thrower = p_i48542_2_;
 		this.field_200218_h = p_i48542_2_.getUniqueID();
@@ -263,7 +267,7 @@ public abstract class EntityThrowableCopy extends Entity implements IProjectile 
 	 * Writes the extra NBT data specific to this type of entity. Should <em>not</em> be called from outside this class;
 	 * use {@link #writeUnlessPassenger} or {@link #writeWithoutTypeId} instead.
 	 */
-	public void writeAdditional(NBTTagCompound compound) {
+	public void writeAdditional(CompoundNBT compound) {
 		compound.putInt("xTile", this.xTile);
 		compound.putInt("yTile", this.yTile);
 		compound.putInt("zTile", this.zTile);
@@ -278,7 +282,7 @@ public abstract class EntityThrowableCopy extends Entity implements IProjectile 
 	/**
 	 * (abstract) Protected helper method to read subclass entity data from NBT.
 	 */
-	public void readAdditional(NBTTagCompound compound) {
+	public void readAdditional(CompoundNBT compound) {
 		this.xTile = compound.getInt("xTile");
 		this.yTile = compound.getInt("yTile");
 		this.zTile = compound.getInt("zTile");
@@ -292,11 +296,11 @@ public abstract class EntityThrowableCopy extends Entity implements IProjectile 
 	}
 
 	@Nullable
-	public EntityLivingBase getThrower() {
-		if (this.thrower == null && this.field_200218_h != null && this.world instanceof WorldServer) {
-			Entity entity = ((WorldServer)this.world).getEntityFromUuid(this.field_200218_h);
-			if (entity instanceof EntityLivingBase) {
-				this.thrower = (EntityLivingBase)entity;
+	public LivingEntity getThrower() {
+		if (this.thrower == null && this.field_200218_h != null && this.world instanceof ServerWorld) {
+			Entity entity = ((ServerWorld)this.world).getEntityFromUuid(this.field_200218_h);
+			if (entity instanceof LivingEntity) {
+				this.thrower = (LivingEntity)entity;
 			} else {
 				this.field_200218_h = null;
 			}

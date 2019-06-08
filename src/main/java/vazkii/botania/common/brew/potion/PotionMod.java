@@ -12,20 +12,20 @@ package vazkii.botania.common.brew.potion;
 
 import javafx.geometry.Side;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Gui;
+import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.GlStateManager;
+import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.potion.Effect;
+import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.client.lib.LibResources;
 
-public class PotionMod extends Potion {
+public class PotionMod extends Effect {
 
 	private static final ResourceLocation resource = new ResourceLocation(LibResources.GUI_POTIONS);
 	private final int iconIndex;
@@ -37,13 +37,13 @@ public class PotionMod extends Potion {
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public void renderInventoryEffect(PotionEffect effect, Gui gui, int x, int y, float z) {
+	public void renderInventoryEffect(EffectInstance effect, AbstractGui gui, int x, int y, float z) {
 		render(x + 6, y + 7, 1);
 	}
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public void renderHUDEffect(PotionEffect effect, Gui gui, int x, int y, float z, float alpha) {
+	public void renderHUDEffect(EffectInstance effect, AbstractGui gui, int x, int y, float z, float alpha) {
 		render(x + 3, y + 3, alpha);
 	}
 

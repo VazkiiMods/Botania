@@ -11,10 +11,12 @@
 package vazkii.botania.common.block.subtile.generating;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.item.EntityTNTPrimed;
+import net.minecraft.entity.item.TNTEntity;
+import net.minecraft.entity.item.TNTEntity;
 import net.minecraft.init.Particles;
-import net.minecraft.init.SoundEvents;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.registries.ObjectHolder;
@@ -44,8 +46,8 @@ public class SubTileEntropinnyum extends TileEntityGeneratingFlower {
 		super.tickFlower();
 
 		if(!getWorld().isRemote && mana == 0) {
-			List<EntityTNTPrimed> tnts = getWorld().getEntitiesWithinAABB(EntityTNTPrimed.class, new AxisAlignedBB(getPos().add(-RANGE, -RANGE, -RANGE), getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
-			for(EntityTNTPrimed tnt : tnts) {
+			List<TNTEntity> tnts = getWorld().getEntitiesWithinAABB(TNTEntity.class, new AxisAlignedBB(getPos().add(-RANGE, -RANGE, -RANGE), getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
+			for(TNTEntity tnt : tnts) {
 				if(tnt.getFuse() == 1 && !tnt.removed && !getWorld().getBlockState(new BlockPos(tnt)).getMaterial().isLiquid()) {
 					tnt.playSound(SoundEvents.ENTITY_GENERIC_EXPLODE, 0.2F, (1F + (getWorld().rand.nextFloat() - getWorld().rand.nextFloat()) * 0.2F) * 0.7F);
 					tnt.remove();
@@ -62,7 +64,7 @@ public class SubTileEntropinnyum extends TileEntityGeneratingFlower {
 	@Override
 	public boolean receiveClientEvent(int event, int param) {
 		if(event == EXPLODE_EFFECT_EVENT) {
-			if(getWorld().isRemote && getWorld().getEntityByID(param) instanceof EntityTNTPrimed) {
+			if(getWorld().isRemote && getWorld().getEntityByID(param) instanceof TNTEntity) {
 				Entity e = getWorld().getEntityByID(param);
 
 				for(int i = 0; i < 50; i++)

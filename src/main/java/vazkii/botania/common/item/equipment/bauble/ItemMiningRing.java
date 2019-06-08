@@ -10,11 +10,12 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.MobEffects;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.potion.Effects;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.PotionEffect;
+import net.minecraft.potion.Effects;
+import net.minecraft.potion.EffectInstance;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.integration.curios.BaseCurio;
@@ -32,29 +33,29 @@ public class ItemMiningRing extends ItemBauble implements IManaUsingItem {
 		}
 
 		@Override
-		public void onCurioTick(String identifier, EntityLivingBase player) {
-			if(player instanceof EntityPlayer && !player.world.isRemote) {
+		public void onCurioTick(String identifier, LivingEntity player) {
+			if(player instanceof PlayerEntity && !player.world.isRemote) {
 				int manaCost = 5;
-				boolean hasMana = ManaItemHandler.requestManaExact(stack, (EntityPlayer) player, manaCost, false);
+				boolean hasMana = ManaItemHandler.requestManaExact(stack, (PlayerEntity) player, manaCost, false);
 				if(!hasMana)
 					onUnequipped(identifier, player);
 				else {
-					if(player.getActivePotionEffect(MobEffects.HASTE) != null)
-						player.removePotionEffect(MobEffects.HASTE);
+					if(player.getActivePotionEffect(Effects.HASTE) != null)
+						player.removePotionEffect(Effects.HASTE);
 
-					player.addPotionEffect(new PotionEffect(MobEffects.HASTE, Integer.MAX_VALUE, 1, true, true));
+					player.addPotionEffect(new EffectInstance(Effects.HASTE, Integer.MAX_VALUE, 1, true, true));
 				}
 
 				if(player.swingProgress == 0.25F)
-					ManaItemHandler.requestManaExact(stack, (EntityPlayer) player, manaCost, true);
+					ManaItemHandler.requestManaExact(stack, (PlayerEntity) player, manaCost, true);
 			}
 		}
 
 		@Override
-		public void onUnequipped(String identifier, EntityLivingBase player) {
-			PotionEffect effect = player.getActivePotionEffect(MobEffects.HASTE);
+		public void onUnequipped(String identifier, LivingEntity player) {
+			EffectInstance effect = player.getActivePotionEffect(Effects.HASTE);
 			if(effect != null && effect.getAmplifier() == 1)
-				player.removePotionEffect(MobEffects.HASTE);
+				player.removePotionEffect(Effects.HASTE);
 		}
 	}
 

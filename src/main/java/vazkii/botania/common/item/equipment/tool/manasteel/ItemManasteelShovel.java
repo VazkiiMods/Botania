@@ -11,18 +11,23 @@
 package vazkii.botania.common.item.equipment.tool.manasteel;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.block.Blocks;
 import net.minecraft.item.IItemTier;
-import net.minecraft.item.ItemSpade;
+import net.minecraft.item.ShovelItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
@@ -46,7 +51,7 @@ import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
-public class ItemManasteelShovel extends ItemSpade implements IManaUsingItem, ISortableTool {
+public class ItemManasteelShovel extends ShovelItem implements IManaUsingItem, ISortableTool {
 
 	private static final int MANA_PER_DAMAGE = 60;
 
@@ -59,13 +64,13 @@ public class ItemManasteelShovel extends ItemSpade implements IManaUsingItem, IS
 	}
 
 	@Override
-	public boolean hitEntity(ItemStack par1ItemStack, EntityLivingBase par2EntityLivingBase, @Nonnull EntityLivingBase par3EntityLivingBase) {
+	public boolean hitEntity(ItemStack par1ItemStack, LivingEntity par2EntityLivingBase, @Nonnull LivingEntity par3EntityLivingBase) {
 		ToolCommons.damageItem(par1ItemStack, 1, par3EntityLivingBase, MANA_PER_DAMAGE);
 		return true;
 	}
 
 	@Override
-	public boolean onBlockDestroyed(@Nonnull ItemStack stack, @Nonnull World world, @Nonnull IBlockState state, @Nonnull BlockPos pos, @Nonnull EntityLivingBase entity) {
+	public boolean onBlockDestroyed(@Nonnull ItemStack stack, @Nonnull World world, @Nonnull BlockState state, @Nonnull BlockPos pos, @Nonnull LivingEntity entity) {
 		if (state.getBlockHardness(world, pos) != 0F)
 			ToolCommons.damageItem(stack, 1, entity, MANA_PER_DAMAGE);
 
@@ -74,27 +79,27 @@ public class ItemManasteelShovel extends ItemSpade implements IManaUsingItem, IS
 
 	@Nonnull
 	@Override
-	public EnumActionResult onItemUse(ItemUseContext ctx) {
+	public ActionResultType onItemUse(ItemUseContext ctx) {
 		ItemStack stack = ctx.getItem();
-		EntityPlayer player = ctx.getPlayer();
+		PlayerEntity player = ctx.getPlayer();
 		World world = ctx.getWorld();
 		BlockPos pos = ctx.getPos();
 
 		if(player == null || !player.canPlayerEdit(pos, ctx.getFace(), stack))
-			return EnumActionResult.PASS;
+			return ActionResultType.PASS;
 		else {
 			UseHoeEvent event = new UseHoeEvent(ctx);
 			if(MinecraftForge.EVENT_BUS.post(event))
-				return EnumActionResult.FAIL;
+				return ActionResultType.FAIL;
 
 			if(event.getResult() == Event.Result.ALLOW) {
 				ToolCommons.damageItem(stack, 1, player, MANA_PER_DAMAGE);
-				return EnumActionResult.SUCCESS;
+				return ActionResultType.SUCCESS;
 			}
 
 			Block block = world.getBlockState(pos).getBlock();
 
-			if(ctx.getFace() != EnumFacing.DOWN && world.getBlockState(pos.up()).getBlock().isAir(world.getBlockState(pos.up()), world, pos.up()) && (block == Blocks.GRASS || block == Blocks.DIRT || block == Blocks.GRASS_PATH)) {
+			if(ctx.getFace() != Direction.DOWN && world.getBlockState(pos.up()).getBlock().isAir(world.getBlockState(pos.up()), world, pos.up()) && (block == Blocks.GRASS || block == Blocks.DIRT || block == Blocks.GRASS_PATH)) {
 				Block block1 = Blocks.GRASS_PATH;
 				if(block == block1)
 					block1 = Blocks.FARMLAND;
@@ -102,21 +107,21 @@ public class ItemManasteelShovel extends ItemSpade implements IManaUsingItem, IS
 				world.playSound(null, pos, block1.getSoundType().getStepSound(), SoundCategory.BLOCKS, (block1.getSoundType().getVolume() + 1.0F) / 2.0F, block1.getSoundType().getPitch() * 0.8F);
 
 				if (world.isRemote)
-					return EnumActionResult.SUCCESS;
+					return ActionResultType.SUCCESS;
 				else {
 					world.setBlockState(pos, block1.getDefaultState());
 					ToolCommons.damageItem(stack, 1, player, MANA_PER_DAMAGE);
-					return EnumActionResult.SUCCESS;
+					return ActionResultType.SUCCESS;
 				}
 			}
 
-			return EnumActionResult.PASS;
+			return ActionResultType.PASS;
 		}
 	}
 
 	@Override
 	public void inventoryTick(ItemStack stack, World world, Entity player, int par4, boolean par5) {
-		if(!world.isRemote && player instanceof EntityPlayer && stack.getDamage() > 0 && ManaItemHandler.requestManaExactForTool(stack, (EntityPlayer) player, MANA_PER_DAMAGE * 2, true))
+		if(!world.isRemote && player instanceof PlayerEntity && stack.getDamage() > 0 && ManaItemHandler.requestManaExactForTool(stack, (PlayerEntity) player, MANA_PER_DAMAGE * 2, true))
 			stack.setDamage(stack.getDamage() - 1);
 	}
 

@@ -10,13 +10,17 @@
  */
 package vazkii.botania.common.item.relic;
 
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.EnumAction;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.UseAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Hand;
+import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
@@ -45,15 +49,15 @@ public class ItemKingKey extends ItemRelic implements IManaUsingItem {
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
 		player.setActiveHand(hand);
 		ItemStack stack = player.getHeldItem(hand);
 		setCharging(stack, true);
-		return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
+		return ActionResult.newResult(ActionResultType.SUCCESS, stack);
 	}
 
 	@Override
-	public void onPlayerStoppedUsing(ItemStack stack, World world, EntityLivingBase living, int time) {
+	public void onPlayerStoppedUsing(ItemStack stack, World world, LivingEntity living, int time) {
 		int spawned = getWeaponsSpawned(stack);
 		if(spawned == 20) {
 			setCharging(stack, false);
@@ -62,10 +66,10 @@ public class ItemKingKey extends ItemRelic implements IManaUsingItem {
 	}
 
 	@Override
-	public void onUsingTick(ItemStack stack, EntityLivingBase living, int count) {
+	public void onUsingTick(ItemStack stack, LivingEntity living, int count) {
 		int spawned = getWeaponsSpawned(stack);
 
-		if(count != getUseDuration(stack) && spawned < 20 && !living.world.isRemote && (!(living instanceof EntityPlayer) || ManaItemHandler.requestManaExact(stack, (EntityPlayer) living, 150, true))) {
+		if(count != getUseDuration(stack) && spawned < 20 && !living.world.isRemote && (!(living instanceof PlayerEntity) || ManaItemHandler.requestManaExact(stack, (PlayerEntity) living, 150, true))) {
 			Vector3 look = new Vector3(living.getLookVec()).multiply(1, 0, 1);
 			
 			double playerRot = Math.toRadians(living.rotationYaw + 90);
@@ -107,8 +111,8 @@ public class ItemKingKey extends ItemRelic implements IManaUsingItem {
 
 	@Nonnull
 	@Override
-	public EnumAction getUseAction(ItemStack par1ItemStack) {
-		return EnumAction.BOW;
+	public UseAction getUseAction(ItemStack par1ItemStack) {
+		return UseAction.BOW;
 	}
 
 	@Override

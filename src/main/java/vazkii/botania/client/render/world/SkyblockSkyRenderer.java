@@ -11,9 +11,9 @@
 package vazkii.botania.client.render.world;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.multiplayer.WorldClient;
+import net.minecraft.client.world.ClientWorld;
 import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.GlStateManager;
+import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
@@ -45,13 +45,13 @@ public class SkyblockSkyRenderer implements IRenderHandler {
 
 	// [VanillaCopy] WorldRenderer.renderSky, overworld section, edits noted
 	@Override
-	public void render(float partialTicks, WorldClient world, Minecraft mc) {
+	public void render(float partialTicks, ClientWorld world, Minecraft mc) {
 		// Environment setup
 		int glSkyList = mc.worldRenderer.glSkyList;
 		net.minecraft.client.renderer.vertex.VertexBuffer skyVBO = mc.worldRenderer.skyVBO;
 
 		// Begin
-		GlStateManager.disableTexture2D();
+		GlStateManager.disableTexture();
 		Vec3d vec3d = world.getSkyColor(mc.getRenderViewEntity(), partialTicks);
 		float f = (float)vec3d.x;
 		float f1 = (float)vec3d.y;
@@ -90,7 +90,7 @@ public class SkyblockSkyRenderer implements IRenderHandler {
 		RenderHelper.disableStandardItemLighting();
 		float[] afloat = world.dimension.calcSunriseSunsetColors(world.getCelestialAngle(partialTicks), partialTicks);
 		if (afloat != null) {
-			GlStateManager.disableTexture2D();
+			GlStateManager.disableTexture();
 			GlStateManager.shadeModel(7425);
 			GlStateManager.pushMatrix();
 			GlStateManager.rotatef(90.0F, 1.0F, 0.0F, 0.0F);
@@ -115,7 +115,7 @@ public class SkyblockSkyRenderer implements IRenderHandler {
 			GlStateManager.shadeModel(7424);
 		}
 
-		GlStateManager.enableTexture2D();
+		GlStateManager.enableTexture();
 		GlStateManager.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
 		GlStateManager.pushMatrix();
 		float f11 = 1.0F - world.getRainStrength(partialTicks);
@@ -147,7 +147,7 @@ public class SkyblockSkyRenderer implements IRenderHandler {
 		bufferbuilder.pos((double)f12, -100.0D, (double)(-f12)).tex((double)f13, (double)f14).endVertex();
 		bufferbuilder.pos((double)(-f12), -100.0D, (double)(-f12)).tex((double)f15, (double)f14).endVertex();
 		tessellator.draw();
-		GlStateManager.disableTexture2D();
+		GlStateManager.disableTexture();
 		// Botania: custom stars
 		{
 			float celAng = world.getCelestialAngle(partialTicks);
@@ -181,7 +181,7 @@ public class SkyblockSkyRenderer implements IRenderHandler {
 		GlStateManager.popMatrix();
 		// Botania: no horizon
 		/*
-		GlStateManager.disableTexture2D();
+		GlStateManager.disableTexture();
 		GlStateManager.color3f(0.0F, 0.0F, 0.0F);
 		double d0 = this.mc.player.getEyePosition(partialTicks).y - this.world.getHorizon();
 		if (d0 < 0.0D) {
@@ -212,11 +212,11 @@ public class SkyblockSkyRenderer implements IRenderHandler {
 		GlStateManager.callList(this.glSkyList2);
 		GlStateManager.popMatrix();
 		*/
-		GlStateManager.enableTexture2D();
+		GlStateManager.enableTexture();
 		GlStateManager.depthMask(true);
 	}
 
-	private void renderExtra(WorldClient world, float partialTicks, float insideVoid) {
+	private void renderExtra(ClientWorld world, float partialTicks, float insideVoid) {
 		// Botania - Begin extra stuff
 		Tessellator tessellator = Tessellator.getInstance();
 		float rain = 1.0F - world.getRainStrength(partialTicks);

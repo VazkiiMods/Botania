@@ -11,28 +11,33 @@
 package vazkii.botania.common.block.tile;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.IEntityLivingData;
+import net.minecraft.entity.MobEntity;
+import net.minecraft.entity.ILivingEntityData;
+import net.minecraft.entity.MobEntity;
 import net.minecraft.init.Particles;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.tileentity.MobSpawnerBaseLogic;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.ListNBT;
+import net.minecraft.nbt.ListNBT;
+import net.minecraft.tileentity.MobSpawnerTileEntity;
+import net.minecraft.world.spawner.AbstractSpawner;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityMobSpawner;
+import net.minecraft.tileentity.MobSpawnerTileEntity;
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.ITickable;
+import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.WeightedSpawnerEntity;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.storage.AnvilChunkLoader;
+import net.minecraft.world.spawner.AbstractSpawner;
 import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
-public class TileSpawnerClaw extends TileMod implements IManaReceiver, ITickable {
+public class TileSpawnerClaw extends TileMod implements IManaReceiver, ITickableTileEntity {
 	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.SPAWNER_CLAW)
 	public static TileEntityType<TileSpawnerClaw> TYPE;
 	private static final String TAG_MANA = "mana";
@@ -46,9 +51,9 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver, ITickable
 	@Override
 	public void tick() {
 		TileEntity tileBelow = world.getTileEntity(pos.down());
-		if(mana >= 5 && tileBelow instanceof TileEntityMobSpawner) {
-			TileEntityMobSpawner spawner = (TileEntityMobSpawner) tileBelow;
-			MobSpawnerBaseLogic logic = spawner.getSpawnerBaseLogic();
+		if(mana >= 5 && tileBelow instanceof MobSpawnerTileEntity) {
+			MobSpawnerTileEntity spawner = (MobSpawnerTileEntity) tileBelow;
+			AbstractSpawner logic = spawner.getSpawnerBaseLogic();
 
 			// [VanillaCopy] MobSpawnBaseLogic.tick, edits noted
 			if (!logic.isActivated()) { // Botania - invert activated check
@@ -80,8 +85,8 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver, ITickable
 					boolean flag = false;
 
 					for(int i = 0; i < logic.spawnCount; ++i) {
-						NBTTagCompound nbttagcompound = logic.spawnData.getNbt();
-						NBTTagList nbttaglist = nbttagcompound.getList("Pos", 6);
+						CompoundNBT nbttagcompound = logic.spawnData.getNbt();
+						ListNBT nbttaglist = nbttagcompound.getList("Pos", 6);
 						World world = logic.getWorld();
 						int j = nbttaglist.size();
 						double d0 = j >= 1 ? nbttaglist.getDouble(0) : (double)blockpos.getX() + (world.rand.nextDouble() - world.rand.nextDouble()) * (double)logic.spawnRange + 0.5D;
@@ -99,12 +104,12 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver, ITickable
 							return;
 						}
 
-						EntityLiving entityliving = entity instanceof EntityLiving ? (EntityLiving)entity : null;
+						MobEntity entityliving = entity instanceof MobEntity ? (MobEntity)entity : null;
 						entity.setLocationAndAngles(entity.posX, entity.posY, entity.posZ, world.rand.nextFloat() * 360.0F, 0.0F);
 						if (entityliving == null || net.minecraftforge.event.ForgeEventFactory.canEntitySpawnSpawner(entityliving, getWorld(), (float)entity.posX, (float)entity.posY, (float)entity.posZ, logic)) {
-							if (logic.spawnData.getNbt().size() == 1 && logic.spawnData.getNbt().contains("id", 8) && entity instanceof EntityLiving) {
+							if (logic.spawnData.getNbt().size() == 1 && logic.spawnData.getNbt().contains("id", 8) && entity instanceof MobEntity) {
 								if (!net.minecraftforge.event.ForgeEventFactory.doSpecialSpawn(entityliving, logic.getWorld(), (float)entity.posX, (float)entity.posY, (float)entity.posZ, logic))
-									((EntityLiving)entity).onInitialSpawn(world.getDifficultyForLocation(new BlockPos(entity)), (IEntityLivingData)null, (NBTTagCompound)null);
+									((MobEntity)entity).onInitialSpawn(world.getDifficultyForLocation(new BlockPos(entity)), (ILivingEntityData)null, (CompoundNBT)null);
 							}
 
 							AnvilChunkLoader.spawnEntity(entity, world);
@@ -126,12 +131,12 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver, ITickable
 	}
 
 	@Override
-	public void writePacketNBT(NBTTagCompound cmp) {
+	public void writePacketNBT(CompoundNBT cmp) {
 		cmp.putInt(TAG_MANA, mana);
 	}
 
 	@Override
-	public void readPacketNBT(NBTTagCompound cmp) {
+	public void readPacketNBT(CompoundNBT cmp) {
 		mana = cmp.getInt(TAG_MANA);
 	}
 

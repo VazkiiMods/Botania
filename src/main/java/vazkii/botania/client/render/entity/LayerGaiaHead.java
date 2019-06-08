@@ -1,14 +1,15 @@
 package vazkii.botania.client.render.entity;
 
-import net.minecraft.client.renderer.GlStateManager;
+import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
-import net.minecraft.client.renderer.entity.model.ModelRenderer;
+import net.minecraft.client.renderer.entity.model.RendererModel;
+import net.minecraft.client.renderer.entity.model.RendererModel;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.render.tile.RenderTileGaiaHead;
 import vazkii.botania.common.block.BlockGaiaHead;
@@ -18,19 +19,19 @@ import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
 
-public class LayerGaiaHead implements LayerRenderer<EntityPlayer> {
+public class LayerGaiaHead implements LayerRenderer<PlayerEntity> {
 
-	private final ModelRenderer modelRenderer;
+	private final RendererModel modelRenderer;
 
-	public LayerGaiaHead(ModelRenderer modelRenderer)
+	public LayerGaiaHead(RendererModel modelRenderer)
 	{
 		this.modelRenderer = modelRenderer;
 	}
 
 	// Copied from LayerCustomHead, edits noted
 	@Override
-	public void render(@Nonnull EntityPlayer player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-		ItemStack itemstack = player.getItemStackFromSlot(EntityEquipmentSlot.HEAD);
+	public void render(@Nonnull PlayerEntity player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+		ItemStack itemstack = player.getItemStackFromSlot(EquipmentSlotType.HEAD);
 
 		if (!itemstack.isEmpty() && itemstack.getItem() == ModBlocks.gaiaHead.asItem()) // Botania - check for head
 		{
@@ -90,7 +91,7 @@ public class LayerGaiaHead implements LayerRenderer<EntityPlayer> {
 			// Botania - use gaia TESR
 			ShaderHelper.useShader(ShaderHelper.doppleganger, RenderDoppleganger.defaultCallback);
 			((RenderTileGaiaHead) (TileEntityRenderer) TileEntityRendererDispatcher.instance.getRenderer(TileGaiaHead.class))
-			.render(-0.5F, 0.0F, -0.5F, EnumFacing.UP, 180.0F, BlockGaiaHead.GAIA_TYPE, null, -1, limbSwing);
+			.render(-0.5F, 0.0F, -0.5F, Direction.UP, 180.0F, BlockGaiaHead.GAIA_TYPE, null, -1, limbSwing);
 			ShaderHelper.releaseShader();
 
 			GlStateManager.popMatrix();

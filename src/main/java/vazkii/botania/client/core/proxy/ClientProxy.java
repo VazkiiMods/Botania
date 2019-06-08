@@ -12,16 +12,19 @@ package vazkii.botania.client.core.proxy;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.entity.RenderPlayer;
-import net.minecraft.client.renderer.entity.model.ModelBiped;
+import net.minecraft.client.renderer.entity.PlayerRenderer;
+import net.minecraft.client.renderer.entity.PlayerRenderer;
+import net.minecraft.client.renderer.entity.model.BipedModel;
+import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.client.util.InputMappings;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
@@ -130,7 +133,7 @@ public class ClientProxy implements IProxy {
 	public static boolean jingleTheBells = false;
 	public static boolean dootDoot = false;
 
-	private static final ModelBiped EMPTY_MODEL = new ModelBiped();
+	private static final BipedModel EMPTY_MODEL = new BipedModel();
 	static {
 		EMPTY_MODEL.setVisible(false);
 	}
@@ -183,8 +186,8 @@ public class ClientProxy implements IProxy {
 	}
 
 	private void initAuxiliaryRender() {
-		Map<String, RenderPlayer> skinMap = Minecraft.getInstance().getRenderManager().getSkinMap();
-		RenderPlayer render;
+		Map<String, PlayerRenderer> skinMap = Minecraft.getInstance().getRenderManager().getSkinMap();
+		PlayerRenderer render;
 		render = skinMap.get("default");
 		render.addLayer(new ContributorFancinessHandler());
 		if(Botania.curiosLoaded)
@@ -217,12 +220,12 @@ public class ClientProxy implements IProxy {
 	}
 
 	@Override
-	public boolean isTheClientPlayer(EntityLivingBase entity) {
+	public boolean isTheClientPlayer(LivingEntity entity) {
 		return entity == Minecraft.getInstance().player;
 	}
 
 	@Override
-	public EntityPlayer getClientPlayer() {
+	public PlayerEntity getClientPlayer() {
 		return Minecraft.getInstance().player;
 	}
 
@@ -289,7 +292,7 @@ public class ClientProxy implements IProxy {
 	public void removeSextantMultiblock() {
 		MultiblockSet set = MultiblockRenderHandler.currentMultiblock;
 		if(set != null) {
-			Multiblock mb = set.getForFacing(EnumFacing.SOUTH);
+			Multiblock mb = set.getForFacing(Direction.SOUTH);
 			if(mb instanceof MultiblockSextant)
 				MultiblockRenderHandler.setMultiblock(null);
 		}
@@ -383,7 +386,7 @@ public class ClientProxy implements IProxy {
 	}
 
 	@Override
-	public ModelBiped getEmptyModelBiped() {
+	public BipedModel getEmptyModelBiped() {
 		return EMPTY_MODEL;
 	}
 }

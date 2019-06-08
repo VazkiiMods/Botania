@@ -11,29 +11,31 @@
 package vazkii.botania.common.block.dispenser;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockDispenser;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.dispenser.BehaviorDefaultDispenseItem;
+import net.minecraft.block.DispenserBlock;
+import net.minecraft.block.DispenserBlock;
+import net.minecraft.block.BlockState;
+import net.minecraft.dispenser.DefaultDispenseItemBehavior;
+import net.minecraft.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.dispenser.IBlockSource;
-import net.minecraft.init.Blocks;
+import net.minecraft.block.Blocks;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
 
-public class BehaviourCocoaBeans extends BehaviorDefaultDispenseItem {
+public class BehaviourCocoaBeans extends DefaultDispenseItemBehavior {
 	@Nonnull
 	@Override
 	public ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
 		Block block = Blocks.COCOA;
-		EnumFacing facing = source.getBlockState().get(BlockDispenser.FACING);
+		Direction facing = source.getBlockState().get(DispenserBlock.FACING);
 		BlockPos pos = source.getBlockPos().offset(facing);
 		World world = source.getWorld();
 
-		IBlockState cocoa = block.getStateForPlacement(new BlockItemUseContext(world, null, stack, pos, facing.getOpposite(), 0, 0, 0));
+		BlockState cocoa = block.getStateForPlacement(new BlockItemUseContext(world, null, stack, pos, facing.getOpposite(), 0, 0, 0));
 		if(cocoa != null && world.isAirBlock(pos)) {
 			world.setBlockState(pos, cocoa);
 			stack.shrink(1);

@@ -12,31 +12,39 @@ package vazkii.botania.common.block.subtile.functional;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.monster.EntityCaveSpider;
-import net.minecraft.entity.monster.EntityCreeper;
-import net.minecraft.entity.monster.EntityEnderman;
-import net.minecraft.entity.monster.EntityHusk;
-import net.minecraft.entity.monster.EntityMob;
-import net.minecraft.entity.monster.EntitySkeleton;
-import net.minecraft.entity.monster.EntitySpider;
-import net.minecraft.entity.monster.EntityStray;
-import net.minecraft.entity.monster.EntityZombie;
-import net.minecraft.init.MobEffects;
+import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.monster.CaveSpiderEntity;
+import net.minecraft.entity.monster.CreeperEntity;
+import net.minecraft.entity.monster.EndermanEntity;
+import net.minecraft.entity.monster.EndermanEntity;
+import net.minecraft.entity.monster.HuskEntity;
+import net.minecraft.entity.monster.MonsterEntity;
+import net.minecraft.entity.monster.SkeletonEntity;
+import net.minecraft.entity.monster.SpiderEntity;
+import net.minecraft.entity.monster.StrayEntity;
+import net.minecraft.entity.monster.ZombieEntity;
+import net.minecraft.entity.monster.MonsterEntity;
+import net.minecraft.entity.monster.SkeletonEntity;
+import net.minecraft.entity.monster.ZombieEntity;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Effects;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.potion.PotionEffect;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.potion.EffectInstance;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.Tag;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldServer;
+import net.minecraft.world.ServerWorld;
 import net.minecraft.world.storage.loot.LootContext;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
@@ -81,7 +89,7 @@ public class SubTileLoonuim extends TileEntityFunctionalFlower {
 
 			ItemStack stack;
 			do {
-				List<ItemStack> stacks = ((WorldServer) world).getServer().getLootTableManager().getLootTableFromLocation(lootTable).generateLootForPools(rand, new LootContext.Builder((WorldServer) world).build());
+				List<ItemStack> stacks = ((ServerWorld) world).getServer().getLootTableManager().getLootTableFromLocation(lootTable).generateLootForPools(rand, new LootContext.Builder((ServerWorld) world).build());
 				if (stacks.isEmpty())
 					return;
 				else {
@@ -107,29 +115,29 @@ public class SubTileLoonuim extends TileEntityFunctionalFlower {
 			double y = pos.getY() + Math.random();
 			double z = pos.getZ() + Math.random();
 			
-			EntityMob entity = null;
+			MonsterEntity entity = null;
 			if(world.rand.nextInt(50) == 0)
-				entity = new EntityEnderman(world);
+				entity = new EndermanEntity(world);
 			else if(world.rand.nextInt(10) == 0) {
-				entity = new EntityCreeper(world);
+				entity = new CreeperEntity(world);
 				if(world.rand.nextInt(200) == 0)
 					entity.onStruckByLightning(null);
 			} else 
 				switch(world.rand.nextInt(3)) {
 				case 0:
 					if(world.rand.nextInt(10) == 0)
-						entity = new EntityHusk(world);
-					else entity = new EntityZombie(world);
+						entity = new HuskEntity(world);
+					else entity = new ZombieEntity(world);
 					break;
 				case 1:
 					if(world.rand.nextInt(10) == 0)
-						entity = new EntityStray(world);
-					else entity = new EntitySkeleton(world);
+						entity = new StrayEntity(world);
+					else entity = new SkeletonEntity(world);
 					break;
 				case 2:
 					if(world.rand.nextInt(10) == 0)
-						entity = new EntityCaveSpider(world);
-					else entity = new EntitySpider(world);
+						entity = new CaveSpiderEntity(world);
+					else entity = new SpiderEntity(world);
 					break;
 				}
 
@@ -141,10 +149,10 @@ public class SubTileLoonuim extends TileEntityFunctionalFlower {
 			map.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier("Loonium Modififer Damage", 1.5, 1));
 			entity.getAttributeMap().applyAttributeModifiers(map);
 
-			entity.addPotionEffect(new PotionEffect(MobEffects.FIRE_RESISTANCE, entity instanceof EntityCreeper ? 100 : Integer.MAX_VALUE, 0));
-			entity.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, entity instanceof EntityCreeper ? 100 : Integer.MAX_VALUE, 0));
+			entity.addPotionEffect(new EffectInstance(Effects.FIRE_RESISTANCE, entity instanceof CreeperEntity ? 100 : Integer.MAX_VALUE, 0));
+			entity.addPotionEffect(new EffectInstance(Effects.REGENERATION, entity instanceof CreeperEntity ? 100 : Integer.MAX_VALUE, 0));
 
-			NBTTagCompound cmp = stack.write(new NBTTagCompound());
+			CompoundNBT cmp = stack.write(new CompoundNBT());
 			entity.getEntityData().put(TAG_ITEMSTACK_TO_DROP, cmp);
 
 			entity.onInitialSpawn(world.getDifficultyForLocation(pos), null, null);
@@ -182,26 +190,26 @@ public class SubTileLoonuim extends TileEntityFunctionalFlower {
 	}
 
 	@Override
-	public void readFromPacketNBT(NBTTagCompound cmp) {
+	public void readFromPacketNBT(CompoundNBT cmp) {
 		super.readFromPacketNBT(cmp);
 		if (cmp.contains(TAG_LOOT_TABLE))
 			lootTable = new ResourceLocation(cmp.getString(TAG_LOOT_TABLE));
 	}
 
 	@Override
-	public void writeToPacketNBT(NBTTagCompound cmp) {
+	public void writeToPacketNBT(CompoundNBT cmp) {
 		super.writeToPacketNBT(cmp);
 		cmp.putString(TAG_LOOT_TABLE, lootTable.toString());
 	}
 
 	@SubscribeEvent(priority = EventPriority.LOWEST)
 	public static void onDrops(LivingDropsEvent event) {
-		EntityLivingBase e = event.getEntityLiving();
+		LivingEntity e = event.getEntityLiving();
 		if(e.getEntityData().contains(TAG_ITEMSTACK_TO_DROP)) {
-			NBTTagCompound cmp = e.getEntityData().getCompound(TAG_ITEMSTACK_TO_DROP);
+			CompoundNBT cmp = e.getEntityData().getCompound(TAG_ITEMSTACK_TO_DROP);
 			ItemStack stack = ItemStack.read(cmp);
 			event.getDrops().clear();
-			event.getDrops().add(new EntityItem(e.world, e.posX, e.posY, e.posZ, stack));
+			event.getDrops().add(new ItemEntity(e.world, e.posX, e.posY, e.posZ, stack));
 		}
 	}
 }

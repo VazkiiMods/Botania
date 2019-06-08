@@ -10,19 +10,20 @@
  */
 package vazkii.botania.client.render.entity;
 
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.entity.Render;
-import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.client.renderer.texture.TextureMap;
+import com.mojang.blaze3d.platform.GlStateManager;
+import net.minecraft.client.renderer.entity.EntityRenderer;
+import net.minecraft.client.renderer.entity.EntityRenderer;
+import net.minecraft.client.renderer.entity.EntityRendererManager;
+import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.util.ResourceLocation;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.entity.EntityManaStorm;
 
 import javax.annotation.Nonnull;
 
-public class RenderManaStorm extends Render<EntityManaStorm> {
+public class RenderManaStorm extends EntityRenderer<EntityManaStorm> {
 
-	public RenderManaStorm(RenderManager renderManager) {
+	public RenderManaStorm(EntityRendererManager renderManager) {
 		super(renderManager);
 	}
 
@@ -41,7 +42,7 @@ public class RenderManaStorm extends Render<EntityManaStorm> {
 	@Nonnull
 	@Override
 	protected ResourceLocation getEntityTexture(@Nonnull EntityManaStorm entity) {
-		return TextureMap.LOCATION_BLOCKS_TEXTURE;
+		return AtlasTexture.LOCATION_BLOCKS_TEXTURE;
 	}
 
 }

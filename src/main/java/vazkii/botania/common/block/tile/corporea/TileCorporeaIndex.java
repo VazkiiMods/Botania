@@ -11,16 +11,19 @@
 package vazkii.botania.common.block.tile.corporea;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.ITickable;
+import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.text.Style;
-import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
@@ -50,7 +53,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequestor, ITickable {
+public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequestor, ITickableTileEntity {
 	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.CORPOREA_INDEX)
 	public static TileEntityType<TileCorporeaIndex> TYPE;
 	public static final double RADIUS = 2.5;
@@ -180,9 +183,9 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 		double y = pos.getY() + 0.5;
 		double z = pos.getZ() + 0.5;
 
-		List<EntityPlayer> players = world.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(x - RADIUS, y - RADIUS, z - RADIUS, x + RADIUS, y + RADIUS, z + RADIUS));
+		List<PlayerEntity> players = world.getEntitiesWithinAABB(PlayerEntity.class, new AxisAlignedBB(x - RADIUS, y - RADIUS, z - RADIUS, x + RADIUS, y + RADIUS, z + RADIUS));
 		hasCloseby = false;
-		for(EntityPlayer player : players)
+		for(PlayerEntity player : players)
 			if(isInRangeOfIndex(player, this)) {
 				hasCloseby = true;
 				break;
@@ -222,12 +225,12 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 		spark.onItemsRequested(stacks);
 		for(ItemStack stack : stacks)
 			if(!stack.isEmpty()) {
-				EntityItem item = new EntityItem(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, stack);
+				ItemEntity item = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, stack);
 				world.spawnEntity(item);
 			}
 	}
 
-	public static boolean isInRangeOfIndex(EntityPlayer player, TileCorporeaIndex index) {
+	public static boolean isInRangeOfIndex(PlayerEntity player, TileCorporeaIndex index) {
 		return player.dimension == index.world.getDimension().getType() && MathHelper.pointDistancePlane(index.getPos().getX() + 0.5, index.getPos().getZ() + 0.5, player.posX, player.posZ) < RADIUS && Math.abs(index.getPos().getY() + 0.5 - player.posY + (player.world.isRemote ? 0 : 1.6)) < 5;
 	}
 
@@ -296,7 +299,7 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 						if(!MinecraftForge.EVENT_BUS.post(indexReqEvent)) {
 							index.doCorporeaRequest(name, count, spark);
 							
-							event.getPlayer().sendMessage(new TextComponentTranslation("botaniamisc.requestMsg", count, WordUtils.capitalizeFully(name), CorporeaHelper.lastRequestMatches, CorporeaHelper.lastRequestExtractions).setStyle(new Style().setColor(TextFormatting.LIGHT_PURPLE)));
+							event.getPlayer().sendMessage(new TranslationTextComponent("botaniamisc.requestMsg", count, WordUtils.capitalizeFully(name), CorporeaHelper.lastRequestMatches, CorporeaHelper.lastRequestExtractions).setStyle(new Style().setColor(TextFormatting.LIGHT_PURPLE)));
 							CorporeaRequestTrigger.INSTANCE.trigger(event.getPlayer(), event.getPlayer().getServerWorld(), index.getPos(), CorporeaHelper.lastRequestExtractions);
 						}
 					}
@@ -306,7 +309,7 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 			}
 		}
 
-		public static List<TileCorporeaIndex> getNearbyIndexes(EntityPlayer player) {
+		public static List<TileCorporeaIndex> getNearbyIndexes(PlayerEntity player) {
 			return (player.world.isRemote ? clientIndexes : serverIndexes)
 					.stream().filter(i -> isInRangeOfIndex(player, i))
 					.collect(Collectors.toList());

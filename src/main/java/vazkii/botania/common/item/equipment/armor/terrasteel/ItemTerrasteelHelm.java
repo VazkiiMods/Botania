@@ -11,17 +11,22 @@
 package vazkii.botania.common.item.equipment.armor.terrasteel;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GlStateManager;
+import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.client.renderer.texture.AtlasTexture;
+import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.MobEffects;
-import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Effects;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.PotionEffect;
+import net.minecraft.potion.Effects;
+import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
@@ -45,12 +50,12 @@ public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDisc
 	public static final String TAG_ANCIENT_WILL = "AncientWill";
 
 	public ItemTerrasteelHelm(Properties props) {
-		super(EntityEquipmentSlot.HEAD, props);
+		super(EquipmentSlotType.HEAD, props);
 		MinecraftForge.EVENT_BUS.addListener(this::onEntityAttacked);
 	}
 
 	@Override
-	public void onArmorTick(ItemStack stack, World world, EntityPlayer player) {
+	public void onArmorTick(ItemStack stack, World world, PlayerEntity player) {
 		super.onArmorTick(stack, world, player);
 		if(hasArmorSet(player)) {
 			int food = player.getFoodStats().getFoodLevel();
@@ -61,7 +66,7 @@ public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDisc
 	}
 
 	@Override
-	public float getDiscount(ItemStack stack, int slot, EntityPlayer player, @Nullable ItemStack tool) {
+	public float getDiscount(ItemStack stack, int slot, PlayerEntity player, @Nullable ItemStack tool) {
 		return hasArmorSet(player) ? 0.2F : 0F;
 	}
 
@@ -85,7 +90,7 @@ public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDisc
 		super.addArmorSetDescription(stack, list);
 		for(AncientWillType type : AncientWillType.values())
 			if(hasAncientWill(stack, type))
-				list.add(new TextComponentTranslation("botania.armorset.will_" + type.name().toLowerCase(Locale.ROOT) + ".desc"));
+				list.add(new TranslationTextComponent("botania.armorset.will_" + type.name().toLowerCase(Locale.ROOT) + ".desc"));
 	}
 
 	private static boolean hasAnyWill(ItemStack stack) {
@@ -97,7 +102,7 @@ public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDisc
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public static void renderOnPlayer(ItemStack stack, EntityPlayer player) {
+	public static void renderOnPlayer(ItemStack stack, PlayerEntity player) {
 		if(hasAnyWill(stack) && !((ItemTerrasteelArmor) stack.getItem()).hasPhantomInk(stack)) {
 			GlStateManager.pushMatrix();
 			float f = MiscellaneousIcons.INSTANCE.terrasteelHelmWillIcon.getMinU();
@@ -105,7 +110,7 @@ public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDisc
 			float f2 = MiscellaneousIcons.INSTANCE.terrasteelHelmWillIcon.getMinV();
 			float f3 = MiscellaneousIcons.INSTANCE.terrasteelHelmWillIcon.getMaxV();
 			AccessoryRenderHelper.translateToHeadLevel(player);
-			Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+			Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
 			GlStateManager.rotatef(90F, 0F, 1F, 0F);
 			GlStateManager.rotatef(180F, 1F, 0F, 0F);
 			GlStateManager.translatef(-0.26F, -1.45F, -0.39F);
@@ -117,24 +122,24 @@ public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDisc
 
 	private void onEntityAttacked(LivingHurtEvent event) {
 		Entity attacker = event.getSource().getImmediateSource();
-		if(attacker instanceof EntityPlayer) {
-			EntityPlayer player = (EntityPlayer) attacker;
+		if(attacker instanceof PlayerEntity) {
+			PlayerEntity player = (PlayerEntity) attacker;
 			if(hasArmorSet(player)) {
-				boolean crit = player.fallDistance > 0.0F && !player.onGround && !player.isOnLadder() && !player.isInWater() && !player.isPotionActive(MobEffects.BLINDNESS) && !player.isPassenger();
-				ItemStack stack = player.getItemStackFromSlot(EntityEquipmentSlot.HEAD);
+				boolean crit = player.fallDistance > 0.0F && !player.onGround && !player.isOnLadder() && !player.isInWater() && !player.isPotionActive(Effects.BLINDNESS) && !player.isPassenger();
+				ItemStack stack = player.getItemStackFromSlot(EquipmentSlotType.HEAD);
 				if(crit && !stack.isEmpty() && stack.getItem() instanceof ItemTerrasteelHelm) {
 					if(hasAncientWill(stack, AncientWillType.AHRIM))
-						event.getEntityLiving().addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 20, 1));
+						event.getEntityLiving().addPotionEffect(new EffectInstance(Effects.WEAKNESS, 20, 1));
 					if(hasAncientWill(stack, AncientWillType.DHAROK))
 						event.setAmount(event.getAmount() * (1F + (1F - player.getHealth() / player.getMaxHealth()) * 0.5F));
 					if(hasAncientWill(stack, AncientWillType.GUTHAN))
 						player.heal(event.getAmount() * 0.25F);
 					if(hasAncientWill(stack, AncientWillType.TORAG))
-						event.getEntityLiving().addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 60, 1));
+						event.getEntityLiving().addPotionEffect(new EffectInstance(Effects.SLOWNESS, 60, 1));
 					if(hasAncientWill(stack, AncientWillType.VERAC))
 						event.getSource().setDamageBypassesArmor();
 					if(hasAncientWill(stack, AncientWillType.KARIL))
-						event.getEntityLiving().addPotionEffect(new PotionEffect(MobEffects.WITHER, 60, 1));
+						event.getEntityLiving().addPotionEffect(new EffectInstance(Effects.WITHER, 60, 1));
 				}
 			}
 		}

@@ -11,15 +11,18 @@
 package vazkii.botania.client.core.handler;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockFlowingFluid;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.FlowingFluidBlock;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.Gui;
-import net.minecraft.client.gui.GuiChat;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.gui.AbstractGui;
+import net.minecraft.client.gui.screen.ChatScreen;
+import net.minecraft.client.gui.screen.ChatScreen;
+import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.profiler.Profiler;
@@ -120,7 +123,7 @@ public final class HUDHandler {
 			RayTraceResult pos = mc.objectMouseOver;
 
 			if(pos != null) {
-				IBlockState state = pos.type == RayTraceResult.Type.BLOCK ? mc.world.getBlockState(pos.getBlockPos()) : null;
+				BlockState state = pos.type == RayTraceResult.Type.BLOCK ? mc.world.getBlockState(pos.getBlockPos()) : null;
 				Block block = state == null ? null : state.getBlock();
 				TileEntity tile = pos.type == RayTraceResult.Type.BLOCK ? mc.world.getTileEntity(pos.getBlockPos()) : null;
 
@@ -149,7 +152,7 @@ public final class HUDHandler {
 			}
 
 			TileCorporeaIndex.getInputHandler();
-			if(!InputHandler.getNearbyIndexes(mc.player).isEmpty() && mc.currentScreen != null && mc.currentScreen instanceof GuiChat) {
+			if(!InputHandler.getNearbyIndexes(mc.player).isEmpty() && mc.currentScreen != null && mc.currentScreen instanceof ChatScreen) {
 				profiler.startSection("nearIndex");
 				renderNearIndexDisplay();
 				profiler.endSection();
@@ -192,7 +195,7 @@ public final class HUDHandler {
 
 			profiler.startSection("manaBar");
 
-			EntityPlayer player = mc.player;
+			PlayerEntity player = mc.player;
 			if(!player.isSpectator()) {
 				int totalMana = 0;
 				int totalMaxMana = 0;
@@ -352,8 +355,8 @@ public final class HUDHandler {
 			int w = mc.mainWindow.getScaledWidth();
 			int h = mc.mainWindow.getScaledHeight();
 			int boxH = h / 2 + (tile.locked ? 20 : 10);
-			Gui.drawRect(w / 2 + 8, h / 2 - 12, w / 2 + strlen + 32, boxH, 0x44000000);
-			Gui.drawRect(w / 2 + 6, h / 2 - 14, w / 2 + strlen + 34, boxH + 2, 0x44000000);
+			AbstractGui.drawRect(w / 2 + 8, h / 2 - 12, w / 2 + strlen + 32, boxH, 0x44000000);
+			AbstractGui.drawRect(w / 2 + 6, h / 2 - 14, w / 2 + strlen + 34, boxH + 2, 0x44000000);
 
 			mc.fontRenderer.drawStringWithShadow(s1, w / 2 + 30, h / 2 - 10, 0x6666FF);
 			mc.fontRenderer.drawStringWithShadow(tile.getItemCount() + "x", w / 2 + 30, h / 2, 0xFFFFFF);
@@ -368,7 +371,7 @@ public final class HUDHandler {
 		profiler.endSection();
 	}
 
-	private static void drawLexiconHUD(ItemStack stack, IBlockState state, RayTraceResult pos) {
+	private static void drawLexiconHUD(ItemStack stack, BlockState state, RayTraceResult pos) {
 		Minecraft mc = Minecraft.getInstance();
 		Block block = state.getBlock();
 		Profiler profiler = mc.profiler;
@@ -398,7 +401,7 @@ public final class HUDHandler {
 
 		if(!ConfigHandler.CLIENT.lexicaOfflineMode.get() && !draw && pos.entity == null) {
 			profiler.startSection("wikiLookup");
-			if(!block.isAir(state, mc.world, pos.getBlockPos()) && !(block instanceof BlockFlowingFluid)) {
+			if(!block.isAir(state, mc.world, pos.getBlockPos()) && !(block instanceof FlowingFluidBlock)) {
 				IWikiProvider provider = WikiHooks.getWikiFor(block);
 				String url = provider.getWikiURL(mc.world, pos, mc.player);
 				if(url != null && !url.isEmpty()) {
@@ -445,8 +448,8 @@ public final class HUDHandler {
 		int x = mc.mainWindow.getScaledWidth() - l - 20;
 		int y = mc.mainWindow.getScaledHeight() - 60;
 
-		Gui.drawRect(x - 6, y - 6, x + l + 6, y + 37, 0x44000000);
-		Gui.drawRect(x - 4, y - 4, x + l + 4, y + 35, 0x44000000);
+		AbstractGui.drawRect(x - 6, y - 6, x + l + 6, y + 37, 0x44000000);
+		AbstractGui.drawRect(x - 4, y - 4, x + l + 4, y + 35, 0x44000000);
 		net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
 		GlStateManager.enableRescaleNormal();
 		mc.getItemRenderer().renderItemAndEffectIntoGUI(new ItemStack(ModBlocks.corporeaIndex), x, y + 10);

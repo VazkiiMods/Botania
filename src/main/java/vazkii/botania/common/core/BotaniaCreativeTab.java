@@ -10,7 +10,8 @@
  */
 package vazkii.botania.common.core;
 
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.DyeColor;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tags.ItemTags;
@@ -57,13 +58,13 @@ public final class BotaniaCreativeTab extends ItemGroup {
 
 		addItem(ModItems.lexicon);
 
-		for(EnumDyeColor color : EnumDyeColor.values())
+		for(DyeColor color : DyeColor.values())
 			addItem(ModBlocks.getFlower(color));
 		addTag(new ResourceLocation(LibMisc.MOD_ID, "special_flowers"));
-		for(EnumDyeColor color : EnumDyeColor.values())
+		for(DyeColor color : DyeColor.values())
 			this.addItem(ModItems.getPetal(color));
 		addItem(ModItems.pestleAndMortar);
-		for(EnumDyeColor color : EnumDyeColor.values())
+		for(DyeColor color : DyeColor.values())
 			this.addItem(ModItems.getDye(color));
 		addItem(ModItems.fertilizer);
 		addItem(ModItems.flowerBag);
@@ -428,11 +429,11 @@ public final class BotaniaCreativeTab extends ItemGroup {
 
 		// FLUFF
 
-		for(EnumDyeColor color : EnumDyeColor.values())
+		for(DyeColor color : DyeColor.values())
 			addItem(ModBlocks.getDoubleFlower(color));
-		for(EnumDyeColor color : EnumDyeColor.values())
+		for(DyeColor color : DyeColor.values())
 			addItem(ModBlocks.getShinyFlower(color));
-		for(EnumDyeColor color : EnumDyeColor.values())
+		for(DyeColor color : DyeColor.values())
 			addItem(ModBlocks.getFloatingFlower(color));
 		addTag(new ResourceLocation(LibMisc.MOD_ID, "special_floating_flowers"));
 		addItem(ModBlocks.petalBlockWhite);
@@ -451,7 +452,7 @@ public final class BotaniaCreativeTab extends ItemGroup {
 		addItem(ModBlocks.petalBlockGreen);
 		addItem(ModBlocks.petalBlockRed);
 		addItem(ModBlocks.petalBlockBlack);
-		for(EnumDyeColor color : EnumDyeColor.values())
+		for(DyeColor color : DyeColor.values())
 			addItem(ModBlocks.getMushroom(color));
 
 		addItem(ModBlocks.blazeBlock);

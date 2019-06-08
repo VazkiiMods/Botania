@@ -13,11 +13,15 @@ package vazkii.botania.common;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.MultiPartEntityPart;
-import net.minecraft.entity.boss.EntityDragon;
-import net.minecraft.entity.boss.EntityWither;
-import net.minecraft.entity.item.EntityEnderCrystal;
-import net.minecraft.entity.item.EntityItemFrame;
-import net.minecraft.entity.item.EntityPainting;
+import net.minecraft.entity.boss.WitherEntity;
+import net.minecraft.entity.boss.dragon.EnderDragonEntity;
+import net.minecraft.entity.boss.WitherEntity;
+import net.minecraft.entity.item.EnderCrystalEntity;
+import net.minecraft.entity.item.EnderCrystalEntity;
+import net.minecraft.entity.item.ItemFrameEntity;
+import net.minecraft.entity.item.PaintingEntity;
+import net.minecraft.entity.item.ItemFrameEntity;
+import net.minecraft.entity.item.PaintingEntity;
 import net.minecraft.item.crafting.RecipeSerializers;
 import net.minecraft.world.storage.loot.conditions.LootConditionManager;
 import net.minecraft.world.storage.loot.functions.LootFunctionManager;
@@ -293,12 +297,12 @@ public class Botania {
 
 	private void registerDefaultEntityBlacklist() {
 		// Vanilla
-		BotaniaAPI.blacklistEntityFromGravityRod(EntityDragon.class);
+		BotaniaAPI.blacklistEntityFromGravityRod(EnderDragonEntity.class);
 		BotaniaAPI.blacklistEntityFromGravityRod(MultiPartEntityPart.class);
-		BotaniaAPI.blacklistEntityFromGravityRod(EntityWither.class);
-		BotaniaAPI.blacklistEntityFromGravityRod(EntityItemFrame.class);
-		BotaniaAPI.blacklistEntityFromGravityRod(EntityEnderCrystal.class);
-		BotaniaAPI.blacklistEntityFromGravityRod(EntityPainting.class);
+		BotaniaAPI.blacklistEntityFromGravityRod(WitherEntity.class);
+		BotaniaAPI.blacklistEntityFromGravityRod(ItemFrameEntity.class);
+		BotaniaAPI.blacklistEntityFromGravityRod(EnderCrystalEntity.class);
+		BotaniaAPI.blacklistEntityFromGravityRod(PaintingEntity.class);
 
 		// Botania
 		BotaniaAPI.blacklistEntityFromGravityRod(EntityCorporeaSpark.class);

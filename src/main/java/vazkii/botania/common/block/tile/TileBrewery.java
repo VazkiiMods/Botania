@@ -11,13 +11,13 @@
 package vazkii.botania.common.block.tile;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.ITickable;
+import net.minecraft.util.Hand;
+import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.registries.ObjectHolder;
@@ -34,15 +34,13 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
-import vazkii.botania.common.network.PacketBotaniaEffect;
-import vazkii.botania.common.network.PacketHandler;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.awt.Color;
 import java.util.List;
 
-public class TileBrewery extends TileSimpleInventory implements IManaReceiver, ITickable {
+public class TileBrewery extends TileSimpleInventory implements IManaReceiver, ITickableTileEntity {
 
 	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.BREWERY)
 	public static TileEntityType<TileBrewery> TYPE;
@@ -58,7 +56,7 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver, I
 		super(TYPE);
 	}
 
-	public boolean addItem(@Nullable EntityPlayer player, ItemStack stack, @Nullable EnumHand hand) {
+	public boolean addItem(@Nullable PlayerEntity player, ItemStack stack, @Nullable Hand hand) {
 		if(recipe != null || stack.isEmpty() || stack.getItem() instanceof IBrewItem && ((IBrewItem) stack.getItem()).getBrew(stack) != null && ((IBrewItem) stack.getItem()).getBrew(stack) != BotaniaAPI.fallbackBrew || itemHandler.getStackInSlot(0).isEmpty() != stack.getItem() instanceof IBrewContainer)
 			return false;
 
@@ -109,8 +107,8 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver, I
 		recieveMana(0);
 
 		if(!world.isRemote && recipe == null) {
-			List<EntityItem> items = world.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(pos.getX(), pos.getY(), pos.getZ(), pos.getX() + 1, pos.getY() + 1, pos.getZ() + 1));
-			for(EntityItem item : items)
+			List<ItemEntity> items = world.getEntitiesWithinAABB(ItemEntity.class, new AxisAlignedBB(pos.getX(), pos.getY(), pos.getZ(), pos.getX() + 1, pos.getY() + 1, pos.getZ() + 1));
+			for(ItemEntity item : items)
 				if(item.isAlive() && !item.getItem().isEmpty()) {
 					ItemStack stack = item.getItem();
 					addItem(null, stack, null);
@@ -141,7 +139,7 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver, I
 					recieveMana(-mana);
 
 					ItemStack output = recipe.getOutput(itemHandler.getStackInSlot(0));
-					EntityItem outputItem = new EntityItem(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, output);
+					ItemEntity outputItem = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, output);
 					world.spawnEntity(outputItem);
 					world.addBlockEvent(getPos(), ModBlocks.brewery, CRAFT_EFFECT_EVENT, recipe.getBrew().getColor(output));
 
@@ -193,14 +191,14 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver, I
 	}
 
 	@Override
-	public void writePacketNBT(NBTTagCompound par1nbtTagCompound) {
+	public void writePacketNBT(CompoundNBT par1nbtTagCompound) {
 		super.writePacketNBT(par1nbtTagCompound);
 
 		par1nbtTagCompound.putInt(TAG_MANA, mana);
 	}
 
 	@Override
-	public void readPacketNBT(NBTTagCompound par1nbtTagCompound) {
+	public void readPacketNBT(CompoundNBT par1nbtTagCompound) {
 		super.readPacketNBT(par1nbtTagCompound);
 
 		mana = par1nbtTagCompound.getInt(TAG_MANA);

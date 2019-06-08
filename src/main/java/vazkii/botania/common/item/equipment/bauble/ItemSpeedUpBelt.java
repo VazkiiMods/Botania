@@ -10,7 +10,7 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import vazkii.botania.client.lib.LibResources;
@@ -41,7 +41,7 @@ public class ItemSpeedUpBelt extends ItemTravelBelt {
 	}
 
 	@Override
-	public void onMovedTick(ItemStack stack, EntityPlayer player) {
+	public void onMovedTick(ItemStack stack, PlayerEntity player) {
 		float speed = getSpeed(stack);
 		float newspeed = Math.min(0.25F, speed + 0.00035F);
 		ItemNBTHelper.setFloat(stack, TAG_SPEED, newspeed);
@@ -49,12 +49,12 @@ public class ItemSpeedUpBelt extends ItemTravelBelt {
 	}
 
 	@Override
-	public void onNotMovingTick(ItemStack stack, EntityPlayer player) {
+	public void onNotMovingTick(ItemStack stack, PlayerEntity player) {
 		if(!commitPositionAndCompare(stack, player))
 			ItemNBTHelper.setFloat(stack, TAG_SPEED, 0F);
 	}
 
-	public boolean commitPositionAndCompare(ItemStack stack, EntityPlayer player) {
+	public boolean commitPositionAndCompare(ItemStack stack, PlayerEntity player) {
 		double oldX = ItemNBTHelper.getDouble(stack, TAG_OLD_X, 0);
 		double oldY = ItemNBTHelper.getDouble(stack, TAG_OLD_Y, 0);
 		double oldZ = ItemNBTHelper.getDouble(stack, TAG_OLD_Z, 0);

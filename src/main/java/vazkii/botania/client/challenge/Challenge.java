@@ -11,7 +11,7 @@
 package vazkii.botania.client.challenge;
 
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 
 public class Challenge {
 
@@ -26,11 +26,11 @@ public class Challenge {
 		this.level = level;
 	}
 
-	public void writeToNBT(NBTTagCompound cmp) {
+	public void writeToNBT(CompoundNBT cmp) {
 		cmp.putBoolean(unlocalizedName, complete);
 	}
 
-	public void readFromNBT(NBTTagCompound cmp) {
+	public void readFromNBT(CompoundNBT cmp) {
 		complete = cmp.getBoolean(unlocalizedName);
 	}
 

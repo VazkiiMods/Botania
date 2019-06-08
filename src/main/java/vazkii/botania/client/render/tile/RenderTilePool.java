@@ -11,13 +11,14 @@
 package vazkii.botania.client.render.tile;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GlStateManager;
+import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.model.IBakedModel;
+import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.mana.IPoolOverlayProvider;
@@ -63,7 +64,7 @@ public class RenderTilePool extends TileEntityRenderer<TilePool> {
 
 		boolean fab = pool == null ? forceVariant == BlockPool.Variant.FABULOUS : ((BlockPool) pool.getBlockState().getBlock()).variant == BlockPool.Variant.FABULOUS;
 
-		Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+		Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
 		int color = 0xFFFFFF;
 
 		if (fab) {
@@ -154,7 +155,7 @@ public class RenderTilePool extends TileEntityRenderer<TilePool> {
 		tessellator.draw();
 	}
 
-	private IBlockState poolForVariant(BlockPool.Variant v) {
+	private BlockState poolForVariant(BlockPool.Variant v) {
 		switch (v) {
 			default:
 			case DEFAULT: return ModBlocks.manaPool.getDefaultState();

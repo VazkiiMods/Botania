@@ -11,9 +11,10 @@
 package vazkii.botania.client.gui.lexicon.button;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.init.Items;
+import com.mojang.blaze3d.platform.GlStateManager;
+import net.minecraft.client.renderer.texture.AtlasTexture;
+import net.minecraft.client.renderer.texture.AtlasTexture;
+import net.minecraft.item.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextFormatting;
 import vazkii.botania.client.core.helper.RenderHelper;
@@ -36,7 +37,7 @@ public class GuiButtonDoot extends GuiButtonLexicon {
 		hovered = mouseX >= x && mouseY >= y && mouseX < x + width && mouseY < y + height;
 		int k = getHoverState(hovered);
 
-		Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+		Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
 		GlStateManager.color4f(1F, 1F, 1F, 1F);
 		Minecraft.getInstance().getItemRenderer().renderItemIntoGUI(new ItemStack(ModItems.cacophonium), x, y);
 		Minecraft.getInstance().getItemRenderer().renderItemIntoGUI(new ItemStack(Items.FIREWORK_ROCKET), x + 8, y + 2);

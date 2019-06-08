@@ -10,9 +10,9 @@
  */
 package vazkii.botania.common.brew.potion;
 
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.projectile.EntityFishHook;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.FishingBobberEntity;
 import vazkii.botania.common.lib.LibPotionNames;
 
 import javax.annotation.Nonnull;
@@ -30,9 +30,9 @@ public class PotionAllure extends PotionMod {
 	}
 
 	@Override
-	public void performEffect(@Nonnull EntityLivingBase living, int amplified) {
-		if(living instanceof EntityPlayer) {
-			EntityFishHook hook = ((EntityPlayer) living).fishEntity;
+	public void performEffect(@Nonnull LivingEntity living, int amplified) {
+		if(living instanceof PlayerEntity) {
+			FishingBobberEntity hook = ((PlayerEntity) living).fishEntity;
 			if(hook != null)
 				hook.tick();
 		}

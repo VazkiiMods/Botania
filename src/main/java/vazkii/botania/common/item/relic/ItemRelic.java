@@ -11,19 +11,22 @@
 package vazkii.botania.common.item.relic;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.item.EnumRarity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.item.Rarity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextComponentString;
-import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -48,8 +51,8 @@ public class ItemRelic extends ItemMod implements IRelic {
 
 	@Override
 	public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
-		if(!world.isRemote && entity instanceof EntityPlayer)
-			updateRelic(stack, (EntityPlayer) entity);
+		if(!world.isRemote && entity instanceof PlayerEntity)
+			updateRelic(stack, (PlayerEntity) entity);
 	}
 
 	@OnlyIn(Dist.CLIENT)
@@ -60,22 +63,22 @@ public class ItemRelic extends ItemMod implements IRelic {
 
 	@OnlyIn(Dist.CLIENT)
 	public void addBindInfo(List<ITextComponent> list, ItemStack stack) {
-		if(GuiScreen.isShiftKeyDown()) {
+		if(Screen.isShiftKeyDown()) {
 			if(!hasUUID(stack)) {
-				list.add(new TextComponentTranslation("botaniamisc.relicUnbound"));
+				list.add(new TranslationTextComponent("botaniamisc.relicUnbound"));
 			} else {
 				if(!getSoulbindUUID(stack).equals(Minecraft.getInstance().player.getUniqueID()))
-					list.add(new TextComponentTranslation("botaniamisc.notYourSagittarius"));
-				else list.add(new TextComponentTranslation("botaniamisc.relicSoulbound", Minecraft.getInstance().player.getName()));
+					list.add(new TranslationTextComponent("botaniamisc.notYourSagittarius"));
+				else list.add(new TranslationTextComponent("botaniamisc.relicSoulbound", Minecraft.getInstance().player.getName()));
 			}
 
 			if(stack.getItem() == ModItems.dice) {
-				list.add(new TextComponentString(""));
+				list.add(new StringTextComponent(""));
 				String name = stack.getTranslationKey() + ".poem";
 				for(int i = 0; i < 4; i++)
-					list.add(new TextComponentTranslation(name + i).applyTextStyle(TextFormatting.ITALIC));
+					list.add(new TranslationTextComponent(name + i).applyTextStyle(TextFormatting.ITALIC));
 			}
-		} else list.add(new TextComponentTranslation("botaniamisc.shiftinfo"));
+		} else list.add(new TranslationTextComponent("botaniamisc.shiftinfo"));
 	}
 
 	public boolean shouldDamageWrongPlayer() {
@@ -87,7 +90,7 @@ public class ItemRelic extends ItemMod implements IRelic {
 		return Integer.MAX_VALUE;
 	}
 
-	public void updateRelic(ItemStack stack, EntityPlayer player) {
+	public void updateRelic(ItemStack stack, PlayerEntity player) {
 		if(stack.isEmpty() || !(stack.getItem() instanceof IRelic))
 			return;
 
@@ -95,8 +98,8 @@ public class ItemRelic extends ItemMod implements IRelic {
 
 		if(!hasUUID(stack)) {
 			bindToUUID(player.getUniqueID(), stack);
-			if(player instanceof EntityPlayerMP)
-				RelicBindTrigger.INSTANCE.trigger((EntityPlayerMP) player, stack);
+			if(player instanceof ServerPlayerEntity)
+				RelicBindTrigger.INSTANCE.trigger((ServerPlayerEntity) player, stack);
 		} else if (!getSoulbindUUID(stack).equals(player.getUniqueID())) {
 			rightPlayer = false;
 		}
@@ -105,7 +108,7 @@ public class ItemRelic extends ItemMod implements IRelic {
 			player.attackEntityFrom(damageSource(), 2);
 	}
 
-	public boolean isRightPlayer(EntityPlayer player, ItemStack stack) {
+	public boolean isRightPlayer(PlayerEntity player, ItemStack stack) {
 		return hasUUID(stack) && getSoulbindUUID(stack).equals(player.getUniqueID());
 	}
 
@@ -138,7 +141,7 @@ public class ItemRelic extends ItemMod implements IRelic {
 
 	@Nonnull
 	@Override
-	public EnumRarity getRarity(ItemStack stack) {
+	public Rarity getRarity(ItemStack stack) {
 		return BotaniaAPI.rarityRelic;
 	}
 

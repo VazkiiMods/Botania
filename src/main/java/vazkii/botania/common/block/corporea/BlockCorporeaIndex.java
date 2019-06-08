@@ -11,20 +11,26 @@
 package vazkii.botania.common.block.corporea;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockRenderType;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.particle.ParticleDigging;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.block.BlockState;
+import net.minecraft.client.particle.DiggingParticle;
+import net.minecraft.client.particle.DiggingParticle;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.init.Particles;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particles.BlockParticleData;
-import net.minecraft.util.EnumBlockRenderType;
+import net.minecraft.block.BlockRenderType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.IBlockReader;
+import net.minecraft.world.ServerWorld;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -50,29 +56,29 @@ public class BlockCorporeaIndex extends BlockCorporeaBase implements ILexiconabl
 	}
 
 	@Override
-	public boolean isFullCube(IBlockState state) {
+	public boolean isFullCube(BlockState state) {
 		return false;
 	}
 
 	@Nonnull
 	@Override
-	public EnumBlockRenderType getRenderType(IBlockState state) {
-		return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
+	public BlockRenderType getRenderType(BlockState state) {
+		return BlockRenderType.ENTITYBLOCK_ANIMATED;
 	}
 
 	@Nonnull
 	@Override
-	public TileCorporeaBase createTileEntity(@Nonnull IBlockState state, @Nonnull IBlockReader world) {
+	public TileCorporeaBase createTileEntity(@Nonnull BlockState state, @Nonnull IBlockReader world) {
 		return new TileCorporeaIndex();
 	}
 
 	@Override
-	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
+	public LexiconEntry getEntry(World world, BlockPos pos, PlayerEntity player, ItemStack lexicon) {
 		return LexiconData.corporeaIndex;
 	}
 
 	@Override
-	public boolean addLandingEffects(IBlockState state, net.minecraft.world.WorldServer world, BlockPos blockPosition, IBlockState iblockstate, EntityLivingBase entity, int numberOfParticles )
+	public boolean addLandingEffects(BlockState state, ServerWorld world, BlockPos blockPosition, BlockState iblockstate, LivingEntity entity, int numberOfParticles )
 	{
 		float f = MathHelper.ceil(entity.fallDistance - 3.0F);
 		double d0 = Math.min(0.2F + f / 15.0F, 10.0F);
@@ -86,11 +92,11 @@ public class BlockCorporeaIndex extends BlockCorporeaBase implements ILexiconabl
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public boolean addDestroyEffects(IBlockState state, World world, BlockPos pos, net.minecraft.client.particle.ParticleManager effectRenderer)
+	public boolean addDestroyEffects(BlockState state, World world, BlockPos pos, net.minecraft.client.particle.ParticleManager effectRenderer)
 	{
 		if (world.getBlockState(pos).getBlock() == this) {
 			int i = 4;
-			ParticleDigging.Factory factory = new ParticleDigging.Factory();
+			DiggingParticle.Factory factory = new DiggingParticle.Factory();
 			for (int j = 0; j < i; ++j) {
 				for (int k = 0; k < i; ++k) {
 					for (int l = 0; l < i; ++l) {

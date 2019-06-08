@@ -10,8 +10,9 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Blocks;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.Blocks;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.registries.ObjectHolder;
@@ -45,7 +46,7 @@ public class SubTileOrechidIgnem extends SubTileOrechid {
 	}
 
 	@Override
-	public Predicate<IBlockState> getReplaceMatcher() {
+	public Predicate<BlockState> getReplaceMatcher() {
 		return state -> state.getBlock() == Blocks.NETHERRACK;
 	}
 

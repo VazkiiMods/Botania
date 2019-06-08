@@ -10,7 +10,8 @@
  */
 package vazkii.botania.common.block.tile;
 
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.BlockPos;
@@ -45,8 +46,8 @@ public class TileFakeAir extends TileMod {
 
 	@Nonnull
 	@Override
-	public NBTTagCompound write(NBTTagCompound par1nbtTagCompound) {
-		NBTTagCompound ret = super.write(par1nbtTagCompound);
+	public CompoundNBT write(CompoundNBT par1nbtTagCompound) {
+		CompoundNBT ret = super.write(par1nbtTagCompound);
 		ret.putInt(TAG_FLOWER_X, flowerPos.getX());
 		ret.putInt(TAG_FLOWER_Y, flowerPos.getY());
 		ret.putInt(TAG_FLOWER_Z, flowerPos.getZ());
@@ -54,7 +55,7 @@ public class TileFakeAir extends TileMod {
 	}
 
 	@Override
-	public void read(NBTTagCompound par1nbtTagCompound) {
+	public void read(CompoundNBT par1nbtTagCompound) {
 		super.read(par1nbtTagCompound);
 		flowerPos = new BlockPos(
 				par1nbtTagCompound.getInt(TAG_FLOWER_X),

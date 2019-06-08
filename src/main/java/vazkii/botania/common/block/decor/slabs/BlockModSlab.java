@@ -1,9 +1,11 @@
 package vazkii.botania.common.block.decor.slabs;
 
-import net.minecraft.block.BlockSlab;
+import net.minecraft.block.SlabBlock;
+import net.minecraft.block.SlabBlock;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IStringSerializable;
@@ -26,13 +28,13 @@ import javax.annotation.Nonnull;
 import java.util.Locale;
 import java.util.Random;
 
-public class BlockModSlab extends BlockSlab implements ILexiconable {
+public class BlockModSlab extends SlabBlock implements ILexiconable {
 	public BlockModSlab(Properties props) {
 		super(props);
 	}
 
 	@Override
-	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
+	public LexiconEntry getEntry(World world, BlockPos pos, PlayerEntity player, ItemStack lexicon) {
 		return LexiconData.decorativeBlocks;
 	}
 

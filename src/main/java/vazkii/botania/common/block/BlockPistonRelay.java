@@ -11,21 +11,26 @@
 package vazkii.botania.common.block;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockPistonMoving;
-import net.minecraft.block.material.EnumPushReaction;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.MovingPistonBlock;
+import net.minecraft.block.material.PushReaction;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.block.Blocks;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.INBTBase;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagString;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.INBT;
+import net.minecraft.nbt.INBT;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.StringNBT;
+import net.minecraft.nbt.StringNBT;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.state.properties.PistonType;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
@@ -73,12 +78,12 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 	}
 
 	@Override
-	public int quantityDropped(IBlockState state, @Nonnull Random random) {
+	public int quantityDropped(BlockState state, @Nonnull Random random) {
 		return 0;
 	}
 
 	@Override
-	public void onReplaced(@Nonnull IBlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState newState, boolean isMoving) {
+	public void onReplaced(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
 		if(!world.isRemote)
 			mapCoords(world.getDimension().getType(), pos, 2);
 	}
@@ -103,7 +108,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 		return getStateAt(key).getBlock();
 	}
 
-	private IBlockState getStateAt(DimWithPos key) {
+	private BlockState getStateAt(DimWithPos key) {
 		MinecraftServer server = ServerLifecycleHooks.getCurrentServer();
 		if(server == null)
 			return Blocks.AIR.getDefaultState();
@@ -111,7 +116,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 	}
 
 	@Override
-	public boolean onUsedByWand(EntityPlayer player, ItemStack stack, World world, BlockPos pos, EnumFacing side) {
+	public boolean onUsedByWand(PlayerEntity player, ItemStack stack, World world, BlockPos pos, Direction side) {
 		if(player == null || world.isRemote)
 			return false;
 
@@ -148,13 +153,13 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 		}
 
 		@Override
-		public void read(@Nonnull NBTTagCompound nbttagcompound) {
+		public void read(@Nonnull CompoundNBT nbttagcompound) {
 			((BlockPistonRelay) ModBlocks.pistonRelay).mappedPositions.clear();
 
 			Collection<String> tags = nbttagcompound.keySet();
 			for(String key : tags) {
-				INBTBase tag = nbttagcompound.get(key);
-				if(tag instanceof NBTTagString) {
+				INBT tag = nbttagcompound.get(key);
+				if(tag instanceof StringNBT) {
 					String value = tag.getString();
 					DimWithPos from = DimWithPos.fromString(key);
 					DimWithPos to = DimWithPos.fromString(value);
@@ -167,7 +172,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 
 		@Nonnull
 		@Override
-		public NBTTagCompound write(@Nonnull NBTTagCompound nbttagcompound) {
+		public CompoundNBT write(@Nonnull CompoundNBT nbttagcompound) {
 			for(DimWithPos s : ((BlockPistonRelay) ModBlocks.pistonRelay).mappedPositions.keySet())
 				nbttagcompound.putString(s.toString(), ((BlockPistonRelay) ModBlocks.pistonRelay).mappedPositions.get(s).toString());
 			return nbttagcompound;
@@ -195,9 +200,9 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 
 				Block block = getBlockAt(s);
 				if(block == Blocks.MOVING_PISTON) {
-					IBlockState state = getStateAt(s);
-					boolean sticky = PistonType.STICKY == state.get(BlockPistonMoving.TYPE);
-					EnumFacing dir = state.get(BlockPistonMoving.FACING);
+					BlockState state = getStateAt(s);
+					boolean sticky = PistonType.STICKY == state.get(MovingPistonBlock.TYPE);
+					Direction dir = state.get(MovingPistonBlock.FACING);
 
 					MinecraftServer server = ServerLifecycleHooks.getCurrentServer();
 
@@ -213,7 +218,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 								world.setBlockState(pos.offset(dir), ModBlocks.pistonRelay.getDefaultState());
 							else if(!world.isRemote) {
 								ItemStack stack = new ItemStack(ModBlocks.pistonRelay);
-								world.spawnEntity(new EntityItem(world, x + dir.getXOffset(), y + dir.getYOffset(), z + dir.getZOffset(), stack));
+								world.spawnEntity(new ItemEntity(world, x + dir.getXOffset(), y + dir.getYOffset(), z + dir.getZOffset(), stack));
 							}
 							checkedCoords.add(s);
 							newPos = new DimWithPos(world.getDimension().getType(), pos.offset(dir));
@@ -225,10 +230,10 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 							BlockPos destPos = dest.blockPos;
 							World world = server.getWorld(dest.dim);
 
-							IBlockState srcState = world.getBlockState(destPos);
+							BlockState srcState = world.getBlockState(destPos);
 							TileEntity tile = world.getTileEntity(destPos);
 
-							if(!sticky && tile == null && srcState.getPushReaction() == EnumPushReaction.NORMAL && srcState.getBlockHardness(world, destPos) != -1 && !srcState.isAir(world, destPos)) {
+							if(!sticky && tile == null && srcState.getPushReaction() == PushReaction.NORMAL && srcState.getBlockHardness(world, destPos) != -1 && !srcState.isAir(world, destPos)) {
 								Material destMat = world.getBlockState(destPos.offset(dir)).getMaterial();
 								if(world.isAirBlock(destPos.offset(dir)) || destMat.isReplaceable()) {
 									world.setBlockState(destPos, Blocks.AIR.getDefaultState());
@@ -261,7 +266,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 	}
 
 	@Override
-	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
+	public LexiconEntry getEntry(World world, BlockPos pos, PlayerEntity player, ItemStack lexicon) {
 		return LexiconData.pistonRelay;
 	}
 

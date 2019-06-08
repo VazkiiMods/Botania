@@ -11,13 +11,13 @@
 package vazkii.botania.common.block.tile;
 
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.ITickable;
+import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
-public class TileTeruTeruBozu extends TileMod implements ITickable {
+public class TileTeruTeruBozu extends TileMod implements ITickableTileEntity {
 	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.TERU_TERU_BOZU)
 	public static TileEntityType<TileTeruTeruBozu> TYPE;
 	private boolean wasRaining = false;

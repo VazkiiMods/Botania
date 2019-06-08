@@ -16,15 +16,17 @@ import java.util.Random;
 import javax.annotation.Nonnull;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockCarpet;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.CarpetBlock;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GlStateManager;
+import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
-import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.client.renderer.texture.AtlasTexture;
+import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.block.Blocks;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import vazkii.botania.api.ColorHelper;
@@ -88,7 +90,7 @@ public class RenderTileSpreader extends TileEntityRenderer<TileSpreader> {
 		ItemStack stack = spreader.getItemHandler().getStackInSlot(0);
 
 		if(!stack.isEmpty()) {
-			Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+			Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
 			stack.getItem();
 			GlStateManager.pushMatrix();
 			GlStateManager.translatef(0.0F, -1F, -0.4675F);
@@ -100,9 +102,9 @@ public class RenderTileSpreader extends TileEntityRenderer<TileSpreader> {
 		}
 
 		if(spreader.paddingColor != null) {
-			Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+			Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
 
-			IBlockState carpet = ColorHelper.CARPET_MAP.get(spreader.paddingColor).getDefaultState();
+			BlockState carpet = ColorHelper.CARPET_MAP.get(spreader.paddingColor).getDefaultState();
 
 			GlStateManager.translatef(-0.5F, -0.5F, 0.5F);
 			float f = 1 / 16F;

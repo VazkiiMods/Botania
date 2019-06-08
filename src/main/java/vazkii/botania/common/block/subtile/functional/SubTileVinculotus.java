@@ -10,7 +10,7 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
-import net.minecraft.entity.monster.EntityEnderman;
+import net.minecraft.entity.monster.EndermanEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.event.entity.living.EnderTeleportEvent;
@@ -86,7 +86,7 @@ public class SubTileVinculotus extends TileEntityFunctionalFlower {
 	public static void onEndermanTeleport(EnderTeleportEvent event) {
 		int cost = 50;
 
-		if(event.getEntityLiving() instanceof EntityEnderman) {
+		if(event.getEntityLiving() instanceof EndermanEntity) {
 			List<Pair<SubTileVinculotus, BlockPos>> possibleFlowers = new ArrayList<>();
 			for(Map.Entry<SubTileVinculotus, BlockPos> e : existingFlowers.entrySet()) {
 				SubTileVinculotus flower = e.getKey();

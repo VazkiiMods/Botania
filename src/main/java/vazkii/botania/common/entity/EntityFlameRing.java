@@ -11,12 +11,15 @@
 package vazkii.botania.common.entity;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.init.SoundEvents;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.SoundEvents;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.ObjectHolder;
@@ -81,12 +84,12 @@ public class EntityFlameRing extends Entity {
 
 		if(ticksExisted > 45) {
 			AxisAlignedBB boundingBox = new AxisAlignedBB(posX, posY, posZ, posX, posY, posZ).grow(radius, radius, radius);
-			List<EntityLivingBase> entities = world.getEntitiesWithinAABB(EntityLivingBase.class, boundingBox);
+			List<LivingEntity> entities = world.getEntitiesWithinAABB(LivingEntity.class, boundingBox);
 
 			if(entities.isEmpty())
 				return;
 
-			for(EntityLivingBase entity : entities) {
+			for(LivingEntity entity : entities) {
 				if(entity == null || MathHelper.pointDistancePlane(posX, posY, entity.posX, entity.posY) > radius)
 					continue;
 
@@ -101,8 +104,8 @@ public class EntityFlameRing extends Entity {
 	}
 
 	@Override
-	protected void readAdditional(@Nonnull NBTTagCompound var1) {}
+	protected void readAdditional(@Nonnull CompoundNBT var1) {}
 
 	@Override
-	protected void writeAdditional(@Nonnull NBTTagCompound var1) {}
+	protected void writeAdditional(@Nonnull CompoundNBT var1) {}
 }

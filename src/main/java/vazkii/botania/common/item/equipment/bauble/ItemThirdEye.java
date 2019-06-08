@@ -11,18 +11,21 @@
 package vazkii.botania.common.item.equipment.bauble;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GlStateManager;
+import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.monster.IMob;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.MobEffects;
-import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.potion.Effects;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.PotionEffect;
+import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -49,27 +52,27 @@ public class ItemThirdEye extends ItemBauble implements IManaUsingItem {
 		}
 
 		@Override
-		public void onCurioTick(String identifier, EntityLivingBase living) {
-			if(!(living instanceof EntityPlayer))
+		public void onCurioTick(String identifier, LivingEntity living) {
+			if(!(living instanceof PlayerEntity))
 				return;
-			EntityPlayer eplayer = (EntityPlayer) living;
+			PlayerEntity eplayer = (PlayerEntity) living;
 
 			double range = 24;
 			AxisAlignedBB aabb = new AxisAlignedBB(living.posX, living.posY, living.posZ, living.posX, living.posY, living.posZ).grow(range);
-			List<EntityLivingBase> mobs = living.world.getEntitiesWithinAABB(EntityLivingBase.class, aabb, (Entity e) -> e instanceof IMob);
+			List<LivingEntity> mobs = living.world.getEntitiesWithinAABB(LivingEntity.class, aabb, (Entity e) -> e instanceof IMob);
 
-			for(EntityLivingBase e : mobs) {
-				PotionEffect potion = e.getActivePotionEffect(MobEffects.GLOWING);
+			for(LivingEntity e : mobs) {
+				EffectInstance potion = e.getActivePotionEffect(Effects.GLOWING);
 				if((potion == null || potion.getDuration() <= 2) && ManaItemHandler.requestManaExact(stack, eplayer, COST, true))
-					e.addPotionEffect(new PotionEffect(MobEffects.GLOWING, 12, 0));
+					e.addPotionEffect(new EffectInstance(Effects.GLOWING, 12, 0));
 			}
 		}
 
 		@Override
         @OnlyIn(Dist.CLIENT)
-		public void doRender(String identifier, EntityLivingBase living, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-			Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-			boolean armor = !living.getItemStackFromSlot(EntityEquipmentSlot.CHEST).isEmpty();
+		public void doRender(String identifier, LivingEntity living, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+			Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
+			boolean armor = !living.getItemStackFromSlot(EquipmentSlotType.CHEST).isEmpty();
 			GlStateManager.rotatef(180, 0, 0, 1);
 			GlStateManager.translated(-0.3, -0.6, armor ? -0.18 : -0.12);
 			GlStateManager.scaled(0.6, 0.6, 0.6);

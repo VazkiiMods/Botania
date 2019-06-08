@@ -11,7 +11,8 @@
 package vazkii.botania.api.lexicon.multiblock;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Direction;
 
 import java.util.Collections;
 import java.util.Map;
@@ -21,7 +22,7 @@ import java.util.Map;
  */
 public class MultiblockSet {
 
-	private final Map<EnumFacing, Multiblock> mbs;
+	private final Map<Direction, Multiblock> mbs;
 
 	public MultiblockSet(Multiblock mb) {
 		mbs = Collections.unmodifiableMap(mb.createRotations());
@@ -31,7 +32,7 @@ public class MultiblockSet {
 		return getForFacing(e.getHorizontalFacing());
 	}
 
-	public Multiblock getForFacing(EnumFacing facing) {
+	public Multiblock getForFacing(Direction facing) {
 		return mbs.get(facing);
 	}
 

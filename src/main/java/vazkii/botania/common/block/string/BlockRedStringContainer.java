@@ -11,8 +11,9 @@
 package vazkii.botania.common.block.string;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.BlockState;
+import net.minecraft.util.Direction;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import vazkii.botania.api.state.BotaniaStateProps;
@@ -26,12 +27,12 @@ public class BlockRedStringContainer extends BlockRedString {
 
 	public BlockRedStringContainer(Block.Properties builder) {
 		super(builder);
-		setDefaultState(stateContainer.getBaseState().with(BotaniaStateProps.FACING, EnumFacing.DOWN));
+		setDefaultState(stateContainer.getBaseState().with(BotaniaStateProps.FACING, Direction.DOWN));
 	}
 
 	@Nonnull
 	@Override
-	public TileRedString createTileEntity(@Nonnull IBlockState state, @Nonnull IBlockReader world) {
+	public TileRedString createTileEntity(@Nonnull BlockState state, @Nonnull IBlockReader world) {
 		return new TileRedStringContainer();
 	}
 

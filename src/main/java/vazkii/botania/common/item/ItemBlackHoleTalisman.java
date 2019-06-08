@@ -11,28 +11,33 @@
 package vazkii.botania.common.item;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
-import net.minecraft.init.SoundEvents;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Items;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Direction;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
+import net.minecraft.item.Items;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.ResourceLocationException;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.registry.IRegistry;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextComponentString;
-import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
@@ -65,34 +70,34 @@ public class ItemBlackHoleTalisman extends ItemMod implements IBlockProvider {
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
 		ItemStack stack = player.getHeldItem(hand);
 		if(getBlock(stack) != null && player.isSneaking()) {
 			ItemNBTHelper.setBoolean(stack, TAG_ACTIVE, !ItemNBTHelper.getBoolean(stack, TAG_ACTIVE, false));
 			player.playSound(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, 0.3F, 0.1F);
-			return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
+			return ActionResult.newResult(ActionResultType.SUCCESS, stack);
 		}
 
-		return ActionResult.newResult(EnumActionResult.PASS, stack);
+		return ActionResult.newResult(ActionResultType.PASS, stack);
 	}
 
 	@Nonnull
 	@Override
-	public EnumActionResult onItemUse(ItemUseContext ctx) {
+	public ActionResultType onItemUse(ItemUseContext ctx) {
 		World world = ctx.getWorld();
 		BlockPos pos = ctx.getPos();
-		EnumFacing side = ctx.getFace();
-		EntityPlayer player = ctx.getPlayer();
-		IBlockState state = world.getBlockState(pos);
+		Direction side = ctx.getFace();
+		PlayerEntity player = ctx.getPlayer();
+		BlockState state = world.getBlockState(pos);
 		ItemStack stack = ctx.getItem();
 
 		if (!state.isAir(world, pos) && setBlock(stack, state.getBlock())) {
-			return EnumActionResult.SUCCESS;
+			return ActionResultType.SUCCESS;
 		} else {
 			Block bBlock = getBlock(stack);
 
 			if(bBlock == null)
-				return EnumActionResult.PASS;
+				return ActionResultType.PASS;
 
 			TileEntity tile = world.getTileEntity(pos);
 			if(tile != null && tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, side).isPresent()) {
@@ -106,30 +111,30 @@ public class ItemBlackHoleTalisman extends ItemMod implements IBlockProvider {
 							add(stack, remainder.getCount());
 					});
 				}
-				return EnumActionResult.SUCCESS;
+				return ActionResultType.SUCCESS;
 			} else {
 				if(player == null || player.abilities.isCreativeMode || getBlockCount(stack) > 0) {
 					ItemStack toUse = new ItemStack(bBlock);
 					ItemUseContext newCtx = new ItemUseContext(world, ctx.getPlayer(), stack, pos, side, ctx.getHitX(), ctx.getHitY(), ctx.getHitZ());
-					EnumActionResult result = toUse.getItem().onItemUse(newCtx);
+					ActionResultType result = toUse.getItem().onItemUse(newCtx);
 
-					if (result == EnumActionResult.SUCCESS) {
+					if (result == ActionResultType.SUCCESS) {
 						remove(stack, 1);
 						ItemsRemainingRenderHandler.set(toUse, getBlockCount(stack));
-						return EnumActionResult.SUCCESS;
+						return ActionResultType.SUCCESS;
 					}
 				}
 			}
 		}
 
-		return EnumActionResult.PASS;
+		return ActionResultType.PASS;
 	}
 
 	@Override
 	public void inventoryTick(ItemStack itemstack, World world, Entity entity, int slot, boolean selected) {
 		Block block = getBlock(itemstack);
-		if(!entity.world.isRemote && ItemNBTHelper.getBoolean(itemstack, TAG_ACTIVE, false) && block != null && entity instanceof EntityPlayer) {
-			EntityPlayer player = (EntityPlayer) entity;
+		if(!entity.world.isRemote && ItemNBTHelper.getBoolean(itemstack, TAG_ACTIVE, false) && block != null && entity instanceof PlayerEntity) {
+			PlayerEntity player = (PlayerEntity) entity;
 
 			int highest = -1;
 			int[] counts = new int[player.inventory.getSizeInventory() - player.inventory.armorInventory.size()];
@@ -235,12 +240,12 @@ public class ItemBlackHoleTalisman extends ItemMod implements IBlockProvider {
 		Block block = getBlock(stack);
 		if(block != null) {
 			int count = getBlockCount(stack);
-			stacks.add(new TextComponentString(Integer.toString(count) + " ").appendSibling(new ItemStack(block).getDisplayName()));
+			stacks.add(new StringTextComponent(Integer.toString(count) + " ").appendSibling(new ItemStack(block).getDisplayName()));
 		}
 
 		if(ItemNBTHelper.getBoolean(stack, TAG_ACTIVE, false))
-			stacks.add(new TextComponentTranslation("botaniamisc.active"));
-		else stacks.add(new TextComponentTranslation("botaniamisc.inactive"));
+			stacks.add(new TranslationTextComponent("botaniamisc.active"));
+		else stacks.add(new TranslationTextComponent("botaniamisc.inactive"));
 	}
 
 	private static void setCount(ItemStack stack, int count) {
@@ -272,7 +277,7 @@ public class ItemBlackHoleTalisman extends ItemMod implements IBlockProvider {
 	}
 
 	@Override
-	public boolean provideBlock(EntityPlayer player, ItemStack requestor, ItemStack stack, Block block, boolean doit) {
+	public boolean provideBlock(PlayerEntity player, ItemStack requestor, ItemStack stack, Block block, boolean doit) {
 		Block stored = getBlock(stack);
 		if(stored == block) {
 			int count = getBlockCount(stack);
@@ -287,7 +292,7 @@ public class ItemBlackHoleTalisman extends ItemMod implements IBlockProvider {
 	}
 
 	@Override
-	public int getBlockCount(EntityPlayer player, ItemStack requestor, ItemStack stack, Block block) {
+	public int getBlockCount(PlayerEntity player, ItemStack requestor, ItemStack stack, Block block) {
 		Block stored = getBlock(stack);
 		if(stored == block)
 			return getBlockCount(stack);

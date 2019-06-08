@@ -11,15 +11,15 @@
 package vazkii.botania.common.item.material;
 
 import net.minecraft.block.Block;
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.api.recipe.ICustomApothecaryColor;
 import vazkii.botania.common.item.block.ItemBlockMod;
 
 public class ItemPetal extends ItemBlockMod implements ICustomApothecaryColor {
-	public final EnumDyeColor color;
+	public final DyeColor color;
 
-	public ItemPetal(Block buriedPetals, EnumDyeColor color, Properties props) {
+	public ItemPetal(Block buriedPetals, DyeColor color, Properties props) {
 		super(buriedPetals, props);
 		this.color = color;
 	}

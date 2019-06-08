@@ -10,20 +10,20 @@
  */
 package vazkii.botania.common.core.helper;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 
 // From OpenBlocksLib: https://github.com/OpenMods/OpenModsLib
 public class ExperienceHelper {
 
-	public static int getPlayerXP(EntityPlayer player) {
+	public static int getPlayerXP(PlayerEntity player) {
 		return (int)(getExperienceForLevel(player.experienceLevel) + player.experience * player.xpBarCap());
 	}
 
-	public static void drainPlayerXP(EntityPlayer player, int amount) {
+	public static void drainPlayerXP(PlayerEntity player, int amount) {
 		addPlayerXP(player, -amount);
 	}
 
-	public static void addPlayerXP(EntityPlayer player, int amount) {
+	public static void addPlayerXP(PlayerEntity player, int amount) {
 		int experience = getPlayerXP(player) + amount;
 		player.experienceTotal = experience;
 		player.experienceLevel = getLevelForExperience(experience);

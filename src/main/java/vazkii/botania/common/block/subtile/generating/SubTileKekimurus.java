@@ -11,9 +11,11 @@
 package vazkii.botania.common.block.subtile.generating;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockCake;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.SoundEvents;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.CakeBlock;
+import net.minecraft.block.CakeBlock;
+import net.minecraft.block.BlockState;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
@@ -49,13 +51,13 @@ public class SubTileKekimurus extends TileEntityGeneratingFlower {
 				for(int j = 0; j < RANGE * 2 + 1; j++)
 					for(int k = 0; k < RANGE * 2 + 1; k++) {
 						BlockPos pos = getPos().add(i - RANGE, j - RANGE, k - RANGE);
-						IBlockState state = getWorld().getBlockState(pos);
+						BlockState state = getWorld().getBlockState(pos);
 						Block block = state.getBlock();
-						if(block instanceof BlockCake) {
-							int nextSlicesEaten = state.get(BlockCake.BITES) + 1;
+						if(block instanceof CakeBlock) {
+							int nextSlicesEaten = state.get(CakeBlock.BITES) + 1;
 							if(nextSlicesEaten > 6)
 								getWorld().removeBlock(pos);
-							else getWorld().setBlockState(pos, state.with(BlockCake.BITES, nextSlicesEaten), 1 | 2);
+							else getWorld().setBlockState(pos, state.with(CakeBlock.BITES, nextSlicesEaten), 1 | 2);
 
 							getWorld().playEvent(2001, pos, Block.getStateId(state));
 							getWorld().playSound(null, getPos(), SoundEvents.ENTITY_GENERIC_EAT, SoundCategory.BLOCKS, 1F, 0.5F + (float) Math.random() * 0.5F);

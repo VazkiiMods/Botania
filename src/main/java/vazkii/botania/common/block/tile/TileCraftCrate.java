@@ -10,15 +10,17 @@
  */
 package vazkii.botania.common.block.tile;
 
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Container;
-import net.minecraft.inventory.InventoryCrafting;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.container.Container;
+import net.minecraft.inventory.CraftingInventory;
+import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.SPacketUpdateTileEntity;
+import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.world.World;
 import net.minecraftforge.common.crafting.VanillaRecipeTypes;
@@ -69,7 +71,7 @@ public class TileCraftCrate extends TileOpenCrate {
 	}
 
 	public CratePattern getPattern() {
-		IBlockState state = getBlockState();
+		BlockState state = getBlockState();
 		if(state.getBlock() != ModBlocks.craftCrate)
 			return CratePattern.NONE;
 		return state.get(BotaniaStateProps.CRATE_PATTERN);
@@ -102,9 +104,9 @@ public class TileCraftCrate extends TileOpenCrate {
 		if(fullCheck && !isFull())
 			return false;
 
-		InventoryCrafting craft = new InventoryCrafting(new Container() {
+		CraftingInventory craft = new CraftingInventory(new Container() {
 			@Override
-			public boolean canInteractWith(@Nonnull EntityPlayer player) {
+			public boolean canInteractWith(@Nonnull PlayerEntity player) {
 				return false;
 			}
 		}, 3, 3);
@@ -154,7 +156,7 @@ public class TileCraftCrate extends TileOpenCrate {
 	}
 
 	@Override
-	public boolean onWanded(World world, EntityPlayer player, ItemStack stack) {
+	public boolean onWanded(World world, PlayerEntity player, ItemStack stack) {
 		if(!world.isRemote && canEject()) {
 			craft(false);
 			ejectAll();

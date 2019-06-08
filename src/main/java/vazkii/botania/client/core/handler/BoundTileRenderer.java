@@ -11,14 +11,15 @@
 package vazkii.botania.client.core.handler;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GlStateManager;
+import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -47,10 +48,10 @@ public final class BoundTileRenderer {
 		GlStateManager.pushMatrix();
 		GL11.glPushAttrib(GL11.GL_LIGHTING_BIT);
 		GlStateManager.disableDepthTest();
-		GlStateManager.disableTexture2D();
+		GlStateManager.disableTexture();
 		GlStateManager.enableBlend();
 
-		EntityPlayer player = Minecraft.getInstance().player;
+		PlayerEntity player = Minecraft.getInstance().player;
 		int color = Color.HSBtoRGB(ClientTickHandler.ticksInGame % 200 / 200F, 0.6F, 1F);
 
 		if(!player.getHeldItemMainhand().isEmpty() && player.getHeldItemMainhand().getItem() instanceof ICoordBoundItem) {
@@ -65,7 +66,7 @@ public final class BoundTileRenderer {
 				renderBlockOutlineAt(coords, color);
 		}
 
-		LazyOptional<IItemHandler> mainInvCap = player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.UP);
+		LazyOptional<IItemHandler> mainInvCap = player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, Direction.UP);
 		mainInvCap.ifPresent(mainInv -> {
 			IItemHandlerModifiable acc = BotaniaAPI.internalHandler.getAccessoriesInventory(player);
 			IItemHandler joined = acc != null ? new CombinedInvWrapper((IItemHandlerModifiable) mainInv, acc) : mainInv;
@@ -88,7 +89,7 @@ public final class BoundTileRenderer {
 
 
 		GlStateManager.enableDepthTest();
-		GlStateManager.enableTexture2D();
+		GlStateManager.enableTexture();
 		GlStateManager.disableBlend();
 		GL11.glPopAttrib();
 		GlStateManager.popMatrix();
@@ -109,7 +110,7 @@ public final class BoundTileRenderer {
 		GL11.glColor4ub((byte) colorRGB.getRed(), (byte) colorRGB.getGreen(), (byte) colorRGB.getBlue(), (byte) 255);
 
 		World world = Minecraft.getInstance().world;
-		IBlockState state = world.getBlockState(pos);
+		BlockState state = world.getBlockState(pos);
 		Block block = state.getBlock();
 		drawWireframe : {
 			List<AxisAlignedBB> list;

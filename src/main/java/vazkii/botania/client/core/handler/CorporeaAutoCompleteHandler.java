@@ -12,15 +12,18 @@ package vazkii.botania.client.core.handler;
 
 import com.google.common.collect.ImmutableList;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiChat;
-import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.gui.GuiTextField;
+import net.minecraft.client.gui.screen.ChatScreen;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.widget.TextFieldWidget;
+import net.minecraft.client.gui.screen.ChatScreen;
+import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
-import net.minecraft.util.registry.IRegistry;
-import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.registry.Registry;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
@@ -68,12 +71,12 @@ public class CorporeaAutoCompleteHandler {
 	public void onTick(ClientTickEvent event) {
 		if(event.phase != Phase.END)
 			return;
-		GuiScreen screen = Minecraft.getInstance().currentScreen;
-		if(!(screen instanceof GuiChat)) {
+		Screen screen = Minecraft.getInstance().currentScreen;
+		if(!(screen instanceof ChatScreen)) {
 			isAutoCompleted = false;
 			return;
 		}
-		GuiChat chat = (GuiChat) screen;
+		ChatScreen chat = (ChatScreen) screen;
 		if(isAutoCompleted) {
 			boolean valid = false;//ReflectionHelper.getPrivateValue(GuiChat.class, chat, LibObfuscation.COMPLETE_FLAG);
 			if(!valid)
@@ -97,7 +100,7 @@ public class CorporeaAutoCompleteHandler {
 			advanceAutoComplete(chat.inputField, chat);
 	}
 
-	private void advanceAutoComplete(GuiTextField inputField, GuiChat chat) {
+	private void advanceAutoComplete(TextFieldWidget inputField, ChatScreen chat) {
 		position++;
 		if(position >= completions.size())
 			position -= completions.size();
@@ -106,7 +109,7 @@ public class CorporeaAutoCompleteHandler {
 		inputField.setText(str);
 	}
 
-	private void buildAutoCompletes(GuiTextField inputField, GuiChat chat) {
+	private void buildAutoCompletes(TextFieldWidget inputField, ChatScreen chat) {
 		String leftOfCursor;
 		if(inputField.getCursorPosition() == 0)
 			leftOfCursor = "";
@@ -127,7 +130,7 @@ public class CorporeaAutoCompleteHandler {
 				stringbuilder.append(", ");
 		}
 
-		Minecraft.getInstance().ingameGUI.getChatGUI().printChatMessageWithOptionalDeletion(new TextComponentString(stringbuilder.toString()), 1);
+		Minecraft.getInstance().ingameGUI.getChatGUI().printChatMessageWithOptionalDeletion(new StringTextComponent(stringbuilder.toString()), 1);
 		isAutoCompleted = true;
 		originalString = inputField.getText();
 	}

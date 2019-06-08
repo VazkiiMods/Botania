@@ -22,22 +22,27 @@ import java.util.UUID;
 import javax.annotation.Nonnull;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockBush;
-import net.minecraft.block.BlockLeaves;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BushBlock;
+import net.minecraft.block.LeavesBlock;
+import net.minecraft.block.BushBlock;
+import net.minecraft.block.LeavesBlock;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.projectile.EntityThrowable;
-import net.minecraft.init.Blocks;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.ThrowableEntity;
+import net.minecraft.block.Blocks;
 import net.minecraft.init.Particles;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.Hand;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -65,7 +70,7 @@ import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.equipment.bauble.ItemTinyPlanet;
 import vazkii.botania.common.lib.LibMisc;
 
-public class EntityManaBurst extends EntityThrowable implements IManaBurst {
+public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 	@ObjectHolder(LibMisc.MOD_ID + ":mana_burst")
 	public static EntityType<EntityManaBurst> TYPE;
 	private static final String TAG_TICKS_EXISTED = "ticksExisted";
@@ -141,15 +146,15 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		setMotion(mx, my, mz);
 	}
 
-	public EntityManaBurst(EntityPlayer player, EnumHand hand) {
+	public EntityManaBurst(PlayerEntity player, Hand hand) {
 		this(player.world);
 
 		setBurstSourceCoords(new BlockPos(0, -1, 0));
 		setLocationAndAngles(player.posX, player.posY + player.getEyeHeight(), player.posZ, player.rotationYaw + 180, -player.rotationPitch);
 
-		posX -= (hand == EnumHand.OFF_HAND ? -1 : 1) * MathHelper.cos((rotationYaw + 180) / 180.0F * (float) Math.PI) * 0.16F;
+		posX -= (hand == Hand.OFF_HAND ? -1 : 1) * MathHelper.cos((rotationYaw + 180) / 180.0F * (float) Math.PI) * 0.16F;
 		posY -= 0.10000000149011612D;
-		posZ -= (hand == EnumHand.OFF_HAND ? -1 : 1) * MathHelper.sin((rotationYaw + 180) / 180.0F * (float) Math.PI) * 0.16F;
+		posZ -= (hand == Hand.OFF_HAND ? -1 : 1) * MathHelper.sin((rotationYaw + 180) / 180.0F * (float) Math.PI) * 0.16F;
 
 		setPosition(posX, posY, posZ);
 		float f = 0.4F;
@@ -368,7 +373,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 	}
 
 	@Override
-	public void writeAdditional(NBTTagCompound par1nbtTagCompound) {
+	public void writeAdditional(CompoundNBT par1nbtTagCompound) {
 		super.writeAdditional(par1nbtTagCompound);
 		par1nbtTagCompound.putInt(TAG_TICKS_EXISTED, getTicksExisted());
 		par1nbtTagCompound.putInt(TAG_COLOR, getColor());
@@ -379,7 +384,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		par1nbtTagCompound.putFloat(TAG_GRAVITY, getGravity());
 
 		ItemStack stack = getSourceLens();
-		NBTTagCompound lensCmp = new NBTTagCompound();
+		CompoundNBT lensCmp = new CompoundNBT();
 		if(!stack.isEmpty())
 			lensCmp = stack.write(lensCmp);
 		par1nbtTagCompound.put(TAG_LENS_STACK, lensCmp);
@@ -403,7 +408,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 	}
 
 	@Override
-	public void readAdditional(NBTTagCompound cmp) {
+	public void readAdditional(CompoundNBT cmp) {
 		super.readAdditional(cmp);
 		setTicksExisted(cmp.getInt(TAG_TICKS_EXISTED));
 		setColor(cmp.getInt(TAG_COLOR));
@@ -413,7 +418,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 		setManaLossPerTick(cmp.getFloat(TAG_TICK_MANA_LOSS));
 		setGravity(cmp.getFloat(TAG_GRAVITY));
 
-		NBTTagCompound lensCmp = cmp.getCompound(TAG_LENS_STACK);
+		CompoundNBT lensCmp = cmp.getCompound(TAG_LENS_STACK);
 		ItemStack stack = ItemStack.read(lensCmp);
 		if(!stack.isEmpty())
 			setSourceLens(stack);
@@ -531,10 +536,10 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 
 		if(rtr.entity == null) {
 			TileEntity tile = world.getTileEntity(rtr.getBlockPos());
-			IBlockState state = world.getBlockState(rtr.getBlockPos());
+			BlockState state = world.getBlockState(rtr.getBlockPos());
 			Block block = state.getBlock();
 
-			if(block instanceof IManaCollisionGhost && ((IManaCollisionGhost) block).isGhost(state, world, rtr.getBlockPos()) && !(block instanceof IManaTrigger) || block instanceof BlockBush || block instanceof BlockLeaves)
+			if(block instanceof IManaCollisionGhost && ((IManaCollisionGhost) block).isGhost(state, world, rtr.getBlockPos()) && !(block instanceof IManaTrigger) || block instanceof BushBlock || block instanceof LeavesBlock)
 				return;
 
 			if(BotaniaAPI.internalHandler.isBuildcraftPipe(tile))
@@ -803,7 +808,7 @@ public class EntityManaBurst extends EntityThrowable implements IManaBurst {
 	public static class PositionProperties {
 
 		public final BlockPos coords;
-		public final IBlockState state;
+		public final BlockState state;
 
 		public boolean invalid = false;
 

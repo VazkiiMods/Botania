@@ -1,6 +1,7 @@
 package vazkii.botania.common.core.handler;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerSleepInBedEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -18,7 +19,7 @@ public final class SleepingHandler {
 		World world = event.getEntityPlayer().world;
 		for(EntityDoppleganger guardian : world.getEntities(EntityDoppleganger.class, e -> true)) {
 			if(guardian.getPlayersAround().contains(event.getEntityPlayer())) {
-				event.setResult(EntityPlayer.SleepResult.NOT_SAFE);
+				event.setResult(PlayerEntity.SleepResult.NOT_SAFE);
 			}
 		}
 	}

@@ -11,14 +11,14 @@
 package vazkii.botania.common.block.tile;
 
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.ITickable;
+import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
-public class TileStarfield extends TileMod implements ITickable {
+public class TileStarfield extends TileMod implements ITickableTileEntity {
 	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.STARFIELD)
 	public static TileEntityType<TileStarfield> TYPE;
 

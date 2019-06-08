@@ -11,15 +11,16 @@
 package vazkii.botania.common.item;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -76,20 +77,20 @@ public class ItemManaMirror extends ItemMod implements IManaItem, ICoordBoundIte
 
 	@Nonnull
 	@Override
-	public EnumActionResult onItemUse(ItemUseContext ctx) {
+	public ActionResultType onItemUse(ItemUseContext ctx) {
 		World world = ctx.getWorld();
-		EntityPlayer player = ctx.getPlayer();
+		PlayerEntity player = ctx.getPlayer();
 
 		if(player != null && player.isSneaking() && !world.isRemote) {
 			TileEntity tile = world.getTileEntity(ctx.getPos());
 			if(tile instanceof IManaPool) {
 				bindPool(ctx.getItem(), tile);
 				world.playSound(null, player.posX, player.posY, player.posZ, ModSounds.ding, SoundCategory.PLAYERS, 1F, 1F);
-				return EnumActionResult.SUCCESS;
+				return ActionResultType.SUCCESS;
 			}
 		}
 
-		return EnumActionResult.PASS;
+		return ActionResultType.PASS;
 	}
 
 	@Override
@@ -210,12 +211,12 @@ public class ItemManaMirror extends ItemMod implements IManaItem, ICoordBoundIte
 		}
 
 		@Override
-		public EnumDyeColor getColor() {
-			return EnumDyeColor.WHITE;
+		public DyeColor getColor() {
+			return DyeColor.WHITE;
 		}
 
 		@Override
-		public void setColor(EnumDyeColor color) {}
+		public void setColor(DyeColor color) {}
 
 	}
 

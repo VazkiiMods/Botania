@@ -12,22 +12,27 @@ package vazkii.botania.common.block.tile.mana;
 
 import com.google.common.base.Predicates;
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GlStateManager;
+import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.DyeColor;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.play.server.SPacketUpdateTileEntity;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.ITickable;
+import net.minecraft.util.Direction;
+import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -70,7 +75,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAttachable, IThrottledPacket, ITickable {
+public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAttachable, IThrottledPacket, ITickableTileEntity {
 	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.POOL)
 	public static TileEntityType<TilePool> TYPE;
 	public static final Color PARTICLE_COLOR = new Color(0x00C6FF);
@@ -92,7 +97,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 
 	private boolean outputting = false;
 
-	public EnumDyeColor color = EnumDyeColor.WHITE;
+	public DyeColor color = DyeColor.WHITE;
 	int mana;
 	private int knownMana = -1;
 
@@ -149,7 +154,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 		return val;
 	}
 
-	public static RecipeManaInfusion getMatchingRecipe(@Nonnull ItemStack stack, @Nonnull IBlockState state) {
+	public static RecipeManaInfusion getMatchingRecipe(@Nonnull ItemStack stack, @Nonnull BlockState state) {
 		List<RecipeManaInfusion> matchingNonCatRecipes = new ArrayList<>();
 		List<RecipeManaInfusion> matchingCatRecipes = new ArrayList<>();
 
@@ -168,7 +173,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 				null;
 	}
 
-	public boolean collideEntityItem(EntityItem item) {
+	public boolean collideEntityItem(ItemEntity item) {
 		if(world.isRemote || !item.isAlive() || item.getItem().isEmpty())
 			return false;
 
@@ -191,7 +196,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 				stack.shrink(1);
 
 				ItemStack output = recipe.getOutput().copy();
-				EntityItem outputItem = new EntityItem(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, output);
+				ItemEntity outputItem = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, output);
 				outputItem.age = 105;
 				world.spawnEntity(outputItem);
 
@@ -271,8 +276,8 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 			sendPacket = false;
 		}
 
-		List<EntityItem> items = world.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(pos, pos.add(1, 1, 1)));
-		for(EntityItem item : items) {
+		List<ItemEntity> items = world.getEntitiesWithinAABB(ItemEntity.class, new AxisAlignedBB(pos, pos.add(1, 1, 1)));
+		for(ItemEntity item : items) {
 			if(!item.isAlive())
 				continue;
 
@@ -284,7 +289,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 
 					int bellowCount = 0;
 					if(outputting)
-						for(EnumFacing dir : MathHelper.HORIZONTALS) {
+						for(Direction dir : MathHelper.HORIZONTALS) {
 							TileEntity tile = world.getTileEntity(pos.offset(dir));
 							if(tile instanceof TileBellows && ((TileBellows) tile).getLinkedTile() == this)
 								bellowCount++;
@@ -333,7 +338,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 	}
 
 	@Override
-	public void writePacketNBT(NBTTagCompound cmp) {
+	public void writePacketNBT(CompoundNBT cmp) {
 		cmp.putInt(TAG_MANA, mana);
 		cmp.putBoolean(TAG_OUTPUTTING, outputting);
 		cmp.putInt(TAG_COLOR, color.getId());
@@ -348,10 +353,10 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 	}
 
 	@Override
-	public void readPacketNBT(NBTTagCompound cmp) {
+	public void readPacketNBT(CompoundNBT cmp) {
 		mana = cmp.getInt(TAG_MANA);
 		outputting = cmp.getBoolean(TAG_OUTPUTTING);
-		color = EnumDyeColor.byId(cmp.getInt(TAG_COLOR));
+		color = DyeColor.byId(cmp.getInt(TAG_COLOR));
 
 		if(cmp.contains(TAG_MANA_CAP))
 			manaCap = cmp.getInt(TAG_MANA_CAP);
@@ -370,7 +375,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 			knownMana = cmp.getInt(TAG_KNOWN_MANA);
 	}
 
-	public void onWanded(EntityPlayer player, ItemStack wand) {
+	public void onWanded(PlayerEntity player, ItemStack wand) {
 		if(player == null)
 			return;
 
@@ -380,11 +385,11 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 		}
 
 		if(!world.isRemote) {
-			NBTTagCompound nbttagcompound = new NBTTagCompound();
+			CompoundNBT nbttagcompound = new CompoundNBT();
 			writePacketNBT(nbttagcompound);
 			nbttagcompound.putInt(TAG_KNOWN_MANA, getCurrentMana());
-			if(player instanceof EntityPlayerMP)
-				((EntityPlayerMP) player).connection.sendPacket(new SPacketUpdateTileEntity(pos, -999, nbttagcompound));
+			if(player instanceof ServerPlayerEntity)
+				((ServerPlayerEntity) player).connection.sendPacket(new SUpdateTileEntityPacket(pos, -999, nbttagcompound));
 		}
 
 		world.playSound(null, player.posX, player.posY, player.posZ, ModSounds.ding, SoundCategory.PLAYERS, 0.11F, 1F);
@@ -485,12 +490,12 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 	}
 
 	@Override
-	public EnumDyeColor getColor() {
+	public DyeColor getColor() {
 		return color;
 	}
 
 	@Override
-	public void setColor(EnumDyeColor color) {
+	public void setColor(DyeColor color) {
 		this.color = color;
 		world.notifyBlockUpdate(pos, getBlockState(), getBlockState(), 3);
 	}

@@ -11,6 +11,7 @@
 package vazkii.botania.api.boss;
 
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.ServerBossInfo;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.internal.ShaderCallback;
@@ -54,7 +55,7 @@ public interface IBotaniaBoss {
 	public int bossBarRenderCallback(int x, int y);
 
 	/**
-	 * Get the serverside UUID of the {@link net.minecraft.world.BossInfoServer} instance tracking this boss
+	 * Get the serverside UUID of the {@link ServerBossInfo} instance tracking this boss
 	 * Note that this is NOT the entity's UUID, nor is it the clientside UUID of the BossInfoServer instance!
 	 * You will most likely need to sync this yourself using the datawatcher
 	 * @return The uuid.

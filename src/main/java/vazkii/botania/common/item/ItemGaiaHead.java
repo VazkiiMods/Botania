@@ -11,21 +11,23 @@
 package vazkii.botania.common.item;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockSkull;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.entity.model.ModelBiped;
+import net.minecraft.block.SkullBlock;
+import net.minecraft.block.BlockState;
+import net.minecraft.client.renderer.entity.model.BipedModel;
+import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.block.Blocks;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemWallOrFloor;
+import net.minecraft.item.WallOrFloorItem;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntitySkull;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.tileentity.SkullTileEntity;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
@@ -39,21 +41,21 @@ import vazkii.botania.common.lib.LibItemNames;
 
 import javax.annotation.Nonnull;
 
-public class ItemGaiaHead extends ItemWallOrFloor {
+public class ItemGaiaHead extends WallOrFloorItem {
 
 	public ItemGaiaHead(Block floor, Block wall, Properties props) {
 		super(floor, wall, props);
 	}
 
 	@Override
-	public EntityEquipmentSlot getEquipmentSlot(ItemStack stack) {
-		return EntityEquipmentSlot.HEAD;
+	public EquipmentSlotType getEquipmentSlot(ItemStack stack) {
+		return EquipmentSlotType.HEAD;
 	}
 
 	@OnlyIn(Dist.CLIENT)
 	@Nonnull
 	@Override
-	public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped _default) {
-		return (ModelBiped) Botania.proxy.getEmptyModelBiped();
+	public BipedModel getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlotType armorSlot, BipedModel _default) {
+		return (BipedModel) Botania.proxy.getEmptyModelBiped();
 	}
 }

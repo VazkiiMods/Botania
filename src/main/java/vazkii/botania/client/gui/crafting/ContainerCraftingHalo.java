@@ -10,25 +10,26 @@
  */
 package vazkii.botania.client.gui.crafting;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.ContainerWorkbench;
-import net.minecraft.inventory.InventoryCrafting;
-import net.minecraft.inventory.Slot;
-import net.minecraft.inventory.SlotCrafting;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.container.WorkbenchContainer;
+import net.minecraft.inventory.CraftingInventory;
+import net.minecraft.inventory.container.Slot;
+import net.minecraft.inventory.container.CraftingResultSlot;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
 
-public class ContainerCraftingHalo extends ContainerWorkbench {
+public class ContainerCraftingHalo extends WorkbenchContainer {
 
-	public ContainerCraftingHalo(InventoryPlayer playerInv, World world) {
+	public ContainerCraftingHalo(PlayerInventory playerInv, World world) {
 		super(playerInv, world, BlockPos.ORIGIN);
 	}
 
 	@Override
-	public boolean canInteractWith(@Nonnull EntityPlayer player) {
+	public boolean canInteractWith(@Nonnull PlayerEntity player) {
 		return true;
 	}
 }

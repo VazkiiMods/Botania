@@ -10,10 +10,11 @@
  */
 package vazkii.botania.client.core.handler;
 
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.fluid.IFluidState;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Fluids;
+import net.minecraft.block.Blocks;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
@@ -34,7 +35,7 @@ public class MultiblockBlockAccess implements IBlockReader {
 
 	@Nonnull
 	@Override
-	public IBlockState getBlockState(@Nonnull BlockPos pos) {
+	public BlockState getBlockState(@Nonnull BlockPos pos) {
 		MultiblockComponent comp=getComponent(pos);
 		if(comp != null)
 			return comp.getBlockState();

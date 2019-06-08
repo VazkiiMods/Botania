@@ -10,14 +10,16 @@
  */
 package vazkii.botania.common.block;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.block.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Direction;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
@@ -41,22 +43,22 @@ public class BlockEnchantedSoil extends BlockMod implements ILexiconable {
 
 	@Nonnull
 	@Override
-	public IItemProvider getItemDropped(IBlockState state, World world, BlockPos pos, int fortune) {
+	public IItemProvider getItemDropped(BlockState state, World world, BlockPos pos, int fortune) {
 		return Blocks.DIRT.getItemDropped(state, world, pos, fortune);
 	}
 
 	@Override
-	public boolean canSustainPlant(@Nonnull IBlockState state, @Nonnull IBlockReader world, BlockPos pos, @Nonnull EnumFacing direction, IPlantable plantable) {
+	public boolean canSustainPlant(@Nonnull BlockState state, @Nonnull IBlockReader world, BlockPos pos, @Nonnull Direction direction, IPlantable plantable) {
 		return plantable.getPlantType(world, pos.down()) == EnumPlantType.Plains;
 	}
 
 	@Override
-	public boolean canSilkHarvest(@Nonnull IBlockState state, IWorldReader world, BlockPos pos, EntityPlayer player) {
+	public boolean canSilkHarvest(@Nonnull BlockState state, IWorldReader world, BlockPos pos, PlayerEntity player) {
 		return false;
 	}
 
 	@Override
-	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
+	public LexiconEntry getEntry(World world, BlockPos pos, PlayerEntity player, ItemStack lexicon) {
 		return LexiconData.overgrowthSeed;
 	}
 

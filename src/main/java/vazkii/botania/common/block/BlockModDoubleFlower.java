@@ -11,20 +11,25 @@
 package vazkii.botania.common.block;
 
 import com.google.common.collect.ImmutableList;
-import net.minecraft.block.BlockDoublePlant;
-import net.minecraft.block.BlockTallFlower;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.DoublePlantBlock;
+import net.minecraft.block.TallFlowerBlock;
 import net.minecraft.block.IGrowable;
 import net.minecraft.block.SoundType;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.block.TallFlowerBlock;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.block.Blocks;
+import net.minecraft.item.DyeColor;
+import net.minecraft.item.Items;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.state.properties.DoubleBlockHalf;
-import net.minecraft.stats.StatList;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.stats.Stats;
+import net.minecraft.util.Direction;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
@@ -32,7 +37,7 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
-import net.minecraft.world.IWorldReaderBase;
+import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.api.distmarker.Dist;
@@ -53,22 +58,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class BlockModDoubleFlower extends BlockTallFlower implements ILexiconable, IShearable {
-	private final EnumDyeColor color;
+public class BlockModDoubleFlower extends TallFlowerBlock implements ILexiconable, IShearable {
+	private final DyeColor color;
 
-	public BlockModDoubleFlower(EnumDyeColor color, Properties builder) {
+	public BlockModDoubleFlower(DyeColor color, Properties builder) {
 		super(builder);
 		this.color = color;
 	}
 
 	@Nonnull
 	@Override
-	public Item getItemDropped(IBlockState state, @Nonnull World world, @Nonnull BlockPos pos, int fortune) {
+	public Item getItemDropped(BlockState state, @Nonnull World world, @Nonnull BlockPos pos, int fortune) {
 		return Items.AIR;
 	}
 
 	@Override
-	public boolean canGrow(@Nonnull IBlockReader world, @Nonnull BlockPos pos, @Nonnull IBlockState state, boolean fuckifiknow) {
+	public boolean canGrow(@Nonnull IBlockReader world, @Nonnull BlockPos pos, @Nonnull BlockState state, boolean fuckifiknow) {
 		return false;
 	}
 
@@ -90,7 +95,7 @@ public class BlockModDoubleFlower extends BlockTallFlower implements ILexiconabl
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public void animateTick(IBlockState state, World world, BlockPos pos, Random rand) {
+	public void animateTick(BlockState state, World world, BlockPos pos, Random rand) {
 		int hex = color.colorValue;
 		int r = (hex & 0xFF0000) >> 16;
 		int g = (hex & 0xFF00) >> 8;
@@ -102,7 +107,7 @@ public class BlockModDoubleFlower extends BlockTallFlower implements ILexiconabl
 	}
 
 	@Override
-	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
+	public LexiconEntry getEntry(World world, BlockPos pos, PlayerEntity player, ItemStack lexicon) {
 		return LexiconData.flowers;
 	}
 }

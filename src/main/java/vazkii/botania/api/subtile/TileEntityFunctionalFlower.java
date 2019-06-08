@@ -12,12 +12,14 @@ package vazkii.botania.api.subtile;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.api.distmarker.Dist;
@@ -80,7 +82,7 @@ public class TileEntityFunctionalFlower extends TileEntitySpecialFlower {
 
 		if(acceptsRedstone()) {
 			redstoneSignal = 0;
-			for(EnumFacing dir : EnumFacing.values()) {
+			for(Direction dir : Direction.values()) {
 				int redstoneSide = getWorld().getRedstonePower(getPos().offset(dir), dir);
 				redstoneSignal = Math.max(redstoneSignal, redstoneSide);
 			}
@@ -136,7 +138,7 @@ public class TileEntityFunctionalFlower extends TileEntitySpecialFlower {
 	}
 
 	@Override
-	public boolean onWanded(EntityPlayer player, ItemStack wand) {
+	public boolean onWanded(PlayerEntity player, ItemStack wand) {
 		if(player == null)
 			return false;
 
@@ -157,7 +159,7 @@ public class TileEntityFunctionalFlower extends TileEntitySpecialFlower {
 	}
 
 	@Override
-	public void readFromPacketNBT(NBTTagCompound cmp) {
+	public void readFromPacketNBT(CompoundNBT cmp) {
 		mana = cmp.getInt(TAG_MANA);
 
 		int x = cmp.getInt(TAG_POOL_X);
@@ -168,7 +170,7 @@ public class TileEntityFunctionalFlower extends TileEntitySpecialFlower {
 	}
 
 	@Override
-	public void writeToPacketNBT(NBTTagCompound cmp) {
+	public void writeToPacketNBT(CompoundNBT cmp) {
 		cmp.putInt(TAG_MANA, mana);
 
 		if(cachedPoolCoordinates != null) {
@@ -194,12 +196,12 @@ public class TileEntityFunctionalFlower extends TileEntitySpecialFlower {
 	}
 
 	@Override
-	public boolean canSelect(EntityPlayer player, ItemStack wand, BlockPos pos, EnumFacing side) {
+	public boolean canSelect(PlayerEntity player, ItemStack wand, BlockPos pos, Direction side) {
 		return true;
 	}
 
 	@Override
-	public boolean bindTo(EntityPlayer player, ItemStack wand, BlockPos pos, EnumFacing side) {
+	public boolean bindTo(PlayerEntity player, ItemStack wand, BlockPos pos, Direction side) {
 		int range = 10;
 		range *= range;
 

@@ -11,17 +11,17 @@
 package vazkii.botania.common.block.dispenser;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockDispenser;
-import net.minecraft.dispenser.BehaviorDefaultDispenseItem;
+import net.minecraft.block.DispenserBlock;
+import net.minecraft.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.dispenser.IBlockSource;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
 
-public class BehaviourSeeds extends BehaviorDefaultDispenseItem {
+public class BehaviourSeeds extends DefaultDispenseItemBehavior {
 	private Block block;
 
 	public BehaviourSeeds(Block block) {
@@ -31,7 +31,7 @@ public class BehaviourSeeds extends BehaviorDefaultDispenseItem {
 	@Nonnull
 	@Override
 	public ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
-		EnumFacing facing = source.getBlockState().get(BlockDispenser.FACING);
+		Direction facing = source.getBlockState().get(DispenserBlock.FACING);
 		BlockPos pos = source.getBlockPos().offset(facing);
 		World world = source.getWorld();
 

@@ -12,7 +12,8 @@ package vazkii.botania.api.recipe;
 
 import com.google.common.base.Preconditions;
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
@@ -32,7 +33,7 @@ public class RecipeManaInfusion {
 	private final Ingredient input;
 	private final int mana;
 	@Nullable
-	private IBlockState catalystState;
+	private BlockState catalystState;
 
 	public static RecipeManaInfusion conjuration(ResourceLocation id, ItemStack output, Ingredient input, int mana) {
 		RecipeManaInfusion ret = new RecipeManaInfusion(id, output, input, mana);
@@ -63,11 +64,11 @@ public class RecipeManaInfusion {
 	}
 
 	@Nullable
-	public IBlockState getCatalyst() {
+	public BlockState getCatalyst() {
 		return catalystState;
 	}
 
-	public void setCatalyst(IBlockState catalyst) {
+	public void setCatalyst(BlockState catalyst) {
 		catalystState = catalyst;
 	}
 

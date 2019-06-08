@@ -11,29 +11,38 @@
 package vazkii.botania.common.item;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.init.MobEffects;
-import net.minecraft.init.SoundEvents;
-import net.minecraft.item.EnumAction;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.block.Blocks;
+import net.minecraft.item.Items;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Effects;
+import net.minecraft.util.Hand;
+import net.minecraft.util.SoundEvents;
+import net.minecraft.item.UseAction;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.PotionEffect;
+import net.minecraft.item.Items;
+import net.minecraft.potion.Effects;
+import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -59,7 +68,7 @@ public class ItemBottledMana extends ItemMod {
 		addPropertyOverride(new ResourceLocation(LibMisc.MOD_ID, "swigs_taken"), (stack, world, entity) -> SWIGS - getSwigsLeft(stack));
 	}
 
-	public void effect(ItemStack stack, EntityLivingBase living, int id) {
+	public void effect(ItemStack stack, LivingEntity living, int id) {
 		switch(id) {
 		case 0 : { // Random motion
 			living.motionX = (Math.random() - 0.5) * 3;
@@ -84,7 +93,7 @@ public class ItemBottledMana extends ItemMod {
 		case 4 : { // Mega Jump
 			if(!living.world.getDimension().isNether()) {
 				if(!living.world.isRemote)
-					living.addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, 300, 5));
+					living.addPotionEffect(new EffectInstance(Effects.RESISTANCE, 300, 5));
 				living.motionY = 6;
 			}
 
@@ -97,12 +106,12 @@ public class ItemBottledMana extends ItemMod {
 		}
 		case 6 : { // Lots O' Hearts
 			if(!living.world.isRemote)
-				living.addPotionEffect(new PotionEffect(MobEffects.ABSORPTION, 20 * 60 * 2, 9));
+				living.addPotionEffect(new EffectInstance(Effects.ABSORPTION, 20 * 60 * 2, 9));
 			break;
 		}
 		case 7 : { // All your inventory is belong to us
-			if(!living.world.isRemote && living instanceof EntityPlayer) {
-				EntityPlayer player = (EntityPlayer) living;
+			if(!living.world.isRemote && living instanceof PlayerEntity) {
+				PlayerEntity player = (PlayerEntity) living;
 				for(int i = 0; i < player.inventory.getSizeInventory(); i++) {
 					ItemStack stackAt = player.inventory.getStackInSlot(i);
 					if(stackAt != stack) {
@@ -127,8 +136,8 @@ public class ItemBottledMana extends ItemMod {
 			for(int i = 256; i > 0; i--) {
 				Block block = living.world.getBlockState(new BlockPos(x, i, z)).getBlock();
 				if(!block.isAir(living.world.getBlockState(new BlockPos(x, i, z)), living.world, new BlockPos(x, i, z))) {
-					if(living instanceof EntityPlayerMP) {
-						EntityPlayerMP mp = (EntityPlayerMP) living;
+					if(living instanceof ServerPlayerEntity) {
+						ServerPlayerEntity mp = (ServerPlayerEntity) living;
 						mp.connection.setPlayerLocation(living.posX, i, living.posZ, living.rotationYaw, living.rotationPitch);
 					}
 					break;
@@ -139,12 +148,12 @@ public class ItemBottledMana extends ItemMod {
 		}
 		case 10 : { // HYPERSPEEEEEED
 			if(!living.world.isRemote)
-				living.addPotionEffect(new PotionEffect(MobEffects.SPEED, 60, 200));
+				living.addPotionEffect(new EffectInstance(Effects.SPEED, 60, 200));
 			break;
 		}
 		case 11 : { // Night Vision
 			if(!living.world.isRemote)
-				living.addPotionEffect(new PotionEffect(MobEffects.NIGHT_VISION, 6000, 0));
+				living.addPotionEffect(new EffectInstance(Effects.NIGHT_VISION, 6000, 0));
 			break;
 		}
 		case 12 : { // Flare
@@ -157,10 +166,10 @@ public class ItemBottledMana extends ItemMod {
 				living.world.spawnEntity(flare);
 
 				int range = 5;
-				List<EntityLivingBase> entities = living.world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(living.posX - range, living.posY - range, living.posZ - range, living.posX + range, living.posY + range, living.posZ + range));
-				for(EntityLivingBase entity : entities)
-					if(entity != living && (!(entity instanceof EntityPlayer) || ServerLifecycleHooks.getCurrentServer() == null || ServerLifecycleHooks.getCurrentServer().isPVPEnabled()))
-						entity.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 50, 5));
+				List<LivingEntity> entities = living.world.getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(living.posX - range, living.posY - range, living.posZ - range, living.posX + range, living.posY + range, living.posZ + range));
+				for(LivingEntity entity : entities)
+					if(entity != living && (!(entity instanceof PlayerEntity) || ServerLifecycleHooks.getCurrentServer() == null || ServerLifecycleHooks.getCurrentServer().isPVPEnabled()))
+						entity.addPotionEffect(new EffectInstance(Effects.SLOWNESS, 50, 5));
 			}
 
 			break;
@@ -175,17 +184,17 @@ public class ItemBottledMana extends ItemMod {
 		}
 		case 14 : { // Nausea + Blindness :3
 			if(!living.world.isRemote) {
-				living.addPotionEffect(new PotionEffect(MobEffects.NAUSEA, 160, 3));
-				living.addPotionEffect(new PotionEffect(MobEffects.BLINDNESS, 160, 0));
+				living.addPotionEffect(new EffectInstance(Effects.NAUSEA, 160, 3));
+				living.addPotionEffect(new EffectInstance(Effects.BLINDNESS, 160, 0));
 			}
 
 			break;
 		}
 		case 15 : { // Drop own Head
-			if(!living.world.isRemote && living instanceof EntityPlayer) {
+			if(!living.world.isRemote && living instanceof PlayerEntity) {
 				living.attackEntityFrom(DamageSource.MAGIC, living.getHealth() - 1);
 				ItemStack skull = new ItemStack(Items.PLAYER_HEAD);
-				ItemNBTHelper.setString(skull, "SkullOwner", ((EntityPlayer) living).getGameProfile().getName());
+				ItemNBTHelper.setString(skull, "SkullOwner", ((PlayerEntity) living).getGameProfile().getName());
 				living.entityDropItem(skull, 0);
 			}
 			break;
@@ -193,7 +202,7 @@ public class ItemBottledMana extends ItemMod {
 		}
 	}
 
-	private void randomEffect(EntityLivingBase player, ItemStack stack) {
+	private void randomEffect(LivingEntity player, ItemStack stack) {
 		effect(stack, player, new Random(getSeed(stack)).nextInt(16));
 	}
 
@@ -213,19 +222,19 @@ public class ItemBottledMana extends ItemMod {
 	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void addInformation(ItemStack par1ItemStack, World world, List<ITextComponent> stacks, ITooltipFlag flags) {
-		stacks.add(new TextComponentTranslation("botaniamisc.bottleTooltip"));
+		stacks.add(new TranslationTextComponent("botaniamisc.bottleTooltip"));
 	}
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
 		player.setActiveHand(hand);
-		return ActionResult.newResult(EnumActionResult.SUCCESS, player.getHeldItem(hand));
+		return ActionResult.newResult(ActionResultType.SUCCESS, player.getHeldItem(hand));
 	}
 
 	@Nonnull
 	@Override
-	public ItemStack onItemUseFinish(@Nonnull ItemStack stack, World world, EntityLivingBase living) {
+	public ItemStack onItemUseFinish(@Nonnull ItemStack stack, World world, LivingEntity living) {
 		randomEffect(living, stack);
 		int left = getSwigsLeft(stack);
 		if(left <= 1) {
@@ -244,8 +253,8 @@ public class ItemBottledMana extends ItemMod {
 
 	@Nonnull
 	@Override
-	public EnumAction getUseAction(ItemStack par1ItemStack) {
-		return EnumAction.DRINK;
+	public UseAction getUseAction(ItemStack par1ItemStack) {
+		return UseAction.DRINK;
 	}
 
 	private int getSwigsLeft(ItemStack stack) {

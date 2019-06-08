@@ -10,18 +10,22 @@
  */
 package vazkii.botania.common.block.subtile.generating;
 
-import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.init.Particles;
-import net.minecraft.init.SoundEvents;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.particles.ItemParticleData;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.WorldServer;
+import net.minecraft.world.ServerWorld;
+import net.minecraft.world.ServerWorld;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -76,15 +80,15 @@ public class SubTileGourmaryllis extends TileEntityGeneratingFlower {
 				
 				Vec3d offset = getWorld().getBlockState(getPos()).getOffset(getWorld(), getPos()).add(0.4, 0.6, 0.4);
 				
-				((WorldServer) getWorld()).spawnParticle(new ItemParticleData(Particles.ITEM, lastFood), getPos().getX()+offset.x, getPos().getY()+offset.y, getPos().getZ()+offset.z, 10, 0.1D, 0.1D, 0.1D, 0.03D);
+				((ServerWorld) getWorld()).spawnParticle(new ItemParticleData(Particles.ITEM, lastFood), getPos().getX()+offset.x, getPos().getY()+offset.y, getPos().getZ()+offset.z, 10, 0.1D, 0.1D, 0.1D, 0.03D);
 			}
 		}
 
 		int slowdown = getSlowdownFactor();
 
-		List<EntityItem> items = getWorld().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(getPos().add(-RANGE, -RANGE, -RANGE), getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
+		List<ItemEntity> items = getWorld().getEntitiesWithinAABB(ItemEntity.class, new AxisAlignedBB(getPos().add(-RANGE, -RANGE, -RANGE), getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
 
-		for(EntityItem item : items) {
+		for(ItemEntity item : items) {
 			ItemStack stack = item.getItem();
 
 			if(!stack.isEmpty() && stack.getItem() instanceof ItemFood && !item.removed && item.age >= slowdown) {
@@ -103,7 +107,7 @@ public class SubTileGourmaryllis extends TileEntityGeneratingFlower {
 					cooldown = val * 10;
 					item.playSound(SoundEvents.ENTITY_GENERIC_EAT, 0.2F, 0.6F);
 					sync();
-					((WorldServer) getWorld()).spawnParticle(new ItemParticleData(Particles.ITEM, stack), item.posX, item.posY, item.posZ, 20, 0.1D, 0.1D, 0.1D, 0.05D);
+					((ServerWorld) getWorld()).spawnParticle(new ItemParticleData(Particles.ITEM, stack), item.posX, item.posY, item.posZ, 20, 0.1D, 0.1D, 0.1D, 0.05D);
 				}
 
 				item.remove();
@@ -112,16 +116,16 @@ public class SubTileGourmaryllis extends TileEntityGeneratingFlower {
 	}
 
 	@Override
-	public void writeToPacketNBT(NBTTagCompound cmp) {
+	public void writeToPacketNBT(CompoundNBT cmp) {
 		super.writeToPacketNBT(cmp);
 		cmp.putInt(TAG_COOLDOWN, cooldown);
 		cmp.putInt(TAG_DIGESTING_MANA, digestingMana);
-		cmp.put(TAG_LAST_FOOD, lastFood.write(new NBTTagCompound()));
+		cmp.put(TAG_LAST_FOOD, lastFood.write(new CompoundNBT()));
 		cmp.putInt(TAG_LAST_FOOD_COUNT, lastFoodCount);
 	}
 
 	@Override
-	public void readFromPacketNBT(NBTTagCompound cmp) {
+	public void readFromPacketNBT(CompoundNBT cmp) {
 		super.readFromPacketNBT(cmp);
 		cooldown = cmp.getInt(TAG_COOLDOWN);
 		digestingMana = cmp.getInt(TAG_DIGESTING_MANA);

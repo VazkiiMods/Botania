@@ -11,11 +11,14 @@
 package vazkii.botania.common.block;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockDispenser;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.DispenserBlock;
+import net.minecraft.block.DispenserBlock;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.block.Blocks;
+import net.minecraft.item.DyeColor;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
@@ -364,7 +367,7 @@ public final class ModBlocks {
 		ILexiconable elvenResource = (w, po, pl, st) -> LexiconData.elvenResources;
 
 		Block.Properties builder = Block.Properties.create(Material.PLANTS).doesNotBlockMovement().hardnessAndResistance(0).sound(SoundType.PLANT);
-		for(EnumDyeColor color : EnumDyeColor.values()) {
+		for(DyeColor color : DyeColor.values()) {
 			register(r, new BlockModFlower(color, builder), color.getName() + LibBlockNames.MYSTICAL_FLOWER_SUFFIX);
 		}
 
@@ -446,7 +449,7 @@ public final class ModBlocks {
 		register(r, new BlockForestDrum(BlockForestDrum.Variant.GATHERING, builder), LibBlockNames.DRUM_GATHERING);
 		
 		builder = Block.Properties.create(Material.PLANTS).doesNotBlockMovement().hardnessAndResistance(0).sound(SoundType.PLANT).lightValue(15);
-		for (EnumDyeColor color : EnumDyeColor.values()) {
+		for (DyeColor color : DyeColor.values()) {
 			register(r, new BlockShinyFlower(color, builder), color.getName() + LibBlockNames.SHINY_FLOWER_SUFFIX);
 		}
 		
@@ -470,12 +473,12 @@ public final class ModBlocks {
 		register(r, new BlockSolidVines(Block.Properties.create(Material.VINE).hardnessAndResistance(0.2F).sound(SoundType.PLANT)), LibBlockNames.SOLID_VINE);
 		
 		builder = Block.Properties.create(Material.PLANTS).doesNotBlockMovement().hardnessAndResistance(0).sound(SoundType.PLANT).lightValue(4);
-		for(EnumDyeColor color : EnumDyeColor.values()) {
+		for(DyeColor color : DyeColor.values()) {
 			register(r, new BlockBuriedPetals(color, builder), color.getName() + LibBlockNames.BURIED_PETALS_SUFFIX);
 		}
 
 		builder = Block.Properties.create(Material.GROUND).hardnessAndResistance(0.5F).sound(SoundType.GROUND).lightValue(15);
-		for(EnumDyeColor color : EnumDyeColor.values()) {
+		for(DyeColor color : DyeColor.values()) {
 			register(r, new BlockFloatingFlower(color, builder), color.getName() + LibBlockNames.FLOATING_FLOWER_SUFFIX);
 		}
 
@@ -508,7 +511,7 @@ public final class ModBlocks {
 		register(r, new BlockEnchantedSoil(Block.Properties.create(Material.GRASS).hardnessAndResistance(0.6F).sound(SoundType.PLANT)), LibBlockNames.ENCHANTED_SOIL);
 
 		builder = Block.Properties.create(Material.PLANTS).hardnessAndResistance(0.4F).sound(SoundType.PLANT);
-		for(EnumDyeColor color : EnumDyeColor.values()) {
+		for(DyeColor color : DyeColor.values()) {
 			register(r, new BlockPetalBlock(color, builder), color.getName() + LibBlockNames.PETAL_BLOCK_SUFFIX);
 		}
 
@@ -516,14 +519,14 @@ public final class ModBlocks {
 		register(r, new BlockCorporeaFunnel(Block.Properties.create(Material.IRON).hardnessAndResistance(5.5F).sound(SoundType.METAL)), LibBlockNames.CORPOREA_FUNNEL);
 		
 		builder = Block.Properties.create(Material.PLANTS).doesNotBlockMovement().hardnessAndResistance(0).sound(SoundType.PLANT).lightValue(3);
-		for(EnumDyeColor color : EnumDyeColor.values()) {
+		for(DyeColor color : DyeColor.values()) {
 			register(r, new BlockModMushroom(color, builder), color.getName() + LibBlockNames.MUSHROOM_SUFFIX);
 		}
 		
 		register(r, new BlockPump(Block.Properties.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE)), LibBlockNames.PUMP);
 
 		builder = Block.Properties.create(Material.VINE).doesNotBlockMovement().hardnessAndResistance(0).sound(SoundType.PLANT);
-		for(EnumDyeColor color : EnumDyeColor.values()) {
+		for(DyeColor color : DyeColor.values()) {
 			register(r, new BlockModDoubleFlower(color, builder), color.getName() + LibBlockNames.DOUBLE_FLOWER_SUFFIX);
 		}
 
@@ -813,9 +816,9 @@ public final class ModBlocks {
 	}
 
 	public static void addDispenserBehaviours() {
-		BlockDispenser.registerDispenseBehavior(ModItems.twigWand, new BehaviourWand());
-		BlockDispenser.registerDispenseBehavior(ModItems.poolMinecart, new BehaviourPoolMinecart());
-		BlockDispenser.registerDispenseBehavior(ModBlocks.felPumpkin, new BehaviourFelPumpkin());
+		DispenserBlock.registerDispenseBehavior(ModItems.twigWand, new BehaviourWand());
+		DispenserBlock.registerDispenseBehavior(ModItems.poolMinecart, new BehaviourPoolMinecart());
+		DispenserBlock.registerDispenseBehavior(ModBlocks.felPumpkin, new BehaviourFelPumpkin());
 
 		SeedBehaviours.init();
 	}
@@ -879,7 +882,7 @@ public final class ModBlocks {
 
 
 
-	public static Block getFlower(EnumDyeColor color) {
+	public static Block getFlower(DyeColor color) {
 		switch (color) {
 			default:
 			case WHITE: return whiteFlower;
@@ -901,7 +904,7 @@ public final class ModBlocks {
 		}
 	}
 	
-	public static Block getMushroom(EnumDyeColor color) {
+	public static Block getMushroom(DyeColor color) {
 		switch (color) {
 			default:
 			case WHITE: return whiteMushroom;
@@ -923,7 +926,7 @@ public final class ModBlocks {
 		}
 	}
 
-	public static Block getWool(EnumDyeColor color) {
+	public static Block getWool(DyeColor color) {
 		switch (color) {
 			default:
 			case WHITE: return Blocks.WHITE_WOOL;
@@ -945,7 +948,7 @@ public final class ModBlocks {
 		}
 	}
 
-	public static Block getCarpet(EnumDyeColor color) {
+	public static Block getCarpet(DyeColor color) {
 		switch (color) {
 			default:
 			case WHITE: return Blocks.WHITE_CARPET;
@@ -967,7 +970,7 @@ public final class ModBlocks {
 		}
 	}
 
-	public static Block getBuriedPetal(EnumDyeColor color) {
+	public static Block getBuriedPetal(DyeColor color) {
 		switch (color) {
 			default:
 			case WHITE: return whiteBuriedPetals;
@@ -989,7 +992,7 @@ public final class ModBlocks {
 		}
 	}
 	
-	public static Block getShinyFlower(EnumDyeColor color) {
+	public static Block getShinyFlower(DyeColor color) {
 		switch (color) {
 			default:
 			case WHITE: return whiteShinyFlower;
@@ -1011,7 +1014,7 @@ public final class ModBlocks {
 		}
 	}
 
-	public static Block getFloatingFlower(EnumDyeColor color) {
+	public static Block getFloatingFlower(DyeColor color) {
 		switch (color) {
 			default:
 			case WHITE: return whiteFloatingFlower;
@@ -1033,7 +1036,7 @@ public final class ModBlocks {
 		}
 	}
 	
-	public static Block getDoubleFlower(EnumDyeColor color) {
+	public static Block getDoubleFlower(DyeColor color) {
 		switch (color) {
 			default:
 			case WHITE: return doubleFlowerWhite;

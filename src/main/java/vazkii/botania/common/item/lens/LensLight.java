@@ -11,9 +11,10 @@
 package vazkii.botania.common.item.lens;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.projectile.EntityThrowable;
-import net.minecraft.init.Blocks;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.projectile.ThrowableEntity;
+import net.minecraft.block.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
@@ -25,13 +26,13 @@ import vazkii.botania.common.block.tile.TileManaFlame;
 public class LensLight extends Lens {
 
 	@Override
-	public boolean collideBurst(IManaBurst burst, EntityThrowable entity, RayTraceResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
+	public boolean collideBurst(IManaBurst burst, ThrowableEntity entity, RayTraceResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
 		BlockPos coords = burst.getBurstSourceBlockPos();
 		if(!entity.world.isRemote && pos.type == RayTraceResult.Type.BLOCK && !coords.equals(pos.getBlockPos()) && !burst.isFake() && !isManaBlock) {
 			BlockPos neighborPos = pos.getBlockPos().offset(pos.sideHit);
 
 			Block blockAt = entity.world.getBlockState(pos.getBlockPos()).getBlock();
-			IBlockState neighbor = entity.world.getBlockState(neighborPos);
+			BlockState neighbor = entity.world.getBlockState(neighborPos);
 
 			if(blockAt == ModBlocks.manaFlame)
 				entity.world.setBlockState(pos.getBlockPos(), Blocks.AIR.getDefaultState());

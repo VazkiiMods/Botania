@@ -10,12 +10,13 @@
  */
 package vazkii.botania.client.render.tile;
 
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GlStateManager;
+import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.state.BotaniaStateProps;
@@ -41,7 +42,7 @@ public class RenderTileLightRelay extends TileEntityRenderer<TileLightRelay> {
 		if(!tile.getWorld().isBlockLoaded(tile.getPos(), false))
 			return;
 
-		IBlockState state = tile.getWorld().getBlockState(tile.getPos());
+		BlockState state = tile.getWorld().getBlockState(tile.getPos());
 		if(!(state.getBlock() instanceof BlockLightRelay))
 			return;
 
@@ -79,7 +80,7 @@ public class RenderTileLightRelay extends TileEntityRenderer<TileLightRelay> {
 		GlStateManager.rotatef((float) time, 0F, 0F, 1F);
 		GlStateManager.translatef(0F, -off, 0F);
 
-		mc.textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+		mc.textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
 		ShaderHelper.useShader(ShaderHelper.halo);
 		renderIcon(tessellator, iicon);
 		ShaderHelper.releaseShader();

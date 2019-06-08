@@ -13,13 +13,16 @@ package vazkii.botania.client.gui.lexicon;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.SimpleSound;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.widget.button.Button;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.widget.button.Button;
+import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.InputMappings;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SharedConstants;
 import net.minecraft.util.text.TextFormatting;
@@ -65,7 +68,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 
-public class GuiLexicon extends GuiScreen {
+public class GuiLexicon extends Screen {
 
 	public static GuiLexicon currentOpenLexicon = new GuiLexicon();
 	public static ItemStack stackUsed = ItemStack.EMPTY;
@@ -506,7 +509,7 @@ public class GuiLexicon extends GuiScreen {
 		LexiconEntry entry = tutorial.peek();
 		LexiconCategory category = entry.category;
 
-		for(GuiButton button : buttons)
+		for(Button button : buttons)
 			if(button instanceof GuiButtonCategory) {
 				GuiButtonCategory catButton = (GuiButtonCategory) button;
 				if(catButton.getCategory() == category) {
@@ -516,7 +519,7 @@ public class GuiLexicon extends GuiScreen {
 			}
 	}
 
-	public void orientTutorialArrowWithButton(GuiButton button) {
+	public void orientTutorialArrowWithButton(Button button) {
 		tutorialArrowX = button.x - TUTORIAL_ARROW_WIDTH;
 		tutorialArrowY = button.y - TUTORIAL_ARROW_HEIGHT;
 	}
@@ -581,7 +584,7 @@ public class GuiLexicon extends GuiScreen {
 		return false;
 	}
 
-	public static GuiLexicon create(NBTTagCompound cmp) {
+	public static GuiLexicon create(CompoundNBT cmp) {
 		String type = cmp.getString(TAG_TYPE);
 		try {
 			GuiLexicon lex = (GuiLexicon) Class.forName(type).newInstance();
@@ -596,7 +599,7 @@ public class GuiLexicon extends GuiScreen {
 		}
 	}
 
-	public void serialize(NBTTagCompound cmp) {
+	public void serialize(CompoundNBT cmp) {
 		cmp.putString(TAG_TYPE, getClass().getName());
 	}
 
@@ -604,7 +607,7 @@ public class GuiLexicon extends GuiScreen {
 		return "index";
 	}
 
-	public void load(NBTTagCompound cmp) {}
+	public void load(CompoundNBT cmp) {}
 
 	public GuiLexicon copy() {
 		return new GuiLexicon();

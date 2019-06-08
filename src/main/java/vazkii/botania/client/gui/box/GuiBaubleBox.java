@@ -10,18 +10,20 @@
  */
 package vazkii.botania.client.gui.box;
 
-import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Slot;
+import net.minecraft.client.gui.screen.inventory.ContainerScreen;
+import net.minecraft.client.gui.screen.inventory.ContainerScreen;
+import com.mojang.blaze3d.platform.GlStateManager;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.container.Slot;
+import net.minecraft.inventory.container.Slot;
 import net.minecraft.util.ResourceLocation;
 import vazkii.botania.client.lib.LibResources;
 
-public class GuiBaubleBox extends GuiContainer {
+public class GuiBaubleBox extends ContainerScreen {
 
 	private static final ResourceLocation texture = new ResourceLocation(LibResources.GUI_BAUBLE_BOX);
 
-	public GuiBaubleBox(EntityPlayer player, InventoryBaubleBox box) {
+	public GuiBaubleBox(PlayerEntity player, InventoryBaubleBox box) {
 		super(new ContainerBaubleBox(player, box));
 	}
 

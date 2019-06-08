@@ -11,9 +11,11 @@
 package vazkii.botania.common.block.subtile.functional;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.block.BlockState;
+import net.minecraft.item.DyeColor;
+import net.minecraft.item.DyeColor;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.registries.ObjectHolder;
@@ -54,9 +56,9 @@ public class SubTileJadedAmaranthus extends TileEntityFunctionalFlower {
 			BlockPos up = pos.up();
 
 			for(int i = 0; i < RANGE * 2; i++) {
-				IBlockState stateAbove = getWorld().getBlockState(up);
-				EnumDyeColor color = EnumDyeColor.byId(getWorld().rand.nextInt(16));
-				IBlockState flower = ModBlocks.getFlower(color).getDefaultState();
+				BlockState stateAbove = getWorld().getBlockState(up);
+				DyeColor color = DyeColor.byId(getWorld().rand.nextInt(16));
+				BlockState flower = ModBlocks.getFlower(color).getDefaultState();
 
 				if((getWorld().isAirBlock(up) || stateAbove.getMaterial() != Material.WATER && flower.isValidPosition(getWorld(), up))) {
 					if(ConfigHandler.COMMON.blockBreakParticles.get())

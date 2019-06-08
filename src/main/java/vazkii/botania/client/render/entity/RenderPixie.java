@@ -10,10 +10,11 @@
  */
 package vazkii.botania.client.render.entity;
 
-import net.minecraft.client.renderer.GlStateManager;
+import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
-import net.minecraft.client.renderer.entity.RenderLiving;
-import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.entity.EntityRendererManager;
+import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.ARBShaderObjects;
 import org.lwjgl.opengl.GL11;
@@ -25,7 +26,7 @@ import vazkii.botania.common.entity.EntityPixie;
 
 import javax.annotation.Nonnull;
 
-public class RenderPixie extends RenderLiving<EntityPixie> {
+public class RenderPixie extends MobRenderer<EntityPixie> {
 
 	private final ShaderCallback callback = shader -> {
 		// Frag Uniforms
@@ -37,7 +38,7 @@ public class RenderPixie extends RenderLiving<EntityPixie> {
 		ARBShaderObjects.glUniform1fARB(grainIntensityUniform, 0.05F);
 	};
 
-	public RenderPixie(RenderManager renderManager) {
+	public RenderPixie(EntityRendererManager renderManager) {
 		super(renderManager, new ModelPixie(), 0.25F);
 		//setRenderPassModel(new ModelPixie());
 		shadowSize = 0.0F;

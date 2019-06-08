@@ -10,8 +10,9 @@
  */
 package vazkii.botania.common.block.decor.stairs;
 
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -20,12 +21,12 @@ import vazkii.botania.common.lexicon.LexiconData;
 
 public class BlockBiomeStoneStairs extends BlockModStairs {
 
-	public BlockBiomeStoneStairs(IBlockState state, Properties props) {
+	public BlockBiomeStoneStairs(BlockState state, Properties props) {
 		super(state, props);
 	}
 
 	@Override
-	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
+	public LexiconEntry getEntry(World world, BlockPos pos, PlayerEntity player, ItemStack lexicon) {
 		return LexiconData.marimorphosis;
 	}
 

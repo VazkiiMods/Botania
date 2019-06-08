@@ -11,12 +11,13 @@
 package vazkii.botania.common.item.rod;
 
 import net.minecraft.block.Block;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -55,7 +56,7 @@ public class ItemRainbowRod extends ItemMod implements IManaUsingItem, IAvatarWi
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
 		ItemStack stack = player.getHeldItem(hand);
 		if(!world.isRemote && ManaItemHandler.requestManaExactForTool(stack, player, MANA_COST, false)) {
 			Block place = ModBlocks.bifrost;
@@ -119,7 +120,7 @@ public class ItemRainbowRod extends ItemMod implements IManaUsingItem, IAvatarWi
 			}
 		}
 
-		return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
+		return ActionResult.newResult(ActionResultType.SUCCESS, stack);
 	}
 
 	@Nonnull
@@ -167,8 +168,8 @@ public class ItemRainbowRod extends ItemMod implements IManaUsingItem, IAvatarWi
 		default: break;
 		}
 
-		List<EntityPlayer> players = world.getEntitiesWithinAABB(EntityPlayer.class, axis);
-		for(EntityPlayer p : players) {
+		List<PlayerEntity> players = world.getEntitiesWithinAABB(PlayerEntity.class, axis);
+		for(PlayerEntity p : players) {
 			int px = MathHelper.floor(p.posX);
 			int py = MathHelper.floor(p.posY) - 1;
 			int pz = MathHelper.floor(p.posZ);

@@ -12,16 +12,20 @@ package vazkii.botania.common.item.equipment.tool.manasteel;
 
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Enchantments;
-import net.minecraft.item.ItemShears;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.block.Blocks;
+import net.minecraft.enchantment.Enchantments;
+import net.minecraft.item.ShearsItem;
 import net.minecraft.item.ItemStack;
-import net.minecraft.stats.StatList;
-import net.minecraft.util.EnumHand;
+import net.minecraft.stats.Stats;
+import net.minecraft.stats.Stats;
+import net.minecraft.util.Hand;
+import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -42,7 +46,7 @@ import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Random;
 
-public class ItemManasteelShears extends ItemShears implements IManaUsingItem {
+public class ItemManasteelShears extends ShearsItem implements IManaUsingItem {
 
 	public static final int MANA_PER_DAMAGE = 30;
 
@@ -51,7 +55,7 @@ public class ItemManasteelShears extends ItemShears implements IManaUsingItem {
 	}
 
 	@Override
-	public boolean itemInteractionForEntity(@Nonnull ItemStack itemstack, EntityPlayer player, EntityLivingBase entity, EnumHand hand) {
+	public boolean itemInteractionForEntity(@Nonnull ItemStack itemstack, PlayerEntity player, LivingEntity entity, Hand hand) {
 		if(entity.world.isRemote)
 			return false;
 
@@ -74,7 +78,7 @@ public class ItemManasteelShears extends ItemShears implements IManaUsingItem {
 	}
 
 	@Override
-	public boolean onBlockStartBreak(@Nonnull ItemStack itemstack, @Nonnull BlockPos pos, EntityPlayer player) {
+	public boolean onBlockStartBreak(@Nonnull ItemStack itemstack, @Nonnull BlockPos pos, PlayerEntity player) {
 		if (player.world.isRemote)
 			return false;
 
@@ -91,13 +95,13 @@ public class ItemManasteelShears extends ItemShears implements IManaUsingItem {
 					double d1 = rand.nextFloat() * f + (1D - f) * 0.5;
 					double d2 = rand.nextFloat() * f + (1D - f) * 0.5;
 
-					EntityItem entityitem = new EntityItem(player.world, pos.getX() + d, pos.getY() + d1, pos.getZ() + d2, stack);
+					ItemEntity entityitem = new ItemEntity(player.world, pos.getX() + d, pos.getY() + d1, pos.getZ() + d2, stack);
 					entityitem.setPickupDelay(10);
 					player.world.spawnEntity(entityitem);
 				}
 
 				ToolCommons.damageItem(itemstack, 1, player, MANA_PER_DAMAGE);
-				player.addStat(StatList.BLOCK_MINED.get(block), 1);
+				player.addStat(Stats.BLOCK_MINED.get(block), 1);
 				player.world.setBlockState(pos, Blocks.AIR.getDefaultState(), 11);
 				return true;
 			}
@@ -108,7 +112,7 @@ public class ItemManasteelShears extends ItemShears implements IManaUsingItem {
 
 	@Override
 	public void inventoryTick(ItemStack stack, World world, Entity player, int par4, boolean par5) {
-		if(!world.isRemote && player instanceof EntityPlayer && stack.getDamage() > 0 && ManaItemHandler.requestManaExactForTool(stack, (EntityPlayer) player, MANA_PER_DAMAGE * 2, true))
+		if(!world.isRemote && player instanceof PlayerEntity && stack.getDamage() > 0 && ManaItemHandler.requestManaExactForTool(stack, (PlayerEntity) player, MANA_PER_DAMAGE * 2, true))
 			stack.setDamage(stack.getDamage() - 1);
 	}
 

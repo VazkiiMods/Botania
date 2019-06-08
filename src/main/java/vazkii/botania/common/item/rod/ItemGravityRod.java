@@ -11,15 +11,21 @@
 package vazkii.botania.common.item.rod;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.MobEffects;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Effects;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.PotionEffect;
+import net.minecraft.potion.Effects;
+import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
@@ -60,7 +66,7 @@ public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 
 	@Override
 	public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean held) {
-		if(!(entity instanceof EntityPlayer))
+		if(!(entity instanceof PlayerEntity))
 			return;
 
 		int ticksTillExpire = ItemNBTHelper.getInt(stack, TAG_TICKS_TILL_EXPIRE, 0);
@@ -78,8 +84,8 @@ public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 		ItemNBTHelper.setInt(stack, TAG_TICKS_TILL_EXPIRE, ticksTillExpire);
 		ItemNBTHelper.setInt(stack, TAG_TICKS_COOLDOWN, ticksCooldown);
 
-		EntityPlayer player = (EntityPlayer) entity;
-		PotionEffect haste = player.getActivePotionEffect(MobEffects.HASTE);
+		PlayerEntity player = (PlayerEntity) entity;
+		EffectInstance haste = player.getActivePotionEffect(Effects.HASTE);
 		float check = haste == null ? 0.16666667F : haste.getAmplifier() == 1 ? 0.5F : 0.4F;
 		if(player.getHeldItemMainhand() == stack && player.swingProgress == check && !world.isRemote)
 			leftClick(player);
@@ -87,7 +93,7 @@ public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
 		ItemStack stack = player.getHeldItem(hand);
 		int targetID = ItemNBTHelper.getInt(stack, TAG_TARGET, -1);
 		int ticksCooldown = ItemNBTHelper.getInt(stack, TAG_TICKS_COOLDOWN, 0);
@@ -127,29 +133,29 @@ public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 				if(entities.size() > 0) {
 					item = entities.get(0);
 					length = 5.5D;
-					if(item instanceof EntityItem)
+					if(item instanceof ItemEntity)
 						length = 2.0D;
 				}
 			}
 
 			if(item != null) {
 				if(BotaniaAPI.isEntityBlacklistedFromGravityRod(item.getClass()))
-					return ActionResult.newResult(EnumActionResult.FAIL, stack);
+					return ActionResult.newResult(ActionResultType.FAIL, stack);
 
 				if(ManaItemHandler.requestManaExactForTool(stack, player, COST, true)) {
-					if(item instanceof EntityItem)
-						((EntityItem) item).setPickupDelay(5);
+					if(item instanceof ItemEntity)
+						((ItemEntity) item).setPickupDelay(5);
 
-					if(item instanceof EntityLivingBase) {
-						EntityLivingBase targetEntity = (EntityLivingBase)item;
+					if(item instanceof LivingEntity) {
+						LivingEntity targetEntity = (LivingEntity)item;
 						targetEntity.fallDistance = 0.0F;
-						if(targetEntity.getActivePotionEffect(MobEffects.SLOWNESS) == null)
-							targetEntity.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 2, 3, true, true));
+						if(targetEntity.getActivePotionEffect(Effects.SLOWNESS) == null)
+							targetEntity.addPotionEffect(new EffectInstance(Effects.SLOWNESS, 2, 3, true, true));
 					}
 
 					Vector3 target3 = Vector3.fromEntityCenter(player)
 							.add(new Vector3(player.getLookVec()).multiply(length)).add(0, 0.5, 0);
-					if(item instanceof EntityItem)
+					if(item instanceof ItemEntity)
 						target3 = target3.add(0, 0.25, 0);
 
 					for(int i = 0; i < 4; i++) {
@@ -170,10 +176,10 @@ public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 				}
 
 				ItemNBTHelper.setInt(stack, TAG_TICKS_TILL_EXPIRE, 5);
-				return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
+				return ActionResult.newResult(ActionResultType.SUCCESS, stack);
 			}
 		}
-		return ActionResult.newResult(EnumActionResult.PASS, stack);
+		return ActionResult.newResult(ActionResultType.PASS, stack);
 	}
 
 	@Override
@@ -181,7 +187,7 @@ public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 		return true;
 	}
 
-	private static void leftClick(EntityPlayer player) {
+	private static void leftClick(PlayerEntity player) {
 		ItemStack stack = player.getHeldItemMainhand();
 		if(!stack.isEmpty() && stack.getItem() == ModItems.gravityRod) {
 			int targetID = ItemNBTHelper.getInt(stack, TAG_TARGET, -1);
@@ -208,14 +214,14 @@ public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 					ItemNBTHelper.setInt(stack, TAG_TARGET, -1);
 					ItemNBTHelper.setDouble(stack, TAG_DIST, -1);
 					Vector3 moveVector = new Vector3(player.getLookVec().normalize());
-					if(item instanceof EntityItem) {
-						((EntityItem) item).setPickupDelay(20);
+					if(item instanceof ItemEntity) {
+						((ItemEntity) item).setPickupDelay(20);
 						float mot = IManaProficiencyArmor.Helper.hasProficiency(player, stack) ? 2.25F : 1.5F;
 						item.motionX = moveVector.x * mot;
 						item.motionY = moveVector.y;
 						item.motionZ = moveVector.z * mot;
 						if(!player.world.isRemote) {
-							EntityThrownItem thrown = new EntityThrownItem(item.world, item.posX, item.posY, item.posZ, (EntityItem) item);
+							EntityThrownItem thrown = new EntityThrownItem(item.world, item.posX, item.posY, item.posZ, (ItemEntity) item);
 							item.world.spawnEntity(thrown);
 						}
 						item.remove();

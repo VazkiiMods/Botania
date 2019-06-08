@@ -12,8 +12,8 @@ package vazkii.botania.client.core.handler;
 
 import com.google.common.collect.ImmutableList;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -69,12 +69,12 @@ public final class ClientTickHandler {
 				SubTileVinculotus.existingFlowers.clear();
 			}
 
-			GuiScreen gui = Minecraft.getInstance().currentScreen;
+			Screen gui = Minecraft.getInstance().currentScreen;
 			if(gui == null || !gui.doesGuiPauseGame()) {
 				ticksInGame++;
 				partialTicks = 0;
 
-				EntityPlayer player = Minecraft.getInstance().player;
+				PlayerEntity player = Minecraft.getInstance().player;
 				if(player != null) {
 					if(PlayerHelper.hasHeldItemClass(player, ModItems.twigWand)) {
 						for(TileSignature sig : ImmutableList.copyOf(ManaNetworkHandler.instance.getAllCollectorsInWorld(Minecraft.getInstance().world))) {

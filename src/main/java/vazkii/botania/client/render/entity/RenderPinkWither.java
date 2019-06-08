@@ -10,25 +10,27 @@
  */
 package vazkii.botania.client.render.entity;
 
-import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.client.renderer.entity.RenderWither;
-import net.minecraft.entity.boss.EntityWither;
+import net.minecraft.client.renderer.entity.EntityRendererManager;
+import net.minecraft.client.renderer.entity.WitherRenderer;
+import net.minecraft.client.renderer.entity.WitherRenderer;
+import net.minecraft.entity.boss.WitherEntity;
+import net.minecraft.entity.boss.WitherEntity;
 import net.minecraft.util.ResourceLocation;
 import vazkii.botania.client.lib.LibResources;
 
 import javax.annotation.Nonnull;
 
-public class RenderPinkWither extends RenderWither {
+public class RenderPinkWither extends WitherRenderer {
 
 	private static final ResourceLocation resource = new ResourceLocation(LibResources.MODEL_PINK_WITHER);
 
-	public RenderPinkWither(RenderManager manager) {
+	public RenderPinkWither(EntityRendererManager manager) {
 		super(manager);
 	}
 
 	@Nonnull
 	@Override
-	protected ResourceLocation getEntityTexture(EntityWither entity) {
+	protected ResourceLocation getEntityTexture(WitherEntity entity) {
 		return resource;
 	}
 

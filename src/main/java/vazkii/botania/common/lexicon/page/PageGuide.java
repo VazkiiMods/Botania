@@ -10,7 +10,8 @@
  */
 package vazkii.botania.common.lexicon.page;
 
-import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.widget.button.Button;
+import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.resources.I18n;
 import vazkii.botania.api.internal.IGuiLexiconEntry;
 
@@ -21,7 +22,7 @@ import java.net.URISyntaxException;
 
 public class PageGuide extends PageText {
 
-	private GuiButton button;
+	private Button button;
 
 	public PageGuide(String unlocalizedName) {
 		super(unlocalizedName);
@@ -29,7 +30,7 @@ public class PageGuide extends PageText {
 
 	@Override
 	public void onOpened(IGuiLexiconEntry gui) {
-		button = new GuiButton(101, gui.getLeft() + 30, gui.getTop() + gui.getHeight() - 50, gui.getWidth() - 60, 20, I18n.format("botaniamisc.playVideo")) {
+		button = new Button(101, gui.getLeft() + 30, gui.getTop() + gui.getHeight() - 50, gui.getWidth() - 60, 20, I18n.format("botaniamisc.playVideo")) {
 			@Override
 			public void onClick(double mouseX, double mouseY) {
 				super.onClick(mouseX, mouseY);

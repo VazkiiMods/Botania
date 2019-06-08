@@ -11,7 +11,8 @@
 package vazkii.botania.api.lexicon.multiblock;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.world.IBlockReader;
 import vazkii.botania.api.lexicon.multiblock.component.MultiblockComponent;
 
@@ -25,8 +26,8 @@ public interface IMultiblockRenderHook {
 
 	public static Map<Block, IMultiblockRenderHook> renderHooks = new HashMap<>();
 
-	public void renderBlockForMultiblock(IBlockReader world, Multiblock mb, IBlockState state, MultiblockComponent comp);
+	public void renderBlockForMultiblock(IBlockReader world, Multiblock mb, BlockState state, MultiblockComponent comp);
 
-	public boolean needsTranslate(IBlockState state);
+	public boolean needsTranslate(BlockState state);
 
 }

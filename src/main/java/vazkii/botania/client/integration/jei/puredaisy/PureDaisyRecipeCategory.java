@@ -15,10 +15,11 @@ import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.BlockState;
+import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.init.Items;
+import net.minecraft.item.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tags.Tag;
 import net.minecraft.util.ResourceLocation;
@@ -85,8 +86,8 @@ public class PureDaisyRecipeCategory implements IRecipeCategory<RecipePureDaisy>
 		if(recipe.getInput() instanceof Tag) {
 			Collection<Block> all = ((Tag<Block>) recipe.getInput()).getAllElements();
 			iIngredients.setInputs(VanillaTypes.ITEM, all.stream().map(ItemStack::new).filter(ItemStack::isEmpty).collect(Collectors.toList()));
-		} else if(recipe.getInput() instanceof Block || recipe.getInput() instanceof IBlockState) {
-			IBlockState state = recipe.getInput() instanceof IBlockState ? (IBlockState) recipe.getInput() : ((Block) recipe.getInput()).getDefaultState();
+		} else if(recipe.getInput() instanceof Block || recipe.getInput() instanceof BlockState) {
+			BlockState state = recipe.getInput() instanceof BlockState ? (BlockState) recipe.getInput() : ((Block) recipe.getInput()).getDefaultState();
 			Block b = state.getBlock();
 
 			// todo 1.13 fluids

@@ -10,17 +10,18 @@
  */
 package vazkii.botania.common.block.tile;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.block.Blocks;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.block.Blocks;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particles.RedstoneParticleData;
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.ITickable;
+import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.world.WorldServer;
+import net.minecraft.world.ServerWorld;
 import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
@@ -29,7 +30,7 @@ import vazkii.botania.common.lib.LibMisc;
 
 import java.util.List;
 
-public class TileEnderEye extends TileMod implements ITickable {
+public class TileEnderEye extends TileMod implements ITickableTileEntity {
 	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.ENDER_EYE_BLOCK)
 	public static TileEntityType<TileEnderEye> TYPE;
 
@@ -44,11 +45,11 @@ public class TileEnderEye extends TileMod implements ITickable {
 
 		boolean wasLooking = world.getBlockState(getPos()).get(BotaniaStateProps.POWERED);
 		int range = 80;
-		List<EntityPlayer> players = world.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(pos.add(-range, -range, -range), pos.add(range, range, range)));
+		List<PlayerEntity> players = world.getEntitiesWithinAABB(PlayerEntity.class, new AxisAlignedBB(pos.add(-range, -range, -range), pos.add(range, range, range)));
 
 		boolean looking = false;
-		for(EntityPlayer player : players) {
-			ItemStack helm = player.getItemStackFromSlot(EntityEquipmentSlot.HEAD);
+		for(PlayerEntity player : players) {
+			ItemStack helm = player.getItemStackFromSlot(EquipmentSlotType.HEAD);
 			if(!helm.isEmpty() && helm.getItem() == Item.getItemFromBlock(Blocks.PUMPKIN))
 				continue;
 

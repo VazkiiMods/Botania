@@ -12,38 +12,52 @@ package vazkii.botania.common.entity;
 
 import io.netty.buffer.ByteBuf;
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.audio.MovingSound;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.client.audio.TickableSound;
+import net.minecraft.client.audio.TickableSound;
+import com.mojang.blaze3d.platform.GlStateManager;
+import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.entity.*;
-import net.minecraft.entity.ai.EntityAISwimming;
-import net.minecraft.entity.ai.EntityAIWatchClosest;
-import net.minecraft.entity.monster.EntitySkeleton;
-import net.minecraft.entity.monster.EntityWitch;
-import net.minecraft.entity.monster.EntityWitherSkeleton;
-import net.minecraft.entity.monster.EntityZombie;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.ai.goal.SwimGoal;
+import net.minecraft.entity.ai.goal.LookAtGoal;
+import net.minecraft.entity.ai.goal.SwimGoal;
+import net.minecraft.entity.monster.SkeletonEntity;
+import net.minecraft.entity.monster.WitchEntity;
+import net.minecraft.entity.monster.WitherSkeletonEntity;
+import net.minecraft.entity.monster.ZombieEntity;
+import net.minecraft.entity.monster.SkeletonEntity;
+import net.minecraft.entity.monster.WitchEntity;
+import net.minecraft.entity.monster.WitherSkeletonEntity;
+import net.minecraft.entity.monster.ZombieEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.init.*;
-import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.item.Items;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.network.play.server.SPacketRemoveEntityEffect;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
+import net.minecraft.network.play.server.SRemoveEntityEffectPacket;
+import net.minecraft.potion.Effect;
+import net.minecraft.potion.Effects;
+import net.minecraft.potion.Effect;
+import net.minecraft.potion.EffectInstance;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.Tag;
-import net.minecraft.tileentity.TileEntityBeacon;
+import net.minecraft.tileentity.BeaconTileEntity;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -51,13 +65,15 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.Style;
-import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.BossInfo;
-import net.minecraft.world.BossInfoServer;
-import net.minecraft.world.EnumDifficulty;
+import net.minecraft.world.Difficulty;
+import net.minecraft.world.ServerBossInfo;
+import net.minecraft.world.Difficulty;
+import net.minecraft.world.ServerBossInfo;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldServer;
+import net.minecraft.world.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.util.FakePlayer;
@@ -99,7 +115,7 @@ import java.util.UUID;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IEntityAdditionalSpawnData {
+public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEntityAdditionalSpawnData {
 	@ObjectHolder(LibMisc.MOD_ID + ":doppleganger")
 	public static EntityType<?> TYPE;
 
@@ -150,9 +166,9 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 	private boolean hardMode = false;
 	private BlockPos source = BlockPos.ORIGIN;
 	private final List<UUID> playersWhoAttacked = new ArrayList<>();
-	private final BossInfoServer bossInfo = (BossInfoServer) new BossInfoServer(TYPE.getName(), BossInfo.Color.PINK, BossInfo.Overlay.PROGRESS).setCreateFog(true);;
+	private final ServerBossInfo bossInfo = (ServerBossInfo) new ServerBossInfo(TYPE.getName(), BossInfo.Color.PINK, BossInfo.Overlay.PROGRESS).setCreateFog(true);;
 	private UUID bossInfoUUID = bossInfo.getUniqueId();
-	public EntityPlayer trueKiller = null;
+	public PlayerEntity trueKiller = null;
 
 	public EntityDoppleganger(World world) {
 		super(TYPE, world);
@@ -180,19 +196,19 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 		return mb.makeSet();
 	}
 
-	public static boolean spawn(EntityPlayer player, ItemStack stack, World world, BlockPos pos, boolean hard) {
+	public static boolean spawn(PlayerEntity player, ItemStack stack, World world, BlockPos pos, boolean hard) {
 		//initial checks
 		if(
-			!(world.getTileEntity(pos) instanceof TileEntityBeacon) || 
+			!(world.getTileEntity(pos) instanceof BeaconTileEntity) ||
 			!isTruePlayer(player) ||
 			countGaiaGuardiansAround(world, pos) > 0
 		)
 			return false;
 		
 		//check difficulty
-		if(world.getDifficulty() == EnumDifficulty.PEACEFUL) {
+		if(world.getDifficulty() == Difficulty.PEACEFUL) {
 			if(!world.isRemote)
-				player.sendMessage(new TextComponentTranslation("botaniamisc.peacefulNoob").setStyle(new Style().setColor(TextFormatting.RED)));
+				player.sendMessage(new TranslationTextComponent("botaniamisc.peacefulNoob").setStyle(new Style().setColor(TextFormatting.RED)));
 			return false;
 		}
 
@@ -200,10 +216,10 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 		for(BlockPos coords : PYLON_LOCATIONS) {
 			BlockPos pos_ = pos.add(coords);
 
-			IBlockState state = world.getBlockState(pos_);
+			BlockState state = world.getBlockState(pos_);
 			if(state.getBlock() != ModBlocks.gaiaPylon) {
 				if(!world.isRemote)
-					player.sendMessage(new TextComponentTranslation("botaniamisc.needsCatalysts").setStyle(new Style().setColor(TextFormatting.RED)));
+					player.sendMessage(new TranslationTextComponent("botaniamisc.needsCatalysts").setStyle(new Style().setColor(TextFormatting.RED)));
 				return false;
 			}
 		}
@@ -217,10 +233,10 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 					Botania.proxy.wispFX(pos_.getX() + 0.5, pos_.getY() + 0.5, pos_.getZ() + 0.5, 1F, 0.2F, 0.2F, 0.5F, 0F, 8);
 				Botania.proxy.setWispFXDepthTest(true);
 			} else {
-				PacketHandler.sendTo((EntityPlayerMP) player,
+				PacketHandler.sendTo((ServerPlayerEntity) player,
 					new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.ARENA_INDICATOR, pos.getX(), pos.getY(), pos.getZ()));
 
-				player.sendMessage(new TextComponentTranslation("botaniamisc.badArena").setStyle(new Style().setColor(TextFormatting.RED)));
+				player.sendMessage(new TranslationTextComponent("botaniamisc.badArena").setStyle(new Style().setColor(TextFormatting.RED)));
 			}
 
 			return false;
@@ -282,8 +298,8 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 
 	@Override
 	protected void initEntityAI() {
-		tasks.addTask(0, new EntityAISwimming(this));
-		tasks.addTask(1, new EntityAIWatchClosest(this, EntityPlayer.class, ARENA_RANGE * 1.5F));
+		tasks.addTask(0, new SwimGoal(this));
+		tasks.addTask(1, new LookAtGoal(this, PlayerEntity.class, ARENA_RANGE * 1.5F));
 	}
 
 	@Override
@@ -305,7 +321,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 	}
 
 	@Override
-	public void writeAdditional(NBTTagCompound cmp) {
+	public void writeAdditional(CompoundNBT cmp) {
 		super.writeAdditional(cmp);
 		cmp.putInt(TAG_INVUL_TIME, getInvulTime());
 		cmp.putBoolean(TAG_AGGRO, aggro);
@@ -320,7 +336,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 	}
 
 	@Override
-	public void readAdditional(NBTTagCompound cmp) {
+	public void readAdditional(CompoundNBT cmp) {
 		super.readAdditional(cmp);
 		setInvulTime(cmp.getInt(TAG_INVUL_TIME));
 		aggro = cmp.getBoolean(TAG_AGGRO);
@@ -362,8 +378,8 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 	@Override
 	public boolean attackEntityFrom(@Nonnull DamageSource source, float par2) {
 		Entity e = source.getTrueSource();
-		if (e instanceof EntityPlayer && isTruePlayer(e) && getInvulTime() == 0) {
-			EntityPlayer player = (EntityPlayer) e;
+		if (e instanceof PlayerEntity && isTruePlayer(e) && getInvulTime() == 0) {
+			PlayerEntity player = (PlayerEntity) e;
 
 			if(!playersWhoAttacked.contains(player.getUniqueID()))
 				playersWhoAttacked.add(player.getUniqueID());
@@ -377,10 +393,10 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 
 	private static final Pattern FAKE_PLAYER_PATTERN = Pattern.compile("^(?:\\[.*\\])|(?:ComputerCraft)$");
 	public static boolean isTruePlayer(Entity e) {
-		if(!(e instanceof EntityPlayer))
+		if(!(e instanceof PlayerEntity))
 			return false;
 
-		EntityPlayer player = (EntityPlayer) e;
+		PlayerEntity player = (PlayerEntity) e;
 
 		String name = player.getName().getString();
 		return !(player instanceof FakePlayer || FAKE_PLAYER_PATTERN.matcher(name).matches());
@@ -411,9 +427,9 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 	@Override
 	public void onDeath(@Nonnull DamageSource source) {
 		super.onDeath(source);
-		EntityLivingBase entitylivingbase = getAttackingEntity();
-		if(entitylivingbase instanceof EntityPlayerMP && !anyWithArmor) {
-			DopplegangerNoArmorTrigger.INSTANCE.trigger((EntityPlayerMP) entitylivingbase, this, source);
+		LivingEntity entitylivingbase = getAttackingEntity();
+		if(entitylivingbase instanceof ServerPlayerEntity && !anyWithArmor) {
+			DopplegangerNoArmorTrigger.INSTANCE.trigger((ServerPlayerEntity) entitylivingbase, this, source);
 		}
 
 		playSound(SoundEvents.ENTITY_GENERIC_EXPLODE, 20F, (1F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F) * 0.7F);
@@ -441,24 +457,24 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 	@Override
 	protected void dropLoot(boolean wasRecentlyHit, int lootingModifier, @Nonnull DamageSource source) {
 		// Save true killer, they get extra loot
-		if (wasRecentlyHit && source.getTrueSource() instanceof EntityPlayer) {
-			trueKiller = (EntityPlayer) source.getTrueSource();
+		if (wasRecentlyHit && source.getTrueSource() instanceof PlayerEntity) {
+			trueKiller = (PlayerEntity) source.getTrueSource();
 		}
 
 		// Drop equipment and clear it so multiple calls to super don't do it again
 		super.dropEquipment(wasRecentlyHit, lootingModifier);
 
-		for (EntityEquipmentSlot e : EntityEquipmentSlot.values()) {
+		for (EquipmentSlotType e : EquipmentSlotType.values()) {
 			setItemStackToSlot(e, ItemStack.EMPTY);
 		}
 
 		// Generate loot table for every single attacking player
 		for (UUID u : playersWhoAttacked) {
-			EntityPlayer player = world.getPlayerEntityByUUID(u);
+			PlayerEntity player = world.getPlayerEntityByUUID(u);
 			if (player == null)
 				continue;
 
-			EntityPlayer saveLastAttacker = attackingPlayer;
+			PlayerEntity saveLastAttacker = attackingPlayer;
 			double savePosX = posX;
 			double savePosY = posY;
 			double savePosZ = posZ;
@@ -485,9 +501,9 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 		super.remove();
 	}
 
-	public List<EntityPlayer> getPlayersAround() {
+	public List<PlayerEntity> getPlayersAround() {
 		float range = 15F;
-		return world.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(source.getX() + 0.5 - range, source.getY() + 0.5 - range, source.getZ() + 0.5 - range, source.getX() + 0.5 + range, source.getY() + 0.5 + range, source.getZ() + 0.5 + range), player -> isTruePlayer(player) && !player.isSpectator());
+		return world.getEntitiesWithinAABB(PlayerEntity.class, new AxisAlignedBB(source.getX() + 0.5 - range, source.getY() + 0.5 - range, source.getZ() + 0.5 - range, source.getX() + 0.5 + range, source.getY() + 0.5 + range, source.getZ() + 0.5 + range), player -> isTruePlayer(player) && !player.isSpectator());
 	}
 
 	private static int countGaiaGuardiansAround(World world, BlockPos source) {
@@ -545,7 +561,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 					int z = centerZ + dz;
 					
 					BlockPos pos = new BlockPos(x, y, z);
-					IBlockState state = world.getBlockState(pos);
+					BlockState state = world.getBlockState(pos);
 					Block block = state.getBlock();
 					
 					if(state.getBlockHardness(world, pos) == -1) continue;
@@ -565,23 +581,23 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 				}
 	}
 
-	private void clearPotions(EntityPlayer player) {
+	private void clearPotions(PlayerEntity player) {
 		int posXInt = MathHelper.floor(posX);
 		int posZInt = MathHelper.floor(posZ);
 
-		List<Potion> potionsToRemove = player.getActivePotionEffects().stream()
+		List<Effect> potionsToRemove = player.getActivePotionEffects().stream()
 				.filter(effect -> effect.getDuration() < 160 && effect.isAmbient() && !effect.getPotion().isBadEffect())
-				.map(PotionEffect::getPotion)
+				.map(EffectInstance::getPotion)
 				.distinct()
 				.collect(Collectors.toList());
 
 		potionsToRemove.forEach(potion -> {
 			player.removePotionEffect(potion);
-			((WorldServer) world).getPlayerChunkMap().getEntry(posXInt >> 4, posZInt >> 4).sendPacket(new SPacketRemoveEntityEffect(player.getEntityId(), potion));
+			((ServerWorld) world).getPlayerChunkMap().getEntry(posXInt >> 4, posZInt >> 4).sendPacket(new SRemoveEntityEffectPacket(player.getEntityId(), potion));
 		});
 	}
 
-	private void keepInsideArena(EntityPlayer player) {
+	private void keepInsideArena(PlayerEntity player) {
 		if(vazkii.botania.common.core.helper.MathHelper.pointDistanceSpace(player.posX, player.posY, player.posZ, source.getX() + 0.5, source.getY() + 0.5, source.getZ() + 0.5) >= ARENA_RANGE) {
 			Vector3 sourceVector = new Vector3(source.getX() + 0.5, source.getY() + 0.5, source.getZ() + 0.5);
 			Vector3 playerVector = Vector3.fromEntityCenter(player);
@@ -594,22 +610,22 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 		}
 	}
 
-	private void spawnMobs(List<EntityPlayer> players) {
+	private void spawnMobs(List<PlayerEntity> players) {
 		for(int pl = 0; pl < playerCount; pl++) {
 			for(int i = 0; i < 3 + world.rand.nextInt(2); i++) {
-				EntityLiving entity = null;
+				MobEntity entity = null;
 				switch (world.rand.nextInt(2)) {
 					case 0: {
-						entity = new EntityZombie(world);
+						entity = new ZombieEntity(world);
 						if(world.rand.nextInt(hardMode ? 3 : 12) == 0) {
-							entity = new EntityWitch(world);
+							entity = new WitchEntity(world);
 						}
 						break;
 					}
 					case 1: {
-						entity = new EntitySkeleton(world);
+						entity = new SkeletonEntity(world);
 						if(world.rand.nextInt(8) == 0) {
-							entity = new EntityWitherSkeleton(world);
+							entity = new WitherSkeletonEntity(world);
 						}
 						break;
 					}
@@ -629,12 +645,12 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 
 				if(entity != null) {
 					if(!entity.isImmuneToFire())
-						entity.addPotionEffect(new PotionEffect(MobEffects.FIRE_RESISTANCE, 600, 0));
+						entity.addPotionEffect(new EffectInstance(Effects.FIRE_RESISTANCE, 600, 0));
 					float range = 6F;
 					entity.setPosition(posX + 0.5 + Math.random() * range - range / 2, posY - 1, posZ + 0.5 + Math.random() * range - range / 2);
 					entity.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(entity)), null, null);
-					if(entity instanceof EntityWitherSkeleton && hardMode) {
-						entity.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(ModItems.elementiumSword));
+					if(entity instanceof WitherSkeletonEntity && hardMode) {
+						entity.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(ModItems.elementiumSword));
 					}
 					world.spawnEntity(entity);
 				}
@@ -650,7 +666,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 
 		if(world.isRemote) {
 			particles();
-			EntityPlayer player = Botania.proxy.getClientPlayer();
+			PlayerEntity player = Botania.proxy.getClientPlayer();
 			if(getPlayersAround().contains(player))
 				player.abilities.isFlying &= player.abilities.isCreativeMode;
 			return;
@@ -661,19 +677,19 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 		if(isPassenger())
 			stopRiding();
 
-		if(world.getDifficulty() == EnumDifficulty.PEACEFUL)
+		if(world.getDifficulty() == Difficulty.PEACEFUL)
 			remove();
 
 		smashBlocksAround(MathHelper.floor(posX), MathHelper.floor(posY), MathHelper.floor(posZ), 1);
 
-		List<EntityPlayer> players = getPlayersAround();
+		List<PlayerEntity> players = getPlayersAround();
 
 		if(players.isEmpty() && !world.playerEntities.isEmpty())
 			remove();
 		else {
-			for(EntityPlayer player : players) {
-				for(EntityEquipmentSlot e : EntityEquipmentSlot.values()) {
-					if(e.getSlotType() == EntityEquipmentSlot.Type.ARMOR && !player.getItemStackFromSlot(e).isEmpty()) {
+			for(PlayerEntity player : players) {
+				for(EquipmentSlotType e : EquipmentSlotType.values()) {
+					if(e.getSlotType() == EquipmentSlotType.Type.ARMOR && !player.getItemStackFromSlot(e).isEmpty()) {
 						anyWithArmor = true;
 						break;
 					}
@@ -784,13 +800,13 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 	}
 
 	@Override
-	public void addTrackingPlayer(EntityPlayerMP player) {
+	public void addTrackingPlayer(ServerPlayerEntity player) {
 		super.addTrackingPlayer(player);
 		bossInfo.addPlayer(player);
 	}
 
 	@Override
-	public void removeTrackingPlayer(EntityPlayerMP player) {
+	public void removeTrackingPlayer(ServerPlayerEntity player) {
 		super.removeTrackingPlayer(player);
 		bossInfo.removePlayer(player);
 	}
@@ -864,7 +880,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 
 		if(oldPosVec.squareDistanceTo(newPosVec) > 1) {
 			//damage players in the path of the teleport
-			for(EntityPlayer player : getPlayersAround()) {
+			for(PlayerEntity player : getPlayersAround()) {
 				RayTraceResult rtr = player.getBoundingBox().grow(0.25).calculateIntercept(oldPosVec, newPosVec);
 				if(rtr != null)
 					player.attackEntityFrom(DamageSource.causeMobDamage(this), 6);
@@ -921,7 +937,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 
 		Minecraft mc = Minecraft.getInstance();
 		ItemStack stack = new ItemStack(Items.PLAYER_HEAD);
-		mc.textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+		mc.textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
 		net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
 		GlStateManager.enableRescaleNormal();
 		mc.getItemRenderer().renderItemIntoGUI(stack, px, py);
@@ -987,7 +1003,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	private static class DopplegangerMusic extends MovingSound {
+	private static class DopplegangerMusic extends TickableSound {
 		private final EntityDoppleganger guardian;
 
 		public DopplegangerMusic(EntityDoppleganger guardian) {
@@ -1028,7 +1044,7 @@ public class EntityDoppleganger extends EntityLiving implements IBotaniaBoss, IE
 
 		@Override
 		public boolean matches(World world, BlockPos pos) {
-			return world.getTileEntity(pos) instanceof TileEntityBeacon;
+			return world.getTileEntity(pos) instanceof BeaconTileEntity;
 		}
 	}
 }

@@ -12,23 +12,28 @@ package vazkii.botania.common.item;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.item.EnumRarity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.item.Rarity;
 import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
+import net.minecraft.item.Rarity;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
+import net.minecraft.util.Hand;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
@@ -36,12 +41,14 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.Style;
-import net.minecraft.util.text.TextComponentString;
-import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.world.ServerWorld;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldServer;
+import net.minecraft.world.ServerWorld;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -83,10 +90,10 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 
 	@Nonnull
 	@Override
-	public EnumActionResult onItemUse(ItemUseContext ctx) {
-		EntityPlayer player = ctx.getPlayer();
+	public ActionResultType onItemUse(ItemUseContext ctx) {
+		PlayerEntity player = ctx.getPlayer();
 		if(player == null)
-			return EnumActionResult.PASS;
+			return ActionResultType.PASS;
 
 		World world = ctx.getWorld();
 		BlockPos pos = ctx.getPos();
@@ -101,15 +108,15 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 					Botania.proxy.setLexiconStack(stack);
 
 					openBook(player, stack, world, false);
-					return EnumActionResult.SUCCESS;
+					return ActionResultType.SUCCESS;
 				}
 			} else if(world.isRemote) {
 				RayTraceResult mop = new RayTraceResult(new Vec3d(ctx.getHitX(), ctx.getHitY(), ctx.getHitZ()), ctx.getFace(), pos);
-				return Botania.proxy.openWikiPage(world, block, mop) ? EnumActionResult.SUCCESS : EnumActionResult.FAIL;
+				return Botania.proxy.openWikiPage(world, block, mop) ? ActionResultType.SUCCESS : ActionResultType.FAIL;
 			}
 		}
 
-		return EnumActionResult.PASS;
+		return ActionResultType.PASS;
 	}
 
 	@Override
@@ -128,8 +135,8 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void addInformation(ItemStack par1ItemStack, World world, List<ITextComponent> stacks, ITooltipFlag flags) {
-		if(GuiScreen.isShiftKeyDown()) {
-			ITextComponent edition = new TextComponentTranslation("botaniamisc.edition", getEdition()).applyTextStyle(TextFormatting.GOLD);
+		if(Screen.isShiftKeyDown()) {
+			ITextComponent edition = new TranslationTextComponent("botaniamisc.edition", getEdition()).applyTextStyle(TextFormatting.GOLD);
 			if(!edition.getString().isEmpty())
 				stacks.add(edition);
 
@@ -141,12 +148,12 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 			}
 
 			String format = typesKnown.size() == 1 ? "botaniamisc.knowledgeTypesSingular" : "botaniamisc.knowledgeTypesPlural";
-			stacks.add(new TextComponentTranslation(format, typesKnown.size()));
+			stacks.add(new TranslationTextComponent(format, typesKnown.size()));
 
 			for(KnowledgeType type : typesKnown)
-				stacks.add(new TextComponentString(" \u2022 ").appendSibling(new TextComponentTranslation(type.getUnlocalizedName())));
+				stacks.add(new StringTextComponent(" \u2022 ").appendSibling(new TranslationTextComponent(type.getUnlocalizedName())));
 
-		} else stacks.add(new TextComponentTranslation("botaniamisc.shiftinfo"));
+		} else stacks.add(new TranslationTextComponent("botaniamisc.shiftinfo"));
 	}
 
 	@OnlyIn(Dist.CLIENT)
@@ -158,24 +165,24 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
 		ItemStack stack = player.getHeldItem(hand);
 		String force = getForcedPage(stack);
 		if(force != null && !force.isEmpty()) {
 			LexiconEntry entry = getEntryFromForce(stack);
 			if(entry != null)
 				Botania.proxy.setEntryToOpen(entry);
-			else player.sendMessage(new TextComponentTranslation("botaniamisc.cantOpen").setStyle(new Style().setColor(TextFormatting.RED)));
+			else player.sendMessage(new TranslationTextComponent("botaniamisc.cantOpen").setStyle(new Style().setColor(TextFormatting.RED)));
 			setForcedPage(stack, "");
 		}
 
 		openBook(player, stack, world, skipSound);
 		skipSound = false;
 
-		return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
+		return ActionResult.newResult(ActionResultType.SUCCESS, stack);
 	}
 
-	public static void openBook(EntityPlayer player, ItemStack stack, World world, boolean skipSound) {
+	public static void openBook(PlayerEntity player, ItemStack stack, World world, boolean skipSound) {
 		ILexicon l = (ILexicon) stack.getItem();
 
 		Botania.proxy.setToTutorialIfFirstLaunch();
@@ -194,17 +201,17 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 		if(!world.isRemote) {
 			if(!skipSound)
 				world.playSound(null, player.posX, player.posY, player.posZ, ModSounds.lexiconOpen, SoundCategory.PLAYERS, 0.5F, 1F);
-			UseItemSuccessTrigger.INSTANCE.trigger((EntityPlayerMP) player, stack, (WorldServer) world, player.posX, player.posY, player.posZ);
+			UseItemSuccessTrigger.INSTANCE.trigger((ServerPlayerEntity) player, stack, (ServerWorld) world, player.posX, player.posY, player.posZ);
 		}
 	}
 
 	@Override
 	public void inventoryTick(ItemStack stack, World world, Entity entity, int idk, boolean something) {
 		int ticks = getQueueTicks(stack);
-		if(ticks > 0 && entity instanceof EntityPlayer) {
+		if(ticks > 0 && entity instanceof PlayerEntity) {
 			skipSound = ticks < 5;
 			if(ticks == 1)
-				onItemRightClick(world, (EntityPlayer) entity, EnumHand.MAIN_HAND);
+				onItemRightClick(world, (PlayerEntity) entity, Hand.MAIN_HAND);
 
 			setQueueTicks(stack, ticks - 1);
 		}
@@ -212,8 +219,8 @@ public class ItemLexicon extends ItemMod implements ILexicon, IElvenItem {
 
 	@Nonnull
 	@Override
-	public EnumRarity getRarity(ItemStack par1ItemStack) {
-		return EnumRarity.UNCOMMON;
+	public Rarity getRarity(ItemStack par1ItemStack) {
+		return Rarity.UNCOMMON;
 	}
 
 	@Override

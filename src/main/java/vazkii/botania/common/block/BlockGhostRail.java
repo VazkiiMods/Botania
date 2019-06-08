@@ -11,10 +11,10 @@
 package vazkii.botania.common.block;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockRailBase;
-import net.minecraft.block.BlockRailPowered;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.block.AbstractRailBlock;
+import net.minecraft.block.PoweredRailBlock;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.IProperty;
 import net.minecraft.state.StateContainer;
@@ -40,7 +40,7 @@ import vazkii.botania.common.lib.LibMisc;
 import javax.annotation.Nonnull;
 
 @Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
-public class BlockGhostRail extends BlockRailBase implements ILexiconable {
+public class BlockGhostRail extends AbstractRailBlock implements ILexiconable {
 
 	private static final String TAG_FLOAT_TICKS = "Botania_FloatTicks";
 
@@ -50,7 +50,7 @@ public class BlockGhostRail extends BlockRailBase implements ILexiconable {
 	}
 
 	@Override
-	protected void fillStateContainer(StateContainer.Builder<Block, IBlockState> builder) {
+	protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
 		builder.add(BlockStateProperties.RAIL_SHAPE_STRAIGHT);
 	}
 
@@ -88,7 +88,7 @@ public class BlockGhostRail extends BlockRailBase implements ILexiconable {
 	*/
 
 	@Override
-	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
+	public LexiconEntry getEntry(World world, BlockPos pos, PlayerEntity player, ItemStack lexicon) {
 		return LexiconData.ghostRail;
 	}
 

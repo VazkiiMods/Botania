@@ -10,10 +10,11 @@
  */
 package vazkii.botania.common.block;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
@@ -36,17 +37,17 @@ public class BlockRoot extends BlockMod implements ILexiconable {
 
 	@Nonnull
 	@Override
-	public Item getItemDropped(IBlockState state, World world, BlockPos pos, int fortune) {
+	public Item getItemDropped(BlockState state, World world, BlockPos pos, int fortune) {
 		return ModItems.livingroot;
 	}
 
 	@Override
-	public int quantityDropped(IBlockState state, Random r) {
+	public int quantityDropped(BlockState state, Random r) {
 		return 2 + r.nextInt(3);
 	}
 
 	@Override
-	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
+	public LexiconEntry getEntry(World world, BlockPos pos, PlayerEntity player, ItemStack lexicon) {
 		return LexiconData.gardenOfGlass;
 	}
 

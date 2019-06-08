@@ -10,13 +10,15 @@
  */
 package vazkii.botania.client.core.handler;
 
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.registry.IRegistry;
+import net.minecraft.util.registry.Registry;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionType;
@@ -61,7 +63,7 @@ public final class DebugHandler {
 
 			if (Minecraft.getInstance().isSingleplayer()) {
 				DimensionType dim = Minecraft.getInstance().world.getDimension().getType();
-				ResourceLocation dimName = IRegistry.DIMENSION_TYPE.getKey(dim);
+				ResourceLocation dimName = Registry.DIMENSION_TYPE.getKey(dim);
 				UUID id = Minecraft.getInstance().player.getUniqueID();
 				Entity ent = Minecraft.getInstance().getIntegratedServer().getWorld(dim).getEntityFromUuid(id);
 				if (ent != null) {
@@ -70,7 +72,7 @@ public final class DebugHandler {
 				}
 			}
 
-			if(GuiScreen.isCtrlKeyDown() && GuiScreen.isShiftKeyDown()) {
+			if(Screen.isCtrlKeyDown() && Screen.isShiftKeyDown()) {
 				event.getLeft().add(PREFIX + "Config Context");
 				event.getLeft().add("  shaders.enabled: " + ConfigHandler.CLIENT.useShaders.get());
 				event.getLeft().add("  shaders.secondaryUnit: " + ConfigHandler.CLIENT.glSecondaryTextureUnit.get());

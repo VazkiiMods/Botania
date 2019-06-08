@@ -10,9 +10,11 @@
  */
 package vazkii.botania.common.block.tile;
 
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.SPacketUpdateTileEntity;
+import net.minecraft.network.play.server.SUpdateTileEntityPacket;
+import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 
@@ -25,37 +27,37 @@ public class TileMod extends TileEntity {
 
 	@Nonnull
 	@Override
-	public NBTTagCompound write(NBTTagCompound par1nbtTagCompound) {
-		NBTTagCompound ret = super.write(par1nbtTagCompound);
+	public CompoundNBT write(CompoundNBT par1nbtTagCompound) {
+		CompoundNBT ret = super.write(par1nbtTagCompound);
 		writePacketNBT(ret);
 		return ret;
 	}
 
 	@Nonnull
 	@Override
-	public final NBTTagCompound getUpdateTag() {
-		return write(new NBTTagCompound());
+	public final CompoundNBT getUpdateTag() {
+		return write(new CompoundNBT());
 	}
 
 	@Override
-	public void read(NBTTagCompound par1nbtTagCompound) {
+	public void read(CompoundNBT par1nbtTagCompound) {
 		super.read(par1nbtTagCompound);
 		readPacketNBT(par1nbtTagCompound);
 	}
 
-	public void writePacketNBT(NBTTagCompound cmp) {}
+	public void writePacketNBT(CompoundNBT cmp) {}
 
-	public void readPacketNBT(NBTTagCompound cmp) {}
+	public void readPacketNBT(CompoundNBT cmp) {}
 
 	@Override
-	public final SPacketUpdateTileEntity getUpdatePacket() {
-		NBTTagCompound tag = new NBTTagCompound();
+	public final SUpdateTileEntityPacket getUpdatePacket() {
+		CompoundNBT tag = new CompoundNBT();
 		writePacketNBT(tag);
-		return new SPacketUpdateTileEntity(pos, -999, tag);
+		return new SUpdateTileEntityPacket(pos, -999, tag);
 	}
 
 	@Override
-	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
+	public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket packet) {
 		super.onDataPacket(net, packet);
 		readPacketNBT(packet.getNbtCompound());
 	}

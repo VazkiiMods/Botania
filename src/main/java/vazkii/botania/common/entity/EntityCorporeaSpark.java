@@ -13,15 +13,19 @@ package vazkii.botania.common.entity;
 import com.google.common.base.Predicates;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.DyeColor;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -175,7 +179,7 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 			}
 	}
 
-	private static void displayRelatives(EntityPlayer player, List<ICorporeaSpark> checked, ICorporeaSpark spark) {
+	private static void displayRelatives(PlayerEntity player, List<ICorporeaSpark> checked, ICorporeaSpark spark) {
 		if(spark == null)
 			return;
 
@@ -196,7 +200,7 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 		int x = MathHelper.floor(posX);
 		int y = MathHelper.floor(posY - 1);
 		int z = MathHelper.floor(posZ);
-		return InventoryHelper.getInventoryWithLocation(world, new BlockPos(x, y, z), EnumFacing.UP);
+		return InventoryHelper.getInventoryWithLocation(world, new BlockPos(x, y, z), Direction.UP);
 	}
 
 	@Override
@@ -237,13 +241,13 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 		return dataManager.get(MASTER);
 	}
 
-	public void setNetwork(EnumDyeColor network) {
+	public void setNetwork(DyeColor network) {
 		dataManager.set(NETWORK, network.getId());
 	}
 
 	@Override
-	public EnumDyeColor getNetwork() {
-		return EnumDyeColor.byId(dataManager.get(NETWORK));
+	public DyeColor getNetwork() {
+		return DyeColor.byId(dataManager.get(NETWORK));
 	}
 
 	public int getItemDisplayTicks() {
@@ -263,7 +267,7 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 	}
 
 	@Override
-	public boolean processInitialInteract(EntityPlayer player, EnumHand hand) {
+	public boolean processInitialInteract(PlayerEntity player, Hand hand) {
 		ItemStack stack = player.getHeldItem(hand);
 		if(!removed && !stack.isEmpty()) {
 			if(player.world.isRemote) {
@@ -283,7 +287,7 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 				}
 				return true;
 			} else if(stack.getItem() instanceof ItemDye) {
-				EnumDyeColor color = ((ItemDye) stack.getItem()).color;
+				DyeColor color = ((ItemDye) stack.getItem()).color;
 				if(color != getNetwork()) {
 					setNetwork(color);
 
@@ -304,14 +308,14 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 	}
 
 	@Override
-	protected void readAdditional(@Nonnull NBTTagCompound cmp) {
+	protected void readAdditional(@Nonnull CompoundNBT cmp) {
 		setMaster(cmp.getBoolean(TAG_MASTER));
-		setNetwork(EnumDyeColor.byId(cmp.getInt(TAG_NETWORK)));
+		setNetwork(DyeColor.byId(cmp.getInt(TAG_NETWORK)));
 		setInvisible(cmp.getInt(TAG_INVIS) == 1);
 	}
 
 	@Override
-	protected void writeAdditional(@Nonnull NBTTagCompound cmp) {
+	protected void writeAdditional(@Nonnull CompoundNBT cmp) {
 		cmp.putBoolean(TAG_MASTER, isMaster());
 		cmp.putInt(TAG_NETWORK, getNetwork().getId());
 		cmp.putInt(TAG_INVIS, isInvisible() ? 1 : 0);

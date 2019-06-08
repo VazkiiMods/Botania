@@ -10,14 +10,16 @@
  */
 package vazkii.botania.common.item.rod;
 
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.EnumAction;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.UseAction;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.UseAction;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import vazkii.botania.api.item.IAvatarTile;
@@ -47,8 +49,8 @@ public class ItemMissileRod extends ItemMod implements IManaUsingItem, IAvatarWi
 
 	@Nonnull
 	@Override
-	public EnumAction getUseAction(ItemStack par1ItemStack) {
-		return EnumAction.BOW;
+	public UseAction getUseAction(ItemStack par1ItemStack) {
+		return UseAction.BOW;
 	}
 
 	@Override
@@ -57,9 +59,9 @@ public class ItemMissileRod extends ItemMod implements IManaUsingItem, IAvatarWi
 	}
 
 	@Override
-	public void onUsingTick(ItemStack stack, EntityLivingBase living, int count) {
-		if(!(living instanceof EntityPlayer)) return;
-		EntityPlayer player = (EntityPlayer) living;
+	public void onUsingTick(ItemStack stack, LivingEntity living, int count) {
+		if(!(living instanceof PlayerEntity)) return;
+		PlayerEntity player = (PlayerEntity) living;
 
 		if(count != getUseDuration(stack) && count % (IManaProficiencyArmor.Helper.hasProficiency(player, stack) ? 1 : 2) == 0 && !player.world.isRemote && ManaItemHandler.requestManaExactForTool(stack, player, COST_PER, false)) {
 			if(spawnMissile(player.world, player, player.posX + (Math.random() - 0.5 * 0.1), player.posY + 2.4 + (Math.random() - 0.5 * 0.1), player.posZ + (Math.random() - 0.5 * 0.1)))
@@ -69,7 +71,7 @@ public class ItemMissileRod extends ItemMod implements IManaUsingItem, IAvatarWi
 		}
 	}
 
-	public boolean spawnMissile(World world, EntityLivingBase thrower, double x, double y, double z) {
+	public boolean spawnMissile(World world, LivingEntity thrower, double x, double y, double z) {
 		EntityMagicMissile missile;
 		if(thrower != null)
 			missile = new EntityMagicMissile(thrower, false);
@@ -89,9 +91,9 @@ public class ItemMissileRod extends ItemMod implements IManaUsingItem, IAvatarWi
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
 		player.setActiveHand(hand);
-		return ActionResult.newResult(EnumActionResult.SUCCESS, player.getHeldItem(hand));
+		return ActionResult.newResult(ActionResultType.SUCCESS, player.getHeldItem(hand));
 	}
 
 	@Override

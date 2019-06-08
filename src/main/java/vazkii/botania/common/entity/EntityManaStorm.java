@@ -13,7 +13,7 @@ package vazkii.botania.common.entity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.common.core.helper.Vector3;
@@ -86,14 +86,14 @@ public class EntityManaStorm extends Entity {
 	}
 
 	@Override
-	protected void readAdditional(@Nonnull NBTTagCompound cmp) {
+	protected void readAdditional(@Nonnull CompoundNBT cmp) {
 		liveTime = cmp.getInt(TAG_TIME);
 		burstsFired = cmp.getInt(TAG_BURSTS_FIRED);
 		deathTime = cmp.getInt(TAG_DEATH_TIME);
 	}
 
 	@Override
-	protected void writeAdditional(@Nonnull NBTTagCompound cmp) {
+	protected void writeAdditional(@Nonnull CompoundNBT cmp) {
 		cmp.putInt(TAG_TIME, liveTime);
 		cmp.putInt(TAG_BURSTS_FIRED, burstsFired);
 		cmp.putInt(TAG_DEATH_TIME, deathTime);

@@ -10,11 +10,14 @@
  */
 package vazkii.botania.common.entity;
 
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
@@ -61,7 +64,7 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 		super(TYPE, world);
 	}
 
-	public EntityBabylonWeapon(EntityLivingBase thrower, World world) {
+	public EntityBabylonWeapon(LivingEntity thrower, World world) {
 		super(TYPE, thrower, world);
 	}
 
@@ -85,12 +88,12 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 
 	@Override
 	public void tick() {
-		EntityLivingBase thrower = getThrower();
-		if(!world.isRemote && (thrower == null || !(thrower instanceof EntityPlayer) || thrower.removed)) {
+		LivingEntity thrower = getThrower();
+		if(!world.isRemote && (thrower == null || !(thrower instanceof PlayerEntity) || thrower.removed)) {
 			remove();
 			return;
 		}
-		EntityPlayer player = (EntityPlayer) thrower;
+		PlayerEntity player = (PlayerEntity) thrower;
 		boolean charging = isCharging();
 		if(!world.isRemote) {
 			ItemStack stack = player == null ? ItemStack.EMPTY : PlayerHelper.getFirstHeldItem(player, ModItems.kingKey);
@@ -143,8 +146,8 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 
 			if(!world.isRemote) {
 				AxisAlignedBB axis = new AxisAlignedBB(posX, posY, posZ, lastTickPosX, lastTickPosY, lastTickPosZ).grow(2);
-				List<EntityLivingBase> entities = world.getEntitiesWithinAABB(EntityLivingBase.class, axis);
-				for(EntityLivingBase living : entities) {
+				List<LivingEntity> entities = world.getEntitiesWithinAABB(LivingEntity.class, axis);
+				for(LivingEntity living : entities) {
 					if(living == thrower)
 						continue;
 
@@ -174,7 +177,7 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 
 	@Override
 	protected void onImpact(RayTraceResult pos) {
-		EntityLivingBase thrower = getThrower();
+		LivingEntity thrower = getThrower();
 		if(pos.entity == null || pos.entity != thrower) {
 			world.createExplosion(this, posX, posY, posZ, 3F, false);
 			remove();
@@ -182,7 +185,7 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 	}
 
 	@Override
-	public void writeAdditional(@Nonnull NBTTagCompound cmp) {
+	public void writeAdditional(@Nonnull CompoundNBT cmp) {
 		super.writeAdditional(cmp);
 		cmp.putBoolean(TAG_CHARGING, isCharging());
 		cmp.putInt(TAG_VARIETY, getVariety());
@@ -193,7 +196,7 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 	}
 
 	@Override
-	public void readAdditional(@Nonnull NBTTagCompound cmp) {
+	public void readAdditional(@Nonnull CompoundNBT cmp) {
 		super.readAdditional(cmp);
 		setCharging(cmp.getBoolean(TAG_CHARGING));
 		setVariety(cmp.getInt(TAG_VARIETY));

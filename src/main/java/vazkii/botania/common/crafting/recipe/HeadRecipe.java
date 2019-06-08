@@ -10,10 +10,11 @@
  */
 package vazkii.botania.common.crafting.recipe;
 
-import net.minecraft.init.Items;
+import net.minecraft.item.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.items.IItemHandler;
 import vazkii.botania.api.recipe.RecipeRuneAltar;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
@@ -37,7 +38,7 @@ public class HeadRecipe extends RecipeRuneAltar {
 					break;
 
 				if(stack.getItem() == Items.NAME_TAG) {
-					String defaultName = new TextComponentTranslation(Items.NAME_TAG.getTranslationKey()).getString();
+					String defaultName = new TranslationTextComponent(Items.NAME_TAG.getTranslationKey()).getString();
 					name = stack.getDisplayName().getString();
 					if(name.equals(defaultName))
 						return false;

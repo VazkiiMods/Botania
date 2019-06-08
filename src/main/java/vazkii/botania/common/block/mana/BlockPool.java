@@ -11,19 +11,22 @@
 package vazkii.botania.common.block.mana;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.state.BlockFaceShape;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.IFluidState;
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumBlockRenderType;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.block.BlockRenderType;
+import net.minecraft.util.Direction;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -68,20 +71,20 @@ public class BlockPool extends BlockMod implements IWandHUD, IWandable, ILexicon
 
 	@Nonnull
 	@Override
-	public VoxelShape getShape(IBlockState state, IBlockReader world, BlockPos pos) {
+	public VoxelShape getShape(BlockState state, IBlockReader world, BlockPos pos) {
 		return REAL_SHAPE;
 	}
 
 	// If harvesting, delay setting block to air so getDrops can read the TE
 	@Override
-	public boolean removedByPlayer(IBlockState state, World world, BlockPos pos, EntityPlayer player, boolean willHarvest, IFluidState fluid) {
+	public boolean removedByPlayer(BlockState state, World world, BlockPos pos, PlayerEntity player, boolean willHarvest, IFluidState fluid) {
 		if (willHarvest)
 			return true;
 		return super.removedByPlayer(state, world, pos, player, willHarvest, fluid);
 	}
 
 	@Override
-	public void getDrops(IBlockState state, NonNullList<ItemStack> drops, World world, BlockPos pos, int fortune) {
+	public void getDrops(BlockState state, NonNullList<ItemStack> drops, World world, BlockPos pos, int fortune) {
 		TileEntity te = world.getTileEntity(pos);
 		if (te instanceof TilePool && !((TilePool) te).fragile) {
 			super.getDrops(state, drops, world, pos, fortune);
@@ -90,51 +93,51 @@ public class BlockPool extends BlockMod implements IWandHUD, IWandable, ILexicon
 
 	// After getDrops reads the TE, then delete the block
 	@Override
-	public void harvestBlock(World world, EntityPlayer player, BlockPos pos, IBlockState state, @Nullable TileEntity te, ItemStack tool) {
+	public void harvestBlock(World world, PlayerEntity player, BlockPos pos, BlockState state, @Nullable TileEntity te, ItemStack tool) {
 		super.harvestBlock(world, player, pos, state, te, tool);
 		world.removeBlock(pos);
 	}
 
 	@Override
-	public boolean hasTileEntity(IBlockState state) {
+	public boolean hasTileEntity(BlockState state) {
 		return true;
 	}
 
 	@Nonnull
 	@Override
-	public TileEntity createTileEntity(@Nonnull IBlockState state, @Nonnull IBlockReader world) {
+	public TileEntity createTileEntity(@Nonnull BlockState state, @Nonnull IBlockReader world) {
 		return new TilePool();
 	}
 
 	@Override
-	public void onEntityCollision(IBlockState state, World world, BlockPos pos, Entity entity) {
-		if(entity instanceof EntityItem) {
+	public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
+		if(entity instanceof ItemEntity) {
 			TilePool tile = (TilePool) world.getTileEntity(pos);
-			if(tile.collideEntityItem((EntityItem) entity))
+			if(tile.collideEntityItem((ItemEntity) entity))
 				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, pos);
 		}
 	}
 
 	@Override
-	public boolean isFullCube(IBlockState state) {
+	public boolean isFullCube(BlockState state) {
 		return false;
 	}
 
 	@Nonnull
 	@Override
-	public EnumBlockRenderType getRenderType(IBlockState state) {
+	public BlockRenderType getRenderType(BlockState state) {
 		if (variant == Variant.FABULOUS)
-			return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
-		else return EnumBlockRenderType.MODEL;
+			return BlockRenderType.ENTITYBLOCK_ANIMATED;
+		else return BlockRenderType.MODEL;
 	}
 
 	@Override
-	public boolean hasComparatorInputOverride(IBlockState state) {
+	public boolean hasComparatorInputOverride(BlockState state) {
 		return true;
 	}
 
 	@Override
-	public int getComparatorInputOverride(IBlockState state, World world, BlockPos pos) {
+	public int getComparatorInputOverride(BlockState state, World world, BlockPos pos) {
 		TilePool pool = (TilePool) world.getTileEntity(pos);
 		return TilePool.calculateComparatorLevel(pool.getCurrentMana(), pool.manaCap);
 	}
@@ -146,19 +149,19 @@ public class BlockPool extends BlockMod implements IWandHUD, IWandable, ILexicon
 	}
 
 	@Override
-	public boolean onUsedByWand(EntityPlayer player, ItemStack stack, World world, BlockPos pos, EnumFacing side) {
+	public boolean onUsedByWand(PlayerEntity player, ItemStack stack, World world, BlockPos pos, Direction side) {
 		((TilePool) world.getTileEntity(pos)).onWanded(player, stack);
 		return true;
 	}
 
 	@Override
-	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
+	public LexiconEntry getEntry(World world, BlockPos pos, PlayerEntity player, ItemStack lexicon) {
 		return variant == Variant.FABULOUS ? LexiconData.rainbowRod : LexiconData.pool;
 	}
 
 	@Nonnull
 	@Override
-	public BlockFaceShape getBlockFaceShape(IBlockReader world, IBlockState state, BlockPos pos, EnumFacing side) {
-		return side == EnumFacing.DOWN ? BlockFaceShape.SOLID : BlockFaceShape.UNDEFINED;
+	public BlockFaceShape getBlockFaceShape(IBlockReader world, BlockState state, BlockPos pos, Direction side) {
+		return side == Direction.DOWN ? BlockFaceShape.SOLID : BlockFaceShape.UNDEFINED;
 	}
 }

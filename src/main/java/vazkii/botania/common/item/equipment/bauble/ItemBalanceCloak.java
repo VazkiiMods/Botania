@@ -10,7 +10,8 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
@@ -32,7 +33,7 @@ public class ItemBalanceCloak extends ItemHolyCloak {
 		super(props);
 	}
 	
-	public boolean effectOnDamage(LivingHurtEvent event, EntityPlayer player, ItemStack stack) {
+	public boolean effectOnDamage(LivingHurtEvent event, PlayerEntity player, ItemStack stack) {
 		if(!event.getSource().isMagicDamage()) {
 			event.setAmount(event.getAmount() / 2);
 			

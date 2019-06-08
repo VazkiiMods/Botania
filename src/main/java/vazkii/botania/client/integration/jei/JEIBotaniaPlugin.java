@@ -21,7 +21,7 @@ import mezz.jei.api.registration.IVanillaCategoryExtensionRegistration;
 import mezz.jei.api.runtime.IJeiRuntime;
 import mezz.jei.api.runtime.IRecipesGui;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.tags.BlockTags;
@@ -184,7 +184,7 @@ public class JEIBotaniaPlugin implements IModPlugin {
 			return ItemStack.EMPTY;
 		};
 
-		CorporeaInputHandler.supportedGuiFilter = gui -> gui instanceof GuiContainer || gui instanceof IRecipesGui;
+		CorporeaInputHandler.supportedGuiFilter = gui -> gui instanceof ContainerScreen || gui instanceof IRecipesGui;
 	}
 
 	@Nonnull

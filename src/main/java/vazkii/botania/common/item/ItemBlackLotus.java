@@ -12,12 +12,14 @@ package vazkii.botania.common.item;
 
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -48,7 +50,7 @@ public class ItemBlackLotus extends ItemMod implements IManaDissolvable {
 	}
 
 	@Override
-	public void onDissolveTick(IManaPool pool, ItemStack stack, EntityItem item) {
+	public void onDissolveTick(IManaPool pool, ItemStack stack, ItemEntity item) {
 		if(pool.isFull() || pool.getCurrentMana() == 0)
 			return;
 
@@ -68,7 +70,7 @@ public class ItemBlackLotus extends ItemMod implements IManaDissolvable {
 	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void addInformation(ItemStack stack, World world, List<ITextComponent> list, ITooltipFlag flags) {
-		list.add(new TextComponentTranslation("botaniamisc.lotusDesc"));
+		list.add(new TranslationTextComponent("botaniamisc.lotusDesc"));
 	}
 
 }

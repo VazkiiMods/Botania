@@ -10,15 +10,18 @@
  */
 package vazkii.botania.common.block;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Direction;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -72,34 +75,34 @@ public class BlockPlatform extends BlockCamo implements ILexiconable, IWandable,
 	*/
 
 	@Override
-	public boolean canRenderInLayer(IBlockState state, @Nonnull BlockRenderLayer layer) {
+	public boolean canRenderInLayer(BlockState state, @Nonnull BlockRenderLayer layer) {
 		return true;
 	}
 
 	@Override
-	public boolean canEntityDestroy(IBlockState state, IBlockReader world, BlockPos pos, Entity entity) {
+	public boolean canEntityDestroy(BlockState state, IBlockReader world, BlockPos pos, Entity entity) {
 		return variant != Variant.INFRANGIBLE;
 	}
 
 	@Nonnull
 	@Override
-	public TileEntity createTileEntity(@Nonnull IBlockState state, @Nonnull IBlockReader world) {
+	public TileEntity createTileEntity(@Nonnull BlockState state, @Nonnull IBlockReader world) {
 		return new TilePlatform();
 	}
 
 	@Override
-	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
+	public LexiconEntry getEntry(World world, BlockPos pos, PlayerEntity player, ItemStack lexicon) {
 		return variant == Variant.ABSTRUSE ? LexiconData.platform : variant == Variant.INFRANGIBLE ? null : LexiconData.spectralPlatform;
 	}
 
 	@Override
-	public boolean onUsedByWand(EntityPlayer player, ItemStack stack, World world, BlockPos pos, EnumFacing side) {
+	public boolean onUsedByWand(PlayerEntity player, ItemStack stack, World world, BlockPos pos, Direction side) {
 		TilePlatform tile = (TilePlatform) world.getTileEntity(pos);
 		return tile.onWanded(player);
 	}
 
 	@Override
-	public boolean isGhost(IBlockState state, World world, BlockPos pos) {
+	public boolean isGhost(BlockState state, World world, BlockPos pos) {
 		return true;
 	}
 }

@@ -5,21 +5,21 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.storage.loot.LootContext;
-import net.minecraft.world.storage.loot.conditions.LootCondition;
+import net.minecraft.world.storage.loot.conditions.ILootCondition;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 import java.util.Random;
 
-public class EnableRelics implements LootCondition {
+public class EnableRelics implements ILootCondition {
 
 	@Override
 	public boolean testCondition(@Nonnull Random rand, @Nonnull LootContext context) {
 		return ConfigHandler.COMMON.relicsEnabled.get();
 	}
 
-	public static class Serializer extends LootCondition.Serializer<EnableRelics> {
+	public static class Serializer extends ILootCondition.Serializer<EnableRelics> {
 		public Serializer() {
 			super(new ResourceLocation(LibMisc.MOD_ID, "enable_relics"), EnableRelics.class);
 		}

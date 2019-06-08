@@ -10,7 +10,8 @@
  */
 package vazkii.botania.client.core.handler;
 
-import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -26,7 +27,7 @@ public final class TooltipHandler {
 	@SubscribeEvent(priority = EventPriority.HIGHEST)
 	public static void onTooltipEvent(ItemTooltipEvent event) {
 		if(event.getItemStack().hasTag() && ItemNBTHelper.getBoolean(event.getItemStack(), ItemKeepIvy.TAG_KEEP, false))
-			event.getToolTip().add(new TextComponentTranslation("botaniamisc.hasKeepIvy"));
+			event.getToolTip().add(new TranslationTextComponent("botaniamisc.hasKeepIvy"));
 	}
 
 }

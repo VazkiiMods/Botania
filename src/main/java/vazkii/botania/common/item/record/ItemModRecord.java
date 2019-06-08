@@ -11,10 +11,10 @@
 package vazkii.botania.common.item.record;
 
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemRecord;
+import net.minecraft.item.MusicDiscItem;
 import net.minecraft.util.SoundEvent;
 
-public class ItemModRecord extends ItemRecord {
+public class ItemModRecord extends MusicDiscItem {
 	public ItemModRecord(int comparator, SoundEvent sound, Properties builder) {
 		super(comparator, sound, builder);
 	}

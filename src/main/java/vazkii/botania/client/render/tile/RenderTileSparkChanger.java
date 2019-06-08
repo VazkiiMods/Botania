@@ -11,9 +11,9 @@
 package vazkii.botania.client.render.tile;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GlStateManager;
+import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
-import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.common.block.tile.TileSparkChanger;
@@ -32,7 +32,7 @@ public class RenderTileSparkChanger extends TileEntityRenderer<TileSparkChanger>
 		ItemStack stack = tileentity.getItemHandler().getStackInSlot(0);
 		if(!stack.isEmpty()) {
 			GlStateManager.pushMatrix();
-			Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+			Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
 			float s = 1.0F;
 			GlStateManager.scalef(s, s, s);
 			GlStateManager.rotatef(180F, 0F, 1F, 0F);

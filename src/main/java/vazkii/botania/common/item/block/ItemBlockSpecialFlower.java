@@ -11,9 +11,9 @@
 package vazkii.botania.common.item.block;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -23,7 +23,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
@@ -57,16 +57,16 @@ public class ItemBlockSpecialFlower extends ItemBlockMod {
 	@Override
 	public void addInformation(@Nonnull ItemStack stack, World world, @Nonnull List<ITextComponent> tooltip, @Nonnull ITooltipFlag flag) {
 		if(GENERATING.contains(this)) {
-			tooltip.add(new TextComponentTranslation("botania.flowerType.generating").applyTextStyles(TextFormatting.ITALIC, TextFormatting.BLUE));
+			tooltip.add(new TranslationTextComponent("botania.flowerType.generating").applyTextStyles(TextFormatting.ITALIC, TextFormatting.BLUE));
 		} else if(FUNCTIONAL.contains(this)) {
-			tooltip.add(new TextComponentTranslation("botania.flowerType.functional").applyTextStyles(TextFormatting.ITALIC, TextFormatting.BLUE));
+			tooltip.add(new TranslationTextComponent("botania.flowerType.functional").applyTextStyles(TextFormatting.ITALIC, TextFormatting.BLUE));
 		} else if(MISC.contains(this)) {
-			tooltip.add(new TextComponentTranslation("botania.flowerType.misc").applyTextStyles(TextFormatting.ITALIC, TextFormatting.BLUE));
+			tooltip.add(new TranslationTextComponent("botania.flowerType.misc").applyTextStyles(TextFormatting.ITALIC, TextFormatting.BLUE));
 		}
 
 		if(ConfigHandler.CLIENT.referencesEnabled.get()) {
 			String key = getTranslationKey() + ".reference";
-			ITextComponent lore = new TextComponentTranslation(key);
+			ITextComponent lore = new TranslationTextComponent(key);
 			if(!lore.getString().equals(key))
 				tooltip.add(lore.applyTextStyles(TextFormatting.ITALIC, TextFormatting.GRAY));
 		}

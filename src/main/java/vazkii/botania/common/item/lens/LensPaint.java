@@ -11,12 +11,16 @@
 package vazkii.botania.common.item.lens;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.passive.EntitySheep;
-import net.minecraft.entity.projectile.EntityThrowable;
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.passive.SheepEntity;
+import net.minecraft.entity.passive.SheepEntity;
+import net.minecraft.entity.projectile.ThrowableEntity;
+import net.minecraft.entity.projectile.ThrowableEntity;
+import net.minecraft.item.DyeColor;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
@@ -32,20 +36,20 @@ import java.util.function.Function;
 public class LensPaint extends Lens {
 
 	@Override
-	public boolean collideBurst(IManaBurst burst, EntityThrowable entity, RayTraceResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
+	public boolean collideBurst(IManaBurst burst, ThrowableEntity entity, RayTraceResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
 		int storedColor = ItemLens.getStoredColor(stack);
 		if(!entity.world.isRemote && !burst.isFake() && storedColor > -1 && storedColor < 17) {
-			if(pos.entity instanceof EntitySheep) {
+			if(pos.entity instanceof SheepEntity) {
 				int r = 20;
-				EnumDyeColor sheepColor = ((EntitySheep) pos.entity).getFleeceColor();
-				List<EntitySheep> sheepList = entity.world.getEntitiesWithinAABB(EntitySheep.class, new AxisAlignedBB(pos.entity.posX - r, pos.entity.posY - r, pos.entity.posZ - r, pos.entity.posX + r, pos.entity.posY + r, pos.entity.posZ + r));
-				for(EntitySheep sheep : sheepList) {
+				DyeColor sheepColor = ((SheepEntity) pos.entity).getFleeceColor();
+				List<SheepEntity> sheepList = entity.world.getEntitiesWithinAABB(SheepEntity.class, new AxisAlignedBB(pos.entity.posX - r, pos.entity.posY - r, pos.entity.posZ - r, pos.entity.posX + r, pos.entity.posY + r, pos.entity.posZ + r));
+				for(SheepEntity sheep : sheepList) {
 					if(sheep.getFleeceColor() == sheepColor)
-						sheep.setFleeceColor(EnumDyeColor.byId(storedColor == 16 ? sheep.world.rand.nextInt(16) : storedColor));
+						sheep.setFleeceColor(DyeColor.byId(storedColor == 16 ? sheep.world.rand.nextInt(16) : storedColor));
 				}
 				dead = true;
 			} else {
-				IBlockState state = entity.world.getBlockState(pos.getBlockPos());
+				BlockState state = entity.world.getBlockState(pos.getBlockPos());
 				Block block = state.getBlock();
 				if(BotaniaAPI.paintableBlocks.containsKey(block.delegate)) {
 					List<BlockPos> coordsToPaint = new ArrayList<>();
@@ -58,8 +62,8 @@ public class LensPaint extends Lens {
 							coordsFound.remove(coords);
 							coordsToPaint.add(coords);
 
-							for(EnumFacing dir : EnumFacing.values()) {
-								IBlockState state_ = entity.world.getBlockState(coords.offset(dir));
+							for(Direction dir : Direction.values()) {
+								BlockState state_ = entity.world.getBlockState(coords.offset(dir));
 								BlockPos coords_ = new BlockPos(coords.offset(dir));
 								if(state_ == state && !coordsFound.contains(coords_) && !coordsToPaint.contains(coords_))
 									coordsFound.add(coords_);
@@ -68,10 +72,10 @@ public class LensPaint extends Lens {
 					} while(!coordsFound.isEmpty() && coordsToPaint.size() < 1000);
 
 					for(BlockPos coords : coordsToPaint) {
-						EnumDyeColor placeColor = EnumDyeColor.byId(storedColor == 16 ? entity.world.rand.nextInt(16) : storedColor);
-						IBlockState stateThere = entity.world.getBlockState(coords);
+						DyeColor placeColor = DyeColor.byId(storedColor == 16 ? entity.world.rand.nextInt(16) : storedColor);
+						BlockState stateThere = entity.world.getBlockState(coords);
 
-						Function<EnumDyeColor, Block> f = BotaniaAPI.paintableBlocks.get(block.delegate);
+						Function<DyeColor, Block> f = BotaniaAPI.paintableBlocks.get(block.delegate);
 						Block newBlock = f.apply(placeColor);
 						if(newBlock != stateThere.getBlock()) {
 							entity.world.setBlockState(coords, newBlock.getDefaultState());

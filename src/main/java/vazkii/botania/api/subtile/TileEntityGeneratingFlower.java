@@ -11,17 +11,22 @@
 package vazkii.botania.api.subtile;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.block.Blocks;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Direction;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
@@ -90,7 +95,7 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 
 		if(acceptsRedstone()) {
 			redstoneSignal = 0;
-			for(EnumFacing dir : EnumFacing.values()) {
+			for(Direction dir : Direction.values()) {
 				int redstoneSide = getWorld().getRedstonePower(getPos().offset(dir), dir);
 				redstoneSignal = Math.max(redstoneSignal, redstoneSide);
 			}
@@ -113,7 +118,7 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 			int muhBalance = BotaniaAPI.internalHandler.getPassiveFlowerDecay();
 
 			if(passive && muhBalance > 0 && passiveDecayTicks > muhBalance) {
-				IBlockState state = getWorld().getBlockState(getPos());
+				BlockState state = getWorld().getBlockState(getPos());
 				getWorld().playEvent(2001, getPos(), Block.getStateId(state));
 				if(Blocks.DEAD_BUSH.getDefaultState().isValidPosition(getWorld(), getPos()))
 					getWorld().setBlockState(getPos(), Blocks.DEAD_BUSH.getDefaultState());
@@ -214,16 +219,16 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 	}
 
 	@Override
-	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase entity, ItemStack stack) {
+	public void onBlockPlacedBy(World world, BlockPos pos, BlockState state, LivingEntity entity, ItemStack stack) {
 		super.onBlockPlacedBy(world, pos, state, entity, stack);
 		if(isPassiveFlower()) {
-			NBTTagCompound cmp = stack.getTag();
+			CompoundNBT cmp = stack.getTag();
 			passiveDecayTicks = cmp.getInt(TAG_PASSIVE_DECAY_TICKS);
 		}
 	}
 
 	@Override
-	public boolean onWanded(EntityPlayer player, ItemStack wand) {
+	public boolean onWanded(PlayerEntity player, ItemStack wand) {
 		if(player == null)
 			return false;
 
@@ -247,7 +252,7 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 	}
 
 	@Override
-	public void readFromPacketNBT(NBTTagCompound cmp) {
+	public void readFromPacketNBT(CompoundNBT cmp) {
 		mana = cmp.getInt(TAG_MANA);
 		passiveDecayTicks = cmp.getInt(TAG_PASSIVE_DECAY_TICKS);
 
@@ -259,7 +264,7 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 	}
 
 	@Override
-	public void writeToPacketNBT(NBTTagCompound cmp) {
+	public void writeToPacketNBT(CompoundNBT cmp) {
 		cmp.putInt(TAG_MANA, mana);
 		cmp.putInt(TAG_TICKS_EXISTED, ticksExisted);
 		cmp.putInt(TAG_PASSIVE_DECAY_TICKS, passiveDecayTicks);
@@ -287,12 +292,12 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 	}
 
 	@Override
-	public boolean canSelect(EntityPlayer player, ItemStack wand, BlockPos pos, EnumFacing side) {
+	public boolean canSelect(PlayerEntity player, ItemStack wand, BlockPos pos, Direction side) {
 		return true;
 	}
 
 	@Override
-	public boolean bindTo(EntityPlayer player, ItemStack wand, BlockPos pos, EnumFacing side) {
+	public boolean bindTo(PlayerEntity player, ItemStack wand, BlockPos pos, Direction side) {
 		int range = 6;
 		range *= range;
 

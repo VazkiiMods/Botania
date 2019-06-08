@@ -11,10 +11,13 @@
 package vazkii.botania.common.item.lens;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockShulkerBox;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.projectile.EntityThrowable;
-import net.minecraft.init.Blocks;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.ShulkerBoxBlock;
+import net.minecraft.block.ShulkerBoxBlock;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.projectile.ThrowableEntity;
+import net.minecraft.entity.projectile.ThrowableEntity;
+import net.minecraft.block.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.NonNullList;
@@ -29,14 +32,14 @@ import vazkii.botania.common.item.ModItems;
 
 public class LensMine extends Lens {
 	@Override
-	public boolean collideBurst(IManaBurst burst, EntityThrowable entity, RayTraceResult rtr, boolean isManaBlock, boolean dead, ItemStack stack) {
+	public boolean collideBurst(IManaBurst burst, ThrowableEntity entity, RayTraceResult rtr, boolean isManaBlock, boolean dead, ItemStack stack) {
 		World world = entity.world;
 
 		BlockPos collidePos = rtr.getBlockPos();
 		if (world.isRemote)
 			return false;
 
-		IBlockState state = world.getBlockState(collidePos);
+		BlockState state = world.getBlockState(collidePos);
 		Block block = state.getBlock();
 
 		ItemStack composite = ((ItemLens) stack.getItem()).getCompositeLens(stack);
@@ -71,7 +74,7 @@ public class LensMine extends Lens {
 
 					for(ItemStack stack_ : items) {
 						// Shulker boxes do weird things and drop themselves in breakBlock, so don't drop any dupes
-						if(block instanceof BlockShulkerBox && Block.getBlockFromItem(stack_.getItem()) instanceof BlockShulkerBox)
+						if(block instanceof ShulkerBoxBlock && Block.getBlockFromItem(stack_.getItem()) instanceof ShulkerBoxBlock)
 							continue;
 						if(world.rand.nextFloat() <= chance)
 							Block.spawnAsEntity(world, dropCoord, stack_);

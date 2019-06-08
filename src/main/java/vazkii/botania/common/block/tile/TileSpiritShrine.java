@@ -10,10 +10,10 @@
  */
 package vazkii.botania.common.block.tile;
 
-import net.minecraft.util.ITickable;
+import net.minecraft.tileentity.ITickableTileEntity;
 import vazkii.botania.common.Botania;
 
-public class TileSpiritShrine extends TileMod implements ITickable {
+public class TileSpiritShrine extends TileMod implements ITickableTileEntity {
 
 	private int ticks;
 

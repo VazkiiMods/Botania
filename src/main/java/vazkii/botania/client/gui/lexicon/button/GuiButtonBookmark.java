@@ -1,7 +1,8 @@
 package vazkii.botania.client.gui.lexicon.button;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.text.TextFormatting;
 import vazkii.botania.client.core.handler.ClientTickHandler;
@@ -35,7 +36,7 @@ public class GuiButtonBookmark extends GuiButtonLexicon {
 				modified = true;
 			}
 		} else {
-			if(GuiScreen.isShiftKeyDown()) {
+			if(Screen.isShiftKeyDown()) {
 				GuiLexicon.bookmarks.remove(i);
 				GuiLexicon.bookmarkKeys.remove(i);
 

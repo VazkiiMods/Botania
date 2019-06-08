@@ -12,11 +12,12 @@ package vazkii.botania.api.internal;
 
 import net.minecraft.client.renderer.model.ModelResourceLocation;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -81,9 +82,9 @@ public interface IInternalMethodHandler {
 
 	public int getPassiveFlowerDecay();
 
-	public IItemHandlerModifiable getAccessoriesInventory(EntityPlayer player);
+	public IItemHandlerModifiable getAccessoriesInventory(PlayerEntity player);
 
-	public void breakOnAllCursors(EntityPlayer player, Item item, ItemStack stack, BlockPos pos, EnumFacing side);
+	public void breakOnAllCursors(PlayerEntity player, Item item, ItemStack stack, BlockPos pos, Direction side);
 
 	public boolean hasSolegnoliaAround(Entity e);
 

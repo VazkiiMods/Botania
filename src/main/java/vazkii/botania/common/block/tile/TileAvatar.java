@@ -11,10 +11,12 @@
 package vazkii.botania.common.block.tile;
 
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.ITickable;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Direction;
+import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.item.IAvatarTile;
@@ -25,7 +27,7 @@ import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
-public class TileAvatar extends TileSimpleInventory implements IAvatarTile, ITickable {
+public class TileAvatar extends TileSimpleInventory implements IAvatarTile, ITickableTileEntity {
 
 	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.AVATAR)
 	public static TileEntityType<TileAvatar> TYPE;
@@ -47,7 +49,7 @@ public class TileAvatar extends TileSimpleInventory implements IAvatarTile, ITic
 	@Override
 	public void tick() {
 		enabled = true;
-		for(EnumFacing dir : EnumFacing.values()) {
+		for(Direction dir : Direction.values()) {
 			int redstoneSide = world.getRedstonePower(pos.offset(dir), dir);
 			if(redstoneSide > 0) {
 				enabled = false;
@@ -66,7 +68,7 @@ public class TileAvatar extends TileSimpleInventory implements IAvatarTile, ITic
 	}
 
 	@Override
-	public void writePacketNBT(NBTTagCompound par1nbtTagCompound) {
+	public void writePacketNBT(CompoundNBT par1nbtTagCompound) {
 		super.writePacketNBT(par1nbtTagCompound);
 		par1nbtTagCompound.putBoolean(TAG_ENABLED, enabled);
 		par1nbtTagCompound.putInt(TAG_TICKS_ELAPSED, ticksElapsed);
@@ -74,7 +76,7 @@ public class TileAvatar extends TileSimpleInventory implements IAvatarTile, ITic
 	}
 
 	@Override
-	public void readPacketNBT(NBTTagCompound par1nbtTagCompound) {
+	public void readPacketNBT(CompoundNBT par1nbtTagCompound) {
 		super.readPacketNBT(par1nbtTagCompound);
 		enabled = par1nbtTagCompound.getBoolean(TAG_ENABLED);
 		ticksElapsed = par1nbtTagCompound.getInt(TAG_TICKS_ELAPSED);
@@ -122,7 +124,7 @@ public class TileAvatar extends TileSimpleInventory implements IAvatarTile, ITic
 	}
 
 	@Override
-	public EnumFacing getAvatarFacing() {
+	public Direction getAvatarFacing() {
 		return world.getBlockState(getPos()).get(BotaniaStateProps.CARDINALS);
 	}
 

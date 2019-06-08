@@ -12,13 +12,15 @@ package vazkii.botania.common.block.subtile.functional;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.api.distmarker.Dist;
@@ -65,10 +67,10 @@ public class SubTileSpectranthemum extends TileEntityFunctionalFlower {
 
 			boolean did = false;
 
-			List<EntityItem> items = getWorld().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(pos.add(-RANGE, -RANGE, -RANGE), pos.add(RANGE + 1, RANGE + 1, RANGE + 1)));
+			List<ItemEntity> items = getWorld().getEntitiesWithinAABB(ItemEntity.class, new AxisAlignedBB(pos.add(-RANGE, -RANGE, -RANGE), pos.add(RANGE + 1, RANGE + 1, RANGE + 1)));
 			int slowdown = getSlowdownFactor();
 
-			for(EntityItem item : items) {
+			for(ItemEntity item : items) {
 				if(item.age < 60 + slowdown || !item.isAlive() || item.getEntityData().getBoolean(TAG_TELEPORTED))
 					continue;
 
@@ -106,7 +108,7 @@ public class SubTileSpectranthemum extends TileEntityFunctionalFlower {
 	}
 
 	@Override
-	public void writeToPacketNBT(NBTTagCompound cmp) {
+	public void writeToPacketNBT(CompoundNBT cmp) {
 		super.writeToPacketNBT(cmp);
 		cmp.putInt(TAG_BIND_X, bindPos.getX());
 		cmp.putInt(TAG_BIND_Y, bindPos.getY());
@@ -114,7 +116,7 @@ public class SubTileSpectranthemum extends TileEntityFunctionalFlower {
 	}
 
 	@Override
-	public void readFromPacketNBT(NBTTagCompound cmp) {
+	public void readFromPacketNBT(CompoundNBT cmp) {
 		super.readFromPacketNBT(cmp);
 		bindPos = new BlockPos(
 				cmp.getInt(TAG_BIND_X),
@@ -139,7 +141,7 @@ public class SubTileSpectranthemum extends TileEntityFunctionalFlower {
 	}
 
 	@Override
-	public boolean bindTo(EntityPlayer player, ItemStack wand, BlockPos pos, EnumFacing side) {
+	public boolean bindTo(PlayerEntity player, ItemStack wand, BlockPos pos, Direction side) {
 		boolean bound = super.bindTo(player, wand, pos, side);
 
 		if(!bound && !pos.equals(bindPos) && pos.distanceSq(getPos()) <= BIND_RANGE * BIND_RANGE && !pos.equals(getPos())) {

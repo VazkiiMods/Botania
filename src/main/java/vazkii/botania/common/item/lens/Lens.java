@@ -10,7 +10,8 @@
  */
 package vazkii.botania.common.item.lens;
 
-import net.minecraft.entity.projectile.EntityThrowable;
+import net.minecraft.entity.projectile.ThrowableEntity;
+import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.RayTraceResult;
 import vazkii.botania.api.internal.IManaBurst;
@@ -22,11 +23,11 @@ public class Lens  {
 
 	public void apply(ItemStack stack, BurstProperties props) {}
 
-	public boolean collideBurst(IManaBurst burst, EntityThrowable entity, RayTraceResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
+	public boolean collideBurst(IManaBurst burst, ThrowableEntity entity, RayTraceResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
 		return dead;
 	}
 
-	public void updateBurst(IManaBurst burst, EntityThrowable entity, ItemStack stack) {}
+	public void updateBurst(IManaBurst burst, ThrowableEntity entity, ItemStack stack) {}
 
 	public boolean allowBurstShooting(ItemStack stack, IManaSpreader spreader, boolean redstone) {
 		return true;
@@ -36,7 +37,7 @@ public class Lens  {
 
 	public void onControlledSpreaderPulse(ItemStack stack, IManaSpreader spreader, boolean redstone) {}
 	
-	public int getManaToTransfer(IManaBurst burst, EntityThrowable entity, ItemStack stack, IManaReceiver receiver) {
+	public int getManaToTransfer(IManaBurst burst, ThrowableEntity entity, ItemStack stack, IManaReceiver receiver) {
 		return burst.getMana();
 	}
 

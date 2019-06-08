@@ -11,12 +11,14 @@
 package vazkii.botania.common.item.equipment.bauble;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GlStateManager;
+import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.client.renderer.texture.AtlasTexture;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -37,21 +39,21 @@ public class ItemSuperLavaPendant extends ItemBauble {
 		}
 
 		@Override
-		public void onCurioTick(String identifier, EntityLivingBase living) {
+		public void onCurioTick(String identifier, LivingEntity living) {
 			living.isImmuneToFire = true;
 		}
 
 		@Override
-		public void onUnequipped(String identifier, EntityLivingBase living) {
+		public void onUnequipped(String identifier, LivingEntity living) {
 			living.isImmuneToFire = false;
 		}
 
 		@Override
 		@OnlyIn(Dist.CLIENT)
-		public void doRender(String identifier, EntityLivingBase player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-			Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+		public void doRender(String identifier, LivingEntity player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+			Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
 			AccessoryRenderHelper.rotateIfSneaking(player);
-			boolean armor = !player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).isEmpty();
+			boolean armor = !player.getItemStackFromSlot(EquipmentSlotType.CHEST).isEmpty();
 			GlStateManager.scaled(0.5, 0.5, 0.5);
 			GlStateManager.rotatef(180, 0, 0, 1);
 			GlStateManager.translated(-0.5, -0.90, armor ? -0.4 : -0.25);

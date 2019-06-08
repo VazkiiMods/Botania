@@ -10,17 +10,16 @@
  */
 package vazkii.botania.common.block.tile;
 
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.ITickable;
+import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraftforge.registries.ObjectHolder;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
-public class TileBifrost extends TileMod implements ITickable {
+public class TileBifrost extends TileMod implements ITickableTileEntity {
 
 	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.BIFROST)
 	public static TileEntityType<TileBifrost> TYPE;
@@ -43,14 +42,14 @@ public class TileBifrost extends TileMod implements ITickable {
 
 	@Nonnull
 	@Override
-	public NBTTagCompound write(NBTTagCompound par1nbtTagCompound) {
-		NBTTagCompound ret = super.write(par1nbtTagCompound);
+	public CompoundNBT write(CompoundNBT par1nbtTagCompound) {
+		CompoundNBT ret = super.write(par1nbtTagCompound);
 		ret.putInt(TAG_TICKS, ticks);
 		return ret;
 	}
 
 	@Override
-	public void read(NBTTagCompound par1nbtTagCompound) {
+	public void read(CompoundNBT par1nbtTagCompound) {
 		super.read(par1nbtTagCompound);
 		ticks = par1nbtTagCompound.getInt(TAG_TICKS);
 	}

@@ -12,7 +12,7 @@ package vazkii.botania.api.brew;
 
 import com.google.common.collect.ImmutableList;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.PotionEffect;
+import net.minecraft.potion.EffectInstance;
 
 import java.util.List;
 
@@ -25,7 +25,7 @@ public class Brew {
 	private final String name;
 	private final int color;
 	private final int cost;
-	private final List<PotionEffect> effects;
+	private final List<EffectInstance> effects;
 	private boolean canInfuseBloodPendant = true;
 	private boolean canInfuseIncense = true;
 
@@ -36,7 +36,7 @@ public class Brew {
 	 * @param cost The cost, in Mana for this brew.
 	 * @param effects A list of effects to apply to the player when they drink it.
 	 */
-	public Brew(String key, String name, int color, int cost, PotionEffect... effects) {
+	public Brew(String key, String name, int color, int cost, EffectInstance... effects) {
 		this.key = key;
 		this.name = name;
 		this.color = color;
@@ -118,7 +118,7 @@ public class Brew {
 	 * Note that for the lexicon, this passes in a botania Managlass
 	 * Vial or an Alfglass Flask at all times.
 	 */
-	public List<PotionEffect> getPotionEffects(ItemStack stack) {
+	public List<EffectInstance> getPotionEffects(ItemStack stack) {
 		return effects;
 	}
 

@@ -11,10 +11,12 @@
 package vazkii.botania.client.gui.bag;
 
 import net.minecraft.block.Block;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Container;
-import net.minecraft.inventory.Slot;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.container.Container;
+import net.minecraft.inventory.container.Slot;
+import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.SlotItemHandler;
 import vazkii.botania.client.gui.SlotLocked;
@@ -26,7 +28,7 @@ public class ContainerFlowerBag extends Container {
 
 	private final InventoryFlowerBag flowerBagInv;
 
-	public ContainerFlowerBag(InventoryPlayer playerInv, InventoryFlowerBag flowerBagInv) {
+	public ContainerFlowerBag(PlayerInventory playerInv, InventoryFlowerBag flowerBagInv) {
 		int i;
 		int j;
 
@@ -51,14 +53,14 @@ public class ContainerFlowerBag extends Container {
 	}
 
 	@Override
-	public boolean canInteractWith(@Nonnull EntityPlayer player) {
+	public boolean canInteractWith(@Nonnull PlayerEntity player) {
 		return player.getHeldItemMainhand() == flowerBagInv.bag
 				|| player.getHeldItemOffhand() == flowerBagInv.bag;
 	}
 
 	@Nonnull
 	@Override
-	public ItemStack transferStackInSlot(EntityPlayer player, int slotIndex) {
+	public ItemStack transferStackInSlot(PlayerEntity player, int slotIndex) {
 		ItemStack itemstack = ItemStack.EMPTY;
 		Slot slot = inventorySlots.get(slotIndex);
 

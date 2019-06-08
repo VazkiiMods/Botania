@@ -10,23 +10,26 @@
  */
 package vazkii.botania.common.block;
 
+import net.minecraft.block.AirBlock;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockAir;
+import net.minecraft.block.AirBlock;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockFaceShape;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
+import net.minecraft.block.Blocks;
+import net.minecraft.item.Items;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumBlockRenderType;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.block.BlockRenderType;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorldReaderBase;
+import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import vazkii.botania.common.block.tile.TileFakeAir;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -34,7 +37,7 @@ import vazkii.botania.common.lib.LibBlockNames;
 import javax.annotation.Nonnull;
 import java.util.Random;
 
-public class BlockFakeAir extends BlockAir {
+public class BlockFakeAir extends AirBlock {
 
 	private static final AxisAlignedBB AABB = new AxisAlignedBB(0, 0, 0, 0, 0, 0);
 
@@ -43,7 +46,7 @@ public class BlockFakeAir extends BlockAir {
 	}
 
 	@Override
-	public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block, BlockPos fromPos) {
+	public void neighborChanged(BlockState state, World world, BlockPos pos, Block block, BlockPos fromPos) {
 		if(shouldRemove(world, pos))
 			world.getPendingBlockTicks().scheduleTick(pos, this, tickRate(world));
 	}
@@ -53,24 +56,24 @@ public class BlockFakeAir extends BlockAir {
 	}
 
 	@Override
-	public void tick(IBlockState state, World world, BlockPos pos, Random rand) {
+	public void tick(BlockState state, World world, BlockPos pos, Random rand) {
 		if(shouldRemove(world, pos))
 			world.setBlockState(pos, rand.nextInt(10) == 0 ? Blocks.WATER.getDefaultState() : Blocks.AIR.getDefaultState());
 	}
 
 	@Override
-	public int tickRate(IWorldReaderBase world) {
+	public int tickRate(IWorldReader world) {
 		return 4;
 	}
 
 	@Override
-	public boolean hasTileEntity(IBlockState state) {
+	public boolean hasTileEntity(BlockState state) {
 		return true;
 	}
 
 	@Nonnull
 	@Override
-	public TileEntity createTileEntity(@Nonnull IBlockState state, @Nonnull IBlockReader world) {
+	public TileEntity createTileEntity(@Nonnull BlockState state, @Nonnull IBlockReader world) {
 		return new TileFakeAir();
 	}
 }

@@ -11,15 +11,16 @@
 package vazkii.botania.common.block;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumBlockRenderType;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.block.BlockRenderType;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import vazkii.botania.common.block.tile.TileCamo;
@@ -30,12 +31,12 @@ public abstract class BlockCamo extends BlockMod {
 		super(builder);
 	}
 
-	public static boolean isValidBlock(IBlockState state, World world, BlockPos pos) {
-		return state.isOpaqueCube(world, pos) || state.getRenderType() == EnumBlockRenderType.MODEL;
+	public static boolean isValidBlock(BlockState state, World world, BlockPos pos) {
+		return state.isOpaqueCube(world, pos) || state.getRenderType() == BlockRenderType.MODEL;
 	}
 
 	@Override
-	public boolean onBlockActivated(IBlockState state, World world, BlockPos pos, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+	public boolean onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, Direction side, float hitX, float hitY, float hitZ) {
 		TileEntity tile = world.getTileEntity(pos);
 
 		if(world.isRemote)
@@ -47,7 +48,7 @@ public abstract class BlockCamo extends BlockMod {
 				&& tile instanceof TileCamo) {
 			TileCamo camo = (TileCamo) tile;
 			BlockItemUseContext ctx = new BlockItemUseContext(world, player, currentStack, pos, side, 0, 0, 0);
-			IBlockState changeState = Block.getBlockFromItem(currentStack.getItem()).getStateForPlacement(ctx);
+			BlockState changeState = Block.getBlockFromItem(currentStack.getItem()).getStateForPlacement(ctx);
 
 			if(isValidBlock(changeState, world, pos) && !(changeState.getBlock() instanceof BlockCamo) && changeState.getMaterial() != Material.AIR) {
 				camo.camoState = changeState;
@@ -61,12 +62,12 @@ public abstract class BlockCamo extends BlockMod {
 	}
 
 	@Override
-	public boolean isFullCube(IBlockState state) {
+	public boolean isFullCube(BlockState state) {
 		return false;
 	}
 
 	@Override
-	public boolean hasTileEntity(IBlockState state) {
+	public boolean hasTileEntity(BlockState state) {
 		return true;
 	}
 

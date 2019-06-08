@@ -12,10 +12,11 @@ package vazkii.botania.common.item.relic;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
@@ -62,7 +63,7 @@ public class ItemOdinRing extends ItemRelicBauble {
 		}
 
 		@Override
-		public void onValidPlayerWornTick(EntityPlayer player) {
+		public void onValidPlayerWornTick(PlayerEntity player) {
 			if(player.isBurning() && ConfigHandler.COMMON.ringOfOdinFireResist.get())
 				player.extinguish();
 		}
@@ -77,8 +78,8 @@ public class ItemOdinRing extends ItemRelicBauble {
 
 	@SubscribeEvent
 	public static void onPlayerAttacked(LivingAttackEvent event) {
-		if(Botania.curiosLoaded && event.getEntityLiving() instanceof EntityPlayer) {
-			EntityPlayer player = (EntityPlayer) event.getEntityLiving();
+		if(Botania.curiosLoaded && event.getEntityLiving() instanceof PlayerEntity) {
+			PlayerEntity player = (PlayerEntity) event.getEntityLiving();
 			boolean negate = damageNegations.contains(event.getSource().damageType)
 					|| (ConfigHandler.COMMON.ringOfOdinFireResist.get() && fireNegations.contains(event.getSource().damageType));
 			boolean hasRing = !CurioIntegration.findOrEmpty(ModItems.odinRing, player).isEmpty();

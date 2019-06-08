@@ -11,10 +11,10 @@
 package vazkii.botania.common.item.equipment.bauble;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Gui;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.client.gui.AbstractGui;
+import com.mojang.blaze3d.platform.GlStateManager;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.client.event.InputEvent;
@@ -22,7 +22,6 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.items.IItemHandler;
 import top.theillusivec4.curios.api.CuriosAPI;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.common.Botania;
@@ -31,7 +30,6 @@ import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.integration.curios.BaseCurio;
 import vazkii.botania.common.integration.curios.CurioIntegration;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.network.PacketDodge;
 import vazkii.botania.common.network.PacketHandler;
@@ -85,14 +83,14 @@ public class ItemDodgeRing extends ItemBauble {
 		}
 
 		@Override
-		public void onCurioTick(String identifier, EntityLivingBase player) {
+		public void onCurioTick(String identifier, LivingEntity player) {
 			int cd = ItemNBTHelper.getInt(stack, TAG_DODGE_COOLDOWN, 0);
 			if(cd > 0)
 				ItemNBTHelper.setInt(stack, TAG_DODGE_COOLDOWN, cd - 1);
 		}
 	}
 
-	private static void dodge(EntityPlayer player, boolean left) {
+	private static void dodge(PlayerEntity player, boolean left) {
 		if(player.abilities.isFlying || !player.onGround || player.moveForward > 0.2 || player.moveForward < -0.2)
 			return;
 
@@ -110,7 +108,7 @@ public class ItemDodgeRing extends ItemBauble {
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public static void renderHUD(EntityPlayer player, ItemStack stack, float pticks) {
+	public static void renderHUD(PlayerEntity player, ItemStack stack, float pticks) {
 		int xo = Minecraft.getInstance().mainWindow.getScaledWidth() / 2 - 20;
 		int y = Minecraft.getInstance().mainWindow.getScaledHeight() / 2 + 20;
 
@@ -119,8 +117,8 @@ public class ItemDodgeRing extends ItemBauble {
 			int width = Math.min((int) ((cd - pticks) * 2), 40);
 			GlStateManager.color4f(1F, 1F, 1F, 1F);
 			if(width > 0) {
-				Gui.drawRect(xo, y - 2, xo + 40, y - 1, 0x88000000);
-				Gui.drawRect(xo, y - 2, xo + width, y - 1, 0xFFFFFFFF);
+				AbstractGui.drawRect(xo, y - 2, xo + 40, y - 1, 0x88000000);
+				AbstractGui.drawRect(xo, y - 2, xo + width, y - 1, 0xFFFFFFFF);
 			}
 		}
 

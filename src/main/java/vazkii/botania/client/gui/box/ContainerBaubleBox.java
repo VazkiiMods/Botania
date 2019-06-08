@@ -10,10 +10,12 @@
  */
 package vazkii.botania.client.gui.box;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Container;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.Slot;
+import net.minecraft.inventory.container.Slot;
+import net.minecraft.inventory.container.Container;
+import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -30,7 +32,7 @@ public class ContainerBaubleBox extends Container {
 	private final InventoryBaubleBox baubleBoxInv;
 	public IItemHandlerModifiable baubles;
 
-	public ContainerBaubleBox(EntityPlayer player, InventoryBaubleBox boxInv) {
+	public ContainerBaubleBox(PlayerEntity player, InventoryBaubleBox boxInv) {
 		int i;
 		int j;
 
@@ -69,7 +71,7 @@ public class ContainerBaubleBox extends Container {
 	}
 
 	@Override
-	public boolean canInteractWith(@Nonnull EntityPlayer player) {
+	public boolean canInteractWith(@Nonnull PlayerEntity player) {
 		return player.getHeldItemMainhand() == baubleBoxInv.box
 				|| player.getHeldItemOffhand() == baubleBoxInv.box;
 	}
@@ -83,7 +85,7 @@ public class ContainerBaubleBox extends Container {
 
 	@Nonnull
 	@Override
-	public ItemStack transferStackInSlot(EntityPlayer player, int slotIndex) {
+	public ItemStack transferStackInSlot(PlayerEntity player, int slotIndex) {
 		ItemStack itemstack = ItemStack.EMPTY;
 		Slot slot = inventorySlots.get(slotIndex);
 

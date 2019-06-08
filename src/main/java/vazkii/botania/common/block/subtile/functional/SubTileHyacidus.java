@@ -11,10 +11,13 @@
 package vazkii.botania.common.block.subtile.functional;
 
 import net.minecraft.entity.CreatureAttribute;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.MobEffects;
-import net.minecraft.potion.PotionEffect;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Effects;
+import net.minecraft.potion.Effects;
+import net.minecraft.potion.EffectInstance;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.registries.ObjectHolder;
@@ -46,10 +49,10 @@ public class SubTileHyacidus extends TileEntityFunctionalFlower {
 
 		final int cost = 20;
 
-		List<EntityLivingBase> entities = getWorld().getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(getPos().add(-RANGE, -RANGE, -RANGE), getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
-		for(EntityLivingBase entity : entities) {
-			if(!(entity instanceof EntityPlayer) && entity.getActivePotionEffect(MobEffects.POISON) == null && mana >= cost && !entity.world.isRemote && entity.getCreatureAttribute() != CreatureAttribute.UNDEAD) {
-				entity.addPotionEffect(new PotionEffect(MobEffects.POISON, 60, 0));
+		List<LivingEntity> entities = getWorld().getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(getPos().add(-RANGE, -RANGE, -RANGE), getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
+		for(LivingEntity entity : entities) {
+			if(!(entity instanceof PlayerEntity) && entity.getActivePotionEffect(Effects.POISON) == null && mana >= cost && !entity.world.isRemote && entity.getCreatureAttribute() != CreatureAttribute.UNDEAD) {
+				entity.addPotionEffect(new EffectInstance(Effects.POISON, 60, 0));
 				mana -= cost;
 			}
 		}

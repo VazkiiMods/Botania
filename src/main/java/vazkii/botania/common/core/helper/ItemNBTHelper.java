@@ -14,9 +14,11 @@
 package vazkii.botania.common.core.helper;
 
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.INBTBase;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.INBT;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.ListNBT;
+import net.minecraft.nbt.ListNBT;
 
 import javax.annotation.Nullable;
 
@@ -58,7 +60,7 @@ public final class ItemNBTHelper {
 		stack.getOrCreateTag().putDouble(tag, d);
 	}
 
-	public static void setCompound(ItemStack stack, String tag, NBTTagCompound cmp) {
+	public static void setCompound(ItemStack stack, String tag, CompoundNBT cmp) {
 		if(!tag.equalsIgnoreCase("ench")) // not override the enchantments
 			stack.getOrCreateTag().put(tag, cmp);
 	}
@@ -67,7 +69,7 @@ public final class ItemNBTHelper {
 		stack.getOrCreateTag().putString(tag, s);
 	}
 
-	public static void setList(ItemStack stack, String tag, NBTTagList list) {
+	public static void setList(ItemStack stack, String tag, ListNBT list) {
 		stack.getOrCreateTag().put(tag, list);
 	}
 
@@ -115,16 +117,16 @@ public final class ItemNBTHelper {
 
 	/** If nullifyOnFail is true it'll return null if it doesn't find any
 	 * compounds, otherwise it'll return a new one. **/
-	public static NBTTagCompound getCompound(ItemStack stack, String tag, boolean nullifyOnFail) {
-		return verifyExistance(stack, tag) ? stack.getOrCreateTag().getCompound(tag) : nullifyOnFail ? null : new NBTTagCompound();
+	public static CompoundNBT getCompound(ItemStack stack, String tag, boolean nullifyOnFail) {
+		return verifyExistance(stack, tag) ? stack.getOrCreateTag().getCompound(tag) : nullifyOnFail ? null : new CompoundNBT();
 	}
 
 	public static String getString(ItemStack stack, String tag, String defaultExpected) {
 		return verifyExistance(stack, tag) ? stack.getOrCreateTag().getString(tag) : defaultExpected;
 	}
 
-	public static NBTTagList getList(ItemStack stack, String tag, int objtype, boolean nullifyOnFail) {
-		return verifyExistance(stack, tag) ? stack.getOrCreateTag().getList(tag, objtype) : nullifyOnFail ? null : new NBTTagList();
+	public static ListNBT getList(ItemStack stack, String tag, int objtype, boolean nullifyOnFail) {
+		return verifyExistance(stack, tag) ? stack.getOrCreateTag().getList(tag, objtype) : nullifyOnFail ? null : new ListNBT();
 	}
 
 	/**
@@ -132,7 +134,7 @@ public final class ItemNBTHelper {
 	 * 
 	 * This is useful when, e.g. matching NBT tags in recipes.
 	 */
-	public static boolean isTagSubset(@Nullable NBTTagCompound subset, @Nullable NBTTagCompound superset) {
+	public static boolean isTagSubset(@Nullable CompoundNBT subset, @Nullable CompoundNBT superset) {
 		//an empty set is a subset of everything
 		if(subset == null || subset.isEmpty()) return true;
 		//an empty set is a superset of only another empty set (which was already checked above)
@@ -145,13 +147,13 @@ public final class ItemNBTHelper {
 			//it's ok if the subset is missing a key from the superset
 			if(!subset.contains(key)) continue;
 			
-			INBTBase supersetEntry = superset.get(key);
-			INBTBase subsetEntry = subset.get(key);
+			INBT supersetEntry = superset.get(key);
+			INBT subsetEntry = subset.get(key);
 			
 			//if a value is present on both tags, but they do not match, fail
-			if(supersetEntry instanceof NBTTagCompound && subsetEntry instanceof NBTTagCompound) {
+			if(supersetEntry instanceof CompoundNBT && subsetEntry instanceof CompoundNBT) {
 				//recurse into tag compounds (this properly compares nested tag compounds)
-				if(!isTagSubset((NBTTagCompound) subsetEntry, (NBTTagCompound) supersetEntry)) return false;
+				if(!isTagSubset((CompoundNBT) subsetEntry, (CompoundNBT) supersetEntry)) return false;
 			} else {
 				if(!supersetEntry.equals(subsetEntry)) return false;
 			}

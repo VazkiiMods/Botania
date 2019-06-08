@@ -13,11 +13,12 @@ package vazkii.botania.client.fx;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.GlStateManager;
+import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -175,37 +176,37 @@ public class FXSparkle extends Particle {
 		// Botania - change collision box list check to !airblock check
 		if (!world.isAirBlock(blockpos))
 		{
-			EnumFacing enumfacing = EnumFacing.UP;
+			Direction enumfacing = Direction.UP;
 			double d3 = Double.MAX_VALUE;
 
 			if (!world.isBlockFullCube(blockpos.west()) && d0 < d3)
 			{
 				d3 = d0;
-				enumfacing = EnumFacing.WEST;
+				enumfacing = Direction.WEST;
 			}
 
 			if (!world.isBlockFullCube(blockpos.east()) && 1.0D - d0 < d3)
 			{
 				d3 = 1.0D - d0;
-				enumfacing = EnumFacing.EAST;
+				enumfacing = Direction.EAST;
 			}
 
 			if (!world.isBlockFullCube(blockpos.north()) && d2 < d3)
 			{
 				d3 = d2;
-				enumfacing = EnumFacing.NORTH;
+				enumfacing = Direction.NORTH;
 			}
 
 			if (!world.isBlockFullCube(blockpos.south()) && 1.0D - d2 < d3)
 			{
 				d3 = 1.0D - d2;
-				enumfacing = EnumFacing.SOUTH;
+				enumfacing = Direction.SOUTH;
 			}
 
 			if (!world.isBlockFullCube(blockpos.up()) && 1.0D - d1 < d3)
 			{
 				d3 = 1.0D - d1;
-				enumfacing = EnumFacing.UP;
+				enumfacing = Direction.UP;
 			}
 
 			float f = rand.nextFloat() * 0.05F + 0.025F; // Botania - made multiplier and add both smaller
@@ -213,19 +214,19 @@ public class FXSparkle extends Particle {
 			float secondary = (rand.nextFloat() - rand.nextFloat()) * 0.1F; // Botania - Make and use secondary movement variables below
 			float secondary2 = (rand.nextFloat() - rand.nextFloat()) * 0.1F;
 
-			if (enumfacing.getAxis() == EnumFacing.Axis.X)
+			if (enumfacing.getAxis() == Direction.Axis.X)
 			{
 				motionX = f1 * f;
 				motionY = secondary;
 				motionZ = secondary2;
 			}
-			else if (enumfacing.getAxis() == EnumFacing.Axis.Y)
+			else if (enumfacing.getAxis() == Direction.Axis.Y)
 			{
 				motionY = f1 * f;
 				motionX = secondary;
 				motionZ = secondary2;
 			}
-			else if (enumfacing.getAxis() == EnumFacing.Axis.Z)
+			else if (enumfacing.getAxis() == Direction.Axis.Z)
 			{
 				motionZ = f1 * f;
 				motionX = secondary;

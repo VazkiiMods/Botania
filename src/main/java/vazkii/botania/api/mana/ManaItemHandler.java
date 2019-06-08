@@ -10,7 +10,8 @@
  */
 package vazkii.botania.api.mana;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -31,7 +32,7 @@ public final class ManaItemHandler {
 	 * their player-associated inventories.
 	 * @return The list of items
 	 */
-	public static List<ItemStack> getManaItems(EntityPlayer player) {
+	public static List<ItemStack> getManaItems(PlayerEntity player) {
 		if (player == null)
 			return new ArrayList<>();
 
@@ -57,7 +58,7 @@ public final class ManaItemHandler {
 	 * Gets a list containing all mana-holding items in a player's accessories inventory.
 	 * @return The list of items
 	 */
-	public static Map<Integer, ItemStack> getManaAccesories(EntityPlayer player) {
+	public static Map<Integer, ItemStack> getManaAccesories(PlayerEntity player) {
 		if (player == null)
 			return new HashMap<Integer, ItemStack>();
 
@@ -87,7 +88,7 @@ public final class ManaItemHandler {
 	 * @param remove If true, the mana will be removed from the target item. Set to false to just check.
 	 * @return The amount of mana received from the request.
 	 */
-	public static int requestMana(ItemStack stack, EntityPlayer player, int manaToGet, boolean remove) {
+	public static int requestMana(ItemStack stack, PlayerEntity player, int manaToGet, boolean remove) {
 		if(stack.isEmpty())
 			return 0;
 
@@ -138,7 +139,7 @@ public final class ManaItemHandler {
 	 * @param remove If true, the mana will be removed from the target item. Set to false to just check.
 	 * @return If the request was succesful.
 	 */
-	public static boolean requestManaExact(ItemStack stack, EntityPlayer player, int manaToGet, boolean remove) {
+	public static boolean requestManaExact(ItemStack stack, PlayerEntity player, int manaToGet, boolean remove) {
 		if(stack.isEmpty())
 			return false;
 
@@ -185,7 +186,7 @@ public final class ManaItemHandler {
 	 * @param add If true, the mana will be added from the target item. Set to false to just check.
 	 * @return The amount of mana actually sent.
 	 */
-	public static int dispatchMana(ItemStack stack, EntityPlayer player, int manaToSend, boolean add) {
+	public static int dispatchMana(ItemStack stack, PlayerEntity player, int manaToSend, boolean add) {
 		if(stack.isEmpty())
 			return 0;
 
@@ -244,7 +245,7 @@ public final class ManaItemHandler {
 	 * @param add If true, the mana will be added from the target item. Set to false to just check.
 	 * @return If an item received the mana sent.
 	 */
-	public static boolean dispatchManaExact(ItemStack stack, EntityPlayer player, int manaToSend, boolean add) {
+	public static boolean dispatchManaExact(ItemStack stack, PlayerEntity player, int manaToSend, boolean add) {
 		if(stack.isEmpty())
 			return false;
 
@@ -292,7 +293,7 @@ public final class ManaItemHandler {
 	 * @param remove If true, the mana will be removed from the target item. Set to false to just check.
 	 * @return The amount of mana received from the request.
 	 */
-	public static int requestManaForTool(ItemStack stack, EntityPlayer player, int manaToGet, boolean remove) {
+	public static int requestManaForTool(ItemStack stack, PlayerEntity player, int manaToGet, boolean remove) {
 		float multiplier = Math.max(0F, 1F - getFullDiscountForTools(player, stack));
 		int cost = (int) (manaToGet * multiplier);
 		return (int) (requestMana(stack, player, cost, remove) / multiplier);
@@ -306,7 +307,7 @@ public final class ManaItemHandler {
 	 * @param remove If true, the mana will be removed from the target item. Set to false to just check.
 	 * @return If the request was succesful.
 	 */
-	public static boolean requestManaExactForTool(ItemStack stack, EntityPlayer player, int manaToGet, boolean remove) {
+	public static boolean requestManaExactForTool(ItemStack stack, PlayerEntity player, int manaToGet, boolean remove) {
 		float multiplier = Math.max(0F, 1F - getFullDiscountForTools(player, stack));
 		int cost = (int) (manaToGet * multiplier);
 		return requestManaExact(stack, player, cost, remove);
@@ -316,7 +317,7 @@ public final class ManaItemHandler {
 	 * Gets the sum of all the discounts on IManaDiscountArmor items equipped
 	 * on the player passed in. This discount can vary based on what the passed tool is.
 	 */
-	public static float getFullDiscountForTools(EntityPlayer player, ItemStack tool) {
+	public static float getFullDiscountForTools(PlayerEntity player, ItemStack tool) {
 		float discount = 0F;
 		for(int i = 0; i < player.inventory.armorInventory.size(); i++) {
 			ItemStack armor = player.inventory.armorInventory.get(i);

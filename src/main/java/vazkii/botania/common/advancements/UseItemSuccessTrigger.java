@@ -7,10 +7,12 @@ import net.minecraft.advancements.ICriterionTrigger;
 import net.minecraft.advancements.PlayerAdvancements;
 import net.minecraft.advancements.criterion.ItemPredicate;
 import net.minecraft.advancements.criterion.LocationPredicate;
-import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.WorldServer;
+import net.minecraft.world.ServerWorld;
+import net.minecraft.world.ServerWorld;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
@@ -68,7 +70,7 @@ public class UseItemSuccessTrigger implements ICriterionTrigger<UseItemSuccessTr
             this.playerAdvancements = playerAdvancementsIn;
         }
 
-        public void trigger(EntityPlayerMP player, ItemStack stack, WorldServer world, double x, double y, double z) {
+        public void trigger(ServerPlayerEntity player, ItemStack stack, ServerWorld world, double x, double y, double z) {
             List<Listener<Instance>> list = new ArrayList<>();
 
             for(Listener<UseItemSuccessTrigger.Instance> listener : this.listeners) {
@@ -83,7 +85,7 @@ public class UseItemSuccessTrigger implements ICriterionTrigger<UseItemSuccessTr
         }
     }
 
-    public void trigger(EntityPlayerMP player, ItemStack stack, WorldServer world, double x, double y, double z) {
+    public void trigger(ServerPlayerEntity player, ItemStack stack, ServerWorld world, double x, double y, double z) {
         UseItemSuccessTrigger.PlayerTracker tracker = playerTrackers.get(player.getAdvancements());
         if(tracker != null) {
             tracker.trigger(player, stack, world, x, y, z);
@@ -105,7 +107,7 @@ public class UseItemSuccessTrigger implements ICriterionTrigger<UseItemSuccessTr
             return ID;
         }
 
-        boolean test(ItemStack stack, WorldServer world, double x, double y, double z) {
+        boolean test(ItemStack stack, ServerWorld world, double x, double y, double z) {
             return this.item.test(stack) && this.location.test(world, x, y, z);
         }
     }

@@ -10,7 +10,7 @@
  */
 package vazkii.botania.common.network;
 
-import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fml.network.NetworkEvent;
@@ -30,7 +30,7 @@ public class PacketJump {
 
 	public void handle(Supplier<NetworkEvent.Context> ctx) {
 		ctx.get().enqueueWork(() -> {
-			EntityPlayerMP player = ctx.get().getSender();
+			ServerPlayerEntity player = ctx.get().getSender();
 
 			if(Botania.curiosLoaded) {
 				ItemStack amuletStack = CurioIntegration.findOrEmpty(s -> s.getItem() instanceof ItemCloudPendant, player);

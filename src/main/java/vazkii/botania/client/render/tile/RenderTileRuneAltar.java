@@ -11,9 +11,9 @@
 package vazkii.botania.client.render.tile;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GlStateManager;
+import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
-import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.client.core.handler.ClientTickHandler;
@@ -47,7 +47,7 @@ public class RenderTileRuneAltar extends TileEntityRenderer<TileRuneAltar> {
 
 		double time = ClientTickHandler.ticksInGame + partticks;
 
-		Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+		Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
 		for(int i = 0; i < altar.getSizeInventory(); i++) {
 			GlStateManager.pushMatrix();
 			GlStateManager.translatef(0.5F, 1.25F, 0.5F);

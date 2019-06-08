@@ -11,19 +11,19 @@
 package vazkii.botania.common.item.equipment.bauble;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockRedstoneComparator;
-import net.minecraft.block.BlockRedstoneRepeater;
-import net.minecraft.block.BlockRedstoneWire;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.ComparatorBlock;
+import net.minecraft.block.RedstoneWireBlock;
+import net.minecraft.block.RepeaterBlock;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GlStateManager;
+import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
-import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.client.renderer.texture.AtlasTexture;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Items;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.properties.ComparatorMode;
@@ -54,9 +54,9 @@ public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, ICosm
 
 		@Override
         @OnlyIn(Dist.CLIENT)
-		public void doRender(String identifier, EntityLivingBase player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-			boolean armor = !player.getItemStackFromSlot(EntityEquipmentSlot.HEAD).isEmpty();
-			Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+		public void doRender(String identifier, LivingEntity player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+			boolean armor = !player.getItemStackFromSlot(EquipmentSlotType.HEAD).isEmpty();
+			Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
 
 			AccessoryRenderHelper.translateToHeadLevel(player);
 			AccessoryRenderHelper.translateToFace();
@@ -69,12 +69,12 @@ public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, ICosm
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public static void renderHUD(EntityPlayer player) {
+	public static void renderHUD(PlayerEntity player) {
 		Minecraft mc = Minecraft.getInstance();
 		RayTraceResult pos = mc.objectMouseOver;
 		if(pos == null || pos.getBlockPos() == null)
 			return;
-		IBlockState state = player.world.getBlockState(pos.getBlockPos());
+		BlockState state = player.world.getBlockState(pos.getBlockPos());
 		Block block = state.getBlock();
 		player.world.getTileEntity(pos.getBlockPos());
 
@@ -83,13 +83,13 @@ public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, ICosm
 
 		if(block == Blocks.REDSTONE_WIRE) {
 			dispStack = new ItemStack(Items.REDSTONE);
-			text = TextFormatting.RED + "" + state.get(BlockRedstoneWire.POWER);
+			text = TextFormatting.RED + "" + state.get(RedstoneWireBlock.POWER);
 		} else if(block == Blocks.REPEATER) {
 			dispStack = new ItemStack(Blocks.REPEATER);
-			text = "" + state.get(BlockRedstoneRepeater.DELAY);
+			text = "" + state.get(RepeaterBlock.DELAY);
 		} else if(block == Blocks.COMPARATOR) {
 			dispStack = new ItemStack(Blocks.COMPARATOR);
-			text = state.get(BlockRedstoneComparator.MODE) == ComparatorMode.SUBTRACT ? "-" : "+";
+			text = state.get(ComparatorBlock.MODE) == ComparatorMode.SUBTRACT ? "-" : "+";
 		}
 
 		if(dispStack.isEmpty())
@@ -105,7 +105,7 @@ public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, ICosm
 		mc.fontRenderer.drawStringWithShadow(text, x + 20, y + 4, 0xFFFFFF);
 	}
 
-	public static boolean hasMonocle(EntityPlayer player) {
+	public static boolean hasMonocle(PlayerEntity player) {
 		ItemStack stack = Botania.curiosLoaded ? CurioIntegration.findOrEmpty(ModItems.monocle, player) : ItemStack.EMPTY;
 		if(!stack.isEmpty()) {
 			Item item = stack.getItem();

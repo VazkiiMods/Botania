@@ -11,13 +11,13 @@
 package vazkii.botania.common.block.tile;
 
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.ITickable;
+import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.common.item.equipment.bauble.ItemTinyPlanet;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
-public class TileTinyPlanet extends TileMod implements ITickable {
+public class TileTinyPlanet extends TileMod implements ITickableTileEntity {
 	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.TINY_PLANET)
 	public static TileEntityType<TileTinyPlanet> TYPE;
 

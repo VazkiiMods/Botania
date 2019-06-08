@@ -12,7 +12,7 @@ package vazkii.botania.api.recipe;
 
 import com.google.common.base.Preconditions;
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.tags.Tag;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -23,19 +23,19 @@ public class RecipePureDaisy {
 	public static final int DEFAULT_TIME = 150;
 
 	private final Object input;
-	private final IBlockState outputState;
+	private final BlockState outputState;
 	private final int time;
 
-	public RecipePureDaisy(Object input, IBlockState state) {
+	public RecipePureDaisy(Object input, BlockState state) {
 		this(input, state, DEFAULT_TIME);
 	}
 
-	public RecipePureDaisy(Object input, IBlockState state, int time) {
+	public RecipePureDaisy(Object input, BlockState state, int time) {
 		Preconditions.checkArgument(time >= 0, "Time must be nonnegative");
 		this.input = input;
 		outputState = state;
 		this.time = time;
-		if(input != null && !(input instanceof Tag || input instanceof Block || input instanceof IBlockState))
+		if(input != null && !(input instanceof Tag || input instanceof Block || input instanceof BlockState))
 			throw new IllegalArgumentException("input must be a Tag<Block>, Block, or IBlockState");
 		// todo 1.13 find way to throw or enforce Tag<Block>
 	}
@@ -43,11 +43,11 @@ public class RecipePureDaisy {
 	/**
 	 * This gets called every tick, please be careful with your checks.
 	 */
-	public boolean matches(World world, BlockPos pos, TileEntitySpecialFlower pureDaisy, IBlockState state) {
+	public boolean matches(World world, BlockPos pos, TileEntitySpecialFlower pureDaisy, BlockState state) {
 		if(input instanceof Block)
 			return state.getBlock() == input;
 
-		if(input instanceof IBlockState)
+		if(input instanceof BlockState)
 			return state == input;
 
 		return ((Tag<Block>) input).contains(state.getBlock());
@@ -68,7 +68,7 @@ public class RecipePureDaisy {
 		return input;
 	}
 
-	public IBlockState getOutputState() {
+	public BlockState getOutputState() {
 		return outputState;
 	}
 

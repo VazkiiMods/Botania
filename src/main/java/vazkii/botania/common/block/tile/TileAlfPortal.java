@@ -11,16 +11,21 @@
 package vazkii.botania.common.block.tile;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.block.Blocks;
+import net.minecraft.item.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.ITickable;
+import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.MinecraftForge;
@@ -51,7 +56,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
-public class TileAlfPortal extends TileMod implements ITickable {
+public class TileAlfPortal extends TileMod implements ITickableTileEntity {
 
 	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.ALF_PORTAL)
 	public static TileEntityType<TileAlfPortal> TYPE;
@@ -115,7 +120,7 @@ public class TileAlfPortal extends TileMod implements ITickable {
 
 	@Override
 	public void tick() {
-		IBlockState iBlockState = world.getBlockState(getPos());
+		BlockState iBlockState = world.getBlockState(getPos());
 		if(iBlockState.get(BotaniaStateProps.ALFPORTAL_STATE) == AlfPortalState.OFF) {
 			ticksOpen = 0;
 			return;
@@ -135,9 +140,9 @@ public class TileAlfPortal extends TileMod implements ITickable {
 			if(world.isRemote && ConfigHandler.CLIENT.elfPortalParticlesEnabled.get())
 				blockParticle(state);
 
-			List<EntityItem> items = world.getEntitiesWithinAABB(EntityItem.class, aabb);
+			List<ItemEntity> items = world.getEntitiesWithinAABB(ItemEntity.class, aabb);
 			if(!world.isRemote)
-				for(EntityItem item : items) {
+				for(ItemEntity item : items) {
 					if(!item.isAlive())
 						continue;
 
@@ -269,7 +274,7 @@ public class TileAlfPortal extends TileMod implements ITickable {
 	}
 
 	private void spawnItem(ItemStack stack) {
-		EntityItem item = new EntityItem(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, stack);
+		ItemEntity item = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, stack);
 		item.getEntityData().putBoolean(TAG_PORTAL_FLAG, true);
 		world.spawnEntity(item);
 		ticksSinceLastItem = 0;
@@ -277,13 +282,13 @@ public class TileAlfPortal extends TileMod implements ITickable {
 
 	@Nonnull
 	@Override
-	public NBTTagCompound write(NBTTagCompound cmp) {
-		NBTTagCompound ret = super.write(cmp);
+	public CompoundNBT write(CompoundNBT cmp) {
+		CompoundNBT ret = super.write(cmp);
 
 		cmp.putInt(TAG_STACK_COUNT, stacksIn.size());
 		int i = 0;
 		for(ItemStack stack : stacksIn) {
-			NBTTagCompound stackcmp = stack.write(new NBTTagCompound());
+			CompoundNBT stackcmp = stack.write(new CompoundNBT());
 			cmp.put(TAG_STACK + i, stackcmp);
 			i++;
 		}
@@ -292,26 +297,26 @@ public class TileAlfPortal extends TileMod implements ITickable {
 	}
 
 	@Override
-	public void read(NBTTagCompound cmp) {
+	public void read(CompoundNBT cmp) {
 		super.read(cmp);
 
 		int count = cmp.getInt(TAG_STACK_COUNT);
 		stacksIn.clear();
 		for(int i = 0; i < count; i++) {
-			NBTTagCompound stackcmp = cmp.getCompound(TAG_STACK + i);
+			CompoundNBT stackcmp = cmp.getCompound(TAG_STACK + i);
 			ItemStack stack = ItemStack.read(stackcmp);
 			stacksIn.add(stack);
 		}
 	}
 
 	@Override
-	public void writePacketNBT(NBTTagCompound cmp) {
+	public void writePacketNBT(CompoundNBT cmp) {
 		cmp.putInt(TAG_TICKS_OPEN, ticksOpen);
 		cmp.putInt(TAG_TICKS_SINCE_LAST_ITEM, ticksSinceLastItem);
 	}
 
 	@Override
-	public void readPacketNBT(NBTTagCompound cmp) {
+	public void readPacketNBT(CompoundNBT cmp) {
 		ticksOpen = cmp.getInt(TAG_TICKS_OPEN);
 		ticksSinceLastItem = cmp.getInt(TAG_TICKS_SINCE_LAST_ITEM);
 	}
@@ -351,7 +356,7 @@ public class TileAlfPortal extends TileMod implements ITickable {
 		List<BlockPos> list = new ArrayList<>();
 		int range = 5;
 
-		IBlockState pylonState = ModBlocks.naturaPylon.getDefaultState();
+		BlockState pylonState = ModBlocks.naturaPylon.getDefaultState();
 
 		for(int i = -range; i < range + 1; i++)
 			for(int j = -range; j < range + 1; j++)
@@ -429,7 +434,7 @@ public class TileAlfPortal extends TileMod implements ITickable {
 	}
 
 	@SafeVarargs
-	private final boolean check2DArray(BlockPos[] positions, IBlockState state, boolean onlyCheckBlock, Function<BlockPos, BlockPos>... converters) {
+	private final boolean check2DArray(BlockPos[] positions, BlockState state, boolean onlyCheckBlock, Function<BlockPos, BlockPos>... converters) {
 		for(BlockPos pos : positions) {
 			for(Function<BlockPos, BlockPos> f : converters)
 				if(f != null)
@@ -442,10 +447,10 @@ public class TileAlfPortal extends TileMod implements ITickable {
 		return true;
 	}
 
-	private boolean checkPosition(BlockPos pos, IBlockState state, boolean onlyCheckBlock) {
+	private boolean checkPosition(BlockPos pos, BlockState state, boolean onlyCheckBlock) {
 		BlockPos pos_ = getPos().add(pos);
 
-		IBlockState stateat = world.getBlockState(pos_);
+		BlockState stateat = world.getBlockState(pos_);
 		Block blockat = stateat.getBlock();
 
 		if(state.getBlock() == Blocks.AIR ? blockat.isAir(stateat, world, pos_) : blockat == state.getBlock())

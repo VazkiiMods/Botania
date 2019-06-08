@@ -6,8 +6,8 @@ import com.google.gson.JsonSerializationContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.storage.loot.LootContext;
-import net.minecraft.world.storage.loot.conditions.LootCondition;
-import net.minecraft.world.storage.loot.functions.LootFunction;
+import net.minecraft.world.storage.loot.conditions.ILootCondition;
+import net.minecraft.world.storage.loot.functions.ILootFunction;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.relic.ItemRelic;
 import vazkii.botania.common.lib.LibMisc;
@@ -15,9 +15,9 @@ import vazkii.botania.common.lib.LibMisc;
 import javax.annotation.Nonnull;
 import java.util.Random;
 
-public class BindUuid extends LootFunction {
+public class BindUuid extends ILootFunction {
 
-	protected BindUuid(LootCondition[] conditionsIn) {
+	protected BindUuid(ILootCondition[] conditionsIn) {
 		super(conditionsIn);
 	}
 
@@ -31,7 +31,7 @@ public class BindUuid extends LootFunction {
 		return stack;
 	}
 
-	public static class Serializer extends LootFunction.Serializer<BindUuid> {
+	public static class Serializer extends ILootFunction.Serializer<BindUuid> {
 		public Serializer() {
 			super(new ResourceLocation(LibMisc.MOD_ID, "bind_uuid"), BindUuid.class);
 		}
@@ -41,7 +41,7 @@ public class BindUuid extends LootFunction {
 
 		@Nonnull
 		@Override
-		public BindUuid deserialize(@Nonnull JsonObject object, @Nonnull JsonDeserializationContext deserializationContext, @Nonnull LootCondition[] conditionsIn) {
+		public BindUuid deserialize(@Nonnull JsonObject object, @Nonnull JsonDeserializationContext deserializationContext, @Nonnull ILootCondition[] conditionsIn) {
 			return new BindUuid(conditionsIn);
 		}
 	}

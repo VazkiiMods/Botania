@@ -10,9 +10,10 @@
  */
 package vazkii.botania.common.item.lens;
 
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.projectile.EntityThrowable;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -23,13 +24,13 @@ import java.util.List;
 public class LensDamage extends Lens {
 
 	@Override
-	public void updateBurst(IManaBurst burst, EntityThrowable entity, ItemStack stack) {
+	public void updateBurst(IManaBurst burst, ThrowableEntity entity, ItemStack stack) {
 		if (entity.world.isRemote)
 			return;
 		AxisAlignedBB axis = new AxisAlignedBB(entity.posX, entity.posY, entity.posZ, entity.lastTickPosX, entity.lastTickPosY, entity.lastTickPosZ).grow(1);
-		List<EntityLivingBase> entities = entity.world.getEntitiesWithinAABB(EntityLivingBase.class, axis);
-		for(EntityLivingBase living : entities) {
-			if(living instanceof EntityPlayer)
+		List<LivingEntity> entities = entity.world.getEntitiesWithinAABB(LivingEntity.class, axis);
+		for(LivingEntity living : entities) {
+			if(living instanceof PlayerEntity)
 				continue;
 
 			if(living.hurtTime == 0) {

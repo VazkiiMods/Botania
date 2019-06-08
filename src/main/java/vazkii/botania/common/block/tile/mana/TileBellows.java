@@ -10,16 +10,19 @@
  */
 package vazkii.botania.common.block.tile.mana;
 
-import net.minecraft.block.BlockFurnace;
-import net.minecraft.init.Blocks;
+import net.minecraft.block.FurnaceBlock;
+import net.minecraft.block.FurnaceBlock;
+import net.minecraft.block.Blocks;
 import net.minecraft.init.Particles;
-import net.minecraft.init.SoundEvents;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.Direction;
+import net.minecraft.util.SoundEvents;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityFurnace;
+import net.minecraft.tileentity.FurnaceTileEntity;
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.ITickable;
+import net.minecraft.util.Direction;
+import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.SoundCategory;
 import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
@@ -30,7 +33,7 @@ import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
-public class TileBellows extends TileMod implements ITickable {
+public class TileBellows extends TileMod implements ITickableTileEntity {
 	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.BELLOWS)
 	public static TileEntityType<TileBellows> TYPE;
 	private static final String TAG_ACTIVE = "active";
@@ -71,26 +74,26 @@ public class TileBellows extends TileMod implements ITickable {
 			if(moving == 0F)
 				world.playSound(null, pos, ModSounds.bellows, SoundCategory.BLOCKS, 0.1F, 3F);
 
-			if(tile instanceof TileEntityFurnace) {
-				TileEntityFurnace furnace = (TileEntityFurnace) tile;
+			if(tile instanceof FurnaceTileEntity) {
+				FurnaceTileEntity furnace = (FurnaceTileEntity) tile;
 				if(SubTileExoflame.canFurnaceSmelt(furnace)) {
 					furnace.setField(2, Math.min(199, furnace.getField(2) + 20)); // cookTime
 					furnace.setField(0, Math.max(0, furnace.getField(0) - 10)); // burnTime
 				}
 
-				if(furnace.hasWorld() && furnace.getBlockState().get(BlockFurnace.LIT)) {
+				if(furnace.hasWorld() && furnace.getBlockState().get(FurnaceBlock.LIT)) {
 					// [VanillaCopy] BlockFurnace
 					double d0 = (double)pos.getX() + 0.5D;
 					double d1 = (double)pos.getY();
 					double d2 = (double)pos.getZ() + 0.5D;
 
-					EnumFacing enumfacing = furnace.getBlockState().get(BlockFurnace.FACING);
-					EnumFacing.Axis enumfacing$axis = enumfacing.getAxis();
+					Direction enumfacing = furnace.getBlockState().get(FurnaceBlock.FACING);
+					Direction.Axis enumfacing$axis = enumfacing.getAxis();
 					double d3 = 0.52D;
 					double d4 = world.rand.nextDouble() * 0.6D - 0.3D;
-					double d5 = enumfacing$axis == EnumFacing.Axis.X ? (double)enumfacing.getXOffset() * 0.52D : d4;
+					double d5 = enumfacing$axis == Direction.Axis.X ? (double)enumfacing.getXOffset() * 0.52D : d4;
 					double d6 = world.rand.nextDouble() * 6.0D / 16.0D;
-					double d7 = enumfacing$axis == EnumFacing.Axis.Z ? (double)enumfacing.getZOffset() * 0.52D : d4;
+					double d7 = enumfacing$axis == Direction.Axis.Z ? (double)enumfacing.getZOffset() * 0.52D : d4;
 					world.addParticle(Particles.SMOKE, d0 + d5, d1 + d6, d2 + d7, 0.0D, 0.0D, 0.0D);
 					world.addParticle(Particles.FLAME, d0 + d5, d1 + d6, d2 + d7, 0.0D, 0.0D, 0.0D);
 				}
@@ -116,17 +119,17 @@ public class TileBellows extends TileMod implements ITickable {
 	}
 
 	public TileEntity getLinkedTile() {
-		EnumFacing side = world.getBlockState(getPos()).get(BotaniaStateProps.CARDINALS);
+		Direction side = world.getBlockState(getPos()).get(BotaniaStateProps.CARDINALS);
 		return world.getTileEntity(getPos().offset(side));
 	}
 
 	@Override
-	public void writePacketNBT(NBTTagCompound cmp) {
+	public void writePacketNBT(CompoundNBT cmp) {
 		cmp.putBoolean(TAG_ACTIVE, active);
 	}
 
 	@Override
-	public void readPacketNBT(NBTTagCompound cmp) {
+	public void readPacketNBT(CompoundNBT cmp) {
 		active = cmp.getBoolean(TAG_ACTIVE);
 	}
 

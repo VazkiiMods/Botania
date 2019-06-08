@@ -10,20 +10,25 @@
  */
 package vazkii.botania.common.block;
 
-import net.minecraft.block.BlockStem;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.StemBlock;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.block.Blocks;
 import net.minecraft.init.Particles;
+import net.minecraft.item.HoeItem;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemHoe;
+import net.minecraft.item.HoeItem;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.IStringSerializable;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.Hand;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
@@ -65,14 +70,14 @@ public class BlockAltGrass extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public boolean isToolEffective(IBlockState state, ToolType tool) {
+	public boolean isToolEffective(BlockState state, ToolType tool) {
 		return tool.equals(ToolType.SHOVEL);
 	}
 	
 	@Override
-	public boolean onBlockActivated(IBlockState state, World world, BlockPos pos, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+	public boolean onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, Direction facing, float hitX, float hitY, float hitZ) {
 		ItemStack held = player.getHeldItem(hand);
-		if(held.getItem() instanceof ItemHoe && world.isAirBlock(pos.up())) {
+		if(held.getItem() instanceof HoeItem && world.isAirBlock(pos.up())) {
 			held.damageItem(1, player);
 			world.setBlockState(pos, Blocks.FARMLAND.getDefaultState(), 1 | 2);
 			return true;
@@ -82,7 +87,7 @@ public class BlockAltGrass extends BlockMod implements ILexiconable {
 	}
 	
 	@Override
-	public void tick(IBlockState state, World world, BlockPos pos, Random rand) {
+	public void tick(BlockState state, World world, BlockPos pos, Random rand) {
 		if(!world.isRemote && state.getBlock() == this && world.getLight(pos.up()) >= 9) {
 			for(int l = 0; l < 4; ++l) {
 				BlockPos pos1 = pos.add(rand.nextInt(3) - 1, rand.nextInt(5) - 3, rand.nextInt(3) - 1);
@@ -96,19 +101,19 @@ public class BlockAltGrass extends BlockMod implements ILexiconable {
 
 	@Nonnull
 	@Override
-	public IItemProvider getItemDropped(IBlockState state, World world, BlockPos pos, int fortune) {
+	public IItemProvider getItemDropped(BlockState state, World world, BlockPos pos, int fortune) {
 		return Blocks.DIRT.getItemDropped(state, world, pos, fortune);
 	}
 
 	@Override
-	public boolean canSustainPlant(@Nonnull IBlockState state, @Nonnull IBlockReader world, BlockPos pos, @Nonnull EnumFacing direction, IPlantable plantable) {
+	public boolean canSustainPlant(@Nonnull BlockState state, @Nonnull IBlockReader world, BlockPos pos, @Nonnull Direction direction, IPlantable plantable) {
 		EnumPlantType type = plantable.getPlantType(world, pos.down());
-		return type == EnumPlantType.Plains || type == EnumPlantType.Beach || plantable instanceof BlockStem;
+		return type == EnumPlantType.Plains || type == EnumPlantType.Beach || plantable instanceof StemBlock;
 	}
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void animateTick(IBlockState state, World world, BlockPos pos, Random r) {
+	public void animateTick(BlockState state, World world, BlockPos pos, Random r) {
 		switch(variant) {
 		case DRY:
 			break;
@@ -135,7 +140,7 @@ public class BlockAltGrass extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
+	public LexiconEntry getEntry(World world, BlockPos pos, PlayerEntity player, ItemStack lexicon) {
 		return LexiconData.grassSeeds;
 	}
 }

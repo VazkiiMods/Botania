@@ -11,11 +11,13 @@
 package vazkii.botania.common.lexicon.page;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.widget.button.Button;
+import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.text.Style;
-import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
 import vazkii.botania.api.internal.IGuiLexiconEntry;
 import vazkii.botania.client.gui.lexicon.GuiLexicon;
 
@@ -27,7 +29,7 @@ public class PageTutorial extends PageText {
 	// Turn this on once we have an up to date video
 	private static final boolean VIDEO_ENABLED = true;
 
-	private GuiButton buttonText, buttonVideo;
+	private Button buttonText, buttonVideo;
 
 	public PageTutorial(String unlocalizedName) {
 		super(unlocalizedName);
@@ -35,17 +37,17 @@ public class PageTutorial extends PageText {
 
 	@Override
 	public void onOpened(IGuiLexiconEntry gui) {
-		buttonText = new GuiButton(101, gui.getLeft() + 20, gui.getTop() + gui.getHeight() - 40, 50, 20, I18n.format("botaniamisc.tutorialText")) {
+		buttonText = new Button(101, gui.getLeft() + 20, gui.getTop() + gui.getHeight() - 40, 50, 20, I18n.format("botaniamisc.tutorialText")) {
 			@Override
 			public void onClick(double mouseX, double mouseY) {
 				super.onClick(mouseX, mouseY);
 				GuiLexicon.startTutorial();
 				Minecraft.getInstance().displayGuiScreen(new GuiLexicon());
-				Minecraft.getInstance().player.sendMessage(new TextComponentTranslation("botaniamisc.tutorialStarted").setStyle(new Style().setColor(TextFormatting.GREEN)));
+				Minecraft.getInstance().player.sendMessage(new TranslationTextComponent("botaniamisc.tutorialStarted").setStyle(new Style().setColor(TextFormatting.GREEN)));
 			}
 		};
 		if(VIDEO_ENABLED)
-			buttonVideo = new GuiButton(101, gui.getLeft() + 75, gui.getTop() + gui.getHeight() - 40, 50, 20, I18n.format("botaniamisc.tutorialVideo")) {
+			buttonVideo = new Button(101, gui.getLeft() + 75, gui.getTop() + gui.getHeight() - 40, 50, 20, I18n.format("botaniamisc.tutorialVideo")) {
 				@Override
 				public void onClick(double mouseX, double mouseY) {
 					super.onClick(mouseX, mouseY);

@@ -11,7 +11,7 @@
 package vazkii.botania.api.recipe;
 
 import com.google.common.collect.ImmutableList;
-import net.minecraft.init.Items;
+import net.minecraft.item.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraftforge.items.IItemHandler;

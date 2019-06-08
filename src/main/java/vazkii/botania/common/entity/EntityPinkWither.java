@@ -11,14 +11,18 @@
 package vazkii.botania.common.entity;
 
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ai.EntityAIAttackRanged;
-import net.minecraft.entity.ai.EntityAIHurtByTarget;
-import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
-import net.minecraft.entity.boss.EntityWither;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
+import net.minecraft.entity.ai.goal.RangedAttackGoal;
+import net.minecraft.entity.ai.goal.HurtByTargetGoal;
+import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
+import net.minecraft.entity.ai.goal.RangedAttackGoal;
+import net.minecraft.entity.boss.WitherEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.init.Particles;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.Hand;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.ObjectHolder;
@@ -26,17 +30,17 @@ import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
-public class EntityPinkWither extends EntityWither {
+public class EntityPinkWither extends WitherEntity {
 	@ObjectHolder(LibMisc.MOD_ID + ":pink_wither")
 	public static EntityType<?> TYPE;
 
 	public EntityPinkWither(World world) {
 		super(world);
 
-		tasks.taskEntries.removeIf(entry -> entry.action instanceof EntityAIAttackRanged); // Remove firing wither skulls
+		tasks.taskEntries.removeIf(entry -> entry.action instanceof RangedAttackGoal); // Remove firing wither skulls
 
-		targetTasks.taskEntries.removeIf(entry -> entry.action instanceof EntityAIHurtByTarget
-				|| entry.action instanceof EntityAINearestAttackableTarget); // Remove revenge and aggro
+		targetTasks.taskEntries.removeIf(entry -> entry.action instanceof HurtByTargetGoal
+				|| entry.action instanceof NearestAttackableTargetGoal); // Remove revenge and aggro
 	}
 
 	@Nonnull
@@ -65,7 +69,7 @@ public class EntityPinkWither extends EntityWither {
 	}
 
 	@Override
-	protected boolean processInteract(EntityPlayer player, EnumHand hand) {
+	protected boolean processInteract(PlayerEntity player, Hand hand) {
 		if(!player.isSneaking()) {
 			player.startRiding(this);
 			return true;
@@ -77,7 +81,7 @@ public class EntityPinkWither extends EntityWither {
 	protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {}
 
 	@Override
-	public void addTrackingPlayer(@Nonnull EntityPlayerMP player) {}
+	public void addTrackingPlayer(@Nonnull ServerPlayerEntity player) {}
 
 	// [VanillaCopy] super
 

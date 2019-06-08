@@ -11,23 +11,28 @@
 package vazkii.botania.common.item.equipment.bauble;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GlStateManager;
+import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.MobEffects;
-import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Effects;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.PotionEffect;
+import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
@@ -74,17 +79,17 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 
 		Brew brew = getBrew(stack);
 		if(brew == BotaniaAPI.fallbackBrew) {
-			list.add(new TextComponentTranslation("botaniamisc.notInfused").applyTextStyle(TextFormatting.LIGHT_PURPLE));
+			list.add(new TranslationTextComponent("botaniamisc.notInfused").applyTextStyle(TextFormatting.LIGHT_PURPLE));
 			return;
 		}
 
-		list.add(new TextComponentTranslation("botaniamisc.brewOf", I18n.format(brew.getUnlocalizedName(stack))).applyTextStyle(TextFormatting.LIGHT_PURPLE));
-		for(PotionEffect effect : brew.getPotionEffects(stack)) {
+		list.add(new TranslationTextComponent("botaniamisc.brewOf", I18n.format(brew.getUnlocalizedName(stack))).applyTextStyle(TextFormatting.LIGHT_PURPLE));
+		for(EffectInstance effect : brew.getPotionEffects(stack)) {
 			TextFormatting format = effect.getPotion().isBadEffect() ? TextFormatting.RED : TextFormatting.GRAY;
-			ITextComponent cmp = new TextComponentTranslation(effect.getEffectName());
+			ITextComponent cmp = new TranslationTextComponent(effect.getEffectName());
 			if(effect.getAmplifier() > 0) {
 				cmp.appendText(" ");
-				cmp.appendSibling(new TextComponentTranslation("botania.roman" + (effect.getAmplifier() + 1)));
+				cmp.appendSibling(new TranslationTextComponent("botania.roman" + (effect.getAmplifier() + 1)));
 			}
 			list.add(cmp.applyTextStyle(format));
 		}
@@ -96,18 +101,18 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 		}
 
 		@Override
-		public void onCurioTick(String identifier, EntityLivingBase player) {
+		public void onCurioTick(String identifier, LivingEntity player) {
 			Brew brew = ((IBrewItem) stack.getItem()).getBrew(stack);
-			if(brew != BotaniaAPI.fallbackBrew && player instanceof EntityPlayer && !player.world.isRemote) {
-				EntityPlayer eplayer = (EntityPlayer) player;
-				PotionEffect effect = brew.getPotionEffects(stack).get(0);
+			if(brew != BotaniaAPI.fallbackBrew && player instanceof PlayerEntity && !player.world.isRemote) {
+				PlayerEntity eplayer = (PlayerEntity) player;
+				EffectInstance effect = brew.getPotionEffects(stack).get(0);
 				float cost = (float) brew.getManaCost(stack) / effect.getDuration() / (1 + effect.getAmplifier()) * 2.5F;
 				boolean doRand = cost < 1;
 				if(ManaItemHandler.requestManaExact(stack, eplayer, (int) Math.ceil(cost), false)) {
-					PotionEffect currentEffect = player.getActivePotionEffect(effect.getPotion());
-					boolean nightVision = effect.getPotion() == MobEffects.NIGHT_VISION;
+					EffectInstance currentEffect = player.getActivePotionEffect(effect.getPotion());
+					boolean nightVision = effect.getPotion() == Effects.NIGHT_VISION;
 					if(currentEffect == null || currentEffect.getDuration() < (nightVision ? 305 : 3)) {
-						PotionEffect applyEffect = new PotionEffect(effect.getPotion(), nightVision ? 385 : 80, effect.getAmplifier(), true, true);
+						EffectInstance applyEffect = new EffectInstance(effect.getPotion(), nightVision ? 385 : 80, effect.getAmplifier(), true, true);
 						player.addPotionEffect(applyEffect);
 					}
 
@@ -119,10 +124,10 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 
 		@Override
         @OnlyIn(Dist.CLIENT)
-		public void doRender(String identifier, EntityLivingBase player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-			Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+		public void doRender(String identifier, LivingEntity player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+			Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
 			AccessoryRenderHelper.rotateIfSneaking(player);
-			boolean armor = !player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).isEmpty();
+			boolean armor = !player.getItemStackFromSlot(EquipmentSlotType.CHEST).isEmpty();
 			GlStateManager.rotatef(180F, 1F, 0F, 0F);
 			GlStateManager.translatef(-0.26F, -0.4F, armor ? 0.2F : 0.15F);
 			GlStateManager.scalef(0.5F, 0.5F, 0.5F);

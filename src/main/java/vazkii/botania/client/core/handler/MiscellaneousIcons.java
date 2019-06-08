@@ -10,8 +10,9 @@ package vazkii.botania.client.core.handler;
 
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.model.ModelResourceLocation;
+import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
@@ -238,11 +239,11 @@ public class MiscellaneousIcons {
 		nimbusGem = get(evt.getMap(), "items/pendant_cloud_super_gem");
 	}
 	
-	private void register(TextureMap map, String name) {
+	private void register(AtlasTexture map, String name) {
 		map.registerSprite(null, new ResourceLocation(LibMisc.MOD_ID, name));
 	}
 	
-	private TextureAtlasSprite get(TextureMap map, String name) {
+	private TextureAtlasSprite get(AtlasTexture map, String name) {
 		return map.getSprite(new ResourceLocation(LibMisc.MOD_ID, name));
 	}
 

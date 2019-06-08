@@ -10,10 +10,8 @@
  */
 package vazkii.botania.common.block.mana;
 
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -25,7 +23,6 @@ import vazkii.botania.api.mana.IPoolOverlayProvider;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.lexicon.LexiconData;
-import vazkii.botania.common.lib.LibBlockNames;
 
 public class BlockAlchemyCatalyst extends BlockMod implements ILexiconable, IPoolOverlayProvider {
 
@@ -34,7 +31,7 @@ public class BlockAlchemyCatalyst extends BlockMod implements ILexiconable, IPoo
 	}
 
 	@Override
-	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
+	public LexiconEntry getEntry(World world, BlockPos pos, PlayerEntity player, ItemStack lexicon) {
 		return LexiconData.alchemy;
 	}
 

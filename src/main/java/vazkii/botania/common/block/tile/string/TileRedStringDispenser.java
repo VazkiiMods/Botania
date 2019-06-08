@@ -10,8 +10,9 @@
  */
 package vazkii.botania.common.block.tile.string;
 
+import net.minecraft.tileentity.DispenserTileEntity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityDispenser;
+import net.minecraft.tileentity.DispenserTileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.registries.ObjectHolder;
@@ -30,14 +31,14 @@ public class TileRedStringDispenser extends TileRedStringContainer {
 
 	@Override
 	public boolean acceptBlock(BlockPos pos) {
-		return world.getTileEntity(pos) instanceof TileEntityDispenser;
+		return world.getTileEntity(pos) instanceof DispenserTileEntity;
 	}
 
 	public void tickDispenser() {
 		BlockPos bind = getBinding();
 		if(bind != null) {
 			TileEntity tile = world.getTileEntity(bind);
-			if(tile instanceof TileEntityDispenser)
+			if(tile instanceof DispenserTileEntity)
 				world.getPendingBlockTicks().scheduleTick(bind, tile.getBlockState().getBlock(), tile.getBlockState().getBlock().tickRate(world));
 		}
 	}

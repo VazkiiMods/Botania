@@ -10,13 +10,16 @@
  */
 package vazkii.botania.client.gui.bag;
 
-import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.gui.screen.inventory.ContainerScreen;
+import net.minecraft.client.gui.screen.inventory.ContainerScreen;
+import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Slot;
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.container.Slot;
+import net.minecraft.inventory.container.Slot;
+import net.minecraft.item.DyeColor;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.items.SlotItemHandler;
@@ -25,11 +28,11 @@ import vazkii.botania.common.block.ModBlocks;
 
 import java.util.List;
 
-public class GuiFlowerBag extends GuiContainer {
+public class GuiFlowerBag extends ContainerScreen {
 
 	private static final ResourceLocation texture = new ResourceLocation(LibResources.GUI_FLOWER_BAG);
 
-	public GuiFlowerBag(InventoryPlayer playerInv, InventoryFlowerBag flowerBagInv) {
+	public GuiFlowerBag(PlayerInventory playerInv, InventoryFlowerBag flowerBagInv) {
 		super(new ContainerFlowerBag(playerInv, flowerBagInv));
 	}
 
@@ -60,7 +63,7 @@ public class GuiFlowerBag extends GuiContainer {
 			if(slot instanceof SlotItemHandler) {
 				SlotItemHandler slotf = (SlotItemHandler) slot;
 				if(!slotf.getHasStack()) {
-					EnumDyeColor color = EnumDyeColor.byId(slotf.getSlotIndex());
+					DyeColor color = DyeColor.byId(slotf.getSlotIndex());
 					ItemStack stack = new ItemStack(ModBlocks.getFlower(color));
 					int x = guiLeft + slotf.xPos;
 					int y = guiTop + slotf.yPos;

@@ -11,12 +11,12 @@
 package vazkii.botania.common.block.decor.panes;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockPane;
+import net.minecraft.block.PaneBlock;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.util.BlockRenderLayer;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
@@ -28,14 +28,14 @@ import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
-public class BlockModPane extends BlockPane {
+public class BlockModPane extends PaneBlock {
 
 	public BlockModPane(Properties props) {
 		super(props);
 	}
 
 	@Override
-	public boolean canBeConnectedTo(IBlockState state, IBlockReader world, BlockPos pos, EnumFacing facing) {
+	public boolean canBeConnectedTo(BlockState state, IBlockReader world, BlockPos pos, Direction facing) {
 		Block block = world.getBlockState(pos.offset(facing)).getBlock();
 		return block == ModBlocks.elfGlass || block == ModBlocks.manaGlass || block == ModBlocks.bifrostPerm
 				|| super.canBeConnectedTo(state, world, pos, facing);

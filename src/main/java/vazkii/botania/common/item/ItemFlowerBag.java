@@ -11,26 +11,34 @@
 package vazkii.botania.common.item;
 
 import net.minecraft.block.Block;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.init.SoundEvents;
-import net.minecraft.inventory.Container;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.INBT;
+import net.minecraft.network.play.server.SCollectItemPacket;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
+import net.minecraft.util.SoundEvents;
+import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
-import net.minecraft.nbt.INBTBase;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.play.server.SPacketCollectItem;
+import net.minecraft.nbt.INBT;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.play.server.SCollectItemPacket;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.IInteractionObject;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
@@ -61,11 +69,11 @@ public class ItemFlowerBag extends ItemMod {
 
 	@Nonnull
 	@Override
-	public ICapabilityProvider initCapabilities(ItemStack stack, NBTTagCompound oldCapNbt) {
+	public ICapabilityProvider initCapabilities(ItemStack stack, CompoundNBT oldCapNbt) {
 		return new InvProvider();
 	}
 
-	private static class InvProvider implements ICapabilitySerializable<INBTBase> {
+	private static class InvProvider implements ICapabilitySerializable<INBT> {
 
 		private final IItemHandler inv = new ItemStackHandler(16) {
 			@Override
@@ -80,17 +88,17 @@ public class ItemFlowerBag extends ItemMod {
 
 		@Nonnull
 		@Override
-		public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
+		public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> capability, @Nullable Direction facing) {
 			return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.orEmpty(capability, opt);
 		}
 
 		@Override
-		public INBTBase serializeNBT() {
+		public INBT serializeNBT() {
 			return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.writeNBT(inv, null);
 		}
 
 		@Override
-		public void deserializeNBT(INBTBase nbt) {
+		public void deserializeNBT(INBT nbt) {
 			CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.readNBT(inv, null, nbt);
 		}
 	}
@@ -120,7 +128,7 @@ public class ItemFlowerBag extends ItemMod {
 									SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.PLAYERS, 0.2F,
 									((event.getItem().world.rand.nextFloat() - event.getItem().world.rand.nextFloat()) * 0.7F + 1.0F) * 2.0F);
 						}
-						((EntityPlayerMP) event.getEntityPlayer()).connection.sendPacket(new SPacketCollectItem(event.getItem().getEntityId(), event.getEntityPlayer().getEntityId(), numPickedUp));
+						((ServerPlayerEntity) event.getEntityPlayer()).connection.sendPacket(new SCollectItemPacket(event.getItem().getEntityId(), event.getEntityPlayer().getEntityId(), numPickedUp));
 						event.getEntityPlayer().openContainer.detectAndSendChanges();
 
 						return;
@@ -132,21 +140,21 @@ public class ItemFlowerBag extends ItemMod {
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
 		if(!world.isRemote) {
-			NetworkHooks.openGui((EntityPlayerMP) player, new ContainerProvider(player.getHeldItem(hand)), buf -> {
-				buf.writeBoolean(hand == EnumHand.OFF_HAND);
+			NetworkHooks.openGui((ServerPlayerEntity) player, new ContainerProvider(player.getHeldItem(hand)), buf -> {
+				buf.writeBoolean(hand == Hand.OFF_HAND);
 			});
 		}
-		return ActionResult.newResult(EnumActionResult.SUCCESS, player.getHeldItem(hand));
+		return ActionResult.newResult(ActionResultType.SUCCESS, player.getHeldItem(hand));
 	}
 
 	@Nonnull
 	@Override
-	public EnumActionResult onItemUse(ItemUseContext ctx) {
+	public ActionResultType onItemUse(ItemUseContext ctx) {
 		World world = ctx.getWorld();
 		BlockPos pos = ctx.getPos();
-		EnumFacing side = ctx.getFace();
+		Direction side = ctx.getFace();
 
 		TileEntity tile = world.getTileEntity(pos);
 		if(tile != null) {
@@ -156,7 +164,7 @@ public class ItemFlowerBag extends ItemMod {
 					tileInv = tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, side).orElseThrow(NullPointerException::new);
 				else if(tile instanceof IInventory)
 					tileInv = new InvWrapper((IInventory) tile);
-				else return EnumActionResult.FAIL;
+				else return ActionResultType.FAIL;
 
 				ctx.getItem().getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(bagInv -> {
 					for(int i = 0; i < bagInv.getSlots(); i++) {
@@ -167,9 +175,9 @@ public class ItemFlowerBag extends ItemMod {
 
 			}
 
-			return EnumActionResult.SUCCESS;
+			return ActionResultType.SUCCESS;
 		}
-		return EnumActionResult.PASS;
+		return ActionResultType.PASS;
 	}
 
 	private static class ContainerProvider implements IInteractionObject {
@@ -181,7 +189,7 @@ public class ItemFlowerBag extends ItemMod {
 
 		@Nonnull
 		@Override
-		public Container createContainer(@Nonnull InventoryPlayer playerInventory, @Nonnull EntityPlayer player) {
+		public Container createContainer(@Nonnull PlayerInventory playerInventory, @Nonnull PlayerEntity player) {
 			return new ContainerFlowerBag(playerInventory, new InventoryFlowerBag(stack));
 		}
 
@@ -194,7 +202,7 @@ public class ItemFlowerBag extends ItemMod {
 		@Nonnull
 		@Override
 		public ITextComponent getName() {
-			return new TextComponentString(getGuiID());
+			return new StringTextComponent(getGuiID());
 		}
 
 		@Override

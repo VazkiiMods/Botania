@@ -11,14 +11,17 @@
 package vazkii.botania.common.block.tile.mana;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.entity.player.EntityPlayer;
+import com.mojang.blaze3d.platform.GlStateManager;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.ITickable;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Direction;
+import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -29,7 +32,7 @@ import vazkii.botania.common.block.tile.TileMod;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
-public class TileTurntable extends TileMod implements ITickable {
+public class TileTurntable extends TileMod implements ITickableTileEntity {
 	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.TURNTABLE)
 	public static TileEntityType<TileTurntable> TYPE;
 	private static final String TAG_SPEED = "speed";
@@ -46,7 +49,7 @@ public class TileTurntable extends TileMod implements ITickable {
 	public void tick() {
 		boolean redstone = false;
 
-		for(EnumFacing dir : EnumFacing.values()) {
+		for(Direction dir : Direction.values()) {
 			int redstoneSide = world.getRedstonePower(pos.offset(dir), dir);
 			if(redstoneSide > 0)
 				redstone = true;
@@ -66,18 +69,18 @@ public class TileTurntable extends TileMod implements ITickable {
 	}
 
 	@Override
-	public void writePacketNBT(NBTTagCompound cmp) {
+	public void writePacketNBT(CompoundNBT cmp) {
 		cmp.putInt(TAG_SPEED, speed);
 		cmp.putBoolean(TAG_BACKWARDS, backwards);
 	}
 
 	@Override
-	public void readPacketNBT(NBTTagCompound cmp) {
+	public void readPacketNBT(CompoundNBT cmp) {
 		speed = cmp.getInt(TAG_SPEED);
 		backwards = cmp.getBoolean(TAG_BACKWARDS);
 	}
 
-	public void onWanded(EntityPlayer player, ItemStack wand) {
+	public void onWanded(PlayerEntity player, ItemStack wand) {
 		if(player == null)
 			return;
 

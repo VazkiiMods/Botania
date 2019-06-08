@@ -7,7 +7,8 @@ import net.minecraft.advancements.ICriterionTrigger;
 import net.minecraft.advancements.PlayerAdvancements;
 import net.minecraft.advancements.criterion.DamageSourcePredicate;
 import net.minecraft.advancements.criterion.EntityPredicate;
-import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import vazkii.botania.common.entity.EntityDoppleganger;
@@ -66,7 +67,7 @@ public class DopplegangerNoArmorTrigger implements ICriterionTrigger<Dopplegange
             this.playerAdvancements = playerAdvancementsIn;
         }
 
-        public void trigger(EntityPlayerMP player, EntityDoppleganger guardian, DamageSource src) {
+        public void trigger(ServerPlayerEntity player, EntityDoppleganger guardian, DamageSource src) {
             List<Listener<Instance>> list = new ArrayList<>();
 
             for(Listener<DopplegangerNoArmorTrigger.Instance> listener : this.listeners) {
@@ -81,7 +82,7 @@ public class DopplegangerNoArmorTrigger implements ICriterionTrigger<Dopplegange
         }
     }
 
-    public void trigger(EntityPlayerMP player, EntityDoppleganger guardian, DamageSource src) {
+    public void trigger(ServerPlayerEntity player, EntityDoppleganger guardian, DamageSource src) {
         DopplegangerNoArmorTrigger.PlayerTracker tracker = playerTrackers.get(player.getAdvancements());
         if(tracker != null) {
             tracker.trigger(player, guardian, src);
@@ -103,7 +104,7 @@ public class DopplegangerNoArmorTrigger implements ICriterionTrigger<Dopplegange
             return ID;
         }
 
-        boolean test(EntityPlayerMP player, EntityDoppleganger guardian, DamageSource src) {
+        boolean test(ServerPlayerEntity player, EntityDoppleganger guardian, DamageSource src) {
             return this.guardian.test(player, guardian) && this.killingBlow.test(player, src);
         }
     }

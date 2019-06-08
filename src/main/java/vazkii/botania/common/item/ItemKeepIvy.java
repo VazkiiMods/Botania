@@ -10,10 +10,12 @@
  */
 package vazkii.botania.common.item;
 
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerDropsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -41,8 +43,8 @@ public class ItemKeepIvy extends ItemMod {
 
 	@SubscribeEvent
 	public static void onPlayerDrops(PlayerDropsEvent event) {
-		List<EntityItem> keeps = new ArrayList<>();
-		for(EntityItem item : event.getDrops()) {
+		List<ItemEntity> keeps = new ArrayList<>();
+		for(ItemEntity item : event.getDrops()) {
 			ItemStack stack = item.getItem();
 			if(!stack.isEmpty() && stack.hasTag() && ItemNBTHelper.getBoolean(stack, TAG_KEEP, false))
 				keeps.add(item);
@@ -51,36 +53,36 @@ public class ItemKeepIvy extends ItemMod {
 		if(keeps.size() > 0) {
 			event.getDrops().removeAll(keeps);
 
-			NBTTagCompound cmp = new NBTTagCompound();
+			CompoundNBT cmp = new CompoundNBT();
 			cmp.putInt(TAG_DROP_COUNT, keeps.size());
 
 			int i = 0;
-			for(EntityItem keep : keeps) {
+			for(ItemEntity keep : keeps) {
 				ItemStack stack = keep.getItem();
-				NBTTagCompound cmp1 = stack.write(new NBTTagCompound());
+				CompoundNBT cmp1 = stack.write(new CompoundNBT());
 				cmp.put(TAG_DROP_PREFIX + i, cmp1);
 				i++;
 			}
 
-			NBTTagCompound data = event.getEntityPlayer().getEntityData();
-			if(!data.contains(EntityPlayer.PERSISTED_NBT_TAG))
-				data.put(EntityPlayer.PERSISTED_NBT_TAG, new NBTTagCompound());
+			CompoundNBT data = event.getEntityPlayer().getEntityData();
+			if(!data.contains(PlayerEntity.PERSISTED_NBT_TAG))
+				data.put(PlayerEntity.PERSISTED_NBT_TAG, new CompoundNBT());
 
-			NBTTagCompound persist = data.getCompound(EntityPlayer.PERSISTED_NBT_TAG);
+			CompoundNBT persist = data.getCompound(PlayerEntity.PERSISTED_NBT_TAG);
 			persist.put(TAG_PLAYER_KEPT_DROPS, cmp);
 		}
 	}
 
 	@SubscribeEvent
 	public static void onPlayerRespawn(PlayerRespawnEvent event) {
-		NBTTagCompound data = event.getPlayer().getEntityData();
-		if(data.contains(EntityPlayer.PERSISTED_NBT_TAG)) {
-			NBTTagCompound cmp = data.getCompound(EntityPlayer.PERSISTED_NBT_TAG);
-			NBTTagCompound cmp1 = cmp.getCompound(TAG_PLAYER_KEPT_DROPS);
+		CompoundNBT data = event.getPlayer().getEntityData();
+		if(data.contains(PlayerEntity.PERSISTED_NBT_TAG)) {
+			CompoundNBT cmp = data.getCompound(PlayerEntity.PERSISTED_NBT_TAG);
+			CompoundNBT cmp1 = cmp.getCompound(TAG_PLAYER_KEPT_DROPS);
 
 			int count = cmp1.getInt(TAG_DROP_COUNT);
 			for(int i = 0; i < count; i++) {
-				NBTTagCompound cmp2 = cmp1.getCompound(TAG_DROP_PREFIX + i);
+				CompoundNBT cmp2 = cmp1.getCompound(TAG_DROP_PREFIX + i);
 				ItemStack stack = ItemStack.read(cmp2);
 				if(!stack.isEmpty()) {
 					ItemStack copy = stack.copy();
@@ -89,7 +91,7 @@ public class ItemKeepIvy extends ItemMod {
 				}
 			}
 
-			cmp.put(TAG_PLAYER_KEPT_DROPS, new NBTTagCompound());
+			cmp.put(TAG_PLAYER_KEPT_DROPS, new CompoundNBT());
 		}
 	}
 

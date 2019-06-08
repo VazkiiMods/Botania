@@ -11,12 +11,13 @@
 package vazkii.botania.common.block.subtile.functional;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Blocks;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityFurnace;
+import net.minecraft.tileentity.FurnaceTileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.crafting.VanillaRecipeTypes;
@@ -52,11 +53,11 @@ public class SubTileExoflame extends TileEntityFunctionalFlower {
 
 		for(BlockPos pos : BlockPos.getAllInBox(getPos().add(-RANGE, -RANGE_Y, -RANGE), getPos().add(RANGE, RANGE_Y, RANGE))) {
 			TileEntity tile = getWorld().getTileEntity(pos);
-			IBlockState state = getWorld().getBlockState(pos);
+			BlockState state = getWorld().getBlockState(pos);
 			Block block = state.getBlock();
 			if(tile != null) {
-				if(tile instanceof TileEntityFurnace && block == Blocks.FURNACE) {
-					TileEntityFurnace furnace = (TileEntityFurnace) tile;
+				if(tile instanceof FurnaceTileEntity && block == Blocks.FURNACE) {
+					FurnaceTileEntity furnace = (FurnaceTileEntity) tile;
 					boolean canSmelt = canFurnaceSmelt(furnace);
 					if(canSmelt && mana > 2) {
 						if(furnace.getField(0) < 2) { // Field 0 -> Burn time
@@ -96,7 +97,7 @@ public class SubTileExoflame extends TileEntityFunctionalFlower {
 			sync();
 	}
 
-	public static boolean canFurnaceSmelt(TileEntityFurnace furnace){
+	public static boolean canFurnaceSmelt(FurnaceTileEntity furnace){
 		if(furnace.getStackInSlot(0).isEmpty())
 			return false;
 		else {

@@ -10,10 +10,12 @@
  */
 package vazkii.botania.common.block;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
@@ -34,12 +36,12 @@ public class BlockStorage extends BlockMod implements IElvenItem, ILexiconable {
 	}
 
 	@Override
-	public boolean isBeaconBase(IBlockState state, IWorldReader world, BlockPos pos, BlockPos beaconPos) {
+	public boolean isBeaconBase(BlockState state, IWorldReader world, BlockPos pos, BlockPos beaconPos) {
 		return true;
 	}
 
 	@Override
-	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
+	public LexiconEntry getEntry(World world, BlockPos pos, PlayerEntity player, ItemStack lexicon) {
 		return this == ModBlocks.manasteelBlock ? LexiconData.pool : LexiconData.terrasteel;
 	}
 

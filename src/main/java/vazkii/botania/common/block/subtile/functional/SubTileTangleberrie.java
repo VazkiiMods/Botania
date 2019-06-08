@@ -10,8 +10,9 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.registries.ObjectHolder;
@@ -52,10 +53,10 @@ public class SubTileTangleberrie extends TileEntityFunctionalFlower {
 			double range = getRange();
 
 			AxisAlignedBB boundingBox = new AxisAlignedBB(x1 - range, y1 - range, z1 - range, x1 + range + 1, y1 + range + 1, z1 + range + 1);
-			List<EntityLivingBase> entities = getWorld().getEntitiesWithinAABB(EntityLivingBase.class, boundingBox);
+			List<LivingEntity> entities = getWorld().getEntitiesWithinAABB(LivingEntity.class, boundingBox);
 
-			for(EntityLivingBase entity : entities) {
-				if(entity instanceof EntityPlayer || !entity.isNonBoss())
+			for(LivingEntity entity : entities) {
+				if(entity instanceof PlayerEntity || !entity.isNonBoss())
 					continue;
 
 				double x2 = entity.posX;

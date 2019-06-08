@@ -11,10 +11,11 @@
 package vazkii.botania.common.block.subtile.generating;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.Tag;
 import net.minecraft.tileentity.TileEntity;
@@ -66,7 +67,7 @@ public class SubTileRafflowsia extends TileEntityGeneratingFlower {
 					for(int k = 0; k < RANGE * 2 + 1; k++) {
 						BlockPos pos = getPos().add(i - RANGE, j - RANGE, k - RANGE);
 
-						IBlockState state = getWorld().getBlockState(pos);
+						BlockState state = getWorld().getBlockState(pos);
 						if(state.isIn(SPECIAL_FLOWERS) && state.getBlock() != ModSubtiles.rafflowsia) {
 							if(state.getBlock() == lastFlower)
 								lastFlowerTimes++;
@@ -87,7 +88,7 @@ public class SubTileRafflowsia extends TileEntityGeneratingFlower {
 	}
 
 	@Override
-	public void writeToPacketNBT(NBTTagCompound cmp) {
+	public void writeToPacketNBT(CompoundNBT cmp) {
 		super.writeToPacketNBT(cmp);
 
 		if(lastFlower != null)
@@ -96,7 +97,7 @@ public class SubTileRafflowsia extends TileEntityGeneratingFlower {
 	}
 
 	@Override
-	public void readFromPacketNBT(NBTTagCompound cmp) {
+	public void readFromPacketNBT(CompoundNBT cmp) {
 		super.readFromPacketNBT(cmp);
 
 		ResourceLocation id = ResourceLocation.tryCreate(cmp.getString(TAG_LAST_FLOWER));
@@ -116,7 +117,7 @@ public class SubTileRafflowsia extends TileEntityGeneratingFlower {
 	}
 
 	@Override
-	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase entity, ItemStack stack) {
+	public void onBlockPlacedBy(World world, BlockPos pos, BlockState state, LivingEntity entity, ItemStack stack) {
 		super.onBlockPlacedBy(world, pos, state, entity, stack);
 
 		ResourceLocation id = ResourceLocation.tryCreate(ItemNBTHelper.getString(stack, TAG_LAST_FLOWER, ""));

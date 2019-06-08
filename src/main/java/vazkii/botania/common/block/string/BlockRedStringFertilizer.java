@@ -11,9 +11,10 @@
 package vazkii.botania.common.block.string;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.IGrowable;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.block.BlockState;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
@@ -29,27 +30,27 @@ public class BlockRedStringFertilizer extends BlockRedString implements IGrowabl
 
 	public BlockRedStringFertilizer(Block.Properties builder) {
 		super(builder);
-		setDefaultState(stateContainer.getBaseState().with(BotaniaStateProps.FACING, EnumFacing.DOWN));
+		setDefaultState(stateContainer.getBaseState().with(BotaniaStateProps.FACING, Direction.DOWN));
 	}
 
 	@Override
-	public boolean canGrow(@Nonnull IBlockReader world, @Nonnull BlockPos pos, @Nonnull IBlockState state, boolean isClient) {
+	public boolean canGrow(@Nonnull IBlockReader world, @Nonnull BlockPos pos, @Nonnull BlockState state, boolean isClient) {
 		return ((TileRedStringFertilizer) world.getTileEntity(pos)).canGrow(world, isClient);
 	}
 
 	@Override
-	public boolean canUseBonemeal(@Nonnull World world, @Nonnull Random rand, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
+	public boolean canUseBonemeal(@Nonnull World world, @Nonnull Random rand, @Nonnull BlockPos pos, @Nonnull BlockState state) {
 		return ((TileRedStringFertilizer) world.getTileEntity(pos)).canUseBonemeal(world, rand);
 	}
 
 	@Override
-	public void grow(@Nonnull World world, @Nonnull Random rand, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
+	public void grow(@Nonnull World world, @Nonnull Random rand, @Nonnull BlockPos pos, @Nonnull BlockState state) {
 		((TileRedStringFertilizer) world.getTileEntity(pos)).grow(world, rand);
 	}
 
 	@Nonnull
 	@Override
-	public TileRedString createTileEntity(@Nonnull IBlockState meta, @Nonnull IBlockReader world) {
+	public TileRedString createTileEntity(@Nonnull BlockState meta, @Nonnull IBlockReader world) {
 		return new TileRedStringFertilizer();
 	}
 }

@@ -11,10 +11,12 @@
 package vazkii.botania.common.item.equipment.bauble;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GlStateManager;
+import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.Vec3d;
@@ -49,9 +51,9 @@ public class ItemGoddessCharm extends ItemBauble implements IManaUsingItem {
 	public static void onExplosion(ExplosionEvent.Detonate event) {
 		Explosion e = event.getExplosion();
 		Vec3d vec = e.getPosition();
-		List<EntityPlayer> players = event.getWorld().getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(vec.x, vec.y, vec.z, vec.x, vec.y, vec.z).grow(8));
+		List<PlayerEntity> players = event.getWorld().getEntitiesWithinAABB(PlayerEntity.class, new AxisAlignedBB(vec.x, vec.y, vec.z, vec.x, vec.y, vec.z).grow(8));
 		
-		for(EntityPlayer player : players) {
+		for(PlayerEntity player : players) {
 			ItemStack charm = Botania.curiosLoaded ? CurioIntegration.findOrEmpty(ModItems.goddessCharm, player) : ItemStack.EMPTY;
 			if(!charm.isEmpty() && ManaItemHandler.requestManaExact(charm, player, COST, true))  {
 				event.getAffectedBlocks().clear();
@@ -67,7 +69,7 @@ public class ItemGoddessCharm extends ItemBauble implements IManaUsingItem {
 
 		@Override
         @OnlyIn(Dist.CLIENT)
-		public void doRender(String identifier, EntityLivingBase player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+		public void doRender(String identifier, LivingEntity player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 			GlStateManager.pushMatrix();
 			AccessoryRenderHelper.translateToHeadLevel(player);
 			AccessoryRenderHelper.translateToFace();

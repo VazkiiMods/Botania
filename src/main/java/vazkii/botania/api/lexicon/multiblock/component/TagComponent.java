@@ -11,7 +11,7 @@
 package vazkii.botania.api.lexicon.multiblock.component;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.tags.Tag;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -27,7 +27,7 @@ public class TagComponent extends MultiblockComponent {
 	}
 
 	@Override
-	public IBlockState getBlockState() {
+	public BlockState getBlockState() {
 		if (tag.getAllElements().isEmpty()) {
 			return super.getBlockState();
 		} else {

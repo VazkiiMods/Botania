@@ -10,11 +10,12 @@
  */
 package vazkii.botania.common.block.subtile.generating;
 
-import net.minecraft.entity.monster.EntitySlime;
+import net.minecraft.entity.monster.SlimeEntity;
 import net.minecraft.init.Particles;
-import net.minecraft.init.SoundEvents;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.SharedSeedRandom;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
@@ -52,8 +53,8 @@ public class SubTileNarslimmus extends TileEntityGeneratingFlower {
 		super.tickFlower();
 
 		if(ticksExisted % 5 == 0) {
-			List<EntitySlime> slimes = getWorld().getEntitiesWithinAABB(EntitySlime.class, new AxisAlignedBB(getPos().add(-RANGE, -RANGE, -RANGE), getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
-			for(EntitySlime slime : slimes) {
+			List<SlimeEntity> slimes = getWorld().getEntitiesWithinAABB(SlimeEntity.class, new AxisAlignedBB(getPos().add(-RANGE, -RANGE, -RANGE), getPos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
+			for(SlimeEntity slime : slimes) {
 				if(slime.getEntityData().getBoolean(TAG_WORLD_SPAWNED) && slime.isAlive()) {
 					int size = slime.getSlimeSize();
 					int mul = (int) Math.pow(2, size);
@@ -101,7 +102,7 @@ public class SubTileNarslimmus extends TileEntityGeneratingFlower {
 
 	@SubscribeEvent
 	public static void onSpawn(LivingSpawnEvent.CheckSpawn event) {
-		if(event.getEntityLiving() instanceof EntitySlime
+		if(event.getEntityLiving() instanceof SlimeEntity
 				&& event.getResult() != Event.Result.DENY
 				&& isSlimeChunk(event.getEntityLiving().world, event.getX(), event.getZ()))
 			event.getEntityLiving().getEntityData().putBoolean(TAG_WORLD_SPAWNED, true);

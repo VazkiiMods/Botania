@@ -11,7 +11,8 @@
 package vazkii.botania.common.block.subtile.generating;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.BlockPos;
@@ -171,7 +172,7 @@ public class SubTileDandelifeon extends TileEntityGeneratingFlower {
 
 	void setBlockForGeneration(BlockPos pos, int gen, int prevGen) {
 		World world = getWorld();
-		IBlockState stateAt = world.getBlockState(pos);
+		BlockState stateAt = world.getBlockState(pos);
 		Block blockAt = stateAt.getBlock();
 		TileEntity tile = world.getTileEntity(pos);
 		if(gen == -2) {

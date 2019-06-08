@@ -10,11 +10,14 @@
  */
 package vazkii.botania.common.crafting;
 
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.Blocks;
+import net.minecraft.item.DyeColor;
+import net.minecraft.item.Items;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.Tags;
@@ -62,7 +65,7 @@ public final class ModManaInfusionRecipes {
 
 		Ingredient dust = Ingredient.fromItems(Items.GUNPOWDER, Items.REDSTONE, Items.GLOWSTONE_DUST, Items.SUGAR);
 		IMCSender.send(IMC.REGISTER_MANA_INFUSION, new RecipeManaInfusion(prefix("mana_powder_dust"), new ItemStack(ModItems.manaPowder), dust, 500));
-		Ingredient dyeIngredient = Ingredient.fromItems(Arrays.stream(EnumDyeColor.values()).map(ModItems::getDye).toArray(Item[]::new));
+		Ingredient dyeIngredient = Ingredient.fromItems(Arrays.stream(DyeColor.values()).map(ModItems::getDye).toArray(Item[]::new));
 		IMCSender.send(IMC.REGISTER_MANA_INFUSION, new RecipeManaInfusion(prefix("mana_powder_dye"), new ItemStack(ModItems.manaPowder), dyeIngredient, 400));
 
 		IMCSender.send(IMC.REGISTER_MANA_INFUSION, new RecipeManaInfusion(prefix("piston_relay"), new ItemStack(ModBlocks.pistonRelay), Ingredient.fromItems(Blocks.PISTON), 15000));

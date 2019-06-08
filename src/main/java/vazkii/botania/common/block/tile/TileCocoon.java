@@ -10,30 +10,40 @@
  */
 package vazkii.botania.common.block.tile;
 
-import net.minecraft.entity.EntityAgeable;
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.monster.EntityShulker;
-import net.minecraft.entity.passive.EntityChicken;
-import net.minecraft.entity.passive.EntityCow;
-import net.minecraft.entity.passive.EntityHorse;
-import net.minecraft.entity.passive.EntityLlama;
-import net.minecraft.entity.passive.EntityMooshroom;
-import net.minecraft.entity.passive.EntityOcelot;
-import net.minecraft.entity.passive.EntityParrot;
-import net.minecraft.entity.passive.EntityPig;
-import net.minecraft.entity.passive.EntityRabbit;
-import net.minecraft.entity.passive.EntitySheep;
-import net.minecraft.entity.passive.EntityVillager;
-import net.minecraft.entity.passive.EntityWolf;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.entity.AgeableEntity;
+import net.minecraft.entity.AgeableEntity;
+import net.minecraft.entity.MobEntity;
+import net.minecraft.entity.merchant.villager.VillagerEntity;
+import net.minecraft.entity.monster.ShulkerEntity;
+import net.minecraft.entity.passive.ChickenEntity;
+import net.minecraft.entity.passive.ChickenEntity;
+import net.minecraft.entity.passive.CowEntity;
+import net.minecraft.entity.passive.CowEntity;
+import net.minecraft.entity.passive.OcelotEntity;
+import net.minecraft.entity.passive.ParrotEntity;
+import net.minecraft.entity.passive.PigEntity;
+import net.minecraft.entity.passive.WolfEntity;
+import net.minecraft.entity.passive.horse.HorseEntity;
+import net.minecraft.entity.passive.horse.LlamaEntity;
+import net.minecraft.entity.passive.MooshroomEntity;
+import net.minecraft.entity.passive.OcelotEntity;
+import net.minecraft.entity.passive.ParrotEntity;
+import net.minecraft.entity.passive.PigEntity;
+import net.minecraft.entity.passive.RabbitEntity;
+import net.minecraft.entity.passive.SheepEntity;
+import net.minecraft.entity.merchant.villager.VillagerEntity;
+import net.minecraft.entity.passive.WolfEntity;
+import net.minecraft.entity.passive.horse.LlamaEntity;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.ITickable;
+import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraftforge.fml.common.registry.VillagerRegistry;
 import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
-public class TileCocoon extends TileMod implements ITickable{
+public class TileCocoon extends TileMod implements ITickableTileEntity{
 
 	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.COCOON)
 	public static TileEntityType<TileCocoon> TYPE;
@@ -66,15 +76,15 @@ public class TileCocoon extends TileMod implements ITickable{
 			timePassed = 0;
 			world.destroyBlock(pos, false);
 
-			EntityLiving entity = null;
+			MobEntity entity = null;
 
 			float villagerChance = Math.min(1F, (float) emeraldsGiven / (float) MAX_EMERALDS);
 			float shulkerChance = Math.min(1F, (float) chorusFruitGiven / (float) MAX_CHORUS_FRUITS);
 
 			if(Math.random() < shulkerChance) {
-				entity = new EntityShulker(world);
+				entity = new ShulkerEntity(world);
 			} else if(Math.random() < villagerChance) {
-				EntityVillager villager = new EntityVillager(world);
+				VillagerEntity villager = new VillagerEntity(world);
 				VillagerRegistry.setRandomProfession(villager, world.rand);
 				entity = villager;
 			} else {
@@ -83,40 +93,40 @@ public class TileCocoon extends TileMod implements ITickable{
 					int entityType = world.rand.nextInt(5);
 					switch(entityType) {
 					case 0:
-						entity = new EntityHorse(world);
+						entity = new HorseEntity(world);
 						break;
 					case 1:
-						entity = new EntityWolf(world);
+						entity = new WolfEntity(world);
 						break;
 					case 2:
-						entity = new EntityOcelot(world);
+						entity = new OcelotEntity(world);
 						break;
 					case 3:
-						entity = new EntityParrot(world);
+						entity = new ParrotEntity(world);
 						break;
 					case 4:
-						entity = new EntityLlama(world);
+						entity = new LlamaEntity(world);
 						break;
 					}
 				} else {
 					int entityType = world.rand.nextInt(5);
 					switch(entityType) {
 					case 0:
-						entity = new EntitySheep(world);
+						entity = new SheepEntity(world);
 						break;
 					case 1:
 						if(Math.random() < 0.01)
-							entity = new EntityMooshroom(world);
-						else entity = new EntityCow(world);
+							entity = new MooshroomEntity(world);
+						else entity = new CowEntity(world);
 						break;
 					case 2:
-						entity = new EntityPig(world);
+						entity = new PigEntity(world);
 						break;
 					case 3:
-						entity = new EntityChicken(world);
+						entity = new ChickenEntity(world);
 						break;
 					case 4:
-						entity = new EntityRabbit(world);
+						entity = new RabbitEntity(world);
 						break;
 					}
 				}
@@ -124,8 +134,8 @@ public class TileCocoon extends TileMod implements ITickable{
 
 			if(entity != null) {
 				entity.setPosition(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
-				if(entity instanceof EntityAgeable)
-					((EntityAgeable) entity).setGrowingAge(-24000);
+				if(entity instanceof AgeableEntity)
+					((AgeableEntity) entity).setGrowingAge(-24000);
 				entity.onInitialSpawn(world.getDifficultyForLocation(getPos()), null, null);
 				world.spawnEntity(entity);
 				entity.spawnExplosionParticle();
@@ -134,14 +144,14 @@ public class TileCocoon extends TileMod implements ITickable{
 	}
 
 	@Override
-	public void writePacketNBT(NBTTagCompound cmp) {
+	public void writePacketNBT(CompoundNBT cmp) {
 		cmp.putInt(TAG_TIME_PASSED, timePassed);
 		cmp.putInt(TAG_EMERALDS_GIVEN, emeraldsGiven);
 		cmp.putInt(TAG_CHORUS_FRUIT_GIVEN, chorusFruitGiven);
 	}
 
 	@Override
-	public void readPacketNBT(NBTTagCompound cmp) {
+	public void readPacketNBT(CompoundNBT cmp) {
 		timePassed = cmp.getInt(TAG_TIME_PASSED);
 		emeraldsGiven = cmp.getInt(TAG_EMERALDS_GIVEN);
 		chorusFruitGiven = cmp.getInt(TAG_CHORUS_FRUIT_GIVEN);

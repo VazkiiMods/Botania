@@ -1,7 +1,8 @@
 package vazkii.botania.common.core.handler;
 
 import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.Blocks;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import vazkii.botania.api.ColorHelper;

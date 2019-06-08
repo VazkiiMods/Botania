@@ -10,11 +10,12 @@
  */
 package vazkii.botania.client.gui.lexicon;
 
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.gui.widget.button.Button;
+import net.minecraft.client.gui.widget.button.Button;
+import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.text.TextFormatting;
 import org.lwjgl.glfw.GLFW;
 import vazkii.botania.client.challenge.Challenge;
@@ -34,7 +35,7 @@ public class GuiLexiconChallenge extends GuiLexicon implements IParented {
 
 	private Challenge challenge;
 	private GuiLexicon parent;
-	private GuiButton backButton, completeButton;
+	private Button backButton, completeButton;
 
 	public GuiLexiconChallenge(GuiLexicon parent, Challenge challenge) {
 		this.parent = parent;
@@ -59,7 +60,7 @@ public class GuiLexiconChallenge extends GuiLexicon implements IParented {
 				ClientTickHandler.notifyPageChange();
 			}
 		});
-		buttons.add(completeButton = new GuiButton(13, left + 20, top + guiHeight - 35, guiWidth - 40, 20, "") {
+		buttons.add(completeButton = new Button(13, left + 20, top + guiHeight - 35, guiWidth - 40, 20, "") {
 			@Override
 			public void onClick(double mouseX, double mouseY) {
 				super.onClick(mouseX, mouseY);
@@ -156,13 +157,13 @@ public class GuiLexiconChallenge extends GuiLexicon implements IParented {
 	}
 
 	@Override
-	public void serialize(NBTTagCompound cmp) {
+	public void serialize(CompoundNBT cmp) {
 		super.serialize(cmp);
 		cmp.putString(TAG_CHALLENGE, challenge.unlocalizedName);
 	}
 
 	@Override
-	public void load(NBTTagCompound cmp) {
+	public void load(CompoundNBT cmp) {
 		super.load(cmp);
 		String challengeName = cmp.getString(TAG_CHALLENGE);
 		challenge = ModChallenges.challengeLookup.get(challengeName);

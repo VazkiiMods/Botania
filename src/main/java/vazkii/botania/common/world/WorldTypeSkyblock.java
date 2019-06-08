@@ -10,20 +10,22 @@
  */
 package vazkii.botania.common.world;
 
-import net.minecraft.init.Biomes;
-import net.minecraft.init.Blocks;
+import net.minecraft.block.Blocks;
+import net.minecraft.world.biome.Biomes;
+import net.minecraft.block.Blocks;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldServer;
+import net.minecraft.world.ServerWorld;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.provider.BiomeProvider;
 import net.minecraft.world.biome.provider.BiomeProviderType;
 import net.minecraft.world.biome.provider.SingleBiomeProviderSettings;
-import net.minecraft.world.gen.ChunkGeneratorFlat;
+import net.minecraft.world.gen.FlatChunkGenerator;
 import net.minecraft.world.gen.ChunkGeneratorType;
-import net.minecraft.world.gen.FlatGenSettings;
+import net.minecraft.world.gen.FlatGenerationSettings;
+import net.minecraft.world.gen.FlatGenerationSettings;
 import net.minecraft.world.gen.FlatLayerInfo;
-import net.minecraft.world.gen.IChunkGenerator;
+import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -53,10 +55,10 @@ public class WorldTypeSkyblock extends WorldType {
 
 	@Nonnull
 	@Override
-	public IChunkGenerator<?> createChunkGenerator(@Nonnull World world) {
+	public ChunkGenerator<?> createChunkGenerator(@Nonnull World world) {
 		world.setSeaLevel(64);
 
-		FlatGenSettings settings = new FlatGenSettings();
+		FlatGenerationSettings settings = new FlatGenerationSettings();
 		settings.setBiome(Biomes.PLAINS);
 		settings.getFlatLayers().add(new FlatLayerInfo(1, Blocks.AIR));
 		settings.updateLayers();

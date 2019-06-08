@@ -12,11 +12,13 @@ package vazkii.botania.common.entity;
 
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockVine;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.VineBlock;
+import net.minecraft.block.VineBlock;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.projectile.EntityThrowable;
+import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.init.Particles;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.datasync.DataParameter;
@@ -24,7 +26,8 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.particles.ItemParticleData;
 import net.minecraft.state.BooleanProperty;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
@@ -39,19 +42,19 @@ import vazkii.botania.common.lib.LibMisc;
 import javax.annotation.Nonnull;
 import java.util.Map;
 
-public class EntityVineBall extends EntityThrowable {
+public class EntityVineBall extends ThrowableEntity {
 	@ObjectHolder(LibMisc.MOD_ID + ":vine_ball")
 	public static EntityType<?> TYPE;
 
 	private static final DataParameter<Float> GRAVITY = EntityDataManager.createKey(EntityVineBall.class, DataSerializers.FLOAT);
-	private static final Map<EnumFacing, BooleanProperty> propMap = ImmutableMap.of(EnumFacing.NORTH, BlockVine.NORTH, EnumFacing.SOUTH, BlockVine.SOUTH,
-			EnumFacing.WEST, BlockVine.WEST, EnumFacing.EAST, BlockVine.EAST);
+	private static final Map<Direction, BooleanProperty> propMap = ImmutableMap.of(Direction.NORTH, VineBlock.NORTH, Direction.SOUTH, VineBlock.SOUTH,
+			Direction.WEST, VineBlock.WEST, Direction.EAST, VineBlock.EAST);
 
 	public EntityVineBall(World world) {
 		super(TYPE, world);
 	}
 
-	public EntityVineBall(EntityLivingBase thrower, boolean gravity) {
+	public EntityVineBall(LivingEntity thrower, boolean gravity) {
 		super(TYPE, thrower, thrower.world);
 		dataManager.set(GRAVITY, gravity ? 0.03F : 0F);
 	}
@@ -76,16 +79,16 @@ public class EntityVineBall extends EntityThrowable {
 	protected void onImpact(@Nonnull RayTraceResult var1) {
 		if(!world.isRemote) {
 			if(var1 != null) {
-				EnumFacing dir = var1.sideHit;
+				Direction dir = var1.sideHit;
 
-				if(dir != null && dir.getAxis() != EnumFacing.Axis.Y) {
+				if(dir != null && dir.getAxis() != Direction.Axis.Y) {
 					BlockPos pos = var1.getBlockPos().offset(dir);
 					boolean first = true;
 					while(pos.getY() > 0) {
-						IBlockState state = world.getBlockState(pos);
+						BlockState state = world.getBlockState(pos);
 						Block block = state.getBlock();
 						if(block.isAir(state, world, pos)) {
-							IBlockState stateSet = ModBlocks.solidVines.getDefaultState().with(propMap.get(dir.getOpposite()), true);
+							BlockState stateSet = ModBlocks.solidVines.getDefaultState().with(propMap.get(dir.getOpposite()), true);
 							
 							if(first && !ModBlocks.solidVines.getDefaultState().isValidPosition(world, pos)) break;
 							first = false;

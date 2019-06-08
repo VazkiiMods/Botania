@@ -12,14 +12,14 @@ package vazkii.botania.client.core.handler;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.Gui;
-import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.AbstractGui;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.GlStateManager;
+import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.client.event.RenderTooltipEvent;
@@ -68,7 +68,7 @@ public final class TooltipAdditionDisplayHandler {
 			int lexSlot = -1;
 			ItemStack lexiconStack = ItemStack.EMPTY;
 
-			for(int i = 0; i < InventoryPlayer.getHotbarSize(); i++) {
+			for(int i = 0; i < PlayerInventory.getHotbarSize(); i++) {
 				ItemStack stackAt = mc.player.inventory.getStackInSlot(i);
 				if(!stackAt.isEmpty() && stackAt.getItem() instanceof ILexicon && ((ILexicon) stackAt.getItem()).isKnowledgeUnlocked(stackAt, data.entry.getKnowledgeType())) {
 					lexiconStack = stackAt;
@@ -81,10 +81,10 @@ public final class TooltipAdditionDisplayHandler {
 				int x = tooltipX - 34;
 				GlStateManager.disableDepthTest();
 
-				Gui.drawRect(x - 4, tooltipY - 4, x + 20, tooltipY + 26, 0x44000000);
-				Gui.drawRect(x - 6, tooltipY - 6, x + 22, tooltipY + 28, 0x44000000);
+				AbstractGui.drawRect(x - 4, tooltipY - 4, x + 20, tooltipY + 26, 0x44000000);
+				AbstractGui.drawRect(x - 6, tooltipY - 6, x + 22, tooltipY + 28, 0x44000000);
 
-				if(ConfigHandler.CLIENT.useShiftForQuickLookup.get() ? GuiScreen.isShiftKeyDown() : GuiScreen.isCtrlKeyDown()) {
+				if(ConfigHandler.CLIENT.useShiftForQuickLookup.get() ? Screen.isShiftKeyDown() : Screen.isCtrlKeyDown()) {
 					lexiconLookupTime += ClientTickHandler.delta;
 
 					int cx = x + 8;
@@ -94,7 +94,7 @@ public final class TooltipAdditionDisplayHandler {
 					float angles = lexiconLookupTime / time * 360F;
 
 					GlStateManager.disableLighting();
-					GlStateManager.disableTexture2D();
+					GlStateManager.disableTexture();
 					GlStateManager.shadeModel(GL11.GL_SMOOTH);
 					GlStateManager.enableBlend();
 					GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
@@ -114,7 +114,7 @@ public final class TooltipAdditionDisplayHandler {
 					Tessellator.getInstance().draw();
 
 					GlStateManager.disableBlend();
-					GlStateManager.enableTexture2D();
+					GlStateManager.enableTexture();
 					GlStateManager.shadeModel(GL11.GL_FLAT);
 
 					if(lexiconLookupTime >= time) {
@@ -154,10 +154,10 @@ public final class TooltipAdditionDisplayHandler {
 		float hueOff = (ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks) * 0.01F;
 
 		GlStateManager.disableDepthTest();
-		Gui.drawRect(mouseX - 1, mouseY - height - 1, mouseX + width + 1, mouseY, 0xFF000000);
+		AbstractGui.drawRect(mouseX - 1, mouseY - height - 1, mouseX + width + 1, mouseY, 0xFF000000);
 		for(int i = 0; i < rainbowWidth; i++)
-			Gui.drawRect(mouseX + i, mouseY - height, mouseX + i + 1, mouseY, Color.HSBtoRGB(hueOff + huePer * i, 1F, 1F));
-		Gui.drawRect(mouseX + rainbowWidth, mouseY - height, mouseX + width, mouseY, 0xFF555555);
+			AbstractGui.drawRect(mouseX + i, mouseY - height, mouseX + i + 1, mouseY, Color.HSBtoRGB(hueOff + huePer * i, 1F, 1F));
+		AbstractGui.drawRect(mouseX + rainbowWidth, mouseY - height, mouseX + width, mouseY, 0xFF555555);
 
 		String rank = I18n.format("botania.rank" + level).replaceAll("&", "\u00a7");
 
@@ -178,9 +178,9 @@ public final class TooltipAdditionDisplayHandler {
 		int manaBarWidth = (int) Math.ceil(width * fraction);
 
 		GlStateManager.disableDepthTest();
-		Gui.drawRect(mouseX - 1, mouseY - height - 1, mouseX + width + 1, mouseY, 0xFF000000);
-		Gui.drawRect(mouseX, mouseY - height, mouseX + manaBarWidth, mouseY, Color.HSBtoRGB(0.528F, ((float) Math.sin((ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks) * 0.2) + 1F) * 0.3F + 0.4F, 1F));
-		Gui.drawRect(mouseX + manaBarWidth, mouseY - height, mouseX + width, mouseY, 0xFF555555);
+		AbstractGui.drawRect(mouseX - 1, mouseY - height - 1, mouseX + width + 1, mouseY, 0xFF000000);
+		AbstractGui.drawRect(mouseX, mouseY - height, mouseX + manaBarWidth, mouseY, Color.HSBtoRGB(0.528F, ((float) Math.sin((ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks) * 0.2) + 1F) * 0.3F + 0.4F, 1F));
+		AbstractGui.drawRect(mouseX + manaBarWidth, mouseY - height, mouseX + width, mouseY, 0xFF555555);
 	}
 
 }

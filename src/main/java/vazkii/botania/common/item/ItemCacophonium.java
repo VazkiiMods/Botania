@@ -11,31 +11,39 @@
 package vazkii.botania.common.item;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockNote;
+import net.minecraft.block.NoteBlock;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.monster.EntityCreeper;
-import net.minecraft.entity.monster.EntitySlime;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.SoundEvents;
-import net.minecraft.item.EnumAction;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.MobEntity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.MobEntity;
+import net.minecraft.entity.monster.CreeperEntity;
+import net.minecraft.entity.monster.CreeperEntity;
+import net.minecraft.entity.monster.SlimeEntity;
+import net.minecraft.entity.monster.SlimeEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.block.Blocks;
+import net.minecraft.item.UseAction;
+import net.minecraft.util.Hand;
+import net.minecraft.util.SoundEvents;
+import net.minecraft.item.UseAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.ResourceLocationException;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.registry.IRegistry;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -64,18 +72,18 @@ public class ItemCacophonium extends ItemMod {
 	}
 
 	@Override
-	public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer player, EntityLivingBase entity, EnumHand hand) {
-		if(entity instanceof EntityLiving) {
-			EntityLiving living = (EntityLiving) entity;
+	public boolean itemInteractionForEntity(ItemStack stack, PlayerEntity player, LivingEntity entity, Hand hand) {
+		if(entity instanceof MobEntity) {
+			MobEntity living = (MobEntity) entity;
 			SoundEvent sound = null;
 
-			if(living instanceof EntityCreeper)
+			if(living instanceof CreeperEntity)
 				sound = SoundEvents.ENTITY_CREEPER_PRIMED;
-			else if(living instanceof EntitySlime)
-				sound = ((EntitySlime) living).isSmallSlime() ? SoundEvents.ENTITY_SLIME_SQUISH_SMALL : SoundEvents.ENTITY_SLIME_SQUISH;
+			else if(living instanceof SlimeEntity)
+				sound = ((SlimeEntity) living).isSmallSlime() ? SoundEvents.ENTITY_SLIME_SQUISH_SMALL : SoundEvents.ENTITY_SLIME_SQUISH;
 			else {
 				try {
-					sound = (SoundEvent) ObfuscationReflectionHelper.findMethod(EntityLiving.class, LibObfuscation.GET_LIVING_SOUND).invoke(living);
+					sound = (SoundEvent) ObfuscationReflectionHelper.findMethod(MobEntity.class, LibObfuscation.GET_LIVING_SOUND).invoke(living);
 				} catch (InvocationTargetException | IllegalAccessException ignored) {
 					Botania.LOGGER.debug("Couldn't get living sound");
 				}
@@ -98,37 +106,37 @@ public class ItemCacophonium extends ItemMod {
 
 	@Nonnull
 	@Override
-	public EnumActionResult onItemUse(ItemUseContext ctx) {
+	public ActionResultType onItemUse(ItemUseContext ctx) {
 		ItemStack stack = ctx.getItem();
 		if(getSound(stack) != null) {
 			World world = ctx.getWorld();
 			BlockPos pos = ctx.getPos();
 
 			Block block = world.getBlockState(pos).getBlock();
-			if(block instanceof BlockNote) {
+			if(block instanceof NoteBlock) {
 				world.setBlockState(pos, ModBlocks.cacophonium.getDefaultState());
 				((TileCacophonium) world.getTileEntity(pos)).stack = stack.copy();
 				stack.shrink(1);
-				return EnumActionResult.SUCCESS;
+				return ActionResultType.SUCCESS;
 			}
 		}
 
-		return EnumActionResult.PASS;
+		return ActionResultType.PASS;
 	}
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void addInformation(ItemStack stack, World world, List<ITextComponent> list, ITooltipFlag flags) {
 		if(isDOIT(stack))
-			list.add(new TextComponentTranslation("botaniamisc.justDoIt"));
+			list.add(new TranslationTextComponent("botaniamisc.justDoIt"));
 		else if(getSound(stack) != null)
-			list.add(new TextComponentTranslation(ItemNBTHelper.getString(stack, TAG_SOUND_NAME, "")));
+			list.add(new TranslationTextComponent(ItemNBTHelper.getString(stack, TAG_SOUND_NAME, "")));
 	}
 
 	@Nonnull
 	@Override
-	public EnumAction getUseAction(ItemStack par1ItemStack) {
-		return EnumAction.BLOCK;
+	public UseAction getUseAction(ItemStack par1ItemStack) {
+		return UseAction.BLOCK;
 	}
 
 	@Override
@@ -138,15 +146,15 @@ public class ItemCacophonium extends ItemMod {
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
 		ItemStack stack = player.getHeldItem(hand);
 		if(getSound(stack) != null)
 			player.setActiveHand(hand);
-		return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
+		return ActionResult.newResult(ActionResultType.SUCCESS, stack);
 	}
 
 	@Override
-	public void onUsingTick(ItemStack stack, EntityLivingBase player, int count) {
+	public void onUsingTick(ItemStack stack, LivingEntity player, int count) {
 		if(count % (isDOIT(stack) ? 20 : 6) == 0)
 			playSound(player.world, stack, player.posX, player.posY, player.posZ, SoundCategory.PLAYERS, 0.9F);
 	}

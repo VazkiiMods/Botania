@@ -15,14 +15,17 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
-import net.minecraft.potion.PotionUtil;
+import net.minecraft.potion.Effect;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.EffectUtils;
+import net.minecraft.potion.EffectUtils;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextComponentString;
-import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -63,21 +66,21 @@ public class ItemIncenseStick extends ItemMod implements IBrewItem, IBrewContain
 	public void addInformation(ItemStack stack, World world, List<ITextComponent> list, ITooltipFlag flags) {
 		Brew brew = getBrew(stack);
 		if(brew == BotaniaAPI.fallbackBrew) {
-			list.add(new TextComponentTranslation("botaniamisc.notInfused").applyTextStyle(TextFormatting.LIGHT_PURPLE));
+			list.add(new TranslationTextComponent("botaniamisc.notInfused").applyTextStyle(TextFormatting.LIGHT_PURPLE));
 			return;
 		}
 
-		list.add(new TextComponentTranslation("botaniamisc.brewOf", new TextComponentTranslation(brew.getUnlocalizedName(stack))).applyTextStyle(TextFormatting.LIGHT_PURPLE));
-		for(PotionEffect effect : brew.getPotionEffects(stack)) {
+		list.add(new TranslationTextComponent("botaniamisc.brewOf", new TranslationTextComponent(brew.getUnlocalizedName(stack))).applyTextStyle(TextFormatting.LIGHT_PURPLE));
+		for(EffectInstance effect : brew.getPotionEffects(stack)) {
 			TextFormatting format = effect.getPotion().isBadEffect() ? TextFormatting.RED : TextFormatting.GRAY;
-			PotionEffect longEffect = new PotionEffect(effect.getPotion(), effect.getDuration() * TIME_MULTIPLIER, effect.getAmplifier(), false, true);
-			ITextComponent cmp = new TextComponentTranslation(effect.getEffectName());
+			EffectInstance longEffect = new EffectInstance(effect.getPotion(), effect.getDuration() * TIME_MULTIPLIER, effect.getAmplifier(), false, true);
+			ITextComponent cmp = new TranslationTextComponent(effect.getEffectName());
 			if(effect.getAmplifier() > 0) {
 				cmp.appendText(" ");
-				cmp.appendSibling(new TextComponentTranslation("botania.roman" + (effect.getAmplifier() + 1)));
+				cmp.appendSibling(new TranslationTextComponent("botania.roman" + (effect.getAmplifier() + 1)));
 			}
 			if(!effect.getPotion().isInstant()) {
-				cmp.appendSibling(new TextComponentString(" (" + PotionUtil.getPotionDurationString(longEffect, 1) + ")").applyTextStyle(TextFormatting.GRAY));
+				cmp.appendSibling(new StringTextComponent(" (" + EffectUtils.getPotionDurationString(longEffect, 1) + ")").applyTextStyle(TextFormatting.GRAY));
 			}
 			list.add(cmp.applyTextStyle(format));
 		}

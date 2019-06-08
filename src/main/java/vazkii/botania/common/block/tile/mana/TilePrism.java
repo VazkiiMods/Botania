@@ -10,7 +10,8 @@
  */
 package vazkii.botania.common.block.tile.mana;
 
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntityType;
@@ -85,10 +86,10 @@ public class TilePrism extends TileSimpleInventory {
 		super.markDirty();
 		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 		if(world != null && !world.isRemote) {
-			IBlockState state = world.getBlockState(pos);
+			BlockState state = world.getBlockState(pos);
 			boolean hasLens = !itemHandler.getStackInSlot(0).isEmpty();
 			if (state.getBlock() != ModBlocks.prism || state.get(BotaniaStateProps.HAS_LENS) != hasLens) {
-				IBlockState base = state.getBlock() == ModBlocks.prism ? state : ModBlocks.prism.getDefaultState();
+				BlockState base = state.getBlock() == ModBlocks.prism ? state : ModBlocks.prism.getDefaultState();
 				world.setBlockState(pos, base.with(BotaniaStateProps.HAS_LENS, hasLens));
 			}
 		}

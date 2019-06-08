@@ -11,16 +11,19 @@
 package vazkii.botania.common.block.corporea;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateContainer;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorldReaderBase;
+import net.minecraft.world.IWorldReader;
+import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -41,38 +44,38 @@ public class BlockCorporeaInterceptor extends BlockCorporeaBase implements ILexi
 	}
 
 	@Override
-	protected void fillStateContainer(StateContainer.Builder<Block, IBlockState> builder) {
+	protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
 		builder.add(BotaniaStateProps.POWERED);
 	}
 
 	@Override
-	public void randomTick(IBlockState state, World world, BlockPos pos, Random rand) {
+	public void randomTick(BlockState state, World world, BlockPos pos, Random rand) {
 		world.setBlockState(pos, state.with(BotaniaStateProps.POWERED, false), 1 | 2);
 	}
 
 	@Override
-	public boolean canProvidePower(IBlockState state) {
+	public boolean canProvidePower(BlockState state) {
 		return true;
 	}
 
 	@Override
-	public int getWeakPower(IBlockState state, IBlockReader world, BlockPos pos, EnumFacing side) {
+	public int getWeakPower(BlockState state, IBlockReader world, BlockPos pos, Direction side) {
 		return state.get(BotaniaStateProps.POWERED) ? 15 : 0;
 	}
 
 	@Override
-	public int tickRate(IWorldReaderBase world) {
+	public int tickRate(IWorldReader world) {
 		return 2;
 	}
 
 	@Nonnull
 	@Override
-	public TileCorporeaBase createTileEntity(@Nonnull IBlockState state, @Nonnull IBlockReader world) {
+	public TileCorporeaBase createTileEntity(@Nonnull BlockState state, @Nonnull IBlockReader world) {
 		return new TileCorporeaInterceptor();
 	}
 
 	@Override
-	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
+	public LexiconEntry getEntry(World world, BlockPos pos, PlayerEntity player, ItemStack lexicon) {
 		return LexiconData.corporeaInterceptor;
 	}
 

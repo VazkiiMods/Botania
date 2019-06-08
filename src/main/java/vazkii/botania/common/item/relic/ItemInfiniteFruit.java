@@ -10,13 +10,17 @@
  */
 package vazkii.botania.common.item.relic;
 
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.EnumAction;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.UseAction;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.UseAction;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Hand;
+import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import vazkii.botania.api.mana.IManaUsingItem;
@@ -42,27 +46,27 @@ public class ItemInfiniteFruit extends ItemRelic implements IManaUsingItem {
 
 	@Nonnull
 	@Override
-	public EnumAction getUseAction(ItemStack stack) {
-		return isBoot(stack) ? EnumAction.DRINK : EnumAction.EAT;
+	public UseAction getUseAction(ItemStack stack) {
+		return isBoot(stack) ? UseAction.DRINK : UseAction.EAT;
 	}
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
 		ItemStack stack = player.getHeldItem(hand);
 		if(player.canEat(false) && isRightPlayer(player, stack)) {
 			player.setActiveHand(hand);
-			return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
+			return ActionResult.newResult(ActionResultType.SUCCESS, stack);
 		}
-		return ActionResult.newResult(EnumActionResult.PASS, stack);
+		return ActionResult.newResult(ActionResultType.PASS, stack);
 	}
 
 	@Override
-	public void onUsingTick(ItemStack stack, EntityLivingBase living, int count) {
+	public void onUsingTick(ItemStack stack, LivingEntity living, int count) {
 		super.onUsingTick(stack, living, count);
-		if(!(living instanceof EntityPlayer))
+		if(!(living instanceof PlayerEntity))
 			return;
-		EntityPlayer player = (EntityPlayer) living;
+		PlayerEntity player = (PlayerEntity) living;
 		if(ManaItemHandler.requestManaExact(stack, player, 500, true)) {
 			if(count % 5 == 0)
 				player.getFoodStats().addStats(1, 1F);

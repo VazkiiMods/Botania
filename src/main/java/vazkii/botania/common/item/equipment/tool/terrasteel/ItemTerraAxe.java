@@ -12,11 +12,12 @@ package vazkii.botania.common.item.equipment.tool.terrasteel;
 
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Enchantments;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.enchantment.Enchantments;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
@@ -82,18 +83,18 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 		super(BotaniaAPI.TERRASTEEL_ITEM_TIER, props);
 		MinecraftForge.EVENT_BUS.register(this);
 		addPropertyOverride(new ResourceLocation(LibMisc.MOD_ID, "terraaxe_on"), (stack, world, entity) -> {
-			if(entity instanceof EntityPlayer && !shouldBreak((EntityPlayer) entity))
+			if(entity instanceof PlayerEntity && !shouldBreak((PlayerEntity) entity))
 				return 0;
 			return 1;
 		});
 	}
 
-	private boolean shouldBreak(EntityPlayer player) {
+	private boolean shouldBreak(PlayerEntity player) {
 		return !player.isSneaking() && !ItemTemperanceStone.hasTemperanceActive(player);
 	}
 
 	@Override
-	public boolean onBlockStartBreak(ItemStack stack, BlockPos pos, EntityPlayer player) {
+	public boolean onBlockStartBreak(ItemStack stack, BlockPos pos, PlayerEntity player) {
 		RayTraceResult raycast = ToolCommons.raytraceFromEntity(player.world, player, true, 10);
 		if(raycast != null) {
 			breakOtherBlock(player, stack, pos, pos, raycast.sideHit);
@@ -109,7 +110,7 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 	}
 
 	@Override
-	public void breakOtherBlock(EntityPlayer player, ItemStack stack, BlockPos pos, BlockPos originPos, EnumFacing side) {
+	public void breakOtherBlock(PlayerEntity player, ItemStack stack, BlockPos pos, BlockPos originPos, Direction side) {
 		if(shouldBreak(player)) {
 			addBlockSwapper(player.world, player, stack, pos, 32, true);
 		}
@@ -152,7 +153,7 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 	 * @param leaves If true, will treat leaves specially (see the BlockSwapper
 	 * documentation).
 	 */
-	private static void addBlockSwapper(World world, EntityPlayer player, ItemStack stack, BlockPos origCoords, int steps, boolean leaves) {
+	private static void addBlockSwapper(World world, PlayerEntity player, ItemStack stack, BlockPos origCoords, int steps, boolean leaves) {
 		BlockSwapper swapper = new BlockSwapper(world, player, stack, origCoords, steps, leaves);
 
 		// Block swapper registration should only occur on the server
@@ -194,7 +195,7 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 		/**
 		 * The player the swapper is swapping for.
 		 */
-		private final EntityPlayer player;
+		private final PlayerEntity player;
 
 		/**
 		 * The Terra Truncator which created this swapper.
@@ -237,7 +238,7 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 		 * @param leaves If true, leaves will be treated specially and
 		 * severely reduce the radius of further spreading when encountered.
 		 */
-		public BlockSwapper(World world, EntityPlayer player, ItemStack truncator, BlockPos origCoords, int range, boolean leaves) {
+		public BlockSwapper(World world, PlayerEntity player, ItemStack truncator, BlockPos origCoords, int range, boolean leaves) {
 			this.world = world;
 			this.player = player;
 			this.truncator = truncator;

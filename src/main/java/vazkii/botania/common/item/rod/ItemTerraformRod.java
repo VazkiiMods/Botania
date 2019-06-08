@@ -12,25 +12,35 @@ package vazkii.botania.common.item.rod;
 
 import com.google.common.collect.ImmutableList;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockDoublePlant;
-import net.minecraft.block.BlockFlower;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.init.SoundEvents;
-import net.minecraft.item.EnumAction;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.DoublePlantBlock;
+import net.minecraft.block.FlowerBlock;
+import net.minecraft.block.DoublePlantBlock;
+import net.minecraft.block.FlowerBlock;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.block.Blocks;
+import net.minecraft.item.Items;
+import net.minecraft.item.UseAction;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
+import net.minecraft.util.SoundEvents;
+import net.minecraft.item.UseAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.Tag;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import vazkii.botania.api.item.IBlockProvider;
@@ -72,8 +82,8 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockP
 
 	@Nonnull
 	@Override
-	public EnumAction getUseAction(ItemStack par1ItemStack) {
-		return EnumAction.BOW;
+	public UseAction getUseAction(ItemStack par1ItemStack) {
+		return UseAction.BOW;
 	}
 
 	@Override
@@ -82,19 +92,19 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockP
 	}
 
 	@Override
-	public void onUsingTick(ItemStack stack, EntityLivingBase living, int count) {
-		if(count != getUseDuration(stack) && count % 10 == 0 && living instanceof EntityPlayer)
-			terraform(stack, living.world, (EntityPlayer) living);
+	public void onUsingTick(ItemStack stack, LivingEntity living, int count) {
+		if(count != getUseDuration(stack) && count % 10 == 0 && living instanceof PlayerEntity)
+			terraform(stack, living.world, (PlayerEntity) living);
 	}
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
 		player.setActiveHand(hand);
-		return ActionResult.newResult(EnumActionResult.SUCCESS, player.getHeldItem(hand));
+		return ActionResult.newResult(ActionResultType.SUCCESS, player.getHeldItem(hand));
 	}
 
-	private void terraform(ItemStack par1ItemStack, World world, EntityPlayer player) {
+	private void terraform(ItemStack par1ItemStack, World world, PlayerEntity player) {
 		int range = IManaProficiencyArmor.Helper.hasProficiency(player, par1ItemStack) ? 22 : 16;
 
 		BlockPos startCenter = new BlockPos(player).down();
@@ -105,20 +115,20 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockP
 		List<CoordsWithBlock> blocks = new ArrayList<>();
 
 		for(BlockPos pos : BlockPos.getAllInBoxMutable(startCenter.add(-range, -range, -range), startCenter.add(range, range, range))) {
-			IBlockState state = world.getBlockState(pos);
+			BlockState state = world.getBlockState(pos);
 			if(state.isAir(world, pos))
 				continue;
 
 			if(TERRAFORMABLE.contains(state.getBlock())) {
 				List<BlockPos> airBlocks = new ArrayList<>();
 
-				for(EnumFacing dir : MathHelper.HORIZONTALS) {
+				for(Direction dir : MathHelper.HORIZONTALS) {
 					BlockPos pos_ = pos.offset(dir);
-					IBlockState state_ = world.getBlockState(pos_);
+					BlockState state_ = world.getBlockState(pos_);
 					Block block_ = state_.getBlock();
 					if(state_.isAir(world, pos_) || state_.getMaterial().isReplaceable()
-							|| block_ instanceof BlockFlower && !(block_ instanceof ISpecialFlower)
-							|| block_ instanceof BlockDoublePlant) {
+							|| block_ instanceof FlowerBlock && !(block_ instanceof ISpecialFlower)
+							|| block_ instanceof DoublePlantBlock) {
 						airBlocks.add(pos_);
 					}
 				}
@@ -168,14 +178,14 @@ public class ItemTerraformRod extends ItemMod implements IManaUsingItem, IBlockP
 	}
 
 	@Override
-	public boolean provideBlock(EntityPlayer player, ItemStack requestor, ItemStack stack, Block block, boolean doit) {
+	public boolean provideBlock(PlayerEntity player, ItemStack requestor, ItemStack stack, Block block, boolean doit) {
 		if(block == Blocks.DIRT)
 			return !doit || ManaItemHandler.requestManaExactForTool(requestor, player, ItemDirtRod.COST, true);
 		return false;
 	}
 
 	@Override
-	public int getBlockCount(EntityPlayer player, ItemStack requestor, ItemStack stack, Block block) {
+	public int getBlockCount(PlayerEntity player, ItemStack requestor, ItemStack stack, Block block) {
 		if(block == Blocks.DIRT)
 			return -1;
 		return 0;

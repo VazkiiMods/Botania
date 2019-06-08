@@ -10,20 +10,21 @@
  */
 package vazkii.botania.api.internal;
 
-import net.minecraft.network.play.server.SPacketUpdateTileEntity;
+import net.minecraft.network.play.server.SUpdateTileEntityPacket;
+import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.server.management.PlayerChunkMapEntry;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldServer;
+import net.minecraft.world.ServerWorld;
 
 public final class VanillaPacketDispatcher {
 
 	public static void dispatchTEToNearbyPlayers(TileEntity tile) {
-		SPacketUpdateTileEntity packet = tile.getUpdatePacket();
+		SUpdateTileEntityPacket packet = tile.getUpdatePacket();
 
-		if(packet != null && tile.getWorld() instanceof WorldServer) {
-			PlayerChunkMapEntry chunk = ((WorldServer) tile.getWorld()).getPlayerChunkMap().getEntry(tile.getPos().getX() >> 4, tile.getPos().getZ() >> 4);
+		if(packet != null && tile.getWorld() instanceof ServerWorld) {
+			PlayerChunkMapEntry chunk = ((ServerWorld) tile.getWorld()).getPlayerChunkMap().getEntry(tile.getPos().getX() >> 4, tile.getPos().getZ() >> 4);
 			if(chunk != null) {
 				chunk.sendPacket(packet);
 			}

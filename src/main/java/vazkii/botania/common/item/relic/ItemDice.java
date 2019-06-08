@@ -11,24 +11,23 @@
 package vazkii.botania.common.item.relic;
 
 import net.minecraft.advancements.Advancement;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.init.SoundEvents;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.text.Style;
-import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.server.ServerLifecycleHooks;
 import vazkii.botania.api.item.IRelic;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.lib.LibItemNames;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -52,12 +51,12 @@ public class ItemDice extends ItemRelic {
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
 		ItemStack stack = player.getHeldItem(hand);
 
 		if(isRightPlayer(player, stack)) {
 			if(world.isRemote)
-				return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
+				return ActionResult.newResult(ActionResultType.SUCCESS, stack);
 
 			world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 0.5F, 0.4F / (world.rand.nextFloat() * 0.4F + 0.8F));
 
@@ -68,17 +67,17 @@ public class ItemDice extends ItemRelic {
 			}
 
 			if(possible.isEmpty()) {
-				player.sendMessage(new TextComponentTranslation("botaniamisc.dudDiceRoll", world.rand.nextInt(6) + 1).setStyle(new Style().setColor(TextFormatting.DARK_GREEN)));
+				player.sendMessage(new TranslationTextComponent("botaniamisc.dudDiceRoll", world.rand.nextInt(6) + 1).setStyle(new Style().setColor(TextFormatting.DARK_GREEN)));
 				stack.shrink(1);
-				return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
+				return ActionResult.newResult(ActionResultType.SUCCESS, stack);
 			} else {
 				int relic = possible.get(world.rand.nextInt(possible.size()));
-				player.sendMessage(new TextComponentTranslation("botaniamisc.diceRoll", relic + 1).setStyle(new Style().setColor(TextFormatting.DARK_GREEN)));
-				return ActionResult.newResult(EnumActionResult.SUCCESS, relicStacks[relic].copy());
+				player.sendMessage(new TranslationTextComponent("botaniamisc.diceRoll", relic + 1).setStyle(new Style().setColor(TextFormatting.DARK_GREEN)));
+				return ActionResult.newResult(ActionResultType.SUCCESS, relicStacks[relic].copy());
 			}
 		}
 
-		return ActionResult.newResult(EnumActionResult.PASS, stack);
+		return ActionResult.newResult(ActionResultType.PASS, stack);
 	}
 
 	@Override
@@ -86,11 +85,11 @@ public class ItemDice extends ItemRelic {
 		return false;
 	}
 
-	private boolean hasRelicAlready(EntityPlayer player, int relic) {
-		if(relic < 0 || relic > relicStacks.length || !(player instanceof EntityPlayerMP))
+	private boolean hasRelicAlready(PlayerEntity player, int relic) {
+		if(relic < 0 || relic > relicStacks.length || !(player instanceof ServerPlayerEntity))
 			return true;
 
-		EntityPlayerMP mpPlayer = (EntityPlayerMP) player;
+		ServerPlayerEntity mpPlayer = (ServerPlayerEntity) player;
 		Item item = relicStacks[relic].getItem();
 		ResourceLocation advId = ((IRelic) item).getAdvancement();
 

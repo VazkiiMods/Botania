@@ -10,18 +10,18 @@
  */
 package vazkii.botania.client.model;
 
-import net.minecraft.client.renderer.entity.model.ModelBase;
-import net.minecraft.client.renderer.entity.model.ModelRenderer;
+import net.minecraft.client.renderer.model.Model;
+import net.minecraft.client.renderer.entity.model.RendererModel;
 
-public class ModelTinyPotato extends ModelBase {
+public class ModelTinyPotato extends Model {
 
-	final ModelRenderer potato;
+	final RendererModel potato;
 
 	public ModelTinyPotato() {
 		textureWidth = 16;
 		textureHeight = 16;
 
-		potato = new ModelRenderer(this, 0, 0);
+		potato = new RendererModel(this, 0, 0);
 		potato.addBox(0F, 0F, 0F, 4, 6, 4);
 		potato.setRotationPoint(-2F, 18F, -2F);
 		potato.setTextureSize(64, 32);

@@ -10,10 +10,10 @@
  */
 package vazkii.botania.common.block.tile;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -27,7 +27,7 @@ public class TilePlatform extends TileCamo {
 		super(TYPE);
 	}
 
-	public boolean onWanded(EntityPlayer player) {
+	public boolean onWanded(PlayerEntity player) {
 		if(player != null) {
 			if(camoState == null || player.isSneaking())
 				swapSelfAndPass(this, true);
@@ -44,7 +44,7 @@ public class TilePlatform extends TileCamo {
 	}
 
 	private void swapSurroudings(TilePlatform tile, boolean empty) {
-		for(EnumFacing dir : EnumFacing.values()) {
+		for(Direction dir : Direction.values()) {
 			BlockPos pos = tile.getPos().offset(dir);
 			TileEntity tileAt = world.getTileEntity(pos);
 			if(tileAt instanceof TilePlatform) {

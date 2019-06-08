@@ -12,15 +12,19 @@ package vazkii.botania.common.item.lens;
 
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.projectile.EntityThrowable;
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.entity.projectile.ThrowableEntity;
+import net.minecraft.entity.projectile.ThrowableEntity;
+import net.minecraft.item.DyeColor;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -69,7 +73,7 @@ public class ItemLens extends ItemMod implements ILensControl, ICompositableLens
 	public void addInformation(ItemStack par1ItemStack, World world, List<ITextComponent> stacks, ITooltipFlag flags) {
 		int storedColor = getStoredColor(par1ItemStack);
 		if(storedColor != -1)
-			stacks.add(new TextComponentTranslation("botaniamisc.color", new TextComponentTranslation("botania.color" + storedColor)));
+			stacks.add(new TranslationTextComponent("botaniamisc.color", new TranslationTextComponent("botania.color" + storedColor)));
 	}
 
 	@Nonnull
@@ -80,7 +84,7 @@ public class ItemLens extends ItemMod implements ILensControl, ICompositableLens
 			return super.getDisplayName(stack);
 		String shortKeyA = stack.getTranslationKey() + ".short";
 		String shortKeyB = compositeLens.getTranslationKey() + ".short";
-		return new TextComponentTranslation("item.botania:compositeLens", new TextComponentTranslation(shortKeyA), new TextComponentTranslation(shortKeyB));
+		return new TranslationTextComponent("item.botania:compositeLens", new TranslationTextComponent(shortKeyA), new TranslationTextComponent(shortKeyB));
 	}
 
 	@Override
@@ -98,7 +102,7 @@ public class ItemLens extends ItemMod implements ILensControl, ICompositableLens
 
 	@Override
 	public boolean collideBurst(IManaBurst burst, RayTraceResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
-		EntityThrowable entity = (EntityThrowable) burst;
+		ThrowableEntity entity = (ThrowableEntity) burst;
 
 		dead = getLens(stack).collideBurst(burst, entity, pos, isManaBlock, dead, stack);
 
@@ -111,7 +115,7 @@ public class ItemLens extends ItemMod implements ILensControl, ICompositableLens
 
 	@Override
 	public void updateBurst(IManaBurst burst, ItemStack stack) {
-		EntityThrowable entity = (EntityThrowable) burst;
+		ThrowableEntity entity = (ThrowableEntity) burst;
 		int storedColor = getStoredColor(stack);
 
 		if(storedColor == 16 && entity.world.isRemote)
@@ -134,7 +138,7 @@ public class ItemLens extends ItemMod implements ILensControl, ICompositableLens
 		if(storedColor == 16)
 			return Color.HSBtoRGB(Botania.proxy.getWorldElapsedTicks() * 2 % 360 / 360F, 1F, 1F);
 
-		return EnumDyeColor.byId(storedColor).colorValue;
+		return DyeColor.byId(storedColor).colorValue;
 	}
 
 	public static int getStoredColor(ItemStack stack) {
@@ -180,7 +184,7 @@ public class ItemLens extends ItemMod implements ILensControl, ICompositableLens
 
 	@Override
 	public ItemStack getCompositeLens(ItemStack stack) {
-		NBTTagCompound cmp = ItemNBTHelper.getCompound(stack, TAG_COMPOSITE_LENS, true);
+		CompoundNBT cmp = ItemNBTHelper.getCompound(stack, TAG_COMPOSITE_LENS, true);
 		if(cmp == null)
 			return ItemStack.EMPTY;
 		else return ItemStack.read(cmp);
@@ -189,14 +193,14 @@ public class ItemLens extends ItemMod implements ILensControl, ICompositableLens
 	@Override
 	public ItemStack setCompositeLens(ItemStack sourceLens, ItemStack compositeLens) {
 		if(!compositeLens.isEmpty()) {
-			NBTTagCompound cmp = compositeLens.write(new NBTTagCompound());
+			CompoundNBT cmp = compositeLens.write(new CompoundNBT());
 			ItemNBTHelper.setCompound(sourceLens, TAG_COMPOSITE_LENS, cmp);
 		}
 		return sourceLens;
 	}
 
 	@Override
-	public int getManaToTransfer(IManaBurst burst, EntityThrowable entity, ItemStack stack, IManaReceiver receiver) {
+	public int getManaToTransfer(IManaBurst burst, ThrowableEntity entity, ItemStack stack, IManaReceiver receiver) {
 		return getLens(stack).getManaToTransfer(burst, entity, stack, receiver);
 	}
 	

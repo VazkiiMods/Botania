@@ -10,15 +10,18 @@
  */
 package vazkii.botania.common.entity;
 
-import net.minecraft.entity.EntityFlying;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.FlyingEntity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.potion.PotionEffect;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.ObjectHolder;
@@ -28,14 +31,14 @@ import javax.annotation.Nonnull;
 
 import vazkii.botania.common.lib.LibMisc;
 
-public class EntityPixie extends EntityFlying {
+public class EntityPixie extends FlyingEntity {
 	@ObjectHolder(LibMisc.MOD_ID + ":pixie")
 	public static EntityType<?> TYPE;
 	private static final DataParameter<Integer> PIXIE_TYPE = EntityDataManager.createKey(EntityPixie.class, DataSerializers.VARINT);
 
-	private EntityLivingBase summoner = null;
+	private LivingEntity summoner = null;
 	private float damage = 0;
-	private PotionEffect effect = null;
+	private EffectInstance effect = null;
 
 	public EntityPixie(World world) {
 		super(TYPE, world);
@@ -62,20 +65,20 @@ public class EntityPixie extends EntityFlying {
 		return dataManager.get(PIXIE_TYPE);
 	}
 
-	public void setProps(EntityLivingBase target, EntityLivingBase summoner, int type, float damage) {
+	public void setProps(LivingEntity target, LivingEntity summoner, int type, float damage) {
 		setAttackTarget(target);
 		this.summoner = summoner;
 		this.damage = damage;
 		setPixieType(type);
 	}
 
-	public void setApplyPotionEffect(PotionEffect effect) {
+	public void setApplyPotionEffect(EffectInstance effect) {
 		this.effect = effect;
 	}
 
 	@Override
 	protected void updateAITasks() {
-		EntityLivingBase target = getAttackTarget();
+		LivingEntity target = getAttackTarget();
 		if(target != null) {
 			double d0 = target.posX + target.width / 2 - posX;
 			double d1 = target.posY + target.height / 2 - posY;
@@ -92,13 +95,13 @@ public class EntityPixie extends EntityFlying {
 
 			if(Math.sqrt(d3) < 1F) {
 				if(summoner != null) {
-					if(summoner instanceof EntityPlayer)
-						target.attackEntityFrom(DamageSource.causePlayerDamage((EntityPlayer) summoner), damage);
+					if(summoner instanceof PlayerEntity)
+						target.attackEntityFrom(DamageSource.causePlayerDamage((PlayerEntity) summoner), damage);
 					else {
 						target.attackEntityFrom(DamageSource.causeMobDamage(summoner), damage);
 					}
 				} else target.attackEntityFrom(DamageSource.causeMobDamage(this), damage);
-				if(effect != null && !(target instanceof EntityPlayer))
+				if(effect != null && !(target instanceof PlayerEntity))
 					target.addPotionEffect(effect);
 				remove();
 			}
@@ -109,7 +112,7 @@ public class EntityPixie extends EntityFlying {
 
 	@Override
 	public boolean attackEntityFrom(@Nonnull DamageSource par1DamageSource, float par2) {
-		if(getPixieType() == 0 && par1DamageSource.getTrueSource() != summoner || getPixieType() == 1 && par1DamageSource.getTrueSource() instanceof EntityPlayer)
+		if(getPixieType() == 0 && par1DamageSource.getTrueSource() != summoner || getPixieType() == 1 && par1DamageSource.getTrueSource() instanceof PlayerEntity)
 			return super.attackEntityFrom(par1DamageSource, par2);
 		return false;
 	}
@@ -142,7 +145,7 @@ public class EntityPixie extends EntityFlying {
 	}
 
 	@Override
-	public boolean canBeLeashedTo(EntityPlayer player) {
+	public boolean canBeLeashedTo(PlayerEntity player) {
 		return false;
 	}
 }

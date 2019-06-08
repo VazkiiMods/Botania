@@ -11,15 +11,16 @@
 package vazkii.botania.client.core.handler;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GlStateManager;
+import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EnumPlayerModelParts;
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.client.renderer.texture.AtlasTexture;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerModelPart;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -39,13 +40,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-public final class ContributorFancinessHandler implements LayerRenderer<EntityPlayer> {
+public final class ContributorFancinessHandler implements LayerRenderer<PlayerEntity> {
 
 	public static final Map<String, ItemStack> flowerMap = new HashMap<>();
 	private static boolean startedLoading = false;
 
 	@Override
-	public void render(@Nonnull EntityPlayer player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+	public void render(@Nonnull PlayerEntity player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 		String name = player.getDisplayName().getString();
 
 		float yaw = player.prevRotationYawHead + (player.rotationYawHead - player.prevRotationYawHead) * partialTicks;
@@ -63,7 +64,7 @@ public final class ContributorFancinessHandler implements LayerRenderer<EntityPl
 		firstStart();
 
 		name = name.toLowerCase();
-		if(player.isWearing(EnumPlayerModelParts.CAPE) && flowerMap.containsKey(name))
+		if(player.isWearing(PlayerModelPart.CAPE) && flowerMap.containsKey(name))
 			renderFlower(player, flowerMap.get(name));
 
 		GlStateManager.popMatrix();
@@ -90,7 +91,7 @@ public final class ContributorFancinessHandler implements LayerRenderer<EntityPl
 				int i = Integer.parseInt(value);
 				if(i < 0 || i >= 16)
 					throw new NumberFormatException();
-				flowerMap.put(key, new ItemStack(ModBlocks.getFlower(EnumDyeColor.byId(i))));
+				flowerMap.put(key, new ItemStack(ModBlocks.getFlower(DyeColor.byId(i))));
 			} catch(NumberFormatException e) {
 				// todo 1.13 backward compat for camelCase names
 				Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation(LibMisc.MOD_ID, value));
@@ -99,7 +100,7 @@ public final class ContributorFancinessHandler implements LayerRenderer<EntityPl
 		}
 	}
 
-	private static void renderGoldfish(EntityPlayer player) {
+	private static void renderGoldfish(PlayerEntity player) {
 		GlStateManager.pushMatrix();
 		TextureAtlasSprite icon = MiscellaneousIcons.INSTANCE.goldfishIcon;
 		float f = icon.getMinU();
@@ -111,16 +112,16 @@ public final class ContributorFancinessHandler implements LayerRenderer<EntityPl
 		GlStateManager.rotatef(90F, 0F, 1F, 0F);
 		GlStateManager.scalef(0.4F, 0.4F, 0.4F);
 		GlStateManager.translatef(-0.5F, 1.6F, 0F);
-		Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+		Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
 		IconHelper.renderIconIn3D(Tessellator.getInstance(), f1, f2, f, f3, icon.getWidth(), icon.getHeight(), 1F / 16F);
 		GlStateManager.popMatrix();
 	}
 
 	@SuppressWarnings("deprecation")
-	private static void renderFlower(EntityPlayer player, ItemStack flower) {
+	private static void renderFlower(PlayerEntity player, ItemStack flower) {
 		GlStateManager.pushMatrix();
 		AccessoryRenderHelper.translateToHeadLevel(player);
-		Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+		Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
 		GlStateManager.rotatef(180, 0, 0, 1);
 		GlStateManager.translated(0, -0.85, 0);
 		GlStateManager.rotatef(-90, 0, 1, 0);

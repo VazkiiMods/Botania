@@ -11,14 +11,14 @@
 package vazkii.botania.common.block.decor.walls;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockWall;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.block.WallBlock;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorldReaderBase;
+import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.api.distmarker.Dist;
@@ -30,19 +30,19 @@ import vazkii.botania.common.lexicon.LexiconData;
 
 import javax.annotation.Nonnull;
 
-public class BlockModWall extends BlockWall implements ILexiconable {
+public class BlockModWall extends WallBlock implements ILexiconable {
 
 	public BlockModWall(Properties props) {
 		super(props);
 	}
 
 	@Override
-	public boolean canPlaceTorchOnTop(IBlockState state, IWorldReaderBase world, BlockPos pos) {
+	public boolean canPlaceTorchOnTop(BlockState state, IWorldReader world, BlockPos pos) {
 		return true;
 	}
 
 	@Override
-	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
+	public LexiconEntry getEntry(World world, BlockPos pos, PlayerEntity player, ItemStack lexicon) {
 		return LexiconData.decorativeBlocks;
 	}
 

@@ -13,7 +13,8 @@ package vazkii.botania.common.block.tile;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Direction;
 import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.spark.ISparkAttachable;
@@ -44,7 +45,7 @@ public class TileSparkChanger extends TileSimpleInventory {
 
 		ItemStack changeStack = itemHandler.getStackInSlot(0);
 		List<ISparkAttachable> attachables = new ArrayList<>();
-		for(EnumFacing dir : MathHelper.HORIZONTALS) {
+		for(Direction dir : MathHelper.HORIZONTALS) {
 			TileEntity tile = world.getTileEntity(pos.offset(dir));
 			if(tile instanceof ISparkAttachable) {
 				ISparkAttachable attach = (ISparkAttachable) tile;

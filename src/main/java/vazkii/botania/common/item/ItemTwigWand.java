@@ -11,24 +11,29 @@
 package vazkii.botania.common.item;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockCommandBlock;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.CommandBlockBlock;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.EnumRarity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.block.Blocks;
+import net.minecraft.item.Rarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
+import net.minecraft.item.Rarity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Rotation;
@@ -36,7 +41,7 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -82,20 +87,20 @@ public class ItemTwigWand extends ItemMod implements ICoordBoundItem {
 
 	@Nonnull
 	@Override
-	public EnumActionResult onItemUse(ItemUseContext ctx) {
+	public ActionResultType onItemUse(ItemUseContext ctx) {
 		ItemStack stack = ctx.getItem();
 		World world = ctx.getWorld();
-		EntityPlayer player = ctx.getPlayer();
+		PlayerEntity player = ctx.getPlayer();
 		BlockPos pos = ctx.getPos();
-		IBlockState state = world.getBlockState(pos);
+		BlockState state = world.getBlockState(pos);
 		Block block = state.getBlock();
-		EnumFacing side = ctx.getFace();
+		Direction side = ctx.getFace();
 
 		BlockPos boundPos = getBoundTile(stack);
 		TileEntity boundTile = world.getTileEntity(boundPos);
 
 		if(player == null)
-			return EnumActionResult.PASS;
+			return ActionResultType.PASS;
 
 		if(player.isSneaking()) {
 			// Try to complete a binding
@@ -110,34 +115,34 @@ public class ItemTwigWand extends ItemMod implements ICoordBoundItem {
 						setBoundTile(stack, UNBOUND_POS);
 					}
 
-					return EnumActionResult.SUCCESS;
+					return ActionResultType.SUCCESS;
 				} else {
 					setBoundTile(stack, UNBOUND_POS);
 				}
 			}
 
 			if(player.canPlayerEdit(pos, side, stack)
-					&& (!(block instanceof BlockCommandBlock) || player.canUseCommandBlock())) {
-				IBlockState newState = state.rotate(world, pos, Rotation.CLOCKWISE_90);
+					&& (!(block instanceof CommandBlockBlock) || player.canUseCommandBlock())) {
+				BlockState newState = state.rotate(world, pos, Rotation.CLOCKWISE_90);
 				if(newState != state) {
 					world.setBlockState(pos, newState);
-					return EnumActionResult.SUCCESS;
+					return ActionResultType.SUCCESS;
 				}
 			}
 		}
 
 		if(block == Blocks.LAPIS_BLOCK && ConfigHandler.COMMON.enchanterEnabled.get()) {
-			EnumFacing.Axis axis = null;
-			if(TileEnchanter.canEnchanterExist(world, pos, EnumFacing.Axis.X))
-				axis = EnumFacing.Axis.X;
-			else if(TileEnchanter.canEnchanterExist(world, pos, EnumFacing.Axis.Z))
-				axis = EnumFacing.Axis.Z;
+			Direction.Axis axis = null;
+			if(TileEnchanter.canEnchanterExist(world, pos, Direction.Axis.X))
+				axis = Direction.Axis.X;
+			else if(TileEnchanter.canEnchanterExist(world, pos, Direction.Axis.Z))
+				axis = Direction.Axis.Z;
 
 			if(axis != null) {
 				if(!world.isRemote) {
 					world.setBlockState(pos, ModBlocks.enchanter.getDefaultState().with(BotaniaStateProps.ENCHANTER_DIRECTION, axis), 1 | 2);
 					world.playSound(null, pos, ModSounds.enchanterForm, SoundCategory.BLOCKS, 0.5F, 0.6F);
-					PlayerHelper.grantCriterion((EntityPlayerMP) player, new ResourceLocation(LibMisc.MOD_ID, "main/enchanter_make"), "code_triggered");
+					PlayerHelper.grantCriterion((ServerPlayerEntity) player, new ResourceLocation(LibMisc.MOD_ID, "main/enchanter_make"), "code_triggered");
 				} else {
 					for(int i = 0; i < 50; i++) {
 						float red = (float) Math.random();
@@ -154,7 +159,7 @@ public class ItemTwigWand extends ItemMod implements ICoordBoundItem {
 					}
 				}
 
-				return EnumActionResult.SUCCESS;
+				return ActionResultType.SUCCESS;
 			}
 		}
 
@@ -177,7 +182,7 @@ public class ItemTwigWand extends ItemMod implements ICoordBoundItem {
 				wanded = ((IWandable) block).onUsedByWand(player, stack, world, pos, side);
 			}
 
-			return wanded ? EnumActionResult.SUCCESS : EnumActionResult.FAIL;
+			return wanded ? ActionResultType.SUCCESS : ActionResultType.FAIL;
 		}
 
 		if(!world.isRemote && ((BlockPistonRelay) ModBlocks.pistonRelay).playerPositions.containsKey(player.getUniqueID())) {
@@ -193,10 +198,10 @@ public class ItemTwigWand extends ItemMod implements ICoordBoundItem {
 							bindPos.blockPos.getX() + 0.5, bindPos.blockPos.getY() + 0.5, bindPos.blockPos.getZ() + 0.5,
 							pos.getX(), pos.getY(), pos.getZ()));
 			world.playSound(null, player.posX, player.posY, player.posZ, ModSounds.ding, SoundCategory.PLAYERS, 1F, 1F);
-			return EnumActionResult.SUCCESS;
+			return ActionResultType.SUCCESS;
 		}
 
-		return EnumActionResult.PASS;
+		return ActionResultType.PASS;
 	}
 
 	public static void doParticleBeam(World world, Vector3 orig, Vector3 end) {
@@ -234,7 +239,7 @@ public class ItemTwigWand extends ItemMod implements ICoordBoundItem {
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
 		ItemStack stack = player.getHeldItem(hand);
 		if(player.isSneaking()) {
 			if(!world.isRemote)
@@ -242,7 +247,7 @@ public class ItemTwigWand extends ItemMod implements ICoordBoundItem {
 			else player.playSound(ModSounds.ding, 0.1F, 1F);
 		}
 
-		return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
+		return ActionResult.newResult(ActionResultType.SUCCESS, stack);
 	}
 
 	@Override
@@ -256,13 +261,13 @@ public class ItemTwigWand extends ItemMod implements ICoordBoundItem {
 	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void addInformation(ItemStack stack, World world, List<ITextComponent> list, ITooltipFlag flags) {
-		list.add(new TextComponentTranslation(getModeString(stack)));
+		list.add(new TranslationTextComponent(getModeString(stack)));
 	}
 
 	@Nonnull
 	@Override
-	public EnumRarity getRarity(ItemStack par1ItemStack) {
-		return EnumRarity.RARE;
+	public Rarity getRarity(ItemStack par1ItemStack) {
+		return Rarity.RARE;
 	}
 
 	public static ItemStack forColors(int color1, int color2) {

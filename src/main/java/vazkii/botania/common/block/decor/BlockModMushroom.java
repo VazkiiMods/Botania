@@ -11,16 +11,18 @@
 package vazkii.botania.common.block.decor;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockMushroom;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.MushroomBlock;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.block.Blocks;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorldReaderBase;
+import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -35,33 +37,33 @@ import vazkii.botania.common.lexicon.LexiconData;
 import javax.annotation.Nonnull;
 import java.util.Random;
 
-public class BlockModMushroom extends BlockMushroom implements IHornHarvestable, ILexiconable, ICustomApothecaryColor {
+public class BlockModMushroom extends MushroomBlock implements IHornHarvestable, ILexiconable, ICustomApothecaryColor {
 
 	private static final VoxelShape SHAPE = makeCuboidShape(4.8, 0, 4.8, 12.8, 16, 12.8);
-	private final EnumDyeColor color;
+	private final DyeColor color;
 
-	public BlockModMushroom(EnumDyeColor color, Properties builder) {
+	public BlockModMushroom(DyeColor color, Properties builder) {
 		super(builder);
 		this.color = color;
 	}
 
 	@Nonnull
 	@Override
-	public VoxelShape getShape(IBlockState state, IBlockReader world, BlockPos pos) {
+	public VoxelShape getShape(BlockState state, IBlockReader world, BlockPos pos) {
 		return SHAPE;
 	}
 
 	@Override
-	public void tick(@Nonnull IBlockState state, @Nonnull World world, @Nonnull BlockPos pos, Random rand) {} // Prevent spreading
+	public void tick(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, Random rand) {} // Prevent spreading
 
 	// [VanillaCopy] super, without light level requirement
 	@Override
-	public boolean isValidPosition(IBlockState state, IWorldReaderBase worldIn, BlockPos pos) {
+	public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
 		BlockPos blockpos = pos.down();
-		IBlockState iblockstate = worldIn.getBlockState(blockpos);
+		BlockState iblockstate = worldIn.getBlockState(blockpos);
 		Block block = iblockstate.getBlock();
 		if (block != Blocks.MYCELIUM && block != Blocks.PODZOL) {
-			return iblockstate.canSustainPlant(worldIn, blockpos, net.minecraft.util.EnumFacing.UP, this);
+			return iblockstate.canSustainPlant(worldIn, blockpos, Direction.UP, this);
 		} else {
 			return true;
 		}
@@ -69,7 +71,7 @@ public class BlockModMushroom extends BlockMushroom implements IHornHarvestable,
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void animateTick(IBlockState state, World world, BlockPos pos, Random rand) {
+	public void animateTick(BlockState state, World world, BlockPos pos, Random rand) {
 		int hex = color.colorValue;
 		int r = (hex & 0xFF0000) >> 16;
 		int g = (hex & 0xFF00) >> 8;
@@ -80,7 +82,7 @@ public class BlockModMushroom extends BlockMushroom implements IHornHarvestable,
 	}
 
 	@Override
-	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
+	public LexiconEntry getEntry(World world, BlockPos pos, PlayerEntity player, ItemStack lexicon) {
 		return LexiconData.mushrooms;
 	}
 

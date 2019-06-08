@@ -12,22 +12,28 @@ package vazkii.botania.common.item.equipment.bauble;
 
 import it.unimi.dsi.fastutil.ints.IntArrayList;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GlStateManager;
+import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.passive.EntityVillager;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.merchant.villager.VillagerEntity;
+import net.minecraft.entity.merchant.villager.VillagerEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.nbt.NBTTagLong;
+import net.minecraft.nbt.ListNBT;
+import net.minecraft.nbt.LongNBT;
+import net.minecraft.nbt.LongNBT;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.village.MerchantRecipe;
@@ -66,31 +72,31 @@ public class ItemItemFinder extends ItemBauble {
 		}
 
 		@Override
-		public void onCurioTick(String identifier, EntityLivingBase player) {
-			if(!(player instanceof EntityPlayer))
+		public void onCurioTick(String identifier, LivingEntity player) {
+			if(!(player instanceof PlayerEntity))
 				return;
 
 			if(player.world.isRemote)
-				((ItemItemFinder) ModItems.itemFinder).tickClient(stack, (EntityPlayer) player);
-			else ((ItemItemFinder) ModItems.itemFinder).tickServer(stack, (EntityPlayer) player);
+				((ItemItemFinder) ModItems.itemFinder).tickClient(stack, (PlayerEntity) player);
+			else ((ItemItemFinder) ModItems.itemFinder).tickServer(stack, (PlayerEntity) player);
 		}
 
 		@Override
-		public boolean shouldSyncToTracking(String identifier, EntityLivingBase living) {
+		public boolean shouldSyncToTracking(String identifier, LivingEntity living) {
 			return true;
 		}
 
 		@Override
         @OnlyIn(Dist.CLIENT)
-		public void doRender(String identifier, EntityLivingBase living, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+		public void doRender(String identifier, LivingEntity living, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 			TextureAtlasSprite gemIcon = MiscellaneousIcons.INSTANCE.itemFinderGem;
 			float f = gemIcon.getMinU();
 			float f1 = gemIcon.getMaxU();
 			float f2 = gemIcon.getMinV();
 			float f3 = gemIcon.getMaxV();
-			boolean armor = !living.getItemStackFromSlot(EntityEquipmentSlot.HEAD).isEmpty();
+			boolean armor = !living.getItemStackFromSlot(EquipmentSlotType.HEAD).isEmpty();
 			AccessoryRenderHelper.translateToHeadLevel(living);
-			Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+			Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
 			GlStateManager.rotatef(90F, 0F, 1F, 0F);
 			GlStateManager.rotatef(180F, 1F, 0F, 0F);
 			GlStateManager.translatef(-0.4F, -1.4F, armor ? -0.3F : -0.25F);
@@ -99,15 +105,15 @@ public class ItemItemFinder extends ItemBauble {
 		}
 	}
 
-	protected void tickClient(ItemStack stack, EntityPlayer player) {
+	protected void tickClient(ItemStack stack, PlayerEntity player) {
 		if(!Botania.proxy.isTheClientPlayer(player))
 			return;
 
-		NBTTagList blocks = ItemNBTHelper.getList(stack, TAG_BLOCK_POSITIONS, Constants.NBT.TAG_LONG, false);
+		ListNBT blocks = ItemNBTHelper.getList(stack, TAG_BLOCK_POSITIONS, Constants.NBT.TAG_LONG, false);
 		Botania.proxy.setWispFXDepthTest(false);
 
 		for(int i = 0; i < blocks.size(); i++) {
-			BlockPos pos = BlockPos.fromLong(((NBTTagLong) blocks.get(i)).getLong());
+			BlockPos pos = BlockPos.fromLong(((LongNBT) blocks.get(i)).getLong());
 			float m = 0.02F;
 			Botania.proxy.wispFX(pos.getX() + (float) Math.random(), pos.getY() + (float) Math.random(), pos.getZ() + (float) Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random(), 0.15F + 0.05F * (float) Math.random(), m * (float) (Math.random() - 0.5), m * (float) (Math.random() - 0.5), m * (float) (Math.random() - 0.5));
 		}
@@ -124,9 +130,9 @@ public class ItemItemFinder extends ItemBauble {
 		Botania.proxy.setWispFXDepthTest(true);
 	}
 
-	protected void tickServer(ItemStack stack, EntityPlayer player) {
+	protected void tickServer(ItemStack stack, PlayerEntity player) {
 		IntArrayList entPosBuilder = new IntArrayList();
-		NBTTagList blockPosBuilder = new NBTTagList();
+		ListNBT blockPosBuilder = new ListNBT();
 
 		scanForStack(player.getHeldItemMainhand(), player, entPosBuilder, blockPosBuilder);
 		scanForStack(player.getHeldItemOffhand(), player, entPosBuilder, blockPosBuilder);
@@ -137,7 +143,7 @@ public class ItemItemFinder extends ItemBauble {
 		ItemNBTHelper.setList(stack, TAG_BLOCK_POSITIONS, blockPosBuilder);
 	}
 
-	private void scanForStack(ItemStack pstack, EntityPlayer player, IntArrayList entIdBuilder, NBTTagList blockPosBuilder) {
+	private void scanForStack(ItemStack pstack, PlayerEntity player, IntArrayList entIdBuilder, ListNBT blockPosBuilder) {
 		if(!pstack.isEmpty() || player.isSneaking()) {
 			int range = 24;
 
@@ -145,12 +151,12 @@ public class ItemItemFinder extends ItemBauble {
 			for(Entity e : entities) {
 				if(e == player)
 					continue;
-				if(e.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).isPresent() && !(e instanceof EntityPlayer)) {
+				if(e.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).isPresent() && !(e instanceof PlayerEntity)) {
 					if(scanInventory(e.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY), pstack))
 						entIdBuilder.add(e.getEntityId());
 
-				} else if(e instanceof EntityItem) {
-					EntityItem item = (EntityItem) e;
+				} else if(e instanceof ItemEntity) {
+					ItemEntity item = (ItemEntity) e;
 					ItemStack istack = item.getItem();
 					if(player.isSneaking() || istack.isItemEqual(pstack) && ItemStack.areItemStackTagsEqual(istack, pstack))
 						entIdBuilder.add(item.getEntityId());
@@ -160,15 +166,15 @@ public class ItemItemFinder extends ItemBauble {
 					if(scanInventory(LazyOptional.of(() -> new InvWrapper(inv)), pstack))
 						entIdBuilder.add(e.getEntityId());
 
-				} else if(e instanceof EntityPlayer) {
-					EntityPlayer player_ = (EntityPlayer) e;
+				} else if(e instanceof PlayerEntity) {
+					PlayerEntity player_ = (PlayerEntity) e;
 					LazyOptional<IItemHandler> playerInv = player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY);
 					LazyOptional<Collection<? extends IItemHandler>> binv = CuriosAPI.getCuriosHandler(player_).map(h -> h.getCurioMap().values());
 					if(scanInventory(playerInv, pstack) || scanInventories(binv, pstack))
 						entIdBuilder.add(player_.getEntityId());
 
-				} else if(e instanceof EntityVillager) {
-					EntityVillager villager = (EntityVillager) e;
+				} else if(e instanceof VillagerEntity) {
+					VillagerEntity villager = (VillagerEntity) e;
 					ArrayList<MerchantRecipe> recipes = villager.getRecipes(player);
 					if(!pstack.isEmpty() && recipes != null)
 						for(MerchantRecipe recipe : recipes)
@@ -187,9 +193,9 @@ public class ItemItemFinder extends ItemBauble {
 					TileEntity tile = player.world.getTileEntity(pos_);
 					if(tile != null) {
 						boolean foundCap = false;
-						for(EnumFacing e : EnumFacing.values()) {
+						for(Direction e : Direction.values()) {
 							if(scanInventory(tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, e), pstack)) {
-								blockPosBuilder.add(new NBTTagLong(pos_.toLong()));
+								blockPosBuilder.add(new LongNBT(pos_.toLong()));
 								foundCap = true;
 								break;
 							}
@@ -197,7 +203,7 @@ public class ItemItemFinder extends ItemBauble {
 						if(!foundCap && tile instanceof IInventory) {
 							IInventory inv = (IInventory) tile;
 							if(scanInventory(LazyOptional.of(() -> new InvWrapper(inv)), pstack))
-								blockPosBuilder.add(new NBTTagLong(pos_.toLong()));
+								blockPosBuilder.add(new LongNBT(pos_.toLong()));
 						}
 					}
 				}

@@ -12,10 +12,10 @@ package vazkii.botania.common.block.tile.mana;
 
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.init.Particles;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.ITickable;
+import net.minecraft.util.Direction;
+import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.common.animation.TimeValues;
@@ -33,7 +33,7 @@ import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
-public class TilePump extends TileMod implements ITickable {
+public class TilePump extends TileMod implements ITickableTileEntity {
 	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.PUMP)
 	public static TileEntityType<TilePump> TYPE;
 	private static final String TAG_ACTIVE = "active";
@@ -67,14 +67,14 @@ public class TilePump extends TileMod implements ITickable {
 
 	@Nonnull
 	@Override
-	public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, EnumFacing side) {
+	public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, Direction side) {
 		return CapabilityAnimation.ANIMATION_CAPABILITY.orEmpty(cap, asmCap);
 	}
 
 	@Override
 	public void tick() {
 		hasRedstone = false;
-		for(EnumFacing dir : EnumFacing.values()) {
+		for(Direction dir : Direction.values()) {
 			int redstoneSide = world.getRedstonePower(pos.offset(dir), dir);
 			if(redstoneSide > 0) {
 				hasRedstone = true;
@@ -124,12 +124,12 @@ public class TilePump extends TileMod implements ITickable {
 	}
 
 	@Override
-	public void writePacketNBT(NBTTagCompound cmp) {
+	public void writePacketNBT(CompoundNBT cmp) {
 		cmp.putBoolean(TAG_ACTIVE, active);
 	}
 
 	@Override
-	public void readPacketNBT(NBTTagCompound cmp) {
+	public void readPacketNBT(CompoundNBT cmp) {
 		boolean prevActive = active;
 		active = cmp.getBoolean(TAG_ACTIVE);
 		if(world != null && world.isRemote)

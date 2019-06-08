@@ -15,7 +15,7 @@ import com.mojang.brigadier.arguments.IntegerArgumentType;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.command.arguments.EntityArgument;
-import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.world.SkyblockWorldEvents;
@@ -34,7 +34,7 @@ public class CommandSkyblockSpread {
 		);
 	}
 
-	private static int run(EntityPlayerMP player, int range) {
+	private static int run(ServerPlayerEntity player, int range) {
 		int minDist = 100;
 		BlockPos spawn = player.world.getSpawnPoint();
 		int x, z;

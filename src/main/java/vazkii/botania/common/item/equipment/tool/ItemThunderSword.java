@@ -12,12 +12,15 @@ package vazkii.botania.common.item.equipment.tool;
 
 import com.google.common.collect.Multimap;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.monster.IMob;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -43,26 +46,26 @@ public class ItemThunderSword extends ItemManasteelSword {
 	}
 
 	@Override
-	public boolean hitEntity(ItemStack stack, EntityLivingBase entity, @Nonnull EntityLivingBase attacker) {
-		if(!(entity instanceof EntityPlayer) && entity != null) {
+	public boolean hitEntity(ItemStack stack, LivingEntity entity, @Nonnull LivingEntity attacker) {
+		if(!(entity instanceof PlayerEntity) && entity != null) {
 			double range = 8;
-			List<EntityLivingBase> alreadyTargetedEntities = new ArrayList<>();
+			List<LivingEntity> alreadyTargetedEntities = new ArrayList<>();
 			int dmg = 5;
 			long lightningSeed = ItemNBTHelper.getLong(stack, TAG_LIGHTNING_SEED, 0);
 
-			Predicate<Entity> selector = e -> e instanceof EntityLivingBase && e instanceof IMob && !(e instanceof EntityPlayer) && !alreadyTargetedEntities.contains(e);
+			Predicate<Entity> selector = e -> e instanceof LivingEntity && e instanceof IMob && !(e instanceof PlayerEntity) && !alreadyTargetedEntities.contains(e);
 
 			Random rand = new Random(lightningSeed);
-			EntityLivingBase lightningSource = entity;
+			LivingEntity lightningSource = entity;
 			int hops = entity.world.isThundering() ? 10 : 4;
 			for(int i = 0; i < hops; i++) {
 				List<Entity> entities = entity.world.getEntitiesInAABBexcluding(lightningSource, new AxisAlignedBB(lightningSource.posX - range, lightningSource.posY - range, lightningSource.posZ - range, lightningSource.posX + range, lightningSource.posY + range, lightningSource.posZ + range), selector::test);
 				if(entities.isEmpty())
 					break;
 
-				EntityLivingBase target = (EntityLivingBase) entities.get(rand.nextInt(entities.size()));
-				if(attacker instanceof EntityPlayer)
-					target.attackEntityFrom(DamageSource.causePlayerDamage((EntityPlayer) attacker), dmg);
+				LivingEntity target = (LivingEntity) entities.get(rand.nextInt(entities.size()));
+				if(attacker instanceof PlayerEntity)
+					target.attackEntityFrom(DamageSource.causePlayerDamage((PlayerEntity) attacker), dmg);
 				else target.attackEntityFrom(DamageSource.causeMobDamage(attacker), dmg);
 
 				Botania.proxy.lightningFX(Vector3.fromEntityCenter(lightningSource), Vector3.fromEntityCenter(target), 1, 0x0179C4, 0xAADFFF);
@@ -82,10 +85,10 @@ public class ItemThunderSword extends ItemManasteelSword {
 
 	@Nonnull
 	@Override
-	public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot equipmentSlot) {
+	public Multimap<String, AttributeModifier> getAttributeModifiers(EquipmentSlotType equipmentSlot) {
 		Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(equipmentSlot);
 
-		if (equipmentSlot == EntityEquipmentSlot.MAINHAND) {
+		if (equipmentSlot == EquipmentSlotType.MAINHAND) {
 			multimap.removeAll(SharedMonsterAttributes.ATTACK_SPEED.getName());
 			multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", -1.5, 0));
 		}

@@ -11,8 +11,9 @@
 package vazkii.botania.client.gui.lexicon.button;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.advancements.GuiScreenAdvancements;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.gui.advancements.AdvancementsScreen;
+import net.minecraft.client.gui.advancements.AdvancementsScreen;
+import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
@@ -34,7 +35,7 @@ public class GuiButtonAchievement extends GuiButtonLexicon {
     public void onClick(double mouseX, double mouseY) {
         super.onClick(mouseX, mouseY);
         if(Minecraft.getInstance().player != null) {
-            GuiScreenAdvancements gui = new GuiScreenAdvancements(Minecraft.getInstance().player.connection.getAdvancementManager());
+            AdvancementsScreen gui = new AdvancementsScreen(Minecraft.getInstance().player.connection.getAdvancementManager());
             Minecraft.getInstance().displayGuiScreen(gui);
             ResourceLocation tab = new ResourceLocation(LibMisc.MOD_ID, "main/root");
             gui.setSelectedTab(Minecraft.getInstance().player.connection.getAdvancementManager().getAdvancementList().getAdvancement(tab));

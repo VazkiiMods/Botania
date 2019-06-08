@@ -11,13 +11,17 @@
 package vazkii.botania.common.item;
 
 import net.minecraft.block.Block;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.SoundEvents;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Hand;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Hand;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.world.World;
 import net.minecraftforge.items.wrapper.InvWrapper;
 import vazkii.botania.api.item.IBlockProvider;
@@ -41,23 +45,23 @@ public class ItemEnderHand extends ItemMod implements IManaUsingItem, IBlockProv
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
 		ItemStack stack = player.getHeldItem(hand);
 		if(ManaItemHandler.requestManaExact(stack, player, COST_SELF, false)) {
 			if(!player.world.isRemote)
 				player.displayGUIChest(player.getInventoryEnderChest());
 			ManaItemHandler.requestManaExact(stack, player, COST_SELF, true);
 			player.playSound(SoundEvents.BLOCK_ENDER_CHEST_OPEN, 1F, 1F);
-			return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
+			return ActionResult.newResult(ActionResultType.SUCCESS, stack);
 		}
-		return ActionResult.newResult(EnumActionResult.PASS, stack);
+		return ActionResult.newResult(ActionResultType.PASS, stack);
 	}
 
 	@Override
-	public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer player, EntityLivingBase entity, EnumHand hand) {
-		if(ConfigHandler.COMMON.enderPickpocketEnabled.get() && entity instanceof EntityPlayer && ManaItemHandler.requestManaExact(stack, player, COST_OTHER, false)) {
+	public boolean itemInteractionForEntity(ItemStack stack, PlayerEntity player, LivingEntity entity, Hand hand) {
+		if(ConfigHandler.COMMON.enderPickpocketEnabled.get() && entity instanceof PlayerEntity && ManaItemHandler.requestManaExact(stack, player, COST_OTHER, false)) {
 			if(!player.world.isRemote)
-				player.displayGUIChest(((EntityPlayer) entity).getInventoryEnderChest());
+				player.displayGUIChest(((PlayerEntity) entity).getInventoryEnderChest());
 			ManaItemHandler.requestManaExact(stack, player, COST_OTHER, true);
 			player.playSound(SoundEvents.BLOCK_ENDER_CHEST_OPEN, 1F, 1F);
 			return true;
@@ -72,7 +76,7 @@ public class ItemEnderHand extends ItemMod implements IManaUsingItem, IBlockProv
 	}
 
 	@Override
-	public boolean provideBlock(EntityPlayer player, ItemStack requestor, ItemStack stack, Block block, boolean doit) {
+	public boolean provideBlock(PlayerEntity player, ItemStack requestor, ItemStack stack, Block block, boolean doit) {
 		if(!requestor.isEmpty() && requestor.getItem() == this)
 			return false;
 
@@ -93,7 +97,7 @@ public class ItemEnderHand extends ItemMod implements IManaUsingItem, IBlockProv
 	}
 
 	@Override
-	public int getBlockCount(EntityPlayer player, ItemStack requestor, ItemStack stack, Block block) {
+	public int getBlockCount(PlayerEntity player, ItemStack requestor, ItemStack stack, Block block) {
 		if(!requestor.isEmpty() && requestor.getItem() == this)
 			return 0;
 

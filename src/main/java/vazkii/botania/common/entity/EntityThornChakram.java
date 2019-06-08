@@ -11,24 +11,31 @@
 package vazkii.botania.common.entity;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockBush;
-import net.minecraft.block.BlockLeaves;
+import net.minecraft.block.BushBlock;
+import net.minecraft.block.LeavesBlock;
+import net.minecraft.block.BushBlock;
+import net.minecraft.block.LeavesBlock;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.projectile.EntityThrowable;
-import net.minecraft.init.MobEffects;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.ThrowableEntity;
+import net.minecraft.entity.projectile.ThrowableEntity;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Effects;
 import net.minecraft.init.Particles;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.potion.PotionEffect;
+import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.ObjectHolder;
@@ -38,7 +45,7 @@ import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
-public class EntityThornChakram extends EntityThrowable {
+public class EntityThornChakram extends ThrowableEntity {
 	@ObjectHolder(LibMisc.MOD_ID + ":thorn_chakram")
 	public static EntityType<?> TYPE;
 
@@ -53,7 +60,7 @@ public class EntityThornChakram extends EntityThrowable {
 		super(TYPE, world);
 	}
 
-	public EntityThornChakram(EntityLivingBase e, World world, ItemStack stack) {
+	public EntityThornChakram(LivingEntity e, World world, ItemStack stack) {
 		super(TYPE, e, world);
 		this.stack = stack.copy();
 	}
@@ -110,7 +117,7 @@ public class EntityThornChakram extends EntityThrowable {
 
 		// Server state control
 		if(!world.isRemote && (getTimesBounced() >= MAX_BOUNCES || ticksExisted > 60)) {
-			EntityLivingBase thrower = getThrower();
+			LivingEntity thrower = getThrower();
 			if(thrower == null) {
 				dropAndKill();
 			} else {
@@ -123,7 +130,7 @@ public class EntityThornChakram extends EntityThrowable {
 
 	private void dropAndKill() {
 		ItemStack stack = getItemStack();
-		EntityItem item = new EntityItem(world, posX, posY, posZ, stack);
+		ItemEntity item = new ItemEntity(world, posX, posY, posZ, stack);
 		world.spawnEntity(item);
 		remove();
 	}
@@ -142,13 +149,13 @@ public class EntityThornChakram extends EntityThrowable {
 		switch (pos.type) {
 		case BLOCK: {
 			Block block = world.getBlockState(pos.getBlockPos()).getBlock();
-			if(block instanceof BlockBush || block instanceof BlockLeaves)
+			if(block instanceof BushBlock || block instanceof LeavesBlock)
 				return;
 
 			int bounces = getTimesBounced();
 			if(bounces < MAX_BOUNCES) {
 				Vector3 currentMovementVec = new Vector3(motionX, motionY, motionZ);
-				EnumFacing dir = pos.sideHit;
+				Direction dir = pos.sideHit;
 				Vector3 normalVector = new Vector3(dir.getXOffset(), dir.getYOffset(), dir.getZOffset()).normalize();
 				Vector3 movementVec = normalVector.multiply(-2 * currentMovementVec.dotProduct(normalVector)).add(currentMovementVec);
 
@@ -164,13 +171,13 @@ public class EntityThornChakram extends EntityThrowable {
 			break;
 		}
 		case ENTITY: {
-			if(!world.isRemote && pos.entity != null && pos.entity instanceof EntityLivingBase && pos.entity != getThrower()) {
-				EntityLivingBase thrower = getThrower();
-				pos.entity.attackEntityFrom(thrower != null ? thrower instanceof EntityPlayer ? DamageSource.causeThrownDamage(this, thrower) : DamageSource.causeMobDamage(thrower) : DamageSource.GENERIC, 12);
+			if(!world.isRemote && pos.entity != null && pos.entity instanceof LivingEntity && pos.entity != getThrower()) {
+				LivingEntity thrower = getThrower();
+				pos.entity.attackEntityFrom(thrower != null ? thrower instanceof PlayerEntity ? DamageSource.causeThrownDamage(this, thrower) : DamageSource.causeMobDamage(thrower) : DamageSource.GENERIC, 12);
 				if(isFire())
 					pos.entity.setFire(5);
 				else if(world.rand.nextInt(3) == 0)
-					((EntityLivingBase) pos.entity).addPotionEffect(new PotionEffect(MobEffects.POISON, 60, 0));
+					((LivingEntity) pos.entity).addPotionEffect(new EffectInstance(Effects.POISON, 60, 0));
 			}
 
 			break;
@@ -213,16 +220,16 @@ public class EntityThornChakram extends EntityThrowable {
 	}
 
 	@Override
-	public void writeAdditional(NBTTagCompound compound) {
+	public void writeAdditional(CompoundNBT compound) {
 		super.writeAdditional(compound);
 		if(!stack.isEmpty()) {
-			compound.put("fly_stack", stack.write(new NBTTagCompound()));
+			compound.put("fly_stack", stack.write(new CompoundNBT()));
 		}
 		compound.putBoolean("flare", isFire());
 	}
 
 	@Override
-	public void readAdditional(NBTTagCompound compound) {
+	public void readAdditional(CompoundNBT compound) {
 		super.readAdditional(compound);
 		if(compound.contains("fly_stack")) {
 			stack = ItemStack.read(compound.getCompound("fly_stack"));

@@ -1,14 +1,16 @@
 package vazkii.botania.common.world;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockDoublePlant;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.block.DoublePlantBlock;
+import net.minecraft.block.BlockState;
+import net.minecraft.item.DyeColor;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
+import net.minecraft.world.gen.ChunkGenerator;
+import net.minecraft.world.gen.GenerationSettings;
 import net.minecraft.world.gen.Heightmap;
-import net.minecraft.world.gen.IChunkGenSettings;
-import net.minecraft.world.gen.IChunkGenerator;
+import net.minecraft.world.gen.GenerationSettings;
+import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.feature.Feature;
 import vazkii.botania.api.item.IFlowerlessBiome;
 import vazkii.botania.api.item.IFlowerlessWorld;
@@ -20,7 +22,7 @@ import java.util.Random;
 
 public class MysticalFlowerFeature extends Feature<MysticalFlowerConfig> {
     @Override
-    public boolean place(@Nonnull IWorld world, @Nonnull IChunkGenerator<? extends IChunkGenSettings> generator, @Nonnull Random rand, @Nonnull BlockPos pos, @Nonnull MysticalFlowerConfig config) {
+    public boolean place(@Nonnull IWorld world, @Nonnull ChunkGenerator<? extends GenerationSettings> generator, @Nonnull Random rand, @Nonnull BlockPos pos, @Nonnull MysticalFlowerConfig config) {
         boolean flowers = true;
         if(world.getDimension() instanceof IFlowerlessWorld)
             flowers = ((IFlowerlessWorld) world.getDimension()).generateFlowers(world);
@@ -37,8 +39,8 @@ public class MysticalFlowerFeature extends Feature<MysticalFlowerConfig> {
                 int z = pos.getZ() + rand.nextInt(16) + 8;
                 int y = world.getHeight(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, pos).getY();
 
-                EnumDyeColor color = EnumDyeColor.byId(rand.nextInt(16));
-                IBlockState flower = ModBlocks.getFlower(color).getDefaultState();
+                DyeColor color = DyeColor.byId(rand.nextInt(16));
+                BlockState flower = ModBlocks.getFlower(color).getDefaultState();
 
                 for(int j = 0; j < config.getPatchDensity() * config.getPatchChance(); j++) {
                     int x1 = x + rand.nextInt(dist * 2) - dist;
@@ -49,8 +51,8 @@ public class MysticalFlowerFeature extends Feature<MysticalFlowerConfig> {
                         world.setBlockState(pos2, flower, 2);
                         if(rand.nextDouble() < config.getTallChance() && ((BlockModFlower) flower).canGrow(world, pos2, world.getBlockState(pos2), false)) {
                             Block block = ModBlocks.getDoubleFlower(color);
-                            if(block instanceof BlockDoublePlant) {
-                                ((BlockDoublePlant) block).placeAt(world, pos2, 3);
+                            if(block instanceof DoublePlantBlock) {
+                                ((DoublePlantBlock) block).placeAt(world, pos2, 3);
                             }
                         }
                     }
@@ -63,8 +65,8 @@ public class MysticalFlowerFeature extends Feature<MysticalFlowerConfig> {
             int z = pos.getZ() + rand.nextInt(16) + 8;
             int y = rand.nextInt(26) + 4;
             BlockPos pos3 = new BlockPos(x, y, z);
-            EnumDyeColor color = EnumDyeColor.byId(rand.nextInt(16));
-            IBlockState mushroom = ModBlocks.getMushroom(color).getDefaultState();
+            DyeColor color = DyeColor.byId(rand.nextInt(16));
+            BlockState mushroom = ModBlocks.getMushroom(color).getDefaultState();
             if(world.isAirBlock(pos3) && mushroom.isValidPosition(world, pos3))
                 world.setBlockState(pos3, mushroom, 2);
         }

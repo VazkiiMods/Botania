@@ -12,12 +12,14 @@ package vazkii.botania.common.entity;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.init.SoundEvents;
-import net.minecraft.item.EnumDyeColor;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.SoundEvents;
+import net.minecraft.item.DyeColor;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.common.Botania;
@@ -56,7 +58,7 @@ public class EntitySignalFlare extends Entity {
 
 			int color = getColor();
 			if(color < 16 && color >= 0) {
-				int hex = EnumDyeColor.byId(color).colorValue;
+				int hex = DyeColor.byId(color).colorValue;
 				int r = (hex & 0xFF0000) >> 16;
 				int g = (hex & 0xFF00) >> 8;
 				int b = hex & 0xFF;
@@ -73,13 +75,13 @@ public class EntitySignalFlare extends Entity {
 	}
 
 	@Override
-	protected void readAdditional(@Nonnull NBTTagCompound nbttagcompound) {
+	protected void readAdditional(@Nonnull CompoundNBT nbttagcompound) {
 		setColor(nbttagcompound.getInt(COLOR_TAG));
 		setFiredAt(nbttagcompound.getInt(FIRED_Y_TAG));
 	}
 
 	@Override
-	protected void writeAdditional(@Nonnull NBTTagCompound nbttagcompound) {
+	protected void writeAdditional(@Nonnull CompoundNBT nbttagcompound) {
 		nbttagcompound.putInt(COLOR_TAG, getColor());
 		nbttagcompound.putInt(FIRED_Y_TAG, getFiredAt());
 	}

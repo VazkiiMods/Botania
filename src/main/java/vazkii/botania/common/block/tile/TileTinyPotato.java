@@ -10,19 +10,22 @@
  */
 package vazkii.botania.common.block.tile;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.ITickable;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
+import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
@@ -32,20 +35,20 @@ import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
-public class TileTinyPotato extends TileSimpleInventory implements ITickable {
+public class TileTinyPotato extends TileSimpleInventory implements ITickableTileEntity {
 	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.TINY_POTATO)
 	public static TileEntityType<TileTinyPotato> TYPE;
 	private static final String TAG_NAME = "name";
 
 	public int jumpTicks = 0;
-	public ITextComponent name = new TextComponentString("");
+	public ITextComponent name = new StringTextComponent("");
 	private int nextDoIt = 0;
 
 	public TileTinyPotato() {
 		super(TYPE);
 	}
 
-	public void interact(EntityPlayer player, EnumHand hand, ItemStack stack, EnumFacing side) {
+	public void interact(PlayerEntity player, Hand hand, ItemStack stack, Direction side) {
 		int index = side.getIndex();
 		if(index >= 0) {
 			ItemStack stackAt = getItemHandler().getStackInSlot(index);
@@ -76,12 +79,12 @@ public class TileTinyPotato extends TileSimpleInventory implements ITickable {
 			for(int i = 0; i < getSizeInventory(); i++) {
 				ItemStack stackAt = getItemHandler().getStackInSlot(i);
 				if(!stackAt.isEmpty() && stackAt.getItem() == ModBlocks.tinyPotato.asItem()) {
-					player.sendMessage(new TextComponentString("Don't talk to me or my son ever again."));
+					player.sendMessage(new StringTextComponent("Don't talk to me or my son ever again."));
 					return;
 				}
 			}
 
-			PlayerHelper.grantCriterion((EntityPlayerMP) player, new ResourceLocation(LibMisc.MOD_ID, "main/tiny_potato_pet"), "code_triggered");
+			PlayerHelper.grantCriterion((ServerPlayerEntity) player, new ResourceLocation(LibMisc.MOD_ID, "main/tiny_potato_pet"), "code_triggered");
 		}
 	}
 
@@ -108,13 +111,13 @@ public class TileTinyPotato extends TileSimpleInventory implements ITickable {
 	}
 
 	@Override
-	public void writePacketNBT(NBTTagCompound cmp) {
+	public void writePacketNBT(CompoundNBT cmp) {
 		super.writePacketNBT(cmp);
 		cmp.putString(TAG_NAME, ITextComponent.Serializer.toJson(name));
 	}
 
 	@Override
-	public void readPacketNBT(NBTTagCompound cmp) {
+	public void readPacketNBT(CompoundNBT cmp) {
 		super.readPacketNBT(cmp);
 		name = ITextComponent.Serializer.fromJson(cmp.getString(TAG_NAME));
 	}

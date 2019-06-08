@@ -11,9 +11,11 @@
 package vazkii.botania.common.block.subtile.functional;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.block.state.pattern.BlockStateMatcher;
-import net.minecraft.init.Blocks;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.pattern.BlockStateMatcher;
+import net.minecraft.block.pattern.BlockStateMatcher;
+import net.minecraft.block.Blocks;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.BiomeDictionary;
@@ -71,7 +73,7 @@ public class SubTileMarimorphosis extends TileEntityFunctionalFlower {
 		if(mana >= COST && ticksExisted % 2 == 0) {
 			BlockPos coords = getCoordsToPut();
 			if(coords != null) {
-				IBlockState state = getStoneToPut(coords);
+				BlockState state = getStoneToPut(coords);
 				if(state != null) {
 					getWorld().setBlockState(coords, state);
 					if(ConfigHandler.COMMON.blockBreakParticles.get())
@@ -84,7 +86,7 @@ public class SubTileMarimorphosis extends TileEntityFunctionalFlower {
 		}
 	}
 
-	public IBlockState getStoneToPut(BlockPos coords) {
+	public BlockState getStoneToPut(BlockPos coords) {
 		Set<Type> types = BiomeDictionary.getTypes(getWorld().getBiome(coords));
 
 		List<Block> values = new ArrayList<>();
@@ -123,7 +125,7 @@ public class SubTileMarimorphosis extends TileEntityFunctionalFlower {
 
 		BlockStateMatcher matcher = BlockStateMatcher.forBlock(Blocks.STONE);
 		for(BlockPos pos : BlockPos.getAllInBox(getPos().add(-range, -rangeY, -range), getPos().add(range, rangeY, range))) {
-			IBlockState state = getWorld().getBlockState(pos);
+			BlockState state = getWorld().getBlockState(pos);
 			if(state.getBlock().isReplaceableOreGen(state, getWorld(), pos, matcher))
 				possibleCoords.add(pos);
 		}

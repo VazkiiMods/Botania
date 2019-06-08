@@ -11,12 +11,14 @@
 package vazkii.botania.common.block.tile.string;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Blocks;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.Blocks;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.ITickable;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Direction;
+import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import vazkii.botania.api.state.BotaniaStateProps;
@@ -25,7 +27,7 @@ import vazkii.botania.common.block.tile.TileMod;
 
 import javax.annotation.Nonnull;
 
-public abstract class TileRedString extends TileMod implements ITileBound, ITickable {
+public abstract class TileRedString extends TileMod implements ITileBound, ITickableTileEntity {
 
 	private BlockPos binding;
 
@@ -35,7 +37,7 @@ public abstract class TileRedString extends TileMod implements ITileBound, ITick
 
 	@Override
 	public void tick() {
-		EnumFacing dir = getOrientation();
+		Direction dir = getOrientation();
 		BlockPos pos_ = getPos();
 		int range = getRange();
 		BlockPos currBinding = getBinding();
@@ -82,12 +84,12 @@ public abstract class TileRedString extends TileMod implements ITileBound, ITick
 		this.binding = binding;
 	}
 
-	public EnumFacing getOrientation() {
-		IBlockState state = world.getBlockState(getPos());
+	public Direction getOrientation() {
+		BlockState state = world.getBlockState(getPos());
 		if(state.getProperties().contains(BotaniaStateProps.FACING))
 			return state.get(BotaniaStateProps.FACING);
 		
-		return EnumFacing.WEST; // fallback
+		return Direction.WEST; // fallback
 	}
 
 	public TileEntity getTileAtBinding() {
@@ -95,7 +97,7 @@ public abstract class TileRedString extends TileMod implements ITileBound, ITick
 		return binding == null ? null : world.getTileEntity(binding);
 	}
 
-	public IBlockState getStateAtBinding() {
+	public BlockState getStateAtBinding() {
 		BlockPos binding = getBinding();
 		return binding == null ? Blocks.AIR.getDefaultState() : world.getBlockState(binding);
 	}

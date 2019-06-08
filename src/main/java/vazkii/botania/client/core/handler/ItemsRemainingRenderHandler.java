@@ -11,9 +11,10 @@
 package vazkii.botania.client.core.handler;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GlStateManager;
+import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.api.distmarker.Dist;
@@ -106,7 +107,7 @@ public final class ItemsRemainingRenderHandler {
 		ticks = stack.isEmpty() ? 0 : maxTicks;
 	}
 
-	public static void set(EntityPlayer player, ItemStack displayStack, Pattern pattern) {
+	public static void set(PlayerEntity player, ItemStack displayStack, Pattern pattern) {
 		int count = 0;
 		for(int i = 0; i < player.inventory.getSizeInventory(); i++) {
 			ItemStack stack = player.inventory.getStackInSlot(i);

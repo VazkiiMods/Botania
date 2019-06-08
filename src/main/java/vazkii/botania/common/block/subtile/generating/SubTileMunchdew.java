@@ -11,13 +11,14 @@
 package vazkii.botania.common.block.subtile.generating;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.ObjectHolder;
@@ -75,7 +76,7 @@ public class SubTileMunchdew extends TileEntityGeneratingFlower {
 				nextCoord:
 				for(BlockPos pos_ : BlockPos.getAllInBox(pos.add(-RANGE, 0, -RANGE), pos.add(RANGE, RANGE_Y, RANGE))) {
 					if(getWorld().getBlockState(pos_).getBlock().isIn(BlockTags.LEAVES)) {
-						for(EnumFacing dir : EnumFacing.values()) {
+						for(Direction dir : Direction.values()) {
 							if(getWorld().isAirBlock(pos_.offset(dir))) {
 								coords.add(pos_);
 								break nextCoord;
@@ -89,7 +90,7 @@ public class SubTileMunchdew extends TileEntityGeneratingFlower {
 
 				Collections.shuffle(coords);
 				BlockPos breakCoords = coords.get(0);
-				IBlockState state = getWorld().getBlockState(breakCoords);
+				BlockState state = getWorld().getBlockState(breakCoords);
 				getWorld().removeBlock(breakCoords);
 				ticksWithoutEating = 0;
 				ateOnce = true;
@@ -114,7 +115,7 @@ public class SubTileMunchdew extends TileEntityGeneratingFlower {
 	}
 
 	@Override
-	public void writeToPacketNBT(NBTTagCompound cmp) {
+	public void writeToPacketNBT(CompoundNBT cmp) {
 		super.writeToPacketNBT(cmp);
 
 		cmp.putInt(TAG_COOLDOWN, cooldown);
@@ -122,7 +123,7 @@ public class SubTileMunchdew extends TileEntityGeneratingFlower {
 	}
 
 	@Override
-	public void readFromPacketNBT(NBTTagCompound cmp) {
+	public void readFromPacketNBT(CompoundNBT cmp) {
 		super.readFromPacketNBT(cmp);
 
 		cooldown = cmp.getInt(TAG_COOLDOWN);
@@ -138,7 +139,7 @@ public class SubTileMunchdew extends TileEntityGeneratingFlower {
 	}
 
 	@Override
-	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase entity, ItemStack stack) {
+	public void onBlockPlacedBy(World world, BlockPos pos, BlockState state, LivingEntity entity, ItemStack stack) {
 		super.onBlockPlacedBy(world, pos, state, entity, stack);
 		cooldown = ItemNBTHelper.getInt(stack, TAG_COOLDOWN, 0);
 	}

@@ -9,7 +9,8 @@
 package vazkii.botania.client.model;
 
 import com.google.common.collect.ImmutableList;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.model.BakedQuad;
 import net.minecraft.client.renderer.model.IBakedModel;
@@ -17,10 +18,11 @@ import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.model.ItemOverrideList;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.fluid.IFluidState;
-import net.minecraft.init.Blocks;
+import net.minecraft.block.Blocks;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.WorldType;
@@ -49,7 +51,7 @@ public class PlatformModel implements IDynamicBakedModel {
 
 	@Nonnull
 	@Override
-	public List<BakedQuad> getQuads(IBlockState state, EnumFacing side, @Nonnull Random rand, @Nonnull IModelData data) {
+	public List<BakedQuad> getQuads(BlockState state, Direction side, @Nonnull Random rand, @Nonnull IModelData data) {
 		if(state == null)
 			return ImmutableList.of();
 
@@ -61,7 +63,7 @@ public class PlatformModel implements IDynamicBakedModel {
 			layer = BlockRenderLayer.SOLID; // workaround for when this isn't set (digging, etc.)
 		}
 
-		IBlockState heldState = data.getData(BotaniaStateProps.HELD_STATE);
+		BlockState heldState = data.getData(BotaniaStateProps.HELD_STATE);
 		BlockPos heldPos = data.getData(BotaniaStateProps.HELD_POS);
 
 		if (heldPos == null) {

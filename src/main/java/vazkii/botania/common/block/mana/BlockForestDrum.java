@@ -11,19 +11,17 @@
 package vazkii.botania.common.block.mana;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.state.BlockFaceShape;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.passive.EntityCow;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
+import net.minecraft.entity.MobEntity;
+import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.passive.CowEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Items;
 import net.minecraft.init.Particles;
-import net.minecraft.init.SoundEvents;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -40,13 +38,11 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.ItemHorn;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lexicon.LexiconData;
-import vazkii.botania.common.lib.LibBlockNames;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Locale;
 
 public class BlockForestDrum extends BlockMod implements IManaTrigger, ILexiconable {
 
@@ -66,12 +62,12 @@ public class BlockForestDrum extends BlockMod implements IManaTrigger, ILexicona
 
 	@Nonnull
 	@Override
-	public VoxelShape getShape(IBlockState state, IBlockReader world, BlockPos pos) {
+	public VoxelShape getShape(BlockState state, IBlockReader world, BlockPos pos) {
 		return SHAPE;
 	}
 
 	@Override
-	public boolean isFullCube(IBlockState state) {
+	public boolean isFullCube(BlockState state) {
 		return false;
 	}
 
@@ -89,20 +85,20 @@ public class BlockForestDrum extends BlockMod implements IManaTrigger, ILexicona
 			ItemHorn.breakGrass(world, new ItemStack(ModItems.leavesHorn), pos);
 		else {
 			int range = 10;
-			List<EntityLiving> entities = world.getEntitiesWithinAABB(EntityLiving.class, new AxisAlignedBB(pos.add(-range, -range, -range), pos.add(range + 1, range + 1, range + 1)));
-			List<EntityLiving> shearables = new ArrayList<>();
+			List<MobEntity> entities = world.getEntitiesWithinAABB(MobEntity.class, new AxisAlignedBB(pos.add(-range, -range, -range), pos.add(range + 1, range + 1, range + 1)));
+			List<MobEntity> shearables = new ArrayList<>();
 			ItemStack stack = new ItemStack(ModBlocks.gatheringDrum);
 
-			for(EntityLiving entity : entities) {
+			for(MobEntity entity : entities) {
 				if(entity instanceof IShearable && ((IShearable) entity).isShearable(stack, world, new BlockPos(entity))) {
 					shearables.add(entity);
-				} else if(entity instanceof EntityCow) {
-					List<EntityItem> items = world.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(entity.posX, entity.posY, entity.posZ, entity.posX + entity.width, entity.posY + entity.height, entity.posZ + entity.width));
-					for(EntityItem item : items) {
+				} else if(entity instanceof CowEntity) {
+					List<ItemEntity> items = world.getEntitiesWithinAABB(ItemEntity.class, new AxisAlignedBB(entity.posX, entity.posY, entity.posZ, entity.posX + entity.width, entity.posY + entity.height, entity.posZ + entity.width));
+					for(ItemEntity item : items) {
 						ItemStack itemstack = item.getItem();
 						if(!itemstack.isEmpty() && itemstack.getItem() == Items.BUCKET && !world.isRemote) {
 							while(itemstack.getCount() > 0) {
-								EntityItem ent = entity.entityDropItem(new ItemStack(Items.MILK_BUCKET), 1.0F);
+								ItemEntity ent = entity.entityDropItem(new ItemStack(Items.MILK_BUCKET), 1.0F);
 								ent.motionY += world.rand.nextFloat() * 0.05F;
 								ent.motionX += (world.rand.nextFloat() - world.rand.nextFloat()) * 0.1F;
 								ent.motionZ += (world.rand.nextFloat() - world.rand.nextFloat()) * 0.1F;
@@ -117,14 +113,14 @@ public class BlockForestDrum extends BlockMod implements IManaTrigger, ILexicona
 			Collections.shuffle(shearables);
 			int sheared = 0;
 
-			for(EntityLiving entity : shearables) {
+			for(MobEntity entity : shearables) {
 				if(sheared > 4)
 					break;
 
 				List<ItemStack> stacks = ((IShearable) entity).onSheared(stack, world, new BlockPos(entity), 0);
 				if(stacks != null)
 					for(ItemStack wool : stacks) {
-						EntityItem ent = entity.entityDropItem(wool, 1.0F);
+						ItemEntity ent = entity.entityDropItem(wool, 1.0F);
 						ent.motionY += world.rand.nextFloat() * 0.05F;
 						ent.motionX += (world.rand.nextFloat() - world.rand.nextFloat()) * 0.1F;
 						ent.motionZ += (world.rand.nextFloat() - world.rand.nextFloat()) * 0.1F;
@@ -138,7 +134,7 @@ public class BlockForestDrum extends BlockMod implements IManaTrigger, ILexicona
 	}
 
 	@Override
-	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
+	public LexiconEntry getEntry(World world, BlockPos pos, PlayerEntity player, ItemStack lexicon) {
 		switch(variant) {
 		case GATHERING:
 			return LexiconData.gatherDrum;
@@ -152,7 +148,7 @@ public class BlockForestDrum extends BlockMod implements IManaTrigger, ILexicona
 
 	@Nonnull
 	@Override
-	public BlockFaceShape getBlockFaceShape(IBlockReader world, IBlockState state, BlockPos pos, EnumFacing side) {
+	public BlockFaceShape getBlockFaceShape(IBlockReader world, BlockState state, BlockPos pos, Direction side) {
 		return BlockFaceShape.UNDEFINED;
 	}
 

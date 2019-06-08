@@ -12,18 +12,22 @@ package vazkii.botania.common.item.rod;
 
 import com.google.common.collect.ImmutableList;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.state.BlockFaceShape;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.nbt.NBTUtil;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.ITextComponent;
@@ -71,12 +75,12 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 
 	@Nonnull
 	@Override
-	public EnumActionResult onItemUse(ItemUseContext ctx) {
+	public ActionResultType onItemUse(ItemUseContext ctx) {
 		World world = ctx.getWorld();
 		BlockPos pos = ctx.getPos();
-		EntityPlayer player = ctx.getPlayer();
+		PlayerEntity player = ctx.getPlayer();
 		ItemStack stack = ctx.getItem();
-		IBlockState wstate = world.getBlockState(pos);
+		BlockState wstate = world.getBlockState(pos);
 
 		if(player != null && player.isSneaking()) {
 			TileEntity tile = world.getTileEntity(pos);
@@ -85,11 +89,11 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 					setBlock(stack, wstate);
 
 					displayRemainderCounter(player, stack);
-					return EnumActionResult.SUCCESS;
+					return ActionResultType.SUCCESS;
 				}
 			}
 		} else if(canExchange(stack) && !ItemNBTHelper.getBoolean(stack, TAG_SWAPPING, false)) {
-			IBlockState state = getState(stack);
+			BlockState state = getState(stack);
 			List<BlockPos> swap = getBlocksToSwap(world, stack, state, pos, null);
 			if(swap.size() > 0) {
 				ItemNBTHelper.setBoolean(stack, TAG_SWAPPING, true);
@@ -100,7 +104,7 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 			}
 		}
 
-		return EnumActionResult.SUCCESS;
+		return ActionResultType.SUCCESS;
 	}
 
 	private void onLeftClick(PlayerInteractEvent.LeftClickBlock event) {
@@ -113,17 +117,17 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 
 	@Override
 	public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean equipped) {
-		if(!canExchange(stack) || !(entity instanceof EntityPlayer))
+		if(!canExchange(stack) || !(entity instanceof PlayerEntity))
 			return;
 
-		EntityPlayer player = (EntityPlayer) entity;
+		PlayerEntity player = (PlayerEntity) entity;
 
 		int extraRange = ItemNBTHelper.getInt(stack, TAG_EXTRA_RANGE, 1);
 		int extraRangeNew = IManaProficiencyArmor.Helper.hasProficiency(player, stack) ? 3 : 1;
 		if(extraRange != extraRangeNew)
 			ItemNBTHelper.setInt(stack, TAG_EXTRA_RANGE, extraRangeNew);
 
-		IBlockState state = getState(stack);
+		BlockState state = getState(stack);
 		if(ItemNBTHelper.getBoolean(stack, TAG_SWAPPING, false)) {
 			if(!ManaItemHandler.requestManaExactForTool(stack, player, COST, false)) {
 				ItemNBTHelper.setBoolean(stack, TAG_SWAPPING, false);
@@ -133,7 +137,7 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 			int x = ItemNBTHelper.getInt(stack, TAG_SELECT_X, 0);
 			int y = ItemNBTHelper.getInt(stack, TAG_SELECT_Y, 0);
 			int z = ItemNBTHelper.getInt(stack, TAG_SELECT_Z, 0);
-			IBlockState target = getTargetState(stack);
+			BlockState target = getTargetState(stack);
 			List<BlockPos> swap = getBlocksToSwap(world, stack, state, new BlockPos(x, y, z), target);
 			if(swap.size() == 0) {
 				ItemNBTHelper.setBoolean(stack, TAG_SWAPPING, false);
@@ -148,7 +152,7 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 		}
 	}
 
-	public List<BlockPos> getBlocksToSwap(World world, ItemStack stack, IBlockState swapState, BlockPos pos, IBlockState targetState) {
+	public List<BlockPos> getBlocksToSwap(World world, ItemStack stack, BlockState swapState, BlockPos pos, BlockState targetState) {
 		// If we have no target block passed in, infer it to be
 		// the block which the swapping is centered on (presumably the block
 		// which the player is looking at)
@@ -169,7 +173,7 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 				for(int offsetZ = -effRange; offsetZ <= effRange; offsetZ++) {
 					BlockPos pos_ = pos.add(offsetX, offsetY, offsetZ);
 
-					IBlockState currentState = world.getBlockState(pos_);
+					BlockState currentState = world.getBlockState(pos_);
 
 					// If this block is not our target, ignore it, as we don't need
 					// to consider replacing it
@@ -182,9 +186,9 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 						continue;
 
 					// Check to see if the block is visible on any side:
-					for(EnumFacing dir : EnumFacing.values()) {
+					for(Direction dir : Direction.values()) {
 						BlockPos adjPos = pos_.offset(dir);
-						IBlockState adjState = world.getBlockState(adjPos);
+						BlockState adjState = world.getBlockState(adjPos);
 
 						// If the side of the adjacent block facing this block is
 						// _not_ solid, then this block is considered "visible"
@@ -202,14 +206,14 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 		return coordsList;
 	}
 
-	public boolean exchange(World world, EntityPlayer player, BlockPos pos, ItemStack stack, IBlockState state) {
+	public boolean exchange(World world, PlayerEntity player, BlockPos pos, ItemStack stack, BlockState state) {
 		TileEntity tile = world.getTileEntity(pos);
 		if(tile != null)
 			return false;
 
 		ItemStack placeStack = removeFromInventory(player, stack, state.getBlock(), false);
 		if(!placeStack.isEmpty()) {
-			IBlockState stateAt = world.getBlockState(pos);
+			BlockState stateAt = world.getBlockState(pos);
 			Block blockAt = stateAt.getBlock();
 			if(!blockAt.isAir(world.getBlockState(pos), world, pos) && stateAt.getPlayerRelativeBlockHardness(player, world, pos) > 0 && stateAt != state) {
 				if(!world.isRemote) {
@@ -233,11 +237,11 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 	}
 
 
-	public static ItemStack removeFromInventory(EntityPlayer player, LazyOptional<IItemHandler> inv, ItemStack stack, Block block, boolean doit) {
+	public static ItemStack removeFromInventory(PlayerEntity player, LazyOptional<IItemHandler> inv, ItemStack stack, Block block, boolean doit) {
 		return inv.map(handler -> removeFromInventory(player, handler, stack, block, doit)).orElse(ItemStack.EMPTY);
 	}
 
-	public static ItemStack removeFromInventory(EntityPlayer player, IItemHandler inv, ItemStack stack, Block block, boolean doit) {
+	public static ItemStack removeFromInventory(PlayerEntity player, IItemHandler inv, ItemStack stack, Block block, boolean doit) {
 		List<ItemStack> providers = new ArrayList<>();
 		for(int i = inv.getSlots() - 1; i >= 0; i--) {
 			ItemStack invStack = inv.getStackInSlot(i);
@@ -262,7 +266,7 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 		return ItemStack.EMPTY;
 	}
 
-	public static ItemStack removeFromInventory(EntityPlayer player, ItemStack stack, Block block, boolean doit) {
+	public static ItemStack removeFromInventory(PlayerEntity player, ItemStack stack, Block block, boolean doit) {
 		if(player.abilities.isCreativeMode)
 			return new ItemStack(block);
 
@@ -272,7 +276,7 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 		return outStack;
 	}
 
-	public static int getInventoryItemCount(EntityPlayer player, ItemStack stack, Block block) {
+	public static int getInventoryItemCount(PlayerEntity player, ItemStack stack, Block block) {
 		if(player.abilities.isCreativeMode)
 			return -1;
 
@@ -285,11 +289,11 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 		return count+baubleCount;
 	}
 
-	public static int getInventoryItemCount(EntityPlayer player, LazyOptional<IItemHandler> inv, ItemStack stack, Block block) {
+	public static int getInventoryItemCount(PlayerEntity player, LazyOptional<IItemHandler> inv, ItemStack stack, Block block) {
 		return inv.map(handler -> getInventoryItemCount(player, handler, stack, block)).orElse(0);
 	}
 
-	public static int getInventoryItemCount(EntityPlayer player, IItemHandler inv, ItemStack stack, Block block) {
+	public static int getInventoryItemCount(PlayerEntity player, IItemHandler inv, ItemStack stack, Block block) {
 		if(player.abilities.isCreativeMode)
 			return -1;
 
@@ -315,7 +319,7 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 		return count;
 	}
 
-	public void displayRemainderCounter(EntityPlayer player, ItemStack stack) {
+	public void displayRemainderCounter(PlayerEntity player, ItemStack stack) {
 		Block block = getState(stack).getBlock();
 		int count = getInventoryItemCount(player, stack, block);
 		if(!player.world.isRemote)
@@ -327,14 +331,14 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 		return true;
 	}
 
-	private void setBlock(ItemStack stack, IBlockState state) {
+	private void setBlock(ItemStack stack, BlockState state) {
 		ItemNBTHelper.setCompound(stack, TAG_BLOCK_NAME, NBTUtil.writeBlockState(state));
 	}
 
 	@Nonnull
 	@Override
 	public ITextComponent getDisplayName(@Nonnull ItemStack stack) {
-		IBlockState state = getState(stack);
+		BlockState state = getState(stack);
 		ITextComponent cmp = super.getDisplayName(stack);
 		if (!state.isAir()) {
 			cmp.appendText(" (");
@@ -346,31 +350,31 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 		return cmp;
 	}
 
-	public static IBlockState getState(ItemStack stack) {
+	public static BlockState getState(ItemStack stack) {
 		return NBTUtil.readBlockState(ItemNBTHelper.getCompound(stack, TAG_BLOCK_NAME, false));
 	}
 
-	private void setTarget(ItemStack stack, IBlockState state) {
+	private void setTarget(ItemStack stack, BlockState state) {
 		ItemNBTHelper.setCompound(stack, TAG_TARGET_BLOCK_NAME, NBTUtil.writeBlockState(state));
 	}
 
-	public static IBlockState getTargetState(ItemStack stack) {
+	public static BlockState getTargetState(ItemStack stack) {
 		return NBTUtil.readBlockState(ItemNBTHelper.getCompound(stack, TAG_TARGET_BLOCK_NAME, false));
 	}
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public List<BlockPos> getWireframesToDraw(EntityPlayer player, ItemStack stack) {
+	public List<BlockPos> getWireframesToDraw(PlayerEntity player, ItemStack stack) {
 		ItemStack holding = player.getHeldItemMainhand();
 		if(holding != stack || !canExchange(stack))
 			return ImmutableList.of();
 
-		IBlockState state = getState(stack);
+		BlockState state = getState(stack);
 
 		RayTraceResult pos = Minecraft.getInstance().objectMouseOver;
 		if(pos != null && pos.getBlockPos() != null) {
 			BlockPos bPos = pos.getBlockPos();
-			IBlockState target = null;
+			BlockState target = null;
 			if(ItemNBTHelper.getBoolean(stack, TAG_SWAPPING, false)) {
 				bPos = new BlockPos(
 						ItemNBTHelper.getInt(stack, TAG_SELECT_X, 0),
@@ -395,7 +399,7 @@ public class ItemExchangeRod extends ItemMod implements IManaUsingItem, IWirefra
 	}
 
 	@Override
-	public BlockPos getSourceWireframe(EntityPlayer player, ItemStack stack) {
+	public BlockPos getSourceWireframe(PlayerEntity player, ItemStack stack) {
 		return null;
 	}
 

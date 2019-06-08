@@ -10,7 +10,7 @@
  */
 package vazkii.botania.api.lexicon.multiblock.component;
 
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -19,13 +19,13 @@ import net.minecraft.world.World;
  */
 public class AnyComponent extends MultiblockComponent {
 
-	public AnyComponent(BlockPos relPos, IBlockState state) {
+	public AnyComponent(BlockPos relPos, BlockState state) {
 		super(relPos, state);
 	}
 
 	@Override
 	public boolean matches(World world, BlockPos pos) {
-		IBlockState state = world.getBlockState(pos);
+		BlockState state = world.getBlockState(pos);
 		return !state.getBlock().isAir(state, world, pos) && !state.getCollisionShape(world, pos).isEmpty();
 	}
 

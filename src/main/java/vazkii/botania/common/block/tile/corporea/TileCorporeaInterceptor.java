@@ -10,11 +10,12 @@
  */
 package vazkii.botania.common.block.tile.corporea;
 
-import net.minecraft.entity.item.EntityItemFrame;
+import net.minecraft.entity.item.ItemFrameEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.corporea.CorporeaHelper;
@@ -53,7 +54,7 @@ public class TileCorporeaInterceptor extends TileCorporeaBase implements ICorpor
 					world.getPendingBlockTicks().scheduleTick(getPos(), getBlockState().getBlock(), 2);
 
 					TileEntity requestor = source.getSparkInventory().world.getTileEntity(source.getSparkInventory().pos);
-					for(EnumFacing dir : EnumFacing.values()) {
+					for(Direction dir : Direction.values()) {
 						TileEntity tile = world.getTileEntity(pos.offset(dir));
 						if(tile instanceof TileCorporeaRetainer)
 							((TileCorporeaRetainer) tile).setPendingRequest(requestor.getPos(), request, count);
@@ -81,10 +82,10 @@ public class TileCorporeaInterceptor extends TileCorporeaBase implements ICorpor
 	public List<ItemStack> getFilter() {
 		List<ItemStack> filter = new ArrayList<>();
 
-		for(EnumFacing dir : EnumFacing.values()) {
-			List<EntityItemFrame> frames = world.getEntitiesWithinAABB(EntityItemFrame.class, new AxisAlignedBB(pos.offset(dir), pos.offset(dir).add(1, 1, 1)));
-			for(EntityItemFrame frame : frames) {
-				EnumFacing orientation = frame.facingDirection;
+		for(Direction dir : Direction.values()) {
+			List<ItemFrameEntity> frames = world.getEntitiesWithinAABB(ItemFrameEntity.class, new AxisAlignedBB(pos.offset(dir), pos.offset(dir).add(1, 1, 1)));
+			for(ItemFrameEntity frame : frames) {
+				Direction orientation = frame.facingDirection;
 				if(orientation == dir)
 					filter.add(frame.getDisplayedItem());
 			}

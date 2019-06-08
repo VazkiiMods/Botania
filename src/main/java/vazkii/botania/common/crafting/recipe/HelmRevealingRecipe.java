@@ -12,7 +12,7 @@ package vazkii.botania.common.crafting.recipe;
 
 import com.google.gson.JsonObject;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.InventoryCrafting;
+import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
@@ -20,7 +20,8 @@ import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.item.crafting.RecipeSerializers;
 import net.minecraft.item.crafting.ShapelessRecipe;
-import net.minecraft.nbt.NBTTagList;
+import net.minecraft.nbt.ListNBT;
+import net.minecraft.nbt.ListNBT;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
@@ -69,7 +70,7 @@ public class HelmRevealingRecipe implements IRecipe {
 				ItemNBTHelper.setBoolean(newHelm, "AncientWill" + i, true);
 
 		//Copy Enchantments
-		NBTTagList enchList = ItemNBTHelper.getList(helm, "ench", 10, true);
+		ListNBT enchList = ItemNBTHelper.getList(helm, "ench", 10, true);
 		if(enchList != null)
 			ItemNBTHelper.setList(newHelm, "ench", enchList);
 		copyTCData(helm, newHelm);
@@ -128,7 +129,7 @@ public class HelmRevealingRecipe implements IRecipe {
 		if(warp != 0)
 			ItemNBTHelper.setByte(destination, TAG_WARP, warp);
 
-		NBTTagList infEnchList = ItemNBTHelper.getList(source, TAG_INFUSION_ENCH, 10, true);
+		ListNBT infEnchList = ItemNBTHelper.getList(source, TAG_INFUSION_ENCH, 10, true);
 		if(infEnchList != null)
 			ItemNBTHelper.setList(destination, TAG_INFUSION_ENCH, infEnchList);
 	}

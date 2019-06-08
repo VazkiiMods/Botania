@@ -1,9 +1,10 @@
 package vazkii.botania.common.block.decor.stairs;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockStairs;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.block.StairsBlock;
+import net.minecraft.block.StairsBlock;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -18,14 +19,14 @@ import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibMisc;
 
-public class BlockModStairs extends BlockStairs implements ILexiconable {
+public class BlockModStairs extends StairsBlock implements ILexiconable {
 
-	public BlockModStairs(IBlockState state, Block.Properties builder) {
+	public BlockModStairs(BlockState state, Block.Properties builder) {
 		super(state, builder);
 	}
 
 	@Override
-	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
+	public LexiconEntry getEntry(World world, BlockPos pos, PlayerEntity player, ItemStack lexicon) {
 		return LexiconData.decorativeBlocks;
 	}
 }

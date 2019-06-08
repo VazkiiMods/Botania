@@ -11,7 +11,8 @@
 package vazkii.botania.common.brew.potion;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -29,8 +30,8 @@ public class PotionSoulCross extends PotionMod {
 	@SubscribeEvent
 	public static void onEntityKill(LivingDeathEvent event) {
 		Entity killer = event.getSource().getTrueSource();
-		if(killer instanceof EntityLivingBase) {
-			EntityLivingBase living = (EntityLivingBase) killer;
+		if(killer instanceof LivingEntity) {
+			LivingEntity living = (LivingEntity) killer;
 			if(living.isPotionActive(ModPotions.soulCross))
 				living.heal(event.getEntityLiving().getMaxHealth() / 20);
 		}

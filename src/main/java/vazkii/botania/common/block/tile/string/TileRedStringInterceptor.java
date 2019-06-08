@@ -11,10 +11,11 @@
 package vazkii.botania.common.block.tile.string;
 
 import net.minecraft.block.Block;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.SoundEvents;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -53,7 +54,7 @@ public class TileRedStringInterceptor extends TileRedString {
 		return !isRemoved() && world.getTileEntity(pos) == this;
 	}
 
-	public static void onInteract(EntityPlayer player, World world, BlockPos pos, EnumHand hand) {
+	public static void onInteract(PlayerEntity player, World world, BlockPos pos, Hand hand) {
 		if(world.isRemote)
 			return;
 

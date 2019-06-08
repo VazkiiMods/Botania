@@ -10,24 +10,30 @@
  */
 package vazkii.botania.common.item;
 
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AbstractAttributeMap;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
-import net.minecraft.entity.passive.AbstractChestHorse;
-import net.minecraft.entity.passive.AbstractHorse;
-import net.minecraft.entity.passive.EntityLlama;
-import net.minecraft.entity.passive.EntitySkeletonHorse;
-import net.minecraft.entity.passive.EntityZombieHorse;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.init.SoundEvents;
+import net.minecraft.entity.passive.horse.AbstractChestedHorseEntity;
+import net.minecraft.entity.passive.horse.AbstractHorseEntity;
+import net.minecraft.entity.passive.horse.LlamaEntity;
+import net.minecraft.entity.passive.horse.SkeletonHorseEntity;
+import net.minecraft.entity.passive.horse.ZombieHorseEntity;
+import net.minecraft.entity.passive.horse.AbstractChestedHorseEntity;
+import net.minecraft.entity.passive.horse.AbstractHorseEntity;
+import net.minecraft.entity.passive.horse.LlamaEntity;
+import net.minecraft.entity.passive.horse.SkeletonHorseEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.block.Blocks;
+import net.minecraft.item.Items;
+import net.minecraft.util.Hand;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -43,11 +49,11 @@ public class ItemVirus extends ItemMod {
 	}
 
 	@Override
-	public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer player, EntityLivingBase living, EnumHand hand) {
-		if(living instanceof AbstractHorse && !(living instanceof EntityLlama)) {
+	public boolean itemInteractionForEntity(ItemStack stack, PlayerEntity player, LivingEntity living, Hand hand) {
+		if(living instanceof AbstractHorseEntity && !(living instanceof LlamaEntity)) {
 			if(player.world.isRemote)
 				return true;
-			AbstractHorse horse = (AbstractHorse) living;
+			AbstractHorseEntity horse = (AbstractHorseEntity) living;
 			if(horse.isTame()) {
 				IItemHandler inv = horse.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).orElseThrow(NullPointerException::new);
 				ItemStack saddle = inv.getStackInSlot(0);
@@ -62,12 +68,12 @@ public class ItemVirus extends ItemMod {
 					if(!inv.getStackInSlot(i).isEmpty())
 						horse.entityDropItem(inv.getStackInSlot(i), 0);
 
-				if (horse instanceof AbstractChestHorse && ((AbstractChestHorse) horse).hasChest())
+				if (horse instanceof AbstractChestedHorseEntity && ((AbstractChestedHorseEntity) horse).hasChest())
 					horse.entityDropItem(new ItemStack(Blocks.CHEST), 0);
 
 				horse.remove();
 
-				AbstractHorse newHorse = stack.getItem() == ModItems.necroVirus ? new EntityZombieHorse(player.world) : new EntitySkeletonHorse(player.world);
+				AbstractHorseEntity newHorse = stack.getItem() == ModItems.necroVirus ? new ZombieHorseEntity(player.world) : new SkeletonHorseEntity(player.world);
 				newHorse.setTamedBy(player);
 				newHorse.setPositionAndRotation(horse.posX, horse.posY, horse.posZ, horse.rotationYaw, horse.rotationPitch);
 
@@ -86,8 +92,8 @@ public class ItemVirus extends ItemMod {
 				health.setBaseValue(oldAttributes.getAttributeInstance(SharedMonsterAttributes.MAX_HEALTH).getBaseValue());
 				health.applyModifier(new AttributeModifier("Ermergerd Virus D:", health.getBaseValue(), 0));
 
-				IAttributeInstance jumpHeight = attributes.getAttributeInstance(AbstractHorse.JUMP_STRENGTH);
-				jumpHeight.setBaseValue(oldAttributes.getAttributeInstance(AbstractHorse.JUMP_STRENGTH).getBaseValue());
+				IAttributeInstance jumpHeight = attributes.getAttributeInstance(AbstractHorseEntity.JUMP_STRENGTH);
+				jumpHeight.setBaseValue(oldAttributes.getAttributeInstance(AbstractHorseEntity.JUMP_STRENGTH).getBaseValue());
 				jumpHeight.applyModifier(new AttributeModifier("Ermergerd Virus D:", jumpHeight.getBaseValue() * 0.5, 0));
 
 				newHorse.playSound(SoundEvents.ENTITY_ZOMBIE_VILLAGER_CURE, 1.0F + living.world.rand.nextFloat(), living.world.rand.nextFloat() * 0.7F + 1.3F);
@@ -105,13 +111,13 @@ public class ItemVirus extends ItemMod {
 
 	@SubscribeEvent
 	public static void onLivingHurt(LivingHurtEvent event) {
-		EntityLivingBase entity = event.getEntityLiving();
-		if(entity.isPassenger() && entity.getRidingEntity() instanceof EntityLivingBase)
-			entity = (EntityLivingBase) entity.getRidingEntity();
+		LivingEntity entity = event.getEntityLiving();
+		if(entity.isPassenger() && entity.getRidingEntity() instanceof LivingEntity)
+			entity = (LivingEntity) entity.getRidingEntity();
 
-		if((entity instanceof EntityZombieHorse || entity instanceof EntitySkeletonHorse)
+		if((entity instanceof ZombieHorseEntity || entity instanceof SkeletonHorseEntity)
 				&& event.getSource() == DamageSource.FALL
-				&& ((AbstractHorse) entity).isTame()) {
+				&& ((AbstractHorseEntity) entity).isTame()) {
 			event.setCanceled(true);
 		}
 	}

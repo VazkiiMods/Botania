@@ -11,16 +11,19 @@
 package vazkii.botania.common.item.rod;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.block.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -49,19 +52,19 @@ public class ItemDirtRod extends ItemMod implements IManaUsingItem, IBlockProvid
 
 	@Nonnull
 	@Override
-	public EnumActionResult onItemUse(ItemUseContext ctx) {
+	public ActionResultType onItemUse(ItemUseContext ctx) {
 		return place(ctx, Blocks.DIRT, COST, 0.35F, 0.2F, 0.05F);
 	}
 
-	public static EnumActionResult place(ItemUseContext ctx, Block block, int cost, float r, float g, float b) {
-		EntityPlayer player = ctx.getPlayer();
+	public static ActionResultType place(ItemUseContext ctx, Block block, int cost, float r, float g, float b) {
+		PlayerEntity player = ctx.getPlayer();
 		ItemStack stack = ctx.getItem();
 		World world = ctx.getWorld();
-		EnumFacing side = ctx.getFace();
+		Direction side = ctx.getFace();
 		BlockPos pos = ctx.getPos();
 
 		if(ManaItemHandler.requestManaExactForTool(stack, player, cost, false)) {
-			int entities = world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(pos.offset(side), pos.offset(side).add(1, 1, 1))).size();
+			int entities = world.getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(pos.offset(side), pos.offset(side).add(1, 1, 1))).size();
 
 			if(entities == 0) {
 				ItemStack stackToPlace = new ItemStack(block);
@@ -71,14 +74,14 @@ public class ItemDirtRod extends ItemMod implements IManaUsingItem, IBlockProvid
 					ManaItemHandler.requestManaExactForTool(stack, player, cost, true);
 					for(int i = 0; i < 6; i++)
 						Botania.proxy.sparkleFX(pos.getX() + side.getXOffset() + Math.random(), pos.getY() + side.getYOffset() + Math.random(), pos.getZ() + side.getZOffset() + Math.random(), r, g, b, 1F, 5);
-					return EnumActionResult.SUCCESS;
+					return ActionResultType.SUCCESS;
 				}
 			}
 
-			return EnumActionResult.FAIL;
+			return ActionResultType.FAIL;
 		}
 
-		return EnumActionResult.PASS;
+		return ActionResultType.PASS;
 	}
 
 	@Override
@@ -87,14 +90,14 @@ public class ItemDirtRod extends ItemMod implements IManaUsingItem, IBlockProvid
 	}
 
 	@Override
-	public boolean provideBlock(EntityPlayer player, ItemStack requestor, ItemStack stack, Block block, boolean doit) {
+	public boolean provideBlock(PlayerEntity player, ItemStack requestor, ItemStack stack, Block block, boolean doit) {
 		if(block == Blocks.DIRT)
 			return !doit || ManaItemHandler.requestManaExactForTool(requestor, player, COST, true);
 		return false;
 	}
 
 	@Override
-	public int getBlockCount(EntityPlayer player, ItemStack requestor, ItemStack stack, Block block) {
+	public int getBlockCount(PlayerEntity player, ItemStack requestor, ItemStack stack, Block block) {
 		if(block == Blocks.DIRT)
 			return -1;
 		return 0;
@@ -106,7 +109,7 @@ public class ItemDirtRod extends ItemMod implements IManaUsingItem, IBlockProvid
 		World world = te.getWorld();
 		if(!world.isRemote && tile.getCurrentMana() >= COST && tile.getElapsedFunctionalTicks() % 4 == 0 && world.rand.nextInt(8) == 0 && tile.isEnabled()) {
 			BlockPos pos = ((TileEntity) tile).getPos().offset(tile.getAvatarFacing());
-			IBlockState state = world.getBlockState(pos);
+			BlockState state = world.getBlockState(pos);
 			if(state.getBlock().isAir(state, world, pos)) {
 				world.setBlockState(pos, Blocks.DIRT.getDefaultState());
 				world.playEvent(2001, pos, Block.getStateId(Blocks.DIRT.getDefaultState()));

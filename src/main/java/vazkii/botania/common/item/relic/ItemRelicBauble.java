@@ -12,10 +12,12 @@ package vazkii.botania.common.item.relic;
 
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.EnumRarity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Rarity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Rarity;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
@@ -42,8 +44,8 @@ public abstract class ItemRelicBauble extends ItemBauble implements IRelic {
 
 	@Override
 	public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean held) {
-		if(entity instanceof EntityPlayer)
-			dummy.updateRelic(stack, (EntityPlayer) entity);
+		if(entity instanceof PlayerEntity)
+			dummy.updateRelic(stack, (PlayerEntity) entity);
 	}
 
 	@OnlyIn(Dist.CLIENT)
@@ -70,7 +72,7 @@ public abstract class ItemRelicBauble extends ItemBauble implements IRelic {
 
 	@Nonnull
 	@Override
-	public EnumRarity getRarity(ItemStack stack) {
+	public Rarity getRarity(ItemStack stack) {
 		return BotaniaAPI.rarityRelic;
 	}
 

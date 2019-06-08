@@ -10,7 +10,7 @@
  */
 package vazkii.botania.api.corporea;
 
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
 
 import java.util.List;
@@ -82,6 +82,6 @@ public interface ICorporeaSpark {
 	 * Gets the network that this spark is on, or the color it's displaying. Sparks may only connect to others
 	 * of the same network, and on changing network should trigger a re-cache of the previous network.
 	 */
-	public EnumDyeColor getNetwork();
+	public DyeColor getNetwork();
 
 }

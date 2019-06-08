@@ -12,26 +12,34 @@ package vazkii.botania.common.item.brew;
 
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.SoundEvents;
-import net.minecraft.item.EnumAction;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.UseAction;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.EffectUtils;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Hand;
+import net.minecraft.util.SoundEvents;
+import net.minecraft.item.UseAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
-import net.minecraft.potion.PotionUtil;
+import net.minecraft.potion.Effect;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.EffectUtils;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Hand;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextComponentString;
-import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -69,23 +77,23 @@ public class ItemBrewBase extends ItemMod implements IBrewItem {
 
 	@Nonnull
 	@Override
-	public EnumAction getUseAction(ItemStack stack) {
-		return EnumAction.DRINK;
+	public UseAction getUseAction(ItemStack stack) {
+		return UseAction.DRINK;
 	}
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
 		player.setActiveHand(hand);
-		return ActionResult.newResult(EnumActionResult.SUCCESS, player.getHeldItem(hand));
+		return ActionResult.newResult(ActionResultType.SUCCESS, player.getHeldItem(hand));
 	}
 
 	@Nonnull
 	@Override
-	public ItemStack onItemUseFinish(@Nonnull ItemStack stack, World world, EntityLivingBase living) {
+	public ItemStack onItemUseFinish(@Nonnull ItemStack stack, World world, LivingEntity living) {
 		if(!world.isRemote) {
-			for(PotionEffect effect : getBrew(stack).getPotionEffects(stack)) {
-				PotionEffect newEffect = new PotionEffect(effect.getPotion(), effect.getDuration(), effect.getAmplifier(), true, true);
+			for(EffectInstance effect : getBrew(stack).getPotionEffects(stack)) {
+				EffectInstance newEffect = new EffectInstance(effect.getPotion(), effect.getDuration(), effect.getAmplifier(), true, true);
 				if(effect.getPotion().isInstant())
 					effect.getPotion().affectEntity(living, living, living, newEffect.getAmplifier(), 1F);
 				else living.addPotionEffect(newEffect);
@@ -95,9 +103,9 @@ public class ItemBrewBase extends ItemMod implements IBrewItem {
 				world.playSound(null, living.posX, living.posY, living.posZ, SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.PLAYERS, 1F, 1F);
 
 			int swigs = getSwigsLeft(stack);
-			if(living instanceof EntityPlayer && !((EntityPlayer) living).abilities.isCreativeMode) {
+			if(living instanceof PlayerEntity && !((PlayerEntity) living).abilities.isCreativeMode) {
 				if(swigs == 1) {
-					if(!((EntityPlayer) living).inventory.addItemStackToInventory(baseItem.copy()))
+					if(!((PlayerEntity) living).inventory.addItemStackToInventory(baseItem.copy()))
 						return baseItem.copy();
 					else {
 						return ItemStack.EMPTY;
@@ -126,8 +134,8 @@ public class ItemBrewBase extends ItemMod implements IBrewItem {
 	@Nonnull
 	@Override
 	public ITextComponent getDisplayName(@Nonnull ItemStack stack) {
-		ITextComponent cmp = new TextComponentTranslation(getTranslationKey(), new TextComponentTranslation(getBrew(stack).getUnlocalizedName(stack)));
-		cmp.appendSibling(new TextComponentString(Integer.toString(getSwigsLeft(stack))).applyTextStyle(TextFormatting.BOLD));
+		ITextComponent cmp = new TranslationTextComponent(getTranslationKey(), new TranslationTextComponent(getBrew(stack).getUnlocalizedName(stack)));
+		cmp.appendSibling(new StringTextComponent(Integer.toString(getSwigsLeft(stack))).applyTextStyle(TextFormatting.BOLD));
 		return cmp;
 	}
 
@@ -135,15 +143,15 @@ public class ItemBrewBase extends ItemMod implements IBrewItem {
 	@Override
 	public void addInformation(ItemStack stack, World world, List<ITextComponent> list, ITooltipFlag flags) {
 		Brew brew = getBrew(stack);
-		for(PotionEffect effect : brew.getPotionEffects(stack)) {
+		for(EffectInstance effect : brew.getPotionEffects(stack)) {
 			TextFormatting format = effect.getPotion().isBadEffect() ? TextFormatting.RED : TextFormatting.GRAY;
-			ITextComponent cmp = new TextComponentTranslation(effect.getEffectName());
+			ITextComponent cmp = new TranslationTextComponent(effect.getEffectName());
 			if(effect.getAmplifier() > 0) {
 				cmp.appendText(" ");
-				cmp.appendSibling(new TextComponentTranslation("botania.roman" + (effect.getAmplifier() + 1)));
+				cmp.appendSibling(new TranslationTextComponent("botania.roman" + (effect.getAmplifier() + 1)));
 			}
 			if(!effect.getPotion().isInstant()) {
-				cmp.appendText(" (" + PotionUtil.getPotionDurationString(effect, 1) + ")").applyTextStyle(TextFormatting.GRAY);
+				cmp.appendText(" (" + EffectUtils.getPotionDurationString(effect, 1) + ")").applyTextStyle(TextFormatting.GRAY);
 			}
 			list.add(cmp.applyTextStyle(format));
 		}

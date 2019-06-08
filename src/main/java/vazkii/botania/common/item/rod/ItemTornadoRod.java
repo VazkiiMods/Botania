@@ -11,14 +11,19 @@
 package vazkii.botania.common.item.rod;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.EnumAction;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.UseAction;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.PotionEffect;
+import net.minecraft.item.UseAction;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.EffectInstance;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Hand;
+import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -58,8 +63,8 @@ public class ItemTornadoRod extends ItemMod implements IManaUsingItem, IAvatarWi
 
 	@Override
 	public void inventoryTick(ItemStack stack, World world, Entity ent, int par4, boolean holding) {
-		if(ent instanceof EntityPlayer) {
-			EntityPlayer player = (EntityPlayer) ent;
+		if(ent instanceof PlayerEntity) {
+			PlayerEntity player = (PlayerEntity) ent;
 			boolean damaged = stack.getOrCreateTag().getInt(TAG_FLYCOUNTER) > 0;
 
 			if(damaged && !isFlying(stack))
@@ -91,7 +96,7 @@ public class ItemTornadoRod extends ItemMod implements IManaUsingItem, IAvatarWi
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
 		ItemStack stack = player.getHeldItem(hand);
 		int dmg = stack.getDamage();
 		if(dmg != 0 || ManaItemHandler.requestManaExactForTool(stack, player, COST, false)) {
@@ -100,16 +105,16 @@ public class ItemTornadoRod extends ItemMod implements IManaUsingItem, IAvatarWi
 				ManaItemHandler.requestManaExactForTool(stack, player, COST, true);
 				setFlying(stack, true);
 			}
-			return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
+			return ActionResult.newResult(ActionResultType.SUCCESS, stack);
 		}
 
-		return ActionResult.newResult(EnumActionResult.PASS, stack);
+		return ActionResult.newResult(ActionResultType.PASS, stack);
 	}
 
 	@Nonnull
 	@Override
-	public EnumAction getUseAction(ItemStack par1ItemStack) {
-		return EnumAction.BOW;
+	public UseAction getUseAction(ItemStack par1ItemStack) {
+		return UseAction.BOW;
 	}
 
 	@Override
@@ -137,8 +142,8 @@ public class ItemTornadoRod extends ItemMod implements IManaUsingItem, IAvatarWi
 		if(tile.getCurrentMana() >= COST && tile.isEnabled()) {
 			int range = 5;
 			int rangeY = 3;
-			List<EntityPlayer> players = world.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(te.getPos().add(-0.5 - range, -0.5 - rangeY, -0.5 - range), te.getPos().add(0.5 + range, 0.5 + rangeY, 0.5 + range)));
-			for(EntityPlayer p : players) {
+			List<PlayerEntity> players = world.getEntitiesWithinAABB(PlayerEntity.class, new AxisAlignedBB(te.getPos().add(-0.5 - range, -0.5 - rangeY, -0.5 - range), te.getPos().add(0.5 + range, 0.5 + rangeY, 0.5 + range)));
+			for(PlayerEntity p : players) {
 				if(p.motionY > 0.3 && p.motionY < 2 && !p.isSneaking()) {
 					p.motionY = 2.8;
 
@@ -148,7 +153,7 @@ public class ItemTornadoRod extends ItemMod implements IManaUsingItem, IAvatarWi
 
 					if(!world.isRemote) {
 						p.world.playSound(null, p.posX, p.posY, p.posZ, ModSounds.dash, SoundCategory.PLAYERS, 1F, 1F);
-						p.addPotionEffect(new PotionEffect(ModPotions.featherfeet, 100, 0));
+						p.addPotionEffect(new EffectInstance(ModPotions.featherfeet, 100, 0));
 						tile.recieveMana(-COST);
 					}
 				}

@@ -11,33 +11,38 @@
 package vazkii.botania.common.item;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockFalling;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.FallingBlock;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.entity.projectile.EntityThrowable;
-import net.minecraft.init.Blocks;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.entity.projectile.ThrowableEntity;
+import net.minecraft.entity.projectile.ThrowableEntity;
+import net.minecraft.block.Blocks;
 import net.minecraft.init.Particles;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.NBTUtil;
 import net.minecraft.particles.BlockParticleData;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldServer;
+import net.minecraft.world.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.internal.IManaBurst;
@@ -96,13 +101,13 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 	@Override
 	public void addInformation(ItemStack stack, World world, List<ITextComponent> list, ITooltipFlag flags) {
 		int level = stack.getOrCreateTag().getInt(TAG_LEVEL);
-		ITextComponent levelLoc = new TextComponentTranslation("botania.roman" + (level + 1));
-		list.add(new TextComponentTranslation("botaniamisc.shardLevel", levelLoc));
+		ITextComponent levelLoc = new TranslationTextComponent("botania.roman" + (level + 1));
+		list.add(new TranslationTextComponent("botaniamisc.shardLevel", levelLoc));
 	}
 
 	@Nonnull
 	@Override
-	public EnumActionResult onItemUse(ItemUseContext ctx) {
+	public ActionResultType onItemUse(ItemUseContext ctx) {
 		World world = ctx.getWorld();
 		BlockPos pos = ctx.getPos();
 		if(!world.isRemote && pos.getY() < 160 && !world.getDimension().isNether()) {
@@ -110,12 +115,12 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 			ItemStack stack = ctx.getItem();
 			spawnBurstFirst(world, pos, stack);
 			if(ctx.getPlayer() != null) {
-				UseItemSuccessTrigger.INSTANCE.trigger((EntityPlayerMP) ctx.getPlayer(), stack, (WorldServer) world, pos.getX(), pos.getY(), pos.getZ());
+				UseItemSuccessTrigger.INSTANCE.trigger((ServerPlayerEntity) ctx.getPlayer(), stack, (ServerWorld) world, pos.getX(), pos.getY(), pos.getZ());
 			}
 			stack.shrink(1);
 		}
 
-		return EnumActionResult.SUCCESS;
+		return ActionResultType.SUCCESS;
 	}
 
 	public void spawnBurstFirst(World world, BlockPos pos, ItemStack shard) {
@@ -151,9 +156,9 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 						BlockPos pos_ = pos.add(-range + i, -BASE_RANGE + j, -range + k);
 
 						if(inRange(pos_, pos, range, heightscale, pointy)) {
-							IBlockState state = world.getBlockState(pos_);
+							BlockState state = world.getBlockState(pos_);
 							Block block = state.getBlock();
-							if(!block.isAir(state, world, pos_) && !(block instanceof BlockFalling) && (!(block instanceof ILaputaImmobile) || ((ILaputaImmobile) block).canMove(world, pos_)) && state.getBlockHardness(world, pos_) != -1) {
+							if(!block.isAir(state, world, pos_) && !(block instanceof FallingBlock) && (!(block instanceof ILaputaImmobile) || ((ILaputaImmobile) block).canMove(world, pos_)) && state.getBlockHardness(world, pos_) != -1) {
 								TileEntity tile = world.getTileEntity(pos_);
 
 								if(tile != null) {
@@ -166,7 +171,7 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 								ItemStack copyLens = new ItemStack(this);
 								copyLens.getOrCreateTag().putInt(TAG_LEVEL, shard.getOrCreateTag().getInt(TAG_LEVEL));
 								copyLens.getTag().put(TAG_STATE, NBTUtil.writeBlockState(state));
-								NBTTagCompound cmp = new NBTTagCompound();
+								CompoundNBT cmp = new CompoundNBT();
 								if(tile != null)
 									cmp = tile.write(cmp);
 								ItemNBTHelper.setCompound(copyLens, TAG_TILE, cmp);
@@ -231,7 +236,7 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 	public void updateBurst(IManaBurst burst, ItemStack stack) {
 		double speed = 0.35;
 		int targetDistance = BASE_OFFSET;
-		EntityThrowable entity = (EntityThrowable) burst;
+		ThrowableEntity entity = (ThrowableEntity) burst;
 		if(!entity.world.isRemote) {
 			entity.motionX = 0;
 			entity.motionY = speed;
@@ -256,13 +261,13 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 				BlockPos pos = new BlockPos(x, y, z);
 
 				if(entity.world.isAirBlock(pos)) {
-					IBlockState state = Blocks.AIR.getDefaultState();
+					BlockState state = Blocks.AIR.getDefaultState();
 					if (lens.hasTag() && lens.getTag().contains(TAG_STATE)) {
 						state = NBTUtil.readBlockState(lens.getTag().getCompound(TAG_STATE));
 					}
 
 					TileEntity tile = null;
-					NBTTagCompound tilecmp = ItemNBTHelper.getCompound(lens, TAG_TILE, false);
+					CompoundNBT tilecmp = ItemNBTHelper.getCompound(lens, TAG_TILE, false);
 					if(tilecmp.contains("id"))
 						tile = TileEntity.create(tilecmp);
 
@@ -281,9 +286,9 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 
 	@Override
 	public boolean doParticles(IManaBurst burst, ItemStack stack) {
-		EntityThrowable entity = (EntityThrowable) burst;
+		ThrowableEntity entity = (ThrowableEntity) burst;
 		ItemStack lens = burst.getSourceLens();
-		IBlockState state = NBTUtil.readBlockState(lens.getOrCreateTag().getCompound(TAG_STATE));
+		BlockState state = NBTUtil.readBlockState(lens.getOrCreateTag().getCompound(TAG_STATE));
 		entity.world.addParticle(new BlockParticleData(Particles.BLOCK, state), entity.posX, entity.posY, entity.posZ, entity.motionX, entity.motionY, entity.motionZ);
 
 		return true;

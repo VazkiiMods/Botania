@@ -12,9 +12,10 @@ package vazkii.botania.common.entity;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
+import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.block.Blocks;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.RayTraceResult;
@@ -27,7 +28,7 @@ import vazkii.botania.common.lib.LibMisc;
 import javax.annotation.Nonnull;
 import java.util.List;
 
-public class EntityThrownItem extends EntityItem {
+public class EntityThrownItem extends ItemEntity {
 	@ObjectHolder(LibMisc.MOD_ID + ":thrown_item")
 	public static EntityType<?> TYPE;
 
@@ -37,7 +38,7 @@ public class EntityThrownItem extends EntityItem {
 	}
 
 	public EntityThrownItem(World world, double x,
-			double y, double z, EntityItem item) {
+			double y, double z, ItemEntity item) {
 		super(world, x, y, z, item.getItem());
 		setPickupDelay(item.pickupDelay);
 		motionX = item.motionX;
@@ -68,7 +69,7 @@ public class EntityThrownItem extends EntityItem {
 			double d0 = 0.0D;
 
 			for (Entity entity1 : list) {
-				if (entity1.canBeCollidedWith() && (!(entity1 instanceof EntityPlayer) || pickupDelay == 0)) {
+				if (entity1.canBeCollidedWith() && (!(entity1 instanceof PlayerEntity) || pickupDelay == 0)) {
 					float f = 1.0F;
 					AxisAlignedBB axisalignedbb = entity1.getBoundingBox().grow(f);
 					RayTraceResult RayTraceResult1 = axisalignedbb.calculateIntercept(vec3, vec31);
@@ -103,7 +104,7 @@ public class EntityThrownItem extends EntityItem {
 					if (!world.isRemote) {
 						Entity item = getItem().getItem().createEntity(world, this, getItem());
 						if (item == null) {
-							item = new EntityItem(world, posX, posY, posZ, getItem());
+							item = new ItemEntity(world, posX, posY, posZ, getItem());
 							world.spawnEntity(item);
 							item.motionX = motionX*0.25F;
 							item.motionY = motionY*0.25F;
@@ -128,7 +129,7 @@ public class EntityThrownItem extends EntityItem {
 			if (!world.isRemote) {
 				Entity item = getItem().getItem().createEntity(world, this, getItem());
 				if (item == null) {
-					item = new EntityItem(world, posX, posY, posZ, getItem());
+					item = new ItemEntity(world, posX, posY, posZ, getItem());
 					world.spawnEntity(item);
 					item.motionX = motionX;
 					item.motionY = motionY;

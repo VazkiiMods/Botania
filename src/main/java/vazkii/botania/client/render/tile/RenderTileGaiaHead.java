@@ -11,25 +11,31 @@
 package vazkii.botania.client.render.tile;
 
 import com.mojang.authlib.GameProfile;
-import net.minecraft.block.BlockAbstractSkull;
-import net.minecraft.block.BlockSkull;
+import net.minecraft.block.AbstractSkullBlock;
+import net.minecraft.block.SkullBlock;
+import net.minecraft.block.SkullBlock;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.tileentity.TileEntityItemStackRenderer;
+import net.minecraft.client.renderer.tileentity.ItemStackTileEntityRenderer;
+import net.minecraft.client.renderer.tileentity.ItemStackTileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
-import net.minecraft.client.renderer.tileentity.TileEntitySkullRenderer;
+import net.minecraft.client.renderer.tileentity.SkullTileEntityRenderer;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.boss.EntityDragon;
-import net.minecraft.entity.boss.EntityWither;
-import net.minecraft.entity.monster.EntityCreeper;
-import net.minecraft.entity.monster.EntitySkeleton;
-import net.minecraft.entity.monster.EntityWitherSkeleton;
-import net.minecraft.entity.monster.EntityZombie;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemBlock;
+import net.minecraft.entity.boss.WitherEntity;
+import net.minecraft.entity.boss.dragon.EnderDragonEntity;
+import net.minecraft.entity.boss.WitherEntity;
+import net.minecraft.entity.monster.CreeperEntity;
+import net.minecraft.entity.monster.SkeletonEntity;
+import net.minecraft.entity.monster.WitherSkeletonEntity;
+import net.minecraft.entity.monster.ZombieEntity;
+import net.minecraft.entity.monster.SkeletonEntity;
+import net.minecraft.entity.monster.WitherSkeletonEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntitySkull;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.tileentity.SkullTileEntity;
+import net.minecraft.util.Direction;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.render.entity.RenderDoppleganger;
 import vazkii.botania.common.block.BlockGaiaHead;
@@ -39,8 +45,8 @@ import vazkii.botania.common.block.tile.TileGaiaHead;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class RenderTileGaiaHead extends TileEntitySkullRenderer {
-	public static class TEISR extends TileEntityItemStackRenderer {
+public class RenderTileGaiaHead extends SkullTileEntityRenderer {
+	public static class TEISR extends ItemStackTileEntityRenderer {
 		@Override
 		public void renderByItem(ItemStack stack) {
 		    if(stack.getItem() == ModBlocks.gaiaHead.asItem()) {
@@ -56,27 +62,27 @@ public class RenderTileGaiaHead extends TileEntitySkullRenderer {
 	}
 
 	@Override
-	public void render(float x, float y, float z, @Nullable EnumFacing facing, float rotationIn, BlockSkull.ISkullType type, @Nullable GameProfile profile, int destroyStage, float animationProgress) {
+	public void render(float x, float y, float z, @Nullable Direction facing, float rotationIn, SkullBlock.ISkullType type, @Nullable GameProfile profile, int destroyStage, float animationProgress) {
 		Minecraft mc = Minecraft.getInstance();
 		Entity view = mc.getRenderViewEntity();
 
 		profile = null;
 
-		type = BlockSkull.Types.PLAYER;
-		if(view instanceof EntityPlayer) {
-			profile = ((EntityPlayer) mc.getRenderViewEntity()).getGameProfile();
-		} else if (view instanceof EntitySkeleton)
-			type = BlockSkull.Types.SKELETON;
-		else if(view instanceof EntityWitherSkeleton)
-			type = BlockSkull.Types.WITHER_SKELETON;
-		else if(view instanceof EntityWither)
-			type = BlockSkull.Types.WITHER_SKELETON;
-		else if(view instanceof EntityZombie)
-			type = BlockSkull.Types.ZOMBIE;
-		else if(view instanceof EntityCreeper)
-			type = BlockSkull.Types.CREEPER;
-		else if(view instanceof EntityDragon)
-			type = BlockSkull.Types.DRAGON;
+		type = SkullBlock.Types.PLAYER;
+		if(view instanceof PlayerEntity) {
+			profile = ((PlayerEntity) mc.getRenderViewEntity()).getGameProfile();
+		} else if (view instanceof SkeletonEntity)
+			type = SkullBlock.Types.SKELETON;
+		else if(view instanceof WitherSkeletonEntity)
+			type = SkullBlock.Types.WITHER_SKELETON;
+		else if(view instanceof WitherEntity)
+			type = SkullBlock.Types.WITHER_SKELETON;
+		else if(view instanceof ZombieEntity)
+			type = SkullBlock.Types.ZOMBIE;
+		else if(view instanceof CreeperEntity)
+			type = SkullBlock.Types.CREEPER;
+		else if(view instanceof EnderDragonEntity)
+			type = SkullBlock.Types.DRAGON;
 
 		ShaderHelper.useShader(ShaderHelper.doppleganger, RenderDoppleganger.defaultCallback);
 		super.render(x, y, z, facing, rotationIn, type, profile, destroyStage, animationProgress);

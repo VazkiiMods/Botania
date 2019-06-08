@@ -11,13 +11,14 @@
 package vazkii.botania.client.render.entity;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GlStateManager;
+import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.entity.Render;
-import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.entity.EntityRenderer;
+import net.minecraft.client.renderer.entity.EntityRendererManager;
+import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
@@ -30,11 +31,11 @@ import vazkii.botania.common.entity.EntityBabylonWeapon;
 import javax.annotation.Nonnull;
 import java.util.Random;
 
-public class RenderBabylonWeapon extends Render<EntityBabylonWeapon> {
+public class RenderBabylonWeapon extends EntityRenderer<EntityBabylonWeapon> {
 
 	private static final ResourceLocation babylon = new ResourceLocation(LibResources.MISC_BABYLON);
 
-	public RenderBabylonWeapon(RenderManager renderManager) {
+	public RenderBabylonWeapon(EntityRendererManager renderManager) {
 		super(renderManager);
 	}
 
@@ -52,7 +53,7 @@ public class RenderBabylonWeapon extends Render<EntityBabylonWeapon> {
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
-		Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+		Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
 		GlStateManager.pushMatrix();
 		float s = 1.5F;
 		GlStateManager.scalef(s, s, s);
@@ -108,7 +109,7 @@ public class RenderBabylonWeapon extends Render<EntityBabylonWeapon> {
 	@Nonnull
 	@Override
 	protected ResourceLocation getEntityTexture(@Nonnull EntityBabylonWeapon entity) {
-		return TextureMap.LOCATION_BLOCKS_TEXTURE;
+		return AtlasTexture.LOCATION_BLOCKS_TEXTURE;
 	}
 
 }

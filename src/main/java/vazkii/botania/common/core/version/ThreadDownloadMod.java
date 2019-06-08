@@ -14,7 +14,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.Style;
-import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.util.text.TextFormatting;
 
 import java.awt.Desktop;
@@ -80,7 +80,7 @@ public class ThreadDownloadMod extends Thread {
 				f.renameTo(f1);
 
 			if(Minecraft.getInstance().player != null)
-				Minecraft.getInstance().player.sendMessage(new TextComponentTranslation("botania.versioning.doneDownloading", fileName).setStyle(new Style().setColor(TextFormatting.GREEN)));
+				Minecraft.getInstance().player.sendMessage(new TranslationTextComponent("botania.versioning.doneDownloading", fileName).setStyle(new Style().setColor(TextFormatting.GREEN)));
 
 			Desktop.getDesktop().open(dir);
 			VersionChecker.downloadedFile = true;
@@ -93,6 +93,6 @@ public class ThreadDownloadMod extends Thread {
 
 	private void sendError() {
 		if(Minecraft.getInstance().player != null)
-			Minecraft.getInstance().player.sendMessage(new TextComponentTranslation("botania.versioning.error").setStyle(new Style().setColor(TextFormatting.RED)));
+			Minecraft.getInstance().player.sendMessage(new TranslationTextComponent("botania.versioning.error").setStyle(new Style().setColor(TextFormatting.RED)));
 	}
 }

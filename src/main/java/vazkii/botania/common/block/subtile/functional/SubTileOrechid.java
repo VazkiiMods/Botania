@@ -11,8 +11,10 @@
 package vazkii.botania.common.block.subtile.functional;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Blocks;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.Blocks;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.Tag;
 import net.minecraft.tileentity.TileEntityType;
@@ -68,7 +70,7 @@ public class SubTileOrechid extends TileEntityFunctionalFlower {
 		if(mana >= cost && ticksExisted % getDelay() == 0) {
 			BlockPos coords = getCoordsToPut();
 			if(coords != null) {
-				IBlockState state = getOreToPut();
+				BlockState state = getOreToPut();
 				if(state != null) {
 					getWorld().setBlockState(coords, state);
 					if(ConfigHandler.COMMON.blockBreakParticles.get())
@@ -82,7 +84,7 @@ public class SubTileOrechid extends TileEntityFunctionalFlower {
 		}
 	}
 
-	private IBlockState getOreToPut() {
+	private BlockState getOreToPut() {
 		for (int i = 0; i < TRIES; i++) {
 			List<WeightedRandom.Item> values = new ArrayList<>();
 			Map<ResourceLocation, Integer> map = getOreMap();
@@ -103,7 +105,7 @@ public class SubTileOrechid extends TileEntityFunctionalFlower {
 		List<BlockPos> possibleCoords = new ArrayList<>();
 
 		for(BlockPos pos : BlockPos.getAllInBox(getPos().add(-RANGE, -RANGE_Y, -RANGE), getPos().add(RANGE, RANGE_Y, RANGE))) {
-			IBlockState state = getWorld().getBlockState(pos);
+			BlockState state = getWorld().getBlockState(pos);
 			if(state.getBlock().isReplaceableOreGen(state, getWorld(), pos, getReplaceMatcher()))
 				possibleCoords.add(pos);
 		}
@@ -121,7 +123,7 @@ public class SubTileOrechid extends TileEntityFunctionalFlower {
 		return BotaniaAPI.oreWeights;
 	}
 
-	public Predicate<IBlockState> getReplaceMatcher() {
+	public Predicate<BlockState> getReplaceMatcher() {
 		return state -> state.getBlock() == Blocks.STONE;
 	}
 

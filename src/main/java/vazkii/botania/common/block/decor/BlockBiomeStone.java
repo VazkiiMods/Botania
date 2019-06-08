@@ -1,8 +1,9 @@
 package vazkii.botania.common.block.decor;
 
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.block.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.math.BlockPos;
@@ -22,7 +23,7 @@ public class BlockBiomeStone extends BlockMod implements ILexiconable {
 
     @Nonnull
     @Override
-    public IItemProvider getItemDropped(IBlockState state, World world, BlockPos pos, int fortune) {
+    public IItemProvider getItemDropped(BlockState state, World world, BlockPos pos, int fortune) {
         if(this == ModFluffBlocks.biomeStoneForest)
             return ModFluffBlocks.biomeCobblestoneForest;
         if(this == ModFluffBlocks.biomeStonePlains)
@@ -43,7 +44,7 @@ public class BlockBiomeStone extends BlockMod implements ILexiconable {
     }
 
     @Override
-    public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
+    public LexiconEntry getEntry(World world, BlockPos pos, PlayerEntity player, ItemStack lexicon) {
         return LexiconData.marimorphosis;
     }
 }

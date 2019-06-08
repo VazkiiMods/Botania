@@ -1,8 +1,9 @@
 package vazkii.botania.common.core.proxy;
 
 import net.minecraft.block.Block;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
@@ -19,9 +20,9 @@ public interface IProxy {
 
 	void setLexiconStack(ItemStack stack);
 
-	boolean isTheClientPlayer(EntityLivingBase entity);
+	boolean isTheClientPlayer(LivingEntity entity);
 
-	EntityPlayer getClientPlayer();
+	PlayerEntity getClientPlayer();
 
 	boolean isClientPlayerWearingMonocle();
 

@@ -12,7 +12,8 @@ package vazkii.botania.common.block.subtile;
 
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -47,7 +48,7 @@ public class SubTileManastar extends TileEntitySpecialFlower {
 				Botania.proxy.wispFX(getPos().getX() + 0.55 + Math.random() * 0.2 - 0.1, getPos().getY() + 0.75 + Math.random() * 0.2 - 0.1, getPos().getZ() + 0.5, state == INCREASING ? 0.05F : 1F, 0.05F, state == INCREASING ? 1F : 0.05F, (float) Math.random() / 7, (float) -Math.random() / 50);
 		} else {
 			int mana = 0;
-			for(EnumFacing dir : MathHelper.HORIZONTALS) {
+			for(Direction dir : MathHelper.HORIZONTALS) {
 				BlockPos pos = getPos().offset(dir);
 				if(getWorld().isBlockLoaded(pos)) {
 					TileEntity tile = getWorld().getTileEntity(pos);

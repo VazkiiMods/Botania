@@ -10,12 +10,14 @@
  */
 package vazkii.botania.client.render.entity;
 
-import net.minecraft.client.renderer.GlStateManager;
+import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.entity.Render;
-import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.entity.EntityRenderer;
+import net.minecraft.client.renderer.entity.EntityRendererManager;
+import net.minecraft.client.renderer.entity.EntityRendererManager;
+import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
@@ -26,9 +28,9 @@ import vazkii.botania.client.core.proxy.ClientProxy;
 import javax.annotation.Nonnull;
 import java.util.Random;
 
-public abstract class RenderSparkBase<T extends Entity> extends Render<T> {
+public abstract class RenderSparkBase<T extends Entity> extends EntityRenderer<T> {
 
-	public RenderSparkBase(RenderManager manager) {
+	public RenderSparkBase(EntityRendererManager manager) {
 		super(manager);
 	}
 
@@ -92,7 +94,7 @@ public abstract class RenderSparkBase<T extends Entity> extends Render<T> {
 	@Nonnull
 	@Override
 	protected ResourceLocation getEntityTexture(@Nonnull Entity entity) {
-		return TextureMap.LOCATION_BLOCKS_TEXTURE;
+		return AtlasTexture.LOCATION_BLOCKS_TEXTURE;
 	}
 
 	private void renderIcon(Tessellator tess, TextureAtlasSprite icon) {

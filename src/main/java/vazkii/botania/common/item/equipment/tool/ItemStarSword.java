@@ -11,10 +11,11 @@
 package vazkii.botania.common.item.equipment.tool;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.MobEffects;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.potion.Effects;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.PotionEffect;
+import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
@@ -39,9 +40,9 @@ public class ItemStarSword extends ItemManasteelSword {
 	@Override
 	public void inventoryTick(ItemStack par1ItemStack, World world, Entity par3Entity, int par4, boolean par5) {
 		super.inventoryTick(par1ItemStack, world, par3Entity, par4, par5);
-		if(par3Entity instanceof EntityPlayer) {
-			EntityPlayer player = (EntityPlayer) par3Entity;
-			PotionEffect haste = player.getActivePotionEffect(MobEffects.HASTE);
+		if(par3Entity instanceof PlayerEntity) {
+			PlayerEntity player = (PlayerEntity) par3Entity;
+			EffectInstance haste = player.getActivePotionEffect(Effects.HASTE);
 			float check = haste == null ? 0.16666667F : haste.getAmplifier() == 1 ? 0.5F : 0.4F;
 
 			if(player.getHeldItemMainhand() == par1ItemStack && player.swingProgress == check && !world.isRemote) {

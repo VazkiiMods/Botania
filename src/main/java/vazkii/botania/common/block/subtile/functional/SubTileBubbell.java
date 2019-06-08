@@ -10,9 +10,11 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.block.BlockState;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.BlockPos;
@@ -65,7 +67,7 @@ public class SubTileBubbell extends TileEntityFunctionalFlower {
 
 			for(BlockPos pos : BlockPos.getAllInBoxMutable(getPos().add(-range, -range, -range), getPos().add(range, range, range))) {
 				if(getPos().distanceSq(pos) < range * range) {
-					IBlockState state = getWorld().getBlockState(pos);
+					BlockState state = getWorld().getBlockState(pos);
 					if(state.getMaterial() == Material.WATER) {
 						getWorld().setBlockState(pos, ModBlocks.fakeAir.getDefaultState(), 2);
 						TileFakeAir air = (TileFakeAir) getWorld().getTileEntity(pos);
@@ -86,13 +88,13 @@ public class SubTileBubbell extends TileEntityFunctionalFlower {
 	}
 
 	@Override
-	public void writeToPacketNBT(NBTTagCompound cmp) {
+	public void writeToPacketNBT(CompoundNBT cmp) {
 		super.writeToPacketNBT(cmp);
 		cmp.putInt(TAG_RANGE, range);
 	}
 
 	@Override
-	public void readFromPacketNBT(NBTTagCompound cmp) {
+	public void readFromPacketNBT(CompoundNBT cmp) {
 		super.readFromPacketNBT(cmp);
 		range = cmp.getInt(TAG_RANGE);
 	}

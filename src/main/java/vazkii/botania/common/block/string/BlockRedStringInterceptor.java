@@ -11,12 +11,14 @@
 package vazkii.botania.common.block.string;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.state.StateContainer;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorldReaderBase;
+import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -35,11 +37,11 @@ public class BlockRedStringInterceptor extends BlockRedString {
 
 	public BlockRedStringInterceptor(Block.Properties builder) {
 		super(builder);
-		setDefaultState(stateContainer.getBaseState().with(BotaniaStateProps.FACING, EnumFacing.DOWN).with(BotaniaStateProps.POWERED, false));
+		setDefaultState(stateContainer.getBaseState().with(BotaniaStateProps.FACING, Direction.DOWN).with(BotaniaStateProps.POWERED, false));
 	}
 
 	@Override
-	protected void fillStateContainer(StateContainer.Builder<Block, IBlockState> builder) {
+	protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
 		super.fillStateContainer(builder);
 		builder.add(BotaniaStateProps.POWERED);
 	}
@@ -50,28 +52,28 @@ public class BlockRedStringInterceptor extends BlockRedString {
 	}
 
 	@Override
-	public boolean canProvidePower(IBlockState state) {
+	public boolean canProvidePower(BlockState state) {
 		return true;
 	}
 
 	@Override
-	public int getWeakPower(IBlockState state, IBlockReader world, BlockPos pos, EnumFacing side) {
+	public int getWeakPower(BlockState state, IBlockReader world, BlockPos pos, Direction side) {
 		return state.get(BotaniaStateProps.POWERED) ? 15 : 0;
 	}
 
 	@Override
-	public void tick(IBlockState state, World world, BlockPos pos, Random update) {
+	public void tick(BlockState state, World world, BlockPos pos, Random update) {
 		world.setBlockState(pos, state.with(BotaniaStateProps.POWERED, false), 1 | 2);
 	}
 
 	@Override
-	public int tickRate(IWorldReaderBase world) {
+	public int tickRate(IWorldReader world) {
 		return 2;
 	}
 
 	@Nonnull
 	@Override
-	public TileRedString createTileEntity(@Nonnull IBlockState state, @Nonnull IBlockReader world) {
+	public TileRedString createTileEntity(@Nonnull BlockState state, @Nonnull IBlockReader world) {
 		return new TileRedStringInterceptor();
 	}
 }

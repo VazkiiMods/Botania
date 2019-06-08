@@ -10,7 +10,7 @@
  */
 package vazkii.botania.common.brew;
 
-import net.minecraft.potion.Potion;
+import net.minecraft.potion.Effect;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -26,15 +26,15 @@ import vazkii.botania.common.lib.LibPotionNames;
 @Mod.EventBusSubscriber(modid = LibMisc.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ModPotions {
 
-	public static final Potion soulCross = new PotionSoulCross().setRegistryName(LibMisc.MOD_ID, LibPotionNames.SOUL_CROSS);
-	public static final Potion featherfeet = new PotionFeatherfeet().setRegistryName(LibMisc.MOD_ID, LibPotionNames.FEATHER_FEET);
-	public static final Potion emptiness = new PotionEmptiness().setRegistryName(LibMisc.MOD_ID, LibPotionNames.EMPTINESS);
-	public static final Potion bloodthrst = new PotionBloodthirst().setRegistryName(LibMisc.MOD_ID, LibPotionNames.BLOODTHIRST);
-	public static final Potion allure = new PotionAllure().setRegistryName(LibMisc.MOD_ID, LibPotionNames.ALLURE);
-	public static final Potion clear = new PotionClear().setRegistryName(LibMisc.MOD_ID, LibPotionNames.CLEAR);
+	public static final Effect soulCross = new PotionSoulCross().setRegistryName(LibMisc.MOD_ID, LibPotionNames.SOUL_CROSS);
+	public static final Effect featherfeet = new PotionFeatherfeet().setRegistryName(LibMisc.MOD_ID, LibPotionNames.FEATHER_FEET);
+	public static final Effect emptiness = new PotionEmptiness().setRegistryName(LibMisc.MOD_ID, LibPotionNames.EMPTINESS);
+	public static final Effect bloodthrst = new PotionBloodthirst().setRegistryName(LibMisc.MOD_ID, LibPotionNames.BLOODTHIRST);
+	public static final Effect allure = new PotionAllure().setRegistryName(LibMisc.MOD_ID, LibPotionNames.ALLURE);
+	public static final Effect clear = new PotionClear().setRegistryName(LibMisc.MOD_ID, LibPotionNames.CLEAR);
 
 	@SubscribeEvent
-	public static void registerPotions(RegistryEvent.Register<Potion> evt)
+	public static void registerPotions(RegistryEvent.Register<Effect> evt)
 	{
 		evt.getRegistry().register(soulCross);
 		evt.getRegistry().register(featherfeet);

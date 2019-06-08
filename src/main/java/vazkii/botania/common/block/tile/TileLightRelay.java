@@ -17,23 +17,27 @@ import java.util.List;
 import javax.annotation.Nonnull;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.item.EntityEnderPearl;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.item.EnderPearlEntity;
+import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.ITickable;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Direction;
+import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -53,7 +57,7 @@ import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibEntityNames;
 import vazkii.botania.common.lib.LibMisc;
 
-public class TileLightRelay extends TileMod implements ITickable, IWandBindable {
+public class TileLightRelay extends TileMod implements ITickableTileEntity, IWandBindable {
 	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.LIGHT_RELAY)
 	public static TileEntityType<TileLightRelay> TYPE;
 	private static final int MAX_DIST = 20;
@@ -77,11 +81,11 @@ public class TileLightRelay extends TileMod implements ITickable, IWandBindable 
 		EntityPlayerMover mover = new EntityPlayerMover(world, pos, nextDest);
 		world.spawnEntity(mover);
 		e.startRiding(mover);
-		if(!(e instanceof EntityItem)) {
+		if(!(e instanceof ItemEntity)) {
 			mover.playSound(ModSounds.lightRelay, 0.2F, (float) Math.random() * 0.3F + 0.7F);
 		}
-		if(e instanceof EntityPlayerMP) {
-			PlayerHelper.grantCriterion((EntityPlayerMP) e, new ResourceLocation(LibMisc.MOD_ID, "main/luminizer_ride"), "code_triggered");
+		if(e instanceof ServerPlayerEntity) {
+			PlayerHelper.grantCriterion((ServerPlayerEntity) e, new ResourceLocation(LibMisc.MOD_ID, "main/luminizer_ride"), "code_triggered");
 		}
 	}
 
@@ -120,8 +124,8 @@ public class TileLightRelay extends TileMod implements ITickable, IWandBindable 
 				if(endpoint != null) {
 					AxisAlignedBB aabb = world.getBlockState(pos).getShape(world, pos).getBoundingBox().offset(pos);
 					float range = 0.5F;
-					List<EntityEnderPearl> enderPearls = world.getEntitiesWithinAABB(EntityEnderPearl.class, aabb.grow(range));
-					for(EntityEnderPearl pearl : enderPearls) {
+					List<EnderPearlEntity> enderPearls = world.getEntitiesWithinAABB(EnderPearlEntity.class, aabb.grow(range));
+					for(EnderPearlEntity pearl : enderPearls) {
 						pearl.setPositionAndUpdate(
 								endpoint.getX() + pearl.posX - pos.getX(),
 								endpoint.getY() + pearl.posY - pos.getY(),
@@ -183,7 +187,7 @@ public class TileLightRelay extends TileMod implements ITickable, IWandBindable 
 	}
 
 	public BlockPos getNextDestination() {
-		IBlockState state = world.getBlockState(pos);
+		BlockState state = world.getBlockState(pos);
 		if(state.getBlock() == ModBlocks.lightRelayToggle && state.get(BotaniaStateProps.POWERED))
 			return null;
 		else if(state.getBlock() == ModBlocks.lightRelayFork) {
@@ -191,7 +195,7 @@ public class TileLightRelay extends TileMod implements ITickable, IWandBindable 
 			for(int i = -2; i < 3; i++) {
 				BlockPos testPos = pos.add(0, i, 0);
 
-				IBlockState testState = world.getBlockState(testPos);
+				BlockState testState = world.getBlockState(testPos);
 				if(testState.getBlock() == ModBlocks.animatedTorch) {
 					torchPos = testPos;
 					break;
@@ -200,10 +204,10 @@ public class TileLightRelay extends TileMod implements ITickable, IWandBindable 
 
 			if(torchPos != null) {
 				TileAnimatedTorch torch = (TileAnimatedTorch) world.getTileEntity(torchPos);
-				EnumFacing side = TileAnimatedTorch.SIDES[torch.side].getOpposite();
+				Direction side = TileAnimatedTorch.SIDES[torch.side].getOpposite();
 				for(int i = 1; i < MAX_DIST; i++) {
 					BlockPos testPos = pos.offset(side, i);
-					IBlockState testState = world.getBlockState(testPos);
+					BlockState testState = world.getBlockState(testPos);
 					if(testState.getBlock() instanceof BlockLightRelay)
 						return testPos;
 				}
@@ -214,12 +218,12 @@ public class TileLightRelay extends TileMod implements ITickable, IWandBindable 
 	}
 
 	@Override
-	public boolean canSelect(EntityPlayer player, ItemStack wand, BlockPos pos, EnumFacing side) {
+	public boolean canSelect(PlayerEntity player, ItemStack wand, BlockPos pos, Direction side) {
 		return true;
 	}
 
 	@Override
-	public boolean bindTo(EntityPlayer player, ItemStack wand, BlockPos pos, EnumFacing side) {
+	public boolean bindTo(PlayerEntity player, ItemStack wand, BlockPos pos, Direction side) {
 		if(!(player.world.getBlockState(pos).getBlock() instanceof BlockLightRelay)
 				|| pos.distanceSq(getPos()) > MAX_DIST * MAX_DIST)
 			return false;
@@ -229,7 +233,7 @@ public class TileLightRelay extends TileMod implements ITickable, IWandBindable 
 	}
 
 	@Override
-	public void readPacketNBT(NBTTagCompound cmp) {
+	public void readPacketNBT(CompoundNBT cmp) {
 		bindPos = new BlockPos(
 				cmp.getInt(TAG_BIND_X),
 				cmp.getInt(TAG_BIND_Y),
@@ -238,7 +242,7 @@ public class TileLightRelay extends TileMod implements ITickable, IWandBindable 
 	}
 
 	@Override
-	public void writePacketNBT(NBTTagCompound cmp) {
+	public void writePacketNBT(CompoundNBT cmp) {
 		cmp.putInt(TAG_BIND_X, bindPos.getX());
 		cmp.putInt(TAG_BIND_Y, bindPos.getY());
 		cmp.putInt(TAG_BIND_Z, bindPos.getZ());
@@ -279,7 +283,7 @@ public class TileLightRelay extends TileMod implements ITickable, IWandBindable 
 				return;
 			}
 
-			boolean isItem = getRidingEntity() instanceof EntityItem;
+			boolean isItem = getRidingEntity() instanceof ItemEntity;
 			if(!isItem && ticksExisted % 30 == 0)
 				playSound(ModSounds.lightRelay, 0.05F, (float) Math.random() * 0.3F + 0.7F);
 
@@ -289,7 +293,7 @@ public class TileLightRelay extends TileMod implements ITickable, IWandBindable 
 			if(pos.equals(exitPos)) {
 				TileEntity tile = world.getTileEntity(pos);
 				if(tile instanceof TileLightRelay) {
-					IBlockState state = world.getBlockState(pos);
+					BlockState state = world.getBlockState(pos);
 					if(state.getBlock() == ModBlocks.lightRelayDetector) {
 						world.setBlockState(pos, state.with(BotaniaStateProps.POWERED, true));
 						world.getPendingBlockTicks().scheduleTick(pos, state.getBlock(), state.getBlock().tickRate(world));
@@ -342,12 +346,12 @@ public class TileLightRelay extends TileMod implements ITickable, IWandBindable 
 		}
 
 		@Override
-		protected void readAdditional(@Nonnull NBTTagCompound cmp) {
+		protected void readAdditional(@Nonnull CompoundNBT cmp) {
 			setExit(new BlockPos(cmp.getInt(TAG_EXIT_X), cmp.getInt(TAG_EXIT_Y), cmp.getInt(TAG_EXIT_Z)));
 		}
 
 		@Override
-		protected void writeAdditional(@Nonnull NBTTagCompound cmp) {
+		protected void writeAdditional(@Nonnull CompoundNBT cmp) {
 			BlockPos exit = getExitPos();
 			cmp.putInt(TAG_EXIT_X, exit.getX());
 			cmp.putInt(TAG_EXIT_Y, exit.getY());

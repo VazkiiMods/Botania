@@ -2,10 +2,11 @@ package vazkii.botania.common.block.subtile.functional;
 
 import net.minecraft.client.audio.ISound;
 import net.minecraft.client.audio.ITickableSound;
-import net.minecraft.client.audio.MovingSound;
+import net.minecraft.client.audio.TickableSound;
 import net.minecraft.client.audio.Sound;
 import net.minecraft.client.audio.SoundEventAccessor;
 import net.minecraft.client.audio.SoundHandler;
+import net.minecraft.client.audio.TickableSound;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraftforge.api.distmarker.Dist;
@@ -69,7 +70,7 @@ public class BergamuteEventHandler {
 		private WrappedSound(ISound toWrap, float volMult) {
 			compose = toWrap;
 			this.volMult = volMult;
-			recheck = toWrap instanceof MovingSound;
+			recheck = toWrap instanceof TickableSound;
 		}
 
 		@Override

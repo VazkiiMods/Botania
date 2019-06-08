@@ -11,13 +11,14 @@
 package vazkii.botania.common.block.tile;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.ITickable;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Direction;
+import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -29,7 +30,7 @@ import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
-public class TileOpenCrate extends TileSimpleInventory implements ITickable {
+public class TileOpenCrate extends TileSimpleInventory implements ITickableTileEntity {
 
 	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.OPEN_CRATE)
 	public static TileEntityType<?> TYPE;
@@ -53,7 +54,7 @@ public class TileOpenCrate extends TileSimpleInventory implements ITickable {
 			return;
 
 		boolean redstone = false;
-		for(EnumFacing dir : EnumFacing.values()) {
+		for(Direction dir : Direction.values()) {
 			int redstoneSide = world.getRedstonePower(pos.offset(dir), dir);
 			if(redstoneSide > 0) {
 				redstone = true;
@@ -73,7 +74,7 @@ public class TileOpenCrate extends TileSimpleInventory implements ITickable {
 	}
 
 	public void eject(ItemStack stack, boolean redstone) {
-		EntityItem item = new EntityItem(world, pos.getX() + 0.5, pos.getY() - 0.5, pos.getZ() + 0.5, stack);
+		ItemEntity item = new ItemEntity(world, pos.getX() + 0.5, pos.getY() - 0.5, pos.getZ() + 0.5, stack);
 		item.motionX = 0;
 		item.motionY = 0;
 		item.motionZ = 0;
@@ -84,7 +85,7 @@ public class TileOpenCrate extends TileSimpleInventory implements ITickable {
 		world.spawnEntity(item);
 	}
 
-	public boolean onWanded(World world, EntityPlayer player, ItemStack stack) {
+	public boolean onWanded(World world, PlayerEntity player, ItemStack stack) {
 		return false;
 	}
 

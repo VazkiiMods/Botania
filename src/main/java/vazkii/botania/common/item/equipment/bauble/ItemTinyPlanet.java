@@ -12,13 +12,16 @@ package vazkii.botania.common.item.equipment.bauble;
 
 import com.google.common.base.Predicates;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.texture.TextureMap;
+import com.mojang.blaze3d.platform.GlStateManager;
+import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.projectile.EntityThrowable;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.projectile.ThrowableEntity;
+import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
@@ -45,7 +48,7 @@ public class ItemTinyPlanet extends ItemBauble {
 		}
 
 		@Override
-		public void onCurioTick(String identifier, EntityLivingBase player) {
+		public void onCurioTick(String identifier, LivingEntity player) {
 			double x = player.posX;
 			double y = player.posY + player.getEyeHeight();
 			double z = player.posZ;
@@ -55,8 +58,8 @@ public class ItemTinyPlanet extends ItemBauble {
 
 		@Override
         @OnlyIn(Dist.CLIENT)
-		public void doRender(String identifier, EntityLivingBase living, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-			Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+		public void doRender(String identifier, LivingEntity living, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+			Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
 			GlStateManager.scalef(0.5F, 0.5F, 0.5F);
 			GlStateManager.translatef(0, -1.5F, 0.5F);
 			Minecraft.getInstance().getBlockRendererDispatcher().renderBlockBrightness(ModBlocks.tinyPlanet.getDefaultState(), 1.0F);
@@ -65,8 +68,8 @@ public class ItemTinyPlanet extends ItemBauble {
 
 	public static void applyEffect(World world, double x, double y, double z) {
 		int range = 8;
-		List<EntityThrowable> entities = world.getEntitiesWithinAABB(EntityThrowable.class, new AxisAlignedBB(x - range, y - range, z - range, x + range, y + range, z + range), Predicates.instanceOf(IManaBurst.class));
-		for(EntityThrowable entity : entities) {
+		List<ThrowableEntity> entities = world.getEntitiesWithinAABB(ThrowableEntity.class, new AxisAlignedBB(x - range, y - range, z - range, x + range, y + range, z + range), Predicates.instanceOf(IManaBurst.class));
+		for(ThrowableEntity entity : entities) {
 			IManaBurst burst = (IManaBurst) entity;
 			ItemStack lens = burst.getSourceLens();
 			if(lens != null && lens.getItem() instanceof ITinyPlanetExcempt && !((ITinyPlanetExcempt) lens.getItem()).shouldPull(lens))
@@ -94,14 +97,14 @@ public class ItemTinyPlanet extends ItemBauble {
 	}
 
 	public static int getEntityOrbitTime(Entity entity) {
-		NBTTagCompound cmp = entity.getEntityData();
+		CompoundNBT cmp = entity.getEntityData();
 		if(cmp.contains(TAG_ORBIT))
 			return cmp.getInt(TAG_ORBIT);
 		else return 0;
 	}
 
 	public static void incrementOrbitTime(Entity entity) {
-		NBTTagCompound cmp = entity.getEntityData();
+		CompoundNBT cmp = entity.getEntityData();
 		int time = getEntityOrbitTime(entity);
 		cmp.putInt(TAG_ORBIT, time + 1);
 	}

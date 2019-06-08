@@ -10,19 +10,25 @@
  */
 package vazkii.botania.common.item;
 
+import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.EnumAction;
+import com.mojang.blaze3d.platform.GlStateManager;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.block.Blocks;
+import net.minecraft.item.UseAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.UseAction;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
@@ -55,8 +61,8 @@ public class ItemSextant extends ItemMod {
 
 	@Nonnull
 	@Override
-	public EnumAction getUseAction(ItemStack par1ItemStack) {
-		return EnumAction.BOW;
+	public UseAction getUseAction(ItemStack par1ItemStack) {
+		return UseAction.BOW;
 	}
 
 	@Override
@@ -65,9 +71,9 @@ public class ItemSextant extends ItemMod {
 	}
 
 	@Override
-	public void onUsingTick(ItemStack stack, EntityLivingBase living, int count) {
+	public void onUsingTick(ItemStack stack, LivingEntity living, int count) {
 		if(getUseDuration(stack) - count < 10
-				|| !(living instanceof EntityPlayer))
+				|| !(living instanceof PlayerEntity))
 			return;
 
 		int x = ItemNBTHelper.getInt(stack, TAG_SOURCE_X, 0);
@@ -76,7 +82,7 @@ public class ItemSextant extends ItemMod {
 		if(y != -1) {
 			Vector3 source = new Vector3(x, y, z);
 
-			double radius = calculateRadius(stack, (EntityPlayer) living);
+			double radius = calculateRadius(stack, (PlayerEntity) living);
 
 			if(count % 10 == 0)
 				for(int i = 0; i < 360; i++) {
@@ -89,10 +95,10 @@ public class ItemSextant extends ItemMod {
 	}
 
 	@Override
-	public void onPlayerStoppedUsing(ItemStack stack, World world, EntityLivingBase living, int time) {
-		if(!(living instanceof EntityPlayer)) return;
+	public void onPlayerStoppedUsing(ItemStack stack, World world, LivingEntity living, int time) {
+		if(!(living instanceof PlayerEntity)) return;
 
-		double radius = calculateRadius(stack, (EntityPlayer) living);
+		double radius = calculateRadius(stack, (PlayerEntity) living);
 		if(1 < radius && radius <= MAX_RADIUS) {
 			int x = ItemNBTHelper.getInt(stack, TAG_SOURCE_X, 0);
 			int y = ItemNBTHelper.getInt(stack, TAG_SOURCE_Y, -1);
@@ -104,7 +110,7 @@ public class ItemSextant extends ItemMod {
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
 		Botania.proxy.removeSextantMultiblock();
 
 		ItemStack stack = player.getHeldItem(hand);
@@ -121,10 +127,10 @@ public class ItemSextant extends ItemMod {
 			player.setActiveHand(hand);
 		}
 
-		return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
+		return ActionResult.newResult(ActionResultType.SUCCESS, stack);
 	}
 
-	private static double calculateRadius(ItemStack stack, EntityPlayer player) {
+	private static double calculateRadius(ItemStack stack, PlayerEntity player) {
 		int x = ItemNBTHelper.getInt(stack, TAG_SOURCE_X, 0);
 		int y = ItemNBTHelper.getInt(stack, TAG_SOURCE_Y, -1);
 		int z = ItemNBTHelper.getInt(stack, TAG_SOURCE_Z, 0);
@@ -145,7 +151,7 @@ public class ItemSextant extends ItemMod {
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public static void renderHUD(EntityPlayer player, ItemStack stack) {
+	public static void renderHUD(PlayerEntity player, ItemStack stack) {
 		ItemStack onUse = player.getActiveItemStack();
 		int time = player.getItemInUseCount();
 
@@ -164,7 +170,7 @@ public class ItemSextant extends ItemMod {
 
 			if(inRange) {
 				radius += 4;
-				GlStateManager.disableTexture2D();
+				GlStateManager.disableTexture();
 				GL11.glLineWidth(3F);
 				GL11.glBegin(GL11.GL_LINE_STRIP);
 				GlStateManager.color4f(0F, 1F, 1F, 1F);
@@ -175,7 +181,7 @@ public class ItemSextant extends ItemMod {
 					GL11.glVertex2d(xp, yp);
 				}
 				GL11.glEnd();
-				GlStateManager.enableTexture2D();
+				GlStateManager.enableTexture();
 			}
 		}
 	}
@@ -183,9 +189,9 @@ public class ItemSextant extends ItemMod {
 	public static class MultiblockSextant extends Multiblock {
 
 		@Override
-		public Map<EnumFacing, Multiblock> createRotations() {
-			Map<EnumFacing, Multiblock> ret = new EnumMap<>(EnumFacing.class);
-			for (EnumFacing e : EnumFacing.values()) {
+		public Map<Direction, Multiblock> createRotations() {
+			Map<Direction, Multiblock> ret = new EnumMap<>(Direction.class);
+			for (Direction e : Direction.values()) {
 				ret.put(e, this);
 			}
 			return ret;

@@ -10,12 +10,14 @@
  */
 package vazkii.botania.common.item;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.DyeColor;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemUseContext;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import vazkii.botania.api.state.BotaniaStateProps;
@@ -35,7 +37,7 @@ public class ItemFertilizer extends ItemMod {
 
 	@Nonnull
 	@Override
-	public EnumActionResult onItemUse(ItemUseContext ctx) {
+	public ActionResultType onItemUse(ItemUseContext ctx) {
 		World world = ctx.getWorld();
 		BlockPos pos = ctx.getPos();
 		final int range = 3;
@@ -56,7 +58,7 @@ public class ItemFertilizer extends ItemMod {
 			for(int i = 0; i < flowerCount; i++) {
 				BlockPos coords = validCoords.get(world.rand.nextInt(validCoords.size()));
 				validCoords.remove(coords);
-				world.setBlockState(coords, ModBlocks.getFlower(EnumDyeColor.byId(world.rand.nextInt(16))).getDefaultState());
+				world.setBlockState(coords, ModBlocks.getFlower(DyeColor.byId(world.rand.nextInt(16))).getDefaultState());
 			}
 			ctx.getItem().shrink(1);
 		} else {
@@ -71,6 +73,6 @@ public class ItemFertilizer extends ItemMod {
 			}
 		}
 
-		return EnumActionResult.SUCCESS;
+		return ActionResultType.SUCCESS;
 	}
 }

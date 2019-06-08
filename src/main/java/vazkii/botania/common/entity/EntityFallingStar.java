@@ -11,10 +11,13 @@
 package vazkii.botania.common.entity;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.RayTraceResult;
@@ -36,7 +39,7 @@ public class EntityFallingStar extends EntityThrowableCopy {
 		setSize(0F, 0F);
 	}
 
-	public EntityFallingStar(EntityLivingBase e, World world) {
+	public EntityFallingStar(LivingEntity e, World world) {
 		super(TYPE, e, world);
 		setSize(0F, 0F);
 	}
@@ -53,11 +56,11 @@ public class EntityFallingStar extends EntityThrowableCopy {
 			Botania.proxy.sparkleFX(posX + xs, posY + ys, posZ + zs, 1F, 0.4F, 1F, 2F, 6);
 		}
 
-		EntityLivingBase thrower = getThrower();
+		LivingEntity thrower = getThrower();
 		if(!world.isRemote && thrower != null) {
 			AxisAlignedBB axis = new AxisAlignedBB(posX, posY, posZ, lastTickPosX, lastTickPosY, lastTickPosZ).grow(2);
-			List<EntityLivingBase> entities = world.getEntitiesWithinAABB(EntityLivingBase.class, axis);
-			for(EntityLivingBase living : entities) {
+			List<LivingEntity> entities = world.getEntitiesWithinAABB(LivingEntity.class, axis);
+			for(LivingEntity living : entities) {
 				if(living == thrower)
 					continue;
 
@@ -77,15 +80,15 @@ public class EntityFallingStar extends EntityThrowableCopy {
 		if (world.isRemote)
 			return;
 
-		EntityLivingBase thrower = getThrower();
+		LivingEntity thrower = getThrower();
 		if(pos.entity != null && thrower != null && pos.entity != thrower && !pos.entity.removed) {
-			if(thrower instanceof EntityPlayer)
-				pos.entity.attackEntityFrom(DamageSource.causePlayerDamage((EntityPlayer) thrower), Math.random() < 0.25 ? 10 : 5);
+			if(thrower instanceof PlayerEntity)
+				pos.entity.attackEntityFrom(DamageSource.causePlayerDamage((PlayerEntity) thrower), Math.random() < 0.25 ? 10 : 5);
 			else pos.entity.attackEntityFrom(DamageSource.GENERIC, Math.random() < 0.25 ? 10 : 5);
 		}
 
 		if (pos.getBlockPos() != null) {
-			IBlockState state = world.getBlockState(pos.getBlockPos());
+			BlockState state = world.getBlockState(pos.getBlockPos());
 			if(ConfigHandler.COMMON.blockBreakParticles.get() && !state.getBlock().isAir(state, world, pos.getBlockPos()))
 				world.playEvent(2001, pos.getBlockPos(), Block.getStateId(state));
 		}

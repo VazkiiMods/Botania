@@ -10,15 +10,15 @@
  */
 package vazkii.botania.common.block.tile;
 
-import net.minecraft.entity.passive.EntityAnimal;
+import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.ITickable;
+import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 
-public class TileForestEye extends TileMod implements ITickable {
+public class TileForestEye extends TileMod implements ITickableTileEntity {
 	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.FOREST_EYE)
 	public static TileEntityType<TileForestEye> TYPE;
 
@@ -33,7 +33,7 @@ public class TileForestEye extends TileMod implements ITickable {
 		if (world.isRemote)
 			return;
 		int range = 6;
-		int entityCount = world.getEntitiesWithinAABB(EntityAnimal.class, new AxisAlignedBB(pos.add(-range, -range, -range), pos.add(range + 1, range + 1, range + 1))).size();
+		int entityCount = world.getEntitiesWithinAABB(AnimalEntity.class, new AxisAlignedBB(pos.add(-range, -range, -range), pos.add(range + 1, range + 1, range + 1))).size();
 		if(entityCount != entities) {
 			entities = entityCount;
 			world.updateComparatorOutputLevel(pos, world.getBlockState(pos).getBlock());

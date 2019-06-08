@@ -4,10 +4,11 @@ import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Particles;
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.DyeColor;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkEvent;
@@ -73,13 +74,13 @@ public class PacketBotaniaEffect {
 					World world = mc.world;
 					switch (message.type) {
 					case PAINT_LENS: {
-						EnumDyeColor placeColor = EnumDyeColor.byId(message.args[0]);
+						DyeColor placeColor = DyeColor.byId(message.args[0]);
 						int hex = placeColor.colorValue;
 						int r = (hex & 0xFF0000) >> 16;
 						int g = (hex & 0xFF00) >> 8;
 		int b = hex & 0xFF;
 		for(int i = 0; i < 10; i++) {
-			BlockPos pos = new BlockPos(message.x, message.y, message.z).offset(EnumFacing.random(world.rand));
+			BlockPos pos = new BlockPos(message.x, message.y, message.z).offset(Direction.random(world.rand));
 			Botania.proxy.sparkleFX(
 					pos.getX() + (float) Math.random(), pos.getY() + (float) Math.random(), pos.getZ() + (float) Math.random(),
 					r / 255F, g / 255F, b / 255F, 0.6F + (float) Math.random() * 0.5F, 5);

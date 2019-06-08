@@ -7,11 +7,13 @@ import net.minecraft.advancements.ICriterionTrigger;
 import net.minecraft.advancements.PlayerAdvancements;
 import net.minecraft.advancements.criterion.ItemPredicate;
 import net.minecraft.advancements.criterion.LocationPredicate;
-import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.WorldServer;
+import net.minecraft.world.ServerWorld;
+import net.minecraft.world.ServerWorld;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
@@ -67,7 +69,7 @@ public class AlfPortalTrigger implements ICriterionTrigger<AlfPortalTrigger.Inst
             this.playerAdvancements = playerAdvancementsIn;
         }
 
-        public void trigger(WorldServer world, BlockPos pos, ItemStack wand) {
+        public void trigger(ServerWorld world, BlockPos pos, ItemStack wand) {
             List<ICriterionTrigger.Listener<Instance>> list = new ArrayList<>();
 
             for(ICriterionTrigger.Listener<AlfPortalTrigger.Instance> listener : this.listeners) {
@@ -82,7 +84,7 @@ public class AlfPortalTrigger implements ICriterionTrigger<AlfPortalTrigger.Inst
         }
     }
 
-    public void trigger(EntityPlayerMP player, WorldServer world, BlockPos pos, ItemStack wand) {
+    public void trigger(ServerPlayerEntity player, ServerWorld world, BlockPos pos, ItemStack wand) {
         PlayerTracker tracker = playerTrackers.get(player.getAdvancements());
         if(tracker != null) {
             tracker.trigger(world, pos, wand);
@@ -104,7 +106,7 @@ public class AlfPortalTrigger implements ICriterionTrigger<AlfPortalTrigger.Inst
             return ID;
         }
 
-        boolean test(WorldServer world, BlockPos pos, ItemStack wand) {
+        boolean test(ServerWorld world, BlockPos pos, ItemStack wand) {
             return this.wand.test(wand) && this.pos.test(world, pos.getX(), pos.getY(), pos.getZ());
         }
     }

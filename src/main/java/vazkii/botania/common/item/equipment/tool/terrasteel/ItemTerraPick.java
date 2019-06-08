@@ -15,17 +15,21 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.init.Enchantments;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.enchantment.Enchantments;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
+import net.minecraft.util.Hand;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
@@ -33,8 +37,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -97,16 +102,16 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void addInformation(ItemStack par1ItemStack, World world, List<ITextComponent> stacks, ITooltipFlag flags) {
-		ITextComponent rank = new TextComponentTranslation("botania.rank" + getLevel(par1ItemStack));
-		ITextComponent rankFormat = new TextComponentTranslation("botaniamisc.toolRank", rank);
+		ITextComponent rank = new TranslationTextComponent("botania.rank" + getLevel(par1ItemStack));
+		ITextComponent rankFormat = new TranslationTextComponent("botaniamisc.toolRank", rank);
 		stacks.add(rankFormat);
 		if(getMana(par1ItemStack) == Integer.MAX_VALUE)
-			stacks.add(new TextComponentTranslation("botaniamisc.getALife").applyTextStyle(TextFormatting.RED));
+			stacks.add(new TranslationTextComponent("botaniamisc.getALife").applyTextStyle(TextFormatting.RED));
 	}
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
 		ItemStack stack = player.getHeldItem(hand);
 
 		getMana(stack);
@@ -118,14 +123,14 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 				world.playSound(null, player.posX, player.posY, player.posZ, ModSounds.terraPickMode, SoundCategory.PLAYERS, 0.5F, 0.4F);
 		}
 
-		return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
+		return ActionResult.newResult(ActionResultType.SUCCESS, stack);
 	}
 
 	@Nonnull
 	@Override
-	public EnumActionResult onItemUse(ItemUseContext ctx) {
+	public ActionResultType onItemUse(ItemUseContext ctx) {
 		return ctx.getPlayer() == null || ctx.getPlayer().isSneaking() ? super.onItemUse(ctx)
-				: EnumActionResult.PASS;
+				: ActionResultType.PASS;
 	}
 
 	@Override
@@ -136,13 +141,13 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 
 			if(level == 0)
 				setEnabled(par1ItemStack, false);
-			else if(par3Entity instanceof EntityPlayer && !((EntityPlayer) par3Entity).isSwingInProgress)
+			else if(par3Entity instanceof PlayerEntity && !((PlayerEntity) par3Entity).isSwingInProgress)
 				addMana(par1ItemStack, -level);
 		}
 	}
 
 	@Override
-	public boolean onBlockStartBreak(ItemStack stack, BlockPos pos, EntityPlayer player) {
+	public boolean onBlockStartBreak(ItemStack stack, BlockPos pos, PlayerEntity player) {
 		RayTraceResult raycast = ToolCommons.raytraceFromEntity(player.world, player, true, 10);
 		if(!player.world.isRemote && raycast != null) {
 			breakOtherBlock(player, stack, pos, pos, raycast.sideHit);
@@ -159,7 +164,7 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 	}
 
 	@Override
-	public void breakOtherBlock(EntityPlayer player, ItemStack stack, BlockPos pos, BlockPos originPos, EnumFacing side) {
+	public void breakOtherBlock(PlayerEntity player, ItemStack stack, BlockPos pos, BlockPos originPos, Direction side) {
 		if(!isEnabled(stack))
 			return;
 
@@ -195,7 +200,7 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 		ToolCommons.removeBlocksInIteration(player, stack, world, pos, beginDiff, endDiff, state -> MATERIALS.contains(state.getMaterial()), isTipped(stack));
 
 		if(origLevel == 5) {
-			PlayerHelper.grantCriterion((EntityPlayerMP) player, new ResourceLocation(LibMisc.MOD_ID, "challenge/rank_ss_pick"), "code_triggered");
+			PlayerHelper.grantCriterion((ServerPlayerEntity) player, new ResourceLocation(LibMisc.MOD_ID, "challenge/rank_ss_pick"), "code_triggered");
 		}
 	}
 

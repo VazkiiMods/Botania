@@ -10,7 +10,8 @@
  */
 package vazkii.botania.common.item.relic;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.items.IItemHandler;
@@ -31,7 +32,7 @@ public class ItemThorRing extends ItemRelicBauble {
 		return new ResourceLocation(LibMisc.MOD_ID, "challenge/thor_ring");
 	}
 
-	public static ItemStack getThorRing(EntityPlayer player) {
+	public static ItemStack getThorRing(PlayerEntity player) {
 		if(Botania.curiosLoaded) {
 			return CurioIntegration.findOrEmpty(ModItems.thorRing, player);
 		}

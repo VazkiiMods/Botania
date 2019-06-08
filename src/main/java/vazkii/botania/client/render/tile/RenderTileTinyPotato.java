@@ -13,22 +13,26 @@ package vazkii.botania.client.render.tile;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.GlStateManager;
+import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
+import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.ItemBlock;
+import net.minecraft.block.Blocks;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumFacing.Axis;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Direction.Axis;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.common.MinecraftForge;
 import vazkii.botania.api.item.TinyPotatoRenderEvent;
 import vazkii.botania.api.state.BotaniaStateProps;
@@ -103,7 +107,7 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 
 		GlStateManager.translatef(0.5F, 1.5F, 0.5F);
 		GlStateManager.scalef(1F, -1F, -1F);
-		EnumFacing potatoFacing = potato.getBlockState().get(BotaniaStateProps.CARDINALS);
+		Direction potatoFacing = potato.getBlockState().get(BotaniaStateProps.CARDINALS);
 		float rotY = 0;
 		switch(potatoFacing) {
 			default:
@@ -157,7 +161,7 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 		GlStateManager.popMatrix();
 
 		GlStateManager.pushMatrix();
-		mc.textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+		mc.textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
 
 		GlStateManager.pushMatrix();
 		GlStateManager.rotatef(180F, 0, 0, 1);
@@ -171,13 +175,13 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 				continue;
 
 			GlStateManager.pushMatrix();
-			EnumFacing side = EnumFacing.class.getEnumConstants()[i];
+			Direction side = Direction.class.getEnumConstants()[i];
 			if(side.getAxis() != Axis.Y) {
 				float sideAngle = side.getHorizontalAngle() - potatoFacing.getHorizontalAngle();
-				side = EnumFacing.fromAngle(sideAngle);
+				side = Direction.fromAngle(sideAngle);
 			}
 
-			boolean block = stack.getItem() instanceof ItemBlock;
+			boolean block = stack.getItem() instanceof BlockItem;
 			boolean mySon = stack.getItem() instanceof ItemBlockTinyPotato;
 
 			switch(side) {
@@ -231,7 +235,7 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 				GlStateManager.scalef(1.1F, 1.1F, 1.1F);
 			else if(block)
 				GlStateManager.scalef(0.5F, 0.5F, 0.5F);
-			if(block && side != EnumFacing.NORTH)
+			if(block && side != Direction.NORTH)
 				GlStateManager.rotatef(180F, 0, 1, 0);
 			renderItem(stack);
 			GlStateManager.popMatrix();
@@ -268,7 +272,7 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 				GlStateManager.rotatef(180F, 0F, 0F, 1F);
 				GlStateManager.translatef(-0.3F, -2.7F, -1.2F);
 				GlStateManager.rotatef(15F, 0F, 0F, 1F);
-				renderItem(new ItemStack(ModItems.infiniteFruit, 1).setDisplayName(new TextComponentString("das boot")));
+				renderItem(new ItemStack(ModItems.infiniteFruit, 1).setDisplayName(new StringTextComponent("das boot")));
 			} else if (name.equals("jibril")) {
 				GlStateManager.scalef(1.5F, 1.5F, 1.5F);
 				GlStateManager.translatef(0F, -0.8F, 0F);
@@ -288,12 +292,12 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 
 				GlStateManager.scalef(0.8F, 0.8F, 0.8F);
 				GlStateManager.translatef(1.25F, -1.25F, 2.25F);
-				mc.textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+				mc.textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
 				renderBlock(Blocks.CAKE);
 			} else if (ContributorFancinessHandler.flowerMap.containsKey(name)) {
 				ItemStack icon = ContributorFancinessHandler.flowerMap.getOrDefault(name, ItemStack.EMPTY);
 				if (!icon.isEmpty()) {
-					mc.textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+					mc.textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
 					GlStateManager.rotatef(180F, 1F, 0F, 0F);
 					GlStateManager.rotatef(180F, 0F, 1F, 0F);
 					GlStateManager.translatef(0F, 0F, 0F);
@@ -328,7 +332,7 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 			OpenGlHelper.glBlendFuncSeparate(770, 771, 1, 0);
 			Tessellator tessellator = Tessellator.getInstance();
 			BufferBuilder worldrenderer = tessellator.getBuffer();
-			GlStateManager.disableTexture2D();
+			GlStateManager.disableTexture();
 			worldrenderer.begin(7, DefaultVertexFormats.POSITION_COLOR);
 			int i = mc.fontRenderer.getStringWidth(potato.name.getString()) / 2;
 			worldrenderer.pos(-i - 1, -1.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
@@ -336,7 +340,7 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 			worldrenderer.pos(i + 1, 8.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
 			worldrenderer.pos(i + 1, -1.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
 			tessellator.draw();
-			GlStateManager.enableTexture2D();
+			GlStateManager.enableTexture();
 			GlStateManager.depthMask(true);
 			mc.fontRenderer.drawString(potato.name.getFormattedText(), -i, 0, 0xFFFFFF);
 			if (name.equals("pahimar") || name.equals("soaryn")) {
@@ -345,7 +349,7 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 				GlStateManager.depthMask(false);
 				GlStateManager.enableBlend();
 				OpenGlHelper.glBlendFuncSeparate(770, 771, 1, 0);
-				GlStateManager.disableTexture2D();
+				GlStateManager.disableTexture();
 				worldrenderer.begin(7, DefaultVertexFormats.POSITION_COLOR);
 				i = mc.fontRenderer.getStringWidth(str) / 2;
 				worldrenderer.pos(-i - 1, -1.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
@@ -353,7 +357,7 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 				worldrenderer.pos(i + 1, 8.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
 				worldrenderer.pos(i + 1, -1.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
 				tessellator.draw();
-				GlStateManager.enableTexture2D();
+				GlStateManager.enableTexture();
 				GlStateManager.depthMask(true);
 				mc.fontRenderer.drawString(str, -mc.fontRenderer.getStringWidth(str) / 2, 0, 0xFFFFFF);
 			}
@@ -381,7 +385,7 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 	}
 
 	private void renderBlock(Block block) {
-		Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+		Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
 		Minecraft.getInstance().getBlockRendererDispatcher().renderBlockBrightness(block.getDefaultState(), 1.0F);
 	}
 }

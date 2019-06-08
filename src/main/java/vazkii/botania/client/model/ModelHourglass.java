@@ -10,49 +10,49 @@
  */
 package vazkii.botania.client.model;
 
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.entity.model.ModelBase;
-import net.minecraft.client.renderer.entity.model.ModelRenderer;
+import com.mojang.blaze3d.platform.GlStateManager;
+import net.minecraft.client.renderer.entity.model.RendererModel;
+import net.minecraft.client.renderer.model.Model;
 import org.lwjgl.opengl.GL11;
 
 import java.awt.Color;
 
-public class ModelHourglass extends ModelBase {
+public class ModelHourglass extends Model {
 
-    public ModelRenderer top;
-    public ModelRenderer glassT;
-	public ModelRenderer ring;
-    public ModelRenderer glassB;
-    public ModelRenderer bottom;
+    public RendererModel top;
+    public RendererModel glassT;
+	public RendererModel ring;
+    public RendererModel glassB;
+    public RendererModel bottom;
     
-    public ModelRenderer sandT;
-    public ModelRenderer sandB;
+    public RendererModel sandT;
+    public RendererModel sandB;
 
 	public ModelHourglass() {
 		
 		textureWidth = 64;
 		textureHeight = 32;
 
-        top = new ModelRenderer(this, 20, 0);
+        top = new RendererModel(this, 20, 0);
         top.setRotationPoint(0.0F, 0.0F, 0.0F);
         top.addBox(-3.0F, -6.5F, -3.0F, 6, 1, 6, 0.0F);
-		glassT = new ModelRenderer(this, 0, 0);
+		glassT = new RendererModel(this, 0, 0);
         glassT.setRotationPoint(0.0F, 0.0F, 0.0F);
         glassT.addBox(-2.5F, -5.5F, -2.5F, 5, 5, 5, 0.0F);
-        ring = new ModelRenderer(this, 0, 20);
+        ring = new RendererModel(this, 0, 20);
         ring.setRotationPoint(0.0F, 0.0F, 0.0F);
         ring.addBox(-1.5F, -0.5F, -1.5F, 3, 1, 3, 0.0F);
-        glassB = new ModelRenderer(this, 0, 10);
+        glassB = new RendererModel(this, 0, 10);
         glassB.setRotationPoint(0.0F, 0.0F, 0.0F);
         glassB.addBox(-2.5F, 0.5F, -2.5F, 5, 5, 5, 0.0F);
-        bottom = new ModelRenderer(this, 20, 7);
+        bottom = new RendererModel(this, 20, 7);
         bottom.setRotationPoint(0.0F, 0.0F, 0.0F);
         bottom.addBox(-3.0F, 5.5F, -3.0F, 6, 1, 6, 0.0F);
         
-        sandT = new ModelRenderer(this, 20, 14);
+        sandT = new RendererModel(this, 20, 14);
         sandT.setRotationPoint(0.0F, 0.0F, 0.0F);
         sandT.addBox(0.0F, 0.0F, 0.0F, 4, 4, 4, 0.0F); // -2.0F, -5.0F, -2.0F
-        sandB = new ModelRenderer(this, 20, 14);
+        sandB = new RendererModel(this, 20, 14);
         sandB.setRotationPoint(0.0F, 0.0F, 0.0F);
         sandB.addBox(0.0F, 0.0F, 0.0F, 4, 4, 4, 0.0F); // -2.0F, 1.0F, -2.05F
 	}

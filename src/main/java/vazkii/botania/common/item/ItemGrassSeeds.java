@@ -12,14 +12,16 @@ package vazkii.botania.common.item;
 
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.block.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -79,10 +81,10 @@ public class ItemGrassSeeds extends ItemMod implements IFloatingFlowerVariant {
 
 	@Nonnull
 	@Override
-	public EnumActionResult onItemUse(ItemUseContext ctx) {
+	public ActionResultType onItemUse(ItemUseContext ctx) {
 		World world = ctx.getWorld();
 		BlockPos pos = ctx.getPos();
-		IBlockState state = world.getBlockState(pos);
+		BlockState state = world.getBlockState(pos);
 		ItemStack stack = ctx.getItem();
 
 		if(state.getBlock() == Blocks.DIRT || state.getBlock() == Blocks.GRASS && type != IslandType.GRASS) {
@@ -112,10 +114,10 @@ public class ItemGrassSeeds extends ItemMod implements IFloatingFlowerVariant {
 				}
 			}
 
-			return EnumActionResult.SUCCESS;
+			return ActionResultType.SUCCESS;
 		}
 
-		return EnumActionResult.PASS;
+		return ActionResultType.PASS;
 	}
 
 	@SubscribeEvent
@@ -150,7 +152,7 @@ public class ItemGrassSeeds extends ItemMod implements IFloatingFlowerVariant {
 		return swapper;
 	}
 
-	private static IBlockState stateForType(IslandType type) {
+	private static BlockState stateForType(IslandType type) {
 		if(type == IslandType.PODZOL)
 			return Blocks.PODZOL.getDefaultState();
 		else if(type == IslandType.MYCEL)
@@ -188,7 +190,7 @@ public class ItemGrassSeeds extends ItemMod implements IFloatingFlowerVariant {
 
 		private final World world;
 		private final Random rand;
-		private final IBlockState stateToSet;
+		private final BlockState stateToSet;
 
 		private final BlockPos startCoords;
 		private int ticksExisted = 0;
@@ -200,7 +202,7 @@ public class ItemGrassSeeds extends ItemMod implements IFloatingFlowerVariant {
 		 * @param coords The central coordinates to swap blocks around.
 		 * @param state The target blockstate to swap dirt and grass to.
 		 */
-		public BlockSwapper(World world, BlockPos coords, IBlockState state) {
+		public BlockSwapper(World world, BlockPos coords, BlockState state) {
 			this.world = world;
 			stateToSet = state;
 			rand = new Random(coords.hashCode());
@@ -262,7 +264,7 @@ public class ItemGrassSeeds extends ItemMod implements IFloatingFlowerVariant {
 		 * @return True if the position is valid to swap, false otherwise.
 		 */
 		public boolean isValidSwapPosition(BlockPos pos) {
-			IBlockState state = world.getBlockState(pos);
+			BlockState state = world.getBlockState(pos);
 			Block block = state.getBlock();
 
 			// Valid blocks to spread to are either dirt or grass, and do not

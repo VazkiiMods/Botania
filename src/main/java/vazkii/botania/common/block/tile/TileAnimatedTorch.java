@@ -10,16 +10,19 @@
  */
 package vazkii.botania.common.block.tile;
 
+import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.init.Blocks;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.block.Blocks;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.particles.RedstoneParticleData;
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.ITickable;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Direction;
+import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.registries.ObjectHolder;
@@ -30,7 +33,7 @@ import vazkii.botania.common.lib.LibMisc;
 
 import java.util.Arrays;
 
-public class TileAnimatedTorch extends TileMod implements ITickable {
+public class TileAnimatedTorch extends TileMod implements ITickableTileEntity {
 
 	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.ANIMATED_TORCH)
 	public static TileEntityType<TileAnimatedTorch> TYPE;
@@ -42,11 +45,11 @@ public class TileAnimatedTorch extends TileMod implements ITickable {
 	private static final String TAG_TORCH_MODE = "torchMode";
 	private static final String TAG_NEXT_RANDOM_ROTATION = "nextRandomRotation";
 
-	public static final EnumFacing[] SIDES = new EnumFacing[] {
-			EnumFacing.NORTH,
-			EnumFacing.EAST,
-			EnumFacing.SOUTH,
-			EnumFacing.WEST
+	public static final Direction[] SIDES = new Direction[] {
+			Direction.NORTH,
+			Direction.EAST,
+			Direction.SOUTH,
+			Direction.WEST
 	};
 
 	public int side;
@@ -76,7 +79,7 @@ public class TileAnimatedTorch extends TileMod implements ITickable {
 			world.addBlockEvent(getPos(), ModBlocks.animatedTorch, 0, (side + 1) % 4);
 	}
 	
-	public void onPlace(EntityLivingBase entity) {
+	public void onPlace(LivingEntity entity) {
 		if(entity != null) {
 			side = Arrays.asList(SIDES).indexOf(entity.getHorizontalFacing().getOpposite());
 		}
@@ -126,7 +129,7 @@ public class TileAnimatedTorch extends TileMod implements ITickable {
 
 		// tell neighbors that signal is off because we are rotating
 		world.notifyNeighborsOfStateChange(getPos(), getBlockState().getBlock());
-		for(EnumFacing e : EnumFacing.values()) {
+		for(Direction e : Direction.values()) {
 			world.notifyNeighborsOfStateChange(getPos().offset(e), getBlockState().getBlock());
 		}
 	}
@@ -151,7 +154,7 @@ public class TileAnimatedTorch extends TileMod implements ITickable {
 				rotating = false;
 				// done rotating, tell neighbors
 				world.notifyNeighborsOfStateChange(getPos(), getBlockState().getBlock());
-				for(EnumFacing e : EnumFacing.values()) {
+				for(Direction e : Direction.values()) {
 					world.notifyNeighborsOfStateChange(getPos().offset(e), getBlockState().getBlock());
 				}
 			}
@@ -170,7 +173,7 @@ public class TileAnimatedTorch extends TileMod implements ITickable {
 	}
 
 	@Override
-	public void writePacketNBT(NBTTagCompound cmp) {
+	public void writePacketNBT(CompoundNBT cmp) {
 		cmp.putInt(TAG_SIDE, side);
 		cmp.putBoolean(TAG_ROTATING, rotating);
 		cmp.putInt(TAG_ROTATION_TICKS, rotationTicks);
@@ -180,7 +183,7 @@ public class TileAnimatedTorch extends TileMod implements ITickable {
 	}
 
 	@Override
-	public void readPacketNBT(NBTTagCompound cmp) {
+	public void readPacketNBT(CompoundNBT cmp) {
 		side = cmp.getInt(TAG_SIDE);
 		rotating = cmp.getBoolean(TAG_ROTATING);
 		if(world != null && !world.isRemote)

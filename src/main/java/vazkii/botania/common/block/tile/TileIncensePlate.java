@@ -10,15 +10,18 @@
  */
 package vazkii.botania.common.block.tile;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.MobEffects;
-import net.minecraft.init.SoundEvents;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.potion.Effects;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.potion.PotionEffect;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.potion.Effects;
+import net.minecraft.potion.EffectInstance;
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.ITickable;
+import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.BotaniaAPI;
@@ -34,7 +37,7 @@ import javax.annotation.Nonnull;
 import java.awt.Color;
 import java.util.List;
 
-public class TileIncensePlate extends TileSimpleInventory implements ITickable {
+public class TileIncensePlate extends TileSimpleInventory implements ITickableTileEntity {
 	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.INCENSE_PLATE)
 	public static TileEntityType<TileIncensePlate> TYPE;
 	private static final String TAG_TIME_LEFT = "timeLeft";
@@ -54,16 +57,16 @@ public class TileIncensePlate extends TileSimpleInventory implements ITickable {
 		ItemStack stack = itemHandler.getStackInSlot(0);
 		if(!stack.isEmpty() && burning) {
 			Brew brew = ((ItemIncenseStick) ModItems.incenseStick).getBrew(stack);
-			PotionEffect effect = brew.getPotionEffects(stack).get(0);
+			EffectInstance effect = brew.getPotionEffects(stack).get(0);
 			if(timeLeft > 0) {
 				timeLeft--;
 				if(!world.isRemote) {
-					List<EntityPlayer> players = world.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(pos.getX() + 0.5 - RANGE, pos.getY() + 0.5 - RANGE, pos.getZ() + 0.5 - RANGE, pos.getX() + 0.5 + RANGE, pos.getY() + 0.5 + RANGE, pos.getZ() + 0.5 + RANGE));
-					for(EntityPlayer player : players) {
-						PotionEffect currentEffect = player.getActivePotionEffect(effect.getPotion());
-						boolean nightVision = effect.getPotion() == MobEffects.NIGHT_VISION;
+					List<PlayerEntity> players = world.getEntitiesWithinAABB(PlayerEntity.class, new AxisAlignedBB(pos.getX() + 0.5 - RANGE, pos.getY() + 0.5 - RANGE, pos.getZ() + 0.5 - RANGE, pos.getX() + 0.5 + RANGE, pos.getY() + 0.5 + RANGE, pos.getZ() + 0.5 + RANGE));
+					for(PlayerEntity player : players) {
+						EffectInstance currentEffect = player.getActivePotionEffect(effect.getPotion());
+						boolean nightVision = effect.getPotion() == Effects.NIGHT_VISION;
 						if(currentEffect == null || currentEffect.getDuration() < (nightVision ? 205 : 3)) {
-							PotionEffect applyEffect = new PotionEffect(effect.getPotion(), nightVision ? 285 : 80, effect.getAmplifier(), true, true);
+							EffectInstance applyEffect = new EffectInstance(effect.getPotion(), nightVision ? 285 : 80, effect.getAmplifier(), true, true);
 							player.addPotionEffect(applyEffect);
 						}
 					}
@@ -115,14 +118,14 @@ public class TileIncensePlate extends TileSimpleInventory implements ITickable {
 	}
 
 	@Override
-	public void writePacketNBT(NBTTagCompound par1nbtTagCompound) {
+	public void writePacketNBT(CompoundNBT par1nbtTagCompound) {
 		super.writePacketNBT(par1nbtTagCompound);
 		par1nbtTagCompound.putInt(TAG_TIME_LEFT, timeLeft);
 		par1nbtTagCompound.putBoolean(TAG_BURNING, burning);
 	}
 
 	@Override
-	public void readPacketNBT(NBTTagCompound par1nbtTagCompound) {
+	public void readPacketNBT(CompoundNBT par1nbtTagCompound) {
 		super.readPacketNBT(par1nbtTagCompound);
 		timeLeft = par1nbtTagCompound.getInt(TAG_TIME_LEFT);
 		burning = par1nbtTagCompound.getBoolean(TAG_BURNING);

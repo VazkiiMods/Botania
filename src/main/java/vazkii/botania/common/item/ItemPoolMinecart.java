@@ -10,18 +10,22 @@
  */
 package vazkii.botania.common.item;
 
-import net.minecraft.block.BlockRailBase;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.item.EntityMinecart;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.block.AbstractRailBlock;
+import net.minecraft.block.AbstractRailBlock;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.item.minecart.AbstractMinecartEntity;
+import net.minecraft.entity.item.minecart.AbstractMinecartEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.state.properties.RailShape;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import vazkii.botania.common.entity.EntityPoolMinecart;
@@ -38,22 +42,22 @@ public class ItemPoolMinecart extends ItemMod {
 	// [VanillaCopy] ItemMinecart
 	@Nonnull
 	@Override
-	public EnumActionResult onItemUse(ItemUseContext context) {
+	public ActionResultType onItemUse(ItemUseContext context) {
 		World world = context.getWorld();
 		BlockPos blockpos = context.getPos();
-		IBlockState iblockstate = world.getBlockState(blockpos);
+		BlockState iblockstate = world.getBlockState(blockpos);
 		if (!iblockstate.isIn(BlockTags.RAILS)) {
-			return EnumActionResult.FAIL;
+			return ActionResultType.FAIL;
 		} else {
 			ItemStack itemstack = context.getItem();
 			if (!world.isRemote) {
-				RailShape railshape = iblockstate.getBlock() instanceof BlockRailBase ? ((BlockRailBase)iblockstate.getBlock()).getRailDirection(iblockstate, world, blockpos, null) : RailShape.NORTH_SOUTH;
+				RailShape railshape = iblockstate.getBlock() instanceof AbstractRailBlock ? ((AbstractRailBlock)iblockstate.getBlock()).getRailDirection(iblockstate, world, blockpos, null) : RailShape.NORTH_SOUTH;
 				double d0 = 0.0D;
 				if (railshape.isAscending()) {
 					d0 = 0.5D;
 				}
 
-				EntityMinecart entityminecart = new EntityPoolMinecart(world, blockpos.getX() + 0.5D, blockpos.getY() + 0.0625D + d0, blockpos.getZ() + 0.5D);
+				AbstractMinecartEntity entityminecart = new EntityPoolMinecart(world, blockpos.getX() + 0.5D, blockpos.getY() + 0.0625D + d0, blockpos.getZ() + 0.5D);
 				if (itemstack.hasDisplayName()) {
 					entityminecart.setCustomName(itemstack.getDisplayName());
 				}
@@ -62,7 +66,7 @@ public class ItemPoolMinecart extends ItemMod {
 			}
 
 			itemstack.shrink(1);
-			return EnumActionResult.SUCCESS;
+			return ActionResultType.SUCCESS;
 		}
 	}
 

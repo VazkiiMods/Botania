@@ -11,11 +11,12 @@
 package vazkii.botania.client.core.handler;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GlStateManager;
+import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.common.block.tile.string.TileRedString;
@@ -35,7 +36,7 @@ public final class RedStringRenderer {
 	public static void renderAll() {
 		if(!redStringTiles.isEmpty()) {
 			GlStateManager.pushMatrix();
-			GlStateManager.disableTexture2D();
+			GlStateManager.disableTexture();
 			GlStateManager.enableBlend();
 			GL11.glPushAttrib(GL11.GL_LIGHTING_BIT);
 			GlStateManager.disableLighting();
@@ -46,7 +47,7 @@ public final class RedStringRenderer {
 			while((tile = redStringTiles.poll()) != null)
 				renderTile(tile);
 
-			GlStateManager.enableTexture2D();
+			GlStateManager.enableTexture();
 			GlStateManager.disableBlend();
 			GL11.glPopAttrib();
 			GlStateManager.popMatrix();
@@ -55,7 +56,7 @@ public final class RedStringRenderer {
 	}
 
 	public static void tick() {
-		EntityPlayer player = Minecraft.getInstance().player;
+		PlayerEntity player = Minecraft.getInstance().player;
 		boolean hasWand = player != null && PlayerHelper.hasHeldItem(player, ModItems.twigWand);
 		if(sizeAlpha > 0F && !hasWand)
 			sizeAlpha -= 0.1F;
@@ -68,7 +69,7 @@ public final class RedStringRenderer {
 		double renderPosY = Minecraft.getInstance().getRenderManager().renderPosY;
 		double renderPosZ = Minecraft.getInstance().getRenderManager().renderPosZ;
 
-		EnumFacing dir = tile.getOrientation();
+		Direction dir = tile.getOrientation();
 		BlockPos bind = tile.getBinding();
 
 		if(bind != null) {
@@ -102,7 +103,7 @@ public final class RedStringRenderer {
 		}
 	}
 
-	private static void addVertexAtWithTranslation(Tessellator tess, EnumFacing dir, double xpos, double ypos, double zpos, double rand, double l) {
+	private static void addVertexAtWithTranslation(Tessellator tess, Direction dir, double xpos, double ypos, double zpos, double rand, double l) {
 		double freq = 20;
 		double ampl = (0.15 * (Math.sin(l * 2F) * 0.5 + 0.5) + 0.1) * sizeAlpha;
 		double randMul = 0.05;

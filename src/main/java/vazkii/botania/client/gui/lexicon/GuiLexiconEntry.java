@@ -11,12 +11,14 @@
 package vazkii.botania.client.gui.lexicon;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.widget.button.Button;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.text.Style;
-import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import org.lwjgl.glfw.GLFW;
 import vazkii.botania.api.BotaniaAPI;
@@ -42,18 +44,18 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 	public int page = 0;
 	private boolean firstEntry = false;
 	LexiconEntry entry;
-	private GuiScreen parent;
+	private Screen parent;
 	private String title;
 	private String subtitle;
 
-	private GuiButton leftButton, rightButton, backButton;
+	private Button leftButton, rightButton, backButton;
 
 	public GuiLexiconEntry() {
 		parent = new GuiLexicon();
 		setTitle();
 	}
 
-	public GuiLexiconEntry(LexiconEntry entry, GuiScreen parent) {
+	public GuiLexiconEntry(LexiconEntry entry, Screen parent) {
 		this.entry = entry;
 		this.parent = parent;
 		setTitle();
@@ -80,7 +82,7 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 			public void onClick(double mouseX, double mouseY) {
 				super.onClick(mouseX, mouseY);
 				entry.pages.get(page).onClosed(GuiLexiconEntry.this);
-				mc.displayGuiScreen(GuiScreen.isShiftKeyDown() ? new GuiLexicon() : parent);
+				mc.displayGuiScreen(Screen.isShiftKeyDown() ? new GuiLexicon() : parent);
 				ClientTickHandler.notifyPageChange();
 			}
 		});
@@ -210,7 +212,7 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 				tutorial.poll();
 				positionTutorialArrow();
 				if(tutorial.isEmpty()) {
-					mc.player.sendMessage(new TextComponentTranslation("botaniamisc.tutorialEnded").setStyle(new Style().setColor(TextFormatting.RED)));
+					mc.player.sendMessage(new TranslationTextComponent("botaniamisc.tutorialEnded").setStyle(new Style().setColor(TextFormatting.RED)));
 					hasTutorialArrow = false;
 				}
 			}
@@ -359,7 +361,7 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 	}
 
 	@Override
-	public List<GuiButton> getButtonList() {
+	public List<Button> getButtonList() {
 		return buttons;
 	}
 
@@ -379,14 +381,14 @@ public class GuiLexiconEntry extends GuiLexicon implements IGuiLexiconEntry, IPa
 	}
 
 	@Override
-	public void serialize(NBTTagCompound cmp) {
+	public void serialize(CompoundNBT cmp) {
 		super.serialize(cmp);
 		cmp.putString(TAG_ENTRY, entry.getUnlocalizedName());
 		cmp.putInt(TAG_PAGE, page);
 	}
 
 	@Override
-	public void load(NBTTagCompound cmp) {
+	public void load(CompoundNBT cmp) {
 		super.load(cmp);
 
 		String entryStr = cmp.getString(TAG_ENTRY);

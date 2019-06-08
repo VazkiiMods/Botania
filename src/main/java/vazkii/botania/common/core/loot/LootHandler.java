@@ -1,11 +1,14 @@
 package vazkii.botania.common.core.loot;
 
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.storage.loot.LootEntry;
-import net.minecraft.world.storage.loot.LootEntryTable;
+import net.minecraft.world.storage.loot.ILootGenerator;
+import net.minecraft.world.storage.loot.ILootGenerator;
+import net.minecraft.world.storage.loot.TableLootEntry;
 import net.minecraft.world.storage.loot.LootPool;
 import net.minecraft.world.storage.loot.RandomValueRange;
-import net.minecraft.world.storage.loot.conditions.LootCondition;
+import net.minecraft.world.storage.loot.TableLootEntry;
+import net.minecraft.world.storage.loot.conditions.ILootCondition;
+import net.minecraft.world.storage.loot.conditions.ILootCondition;
 import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -35,11 +38,11 @@ public final class LootHandler {
 	}
 
 	private static LootPool getInjectPool(String entryName) {
-		return new LootPool(new LootEntry[] { getInjectEntry(entryName, 1) }, new LootCondition[0], new RandomValueRange(1), new RandomValueRange(0, 1), "botania_inject_pool");
+		return new LootPool(new ILootGenerator[] { getInjectEntry(entryName, 1) }, new ILootCondition[0], new RandomValueRange(1), new RandomValueRange(0, 1), "botania_inject_pool");
 	}
 
-	private static LootEntryTable getInjectEntry(String name, int weight) {
-		return new LootEntryTable(new ResourceLocation(LibMisc.MOD_ID, "inject/" + name), weight, 0, new LootCondition[0], "botania_inject_entry");
+	private static TableLootEntry getInjectEntry(String name, int weight) {
+		return new TableLootEntry(new ResourceLocation(LibMisc.MOD_ID, "inject/" + name), weight, 0, new ILootCondition[0], "botania_inject_entry");
 	}
 
 }

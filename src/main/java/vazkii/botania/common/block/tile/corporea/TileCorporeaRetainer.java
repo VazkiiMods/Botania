@@ -11,7 +11,8 @@
 package vazkii.botania.common.block.tile.corporea;
 
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.registries.ObjectHolder;
@@ -87,7 +88,7 @@ public class TileCorporeaRetainer extends TileMod {
 	}
 
 	@Override
-	public void writePacketNBT(NBTTagCompound cmp) {
+	public void writePacketNBT(CompoundNBT cmp) {
 		super.writePacketNBT(cmp);
 
 		cmp.putBoolean(TAG_PENDING_REQUEST, pendingRequest);
@@ -105,7 +106,7 @@ public class TileCorporeaRetainer extends TileMod {
 			cmp.putString(TAG_REQUEST_CONTENTS, (String) request);
 			break;
 		case REQUEST_ITEMSTACK:
-			NBTTagCompound cmp1 = ((ItemStack) request).write(new NBTTagCompound());
+			CompoundNBT cmp1 = ((ItemStack) request).write(new CompoundNBT());
 			cmp.put(TAG_REQUEST_STACK, cmp1);
 			break;
 		default: break;
@@ -114,7 +115,7 @@ public class TileCorporeaRetainer extends TileMod {
 	}
 
 	@Override
-	public void readPacketNBT(NBTTagCompound cmp) {
+	public void readPacketNBT(CompoundNBT cmp) {
 		super.readPacketNBT(cmp);
 
 		pendingRequest = cmp.getBoolean(TAG_PENDING_REQUEST);
@@ -129,7 +130,7 @@ public class TileCorporeaRetainer extends TileMod {
 			request = cmp.getString(TAG_REQUEST_CONTENTS);
 			break;
 		case REQUEST_ITEMSTACK:
-			NBTTagCompound cmp1 = cmp.getCompound(TAG_REQUEST_STACK);
+			CompoundNBT cmp1 = cmp.getCompound(TAG_REQUEST_STACK);
 			request = ItemStack.read(cmp1);
 			break;
 		default: break;

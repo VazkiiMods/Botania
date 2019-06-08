@@ -11,7 +11,8 @@
 package vazkii.botania.common.brew.potion;
 
 import net.minecraft.entity.monster.IMob;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent;
 import net.minecraftforge.eventbus.api.Event;
@@ -34,7 +35,7 @@ public class PotionBloodthirst extends PotionMod {
 	public static void onSpawn(LivingSpawnEvent.CheckSpawn event) {
 		if(event.getResult() != Event.Result.ALLOW && event.getEntityLiving() instanceof IMob) {
 			AxisAlignedBB aabb = new AxisAlignedBB(event.getX() - RANGE, event.getY() - RANGE, event.getZ() - RANGE, event.getX() + RANGE, event.getY() + RANGE, event.getZ() + RANGE);
-			for(EntityPlayer player : event.getWorld().getWorld().playerEntities) {
+			for(PlayerEntity player : event.getWorld().getWorld().playerEntities) {
 				if(player.isPotionActive(ModPotions.bloodthrst) && !player.isPotionActive(ModPotions.emptiness) && player.getBoundingBox().intersects(aabb)) {
 					event.setResult(Event.Result.ALLOW);
 					return;

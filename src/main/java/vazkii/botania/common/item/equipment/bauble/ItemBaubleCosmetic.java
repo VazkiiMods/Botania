@@ -12,19 +12,22 @@ package vazkii.botania.common.item.equipment.bauble;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.GlStateManager;
+import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.model.BakedQuad;
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
-import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.client.renderer.texture.AtlasTexture;
+import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Direction;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -61,9 +64,9 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 	@Override
 	public void addHiddenTooltip(ItemStack stack, World world, List<ITextComponent> stacks, ITooltipFlag flags) {
 		if(variant == Variant.THINKING_HAND) {
-			stacks.add(new TextComponentTranslation("botaniamisc.cosmeticThinking"));
+			stacks.add(new TranslationTextComponent("botaniamisc.cosmeticThinking"));
 		} else {
-			stacks.add(new TextComponentTranslation("botaniamisc.cosmeticBauble"));
+			stacks.add(new TranslationTextComponent("botaniamisc.cosmeticBauble"));
 		}
 		super.addHiddenTooltip(stack, world, stacks, flags);
 	}
@@ -75,9 +78,9 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 
 		@Override
 		@OnlyIn(Dist.CLIENT)
-		public void doRender(String identifier, EntityLivingBase player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+		public void doRender(String identifier, LivingEntity player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 			Variant variant = ((ItemBaubleCosmetic) stack.getItem()).variant;
-			Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+			Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
 			GlStateManager.pushMatrix();
 			AccessoryRenderHelper.translateToHeadLevel(player);
 			AccessoryRenderHelper.translateToFace();
@@ -296,8 +299,8 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 	private static void renderKamuiBlack(ItemStack stack) {
 
 		// Modified copy of RenderItem.renderItem(stack, transformtype)
-		Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-		Minecraft.getInstance().textureManager.getTexture(TextureMap.LOCATION_BLOCKS_TEXTURE).setBlurMipmap(false, false);
+		Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
+		Minecraft.getInstance().textureManager.getTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE).setBlurMipmap(false, false);
 
 		IBakedModel model = Minecraft.getInstance().getItemRenderer().getItemModelMesher().getItemModel(stack);
 
@@ -314,8 +317,8 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 		GlStateManager.popMatrix();
 		GlStateManager.disableRescaleNormal();
 		GlStateManager.disableBlend();
-		Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-		Minecraft.getInstance().textureManager.getTexture(TextureMap.LOCATION_BLOCKS_TEXTURE).restoreLastBlurMipmap();
+		Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
+		Minecraft.getInstance().textureManager.getTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE).restoreLastBlurMipmap();
 	}
 
 	// Adapted from RenderItem.renderModel(model, stack), added extra color param
@@ -324,7 +327,7 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 		BufferBuilder worldrenderer = tessellator.getBuffer();
 		worldrenderer.begin(7, DefaultVertexFormats.ITEM);
 
-		for (EnumFacing enumfacing : EnumFacing.values())
+		for (Direction enumfacing : Direction.values())
 		{
 			renderQuads(worldrenderer, model.getQuads(null, enumfacing, random), color, stack);
 		}

@@ -12,10 +12,10 @@ package vazkii.botania.common.block.subtile.functional;
 
 import com.google.common.base.Predicates;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.ai.EntityAIHurtByTarget;
-import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.MobEntity;
+import net.minecraft.entity.ai.goal.HurtByTargetGoal;
+import net.minecraft.entity.ai.goal.GoalSelector.EntityAITaskEntry;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -23,7 +23,6 @@ import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
-import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibMisc;
 
@@ -53,8 +52,8 @@ public class SubTileHeiseiDream extends TileEntityFunctionalFlower {
 
 		if(mobs.size() > 1 && mana >= cost)
 			for(IMob mob : mobs) {
-				if(mob instanceof EntityLiving) {
-					EntityLiving entity = (EntityLiving) mob;
+				if(mob instanceof MobEntity) {
+					MobEntity entity = (MobEntity) mob;
 					if(brainwashEntity(entity, mobs)) {
 						mana -= cost;
 						sync();
@@ -64,8 +63,8 @@ public class SubTileHeiseiDream extends TileEntityFunctionalFlower {
 			}
 	}
 
-	public static boolean brainwashEntity(EntityLiving entity, List<IMob> mobs) {
-		EntityLivingBase target = entity.getAttackTarget();
+	public static boolean brainwashEntity(MobEntity entity, List<IMob> mobs) {
+		LivingEntity target = entity.getAttackTarget();
 		boolean did = false;
 
 		if(!(target instanceof IMob)) {
@@ -73,12 +72,12 @@ public class SubTileHeiseiDream extends TileEntityFunctionalFlower {
 			do newTarget = mobs.get(entity.world.rand.nextInt(mobs.size()));
 			while(newTarget == entity);
 
-			if(newTarget instanceof EntityLiving) {
+			if(newTarget instanceof MobEntity) {
 				entity.setAttackTarget(null);
 
 				// Move any EntityAIHurtByTarget to highest priority
 				for (EntityAITaskEntry entry : entity.targetTasks.taskEntries) {
-					if (entry.action instanceof EntityAIHurtByTarget) {
+					if (entry.action instanceof HurtByTargetGoal) {
 						// Concurrent modification OK since we break out of the loop
 						entity.targetTasks.removeTask(entry.action);
 						entity.targetTasks.addTask(-1, entry.action);
@@ -87,7 +86,7 @@ public class SubTileHeiseiDream extends TileEntityFunctionalFlower {
 				}
 
 				// Now set revenge target, which EntityAIHurtByTarget will pick up
-				entity.setRevengeTarget((EntityLiving) newTarget);
+				entity.setRevengeTarget((MobEntity) newTarget);
 				did = true;
 			}
 		}

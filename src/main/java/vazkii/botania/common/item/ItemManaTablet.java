@@ -18,7 +18,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -63,7 +63,7 @@ public class ItemManaTablet extends ItemMod implements IManaItem, ICreativeManaP
 	@Override
 	public void addInformation(ItemStack par1ItemStack, World world, List<ITextComponent> stacks, ITooltipFlag flags) {
 		if(isStackCreative(par1ItemStack))
-			stacks.add(new TextComponentTranslation("botaniamisc.creative"));
+			stacks.add(new TranslationTextComponent("botaniamisc.creative"));
 	}
 
 	@Override

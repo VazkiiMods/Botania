@@ -11,13 +11,15 @@
 package vazkii.botania.common.item.equipment.bauble;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GlStateManager;
+import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.enchantment.EnchantmentFrostWalker;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.client.renderer.texture.AtlasTexture;
+import net.minecraft.enchantment.FrostWalkerEnchantment;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 
@@ -40,20 +42,20 @@ public class ItemIcePendant extends ItemBauble {
 		}
 
 		@Override
-		public void onCurioTick(String type, EntityLivingBase entity) {
+		public void onCurioTick(String type, LivingEntity entity) {
 			if(!entity.world.isRemote) {
 				boolean lastOnGround = entity.onGround;
 				entity.onGround = true;
-				EnchantmentFrostWalker.freezeNearby(entity, entity.world, new BlockPos(entity), 8);
+				FrostWalkerEnchantment.freezeNearby(entity, entity.world, new BlockPos(entity), 8);
 				entity.onGround = lastOnGround;
 			}
 		}
 
 		@Override
         @OnlyIn(Dist.CLIENT)
-		public void doRender(String identifier, EntityLivingBase player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-			Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-			boolean armor = !player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).isEmpty();
+		public void doRender(String identifier, LivingEntity player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+			Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
+			boolean armor = !player.getItemStackFromSlot(EquipmentSlotType.CHEST).isEmpty();
 			GlStateManager.rotatef(180F, 1F, 0F, 0F);
 			GlStateManager.translatef(-0.36F, -0.3F, armor ? 0.2F : 0.15F);
 			GlStateManager.rotatef(-45F, 0F, 0F, 1F);

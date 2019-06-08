@@ -11,11 +11,12 @@
 package vazkii.botania.common.item.equipment.bauble;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GlStateManager;
+import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
@@ -50,8 +51,8 @@ public class ItemHolyCloak extends ItemBauble {
 	}
 
 	private void onPlayerDamage(LivingHurtEvent event) {
-		if(event.getEntityLiving() instanceof EntityPlayer && !event.getSource().canHarmInCreative()) {
-			EntityPlayer player = (EntityPlayer) event.getEntityLiving();
+		if(event.getEntityLiving() instanceof PlayerEntity && !event.getSource().canHarmInCreative()) {
+			PlayerEntity player = (PlayerEntity) event.getEntityLiving();
 			ItemStack stack = Botania.curiosLoaded ? CurioIntegration.findOrEmpty(s -> s.getItem() instanceof ItemHolyCloak, player) : ItemStack.EMPTY;
 
 			if(!stack.isEmpty() && !isInEffect(stack)) {
@@ -73,7 +74,7 @@ public class ItemHolyCloak extends ItemBauble {
 		}
 
 		@Override
-		public void onCurioTick(String identifier, EntityLivingBase living) {
+		public void onCurioTick(String identifier, LivingEntity living) {
 			int cooldown = getCooldown(stack);
 			if(cooldown > 0)
 				setCooldown(stack, cooldown - 1);
@@ -81,10 +82,10 @@ public class ItemHolyCloak extends ItemBauble {
 
 		@Override
 		@OnlyIn(Dist.CLIENT)
-		public void doRender(String identifier, EntityLivingBase player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+		public void doRender(String identifier, LivingEntity player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 			ItemHolyCloak item = ((ItemHolyCloak) stack.getItem());
 			AccessoryRenderHelper.rotateIfSneaking(player);
-			boolean armor = !player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).isEmpty();
+			boolean armor = !player.getItemStackFromSlot(EquipmentSlotType.CHEST).isEmpty();
 			GlStateManager.translatef(0F, armor ? -0.07F : -0.01F, 0F);
 
 			float s = 1F / 16F;
@@ -107,7 +108,7 @@ public class ItemHolyCloak extends ItemBauble {
 		}
 	}
 
-	public boolean effectOnDamage(LivingHurtEvent event, EntityPlayer player, ItemStack stack) {
+	public boolean effectOnDamage(LivingHurtEvent event, PlayerEntity player, ItemStack stack) {
 		if(!event.getSource().isMagicDamage()) {
 			event.setCanceled(true);
 			player.world.playSound(null, player.posX, player.posY, player.posZ, ModSounds.holyCloak, SoundCategory.PLAYERS, 1F, 1F);

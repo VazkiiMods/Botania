@@ -13,7 +13,7 @@ package vazkii.botania.client.core.helper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.GlStateManager;
+import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.settings.KeyBinding;
@@ -105,7 +105,7 @@ public final class RenderHelper {
 		float var12 = (par6 >> 16 & 255) / 255F;
 		float var13 = (par6 >> 8 & 255) / 255F;
 		float var14 = (par6 & 255) / 255F;
-		GlStateManager.disableTexture2D();
+		GlStateManager.disableTexture();
 		GlStateManager.enableBlend();
 		GlStateManager.disableAlphaTest();
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
@@ -120,7 +120,7 @@ public final class RenderHelper {
 		GlStateManager.shadeModel(GL11.GL_FLAT);
 		GlStateManager.disableBlend();
 		GlStateManager.enableAlphaTest();
-		GlStateManager.enableTexture2D();
+		GlStateManager.enableTexture();
 	}
 
 	public static void drawTexturedModalRect(int par1, int par2, float z, int par3, int par4, int par5, int par6) {
@@ -151,7 +151,7 @@ public final class RenderHelper {
 		Random random = new Random(seed);
 
 		GlStateManager.pushMatrix();
-		GlStateManager.disableTexture2D();
+		GlStateManager.disableTexture();
 		GlStateManager.shadeModel(GL11.GL_SMOOTH);
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE);
@@ -186,7 +186,7 @@ public final class RenderHelper {
 		GlStateManager.disableBlend();
 		GlStateManager.shadeModel(GL11.GL_FLAT);
 		GlStateManager.color4f(1F, 1F, 1F, 1F);
-		GlStateManager.enableTexture2D();
+		GlStateManager.enableTexture();
 		GlStateManager.enableAlphaTest();
 		GlStateManager.popMatrix();
 	}
@@ -212,7 +212,7 @@ public final class RenderHelper {
 		float a = 0.5F + 0.2F * ((float) Math.cos((double) (ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks) / 10) * 0.5F + 0.5F);
 
 		GlStateManager.disableLighting();
-		GlStateManager.disableTexture2D();
+		GlStateManager.disableTexture();
 		GlStateManager.shadeModel(GL11.GL_SMOOTH);
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
@@ -234,7 +234,7 @@ public final class RenderHelper {
 		Tessellator.getInstance().draw();
 
 		GlStateManager.disableBlend();
-		GlStateManager.enableTexture2D();
+		GlStateManager.enableTexture();
 		GlStateManager.shadeModel(GL11.GL_FLAT);
 		GL11.glDisable(GL11.GL_STENCIL_TEST);
 	}

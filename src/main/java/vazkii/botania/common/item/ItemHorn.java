@@ -11,22 +11,27 @@
 package vazkii.botania.common.item;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockBush;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.SoundEvents;
-import net.minecraft.item.EnumAction;
+import net.minecraft.block.BushBlock;
+import net.minecraft.block.BushBlock;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.block.Blocks;
+import net.minecraft.item.UseAction;
+import net.minecraft.util.Hand;
+import net.minecraft.util.SoundEvents;
+import net.minecraft.item.UseAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Hand;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
@@ -55,8 +60,8 @@ public class ItemHorn extends ItemMod {
 
 	@Nonnull
 	@Override
-	public EnumAction getUseAction(ItemStack par1ItemStack) {
-		return EnumAction.BOW;
+	public UseAction getUseAction(ItemStack par1ItemStack) {
+		return UseAction.BOW;
 	}
 
 	@Override
@@ -66,13 +71,13 @@ public class ItemHorn extends ItemMod {
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
 		player.setActiveHand(hand);
-		return ActionResult.newResult(EnumActionResult.SUCCESS, player.getHeldItem(hand));
+		return ActionResult.newResult(ActionResultType.SUCCESS, player.getHeldItem(hand));
 	}
 
 	@Override
-	public void onUsingTick(ItemStack stack, EntityLivingBase player, int time) {
+	public void onUsingTick(ItemStack stack, LivingEntity player, int time) {
 		if(!player.world.isRemote) {
 			if(time != getUseDuration(stack) && time % 5 == 0)
 				breakGrass(player.world, stack, new BlockPos(player));
@@ -98,7 +103,7 @@ public class ItemHorn extends ItemMod {
 			Block block = world.getBlockState(pos).getBlock();
 			if(block instanceof IHornHarvestable
 					? ((IHornHarvestable) block).canHornHarvest(world, pos, stack, type)
-							: type == EnumHornType.WILD && block instanceof BlockBush && !(block instanceof ISpecialFlower)
+							: type == EnumHornType.WILD && block instanceof BushBlock && !(block instanceof ISpecialFlower)
 							|| type == EnumHornType.CANOPY && BlockTags.LEAVES.contains(block)
 							|| type == EnumHornType.COVERING && block == Blocks.SNOW)
 				coords.add(pos);
@@ -109,7 +114,7 @@ public class ItemHorn extends ItemMod {
 		int count = Math.min(coords.size(), 32 + type.ordinal() * 16);
 		for(int i = 0; i < count; i++) {
 			BlockPos currCoords = coords.get(i);
-			IBlockState state = world.getBlockState(currCoords);
+			BlockState state = world.getBlockState(currCoords);
 			Block block = state.getBlock();
 
 			if(block instanceof IHornHarvestable && ((IHornHarvestable) block).hasSpecialHornHarvest(world, currCoords, stack, type))

@@ -11,15 +11,17 @@
 package vazkii.botania.client.render.tile;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GlStateManager;
+import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
-import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.client.renderer.tileentity.TileEntityItemStackRenderer;
+import net.minecraft.client.renderer.texture.AtlasTexture;
+import net.minecraft.client.renderer.texture.AtlasTexture;
+import net.minecraft.client.renderer.tileentity.ItemStackTileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.item.IAvatarWieldable;
@@ -54,9 +56,9 @@ public class RenderTileAvatar extends TileEntityRenderer<TileAvatar> {
 		GlStateManager.translated(d0, d1, d2);
 
 		Minecraft.getInstance().textureManager.bindTexture(texture);
-		EnumFacing facing = avatar != null && avatar.getWorld() != null
+		Direction facing = avatar != null && avatar.getWorld() != null
 				? avatar.getWorld().getBlockState(avatar.getPos()).get(BotaniaStateProps.CARDINALS)
-						: EnumFacing.SOUTH;
+						: Direction.SOUTH;
 
 				GlStateManager.translatef(0.5F, 1.6F, 0.5F);
 				GlStateManager.scalef(1F, -1F, -1F);
@@ -74,7 +76,7 @@ public class RenderTileAvatar extends TileEntityRenderer<TileAvatar> {
 				ItemStack stack = avatar.getItemHandler().getStackInSlot(0);
 				if(!stack.isEmpty()) {
 					GlStateManager.pushMatrix();
-					Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+					Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
 					float s = 0.6F;
 					GlStateManager.scalef(s, s, s);
 					GlStateManager.translatef(-0.5F, 2F, -0.25F);

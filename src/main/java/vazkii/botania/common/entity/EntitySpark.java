@@ -12,15 +12,16 @@ package vazkii.botania.common.entity;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
@@ -103,12 +104,12 @@ public class EntitySpark extends Entity implements ISparkEntity {
 
 		switch(upgrade) {
 		case DISPERSIVE : {
-			List<EntityPlayer> players = SparkHelper.getEntitiesAround(EntityPlayer.class, world, posX, posY + (height / 2.0), posZ);
+			List<PlayerEntity> players = SparkHelper.getEntitiesAround(PlayerEntity.class, world, posX, posY + (height / 2.0), posZ);
 
-			Map<EntityPlayer, Map<ItemStack, Integer>> receivingPlayers = new HashMap<>();
+			Map<PlayerEntity, Map<ItemStack, Integer>> receivingPlayers = new HashMap<>();
 
 			ItemStack input = new ItemStack(ModItems.spark);
-			for(EntityPlayer player : players) {
+			for(PlayerEntity player : players) {
 				List<ItemStack> stacks = new ArrayList<>();
 				stacks.addAll(player.inventory.mainInventory);
 				stacks.addAll(player.inventory.armorInventory);
@@ -144,9 +145,9 @@ public class EntitySpark extends Entity implements ISparkEntity {
 			}
 
 			if(!receivingPlayers.isEmpty()) {
-				List<EntityPlayer> keys = new ArrayList<>(receivingPlayers.keySet());
+				List<PlayerEntity> keys = new ArrayList<>(receivingPlayers.keySet());
 				Collections.shuffle(keys);
-				EntityPlayer player = keys.iterator().next();
+				PlayerEntity player = keys.iterator().next();
 
 				Map<ItemStack, Integer> items = receivingPlayers.get(player);
 				ItemStack stack = items.keySet().iterator().next();
@@ -223,9 +224,9 @@ public class EntitySpark extends Entity implements ISparkEntity {
 						getEntityId(), e.getEntityId()));
 	}
 
-	public static void particleBeam(EntityPlayer player, Entity e1, Entity e2) {
+	public static void particleBeam(PlayerEntity player, Entity e1, Entity e2) {
 		if(e1 != null && e2 != null && !e1.world.isRemote) {
-			PacketHandler.sendTo((EntityPlayerMP) player,
+			PacketHandler.sendTo((ServerPlayerEntity) player,
 					new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.SPARK_NET_INDICATOR, e1.posX, e1.posY, e1.posZ,
 							e1.getEntityId(), e2.getEntityId()));
 		}
@@ -245,7 +246,7 @@ public class EntitySpark extends Entity implements ISparkEntity {
 	}
 
 	@Override
-	public boolean processInitialInteract(EntityPlayer player, EnumHand hand) {
+	public boolean processInitialInteract(PlayerEntity player, Hand hand) {
 		ItemStack stack = player.getHeldItem(hand);
 		if(!removed && !stack.isEmpty()) {
 			if(world.isRemote) {
@@ -286,13 +287,13 @@ public class EntitySpark extends Entity implements ISparkEntity {
 	}
 
 	@Override
-	protected void readAdditional(@Nonnull NBTTagCompound cmp) {
+	protected void readAdditional(@Nonnull CompoundNBT cmp) {
 		setUpgrade(SparkUpgradeType.values()[cmp.getInt(TAG_UPGRADE)]);
 		setInvisible(cmp.getInt(TAG_INVIS) == 1);
 	}
 
 	@Override
-	protected void writeAdditional(@Nonnull NBTTagCompound cmp) {
+	protected void writeAdditional(@Nonnull CompoundNBT cmp) {
 		cmp.putInt(TAG_UPGRADE, getUpgrade().ordinal());
 		cmp.putInt(TAG_INVIS, isInvisible() ? 1 : 0);
 	}

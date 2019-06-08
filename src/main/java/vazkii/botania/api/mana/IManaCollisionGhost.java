@@ -10,7 +10,8 @@
  */
 package vazkii.botania.api.mana;
 
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -20,6 +21,6 @@ import net.minecraft.world.World;
  */
 public interface IManaCollisionGhost {
 
-	public boolean isGhost(IBlockState state, World world, BlockPos pos);
+	public boolean isGhost(BlockState state, World world, BlockPos pos);
 
 }
