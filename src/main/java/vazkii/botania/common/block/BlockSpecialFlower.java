@@ -33,8 +33,10 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
+import net.minecraft.world.IEnviromentBlockReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
@@ -62,16 +64,13 @@ public class BlockSpecialFlower extends FlowerBlock implements ISpecialFlower, I
 
 	@Nonnull
 	@Override
-	public VoxelShape getShape(BlockState state, @Nonnull IBlockReader world, @Nonnull BlockPos pos) {
+	public VoxelShape getShape(BlockState state, @Nonnull IBlockReader world, @Nonnull BlockPos pos, ISelectionContext ctx) {
 		Vec3d shift = state.getOffset(world, pos);
 		return SHAPE.withOffset(shift.x, shift.y, shift.z);
 	}
 
 	@Override
-	public int getLightValue(@Nonnull BlockState state, IWorldReader world, @Nonnull BlockPos pos) {
-		if(world.getBlockState(pos).getBlock() != this)
-			return world.getBlockState(pos).getLightValue(world, pos);
-
+	public int getLightValue(@Nonnull BlockState state, IEnviromentBlockReader world, @Nonnull BlockPos pos) {
 		return world.getTileEntity(pos) == null ? 0 : ((TileEntitySpecialFlower) world.getTileEntity(pos)).getLightValue();
 	}
 
@@ -176,7 +175,7 @@ public class BlockSpecialFlower extends FlowerBlock implements ISpecialFlower, I
 	}
 
 	@Override
-	public void onBlockAdded(BlockState state, World world, BlockPos pos, BlockState oldState) {
+	public void onBlockAdded(BlockState state, World world, BlockPos pos, BlockState oldState, boolean isMoving) {
 		((TileEntitySpecialFlower) world.getTileEntity(pos)).onBlockAdded(world, pos, state);
 	}
 

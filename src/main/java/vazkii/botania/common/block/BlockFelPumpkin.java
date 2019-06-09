@@ -16,6 +16,7 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.monster.BlazeEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -62,8 +63,8 @@ public class BlockFelPumpkin extends BlockMod implements ILexiconable {
 	}
 
 	@Override
-	public void onBlockAdded(BlockState state, World world, BlockPos pos, BlockState oldState) {
-		super.onBlockAdded(state, world, pos, oldState);
+	public void onBlockAdded(BlockState state, World world, BlockPos pos, BlockState oldState, boolean isMoving) {
+		super.onBlockAdded(state, world, pos, oldState, isMoving);
 
 		if(!world.isRemote && world.getBlockState(pos.down()).getBlock() == Blocks.IRON_BARS && world.getBlockState(pos.down(2)).getBlock() == Blocks.IRON_BARS) {
 			world.setBlockState(pos, Blocks.AIR.getDefaultState());
@@ -72,7 +73,7 @@ public class BlockFelPumpkin extends BlockMod implements ILexiconable {
 			BlazeEntity blaze = new BlazeEntity(world);
 			blaze.setLocationAndAngles(pos.getX() + 0.5D, pos.getY() - 1.95D, pos.getZ() + 0.5D, 0.0F, 0.0F);
 			blaze.deathLootTable = LOOT_TABLE;
-			blaze.onInitialSpawn(world.getDifficultyForLocation(pos), null, null);
+			blaze.onInitialSpawn(world, world.getDifficultyForLocation(pos), SpawnReason.EVENT, null, null);
 			world.spawnEntity(blaze);
 		}
 	}
