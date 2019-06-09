@@ -12,10 +12,9 @@ package vazkii.botania.common.block.subtile.generating;
 
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.init.Particles;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.SoundEvents;
-import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.particles.ItemParticleData;
@@ -80,7 +79,7 @@ public class SubTileGourmaryllis extends TileEntityGeneratingFlower {
 				
 				Vec3d offset = getWorld().getBlockState(getPos()).getOffset(getWorld(), getPos()).add(0.4, 0.6, 0.4);
 				
-				((ServerWorld) getWorld()).spawnParticle(new ItemParticleData(Particles.ITEM, lastFood), getPos().getX()+offset.x, getPos().getY()+offset.y, getPos().getZ()+offset.z, 10, 0.1D, 0.1D, 0.1D, 0.03D);
+				((ServerWorld) getWorld()).spawnParticle(new ItemParticleData(ParticleTypes.ITEM, lastFood), getPos().getX()+offset.x, getPos().getY()+offset.y, getPos().getZ()+offset.z, 10, 0.1D, 0.1D, 0.1D, 0.03D);
 			}
 		}
 
@@ -107,7 +106,7 @@ public class SubTileGourmaryllis extends TileEntityGeneratingFlower {
 					cooldown = val * 10;
 					item.playSound(SoundEvents.ENTITY_GENERIC_EAT, 0.2F, 0.6F);
 					sync();
-					((ServerWorld) getWorld()).spawnParticle(new ItemParticleData(Particles.ITEM, stack), item.posX, item.posY, item.posZ, 20, 0.1D, 0.1D, 0.1D, 0.05D);
+					((ServerWorld) getWorld()).spawnParticle(new ItemParticleData(ParticleTypes.ITEM, stack), item.posX, item.posY, item.posZ, 20, 0.1D, 0.1D, 0.1D, 0.05D);
 				}
 
 				item.remove();

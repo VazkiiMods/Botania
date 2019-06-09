@@ -38,6 +38,7 @@ import net.minecraft.util.Rotation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceFluidMode;
 import net.minecraft.util.math.RayTraceResult;
@@ -205,7 +206,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 
 		for(Direction dir : Direction.values()) {
 			TileEntity tileAt = world.getTileEntity(pos.offset(dir));
-			if(world.isBlockLoaded(pos.offset(dir), false) && tileAt instanceof IManaPool) {
+			if(world.isBlockLoaded(pos.offset(dir)) && tileAt instanceof IManaPool) {
 				IManaPool pool = (IManaPool) tileAt;
 				if(wasInNetwork && (pool != receiver || isRedstone())) {
 					if(pool instanceof IKeyLocked && !((IKeyLocked) pool).getOutputKey().equals(getInputKey()))
@@ -403,12 +404,13 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 			world.playSound(null, player.posX, player.posY, player.posZ, ModSounds.ding, SoundCategory.PLAYERS, 0.1F, 1);
 		} else {
 			RayTraceResult pos = rayTraceFromEntity(world, player, true);
-			if(pos != null && pos.hitVec != null && !world.isRemote) {
-				double x = pos.hitVec.x - getPos().getX() - 0.5;
-				double y = pos.hitVec.y - getPos().getY() - 0.5;
-				double z = pos.hitVec.z - getPos().getZ() - 0.5;
+			if(pos instanceof BlockRayTraceResult && !world.isRemote) {
+				double x = pos.getHitVec().x - getPos().getX() - 0.5;
+				double y = pos.getHitVec().y - getPos().getY() - 0.5;
+				double z = pos.getHitVec().z - getPos().getZ() - 0.5;
 
-				if(pos.sideHit != Direction.DOWN && pos.sideHit != Direction.UP) {
+				BlockRayTraceResult bpos = (BlockRayTraceResult) pos;
+				if(bpos.getFace() != Direction.DOWN && bpos.getFace() != Direction.UP) {
 					Vector3 clickVector = new Vector3(x, 0, z);
 					Vector3 relative = new Vector3(-0.5, 0, 0);
 					double angle = Math.acos(clickVector.dotProduct(relative) / (relative.mag() * clickVector.mag())) * 180D / Math.PI;
@@ -489,7 +491,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 
 		if(receiver instanceof IManaReceiver
 				&& receiver.hasWorld()
-				&& receiver.getWorld().isBlockLoaded(receiver.getPos(), !receiver.getWorld().isRemote))
+				&& receiver.getWorld().isBlockLoaded(receiver.getPos()))
 			this.receiver = (IManaReceiver) receiver;
 		else this.receiver = null;
 		lastTentativeBurst = fakeBurst.propsList;
@@ -529,7 +531,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 				burst.setMinManaLoss(mmForcedTicksBeforeManaLoss);
 				burst.setManaLossPerTick(mmForcedManaLossPerTick);
 				burst.setGravity(mmForcedGravity);
-				burst.setMotion(burst.motionX * mmForcedVelocityMultiplier, burst.motionY * mmForcedVelocityMultiplier, burst.motionZ * mmForcedVelocityMultiplier);
+				burst.setMotion(burst.getMotion().scale(mmForcedVelocityMultiplier));
 			} else {
 				burst.setColor(props.color);
 				burst.setMana(props.maxMana);
@@ -537,7 +539,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 				burst.setMinManaLoss(props.ticksBeforeManaLoss);
 				burst.setManaLossPerTick(props.manaLossPerTick);
 				burst.setGravity(props.gravity);
-				burst.setMotion(burst.motionX * props.motionModifier, burst.motionY * props.motionModifier, burst.motionZ * props.motionModifier);
+				burst.setMotion(burst.getMotion().scale(props.motionModifier));
 			}
 
 			return burst;

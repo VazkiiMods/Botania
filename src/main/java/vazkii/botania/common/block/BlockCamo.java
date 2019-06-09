@@ -22,6 +22,7 @@ import net.minecraft.block.BlockRenderType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.World;
 import vazkii.botania.common.block.tile.TileCamo;
 
@@ -36,7 +37,7 @@ public abstract class BlockCamo extends BlockMod {
 	}
 
 	@Override
-	public boolean onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, Direction side, float hitX, float hitY, float hitZ) {
+	public boolean onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
 		TileEntity tile = world.getTileEntity(pos);
 
 		if(world.isRemote)
@@ -47,7 +48,7 @@ public abstract class BlockCamo extends BlockMod {
 				&& Block.getBlockFromItem(currentStack.getItem()) != null
 				&& tile instanceof TileCamo) {
 			TileCamo camo = (TileCamo) tile;
-			BlockItemUseContext ctx = new BlockItemUseContext(world, player, currentStack, pos, side, 0, 0, 0);
+			BlockItemUseContext ctx = new BlockItemUseContext(world, player, hand, currentStack, hit);
 			BlockState changeState = Block.getBlockFromItem(currentStack.getItem()).getStateForPlacement(ctx);
 
 			if(isValidBlock(changeState, world, pos) && !(changeState.getBlock() instanceof BlockCamo) && changeState.getMaterial() != Material.AIR) {

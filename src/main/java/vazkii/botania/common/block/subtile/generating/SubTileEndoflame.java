@@ -14,7 +14,7 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.init.Particles;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.CompoundNBT;
@@ -58,7 +58,7 @@ public class SubTileEndoflame extends TileEntityGeneratingFlower {
 		if(getWorld().isRemote) {
 			if(burnTime > 0 && getWorld().rand.nextInt(10) == 0) {
 				Vec3d offset = getWorld().getBlockState(getPos()).getOffset(getWorld(), getPos()).add(0.4, 0.7, 0.4);
-				getWorld().addParticle(Particles.FLAME, getPos().getX() + offset.x + Math.random() * 0.2, getPos().getY() + offset.y, getPos().getZ() + offset.z + Math.random() * 0.2, 0.0D, 0.0D, 0.0D);
+				getWorld().addParticle(ParticleTypes.FLAME, getPos().getX() + offset.x + Math.random() * 0.2, getPos().getY() + offset.y, getPos().getZ() + offset.z + Math.random() * 0.2, 0.0D, 0.0D, 0.0D);
 			}
 			return;
 		}
@@ -97,8 +97,8 @@ public class SubTileEndoflame extends TileEntityGeneratingFlower {
 		if(event == START_BURN_EVENT) {
 			Entity e = getWorld().getEntityByID(param);
 			if(e != null) {
-				e.world.addParticle(Particles.LARGE_SMOKE, e.posX, e.posY + 0.1, e.posZ, 0.0D, 0.0D, 0.0D);
-				e.world.addParticle(Particles.FLAME, e.posX, e.posY, e.posZ, 0.0D, 0.0D, 0.0D);
+				e.world.addParticle(ParticleTypes.LARGE_SMOKE, e.posX, e.posY + 0.1, e.posZ, 0.0D, 0.0D, 0.0D);
+				e.world.addParticle(ParticleTypes.FLAME, e.posX, e.posY, e.posZ, 0.0D, 0.0D, 0.0D);
 			}
 			return true;
 		} else {

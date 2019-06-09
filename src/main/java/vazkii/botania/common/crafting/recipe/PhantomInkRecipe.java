@@ -16,7 +16,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.SpecialRecipe;
 import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.RecipeSerializers;
+import net.minecraft.item.crafting.SpecialRecipeSerializer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.IForgeRegistryEntry;
@@ -28,14 +28,14 @@ import javax.annotation.Nonnull;
 
 public class PhantomInkRecipe extends SpecialRecipe {
 	private static final ResourceLocation TYPE_ID = new ResourceLocation(LibMisc.MOD_ID, "phantom_ink_apply");
-	public static final IRecipeSerializer<PhantomInkRecipe> SERIALIZER = new RecipeSerializers.SimpleSerializer<>(TYPE_ID.toString(), PhantomInkRecipe::new);
+	public static final IRecipeSerializer<PhantomInkRecipe> SERIALIZER = new SpecialRecipeSerializer<>(PhantomInkRecipe::new);
 
 	public PhantomInkRecipe(ResourceLocation id) {
 		super(id);
 	}
 
 	@Override
-	public boolean matches(@Nonnull IInventory var1, @Nonnull World var2) {
+	public boolean matches(@Nonnull CraftingInventory var1, @Nonnull World var2) {
 		boolean foundInk = false;
 		boolean foundItem = false;
 
@@ -57,7 +57,7 @@ public class PhantomInkRecipe extends SpecialRecipe {
 
 	@Nonnull
 	@Override
-	public ItemStack getCraftingResult(@Nonnull IInventory var1) {
+	public ItemStack getCraftingResult(@Nonnull CraftingInventory var1) {
 		ItemStack item = ItemStack.EMPTY;
 
 		for(int i = 0; i < var1.getSizeInventory(); i++) {

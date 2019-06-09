@@ -77,7 +77,7 @@ public final class ConfigHandler {
 					.comment("Set this to false to disable the particles in the elven portal.")
 					.define("particles.elf_portal", true);
 			useVanillaParticleLimiter = builder
-					.comment("Set this to false to always display all particles regardless of the \"Particles\" setting in the Vanilla options menu.")
+					.comment("Set this to false to always display all particles regardless of the \"ParticleTypes\" setting in the Vanilla options menu.")
 					.define("particles.use_vanilla", true);
 			renderAccessories = builder
 					.comment("Set this to false to disable rendering of baubles in the player.")

@@ -13,7 +13,7 @@ package vazkii.botania.common.block.tile.mana;
 import net.minecraft.block.FurnaceBlock;
 import net.minecraft.block.FurnaceBlock;
 import net.minecraft.block.Blocks;
-import net.minecraft.init.Particles;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Direction;
 import net.minecraft.util.SoundEvents;
@@ -94,8 +94,8 @@ public class TileBellows extends TileMod implements ITickableTileEntity {
 					double d5 = enumfacing$axis == Direction.Axis.X ? (double)enumfacing.getXOffset() * 0.52D : d4;
 					double d6 = world.rand.nextDouble() * 6.0D / 16.0D;
 					double d7 = enumfacing$axis == Direction.Axis.Z ? (double)enumfacing.getZOffset() * 0.52D : d4;
-					world.addParticle(Particles.SMOKE, d0 + d5, d1 + d6, d2 + d7, 0.0D, 0.0D, 0.0D);
-					world.addParticle(Particles.FLAME, d0 + d5, d1 + d6, d2 + d7, 0.0D, 0.0D, 0.0D);
+					world.addParticle(ParticleTypes.SMOKE, d0 + d5, d1 + d6, d2 + d7, 0.0D, 0.0D, 0.0D);
+					world.addParticle(ParticleTypes.FLAME, d0 + d5, d1 + d6, d2 + d7, 0.0D, 0.0D, 0.0D);
 				}
 			}
 

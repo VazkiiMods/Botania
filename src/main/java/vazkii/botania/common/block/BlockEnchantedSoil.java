@@ -25,8 +25,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
-import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.common.IPlantable;
+import net.minecraftforge.common.PlantType;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.lexicon.LexiconData;
@@ -49,12 +49,7 @@ public class BlockEnchantedSoil extends BlockMod implements ILexiconable {
 
 	@Override
 	public boolean canSustainPlant(@Nonnull BlockState state, @Nonnull IBlockReader world, BlockPos pos, @Nonnull Direction direction, IPlantable plantable) {
-		return plantable.getPlantType(world, pos.down()) == EnumPlantType.Plains;
-	}
-
-	@Override
-	public boolean canSilkHarvest(@Nonnull BlockState state, IWorldReader world, BlockPos pos, PlayerEntity player) {
-		return false;
+		return plantable.getPlantType(world, pos.down()) == PlantType.Plains;
 	}
 
 	@Override

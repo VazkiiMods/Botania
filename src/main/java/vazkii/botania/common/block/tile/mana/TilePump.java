@@ -11,7 +11,7 @@
 package vazkii.botania.common.block.tile.mana;
 
 import com.google.common.collect.ImmutableMap;
-import net.minecraft.init.Particles;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
@@ -94,7 +94,7 @@ public class TilePump extends TileMod implements ITickableTileEntity {
 				innerRingPos = Math.min(max, innerRingPos);
 				moving = 0F;
 				for(int x = 0; x < 2; x++)
-					world.addParticle(Particles.SMOKE, getPos().getX() + Math.random(), getPos().getY() + Math.random(), getPos().getZ() + Math.random(), 0, 0, 0);
+					world.addParticle(ParticleTypes.SMOKE, getPos().getX() + Math.random(), getPos().getY() + Math.random(), getPos().getZ() + Math.random(), 0, 0, 0);
 			}
 		} else if(innerRingPos > min) {
 			innerRingPos -= incr * 2;

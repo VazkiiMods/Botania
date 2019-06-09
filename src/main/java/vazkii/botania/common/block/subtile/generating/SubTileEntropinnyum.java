@@ -13,7 +13,7 @@ package vazkii.botania.common.block.subtile.generating;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.TNTEntity;
 import net.minecraft.entity.item.TNTEntity;
-import net.minecraft.init.Particles;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.SoundEvents;
@@ -70,7 +70,7 @@ public class SubTileEntropinnyum extends TileEntityGeneratingFlower {
 				for(int i = 0; i < 50; i++)
 					Botania.proxy.sparkleFX(e.posX + Math.random() * 4 - 2, e.posY + Math.random() * 4 - 2, e.posZ + Math.random() * 4 - 2, 1F, (float) Math.random() * 0.25F, (float) Math.random() * 0.25F, (float) (Math.random() * 0.65F + 1.25F), 12);
 
-				getWorld().addParticle(Particles.EXPLOSION_EMITTER, e.posX, e.posY, e.posZ, 1D, 0D, 0D);
+				getWorld().addParticle(ParticleTypes.EXPLOSION_EMITTER, e.posX, e.posY, e.posZ, 1D, 0D, 0D);
 			}
 			return true;
 		} else {

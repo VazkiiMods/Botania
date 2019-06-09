@@ -21,7 +21,7 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.block.Blocks;
-import net.minecraft.init.Particles;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
@@ -289,7 +289,7 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 		ThrowableEntity entity = (ThrowableEntity) burst;
 		ItemStack lens = burst.getSourceLens();
 		BlockState state = NBTUtil.readBlockState(lens.getOrCreateTag().getCompound(TAG_STATE));
-		entity.world.addParticle(new BlockParticleData(Particles.BLOCK, state), entity.posX, entity.posY, entity.posZ, entity.motionX, entity.motionY, entity.motionZ);
+		entity.world.addParticle(new BlockParticleData(ParticleTypes.BLOCK, state), entity.posX, entity.posY, entity.posZ, entity.motionX, entity.motionY, entity.motionZ);
 
 		return true;
 	}

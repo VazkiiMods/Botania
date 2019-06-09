@@ -17,7 +17,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.SpecialRecipe;
 import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.RecipeSerializers;
+import net.minecraft.item.crafting.SpecialRecipeSerializer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.IForgeRegistryEntry;
@@ -29,14 +29,14 @@ import javax.annotation.Nonnull;
 
 public class BlackHoleTalismanExtractRecipe extends SpecialRecipe {
 	private static final ResourceLocation TYPE_ID = new ResourceLocation(LibMisc.MOD_ID, "black_hole_talisman_extract");
-	public static final IRecipeSerializer<BlackHoleTalismanExtractRecipe> SERIALIZER = new RecipeSerializers.SimpleSerializer<>(TYPE_ID.toString(), BlackHoleTalismanExtractRecipe::new);
+	public static final IRecipeSerializer<BlackHoleTalismanExtractRecipe> SERIALIZER = new SpecialRecipeSerializer<>(BlackHoleTalismanExtractRecipe::new);
 
 	public BlackHoleTalismanExtractRecipe(ResourceLocation id) {
 		super(id);
 	}
 
 	@Override
-	public boolean matches(@Nonnull IInventory inv, @Nonnull World world) {
+	public boolean matches(@Nonnull CraftingInventory inv, @Nonnull World world) {
 		boolean foundTalisman = false;
 
 		for(int i = 0; i < inv.getSizeInventory(); i++) {
@@ -53,7 +53,7 @@ public class BlackHoleTalismanExtractRecipe extends SpecialRecipe {
 
 	@Nonnull
 	@Override
-	public ItemStack getCraftingResult(@Nonnull IInventory inv) {
+	public ItemStack getCraftingResult(@Nonnull CraftingInventory inv) {
 		ItemStack talisman = ItemStack.EMPTY;
 
 		for(int i = 0; i < inv.getSizeInventory(); i++) {

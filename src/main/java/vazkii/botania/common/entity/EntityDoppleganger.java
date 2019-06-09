@@ -433,7 +433,7 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 		}
 
 		playSound(SoundEvents.ENTITY_GENERIC_EXPLODE, 20F, (1F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F) * 0.7F);
-		world.addParticle(Particles.EXPLOSION_EMITTER, posX, posY, posZ, 1D, 0D, 0D);
+		world.addParticle(ParticleTypes.EXPLOSION_EMITTER, posX, posY, posZ, 1D, 0D, 0D);
 	}
 
 	@Override
@@ -872,7 +872,7 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 			double px = oldX + (newX - oldX) * progress + (random.nextDouble() - 0.5D) * width * 2.0D;
 			double py = oldY + (newY - oldY) * progress + random.nextDouble() * height;
 			double pz = oldZ + (newZ - oldZ) * progress + (random.nextDouble() - 0.5D) * width * 2.0D;
-			world.addParticle(Particles.PORTAL, px, py, pz, vx, vy, vz);
+			world.addParticle(ParticleTypes.PORTAL, px, py, pz, vx, vy, vz);
 		}
 
 		Vec3d oldPosVec = new Vec3d(oldX, oldY + height / 2, oldZ);

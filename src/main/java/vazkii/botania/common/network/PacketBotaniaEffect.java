@@ -3,7 +3,7 @@ package vazkii.botania.common.network;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
-import net.minecraft.init.Particles;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.item.DyeColor;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.tileentity.TileEntity;
@@ -113,7 +113,7 @@ public class PacketBotaniaEffect {
 							double d1 = item.world.rand.nextGaussian() * m;
 							double d2 = item.world.rand.nextGaussian() * m;
 							double d3 = 10.0D;
-							item.world.addParticle(Particles.POOF,
+							item.world.addParticle(ParticleTypes.POOF,
 									message.x + item.world.rand.nextFloat() * item.width * 2.0F - item.width - d0 * d3, message.y + item.world.rand.nextFloat() * item.height - d1 * d3,
 									message.z + item.world.rand.nextFloat() * item.width * 2.0F - item.width - d2 * d3, d0, d1, d2);
 						}

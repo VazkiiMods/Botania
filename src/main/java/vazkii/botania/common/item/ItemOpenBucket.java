@@ -18,7 +18,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.init.Particles;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundEvents;
@@ -65,7 +65,7 @@ public class ItemOpenBucket extends ItemMod {
 
 						// Botania: some particles
 						for(int x = 0; x < 5; x++)
-							worldIn.addParticle(Particles.POOF, blockpos.getX() + Math.random(), blockpos.getY() + Math.random(), blockpos.getZ() + Math.random(), 0, 0, 0);
+							worldIn.addParticle(ParticleTypes.POOF, blockpos.getX() + Math.random(), blockpos.getY() + Math.random(), blockpos.getZ() + Math.random(), 0, 0, 0);
 
 						return new ActionResult<>(ActionResultType.SUCCESS, itemstack);
 					}

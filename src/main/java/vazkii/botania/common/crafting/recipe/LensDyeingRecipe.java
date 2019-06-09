@@ -10,12 +10,13 @@
  */
 package vazkii.botania.common.crafting.recipe;
 
+import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.SpecialRecipe;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.item.crafting.RecipeSerializers;
+import net.minecraft.item.crafting.SpecialRecipeSerializer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.Tags;
@@ -30,7 +31,7 @@ import java.util.List;
 
 public class LensDyeingRecipe extends SpecialRecipe {
 	private static final ResourceLocation TYPE_ID = new ResourceLocation(LibMisc.MOD_ID, "lens_dye");
-	public static final IRecipeSerializer<LensDyeingRecipe> SERIALIZER = new RecipeSerializers.SimpleSerializer<>(TYPE_ID.toString(), LensDyeingRecipe::new);
+	public static final IRecipeSerializer<LensDyeingRecipe> SERIALIZER = new SpecialRecipeSerializer<>(LensDyeingRecipe::new);
 
 	private final List<Ingredient> dyes = Arrays.asList(
 			Ingredient.fromTag(Tags.Items.DYES_WHITE), Ingredient.fromTag(Tags.Items.DYES_ORANGE),
@@ -55,7 +56,7 @@ public class LensDyeingRecipe extends SpecialRecipe {
 	}
 
 	@Override
-	public boolean matches(@Nonnull IInventory inv, @Nonnull World world) {
+	public boolean matches(@Nonnull CraftingInventory inv, @Nonnull World world) {
 		boolean foundLens = false;
 		boolean foundDye = false;
 
@@ -79,7 +80,7 @@ public class LensDyeingRecipe extends SpecialRecipe {
 
 	@Nonnull
 	@Override
-	public ItemStack getCraftingResult(@Nonnull IInventory inv) {
+	public ItemStack getCraftingResult(@Nonnull CraftingInventory inv) {
 		ItemStack lens = ItemStack.EMPTY;
 		int color = -1;
 

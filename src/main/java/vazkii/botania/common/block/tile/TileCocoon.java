@@ -12,7 +12,9 @@ package vazkii.botania.common.block.tile;
 
 import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.AgeableEntity;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.MobEntity;
+import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.merchant.villager.VillagerEntity;
 import net.minecraft.entity.monster.ShulkerEntity;
 import net.minecraft.entity.passive.ChickenEntity;
@@ -82,9 +84,9 @@ public class TileCocoon extends TileMod implements ITickableTileEntity{
 			float shulkerChance = Math.min(1F, (float) chorusFruitGiven / (float) MAX_CHORUS_FRUITS);
 
 			if(Math.random() < shulkerChance) {
-				entity = new ShulkerEntity(world);
+				entity = EntityType.SHULKER.create(world);
 			} else if(Math.random() < villagerChance) {
-				VillagerEntity villager = new VillagerEntity(world);
+				VillagerEntity villager = EntityType.VILLAGER.create(world);
 				VillagerRegistry.setRandomProfession(villager, world.rand);
 				entity = villager;
 			} else {
@@ -93,40 +95,40 @@ public class TileCocoon extends TileMod implements ITickableTileEntity{
 					int entityType = world.rand.nextInt(5);
 					switch(entityType) {
 					case 0:
-						entity = new HorseEntity(world);
+						entity = EntityType.HORSE.create(world);
 						break;
 					case 1:
-						entity = new WolfEntity(world);
+						entity = EntityType.WOLF.create(world);
 						break;
 					case 2:
-						entity = new OcelotEntity(world);
+						entity = EntityType.OCELOT.create(world);
 						break;
 					case 3:
-						entity = new ParrotEntity(world);
+						entity = EntityType.PARROT.create(world);
 						break;
 					case 4:
-						entity = new LlamaEntity(world);
+						entity = EntityType.LLAMA.create(world);
 						break;
 					}
 				} else {
 					int entityType = world.rand.nextInt(5);
 					switch(entityType) {
 					case 0:
-						entity = new SheepEntity(world);
+						entity = EntityType.SHEEP.create(world);
 						break;
 					case 1:
 						if(Math.random() < 0.01)
-							entity = new MooshroomEntity(world);
-						else entity = new CowEntity(world);
+							entity = EntityType.MOOSHROOM.create(world);
+						else entity = EntityType.COW.create(world);
 						break;
 					case 2:
-						entity = new PigEntity(world);
+						entity = EntityType.PIG.create(world);
 						break;
 					case 3:
-						entity = new ChickenEntity(world);
+						entity = EntityType.CHICKEN.create(world);
 						break;
 					case 4:
-						entity = new RabbitEntity(world);
+						entity = EntityType.RABBIT.create(world);
 						break;
 					}
 				}
@@ -136,7 +138,7 @@ public class TileCocoon extends TileMod implements ITickableTileEntity{
 				entity.setPosition(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
 				if(entity instanceof AgeableEntity)
 					((AgeableEntity) entity).setGrowingAge(-24000);
-				entity.onInitialSpawn(world.getDifficultyForLocation(getPos()), null, null);
+				entity.onInitialSpawn(world, world.getDifficultyForLocation(getPos()), SpawnReason.EVENT, null, null);
 				world.spawnEntity(entity);
 				entity.spawnExplosionParticle();
 			}

@@ -22,7 +22,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.init.Particles;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particles.BlockParticleData;
@@ -86,7 +86,7 @@ public class BlockCorporeaIndex extends BlockCorporeaBase implements ILexiconabl
 			d0 = 2.5D;
 		}
 		int i = (int)(150.0D * d0);
-		world.spawnParticle(new BlockParticleData(Particles.BLOCK, ModBlocks.elementiumBlock.getDefaultState()), entity.posX, entity.posY, entity.posZ, i, 0.0D, 0.0D, 0.0D, 0.15000000596046448D);
+		world.spawnParticle(new BlockParticleData(ParticleTypes.BLOCK, ModBlocks.elementiumBlock.getDefaultState()), entity.posX, entity.posY, entity.posZ, i, 0.0D, 0.0D, 0.0D, 0.15000000596046448D);
 		return true;
 	}
 
@@ -103,7 +103,7 @@ public class BlockCorporeaIndex extends BlockCorporeaBase implements ILexiconabl
 						double d0 = pos.getX() + (j + 0.5D) / i;
 						double d1 = pos.getY() + (k + 0.5D) / i;
 						double d2 = pos.getZ() + (l + 0.5D) / i;
-						effectRenderer.addEffect(factory.makeParticle(new BlockParticleData(Particles.BLOCK, ModBlocks.elementiumBlock.getDefaultState()), world, d0, d1, d2, d0 - pos.getX() - 0.5D, d1 - pos.getY() - 0.5D, d2 - pos.getZ() - 0.5D));
+						effectRenderer.addEffect(factory.makeParticle(new BlockParticleData(ParticleTypes.BLOCK, ModBlocks.elementiumBlock.getDefaultState()), world, d0, d1, d2, d0 - pos.getX() - 0.5D, d1 - pos.getY() - 0.5D, d2 - pos.getZ() - 0.5D));
 					}
 				}
 			}

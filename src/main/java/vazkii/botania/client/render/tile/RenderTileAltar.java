@@ -30,7 +30,7 @@ public class RenderTileAltar extends TileEntityRenderer<TileAltar> {
 
 	@Override
 	public void render(@Nonnull TileAltar altar, double d0, double d1, double d2, float pticks, int digProgress) {
-		if(!altar.getWorld().isBlockLoaded(altar.getPos(), false))
+		if(!altar.getWorld().isBlockLoaded(altar.getPos()))
 			return;
 
 		GlStateManager.pushMatrix();

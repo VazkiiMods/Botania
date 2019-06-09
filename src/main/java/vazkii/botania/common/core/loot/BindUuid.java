@@ -6,6 +6,7 @@ import com.google.gson.JsonSerializationContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.storage.loot.LootContext;
+import net.minecraft.world.storage.loot.LootFunction;
 import net.minecraft.world.storage.loot.conditions.ILootCondition;
 import net.minecraft.world.storage.loot.functions.ILootFunction;
 import vazkii.botania.common.item.ModItems;
@@ -15,7 +16,7 @@ import vazkii.botania.common.lib.LibMisc;
 import javax.annotation.Nonnull;
 import java.util.Random;
 
-public class BindUuid extends ILootFunction {
+public class BindUuid extends LootFunction {
 
 	protected BindUuid(ILootCondition[] conditionsIn) {
 		super(conditionsIn);
@@ -23,7 +24,7 @@ public class BindUuid extends ILootFunction {
 
 	@Nonnull
 	@Override
-	public ItemStack apply(@Nonnull ItemStack stack, @Nonnull Random rand, @Nonnull LootContext context) {
+	public ItemStack doApply(@Nonnull ItemStack stack, @Nonnull LootContext context) {
 		if (context.getKillerPlayer() != null) {
 			((ItemRelic) ModItems.dice).bindToUUID(context.getKillerPlayer().getUniqueID(), stack);
 		}

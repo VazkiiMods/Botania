@@ -8,7 +8,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.monster.ShulkerEntity;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.potion.Effects;
-import net.minecraft.init.Particles;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.SoundCategory;
@@ -71,8 +71,8 @@ public class SubTileShulkMeNot extends TileEntityGeneratingFlower {
 	private void particles(World world, BlockPos pos, Entity entity) {
 		if(world instanceof ServerWorld) {
 			ServerWorld ws = (ServerWorld) world;
-			ws.spawnParticle(Particles.EXPLOSION, entity.posX + entity.width / 2, entity.posY + entity.height / 2, entity.posZ + entity.width / 2, 100, entity.width, entity.height, entity.width, 0.05);
-			ws.spawnParticle(Particles.PORTAL, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 40, 0, 0, 0, 0.6);
+			ws.spawnParticle(ParticleTypes.EXPLOSION, entity.posX + entity.width / 2, entity.posY + entity.height / 2, entity.posZ + entity.width / 2, 100, entity.width, entity.height, entity.width, 0.05);
+			ws.spawnParticle(ParticleTypes.PORTAL, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 40, 0, 0, 0, 0.6);
 		}
 	}
 	

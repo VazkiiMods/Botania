@@ -15,11 +15,11 @@ import java.util.Random;
 public class EnableRelics implements ILootCondition {
 
 	@Override
-	public boolean testCondition(@Nonnull Random rand, @Nonnull LootContext context) {
+	public boolean test(@Nonnull LootContext context) {
 		return ConfigHandler.COMMON.relicsEnabled.get();
 	}
 
-	public static class Serializer extends ILootCondition.Serializer<EnableRelics> {
+	public static class Serializer extends ILootCondition.AbstractSerializer<EnableRelics> {
 		public Serializer() {
 			super(new ResourceLocation(LibMisc.MOD_ID, "enable_relics"), EnableRelics.class);
 		}

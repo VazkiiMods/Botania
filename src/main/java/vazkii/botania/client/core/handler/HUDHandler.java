@@ -25,6 +25,7 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.profiler.IProfiler;
 import net.minecraft.profiler.Profiler;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
@@ -374,7 +375,7 @@ public final class HUDHandler {
 	private static void drawLexiconHUD(ItemStack stack, BlockState state, RayTraceResult pos) {
 		Minecraft mc = Minecraft.getInstance();
 		Block block = state.getBlock();
-		Profiler profiler = mc.profiler;
+		IProfiler profiler = mc.getProfiler();
 
 		profiler.startSection("lexicon");
 		FontRenderer font = mc.fontRenderer;

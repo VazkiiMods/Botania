@@ -17,7 +17,7 @@ import net.minecraft.entity.item.FallingBlockEntity;
 import net.minecraft.entity.item.FallingBlockEntity;
 import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.block.Blocks;
-import net.minecraft.init.Particles;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particles.BlockParticleData;
 import net.minecraft.util.math.BlockPos;
@@ -43,7 +43,7 @@ public class LensWeight extends Lens {
 				FallingBlockEntity falling = new FallingBlockEntity(entity.world, bPos.getX() + 0.5, bPos.getY(), bPos.getZ() + 0.5, state);
 				falling.fallTime = 1;
 				entity.world.removeBlock(bPos);
-				((ServerWorld) entity.world).spawnParticle(new BlockParticleData(Particles.FALLING_DUST, state), bPos.getX() + 0.5, bPos.getY() + 0.5, bPos.getZ() + 0.5, 10, 0.45, 0.45, 0.45, 5);
+				((ServerWorld) entity.world).spawnParticle(new BlockParticleData(ParticleTypes.FALLING_DUST, state), bPos.getX() + 0.5, bPos.getY() + 0.5, bPos.getZ() + 0.5, 10, 0.45, 0.45, 0.45, 5);
 				entity.world.spawnEntity(falling);
 			}
 		}
