@@ -20,9 +20,9 @@ botania.desc=Описание Botania здесь.
 generator.botania-skyblock=Сад стекла
 generator.botania-skyblock.info=Не рекомендуется для новичков Botania
 
-
-
-
+# Something that is not localized, translators, do NOT change this line.
+# You do not need to copy this into your lang file
+botaniamisc.noloc=botaniamisc.noloc
 
 botaniamisc.nextPage=След. страница
 botaniamisc.prevPage=Пред. страница
