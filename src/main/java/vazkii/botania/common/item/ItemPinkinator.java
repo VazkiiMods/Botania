@@ -62,7 +62,7 @@ public class ItemPinkinator extends ItemMod {
 				EntityPinkWither pink = new EntityPinkWither(world);
 				pink.setLocationAndAngles(wither.posX, wither.posY, wither.posZ, wither.rotationYaw, wither.rotationPitch);
 				pink.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(pink)), null, null);
-				world.spawnEntity(pink);
+				world.addEntity(pink);
 				pink.spawnExplosionParticle();
 				pink.playSound(SoundEvents.ENTITY_GENERIC_EXPLODE, 4F, (1F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F) * 0.7F);
 				UseItemSuccessTrigger.INSTANCE.trigger((ServerPlayerEntity) player, stack, (ServerWorld) world, player.posX, player.posY, player.posZ);

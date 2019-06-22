@@ -140,7 +140,7 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver, I
 
 					ItemStack output = recipe.getOutput(itemHandler.getStackInSlot(0));
 					ItemEntity outputItem = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, output);
-					world.spawnEntity(outputItem);
+					world.addEntity(outputItem);
 					world.addBlockEvent(getPos(), ModBlocks.brewery, CRAFT_EFFECT_EVENT, recipe.getBrew().getColor(output));
 
 					for(int i = 0; i < getSizeInventory(); i++)

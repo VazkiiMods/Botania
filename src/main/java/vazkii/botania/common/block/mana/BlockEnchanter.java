@@ -116,7 +116,7 @@ public class BlockEnchanter extends BlockMod implements IWandable, ILexiconable,
 		TileEnchanter enchanter = (TileEnchanter) world.getTileEntity(pos);
 
 		if(!enchanter.itemToEnchant.isEmpty()) {
-			world.spawnEntity(new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), enchanter.itemToEnchant));
+			world.addEntity(new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), enchanter.itemToEnchant));
 		}
 
 		world.updateComparatorOutputLevel(pos, state.getBlock());

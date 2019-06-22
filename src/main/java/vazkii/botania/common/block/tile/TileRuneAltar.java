@@ -27,6 +27,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.registries.ObjectHolder;
 import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.BotaniaAPI;
@@ -83,8 +84,8 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 				ItemStack toSpawn = player != null && player.abilities.isCreativeMode ? stack.copy().split(1) : stack.split(1);
 				ItemEntity item = new ItemEntity(world, getPos().getX() + 0.5, getPos().getY() + 1, getPos().getZ() + 0.5, toSpawn);
 				item.setPickupDelay(40);
-				item.motionX = item.motionY = item.motionZ = 0;
-				world.spawnEntity(item);
+				item.setMotion(Vec3d.ZERO);
+				world.addEntity(item);
 			}
 
 			return true;
@@ -262,7 +263,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 				recieveMana(-mana);
 				ItemStack output = recipe.getOutput().copy();
 				ItemEntity outputItem = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, output);
-				world.spawnEntity(outputItem);
+				world.addEntity(outputItem);
 				currentRecipe = null;
 				world.addBlockEvent(getPos(), ModBlocks.runeAltar, SET_COOLDOWN_EVENT, 60);
 				world.addBlockEvent(getPos(), ModBlocks.runeAltar, CRAFT_EFFECT_EVENT, 0);
@@ -273,7 +274,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 					if(!stack.isEmpty()) {
 						if(stack.getItem() instanceof ItemRune && (player == null || !player.abilities.isCreativeMode)) {
 							ItemEntity outputRune = new ItemEntity(world, getPos().getX() + 0.5, getPos().getY() + 1.5, getPos().getZ() + 0.5, stack.copy());
-							world.spawnEntity(outputRune);
+							world.addEntity(outputRune);
 						}
 
 						itemHandler.setStackInSlot(i, ItemStack.EMPTY);

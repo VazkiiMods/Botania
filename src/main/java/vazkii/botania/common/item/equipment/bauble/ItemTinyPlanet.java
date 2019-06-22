@@ -16,11 +16,8 @@ import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
@@ -90,7 +87,7 @@ public class ItemTinyPlanet extends ItemBauble {
 			Vector3 currentVec = new Vector3(entity.posX, entity.posY, entity.posZ);
 			Vector3 moveVector = targetVec.subtract(currentVec);
 
-			burst.setMotion(moveVector.x, moveVector.y, moveVector.z);
+			burst.setBurstMotion(moveVector.x, moveVector.y, moveVector.z);
 
 			incrementOrbitTime(entity);
 		}

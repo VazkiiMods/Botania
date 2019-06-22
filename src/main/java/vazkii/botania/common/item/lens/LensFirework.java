@@ -35,7 +35,7 @@ public class LensFirework extends Lens {
 				ItemStack fireworkStack = generateFirework(burst.getColor());
 
 				FireworkRocketEntity rocket = new FireworkRocketEntity(entity.world, entity.posX, entity.posY, entity.posZ, fireworkStack);
-				entity.world.spawnEntity(rocket);
+				entity.world.addEntity(rocket);
 			}
 		} else dead = false;
 

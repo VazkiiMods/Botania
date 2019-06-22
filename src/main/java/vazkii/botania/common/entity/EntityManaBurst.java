@@ -24,24 +24,19 @@ import javax.annotation.Nonnull;
 import net.minecraft.block.Block;
 import net.minecraft.block.BushBlock;
 import net.minecraft.block.LeavesBlock;
-import net.minecraft.block.BushBlock;
-import net.minecraft.block.LeavesBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.block.Blocks;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Hand;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -143,7 +138,7 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 		double mx = MathHelper.sin(rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(rotationPitch / 180.0F * (float) Math.PI) * f / 2D;
 		double mz = -(MathHelper.cos(rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(rotationPitch / 180.0F * (float) Math.PI) * f) / 2D;
 		double my = MathHelper.sin(rotationPitch / 180.0F * (float) Math.PI) * f / 2D;
-		setMotion(mx, my, mz);
+		setBurstMotion(mx, my, mz);
 	}
 
 	public EntityManaBurst(PlayerEntity player, Hand hand) {
@@ -161,7 +156,7 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 		double mx = MathHelper.sin(rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(rotationPitch / 180.0F * (float) Math.PI) * f / 2D;
 		double mz = -(MathHelper.cos(rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(rotationPitch / 180.0F * (float) Math.PI) * f) / 2D;
 		double my = MathHelper.sin(rotationPitch / 180.0F * (float) Math.PI) * f / 2D;
-		setMotion(mx, my, mz);
+		setBurstMotion(mx, my, mz);
 	}
 
 	private void superUpdate() {
@@ -320,7 +315,7 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 
 		particles();
 
-		setMotion(motionX, motionY, motionZ);
+		setBurstMotion(motionX, motionY, motionZ);
 
 		fullManaLastTick = getMana() == getStartingMana();
 
@@ -434,7 +429,7 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 		double lastMotionY = cmp.getDouble(TAG_LAST_MOTION_Y);
 		double lastMotionZ = cmp.getDouble(TAG_LAST_MOTION_Z);
 
-		setMotion(lastMotionX, lastMotionY, lastMotionZ);
+		setBurstMotion(lastMotionX, lastMotionY, lastMotionZ);
 
 		boolean hasShooter = cmp.getBoolean(TAG_HAS_SHOOTER);
 		if(hasShooter) {
@@ -744,10 +739,8 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 	}
 
 	@Override
-	public void setMotion(double x, double y, double z) {
-		motionX = x;
-		motionY = y;
-		motionZ = z;
+	public void setBurstMotion(double x, double y, double z) {
+		this.setMotion(x, y, z);
 	}
 
 	@Override

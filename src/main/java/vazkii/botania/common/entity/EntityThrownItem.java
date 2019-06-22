@@ -105,7 +105,7 @@ public class EntityThrownItem extends ItemEntity {
 						Entity item = getItem().getItem().createEntity(world, this, getItem());
 						if (item == null) {
 							item = new ItemEntity(world, posX, posY, posZ, getItem());
-							world.spawnEntity(item);
+							world.addEntity(item);
 							item.motionX = motionX*0.25F;
 							item.motionY = motionY*0.25F;
 							item.motionZ = motionZ*0.25F;
@@ -130,7 +130,7 @@ public class EntityThrownItem extends ItemEntity {
 				Entity item = getItem().getItem().createEntity(world, this, getItem());
 				if (item == null) {
 					item = new ItemEntity(world, posX, posY, posZ, getItem());
-					world.spawnEntity(item);
+					world.addEntity(item);
 					item.motionX = motionX;
 					item.motionY = motionY;
 					item.motionZ = motionZ;

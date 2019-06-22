@@ -226,7 +226,7 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 		for(ItemStack stack : stacks)
 			if(!stack.isEmpty()) {
 				ItemEntity item = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, stack);
-				world.spawnEntity(item);
+				world.addEntity(item);
 			}
 	}
 

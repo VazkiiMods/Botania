@@ -94,7 +94,7 @@ public class TileCorporeaFunnel extends TileCorporeaBase implements ICorporeaReq
 				ItemHandlerHelper.insertItemStacked(inv, reqStack, false);
 			else {
 				ItemEntity item = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, reqStack);
-				world.spawnEntity(item);
+				world.addEntity(item);
 			}
 		}
 	}

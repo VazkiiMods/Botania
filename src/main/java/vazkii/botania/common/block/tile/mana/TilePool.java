@@ -198,7 +198,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 				ItemStack output = recipe.getOutput().copy();
 				ItemEntity outputItem = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, output);
 				outputItem.age = 105;
-				world.spawnEntity(outputItem);
+				world.addEntity(outputItem);
 
 				craftingFanciness();
 				return true;

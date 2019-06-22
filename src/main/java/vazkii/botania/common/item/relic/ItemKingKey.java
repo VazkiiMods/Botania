@@ -103,7 +103,7 @@ public class ItemKingKey extends ItemRelic implements IManaUsingItem {
 			weapon.setDelay(spawned);
 			weapon.setRotation(MathHelper.wrapDegrees(-living.rotationYaw + 180));
 
-			living.world.spawnEntity(weapon);
+			living.world.addEntity(weapon);
 			weapon.playSound(ModSounds.babylonSpawn, 1F, 1F + living.world.rand.nextFloat() * 3F);
 			setWeaponsSpawned(stack, spawned + 1);
 		}

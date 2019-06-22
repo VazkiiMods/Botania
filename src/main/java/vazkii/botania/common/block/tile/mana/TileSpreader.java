@@ -24,6 +24,7 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.item.DyeColor;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
@@ -40,7 +41,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.RayTraceFluidMode;
+import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.shapes.VoxelShape;
@@ -403,7 +404,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 			}
 			world.playSound(null, player.posX, player.posY, player.posZ, ModSounds.ding, SoundCategory.PLAYERS, 0.1F, 1);
 		} else {
-			RayTraceResult pos = rayTraceFromEntity(world, player, true);
+			RayTraceResult pos = Item.rayTrace(world, player, RayTraceContext.FluidMode.ANY);
 			if(pos instanceof BlockRayTraceResult && !world.isRemote) {
 				double x = pos.getHitVec().x - getPos().getX() - 0.5;
 				double y = pos.getHitVec().y - getPos().getY() - 0.5;
@@ -454,7 +455,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 					if(!world.isRemote) {
 						mana -= burst.getStartingMana();
 						burst.setShooterUUID(getIdentifier());
-						world.spawnEntity(burst);
+						world.addEntity(burst);
 						burst.ping();
 						if(!ConfigHandler.COMMON.silentSpreaders.get())
 							world.playSound(null, pos, ModSounds.spreaderFire, SoundCategory.BLOCKS, 0.05F * (paddingColor != null ? 0.2F : 1F), 0.7F + 0.3F * (float) Math.random());

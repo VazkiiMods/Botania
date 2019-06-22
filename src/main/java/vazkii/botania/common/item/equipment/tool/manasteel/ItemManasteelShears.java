@@ -97,7 +97,7 @@ public class ItemManasteelShears extends ShearsItem implements IManaUsingItem {
 
 					ItemEntity entityitem = new ItemEntity(player.world, pos.getX() + d, pos.getY() + d1, pos.getZ() + d2, stack);
 					entityitem.setPickupDelay(10);
-					player.world.spawnEntity(entityitem);
+					player.world.addEntity(entityitem);
 				}
 
 				ToolCommons.damageItem(itemstack, 1, player, MANA_PER_DAMAGE);

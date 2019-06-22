@@ -12,11 +12,8 @@ package vazkii.botania.common.item;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
@@ -24,24 +21,17 @@ import net.minecraft.potion.Effects;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundEvents;
-import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.ServerWorld;
 import net.minecraft.world.World;
-import net.minecraft.world.ServerWorld;
-import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.mana.BurstProperties;
@@ -53,11 +43,9 @@ import vazkii.botania.common.advancements.UseItemSuccessTrigger;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.entity.EntityManaBurst;
-import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -99,7 +87,7 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 			if(burst != null && ManaItemHandler.requestManaExact(stack, player, burst.getMana(), true)) {
 				if(!world.isRemote) {
 					world.playSound(null, player.posX, player.posY, player.posZ, ModSounds.manaBlaster, SoundCategory.PLAYERS, 0.6F, 1);
-					world.spawnEntity(burst);
+					world.addEntity(burst);
 					UseItemSuccessTrigger.INSTANCE.trigger((ServerPlayerEntity) player, stack, (ServerWorld) world, player.posX, player.posY, player.posZ);
 				} else {
 					player.swingArm(hand);
@@ -173,7 +161,7 @@ public class ItemManaGun extends ItemMod implements IManaUsingItem {
 			burst.setMinManaLoss(props.ticksBeforeManaLoss);
 			burst.setManaLossPerTick(props.manaLossPerTick);
 			burst.setGravity(props.gravity);
-			burst.setMotion(burst.motionX * props.motionModifier, burst.motionY * props.motionModifier, burst.motionZ * props.motionModifier);
+			burst.setBurstMotion(burst.motionX * props.motionModifier, burst.motionY * props.motionModifier, burst.motionZ * props.motionModifier);
 
 			return burst;
 		}

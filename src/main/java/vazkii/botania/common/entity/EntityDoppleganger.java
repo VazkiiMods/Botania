@@ -262,7 +262,7 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 
 			e.playSound(SoundEvents.ENTITY_ENDER_DRAGON_GROWL, 10F, 0.1F);
 			e.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(e)), null, null);
-			world.spawnEntity(e);
+			world.addEntity(e);
 		}
 		
 		return true;
@@ -636,7 +636,7 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 								pixie.setProps(players.get(rand.nextInt(players.size())), this, 1, 8);
 								pixie.setPosition(posX + width / 2, posY + 2, posZ + width / 2);
 								pixie.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(pixie)), null, null);
-								world.spawnEntity(pixie);
+								world.addEntity(pixie);
 							}
 						}
 						break;
@@ -652,7 +652,7 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 					if(entity instanceof WitherSkeletonEntity && hardMode) {
 						entity.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(ModItems.elementiumSword));
 					}
-					world.spawnEntity(entity);
+					world.addEntity(entity);
 				}
 			}
 		}
@@ -764,7 +764,7 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 								EntityMagicLandmine landmine = new EntityMagicLandmine(world);
 								landmine.setPosition(x + 0.5, y, z + 0.5);
 								landmine.summoner = this;
-								world.spawnEntity(landmine);
+								world.addEntity(landmine);
 							}
 
 						}
@@ -776,7 +776,7 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 									pixie.setProps(players.get(rand.nextInt(players.size())), this, 1, 8);
 									pixie.setPosition(posX + width / 2, posY + 2, posZ + width / 2);
 									pixie.onInitialSpawn(world.getDifficultyForLocation(new BlockPos(pixie)), null, null);
-									world.spawnEntity(pixie);
+									world.addEntity(pixie);
 								}
 
 						tpDelay = hardMode ? dying ? 35 : 45 : dying ? 40 : 60;
@@ -827,7 +827,7 @@ public class EntityDoppleganger extends MobEntity implements IBotaniaBoss, IEnti
 		missile.setPosition(posX + (Math.random() - 0.5 * 0.1), posY + 2.4 + (Math.random() - 0.5 * 0.1), posZ + (Math.random() - 0.5 * 0.1));
 		if(missile.findTarget()) {
 			playSound(ModSounds.missile, 0.6F, 0.8F + (float) Math.random() * 0.2F);
-			world.spawnEntity(missile);
+			world.addEntity(missile);
 		}
 	}
 

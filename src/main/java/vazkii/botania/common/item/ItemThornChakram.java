@@ -44,7 +44,7 @@ public class ItemThornChakram extends ItemMod {
 			c.shoot(player, player.rotationPitch, player.rotationYaw, 0.0F, 1.5F, 1.0F);
 			if(stack.getItem() == ModItems.flareChakram)
 				c.setFire(true);
-			world.spawnEntity(c);
+			world.addEntity(c);
 			world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
 			stack.shrink(1);
 		}

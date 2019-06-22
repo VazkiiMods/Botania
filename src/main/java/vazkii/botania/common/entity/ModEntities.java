@@ -68,6 +68,7 @@ public final class ModEntities {
 				.tracker(80, 3, false).build("")
 				.setRegistryName(LibEntityNames.PINK_WITHER));
 		evt.getRegistry().register(EntityType.Builder.create(EntityPlayerMover.class, EntityPlayerMover::new)
+				.size(0, 0)
 				.tracker(40, 3, true).build("")
 				.setRegistryName(LibEntityNames.PLAYER_MOVER));
 		evt.getRegistry().register(EntityType.Builder.create(EntityManaStorm.class, EntityManaStorm::new)

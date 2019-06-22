@@ -16,14 +16,16 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.inventory.container.Container;
+import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.ICraftingRecipe;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.world.World;
-import net.minecraftforge.common.crafting.VanillaRecipeTypes;
 import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.state.BotaniaStateProps;
@@ -35,6 +37,7 @@ import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 import java.util.List;
+import java.util.Optional;
 
 public class TileCraftCrate extends TileOpenCrate {
 	@ObjectHolder(LibMisc.MOD_ID + ":" + LibBlockNames.CRAFT_CRATE)
@@ -104,7 +107,7 @@ public class TileCraftCrate extends TileOpenCrate {
 		if(fullCheck && !isFull())
 			return false;
 
-		CraftingInventory craft = new CraftingInventory(new Container() {
+		CraftingInventory craft = new CraftingInventory(new Container(ContainerType.CRAFTING, -1) {
 			@Override
 			public boolean canInteractWith(@Nonnull PlayerEntity player) {
 				return false;
@@ -119,22 +122,21 @@ public class TileCraftCrate extends TileOpenCrate {
 			craft.setInventorySlotContents(i, stack);
 		}
 
-		for(IRecipe recipe : world.getRecipeManager().getRecipes(VanillaRecipeTypes.CRAFTING))
-			if(recipe.matches(craft, world)) {
-				itemHandler.setStackInSlot(9, recipe.getCraftingResult(craft));
+		Optional<ICraftingRecipe> matchingRecipe = world.getRecipeManager().getRecipe(IRecipeType.CRAFTING, craft, world);
+		matchingRecipe.ifPresent(recipe -> {
+			itemHandler.setStackInSlot(9, recipe.getCraftingResult(craft));
 
-				List<ItemStack> remainders = recipe.getRemainingItems(craft);
-				for(int i = 0; i < craft.getSizeInventory(); i++) {
-					ItemStack s = remainders.get(i);
-					if(!itemHandler.getStackInSlot(i).isEmpty()
+			List<ItemStack> remainders = recipe.getRemainingItems(craft);
+			for(int i = 0; i < craft.getSizeInventory(); i++) {
+				ItemStack s = remainders.get(i);
+				if(!itemHandler.getStackInSlot(i).isEmpty()
 						&& itemHandler.getStackInSlot(i).getItem() == ModItems.placeholder)
-						continue;
-					itemHandler.setStackInSlot(i, s);
-				}
-				return true;
+					continue;
+				itemHandler.setStackInSlot(i, s);
 			}
+		});
 
-		return false;
+		return matchingRecipe.isPresent();
 	}
 
 	boolean isFull() {

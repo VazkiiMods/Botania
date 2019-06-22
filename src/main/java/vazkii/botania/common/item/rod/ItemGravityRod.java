@@ -222,7 +222,7 @@ public class ItemGravityRod extends ItemMod implements IManaUsingItem {
 						item.motionZ = moveVector.z * mot;
 						if(!player.world.isRemote) {
 							EntityThrownItem thrown = new EntityThrownItem(item.world, item.posX, item.posY, item.posZ, (ItemEntity) item);
-							item.world.spawnEntity(thrown);
+							item.world.addEntity(thrown);
 						}
 						item.remove();
 					} else {

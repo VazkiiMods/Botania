@@ -15,11 +15,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.FallingBlockEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.item.ExperienceOrbEntity;
-import net.minecraft.entity.item.FallingBlockEntity;
-import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.projectile.AbstractArrowEntity;
-import net.minecraft.entity.projectile.AbstractArrowEntity;
-import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -51,7 +47,7 @@ public class LensInfluence extends Lens {
 					if(!lens.isEmpty() && lens.getItem() == ModItems.lensInfluence)
 						continue;
 
-					((IManaBurst) movable).setMotion(entity.motionX, entity.motionY, entity.motionZ);
+					((IManaBurst) movable).setBurstMotion(entity.motionX, entity.motionY, entity.motionZ);
 				} else {
 					movable.motionX = entity.motionX;
 					movable.motionY = entity.motionY;

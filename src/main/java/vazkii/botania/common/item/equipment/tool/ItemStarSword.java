@@ -58,7 +58,7 @@ public class ItemStarSword extends ItemManasteelSword {
 					star.motionX = motVec.x;
 					star.motionY = motVec.y;
 					star.motionZ = motVec.z;
-					world.spawnEntity(star);
+					world.addEntity(star);
 
 					if (!world.isRaining()
 							&& Math.abs(world.getDayTime() - 18000) < 1800
@@ -68,7 +68,7 @@ public class ItemStarSword extends ItemManasteelSword {
 						bonusStar.motionX = motVec.x + Math.random() - 0.5;
 						bonusStar.motionY = motVec.y + Math.random() - 0.5;
 						bonusStar.motionZ = motVec.z + Math.random() - 0.5;
-						world.spawnEntity(bonusStar);
+						world.addEntity(bonusStar);
 					}
 
 					ToolCommons.damageItem(par1ItemStack, 1, player, MANA_PER_DAMAGE);

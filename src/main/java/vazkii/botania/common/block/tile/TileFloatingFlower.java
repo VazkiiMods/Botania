@@ -79,7 +79,7 @@ public class TileFloatingFlower extends TileMod {
 		IFloatingFlower.IslandType oldType = floatingData.getIslandType();
 		super.onDataPacket(net, packet);
 		if(oldType != floatingData.getIslandType()) {
-			world.markBlockRangeForRenderUpdate(pos, pos);
+			world.markForRerender(pos);
 		}
 	}
 

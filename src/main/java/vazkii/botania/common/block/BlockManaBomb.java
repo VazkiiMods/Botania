@@ -39,7 +39,7 @@ public class BlockManaBomb extends BlockMod implements IManaTrigger, ILexiconabl
 			world.removeBlock(pos);
 			EntityManaStorm storm = new EntityManaStorm(world);
 			storm.setPosition(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
-			world.spawnEntity(storm);
+			world.addEntity(storm);
 		}
 	}
 

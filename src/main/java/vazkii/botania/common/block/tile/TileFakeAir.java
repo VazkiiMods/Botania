@@ -30,7 +30,7 @@ public class TileFakeAir extends TileMod {
 	private static final String TAG_FLOWER_Y = "flowerY";
 	private static final String TAG_FLOWER_Z = "flowerZ";
 
-	private BlockPos flowerPos = BlockPos.ORIGIN;
+	private BlockPos flowerPos = BlockPos.ZERO;
 
 	public TileFakeAir() {
 		super(TYPE);

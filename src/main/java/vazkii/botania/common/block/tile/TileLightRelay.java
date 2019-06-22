@@ -29,6 +29,7 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.IPacket;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
@@ -79,7 +80,7 @@ public class TileLightRelay extends TileMod implements ITickableTileEntity, IWan
 			return;
 
 		EntityPlayerMover mover = new EntityPlayerMover(world, pos, nextDest);
-		world.spawnEntity(mover);
+		world.addEntity(mover);
 		e.startRiding(mover);
 		if(!(e instanceof ItemEntity)) {
 			mover.playSound(ModSounds.lightRelay, 0.2F, (float) Math.random() * 0.3F + 0.7F);
@@ -259,7 +260,6 @@ public class TileLightRelay extends TileMod implements ITickableTileEntity, IWan
 
 		public EntityPlayerMover(World world) {
 			super(TYPE, world);
-			setSize(0F, 0F);
 			noClip = true;
 		}
 
@@ -271,7 +271,7 @@ public class TileLightRelay extends TileMod implements ITickableTileEntity, IWan
 
 		@Override
 		protected void registerData() {
-			dataManager.register(EXIT_POS, BlockPos.ORIGIN);
+			dataManager.register(EXIT_POS, BlockPos.ZERO);
 		}
 
 		@Override
@@ -356,6 +356,12 @@ public class TileLightRelay extends TileMod implements ITickableTileEntity, IWan
 			cmp.putInt(TAG_EXIT_X, exit.getX());
 			cmp.putInt(TAG_EXIT_Y, exit.getY());
 			cmp.putInt(TAG_EXIT_Z, exit.getZ());
+		}
+
+		@Override
+		public IPacket<?> createSpawnPacket() {
+			// todo 1.14 ??
+			return null;
 		}
 
 		public BlockPos getExitPos() {

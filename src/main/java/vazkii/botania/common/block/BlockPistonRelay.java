@@ -218,7 +218,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable, ILexiconabl
 								world.setBlockState(pos.offset(dir), ModBlocks.pistonRelay.getDefaultState());
 							else if(!world.isRemote) {
 								ItemStack stack = new ItemStack(ModBlocks.pistonRelay);
-								world.spawnEntity(new ItemEntity(world, x + dir.getXOffset(), y + dir.getYOffset(), z + dir.getZOffset(), stack));
+								world.addEntity(new ItemEntity(world, x + dir.getXOffset(), y + dir.getYOffset(), z + dir.getZOffset(), stack));
 							}
 							checkedCoords.add(s);
 							newPos = new DimWithPos(world.getDimension().getType(), pos.offset(dir));

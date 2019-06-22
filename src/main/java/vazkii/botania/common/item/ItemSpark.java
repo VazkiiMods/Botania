@@ -48,7 +48,7 @@ public class ItemSpark extends ItemMod implements IManaGivingItem {
 					stack.shrink(1);
 					EntitySpark spark = new EntitySpark(world);
 					spark.setPosition(pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5);
-					world.spawnEntity(spark);
+					world.addEntity(spark);
 					attach.attachSpark(spark);
 					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(world, pos);
 				}

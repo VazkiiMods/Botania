@@ -74,7 +74,7 @@ public class BlockFelPumpkin extends BlockMod implements ILexiconable {
 			blaze.setLocationAndAngles(pos.getX() + 0.5D, pos.getY() - 1.95D, pos.getZ() + 0.5D, 0.0F, 0.0F);
 			blaze.deathLootTable = LOOT_TABLE;
 			blaze.onInitialSpawn(world, world.getDifficultyForLocation(pos), SpawnReason.EVENT, null, null);
-			world.spawnEntity(blaze);
+			world.addEntity(blaze);
 		}
 	}
 

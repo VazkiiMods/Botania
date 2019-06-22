@@ -21,6 +21,7 @@ import net.minecraft.util.Direction;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.state.BotaniaStateProps;
@@ -75,14 +76,12 @@ public class TileOpenCrate extends TileSimpleInventory implements ITickableTileE
 
 	public void eject(ItemStack stack, boolean redstone) {
 		ItemEntity item = new ItemEntity(world, pos.getX() + 0.5, pos.getY() - 0.5, pos.getZ() + 0.5, stack);
-		item.motionX = 0;
-		item.motionY = 0;
-		item.motionZ = 0;
+		item.setMotion(Vec3d.ZERO);
 		if (redstone)
 			item.age = -200;
 
 		itemHandler.setStackInSlot(0, ItemStack.EMPTY);
-		world.spawnEntity(item);
+		world.addEntity(item);
 	}
 
 	public boolean onWanded(World world, PlayerEntity player, ItemStack stack) {

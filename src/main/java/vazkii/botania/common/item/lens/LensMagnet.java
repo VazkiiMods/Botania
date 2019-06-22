@@ -11,7 +11,6 @@
 package vazkii.botania.common.item.lens;
 
 import net.minecraft.entity.projectile.ThrowableEntity;
-import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
@@ -67,7 +66,7 @@ public class LensMagnet extends Lens {
 							entity.getEntityData().putInt(TAG_MAGNETIZED_Z, tile.getPos().getZ());
 						}
 
-						burst.setMotion(finalMotionVec.x, finalMotionVec.y, finalMotionVec.z);
+						burst.setBurstMotion(finalMotionVec.x, finalMotionVec.y, finalMotionVec.z);
 						break magnetize;
 					}
 				}

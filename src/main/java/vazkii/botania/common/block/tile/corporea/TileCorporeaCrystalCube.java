@@ -164,7 +164,7 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 		for(ItemStack reqStack : stacks)
 			if(requestTarget != null) {
 				ItemEntity item = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, reqStack);
-				world.spawnEntity(item);
+				world.addEntity(item);
 				itemCount -= reqStack.getCount();
 				did = true;
 			}

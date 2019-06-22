@@ -15,6 +15,7 @@ import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.merchant.villager.VillagerData;
 import net.minecraft.entity.merchant.villager.VillagerEntity;
 import net.minecraft.entity.monster.ShulkerEntity;
 import net.minecraft.entity.passive.ChickenEntity;
@@ -36,11 +37,11 @@ import net.minecraft.entity.passive.SheepEntity;
 import net.minecraft.entity.merchant.villager.VillagerEntity;
 import net.minecraft.entity.passive.WolfEntity;
 import net.minecraft.entity.passive.horse.LlamaEntity;
+import net.minecraft.entity.villager.IVillagerType;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraftforge.fml.common.registry.VillagerRegistry;
 import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
@@ -87,7 +88,10 @@ public class TileCocoon extends TileMod implements ITickableTileEntity{
 				entity = EntityType.SHULKER.create(world);
 			} else if(Math.random() < villagerChance) {
 				VillagerEntity villager = EntityType.VILLAGER.create(world);
-				VillagerRegistry.setRandomProfession(villager, world.rand);
+				if(villager != null) {
+					IVillagerType type = IVillagerType.byBiome(world.getBiome(pos));
+					villager.setVillagerData(villager.getVillagerData().withType(type));
+				}
 				entity = villager;
 			} else {
 				float specialChance = 0.05F;
@@ -139,7 +143,7 @@ public class TileCocoon extends TileMod implements ITickableTileEntity{
 				if(entity instanceof AgeableEntity)
 					((AgeableEntity) entity).setGrowingAge(-24000);
 				entity.onInitialSpawn(world, world.getDifficultyForLocation(getPos()), SpawnReason.EVENT, null, null);
-				world.spawnEntity(entity);
+				world.addEntity(entity);
 				entity.spawnExplosionParticle();
 			}
 		}

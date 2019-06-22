@@ -156,7 +156,7 @@ public class SubTileLoonuim extends TileEntityFunctionalFlower {
 			entity.getEntityData().put(TAG_ITEMSTACK_TO_DROP, cmp);
 
 			entity.onInitialSpawn(world.getDifficultyForLocation(pos), null, null);
-			world.spawnEntity(entity);
+			world.addEntity(entity);
 			entity.spawnExplosionParticle();
 			
 			mana -= COST;

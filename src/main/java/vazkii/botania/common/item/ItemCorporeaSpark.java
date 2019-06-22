@@ -50,7 +50,7 @@ public class ItemCorporeaSpark extends ItemMod {
 				if(this == ModItems.corporeaSparkMaster)
 					spark.setMaster(true);
 				spark.setPosition(pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5);
-				world.spawnEntity(spark);
+				world.addEntity(spark);
 			}
 			return ActionResultType.SUCCESS;
 		}

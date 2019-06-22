@@ -99,7 +99,7 @@ public class ItemVirus extends ItemMod {
 				newHorse.playSound(SoundEvents.ENTITY_ZOMBIE_VILLAGER_CURE, 1.0F + living.world.rand.nextFloat(), living.world.rand.nextFloat() * 0.7F + 1.3F);
 				newHorse.onInitialSpawn(player.world.getDifficultyForLocation(new BlockPos(newHorse)), null, null);
 				newHorse.setGrowingAge(horse.getGrowingAge());
-				player.world.spawnEntity(newHorse);
+				player.world.addEntity(newHorse);
 				newHorse.spawnExplosionParticle();
 
 				stack.shrink(1);

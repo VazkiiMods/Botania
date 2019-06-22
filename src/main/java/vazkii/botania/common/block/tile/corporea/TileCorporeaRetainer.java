@@ -41,7 +41,7 @@ public class TileCorporeaRetainer extends TileMod {
 	private static final int REQUEST_STRING = 2;
 
 	private boolean pendingRequest = false;
-	private BlockPos requestPos = BlockPos.ORIGIN;
+	private BlockPos requestPos = BlockPos.ZERO;
 	private Object request;
 	private int requestCount;
 	private int compValue;

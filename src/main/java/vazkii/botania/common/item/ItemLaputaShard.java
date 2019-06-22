@@ -14,13 +14,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.FallingBlock;
-import net.minecraft.block.BlockState;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.entity.projectile.ThrowableEntity;
-import net.minecraft.entity.projectile.ThrowableEntity;
-import net.minecraft.block.Blocks;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -30,16 +26,11 @@ import net.minecraft.nbt.NBTUtil;
 import net.minecraft.particles.BlockParticleData;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Hand;
 import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.ServerWorld;
@@ -50,15 +41,11 @@ import vazkii.botania.api.mana.BurstProperties;
 import vazkii.botania.api.mana.ILaputaImmobile;
 import vazkii.botania.api.mana.ILensEffect;
 import vazkii.botania.api.mana.ITinyPlanetExcempt;
-import vazkii.botania.client.core.handler.ModelHandler;
 import vazkii.botania.common.advancements.UseItemSuccessTrigger;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.MathHelper;
-import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.entity.EntityManaBurst;
-import vazkii.botania.common.lib.LibItemNames;
-import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 import java.util.List;
@@ -186,7 +173,7 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 								ItemNBTHelper.setInt(copyLens, TAG_ITERATION_K, k);
 
 								EntityManaBurst burst = getBurst(world, pos_, copyLens);
-								world.spawnEntity(burst);
+								world.addEntity(burst);
 								return;
 							}
 						}
@@ -218,7 +205,7 @@ public class ItemLaputaShard extends ItemMod implements ILensEffect, ITinyPlanet
 		burst.setMinManaLoss(0);
 		burst.setManaLossPerTick(0F);
 		burst.setGravity(0F);
-		burst.setMotion(0, 0.5, 0);
+		burst.setBurstMotion(0, 0.5, 0);
 
 		burst.setSourceLens(stack);
 		return burst;

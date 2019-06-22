@@ -176,7 +176,7 @@ public class BlockSpreader extends BlockMod implements IWandable, IWandHUD, ILex
 
 		if(inv.paddingColor != null) {
 			ItemStack padding = new ItemStack(ColorHelper.WOOL_MAP.get(inv.paddingColor));
-			world.spawnEntity(new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), padding));
+			world.addEntity(new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), padding));
 		}
 
 		InventoryHelper.dropInventory(inv, world, state, pos);

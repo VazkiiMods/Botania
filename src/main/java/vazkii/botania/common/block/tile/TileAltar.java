@@ -158,7 +158,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 					ItemStack output = recipe.getOutput().copy();
 					ItemEntity outputItem = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, output);
 					outputItem.addTag(ITEM_TAG_APOTHECARY_SPAWNED);
-					world.spawnEntity(outputItem);
+					world.addEntity(outputItem);
 					
 					setWater(false);
 					world.updateComparatorOutputLevel(pos, world.getBlockState(pos).getBlock());

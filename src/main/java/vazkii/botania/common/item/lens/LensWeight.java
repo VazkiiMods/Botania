@@ -44,7 +44,7 @@ public class LensWeight extends Lens {
 				falling.fallTime = 1;
 				entity.world.removeBlock(bPos);
 				((ServerWorld) entity.world).spawnParticle(new BlockParticleData(ParticleTypes.FALLING_DUST, state), bPos.getX() + 0.5, bPos.getY() + 0.5, bPos.getZ() + 0.5, 10, 0.45, 0.45, 0.45, 5);
-				entity.world.spawnEntity(falling);
+				entity.world.addEntity(falling);
 			}
 		}
 

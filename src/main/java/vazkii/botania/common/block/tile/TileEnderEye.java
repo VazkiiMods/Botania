@@ -20,6 +20,7 @@ import net.minecraft.particles.RedstoneParticleData;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.ServerWorld;
 import net.minecraftforge.registries.ObjectHolder;
@@ -54,7 +55,7 @@ public class TileEnderEye extends TileMod implements ITickableTileEntity {
 				continue;
 
 			RayTraceResult pos = ToolCommons.raytraceFromEntity(world, player, true, 64);
-			if(pos != null && pos.getBlockPos() != null && pos.getBlockPos().equals(getPos())) {
+			if(pos.getType() == RayTraceResult.Type.BLOCK && ((BlockRayTraceResult) pos).getPos().equals(getPos())) {
 				looking = true;
 				break;
 			}

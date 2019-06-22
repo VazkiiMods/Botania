@@ -163,7 +163,7 @@ public class ItemBottledMana extends ItemMod {
 				flare.setColor(living.world.rand.nextInt(16));
 				flare.playSound(SoundEvents.ENTITY_GENERIC_EXPLODE, 40F, (1.0F + (living.world.rand.nextFloat() - living.world.rand.nextFloat()) * 0.2F) * 0.7F);
 
-				living.world.spawnEntity(flare);
+				living.world.addEntity(flare);
 
 				int range = 5;
 				List<LivingEntity> entities = living.world.getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(living.posX - range, living.posY - range, living.posZ - range, living.posX + range, living.posY + range, living.posZ + range));
@@ -178,7 +178,7 @@ public class ItemBottledMana extends ItemMod {
 			if(!living.world.isRemote) {
 				EntityPixie pixie = new EntityPixie(living.world);
 				pixie.setPosition(living.posX, living.posY + 1.5, living.posZ);
-				living.world.spawnEntity(pixie);
+				living.world.addEntity(pixie);
 			}
 			break;
 		}

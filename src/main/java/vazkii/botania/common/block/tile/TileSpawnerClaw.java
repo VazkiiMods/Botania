@@ -112,7 +112,7 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver, ITickable
 									((MobEntity)entity).onInitialSpawn(world.getDifficultyForLocation(new BlockPos(entity)), (ILivingEntityData)null, (CompoundNBT)null);
 							}
 
-							AnvilChunkLoader.spawnEntity(entity, world);
+							AnvilChunkLoader.addEntity(entity, world);
 							world.playEvent(2004, blockpos, 0);
 							if (entityliving != null) {
 								entityliving.spawnExplosionParticle();

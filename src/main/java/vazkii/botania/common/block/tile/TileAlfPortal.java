@@ -28,6 +28,7 @@ import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.Explosion;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.api.BotaniaAPI;
@@ -183,7 +184,8 @@ public class TileAlfPortal extends TileMod implements ITickableTileEntity {
 					blockParticle(state);
 			world.setBlockState(getPos(), world.getBlockState(getPos()).with(BotaniaStateProps.ALFPORTAL_STATE, newState), 1 | 2);
 		} else if(explode) {
-			world.createExplosion(null, pos.getX() + .5, pos.getY() + 2.0, pos.getZ() + .5, 3f, true);
+			world.createExplosion(null, pos.getX() + .5, pos.getY() + 2.0, pos.getZ() + .5,
+					3f, Explosion.Mode.DESTROY);
 			explode = false;
 		}
 	}
@@ -276,7 +278,7 @@ public class TileAlfPortal extends TileMod implements ITickableTileEntity {
 	private void spawnItem(ItemStack stack) {
 		ItemEntity item = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, stack);
 		item.getEntityData().putBoolean(TAG_PORTAL_FLAG, true);
-		world.spawnEntity(item);
+		world.addEntity(item);
 		ticksSinceLastItem = 0;
 	}
 

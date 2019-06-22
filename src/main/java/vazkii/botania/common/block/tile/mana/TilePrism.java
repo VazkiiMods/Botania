@@ -11,7 +11,6 @@
 package vazkii.botania.common.block.tile.mana;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntityType;
@@ -58,7 +57,9 @@ public class TilePrism extends TileSimpleInventory {
 				burst.setMinManaLoss(properties.ticksBeforeManaLoss);
 				burst.setManaLossPerTick(properties.manaLossPerTick);
 				burst.setGravity(properties.gravity);
-				burst.setMotion(burstEntity.motionX * properties.motionModifier, burstEntity.motionY * properties.motionModifier,burstEntity.motionZ * properties.motionModifier);
+				burst.setBurstMotion(burstEntity.getMotion().getX() * properties.motionModifier,
+						burstEntity.getMotion().getY() * properties.motionModifier,
+						burstEntity.getMotion().getZ() * properties.motionModifier);
 			}
 		}
 	}

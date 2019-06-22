@@ -11,8 +11,6 @@
 package vazkii.botania.common.item.equipment.tool.terrasteel;
 
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.item.ItemStack;
@@ -24,7 +22,6 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.server.ServerLifecycleHooks;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.IManaBurst;
@@ -33,14 +30,11 @@ import vazkii.botania.api.mana.ILensEffect;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.entity.EntityManaBurst;
-import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelSword;
-import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.network.PacketHandler;
 import vazkii.botania.common.network.PacketLeftClick;
 
-import javax.annotation.Nonnull;
 import java.util.List;
 
 public class ItemTerraSword extends ItemManasteelSword implements ILensEffect {
@@ -73,7 +67,7 @@ public class ItemTerraSword extends ItemManasteelSword implements ILensEffect {
 				&& player.getHeldItemMainhand().getItem() == this
 				&& player.getCooledAttackStrength(0) == 1) {
 			EntityManaBurst burst = getBurst(player, player.getHeldItemMainhand());
-			player.world.spawnEntity(burst);
+			player.world.addEntity(burst);
 			ToolCommons.damageItem(player.getHeldItemMainhand(), 1, player, MANA_PER_DAMAGE);
 			player.world.playSound(null, player.posX, player.posY, player.posZ, ModSounds.terraBlade, SoundCategory.PLAYERS, 0.4F, 1.4F);
 		}
@@ -95,7 +89,7 @@ public class ItemTerraSword extends ItemManasteelSword implements ILensEffect {
 		burst.setMinManaLoss(40);
 		burst.setManaLossPerTick(4F);
 		burst.setGravity(0F);
-		burst.setMotion(burst.motionX * motionModifier, burst.motionY * motionModifier, burst.motionZ * motionModifier);
+		burst.setBurstMotion(burst.motionX * motionModifier, burst.motionY * motionModifier, burst.motionZ * motionModifier);
 
 		ItemStack lens = stack.copy();
 		ItemNBTHelper.setString(lens, TAG_ATTACKER_USERNAME, player.getGameProfile().getName());

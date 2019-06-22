@@ -18,7 +18,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.registries.ObjectHolder;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.item.lens.ItemLens;
 import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
@@ -81,8 +80,8 @@ public class EntityManaStorm extends Entity {
 		burst.setSourceLens(new ItemStack(ModItems.lensStorm));
 
 		Vector3 motion = new Vector3(Math.random() - 0.5, Math.random() - 0.5, Math.random() - 0.5).normalize().multiply(motionModifier);
-		burst.setMotion(motion.x, motion.y, motion.z);
-		world.spawnEntity(burst);
+		burst.setBurstMotion(motion.x, motion.y, motion.z);
+		world.addEntity(burst);
 	}
 
 	@Override

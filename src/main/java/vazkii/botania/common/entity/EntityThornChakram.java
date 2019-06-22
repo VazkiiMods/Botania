@@ -131,7 +131,7 @@ public class EntityThornChakram extends ThrowableEntity {
 	private void dropAndKill() {
 		ItemStack stack = getItemStack();
 		ItemEntity item = new ItemEntity(world, posX, posY, posZ, stack);
-		world.spawnEntity(item);
+		world.addEntity(item);
 		remove();
 	}
 

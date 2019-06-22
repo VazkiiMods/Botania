@@ -35,7 +35,7 @@ public class TileBifrost extends TileMod implements ITickableTileEntity {
 	public void tick() {
 		if(!world.isRemote) {
 			if(ticks <= 0) {
-				world.removeBlock(pos);
+				world.removeBlock(pos, false);
 			} else ticks--;
 		}
 	}

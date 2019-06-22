@@ -62,7 +62,7 @@ public class SubTileClayconia extends TileEntityFunctionalFlower {
 					if(ConfigHandler.COMMON.blockBreakParticles.get())
 						getWorld().playEvent(2001, coords, Block.getStateId(Blocks.SAND.getDefaultState()));
 					ItemEntity item = new ItemEntity(getWorld(), coords.getX() + 0.5, coords.getY() + 0.5, coords.getZ() + 0.5, new ItemStack(Items.CLAY_BALL));
-					getWorld().spawnEntity(item);
+					getWorld().addEntity(item);
 					mana -= COST;
 				}
 			}

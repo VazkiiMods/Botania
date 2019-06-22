@@ -67,7 +67,7 @@ public class ItemEnderAir extends ItemMod {
         if(!world.isRemote) {
             EntityEnderAirBottle b = new EntityEnderAirBottle(player, world);
             b.shoot(player, player.rotationPitch, player.rotationYaw, 0F, 1.5F, 1F);
-            world.spawnEntity(b);
+            world.addEntity(b);
         }
         else player.swingArm(hand);
         return ActionResult.newResult(ActionResultType.SUCCESS, stack);

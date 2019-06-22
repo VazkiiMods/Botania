@@ -69,7 +69,7 @@ public class BlockTerraPlate extends BlockMod implements ILexiconable {
 				ItemEntity item = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, target);
 				item.setPickupDelay(40);
 				item.setMotion(Vec3d.ZERO);
-				world.spawnEntity(item);
+				world.addEntity(item);
 			}
 
 			return true;

@@ -67,7 +67,7 @@ public class BehaviourPoolMinecart extends DefaultDispenseItemBehavior {
 			entityminecart.setCustomName(stack.getDisplayName());
 		}
 
-		world.spawnEntity(entityminecart);
+		world.addEntity(entityminecart);
 		stack.shrink(1);
 		return stack;
 	}

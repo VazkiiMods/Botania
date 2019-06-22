@@ -71,7 +71,7 @@ public final class PixieHandler {
 
 				pixie.setProps((LivingEntity) event.getSource().getTrueSource(), player, 0, dmg);
 				pixie.onInitialSpawn(player.world.getDifficultyForLocation(new BlockPos(pixie)), null, null);
-				player.world.spawnEntity(pixie);
+				player.world.addEntity(pixie);
 			}
 		}
 	}

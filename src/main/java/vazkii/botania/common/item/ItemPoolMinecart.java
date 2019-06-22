@@ -62,7 +62,7 @@ public class ItemPoolMinecart extends ItemMod {
 					entityminecart.setCustomName(itemstack.getDisplayName());
 				}
 
-				world.spawnEntity(entityminecart);
+				world.addEntity(entityminecart);
 			}
 
 			itemstack.shrink(1);
