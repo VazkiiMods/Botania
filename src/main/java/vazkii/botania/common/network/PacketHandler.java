@@ -11,6 +11,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.ServerWorld;
 import net.minecraftforge.fml.network.NetworkDirection;
 import net.minecraftforge.fml.network.NetworkRegistry;
+import net.minecraftforge.fml.network.PacketDistributor;
 import net.minecraftforge.fml.network.simple.SimpleChannel;
 import vazkii.botania.common.lib.LibMisc;
 
@@ -39,12 +40,9 @@ public final class PacketHandler {
 		if(world instanceof ServerWorld) {
 			ServerWorld ws = (ServerWorld) world;
 
-			for (PlayerEntity player : ws.playerEntities) {
-				ServerPlayerEntity playerMP = (ServerPlayerEntity) player;
-
-				if (playerMP.getDistanceSq(pos) < 64 * 64
-						&& ws.getPlayerChunkMap().isPlayerWatchingChunk(playerMP, pos.getX() >> 4, pos.getZ() >> 4)) {
-					HANDLER.sendTo(toSend, playerMP.connection.getNetworkManager(), NetworkDirection.PLAY_TO_CLIENT);
+			for (ServerPlayerEntity playerMP : ws.getPlayers()) {
+				if (playerMP.getDistanceSq(pos.getX(), pos.getY(), pos.getZ()) < 64 * 64) {
+					HANDLER.send(PacketDistributor.TRACKING_CHUNK.with(() -> world.getChunkAt(pos)), toSend);
 				}
 			}
 

@@ -33,6 +33,7 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionType;
@@ -109,20 +110,19 @@ public final class SkyblockWorldEvents {
 				}
 			} else if(!equipped.isEmpty() && equipped.getItem() == Items.BOWL) {
 				RayTraceResult rtr = ToolCommons.raytraceFromEntity(event.getWorld(), event.getEntityPlayer(), true, 4.5F);
-				if(rtr != null) {
-					if (rtr.type == RayTraceResult.Type.BLOCK) {
-						if(event.getWorld().getBlockState(rtr.getBlockPos()).getMaterial() == Material.WATER) {
-							if(!event.getWorld().isRemote) {
-								equipped.shrink(1);
+				if(rtr.getType() == RayTraceResult.Type.BLOCK) {
+					BlockPos pos = ((BlockRayTraceResult) rtr).getPos();
+					if(event.getWorld().getBlockState(pos).getMaterial() == Material.WATER) {
+						if(!event.getWorld().isRemote) {
+							equipped.shrink(1);
 
-								if(equipped.isEmpty())
-									event.getEntityPlayer().setHeldItem(event.getHand(), new ItemStack(ModItems.waterBowl));
-								else ItemHandlerHelper.giveItemToPlayer(event.getEntityPlayer(), new ItemStack(ModItems.waterBowl));
-							}
-
-							event.setCanceled(true);
-							event.setCancellationResult(ActionResultType.SUCCESS);
+							if(equipped.isEmpty())
+								event.getEntityPlayer().setHeldItem(event.getHand(), new ItemStack(ModItems.waterBowl));
+							else ItemHandlerHelper.giveItemToPlayer(event.getEntityPlayer(), new ItemStack(ModItems.waterBowl));
 						}
+
+						event.setCanceled(true);
+						event.setCancellationResult(ActionResultType.SUCCESS);
 					}
 				}
 			}

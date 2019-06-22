@@ -2,6 +2,7 @@ package vazkii.botania.common.core.handler;
 
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.potion.EffectInstance;
@@ -70,7 +71,8 @@ public final class PixieHandler {
 					dmg += 2;
 
 				pixie.setProps((LivingEntity) event.getSource().getTrueSource(), player, 0, dmg);
-				pixie.onInitialSpawn(player.world.getDifficultyForLocation(new BlockPos(pixie)), null, null);
+				pixie.onInitialSpawn(player.world, player.world.getDifficultyForLocation(new BlockPos(pixie)),
+						SpawnReason.EVENT, null, null);
 				player.world.addEntity(pixie);
 			}
 		}

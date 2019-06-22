@@ -1,5 +1,6 @@
 package vazkii.botania.common.world;
 
+import com.mojang.datafixers.Dynamic;
 import net.minecraft.block.Block;
 import net.minecraft.block.DoublePlantBlock;
 import net.minecraft.block.BlockState;
@@ -19,8 +20,13 @@ import vazkii.botania.common.block.ModBlocks;
 
 import javax.annotation.Nonnull;
 import java.util.Random;
+import java.util.function.Function;
 
 public class MysticalFlowerFeature extends Feature<MysticalFlowerConfig> {
+    public MysticalFlowerFeature(Function<Dynamic<?>, ? extends MysticalFlowerConfig> configFactoryIn) {
+        super(configFactoryIn);
+    }
+
     @Override
     public boolean place(@Nonnull IWorld world, @Nonnull ChunkGenerator<? extends GenerationSettings> generator, @Nonnull Random rand, @Nonnull BlockPos pos, @Nonnull MysticalFlowerConfig config) {
         boolean flowers = true;
@@ -49,7 +55,8 @@ public class MysticalFlowerFeature extends Feature<MysticalFlowerConfig> {
                     BlockPos pos2 = new BlockPos(x1, y1, z1);
                     if(world.isAirBlock(pos2) && (!world.getDimension().isNether() || y1 < 127) && flower.isValidPosition(world, pos2)) {
                         world.setBlockState(pos2, flower, 2);
-                        if(rand.nextDouble() < config.getTallChance() && ((BlockModFlower) flower).canGrow(world, pos2, world.getBlockState(pos2), false)) {
+                        if(rand.nextDouble() < config.getTallChance()
+                                && ((BlockModFlower) flower.getBlock()).canGrow(world, pos2, world.getBlockState(pos2), false)) {
                             Block block = ModBlocks.getDoubleFlower(color);
                             if(block instanceof DoublePlantBlock) {
                                 ((DoublePlantBlock) block).placeAt(world, pos2, 3);

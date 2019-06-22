@@ -142,7 +142,7 @@ public class ItemManasteelArmor extends ArmorItem implements IManaUsingItem, IPh
 	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void addInformation(ItemStack stack, World world, List<ITextComponent> list, ITooltipFlag flags) {
-		if(Screen.isShiftKeyDown())
+		if(Screen.hasShiftDown())
 			addInformationAfterShift(stack, world, list, flags);
 		else list.add(new TranslationTextComponent("botaniamisc.shiftinfo"));
 	}

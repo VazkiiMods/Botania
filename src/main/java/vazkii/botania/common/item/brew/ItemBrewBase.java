@@ -144,7 +144,7 @@ public class ItemBrewBase extends ItemMod implements IBrewItem {
 	public void addInformation(ItemStack stack, World world, List<ITextComponent> list, ITooltipFlag flags) {
 		Brew brew = getBrew(stack);
 		for(EffectInstance effect : brew.getPotionEffects(stack)) {
-			TextFormatting format = effect.getPotion().isBadEffect() ? TextFormatting.RED : TextFormatting.GRAY;
+			TextFormatting format = !effect.getPotion().isBeneficial() ? TextFormatting.RED : TextFormatting.GRAY;
 			ITextComponent cmp = new TranslationTextComponent(effect.getEffectName());
 			if(effect.getAmplifier() > 0) {
 				cmp.appendText(" ");

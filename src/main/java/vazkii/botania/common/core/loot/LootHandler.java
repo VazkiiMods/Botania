@@ -3,6 +3,7 @@ package vazkii.botania.common.core.loot;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.storage.loot.ILootGenerator;
 import net.minecraft.world.storage.loot.ILootGenerator;
+import net.minecraft.world.storage.loot.LootEntry;
 import net.minecraft.world.storage.loot.TableLootEntry;
 import net.minecraft.world.storage.loot.LootPool;
 import net.minecraft.world.storage.loot.RandomValueRange;
@@ -38,11 +39,16 @@ public final class LootHandler {
 	}
 
 	private static LootPool getInjectPool(String entryName) {
-		return new LootPool(new ILootGenerator[] { getInjectEntry(entryName, 1) }, new ILootCondition[0], new RandomValueRange(1), new RandomValueRange(0, 1), "botania_inject_pool");
+		return LootPool.builder()
+				.addEntry(getInjectEntry(entryName, 1))
+				// todo 1.14 can't set bonusRolls to [0, 1]
+				.build();
 	}
 
-	private static TableLootEntry getInjectEntry(String name, int weight) {
-		return new TableLootEntry(new ResourceLocation(LibMisc.MOD_ID, "inject/" + name), weight, 0, new ILootCondition[0], "botania_inject_entry");
+	private static LootEntry.Builder getInjectEntry(String name, int weight) {
+		ResourceLocation table = new ResourceLocation(LibMisc.MOD_ID, "inject/" + name);
+		return TableLootEntry.func_216171_a(table)
+				.weight(weight);
 	}
 
 }

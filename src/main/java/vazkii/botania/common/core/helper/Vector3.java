@@ -55,7 +55,7 @@ public class Vector3
 	}
 
 	public static Vector3 fromEntityCenter(Entity e) {
-		return new Vector3(e.posX, e.posY - e.getYOffset() + e.height / 2, e.posZ);
+		return new Vector3(e.posX, e.posY - e.getYOffset() + e.getHeight() / 2, e.posZ);
 	}
 
 	public static Vector3 fromTileEntity(TileEntity e) {

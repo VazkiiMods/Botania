@@ -114,8 +114,8 @@ public class PacketBotaniaEffect {
 							double d2 = item.world.rand.nextGaussian() * m;
 							double d3 = 10.0D;
 							item.world.addParticle(ParticleTypes.POOF,
-									message.x + item.world.rand.nextFloat() * item.width * 2.0F - item.width - d0 * d3, message.y + item.world.rand.nextFloat() * item.height - d1 * d3,
-									message.z + item.world.rand.nextFloat() * item.width * 2.0F - item.width - d2 * d3, d0, d1, d2);
+									message.x + item.world.rand.nextFloat() * item.getWidth() * 2.0F - item.getWidth() - d0 * d3, message.y + item.world.rand.nextFloat() * item.getHeight() - d1 * d3,
+									message.z + item.world.rand.nextFloat() * item.getWidth() * 2.0F - item.getWidth() - d2 * d3, d0, d1, d2);
 						}
 						break;
 					}
@@ -259,7 +259,7 @@ public class PacketBotaniaEffect {
 						double z = target.posZ;
 
 						for(int i = 0; i < 50; i++)
-							Botania.proxy.sparkleFX(x + Math.random() * target.width, y + Math.random() * target.height, z + Math.random() * target.width, 1F, 1F, 0.25F, 1F, 3);
+							Botania.proxy.sparkleFX(x + Math.random() * target.getWidth(), y + Math.random() * target.getHeight(), z + Math.random() * target.getWidth(), 1F, 1F, 0.25F, 1F, 3);
 						break;
 					}
 					}

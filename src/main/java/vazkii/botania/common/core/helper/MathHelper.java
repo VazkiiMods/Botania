@@ -33,9 +33,7 @@ public final class MathHelper {
 		if(finalVector.mag() > 1)
 			finalVector = finalVector.normalize();
 
-		entity.motionX = finalVector.x * modifier;
-		entity.motionY = finalVector.y * modifier;
-		entity.motionZ = finalVector.z * modifier;
+		entity.setMotion(finalVector.multiply(modifier).toVec3D());
 	}
 
 	private static final String[] ORDINAL_SUFFIXES = new String[]{ "th", "st", "nd", "rd", "th", "th", "th", "th", "th", "th" };

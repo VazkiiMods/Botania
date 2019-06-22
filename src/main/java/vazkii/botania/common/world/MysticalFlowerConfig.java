@@ -1,7 +1,11 @@
 package vazkii.botania.common.world;
 
+import com.mojang.datafixers.Dynamic;
+import com.mojang.datafixers.types.DynamicOps;
 import net.minecraft.world.gen.feature.IFeatureConfig;
 import vazkii.botania.common.core.handler.ConfigHandler;
+
+import javax.annotation.Nonnull;
 
 public class MysticalFlowerConfig implements IFeatureConfig {
     public int getPatchSize() {
@@ -26,5 +30,12 @@ public class MysticalFlowerConfig implements IFeatureConfig {
 
     public int getMushroomPatchSize() {
         return ConfigHandler.COMMON.mushroomQuantity.get();
+    }
+
+    @Nonnull
+    @Override
+    public <T> Dynamic<T> serialize(@Nonnull DynamicOps<T> ops) {
+        // todo 1.14
+        return new Dynamic<>(ops);
     }
 }
