@@ -63,7 +63,7 @@ public class SubTilePollidisiac extends TileEntityFunctionalFlower {
 
 							mana -= manaCost;
 
-							animal.inLove = 1200;
+							animal.setInLove(1200);
 							getWorld().setEntityState(animal, (byte)18);
 						}
 					}

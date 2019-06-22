@@ -23,8 +23,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
@@ -88,7 +91,8 @@ public class SubTileRannuncarpus extends TileEntityFunctionalFlower {
 				if(stackItem instanceof BlockItem || stackItem instanceof IFlowerPlaceable) {
 					if(!validPositions.isEmpty()) {
 						BlockPos coords = validPositions.get(getWorld().rand.nextInt(validPositions.size()));
-						BlockItemUseContext ctx = new RannuncarpusPlaceContext(getWorld(), stack, coords, Direction.UP, 0, 0, 0);
+						BlockRayTraceResult ray = new BlockRayTraceResult(Vec3d.ZERO, Direction.UP, coords, false);
+						BlockItemUseContext ctx = new RannuncarpusPlaceContext(getWorld(), stack, ray);
 
 						boolean success = false;
 						if(stackItem instanceof IFlowerPlaceable) {
@@ -124,9 +128,10 @@ public class SubTileRannuncarpus extends TileEntityFunctionalFlower {
 		BlockState filter = getUnderlyingBlock();
 		List<BlockPos> ret = new ArrayList<>();
 
-		for (BlockPos pos_ : BlockPos.getAllInBox(pos.add(-rangePlace, -rangePlaceY, -rangePlace), pos.add(rangePlace, rangePlaceY, rangePlace))) {
+		for (BlockPos pos_ : BlockPos.getAllInBoxMutable(pos.add(-rangePlace, -rangePlaceY, -rangePlace),
+				pos.add(rangePlace, rangePlaceY, rangePlace))) {
 			if (filter == getWorld().getBlockState(pos_))
-				ret.add(pos_);
+				ret.add(pos_.toImmutable());
 		}
 		return ret;
 	}
@@ -207,8 +212,8 @@ public class SubTileRannuncarpus extends TileEntityFunctionalFlower {
 	private static class RannuncarpusPlaceContext extends BlockItemUseContext {
 		private final Direction[] lookDirs;
 
-		public RannuncarpusPlaceContext(World world, ItemStack stack, BlockPos pos, Direction side, float hitX, float hitY, float hitZ) {
-			super(world, null, stack, pos, side, hitX, hitY, hitZ);
+		public RannuncarpusPlaceContext(World world, ItemStack stack, BlockRayTraceResult rtr) {
+			super(world, null, Hand.MAIN_HAND, stack, rtr);
 			List<Direction> tmp = Arrays.asList(Direction.values());
 			Collections.shuffle(tmp);
 			lookDirs = tmp.toArray(new Direction[6]);

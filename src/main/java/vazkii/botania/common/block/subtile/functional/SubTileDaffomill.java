@@ -77,9 +77,11 @@ public class SubTileDaffomill extends TileEntityFunctionalFlower {
 				int slowdown = getSlowdownFactor();
 				for(ItemEntity item : items) {
 					if(item.isAlive() && item.age >= slowdown) {
-						item.motionX += orientation.getXOffset() * 0.05;
-						item.motionY += orientation.getYOffset() * 0.05;
-						item.motionZ += orientation.getZOffset() * 0.05;
+						item.setMotion(
+								item.getMotion().getX() + orientation.getXOffset() * 0.05,
+								item.getMotion().getY() + orientation.getYOffset() * 0.05,
+								item.getMotion().getZ() + orientation.getZOffset() * 0.05
+						);
 					}
 				}
 			}

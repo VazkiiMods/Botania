@@ -84,8 +84,7 @@ public class BergamuteEventHandler {
 		@Nonnull @Override public Sound getSound() { return compose.getSound(); }
 		@Nonnull @Override public SoundCategory getCategory() { return compose.getCategory(); }
 		@Override public boolean canRepeat() { return compose.canRepeat(); }
-		@Override public boolean isPriority() { return compose.isPriority(); }
-
+		@Override public boolean func_217861_m() { return compose.func_217861_m(); }
 		@Override public int getRepeatDelay() { return compose.getRepeatDelay(); }
 		@Override public float getPitch() { return compose.getPitch(); }
 		@Override public float getX() { return compose.getX(); }
@@ -106,6 +105,5 @@ public class BergamuteEventHandler {
 
 		@Override public boolean isDonePlaying() { return compose.isDonePlaying(); }
 		@Override public void tick() { compose.tick(); }
-		@Override public boolean isPriority() { return compose.isPriority(); }
 	}
 }

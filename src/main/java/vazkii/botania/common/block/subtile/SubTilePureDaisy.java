@@ -84,9 +84,9 @@ public class SubTilePureDaisy extends TileEntitySpecialFlower {
 		BlockPos coords = getPos().add(acoords);
 		World world = getWorld();
 		if(!world.isAirBlock(coords)) {
-			world.profiler.startSection("findRecipe");
+			world.getProfiler().startSection("findRecipe");
 			RecipePureDaisy recipe = findRecipe(coords);
-			world.profiler.endSection();
+			world.getProfiler().endSection();
 
 			if(recipe != null) {
 				if (ticksRemaining[positionAt] == -1)

@@ -14,6 +14,7 @@ import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.ServerWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.ServerWorld;
@@ -43,16 +44,17 @@ public class SubTileShulkMeNot extends TileEntityGeneratingFlower {
 		
 		World world = getWorld();
 		BlockPos pos = getPos();
+		Vec3d posD = new Vec3d(pos.getX(), pos.getY(), pos.getZ());
 		List<ShulkerEntity> shulkers = world.getEntitiesWithinAABB(ShulkerEntity.class, new AxisAlignedBB(pos).grow(RADIUS));
 		if(!world.isRemote)
 			for(ShulkerEntity shulker : shulkers) {
 				if(getMaxMana() - mana < generate)
 					break;
-				
-				if(shulker.isAlive() && shulker.getDistanceSq(pos) < RADIUS * RADIUS) {
+
+				if(shulker.isAlive() && shulker.getDistanceSq(posD) < RADIUS * RADIUS) {
 					LivingEntity target = shulker.getAttackTarget();
 					if(target != null && target instanceof IMob && target.isAlive()
-							&& target.getDistanceSq(pos) < RADIUS * RADIUS && target.getActivePotionEffect(Effects.LEVITATION) != null) {
+							&& target.getDistanceSq(posD) < RADIUS * RADIUS && target.getActivePotionEffect(Effects.LEVITATION) != null) {
 						target.remove();
 						shulker.remove();
 	
@@ -71,7 +73,11 @@ public class SubTileShulkMeNot extends TileEntityGeneratingFlower {
 	private void particles(World world, BlockPos pos, Entity entity) {
 		if(world instanceof ServerWorld) {
 			ServerWorld ws = (ServerWorld) world;
-			ws.spawnParticle(ParticleTypes.EXPLOSION, entity.posX + entity.width / 2, entity.posY + entity.height / 2, entity.posZ + entity.width / 2, 100, entity.width, entity.height, entity.width, 0.05);
+			ws.spawnParticle(ParticleTypes.EXPLOSION,
+					entity.posX + entity.getWidth() / 2,
+					entity.posY + entity.getHeight() / 2,
+					entity.posZ + entity.getWidth() / 2,
+					100, entity.getWidth(), entity.getHeight(), entity.getWidth(), 0.05);
 			ws.spawnParticle(ParticleTypes.PORTAL, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 40, 0, 0, 0, 0.6);
 		}
 	}

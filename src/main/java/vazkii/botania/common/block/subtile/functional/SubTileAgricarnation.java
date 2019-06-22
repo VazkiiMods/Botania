@@ -97,7 +97,9 @@ public class SubTileAgricarnation extends TileEntityFunctionalFlower {
 			return false;
 
 		Material mat = state.getMaterial();
-		return mat != null && (mat == Material.PLANTS || mat == Material.CACTUS || mat == Material.GRASS || mat == Material.LEAVES || mat == Material.GOURD) && block instanceof IGrowable && ((IGrowable) block).canGrow(getWorld(), pos, getWorld().getBlockState(pos), getWorld().isRemote);
+		return (mat == Material.PLANTS || mat == Material.CACTUS || mat == Material.ORGANIC || mat == Material.LEAVES || mat == Material.GOURD)
+				&& block instanceof IGrowable
+				&& ((IGrowable) block).canGrow(getWorld(), pos, getWorld().getBlockState(pos), getWorld().isRemote);
 	}
 
 	@Override

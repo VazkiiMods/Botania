@@ -15,6 +15,8 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.FurnaceTileEntity;
@@ -29,6 +31,8 @@ import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lib.LibMisc;
+
+import java.util.Optional;
 
 public class SubTileExoflame extends TileEntityFunctionalFlower {
 	@ObjectHolder(LibMisc.MOD_ID + ":exoflame")
@@ -51,7 +55,8 @@ public class SubTileExoflame extends TileEntityFunctionalFlower {
 
 		boolean did = false;
 
-		for(BlockPos pos : BlockPos.getAllInBox(getPos().add(-RANGE, -RANGE_Y, -RANGE), getPos().add(RANGE, RANGE_Y, RANGE))) {
+		for(BlockPos pos : BlockPos.getAllInBoxMutable(getPos().add(-RANGE, -RANGE_Y, -RANGE),
+				getPos().add(RANGE, RANGE_Y, RANGE))) {
 			TileEntity tile = getWorld().getTileEntity(pos);
 			BlockState state = getWorld().getBlockState(pos);
 			Block block = state.getBlock();
@@ -101,11 +106,14 @@ public class SubTileExoflame extends TileEntityFunctionalFlower {
 		if(furnace.getStackInSlot(0).isEmpty())
 			return false;
 		else {
-			ItemStack itemstack = furnace.getWorld().getRecipeManager().getResult(furnace, furnace.getWorld(), VanillaRecipeTypes.SMELTING);;
+			Optional<ItemStack> maybeStack = furnace.getWorld().getRecipeManager()
+					.getRecipe(IRecipeType.SMELTING, furnace, furnace.getWorld())
+					.map(IRecipe::getRecipeOutput);
 
-			if(itemstack.isEmpty())
+			if(!maybeStack.isPresent() || maybeStack.get().isEmpty())
 				return false;
 
+			ItemStack itemstack = maybeStack.get();
 			if(furnace.getStackInSlot(2).isEmpty())
 				return true;
 

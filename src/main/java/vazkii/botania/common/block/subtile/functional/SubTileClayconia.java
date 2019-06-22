@@ -58,7 +58,7 @@ public class SubTileClayconia extends TileEntityFunctionalFlower {
 			if(mana >= COST) {
 				BlockPos coords = getCoordsToPut();
 				if(coords != null) {
-					getWorld().removeBlock(coords);
+					getWorld().removeBlock(coords, false);
 					if(ConfigHandler.COMMON.blockBreakParticles.get())
 						getWorld().playEvent(2001, coords, Block.getStateId(Blocks.SAND.getDefaultState()));
 					ItemEntity item = new ItemEntity(getWorld(), coords.getX() + 0.5, coords.getY() + 0.5, coords.getZ() + 0.5, new ItemStack(Items.CLAY_BALL));

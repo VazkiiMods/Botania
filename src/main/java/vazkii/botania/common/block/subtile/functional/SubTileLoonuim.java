@@ -12,9 +12,11 @@ package vazkii.botania.common.block.subtile.functional;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.item.ItemEntity;
@@ -43,9 +45,12 @@ import net.minecraft.tags.Tag;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.ServerWorld;
 import net.minecraft.world.storage.loot.LootContext;
+import net.minecraft.world.storage.loot.LootParameterSet;
+import net.minecraft.world.storage.loot.LootParameterSets;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -89,7 +94,9 @@ public class SubTileLoonuim extends TileEntityFunctionalFlower {
 
 			ItemStack stack;
 			do {
-				List<ItemStack> stacks = ((ServerWorld) world).getServer().getLootTableManager().getLootTableFromLocation(lootTable).generateLootForPools(rand, new LootContext.Builder((ServerWorld) world).build());
+				LootContext ctx = new LootContext.Builder((ServerWorld) world).build(LootParameterSets.EMPTY);
+				List<ItemStack> stacks = ((ServerWorld) world).getServer().getLootTableManager()
+						.getLootTableFromLocation(lootTable).generate(ctx);
 				if (stacks.isEmpty())
 					return;
 				else {
@@ -108,7 +115,7 @@ public class SubTileLoonuim extends TileEntityFunctionalFlower {
 				pos = pos.up();
 				if(pos.getY() >= 254)
 					return;
-			} while(world.getBlockState(pos).causesSuffocation());
+			} while(world.getBlockState(pos).causesSuffocation(world, pos));
 			pos = pos.up();
 
 			double x = pos.getX() + Math.random();
@@ -117,45 +124,49 @@ public class SubTileLoonuim extends TileEntityFunctionalFlower {
 			
 			MonsterEntity entity = null;
 			if(world.rand.nextInt(50) == 0)
-				entity = new EndermanEntity(world);
+				entity = new EndermanEntity(EntityType.ENDERMAN, world);
 			else if(world.rand.nextInt(10) == 0) {
-				entity = new CreeperEntity(world);
+				entity = new CreeperEntity(EntityType.CREEPER, world);
 				if(world.rand.nextInt(200) == 0)
 					entity.onStruckByLightning(null);
 			} else 
 				switch(world.rand.nextInt(3)) {
 				case 0:
 					if(world.rand.nextInt(10) == 0)
-						entity = new HuskEntity(world);
+						entity = new HuskEntity(EntityType.HUSK, world);
 					else entity = new ZombieEntity(world);
 					break;
 				case 1:
 					if(world.rand.nextInt(10) == 0)
-						entity = new StrayEntity(world);
-					else entity = new SkeletonEntity(world);
+						entity = new StrayEntity(EntityType.STRAY, world);
+					else entity = new SkeletonEntity(EntityType.SKELETON, world);
 					break;
 				case 2:
 					if(world.rand.nextInt(10) == 0)
-						entity = new CaveSpiderEntity(world);
-					else entity = new SpiderEntity(world);
+						entity = new CaveSpiderEntity(EntityType.CAVE_SPIDER, world);
+					else entity = new SpiderEntity(EntityType.SPIDER, world);
 					break;
 				}
 
 			entity.setPositionAndRotation(x, y, z, world.rand.nextFloat() * 360F, 0);
-			entity.motionX = entity.motionY = entity.motionZ = 0;
-			
-			Multimap map = HashMultimap.create();
-			map.put(SharedMonsterAttributes.MAX_HEALTH.getName(), new AttributeModifier("Loonium Modififer Health", 2, 1));
-			map.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier("Loonium Modififer Damage", 1.5, 1));
-			entity.getAttributeMap().applyAttributeModifiers(map);
+			entity.setMotion(Vec3d.ZERO);
 
-			entity.addPotionEffect(new EffectInstance(Effects.FIRE_RESISTANCE, entity instanceof CreeperEntity ? 100 : Integer.MAX_VALUE, 0));
-			entity.addPotionEffect(new EffectInstance(Effects.REGENERATION, entity instanceof CreeperEntity ? 100 : Integer.MAX_VALUE, 0));
+			Multimap<String, AttributeModifier> map = HashMultimap.create();
+			map.put(SharedMonsterAttributes.MAX_HEALTH.getName(),
+					new AttributeModifier("Loonium Modififer Health", 2, AttributeModifier.Operation.MULTIPLY_BASE));
+			map.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(),
+					new AttributeModifier("Loonium Modififer Damage", 1.5, AttributeModifier.Operation.MULTIPLY_BASE));
+			entity.getAttributes().applyAttributeModifiers(map);
+
+			entity.addPotionEffect(new EffectInstance(Effects.FIRE_RESISTANCE,
+					entity instanceof CreeperEntity ? 100 : Integer.MAX_VALUE, 0));
+			entity.addPotionEffect(new EffectInstance(Effects.REGENERATION,
+					entity instanceof CreeperEntity ? 100 : Integer.MAX_VALUE, 0));
 
 			CompoundNBT cmp = stack.write(new CompoundNBT());
 			entity.getEntityData().put(TAG_ITEMSTACK_TO_DROP, cmp);
 
-			entity.onInitialSpawn(world.getDifficultyForLocation(pos), null, null);
+			entity.onInitialSpawn(world, world.getDifficultyForLocation(pos), SpawnReason.SPAWNER, null, null);
 			world.addEntity(entity);
 			entity.spawnExplosionParticle();
 			

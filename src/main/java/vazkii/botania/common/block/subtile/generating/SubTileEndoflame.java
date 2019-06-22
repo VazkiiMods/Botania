@@ -14,10 +14,12 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.item.Item;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.tileentity.AbstractFurnaceTileEntity;
 import net.minecraft.tileentity.FurnaceTileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.SoundCategory;
@@ -74,7 +76,7 @@ public class SubTileEndoflame extends TileEntityGeneratingFlower {
 							if(stack.isEmpty() || stack.getItem().hasContainerItem(stack))
 								continue;
 
-							int burnTime = Block.getBlockFromItem(stack.getItem()) instanceof BlockSpreader ? 0 : FurnaceTileEntity.getItemBurnTime(stack);
+							int burnTime = getBurnTime(stack);
 							if(burnTime > 0 && stack.getCount() > 0) {
 								this.burnTime = Math.min(FUEL_CAP, burnTime) / 2;
 
@@ -153,6 +155,17 @@ public class SubTileEndoflame extends TileEntityGeneratingFlower {
 	@Override
 	public int getDelayBetweenPassiveGeneration() {
 		return 2;
+	}
+
+	private int getBurnTime(ItemStack stack) {
+		if (stack.isEmpty() || Block.getBlockFromItem(stack.getItem()) instanceof BlockSpreader) {
+			return 0;
+		} else {
+			Item item = stack.getItem();
+			int ret = stack.getBurnTime();
+			return net.minecraftforge.event.ForgeEventFactory.getItemBurnTime(stack, ret == -1
+					? AbstractFurnaceTileEntity.getBurnTimes().getOrDefault(item, 0) : ret);
+		}
 	}
 
 }

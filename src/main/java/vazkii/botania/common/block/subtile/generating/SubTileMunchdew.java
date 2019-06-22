@@ -74,11 +74,12 @@ public class SubTileMunchdew extends TileEntityGeneratingFlower {
 				BlockPos pos = getPos();
 
 				nextCoord:
-				for(BlockPos pos_ : BlockPos.getAllInBox(pos.add(-RANGE, 0, -RANGE), pos.add(RANGE, RANGE_Y, RANGE))) {
+				for(BlockPos pos_ : BlockPos.getAllInBoxMutable(pos.add(-RANGE, 0, -RANGE),
+						pos.add(RANGE, RANGE_Y, RANGE))) {
 					if(getWorld().getBlockState(pos_).getBlock().isIn(BlockTags.LEAVES)) {
 						for(Direction dir : Direction.values()) {
 							if(getWorld().isAirBlock(pos_.offset(dir))) {
-								coords.add(pos_);
+								coords.add(pos_.toImmutable());
 								break nextCoord;
 							}
 						}
@@ -91,7 +92,7 @@ public class SubTileMunchdew extends TileEntityGeneratingFlower {
 				Collections.shuffle(coords);
 				BlockPos breakCoords = coords.get(0);
 				BlockState state = getWorld().getBlockState(breakCoords);
-				getWorld().removeBlock(breakCoords);
+				getWorld().removeBlock(breakCoords, false);
 				ticksWithoutEating = 0;
 				ateOnce = true;
 				if(ConfigHandler.COMMON.blockBreakParticles.get())

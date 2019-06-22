@@ -90,7 +90,7 @@ public class SubTileGourmaryllis extends TileEntityGeneratingFlower {
 		for(ItemEntity item : items) {
 			ItemStack stack = item.getItem();
 
-			if(!stack.isEmpty() && stack.getItem() instanceof ItemFood && !item.removed && item.age >= slowdown) {
+			if(!stack.isEmpty() && stack.getItem().isFood() && !item.removed && item.age >= slowdown) {
 				if(cooldown <= 0) {
 					if(ItemHandlerHelper.canItemStacksStack(lastFood, stack)) {
 						lastFoodCount++;
@@ -100,7 +100,7 @@ public class SubTileGourmaryllis extends TileEntityGeneratingFlower {
 						lastFoodCount = 1;
 					}
 
-					int val = Math.min(12, ((ItemFood) stack.getItem()).getHealAmount(stack));
+					int val = Math.min(12, stack.getItem().getFood().getHealing();
 					digestingMana = val * val * 70;
 					digestingMana *= 1F / lastFoodCount;
 					cooldown = val * 10;

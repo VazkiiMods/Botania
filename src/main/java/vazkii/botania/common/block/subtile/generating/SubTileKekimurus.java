@@ -56,7 +56,7 @@ public class SubTileKekimurus extends TileEntityGeneratingFlower {
 						if(block instanceof CakeBlock) {
 							int nextSlicesEaten = state.get(CakeBlock.BITES) + 1;
 							if(nextSlicesEaten > 6)
-								getWorld().removeBlock(pos);
+								getWorld().removeBlock(pos, false);
 							else getWorld().setBlockState(pos, state.with(CakeBlock.BITES, nextSlicesEaten), 1 | 2);
 
 							getWorld().playEvent(2001, pos, Block.getStateId(state));

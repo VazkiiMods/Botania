@@ -23,6 +23,7 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.registries.ObjectHolder;
@@ -85,7 +86,7 @@ public class SubTileSpectranthemum extends TileEntityFunctionalFlower {
 						spawnExplosionParticles(item, 10);
 						item.setPosition(bindPos.getX() + 0.5, bindPos.getY() + 1.5, bindPos.getZ() + 0.5);
 						item.getEntityData().putBoolean(TAG_TELEPORTED, true);
-						item.motionX = item.motionY = item.motionZ = 0;
+						item.setMotion(Vec3d.ZERO);
 						spawnExplosionParticles(item, 10);
 						mana -= cost;
 						did = true;

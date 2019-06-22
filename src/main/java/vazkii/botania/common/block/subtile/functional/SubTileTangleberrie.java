@@ -68,7 +68,10 @@ public class SubTileTangleberrie extends TileEntityFunctionalFlower {
 				if(distance > maxDist && distance < range) {
 					MathHelper.setEntityMotionFromVector(entity, new Vector3(x1, y1, z1), getMotionVelocity());
 					if(getWorld().rand.nextInt(3) == 0)
-						Botania.proxy.sparkleFX(x2 + Math.random() * entity.width, y2 + Math.random() * entity.height, z2 + Math.random() * entity.width, 0.5F, 0.5F, 0.5F, 1F, 3);
+						Botania.proxy.sparkleFX(x2 + Math.random() * entity.getWidth(),
+								y2 + Math.random() * entity.getHeight(),
+								z2 + Math.random() * entity.getWidth(),
+								0.5F, 0.5F, 0.5F, 1F, 3);
 				}
 			}
 
