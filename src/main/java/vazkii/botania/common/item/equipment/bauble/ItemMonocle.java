@@ -19,11 +19,16 @@ import net.minecraft.block.RepeaterBlock;
 import net.minecraft.client.Minecraft;
 import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
+import net.minecraft.client.renderer.texture.AtlasTexture;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.properties.ComparatorMode;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.api.distmarker.Dist;
@@ -43,9 +48,9 @@ public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, ICosm
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public void doRender(ItemStack stack, EntityLivingBase player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-		boolean armor = !player.getItemStackFromSlot(EntityEquipmentSlot.HEAD).isEmpty();
-		Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+	public void doRender(ItemStack stack, LivingEntity player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+		boolean armor = !player.getItemStackFromSlot(EquipmentSlotType.HEAD).isEmpty();
+		Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
 
 		AccessoryRenderHelper.translateToHeadLevel(player);
 		AccessoryRenderHelper.translateToFace();
@@ -59,12 +64,13 @@ public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, ICosm
 	@OnlyIn(Dist.CLIENT)
 	public static void renderHUD(PlayerEntity player) {
 		Minecraft mc = Minecraft.getInstance();
-		RayTraceResult pos = mc.objectMouseOver;
-		if(pos == null || pos.getBlockPos() == null)
+		RayTraceResult ray = mc.objectMouseOver;
+		if(ray == null || ray.getType() != RayTraceResult.Type.BLOCK)
 			return;
-		BlockState state = player.world.getBlockState(pos.getBlockPos());
+		BlockPos pos = ((BlockRayTraceResult) ray).getPos();
+		BlockState state = player.world.getBlockState(pos);
 		Block block = state.getBlock();
-		player.world.getTileEntity(pos.getBlockPos());
+		player.world.getTileEntity(pos);
 
 		ItemStack dispStack = ItemStack.EMPTY;
 		String text = "";
@@ -93,7 +99,7 @@ public class ItemMonocle extends ItemBauble implements IBurstViewerBauble, ICosm
 		mc.fontRenderer.drawStringWithShadow(text, x + 20, y + 4, 0xFFFFFF);
 	}
 
-	public static boolean hasMonocle(EntityPlayer player) {
+	public static boolean hasMonocle(PlayerEntity player) {
 		ItemStack stack = EquipmentHandler.findOrEmpty(ModItems.monocle, player);
 		if(!stack.isEmpty()) {
 			Item item = stack.getItem();

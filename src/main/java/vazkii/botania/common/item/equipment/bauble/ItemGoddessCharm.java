@@ -50,7 +50,7 @@ public class ItemGoddessCharm extends ItemBauble implements IManaUsingItem {
 		Vec3d vec = e.getPosition();
 		List<PlayerEntity> players = event.getWorld().getEntitiesWithinAABB(PlayerEntity.class, new AxisAlignedBB(vec.x, vec.y, vec.z, vec.x, vec.y, vec.z).grow(8));
 		
-		for(EntityPlayer player : players) {
+		for(PlayerEntity player : players) {
 			ItemStack charm = EquipmentHandler.findOrEmpty(ModItems.goddessCharm, player);
 			if(!charm.isEmpty() && ManaItemHandler.requestManaExact(charm, player, COST, true))  {
 				event.getAffectedBlocks().clear();
@@ -61,7 +61,7 @@ public class ItemGoddessCharm extends ItemBauble implements IManaUsingItem {
 	
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public void doRender(ItemStack stack, EntityLivingBase player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+	public void doRender(ItemStack stack, LivingEntity player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 		GlStateManager.pushMatrix();
 		AccessoryRenderHelper.translateToHeadLevel(player);
 		AccessoryRenderHelper.translateToFace();

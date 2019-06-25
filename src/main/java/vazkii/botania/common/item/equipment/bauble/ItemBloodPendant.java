@@ -95,18 +95,18 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 	}
 
 	@Override
-	public void onWornTick(ItemStack stack, EntityLivingBase player) {
+	public void onWornTick(ItemStack stack, LivingEntity player) {
 		Brew brew = ((IBrewItem) stack.getItem()).getBrew(stack);
-		if (brew != BotaniaAPI.fallbackBrew && player instanceof EntityPlayer && !player.world.isRemote) {
-			EntityPlayer eplayer = (EntityPlayer) player;
-			PotionEffect effect = brew.getPotionEffects(stack).get(0);
+		if (brew != BotaniaAPI.fallbackBrew && player instanceof PlayerEntity && !player.world.isRemote) {
+			PlayerEntity eplayer = (PlayerEntity) player;
+			EffectInstance effect = brew.getPotionEffects(stack).get(0);
 			float cost = (float) brew.getManaCost(stack) / effect.getDuration() / (1 + effect.getAmplifier()) * 2.5F;
 			boolean doRand = cost < 1;
 			if (ManaItemHandler.requestManaExact(stack, eplayer, (int) Math.ceil(cost), false)) {
-				PotionEffect currentEffect = player.getActivePotionEffect(effect.getPotion());
-				boolean nightVision = effect.getPotion() == MobEffects.NIGHT_VISION;
+				EffectInstance currentEffect = player.getActivePotionEffect(effect.getPotion());
+				boolean nightVision = effect.getPotion() == Effects.NIGHT_VISION;
 				if (currentEffect == null || currentEffect.getDuration() < (nightVision ? 305 : 3)) {
-					PotionEffect applyEffect = new PotionEffect(effect.getPotion(), nightVision ? 385 : 80, effect.getAmplifier(), true, true);
+					EffectInstance applyEffect = new EffectInstance(effect.getPotion(), nightVision ? 385 : 80, effect.getAmplifier(), true, true);
 					player.addPotionEffect(applyEffect);
 				}
 
@@ -118,10 +118,10 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public void doRender(ItemStack stack, EntityLivingBase player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-		Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+	public void doRender(ItemStack stack, LivingEntity player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+		Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
 		AccessoryRenderHelper.rotateIfSneaking(player);
-		boolean armor = !player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).isEmpty();
+		boolean armor = !player.getItemStackFromSlot(EquipmentSlotType.CHEST).isEmpty();
 		GlStateManager.rotatef(180F, 1F, 0F, 0F);
 		GlStateManager.translatef(-0.26F, -0.4F, armor ? 0.2F : 0.15F);
 		GlStateManager.scalef(0.5F, 0.5F, 0.5F);

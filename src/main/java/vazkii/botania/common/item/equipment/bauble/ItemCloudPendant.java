@@ -42,7 +42,7 @@ public class ItemCloudPendant extends ItemBauble {
 	}
 
 	@Override
-	public void onWornTick(ItemStack stack, EntityLivingBase player) {
+	public void onWornTick(ItemStack stack, LivingEntity player) {
 		DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> {
 			if(player instanceof EntityPlayerSP && player == Minecraft.getInstance().player) {
 				EntityPlayerSP playerSp = (EntityPlayerSP) player;
@@ -65,10 +65,10 @@ public class ItemCloudPendant extends ItemBauble {
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public void doRender(ItemStack stack, EntityLivingBase player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-		Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+	public void doRender(ItemStack stack, LivingEntity player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+		Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
 		AccessoryRenderHelper.rotateIfSneaking(player);
-		boolean armor = !player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).isEmpty();
+		boolean armor = !player.getItemStackFromSlot(EquipmentSlotType.CHEST).isEmpty();
 		GlStateManager.rotatef(180F, 1F, 0F, 0F);
 		GlStateManager.translatef(-0.2F, -0.3F, armor ? 0.2F : 0.15F);
 		GlStateManager.scalef(0.5F, 0.5F, 0.5F);

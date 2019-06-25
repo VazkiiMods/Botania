@@ -4,7 +4,7 @@ package vazkii.botania.common.integration.buildcraft;
 import buildcraft.api.core.render.ISprite;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.client.renderer.texture.AtlasTexture;
 
 */
 /**
@@ -20,7 +20,7 @@ public class TASprite implements ISprite {
 
 	@Override
 	public void bindTexture() {
-		Minecraft.getInstance().getTextureManager().bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+		Minecraft.getInstance().getTextureManager().bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
 	}
 
 	@Override

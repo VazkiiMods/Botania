@@ -67,7 +67,7 @@ public class ItemMagnetRing extends ItemBauble {
 	}
 
 	@Override
-	public void onWornTick(ItemStack stack, EntityLivingBase player) {
+	public void onWornTick(ItemStack stack, LivingEntity player) {
 		int cooldown = getCooldown(stack);
 
 		if(SubTileSolegnolia.hasSolegnoliaAround(player)) {
@@ -83,9 +83,9 @@ public class ItemMagnetRing extends ItemBauble {
 				double z = player.posZ;
 
 				int range = ((ItemMagnetRing) stack.getItem()).range;
-				List<EntityItem> items = player.world.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(x - range, y - range, z - range, x + range, y + range, z + range));
+				List<ItemEntity> items = player.world.getEntitiesWithinAABB(ItemEntity.class, new AxisAlignedBB(x - range, y - range, z - range, x + range, y + range, z + range));
 				int pulled = 0;
-				for(EntityItem item : items)
+				for(ItemEntity item : items)
 					if(((ItemMagnetRing) stack.getItem()).canPullItem(item)) {
 						if(pulled > 200)
 							break;

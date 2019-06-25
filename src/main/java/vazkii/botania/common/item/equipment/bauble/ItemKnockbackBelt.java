@@ -36,13 +36,13 @@ public class ItemKnockbackBelt extends ItemBauble {
 	@Override
 	public Multimap<String, AttributeModifier> getEquippedAttributeModifiers(ItemStack stack) {
 		Multimap<String, AttributeModifier> attributes = HashMultimap.create();
-		attributes.put(SharedMonsterAttributes.KNOCKBACK_RESISTANCE.getName(), new AttributeModifier(getBaubleUUID(stack), "Knockback Belt", 1, 0).setSaved(false));
+		attributes.put(SharedMonsterAttributes.KNOCKBACK_RESISTANCE.getName(), new AttributeModifier(getBaubleUUID(stack), "Knockback Belt", 1, AttributeModifier.Operation.ADDITION).setSaved(false));
 		return attributes;
 	}
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public void doRender(ItemStack stack, EntityLivingBase living, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+	public void doRender(ItemStack stack, LivingEntity living, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 		Minecraft.getInstance().textureManager.bindTexture(texture);
 
 		GlStateManager.translatef(0F, 0.2F, 0F);

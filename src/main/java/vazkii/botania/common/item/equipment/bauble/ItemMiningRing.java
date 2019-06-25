@@ -26,29 +26,29 @@ public class ItemMiningRing extends ItemBauble implements IManaUsingItem {
 	}
 
 	@Override
-	public void onWornTick(ItemStack stack, EntityLivingBase player) {
-		if(player instanceof EntityPlayer && !player.world.isRemote) {
+	public void onWornTick(ItemStack stack, LivingEntity player) {
+		if(player instanceof PlayerEntity && !player.world.isRemote) {
 			int manaCost = 5;
-			boolean hasMana = ManaItemHandler.requestManaExact(stack, (EntityPlayer) player, manaCost, false);
+			boolean hasMana = ManaItemHandler.requestManaExact(stack, (PlayerEntity) player, manaCost, false);
 			if(!hasMana)
 				onUnequipped(stack, player);
 			else {
-				if(player.getActivePotionEffect(MobEffects.HASTE) != null)
-					player.removePotionEffect(MobEffects.HASTE);
+				if(player.getActivePotionEffect(Effects.HASTE) != null)
+					player.removePotionEffect(Effects.HASTE);
 
-				player.addPotionEffect(new PotionEffect(MobEffects.HASTE, Integer.MAX_VALUE, 1, true, true));
+				player.addPotionEffect(new EffectInstance(Effects.HASTE, Integer.MAX_VALUE, 1, true, true));
 			}
 
 			if(player.swingProgress == 0.25F)
-				ManaItemHandler.requestManaExact(stack, (EntityPlayer) player, manaCost, true);
+				ManaItemHandler.requestManaExact(stack, (PlayerEntity) player, manaCost, true);
 		}
 	}
 
 	@Override
-	public void onUnequipped(ItemStack stack, EntityLivingBase player) {
-		PotionEffect effect = player.getActivePotionEffect(MobEffects.HASTE);
+	public void onUnequipped(ItemStack stack, LivingEntity player) {
+		EffectInstance effect = player.getActivePotionEffect(Effects.HASTE);
 		if(effect != null && effect.getAmplifier() == 1)
-			player.removePotionEffect(MobEffects.HASTE);
+			player.removePotionEffect(Effects.HASTE);
 	}
 
 	@Override

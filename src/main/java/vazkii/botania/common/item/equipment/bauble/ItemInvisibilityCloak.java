@@ -28,24 +28,24 @@ public class ItemInvisibilityCloak extends ItemBauble implements IManaUsingItem 
 	}
 
 	@Override
-	public void onUnequipped(ItemStack stack, EntityLivingBase player) {
-		PotionEffect effect = player.getActivePotionEffect(MobEffects.INVISIBILITY);
-		if(effect != null && player instanceof EntityPlayer && effect.getAmplifier() == -42)
-			player.removePotionEffect(MobEffects.INVISIBILITY);
+	public void onUnequipped(ItemStack stack, LivingEntity player) {
+		EffectInstance effect = player.getActivePotionEffect(Effects.INVISIBILITY);
+		if(effect != null && player instanceof PlayerEntity && effect.getAmplifier() == -42)
+			player.removePotionEffect(Effects.INVISIBILITY);
 	}
 
 	@Override
-	public void onWornTick(ItemStack stack, EntityLivingBase player) {
-		if(player instanceof EntityPlayer && !player.world.isRemote) {
+	public void onWornTick(ItemStack stack, LivingEntity player) {
+		if(player instanceof PlayerEntity && !player.world.isRemote) {
 			int manaCost = 2;
-			boolean hasMana = ManaItemHandler.requestManaExact(stack, (EntityPlayer) player, manaCost, false);
+			boolean hasMana = ManaItemHandler.requestManaExact(stack, (PlayerEntity) player, manaCost, false);
 			if(!hasMana)
 				onUnequipped(stack, player);
 			else {
-				if(player.getActivePotionEffect(MobEffects.INVISIBILITY) != null)
-					player.removePotionEffect(MobEffects.INVISIBILITY);
+				if(player.getActivePotionEffect(Effects.INVISIBILITY) != null)
+					player.removePotionEffect(Effects.INVISIBILITY);
 
-				player.addPotionEffect(new PotionEffect(MobEffects.INVISIBILITY, Integer.MAX_VALUE, -42, true, true));
+				player.addPotionEffect(new EffectInstance(Effects.INVISIBILITY, Integer.MAX_VALUE, -42, true, true));
 			}
 		}
 	}

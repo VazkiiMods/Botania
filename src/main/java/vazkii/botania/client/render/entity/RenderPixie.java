@@ -85,7 +85,7 @@ public class RenderPixie extends MobRenderer<EntityPixie> {
 	}
 
 	/*@Override
-	protected int shouldRenderPass(EntityLivingBase par1EntityLivingBase, int par2, float par3) {
+	protected int shouldRenderPass(LivingEntity par1EntityLivingBase, int par2, float par3) {
 		return setPixieBrightness((EntityPixie)par1EntityLivingBase, par2, par3);
 	}*/
 }

@@ -82,19 +82,19 @@ public abstract class ItemRelicBauble extends ItemBauble implements IRelic {
 	}
 
 	@Override
-	public void onWornTick(ItemStack stack, EntityLivingBase entity) {
-		if(entity instanceof EntityPlayer) {
-			EntityPlayer ePlayer = (EntityPlayer) entity;
+	public void onWornTick(ItemStack stack, LivingEntity entity) {
+		if(entity instanceof PlayerEntity) {
+			PlayerEntity ePlayer = (PlayerEntity) entity;
 			dummy.updateRelic(stack, ePlayer);
 			if(dummy.isRightPlayer(ePlayer, stack))
 				onValidPlayerWornTick(ePlayer);
 		}
 	}
 
-	public void onValidPlayerWornTick(EntityPlayer player) { }
+	public void onValidPlayerWornTick(PlayerEntity player) { }
 
 	@Override
-	public boolean canEquip(ItemStack stack, EntityLivingBase entity) {
-		return entity instanceof EntityPlayer && dummy.isRightPlayer((EntityPlayer) entity, stack);
+	public boolean canEquip(ItemStack stack, LivingEntity entity) {
+		return entity instanceof PlayerEntity && dummy.isRightPlayer((PlayerEntity) entity, stack);
 	}
 }

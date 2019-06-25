@@ -17,6 +17,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
@@ -62,8 +63,8 @@ public class ItemTravelBelt extends ItemBauble implements IManaUsingItem {
 
 	@SubscribeEvent
 	public void updatePlayerStepStatus(LivingUpdateEvent event) {
-		if(event.getEntityLiving() instanceof EntityPlayer) {
-			EntityPlayer player = (EntityPlayer) event.getEntityLiving();
+		if(event.getEntityLiving() instanceof PlayerEntity) {
+			PlayerEntity player = (PlayerEntity) event.getEntityLiving();
 			ItemStack belt = EquipmentHandler.findOrEmpty(s -> s.getItem() instanceof ItemTravelBelt, player);
 			String s = playerStr(player);
 
@@ -74,7 +75,7 @@ public class ItemTravelBelt extends ItemBauble implements IManaUsingItem {
 					if(player.world.isRemote) {
 						if((player.onGround || player.abilities.isFlying) && player.moveForward > 0F && !player.isInWaterOrBubbleColumn()) {
 							float speed = beltItem.getSpeed(belt);
-							player.moveRelative(0F, 0F, 1F, player.abilities.isFlying ? speed : speed);
+							player.moveRelative(player.abilities.isFlying ? speed : speed, new Vec3d(0, 0, 1));
 							beltItem.onMovedTick(belt, player);
 
 							if(player.ticksExisted % COST_INTERVAL == 0)
@@ -107,18 +108,18 @@ public class ItemTravelBelt extends ItemBauble implements IManaUsingItem {
 
 	@SubscribeEvent
 	public void onPlayerJump(LivingJumpEvent event) {
-		if(event.getEntityLiving() instanceof EntityPlayer) {
-			EntityPlayer player = (EntityPlayer) event.getEntityLiving();
+		if(event.getEntityLiving() instanceof PlayerEntity) {
+			PlayerEntity player = (PlayerEntity) event.getEntityLiving();
 			ItemStack belt = EquipmentHandler.findOrEmpty(s -> s.getItem() instanceof ItemTravelBelt, player);
 
 			if(!belt.isEmpty() && ManaItemHandler.requestManaExact(belt, player, COST, false)) {
-				player.motionY += ((ItemTravelBelt) belt.getItem()).jump;
+				player.setMotion(player.getMotion().add(0, ((ItemTravelBelt) belt.getItem()).jump, 0));
 				player.fallDistance = -((ItemTravelBelt) belt.getItem()).fallBuffer;
 			}
 		}
 	}
 
-	private boolean shouldPlayerHaveStepup(EntityPlayer player) {
+	private boolean shouldPlayerHaveStepup(PlayerEntity player) {
 		ItemStack result = EquipmentHandler.findOrEmpty(s -> s.getItem() instanceof ItemTravelBelt, player);
 		return !result.isEmpty() && ManaItemHandler.requestManaExact(result, player, COST, false);
 	}
@@ -142,7 +143,7 @@ public class ItemTravelBelt extends ItemBauble implements IManaUsingItem {
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public void doRender(ItemStack stack, EntityLivingBase player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+	public void doRender(ItemStack stack, LivingEntity player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 		Minecraft.getInstance().textureManager.bindTexture(((ItemTravelBelt) stack.getItem()).getRenderTexture());
 		AccessoryRenderHelper.rotateIfSneaking(player);
 
@@ -151,7 +152,7 @@ public class ItemTravelBelt extends ItemBauble implements IManaUsingItem {
 		float s = 1.05F / 16F;
 		GlStateManager.scalef(s, s, s);
 		if(model == null)
-			model = new ModelBiped();
+			model = new BipedModel();
 
 		model.bipedBody.render(1F);
 	}

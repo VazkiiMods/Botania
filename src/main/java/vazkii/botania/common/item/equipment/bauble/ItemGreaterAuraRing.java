@@ -23,8 +23,8 @@ public class ItemGreaterAuraRing extends ItemBauble implements IManaGivingItem {
 	}
 
 	@Override
-	public void onWornTick(ItemStack stack, EntityLivingBase player) {
-		if (player instanceof EntityPlayer && player.ticksExisted % 2 == 0)
-			ManaItemHandler.dispatchManaExact(stack, (EntityPlayer) player, 1, true);
+	public void onWornTick(ItemStack stack, LivingEntity player) {
+		if (player instanceof PlayerEntity && player.ticksExisted % 2 == 0)
+			ManaItemHandler.dispatchManaExact(stack, (PlayerEntity) player, 1, true);
 	}
 }

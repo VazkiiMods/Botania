@@ -34,21 +34,21 @@ public class ItemSuperLavaPendant extends ItemBauble {
 
 
 	@Override
-	public void onWornTick(ItemStack stack, EntityLivingBase living) {
+	public void onWornTick(ItemStack stack, LivingEntity living) {
 		living.isImmuneToFire = true;
 	}
 
 	@Override
-	public void onUnequipped(ItemStack stack, EntityLivingBase living) {
+	public void onUnequipped(ItemStack stack, LivingEntity living) {
 		living.isImmuneToFire = false;
 	}
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public void doRender(ItemStack stack, EntityLivingBase player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-		Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+	public void doRender(ItemStack stack, LivingEntity player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+		Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
 		AccessoryRenderHelper.rotateIfSneaking(player);
-		boolean armor = !player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).isEmpty();
+		boolean armor = !player.getItemStackFromSlot(EquipmentSlotType.CHEST).isEmpty();
 		GlStateManager.scaled(0.5, 0.5, 0.5);
 		GlStateManager.rotatef(180, 0, 0, 1);
 		GlStateManager.translated(-0.5, -0.90, armor ? -0.4 : -0.25);

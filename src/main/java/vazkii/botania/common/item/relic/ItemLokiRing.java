@@ -133,12 +133,12 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 	}
 
 	@Override
-	public boolean shouldSyncToTracking(ItemStack stack, EntityLivingBase entity) {
+	public boolean shouldSyncToTracking(ItemStack stack, LivingEntity entity) {
 		return true;
 	}
 
 	@Override
-	public void onUnequipped(ItemStack stack, EntityLivingBase living) {
+	public void onUnequipped(ItemStack stack, LivingEntity living) {
 		setCursorList(stack, null);
 	}
 
@@ -173,7 +173,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 		return getLokiRing(player) == stack ? getOriginPos(stack) : null;
 	}
 
-	private static ItemStack getLokiRing(EntityPlayer player) {
+	private static ItemStack getLokiRing(PlayerEntity player) {
 		return EquipmentHandler.findOrEmpty(ModItems.lokiRing, player);
 	}
 

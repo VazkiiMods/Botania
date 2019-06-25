@@ -28,6 +28,7 @@ import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.MerchantOffer;
 import net.minecraft.nbt.ListNBT;
 import net.minecraft.nbt.LongNBT;
 import net.minecraft.nbt.LongNBT;
@@ -65,31 +66,31 @@ public class ItemItemFinder extends ItemBauble {
 	}
 
 	@Override
-	public void onWornTick(ItemStack stack, EntityLivingBase player) {
-		if(!(player instanceof EntityPlayer))
+	public void onWornTick(ItemStack stack, LivingEntity player) {
+		if(!(player instanceof PlayerEntity))
 			return;
 
 		if(player.world.isRemote)
-			this.tickClient(stack, (EntityPlayer) player);
-		else this.tickServer(stack, (EntityPlayer) player);
+			this.tickClient(stack, (PlayerEntity) player);
+		else this.tickServer(stack, (PlayerEntity) player);
 	}
 
 	@Override
-	public boolean shouldSyncToTracking(ItemStack stack, EntityLivingBase living) {
+	public boolean shouldSyncToTracking(ItemStack stack, LivingEntity living) {
 		return true;
 	}
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public void doRender(ItemStack stack, EntityLivingBase living, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+	public void doRender(ItemStack stack, LivingEntity living, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 		TextureAtlasSprite gemIcon = MiscellaneousIcons.INSTANCE.itemFinderGem;
 		float f = gemIcon.getMinU();
 		float f1 = gemIcon.getMaxU();
 		float f2 = gemIcon.getMinV();
 		float f3 = gemIcon.getMaxV();
-		boolean armor = !living.getItemStackFromSlot(EntityEquipmentSlot.HEAD).isEmpty();
+		boolean armor = !living.getItemStackFromSlot(EquipmentSlotType.HEAD).isEmpty();
 		AccessoryRenderHelper.translateToHeadLevel(living);
-		Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+		Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
 		GlStateManager.rotatef(90F, 0F, 1F, 0F);
 		GlStateManager.rotatef(180F, 1F, 0F, 0F);
 		GlStateManager.translatef(-0.4F, -1.4F, armor ? -0.3F : -0.25F);
@@ -115,7 +116,7 @@ public class ItemItemFinder extends ItemBauble {
 			Entity e = player.world.getEntityByID(i);
 			if(e != null && Math.random() < 0.6) {
 				Botania.proxy.setWispFXDepthTest(Math.random() < 0.6);
-				Botania.proxy.wispFX(e.posX + (float) (Math.random() * 0.5 - 0.25) * 0.45F, e.posY + e.height, e.posZ + (float) (Math.random() * 0.5 - 0.25) * 0.45F, (float) Math.random(), (float) Math.random(), (float) Math.random(), 0.15F + 0.05F * (float) Math.random(), -0.05F - 0.03F * (float) Math.random());
+				Botania.proxy.wispFX(e.posX + (float) (Math.random() * 0.5 - 0.25) * 0.45F, e.posY + e.getHeight(), e.posZ + (float) (Math.random() * 0.5 - 0.25) * 0.45F, (float) Math.random(), (float) Math.random(), (float) Math.random(), 0.15F + 0.05F * (float) Math.random(), -0.05F - 0.03F * (float) Math.random());
 			}
 		}
 
@@ -167,14 +168,13 @@ public class ItemItemFinder extends ItemBauble {
 
 				} else if(e instanceof VillagerEntity) {
 					VillagerEntity villager = (VillagerEntity) e;
-					ArrayList<MerchantRecipe> recipes = villager.getRecipes(player);
-					if(!pstack.isEmpty() && recipes != null)
-						for(MerchantRecipe recipe : recipes)
-							if(recipe != null && !recipe.isRecipeDisabled() && (equalStacks(pstack, recipe.getItemToBuy()) || equalStacks(pstack, recipe.getItemToSell()))) {
-								entIdBuilder.add(villager.getEntityId());
-								break;
-							}
-
+					for(MerchantOffer offer : villager.getOffers()) {
+						if (equalStacks(pstack, offer.func_222218_a())
+							|| equalStacks(pstack, offer.func_222202_c())
+							|| equalStacks(pstack, offer.func_222200_d())) {
+							entIdBuilder.add(villager.getEntityId());
+						}
+					}
 				}
 			}
 

@@ -76,7 +76,7 @@ public class ItemDodgeRing extends ItemBauble {
 
 
 	@Override
-	public void onWornTick(ItemStack stack, EntityLivingBase player) {
+	public void onWornTick(ItemStack stack, LivingEntity player) {
 		int cd = ItemNBTHelper.getInt(stack, TAG_DODGE_COOLDOWN, 0);
 		if(cd > 0)
 			ItemNBTHelper.setInt(stack, TAG_DODGE_COOLDOWN, cd - 1);
@@ -92,9 +92,7 @@ public class ItemDodgeRing extends ItemBauble {
 		Vector3 lookVec = new Vector3(x, 0, z);
 		Vector3 sideVec = lookVec.crossProduct(new Vector3(0, left ? 1 : -1, 0)).multiply(1.25);
 
-		player.motionX = sideVec.x;
-		player.motionY = sideVec.y;
-		player.motionZ = sideVec.z;
+		player.setMotion(sideVec.toVec3D());
 
 		PacketHandler.sendToServer(new PacketDodge());
 	}
@@ -109,8 +107,8 @@ public class ItemDodgeRing extends ItemBauble {
 			int width = Math.min((int) ((cd - pticks) * 2), 40);
 			GlStateManager.color4f(1F, 1F, 1F, 1F);
 			if(width > 0) {
-				AbstractGui.drawRect(xo, y - 2, xo + 40, y - 1, 0x88000000);
-				AbstractGui.drawRect(xo, y - 2, xo + width, y - 1, 0xFFFFFFFF);
+				AbstractGui.fill(xo, y - 2, xo + 40, y - 1, 0x88000000);
+				AbstractGui.fill(xo, y - 2, xo + width, y - 1, 0xFFFFFFFF);
 			}
 		}
 

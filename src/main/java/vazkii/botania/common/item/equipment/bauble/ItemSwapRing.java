@@ -10,8 +10,14 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.Hand;
+import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 import vazkii.botania.api.item.ISortableTool;
 import vazkii.botania.api.item.ISortableTool.ToolType;
@@ -24,11 +30,11 @@ public class ItemSwapRing extends ItemBauble {
 	}
 
 	@Override
-	public void onWornTick(ItemStack stack, EntityLivingBase entity) {
-		if(!(entity instanceof EntityPlayer))
+	public void onWornTick(ItemStack stack, LivingEntity entity) {
+		if(!(entity instanceof PlayerEntity))
 			return;
 
-		EntityPlayer player = (EntityPlayer) entity;
+		PlayerEntity player = (PlayerEntity) entity;
 		ItemStack currentStack = player.getHeldItemMainhand();
 		if(currentStack.isEmpty() || !(currentStack.getItem() instanceof ISortableTool))
 			return;
@@ -38,8 +44,8 @@ public class ItemSwapRing extends ItemBauble {
 		RayTraceResult pos = ToolCommons.raytraceFromEntity(entity.world, entity, true, 4.5F);
 		ToolType typeToFind = null;
 
-		if(player.isSwingInProgress && pos != null && pos.getBlockPos() != null) {
-			IBlockState state = entity.world.getBlockState(pos.getBlockPos());
+		if(player.isSwingInProgress && pos.getType() == RayTraceResult.Type.BLOCK) {
+			BlockState state = entity.world.getBlockState(((BlockRayTraceResult) pos).getPos());
 
 			Material mat = state.getMaterial();
 			if(ToolCommons.materialsPick.contains(mat))
@@ -73,7 +79,7 @@ public class ItemSwapRing extends ItemBauble {
 		}
 
 		if(bestSlot != -1) {
-			player.setHeldItem(EnumHand.MAIN_HAND, bestTool);
+			player.setHeldItem(Hand.MAIN_HAND, bestTool);
 			player.inventory.setInventorySlotContents(bestSlot, currentStack);
 		}
 	}

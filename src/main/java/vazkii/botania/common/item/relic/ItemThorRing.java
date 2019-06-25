@@ -29,7 +29,7 @@ public class ItemThorRing extends ItemRelicBauble {
 		return new ResourceLocation(LibMisc.MOD_ID, "challenge/thor_ring");
 	}
 
-	public static ItemStack getThorRing(EntityPlayer player) {
+	public static ItemStack getThorRing(PlayerEntity player) {
 		return EquipmentHandler.findOrEmpty(ModItems.thorRing, player);
 	}
 }

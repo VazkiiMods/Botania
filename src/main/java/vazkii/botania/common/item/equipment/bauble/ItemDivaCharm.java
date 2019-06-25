@@ -55,10 +55,10 @@ public class ItemDivaCharm extends ItemBauble implements IManaUsingItem {
 	}
 
 	private void onEntityDamaged(LivingHurtEvent event) {
-		if(event.getSource().getImmediateSource() instanceof EntityPlayer && event.getEntityLiving() instanceof EntityLiving && !event.getEntityLiving().world.isRemote && Math.random() < 0.6F) {
+		if(event.getSource().getImmediateSource() instanceof PlayerEntity && event.getEntityLiving() instanceof EntityLiving && !event.getEntityLiving().world.isRemote && Math.random() < 0.6F) {
 			Runnable lambda = () -> {
 				EntityLiving target = (EntityLiving) event.getEntityLiving();
-				EntityPlayer player = (EntityPlayer) event.getSource().getImmediateSource();
+				PlayerEntity player = (PlayerEntity) event.getSource().getImmediateSource();
 				ItemStack amulet = EquipmentHandler.findOrEmpty(ModItems.divaCharm, player);
 
 				if(!amulet.isEmpty()) {
@@ -99,9 +99,9 @@ public class ItemDivaCharm extends ItemBauble implements IManaUsingItem {
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public void doRender(ItemStack stack, EntityLivingBase player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+	public void doRender(ItemStack stack, LivingEntity player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 		AccessoryRenderHelper.translateToHeadLevel(player);
-		Minecraft.getInstance().textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+		Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
 		GlStateManager.scaled(0.8, 0.8, 0.8);
 		GlStateManager.rotatef(-90, 0, 1, 0);
 		GlStateManager.rotatef(180, 1, 0, 0);

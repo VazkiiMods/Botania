@@ -49,8 +49,8 @@ public class ItemHolyCloak extends ItemBauble {
 	}
 
 	private void onPlayerDamage(LivingHurtEvent event) {
-		if(event.getEntityLiving() instanceof EntityPlayer && !event.getSource().canHarmInCreative()) {
-			EntityPlayer player = (EntityPlayer) event.getEntityLiving();
+		if(event.getEntityLiving() instanceof PlayerEntity && !event.getSource().canHarmInCreative()) {
+			PlayerEntity player = (PlayerEntity) event.getEntityLiving();
 			ItemStack stack = EquipmentHandler.findOrEmpty(this, player);
 
 			if(!stack.isEmpty() && !isInEffect(stack)) {
@@ -67,7 +67,7 @@ public class ItemHolyCloak extends ItemBauble {
 	}
 
 	@Override
-	public void onWornTick(ItemStack stack, EntityLivingBase living) {
+	public void onWornTick(ItemStack stack, LivingEntity living) {
 		int cooldown = getCooldown(stack);
 		if(cooldown > 0)
 			setCooldown(stack, cooldown - 1);
@@ -75,10 +75,10 @@ public class ItemHolyCloak extends ItemBauble {
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public void doRender(ItemStack stack, EntityLivingBase player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+	public void doRender(ItemStack stack, LivingEntity player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 		ItemHolyCloak item = ((ItemHolyCloak) stack.getItem());
 		AccessoryRenderHelper.rotateIfSneaking(player);
-		boolean armor = !player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).isEmpty();
+		boolean armor = !player.getItemStackFromSlot(EquipmentSlotType.CHEST).isEmpty();
 		GlStateManager.translatef(0F, armor ? -0.07F : -0.01F, 0F);
 
 		float s = 1F / 16F;
@@ -95,7 +95,7 @@ public class ItemHolyCloak extends ItemBauble {
 		int light = 15728880;
 		int lightmapX = light % 65536;
 		int lightmapY = light / 65536;
-		OpenGlHelper.glMultiTexCoord2f(OpenGlHelper.GL_TEXTURE1, lightmapX, lightmapY);
+		GLX.glMultiTexCoord2f(GLX.GL_TEXTURE1, lightmapX, lightmapY);
 		Minecraft.getInstance().textureManager.bindTexture(item.getCloakGlowTexture());
 		model.render(1F);
 	}
@@ -105,9 +105,9 @@ public class ItemHolyCloak extends ItemBauble {
 			event.setCanceled(true);
 			player.world.playSound(null, player.posX, player.posY, player.posZ, ModSounds.holyCloak, SoundCategory.PLAYERS, 1F, 1F);
 			for(int i = 0; i < 30; i++) {
-				double x = player.posX + Math.random() * player.width * 2 - player.width;
-				double y = player.posY + Math.random() * player.height;
-				double z = player.posZ + Math.random() * player.width * 2 - player.width;
+				double x = player.posX + Math.random() * player.getWidth() * 2 - player.getWidth();
+				double y = player.posY + Math.random() * player.getHeight();
+				double z = player.posZ + Math.random() * player.getWidth() * 2 - player.getWidth();
 				boolean yellow = Math.random() > 0.5;
 				Botania.proxy.sparkleFX(x, y, z, yellow ? 1F : 0.3F, yellow ? 1F : 0.3F, yellow ? 0.3F : 1F, 0.8F + (float) Math.random() * 0.4F, 3);
 			}
